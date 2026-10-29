@@ -1,102 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793284850;
-	b=ryyo7/Gd0jy1Qaxz3je1lWdpBANgatwix9p/8VuVSRFrr59ptdpznzXy9dWka5DQy3IZ
-	 +3mIgkDTgmqn7w+TgZ821U7c4DOTMXIrk+Stl/vS+liNhfQKE3GTngpNUGIGkyYgG0RC1
-	 jB56dusgwhs5wOHpGAHvritIy/aEV1cri1AAjkzqc9lQ2AFxxl0fKSEyp5V3RFwFF2mEp
-	 OIKQLIcP+wolgFJi1GYBWNTcM2kL+t6drPLEqG1OmZr3WutI1HkBwh2K4qmWnV5XflbtG
-	 X1bQ0FU2ZzRQ7d0/fay+On2FZopP8pdPL/QtR6rWS8386AX246Vgi264Cm2kWhoXqdA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793284850;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=UpLR92yvazEzYcMkjgQMdu/DL7UIZCfUmYSsebhADbI=;
-	b=G0hR8TwoHmao9Mx8jdmQ6E4DkFasW9szwivdWbBtz9xAkEW56J9G27eiKCkpapQktTm1
-	 4Pos427TnzyBbNFEydhAZRROJV+nVtE7ogMtodiPUYT3PyvBxqDMC0Y0htLQEjs2dvkmM
-	 KZqEzORCsJ93whvA4933gEXKLV/Vf3ZqCCEk1MDyImTSR4QqrwxT7H7wFfDtl6t5uj7RV
-	 uB7LsbbSIrkjZQ1LYp4TMwE5pflFGm6dxDVT8kDxspaWRboJSEOkEDXBUCZoGLeUGalgo
-	 +7OCpMf4f2KAMXSPLLQqlcf4gwrgMIWMD5j05oiCFMZ/9iS36mCFjzmcUArFpVniZtw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b="Xb/1Iab+";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793284925;
+	b=jR5tIeFiHolQZhbdbAdSXdFVV7NzVa4mkW3yBeA0eEpKoA22kVY8h2U0GlZ7Zg5RFdga
+	 W1/zDxWqp/NSZwoUn9MmBt2qqb5FX9+SdMaiJ28BGNIzh+BAUn3POyJXHasVyfBe76ZfE
+	 rXGjVcvBKxg7tLbj1V5GcfFtvQrtnJGgurrNmDTA5bYZXZz2zsnz2/4ewxZwecH+PYof6
+	 Xk0rhG1PZf/JJg6NSuBYxEDdDaVGP5ARDj+6yGkgwIR34yrrhwrvG4tee7Nip8+0XPy/C
+	 RDMvatxUQA+QkpDQhVQff35YQ0ZN7gkwxg8txK2ixRjpRb9GkWvjNz2JHbotm+/SSgA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793284925;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=e8t5Xq9tCKUo9Qzu4LPifkPJjmKDzJOtBLM/fPK1Urg=;
+	b=p60NRdstKMk3HTw24K6EAqqZTdg3mPUcNsX5MRqRtk4KLuQWwWlHxGUqlSxmOTUNGLJc
+	 IQ9v5/XCQ/nYPqbaeihONVkhP7Kq4DLpcHtq5lCGMV5NrWLK1EnuqHQ6aHzJYpS/djuLr
+	 BQjAW9kf/eJkcP1rb2lR09/2FU0QuaOwYkK85f44bO5Wa9Qp36q5wwE1UkaqTjtxW9k8B
+	 /PBcRj2vj04I0DlekjreIPkGREmJidJwUStB+twRqbpYob7SMPzv99f0PyM+qn+6/lybo
+	 ejVVACQwnmnA2+0m7c2F7MeX/EIZHs9Ob1BAhPbcTmB9YbN8tJ5ae3rJH7ktu03hILw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ne6kKYZk;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="CO+mK/Yh";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49469606A31D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:40:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49469606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D660606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D660606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Xb/1Iab+
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-483c607ccb4so1208657fac.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:40:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793284843; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SAiY50DkkigCFMYLfakcxQccMegVOW2/nQ+o7E53TlRkcL7r/XrLpIxMA76tJBpUVZ
-         fypSb9jsceflVyQdz123f+UVlh4nU36zK//4jA3cYjgc/hrOd1gHvAu5xt1JAZGf/9b6
-         bn9AS9tUG4z09mG8UFXz3W95D+eD8nnZbzveHa3xIiLWhFUk1JND31kU46+3JhNvKthE
-         Rb2wRr82pzb3HvwfB0Z/mVgOC+TuzMoU4CVV8fWz+ILJljxuVGIbGjpGTcuteukzlDKt
-         /E1n6U3ipAbDwAOqqhR8/gkYL+ew2pO/5vk4WVB04+SXuDVnn7hky/JIAFDmhZfXE+HW
-         bLQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UpLR92yvazEzYcMkjgQMdu/DL7UIZCfUmYSsebhADbI=;
-        fh=XnQboBIQgNOXIOtCku2sdwZreOozNK7rrR9X4WB0c0E=;
-        b=QVs9U6m8SXZPm00ghH9D04Lu5IA4dA+PfNrEQ0J141b1upk7TJIgz6mD1Ta89z0EIS
-         wCfhIKmAWL0qViiRlEdf3DPfpMi6rdNgJ/cjQw6l8MuzEKILrUG9cRqAHPfzWPa7vvc9
-         YIZIymZ0w7wmwlY4XNAtYgv6jMbZI3xTKjzXIX4YHjTOD9Bw5UCPmuSwcnZ8osfh020W
-         FKYX5fvGIsHZKDkZrb7rdfggIPyQEDnnDxf4asF9JRAVqERq3iQibR+XAp+zvUnBrBi4
-         m0ePQllm7EkJa9E+bvTPu2J9H1QqsKLg8iYoNuEq50lnKo6cegXhi6E/bLr8O3JIPKKc
-         k89g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ne6kKYZk;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CO+mK/Yh
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TDarxO791712
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:42:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=e8t5Xq9tCKUo9Qzu4LPifk
+	PJjmKDzJOtBLM/fPK1Urg=; b=ne6kKYZkf6lbtSRyfU2iZImCOOIK3M/HA7Nf6d
+	fx/zGjGG5Dc04Ph+A52K9kIIrFi99nJH6MASEGwgoMsIu9PKL5L47NlakJS4wwM5
+	Z2Je8KFDZ8elH9kDuZIHdO26BfIXuD6592EgffarG0/DXclnlgPYquy2FiiDW4Et
+	+RsmWyi7FQu1PkZdtJlmU7SphT8ErjOzKrLeGS/0wWXgjIn6kgLuCAzYHcwSuE+e
+	tBf6a/FmLHWKl3aSYaarEPOd8Pm/Ib1scvut8686yaQ6YnQWPTySgz8anmbM+RPu
+	ZnO9tq0AVuABuqhTjyuwGf20u5dIs+WneAjJt3K5+3jx1Nxw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm76cg960-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:42:04 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso2817094a91.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:42:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793284843; x=1793889643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UpLR92yvazEzYcMkjgQMdu/DL7UIZCfUmYSsebhADbI=;
-        b=Xb/1Iab+QgqcujhXdJyn6dLqo8XyrBoDPSjoAB0wuGBJ/YQNDYb8yzKZrbJaDUkzP1
-         kg49UF4YKogpBfbzxaKgDYeSkhMxcaLWNfNSnD3SU2PnUuEjhHHvt3PzUKyMb9dHmfTQ
-         ktQBOMnFeutICvOi6pY2MY3RIwvyW5i0TjbbqNQtRM3uHxnx3pGglwVg5kkOFvUrEd5H
-         w7E+nq/sMVn+AqJ+J5wIEi8wEkJtLNa9Dys9Goflj6y8AC30dOnm1UtoXSxVwsmrs9Fa
-         o7LSPlCveVaLcbgfv3a9B7zGkBaIdRvz5xj4mNqiHjCBJzAjV5j3UV/pfqDJoTA6v3qn
-         HFgQ==
+        d=oss.qualcomm.com; s=google; t=1793284923; x=1793889723; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=e8t5Xq9tCKUo9Qzu4LPifkPJjmKDzJOtBLM/fPK1Urg=;
+        b=CO+mK/Yh8z/jRm3PeFsqk3VvQ/xwUlFt7oVYjySgohwiytFmOaXSL59pwY3nr4z+LM
+         zn9vLoAGmlGB+Br4o+72/R33OHHUxFoyj/ay7OAs/1HMr+2usPq4UqvZQ89no2F3hDy0
+         bJmc4w2HYd7WIMPdsCbBaTROjZq4yNptS+gbddbJVYzOSNc4hEY2tzGNmScHbocpprLl
+         k7bGiFvyq2TSvfa0TE38JWvZdXvAFw/9W6aNTgQZCPgDoHHGKnTiWKeCbK0JggDetWbY
+         +B0ysxV5u/lZw8WsSRusFt5/Ptk0gyumjUuLGMGqg9l06Q/bnf0ArSo/AEQtqB5BDXIH
+         Msnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793284843; x=1793889643;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UpLR92yvazEzYcMkjgQMdu/DL7UIZCfUmYSsebhADbI=;
-        b=0Kn7GBi6V4S+WcdZ6AFPoBGFUcy1UPA6EszltKgw2JDb2bYKfRkzxAx27DcuK0pSyn
-         d/R2l/pajLWuotYOBwO3qcFJ1o7SsrIU57iDL1/JHTyHw5QgJJVVAbjPfZrKzDgqNmbZ
-         g1xFqU9R+iJWErD8fhSXZ425SxPAAIBhYMWleyiujN0rdjyIZHrKlMA7hrwIS4/ayjHK
-         +8Tt2r79UDI4p47WR0lj7+ho3tacD5WLXIKbKILtv94OoQpQx1CiATZh0t+zsJ6+SBn2
-         spF5plzgsKJDlZzlsLcbVMqo1a4UAOpAm30W+s/gbQDYeGSEYwLGvg0Us2g+JVdxYaBB
-         U4PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwtvtk7h/KWfpEK/6znaEDHrps37PVKOMxE7b1McOiZ4tnw/emxP0T4J0tN6csIcbrPHYrp0ts=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/lHxMzVKmm59D4U1BU9Sl4yAH2ldI3KFASDRqKDp90vXAgfRg
-	6CBz7FOkQvkUutl6wW567s0kwQ7x9xmubMTwHXW+c9VRx3R7NDcgHRfrr1M5YQNRxDcZQsSoIlO
-	cyQ8559J/m4ysTGbtUJY8LZ+xBRzjV5mgxpj9KKrTFw==
-X-Gm-Gg: AYBFou3u2xjxQ2uf8MQn0dMKQnVst2U8jyoLsvkOCNcEvqxvlE4v/1+Q0+1gvNhYW3Q
-	NXVMhtodyMW/fDcKq3ej7EP3F5tA5SKEBeEqO93XZqulmxw9ZZJa1+T9w0KUV0tognu4GrzKFu6
-	jqsQYp36RXhFh0LPMisXR2BIBX5Qk0GNilyixEBKJ2/SYaKSrqSFKyvtHgs/NkDa5uMpl1WppZe
-	qlzHxUs4mFLpZxOOV0xaHwnLtw/ja58iCw6LK8aGiFixsjr6YqdZuinLDuwm084580ON8QhuIQG
-	fNHP7r9Wd6V2MoUoHffDfGMjfeL3WfK+jAMfZTgbeB77qNVItH61j9KiCHr8YJQnu1QHb533mt4
-	IeDKNaYh8tskqHCgR5Mju5itWQdJmXF68U4Kj0hNBbydbIqOyCHvt6uP44c2mYeblxXmcFxSdVL
-	eLkb1PS3C0KwXV8K0ZxjkSLSppE3EGdYAhwOU+fqqAWiie5t34E9g0qNTW4BH9kZD3ytWJjWVrd
-	GE=
-X-Received: by 2002:a05:6870:1408:b0:4a8:5c86:20bd with SMTP id
- 586e51a60fabf-4a8bb5a3fe0mr4334153fac.14.1793284843148; Thu, 29 Oct 2026
- 07:40:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793284923; x=1793889723;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=e8t5Xq9tCKUo9Qzu4LPifkPJjmKDzJOtBLM/fPK1Urg=;
+        b=w74hKfv5kgUkUIBA3gtQ9zVI8gjrcQsgRUUTmczOFnRB/cdEwFDAce6Yh/cv3ZK0pM
+         qnm8beA2SYF3X7RkxuTc3LzDVzjTjzWXx6hMTS6rDXLwS0R8l39WYDDmxrrehA83eUIk
+         8b8O/86c0bQzvLcYNG1Wqb70xyKtG6MfN6cuTaMqH9GgnRku04uhUwdubGZFM4oBYlcA
+         /NvgWar33JOh3s6kpocqm3ODnGCiF6t1XjH39Ho1b3zkb6ayaY6bCwk1dtuyPoXzn2pw
+         wUmz7rSUf8iH0s3bmS3JGw6PvFXuke4BAnxuwgTAmEey51KWJb+Fg9gIkmkI0EG5B1Ea
+         /gJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxMyTQw5xN0MLlYkvTn552EdG9HNPdrj+brtV6qlEnK2K1CayEoFuiR64QeQtieBVC8zeeQc2Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8YyAyWN62wNVhly6ubkP6xoisj6ebQE9VoFlc5leAXUJps2gC
+	mc6jUcQHA/rO3Gker56MgUWcLgQzOmqAHDYkXq98I607rVRWr5NMRFr71b89THoEVqKZTo1EcTS
+	4D1hXkNo8CSJOA6lS4+MWCt+kxp+xRD1QcDdNNk/MZFR/2bCUEzJYFGGuN5dgGQIu5P4=
+X-Gm-Gg: AYBFou2mqsz49r2kKZ3j46ztUpDzZvlIT31lJDJearmN1I56xv6j6SuppNEbU1IPaiM
+	SHvGrIWIfx8UmESFk5qFXMiWfiKWPG9YX97hBYLeal+EG239rcDUvLlUwzGlY49ESedotjqVAIR
+	iZnAqAh3ouuY4fuEyLgAJ0BVJrBwKBOz/RPEmBK9gbFzgOzrjOcQ9936nRLdeqbkzhFH14XSRCY
+	obUp7lsMOfpPZWIIj2Jy/A9okJ6WwBcciidmqIxVTM6uVa+whFE0ccHBOn3l0L3NKiDI/8eOVxD
+	UEAQnywYSyNz3ze6+6cIpFLJ1dJKtVyexHgYbYr44BXzS2KLM2OqWx3m5E9ymGI+RH1c1eKv9gU
+	itw86WjUqH2QINR7O2nZsVVz/I7TaBhEB5fAY6ccRDdkCNDATVh4fjlT/C41+reUWSUIEOAznUF
+	+4c19B2Ec=
+X-Received: by 2002:a17:90b:5404:b0:3ad:6090:a183 with SMTP id 98e67ed59e1d1-3ae57f629eemr4725570a91.16.1793284923063;
+        Thu, 29 Oct 2026 07:42:03 -0700 (PDT)
+X-Received: by 2002:a17:90b:5404:b0:3ad:6090:a183 with SMTP id 98e67ed59e1d1-3ae57f629eemr4725539a91.16.1793284922659;
+        Thu, 29 Oct 2026 07:42:02 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cccde306sm5444510a12.30.2026.10.29.07.41.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:42:01 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 20:11:45 +0530
+Subject: [PATCH] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for
+ CDSP compute CBs
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,156 +115,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-2-3bb376d8b1a9@linux.dev>
-In-Reply-To: <20261014-ov9282-fixes-v2-2-3bb376d8b1a9@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 14:40:26 +0000
-X-Gm-Features: AclHuK9aWEHtDyHMrF09cYcyP1s_VnFKtV14syxMLcpu9Ygt6KIgxBSI2jLY9YI
-Message-ID: <CAPY8ntCKPLt9zfBRemqG=nuwUBB2gcO7bO_4Zk6TfwB0nzP=tQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/8] media: i2c: ov9282: fix pixel rate and line time calculation
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
-	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAChb42oC/x2MSQqAMAwAvyI5G6h1ifoV8VA1ahAXGhBB+neLx
+ 4GZeUHZCyu0yQueb1E5jwhZmsC4umNhlCkyWGOrzNgGda+pNDjLgyoT7k43xdkSFTRUuRsIYnp
+ 5jsK/7foQPiAYNIlmAAAA
+X-Change-ID: 20261029-sm8750-fix-sid-masks-f27747b63ab7
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+        stable@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793284916; l=1494;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=h07EQK/xjhAXyzeFzx54Qn5dbimvAn0bx8lbX7X9MlU=;
+ b=9m1at5bw4yfQfYCvWAgQQvecRPHuKtU/OdE1RDwj4J1gR+uHAd5f7du/+bEmobNS36WKi1bfK
+ AdvIlK5154fD4aGI16+zrs57MbjXIy+Ysa8PhGTuDIhKUAlGl5MKPQj
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-ORIG-GUID: 3XHR3LbPnQYM6bxr-D4HTCC_WZpqcy-i
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA1NyBTYWx0ZWRfXz0GjKGAhrFXp
+ Gn36ZZ5neALXAxgVuUAk7D+cNEfqKs0gYKZyoVe22u1T84DUZZJ0CJLlPz/QLbKMAhrErb9OnuG
+ EiywniTRoBB+VO5uNPZdCuCIxpohpGZwZmftu9SRMaZKKGBBOUiS/z1OGdYgQPUUWbJElE0oox+
+ Y/PmtQRcIoQr0fbEz7q+DpAmZM8kN7nS0c0z5efYORld9UB5m1JKBgkK9egU/sBrpPeUcKCRLl2
+ X1I85nRqbATpZwshu6/0UCIFaXYvHNAOH3950RpxlTLhW5ExfdNI4fGHhEb0P+N+djqsPUg/QkS
+ dh4+5wvrsSrpDqNTDEJoEaLOryPAwlNxoK3ynrV23w1OsV9NwifLiw+/pjrdy/ArXV4h/4eYUtp
+ zuf8jC9vF7ER8r69DfQvJQvTg/WcY0Mk0A3uqIvmLH0fGMXTvaQpzIxyc767l7Liw7DI5RTDA3k
+ eCWmrHUfyssUCcXK1aw==
+X-Proofpoint-GUID: 3XHR3LbPnQYM6bxr-D4HTCC_WZpqcy-i
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA1NyBTYWx0ZWRfXzHpjKKwQgOzw
+ 350lqrraicqTl2DHRB/00y0x/qlB3clDJIrbhbUH2hod/w3gb26UMvV7A5TyJ3/iA9mBQ35qhxS
+ TPL7/qlySlnks9q5guStt+Opi/DHE9g=
+X-Authority-Analysis: v=2.4 cv=NPtAaE6g c=1 sm=1 tr=0 ts=6ae35b3c cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=t4KJ5oeoZsrh8uawLdoA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290057
 
-On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> w=
-rote:
->
-> The OV9282_PIXEL_RATE_8BIT is calculated incorrectly from the
-> OV9282_LINK_FREQ. The hardware scales the pixel rate by changing the
-> multiplier from 0x50 (for 10 bit) to 0x60 (for 8 bit). Resulting in a
-> x1.2 factor.
->
-> The current OV9282_PIXEL_RATE_8BIT calculation scales from /10
-> (for 10 bit) to /8 (for 8 bit). This results in a x1.25 factor.
->
-> As all the inputs to the pixel rate calculation are constant in this
-> driver also define the OV9282_PIXEL_RATE_{8,10}BIT as constants.
-> Additionally introduce a new function to calculate the current
-> line time in nanoseconds and use it in ov9282_exposure_to_us().
->
-> Kudos to Dave Stevenson for pointing me into the right direction!
->
-> Link: https://lore.kernel.org/linux-media/CAPY8ntBaSHjztuSLTOtv9KYvEbmcbi=
-nSMJ78ZDg+0sZg-1fz3Q@mail.gmail.com/
-> Fixes: df60764ea5210 ("media: i2c: ov9282: dynamic flash_duration maximum=
-")
-> Fixes: 43ac0cac18f41 ("media: i2c: ov9282: Add support for 8bit readout")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+The stream ID masks of compute-cb@12 and compute-cb@14 are wrong, so
+these two context banks fail to probe.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Fix the masks:
+ - compute-cb@12: SID 0x0c2c, mask 0x20 -> 0x0
+ - compute-cb@14: SID 0x0c0e, mask 0x20 -> 0x40
 
-> ---
->  drivers/media/i2c/ov9282.c | 50 +++++++++++++++++++++++++++++++++-------=
-------
->  1 file changed, 36 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index c10b2e205834e..5907f57b34523 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -10,10 +10,12 @@
->  #include <linux/delay.h>
->  #include <linux/i2c.h>
->  #include <linux/math.h>
-> +#include <linux/math64.h>
->  #include <linux/module.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
->  #include <linux/regulator/consumer.h>
-> +#include <linux/time64.h>
->
->  #include <media/v4l2-cci.h>
->  #include <media/v4l2-ctrls.h>
-> @@ -111,11 +113,14 @@
->  #define OV9282_LINK_FREQ       400000000
->  #define OV9282_NUM_DATA_LANES  2
->
-> -/* Pixel rate */
-> -#define OV9282_PIXEL_RATE_10BIT                (OV9282_LINK_FREQ * 2 * \
-> -                                        OV9282_NUM_DATA_LANES / 10)
-> -#define OV9282_PIXEL_RATE_8BIT         (OV9282_LINK_FREQ * 2 * \
-> -                                        OV9282_NUM_DATA_LANES / 8)
-> +/*
-> + * Pixel rate: Derived from the PLL2 clock tree.
-> + * For 10 bit it's exactly the same as the sample PLL configuration.
-> + * For 8 bit the PLL2 multiplier (REG_PLL_CTRL_0D) is changed 0x50 -> 0x=
-60,
-> + * which results in x1.2 and therefore 160 MHz x 1.2 =3D 192 MHz.
-> + */
-> +#define OV9282_PIXEL_RATE_10BIT        160000000
-> +#define OV9282_PIXEL_RATE_8BIT 192000000
->
->  /*
->   * OV9282 native and active pixel array size.
-> @@ -472,6 +477,32 @@ static inline struct ov9282 *to_ov9282(struct v4l2_s=
-ubdev *subdev)
->         return container_of(subdev, struct ov9282, sd);
->  }
->
-> +/**
-> + * ov9282_line_time_ns() - Calculate duration of one sensor line.
-> + * @ov9282: pointer to ov9282 device
-> + *
-> + * Return: line time in nanoseconds.
-> + */
-> +static u32 ov9282_line_time_ns(struct ov9282 *ov9282)
-> +{
-> +       u64 hts =3D ov9282->cur_mode->width + ov9282->hblank_ctrl->val;
-> +
-> +       return div_u64(hts * NSEC_PER_SEC, *ov9282->pixel_rate->p_cur.p_s=
-64);
-> +}
-> +
-> +/**
-> + * ov9282_exposure_to_us() - Convert an exposure register value to micro=
-seconds
-> + * @ov9282: pointer to ov9282 device
-> + * @exposure: exposure register value to convert
-> + *
-> + * Return: microsecond representation of the given exposure register val=
-ue.
-> + */
-> +static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> +{
-> +       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-> +                      NSEC_PER_USEC);
-> +}
-> +
->  /**
->   * ov9282_update_controls() - Update control ranges based on streaming m=
-ode
->   * @ov9282: pointer to ov9282 device
-> @@ -510,15 +541,6 @@ static int ov9282_update_controls(struct ov9282 *ov9=
-282,
->                                         mode->vblank_max, 1, mode->vblank=
-);
->  }
->
-> -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> -{
-> -       /* calculate exposure time in =C2=B5s */
-> -       u32 frame_width =3D ov9282->cur_mode->width + ov9282->hblank_ctrl=
-->val;
-> -       u32 trow_us =3D frame_width / (ov9282->pixel_rate->val / 1000000U=
-L);
-> -
-> -       return exposure * trow_us;
-> -}
-> -
->  /**
->   * ov9282_update_exp_gain() - Set updated exposure and gain
->   * @ov9282: pointer to ov9282 device
->
-> --
-> 2.53.0
->
->
+Fixes: 58471055ae76 ("arm64: dts: qcom: sm8750: Add CDSP")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index cf947acc5760..de9d9bf3ca4b 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -6497,7 +6497,7 @@ compute-cb@12 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <12>;
+ 						iommus = <&apps_smmu 0x196c 0x0>,
+-							 <&apps_smmu 0x0c2c 0x20>,
++							 <&apps_smmu 0x0c2c 0x0>,
+ 							 <&apps_smmu 0x0c0c 0x40>,
+ 							 <&apps_smmu 0x19cc 0x0>;
+ 						dma-coherent;
+@@ -6518,7 +6518,7 @@ compute-cb@14 {
+ 						compatible = "qcom,fastrpc-compute-cb";
+ 						reg = <14>;
+ 						iommus = <&apps_smmu 0x196e 0x0>,
+-							 <&apps_smmu 0x0c0e 0x20>,
++							 <&apps_smmu 0x0c0e 0x40>,
+ 							 <&apps_smmu 0x19ce 0x0>;
+ 						dma-coherent;
+ 					};
+
+---
+base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
+change-id: 20261029-sm8750-fix-sid-masks-f27747b63ab7
+
+Best regards,
+-- 
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
