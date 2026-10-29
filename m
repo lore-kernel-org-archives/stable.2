@@ -1,89 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793284098;
-	b=5ibFTQdBNfUK7KxnQ9kppwwRewrYXsZpuWwOI6r34WBXG64TrfRNbznrKmEfTY60pVOF
-	 nEfU+inu5V1Zu6X2Z/MkG9ngsWYk76AcfOC4X69PtVKf+kUkKYfqyTJPcotjLzWC+6K+F
-	 cxgO3h4b4ZwlicbNO5hg1mksed87O0dzb5X62W2KLwhcLLexjF7Q2yQ15fdoGk2HateHa
-	 fvuDWWRaNZ+Bj7ttWxbiLBXbeJMBuXKmtE09h64u/aw1+/4I80VGuQxlbwTvUFIj/5L8Z
-	 yAJfBei59A/fg9T5KVS48dlcn+NBcILnNfzeDgW6e8aFnZhg+qdioJVgBbiZ6IRyLXQ==
+	t=1793284140;
+	b=uYSWBzIr2gNVEyDwMw2uza3y3F7iVaHlRXBJAsS0CmkWrMcowLxxceHmGjcDFV/0HhAo
+	 RftsHmbThYMiZCTEeAxyg0j806NB7LY+4bw4GfOkiRUnT2bR+LIsEPIlYp6z5i/n1hR4x
+	 ZYSwXFc4AvvSH4FK4I2ntnaf1THu688u8GaNq2NI9vSHjmOOfmM8rPZJM0nmUEWBDbSF2
+	 K33hRpQxpRrsdDKYylEgXM/fVWtvfvX2NceIebSWQXJHZIBN/DDBeveZQcyrVe/lGh93A
+	 mhzO1Rl/t6Avj2cftzOXn2f+xdh3ONjJnhLGeMSg0PjyZ0qNN2o/2o0wmmLMIxgbp+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793284098;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bpV5gcaWSkWHUEBL8Okr5cQ7G/7G2sdwutpL6bB3z4g=;
-	b=w1pEZCLeJTIyPYKuQ41nhTKgKacdiSQaGBi+XQtrkWmFEW49ckCs6YOMFAS39Opv9qq8
-	 yef+bo3sNv047/pgWkATbZ5EugZc+C572fW86cSBNX+rs6hf8gQzTPTnoCsQ2sdjnQeQ1
-	 EH5igwm2n8B7TKC7AeGs8n1mqmfyhEB/WW08q5HVMbyANEjKU3UTZy5OXov7EyGutLvxx
-	 j1mD5+Zsa2onBO8amgWxwbHGTJ64ewX8qyTQ3c65ihTknQ57zKgmZ8rH6RLjHVcVIsb4p
-	 F7FEzafG8uFTwc9By3cIY9SoXVyDhl/q1bvE4ZJwnD2DrUBPTj5r2MDKAhwpoN7YYCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793284140;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=sQEi6LuaGIeJmneZQN5BL7xLmW5DY/Bh0bcexktjejg=;
+	b=f075Ur3iKJsOmCIq51uZplpQeOQAr2PKnZWuJhK1pVkUpGBrZOrkFYYZ/Jc89EBGHi49
+	 8MIqn6mvOfQaiRAjoXRf1tlxyXoHeFitkBeS81LOY0A0cmIOMPU6TXVgNpUbI14lhAXmr
+	 DTjY0Dk8Z7gVAiqAI0IYIwUrCG1xp6xh5JWz4x43Xo6qMmkB1n0Szscw2HDNTxUIt04qP
+	 BJlN6z/7zNEfiIweCx3pmvzMbf32g4UpP9BZOo+9Pk6vncADQ2Iaigp6AjCFjmHUZzs+m
+	 mMQiStHCbUG3YHyf5RK1mtXCfQcIzIEJkmKq4DicQfg65BSnfbFcr6/x87KfTsWvGpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YTQt+RsK;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=pHd4korw;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CED5606A31E
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:28:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CED5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8478C606A31F
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:28:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8478C606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YTQt+RsK
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso4077806eec.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:28:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793284096; x=1793888896; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bpV5gcaWSkWHUEBL8Okr5cQ7G/7G2sdwutpL6bB3z4g=;
-        b=YTQt+RsKeGeqRm58rExDSoJf1LlAzH2oCnoB6dsZh2p3RdPDyv9eA+0gM0Q85L5gGY
-         ASaci6PrkVxZ3D/x7UoZwLVV28Ezj2rrRKeMUzCK0JLVJEyzFG6MowICYMIDIVMf9V7n
-         ga+WGghQpE4yEid7EUHieMjIWXqyp9DoCi9XVTo6S8/ztLQoEiYRbcvjC1rEATl/+4PS
-         C7cdu01VIPpXC/ii8r5aGm1fQfw4TP452dLvUx8P74DYmM0ELrjlITCYY6OL90tSKQEB
-         Lji+omTSPYgsxilVbQb/RXl/wWRGfMoW+KASWpqnxwyrcKJxhvG+bquhbw0KgCuR5KZN
-         B8iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793284096; x=1793888896;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bpV5gcaWSkWHUEBL8Okr5cQ7G/7G2sdwutpL6bB3z4g=;
-        b=NipfhtgQ1+ShQJ6CVNvN1FdR7+/q3SNCfbha4mzdM2a3HoIkCKC4pFwnjCjuUHJ3Ms
-         OaTwL7dVNI/cXmlWDCJLw97NCEraW/SXQ7/xJ+6ZuBBoqYmpXOKrQjpom83tiUbMXMhc
-         4DKZjjWz9vuxRYV2XHBnqt5eTklWaf6kmxBMidywAnM31qLq5BPpfwggN7VCLgkCBoc9
-         Vqm9b7HD6Tw3xUVmqNR6kekLbXBQJSgfta7NWXF8Jmmh2sVMAB+Q69BQGYWuCwzlm20V
-         5xqjvzo9qdoCjemyDTVOAdzWQuuIVlXARD6IHP6r6B3sNvJlCfAJ1pI2l2PtLBeiDscE
-         pLTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlYMYRvC8Hz/gu9kAD1JzR6icC8Xa2trF8ZtCC/htBnoM/CcFuq6WmyvoGrArpxvLxxTgoeDI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJe4ZV38DhjZCHQrAkh88dz4XuyCJxCbJUcbAyOwV2kbbhQZmD/
-	7yfsoaUjMyU4Ny11Y6QC68iuTH1fwDBYQb9R4bm9bIXBVt9OA5oHKAoZ+GdM2j5VGn4=
-X-Gm-Gg: AYBFou2UFolixSOSUKyGdgbdJKRklhdyJbT3I8YnjT+cBudz88GfNvqy/QTe8E66e4Q
-	VZ0ZKbdvI2OasEEwqvYIbArKnhPr7CsdyXIZzQ7uQ5KUddUxOKsw6OTvyNUX8DNQr7xsOmygMvI
-	5Pvd3QKRbLH+K/xxzAP7rdsimGNTbmHKen+LvI6GpoFm1SclRgddShsZhFSjeNpqMq8RWa/t8pg
-	Cxwmy/9W9YVg3dJq+ChorZK8PnIuJSIltZFDXlZDIj1ukdcWHzGcbg6bNCPsRwdMh6dnWB1u5Jb
-	maZ8JAryrvbx/IbYPnxE5jWe0CEeKXMxIG5Cg/5AQFCoXipa6z35DNVbyGUqNVRjjDT6Fh2n9zu
-	OEN21cRX0qxan8rddBJ6fQZFm3ujweUw7zDUN0HmET3IDX5VOCu7W9l6XFo3r6U7ppTdb3DiSSW
-	7yluad8Adgrq9IPIwgbVXeGIzNxxrOlg+nNbaN6QrLH36zyhV53oq6c8AtYtWewkNYaNtXG0aCn
-	At5g35eQokaEtsSlHt43ILakmjRDirENZOSgZCn4pj6BFb3iZKAMmEDU/5J3ghLLBH+1waKNDrQ
-	w11CYnph+Tog/OZJd6Ce6S38y923/tMAxKyiwZjPg0SSRRn5MuvBAbZg9CCnvwuH/yJs6EwNFSC
-	Yde8YJArM0P6j
-X-Received: by 2002:a05:693c:62d2:b0:368:40c6:3a01 with SMTP id 5a478bee46e88-36a1ffc5574mr8656318eec.2.1793284096076;
-        Thu, 29 Oct 2026 07:28:16 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23951e00sm22271573eec.20.2026.10.29.07.28.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 07:28:14 -0700 (PDT)
-Message-ID: <3fa26fac-5317-4c09-a181-c9c15e124972@kernel.dk>
-Date: Thu, 29 Oct 2026 08:28:13 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=pHd4korw
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id MMHXxzfQuaC0UMR7jx18pV; Thu, 29 Oct 2026 14:28:59 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id MR7ix0RLikE4RMR7ixmnF9; Thu, 29 Oct 2026 14:28:58 +0000
+X-Authority-Analysis: v=2.4 cv=LuaSymdc c=1 sm=1 tr=0 ts=6ae3582b
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=rKObpUyAQJ4ZdWOludYA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=sQEi6LuaGIeJmneZQN5BL7xLmW5DY/Bh0bcexktjejg=; b=pHd4korwQVaqCh28R04T4+20Ie
+	/oL409LqQNK0BFHNu/hLItVgGOKSJ4/8+8won81toB+OhJakX0OEe/JL+wRYHS1m1HQi8GdgUdb+B
+	WEwQv9fHRmsBt/fRaMq3foUH0dvY/7AJWm5afoQz6/8uyI5OZCM4QrlZdW0UXd/kl90a23ZzKz7tI
+	DklIr0sHee9dL9oqTiRGamaxDaiEMBGmQ/1FZwewQJap5uSlhOBQudcgygsaLEWSsHfzNi1LhI8tr
+	6QsW+XRLTsyd1L+jO4tvw1DieTh/765Naz/sKLCPkyWfJ17KiTD/h3MyGD0WSMTJLJdT/16IHOCgm
+	fgFHKOOg==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:43666 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xMR7h-000000044u7-2tpD;
+	Thu, 29 Oct 2026 08:28:57 -0600
+Message-ID: <9c250d33-3ed0-406d-a6a7-a913da10c9e1@w6rz.net>
+Date: Thu, 29 Oct 2026 07:28:56 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,47 +77,62 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] io_uring/napi: fix list use-after-free on PREEMPT_RT
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Anvik Loitongbam <permissiontogallop@gmail.com>,
- Pavel Begunkov <asml.silence@gmail.com>,
- Olivier Langlois <olivier@trillion01.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- stable@vger.kernel.org
-References: <20261029102244.141621-1-permissiontogallop@gmail.com>
- <502f31ed-dd70-469c-b433-577ccee36c3f@kernel.dk>
- <20261029094842.58dc252d@gandalf.local.home>
+Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261028165947.349197979@linuxfoundation.org>
 Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261029094842.58dc252d@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xMR7h-000000044u7-2tpD
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:43666
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 79
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfBSaUUagMo1nlWtsWO9zlz8yJV9/gSiY/oKgr54lVJp9U6nqT+rcEVFw5RzXuC+tE8f2jtm1uTTHC8wYCj7b9Fei0fHshBeisaRgXdi1aDEEfUp4AKl1
+ xt9o373Fm+tplXQEYYNFgVoyqeqQIv0zTtlCmOllQWyVVViZXyOUhUGAmhV8/WpY4Ftwox2mn3kXmA==
 
-On 10/29/26 7:48 AM, Steven Rostedt wrote:
-> On Thu, 29 Oct 2026 07:42:09 -0600
-> Jens Axboe <axboe@kernel.dk> wrote:
-> 
->> I don't think your analysis is fully correct. On PREEMPT_RT, spin_lock()
->> should still be an RCU read side critical section. __rt_spin_lock()
->> calls rcu_read_lock() after taking the rtmutex, and then
->> rt_spin_unlock() drops it at the end. There's even a comment on
->> kfree_rcu() callbacks in there too, it should not be able to run until
->> napi_lock is released, which is post the loop.
-> 
-> Good point.
+On 10/28/26 09:56, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.115 release.
+> There are 247 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.115-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-If even the preempt rt people can't get this right, that's a little
-worrying :)
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
->> IOW, I think this patch is unnecessary - there's no bug there. The list
->> safe change could be done as a cleanup, but it's not a fix.
-> 
-> I agree, it should still be applied, but as a clean up and not a fix.
-
-Sure, like I said, as a cleanup. But would need a resend as the
-analysis in the commit message is entirely wrong.
-
--- 
-Jens Axboe
+Tested-by: Ron Economos <re@w6rz.net>
 
