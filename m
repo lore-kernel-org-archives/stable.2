@@ -1,59 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239392;
-	b=aPZTRY4+g/Wv7Qd7V2V/0HD/yLlaAtaYnaOk27TQmAxTfQe/BW+iJWYZMgryut8qAHt/
-	 7ejmoYukiaFQzneOYDrbf+SrqNKycWx/tqYP+RTpZqdMXun2KJmuJXsDC0quDSoMjSkpe
-	 hRSOZxSa98MKETDxh+D0v2cF3lZxoQyTK1oludPIzUdfCDklB9E8TqxPvkKDhSL4lyRMH
-	 bxTbHImkowjx6ep7W+xj2MGp9rGzzO+18MV+NZk60XQQ6WGbAO4/RuPRXXc3UcESCdNx9
-	 3cJSKaxqjhqNp/RHEzQJ9tnAO5moeBkM6mWuVOzadH6MIg+dzyyIvm+3R510YM7+y3g==
+	t=1793239404;
+	b=a+v7drj6AE2R1CvO87mv6VPA1CXWOein4fxI/qLkEdUn/2iHGsf/SPYkNISXWSi1joHZ
+	 FUjgECf2oAs6Cp2EJBi3zi6Wmri+0KuJMcDkz+UybRXHmSK99eV1JXw+6sk5PG/O1TkbE
+	 el6dJKvCe9ffuY+EAAFopuMbuI8aIyC/A+R+0FmGrRHrNz+Kbj/lF/qjQzeFy0KKCna29
+	 Q9bwAmZe7lWs9OyQk3r/fIluULW31fBUTp/Wykz3snxKhnoXYF+LfzAuUsY1HddnSEdXg
+	 UD2PDAWPUObtDVChl8FlQ3gZEBmeKoMxtYMiu71sSj/XUlt11zBvC/fmw/99WgX35gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239404;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=3JFRAUkzRhTG7w07ynQ3Bn9PUKRkX+0anMF1vW2pBVc=;
-	b=iuJwuQ9bpu8vnw69w2HjTQibSliouX6Ys5tj3ahXDvxFsEIVLK+9GfDZptUgyVfyG79k
-	 K8HPFh28PnQ4qQJiR1V5vCUK+8yKRTT77zoiBFb6dkngOkNgB5CS4/SMUtC3rhHdisvIb
-	 yrGFuuBeGU4f0zW2rOiTW1z8qx5IMvbDwq83Dvf8qKPZAVy5lDQwO46Gc0a0KVz1vLS/k
-	 arRcr8zVNVkowGQ60nXi249z9DpQnIh8t+JJuCfeUIT2tjJT9wx5mZamWHF1zVPb3LlHA
-	 IWNXOyfwmgajEK3PDaYcjvS8iyNF8RTHqp0bnts7gzLy2BewaVpMfAkWnZSU9mfqrlA==
+	bh=46x0SvxfzUS2S8Ju4mnF2LvXDTqqZ1M4KJ6+vlvWl1k=;
+	b=w2KUPWI4Dr8q6NLJfuGvEo46onWv4cRhURonBLneWHQ5hw6ZHMHk1vLxvYBdzus8VKp4
+	 nqYk0TOFSSZPMBiuE+2sSSspvuj+mMuLodZcJ+lTgQQHZwnfm0vbjl6nET0qjVpKxHNC2
+	 NTljUKtnSFWUStcL+7cJbw9/EIJe8S56rdCxF36crFYH4/TmWhKE+IkCcKv3CBiKQznxx
+	 j6ruCwNr1NIE03/H/xYVpVZVGM1t+TUk93GVFogI5C0QgSO9tLQWe0mIBwK/1pgjZ67S/
+	 cbjDbWdTA5pTmrjBJlWDCFyxdh8QFYy9jVyMYMC82MPES4H8FW7x/VyVJx3P1WAUOVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcY6GK0H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYBbJF4Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843FF606A330;
-	Thu, 29 Oct 2026 02:03:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9648460A380E;
+	Thu, 29 Oct 2026 02:03:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fcY6GK0H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640D01F031E0;
-	Thu, 29 Oct 2026 02:03:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYBbJF4Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4651F031EA;
+	Thu, 29 Oct 2026 02:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793239392;
-	bh=3JFRAUkzRhTG7w07ynQ3Bn9PUKRkX+0anMF1vW2pBVc=;
+	s=k20260515; t=1793239404;
+	bh=46x0SvxfzUS2S8Ju4mnF2LvXDTqqZ1M4KJ6+vlvWl1k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fcY6GK0HVBXdHkTSiSjD35v4hvrFhGt/2LzuFBDhOMPQIC2OIh7GvHSQVIKDH2Q/V
-	 DmB2cWBiTay6a2JORalKm6VJYI8QxJ74Ox6RvStVxzrCEzRmRJROUGnDxKHVie15wD
-	 H4YDC9znfYcsr8/QvulN7+mgKg/pzXRhaHIuRKnf31SUOZvdrwbfUg053dn19oBn+m
-	 8DO86zKgjgdMrVfYKfM25AnhHarz77r99tqclLcyDB0GGNP6a3v8pPtn559JiUJiCT
-	 pW0JfcB4O+BV2mBFDFJzZDgdmWnu703tcdc8H7gIxYGbI1iELWXM+icDCQaloY5zln
-	 PIzux/M8Fx8RQ==
+	b=NYBbJF4Qcsj9XygzwYK7WwnyUr4dFF0Q0c03aqvOO2bI4xMd0P7XVp7aB7bgyBOvs
+	 xCaUEbDx395yfzquVj6ZSO4x89xsmibg5YGsDSP2Up8vZOG8QJy0hKnnRmVxZwdTgj
+	 vyuiommCBX9vBA1p32oLfXLfwg92zqLPhroEL+/q6B09dWL8LXd5QVCrW9unpwfFlS
+	 1iICF5+g2nmDR8PbSkdbHmB9TE1I8tz6Ln6EEOv8A8Zs9CK90gCadBYnxX6k3hi6T3
+	 6LYNQyQ68EUZjfZdJ99ZS7KyA4ts8dledd+ekzL/rGdEq0+1WjSKrOzlsA9rfva64I
+	 5nqIP6Z/MOdKg==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: "Martin K. Petersen" <mkp@kernel.org>,
-	Bart Van Assche <bvanassche@acm.org>
-Cc: linux-scsi@vger.kernel.org,
-	John Garry <john.garry@linux.dev>,
-	Christoph Hellwig <hch@lst.de>,
-	Lianqin Hu <hulianqin@vivo.com>,
+To: linux-scsi@vger.kernel.org,
+	Stanley Jhu <stanleyjhu@google.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Bean Huo <beanhuo@micron.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Can Guo <can.guo@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: sd: Mark the disk dead if runtime resume fails in sd_remove()
-Date: Wed, 28 Oct 2026 22:02:49 -0400
-Message-ID: <179323465385.491807.4200261615139182816.b4-ty@b4>
+Subject: Re: [PATCH v5 0/6] scsi: ufs: core: Factor hba->outstanding_reqs helper and fix double completions
+Date: Wed, 28 Oct 2026 22:02:58 -0400
+Message-ID: <179323465398.491807.1363782982253026557.b4-ty@b4>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org>
-References: <2c0c76d70f0fe197932836b9bcf8496095135d1b.1792446921.git.bvanassche@acm.org>
+In-Reply-To: <20261022034443.3034432-1-stanleyjhu@google.com>
+References: <20261022034443.3034432-1-stanleyjhu@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,25 +70,33 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Mon, 19 Oct 2026 14:55:32 -0700, Bart Van Assche wrote:
+On Thu, 22 Oct 2026 11:44:37 +0800, Stanley Jhu wrote:
 
-> If a SCSI disk is unplugged while runtime suspended, its request queue
-> is still in the pm-only state when sd_remove() is called. The runtime
-> resume attempted by scsi_autopm_get_device() fails because the parent
-> device, e.g. a USB device in the USB_STATE_NOTATTACHED state, cannot be
-> resumed. Hence, sdev_runtime_resume() is not called and the pm-only
-> state is not cleared. Next, del_gendisk() calls
-> blk_report_disk_dead(disk, false), which calls sync_filesystem(). Any
-> bio submitted by the filesystem waits forever in __bio_queue_enter()
-> because the queue will never leave the pm-only state and because
-> GD_DEAD has not yet been set:
+> In Single Doorbell (SDB) mode, multiple completion and error handling
+> paths can race on the same transfer request when bits in
+> hba->outstanding_reqs are not claimed atomically with completing the
+> request. A stale bit in hba->outstanding_reqs lets a later poll or
+> reset complete the request again and unmap its DMA buffers twice.
+> 
+> Patch 1 removes a WARN_ONCE() in ufshcd_poll() whose condition is always
+> false.
 > 
 > [...]
 
 Applied to 7.4/scsi-queue, thanks!
 
-[1/1] scsi: sd: Mark the disk dead if runtime resume fails in sd_remove()
-      https://git.kernel.org/mkp/scsi/c/085bb18a0b91
+[1/6] scsi: ufs: core: Remove an always-false WARN_ONCE()
+      https://git.kernel.org/mkp/scsi/c/cd37a69c367b
+[2/6] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs
+      https://git.kernel.org/mkp/scsi/c/22d14117ec18
+[3/6] scsi: ufs: core: Fix double completion in ufshcd_clear_lu_cmds()
+      https://git.kernel.org/mkp/scsi/c/6b9c1f49971e
+[4/6] scsi: ufs: core: Fix double release in ufshcd_eh_timed_out()
+      https://git.kernel.org/mkp/scsi/c/3a7e551ae4bc
+[5/6] scsi: ufs: core: Remove completed-without-interrupt path in ufshcd_abort()
+      https://git.kernel.org/mkp/scsi/c/7cfdfdd65579
+[6/6] scsi: ufs: core: Do not release a reserved request in ufshcd_abort()
+      https://git.kernel.org/mkp/scsi/c/eb2c4847a1cb
 
 -- 
 Martin K. Petersen
