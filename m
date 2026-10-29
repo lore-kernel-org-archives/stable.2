@@ -1,115 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289592;
-	b=r554EFaltjspBSrPCCeEHpbmQWYpmff8cE8XI+Y99Vxq8gyt25qrKKjCRTA6OflU9cfw
-	 ggCblwrhNG3EYSP0E3c7MN0WW6dKTrl8I7ylYFivzhrdAW/PRRPjsKtN0CLibq9K1OS0V
-	 NLnPm+9Ypt3wUDz6AI5BmG+xut7ioKuU3o+cpQwkn6ryYulEGjlD2UNfEujuNXJGyHeW7
-	 VJRdnP2eGGIiqov3uWIT4z+CsjUPZ/L6xe3/i1Fisk1dOc5hV4zeYRUG4vG54YHVaByCY
-	 bSC+IHTYb1ZgpDkDJMZgNdFPMmK3HjfCDHAe48WTGL/vrbNRJV23AkDwhzpx3LQm0eA==
+	t=1793289751;
+	b=FCvHpQIOs/7J+90RHODnM3EMFXqz6mClyauZ3BXqpg6il70n5iFuRgcaE/hWx1nzTAUL
+	 kAMQZ075Iwl+iSUu7Jn4Rch46gAsgVsTEkMwCgWzetzrA/uQRcDEh7r2Q2L+h3Vba8QZp
+	 EhlyfcT/1Crex2Alj5EdqkVZIxl59kpEQkR5K40BvEBP4bkVlSOqMd2rrz5TBnPLztE9x
+	 9TpdQlXm6xu5swJ1ecW96lf7GwSztB/bGo5Sm7dkeOcYGLW9q9lPBMOY17+ks4mngtSM/
+	 DSNRgLo5SAI9dUXMZaKV7JgChQMUz8FWB9e5a/BHuEUCNcR4f1GVRbGuyWPHFR9vINA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289592;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KKBOz4Zfk+6m41vEtS3t51T/FKzgULQb4qqPsWjpkDY=;
-	b=Ly1LYlejqFp4q1x7l+RZLLl4oogQl6M6t5E0VhpE9LRevflWRteyo2ekgPTGAqW+PqJr
-	 XWROmyC6XoxMr2Qt1X9cJ2a8c4obByULHS6PHhCgt3T5hGEkAoKOgahW+2hIBVbuQkRay
-	 NBu7nqjscNAzIGv80yx5ApHspuI6FZ/X7BMvgS6OoyEOe8EyG5vc+8/kkVuzb00ph24jQ
-	 ZGyu4bdHJpkXbX0DiD0ELeekzGpD4Xq9paE8k2XLcDZHCaBGSbOAbKkd2P5UIvOEi4dYa
-	 y5C9s8aAQQYi6OXUAQ1U7rFk6/3eFWiXcqpyD8VJqmF0OyQ7Z7DRBkRXhQ/ocZ8SaiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289751;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=pI00oraJcj1gbywxrmhhYEBArK86LZYRPpd6Xl7nY4g=;
+	b=ylBiAxe9jLRoc/Hmz5hFglWpMk5xYJOOtHuLsexq2Rg1e663bqXKxaVwgOErx7GCF39e
+	 NdPAW0xP2b5wylojnaG4K+lk3vxy/xMqdyt6Kw8am3HStsx34DrtBBG+Y2q+fR5qxLx0s
+	 2gRjImNi1JNPypH/tUiIX/q9mnCo6IfjN10RR5jjaTisfa8VJN8gGwB6auNOp2f1H71vA
+	 4S7kVgLFxUXNOKzhjTV4Sl7/3uKGUJRHeFX80ecoFhLIE7L0MLHTvXR1IBc7N/deImbZM
+	 dxaRlDWSlpL8uA+NiI0MwqAR2ERrAol/a8PwOMGq37PWT8LFcCzapwiGXLLxqWNq28Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=iWILWxZm;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="Wv3f//OI";
-	arc=none smtp.remote-ip=202.12.124.154
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E2E606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:59:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8E2E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=iWILWxZm;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Wv3f//OI
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 445497A0159
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:59:51 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-09.internal (MEProxy); Thu, 29 Oct 2026 11:59:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793289590;
-	 x=1793375990; bh=KKBOz4Zfk+6m41vEtS3t51T/FKzgULQb4qqPsWjpkDY=; b=
-	iWILWxZm7HiHP5NTOMqiJ/QnMEMQXJNNW0oz8ui0Kmg/sbq/PoGdjtNLEDxiTOLs
-	9SPewx/vJPnF+9z0+zp9SDsP7q9Gmqs7+grOEBarhYGDIsnAEph5ysMlGBQ1ROZA
-	Efs55h0rEuS8dYa7PVbidLx2OhU8AUOVIiFPoSagxp1Hmt0c8k4IpjxyfCWaSesl
-	7d/1zz1opNP7dR9CI7j9C/lJgYYpo6FxjEqO6kgtpO8LwAymjxOskDgThxd78gyJ
-	yQPbN5x65vvNElS/hq4BXoymyZcqi9OaoDbCJdPfBtj2hY274MKo+J70zC0auL6y
-	VP5rSuYO7GLTn8zw9L/0Sw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793289590; x=
-	1793375990; bh=KKBOz4Zfk+6m41vEtS3t51T/FKzgULQb4qqPsWjpkDY=; b=W
-	v3f//OIvKbfJwdE8tAq9ewB8tIF8wn/n9gysB0cAV0W+j/W7IFHcMDwVWhK1uFql
-	X325+gi1xFs4M0kAd0P+2gVS+7v1tOSY/dibnv7oejvj8xksR3lKNQk6SGp0SU67
-	NjbOLFORhQIy06F6ZLIgLQCTqEgVeZ3rWHjCHoUpwDWhx2mW5UjC50v80wYYgUqj
-	YPe1sdCt8KeD/U9/uQITiFk1KxrHtS/eTUYfKWrO+DbIqBemx0qbNR/pvoMmQqoh
-	Oa2lWZ/o3wdu9cbXCFRsfqyces6QjOyzU+DOwlvD+hP7MjGoU63jq5ner316jLRT
-	Bqf1JbkMTecIeCaHtJv/g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793289590; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:SjzxjvmNRWXCJqJ01ysPEGpTWZeKyLZNwR2u8QXA3YWDcfe
-	Ca5foE/kaXfD/aRhZSbPgVwP9VE8FBqw/1Tg32PkqgbtOJbsUt74yMDPMCwdwj6r
-	rsPNv++JjDZiPlUmGvQ6Ga4LHg7rdt85JFM9ZgnysY+Vb4z7VmTN7YBvd+qlEy/O
-	frzgLyZKOruBgLXeT4rSXFT18V5Qi6tJcfWxTUVuv+qFSSOjAYe2MW2RsEma9mOn
-	ufKppfAU2yo5ax1xypZe/B53mdKeHP4sBx2VpFBa3Wj3XimldYpHVT1GrVRuegV4
-	ncMsTNCyXdxvf+42FN8SsoGs8qM3ZKbhZkKQLlg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:jFuKupPVcsvJ3QbHOK/1yHyTACi/4we82dXxoT3cHqs=:fyY3jBioryK+3UiLTqRhbOhIRioQgIN+/RdaHrP4w6w=;
-X-ME-Sender: <xms:dm3jas7LaUA9EVUs0SBpgCAF9NaMXQUiLPVnfNaEcSMOy22_haY6YA>
-    <xme:dm3jarnBIgkA52V9wX8TCRTHDO0KJxHEgBSnEor0LcEI1L86zPV-lN1LpSFgsP4AS
-    leJuolGQBDpc3-PsoVGMHuqrcQByVmQF1xVjYTUuzuLzhGvYSFYejpB>
-X-ME-Received: <xmr:dm3jatOb13V5gxjVsL2X9rl7KNV8EACbtFFDtgj-2UQL4SDw0DTketiWtIgF02GhiN3m98mU-vrhzoQuGVXzvgk59NrNZVoN>
-X-ME-Proxy-Cause: dmFkZTFEDXEO2ZoCvDmzlItmMWHToxvfc72qCSQgltnhAXdPW0xVUHpSa1ExhL1s7LZh99
-    eTMVhp2eAqS3rJG+0+N1o0K7z3MtMRog8FLrKg1UnshtbaXD+Xg3vyw9J+eKRYX77E4KMg
-    shq+tbPtV5xrXACry2Wq+SP5YM+QKnGhSFIyayJGMTCfGnACfJxxlzisLnR+qynGcuHfE9
-    5ol/ZUkRxvhA7kB0Rakq56OQF/qpkv1/8JFawlcXbft2WjvMPUsLAz5xljXC1FaRt1+Akb
-    Msz6mIwKnj7pyQuJhHGqp0akAcj0yuHOxkOyYOEDJh9xhx8h7d/u7FC2+1ptrPyHA1WZIM
-    G4Nr2UB3+gOy5hDWTOvt+sWefk/2irobWWfOAAstsjYjDrIyx/JeLnVvX5SMFpb7Qknmpw
-    KQYL2swBwH8NcN7yGxrm+wZoXKad01XCSDdhs9yTvoz9PA9cdFUwowCtRd1Qf9ZT3kJd+a
-    GqOtCw4VTDqpNH0wXG6D3N5dBmqZ3tiRKQUSUpEpFIeJt9bk/u6da0MZo7b5coIAyxQBTl
-    qnYz/zDjyPK7w5cNKVY7YOnxObbLT/QzCp2AWnmAbjUeu2vg2+L7p7cAixyc92IcHQ3b0y
-    X2/EytrU4sy2aB7UWOwhXq4Ir90orOvAu7w1pgHvjvSdSQFPJE8PtfUXDP8Q
-X-ME-Proxy: <xmx:dm3jatqjvP46X4j9vQuEO_JY-cEIw7CVnguR1AT-kEGn0HCw6mErdA>
-    <xmx:dm3jams228rA-HYQkyPDNKsSoYnoPcsJ_S_Q5usF_6aELpAAaFOjtA>
-    <xmx:dm3jah5vqFAAObGvm6dzGtYtbW0DscIa1UdO2GOrMf99gt6pnv4gMw>
-    <xmx:dm3javT3QuljDVVYQguYC5iJpB22j-c7w9FliWRG4DA1Lyrym85Eug>
-    <xmx:dm3jaiXcuR8XqnM35mSth9DvUv3h_lKmrJPw-XH0PzFkXiDYzkjTUCz7>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 11:59:48 -0400 (EDT)
-Message-ID: <9b9685ce-1d28-4d83-ab8f-acf29bfbfca6@pobox.com>
-Date: Thu, 29 Oct 2026 08:59:47 -0700
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B21EC606A335;
+	Thu, 29 Oct 2026 16:02:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B21EC606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=pI00oraJcj
+	1gbywxrmhhYEBArK86LZYRPpd6Xl7nY4g=; b=ps7AKoiNveu4MzEsQFvViVHnWn
+	JdQiO3yg3+yyHAlqHQVNmLVREJmdfOuvdC7z9GfFUM7Cs09WuPDWZlzcY6/mfqhI
+	eFCy6rhAGN8fkPclZ9Ka20fDLHZBF2sfgRqgl8VgAlAaBuk8R8Mixitfg65rEjD7
+	vBlWADMMzo/zIDsYI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.38])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkBWXgH8beNqsp8AAQ--.1728S2;
+	Fri, 30 Oct 2026 00:02:05 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com
+Cc: netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Russell King <linux@armlinux.org.uk>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH net] net: usb: lan78xx: only stop phylink if the interface is running
+Date: Fri, 30 Oct 2026 00:02:04 +0800
+Message-Id: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,46 +62,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/571] 5.15.224-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261028170008.009143722@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkBWXgH8beNqsp8AAQ--.1728S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF13Ar1UGr1Duw1DXFy7KFg_yoW8XFyfpa
+	9xZFW7uryUtw1Du343Aw48Z3W5Za1qqryxCryj9wnYqwn8XFy7Zr92kr9xCF15AFW8AFWI
+	yFnrCFW7uFy5Aw7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBmb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67AK6r1l42
+	xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWU
+	GwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI4
+	8JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4U
+	MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUfjg4UUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2rjY8EGvQABsY
 
-On 10/28/26 9:52 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.224 release.
-> There are 571 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.224-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+lan78xx_disconnect() unconditionally calls phylink_stop(), but
+phylink_start() is only called from lan78xx_open(). When the device is
+unplugged before the interface has been brought up, the attached PHY is
+still in PHY_READY and phy_stop() reports:
 
-Tested on 2 amd64 laptops (a Lenovo ThinkPad T14 Gen 1 and an Apple
-MacBook Air 2017). Working well, no regressions observed.
+  called from state READY
+  WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+The same warning is emitted after an ifup/ifdown cycle, where the PHY is
+already in PHY_HALTED. Call phylink_stop() only when the network device is
+running, which is when phylink_start() has been called.
 
+Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/net/usb/lan78xx.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index 5655941f1478..68e61004b3d7 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -4581,7 +4581,8 @@ static void lan78xx_disconnect(struct usb_interface *intf)
+ 	net = dev->net;
+ 
+ 	rtnl_lock();
+-	phylink_stop(dev->phylink);
++	if (netif_running(net))
++		phylink_stop(dev->phylink);
+ 	phylink_disconnect_phy(dev->phylink);
+ 	rtnl_unlock();
+ 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.34.1
+
