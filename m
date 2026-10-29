@@ -1,56 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269276;
-	b=lOlCGR5RgYZp84tNlsG2qOHnhZ0gjwkzs2aY5etdwzRgWQbjsCCMGS4fc274HW2S9FM+
-	 AMnAMYsEOUjwlRWU87XxavOUSKHDS6gAsrPRCVm9+Y2mZLQ/z9mTd3n0OzVryPg6U+jBb
-	 wprWRc0uEwbtmxJvu+05p6V+k9Imr/Lq6R10eT5Nqn33FAt87+A7wnh4b0vP4kITtP+aJ
-	 0zsCx1GaMzDm8PJQfep+anyXA6Bb2LPUNcy/vmHWiWs3vh6cH9BX/Zb2sQ+tYj98CFbZj
-	 iy+KGvWzWmssJ59lgmOsnrKYPrNwyHBA52/yKWZBvlBPeecDo9xXsXDxC14cL24GYfQ==
+	t=1793269307;
+	b=Vw+V0Zw4OxLXZLIe8XllEDxOSyB6yimaPhsXpHQlh00cKtUEG40dvyGyFb7loZeMHFa8
+	 /ucFtmDzu/+hxvhEbXCocM6Vt0ZxGzfv4sYgP5KUeAW2Xn84V9XdknPSr8sSzopuAi2wn
+	 ouZNejOpIVLGuSKPWCrHUA+GVuD0E2ucVMQ37Do2ntSamchfnW3pjykWrhpFzv1/E8LjU
+	 cHm8utMLONOCTt2IQj/0c+6VEDUJriB68qmRSxV8gWTKammmfPkncCUOAGN6WRdd3NaMV
+	 71vxalV0JZpECOXyfhvaAqgcGKa4GmPdWMhJsSzOTkWePONiIL0oainQxQcwVQvYpwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269276;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=+3nAUYBGz2stcktDmPryBjKJjci4h4852ZCrooNiT6c=;
-	b=2wftCPdC/F7bB5ExiZKz40UzWMJVUVkaUYu5SkWnMTsHRlcPAbIYOw8jNiyDSUUpmqqB
-	 gpLe4dV9F86IvyvRL0cP8QnOeSI8KodOVRREyNOQwR9dshn7zbjD20147prK6jYk6GKNv
-	 b3XQjgtqYFFWXxHHUjBI8U/Y8crjRMt4lWRncD9ahFyM8ViFt6ZnAaeqHZrYvbG1YNGtZ
-	 s0YgAiiuBP76LX16V7H/2NnDfu0W80JuYMmHEJlLvwm2WsOvaB/vvbEIurO6xmHNcGB9L
-	 urNfL+33zgrtBnN4QvVsmLeeAro30IbgyvJGh2MekWnl8HcadQ4WACjjbUfJSLi4ENQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269307;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=p4CsFDjPOd5dzP69uoDvcx2oKYWrFhACnk9N0TgFakE=;
+	b=limdZ1ZwwtambwNfWkQqVLjtv1QA/9pzRFX30D8pYw8j1+pL3trO4wH50FeWQf6+ReNd
+	 dWwcmrFqekNoD1VvD5vn0JMgnET+6YMEIl33gkRKGETPJ23S09qQVnTIJzk2DE4rVukcg
+	 1r+/DzKLZpU3TX5K6N6TTZnPtGTGdrleHeakLYxw+n5WIwv2X4bs0moCKqGqeOU/e972Q
+	 Jy/o6D/URORUMSkOQrjEg/ZOAKFs6P0e1qYC8gVMtQ1QLQX9+/LYCI60AHS56cqMDjuPb
+	 X80/CvsmSoX4iOKvuaZVyQQw5ubYTqkfG1mih+U0uKmCL3maCshxZqTQUXufsUyIwzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D57B8606A31C;
-	Thu, 29 Oct 2026 10:21:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D57B8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bYEkEP0d;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C4B606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:21:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08C4B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bYEkEP0d
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15dd124bbe7so3615350c88.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:21:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=+3nAUYBGz2
-	stcktDmPryBjKJjci4h4852ZCrooNiT6c=; b=Al66+AjQDZIjJXHujnO6XuEfMu
-	l/PstyfhSArKh5Ow8iDerX0pJQmaZq1q9dKu4YOXPE00PmxqY4/I+yf0hZzClkOg
-	XYyczVRKbJxujDv2vIO9lpaJ2FkdHWOkwIE7z2aQ3I0pRpa613sv69oG6uOBt2eq
-	UEENhncf1wXZ7lKhI=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBGjgMIHuNq+uD9AA--.65420S2;
-	Thu, 29 Oct 2026 18:20:57 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lei Huang <huanglei@kylinos.cn>,
-	Dean Anderson <dean@sensoray.com>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: s2255: cancel the in-flight firmware URB before reloading
-Date: Thu, 29 Oct 2026 18:20:55 +0800
-Message-Id: <20261029102055.30569-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20260707; t=1793269301; x=1793874101; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=p4CsFDjPOd5dzP69uoDvcx2oKYWrFhACnk9N0TgFakE=;
+        b=bYEkEP0dNxlhTdG9foSUPIsWMX1MtvqNyYtlLTMcLbRq0lyy2cratV0BIr2gtYu5ia
+         H4zg9Ixd+52wVE1IOa1nwYwk0JaaaTVOGzCRbxdtp8UMWRBohoa59HBAkTPnVp6UCjYG
+         MM5tpk3Qrmw+LDihNTctddLyIJcWuFt153NjbOak20ztDLbLw8MGv7Ayc/Ncpd/eY3Q5
+         g7OrNaKPat6T4uqBs/NJ5x4Js0oTp1QyHZlkxvIILTsOo9tvGe6YYKzHiuNHZC8yKsKC
+         JClp1ejGPTY4+BGdjE4Jd4Kl1RXPXXteK7SPhdDpfqTYVwJuMrAI5HkWguqSUZ37URHf
+         datQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793269301; x=1793874101;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p4CsFDjPOd5dzP69uoDvcx2oKYWrFhACnk9N0TgFakE=;
+        b=VNi/NGfTuUzdknVrhltGTBIniM8Hp7m074EUyvmsNsJiTs8T7PKpACxQdwT6OOY3E2
+         vVAu7N0emMlvxhVXH4KMr7tcXzQMvMg7CR0N25g+lQ8LqX4vAzmlhEO4uTRzSDIy8l1I
+         5X7yy8viuEKMLT9kCU9pGwR/XR+hM8vk0S1ZVaeTaLhIcCovK/QosowrgISqLlXzdnXe
+         p+vhE2Mf7B2K/jpibSdeNFbppwzYT8jlcb05UDJznBP6vdZy+521a/ApN6e3MA/neZW7
+         dbGGcHsZ/NufKSq+91iIKebyBOZlfkDYdeuCJXqv5ohozlazrW2QBr9fINzSclzyDSRE
+         atEA==
+X-Forwarded-Encrypted: i=1; AKwUvBzEX56U8aWLvKIBMRoW+vt3DpD2VaWAE5VKzIv0l6bBLQLcH5FsNwnsmtrtN55Fl/ln7EUMYJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJfg/YaCJlK2GQt9akMD05RsLj7eEmRr4c/tApR8NKXap5M4aJF
+	S48QAIBhNvBsp4P8fgi11AWAkHlyt/F2TPl2PbmYnhnRZcrI5tY8pc1QHfObKWVH
+X-Gm-Gg: AYBFou03KiwIyolkK24uD2kjJygAb1Z3RN2Aequt9ILGPlD0yoQpNDHIc1I+Tpr1euV
+	djbLM1UAvZscPCn+2udmHR3P1uY1HMlk2uWD/wxpfEBLN8lK/zHtX4Tqp9dhw0oNFzizsfAKQ3h
+	sQloGdu2tevR5oXGjjaoHj6vjqA1CMRBxc6xLt98eQrSZ5oV/RZ6HHE5sWjWK41SD5K2+xQu3+K
+	ZqYTSH/xuUyH1P91hdmkmUhmJ+6TOdO4MnO7nnuXo4CCWbrYYa2AjP/i4yvygzqbEEkApVcLPC6
+	mO17QidFbW0Qhy636FFeadRWyeeuTyg0NB8m/mXtWPD0W9c051FJ2seD92VY/g8mv1SAkZQAS0p
+	aIIeIIEAkTAptMDC8VxBce7zizVyCt4EGc1opKCKnA9UIYlSaBtLt8efTD47xd8N2+lI1I8+v7N
+	pszJ2b0O/TUL+CbsVVVtiMcTTwJLkI+XoT/rgG/ozMhEECNvKTUwc6YyU6pGWulSdQUoQPMQ0L3
+	fEt5xPoGUNVTPuFXa1jQJs8QOGSZ9KREuY3790FqdnXmSBO8cSC0Vs4r3gj7MMm8GQWUHpRXwFc
+	TwMBaZ1oR9kzr4zyR1TaDKgsIIYPjr1w7eMGnzMGXMj1QlePcgl27MAuuU0NY3DIzI0=
+X-Received: by 2002:a05:701b:4211:10b0:18c:ad6d:b790 with SMTP id a92af1059eb24-1a6cf914593mr7053743c88.45.1793269300875;
+        Thu, 29 Oct 2026 03:21:40 -0700 (PDT)
+Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm13556801c88.10.2026.10.29.03.21.35
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 29 Oct 2026 03:21:40 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,91 +89,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBGjgMIHuNq+uD9AA--.65420S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCryrZw48AF45WFyrAw17GFg_yoW5Wr1DpF
-	W0ga4YkFWDGw1rCF1rCrW7u3Wruan5JFW7GFy7J34qvrn8J34DAFyFq342qFyDJrySka47
-	tryqgFy5CFWUtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxU2fMaUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUBD2riD9OnswAAsK
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
+ configured MTU, not the learned PMTU"
+From: Esko Mobius <echoowall@gmail.com>
+In-Reply-To: <20261029101859.6893f1a0@pumpkin>
+Date: Thu, 29 Oct 2026 18:21:22 +0800
+Cc: netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Simon Horman <horms@kernel.org>,
+ David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>,
+ Shuah Khan <shuah@kernel.org>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ regressions@lists.linux.dev,
+ linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Eric Dumazet <edumazet@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <22077B76-12B0-4DD6-813E-A3968003575F@gmail.com>
+References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
+ <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
+ <20261029101859.6893f1a0@pumpkin>
+To: David Laight <david.laight.linux@gmail.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-The driver uses a single URB to upload the firmware. s2255_timer() submits
-it one second after s2255_fwload_start() filled in the first chunk, and
-s2255_fwchunk_complete() resubmits it for each following chunk.
+On Thu, 29 Oct 2026, David Laight wrote:
+> If it isn't a silly question, how to connections in the other direction
+> work?
+>
+> I'd have thought they'd need that ICMP message to get through.
 
-When the transfer does not complete within S2255_LOAD_TIMEOUT, s2255_open()
-stops waiting, sets the firmware state to S2255_FW_FAILED and returns
--EAGAIN. The next open() calls s2255_fwload_start() again, which refills
-the URB and arms the timer while the previous transfer may still be owned
-by the USB core.
+Not silly at all. The frag-needed always goes back to whoever sent the
+oversized packet, and only the client side filters inbound ICMP.
 
-One second later s2255_timer() submits that URB again:
+Server -> client (downloads): the server's full-size segment hits the
+1456 hop, the router there sends frag-needed back to the server, which
+accepts it, learns the PMTU and resends smaller segments. The server's
+send side was never changed by 2640e6419594 (tcp_current_mss() still
+uses the learned PMTU), so downloads always worked.
 
-  URB 00000000b9ed398a submitted while active
-  WARNING: drivers/usb/core/urb.c:379 at usb_submit_urb
+Client -> server (uploads): the client's full-size segment hits the same
+hop, the frag-needed goes back towards the client (via the relay's
+conntrack), and the client-side firewall drops it. The client never
+learns to send smaller segments, so the upload stalls. Here the only
+thing that kept segments small was the smaller MSS the server
+advertised in its SYN-ACK, which is what the reverted commit removed.
 
-usb_submit_urb() returns -EBUSY, the firmware state is set to
-S2255_FW_FAILED and the device stays unusable. Rewriting the fields of a
-URB that is still in flight is unsafe as well.
-
-Cancel the outstanding transfer and the pending timer before reusing the
-URB. A killed transfer completes with -ENOENT, so do not report it as a
-transfer error.
-
-Fixes: 38f993ad8b1f ("V4L/DVB (8125): This driver adds support for the Sensoray 2255 devices.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/usb/s2255/s2255drv.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 15012d73975c..4d5de6930542 100644
---- a/drivers/media/usb/s2255/s2255drv.c
-+++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -490,7 +490,9 @@ static void s2255_fwchunk_complete(struct urb *urb)
- 	int len;
- 
- 	if (urb->status) {
--		dev_err(&udev->dev, "URB failed with status %d\n", urb->status);
-+		if (urb->status != -ENOENT)
-+			dev_err(&udev->dev, "URB failed with status %d\n",
-+				urb->status);
- 		atomic_set(&data->fw_state, S2255_FW_FAILED);
- 		/* wake up anything waiting for the firmware */
- 		wake_up(&data->wait_fw);
-@@ -2187,6 +2189,14 @@ static void s2255_stop_readpipe(struct s2255_dev *dev)
- 
- static void s2255_fwload_start(struct s2255_dev *dev)
- {
-+	/*
-+	 * A previous load attempt may still have a transfer in flight, e.g.
-+	 * when s2255_open() timed out and the next open() restarts the load.
-+	 * Cancel it before rewriting the shared URB.
-+	 */
-+	timer_delete_sync(&dev->timer);
-+	usb_kill_urb(dev->fw_data->fw_urb);
-+
- 	s2255_reset_dsppower(dev);
- 	dev->fw_data->fw_size = dev->fw_data->fw->size;
- 	atomic_set(&dev->fw_data->fw_state, S2255_FW_NOTLOADED);
--- 
-2.34.1
+Thanks,
+Yongjian
 
