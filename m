@@ -1,48 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=161.35.211.235
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270134;
-	b=BsFhjiz9MUEdZn5t4Q1aEeejrnTP7FTAVponVTc21B+m0ZzavAqu8heLABlUaYESLM1J
-	 bA1tQyvQo6GNgr7Vth6bUS+KnGOKeUnEU2Egen1Mse1QuHn3rkXZJRoxCHU8O1wk+gWda
-	 2D2shRXl7E/pW4e3yd6jXgdAeWlYbUL+cgCAZBZXrnOjjcsWwLUuVAZ+gONWyndXh3HwT
-	 0DU80AFrnnEjaVA3yz2QKwJPJQE14xIg/KjQtxM3fgxYawyVyOANkRLsc3XbajmuviVYp
-	 LtrO/3VFk2G/D3bjSX+1j0m83gbWRJZq7A7GElcUWJB69CRr88ewye36pLEoJULyIdQ==
+	t=1793270312;
+	b=YpcF/AF3yoShU0N2pQEpRl6A+N2sI0xUHQZJaJ2jZn/j+3OrfQQKA2MD2U5jdvGnknMB
+	 DlfD1SDrz6HAm4wuDmMtjSzU9Sgh7tyCHlda2uh6WE7gDagVUS33Wprbmm6sHmwvUT7AJ
+	 K7e0+rdvEyqIN3XFz1M4hnesHjOiXRFPAUOpmwy4lxDOgGfFzQOkx6ohUMOUYiQS6+R/U
+	 CmpGbKwE/CvAHd+Q8VxaXflroT0bXj5ulLAhSG/hDdx3C8zE2It6guybMC2aIiwgDxUNG
+	 plX8vP7PyLse9x5QMyZWaevFzOIrDL4PvNWSdA0LbRDruvOkXh0C+QxpJcW+nGCpTVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270134;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=b3Kti2LlxnfIoBZn8WoK17y+yZXQJx8Soi6jDabDiEM=;
-	b=f8PO4ecxupiSK9QrtoNEtObo6hkv39p29V3ZLyK9O4mIzvJlrQ4h5i67DK1CZs7pWd78
-	 /x0zcoSaOwiy4AHFRt7ZQA3TyPI882QMOlWtv/aGoAJNGf/HiR18D2g+MAFER43xFbyan
-	 k/Muu91BSr/8+Fcv8Nua9GuhYB8xLepE8dH4p4GEd+jLGAtuH9NBDdYHXQViYVlHzp88J
-	 3hL8s1fxkE2f6tVEYnsQLdLJUyKaJ8GX1yGPH5Kkli/QGZNnFipyigMYCXNL5E22CvEIz
-	 ZqyC+y9tu7CXIATugIYwRG/0yZgc1OexmUxLG8og8Z0zKLZXukweFif+9OtiyuXtDzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270312;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=Ld4QZ3pQQcZaz8vukIMO+uxQ90DsPcX0V4TVlD11JwE=;
+	b=FiKQVP6EFgeS9M4EdVv2/erH9RBteelQ3sdRF1tNaeCzBgdAmCyojnTFOhQ7xs1+z4dm
+	 t5BZ7nmOcUEAHI+TzAobCURV9ZWnzR7gwLXeuuv6WTnETmBZkSLbe4LV0MDc2zUp4uOML
+	 e06S4MkIbP5Wf28lolNg68AdF1JxExhTBT6AZF/bNB6FPXm2GpEr5lKPz/AL4N/bqSezX
+	 zX7RsRhrQ5Ev8GKJbp6LLmcoGh5Tfmm7DVD9inF461FvDQVumQO1WGnHmXNsCOwGhtVUN
+	 H82UKRLMsqN9ZcILcyWvSQ55LnLV5Cq7PW92i83mQeIyiuIW26+Oj8n1INpzw1opvYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5SUBSBj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mifar.in;
+	spf=pass smtp.mailfrom=mifar.in;
+	dkim=pass header.d=mifar.in header.i=@mifar.in header.a=rsa-sha256 header.s=mail header.b=mPwfOPuO;
+	arc=none smtp.remote-ip=161.35.211.235
+Received: from mifar.in (mifar.in [161.35.211.235])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74891606A322;
-	Thu, 29 Oct 2026 10:35:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0467606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0467606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mifar.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mifar.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5SUBSBj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2E31F031E1;
-	Thu, 29 Oct 2026 10:35:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793270134;
-	bh=b3Kti2LlxnfIoBZn8WoK17y+yZXQJx8Soi6jDabDiEM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Y5SUBSBjOT6snwksRsGSuj7hD4IpS3CHy64VEKvK1mqv1BZsM6+768MFdpcaShyLn
-	 q7fktDYc+CEwBu5rbZWjT7KXkgVuMEOCUfVf502gTV0oMwlXwMP62useyWmuyilzfA
-	 o/1Jalmt4wrywbIF0HgghFtdRy4wLhGy8trqu3uL2zmsvfDe7PYayjAgu2QbdwjTTA
-	 47fTTed2Ty/O49m9xTIIbQaZ2yQyNJEc8+mBveFFHLUOMjAJAIdez0CmXZ0H9Y6Y9J
-	 9Dr5cqqd8rvlBzHLhy0rYC8L2mvFUXP4tkPAqtOMcKZsoUp6/cRyX7y3oR78arLhi0
-	 mBwExOzMA9hGw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Thu, 29 Oct 2026 11:34:49 +0100
-Subject: [PATCH 2/2] iomap: keep large chunks from defeating the bio cap
+	dkim=pass (2048-bit key, unprotected) header.d=mifar.in header.i=@mifar.in header.a=rsa-sha256 header.s=mail header.b=mPwfOPuO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mifar.in;
+ i=@mifar.in; q=dns/txt; s=mail; t=1793270303; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to : from;
+ bh=cHpyh54zy9xh+wdRjyz3Jr7nU3jQZkJ9CsSQ6jhbF3w=;
+ b=mPwfOPuOZNbbuBaKJ9oZDbH/i/v3oJlA1QMQsyrR9FhtCzSgn56yqKLptec5W7Wmhuynk
+ UbU1pGPVchzuaIf38vtL9pvvEldm/hPtpr09U8wT8bgjOv3QyygX71y5wBjsnXSlxZbFDSw
+ w4+6gSWFPb6HCkahd5u7qS2eXBMlP9TiqUOp1Gy3RTIN4uwBKVhASZrRSubjDRA357E8tzV
+ 5UUPT8Irc/2w7aWRU5zdA3cKnEsPa/C1yxaRRZuP7KCumqw1kvzQnVsbJSvIUXFCs335jn3
+ EbATEzAZMctWNoS1UDDOeqfDxsd9K5PKk9zuA0Yjd7yMZzxMVdyK9ncaKljA==
+Received: by mifar.in (Postfix, from userid 1000)
+	id 213E044917; Thu, 29 Oct 2026 10:38:23 +0000 (UTC)
+Date: Thu, 29 Oct 2026 10:38:23 +0000
+From: Sami Farin <lkml20261027@mifar.in>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>, linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org,
+	kimjw04271234@gmail.com, stable@vger.kernel.org
+Subject: Re: [REGRESSION] KVM: x86: OVMF boot hang with SMM enabled after
+ commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO
+ cache")
+Message-ID: <20261029103823.3u32wxlxdjksq6j4@m.mifar.in>
+Mail-Followup-To: Sami Farin <lkml20261027@mifar.in>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org,
+	kimjw04271234@gmail.com, stable@vger.kernel.org
+References: <2026102314-CVE-2026-99082-e5b1@gregkh>
+ <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
+ <auIy4UZMGxLhBCAn@google.com>
+ <d4214249-5ec0-4600-91be-13632b180425@redhat.com>
+ <69437bf0-45fc-4701-9144-a208c12423e6@redhat.com>
+ <auI4kViOXpqxT3wA@google.com>
+ <6f6694db-b1aa-4d9e-be82-b0d11cd814d9@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,109 +77,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-work-iomap-ai-fixes-v1-2-7eda63bc1b13@kernel.org>
-References: <20261029-work-iomap-ai-fixes-v1-0-7eda63bc1b13@kernel.org>
-In-Reply-To: <20261029-work-iomap-ai-fixes-v1-0-7eda63bc1b13@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>, Chris Mason <clm@meta.com>, 
- Josef Bacik <josef@toxicpanda.com>, Matthew Wilcox <willy@infradead.org>, 
- Zhang Yi <yi.zhang@huaweicloud.com>, Joanne Koong <joannelkoong@gmail.com>, 
- "Darrick J. Wong" <djwong@kernel.org>, Brian Foster <bfoster@redhat.com>, 
- linux-xfs@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3193; i=brauner@kernel.org;
- h=from:subject:message-id; bh=1VbTvRVd2LJOzWvVDZo9+eo0SqVgtLUN2sxxcnpOCr8=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9Vsx6ZZtn6xY284oCC8PUH6vW3Ur9P3/Ki+I070U51
- 3+Ky0Uc6ChlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZiItwvDH36WnVenLZHoWhPh
- 9C976Qp+VTf+HebfBXrMb++PW56+9hojw//mhPpn2xUtlUWdTFRTToo33lN6IW+6OSW5Xn2SzYK
- rfAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6f6694db-b1aa-4d9e-be82-b0d11cd814d9@redhat.com>
 
-From: Josef Bacik <josef@toxicpanda.com>
+On Wed, Oct 28, 2026 at 19:42:38 +0100, Paolo Bonzini wrote:
+...
+>1) if this patch gives the WARN (with vanilla 6.18.58):
+>
+>diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+>index cfe96962a4e4..a96d839a317b 100644
+>--- a/arch/x86/kvm/x86.h
+>+++ b/arch/x86/kvm/x86.h
+>@@ -263,6 +263,7 @@ static inline void vcpu_cache_mmio_info(struct 
+>kvm_vcpu *vcpu,
+> 	vcpu->arch.mmio_access = access;
+> 	vcpu->arch.mmio_gfn = gfn;
+> 	vcpu->arch.mmio_gen = gen;
+>+	WARN_ON_ONCE((gen & 1) != kvm_arch_vcpu_memslots_id(vcpu));
+> }
 
-For integrity I/O a bio must not grow beyond max_integrity_io_size()
-because the integrity buffer is a single allocation of at most 2 MiB.
-Writeback and buffered reads check that before adding to a bio:
+This did not trigger, but would it have been better to do
+WARN_ON_ONCE((gen % kvm_arch_nr_memslot_as_ids(vcpu->kvm)) != kvm_arch_vcpu_memslots_id(vcpu));
 
-        bio->bi_iter.bi_size > iomap_max_bio_size(iomap) - len
+Anyways, I tried this with 6.18.58, but I cannot reproduce the infinite loop anymore!
+I have Intel Core i5-13600K, qemu-11.1.2.
 
-The subtraction is done in size_t and wraps if len alone is above the
-limit. The check then never fires and the bio grows until it runs out
-of bio_vecs.
+Please disregard and drop this patch.
 
-That's easy to hit. The limit is also capped by the maximum segment size
-which is 64 KiB for SCSI hosts that don't set it, such as lpfc and
-qla2xxx, and XFS uses folios of up to 2 MiB. Writeback of a preallocated
-300 MiB file then builds a single bio that needs 4.7 MiB of PI with 512
-byte sectors and 8 byte tuples. That's more than kmalloc() can do, so
-bio_integrity_alloc_buf() falls back to a 2 MiB mempool element and
-generating the PI writes 2.7 MiB past its end.
+After deeper tracing to understand why deterministic reproduction was elusive,
+I looked into how memslot generations are initialized and incremented in
+virt/kvm/kvm_main.c:1667-1673:
 
-Check the length on its own first. A chunk above the limit still gets a
-bio of its own which is never larger than a folio.
+     /*
+      * Generations must be unique even across address spaces. We do not need
+      * a global counter for that, instead the generation space is evenly split
+      * across address spaces. For example, with two address spaces, address
+      * space 0 will use generations 0, 2, 4, ... while address space 1 will
+      * use generations 1, 3, 5, ...
+      */
+     gen += kvm_arch_nr_memslot_as_ids(kvm);
 
-Fixes: 0b10a370529c ("iomap: support T10 protection information")
-Cc: stable@vger.kernel.org # v7.1+
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/iomap/bio.c      | 2 +-
- fs/iomap/internal.h | 9 +++++++++
- fs/iomap/ioend.c    | 3 +--
- 3 files changed, 11 insertions(+), 3 deletions(-)
+Because KVM seeds AS 0 with 0 and AS 1 with 1, and steps each update by 2,
+AS 0 generations are strictly even while AS 1 generations are strictly odd.
+The generation sets are disjoint (AS0 ∩ AS1 = ∅).
 
-diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
-index 153b779949e9..256564ebe238 100644
---- a/fs/iomap/bio.c
-+++ b/fs/iomap/bio.c
-@@ -109,7 +109,7 @@ int iomap_bio_read_folio_range(const struct iomap_iter *iter,
- 
- 	if (!bio ||
- 	    bio_end_sector(bio) != iomap_sector(&iter->iomap, iter->pos) ||
--	    bio->bi_iter.bi_size > iomap_max_bio_size(&iter->iomap) - plen ||
-+	    !iomap_bio_has_room(&iter->iomap, bio, plen) ||
- 	    !bio_add_folio(bio, folio, plen, offset_in_folio(folio, iter->pos)))
- 		iomap_read_alloc_bio(iter, ctx, plen);
- 	return 0;
-diff --git a/fs/iomap/internal.h b/fs/iomap/internal.h
-index 74e898b196dc..e69b3ac02cc2 100644
---- a/fs/iomap/internal.h
-+++ b/fs/iomap/internal.h
-@@ -17,6 +17,15 @@ static inline size_t iomap_max_bio_size(const struct iomap *iomap)
- 	return BIO_MAX_SIZE;
- }
- 
-+/* Can @len more bytes go into @bio? */
-+static inline bool iomap_bio_has_room(const struct iomap *iomap,
-+		const struct bio *bio, size_t len)
-+{
-+	size_t max_size = iomap_max_bio_size(iomap);
-+
-+	return len <= max_size && bio->bi_iter.bi_size <= max_size - len;
-+}
-+
- u32 iomap_finish_ioend_buffered_read(struct iomap_ioend *ioend);
- u32 iomap_finish_ioend_direct(struct iomap_ioend *ioend);
- 
-diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
-index 92b89fbf95b9..4da248ff99f8 100644
---- a/fs/iomap/ioend.c
-+++ b/fs/iomap/ioend.c
-@@ -133,8 +133,7 @@ static bool iomap_can_add_to_ioend(struct iomap_writepage_ctx *wpc, loff_t pos,
- {
- 	struct iomap_ioend *ioend = wpc->wb_ctx;
- 
--	if (ioend->io_bio.bi_iter.bi_size >
--	    iomap_max_bio_size(&wpc->iomap) - map_len)
-+	if (!iomap_bio_has_room(&wpc->iomap, &ioend->io_bio, map_len))
- 		return false;
- 	if (ioend_flags & IOMAP_IOEND_BOUNDARY)
- 		return false;
+Commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO
+cache") already fixed this completely by switching from kvm_memslots() to
+kvm_vcpu_memslots(). Because the active memslots' generation already embeds
+address-space parity in bit 0, an MMIO entry cached in SMM (odd generation)
+can never produce a false cache hit in normal mode (even generation). Tracking
+mmio_as_id separately is redundant.
+
+The Windows 11 / OVMF boot freeze that originally motivated this was traced
+separately to high-vCPU SMI rendezvous lock contention during an NVRAM write
+storm on dirty boot, completely unrelated to the MMIO cache.
+
+Sorry for the noise.
+
+Thanks,
+Sami
+
+> static inline bool vcpu_match_mmio_gen(struct kvm_vcpu *vcpu)
+>
+>2) if patch 1 or patch 2 separately are enough to fix the issue;
+>
+>If you have time, can you also check if it fails to boot even before 
+>reaching Windows (you can try any Linux ISO, or even with no disk at 
+>all)?  Also, just to cover all bases is your machine Intel or AMD?
+>
+>Thanks,
+>
+>Paolo
+>
 
 -- 
-2.53.0
-
+Do what you love because life is too short for anything else.
