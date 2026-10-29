@@ -1,71 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257711;
-	b=4B030C2N036rjwcWmqUEEZ6RqnOkfMg26A/kcU47EGHQZlLp2iIuM8I1zf0xVmdc+U35
-	 ShOsVSZrH5VythlDeObYagFKStyNUMkVcrDLanMbUbVh/oTQern9RiAJG322Skor3o2K6
-	 vIkJ0skYaLI/Uciy5fxIMhzwgWbzu++kkz/qUzSDz56uoCTJDXWHy1Wrb9zkdxI++CcBG
-	 pc5jf9so9PWu7XKmy+wGIws7r85lkkns93ONoglBObjJMBjHEEEpXML3qX/4AhxdAXU5q
-	 kKmqDh7o/dYqmeIb3r5uJdJd10O0TQl+U1x7dQxm86ilUlnayv4zRDKNDv0b8fv89bw==
+	t=1793257713;
+	b=vO1ML1ihYJ8g9VUHgh8xAaiZsY3y4fyDDeoMlFr1Rxflor1HcUk41GBFoRI99Lhv6v3E
+	 IobTVuYlI0L4sujv8r/ncEuQJu6hmPLdKcjN21sfExmJKCiyxa6KsIpGahV2EAuyx0+nn
+	 Er1U13mXg08fTEvywuT4LVc+RjPzdNto9w4Un7rSCgYfC0k6yLgIiPxwuH/AYBvcEGJ/i
+	 FCLPUAH+b+OZOmvhYfsA7aYqML90gBIxLsP6WGOyN5R96iCHsRb/v+g3RHejCFaKRvjRU
+	 EBbK9txkiuGf9P9o1uQX3A2upjC9PoguhJK7ZG+/zAkFaf73U4VP4iUmH24Rd4BfwaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257711;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1mnk6HCaupblw/EK61S5BkiME4hmOYeInQztA0Fmq1Y=;
-	b=dBVx7tZDNeb4M0d4BO2KSdrrl0ryA+ngUlaRciUH/tARnKJQ47k9vWdZALsjckcJpO8k
-	 lnvMebH6da+Q8+55AijFsr6rKpsrus+m2X0IKy2t7Pfv2OhATIoIgh1+07e/KYNZEpCH6
-	 uii2XotThFmYBRefAUOnCEaTUIG+hglJLk8f9vdjOtyrr0payJ8+ZovynQxHprHoWX74I
-	 N4Rit2MMJFcjPryUbFMAjPZA6sOAbLUViADVNnOgRAXpp7bn1Ha9ZaADxEbgZd7zjQGR0
-	 pPuf/OQz7FevoLjUbMHlJ6jlCDkfxpmCem6g7Af6WgiSlXIC9za72SkjRCss8d+F5Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257713;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=K3AM1SjPaLQrVo38ruBsuLHnWg43JcXaTUMKROby+Fo=;
+	b=muEo2h3VoXCHB3icOSeKLj63GekFFKCXchYJWcNOoTWLFOlSFPLTcaO+9rRt7OYbqhhb
+	 gscscCWaDSV6pdV4B3s5LD+WOvCx6u3EoCNSj5l0Nw2YSyP+4/g29MbiCgLUv0aNyb5Ui
+	 JsNjhfwmXmuaUeQ8HvnLKwUKTRvM1XAh+s6rlUVorRaKMm7rdIhDdrCyaE/Kku7u6SeFY
+	 qhJR/oSksh4bLEAeaGh9X3fVRG/rZjGUW7cUiBz3herdKPQaKOiu2xeh0tPYqtAa75Om8
+	 XyxWR2cXlpw2QCTL1hW5OKese/LA2+YvAK/0FjiWQ+HKwsxtwdwo121yOIhnnsNCbXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=U3T+E0Pq;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3136606A31A;
-	Thu, 29 Oct 2026 07:08:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3136606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Ay/HXkdc";
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB36606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:08:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BB36606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=U3T+E0Pq
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ay/HXkdc
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-887c99013edso1180645b3a.3
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 00:08:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=U3T+E0PqH7zD19Dzpp+xnpf3auiKt73OZP6QiSFqhkkmEQ07BvoRk7J+7yTHNOPrwAxzj/2lMvqLx
-	 uiK0OoiJurbgtpTIhgHM4sci4/TnQfxsPcC439CYDu+wdGXV5gaXQfrYK3vvAf7h1kqj3dLx66r5N0
-	 lE2M0f1hBHTyfMoc=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae2f0e73a8-3474f;
-	Thu, 29 Oct 2026 15:08:25 +0800 (CST)
-X-RM-TRANSID:2ee66ae2f0e73a8-3474f
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181454368174 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae2f0e6fd1-25d98;
-	Thu, 29 Oct 2026 15:08:25 +0800 (CST)
-X-RM-TRANSID:2ee96ae2f0e6fd1-25d98
-From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-To: andi.shyti@kernel.org,
-	dumitru.ceclan@analog.com,
-	sakari.ailus@linux.intel.com,
-	luca.ceresoli@bootlin.com,
-	andriy.shevchenko@linux.intel.com,
-	gonglinkai@kylinos.cn,
-	rosenp@gmail.com,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	trivial@kernel.org
-Cc: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-Subject: [PATCH] i2c: atr: fix race condition caused by static local variable in i2c_atr_map_msgs()
-Date: Thu, 29 Oct 2026 15:08:17 +0800
-Message-ID: <20261029070818.639-1-zhangjiao2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+        d=google.com; s=20260707; t=1793257712; x=1793862512; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K3AM1SjPaLQrVo38ruBsuLHnWg43JcXaTUMKROby+Fo=;
+        b=Ay/HXkdc42VKrrrHQ1rh+tKnXsuLOIa1OfJrZUcujGB5FqhWKSmQQZVWMYVPZtXkaK
+         MNE2Mtr+Lkie5BhgtYxJe5Y1KyeiU2WMOeL8O6gxNtpa6te3Vbzk65XTKLWWS6r2m9Gk
+         EnCkC33NAkCC1ie1dxu7f/FtB9/9jL0OWhkLfG3oJUriVxrRXhh85nLgWLLMkLLMaOcH
+         CBK2OG2GrMuJPMfPdZsIastGuZLqFJE10MqhBcfAC9fWTN4Rfn68X0J0g6dr90EJrp5a
+         jLGZJmtb+uHL5+lW8JZdyGJ1TRMtZUv4ml/QofdCPJZKtJd7x00ZD3LpGFy1WB/iDWFB
+         X5Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793257712; x=1793862512;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K3AM1SjPaLQrVo38ruBsuLHnWg43JcXaTUMKROby+Fo=;
+        b=QrhtXAdZSOwGTbb0EAaMTUgZkAq7vSmJPg/I/59TeotyVX2RxAmn385PMZ6iMsGTHZ
+         kuOErjv0bM0akbfWudjw8DOektN671qxdLduuAfzOIFWQrvEiqC5zNRUlntMCDgL8G2e
+         YyhTgayaMTGn8cd/H6TKE//5Vk/akAs+W8DkBb54bp5CWt2s0N/YeSniVF5T9VLRoutb
+         AxZUncDQaXMi2CiLZSf3KeLYbibuAgSWys9MAK6p+7ixZ4fPd9hLeBylvCazA769KDt5
+         dF7/SEDPB2k+n53w/Vbi6wK3RJb4AO8yo57PaNwiKnPr6rYmhBarxxmCe4lk+hVdkGS8
+         Gxxw==
+X-Forwarded-Encrypted: i=1; AKwUvByQnnUKfyLh4cypGBXumXjek6CtxXn1ECrievzo3MN1LWhn1dBSGlCjWjXyRbxbvWgPYe9GmtQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJERkQX0n4L13AgONM94orzYXBqk2s6w4H6KQpvSTD14pKmLNnJ
+	3oHUedyTV6pBsRC1ox9PXikVl1RY8smCB7GKfCM7Ss1+Rdg6TRUIGlli7lInzjP9y4Ir54NvBv8
+	pVo2FZSHceExIKLrE7v6J/g==
+X-Received: from pfbbr15.prod.google.com ([2002:a05:6a00:440f:b0:8a0:7c0e:8263])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6372:a810:b0:3dd:a009:3182 with SMTP id adf61e73a8af0-3e9023432c4mr3356622637.42.1793257712327;
+ Thu, 29 Oct 2026 00:08:32 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:08:30 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,46 +75,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261029040002.2100002-1-stanleyjhu@google.com>
+Subject: [PATCH] scsi: ufs: core: Keep clock-gating hold on failed W-LUN
+ runtime resume
+From: Stanley Jhu <stanleyjhu@google.com>
+To: "Martin K . Petersen" <mkp@kernel.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Bean Huo <beanhuo@micron.com>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Praveen Talari <praveen.talari@oss.qualcomm.com>, 
+	Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	John Garry <john.garry@linux.dev>, linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Stanley Jhu <stanleyjhu@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+1. __ufshcd_wl_suspend() takes one ufshcd_hold() reference and sets
+   hba->clk_gating.is_suspended while the UFS device W-LUN enters
+   RPM_SUSPENDED.
+2. Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
+   suspend callback failures"), a failed runtime resume (for example
+   START STOP UNIT completing with an error) leaves the W-LUN in
+   RPM_SUSPENDED with power.runtime_error == 0, while
+   __ufshcd_wl_resume() already clears hba->clk_gating.is_suspended and
+   calls ufshcd_release().
+3. The next W-LUN runtime resume runs __ufshcd_wl_resume() again without
+   an intervening suspend and calls ufshcd_release() a second time,
+   dropping a reference it does not own and underflowing
+   hba->clk_gating.active_reqs on UFSHCD_CAP_CLK_GATING hosts.
 
-The variable `c2a` in i2c_atr_map_msgs() is declared `static`, which means
-it is shared across all invocations of this function regardless of which
-ATR channel is being serviced. Since each channel has its own
-orig_addrs_lock and alias_pairs_lock mutexes, two threads can execute
-i2c_atr_map_msgs() concurrently on different channels, racing on the
-shared `c2a` pointer.
+Keep hba->clk_gating.is_suspended and the suspend hold across a failed
+W-LUN runtime resume, so the hold stays paired with the W-LUN
+RPM_SUSPENDED state and the next successful resume releases it.
 
-This can cause:
-- The wrong alias to be used for address translation, sending I2C
-  transactions to the wrong device.
-- The `fixed` flag of an unrelated mapping to be corrupted, breaking the
-  alias replacement logic.
-
-Remove the `static` keyword so that `c2a` becomes a regular local
-variable, eliminating the shared state between concurrent calls.
-
-Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
+Cc: stable@vger.kernel.org # v7.3+
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- drivers/i2c/i2c-atr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/ufs/core/ufshcd.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/i2c-atr.c b/drivers/i2c/i2c-atr.c
-index e6d2af659d81..c9ad46db438d 100644
---- a/drivers/i2c/i2c-atr.c
-+++ b/drivers/i2c/i2c-atr.c
-@@ -360,7 +360,7 @@ static int i2c_atr_map_msgs(struct i2c_atr_chan *chan, struct i2c_msg *msgs,
- 			    int num)
- {
- 	struct i2c_atr *atr = chan->atr;
--	static struct i2c_atr_alias_pair *c2a;
-+	struct i2c_atr_alias_pair *c2a;
- 	int i, ret = 0;
- 
- 	/* Ensure we have enough room to save the original addresses */
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index cc75384c6502..9be370cea52a 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -10626,8 +10626,14 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ out:
+ 	if (ret)
+ 		ufshcd_update_evt_hist(hba, UFS_EVT_WL_RES_ERR, (u32)ret);
+-	hba->clk_gating.is_suspended = false;
+-	ufshcd_release(hba);
++	/*
++	 * A failed runtime resume leaves the W-LUN RPM_SUSPENDED, so keep
++	 * is_suspended and the suspend hold for the next resume.
++	 */
++	if (!ret || pm_op != UFS_RUNTIME_PM) {
++		hba->clk_gating.is_suspended = false;
++		ufshcd_release(hba);
++	}
+ 	hba->pm_op_in_progress = false;
+ 	return ret;
+ }
 -- 
-2.43.0
-
+2.56.0.313.g2479322e68-goog
 
