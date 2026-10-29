@@ -1,65 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.130.44.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793304157;
-	b=TQ8s+QWWxO9u4QBm+s/gW0plWW/IKMdfd2BLRf9wyJSKgbW+yApiWbmAHUrLgD/6N5K0
-	 9dMehuVzC/Dq+ngyy/k7PF4SFZ2cGBuG2zSzfKmyCI0jnR4Q2oqnUjW8g9CXDe2fLQsHl
-	 8CcfolNtFo0LMX06RPxZKIb3MZEMiTOtczACNc4l/oWo4jmo2Xi+B9JbqhaxO/7P+p80m
-	 +ZR9OPqqBtHWDpE104pfINOXf20VYnUQFSri18shp9wF4+nXYWxyfH6+SipSQX0Iy03cJ
-	 gwSbPu7Mb9XkK+ClOU+HKUmhHyDeD/qkUVO1CMmlUTR5eK+SZauf+YKL4QsKauP+bLQ==
+	t=1793304441;
+	b=bkJIOYa84irjp9tE+cwuF5eKxadj5EIPIFIn0Vqyir8JoArKNgpjx67VuXk/QzG2enqA
+	 0iUnVkpEzwpDt3a+IeD4fWKjbNO/dfGeeecR9eSuJ6rL9fSphnwSzx9P9vCopinmqhZVf
+	 vg+DBu9JqtokRuecnzznb1lNrtl0zuqNBtvDRmYQTsDQ4HriZKpZwbg1Q/hRMnVDVQ0Sc
+	 Z6APpVa7Mew9K49NiDj9rsbjt7koltHrgTm2GgU0/Qi/xzVsXLdXXZfqCSE3IU7K+obxd
+	 4W9Gl9BJAugcv2B4R+HUsgP4jF3Fj8A//QvYXjNxgiNOeYLpKeFUp7mloSBEImihBcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793304157;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=zKBj/4/nslR1aXuIkz63N04FOxASl+KN0QZ/uCoAH4A=;
-	b=hyjEGd93xb5kkyP3qfjG4L6uajp32+fkIETsxwbu1PQS8TF9I+PToDAywO91716PlLaQ
-	 yJFSc+/DnG14MQ45/TpB7ttKCsFhH8gW/dxUEqAu9z48aHqefsKJ3oel8M+FXKomscOyv
-	 m0B6pJ6yocETI2fn6Hg9urT79ozi+Yta45Gh4+TA/G1CNmlhqhG13zAScql13Hdj+XAmP
-	 Y2F8aYC4XuPP3NfUhHqXt2KUnP0OS4IW/3nKbRw0+oTZ8D7q4TR6U54D8kiXBMFIeVuY4
-	 XlQXuwfX+HaTgGmTVDkLJ3LbUJL7SI0Jd5u50bHpvv/2PcZMaDbt8+846e/3j5RKm5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793304441;
+	h=DMARC-Filter:Received:Received:From:To:Subject:Date:Message-ID:
+	 Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-Authenticated-User:X-Authenticator:X-Originating-IP:
+	 X-SpamExperts-Domain:X-SpamExperts-Username:
+	 X-SpamExperts-Outgoing-Class:X-SpamExperts-Outgoing-Evidence:
+	 X-Recommended-Action:X-Filter-ID:X-Report-Abuse-To:X-Complaints-To;
+	bh=pWpBIbE1tpakQFXOiqC33gk1ji50hFVwpLCEgZ+UptI=;
+	b=d1rluHljCcMCdHPM7+TRZjaHe30MahUM2RQRzJ84qXBIJiSCrTMVtpzBRz1uKkVrHvR7
+	 8ec061QugQMHZ+iYggYVb+tNV8bmIoYCN8zVbyY228GZDM3KskLxECgaQVW0dfSQEfWtM
+	 UKCDyJpztcOkCo5XKPoqTf4/ofCKOdEBj9tPhnlcyJD+uMF5QkjiwG63gUwFxsLY7xYUz
+	 B2BBqMWDDGed7MyN1oeHiuWY321MMx45SSSIxgXofHc+erLjaQkDsv2x+FWPdXirkpzFL
+	 1n2FSyu4rgphcewbkkVlfqZObTL50kXFBWHJlHBhYbXBi+Aes9ggmHoG5hYIcGEWbOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="vdi5/0Zd";
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=fail header.from=buryconsultantservice.com;
+	spf=fail smtp.mailfrom=buryconsultantservice.com;
+	arc=none smtp.remote-ip=202.130.44.230
+Received: from out202-230-vmse04.mailcluster.com.au (out202-230-vmse04.mailcluster.com.au [202.130.44.230])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCE1606A31C;
-	Thu, 29 Oct 2026 20:02:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DCE1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=vdi5/0Zd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zKBj/4/nslR1aXuIkz63N04FOxASl+KN0QZ/uCoAH4A=; b=vdi5/0Zd/6Xz6Rp5HRC/mveyI3
-	4PI5bZgyL7DpIZESI385vlS1aDjzpPHdHKr7jzWQcXtFsr95tO9srXq+1SgTUmlFOj/tWhJQmDW0i
-	FxJi7u26tzbINCzg9qdzAh3Q6+dvF10rGd28LSuLLKO7GyEJqFu3OMkb+Pm7BBtaY573EtGmxzVo8
-	WkAB6JrFiv95j5scLqaAOPgc8+fCUDhlS1/RK4G9t7pKEp51QcjGc7uoE52v0TLYQsln5hO5AhWtz
-	ThWjNUm7ukcilSgqnTpFvcpa/QsJ6WR4BTVMl70JrtcN4gHBjzdFOa54C1gl0wgblNhFj6WvNeUIN
-	7urNr9NA==;
-Received: from willy by casper.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMWKX-0000000H1uP-09fx;
-	Thu, 29 Oct 2026 20:02:33 +0000
-Date: Thu, 29 Oct 2026 20:02:32 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: "Liam R. Howlett (Google)" <liam@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>,
-	Herbert Xu <herbert@gondor.apana.org.au>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <auOmWM5uiQC9LPwx@casper.infradead.org>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D598D606A31C
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 20:07:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D598D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=buryconsultantservice.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=buryconsultantservice.com
+Received: from sh00074.dp.smartservers.com.au ([116.90.32.86])
+	by vmse04.mailcluster.com.au with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <support@buryconsultantservice.com>)
+	id 1xMWP5-00Dk7Y-C4
+	for stable@vger.kernel.org; Fri, 30 Oct 2026 07:07:17 +1100
+Received: from lim106.truehost.cloud ([145.239.3.48]:40978)
+	by sh00074.dp.smartservers.com.au with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <support@buryconsultantservice.com>)
+	id 1xMSyi-00000001aL0-1LYb
+	for stable@vger.kernel.org;
+	Fri, 30 Oct 2026 03:27:48 +1100
+From: Loan Consultant <support@buryconsultantservice.com>
+To: stable@vger.kernel.org
+Subject: Loan offer
+Date: Thu, 29 Oct 2026 16:27:47 -0000
+Message-ID:
+ <179329126756.1004468.6314595419607518443@buryconsultantservice.com>
+Reply-To: support@buryconsultantservice.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,27 +64,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028154218.1668182-5-liam@infradead.org>
+X-Authenticated-User: bsharp@kelils.com
+X-Authenticator: dovecot_plain
+X-SpamExperts-Domain: digipac-sh-outbound8.mailcluster.com.au
+X-SpamExperts-Username: 116.90.32.86
+Authentication-Results: mailcluster.com.au; auth=pass smtp.auth=116.90.32.86@digipac-sh-outbound8.mailcluster.com.au
+X-SpamExperts-Outgoing-Class: unsure
+X-SpamExperts-Outgoing-Evidence: Combined (0.65)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuUYotl21Sr/aWO2JW8Cj3IPbfafNFBigL8X
+ VwhS/vM3WCu2SmbhJN1U9FKs8X3+Nt3uG03lT3HXOS+61P2frUBtgYbIeq91fhUOUweyJiWylt+4
+ 9mIzG34pQwX9wNQunZvgo47TufSXSaPCdJDfebsFvmCxN3kuXp5VzgZ26Dl6IArZqEIWNsawW/Av
+ rVlL6q6gSrEnYb3fyebF+XWmY5GL5Jl1E7MMuTIBkHKu0QRiGc7Yc9LzZDl/BJuHI+g/8HV/zEhP
+ hDec8R03E7AFnGT60MxOKVrDfQzDgqFDumjx967VZqJmzCeHtqZ+QtMgTB13guhadlHkux/su5aC
+ 0xs45Oj564+e6R2rCFo8ZeVUGgpEGVvNbTBAUOGwJ9Lg6yfbhkbij69AW/2LjxMfMQqfhdXUe9/n
+ af2Q3EbTB0IyyDjsVKEGwN6GJi+x8J3lfkS78+Go7wDzMxjFJzQatej9UuVE6kziDBVpFZ9V5tKc
+ /HGlfXdmgJrKjBlTpWs78y+4UtfbzzquXBT3UEYX/6y77WQIKkSd5S2IeKXhe3Oe/XyZGyC7zuqv
+ 5AHmVxyNc+88XKLgKVqGtIPPU1llfLA/++DuIQUs/5JJj4C/n4CILhiHt+JDtLggbJS0paA8rBnY
+ G4VUR8xEanpqFkjk0Abo2LS6bkrDlqn85ivO5+0zESNK8AYndLgjhCEsJMoaamRM0OmGigmHczoB
+ pZp/2OCU0KYWgeNnRxC+CcRAnw6YlrQYUe4LeHn/G9rMbj5KNOz3Y80OmAux3oN13+ztUzneOAFL
+ TiP7lkD1/DLNDCoe88VMjYQEXfrIBCTYqjquM5llMDvY1Q26cFutbiPIGy6VqJ3nmRaWVbH3v1fD
+ BYG2saoLrQqbVc+LQ1N7Ig89H9n0tmKXofFl+MpgfGFh5QENnToO9n1yCJQ8+ygUU9p3NyUKRK6O
+ bnxr/EH5cLWQJzoy3aSOkQia/6zdPdhcL92mC5kmy9jgYjuQhJfWW/EfQjVDbJMhM0SqiQIppFM6
+ lGK/Ol5NjkUxH5H7TiNrHCcEc4M6en4NDwk86pPC0V3Vi64GQGWbHfF+lD6+I53ObFd1KRVtfIeS
+ z76M7qROooCH3pKrSxjuWaNDH2yqPS//glajoZnafQ5wrkhDgPhgqn8=
+X-Report-Abuse-To: spam@vmse01.mailcluster.com.au
+X-Complaints-To: abuse@vmse01.mailcluster.com.au
 
-On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
-> Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
-> while another CPU is inside vmalloc() or vfree():
-> 
->     RTM_NEWNEIGH                      vmalloc() or vfree()
->     ============                      ====================
->     spin_lock_bh(&br->hash_lock)
->                                       spin_lock(&vn->busy.lock)
->     rhashtable_insert_rehash()
->       kvmalloc(GFP_ATOMIC)
->         vmalloc()
->           spin_lock(&vn->busy.lock)
->             waits for the other CPU
->                                       softirq: a frame for the bridge
->                                         spin_lock(&br->hash_lock)
->                                           waits for RTM_NEWNEIGH
+Looking for business financing? We offer loan options designed to support bus=
+iness growth and help with your financial needs. Contact us today to learn ab=
+out available amounts, interest rates, eligibility, and repayment terms. Appl=
+y now to get started!
 
-This seems like the kind of deadlock that lockdep can catch.  Why
-hasn't it?  Do we need to add a fake lock for RTM_NEWNEIGH?
-
+Loan Consultant, uk
+Not interested? Just reply and say so, and I won't email you again.
