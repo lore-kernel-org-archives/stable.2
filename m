@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793309117;
-	b=HbKwuK6NYykeVMQcpvl6vPQ7trFpD0NVs/Z36b8aSUdtSA2qAAAubT68H8om6FvCJX+v
-	 K5ywdBKYgoIa4AkOBZ6yNLzpoIctpml1vPafG63RXL50H3RNKFHk2fEZzj/Xr/Ry4YktV
-	 ut6BwEbZ+JthadNlUQpNpsHOXy3esD2dtATB4kdkDQFtYvtH2wSFDuMBZQBo6Vs3T5I71
-	 r1cOwYvjD1Txxe2vzCh1Dv4lUtLJWPC/QroHvhwSqucQaMaOYfFiPR4DLTC8PWmYHmDEm
-	 T1L5PIpqX2k1PWDVvup/9b1UHbO1B2tII9lmV0nsj99JiDCRpt4sa8WZVrmKPDITVyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793309117;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793309465;
+	b=hHNvYkASfgNM6HMynozWeWIjuoxux20dRZvH+06qMI7qioNa/ymqGUa+63UkV2Gb8JVt
+	 yh/z5lqYE5qtQprxX61BQX2jsHzmEl6i81H0ysUgZHdb7hpvEjOGEWZtKGQbnxyE3pn9N
+	 ehPYWGO6d6zsr0Om+mu5fNFVRo1EXyKgc2HLphGzHWxlckTyQaV/UqTmD1LTbBglbDziJ
+	 c3gpWryGBMV2RpI+GldIRFNylQrmKx0RNsz6w5MXMsKYpaqqFuA8qNRBP92BCZR77rjvR
+	 G/SAIE1aX3iO2KLZtLnvrZ+pg4N4pJ70ZMHCEkthzR+6ZZ0C59GNeGVsz88KSF231ug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793309465;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YsEaBkCIxknBVMj/WhDHccQuJ+3nt9IxBGjxscUMLpo=;
-	b=vD8tTJ+t2i+BGdC/dlU4XiZXijikQgjZXJL3XTOxsPm9q+ftaoBH/0AaDj6PigpPRiRn
-	 CLfFiIR/L8YSlwJGG34PORh1NdTWtVCxd3zke04SJyNfM43zcEWUz7sohRJX6MWVxF19c
-	 UNNL905srSER0OZ/rpETFk3QeoS7XO12lwAS/9wRguox8VTxxSYh+br+ELFTCReq+cmKU
-	 8we0h4YkEM0sFwDn5H6E7uF2jAG4CIXXpvOgEGBw2T95Bwh1WqbwQGLdnBjCRYiwg3CgM
-	 qVMgio/3N4xCbUhIqnmOk/OcoA4lN59M4pFN/k8JyasJR60byMWu/izgUKDKEBOHqRA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UQ0cWYmw;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
+	b=jiqtvgPpFi8s7KUSan/Ym6CnHs2nr+6SweZY5DNI4tXZM5IlQtihdQofCzIg7Z8/MnVO
+	 jpxHW6MjC5CxvwDMLou/0yqk7czeGI390QbgC7hU9bssyoInIx07yQpqFWWyN0tu0RZF0
+	 T9itXezsbpUdMLKl4QOlimwSHqevy/9AqfI5p/rGvnbrSfLb6DWkQawXnHMfJ3B09ZGgf
+	 DpKRBsFaT4hLqLPpTF7k4QllfIbfuGm6bYiBEGhxT+Tyfj61AKwLGPcbX6RdMLvSdYFNY
+	 zvGzppyIKJbrdwrVA/9guXsbdSJoi67EcAKJG0erBpTHwJ/fB2FrDYHz9tKMyVClAfA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d0IwzWfv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BF5606A31E
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:25:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25BF5606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B666606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:31:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B666606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UQ0cWYmw
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so745073f8f.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:25:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d0IwzWfv
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so1492a12.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:31:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793309464; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Nbd9ggvxpB9fMYCbVMzcJU5+XU3XONzbqtYUJWDjMiQae/fFQgebhdCPGPP++YbIF7
+         eRbVWcj9So2dtyGVxbNP/t5FPxtAgpaIhUIcNHzDLRWP5meMzZVymTkAop7Sm7JMCMlS
+         C6CFUZURRJz1+lC2Lip2JAUjg5NYVjMeT2J9x2EE6hl/3gk0OshV85XjJnIy5QM8Y9QU
+         Ad+L6UfzrSNbXIg7Iro1u/FhHcG17T1G4SSviovowb6OxLq8AVL6D3h9KjfwrtwtPPx6
+         MQcbYKEXwPhZ4YbiY9VPRjxCKB9najR2mEJlVAmUX9CjE98N4wOJ5tWmfuXmG26QWZZt
+         fNkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
+        fh=z8C0bJPXptTQFZ5b7u9oTozbBmp9VE01l+vGyWcmexM=;
+        b=UtK75Wj5g8oUhzxyY94PTUtZuFVwbtzK+VpmW3AaGrotBSJ2ACwLH3PvXz2uVsXXvV
+         cgiE0NyYSq0MS8FIb1DZ/EENSo5XyCdGycz0Y4djWVSeLWSQL98hKeSQTzHChJGD4yWN
+         lRvYOzYeSdtyt4jcdqq6b2uiWB54h1Pjz8S5TaY2xjxUXoQwtHAYx+IvlBxZQ3v2mY/x
+         oL5j5+YXge9Jz3L+04pIAsdOm62Ir3juBW6P/WV58bES1rixljUpsEhNB5mgVyXJcurj
+         i2EmNf+qn74EL7mFjJ8oKxrh4G5I30zyA9M0uzK8IVw0UBTTPv8GvcOH2Jxbjuq5StVT
+         Nrcw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793309115; x=1793913915; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YsEaBkCIxknBVMj/WhDHccQuJ+3nt9IxBGjxscUMLpo=;
-        b=UQ0cWYmwB3jJfwAG1106aCDhGfB+TsoimabA+dF1hok5/iBCt3JQKmDHk02G/0cmh+
-         S1v+KjLNJ8XUQ2ZmEIazHxY8DWuD2guxi8g/zeYUNgINSbaUpVCEFT0Aum8Zu3F6OgLw
-         iGKzFHnggWahtTRtD7Z2ar6Nj8irExEQqiEbrtuFIcf+Cpb/cMvG36YAIYghUKt5MbEj
-         gdr0CjXCsOI83WApEB/CY0nJIivNhMk+a13p+b08dCGwv5jt89fRJ/1xum+o9tybC/2o
-         PA30y1k3ev9gUbJx1t6Tg7/bizxzsnJBHuR/7z89qADMBQl9D3JBpr4kGU58lOqEXDzJ
-         NbrA==
+        d=google.com; s=20260707; t=1793309464; x=1793914264; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
+        b=d0IwzWfvXP4d3zE2Zq+7oXnlNdI8Mv0zAp505O9nyaJgZXdanqRMuWEgS+guwgbMcK
+         qjGNhXfRKgan5hb7y4zOFTHMbH6Tcw3jeHDOG18EY4UXb7VtigK19BYMH97KsqxkYmDL
+         l+GLMbO2+BxjqzfRAywwHjEruqTIDPw7dgM4MUwiBjoIheOs8REvzs0/Y6Q6PrAFlEql
+         mPWcnZ3c/XUAO1dBalQNFecjxiVLLF20SFKMC5/zsiqUBSZ/MpfhfGS8dyRM7P6QeqVU
+         3ZwGSnmVJC4rb6zK5WQwPFg9MDKOMBjjRYWiRwylNoW9y9e2g6YpPOTipBjLSvUVdMlF
+         6WyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793309115; x=1793913915;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YsEaBkCIxknBVMj/WhDHccQuJ+3nt9IxBGjxscUMLpo=;
-        b=Z69/5AP9hUUx7Nu94kbloGGl6OCicJRW7ICsIv1mLuEjFom2Xv4w7JlbxwFZmuPHd7
-         BVJgCwz4h9d9yfDUtshnPAMvqbEtf1xfcTFT/akvE4CbiwquTYN6grTeQ2CEJ5lqoJUy
-         NkW7JESRDbBsZH7WZrQ4UMfZpJI9SiH8t2gs7pxcI4kGePd4lM4obg3CO1UkdTYufarH
-         4lhwEcLMkPgZFrT85AMqlABkihafHBb36NLC7nsFf2MD4DM4q70OwwLUDsRzs9aALP5W
-         3FB/vBk1Oso+7yt7gDbl7844QVXqsmgxOF+V4dd2rT3AP+MWmN3MJMjdpSQCgJAFnbpE
-         Jd9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxBotI0CD595jzjr8DflDXgNKgfPFskxGTig6xYgfmL/rAMzSOg0MRHIm+uKIM15HK0T32d/IA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJd7zjVPqQhhJg1OnEavUQ8pcbuZWuEfeScEGXaZVgfv/v69wN
-	n+OHqNSe6IL+bh/nP/1SN/dk89QG2p7H6zKRS09Mzb78JtlgaMiQ6VY=
-X-Gm-Gg: AYBFou18rSGmKIux70OEyP8VoVspHDY9Kpqf5zbf6jTi/jbUfdWofO/sBTARhyD4Z6E
-	Y8bXyvjCEWoD9SigP9/AUCE1QesLoncOOFDD0IQPEoTxG18o5r+BmCAAAdiWKxkS2DPPWe0LEOl
-	vwveDTsBPkxcEhHnj+6g5Vdns+bDcfFGFGw8JK7qM7anuI8yeYS5YDmBmfwJgFkj198JRYFQPad
-	DZ6n1n3NGkWFZWD9wiLguyS8MRgKPg9mF3hLKiWDih8mBToI22W9iMkDfBWgKWgwWQkZ/sa2LPh
-	sDotebcKkCJMmqQB0ygSG2VBqXTKoi2B3uc/gXa6fVJB5BDeswrVmLZSCirlCXVFCu1skFMwEGY
-	BvjDNOsSRozbvCOJDxSb1nJ526Y09W/4jGNSezJ7cK9q+jfoeyBMQxKClj+NFrVYISXj2zZpIc3
-	q47TDVOURzI+QMmNGTRe2//aYYt+VemWsdUzRynN23SomJp93+nN6o3xmu3e8Cb1zf9y2NcywS5
-	aVHuqRCMocIN+dmIKCnL3vddeagIZwG8ce3wGvT812tsi8Y7SMbYO52rZUGMpe+BLyRqbj0APoF
-	v2A03Q7PWyvt2ch5Dgw=
-X-Received: by 2002:a05:6000:3102:b0:48e:22fd:1ea3 with SMTP id ffacd0b85a97d-48e64d02817mr9721213f8f.28.1793309115564;
-        Thu, 29 Oct 2026 14:25:15 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6eb82584sm714873f8f.27.2026.10.29.14.25.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 14:25:13 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Bard Liao <bardliao@realtek.com>,
-	Misael Lopez Cruz <misael.lopez@ti.com>,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 4/4] ASoC: wm8994: drain delayed works on remove and probe error
-Date: Thu, 29 Oct 2026 21:25:04 +0000
-Message-ID: <20261029212504.2997364-5-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261029212504.2997364-1-tristmd@gmail.com>
-References: <20261029212504.2997364-1-tristmd@gmail.com>
+        d=1e100.net; s=20260707; t=1793309464; x=1793914264;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kreUdF0uNoXIPwkvrEWSR7P/OzeK9mmS/iNz6Eo8YyY=;
+        b=EYmb68g9wizzNcDqSIgOuvESHPdj06XtwU3dSgOBDmtqHsMQZlJsU4j/xBzicRxF2R
+         2CnaQRUk4dr3X8r1n/8ijseKocbF/RoeZJl1nBiupYcKBYHzSeP2vU4gm/Bwm1rc5vG3
+         cQahxav5GMuZY1axoN0uIAWP8EwpJlRKq3tKE1neHQ++sc19aLDRQestPRiO65h92ptq
+         9KA8YQg3suzCY0Y1abOTfgl4JkZBGCybdjQUrWMYLG6JI33aMsr9rygMmkL0DCOBz5fW
+         aLW0knoleCsFBDZ8LaNhodgX62XWBJ9DFniT5CDbUAMP5HH/M31L1gcsYj6U4DnL5bED
+         deug==
+X-Forwarded-Encrypted: i=1; AKwUvBxUOr7KPwSkvVI8nt7qa67Xo569jCfbpgb7xjkcKnireAH/TLImQ3pXFWH8RnI+uzN16MeSKT4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+dqx6fI9opURh4rT1XpLHOjSKEmw0OvkRtST1O+btOMpRCcXq
+	vsve5kA4jW4jTWcULQl/jtQ14lWmbS7ywgdl7IiWY32yGdPJiLj5iH9mA02CO3CmPs3p8lYZpTs
+	9nUOR1Md723/wb5QSZIWMWnnh1u+BtLUIvjo6Qf1y
+X-Gm-Gg: AYBFou23ofJC9nFjFihgNaaMxyiFMAhvFS3MecxxOlopz9YyFlNcBbXNmdVivsVDzZz
+	wS+4LxkSL0ZzWZmw3DWETsGN+BlsK6jmJxOKZxd4PjRHI2mGY2Q3zlk4OOV+yU9z1gI5ub807c+
+	coePj2ti+1Thw2zFnW4nclR2rS3yKiMAazjhj/2aYpafFRU0NWod2Lz5RyJNwOPMN7q1w0ChVbm
+	JTecGuq+gqlY2vZyS7NpIxW5Q045wXihPmW5qDq+HIUfBUd0UWsXyUW4ZG2KZ28TnNnKqO1mnf9
+	xXCZoFlPhD4ZSFKktOaw2fHzkqz3bLPA1Mi6C6c+4qnGlCeBjwnjLnfHZO7Kd5biqXhuBLNEPxv
+	5gBomWrU8Ec1XP4jBkYVs8FwMxLdNlhO0NoL6l7JxVAMx6X+hdK7/eFH69jym5cKaEOs=
+X-Received: by 2002:aa7:dd17:0:b0:6b1:d80d:396b with SMTP id
+ 4fb4d7f45d1cf-6b4b40b8186mr104372a12.14.1793309463143; Thu, 29 Oct 2026
+ 14:31:03 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,70 +104,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261029145844.231018-1-omermetekaya0@gmail.com>
+In-Reply-To: <20261029145844.231018-1-omermetekaya0@gmail.com>
+From: Mina Almasry <almasrymina@google.com>
+Date: Thu, 29 Oct 2026 14:30:51 -0700
+X-Gm-Features: AclHuK9vwMToW08OTMztQpW3bR5sve3bLoPc_H7WIharriRZuH5COTSWDbQX4kE
+Message-ID: <CAHS8izORg8OR8TyWBHmZsgFBtM3+qh7gXCJxifk1QGs13Q=ygw@mail.gmail.com>
+Subject: Re: [PATCH net] netdevsim: reject port addition and clean up ports
+ after a failed reload
+To: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abini <pabeni@redhat.com>, Jiri Pirko <jiri@resnulli.us>, 
+	syzbot+88435e204734072bf39a@syzkaller.appspotmail.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-wm8994_component_probe() schedules several delayed works to handle jack
-detection and microphone status polling.  If the component is removed or
-probe fails after these works are scheduled, they can execute after
-resources are freed.
+On Thu, Oct 29, 2026 at 8:02=E2=80=AFAM =C3=96mer Mete Kaya <omermetekaya0@=
+gmail.com> wrote:
+>
+> nsim_drv_port_add() does not check devlink_is_reload_failed(), so ports
+> can be added via new_port after a failed reload.  nsim_dev_reload_destroy=
+()
+> returns early in that state, leaving them behind.  nsim_drv_remove() then
+> hits WARN_ON in bpf_offload_dev_destroy() and a subsequent use-after-free=
+.
+>
+> Block port creation with -EIO when reload has failed, and delete any
+> leftover ports on the early-return path as a safety net.
+>
+> Fixes: 75ba029f3c07 ("netdevsim: implement proper devlink reload")
+> Reported-by: syzbot+88435e204734072bf39a@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D88435e204734072bf39a
+> Cc: stable@vger.kernel.org
+> Signed-off-by: =C3=96mer Mete Kaya <omermetekaya0@gmail.com>
+> ---
+> Tested with syzbot C reproducer.
+>  drivers/net/netdevsim/dev.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
+> index feb88ccbbced..61f0824ce4d3 100644
+> --- a/drivers/net/netdevsim/dev.c
+> +++ b/drivers/net/netdevsim/dev.c
+> @@ -1697,8 +1697,10 @@ static void nsim_dev_reload_destroy(struct nsim_de=
+v *nsim_dev)
+>  {
+>         struct devlink *devlink =3D priv_to_devlink(nsim_dev);
+>
+> -       if (devlink_is_reload_failed(devlink))
+> +       if (devlink_is_reload_failed(devlink)) {
+> +               nsim_dev_port_del_all(nsim_dev);
+>                 return;
+> +       }
+>         debugfs_remove(nsim_dev->take_snapshot);
+>
+>         if (nsim_dev_get_vfs(nsim_dev)) {
+> @@ -1758,7 +1760,9 @@ int nsim_drv_port_add(struct nsim_bus_dev *nsim_bus=
+_dev, enum nsim_dev_port_type
+>         int err;
+>
+>         devl_lock(priv_to_devlink(nsim_dev));
+> -       if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
+> +       if (devlink_is_reload_failed(priv_to_devlink(nsim_dev)))
+> +               err =3D -EIO;
+> +       else if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
+>                 err =3D -EEXIST;
+>         else
+>                 err =3D __nsim_dev_port_add(nsim_dev, type, port_index, p=
+erm_addr);
+> --
+> 2.56.0
+>
+>
 
-Cancel all pending delayed works in the error and removal paths.  Guard
-cancel_delayed_work_sync(&wm8994->mic_work) with a type check because
-INIT_DELAYED_WORK for mic_work only runs in the WM8994 and WM1811 code
-paths.
+net and CC stable for a netdev sim bug is extremely overkill. move to
+net-next with the AI-review comments fixed, if any. Thanks!
 
-Cancel mic_work before and after jackdet_bootstrap because the two can
-re-arm each other: wm1811_mic_work() can re-arm jackdet_bootstrap
-through the DAPM power-up chain (force-enabling MICBIAS2 triggers
-clk_sys_event which queues jackdet_bootstrap), and
-wm1811_jackdet_bootstrap() detects a jack and ultimately queues
-mic_work.  The second mic_work cancel catches any re-arm from a
-jackdet_bootstrap handler that was in flight during the first cancel.
-
-Fixes: 99af79dff5a6 ("ASoC: wm8994: Ensure we get a notification on startup for jackdet")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristmd@gmail.com>
----
-Changes in v2:
-- Resend as part of unified series
-- Cancel mic_work both before and after jackdet_bootstrap to handle
-  cyclic re-arming through DAPM power-up chain
-
- sound/soc/codecs/wm8994.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 8bf58a6a8af7c..b9e0df83b9bfe 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -4551,6 +4551,13 @@ static int wm8994_component_probe(struct snd_soc_component *component)
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_FIFOS_ERR, component);
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_SHUT, component);
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_WARN, component);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->mic_complete_work);
-+	cancel_delayed_work_sync(&wm8994->open_circuit_work);
- 
- 	return ret;
- }
-@@ -4592,6 +4599,13 @@ static void wm8994_component_remove(struct snd_soc_component *component)
- 			free_irq(wm8994->micdet_irq, wm8994);
- 		break;
- 	}
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->mic_complete_work);
-+	cancel_delayed_work_sync(&wm8994->open_circuit_work);
- 	release_firmware(wm8994->mbc);
- 	release_firmware(wm8994->mbc_vss);
- 	release_firmware(wm8994->enh_eq);
--- 
-2.47.3
-
+--=20
+Thanks,
+Mina
