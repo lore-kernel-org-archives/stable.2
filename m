@@ -1,93 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793311355;
-	b=iaC4B4oktgZCj14xT0isHYA4BCLD95OEL9HodIbzvcVJL/KKR26wfr29bsL8tyTCE4Ef
-	 inXOB8oW7IvWmWCrL2D5tDdHk4CYVWK+Cw/s1nSDbt4RsTUBlzyd6Ou0yHwAbGVFbxpKw
-	 2+TyxJvj5ss8ZcnmOEhCIKb/bPby/tPUw+vl3jx6f8TrZUHiXMwMcA/iREB5ImypyRQ4i
-	 OyAmQqzeiCMHMeoUGzwyaOjpVdBhBdMTi1RI+nmTSH911T4NLr21usytbuWriMuUhnJ+N
-	 DKGJ/rmWOgLUVKq1tW6sJqX86Y0mdxA5gNJdOoXDhRcWDaUjWb803LnkCPiXoorYY4Q==
+	t=1793311900;
+	b=QwC8z4cn2bF7aLr4IGdQXQSRq0h01/gT0419ipgR+ReuNFPNpzKQuM/i4SwlmvmApX89
+	 YZeme9NbPTm/0oNjW+DJ3RJ0CimfLRqcXE8avojziGHbxeiiqZGv7TuZKmU1DcnxJ17i7
+	 RaxWJmuYokHTeWIGjKLqWgTvdu8aJzXdPNN9CLTcpEX98xxuUtiURVIU+u40IKyamJW+D
+	 iTAioLo1DYuMnn7uCxudce875dX0K6GeL/WcSz4+29H4rUqugFPD2Z8H+9CZymDzT6BoB
+	 SWRHWHLd97yvKrZTylBN+quFpEQNuTsSKk46cYJajGnBrFzfnn/muSfDtXPwSNUEKjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793311355;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793311900;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Tqi07G2NK5B5Re2GQGo+ZSlYw+c4Yb95iVdRzLGMPO4=;
-	b=jqZnTUZv24VEQEYqRjovB11tiqde8rFQ5llA3ZlGsx5EavAfxq4fsn73/KUVe7R3Sqab
-	 0smFK3hcbs3dqemrsgDTTUtTPQhok2v//B4NvF80BLC9nALQtut5QiPOzrRLkYVW00w0Y
-	 KSzNNRqaVegOhm2GfsTEBDVBDt91nMrqzSulK1inzaAzL6G6S4oxoI0Xhh/btXiLcRpPE
-	 iqjH486DmQfWp8+g3Zu35KGKnYibmrc/FztY4eu1kR5UdF4nwsqeYTdgk03/2gBYZD1Cm
-	 VVR3RI+XC3a55JXgIcZ9FM5+3+Xt4cwZ3pGbVfSDPblAnNApYgd2qEgaa/z77eHREMA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5jNtZbHxCXS7Amya3dC3EE3s6XNWDFBG2KE54hDksKQ=;
+	b=1AY060R4hns6dB5Ms/cKIj5b1dHpPAF1e9SrNlHloN794zL5U4r7tBMfWvnbvfjGTH6k
+	 dS6/mJXc+Gl8cH3NPfQbB5vg1UxNWylVbD70xamxbEo66X/uhJDUNk52W2CqCUU2qINYO
+	 oQ9jUTfkugbBuY2+6wFVQpWGrWYA8R6OVkbiXULJxaG3EdhMqS/eFxt2O8X4TfhlkL1Py
+	 5imodr4yBKWBQX2ukDbpY0bdp51ywX7p+1gUiWU5faUIicEIW6Ow92uWLWIH9DaF08Yvr
+	 1xiakJmY8eIHd+oeS6r2ZqyqJ3O/+ifl0GRwYoJFOz8Giow/nH76xUfmPycyIRoQQFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EZAcwi7c;
-	arc=none smtp.remote-ip=74.125.229.137
-Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoZdQbsF;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFF8606A31D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:02:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFFF8606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B77606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26B77606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EZAcwi7c
-Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-1397ad3d891so9879c88.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:02:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoZdQbsF
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso438395e9.3
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:11:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793311354; x=1793916154; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tqi07G2NK5B5Re2GQGo+ZSlYw+c4Yb95iVdRzLGMPO4=;
-        b=EZAcwi7cNjE8Z3elHqVYyVHf5F58mrbaRpdJuodzcKIs2zIDyzeNU7YF3fJi+rKU11
-         ZFYQ7deGZRP3GtgLfcUnCE1CozHJud+8cYl5XZJbOTrvDbBTqaeRPT9CIr0DuNKCx3zg
-         /fs75bFXju9fm5gr1oxoKpUWPXU5Y1wlETogtVrKhpEPT0Q3UWo71bmzoqdk50zxUZIn
-         vI7xgGXQXCjvU7fbasOg6X0JyzcXXaNkvlS3H75K6dApI3GpGDFUzK9V44C/omMh4NzH
-         wulFqIBY9jJ+0xb4Guooql37u+WPUsBrLZ1c/6G2ARHXZk8BWFQZ/Zrq8V6zhaAyTx0T
-         nepA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793311354; x=1793916154;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793311898; x=1793916698; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Tqi07G2NK5B5Re2GQGo+ZSlYw+c4Yb95iVdRzLGMPO4=;
-        b=EcL5gJ3H/YeTVtVosijljPO5eJQmSPtDI9NQOC44+fgHhyGzpDQ2FNhY+ALjhulVUU
-         OuTPtYbvgU7RN3LV7t+UsLSi9mMIs6LE2PgmsJEMTcB1wZG0CjgyOA3xiFVWfnZnnvyH
-         GCU6LipUfYvKhDQeU85DDa8i/Y71aLsv7CQ/uCloHhY/hPNAuVzj5hU9IQnU9i1kWolS
-         /7yJgzhmNqxCnKruWm5R1UvIzyggLsckFcczk/6414EWJcsiOxzAB5b3kZ6+IS2N4rQH
-         xN3Xh3j2YS5vtWOgXduiIzNF1gXUbObXzpgr45q6UCV2X6qGRyxvxjCeBBIlsy+D4O9/
-         EaOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRSH0T92VGbf7XWU5MdDz8Y7PCe8K0tnMZDDqUeJZ8HT+9cFaxoNOOf0hI3F8OkcSrUR04i0E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRaE5XDS9dsXkf0lMUcrCuGnHOKtbUAscDnU3XqYblWSkxl3BR
-	+YKA13DUzCrprJhn5YB8gB0Twk7hfsrDDiL5OuBsKDRNzKU1GmAUBC4y0Y4c4Qusp+o=
-X-Gm-Gg: AYBFou1qL/Gq4rkqOVhng1+8Gex7V/VPVdm8lwwbTUiW93RgL7j5KIF0Er3oK6FKN2q
-	JPjwOPUEw72kywtmfirG+cobqeU5JICaP8YjC2lbMKIC/d8y5ZNYrRxxvcJyzXdU+topY7FlDJY
-	mdkd76cLP0X45EZ+FfnSs8GHXNTcTTSW2XK8t+zVhqGnNJppQI5SL5gMPdqVGbVTs7eWVt5uNYX
-	FHa8H3Jcji6N8+4QcuBMQoHB+iHRnwKaz9ozHkNBjUHO6xwvW+g3OgyoIVvwOIl6w8h/kVgZLqK
-	dqSU6Q3E8sxVO3kVpa4+HlWdTLAXH0Rk4paFMyh9DPPQgQAThWxAnvjAGMzukcTyQljM8e3cWPt
-	+9u2uDKFlKjmkTmHW+0MVK2xL4tShJQteO30TOMNYtzEjAeHIR49OtVPvR+3I/+awY0wxlc/PlU
-	Oif0FMbxV3CY472q3+26+rmFx/cBGDx6IHlR4vMjKa4/p5Hr3pMEl0gH7oVUdypit0xfms77nTv
-	4rMWJpaCCfgKiKowJE7mfyq5FBkB9HjwAKNLCQwW63AwXsomG9wQ1dW0/G1Lnp5wKoF1AtEetLP
-	xqCspD7z7Kq8WFpZy38LT1/zclEkmAtf7LQ4WjX7ueLDOe4s+G7Dc/kb
-X-Received: by 2002:a05:701b:4354:b0:1a2:6b9f:f7e1 with SMTP id a92af1059eb24-1ac5cb1a31bmr472033c88.14.1793311353726;
-        Thu, 29 Oct 2026 15:02:33 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcd6f1sm1316007c88.20.2026.10.29.15.02.32
+        bh=5jNtZbHxCXS7Amya3dC3EE3s6XNWDFBG2KE54hDksKQ=;
+        b=JoZdQbsFVWPXIont+c9qQKJKUugHbIIPKhgkwvBEeX1Nrf1kAPMM01K3WqnfJfFwv6
+         syCiNUQV6b4DoGN2IcVUiCe4uPUuCZtMejWSVcZH01CGV2nMY3fAI6LHuJTMva71O+nu
+         DPMEXHTLobv6RcZuqJ8+UE4PhEectz/1LncuIXpwIxzexKN3EV32aWzq9X+reDQSMIPP
+         AwJRc8Vv42P4Zewsst/0OHNwogxY1e5rDTQ3ZgX8tpjVRIhL/+4czp8Elh/Uz0o+R6J6
+         Fz0i8E7ouEoc2GK8Rzm7FNpRNzKALZHZyuEP8BHrJXgdJdG4HoS8w936F2H4LAzZ450O
+         +16Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793311898; x=1793916698;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5jNtZbHxCXS7Amya3dC3EE3s6XNWDFBG2KE54hDksKQ=;
+        b=iMnj6v4SdWpV8ynLqbWcx7Poi4ilt2PeMKPjbaDFHD/2qpjZRwDNz4XuAox03tchpB
+         bHUC0ScbgTvu7wZz/ta4daCWGAMmtuRXjfJA3mvBSIRJwaH/aGWgbstQSYOHKVol01Ba
+         dVXTUo87wU4KUFPjfuon+Km72Y07ElK8AcT7Bb0UHWrEJlxgrJJpTxambjKs5/nmVtr9
+         BIfNjK4JNuom7rpPGA4ju40gESRqcEh3ie7DNuuBB2G4WH8mtNHShthMID92IQX9tH7Z
+         aLeoJXP0vvmuFGwUv4fU+yBjAQjxogQnJqcTixxkiiZJ9jnWZybgIwPviUlfLPorIOCy
+         7dnw==
+X-Forwarded-Encrypted: i=1; AKwUvByXpYYBrskJWZ2EjWoTjyuwbgCY54fzLWFegJLHGPD38+CbJis3rMXmGS1e9oRq47gLFA0Ugaw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpBlMt3FgcN9PKpBmME9yyIu0k6LcoNHWB/dhjTfGFgrhcgqjH
+	6zKay080p4ggGLCmQtB3wRXC6iuhGinlg7ifdgEBXzV7dmAPNwwYrPDN
+X-Gm-Gg: AYBFou3IMxEI1GhzErE0SiAmukc2VFLZxmDlQj8EfqiB9TwH4CXzP0j7sQe/TCJnUwT
+	c/DmVf1ZGjQApqpftwzis33nZO12W+1Kpo/XNAEyYm4B7ZGK9C9DW7Sf/yS4E0FYcGfOBjjokTd
+	+1/0bwnJPz+OGlN3fQb2m9uUGqzl8JTMTPjP3lXfdcJgjO5EyLUPPWs4gSqvb2Am+OR1GcloDu2
+	moOwI9XKGO34gBcQCLcaxsHRtH83ZbcwNLCNL2NdRZD2coBbDgzIzaFtKC7tk/sIxvpjCflonX2
+	WuYsbEv8KEn2QyqgotPiCDK7ysQj9jMVyEzCuxr3ghzE4hIhyW+LEBhoddIRZk7Gi8FTGZAZtcE
+	fGHGZMuYH3mb7vwhiSoQdnSj/+RPEJ8JaGPB3DZC3rVHgEG4xSS48OqYm3RHk7BGsJYC0Nffwma
+	IF+NDP4U4K45dIbtWeCHALCeS6YAYBYpSsqj+rP0/RYFtPtG5KwRWu/tS8eS1ZwlzW1jm72pKM6
+	/J8yO8LlRL4Lqha4VUGJEC2V4pJojJwazQupeXEMQg+KV0uYXgkJtSYtJtyMIGq6gk0QDVd+bM+
+	sPX+caXntBpPtQ==
+X-Received: by 2002:a05:600c:46ce:b0:4a6:7d6:821f with SMTP id 5b1f17b1804b1-4ac189928e9mr7162435e9.29.1793311898530;
+        Thu, 29 Oct 2026 15:11:38 -0700 (PDT)
+Received: from nobara ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm104011305e9.10.2026.10.29.15.11.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:02:32 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
+        Thu, 29 Oct 2026 15:11:38 -0700 (PDT)
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Peter Xu <peterx@redhat.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] fs/ntfs3: accept unchanged read-only fileattr flags
-Date: Thu, 29 Oct 2026 22:02:03 +0000
-Message-ID: <20261029220203.80532-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-kselftest@vger.kernel.org,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] mm/userfaultfd: recheck WP registration in the hugetlb UFFDIO_COPY retry
+Date: Thu, 29 Oct 2026 23:11:01 +0100
+Message-ID: <20261029221129.89068-2-azpijr@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261029221129.89068-1-azpijr@gmail.com>
+References: <20261029221129.89068-1-azpijr@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,51 +113,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_fileattr_get() reports casefold, compression and encryption flags,
-while ntfs_fileattr_set() only accepts immutable, append and nodump.
-chattr preserves the reported flags when adding or removing nodump, so
-chattr +d and -d fail with EOPNOTSUPP on nocase mounts and compressed
-files even though neither command requests a change to those properties.
+mfill_atomic_hugetlb() drops its locks to copy the source page with page
+faults enabled and then looks the VMA up again. The retry doesn't check
+that the VMA is still registered for WP, so if the range is re-registered
+without WP in that window, a UFFDIO_COPY_MODE_WP copy installs a uffd-wp
+PTE in a VMA without VM_UFFD_WP. That is one of the leftover uffd bits
+hugetlb_fault() has to tolerate.
 
-Read the current attributes and allow reported flags to be passed back.
-Continue rejecting unsupported bits that are not already present, and
-keep applying only the existing mutable flags. Requests that omit
-read-only flags, such as chattr =d, retain their existing behavior.
+The non-hugetlb retry goes through mfill_get_vma() again and fails with
+-EINVAL. Do the same check in the hugetlb retry.
 
-Fixes: 33f29fc7c67e ("fs/ntfs3: add fileattr support")
+Fixes: 6041c6917903 ("mm/hugetlb: take care of UFFDIO_COPY_MODE_WP")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 ---
- fs/ntfs3/file.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ mm/userfaultfd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
-index 52e1cd969e06..af6fb438eaa8 100644
---- a/fs/ntfs3/file.c
-+++ b/fs/ntfs3/file.c
-@@ -134,17 +134,21 @@ int ntfs_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
- {
- 	struct inode *inode = d_inode(dentry);
- 	struct ntfs_inode *ni = ntfs_i(inode);
-+	struct file_kattr old_fa = {};
- 	u32 flags = fa->flags;
- 	unsigned int new_fl = 0;
-+	int err;
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 3b71712edab4..a70ecfc8a998 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -810,6 +810,10 @@ static __always_inline ssize_t mfill_atomic_hugetlb(
+ 		if (vma_hpagesize != vma_kernel_pagesize(dst_vma))
+ 			goto out_unlock_vma;
  
--	/* Avoid any operation if inode is bad. */
--	if (unlikely(is_bad_ni(ni)))
--		return -EINVAL;
-+	err = ntfs_fileattr_get(dentry, &old_fa);
-+	if (err)
-+		return err;
- 
- 	if (fileattr_has_fsx(fa))
- 		return -EOPNOTSUPP;
- 
--	if (flags & ~(FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL))
-+	/* Accept unchanged read-only flags. */
-+	if (flags & ~(FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL |
-+		      old_fa.flags))
- 		return -EOPNOTSUPP;
- 
- 	if (flags & FS_IMMUTABLE_FL)
++		/* The range may have been re-registered without WP meanwhile. */
++		if ((flags & MFILL_ATOMIC_WP) && !(dst_vma->vm_flags & VM_UFFD_WP))
++			goto out_unlock_vma;
++
+ 		/*
+ 		 * If memory mappings are changing because of non-cooperative
+ 		 * operation (e.g. mremap) running in parallel, bail out and
+-- 
+2.55.0
+
