@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306482;
-	b=DTGHcc6dwCEqrJ0ZMLzuquY3SohWccpYnsURHyZJE8NxNSSTPxGB6QIiCX1C17UR1WTq
-	 kTlBlZS7iR8Q9xJW6DeKUuKAfyMshfkO0R7fnVVJDbpwxxFAtgcEyoruZW1eQ7ZddKsKl
-	 la2QMwmIGQf+ln3CbnHh13VpQwp5a23mlHOI1aMr7hm5jAd7D9LOq+quAo6W8dO1XWRSI
-	 d3JYs7csS7GdpFXYNiWr92td+Av354SlKtelalwZuPfr3wuusL9vW5tLoP3GXLZ1cMmW4
-	 0Q97LGzPreI80vv9lrHKu1LLlclkzOoNnGxp+Ubxsc4B+28Kzxh9Mlk7l6IpvsjDfoQ==
+	t=1793306511;
+	b=mVb+min0obZoYBEC7wfWLjQkPWYs6laogbPcjQuSs/js5NBQYapRPJLHgZBsrXX+4pER
+	 kltUh2V/h2NVETODd9BVd2lAQpm6i6eF5dcrrEGRzbqfXnmDikJjHgHd1iCa+gt+kKZR/
+	 NChqRGwKvbworIFoJkpLGWOkBveeoWUt1YeJG9k+3hUNStnUqVwbzyT4NWCV7auUxCpF9
+	 oOE6Hn92uU7y7lgmNZC5LC8unedx2FXCaNs5KYs6Gamt3PrT65DKEN3nNR/3nA7M4RC1F
+	 kvvk2peC0AoR0R3kWEZx3nhIYE2tQn4MGvxYfLFsBfMD7hfcOP5DUd4pYDzslPT763g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306511;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6dCA7l8Qcb+zVMAoQ+u8vRDzaCWYfUWbDIcwuPkJnxE=;
-	b=TUsbVvNMYXvYW6DNnbYeyZGf+K693QVr8JFldbg2REZcizKN1fUZCYH71Wkro8iENN3u
-	 xr193o3ngmYdEC/nDSMsGbScBjm3Bgk7G7DPr5+RjNdHAMgwQfFlBebCNeBAfj8j8vu05
-	 e+T6be6eZLB6GMFZKNXlogMy8q079+2CSoQ0hFTqz1DrWhBQVKN1bZYSA07c+s9yOwIR4
-	 SenWgZPJXTFuI7axtfcJrB8roA82DaGeSKwGE8ydg5cyfcnsBR3lPCQN17jZkPy930Ey9
-	 2W/hbyGMxEAJWS5K0HdDQ6JOBWiCPKlvAzt/nabXorylBiXMfR+xqeS363I4LDMpsFA==
+	bh=zArSmg7yLUQusiUDBjlm/kScYeO/TmH/P9/Smu4iQZg=;
+	b=cL9w26uIS+3HeJaj/y/W+UVozgY3nCq6d8NYmq/mmexm2jAWVqmUM4T3s/QCjPmX9Nyh
+	 dntQ9hv/+pyyujAH6iE92hjx0Bdu6AxhHxbvdbNQqDDuk9RHhT5I5wgWg6XNxizAobZj+
+	 kOp9w7sZRqlgLgCssbdllnluuWjMrCvFl/P5yRlfT5dAk6TIi/b4erVP0xxpWdxWDb3rc
+	 THEMecwxOZcUhUKoYfvh7Im+RRl9fU5Cl4ELqKNxEcodveschoFKKGpBpyx9ZgITt3bZS
+	 nYvzC+CPATfZ+06eTYQ7ypBPB0yenNE8hlzqn+X3Vmqvz7wpMFdvvSnsB9CkmIqAmIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cs7/GV6p";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGLYR88r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512EB606A31E;
-	Thu, 29 Oct 2026 20:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55194606A31C;
+	Thu, 29 Oct 2026 20:41:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cs7/GV6p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C4C1F01824;
-	Thu, 29 Oct 2026 20:41:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGLYR88r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D979D1F01824;
+	Thu, 29 Oct 2026 20:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306481;
-	bh=6dCA7l8Qcb+zVMAoQ+u8vRDzaCWYfUWbDIcwuPkJnxE=;
+	s=k20260515; t=1793306511;
+	bh=zArSmg7yLUQusiUDBjlm/kScYeO/TmH/P9/Smu4iQZg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Cs7/GV6pq6eMLJFnqbR9+QKwK6ShcOEk4QCMZXclq06zJpivW8mGEnMOZW9YEUEFr
-	 me7PFVPeK46BJU1hjQNgFbL9/Ot6d2rPuJ6UQP4THorxpWzVRPECaHsgmeLmeQaRON
-	 Qz3YkhJPUWzx9FFcChAKrp6TTNfjeGiMQn3b2VQ+bZ35CbukcS1MZ9fuoJYnDyK6lG
-	 AUytHBl6JsN8niXhnFNeFcHIlaRbkFht1w9q9lGzvdPO5tqDfSobnLfmLK7CA9Um/U
-	 /nVJ+0XtYKdEenTS0MtJI5vr91YRIY3EYdRZLofvgfQHN7xXwyvcFndR9Tor8730zm
-	 oJFwe5HvlcUCg==
+	b=RGLYR88roEEbDd5tCeYUTOpvVfraAhTmG++35UVmmW+MOOjtMfDoQbZ3JwNu9EYK7
+	 a99vFMdfcGf8o5juAUZnbJ5xZs8mAGQ1+gjvsFf6NHOO3vpEmbqZVt3FCXH1tgKNfy
+	 WHJSd4Lz8UjYheY8b6tfHXBpyMyIhevr0bOkLKm7e0YsAY15rmrqUd+JMgpP99OcGM
+	 p5rxJpPQrcARGEcSkJF+8J7+1oI/T8LiSMX5XgFh2+E67ydfTgPDCA44s95fCGJaSG
+	 Vvv0OX3xJ1ptZi56r/nPn2GsnNt0bERfJYkrF8Yyh5tqVEW86MP0+rqj4DGWD7vADq
+	 jNLTFzqpOM9ZQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:27 +0100
-Subject: [PATCH v2 32/47] mm/mremap: fix moving PUD leaves
+Date: Thu, 29 Oct 2026 21:33:29 +0100
+Subject: [PATCH v2 34/47] mm/madvise: fix data loss from MADV_FREE on a KSM
+ page
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-32-a64ce7f83abb@kernel.org>
+Message-Id: <20261029-fixes_core-v2-34-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -92,76 +93,62 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2222; i=david@kernel.org;
- h=from:subject:message-id; bh=/15IZZT8ry+ExEMoaMWjieutil1+NN7piBMJHRZeGuI=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+3odp3/SFVqszD/9KmpUY5brG9yzZ8jcP7lKREXI
- 8UDqbdLOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIG2FGhi0fIzf8PaAuzKQZ
- dYKBuzLwhYbeshPx4vtiqgxnXdy2z5aR4doFmTtHUgTvnzzV//uy0tLr5xwkZ8wVz4721PU8ELn
- WkhEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1733; i=david@kernel.org;
+ h=from:subject:message-id; bh=K1BVe7ZYRTk2Zt50NT+PN3jE7jOx7NQzRVqTDwh0m6c=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+04M4X18V1Z9xPSyy/e+WsUa9zSlnOmMjtRcs/1g
+ NZP74686ShlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAi+dYMf8Ucyw4tm2A0J/OW
+ z8VXDYXdXeKvv2wMrxY7eGn1EVedZ0sY/lmd9HP2W/rCXJN5+ou8mx8EBQO2BC78+WrrK7Gc7rI
+ f+9kB
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Josef Bacik <josef@toxicpanda.com>
+MADV_FREE can clear the dirty flag of a singly mapped KSM folio. The
+folio remains in the stable tree and can gain new mappings without being
+dirtied again. Once marked lazyfree, reclaim can discard data that those
+mappings still need.
 
-pud_none_or_clear_bad() only really works on page tables. PUD leaves
-confuse the check and make us clear the page table entry and print a
-warning.
+KSM always marks a folio dirty when converting it to a KSM folio in
+try_to_merge_one_page(). Marking a folio lazyfree clears PG_swapbacked
+but leaves PG_dirty unchanged. Preserving PG_dirty makes reclaim restore
+PG_swapbacked instead of discarding the folio. This also protects folios
+that were already lazyfree when KSM converted them.
 
-Since commit aed877c2b4257 ("device/dax: properly refcount device dax pages
-when mapping"), this also leaks device-DAX folio references, mapcounts
-and RSS accounting, resulting in "Bad rss-counter state" warnings on exit.
+Skip KSM folios before clearing their dirty flag, checking under the
+folio lock to serialize with KSM conversion.
 
-Allow PUD leaves in get_old_pud(). If a PUD leaf cannot be moved as a
-whole or the move fails, split it. This unmaps it with proper accounting
-instead of treating the leaf entry as a PMD table.
-
-Keep using pud_trans_huge() for now, in the future this code should be
-cleaned up to just check for PUD leaves.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: a00cc7d9dd93 ("mm, x86: add support for PUD-sized transparent hugepages")
+Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: fallthrough after splitting ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Xu Xin <xu.xin@linux.dev>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/mremap.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ mm/madvise.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 91f0865f6aee..1237718848f5 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -87,7 +87,7 @@ static pud_t *get_old_pud(struct mm_struct *mm, unsigned long addr)
- 		return NULL;
- 
- 	pud = pud_offset(p4d, addr);
--	if (pud_none_or_clear_bad(pud))
-+	if (!pud_trans_huge(*pud) && pud_none_or_clear_bad(pud))
- 		return NULL;
- 
- 	return pud;
-@@ -847,11 +847,10 @@ unsigned long move_page_tables(struct pagetable_move_control *pmc)
- 		if (!new_pud)
- 			break;
- 		if (pud_trans_huge(*old_pud)) {
--			if (extent == HPAGE_PUD_SIZE) {
--				move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud);
--				/* We ignore and continue on error? */
-+			if (extent == HPAGE_PUD_SIZE &&
-+			    move_pgt_entry(pmc, HPAGE_PUD, old_pud, new_pud))
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 75b409e97dbf..a16e3cb256b7 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -756,6 +756,15 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+ 		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
+ 			if (!folio_trylock(folio))
  				continue;
--			}
-+			split_huge_pud(pmc->old, old_pud, pmc->old_addr);
- 		} else if (IS_ENABLED(CONFIG_HAVE_MOVE_PUD) && extent == PUD_SIZE) {
- 			if (move_pgt_entry(pmc, NORMAL_PUD, old_pud, new_pud))
- 				continue;
++			/*
++			 * KSM folios can gain new mappings at any time, so we must
++			 * not clear their dirty flag.
++			 */
++			if (folio_test_ksm(folio)) {
++				folio_unlock(folio);
++				continue;
++			}
++
+ 			/*
+ 			 * If we have a large folio at this point, we know it is
+ 			 * fully mapped so if its mapcount is the same as its
 
 -- 
 2.43.0
