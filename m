@@ -1,89 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288350;
-	b=umXOFI2UIEUkhoCAx8SU56WsZV1plUVTW/OvCrdPK/FAKeI3NNIQKd+JwYFI1YPXh+Sz
-	 yRDjWigx09rpe1tGo6s0ST9CZMYGTvhi/yVX+1QdWpvE+9fwqqVItBtBLueBmPyg+8gaG
-	 1yCbrquQG3+F1Asy6ZezB9hp8Z3FEXgnaph1bbSRLln1ydMLE/j/Mvpyfxm+7JsS9p5sd
-	 LKaEF4HiwudzBuefgOo0+H6Llos6dcvD43eL2+Yn/ruSKyIh/macyTzou1LaMPV25w5vL
-	 wMZMWvCjjb8SRgBNRRn3ktUhVbI60umMXW12rmaAEh+XU/9bq45skuIXqYW8tKvR1vw==
+	t=1793288405;
+	b=E7HH+KljJjo1DeYMbSfK3pjGNYDXNNBvrbuB8y1RxuNoDiERL/CkLH2WQ+3cIPk6p5Kp
+	 EUax+xI0OkmtP1iwOUxcAecNgUnnbc1NYjk97otPRga7uVKYQ3JUlIqd4OAp1SMX3W4Nu
+	 Elha9MKwphHLZ3VglV9/f6XMbFqeEFKVZqKBTXAk0sSjXmGTZKFuAP1amRHhcDfPLR8P8
+	 xlND+m8drBq8RIr6IPuR3txR7fHjrXWl6cn/MK4kK8tipz5FfiBOUGBkEyRQxEo6Eb7bx
+	 iYuqHpINqM4f6A4hL5rCbdkoGEJVqXcaFCktRW30a5x1FdNXNwPmof+V7uwQo/r4CqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288350;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=+0yjXwf7zZ1/G1ToyAZvwzcg/8Wure4Qebgzn6jDw2o=;
-	b=1D5+Ok40nvhXqmGOTY5mahQL8gqCRYD84M+TC5mtFP6StX/q7JM4Uuk8cM5a2fwZKufX
-	 xIiPXREx/gN5PICe7efbdZNktoS9K2rPaCh/sKiwmoegZuqeazmlCTYtNcu9G6B7n2hpL
-	 N1sBw++0BjJ53tzoQrsENDLdRofc4PblE2FxYBIoQOY9OpEHkjBZ1SSspwT3zH7G2RMN6
-	 C0pBYSr5nUnuTpdbj49Gx9xKFyaaoVqlm/UM1Y8X/850g8maChI50SCGi+ligl89GHK5E
-	 2QKdu7oPs0x2ezKuWzvIgOSEWbk8rtet+y17RdzjHpN3xqlePBsIaLcA6ilCMXFCbCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288405;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=p3YvkGpbJ75egK6OsWORSXS1tksyIAY2QOnekRB2s34=;
+	b=WpN9BKHbnIPQASmFhfjq+0YvB9MPp5fUqNc20zXhVp0rZ7mYYG+p6VIec0nhOeXz+n67
+	 QdzS1RuFuOkEiFCgy9ZuXGpevGXQUowHefG52FM+p1iOI6MJv/283bnJHkSIHX4yQ8Pge
+	 5EJU9OAcWSF7NUHK+1pU1y72aJHl8mEi1opyqpFmKHNs4yxOGn50AwmUHsp+SzfClfTVD
+	 DDhflSznzX4saTmu8RnefXYupKhmONnwOIkl+9tBCUP6frP3QoEhD4Gyl1F3PtQ36krvc
+	 B2UGG6uSdijR20yXhme7oCCclom7P4towIPxGn5sWqZN6PSSBIe9TpJX2RqTZRpCu+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KtNbvFH4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=SlnaW63b;
+	arc=none smtp.remote-ip=209.85.210.53
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D4A606A321
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF530606A322
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 15:40:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF530606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KtNbvFH4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BCC1F01824;
-	Thu, 29 Oct 2026 15:39:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793288350;
-	bh=+0yjXwf7zZ1/G1ToyAZvwzcg/8Wure4Qebgzn6jDw2o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KtNbvFH404X0mtuGoj7Vu5oAoA+/JglIBBuLwOsA38IKk/11U2UQxlO+VhuVDTvil
-	 DwVIOuYSUE7qxQt2APGi69YO4D9H6gtXfM0vzIqiU4Mf2dXbPUJPpo5hjySjkuFCPc
-	 /JuJy8ZSIFNcaS+Rs2K5yIGQ/9XytBXIb5MZ+JWgoxK/a4NGGquo8Fro5fEeGdBNuS
-	 yn9dmocZDxQa93o9fgo4T2fcyY9s3j1iWVW/r+aifoWczxhfR3JSKM9qp/yUUIRKFs
-	 ilLOQtctvujtimEXG9Y2hkfGqwOVgLfNOvrFuNYx+yUYb7xHy1tE+fpJbTmyTi0Uep
-	 fAfrEPWbC8jGw==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8558C198003A;
-	Thu, 29 Oct 2026 11:39:05 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Thu, 29 Oct 2026 11:39:07 -0400
-X-ME-Sender: <xms:mWjjavqZF8ILa7GFmJFT86blR7k_DlTz9ED8h5mfEBaM3GSziIQipQ>
-    <xme:mWjjaqHyR7KyUAAkhd_S_blWhizqPE63kya9v5qMVUQbFVLEGAh07sK1B4LdqGAaz
-    WLKUsSfmJtwCm6ND2EriXZUffFBQBwkL2rlJUHuBrJJ9RRrtl4hagH3>
-X-ME-Received: <xmr:mWjjaho4yavLEyDGhcv1z7Mg95mxcXyE4Quo-NP5luhgau8BXtLJ-Y3TWEI>
-X-ME-Proxy-Cause: dmFkZTFNlLI1IxnysmwtxDbPBbt2dqnvQhYipohEcx8dPwIJIrBgAtFUMCeSCRLUn7u/FW
-    UJHxDkt0ROnXfFadeQtiCMM/RXRAtrrQVUGl5N58b1fgZRYRaTyROC31lQTfeZ8KbXzn3o
-    1iblUPv5lQsPi35OYZrwn0KFWjWElIqjIL9Q3FpGeATyjJJCw3m52D4TW5EsY55qwO5bwQ
-    L4tJ3d6vs/G6neLrJOfICTE6JsI3AzVh2GvhCHK2ltNKIxcjHCQEoOcYmbZqhhQ3GkH72f
-    H2adk7ABosF30oW/TTEpL65vQG5ZxGrmyE0nmd55Y2l6qH+ynwtzmGxyCXtI0WrAcjz3an
-    Q4xGGzYI/IoTBk/VX9AsQAiiMVBH0c+EfrLUzzx/Abe3/LQ4nGf0hfBf94strHo2SHnGDv
-    AlOBnZXY5b2Qu2gRP73I3htQpOZ1IxTQ1ycrS11vSBwv5A782pALFSZYBhGeMc8g1ZjJYc
-    9Svn6Dgwjqs6YNAmffDusdRny6sr54vrgPHIWYQMEp8V8oHexi7SJCCaJTltC9F0v1LdLg
-    EaTsM0e7JVAMdOyh+f+bkRx4yvtjD6InTFZvLkcgMVymvw6BwaPpheLKCEntVPvCbMop2J
-    hPmtr+CHw4FXrXFxZrPj/8MyZLBO2+D9DxeCxvFuzbQQ9Zcsvl5khQqZbDLw
-X-ME-Proxy: <xmx:mWjjag2WREewV6wSGyONMkVOEjaeWnca5tphcv-FngRdtmveuHhgzA>
-    <xmx:mWjjaisKt4iSOJeJWqljwsoGFLdMnjx7vZlxan5So5qapDzh5jCqeA>
-    <xmx:mWjjapH9fmjjz_dUmQsX_cShxLR_2BSYoF4NB_NvXOUlmeLOq_ZUsQ>
-    <xmx:mWjjah0iUHxiDrcn1Cff4bYXPkduGpXLnqxdVbb_878uGhTIra3Leg>
-    <xmx:mWjjajo7kks2AsRow9vTTyrBXgkIAA2JRqIYIl7zQ-Cl_CKIG0Q5mDQj>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 11:39:04 -0400 (EDT)
-Date: Thu, 29 Oct 2026 15:39:03 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/cma: accept memory of CMA areas reserved with
- memblock_reserve()
-Message-ID: <auNoZgOgoFElHYUt@thinkstation>
-References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
- <auM6lKGAeUI26jCj@thinkstation>
- <auM-tYrdV4TJgJ6K@kernel.org>
- <auNE2XEGreHRKoPO@thinkstation>
- <auNgRT19droHmv3Y@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=SlnaW63b
+Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-8446af403b5so1421532a34.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 08:40:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1793288402; x=1793893202; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p3YvkGpbJ75egK6OsWORSXS1tksyIAY2QOnekRB2s34=;
+        b=SlnaW63b7+BWoAx43Ve1PjR43XZ3s03l14lqyvTO69cYQC4gmjK8QAj+ZP35BkhjaY
+         Z0L/5zN94AxTa63hC9be9zBDjvzCCijanGOYYT7pjjC2TwkKz4QR5aZzt7pvknhHVdM9
+         at/93Zy5JiM5YRV6AGqg6G35glnr1wMZY4E/s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793288402; x=1793893202;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p3YvkGpbJ75egK6OsWORSXS1tksyIAY2QOnekRB2s34=;
+        b=KuEAtkQaxvjlFvLZbjWhEKfktSTddn6sffaSzW8yOJLwr09dAK5d2MolBJWYfmUHVs
+         euXfO4D5dQ7lIfpruvdA3yMy+Cz90Ia1CR4NaO87sUXLrSucVxxcGfgWH27ANNJAzveP
+         KaLGnmJugwRexmuliwxDxOKb6C/Hha/sZMv4DNeArFAbOewetZIdOrzwhEC/Rj4CgTiy
+         ftx/bkCMLUWv/LVmlqXhT7uHnTsLImwDhejKIA3y4osiX5FoQD8h4O2qnyPINmFxcSij
+         cSvQO8x155X6oId3LkzJgUNRM77F0hJDmdGe+E4jp5b7J1sHyo1lu+vDSK3Lwv9RZm0f
+         +Ltw==
+X-Forwarded-Encrypted: i=1; AKwUvBwnmjg0Ky/MH93atqFL18P1odM7uiUaWRQ1D5TeivVHi52SgGH3r4cdesldm8+AS2xZnhZpHl8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkxWCdyXqAQgFrapvLwsH40F7fogLxxAtSjvYGnT3KTlK/QPRD
+	XM6YYYeOuOq+QIMZjI/k2ZSmY89hJFCjzd/nCN4jrC7VvIx1+LpeVsBEXtmayy3IzsM=
+X-Gm-Gg: AYBFou11P5bAqIx3ScOWGND9YiEsHS6vJdv+vIE4HwBjYp2EMJqsXYkurS9SicVChld
+	OfQXeL4kDnIBEmThhVINYw4XFCvsC/QQ0gj61fvLx5H3DSLPbVfDmzfvKmU8GW+S783sk5wxnpq
+	73yw1WQAoYmWYimU9liNjspNzXQNbfYssfUcNMANQqRVkgixsOuDQwnqFK/ForOMIJibFctVDDN
+	5zgvUVpSHZsp4WWNHkaix59UQ6NqcFbNB8mCJRKNTzir9ONgiBcfSZSKTxyKEQgt6tE9uOFw2T9
+	B99GAIPTdEde9/fUBg0gLjUAP4xP5E//IeJgAPm2/zgGJB3PtpSuB6zTKKE/HLjlA28Tcix3dwE
+	WCbZCuABitTPvigV+SeT0HSaY463lIpjWpN3N8IaO32rghZ36s1Zw1G9XKfm1Qd+OSeQqsf9tqX
+	rVA9XdpSRxrqvUx8rV1WLQwUVwfB8PNs71kRQ9AB1+Wwb7tM/dql80qXcbIk4sNVG/jjMXz8dDC
+	mTJr2Q9lXW3il3mPCxINz/fjJVRFTL8tchPqz1S0LplfPyn05LTtM5hxxdBnOwcxc9vjpPZJ/YJ
+	bhoJ0+U4kSeWEj5pFkT+26hsEMVMhexQVsY+LOZZxSWOV1BqEhNLx9kZ0f4=
+X-Received: by 2002:a05:6830:b16:b0:845:3cfe:601 with SMTP id 46e09a7af769-85ab2504c5bmr5675751a34.0.1793288402519;
+        Thu, 29 Oct 2026 08:40:02 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d33e3696dsm135839a34.1.2026.10.29.08.39.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 08:40:01 -0700 (PDT)
+Message-ID: <c0500cba-eb48-4421-82ec-b276b1c9453e@linuxfoundation.org>
+Date: Thu, 29 Oct 2026 09:39:55 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,54 +89,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auNgRT19droHmv3Y@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 000/571] 5.15.224-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261028170008.009143722@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 05:03:33PM +0200, Mike Rapoport wrote:
-> On Thu, Oct 29, 2026 at 01:17:06PM +0000, Kiryl Shutsemau wrote:
-> > On Thu, Oct 29, 2026 at 02:40:21PM +0200, Mike Rapoport wrote:
-> > > On Thu, Oct 29, 2026 at 12:27:23PM +0000, Kiryl Shutsemau wrote:
-> > > > On Thu, Oct 29, 2026 at 12:18:36PM +0200, Mike Rapoport (Microsoft) wrote:
-> > > > > Pages of allocated CMA areas are released to the buddy allocator with
-> > > > > __free_pages(), which does not check for unaccepted memory.
-> > > > > 
-> > > > > This usually works because memblock accepts the memory it allocates.
-> > > > > 
-> > > > > However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
-> > > > > requested with cma=<size>@<base> are reserved with memblock_reserve() and
-> > > > > their memory is never accepted.
-> > > > 
-> > > > It feels like memblock_reserve() abuse, no?
-> > > > 
-> > > > crashkernel=size@base already uses memblock_phys_alloc_range() for this.
-> > > > Should the fixed and multi-range CMA paths go through the allocation API
-> > > > as well.
-> > > 
-> > > Fixed path already has the range, why would it use allocation APIs?
-> > 
-> > Having the range doesn't make it a reservation. Both paths take free
-> > memory for the kernel's use, which is an allocation, and an allocation
-> > has to be accepted. memblock_reserve() is for memory that is already in
-> > use: kernel image, initrd, firmware tables. Using it for allocations
-> > leaves acceptance to every caller, and both CMA paths missed it.
+On 10/28/26 10:52, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.224 release.
+> There are 571 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> memblock_reserve() predates any allocation APIs and it is used to say "I
-> know this memory is free, I'm taking it". So memory acceptance should have
-> take it into account.
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
 > 
-> > If memblock_phys_alloc_range() is the wrong tool, let's add a
-> > memblock_*alloc*() helper that takes the exact range and does the reserve
-> > plus memblock_prep_allocation(), the way memblock_alloc_hugetlb() finishes
-> > its own search. There is no search, so the multi-range path doesn't get
-> > slower, and accept_memory() stays inside memblock.
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.224-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
 > 
-> A new helper that does reserve and accept makes sense, but let's do it on
-> top and also audit other callers of memblock_reserve().
+> thanks,
+> 
+> greg k-h
+> 
 
-Fair enough. Feel free to use for this patchset:
+Compiled and booted on my test system. No dmesg regressions.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+thanks,
+-- Shuah
