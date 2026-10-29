@@ -1,61 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793273855;
-	b=GT14G37YkbNQfbOM8/N/pTU80b04EboIESm0srvQYKFllSVRXg8DGHh8MZDESZTBC5g2
-	 E4DuTDm81F64p6E60ukLCbYLgpGFe24qqaTfSpIQ90ezVU/T3KAeFceupuay3YaAeDb8D
-	 oVAhLL32CpeON7CwrE8Da/hjHcDVvHIMirqmPENYLjAeCEcgqH3x7PnlEruZsCzFlNQvg
-	 4z61raws1GibP4v7nAvoiSYyhJw5PrF8T7JDtqfI4taOVrXOdM6a0iUVD/GkhVEGTk/z1
-	 DGytgitv02qMnNl16r8UfnTG64L8k+RTxzuPvg1GuSqsrDe9c/MOsiDQShU7SjU68XQ==
+	t=1793273883;
+	b=kgRr68HO1abuugtYnkt004mJi/zwTRudYJtpxyckZaBepnoWv+OzdNEfJKCq8OlszIxJ
+	 rmbdGgJYBSx8lQWMOWvrZFDkcVFj4jvOEHFiTmmiWt+JFbg5yxDxDF/9OBs8LA3ubZb6G
+	 Gq3+QCa5W+Y03F/E/7vnirIl4CMFqohqc+EZ4IuSKbH+WOdUZgj2kQTXQJU1lMBcygOH5
+	 7v6Zql7gvnlRjkn62sDllnV825pShsthVO8MqpyJbEkh0Z9j+mxZJv7sJYdGKVmW2BtVf
+	 zJB2UuGsxayObCTXd5EDdo6mvR6o6NT047axkZ1kyXRbx6D9/tvGYwOhB2Y1DM4OPRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273855;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793273883;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Infomaniak-Routing;
-	bh=eHfZE4PHAumKVw00FNrKGZ/KoE0eh/vNsiLYomKpEgw=;
-	b=2yf6xPaK0rWF7joBx8M40CJUJWDv/5Mh39UfnV93PWyb2j8ThMgbMBf63tXSmjLy6n95
-	 BlzUKeOgPHXsGbI40rtg+AXU5pDfMxiT3eLDf1BPsKGvjka5NWWoKsGD+bIhsQVTG06eH
-	 6Z2uF84Q89Q24MzOfKQ+v7opTArCq/lzDwPdjwdhcuLHrUc/KUOQFzGYotSo9Z6Kn+wvm
-	 JkBTRR7knDCYSdA3kXElHHiKggVPtfP5GHF4ekYLdiS72JyoqiRR2XKxJzBSWr9f8aV5u
-	 LOG/zgLvWBiB22hnZkG0f6UWbGlrG+RBymkRE2uPvaYyIpwbdLUVpObO3EC7Jk+rbJQ==
+	 Content-Disposition:In-Reply-To;
+	bh=hNCQwk1kVwwDQd6YdP9bn0F2tzwSBJGnMYrpsz+xroI=;
+	b=VVNiGnnnLCgWdHamS+EKYVBU5JbKb2xRMZZiWOmJcrBAnyVr4lTNh+SJN0WGbGwdK/30
+	 RQsn48DMyj5oPuOGVf+KGTOaLRHCd8uSMfNxnIHyvQw8UAmIgNObpt/8ZhxSHJJ+TX7ii
+	 oTyjcHR2E7MCVqzNu/fDdVzWm6CMy9N3SR3DTynolpEizGLegW/zvz525k7rPfFPmu6v+
+	 ifOddl4iyu2Rh18tTH0s/p0RIWskrkoDN9pPTptIi/iGUOYbuuNJ4fbiVPou4l41jriiG
+	 adlKAmuXdH+FmR5DefUpw/4JBo2BztjQU33UaxY2GGW2Sbbx0ZNnM9ITIJDSkYXC/aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=qws1AYFs;
-	arc=none smtp.remote-ip=83.166.143.172
-Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch [83.166.143.172])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ail9VJBd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A36606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A36606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FB9606A320;
+	Thu, 29 Oct 2026 11:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=qws1AYFs
-Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jFhzR5rnlzZq;
-	Thu, 29 Oct 2026 12:37:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1793273843;
-	bh=eHfZE4PHAumKVw00FNrKGZ/KoE0eh/vNsiLYomKpEgw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qws1AYFsJRAFrEibfRJMw6vRg1RddQFeLYZXo/dFV6qTtr2iUnKM1pIjCmJI4kda4
-	 Gha+sg06kqltmryQZ2HwEdjmuONSjezZzJeiopU5f/fR0VmNz8XuWMCnJVE9r6yPtN
-	 yqjz5rjdDMl5FG1E3bZQddWAqWSkmZBEuia7KoAE=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jFhzQ1yLXzGM3;
-	Thu, 29 Oct 2026 12:37:22 +0100 (CET)
-Date: Thu, 29 Oct 2026 12:37:20 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Serge Hallyn <serge@hallyn.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Jann Horn <jannh@google.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] userns: don't drop the exec securebits
-Message-ID: <20261029.Yae2Nohsheun@digikod.net>
-References: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
- <20261026-work-securebits-userns-v1-1-b35473fa1a34@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ail9VJBd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3801F01825;
+	Thu, 29 Oct 2026 11:37:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793273882;
+	bh=hNCQwk1kVwwDQd6YdP9bn0F2tzwSBJGnMYrpsz+xroI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ail9VJBdWbIaFY6FctxLtUgYRHgBXtvqpup5RxHjX8Kun5bgSmdWKaIGvUbl/H67D
+	 EtchMfmh++7c58rAzzIcOZJlh7lU068ve+224x/vgneSfQv01jqM2Wo4b1vgV5PkQV
+	 p1wGA6vLiXNJvxW4IlD096ZyNX3LzYYrCECa15A67f/Y3MyckPpiJSZQCM9WofsF1h
+	 dNLVrxG6X+4vXWm3hjvcfoKWjvFUJFbtcZd9TwphSLT6L7gTvVao+jRJGI2iJ7TQ6k
+	 Iqx3OJ8IZ43B5gnVKp4CY6HGbSbA7r7q2m7qWPekZSqeQFYt6ZRDde2QXdTZrHksaG
+	 hRFiEsxBGnmWw==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 61199198003A;
+	Thu, 29 Oct 2026 07:37:47 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Thu, 29 Oct 2026 07:37:57 -0400
+X-ME-Sender: <xms:CjDjajshZPeHtuir7v6mreGhAT4TgwhDFbd67W8lqX6eL1H1h2Hveg>
+    <xme:CjDjapxTdjr1qMNJTi5jiBAbPeUL8WNi-rLAE_SEgVpbUTGclmUKEQ760n5h0fqeV
+    hy4NTYi59RMULuyZS8aZ2YEk4SsTRY2j-0YZqzoSiY2c-6zrTJ_WiZa>
+X-ME-Received: <xmr:CjDjah4JZaAhw-Fk9PScSG2a10e8jvqhDX8C23W0UBFCIs08u9qC86Fq1ss>
+X-ME-Proxy-Cause: dmFkZTEJDAstCk+7zNgejakM4nNk+p9JZpQkZ6Wp/ORPY45DYJ9sLHFzb2OSqjFNCrREyO
+    88yfN6Bm2PU/BZ+n9uLJeM8IQCx6gh4dmoBjtrR/gRMQnW1vav0T4U3R0wWLGH7ILSJz0U
+    jdMa6OkiVebfbkVm5JCCWeL4Bgmn1pDydwYsJOPck3Qdns4HPrCASx59vSMT+/j+yF0qvX
+    G2BRvU5cIsoY70+iA26gBsYSOUUpx4hNQp6J+87EVccCZ9Ae0yLIol7hi0rblFUAevpiPd
+    uHrIkD9QzQyn3BgarrdLD501N6XdbeMUSrCRkW1q1L/F8zcqlxf0OSCgggqIu+bFPdnmVK
+    NcNYxpSkwWOCwZcLOuaYHRTsxYx6D85JDsOHrpKL1vEhmUAKDtUhCnUAlLFqot1DM9q/eV
+    ZTIcjPJqq14fF0zy0HGkF60Z4NFN+bSz/WNKQw6f5WcVzsXmI0zvI1J66w/XqmME697OXQ
+    zERHpQf1f2P1KpVc8eIXbHuzD/SOd6B+KE+lUnfFtKDQN9VNcFcye2oj8ZEx6A7qEAQffs
+    IUWqlyPo0fg/2eaM6xeJ2DOITKhJqU9srQCSgILo9WyD2HhperaR62DEVqvtfMq6CL02UO
+    uYQhCBNO5b6ROgC+/K/MpQZdw9fNc5YCZUTnJbGBtnaHKfxJROTOsVpYwzvA
+X-ME-Proxy: <xmx:CjDjanSS7Mx8TZPiU7heer_Q9SPTwHVFNB-SMCwAJ9aut0b1vRFrUw>
+    <xmx:CjDjag-PYdm5Aer_OhpqtOoZx_SwLxAY07eLDmtLNEeq-uTx5hq8eg>
+    <xmx:CjDjauzsU80bWiXzCsXzA_QbCjiGNW-gGh7_khHqQIP9Mv30v0qhhg>
+    <xmx:CjDjaqzuB5gcDCgx7-WAvZUa70Eg8YXQlUPcy8ONATKcSf71OQuvVg>
+    <xmx:CjDjah0f_57xCcmxZRGSyxLW9vwtr4aZedU-FEl-YETeEd7d6gRBRj2j>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 07:37:45 -0400 (EDT)
+Date: Thu, 29 Oct 2026 11:37:44 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
+Message-ID: <auMvYdTd_e9O9kDj@thinkstation>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
+ <auIniV8YSpA4_oxg@thinkstation>
+ <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,114 +114,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026-work-securebits-userns-v1-1-b35473fa1a34@kernel.org>
-X-Infomaniak-Routing: alpha
+In-Reply-To: <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
 
-On Mon, Oct 26, 2026 at 09:53:29PM +0100, Christian Brauner wrote:
-> SECBIT_EXEC_RESTRICT_FILE and SECBIT_EXEC_DENY_INTERACTIVE tell script
-> interpreters to only run what AT_EXECVE_CHECK allows and to refuse
-> interactive input. A service manager sets them together with their lock
-> bits so that nothing below it can turn them off again.
-> 
-> But set_cred_user_ns() resets all securebits to SECUREBITS_DEFAULT. So
-> any task that can create a user namespace sheds the locked exec bits
-> with a single unshare(CLONE_NEWUSER) and joining one with setns() does
-> the same. The lock is pointless if anyone who may create a user
-> namespace can drop it, and that is pretty much everyone.
-> 
-> Resetting the other bits is fine. They are about how capabilities are
-> computed and a new user namespace starts out with a full set of
-> capabilities anyway. The exec bits grant nothing though. They are
-> restrictions a task placed on itself, just like no_new_privs which a
-> user namespace doesn't touch either. So keep them and their locks.
-> 
-> Reproducer:
-> 
->   // SPDX-License-Identifier: GPL-2.0
->   /* Lock the exec securebits, then create a user namespace and look at them again. */
->   #define _GNU_SOURCE
->   #include <sched.h>
->   #include <stdio.h>
->   #include <sys/prctl.h>
-> 
->   #define SECBIT_EXEC_RESTRICT_FILE		(1 << 8)
->   #define SECBIT_EXEC_RESTRICT_FILE_LOCKED	(1 << 9)
->   #define SECBIT_EXEC_DENY_INTERACTIVE		(1 << 10)
->   #define SECBIT_EXEC_DENY_INTERACTIVE_LOCKED	(1 << 11)
-> 
->   int main(void)
->   {
->   	int bits = SECBIT_EXEC_RESTRICT_FILE | SECBIT_EXEC_RESTRICT_FILE_LOCKED |
->   		   SECBIT_EXEC_DENY_INTERACTIVE | SECBIT_EXEC_DENY_INTERACTIVE_LOCKED;
-> 
->   	if (prctl(PR_SET_SECUREBITS, bits, 0, 0, 0)) {
->   		perror("PR_SET_SECUREBITS");
->   		return 1;
->   	}
->   	printf("before: 0x%x\n", prctl(PR_GET_SECUREBITS, 0, 0, 0, 0));
->   	printf("clear locked bits: %s\n", prctl(PR_SET_SECUREBITS, 0, 0, 0, 0) ? "refused" : "ALLOWED");
-> 
->   	if (unshare(CLONE_NEWUSER)) {
->   		perror("unshare(CLONE_NEWUSER)");
->   		return 1;
->   	}
->   	printf("after unshare(CLONE_NEWUSER): 0x%x\n", prctl(PR_GET_SECUREBITS, 0, 0, 0, 0));
->   	return 0;
->   }
-> 
-> On v7.1 this prints "before: 0xf00", "clear locked bits: refused" and
-> "after unshare(CLONE_NEWUSER): 0x0". With this patch the last line
-> reads 0xf00 as well.
-> 
-> Fixes: a0623b2a1d59 ("security: Add EXEC_RESTRICT_FILE and EXEC_DENY_INTERACTIVE securebits")
-> Cc: stable@vger.kernel.org # v6.14+
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Wed, Oct 28, 2026 at 10:45:34PM +0100, David Hildenbrand (Arm) wrote:
+> My brain hurts, does the above make sense?
 
-Thanks!
+Yes, I missed that the loop only goes back to start when a lookup
+comes back empty below end. When the last batch reaches end, it exits
+without another look. It doesn't need the split either: any punch hole
+whose last page is in the page cache gets there.
 
-Reviewed-by: Mickaël Salaün <mic@digikod.net>
+That exit looks unintended to me. b9a8a4195c7d ("truncate,shmem: Handle
+truncates that split large folios") turned the "if (start >= end) goto
+out" early exit into the loop condition. Before it, the loop went back
+to start until a lookup from start found nothing; Hugh kept that on
+purpose for hole punch in 792ceaefe621 ("mm/fs: fix pessimization in
+hole-punching pagecache").
 
-> ---
->  Documentation/userspace-api/check_exec.rst | 4 ++++
->  kernel/user_namespace.c                    | 5 ++++-
->  2 files changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/userspace-api/check_exec.rst b/Documentation/userspace-api/check_exec.rst
-> index 05dfe3b56f71..0904810e1d8d 100644
-> --- a/Documentation/userspace-api/check_exec.rst
-> +++ b/Documentation/userspace-api/check_exec.rst
-> @@ -99,6 +99,10 @@ This secure bit may be set by user session managers, service managers,
->  container runtimes, sandboxer tools...  Except for test environments, the
->  related ``SECBIT_EXEC_DENY_INTERACTIVE_LOCKED`` bit should also be set.
->  
-> +Both secure bits and their locks are inherited across :manpage:`fork(2)` and
-> +:manpage:`execve(2)`, and they are kept when a task creates or joins a user
-> +namespace.
-> +
->  Here is the expected behavior for a script interpreter according to combination
->  of any exec securebits:
->  
-> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-> index 50c374ed4687..cd748e1cbace 100644
-> --- a/kernel/user_namespace.c
-> +++ b/kernel/user_namespace.c
-> @@ -46,8 +46,11 @@ static void set_cred_user_ns(struct cred *cred, struct user_namespace *user_ns)
->  {
->  	/* Start with the same capabilities as init but useless for doing
->  	 * anything as the capabilities are bound to the new user namespace.
-> +	 * The exec securebits grant nothing, they are restrictions the task
-> +	 * placed on itself. Keep them and their locks.
->  	 */
-> -	cred->securebits = SECUREBITS_DEFAULT;
-> +	cred->securebits = SECUREBITS_DEFAULT |
-> +		(cred->securebits & (SECURE_ALL_UNPRIVILEGED | SECURE_ALL_UNPRIVILEGED << 1));
->  	cred->cap_inheritable = CAP_EMPTY_SET;
->  	cred->cap_permitted = CAP_FULL_SET;
->  	cred->cap_effective = CAP_FULL_SET;
-> 
-> -- 
-> 2.53.0
-> 
+Restoring it is enough, and makes the "restart to make sure all gone"
+comment true again:
+
++       if (start >= end)
++               return;
++
+        index = start;
+-       while (index < end) {
++       for (;;) {
+
+Then a replaced folio is found on the next round, and truncate needs no
+special case for it.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
