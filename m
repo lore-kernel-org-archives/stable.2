@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267062;
-	b=JIznN1u/1T9XGZpQf5CB/hxsup/F/VsFkZG4AvdAhdpd3999KwqPGzLj6leOI6Ev6v9c
-	 l47F1oizvSqK2Mve4BI1Owjht/8a1YAdCfx9CQHvuYcQpACajDGuZOoiGTokXdu++SKkO
-	 K0U7D2haK9rro4ZcE9/xgafkG1d6k8J8J/bGDweoMYeDgaYGZ1zxvoQukIxg9+tGF7thw
-	 sz1Ic++vztsOIx204JswwLPAs7TFT4lwZxtv1D/2sW24SUOxpxIwiHqr42foslypy62Wm
-	 3C4pASlWL2wlCMC59Vlq3fwQY9KyfFjy8RwVZ7j3jCxDVRHORJ5aL+BV+2YTtQyWIFA==
+	t=1793267240;
+	b=jtrXs/cXP3Xd9/6f5sIbZl4tYy2A1XUm0OuGrNtqvSMhG8l3KJZTC4BI3NtYx4NsArGf
+	 fS9scu8f2q6Rho7zjD9dghaDd/7ir+vwANmKc5GQeS/E2hsOs7Zwj14PFNeCYdLE2tIAB
+	 lP/wzEMDiWSEH+pm6TRW96bpj9V26nAhV8kUOw1ZkoLS3a+dg2o5Bbww7K8dfLJeFeX5K
+	 QgJ3B+oFPlf3MNzqwGSg3Zh7EO4zZLC6D5+z6bdV4jGTzVEjSMXQH3+nVswiJ+VKfkcP5
+	 xrWxxDDFWD/RCBZBk/yGa/NqHaCiHjM6FXn/58645vtEM/vFO1FfoVcag/uif8s9E0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267240;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UKSebZaSFVefMa83WA9Risb9bDftelK4ymQGDTUiUGc=;
-	b=LpwbSyMA19JkabQE/qjAl+PDxclXIHNzMlEmj9/l6ul5YpS/2wQx+WfO70G9+AkdCBuK
-	 1EwUnS4dU09rwbiDwfB3wARWP/GnRl6XcRDMllhMnXJV1bO1er5Lh30mWVr4pTKP0LdmX
-	 88xYBp8/wPGnTRIKOyk50/c7TGeDCWyQqMWqGuJEYPa4J/hcBW2Q62DceVFFyYUnLZnr5
-	 b/4nIkUsS+b29DSJLnGibcH1QfZjPkkqVm15LkuY+GDV5qWE24nASbWbCqma9BZUJhRib
-	 1Hvtdt4gmN7m0sESjY+u1f9u7PYM+E5DmsCsclKI+2tWiQNt/mwaIcaIqZaQ/8ViJ/A==
+	bh=ln7ETxCnDGUOhcBIhAMeXSU0zs0khHi7wfl/J1q2waY=;
+	b=wmglYB23TQPlO8r2UiWrbV7j4QLpAO1XMmOKO7xs9ZgxAsjyuRCHD1dkk8LHiekViPTK
+	 L7fryrn5Ddpw5JCSjAQMjkECj5asBIpF6xkokpB5LU/Tnj5hzwsCCCycwCJc/AIHi2bhg
+	 9MakCr6GUcj5Ysz8Wsc7gDzXU6BhI3dQ5t5ChliytyA+WDkzGr0R/2YDMzTSsF+1PjDap
+	 0wP8fbu0IuUgadV0edlHygL60cqQ1+MjqdSTQl2JbSayXsHUBbDcQDa8XA6DqclZwqRVH
+	 LjHgpsIVtmU6CgX3hxj8nnp6Ietlx75HuV2puXOH6QPQ/ZoNrMqKFXzE9G+jGLtFaaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RhUWxnDw;
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yfzmFTac;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E34606A32F
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:44:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0E34606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4D5606A321
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:47:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD4D5606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RhUWxnDw
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so982522a12.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:44:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yfzmFTac
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso2403059eec.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:47:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793267061; x=1793871861; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793267239; x=1793872039; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UKSebZaSFVefMa83WA9Risb9bDftelK4ymQGDTUiUGc=;
-        b=RhUWxnDwJvX15K7ipRR4XPyycz56J4nWxBJ9wQ+7eveSbrpw04HV1uu0M/TFmlJFmu
-         lz0Yh8IQWBwf4EE41qfAD3bAIpcDW4vWPzANZwgbOIgn8rhNRIh+vxKHE1OH2Sii3drj
-         1D9ouxhDZbqIFhW1+IUYbrnXkM7Xz9jbkkHOZ2LoBy9ZfSDgFETK+iOTjip9E+kholLQ
-         oxQmFNP2JgK2m3UOLr0n1jREU+DEtFBd8idnQhSc3UeYOaw2KEk9HtN5Yc9roucMviUc
-         lErwfgPN1F3zlPe834PQmwHx3H5ARm6HXu48UzJQYYsr+Y71lX8bzBgpV6ewGH8GTH/Q
-         13Jw==
+        bh=ln7ETxCnDGUOhcBIhAMeXSU0zs0khHi7wfl/J1q2waY=;
+        b=yfzmFTac7XBP8kqbbsMoZ+xLWzoC6AUSQRoKI3zWGfTaFLApxY+IxeFyBvWM5spngV
+         KWOBbV6UawH7lLciqy3xtgsYoe70SNL0oH+JiqnOshYQp/xGiII8d+ma+NiHP3VylJ7k
+         FnGj/fByujpPpiLKt8Kwfq3IbaTtodPFsYfN0CkB5w2F8NnqHK4lg6kFQOvd4SxVv+QJ
+         3gP6Bbxf7x5KtkbG+YLXWzycH7j4ExkzDZHPNBFjJATgxP3sSO6znNRFzqhvPCPJZJZU
+         UuMolS2u4K5ObxHCSfhRt+1pfiwfj1kKAI+EsXDvZlPsnDJqdHwP7v6ee413MvKY3uSt
+         31Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267061; x=1793871861;
+        d=1e100.net; s=20260707; t=1793267239; x=1793872039;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UKSebZaSFVefMa83WA9Risb9bDftelK4ymQGDTUiUGc=;
-        b=NKh2XiVcRkiVafFWJOr4zwIQSH8dm8eE2Ruu5kBeboL5zhSU6caz7TUgGGWYO4g45e
-         l7mZ65me43Nt2qrwj3v+quucIn1PJkLB2Rq0iyNCuIlkDJELUkvaKtVQIMJj8x7TdH18
-         kZWyTVod+2Bv39M73qYXX27U53cZ6sRSWkcPCo359hsgqtJ+kybYNgTxEoACWQl2BEQz
-         5lXEXUyJsMo/8fuaAdGT+dY5/oNfTde+RBg46xljHGqeNy/1vVY4c57XyDg9z4nbQXBK
-         K+dlZXZO/uNwDSlF1rNMna9I8NY+3toRdgoxk7jsQqHpRQAwof2UeuCTECghy//lpFQf
-         Qxog==
-X-Forwarded-Encrypted: i=1; AKwUvBzRkxjbXeEKynEFMDvZ/LiCOwu1m9foznkJTi/YKnxAje44Keov0fCVvhY78qUZ7v0oek0qscQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnAP1SeREdu6wNjuHxbJ6e/zqNxl9UbqH9LhNpjpnUBMLal/mi
-	NusNc8oDugVvd6+ghECMamnJ9rgmu8La15pWL+hw79vsTNhEnlJ7xaMRino7d8EVpx4=
-X-Gm-Gg: AYBFou2p6PfjVNmMH6NgccuysuAEs4wv0ZH2744L+1DHkDbaoXzfzJb4sEPkjXEy3ib
-	4/OROsU4Nd2dyeBCIeV+MVkFQoZz3q1PfIsPGLB8jnyFlDjJIclAiUXIx27jUrZUutbvHBnTZV2
-	Al0nFBJDRh9TtXGqxubDjlRoli728KmOgDsYFB9qZeOmtjpdYqAvXIy11Er/3voo2POl9b2w/KC
-	hxLfOdKqN4UcPW2szHjJ3h9mmp0aX2yfB2NuCskL2CsMCMKxkHCDlykix0wzBtSsIzIoQ8oO4vn
-	0NUKnG96RgBoyheBxr1ZA8pBHHZUMufqkVmvqf+S1ch2+rHggcSFLuYR92+LOlboR2XFv3us6+7
-	IPKRz+hDmVUghE9S8B2N39pQ8edowULQNpuBlUdGiNAejG3my5Gm6I1BWXv7GwVk3+icaIZ85Vt
-	3K06zDP3Tpz5eUALewDGO1pK0jKCRtoJl4Y2Gwj8vTg8TlifE46+o63mJwQjrOki0HbJMEWGXyx
-	MSC62/9lNDQdo9UvT9uJkf5TcOsMkKu+GwhLaKdt8Zp/VL5OYWRnsoOOgGy3uqg9EUCmdYV7BXu
-	a0B4AdhjUh0fVeIYJDeUEoiFAamcn5WLPx2bSfiZKwTgiFSdi3xHJVGv6LxtWh4y
-X-Received: by 2002:a17:90b:4b89:b0:3ac:17c:6e85 with SMTP id 98e67ed59e1d1-3ae581e1959mr3851734a91.47.1793267060784;
-        Thu, 29 Oct 2026 02:44:20 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579c59a6sm2912203a91.3.2026.10.29.02.44.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 02:44:20 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Wey-Yi Guy <wey-yi.w.guy@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        bh=ln7ETxCnDGUOhcBIhAMeXSU0zs0khHi7wfl/J1q2waY=;
+        b=g23er0q6xf4zddRVAh/IiiM02tP0kbXjfMH8J7VXAfycg1sDq6a0x0EjA8TbIfpjOA
+         lMQkst1L23bbI2ULciTP+udNIpklTTP8upP7e+85IT++O4el8+5QKeDeMCy1+/pCfkX+
+         aC6svmpIhbBTgL+3DfhH8VXeL4Me68xkB4NZsh0pecWUJpyRFNsncgsS8ueHtxbwdblO
+         Jw2Qa1l8Pf7MYaBRKUl2pGkrUNQbMJcd41N5B0SLBgkJVhP0TtIZNqi3T00j4N4vnxUk
+         dd1mnaLmqRYxFoO6labFuJpX1ClIaX4SuIKPbX1rYlVNBSb20TpVnP8ZDTy8kqldK+tQ
+         9Y2A==
+X-Forwarded-Encrypted: i=1; AKwUvBx78hFcu1Msr+gVJoxx3rLI94XqbNHbtkG1nrStYZii5WI0NuebMcVzO8E64jD+qTzZy9PdcG0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAZ8Y32dL0m+jcYLo1t1HgVRYH9L0AGXSc6MC/7O9dFo+cEa7W
+	b3MdwVemPNklDpXX+ogc2e0172h1ih01pk4q624Jo2wd5DsYuQUDWnzW
+X-Gm-Gg: AYBFou1zURPoJZNJ5e97WFGcBfM6sQeSVOkORybfLouZX/TSSk7wTtKkg1IAv/l2dgH
+	uGPzhdTuQLpPaLveF7RYxLUlzIN3peZ0ImyBylfwJXXsxkDWDrLqjkafk2sN/ErYjB4SAGcLwiN
+	RGqneAWVGoeY7ufnmbvGQKqLbRyxTQE2YXro1n0c4gp9Ddhx0lGi0eGmFjaCWfalUfjpLlbnjNd
+	VtsidNu28IPbPox9im6Yr981yZUbPscMjjkxHjlV+YnxGiXw3l+5G+RWUKxKT9szeLGMABnh4J/
+	vvOZNwESUvcBYeWs4+ce85eSw0Hy8SzYfnXAjULcUg5ZUpokF9Ky+0QcZNpx90SBRQqBSLMwch5
+	0jJgP5Lu/A7trzjguLoCwY66TJrgi6qR9uKBDeUCfXdArAUOurDM/dvBxYHz6XlLbqFHz9T6Ddc
+	RJyqZdLlldwnxk3lY2OJ2CH7Zfy2gTmiEMMMEwj3RaV4Aa32NXN2Ax/WFfDRP0sPFk57awO0kPl
+	nXKL1rib38xYDbd66jzM5Wu4n1FSG4TzMnOI4sxd4g0kyf/MQ9tJy6kxBiSes3PjbeIf6+qC9lo
+	OdW0V/TIIif74mJIrOwNezQbiBu8t4IX+KT8dckkkg==
+X-Received: by 2002:a05:7300:d80e:b0:351:7e5d:2de9 with SMTP id 5a478bee46e88-36a1ff846e3mr7012686eec.1.1793267238675;
+        Thu, 29 Oct 2026 02:47:18 -0700 (PDT)
+Received: from iZj6c0kydq3fvfrtx5kta5Z ([47.86.51.122])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a237bc445sm14464245eec.1.2026.10.29.02.47.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:47:18 -0700 (PDT)
+From: Challvy Tee <challvy.tee@gmail.com>
+To: x86@kernel.org,
+	linux-coco@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	dave.hansen@linux.intel.com,
+	kas@kernel.org,
+	rick.p.edgecombe@intel.com,
+	vishal.l.verma@intel.com,
+	kai.huang@intel.com,
+	Challvy Tee <challvy.tee@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: iwlegacy: unregister the LED if 3945 hardware registration fails
-Date: Thu, 29 Oct 2026 17:43:37 +0800
-Message-ID: <20261029094336.19250-2-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029081955.GA10212@wp.pl>
-References: <20261028142328.18560-1-enderaoelyther@gmail.com> <20261029081955.GA10212@wp.pl>
+Subject: [PATCH v2] x86/virt/tdx: Skip TDH.SYS.DISABLE if the TDX module is not initialized
+Date: Thu, 29 Oct 2026 17:47:05 +0800
+Message-ID: <20261029094705.896693-1-challvy.tee@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261029080731.890996-1-challvy.tee@gmail.com>
+References: <20261029080731.890996-1-challvy.tee@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,46 +107,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Stanislaw,
+Commit 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and
+kdump") made native_machine_crash_shutdown() call tdx_sys_disable(), but
+tdx_sys_disable() has no runtime gate: its only guard is compile time
+(CONFIG_INTEL_TDX_HOST), which is enabled in most kernel configs.  On a
+system where the TDX module was never initialized, kdump now issues a
+TDH.SYS.DISABLE SEAMCALL that it did not issue before, and the crash
+path never reaches machine_kexec().  The capture kernel is never entered
+and no vmcore is written, so kdump is completely non-functional.
 
-On Thu, Oct 29, 2026 at 09:19:55AM +0100, Stanislaw Gruszka wrote:
-> On Wed, Oct 28, 2026 at 10:23:28PM +0800, Zhao Li wrote:
-> > il3945_setup_mac() registers the LED before the mac80211 hardware, but
-> > its registration error path does not call il_leds_exit(). The analogous
-> > 4965 failure releases the driver and reaches its existing remove cleanup.
->
-> Could you explain exacly how this is fixed in 4965?
-> I do not see this in the code.
+Having the TDX module uninitialized is an ordinary state rather than an
+error.  tdx_enable() returns -ENODEV early when
+X86_FEATURE_TDX_HOST_PLATFORM is absent, and it also bails out if
+init_tdx_module() fails.  Any guest whose host does not expose TDX is in
+this state and logs:
 
-There is no il_leds_exit() in the 4965 error path itself. The caller
-handles it: il4965_mac_setup_register() runs from the firmware callback,
-and a failure there unbinds the driver.
+  virt/tdx: TDX not supported by the host platform
 
-  il4965_ucode_callback()
-    il4965_mac_setup_register()   /* il_leds_init(), register_hw fails */
-    goto out_unbind
-      complete(&il->_4965.firmware_loading_complete)
-      device_release_driver(&il->pci_dev->dev)
-        il4965_pci_remove()
-          il_leds_exit(il)
-          ...
-          ieee80211_free_hw(il->hw)
+The syscore path is implicitly protected: register_syscore() only runs
+after init_tdx_module() succeeds, so tdx_shutdown() cannot be reached on
+an uninitialized system.  That is why plain kexec still works and only
+kdump regressed.
 
-il4965_pci_probe() returns success after submitting the asynchronous
-firmware request. If the callback reaches device_release_driver()
-before probe finishes, the device lock serializes unbind with probe.
-The callback completes firmware_loading_complete before unbinding,
-and il4965_pci_remove() unregisters the LED regardless of
-mac80211_registered.
+The crash path calls tdx_sys_disable() directly and bypasses that
+protection.
 
-3945 calls il3945_setup_mac() directly from il3945_pci_probe(), and the
-probe error labels never call il_leds_exit(). ieee80211_free_hw() then
-frees the il_priv that embeds il->led while the LED is still on
-leds_list, so the next led_trigger_register() takes the trigger_lock of
-a freed LED.
+Reproduced with 'echo c > /proc/sysrq-trigger' in VM guests on Intel
+Sapphire Rapids, Emerald Rapids and Granite Rapids platforms, in every
+case on a kernel that already contains the change described above: the
+capture kernel is never entered and no vmcore is produced.  With this
+patch applied kdump completes normally on all of them.
 
-That should have been in the changelog. I'll send a v2 that spells out
-the 4965 path; the code change stays the same.
+Three negative controls, all of which produce a vmcore as expected: the
+same guests on kernels without that change, guests on platforms without
+SEAM support, and plain kexec on every platform tested.
 
-Thanks,
-Zhao
+On a host where the module did initialize the new gate is a no-op and
+TDH.SYS.DISABLE is still issued, so the poison clearing that the above
+commit was added for is unaffected.  We do not have a TDX host to test
+on, so this part is reasoned from the code rather than measured.
+
+Gate the SEAMCALL on tdx_module_state.initialized, the same predicate
+tdx_get_sysinfo() already uses in this file.  Putting the check inside
+tdx_sys_disable() rather than at the crash.c call site also covers the
+syscore caller and any future caller.
+
+Fixes: 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and kdump")
+Cc: stable@vger.kernel.org
+Signed-off-by: Challvy Tee <challvy.tee@gmail.com>
+---
+v1 -> v2:
+ - Use the real commit id 5b25f249be32 in the Fixes: tag and in the
+   opening paragraph; v1 went out with a placeholder instead.
+ - Drop the claim that nothing reaches the console.  panic() prints the
+   message and backtrace before __crash_kexec(), so they do appear;
+   describe the failure as the crash path never reaching machine_kexec()
+   instead.
+ - Drop the paragraph that explained why guests on platforms without
+   SEAM support are unaffected.  It asserted a mechanism we have not
+   verified, and the negative controls now carry the same information.
+ - State explicitly that a host where the module did initialize is
+   unaffected, so the poison clearing the fixed commit was added for
+   still happens, and say plainly that we have no TDX host to test on.
+ - Restrict the syscore claim to kexec: tdx_suspend() does not call
+   tdx_sys_disable().
+ - Resend with the full get_maintainer.pl recipient list.  v1 only
+   reached stable@ and missed LKML and the x86 maintainers entirely.
+   v1: https://lore.kernel.org/all/20261029080731.890996-1-challvy.tee@gmail.com/
+ - No code change.
+ arch/x86/virt/vmx/tdx/tdx.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index 96ced0494b68..a7eae7492c1e 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -2321,6 +2321,9 @@ void tdx_sys_disable(void)
+ 	struct tdx_module_args args = {};
+ 	u64 ret;
+ 
++	if (!tdx_module_state.initialized)
++		return;
++
+ 	/*
+ 	 * Don't loop forever.
+ 	 *
+-- 
+2.52.0
+
