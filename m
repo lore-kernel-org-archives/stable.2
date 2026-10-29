@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306144;
-	b=jHl/UQE9TP8+ZtSoLo1Jo47f0SpqvL46cYLB7gfRfVUYSUgP/3LnD1xSeOmqOwRwy8QF
-	 /zXpTmJhm9gFJrYuP1ZKySjZYj2l5+XqOoBk8xeYhgM3EsR8zou/VMEub95RpSPUj+5Jn
-	 4r3Vc9MFeUJFiqFf9J2cSMJUUIkIPF472rQ42IszPP7U9dirmE+A6TGeBjtu6FQg8GlAD
-	 XnJZIjhgtr32me5c9WQfY1olbhzqvLZRouee3lgNBfpkupQIZX8JsW77TcZOVNd0Jw99J
-	 FPW+HdC7/BeSmsKjBIodGuiyTyLcnY1p0U4stV+YRmQmjUtivPzwkBmEXztdt33PjJw==
+	t=1793306129;
+	b=ooeda9ddoOm/+3HzqAn7elRzBqol2bCNwMF79Bd/riYjPQ+9GtayxQPnxCu8Jp0KuKU/
+	 3AxutKg/G9su80W1vUvf0ge09DmyYtSeTOv1I/AK1sSqRfBDZ2+dnfDRQAxVAeGyae5wj
+	 flkTEtx1CEVtYmw5jmyw41ljJWQAQ0SG00jk6MORlm3dJdhTXsu4bmXZcdYJ0lgVI+x09
+	 nIEyZYJvHHgtRh7QZ/jLFtnjL7UG7qLwvO4aX845z9G79ghDAMEKBnDfkc+uzxQj6MAgr
+	 BvO9adS2gwRcgiyFmwX0G2U9I/Dd/RVAl/KqI5abFCGWsB0Og2KDl1vEwKgd4vfqr+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306129;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=96TtEpSKdC/LfLy/tyx1VyuBrcl0jzn2JfhjMCHk15s=;
-	b=ud1+Kd84GLQsUnfkzQRJAEoSrtKlfc6MlfpBiVi+PUNJd0RobwEBXHMzubO7t6T7gReb
-	 yiMc/lzsvI2W8cKLybbOAMQrI/GnhRAHXmeQtMAbIRbH/F69iJInYNtXxeEj+Gh3FErfN
-	 YW2KLIXxzj7orm558SKYz8jG0LROMl/9LBBwgiGzccrIb0UkugNvo2j72N23KqXw59Lxw
-	 sBSAlApZ95jEqe3atWcn37XsDLegV7Mbnax1KcvqeD80OWFVdq3TcogrQDHgE2Tx/Xqkw
-	 UbE4ZfzpDTHyZABMe/M3qiNtJVOXxIpQnYlb/c9CrRfZAAgI71NIPLTtDWBny+ngOlw==
+	bh=JIqz6J3TwNkGVPVANkFEl6jPQa+Zivkvvh5bXw83jC0=;
+	b=3YHt0z4X29s+o+6E9ZSF9yrI3hUQnvNARxIwTOzzFqylXsAviL6kDOs/0AJJcpc4oQ0K
+	 C8Vvh4dhmxzCkR3fU5xxcjdGWqvYTFHMaRZt60VJtgdu1h/BQtcsyGKlfHRlvrErJELtd
+	 fIffcjSkjEudhEam7ZFL1f8Jyvu28lSCI0gr4aPaPhYP6e7FaEWXcD6KiZswXaxT+Icz1
+	 Aa56H9KT7giRoRSsn13mIkZpNQKMr6EfTeTFks1S1FR5J/On9BjxeIp0/3KqTjyyz812Z
+	 bKWF0eP+1vCBDiVdPYQEI+mStBYwkV5CfbKHGvtPCHxT5lbJvga+Fc5hOFhxj2DM3yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJ+jBZKM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnPvwTVd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAFE606A31C;
-	Thu, 29 Oct 2026 20:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJ+jBZKM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 273E21F01826;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AC5606A33E;
 	Thu, 29 Oct 2026 20:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnPvwTVd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655ED1F01825;
+	Thu, 29 Oct 2026 20:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306143;
-	bh=96TtEpSKdC/LfLy/tyx1VyuBrcl0jzn2JfhjMCHk15s=;
+	s=k20260515; t=1793306128;
+	bh=JIqz6J3TwNkGVPVANkFEl6jPQa+Zivkvvh5bXw83jC0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=IJ+jBZKMEaHA6DbBE07ZlAkm4HbB/m+XzRLXVZEMC1wvmXocloFyTi7T9sMwoPtAe
-	 2Nw2Kryl/u1bPc6g6JtQHUGDfxYk6K6/efXnRWJh7SVIgjRW1QCLhk1AfjBL4NsJtU
-	 ONCKT1TOxTu9I2GWiYIuklRqaKjAyXTHp6kBenM+lCB7MQcaWC5E+/F+ED/x+hYmqa
-	 5KKH19Mszf+VdsguhV9hkgZBRrhsKUI3NnfTqVEP3aEDJ3dOSWqPgoHgv7SXk9h3gW
-	 uW1rWwb8gPvo+hhFiVMcV4ZXrUi2frKbU8Pe6emWElcJ0sHugqGEAYXQW5P0REqau6
-	 VxQataoTrZ1iA==
+	b=TnPvwTVdhfq5HQD+vvFOcn8G/MzS9HbLRPmKgokJVWGtdm6ivj0/dhyWASnhrcLiL
+	 ZN4i+CpGa5N9kOSCQrMCXDeUbAKZd7alG2BxvMvzAOROCgMDr/lTJTYYaKeE3rrAUR
+	 6KzV1RVU74/NaDc3KZ+6vyUfDSmZIp6PCUP6k4Jo4eTEpk+00SbIdCuq90C0L/1uww
+	 5wrHFXdgPxr05IDgusi0rT9Q93tvtbt4aVHs+6j/ScZMe6mP/IC9VohQbhhalkgC0q
+	 lQY7qrUH+AxPdMcuMBp/OivDUp8Joxs/UCz+baxOhtfhMGCpnjd+RB2zjjKYEyxKVa
+	 7Fspe6PVIpRvw==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:04 +0100
-Subject: [PATCH v2 09/47] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
+Date: Thu, 29 Oct 2026 21:33:03 +0100
+Subject: [PATCH v2 08/47] mm/filemap: finish fault cleanup before dropping
+ the fault lock
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,8 +54,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261029-fixes_core-v2-9-a64ce7f83abb@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fixes_core-v2-8-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -93,102 +93,115 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3336; i=david@kernel.org;
- h=from:subject:message-id; bh=T2JIigC0ajwmaRTR6cbJfS4ZfpBrmSia86Sk4tbihtY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer20NXFUbFcxnPK/t2pZp63Kvi37c+M3g129eobauU
- /bS942UOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIqfcM/51E636ILny4PcI7
- L7I2+YLnmfjG86nbO85PXigaOMv3qxAjQ2+10u04vzVbLgiGn54cmniPMz6OkVFV+lLdmY+b5TT
- rGQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4079; i=david@kernel.org;
+ h=from:subject:message-id; bh=8upppjNvZx+R13jPGAHHeYmNd3f41Ow9JcPqILGtH6s=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer201VjohpJtZeHGJz9T8Nfl1gi+zM/Y0Vf9e1M5z6
+ 8v/jZZ+HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEwk3ZThf3KrZ4le176Zx1k2
+ WFlwPoxvjXyys75Zl/v+LDPZu7qBLIwMDUqqbtfWHb9bzv588VNBExGh21FTHmb++uVxMNa+4tw
+ eHgA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-page_vma_mapped_walk() can return non-present device-exclusive entries,
-but folio_referenced_one() passes them to PTE young-bit accessors that
-require present PTEs.
+On a retried fault, a fatal signal interrupting the folio lock wait
+makes lock_folio_maybe_drop_mmap() drop the fault lock without pinning
+the file. However, filemap_fault() may still need to release
+mapping->invalidate_lock. A concurrent munmap() can release the last
+file reference and free the mapping before that unlock.
 
-We must neither call clear_flush_young_ptes_notify() nor
-folio_pte_batch() with non-present entries. For example, clearing the
-young bit on non-present PTEs can corrupt the entry: on arm64
-PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
-entry into an ordinary swap entry.
+Defer dropping the fault lock to filemap_fault()'s retry cleanup, after
+releasing invalidate_lock. If the fault lock was already dropped for
+I/O, release the existing file reference instead. Keep the fault lock
+held for FAULT_FLAG_RETRY_NOWAIT as before.
 
-folio_pte_batch() will VM_WARN_ON_FOLIO.
-
-Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
-treat these entries as old from the CPU's perspective and obtain their
-young state through the MMU notifier.
-
-Skip PTE batching and MGLRU look-around for non-present entries, and
-don't modify non-present PTEs.
-
-Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/rmap.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ mm/filemap.c | 37 +++++++++++++------------------------
+ 1 file changed, 13 insertions(+), 24 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 1131b76bbbc2..0faef46806e5 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -924,6 +924,7 @@ static bool folio_referenced_one(struct folio *folio,
- 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
- 	int ptes = 0, referenced = 0;
- 	unsigned int nr;
-+	pte_t pteval;
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 6b5e1d866a9e..b04be64a5069 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -3308,11 +3308,11 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
+  * @folio - the folio to lock.
+  * @fpin - the pointer to the file we may pin (or is already pinned).
+  *
+- * This works similar to lock_folio_or_retry in that it can drop the
+- * mmap_lock.  It differs in that it actually returns the folio locked
+- * if it returns 1 and 0 if it couldn't lock the folio.  If we did have
+- * to drop the mmap_lock then fpin will point to the pinned file and
+- * needs to be fput()'ed at a later point.
++ * Returns 1 with the folio locked, or 0 if locking failed.
++ *
++ * On both entry and return, a non-NULL *fpin means the fault lock has
++ * already been dropped and the caller must eventually fput() the file.
++ * Otherwise the fault lock is still held, including on failure.
+  */
+ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 				     struct file **fpin)
+@@ -3329,21 +3329,9 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 		return 0;
  
- 	while (page_vma_mapped_walk(&pvmw)) {
- 		address = pvmw.address;
-@@ -968,10 +969,12 @@ static bool folio_referenced_one(struct folio *folio,
- 			return false;
- 		}
+ 	*fpin = maybe_unlock_mmap_for_io(vmf, *fpin);
+-	if (vmf->flags & FAULT_FLAG_KILLABLE) {
+-		if (__folio_lock_killable(folio)) {
+-			/*
+-			 * We didn't have the right flags to drop the
+-			 * fault lock, but all fault_handlers only check
+-			 * for fatal signals if we return VM_FAULT_RETRY,
+-			 * so we need to drop the fault lock here and
+-			 * return 0 if we don't have a fpin.
+-			 */
+-			if (*fpin == NULL)
+-				release_fault_lock(vmf);
+-			return 0;
+-		}
+-	} else
+-		__folio_lock(folio);
++	if (vmf->flags & FAULT_FLAG_KILLABLE)
++		return !__folio_lock_killable(folio);
++	__folio_lock(folio);
  
--		if (pvmw.pte && folio_test_large(folio)) {
-+		if (pvmw.pte)
-+			pteval = ptep_get(pvmw.pte);
-+
-+		if (pvmw.pte && pte_present(pteval) && folio_test_large(folio)) {
- 			const unsigned long end_addr = pmd_addr_end(address, vma->vm_end);
- 			const unsigned int max_nr = (end_addr - address) >> PAGE_SHIFT;
--			pte_t pteval = ptep_get(pvmw.pte);
+ 	return 1;
+ }
+@@ -3572,7 +3560,7 @@ static vm_fault_t filemap_fault_recheck_pte_none(struct vm_fault *vmf)
+  * vma->vm_mm->mmap_lock must be held on entry.
+  *
+  * If our return value has VM_FAULT_RETRY set, it's because the mmap_lock
+- * may be dropped before doing I/O or by lock_folio_maybe_drop_mmap().
++ * may be dropped before doing I/O or when aborting an interrupted wait.
+  *
+  * If our return value does not have VM_FAULT_RETRY set, the mmap_lock
+  * has not been released.
+@@ -3728,9 +3716,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
  
- 			nr = folio_pte_batch(folio, pvmw.pte, pteval, max_nr);
- 		}
-@@ -981,11 +984,23 @@ static bool folio_referenced_one(struct folio *folio,
- 		 * are. —they could be on active/inactive lists or on MGLRU. So the
- 		 * simplest approach is to disable this look-around optimization.
- 		 */
--		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte) {
-+		if (lru_gen_enabled() && !lru_gen_switching() && pvmw.pte &&
-+		    pte_present(pteval)) {
- 			if (lru_gen_look_around(&pvmw, nr))
- 				referenced++;
- 		} else if (pvmw.pte) {
--			if (clear_flush_young_ptes_notify(vma, address, pvmw.pte, nr))
-+			bool young = false;
-+
-+			/*
-+			 * PFN swap PTEs, such as device-exclusive ones, that
-+			 * actually map pages are "old" from a CPU perspective.
-+			 * The MMU notifier takes care of any device aspects.
-+			 */
-+			if (pte_present(pteval))
-+				young = clear_flush_young_ptes(vma, address, pvmw.pte, nr);
-+			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
-+								address + nr * PAGE_SIZE);
-+			if (young)
- 				referenced++;
- 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
- 			if (pmdp_clear_flush_young_notify(vma, address,
+ out_retry:
+ 	/*
+-	 * We dropped the mmap_lock, we need to return to the fault handler to
+-	 * re-find the vma and come back and find our hopefully still populated
+-	 * page.
++	 * With fpin set, the fault lock was already dropped. Otherwise it is
++	 * still held. Release invalidate_lock before dropping either protection.
+ 	 */
+ 	if (!IS_ERR(folio))
+ 		folio_put(folio);
+@@ -3738,6 +3725,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+ 		filemap_invalidate_unlock_shared(mapping);
+ 	if (fpin)
+ 		fput(fpin);
++	else if (!(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
++		release_fault_lock(vmf);
+ 	return ret | VM_FAULT_RETRY;
+ }
+ EXPORT_SYMBOL(filemap_fault);
 
 -- 
 2.43.0
