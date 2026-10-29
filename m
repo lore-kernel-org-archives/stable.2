@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793266388;
-	b=4Y3TkTdyohR56R+xiy6nJVWJ/udJRK/EJnKBpLCE3Y1TzzY8w/zyDGha1PX8WFA/dy5V
-	 4CI5WG2us5v3hvPQ0z8kucRp1YzqOU1+rn12AoFnNfGS352DmcYB2/XiEnEd1B99gpgOL
-	 1piRGII/qzsJss8M5Vw8bsUIrTRl++uJvrBGHNYnCkzOSs7A1RskdlYRFklTbK1JZ6JXM
-	 eTsQi6TWhaKjqbriCSgo8INQ1fuPTQuX5HA5DIRAO1kMFpTR3/2qJHzp0wgljUgGh7iqF
-	 7Dpt1b/tUD5nMWHyOzpmGdIOFe9WCoAV9Jf1N1GjlikxuB6D2UwzYXKhrL3WZnFlHqA==
+	b=EuAEKrIUdPpl6CAM7tXgeYAhPHe/44YQoPIGCtuMzAhctbrVaCaLFlTDim/lgQZIGH2o
+	 C/S3bR8kgyt+j2L7+QgVA57PazldBU4Xm7UcymXw+gq+E2L0yVm9DLkW7V1TFYV/uYt+d
+	 IlN5tgoz5LU1Jc4uJRDjWQlCI1J+vmW8D5nH5Y1Kl8QWFSJjJu5nIrk+beY4e6Ljs2GqX
+	 zzU8xEKCTOwBBzEIJkptz4cObY8N5TvPzJevf5WdI0PSsZKJA5TFOehEfongexC9zVIO1
+	 aFPJVpm+7yGChzcHWKeQydT4VnG3y+qypcx7gCwfWwYdBxwAxfd/x4/dXMwLp876m4w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793266388;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=D2VRF1UIw2L4uB0SVfNxu6kmcdfbw/3EKqehM5bCLkA=;
-	b=z1Rkqv+8lmadRorw7XslfskyWKiOvN49NXE4Zt0Xq82IujuMJH1ecO1605NgUbuLLrGO
-	 78pi255r8yMzHRb9A1za8my5mHkqt4y/+hDPtBFkdXHbbi7f6W4n+mpx/fszboDQzobJk
-	 ME31XEZjAdaKVBI45pGDL2myK1odkz0kD4Yt4q4tdgxGZNKsUyjJXD8Z87teipZvWYHmA
-	 CR0G4lgJqOlTb7BGWqswmGI9LtPvnHuHeDv6WluC6fmFh7ss4m4m5qCdOQllhqXbv8zWf
-	 YXKYqOAlVGOFk3CbYGHgklx8XweoKg7bz/1U8hTsT6hegpzmsX16K1v4WJ9xYnwHG0w==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=GL31jgXRFIfptssau1/G2Hf4cv+6lZIIXvgonuIhO0o=;
+	b=AMBQG70cqA99NOLymMKDnw48bomhfUcNA+/ZoHcHJOggMcsZ6rTZmRIJV6sH55uysMAo
+	 Y3KojkrHtO2IvSJTOLLjEcClTTqLnZWbO2aAwDA6Jz4nqB9NayUN1khefKF4YH8eCHGp9
+	 ba+c+jVmEvZNw4L/c5/rkDd52aKFfLmUvTIug0Qlq7wKpg4HdcoG/v6T2WkVbzgShcXpc
+	 A2HeJstWMXi/pYC+7iYgPzqRFW/URiY14/DohA0BL3yvSZIyCy2Z2jiep+WDu1NHgFmrv
+	 BtIa2clB7yFd0gkva/uaGyw3fT9qRlWqPAakek7BtOLP+kRVJd0m6SPyn9gP7sALcnQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSlZ0c9q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiY4gYMM;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409D7606A31F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A48606A325;
 	Thu, 29 Oct 2026 09:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSlZ0c9q
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DiY4gYMM
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793266387;
-	b=RafwU4pyPS7EYktQblZVVeUJUF5RKLntq9YFAJ71sA7w2vrxbD5HaOwYNBoBf4DaGl35
-	 CU5ZpiIGB0Ikf17q86fIedxYzbcC7uDPgfnxJSpOiTbPxRI2RFL3GDb1XQJtniZfXu09d
-	 HltPIJ50Qlpax5kI/o9YZxmjPq6qm44V4E0CuaJuNw4wF0lz0IGZjyMkzUF/D9Pc7qxo9
-	 3kE6zpofPCfwDAMc1qV8ae2ezu3WDmJmkIjbBOjUreQ7lNThkMXgt3dd9qbScBGYozYMC
-	 zd18dmXo/iKEcrk1Ya2gaVZH6wMixNhS++FquzQS1ZPfaL7GPCNJuWcfwxJ2dJuS4lg==
+	t=1793266388;
+	b=DHmKFLslKpBg8WAkTEF0yV16JwQLezQaOlU4DILdDB/1RgH4Ns/PGTjucRJaLf52kVIN
+	 3023xlXOX7DsSf1j8aowNgVNCEqRQOLXfiLqGsqMBxRytbRf1x12SXjXNWHxb8lx/ouBV
+	 0vexa7fCXofVhdDqfhtgbum3i6/zj6sGg3YR25BBaHzGI0pHQytevQejhXZ7hsyTdmAFE
+	 0mf7ysTOtv0XYrqR14J4LBUJi8Dqf2nsA5neNETIRp9qLAUD8E5DilTgUo4ydKf+DPG+9
+	 zjMqCn9dRetv4rPWs5aXwtFsRl//wcpdd9ogct2ca3uE41XkIV/rawnJOdMUUsLm7EA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793266387;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=D2VRF1UIw2L4uB0SVfNxu6kmcdfbw/3EKqehM5bCLkA=;
-	b=c8/Nc3Ek7Q5I+4Eis3sV5rAHNltEOepWIEYLDheXCG/yu6+p05tQxttNKnl1uJyhTW1+
-	 Ee8+auKhrs2e/wjonqfAd2KSwU4Mc9tqG0NEf65jjsGYpMSZvNK6NEd1/w3gGCCAyxpTP
-	 wENewzr0R52OzSDNRKdu3CQJ/Pfy9DKRlikY3WLV1RSFhPJEkOf9UpBC+7+La6Kv3kin/
-	 isnQhmo2ZucI6YkdnnpWB+irN4VUnwsyz+dgZBPj/Z5QmBaUnELgyyyq1yfeIToLhPyQb
-	 0bfY1R8LNgeUEGqcPS27hKVmJwT9J2YocO4Qxic2ygiaj65kSEzJasqrHW9ZYa6KYsQ==
+	c=relaxed/relaxed; t=1793266388;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=GL31jgXRFIfptssau1/G2Hf4cv+6lZIIXvgonuIhO0o=;
+	b=00Tm3yzgcK12dYYyrxrKd0+XmwkiUWYLWN3WQ7qFgybH6+WbZWH5CE7AMkxQkHygo3Lb
+	 c/RcANivw4blQvQD4XCJ13sPTzciWgTDsMcS8hm8sCsvLOPaK1i17/QKgkEHqaJ1RdNxY
+	 FDzS52mHuRpx11xlykH1lkAd4IxWLjpxip51VlcoLdLAvyI3xxhOcrOiHfF0L9686HrAA
+	 PgzZkBHRjHAiecAtU1uwSlndkaV+IXByPyoGsLtzLjCHX25+IrFpx+OStDf4fAhhok4TQ
+	 ezDB9Msm3/QhJqGNsDufbXa4Yd1Iv7B6cWKuDo/Xj27qyvtAO4opFKUR6nP0LoH5FLA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8C7F11F031E5;
+	by smtp.kernel.org (Postfix) with ESMTPS id 7654E1F031E2;
 	Thu, 29 Oct 2026 09:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793266387;
-	bh=D2VRF1UIw2L4uB0SVfNxu6kmcdfbw/3EKqehM5bCLkA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=GSlZ0c9qa/DNsF627Ye0ZhrEJ/fLCeRUYf2ISuLFhJUKhVfiHtyDLboXuMIiV/izj
-	 A8PzY5dyKQ8H306DKSDROsIkmWkG75wMTd4OOdUiaYUydhr4G351JSMP/2212+tjCT
-	 Bnr0lzdKTXbhpo1FfBnc/DLwjavOUobX7oCkPNpWAi24Uw4hzWUgIZcDrHvLPfXycs
-	 Gl6awXvEoTTNXP7NEr3ICDBwJSLRBzpTDXCds/e9t04r33AxQimRXpxfeJ6zI0oZxc
-	 UQ3RyamBuW1QPandsmsMG43TOh8CE1fRHqMMK03K6Nce0cpudaABn8FVpjLWxX5WYF
-	 xLbk7z3Duvd6Q==
+	s=k20260515; t=1793266388;
+	bh=GL31jgXRFIfptssau1/G2Hf4cv+6lZIIXvgonuIhO0o=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=DiY4gYMMSrafWJ+9WSgFB6dcJ5q/nJz1wwPg616KuMqq9DI0AzL1aow1SFwVAFUcT
+	 EufoUldSOayfj10zH63JVJ/jhmcpMkqPLUOo28QwTvK4pCYd2BEYGxLTNbgnMDaA8l
+	 kb0RFNg+ueb5IW7Ou9LtSD/UifUYEL6iA8XL0Pytw4OnjAXpiY7YNyvazUXGk/6GTA
+	 +wgpHnZXPo+MxEdZ9WX3wNIzZynr6GfwwKxUJw0iSHj5wQH4kWOg9P9rXYRoX2lDzx
+	 sIEujwiwNzdxJPT1y8ui2j+Z3yfoIC18pI9o+z3HFi7ZJbfZRoe5lf2AuJdLpGWI3R
+	 j0RZ2+fo7NRtg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1BF37457D1;
-	Thu, 29 Oct 2026 09:33:06 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id E7D50457BC;
+	Thu, 29 Oct 2026 09:33:05 +0000 (UTC)
 From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Thu, 29 Oct 2026 10:33:01 +0100
-Subject: [PATCH 3/3] clk: tegra: dfll: Get the voltage step of range-based
- regulators
+Subject: [PATCH 0/3] Tegra114: Fix CPU DFLL voltages
+Date: Thu, 29 Oct 2026 10:32:58 +0100
+Message-Id: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,9 +84,11 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-upstream-speedo-t114-v1-3-81457cc9d94c@tsv-stahl-riesa.de>
-References: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
-In-Reply-To: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMBCE4Vcpe3bBpKYFX0U8xGTUFWxDNimF0
+ nc36mEO32H+jRRZoHTuNspYRGWeGsyho/D00wMssZns0Q6mjWvSkuHfrAmIMxdjTty7YRx7F52
+ 3gdo1Zdxl/WUv17+13l4I5duiff8A9Srl2XgAAAA=
+X-Change-ID: 20261026-upstream-speedo-t114-3567735d5a2c
 To: Thierry Reding <thierry.reding@kernel.org>, 
  Jonathan Hunter <jonathanh@nvidia.com>
 Cc: Mikko Perttunen <mperttunen@nvidia.com>, 
@@ -97,104 +99,98 @@ Cc: Mikko Perttunen <mperttunen@nvidia.com>,
  linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266385; l=3247;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266385; l=4081;
  i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=gDuzbARfWGkxqaRftjXwXdKDlFHjKq5qyD4dHr0p9zA=;
- b=UCEkvo1iL+WYXKVi+OSl1d7CVjMUf8WfbDywb4ejuLsyVFLuyGV4tLMHXRHQfNkaschpr9pgm
- pK4anvbJKLdDoDHmbZjnADxSRDPI5Bd1BMeWQYy+ACSr59oV2cGEbOn
+ bh=/lrIR8C9aN0HrUcDE1aMGU8c1QUaKAoG4KgVSPwL7/s=;
+ b=sDqEJpNgmEA5eRDywidt+SLNcWdfGwXPBATBDqtk2yn4iRbSKEeYFNrOXiunqPjQ2H90QRFC6
+ RWg2mWdmOF8CsvJ0MXR6mUbgPtAmFWdvM70SrH2N3TbSmG/jhwvGWGx
 X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
  pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
 X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
  auth_id=1251
 X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 Reply-To: admin@tsv-stahl-riesa.de
-Content-Transfer-Encoding: 7bit
 
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Since the Tegra114 CPU DFLL got its CVB tables in v6.18, it computes
+the CPU OPP voltages from tegra_sku_info.cpu_speedo_value and the step
+of the vdd_cpu regulator. On a Tegra Note 7 (Tegra114, TPS65913) every
+CPU OPP from 306 MHz to 1810.5 MHz ends up at 1000 mV, and the DFLL
+never changes vdd_cpu: it stays at the 1.10 V left by the bootloader,
+and the CPU runs at about 1.34 GHz whatever cpufreq requests. Three
+bugs cause this:
 
-get_alignment_from_regulator() takes the voltage step from
-regulator_get_linear_step(), which returns desc->uV_step. Regulators
-described by linear ranges, such as the SMPS of the TI Palmas PMIC,
-leave uV_step at 0.
+1. Since 2014 the speedo code reads the Tegra114 speedo fuses at offsets
+   that are 0x100 too large.
+2. It never stores the CPU and SoC speedo values in tegra_sku_info, so
+   the DFLL computes with speedo 0, which overflows in
+   round_cvb_voltage().
+3. The DFLL takes the voltage step from regulator_get_linear_step(),
+   which is 0 for the Palmas SMPS. Every OPP is rounded to 0 and so
+   clamped to the minimum, and the I2C LUT holds a single selector.
 
-With a step of 0, round_cvb_voltage() returns 0 for every OPP, which is
-then clamped to min_millivolts, so all CPU OPPs get the same voltage.
-The I2C LUT is broken as well: find_vdd_map_entry_exact() and
-find_vdd_map_entry_min() divide by the step, and on ARMv7 with hardware
-division the result is 0, so selector 0 matches every voltage. The LUT
-ends up with a single entry and the DFLL never changes vdd_cpu.
+On its own, patch 3 fixes the Xiaomi Mi Pad (Tegra124 with Palmas). On
+Tegra114, which includes the TF701T, it needs patches 1 and 2: with
+speedo 0 every OPP would still overflow to 1000 mV. That is why the
+three patches go together, all with Cc: stable.
 
-This affects boards that run the DFLL in I2C mode with a Palmas SMPS as
-vdd_cpu. In mainline these are the Xiaomi Mi Pad (Tegra124, since v6.19)
-and the Asus Transformer Pad TF701T (Tegra114, DFLL enabled for v7.4).
-The AS3722 and MAX77621 used by the other DFLL boards report a linear
-step, and the PWM mode does not use the regulator.
+Since patch 3 is only useful on Tegra114 together with patches 1 and 2,
+it would be easiest to take all three through the Tegra tree.
 
-On a Tegra Note 7 (Tegra114, TPS65913) all 16 CPU OPPs are at 1000 mV
-and vdd_cpu stays at the 1.10 V left by the bootloader. The CPU runs at
-about 1.34 GHz whatever cpufreq requests. With this patch the OPPs range
-from 1000 mV to 1270 mV, the LUT holds the 1000 mV to 1270 mV selectors
-and the DFLL follows cpufreq up to 1708.5 MHz.
+The Tegra Note 7 device tree is not in mainline yet; I used
+Svyatoslav's tegratab series on top of v7.3, with these patches
+applied. Results on a P1640 (Tegra114 A02, SKU 5, CPU speedo ID 1):
 
-If the regulator reports no linear step, use the smallest step between
-the voltages that are usable on the board. Fail the probe if there is
-none instead of running with a step of 0.
+- The fuse values match what the vendor kernel prints for this device:
+  CPU speedo 1742, SoC speedo 1156, CPU and SoC process 1 (before:
+  SoC process 0).
+- CPU OPPs: 1000 mV up to 1122 MHz, then 1040, 1070, 1110, 1150, 1180,
+  1220 and 1270 mV at 1810.5 MHz, as computed from the CVB table.
+  Before: all 1000 mV.
+- The DFLL LUT holds selectors 0x38 to 0x53 (1000 mV to 1270 mV)
+  instead of a single selector 0.
+- The DFLL rate follows cpufreq within 2% from 306 MHz to 1708.5 MHz,
+  with vdd_cpu between 1020 mV and 1260 mV. At 1810.5 MHz it stays at
+  about 1.74 GHz at the end of the LUT (1270 mV). Before: about
+  1.34 GHz at any request.
+- At 1122 MHz under load on four cores for 480 s the CPU stays at
+  52 degC with 3.15 W from the battery, compared to 73 degC and 4.48 W
+  before.
+- No errors in a memory test with 25 passes, in three 600 s load runs
+  with cpufreq limits of 1428, 1606.5 and 1810.5 MHz (throttled to
+  about 1.0 to 1.2 GHz by a board thermal zone), and in 316 s at
+  1810.5 MHz with that trip raised (DFLL at about 1.73 GHz, 1270 mV, closed
+  loop throughout, stopped by the test at 98 degC).
 
-Fixes: b3cf8d069505 ("clk: tegra: dfll: CVB calculation alignment with the regulator")
-Cc: stable@vger.kernel.org
-Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Svyatoslav measured the CPU OPPs on an Asus TF701T (CPU speedo ID 2):
+without the series all of them are at 1000 mV; with it they are
+1000 mV up to 1122 MHz, then 1020, 1050, 1090, 1120, 1150, 1190, 1240
+and 1290 mV at 1912.5 MHz. The speedo IDs come from the SKU and do not
+change, so the core, EMC and GPU OPPs stay the same, which he confirmed
+on the TF701T.
+
+Tool use (see Documentation/process/generated-content.rst): the patches,
+their changelogs and this cover letter were prepared with an LLM coding
+assistant (Claude Code). It compared the fuse offsets with the vendor
+kernel, read the fuse words on the device, traced the zero voltage step
+through the DFLL code, wrote the code changes and drafted the texts from
+my measurements and instructions. I reviewed the changes and ran all
+tests on the device.
+
 ---
+Patrick Fischer (3):
+      soc/tegra: fuse: Fix Tegra114 speedo fuse offsets
+      soc/tegra: fuse: Store Tegra114 CPU and SoC speedo values
+      clk: tegra: dfll: Get the voltage step of range-based regulators
+
  drivers/clk/tegra/clk-tegra124-dfll-fcpu.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ drivers/soc/tegra/fuse/speedo-tegra114.c   | 16 ++++++++++++----
+ 2 files changed, 38 insertions(+), 4 deletions(-)
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261026-upstream-speedo-t114-3567735d5a2c
 
-diff --git a/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c b/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
-index 457a77c5bb62..5bdea4775076 100644
---- a/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
-+++ b/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
-@@ -642,6 +642,7 @@ static int get_alignment_from_regulator(struct device *dev,
- 					 struct rail_alignment *align)
- {
- 	struct regulator *reg = regulator_get(dev, "vdd-cpu");
-+	int i, n_voltages, uv, prev_uv = 0;
- 
- 	if (IS_ERR(reg))
- 		return PTR_ERR(reg);
-@@ -649,8 +650,33 @@ static int get_alignment_from_regulator(struct device *dev,
- 	align->offset_uv = regulator_list_voltage(reg, 0);
- 	align->step_uv = regulator_get_linear_step(reg);
- 
-+	/*
-+	 * Regulators described by linear ranges (e.g. the Palmas SMPS) don't
-+	 * report a linear step. Use the smallest step between the voltages
-+	 * that are usable on this board instead.
-+	 */
-+	if (!align->step_uv) {
-+		n_voltages = regulator_count_voltages(reg);
-+		for (i = 0; i < n_voltages; i++) {
-+			uv = regulator_list_voltage(reg, i);
-+			if (uv <= 0)
-+				continue;
-+
-+			if (prev_uv && uv > prev_uv &&
-+			    (!align->step_uv || uv - prev_uv < align->step_uv))
-+				align->step_uv = uv - prev_uv;
-+
-+			prev_uv = uv;
-+		}
-+	}
-+
- 	regulator_put(reg);
- 
-+	if (!align->step_uv) {
-+		dev_err(dev, "failed to get vdd-cpu voltage step\n");
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
-
--- 
-2.56.0
+Best regards,
+--  
+Patrick Fischer <admin@tsv-stahl-riesa.de>
 
 
