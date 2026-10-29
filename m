@@ -1,63 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268476;
-	b=Uyia7ItVNZYQSzK/GY7qGckTDloHJsplyzD/Xib7oqnDViG1CRlLtDQ2UrZo+5T8ykT8
-	 hL29QI/f3uqRS47hPbmSksvP1L1ye0KMD4fb5b5nxuhsyMPbbSIkaflFyAYItN0MGDZ7a
-	 ncsUxurrPl+LYvfDXXwwiEtN+To2njHVEwxcV87xP1/3gSrkAIrw72CU9PFqk1S2AuhkJ
-	 p033jiEHnR0SimWNMef5B3wWFL77o1dGu4Cv6bnn1oqIMrbxGg++tgiBocjn3YpYL5mC9
-	 ABKFW+A3QP+rRglcs3vHYDY+Qy6ilmOMUCWt1m5UjFuZ6ShvvxRw9ukvE7HAfndUt2w==
+	t=1793268496;
+	b=n1y8hdEaOA6Zk5+i0DHxmETdwQ8HAs4FKcPd6fqEsIA+mvoWRzCbyNRls4Yh+9GFWHfM
+	 +/lDoZ1+z/RQ8P/LT74O/mPWY+EYUd3wBfQeMKoYsOMQsYNQBdYf9Td5kymGUrhGcLyWO
+	 SAFsDaSXfdAe6WAJY0Oguf+i8aP5drSszwd1R/dqTtPTnQMpnP4ubgGGYjuGDqHSkY+/0
+	 D0K5Ai3y40kB7XOrI0ZYVcis2kAKJmpljPPfA4WewU79t/eZNW2UouJXF/QZLkY8cVvBf
+	 eu31tYa6UTBomwlMLkTKZoTPbPM1S9KnOo2QXZerQQ3yh33I8pI3CIFYQsFAr0SVesw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268476;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=TI6AalHVhi+Sio82id/sg3uxeFVtKbdYDGvmlopGcDQ=;
-	b=yrCAOIwI9uNdY35ZqFVU76I6nbo5PFFpjmjkYZqsZ1peXalQbN++NANHLeYq6noM15Ux
-	 1QFOQLVmVjoUWv6JQ1uWVThBEl8m0kNwzMQENMNkx6Vrem2waQQ54H5sPI+WjQSJItVu/
-	 a3iSIPrO5yKYmGfy+3ExZ9ZwxiG/N3YjpVd5GCFdEwgwnoLWwT8bc3VzxQj4ET2mi6TL1
-	 u4vlNPy63+gBzSbPfwN5987FpJgzlTLs2Xcyf5J9Vf28GL9RfmtAHBm96DQqGbDCd7FfC
-	 i1gpt8WjU+8x+A6z5Zu1ZJIlZFlsfM2Mex48PCqY8HQR76etG1Lr9Tf3qL0ZVVj4dag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268496;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YqJZ0P7+7fLRIuROPGM5CtyVNeaoNZ5CLQZzkAwMRGI=;
+	b=j7aF8H/i8IA0XyvlFEeGWqeewSs/ws6fpNOe0iSlCyR8wu1xJihWwei5Va24mFSSwOsE
+	 z4Mga9G2X7c7zeEvD8dyO26SNlFHrmWIZtL/2hUHHkVoogAPvnOaLuweg0arbrt77PS0T
+	 aI+VZXZ5beK1su5ggsH+u634OmMRhGNU1r/PkcTtYm0jnKbVP2NQCGQo7T/7GFVfQ6X3R
+	 kleubE+4Ut/9iPKmf8u9Wfx3ucUv88/PP9hMNYtRUF/a3/fQLC/HH1v/fedqDDd8DceQt
+	 lBEx/rJQjjsnC5fOAzBky6+YDNhUDwHkfbFQadgX12OV8h9rozpCgEPoZiSNCIV5h6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=YeAqWATW;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="W+1f/+mm";
+	arc=none smtp.remote-ip=209.85.167.44
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965E0606A330;
-	Thu, 29 Oct 2026 10:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 965E0606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3936A606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:08:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3936A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=YeAqWATW
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4A41E10A856;
-	Thu, 29 Oct 2026 11:07:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793268469;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=TI6AalHVhi+Sio82id/sg3uxeFVtKbdYDGvmlopGcDQ=;
-	b=YeAqWATW5x+ozeqPviFcbl6txm4WF3dK1vVehInyHY94wyELsCfFMdREi9sbayaaMGZ2ID
-	SjRZvZZdXGa9TtbM4FV4oe5SohRA0ZtbJJ63gvJ54QRyFyzmtkGKp+iJtcV0DvkbMcV5lG
-	3fz5OpLBGIBdzaVPV4rSv/znlQpRE7YBOFMZmbwkLs4s3/4SEIZUizaKa/D7s+7QvGV8KV
-	1Vr9GMBcQpLZg+NRTt4QD7RGBrE+He7fC8FSk9PnXKGVpR8eXsWZmko0YpAu7MHzcSniAo
-	bowa+t8oAC4poCaylzAyaclL6J1X2tuQaU6rWEO1uBr8CS0tMwXMU4y9q1Uaeg==
-Date: Thu, 29 Oct 2026 11:07:48 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.15 000/571] 5.15.224-rc1 review
-Message-ID: <auMa9BlVHbrVCngs@duo.ucw.cz>
-References: <20261028170008.009143722@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W+1f/+mm
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso1966258e87.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:08:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793268494; x=1793873294; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YqJZ0P7+7fLRIuROPGM5CtyVNeaoNZ5CLQZzkAwMRGI=;
+        b=W+1f/+mmtUVeicMuk/ydwLlfIFytKQiJMmkoEo3ynnRRfaKT7HiLSfDiAd1/Y+PwhD
+         8cfrCfRXamJpaAPt+sWuYsp7BdH5yz6uF3NU77u0Zj7LMibQRIglvylRCLJ0Qntw7rM2
+         BbzvZSf5xbOzbQHuDIBrzREi0Ymns/KxwgPqynRUeTyJI+rxoHwyStZYDt7QrGJ2Hegd
+         WwS3AFgQWxpcrih0E8/Dm+q0179BJUhZnSNN0Lgaw8UxVWfyauTB3/Q1gcCe4/aTuHXP
+         DI20dQ62MiGtD07UdkgLwuEEcMmCwBlFxBXbVPyL2eFRAKI1y+W33XmqlUpXNupMzcss
+         ws9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793268494; x=1793873294;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YqJZ0P7+7fLRIuROPGM5CtyVNeaoNZ5CLQZzkAwMRGI=;
+        b=nEPaD7i3rfrcUywWSjUKL4No6BY2FeTRBMuPYnIlRSt5juUG06TNJZDjyfCaQgU9ux
+         HoVaKLm36PvyFDHzcVQve+Tf+XBz7iFkarb3p9PQWvS75DRzKh4jPjoqmvpZ/czQJ9O8
+         Ge3+aoy4Jp8wBtzHw7okck3QNJ43W0Ce3lzLugzC2F1YJpfKPw1rBcxawNRibHF8dcRK
+         5hiN0UrSs8ffouAX+v9VZ9xobhCs9HZUliUNLqq/c5a+8f4FzsLec68shPAECCT9BKT7
+         uXgHLICm5yejaWGjyTIqJipL8xEsszlv1cXa1e8M0U7w7BKr2fu0qxl93P+nRiW5V0Ly
+         vJmg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6SCsmQ3jZp5qLRk5aEibqaqHKIxNlOMlhs1Q9spelhDB/E+aR0rYe+ZIT7w6nCrLzI4IpxKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIa/wzEMogdJMUak0JzLOwdf8EDdMf4dkizJ8/AIVRBSy/Gvz/S
+	lSKnd2XlF7n/LeleJUAss0KaxbpP+IU9+bZ8fTkI3f6FZRgpdoHlgDMx
+X-Gm-Gg: AYBFou1wkXyGqhFIA+/oROf7axMgEDzcBrRNCOiHCk0NIxrRYQSfnECCUcv4mi6yeP6
+	XxVzB5lv0An3GMwU2B3zVBRRs04wMtTOfXZP3d+8ay/S6JCqPKo3vbS6fcyYEWcpeEAXNUYJ7FB
+	I2sCBNTZwkZr+Ewt3kTJeblzOuMF86cLhBnRjtSqOdCQraEYhZHkUCIMZ055yJaxo4iqOeksIy/
+	G921wmcm2UtwgHWW8rMRjitEue6C1p/jTRceq9uTYo7g3c04GQcVH6nJOtuO2kY/ZsJvcTnPw6j
+	zOE8iYpczDyDz/XK45oxMVRP9uCCCskWeDjp/bo6O8qi3C6PfppEbA38gPL0IbJwYSSV+ZIjBay
+	WjcNBGqLXYOjNTxqT7ZO1pY6LOxPfgjmp4DWjrjByrdCjKtmOs+pM4uWd5G+pHvs4zsxfuOZ0zP
+	gaw9J8PW/wC2B5LTmC0a4qVkzuMylSezLeK8MpQNaNkJpBRzUS40wiu6iolzKZdLszbURmNKuhD
+	uZMWPnsoIKLaefFRivT+KMiO1Y8TVOY0VtM6Vtl3peG/DAdsBtnYu+rVqKshVSq28r/NQeH/XSH
+	V2CfRoBljEKejdInP6/ekKMj3T5Oo+4v8CIw7OUliobdeLrCTVSDaJFGhDhlHsSOOMVg1y5tcso
+	sZ/2l
+X-Received: by 2002:a05:6512:2512:b0:5bf:d56b:a71d with SMTP id 2adb3069b0e04-5bfd56ba77emr273419e87.46.1793268494124;
+        Thu, 29 Oct 2026 03:08:14 -0700 (PDT)
+Received: from pc636 (host-217-213-144-15.mobileonline.telia.com. [217.213.144.15])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca5bb57asm1109637e87.74.2026.10.29.03.08.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:08:13 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
+Date: Thu, 29 Oct 2026 11:08:10 +0100
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: "Liam R. Howlett (Google)" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <bhe@redhat.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <auMbCuecFeRmBFSK@pc636>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
+ <auKshDXKQXt1kvjy@gondor.apana.org.au>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +112,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="O8eRNLd0ea63Myaw"
-Content-Disposition: inline
-In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
-
-
---O8eRNLd0ea63Myaw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <auKshDXKQXt1kvjy@gondor.apana.org.au>
 
-Hi!
+On Thu, Oct 29, 2026 at 10:16:36AM +0800, Herbert Xu wrote:
+> On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
+> >
+> > Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
+> > while another CPU is inside vmalloc() or vfree():
+> > 
+> >     RTM_NEWNEIGH                      vmalloc() or vfree()
+> >     ============                      ====================
+> >     spin_lock_bh(&br->hash_lock)
+> >                                       spin_lock(&vn->busy.lock)
+> >     rhashtable_insert_rehash()
+> >       kvmalloc(GFP_ATOMIC)
+> >         vmalloc()
+> >           spin_lock(&vn->busy.lock)
+> >             waits for the other CPU
+> >                                       softirq: a frame for the bridge
+> >                                         spin_lock(&br->hash_lock)
+> >                                           waits for RTM_NEWNEIGH
+> 
+> I think this is a fundamental bug in the kvmalloc non-blocking
+> support patch.  How can it be used at all if it is susceptible
+> to such dead-locks?
+> 
+> And if you can't use it safely why don't we just get rid of the
+> broken kvmalloc non-block path and have it always go to kmalloc
+> like it did before?
+>  
+If we have a look at this as we did not have vmalloc() here:
 
-> This is the start of the stable review cycle for the 5.15.224 release.
-> There are 571 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
 
-CIP testing did not find any problems here:
+     RTM_NEWNEIGH                      foo() or ...
+     ============                      ====================
+     lock_bh(&br->hash_lock)
+                                       foo()
+                                        lock(B)
+     rhashtable_insert_rehash()
+         foo()
+           lock(B)
+             waits for the other CPU
+                                       softirq: a frame for the bridge
+                                         lock(&br->hash_lock)
+                                           waits for RTM_NEWNEIGH
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-5.15.y
+Same issue?
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+I have a question:
 
-Best regards,
-                                                                Pavel
+GFP_ATOMIC/GFP_NOWAIT guarantee they do not sleep. Do they guarantee
+not hitting ABBA dead-locks or they are not interrupted?
 
---O8eRNLd0ea63Myaw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauMa9AAKCRAw5/Bqldv6
-8hQxAKCxcrv+Q4w8p6n/jDV/2gJCVM7IHQCfUahCvMGVdP8pMB4A+cLg0LLd1+I=
-=gRZT
------END PGP SIGNATURE-----
-
---O8eRNLd0ea63Myaw--
+--
+Uladzislau Rezki
