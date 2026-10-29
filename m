@@ -1,68 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793307596;
-	b=U1AVzphoQufV/UA9RjkpJZYRG+GCtZPRmuypdWpiYVr38WjtJjdnvSXf96cXtEOij+GY
-	 LPsjoKFRaZk3DIaFs1CYhgqSUP8ONR0LMWY6mL5iZkP9WHiahW51d52oe7UHIkUw6OOZv
-	 pOI3a0TgoSZTWFxFwmksV3ljnSu1MVNpoY2zqFnInILa5H4jF235Ki/SzVfL/d08/zjVo
-	 WxmgduTZ3imVwkBEcjSlJlo6EKaR2fFGKZ/JwdCG9s+rLh/xNvnr1iZbIVRUCcoGIXj3P
-	 wIsfI+YPMYnvNW2SgXZH5etlVBjyTzXvHAwjhDHhTAYIJfo32294y4gdL4wEaAwwK0w==
+	t=1793307641;
+	b=JP20t+lfYAAEeu1O/DYznySKMYFklXWnwOVo62/jqX2Zn6kd4fI6O2cZAnOKlc7cC3zG
+	 /+/cWi1CLOvpL4QdvNDDNWN24h+f/uQZdoO/IrZmRu6ChMjvQldHulQmzpvOBdRlO1clu
+	 NLUsjtYkVPuUc1GB/JfSLUoXFcNDKMvXqSXg5Tz4ap5nQUkX5l7Au4QumFVdtgnopz2zy
+	 cDPO2PC9i80N76Os+24/XFfRg8ZCi+VqDDOQbjl+o4xMyD4Gs45ZvEYa4y2ecWNYxGqKT
+	 DCbrYVivdNX+TIZ0jM0ENJqidjUoPhnIMTgFxATV/EGt4FoDPDICNAN5RoaHCbDJW+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307641;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zv/crP/MT0jYur3oiHEd6/mz9hTesI/3yGVAKcISCCI=;
-	b=CvqlKciRRdUTcI4iwnHWDvrbIvkHzQzmlTZsl8fOEH4JNV3Lh27Q9OnDm4QKPLPvm2np
-	 UOUT3VTiG5bTmRdSgMbVqI7FPNKiz69obnx/dnXvY7zjXQu8XOKyP1NitjI6GBCUkTTST
-	 +zhYWwtdjJd79/9XWzHob0A4QKGhXrRFcMdqKoRbKhMN/oV6kGwETme80aDxwo4UxIwUa
-	 9xHcKUkyfljQe3NsVdDqyAQWRHNnF7xCBTsvtNZcZvSPOnYQnGHa53ZtEowrHRgkQrT9+
-	 oj3p1xJ8nTykwX41DZofC887UmfTeRGXxhKE+u/xOQAJL1dEfMc7mudmrRVL3/EyH0g==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=qIWE6Q4QhfMAoFSaQSmSICX/bModQ3jDHts65+ZYthU=;
+	b=lFnWI1S5rc1JyX7DNdStMFtZIoDcN9YkCIScKevm8YdpTWVkGjZFyz+726RilOBXgmRB
+	 EbVbrnbfTp0vX6CO7QHvDZ08IcGQHcMFoOzj2VK8X/K8DUvtYJCGdGN2AWm8LFNqDDQ9W
+	 /jvn9RniOa2njYI4AQSgHCSK/WFrvaWkT63fjgvfmsFbd5EIAK8EgHPa5Smwwhz62Jrdm
+	 Pb56T/2sWsly58eozapYjn6/05NbXefy86tm7bgtQNDRskJ6Ch4veULCSkaKmh2gql8Q0
+	 +RjniPaRXJjS8s4gBmbDiK7aWk+p2nlqqO4bTeQ8oPZG5f0AKjAIJy7xqyfmWP8ORAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPaeDql8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJ16e0wJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B36A606A31C;
-	Thu, 29 Oct 2026 20:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5E6606A31C;
+	Thu, 29 Oct 2026 21:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HPaeDql8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BFCA1F01816;
-	Thu, 29 Oct 2026 20:59:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJ16e0wJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C7B1F01816;
+	Thu, 29 Oct 2026 21:00:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793307596;
-	bh=zv/crP/MT0jYur3oiHEd6/mz9hTesI/3yGVAKcISCCI=;
+	s=k20260515; t=1793307640;
+	bh=qIWE6Q4QhfMAoFSaQSmSICX/bModQ3jDHts65+ZYthU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HPaeDql8TU0d83FLVuu7oZ6q9sc5s25c41uOxEQGAX9lBJBmM0MJO9OUT31O3vCQa
-	 apmX9azBQIHLuMgB2GF4LwJLiAvezvIoQ94Kg9l79OhfXEOVK0QaclqGHcfVsZiU8i
-	 6bgQPnbu/UZkyZP/FPjMDLBEf5a8zlRC9UqCH8A4zanGetv6d0T+qlWmJS+nChbket
-	 IcNRN9bTgr7SfH3Bstf1L0Eiyq5lbOdoIAwrlAfdpjBzEZxMzBl5rCLThFa7GWWA+C
-	 GfabmOkNjMxLWmxAbJ6ijStKwQyppzrId+YIKipXKR39lt8yRUjSI1RcSdEbdUxMU0
-	 H4hfMbOr1KY/A==
-Date: Fri, 30 Oct 2026 07:59:45 +1100
-From: Dave Chinner <dgc@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Henry Martin <bsdhenrymartin@gmail.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Hildenbrand <david@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Kairui Song <kasong@tencent.com>, Myeonghun Pak <mhun512@gmail.com>,
-	Rafal Ostrowski <rafal.ostrowski@amd.com>,
-	Likun Gao <Likun.Gao@amd.com>, James Clark <james.clark@linaro.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] xfs: fix out-of-bounds write from crafted btree root
- numrecs during log recovery
-Message-ID: <auOzwfNyfbSNLCDC@dread>
-References: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
- <auJ2jgIIh8e_JJwn@dread>
- <87cxsto38m.fsf@trenco.lwn.net>
- <auKGlGJwOSZpioMd@dread>
- <87v76kmv3h.fsf@trenco.lwn.net>
+	b=FJ16e0wJmz698MK6cm6TBBbIK5DQDFd7eU7PxKXstYo50fmoSpTD/aE12/50jsmC1
+	 LvAJi9K6O0VLKKwuWd4QBnf1W6JxQcb5yyxM9SFbb3GhHwLhK1QizDXLz0PiB4HvX9
+	 Z4pobueWpo7WLxl+iHrppgqgcYCV2i1IdKMWiLTMCoDLvuv3pWGGPtHFStmiiHJMMp
+	 6d0gQ8ODxN8Zh+WEsg9cOVklhYdLjYz3QZTpSWQAiUISiaX0F9ygdsP5w3Gn+VYSvc
+	 BF1Iks+sAsVsYLWc46JL2NyJqlYr9+e21rSmjCdPn7MfTqFYJLj2PVEi476Pfw2PwH
+	 8Yl1XEX/QT5fg==
+Date: Thu, 29 Oct 2026 14:00:38 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Stephan Mueller <smueller@chronox.de>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>, linux-crypto@vger.kernel.org
+Subject: Re: [PATCH 6.1 1069/1887] crypto: jitter - replace LFSR with SHA3-256
+Message-ID: <20261029210038.GB49373@quark>
+References: <20261028170459.200466217@linuxfoundation.org>
+ <20261028170523.734746721@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,70 +60,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <87v76kmv3h.fsf@trenco.lwn.net>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261028170523.734746721@linuxfoundation.org>
 
-On Thu, Oct 29, 2026 at 08:37:06AM -0600, Jonathan Corbet wrote:
-> Dave Chinner <dgc@kernel.org> writes:
+[+Cc linux-crypto@vger.kernel.org]
+
+On Wed, Oct 28, 2026 at 05:52:45PM +0100, Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me know.
 > 
-> > On Wed, Oct 28, 2026 at 04:43:37PM -0600, Jonathan Corbet wrote:
-> >> Dave Chinner <dgc@kernel.org> writes:
-> >> 
-> >> > Unless you know how to fix the discovered problem correctly, don't
-> >> > send what your LLM proposed for review. It will be garbage, and all
-> >> > that will do is annoy whoever has to review it. Just report the bug,
-> >> > let the subsystem developers fix it.
-> >> 
-> >> Just to be obnoxious...this runs counter to the advice we have in
-> >> Documentation/process/security-bugs.rst, where reporters are requested
-> >> to include a proposed fix as well.  It seems we're sending a bit of a
-> >> mixed message...
-> >
-> > These aren't security bugs. Bugs that result from maliciously
-> > corrupted filesystem images (i.e. fuzzed) are explicitly stated as
-> > not covered by the kernel security threat models. IOWs, they are
-> > just -bugs-, and bugs that just don't ever happen in the real world.
+> ------------------
 > 
-> I wasn't arguing about the nature of the bug ... just noting the
-> disconnect with what I've heard from some maintainers, who say that
-> providing a patch helps in the identification of the problem, even if
-> the patch is not used.
+> From: Stephan Müller <smueller@chronox.de>
+> 
+> [ Upstream commit bb897c55042e9330bcf88b4b13cbdd6f9fabdd5e ]
+> 
+> Using the kernel crypto API, the SHA3-256 algorithm is used as
+> conditioning element to replace the LFSR in the Jitter RNG. All other
+> parts of the Jitter RNG are unchanged.
 
-In this day and age, feeding a bug description to an LLM to get an
-analysis of the issue takes less time and is more informative than
-trying to get the same information from a patch generated by an LLM
-to 'fix' the problem.
+For some reason this is going by on stable@ without linux-crypto@ being
+Cc'ed, which is itself grounds for a nack.
 
-It's verifying the correctness of the root cause analysis that is
-important here, not the code review.  LLMs frequently miss important
-stuff that experienced developers know, and it's that wider context
-that makes all the difference.
+But also this commit had known bugs that were fixed in follow-up commits
+such as 735b72568c73, 908dffaf88a2, 9aa7e045f4af7, maybe others.
 
-With everyone presenting fixes rather than bugs now, we end up
-having to reverse engineer both the problem and why the specific fix
-was chosen during code review. The typical commit message is
-opaque and doesn't describe the symptoms that the bug exhibited.
-This makes "code review" much harder and more time consuming than if
-the bug was simply reported to the list.
+Now, these changes were all to the known-problematic and little-used
+"FIPS RNG" instead of the regular one.  So, ideally, it shouldn't matter
+much.  The thing is, before v7.1, certain things actually *did* pull
+from the "FIPS RNG" even when the kernel wasn't booted with fips=1.
 
-After a year of using LLMs to write code and fixing complex bugs, I
-know that an LLM requires its context to be properly primed for it
-to generate a solid fix rather than a copy-pasted band-aid. It needs
-to understand abstractions, other code that does similar things,
-pre-exiting helper functions, etc. These generally lie outside the
-immeidate scope of the code containing the bug. This is where the
-experience and skill of the person running the LLM make all the
-difference.
+So pulling in known-broken commits to it is a little concerning.
 
-IOWs, the important part of fixing a bug with an LLM is running an
-extensive, guided root cause analysis process to fully prime the
-context window. Hence I want comprehensive bug reports to run the
-analysis process on, not have to try and recreate that from somebody
-(or something) else's interpretation of how the bug should be
-fixed....
-
--Dave.
--- 
-Dave Chinner
-dgc@kernel.org
+- Eric
