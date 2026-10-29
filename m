@@ -1,88 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793291363;
-	b=EB8KodvAgDHf5oIj8hYaggpXc8EPFyjGitvN1a6Nk8d6WQaFtx2gjkucwJStAY5DmgcT
-	 lDHY+6CuMQnvOP6UkEHFAKVsOURgCmJDBQ+csFhT8q8/1m89Pe2FlrUZYtJsXz8JPE/cR
-	 fTY4R4LPBtPk6PtFTeK0A253gtJHdUznordZ+wNFbvOAkSU9FpRhT7/EDp9bXlMHLznc+
-	 iEEH2MEXDPjYKAHaUFgLr3+ShvOHSRlZQSpGI0Ny2AioF9BjMmDqXRLbVmE9e05P1liNI
-	 eSx5TsDzvy1PI1HNgPeRLvjzSyNv3RMPyNxAsAcafDYqZKeoRqYjLtnHeXZAbWKd+Jw==
+	t=1793291514;
+	b=n8giBttvdkLV69joFdqViCGwLiRBsDoUOVAmI8S+7xNqJkKkysvEdNtQ5dUdmChqZoCU
+	 GGHNrUAFNZAXAjyEqAxEDu30Y+vHlbwD/o+l1AyZx64gn4iEBTI7lWqTbokididOR0JT+
+	 uSI7S8QcllCtirSWJ0yJD9JQR2BxZZ3IEOEsEXAZ2Hdg3zznZ6yd9+5R2isaWcFAu2Z/p
+	 +QuO1/Kbzou6PIh/I0EFX7+ZijgyWFTVDon2wWkSeSr0lrUm6LJdrPtif9dByxwLob3V3
+	 ll/5OiPr9brUS+00NF5kZJAOwkjq3s0dfI6qR6vCH0O3BDBUPS9nzRutgGusgNaHuXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291514;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HO+j6ign2yj4NoqgE38MT77slEhL72UAiKeSfh5MQb8=;
-	b=fdxCxLZUr2zCeaeRMJMlsOtcvH5olgQwRbzTQ42wE5wZJClg6fgP6rdg4Y1oh+VeLGKY
-	 AuXeIFdHVRhtIN4nPyjTp42vKlPlYZA/+6HjEKONnglklDUmD4tFUSrzigwPLbib99ynI
-	 EKaZ2TrTDBjuFH2iNfOlfsJzQe7BnRxzuwYr6ubFR1UvRtpiKTrIEuTyK/Rzc4h9O5sW8
-	 utOXYbQMfnDluKdp8sPHohBKht+kWmSkQIH538LqTYUK/Dv7fOzV0gO21oib1riSdyNRQ
-	 FqSnuee7MnG1HFxOc8qZtHe7XptsiCJNd2hmb8VaoyiFZsBw2JLB3OCNa7hB8tcfyyQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=alj3tH3ZvQk6KSugbPj+OZJPkIUe62frupKKgUNXdQQ=;
+	b=gHp6nzxyfKMGSt07gEoL/hjiOmFL47cJEeapKkniK9YT0HUnqYUe64FSO0cCuATojabj
+	 Y+B8u1bjZnqMctMha3IuIaVabwtKcBjsR+8O1U+SCsEc/hIzupWLHXJB1zNkpRJJfudNe
+	 ahUTgjtFUILaldxHcEam2aV3Ezb11h/DcYYFB2Zk4u/dSoo68Omxbc48Jq+hpP5S0RyMs
+	 rv3cSxn9goZ1ZOQ4kdbcU09HV+sDK3mSS0wewwATDCc+wsSiHoOaS0R0r3v+sVebwkQQM
+	 UjKjjlidUB1ydYqDzmEO7oOy7Dl+g4d5Q7ZGdEKXZrG4qdAf4gGOrSE1vQhscoxmnCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rSahb8w6;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="IlRv/HB4";
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F35606A321
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9F35606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E569A606A31C
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:31:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E569A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rSahb8w6
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a064dcfcfdso951749b3a.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:29:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=IlRv/HB4
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53381e53b80so27479941cf.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:31:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793291362; x=1793896162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HO+j6ign2yj4NoqgE38MT77slEhL72UAiKeSfh5MQb8=;
-        b=rSahb8w6dMZA/vBGQ+1QSwH466DAUvGXEojg+saw4FZp5AolDh3+WEm/WEpq/8NNPI
-         VAv0Kw6epULXELT9Mshcu8bL8Kc1BFidz/9N63sweSxCDLxzyEBMI9EmlocYQcRhMd0G
-         rf4373BUKFG9/X02Ddz2soK40FsjSFaRXfxP68MSgLWKoNwI8hmZQWCGsSsd++opETRS
-         +Y1ilGMkpn4o5b9k+CVwrx5KeSuh/JUjD+56pAJgDlKua1xGqth08yTmGzsKeWT0HzD9
-         RTncmYs+CuX8lT+tf4xIYetLZQyMt5SypbrXCsNYRF3u4OTZyy0yh4y1qZ/cY5FFh6MM
-         tVjQ==
+        d=gourry.net; s=google; t=1793291513; x=1793896313; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=alj3tH3ZvQk6KSugbPj+OZJPkIUe62frupKKgUNXdQQ=;
+        b=IlRv/HB4pmk2+NxDwLfzjqCWH3uxCqOqqAYfjoJrsB6PHzPrgpOVmjoBbbHu0kUXsb
+         PmW035eG/8UmGcDM424KwPgIj46Uwvl7/rkF7JXc4/YhX4FR14YSKjJkOW6U7bjgF28V
+         0+3bqPsqxEXdwAtmgf1gIKhfH6yGdmXha5H7QYRjbT5RpWx4pHkOSQrs/Kj3lM5DxV43
+         IWn7oGS9HKBkwd7T3+x9jFb69pxrdDF0u5Tk9LLDRqSuhwCZ4toGXMb19InDBaA8ucy/
+         R/f9hQKU69V6OkYk1V+Hcs5iyUuPdS7SACfis+Ldliq0DOqg8D5ttsu1WrxHB3mdMTqe
+         q+oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793291362; x=1793896162;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HO+j6ign2yj4NoqgE38MT77slEhL72UAiKeSfh5MQb8=;
-        b=NXb+AR16jPBOZZwzj8lwzWfK3aGSp7YnummQGXcAtD60FZiaReDcvK+eTOu0lMnt1+
-         x3+bIovsSVXyUW4i1qMt9EwfjtPuOEmN3ch7ABrWTGoTvm9WWa5DmkHluFIr1Dwx/qna
-         ZoQD7q+8/Y5b6bydZEczuQkB6OSj7Bi59QMX6taQ1DS0FkmhcnnOI0X1F9HxDvJCjil+
-         YHdTIFLbyE1U3lLYfWngkZyj2R2qU4rq6ZAjgnAdI+8Ymj9aryjXBRT1eNgnoX16fG7X
-         tOU+bt6yjfHwQEWAOy8nI8eVYqNWNo57qiCGBVHrx3ouu/LVP0eoeCcB1LtYRs5Zeluz
-         3g2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxzx2mccf18TC/LsG3u35Pc6D264fpwilEMv2HQdTkfvD/l2XiLNeHWFo7mh00eMPoH+dQQ3bA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgrK0Ynx1JxuZ6Sxban3Jn7Ut5RF9Tfr5hIyeIoLY+DIw+Xp+T
-	MkISKIaeWS0gzcbZ3GSiZTNPpSL4SB6IBVgsxvbNeOInToQtv7DmV0mf
-X-Gm-Gg: AYBFou2gXELudyI0jNSe6zGwjqeRIREzpibWoOwHY/0CL3sFCRw1oYtNJPXfC2/6VMm
-	8sUu62issAoHvmyq6fb5p+DYJIAWVeMNbaHbJZDXK4ZuqIXm9cWJ1tkMEPumUHn/cVoq3ElkddY
-	KcRKu/1GP8orUsrzJ4X+2fMVI3+BOO11WNmwPmXrLSNjCWsWIug0W04DJ8AiD0GHeBm19LLb4Nh
-	UC8BC9KpIGFgjIfcEoKjwBi+VV/g9LQLeGcnV7N3Z5EUYCeYXzmC1prsfpdWqjzBOj2bzndcuF7
-	z9Bb5uQToMO9MoTOy/+M1UNbkl/QppwSOH2c/SHfqJ2djuzwBaTOfd70NiweRz48qTakU46RX6K
-	SWQwU4jjozjw9hUYnktQvYuS2PMZrqHYLvU7oLJYFmnVjipyiRTk3zgQ9Gy37l75DL+0s3UUzni
-	rMNkpqFGJTogpV7H1/+PyPvWJRebWCmnzc/+pCgeyBPEYXkvx8DplmkHEZWSPOZ9iKog2UhSASl
-	5XHcfuTjKiy5FdkfzCRYNK7eh4Oe13gHpdgLi4eJE7LxiGpVp488Zgej1Su6eDGTYNRGMfiRQzK
-	EyjDtJUSqS1BWQEj44Hbv1oGYzNY/Yum4+ziq3Ttk4BmJGsrkXsyAPij
-X-Received: by 2002:a05:6a21:4c0f:b0:3e2:76f0:ac27 with SMTP id adf61e73a8af0-3e902325a74mr5014369637.40.1793291362131;
-        Thu, 29 Oct 2026 09:29:22 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a989adecadsm114437b3a.41.2026.10.29.09.29.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 09:29:21 -0700 (PDT)
-Message-ID: <56e68cda-6c37-4d4f-b3fd-725cf432feff@gmail.com>
-Date: Thu, 29 Oct 2026 09:29:18 -0700
+        d=1e100.net; s=20260707; t=1793291513; x=1793896313;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=alj3tH3ZvQk6KSugbPj+OZJPkIUe62frupKKgUNXdQQ=;
+        b=mun9TBW3iKb54cf17lHJY2ZSg0AX9vO4+zhgnxW89BQ8GXiiMKzPhlTteKwAHDYFVu
+         OOOtgNd4fmIDosKE8NIVakb3vaZhCdffNYXMr1qr/EVEVdkdAWNVqmgzIkx8ICIHA4OI
+         2JEAKKzwpFYu8jeBKxZmbbilbbInosI+ozo352u4OlcvJBHqRlZeALQs8Ye/jYLGP1hs
+         qMFbYLRBxP+Ny+Sd3CmIV6IG3MG6PP8H8PpBNrCAsMmEbnlIgVw3I17kjkeG7TIu2AiH
+         jz8AYnI5uhDuoBt4ClcaK9d5j4P5jH+NkFN9NrY3s9NuQws20lJluktQ6dPJGB9fVVAQ
+         881A==
+X-Forwarded-Encrypted: i=1; AKwUvBzIB3j04rJe0IhOQ08XRaJ25OgUvrm/Ikp3SVy/nPVuLM2DfGr/YcuCRTkWJAHsMXAEXZZ6+PI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwTD/NMWRzhxvcDAkaE/Eidxt8dfFWGzlwd91p2QYVFYHfbfOF
+	K+F+cpfMsmJQEWBqV9Dgt0U4kSQEnx2f9YNkOOcRf1tWmLiRsiKuf51secIxr6XG33g=
+X-Gm-Gg: AYBFou1RHytlDjhWngQK+VxRR0vR+prBAeTbPqkVXbcsiJbYBotvI/Axf0xoQwLrC5K
+	okc4CIaSUC6wazTHhAFX8OYVgkbaIFXdttl/6BYxx8JoM7JNOuc+/iTrL2TGft30atdXAkthDCs
+	raOAD97k66pubdhpYqFcuL9Dczsov2kuMjniIkVMqdcA5sh0Rd27WKE1wsfsSJeJgGKbcd01GZz
+	9BTDj7fmRKXnsUEy6nd2Rq7DFqs9keTu9JsIOTLWsRrjNTcBW9G11TaOae4AlIxKmFTTN+Usst2
+	aRL+EJ4kP7E/dk6gMrWfT5zNGIIYmeUrM95JV7pTHPTyDXDAc3TGC4otHvWocLsrSr6LlgY8e5V
+	hxuULtaXhdWhjA3/7Cvtmqp/GKPBb3DCp1D27yfSKtAhMI9QhgY9q6+0eL+5Kr9ThVsAFwIlPdm
+	JrP1FHqWMH5Ue4u9hmOJm2Zatel98/MMD9tvcZ+tsv313zAQRvifAZNiHTvIsvo5kqUK+nzQWdr
+	fp6NRCM89x26YVeaw/6k+AelOVUYLp8nn60CXb3u/JRuH7K0bCMQULTGRkZZXq+l40dSa21u4M5
+	pdteej4AnMlJ+bSOyvPAF0nfUwfdVUORhzTw2Ys9s15KREAWlDFldNWhJVj/b7NIiH31wEZpQaI
+	C
+X-Received: by 2002:a05:622a:888f:b0:535:a5fc:3b58 with SMTP id d75a77b69052e-53fcd191600mr104371091cf.68.1793291512757;
+        Thu, 29 Oct 2026 09:31:52 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5428cccee9asm45321cf.13.2026.10.29.09.31.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 09:31:52 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,45 +89,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/109] 6.18.60-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261028165942.357251485@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261028165942.357251485@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 1/8] mm/page_alloc: reset can_retry_reserves when
+ the slowpath restarts
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, muchun.song@linux.dev, 
+ osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org, 
+ ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
+ ying.huang@linux.alibaba.com, ljs@kernel.org, liam@infradead.org, 
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net, 
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+In-Reply-To: <68fd8182-cdfb-4f11-95de-1472e6c92d33@kernel.org>
+References: <20261028211930.3504634-1-gourry@gourry.net>
+ <20261028211930.3504634-2-gourry@gourry.net>
+ <68fd8182-cdfb-4f11-95de-1472e6c92d33@kernel.org>
+Date: Thu, 29 Oct 2026 12:31:48 -0400
+Message-Id: <179329150807.2127828.16376500334625424120.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On 10/28/26 09:59, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.60 release.
-> There are 109 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 2026-10-29 14:37 +0100, Vlastimil Babka (SUSE) wrote:
+> On 10/28/26 22:19, Gregory Price (Meta) wrote:
+> > Commit 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath()
+> > flow") retries an allocation once with reserve_flags when the caller
+> > becomes eligible for reserves, guarded by can_retry_reserves.  The flag
+> > is set at its declaration and never reset.
+> > 
+> > A restart after a cpuset update or a zonelist rebuild drops
+> > reserve_flags
 > 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+> I don't follow, nothing "drops reserve_flags"? after the restart,
+> there will still be a get_page_from_freelist() without them followed by
+> get_page_from_freelist() with them, right?
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.60-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+"Drops" is the wrong word, sorry.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+After a restart the reserve bits are recomputed, but can_retry_reserves
+is already false.  As a result no-reclaim/PF_MEMALLOC callers don't
+get a reserve-retry attempt (we just exit w/ nopage).
+
+Reclaim callers are fine.
+
+This problem exists regardless of the rest of the series.
+
+But you're right, I will rework the commit message.
+
+
+> > Reset can_retry_reserves at restart.  Only a cpuset or zonelist change
+> > restarts the slowpath, so the retry still runs at most once per change.
+> > 
+> > With kprobes failing every attempt without reserves and the first with
+> > them, and a memory block onlined during the walk, the allocation
+> > returned NULL in 3 of 3 runs, and a page in 3 of 3 with this change.
+> 
+> So IIUC the allocation was racing with a memory online in a way that it
+> would fail if the online happened fully after the allocation. So this just
+> turns part of the race window into the allocation's favor?
+>
+> I mean it's not wrong and if patch 5 depends on it (unless it also only
+> fixes a racy window in the same way I think is happening here) then so be
+> it. But the commit log would need correcting.
+>
+
+Not quite - without the online it would have succeeded.  The zonelist
+rebuild rewrites the lists in-place, so a concurrent walk can miss valid
+zones or pick the wrong zone.  The rest of the series detects more of
+these restart scenarios.
+
+Those restarts then exacerbate the issue this patch resolves.  For
+example, patch 5 would free a reserve allocation that succeeded - and
+then fail because can_retry_reserves is already false.
+
 -- 
-Florian
+~Gregory
+
