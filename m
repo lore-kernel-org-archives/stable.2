@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793266388;
-	b=KbQkhpyh2wGxFlKTBQKHU3WWR50wFjf0NhPDQd3Gi1SjLKq6f1sKGDln4IfXRwmIiF1M
-	 MXW22JskcXLrRGoD9M3WjM5HOogu0q20FqnnWqzCeKdEQE244YrQiYTpNb2soGVy2f1aS
-	 3XkJmmqAHOS2AX/x5p329Xz3Q7nVMzSQ6pa9P78yBWXBfQARYJJs/iGR+dXayeld95wlG
-	 +MKj6Hwj6Z+11q2xF+saEpnmefX0WqTNoRrbf0dc9GBiEJeeklnfaBKGB2CBO3pdi92xX
-	 IPODJkju+Iz9+19WWokk0es7tXZ9sNRoXf723dpam7zWo/ngqZMZxiU+ubVTvkSTfgw==
+	b=oys/QRJPb/dbQmkh2CX+s8jp7I7NHvixsb5Lm/ODjpNQQLGgyVJmDrQ/wZlE9n6io9jR
+	 NbIpJFA6MoxvmC4ognPV7esVKlQl9aNxsLWd4GvLXo5tm7/fL5z6XM+e1mAzp0nYQneO7
+	 wQ1qvB7puS7L1uKJ8z7BRwvMeN1TQEPmTRRpw1ugSPMu4u9AshMy7UdaXIe1+9L2USAUz
+	 Xi/6bYeOGsgxDiOnbk89rrgSHoubpGJcrZxhyjqCCuonGiOicZMn6zmHeALDzCozEZmMe
+	 0GMD2IdO3tL2Z2ixL//WHYYjGUVKaOMGdFOWq3H7cWMx7tGd4tqm3JfBwl0H4MEfWsA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793266388;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=C55KO/8LL7TeM7rrJe535Zu+Vqk6b6T0kEJKod4ZKxI=;
-	b=WqW0Xme/CymVka+qTnGmeLQ5rMXE7B9XuYnE9DlG5PE6PyF7KZdTM8lCH+Y77Y53bKy7
-	 ZnYeMQu/zOpbn1eamz6RFX4tpga5XRFTDu3fnX5qZucTXsTMgaomr101gYT6hwLYLQJWs
-	 lkCkx1kshQRouCMNbG1xUpZY6LKL2l60iaI++EMKT1W3OZz+k2NfAO4YcerSKaAltKxwo
-	 BuTGsgsUkUSXpk0zxOpSqOfUqoRCkZNvAAoQxjB0LTFiNTdjTvHhSJyRh1EQoen2dn2mZ
-	 U5WzMHb4/1XQvCS1gbTae6FDHakf51s/zZDrnxLUVVjVoiQcW5CZXOvZm6KGjhqJO9g==
+	bh=h0OxlhasgGGkCfFaBPePOXxcOimZvav0prXhM0QPRK0=;
+	b=UA6V0+eVAw9sY1zgxsOF7cRfNAzOO9gHyce0iCj+SZA06KjBHWhirykAnKpl3UA5oCFr
+	 mMZIJlIqqzcTogAiwGGi6QlpZw7JNGP8mDspDzg/GLGuLoqxapIBRgqi0ot8ZQ7wXDbRa
+	 733ob8FampY27RJs4xs4Ir88JJltNV874Kwh29sdVVe4kzeo7npZUyEdv+H/HA6H+CRIB
+	 8014CbH7CniysCogzABDeqhMPvfih1onZQ4kdUwpNM5vJvwmBFzAmNEXi3IhgjGZlmlN6
+	 y+Kuz8YazkW41pZpgChphoK3JlOLIWCDoGMJ76MUS5fDuehJi0vq1zbGUO1FVO0Y9LQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZHcE+1L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy+nlZpE;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC15606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C20606A31D;
 	Thu, 29 Oct 2026 09:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QZHcE+1L
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fy+nlZpE
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793266387;
-	b=rCft0zHji18SguJxH/z6QlCfB4r5xDpJeI5IgHPg7XgV5tVVYQ4eSJjyGQ2TFXGsb6Zt
-	 ei8sANmuaF2Z2e4rUmQKuVCi7KxNa/1asYlVH74Skc+OjyNN8bcZh5RIwDT97iYz7k47/
-	 hxjQGdh6kpBYTI/xPqhVZbOmIWV/DS3cId6OJzhpfssRBRVBCvSGHm8vulBDsMOs/dMuJ
-	 KjL3QH+1ic0usKrcx2HasrILVxMPw6260y9x+KqHBpEk5dU0FlHSDJZC8Otd0oHOlxOWz
-	 iF5LFyN7G3cDKpAi7wOqfDTEimNp+hRXIDwkXUDVgBbHFpUFZZDiDLqK4/cZhpDTg1g==
+	b=Rz91A9f1kFL1uNJXaGIR5fPAXum3YX6/sCr7FHqjCZulQO0UjoqBIF9m5aIy8ZDZV2/G
+	 qOEL/dxDwkMDKXKV6MqkaMO3L06bwsyWbcgL1VmPNDjrHkBQK53jTs7clfyl7Ud5rJlTj
+	 Mm3JAXuYywzNR3ZK/XuaTqZTpciHfPoEE+//vaFrKGpzlDnL3iV3Wc68iwF16ILwflp5P
+	 Eb+TpdPf4LFLiwaY3BcPxDTFpCOUXypeYYls7DFHESRvt2s8Z388Q0lkxsWcfBGNt0weN
+	 ffJqpMYoZuzN0M1m+7d78oLkvuFOl9aKEeVOD2qrAX/q/T3FMAVvbyK0mtlgDmNcsbA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793266387;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=C55KO/8LL7TeM7rrJe535Zu+Vqk6b6T0kEJKod4ZKxI=;
-	b=WUznoOH46h/Uwn5Xs+w4eICrh9100hp950bggaiBhacu+Vy5YMgxDRxeqpiIVjqiHnGk
-	 8gkbD8nggoAUmtUzEqhKr6HhT9u0YRWQkxRbdJffk0YtUTBXObYelIO0rHre/8oCnytET
-	 nYOREjzywT8NM3bS0QdoE1pJbcam4ItllNB4OcC8C7iYrVuu+DZ0S7pxBiuwc5fCWmbaW
-	 wGpTlK48d5d5jsKL1R4yAFPM4f7SuwHmJWmHaU+y1XCX/fOXIqYbJnoMAJSBCxgwgwK66
-	 kFzALIQg6y5Gi/5T/r7H3kJ0dwYQH2Fs7+MEaDUBa32+NvBt4jqJCcmldUuQb1jBJxQ==
+	bh=h0OxlhasgGGkCfFaBPePOXxcOimZvav0prXhM0QPRK0=;
+	b=JZyJvdZiOO4xW0uqmIxLtOM3gU+eqRpQ/NFyJiwmn/N5sE42S2ClzUz8A98w09HNOGF9
+	 UEC64nly1IC1nsYPYF58CX+mF7j0fp7gTXtHjmJVPJg+cIRdMOgn2sv+jH2cdDz96/772
+	 k9Iav2SAMPLEvyic6Tctdjr3vCA09cQrv0ZZ7xYVHh/sIWDmMBGIcgqEqDODKlBCXtwLk
+	 NnwwEbuQCP0MQnwErN7vBNq5KUqOWeIwzq6ccoX3SaGAZ4lD7rGSRd7ad6YdiAhUQKFem
+	 yyutUCTnZgVoIUPQMcHQCGvu2edlz1AkxZMLHvsn9hYm4aVA6QitRaxSXJgriGnfhIg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 851171F01828;
+	by smtp.kernel.org (Postfix) with ESMTPS id 851471F031E4;
 	Thu, 29 Oct 2026 09:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793266387;
-	bh=C55KO/8LL7TeM7rrJe535Zu+Vqk6b6T0kEJKod4ZKxI=;
+	bh=h0OxlhasgGGkCfFaBPePOXxcOimZvav0prXhM0QPRK0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=QZHcE+1LDuDFXTZuR9HbmBKlXPy89LfP8X0aPZgWpWv/6oAazn33A2shjVmuA+2hZ
-	 HSDzhXgOf77W6QNE6WsED5TymzIwBR/yoDJoN6IdP8F6nkiIXh+weoPN/IvrPfAF+p
-	 GKUvHvIznFVGJArvpARnx5vZJ9g2R7oeXAPKlCuyz/D/xMmyPy7WlRvktUUHPxoKlk
-	 aLbZrrpmiTSKvEgZpkO3g9oClI33o5aCDAzTvyyn9N4Rru/UjtpUpZFRwUNLw3ZgcC
-	 I07+ghO69UCya7ODVmQ4XfFmhWB+ii+FFKupoe+CeQALR+xKoCO40R7Gi4R1NwRbK4
-	 ba5TTfGl5KleA==
+	b=Fy+nlZpExu5TDQ6/YvBzE/9jCbFM//CZdch+OMOpmXnZdk0RmYbD1xTmEHu/cS+3D
+	 mklJq2TXuAGS0z0vho5ppfWFGqp4uxgbedD/iBsscD1XmclLHsu6h/PXG57hOfPvKN
+	 0v2I0Svc/oKT7mb5Ya3ItvEN4smFjhEmFLqNaQ+fqOP8DzJh9rvufsXF2n80aWYuxS
+	 0JjfURjDm8bOUTpWKvtU1BSB7o9HjPlSMXA9xvWxA4XA58TdLevkGxTiUmCmHHiaQG
+	 qOcA5nTXHuduywjGLBl/C9hkQ43sZpg75ymjJa7wSNV1h+lZIUk1F8rWGaZX9/SMiO
+	 rzmItTLLivWSA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0FA9B457CD;
+	by lkml.kernel.org (Postfix) with ESMTP id 04B19457CC;
 	Thu, 29 Oct 2026 09:33:06 +0000 (UTC)
 From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Thu, 29 Oct 2026 10:33:00 +0100
-Subject: [PATCH 2/3] soc/tegra: fuse: Store Tegra114 CPU and SoC speedo
- values
+Date: Thu, 29 Oct 2026 10:32:59 +0100
+Subject: [PATCH 1/3] soc/tegra: fuse: Fix Tegra114 speedo fuse offsets
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-upstream-speedo-t114-v1-2-81457cc9d94c@tsv-stahl-riesa.de>
+Message-Id: <20261029-upstream-speedo-t114-v1-1-81457cc9d94c@tsv-stahl-riesa.de>
 References: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
 In-Reply-To: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
 To: Thierry Reding <thierry.reding@kernel.org>, 
@@ -97,11 +96,11 @@ Cc: Mikko Perttunen <mperttunen@nvidia.com>,
  linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266385; l=1694;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266385; l=2745;
  i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=+yKNYi2IHZusPUhtNKXAX1JpKETKpwUXNfPwjmWY+ag=;
- b=4JvZFiQpSbPsGARZvmxmSLZr+iMyy10+lb4zMf6EirZcluFDTS4zduw3frxa/Auj8QFJ1IhWQ
- QgQfcVAuxW8BWyH+olu/97RA9azIN1bbXEmxe+gPJd22OkQbWQ3nkfk
+ bh=4FiENUbMBaJsOEfAoSxwyoXv1XTgnVLUka3Tp+CNcmo=;
+ b=1WDlGcfOvl96hHV72Uyr/1zpplR+EIC9+zmE0u9BsU6eLijGhWHzehlsSz5o1X9ncU1SbP6en
+ EVSuILFkuQhBNXy5oI9Nlo+Pch3KOYUOtUbnULFYtNoogZWf0SEzFNI
 X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
  pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
 X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
@@ -112,42 +111,71 @@ Content-Transfer-Encoding: 7bit
 
 From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-The Tegra114 CPU DFLL computes its OPP voltages from the CVB tables
-added in commit 5aba939e80f4 ("clk: tegra: dfll: Add CVB tables for
-Tegra114"), using tegra_sku_info.cpu_speedo_value. The Tegra114 speedo
-code computes this value but never stores it, so the DFLL uses speedo
-0 and only the c0 coefficient remains. For CPU speedo IDs 1 to 3 c0 is
-2190643 to 3395401, so "mv * 1000" in round_cvb_voltage() overflows and
-the OPP voltages are wrong.
+tegra_fuse_read_early() takes offsets relative to the start of the fuse
+words at FUSE_BEGIN (0x100). When the fuse driver moved out of
+mach-tegra, the Tegra30 speedo code was converted to such offsets
+(FUSE_SPEEDO_CALIB_0 0x114 became 0x14), and the Tegra124 code uses
+them as well. The Tegra114 code kept the absolute offsets from the
+vendor kernel, so since then it reads the CPU and SoC speedo values and
+the A01 CPU2/3 fuses 0x100 bytes too far.
 
-This is currently hidden by a zero voltage step with Palmas regulators,
-fixed in the next patch. With both fixes the CPU OPPs range from 1000 mV
-to 1270 mV on a device with CPU speedo 1742, which matches the vendor
-kernel.
+On a Tegra Note 7 (Tegra114 A02, SKU 5) the fuses at the correct
+offsets 0x2c and 0x34 read 718 and 1156. That gives CPU speedo 1742 and
+SoC speedo 1156, which is exactly what the vendor kernel prints for this
+device. The current code reads 172094 and 0, and so reports SoC process
+0 instead of 1.
 
-Store the SoC speedo value as well, as Tegra124 and Tegra210 do.
+Today only the reported process IDs depend on these values, since the
+Tegra114 core OPPs are selected by the SoC speedo ID and the CPU DVFS
+tables apply to all process IDs. The CPU speedo value is needed,
+however, to compute correct CPU DFLL voltages, which the next patch
+fixes.
 
-Fixes: 5aba939e80f4 ("clk: tegra: dfll: Add CVB tables for Tegra114")
+Fixes: 783c8f4c8445 ("soc/tegra: Add efuse driver for Tegra")
 Cc: stable@vger.kernel.org
 Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
 ---
- drivers/soc/tegra/fuse/speedo-tegra114.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/soc/tegra/fuse/speedo-tegra114.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/soc/tegra/fuse/speedo-tegra114.c b/drivers/soc/tegra/fuse/speedo-tegra114.c
-index 1e6c2b5be759..8bf1a1b1287a 100644
+index 6695702bdb4c..1e6c2b5be759 100644
 --- a/drivers/soc/tegra/fuse/speedo-tegra114.c
 +++ b/drivers/soc/tegra/fuse/speedo-tegra114.c
-@@ -92,6 +92,9 @@ void __init tegra114_init_speedo_data(struct tegra_sku_info *sku_info)
- 	cpu_speedo_val = tegra_fuse_read_early(FUSE_CPU_SPEEDO_1) + 1024;
- 	soc_speedo_val = tegra_fuse_read_early(FUSE_SOC_SPEEDO_0);
+@@ -14,6 +14,11 @@
+ #define SOC_PROCESS_CORNERS	2
+ #define CPU_PROCESS_CORNERS	2
  
-+	sku_info->cpu_speedo_value = cpu_speedo_val;
-+	sku_info->soc_speedo_value = soc_speedo_val;
++#define FUSE_CPU_SPEEDO_1	0x2c
++#define FUSE_SOC_SPEEDO_0	0x34
++#define FUSE_OPT_CPU23_DISABLE	0x16c
++#define FUSE_OPT_CPU23_REENABLE	0x170
 +
+ enum {
+ 	THRESHOLD_INDEX_0,
+ 	THRESHOLD_INDEX_1,
+@@ -63,8 +68,8 @@ static void __init rev_sku_to_speedo_ids(struct tegra_sku_info *sku_info,
+ 	}
+ 
+ 	if (rev == TEGRA_REVISION_A01) {
+-		tmp = tegra_fuse_read_early(0x270) << 1;
+-		tmp |= tegra_fuse_read_early(0x26c);
++		tmp = tegra_fuse_read_early(FUSE_OPT_CPU23_REENABLE) << 1;
++		tmp |= tegra_fuse_read_early(FUSE_OPT_CPU23_DISABLE);
+ 		if (!tmp)
+ 			sku_info->cpu_speedo_id = 0;
+ 	}
+@@ -84,8 +89,8 @@ void __init tegra114_init_speedo_data(struct tegra_sku_info *sku_info)
+ 
+ 	rev_sku_to_speedo_ids(sku_info, &threshold);
+ 
+-	cpu_speedo_val = tegra_fuse_read_early(0x12c) + 1024;
+-	soc_speedo_val = tegra_fuse_read_early(0x134);
++	cpu_speedo_val = tegra_fuse_read_early(FUSE_CPU_SPEEDO_1) + 1024;
++	soc_speedo_val = tegra_fuse_read_early(FUSE_SOC_SPEEDO_0);
+ 
  	for (i = 0; i < CPU_PROCESS_CORNERS; i++)
  		if (cpu_speedo_val < cpu_process_speedos[threshold][i])
- 			break;
 
 -- 
 2.56.0
