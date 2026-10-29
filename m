@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268364;
-	b=gGQ132+UkDFX3c4Q9SmQCQSS0LCUTz0Xsrza0lCE4+vh1Aa2v0ymM+oak6zN2TtA2nMF
-	 Ftm8qeej8NatrqKsO/o9t48DHhwtvSJtJBVwuo104i3du6G/7qDOHYcKn+DioQ7B7wi8T
-	 FAcIoKrfUj6Opyjw+O49tf5O0posoBrYzZ1Fc1zf3on4oenq9e5GQ/jPzDOLrhNd6fNCT
-	 zV1mpcQr0J8aunCZdT3ksvEMhT2ZCrra0E2g22wcGgVZBhozHNEi4RHXQwdJtGqVWk9u0
-	 cQeC5w8Zx6IiG88hCKgSfFQ3CaqI+qpAsOiS122MbF+JkwscCAPFWVsizsJZDk7Nd6w==
+	t=1793268400;
+	b=apoMSCXTQpkNyACHE1d8838JxErYJGZ5Dxe3B4ktqd1TkqxaC+AKa179DyUcTWt3Cd1r
+	 /rA149j8cnmH2ADTjqVCOrSMDdnQXHO7vcysdjZvxHbuUZ8C1Lsj9/us2IXQX24efZO4o
+	 kErlLcMmALGt0ik9S6jhuUUUh+1GES+L+FhZSvEiMOMxoFGWOmgG5sIwaar/40wyL28Eg
+	 RhAdGXeWVw/3Q7UeTuBDC5mLT3qY+HmQDdxRXVxM860Z9+zhbY0PutwJntw5ztKImUJ3U
+	 ZLIn6DyuNVQA6kdB7Up4wtWJq/bzbfDBpmRley05h6F6bz31ngC+nS+IQ9OvaYG3b0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268364;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=CwhmwwstFNj5j10OWiKD2vxusMpjkpm5sJ4KEs5Li5g=;
-	b=qYiRYUqUhf8kndkXvqQRQ6Bd0wu1zZRi3UP245ekZeJ7M9vvwRAxHBsLOhp+nZPQb1sb
-	 oH+XX26b9wr8F4rxF/JNz01s9imLtfbTWyY/If2Of/pNvasAP37TbJbgJwsSMl4YXux1r
-	 ZBiYCo2wbqQoF1IC2MJxtU1bsD4pCQL8laMC8EQof2beYAVV5mid156F4QRongqcbo4VL
-	 ufE3VxkmHBWpYBrrclhGPYhLZ/WmDCoCT/dd5NK1i5+jL0Fpfrm00L1mfRcIPpToz0Xyk
-	 nniAiiRZhSdNcUG2lOQKUjCbxdfyVkq4vqRK1hmKukwZBzkw32viZhNROU5OTye/oiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268400;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=YcZX13asPHicwggbgU3iu1zB61slnlTiIzdyqnigXuE=;
+	b=xSnS2pLPqoWcP3Kdk6hbXZO6CCQ128h22YVqtWgEbvCP83ysQwQ7yQhQGUrugp5tcdhL
+	 x/Ir9WPlA6wMkcvEWNLc9a/AERqHt9belQLDc5X2VUJNYn5w8QgsZGd51jYfzRdiW/v3o
+	 h6p47gGp7kFAoheOBhgcL5ZNSd3c6FYIrEEO3x/XMxi0JmfGUJAd4xC6EGcuDJXGnr9Up
+	 Uw4+thk+z9vK0synzhpW3TABTb7R0nhA34iDRMiq6FCgnD3tYt6Z+jRcN5IYX4fLGJSN/
+	 bGA207ksYuosTtL/R/7/wSv/Lyvw0D8AE+fJq9pa3BXUaKq7D3u4DveNOYXb0pPDKFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cQq2SEPn;
-	arc=none smtp.remote-ip=91.218.175.25
-Received: from mta0.migadu.com (out-25.mta0.migadu.com [91.218.175.25])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b="Tg/9nf6+";
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9ED1606A339
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:06:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9ED1606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1213F606A31C;
+	Thu, 29 Oct 2026 10:06:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1213F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=cQq2SEPn
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nHdmsnjBfSxwIaneBQeFmfOSq68GBVeIj65sbAMafCU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793268360; v=1; x=1793873160;
- b=cQq2SEPn+Jf/ZWFJatP4k8UfUzMA0vRvsYRQwjOexyPzuuQX0xi2tnTLd4AIVQQi5+INRPZq
- nGVmU6h6UM3d9wY9RtrVEopN9yaihH3lkBvLXjW+gsDeVkA4/x+JYu8rIMD4bZs2PH7PmlqahHU
- teutKOSBGhR3hODSnqEwCsak=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eda39c8b15cf919f;
-	Thu, 29 Oct 2026 10:06:00 +0000
-X-Mizu-Trace-ID: eda39c8b15cf919f
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so7260e87.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:05:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz7FP1JMucUeDonc7lTreAZAW0iG5GAu0lnHeumf8zjtNWpglgIx2/kRInITJGV70X/8uqJgnM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfvny13z6i373I4qb9aitAmevLWwyVVW1mo00OM2NwbcE/xVJx
-	Gx4Am0rcZTYkps2CpZShxh1yJc98yFd5c+3+a9Dp0OW8Flev2xI1dOcGc73Bs9i8VLJOHHTn1rU
-	xhLmiDwcRF2TY/zsxbzj30cRDBTeCTd3zvCymSgkc
-X-Received: by 2002:a05:6512:138f:b0:5bf:d10c:ab94 with SMTP id
- 2adb3069b0e04-5bfd1821c8dmr108375e87.11.1793268355473; Thu, 29 Oct 2026
- 03:05:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Tg/9nf6+
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 800B710A8E1;
+	Thu, 29 Oct 2026 11:06:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793268393;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=YcZX13asPHicwggbgU3iu1zB61slnlTiIzdyqnigXuE=;
+	b=Tg/9nf6+ZED/l+he501JwsFVBSUCtWqvv5osLLzHGxLpOsuOG3Lm7CsSS4zAf5ff7KfGPf
+	Ao/1zabCXhDSZAS3L0t02CmlVB//qOqJOF3QtDHXaxNZgAqTQjVpahBmhjP+G9tHdCebWk
+	4XoVdV1iptTyf7Stzu3pEvrWk+QPwCRCxn7uWYwm8sKPe3A+1IK18yjyGsoUI1YePnbnMs
+	83Z66nLAdgytwo3gKZVTl0/5BkUNDP++kwgqdDjRM+Z/Pf0xev2JScRQ8l+kqf/R/v3HIr
+	0EBUQ0XQUqdophqPERxijil5UebsZ7e/vYDXTpS5rYKbF/sAvM80yvCL1ocbjA==
+Date: Thu, 29 Oct 2026 11:06:31 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
+Message-ID: <auMap06yesGohGRR@duo.ucw.cz>
+References: <20261028165943.089486480@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,44 +67,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029090522.64662-1-oupton@kernel.org>
-In-Reply-To: <20261029090522.64662-1-oupton@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 29 Oct 2026 10:05:19 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
-X-Gm-Features: AclHuK-zARc41Snck-YLig2gcZHoGmmDIC8y2XoXzzXzf5M8gD2OxXTNVUK6Dxo
-Message-ID: <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
-Subject: Re: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
-To: Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="bqrpMzm0POkdKOCF"
+Content-Disposition: inline
+In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Oliver,
 
-On Thu, 29 Oct 2026 09:05:22 +0000, Oliver Upton <oupton@kernel.org> wrote:
-[...]
-> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-[...]
-> @@ -29,7 +29,8 @@ static inline u64 translate_tcr_el2_to_tcr_el1(u64 tcr)
->                (tcr & TCR_EL2_TG0_MASK) |
->                (tcr & TCR_EL2_ORGN0_MASK) |
->                (tcr & TCR_EL2_IRGN0_MASK) |
-> -              (tcr & TCR_EL2_T0SZ_MASK);
-> +              (tcr & TCR_EL2_T0SZ_MASK) |
-> +              ((tcr & TCR_EL2_HA) ? TCR_HA : 0);
->  }
+--bqrpMzm0POkdKOCF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Should you forward SH0 in this patch as well? It's missing here, so
-the walks are Non-shareable, and looking at the ARM ARM, this would
-make every hardware Access flag update CONSTRAINED UNPREDICTABLE
-(R_WLTNL, and the IsWBShareable() check in AArch64_S1Translate()). An
-L1 that programmed SH0 as Inner Shareable could then take an
-unsupported atomic update fault.
+Hi!
 
-HPD isn't forwarded either, although at.c reads it from TCR_EL2 for an
-E2H=0 guest. Was that intentional?
+> This is the start of the stable review cycle for the 6.6.161 release.
+> There are 168 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Cheers,
-/fuad
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.6.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--bqrpMzm0POkdKOCF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauMapwAKCRAw5/Bqldv6
+8vWXAJ9gKIrH2NYE3YTaofHYZHe0CmInigCfVs6CQpVcQtmZU2jwLOw3+SNT1OQ=
+=Gmp4
+-----END PGP SIGNATURE-----
+
+--bqrpMzm0POkdKOCF--
