@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793242193;
-	b=2fMKDVjIOJIK1CEHhZnNUKzIn9UwvKiO01Ti3Y5FvfpWqhUlcRixPN9jQqx1PeInbySa
-	 VQiylT9JwGrHHzKavwct3zLwfm8h+AIrm7QJUimiUJWUfA612ckGZUXJqIRXxHI9Ok1PX
-	 4nH+iDPEpqOonqTlZCz7TyfIpUeJfzcEEV5JBubvjsud73LzYx53Lz6YsaAb0GzWsTv94
-	 kzs7jRc42XafR80GyInVxGygpgCegm63/HrQhzBda0t2Ea4IXz1S/ZmsmRsTzOUyhtNke
-	 exBbCvPjlsqmoqMbfBRJ3p01fGnJ8+Q0TsHodHXEbGVHVhjd0wHGSuHsK+0GCu2ZXUA==
+	t=1793242407;
+	b=ufZuS+tVnIC0Z45Am05mxgUo/51uahK2uTEI4l/ItTEujSeqhdaJFiD9QXZGDGX3oj1a
+	 +OlXZiFHzdY/0ZbLnFx/CbUWW+XSlj+PKxYA7J+50BQbPk1nFAskLJIB9WZ21YDwgcyWV
+	 uGr4W1/f4D+ZQpnha7SCMCgu94MykWsvyDQJJkWMcdyc4CH1BZHmn2R2eSvVZ3JHIG3ma
+	 1On3pJM170wgk/6MPEHLzhY6IUN9ggkLTGYnvZgiK6wU5AdivrQym8LvOz4bBg9ZTnSaf
+	 VBjeaKwWC2euJd7Hs3ZwBBebA3DtJ3anbb4+JyLXdZFTAdDlywnsw+YbBDt2eVFFZbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793242193;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=JId6uBk9aYq0Mf2gdl20bnvfJVHQCFd7na+LV0uLZ5Q=;
-	b=lg1kEYUkAkfOeEtMjO+v/bq1N7FZsRJ4uQ8PztlwKdjV8Qx5+nLld0egtnPl81RN8HPk
-	 TvrK+vRjgpIRfD6oh4G7V7c1JScGFcqWF3Jly4egv2/eN3V7Rn/gBca3/uw3J5NhnPQNX
-	 WMpj6JEIVkZU39bngWqzd3V2WuK1HdMc6d+E5bk96PJ+XMePR7kePbjRH9lav2ib2yvWt
-	 /GUFypi+oGvBCdhZmX2rF7g6meGBBdhW/7DA9+1Oe/Zy2NFWxQS/NLkDBhP6BnRIJQ1NM
-	 e8uNqDr+1miCf2aPrb6b5+V5EOkZ/qerwficldBM53yE4polvRfiEBvCHwz4hqrozYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793242407;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zSeiMEsNySs8kLpj6IkrNSIGVnTsFwiiiBuuMKjbrOI=;
+	b=G3Xuo8NA8hc8CHoYpr+zZ066PEU1RlUD4Jrr34RujztHgdVHfcGNjTICDb1ibyPq5uH3
+	 vmuL0+F5PncglI9wvruuFiHhUAxmdEsBKuGQXAJgNBe10R0+SHlj052UiPV0KONo0zJjc
+	 mPy0/ST+hDMZxH7mnAdcLScRaSb6UnkTFmn7CsKHyeajoDFV756JCiz6hKUGPGidbu/0W
+	 EQ70wS385CaPHAFLNtdRic27+FYp3m0SnAqXHKOxkZc24MAT8XT88AOXD7wOqrY1Bt/n/
+	 OgY+nRWSD1TyAT/iT3NXsb4ptozdK7lNK5KqbgOYa8KtjnSkFKTdZeM0cD31ZEzHO2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqrcViW6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ve3yuMJo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2B4606A31D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51D8606A322;
+	Thu, 29 Oct 2026 02:53:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqrcViW6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D1D1F031E6
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:49:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ve3yuMJo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B7BA1F01829;
+	Thu, 29 Oct 2026 02:53:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793242192;
-	bh=JId6uBk9aYq0Mf2gdl20bnvfJVHQCFd7na+LV0uLZ5Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iqrcViW6QMFkXV++QBl6D0RJ1Own2kpWc8pYU+XpZ1iriTfqwbTSBiiXaXjMjGyrc
-	 JPuBiXLOWHQMkup0wt4XXcQ8e8vF/0/HuU5GRcgzI9NQvWJkZfoPR9tlLPrwkBhTSz
-	 ok0LaUqj4UmGoEIQEWddgYa+z7Y8psRq0jBTfnO/kyjVgZ2GFwgkI1uzqfjeFAx8f4
-	 9Q0Gz1Gm+DNJZuxEq59zLiBjiNbchwa0vQuPD2FnyB3mU7x/IHsuvODE0Nb4fRuuDb
-	 Tcz7+DRA7hmsxPutP8wcTVNlY/BM3SYJMDAwjuuOQAF9LbI9M0PLvu580OA/GyNF2l
-	 NC+u43CoxE9IA==
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6768403e9bbso1598567d50.1
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 19:49:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw7C3jFo3vmrd2iRwoIzwe7VBYmi8YMLbdjk9HK9SqV3kWE3nmP2PtQGaunElW5gkyYmpBIKw8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIHOgjNVhFpmTQXQdKLcAyNPd9Hi8ZzdZsixXr43KXD05mOdc6
-	J23zHMdNhIVLEFFLF08qccJtT3cBaW+Shnh5+aEqLa+SL42BriS/+zXswpE6RYwxzfTBzh3AUY6
-	W4srL5vqawVgjJ3ZEQ53f54JYkpqAApE=
-X-Received: by 2002:a53:c712:0:b0:679:a959:2507 with SMTP id
- 956f58d0204a3-67a7bd3b4b9mr3064245d50.45.1793242191766; Wed, 28 Oct 2026
- 19:49:51 -0700 (PDT)
+	s=k20260515; t=1793242406;
+	bh=zSeiMEsNySs8kLpj6IkrNSIGVnTsFwiiiBuuMKjbrOI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ve3yuMJowmhCJ9aHCDpbvFWX/HSUTK0tKzGXG6t4RYjBS2FnG1+8BaYaikSLfMNI/
+	 yvxGap2SIwS5bvjXUCRFRKJvemSCuU+hWVjCAPgFDwW7mtotFSi/AgIusvCGdE789V
+	 D0cjUnPzJe85h4QVqDr1DS5tVSYJKO7RWiaVZWpROADjtMOI8WLZwByfuNHWB7AlJd
+	 1XNyI7FijqhoBgBwp7q8q5371Sr88obuaf0wnhgrvcok8mlkqdUETkEvcFZGHE6wea
+	 cRCNc8izdbabITwENIa2qY+aKEvxQ0R676LE6xzX04jEmrTSdcAgw65MgODjiIqt23
+	 Zx7Ina4+V0smg==
+From: Sasha Levin <sashal@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Edvard Conrad <edvard@tuta.io>
+Subject: Re: [PATCH 6.12 122/247] fs: get rid of __FMODE_NONOTIFY kludge
+Date: Wed, 28 Oct 2026 22:53:19 -0400
+Message-ID: <09fded57a6074dd89485.sashal-rc-0003@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAOQ4uxjuTuVpx9GV86vt8JwKk9qOPayV7dx_86EofozKkK_kWQ@mail.gmail.com>
+References: <20261028165947.349197979@linuxfoundation.org> <20261028165950.290722602@linuxfoundation.org> <CAOQ4uxjuTuVpx9GV86vt8JwKk9qOPayV7dx_86EofozKkK_kWQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,74 +64,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028153441.184701-1-icb@fastmail.org> <CAKYAXd8PwT4aaFgUg82NYZUB=pFNasL2QN7TGGpJVaZjFXCuSg@mail.gmail.com>
- <20261029022039.224864-1-icb@fastmail.org>
-In-Reply-To: <20261029022039.224864-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 29 Oct 2026 11:49:31 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-pRY-2aWy7vJwGSwVXL0=qadU_MA=K+GjtRkLcNBnOgQ@mail.gmail.com>
-X-Gm-Features: AclHuK_d8MuzdKlzIG4ps_XWszTxNssGg7CnIdjq_8sWubyo__a0XLuRAHGpTaA
-Message-ID: <CAKYAXd-pRY-2aWy7vJwGSwVXL0=qadU_MA=K+GjtRkLcNBnOgQ@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: enforce the DACL permission check on
- delete-on-close opens
-To: Ian Bridges <icb@fastmail.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Hyunchul Lee <hyc.lee@gmail.com>, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 11:20=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
-te:
+On Wed, Oct 28, 2026 at 7:56 PM Amir Goldstein wrote:
+> Objection.
 >
-> On Thu, Oct 29, 2026 at 10:38 AM Namjae Jeon <linkinjeon@kernel.org> wrot=
-e:
-> > This patch causes smb2.acls.INHERITANCE failure in smbtorture test.
-> > Can you check it ?
-> >
-> > failure: INHERITANCE [
-> > (../../source4/torture/smb2/acls.c:1054) Incorrect status
-> > NT_STATUS_OBJECT_NAME_COLLISION - should be NT_STATUS_OK
-> > ]
+> This causes a (potential) deadlock regression:
 >
-> Thanks for running this. I can reproduce it with smbtorture 4.22, and it
-> passes without this patch.
->
-> The inheritance checks themselves aren't what fails. It's the rmdir at
-> the end of the i =3D=3D 1 iteration, which the test doesn't check, so it
-> shows up as a collision when the next iteration creates the same
-> directory.
->
-> In that iteration the parent directory's DACL is
->
->   ALLOW CREATOR OWNER  WRITE_DATA   (object inherit)
->   ALLOW Everyone       full access  (no inheritance)
->
-> so the new subdirectory ends up with no ACE that grants DELETE. Windows
-> and Samba still let you delete it, because the parent grants
-> FILE_DELETE_CHILD. ksmbd doesn't have that rule, so even a plain DELETE
-> open of that subdirectory fails today. Before this patch, the
-> delete-on-close open that smb2_util_rmdir() uses skipped the DACL check
-> and got through anyway. This patch sends that open through the DACL
-> check, and the check denies it.
->
-> So the test is right. What's missing is the FILE_DELETE_CHILD rule.
-> Reverting this patch would just hide that again, and reopen the
-> delete-on-close bypass.
->
-> I have a fix that treats FILE_DELETE_CHILD on the parent as a second way
-> to get DELETE, like Samba's parent_override_delete(). It only uses a
-> parent's stored DACL, and never looks above the share root. With it,
-> INHERITANCE passes, the rest of smb2.acls and smb2.delete-on-close-perms
-> are unchanged, and the cases this patch blocks stay blocked.
->
-> Would you like the fix as a separate patch on top of this one? Or, if
-> you'd rather not keep this one in ksmbd-for-next for now, I can resend
-> both as a two-patch series, fix first, so they reach stable together.
-I will revert it in ksmbd-for-next. You can send v2 patch to the list and m=
-e.
-Thanks!
->
-> Thanks,
-> Ian
+> https://lore.kernel.org/linux-unionfs/P4sl5iz--F-9@tuta.io/
+
+Dropped from the 6.12 queue, together with its follow-up "fanotify: Fix
+crash in fanotify_init(2)", which does not apply without it.
+
+For context, it had been queued only to fix the sparc 6.12.y build
+(fcntl_init() BUILD_BUG_ON) that came from the 6.12 backport of
+"fsnotify: opt-in for permission events at file open time". We will
+revisit it together with Edvard's fix once that is in mainline.
+
+> Not sure if this already hit other LTS kernels.
+
+6.18.y, 7.2.y and 7.3.y already carry it via mainline (v6.14), so they
+will need the upstream fix. 6.6.y and older do not have it.
+
+-- 
+Thanks,
+Sasha
