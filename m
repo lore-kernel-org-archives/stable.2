@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283524;
-	b=Y/sXPjzIA6CwaL0M1RDkjAPMlg/SGB9k0wjNmKb/qG7aQXqLpxcbryEg67spRyr6f6SJ
-	 gPncyvv8nizDQFf4QKdZl8qAYPThQUDh9ybbQEXoJpEceALOQqMMXSZk6nddC9yvl4Qdr
-	 PHoQjCR1fEB3Vw7Q/Hsj8qTgfTCFMYBT//pejfgd1eV+AOqzEEWTZRpIjAr9jd9TKLvAi
-	 7qkxrnbD8kNqhkQyXuBlFHehpj24VtpsWnNSvBx5ifn2w5O/kxE/fLkBVWAzDpixJZCjP
-	 cNg9s4UdcXovChvB/CdW+DYsSopAdEam7Ltl15UoljhvqRindnFpfbe2NIMs3695w4w==
+	t=1793283630;
+	b=Cf87Z38BXyAyXN3c5X/WAdcVJWWcOQO0vN8GLmy3/0WvlzmXy48EQ2NryaE+Fv22QLom
+	 pTSPqs1pviLwfVMUakMgLKwFY4LmgK9EVHArK74t6iamfEx+18Zat/T30P6xL1mtUyqkZ
+	 5yTMXIJdNHf3MieuCK5W//0AWHyvumlLzvH9za4L54LHnhgrTZ+SMSfbMSwzM14AD77eJ
+	 QY7AOxUzPyI34Dut+sKg2AUmMubePF+1xyAcvnnIN2OqoAQU+jZE5jjcoLWqF7YjqEJkA
+	 Ze4itO4wCevXxcV+LCrNlJxuI8Pe7SoZPZE/kzMtA+o23hBOpEoNKYvjkLjwJwJUFvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283524;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KrmJHHnmWU49kR3EjjGIqe7TD1rMMa5OKGo7QYF6nE0=;
-	b=spp9omB0i/DdeZo8seNH42ck38zuhk1gvK7M+ntk6aCvb4NI+MTimo5ikjZNI6t6o2jM
-	 xvQXv/w4I0wZTb1GaZFfhEuDZ/hFG+E74erSfeiIG7Exw+A5J9FCL1aJvDiUoE7B++RAR
-	 n0aXELP7idlnw/PemyEClGTT7LUKcSfPf6TGaECz/lvebwEsYY4fWvL8sX5CaOVm7SWx4
-	 XH+sjcbxrUvw4kMlSS6wNL5xAkdCJA1nDnZbmZeI14pN+GrneojRggf2X+BMzh+VDHwLX
-	 FjVZai6ljIj8EQRRGOsLvqct/gBPWid4JOy87G+50tRsnOeKcBo4bs6y3lfyRgHbyxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283630;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CEJgZSOIdMAj6jpTCSnhUIhLpKEk9BtwYmYBUge0rqk=;
+	b=Zo8/FITBF0ChEWxKPld9hKn23i0JE0hGG0nZ3tZaSt8KZGSXVtMMsgEAEOeALk2b9jjp
+	 EQTkWHskRZr5mJU6aoiqTKCRpMp1PGYA0aJQEKhNRQCDzoGShtU63W2ssGv/IbUOzOjp4
+	 9x6JIw0GGGS28nWnhmjbRP3GGTHdqvTuqXTSdvVkBGLennYuZx8y9BuIbrBsBmg81jivv
+	 MCIgcQcYz3P7Xk4MJZwa5rlCTHjEJiAlHozWcBxv/+FHIF7mtjkVhTQibf5wScifDfyJo
+	 cmP0UUr6dVmNwUmJl+a8TqVIvrlnpJzanOse2cRir9FteO9hV2KNTKTh/LubTrL3s7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUQVHCdI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AvEAmzU9;
+	arc=none smtp.remote-ip=209.85.222.44
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE38360A2606;
-	Thu, 29 Oct 2026 14:18:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76B6606A333
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 14:20:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C76B6606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUQVHCdI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A8D1F01825;
-	Thu, 29 Oct 2026 14:18:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283523;
-	bh=KrmJHHnmWU49kR3EjjGIqe7TD1rMMa5OKGo7QYF6nE0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XUQVHCdIXfvmbaph/VA/rxWkBrBMpTWNrTAYGGhlCnhClgHcbmqfLm/eKiQyCpl+W
-	 E3eYifg9BPWiMSDXEftsG6P1erQcEU1cxEqVv7Q65NLTq6sRGvicyug8evlSykwQ1n
-	 N555FxgSSTArXb9eRt1k/+Rr7/gKg542EG3ZHgkCdrsxx5r9mVZUcQFcOovPpa8Tf+
-	 K5DX1M/2E6C5yMjxDhwgcHRNE2N173N/c0Ut2AaVXgOtOHtG0XhsZlbs8t2w98oJlg
-	 Mu1VOIE7670qxMrHyiu6QL0I/NiamJbSsCKr41PrvWSm0g6yo0ne75ilTxt7hUJyj/
-	 vpESVobE2Pi8Q==
-Message-ID: <7fab2115-6c44-43b1-b03b-8ce4a37ffe32@kernel.org>
-Date: Thu, 29 Oct 2026 15:18:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AvEAmzU9
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-990a39ba4fbso576247241.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:20:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793283629; x=1793888429; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CEJgZSOIdMAj6jpTCSnhUIhLpKEk9BtwYmYBUge0rqk=;
+        b=AvEAmzU9PZa9XvzOFEy1iP/VQZQU8MWIeGOIozABscZyaoQ3Ady4FpocZUkHEyAjF5
+         a5UPDnaszexmuN+0ozyTgWu6mQxWrre8q5mQdIX7TqtjfYAH2NJT03zg6n2U4m8qXEcy
+         8ALf+tfUkG5zW7h1MlfNkhtZB6OYURePrV/fTrUUjAHRagPcflpmx/la9+CQ9WIbhvA/
+         GWdyLbnfmsP41O6VqIowi0PhIcKiosNCVxo88kG8sfi9T1gN7DHvLfP6IZhltgfv4X+8
+         9JZzy5rOOGWR2jfGI19ZaoDhiMxAYTmiNTBpw/EyXiknxLoc26yk9gtgFIrfk6o4VsPf
+         SyHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793283629; x=1793888429;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CEJgZSOIdMAj6jpTCSnhUIhLpKEk9BtwYmYBUge0rqk=;
+        b=OsniOOB8fgwX3s3Q7ilpLS7/Lp3ArxLMskPFMm9t0mPmeDEqc0TINfQfl9a8hmZJpr
+         0NQ5LyZ/Yf6RYx12hV4XezfztmpMxUnxfIJrkYiSv3yZC8Tob8ip0jlzQCR+atM48JFq
+         /mmRzdpIhIXSmC2VXmVwwJ/vcw9HC8ZboGIESYV4M0Pc5bfvSeMyPqNjP27k3iRKe02y
+         pVjiHY2yLY75NWbX7be69/Nv4Atb8HSBcVJIR439gGQbj+j/3Patf5oJG75i+xTed8oM
+         L3/Bp4KXGZSgYzKskKFvqEzFZfB0L6+d8sd0G5KCUGhyidpoGXBCObg/gTnvTOT9BPQu
+         sOCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrAjP+P6jIvwdI5P6O1nxfeFeEPwS3/YXPHdFWrhHIpFDvXEj8YyPMgRbdufZBsGVMm4OA0PQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1RopyjeeI3qknvsOOYRe5DuReO6+s+WmSD8fIF/eNe0ZS0gkH
+	9IThyORaiahyd350CgyZ1azYs+q4x4jK8D0/CrQhkKV9ubh5ALdFAYCr
+X-Gm-Gg: AYBFou0NRQJx9gTq0162jZfoaliWPWX11er+wfjZ7tfPlrbLaJgTZJR0Ly14jG8mDKw
+	lNhlJqU56Fj6CZ+7Gc/x3hDkQsC9edzebc6nW/9INMBa01j/d0NxOLbkUuCanEsRB2FLBsu5l1q
+	4+gTjOSUS5Z1xwMdix8tfnqCVQCuHh9rHhj7gAUXb4gf5QyolagMd/q3lMy20c9IHu/gChAIIJ2
+	VUh40ba45XK5B17mv4MLOVKUXMiS6lAJ43ScdtZkjbW1FTisgGOk8/dW3pY5IQyX59AzLjFH2P1
+	h86ZMk2eavx2zmWEZSsv9xepiXqi3JDcDXDn8K8B5KSFXJGbzlEdUPahy7WduucDA7JmH+m59vI
+	gU/Bi/MwhUMu9QjC97I3yzmrFGRXXkPyTUdCMmdaOMWwAsXk26OwPFcUSpkJajEuRMwOgw1WDya
+	2XHxARWj6l/P5S+08q6GwdWgam7+g2D0KVmSKJWs1srFkKl/8f0hjS32GXbVArcR10gVo8ms+WP
+	EEOEa2VOtypxt10r+qlNy6vMK3p33Aw6zkPvVZuTpQKxGgs8N+l0jBOSaQrsOWt1PhgTF1/ATlU
+	JuFnHNCUTN/hKVHD+rs+vv8jkG39fwQ6VO4Xtng=
+X-Received: by 2002:a05:6102:6f07:b0:7c3:1d7:f234 with SMTP id ada2fe7eead31-7d03a294a6dmr2037964137.2.1793283628442;
+        Thu, 29 Oct 2026 07:20:28 -0700 (PDT)
+Received: from bridge.. ([2804:14d:ba6b:8339:e751:b7f8:a4ea:bd70])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991eaee2e66sm11457241.2.2026.10.29.07.20.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:20:26 -0700 (PDT)
+From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+To: linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	sgogte@purestorage.com,
+	hare@kernel.org,
+	nilay@linux.ibm.com,
+	wagi@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] nvme-rdma: fix NULL queue->ctrl dereference on reconnect
+Date: Thu, 29 Oct 2026 11:19:57 -0300
+Message-ID: <20261029141957.2068907-1-christian.aurichzm@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,137 +103,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
- <auIniV8YSpA4_oxg@thinkstation>
- <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
- <auMvYdTd_e9O9kDj@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <auMvYdTd_e9O9kDj@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/29/26 12:37, Kiryl Shutsemau wrote:
-> On Wed, Oct 28, 2026 at 10:45:34PM +0100, David Hildenbrand (Arm) wrote:
->> My brain hurts, does the above make sense?
-> 
-> Yes, I missed that the loop only goes back to start when a lookup
-> comes back empty below end. When the last batch reaches end, it exits
-> without another look. It doesn't need the split either: any punch hole
-> whose last page is in the page cache gets there.
-> 
-> That exit looks unintended to me. b9a8a4195c7d ("truncate,shmem: Handle
-> truncates that split large folios") turned the "if (start >= end) goto
-> out" early exit into the loop condition. Before it, the loop went back
-> to start until a lookup from start found nothing; Hugh kept that on
-> purpose for hole punch in 792ceaefe621 ("mm/fs: fix pessimization in
-> hole-punching pagecache").
-> 
-> Restoring it is enough, and makes the "restart to make sure all gone"
-> comment true again:
-> 
-> +       if (start >= end)
-> +               return;
-> +
->         index = start;
-> -       while (index < end) {
-> +       for (;;) {
-> 
-> Then a replaced folio is found on the next round, and truncate needs no
-> special case for it.
-> 
+Since commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation
+and startup"), a reconnect that gets more I/O queues than before grows
+the tag set before the new queues are set up. queue->ctrl is only set
+by nvme_rdma_setup_io_queues(), so I/O submitted in between reaches
+nvme_rdma_queue_rq() on a queue that was never allocated and
+dereferences a NULL queue->ctrl:
 
-But that's then another lookup even if not really required?
+  BUG: kernel NULL pointer dereference, address: 000000000000034c
+  RIP: 0010:nvme_rdma_queue_rq+0x52/0xb90
 
-Why do you thing that is that better?
+Set queue->ctrl for every queue when allocating the controller. Such
+requests are then requeued like on any other queue that is not live.
 
-I agree that the code is simpler, but at least it's consistent with the other
-handling.
+Fixes: 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation and startup")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+---
+v2:
+- Only move queue->ctrl. v1 also moved queue_lock, which needs the
+  queue count in nvme_rdma_free_ctrl(), but opts can already be freed
+  there when creating the controller fails (KASAN use-after-free on a
+  failed connect with CONFIG_DEBUG_KOBJECT_RELEASE).
+- Not carrying the Reviewed-by tags from Nilay and Christoph, as most
+  of the patch changed
 
+v1: https://lore.kernel.org/linux-nvme/20261029060521.1690223-1-christian.aurichzm@gmail.com/
+
+Based on nvme-7.4 (89480d137bf0), also applies to mainline and v7.3.
+
+Reproduced in QEMU with nvmet-rdma over rxe and
+CONFIG_NVME_MULTIPATH=n: connect with attr_qid_max=2, keep direct reads
+running on the CPUs that map to the new hw queues, then raise
+attr_qid_max to 4. The window is short, so the readers run at
+SCHED_FIFO with nvme-wq pinned to their CPUs. Without the patch the
+host oopses within two tries in all six boots. With v2, 24 of 24 tries
+go live and 30 resets under I/O pass, with and without lockdep, and
+failed connects are clean under KASAN.
+
+ drivers/nvme/host/rdma.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
+index 07216890f75c..32189fdfc0f5 100644
+--- a/drivers/nvme/host/rdma.c
++++ b/drivers/nvme/host/rdma.c
+@@ -735,7 +735,6 @@ static int nvme_rdma_setup_io_queues(struct nvme_rdma_ctrl *ctrl,
+ 	for (i = 0; i < nr_queues; i++) {
+ 		struct nvme_rdma_queue *queue = &ctrl->queues[first + i];
+ 
+-		queue->ctrl = ctrl;
+ 		queue->queue_size = queue_size;
+ 
+ 		ctxs[i].queue = queue;
+@@ -798,7 +797,6 @@ static int nvme_rdma_configure_admin_queue(struct nvme_rdma_ctrl *ctrl,
+ 	bool pi_capable = false;
+ 	int error;
+ 
+-	ctrl->queues[0].ctrl = ctrl;
+ 	ctrl->queues[0].queue_size = NVME_AQ_DEPTH;
+ 	error = nvme_rdma_alloc_queue(&ctrl->queues[0]);
+ 	if (error)
+@@ -2284,7 +2282,7 @@ static struct nvme_rdma_ctrl *nvme_rdma_alloc_ctrl(struct device *dev,
+ 		struct nvmf_ctrl_options *opts)
+ {
+ 	struct nvme_rdma_ctrl *ctrl;
+-	int ret;
++	int ret, i;
+ 
+ 	ctrl = kzalloc_obj(*ctrl);
+ 	if (!ctrl)
+@@ -2343,6 +2341,9 @@ static struct nvme_rdma_ctrl *nvme_rdma_alloc_ctrl(struct device *dev,
+ 	if (!ctrl->queues)
+ 		goto out_free_ctrl;
+ 
++	for (i = 0; i < ctrl->ctrl.queue_count; i++)
++		ctrl->queues[i].ctrl = ctrl;
++
+ 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_rdma_ctrl_ops,
+ 				0 /* no quirks, we're perfect! */);
+ 	if (ret)
+
+base-commit: 89480d137bf0d943a82c64f86ae2407a15276b5e
 -- 
-Cheers,
+2.43.0
 
-David
