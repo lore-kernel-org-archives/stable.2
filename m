@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274006;
-	b=xidZZl4iLRXovar+GNQqQVrSIw9Axd7YcwbawXh4qZcAysfPg8KqocLDBrHRoE7iIqcm
-	 DrgTuYVH/oREvCoekM49qM4Nsj1KLzzPH5HjTLR7bYwdwAB7BZFgK4jeePLp0TqBeOZXM
-	 smVqJZtYrQ4GjL7JwGwXFAywGGPhvX3Uo7KLUflr/CfV/hOwJw/uvXkkbduRPpDW8fsS5
-	 yklcKuZHBu0T27BsYtCi3vO8cjim220mP79BHjGqHQ9yGAg3ZdNegO9SoYTm1COaUumWd
-	 u6JR4qTfafbUg4UBZyXW30BEwApCOkCDtIJuOGg0T8UB8qfq5FvyUGe8nskWe1DiYAg==
+	t=1793274126;
+	b=iAY38cooPoo4VKdgpX7uC09VDXTdxHweP+iahuwdQa+hv+Jcfl1e1hhVtKR7nV0pfCDC
+	 GATfWEO6dsczmLvtfkycc1qYQMN3uqQvZnyI6ZLXOdg990hlEy0sRZBoXzu1T8aUIu3NN
+	 nd0FboWr6GB5B7fp7CWVz0kD3oA5/hFcuPchtZEwJSD1ZZo5M/z3qanbZXrVowldHwDYg
+	 H8a8CHpjuKJyKpFfJs8MPIySntQ3h2CCMP9VpwVETRbkuoPB2V7RsT6parwZ/jFbSgt0U
+	 D87gPFns53BndCX9fraldtl5X5nwp6s8c/9QJbiR/t/JSseKAQjVi7atNs8jOl5eGig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274006;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=TBOcWCeRyE09SQV0o/JzcTqZh/y/wDE6C2jnFIHWhYc=;
-	b=bz5Be9sLlUbq20JDLxoO9VWjtTN5Ts3/EqucVpfPRoP5d0kzWDTuwXMsRfvkesv38wsI
-	 +ROy9qiLMdIE6ARz3Hil6oTfl0dZXX4lqLAoHsIGV2R7lLv1Hxyq3G0y0swlnJVGi+AM3
-	 Vlbzm2uWuNQUnu1p8ioR8ZpeDL8xge9c6ZEhF64u8CfDNTBuRFg1ZqyV3/nmNWVJXAeQF
-	 3mJTPzglT1k/SD38eDiBet0XLKCFkflcq+rLA/7zoRbEXHcSJRnWEq6pz23qTAV4c9THs
-	 OffxsePIyOm8FzTg/Y6aOEGpqJerDDNqY7cC35qP9LjZ8pqAlS6Rj1n6D2nZeoJQRLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274126;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=lNKnDSm6DWP7OhUxWQd4mOe7im/nMYs8Ki0YFs7PQN8=;
+	b=AjW1ziuy/YNAw2k7dJLflt+yoXzhsykOY/Sah8vXZmoHwHdf8vlCM7nCRcgF0/DNxXnz
+	 sGqlMphUKvITyI2kZLkYOzCWL3vAttk7TId9d1xQCHQIutvc2xnkiV6mZhnbesTKqHr2P
+	 e9WCZwkI/0ZgxoH6w5NgT/SW0UUSJ1LVr6/i+lG/V6LReBTd1Vdb/2RPmtZ+4JAJ8QQYF
+	 R8Fv9XXFlrd1ZXR2mmxuF1hjQE1VygZ0QcgOVCzg9InaaGgsGwKGUoiSo77UfhYs2NodJ
+	 D3UY7KiArsnBcYHQF/IL+f4kBjBF3MdaSAutxyhhR7jWuomFfjxiQKRKjSuuhOp4v0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebtBqStV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ViYcAhwX;
+	arc=none smtp.remote-ip=95.215.58.22
+Received: from mta1.migadu.com (out-22.mta1.migadu.com [95.215.58.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDE9606A31A;
-	Thu, 29 Oct 2026 11:40:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434E5606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:42:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 434E5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebtBqStV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF4C01F01825;
-	Thu, 29 Oct 2026 11:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793274005;
-	bh=TBOcWCeRyE09SQV0o/JzcTqZh/y/wDE6C2jnFIHWhYc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ebtBqStVzefn5r9pL2B+YSX4ivaLjiFbAjHRIUHa2j1ZiKtKCxtR0PPeDxwshLvfI
-	 twUW6jLLjNClS63IE2sZCth9evRZSucCjrp0ZjLeNf77IVmqfsMNYUalKVtrQaWVOJ
-	 UVoHQYr0SIsTLn7DbM1Whw1E7C5/+ORYBBWcF7rBcWPpg1HeAsPqnud/PQB/VowmzS
-	 kzLacAKFIsJlh3SJ/5v0LAevl/LmMwzsLl9sl5Y6vvQvqhH/zz5ew6O7tb1S8fY9bk
-	 TXEC/rKGM17E1Vna76DgkbMZhJIrElH+XgK7i84kmlT6yuGYpdcUPV4prYboEF34vT
-	 kAsfI6IhHBXCg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BE5323ABD290;
-	Thu, 29 Oct 2026 11:40:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ViYcAhwX
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PnHgOuaW7I0Mn/MofV12U5YliQliS5wKeUNRMOs0Mn4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793274121; v=1; x=1793878921;
+ b=ViYcAhwX4aOh+SjcV/ahUSCk9rLCWxY2AaRMspXtdN+GAmLTvlXudu+iZwbCjk8+YBmhCnzJ
+ 1rOZbWQwxK1uVMfKHMDVbRMiLfSOeR/FE7KB7c2NgVKzyRTAQpRA8qOa8JMWKfjDeEY3bIcEhIQ
+ 9BQ0QjWgyxGijD9IYB4tBzMA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 779e1a2d9eb53962;
+	Thu, 29 Oct 2026 11:42:01 +0000
+X-Mizu-Trace-ID: 779e1a2d9eb53962
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so7936e87.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 04:42:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwXKbtyAvVTwgAICIuEp8WXNOIPUe4wkfJKJEQDUxsVqZtRkQqYRTG2GfnLVz8M8A9W3sMFBt0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvScTuK6xWSrJsCPTUdnMpAeZCGhAxSusci0bMJOH3Hpzoz9Mr
+	Mu5Pxz2AuMUYg+0tjzQrFPBU7ioZc6WobuKMWgd7NpLarj0dHbjGd5wo2oSAMPlCobMoQrVZp0J
+	gopJBfOyTtU+4iRNxksccyhSYhzuVzROdmuF3sKcu
+X-Received: by 2002:a05:6512:1052:b0:5bf:b994:6598 with SMTP id
+ 2adb3069b0e04-5bfd142a3a5mr145865e87.6.1793274118982; Thu, 29 Oct 2026
+ 04:41:58 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,48 +66,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] tg3: Invert restart quirk logic to restrict SNP
- power-down bypass
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179327400457.1773334.15430060848515366036.git-patchwork-notify@kernel.org>
-Date: Thu, 29 Oct 2026 11:40:04 +0000
-References: <20261026220955.473247-1-noam.d.eliyahu@gmail.com>
-In-Reply-To: <20261026220955.473247-1-noam.d.eliyahu@gmail.com>
-To: Noam D. Eliyahu <noam.d.eliyahu@gmail.com>
-Cc: netdev@vger.kernel.org, pavan.chebbi@broadcom.com,
- michael.chan@broadcom.com, kuba@kernel.org, edumazet@kernel.org,
- davem@davemloft.net, pabeni@redhat.com, andrew+netdev@lunn.ch,
- horms@kernel.org, stable@vger.kernel.org
+References: <20261029090522.64662-1-oupton@kernel.org> <CA+EHjTz-kXVbzcjtMte8B26f0Undr+kWjF2-d0B8TLT8n03hJg@mail.gmail.com>
+ <86ld7gydqp.wl-maz@kernel.org>
+In-Reply-To: <86ld7gydqp.wl-maz@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 29 Oct 2026 11:41:22 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
+X-Gm-Features: AclHuK_Z0kHPbYh0i1HryGJaOSIwXE6_zjBe1WXl1ax6QBriG_I6vIJcW96TN10
+Message-ID: <CA+EHjTw0EjMHKOH8s0F6PZRR7WkmRJJrMrqTzpYoP9gm5n_9Gg@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
+To: Marc Zyngier <maz@kernel.org>
+Cc: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Hi Marc,
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+On Thu, 29 Oct 2026 10:58:54 +0000, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> That's a good point. However, my reading of the ARM ARM indicates that
+> as long as S2 shareability is Inner-Shareable, the resulting
+> shareability is Inner-Shareable (see R_ZNLRJ), so we're actually safe.
+> This should be fixed though.
 
-On Tue, 27 Oct 2026 00:09:56 +0200 you wrote:
-> Commit 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
-> bypassed `tg3_power_down()` on system restarts to prevent reboot hangs and
-> NMIs on servers where NICs were initialized via SNP (such as Dell PowerEdge
-> R650 and R750).
-> 
-> However, skipping the power-down flow globally causes the ACPI _PTS method
-> to trigger fatal PCIe AER events and hangs on other models. Commit
-> e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot") attempted to
-> mitigate this by adding an AER-disable DMI quirk table. Maintaining a
-> growing list of models for a secondary symptom misses the root cause,
-> leaving systems like the PowerEdge T440 (sharing the BCM5720 NIC) exposed.
-> 
-> [...]
+If my reading is correct, I don't think R_ZNLRJ is enough here.
+AArch64_S1Translate() (J1.2.4.57 in M.d) checks the walk attributes
+before it translates the update through stage 2:
 
-Here is the summary with links:
-  - [net] tg3: Invert restart quirk logic to restrict SNP power-down bypass
-    https://git.kernel.org/netdev/net/c/d7314b51341c
+    // Either the access flag was clear or AP[2]/nDirty was set
+    if new_desc != descriptor then
+        if (!IsWBShareable(descipaddr.memattrs) &&
+            ConstrainUnpredictableBool(
+                Unpredictable_Unsupported_Atomic_HW_Update)) then
+            fault.statuscode = Fault_UnsupportedAtomicHWUpdate;
+            return (fault, ARBITRARY : AddressDescriptor);
+        end;
+        ...
+        if regime == Regime_EL10 && EL2Enabled() then
+            ...
+            (s2fault, descpaddr) = AArch64_S2Translate(fault,
+                    descipaddr, s1aarch64, s2aligned, descaccess);
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+descipaddr is what AArch64_S1Walk() returns, and it holds the stage 1
+walk attributes (walkaddress.memattrs = walkstate.memattrs, with SH0
+from TCR_EL1), never combined with stage 2. R_VSXXT also covers an
+update "not supported in the stage 1 translation due to the defined
+memory type": that one is a stage 1 abort, taken to EL1.
 
+But it's not like the ARM ARM is an easy read :P
 
+Cheers,
+/fuad
