@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292457;
-	b=sCIZj4hSSpl3vESNckUxqwWOxEnqFMCLGFduazJO/ZmamdWfgAvBOpL/NOeJSXq4rvJ+
-	 OssawsbzRKMgaPJ2YgkYjiEHRbD/pKVGoP0kA7LzjKRuMgLEN45O0ayMq9Bi1x8ywRfyu
-	 zp0BmPokel7Q2yPOr8TfFlR9AeZNalZKWIjaRYiJH9idBrgevnSQrHvJSvRBcHVqXjDqz
-	 Nv9gunTfRUV5ywUhQpfWM2/kDyWKxJhApuF1nbRB54lrrQipmi2fzxRMqpWwtAEMgkSlF
-	 r21eiSxTjUu+sjv7Yep4pSYXEH9R+7vlk4xMokULp2Y6Nk3QWFv3EaN2Z6oKOdh1JXg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292457;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793292473;
+	b=V7cktY7QROIhG8Ps0ckFLwGkEkJDagJaPx5sTY75/kZr8oj5AXLJdfCFmC5rIcIR6jsJ
+	 tez7jZv/7k8UTHvfpKSFjPsMdWTy8FLlxpRA3BdDnr7QMdg3vhQV+fF6fezG1QDnr4Vwj
+	 J/rzzlNLhjjSXjjFIuLX1sPjLMsKRnFf6KZSszkzLDzZVhujGjMP5mVZ4awr9dofZW8lB
+	 2+cn709xdJPF6J2jdaT8GTHLxkrh5YoQ+23y8AxI41k/5sE5ckWeiV1UPBQ5DULDp66i6
+	 l7ckuAUMKMTwJDXcLRcDmVwVlcOLPYoeMIUXnnxNgiVOTrnc7vubO72ubSb3UkwwaBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292473;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=79DDn4vmcOC3ldaXqJtmkrA2/5RtNDXGpNRnaOFomtw=;
-	b=vbCL1aVOjk/gqYRGmWAC0Q57JmDFh5k+r8vBoJxrDx6ioVvf/8yq2PsPt4Ms+UoR7mPG
-	 xilOTAc2deI0TcR5YqaLKQmPa6qtWnN6P/vOnHv4U+QuRgYeuNXxsq54+oRXFn3PiJ89V
-	 wHB39U9wGXIq9TMozeP20/U4ao5NAa5lhIWqw423A+pAUWOw2jk+Ssz8LLOTh/BmJoSpx
-	 w271V3Qvb9/Uw8V8CtZUgFSB0IQ33ibB6lQbb5XQzNbdntFmDw3yviXbg6m4YvoG8LFPV
-	 jGBr5/isFjQRN+K4AyrggRRMImCRu+38xtizOYxvlVMDq5eMASbtUB/j/XIOZTdNsnw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Wsa/p8DFgC7lEBUBlf/AbqoCERuv8Vl8amjCmWqotBs=;
+	b=NU1s8WxkbViVnHok6qD2kmAcBKQ31N8sZ2SnOQ80kP2dcouGUqfNkHkyid90m/fjRKaU
+	 81hGMHmlVMQ/3FJVyGFQ/8iuEM9AVASREHjlcoDhdPPCZ2psHhMu2x1XU5i/Drbit/vh7
+	 ZlL+d0kWfUnCXLJWE5f4wR1aE33i1sxFVK5J9XnOR0oV1SQbwOv60NB2XM7jJ3eMU08ar
+	 N2GwHykO+YG0HytrTbRO7/Qee293C0qUm/6PCWQbozDmpVeJP8mkoEviw6kodvjVXACT+
+	 Xi7hplst3vb42VoB1zuQrikwWJV2mui5uRcGNwbtw1X/NSpUlTqPHHnKJbG2R0ykK5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bc3UWHS/";
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zsxb8QNM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B8D606A31C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8B8D606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAC2606A31E
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 16:47:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DAC2606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bc3UWHS/
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso1020279a12.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:47:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Zsxb8QNM
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so3303488eec.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 09:47:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793292472; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mL6S9zh45IHkNhoAl1+u06tJCKEiTv9+CIRX67Fcr5L7nUPo4dqeCehU1JjRJqm1q2
+         Zh46dXoQYIkD3z4QENBUXqNxZnvMu9v6thqqBGY2vOyst17p0MdsP8meFK6H+RhxXSW4
+         HSCH4yLfbbKQeEy1yMDJ+ezibzJ2IPNAQqVmwjydcdkgfy8aMmTJKcCcOMFOA1S0hwqG
+         Tc64AdaEalCx+/ixQPukPShjSvqqtRSP6CIuDDxgqewGxBf8QWbLC3v2vmDuAoR0O8ei
+         DxdQoB/YWJwNFcdCzdu/JZtNsipGcoAiqYmR8AXclErXg+fDlR/CHW6KHSrQnipBF4+f
+         +NXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Wsa/p8DFgC7lEBUBlf/AbqoCERuv8Vl8amjCmWqotBs=;
+        fh=Hc3Z0kF6ZMOON9fDTj3MksYBUfmsQ5FXOOPdLod41OE=;
+        b=Ybnj0Hc4H4/MjAog+TFCoKGFwn92iY4YyJXmIJupjEaiGHlAT22OskyxByqWXNfT1H
+         QpDJipB1JQOTAlO2OGUOgGyl5oM/4ZTiwlQMrGqFydOU05Csgf+fI8Il6ZJlnCWdEn5X
+         9RziIfcBNfEeCfgWbuckaoUS0VqPeLzYWrSeBBYZ8qAuJSm+Ab8PapfvpX6miI4KHozK
+         WxZHOzFHaxyPSItpHTu0/6i+vTO9LH1OXMf+ukYXHLzKnCmS/gCjNPc3QoBGK4VzYqfG
+         uG5E4Nme0PKRe6iTFwHNwLtoek98vCjYWOTQUl2RMZWtxbPfoge2p+PcMZLa16jjLtJU
+         x5kw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793292456; x=1793897256; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=79DDn4vmcOC3ldaXqJtmkrA2/5RtNDXGpNRnaOFomtw=;
-        b=bc3UWHS/ITwD0lzOlY9HZfRl+H+UlpoFOjSpInaHqsAGuPpJWyh/FXc6a2K2pSXk8w
-         iTkYvSbr/AjS/E3BcXEgQzgON7gmFsF3M/7fJ5AxagKMx184QFcpqSt1l5rJFLI5bDVa
-         nHyINJKhvRk+27BZYbVV1Rg05Mo3v4/3Y1XKToRKQPk0nni5CUyd7mn17xcCeW+VdeQE
-         hwkgFvVf2k/csc87MnoCKBvEqeDnuXyIJNiPcItywFhxtVKgEgOmuQ5cdtqYVIdrZfbq
-         cSZJlAoEu4KsgNSOugcHmITimtX+YJAe1RQqYic4vi3h3gFW/mRHyzkMVSJkS5fgDAA9
-         yN9g==
+        d=gmail.com; s=20260707; t=1793292472; x=1793897272; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Wsa/p8DFgC7lEBUBlf/AbqoCERuv8Vl8amjCmWqotBs=;
+        b=Zsxb8QNMRF7TbZyVVzF7poTES6Uf4Mv5RAyYyFpBKODDngzB10A7xejT3tAxguFeNI
+         0J7i3odSR1ZZhTqMgAGoI7M9Qafico1lRSDXvuVO1uPrri83kPCtvF/Ra5MsLyGQ8PZx
+         uUzKJ93blfRoILI8X5WHty1tZFeBsDb09p6wrermm94tSC+lElC/BdYbff178ZM0hfdd
+         NcV1NVNyy/Os9liOfD1sbfch5D670W4lEeWIxuVCe3hqOPboj2iWHGUEtIGAqhHI+uQT
+         xHOIVSUFi5/ny/bKPcNN8Y7waCaeQgDFEuFnGsgYUtz7Zwlf1024la9jhUS2cbDs6o3X
+         puXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793292456; x=1793897256;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1793292472; x=1793897272;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=79DDn4vmcOC3ldaXqJtmkrA2/5RtNDXGpNRnaOFomtw=;
-        b=xzbP6vWA+6Hvem5O/knZrry5kX5L5PifbNFvT8ysMoa1eTYxYpsTIeenH/cd7l0Q1v
-         Q40F7k5Z/SYzgZOS9lb2O4zxtENl2knF2oddDopCt3beIcnDcugUwtdfB9EK1wWPtnNN
-         K88VNNZkeZxZ07qs4aLXxfkjDOesvVyx5rmsziNYqr257z0OhmfcE7jw8X9YdZg6Hi0V
-         5cq4gwerjlzzvRSEupHKyJXZPQI6Vrid8S5aB7sH4Jk17Xb+Fh8GDCNkj/ziQYC66uT9
-         ilIiVvvm3SfuvZ+cCmP/f0YmcJpOit6B2mPMuYgr+auRhUuntRx7fyS28crBSqt3DJ9M
-         AilQ==
-X-Forwarded-Encrypted: i=1; AKwUvBysxkNk+OlwYaVWJLzYba/+nXsgcO5a3yFiinGLLbaeDvXXI2E590R70LgOsSCfuWcediEkkl4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIOWplz1cV5c7Nd3HT85Bpl+YlDQWQxvI6tBK4kbCj0lTkFXou
-	BsVm2HiJx9SIcVNYFvdXIuQ2cIftcP8Moz+zyO1K8ibXvKUtNZG/exNH
-X-Gm-Gg: AYBFou1FJsT/CXbc2Z2Y7HJGM95lQyRtx7STLXEYFZgexD1AfSsZn1Ntwhwa35oJ+a9
-	eqcky2fH88c0rEzHYwHOyUJ3d8res4AdI/q4vtIYDwEOiq/H+0fiuro6PWUuJqceiM/oc4Fa8OO
-	mQP8CYvDZ6kVcSVTisjLNVvppmsSDwrklNBYvqc0YeiWqiVD8j98+PkKGpODZBkcyih5ySirA5k
-	ZNqUdNuMHs0wBUeqyGfne69wFajVfFHANqdW2GQFMvaUVsy++g5A6abX7dZ2onVYtjGGUN6y9Dw
-	kRYC2lxH7p7uRq7qH1PMa+ymqsfPbU1sgWyVZ5vRfwmgzrLWwZEWAk/3pticu3TTdE6cdyBLkku
-	pul7pJDr1ylU970eLSyoe72CzvZ59hhiSAEXYmg8Gj0AuXEdO76KFxdtfe56uPVjiKuSVcjlfmG
-	/m1gZ8unyORePtTw2mCFvtFJC8Rjm/4Jxlc56HulH0GVEjoY72QRRlbNnjYsawB1TCq0QXXHzAC
-	yHbkp172fbz5HfXgM9EqhFVOWFkMLawBdDknH5DWwVBRDqD79vosWM8DVprQAdKr4t0x0aVX/oq
-	d0odUZGMWCBYwuBGVM9PgwYDZZCW9BF+Z3dOi8fvzsCxo2QQlRseyRi9+8bgw4iyXwpmFEcebhi
-	lxy51GrjekWxP8l7+Xvr0RU4srXQ7tNRYritvgBtpynNYlwHXOlZRzCXcIbbTFNGd654=
-X-Received: by 2002:a17:90b:57c5:b0:3ab:9f89:e1b3 with SMTP id 98e67ed59e1d1-3ae580dded9mr4420716a91.40.1793292455884;
-        Thu, 29 Oct 2026 09:47:35 -0700 (PDT)
-Received: from ?IPv6:2605:59c1:38c:400:82ee:73ff:fe41:9a02? ([2605:59c1:38c:400:82ee:73ff:fe41:9a02])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9583c1sm5285959a91.10.2026.10.29.09.47.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:47:35 -0700 (PDT)
-Message-ID: <31444b89635e8520c262ae915235991c3c075a0a.camel@gmail.com>
-Subject: Re: [PATCH iwl-net v2] e1000e: fix Tx descriptor field wrapping
-From: Alexander H Duyck <alexander.duyck@gmail.com>
-To: Matt Vollrath <tactii@gmail.com>, intel-wired-lan@lists.osuosl.org, Tony
- Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
- <przemyslaw.kitszel@intel.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, "David S .
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>, Andre Brait
- <andrebrait@gmail.com>, stable@vger.kernel.org
-Date: Thu, 29 Oct 2026 09:47:34 -0700
-In-Reply-To: <20261028170239.28606-1-tactii@gmail.com>
-References: <20261028170239.28606-1-tactii@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        bh=Wsa/p8DFgC7lEBUBlf/AbqoCERuv8Vl8amjCmWqotBs=;
+        b=fy1izRByXDS1zPtk/TRgKMhANOFZ/F2J5XZUY+g6RluZqszy8+4Wf2XH4zhk+iynQj
+         wkrJr3ztbgHqqY6jVasrm3/BjIIZFARnh/HCi7DMZfDEEjlAT407Ftj9lZrk3vnjt4p8
+         ULLhZ/ck9lW34Fs7HfuKcs4V2XxycB4etIN6r+DRgIn+X2rtNTUNRQmibTajx51YOEdf
+         zizjJKfRGwmSUIKPwy2iw0koGujqgH7qD0feQAv/LhZCG8v/DkZTsBt0tREQEldelMqP
+         gvsovsZyNCc5/dYW4aBVFiXmJbJKOiDLbPR0YiW4Y8AuMPKI0JLk7isIWddEHiVQo6Qg
+         7pQw==
+X-Forwarded-Encrypted: i=1; AKwUvByr02G0SdlMKLI0xrzM0A0MEJv03SgtveIgRe/9Wqm+3azDzBg9MXuo2S4hotxKk59ncBH4UA0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKL8NHcz4O6At1eO9bu+WU2AJ06ggO1N8SOhLMwyycW32ySZPW4
+	tBhPkyEXqJ0PQAmOCkVWOicF98sX9F+Yn6s1ZMlEqyOOQ2oPYZutRwnUhOSdaHyKqPLL3mLUDkT
+	tnb3Cy8yA6SiCSltxsnuvOMgRY6AIMGw=
+X-Gm-Gg: AYBFou3qxwhxonSyPIhUZfBVnUTxU98fnJpRbrOg8Pkrk63agYuZtyACfc0u8TD0kCW
+	8E6oyTj18VeBr4mFskwwRO2+6KH5p5/Dc2iKjQkTBTYIZ+vcCme24tQ2whDQ0Ceploz0YGb4SvC
+	E9/GxQwEHnttB5Z9dLWGE6zqnrtxQQMV6o8nUoJg1JMzHBTUyCy2aUZbECKCqM7koexORmq4J9c
+	GkvDVT8eWtj4HKtiFeZZqynLrFhLukgC4qlJd6puZhxzOXVgxpfiShm+iXXSM1xkqYW9ZxL0A9k
+	tbtPqSiqU3nLhY87NJRMvPDptSH2wbfjzZgrmWGglr9w185zevGEiU+CJqseF6iyrinJuBgIlTq
+	qHMPSqc5P/ANClHf+EfcRihmyvCBwe7gIesBgiQXbNbMl6eIR2ega0RKZL/sAX6n3nQBB
+X-Received: by 2002:a05:7301:b09:b0:360:d4c5:7243 with SMTP id
+ 5a478bee46e88-36a2002d2cfmr7315065eec.11.1793292472441; Thu, 29 Oct 2026
+ 09:47:52 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,115 +104,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261029163516.2476127-1-hj351016@gmail.com> <179329193445.3327.7941488029152521409@kernel.org>
+In-Reply-To: <179329193445.3327.7941488029152521409@kernel.org>
+From: khj <hj351016@gmail.com>
+Date: Fri, 30 Oct 2026 01:47:40 +0900
+X-Gm-Features: AclHuK9K2vGmM-fNk5B8yoexTttxMSeGYWaivwlu1Nvp0CqoGWr9xKVGgD1Q_5U
+Message-ID: <CAGr5VtPUE-gdEGDAnjuGvz1Pj1ROtKTavPYEPZFJXwtngVVEeA@mail.gmail.com>
+Subject: Re: [PATCH net] net/sched: em_ipt: reject hook values >= NF_INET_NUMHOOKS
+To: netdev-bot+sinfo@kernel.org
+Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-10-28 at 13:02 -0400, Matt Vollrath wrote:
-> When an skb arrives at the driver and the header length exceeds the u8
-> hdr_len, tucss and tucso fields in e1000_context_desc, wrapped values
-> are sent to the card. If TSO is enabled, some header lengths will cause
-> the card to hang.
->=20
-> This was reproduced on an I218-V with an unprivileged Python script.
+Hi,
 
-Can you elaborate on what the script did to trigger this? I am
-wondering if it can even get there with a valid frame supported by the
-interface since most of these e1000e parts don't support tunnels and
-such.
+Thanks. The issue was found by static analysis: a small checker that flags
+values read from netlink attributes (nla_get_u8/u16/u32) that are then used
+as a shift count without a range check. em_ipt's TCA_EM_IPT_HOOK was flagge=
+d
+because it has no nla_policy bound and only the "policy" match validates th=
+e
+hook, while the "addrtype" match does not. I then confirmed it at runtime
+with UBSAN using the reproducer described in the commit message (a basic
+classifier with an em_ipt "addrtype" ematch and TCA_EM_IPT_HOOK =3D 32).
 
-Also did it have separate cases for the CSUM vs the GSO? I would
-suspect this is more a CSUM issue than a GSO issue.
+Thanks,
+Hyunjung Ko
 
-> Fix it by disabling GSO and checksum offload when the header length (and
-> checksum offset) would exceed the field widths. Compensate for a
-> software-inserted VLAN tag.
->=20
-> Because of a quirk in the ordering of ndo_features_check, the skb's
-> transport_header field may be stale. If the skb carries
-> CHECKSUM_PARTIAL, use csum_start to find the header. Otherwise, there's
-> no reliable interface, so don't offload it.
->=20
-> Fixes: bc7f75fa9788 ("[E1000E]: New pci-express e1000 driver (currently f=
-or ICH9 devices only)")
-
-I am pretty sure this Fixes tag is bogus. This is the introduction of
-the e1000e driver which was in 2007. The ndo_features_check didn't
-exist until 2014 sometime after that if I am not mistaken.
-
-Much of the complexity that enabled frames to build up massive headers
-wasn't until much later when the network tunnels and OVS started being
-added.
-
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Matt Vollrath <tactii@gmail.com>
-> ---
->  drivers/net/ethernet/intel/e1000e/netdev.c | 34 +++++++++++++++++++++-
->  1 file changed, 33 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/eth=
-ernet/intel/e1000e/netdev.c
-> index 6f85dab5c55c5..370776657d100 100644
-> --- a/drivers/net/ethernet/intel/e1000e/netdev.c
-> +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-> @@ -7355,6 +7355,38 @@ static int e1000_set_features(struct net_device *n=
-etdev,
->  	return 1;
->  }
-> =20
-> +static netdev_features_t e1000_features_check(struct sk_buff *skb,
-> +					      struct net_device *netdev,
-> +					      netdev_features_t features)
-> +{
-> +	/* Do not offload packets whose header lengths exceed the u8 fields
-> +	 * in the descriptor.
-> +	 */
-> +	unsigned int hdr_len =3D 0;
-> +
-> +	if (skb->ip_summed =3D=3D CHECKSUM_PARTIAL) {
-> +		const struct tcphdr *th =3D (const void *)skb_checksum_start(skb);
-> +
-> +		hdr_len =3D skb_checksum_start_offset(skb);
-> +		if (skb_is_gso(skb) && skb_is_gso_tcp(skb))
-> +			hdr_len +=3D __tcp_hdrlen(th);
-> +		else
-> +			hdr_len +=3D skb->csum_offset;
-> +	} else if (skb_is_gso(skb)) {
-> +		/* Work around untrustworthy header offsets in this case. */
-> +		return features & ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
-> +	}
-
-Most drivers currently assume if the CHECKSUM_PARTIAL isn't set then
-the frame must not be TCP/UDP GSO since for those normally the checksum
-and offsets should be populated. Have you identified cases where we are
-seeing TCP/UDP GSO w/o the checksum being set up?
-
-From what I can tell it looks like the only valid cases for it not to
-be set and instead it is set to CHECKSUM_UNNECESSARY on a GSO frame are
-FCoE and SCTP (GSO_FRAGS) which are both non-TCP/UDP specialty cases
-anyway.
-
-> +
-> +	if (skb_vlan_tag_present(skb) &&
-> +	    !vlan_hw_offload_capable(features, skb->vlan_proto))
-> +		hdr_len +=3D VLAN_HLEN;
-> +
-> +	if (hdr_len > U8_MAX)
-> +		features &=3D ~(NETIF_F_CSUM_MASK | NETIF_F_GSO_MASK);
-> +
-> +	return features;
-> +}
-> +
->  static const struct net_device_ops e1000e_netdev_ops =3D {
->  	.ndo_open		=3D e1000e_open,
->  	.ndo_stop		=3D e1000e_close,
-> @@ -7374,7 +7406,7 @@ static const struct net_device_ops e1000e_netdev_op=
-s =3D {
->  #endif
->  	.ndo_set_features	=3D e1000_set_features,
->  	.ndo_fix_features	=3D e1000_fix_features,
-> -	.ndo_features_check	=3D passthru_features_check,
-> +	.ndo_features_check	=3D e1000_features_check,
->  	.ndo_hwtstamp_get	=3D e1000e_hwtstamp_get,
->  	.ndo_hwtstamp_set	=3D e1000e_hwtstamp_set,
->  };
->=20
-> base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
+2026=EB=85=84 10=EC=9B=94 30=EC=9D=BC (=EA=B8=88) =EC=98=A4=EC=A0=84 1:38, =
+<netdev-bot+sinfo@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
