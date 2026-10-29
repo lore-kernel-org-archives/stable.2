@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271984;
-	b=yZIT+7TgahsnlY58KxOAqIdun/gFrtOlmKpZw9fz942N4HyeZCRjNVrDwl5k9ghzuwYa
-	 OI4xNFQ/MGG8O5MYOgCAvqKK/etDe2CuJALzH9iKuyb2A9x8HdKEkOqE+36/t7S8yipnA
-	 sS2J2FpiiR7GWVu0JNwF7lFNpz4zhhHd5cUBkdTY5os4YDIwjE1uK8VPyM5064uwHz2VI
-	 vLulbdk7qtF/TXNAM7NmYQUi3OZnxUOCTqarW0A0fNFBUfNxwmGWvUsbc1K5hFXRDLPL8
-	 Zu9dUdUyZlnHqa1OuM1GRpLnDdHB8Hmwzi0VkKsViybsXWPgE3QHeIQkjkiqB6xmDQw==
+	t=1793272108;
+	b=BLKqYPwSiortf+X5RttCy1wRwDqKSiHbVbpiExsoT3ks0lXzig8tTrHRwkMclt/vvzff
+	 8Iqfjm5DpDJkR+myYfr7D/TEwbDZYr1j+ssUh/oBchRC71b6AdX15mEWTlHw7WuofGFHp
+	 1qOK61yAND79p8n/PhqetKLH2+WCdRBEHHIYdnIz/lKnemj+QTfzpc2F0Y6/sPIFHmK/L
+	 WWkzp83YYbJVlNs5MXt7S2Dkfe1V/4WCo5esSIvialk6LOsZEGK8uwiAU4zH93xbXqt+q
+	 qBdJQLXej/xaroz2ecanpa1CQqedN1MlYWF4UwHhNAnVY79kMEpHe0Rie5rV3wZ9h2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793272108;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=G4SI2MOIEpxP5HU3ERLaWsdHJtIDnixVPHVu+nHUwyQ=;
-	b=Wfa79Lz9DPXXqsj6EQ+eKjLT3T0vdM9rpfn8KYUtyohsCWhnEjX4v7PA0OUqHrI51P4i
-	 1REsFPxFCG2lG75OK7a9bs8avZhuMfPSgnH9MZCSwnttNRHLydIiFDsoAAbU2rlgcXmNC
-	 4U8P7Dpiq+API41EWmIRouTIexvF3Qix00Nm4I7a/ULoyzVCZR1nuiL6DJzAotmH6LfFy
-	 kJ7npsv2dEZ0iePpEm+FJLaX21DLdjx/SxxsrbUaYd32T8Kw6suuvBTBUvGUG5xQvOfN7
-	 1F0Rw0aE9+EOcsf7NadSvhZxZWfUaw7ZjoymuawtKhik1Nl32RwWPAcU1AOB6yT/JFQ==
+	bh=QV6ru4LzI4CmXf0yaBqGi/sbD2aGTH7mnJBOmjBV1oc=;
+	b=oL2jR2pPPYXQ1osK38HuvdLO91ISyHiZUOZeVjtm1UVMUAT9p7hz0RahFGWKUZMEA7lb
+	 /oNJTqOCTFVKd1WKrZOsyoEAKJkazlWdssp0EG5XArquzT71g1PiJXH3SPBFRPgN7QqNg
+	 VJFvebbJOojxqD1syLxLeMeEB6CGcetXiNjkrFsyDJLYeY9q2hheO0MMFn1y8Z1dDF3Xq
+	 ND3Mrm48kVLURW8+g0Y+RycRyM7jNygRn+Zvyutqs9Qv6HWWxaabOLajubriAVNQ5XD90
+	 u19DBiuhcD0F7pl3MTYUBOnUxDTFWRVdua5OO7gpYihEhHBLOy/SvkBkEflSQQbP4uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DG5qlG+6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjQKIYSh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D335606A31A;
-	Thu, 29 Oct 2026 11:06:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB585606A31A;
+	Thu, 29 Oct 2026 11:08:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DG5qlG+6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D77C1F01825;
-	Thu, 29 Oct 2026 11:06:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjQKIYSh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731B71F01825;
+	Thu, 29 Oct 2026 11:08:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793271983;
-	bh=G4SI2MOIEpxP5HU3ERLaWsdHJtIDnixVPHVu+nHUwyQ=;
+	s=k20260515; t=1793272107;
+	bh=QV6ru4LzI4CmXf0yaBqGi/sbD2aGTH7mnJBOmjBV1oc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DG5qlG+6Sja3SZ5kFUK34tgk4SYB6mT49t9Ydiwl1UmmUSD3Z7eZTpdi9hErSp6J3
-	 rJy+pdJ4xnrv+lAE+8PJM9LuhQ91KO44IKjD6i7lRiQF5sAG6yfA42ECErt9i+4hlZ
-	 VqUZ+q8IKKTOoKoRg0gz3v3YNhG4U3iakSFkuH5T2JEkY20iTWI+uTLXikjQQRHGFM
-	 iitTQcffWyPVBKOk5dKhoqgHt5X5LmnO9yty8zuvAujX+5k++YqHcbVx84qeghojpP
-	 ONGbbquOo1zaFCKZkU54MNJA/SW+jdnu2TfP3rM7xp551okzH9jzB8lL389t/PCYJF
-	 RNML/haAtaDfA==
-Message-ID: <676e49b1-6cc0-4d0a-8492-452ffb294d2a@kernel.org>
-Date: Thu, 29 Oct 2026 12:06:02 +0100
+	b=IjQKIYShgiE1rHAvQH2KPIVlfVgKLAfAVVuy1LgzyIkRjQUS5c0qN49WPwNuoMLiu
+	 qwYXlmc5f64RZ3uwGFEjS2+ey0B4Vf+2lp+mP3KT1rEK9TbhXGv5QiJ8afeiDXN5GT
+	 zvTh/VJAQaLji7/gyKTR6gZfnTg4h/gekBSRxpBkFPRmGdlfGmbrs7t9cRLirh/yXJ
+	 Yx5YxXpDflbIdzD2F7D5oqFAmIoaJli6PqrB17xUUsm0ZR4JCvxxi3Km/0xBDOd968
+	 OyEiJzB71FHfXcyGzxQ3NifZ7+TiK7Vft29v2wLdVp5L6VQ25nFdpwgBv6Onjgx7tx
+	 8HpgWODSQ9wHQ==
+Message-ID: <b7cc9b61-8482-494b-92e2-168cbf7db111@kernel.org>
+Date: Thu, 29 Oct 2026 12:08:05 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,8 +52,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 36/46] mm: fix unkillable fault loop on MAP_DROPPABLE
- memory
+Subject: Re: [PATCH 00/46] mm: various (urgent?) fixes
 To: Andrew Morton <akpm@linux-foundation.org>,
  Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
@@ -85,15 +84,13 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
  Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
  Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Johannes Weiner <hannes@cmpxchg.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>
+ Jason Gunthorpe <jgg@ziepe.ca>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-36-6f74bec9a5bb@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -140,64 +137,48 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261027-fixes_core-v1-36-6f74bec9a5bb@kernel.org>
+In-Reply-To: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10/27/26 00:17, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
+> Another set of fixes from the current batch that focuses on all core-mm
+> things that won't be sent out separately by others. I decided to bundle
+> these together as they are all over the place.
 > 
-> handle_mm_fault() suppresses VM_FAULT_OOM for VM_DROPPABLE mappings.
+> I have some hugetlb stuff in the works which is pretty horrible
+> (code wise ;) ), that I will send out once ready. Plus some
+> low-prio migrate_device oddities + two core-mm things that need more
+> thought.
 > 
-> For user-mode faults, pending signals are processed before retrying the
-> access. Kernel-mode faults on user buffers instead return directly to
-> the faulting instruction.
+> This is the biggest set of patches coming from me, so don't be
+> scared ;)
 > 
-> With persistent allocation failures (esp. memcg limits), a syscall,
-> such as write(), can therefore loop while not dropping locks.
+> Once more, some of the stuff is more urgent than others. No fixes are
+> crazy big and most are easy to review.
 > 
-> Only suppress VM_FAULT_OOM when FAULT_FLAG_USER is set, allowing
-> kernel-mode faults and GUP to fail and signal allocation errors.
+> The majority are again fixes from Anthropic that I cleaned up or reworked.
+> While doing that, I found a bunch of other issues and tried to fix them
+> somewhat cleanly.
 > 
-> Fix generated by an LLM and sent by Chris Mason in private.
+> I gave it at least some basic testing on x86-64; more testing will be
+> highly appreciated.
 > 
-> Fixes: 9651fcedf7b9 ("mm: add MAP_DROPPABLE for designating always lazily freeable mappings")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> [ david: simplify description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/memory.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+> This is based on akpm/mm-stable.
 > 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 5c5f326b8bcbe..230a2f4dafa13 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -6957,8 +6957,12 @@ vm_fault_t handle_mm_fault(struct vm_area_struct *vma, unsigned long address,
->  
->  	lru_gen_exit_fault();
->  
-> -	/* If the mapping is droppable, then errors due to OOM aren't fatal. */
-> -	if (is_droppable)
-> +	/*
-> +	 * If the mapping is droppable, then errors due to OOM aren't fatal: the
-> +	 * task returns to user mode, handles its signals and tries again. A
-> +	 * fault from kernel mode has no such return, so it must see the error.
-> +	 */
-> +	if (is_droppable && (flags & FAULT_FLAG_USER))
->  		ret &= ~VM_FAULT_OOM;
->  
->  	if (flags & FAULT_FLAG_USER) {
+> As with the shmem fixes, please prioritize review of these fixes, I want
+> to get fixes for the issues in a timely manner upstream.
 > 
+> Thanks to everyone helping out with moving the flood of fixes forward :)
 
-I think this is the single patch in here where I struggle with the side-effects
-and possibly remaining issues for user faults.
+Thanks a lot everyone for the review.
 
-It feels like the obviously right thing to do, but it all feels a bit shaky.
+I think I have tags on all except one fix:
 
-Maybe the memcg/reclaim folks have a better understanding of this?
+[PATCH 42/46] mm/huge_memory: split huge PUDs when adjusting VMA boundaries
+
+I'll likely send a v2 this evening/tomorrow and then try to get these things
+into linux-next by picking that.
 
 -- 
 Cheers,
