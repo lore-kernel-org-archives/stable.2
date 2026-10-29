@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270693;
-	b=LHGMlYTtgrzBpnjTqxsKkJW6xS6YQsxwFOFEPghIcbtHdhj77sUUYsJSoLSRYD2Lgfzc
-	 e0OvrJxJtt3g2p8wM2yqtBIY0cIt4R9qg+Jy+IQdxedSlfEsWxzZ4frpURFnVdxG23PKC
-	 FrE3q4X/jZwOcTuEM/BirTg8M7D8F/ToFp/GRBgxiW9+LUXCNbh/Xy/RqcmUJcIdDPS+o
-	 RGBZRJtKP9xYXra4qj6Y+3m9GoFg7IuetIObre0UJlKwkDnxcaeOLCmFF7nfQj4++T1C5
-	 9TvTIPCW/NWtimIsP7l+abhlMs97EC2XwlOA+aFDEMR9HBw/GXUvflxaE+A0fvMiCWg==
+	t=1793270702;
+	b=LiZlfQct3MR6Oh3DXv5GQWSXVVD1xziiKlupFGAdjXfeRCKgzkAHwtwRb0vd2HJinfN3
+	 b9dRUhsu5z9Zkj/Sof7MfCFUibdI0Pmd54e6nxiOfdpDpZC6oL+O1NCiAxQJ4zgUpCImH
+	 AWODA4LfuhtGVv5tzNn3J6RTwinePGnvuVyBwhEB9xDvQoXy56+f10STwSaljhIJbY8sO
+	 oa+iTiGd+R2eJ7YJ+lbGQOt8fdv66pMYCs2lw5jYlLIoGbe0GkUyITe4ptzfrtV6vT76F
+	 aLCbcPxInylVfCyclhhk2cyjAI98CfJelGkvcYE/3oDbSvxhTUPiUOjFT8YLABr59Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270702;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/95lv6aVada0IifKxWvdrhbpIXNviWW3ADyrNE8l91c=;
-	b=WgFivz591Wyq8AkwmLbC+pU0tb/FHReGUgKL58URfe4f44EyJXtUQJRQt9lug7x3gDPW
-	 Bl8W5SWvClVB8tOH2XCHZg/iXq1XSyuraXbyWU4MEZ+kGoBw2Ntr1Ti8X2HjiS+CpnXvd
-	 VGCBIb634Jc4Iq/hTDBOmuq3r+ejMRDDWi+WNDR34VfqQlZhLEIJA6ExcBoHqQre1WKIq
-	 XFkXRyzAEyj1289Q5apnRPZMntT8bBEf4Axn5VYpHn4WntxrlOLjTPhcut62QJLxQOasy
-	 layt17DmomgpX1/Wrlz22/khJOGi8ohH+PiOAmkBu1cTDRfXrieB80ylDkVm5K3ftLQ==
+	bh=Jklh+C8k6+z2h8BQBf1LZgJVYEa4PBy+2sbpk3zqCZM=;
+	b=doxP2lKBvdHd1zENW3DJfPDz3wUUNH/OdLuvINIovzfbj2RaZEO1saso6HuMMlZqluNx
+	 KTo2v/xG4vMp3DimFV1xkKSd3LAZ99RMQq9L/rhsfnRYx2lhG/PBZ2+lUvGxU9DNPYsQX
+	 Cf6eJ3AaXe+mBVJ4WOiGr8UD5Xrkt5K7AJ1qBIw6uJxxBbADldI78LOtAOwVXuoYlTJEC
+	 tChJeZqdTJdlMx6G1esJXkJNRCuum45Ho9uK3SI8o8mY9ZxluXqjtX2aZ8KuidQGV29A4
+	 HTRCcxOADJzlFRbQMDvhzf+UYRv7XyjOaWUyF0Hkugj23is5vHRSkrQ/2o56gUi74yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hKEZW/No";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqqCWDCH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4BB606A31D;
-	Thu, 29 Oct 2026 10:44:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5ADA606A31A;
+	Thu, 29 Oct 2026 10:45:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hKEZW/No
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95BDD1F031E0;
-	Thu, 29 Oct 2026 10:44:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gqqCWDCH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B17B1F01825;
+	Thu, 29 Oct 2026 10:44:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793270692;
-	bh=/95lv6aVada0IifKxWvdrhbpIXNviWW3ADyrNE8l91c=;
+	s=k20260515; t=1793270701;
+	bh=Jklh+C8k6+z2h8BQBf1LZgJVYEa4PBy+2sbpk3zqCZM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=hKEZW/NoFy3UQ8cF/iokzenKy88As7+rDs1tkqhAvtPrWIgSfKZVccTYUQaU/a153
-	 pBIpsWHmOzrvlEuJWbRL3PpseIDHcugAc4c4CWrOYdV/8vVjD42IbzYJwIytB4pNnU
-	 e3X7pksgyx/WdJbInFvU9HCYov3vPig6MLB9HhMps4nx7WpLUh+y9mCP8e4uVZL4vM
-	 47oVA0JplPB1pJXZT68hCC3CCxjMYs2RJqKKEloTo7m9VsiErn5aELfYe1fkA/IH5F
-	 Q4AazYf1xrTW2gsyWoCvhtJzYYDixMndIcI9UGfvghs39e7omE3Vo8aDagJKI6xumz
-	 xJuxVACItU8pA==
+	b=gqqCWDCHluvI/2m+PHmQwGqLQA70GogB+v7g1lQaBi0fWAEGof1xIZEe96KTIzueX
+	 Fi3YmUKj4YMLoJmiL2RHrLrkDfiAFAPhYlgsamX5T87CLLb7COxN+K+1GGg4qXs9uh
+	 hiXCNSM27GmH6n3equC4Qbm4zcMnAGIWDE0equkJEqaPLMQNkNbrQhL6a8M7HL0lH1
+	 7hinojnZRSe97D+F0FDRmw4ENnZG87pgg4VN90B6ns6Fj18bjIJ44FIWS5uC3WEDxy
+	 NeFkEeLoC8mKvjP91LeYl+of3mcY92SljhW2cJGlA7g0apkZ4Ded1A/KOw3pv5Y35u
+	 yLCqA46yvCMcg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 11:43:28 +0100
-Subject: [PATCH v4 07/15] mm/shmem: stop retrying folios that cannot be
- split
+Date: Thu, 29 Oct 2026 11:43:29 +0100
+Subject: [PATCH v4 08/15] mm/shmem: preserve data in clean folios when
+ splitting fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,8 +54,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_shmem-v4-7-392fc715d8f6@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261029-fixes_shmem-v4-8-392fc715d8f6@kernel.org>
 References: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
 In-Reply-To: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -78,66 +78,101 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1791; i=david@kernel.org;
- h=from:subject:message-id; bh=ZAjzOB+Z7IuIURTjUdGNPAA3MOXXkABgEGbnq/FphJc=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4dNYVP/5RhZam0gvNowdeFDg93ObdWJxk0+O2/5O
- 5wyZ8rpKGVhEONgkBVTZAkKvm/w8uW62mo3PmaYOaxMIEMYuDgFYCJz+Rn+cC0rY4uLeLUl4R1/
- T7DsaZWJPM/8b3BKNrt0/2CYkm8YzcjwfeY22Sj56nWsXJIXbp01WeN68b1/3czCZotH9bu+8TY
- xAgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3639; i=david@kernel.org;
+ h=from:subject:message-id; bh=y+fkP3XRhSdYc9v7R6EE8urjEHODsYBOBASodiKGd7U=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4c/+Fn0dUn1XsE/mqYrVhsZ1datPZ1y+tOTGTyvz
+ 5+qO6nwuaOUhUGMg0FWTJElKPi+wcuX62qr3fiYYeawMoEMYeDiFICJHLrB8Ifr1MRnSbP/hEfO
+ ecL76WXbMonU2K8+blMffhY1YvtyYwM/I8PRL2yS+sJbDqYYGWu7/J2q+vmzTKyKHT/r3wxjdz+
+ JXewA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
 From: Chris Mason <mason@kernel.org>
 
-A fault or collapse can insert a large folio crossing EOF after
-shmem_undo_range() has handled the boundary folios. If splitting that
-folio fails, truncate_inode_partial_folio() retains it when it is dirty.
-The final scan then repeatedly finds it because it restarts from an
-unchanged start.
+A shared writable mapping can have dirty PTEs while its shmem folio is
+still clean. A read fault can install a writable PTE, and a later store
+sets the PTE's dirty bit without marking the folio dirty.
 
-Truncation keeps the inode lock and ignores fatal signals while looping.
-A concurrent unlink() can then block other directory operations while
-holding the directory lock and waiting for the file's lock.
+After shmem_undo_range() has handled the boundary folios, a concurrent
+read fault into a hole below the new EOF can allocate a large folio.
+For example, on a tmpfs mount with huge=always, the fault's offset must
+be within the file, but the allocated folio can extend beyond i_size.
+The final scan then finds this folio and calls
+truncate_inode_partial_folio() without marking it dirty.
 
-Advance start past the retained folio, whose truncated part has already
-been zeroed. Do not move start backwards if the failed split has shrunk
-the folio.
+Splitting normally collects the PTE dirty bits when unmapping the
+folio. An extra reference, for example from vmsplice(), can make it
+fail before that step. The fallback unmapping on split failure excludes
+shmem, so the helper still sees a clean folio and drops it, losing data
+outside the range.
+
+CPU0: ftruncate(fd, 3M)                CPU1: MAP_SHARED, tmpfs huge=always
+─────────────────────────────────────  ──────────────────────────────────
+i_size = 3M
+shmem_undo_range(3M, -1)
+  first pass: hole, nothing to do
+  boundary folio at 3M: hole, none
+                                       read fault at 2M+x (below EOF)
+                                         PMD folio [2M,4M), crosses EOF
+                                         writable PTE, folio clean
+                                       store to 2M+x
+                                         PTE dirty, folio still clean
+                                       vmsplice(2M+x)
+                                         extra folio reference
+  whole_folios: finds [2M,4M) folio
+  truncate_inode_partial_folio()
+    zero [3M,4M)
+    folio_split()
+      unmap_folio(): extra ref
+        → -EAGAIN, PTE dirty bit
+          never reaches the folio
+    folio clean
+      → truncate_inode_folio(whole)
+        [2M,3M) dropped
+                                       read 2M+x → refault → zeroes
+
+Mark large folios dirty before partial truncation in the final scan,
+as the boundary handling already does. Exclude failed-fallocate
+rollback, which must discard the folios it added.
 
 Fix generated by an LLM and sent by Chris Mason in private.
 
-Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
+Fixes: b9a8a4195c7d ("truncate,shmem: Handle truncates that split large folios")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chris Mason <mason@kernel.org>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: split fixes, simplify descriptions, adjust comments ]
+Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: simplify descriptions, adjust comments ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
  mm/shmem.c | 9 +++++++++
  1 file changed, 9 insertions(+)
 
 diff --git a/mm/shmem.c b/mm/shmem.c
-index c44d2dd71c89..af49d6bf6382 100644
+index af49d6bf6382..11c3e6b1aa76 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -1481,6 +1481,15 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 						index = start;
- 						break;
- 					}
-+				} else if (folio->mapping) {
-+					/*
-+					 * Splitting failed, but the part in the
-+					 * range is already zeroed. The folio
-+					 * was not dropped, so skip it when
-+					 * restarting the scan to avoid retrying
-+					 * it forever.
-+					 */
-+					start = max(start, folio_next_index(folio));
- 				}
- 			}
- 			folio_unlock(folio);
+@@ -1464,6 +1464,15 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 				VM_BUG_ON_FOLIO(folio_test_writeback(folio),
+ 						folio);
+ 
++				/*
++				 * A shared mapping can have dirty PTEs while
++				 * the folio is still clean. Mark the folio
++				 * dirty so a failed split cannot discard data
++				 * outside the range.
++				 */
++				if (!unfalloc && folio_test_large(folio))
++					folio_mark_dirty(folio);
++
+ 				if (!folio_test_large(folio)) {
+ 					truncate_inode_folio(mapping, folio);
+ 				} else if (truncate_inode_partial_folio(folio,
 
 -- 
 2.43.0
