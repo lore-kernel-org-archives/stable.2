@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263709;
-	b=nH8ohc1UleTOsQD7fNDrKHymEzhEIuNsiFJGclr5e/cbMnNotNNZts/KDfOcBxhQzLiL
-	 EEaCTJyjiU/6IxuDXLJEqu8BdAN2u41p6MeEQyRFD0aluU03R+ZwknrsFC30NVq85GYOq
-	 iLRDld3ORjW0Hou7VjLwpRBbsoJSCjsH1sSS/MlO7Rpx5356qxSBEyu4YyCj3VqDM+R55
-	 WKY1ceZqfMg+7/NT68HttG0CymapvHKhSViXN57UMj4eAqUzQkkB+1+JBl1+zgj9hMDLS
-	 NCk79xTbifhOaGdMZyUMhAizbTocppmy6VKwM9oJIXPLi/znami2UKSq9/m1QAEtb0g==
+	t=1793264081;
+	b=2jqftjdmWicOgi1DLf8iz1vm0Lrz0glbgShq9qGQfqn0p790t8wnlfmHwOa63yLbxt8O
+	 GPVyNeDeWuY9QzLAu7HMqGjqYgebpUGQqW3Aogl7lg733TFd8Zcl/cjP1Fn7W9IUKy8rt
+	 zG9Hy9NTYrqeld0X+P9o71hS3xWeCg5hakQT2zKbBgXV6ZvNmiBgdkVWwh0jz2f0L8pJJ
+	 IvH4dS6SvoMPzx6JhbNjBo7b5aL74wEoctyLKfL+QGH8TUS/8GHW1Kxc87dUlCMqrcIJ3
+	 XvToGEpyM1ZeGGoSHw3I2fV88QQ44gy/j2KWdIZzHKVBfYj/bUF4aB3lwhZxtRHFZ1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263709;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=O/fiqeUUaTfu9pOKZpK8oTWhDaZ+OmjDQ5pEjLnqGDs=;
-	b=U9w2wbXUr5CxxKooEs/hLDJl1oxLAt/qFfx0W3fKYBGbnrfW87oZNIt1PeYA5EOvmKds
-	 K7b4MApeC8hLcZnPYJkxb50b86Z2Xa7EaPvLBy4ppG1X1dH7+cc0EjJEhXyZz7twONf7D
-	 NIEQcFCEigYva2R2r8vVd4RYsW2ISzwzhvumaT148qHB1It7/3r/bFoI3dzCXv/8J1kUX
-	 lFYf6z30YpahA2mh5EgWlBcRU3M36r96FXil57bnvRnk8pWG8wkw6xi/2xGcH0E/LC9VM
-	 lF2zcqRh8gDlZFpkwRl9ZsWQjnrPdzfXMauj66UuZ7KMcqGQ8BdjwhqiSzsP8ljt0dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264081;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Q70iv8hgHPImGJwByc0Z4M1+rMHdNArmQ9AkIYYXNY0=;
+	b=sgEVdWUBG+eW8u9lN1b6TfUvD3vZy2aIToXFGA01iZTfNEX63rgop/Dz9Bf0pQGezIMg
+	 rwT+Ao+2tMxtsQDOYDWK8vP26s0ATu4MSKotlFMjAeNAMhKR+nfisq+XwVLxKMksRtjSL
+	 UzynzUe3sO4REgEz9jLDohL+THHTIwhw6VTqvfrMGA/Df3vmposfu7vOWup6VkAe2mbQ3
+	 LkKM/Y6nJ30NkyUniQm1rJj2JMqQEBB9VXUedbNbIl1CFdMJG7rMpfKFwQBiUZknaH6Q6
+	 JPO15MGgfvW34zKuhb6scq08uidk9HyDkviKWd1kb7sx4vQWot+z4nYsy5vK0Y8YfEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1DB0D606A31A;
-	Thu, 29 Oct 2026 08:48:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DB0D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=O/fiqeUUaT
-	fu9pOKZpK8oTWhDaZ+OmjDQ5pEjLnqGDs=; b=Gm8+718iBIJFzpc8AdC06E5fDa
-	X2bEnzW3f23uyyPFMlz4jSlN5EPmBeRuQyWPIXkZHOY4646/PE547ym/kFC0WbgM
-	DsntfoCgNuw//JJl6mZYVX51bXz7AGZEg6I6/Deh9BebZg3zMP+hZZOJ3N8NP/eR
-	ydbdcX7jf8YmM0yKg=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkAmKv1KCONq6jz8AA--.61740S2;
-	Thu, 29 Oct 2026 16:48:11 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 0/2] ALSA: fix a user-triggerable WARN on repeated DSP load
-Date: Thu, 29 Oct 2026 16:48:08 +0800
-Message-Id: <20261029084810.21910-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="tXRuL6/x";
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B295606A31A;
+	Thu, 29 Oct 2026 08:54:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B295606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tXRuL6/x
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Q70iv8hgHPImGJwByc0Z4M1+rMHdNArmQ9AkIYYXNY0=;
+	b=tXRuL6/xPq9TBBk+P1aKoWdgSV4+tindXcCZsh8kohvox+SUEeNu4so695q0CP5msi7f36Ki2
+	2GixcqT16Uot/LZADeCLoFx0yFJzCZfUx+IZ+NMIwMWnp0DWvxyhdgtmZ8iqsvLtey7f/ZSljY+
+	5cWpY+8lLIh0phmG9Mm5c5U=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jFdMH5fdFzKm61;
+	Thu, 29 Oct 2026 16:54:19 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5EE104057C;
+	Thu, 29 Oct 2026 16:54:29 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 29 Oct 2026 16:54:28 +0800
+Subject: Re: [PATCH] ubifs: fix fscrypt_name leak when purging xattrs fails
+To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
+	<linux-mtd@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261029164549455vmvRvpHkZ8cVjNxAzoyoO@zte.com.cn>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <07e98a63-b9d0-4f94-24f1-f394390389d1@huawei.com>
+Date: Thu, 29 Oct 2026 16:54:27 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,50 +70,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+In-Reply-To: <20261029164549455vmvRvpHkZ8cVjNxAzoyoO@zte.com.cn>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkAmKv1KCONq6jz8AA--.61740S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Xr4rAr17ZF4UZryDKw1kAFb_yoWDZFb_GF
-	ZY9r17J34UW3y3t3Z0kan5Zr9xCay3uFyUG39IyrW2qryfJFs0qwn5Z3Z5Grs7uFW7Zrn3
-	Zw47Aa4xZFySgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-xYjsxI4VWkCwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
-	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
-	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxG
-	rwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_GFyl42xK82IYc2Ij64vIr41l4I8I3I
-	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
-	GVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
-	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0
-	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJbIYCTnIWIevJa73UjIFyTuYvjxU4E_MUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUBD2riD9OTkAAAsd
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-snd_hwdep_dsp_load() checks hw->dsp_loaded and then calls the driver's
-dsp_load callback without any serialization.  A hwdep file descriptor can
-be shared among threads, so two SNDRV_HWDEP_IOCTL_DSP_LOAD requests for
-the same index can both pass the check and run the callback concurrently.
+在 2026/10/29 16:45, shao.mingyin@zte.com.cn 写道:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> ubifs_unlink() and ubifs_rmdir() call fscrypt_setup_filename() and
+> then ubifs_purge_xattrs().  For an encrypted directory the former
+> allocates the buffer holding the encrypted on-disk name, and every
+> later error path of both functions releases it through the out_fname
+> label.  The purge failure path returns directly instead, so that
+> buffer is leaked.
+> 
+> ubifs_purge_xattrs() only does real work when the inode claims more
+> xattrs than UBIFS allows, in which case it deletes them one by one.
+> That can fail, for example with -ENOSPC from ubifs_budget_space() or
+> with an I/O error.  Every such failed unlink() or rmdir() then leaks
+> one buffer of up to NAME_MAX bytes, so repeated attempts leak memory
+> without bound.
+> 
+> Jump to the existing cleanup label instead.  do_rename() is not
+> affected: it purges the xattrs before it calls
+> fscrypt_setup_filename().
+> 
+> Fixes: 9ca2d7326444 ("ubifs: Limit number of xattrs per inode")
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-The snd-usb-usx2y driver then enters usx2y_async_seq04_init() twice, which
-hits WARN_ON(usx2y->as04.buffer) and may also allocate the US-428
-sequence URBs twice.
-
-Patch 1 adds a per-device mutex around the check, the callback and the
-bookkeeping.  Patch 2 removes the WARN_ON() assertions from the usx2y
-initialization helpers: a repeated request after a partially failed load
-is a valid sequence from user space, so the driver should return -EBUSY
-instead of warning.
-
-YuanZhe Liu (2):
-  ALSA: hwdep: Serialize DSP load requests
-  ALSA: usx2y: Avoid WARN on a repeated DSP load
-
- include/sound/hwdep.h      | 1 +
- sound/core/hwdep.c         | 2 ++
- sound/usb/usx2y/usbusx2y.c | 4 ++--
- 3 files changed, 5 insertions(+), 2 deletions(-)
-
--- 
-2.34.1
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> ---
+> diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
+> index c67954f6bee0..73594d476fe3 100644
+> --- a/fs/ubifs/dir.c
+> +++ b/fs/ubifs/dir.c
+> @@ -846,7 +846,7 @@ static int ubifs_unlink(struct inode *dir, struct dentry *dentry)
+> 
+>   	err = ubifs_purge_xattrs(inode);
+>   	if (err)
+> -		return err;
+> +		goto out_fname;
+> 
+>   	sz_change = CALC_DENT_SIZE(fname_len(&nm));
+> 
+> @@ -955,7 +955,7 @@ static int ubifs_rmdir(struct inode *dir, struct dentry *dentry)
+> 
+>   	err = ubifs_purge_xattrs(inode);
+>   	if (err)
+> -		return err;
+> +		goto out_fname;
+> 
+>   	sz_change = CALC_DENT_SIZE(fname_len(&nm));
+> .
+> 
 
