@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306039;
-	b=4tSIIaGar5gz4Mwj0mVXke9a4iTb8SS7ruqOLVyRlK/xhlqwDJSy7InNghr5Hj5VXNr2
-	 Lwxxkca3BqqIh0AzzShgTshw8OIHU7aImtgJj+tNjFSV86MBjovSsd3hisw1VzGUY9hbF
-	 VqCzvvDKypC+8PU2o7ZdJIFMnj7lOQ67+zRpgsf1HHtZnorNKlwJ2KYFfq+LDkBJD0zHj
-	 rpq64620Hr+MUBgPT2oHUDAdkuqN1dfIeYyQ547JlpMmUkWSsCn9EMwWsY7FmIaYpcm8L
-	 rDY2HPyPs/eMlfLXDQ3v7ZAClzMfTbtmCaS8DwXnddyVgDHduEWXT4P5LjWNZ8FHssg==
+	t=1793306025;
+	b=LeP87kisgwnMADIBr9tMVgQK7VJRYuUYN1ILfrqXG5lNMrFEnBGWxAeR4SxOlnPl72Xg
+	 G65qDibyVuiE3xoIe2iqafMi+C9K778PvHvXmcXyWKH6Gzn8qWbU1JS4fDQvDnL1QFSai
+	 o6dDV7GN/SyMOChKn8HMgVSb9PxFj+BNetCcHQIol1qFpAXpp669uiq+F/d1k3a/UkI5o
+	 J2yes1z+FwFtn+MeozbclOY1XXCC7EcfgXSIqH/rw6y5W2i5NCJgZxA/1g1VoshL4ULap
+	 LeHle55+Kf1OvXkrWx8zDAko/hEF7qTZMaREEZ9ijHkk7S+R5OMoyFuWroh0JZIk7cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306039;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306025;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=bDnFHMjA66BoQB8Vxjf4dtq2kXA91I+j2LTsXqWaqtA=;
-	b=nV5r546RYmbLBwuKb/vz5ZsOT/vNcpJ1fFQnJsI1lF8BqEm2C7CSdPpTWxgEU4fhesoe
-	 1zbR1TsXE4tmCL9zLHzWGC3BRCZC5zobpf1qzqZ7XcWEZv3sEQhVUCjNw/AWRk+ynGVtf
-	 DMYKXsoxMQxEoNB5JTNqAR6mAwWKgYM6D7j4mUfF1U0y1ifsJ3Dcm66iYHGE8jsZQ+iVc
-	 6SbhqxZog9teew73XkSQvz1Tp/ZxyIXnnlYoXy7ydLkpVF1iLQEOi4bdvZCwVSPN5JpUu
-	 b61umzo++osarb1RGnofN/9NU8TCpCPoSp6bD0vL+c2k/ImAEiCwFocKXR90Bg6fpjw==
+	bh=Hl8Hja7261+PqX6A1yngTbcTCPox77BGspRqPrmbmIw=;
+	b=LPBn4KWDn+E3jPrv0b1EgRkW36mmOqY42Kzpr37SuRSb1vMvzMoqY82UOXEyvVYElg/8
+	 /bDAXwh4i1mKZbxUbqC17tmnPYNFgraFXjrQBZKfdRGtCPlWybohjXAG2/7mZA1Zfud/J
+	 fizrjk3MSKUixGlTFqoRQ3V0ItLjDnlekGs0ApLCMv7wFJs9k71mdVcZLb+LSjiQb+Raw
+	 C+tW8BO9AX2Gi8WSRyw98kRNZat1zlzpWxp9N3U+0KpeaJ3PMVImXQIMxvKP2QT81RIZs
+	 6Ubh4YEak8b8F/BBYr64+KHww1rsbhv2TYO+gXhuZbTIw69D2VnY6darqfG8J972E/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am3XTgpV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtblEQni;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C29606A32A;
-	Thu, 29 Oct 2026 20:33:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=am3XTgpV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D4651F01824;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15907606A31C;
 	Thu, 29 Oct 2026 20:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtblEQni
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E1B1F031E2;
+	Thu, 29 Oct 2026 20:33:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306039;
-	bh=bDnFHMjA66BoQB8Vxjf4dtq2kXA91I+j2LTsXqWaqtA=;
+	s=k20260515; t=1793306024;
+	bh=Hl8Hja7261+PqX6A1yngTbcTCPox77BGspRqPrmbmIw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=am3XTgpVgHU7w4T2qNJKEWMRK6et1DuqCwcBz+lFGVUX9YclSBZSowWGPpIIV7+IM
-	 tEP5omw5Vzsc76le081/xL21kHFi0mU57Zo/UxYgrjd9vjFBziVfQWssZ6DxVCwwwd
-	 a5vGIMoc9rL00pdWDUba4bp8F+ajymkeQeip9JVHBkhVDQrqaZ0q/WtsV7R6RPztmZ
-	 o3Lqrrj2Hy4L/T8SbZDJ8rfKUMyvKC0VMztk5TIhdV5tescrZ1yrfhQDpQdMB9rocm
-	 /bxf+2RUoBuGOuMzXVjiDrWORAfn+A5CwB/wYWROwZHGu9vWzhfxTvQyxEW3T2w1yW
-	 4Yac9xTxgMYlg==
+	b=BtblEQni/tV7KmG4ZsM9UPfe8T47hGMbbRdFSbdDMyagtA6eYkZbhluhI9z5BurdL
+	 1e78U6Dqg2OUvWYcFR0R5N87ly5LSuFRTWMfolODfDF1YuUhHuMAr0b1iHsc7D3Zok
+	 WWXgLFaB/7lS8DNFBPkUEV5jhF93hksYscJQ72sXQp+mQe59teJ8lUli9p5tFfB4A9
+	 Wz6e9K2qIY/jLVAnShYPw0I9kE8fFZ2d73v1Bo2z6zzKA/PIuyGuoriHgYP9CxUnrd
+	 fa/lB7eBUKMmE00K0RofgBKFQ5hGuNr17dEBDn3gMz8NHlng/llC5yjiUWyFxZr+iQ
+	 1NGfRY7z8HfBQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:32:57 +0100
-Subject: [PATCH v2 02/47] fork: take mmap_lock before copying mm_struct
+Date: Thu, 29 Oct 2026 21:32:56 +0100
+Subject: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
+ PUD and PMD tables
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-2-a64ce7f83abb@kernel.org>
+Message-Id: <20261029-fixes_core-v2-1-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -92,133 +93,85 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3737; i=david@kernel.org;
- h=from:subject:message-id; bh=xdagUeG+am6KY+4B7movMSkDtyS1Wqo3jrGYGcvuKUc=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer225Nkv/lfLjom53y+5P53z+3H8sojjThvvT+idNq
- jkbHhaLdJSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjCRr2cZfrM53Vy4zepghm7H
- g3RhgbUcrCeYBC7JSO3ie1J8widy9xZGhjmZn/qvLHE9ceaA4JXr89f/6bqY9Ma2s2ZalHXVw1B
- tTi4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2764; i=david@kernel.org;
+ h=from:subject:message-id; bh=kEXlYNiQWeqMYPtO5Vb4nXU0nymzCVHXtW6ux1YnkxM=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer2256v+r64KNwb7oXRXbchL8DsTsVdVJFHuRImHuO
+ 1Xm9q1ZHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzESYvhD9/mT2dFj7Wqffct
+ nXRd8fk7gdkPyxdo7bD4kys6+eDSXysZ/lc7b9U16thV9e2thKX+9d0xK38eTp3Zs4hT2P0qxyT
+ NN9wA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-dup_mm() copies the parent's mm_struct before dup_mmap() takes the
-mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
-and newer heap mappings, causing later brk() requests to fail.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
-cause inconsistencies.
+MGLRU passes stack copies of page-table entries in walk_pud_range() and
+walk_pmd_range() when walking to the next level. These copies can become
+stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
+table concurrently.
 
-As a simple and robust fix, grab the parent's mmap_lock earlier. This
-way we don't need to update individual mm fields in dup_mmap() and
-keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
-exec_vm, stack_vm), as that is now no longer required.
+This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
+support page table walks"). Likely, earlier locking masked the latent
+bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
+retract_page_tables() without mmap or vma lock") allowed concurrent
+retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
+for MGLRU") dropped the walker's outer RCU protection.
 
-Keep releasing the parent's mmap_lock in dup_mmap(), before
-userfaultfd completion, to avoid moving the userfaultfd handling into the
-caller. This should get cleaned up later.
+The fix is simple, so just fix the original commit so we don't have to
+speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
+RCU-protected lookup and validation against the live PMD. Note that the PUD
+handling is required as well to handle folded page tables correctly in all
+cases.
 
-Move uprobe_start_dup_mmap() to preserve the lock ordering.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+[ david: handle walk_pud_range() as well, clarify+simplify description,
+         adjust Fixes: ]
+
+Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: Rik van Riel <riel@surriel.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
 Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- kernel/fork.c | 20 ++++++++++++++------
- mm/mmap.c     |  8 +-------
- mm/nommu.c    |  2 +-
- 3 files changed, 16 insertions(+), 14 deletions(-)
+ mm/vmscan.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 18b6dd851642..ee40142dab31 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -1533,12 +1533,19 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	if (!mm)
- 		goto fail_nomem;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 9959ca158ce8..6a1af9b92349 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3911,7 +3911,7 @@ static void walk_pmd_range(pud_t *pud, unsigned long start, unsigned long end,
  
-+	uprobe_start_dup_mmap();
-+	if (mmap_write_lock_killable(oldmm)) {
-+		free_mm(mm);
-+		goto fail_uprobe;
-+	}
-+
- 	memcpy(mm, oldmm, sizeof(*mm));
+ 		walk->mm_stats[MM_NONLEAF_FOUND]++;
  
--	if (!mm_init(mm, tsk))
--		goto fail_nomem;
-+	if (!mm_init(mm, tsk)) {
-+		mmap_write_unlock(oldmm);
-+		goto fail_uprobe;
-+	}
+-		if (!walk_pte_range(&val, addr, next, args))
++		if (!walk_pte_range(pmd + i, addr, next, args))
+ 			continue;
  
--	uprobe_start_dup_mmap();
- 	err = dup_mmap(mm, oldmm);
- 	if (err)
- 		goto free_pt;
-@@ -1557,9 +1564,10 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
- 	mm->binfmt = NULL;
- 	mm_init_owner(mm, NULL);
- 	mmput(mm);
--	if (err)
--		uprobe_end_dup_mmap();
--
-+	if (!err)
-+		return NULL;
-+fail_uprobe:
-+	uprobe_end_dup_mmap();
- fail_nomem:
- 	return NULL;
- }
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 148ba01c0373..7618e72766a5 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -1713,8 +1713,7 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- 	LIST_HEAD(uf);
- 	VMA_ITERATOR(vmi, mm, 0);
+ 		walk->mm_stats[MM_NONLEAF_ADDED]++;
+@@ -3947,7 +3947,7 @@ static int walk_pud_range(p4d_t *p4d, unsigned long start, unsigned long end,
+ 		if (!pud_present(val) || WARN_ON_ONCE(pud_leaf(val)))
+ 			continue;
  
--	if (mmap_write_lock_killable(oldmm))
--		return -EINTR;
-+	mmap_assert_write_locked(oldmm);
- 	flush_cache_dup_mm(oldmm);
- 	uprobe_dup_mmap(oldmm, mm);
- 	/*
-@@ -1725,11 +1724,6 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- 	/* No ordering required: file already has been exposed. */
- 	dup_mm_exe_file(mm, oldmm);
+-		walk_pmd_range(&val, addr, next, args);
++		walk_pmd_range(pud + i, addr, next, args);
  
--	mm->total_vm = oldmm->total_vm;
--	mm->data_vm = oldmm->data_vm;
--	mm->exec_vm = oldmm->exec_vm;
--	mm->stack_vm = oldmm->stack_vm;
--
- 	/* Use __mt_dup() to efficiently build an identical maple tree. */
- 	retval = __mt_dup(&oldmm->mm_mt, &mm->mm_mt, GFP_KERNEL);
- 	if (unlikely(retval))
-diff --git a/mm/nommu.c b/mm/nommu.c
-index 91ab65afda70..6c6f95329674 100644
---- a/mm/nommu.c
-+++ b/mm/nommu.c
-@@ -1887,7 +1887,7 @@ subsys_initcall(init_admin_reserve);
- 
- int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
- {
--	mmap_write_lock(oldmm);
-+	mmap_assert_write_locked(oldmm);
- 	dup_mm_exe_file(mm, oldmm);
- 	mmap_write_unlock(oldmm);
- 	return 0;
+ 		if (need_resched() || walk->batched >= MAX_LRU_BATCH) {
+ 			end = (addr | ~PUD_MASK) + 1;
 
 -- 
 2.43.0
