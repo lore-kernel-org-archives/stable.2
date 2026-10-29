@@ -1,88 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793244593;
-	b=YG1xuqF4MsHbxkYx/VzQ3p1Tuu5nLQOlw0GmuLPnbV5AP2MEvHPQesH93uJtpa0j1F5B
-	 2e1aXqcunx31SGxF6FgdplI9ehdQhrErkMM5VSmQyKd8mtBM6sLldP+Gy5WFaNZKVHfp8
-	 d0ISfMNttBnoY1Mj44wp1KDGhUWIsBdDmxTebz8KHasiL3wc3d7Rqnb5hLpod9PZV2K//
-	 D1oD0SoDqONbnuhzyjkgVowmZDO/dQKIB9l7aKgYZ05KpwAr4nfzfyM4qU8WxknFRfAQW
-	 vIT99/+DAEjGUGj2aEEnKoipM1LVd7kKX3Y1HuTVNKc00p64hO+5OOBEhOznOkEi+Fw==
+	t=1793245034;
+	b=PUPK0zkfSZc4y5JSY0HzQFyafsFKXXLsF6p40iFrNUUtBs6KKssEUbnS+NQ6hn7B3IQ9
+	 AGBHVmbDeup8z5m5JlETXgR+isw/HzHApbhVWYPWC+1YzHlcTGeTD/RZPZI48aFvb6rjN
+	 9X59/wF1cmIdUl06tQ9Pe+IIi7LUnIbGvyjgdzqIHJh7uUxf27b1gihpbwHwn5jtRLjm1
+	 5BOjucf8vRysA9BCvsYY7N7vNG5Sx+hZgka2Zw28v0Hg/XZIj/PrXuaBZl85e+7UCsMbH
+	 vNSv7swWmhRYDxMc3AJWRSkta4N2uMNZI/cTwoqO9YPog2tkKVJlQOAr1nijR95j3SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793244593;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aLxkHNwaV2Nm/4SXJqHXqRt/QoXx8VfPwy6LHI2UFFM=;
-	b=lDLsrQbTnj15jeMDkoiEC9LbEdx+E/L5gAsAc1tAMAGfOqikmtSovg5oX71JCbJgVvaq
-	 Anj2IfPVeBatHhKSEVANB0GC+43ZIoEmzGJty46rlNA/CQBKxUYfN/+PEgALjnJSn1KsT
-	 JhOISRnXOUCfO5VBfp4L3ujXcZk85eqXr6f5rA7wVybN+AHw1xM7nKKlzDuFQgRbsmfbc
-	 XVzLtrcZOGOglHyDksgbUtt9kK4VMUnb2KkuisA8JLH3DY+B8qYqa0dE2YTevYQ+crfYu
-	 /4Aq0P6dobddiXtWyo/WODRHie1gVOBl0tvIP+RCFbiOHghmXD/74rC/1OiLzGRGMww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793245034;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-FB-Internal:Content-Type:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version;
+	bh=12GT4EhTbX39PzGGZFoO/AfGlalW+8tUPjKC4n+eba0=;
+	b=x3VIhcTJk87087D6WMDrNByPvI4SCnQVVESWCOqnGX4J9HDIRsSO1+Q7AJ52eMKPlZbg
+	 wog9uhgQxaDdzSESBEUejApVLWZKUsq6ggL8pAyFeI3VJFRzF1lHtEJvRYqj7eH3nxCKy
+	 WQnivpGNPfIDJiq93faqD7apgUF/gUN3Qy/HAo643En5M0w1HmUHOaSNVhtC2Q/F//1rj
+	 r7kYqMIBKpPtbGEXv//X+LvfiAneKr/7YjS4P00Njz6SH7rvBYpmMzO6AeYSc2SAU6w2K
+	 gAYiys6ejD9qocVWkRpdXtzEYBEcEADovQWLc7vdCX4nYD3zFxatnlOcJQJUnWsqUlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nRg7cJN9;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=RPbN2Qno;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6AC606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE6AC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7684606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:37:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7684606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nRg7cJN9
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a210470b49so13037325e9.2
-        for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:29:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1793244586; x=1793849386; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aLxkHNwaV2Nm/4SXJqHXqRt/QoXx8VfPwy6LHI2UFFM=;
-        b=nRg7cJN9SLqW61SOTpAvJUE6k+wITMzWkO1BGOzi4qowcDN2HOi2XBaTgc8oBVKBD4
-         lVg7a3HC/DNhM9g3Ot9jBkrBl5hCThZUE9A6fRO7VEinLVqDjXqSs0ud2S6jaw6TJ60H
-         pzOw91R3lcIl/e34GqL8gj84v4Mp7QjDNG0g1YiFaBxg25VoIXH9T75abWAOs930/1GJ
-         oEfM678598TckKw1ZgQ500OfELjiRAtUWU/vHMT4zu4FxBfo3l6GHkeGBzkgyc20ffUu
-         O9mV/4AE+xh3FHNK+JpuW0VvRMNCJIF6rhC+TcgJIchu9DqLUEGrsf5+dkPgmfc89BzD
-         P/Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793244586; x=1793849386;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aLxkHNwaV2Nm/4SXJqHXqRt/QoXx8VfPwy6LHI2UFFM=;
-        b=aRGxFLIxNTrsaYJRWyGSe27mSpiTGlNwoE9uGfASFYaUly/DS6uryCQ8bFze+May5H
-         QZaYVokeLE8IS2EEzIUCv7xCbAlLk63hSnqfHOWISOWCQJNVngL1ZXdggmq0WKM0Ux4R
-         CyIQd/uiXEH3TSngS03YwXnEjC8z0RjTEbkMmW4WeRqbymLVkb3pt4CCVQhjN+ky8579
-         lEqqMsKb5YJquJO6t96Nk2s/WgjK5Ehn/iRy4kC3DFlSeA9pKCcmOSYqtEKj6dAmuLG4
-         UUbhno9iPLU/sbLpVhv6QU3l9vaBBvBf7AOXJmeIFP0h2VWGHY/iQYUSGUyOefKh5dM4
-         hBSw==
-X-Forwarded-Encrypted: i=1; AKwUvByPG5dbngzfFmJp0koUlA5WsYMwEXqNCa9CnLPJKOeXSPNQCATPRCKXu5Y6OUytfhTuKBHhJw0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQ+MAEMvvEKo2G9BFMcWmWIdvgWlNxarD9ZRRx+Xxo6TTLu0K3
-	YNk7Q0PwsDq5IRcJcqpfz0o1xnnkmfaxbekSmQ6X+DvpBzmEH7gIYdM=
-X-Gm-Gg: AYBFou1AorU45cSPCkESMI+WCehWzkCCJcTskkQshrnU1iHsYD6RQSl4mx/INH+4Rlt
-	nx7UF5WGaNU9ibOKtjqAugAKYebKH0LcxBOfjg5U1Hbhf4wl+g8SW2KZVEZqv1Ygn+dNBco2KqT
-	sIstCoFZ8lMpenGYbopDIQ140hPy+x8MsoY6O8vXr7wjnWNii6n+p7c66qVbeCzN7Gvb9bJvxbk
-	KWP9FudW+lYtfqHtA2CCawVO6Y3vuuuWDNAP7GeSdJWLjnqLyFNKIP92p+7k8GzmVreVuNMtCm1
-	t7XlGMQbc0/4adnp+5TMerHwRY0+LrZOdoHC0AjD4R8N7jVhbXcvvHkPswTR9Bepd2ERBl/sNid
-	da4500QQizSApyat75TUUuOBTUu74vB/Uy0cefLQJQZKW3xNJabbw6Qb8e1DGqcLCH0Fa5+4d9y
-	Da/J/Ris4BivcYJ2KDe98kU/EcRuzMg0ucgOmyklj18A0y29ojS08tuKjJs9EDZrIJ5/1N3mcIC
-	KtAPpL2JxjldghNItveGiQiYeC8XRB4lLXDGSjsqXeYfQ/VmMlWJ2G/vDSDpQanLXr37AWrX1zJ
-	sQfn8Wgeh7bHlzP58TzrX5t9g8JGlRwPuPDh1nSrTKL7sycLrJ+aw2H8KeiQuWRPgduc1hAFuLx
-	br10aIX4=
-X-Received: by 2002:a05:600c:4f94:b0:4a3:5a42:b29c with SMTP id 5b1f17b1804b1-4a967202997mr98238455e9.26.1793244585802;
-        Wed, 28 Oct 2026 20:29:45 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2ac3f1.dip0.t-ipconnect.de. [91.42.195.241])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7ee57589sm37717095e9.2.2026.10.28.20.29.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 20:29:45 -0700 (PDT)
-Message-ID: <a58da4e9-8fa4-4aaf-a0c5-f2f443a79504@googlemail.com>
-Date: Thu, 29 Oct 2026 04:29:44 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=RPbN2Qno
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T39Vg23151667
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:37:13 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=12GT4EhTb
+	X39PzGGZFoO/AfGlalW+8tUPjKC4n+eba0=; b=RPbN2Qno62lvcCeVcsG9k8YDC
+	nJsupb+ugKMaWQXA5RuKGXmI0hAmtZYIxT4o1va1hsQujO6T6g7EOx6SCInUXQc2
+	jj5N/DZWqeMkAtiX7TCj25A/IRl59DJDp1wyBU4tYx/PXIjA3LAlwyGZ7+87cl37
+	8qGw9ESUIMJm1Ur5o1HgVfp7sN7XrQOxac1FoCfbb8s58LCBNm3aHlmRHXHWzxC+
+	zkNZzjXKQ3KpCSFZowRVS4bubG9KHM1JDgF0tfo76kvX38f00b185bxXyVF0mIyM
+	uyr5XDlqtGxUSol6WGJx6pt3QBVXhaK4ELSba5c5Ow8V3LhL5DJjPDu15oTYQ==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hjxcawaxh-4
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 20:37:12 -0700 (PDT)
+Received: from twshared13996.31.frc3.facebook.com (2620:10d:c085:208::7cb7) by
+ mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Thu, 29 Oct 2026 03:37:09 +0000
+Received: by devvm33008.atn0.facebook.com (Postfix, from userid 228142)
+	id 328B91323D9C4B; Wed, 28 Oct 2026 20:37:03 -0700 (PDT)
+From: Leon Ming <leonming@meta.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+CC: <fuse-devel@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Luis Henriques <luis@igalia.com>,
+        Joanne
+ Koong <joannelkoong@gmail.com>, <leonming@meta.com>,
+        <stable@vger.kernel.org>
+Subject: [PATCH v2] fuse: set dentry epoch before making the dentry visible
+Date: Wed, 28 Oct 2026 20:37:00 -0700
+Message-ID: <20261029033700.273707-1-leonming@meta.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,43 +78,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261028165943.089486480@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Authority-Analysis: v=2.4 cv=I8/w19gg c=1 sm=1 tr=0 ts=6ae2bf68 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=JnKecZnUtZousrUlYMGU:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
+ a=0TxM4ttc_5TPnjwGPAwA:9 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAxMiBTYWx0ZWRfX/hoKeo6yto3u
+ zwM6eESa2jlig9LnrJjKSIjNaJ4RLFFmNp0h1hHxeeHXk3PUReS756CkrOsoPTEsfq6MMhA3Pi6
+ zzYF3oDej49kK4MGPiQ//E50PemCr34=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAxMiBTYWx0ZWRfX40ReBev+TmWG
+ Apc6o8x1/Y/DyJ1yS+cePhdNecauCBn4C/bG592E9oNNzFi8Z260li8cnBspEa5wh/PI4jUdLBU
+ J1dc3Z+M6YnuGDA3aQI7mT5/PrdgrY+dH+xoUYiVaeBCrtRywDsEeHmPqJdGWsLq0AvbJCdFVn4
+ Kuw7qBsp51r8IqAtjc8nf0u52Y41gx614/51AUvBGgGl729+VGp3z2gMJDJlPEmHI8y1r9+a1QN
+ lYSM+RcCrbdQbKRFdwm1Yk+q+9Jq+IaVIK8GQvRjyJG9WVbywR3IYuULH5Da/7BuDQAuiUSbaRG
+ N1a5+Gr7IGqXDD+QnW01h9MK46mF8IguMdvWlY5RCYkZndgIq8t/3kkdm7YT2na0ab/9ujb/vg0
+ C7D9bjqqxzdZtPb0RERIpiATagarm8ancMAAubv+nrJLQ87TRNvtFGokts885Ar+FzTmAOOWtSU
+ 7QCVw3S26OCWVzEawdg==
+X-Proofpoint-GUID: DnLFQ-Bry0tedrRUpyS6ycdAuEr0v4SP
+X-Proofpoint-ORIG-GUID: DnLFQ-Bry0tedrRUpyS6ycdAuEr0v4SP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
 
-Am 28.10.2026 um 17:58 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.6.161 release.
-> There are 168 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+fuse_lookup(), create_new_entry(), fuse_create_open() and
+fuse_direntplus_link() set the dentry epoch only after d_splice_alias()
+or d_instantiate() has made the dentry visible.  A new dentry starts at
+epoch 0 and the connection at epoch 1, so in that window a concurrent
+lookup can find the dentry, fail fuse_dentry_revalidate() and
+d_invalidate() it.  The original lookup then returns an unhashed dentry,
+and readlink() of /proc/self/fd/N on an O_PATH fd for it says
+"<path> (deleted)" for a file that exists.
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+Anything that resolves real paths with open(O_PATH) + readlink() can
+pick up the bogus path; TypeScript's native compiler (tsgo)
+intermittently fails to find installed packages this way.  It got much
+more common after commit 5a6baf204610 ("fuse: fix uninit-value in
+fuse_dentry_revalidate()") zeroed the initial epoch; before that, slab
+garbage usually passed the check.
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+Set the epoch before the dentry is published, and keep setting it on
+any alias that d_splice_alias() returns; the dentry that loses to an
+alias is dropped without ever being visible, so setting it too is
+harmless.
 
+With 32 processes making concurrent first lookups of 6000 files on a
+fresh squashfuse_ll mount (UML, 16 CPUs), 1652 of 10.75M lookups came
+back "(deleted)" before this patch and none after.
 
-Beste Grüße,
-Peter Schneider
+Fixes: 2396356a945b ("fuse: add more control over cache invalidation beha=
+viour")
+Cc: stable@vger.kernel.org
+Signed-off-by: Leon Ming <leonming@meta.com>
+---
+v2: in fuse_direntplus_link(), set the epoch in each branch instead of
+    once after both (Luis)
+v1: https://lore.kernel.org/r/20261026201101.3915217-1-leonming@meta.com
 
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+ fs/fuse/dir.c     | 12 ++++++++----
+ fs/fuse/readdir.c |  5 ++++-
+ 2 files changed, 12 insertions(+), 5 deletions(-)
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
+index 28516a1760..650bd13fd2 100644
+--- a/fs/fuse/dir.c
++++ b/fs/fuse/dir.c
+@@ -644,13 +644,17 @@ static struct dentry *fuse_lookup(struct inode *dir=
+, struct dentry *entry,
+ 	if (inode && get_node_id(inode) =3D=3D FUSE_ROOT_ID)
+ 		goto out_iput;
+=20
++	/* Set before the dentry is visible, or a racing lookup invalidates it =
+*/
++	fuse_dentry_set_epoch(entry, epoch);
+ 	newent =3D d_splice_alias(inode, entry);
+ 	err =3D PTR_ERR(newent);
+ 	if (IS_ERR(newent))
+ 		goto out_err;
+=20
+-	entry =3D newent ? newent : entry;
+-	fuse_dentry_set_epoch(entry, epoch);
++	if (newent) {
++		entry =3D newent;
++		fuse_dentry_set_epoch(entry, epoch);
++	}
+ 	if (outarg_valid)
+ 		fuse_change_entry_timeout(entry, &outarg);
+ 	else
+@@ -907,8 +911,8 @@ static int fuse_create_open(struct mnt_idmap *idmap, =
+struct inode *dir,
+ 		goto out_err;
+ 	}
+ 	kfree(forget);
+-	d_instantiate(entry, inode);
+ 	fuse_dentry_set_epoch(entry, epoch);
++	d_instantiate(entry, inode);
+ 	fuse_change_entry_timeout(entry, &outentry);
+ 	fuse_dir_changed(dir);
+ 	err =3D generic_file_open(inode, file);
+@@ -1030,6 +1034,7 @@ static struct dentry *create_new_entry(struct mnt_i=
+dmap *idmap, struct fuse_moun
+ 		fuse_chan_queue_forget(fm->fc->chan, forget, outarg.nodeid, 1);
+ 		return ERR_PTR(-ENOMEM);
+ 	}
++	fuse_dentry_set_epoch(entry, epoch);
+ 	kfree(forget);
+=20
+ 	d =3D d_splice_alias(inode, entry);
+@@ -1040,7 +1045,6 @@ static struct dentry *create_new_entry(struct mnt_i=
+dmap *idmap, struct fuse_moun
+ 		fuse_dentry_set_epoch(d, epoch);
+ 		fuse_change_entry_timeout(d, &outarg);
+ 	} else {
+-		fuse_dentry_set_epoch(entry, epoch);
+ 		fuse_change_entry_timeout(entry, &outarg);
+ 	}
+ 	fuse_dir_changed(dir);
+diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
+index 83a1cc46fe..a3af5ad82a 100644
+--- a/fs/fuse/readdir.c
++++ b/fs/fuse/readdir.c
+@@ -228,6 +228,7 @@ static int fuse_direntplus_link(struct file *file,
+ 		fuse_change_attributes(inode, &o->attr, NULL,
+ 				       ATTR_TIMEOUT(o),
+ 				       attr_version);
++		fuse_dentry_set_epoch(dentry, epoch);
+ 		/*
+ 		 * The other branch comes via fuse_iget()
+ 		 * which bumps nlookup inside
+@@ -239,6 +240,7 @@ static int fuse_direntplus_link(struct file *file,
+ 		if (!inode)
+ 			inode =3D ERR_PTR(-ENOMEM);
+=20
++		fuse_dentry_set_epoch(dentry, epoch);
+ 		alias =3D d_splice_alias(inode, dentry);
+ 		d_lookup_done(dentry);
+ 		if (alias) {
+@@ -255,10 +257,11 @@ static int fuse_direntplus_link(struct file *file,
+ 			}
+ 			return PTR_ERR(dentry);
+ 		}
++		if (alias)
++			fuse_dentry_set_epoch(dentry, epoch);
+ 	}
+ 	if (fc->readdirplus_auto)
+ 		set_bit(FUSE_I_INIT_RDPLUS, &get_fuse_inode(inode)->state);
+-	fuse_dentry_set_epoch(dentry, epoch);
+ 	fuse_change_entry_timeout(dentry, o);
+=20
+ 	dput(dentry);
+--=20
+2.53.0-Meta
+
