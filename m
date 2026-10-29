@@ -1,63 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259209;
-	b=IKS3Qr26upj5ERyZGvJJxn2Nai1DJRK/dS1PkPEB42bh42MbpyIawBLah0PuLBvTQQaW
-	 CXS7fKHPEMnU7RPsjw6qlmjkFgV2F23QKx75QC+VyprO2PchttFP5lB5VNgUc1Exgu5zw
-	 sf+BaTdVoz17uGlrBCLOO4M4z9ymX2s4fe4xtqElLCANtZ/+c+VVZe1z7hiMhW5zWI9cR
-	 A73MRbYCb6wHznFGOreWky+tjnsUMuCLYRhJ8NqSCpvKbxdJAxtf7gVB1Hkb+zJRW+5H4
-	 jajJBFArjHJDu4ihhM8w6Yvh11cal2gPmYLGclSzdP9csxC3dRmKGambxbyrgO1lmjw==
+	t=1793259220;
+	b=L510l/JC991VJj5IpMaFCv8CaOTTQ1eHsY0LuH4vDCYcIP4BDHAHEi2/N5Rr83l3tx4k
+	 U+HjnNxRp6QGjhQSielmvRzSq1O2IaT9B4U/OIEh9nAYXILSpe1ryojqdtLittop6dLpK
+	 dsU/DaVyrh35MHdxzae8UaeQD4jyY9h3iWFokZU5EBnIV8QWNp4Xx8eKf5o9I4mReQA8k
+	 ZVjr2AXpTrEt44jfbMc/8Tn32VJZagPOG97r+onMNK1hXYl6Otj4NkdycfvvQ/tN2m/Zb
+	 kPNTEE75iKMkOpKEu9ibVHs+uYJbGnk2NYtESlLS3p9yErmjhYNGNuibX2Q3KzPDlAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259209;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bXPKDbH3PNtj5136u7ofkfRwViNAHeELc+rHOkMvnMc=;
-	b=GLJfSU6Gle0y+qPBCxbTV+A/u/J/BcKUVjEHQtPtWMkEG0m9P35iXvYZZ+tYOb/8CXeW
-	 pLAiRL4W7qK2Z9/0BHV11MljkThKSyauRj1Qdw7fxE7BooMQb12d2rbjNc+DOJZAcxenv
-	 9GEcq0hfhRXMc7c6ET5mDLfoc4aLmAgfqGqVk52g2q0wQ4PeWUSuKktzy8x4ayFf1XP4t
-	 8SBthVPze0LNJAg4EMm/STUhkENywkDFWP5X3PtpLZsDP9OP3JawZmuKrRmtmsZzJi/Up
-	 7nd7aUdl62VKnoILtrPT58XxVMoYvx0aKsTrI6h39L8qU74dl69lE41+GXib5R5arrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259220;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=n2h7Gd+pWSukG0+ZHwnfidKQ4JBvdEMorny+52dhSJ4=;
+	b=ETfWMw+0b0Fhohc75hTzKd08HdWw/ClsunTYOldKHbZcAcQfmfedBgMy4zUgQS25nang
+	 Hmx3Rn9Lx6/XxwF7TAXVKqVmr+chXE17rcHdRY+6pMQzbfY3FbaWOjAvTN8iiOV9Yq6sY
+	 FSwyne9aJv0yPEBf7Hgktme81fW/QwYKEckj4MxRgDdO2xtgNHg4sfzg9ytjSI+qEVgXQ
+	 wE6zkFlHLJCmW7CZju0OpLFgJ/+nxAw5H7ENph6PilUFx0XkXsyy3ZKs1ZwOrDLAj1ce6
+	 pGvnlHmUUfDWD5yjuC0T7CFW2+pFSaUPmQg+vDm3NCTOYb4VNi3XhfUqx4QRmTnXdZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=px8Jk6Ch;
-	arc=none smtp.remote-ip=115.124.28.123
-Received: from out28-123.mail.aliyun.com (out28-123.mail.aliyun.com [115.124.28.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C667606A31C;
-	Thu, 29 Oct 2026 07:33:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C667606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=px8Jk6Ch
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793259198; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=bXPKDbH3PNtj5136u7ofkfRwViNAHeELc+rHOkMvnMc=;
-	b=px8Jk6Ch8o3m8p3eqegV9kvADKQj5oDT82ST7IcL4STdh4Cp4aoslh4AW8bbaYF8X5VnYYr5fd7ttr+xqkQQ+KwLV1crX13U3PsT333f12SirSIJ8n/vQERXsh8rw9LoIABxQK5GV4yg7Heor0QtKFWCMmhNylChBo6SQY/zKgM=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07566782|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00806344-0.00431747-0.987619;FP=12609998778953435122|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.js3X9Mm_1793259196;
-Received: from localhost(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.js3X9Mm_1793259196 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 15:33:17 +0800
-From: Weibin Liu <liuwb@xiaopeng.com>
-To: linux-scsi@vger.kernel.org,
-	suganath-prabu.subramani@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	ranjan.kumar@broadcom.com,
-	sathya.prakash@broadcom.com
-Cc: linux-kernel@vger.kernel.org,
-	James.Bottomley@HansenPartnership.com,
-	MPT-FusionLinux.pdl@broadcom.com,
-	mkp@kernel.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1500606A31C;
+	Thu, 29 Oct 2026 07:33:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1500606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=n2h7Gd+pWS
+	ukG0+ZHwnfidKQ4JBvdEMorny+52dhSJ4=; b=HhoX/9PiffgxkI9SlKevSat2dd
+	6DOWHZj2A4yZ1pM90k/gKLDdNW/PSQSWl/AFZ3JH7mZR2elwhRqvotGVhGBWXmYC
+	h1i6mrjz7Qs3ivsn1YOO/SfBJHPKg2yIEeGNdsGz/UEhzS0r8n4OACNVsYPvE9H0
+	LrK1UU3jw5tMyaK2c=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBmpfq59uJqYfL7AA--.62846S2;
+	Thu, 29 Oct 2026 15:33:14 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Ruben Wauters <rubenru09@aol.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	zhugl3@xiaopeng.com
-Subject: [PATCH v2] scsi: mpt3sas: validate data_out size before SMP link-reset check
-Date: Thu, 29 Oct 2026 15:33:16 +0800
-Message-ID: <20261029073316.4188569-1-liuwb@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] drm/gud: avoid divide error in gud_stats_debugfs
+Date: Thu, 29 Oct 2026 15:33:11 +0800
+Message-Id: <20261029073311.14556-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,91 +64,73 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkBmpfq59uJqYfL7AA--.62846S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw43KryDXF43ZF4fKr1fXrb_yoW8Zr4Upw
+	43Ga4FyFW7X347Gw43AayIgFy5Za4kJFW8GrW8K34fuF45ZF1rua4YgFy0q34UJr1Iya9a
+	qF1qgrZrCrW2yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBKb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r
+	4xMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8-4S5UUUUU=
+	=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2riEkF-XQAAsw
 
-_ctl_do_mpt_command() handles MPI2_FUNCTION_SMP_PASSTHROUGH by reading
-data[1] and data[10] of the data_out buffer to detect SMP link-reset
-requests. The non-IMMEDIATE path sets data = data_out after checking only
-for a NULL pointer, so a payload shorter than 11 bytes can read past the
-end of the buffer, and out-of-bounds bytes can unexpectedly set
-ioc_link_reset_in_progress and ignore_loginfos.
+gud_stats_debugfs() computes the compression ratio by dividing the
+accumulated uncompressed length by stats_actual_length. That counter is
+zero until the first framebuffer flush has completed, so reading the
+stats debugfs file on a display which negotiates LZ4 compression raises
+a divide error before any frame has been sent. The wrap-around reset in
+gud_flush_rect() also clears the counter for a moment, which a
+concurrent read can observe.
 
-However, a short SMP request is not invalid: SMP_REPORT_GENERAL, for
-example, can use an 8-byte payload. Rejecting every data_out smaller than
-11 bytes would break valid requests.
+Copy the counter into a local variable and skip the ratio computation
+when it is zero.
 
-Instead, require enough data only when checking for a link reset, and
-keep sending the request normally otherwise. The IMMEDIATE path reads
-from the request frame rather than data_out, so data_out_sz does not
-apply to it.
-
-Fixes: f92363d12359 ("[SCSI] mpt3sas: add new driver supporting 12GB SAS")
-Cc: stable@vger.kernel.org # 3.8+
-Assisted-by: LLM
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
-Changes in v2:
-- Do not reject valid short SMP requests. Apply the data_out size check
-  only to link-reset detection.
-- Keep IMMEDIATE handling independent of data_out_sz and use the SAS
-  definitions instead of magic numbers.
+ drivers/gpu/drm/gud/gud_drv.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-Link: https://lore.kernel.org/all/20261015-mpt3sas-dataout-sz-v1-1-0781d24bb7ad@xiaopeng.com/
-
- drivers/scsi/mpt3sas/mpt3sas_ctl.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_ctl.c b/drivers/scsi/mpt3sas/mpt3sas_ctl.c
-index 8bb947004885..b069dd384ed7 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_ctl.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_ctl.c
-@@ -57,9 +57,13 @@
- #include <linux/io.h>
- #include <linux/uaccess.h>
+diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
+index 3a1b9e2a2eaa..85ddb302d2ba 100644
+--- a/drivers/gpu/drm/gud/gud_drv.c
++++ b/drivers/gpu/drm/gud/gud_drv.c
+@@ -329,10 +329,17 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
+ 	seq_puts(m, "\n");
  
-+#include <scsi/sas.h>
+ 	if (gdrm->compression) {
++		u64 actual_length = gdrm->stats_actual_length;
+ 		u64 remainder;
+-		u64 ratio = div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_length,
+-					  &remainder);
+-		u64 ratio_frac = div64_u64(remainder * 10, gdrm->stats_actual_length);
++		u64 ratio, ratio_frac;
 +
- #include "mpt3sas_base.h"
- #include "mpt3sas_ctl.h"
- 
-+/* PHY operation byte in an SMP PHY Control request */
-+#define SMP_PHY_CONTROL_OP_OFFSET	10
- 
- static struct fasync_struct *async_queue;
- static DECLARE_WAIT_QUEUE_HEAD(ctl_poll_wait);
-@@ -959,13 +963,17 @@ _ctl_do_mpt_command(struct MPT3SAS_ADAPTER *ioc, struct mpt3_ioctl_command karg,
- 		Mpi2SmpPassthroughRequest_t *smp_request =
- 		    (Mpi2SmpPassthroughRequest_t *)mpi_request;
- 		u8 *data;
-+		bool immediate;
- 
- 		if (!ioc->multipath_on_hba) {
- 			/* ioc determines which port to use */
- 			smp_request->PhysicalPort = 0xFF;
- 		}
--		if (smp_request->PassthroughFlags &
--		    MPI2_SMP_PT_REQ_PT_FLAGS_IMMEDIATE)
++		if (!actual_length) {
++			seq_puts(m, "Compression ratio: n/a\n");
++			return 0;
++		}
 +
-+		immediate = smp_request->PassthroughFlags &
-+			    MPI2_SMP_PT_REQ_PT_FLAGS_IMMEDIATE;
-+
-+		if (immediate)
- 			data = (u8 *)&smp_request->SGL;
- 		else {
- 			if (unlikely(data_out == NULL)) {
-@@ -978,7 +986,11 @@ _ctl_do_mpt_command(struct MPT3SAS_ADAPTER *ioc, struct mpt3_ioctl_command karg,
- 			data = data_out;
- 		}
++		ratio = div64_u64_rem(gdrm->stats_length, actual_length, &remainder);
++		ratio_frac = div64_u64(remainder * 10, actual_length);
  
--		if (data[1] == 0x91 && (data[10] == 1 || data[10] == 2)) {
-+		if ((immediate ||
-+		     data_out_sz >= SMP_PHY_CONTROL_OP_OFFSET + 1) &&
-+		    data[1] == SMP_PHY_CONTROL &&
-+		    (data[10] == PHY_FUNC_LINK_RESET ||
-+		     data[10] == PHY_FUNC_HARD_RESET)) {
- 			ioc->ioc_link_reset_in_progress = 1;
- 			ioc->ignore_loginfos = 1;
- 		}
+ 		seq_printf(m, "Compression ratio: %llu.%llu\n", ratio, ratio_frac);
+ 	}
 -- 
-2.50.1
+2.34.1
 
