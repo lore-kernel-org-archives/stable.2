@@ -1,100 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793282317;
-	b=jya799OEgbveRQ/c2ZvuTWh4vqiE5Pvju2IFX42nurAiMDeTqygAKXnvTahNnvvzsSxt
-	 Wi1A6cojskFg4vSqHtXKUjBN/E4w0vCvFDF0nn70gY28SZir8kdysKZxLw9zx99dYEbSE
-	 TdCOUahzMUsO2r+AiXVOJdLkzvE7RNFd1LQB7CzAfTDm6mbxcnZxMIUS8tnFcXwDxxURE
-	 ryZ3k1+AjV95vClcGR+dhp1yIIpyllXrMXDA9eO1xsVygL4QVsMOTrse4sa0+GJv2V8U8
-	 bHAX70TdsB/PLALA5y3pNzdEzZt5ks+kH/IUyOJo9vynXknkIaIYhQ86jlbEkjpy5JQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282317;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
-	b=iu7+ptZd3w740/8xZMVOZMyIk3TlxcJJNJhsRAChfj5qBu77Uki2yfePK3XPiuyQQX68
-	 xK8E4Mx23XVDyAFoeR03qCFh2SPXNmZM2lNJOaNw0ItkoYVJ2cxPVwThLXNkKx+Q3WrC/
-	 KKeNNrARI8p70lzY8uLlMPIXy5yqjZZ+OS13P6Zw0CcUB9vXIUQLT1JQHFrygQ0yiPoMF
-	 3QbXA4VOyQuGg6KhydFyFkhyAEsF7F7LPZO/3/fulFJoPwaLeJOsf+IRlwfsujxT4y75l
-	 jbboJjVpu/1Wwuhb9GIXGPTwiMXA2GrUAzlUFRx+R9qaHO3MIB8LxKKyD9RrgP5vJyQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJT1d2UY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0BA606A31A
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 13:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E0BA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793282323;
+	b=wFzuCqLuYp9OicZE6qyRTt0vpokBH7w4AIqdTBIRe0tgLbF5ybhem2KNBBNIgUDO37QN
+	 yUu0UNYZOnYgrQCmSD0t6Kz7BRirxU7Arlsc/RgNPl+TiYU9LgL7lsILQ10TfSOnJzc2q
+	 LqaLF781xb8f2LgDNHYweKlwFOToA3uYNjvzMlhb97kgSrlYHCVbt4oaw4Y2wrrvq0fV0
+	 +Jbb5rVYDqI363IQfAxSqoffCXyy1BGw3MgzQ4XNogj1PkLIg4RlPM57gE44w/21PhdR9
+	 wIudwAVLYszab9MUzh1mzxupK9AaSk2gO4RV9EhSb6VTKijA/OHq8xqDiFmK6BV1UQA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282323;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fLo6xHFxBrxaHNFtSj4sb2yRxlgS1/f9BbjYKUllULw=;
+	b=D27qqjDHzWQbT9NkUNcFmUR619ilzii9avx1GPB/s6FFCy5NGlOFmkEH6vUYr8U/97vW
+	 gO7FnLJaBQPbZdvS0YMl8M+iLUx94cYG0UsvcQQTKjPNMF45Yiw3FSa7l2SY/v+DHrN3y
+	 uoHyWACiScR9GXkGeNsgBXzRN6DbEYcw94/CqQ/97hmJlZTYNAJwBWHZMPMBVY7hLu5/s
+	 /QaDuVp166/tldyOTi/PzDLauS4yVfePD/QbFS65uOJOe4EogSKBNKShJ5zC4okg3RLmI
+	 7p0UAb6eKqHOxPb5Ji4Twx+e4gL5A+ikvzTfu9vmuxfVKvfwYEOqZOxjWdf0qJOjr1A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MElb80of;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7DBB606A32C;
+	Thu, 29 Oct 2026 13:58:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7DBB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJT1d2UY
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso3216186a12.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 06:58:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793282316; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GWcxUlodgnlimtZ3DWixkgZ6erkERG+cDbp4vFQMuyw8RDUvP8q0AznoWTgZ0EVaQz
-         LZOPobFUaNpHzBA9LtjmlZHhRP/6cyuFKHsFvBBWpKxAhniZWc1i5oeoXD2Gg2wQcdwy
-         ExANh55XVPbeQ9XGDZdnDk8LCsQl5ZuFxZCOIxfvzvvcVjJT3i+5O7WgmdIg7t1+D1yw
-         3nLt8erwLEvXtC2IxxaFlhB/XzWaYhuP+BEU4K6G8nhUWYpqyZkIRx4tesXR2BrR0k2i
-         rvOet6bR42TjKRtIkMkM5aY47qiTKmOxirpN7C4EeghzHfJOtRmCAjpOvdsLJADTKHdI
-         BVsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
-        fh=zZgjTjG4Ct+x36NJpp/4w11qxf/bm1SVx2vmrLVfItM=;
-        b=rnAOoDmZBSLjTMTGKgIqjS7tW1PvUGAXX6VNAAFCvdirPFxHyshTa1MrcCgppYZ9T3
-         jV59ewyiXSGtZRV3VRk1BTkwmmj2/clmK63CYwJOQZNRt8zHq1FwemU/w+TMN6ER7nTm
-         /ww6jwRaWdy0ICYQPc5vbSsIZGsU9rPSRCMSlTF94rf5Gzc1+HXGXf5AhUoLJP/G5O7T
-         mVw8lkbugkuHJE+cNTzp3d6B9e5o87tWqREqWmJx6PAuDM0kQGwLRPhLBkIKMx5cLZ5R
-         nV/dI5o8d36nVJ4rFTkYn5Gwv7HJwBnBYOpuv64hocu2aimQK7wfw3Lt51d/bnnBEOFR
-         9/ow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MElb80of
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793282316; x=1793887116; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
-        b=QJT1d2UYEQriYuUW8735rNQI7Kxphg9w4E0o+RGF/kDVGLDQFuU/jYic3i8KCiwg1E
-         9CfETBF3zvvJP02YEwh4ijalEzaGBqdm1YheiioDRc4nG90iE9PRzY7MoQ5vWiinolFP
-         GQBfPxT7lQTnFE0Q+oMEn5/mUUQvWaIeyUAC1FpKDh9ICBl/KT6q/D5LOoKrKA144n0q
-         ujlPp32k8bwbaIBy4xdM+B+fVD8ArY0OYZOaBD0qWZnYG379pS/PeNRbD3P9K0IBYUJS
-         S0n7iYugWmlG64W8iEam8AHMRX3i4+geBI3LBQ5JjPWyiDBf1T2Wew7OxtsH4I9+PvWz
-         KdiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793282316; x=1793887116;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TKHPwAz92PdhTqProcfmSePBu6DLZeLwLhVUswgSLow=;
-        b=GDA+N8NUGPbyR/oCe8wB/k54r9hayayqvjiYc1os+rvfs3p3dIV+j73UFe5Fvv4whk
-         Y5iJELKV01GyDzXkftF94nlejpvIyQz/zCf9cEfZqlG2j3PJ4R8M/0Jv/4U/BGg6AIE6
-         2Ur+/f++2vikePQyA7qHa9x1jbdj82yIIDkJ/Yh/ya88auNQ7ibe4zGkeEcc7Jxj//g8
-         PuzQ8xLrHa0pDMzbFk/jtmz5eX12AZvom8v1qQT1jKWOs4U1Rr/iyRgyMVqsE6i83aWI
-         gSMlIJjktd6yv1q2iamX+8N+jUNxo56g3kBIEx/LdNxiqUrM6ngRZ4XBQDAZu3bH7BuT
-         ha8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwOO4bperBJGd8Pn6SEyiHbyj0MauKtuPcUu0q9dhVuDx8/Ea/4byxK63PGfD/wYvcENB38b3I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITkuRsfH8NhjwAl3s88pzhnjMDGtKq/3ER56cu3DOYNI3JiMyj
-	JcbcOb4ypdeXqdR7Q2ffxk/KJP70/3T2oEDvJ/iVfuhp2W/UCvCSMmVykByufp5QSEDZqSCfOrv
-	BBCfMkp5D4Hqd8xnUgXpxtBJ+BkWjDqY=
-X-Gm-Gg: AYBFou1p02QrYNE6I3rAujU8BXOBZtCunRc5I65ZyEMj9U+Ei4ufnz6xKnnkW5Sv1VA
-	iitSwFS+r1XT2CjigyCUQL8CNBr6+EQpZbOrnbNF08fLnY9OvWEzkXSE/0L/iMHH8z7Oo4jS29k
-	hB3/4rzaJDpcaij+XlGqLw2e68N9c94tXCAeL9G+oihntKSVvm8RuXmXmbDeDCbwQwAL/W+wUBy
-	ol7HjJbTmLcjBVNXq5nlFaJNm6YVGbOrnulPZnf74JrTUf7XdRUUmyCS3SVMOrWGhUOhd7odfzF
-	CS7488bsGIOs0BBeCE6/TkB3MaEgPSLBMV7QnDkG4oD5BctIlY0zRmtLm7O4C6WEtcNahzTw5rY
-	JBapAl8i/zNLa9xFEVoa/wlzxiv51KwrKaSMRQYR7hu0jD1V1zcdmOg/hnIpvVNxeJoZEpw==
-X-Received: by 2002:a17:907:d649:b0:c40:d762:feaf with SMTP id
- a640c23a62f3a-c49bdf380c3mr490800566b.21.1793282315466; Thu, 29 Oct 2026
- 06:58:35 -0700 (PDT)
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=MElb80of1kW0MMkAmbgNi73F/Jug1IQvOKwdkv55UOQEWhf/6e+1zhQTKNZCl50hQs0izVpzKyayI
+	 vlA7kWZOldlF+P8mPVVCtdPtutxU9Wr9mPoEbq75xOHlU8Fj8IkblPUE4YAKR4edJXO7KrEytElrnH
+	 wbUMefKJPShpfQAw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46ae35108762-0ad7f;
+	Thu, 29 Oct 2026 21:58:34 +0800 (CST)
+X-RM-TRANSID:2ee46ae35108762-0ad7f
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[112.23.104.16])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66ae35108b5e-32a98;
+	Thu, 29 Oct 2026 21:58:34 +0800 (CST)
+X-RM-TRANSID:2ee66ae35108b5e-32a98
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Qi Tang <tpluszz77@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com
+Subject: [PATCH net] ipv6: fix device binding after failed datagram connect
+Date: Thu, 29 Oct 2026 21:58:22 +0800
+Message-ID: <20261029135822.448299-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,126 +74,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu>
-In-Reply-To: <20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Thu, 29 Oct 2026 21:57:58 +0800
-X-Gm-Features: AclHuK_WpVrYhoxFjt0fFzoVltcEmX0dIv3cEJlmPJMkDPc9YKVqxhVZUIteE9Q
-Message-ID: <CAMgjq7AxShdVC6Ax+5USBSCb3c92MC3UVGLucxN47W_EmVcwDw@mail.gmail.com>
-Subject: Re: [PATCH] mm, swap: stop cluster list scans once swapoff clears SWP_WRITEOK
-To: mt4022@columbia.edu
-Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	tz2294@columbia.edu, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 11:21=E2=80=AFPM Mani Tofigh via B4 Relay
-<devnull+mt4022.columbia.edu@kernel.org> wrote:
->
-> From: Mani Tofigh <mt4022@columbia.edu>
->
-> SWP_WRITEOK is cleared under si->lock when swapoff starts so that no
-> new swap entries are allocated from the device, and try_to_unuse()
-> then waits for writeback of the folios that still use the device.
->
-> However, an order-0 allocation that chose the device can race with
-> swapoff clearing the flag and then loop forever.  It takes a cluster
-> from the fragment cluster list of a higher order with
-> isolate_lock_cluster(), the allocation from that cluster fails because
-> SWP_WRITEOK is clear, and relocate_cluster() puts the cluster back on
-> the same list, so the loop keeps finding clusters on it.
->
-> The looping task is in reclaim, and it may have set writeback on a
-> folio whose write has been queued but not yet submitted.  swapoff then
-> waits for that folio, while the reclaiming task, stuck in the loop,
-> never reaches the point where it submits the write:
->
->   CPU0 (reclaim)                          CPU1 (swapoff)
->   --------------                          --------------
->   shrink_folio_list()
->     pageout(F)
->       /* F under writeback,
->          write not submitted */
->     folio_alloc_swap(G)  /* order 0 */
->       swap_alloc_slow()
->                                           del_from_avail_list(si, true)
->                                             si->flags &=3D ~SWP_WRITEOK
->                                           try_to_unuse()
->                                             folio_wait_writeback(F)
->         cluster_alloc_swap_entry()
->           isolate_lock_cluster()
->           /* allocation fails:
->              !SWP_WRITEOK */
->           relocate_cluster()
->           /* repeats forever */
->     swap_write_submit()
->     /* never reached */
->
-> This results in a soft lockup on CPU0 and a swapoff that never returns.
->
-> isolate_lock_cluster() used to check SWP_WRITEOK under si->lock until
-> commit 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap
-> table") removed that check.  Restore the check.  Since swapoff clears
-> the flag under the same lock, isolate_lock_cluster() then returns NULL,
-> which ends the scan; the swap slot allocation for G fails, and reclaim
-> goes on to submit the write of F.
->
-> Given that this is a race, its reproducibility is non-deterministic.
-> We reproduce it by using a non-rotational swap device that is not
-> synchronous, with 64K mTHP enabled, where one CPU repeatedly pages out
-> two 64K folios and a 4K page with madvise(MADV_PAGEOUT), while other
-> CPUs run swapoff and swapon on the same device.  In my tests it
-> triggers within 20s in each run, and with the fix applied, it runs for
-> 300s without any hang/kernel report.  This bug was found and
-> reproduced deterministically using a deterministic hypervisor that is
-> currently under development.
->
-> Fixes: 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap tabl=
-e")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Before commit dda8fb68b590 ("mm/swap: also use struct swap_iocb for
-> block I/O"), reclaim submitted the swap write right away, so on 6.18
-> to 7.2 the loop most likely ends once swapoff frees the slots instead
-> of hanging.
->
-> Reproducer: https://github.com/manitofigh/swapoff-repro/blob/main/swapoff=
-.c
-> ---
->  mm/swapfile.c | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/mm/swapfile.c b/mm/swapfile.c
-> index 601979b97f95..2b03d14b5f52 100644
-> --- a/mm/swapfile.c
-> +++ b/mm/swapfile.c
-> @@ -627,6 +627,10 @@ static struct swap_cluster_info *isolate_lock_cluste=
-r(
->         u8 flags =3D CLUSTER_FLAG_NONE;
->
->         spin_lock(&si->lock);
-> +
-> +       if (unlikely(!(si->flags & SWP_WRITEOK)))
-> +               goto out;
+__ip6_datagram_connect() can change sk_bound_dev_if when connecting to
+an address that needs a scope ID. If ip6_datagram_dst_update() fails,
+the old peer address and port are restored, but the new device binding
+is left behind.
 
-Nice catch!
+A UDP socket can then keep reporting its original peer while sends and
+attempts to reconnect to that peer fail with ENETUNREACH. Replies to the
+socket are also dropped by the device match. The same problem occurs
+when a scoped multicast destination picks up np->mcast_oif.
 
->         list_for_each_entry(ci, list, list) {
->                 if (!spin_trylock(&ci->lock))
->                         continue;
-> @@ -642,6 +646,7 @@ static struct swap_cluster_info *isolate_lock_cluster=
-(
->                 found =3D ci;
->                 break;
->         }
-> +out:
->         spin_unlock(&si->lock);
->
->         /* Cluster's table is freed when and only when it's on the free l=
-ist. */
+Save the original binding before processing the scope and restore it
+along with the peer information on failure. This completes the rollback
+in commit 2f987a76a977 ("net: ipv6: keep sk status consistent after
+datagram connect failure") and preserves the new binding on success.
 
-Acked-by: Kairui Song <kasong@tencent.com>
+Found while reviewing scope-ID handling in __ip6_datagram_connect().
+
+Confirmed by exchanging UDP traffic over ::1, then attempting a link-local
+connect with a nonexistent scope ifindex or a down interface. After that
+connect fails, the original peer is still reported but communication and
+reconnecting to it fail.
+
+Tested before and after the fix in UML for three rounds, covering explicit
+scopes, multicast interface fallback, initially unconnected sockets and
+existing bindings. With the fix, the old binding and peer are retained,
+and traffic and reconnection to the original peer work. Also built on
+x86_64 with W=1 using adjusted allmodconfig and allyesconfig
+configurations, with no new warnings.
+
+Fixes: 2f987a76a977 ("net: ipv6: keep sk status consistent after datagram connect failure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+ net/ipv6/datagram.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+index 191c9733ff9fa..ff7a7ffbf9833 100644
+--- a/net/ipv6/datagram.c
++++ b/net/ipv6/datagram.c
+@@ -149,6 +149,7 @@ int __ip6_datagram_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	__be32			fl6_flowlabel = 0;
+ 	__be32			old_fl6_flowlabel;
+ 	__be16			old_dport;
++	int			old_bound_dev_if;
+ 	int			addr_type;
+ 	int			err;
+ 
+@@ -219,6 +220,8 @@ ipv4_connected:
+ 		goto out;
+ 	}
+ 
++	old_bound_dev_if = sk->sk_bound_dev_if;
++
+ 	if (__ipv6_addr_needs_scope_id(addr_type)) {
+ 		if (addr_len >= sizeof(struct sockaddr_in6) &&
+ 		    usin->sin6_scope_id) {
+@@ -261,6 +264,7 @@ ipv4_connected:
+ 		sk->sk_v6_daddr = old_daddr;
+ 		np->flow_label = old_fl6_flowlabel;
+ 		inet->inet_dport = old_dport;
++		WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
+ 		goto out;
+ 	}
+ 
+
+base-commit: d7314b51341c037973ce022f12c6009fd07b021e
+-- 
+2.39.0.windows.2
+
+
+
