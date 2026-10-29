@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300317;
-	b=x/e9q4n4mnAyQSj+f1kfRFPlDzb5lSDdODrzGhcg6Xn3SKLlP4dSGezBnhdKU3A9iyxc
-	 WbFzv9i/EmZ2qpg9+Qgjx9m3SSrmMboJg/nTvIPw0GF6VCVUMEFcfDDvNUkR+/5JWBxCN
-	 Ktjwba0X/QWAQKQfkLXKiY5Lqsq6/x+BI4GEErmZSThNkc4gYnrThi4YTbAPcdUyERTPN
-	 x9xvcVV3WEork4EB3xFgDY04x5eKJPbXXjVuqS6HlsaOD2y6VfJM4eQ41s9tXUK63f2on
-	 B4vEH5tAahlSvGlMwfeQ/tM/NSLAynYe+U/lEqQqrQVdPBv2VGbmB0NTCZWfJCLzlOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300317;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793300819;
+	b=u5+TS6Wwc1/UvhdWb3MuZXWUPJH1u/wKzrwADMKfb0npodj72h3iXW3cES0s7QbmuUNx
+	 r9KCNlx4EEu0LucdzU73PWs73OUANKYkFqXXXB2Vw2Zv8rhJM1LhuzBJLTi+C4B1hsdB5
+	 3P6dtYZ3GEUbqWhZBtnlxp/WXUZPjWyOCrrAKL8yUglQpq/VPjHrF/uSCfv6qDa0QsSRp
+	 qbcw/OiAaqgNLm+9g5U+8kjn9IwBGlYmYZtAtEZtiLIiIJy7kdCnl9P+qRTYRl4EQZekO
+	 2G933d5tc9Jj9JOohYQGeIF6xpL/KQUcr0DRJW65D78fBxmz9veV6ScPe8Fd2z/iEvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300819;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
-	b=zwCEC2fLePtqyz/3sWvx0ek4DZlWM9j0sDKQL2KSOlaOrQlLYO3KXgLAvS3bqpZI1fWh
-	 KM+cA/QDzThqq20uVURaBzaUHLfUOLDsMGjZrVhrkyIgaRKaLZlVfpkn3BADo2DGHoyA9
-	 oFNDH8tBe49XqwRr1MBDpMikTEwTGK7BK+SgpQg/8yhg+pe98PPgIvYqSeXq/3VSnk1Mg
-	 QqQn1xojKBPBD4PYLXQWGXoM1Kv6oFR5wxyYbx0yD23ZEfwLB8nfDfv4lbPSmm9ewKbld
-	 j/X27uiK+ryEI6PIlj++YC6sbQgqlWXMqfLbiFYyC4jJLxLSP8AJmuaKVsAK8vSXRrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SHGEAkqW;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
+	b=vjPZuydFT6JK0xFsN1YavPeflJsXjscthwyUmI2xWunZTzw2qz0RnVXwdymmrQrf52dN
+	 C/H4yqGSoOCEss+BsN2ed/iDZaOHbtooM2s0h/OsacPk+8LteD9x85/HVIdjgNtel8nlc
+	 GY8FKN4f57QZjeUbGsINA8jCZdLxT/8ay3WP9q29j1KfZoQX1g1dARMOjxtAUJgS6x8CM
+	 ibinikJWNSqEKW8YibwWDn2FZSNqtWtX7/t80Hb8ZoS7G16S2uudeNk/s05utKV1MGHCG
+	 rqVkoBSnGJtqYW64vBi9dV8HuzwHdxCz0Aw+a61HuSh+CoT14S8TfVOuHLosDkx41qg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.176
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3E960A260C
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:58:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3E960A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SHGEAkqW
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-14394530ec6so2892732c88.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 11:58:33 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C05E606A31A
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:06:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C05E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93a40a9a01aso130980685a.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 12:06:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793300808; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nGGJ510pG5cEaO2hVNnTHjPBwWrgDLDUezDe+HqaaXyNwyq3YqRwnctoadjvbE74Sp
+         OTN3kfViGW50wtXM5Lnt1ftuhPXGZ8CJ7hq2xLZGvlczTm634OkQoA3H1JfNAe3wYVNN
+         F6Yx842ltGkobGEWRU2X77oUpuu3njF8NnKi7sXnii+lxSLhGi/G3JzEP2rldROifFvU
+         KyK84ahLvgejgsKvwWS4ZL/aTthu4FGJICyHr6NUYgdUrv6+RlapuwwlJg7DWZSwBBRV
+         7fctmRd+VrDObmXQJuxdUn2nkitrn2ZFHE0CuewPlagnBamZSPnYP3hJslHhg+GfrAeP
+         MwYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
+        fh=7HjWocFcn3Ejbki0YkUUOlEysNkDycnGQ/VxJb2XK5Q=;
+        b=m4YmB3zbFV2dvjBM82vBUsJsvzaWFHb0yhnVjPwpHfG2pA3RMhp8gJdrN4G7YCf9pK
+         PJvPLBIjKA3zoQPePJtFgvqjXOmgsNI+SacTZb5fnrFSG849lKGiJcbkrpbdYMSSberq
+         hUE78s9uWX5++mWxEHth/gErVJOdu8IelSlVMOykRo0NszxKDXAiND1Vs51A5fdspQJI
+         wZvcrngXRV3PI5ZJWYRYvPVlmTTFzGmWBh1ptXL498dB5H4fISIEHsY+KvIIJiqeqKSq
+         1zjzSEmY6cS4wo6I0YqQBPUHEeVqeQyOoelPqo+97dZ/ooLeRx+w5YBkCONt0gnPKvw6
+         qFgA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793300313; x=1793905113; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
-        b=SHGEAkqWPsT/YfAZqG1IaYNh/Bv6h62Oq9yHdJ8L3qMsjd8lyuM6qKjkLlqT4UXNS7
-         Zf2sxePWISw+KvpcI8uv0soEzjR0e7DgqtAgGBvBNy8BkwFdwIPEuOOT/AMyMFllBvlF
-         uvZu8/0tVUifVKo8chRZuPqM4Gj61Y38pa4LAKzBrjIUZ1F+YLgDp0ccem0OPDXwGMqQ
-         6aGV6/TSroLOdjc6GQNYgpYWheQgsQaPv5aAvGr7lN5D4RkZhy23kBtQXQGNza2Kwe2e
-         4LyD3LGciVw+u0+MLIPxrr2hyk2viQfhvu/jCJaQUYi+ea0FMCROZBh1rXsr20Lhmb58
-         NPRA==
+        d=raspberrypi.com; s=google; t=1793300808; x=1793905608; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
+        b=fq3P/m36lKgYONgkNlKcJ2n9q0rQ0cY5YBE2kgtoKPzSV52E2ZypteL0Z0QDoMPJDy
+         MqKYMU7nlRPyMwaBc/K4f63oDt7/GI+zLotT2jdIqr/cn8LWVvuM5S3NB16IEWb50Pzx
+         szMF1kAongd8ARPufQSofgIaIR9PWT/MTiHGTkaaQbRddlhNy7GlPdAGkm4RAWEycbhX
+         QJhWQIf+HMbAuwyqCmZMQPYm89pOlKwV3HFOJ+XMI0+QJZfITDfaTys8G1Ibtw0xQq8s
+         1vl7SKsV6+wyBk9JEIELtxaZyuCIfxnbr8H2iSAVdFHO7TBOnR78aXvzviLBRpQcjY8x
+         RFRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793300313; x=1793905113;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
-        b=egDqFjzgZ4pbc0OhJigPousBdgvfFBFBgH5L0erCBj1dQPfUVIGl/jgtzXrqXTn8f9
-         hzjTjxZYlDR4S1Fq4mDlOZS9n5HNFSubdXWAn5BMSh6OXR/b+4GxCm975iAPqdA7T0Ao
-         s0siocNEb0ZzH7Fo+QxCuE7WJlK2RSol74JIXzrO4+E4jZQcxVXMeO7dRUfHqzymIpYJ
-         ExyuevzvTfk0vA5KgYE1ODRiojGZn0w918b0MFC+ehPM0jehjLRhPQWKTovNMuGNNK+b
-         hem84Xda+n2CIHlh51jrQsxpVWjZHms0DLY+9wSd6b9IBdNR/rquWGoTlt6mSXI7KcMI
-         9vtg==
-X-Forwarded-Encrypted: i=1; AKwUvBzlgTfEF1rs/gspX+jmQ78+14B6qmjF7xG/4b78kZVK5Ar5TT/bFVlIyiV8844aEYB0inKN8bE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFXcTsxkptmbueztviwZKPQU5ncMZFL9wMEIautnpOEDNkScuE
-	3MLcBjfnULm1d8RfvUjtvclT49JjpzFDiX8sk/2KrbA9+3TVoDiz0ZZ9
-X-Gm-Gg: AYBFou2CLEcIODOnqAcCECLlkyCkuGQcwwjLfQ/RjsLZZ8MwX3Wx/ukzUeiWgZPaXt4
-	hJHYjprWE3j+6F4gV4PovjpAFvJX9PzZwEmyJTmbxUXvGpI/4R/in/lvaGnt9bQA0tpMGoA2WfC
-	Bj6GDNjbRRKny8Su1fCv8w/SodM8qSlDTiF/KNiJ9NJu7TPQ2Dxpg41JTBK1zlLHkrrZ8iJRdxW
-	YyKg7qtoMHKP7S3bgRH4PlC8AOfM7/tVpMu8Y7HkafHd1J+IMPIW4YLSeXUS+AJ+7tCWotXdtH0
-	kfEJ17qg7GE8nd9EapKQyYXBKOP9viwUxcSOm4qmsPu68T98Qr/QBJPrry8+E728qj1Lqbpg/XE
-	aSqjFAHFbHNhTwQzwrMaR2qtu8FNH0irg3r6f9ZGoqVXNDtEDEn3EykDzVUSBrFf7nCknsFqR+Z
-	hsCNo3GyAPvbN3h2vwBdEeWSiyDCn1YGWufEL/KjbBQVWznXa9OjarE4q+6+1cBzhMTDg6qDa80
-	TqSu9RNAIwxckSYFIxN2xgRnT2xycRwLBDgfokxEmr9uxQGRxMQ5TzOAB6cwnbFJ0meP8qVKE16
-	wgdncjgtTzQKT4DsdQE56+i5N5zF1nLYKyTIVrJDhe8DuI1VUOnQbA07AKwg/t/8q8wzffs9l0I
-	vOL+syeCof/4isRPuBw==
-X-Received: by 2002:a05:701b:4589:b0:14b:cf58:ce15 with SMTP id a92af1059eb24-1a6d208add6mr7430450c88.43.1793300312786;
-        Thu, 29 Oct 2026 11:58:32 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8310:80a5:1043:3f70])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458fa3sm603891c88.4.2026.10.29.11.58.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:58:30 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Thu, 29 Oct 2026 11:58:15 -0700
-Subject: [PATCH] gpio: sa1100: defer GPIO chip registration to
- postcore_initcall
+        d=1e100.net; s=20260707; t=1793300808; x=1793905608;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rWF5af6pEo6EMA5BmrOrM6NUXFElHsCaPEA1nqKLyVg=;
+        b=Y66zH4LQhPvMHizoBiYnDz7qJebXvYIflHwavNPoTj6H9SWAONbNiruNJ+zeYj661I
+         ZRnCefs1oqCW3s6tm1qGktoJlzrqgpL/r/MUB9axCoYt2aH8IUhkUv8QOKue++/YhHsO
+         FrMoPI5VEs/eSoKHM6/uaTLZXLerVd7sqAnFDLE0+yomcrkUMuTnjIOeAX/NSYnaC0TE
+         AIGeGTCTXi8avWyyu+I45YzpSPT42yrsD7ihqGr2Z2L2nrQZ/yTsCIv01spkjQKbjFdJ
+         kubF4o8rK0tnpsdvNXl0mcamFbJkdHm1/tXLeGTmDtqmtHNs6yXESy8h9NWGX1N7dTvP
+         Skwg==
+X-Forwarded-Encrypted: i=1; AKwUvBx4Bx9HbL7nEihrPQ+Br0UFVHfN8X9RSftgggeM/bgSq47qf/tsNVDpTHe8ay6cAzMaVn86ArA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcH8CXRkZVCC5Lpngjv1CN6Ne0v74wXkVAyhKtp1aAQCYiN272
+	ZfLYQ2u1CC+D5W8l+MkcwZhPbGZW3GOyQj5AcCO50BpvU4Da//w5oLGjUdXDB1bLi/CSr37o3wg
+	ppkm9fahW3OXhz0Hc8L7II5aXnqkSSBdubjQ4m0/7pQ==
+X-Gm-Gg: AYBFou20aJskrb0eno0iSniDVN5gZ8bnrdFJzB3+t5LkEQPojVN9zv80KxycD3ggDqN
+	YvreRLQhhWDpqioubcQtUSIwCw7SEsi4NBu46zwj1uk6mzWztaj3iOc4ggP59BBo4r8iSz/La2g
+	I53457xmfby7Cjmn+cVGyQJ/DgUHAIVg33I5zhUKbhOOK0D6jY/zFI4R6Eb5iN7QHOGL7QbkE4b
+	3O24lCv925zfb1YjTxc1Z1FGk5o9Sk/8px8zytvvBPWiBtq4WuJqLWBhlhdp+/W0zFwC7dRdHFE
+	s6eUL6eS9VquF0Uv2vn0+N98EyTPerJXK7onAF5BZJrVgULcfjwlPcRuZe5WNY09gA+ezssbtpD
+	Obpw79nspAZ33S+Vi4oYxQwFlt/mMpKJFHghUZeH5WSdcjImP71dOxjvZfEeFVmiOHL1r+Dutr2
+	MOEO02FElbSaxCcGkmpOnsUNRaT8vLPu/jO9Yl2r084gw4F8hAZNsWfg==
+X-Received: by 2002:a05:620a:2815:b0:944:6ad:1b7f with SMTP id
+ af79cd13be357-944133c303emr496752985a.32.1793300808018; Thu, 29 Oct 2026
+ 12:06:48 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,111 +101,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-sa1100-swnode-fix-v1-1-112f4d83d191@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEaX42oC/yXMywqDMBCF4VeRWTuQSYsSX6W4SHS000WUjJeC+
- O5NdfkdOP8ByklYoSkOSLyJyhQzqCyge/s4MkqfDdbYiox1qJ7IGNQ9Tj3jIF8kejpX04ND7SH
- /5sR5vpqv9rau4cPd8g/Bef4AD6TQWXUAAAA=
-X-Change-ID: 20261029-sa1100-swnode-fix-11499713eb7a
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
- Guenter Roeck <linux@roeck-us.net>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-e56a4
+References: <20261028112154.855185-1-antoine.pichot@gmail.com> <20261028112154.855185-2-antoine.pichot@gmail.com>
+In-Reply-To: <20261028112154.855185-2-antoine.pichot@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 19:06:31 +0000
+X-Gm-Features: AclHuK_Jd1_q7feVJfoLbgxqQ5EoRwMls_1DdxR9BDGkGVOV5XFZSQbDS8rlPb0
+Message-ID: <CAPY8ntArdj338V8bcSxrmwKQecy-pAcCXMbkWy=qLckX=hawNQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for
+ the 319.2 MHz link
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	mchehab@kernel.org, hansg@kernel.org, andriy.shevchenko@linux.intel.com, 
+	dan.scally@ideasonboard.com, djrscally@gmail.com, dmanresa@gmail.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Registering the software node and the GPIO chip for the SA-1100 GPIO
-controller during early IRQ initialization causes boot hangs on
-SA-1100 platforms because the software node subsystem has not yet
-been initialized. At that early boot stage, attempting to register
-software nodes dereferences a NULL kset pointer before console or
-driver model initialization.
+Hi Antoine
 
-Nothing on SA-1100 platforms requests GPIO lines via gpiolib during
-early boot before initcalls run; only the GPIO IRQ controller and
-domain must be initialized during init_IRQ(). Defer registering the
-software node, assigning its firmware node, and registering the GPIO
-chip with gpiolib to postcore_initcall, running after driver and
-gpiolib device initialization and before board consumers register.
+On Wed, 28 Oct 2026 at 11:22, Antoine Pichot <antoine.pichot@gmail.com> wrote:
+>
+> The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
+> pre-divider of 1 before the multiplier of 133 and a divider of 4 after
+> it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
+> 2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
+> datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
+>
+> Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
+> 0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
+> range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
+> not change. The Windows driver programs these values for the Surface
+> Book 2's Windows Hello mode.
+>
+> On ACPI systems this table has been unreachable since it was added,
+> because ov7251_check_hwcfg() selects the wrong index. The next patch
+> fixes the index, so the two must go in together. With the index fix
+> alone, a Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10 150-frame
+> runs, 3 of them stalls; with this change 0 of 13. A Surface Book 2
+> (IPU3) streams clean with either table. Dave Stevenson measured on a
+> 24 MHz Raspberry Pi board that the out-of-range tables miss their
+> nominal frequency and proposed the same values. The 24 MHz tables are
+> left alone because nobody in the thread can test a change to them.
 
-Fixes: e4671f292ebb ("gpio: sa1100: register software node for GPIO controller")
-Cc: stable@vger.kernel.org
-Reported-by: Guenter Roeck <linux@roeck-us.net>
-Closes: https://lore.kernel.org/r/2a561a27-a3bf-4cac-a4dc-bfbc5c859f45@roeck-us.net
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
----
- drivers/gpio/gpio-sa1100.c | 32 +++++++++++++++++++++++++++-----
- 1 file changed, 27 insertions(+), 5 deletions(-)
+I have a 24MHz module and had tested with it, which you'd acknowledged
+in the previous sentence.
 
-diff --git a/drivers/gpio/gpio-sa1100.c b/drivers/gpio/gpio-sa1100.c
-index e4f3bf949b87..1916200ebbd5 100644
---- a/drivers/gpio/gpio-sa1100.c
-+++ b/drivers/gpio/gpio-sa1100.c
-@@ -8,6 +8,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/io.h>
-+#include <linux/printk.h>
- #include <linux/syscore_ops.h>
- #include <soc/sa1100/pwer.h>
- #include <mach/hardware.h>
-@@ -322,7 +323,6 @@ static const int sa1100_gpio_irqs[] __initconst = {
- void __init sa1100_init_gpio(void)
- {
- 	struct sa1100_gpio_chip *sgc = &sa1100_gpio_chip;
--	struct gpio_chip *gc = &sgc->chip;
- 	int i;
- 
- 	/* clear all GPIO edge detects */
-@@ -330,10 +330,6 @@ void __init sa1100_init_gpio(void)
- 	writel_relaxed(0, sgc->membase + R_GRER);
- 	writel_relaxed(-1, sgc->membase + R_GEDR);
- 
--	software_node_register(&sa1100_gpiochip_node);
--	gc->fwnode = software_node_fwnode(&sa1100_gpiochip_node);
--	gpiochip_add_data(gc, NULL);
--
- 	sa1100_gpio_irqdomain = irq_domain_create_simple(NULL,
- 			28, IRQ_GPIO0,
- 			&sa1100_gpio_irqdomain_ops, sgc);
-@@ -342,3 +338,29 @@ void __init sa1100_init_gpio(void)
- 		irq_set_chained_handler_and_data(sa1100_gpio_irqs[i],
- 						 sa1100_gpio_handler, sgc);
- }
-+
-+static int __init sa1100_gpio_init_chip(void)
-+{
-+	struct gpio_chip *gc = &sa1100_gpio_chip.chip;
-+	int error;
-+
-+	error = software_node_register(&sa1100_gpiochip_node);
-+	if (error) {
-+		pr_err("failed to register sa1100 gpiochip software node: %d\n",
-+		       error);
-+		return error;
-+	}
-+
-+	gc->fwnode = software_node_fwnode(&sa1100_gpiochip_node);
-+
-+	error = gpiochip_add_data(gc, NULL);
-+	if (error) {
-+		pr_err("failed to add sa1100 gpiochip: %d\n", error);
-+		gc->fwnode = NULL;
-+		software_node_unregister(&sa1100_gpiochip_node);
-+		return error;
-+	}
-+
-+	return 0;
-+}
-+postcore_initcall(sa1100_gpio_init_chip);
+You've got me sidetracked into doing the cleanups, and that has
+included validating the link frequencies on a 24MHz module.
+I've pushed where I am to
+https://github.com/6by9/linux/tree/rpi-7.3.y-ov7251. Patch "media:
+ov7251: Add support for a 400MHz link freq" fixes up all the 24MHz PLL
+settings. I've also done the conversion to use the V4L2 CCI library.
 
----
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-change-id: 20261029-sa1100-swnode-fix-11499713eb7a
+The cleanups do raise the question of what registers 0x3016-0x301c do,
+and which of the 2 variants is preferable (60 and 90fps both use the
+same values). The datasheet SC_CLKRSTx naming isn't exactly
+descriptive. I don't suppose you have any information?
+It would be lovely to ditch those tables / merge them into
+global_init_settings, retaining ov7251_mode_info_data only to provide
+backwards compatibility with those clients that use
+set_frame_interval.
 
-Thanks.
+Feel free to pick up any or all of those patches, otherwise I'll come
+along behind you and submit them.
 
--- 
-Dmitry
+  Dave
 
+> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
+> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
+> Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+> ---
+>  drivers/media/i2c/ov7251.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+> index fce6344b5120..f429de5f1f7c 100644
+> --- a/drivers/media/i2c/ov7251.c
+> +++ b/drivers/media/i2c/ov7251.c
+> @@ -174,9 +174,9 @@ static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_240_mhz = {
+>  };
+>
+>  static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_319_2_mhz = {
+> -       .pre_div = 0x01,
+> +       .pre_div = 0x04,
+>         .mult = 0x85,
+> -       .div = 0x04,
+> +       .div = 0x01,
+>         .pix_div = 0x0a,
+>         .mipi_div = 0x05,
+>  };
+> --
+> 2.56.0
+>
