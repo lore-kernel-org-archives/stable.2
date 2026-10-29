@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270711;
-	b=3f7L2lEZDMRuLBLj2cOWIwnaZbHzwhDG9TNWS9n9qQAm8nGlX5Xkf1fc/+k5SXtGWr8a
-	 nvYXBGVtA5VRvjxTW/QoSw/4W72p4c0B33GUn214Z5ex/DS2fqHE0hyfiP0rBgGpiBLBk
-	 huNuSa2exBQZRQqoUhDcpbdtJi0gIGD6pORZB6V5mhPOplYU3mCUnkBjUFvWWY/tuD5DY
-	 O3JRcitL2x6cgyeVq3Vd6F2/qseOGsRdlTpJvn2o44pIeyGU7amXzqO/0KkabWd4eXnwq
-	 FzO4teGucQEFk5v4Ax4t+2OxWIujrSQFRM5s1/IGmKDaFGHsfcdryxc2Bsf/LoaE05Q==
+	t=1793270728;
+	b=yA8bul8vkNoE44s86X1NdTbeWO1mN6wIPoGEEgbOk9k0D4evToL1m/K9Yr8dgwBvcJRQ
+	 KgqUE1risAOVL1rO1JCcocYo9Bo9SEeES620MKa6+OBr3W5f+MxHU4L7OCORD0HP9fIAn
+	 bVnrO+lNRMR1nviN3DBfmRV1TEf8fKnAk83eZGnpfB/3F4qTagIya1JJToTjNvarGz56+
+	 lR9dbxenb4M8dZM9owWswIrKWxSYuWRElJc6mzmYK1tI4RE3hIwWMCLTnxI2cAFCE3wWE
+	 K8pxQkibkx/Y+8aWs917HdgQK+L2dK8c6BPQLD2JUZU19YvJ1qec61rISrR0m9sTaGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270711;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270728;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=AEPuOS39iMOT1AtyD14etoYTLMUy392NJap8KxtSbSA=;
-	b=xQQ26Chv+NTJ9GAzoL1YMV6xwOyHIRZY0f4CnHqiyo+VecYrRl0shAPprJMQCTl1Z8Sy
-	 JB37Hmsgtdf8Rj5X50NVp2Pe0NW15LwrOo/6RVI2UdMMiLEYi05Not/o4Zu3JVJImKQzl
-	 GVK4/HHxilRVuOGwmBxDroxWXf9lK97Hlc8P6QN8x8UzVncrtYWwyTMQ3g9d7kASoys6T
-	 EnIuURVXhbt76F36ezPSmOlQCtmjbnHVCCJ5Hv+yChRFpfDqG3rgjIKa+Cx2D7J70RpZ0
-	 cbBc8vDWlnmb31BYcA3oPazIVT0pqigp2fe3qw9R3M3oB5ncdf6G9OhSi4EQ33j034A==
+	bh=WtiqQ6mgNUmco+qazPoILLniPuDRWOn9KFRt0uj6Dkk=;
+	b=esLUx5X0kKvLEpFqKThE1wydwd0GQVLElcbmQpugj7VQ1AOYmRTDJcC0xKAxfGZ2XkN1
+	 UKTJ83WJmQA9p6Dvd094yCFJ1Ekuyr1Cb69ekdE+VHHoPKmMa+pSsdMqu30m1gJzJA1mj
+	 IGG7tZ4/JVdpDYNrAkV0EfixkaQY0sBad/1datTtA73ku9PWT6Qa1tCBk89N+2MT1NLRw
+	 PnSJTYboqxTH4LgjO1G+lZxotggkfNYQdIPNHNvHAUgqr/9gQmkNIHgyMGdrj0CaVRDKO
+	 QgguaXwFugL23VVasERVWN9TKQjZd0Gjg34gF8ipAiVKAaJxT99kUx/DO++DwoamqSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W8E+Cden;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnHzwDpJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D04606A31C;
-	Thu, 29 Oct 2026 10:45:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1426D606A320;
+	Thu, 29 Oct 2026 10:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W8E+Cden
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2161F01828;
-	Thu, 29 Oct 2026 10:45:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mnHzwDpJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C084B1F01828;
+	Thu, 29 Oct 2026 10:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793270710;
-	bh=AEPuOS39iMOT1AtyD14etoYTLMUy392NJap8KxtSbSA=;
+	s=k20260515; t=1793270727;
+	bh=WtiqQ6mgNUmco+qazPoILLniPuDRWOn9KFRt0uj6Dkk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=W8E+CdenzSDdHs45AxnPumF3FatOKMf8gv/+2TZlirGjhixsHG/6GJqoiygMaICKz
-	 fRQsV7/5KRmuV4I3WM1BlhFfuj6drND5kRzsRagDA+8XA3v2ymwpbQM46g08Y3AFay
-	 znjg7ecOfoAq0NSNXQlN/mg6qoFRidmHdYjkq9l7KGxAReBYWK6h9x6ZtwwWSuw7nx
-	 sRI6MovwXTg9yt6so/m5g94v/X+lqUoIfO4oAc4UBXnlOU8rS590UTuyWcEPErpOHM
-	 9tXNFp/UXX98xctwvVqWL/o8A8Ve249k8phQDGzxcmEDsZ6M6KI80u+ogxbCYALfnc
-	 ejw7KACrCpXfQ==
+	b=mnHzwDpJlycNAPBXDqupQKEHQtoa5a1SRTgFumF7QI1vKnWAloBp0UyoWv4EV12ej
+	 /ZIk7mdQhNL5EIx634OvxLw8A0uGNa/rBLQkCL2WvKNzoLGefvVBXnMvEv01EtgAND
+	 4mnurpSDUZJFTxtiGlDlQS1I6KKW3wYtYjANajlB7nJa1XvIVOtx/nK/fEiD88YZMI
+	 QfeWRWUbQ4L/Wr/TPdNCid7iRid05tHMjuEejhfS+2fWHMISJVrkpCXGm+l96V4MT9
+	 TImeTrFlkBJaIgFqqDwwyW4M1x8ONzlMgplEUzEt0mFcS0YehHadcKCSkMgFaty7BX
+	 PBUC6ZtqXioYw==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 11:43:30 +0100
-Subject: [PATCH v4 09/15] mm/shmem: discard whole new large folios on
- fallocate rollback
+Date: Thu, 29 Oct 2026 11:43:32 +0100
+Subject: [PATCH v4 11/15] mm/shmem: fix truncate hang in large swap entry
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_shmem-v4-9-392fc715d8f6@kernel.org>
+Message-Id: <20261029-fixes_shmem-v4-11-392fc715d8f6@kernel.org>
 References: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
 In-Reply-To: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -78,54 +77,108 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, stable@vger.kernel.org, 
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+ Chris Mason <mason@kernel.org>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1588; i=david@kernel.org;
- h=from:subject:message-id; bh=EsQBDFsf4HLOrrUjsCbpKGaKH12qFBA6scTqE8mNROk=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4d3vldzN/NYt3nr0a4Juquurqz0Sp5iuXKW8jr+Y
- 0qfS3nyO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjIUT5GhkUnNOMfHgjZFi0Y
- cizh/+nOL6e5dp/JVeW7YSN//95rw0WMDDeX+t4VfmdiI+P+fDfHoY/MsTpC5XvmJxzVTKyNrSn
- UYAEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3891; i=david@kernel.org;
+ h=from:subject:message-id; bh=613Vl4NTTalBRyxJuidD0xGKjT0hH85ba2S5eQweaQU=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4fzObh2zToQe+/nhbi7+h3Vuzo/5n/i4J5+I+Nfh
+ 9Udg9AzHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzk4GtGhjuySxa9/BnEeUri
+ phfrnfOyqY5cl51PepnPUWEsS1S9uJSRYWbtBuUpdopKt595H8jlvvrj2W9xt5Svul+flkfYnH0
+ ryQoA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-When undoing a failed fallocate(), shmem_undo_range() must discard each
-newly allocated folio. Its second scan instead passes large
-folios to truncate_inode_partial_folio(), which does not necessarily
-discard the entire large folio, but instead tries splitting it to
-discard only the requested range.
+Truncating a tmpfs file or memfd to a page-aligned size inside a large
+swap entry can loop indefinitely in shmem_undo_range(). The task holds
+the inode lock and cannot be killed.
 
-For example, with huge=always, a failed allocation starting at offset
-4 KiB can leave page 0 allocated in an otherwise empty file.
+A large swap entry represents a whole swapped-out folio. For example,
+truncate a file whose pages 0-7 share one swap entry to four pages:
 
-Discard the whole folio when unfalloc is set. Note that we enter this
-path only for folios that are not uptodate, and can consequently be
-dropped without losing any data.
+    [ 0  1  2  3 | 4  5  6  7 ]
+         keep    |   discard
+                 ^
+            new EOF, start = 4
 
-Fixes: 55ac8bbe358b ("mm/shmem: fix race in shmem_undo_range w/THP")
+i_size has already been updated when boundary handling asks
+shmem_get_partial_folio() for page 4. Since it is swapped out, the helper
+calls shmem_get_folio() with SGP_READ. That rejects page 4 with -EINVAL
+because its starting offset equals i_size. Nothing is read back.
+
+The final scan cannot free the entry without losing pages 0-3. It skips
+it, restarts from start = 4, and finds it again indefinitely. An unaligned
+truncate avoids this particular failure because the requested page starts
+below i_size. Folios already in the page-cache cannot trigger it as the
+direct lookup will return them beyond EOF.
+
+Fix it by letting shmem_get_partial_folio() call shmem_swapin_folio()
+directly for swap entries. This bypasses the read path's i_size check,
+allowing the existing boundary handling to zero and split the folio. If
+swap-in returns a smaller folio, it also splits the swap entry so the
+final scan can free the entries beyond EOF. Retry the lookup if the entry
+changes during swap-in.
+
+Handling swap-in allocation failures remains broken and is unchanged by
+this commit. Even when shmem_swapin_folio() correctly returns -ENOMEM
+instead of -EEXIST, shmem_get_partial_folio() returns NULL and
+shmem_undo_range() skips boundary handling. If the large swap entry
+remains intact, truncation can still loop in the final scan, while hole
+punching can return without zeroing the boundary.
+
+This may read an entire large folio back from swap while holding
+i_rwsem, only to discard part of it. Avoiding that I/O would require
+splitting both the swap entry and any large folio still in the swap
+cache. That, however, is much bigger work.
+
+Fixes: 8a1968bd997f ("mm/shmem, swap: fix race of truncate and swap entry split")
 Cc: stable@vger.kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reported-by: Chris Mason <mason@kernel.org>
 Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/shmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/shmem.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/mm/shmem.c b/mm/shmem.c
-index 11c3e6b1aa76..151704b2091d 100644
+index e96dc3beac95..e1b7cf4b5280 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -1473,7 +1473,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 				if (!unfalloc && folio_test_large(folio))
- 					folio_mark_dirty(folio);
+@@ -1298,12 +1298,10 @@ void shmem_unlock_mapping(struct address_space *mapping)
  
--				if (!folio_test_large(folio)) {
-+				if (unfalloc || !folio_test_large(folio)) {
- 					truncate_inode_folio(mapping, folio);
- 				} else if (truncate_inode_partial_folio(folio,
- 						lstart, lend, NULL, NULL)) {
+ static struct folio *shmem_get_partial_folio(struct inode *inode, pgoff_t index)
+ {
++	const gfp_t gfp = mapping_gfp_mask(inode->i_mapping);
+ 	struct folio *folio;
+ 
+-	/*
+-	 * At first avoid shmem_get_folio(,,,SGP_READ): that fails
+-	 * beyond i_size, and reports fallocated folios as holes.
+-	 */
++retry:
+ 	folio = filemap_get_entry(inode->i_mapping, index);
+ 	if (!folio)
+ 		return folio;
+@@ -1314,13 +1312,14 @@ static struct folio *shmem_get_partial_folio(struct inode *inode, pgoff_t index)
+ 		/* The folio has been swapped out */
+ 		folio_unlock(folio);
+ 		folio_put(folio);
++		goto retry;
+ 	}
+ 	/*
+-	 * But read a folio back from swap if any of it is within i_size
+-	 * (although in some cases this is just a waste of time).
++	 * Truncation can look up a large swap entry at or beyond i_size.
++	 * Swap it in directly to bypass the size check in shmem_get_folio().
+ 	 */
+-	folio = NULL;
+-	shmem_get_folio(inode, index, 0, &folio, SGP_READ);
++	if (shmem_swapin_folio(inode, index, &folio, SGP_READ, gfp, NULL, NULL) == -EEXIST)
++		goto retry;
+ 	return folio;
+ }
+ 
 
 -- 
 2.43.0
