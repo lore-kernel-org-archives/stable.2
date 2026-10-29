@@ -1,98 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793257943;
-	b=YIJwIAvM1bPcOu4qlMI8tBp5zXHaVExV4Ja7xWmA98wPZIAsFKori1NXnztjJ8E5btzl
-	 Uslc8UvixAhvYXfpnBpA5k8l3aSpR0xpUd4P8LO/WikLgYtqmtwAoRnJg5w9osDpaniy2
-	 KI4Yx1TuZI5h7afSwfgV/Oym3U51h2xA36yDxF8XEM3F9LxkuoFQbHgLo7wL0w3osigOB
-	 XWr/naRtG2parbLeBfwaUBmJv3cjNnmiHInsDfbbBNtTDzD3eeDrqFrGnw3xzz0DliC+5
-	 WJ0LOvyShmkZvYZFS2vnlqz217GL16Jv8OwWDm2betDsZWaN4SDcIJ8PRemUvw8XeMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257943;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
-	b=Cfv8nrd2nRLnR1voN3O+9yUUHz1MrBnbX5mGYWQ/GwHuu9aqOzaI7nDPSsGdOMzrd2SB
-	 Vi4a9n4tYhothDDQh+HRF3Aw6x/gZVkzPmrVfKoGQkkBr2cDxFNxafi363e3AyyfQhUWm
-	 ytRAGqyXgfoqR0RL25MzSUyEEsrT9zYkxqKQsCjZoAkOiGDIM5H6jIUQhSrVwxqxRUTcI
-	 AXWcwK4yKc3rLKsfmpr8UER4t3FSU9XTrHdMqTuzcsDyre0aNORA4sO39iZ+Dhjcfu//0
-	 ySKEQ/T9VEruhOlZXiDevTs95r4hYBUOxp+ge8AZoqIVBAtWUlSpTvgjnLAFO8EI/yA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w+dn/dwg";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793257958;
+	b=iznOt0P8URoLnqXieNlzK7D3MR8AAFbf53F/djh5cMb6mt6Ir/1M0VVbrkER/yAravG+
+	 CTBARu5z+VrSIrGN4kJgdZdDHrjNFv6zlUqWseUi5qTlejreoNkXjnG2PIiGQPp7ZNkMp
+	 jpJHFgO4+QqyRv97r+nOInLuKXlKXX0eC/JDuppqj6GgAVoqvQdgRyYODlK4DdGC3TdeF
+	 YGCA1amtFR6BAL1fIqgvhLdR8YufGnYQUBLvXoEyq1pLdtSCG/pxPtJxygFMTcYlv5+cc
+	 jBKa+M0AIkbkJebKrUUTFEuDzWMe+hgV31POOAX9Ur/nl//6CUAobsCf9qogtOe2g9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257958;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=YE3HaUFMXr1zHYphXLYt4rfKv0I9yidvNxJtP4SlTG4=;
+	b=Mwxi28au8SBqAes5ScnJvJgKpB8PHMAPMwvUj/bhqTjS/uJYDiQERs87n7HOVjkeM8mB
+	 IyR9QYmlWqNkpRL8TA4Rkd/ZpfTNL8sDMGZ3HQ1xesR0H3NpuNocHGqU220hC/n27ol6F
+	 sunCJ1u/N94J4j8EPkuS26X7BgSzNtKeWz0RlIzRYLwOA0o2FYRmROZ+gOgc5pWuupO65
+	 3dK9Gf7ka1HGgXjiWII6DaiyGRQb0W9aLVHgch8h3c9IJi+67ZOQOTsiEboIRxIqhRZg4
+	 ArjEomlrgy1742DYQWBvjtvnqnljo1hpqj30OZp7Uvh1N3yYDq3JESO0LiXIHYBlCWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GYOZgeZC;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A1B606A32D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:12:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20A1B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05395606A31C;
+	Thu, 29 Oct 2026 07:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05395606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w+dn/dwg
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a215e64962so19042645e9.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 00:12:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793257941; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G+dDbAMVXOpoF5J9clBhAiolHFNm5Aa7KN32fqwbja9rWbDvxQ2TY70+wXr+4TJdbj
-         uJqYGpt8Qq/kSzSZwLY8TUlm++DR1jDUXpYJ2JQu3rInvpsbefPDXvqd4j71TkbkhA8/
-         Kp5Eijj9a2t4gpbq1/66qAQoEd4j+8Ju/fvfbnZqnn5u3XCte1EuamUHcK6g3M51ugjP
-         kztuF5lfBuL4HcOMHct0FAPSCILcuDalTgJSmkfppxBhmPcXhFHePk9581U//+WaliUx
-         oy9woXguRL6jjPOiJT/gWpqLP0i4dMaXaws5QjcWuKTPYAhh2ZaM2NHoZPvhZo7nMZF1
-         Nmkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
-        fh=HUCiENu8BM7nNo0odZFS+DUhMMpxHDyZNZR0mlgpqGs=;
-        b=Kzu1Nnu2h/9iZGgXtsr/s1y4vuTXRRv0WDX/FI6+7hFAXABNSL8C+Y0ZUKy8HbKji3
-         3m3tyxJuB2tDp+rt3IX6VYlnfwg3ozPOC8HBqq8p7CziIiwxFefrn7fIzgOUX1PVLK7b
-         t/6qjl3/z8mYwwFepGKCRh4PQE0ICZLS9C4sOr42ewFUjwehhWCno45psg9GbLA7ou/e
-         8hp5GxAL1+E41z9x08w8ZuiPYvnmK5tr8TyC9k07MkidAsCdAGUsgup6gAbJXMkjO9RN
-         BtS4E7zREMANZY/GEP4wC6llCudrus8/GgWuI3hWah5/5EG9zIN+v+Th0KA7exvT4YbA
-         w0lw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793257941; x=1793862741; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
-        b=w+dn/dwgtbrysHaAXv9ETJPfMsaFELE4gakBZpylLTZ5oGcJrz5KSTONKHRlOdE2I4
-         IWwoXJjpxNpfxrVO2kDMbcup7bpMDblzyW+qq7XJI/IJFjCe4wqkAHp8PB9Cy7oyNhOF
-         unwwH+zFYGfXrW7pOQHwxSYLXWpKmpbcLrGKBqh8OKO+bLeAU3dxFPBtGnFChn/8keYi
-         XVVkXjIP6SzJ3dv01NteeWbX91ClybUiHZT7/g/Ua9i9YO1VAI1S8Xd8/InCgNtdg0yv
-         rdsozN/MTriCUneq8he1ytUB8+ohVVoULeuVXz8xwsAMHAHhQXQo1AsAI4pQCorBJX27
-         KESA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257941; x=1793862741;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OKTunFxy+QwpzleRwVzIIagIb2M+Uzm8Zh8ZKBDtS0U=;
-        b=OSrod8j8DZCRDbbCEYh13zZkfv3VdQgwkBpMW248zxhdyLYOhs7akZV/D52iMfmIJ6
-         nSdjA4wlZasO0wlMzpghLsML1DkCw0Axe9s6sCETZOt6ybhKwYAr0Rd7DyzvfWHxFmtI
-         Y3DgiLCT5jRayMKmoq7WKhqzoevTDmVGf9wo1lComDGuAMBjkvOGW4UBrrbM1l5Nigqo
-         Up+QkNw1dDoGOwXxTOy4g0W3mnsXG7kPvUOV0YBTwsjKFos2wHki9oe1wQz0LFao2TBM
-         nfLj8oWMyR45xbZ5VaJHoZ0WRALPPjQfDJDo6xnx9chivXWROLBB2syDQl8Qil8rUtZH
-         V6Kw==
-X-Forwarded-Encrypted: i=1; AKwUvBww6vwMtDy64NKqZt6uPoqkUwdF0e+IiYfjCYOtSpqT8lkhLzl46nkEp85A/u9juhz9kPCS7qg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhxRTWIM2WZ31Tb7P3iCrPiSDDL3T9XmBcAMGIk+M8DZam50Dw
-	vtfXyZSK+Q6/prw1F5gDza8pzJJ/s4RSQrH8lBZuePI6Uw3W3JKi6M1g1m5ksCh5VMyroN+0jpY
-	ULMsokzy6Wgl0bUIt1R+D3xULl9NR+zM=
-X-Gm-Gg: AYBFou3zmYby1h+d9hdOYOXdzvl/leXOK5TdSvcfltQPmOb+82N3cFcelITVAaJZkpb
-	MbmZjKl+pD+379Moq57n2d/UKwy0TQPv0VXSLYiGk3mPaRBIZJDF0XnTVz0S741GpHPvQhDPNvA
-	s0lxIrhlOLXDJ1yTCIHRQGirLFnmCrt5GI5I5KCHq509vrCaW1+PcPZwrqxhKcnQ7ztJiBLfnW9
-	/G3mlkM2M/er5/7rynE42SZZxrEolmmOfr9s/darfN6Y6IciwtbllQFkMSs6hdZSrdaDeFjkaxU
-	5aaM0JAyjwyKQbwR46BPT/aVMpMza06JPirNEBn2WGYvHO/YzmvI6ksnk4MahX9wJvOlG+JBrjc
-	940HXmLiENsMcOQWH6QfKcsjbdctL6JSAoTbXFpMFoZHE+QVzyTaiOGiXlEqBlB6Sa/affLSj56
-	qIsPc+hFT/NPgvuLGNFg==
-X-Received: by 2002:a05:600c:1f94:b0:49f:fdca:c361 with SMTP id
- 5b1f17b1804b1-4a9663995a8mr105499305e9.12.1793257941322; Thu, 29 Oct 2026
- 00:12:21 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GYOZgeZC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=YE3HaUFMXr1zHYphXLYt4rfKv0I9yidvNxJtP4SlTG4=;
+	b=GYOZgeZCLW/kRTBVJQyYzM2lWKL4NY3GGhuiRRHKPMefJkxwM1uxAd+py4lBkw
+	Se9N4EpRA1N/3KO31Cz8Gqa1H1I1KTInjBotYwVtsB5671WXJuPLuSd2DTPz1sp1
+	PLBHZxuocC3wAZKQeWTqYsFAyU0kQXfux64TLG5JHrJWk=
+Received: from [IPV6:2409:8900:1fd1:c0be:78be:cbf2:dfd7:c36a] (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgBXy5bL8eJqvRzvCg--.27646S2;
+	Thu, 29 Oct 2026 15:12:14 +0800 (CST)
+Message-ID: <6be3a4e6-e345-4bfe-80b3-d3f4d34e6bc4@163.com>
+Date: Thu, 29 Oct 2026 15:12:11 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,70 +54,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Ahmad AG <ahmadag1001@gmail.com>
-Date: Thu, 29 Oct 2026 10:12:08 +0300
-X-Gm-Features: AclHuK8oIQAbFPj51xALKq0pQMpaX8tYjUogaYqwbvGOzn7JupmqQ2AXYVRoUe8
-Message-ID: <CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com>
-Subject: [PATCH net] net/packet: charge fanout groups to the memory cgroup
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: kuba@kernel.org, davem@davemloft.net, edumazet@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
+To: Shengzhuo Wei <me@cherr.cc>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>,
+ ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
+ <374bf856-f880-4fa2-abec-c4b2a063bf57@163.com> <auLlFEHMZvANXUvU@kernel>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <auLlFEHMZvANXUvU@kernel>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgBXy5bL8eJqvRzvCg--.27646S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr13ZF13KFWDWFWDJrWxXrb_yoW8Kw4Upr
+	yftay7Kw4qqrn7ZrnFy342q3W09w48AFW7JF45WF4xArn8ZF1S9ayYgFy0vas5C397JFWU
+	XF4Ska4xAw1jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTCJQUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4DzWri8c5SpQAA3p
 
-fanout_add() allocates a new group with room for max_num_members
-socket pointers. Since commit 9c661b0b8544 ("net/packet: make
-packet_fanout.arr size configurable up to 64K") that is up to 64K
-pointers, 512 KB per group, from a single PACKET_FANOUT setsockopt().
-The allocation uses GFP_KERNEL, so it is not charged to the caller's
-memory cgroup.
 
-Each packet socket can create its own group, so a process with
-CAP_NET_RAW in its own user and network namespace holds about 512 KB
-of kernel memory per open socket that its memory cgroup never sees.
-In a cgroup with memory.max set to 16M, 256 sockets each creating a
-group with max_num_members = 65536 took 264 MB of system memory while
-memory.current grew by 380 KB.
 
-Allocate the group with GFP_KERNEL_ACCOUNT, as other allocations a
-user can make on demand in the networking stack already do. With the
-change the same test in the 16M cgroup is stopped by the cgroup's OOM
-killer, and with memory.max at 512M the 256 groups charge 262656 KB
-for 264640 KB of system memory used.
+在 2026/10/29 14:17, Shengzhuo Wei 写道:
+> On 2026-10-29 10:07, liubaolin wrote:
+>   
+>> Hi Shengzhuo,
+>>     Could this deadlock during MFT bitmap
+>> expansion？ntfs_mft_bitmap_extend_allocation_nolock() can recurse into MFT
+>> record allocation while holding mftbmp_ni->runlist.lock.
+>>
+>>    With L being that lock, could we get the following interleaving?
+>> A and B are $MFT::$BITMAP folios; B is outside the cached iomap.
+>> Time flows downwards.
+>>
+>>    Writeback                        Bitmap expansion
+>>    ---------                        ----------------
+>>    lock A
+>>    set PG_writeback(A)
+>>    map A (take/release L)
+>>    add A to wpc->wb_ctx
+>>    unlock A
+>>    [BIO still unsubmitted]
+>>                                     take L
+>>                                     extend bitmap mapping pairs
+>>                                     need another extent record
+>>                                     ntfs_mft_record_alloc()
+>>                                       mft_bitmap_alloc_free_rec()
+>>                                         lock A
+>>                                         folio_wait_writeback(A)
+>>                                     [wait for A's I/O, holding L]
+>>
+>>    lock B
+>>    set PG_writeback(B)
+>>    ntfs_writeback_range(B)
+>>      __ntfs_write_iomap_begin()
+>>        down_write(L)
+>>        [blocked on L]
+>>
+>>    Cannot reach iomap_add_to_ioend()
+>>    to submit A's pending BIO.        Cannot release L until
+>>                                     A's writeback completes.
+>>
+>>     ntfs_writeback_range() obtains the next mapping before
+>> iomap_add_to_ioend() can submit the pending BIO.
+>>     Would we need to submit that BIO before taking the mapping locks?
+>>
+>> Thanks,
+>> Baolin.
+>>
+> 
+> Hi Baolin,
+> 
+> Thanks for the analysis. I checked the paths and agree with you.
+> 
+> Following your suggestion, I prepared a change to submit the pending
+> ioend before obtaining a new mapping in ntfs_writeback_range(), clearing
+> wpc->wb_ctx even on error to avoid resubmission. I plan to make this a
+> prerequisite for v2, retaining all six waits.
+> 
+> One concern is that submitting at mapping boundaries may reduce BIO
+> aggregation, including for ordinary file writeback. The change has
+> passed object builds, but has not been runtime- or performance-tested.
+> 
+> Does this approach look reasonable to you?
+> 
+> Thanks,
+> Shengzhuo
 
-The missing charge was found by code inspection of net/packet/ with
-the help of an LLM and then triggered with a small test program that
-creates the sockets and groups and reads memory.current; the numbers
-above are from that run. Tested in a QEMU/KVM guest on this tree
-(x86_64_defconfig plus kvm_guest.config, KASAN, MEMCG, PACKET),
-running the test as uid 1000 in a cgroup v2 memory cgroup.
-tools/testing/selftests/net/psock_fanout passes before and after.
+Hi Shengzhuo,
 
-Fixes: 9c661b0b8544 ("net/packet: make packet_fanout.arr size
-configurable up to 64K")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Code
-Signed-off-by: Ahmad AG <ahmadag1001@gmail.com>
----
- net/packet/af_packet.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+    That sounds reasonable to me.
+    Clearing wpc->wb_ctx on error also makes sense, since the submit 
+helper calls bio_endio() on that path.
+    You could run some tests to check the performance impact.A 
+before/after comparison of throughput and BIO sizes would help, 
+especially where adjacent mappings are physically contiguous. Testing 
+bitmap expansion alongside writeback would also help check the locking 
+change.
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 823e0911c91..406397acc5c 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -1778,7 +1778,8 @@ static int fanout_add(struct sock *sk, struct
-fanout_args *args)
-  /* legacy PACKET_FANOUT_MAX */
-  args->max_num_members = 256;
-  err = -ENOMEM;
-- match = kvzalloc_flex(*match, arr, args->max_num_members);
-+ match = kvzalloc_flex(*match, arr, args->max_num_members,
-+      GFP_KERNEL_ACCOUNT);
-  if (!match)
-  goto out;
-  write_pnet(&match->net, sock_net(sk));
+Thanks,
+Baolin
 
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
--- 
-2.43.0
