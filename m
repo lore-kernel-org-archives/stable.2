@@ -1,58 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268592;
-	b=qaKoxIle8jk3eez4qPqnMFGRy91cGPv8MnA/K1krwZZGikzEfb7FVbogOsD9/ZVDBPip
-	 mRBZMNCgsyBmiBKmHUTacbCu+Cp3uk+hX9PRS3hVe1JrDz1ypFjduukVSb+kAJanyVUgf
-	 lRSgODI2nJcRkxaMrl7lScM7T0nwvyctz4CdTrRqf3nxq7v6zLaDAcPnWgaEm4Fl9Rf/b
-	 KpGof147ct1hYBKmGdMR1Z6PHYqdmMD3tnuHYpisxThnftY2bvOsClOKjxwIjbSc04L8X
-	 ZC0YBc/nGQrhyB/wE49gNMhPzukueBQsjrfSXgx8E6xXS267SnIKMWF1s+1VTQKrgBw==
+	t=1793268654;
+	b=1/hrMXGMNnuvev65fifDCA9dtE8NLh0uzWm+brNZGvU8cx6itpUP9hLmRgzrE74qrKR8
+	 o2gAQk5upZfAoBhOYcxLq1L6J6vKmWZU96h7w+CaxVC2NnMUpWE6+KGGCA0srI0egSicA
+	 JyrSmR5P5Kyjlggdlr7ypaefREC32U6fyCg9OgE7dxUPbzpYd0hylcvbKE/DwgLrMEJ74
+	 tK8+eBdtsFigY352GP4ZY65AKt5r4xfuMv9j27yLOoMocgvCIjfQ4t5eEDbPMNcdI3Kds
+	 Sb1VtEpSRlA8w+bPdpxdvfnTe+C0x9MnDZIJdojed2jlXynVata3RbiVEBR3G+UzBXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268592;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nxNqgHP3UUpuLSiMHFFX/1xCgm70UtF7AKQcrmX1fpY=;
-	b=fYQJOV33VX3ex4gWJVhyzr3p+DWOAPou8KatYCIMZvTm8nlTUnPMvfBFKPb7htcVal+I
-	 /w+kuQiVgEb2jnC9TrWAXX8a7PuqGOz+RTye9CC21WNrk5KBW8DbfDUMxml0CPje1Y8+p
-	 jaP35RPnab5FJGMunaLkbXs73K1N3dno/Bmsl8T/uvj32CIflKYx5p0954eyPsYlVx3Bk
-	 yxQzdcWOfHts3HNDLmttQknAl2Ehs0SirORozNb1EILR0NB+K1Mm8yHo+rBTGOump9kch
-	 etJ6llEu3hk/onsP0su9rrlyRdrV51995Qvb9h3KnvESEg0Up7VoprfObtgeMDQ8KCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268654;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=7S7aeD29u+uvo9xWL5r0KzXNTY/J81vdo5wrgo2brgM=;
+	b=MyK2HEbyO7QtC7wzLFNm/UjvnAxfMoIdfSsrqdZNOFvQGJhA4vGZ3PpETbRB5f536CmF
+	 lBN/NM/tbCWwi38wGSxbukpoqfQ9qVZQZl5S0UfBLssJ/vCYlxh099hmb5Iw3oYkftZZ8
+	 6uWhbIXQXVr7+PBZBi/EHwo3dzQ12z8na/C42MWFqBkOtlmFIhNfxLe0vFWDjymszAjPZ
+	 DzRM7DWnlkt7sqDPg3Q+Ht4aXWPP0JDkUXjZEmLOUxbQ+vu20kfbZfSBNag75vJ4qQ1Df
+	 v4uAMnMyg/5K0WXKI04TND5GW6eTywAlkV83ssPUdlNUZiAevJ3aUMM/YijgPKUgJ3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYL6nkR2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=HHjucqyh;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4145B606A31D;
-	Thu, 29 Oct 2026 10:09:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41077606A31D;
+	Thu, 29 Oct 2026 10:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41077606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYL6nkR2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9FE1F01825;
-	Thu, 29 Oct 2026 10:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793268591;
-	bh=nxNqgHP3UUpuLSiMHFFX/1xCgm70UtF7AKQcrmX1fpY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iYL6nkR2kGVEIZgKxnVxk5ATyNVQ/EsyrGT/YLsuiPCj7ieJ1g6uwzlIw9w6h0MtQ
-	 AA9uYCTe55u5TNH0BxeybB+g65eDECrfucb0yJPxrCk47aBvU8lg/J7ZVtmVonG5MT
-	 U8nQrXMxKhHKkYOYc30igEtNrBd/A2jeaDt4BWMPs7jkeFVSw1RHESPzlPpZZQYzJa
-	 h9bl49LXKAmWEPMp54/0qG93a8AYxSXvG3Al7oRW85NUwqo2SBsvhfL1OWdheHt95Q
-	 L5GQWys/h1iSPHd9BxZXkHgc4S7KvXUkaBzC05lcpI27nk7/zJ6Ty4OxTlAUnJESav
-	 ia2qGR0SZ3GLA==
-Date: Thu, 29 Oct 2026 10:09:47 +0000
-From: Simon Horman <horms@kernel.org>
-To: Yuqi Xu <xuyuqiabc@gmail.com>
-Cc: netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
-	David Heidelberg <david@ixit.cz>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>, xuyq21@lenovo.com
-Subject: Re: [PATCH net 1/1] nfc: llcp: fix use-after-free when purging local
-Message-ID: <20261029100947.GE257209@horms.kernel.org>
-References: <cover.1791171477.git.xuyuqiabc@gmail.com>
- <1792999447.107874-1-xuyuqiabc@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=HHjucqyh
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C578810A890;
+	Thu, 29 Oct 2026 11:10:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793268648;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=7S7aeD29u+uvo9xWL5r0KzXNTY/J81vdo5wrgo2brgM=;
+	b=HHjucqyhckwic7V7CaO7vH/g4Ef2YKxvX5/FHehD7g1BiMHjq+lqNBAHCXYUL0m8rlLzeg
+	UtQMI4/aZFOz/sZ1gpkLEIS5eKMgjuSKEiSnyIerVAcm4IZ/KhJhm4ozG2PgRDvNWOrWN4
+	4NJd8DxQ9rc8+HX3YX2gNXmALxfRLd2S9+AcyAggr1QZhrq2j02bGE7JHTAYAgDSBFNkby
+	U2rLG7w4oICHi3fOfrPRwqZVuu1C24G+l7f+A1eU1PcIam/BcqPn/wPH+C+sUwZpYUU+hF
+	o4R/1EpXZbpVFBVWI00CZ3Dv4DyTixaxz33tfivNh2IjsUuxS4U1yF7Lfabjqg==
+Date: Thu, 29 Oct 2026 11:10:45 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
+Message-ID: <auMbpZNWZ4roHz7u@duo.ucw.cz>
+References: <20261029073135.159947193@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,27 +67,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="UNC18e+Z0tHnZCLI"
+Content-Disposition: inline
+In-Reply-To: <20261029073135.159947193@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
+
+
+--UNC18e+Z0tHnZCLI
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1792999447.107874-1-xuyuqiabc@gmail.com>
 
-On Mon, Oct 26, 2026 at 03:24:07PM +0800, Yuqi Xu wrote:
-> nfc_llcp_socket_purge() walks local->tx_queue with
-> skb_queue_walk_safe() and unlinks matching skbs. The walk does not
-> hold local->tx_queue.lock. tx_work, the LLCP send path, and other
-> purge or dequeue sites mutate that queue under the lock, so the
-> walker can follow an skb that another CPU has already freed. That
-> is a use-after-free and can corrupt the list.
-> 
-> Hold the queue lock across the walk, unlink with __skb_unlink(), and
-> free the detached skbs only after the lock is dropped.
-> 
-> Fixes: f31652a58bee ("NFC: Purge LLCP socket Tx queues when being disconnected")
-> Cc: stable@vger.kernel.org
-> Reported-by: Vega <vega@nebusec.ai>
-> Assisted-by: LLM
-> Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
-> Reviewed-by: Ren Wei <weir@nebusec.ai>
+Hi!
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+> This is the start of the stable review cycle for the 6.1.191 release.
+> There are 1879 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
+CIP testing did not find any problems here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.1.y
+
+Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+
+Best regards,
+                                                                Pavel
+
+--UNC18e+Z0tHnZCLI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauMbpQAKCRAw5/Bqldv6
+8vh2AJ4tNZLSIc+81XxnUjyjAP0vo5OvwQCdF38o7EgWj8WBUp9/uVryGdPyud8=
+=aTnf
+-----END PGP SIGNATURE-----
+
+--UNC18e+Z0tHnZCLI--
