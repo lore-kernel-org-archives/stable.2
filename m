@@ -1,59 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264728;
-	b=Jeamo7XovM5rmWfFNMtixmv/ixhFjOukLhdYh4yZGMgQWAH+cBsPrYAApgul7GrEQJaN
-	 fzb/vZ2fb2T90EWfXtsBwAoF6jjOzlt87ms36XQACpCf/uj3Dm2k9AeccZyPpJMq3P8DA
-	 7U7PQ7LJmzDhf00kUr2M8rwnTsPu4WfclC+CfeATzNHY8OYMOWtg+wDg8MaF7qJPfrkyF
-	 s4sFxCBMKjmf+IE7AyeaaG22UNPTK28OvKyrBoFQCDxq3FdxjuJ7PGK0w8WId1OnTRif0
-	 6hjXFaoAPLsMsUT8AOgh5DUZnQpW1zlP6D+Xd1koycNmL0Zbft8bSOaG56xwlDi+6sQ==
+	t=1793264843;
+	b=rt1LRycCp918ylYBegUFlCrY8v0UnNhEKa9ZQnavHs3hkDQFSTzThZoyK/0bHC2tug7v
+	 yMWmLbgB+959Pm7mUs9L2QO7Po+4pUubHp6QDCBVp67kgSY5moFfPQAeeLFrI5ctnSS9T
+	 tg2mLMW++CmSlwLUBdpD5JylOIUR5RzlOwdf5hxyiPDjqFarM0BnlpeCfy74YYhGj58ul
+	 tGf3K9tRpMvaq6Q0iqMuddpnkw7XLrSkkEem9vUL3Cr7e4YuAGW7JyQ50Ak8vpIZEbwG6
+	 HC2MQ4yqGuDssmAT965J62Lef+HRAxIyegk7SoJCOsxBeAnjrYrU4WQ47/I3v0JJVfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264728;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bg0Ymif0uoiICiNRdrOrby7zyxhfmv3mM2elfFbvQOQ=;
-	b=sMjPsQTpgcAuykez3Csj9IpSzy0I4oaA98UwiE4eueOb1n+l+kol/JBoR8HTaDIB/L5o
-	 f+MU3oOM/iK9KXwc5Vi9LyUs8j8kac+beete1AlMtmUscvffIsw2u6Oq3tYcD2V2LWP76
-	 AV/4cvMW4dqjBQmfwQVQtplT27gVDCa8GDIC/GpFwPRZBx54n8Q3gvjPjQlCQwiomlm/B
-	 P849r+mnoPtGUjgGZVciiVOYlmSWT1J5G8XNUWDtzcN9/fIZ5ChVF1AWLPvZw5aedRSOm
-	 w+dZXd89TejAzsHnr7UtEOnzWq4o5JsSxUbhCA/FRDJyxSIZ9HdQaCWZRTMKsy71HYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264843;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aeD2rvRr8yCH9Pyjyd9soiL1vIOgxA2CdjNlALkdgBI=;
+	b=YpKx8ax/DRQZKqV4SpqEQLc51gRQgDTqWc560Eb6TSfgbr6sVyo9QMdrr7+8FvGaDWHE
+	 slSqVPkKOOqbLDykodzzvVOrsLxFJrhaxxbKsnh1QO7IXSayKxY7XTJERzMeCLLiDGqfp
+	 mFYgLbN4vQgxCRm608H7UChxURhV4ztYMVIbssLZKl/pD0UZVOfNE/Aqkt/A68gMnM856
+	 jQGlMO0fVoYNc+wUZmx+2Y1gP9S20leF9RfzuhzK3OsukDtsHx/HKQj8mJr/1Hh2O4VW2
+	 kS+35NkXx1OgT9cvGRHbobVcbk37X287/BMasQC+gO2SXGUtOmmdjB+kGV93NuAcWww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5mxlMBC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="vzu/LSSD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD68606A31A;
-	Thu, 29 Oct 2026 09:05:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137C8606A31A;
+	Thu, 29 Oct 2026 09:07:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5mxlMBC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D7511F01825;
-	Thu, 29 Oct 2026 09:05:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793264727;
-	bh=bg0Ymif0uoiICiNRdrOrby7zyxhfmv3mM2elfFbvQOQ=;
-	h=From:To:Cc:Subject:Date;
-	b=B5mxlMBChJwT2ir73H4sxdSu3LbmJ1uMQylIcXWhsIrB7mvEuTbwaTQ20Xr4scscG
-	 hLedn0FF0g2uMHsxhnzIzybMLvQ/NkI8S78z5GkLtZPHnxcWMGWRNFntpKPZVZmh40
-	 rVBOXSz5evOTOIp1NVdQ5Cuw71K7rgjvYzoENQplL/IwJUtILr+PqhqSi3U5qal6or
-	 7pp56cH5Cmrci8sBz5Zvi1tqrScdya3MJPTtisO8n1aaHCBLVneY9wB7eXm4+4LPjj
-	 r4AsdniJTW2ExVSaIr6o9Wgj83rJ33PM8FsvJYxLjW/TVgb8mcjPk8l/SeeqyaKZ7d
-	 dpRxTqcGqL3MA==
-From: Oliver Upton <oupton@kernel.org>
-To: kvmarm@lists.linux.dev
-Cc: Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Oliver Upton <oupton@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] KVM: arm64: nv: Respect HA when computing translated TCR
-Date: Thu, 29 Oct 2026 02:05:22 -0700
-Message-ID: <20261029090522.64662-1-oupton@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vzu/LSSD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07ABC1F01825;
+	Thu, 29 Oct 2026 09:07:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793264842;
+	bh=aeD2rvRr8yCH9Pyjyd9soiL1vIOgxA2CdjNlALkdgBI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=vzu/LSSDz5PzODr/uiHsZUS9uQB8SnQ8cd6S/p7ZBlANBDin1lQ4bPhb3MvZxgZje
+	 QDpfzrkCiNBlUMOa3iFOfcxlWui5GJoSENUViD3c3nKn7aCBVbx52g16N9NnuV7MZF
+	 SLXrDLGDTXveOQHV/aWdTsH+Fe1sPtKOz3jrLO1o=
+Date: Thu, 29 Oct 2026 10:07:19 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Juanlu Herrero <juanlu@fastmail.com>,
+	Anand Natarajan <anand@meta.com>, Jens Axboe <axboe@kernel.dk>
+Subject: Re: [PATCH 7.3 14/38] io_uring/poll: avoid retry wakeup loss when
+ dropping ownership
+Message-ID: <2026102946-stubborn-magical-d432@gregkh>
+References: <20261028165940.394092994@linuxfoundation.org>
+ <20261028165940.759766255@linuxfoundation.org>
+ <9eb403db-31da-4b6e-a2b5-69f311c05d00@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,38 +57,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9eb403db-31da-4b6e-a2b5-69f311c05d00@kernel.org>
 
-Add the missing forwarding of TCR_EL2.HA to TCR_EL1.HA, which are
-different bit indices, to ensure that FEAT_HAF actually works for an L1
-hypervisor in the EL2 translation regime.
+On Thu, Oct 29, 2026 at 08:53:12AM +0100, Jiri Slaby wrote:
+> Hi,
+> 
+> On 28. 10. 26, 18:00, Greg Kroah-Hartman wrote:
+> > 7.3-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Juanlu Herrero <juanlu@fastmail.com>
+> > 
+> > commit 937d38dcacd675dc0572d6c9b6743960df3128ed upstream.
+> 
+> Our machinery flags this is needed as a fix:
+> 67bb1ad9a517 ("io_uring/poll: don't loop on HUP with multiple references")
 
-Cc: stable@vger.kernel.org
-Fixes: d5bbb76f4474 ("KVM: arm64: nv: Expose hardware access flag management to NV guests")
-Signed-off-by: Oliver Upton <oupton@kernel.org>
----
-Spinning this off from the HAFDBS series since this fixes an issue with
-FEAT_HAF which is already supported in NV.
+Thanks, I missed that one.
 
- arch/arm64/include/asm/kvm_nested.h | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+And for some reason it was given a different commit id in the backports
+that Jens gave me, so it's already in the older queues, and I'll go fix
+up the id there to match this one.
 
-diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
-index 0f899addafa8..2811ec466d88 100644
---- a/arch/arm64/include/asm/kvm_nested.h
-+++ b/arch/arm64/include/asm/kvm_nested.h
-@@ -29,7 +29,8 @@ static inline u64 translate_tcr_el2_to_tcr_el1(u64 tcr)
- 	       (tcr & TCR_EL2_TG0_MASK) |
- 	       (tcr & TCR_EL2_ORGN0_MASK) |
- 	       (tcr & TCR_EL2_IRGN0_MASK) |
--	       (tcr & TCR_EL2_T0SZ_MASK);
-+	       (tcr & TCR_EL2_T0SZ_MASK) |
-+	       ((tcr & TCR_EL2_HA) ? TCR_HA : 0);
- }
- 
- static inline u64 translate_cptr_el2_to_cpacr_el1(u64 cptr_el2)
+thanks,
 
-base-commit: 9e9283e4c941e806d2735f09b66763487bc48b50
--- 
-2.47.3
-
+greg k-h
