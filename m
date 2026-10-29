@@ -1,127 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240454;
-	b=lVfW7IN7UPgVPYnDyIaRfZ3qvlUgxQhJdL51qTGOZAuSPCjFpmdDk6JcmwcxcdAK7+u6
-	 TfEogNV9rFUTT5zwA69NCXq11qMviWGJa1oO2/UTknajXAdy3fqcdf9SaRN/hAn3wMf8m
-	 ffw9h1b6dvz1N8Vqlo8d9fBkVMzQSLwqeTre/E0OSIxkoSzTaV+lEDPct/Ftn1xBZVjLI
-	 TgIb0Ntm+8vekMO3etDgphzff2QAkz51Df8QlwSsOc6C+gOun8CY6ONgSRuwOZmsi4O0L
-	 x0Wbzrqz6a0EPrwVgZZI/4rHhB9s5JYOQ/i6fmsBLTN9Wtk+LlSDm3jbQYc2RhgLNLg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240454;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=FnIGs5zvaQiHI5YN+vMMC8koXoNVqfs7gn9S8TpFSeE=;
-	b=m1+qwITpm3lPOK+IyoanSi3LITUDbgOyMbEkhnlmILn2WoNpYObjM7XtmyhfleRTMUkM
-	 GJI7fweHXQ8foPMGH1DpuqlXdy8/urCdK8+O3NOHH7PfNec5DU2JPF062qdIQ62HSFStM
-	 GxMVcQndtF/DdvaLW25pt/6NeWiA4MUFwG/yIV4d0lPJC9RWYSGlXcAPpeg9lxDQLiOVZ
-	 BrNNUjpnFTIfkcoUD/YN+Ou+KWsoQGroD1NMhmMoHCo71unSkaaHR2vSYHEoDxksuJ3nG
-	 KGB5Z/UXEq4dEb+n2fCk3ewxxDbG9R03ak/uC2cJo+SjZ5btw8V10Ju/cbmCDxRT1qg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=AURki8qk;
-	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=LK8b4wi1;
-	arc=none smtp.remote-ip=202.12.124.154
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793240581;
+	b=BOYBCfZaM0LTwRfaMBGWGANi1lNwymTrnkrQGX2YWqQ5WW3ocQgslGILnJe0A3paskHz
+	 e1XTpk3G0A0CwDtlek5iavkxtaxa8QUgQh5REYRr8yOxA1E8UCfPX6BYSStOQ/jWZaXpN
+	 Ob+31JRl7ArmBg68vDVWxfxFHjP8eMbPNHoraUV7rvNrfJzFyjGpBvtEiAmSewakOQF/X
+	 9yT4g7QgqkTFz5acl0648ZqUc55GqTHOpegkD05gIdCc9uApKkUC6uouf3a66QP7mcZth
+	 aHSh18a3acr/8N+FDkpzakfewSBBSOYDYJHXEdGj+Xb6p3ZqBpokZLOD5Bw3nCgwb8w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240581;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=4XiBHu6J1/Wrk04/tYhxMDSUV7+mtsUoRrkmRrRsd0M=;
+	b=one67BU8UOa8ffvYKot7414cNWfNIh2J5WtC+9vcH2skIaM4FynkUHANH4PJwpYjVBK8
+	 3DG5pG7nccr9IfNQwR4Y4rbWcPXDP7o2YkI/9G8BTfKIDJmpQQ/2HVbH7H8TfWJeln+VZ
+	 wvHNHbo3tTJ4pEg0n8JQsGnGWVx10slhoDZAdk1xdzeRp3izFN96N1XIeBbiqJ0K5V5EK
+	 AlFkFkM4DlIlze+xXkXHktKK53zk27OpsfV1gZ117ZZBcgATpAi6NML0Hqu24l81Dk52+
+	 hIE36RMGuNYQ5jyjEukLpnpZAJCVVocFErIPTiD/Wt7urfosa4gwXk4wHXm2xQoL4fQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lL25Ki0F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26E8606A31D
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B26E8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5264606A31D;
+	Thu, 29 Oct 2026 02:23:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=AURki8qk;
-	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=LK8b4wi1
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 379BA7A00E2
-	for <stable@vger.kernel.org>; Wed, 28 Oct 2026 22:20:53 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Wed, 28 Oct 2026 22:20:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1793240451; x=
-	1793326851; bh=FnIGs5zvaQiHI5YN+vMMC8koXoNVqfs7gn9S8TpFSeE=; b=A
-	URki8qkzoudFlSLYtbCO9UOaTIYGezTCZGijKXCxIa3MlfLnCO56ytOTLlhpR0W2
-	LWpO3EeEvyQER8BZwr4lhGIfvm3cX0+DLDKs4jxoVwrK8TccUcTMziKfxoBx+bZu
-	XX++higaIeJmB3Mp6R5LsvgeGdHseNSUQARwi856uaw1oNehksJX83JvzlTKKBf2
-	Dn4yKBL01oG4eZ1n/AHOiBq9pUJndkHaOkrDgwO5SMAJ0kvTnZSPux25oaaF4UiH
-	6mgOL96SB6BrU/lUVTz76q/cotcE9MWSEAk+v6D8zgUY79DB/5tspqsf8ZgkEqVS
-	QcaHCfJsPIima2fldK1yQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1793240451; x=1793326851; bh=F
-	nIGs5zvaQiHI5YN+vMMC8koXoNVqfs7gn9S8TpFSeE=; b=LK8b4wi1ny3vi0lY5
-	y2TKl5FfO+XQR5vuxRihE9tPDwBEw/1dWDiG78fSs1Qt2qcDn6N5GqalEoO4O9OS
-	v+55PKZWK1UopWnafU4osAgpExlODoHt1d91wXNLf3zoS+4C7QCuEDO4OGo0P/Fu
-	NTzeN/JrQ3W5qUOIXHCpAke2XdvySpnDN7/vkx8nh8MQYjnrxsYiwSdazxrC2jr8
-	5rtV6yAPViUDItiyqTWXot/We18bq+yu9dzpP7meCDDJvogLkn2NrUm6LQOKBaBn
-	g9xjPuOGXs+euITj1dOQjlUiJhd/Ha+PfKcgvMhXrWUg7t4NwkH6617vJTaS4tDl
-	yM0+Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793240451; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:NIpDjrSoYoP8RwOVGYsW7LIH8Qdv/iDwQOzjYQ38nNe25ta
-	GtMKllGWkV2HkJoFRTKN/bO8UMcZ8RqvUx8A4BUrEAM45nJcSEphhR/WrKvwbU7N
-	J7oQ3XVqOZfQn2cigawIXmunu+aQLSqoxtQvmQqx14f+gGFOej5g5bV+lqYrwwII
-	qPgpmDhg2oLQZkcBvVjQIaJujpeZA2rfjVp9Nkty+D0nwgd8gg7z9I2n6eH1NkvI
-	z/OMcC8FxDAvVHnfzpsNtYgdd6ExGF2wD7pqMmcbDzcGYfwiSraYFFSSoe0RLh1x
-	fw0j6R/qyBtWEAi1IDxU7z1ZM2mNfHsJJz7Mfmg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Q0lkkojjonjCFUJ49fzPyp7gZq7ZCT4Y5HU9yQ24TLs=:qwontJLdIzb9RU8GMD6zbDjrG76zYDVJKcnHR2FgzMo=;
-X-ME-Sender: <xms:g63iavGPUTX-r2pbvDLAAOAjAWus7yYPeU4tYd5bbsYC8wGKYLi0EQ>
-    <xme:g63iasyF2rzV7C25dk5z4r8vGcdIxe6goo6He_c70TgGbKRbDs4_dt4hV_nkoekwL
-    EWXnoq7xc8osCG7GE7cqVohC19U6ujCzZK7tCQf4VVFhYgrRFHJ4qYMXg>
-X-ME-Received: <xmr:g63iah08V8bKqw1o_ck819wO7P7v3DUfzuxmaDrLtvjbbapXpYKgwrUGkZBhCxbM>
-X-ME-Proxy-Cause: dmFkZTGu4XUOfgn0HvschUvTnaxsX40JE9DQrlLX5hT+rO1r01JY+LQaODlY8LQFwFHJOv
-    MRpEM2dunQiqxFV+DatHcDRdj+GTmQ1BILO5RUj2tkXHLGwBScPqhfK4f4Mm8HdsZe6DzL
-    eAwHA5G60fkIoc1gE178ENPYyw6IQrCpmSyoxBnKe/AfsLqtO8EFmkCa8j7ZNfZ4M+bQ+8
-    KRZXD4ccItruJuHCocv5936os/di7ZxBt8Z0ttA3FKbTXsy9NrFhYbnVSZ9Ail4l6D/RAp
-    IEFiPJStakyul8MemCs+lDY325re1nK/s/zCAA2+YbhT643GSelo4fvBmAXJ/Je0r2CBs5
-    otOU5ZkjtqZ/Yu8Ip4qEDtkKBjoYxGJ1yLDX8YeBkYUOZUY55TgMIdnq4IrmoVYDLkA6TU
-    JRqLmsyGqtjD+XF/AAHqb3WhwugCwpOCOPiPachYyqK4aSRyvZhKzzsr6RiqjNOuuJkJTM
-    TANkkXdj1/zCdPSPEqz2enoJYaR9kPO8Lzt7E2Bvd2PUmEEfePJ2mbwlUeu7LpCHOjhbTL
-    TXBFPLq21OkF9XC7fTfamO/UxvRmQt3Y7v2h1i4sIc75wXb0NRA8tWf+5oXOJ6NZcB8U/C
-    qV/6zYRWRubqi+Ko+n1XvcAhAIFUigzlN0CuWNWqFZbjR4zNrptfD5/YP5Wg
-X-ME-Proxy: <xmx:g63iakqNrtvEuvUKxh0lo_jjEOOefJgqpojuzAKNtiCACBE0dQ-xeg>
-    <xmx:g63iamXdIDwrieMm3qGvl8sr2EpsSUTa99RtJRRNwnqEa_4uyOpLiQ>
-    <xmx:g63ialoDeAA2LfUcHApkNFgnhd2VRMs0n5wJ30nxvuTYCoQJitc2-g>
-    <xmx:g63ialAhMoXp5Fqgzu282NN1Jnw-xu90nnRnTRi3cw-n2Q-trVXfkA>
-    <xmx:g63iauiGVV1ixC1PWnlNsi0rATMpk4hV9CLOlZNBPJxnqQhtwiWF-W2Q>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 28 Oct 2026 22:20:50 -0400 (EDT)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH] ksmbd: enforce the DACL permission check on delete-on-close opens
-Date: Wed, 28 Oct 2026 21:20:39 -0500
-Message-ID: <20261029022039.224864-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAKYAXd8PwT4aaFgUg82NYZUB=pFNasL2QN7TGGpJVaZjFXCuSg@mail.gmail.com>
-References: <20261028153441.184701-1-icb@fastmail.org> <CAKYAXd8PwT4aaFgUg82NYZUB=pFNasL2QN7TGGpJVaZjFXCuSg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lL25Ki0F
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793240580;
+	b=bX5I1nwQpqXfR9EQ/S5eGx1Ly8xCcB/6muvsbQqCuu4hdmsB7W1HyavQzGHnL+QMFLLK
+	 KqbDa7G9UKvhjNtlYmcJJiZ4/VOAJcO1dj2XPC4Fp3EdEpVxWBuyWemh6bhjogLRDP1Cc
+	 Jsb4nBS+E/Bf/QRH7NO+pAYTx+G48E9Cc8AA8BG5hkySpEkA9VJNGoW3fqOYpAlRCNGqf
+	 foZLv6g811EUqX++DTx77/4o9Z+Sp8I4nAKLO9c/EPmtH9ahJTH3Le1X7BDWQFRrp2bFt
+	 sBfo23k/3VDgk5SzTIDqRP4oV21wPmSZsEo8KRZ6fJTQN2VnJtC89rD/4mz/WBXAacw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793240580;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=4XiBHu6J1/Wrk04/tYhxMDSUV7+mtsUoRrkmRrRsd0M=;
+	b=OQ1mxFaRBiKiqEOhKsSsL0n4YatP/UOavyMXlkCorkSJNkqrVg8jGyMoyDW+/BMiLo8A
+	 fItggKoLDK7H0M7i1KW1INnF553Zt2+IoxVEx3BeuVNuDVSMyY6voRziUJA1gt11rTVwP
+	 cYYDPcw3o4DfuXDT0JCrgsLjcdLfQJ7CYOXVKJUUHQ4Cxq0Mu3lJu1WYRigEglVRKEIwQ
+	 KObtaq33iIVrHSNRg6MJWpe8XxPhZkHlJIUxL9uYGhygoA/uscfIKbLeAhIQtswMKlsb/
+	 6efRolrT5ZOEXXCuA4TDFDDxR8yKRPZZfcZ+LnwEohmw8Tqo1FcAFWJL9yTGCJfkc6g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 56B0E1F031E2;
+	Thu, 29 Oct 2026 02:22:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793240580;
+	bh=4XiBHu6J1/Wrk04/tYhxMDSUV7+mtsUoRrkmRrRsd0M=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=lL25Ki0FcCwkvnUQCASQEDpsS/YI/zKPTPfcyTnxaDipcbmKXTSAaElgr/IOHG4l1
+	 +W0QPiQd5zOEQLcb5CWs577B0mytcLfNMgQdZmEeOHZ/LdX8oiFPX7A9mfQYz7uZCr
+	 56eL20toH5IobhNd5EnfnybvalVkIlfQtR8cx4/kALenJCRv2ogPjb6eFR8+e/pO0r
+	 gYKaup7gKCZ49CNx7yZaAflGdxG8dBITwdDUXuwqxjpc+YZozn2RQNqkKRNmcOEroL
+	 7fdeJ85GAuWIUFx9fVHn+DZ2w158iVQdh+qDTyjMdgwL1MW2FFtwtYz/T6j82MN2Hl
+	 Eyjx3Wv/chjMA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A6C3F45662;
+	Thu, 29 Oct 2026 02:22:58 +0000 (UTC)
+From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
+Subject: [PATCH v5 0/9] xfs: pNFS block layout fixes
+Date: Thu, 29 Oct 2026 11:22:57 +0900
+Message-Id: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,51 +83,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAGu4moC/3XMQQ6CMBCF4auQrq0pQwviynsYF6VMoQsK6WCDI
+ dzdwkpj3EzyT/K+lREGh8Su2coCRkdu9CnUKWOm175D7trUDASUucgVXyzxyafT6Nn0/KKkqiE
+ XGrFhaTQFtG45wPsjde9oHsPr8GOxf/9SseCCK2lN1QDKsmpvpAd6+u5sxoHtWJQfAIgfQCagh
+ kJYDUZLLb+BbdvenCpY+e8AAAA=
+To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Dave Chinner <dgc@kernel.org>, Pankaj Raghav <p.raghav@samsung.com>, 
+ Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
+ Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Daejun Park <daejun7.park@samsung.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793240577; l=3097;
+ i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
+ bh=c/1TEndM7InozfzPWoIRGtybrwNWX1Xg1TAnNYOp1+w=;
+ b=+Hhyw83TxI8HBGZoFKKAYZ5ZKpcWypWiqrKh4t6W7wio3bJbyDws59vEZFOTU1tWLU0qPm//I
+ qF6I4tSSzeeBalOMkb+d7qFEdRypvTghDUpMls7MXTVTL0HZ8NHuXOt
+X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
+ pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
+X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
+ auth_id=1122
+X-Original-From: Daejun Park <daejun7.park@samsung.com>
+Reply-To: daejun7.park@samsung.com
 
-On Thu, Oct 29, 2026 at 10:38 AM Namjae Jeon <linkinjeon@kernel.org> wrote:
-> This patch causes smb2.acls.INHERITANCE failure in smbtorture test.
-> Can you check it ?
->
-> failure: INHERITANCE [
-> (../../source4/torture/smb2/acls.c:1054) Incorrect status
-> NT_STATUS_OBJECT_NAME_COLLISION - should be NT_STATUS_OK
-> ]
+The XFS side of the pNFS block and SCSI layout fixes. A pNFS client
+alone can trigger the bugs fixed by patches 1 and 3 to 6. Patch 7
+closes a race with a local process writing to a shared mapping.
+Patches 8 and 9 make a LAYOUTCOMMIT stable the way fdatasync does.
 
-Thanks for running this. I can reproduce it with smbtorture 4.22, and it
-passes without this patch.
+Patch 3 needs patch 2. Patch 4 should not go without patches 2 and 3,
+and patch 6 not without patch 5. Patches 1 to 6 are marked for stable.
+XFS_BMAPI_CONVERT_ONLY takes bit 12 of the bmapi flags, which the
+fs-verity series [1] also uses.
 
-The inheritance checks themselves aren't what fails. It's the rmdir at
-the end of the i == 1 iteration, which the test doesn't check, so it
-shows up as a collision when the next iteration creates the same
-directory.
+Tested on nfsd-testing plus this series in QEMU guests. nfsd exported
+XFS on an nvmet-tcp namespace to pynfs ([2] and local tests for patches
+5 and 6) and the Linux client, with KASAN and lockdep and also with
+XFS_DEBUG. fstests -g quick ran on a local XFS. Each patch builds with
+W=1 on for-next.
 
-In that iteration the parent directory's DACL is
+[1] https://lore.kernel.org/r/20261002223705.2175542-14-aalbersh@kernel.org
+[2] https://lore.kernel.org/r/20261014-pynfs-block-commit-v1-0-1723979f495f@samsung.com
 
-  ALLOW CREATOR OWNER  WRITE_DATA   (object inherit)
-  ALLOW Everyone       full access  (no inheritance)
+---
+Changes in v5:
+- Cap the block count in xfs_iomap_write_direct() instead of
+  xfs_fs_map_blocks().
+- Clamp the layout length with min_t(), as min() rejects u64 against
+  loff_t.
+- Assert that XFS_BMAPI_CONVERT_ONLY allocated nothing.
+- Shorter commit messages, with test results below the --- line.
 
-so the new subdirectory ends up with no ACE that grants DELETE. Windows
-and Samba still let you delete it, because the parent grants
-FILE_DELETE_CHILD. ksmbd doesn't have that rule, so even a plain DELETE
-open of that subdirectory fails today. Before this patch, the
-delete-on-close open that smb2_util_rmdir() uses skipped the DACL check
-and got through anyway. This patch sends that open through the DACL
-check, and the check denies it.
+Changes in v4:
+- Limit a pNFS allocation to XFS_MAX_BMBT_EXTLEN blocks instead of
+  refusing a count whose reservation would wrap.
 
-So the test is right. What's missing is the FILE_DELETE_CHILD rule.
-Reverting this patch would just hide that again, and reopen the
-delete-on-close bypass.
+Changes in v3:
+- Post the XFS pNFS patches as one series.
+- Split XFS_BMAPI_CONVERT_ONLY from its pNFS user.
+- Return -ENOSR when nothing is mapped, and commit the transaction
+  instead of cancelling it.
+- Add the datasync arguments to xfs_log_force_inode() itself.
 
-I have a fix that treats FILE_DELETE_CHILD on the parent as a second way
-to get DELETE, like Samba's parent_override_delete(). It only uses a
-parent's stored DACL, and never looks above the share root. With it,
-INHERITANCE passes, the rest of smb2.acls and smb2.delete-on-close-perms
-are unchanged, and the cases this patch blocks stay blocked.
+---
+Daejun Park (9):
+      xfs: mark the inode preallocated for pNFS write layouts past EOF
+      xfs: add a flag to convert unwritten extents without allocating blocks
+      xfs: refuse a pNFS LAYOUTCOMMIT of a range without blocks
+      xfs: clamp a pNFS LAYOUTCOMMIT extent before computing its end
+      xfs: cap the block count of xfs_iomap_write_direct() at one extent
+      xfs: clamp the pNFS layout range to the maximum file size
+      xfs: take the invalidate lock while mapping a pNFS layout
+      xfs: add datasync and log_flushed arguments to xfs_log_force_inode()
+      xfs: make pNFS LAYOUTCOMMIT stable the way fdatasync does
 
-Would you like the fix as a separate patch on top of this one? Or, if
-you'd rather not keep this one in ksmbd-for-next for now, I can resend
-both as a two-patch series, fix first, so they reach stable together.
+ fs/xfs/libxfs/xfs_bmap.c | 14 +++++++--
+ fs/xfs/libxfs/xfs_bmap.h | 10 +++++-
+ fs/xfs/xfs_export.c      |  2 +-
+ fs/xfs/xfs_file.c        | 52 +++---------------------------
+ fs/xfs/xfs_inode.c       | 36 ++++++++++++++++++---
+ fs/xfs/xfs_inode.h       |  3 +-
+ fs/xfs/xfs_ioend.c       |  2 +-
+ fs/xfs/xfs_iomap.c       | 28 +++++++++++++++--
+ fs/xfs/xfs_iomap.h       |  3 +-
+ fs/xfs/xfs_pnfs.c        | 82 +++++++++++++++++++++++++++++++++---------------
+ fs/xfs/xfs_zone_gc.c     |  2 +-
+ 11 files changed, 147 insertions(+), 87 deletions(-)
+---
+base-commit: ec8f62cc109a3f596b3c65dc0f1011c209239051
+change-id: 20261015-xfs-pnfs-batch-85459210aeeb
 
-Thanks,
-Ian
+Best regards,
+-- 
+Daejun Park <daejun7.park@samsung.com>
+
+
