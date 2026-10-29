@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271306;
-	b=eDBy7PFggslhiFc0X4jyb9DfNUkzuA6Tme3Tt7OroPsYF6DdiwEwKtm0c6ygUPjvYw9Q
-	 rtrttsC/WNgpHhKk100kBODTlXDDv7Q7o0+DNxWVZvyEAMgjkcgc45Mvu6zVNjBex7IFl
-	 U1Znr5eJiG+/sN6+5hVKt3gwiNb246pIFlbUShZRQjH+lOTg3tp1fXz5BlaED1iuxJPQh
-	 qKoZfo3KAmt2xrQRxIs2HnU6HTRAtUl3Fi7DTAqS+XiHY1M/l9oC6hac/ODnVnyqdzSjN
-	 TtUXVaY2xP0KW47zXGaYRY9SCJGQzLB0YgOIx/yKXF7Tby8XPjVsij3sDsPRR6aobLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271306;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=WTx7pmASk7/nsv1yYc69FRa7+fLFzGFr42sP00Tprpo=;
-	b=HkQqEyiMfuZUbyWouJKdPrDHXfLUlkn5N65dIElnkpmzPtk24KwNgceA4lNqwDRq0Sez
-	 243oxHl2lOq/UCk26johT1+79BqCslwkeVGB1CZUrwwS3c730BTafnu4q+1WHJWtBMpaV
-	 nJUTjxTCNkbiCs15XIsw9S9FgeGV/Mjh0d9iMzbdRawUGK2UJl61RHU2hOykC6uKmSmz2
-	 1LEyZgHJf14QdwJUTPaFMtOWtUCz25c/jUbpd/0lEGSvuQttA2tTy0DTx2skRXStIlSXp
-	 siXIvqkar3DARI9JxZcsBYf+6Jq12ZrVG9xlXWJp13AO4UaNJL3xS8XEctZX7ziaqNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4F67606A31A;
-	Thu, 29 Oct 2026 10:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F67606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793271361;
+	b=XvqrY9FCzT32CUksSBNJBHg00lwO79yNu/jKLaAdE69Z5JXRfzCEeY+8vrg28qANS2Hc
+	 3TFRBcy828ecFsKReIkp4epjNj00FLtn3JOJ66JVzgSejqN5LcprLkXs94+CiDKGfFYK+
+	 KPyc19knNcYQ6EGB5phh9P5El71UDQK45RWPSV/EyZ5JPvZC9FhCyaaDJTvetUEa+ZUpU
+	 mPqVCSN1Ne+yTN8xlufCkzV3GYNjClLR4bwvxjyZjXPsGGwZZ5ks8qWcFwEdl3RCG4Sni
+	 drQicx5VXkoDmzeLHpM0RONydThcBWHsXXHhDop8MGSl3wkmT4qQ5rov9uluh5hO7ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271361;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3fGS6loIim+Swa1mX7t46+mUdJqeixhvle4YB5lLPZ4=;
+	b=IV+7bSIOllQ7HjY0IUKPvwAVnXbfzBSqA49K04/vCI14M03hf67BbK3ZFvyR3Dze0JEJ
+	 NYPb/IlreeTRNatwlELYEk9+XQFuBXm9BZFVfEb2DCmvvF4jyaxU1A1veNSwENisaSHfO
+	 VsxHkOzhtJ+NGYOsvr4Mk7o4qBjWCKRc/DDQgDKBHiDYER9aG6Tdu+YrpnWs5uuVtfPP9
+	 maNRogQrBzk8Xwm3+8mVO6MleJU54YzafPIJvfOqz0vmIspMFx4iAGmMDl5K2deGcSya5
+	 DFUDp8SP4iWpFFd4i7zzjwNvVcNZecEjXF9pnaoMEJjmUdciMVFJdsrUpqKM1PRB6HQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aDa6YDIn;
+	arc=fail smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1108606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:56:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1108606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aDa6YDIn
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c434376dbebso127907666b.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:56:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793271359; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Q2Zr2nVjwm8wHiSL7w62pZQVUsZDKLkjqdCFeQpH6w2Na1EKUPefvipHiKZm2SXONp
+         a3C1XZigEiTsK221CAMJh+A8PaBSxYombtQ0JX/JKvbFD9MvR0rWsRBR6pGkrMg34W3F
+         0hMOCDjIc24XlEVwmexMfwbB14xl9KCNKVXQR+QlSXpj6sEC1yPYnX5S9ZS8ITk06eOw
+         UzMxGgeMcxWt+wME+5LNmPPZDaYbDHV5SsHyct+kJ144yx3JqDpXw7aZxEGXxNbjWWBg
+         cK0iZyEHVJzt/qOv2nLQVlC47VIxfi1IFvT2TRmvpqVyfvUXI2XLj87JAPmpmZWQNLzf
+         Pg5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3fGS6loIim+Swa1mX7t46+mUdJqeixhvle4YB5lLPZ4=;
+        fh=TSCGqJ+qhDThxNqTLcQn9KMKcvK7NFB4AYRMJheYP20=;
+        b=rjkD3U8C1XbG4i7stuuS0v0JXEj7JTGrr76ul79A1FGuLOIL+YwulRWOnqc4o1bpy8
+         u4d6Z9J392w7cp8H/ZBfItLDadJ74QCeiL8nl1paPsnDXeTsog/oognonymltaUP1JoQ
+         KKFB4PWDggbWdDSCA0rJ2GeTrIoRy03y8sCv7XYN1KUH6a97FppPhl04XlOmbYzs0N/W
+         A9+mwtw8Gz6FigiaaPwFRdP6i/AXCyGbdcyrLoN9A2pQPcz6GV1PpRbHSuI9xc0MrBdP
+         IUL8zY2zDcSupKz85kr7xKqbKrpvdeQhjVcCWORVk3QN1kzEwoZi971EuOrT4l++jp3M
+         gdbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=WTx7pmASk7
-	/nsv1yYc69FRa7+fLFzGFr42sP00Tprpo=; b=PadOlEUt5v70rFNboilPcsVY14
-	vvFkObsZDr713Pl+2bmjJp+efO1Rf1m5NEV+Z3ek9klvamweCesHJx2CM/AwoRvN
-	B9XNghvxz42Xf4pVQgdcouKItHA0US9E5n1eZGv0mCuP2tO1t0c0Oc9DlysQTJ9s
-	rZ60IJ/VFlWUkqK4Y=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkD2HAP7JeNqTWL+AA--.51457S2;
-	Thu, 29 Oct 2026 18:54:53 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lei Huang <huanglei@kylinos.cn>,
-	Dean Anderson <dean@sensoray.com>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: s2255: cancel the in-flight firmware URB before reloading
-Date: Thu, 29 Oct 2026 18:54:50 +0800
-Message-Id: <20261029105450.5852-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20260707; t=1793271359; x=1793876159; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3fGS6loIim+Swa1mX7t46+mUdJqeixhvle4YB5lLPZ4=;
+        b=aDa6YDIns00zqTqrPCKgp5NqUduDBvv/bV2D9/roX28//Qm4jLBZeNEDCJBoxLxGYQ
+         3deQplSXIB4dGOBpsXUlzlSyGM8+f/V65tj2kzCO+HIFi23vUmupF/K2QwQrMt6eBNFz
+         NvwDNZJi4UCAi4M0oQHbYVPmxVudV9V1fWpgW5IneFG2GZIFBXRNTcPKxhERt80v0+j9
+         DBItCsZ5yudK5t35vTLzHsgO0WbzthAXGGQKmQPFzA3FhrDwQLCU+Gg0I/Icf18qQCSY
+         xROhsSzumYexKJtliqcMeqogE6Zs3iKhWq58DD0amHAcIztBMpIfeCsfWWEg6e+3OZXA
+         yIow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793271359; x=1793876159;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3fGS6loIim+Swa1mX7t46+mUdJqeixhvle4YB5lLPZ4=;
+        b=YdMhImR1tVLC0cUfAeyeUbMXKsDFT+Tph5hOH17OqPrYN+S+50lL/oCg3boOqAkHrt
+         +rHt5q6kGGUL19AG3U2MEG3QD1aZh8lYEg+DVqgKfoTJl9RJmKt0sxod1ZgAIBVHjIIm
+         d+LGCpHRynanTx9gQwOM6hK9HUO24Offw9/asjQ7gDTF2qZLzBrw6f3edzL9NyI7zaoV
+         aoTejuORgZL9nYIHmjfia6MNeIX8D4j3VaQqKW+4wMuphCDeDVGtWgog5gZfU+PeXKOd
+         srVNRqgansBY7iUZqqJ+ScFWXA7tgh1bh9vq7GDRZ7o5XFCQp3NXxdn47lS5B923ozL/
+         4CVg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzoiqBijXX3wqApLwOonU7Ano87lx7rOr3Rx4Bdbqlrgqmy03tLFjJ3rY99PlM7YKQQkn+LTc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUs8QIV45QFXMgPVkr36ccvQTfyrf+eqEfZZM5ImYl3HLEogau
+	tADXlishqL/CMXvPX2hDxC2UAGNzqdXbtQFejKrk1KN6K/2LuBH+gaPDning/42x8kAMvPKFYHV
+	nUetlEAMsWlCy11MnHuYbZ5ET0EwH/5k=
+X-Gm-Gg: AYBFou2sEsN8q/MaPeblMS58MWdvfbkuIcJ5HPwolWcnDIJtrIg44x0eVSevGY7Wci7
+	mJsMj6yZLi6M6KQwTaHLuAG7U+9leYLigZ701lYEhNC9rEvPLLgJjmAhGQzNoyFT7u5gMb4QdQJ
+	W6Tl/qv4s7i/TnCw43ZTAqVmiTHFcB5ydvmJojdDFNu2bzUg3HkUIBxVxcrm5+qwtlcDBR4zaNr
+	e0ElWOBj/Pk6kn5Lwnpyk6XHnm1yAMMkyuq4+3aTHL9XLJFWR6gO//8CymMu7DObQHfI+SJ4z6R
+	rjnczYyJ3iggsaAb7pqPLUqPJG0AnNOtSusmzIfKfAmGKMqToZtEw40t5Etn9U1p3GhoKyGBsdq
+	RsCWiVS68owRj0ByZtdrc1XvfhE/YPMkx6XUtuhG2Cag+FOZ/N0uIdSVdMMJrEJU8mYRUNQ==
+X-Received: by 2002:a17:907:d308:b0:c2e:2275:1168 with SMTP id
+ a640c23a62f3a-c49d13b7f8amr182816166b.19.1793271359214; Thu, 29 Oct 2026
+ 03:55:59 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,130 +104,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkD2HAP7JeNqTWL+AA--.51457S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCryrZw48AF45WFyrWFy8Xwb_yoWrCryrpF
-	WFga90kFWDGw18Crs7Cr47u3W5Zws5JFZ8KFy2ya4vyr15J34DCFZ5t3y7XFyDArySya13
-	Jryqvry5u390qaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUg0D2UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2riEkGqlQAAst
+References: <20261028195133.86636-1-dennylin0707@gmail.com>
+In-Reply-To: <20261028195133.86636-1-dennylin0707@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Thu, 29 Oct 2026 11:55:47 +0100
+X-Gm-Features: AclHuK9ES-fJm4qV7qIWyYn7jHeO1ZZUKHOCjIZSlhGweuLSd8vCQZhkASRtuK0
+Message-ID: <CAOQ4uxgDk-NQ3hrHLwPkLT_6T6EvM1Mxk1aOtCsz1TYgup_FNg@mail.gmail.com>
+Subject: Re: [PATCH] ovl: reserve space for the casefolded name terminator
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: miklos@szeredi.hu, andrealmeid@igalia.com, linux-unionfs@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The driver uses a single URB to upload the firmware. s2255_timer() submits
-it one second after s2255_fwload_start() filled in the first chunk, and
-s2255_fwchunk_complete() resubmits it for each following chunk.
+On Wed, Oct 28, 2026 at 8:51=E2=80=AFPM Hungyu Lin <dennylin0707@gmail.com>=
+ wrote:
+>
+> ovl_casefold() allocates NAME_MAX bytes and passes that capacity to
+> utf8_casefold(), which also needs room for a terminating NUL. A valid
+> name whose folded form is exactly NAME_MAX bytes therefore fails to
+> fold, and ovl_fill_merge() falls back to comparing the original bytes.
+>
+> For example, when two casefolded layers contain directories named with
+> 255 uppercase and lowercase ASCII letters respectively, readdir lists
+> both names even though lookup treats them as the same directory. The
+> same names merge correctly at 254 bytes.
+>
+> Reserve one additional byte in both the allocation and the folding
+> capacity so that NAME_MAX-byte folded names use the canonical merge key.
+>
+> Fixes: ee95c5fc86dd ("ovl: Create ovl_casefold() to support casefolded st=
+rncmp()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  fs/overlayfs/readdir.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+> index 7d6f7f6022eb..6113d690f8ad 100644
+> --- a/fs/overlayfs/readdir.c
+> +++ b/fs/overlayfs/readdir.c
+> @@ -81,13 +81,13 @@ static int ovl_casefold(struct ovl_readdir_data *rdd,=
+ const char *str, int len,
+>             name_is_dot_dotdot(str, len))
+>                 return 0;
+>
+> -       cf_name =3D kmalloc(NAME_MAX, GFP_KERNEL);
+> +       cf_name =3D kmalloc(NAME_MAX + 1, GFP_KERNEL);
+>         if (!cf_name) {
+>                 rdd->err =3D -ENOMEM;
+>                 return -ENOMEM;
+>         }
+>
+> -       cf_len =3D utf8_casefold(rdd->map, &qstr, cf_name, NAME_MAX);
+> +       cf_len =3D utf8_casefold(rdd->map, &qstr, cf_name, NAME_MAX + 1);
+>         if (cf_len > 0)
+>                 *dst =3D cf_name;
+>         else
+> --
+> 2.43.0
+>
 
-When the transfer does not complete within S2255_LOAD_TIMEOUT, s2255_open()
-stops waiting, sets the firmware state to S2255_FW_FAILED and returns
--EAGAIN. The next open() calls s2255_fwload_start() again, which refills
-the URB and arms the timer while the previous transfer may still be owned
-by the USB core.
+Queued for ovl-fixes
 
-One second later s2255_timer() submits that URB again:
-
-  URB 00000000b9ed398a submitted while active
-  WARNING: drivers/usb/core/urb.c:379 at usb_submit_urb
-
-usb_submit_urb() returns -EBUSY, the firmware state is set to
-S2255_FW_FAILED and the device stays unusable. Rewriting the fields of a
-URB that is still in flight is unsafe as well.
-
-Cancel the outstanding transfer and the pending timer before reusing the
-URB, and serialize restart attempts so that two open() calls cannot refill
-the URB while another attempt is running. A killed transfer completes with
--ENOENT, so do not report it as a transfer error.
-
-Fixes: 38f993ad8b1f ("V4L/DVB (8125): This driver adds support for the Sensoray 2255 devices.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-v2:
- - Serialize firmware restart attempts with a mutex so that concurrent
-   open() calls cannot refill the shared URB while another restart is in
-   progress.
----
- drivers/media/usb/s2255/s2255drv.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 15012d73975c..ba717cdf31ad 100644
---- a/drivers/media/usb/s2255/s2255drv.c
-+++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -179,6 +179,7 @@ struct s2255_fw {
- 	int		      fw_size;
- 	struct urb	      *fw_urb;
- 	atomic_t	      fw_state;
-+	struct mutex	      fw_lock;	/* serializes firmware restarts */
- 	void		      *pfw_data;
- 	wait_queue_head_t     wait_fw;
- 	const struct firmware *fw;
-@@ -490,7 +491,9 @@ static void s2255_fwchunk_complete(struct urb *urb)
- 	int len;
- 
- 	if (urb->status) {
--		dev_err(&udev->dev, "URB failed with status %d\n", urb->status);
-+		if (urb->status != -ENOENT)
-+			dev_err(&udev->dev, "URB failed with status %d\n",
-+				urb->status);
- 		atomic_set(&data->fw_state, S2255_FW_FAILED);
- 		/* wake up anything waiting for the firmware */
- 		wake_up(&data->wait_fw);
-@@ -1502,6 +1505,7 @@ static void s2255_destroy(struct s2255_dev *dev)
- 	}
- 	release_firmware(dev->fw_data->fw);
- 	kfree(dev->fw_data->pfw_data);
-+	mutex_destroy(&dev->fw_data->fw_lock);
- 	kfree(dev->fw_data);
- 	/* reset the DSP so firmware can be reloaded next time */
- 	s2255_reset_dsppower(dev);
-@@ -2187,6 +2191,16 @@ static void s2255_stop_readpipe(struct s2255_dev *dev)
- 
- static void s2255_fwload_start(struct s2255_dev *dev)
- {
-+	mutex_lock(&dev->fw_data->fw_lock);
-+	/*
-+	 * A previous load attempt may still have a transfer in flight, e.g.
-+	 * when s2255_open() timed out and the next open() restarts the load.
-+	 * Serialize restart attempts and cancel it before rewriting the
-+	 * shared URB.
-+	 */
-+	timer_delete_sync(&dev->timer);
-+	usb_kill_urb(dev->fw_data->fw_urb);
-+
- 	s2255_reset_dsppower(dev);
- 	dev->fw_data->fw_size = dev->fw_data->fw->size;
- 	atomic_set(&dev->fw_data->fw_state, S2255_FW_NOTLOADED);
-@@ -2199,6 +2213,7 @@ static void s2255_fwload_start(struct s2255_dev *dev)
- 			  CHUNK_SIZE, s2255_fwchunk_complete,
- 			  dev->fw_data);
- 	mod_timer(&dev->timer, jiffies + HZ);
-+	mutex_unlock(&dev->fw_data->fw_lock);
- }
- 
- /* standard usb probe function */
-@@ -2227,6 +2242,7 @@ static int s2255_probe(struct usb_interface *interface,
- 	dev->fw_data = kzalloc_obj(struct s2255_fw);
- 	if (!dev->fw_data)
- 		goto err_fwdata1;
-+	mutex_init(&dev->fw_data->fw_lock);
- 	mutex_init(&dev->lock);
- 	mutex_init(&dev->cmdlock);
- 	/* grab usb_device and save it */
--- 
-2.34.1
-
+Thanks,
+Amir.
