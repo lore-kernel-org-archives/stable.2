@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259220;
-	b=L510l/JC991VJj5IpMaFCv8CaOTTQ1eHsY0LuH4vDCYcIP4BDHAHEi2/N5Rr83l3tx4k
-	 U+HjnNxRp6QGjhQSielmvRzSq1O2IaT9B4U/OIEh9nAYXILSpe1ryojqdtLittop6dLpK
-	 dsU/DaVyrh35MHdxzae8UaeQD4jyY9h3iWFokZU5EBnIV8QWNp4Xx8eKf5o9I4mReQA8k
-	 ZVjr2AXpTrEt44jfbMc/8Tn32VJZagPOG97r+onMNK1hXYl6Otj4NkdycfvvQ/tN2m/Zb
-	 kPNTEE75iKMkOpKEu9ibVHs+uYJbGnk2NYtESlLS3p9yErmjhYNGNuibX2Q3KzPDlAA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259220;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=n2h7Gd+pWSukG0+ZHwnfidKQ4JBvdEMorny+52dhSJ4=;
-	b=ETfWMw+0b0Fhohc75hTzKd08HdWw/ClsunTYOldKHbZcAcQfmfedBgMy4zUgQS25nang
-	 Hmx3Rn9Lx6/XxwF7TAXVKqVmr+chXE17rcHdRY+6pMQzbfY3FbaWOjAvTN8iiOV9Yq6sY
-	 FSwyne9aJv0yPEBf7Hgktme81fW/QwYKEckj4MxRgDdO2xtgNHg4sfzg9ytjSI+qEVgXQ
-	 wE6zkFlHLJCmW7CZju0OpLFgJ/+nxAw5H7ENph6PilUFx0XkXsyy3ZKs1ZwOrDLAj1ce6
-	 pGvnlHmUUfDWD5yjuC0T7CFW2+pFSaUPmQg+vDm3NCTOYb4VNi3XhfUqx4QRmTnXdZQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1500606A31C;
-	Thu, 29 Oct 2026 07:33:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1500606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793259734;
+	b=WuNe4SRWvN6lSqtk2SktgQ0tiG0zlNnVHHk+b0YW60+u/B6MKqcYBnDxj/Ez+w1cKrP0
+	 AneoVsbhxt97xZw+MJTxtBScovQFC11rRSgBLhdlqJNMQDMSHK97ZxzJ/g77nmC2Hgtlr
+	 Y1Q+lfnZC6dBvSKGxw8LmPmIYPJ0HJzhbedZnFZWaNMIkp44W9NR+EZx1al9ugFkyqAsC
+	 2PGlLJNlKDa6RIS0tmiNEinPByleVR3vT17RO0TcFhs6j6FVAUjsvPGNG+jeZ3xOafiHZ
+	 +7f/jnV8EhW8xPA6L+vL7jPgWrMytBbfcTLmc/snHM+rrN5Sf4cr0SFLoCm2IRH8RNA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259734;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nRUCr4NQ66GLUUzHJ4QDNjrj6aEkhbXAp6tE51ISY0s=;
+	b=HX49h3v1r+wm9iPhOU6Qb7sCkatG//ZkfaYPMhhr8n5QTaHD2v/iSVDIP7sganIh/FRj
+	 8DvgeoWmB7Kac6krs/gFKbn/PrqFzhW70bCUVR0wETROQI3panfeoxNoiIq/ng+bSWAnw
+	 SJ6RzJcTSzj0xgxAx2f4QstjjSg6+Z0gtuWGTus4G1/9ccx+bX9cRJQbmMp7woFtXve8d
+	 918kj8gbwNbxAiaupbrHWz01iONwwwXgL6p56vazpCaF1LnpFGFO5imH9zFhcEkLq8GKM
+	 CAwoi3jHtK6V4CjDYB9YUdL/W1YPA4S89SAYnH1COCBvPPpUawGugxxXTXPYQ8T3tqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGc0Y9V9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEAB3606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 07:42:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEAB3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zGc0Y9V9
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2e8c710847so248149766b.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 00:42:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793259732; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CXsuUp+N54Iqimi2/SgnRDAl8xqrpH7rWPZHBcxhULZrXGt607D8r9XdjLXWI9js7s
+         vKUAvWWqwMlysuwoxULPI+MxK60BRW+h+8aaJRaG3jaxNwjU2UpvR2P5HUsxbeNiAUvA
+         aXUiFpNIukzldIM+zak8ynqpdvdqpbdZ+0QYLGBdIS2War7TiB6l3E6E5DNvsDBO08NT
+         mXPoZp3kpWuv2cR8OwC28hM7NoNTYcJQhUylHnu6RitYWcHFLtfDZuv/q6tQXuZJ2ch4
+         mwI2/+0vN7Pffvz+ky7Rkvng+vwjLv658TPe1jw3bF8KoqWAKCrl7PZRDWZBMyr9Hjb/
+         Npbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nRUCr4NQ66GLUUzHJ4QDNjrj6aEkhbXAp6tE51ISY0s=;
+        fh=rdandaTnHuCmbj9VWqxn2EyHnBYK+pMjZuc4PgCj3t4=;
+        b=QEXqlV6QuDpVfxayRUmxub5F9XjBByzVGHT9UnYVESOfLGtyFDJUPHBv/sCc1ahtzk
+         zasmLk9AbIti0HzRWjKmWQ8ZOZC81Qu+OUOQufjtmzdlu1vgJl8VrsYPEpx0NHscWHT8
+         MsTfR96JY/sXa4mMZHOrxTQGM6LAzPLWSWx90nRlVX9de09IUUjd+BmmluqGOy9h96Zz
+         2pHE1BZIBXbLuanVU0bcIF2afD7zWwepRNktDrhex31s5ct9u6OBUtPc1djvIviCsnxB
+         39rnbwJcufookvqpJ2tiBmf3a0j1VoEwvRlPKiO3nJVn+dSBdbGmrQ+cViQz/GztGqXS
+         sX5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=n2h7Gd+pWS
-	ukG0+ZHwnfidKQ4JBvdEMorny+52dhSJ4=; b=HhoX/9PiffgxkI9SlKevSat2dd
-	6DOWHZj2A4yZ1pM90k/gKLDdNW/PSQSWl/AFZ3JH7mZR2elwhRqvotGVhGBWXmYC
-	h1i6mrjz7Qs3ivsn1YOO/SfBJHPKg2yIEeGNdsGz/UEhzS0r8n4OACNVsYPvE9H0
-	LrK1UU3jw5tMyaK2c=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBmpfq59uJqYfL7AA--.62846S2;
-	Thu, 29 Oct 2026 15:33:14 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Ruben Wauters <rubenru09@aol.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] drm/gud: avoid divide error in gud_stats_debugfs
-Date: Thu, 29 Oct 2026 15:33:11 +0800
-Message-Id: <20261029073311.14556-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20260707; t=1793259732; x=1793864532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nRUCr4NQ66GLUUzHJ4QDNjrj6aEkhbXAp6tE51ISY0s=;
+        b=zGc0Y9V9yQhkIss1bYi176ej2dIv7fz3bctn8ItT8bqV4TE0UelQmq2Gikz9hLf9Hz
+         vNHl+yFKBv76Vfu7Mg4/OWVcFBObMsIzU0zhaG3Uq3plDzVC/AP2q2OCraNH2ris5/im
+         Zqb7RhRuV0Q1CZHmUEiYbs4cJE6Mg+Tkv665xqAuAvHX5O5/PC+Z+ZwaQoJQ0oBKybhE
+         Mpf81dGZ9wDrJnNiMpbsgK9LEX42jxZxNRQo3HCEkH2W0TlP81/EcvOZ6ZEfPoGjABXN
+         PoQlOF76E3JGhpf0sthOBkS0X5fUgRGZVYUW/Ft2YJqpukUhNo+w/IqwKx4EuoRIxc6G
+         CEOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793259732; x=1793864532;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nRUCr4NQ66GLUUzHJ4QDNjrj6aEkhbXAp6tE51ISY0s=;
+        b=a3AlvoQ7nYtgan4V0I+inDiFSVSlivpYWAP8eG85eVVVbsMmK9fiCsXDiL0cf+X+fO
+         GHqeCpufc4HsIkbthSQF1sZIhKydVIaRtiNXn0G1fAN1XAeuj5R8jICNLpBOe/WYdZpi
+         qjcTadhpwrQ17eooSUt7cmx2weD8C08+XUhH/7LzlLtvQwCphXJryH2Wbtn9QW3kqnNA
+         2oWVpoRsAFXo17D73LlXbCd/7bxWDXYBu8btQDIV+t1LIu9G/z3flNoGmfshb15hJf5W
+         vD20n9tu4ZLZPDVsYYrj91rgwXyR/p0CglqDssnkb+lY9qQUDEkSRaaviwb7TlrCQXh2
+         9mtg==
+X-Forwarded-Encrypted: i=1; AKwUvBw70xqHGNFz2Cwqty6xEEssj/DAZtzIedkwRsammM+ARQWEt+MLtPqlsxXIIlY8MdqironCHbg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJF9JqwHWhQYvYUXIpvsQy/i43kF5EXm5Ua3saUntoz+g0A3nId
+	YWqd76AIOYk8HbXLgyTPLFNrTOH5x5Q4wV/fGJZme2ONPNQeBH9do6EsPODI45hnvk9eWF5IPgh
+	RK7/E+UDj2xzWDmi/oD+rFhPbAYFEYII=
+X-Gm-Gg: AYBFou3JwVa81BA/kJJcgtfMDdvSoYpfBUdAq83WlzpdtRPU+E1G9EvIsc3condJhlV
+	DXcdffU/fhPa0Q0IwDzCtID1uL9mBp7tTCJcHIuFfftXCNJ11Vgt8ByW0Be8q9nMbbFtkw+eBcw
+	UJG6ltWm2Qbtyo5Dm4gCQBfJ7K3KCuK9VaYk8t18vaWOgyG2LJY6Ru22jz3pHfLR87LgeyVDSaN
+	mZOwETX6x8RdYUpYCIFPoUGn6Ytnx8D2UNdrIwyrQZpnAzAMxjwydgZr86T3wYpEi1tyvHjAqy6
+	j9CUowWPt91VoF40c2KjP1Xy3zKdgofz5W+u4FKtj4wMytxVmjLAJ8G+E1lWyQdv+PXBQNd8jrv
+	U60SLayE2hA47uPmhcziAgoQa5bubTH778nvMwJM=
+X-Received: by 2002:a17:906:fd45:b0:c49:bf6a:28fa with SMTP id
+ a640c23a62f3a-c49bf6a2c46mr282671766b.28.1793259730604; Thu, 29 Oct 2026
+ 00:42:10 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,74 +104,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBmpfq59uJqYfL7AA--.62846S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw43KryDXF43ZF4fKr1fXrb_yoW8Zr4Upw
-	43Ga4FyFW7X347Gw43AayIgFy5Za4kJFW8GrW8K34fuF45ZF1rua4YgFy0q34UJr1Iya9a
-	qF1qgrZrCrW2yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBKb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r
-	4xMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8-4S5UUUUU=
-	=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2riEkF-XQAAsw
+References: <cover.1792988985.git.zhoubinbin@loongson.cn> <dcb49d67055cc41af3bd68cce01c05e73a7c2787.1792988985.git.zhoubinbin@loongson.cn>
+ <auIe15pAb8ZZWbnV@lizhi-Precision-Tower-5810>
+In-Reply-To: <auIe15pAb8ZZWbnV@lizhi-Precision-Tower-5810>
+From: Binbin Zhou <zhoubb.aaron@gmail.com>
+Date: Thu, 29 Oct 2026 15:41:57 +0800
+X-Gm-Features: AclHuK8kbVDGgdNrbovyTyakUo3h504IwuEClXkjkVVljd7312xDrPpt32lzyXs
+Message-ID: <CAMpQs4KMbvRpF9axnnEbO6Rcna77WqHQykv4jvw-EOnSbH8FBw@mail.gmail.com>
+Subject: Re: [PATCH 3/4] dmaengine: loongson: loongson2-apb-cmc-dma: Program
+ CNDTR when advancing sg
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org, 
+	Huacai Chen <chenhuacai@kernel.org>, Xuerui Wang <kernel@xen0n.name>, loongarch@lists.linux.dev, 
+	devicetree@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-gud_stats_debugfs() computes the compression ratio by dividing the
-accumulated uncompressed length by stats_actual_length. That counter is
-zero until the first framebuffer flush has completed, so reading the
-stats debugfs file on a display which negotiates LZ4 compression raises
-a divide error before any frame has been sent. The wrap-around reset in
-gud_flush_rect() also clears the counter for a moment, which a
-concurrent read can observe.
+Hi Frank:
 
-Copy the counter into a local variable and skip the ratio computation
-when it is zero.
+On Thu, Oct 29, 2026 at 12:12=E2=80=AFAM Frank Li <Frank.li@oss.nxp.com> wr=
+ote:
+>
+> On Mon, Oct 26, 2026 at 12:31:22PM +0800, Binbin Zhou wrote:
+> > When configure_next_sg() moves to the next scatterlist entry it updates
+> > CMAR but leaves CNDTR at the value left over from the previous entry.
+> > The controller therefore keeps using a stale transfer count, so the
+> > hardware does not move the amount of data the descriptor describes.
+>
+> How it works at 1c0028e725f1? not test ?
 
-Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/gpu/drm/gud/gud_drv.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+Let me clarify how I found this and what I actually tested, since
+there is a fair concern the patch may be redundant.
 
-diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.c
-index 3a1b9e2a2eaa..85ddb302d2ba 100644
---- a/drivers/gpu/drm/gud/gud_drv.c
-+++ b/drivers/gpu/drm/gud/gud_drv.c
-@@ -329,10 +329,17 @@ static int gud_stats_debugfs(struct seq_file *m, void *data)
- 	seq_puts(m, "\n");
- 
- 	if (gdrm->compression) {
-+		u64 actual_length = gdrm->stats_actual_length;
- 		u64 remainder;
--		u64 ratio = div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_length,
--					  &remainder);
--		u64 ratio_frac = div64_u64(remainder * 10, gdrm->stats_actual_length);
-+		u64 ratio, ratio_frac;
-+
-+		if (!actual_length) {
-+			seq_puts(m, "Compression ratio: n/a\n");
-+			return 0;
-+		}
-+
-+		ratio = div64_u64_rem(gdrm->stats_length, actual_length, &remainder);
-+		ratio_frac = div64_u64(remainder * 10, actual_length);
- 
- 		seq_printf(m, "Compression ratio: %llu.%llu\n", ratio, ratio_frac);
- 	}
--- 
-2.34.1
+I hit this while debugging a CAN-FD driver. Reading through the
+Loongson CMC driver I noticed that loongson2_cmc_dma_start_transfer()
+programs both CMAR and CNDTR for an SG entry, but
+loongson2_cmc_dma_configure_next_sg() programs only CMAR. The
+asymmetry looked wrong, and I wanted configure_next_sg() to program
+the same set of registers as start_transfer().
 
+I instrumented the driver to read back CNDTR before and after
+configure_next_sg(), and forced a non-uniform descriptor by
+temporarily making period 0 shorter than the rest. With the CNDTR
+write in configure_next_sg() reverted, the read-back stayed at the
+period 0 length for every subsequent period, and the TC interval
+matched that length =E2=80=94 so the hardware was reusing the first period'=
+s
+count. With the write restored, the read-back tracked each period's
+actual length.
+
+That test required a non-uniform descriptor that I built by hacking
+prep_dma_cyclic(). As you know, cyclic mode itself is uniform by
+construction =E2=80=94 buf_len % period_len is checked, and every
+sg_req[i].len is set to period_len. So in any real cyclic user today,
+the hardware CNDTR preload mechanism already reloads the correct value
+on each CCR.EN edge, and this patch changes nothing. I2S audio works
+fine without it, and I could not have found the bug from userspace
+alone.
+
+So yes, this patch is arguably redundant for the current in-tree
+users. I kept it because it makes configure_next_sg() consistent with
+start_transfer() and removes a hidden "all SG entries are equal
+length" assumption, also I'm happy to drop it.
+
+>
+> Frank
+>
+> >
+> > Program CNDTR together with CMAR so software and hardware progress stay
+> > in sync.
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: 1c0028e725f1 ("dmaengine: loongson: New driver for the Loongson =
+Multi-Channel DMA controller")
+> > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+> > ---
+> >  drivers/dma/loongson/loongson2-apb-cmc-dma.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/dma/loongson/loongson2-apb-cmc-dma.c b/drivers/dma=
+/loongson/loongson2-apb-cmc-dma.c
+> > index 8b8d530d60c3..c654e0572902 100644
+> > --- a/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+> > +++ b/drivers/dma/loongson/loongson2-apb-cmc-dma.c
+> > @@ -266,6 +266,7 @@ static void loongson2_cmc_dma_configure_next_sg(str=
+uct loongson2_cmc_dma_chan *l
+> >
+> >       sg_req =3D &lchan->desc->sg_req[lchan->next_sg];
+> >       loongson2_cmc_dma_write(lddev, LOONGSON2_CMCDMA_CMAR, id, sg_req-=
+>chan_reg.cmar);
+> > +     loongson2_cmc_dma_write(lddev, LOONGSON2_CMCDMA_CNDTR, id, sg_req=
+->chan_reg.cndtr);
+> >
+> >       /* Start transition */
+> >       ccr |=3D LOONGSON2_CMCDMA_CCR_EN;
+> > --
+> > 2.52.0
+> >
+
+
+--=20
+Thanks.
+Binbin
