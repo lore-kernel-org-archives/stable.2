@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793297548;
-	b=z3Xy1ToutTJJJvN5g2ZrO/LkGf05a+NvZcDlWIESqTap48ToE1q37SSX1pcez62w7TZk
-	 KGcUDYNvgGesNmbRhKDgrcHNrr0NBiyGpoaIJRfv62kUxO3yhLPCewTbachXnf95BSrJu
-	 Z58k7LKJgye0m6+0Qtj9NF3nm3y5inzAHRF5M6sH5W2zrumNpy1NDf+pHeieapNxIPsCO
-	 l1J3bVO8MSdc2SORIG38bnE51gE5q59JpmYs2N/iP7T+bR8iFBaEhh/jUMQqquEPFnwVA
-	 72qXRPLFbSKkJKTvWU932xvWUJKgVuTSGffQ6yVF1QTsgjmI8fXFNA95do6jWe+MtmA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297548;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Vc+dk4sXUAznOiMsvmZSS0emw2t3qJrqqCqk1XvgqYs=;
-	b=v36ruXcCboulj34qlHA4SI0gg95gWtJAhf9JjHAXnUfigvTY2URWD7ltcgOzwpv17qlP
-	 4r/5eg9Bx2BSiHtdBYEAUwnK+XSRtxvP/M2WZW8/qof+7Sp8WOKEbppFFkLaEzgBbNckv
-	 8cwt6cMpm+5MeRQcqLz7bX/vb9FrYCDQl2tagFs391v8ekEQLh6o0MHmsKyMA6zFY4AJS
-	 yiJcDOKQ6BA5lDSU+0Aw5vgG6vPHoIeLtQmiU/ZLAkR+P0r38rC0zomdgURKnyXqFKiDm
-	 Dx3fjwZEHgWVc8huFPVE42r6HH7F0OW93irS+ckPZSwUTyfXDaBH7T5R7szymNVmy5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cIzgPmtW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793297777;
+	b=skbsiNl+DRKPyJ76reiPiwOjjPJWwO90ZO3UHcUSB4drgtcKY8LydK7KEgWS7ZPplPcn
+	 ZgPzqVhzk40Nq5FLUlRT2Lnlx21Q29aHrvI5D6RptH1Vwu6i9E9zIomP6lp16gthnQaA/
+	 92hjr1ld+vFl9oTT2xrmUal823YnJw9fgjGmeVCUf0vrOX2C3fayermRYMDTD86I4C4L9
+	 /CVDH2rJL/50iuqNmme1fkI/WbnjigdJ8gD3WAmWjbUOeVDiYVW+9PE2ulOIg07xVxT/T
+	 WGSn378S3TErs5ypmVKxgC1CJnLm6DoOHgzXrP0aUKZPwzzltGCuT/VWQErk+0OPKsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297777;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=YCty3KVa5xRdvMsKJANqLK9+srhfOJGoVNkKo5xizWo=;
+	b=fJKxGsXX/Bavsc6TxVcq9jDlx9xEmjhY8BK5M+JBvqGmhvNlKK20dXr0yGMLhMOCpTjD
+	 CHgPIWeSniKH1Hh/jxMbR2BUj2+M1OvACWXZXfIF5ZpXVdst78EBaqQq29pX/n/VL0m5S
+	 kdlZp1Va4MC9ulSbxlNQoMAs0xfe4XrJ9PCyZ49mDtup+Egi0HP1zvuFX05QxWB37LsBL
+	 pHjNjkx8V9LoblHnaFCMzqSxS0d9bQobz7/0iwaAo/cAUnASsJtJ2ELYdViOm8RF39nTt
+	 F1Jz5ltX0NI8WZ98oJfo4QFeOyl84r0x7IOjyzRhC9ec+nVpbqmQzsf50X6Xpd4VLng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bbcqz8OS;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317BE606A31A;
-	Thu, 29 Oct 2026 18:12:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080C0606A334;
+	Thu, 29 Oct 2026 18:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cIzgPmtW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793297547;
-	b=oDBCn3IKh/jOMEo+O5TGEpdSCElDKBsZcHW15AIqx9LxxxEvXBWaqOovD+E2ihtrzOT9
-	 8Yk7pcCBl2yRcMJUicDYrT0PemI8dGj6hnssYjWdgZ2tpff8/L/QPkMK1ra51mwpyIxyJ
-	 jwz1ZCjxmq7xOzYoDrzHe2ldVDFpd49HG9Sb8x13APK9/aGkZyslWPpdGlRk7WVdf9o2f
-	 TzLhCOaWXMrHZO5avR5pVaqguwYWee+AHdRIePe4H2kdXvlRSi2qS6OMPsol1npQhr67i
-	 86tr+3Yt4oPj7xEE7MclZuRtqhEQcWon3Vyrw8a4wRIuHr1F192jTft26sgjekm+psA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793297547;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Vc+dk4sXUAznOiMsvmZSS0emw2t3qJrqqCqk1XvgqYs=;
-	b=RA5FKBXBzVrdVeJWH+8bh1xCBk6lo+mdLwYdKyeSsF/bb8jfpG9iWSgT7Y0EIrIaKuaY
-	 6qBUs0MK3naReOXHv28ISvSXuOTpriPdzbSqWLNA1sAdkA8FX3SoGHrIFz/MMZ4HqNRrh
-	 Cn8TaSv74+wWrMMZbq6vteqQKL58lgceHBKEqFVRgJcVBWj6U0RXmFiLD3PmRMID9wf3X
-	 P6DE3fPbpqefsi6Ak7PCNAth/Dw3+Z8XYD6PixGtMxwWb5zSMKirwObTL7SHWS8jlW25h
-	 hjkXsa5rIFe14vdS7hEXOa/BSb54ixOSinNwfYRB6eO4cHMYCQup+DYRlK2bni0M6hg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 36A501F01824;
-	Thu, 29 Oct 2026 18:12:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bbcqz8OS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B711F01816;
+	Thu, 29 Oct 2026 18:16:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793297547;
-	bh=Vc+dk4sXUAznOiMsvmZSS0emw2t3qJrqqCqk1XvgqYs=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=cIzgPmtWSPM9ByY4xVnebopFV8nPtmzVizGxn1LMaHsOniW0oKpegm3Gya9xjHpzx
-	 QodWmKH17/l6cf426VcBSgPUJaTf1nCU9RHpL+Qy6gJNdl1NydYvXm3FlsvPq3Np3z
-	 ShZG09uXCW14tn59McdG3fTNHCGIsl7AGe+w36fbVHY9uCQXCnbZoE/W/5R53YEor8
-	 yZw26XqvoGZtdjT1E1OCJiAk+nXLjeZvC3fTqw+3PrndYQHG2DisZXlATBU7EWM/yF
-	 1pzUQXL7nEqjHKsEgAOZj/PZ5+s97uyRxt8gG7LUebNbeoXujxCiuNqzMUponctIxR
-	 5IPzJioEHCSbw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BB16A45935;
-	Thu, 29 Oct 2026 18:12:26 +0000 (UTC)
-From: Vladlen Grachev via B4 Relay <devnull+webholt.gmail.com@kernel.org>
-Date: Thu, 29 Oct 2026 18:12:17 +0000
-Subject: [PATCH] arm64: dts: qcom: msm8996-oneplus-common: Drop LVS2
- voltage constraints
+	s=k20260515; t=1793297776;
+	bh=YCty3KVa5xRdvMsKJANqLK9+srhfOJGoVNkKo5xizWo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Bbcqz8OSZeV6ud3xfB2PxlrFgz5pKWK1/zMaKCk1m2mq2yT9mIsbLw8V3qf9Xl39W
+	 1gUhcmpDxD2uPxNca1PXMKH73YmKUeG2JuVfdTcOM9Zwvv7c1EjxfIBHZIbbpFyghD
+	 DKTV1KU+r+qa30swXgepKl5NY22bm+VWbMmRawdTdeDvqbOgMfjMzJd2C3M8RjdhCx
+	 Bj/kJB5W2iZVjpQrLDQbzYkKfjKIuC5T7IBV4ahs0V36+HLi3nfSmgLZA92KnjN0+B
+	 kk24Ukzi8qlIE0np/oiwQVHdzyhV6gEaCdVm0aXn2E/k5h0fpIfoyD+V2WsQ1HmN2H
+	 ga566q1PqmBOw==
+Subject: Re: [PATCH net v5] net/sched: clamp skb->queue_mapping before
+ indexing the tx queue
+From: netdev-bot+sashiko@kernel.org
+To: jhs@mojatatu.com
+Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ vinicius.gomes@intel.com, horms@kernel.org, hawk@kernel.org,
+ daniel@iogearbox.net, sashiko-bot@kernel.org, bpf@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Thu, 29 Oct 2026 18:16:15 +0000
+Message-ID: <179329777513.3134.12135506558709584471@kernel.org>
+In-Reply-To: <QDISC-MD1X.v5.r0.20261026053226-1@mojatatu.com>
+References: <QDISC-MD1X.v5.r0.20261026053226-1@mojatatu.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,87 +65,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-op3t-lvs2-fix-v1-1-42ca9d992c20@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7bsHMIvtKdAhbayFSNCQI/550n
- IGZFxJFpgSTeCFS5sT+qtA2AuyxXjshb5VBSTW0Uhn0obvxzEmh4we1tqORvaVOO6hNiFT1/5u
- XUj6vgMRpXwAAAA==
-X-Change-ID: 20261029-op3t-lvs2-fix-44c8905ce34f
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Vladlen Grachev <webholt@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793297541; l=2127;
- i=webholt@gmail.com; s=20261029; h=from:subject:message-id;
- bh=HebHQtTCozbcTjBAD2cRWkL8+SEDKdyhDnbeViDQK38=;
- b=lRJ+qH7Rt37iPLxVprrqAsVq6NOKR62bVoWBe6x0IUwCAw+I7n+az0QKhhiMKSpk3JylSNISV
- ywt0RvU0gRpBXfNeZ2dkJoqiJ32HYRIyFz25kCtcPCOvcOlCF1H9zNU
-X-Developer-Key: i=webholt@gmail.com; a=ed25519;
- pk=8kq937AiLEx3pRQ9J+BUXm28cQqT4RyMTPY5dyb04kc=
-X-Endpoint-Received: by B4 Relay for webholt@gmail.com/20261029 with
- auth_id=1356
-X-Original-From: Vladlen Grachev <webholt@gmail.com>
-Reply-To: webholt@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Vladlen Grachev <webholt@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Since commit 27880745470a ("arm64: dts: qcom: msm8996-oneplus: Add SLPI
-VDD_PX"), OnePlus 3T no longer boots: the PM8994 RPM regulator device
-fails to probe, so UFS, USB and the display never come up and the phone
-hangs on the bootloader splash screen:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-  lvs2: failed to get the current voltage: -EINVAL
-  qcom_rpm_smd_regulator remoteproc:glink-edge:rpm-requests:regulators:
-    lvs2: devm_regulator_register() failed, ret=-22
-  qcom_rpm_smd_regulator remoteproc:glink-edge:rpm-requests:regulators:
-    probe with driver qcom_rpm_smd_regulator failed with error -22
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The switch LVS2 cannot report its voltage, so the regulator core asks
-its input supply, vdd_lvs1_2, which is not described on these
-boards. Checking the 1.8 V constraint then fails with -EINVAL, and the
-RPM regulator driver aborts the probe of all PM8994 regulators.
+- [Medium] The patch silently changes behaviour on stable kernels, and
+  its commit message and docs do not describe the change accurately.
 
-Drop the constraints, like apq8096-db820c, which describes LVS1/LVS2
-without them. Keep the node, so that the SLPI still gets its px-supply.
+--
 
-Describing vdd_lvs1_2-supply as S4, as done on other MSM8996 boards,
-would also work, but it would only serve the constraint, which has
-nothing to enforce on a switch.
+net/sched: clamp skb->queue_mapping before indexing the tx queue
 
-Tested on OnePlus 3T with the msm8996-mainline kernel based on v6.19.5.
+A tc BPF store can leave skb->queue_mapping out of range. This patch caps
+it in the qdisc dequeue paths in sch_generic.c and in taprio_enqueue(), so
+it can no longer index dev->_tx[] or q->qdiscs[] out of bounds. On a
+TCQ_F_ONETXQUEUE qdisc the mapping is pinned to the qdisc's own
+q->dev_queue instead of being capped to queue 0.
 
-Fixes: 27880745470a ("arm64: dts: qcom: msm8996-oneplus: Add SLPI VDD_PX")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vladlen Grachev <webholt@gmail.com>
----
- arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi | 2 --
- 1 file changed, 2 deletions(-)
+Closes: https://lore.kernel.org/netdev/179033713973.2160803.4914570693994398206@kernel.org/
+Link: https://lore.kernel.org/netdev/179293123940.3134.1149128679923234677@kernel.org/
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v4.r0.20261021042722-1%40mojatatu.com
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v3.r0.20261015165943-1%40mojatatu.com
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v1.20261005193231%40mojatatu.com
+Link: https://lore.kernel.org/netdev/20261015125822.GH83879@horms.kernel.org/
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi
-index 7a3f8afae..98fc45dc8 100644
---- a/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8996-oneplus-common.dtsi
-@@ -497,8 +497,6 @@ vreg_l32a_1p8: l32 {
- 		};
- 
- 		vreg_lvs2a: lvs2 {
--			regulator-min-microvolt = <1800000>;
--			regulator-max-microvolt = <1800000>;
- 		};
- 	};
- };
+> diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+> index 6f6a6f0d5eb0..5dc1d47f811a 100644
+> --- a/net/sched/sch_generic.c
+> +++ b/net/sched/sch_generic.c
+> @@ -96,9 +96,34 @@ static void qdisc_maybe_clear_missed(struct Qdisc *q,
+>  
+>  #define SKB_XOFF_MAGIC ((struct sk_buff *)1UL)
+>  
+> +/* Re-cap a stale queue_mapping; an ONETXQUEUE qdisc pins q->dev_queue. */
+> +static u16 qdisc_cap_skb_tx_queue(struct Qdisc *q, struct sk_buff *skb)
+> +{
+> +	u16 queue = skb_get_queue_mapping(skb);
+> +	struct net_device *dev = qdisc_dev(q);
+> +	u16 capped;
+> +
+> +	if (q->flags & TCQ_F_ONETXQUEUE)
+> +		capped = q->dev_queue - netdev_get_tx_queue(dev, 0);
+> +	else
+> +		capped = netdev_cap_txqueue(dev, queue);
 
----
-base-commit: f5672a3dff0291d6a45eb0c258b9d2baeb4dc577
-change-id: 20261029-op3t-lvs2-fix-44c8905ce34f
+[Severity: Medium]
 
-Best regards,
+On a TCQ_F_ONETXQUEUE qdisc, this branch rewrites the mapping of every skb,
+not just the out-of-range ones. Is that intended for in-range mappings that
+a classifier sets on purpose?
+
+The rewrite happens in several places. dequeue_skb() applies it to the head
+skb and to gso_skb. try_bulk_dequeue_skb() applies it to each follower.
+__skb_dequeue_bad_txq() applies it to skbs taken from skb_bad_txq.
+
+Here is one way to hit it. Take a per-queue child of mq, mqprio, taprio or
+htb offload whose q->dev_queue is txq i. A filter on that child can run
+"action skbedit queue_mapping j" with j != i and j < real_num_tx_queues.
+tcf_skbedit_act() accepts that value:
+
+net/sched/act_skbedit.c:tcf_skbedit_act() {
+    ...
+	if (params->flags & SKBEDIT_F_QUEUE_MAPPING &&
+	    skb->dev->real_num_tx_queues > params->queue_mapping) {
+		if (skb_at_tc_egress(skb))
+			netdev_xmit_skip_txqueue(true);
+		skb_set_queue_mapping(skb, tcf_skbedit_hash(params, skb));
+	}
+    ...
+}
+
+A tc BPF store of an in-range value behaves the same way.
+
+Before this patch, qdisc_restart() sent the packet on
+skb_get_tx_queue(dev, skb), which is queue j. With this patch,
+dequeue_skb()->qdisc_cap_skb_tx_queue() first rewrites j back to i. The
+packet then goes out on queue i, and nothing is logged.
+
+The commit message says:
+
+    netdev_cap_txqueue() already logs a ratelimited notice and selects
+    queue 0.
+
+The TCQ_F_ONETXQUEUE branch never calls netdev_cap_txqueue(), though. That
+also covers the 1-queue reproducer in the commit message, because
+qdisc_create() sets the flag on every non-multiqueue device:
+
+net/sched/sch_api.c:qdisc_create() {
+    ...
+		if (!netif_is_multiqueue(dev))
+			sch->flags |= TCQ_F_ONETXQUEUE;
+    ...
+}
+
+So in that reproducer, a store of 1 from the filter on the prio root is
+quietly pinned to 0, with no notice.
+
+The only place that says in-range mappings from a filter on a per-queue
+child are now overridden is the v4 -> v5 note below the "---". git am drops
+that part, and the patch is tagged for stable.
+
+Documentation/networking/tc-queue-filters.rst also still says:
+
+    2) TC filter directs traffic to a transmit queue with the action
+       skbedit queue_mapping $tx_qid.
+
+It does not limit where the filter can be attached.
+
+Could the commit message describe the pinning of in-range mappings, and the
+missing log message on the TCQ_F_ONETXQUEUE path? Should the documentation
+be updated to match?
+
+> +
+> +	if (unlikely(capped != queue))
+> +		skb_set_queue_mapping(skb, capped);
+> +
+> +	return capped;
+> +}
+
+[ ... ]
+
 -- 
-Vladlen Grachev <webholt@gmail.com>
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-MD1X.v5.r0.20261026053226-1%40mojatatu.com
