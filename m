@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793291936;
-	b=nmO8/maMGqTHjtQhEMszHqztQiD+/gX3Y0bZZrBw+p/XutEZ1ZxCHvP5wXnmgshYzujl
-	 ZuflO2kmVmsViOV90ODbZg8DNNh/YJMhu9k3ADmjCLKR4sXncTSTvEOs+wIJfHcgtbIUp
-	 4AgyxJHBeKd3bdGlVwoQUnnhOnRPMan6bihkidct4zVb0bGJsgbBVp3TMQMdRrKcmn17q
-	 17Na7OAaN8XXZF25wKqlijU+GggCuNVe0co/FJg6K+bGLlI9CHD6y5CWfXDhq6eGjIq6c
-	 NOpQcF5DHZB9xxLDizqD2/eg6TKKDfHQLQmEYN4A+MnT7gfQUFIwdtMdSy8JnKWfy4Q==
+	t=1793292222;
+	b=lcosGtgI6QLeom8MDMxLPiXPFx2CxJgWbFGWbyydm70mHwf8s404d9deMEO5G1ZGxQfw
+	 oRzvOYcrqH6OPhMQ5Hq6kqAWYcX3x9lT7Nrr6crWE/1hGZVuadRVMXwirklaHjwfPIoDq
+	 veED2tb1vA5b2awBSR0+Ajtcxh2f1Jbu7FS1magyR+gyrFG5WsTL5i23Be4HWjcgqdkEE
+	 +q6Z9crVB+1OBfQFVasrwlPpBMHnerzGYZm1E/om/fOmMIPmWavfBYJBzn3EeFfK/kPMG
+	 BlLckIg3raUOPNoWEB6o3ar41cwltKSEXsUmgZoRb4cTDiPABJuLqnrMr8WXFkgImrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291936;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=sULVglHJCgxRYe1Y7bllvtopnRakgfyuZFWOLnKgUXa9BfLnYO62h6tfcuRWv1Vr/KW1
-	 woMSxbagFyGmi0JpXzU4ZwTP6702xZOkbtoi/xT+fNfF+0jhQXf0iiKHKjn5GOsq++N3d
-	 dKGFt2+wHR74nglHq9z3xCr/rZjjdYhfDep2i4/sr4vGmIMSeegplhO/KirlShB/ZSE80
-	 zsfWomY8finiMxoiV1YXN0HVEoKZFwWLE93xZcHsgvqcBsyOSkpN4V6Mhk270dKWF3Q7X
-	 RdZmag9mh1DEF5BNVu+HNlWaxBI3zLWs/a3ZmBqPceh4Uppim8rG1VhaeREEUTze8Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292222;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=zIb+pqaaA/YKCk5vRPQd2ADFJ6LQtEkb6CBYfwYZyio=;
+	b=p1npZk6EKACv2ZKb6/qL26cM2XshAvxqaxQp4mHl8O5HxWRD6yUU4dFs0oZpzIXBcnqc
+	 BI9Eb+MnghE1x2u7ElxjVxGs0M8h6ZReTpBjZTx8tQFozgq+6FHRPGhv6rDWlEJulH9wn
+	 XfH8Q2/9790lPQ8GZiPjDBORv8V1L/ORF1Vdsx/c/zyOxELW69Umr8HAiX52tEmNZJ6CG
+	 IO8ctUIG1DDFoagZTsr3fSWYSdkkbpqRKNNVSWVsvPE28effCyLaxDwIfyeS0AW9zf2f4
+	 Bz3cW76qen1bXia9BgqkD24yiq1/YypnilruNTMSdChMWa1/4pX4X0viuWjrCflJBlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BEaMPKb1;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=bJs9ec7j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E261C606A32D;
-	Thu, 29 Oct 2026 16:38:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D49606A31A;
+	Thu, 29 Oct 2026 16:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BEaMPKb1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A6B1F01824;
-	Thu, 29 Oct 2026 16:38:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793291935;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BEaMPKb1ZK4zTVgDeOY9cgBdeAaQGlE8TMe8d6BcMx0qoMXDiDgrpLWxTE2ptiXKh
-	 QtjTqlIvs+DmbBjF5t1js3MUjHCgV/Rbh3o2dfmCQ8Gskcb9zNGlluNCpea52N8iez
-	 l9pLjKoRK+kA1ZV2K6sGUZpbxkhZ9DeTgmh6fxi1rKlUcggoUewrTk3Yy/VZ1yNVdu
-	 nJL+oagpCORGPvK62fqR5Pl1S3X0clsj4F96Txc/FW0ReZS75KnlWe0ppzkuIr3u5t
-	 cSY/CciQyQPtoEWxlITgIievz8KS2Tp6he6z52Oy0JOCefGeBtCg+ZGvE6YAllXgu1
-	 xjRTJWyedgRRQ==
-From: netdev-bot+sinfo@kernel.org
-To: hyunjungg <hj351016@gmail.com>
-Cc: jhs@mojatatu.com, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH net] net/sched: em_ipt: reject hook values >= NF_INET_NUMHOOKS
-Date: Thu, 29 Oct 2026 16:38:54 +0000
-Message-ID: <179329193445.3327.7941488029152521409@kernel.org>
-In-Reply-To: <20261029163516.2476127-1-hj351016@gmail.com>
-References: <20261029163516.2476127-1-hj351016@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=bJs9ec7j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521631F01816;
+	Thu, 29 Oct 2026 16:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793292221;
+	bh=zIb+pqaaA/YKCk5vRPQd2ADFJ6LQtEkb6CBYfwYZyio=;
+	h=Date:To:From:Subject;
+	b=bJs9ec7j9+S4AmsXClSRjaOmDoHLTs/sBNXxSvcYqUw2sfGFJcAatkmYvmM1mCRY2
+	 b8tz1q0OfuvtYz14c/v3Zyhad+pa+vqfdeiMnCkztahJ7DwApZFLfTPUwVikUNGtXm
+	 f+gy+IWM51yohhbewh5smhMghKqiG99JnBLH1I3g=
+Date: Thu, 29 Oct 2026 09:43:40 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,
+	manfred@colorfullife.com,david.laight.linux@gmail.com,dave@stgolabs.net,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] ipc-msg-clamp-negative-statistics.patch removed from -mm tree
+Message-Id: <20261029164341.521631F01816@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,22 +50,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+The quilt patch titled
+     Subject: ipc/msg: clamp negative MSG_INFO usage counts
+has been removed from the -mm tree.  Its filename was
+     ipc-msg-clamp-negative-statistics.patch
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+This patch was dropped because an updated version will be issued
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+------------------------------------------------------
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: ipc/msg: clamp negative MSG_INFO usage counts
+Date: Thu, 29 Oct 2026 01:43:24 +0000
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+MSG_INFO can report negative message and byte counts during ordinary queue
+traffic.  For example, ipcs -q -u prints a negative header count and can
+convert a negative byte count into an enormous unsigned used-space value.
+
+percpu_counter_sum() does not take an atomic snapshot of all CPUs.  While
+a third CPU sums the counters, it can read the sending CPU's local count
+before an enqueue and the receiving CPU's local count after the matching
+dequeue.  The sampled total is then negative, even if the queue was
+initially empty and is empty again.  The sum's lock serializes folding
+into the global count, but not ordinary local counter updates.  Queue
+locking does not serialize these updates with the statistics reader.
+
+Use percpu_counter_sum_positive() for both usage counters before applying
+the upper clamp.  Keep the comparison in s64 so the result is not narrowed
+before saturation.
+
+This bounds the reported usage without making the statistics an atomic
+snapshot.  Message delivery and queue-limit enforcement are unchanged.
+
+This is a follow-up to David Laight's "ipc/msg: Fix saturation of percpu
+counts in msgctl_info()".
+
+Validated with a source-extraction regression harness, including a forced
+three-CPU sampling trace and failing old-code controls.  No running-kernel
+reproduction or kernel build was performed.
+
+Backporting: kernels such as v6.1 and v6.6 require matching min() operand
+types.  Use min_t(s64, ...) instead of min() on those kernels.  For trees
+still using min_t(int, ...), also retain the s64 upper clamp; the separate
+standalone variant includes both adjustments.
+
+Fixes: 72d1e611082e ("ipc/msg: mitigate the lock contention with percpu counter")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Laight <david.laight.linux@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Manfred Spraul <manfred@colorfullife.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ ipc/msg.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+--- a/ipc/msg.c~ipc-msg-clamp-negative-statistics
++++ a/ipc/msg.c
+@@ -501,10 +501,12 @@ static int msgctl_info(struct ipc_namesp
+ 	max_idx = ipc_get_maxidx(&msg_ids(ns));
+ 	up_read(&msg_ids(ns).rwsem);
+ 	if (cmd == MSG_INFO) {
+-		msginfo->msgmap = min(percpu_counter_sum(&ns->percpu_msg_hdrs),
+-				     INT_MAX);
+-		msginfo->msgtql = min(percpu_counter_sum(&ns->percpu_msg_bytes),
+-				     INT_MAX);
++		msginfo->msgmap = min(
++			percpu_counter_sum_positive(&ns->percpu_msg_hdrs),
++			INT_MAX);
++		msginfo->msgtql = min(
++			percpu_counter_sum_positive(&ns->percpu_msg_bytes),
++			INT_MAX);
+ 	} else {
+ 		msginfo->msgmap = MSGMAP;
+ 		msginfo->msgpool = MSGPOOL;
+_
+
+Patches currently in -mm which might be from akpm@linux-foundation.org are
+
+openrisc-export-mulsi3.patch
+maintainers-add-ipc-maintainers.patch
+profile-account-for-partial-proc-profile-reads.patch
+profile-simplify-proc-profile-read-layout.patch
+drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining.patch
+
