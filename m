@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240737;
-	b=avgiMMfh40reP2AsYi+eiJwMxdRtJAE/VMJrOYbR2WTVY8EE7xCiIN9zYljjCyGMTU4X
-	 qe0JXnsl6srEBMJerx1pbU/NcEK0AMAshzMy9Xg4z4lYFncRZd2sN7/QlH4Y/ZxjaGjI6
-	 Q1bccQSsWtfh/zcsyYXlROycfoHqDUYRDHpRlYMFkLm35kE9FJs4xh/1/UaQiZukbWX1O
-	 V1O47lqNbirF1mI541j4OM/BKi5g27dPjx4rvdAm4D5Emfvjuz4eqhW9Rr1sTn/3/L4nn
-	 hqYvU9D7I2f2QTAO6zKEY7CGlIoPn5aFhSVutWDjRJGZm0guWL1ut2aMk6Z0mx7z+MQ==
+	t=1793240934;
+	b=BZDZRUcArKfjXDSOmAAzi0m7r/O3zFTTKa0mbEpyKt2rnyC3OJpgrkCKPn1bVXzSno1V
+	 EtiZAsPk5x3D/SHypkTfDjhgNFMx0shi0EBaKSmc9d6U1/rLIccsGDI4rBWXvcwYl59Aq
+	 H+SmdzvhzM1BcAuWAeLqkT8oIdsA7sj/hG2UyEOI6JTcVv6oAmhF0ZObWlzbjWs40XGA5
+	 iicUzKsOr9lVvqO//dRno8g69UsRg5Wah4XORE+veKjEGn3bYM1vX5+K8eDq8FG3iPvFK
+	 5gncSxhnP4oVz3hH/NAz6li5rRpflbZn6LCphZE+T86UmsnvJkBlK3lW+I4Z6bYsILA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240737;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240934;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=x24bZLWBM/LicqTiRgYPs0yGqyDzPgZxkpjpOAFpoZQ=;
-	b=5CIgEim9i6+9K10Cvs6xAdAgSwHW+KE495wGWHj+dDtklXYL75SMvyqv+2IgnjUxj4Oj
-	 9YRckfX3e4hja5ds/J/ciJ9eNh1UokTS8arr4nmeAqeIFCc2frqQCy8bjrEBwWqaJp0r+
-	 5xu7YEIvHVIgULGxrVYJzmrFfeXsc8l0RKz4MuVCWzKF2JcqoHzDtNkstidejEDFVSlCE
-	 ZAwE3HpafwIiWvJgUMH/5z3oQIndUxblNsO+goHFiJnwUVaQO63QSBCttTUvIho1lWmDK
-	 shSfaozJeWmk6Xc5H+dIkoP2tDgwaIn8WDicRoJiexr34YHw22zealZMu6vH6UZjr2w==
+	bh=SEhhGsnVr1dyJancNN/85/bOvozExKeXHdbMvEDEscE=;
+	b=o6dninaw2CAkUJYePqqlyfjSD9v/TmEFwFC3wRLAfB7jSgGmyD7EIG1EUpkvLhT0poc8
+	 kdsXTYNpjTT4p4+pKPrxQpoRLvviZEBU9tpzhB9MZgxY40aSY/K1EsM2UemngiBtwS5hV
+	 GMJlnUD/ewkH24pXWIkzapsoJPySxwBQUZL283n0JW3Ng2MaHhCfg4+YfaKP/3vBT/YWA
+	 DwSurHC7RTy/p5WcROdtuUVzwtr/kAJBVzAN36IUxyIPliM69BdMBZ5gENbWmVwHbP1TZ
+	 uD1eHYgwLdOUmWSSgSz569YHR4+XkXO/QGAk60NwJ2KmjmaY/bRA0EVoMFipVUFTfeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=bw8UcsAb;
-	arc=none smtp.remote-ip=35.155.198.111
-Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HFNHnoLQ;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96A9D606A327
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:25:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96A9D606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509BB606A326
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 02:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 509BB606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=bw8UcsAb
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HFNHnoLQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793240736; x=1824776736;
+  t=1793240934; x=1824776934;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=x24bZLWBM/LicqTiRgYPs0yGqyDzPgZxkpjpOAFpoZQ=;
-  b=bw8UcsAbHW/kgEVyflpkvGJecvNh1yxymVVoWNOLJhrOnjJVy08d1hKc
-   I5WI3ibRtv9p7T6eLozZbwJpQH5mZlWYP4gWFJjPk6E/voQSFpybl6kID
-   6QeCCAIeZHMaVpSvtYSWbBMOzVENjmG3m4U05QBOzEzMbKhZlfbDjmlL9
-   iqQqeDN3lP++Zq+cF+MGAXXYED7OJfAYaa+lm7f1zr9ko/mPb8+qYIT+H
-   F7ChXqSzi8QhhcsnwCDEq3f6qq3ixGzOiRf8TaaYX0tloYJ7SumOYlD2y
-   gm+xyktZ5BmF6xj93RTd9/nO8BpatHLJbb9kMzecfHVlRKOwOxsQxWU3/
-   A==;
-X-CSE-ConnectionGUID: e7kZNjV2RpGPmfy6hDJtpw==
-X-CSE-MsgGUID: jLYuy3qNQxacb5idhzCH6g==
+  bh=SEhhGsnVr1dyJancNN/85/bOvozExKeXHdbMvEDEscE=;
+  b=HFNHnoLQo72lQ0jPMLP2bIZw0lN4DMsai22YEoU2/X1CWz/vO65HEN8C
+   18jbQPcGzdpIhlwuVaaXqIQ1gXT9mCoUF7MXCCkas8mwgRAHzAvGP4JM1
+   d1ZEywHjQgNb8Ix7Y2+F3fjnIFOccSZRBlOw7rIWGwHP9Y2/AMTYiLnlX
+   bjNm1Op4+wVih9xkQ0+ZWEndjKmypVxR68UO1F9gfutT54vc/gY8XOrpH
+   BUUdXIIK2rGY2+MI9SKKPwnYnol346BKGORt1gCCblFmWPBgJi4zM5mEA
+   2XkpI4SBU/Goc+sh2WFgncOiupVSXoi/ZhdbosRKiXXO5LNg4Zwh822Z/
+   g==;
+X-CSE-ConnectionGUID: o4iZ4nSeR4SZJOL6AIImDw==
+X-CSE-MsgGUID: ixgpa6/DTda2Y0Kk9ZhXkA==
 X-IronPort-AV: E=Sophos;i="6.27,183,1787011200"; 
-   d="scan'208";a="32433882"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 02:25:36 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:28803]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.65:2525] with esmtp (Farcaster)
- id 025f824c-39b5-4858-9d97-f396d1c04e53; Thu, 29 Oct 2026 02:25:35 +0000 (UTC)
-X-Farcaster-Flow-ID: 025f824c-39b5-4858-9d97-f396d1c04e53
+   d="scan'208";a="32520491"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 02:28:53 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:5606]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.208:2525] with esmtp (Farcaster)
+ id f53eed77-4e18-4961-bcef-1469191e7bb6; Thu, 29 Oct 2026 02:28:53 +0000 (UTC)
+X-Farcaster-Flow-ID: f53eed77-4e18-4961-bcef-1469191e7bb6
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 29 Oct 2026 02:25:35 +0000
+ Thu, 29 Oct 2026 02:28:53 +0000
 Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Thu, 29 Oct 2026 02:25:35 +0000
+ Thu, 29 Oct 2026 02:28:53 +0000
 From: Mark Bundschuh <mkbund@amazon.com>
 To: <stable@vger.kernel.org>
 CC: Fuad Tabba <fuad.tabba@linux.dev>, Hiroyuki Katsura <hk590@cam.ac.uk>,
 	Vincent Donnefort <vdonnefort@google.com>, Marc Zyngier <maz@kernel.org>,
 	Oliver Upton <oupton@kernel.org>, Mark Bundschuh <mkbund@amazon.com>
-Subject: [PATCH 6.6.y] KVM: arm64: Transfer the hyp stack pages out of the host stage-2
-Date: Thu, 29 Oct 2026 02:25:09 +0000
-Message-ID: <20261029022509.2631522-1-mkbund@amazon.com>
+Subject: [PATCH 6.1.y] KVM: arm64: Transfer the hyp stack pages out of the host stage-2
+Date: Thu, 29 Oct 2026 02:26:10 +0000
+Message-ID: <20261029022610.2637061-1-mkbund@amazon.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,7 +85,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
 From: Fuad Tabba <fuad.tabba@linux.dev>
@@ -118,10 +118,10 @@ Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
  1 file changed, 10 insertions(+)
 
 diff --git a/arch/arm64/kvm/hyp/nvhe/setup.c b/arch/arm64/kvm/hyp/nvhe/setup.c
-index 29df463ab350c..e8c1f975e38e8 100644
+index e8d4ea2fcfa09..89dbe4cb8394b 100644
 --- a/arch/arm64/kvm/hyp/nvhe/setup.c
 +++ b/arch/arm64/kvm/hyp/nvhe/setup.c
-@@ -240,6 +240,16 @@ static int fix_host_ownership(void)
+@@ -255,6 +255,16 @@ static int finalize_host_mappings(void)
  			return ret;
  	}
  
@@ -139,7 +139,7 @@ index 29df463ab350c..e8c1f975e38e8 100644
  }
  
 
-base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
+base-commit: 79807e970724c1f90cee1316361d61b80db4eef6
 -- 
 2.50.1
 
