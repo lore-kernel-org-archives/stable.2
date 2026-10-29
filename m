@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306335;
-	b=cZDkeryoEOPSD0y2IlUK4BJq26RmfZhmM4efGIuiot8S+DYnltJJP3TnEoLFDqngbqQe
-	 IXip9+LYZW2cXWy2f34ayKv8id043z66bb7A6Ium4dU1x0/Vlnv5oAIi407UWRz2iZLGD
-	 /IK/W8l5gMGvyCcPaTOK7564Gp7/wU4fYYs3Hg8QLjrSZ4PhMyYUsGMijFQY0jQem0zJm
-	 gfALeC3UdeVZzSqpS5uHenRJpT6QKm5fKUc/5Vm+KhGvMb23J1tWZhsZmetBRnJnv6Rdj
-	 VXwQXEtSVeqiWykrqOW1KVM4es1+3Uz818VikfUhUTPF70+5leHhiexT8Zow9ofDnbw==
+	t=1793306349;
+	b=pt2o0sNJ9zSYt5Bq9TuR8xaMriIphoLqoJ5VW4PE9iMomTIqF/tPt3JX5ywIgiIKStNQ
+	 LyzAYEsJkRRTU2BTNjZCdp+zSK/15ogwLtzlJd+Abh8nCthScdvXi+tlbDdyEsuPpQuZx
+	 pq349Qx7Q1NBEQel1ghOmR4RswiHp7frHY15EmoUpAdgMXK6qqVUpZSF1r0zELCVlVYtB
+	 pJIr7NJPGyCfRB5m24sIX9eViC/GwJN/839rcLke8HaegAfekGcJC6EKMk0YnsMFZQ+ZF
+	 j6MSRvOiGhgtw+/auenNkfTBFP73NM8bhgLTh23uGdcuBih+/hn6AarlP6OUbUxCiGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306349;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=VnQ13mkoh6ozIDWGTVX+C6HT4vjQEoXrCm0MooEO04s=;
-	b=x5G6j4+oajXW1nWzU5i+yrPcLKqA4wyBKiZF2igE3jESJ+V9uVwlVNjkhXPGyrig/Ma2
-	 kHkdut2uNg6wnyx1Kr+wcYvG6tqC1/EvsMqx8tXhFdmul6uWorWXiaZD6cSuX07rXgDy5
-	 nBpcDeVhc5uvlGFlNo/ysCIp0/tRnBKy40u0I1XeXHZ62/eiFlb1jhaaOodhxbVLr+WBS
-	 /yL79FDl1e8w4ASDANcfjj48L+AAj0e/lXEy2d2KteDRmT/p85heK0zGKMdVVBwFJ1s31
-	 v04nEAf1j89oleUxU7EvsAerPdpmJIa6hilD2q18CqJVFucauIiQVVbX6y1o8YR8ZYw==
+	bh=zVfPl9MgmcK9sfU4MC+6S2mU4/7MWZEGtGJA+Gf+TwM=;
+	b=ALenkbTZgxt4975Mcnh+YLWU28reYVCYlNA+MBfUWsJUaA20RnqBUk+L+h5M41xzsT1e
+	 D3HZVClVSKSr45n6yXxP69PyR5RClDy4WoW3yT5G31wJr7LjERIMrW9skgBa5nA/6aCOW
+	 YHEi6qVG3pbM5Jek8PsY5b+/UbB/cZgOXY+j85hOar2IPPZZaQ6aa3Zx9EO1T4ag5MKwL
+	 LIdEQDfD1RW95N5hOi2qfSp+g0VFCFSomOLTZdGeg28N7BT3dGe47UjLQLeKNkZSj2k8H
+	 IFZOWJR8Le3exKpSPZrj66l6w7L0yJy8pBmzBjRLvhvwGVgVlAzpg1wA1+LzTk/Enmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YezDjZU2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kz2AvSL8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B0B606A31E;
-	Thu, 29 Oct 2026 20:38:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79132606A31F;
+	Thu, 29 Oct 2026 20:39:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YezDjZU2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736391F01829;
-	Thu, 29 Oct 2026 20:38:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kz2AvSL8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2931F01816;
+	Thu, 29 Oct 2026 20:38:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306334;
-	bh=VnQ13mkoh6ozIDWGTVX+C6HT4vjQEoXrCm0MooEO04s=;
+	s=k20260515; t=1793306349;
+	bh=zVfPl9MgmcK9sfU4MC+6S2mU4/7MWZEGtGJA+Gf+TwM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YezDjZU2yi5cWmUqfDHysvLO9HwSd76jRjz2DKKiJKmvX5TchaYVydd2c1v8z1JoG
-	 ukY6PBjO2jSZ2MQea3k0Ss09Ud/uCHu5P7yCWtRSy256Tb4AzyVTKkJiiDAcgduQg7
-	 xrppl9xLjFoWu1REw195bMUI8zpRl7qt7xONHzxWgUiB25CSuIO+I9FXJAhMAXvIxe
-	 9vFj0edvZ4NkCIz0Xn+Jfn8csY2hF2LHytvnUSwkq/J8TpxTtMH2yoRQoiT7o4M8eY
-	 68bluiNVhI3XJ1TLn1f1fRogMry8mga7lzsNOhsJevsO9wM1nRRKTRUXOiJoCR3V2/
-	 aAjnkIfXbMGHA==
+	b=kz2AvSL81IHV86Y6xy2E2U1XsKVedZLudNnrvAi3R6LwSOiwulMVFEkdVCzj4b8mv
+	 cJ/ZZkh2/Qx6UTpNE9wJoAwwaFh0wJfMLmQ0UiYfsRcVlWXuz1oEdtl2LTA6ma+W5x
+	 3G1d5jMl2VufXF/QWz5sAP0Jlxt6/O4yznwAno24YQ7K4D9RBffWJ2vgS8qltPFrTW
+	 3YgpmX34se9pgvw5ePx/p+4vJRq/wFoerwCOuFB1DR0jPYIlQXh2pB8yM2wDRftfk3
+	 hBeJr9FkYgsni8V/+/N91Qkn21XvQjId4eyK8MYKS0mxlR97xpOYo7FctBaQluZQ+I
+	 ZdiJ2oJGbuUng==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:17 +0100
-Subject: [PATCH v2 22/47] mm/gup: check for overflow when converting
- nr_pages to bytes in GUP-fast
+Date: Thu, 29 Oct 2026 21:33:18 +0100
+Subject: [PATCH v2 23/47] mm/userfaultfd: write-lock the VMA before waking
+ waiters when unregistering
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-22-a64ce7f83abb@kernel.org>
+Message-Id: <20261029-fixes_core-v2-23-a64ce7f83abb@kernel.org>
 References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -93,52 +93,53 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1309; i=david@kernel.org;
- h=from:subject:message-id; bh=1C5sa/S2cZ8sLgA0w/Gi6tvhiudETPPmM19hS9JNC5Q=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer21vLdw0040r6ZRnZU1d3rZlDw/pO7lrXgmoYp4wY
- /tajl38HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzEYTkjw+vlHL3B1hunvHr1
- /9a717nmGp87rIONvDT4+Q4o6P65soKRofVY6M6Jcm9fbfnHGVBQEHrm94n22fOMc+78Cd67bJV
- 1FjcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1450; i=david@kernel.org;
+ h=from:subject:message-id; bh=sxKVqTRFf7nv8Rk2AxGSEpTSCRWGcpA8V6JR+zulqqE=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer21/Yxakd+CiyJNQ2zmOll9uxhntdKtc5rXnK8v9R
+ bvilHO3dpSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjCRU5MZGZpnb8kptntYn2z6
+ juHxPK+NosJMz3KrSvRVGLyezRR/d5mR4eqGdRYB9WncadsXKvz9e8UqQCpxh9x/Pre6y5vCz0x
+ 2ZQAA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-The overflow check in gup_fast_fallback() only covers the addition to
-start. The preceding nr_pages << PAGE_SHIFT can already have truncated
-the length on 32bit.
+userfaultfd_unregister() wakes pending missing faults before clearing the
+VMA's userfaultfd registration. With per-VMA fault locking, holding
+mmap_lock for write does not prevent another fault from queuing after
+the wakeup but before userfaultfd_clear_vma() write-locks the VMA. That
+waiter can then remain asleep indefinitely.
 
-Users such as RapidIO's rio_dma_transfer() can derive such page counts
-from a 64-bit userspace length.
+Call vma_start_write() before waking waiters. Existing fault handlers
+queue themselves before dropping the VMA read lock, and new readers are
+excluded until mmap_write_unlock().
 
-Let's just check_shl_overflow() to reject any such overflow with
--EOVERFLOW early.
-
-Fixes: c28b1fc70390 ("mm/gup: reorganize internal_get_user_pages_fast()")
+Fixes: 29a22b9e08d7 ("mm: handle userfaults under VMA lock")
 Cc: stable@vger.kernel.org
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/gup.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/userfaultfd.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index 1c2ac7c66c30..ba4907b35232 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -3225,8 +3225,8 @@ static int gup_fast_fallback(unsigned long start, unsigned long nr_pages,
- 		might_lock_read(&current->mm->mmap_lock);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 928ad95eeb2b..3ca04b582329 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -3991,6 +3991,9 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+ 			start = vma->vm_start;
+ 		vma_end = min(end, vma->vm_end);
  
- 	start = untagged_addr(start) & PAGE_MASK;
--	len = nr_pages << PAGE_SHIFT;
--	if (check_add_overflow(start, len, &end))
-+	if (check_shl_overflow(nr_pages, PAGE_SHIFT, &len) ||
-+	    check_add_overflow(start, len, &end))
- 		return -EOVERFLOW;
- 	if (end > TASK_SIZE_MAX)
- 		return -EFAULT;
++		/* Prevent new userfaults from being queued after the wakeup. */
++		vma_start_write(vma);
++
+ 		if (userfaultfd_missing(vma)) {
+ 			/*
+ 			 * Wake any concurrent pending userfault while
 
 -- 
 2.43.0
