@@ -1,49 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793273120;
-	b=wTvH8ckpXw2rsx3hluUbsFFkctiG0BUQUIf0p0m+eOgot8VVLawo7GwfoSK7Htpk0E6j
-	 cefgAwKZQoeY/K1wAh7x7d87o3e3PVdErD774Gq4fCf3qjPonqCpjvxSYGMr4iUh67kvQ
-	 vq7OJbrTSPHhRTR4RVbqw0C8IMnuQNgRtOV4/E5npl4JoVWwNHMvHGBqjVDzHu0ZicZ/n
-	 jUNSEuCaqUIIs/cNTPIIboA9/B+GSBDgX5TAkJJHIUOYcJYCKqe9S9clysi9/LWDqakni
-	 Y1az0dEADY78Gpx4chU5dFsI52vkhtK6psYTXhNjXb4c/4n1habaGYp7x7tleGIMMBw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273120;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=nAU4owEjk36lEPSSaeh5evdiPLASncBlT4PAdLhvFAs=;
-	b=gVlCQ/s/CM7J4v1aQfXJgJaT0Ac+85/ADI14SN6GDLqmQ9z3+geD30OinB1Oy6GZft3n
-	 a/zWWUVQQpH4unbtkHHUN6zw/+7w1RkV96aGz94e09q4XQs0UYYSaIdClSY2zcbBwf1Nj
-	 gp1/0E66WQVfFkANOyuzh3VTYx9dRW8creuxwnbhUmqlaPGclCg2OpQkBV9TSzqvegxH9
-	 WobByqJhvEBvbnbThbUAjTpcyCVBQ6qQNp+fsW7yLnX5+fmhkaRr8CbRLg/2KogQBK0xt
-	 xvgYdeqS4ipce0X+RWtiAR1VpwrWJf5m1066ZKW/1A8h2sL+PX3O0Uf6K3c/iGplu6A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QvGpD1z2;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793273391;
+	b=34s3gMxWSL7vY84pb/itO/1BOGjQ+BLwNqFbWEwflynT1ekdtkYNiH4RSJlxWBbsCBpG
+	 jpvJ+tjq4u/AKPlhHWjO7F+VWjl5TC119h43lKQJEobvH73lxsHa5qiGdXg+SorBR/Qb9
+	 pjd+eRdQoiwIUS7V1SdTKuOKfgeTUnODhpW/m+EobLuh+2rk/HHkCKCMbMNKSNWmbwogh
+	 gDHxYAHuCJpSZ8uzp3I6IAXLQPgexQUNGwdeuBLEYpFcxfGibMmrgMp/wNRp/kLX8mGvx
+	 p3ft+1hgEFC6JeZbMvd9jgXz5NhGqpiECvhf3X9/LaqrDwYtdiS03vhiGENfshRDXxg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793273391;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Yjq1QFjdCL6IA96hfcN0dYTnAUX8yaYxWDgAaqLVVP4=;
+	b=Q6618YmGXW4r4SUDUiYvH6FVJB8I7qnBHruAD7W/sLFxSh/d1ubL1Y5/z31DywFmLdiV
+	 UC33W1CQAkxYnJvfKsyKAG6nnd+azMkqZgW7zLtv/VXZ1AU9DCIUaxXFBeEdh8FcgNGwc
+	 AqNN2Y/gnHcPTx6gqNSisJSjE73LwC1BgAv0T1vcweXiqgunMqduurqZqDqXARaURP05H
+	 WLpH0dK6cRaiFi1g/rsXWSbeJ7ZC0vwm5rprVbA8TTT4IMauLJf8YvEQdpOu9wk/BH+nH
+	 7ioFq/uuKs5buBLPX1BXZfVK7TkceZDCHnpWBrNXuk3OPLO10cJ5gNM/wkWQAdXRfeg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ihki9o6T;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.10
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010010.outbound.protection.outlook.com [52.101.61.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED88606A31A;
-	Thu, 29 Oct 2026 11:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED88606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BAB606A31F;
+	Thu, 29 Oct 2026 11:29:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8BAB606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QvGpD1z2
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793273114; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=nAU4owEjk36lEPSSaeh5evdiPLASncBlT4PAdLhvFAs=;
-	b=QvGpD1z2gTd4/bP8jyO3RGWlCKE0dsIEjecwX8TBPFAiA2KDZ1RXDjIBTHvABHMCCE7mrGbRimq4eKc3aVxXW4BHmcyeZJEjzr92YuUYbY+z6cJkEKYr43Z5UBXn/nOGL4vIrheQfyxlvSiwuU1033pDoorcHEHTDzKOi7Iv1f8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDjKhwY_1793273112;
-Received: from 30.221.129.93(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDjKhwY_1793273112 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 19:25:13 +0800
-Message-ID: <76775188-2010-48ae-b92f-ed1ae819a021@linux.alibaba.com>
-Date: Thu, 29 Oct 2026 19:25:12 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Ihki9o6T
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bfYAAm8f10OrYuFuQBZfd9hlgPx+8cQfflUsfibLscmtoh0ZvZ8avckbFw+dHUZr2T904oexaBcFzh6l75elNjjO0l/694kayPAoIo2VjqvfuV2lzo0AEDkYZO9L5UN5+FUKibGDg04y7PuneNGzoH5yEt3GbUK3t9GYMlltb8PLOtsxmGat8Y2h3M8xU/B26+FkiZAM3MtTjdhQSP+BidgWgui4c9bBRCaJWLjHe2SCyqn5xPu+Ph+9jbCK6ZXohh3kKSZEMN1HQch57qrEkWd8guJh12PjubWCQikmrK0o/P0ywZtDJdz8RWyIsdvw2toNFoKKy5uEbibIcbY0mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yjq1QFjdCL6IA96hfcN0dYTnAUX8yaYxWDgAaqLVVP4=;
+ b=CxCZ6iz2WCi2fAJYN/R9udo1yMnIVN7M9fzkLl+4tkkC1exn4yJQTRYYpEnel6pyWTPtUHkRtVBZKVGbI/MetMoCZN3bvRkTbfU5dPPHeQGJWayIhoIPzN0Pn9psppV7rW/FfE1liD+fyomm0xoKiPLMukzptXIIf5XBHQ6+wKVX8JhXg2rFZPi3Zj6xWj770nhoK0+QmYB7HokvcdbiffDfCMQ4yk6Fh/ZMSjEomVRMojausNtg0wa4cFs6XIN0+cLYPIbuRqMciNfmag/3qBd/twu5UjLiF1n20l+v8SKo/XCy5J1NUUltoVcWszH/hAWDZWSy6E1TrrP8Nqo+pA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yjq1QFjdCL6IA96hfcN0dYTnAUX8yaYxWDgAaqLVVP4=;
+ b=Ihki9o6THZhoV+DFxt9HjfshpnXst8wnCxdJoxK1WfILnMMgSWM7MfmrYtUPzcUtyxgS7Td3GyF0CiNsjOtfKloPRtE3j4oRpzoV/3ohUGUcjgnEir41k3pEV2hMQZLBoBWB5SzLfLtJU/sHcCigPQ/KXO+f/vf4AEgrm8CPOuRmozJkEUl7GywM1lEtZiT0QIdY3yeFFFqzj5+4vdQrC7V5F4CAiV0LvqzkAuV2yqzPCv+v5Rgc0E8EscgcMcwUHzIDVx7xfaIp7kq5MJ/XcZdKA1xKCOM8UbUNQGY9/dKzU8ZyFOyUZNqGGxHzcoKi+M0jrWFdAFCbEIY/cFcNtQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
+ by DM4PR12MB6134.namprd12.prod.outlook.com (2603:10b6:8:ad::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 11:29:35 +0000
+Received: from PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
+ ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
+ 11:29:35 +0000
+From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4 3/7] gpiolib: cdev: do not free line IRQs again after the chip is removed
+Date: Thu, 29 Oct 2026 13:29:18 +0200
+Message-ID: <20261029-gpiolib-chip-removal-v4-3-aambrozewicz@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029-gpiolib-chip-removal-v4-0-aambrozewicz@nvidia.com>
+References: <20261029-gpiolib-chip-removal-v4-0-aambrozewicz@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TL2P290CA0005.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:2::15) To PH7PR12MB5974.namprd12.prod.outlook.com
+ (2603:10b6:510:1d9::19)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,312 +104,198 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2/cluster: quiesce peer slots before destroying
- the o2net workqueue
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0090-v7-06712049fb73524bb8d3@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0090-v7-06712049fb73524bb8d3@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|DM4PR12MB6134:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cd5e12d-c348-47df-4bb1-08df35afe922
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|261028144727099003|11063799006|56012099006|5023799004|261009223027099003|261021123027099003|261026140227099003|261026121527099003|261021121427099003|261022105027099003|10067099003|261022075727099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	3UXYSkdyRJiDlzoZQFFSLOYsvzNFIgo5QxMpv/84kb50ihgPRdrW6hyHZ+1Uv2KN2o+uLe7P+XssmdrgPS8on+7OEJK7NF/ZFgHrWeBVpVaXreebxsvpjo14VcWVV+QHiCoApvr5YEma0wPl4TlWc0oP/eU66LAhesTc025xni/d3lFiKQEbQSPHof4I02ZCA/MizHFPqI+a7gIpt3hDYJ2P9AATzTKg5tvmUVhN1TymihhBVlB8wTUr0fBnuXWqrrwxvoqYzSLfRSv9IoK1Qp9C7SsFgOjGCcnfty3GZkAxOelKrsovXz4y0jde7GMSXX712GbFbqSW6JmQmy5i3Oo3ia+i2QpKuBTk0mxM2MxFkkCIkwboyPUpd3YH+TupoIPd025QBjM+s2LwL7WrKlefk0DQfZ6t8l6bWyGFs2rnOJFFMVVk9siyJmFSVoi8dzMzy5vDCNZ8eZhr33HGHvasAX8K693SWrG1UfYjQnwYgeGmi6p1jDdcPZvOK+wbJfrs2o44WKUNzuiqanrNVS54Yh7d6wqOnvuB5s4TsBEXPCw0zaUvguA1YVUg+owu6hChl/+jfWxdPulps+rFncAly03SEbSmS/Vn+KZBe2/ffVayatCXb+hA2jnsfRzbJs72PP25m9inddHBxNZqNgyLJlzKn3HVH0zNsORfAXQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(261028144727099003)(11063799006)(56012099006)(5023799004)(261009223027099003)(261021123027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261022105027099003)(10067099003)(261022075727099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?SumUbqEsFV5t6IeBawUKYF+GPoZqAVvE53w3XIYiKgq3Jpd2kxJRVAPS6fz8?=
+ =?us-ascii?Q?VH2k3e61FqsREIfoo/0GarUxJ+Zuv+YmQKDlsDcSSg/QQ5E7aePSuuQv7YPf?=
+ =?us-ascii?Q?is5u2kSuRFmUjy9kPbBQMRpNB0YOztkXbSv1eMlo3sfJsyy01sjdl+p+9qaT?=
+ =?us-ascii?Q?BPaS3hXJaXD6Tt6dK2nRch8JNKA8xyfsgqQUv8df1cXrseNwVQq+JFXyd1Ls?=
+ =?us-ascii?Q?mkbJ9QJN4TxoMCPIyaybdORZdVXb52Z9tE93Ka7O40OddRg7QnV0A4ndpGVm?=
+ =?us-ascii?Q?aVuogFot8mZKwh/0X2J48Vgh7mBA6dIVAPJaiI5QW49gHwSClzgPF72bnYwU?=
+ =?us-ascii?Q?sbBmTOiBOfXI5i3y5nEzDMDsQw4OOusdENwh8fUJM8hJf8f+DE1duSBzywBf?=
+ =?us-ascii?Q?azvsc6ct5MQJZfD3VteuiMZGVyKXc/U4uZJJW3TTUA6zCLwk1jZXN+fF9/Nl?=
+ =?us-ascii?Q?T74ApA/F6JNEowY4PVQ+5urBZB8HeiciztssknsIg2fBVw6mMM+IOqeIoSkg?=
+ =?us-ascii?Q?ZAK61m3N0/9mWkAWI1SGE9ef3eSN7wj0Nvn6HJpD5/dpzV+OguVRXGVgt+iX?=
+ =?us-ascii?Q?gcm/SAUTu7vMByVpGPdj6Nxy/+LhIbMxi+eL4ExyKf5ByymJHYsqGfDSo5Uj?=
+ =?us-ascii?Q?oZZAlCUVlTxwW/4iHENJD2lqN1mM0YFdkUvmwUaVi+0d3wa5UvtmqM7MPfs+?=
+ =?us-ascii?Q?tWUy+IK3VJnarNo7X9KKw3ufRAkc9p0Gij/lhqy1sioKdE9Tm7wV7ltmxbRN?=
+ =?us-ascii?Q?gtJf90+vsUdObrNoXKyslSJet5ZhLt2Al87Pj8kZGQrDlHX0Ofngf1cNJykZ?=
+ =?us-ascii?Q?porWpQsfVcZKaMKaT+CgMixLj+E+YLjs0a9LGBM67pMEVw44QQ/u7l1P8KyQ?=
+ =?us-ascii?Q?0d6HokeOBF3rlwkWnF7u1EYPmA3F9VFS+9bXI8wmg8ZVYFrGCuflFGQIPdsh?=
+ =?us-ascii?Q?X/CwrSZjez9JKzUJFgiFOlVUJJXymNYitnJJTL52pvp1F3HKGqkjGgKQiWVZ?=
+ =?us-ascii?Q?93+QgXc87AWBZi2/oWP5DY/Dv6+bFuJS9oQuieouZS2ty+AWEeO3EA1A40W5?=
+ =?us-ascii?Q?NQiP2KvDXakBk1A/gGCJNwpkngT6jeTYpXs1iQzrJruwn/xoR/BCYSV+H6qk?=
+ =?us-ascii?Q?98+xQaA0zp/hP3Jff7Ae9Plse1sKIgrV4ntfjcVPrZrKpiSh/4BISKYheMh0?=
+ =?us-ascii?Q?I8g5Hr/oduWcVW/7oG1OiHoxHTmBNwVkY5VAtDNd/9Mq8gpJrVUYPSsMwmV+?=
+ =?us-ascii?Q?/SwQLFJNPmm6qinBobwzSxCDKjf63DJdO7HXRwyM0dvfGxkMLbYeRb8DXK5f?=
+ =?us-ascii?Q?pAeeKVDYvcqZYFo+SEApLMDPYZ5H5Yuv2EEN/fkINKFjdwg5s954YR6sy+Ca?=
+ =?us-ascii?Q?cyVV4Y2meF9OdOckkO/WKWNmF4pd/XnDlaZXAxgbdAhzglMll0n6VRouGTw+?=
+ =?us-ascii?Q?AshwUqusN8BYW9uRSdgtPZn1MpGz+erbsnzI+BQWgJXWXY49h1BI/jy347tP?=
+ =?us-ascii?Q?RqXCStmfbRb9+SORyoZu24w5lqykFIV40xOuA9aTR0YQPzQ3Qt8bmzNTeuyu?=
+ =?us-ascii?Q?dGa24okhqVXpVf6b77ze9kQOlRtGZ0XFLdnffEw/eCgsXglzMkAk07mawsxm?=
+ =?us-ascii?Q?uMAkrIsYuZUJ/qG9rOAJNwG1FrFkHUBEBzT3IxejFxb28ynLu2JyO6jdrj5G?=
+ =?us-ascii?Q?BrLMC/mbzJeHsE7tlGls8IeTBoRuwGvMSyHJBSP/r2Ua+MU5EwDMDrCDknpN?=
+ =?us-ascii?Q?DkKY79UGwg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cd5e12d-c348-47df-4bb1-08df35afe922
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 11:29:35.7532
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gW71Fddzs2Nkq0tzUEIi3+aWyspjTGXs8EhyViBgM38+zXn4OqnaKMjQU23Y7KPnmfo+sV/BjviBOUe4tyU/SQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6134
 
+Since commit ec8b6f55b981 ("gpio: free irqs that are still requested
+when the chip is being removed"), gpiochip_remove() frees the IRQs
+still installed on the chip's lines. A line request or v1 line event
+kept open across the removal frees its IRQ again on release. If the
+mapping is gone, that can touch freed memory, as reported with
+virtio-gpio; if the number was reused, free_irq() warns:
 
+  Trying to free already-free IRQ 28
+  WARNING: kernel/irq/manage.c:1881 at free_irq+0x193/0x2d0, CPU#2: gpio-hold/111
+  Call Trace:
+   linereq_free
+   linereq_release
+   __fput
 
-On 10/27/26 12:32 PM, Cen Zhang wrote:
-> Listener shutdown must leave no peer work behind before it destroys the
-> o2net workqueue. destroy_workqueue() drains the work that is queued, but
-> delayed work whose timer has not expired is invisible to it and is
-> queued onto the freed workqueue when the timer fires.
-> 
-> o2net_stop_listening() only disconnects peers that are still in the node
-> table, and o2net_disconnect_node() cancels the delayed work without
-> waiting for a running instance. Several paths rearm it afterwards.
-> 
-> Node removal disconnects a peer before taking it out of the table. A
-> heartbeat-up callback in between sees the persistent error and queues
-> the connect and expiry work again, and the listener shutdown then skips
-> the peer because it is no longer in the table:
-> 
->   Peer removal                       Heartbeat / listener shutdown
->   ------------                       -----------------------------
->   disconnect peer; cancel work
->                                      heartbeat-up: rearm delayed work
->   remove peer from node table
->                                      stop listener
->                                        synchronize heartbeat callbacks
->                                        skip peer absent from node table
->                                        destroy o2net workqueue
->                                      delayed-work timer expires
->                                        queue on freed workqueue
-> 
-> o2net_connect_expired() may be running while the disconnect cancels;
-> once the disconnect drops nn_lock it queues itself and the connect work
-> again, and the flush does not wait for those timers.
-> 
-> o2net_start_connect() decides under nn_lock whether to connect, drops
-> the lock to create the socket, and attaches the socket without looking
-> again. A disconnect in between is undone: the socket stays attached
-> with its callbacks armed, and o2net_set_nn_state() rearms the expiry
-> work after it has been cancelled.
-> 
-> Set o2net_shutting_down for the duration of the shutdown. While it is
-> set, o2net_set_nn_state() rearms no work, the connect worker repeats its
-> check under nn_lock before attaching the socket and backs off, and the
-> accept path refuses a new socket. With no rearm left, cancel the
-> connect-expiry, connect and still-up work of every peer slot
-> synchronously after the disconnect; expiry queues connect work, so it
-> is cancelled first.
-> 
-> Those cancellations can remove the only pending connection attempt of a
-> slot whose persistent error a rearm has already cleared. Leave every
-> slot the way a disconnect does, with nn_timeout reset and -ENOTCONN as
-> the persistent error, so that the next heartbeat-up after a restart
-> reconnects and senders fail instead of waiting for a connection that
-> nothing will establish.
-> 
-> KASAN report, only the relevant frames are kept:
-> 
-> BUG: KASAN: slab-use-after-free in __queue_work+0x1189/0x1600
-> Read of size 4 at addr ffff8881169069c0 by task swapper/2/0
-> 
-> Call Trace:
->  <IRQ>
->  __queue_work+0x1189/0x1600
->  call_timer_fn+0x176/0x540
->  </IRQ>
-> 
-> Allocated by task 486:
->  __kmalloc_noprof+0x2de/0x780
->  __alloc_workqueue+0x61/0x17a0
->  alloc_workqueue_noprof+0xcc/0x130
->  o2net_start_listening+0x139/0x7c0
->  o2nm_node_local_store+0x4c0/0x810
->  configfs_write_iter+0x2f9/0x4f0
->  vfs_write+0x639/0x1010
->  ksys_write+0x111/0x200
-> 
-> Freed by task 485:
->  kfree+0x308/0x580
->  rcu_core+0x6be/0x1ed0
-> 
-> Last potentially related work creation:
->  __call_rcu_common.constprop.0+0x80/0x280
->  pwq_release_workfn+0x740/0xe10
-> 
-> The buggy address belongs to the object at ffff888116906800
->  which belongs to the cache kmalloc-1k of size 1024
-> The buggy address is located 448 bytes inside of
->  freed 1024-byte region [ffff888116906800, ffff888116906c00)
-> 
-> Fixes: 98211489d414 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
-> Changes in v2:
-> - Add o2net_shutting_down: o2net_set_nn_state() rearms nothing while it is
->   set, the connect worker rechecks under nn_lock before attaching its socket
->   and the accept path refuses a new socket, so an in-flight connect or
->   expiry can no longer rearm the timers after the synchronous cancellations
->   (Sashiko review).
-> - Leave every slot with nn_timeout reset and -ENOTCONN after the
->   cancellations, so a later heartbeat-up reconnects and senders fail instead
->   of waiting on a slot whose persistent error a rearm had cleared (Sashiko
->   review).
-> - Subject changed accordingly.
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0090-v6-127847d463212a41b773@gmail.com
-> 
->  fs/ocfs2/cluster/tcp.c | 86 +++++++++++++++++++++++++++++++++---------
->  1 file changed, 69 insertions(+), 17 deletions(-)
-> 
-> diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-> index 8b3830b601ba..eb4628839eef 100644
-> --- a/fs/ocfs2/cluster/tcp.c
-> +++ b/fs/ocfs2/cluster/tcp.c
-> @@ -114,6 +114,8 @@ static DEFINE_MUTEX(o2net_wq_mutex);
->  static DECLARE_COMPLETION(o2net_wq_destroyed);
->  /* Heartbeat callbacks stay registered across local-node off/on. */
->  static bool o2net_listening;
-> +/* set while o2net_stop_listening() quiesces the peer slots */
-> +static bool o2net_shutting_down;
->  static struct work_struct o2net_listen_work;
->  
->  static struct o2hb_callback_func o2net_hb_up, o2net_hb_down;
-> @@ -553,11 +555,14 @@ static void o2net_set_nn_state(struct o2net_node *nn,
->  		       SC_NODEF_ARGS(sc));
->  	}
->  
-> -	/* trigger the connecting worker func as long as we're not valid,
-> +	/*
-> +	 * trigger the connecting worker func as long as we're not valid,
->  	 * it will back off if it shouldn't connect.  This can be called
->  	 * from node config teardown and so needs to be careful about
-> -	 * the work queue actually being up. */
-> -	if (!valid && o2net_wq) {
-> +	 * the work queue actually being up.  Once the listener shutdown
-> +	 * has started cancelling, nothing may be rearmed.
-> +	 */
-> +	if (!valid && o2net_wq && !READ_ONCE(o2net_shutting_down)) {
->  		unsigned long delay;
->  		/* delay if we're within a RECONNECT_DELAY of the
->  		 * last attempt */
-> @@ -1578,6 +1583,23 @@ static void o2net_sc_postpone_idle(struct o2net_sock_container *sc)
->   * having a connect attempt fail, etc. This centralizes the logic which decides
->   * if a connect attempt should be made or if we should give up and all future
->   * transmit attempts should fail */
-> +/*
-> + * Called with nn->nn_lock held.  See if we already have one pending or
-> + * have given up.  For nn_timeout, it is set when we close the connection
-> + * because of the idle time out.  So it means that we have at least
-> + * connected to that node successfully once, now try to connect to it
-> + * again.  Nothing may connect once the listener shutdown has started.
-> + */
-> +static bool o2net_nn_should_connect(struct o2net_node *nn)
-> +{
-> +	unsigned int timeout = atomic_read(&nn->nn_timeout);
-> +
-> +	if (READ_ONCE(o2net_shutting_down) || nn->nn_sc)
-> +		return false;
-> +	return !nn->nn_persistent_error ||
-> +	       (nn->nn_persistent_error == -ENOTCONN && timeout != 0);
-> +}
-> +
->  static void o2net_start_connect(struct work_struct *work)
->  {
->  	struct o2net_node *nn =
-> @@ -1587,7 +1609,6 @@ static void o2net_start_connect(struct work_struct *work)
->  	struct socket *sock = NULL;
->  	struct sockaddr_in myaddr = {0, }, remoteaddr = {0, };
->  	int ret = 0, stop;
-> -	unsigned int timeout;
->  	unsigned int nofs_flag;
->  
->  	/*
-> @@ -1609,17 +1630,7 @@ static void o2net_start_connect(struct work_struct *work)
->  		goto out;
->  
->  	spin_lock(&nn->nn_lock);
-> -	/*
-> -	 * see if we already have one pending or have given up.
-> -	 * For nn_timeout, it is set when we close the connection
-> -	 * because of the idle time out. So it means that we have
-> -	 * at least connected to that node successfully once,
-> -	 * now try to connect to it again.
-> -	 */
-> -	timeout = atomic_read(&nn->nn_timeout);
-> -	stop = (nn->nn_sc ||
-> -		(nn->nn_persistent_error &&
-> -		(nn->nn_persistent_error != -ENOTCONN || timeout == 0)));
-> +	stop = !o2net_nn_should_connect(nn);
->  	spin_unlock(&nn->nn_lock);
->  	if (stop)
->  		goto out;
-> @@ -1658,9 +1669,16 @@ static void o2net_start_connect(struct work_struct *work)
->  	tcp_sock_set_nodelay(sc->sc_sock->sk);
->  	tcp_sock_set_user_timeout(sock->sk, O2NET_TCP_USER_TIMEOUT);
->  
-> -	o2net_register_callbacks(sc->sc_sock->sk, sc);
-> -
->  	spin_lock(&nn->nn_lock);
-> +	/*
-> +	 * nn_lock was dropped while the socket was created.  A disconnect
-> +	 * or the listener shutdown in between must not gain this socket.
-> +	 */
-> +	if (!o2net_nn_should_connect(nn)) {
-> +		spin_unlock(&nn->nn_lock);
-> +		goto out;
-> +	}
-> +	o2net_register_callbacks(sc->sc_sock->sk, sc);
->  	/* handshake completion will set nn->nn_sc_valid */
->  	o2net_set_nn_state(nn, sc, 0, 0);
->  	spin_unlock(&nn->nn_lock);
-> @@ -1954,6 +1972,12 @@ static int o2net_accept_one(struct socket *sock, int *more)
->  	new_sock = NULL;
->  
->  	spin_lock(&nn->nn_lock);
-> +	/* a slot that is being quiesced takes no new socket */
-> +	if (READ_ONCE(o2net_shutting_down)) {
-> +		spin_unlock(&nn->nn_lock);
-> +		ret = -ESHUTDOWN;
-> +		goto out;
-> +	}
->  	atomic_set(&nn->nn_timeout, 0);
->  	o2net_set_nn_state(nn, sc, 0, 0);
->  	spin_unlock(&nn->nn_lock);
-> @@ -2179,6 +2203,30 @@ int o2net_start_listening(struct o2nm_node *node)
->  	return ret;
->  }
->  
-> +/*
-> + * Called with o2net_shutting_down set.  Cancel the delayed work of a peer
-> + * slot synchronously: work waiting on its timer is invisible to a flush
-> + * and would be queued on the destroyed workqueue.  Then leave the slot
-> + * the way a disconnect does, so that the next heartbeat-up after a
-> + * restart reconnects and senders fail instead of waiting.
-> + */
-> +static void o2net_quiesce_nn(struct o2net_node *nn)
-> +{
-> +	/* whoever takes nn_lock from now on sees o2net_shutting_down */
-> +	spin_lock(&nn->nn_lock);
-> +	spin_unlock(&nn->nn_lock);
-> +
-> +	/* expiry queues connect work, so cancel it first */
-> +	cancel_delayed_work_sync(&nn->nn_connect_expired);
-> +	cancel_delayed_work_sync(&nn->nn_connect_work);
-> +	cancel_delayed_work_sync(&nn->nn_still_up);
-> +
-> +	spin_lock(&nn->nn_lock);
-> +	atomic_set(&nn->nn_timeout, 0);
-> +	o2net_set_nn_state(nn, NULL, 0, -ENOTCONN);
-> +	spin_unlock(&nn->nn_lock);
-> +}
+Stop edge detection from the device notifier that gpiochip_remove()
+calls, under config_mutex so that it does not race a reconfiguration.
+Free the IRQ there only if it still has an action, as gpiochip_remove()
+frees only those on lines flagged as used for IRQs. The release path
+then finds nothing left to free.
 
-o2net_set_nn_state() still has a queue_delayed_work() that the new flag
-doesn't gate. So o2net_quiesce_nn() cancels nn_still_up and afterwards
-calls o2net_set_nn_state(), which queues it again.
+Reproduced with gpio-sim: remove the chip under an open request with
+edge detection, set it up again and request the same line, then close
+the first request. Every cycle warns; with this change, 100 cycles pass.
 
-> +
->  /* again, o2nm_this_node() doesn't work here as we're involved in
->   * tearing it down */
->  void o2net_stop_listening(struct o2nm_node *node)
-> @@ -2190,6 +2238,7 @@ void o2net_stop_listening(struct o2nm_node *node)
->  	BUG_ON(o2net_listen_sock == NULL);
->  
->  	WRITE_ONCE(o2net_listening, false);
-> +	WRITE_ONCE(o2net_shutting_down, true);
->  	o2hb_synchronize_callbacks();
->  
->  	/* stop the listening socket from generating work */
-> @@ -2200,15 +2249,18 @@ void o2net_stop_listening(struct o2nm_node *node)
->  
->  	for (i = 0; i < ARRAY_SIZE(o2net_nodes); i++) {
->  		struct o2nm_node *node = o2nm_get_node_by_num(i);
-> +
->  		if (node) {
->  			o2net_disconnect_node(node);
->  			o2nm_node_put(node);
->  		}
-> +		o2net_quiesce_nn(o2net_nn_from_num(i));
+Fixes: ec8b6f55b981 ("gpio: free irqs that are still requested when the chip is being removed")
+Reported-by: Jia Jia <physicalmtea@gmail.com>
+Closes: https://lore.kernel.org/all/20260817070429.157993-1-physicalmtea@gmail.com/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+---
+ drivers/gpio/gpiolib-cdev.c | 57 ++++++++++++++++++++++++++-----------
+ 1 file changed, 40 insertions(+), 17 deletions(-)
 
-o2net_idle_timer() queues the same work from softirq with no nn_lock and no
-flag check, sets nn_timeout back to 1, and re-arms sc_idle_timeout — which
-quiesce never deletes.
-
-Thanks,
-Joseph
-
->  	}
->  
->  	/* finish all work and tear down the work queue */
->  	mlog(ML_KTHREAD, "waiting for o2net thread to exit....\n");
->  	o2net_destroy_wq();
-> +	WRITE_ONCE(o2net_shutting_down, false);
->  
->  	sock_release(o2net_listen_sock);
->  	o2net_listen_sock = NULL;
+diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
+index f4d78113ade2..6350b2fca8a7 100644
+--- a/drivers/gpio/gpiolib-cdev.c
++++ b/drivers/gpio/gpiolib-cdev.c
+@@ -544,17 +544,6 @@ struct linereq {
+ 	 GPIO_V2_LINE_FLAG_EVENT_CLOCK_HTE | \
+ 	 GPIO_V2_LINE_EDGE_FLAGS)
+ 
+-static int linereq_unregistered_notify(struct notifier_block *nb,
+-				       unsigned long action, void *data)
+-{
+-	struct linereq *lr = container_of(nb, struct linereq,
+-					  device_unregistered_nb);
+-
+-	wake_up_poll(&lr->wait, EPOLLIN | EPOLLERR);
+-
+-	return NOTIFY_OK;
+-}
+-
+ static void linereq_put_event(struct linereq *lr,
+ 			      struct gpio_v2_line_event *le)
+ {
+@@ -609,6 +598,21 @@ static inline void free_irq_label(const char *label)
+ 	kfree(label);
+ }
+ 
++/*
++ * gpiochip_remove() frees the interrupts still requested on the lines of the
++ * chip being removed, so once the chip is going away the IRQ may no longer be
++ * ours to free.
++ */
++static void free_line_irq(unsigned int irq, void *dev_id)
++{
++	const char *name = NULL;
++
++	if (irq && irq_has_action(irq))
++		name = free_irq(irq, dev_id);
++
++	free_irq_label(name);
++}
++
+ #ifdef CONFIG_HTE
+ 
+ static enum hte_return process_hw_ts_thread(void *p)
+@@ -974,10 +978,8 @@ static u32 gpio_v2_line_config_debounce_period(struct gpio_v2_line_config *lc,
+ 
+ static void edge_detector_stop(struct line *line)
+ {
+-	if (line->irq) {
+-		free_irq_label(free_irq(line->irq, line));
+-		line->irq = 0;
+-	}
++	free_line_irq(line->irq, line);
++	line->irq = 0;
+ 
+ #ifdef CONFIG_HTE
+ 	if (READ_ONCE(line->edflags) & GPIO_V2_LINE_FLAG_EVENT_CLOCK_HTE)
+@@ -992,6 +994,25 @@ static void edge_detector_stop(struct line *line)
+ 	/* do not change line->level - see comment in debounced_value() */
+ }
+ 
++static int linereq_unregistered_notify(struct notifier_block *nb,
++				       unsigned long action, void *data)
++{
++	struct linereq *lr = container_of(nb, struct linereq, device_unregistered_nb);
++
++	/*
++	 * Stop edge detection now rather than when the request is released:
++	 * by then the IRQ numbers of the removed chip may be in use again.
++	 */
++	scoped_guard(mutex, &lr->config_mutex) {
++		for (unsigned int i = 0; i < lr->num_lines; i++)
++			edge_detector_stop(&lr->lines[i]);
++	}
++
++	wake_up_poll(&lr->wait, EPOLLIN | EPOLLERR);
++
++	return NOTIFY_OK;
++}
++
+ static int edge_detector_fifo_init(struct linereq *req)
+ {
+ 	if (kfifo_initialized(&req->events))
+@@ -1787,6 +1808,9 @@ static int lineevent_unregistered_notify(struct notifier_block *nb,
+ 	struct lineevent_state *le = container_of(nb, struct lineevent_state,
+ 						  device_unregistered_nb);
+ 
++	free_line_irq(le->irq, le);
++	le->irq = 0;
++
+ 	wake_up_poll(&le->wait, EPOLLIN | EPOLLERR);
+ 
+ 	return NOTIFY_OK;
+@@ -1866,8 +1890,7 @@ static void lineevent_free(struct lineevent_state *le)
+ 	if (le->device_unregistered_nb.notifier_call)
+ 		blocking_notifier_chain_unregister(&le->gdev->device_notifier,
+ 						   &le->device_unregistered_nb);
+-	if (le->irq)
+-		free_irq_label(free_irq(le->irq, le));
++	free_line_irq(le->irq, le);
+ 	if (le->desc)
+ 		gpiod_free(le->desc);
+ 	kfree(le->label);
+-- 
+2.43.0
 
