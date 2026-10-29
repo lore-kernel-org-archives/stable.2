@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288577;
-	b=KV5mB1pSdhvUQKZQm07GgS5QihkzvcypTVIxAESUyBHZp8t05Pzk5aj4aJHfzgktAngH
-	 Yp4RRc9+Xsxjj1f9TS536Eb/BxQzTL9lu1nUMKQmz8Piw+6dLnYhwzw+eXhDmaYynqagh
-	 FOMHpwG1ckneZGQ2I7e22zjSppBNARrnU9LIieZGIk/tUOT2E/JrpLSVzTGbxC6Krdu6n
-	 e/LXgfGaLKggBAHfHNq1vhvdhCxhcvrWXrm80vRRIjDwPzz8PlilvlOsL9kxQhXRmpKYF
-	 PiTTV6cEO1bPFd0uR4PIqVgB5o9g0xjcbxAJt6W/Khpd1PoN2NUnS/Nks7RT1lyAg5g==
+	t=1793288652;
+	b=yG2OpQFTnPe9bvb7k0SvYUpD0SWehF5zzRA0U3pAuFpM7sEIWcBFasF4gf7Xzo9ZY82b
+	 QS0lShgx+hdmPWP9+d6aJJX6amEPHnU4ZxjnEWqChIgnJOI/hvsBn9a276mGVUQIhOh2z
+	 sMWWBOvEb1sl5IXqajBOPKgackilhOz0SLljIyBC6pUIDc0DZGxBjWhHJTAXiwK1YYitl
+	 CUAFeXaghhS4DfsxZ8wj4gFIByF+n86dC1e3Xni7lQIcKWU145kfKWCn+Wk8OAurdeIzG
+	 NKS78ql391RELBj3qSKzOMULpYu3oJ6gHB799Zjbfr1s4VgSFdEMvLSp/Hqcp+5htxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288577;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288652;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=x05fCxndf1hYykwEJ06qD0sbC4EVKTE/sZRMpUPdEQc=;
-	b=f6yj0LSVW+IUN8KAbkkSz3bFNf/Y5nKd75DEpJcuL8U3hV+e0yU9JP4nfs9lmq45FCUL
-	 rhb2txmC6vIH5whS3mLqxCJ3BLCjKj+z+yRxRFgiS6CzeuD+IMlwAbfCMh7Z28FIc/iVO
-	 s1U6RipoTUQWPdDq+rKMYBLQr+3naDxh98LikbunNlRHOy5qP1IG3BEEculEvaItSJkLW
-	 UjLDIuYmQzi2nIXm1SrSIs9+sV7cC+X+sii+9Dl8EkOl2iuPFT3pnx1Las6caksogVML9
-	 TidU93yrpDrEbzruBNBpHOrnIDxXQmlkTeWEXQtpadl16HmTgIEHCXsv2msefjDlN8A==
+	bh=9LohosSmNI0EaSphEpGjYH9L23OvaCdilKiGHMtzl+I=;
+	b=3CBjdpYXAt9WFH+JvZv229PiqvqB5mbc9CrR0A0e95jipr0g1BnnIlwboV8Y6zMirE6O
+	 NaqLctyn+hGgnFjOE/47hptxIwNCPkLtqi0FrgzNFT5JaSZ3MYm+KJkq5xz+FkcjVggid
+	 uAk5768I81FGDJqFxRg480lW34i/nbm1E6emF+GSs+EiLwVpXjLYHm+fQHTcPsPfd4kWk
+	 gvdWnWdfcqPUgp9U80y/ysqXYqDUGndUiR4hhtCdD2QxDo3wVzhmNoMr4yFajH07Tx2C+
+	 lSlkx+KuMawDCSA+6euPT93uUEv8MHCmkfFmxhmqHOrxOayO8fecYD/7aJ5VAg1e4lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VBWpMU/K";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVoNI6yX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF77606A32D;
-	Thu, 29 Oct 2026 15:42:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DFB606A31D;
+	Thu, 29 Oct 2026 15:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBWpMU/K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F621F01825;
-	Thu, 29 Oct 2026 15:42:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVoNI6yX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C3D1F01828;
+	Thu, 29 Oct 2026 15:44:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793288576;
-	bh=x05fCxndf1hYykwEJ06qD0sbC4EVKTE/sZRMpUPdEQc=;
+	s=k20260515; t=1793288651;
+	bh=9LohosSmNI0EaSphEpGjYH9L23OvaCdilKiGHMtzl+I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VBWpMU/KLAu7f/e/8Noc5/ky4m6uYCqrAnbDe7B1Eiyf3YKYYuSJu9S6rMUBwAHRq
-	 rxdNuSkxQyc4TOUMzaXdWdtkkmG4SSedqSFbH+UiVGUvDBhSbF5ps5Rj1N4WC5Z+1M
-	 nVg6ipTCrheIKd6OSnlqmCHY40aY5JuHQMktjBDTz0bNGDllpKtBpr67h+uTjX/02/
-	 BPVwPJ/jrEhMjy1lbZssZEiGQ47CW+eoOvd7LM9X+gXcm1M/wx1zx2VQ/uyO8q67C5
-	 n6t0zAffCO2JyYnGumXddDp++ELqcS68IiiH0skAk3Y++ZmqpXAGKI8OP//9xNZw14
-	 KXjSab75N39jg==
+	b=AVoNI6yXVliLcayafQLf3IBJ0ThCuA1K8FE4/dzuDhqNMWoLArwQhod9PXzoOMBmT
+	 0ikwGb0aXKJ/AjhH2WPE3GMUgSyTNb+pjjhDplllZlJw9df30VQNFtbBrB4a2H9PW3
+	 NVEpfWf5dZRktiGJjcdAphMdQoQ4yByIc6bg08jG2KJ9dcXTMRDKjS6w5fKW0HwbT4
+	 KtRbKROLiTBFenu20ygtPJ7F+oJg0N9Td9VJ12NWQlu/KOzLYjxsID9ewnMuN8Fzqn
+	 fRaRwR1rw7J+/ZxBglVIoJKW5I+mpslWhQqenuPVNiAuineIb8Q3NYjCWDjdFisPh2
+	 xVIFEReufX9pQ==
 Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 55D60198003A;
-	Thu, 29 Oct 2026 11:42:41 -0400 (EDT)
+	by mailfauth.ams.internal (Postfix) with ESMTP id B8741198003A;
+	Thu, 29 Oct 2026 11:43:56 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 29 Oct 2026 11:42:51 -0400
-X-ME-Sender: <xms:cGnjatNYCDeDF49taWGwFnFA6DTBtqFjLkJEWyZ2h7-8tO1hYgeSTw>
-    <xme:cGnjalcGilwgpzywEq5-9_Uax-LoiciY26Hr9Dx2NdLZKDVOeYHxJNoKbsqoyc0HV
-    fMpRhpRtFCi6EkHPOqVKO7Qgcsf8k8JabM2EeZbLZYt0LPRJSrAX1Uy>
-X-ME-Received: <xmr:cGnjam3XDA41P6ZfG4_oZPjd4RhksmXGacPPo4PHNrL9WQIkvxQOdIUOlic>
-X-ME-Proxy-Cause: dmFkZTGrojcwHOYNV1R27yGMmE+sn2SpgiwFqzTWix470caHvIOH90SafujrsKt+HTJD90
-    SN5SPP69uNBPn1MxWH6/eaMHHTJo/SvRT/z0Ju39Z9YfjzvKYsDYrFhgheSCBdJ9b5YIFp
-    cIdIwys365LDAngvB6UcUIm3AGzNccSf4yN/FZLQr8sexIPFzUStpfInmWS9yXmQgvCx5c
-    fmpZ7EbFXEWylssnvmmDQCnrMMUW1jHsUhf/jrVErtMG2Lbffr1bqxM2P6gj7ypN5ZdyZj
-    TgAYvrVjfWikwB2MTrnw3YjFYjeMV0UDDQUTP/dXoAy/YlzoJiJh64//IR8g0ZuUVQCpel
-    PcjjoB9Q6Jx3knI5olrCUi4hirBEGQQT+oSeGTeh25/h09KblyE6Vl7jNLQSnQit4V+35z
-    J17GU/oPzC0n+oCMVsG/dfInPKVCtLZBd5z2d7pFm7kIyajC91WW0fXwTIMOKy3y+R1okp
-    ekcKGTudIOrHnEZRx1GDJKalnfGvVV/PnxC4Qbu/41RL8DRLjWQuiSHsfiURJwHwuxhasY
-    GYMOJsxXNzU8cnNcXtdtzJIfeYba/tJgBPi2qhRcbC1kxMhMglGWVDH8uH+rSsnay/vQnw
-    D3Mh5eiVtNV6r+viH4MNCT1TzsAFldnQpQurl7rb5p9gSfzssla1/AAmhpLw
-X-ME-Proxy: <xmx:cGnjalwWU8W_LTwkSDS4FwlbRvlMAxVh616uhleGcP8DWlPfaYmGzw>
-    <xmx:cGnjaj53Pt7V4Vu7bIXzZKdpvSrEym3BIg-jYhLqD8PxloGEbD1BjA>
-    <xmx:cGnjampN953BOAPY-iT_PyL1bwsUDnSFFEZwFhBzoi8zawrViQ6drg>
-    <xmx:cGnjaqnZb_SLLcbp0PPUsQOS2wLwEGRm-QsuvZlsn1hfIsEUvsIcMQ>
-    <xmx:cGnjaqQ6rvy28ek_52FnLx0f5zjRtsChWHkRCTWZP2DTXANVWLWIhapi>
+  by phl-compute-06.internal (MEProxy); Thu, 29 Oct 2026 11:44:06 -0400
+X-ME-Sender: <xms:vGnjaqXV_oXgY5WUohdr93Ik2ciaVdD-rppLtqYNFzseLbm9KSKfCA>
+    <xme:vGnjavN8pBx64E9WcCMA8kFGqSS4xWegMAxVR_OBlfT1SxSA4n0In5x5lbogKKlBc
+    2rRH2jGjWSLyr4Tyc9R7jhxaFX3yje0xka2R1JpP2wFHC9Wg3f8KVMj>
+X-ME-Received: <xmr:vGnjaiVCXjTDRQFWtHXM2tH5Wgg-Aq7EBL6jORvsqxqYi7qv7dCvrGbSRIA>
+X-ME-Proxy-Cause: dmFkZTGgJ834dc6Y2aLU8zitTP7wE/5Ai0JJcu2EEkyHN74nVjQguXnqD1o/giwxhWpS9o
+    5GchtjMcZM/GimMO/oRY8cX+X5o2O14DaG/wHSoGgsePhNezpMMUR9hxfh+6ePbBrSONp8
+    zUTDPK4YxRFB7PeD9qpcs33Dq2TJ1rCyaCFWQqXYaeQ5IfvhaG1aEgdU9FIBIbjxQyUEVO
+    HUhgjEnLM/mcjpKXN3he8HzQsNkc6t66xTfzuNR3aFM/rpGhCVU4vnygjpenFdd7gimv9e
+    MgBaDigPiYtn0obZd1xKf8xjo+9ygSAq03nBlObq0yoPRGrpSR1NmJKyzbHTEpvNJryhG2
+    oPIKnzFB/jvoPqtSeTVcwgzvAxg1c5L48mEINcwempzZtumcmvHXasq/aFb81DhF1mCBpJ
+    k0Wd876DP/lwDJqM2yLb9ejFBfSTZaL5p93eohaQGYpjoUKfReSmxvjtGjgIvo2rmBt7la
+    FqiSPNMgdpRknAzIxxtHBZwUytDrApT3RG3uLkS298mLHFtCnBMbrOKOZH+PAxoBTWX2Pn
+    9gF3ShCPlU6mXRgQPAvMj+FEowG2WQXnjXKfnerLhTADFznq+/TOvIONV4A3pqqDzDZrzC
+    SzVIwowSHvm6FClF8On+525Eh2Tr7cnWddMWSEr16lkF2XGXutWYCuVCIvHg
+X-ME-Proxy: <xmx:vGnjamxjzn27rK0ySjsGRniUaql1tj51-3CqBDy-1H61hM2iCxkUaw>
+    <xmx:vGnjaoXmMQI9KQwEfOjnXMm-rXDeB-wh8O3GucM8N1bOjv5Gsw38Gw>
+    <xmx:vGnjatGq1k8tRzclx_X2jSCVi6_3zr7GTYrg3feqS3CvIxacixI4ig>
+    <xmx:vGnjat54KicWAGKdQmUX9xn_FZnJU6qwkhTMCIjnw6EryTcAJne9EA>
+    <xmx:vGnjagBJm-xLj-uOPmq8qxgdDdgBPjFXl8HGy9pVFnLZwZ7Eo94LuXNe>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 11:42:39 -0400 (EDT)
-Date: Thu, 29 Oct 2026 15:42:38 +0000
+ 29 Oct 2026 11:43:54 -0400 (EDT)
+Date: Thu, 29 Oct 2026 15:43:53 +0000
 From: Kiryl Shutsemau <kas@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>, 
@@ -97,17 +97,18 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
 	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
 	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 42/46] mm/huge_memory: split huge PUDs when adjusting VMA
- boundaries
-Message-ID: <auNpU-7hPtUZeTGs@thinkstation>
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
+Message-ID: <auNprZJRad8r_xaY@thinkstation>
 References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-42-6f74bec9a5bb@kernel.org>
- <auMxQPze5cOvGbCe@thinkstation>
- <9f4128a4-85fc-4f4b-ac41-b9d348f56e37@kernel.org>
- <auNYPPlCnLdN88t_@thinkstation>
- <d5d077fe-4695-453a-a2cd-40ef30abd61d@kernel.org>
- <e796dace-06c6-43b8-83f0-594e7f1e7380@kernel.org>
+ <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
+ <auIniV8YSpA4_oxg@thinkstation>
+ <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
+ <auMvYdTd_e9O9kDj@thinkstation>
+ <7fab2115-6c44-43b1-b03b-8ce4a37ffe32@kernel.org>
+ <auNaOMYUUpnzCofx@thinkstation>
+ <957fc9ce-1789-41d7-a4cb-66acdf7fcecb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,25 +120,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <e796dace-06c6-43b8-83f0-594e7f1e7380@kernel.org>
+In-Reply-To: <957fc9ce-1789-41d7-a4cb-66acdf7fcecb@kernel.org>
 
-On Thu, Oct 29, 2026 at 04:35:46PM +0100, David Hildenbrand (Arm) wrote:
-> On 10/29/26 15:40, David Hildenbrand (Arm) wrote:
-> > On 10/29/26 15:31, Kiryl Shutsemau wrote:
-> >> On Thu, Oct 29, 2026 at 03:24:29PM +0100, David Hildenbrand (Arm) wrote:
+On Thu, Oct 29, 2026 at 04:21:54PM +0100, David Hildenbrand (Arm) wrote:
+> On 10/29/26 15:38, Kiryl Shutsemau wrote:
+> > On Thu, Oct 29, 2026 at 03:18:23PM +0100, David Hildenbrand (Arm) wrote:
+> >> On 10/29/26 12:37, Kiryl Shutsemau wrote:
 > >>>
-> >>> __split_huge_pud() must split a leave. Either by zapping it (what we do right
-> >>> now) or by populating page tables (as in Usama's PoC).
+> >>> Yes, I missed that the loop only goes back to start when a lookup
+> >>> comes back empty below end. When the last batch reaches end, it exits
+> >>> without another look. It doesn't need the split either: any punch hole
+> >>> whose last page is in the page cache gets there.
+> >>>
+> >>> That exit looks unintended to me. b9a8a4195c7d ("truncate,shmem: Handle
+> >>> truncates that split large folios") turned the "if (start >= end) goto
+> >>> out" early exit into the loop condition. Before it, the loop went back
+> >>> to start until a lookup from start found nothing; Hugh kept that on
+> >>> purpose for hole punch in 792ceaefe621 ("mm/fs: fix pessimization in
+> >>> hole-punching pagecache").
+> >>>
+> >>> Restoring it is enough, and makes the "restart to make sure all gone"
+> >>> comment true again:
+> >>>
+> >>> +       if (start >= end)
+> >>> +               return;
+> >>> +
+> >>>         index = start;
+> >>> -       while (index < end) {
+> >>> +       for (;;) {
+> >>>
+> >>> Then a replaced folio is found on the next round, and truncate needs no
+> >>> special case for it.
+> >>>
 > >>
-> >> No, meant the situation when pud_leaf() is true, but split_pud is false,
-> >> so __split_huge_pud() is never hit. pud_present() is true so we proceed
-> >> to pmd_offset()
+> >> But that's then another lookup even if not really required?
+> >>
+> >> Why do you thing that is that better?
+> >>
+> >> I agree that the code is simpler, but at least it's consistent with the other
+> >> handling.
 > > 
-> > Oh, yeah, I can add a WARN_ON_ONCE() for that, it would be a bug in the software.
+> > The extra lookup only happens when the second loop had work to do.
+> > Normally the first pass removes everything, the first lookup from start
+> > comes back empty, and both versions stop there. When the second loop did
+> > run to end, it costs one more lookup over a range that is now empty.
+> > 
+> > What I like about it is one way to look again instead of two: the loop
+> > already goes back to start when the last batch ends below end, and the
+> > patch adds a second way for when it ends at end. truncate is not like
+> > shmem here: shmem_undo_range() stops after one sweep on hole punch on
+> > purpose, so it needs the rewind; truncate was meant to sweep until
+> > nothing is left.
+> > 
+> > Your version fixes the bug too, so I'll leave the choice to you.
+> > 
 > 
-> Ah, or I can just drop the split_pud check. Let me do that.
+> Can we just do:
 
-Yeah, looks good.
+LGTM!
 
 -- 
   Kiryl Shutsemau / Kirill A. Shutemov
