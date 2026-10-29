@@ -1,64 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269480;
-	b=NiVdlwcjDbc/9g9S7VFHkeFLignOh9Br0qd4Ac2Prm36uUMy4CKgFIc2yiot5qRrjv6A
-	 rl/zBruT33pwvxf0XEwRvI9y7qSfUOSzFzcglW5yx9QeITa1fkQyIoCvaGt3bMdE3ZYJM
-	 U1Xg7ZI9F9MJiNM51kGJP/0klm45vZx0LrzU4ZiM/5K/VV/38xPsIbCksJ5by2AigFzfj
-	 D1CyyXgnOHRVESKeXTBQCjYNIBzgZvG+9sVyCHF4p6sBOTK5hMmAI7FgNui/R06uKj8Vk
-	 9/PVGcW3K9XRP7pfiDe6LTuEWiIgABpmfIIaYRPfmOA1rEK9rHtwwqycX0mJo+ySHxA==
+	t=1793269519;
+	b=aRBnIntwdNkpLckSgj3JK+PZLmNtepTfgd9IEDrmamlgvP6IoQt9xJVcMlDgUhBZs+jJ
+	 ABoUF/H0DFFUSN0r8aINyS3CO0xX91UVM5INW6t8UMKjBbXeLmC+hS/5bTn5jfEVuitiZ
+	 2p1eLm7rm+zwHkAeR4ykrEWdZXZWt95Y5bWr2O+HGeHahFI6nGOtvPApCI9AGC86+gA0G
+	 sicDDVSa6GUsbWooXEwELVVvy2W6w7OtbNDQxmeKue0PqBFvgDSjSWDJIyTCWPGAurVaO
+	 vO5JGWvFOZRNaKFakvXsOJPYKZ9MpSQCC1zb4zAsxBDS59CTMK+UkEQkFG7iY3VUMTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269480;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=zcVdylRoS56yhBpRgKF2JkzQZg39+p6/Di565qWUR1g=;
-	b=zmZG/yE4bPJVtGx2+sk1aM1XW+05YOcItiIzDtygxvOEHgtllpfBzR9GWhdz1aQCK4yz
-	 dg5CuQWrDwIJtuG4IwvJfhTX43B8pj7tRVh1nMRGahlBOlxwW8MT3BK09oy/5hHqXhi6F
-	 FYu5c41zQd2feQSI/JrghTJCPzTLaMji1pvvWG/GpDAth/1pLjrUW4Ju5Wul3g1q0p8yN
-	 ZSFitFov/6W7BQC8BRJSbTh1R9wU9wJAFKtwE68tRHRbXMdoykQRMxk2Hk6nEGtFqiDaJ
-	 2cftGG7qnZmXO5qix0StOxNja/3vBaX8UuP6cpazfiD87SFZF/IMDHugMzPl89KClCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269519;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=OtSElUmkgSMBmtpp69kzqh/LAyhlzAFVWeVHo7DNDyY=;
+	b=5fijiWxf/IfmEw/tHIwmVsQZctTqot3QYTg20ftV6Y+A31MhhgXg3wkqWNGpoj/6+yqO
+	 nM8PX6IVKF8LfTZxlgzrhhFwGkxto4q2qzUmesWCTjZhjfoDfRjOohQi9OQN7B6NpbS2d
+	 /VxeewywgG3TSEQQws3zk1VNHsR6+2qGM50PIHF+6R8Ei3ymUfQwms90GNnqN+KtAcWPQ
+	 B1VoE4z58sV6IvRjVge/qcsp2MrKlRO0MTUiXKuCTPI0M8knkJQ+XH87K52yUORj8UQwx
+	 XyjSmVtszF0+TyKbhJDdTGdx0e+KLT1Y8ckIr6LZ5+KizifDEPLjYyDUPKTnmnx0XrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=S5AJ5U+2;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bRbWJS9S;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46CB606A322;
-	Thu, 29 Oct 2026 10:24:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A46CB606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC15D606A31D
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 10:25:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC15D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=S5AJ5U+2
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 57BE510A971;
-	Thu, 29 Oct 2026 11:24:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793269473;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=zcVdylRoS56yhBpRgKF2JkzQZg39+p6/Di565qWUR1g=;
-	b=S5AJ5U+2f9jDHpQWFvZGT44HMeo5fD8xU6nfWzDm3vDqDC/j72olMU47HhMgUqkPG+TASz
-	krcXPuEFaePCrYDpVvaid+w0pI72MELgvtjlKNU0SLcEqiTBoej2sSi6TCrQStSQQXbm50
-	jNj4corJesA6MuM87wbCAWKwalu6UQ+BBkLK8fP0h/vPTvGTEBYS6K1sPpah/dTlw1uznv
-	SEg4f6XRjYUQrUtk8hDUyD1e+3o43O2wvrf8H1FL0lrFe1UOJ+Z3BZxXwicgPh6SrOSAqp
-	easN2H7nzC7Iy0mKCk/+K4qsc00mRK7NrJPnrYFLSO4EW5JzXh6NfJL2U+U6BA==
-Date: Thu, 29 Oct 2026 11:24:29 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	bernard.f6bvp@gmail.com
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
-Message-ID: <auMe3fAAMqYKZ-qf@duo.ucw.cz>
-References: <20261028165947.349197979@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bRbWJS9S
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so18252105e9.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 03:25:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793269517; x=1793874317; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OtSElUmkgSMBmtpp69kzqh/LAyhlzAFVWeVHo7DNDyY=;
+        b=bRbWJS9Sq3WUrvm1K5CCDr/2/y8KgqJiqm0xxnpw/ojea8hd/zgAwmJrEL71ITjiqZ
+         t4aGIfbQtGFCXTpFU5selcxPoZVOx81+BOYn78zUeUvDXX92flM8Ncdm2ekyE1btDhn+
+         xE2vof3zAVSlu0LpRS+SkvNBvrfGH3o2EShZVHeTDrQuPYXRifPOLwmr7TJNBcv76PG3
+         VKVW2hDUXmw/+Q1JHgqUL1Uy8jnA1dL0RWSA9Ss/UFFAmOvD0b6it/Yc3FXIxoA5+hZ5
+         H5KSat7xyYQQ+6tHt00CexmB3azBzcPyGeXfKUwIKmd7nKBOwScnTDtG4osQsIaGxvqQ
+         CJDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793269517; x=1793874317;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OtSElUmkgSMBmtpp69kzqh/LAyhlzAFVWeVHo7DNDyY=;
+        b=oYqpuz1ZBk9Jbq7Yi5A3/s6mrCCisqHIxqbAs0xLk3cA8n194sCrlmDeJSqbCt16yf
+         boXooH8ommAYpPjLVbWfP+tKrWV8kXmwqxvvrFqAI84gN5GzgZcavg73DfOYV6NJPZF1
+         tbM+6FYJSg9RFsFvgGBVy6cBSxltBLxkpeCs+6jeXKTMM6f16P4X1Guricf0bbBrZAYF
+         ZNW9la2YwIrk2NN8u/k+LNk265ZjbfaFiw6dLZoX0tUvDUSI+obgDW6E56daaDcd3B9E
+         fDovpMEWTOw7s74KaNO9zIXZW1Odb6eh9eI3cHijRcIwbu7Y45Q5FKVYaoPZAeVS0/zn
+         8JmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzCB4+2i4yI5+LGKtpdC5ENncEMJZqjOiikMrzvWhckpYwtF16+CUt1VbzNxsDGYD3s8SML1Rs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxvdIGFBowEfncowYKg/ex15SyuTqB8qS1eFW6afLZjHxrZm73
+	QpLdJ0ATCpm4+0VkFdY/jr4LZddUrwvEVa+5ho+dGYFRv6+E4IAbS4k=
+X-Gm-Gg: AYBFou3DyL4g4c3W8PwdjlP1SIL0CNWdXNnOWhwjfT8B9ta+QCC4Wjv+FP5UbrprgCx
+	Tg7LazC63OA0w7thVGeVV/FVcPVAFfQxjtIQ4gjbSYCg0+UpYhkycG6OK6S435nCVEYjjEfLVeA
+	V5gaC9xbOGLzRc43e+OPB/a6gOhy3kM2Y/kLafka6eyqpOiaREadK9gPy2WHdKi6pqoPH0kPkYx
+	RuTKlEHSh0iXm/QmeFwk5e8QAsnT2n3YkM/NFAElc+2b+UPGW1m2MaHEvir8kNsLx2+L06WM7hq
+	xsyo29jUBnSyCAtLZiyZiuWMGp7lw2YJ3ikrAW8RyJ5Qm5aQ7VXF4sA7Spb2tpyUyNMRPh1e18Q
+	fIesVrQF1fS5hJsl2VbWjAqE2PbEDYubwQfjV5EjF2CRpS4Stl4rVGrABMLGhbJAuhPlKCe+ibK
+	gV2UmrTc0APSYJoCfCIB3KK6VDK0/cgf1MSDG7DJt9NVlof1VWGtQxWsGxnmL3jInRi8ckiPicH
+	ZiNAV7xaphlNck7tV598DYBo1wKSdcEtvMhHjz0IBJX0vl8yFpiXYFSKV3Zk1pFEb/jF85zcA==
+X-Received: by 2002:a05:600c:1391:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a966c41a4emr112142115e9.9.1793269517096;
+        Thu, 29 Oct 2026 03:25:17 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd49afsm34041196f8f.35.2026.10.29.03.25.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:25:16 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v9] ASoC: wm8994: drain delayed works on remove and probe error
+Date: Thu, 29 Oct 2026 10:25:15 +0000
+Message-ID: <20261029102515.3417777-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261026112212.2519775-1-tristmd@gmail.com>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,326 +103,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="19n+6H+Vu7scNikx"
-Content-Disposition: inline
-In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Tristan Madani <tristan@talencesecurity.com>
 
---19n+6H+Vu7scNikx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+wm8994_component_probe() schedules several delayed works to handle jack
+detection and microphone status polling.  If the component is removed or
+probe fails after these works are scheduled, they can execute after
+resources are freed.
 
-Hi!
+Cancel all pending delayed works in the error and removal paths.  Guard
+cancel_delayed_work_sync(&wm8994->mic_work) with a type check because
+INIT_DELAYED_WORK for mic_work only runs in the WM8994 and WM1811 code
+paths.
 
-> This is the start of the stable review cycle for the 6.12.115 release.
-> There are 247 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Fixes: 99af79dff5a6 ("ASoC: wm8994: Ensure we get a notification on startup for jackdet")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+Changes since v8 [4/4]:
+- Guard cancel_delayed_work_sync(&wm8994->mic_work) with type check
+  (WM8994 || WM1811), as mic_work is only initialized in those code
+  paths — addresses Mark Brown review comment
+- Add cleanup to probe error path (err_irq label), not just remove
 
-What is up with these?
+ sound/soc/codecs/wm8994.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-They don't have usual "Commit upstream XXX" markings. They do have
-commit ids in the sign-off area (which is a logical place), except
-that those hashes don't exist in mainline.
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index fc9894975a1d5..30a164796fd48 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -4563,6 +4563,11 @@ static int wm8994_component_probe(struct snd_soc_component *component)
+ 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_FIFOS_ERR, component);
+ 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_SHUT, component);
+ 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_WARN, component);
++	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
++	cancel_delayed_work_sync(&wm8994->mic_complete_work);
++	if (control->type == WM8994 || control->type == WM1811)
++		cancel_delayed_work_sync(&wm8994->mic_work);
++	cancel_delayed_work_sync(&wm8994->open_circuit_work);
+ 
+ 	return ret;
+ }
+@@ -4604,6 +4609,11 @@ static void wm8994_component_remove(struct snd_soc_component *component)
+ 			free_irq(wm8994->micdet_irq, wm8994);
+ 		break;
+ 	}
++	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
++	cancel_delayed_work_sync(&wm8994->mic_complete_work);
++	if (control->type == WM8994 || control->type == WM1811)
++		cancel_delayed_work_sync(&wm8994->mic_work);
++	cancel_delayed_work_sync(&wm8994->open_circuit_work);
+ 	release_firmware(wm8994->mbc);
+ 	release_firmware(wm8994->mbc_vss);
+ 	release_firmware(wm8994->enh_eq);
+-- 
+2.47.3
 
-Best regards,
-								Pavel
-
-    Signed-off-by: Bernard Pidoux <bernard.f6bvp@gmail.com>
-   =20
-    (cherry picked from commit 741a4863ad570889c75f7a8e404567d8f3e46335)
-    Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-
-
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: purge rose_neigh->queue on final teardown
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     ax25: bound REJ-driven fast retransmits with the existing N2 counter
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: hold a reference on incoming sockets queued for accept()
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: don't warn on stray CALL_ACCEPTED/CLEAR_CONFIRMATION in state 3
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: use timer_shutdown_sync() for t0timer teardown
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: guard rose_transmit_link() against a NULL neighbour
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: keep the route needed for routing loop detection
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: don't free fd-owned sockets when reaping in the heartbeat
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: clear neighbour pointer in rose_kill_by_device()
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: release netdev ref and destroy orphaned incoming sockets
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: disconnect orphaned STATE_2 sockets when device is gone
->=20
-> Bernard Pidoux <bernard.f6bvp@gmail.com>
->     rose: set SOCK_DESTROY in rose_kill_by_device() for prompt cleanup
->=20
->=20
-> -------------
->=20
-> Diffstat:
->=20
->  Makefile                                           |   4 +-
->  arch/nios2/include/asm/checksum.h                  |   2 +-
->  arch/s390/mm/fault.c                               |  11 +-
->  arch/s390/pci/pci_sysfs.c                          |   3 +
->  arch/x86/hyperv/hv_init.c                          |   3 +-
->  arch/x86/kernel/kvm.c                              |  32 +-
->  arch/x86/kvm/mmu/mmu.c                             |   4 +-
->  arch/x86/kvm/vmx/nested.c                          |   4 +-
->  block/blk-zoned.c                                  |  37 +-
->  block/blk.h                                        |   4 +-
->  block/bsg-lib.c                                    |  13 +-
->  block/genhd.c                                      |   2 +-
->  crypto/asymmetric_keys/restrict.c                  |   8 +-
->  drivers/base/regmap/internal.h                     |   1 +
->  drivers/base/regmap/regcache-maple.c               |   9 +-
->  drivers/base/regmap/regcache.c                     |  18 +-
->  drivers/gpio/gpio-mxc.c                            |  69 ++--
->  drivers/gpio/gpiolib.c                             |   9 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |   6 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  23 +-
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c             |  25 +-
->  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c              |   2 +-
->  drivers/gpu/drm/drm_exec.c                         |  77 +++--
->  drivers/gpu/drm/i915/display/intel_dmc.c           |  21 +-
->  drivers/gpu/drm/vc4/vc4_hdmi.c                     |  20 +-
->  drivers/gpu/drm/xe/xe_exec.c                       |   7 +-
->  drivers/gpu/drm/xe/xe_vm.c                         |  31 +-
->  drivers/gpu/drm/xe/xe_vm.h                         |   2 +
->  drivers/hv/channel_mgmt.c                          |  12 +-
->  drivers/hv/connection.c                            |   1 -
->  drivers/hv/vmbus_drv.c                             |   1 -
->  drivers/i2c/busses/i2c-qcom-cci.c                  |   4 +-
->  drivers/i2c/busses/i2c-viai2c-wmt.c                |  22 +-
->  drivers/md/dm-cache-target.c                       |  59 ++--
->  drivers/md/dm-crypt.c                              |   3 +-
->  drivers/md/dm-ebs-target.c                         |   3 +-
->  drivers/md/dm-integrity.c                          |   6 +-
->  drivers/net/ethernet/broadcom/genet/bcmgenet.c     |  10 +
->  drivers/net/wireless/intersil/p54/fwio.c           |  42 ++-
->  drivers/pci/pci.c                                  |  15 +-
->  drivers/pinctrl/pinctrl-amd.c                      |   9 +
->  drivers/pinctrl/qcom/pinctrl-ipq5018.c             |  10 +-
->  drivers/power/supply/ds2780_battery.c              |   2 +-
->  drivers/power/supply/generic-adc-battery.c         |   9 +-
->  drivers/s390/net/ctcm_mpc.c                        |   3 +-
->  drivers/scsi/libiscsi.c                            |  14 +-
->  drivers/scsi/libsas/sas_expander.c                 |  14 +-
->  drivers/scsi/mpi3mr/mpi3mr_app.c                   |   2 +-
->  drivers/scsi/scsi_transport_fc.c                   |   6 +-
->  drivers/scsi/scsi_transport_iscsi.c                |   2 +-
->  drivers/scsi/scsi_transport_sas.c                  |   6 +-
->  drivers/scsi/st.c                                  |  18 +-
->  drivers/scsi/xen-scsifront.c                       |   1 +
->  drivers/soc/tegra/fuse/tegra-apbmisc.c             |   2 +-
->  drivers/spi/spi-tegra114.c                         |   7 +
->  drivers/target/iscsi/iscsi_target_configfs.c       |  26 +-
->  drivers/ufs/core/ufs_bsg.c                         |   2 +-
->  fs/afs/internal.h                                  |   2 +
->  fs/afs/super.c                                     |   2 +-
->  fs/autofs/waitq.c                                  |  25 +-
->  fs/coredump.c                                      |  16 +-
->  fs/ext4/ext4.h                                     |   2 +
->  fs/ext4/extents_status.c                           |   7 +-
->  fs/ext4/extents_status.h                           |   1 +
->  fs/ext4/super.c                                    |  13 +-
->  fs/fat/dir.c                                       |  44 ++-
->  fs/fcntl.c                                         |   4 +-
->  fs/namei.c                                         |   3 +-
->  fs/notify/fanotify/fanotify_user.c                 |  25 +-
->  fs/notify/mark.c                                   |  11 +
->  fs/ntfs3/ntfs_fs.h                                 |   1 +
->  fs/ntfs3/super.c                                   |  29 +-
->  fs/ocfs2/dlm/dlmcommon.h                           |   2 +
->  fs/ocfs2/dlm/dlmdebug.c                            |   5 +-
->  fs/ocfs2/dlm/dlmrecovery.c                         |   2 +-
->  fs/open.c                                          |  23 +-
->  fs/pipe.c                                          |   6 +-
->  fs/smb/client/cifssmb.c                            |  13 +-
->  fs/smb/client/connect.c                            |  21 +-
->  fs/smb/client/smb2ops.c                            |   7 +-
->  fs/smb/server/smb2pdu.c                            |   5 +
->  fs/tracefs/event_inode.c                           |  16 +-
->  fs/unicode/utf8-core.c                             |  21 +-
->  fs/xfs/libxfs/xfs_sb.c                             |  17 +-
->  fs/xfs/xfs_fsmap.c                                 |   2 +-
->  fs/xfs/xfs_ioctl.c                                 |   2 +-
->  fs/xfs/xfs_iops.c                                  |   2 +-
->  include/drm/drm_exec.h                             |  15 +-
->  include/linux/bsg-lib.h                            |   3 +-
->  include/linux/cgroup-defs.h                        |   5 +-
->  include/linux/fs.h                                 |   6 +-
->  include/linux/fsnotify_backend.h                   |   1 +
->  include/linux/futex.h                              |  14 +-
->  include/linux/huge_mm.h                            |   2 +-
->  include/linux/io_uring_types.h                     |   3 +
->  include/linux/ipv6.h                               |  22 ++
->  include/linux/key-type.h                           |   1 +
->  include/linux/key.h                                |   5 +
->  include/linux/maple_tree.h                         |   4 +
->  include/linux/mm_types.h                           |   3 +
->  include/linux/power_supply.h                       |   6 +-
->  include/linux/sched.h                              |   2 +-
->  include/linux/sched/signal.h                       |  27 +-
->  include/linux/sched/user.h                         |   8 +-
->  include/linux/srcutiny.h                           |   4 -
->  include/linux/unicode.h                            |   1 +
->  include/net/af_vsock.h                             |   3 +
->  include/net/ax25.h                                 |   6 +
->  include/net/codel_impl.h                           |   1 +
->  include/net/ipv6.h                                 |   2 -
->  include/net/netfilter/nf_tables_ipv6.h             |   4 +-
->  include/net/netrom.h                               |  18 +-
->  include/net/rose.h                                 |  45 ++-
->  include/uapi/asm-generic/fcntl.h                   |   1 -
->  io_uring/cancel.c                                  |  29 +-
->  io_uring/cancel.h                                  |   2 +
->  io_uring/futex.c                                   |   7 +-
->  io_uring/io-wq.c                                   | 110 +++++-
->  io_uring/io-wq.h                                   |   4 +-
->  io_uring/io_uring.c                                | 167 +++++++--
->  io_uring/io_uring.h                                |  44 ++-
->  io_uring/kbuf.c                                    |   2 +-
->  io_uring/napi.c                                    |   4 +-
->  io_uring/net.c                                     |  26 +-
->  io_uring/poll.c                                    |  41 ++-
->  io_uring/rw.c                                      |  18 -
->  io_uring/sqpoll.c                                  |   7 +
->  io_uring/tctx.c                                    |   1 +
->  io_uring/timeout.c                                 |  91 +++--
->  io_uring/uring_cmd.c                               |   2 +-
->  io_uring/waitid.c                                  |  19 +-
->  kernel/cgroup/cgroup.c                             |   6 +-
->  kernel/events/core.c                               |  33 +-
->  kernel/exit.c                                      |   2 +-
->  kernel/fork.c                                      |  12 +-
->  kernel/futex/core.c                                |  47 +--
->  kernel/pid_namespace.c                             |   5 +-
->  kernel/printk/printk.c                             |   2 +-
->  kernel/ptrace.c                                    |   6 +
->  kernel/rcu/srcutiny.c                              |  19 +-
->  kernel/sched/ext.c                                 |  18 +-
->  kernel/signal.c                                    |   4 +
->  kernel/trace/ftrace.c                              |   4 +-
->  kernel/trace/ring_buffer.c                         |  13 +-
->  kernel/trace/trace.c                               |  13 +-
->  kernel/trace/trace_events_filter.c                 |  15 +-
->  kernel/trace/trace_events_hist.c                   |  52 +--
->  kernel/trace/trace_events_synth.c                  |  10 +
->  kernel/trace/trace_probe.c                         |   3 +-
->  kernel/trace/trace_synth.h                         |   1 +
->  kernel/watch_queue.c                               |  16 +-
->  kernel/workqueue.c                                 |  24 +-
->  mm/filemap.c                                       |   9 -
->  mm/huge_memory.c                                   |  81 +++--
->  mm/internal.h                                      |   6 +
->  mm/khugepaged.c                                    |   3 +
->  mm/pagewalk.c                                      |   6 +-
->  net/ax25/af_ax25.c                                 |  81 ++++-
->  net/ax25/ax25_ds_in.c                              |   2 +
->  net/ax25/ax25_in.c                                 |  55 ++-
->  net/ax25/ax25_out.c                                | 121 +++++--
->  net/ax25/ax25_std_in.c                             |  44 +++
->  net/ax25/ax25_subr.c                               |  44 ++-
->  net/bluetooth/l2cap_core.c                         |   7 +-
->  net/bluetooth/l2cap_sock.c                         |   2 +
->  net/bridge/br_multicast.c                          |  13 +-
->  net/bridge/br_netfilter_ipv6.c                     |   2 +-
->  net/bridge/netfilter/nf_conntrack_bridge.c         |   4 +-
->  net/core/page_pool.c                               |   3 +-
->  net/ipv4/fib_semantics.c                           |   2 +-
->  net/ipv4/tcp.c                                     |  18 +-
->  net/ipv4/tcp_cong.c                                |   4 +-
->  net/ipv4/tcp_dctcp.c                               |   4 +-
->  net/ipv4/tcp_minisocks.c                           |   2 +-
->  net/ipv4/tcp_output.c                              |   2 +-
->  net/ipv4/udp.c                                     |  11 +-
->  net/ipv6/calipso.c                                 |   6 +-
->  net/ipv6/ip6_input.c                               |   2 +-
->  net/ipv6/ip6_offload.c                             |   7 +-
->  net/ipv6/output_core.c                             |   7 +-
->  net/iucv/af_iucv.c                                 |  42 ++-
->  net/mac802154/ieee802154_i.h                       |   7 +-
->  net/mac802154/main.c                               |   1 +
->  net/mac802154/scan.c                               |  51 ++-
->  net/mptcp/protocol.c                               |  14 +-
->  net/netfilter/ipvs/ip_vs_xmit.c                    |   2 +-
->  net/netfilter/nf_conntrack_ovs.c                   |   2 +-
->  net/netfilter/nf_log_syslog.c                      |   2 +-
->  net/netfilter/nft_byteorder.c                      |  51 ++-
->  net/netlink/af_netlink.c                           |  10 +-
->  net/netrom/af_netrom.c                             |  33 +-
->  net/netrom/nr_in.c                                 |  26 ++
->  net/netrom/nr_route.c                              | 383 +++++++++++----=
-------
->  net/rds/rdma_transport.c                           |  38 +-
->  net/rose/af_rose.c                                 |  73 +++-
->  net/rose/rose_in.c                                 |  44 ++-
->  net/rose/rose_link.c                               |  47 +++
->  net/rose/rose_loopback.c                           |   2 +-
->  net/rose/rose_out.c                                |   1 +
->  net/rose/rose_route.c                              | 200 +++++++++--
->  net/rose/rose_timer.c                              |  87 ++++-
->  net/sched/act_api.c                                |  11 +-
->  net/sched/cls_flower.c                             |   5 +
->  net/sched/sch_cake.c                               |   2 +-
->  net/sctp/inqueue.c                                 |   6 +-
->  net/sctp/socket.c                                  |  33 +-
->  net/socket.c                                       |  54 ++-
->  net/tipc/node.c                                    |   2 +
->  net/vmw_vsock/af_vsock.c                           |  49 ++-
->  net/vmw_vsock/virtio_transport_common.c            |   9 +-
->  samples/pidfd/Makefile                             |   2 +-
->  security/keys/key.c                                |  13 +-
->  security/keys/keyctl.c                             |  15 +-
->  security/keys/keyring.c                            | 150 ++++----
->  security/keys/process_keys.c                       |   5 +-
->  security/keys/trusted-keys/trusted_tpm1.c          |   4 +-
->  security/keys/trusted-keys/trusted_tpm2.c          |   2 +-
->  sound/soc/codecs/cs42l52.c                         |   2 +-
->  sound/soc/codecs/cs42l56.c                         |   2 +-
->  sound/soc/codecs/max98371.c                        |   2 +-
->  sound/soc/codecs/nau8822.c                         |   4 +-
->  sound/soc/codecs/pcm3168a.c                        |   2 +-
->  sound/soc/codecs/wm8978.c                          |   4 +-
->  sound/soc/intel/avs/pcm.c                          |   2 +-
->  sound/soc/sof/ipc4-topology.c                      |  16 +-
->  sound/soc/stm/stm32_spdifrx.c                      |   2 +-
->  tools/gpio/Makefile                                |   6 +
->  tools/power/x86/turbostat/turbostat.c              |  11 +-
->  .../test.d/filter/event-filter-incomplete.tc       |  24 ++
->  229 files changed, 3065 insertions(+), 1216 deletions(-)
->=20
->=20
-
---=20
-
---19n+6H+Vu7scNikx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauMe3QAKCRAw5/Bqldv6
-8opFAJ9T/0o5lN1D4hBVzXky8JCtktBlOACdFSkMyO0Y/yJTQh+dalOp/VZ+4yw=
-=G1bT
------END PGP SIGNATURE-----
-
---19n+6H+Vu7scNikx--
