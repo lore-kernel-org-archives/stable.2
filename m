@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347951;
-	b=btNvBLrGtnGufJpGzOG95Tta9NDBdAJS1ETEsH0cmkSZ+Oj5EBQXSDfTNcR7mti+exfI
-	 xC6U0e5dM1aHLoI8iGc9dd9LS/ajHofiQvtiV6m3mzsjsgH/a8E9gtdL8XFnso087CBTJ
-	 7NlKcSJ1TadfZLMQ/yiPOWSs/k0TpsEe0s/Pf/ko4A937c3bltf17mpFXgLWT9aIVGVXM
-	 XotDJL44BY7qvNbQiOpI/r0J+wIZb8K3AyN5NFEj8Q7mN1wLBS9r4CoitrqRiaXiOpUgC
-	 bq2HVbGT3L8jqgD0wjmcjFFnR6zhLAQ2X+OVTRC7jgf/X4n1Gby2E55t+mkjavheI+g==
+	t=1793348063;
+	b=zWnys+1a/WJ1med7b5WWr+b/ks1qRqQjQKbCIfU67d28eF16xEAxnLuEGoNnPF5yFnzO
+	 mvm+OJNlIeK32aR8XMGxkXsAQNcQPH55KZq+f8DZ5GdVciTyoZo6XIMhP8sM2JiGDqHi1
+	 B3KDhWL2CkyPenbH8aOMRA7fQ3mCNcKsnlk20LJRTpw2fDYg30kY+E1nLzWCrQBYBC73+
+	 AoVgRwrJZ7yRTPz/LDMTBG/jd6MxFEvcSftq4Mhnoz8c7OqSKAWsgRvEU3EC7103GpZuk
+	 KGmhY9Jk9BYRIR8KpDDuT/PqphZmZjY5ZYXdPI/GVOsGcvzHvIm5cfh/h/O5iVithXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347951;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cwt4Hg4qMuIaaCvAXceJlYQIKFNEo2HNhM36aeH05D4=;
-	b=xuBoMPdx64+2VQJPLrspW0LsTl83BwTlG5VeAh9hE9S67nQmgSpBCviBp3ZuLOIVohS3
-	 T1Lrh2Ek5OmXk9J2+vLLNs8vZOLZ+2UWaQZmegx3JgHbF70lk0bzUjkUAA74aP6Pg63Oa
-	 U95R99uvYkYCUCSpL1795cqWdQ3/2Ge3909ZzpIPiKKO/i0N3Qq+eZfeM7IFxDPYa79FB
-	 rlb0PKMJldlzGL25c9vnR2BgobHzqj6CrOCwVeuVthJ59kx6Wh4wJ6qYRqy8dZ5xyQY0D
-	 YFSfYXoJ2FAWgiwO+/rfubzLRSLRvqE3OHp/koRYCupm1rMlSdr+0iQMtEBuEHAI/Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348063;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
+	b=VR2EXBb3Qkxzbd11YMb08RdYA/f1N58Bek5uQuocjEyq8xFMUO4p5dqD7py/FeqRCtBT
+	 bwVp79ql2q2FXzDebD+LCtWmTZTRCVykGtmhgf1iQtJG8ozYkbDw8CI9f8tvFXJflY+55
+	 YkZMsVa8Ot0L4Dh3att8dS3fnyh/w7fSshTO0Id98JHLt/OB8Hcd2TGMSo6Fr4e9Gb6/o
+	 wAoH+VqU+UrJQBDL/gxYAsYbPqsZcSzFZ6NnwdMXF3aGwA5kpugzaXQaH6DJMCMQK58cu
+	 7KFmtbIslFTLE4ZTLzrIqtLMqAeTv6YIISDiJBCowTJzrZ6j8c2I0/N8OW2DEMsYJfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJnsaMfq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDB1606A31C;
-	Fri, 30 Oct 2026 08:12:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2877606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2877606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJnsaMfq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF631F000C1;
-	Fri, 30 Oct 2026 08:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793347950;
-	bh=cwt4Hg4qMuIaaCvAXceJlYQIKFNEo2HNhM36aeH05D4=;
-	h=From:To:Cc:Subject:Date;
-	b=QJnsaMfq3q22zM8v2AhRdonJAq1zicvekS3FWa1Wh3jaP7OM653ElGaDufODpuzLn
-	 atlGfBVEhY9P5V4x7Qn8r+6cchg/KJ4KmNZAwpBlZV4oKhZ82gRdt8NttcsYYeDLBV
-	 /YHj2XhHaSQnc89zxkHY7EROmScwcnleDu541wUoYKAd9VsNDPjwQmb+xio+KiaoP8
-	 SZoLRvYQkMTGdyP0tIJRL9vYkW2L2D5XdPWpvqCQWB+hY6dcpbxa91wLSK82F2ewLl
-	 wiSTzcqT4KrkYesxYrU2Z6h1LoKOsL+v+mC2WaGYCsgS1FEFAQ/SH8SjdLNdtNKBqm
-	 SH6mfc10UZaNg==
-From: Eric Dumazet <edumazet@kernel.org>
-To: "David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	netdev@vger.kernel.org,
-	edumazet@kernel.org,
-	stable@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
-	Florian Westphal <fw@strlen.de>
-Subject: [PATCH v2 net] inet: frags: limit the truesize of a reassembly queue
-Date: Fri, 30 Oct 2026 09:12:25 +0100
-Message-ID: <20261030081225.2575462-1-edumazet@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261030081419euoutp027cd1975a8c2a4924ba054a476e819037~jQI8TrO383272932729euoutp02L
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261030081419euoutp027cd1975a8c2a4924ba054a476e819037~jQI8TrO383272932729euoutp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793348059;
+	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Z9K9CO0Va/v7gZBgkS0DUY899rLqH3dtIsFOjM6OQ9gzQe+cvMNoulHJgn2oEg4LW
+	 rz682PJQ+q2eWwNLfDMJJxukW5yecxRwOmUqAU8nrAe3vFwV5FnUn3IFSlj72mojio
+	 2pIWdilYm0wFcyGSv3nGjmk3kWDd1u/2Eq4IdRzA=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260~jQI7-hnsc0143101431eucas1p2t;
+	Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261030081418eusmtip2609af88f01ad0a91d0eabb01a9b136a8~jQI7PJIYA0992309923eusmtip2W;
+	Fri, 30 Oct 2026 08:14:18 +0000 (GMT)
+Message-ID: <7fa2730a-87e7-47f3-a053-a9fc43fca787@samsung.com>
+Date: Fri, 30 Oct 2026 09:14:18 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,107 +64,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] swiotlb: fix out-of-bounds read in
+ swiotlb_release_slots()
+To: Michael Kelley <mhklinux@outlook.com>, Giorgi Kobakhia
+	<gkobakhi@asu.edu>
+Cc: "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Xiang Mei
+	<xmei5@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
+References: <20261026032007.1957949-1-gkobakhi@asu.edu>
+	<CGME20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29@eucas1p1.samsung.com>
+	<MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
 
-The truesize of fragments in a reassembly queue is only bounded by
-the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+On 29.10.2026 18:39, Michael Kelley wrote:
+> From: Giorgi Kobakhia <gkobakhi@asu.edu> Sent: Sunday, October 25, 2026 8:20 PM
+>> When buffer is freed, swiotlb_release_slots() tries to merge it with the
+>> following free space by reading the list value of the next slot.
+>>
+>>     if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
+>>         count = mem->slots[index + nslots].list;
+>>     else
+>>         count = 0;
+>>
+>> If index is in the last segment of the pool and the pool size is not
+>> multiple of IO_TLB_SEGSIZE, index + nslots becomes equal to mem->nslabs
+>> leading to out of bound read.
+>>
+>>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
+>>  Read of size 2
+>>
+>>  Call trace:
+>>   swiotlb_release_slots (kernel/dma/swiotlb.c:1653)
+>>   __swiotlb_tbl_unmap_single (kernel/dma/swiotlb.c:1734)
+>>   dma_unmap_phys (./include/linux/swiotlb.h:262 kernel/dma/direct.h:102
+>>                     kernel/dma/mapping.c:218)
+>>   dma_unmap_page_attrs (kernel/dma/mapping.c:236)
+>>
+>> The commit 0b84e4f8b793 ("swiotlb: Add restricted DMA pool
+>> initialization") makes it possible to initialize a pool with an
+>> arbitrary size. Before it nslabs was multiple of IO_TLB_SEGSIZE and no
+>> OOB occurred.
+>>
+>> Add overflow check.
+> I can see that this is a legitimate problem. But I'm not sure this is the right
+> solution.
+>
+> All other paths for creating a swiotlb pool ensure that nslabs is a multiple
+> of IO_TLB_SEGSIZE. The better solution may be for rmem_swiotlb_device_init()
+> to round-up nslabs to be a multiple of IO_TLB_SEGSIZE. My concern is
+> that there may be other places in the swiotlb code where there is an
+> implicit assumption that there are no partial segments at the end of
+> a pool. It would take some effort for me to re-immerse myself in the
+> swiotlb code to see if that's true, and I haven't done that. But my
+> guess is that there's a good chance of such an assumption.
+>
+> What are the implications of potentially allocating slightly more memory
+> for a restricted pool than is specified? It wouldn't be much additional
+> memory since the segment size is 256 KiB.
+Frankly speaking it would much easier to round the pool size down to match
+the multiple of IO_TLB_SEGSIZE, waste some memory and issue a warning.
+It is not that trivial to allocate "slightly more memory" if the size of
+the restricted pool is statically specified in device tree.
 
-inet_frag_reasm_finish() sums the truesize of all fragments in an int.
-If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
-adjustment of the socket owning the reassembled skb can cancel its own
-reference, leading to a use-after-free of this socket.
-
-This can be triggered from an unprivileged user/network namespace,
-raising ipfrag_high_thresh and using padded TUN packets, which keep
-a large truesize after being trimmed by ip_rcv_core().
-
-Track the sum of the truesize of fragments in each queue, and refuse
-a fragment that would make it bigger than INT_MAX / 2. Callers kill
-the queue on this error. This bound is far above the needs of
-legitimate traffic.
-
-Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
-Cc: stable@vger.kernel.org
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Cc: Florian Westphal <fw@strlen.de>
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
----
-v2: reset q->truesize in inet_frag_queue_flush(), as ip_frag_reinit()
-    can keep a queue alive after flushing its fragments (Wang Zhan, Sashiko).
-    Document @truesize in struct inet_frag_queue kernel-doc (Sashiko).
-v1: https://lore.kernel.org/netdev/20261028182934.2236310-1-edumazet@kernel.org/
-
-Kyle Zeng provided a more complicated patch, I wrote something much simpler.
-LLM was used to discover the bug, build a repro, and test the fix.
----
- include/net/inet_frag.h  | 9 +++++++++
- net/ipv4/inet_fragment.c | 5 +++++
- 2 files changed, 14 insertions(+)
-
-diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
-index b02d2472b003ec6e7b8e391d56115e8f0578ca61..c1fb419a9cf03a346edd0424ca0ba5b06b6a20f0 100644
---- a/include/net/inet_frag.h
-+++ b/include/net/inet_frag.h
-@@ -79,6 +79,7 @@ struct frag_v6_compare_key {
-  * @tstamp_type: stamp has a mono delivery time (EDT)
-  * @flags: fragment queue flags
-  * @max_size: maximum received fragment size
-+ * @truesize: sum of the truesize of queued fragments
-  * @fqdir: pointer to struct fqdir
-  * @rcu: rcu head for freeing deferall
-  */
-@@ -100,6 +101,7 @@ struct inet_frag_queue {
- 	u8			tstamp_type;
- 	__u8			flags;
- 	u16			max_size;
-+	unsigned int		truesize;
- 	struct fqdir		*fqdir;
- 	struct rcu_head		rcu;
- };
-@@ -172,6 +174,13 @@ extern const u8 ip_frag_ecn_table[16];
- #define IPFRAG_DUP	1
- #define IPFRAG_OVERLAP	2
- #define IPFRAG_MIXED_SECPATH	3
-+#define IPFRAG_TOOBIG	4
-+
-+/* Max sum of the truesize of fragments in a queue. This keeps the sums
-+ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
-+ * below INT_MAX. Legitimate traffic stays far below this limit.
-+ */
-+#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
- int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 			   int offset, int end);
- void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index c18da91c1f031ee0b97f9e072837d053380da2f2..0b8d22ffafca69b2bccd98eca3d4bda93ebb816a 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -336,6 +336,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
- 	q->rb_fragments = RB_ROOT;
- 	q->fragments_tail = NULL;
- 	q->last_run_head = NULL;
-+	q->truesize = 0;
- }
- EXPORT_SYMBOL(inet_frag_queue_flush);
- 
-@@ -446,6 +447,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 	if (last && !secpath_equal(last, skb))
- 		return IPFRAG_MIXED_SECPATH;
- 
-+	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
-+		return IPFRAG_TOOBIG;
-+
- 	/* An IP fragment is never a GSO packet, but an untrusted source
- 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
- 	 * that reach the reassembled skb, whose head keeps the first
-@@ -510,6 +514,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
- 	if (offset)
- 		nf_reset_ct(skb);
- 
-+	q->truesize += skb->truesize;
- 	return IPFRAG_OK;
- }
- EXPORT_SYMBOL(inet_frag_queue_insert);
+Best regards
 -- 
-2.53.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
