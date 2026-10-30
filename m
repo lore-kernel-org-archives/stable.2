@@ -1,89 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793374501;
-	b=vWvcX8sYcP+Xp2W3NmO/gR8XWS/65/xs/uBvt/Y0/Db+OngepI1aZ72RgnmcOQFeeZj4
-	 xq9jyCnf0htHXZdIffrCCnmTNOBLXyvh8HvfjKEj4X4ySf4r+y6x2ExtM39HevLQ6BMqq
-	 9SsDMRiLuXFU/VSsZamH+3bRr0s4vELIdUAO76C9qXi2P5BgUCjdhSkKAspjM2jFGHtU1
-	 v9lvsZmI9lTTw/CYRlj5eQ6tBmauuzXOjZSM+Mp+K9NZxWPQ7n2bYik7j3dsTiW+q3Mi9
-	 Qa1IHYD/DUhCFoCvXcQ968PWODPN7HiiD75KiqIMr5+ATbhI7r9vRQN7/OSpVl0CJFQ==
+	t=1793374587;
+	b=04nd7g4wxpPa842uy/IusXODsTB2blF4SkoCnslsdTXNhL4BT+aj4I8Du5Kk6rbSJ2xS
+	 TsC3DYPO/6h9iDOtUIIr7glXtu7Z2F8Sn95weN4wRhQwg3Z9PhIRH4UTs8Qs0v6uMYzWU
+	 jXmrDk73hGPnpamA+l9NWEonj2tncNbISICkOWaH+U8QqKGVlFldo89NP2YhN28b/lUyP
+	 8slpAMk8Fz8Y0/8bPFU/x5Jjg29hhbG5xWt6I0rCBhbeWBjV8AoPch8ri/RgBfZWha+MJ
+	 imsK2CWmADUn40bbPmtjGTB/G40AaDdGxIp1VPHnufrxuS2cfhaRbIAi3DyE6P9W96w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793374501;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=CemoIsO/yOSwdxWhLStl7P1i8oQbVpqpR0HuEU1eEkw=;
-	b=y+Oz0Xpg7Lidi3z54CP9uxuPaS/gAOF8i5vJhyL5fTS1zCEyij87WpsoeB0cqcWGKPnc
-	 q9kggYzprvMMK9LxOt7oLxegWhhjy7EzcQtWs4qf6ijgwVlPSJsErZ+CpBH4y2+jHS9GF
-	 joj81o8HVxoLk50Pc59MRyh+K81ZXY/DMFH6MtM12cwraWogPp8cUX1ZGcOUKHST33OIZ
-	 orOTLaoQcCwUbuc5o2i+TsNLu2/lWhCumyiFFEYnOffNt7N/+68EBTaNaQbtBzq6xkTZ/
-	 dA2rMYo8WQvMCi9k3UHV9Dq3oTMsMscCZjlcwztp2pDgN30nGFFE/io4yAvmrZTmVnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793374587;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=sd5RL1XCNlo2sqTNOx3kwpxSRfkZd0uC81i/NNCK/dU=;
+	b=mPyk8tk5OmtRVPf2pLLXvXa9V6iW6nuPjvJvaHic+lbSfcKIaiVts6HyEO9k9dWc0Ire
+	 OSaG6sJfFtNiQYKtP4f8Z/LFyaKC8SseOjnB8rC0cQv3eerJnoiPe9ZAD6s2UlcMpiDdO
+	 +WqYTjvLXb+Hi5QsaoqnUnsR9JYwvSJA4f1qWQohj1nRyP26KMpmLGk4ZcBb3qvrvwUiq
+	 LjToWnkhRiJTRRjZBFTMSWmV+6Co+FHiLcFWCalfv9B91rtLBDGhgUW/lfSWUz18F8xg8
+	 XY6soRsUsv03ZXqG59J96aw9vHbKKRGKm5xXWW5siyJ08ebrl/Ov/0m2oV70yx7ELtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=Za9hpEHX;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="GJnaf7C/";
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=uCiLmze4;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C77606A329;
-	Fri, 30 Oct 2026 15:34:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62C77606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAEE606A31F;
+	Fri, 30 Oct 2026 15:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEAEE606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=Za9hpEHX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793374489;
-	bh=YysBt3IelcDmCs41LNAfyqOxcxszE1ekBHh5iJlfQS8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Za9hpEHXoF3QU2UoEXuLToeW01ZtQ2NrDhJmouhTldxTFEloRvgHTN2HD+3vGsAYk
-	 rla0FrkMcjNy0NfJckQnEyvQvlwtTadW4Pe9LXYN7JlKh73F3x4r/C/XGg8D/N6l3G
-	 vSzHL04N2ticeQ8KncuEEIff+46G0Nu3AysJOQQIGqiEx7GTp3eAqGg2oWx2H9gOoJ
-	 J9CCadt3sQX9hlZmmRviw5VqInh0yDn0SUEYDfh6cZLlfZZkHvQlQJ5QEqGXk+Ivum
-	 k16TsTcZ1EIQRFtixhQfSUm/PazPqOQHqnajG0+vb0r6dw65mu8d13Vm2ArTJwUVmx
-	 i3kON4GDO29tw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id A43CA2659E;
-	Fri, 30 Oct 2026 18:34:49 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=GJnaf7C/;
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=uCiLmze4
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Fri, 30 Oct 2026 18:34:16 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.26.228])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jGQ8k3fwYz1Y8j;
-	Fri, 30 Oct 2026 18:32:54 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Jose Maria Casanova Crespo <jmcasanova@igalia.com>,
-	Iago Toral Quiroga <itoral@igalia.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	=?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Eric Anholt <eric@anholt.net>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] drm/vc4: Supply the overflow slot size in BPOS, not the whole bin BO size
-Date: Fri, 30 Oct 2026 18:32:32 +0300
-Message-ID: <20261030153234.1098-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E577E20152;
+	Fri, 30 Oct 2026 15:36:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1793374585; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sd5RL1XCNlo2sqTNOx3kwpxSRfkZd0uC81i/NNCK/dU=;
+	b=GJnaf7C/59Bw/iGsZVvdlooRAc1wb7rQ4opA+jjUMVcio3fbDS9jp4mgBn/NDuGMSm+GT4
+	wIK5qzCoN5qsUAD/d/PjNYyVWJehvRUUX31zCMxZB5/ZP2+p0J+4brHoSXOp2hX4BC2h/H
+	sKXxpLAMieW1MX8J0nwvdMrnStd7Vs8=
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1793374584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sd5RL1XCNlo2sqTNOx3kwpxSRfkZd0uC81i/NNCK/dU=;
+	b=uCiLmze42TJIkHNiuFigvNYMrMOGTXfy9ENvW/xkpP2JN2n8tj1Df1KwtvYuOGaIUYl42J
+	BeR4LL2WWNLCN2kZJiGV6zkN9VePHq8+61SWcTes4n7GcEIiYwCWmDVCU6zNqQzyqeMvIH
+	bFqGmBDBVF8q1KjsUfJfztIKC7gdApc=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF64E13432;
+	Fri, 30 Oct 2026 15:36:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id PZ2HH3i55GrMXwAAD6G6ig
+	(envelope-from <neelx@suse.com>); Fri, 30 Oct 2026 15:36:24 +0000
+From: Daniel Vacek <neelx@suse.com>
+To: linux-btrfs@vger.kernel.org
+Cc: Daniel Vacek <neelx@suse.com>,
+	"Naulls, Peter" <PeterNaulls@eaton.com>,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: fix a livelock in wait_for_commit() on PREEMPT_RT
+Date: Fri, 30 Oct 2026 16:36:17 +0100
+Message-ID: <20261030153617.329733-1-neelx@suse.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,74 +87,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/30 15:11:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;new-mail.astralinux.ru:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207146 [Oct 30 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/30 14:03:00 #28765267
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/30 14:23:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -11.80
 
-From: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Peter reported [1] that running multiple RR tasks doing sync()
+on fully preemptible kernel may starve other/normal sync() tasks
+due to fs_info::trans_lock turned into rt_mutex.
 
-commit 6395789e4739aa5177bbec0fa0f07ccc38d249b0 upstream.
+This is caused by RR tasks contending over the mutex with priority over
+other tasks, which in turn lack progress and they are no longer able to
+remove TRANS_STATE_COMPLETED transactions from the fs_info::trans_list.
 
-vc4_overflow_mem_work() points BPOA at a 512KB slot inside the 16MB
-binner BO, but writes the size of the whole BO to BPOS. On every binner
-out-of-memory event the PTB is therefore authorized to write tile lists
-across all the other slots (which may hold the tile state, tile alloc and
-overflow memory of in-flight jobs) and, for any slot but the first, past
-the end of the binner BO into unrelated CMA memory.
+The offenders start looping in wait_for_commit() expecting the completed
+transactions to get off the trans_list but since they're bouncing the
+trans_lock the tasks with other/normal priority which are about to delist
+such transactions never get a chance to do so due to lower priority.
 
-Since CMA pages are recycled into page cache and user allocations, this
-is arbitrary memory corruption by GPU DMA. In practice it shows up as GPU
-hangs with corrupted control list pointers, userspace heap corruption, a
-GPU that stays permanently wedged after the first hang, and occasional
-full system crashes, whenever a job overflows the initial binner slot.
+A simple reproducer can be found in the mentioned email thread [1].
 
-The bug dates back to the conversion from a dedicated overflow BO (where
-writing the full BO size was correct) to the slotted binner BO.
+The situation can be resolved by boosting the priority of the starved
+tasks or dropping priority of the offenders. Thought this fix prevents
+the situation from happening in the first place. We simply delist the
+transactions before changing them to completed state. That breaks the
+loop condition.
 
-Fixes: 553c942f8b2c ("drm/vc4: Allow using more than 256MB of CMA memory.")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4.8
-Signed-off-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Link: https://patch.msgid.link/20260727-vc4-bin-oom-fixes-v2-1-0d8a5eddc7c9@igalia.com
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
-[ mdmitrichenko: Refresh the hunk context for bo->base.paddr;
-  5.10 and 5.15 predate the rename to dma_addr in commit 8c30eecc6769. ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+[1] https://lore.kernel.org/linux-btrfs/SJ0PR17MB4288C46458DCE2C015839D0FBB9E2@SJ0PR17MB4288.namprd17.prod.outlook.com/
+
+Reported-by: Naulls, Peter <PeterNaulls@eaton.com>
+Fixes: 5fd76bf31ccfe ("btrfs: fix relocation crash due to premature return from btrfs_commit_transaction()")
+CC: stable@vger.kernel.org # 5.15+
+Tested-by: Naulls, Peter <PeterNaulls@eaton.com>
+Signed-off-by: Daniel Vacek <neelx@suse.com>
 ---
-Backport fix for CVE-2026-74454
+ fs/btrfs/disk-io.c     | 18 +++++++-----------
+ fs/btrfs/transaction.c | 15 +++++----------
+ 2 files changed, 12 insertions(+), 21 deletions(-)
 
- drivers/gpu/drm/vc4/vc4_irq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
-index e226c24e543f..e985c603fbb4 100644
---- a/drivers/gpu/drm/vc4/vc4_irq.c
-+++ b/drivers/gpu/drm/vc4/vc4_irq.c
-@@ -101,7 +101,7 @@ vc4_overflow_mem_work(struct work_struct *work)
- 	vc4->bin_alloc_overflow = BIT(bin_bo_slot);
+diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
+index c628c5081d92..6afcd6ca2a8a 100644
+--- a/fs/btrfs/disk-io.c
++++ b/fs/btrfs/disk-io.c
+@@ -4312,10 +4312,6 @@ static void warn_about_uncommitted_trans(struct btrfs_fs_info *fs_info)
+ 			   trans->transid, dirty_bytes);
+ 		btrfs_cleanup_one_transaction(trans);
  
- 	V3D_WRITE(V3D_BPOA, bo->base.paddr + bin_bo_slot * vc4->bin_alloc_size);
--	V3D_WRITE(V3D_BPOS, bo->base.base.size);
-+	V3D_WRITE(V3D_BPOS, vc4->bin_alloc_size);
- 	V3D_WRITE(V3D_INTCTL, V3D_INT_OUTOMEM);
- 	V3D_WRITE(V3D_INTENA, V3D_INT_OUTOMEM);
- 	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+-		if (trans == fs_info->running_transaction)
+-			fs_info->running_transaction = NULL;
+-		list_del_init(&trans->list);
+-
+ 		btrfs_put_transaction(trans);
+ 	}
+ 	ASSERT(!found);
+@@ -4937,7 +4933,13 @@ void btrfs_cleanup_one_transaction(struct btrfs_transaction *cur_trans)
+ 				     EXTENT_DIRTY);
+ 	btrfs_destroy_pinned_extent(fs_info, &cur_trans->pinned_extents);
+ 
+-	cur_trans->state =TRANS_STATE_COMPLETED;
++	spin_lock(&fs_info->trans_lock);
++	if (cur_trans == fs_info->running_transaction)
++		fs_info->running_transaction = NULL;
++	list_del_init(&cur_trans->list);
++	spin_unlock(&fs_info->trans_lock);
++
++	cur_trans->state = TRANS_STATE_COMPLETED;
+ 	wake_up(&cur_trans->commit_wait);
+ }
+ 
+@@ -4973,12 +4975,6 @@ static int btrfs_cleanup_transaction(struct btrfs_fs_info *fs_info)
+ 		}
+ 		btrfs_cleanup_one_transaction(t);
+ 
+-		spin_lock(&fs_info->trans_lock);
+-		if (t == fs_info->running_transaction)
+-			fs_info->running_transaction = NULL;
+-		list_del_init(&t->list);
+-		spin_unlock(&fs_info->trans_lock);
+-
+ 		btrfs_put_transaction(t);
+ 		spin_lock(&fs_info->trans_lock);
+ 	}
+diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
+index d265fac023e5..cd7dff5ba59b 100644
+--- a/fs/btrfs/transaction.c
++++ b/fs/btrfs/transaction.c
+@@ -2124,12 +2124,7 @@ static void cleanup_transaction(struct btrfs_trans_handle *trans, int err)
+ 
+ 	spin_unlock(&fs_info->trans_lock);
+ 
+-	btrfs_cleanup_one_transaction(trans->transaction);
+-
+-	spin_lock(&fs_info->trans_lock);
+-	if (cur_trans == fs_info->running_transaction)
+-		fs_info->running_transaction = NULL;
+-	spin_unlock(&fs_info->trans_lock);
++	btrfs_cleanup_one_transaction(cur_trans);
+ 
+ 	if (trans->type & TRANS_SB_INTWRITER_MASK)
+ 		sb_end_intwrite(fs_info->sb);
+@@ -2641,6 +2636,10 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
+ 		btrfs_clear_space_info_full(fs_info);
+ 
+ 	btrfs_set_last_trans_committed(fs_info, cur_trans->transid);
++
++	spin_lock(&fs_info->trans_lock);
++	list_del_init(&cur_trans->list);
++	spin_unlock(&fs_info->trans_lock);
+ 	/*
+ 	 * We needn't acquire the lock here because there is no other task
+ 	 * which can change it.
+@@ -2650,10 +2649,6 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
+ 	wake_up(&cur_trans->commit_wait);
+ 	btrfs_trans_state_lockdep_release(fs_info, BTRFS_LOCKDEP_TRANS_COMPLETED);
+ 
+-	spin_lock(&fs_info->trans_lock);
+-	list_del_init(&cur_trans->list);
+-	spin_unlock(&fs_info->trans_lock);
+-
+ 	btrfs_put_transaction(cur_trans);
+ 	btrfs_put_transaction(cur_trans);
+ 
 -- 
-2.43.0
+2.53.0
 
