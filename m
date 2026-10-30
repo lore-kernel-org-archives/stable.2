@@ -1,56 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357449;
-	b=NuJXb4+YNEnjR8q03/hGW0uJi/SbcZnrzN32MpqJ8evGPe9ACIbnw9spTSu2JVUMMU4G
-	 oZ2zZSVewTwEkd/RZs2bJ6xmKbHHUb1z4yeZ3jFngPaX6QUOc5so/5jw70/aefzFE61yA
-	 nC+gr7v6Wzjr4HK8gCRRjH9rMz7jqWMxdoFQQpPH+MpjkGcvHy9ppT02uAsVe8X/fx5T4
-	 wjO30zu4NLtMYu5Yekag+/lqkyyHp5lOVSlyOTUnjuHTbUa7GexFyDo/C+/6N+sk5SohK
-	 xTrH/CUU1bE/DFS9y96ER3ujzuwhOy9cumXOHbgekzXrwEjhxZBE1vy81nuqFNTYalg==
+	t=1793357456;
+	b=B15mhAzIHr3lCOgjgUu53bMokX1kT8jTe8kaL8spFRteZGMxPSVYTXIkRQLQuQbi5Es4
+	 1mY0kiSW9RkklkUda9xAFtyXKzjRXssvIZ1+6n1tW5f8+ZAmy+3WtKRX6c20nlO92dSlq
+	 LztX4TqdxRVMj+2kXISBSBvew6zxDeDMVgL7Y/3WEQT57HhnolPHwJeO/Mk/1ti5MnMXp
+	 XOGobwXx2abRumR4L/V3koXhPfV9/29Wg6PVKLpbtWty9c8XJRDJqVJBDsicZtyUKB4xy
+	 iwFk0z3KCvgG14Efb9bx4jx6pSpJ1TM8XhwZ4RNh2d2KecYprLVv98t5mZ4fqhmoyhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357449;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357456;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=sXT+nqoG3JcBZZLIfztu38Rfih77/q6GZgRF/MOrDFc=;
-	b=XvvEhm7258jqWoXp26zS82xCKONCgxWonadkKzmX9YguMM1Y+uVIHNWmvlO7BCYX/DAg
-	 F+5oI/Xu6k8JjRiqOk0rUiGHlpZ+Lic7URyKiSzUb9Tjy/zhSLNgYG1lC8IN1oBxBSq+M
-	 q0anOxUku0/2vmDA73OAUlBV8ezF1DeXlbfZNdQ9jaG29qV/RCA+FcugPbG5SjRWTl9Va
-	 F5UISOfLdZcxcNRXFZ+AEk4ajk4Kpv5iKuP0XG3B7YuNZZnIPwqp0qfz4dGrE2A0dqVvi
-	 PBjvVEX4E4EqC1tHjmain3PNN2y/Uof3EAkjKP13lTFiD7a0y/C1mbzn8carLNipM0A==
+	bh=swWTjIAU8FgVPCklJ6P61ykI1U8LYOWq7bqWAoTGdlA=;
+	b=EnyeyxRVTFgKMbNOeC2u64j6nRDWLYwE3k2mGSuidi32Fujn7abYNdzF+tzBrv/OTBXb
+	 2KENk8qUANKO8Lo1wPLjcT7I+twyz0+JxBSRckLE7e3W+8OFejuHX9cxI4hfAUa3FX7It
+	 SqBx5vepq+bnNL1RIrcaaXuKVIyrImRyBh/7hjnozW6IPpIYwAQzDqtKCpERaWV48Sh59
+	 6y2ljKkr/f3h1TCEFEOmAMalkpGh9EpI3NgFVklthTk4alocxH3vFtB+4107BT2lFmF3c
+	 6Uw224wdvuSB2IPaUFF7CQJy87mtnZrXiTdxC0TNfRNMe6RoQU/vd1DqJlqqBtftB7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPBvXQqR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrxqjrxA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BF4606B972;
-	Fri, 30 Oct 2026 10:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B9D60A262C;
+	Fri, 30 Oct 2026 10:50:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPBvXQqR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037CD1F000C1;
-	Fri, 30 Oct 2026 10:50:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TrxqjrxA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 087691F0093A;
+	Fri, 30 Oct 2026 10:50:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357448;
-	bh=sXT+nqoG3JcBZZLIfztu38Rfih77/q6GZgRF/MOrDFc=;
+	s=k20260515; t=1793357455;
+	bh=swWTjIAU8FgVPCklJ6P61ykI1U8LYOWq7bqWAoTGdlA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WPBvXQqRna6Lw26P+AfJSNlfSdRbhBAmCDFzaLC/d1GClOZoJJUmlHf4jMhD3Jlph
-	 Lax6G/F4sPh8viWFjf+DSZhpWbLoPMBmxyVCTO4A57l0SjV85uJzmsSnxvVLvbC83r
-	 pIAN0jI6vPohWj0sbNQO5zSk1kgn/0rzWecvmQ+Q868YZd2lF4/bRJWs1RM+7o4GtG
-	 sHeQ3VDbzfteLRrSDsOQRu5ZvljjyBoZiiqbACHZeazx7CDhKWKhR+f+8J++cvU7IV
-	 rPtVThqRFXbh2+DrRI8hGMmul/zc8bt2wV22ZrhcowYQhCJ+uSq9h27BN7HrJFJVEq
-	 GBeqCwxgfE4sw==
+	b=TrxqjrxAmT61FKiMPNeoVtKyTqtdoA99K3yjgnUoRATljQz3BIzhNfUmO6BZ15bTA
+	 lB37YZEfxC8Fefo66oL+JDYntPMz8Bv4VVf+7vsgUaKKsTZ7RT+110DpGhNe3ykfCk
+	 QyKRXcLPc98EKSJa2kLMoCuL7xGN2Klo4iXqOAlIyA/0I1l2H9OCmeQ4P591dh3YtI
+	 hjn5R7iTgsqdUK+jo0+0vlnj0UtpmDW3Xw0lx8IRSpuPwYxAnPFkMszg6rNgV/mw77
+	 BJgAOZ2p1g/vZOwftxftB78ZCDPrmqw5ijCQrGM/0WNHV3Y3G4YIhCDUnI9cFxPqt4
+	 zyqqITl+EMrsQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Rander Wang <rander.wang@intel.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	sound-open-firmware@alsa-project.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 04/21] soundwire: stream: Clean up allocated runtime resources on config failure
-Date: Fri, 30 Oct 2026 10:46:43 +0000
-Message-ID: <20261030104840.3361217-5-lee@kernel.org>
+Subject: [PATCH 05/21] ASoC: SOF: Intel: hda-sdw-bpt: Stop active DMA before closing BPT streams
+Date: Fri, 30 Oct 2026 10:46:44 +0000
+Message-ID: <20261030104840.3361217-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
 References: <20261030104840.3361217-1-lee@kernel.org>
@@ -65,139 +74,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In sdw_stream_add_master() and sdw_stream_add_slave(), failures during
-runtime or port configuration jump directly to the unlock label,
-bypassing alloc_error and leaving newly allocated master/slave runtime
-and port structures attached to the stream and bus lists.
+When sdw_enable_stream() fails in intel_ace2x_bpt_send_async() after
+hda_sdw_bpt_send_async() has already started the TX and RX DMA streams,
+intel_ace2x_bpt_close_stream() invokes hda_sdw_bpt_close() directly
+without calling hda_sdw_bpt_wait().  As a result,
+hda_sdw_bpt_dma_deprepare() tears down the DMA buffers and BDL while
+the DMA hardware is still running.
 
-Track whether ports were newly allocated in the current invocation and
-route configuration failures through alloc_error so all resources
-allocated by the failing call are released.
+Disable any running TX or RX BPT DMA stream at the start of
+hda_sdw_bpt_close() before unmapping channels and depreparing DMA
+resources.
 
-Fixes: ac3bc88cc56e ("soundwire: stream: separate alloc and config within sdw_stream_add_xxx()")
-Closes: https://sashiko.dev/#/bug/linux-546e137d-6e4d-4f22-99c3-8ccc8beb5350
+Fixes: 4c1ce9f37d8a ("soundwire: intel_ace2x: add BPT send_async/wait callbacks")
+Closes: https://sashiko.dev/#/bug/linux-ff0012de-abdd-4796-875e-b1fbbf47235f
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/soundwire/stream.c | 33 +++++++++++++++++++++++++--------
- 1 file changed, 25 insertions(+), 8 deletions(-)
+ sound/soc/sof/intel/hda-sdw-bpt.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index f225e5438ccf..97338a13c1a0 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -1026,14 +1026,18 @@ static int sdw_slave_port_alloc(struct sdw_slave *slave,
- 				struct sdw_slave_runtime *s_rt,
- 				unsigned int num_config)
- {
--	struct sdw_port_runtime *p_rt;
-+	struct sdw_port_runtime *p_rt, *_p_rt;
- 	int i;
- 
- 	/* Iterate for number of ports to perform initialization */
- 	for (i = 0; i < num_config; i++) {
- 		p_rt = sdw_port_alloc(&s_rt->port_list);
--		if (!p_rt)
-+		if (!p_rt) {
-+			list_for_each_entry_safe(p_rt, _p_rt,
-+						 &s_rt->port_list, port_node)
-+				sdw_port_free(p_rt);
- 			return -ENOMEM;
-+		}
- 	}
- 
- 	return 0;
-@@ -2018,6 +2022,7 @@ int sdw_stream_add_master(struct sdw_bus *bus,
- 			  struct sdw_stream_runtime *stream)
- {
- 	struct sdw_master_runtime *m_rt;
-+	bool alloc_master_port = false;
- 	bool alloc_master_rt = false;
+diff --git a/sound/soc/sof/intel/hda-sdw-bpt.c b/sound/soc/sof/intel/hda-sdw-bpt.c
+index ba9fbd662b85..9d97d8676251 100644
+--- a/sound/soc/sof/intel/hda-sdw-bpt.c
++++ b/sound/soc/sof/intel/hda-sdw-bpt.c
+@@ -456,6 +456,12 @@ int hda_sdw_bpt_close(struct device *dev, int link_id, struct hdac_ext_stream *b
  	int ret;
+ 	int ret1;
  
-@@ -2063,18 +2068,21 @@ int sdw_stream_add_master(struct sdw_bus *bus,
- 		if (ret)
- 			goto alloc_error;
- 
-+		alloc_master_port = true;
- 		stream->m_rt_count++;
- 	}
- 
- 	ret = sdw_master_rt_config(m_rt, stream_config);
- 	if (ret < 0)
--		goto unlock;
-+		goto alloc_error;
- 
- 	ret = sdw_config_stream(bus->dev, stream, stream_config, false);
- 	if (ret)
--		goto unlock;
-+		goto alloc_error;
- 
- 	ret = sdw_master_port_config(m_rt, port_config);
-+	if (ret)
-+		goto alloc_error;
- 
- 	goto unlock;
- 
-@@ -2082,6 +2090,10 @@ int sdw_stream_add_master(struct sdw_bus *bus,
- 	/*
- 	 * we only cleanup what was allocated in this routine
- 	 */
-+	if (alloc_master_port) {
-+		sdw_master_port_free(m_rt);
-+		stream->m_rt_count--;
-+	}
- 	if (alloc_master_rt)
- 		sdw_master_rt_free(m_rt, stream);
- unlock:
-@@ -2147,6 +2159,7 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
- 	struct sdw_slave_runtime *s_rt;
- 	struct sdw_master_runtime *m_rt;
- 	bool alloc_master_rt = false;
-+	bool alloc_slave_port = false;
- 	bool alloc_slave_rt = false;
- 
- 	int ret;
-@@ -2197,24 +2210,26 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
- 		ret = sdw_slave_port_alloc(slave, s_rt, num_ports);
- 		if (ret)
- 			goto alloc_error;
++	if (bpt_rx_stream && hdac_stream(bpt_rx_stream)->running)
++		hda_sdw_bpt_dma_disable(dev, bpt_rx_stream);
 +
-+		alloc_slave_port = true;
- 	}
- 
- 	ret =  sdw_master_rt_config(m_rt, stream_config);
- 	if (ret)
--		goto unlock;
-+		goto alloc_error;
- 
- 	ret = sdw_slave_rt_config(s_rt, stream_config);
- 	if (ret)
--		goto unlock;
-+		goto alloc_error;
- 
- 	ret = sdw_config_stream(&slave->dev, stream, stream_config, true);
- 	if (ret)
--		goto unlock;
-+		goto alloc_error;
- 
- 	ret = sdw_slave_port_config(slave, s_rt, port_config,
- 				    stream->type == SDW_STREAM_BPT);
- 	if (ret)
--		goto unlock;
-+		goto alloc_error;
- 
++	if (bpt_tx_stream && hdac_stream(bpt_tx_stream)->running)
++		hda_sdw_bpt_dma_disable(dev, bpt_tx_stream);
++
  	/*
- 	 * Change stream state to CONFIGURED on first Slave add.
-@@ -2231,6 +2246,8 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
- 	 * is intentional, the 'master_rt_free' will call sdw_slave_rt_free()
- 	 * internally.
- 	 */
-+	if (alloc_slave_port)
-+		sdw_slave_port_free(slave, stream);
- 	if (alloc_master_rt)
- 		sdw_master_rt_free(m_rt, stream);
- 	else if (alloc_slave_rt)
+ 	 * In the case of SoundWire we need to reset the PCMSyCM registers.
+ 	 * Need to continue depreparing the DMA buffers even if this fails.
 -- 
 2.56.0.317.g454f8302e1-goog
 
