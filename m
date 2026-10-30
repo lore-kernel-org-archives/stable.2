@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793403830;
-	b=MLgpej+FBobJP1+xpTAOlxKkFrQXQyteaaKCPThODNGS/OZuof2OmQQtM3JNHMR1iNZs
-	 Ic4nHrrxjDywdMary0wnxXDMcg0d+/3J6RKWNuIA/3nDkYeYHdZ01/0GJ0B14CyL2GAFg
-	 XGmqxPjYecc4BGxGmwgf1PXOveVyZx/wpvge7BNKx74VUi7P7gNAdY9uctNBdn3VJaK2R
-	 cjYslvzgJ3PMpCupgzmfT7nqs/gZqvLkcK9ia8FEz/zZqHPkBubuwbX2s+H/YYE3rYO1m
-	 5pXbxmdkWn0wvHoMnmuZMb9vXHOAWn1aF8VfMwyK3COH1TmVdwhhbQB7t8BGHqR7/lw==
+	t=1793403896;
+	b=w90c7G9yk4Up29PzjV6NQdZpePBp0IJ/WFxx58cKL9pqWzYELU20dSnYGgRggUGW2oem
+	 uY5EZpE92j2hw8HKVaUioJmvkoQNDC+XYGPl/gXhr3aUD3vSaBy64m01j9KNZWzcHdfxU
+	 kXQA2rnwTv9HG+XxB2uIa2fqODjfVQA0JB0/3j8GYZz3N2n59QROqB/NrMUFsrp3n2qNY
+	 hKBAX0OM2RG9+iCreeOrr0dZiN9344arK4u+SHIv97MGdO1heBCI7nnWzbaKf0CKN/cT0
+	 np9zoIVKOx67ce7v/qpoah23MPuC35X55Zm6Hbj7XcmN17UpgLK8py+7cfeTMrbifWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793403830;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=DXyekf6WDU7DcroPZNeqJBs+sF5N/O11gW6lOh21cuc=;
-	b=3EnHxRIS82wQ67U9E3qxpHDd6X9Cp12Stj99sxZ+NZ/B/M+RsoKnLW3pQZW/MrQ0VYZZ
-	 Y+k9GywrExsbV1+ne5ZGWQ6QyrsS9c5ZOWCbJH+OnmrAdX+E4WjjgGvp8yF7EzVQ3uUZN
-	 Sxwy2U/NrDUbIAl1Px6NPnEbaHDWkMh0ml2x8wPH47SgWbUZ3jx6+shSaur6ExKk1lWqF
-	 TS8teJmCRLhZ9vnF5689mkSAR5PcKTQQSd+2MehL2aaq2vAvwPd6yBh+2+jisuO1TI4/Z
-	 Yxfx/ZgcF54fUp/IbwBf0ku7BQ2xbCU8dQ9UjPDOHjgB0Yn2X+rO33KREdp7ZsNeFSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793403896;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ENPGEJQjHDmi0YXc71Juxw0DF5443i7C7rtlAkvii2U=;
+	b=nlja44rJvV1JXM31zioZu6ZfI2Z8RYzW+4UvQ92JE+EOWJqL06cmtGbiyYdul3OGqksw
+	 t1RvNlWPMwIxzDN9TiTpUNlpY5jRZ8q8j/0Au7MKy2jNZQMrTAM1KyhyX/PiAVM4W+5zv
+	 9UOZpaV3hxxZQsVSRroBmxoD1rGb/xITMrh4gW9iK+G+9Wl7Lnblt4LWuA9+wO+iuFUr4
+	 2gT4wdQIWYm58KBZuNJ4zhfdqr5J+ECciec0yN5wCsOoBE5+vS9GbII+JYrgrrrjIE2cE
+	 7k54I2l4YNIwg6vpNXALV8Re+rvnyaxT4CbAwi7gjwoaWNUWGuADxcTjypZxQkpouvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=MCIDukLq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=everpuredata.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=ydriti7z;
+	arc=none smtp.remote-ip=209.85.208.99
+Received: from mail-ed1-f99.google.com (mail-ed1-f99.google.com [209.85.208.99])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0B0606A31A;
-	Fri, 30 Oct 2026 23:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64502606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 23:44:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64502606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=MCIDukLq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2591F000C1;
-	Fri, 30 Oct 2026 23:43:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=ydriti7z
+Received: by mail-ed1-f99.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso1736833a12.2
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 16:44:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793403829;
-	bh=DXyekf6WDU7DcroPZNeqJBs+sF5N/O11gW6lOh21cuc=;
-	h=Date:To:From:Subject;
-	b=MCIDukLqCE/b2BxU0IrOWQ1wlg7I+bREh+YJmGtNp/0sFkKjbmZVE4iTCjTpSDD2+
-	 hpy+0rpmOX4/ebXtCsi/HZTbvgU0HFr5w2GqSHFb5ybYAvbjfLAf57Isjc7ywpkW8p
-	 dOuC6Dlh6XH2muTdndoPMHfjj58EhFhmfg06S+5g=
-Date: Fri, 30 Oct 2026 16:43:49 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
-	stable@vger.kernel.org,rakie.kim@sk.com,joshua.hahnjy@gmail.com,
-	harry@kernel.org,david@kernel.org,gourry@gourry.net,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mempolicy-recompute-automatic-interleave-weights-on-memory-hotplug.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261030234349.CE2591F000C1@smtp.kernel.org>
+        d=everpuredata.com; s=google; t=1793403894; x=1794008694; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ENPGEJQjHDmi0YXc71Juxw0DF5443i7C7rtlAkvii2U=;
+        b=ydriti7zC8uEtFrWzYDb1hmakiggIIPqyZubmQU3J5TGQfdMUBxqMCjS/7PGld049C
+         PIJXQpd3EPFL36vZE6F2udfB1t05qSE+ovPBVmYlQrlHpSQ55Lsqa2MCmzqNPh/a80Ac
+         BUiLE/kV6gr51kv4AuSQjItwP9IN+vcPj179bJjj0dKzPCU1B8GWZzM54JSsGvH/qm4l
+         SodEgcZXYiC8TKZzUXknTkCF1YSVmFMZwymRrfo0CdcigMJnCjHY0Qdl20GhmviAsod1
+         zr2WcqnCg9SM59uBUwjf/vujnxqU80D/Df9JZ3iYmi2S1rHJDtiKjxhgvKxkn7zkXpA7
+         Fo7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793403894; x=1794008694;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ENPGEJQjHDmi0YXc71Juxw0DF5443i7C7rtlAkvii2U=;
+        b=1uq+b2qDCnrAT726Gg6vMw9horpj8aUX9yizuvqPu0ucQ5uEiI8A7+1JGvMSo0r5zy
+         FsWlQdfyGERYaVID25S2hyMg40CDx22psSRc9sJrcZuMm/RvqdYnqILvDa3gNHi0io7Z
+         8EZFMbsy/EdeReH+zNYH13FPzUSxydiyeJMxO1fCU1qFszBxY3lq/y1x6eudM/zsVkp4
+         heZRsKA/1GCX9lYOxNaqAxf7p09iGNAPhFUelif073yClLINwOZEdAwLfoWKL6OdRWeH
+         svningTrhu3LkWtC36M7o++BTXqvAyj5ZV3w5ruzWjqp+jMJ5xbRv4nWXXrdRhyS2dva
+         8ezA==
+X-Forwarded-Encrypted: i=1; AKwUvBzVFHFgTpAUPygWymnPJZlxg9q6hdebqkWkrOKJ8+gsQkCc38x6uRGpzHVwK6Fo/Nis8CIyu8E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI5C2jvRIJIEOI1DaNbyXKiTIpnHSKnRGeST85+sG6Dg9xK1M32
+	WKUfIB7eBUhChqpaVFfhCKA2gbaaZnHsxxrk9WwSd1MeLUP4xaG5Xy9C5g4ykIpdsZTWA0HEZDU
+	WaLTs+s3JAdgwu6Klbtkqa5jhRbrMS8r2LPTP
+X-Gm-Gg: AYBFou3AzjvbeKET4+Ss0J1/hHXLLfvH+LmFdj0SYQwMBpHZz4RGs/4HXIV2t6YOncq
+	QBIEyAWfy6cu/9MONjCFvyI5YOqF85uc6p+D4U3gSXTfXl0zeBLrLkw8l0BoyEjkhtrgIUMZPia
+	6XPP0ZC5yytNv+VfvfOo+63/Ntdru/pZDMIL8/27tYSyegUY465Q0A5obM9m53Mh05NJ5+kIpId
+	DcT4O1X3S7dfQfLkxpQFN3vbvntZRuHY4jSqpYOYnpvTLhVBrhvrHUVivHoQYyFly3N+bX9t6Lh
+	Rw7sfjPBQTWMn3cIL3A0oH9BTqSJ7Q7UkgSx4+spHIluvjtE/ULWz+pLv2Quj9Rj8U6wmQ9DD2v
+	mLn70i4mwvabfRaEC2lp6AP6jkOkWu5sgLgTJBt0=
+X-Received: by 2002:aa7:c70b:0:b0:6aa:f14f:5571 with SMTP id 4fb4d7f45d1cf-6b4d5ee0692mr2076001a12.45.1793403893737;
+        Fri, 30 Oct 2026 16:44:53 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id 4fb4d7f45d1cf-6b4ec9f672esm196010a12.14.2026.10.30.16.44.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 16:44:53 -0700 (PDT)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 403993404F8;
+	Fri, 30 Oct 2026 16:44:22 -0700 (PDT)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jon Curley <jcurley@everpuredata.com>,
+	Eric Badger <ebadger@everpuredata.com>
+Subject: [PATCH] NFSv4: Prevent indefinite waits for out-of-order OPEN stateids
+Date: Fri, 30 Oct 2026 23:44:22 +0000
+Message-ID: <20261030234422.2367263-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,217 +99,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+When processing an out-of-order OPEN stateid on an NFSv4.1 or later
+mount, nfs_set_open_stateid_locked() waits for stateid updates to be
+processed in order. A five-second timeout is intended to prevent
+indefinite waits when preceding updates never arrive.
 
-The patch titled
-     Subject: mm/mempolicy: recompute automatic interleave weights on memory hotplug
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-mempolicy-recompute-automatic-interleave-weights-on-memory-hotplug.patch
+However, each iteration calls schedule_timeout() with a fresh
+five-second timeout. An update to the shared open state can wake the
+caller without satisfying its ordering check. The remaining timeout
+is then discarded, and the next iteration starts another full wait.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-recompute-automatic-interleave-weights-on-memory-hotplug.patch
+Under sustained concurrent OPEN/CLOSE activity on the same open state,
+repeated wakeups can prevent the timeout from ever expiring. Some
+tasks can remain stuck in update_open_stateid() while others continue
+making progress.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Compute a single deadline on entry and pass only the remaining time
+to schedule_timeout(). Once the deadline expires, take the existing
+timeout path rather than starting another wait. This prevents
+wakeups from extending the wait indefinitely.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Observed on Linux 6.8.0 and reproduced on 7.3.0 with 96 concurrent
+O_RDWR|O_TRUNC open/close loops on one NFSv4.1/TCP file (nconnect=16).
+Ten workers made no progress for over 300 seconds while others ran.
+With the fix, all workers resumed after transient stalls.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-Subject: mm/mempolicy: recompute automatic interleave weights on memory hotplug
-Date: Fri, 30 Oct 2026 12:12:34 -0400
-
-In auto mode, weighted interleave derives each node's weight from its
-bandwidth, reduced over the nodes in N_MEMORY.  HMAT and CXL report a
-node's bandwidth once, when the node first gains memory, and nothing else
-on the hotplug path recomputes the weights.
-
-This can result in a major skew in distribution and overload tiers with
-more data than their respective bandwidth can support, resulting in a
-performance regression.
-
-With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem nodes
-4 and 5, weighted_interleave/nodeN reads:
-
-  event             node 0-3   node 4   node 5
-  node 4 online         7         3        -
-  node 4 removed        7         -        -
-  node 5 online         7         -        1
-  node 4 back           7         1        1
-  Expected:             6         3        1
-
-Toggling auto off and on generates the correct result, but we should
-detect this and fix it during hotplug.  Recompute the weights from the
-recorded bandwidth whenever a node gains/loses its first/last memory.
-
-The notifier cannot fail the hotplug, which has already happened, so warn
-once if the new weights cannot be allocated.  The next recompute starts
-from the full bandwidth table and corrects them.
-
-mempolicy_set_node_perf() now only records the bandwidth and calls the
-same helper, so the bandwidth is kept even if allocating the new weights
-fails.  wi_state_lock is dropped between the two steps, which should be
-safe because racing writer simply causes it to run with newer state.
-
-Link: https://lore.kernel.org/20261030161234.1505367-1-gourry@gourry.net
-Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fixes: c9399f21c215 ("NFSv4: Fix OPEN / CLOSE race")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
 ---
+ fs/nfs/nfs4proc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- mm/mempolicy.c |   84 +++++++++++++++++++++++++++++++----------------
- 1 file changed, 57 insertions(+), 27 deletions(-)
-
---- a/mm/mempolicy.c~mm-mempolicy-recompute-automatic-interleave-weights-on-memory-hotplug
-+++ a/mm/mempolicy.c
-@@ -245,27 +245,49 @@ static void reduce_interleave_weights(un
- 		new_iw[nid] /= iw_gcd;
- }
- 
-+/* Recompute the weights from node_bw_table, unless they were set manually */
-+static int wi_state_refresh(void)
-+{
-+	struct weighted_interleave_state *new_wi_state, *old_wi_state;
-+	int i;
-+
-+	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
-+	if (!new_wi_state)
-+		return -ENOMEM;
-+	new_wi_state->mode_auto = true;
-+	for (i = 0; i < nr_node_ids; i++)
-+		new_wi_state->iw_table[i] = 1;
-+
-+	mutex_lock(&wi_state_lock);
-+	old_wi_state = rcu_dereference_protected(wi_state,
-+					lockdep_is_held(&wi_state_lock));
-+	/*
-+	 * Hotplug events can arrive before any node reported its bandwidth,
-+	 * leaving nothing to compute weights from. NULL wi_state assumes
-+	 * auto=true.
-+	 */
-+	if (!node_bw_table || (old_wi_state && !old_wi_state->mode_auto)) {
-+		mutex_unlock(&wi_state_lock);
-+		kfree(new_wi_state);
-+		return 0;
-+	}
-+	reduce_interleave_weights(node_bw_table, new_wi_state->iw_table);
-+	rcu_assign_pointer(wi_state, new_wi_state);
-+	mutex_unlock(&wi_state_lock);
-+	wi_state_retire(old_wi_state);
-+	return 0;
-+}
-+
- int mempolicy_set_node_perf(unsigned int node, struct access_coordinate *coords)
+diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
+index e1018b03c1cbd..f2cb8e788c017 100644
+--- a/fs/nfs/nfs4proc.c
++++ b/fs/nfs/nfs4proc.c
+@@ -1722,6 +1722,8 @@ static void nfs_set_open_stateid_locked(struct nfs4_state *state,
  {
--	struct weighted_interleave_state *new_wi_state, *old_wi_state = NULL;
- 	unsigned int *old_bw, *new_bw;
- 	unsigned int bw_val;
--	int i;
+ 	DEFINE_WAIT(wait);
+ 	int status = 0;
++	unsigned long deadline = jiffies + 5 * HZ;
++	signed long remaining;
+ 	for (;;) {
  
- 	bw_val = min(coords->read_bandwidth, coords->write_bandwidth);
- 	new_bw = kcalloc(nr_node_ids, sizeof(unsigned int), GFP_KERNEL);
- 	if (!new_bw)
- 		return -ENOMEM;
+ 		if (nfs_stateid_is_sequential(state, stateid))
+@@ -1756,7 +1758,8 @@ static void nfs_set_open_stateid_locked(struct nfs4_state *state,
  
--	new_wi_state = kmalloc_flex(*new_wi_state, iw_table, nr_node_ids);
--	if (!new_wi_state) {
--		kfree(new_bw);
--		return -ENOMEM;
--	}
--	new_wi_state->mode_auto = true;
--	for (i = 0; i < nr_node_ids; i++)
--		new_wi_state->iw_table[i] = 1;
--
- 	/*
- 	 * Update bandwidth info, even in manual mode. That way, when switching
- 	 * to auto mode in the future, iw_table can be overwritten using
-@@ -278,25 +300,32 @@ int mempolicy_set_node_perf(unsigned int
- 		memcpy(new_bw, old_bw, nr_node_ids * sizeof(*old_bw));
- 	new_bw[node] = bw_val;
- 	node_bw_table = new_bw;
-+	mutex_unlock(&wi_state_lock);
- 
--	old_wi_state = rcu_dereference_protected(wi_state,
--					lockdep_is_held(&wi_state_lock));
--	if (old_wi_state && !old_wi_state->mode_auto) {
--		/* Manual mode; skip reducing weights and updating wi_state */
--		mutex_unlock(&wi_state_lock);
--		kfree(new_wi_state);
--		goto out;
--	}
-+	kfree(old_bw);
-+	return wi_state_refresh();
-+}
- 
--	/* NULL wi_state assumes auto=true; reduce weights and update wi_state*/
--	reduce_interleave_weights(new_bw, new_wi_state->iw_table);
--	rcu_assign_pointer(wi_state, new_wi_state);
-+/*
-+ * HMAT and CXL report a node's bandwidth only when it first gains memory, so
-+ * recompute the weights whenever N_MEMORY changes.
-+ */
-+static int wi_state_node_notifier(struct notifier_block *nb,
-+				  unsigned long action, void *data)
-+{
-+	struct node_notify *nn = data;
-+	int err;
- 
--	mutex_unlock(&wi_state_lock);
--	wi_state_retire(old_wi_state);
--out:
--	kfree(old_bw);
--	return 0;
-+	if (action != NODE_ADDED_FIRST_MEMORY &&
-+	    action != NODE_REMOVED_LAST_MEMORY)
-+		return NOTIFY_OK;
-+
-+	/* The hotplug is done, failing the notification would not undo it */
-+	err = wi_state_refresh();
-+	if (err)
-+		pr_warn_once("failed to recompute weighted interleave weights for node%d: %d\n",
-+			     nn->nid, err);
-+	return NOTIFY_OK;
- }
- 
- /**
-@@ -3421,6 +3450,7 @@ void __init numa_policy_init(void)
- 	if (do_set_mempolicy(MPOL_INTERLEAVE, 0, &interleave_nodes))
- 		pr_err("%s: interleaving failed\n", __func__);
- 
-+	hotplug_node_notifier(wi_state_node_notifier, DEFAULT_CALLBACK_PRI);
- 	check_numabalancing_enable();
- }
- 
-_
-
-Patches currently in -mm which might be from gourry@gourry.net are
-
-mm-page_alloc-let-the-highest-memory-node-recover-from-hopeless-state.patch
-mm-mempolicy-recompute-automatic-interleave-weights-on-memory-hotplug.patch
-mm-memory-tiers-reset-demotion-targets-of-nodes-without-memory.patch
-mm-mempolicy-convert-mempolicy-refcnt-to-refcount_t.patch
-selftests-mm-add-madv_cold-and-madv_pageout-contract-tests.patch
-selftests-mm-check-madv_cold-and-madv_pageout-range-handling.patch
-selftests-mm-check-that-madv_cold-and-madv_pageout-reject-hugetlb.patch
-selftests-mm-check-that-madv_cold-and-madv_pageout-preserve-shared-memory.patch
-selftests-mm-check-madv_cold-and-madv_pageout-on-partly-advised-thps.patch
-selftests-mm-check-madv_pageout-file-permissions.patch
-selftests-mm-check-that-unauthorized-madv_pageout-skips-large-file-folios.patch
+ 		if (!fatal_signal_pending(current) &&
+ 		    !nfs_current_task_exiting()) {
+-			if (schedule_timeout(5*HZ) == 0)
++			remaining = (long)(deadline - jiffies);
++			if (remaining <= 0 || schedule_timeout(remaining) == 0)
+ 				status = -EAGAIN;
+ 			else
+ 				status = 0;
+-- 
+2.53.0
 
