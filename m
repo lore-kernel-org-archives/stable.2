@@ -1,82 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382238;
-	b=A48MD6Dzco68ZfMco/j8J7ZDjf53ErH95+h6qRZWNgIvMHcg9lqTTyX6yuuzZZToAIfR
-	 qtJzYdJZISWDwG3TgoOc+3X2RLPdW+fE2YWStFg2R/VyfoDe9uwntSYyTtXwHct8b0rFb
-	 azjAf9MRqpyunE7BMJQX3eHYDjGc1nzI0L8AAIs8HoXIYGBr2R4tdd5uKI9+1gdHh/D3H
-	 f5zBgXrsaPm2S923C8nTKFOlyMs108Sxz3xaE3aE2aAQaGNs10bmVRnTzj/K8U8NE3NJB
-	 ansfr8+iYb3tIyGWqJgHmyQVYWamGtBBd8idxIJ+jy04yorOG6QIzBoaEY+ZmJ/+F6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382238;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=dmCogxK77f9L99Jbim+9FwtzvMEbyM9QKgF4tLZQJMg=;
-	b=RsYE5DUaCJTqTCyxrwcy4qTKpcaFCGNDH5bT1TC97xjv7yQyEKPqC4s5ey9RlK161WS2
-	 k+si6tIQHzoJhvLH6ob/Uz39lL1zDHhG9LKaono1EnsvzlclcJOSEnH56MzqhkcYEsken
-	 YVdgazkRFUOSSmd4c3xdcENq6fjIzP1avnJrwEOASVbw3HAS7XVSJTA+kRoV0Y2UUiwfR
-	 Bsj0maotIxs9S+nPjFXY0+ZT3Td+7fVH2oTteYyV/ludU7y9fV2fIoPxCGIS5zqhK74Vq
-	 CPHHAZ1lsnztgDii67Twu8/Pe8OS7J9ClcV2JL/qcT7A6zXUmavxuh9mQ8MUEnLCHPg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="dAep/+yC";
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793382451;
+	b=jWJGgnWGy+Z6gfoi1hH3nnGYh6scHVRgmDPL8Y6iRZb4I5hN3gTwuauCpppFS65mOhBM
+	 x12yonVVZ2g+lMbUz9LZ+/FsiSo0B+CL9PP/UG58fuDt1ibLEfKGoqur+lIkWvPFt6D6K
+	 JlCV9SVMYcxKV6BnARpOoT1HEDUo4ZewZ5MDmPHzQ6WYWgIgHdfxPghlNB/pW6OVeEQH7
+	 sw6A0ror0iFI1L9GUHsRDOYZEQFgu8y/UWyfEj+/S8LqV09L7QecWcj++8/HatEjpy2V2
+	 KbMtWOcBKROysZSvld1dySsleeFachP1Kd+dnx4neUjDQVK+GyGQrmtH4ExIAyfoIKw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
+	b=1+gg4ZZYz8eBPMpS9YPdDVAY9XGB4+4B/QwKrIX9UcOTqqtmlr4rbOjpepOZ71aObPev
+	 ZT1szpKlGHrbAiUAmyDM5y3pt4VSHAtc/9LkXeuzw8DJgr8MBEzK1ECsd9LIyX48b0SOq
+	 1X7IJ94YUaA3c/paBfDaQll5iH+Ad+KVD7XZx0O8+Q77GHWuWD04kkzi2aaA2Sb4B3DKy
+	 3f4FJgqaXRiF2gbTk78D9+isWRW2OFVSxcb+ZFdAKAtcQPn3TO4kJAZt8U+6WIs2YzI9K
+	 6Os68jhXtzQQvNTobcJW3S0ScUCBbclstu2OlabXPMjW+U+CQa44ML8Iw9horCq8s/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XiJOZf2q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E8606A31A;
-	Fri, 30 Oct 2026 17:43:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E24E8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C00606A331
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:47:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84C00606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=dAep/+yC
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEi5uY1563939;
-	Fri, 30 Oct 2026 17:43:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=dmCogx
-	K77f9L99Jbim+9FwtzvMEbyM9QKgF4tLZQJMg=; b=dAep/+yC1vt1r9dWxQ4Uhu
-	WwTd2/Q0pcqdTkoMHVBuptXoVV44W1i1TRNx+8XJ0xCSIEitWfKsHlyVw7iEMt52
-	E+svu+W4W7dIHB7dsw79p2v28GayTgPZLSHlUmK6C3l/M6OI+oPW+VqeFII29r9/
-	iaaMNYS6w1zbOBY5abpY3fyfa9rlZbmzzg/TjELhIyCuWp9fyMsUJeDbbhUgvNK6
-	eqRtAVIQ/LUsQsNJRaN5rb2n2gCldExCrZid+g+D++2dnc9gn/SjSGkkBr4f6lQz
-	+s75CaAwofc2yN6qBGj1+ywVMS5ZDyf51yiThrLu/kXY1tJyJKPwRsOqTOB4XU+A
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hmeay40k2-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 17:43:43 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEZ6vq649977;
-	Fri, 30 Oct 2026 17:43:42 GMT
-Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hm69e5jyx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 17:43:42 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69UHhgLN32637692
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 30 Oct 2026 17:43:42 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0D88A5805F;
-	Fri, 30 Oct 2026 17:43:42 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id BFA4D58043;
-	Fri, 30 Oct 2026 17:43:38 +0000 (GMT)
-Received: from [9.61.35.48] (unknown [9.61.35.48])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 30 Oct 2026 17:43:38 +0000 (GMT)
-Message-ID: <9574eb9f-050c-4148-a785-11782ada856c@linux.ibm.com>
-Date: Fri, 30 Oct 2026 23:13:37 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XiJOZf2q
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd61cef87f1so456055a12.0
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:47:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793382450; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oso6MJaNQBw/+bzFfORxiBfoi5iMNoSv4gwofx0jJKx627Ij5GvNDFL0qgGgYKA7OW
+         zrG+sr3ldRDa36TB/BYS2BZ9JFrrnBsVVxnIC7ejR7qg7j09etWxUKg8os9bCCOjohR0
+         FZ5qCsN9NDA/RiEhW0p2SNfw6jnKCqK+hbQ4kJXcmYeoGLIVrSU3ugBIS7VN2sDKHiks
+         FYCZbKVLf+KyUuFNvhUK7rfnX0unUKlX71PRBNxm99xwNBgQ5Ti4rNxQ0owoOsgnj439
+         Wucjp/uYRxWSm74S2uYQpI8Xa5pJnA+GakjzdU35FBV2Ix5kE/BDjmGhb+Snl0OPnC7h
+         pyDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
+        fh=MJWiyQ00CjJv7DZQu4CK62hcVzIOuYYddAq7hoXyFn8=;
+        b=cCplliFR1bUFzhb55xPBagK7jEUOAVFaGxWfFbPp+HjUpamSvzXjK6s8q9BWrqGh05
+         vg+6pFB+OxLULX1bldThIuKWXQ3lPbaNco/yNHDtM1MLsL5z0KigQQaSdHMsO6XobzZt
+         cBXCZC/aC3bK3jWV7+hFYzYd15An7iPIOGCYKDla2jJ/byip4IVmTzrsWWuefJ9quvRL
+         uJyOSfcRn/bknYnZS/VZVBtxWqajNXWshtQGNNwEnxDgwMoz+C9cVKrzzTu4M5n1xdC7
+         r16xR+OaTFfZ39sAi1HaW3AeDQXPJOn1VJ7FUeKeoMySyE6OWTKuDtKCbkQfd6eLCrxx
+         ArIg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793382450; x=1793987250; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
+        b=XiJOZf2qGnVvMOKzdKKgRpWoyWi7lo7RmWu0V8WqgQ1k3lzoL0/Dv5fQACqCRG6kM1
+         PDsgKhCrs4wpWVvAYSFUP4vK7JaU/AJH9EGqZzKU82dbSRjoTp4O90spiuLfMo+YIHHM
+         HaSLbVBL77GBIbulXUBDdFNIUrME8XK6DSOB1WKKJD3EZtLWKCPWxXTl7lZ+/+6tyYv5
+         lVX69+D53vs8zH6azIL0M12NDNgxtlMKZXOtIaFgeKUewfILzXlkRBiV9y65ySTvgRak
+         QVcOFQipiM98Snkj9OKCPpgX0q7tQgblxQkMG73TN6DbZaMN/diAXX0h4MtTjo7hF/xT
+         DP5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793382450; x=1793987250;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sIhxZYiznvT7xWI+IfdwWWUWBk2bBwQUSMlQVrH0t28=;
+        b=zk5qndIgz5oQmfaGgCr4hF+YTBM6fdK09akRDFXSHIeDuUpKR7zjlyu8qnISpjLJJw
+         Kt60d5M1mLnZJF9SiYCg5qhCMbfBk/gdxpIPYkpEOtInL7VJtBYAR1v3BjkpKttvijtw
+         pyz9SIItShlAKsBPicOdVBHDQhlIvB7j6fCgcwTQO0ruYLoBOGuqLukoPQMCpkEK3F9p
+         iON4sXoTL+4RSFjSKabssqfPvcFXZMI28eIZp1RefuHH4NmezMO5YhL5ED/hizCYM0vR
+         6LLTBbfFS+3f8eyDrBz17yL4xszlLxtv2V6xM2rFIStH4ZoO6gpkTj+MxHghzSq0sUzP
+         2/VA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNui0hPNYxgzpRaJEjNyiNyLibqBM/s0rMMEUhgmwJdazOmGC74jsuUknyqspypuCDivcd1IA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtK1eJZOtJZQb6OS0gt+fxgOYh6AxlBKWRHtInTscFYlXXKfWu
+	lMi74rlmYhSeJPa5uE/5E+/OEg7enyba8YKF8I73G8Gywc9OVKIQANnXIY9hTAMhDc+2+PUqTI4
+	S9nQrtEmSknmU2lI6Az+ZeCrBsih1kH0=
+X-Gm-Gg: AYBFou1EB/luS5IkUx8PgAGG5RokP1CpJfb0KdiIcRqo2JYKAjuuZC/N2c3fEZgk6dy
+	GSewysdA+lGpX9jC4KH1ZhPYZycZzqplw4O2icx6Ef2YcDWD79wfo6u7/w7xmi5xl3RKQT4whH7
+	GkMelrtqayajGUHwor5JGBXSUvxq2VNryvAnPwIuymFfAKQoznZUfeNoqbdjBVaD8ZtJVIfrIpg
+	bekYD2a1WXYCzKH+uasR/iUB5vc/1kUGWgtD6Xq0HTNnm4jxQeB51+K2MWPXlS3oWJsDqeCH3wG
+	+Ehk86bhF1RKej1Ewn+C7lfkiTPzBtnlUHae/QKFNGSKOQT3r4EFqHzwDX7EBEVJDtMRJUlVk5e
+	I3TSSENc3tlmxnP/LqauSw8aXW7jVktNpZEqgWIOgqCdyaiYmhM+8tAj16gJAVTRWJXT+BCavtN
+	SsgnawSL8XBxBLFhbkigeo2VHkXMYM2hOKunlf
+X-Received: by 2002:a05:6a21:3b45:b0:3e2:325f:576b with SMTP id
+ adf61e73a8af0-3e928a71e94mr2185777637.65.1793382449721; Fri, 30 Oct 2026
+ 10:47:29 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,65 +105,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme-tcp: fix use-after-free in nvme_tcp_free_ctrl()
-To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
-        linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-        hare@kernel.org, wagi@kernel.org, kanie@linux.alibaba.com,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261030170151.49844-1-christian.aurichzm@gmail.com>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20261030170151.49844-1-christian.aurichzm@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: giY5zcBIL79cCB5buaIlIzQCqJ6eyoQ6
-X-Proofpoint-GUID: EnmkZ-YXCTJk_MOYnOkq82nA2_Uz5YST
-X-Authority-Analysis: v=2.4 cv=eZyo7LEH c=1 sm=1 tr=0 ts=6ae4d74f cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=vwH2LiGPTe3qxVmh5OkA:9 a=QEXdDO2ut3YA:10
- a=ZXulRonScM0A:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfXy0WVDTX59TB9
- GgeUx4BBLWPwZt5mB0WO66d9jzvp4nRe+hNN9y+BeSp/ODw5pwzdrJU/fTa8bv0eniFh+H1UtJ/
- 9JMzjvBXGW9gWCg72mtHToiiJi44SEA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfX+iHEHKvduLgt
- Dnfn+Bd88H4lAhzgeA5vcvaJiPoXRMazyPQoOYwVN56KGK7b8LBpyd1E0cpUVzeyZ018qzNoTxQ
- vg6Igi/aArvlCtw8QtMfa4IXLo5VYMUQCdvTbQmD76lpqVRSQbleDkgQbZG7EIEzSvAjb7Evsux
- aLLugUZ/I1WQnUUd6+NMxpWvxufyWlR1ujGtPV4B++8PxgpeJ5xfEwSxtyysPp2HD2mqZqXZOwA
- kg/rw4bARgfjeqPFgtEI3yzLis92QDeUYL3KgJl2GXHVPqKkDyBhhLLGWIPx4b8JGdOCoQ72wYE
- YEWnxeD5b8vPMS+r0Ik4ZlxmX4YR85A8uxNhBlF3rCzv954MjPnngASf6F9yD7sSMN3ikE7N+Fr
- 0zB2XP4vclvuHxe8Kthst1T/AENV/x1iA/TSv/OiLl4HhGTwjp/FdGnQDzLCAaIqkzoBz5CVlSc
- kmVe/4Y0ZoH/PjASeXw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
- impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300068
+References: <20261027082405.1297-1-shengshilingmu97@gmail.com>
+In-Reply-To: <20261027082405.1297-1-shengshilingmu97@gmail.com>
+From: Xin Long <lucien.xin@gmail.com>
+Date: Fri, 30 Oct 2026 13:47:18 -0400
+X-Gm-Features: AclHuK_iwRZMverILPQ6aqdRr0bJylTP3g7Evr_UNs3S8h82CvZ8DH_nxsbSAhw
+Message-ID: <CADvbK_eGiwO13sCNqpqHeiTLkQgTU_6Dt+Q+EVZ-CQ6WvRB9mg@mail.gmail.com>
+Subject: Re: [PATCH net] sctp: account for chunk padding in sctp_init_cause()
+To: Masafumi Suzuki <shengshilingmu97@gmail.com>
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/30/26 10:31 PM, Christian Aurich Zanettini Martins wrote:
-> nvme_tcp_free_ctrl() reads ctrl->ctrl.opts to know how many queue
-> mutexes to destroy. When creating the controller fails,
-> nvmf_create_ctrl() frees opts as soon as nvme_tcp_create_ctrl()
-> returns, but a concurrent open of the character device can hold the
-> last reference to the controller. With CONFIG_DEBUG_KOBJECT_RELEASE,
-> which delays the release, every failed connect reads freed memory:
-> 
->    BUG: KASAN: slab-use-after-free in nvme_tcp_free_ctrl+0x38b/0x430
->    Read of size 4 at addr ffff888005b93740 by task kworker/2:1/51
-> 
-> Keep the size of the queue array in the controller and use it instead.
-> 
-> Fixes: 2eeeaa9c1ff0 ("nvme-tcp: Validate the queue state under the queue lock in the address attribute")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Christian Aurich Zanettini Martins<christian.aurichzm@gmail.com>
+On Tue, Oct 27, 2026 at 4:32=E2=80=AFAM Masafumi Suzuki
+<shengshilingmu97@gmail.com> wrote:
+>
+> sctp_init_cause() accepts a chunk when skb_tailroom() can hold the
+> cause header and the payload. sctp_addto_chunk() then writes 0-3
+> bytes of padding before that header so the chunk stays 4-byte
+> aligned. The check does not include the padding, and the following
+> skb_put() calls skb_over_panic() from softirq.
+>
+> Count the padding sctp_addto_chunk() is about to write. The cause
+> length on the wire stays the header plus the payload.
+>
+> Fixes: 8914f4bace3f ("sctp: add sctp_make_op_error_limited and reuse inne=
+r functions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Masafumi Suzuki <shengshilingmu97@gmail.com>
+> ---
+>  net/sctp/sm_make_chunk.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+> index 84a4c97d0f75..8933caadcdb6 100644
+> --- a/net/sctp/sm_make_chunk.c
+> +++ b/net/sctp/sm_make_chunk.c
+> @@ -133,20 +133,27 @@ static const struct sctp_paramhdr prsctp_param =3D =
+{
+>   * cause codes will be embedded inside an abort chunk.
+>   */
+>  int sctp_init_cause(struct sctp_chunk *chunk, __be16 cause_code,
+>                     size_t paylen)
+>  {
+>         struct sctp_errhdr err;
+> +       int chunklen, padlen;
+>         __u16 len;
+>
+>         /* Cause code constants are now defined in network order.  */
+>         err.cause =3D cause_code;
+>         len =3D sizeof(err) + paylen;
+>         err.length =3D htons(len);
+>
+> -       if (skb_tailroom(chunk->skb) < len)
+> +       /* sctp_addto_chunk() pads the chunk up to a 4-byte boundary befo=
+re
+> +        * appending the cause, so account for that padding here as well.
+> +        */
+> +       chunklen =3D ntohs(chunk->chunk_hdr->length);
+> +       padlen =3D SCTP_PAD4(chunklen) - chunklen;
+> +
+> +       if (skb_tailroom(chunk->skb) < padlen + len)
+>                 return -ENOSPC;
+>
+>         chunk->subh.err_hdr =3D sctp_addto_chunk(chunk, sizeof(err), &err=
+);
+>
+>         return 0;
+>  }
+> --
+> 2.47.0
 
-Looks good to me:
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
