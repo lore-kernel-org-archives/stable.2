@@ -1,83 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349012;
-	b=2wWVQeZw+R1CvW27JxyX4lXfj4hpHdcEjWxn6mnbXvQ6iw23VHb5zKpMY0ex0ubmE1zN
-	 +sz8Drzm5/u5YuBFvdwoPjPBrcm/PeAVeqonerDxkxqAAdSzKHX6M8xthX6t6ScF7l72w
-	 U0aHvFcC8Imjj2rh2bbhLQHjLu26Luwiw6E/6wAQ+PBCzFY0nDLBq/+7LgmujUg75u7Rz
-	 09NqqPO33mfu7oLqDseZGf5nKPGFee3qn2v1pirzCl642MLII6xGcU0/nSZ6NC73VdpEX
-	 lDz1Dq62s23qw0GlOFA1mEDPQrAefSWCiKy9p59MqvQKlsNaoTLUjTlBv+O1C8Srt6w==
+	t=1793349213;
+	b=mHAv/UJblyVJJKxWIbTavt7UIwW/mfF7+9y/Jl+6bPndnbS2H9qlWLpBEpB181xsYQo5
+	 oI3v8bA5AEE5P1Kla0E5lUWIfQQ+xu6Kar/dg3u+pvfhMnlao/r3+B9VZ7+VA6Fr7FxZZ
+	 yowf2CMdICgvWH4LdzFFuPwhzkHdIarYZYhNUXGM23q0yKBhUrP+CaV0CnvAx2tuMp/au
+	 VMYQ6vlbZKOjfTNs8vFoFsE1YswN8fqbWN6v27cYABuCFEw4epYboOi5A+BOVin0zkjCS
+	 jLwLFOUmvmGRhKO9Urx6zIzmzVbXfKJVvki+40m58KRZypRRFKQtnWjANttnDvvu4Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349012;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=S6icTSJoX+H0mkq2r9K7dhGu04auJXQZtSzWsa6ywM8=;
-	b=ks10t9z3vZiaRKFx84HITOyrUabFfNDSBfje2j0tcOirfQrAc2o9BfbLsv7qUOjYqbVs
-	 JAl3AFjbZeW7ILPIusjXQ1fKSGyosOgn5bXpAqOmsAlqJ6C7VXAvSfaUre7K4kyN0beC2
-	 Pf9s2ace8n0up5JcXqModn2li2iqLFxp0fXnbXcvPJYHYBzYuJGWG6yOR37wssxBCdZLY
-	 GkX1tecqIVXmND7gj2DD9R+tJkr0zQiXc/hnx5GwlabvloUR81IRqF6YcoGyiFgTQfWeV
-	 3YJ/PfbkzUIkqINvWz0IckBSZCx4opn5HieeEAiNJyz0u7CuAlTgcoBWzi295r8sMdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349213;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=hi2uvnC9ir/wNrY70ZqEhA8kUNmKSoQFaTg1fenGlGc=;
+	b=oyVWtd/hkU22RhknjPdiADE7e9wjyxJFLM48wA0lPb5BnDqyZnHj1DtdNYbgft0ECGGj
+	 yhWehd/aJGGFH/o4fpHdy0DfHadkUFB5dQL2EpDO3oVw3FEofCp+6zSazBlgBdQgDlMBe
+	 JL4lBm+PlQWAAo8SZVGsUFlCymmoVJ70hbl4aKKsv/E2gYMMxC2OWxF/jTLFoaIRg9XPM
+	 UqjTnO2kJE0dq62ffDuTkJyTRseKaKaBAVN/F2CtqgGSWLURsTmpoHKFZ4yuy1avclsdN
+	 dLt99wTvw32uhzQnxEAdugdFGu/BKkGaepvU32A3MlM5Yhz0IfCy3KED25aUAeFyKtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b="ky/Io1pL";
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=BAi16SBa;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB74606A31A;
-	Fri, 30 Oct 2026 08:30:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB74606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057F1606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:33:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 057F1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=ky/Io1pL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1793348927;
-	bh=S6icTSJoX+H0mkq2r9K7dhGu04auJXQZtSzWsa6ywM8=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=ky/Io1pLlYQjG/bMGQm8P+xiYQB6o3xeqYa+xzQdV1Q/O0eFmbIEx8iOd23+3NMP8
-	 Q8MTyM6xFFyFboeU7oybSlBGzO+aNYTXw3vt9GmI+MY8ypb+d21UjnQI294yV6CXgs
-	 P+NFBVhQjCmTQh/e6qN7NuUbF+bUX8k4ORi0k3gU=
-X-QQ-mid: esmtpsz19t1793348921t836fef7b
-X-QQ-Originating-IP: 3z9nJH5sjaTFKjVPNzs2/PxgNbOo2hmbalbccp788xI=
-Received: from localhost.localdomain ( [61.183.83.60])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 30 Oct 2026 16:28:37 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 14936512090500505238
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
-Date: Fri, 30 Oct 2026 16:28:35 +0800
-Message-Id: <20261030082835.297423-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-References: <20261028165943.089486480@linuxfoundation.org>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=BAi16SBa
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261030083323epoutp04ea568098dd814b764a93959840e016dc~jQZlCb2wt2383323833epoutp04M
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:33:23 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261030083323epoutp04ea568098dd814b764a93959840e016dc~jQZlCb2wt2383323833epoutp04M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793349203;
+	bh=hi2uvnC9ir/wNrY70ZqEhA8kUNmKSoQFaTg1fenGlGc=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=BAi16SBab+l4Tr5b70eKFlsCKC0v//ZRQXaH+6m+TgADr2GH71vFMmdMnno4L0p/+
+	 f15ej1BVuh1g+YLyYho6QF0cIfXCLYHYxue1jO4iWXhc5SUgeYsNFk5LaeeptYvc6x
+	 csffMSmH014mLYyIcWyl9oKR2G2iyJ3NSlPLYMbM=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261030083322epcas2p206deb9d297d77c50a36b79514eb0258a~jQZkjmIaL1248812488epcas2p2n;
+	Fri, 30 Oct 2026 08:33:22 +0000 (GMT)
+Received: from epcas2p2.samsung.com (unknown [182.195.38.201]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4jGDrf1tMSz6B9mG; Fri, 30 Oct
+	2026 08:33:22 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261030083321epcas2p2872d81c94fed72e685d580c0fc5d4bb6~jQZjrapus1765017650epcas2p2g;
+	Fri, 30 Oct 2026 08:33:21 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261030083321epsmtip12db131c232ba584937d545724dcd1de0~jQZjl7HTF0314303143epsmtip1N;
+	Fri, 30 Oct 2026 08:33:21 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
+	kwmad.kim@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com
+Subject: [PATCH v1] ufs: mcq: fix dev cmd abort path and add OCS poll after
+ sq cleanup
+Date: Fri, 30 Oct 2026 17:33:11 +0900
+Message-ID: <20261030083311.602909-1-kwmad.kim@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,38 +81,130 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OOYO4i1Nbl+HBmiIRd/geZimNjXs4x7eTz6yCFrazXApJ+KY4RnLqGoa
-	pfqRYN66B/09/B5hQ3dZs56IgbRVkVMeG8vNmPA8r5MnOt0KjBdhEAGy6KEFcTArjdEydGm
-	Sq/drt07yjR+N0aeWtY9fdbuPOXlzSMGvs4TQwoyo/AHlapYyd/MqsGTL8iwH1/CtPTwV/z
-	poReiA81wzIitwwAOkT9+l1Tk3X/cA+gyPShMmGvzXRoITh4NwNnwEzHANOXBC+XoFuCDal
-	bG67AcvRdn4T63hkLRhDJsudRwM3e7gOq4wGM4xVepheF/QCFhYGvuVdx788CGvjTWZXf5b
-	i/4WGRoqz6Mn4XRTxKFAUXcnmTNxgEuYIVNPrU2CJfClbQh3TzIxGLyVW7l6DzFCJDeDjaC
-	3FuXdC/fgyrMv1IA5+FET2CWgILQfKjxqb0/0ML32uj4lXMTxURilxTJL/h+NbM35TarfbZ
-	z8MlMFp20li1dq7IIhjvWMyDQSMECfVsLRpn4AG5MY3B6XKbAKdjkmHQWBFn4lmbm+jZSxm
-	hBaZcvTllkoYaTzdPt7mbgwTyUnovbT4Z+ev3K7ugWLhqrhZQtXIivKLW0XIDQKjTId5+QN
-	GHhRFYNZCDwP/0wHcqyu0Qo0mPrbkxs8i8TK0kXOZ1oSEUVlzIjnM+/dMDKovq4uVMFbk+V
-	ty6Nyp4NjrzBj3Zhpp37e51r049cYvDBPes/Wy5wEp7WkbLvySU7GjtOWbR8TZF7btqwv93
-	pPO+BQ85Sa34IUF2Jts61TWQf5iN9JUbJkgJY5qZnpu5BXQpJptoVYAFFuEYQez1+/pYcJi
-	xoHSK4FyT63nMav46ygFIdXbFSAERi1A+pMwj/UiTmdmQipdu4alhQE/LkJaAWFfnj6rDCW
-	9bcmY0cEOJTn3mJm4/+MpWKk0RcTi/0kDYDdQUQCwAPZR35zbgrG0+SEMeIcJBPnvYToSZD
-	S6VGPm07pQ7ULCNO/kjxx5h6wFDqDRjpmNwwOMh3cNdi1K+7NAg61tafwh5o685cHjaMaLF
-	t7P3r85/XAILbhwW3/koPzN2373AC9B1SLEudvLQHS8oFtZZ3KBowzl3q/NnmxdJE5LE+pr
-	SRJQvqaGkAaNADujyWGQJN8SpmryrNkXIfiXRtePm4TYw99K0ixOqHRvIinzgUYeg==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+X-CMS-MailID: 20261030083321epcas2p2872d81c94fed72e685d580c0fc5d4bb6
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261030083321epcas2p2872d81c94fed72e685d580c0fc5d4bb6
+References: <CGME20261030083321epcas2p2872d81c94fed72e685d580c0fc5d4bb6@epcas2p2.samsung.com>
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
+for all timed-out commands. However, device management commands (query, NOP)
+use reserved requests and are not SCSI I/O commands. The ABORT TASK task
+management function is designed for SCSI I/O UPIUs and is not applicable to
+device management UPIUs.
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
+the request is a reserved (device management) command, skip the TM path and
+call ufshcd_clear_cmd() directly instead.
 
-Best Regards
-Wentao Guan
+Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
+UTRD after a successful SQ_CUS poll. UFSHCI does not specify the order between
+the OCS update and the SQ_CUS update, so OCS may still be stale when cleanup
+returns. Without this poll, a late response to a timed-out query can arrive
+while a retry is already in flight, leaving the host with two query contexts
+and raising IS.UTPES.
 
-Log:
-Linux version 6.6.161-rc1-arm64-desktop-hwe-gb6e2b2f6f7e1 (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT Fri Oct 30 12:05:39 CST 2026
-Linux version 6.6.161-rc1-loong64-desktop-hwe-gb6e2b2f6f7e1 (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT Fri Oct 30 12:26:10 CST 2026
-Linux version 6.6.161-rc1-riscv64-desktop-hwe+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP Fri Oct 30 12:45:00 CST 2026
-Linux version 6.6.161-rc1-amd64-desktop-hwe-gb6e2b2f6f7e1 (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Fri Oct 30 11:47:08 CST 2026
+The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
+MCQ_POLL_US elapses. Any non-zero OCS after the poll is reported as
+-ETIMEDOUT.
+
+--
+Here is the timeline of an actual case for this that happened with kernel 6.18.
+1. The host sent a query but the device didn't respond with it for a long time.
+
+[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
+[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+2. So after the query was timed out, the driver did SQ cleanup.
+Then the host updated CQ update and raised IS.CQES,
+Unfortunately, complete() was called the driver's ISR afterward.
+
+3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
+Then the driver didn't wait for completion due to the previous complete() call,
+and just checked OCS.
+
+[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
+
+5. The driver retried the query again, but the device didn't return anything,
+so the query was also timed-out.
+
+[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+6. A few seconds later, the device returned the response of the 1st query,
+but since the host was holding two query contexts and couldn't handle it,
+it raised IS.UTPES.
+---
+ drivers/ufs/core/ufs-mcq.c | 24 +++++++++++++++++++++++-
+ drivers/ufs/core/ufshcd.c  |  4 ++++
+ 2 files changed, 27 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
+index 8106d55f4041..091ae67d1dde 100644
+--- a/drivers/ufs/core/ufs-mcq.c
++++ b/drivers/ufs/core/ufs-mcq.c
+@@ -603,12 +603,34 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
+ 	if (err)
+ 		dev_err(hba->dev, "%s: failed. hwq=%d, tag=%d err=%d\n",
+ 			__func__, id, task_tag, err);
+-	else
++	else {
++		enum utp_ocs ocs;
++		ktime_t start = ktime_get();
++
+ 		dev_info(hba->dev,
+ 			 "%s, hwq %d: cleanup return code (RTC) %ld\n",
+ 			 __func__, id,
+ 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
+ 
++		/*
++		 * There is no order guaranteed between OCS update and CUS update,
++		 * which is why we need to wait here.
++		 */
++		do {
++			unsigned long flags;
++
++			spin_lock_irqsave(&hwq->cq_lock, flags);
++			ocs = READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
++			spin_unlock_irqrestore(&hwq->cq_lock, flags);
++			if (ocs != OCS_INVALID_COMMAND_STATUS)
++				break;
++			usleep_range(20, 50);
++		} while (ktime_us_delta(ktime_get(), start) < MCQ_POLL_US);
++
++		if (ocs)
++			err = -ETIMEDOUT;
++	}
++
+ 	if (ufshcd_mcq_sq_start(hba, hwq))
+ 		err = -ETIMEDOUT;
+ 
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..7fc80926eeec 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 
+ 	lrbp = scsi_cmd_priv(cmd);
+ 
++	if (!ufshcd_is_scsi_cmd(cmd))
++		goto clear_cmd;
++
+ 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
+ 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
+ 					  &resp);
+@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 		return err;
+ 	}
+ 
++clear_cmd:
+ 	err = ufshcd_clear_cmd(hba, tag);
+ 	if (err)
+ 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
+-- 
+2.43.0
 
