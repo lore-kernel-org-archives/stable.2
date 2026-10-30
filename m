@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793375342;
-	b=KCxCK9VpUi/zKVXrCANaPRSi+aIgU3aXNdvs3TR/qyRPuuDXv/0tOaB3SgjQXlCEsZF7
-	 jdQkra3Hx17dg4jdSvxiTzFylOlv0jGRQpdzysy4NtYuuBaV7kH+U8JrAFBRq71UL+dgL
-	 8z+SZh8iyPV7+b+blA6RTNulJzr1SO/PcRWPXdlOo882VtslVCX7uK7k3ekLo/a6SM04P
-	 IkjF7/gOHvJ6UgAqUe7YRI6WD7zkJaYcznpE3RI306mcjd+UvTMlqNHvroz6IgeRbZ2jV
-	 3OEkBFDsIcVyWcKGJQULXXN5GPEMFvaLe/bGd4efmJVnsZ247WkyHGWck41npLmhzLA==
+	t=1793375349;
+	b=Bq3PEBZoX5+fxv50qFuN8bRgDOe9rCfYA8RvPpHSDGjuoE/eUazUMMmx6BaH85r8ChjD
+	 R+duWjBqhDWFFJ6LEbawJZT1JV5odU64qJ6qR/tlrIlOIBkIuE+blQwkLx+wp1LYNBPx9
+	 jhx1WOmaYBKZHqbBTGTSPVnZMXV6cPvJzNj3hXkLYw+0a50UHLNROSyC12EdA7/qwgzdT
+	 0BGzLo6doidWaIlz6my7OP9aZina+ll2wmSmGMw8c5y33LRifDxSM6iYzuGVaefwiTxed
+	 jzK1xUuXBbEk6xypFOlhZXVVZJ3aCypr37syv3UlnpaHdl+Zv++o3C1GhsgcZOtrvtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793375342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793375349;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=d0SM8LOepW7XUMwU+ZDps/Wc1zMBVt4O8GKS2q6Z4u8=;
-	b=vU6sIjTLNHIBnoRr5cT2dkAjqMMFdPfXTcx68uI6QLKcPnSSB3G0zKAMKXMYf5vuER75
-	 QJ83mEiBk9hQZnQE4z9vaME4ebNXRo62Cckb6iMLK30bpCr/G5Sb0z0A1ULWH2eEKMS3o
-	 AbM/78VD6b7yxqrGt9TQw3GzIcpk4+dUNeaAoeqcXVzrHP878BrDXtw4+fuQvBIK5+9Fk
-	 jXRc+likMq7vwi0kYemwoer7PRQ2kh21aVad/G4+n+Ul1CRevn0cD6hQrN7FNNpBjDk0U
-	 sgHrO45OPDnxrdA1He9dBFIDDOESHFDLytjbiNw0/QdNEvOapXpidryu7gJGYzQxw0Q==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
+	b=h+SwL/0MfGmGMViq9a1p/31DlEPiOsfTkVuIpRIpQK3HrUBcNJfYw5rOz5uBB/zBFBq4
+	 4llyj1LZy9cQJr/cLrvU3nUwy2nWr4Lw0qKBlpZxTYXd7j8sGyYkh7PaHoia3TW3vv5j8
+	 PVBk/MD8Ho/lIJjn/pJu7X2iKWGH+rmSfWJCT7hWXm80TmXvBQQxOx6IRMu1XhMHrpotr
+	 mswkzeW+a8zXOx38SbihionG6hkMaQhzhucjdHrDCY/32SXNIavFUWIBRHeKltEL7nsL2
+	 teDRC7R/u2VVYF1K/gzgumSI6qHgbgM4tXer+OhXn2Lqv7jCcSVlOGjMrqq/VHrPE5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D+4d04eQ;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjsQIk0I;
+	arc=none smtp.remote-ip=74.125.228.6
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC74606A31E
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AC74606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F750606A327
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F750606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D+4d04eQ
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e96502e447so8384285ad.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:49:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjsQIk0I
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd8cb23d52eso421116a12.0
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:49:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793375341; x=1793980141; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d0SM8LOepW7XUMwU+ZDps/Wc1zMBVt4O8GKS2q6Z4u8=;
-        b=D+4d04eQJNhajRiaB/I4WmxG9SSWEVIKLvDiW/Xtl9BEtjCKOnJAdJlGXoYJ8Ty5mU
-         3k3rpwu0l2ZuRD3pok82XroXZqJMeIsjFJna1hpFd9jFjb1PFs0a3ZfvfXu6+iLm2ill
-         8n8xYrk1esDyGhU9vDTbBSkfnyicReSBuXfvKzzfwefaZr+fs97U6uA27pwtghUG6k7U
-         HiTgO9ymxPrd1BtnUsE4N1FNZ46GqZ+hqRjG5btZpb8Ox/ID/6wrZjQRaGB/VO6xSs48
-         abXganD5CymVh3SOknsSzr6GnPl3nGyuo5iuGIscL4md+lkadIVadsny1/Oi9xhjtjsD
-         OzSA==
+        d=gmail.com; s=20260707; t=1793375348; x=1793980148; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
+        b=HjsQIk0ITG7q8guMBxqFHFsECZy30VQbxjEJ2NmMCXdkdDWLTQHQ24VH+fluq1N6JE
+         z+kjKcHuearmgOe2xOLYx+LA0iWAcQDxJ3kCfaER8N79zPEGsHUTBHlQ5d9C9W9sbVAS
+         7ctHtlZIi0SUwufe0C/QpNZwiRCmO7lpuHdlQBwXXarUCCeNXI21U9th+pFyKz2luU/8
+         Q8G+wr/FFAdicTFOx8PAbBKHUwprCMXPywThqzPIHxaK08tTqgEVYhFhslkWcjGnho5D
+         7qf6v+xFg4OOHscQYVzoqba0ms9/afxXu5NVaVUuFnBFlftBB/t5d/dI0NEqSLiV3Lmm
+         byvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793375341; x=1793980141;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d0SM8LOepW7XUMwU+ZDps/Wc1zMBVt4O8GKS2q6Z4u8=;
-        b=YYeY0JbZKuq6dHBCwMBiSopuZnYGz4uhfK84LMcJ3bBWck8nMFeS2ARuHC4WaAD8vx
-         TayT9FRc3aBJIp9ER6Nxzbv62DR1ax4z/07i6dNNDaLh1IyX9RiuaowRazomtP2nE5Ne
-         HNbg1FaFzaqBTTdW4d/hpojfTBOHOxsraaUL40TdTlqgT8ZGdemg4tc50tzozGcCQ3sa
-         IvG7nbpf0SwRxkqS1G9xeKIzjhwH5bSePSXhNmTT2gRUxCo/rf9DaSXbAbdCixMsBzur
-         VjyJzRgPiLN8iWd4f6m5tzZcLrZA+i4C794dSXlXVQayLrdGvpZw1kQ1ApgxqB4oXoU4
-         F6Xg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfRM7Z9jKTXXnFiW8OwvIL4qbS9CRMGZSHJlP+lXP7BqEuFC058rbmsjZWJL6hv1mSFsG7Rdo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhjWWjBdp+bLsOKpJHTG+jFJD1EE/T7qVJthxEco88a5uQDUzn
-	POtLZOdCBaxuDNgo/AusOApcvkJQABejRC6qWMf8GqGTqf4ZtJcbo9Qx
-X-Gm-Gg: AYBFou08W2Q66h/e2YVYqzUd4QkdMYzIzTTlc9g+wFd2hQ2A7XRSJF3yVUm7sXuCmM3
-	AulSabixC9FX9Ec7qMGozl+hms2/3uoTvAQDSey5HtoKyckqe6vDDIN8AnsZTU8M21RxjgF+k2c
-	RRAMBv04ZZqpGKoKP7H3xbeBpDQkjTAvzONxetWHdI5BUBGSzx05QNG+6jpPuk0qviD2WsWt0R/
-	HVdzQlYC2z9BJ3tBEAfm0Tt237Sr2uFHdK8YTS6YOoRLUPqzMlBH9Nu9HpHS8miRThyhqIJfFM1
-	8vVSOuwDwniyqsvMzus+dTdBUyL/kyRDuamAjF9OgCfEAP8deyKW+O89Od0/6gHR7ykQlYlf+N2
-	BystXV6b+sBC82u4zZzZGAYSBNlM1SFO0zcxNZc1mSzRU/5xRkjUamruIVOlkfO/SBcVly/fv7C
-	OFWEsQN78Vk3CE53oSjndAKPqs8A7WMSqXG726Cecv5Wt57Vs8GPc9mtsYcvt7rPg2ZY4+HW9Tj
-	WWEZIxubQ070iug7je+ItLbkvjxSn418ZKOky+bbcX3WMm3RCvYIqkevqziSngbT5eijPhcADnp
-	wvO0/TklSNDVRNcLsTMzVqpIhsG+UDyHLUxacrxzmHE=
-X-Received: by 2002:a17:903:3c6c:b0:2e9:73db:3c78 with SMTP id d9443c01a7336-2eb3649bef0mr30087255ad.17.1793375341157;
-        Fri, 30 Oct 2026 08:49:01 -0700 (PDT)
-Received: from iZj6c0kydq3fvfrtx5kta5Z ([47.86.51.122])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39248621sm9426235ad.28.2026.10.30.08.48.57
+        d=1e100.net; s=20260707; t=1793375348; x=1793980148;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
+        b=yTh+qxJheUXq17rIvfryR0uUSwinhxYyMkuIVUgPoGOaxiS0vN2VrezqcGZrtRkGOW
+         jGKkpVu6SIYU1SvC1m+FWW0zmLOZB8277GrYiyMXLmRrmE1Rsozw9JrBiFwNrnskvdUa
+         D12k6So9/zT/SqZ5wBHfjv8FDchBM+MbUANl2LrHxgG8aZT70Fdt9NaM19addd2aSJJb
+         XURV6vMqKu025+MRd/4cEMBpMJyx4qfOwB4YdZa9mAEd148QfkwYZTM5fhvQPpvD+8ZP
+         SPhh9lljen7Oox0o732HDz28QJv7BEHgVH2pKzNaX9uaa48Dwv1vDvaxt9ZBlslaFTFI
+         /gcg==
+X-Forwarded-Encrypted: i=1; AKwUvBztD1+uwVWx3o1LuMOMCv6biMYFU5iH/f4nFJHGbVCM4Iyb1OYzTqZ6xT4IElqijvEN1tQQcjA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLZ80aUwAgHN6XogYPSptC6U4ojPKnO/OhF2VBMy8rjx0gwIGr
+	MYtoWMTkZXfv0q4KVGLQmcnRd3JND/xAxyZZM4OeEcDb7tXhYNhMTtfI
+X-Gm-Gg: AYBFou1sjmpf+0ANJJ7AvUVhlr1hYWozo+scFGtrAwcJLExrwzxEDYckmFkpUfiktS3
+	xsZCTiYkNCK81+ZIopMHCpVttM9Bjti3k7AashJMlf88Qi74l4zngFXMiEjrLhmTJOyDBjDHMkE
+	BNpM6FgUe5G1eKLrcq7u1dLq88uj1AYryBehXG+6zSdoZPEjwXuqpWv2VtYeXzZ5Kg83OnDk62N
+	jqoBpjvhzS1zeDhQJiaJwdSo+l/JdS+D+uRg3UFF9/G3JzqiX26QKGszz/yia8XLx0r9wHaCLpe
+	N8Ctcqkr0qhE6ujXmxldzfuPSdcirDJUOqhbhU0+0e1l5fn6dZKmoQDQA8OUINLB/86bdnCOn+x
+	U6EC4/jr6vgdBbtZyAYYu6qHbQu+N6PMUNT+OaYF0Rp37Zg9SFCgWaZ5aEL8+jRoKtJyoFHOwsF
+	jv7yr2TPx2VMrPqvrr/e8diXsNj3jk6VpmH/+TT5D1bcjnz+2YWqlZ24tD4vlYVDuLI7QMHPqUs
+	SXAT/BG3QkyvLjqIcXVSyldvb+hkugdjepIulnvCbyS+m2eCy43KBl/GDwqsD5L907UTHYo6jlx
+	ks8kPxnwl1srcyWghBng4TM=
+X-Received: by 2002:a05:6a00:3a19:b0:880:fe7b:bc56 with SMTP id d2e1a72fcca58-8a9bf90d0b5mr2497234b3a.50.1793375347794;
+        Fri, 30 Oct 2026 08:49:07 -0700 (PDT)
+Received: from localhost ([2a03:2880:9ff:70::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d0259fsm181732b3a.21.2026.10.30.08.49.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:49:00 -0700 (PDT)
-From: Challvy Tee <challvy.tee@gmail.com>
-To: x86@kernel.org,
-	linux-coco@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	kas@kernel.org,
-	dave.hansen@linux.intel.com,
-	rick.p.edgecombe@intel.com,
-	vishal.l.verma@intel.com,
-	kai.huang@intel.com,
-	seanjc@google.com
-Subject: [PATCH v3] x86/virt/tdx: Skip TDH.SYS.DISABLE if the TDX module is not initialized
-Date: Fri, 30 Oct 2026 23:48:51 +0800
-Message-ID: <20261030154851.907726-1-challvy.tee@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <auM3KKutfutAqgWG@thinkstation>
-References: <auM3KKutfutAqgWG@thinkstation>
+        Fri, 30 Oct 2026 08:49:07 -0700 (PDT)
+Date: Fri, 30 Oct 2026 08:48:55 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Bryan Cochrane <bcochrane@google.com>
+Cc: Michael Chan <michael.chan@broadcom.com>, 
+	Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] bnxt_en: Take RTNL before netif_close() when
+ aborting FW reset
+Message-ID: <auS8YWtAoDROqY_k@devvm16445.scu0.facebook.com>
+References: <20261029032832.1511180-1-bcochrane@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,104 +101,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029032832.1511180-1-bcochrane@google.com>
 
-Commit 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and
-kdump") made native_machine_crash_shutdown() call tdx_sys_disable(),
-whose only gate is compile time (CONFIG_INTEL_TDX_HOST).  A kernel that
-never initialized the TDX module therefore still issues
-TDH.SYS.DISABLE.
+On 10/28, Bryan Cochrane wrote:
+> netif_close() must be called with RTNL held in addition to the netdev
+> instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
+> and NETDEV_DOWN notifier chains it runs rely on it for serialization.
+> 
+> Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
+> replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
+> bnxt_fw_reset(). That is sufficient for the paths that only tear the
+> NIC down internally with __bnxt_close_nic(), but the abort paths close
+> the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
+> path in bnxt_fw_reset() calls netif_close() directly. Those now run
+> without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
+> aborted:
+> 
+>   RTNL: assertion failed at net/core/dev.c (1740)
+>   WARNING: net/core/dev.c:1740 at __dev_close_many+0x1be/0x1f0
+>   Workqueue: bnxt_pf_wq bnxt_fw_reset_task [bnxt_en]
+>   Call Trace:
+>    netif_close_many+0xb5/0x190
+>    netif_close+0xa2/0xd0
+>    bnxt_fw_reset_task.cold+0x8d/0x213 [bnxt_en]
+>    process_one_work+0x19d/0x3a0
+>    worker_thread+0x1af/0x320
+>    kthread+0xe3/0x120
+> 
+> followed by the same assertion from call_netdevice_notifiers_info(),
+> fib_rules_event(), inetdev_event(), rtnl_fill_ifinfo(),
+> devlink_compat_phys_port_name_get() and ip_mc_down().
+> 
+> This was observed on a machine in real use with a BCM57504 (4 PFs,
+> FW 236.1.153.0) running v7.1.6: the firmware crashed, announced a
+> "Fatal firmware reset event" and then failed to come back within the
+> advertised max wait, so bnxt_fw_reset_task() aborted the reset on all
+> ports:
+> 
+>   bnxt_en 0000:c1:00.1 eno16905np1: Firmware reset aborted
+>   bnxt_en 0000:c1:00.1 eno16905np1: fw_health_status 0x448100
+> 
+> Take RTNL (before the netdev instance lock, matching the OPENING state
+> which already uses rtnl_trylock()) in the fw_reset_abort path of
+> bnxt_fw_reset_task() and route the POLL_VF abort through that same
+> path. In bnxt_fw_reset() go back to bnxt_rtnl_lock_sp() so that its
+> netif_close() error path is covered as well; bnxt_reset() and
+> bnxt_rx_ring_reset() already take RTNL from bnxt_sp_task() the same
+> way.
+> 
+> The bug was found by inspecting the kernel log of the affected machine
+> and the driver source; the fix was prepared with the help of an AI
+> coding assistant (Gemini based) and reviewed by the submitter. It is
+> build tested (allmodconfig with W=1, plus the same change on top of
+> v7.1.6 built as a module for the affected BCM57504 host). The aborted
+> reset path itself only runs when the firmware fails to return from a
+> reset, which could not be reproduced on demand.
+> 
+> Fixes: 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Bryan Cochrane <bcochrane@google.com>
 
-In VMX non-root operation on a SEAM-capable host, SEAMCALL causes a VM
-exit instead of a native #UD.  KVM injects #UD only since
-commit 9d7dfb95da2c ("KVM: VMX: Inject #UD if guest tries to execute
-SEAMCALL or TDCALL"), first released in v6.18.  On an older host the
-VMM gets KVM_EXIT_INTERNAL_ERROR and the vCPU never resumes, so
-machine_kexec() is never reached and no vmcore is written.  Kdump is
-thus broken only in guests on SEAM-capable hosts whose hypervisor does
-not handle the exit; plain kexec is unaffected because tdx_shutdown()
-only runs as a syscore op, registered after init_tdx_module() succeeds.
-
-Gate the SEAMCALL on tdx_module_state.initialized, the predicate
-tdx_get_sysinfo() already uses in this file: a kernel that never
-initialized the module has no module to disable, and where it did the
-gate is a no-op.  Doing it here rather than at the crash.c call site
-also covers the syscore caller and any future one.
-
-It also decouples kdump from the host KVM version -- a guest cannot
-require its host to inject the #UD.
-
-Fixes: 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and kdump")
-Cc: stable@vger.kernel.org
-Signed-off-by: Challvy Tee <challvy.tee@gmail.com>
----
-v2 -> v3:
- - Rework the changelog around the VM exit mechanism from the review
-   and scope the impact to guests on SEAM-capable hosts whose
-   hypervisor does not handle the exit.
- - Shorten it and move the reproduction data below the fold.
- - Cc the author of the KVM commit now cited.  No code change.
-   v2: https://lore.kernel.org/all/20261029094705.896693-1-challvy.tee@gmail.com/
-
-Hypervisor -- KVM on all five (CPUID leaf 0x40000000), across three
-clouds: Alibaba Cloud ECS, AWS EC2 and Tencent Cloud CVM.
-
-Host log -- yes, from the Alibaba ECS host of the Emerald Rapids guest:
-
-  KVM internal error. Suberror: 4
-  extra data[0]: 4c
-  extra data[1]: 2f
-  RAX=0000000000000045 RDI=0000000000000045 RIP=ffffffff855422fe
-  R12=8000020300000000 R13=8000000300000000 R14=8000020200000000
-  Code=... 4c 8b 5e 28 <66> 0f 01 cf 72 05 ...
-  check runstate transition: 'running' -> 'internal-error'
-
-Suberror 4 is KVM_INTERNAL_ERROR_UNEXPECTED_EXIT_REASON; the two data
-words are the exit reason (0x4c = EXIT_REASON_SEAMCALL) and
-last_vmentry_cpu, i.e. kvm_prepare_unexpected_reason_exit().
-
-RAX and RDI hold 0x45 = TDH_SYS_DISABLE and RIP is at the '66 0f 01 cf'
-SEAMCALL opcode in __seamcall.  RAX still holds the input leaf rather
-than a status code: the SEAMCALL never returned.
-
-Reproduced with 'echo c > /proc/sysrq-trigger'.  All five have
-CONFIG_INTEL_TDX_HOST=y, kexec_crash_loaded=1, a kernel changelog
-naming both backported commits, and "TDX not supported by the host
-platform" in dmesg:
-
-  Microarch          x86_vfm  Cloud          Kernel             echo c
-  Sapphire Rapids    0x68F    AWS EC2        6.12.0-278.el10    no vmcore
-  Emerald Rapids     0x6CF    Alibaba ECS    6.12.0-278.el10    no vmcore
-  Granite Rapids     0x6AD    Alibaba ECS    6.12.0-278.el10    no vmcore
-  Granite Rapids     0x6AD    AWS EC2        6.12.0-278.el10    no vmcore
-  Granite Rapids     0x6AD    Tencent CVM    6.12.0-278.el10    no vmcore
-
-Controls, each producing a vmcore: the same platform on a kernel
-without 5b25f249be32 (tdx_sys_disable absent from kallsyms), platforms
-without SEAM support (Skylake, Cascade Lake, Ice Lake, AMD), and plain
-kexec.
-
-With the gate applied kdump produces a vmcore on the two Alibaba ECS
-guests; the others have not been retested.  No TDX host was available,
-so the no-op case is reasoned from the code rather than measured.
-
- arch/x86/virt/vmx/tdx/tdx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 96ced0494b68..a7eae7492c1e 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -2321,6 +2321,9 @@ void tdx_sys_disable(void)
- 	struct tdx_module_args args = {};
- 	u64 ret;
- 
-+	if (!tdx_module_state.initialized)
-+		return;
-+
- 	/*
- 	 * Don't loop forever.
- 	 *
--- 
-2.52.0
-
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
