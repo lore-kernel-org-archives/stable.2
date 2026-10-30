@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357560;
-	b=HLTPDI5YkNeQHWaR+5W0IL9g1LsIPMQv6QxMNi1Q47RFy8m4n+VSYYRrctt9Uq8iYpdP
-	 KJknqeL74wZ7L4cX5HE/eYu2JpAkWsMdgBykAR63Ko0IewfATB57gqqyazvj09dF37/GZ
-	 PLq+mCw6p/GGOz1m7LPV+lIkinh+xcCoW1eTwJ2jRWE3nA0g0oHtR/FVApt7UaMo8sMaX
-	 hkE+5gj8dGaSeiog77OLUc/X4oDxSV5GcZPik8CoZ3rM0s1A1qo5ajpM7upbg9r3q/384
-	 I8X6k+300l5M2h3Tdeh1ZU6Vx6KO6hZOAWKh5djNIFkl6Jnk3JgYLZK3dPhJpCYhNXQ==
+	t=1793357569;
+	b=14EGUlwBX6zeeMz0M6YcJoQltn06VykjelMM5KMQ7cZUHIfPAp4lByT5ImNXG+HWpP+c
+	 w89uMCsCINq7aZ0JOcgYDl5g5YwUMgiu3JFIrJ6XsTZNrUCpm77cdThsilKVPtWlYW8ca
+	 gDG7ng6sTAxeynHt/h3i5g1Ms4ZIMOG7FOXXeD4E4X/NqzqEy4Tzs13/lQ55i8losWkF7
+	 EbFtPdJm8400yOqY0m/oXczUDx0Gu5ocQ+h+csauE5mXRV6BKk14uuaBf0k7zrG0fC5vV
+	 2dIVFNbLaJaNsVEseBqdyJW6+2vRvzNNg92FaHw+apz62+nP38TC7BOz5GXp761hVyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357560;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MAeoLtGMoWZCC2vTYblvujYJrqkujyJ7LqL1O3emB7A=;
-	b=vsIOV6OgDVN2IqnFZUbLETjYJqqFc48XRpe/TacalPRuxeC22hdC1eVTU+PpA6wnOUaH
-	 a3/k6vk9bHBAmYHbf6B9JzHVP64glMDHhrH5nguq13Axl5JIQ+ygV+ZF32205q0uqGY3g
-	 taoJtxzr3oDjpeV5byMlShYV8EmhEXLB5W6fU5kwchr1m51JXHHQM4wsqGqvAlvyFpDQx
-	 iFAkl7GLF4UDlJBiAw6uBLZwrhtRTO5whS3TZom4kXyqVZ00V5DE3SkGZorGZ/ZlDgl/5
-	 6to+wviYun70XeTUe34pzgszMqqSCKBbUfQlsMg05482AtGA85hyG4pfGnwGDyjq03Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357569;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=19UWKhVy2zuhB24lqtjvX1ge71thkeEw7AhozvsBUs8=;
+	b=nF8Mh65oBKWwBn3I0D6eHaBZL9b04hmMIp9aNUJifg64KbiUlG/GOZDsd7ZoHRLSin9r
+	 VDdh4AnoAiljVOPTx7chppAvJsAyHbU0nmpcxEA/Ci865mGLM+kqKTa6Z6oCU1GWjNHHG
+	 1/Bo71bgiSGyf6Qm31k98734yobxqfmyQvforVomtrNQtdecF/+6VpivIRRiPDskxHmBw
+	 vHGyTOIfAOxFmfFfIxlOsXczxt+tpBOgtD+x79l4wPFVrDgiRRaNXqPUXd4+WPGV0ExjY
+	 WQjWuTv+G0Bjh+iKIH3AkjFco6D5OZuMn7sSx82gxCe3sdiGZuFqnuwt8uQKSI54O0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TEReuHGb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=IePDJiDI;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E00D60A3806;
-	Fri, 30 Oct 2026 10:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4CA606EDAA;
+	Fri, 30 Oct 2026 10:52:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4CA606EDAA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TEReuHGb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26CE81F00A15;
-	Fri, 30 Oct 2026 10:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357559;
-	bh=MAeoLtGMoWZCC2vTYblvujYJrqkujyJ7LqL1O3emB7A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TEReuHGb28g1HRowYwNmixLazG5eFnamEg+dEdYKT3A1mMODabX0yuNPhf4QiClcm
-	 KKVSKXZNaPly26D7TQi3dPbuFjqil/asz3d0RVA1pvHTKNtQsO6vsQ+0KfgO+S4/37
-	 SIpM1q3QTEjv40twyUB7NfdyXK68hvOWcjwqwxBkbHNy7lXteANRI5I0EdodYkJKdk
-	 L0KZs/OTbVkzlUBJLWq/Ig24VqiPc00z/H5VqHKDXxS4aiRpshND6eZ6qInr907nDl
-	 UfV/5xg7IsQzFJF5HdS68H0zg1ArQTFHsi4EVFas68HC42RB4V1tRyw56bZhnzfhLI
-	 eBJf0cKvpSGBA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Mastan Katragadda <Mastan.Katragadda@amd.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 21/21] soundwire: amd: Disable interrupts if enabling manager fails
-Date: Fri, 30 Oct 2026 10:47:00 +0000
-Message-ID: <20261030104840.3361217-22-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
-References: <20261030104840.3361217-1-lee@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=IePDJiDI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=19UWKhVy2zuhB24lqtjvX1ge71thkeEw7AhozvsBUs8=; t=1793357568; x=1794567168; 
+	b=IePDJiDIcCyLaRjFdCY0PhjQH7Uydk4e2pKPvH78Jxb89zrO/AefFe+fvC1CyrCKBVIxIfGtsF0
+	Ygv+5iuNWmbyAixgYEfbC34c8PXPpSpSiMCfdRAvetj6nvU2JS8M5pFUEeybMi1A2MZoa6V/kpQnW
+	mqxzECt2oMmLiFaVzK1sYtAryGU6Rr2qmRTpXaBQF1Bi0SllhrLKgayAHAKFJeCy5OBY3O0CBnL4d
+	P+W67LK+V2Bz9Jpfead63ILnl6apInBcTeF8qGahxj27PE5NVK8Kp81vonE4yX+LUR3p2lNbSy8ub
+	yRmpxkt397+ZL+LSiG4e2216xQmEhDA2dfzA==;
+Date: Fri, 30 Oct 2026 11:52:41 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Lee Jones <lee@kernel.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+ <tony@atomide.com>, Kai Svahn <kai.svahn@nokia.com>, syed khasim
+ <x0khasim@ti.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>, Samuel Ortiz
+ <sameo@linux.intel.com>, linux-omap@vger.kernel.org, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on
+ teardown and probe failure
+Message-ID: <20261030115241.642c5971@kemnade.info>
+In-Reply-To: <20261030104806.GC3774906@google.com>
+References: <20261027093306.2812695-1-lee@kernel.org>
+	<20261027093306.2812695-14-lee@kernel.org>
+	<20261028165003.60d0c033@kemnade.info>
+	<20261030104806.GC3774906@google.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,61 +69,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-In amd_sdw_manager_start() and amd_resume_runtime(),
-amd_enable_sdw_interrupts() is called before amd_enable_sdw_manager().
-If amd_enable_sdw_manager() fails, both functions return immediately
-with SoundWire interrupts left unmasked.  In addition,
-amd_resume_runtime() ignores the return value of
-amd_init_sdw_manager().
+On Fri, 30 Oct 2026 10:48:06 +0000
+Lee Jones <lee@kernel.org> wrote:
 
-Check the return value of amd_init_sdw_manager() in
-amd_resume_runtime(), and disable interrupts if amd_enable_sdw_manager()
-fails in amd_sdw_manager_start() and amd_resume_runtime().
+> On Wed, 28 Oct 2026, Andreas Kemnade wrote:
+> 
+> > On Tue, 27 Oct 2026 09:30:42 +0000
+> > Lee Jones <lee@kernel.org> wrote:
+> >   
+> > > twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
+> > > and checks for a non-NULL twl_priv at entry to reject multiple device
+> > > instances.  However, twl_remove() and the early error paths in
+> > > twl_probe() never reset twl_priv to NULL, a failure when adding MFD
+> > > child devices bypasses twl_remove() by jumping to free instead of fail,
+> > > and twl_remove() tears down the IRQ domain and dummy I2C clients before
+> > > child devices are unregistered.  After devres frees the underlying
+> > > memory on probe failure or unbind, twl_priv remains a dangling pointer,
+> > > causing subsequent exported API calls to dereference freed memory and
+> > > blocking future probe attempts with -EBUSY.
+> > > 
+> > > Unregister DT-populated and MFD child devices at the start of
+> > > twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
+> > > reset twl_priv to NULL in twl_remove() and on probe error exit.
+> > > 
+> > > Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
+> > > Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Lee Jones <lee@kernel.org>  
+> > 
+> > Hmm, couldn't we use devm_add_action_or_reset() for resetting the
+> > twl_priv pointer? Feels more clean for me.  
+> 
+> Nice!  Thanks for the suggestion.
+> 
+> To keep this fix minimal for Stable backporting (and avoid resending a
+> 27-patch series), I'll take this one as-is and send a follow-up patch
+> converting twl_priv to use devm_add_action_or_reset().
+> 
 
-Fixes: 81ff58ff71ad ("soundwire: amd: add runtime pm ops for AMD SoundWire manager driver")
-Closes: https://sashiko.dev/#/bug/linux-309820e5-f754-4d3d-80aa-7f70d59f3e8e
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/soundwire/amd_manager.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+I think the whole patch can be simplified a lot then, 
 
-diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index faff3e9eefad..f64e8fea7e16 100644
---- a/drivers/soundwire/amd_manager.c
-+++ b/drivers/soundwire/amd_manager.c
-@@ -1109,8 +1109,10 @@ int amd_sdw_manager_start(struct amd_sdw_manager *amd_manager)
- 			return ret;
- 		amd_enable_sdw_interrupts(amd_manager);
- 		ret = amd_enable_sdw_manager(amd_manager);
--		if (ret)
-+		if (ret) {
-+			amd_disable_sdw_interrupts(amd_manager);
- 			return ret;
-+		}
- 		amd_sdw_set_frameshape(amd_manager);
- 	}
- 	/* Enable runtime PM */
-@@ -1503,11 +1505,15 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
- 		ret = amd_sdw_clk_init_ctrl(amd_manager);
- 		if (ret)
- 			return ret;
--		amd_init_sdw_manager(amd_manager);
-+		ret = amd_init_sdw_manager(amd_manager);
-+		if (ret)
-+			return ret;
- 		amd_enable_sdw_interrupts(amd_manager);
- 		ret = amd_enable_sdw_manager(amd_manager);
--		if (ret)
-+		if (ret) {
-+			amd_disable_sdw_interrupts(amd_manager);
- 			return ret;
-+		}
- 		amd_sdw_set_frameshape(amd_manager);
- 	}
- 	if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
--- 
-2.56.0.317.g454f8302e1-goog
+devm_mfd_add_devices can stay.
 
+Regards,
+Andreas
