@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363084;
-	b=2BKfveEeVcgRAlL1HTuQ9cX6VGOaG4ZoIEL9+sOaCJgGYCLoq9f/jZQTsI9JLt1elNl6
-	 /RKqnrelirWIgjvoULz/T+aY9J8G0pyP3tCf/l7citFaz5MMWFlsS3AJreIctiCvfuuAF
-	 B41BsU3izJ90B8LjL9CFPZbho/3Q7KRK2WaAxIM/IL7Z6+BbzTKbfmu6u3qfyTvfOF61F
-	 2314s7hc5hYMeAe1p9F1E7Qqwvc0r6GfcS4bjG60rhlW4N+VWEpCrHgYmeV7JCg4mBLGg
-	 0UMl/RWY4GdcHHve9Z7yO2pcHC4slnFG1yEL8XazF6g9YqTHJj1AfrD3BcnrAoFy4VA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363084;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+yrymDp79FZjbqEueI9kZqfriu2oDHzO0g8H9zdbK7E=;
-	b=rVF6ulUxBs/XEhBy9dP2H/7M+EHnfi/MH7JQgpZySe/YdOyRY3/GCBlOI8WZcYrD2woB
-	 xaSYGCxc2yPdViuQoYifxePuE2c4N6l4F393QewYW1mGU7rFwCtXYFMwbZnfB7KF4Q4iI
-	 gm6+NyTFcgJhi6vlRdlLP/0GCiz/UAG5cX6IahOUNtHDNxyYSZu7JczjGHj1AYFybjLGN
-	 o58paWDPO6hPy4pw697ImuckXJOe377JbP/5a42FWig0m1LG6gQbk1igu3d71EbZwSqFJ
-	 MhB30ocXau/4CBBepgBSNBMTZynv4wKeQf4GOpT5DaW7TzWqhomwL53P8X0QExNopbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kDl7HVvK;
-	arc=none smtp.remote-ip=74.125.228.5
-Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793363388;
+	b=IJ2x3plA29lWUKVy1B2szHwg/cHLqGNEcWHJ2NZWi+8amsBcSUSljyg5m/aBtmLdjLiK
+	 vhc5PfRfgTPDeUrPKVBlPEnUWGt8GWaa64zPp6cfng8Ngrt152FFh3pSBIyDzYO48zC1i
+	 2l58GIBCbDW1vGgJh4wYOVNd12c0o1y79aXqT5Vc2f+R1CtC0t5ANsLA+EdY95ujwHtKQ
+	 p2ErjDQV3zq7XBTqtrEwYICnv2+SlzNLYd+7pE8pwowDKdzd3FUtk1gCX1FH49TbsKqA9
+	 f7JnkMakt82i0x6eE4c/dLmSkBaPLZba1fuFeZKk/zfMNtyl1sukSw64ftRrP6R9K2Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363388;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=KqDv9O/lym0AuZqP3MEoO12afg11wChGVOVXXOgkbdk=;
+	b=bsN/2L4sN60r2TGciCqfBogViozwxONiV2ySJbCIDzfuRgFGDdoFwhqQkkKl8v4qsGU5
+	 96/LFPDC8AMu/0HzGvB5ClCtd2bXuM1lQNI/EMNGTn2d2uH62f8nqFkj3hiy3skI7dIUj
+	 CX80siJ2e84E/s9DkX2p09dgWwNTr0kVoHfFuS1dL6b8U4J6lDRv+PqDSmnhD/lIzGgmY
+	 xYt2ufxhuq11aeAZqBaXLPKqwr+fC1x8ai5UMOarkNYh2FTPkIJzHfRO+Ar+1o+dMCaw6
+	 czetfAi6AkBfAdKSS53vxwEFtcx36fLU3UW1FZLAgx7pmKBDaqjH1+a8EUlWKDjhI6w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pwHnRDoH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.48
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012048.outbound.protection.outlook.com [40.107.209.48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9638B606A320
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 12:24:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9638B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D256606A31C;
+	Fri, 30 Oct 2026 12:29:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D256606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kDl7HVvK
-Received: by mail-pz2-f5.google.com with SMTP id 41be03b00d2f7-cdac0ac5f19so340823a12.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:24:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793363083; x=1793967883; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+yrymDp79FZjbqEueI9kZqfriu2oDHzO0g8H9zdbK7E=;
-        b=kDl7HVvKhavC8dBhxopELEbRq96LLaI6slGnuyyzzpW6HiVfGW+5iNPWoH9zW/heUE
-         w8JVowdf9BDkIaRkb7XkvY6hKwgR0yzPfsDWcGZ/TEK3ir2aGz2DFMTmEl5ZhJjIRj65
-         IaYA3vc9JbhxAqMO4AE7rw37++O1oUWN3Nmqcedd8UaAiPLTaFv3cdQA9uxOBqo02BDu
-         ss3CrAEcE9GJBCtpgMGVvQtPYxRYHv/K46Bxi/obXBWgOIplzdfvA+5nCQS18C+R5zJo
-         1LWEf+wYAQtEBy64hU04DLZ9zd58muabV/fqQF+M8lsvlA7BwXW74bgmo1u6xwlDDvrO
-         Yo8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793363083; x=1793967883;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+yrymDp79FZjbqEueI9kZqfriu2oDHzO0g8H9zdbK7E=;
-        b=I6w3xPzqTif6HSqehcddMLUEzgvlaRTPylqnOzc8D7zwSxNpA0WjZ8ziH6erTtkj3s
-         vZKn8lJDd+Jaak3ktRDmkUq2Z9imYgyXhQkFxcOIvG0UQXFXw4mChAl1CRXx5rcq1xOX
-         y46q0xGclly5akvTDMDkJ6hvyc4mT8bwnYJaUGs2h3FXDaBplX2rHsUb4GMym9qcmSw3
-         cVQ8Lm2+hP5IXY1XTu6WER46jiMBZtaF5jd35YXDHhlNbuHk3+0eJ3vVNDGkvFVaLJ5E
-         KEvDN6amFxwk1f5bVuZnP1552VdKBVmaR5VpQKnWJ5Ry07NFHhH/t9olaJmDXNHrUhol
-         BPdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzOE9LcygJ3Sh7Jjq7Ryui6qCrn/1xzgqFEoHV0NuFyNNUKLt3ul6kYrhOnufksUujyKFDs/Zo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIILeOZWDSOq5ydL7s4PMjK1gQTdbeccvyWbJtLJ0ZUe59JUQ9
-	vkln+aTMQKDO4ydo9Vutjpr+xj7zUEncgnlRY9rm/jIR4Fupm7Johptf
-X-Gm-Gg: AYBFou3kl3QYMKqQ30n0J/8C1psnIfPI/lkFaqiUHwUcJVGlC4Tb4QP0G2U+NOsE4Dw
-	8aXLpiplztgmEqS5WFubfNGCBswKHRIPgsJZpa7SsH7cyJSllVdXf2guvEUIOAzQm9YpxYn3qcM
-	ghmxcbumYbzQUMVjNusiEJjIijsm1jCDXuKJOnSjsQS3M0/oynjbULA9YQbVCSuAHT1sRKjYcOr
-	q5a6gL4fYBMg5hsWDOB9/pjuF5weEIA9qXt5K+kf0BYiVvEDzjpYloQjUULZH8RSfwGaqklW/gN
-	rpYk9vCxPd4vH7cNptXs5snFBJdSoPrvMB1rvvPe+C4e/7n6QLHu8iT4j7bceS/c2uAR29p6Zlx
-	yQiG42kyFsu9gfA0vpnFWLiViZKvTdG9LU5e/fKHYjqEMjai+BgrLqpqePmhYa+u1cAuWLIR2+E
-	ngt1y8W7h1k5sO2IUEns5POJ4p63OVFo6lHlMmde8qKzflcUsJCQ6w/2CWziGUmQEJ1g6yeMqx7
-	eMD2GEUTi7jZxzbFRBD9FMvhvhtod2XOHXqYJgW4xNpwAEbdv4BtTNcpGweVOXAbo/OXxmS71V2
-	AS1DG4XrTyNWykONPzpwD8oBrJpXF4TGacCzA55pjM9VAUK4WK+oHiWuqA==
-X-Received: by 2002:a05:6a00:2d85:b0:873:f7a4:433f with SMTP id d2e1a72fcca58-8a9bea6ad35mr1985118b3a.26.1793363082777;
-        Fri, 30 Oct 2026 05:24:42 -0700 (PDT)
-Received: from 192.168.1.3 ([2409:8a1e:2331:2850:d40c:1fcf:6319:8524])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9ef56b38dsm687929b3a.31.2026.10.30.05.24.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 30 Oct 2026 05:24:42 -0700 (PDT)
-From: Rongzheng Wang <testwrzwrz@gmail.com>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: Jason Xing <kerneljasonxing@gmail.com>,
-	netdev@vger.kernel.org,
-	Magnus Karlsson <magnus.karlsson@intel.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	stable@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 1/2] xsk: defer software checksum until the skb is complete
-Date: Fri, 30 Oct 2026 20:24:34 +0800
-Message-Id: <20261030122434.91530-1-testwrzwrz@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <auSF/bDmOW0Y7T4D@boxer>
-References: <20261030023248.78802-1-testwrzwrz@gmail.com> <20261030023248.78802-2-testwrzwrz@gmail.com> <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com> <20261030084017.16202-1-testwrzwrz@gmail.com> <CAL+tcoBThTe7299eVU=tsUdi392dS9cioXX5RA5AKRsYAGbdVg@mail.gmail.com> <20261030094633.27910-1-testwrzwrz@gmail.com> <auSF/bDmOW0Y7T4D@boxer>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pwHnRDoH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eIaWvnYt6QZrgHmKSs6t4Gma5ZxhRYAJdY/APibhKROve4zpdQR/jUDB5pwhVnsykFyb5ZeFPMtAKtsi4DUHXLC1/XNWIKBuwEZcZz8pgCcME9qQ5PKu7jb3dq/zZSp68iUw4IluLvOzgBomj3ZDLdKRJTyLISllbwAzaN9VFbREX/PY0VkpV5l9+Ypxdyy24lvBdCYVIY0VIydXrGiPq4EMRZo6s5fN6PzJAcZDSlqokv+rOvfMtMwt9K3MpcXNzKiGW8Lz6NeuFQuPr9NQ7T1ojJQTNNB6fi2eoq7cU+rbric2E8O8XMA8JTSJECEYHDIb7z7UYcdYTzI6KfF3cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KqDv9O/lym0AuZqP3MEoO12afg11wChGVOVXXOgkbdk=;
+ b=fcIzyi+D6smrbRj0ZGyx8lNdbHUN5qnfQG7HsN5Du512Z6QRGbIBTPkPvMR8+DFuL6UxDAKNRio0VCOu70klhar0d9+ylzCPRTRa6cdelDOZLguv0Xp4yAtjWNG8UKbtpNv7Or0XImYGohJhb6WzF9K2XQ0mrGgsnYH2Hh2q4oMsMNsbEEOpilUr/lmkaZVaCQFTtLwHFdfj5G9uR7MnooqYgQoCP0WbB6EthPwhfAW/M50I4UCoRg+OOJ9NSg1S39mSjGhuEpUey5ZtBur5D9uTYOkc833N6eHnqD4GttzwiWv+gGATbFPR3K5i4JJgUv9z6sA57uy/U3JOTWXReA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KqDv9O/lym0AuZqP3MEoO12afg11wChGVOVXXOgkbdk=;
+ b=pwHnRDoHmoYTUq53t/nt8aYn1L5cT1B8Vgmi5v7FjThdfshEiRYnHLBK6lKbYAXkxChsCvch2gIdLHGih5SkD1fLtZC4NkdcT+n5d0EhaDdadXFkqzh0x070IzRClpoFc7p7tLFr45/0fbRk9ryVb+Un+kad529yk+zsMn4fSm0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ by MN2PR12MB4047.namprd12.prod.outlook.com (2603:10b6:208:1de::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 12:29:44 +0000
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 12:29:44 +0000
+Message-ID: <2d7dcffa-687c-46b2-b449-5818cc4ca56d@amd.com>
+Date: Fri, 30 Oct 2026 17:58:39 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/21] soundwire: amd: Synchronise parent IRQ and disable
+ work on manager removal
+To: Lee Jones <lee@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mario Limonciello <Mario.Limonciello@amd.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ Syed Saba Kareem <syed.sabakareem@amd.com>,
+ "Prasad, Prasad" <venkataprasad.potturu@amd.com>,
+ "N, Poojitha" <Poojitha.N@amd.com>
+Cc: stable@vger.kernel.org
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-19-lee@kernel.org>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20261030104840.3361217-19-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN0PR01CA0004.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:4f::9) To CY5PR12MB6252.namprd12.prod.outlook.com
+ (2603:10b6:930:20::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,23 +105,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|MN2PR12MB4047:EE_
+X-MS-Office365-Filtering-Correlation-Id: e605a490-2b12-4d9b-30f1-08df36817a22
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|22082099003|18002099003|921020|56012099006|11063799006|4143699003|261026121527099003|261026140227099003|261028144727099003|10067099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	UuccgnfkPMRmjiloJtrreDXPFSW8Z1ipxCdkVEngF6a8gkGIqs9VJ8k+44uOTticVD+nW5FtPQkIxkAORsFB2GFFrveydkidAKqFQ5ixrxMo/QRLDQrua7F3AokljAq7PzmesWolQGGvyEElJHc6aavKRISXAXxLxqOJ0iZ8DtUZdyQruS23p3ITQMJyg4zYT/sQVDeOwFgwbVOK3gMfi1g7C55hZXtHy+KsWi3pMdS2vlK4EKVwDafDsiAs4YN8x+6KxNTZD7E0El+BexXzOoDxMU3Un13fpw6M7NoK7eLKMl3MwrOcvd2FatzXKBOUAUjVWdZoUMFyGBbFQ+SHlGajhzTRdHfLeUWxZvQwUhDUGnSesC4O3shwwNSzLjs7UmApvSkg5cijWNEGz1usKXCilPEaoBYPduZKBgJ50PTMgw8xYFAdM7o7nbzl3lwOsaWM3ke9HPaPvDZi6U2j5Fj7XtdjSIjhCYQS8bvsKcFliwozxCwCb3qJNqZO9xzPzeH3trIAe+mE9CHNgbT+5CJqe3FiTQs3QLDqLHfRreIxzBEfjWtuTq8reKHMSV3yEhQMvj1lBSYhY3iH+ULSK+qb6BMAXoqh9IXOfRKnPr6cTawvmU9lwLmT2tA48Y/lU4GME7OBRv5ZgbUmXkZDlg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(22082099003)(18002099003)(921020)(56012099006)(11063799006)(4143699003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c0NmYnVDRElieXEyeDVGallNSFhhVG9GdC9TRU9NdVhRckJUZ0pxMGo1azlo?=
+ =?utf-8?B?d3FPRlY0bTVnaFhPSFlYa1BSLzZhNWlLcW9SRmxxRW1CMDRiSDlRUmtBVDhm?=
+ =?utf-8?B?TUNicnYxL3NmU0tJTWNvdEZhK0QwR0ZGdlEwUzVPZkdRQXFPUnhjbzNBWXl3?=
+ =?utf-8?B?aHJLRzJCUVZKb3F6azloVm9hREt3VyttdE5TRE9qZjdWRWFUazNqTnNuQits?=
+ =?utf-8?B?OWtHOGc5SjZzajVSVVRXQ1hxNVhmL2p1NFNISVowZDR0LzRJaVRjc2Nta0ta?=
+ =?utf-8?B?UlEycWptSEhOS2MxZzhCM3AwczAzcHYrMzloU0VaRGtmaCtGOTZObzA4SHZw?=
+ =?utf-8?B?QlpaK25iS3lZcWM5NkMrU1NpSkxLczg2dEllMXNoR0JPS2p0K0JlNE1pdXdD?=
+ =?utf-8?B?a0VNaCsyRnA2Tm5PaVMzSitBOWJqOU0rMXIxTFYvdUZOUkVyOCtIMU1XY3lF?=
+ =?utf-8?B?U1drK1o3WGp3ZGxhR3d0d1R3RXN5U1BiVmpUeTBVeWRkQ3Z6NXRzSG5lWlBJ?=
+ =?utf-8?B?SW81UXpEQncxQldnMDgyY3RRQlZMeENDeXFkaGUvOVNpc3NEYnpPNy9GL1Y1?=
+ =?utf-8?B?MFZ6dGVCWnI5RUdiMTBHNmNsRlg0QmpML0hocXZVcWlPdEFxZ2IzbWZtalYx?=
+ =?utf-8?B?Y3NMU2wrU0NwdUt3TzRndUhqNlJrdXNDMDJRQ0NjMFhPazNCbk9RaVM4d2Ry?=
+ =?utf-8?B?WjB6NGpkaGMvYzBnVFpQaVFBMUx6RUN6SE1mMkZwNXdEMEU1NFFWR3JSOEh1?=
+ =?utf-8?B?d3QycEFIVUhJeDlScGhzWUpHMHNjMUdQK0lDTEd5MkhMK0FOcDRENlIzdXNT?=
+ =?utf-8?B?bjZPejY2dXRoZ2pVS2xGMW04MWo2VW9rc1drRXJwaGVRM0JCOWYzdXMzblAz?=
+ =?utf-8?B?dmJSZDQrVU5TMDFtZyt2bGszR1ZGS01IQ2UxSXpSN0lydXl5TGlyMVZLM1lr?=
+ =?utf-8?B?L2dodWdjN2h2U0oxRUVWc0tQdkhCVGF3WFBmeXpObXo5MUMzMGprRTRkbmRK?=
+ =?utf-8?B?a1VnbENtRmc1ZlVndDNHeU82SDE0UEdBNVFUQjFEbkkwUjZsWlZ0a21IY1ZE?=
+ =?utf-8?B?enU3Sy85dTJOZGdtbzFJMDVXRUpUWmE0TkpONGR6a2F1V1FxaDluOStFRWxQ?=
+ =?utf-8?B?YW85RTRHRHg2SHJwZytZU0N3S2lidThCblFpVlVYN1lKWHpnSURRMTZpQnJ4?=
+ =?utf-8?B?dTAwcjVKZ0VzOFlJKzNrNmVEZlBHamhWdU1BallRMFVwak9TU0J4TG0rd0xX?=
+ =?utf-8?B?eW5lSTJUL28wb1k3N2FhcjF6RHZ3L2R0elpBSzdUeVR2eUwxRFVOcEVzc2x0?=
+ =?utf-8?B?dEJSLzRTWmxad3l1TUdCQThNbGV5eDJ0T0NQS1EzTGtXOU5UYTRuaU5ycU96?=
+ =?utf-8?B?M3M3MGd4UnR5SUwvMDdCeU0zQldYS3dOU3VYVk5DTGpQN2p3ME5Fb0todjJz?=
+ =?utf-8?B?THRNWCtudkNxVU1obzB6dTRtVVpYSDZwQmVNR2loWllBWTc0ZlNTNGdhSzBt?=
+ =?utf-8?B?b1hpcTRVcFVQcUhMaHBtdzZIc0pCTm9iRVpJVTluZmRxQ1lYU0NLYjBncDNw?=
+ =?utf-8?B?S1VyTzJCdGJvME5iRWprMXVFOTJGOCtvMGZGb3ZnZ1diV25HR0ZPd3J0VkFu?=
+ =?utf-8?B?SVRrajBLWnNpbDJ3WFJHMWhXQ0tLWTdZVjIwM3ZOblN6R05pNUJBcGV3TExj?=
+ =?utf-8?B?U3FXSFJBK1RJajl4Y3VDT0pXNllsTk5iRWlCcGxNTjU0UERIeUk2S25oNldt?=
+ =?utf-8?B?dVNMRS91TWRCSGdnQXJHdVpEMG1nUkNlL3c2NmQwV0k2Q1pHMThSRmdZcmRy?=
+ =?utf-8?B?RHV0OWcvRHNNVGlYM1dlR0kxdlNkOHR0Nk1MMlNQT1pkcXRSeVQ5VTVKTVF6?=
+ =?utf-8?B?WnIzQVBNTklRYU5iY2RRY2pwYys3dERkS1NOMUhhbUd3SGl4cXd1RlJFWXA2?=
+ =?utf-8?B?ckJDcUxxRUZacVFQMXU4czM5WmRXNG1Ma1JlRUozM3hkYXM1b0FTemZJWGgx?=
+ =?utf-8?B?c01rZ2hyd2lJckpsN2ZYdSswNllrY205YlZSMjJaR21jZlBsdWVMQit5MExh?=
+ =?utf-8?B?VVh5cS9BVzc5NkZuYUJSMkxCMW5HWURUWlhQWC94RXpyN2tvWGZqS2x1TDIy?=
+ =?utf-8?B?eFFPYll3dnQ1SjBUczRJaWQ4NzVKQ2gwUmlzUjAzQ0MvNkxseTdvNXZ2SGJo?=
+ =?utf-8?B?MlFEMG1LWHh1blF2QlZkSk0yVFNLcytzU0hCbVRxRERUZE9LWmhuNEJOaVRE?=
+ =?utf-8?B?QmtyZS9xZjJoU0Z5Tm04UHUwYXA4Z3UxVzhKVzJUUExCRWthQTViSTFLRzIw?=
+ =?utf-8?B?dDkzSng0V0hjcGdOa2NKdy83M3V4Ulc5MVdDdGVPMnFZanN1ZllDQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e605a490-2b12-4d9b-30f1-08df36817a22
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 12:29:44.1007
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: URW1hj3q1wkAXnXg6BOJhHqROYF/oT3v9OLkC461FGqhwnvQHfpujtwqwFPLIg8DmlczNT2gbhqmOniLH2EHkQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4047
 
-Thanks for the review, the suggestions, and the Reviewed-by on 2/2.
 
-> Can you stop removing all the previous conversations and rather reply
-> inline to related paragraphs?
 
-Sorry, I'll reply inline from now on.
+On 10/30/26 16:16, Lee Jones wrote:
+> [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> In the ACP top-half interrupt handlers, amd_manager is retrieved via
+> dev_get_drvdata() and used to schedule amd_sdw_irq_thread when
+> non-NULL.  If an interrupt is already in flight on another CPU when
+> amd_sdw_manager_remove() runs, the handler can call
+> schedule_work(&amd_manager->amd_sdw_irq_thread) after cancel_work_sync()
+> returns and after devm frees amd_manager.
+>
+> Disable SoundWire interrupts, synchronise with the parent PCI device
+> IRQ, disable both manager work items with disable_work_sync(), and mask
+> interrupts again in case amd_sdw_update_slave_status_work() was running.
+>
+> Fixes: f93b697ed98e ("soundwire: amd: cancel pending slave status handling workqueue during remove sequence")
+> Closes: https://sashiko.dev/#/bug/linux-ab458b2e-f505-4a41-8238-a93ceb5d9c77
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>   drivers/soundwire/amd_manager.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> index 1d8a08bda261..f39f4f04db7e 100644
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> @@ -8,10 +8,12 @@
+>   #include <linux/completion.h>
+>   #include <linux/cleanup.h>
+>   #include <linux/device.h>
+> +#include <linux/interrupt.h>
+>   #include <linux/io.h>
+>   #include <linux/jiffies.h>
+>   #include <linux/kernel.h>
+>   #include <linux/module.h>
+> +#include <linux/pci.h>
+>   #include <linux/slab.h>
+>   #include <linux/soundwire/sdw.h>
+>   #include <linux/soundwire/sdw_registers.h>
+> @@ -1199,8 +1201,11 @@ static void amd_sdw_manager_remove(struct platform_device *pdev)
+>          pm_runtime_get_sync(&pdev->dev);
+>          pm_runtime_disable(&pdev->dev);
+>          pm_runtime_put_noidle(&pdev->dev);
+> -       cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
+> -       cancel_work_sync(&amd_manager->amd_sdw_work);
+> +       amd_disable_sdw_interrupts(amd_manager);
+> +       if (pdev->dev.parent && dev_is_pci(pdev->dev.parent))
+> +               synchronize_irq(to_pci_dev(pdev->dev.parent)->irq);
+> +       disable_work_sync(&amd_manager->amd_sdw_irq_thread);
+> +       disable_work_sync(&amd_manager->amd_sdw_work);
+++
 
-> I don't think v5 is necessary. And as Jason said you received 3 review/ack
-> tags and none of them got included in v4.
+The synchronize_irq() approach is incorrect for this hardware. The
+ACP IP uses a dedicated line-based interrupt. Using
+to_pci_dev(pdev->dev.parent)->irq gives the parent PCI device's
+primary IRQ, which is not the SoundWire interrupt line. Synchronizing
+the wrong IRQ does not ensure the ACP SoundWire top-half handler has
+completed on another CPU.
 
-You're right. v4 went out before Jason's tag arrived, and I missed the
-other two tags from v3. Since you don't think v5 is necessary, I won't
-send one; if there is another revision, I'll carry all the tags.
+Additionally, disable_work_sync() is not available in older stable
+kernels, making the Cc: stable tag unworkable without further
+backport effort.
 
-I learned a lot from this patch and from the review feedback. I'll be more
-careful with future patches and wait longer for reviewers' feedback before
-sending the next version.
+The double call to amd_disable_sdw_interrupts() is also unjustified —
+the work handler does not re-enable interrupts.
+
+We have addressed this race in our upcoming v4 patch series using an
+interrupt_enabled flag checked in the top-half before scheduling
+work. This is the standard pattern for this type of race and has been
+validated on the hardware. Please drop this patch.
+>          amd_disable_sdw_interrupts(amd_manager);
+>          sdw_bus_master_delete(&amd_manager->bus);
+>          ret = amd_disable_sdw_manager(amd_manager);
+> --
+> 2.56.0.317.g454f8302e1-goog
+
