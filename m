@@ -1,58 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793326394;
-	b=3Oxxb57Vq7NaiJdk95/t0w5V1bimwEvvM3439DIpuPf/Szel/x1fIsw0RSXnHwkq63L+
-	 VLM5WJ2k9W6CNka8bQG3aHFbtIB10c8s8YqK2XS9duzAL1sgJyeYFnsvUDLWeahzI1cCx
-	 gPZiuHUlc2hcI+dGX4jAthTNELISWK2z+HtbYdO48apyu2NgR1GaeaQ5cxoepKj+5AlFu
-	 /46ULFHF5WTPoW9RdmLeFHrzTNC35gg3CD7IlEIgppPU/dTUYa6DUr53QTUdOXcw7WKvx
-	 xBtwtJ7utzU3+nSFJhakqukCBCGu2BkxfmU7rLyqoWJUOpd7Y5JE/fiAbptXF2lRxjQ==
+	t=1793326746;
+	b=3v/ZHfXyuIX9h/sA77N6uqKMuDRgD/iVmYpW9j5JC7DthbIm70xE0rn7lJTzXlnSPtK+
+	 uaiXSmIn5Ax4WN7rajAp9Y5sOXGg8Y5vUaMtuAaSgbhLKrCp2FwnRWhPWBaKt7pkAMV+0
+	 pvd1l88UzsEMKCoYdOYakdzhPFo2FS3MqX7hu+faGPxp2XNfukUhNg0qTIecEg9xK2F6w
+	 nsxi99Zgj5s2clmmcGsRQj3Q3XCTaUdOWObjhrIUQtJ5iL/NUPBt5dxXuErK2ZrprQSa7
+	 e9Itv8Lz8VjQViHMMaKD4OQSPtmoPFj5Nv2UOUfSCcEQYDx7XEzZsNiV967pFTt615w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793326394;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=s9TN99h06h+xjvhYPwVB3Gbjq5FR8jNNhPs9dg8k7jA=;
-	b=OYZXrkNiZXt2QlUDPJPmMLQku5jJbdvlIK2FU+Y++5qIyLRF9AxwUq0dthFLwp9JINYI
-	 Tc/Y2Gp1oQUBaDab/9fqkoylMsyzvWEXKzjVIaT2X3/245fLf7Ry+OJ9gmcdR19ydhKeU
-	 7/WoJIdwQ3WvNNq6+R/ANCoQUKkjHCfcUxyT9Vaorhzy7zARWpAcqB90UYPkIrxj/o38c
-	 GRKImqOoGyPPker/xESTAMWgMa9MnV1S+TJlE9AGl8MYReJ0NMOolR97wsqEhhnKZIHpl
-	 7OlNhAhA1QwKgLKwI06DSyYN8WcDprD8dLvVWy7j9BPmuxx0dUwQSUmxWCX1k6JFGBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793326746;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=J8PtrZvollsUE+6TVUCbQD6dtsC7bpBv+FlB9tcSdgQ=;
+	b=tMkEkRYWgnyQ2URO3LxmwhGfNAeavGgCtZRNgQIwHb5zkLpyxUjc8vppicBbUNTemaXp
+	 JEE4gZSXZMvKQIdceNhqQwxbyWeaa1FfU9pUh/mPrONXD034TVWktaQd07rMACvVdNmZT
+	 xQD4T+hE6uS0o9cAnhtjZk6XBhzv5r0yraJyKsKoWrnO/wVPaiLiHwAnoKooXBbnNLhfH
+	 SFynHl5CwyiZaDm15L3fu7nQvZE8BJL6dbKytGecjCACGW5+SqA7PKjh6k5jg5A670Ssu
+	 mS1gp7KoFS4Jss3XQNWpHQ4wKB8dfg1BlTMPKJQ+8qv/+vKlz0yAC92zx/fValio9oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FACE606A31A;
-	Fri, 30 Oct 2026 02:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FACE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SeezV4Nz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49A7606A31A;
+	Fri, 30 Oct 2026 02:19:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SeezV4Nz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DCA71F000C1;
+	Fri, 30 Oct 2026 02:19:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=s9TN99h06h
-	+xjvhYPwVB3Gbjq5FR8jNNhPs9dg8k7jA=; b=rz8XzhfXL8g+VrQiWr7OE3/xrn
-	1a0fhwccJ0ErfHYoG0U+c7suy8+X2WWlxQsqHde4WcXnSLkQSkKHS0BBDUPkBtCL
-	l107zRlJ4bvrDkMUC9elASAkB/D+V2O0KCXMfYMEr8Ox5ihQqPCK9J8E3TkZSoOr
-	4Iy5SnHZLETGZliPQ=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.123])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBGif4f_eNq05gFAQ--.28179S2;
-	Fri, 30 Oct 2026 10:12:48 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Cc: Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] wifi: mt76: usb: re-enable the rx worker when resuming fails
-Date: Fri, 30 Oct 2026 10:12:47 +0800
-Message-Id: <20261030021247.8032-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	d=linux-foundation.org; s=korg; t=1793326745;
+	bh=J8PtrZvollsUE+6TVUCbQD6dtsC7bpBv+FlB9tcSdgQ=;
+	h=Date:To:From:Subject;
+	b=SeezV4NzjoQg0GTzqH6csplxypgAtudb2dDqjX2hIDIXKxcYVDqiRzJzIgVXQhzpf
+	 LFgOFJeQHIAhEypaHUTl0Q9x8DSjzKKSW/7zWW+vXfuYXJL2M5p1iE/eKEoCpNqMY/
+	 Mir/k0kNEMc27CkxDJYyAQiD8vQUuaHUKo+50K5M=
+Date: Thu, 29 Oct 2026 19:19:04 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,venkat88@linux.ibm.com,
+	stable@vger.kernel.org,pavrampu@linux.ibm.com,muchun.song@linux.dev,
+	maddy@linux.ibm.com,david@kernel.org,baolin.wang@linux.alibaba.com,
+	ritesh.list@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-huge_memory-set-the-mmu_gather-page-size-in-zap_huge_pud.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261030021905.2DCA71F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,94 +51,100 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBGif4f_eNq05gFAQ--.28179S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF15KrW7AF4UZr1fZw45trb_yoW5GrW5pF
-	WYk3yjyryDGF4DGw48A3WjyFWfAan3Gr17GryrW34ru34rAr1rA34Iga4jvryYyFWvka47
-	JF4qyry3GrZYvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBKb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r
-	4UMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU83Ef5UUUUU=
-	=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUBD2rjYVQKMAACsO
 
-mt76u_resume_rx() returns as soon as submitting the RX buffers fails, so
-the mt76_worker_enable() at the end of the function is never reached and
-the RX worker stays parked.  The mt792x USB reset path relies on
-mt76u_stop_rx() and mt76u_resume_rx() being a balanced park/unpark pair:
-if firmware download fails, mt7925_init_hardware() retries up to ten
-times and calls mt792xu_init_reset() again, which parks the already
-parked RX worker.  kthread_park() then hits its WARN_ON_ONCE() and
-returns -EBUSY:
 
-  WARNING: kernel/kthread.c:710 at kthread_park+0x17b/0x1b0
-  Workqueue: events mt7925_init_work
-  Call Trace:
-   mt76_worker_disable     drivers/net/wireless/mediatek/mt76/util.h:93 [inline]
-   mt76u_stop_rx+0x5b/0x2f0 drivers/net/wireless/mediatek/mt76/usb.c:757
-   mt792xu_init_reset+0x52/0x80 drivers/net/wireless/mediatek/mt76/mt792x_usb.c:477
-   mt7925_init_hardware     drivers/net/wireless/mediatek/mt76/mt7925/init.c:152 [inline]
-   mt7925_init_work+0x49b/0x7e0 drivers/net/wireless/mediatek/mt76/mt7925/init.c:196
+The patch titled
+     Subject: mm/huge_memory: set the mmu_gather page size in zap_huge_pud()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-huge_memory-set-the-mmu_gather-page-size-in-zap_huge_pud.patch
 
-A stalled RX endpoint makes usb_submit_urb() return -EPIPE, which is the
-failure that leaves the MCU unresponsive and triggers the retry loop.
-Skip the remaining queues but always re-enable the worker, and still
-return the error to the caller.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-set-the-mmu_gather-page-size-in-zap_huge_pud.patch
 
-Fixes: 0d2afe09fad5 ("mt76: mt7921: add mt7921u driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Subject: mm/huge_memory: set the mmu_gather page size in zap_huge_pud()
+Date: Fri, 30 Oct 2026 05:37:36 +0530
+
+Unmapping a device-dax mapping with 1G alignment on powerpc radix kernel
+built with CONFIG_DEBUG_VM triggers this warning on every munmap:
+
+    WARNING: mm/mmu_gather.c:176 at __tlb_remove_folio_pages_size+0x38/0x230
+    NIP [c00000000063d508] __tlb_remove_folio_pages_size+0x38/0x230
+    LR [c0000000006fb688] zap_huge_pud+0x1b8/0x2d0
+    Call Trace:
+     zap_huge_pud+0x170/0x2d0 (unreliable)
+     __zap_vma_range+0x1604/0x1e20
+     unmap_vmas+0xa0/0x1f0
+     unmap_region+0xb0/0x130
+     vms_complete_munmap_vmas+0x120/0x310
+     do_vmi_align_munmap+0x1ec/0x240
+     __vm_munmap+0x148/0x220
+     sys_munmap+0x28/0x40
+
+To trigger this - it is enough to mmap() /dev/dax0.0, touch the first
+byte so that the whole 1G is mapped by a single PUD and then munmap()
+it.
+
+PowerPC needs MMU_GATHER_PAGE_SIZE in which mmu_gather needs to record
+the page size for which tlb flush is needed. zap_huge_pmd(),
+zap_pte_range(), change_huge_pud() etc all do this already. However,
+since commit:
+  dbe54153296d ("mm/huge_memory: add vmf_insert_folio_pud()")
+
+a device-dax PUD maps a real folio and zap_huge_pud() now hands it to
+tlb_remove_page_size(tlb, page, HPAGE_PUD_SIZE). At that point
+tlb->page_size is still whatever the previous user left behind, which is
+0 for the fresh gather set up by munmap() and so the check fires.
+
+Fix this in the same way like how other similar paths do.
+
+Link: https://lore.kernel.org/8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com
+Fixes: dbe54153296d ("mm/huge_memory: add vmf_insert_folio_pud()")
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Pavithra <pavrampu@linux.ibm.com>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/usb.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/usb.c b/drivers/net/wireless/mediatek/mt76/usb.c
-index a9af3aa6b80a..1c9bf3679774 100644
---- a/drivers/net/wireless/mediatek/mt76/usb.c
-+++ b/drivers/net/wireless/mediatek/mt76/usb.c
-@@ -775,23 +775,23 @@ EXPORT_SYMBOL_GPL(mt76u_stop_rx);
+ mm/huge_memory.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/mm/huge_memory.c~mm-huge_memory-set-the-mmu_gather-page-size-in-zap_huge_pud
++++ a/mm/huge_memory.c
+@@ -3040,6 +3040,8 @@ int zap_huge_pud(struct mmu_gather *tlb,
+ 	spinlock_t *ptl;
+ 	pud_t orig_pud;
  
- int mt76u_resume_rx(struct mt76_dev *dev)
- {
--	int i;
-+	int i, err = 0;
- 
- 	mt76_for_each_q_rx(dev, i) {
- 		struct mt76_queue *q = &dev->q_rx[i];
--		int err, j;
-+		int j;
- 
- 		for (j = 0; j < q->ndesc; j++)
- 			usb_unpoison_urb(q->entry[j].urb);
- 
- 		err = mt76u_submit_rx_buffers(dev, i);
- 		if (err < 0)
--			return err;
-+			break;
- 	}
- 
- 	mt76_worker_enable(&dev->usb.rx_worker);
- 
--	return 0;
-+	return err;
- }
- EXPORT_SYMBOL_GPL(mt76u_resume_rx);
- 
--- 
-2.34.1
++	tlb_change_page_size(tlb, HPAGE_PUD_SIZE);
++
+ 	ptl = __pud_trans_huge_lock(pud, vma);
+ 	if (!ptl)
+ 		return 0;
+_
+
+Patches currently in -mm which might be from ritesh.list@gmail.com are
+
+mm-huge_memory-set-the-mmu_gather-page-size-in-zap_huge_pud.patch
 
