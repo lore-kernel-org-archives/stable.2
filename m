@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793327588;
-	b=sr/tUZX4DMuNegvxlLrK6qCx1aK5r/w8lOflHbm6cW0hvZ8BFaTMrWs62J+3oy7VeW+K
-	 IqZLoRt5SBIAU+eJAD6DleJY6pgh5+I9ZNSfMrDwIYI4v7yQjWBI4WglN6Nfxn+Pcs50F
-	 s7RIFR8hDtFJchp7sLQLYlHJFxq1JuitD9yMtdng47U0rCVDxlnJboNPg+1dpSbH9M3Hd
-	 Y4xu4xrsYp9GHzGV+mFX2+E213EV/OBTHxx+srsjC/iQ9ouWy5BYNVGpmtEiK8E0LBYrI
-	 gIsWy8TKFdimrtlkLcU88w4zjaQ/a1woOrEUeLLLAvhk0ma4Km/THJiTZnQHZCKlZ+Q==
+	t=1793329034;
+	b=xsh9SRlR3vxmEsPDWdBCAs7s+qhUbFwcyGFfYKX2GQu55dLMU3UFKxB1KcVci2M4QI28
+	 WAan3STfdGqmDgNiCPGVG93o6Ag30DILvrsyU/HyYMg9afx9UtTJsacrbxFjeiu8KHqiX
+	 jMKXWnAWvoGi6nZ5VKiD2GEG7RKvKVH900nIWZ0Yke+EkV4azcUb+RYUZN6EpsnnOr7ET
+	 eGrF2J+iDxgIn3EYNOzHpVIBRlJrcooeZ4N/Hx8QZvdPz/mius0rKf9d5IUDuEZN4UEoH
+	 fTXUM+HjvdQWL9AGtMeVfcdBC+JO8qvpDxw5fFQl9Ns9W/FaNwaKg8ldLeA39vYzcSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793327588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329034;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SIKkfA67UvQRqidJv7Hfli6cr7/y7nUfM2Bx1BgiLkE=;
-	b=orOViOT9dU/wNINf19LGY7AhAdXudGK5QZazb/FRCwLcaGFonpmnwcjCbMMvTuH9Thbo
-	 6LkHu2DzZKhqAZEsw61xk7L/Dq97FTBXfWfy5njdC5OQ61Szeo5hcQWvvVoFYt55VKglA
-	 6NoG0YNFhcl1l58ENO14lnF1vQKMppd7RxrsjoyZdnga0DpoxzBNFJXCqXBW92XXEGwPB
-	 4FsD8pERm9S1MNmMpmmQ/ofmmFM9ft/odFPeekdndzTSeWnCYHqWUAnSZKebTCxOu12uK
-	 tK1jrchltk9UTGGHwhXV7lzue/GJmlBxTVJP7qyaK75+kt09iuE2EhArP3iS1fcw9YA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=/ZdXC9RaNc34pyVI5ALRxFES86jLTzutVsfPjdP/KMA=;
+	b=atEoBO2YxX5ZKcRKWNV0SMso5L8EodBzg167yYtQ3vG8nMhN9fiQ7bxU39ULSA9hDISJ
+	 6/M1ZrSv/oR9J8ZnIKn4yH+aQ52XXosfok1qmkMJxKRCKM4wTEmeIngjyxu3bFthoxS2U
+	 /Ir/SAgZbHcAUos2q4gKvwNLFiPjZhiOQgQF/oNHLmPQrEXJPRYukEy+3PgoCznquuBad
+	 6h2PkIL8Yf0hnca10+79kXoquPEuqWLYUAzKCsGac/Am7U4OGssKHxZUOf/9P3Vw32vKs
+	 S8jet2ycnosPmbupYuSfBqpJ0ZpuLTN6lDYGlmmb5vnb32xeyQXsnf3absVlfMKhgkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QyXdKLmK;
-	arc=none smtp.remote-ip=74.125.228.8
-Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mCvEF/B0";
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7157606A324
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:33:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7157606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E34606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:57:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72E34606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QyXdKLmK
-Received: by mail-pz2-f8.google.com with SMTP id 41be03b00d2f7-cd1da63bff6so2622a12.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:33:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mCvEF/B0
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a058315c79so75312b3a.3
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:57:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793327587; x=1793932387; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SIKkfA67UvQRqidJv7Hfli6cr7/y7nUfM2Bx1BgiLkE=;
-        b=QyXdKLmKaR0WHK0cJTyFaUEpfibyyQ5fW3kfeppI+vJOMhX/FDqjeS5UvEkcfOh/Uo
-         1Wshvu8W9MHdPi+8huvuLQyvCeClepU067PEo9L6qJSpL3CLideAGORYNP+htWkiex35
-         cuuJAzAs60zHbt9J/E0/3obXUk5lF8JFwiBzv/wsVpJ1WGdxrVyuTWIJjTIDNVs2eKAo
-         x8+ehuhDeYWrDvVihQjj1onRG9tt+RHuw9H+aoVnYhPozwBhthzYcwLwFNEn889tbE78
-         qia9oIKxu6TAi7PmpnL4ocyoXPtmVJtBOpTsYLyaFb6R2iZyosdbH9WnJkpghCJWGGoc
-         Mc9w==
+        d=gmail.com; s=20260707; t=1793329034; x=1793933834; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ZdXC9RaNc34pyVI5ALRxFES86jLTzutVsfPjdP/KMA=;
+        b=mCvEF/B0x+B4fIM/iYE4URUqrgWef4VAXimGI6qerYmN+LkM2lC00w7qib/QTR9K+x
+         q8EDgBKBICHnCc3FmbAcwYG/Tr24NW0beOLrPAIAuhvf6gRTt959p2G2o0ya9TgSBY4P
+         lg8942Gku5CIXn5oyE0+a1T6rmsFcJR/zqf9T4MTsND/pXISxluBRn1bZemCja3/B9xB
+         eEB9pOr6KeAozcL+PVhrlqO4upaRtvFRBBOnTOOABAfVJ9uB6HbdnF6mDjICro3ysOHc
+         xQdeWUG1hAdFrw+eX+ckjPQrlxeE4b4fQHUjwJz/sG4pib0SoAGI8zPS9fu2RK8eZUQp
+         lEHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793327587; x=1793932387;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SIKkfA67UvQRqidJv7Hfli6cr7/y7nUfM2Bx1BgiLkE=;
-        b=SoTSlg7DrLIw1s9T+V/7zhhfNTcFmOKMSPdw2eJLQnEqi9tmpBQMoZKwk1ro1mKhHZ
-         X8vxeV5FmqeqUaLq8cHkoVxON9B9LVXCB9XoXgtY+n+GVuDsX60NIYKOihzcIMLgPuHe
-         iBFsYWoepER16C8csMTaywu8ixbTcToqPMtCWpMDHMqhYlcLJiJpaSrbm8kYGJiJTDGZ
-         3eBC31ETPUK9R/6pUwYlaS+Gq8Lw9hj/PvMmLJWzXc8JLJuoWWc9zHsKuWpLCW8tJN2c
-         7tl2sRRlbkPQk0oTycXnnS5F23JzrKA6NhdbE5thbvyqhcRax0zQClSTaP8DhbOdVwOC
-         oVTg==
-X-Forwarded-Encrypted: i=1; AKwUvBz3THnxeZQIhXLjm2lZD2mRrR7ePbw9bLJPeiRHIuwOkPZHk62Y1JBd+X8RUAAnr94WS7FAdvY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/qkbJ3tZhO7pa6+/F+uCiJvNF5wtRjlBBUuBeB150S/4Nz6i3
-	CbRM4xZls3+Mc58uJUccI9Wa4DwPHgIUTu81xaOhH9NcoVtnc1dN9jHu
-X-Gm-Gg: AYBFou1g4f1Jpnvi7BYV9GpyXmEaSjRnlSw7KjNGnVsbbT/nUGz5H/zgJPQui7fBzGz
-	Uae5DIBM3B9a3JwXLqEyu7T1ZB9AFvV3Al3cMqA3i4yXeKc61dRiiI1iAVrNQtoPtXpuwme+Fxl
-	OrDmYNTUVKKMAomJSO7gzzJd4x70Kx0due9ge3pIcy7QSo3WbKXpOTyhbcbWMR+iV0WiQOrzluO
-	qq6CgqkC2TGqa//MXhj9c83yWgumBpUJex+VeODUJCLvt1jSkJLkcMVy74acIHfbNoBaIIcHdDQ
-	NYk68QTi5eKqQ/hja3leNIk9W1lbasmuoBJbpyzKFO6z+P2wBbLNUHe9B5Gu3kj3DNxGgPqGq+W
-	/YZ8zqjy4OUJqmzfwGdbWiyV4DQRKOHt8XO84gmvA85N71JE1rsQwgILyILmaIjAK3GaRkOFG4P
-	Qlvp5fz8k05f2WSJv/8Z3ucoYk5kDs2qiqo/jHe543uR7pekITbYvauDzEEEVmSzcRphN2OTFCo
-	3FTDJioqAhxuEk/8fHsIKQUnqoTPXimJSsCrQESjmMd7b8MRz+SJjenDrHlw1K+2tOGcNYvu4Mw
-	ZstXpU5veqRqM1MeiWslZGkmxyXUmQXjlf0CTYGd6fKthelJI+iKceY=
-X-Received: by 2002:a05:6a00:a256:b0:882:2195:5a73 with SMTP id d2e1a72fcca58-8a9bfde0494mr516804b3a.29.1793327587137;
-        Thu, 29 Oct 2026 19:33:07 -0700 (PDT)
-Received: from localhost.localdomain ([58.247.233.220])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9eef95f2dsm152216b3a.10.2026.10.29.19.33.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 19:33:06 -0700 (PDT)
-From: Rongzheng Wang <testwrzwrz@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Magnus Karlsson <magnus.karlsson@intel.com>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	stable@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Rongzheng Wang <testwrzwrz@gmail.com>
-Subject: [PATCH net v4 1/2] xsk: defer software checksum until the skb is complete
-Date: Fri, 30 Oct 2026 10:32:47 +0800
-Message-Id: <20261030023248.78802-2-testwrzwrz@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261030023248.78802-1-testwrzwrz@gmail.com>
-References: <20261030023248.78802-1-testwrzwrz@gmail.com>
+        d=1e100.net; s=20260707; t=1793329034; x=1793933834;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/ZdXC9RaNc34pyVI5ALRxFES86jLTzutVsfPjdP/KMA=;
+        b=Y0C/jO6b16GHFdMRzt1Gcop4JXtmbZrWWCHi9xjHhE/VAkyhByvj6vWYaMVCptWHl4
+         er7f+JfYDSVmg1e7x7+uuBdARsu2O7BwCuSpXxM8QMKuh4kfOs32LsCdZVB3PNc6Mm6W
+         /16AfL21ziILbV+we/61xEVt9ql97c0mWRo9FR9qpF0yLtvU/cA0Oc/jAGbtXP8x4pjn
+         O3McadrxKcIOXhFPIjKf2JyVMIJbAMUVi8oQ9xcoe5V97sc0MiLCWXUEz4hqutf1LgKj
+         8ecAjlXnyY/rzVeXScdwToieWuidZqWSXXXY+VpCNVbGHuKnPo1Cr779yARWGCMyU/gw
+         hwCQ==
+X-Forwarded-Encrypted: i=1; AKwUvByxBBgowd9V5M3AORFMqB3gsoiSIK23COETZOvQUpcCTFvadGTQdGIyHu1232EZ/QRTp0bZBkg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ30th9SBRoOgvBATkf8hI05dnmr7u4ZP1PT3Gx5XeRcpTPNOxu
+	Jy/ABRN8bzuo6gY0k2OomlSEbre7wj/jfGBhM7j5z5yZCqpKCWD5bbUQ
+X-Gm-Gg: AYBFou2OH5KFQrb1TtoREd6nbPT0pBlMqlTXOynDhWO6Sty4YOcItQX5pY/9RmApGAk
+	8/iDOd8EeffFHnKuoLV3CcX5uhiPVseDDyBwuJMNyPSERYMP8/VnscAg9aP+DkUxsC8/DNZZfCi
+	gloBGL3TO3yckEgBYmg+RD9UPTcw08MO3q4m5viOjx81xbcVha21w5Ft23GNMjk81haOvqR2Lsp
+	VeXHugpnzOWAZMIOSuHoYXfNLoZpn21mEMxA2CXKXZl5kclYSvYSy6docuMLuZWUORZxNrifBwQ
+	xuNOihOMWrw1183jvBFGt0IqYILtycHwgIhPUqOjzzkIYwKZsI8imXydAIHYA6xPlTVbUGazqQB
+	T+WP4mYujqEs7xBT7OIYsGrUuZJgD5y8POLqh8UA6rn5T3hmgaBEtjZXJdl8JspP/voqrOgYoZo
+	dXOCZMaR0bq4Gz1NPfFsmBJGNvsDu7ui5Xmv4bu4mWfdhHl5o/STHG7FfVXGsvZQc2LI2835795
+	wDa83jEok1Rcvx2E9IC3mhm+LlWQqwhH8wrQvl9ZSFbhDDkjlv5iyS4pu42MKoYaKcrqPODhH4d
+	QBO5uiQTgFhZu2S399xbmidz/Ot3PJHp4b9/IZaV
+X-Received: by 2002:a05:6a00:290f:b0:8a3:df84:4c14 with SMTP id d2e1a72fcca58-8a9bee525bbmr794496b3a.57.1793329033656;
+        Thu, 29 Oct 2026 19:57:13 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9eef95cb5sm162643b3a.9.2026.10.29.19.57.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 19:57:12 -0700 (PDT)
+Date: Fri, 30 Oct 2026 11:57:10 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Shengzhuo Wei <me@cherr.cc>
+Cc: liubaolin <liubaolin12138@163.com>, Namjae Jeon <linkinjeon@kernel.org>,
+	ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
+Message-ID: <auQHhmnBbntRem3o@hyunchul-PC02>
+References: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
+ <374bf856-f880-4fa2-abec-c4b2a063bf57@163.com>
+ <auLlFEHMZvANXUvU@kernel>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,76 +100,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <auLlFEHMZvANXUvU@kernel>
 
-When XDP_UMEM_TX_SW_CSUM is used with multi-buffer TX, xsk_skb_metadata()
-calls skb_checksum_help() while only the first descriptor has been added to
-the skb. The checksum therefore covers just the first fragment, and
-skb_checksum_help() sets ip_summed to CHECKSUM_NONE, so the remaining
-fragments are never included in the checksum.
+Hi Shengzhuo,
 
-Move the software checksum calculation to the point where the last
-descriptor has been added to the skb.
+On Thu, Oct 29, 2026 at 02:17:56PM +0800, Shengzhuo Wei wrote:
+> On 2026-10-29 10:07, liubaolin wrote:
+>  
+> > Hi Shengzhuo,
+> >    Could this deadlock during MFT bitmap
+> > expansion？ntfs_mft_bitmap_extend_allocation_nolock() can recurse into MFT
+> > record allocation while holding mftbmp_ni->runlist.lock.
+> > 
+> >   With L being that lock, could we get the following interleaving?
+> > A and B are $MFT::$BITMAP folios; B is outside the cached iomap.
+> > Time flows downwards.
+> > 
+> >   Writeback                        Bitmap expansion
+> >   ---------                        ----------------
+> >   lock A
+> >   set PG_writeback(A)
+> >   map A (take/release L)
+> >   add A to wpc->wb_ctx
+> >   unlock A
+> >   [BIO still unsubmitted]
+> >                                    take L
+> >                                    extend bitmap mapping pairs
+> >                                    need another extent record
+> >                                    ntfs_mft_record_alloc()
+> >                                      mft_bitmap_alloc_free_rec()
+> >                                        lock A
+> >                                        folio_wait_writeback(A)
+> >                                    [wait for A's I/O, holding L]
+> > 
+> >   lock B
+> >   set PG_writeback(B)
+> >   ntfs_writeback_range(B)
+> >     __ntfs_write_iomap_begin()
+> >       down_write(L)
+> >       [blocked on L]
+> > 
+> >   Cannot reach iomap_add_to_ioend()
+> >   to submit A's pending BIO.        Cannot release L until
+> >                                    A's writeback completes.
+> > 
+> >    ntfs_writeback_range() obtains the next mapping before
+> > iomap_add_to_ioend() can submit the pending BIO.
+> >    Would we need to submit that BIO before taking the mapping locks?
+> > 
+> > Thanks,
+> > Baolin.
+> > 
+> 
+> Hi Baolin,
+> 
+> Thanks for the analysis. I checked the paths and agree with you.
+> 
+> Following your suggestion, I prepared a change to submit the pending
+> ioend before obtaining a new mapping in ntfs_writeback_range(), clearing
+> wpc->wb_ctx even on error to avoid resubmission. I plan to make this a
+> prerequisite for v2, retaining all six waits.
+> 
+> One concern is that submitting at mapping boundaries may reduce BIO
+> aggregation, including for ordinary file writeback. The change has
+> passed object builds, but has not been runtime- or performance-tested.
+> 
+> Does this approach look reasonable to you?
 
-On a checksum failure the packet is now dropped instead of being returned
-to the application for a retry. This path is not reachable with the
-existing metadata validation, but the behavior change is intentional.
+I think the early submit should be limited to $MFT:$BITMAP only.
 
-Fixes: 11614723af26 ("xsk: Add option to calculate TX checksum in SW")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
----
- net/xdp/xsk.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+> 
+> Thanks,
+> Shengzhuo
 
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 33475b180ea6..aa6b010192ad 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -1011,14 +1011,6 @@ static int xsk_skb_metadata(struct sk_buff *skb, void *buffer,
- 		skb->csum_start = hr + csum_start;
- 		skb->csum_offset = csum_offset;
- 		skb->ip_summed = CHECKSUM_PARTIAL;
--
--		if (unlikely(pool->tx_sw_csum)) {
--			int err;
--
--			err = skb_checksum_help(skb);
--			if (err)
--				return err;
--		}
- 	}
- 
- 	if (flags & XDP_TXMD_FLAGS_LAUNCH_TIME)
-@@ -1030,6 +1022,15 @@ static int xsk_skb_metadata(struct sk_buff *skb, void *buffer,
- 	return 0;
- }
- 
-+static int xsk_skb_sw_csum(struct sk_buff *skb, struct xsk_buff_pool *pool)
-+{
-+	if (unlikely(pool->tx_sw_csum &&
-+		     skb->ip_summed == CHECKSUM_PARTIAL))
-+		return skb_checksum_help(skb);
-+
-+	return 0;
-+}
-+
- static struct sk_buff *xsk_build_skb_zerocopy(struct xdp_sock *xs,
- 					      struct xdp_desc *desc)
- {
-@@ -1275,6 +1276,12 @@ static int __xsk_generic_xmit(struct sock *sk)
- 		if (xp_mb_desc(&desc)) {
- 			xs->skb = skb;
- 			continue;
-+		} else {
-+			err = xsk_skb_sw_csum(skb, xs->pool);
-+			if (unlikely(err)) {
-+				xsk_drop_skb(skb);
-+				goto out;
-+			}
- 		}
- 
- 		err = __dev_direct_xmit(skb, xs->queue_id);
 -- 
-2.39.5 (Apple Git-154)
-
+Thanks,
+Hyunchul
