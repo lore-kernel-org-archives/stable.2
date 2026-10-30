@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.64
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.8
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793373402;
-	b=VNGj7h5mT8PRDt45z6ytS3fY3sr2xweqPwOp26MsIOj/xnfa8bAXRYNt6QCw+VH9sfme
-	 tyBjxztZ8xbUlxOboQlIO9l+65PYG6t/snjIeCAvhVGVBDucZV81jk6LMXGqJ7/Jmhp/L
-	 dGCK4yJX4QAXZamwYNHa9pW93HxIoJdxqaOJsA8hBzL6wLHvYyt+XMOskfHxEW2TTRWUZ
-	 3H34OH1cx/lqhDutRWhRAEx8KuI+ZyUOKvMNBw049rOyWoLbJnEqyZJpWki5AtN9Tap9A
-	 WTu9mpLpibXEfWiM7Fx/PlsXhWZTUKYL20KWIr6uj7s0VXWRJZ4q6O3v6gXVfQxjHMg==
+	t=1793373413;
+	b=kCacosK44rhn3XefwWfDlDsOT8fiFk7UPHSBTmqCuBwshd0L5gpCPhw2+ezUfhDW5YjP
+	 P0n6P2SRUQ5lJtoA7TqhBrYnVQ9YnCB6A2tMYZ+Zbc8WQIeBfLntVpuubORErcOOgvj8c
+	 8CURHFaX00PfbUij9Zj4/4d1zYJ+Og/qwSBZdGEvGcblT7xWX4ehNtM74Nlm/PnFliI69
+	 6BpkJhzIS/6ZORreII7IUWgR+KlNofdz48HVnr8xBz7rUVrcBywIc1OIlLySyF5whGAuB
+	 /Zj/hP12IWlU85l+cxm+MYERtjstEYD4+NcXyWGYOa8VKBHaWWjBVSE+b2oJXP0LCCQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373402;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373413;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:Content-Type:Content-Disposition:
 	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -24,72 +24,79 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qzCJMTUBINmSEu3oRmunHpTwoUl8UzbEwXY/5Mw14L4=;
-	b=1UcDwHBkoBNp8mRgv0ZB7evRhs4qVmiRyLxkG7jiwfsV0IrWNauWroSwK3IpvKzXBt+U
-	 I/0JXszdesEt8UP/daR9skhF/wy0mRDIdqXBaZquzTx+m6qlm9ycvdLXY3K/yVLBeem7O
-	 Umr+fw9ytC8UUaISONKcgepcJ7IrcqYfo+ohvxaqf6vRx5D9Cc58i4+lL8zMrbQtgN4wg
-	 GU2ytcT5og0BNyXICr0SLSXXbzJiWjKNUIGrn29eiXMYbJH4SKOWmSu+cTcMGbjHq2dW0
-	 yfoDh2bfhkSjvqsZ86PxFv/QZ3u+3TbJARxRjf4thwcLhibORaR180RkpXFM7b9kiFw==
+	bh=FdY1F5DdjPISd9Qg7wQGWOZVWGwLHnKYxLWv6t1q/x4=;
+	b=Tsn0JFECkRpyuVRriL9ZdE7DKwApDTIAryHVjwRB7U8I+ETPcaha5+D6ksy7erGrBw5b
+	 Y4USJTmswfpK0oS6+BfaFTQLYmgmmctwpI5+0H/tlwgq4qFmeX3Wag4P0lcKMLcaFps9k
+	 Bxy9NJ+DemfHMt6zQjzM2zRiBn3gA9VBk/evQu3KzLIEcnSiLFyXdYupe1rbc6DYt5OY2
+	 mNPzySaMefkr0UH+75GzcX3TFHxk+QjheDUZ68EFMGG7x2J1G4EtAXTbXrjR/B4QRoeEi
+	 7JBYUbnMVLHUjoMvhJWi16JDzC74QKkPIDuY0xcPJAa6LONr6Wzk57C+y/5QvgO+rzg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OkjEzQqs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.64
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010064.outbound.protection.outlook.com [52.101.85.64])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=e9FdvSmt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.8
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012008.outbound.protection.outlook.com [52.101.66.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF9B606A31D;
-	Fri, 30 Oct 2026 15:16:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBF9B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE72606A31C;
+	Fri, 30 Oct 2026 15:16:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EE72606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OkjEzQqs
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=e9FdvSmt
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KDLBwsnWY3rrCSk3LEc/3ljrsZW3W43VUk2d9RehR2mveYLbF+7UNGao5AoZvRnwg8m+26m9w0NTC3ccYNL/Lh352mLS0Pt4PzHeenottuD5kN+IwEyQ0pBV4qcyKLceWxRueF3rknj7C3UUEBn4TWUNq5c9XzcGFojEdFUjLm9HsrzakNxJ4eOrUT98vVeyLrnnYUQmMbJWe0B3KS4QBQ8z8MJIZIeAEq/G3CxlKtFw6WeTrU1pqNEq+j3v4OkppX1bNybd/feRhG7kvpelcHz62pHbpFczktrsO6muZOoonKZKQkl2X/rTHAyDnb2sV81Ok+88cuAO+fG78taihQ==
+ b=RQ0+B5qzrDQbG2ClxNFgRlmNUawg38/Dc24SET4+Y/GSkMSAsbs7avsU2I1Am2fR4jB+vht0IWFWoHuDO3/K1zBt0zl1bSZDLV+fK1Z8YBWFL7z9bGEGYj6D7laXRRQUFlTEvdC41i12bDJ2I27X0/22WDwq1Qc287jwWSZN971Ws0eyjRn6yKH1AkYJ6XlQeFU1HcVZOKitSKK7nEiroW5Rl1PX03SLdj+ByHf3c2jW2OKdO87prfOR4mpcV6Hm9ngaCZWQ3SS3kc3h7F/+2XIvvGqbRnOdbLdPIhZZFUvMjdO61bZizuA9thZupLLMQ/aUtnu+OgCIG3WjCe57eQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qzCJMTUBINmSEu3oRmunHpTwoUl8UzbEwXY/5Mw14L4=;
- b=wWa8R9JZPrf3q8ILg3WSpTwbZ/nvucy+o/4+KMc/hWTn6UvQbYskfKFpOO4E+KeKBOP0Em3fsY7U7kA72BHZCtPo5DDJCVy0qkOhvLZVoSjG7yNb0PwiUAqTKsJAHbMh4HuBWTBUqIeC7ep20i4E0G5KuBTBfBzN+sUkJR5rgupgYEZxHuyGc67KScbnLKb7zfns2grMdyETCTpo4VhQlydE9PovPCHLGlffcHwCDqtO3cQEOlI8ByEKrRdDCIFn3J/6+qNMIZtYm+o9FyKtOYDDcelRgNQOLpUFH+R5vo9EJ1wLgN6zfZu5a5ecY309NzaMict/w9UNynNfVEnRHg==
+ bh=FdY1F5DdjPISd9Qg7wQGWOZVWGwLHnKYxLWv6t1q/x4=;
+ b=KtCsDiX+PPyIKwyZbTOjWR7d0d8JQT2+bjA21JjTzCa6aAaX7jrhIYjBjGhbueA9EiAaTMxRgOZPeMopfOIouYkGyaDu6g1xVQCOUnN5aVZN52t143a7n3nYnpGVJGxxlnfnVG89YShKieIPKLVMySMaGGtpIx2ynF4meikpoaUEQGHjfk65KFa69n+tuBF3kgjFngokFxNiQivzlfAeA2qPFS/cHxs6mX9As00iE+tauauaDSDRK0to0Ccy4zTLdSsHbUfKfH+WGaaUcAW36UyxK3crauLlokZAOCz+bLY6DWIxUZgZlL/OG2pkXBULXshnaZwchjnMdeMGhhYJSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qzCJMTUBINmSEu3oRmunHpTwoUl8UzbEwXY/5Mw14L4=;
- b=OkjEzQqseKfPx8vJ6cQ90//JF4jzeaNKa6k3Ufrj/2+yPPD66NgLmKC+C7pd5D4qMHECZ7Xi07GBh66lOn8PBiWutLmRZERExO7hHK+iNGWTfzBHUy844p/gdh4GZ0n5WbcF/eeESMcr5T4d6a2LvgL6kHRW8v4ulsCo4J8HFoRsVM6ahzR2Sxq8VHhvV3ATjgw+nHzjCLoG8snUBDHH+UZb3QLvlVLADgsIziLltBSWlJtmzYNAhbZ3zATVjy4eJxhbaEe69DesLGicv2699L8J220k23SJDyQNtWhAGAmMe7qVNlS6lx/VZPQSspwFc8Z0knVJQhHts4LDtbZb7w==
+ bh=FdY1F5DdjPISd9Qg7wQGWOZVWGwLHnKYxLWv6t1q/x4=;
+ b=e9FdvSmtqAvcRzPFunrqFrVFgLyU7sCIjVkkfieAf+TkX5yByoT3W4+QY8sE0fNgEbMtiqiGGROm5HIl/bismNdpMet+cMUV9dOO+oRTmg0MLWo5N5nB/Vwb0Zdg6y2OSqq5fX+a5lHtgO8VZEgKlK+Xwt8PySg9XqfRBn0xcR8kEPsGiBBmPjyQ3l54cn/JYZLZ98AZnFbrP7lwlcvXEYgYNsQx33xavm4SoRgq1pwVkfbpProKwZJ/ZckzMJs3dOrXVHXdN+jCp1T03V+nxS0VwCnRx6wbTBYxEg5exV3+ZctV4oDqWvDQHS7+talwXgoxWQJ1QBNf8T+s0TNTwA==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by IA3PR12MB062244.namprd12.prod.outlook.com (2603:10b6:208:711::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 15:16:39 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 15:16:39 +0000
-Date: Fri, 30 Oct 2026 17:16:29 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, kuniyu@google.com, xeb@mail.ru,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	yana06070@163.com
-Subject: Re: [PATCH net] ip6_gre: fix changelink conflict checks for L2
- tunnels
-Message-ID: <20261030151629.GA85001@shredder>
-References: <20261028115710.27806-1-yanxia@cmss.chinamobile.com>
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21) by VI2PR04MB10713.eurprd04.prod.outlook.com
+ (2603:10a6:800:275::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
+ 2026 15:16:47 +0000
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 15:16:47 +0000
+Date: Fri, 30 Oct 2026 10:16:37 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Viresh Kumar <vireshk@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, stable@vger.kernel.org
+Subject: Re: [PATCH v4 4/7] dmaengine: dw: calculate residue separately from
+ completion
+Message-ID: <auS01eEyWjGD03MQ@SMW015318>
+References: <20261029-submit-dw-dma-synchronize-v1-v4-0-fea447d9f285@gmail.com>
+ <20261029-submit-dw-dma-synchronize-v1-v4-4-fea447d9f285@gmail.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261028115710.27806-1-yanxia@cmss.chinamobile.com>
-X-ClientProxiedBy: TLZP290CA0004.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::15) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+In-Reply-To: <20261029-submit-dw-dma-synchronize-v1-v4-4-fea447d9f285@gmail.com>
+X-ClientProxiedBy: PH0PR07CA0041.namprd07.prod.outlook.com
+ (2603:10b6:510:e::16) To AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,100 +107,295 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|IA3PR12MB062244:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7c94fe9-782d-4d6a-c209-08df3698cbaa
+X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|VI2PR04MB10713:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02e8ea04-d9c0-400a-1cd6-08df3698d078
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|56012099006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261022113327099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|7416014|376014|261021121427099003|261022105027099003|261021123027099003|10067099003|261009223027099003|261022075727099003|56012099006|261026121527099003|6133799003|18002099003|22082099003|5023799004|11063799006|261028144727099003|4143699003|261026140227099003;
 X-Microsoft-Antispam-Message-Info:
-	Rm0otVqeCo4xdTeOw9pl7Ox1hN59joSCdhyNDKO+L20fKiIYCpYtAanc5RO4uHowHxGH1oFISTZs5WmNdSD1se765vaE5AQNPxTM4Xb1v+cpjD5xfazYXtPB+0fXueGhL+vrfZTP0wJcVMK7eOZQ6mgDr50E7WQL1UVASIInqoParehcRdm0c3jy6xQaveXubzA1cG6Q8HVRyHUaMBaidMup74R8GAJbhEBEV64EHrLC1s+lmhbezu5S0STP+TF1gura7bkqycVbG4BFvr0K7vTTbh4H39gqSqSGduhLTfLPYiYZbGCcPYUY5WBLgBIhGv5WjcqivKLuqzpxSqwFq3ekuHwFc9DXABCHXb09dHtta4tnOSz3o4A/bOR5K22zGT0gEAiEjMtQhjYxbw/52glNF0p4zLmxv9XFKySYLIu5T40NopFtKviSkl9i8m0BFVyMLh0Mj73soV1t0L/y6fRWW4K+HzAPTjBFmpk+GkAZ1pF2W0pQjybUuJfHMoonu0Yi7ZnTcuFqQW+plp3+giurYyHQNaIIUwvm9IGrV5n9Ihd/LO3rwUJ2trx5qBauuoLoKpVWiWHOn7+kHh4A0gUSgASldpGltCJdAg0O3tGVJqwN4sT9WQTfN6TPz8Oq3Hrv7Qd/FB5zmnqP8oNuMOwJgtf+a1jQwRP0L6THVJ0=
+	0602yOSxrYoR/7ebzqzU0tdthoX52e8u3kqz9Zk4JW+efuuKzM6y8QVcEul6DC4T98YDRr9VHVt2KhMu3Bb+ww0V7XXhK9sBFIW/vlgKM2I7kyQBx+IGKXBHZlQD6/PUphULZp3QOLLvuCHlS9QSdZPkI3+5KMdz2de7bMQ45jf9On+Sr0EgD4dU5qPK7CyLjlpXMhpBN2yP5wCRHZ4bCo443oMwSLYdpeiZ0jsvPUOOaf5OGfFxXkg96V2CKJ73kgIG9suCjlVEMhU+n9YJVln7tK2bCeH67akHbqNfn9cxDNuVVfN2mSLgkzIsD/k+Oo9yiVl4NlM8w/xSh8CFZgUMwjJFfiDFawuzrwwn7E4gkIMKV3zBwrxzBLG5y1XyXTzQL7kGtYY47jgy1hNwNKD9Mf2IfT5aFKZ9vRG/wMAFD+v2mqF+zNBWeNSH5vN+gvM+xMrtNl2dkIKRUQAerfqELYZMzc1lLFmlaxl0e3EPRrz1vH4n2YklMYmFaEgDv7ur5cnF0j2jLFGBTyURbaU8zqyi6sPY+zqKqHREwxuWf4VXMct5m/UXR13XtNpHViGRie9wZtB4ZScsgUdoJt71uicxwqm8TkG87r15ETGBjvrVhyX9lPRaY357DuClgzh/IULpmTIJhnDS2TclU80GJ/tH6T1kK4Fju6UPWDY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261022113327099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(7416014)(376014)(261021121427099003)(261022105027099003)(261021123027099003)(10067099003)(261009223027099003)(261022075727099003)(56012099006)(261026121527099003)(6133799003)(18002099003)(22082099003)(5023799004)(11063799006)(261028144727099003)(4143699003)(261026140227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QkKdsWafkOOHXzyIgQj7dqgMRD3EUtrlNMTQafEgY+j8+BqPSMZLLUzrFZQG?=
- =?us-ascii?Q?qI6uRcv2AcYHNep/vcJ+3FsWeoAN2HMw8TUeXnlCymrEZEMm8SxLOjWUnW0D?=
- =?us-ascii?Q?s1fvJfhApdV/IR6SBAbIfG69y+IQJZVW9qB1LX8A/DhzzGhWLDKkAqZhAZRg?=
- =?us-ascii?Q?a/qV3AKBSIfiHj5XPF3CKGWEvg0mqxgFT3H62UM1/w6F1Y8ScBBkdUR+F2O1?=
- =?us-ascii?Q?vo6WLgBIvFM2qk57LHr9wbtTMn+1QHw2qlzcd+vTKSG3uqqfxIXJf4eFJGXu?=
- =?us-ascii?Q?qXRq36AJdeB2e8sxf4CGb1J8NmjmhZpIJLahh2c/EXliZhYFju7Srn5bug0j?=
- =?us-ascii?Q?0q+9s7j4K1Dr6Jycfr9IhggWEHTt/bagzJqWQa67aIxRSRxj24G2whvs6giz?=
- =?us-ascii?Q?YdarCBN5j4qhRlE5wlA2g2522RbFhiHkwilwFI5mT1hct2pkUZ7mCfxwlH99?=
- =?us-ascii?Q?srnucmcwm+a9jAcmV69REmU9W4IE4CV+6PUiF9RUqJyQYwvlgwDKykDPuR8o?=
- =?us-ascii?Q?NovNmr6807+P/ACDkoClqtfooyHs2e/FU+xBSJmI5mjzPpvMqpKGmwLe4cOR?=
- =?us-ascii?Q?DCSTfV8GlWSXDtyBPj4qJYSUkL11UDP9UxkLLanfogl0iXYiW+yz6fsrfla4?=
- =?us-ascii?Q?pks6DJ/sbbd8G19OKYnShzpIA6ZAnWnjhW418LRqRCsQ9Pyb3MdcjfD08k2b?=
- =?us-ascii?Q?xgG7Lm+4xRu8cICt3ej/VYAnrVNaTgoE/4mKngWilI4Jdbl2+N0n4JofKVre?=
- =?us-ascii?Q?mjdFGidGUeZFSG96Q1EfKWyg6vZi2TkoI54RsDjBMT9tNXcdq8OJeEeudGQY?=
- =?us-ascii?Q?11h6nqSwqDIdWFIvqdyJXKZjIg9jQLKChZUpJGHRUxul9K2MOn4I18HBI9hS?=
- =?us-ascii?Q?74L3H9Yd9idUMBa8486hHnOtbmDb6dGUAmu/U1ShfSyMViNOzTMH7CuxHHR5?=
- =?us-ascii?Q?7ClZw4InKDL2D6Eh/zckGCUVMNIkfgCbXRVl46tDK37zE2lupO4SEW1nXl9q?=
- =?us-ascii?Q?2X08YKq65C/4EgZm9EHG5oOhzIpnzlYJOJXHCP5Kl3TUhY+ceUmeZVrC3ijw?=
- =?us-ascii?Q?CshXNwYugZYWIZt5Perr93UeUkFw34cf1kdmP/L0yTaezdK7Dbj6Dfjy54jE?=
- =?us-ascii?Q?qPSrqYHIGNSl1Ngb58nbrFbQE/AgspRUx02CXOuvVBjVrJ3WQTygPaFt0Ukj?=
- =?us-ascii?Q?6ZeZZ+mll+PgmxYGXx7guTqxE5Kdpg1j/bfumwiN0KyqHdSZJGiWDrixHxoU?=
- =?us-ascii?Q?cpLx2ViWgaq9g+JfknfIVlzY9IknvWuk+OPAn22Q81O4asjKke953MaUXy7w?=
- =?us-ascii?Q?s4aREJjRdVAwmJDLiKPBNwLnQjf+ztvS9r857qrINmZJ9Ck4J0sTV4Agifxg?=
- =?us-ascii?Q?PXME2rOdSnqlrVA0A7ITTfLPFQ/qzS5da2zuhgnt1CcelKB4LzFfau5gcJQD?=
- =?us-ascii?Q?wUDgNbgxJsHkNvCxR5qp+TTz5FwGBmQuIZ3yEJi8D/0KmuDwwCitUrd/u1UW?=
- =?us-ascii?Q?ubAMwX5s/fYCLSXzJWlpsZm4lw6UyrS1A+f2aoROUMBAdA7xfWAV8XUDkGmk?=
- =?us-ascii?Q?ySWAxHlqKJJnbur0KNB6CHPn8D0ls8Tbad2Le7JVzPiwk9vJtvgDGKbtwOC6?=
- =?us-ascii?Q?OigrbfIzPOEcTREhyLHTestAgbTXz9/CzVdK1pEySlEjU/Q1RarCnHmgXCx5?=
- =?us-ascii?Q?nYDjeNDtdp6PjGo1b3HcA11d+mQerPjxH5ODXw7DXYoJLVn1?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7c94fe9-782d-4d6a-c209-08df3698cbaa
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+	=?us-ascii?Q?WzyR3klOTAvkj+11MSU3d1dUzZoJDg5LEwkLdiNf9+SpwWFyoNH/ZMGeik+m?=
+ =?us-ascii?Q?2GavHK1520zA/3quY1VSxwBi9hTc080BukqYZbWRH87V9N4kRxA4cTnEx95f?=
+ =?us-ascii?Q?BWc+duqHRi983F5Liy7NXmiAzwbeq28s0vYrCLxvDn3bOuiNYaYlrI7Up96R?=
+ =?us-ascii?Q?6rWQkqp6Kvw47Te4p1VwHSqmM7N5atLBYto0SXsO38RmUb0x7KOodLBpphA2?=
+ =?us-ascii?Q?88aIQ1/1LlBD4kEIOuQyZCWX9ViM+Eeiq7nTDEY48mUII75HERpMIS4e66ha?=
+ =?us-ascii?Q?jOEhbdaEp/EJCUF8/tlcveLIvmJlNlyJ8ab7gm4q8m8j1/iuCh9v411h3Byr?=
+ =?us-ascii?Q?KuiwSTf9otLxdX1Ll/xpgpA0HkLKI8/T4L5aZrm2GT0NjexBLYj4Hy+yCFFu?=
+ =?us-ascii?Q?A3rLJdFo+wtl/gQ2T7SLQLghDQfiMjotyRLoZDmrHtlqg/LTH/Cof7hbzOlz?=
+ =?us-ascii?Q?Bq7WSm3DEo0uaHNW7Noft8aqdgDqDX3RXwQGVSIFtHU1X4W9QCGZoT/emcJu?=
+ =?us-ascii?Q?XB5VIYeXraeUSrzfjtU9Gw8QBtY1tdVgD+rXKYubbi4pX2aX3qxeHD7PiQuA?=
+ =?us-ascii?Q?jBG52SnIiX+HSschHQT8aQLz+d3a3UdzbK+Od1RuUK9P8DXUlX/d0COzmK/S?=
+ =?us-ascii?Q?4vt3cLpB8eyw6IQ8DoWZlX2Jm/HjawU3ubRfFqg48pxwN7Jv0Xc3PVxZOzXg?=
+ =?us-ascii?Q?UTfLKDn4703Y/BNZwZq1t3Tte86MxQlfOK3u5LOqbZrMEbeDcXUfUw3P71t8?=
+ =?us-ascii?Q?eY9g/veEOKPARqeWpj5KrWPJ6ZYroUaibzJJzRhir3lKkBKercfkkOdO6ZZj?=
+ =?us-ascii?Q?Rfkue9x0pzJWeuIy3BfbjhppV0FwoGPbCM3zoQy38R+33kmOEx0ayaojgJGq?=
+ =?us-ascii?Q?yL7idgDE3fJX1QOPoEoHBex3IUXkORvh9JsqD5bQEMdfhKWS9okMGTRltdp9?=
+ =?us-ascii?Q?LiQTEDCnm2jKOyjHEhX2iqgt0BW5pbXXVh0nr6YJhLOHhD46RiBIKX3sCU+w?=
+ =?us-ascii?Q?d8OUVnbiA/JQ2Eu35ToxifXZwwnMopVxefdNAOBkj7PMpqyRhvy1cBW2FP7M?=
+ =?us-ascii?Q?T79pdi3StLRmYXMfS6ZLrPcoknAvAqCmLWuus/vMm7l4I5ldB0WFFHWCkOMi?=
+ =?us-ascii?Q?3s14jfTPVHc69bMdOaWqftxh3hgO5mjYxbc3AvpCGJDdvvJbIO6VAOKfEZ0D?=
+ =?us-ascii?Q?40nXrP+M3UEvRvfEr0xylE5THB23XiDAYi5if+luD04UZC+hVR8Qfqu6HOb2?=
+ =?us-ascii?Q?NaCAPalsVJL7fRpAwGJ6dJQShaPAR8RgqT7Ip8Zhv8t7zxlj5/CF6RLLGelj?=
+ =?us-ascii?Q?o2+ZLcH1JCahQewCiNmiT15TVEgkw6tld2G8f4YUQcTYxwdQriUcao3BV1cN?=
+ =?us-ascii?Q?z7S5cho43R7lfnxH/yymJnpkBihYY2WbnKwby5AJRAemexvAkyQsjkH+jWlw?=
+ =?us-ascii?Q?WLTC5RbeZAl07GwPq4cNn3dzgiPQpD8S3BV3PBXG6OmtncYsMS+bEQLuuUlE?=
+ =?us-ascii?Q?sCvxpDL2nLBQiNex9L0hsJKv02nCYFBFa/u5f1gYS/k8V7TRSdjRkELyr2+y?=
+ =?us-ascii?Q?EU9hT1DuB8PgIOBYYTyX2bKOv8kawZ0SADjemEoiJneaNm8XtwDBECs2aNHW?=
+ =?us-ascii?Q?o5FcsuQZddyPQhrBYxLxDT3N1c278X6R+YHCGFyzTCv83cx7YT6Fk8PVVdGh?=
+ =?us-ascii?Q?H1hB0IeWNaCUYPDKdYv8j6dDzEa95tF3WFKXiqycXqn3tnKvsA/ABevwZRfD?=
+ =?us-ascii?Q?pVGqHqk2VB06Vc/tolKeU7bprfXA/as/aBoopUw26HLM/n5XYx4A?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02e8ea04-d9c0-400a-1cd6-08df3698d078
+X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:16:39.2935
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:16:47.2397
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Lx5JvK/o2bOXnAeyrsC0cTNPhOMtbHVLmO5C5KTN3Uea3ZPg2DKYvK/9zb+669ctP46tQTUI/fNuoINDbNAjfw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB062244
+X-MS-Exchange-CrossTenant-UserPrincipalName: tu9X8ELFH0LBA/Om7HwG2vm0MpNUpDmzJVWAkcbJ5ujUDvs90R3VgBKWpXgnXXMtwS4evaxom/v9Y8u0mP2diTo+BJ9mBBvLq1y0r7II+c2jSoqyUihXPqoeToge2czO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10713
 
-On Wed, Oct 28, 2026 at 07:57:10PM +0800, Xia Yan wrote:
-> ip6gre_changelink_common() calls ip6gre_tunnel_locate(), which only
-> looks for ARPHRD_IP6GRE devices. The same changelink helper also handles
-> ip6gretap and ip6erspan devices.
-> 
-> This lets an L2 tunnel change its parameters to match another L2 tunnel,
-> since the duplicate check looks for an L3 device instead. Incoming
-> packets can then be delivered to the wrong interface. An L3 tunnel with
-> matching parameters can also make a valid L2 update fail with EEXIST.
-> 
-> Use ip6gre_tunnel_find() with dev->type, as the newlink paths do.
-> 
-> Found while comparing the duplicate checks in newlink and changelink.
-> Confirmed with ip link commands. For example, with an IPv6 underlay
-> named under already configured:
-> 
->   ip link add tap1 type ip6gretap local fd26:106::1 \
->       remote fd26:106::2 key 100 dev under
->   ip link add tap2 type ip6gretap local fd26:106::1 \
->       remote fd26:106::2 key 200 dev under
->   ip link set tap1 up
->   ip link set tap2 up
->   ip link set tap2 type ip6gretap key 100
-> 
-> Before the fix, the last command succeeds and received frames move from
-> tap1 to tap2. After the fix, it fails with EEXIST and tap2 is unchanged.
-> 
-> Tested with standalone namespace tests in UML, with three runs each for
-> ip6gretap and ip6erspan, and with L3 GRE IPv4/IPv6 traffic and normal
-> tunnel updates. Full x86_64 W=1 builds with adjusted configurations
-> completed before and after with no new diagnostics.
-> 
-> Fixes: c12b395a4664 ("gre: Support GRE over IPv6")
+On Thu, Oct 29, 2026 at 04:29:38PM -0600, James Hilliard wrote:
+
+dmaengine: dw: move residue calculation into helper dwc_get_hard_llp_desc_residue()
+
+> From: Serge Semin <fancer.lancer@gmail.com>
+>
+> The descriptor scanner mixes transfer-complete handling with hardware-LLP
+> residue calculation. A status query needs the latter for the requested
+> cookie even when no transfer-complete event is pending.
+>
+> Move hardware-LLP residue calculation into its own helper and call it from
+> the status getter under the channel lock. Keep software-LLP progress in
+> the scanner and subtract the current block's progress when reporting its
+> residue. The scanner now handles transfer-complete events only, retaining
+> the distinction between zero source residue and destination completion.
+>
+> Also search the queued descriptors so a transfer waiting to start reports
+> its full length instead of zero residue.
+>
+> Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+> [james: retain polled completion and report queued residue]
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+>
+> ---
+>
+> Changelog RFC:
+> - Instead of just dropping the dwc_scan_descriptors() method invocation
+>   calculate the residue in the Tx-status getter.
+> ---
+>  drivers/dma/dw/core.c | 166 +++++++++++++++++++++-----------------------------
+>  1 file changed, 68 insertions(+), 98 deletions(-)
+>
+> diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
+> index 1f7afcd01565..1d6419e1cd3c 100644
+> --- a/drivers/dma/dw/core.c
+> +++ b/drivers/dma/dw/core.c
+> @@ -274,123 +274,60 @@ static inline u32 dwc_get_sent(struct dw_dma_chan *dwc)
+>
+>  static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  {
+> -	dma_addr_t llp;
+>  	struct dw_desc *desc, *_desc;
+>  	struct dw_desc *child;
+> -	u32 status_xfer;
+>  	unsigned long flags;
+>  	LIST_HEAD(list);
+>
+>  	spin_lock_irqsave(&dwc->lock, flags);
+> -	llp = channel_readl(dwc, LLP);
+> -	status_xfer = dma_readl(dw, RAW.XFER);
+>
+> -	if (status_xfer & dwc->mask) {
+> -		/* Everything we've submitted is done */
+> -		dma_writel(dw, CLEAR.XFER, dwc->mask);
+> -		if (list_empty(&dwc->active_list)) {
+> -			spin_unlock_irqrestore(&dwc->lock, flags);
+> -			return;
+> -		}
+> -
+> -		if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
+> -			struct list_head *head, *active = dwc->tx_node_active;
+> -
+> -			/*
+> -			 * We are inside first active descriptor.
+> -			 * Otherwise something is really wrong.
+> -			 */
+> -			desc = dwc_first_active(dwc);
+> -
+> -			head = &desc->tx_list;
+> -			if (active != head) {
+> -				/* Update residue to reflect last sent descriptor */
+> -				if (active == head->next)
+> -					desc->residue -= desc->len;
+> -				else
+> -					desc->residue -= to_dw_desc(active->prev)->len;
+> -
+> -				child = to_dw_desc(active);
+> +	if (!(dma_readl(dw, RAW.XFER) & dwc->mask))
+> +		goto unlock;
+>
+> -				/* Submit next block */
+> -				dwc_do_single_block(dwc, child);
+> +	dma_writel(dw, CLEAR.XFER, dwc->mask);
+> +	if (list_empty(&dwc->active_list))
+> +		goto unlock;
+>
+> -				spin_unlock_irqrestore(&dwc->lock, flags);
+> -				return;
+> -			}
+> +	desc = dwc_first_active(dwc);
+> +	if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
+> +		struct list_head *head = &desc->tx_list;
+> +		struct list_head *active = dwc->tx_node_active;
+>
+> -			/* We are done here */
+> -			clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
+> -		}
+> +		if (active != head) {
+> +			/* Update residue to reflect last sent descriptor. */
+> +			if (active == head->next)
+> +				desc->residue -= desc->len;
+> +			else
+> +				desc->residue -= to_dw_desc(active->prev)->len;
+>
+> -		if (dma_readl(dw, CH_EN) & dwc->mask) {
+> -			dev_err(chan2dev(&dwc->chan),
+> -				"BUG: XFER bit set, but channel not idle!\n");
+> +			child = to_dw_desc(active);
+>
+> -			/* Try to continue after resetting the channel... */
+> -			dwc_chan_disable(dw, dwc);
+> +			/* Submit next block, including for polled transfers. */
+> +			dwc_do_single_block(dwc, child);
+> +			goto unlock;
+>  		}
+>
+> -		/* Detach the completed transfer before starting queued work. */
+> -		list_splice_init(&dwc->active_list, &list);
+> -		list_for_each_entry(desc, &list, desc_node)
+> -			dma_cookie_complete(&desc->txd);
+> -		dwc_dostart_first_queued(dwc);
+> -		spin_unlock_irqrestore(&dwc->lock, flags);
+> -
+> -		list_for_each_entry_safe(desc, _desc, &list, desc_node) {
+> -			list_del_init(&desc->desc_node);
+> -			dwc_descriptor_free(dwc, desc, true);
+> -		}
+> -		return;
+> +		clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
+>  	}
+>
+> -	if (list_empty(&dwc->active_list)) {
+> -		spin_unlock_irqrestore(&dwc->lock, flags);
+> -		return;
+> -	}
+> +	if (dma_readl(dw, CH_EN) & dwc->mask) {
+> +		dev_err(chan2dev(&dwc->chan),
+> +			"BUG: XFER bit set, but channel not idle!\n");
+>
+> -	if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
+> -		dev_vdbg(chan2dev(&dwc->chan), "%s: soft LLP mode\n", __func__);
+> -		spin_unlock_irqrestore(&dwc->lock, flags);
+> -		return;
+> +		/* Try to continue after resetting the channel... */
+> +		dwc_chan_disable(dw, dwc);
+>  	}
+>
+> -	dev_vdbg(chan2dev(&dwc->chan), "%s: llp=%pad\n", __func__, &llp);
+> -
+> -	list_for_each_entry_safe(desc, _desc, &dwc->active_list, desc_node) {
+> -		/* Initial residue value */
+> -		desc->residue = desc->total_len;
+> -
+> -		/* Check first descriptors addr */
+> -		if (desc->txd.phys == DWC_LLP_LOC(llp)) {
+> -			spin_unlock_irqrestore(&dwc->lock, flags);
+> -			return;
+> -		}
+> -
+> -		/* Check first descriptors llp */
+> -		if (lli_read(desc, llp) == llp) {
+> -			/* This one is currently in progress */
+> -			desc->residue -= dwc_get_sent(dwc);
+> -			spin_unlock_irqrestore(&dwc->lock, flags);
+> -			return;
+> -		}
+> -
+> -		desc->residue -= desc->len;
+> -		list_for_each_entry(child, &desc->tx_list, desc_node) {
+> -			if (lli_read(child, llp) == llp) {
+> -				/* Currently in progress */
+> -				desc->residue -= dwc_get_sent(dwc);
+> -				spin_unlock_irqrestore(&dwc->lock, flags);
+> -				return;
+> -			}
+> -			desc->residue -= child->len;
+> -		}
+> +	dma_cookie_complete(&desc->txd);
+> +	list_move_tail(&desc->desc_node, &list);
+> +	dwc_dostart_first_queued(dwc);
+> +unlock:
+> +	spin_unlock_irqrestore(&dwc->lock, flags);
+>
+> +	list_for_each_entry_safe(desc, _desc, &list, desc_node) {
+> +		list_del_init(&desc->desc_node);
+> +		dwc_descriptor_free(dwc, desc, true);
+>  	}
+> -
+> -	/* Residue describes source reads; only RAW.XFER completes a transfer. */
+> -	spin_unlock_irqrestore(&dwc->lock, flags);
+>  }
+>
+>  static inline void dwc_dump_lli(struct dw_dma_chan *dwc, struct dw_desc *desc)
+> @@ -969,9 +906,39 @@ static struct dw_desc *dwc_find_desc(struct dw_dma_chan *dwc, dma_cookie_t c)
+>  		if (desc->txd.cookie == c)
+>  			return desc;
+>
+> +	list_for_each_entry(desc, &dwc->queue, desc_node)
+> +		if (desc->txd.cookie == c)
+> +			return desc;
+> +
+>  	return NULL;
+>  }
+>
+> +static u32 dwc_get_hard_llp_desc_residue(struct dw_dma_chan *dwc, struct dw_desc *desc)
+> +{
+> +	u32 residue = desc->total_len;
+> +	struct dw_desc *child;
+> +	dma_addr_t llp;
+> +
+> +	llp = channel_readl(dwc, LLP);
+> +
+> +	/* The first descriptor may still be waiting to be fetched. */
+> +	if (desc->txd.phys == DWC_LLP_LOC(llp))
+> +		return residue;
+> +
+> +	if (lli_read(desc, llp) == llp)
+> +		return residue - dwc_get_sent(dwc);
+> +
+> +	residue -= desc->len;
+> +	list_for_each_entry(child, &desc->tx_list, desc_node) {
+> +		if (lli_read(child, llp) == llp)
+> +			return residue - dwc_get_sent(dwc);
+> +
+> +		residue -= child->len;
+> +	}
+> +
+> +	return residue;
+> +}
 
-Diff looks OK, but this is not a regression [1][2][3]. Broken since 2012
-and nobody complained. Please remove the Fixes and stable tags and
-target net-next when it re-opens [4].
+This patch still too big. You can create new helper()
+dwc_get_hard_llp_desc_residue() and replace orginal code exactly, then
+change gradulatly.
 
-[1] https://lore.kernel.org/netdev/CAHk-=wiSnTE9vBZ=5_v+3EEkdazCCbBM5YABRzRHUAeRdyd4Xw@mail.gmail.com/
-[2] https://lkml.org/lkml/2018/6/24/113
-[3] https://lwn.net/Articles/1074171/
-[4] https://netdev.bots.linux.dev/net-next.html
+Frank
+
