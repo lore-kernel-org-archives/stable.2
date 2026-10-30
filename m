@@ -1,54 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793336829;
-	b=kN6IQdm2usP1ksoOegYFxPXjk1f3mReYAX+EXJkyRIgh/EWE3bxwPSZbMBXyymdxuZom
-	 /VNR1TqNcgFMplR3hCXlPRMcec6Pl7nFQwG04NLwC+9yVo7CzMWZ3RhVEzVtJV9HxBKRY
-	 NcJuxgIP1UaWkbG/tNJ3abyh7Dh5WnTpXfnwJbFQ/PndygPXY52BSqNH3WFNDAEG5Adon
-	 DKDynYRtd2oI2V7ORZUD1umAfBb0RPmqCCPWVx3hJX+Lt8jckLhCwVefv+6mqZ22p6mGZ
-	 22Fitt825nzF5wIO+81o9wVQgXbOcOgxyIxObfXlEk7l0tu1+FeI9n6k88kEg46PdaQ==
+	t=1793337099;
+	b=EXSPjL9g2moy4lLkE+3r8EZv5D0yhMpvSl3Zblj2yhMNqiMXFYQbmIZke7n2sSw2ENq/
+	 W1SdHNaloVwY4csVG3bos9E776gsrIBY0dSW+OI+mkJ6y78Oq/fbxiDGLsmPeUdCNXxqq
+	 Erl2eJGEWJtUazA51iiXRjRKyD7h1H+1LhyIkJL1SlbcK3chRdQNpY13DDYgwtGh0I/nH
+	 y6YpO3PYwi/qBJVdnosVL0Ze/laKRh6wjijvpoALoxhtXqq8RSGNnqvhdUwLYiliNF5LY
+	 CIQ50pZBCJcoQMHJv7OtVj6EgU2SVK5pf98vYJqn9UIPEo2tBd24KYFfQCU3SbthT5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793336829;
-	h=DMARC-Filter:DKIM-Signature:Cc:Mime-Version:
-	 Content-Transfer-Encoding:X-Original-From:Date:Message-Id:To:From:
-	 X-Lms-Return-Path:Content-Type:Subject:X-Mailer;
-	bh=jcSNaYPCn1WimfE35qeXbxFRPwK5oBQwa8QLonR06aQ=;
-	b=m+VvI/iLcl3EQzPa3GSmUFpst+Xjdr0bMHtv0AQo4G8hPl+3ore7sA8wE2ZjmMoFWKU9
-	 slK3JKfWGpMS3IbiZ9GUYWyrEze31G08EAJIUU09NcM9iz2PagQyz9QVjioHDRmK5iQeA
-	 /yODHjgqgSkcI7jMgy0Ma/rpwNe0D8R17TRtY05uKk3pu/bCQVu98YXbp+mAAPgyJHuWz
-	 3DjojcdKg+HtkpSckOHAFlKNu6YjwYD6bzKyrCotzMwo+3YidTudk6vAf5tVTT2XZW2Py
-	 NyI87ET/aH9Falf61Ado9KHM5XghbCcqswNaCxtnJXeCuS6GGSiy+6aLaTrjJyXlekw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793337099;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GqM44P0CIQo8r9XmXHHToTjfoUuC+s/FewWaU8GIwmI=;
+	b=Ih3UrhqDv0ZYy+gHp1hgNkBEpRzMKhh9KW9sXBUL8l2AnplVD9yJFXkavDGyVBwv3NWh
+	 I0C9klrVaSNka5urSB7ZNE9zoxAImkp1IhNS5y0wZG8yeJb2U+3WIvqFdwRHnkChAZSGn
+	 LjsbebWbxCY8aKyjqIrSABQORLyO4McoIBzJ7Eah4iDf5CbiKfOvrYxjdVVu4YYVMZ8kk
+	 0Iv4agS/tXDgSfxTSYiS5QREAQqeJviD42Islcm9rThcwaIV00aKxwtShbEKchUyW5yNn
+	 N2ViS6Sm6KEIWHPMUTMiqo7Z/vvWe4MTTXXs3fj4ZjOixraf123VaaCsc8fx6/nAVwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=M82WyujV;
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=d3Y2DoBX;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rKJKAHZI;
+	arc=none smtp.remote-ip=103.168.172.157
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90980606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:07:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90980606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46887606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:11:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46887606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=M82WyujV
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793336822; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=jcSNaYPCn1WimfE35qeXbxFRPwK5oBQwa8QLonR06aQ=;
- b=M82WyujVrJ6StQUSgav+FYXzwM/696Zolg7xuox1J80rDIjSLtE0o3eAISwe7SQ2F8+mmv
- xZEN17aLOKSc8PL9kYNiTIPjAdWv9tfGfiGind/lXgonO3OPdrua991SRSXQG4/xwLKPmR
- T6HBavVmy2UiPB/bo4VB8/HZGAcVkt9S40JdPbD+QmL50ylAUzOVbSFAJN1O2BIW6Rcu5d
- Sz0CvmwOj1X/X+AcwcZVEmmFgfmjT17I+P7ZeZGl59Lp3exfhVGYxB6ziJbnKwoKoyG8Mw
- yyZyzKeu4v98LPvjSpPw62C8aKdKFc48i90b0n9M2Mx7bt1NOTTW2FKURRz1KA==
-Cc: "Vishal Verma" <vishal.l.verma@intel.com>, 
-	"Dave Jiang" <dave.jiang@intel.com>, 
-	"Alison Schofield" <alison.schofield@intel.com>, 
-	<nvdimm@lists.linux.dev>, <linux-cxl@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, 
-	"Guixiong Wei" <weiguixiong@bytedance.com>, <stable@vger.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=d3Y2DoBX;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=rKJKAHZI
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 5DC341400066
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 01:11:37 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-06.internal (MEProxy); Fri, 30 Oct 2026 01:11:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793337097;
+	 x=1793423497; bh=GqM44P0CIQo8r9XmXHHToTjfoUuC+s/FewWaU8GIwmI=; b=
+	d3Y2DoBXr/DX900V1nImfLOaYi/H9hrMIfnzuW36r9c764sfd+X901mwBx017hq5
+	MV+02iJk/CTy4bHIuRvlTPiqSqTxrbEJBc+OrdjXes31yNtC+G0ppwYFDqasd8Eg
+	51RDErrijjUaO/PSEMKYy5JhaCI9sTl0FGqqYUKJ8ae4lNqet6wfoUHaxonTalrZ
+	qYpcUykNgwOwBZPk/aAVZuNM2v7ycgYnW9HuUM7tjVJjbrtTjMhWaZO3fvAoShBp
+	MBEMhOXLPTcFBu3F0WAQHLKLW/Hn3wzbMlsVEBEzPnIL6riU0Ok+mCgdIKjhncEo
+	S55Vx881Z1i8Sy+wvy4YZA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793337097; x=
+	1793423497; bh=GqM44P0CIQo8r9XmXHHToTjfoUuC+s/FewWaU8GIwmI=; b=r
+	KJKAHZIvKeQYx6Wyx1NVtm2dEmfLxxJ2d75cG4NznZXOk1BzjHGAY5vt4y9wP1H/
+	tgf3TbtkZJyBa6pIOWEUSzCcvf9PVMP8WXXHg5c3nQwZD1Uv7jYMAHekacaXE3Vf
+	3/XwUjFTR6uf0INehDYlha8sNuiJqOTP8cPm+br8D/KdRV3Rl2PHPmy99U+JXJr9
+	JzA7MpKVZSwjL56RJMxfwvRbTMPo952O5W59429oK9C5Cngsqk860AiMrjyGCInq
+	SmT6a+Io21+JroGZzdQzy+EBpFk7PY6rE2enpsU/NLCU2V/O5jDy0VvGmYB2nfOR
+	c3MF1sprwceIXXUd/KVhQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793337097; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:B8thCHCBF1xi7XAjZwRs27HjasXMWYS6Mrfp271lBL+tSja
+	srgW1Ti1jW1k3og7XpDNs0V8nLn6jkTNmM++L767TEZ+TVISlKlrztrGGJF/5xsy
+	0fnIAeGwiK4H0AWb8Gc42I0j2sQuSR5yMgj3x2F6+WH9DoIr4pKdDmhy1FTB7vfi
+	uiAInSW6j0RdD4Pk6lJwtgC/vBke6dZFLHkTwIoqMaEergbrV+iARwyFOvX7+A0R
+	8Cm101+2CBQuCmlaJZ6ho8SKZIWsZi6lTJZbft11Wdgeaf+KPwXFIj0dxZQpRBD6
+	VguWq230c6tDA5aHm2Qqf0iGvx+Kd1THOzbWxvQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:ksxQ/YcdiLKy46e0tXqfWZXus0RU/pdSaeDNQe0a7DU=:v6LIde31DrDd1/ZrnVpc928hd42+YOmMebRmUHxkFdE=;
+X-ME-Sender: <xms:CCfkaiDLI0v1dQVpNrnBDZO3Faz8lRK2ybU0w6V4ME6I3KLgMwJPpg>
+    <xme:CCfkaoaLPwTItX5gJVBge_gi_B45JsYqIHposr_BqdgTT5Fl5GlelHIdWxH3cIV-n
+    VZi-nEX8pgZ9V4ez6KzlbHhyLXfSRDRYo-g9CgJOXBuKBJ5uzcXAHCS>
+X-ME-Received: <xmr:CCfkahGzBMOiw7tC5zXMGrspPfLc2x_gYqa-1CGQzVh2wecIIVycFAlNfpQppgdey3LRRz6iIwOZNdd0RTiX7SKD_9TMnpnl>
+X-ME-Proxy-Cause: dmFkZTFBOyCtq/yhKC5pT0BLq2xxAKAnEIBydpUeqbsfnvDB7lNDYa/BjlfxqMx73wH/wU
+    V4kyKtWs9uHu7vOFqqfZo5KQHVBHsXXSHf6g26LNRNAmpxYfrXYVpfim0hOGD0LGBovxiQ
+    DVLQXTnk8q0gEKnVJSVzIA+GFl4B7sLC/L+QDMB17M0WqUGPxaRx76TmTQeqbf/EsgA+rY
+    hPvy0DJ48PLZjpEVjnezNTmy2LiOhH/1tvyk3LgZj3ko8+1oM3AraTy/mSTztB/HNwC1VF
+    F6dzAM66mXsx8zKy0+1Ko6BhLdf5+/R7V2gDZpnFNitXkyLuAg0/KrsHL6PspIHyo5JMcC
+    23W5l83Sc3qLD3wJamWlUS4F9lV278oKYFCJGqdsBiNKjKgmAqmUYgY7XMS5uPjZWUHpUQ
+    TMIRlLYCZy4iHazvv2QHXwBVi2j9uvjsEaltLWzVCIkrGcKAiDMlnOXiatm4TwDwwI/lCP
+    NV2XkHcJANwjHpoX3uLoaxX2rBWVNnFaR/zpfetJGmDPAk0ZLfBGW6qlOqrvEoHOR2EmaE
+    YcMPr1fkHlqoaXXSb9eUT+jJBXcW2gyCtG7FrzlKCgXdAn+0vdrZUx/7agfQpKWI2sTBGn
+    67H5QKStSqPBGKAW+4ZL8FzQ7HKuhXwaXcAA8c8Iom3i9KqFlPzfWtf54mjw
+X-ME-Proxy: <xmx:CCfkaktuAGd8KirQPPiuK6zOtIh6NXq7Ls6PHWNigthEqGmnnGKibQ>
+    <xmx:CCfkavIQ1nBEuj3IBWUd_4f2BOEkLsfv4v1uCLIbqjAIzORo40KarQ>
+    <xmx:CCfkaqM50pn96M8ieZ1Op2k24rlnhTwn9nGx1hMFARF5P0L2XUbb5g>
+    <xmx:CCfkavYdWeQa2gptvUHmlFK58JwUbOfs9yZWp3SOzIX0jIn-S3ACCA>
+    <xmx:CSfkal3DLOzPlT-bHK-1lOIEOIVbOhOITzK6To7vU7Wx-bhPE0J6PSxf>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 01:11:34 -0400 (EDT)
+Message-ID: <4fa32d42-cf7f-476c-8f0e-c5823e7697c7@pobox.com>
+Date: Thu, 29 Oct 2026 22:11:33 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,117 +118,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261028165947.349197979@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-Date: Fri, 30 Oct 2026 13:06:40 +0800
-Message-Id: <20261030050639.3462-2-weiguixiong@bytedance.com>
-To: "Dan Williams" <djbw@kernel.org>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-X-Lms-Return-Path: <lba+26ae425f4+55fa0a+vger.kernel.org+weiguixiong@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Subject: [PATCH] dax/bus: avoid deadlock when reading mapping attributes
-X-Mailer: git-send-email 2.55.0
 
-Reading a mapping's start, end, or page_offset attribute takes
-dax_region_rwsem while holding a kernfs active reference. When
-size_store() shrinks a device, it holds the rwsem while unregistering
-mappings. Unregistration waits in kernfs_drain() for active references
-to be released, so a concurrent attribute read can deadlock:
+On 10/28/26 9:56 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.115 release.
+> There are 247 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.115-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-  Reader                         size_store()
-  kernfs_get_active()
-                                 down_write(dax_region_rwsem)
-                                 device_unregister(mapping)
-                                 kernfs_drain()
-  down_write(dax_region_rwsem)
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-Setting range_id to -1 before unregistering does not break the cycle
-because get_dax_range() checks it only after acquiring the rwsem.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Use down_write_trylock() and restart the read on contention. Returning
-from the show callback allows kernfs to drop the active reference, so
-mapping unregistration can finish. Keep active protection throughout
-the callback to preserve the existing teardown synchronization.
-
-The same inversion existed with the region device lock before it was
-replaced by dax_region_rwsem, so the problem dates back to the
-introduction of mapping devices.
-
-Fixes: 0b07ce872a9e ("device-dax: introduce 'mapping' devices")
-Cc: stable@vger.kernel.org # 5.10+
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
----
- drivers/dax/bus.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/dax/bus.c b/drivers/dax/bus.c
-index e40c25401cf06..823d60353fc83 100644
---- a/drivers/dax/bus.c
-+++ b/drivers/dax/bus.c
-@@ -3,6 +3,7 @@
- #include <linux/memremap.h>
- #include <linux/device.h>
- #include <linux/mutex.h>
-+#include <linux/sched/signal.h>
- #include <linux/list.h>
- #include <linux/slab.h>
- #include <linux/dax.h>
-@@ -719,14 +720,17 @@ static struct dev_dax_range *get_dax_range(struct device *dev)
- {
- 	struct dax_mapping *mapping = to_dax_mapping(dev);
- 	struct dev_dax *dev_dax = to_dev_dax(dev->parent);
--	int rc;
- 
--	rc = down_write_killable(&dax_region_rwsem);
--	if (rc)
--		return NULL;
-+	/*
-+	 * Mapping removal drains this attribute with dax_region_rwsem held.
-+	 * Restart the read on contention to release the kernfs active
-+	 * reference without waiting for the rwsem.
-+	 */
-+	if (!down_write_trylock(&dax_region_rwsem))
-+		return ERR_PTR(restart_syscall());
- 	if (mapping->range_id < 0) {
- 		up_write(&dax_region_rwsem);
--		return NULL;
-+		return ERR_PTR(-ENXIO);
- 	}
- 
- 	return &dev_dax->ranges[mapping->range_id];
-@@ -744,8 +748,8 @@ static ssize_t start_show(struct device *dev,
- 	ssize_t rc;
- 
- 	dax_range = get_dax_range(dev);
--	if (!dax_range)
--		return -ENXIO;
-+	if (IS_ERR(dax_range))
-+		return PTR_ERR(dax_range);
- 	rc = sysfs_emit(buf, "%#llx\n", dax_range->range.start);
- 	put_dax_range();
- 
-@@ -760,8 +764,8 @@ static ssize_t end_show(struct device *dev,
- 	ssize_t rc;
- 
- 	dax_range = get_dax_range(dev);
--	if (!dax_range)
--		return -ENXIO;
-+	if (IS_ERR(dax_range))
-+		return PTR_ERR(dax_range);
- 	rc = sysfs_emit(buf, "%#llx\n", dax_range->range.end);
- 	put_dax_range();
- 
-@@ -776,8 +780,8 @@ static ssize_t pgoff_show(struct device *dev,
- 	ssize_t rc;
- 
- 	dax_range = get_dax_range(dev);
--	if (!dax_range)
--		return -ENXIO;
-+	if (IS_ERR(dax_range))
-+		return PTR_ERR(dax_range);
- 	rc = sysfs_emit(buf, "%#lx\n", dax_range->pgoff);
- 	put_dax_range();
- 
 -- 
-2.55.0
+-Barry K. Nathan  <barryn@pobox.com>
