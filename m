@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793374928;
-	b=VCJMHg99zvnw3vhoT3TOAi5MhH2oOwq1To9yxW7Yy4XdP7ZoPweX7jL6NA+L9uM7x0zs
-	 M3J2RLF64NLaYMvOnvcj3QyWOkBaQnzEQETjMZB4eSgZxdFSopn0zuYZI3xOwdlt17H2n
-	 pb7GDrH4GByeylF2hNpRY5Ef4lBWKH1SV1QEYfZG9pFDKjbSwbylRgH1OXYXrj2/8cnVH
-	 s7lvAwFsDaVWAf8zPPZ7juQHPjiRuhObX+Fu9xyyROST6A0o0qrfmJLamJEN96ERGpzgj
-	 eoyE3miufC4sjYPsXRMFDT2cYKAWVMkIjdXfstQcuRdVUuu/qHZEdFEk2ouvXX+GtSg==
+	t=1793374929;
+	b=LRHPO0j5PltEN2ubwDyFc3itGsT85EpYBAuPJkskSoT77XIX5Hx5REK9vTRSszQY+Nym
+	 MMVjSZq03B5mCtzgd2YDPkMBd8ZrMMBiZkamMM/5fXD+RJfWf3to7vMvGl5rxru0YThTU
+	 4sEBPW8OSxdl9xTYVy3wSCRPF5qzewtFtYge4hPBdHfey3c0GIKHrqQHNCw6LH1iPymwQ
+	 RkQCCKtfCARF5Aqk/GfHJ6I5FkuKnMlCru3cZBcKqhcEkk+65lnrMMSh5ug63N2EjrHug
+	 huqrkitQCBUxeUi+l/r0ofDU5N6ewBuocK1QiiFi0Sp+WmBnxnVDGnW7wLo16gAAIcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793374928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793374929;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=71/PhvdcY4MYCOZ7yipaT8Gh3d0QBNm/V3YoucupFGg=;
-	b=zFCjRWbwBbNI2RTLUraCeKTPscXEZG3H8ETV54rcenxOQ+rVBXr/Dp6dG7zaAVQvnNIR
-	 XpFhxqUDkuAR2YPER4s63Oyzk7L4BYVG2d+5dIFUvMCOeYJALRt2K8hwir/p+sutJL0X2
-	 22dcmZjWyq8y6tmiyDn1EDuoxw1Esab3kiyaiqzqc1uSfp+R0ZZgFLhU0L251bAEU/p9b
-	 ZIt4e+INGmiEAvpTwR2cFuebCzsyYaPMHswgvSXfGUStT77bJcEsE27kyRMD9ZLUr6RpS
-	 A0ghkZY9uXSNBmd2YW1MzSkp2Vz2dq1eUSxiDuFY+E/Ej9H22+mM74rC0gQYR+LQbyg==
+	bh=CaT2SSAJFNm/sn1nl6FBs7/CABv+df9p8PrN4R09z7A=;
+	b=McxXWknqMTNjX8Sur4gpZLsGS7ZRE6qTTUX1sceIKslubK4L7AV6CJjJWv2983s06g38
+	 5e6tZOP9loUKBh1aNTSFjjt6dMDDAxX2r2wp2dTVRy5MRA3L2oZrpdPXfgk86PIUFc+nB
+	 y7MDuT1uu2PlBnDnotQh829v+VezasmrDip+I7leECB8nnwTlcvVy/wfhF5fa3JVQ9sIt
+	 wmVeWs5Uuez3LspBZGvtHqIX0x1AQFjHBcPdk/vDWMNLQc2VfVVoej/z7ea/7xhyr2Piu
+	 SDCz2OvR49ZGy4UihklnxJtsEJzLwwSbgT3A47WcuXLd82BcshCMEAGJN5tP3Vwjqow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nOxhZfYm;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CjxFBs1f;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0CC606A31F
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:42:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F0CC606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42286606A322
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:42:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42286606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nOxhZfYm
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso6036735e9.2
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:42:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CjxFBs1f
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so7844475e9.0
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:42:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793374927; x=1793979727; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793374928; x=1793979728; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=71/PhvdcY4MYCOZ7yipaT8Gh3d0QBNm/V3YoucupFGg=;
-        b=nOxhZfYmYfLK7lY03jY8+VzT7+a+mWQI/c4bBH+huJ9hU28sG/lMQ/D+KInfS1eumE
-         rMiqtzYyngcNNxsBP2rz5Oi7CGUrLbxN9MfqASpLJ3sMqXSYPVqw5vkQvpDHbDdGSVlv
-         E7tOlk5PEaR7BUgm9xSrljvtf2Varg/lwiVHnfUa80yxt3DNfhu0k9MY4SMM14JHt8t2
-         sxmCi3J/F4MOU4Zq/aBj2njG7iSRLq478Q7Y52roB95kRYVSLeOKfbz6pweIAmk5aviB
-         rljFAvbPFaHV8Yu4dh04Pvkt4YrYvnD2rSs3pj8BFHOVFTxzsdekcMOI2F/2O3UAlJPF
-         HOFg==
+        bh=CaT2SSAJFNm/sn1nl6FBs7/CABv+df9p8PrN4R09z7A=;
+        b=CjxFBs1fG3X4uRzTT8eoecv8f/WX8SMgh85KDlSg7FGUwToLmqADTyWEyVCdBUVXWc
+         Gk38Vvphua4C2Gc5kOnWBJuJdfaIL4RO8y11hMUQs/n+vLduoOVqgv/sBugTk5ZtC0gg
+         cWGhJyFzT3wSE1Kf5Nz0qGd+s5EPRdUfZvx+QPXcDxmGwNEj8Qd4IICN8rCdXdIcsQEh
+         efCV9lOb/ti/q5G7Xbf7DT15MMmsqkp05KZiqo2KOMTLq9i6v4JdiB1YTDWjdSWgqOiF
+         vjgQCIjX71cOuVKHmPe7RD/NFCJl0efYkQU/wsQ7JCon/JKBMBfxycdgpXfx8W40oeuw
+         cOaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793374927; x=1793979727;
+        d=1e100.net; s=20260707; t=1793374928; x=1793979728;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=71/PhvdcY4MYCOZ7yipaT8Gh3d0QBNm/V3YoucupFGg=;
-        b=k6VRH3iF6LQBej4LTtoI1u8hqqpDl20oo2i2BdXwZG8ydZ3ZToJZuZjwdFNPyxDTZ+
-         5ftHqc7h5sPGCeEr13SlJcRtbZ5zJSE5vcTLlsrdDj3qbJksStCFH5adR8rslANrvrmZ
-         LlxKlQTuC/5z2V/tqRK68A07yVcK7y4b9A+DkWBw792UDjVUhgdVNg5sfajkSqvMd/Qx
-         QZ4UMV7udusZ3lKcD+ntAfPqj2QJftqs9LVJ7gJJzN7kcYcG2madS61Qj0KgSoysgTJ+
-         2g2duP26GiXL+yVghmJ/vljRy94WL04ixSpxtbT1vqqeo7MtgE+8LQcMfP1WaGaUgmxv
-         FfXw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpnyX7xDqOkBojCz3qvbsznXS8ecacu7haBnJYhakIHBjb6+zneK3yrrhlHkQqWEvs7p1qAAI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0wyDMz1YmnWeq6GMCzx8oQZsHyXF2nCYxnVzkw9xFvCfEtYzF
-	+1FW2SFbLm133htQr/VrGzyjNj3Y6noT6L0PMZC4UqmdwNq3gxYRRc6vD7/C
-X-Gm-Gg: AYBFou2DW/AMGUAF0kutu+Q4Z5ZKHe6HhsmWbPPk1w3RnNB7oYGN9q650hFAUJrVsKc
-	DYRKmk7cWModWOP7J92/TqFFuyIQ2Hn+8BJVYXbM3sn8TPGqBlFOKq8+pVnD2mWLZeqqJugauEH
-	l5J8s9FYHbwV1xATti2J+fckbm6wJoMJXqDJtIyNIQNUjB7DAjqHguOo2aFnN10Wuxm/CduQblv
-	neMEdIK/YBbhEtQlJsC+LDxtBeuL6Pg1gjV36L8sp3gYCjYDI65BVkYl/KCyHTRBLUlKZok8gNr
-	3LZ5k/O4WOfPE2KQRCzks70wd+iutUi1k5VbREtB8/bwXekx3/exTcz8c0RUJFyJe67yhg9EgHz
-	/fGX3/tLe9AfG99Ju1AUyFqnD3Sf0eFPVt1reV4sDM4e1/fjqQlRI/bsC9wih8H0/97z+va8ytx
-	8QSX1SM38TRu+ibTo1CKExwdxIvREZQf7MnGfNlzyFd29hs668Lffg3GtCEXOfGz2txd9nek0n0
-	irvOnLIGXzbr0j0iVqLxOoHSO6hFMsN2+PlCP43ced3nauwXpxlUw9KXrGq7fANmW8IbvkmjcY3
-	RESbla2aViw=
-X-Received: by 2002:a05:600c:3547:b0:4a5:cfc:1e95 with SMTP id 5b1f17b1804b1-4ac182dbb5emr58789785e9.33.1793374926469;
-        Fri, 30 Oct 2026 08:42:06 -0700 (PDT)
+        bh=CaT2SSAJFNm/sn1nl6FBs7/CABv+df9p8PrN4R09z7A=;
+        b=paXi2LnkJiOiQwx9zPn2i/+zCkKcloosoJhpWjy3sf7jJtQR3fkezI6tN427a7zKwl
+         oHoOLcsFo9gWpMddoChiSs9yzHB/OFIyYimO4C0+NAZBQRmNEPKp6GLgjD7m//zpqzy5
+         6s70oGx4+hDdLTmCehQRZ9jKj3VkcQ5rHS7SWLJ4jicB8YTzVIhJc9aB5ZDGQVz88kMX
+         690nRsLKLCHOviWw2ST+JPi66j52HjzKhhc4GRQhZb6YoFtciaAWAsj4/xXU34Xk6Xdq
+         QLY+WUPqt8Do6QoJSZekLWZ41j8Nt0BVtsXq2mxTm3uCryagIUc/s/KEh8MBhhXV1spy
+         L5VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpHakPSPEfBMgoC3R6+fzTCO5R9gBD92HEimauCx1LVNMFIAIT/Bo/SPl/y5kp+0DWaAa3MP0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1pIai1xIsXlHhJMZxDjKJhnGUt++u9UPtHccFg1cx6Wq5PMvC
+	6/n9Ydygw+pfW9toxeK7trAP2/JT1ryMwy4AoE6vfIzhrhNzrj1MWmA=
+X-Gm-Gg: AYBFou3fp20iBh5CBrsCC8E0tbgQ4lfGsaX/1K4PFQsIV4RMfwVLCmVfIiY7Wnmd2vC
+	mN3pI0O2q5NIAF27WvSUWcrDxAKu+jxlztdYOI3ejRBm7frjKuOtEI6tiQd8WAJtTd563pbN2nF
+	ZGDUt15eKJz+s2mzeebErBBYBph7ThADNbMzND4claKckW9+wIoDOdfc9L0YdxxvHl09w6bj2zp
+	ZnGH58PvUgPdnDAxqeQ+FzaumO3zYMmdGjccF9NXNSMZDalGeERhGq7neTCcLBwZzmo5EtNXA0N
+	/axcX+sfS4yvWfhbaM0sy3k6qqPCQ+ft1Zs8VbqPqBzuQHoxqYbF9zr7Uus5spxeR6yn20pjUsR
+	vQdKLBE8GhaLqvxXiFsn0Zu4Pp24r8nJVeNYcNUx1qqpPn6BuG/vNjMMtzYZtu1G1ErvOT6EMpr
+	VAmwiSwZaI6vqZgbvMAcn18zpn56mRJU5ghqUzFWSKcYW0Ltnd1ygn1+wZVFFyI7B3zD11zCYmR
+	//2TJvHQBjaaK+40vby58qSdNDUnJURMqp/fs8UlrlhlkMOuibsMc5In8GrSIxKzF218YAbEZoB
+	OSW8QI8PQDs=
+X-Received: by 2002:a05:600c:19d3:b0:4a2:526b:d40f with SMTP id 5b1f17b1804b1-4ac1209eafcmr61882325e9.0.1793374927621;
+        Fri, 30 Oct 2026 08:42:07 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f047bfsm144419935e9.3.2026.10.30.08.42.05
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f047bfsm144419935e9.3.2026.10.30.08.42.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:42:05 -0700 (PDT)
+        Fri, 30 Oct 2026 08:42:07 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
 To: Mark Brown <broonie@kernel.org>
@@ -91,9 +91,9 @@ Cc: Oder Chiou <oder_chiou@realtek.com>,
 	linux-sound@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v3 2/4] ASoC: rt5659: cancel jack_detect_work on component removal
-Date: Fri, 30 Oct 2026 15:42:00 +0000
-Message-ID: <20261030154202.2989936-3-tristan@talencesecurity.com>
+Subject: [PATCH v3 3/4] ASoC: twl6040: cancel headset jack work on component removal
+Date: Fri, 30 Oct 2026 15:42:01 +0000
+Message-ID: <20261030154202.2989936-4-tristan@talencesecurity.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261030154202.2989936-1-tristan@talencesecurity.com>
 References: <20261030154202.2989936-1-tristan@talencesecurity.com>
@@ -108,115 +108,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rt5659_remove() resets the codec via regmap_write() but does not cancel
-the pending jack_detect_work. Since the IRQ is registered with
-devm_request_threaded_irq(), it remains active until after the component
-remove callback returns.  The IRQ handler (rt5659_irq) schedules
-jack_detect_work, so a late interrupt can queue work that runs against a
-reset codec.
+The twl6040 codec driver initializes a delayed work for headset jack
+detection (hs_jack.work) but the component remove callback only frees
+the plug IRQ without cancelling the pending work.
 
-Track successful IRQ acquisition with a flag so that disable_irq()
-only quiesces a line this driver actually owns.  Guard the
-cancel_delayed_work_sync() call with a flag that tracks whether the
-work was initialized, since INIT_DELAYED_WORK is only called for
-specific jd_src configurations (JD3, JD_HDA_HEADER) and cancelling
-an uninitialized work is undefined behavior.
+Free the IRQ first so that the threaded handler cannot schedule new
+work, then cancel any residual queued work synchronously.  This
+ordering prevents the race where the handler fires between a cancel
+and the free_irq, re-arming the work after it was drained.
 
-On component remove, disable the IRQ to synchronize with any running
-handler and prevent new enqueues, then drain the residual
-jack_detect_work synchronously before resetting the hardware.  On the
-next component probe (card rebind), re-enable the IRQ to restore jack
-detection.
-
-Fixes: d3cb2de2479b ("ASoC: rt5659: add rt5659 codec driver")
+Fixes: a2d2362edf9f ("ASoC: twl6040: Add jack support for headset and handset")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
 
 Changes in v3:
-  - No code change from v2
+  - Swap ordering: free_irq() first, then cancel residual work.
+    Prevents handler from re-arming work between cancel and free_irq.
 
 Changes in v2:
-  - Resend as part of unified series
-  - Guard cancel with jack_detect_work_inited flag per Mark Brown
-  - Track IRQ acquisition for disable_irq/enable_irq
- sound/soc/codecs/rt5659.c | 20 +++++++++++++++++++-
- sound/soc/codecs/rt5659.h |  3 +++
- 2 files changed, 22 insertions(+), 1 deletion(-)
+  - Resend as part of unified series (no code changes from v1)
+ sound/soc/codecs/twl6040.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
-index 3097ee6d4e89f..cdf499fb36d67 100644
---- a/sound/soc/codecs/rt5659.c
-+++ b/sound/soc/codecs/rt5659.c
-@@ -3667,6 +3667,11 @@ static int rt5659_probe(struct snd_soc_component *component)
+diff --git a/sound/soc/codecs/twl6040.c b/sound/soc/codecs/twl6040.c
+index 650836f9615fb..826bde1a9ba46 100644
+--- a/sound/soc/codecs/twl6040.c
++++ b/sound/soc/codecs/twl6040.c
+@@ -1136,6 +1136,7 @@ static void twl6040_remove(struct snd_soc_component *component)
+ 	struct twl6040_data *priv = snd_soc_component_get_drvdata(component);
  
- 	rt5659->component = component;
- 
-+	if (rt5659->irq_disabled) {
-+		enable_irq(to_i2c_client(component->dev)->irq);
-+		rt5659->irq_disabled = false;
-+	}
-+
- 	switch (rt5659->pdata.jd_src) {
- 	case RT5659_JD_HDA_HEADER:
- 		break;
-@@ -3684,6 +3689,15 @@ static int rt5659_probe(struct snd_soc_component *component)
- static void rt5659_remove(struct snd_soc_component *component)
- {
- 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
-+	struct i2c_client *i2c = to_i2c_client(component->dev);
-+
-+	if (rt5659->irq_acquired) {
-+		disable_irq(i2c->irq);
-+		rt5659->irq_disabled = true;
-+	}
-+
-+	if (rt5659->jack_detect_work_inited)
-+		cancel_delayed_work_sync(&rt5659->jack_detect_work);
- 
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
+ 	free_irq(priv->plug_irq, component);
++	cancel_delayed_work_sync(&priv->hs_jack.work);
  }
-@@ -4271,6 +4285,7 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 		regmap_write(rt5659->regmap, RT5659_IRQ_CTRL_2, 0x0040);
- 		INIT_DELAYED_WORK(&rt5659->jack_detect_work,
- 			rt5659_jack_detect_work);
-+		rt5659->jack_detect_work_inited = true;
- 		break;
- 	case RT5659_JD_HDA_HEADER:
- 		regmap_write(rt5659->regmap, RT5659_GPIO_CTRL_3, 0x8000);
-@@ -4280,6 +4295,7 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 		regmap_write(rt5659->regmap, RT5659_IRQ_CTRL_1,  0x0040);
- 		INIT_DELAYED_WORK(&rt5659->jack_detect_work,
- 			rt5659_jack_detect_intel_hd_header);
-+		rt5659->jack_detect_work_inited = true;
- 		rt5659_intel_hd_header_probe_setup(rt5659);
- 		break;
- 	default:
-@@ -4290,7 +4306,9 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 		ret = devm_request_threaded_irq(&i2c->dev, i2c->irq, NULL,
- 			rt5659_irq, IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING
- 			| IRQF_ONESHOT, "rt5659", rt5659);
--		if (ret)
-+		if (!ret)
-+			rt5659->irq_acquired = true;
-+		else
- 			dev_err(&i2c->dev, "Failed to request IRQ: %d\n", ret);
  
- 		/* Enable IRQ output for GPIO1 pin any way */
-diff --git a/sound/soc/codecs/rt5659.h b/sound/soc/codecs/rt5659.h
-index b49fd8baf4e7e..e10b3844501b9 100644
---- a/sound/soc/codecs/rt5659.h
-+++ b/sound/soc/codecs/rt5659.h
-@@ -1813,6 +1813,9 @@ struct rt5659_priv {
- 	int jack_type;
- 	bool hda_hp_plugged;
- 	bool hda_mic_plugged;
-+	bool irq_acquired;
-+	bool irq_disabled;
-+	bool jack_detect_work_inited;
- };
- 
- int rt5659_set_jack_detect(struct snd_soc_component *component,
+ static const struct snd_soc_component_driver soc_component_dev_twl6040 = {
 -- 
 2.47.3
 
