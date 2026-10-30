@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357469;
-	b=zdxa1qSvH132/BhZk806/vpwo0i9ncQjPzY7W1Sls4PHe2LD75VfeOCRltxDZo6QDXKI
-	 3yoPs55dKGsDkgohz+IirVAb/PKO4WCH4J8eDnkv8zUx8EWoiqI0LrvkV2t66S28zJriB
-	 224Enx4BRcdQm1IZ7wdSnW6rKngyKel9pcm7Z/5DVTo7e9c8eXSohYEg2yrsUdvtWxru0
-	 gGydMziQeyXJ0QkuF5xco/hdyzqCwqxjR1tBVs9JXrfbgHHeQlVUfGfl6n3gA0RD1eTP9
-	 WX/LkeN0gDMWk71EQtWnT+ptvDrIf5OwsxkOEGZxWZHVpDHGyMcRn+MTNOqYcTfCSZg==
+	t=1793357476;
+	b=EX2fzIdnZZEV3OuGDjrqvwW/SiW0uolKMHf4eRBo/hQosI1vAhYtraXuiuDthnvOgPI0
+	 e48YiohBch9vjXYBl8fTIyaKQSif3/ufIZ3TOvTIYo0gQIqhQercw/pyLm4s3dENXNoUb
+	 TiFJciPN9ELaXkGp/ClPxDgXS/9hwBksse3sv7QyEdQ8Nb/ZeHJJlcWUghUcKUfKudW5X
+	 7fEoC/ZcCGNCvhFC8qgpzUnE7WgSZZZU9ej852e4jfQfJaVezTRuwSV2ErOUUzbqqrf9y
+	 WgjPMYvnBU2ypQVrJkNvRyjAqARCyY3nP3N28nIIXpyU5UNUKVmerH775YuSzHy2Slg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357476;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=w3lpUEkcUYB/TlKYKSFUD/2jahafwW7V7JoiZ9VtH6Y=;
-	b=ylyQFjWH3naiCFSHqzYbhuJblRs1Y6d+kb+Ybkz4rSvFInPj5qRqh9ZSWzy+OePiJ//6
-	 eMIcSBU52puAxSiWxxHn0Kaj3BWrJG87SF1pmaTTGmoeiZrOGCFXHCYXMdUTKgcBye+L0
-	 ikYYtNoMDMr13CGKOJ42KeMF8Fiu/E68Nys1VtWPvuhYHfJwYNOuoGpvD2cW9hi+WU0KB
-	 czAiEQCEYTw3dfMRIgFuM7Ffv7NpgNnCM5ya5LNWbvqfknfL9+cfwzSrvq9eyLo4UUKrq
-	 M1FZoMco5qZZ651O7+atQUn/r6HyeMpz7z5V4ee9M6Fq0GFsJCaj3l+HpDh8hhpjOGA==
+	bh=ORZuUirSP0uEoL4vnmHKjRK3/96d0kMl+8hTFLVkI2s=;
+	b=yAgXtNepqKF4wENI1EMOzwhIgrc2bi/tkm0M9XCGSmI1VWFRjUQ9aJvb38bqkIlScjKL
+	 F/W7mrPisC5r32B4GF666xvVNxsjucz7cQv5gdLIuWd1w49ryzHQqmYW6eQKvm4BEKrXZ
+	 w8/p4h7FyDkLUEiiy3R9vbxo/5DrDwA+yLRzkYNrZHZsev0vcSfTAc2C0u65Ua/IpHYks
+	 8N3Y0RyMPmbeO+/Xf1zcohrYFZVW1W1KV36bnsJ9JszElS4Otv8D2STk3eYSgGpB0vASg
+	 GNmP6syTA05QTOs9HjftMY8qLGtXIAQq8jbznDmY+mtcaVOR6+vP28Uq1oY04MP6acg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BjJjD23o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgFiA7Be;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66257606C6CE;
-	Fri, 30 Oct 2026 10:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F084B606D290;
+	Fri, 30 Oct 2026 10:51:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BjJjD23o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FDE41F000C1;
-	Fri, 30 Oct 2026 10:51:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgFiA7Be
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14D971F0093A;
+	Fri, 30 Oct 2026 10:51:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357469;
-	bh=w3lpUEkcUYB/TlKYKSFUD/2jahafwW7V7JoiZ9VtH6Y=;
+	s=k20260515; t=1793357475;
+	bh=ORZuUirSP0uEoL4vnmHKjRK3/96d0kMl+8hTFLVkI2s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BjJjD23oYgzg0TMkY67MwlEKJqdXa0GLSNRzSMAM10pfZkkW/P0RyAnfDWN/M4gRG
-	 i5xSVkpgFSk1znqHltnDnD7aks6yth52ey61KdaCp0sIwkeN/vamnGFuwHyUaFZaJq
-	 NO7uoam56aICwcGPaqFVg3Cr2pM6pW9G4M+kKsVyFT82GChklzNme0NXAc1JfQlIQe
-	 +1YCtEHNd2E5IgplwFXOPXrOqfwRF/WvpDN8snJvxDtAxEabJfVT3kHuY+4WvmfZ6A
-	 bY5ekz2wt6DdQ3lndTW/Ha3SphK3k7pPZhgMk8ajQN3cLE2nzZ8fJv6od/hklZV4P2
-	 Rg5gM9SczMvpg==
+	b=hgFiA7BeKw12PG8Q0eBP5/6EL2tNObbVM5JYU8HshWdlUJ8kKI+JG5mHlxXnGH55/
+	 FAX7RLnqP+asVkc7+3WYbWV+tF17mIrhcT6KnDu49sk3f1z4+7WUVAd3MFn629JfgQ
+	 8nDLl+5OXBb3d4nSrBxd46F9bvFIwiT6YIqsi4O/MhT1o/h0SiS6Q7qj9Im0e8ILMh
+	 CmEScg4VO5toOz2hPVPzygg2jCpcPeeO7jjBkjbv7YsTij+Yja6uPuIp7S1WAHcFGc
+	 3dpkWL7TAJ4RymB69P5EuV67o9/5xzvE0kniMYMGD7LNdI9pOo3zQ0K24mNIgNtSey
+	 /w+3cncELHAoQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Srinivas Kandagatla <srini@kernel.org>,
@@ -49,9 +49,9 @@ To: lee@kernel.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 07/21] soundwire: qcom: Prevent pconfig buffer overflow in qcom_swrm_stream_alloc_ports()
-Date: Fri, 30 Oct 2026 10:46:46 +0000
-Message-ID: <20261030104840.3361217-8-lee@kernel.org>
+Subject: [PATCH 08/21] soundwire: qcom: Disable runtime PM and avoid clock underflow in qcom_swrm_remove()
+Date: Fri, 30 Oct 2026 10:46:47 +0000
+Message-ID: <20261030104840.3361217-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
 References: <20261030104840.3361217-1-lee@kernel.org>
@@ -66,40 +66,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qcom_swrm_stream_alloc_ports() allocates the pconfig array with
-ctrl->nports elements, but only checks that the assigned port number pn
-is below maxport.  When multiple slave ports map to the same master port
-via m_port_map or the stream requests more slave ports than
-ctrl->nports, nports increments past ctrl->nports and writes out of
-bounds of pconfig.
+When the controller is runtime-suspended, swrm_runtime_suspend() has
+already disabled ctrl->hclk.  If the device is unbound in that state,
+qcom_swrm_remove() omits pm_runtime_disable() and unconditionally calls
+clk_disable_unprepare(), triggering a clock enable count underflow and
+leaving runtime PM enabled.
 
-Verify that nports is less than maxport before writing to
-pconfig[nports].
+Resume the device before removing the bus master, disable runtime PM,
+and only disable ctrl->hclk if the device is not runtime-suspended.
 
-Fixes: 9e53a66a2f2f ("soundwire: qcom: deprecate qcom,din/out-ports")
-Closes: https://sashiko.dev/#/bug/linux-543ea0c0-a6e5-4b03-a041-ea0a760802c1
+Fixes: 74e79da9fd46 ("soundwire: qcom: add runtime pm support")
+Closes: https://sashiko.dev/#/bug/linux-e26e04cd-3dec-4a3d-94e6-f45403c4bb57
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/soundwire/qcom.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/soundwire/qcom.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 6e0c5fb10efa..205011234030 100644
+index 205011234030..246bc063b850 100644
 --- a/drivers/soundwire/qcom.c
 +++ b/drivers/soundwire/qcom.c
-@@ -1343,6 +1343,11 @@ static int qcom_swrm_stream_alloc_ports(struct qcom_swrm_ctrl *ctrl,
- 		list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
- 			slave = s_rt->slave;
- 			list_for_each_entry(p_rt, &s_rt->port_list, port_node) {
-+				if (nports >= maxport) {
-+					dev_err(ctrl->dev, "All ports busy\n");
-+					return -EBUSY;
-+				}
-+
- 				m_port = slave->m_port_map[p_rt->num];
- 				/* Port numbers start from 1 - 14*/
- 				if (m_port)
+@@ -1791,8 +1791,13 @@ static void qcom_swrm_remove(struct platform_device *pdev)
+ {
+ 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(&pdev->dev);
+ 
++	pm_runtime_get_sync(&pdev->dev);
+ 	sdw_bus_master_delete(&ctrl->bus);
+-	clk_disable_unprepare(ctrl->hclk);
++	pm_runtime_disable(&pdev->dev);
++	pm_runtime_put_noidle(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		clk_disable_unprepare(ctrl->hclk);
++	pm_runtime_set_suspended(&pdev->dev);
+ }
+ 
+ static int __maybe_unused swrm_runtime_resume(struct device *dev)
 -- 
 2.56.0.317.g454f8302e1-goog
 
