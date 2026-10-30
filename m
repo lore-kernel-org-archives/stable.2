@@ -1,52 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371907;
-	b=dmNyEj77fst/GwudIpe49SZfmXyGNYED6ZlFwezD5eWn1A6WycGRGhRXplXV/OznnaNn
-	 WyKLW9KkUXAzBcULzuBovJmkycwByxiyIE0uEsfZIPxfuYXVJd0UXLX8yA8lJtWUtcPRX
-	 p5hj7Df5m17/XNCrpBPeb8/vcEGk+WzoZsG4Y7epHR1AGHKKnunJ4Od4bse/rQ8THBBd1
-	 ZuJ/dQEPOiBPhTvm/pw+c2JCreX+bjqRIgLfF213I8cYLHgrKao+2YY/nWkrrsQY8Z/T4
-	 jCq+nicTtn8I2Hha30T+Zk2Mqm96wgxdpNIoze7ndA5AYTnhscrBeVs+RglW4YHkPYA==
+	t=1793372113;
+	b=q33MBMeYY27lI/R9bZ1yA3mXYnyCpoKm+Bqm7F8JoXd/IkAfoSOEzygD6jHs8fr3U/Ak
+	 EVKES0GkDbjWtpHadmUUbfmgXuAUj8PVbF4/iy5FjPJp92ofI20zTSvN+oNpVXDPBCUZ+
+	 yw/Q8mYeEfRxq5yGLI83c4lcaU1BH1qBWyQnW1/XANAL2XxktquGvnwJec2MFaHR5IyNH
+	 CbiNGvaYtyr65CUyErqoi6SJtDBuWgFM8jhc1Dy4y2VnpQGWvfHpmyx75MU/AfrVRrRLd
+	 7yC0hDJzGQTYJUBTKuNwFXvIlfL1N64ZIGMjl37twYXkU2NL46pFK0ROvDE3TNb9z6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371907;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=2HtbNoPaGhVx1oIleRCrYh9Q+TVpcVTko3WuWXqXEEE=;
-	b=jM5dCC70oaYkpePLXo5flvbXzWdwgMtSeh13svbWHOr6k7HmZqXhXlFQIwgIpFQFyAuy
-	 hNsz36IOpZRhKHIfo0LqlTXKxuIJKklN7EGFYlaMcMCGJA2tLiOOAbxeWF4rxYlFCRX4a
-	 JvUV7Io6rrtfzfN70cYM/0kgG9RM3n0V8iKvRKjnXSdA6Fgi3gqD0+hrvQPawilg9tUCO
-	 rCKvLwtCisn3ZyziIbwRhn9o3ZAw9HBdNvGsImioBGoAIF9xKzgGJuWnRC3j7rfRoste5
-	 mPG89ffTWRg0PlY3WmqAWXtJWJvs6SGV2WmLrBcCn/vNk8t51BvX5QSQVfJG4PBMZQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372113;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=gCS/gL1ghdsd5VLwrlo0xHatJ9rSk58jF1auEVhGOn0=;
+	b=UN8jhLH3Q03vIS8v/w17A64/IEFSYo/ib6YSIQNfBONS9g+8gYOjziGXvgp8mRWIGa8x
+	 dneV7w2t5hoEuHNjcX/QvJrHSSNxcV/zAEmKXjIR71z1/0BV98IYCWJauwxGg+UxP9L/d
+	 yxL5QoYwdAJeQa05LgFp8ZfwUSUpPwzTG9QHNBKYW4rRBao9P1/qsqpn606FVN/lvz6vX
+	 2Jctt+9LDAcShIx0GNcscYjjqzQ5wQ5o/oofoP0Qe98rlsgplZOSLtzTB9tEshkeaaa9I
+	 F9/IyJzdgR/BlQAezWHxw2f/LjQbZIIgGkRXzoW8ZYSTH9P4bozL2oVbsELqyU8pDpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IG002WtX;
-	arc=none smtp.remote-ip=91.218.175.168
-Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QuKNrflx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F69606A31C
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 14:51:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3F69606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF84A606A31D;
+	Fri, 30 Oct 2026 14:55:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IG002WtX
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HKmC/zLtQ35zzhpn8XzyD4VRPec5/dy8PDlsxOcGW5A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793371903; v=1; x=1793976703;
- b=IG002WtXR3CahR9dJc7fQkF613xha+VIj85wMJAmnpxDyjG2MBwfsK5A9mA8a554UmeaMeZU
- +wxyeBs9vTKbHz3jT499XGFHJg2FXGBVvSFVi6293YEE1377/Dy3uLg/jTqDfklJQJjhcyG5HBl
- QiEy+H4cRqu6FQLtL5nKXflE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0481539a351a8ac5;
-	Fri, 30 Oct 2026 14:51:43 +0000
-X-Mizu-Trace-ID: 0481539a351a8ac5
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QuKNrflx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082CD1F000C1;
+	Fri, 30 Oct 2026 14:55:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793372112;
+	bh=gCS/gL1ghdsd5VLwrlo0xHatJ9rSk58jF1auEVhGOn0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=QuKNrflxz97W76RC2SuGeC3BNLKM/9/sSx0kwSVhVSJ/tpNzF16hiKqXb/9admXFW
+	 2Is3p569Dpy6NtKgvIDf/TjKFHgMHchv7kMYfc39TaKB8UTV5xOjG4C4H/8oY8x4RT
+	 CMhzuvRu+F7013+qHTya2Nmse5W5l6AX87vAMkOPEmnhRjfP1bORUNRvhr3jtG6Dky
+	 YCdMepplAtJri5zDYU+6jSRO6C1mK2QNvaBqKc8Iew5bsuLdMQVKNpg768UmXhfbuU
+	 f6npXTXeXHr6p/paXR513uqVh3eupoJpL/NI+yYGDGhDa+qTl/Hh4tZPuAP6jntZXk
+	 SSe6wqr3FthWQ==
+From: Christian Brauner <brauner@kernel.org>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Chris Mason <mason@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, linux-unionfs@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261029180319.2852090-1-amir73il@gmail.com>
+References: <20261029180319.2852090-1-amir73il@gmail.com>
+Subject: Re: [PATCH] backing-file: always end a queued write
+Message-Id: <20261030-heilt-punkband-pochen-5055df590897@brauner>
+Date: Fri, 30 Oct 2026 15:55:09 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,62 +59,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 30 Oct 2026 14:51:43 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Luka Gejak" <luka.gejak@linux.dev>
-Message-ID: <4a555879477e2c5b8eb2f2cd430157adef580461@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] wifi: rtw88: usb: stop RX work before unregistering
- hardware
-To: "Zhao Li" <enderaoelyther@gmail.com>, "Ping-Ke Shih" <pkshih@realtek.com>
-Cc: "neo_jou" <neo_jou@realtek.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Kalle Valo" <kvalo@kernel.org>, "Hans Ulli Kroll" <linux@ulli-kroll.de>,
- "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-In-Reply-To: <20261028141904.8707-1-enderaoelyther@gmail.com>
-References: <20261028141904.8707-1-enderaoelyther@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-ce4c1
 
-Hi Zhao,
+On Thu, 29 Oct 2026 19:03:19 +0100, Amir Goldstein wrote:
+> Writes to a loop device with direct I/O on an overlay file make the
+> next freeze of the upper filesystem hang for ever.
+> 
+> Every kiocb_start_write() needs a kiocb_end_write(). For a write that
+> is queued, vfs_iocb_iter_write() leaves the end to the completion, and
+> backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
+> is set in the flags copied from the submitter. In-kernel submitters
+> such as loop do not set that flag, so each queued write keeps the
+> freeze protection of the backing filesystem.
+> 
+> [...]
 
-Thanks for the fix. One comment below.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-October 28, 2026 at 3:19 PM, "Zhao Li" <enderaoelyther@gmail.com> wrote:
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wir=
-eless/realtek/rtw88/usb.c
-> index 64e1c3420e0a..1d2759eb96bf 100644
-> --- a/drivers/net/wireless/realtek/rtw88/usb.c
-> +++ b/drivers/net/wireless/realtek/rtw88/usb.c
-> @@ -1370,7 +1370,10 @@ void rtw_usb_disconnect(struct usb_interface *in=
-tf)
->       rtwdev =3D hw->priv;
->       rtwusb =3D rtw_get_usb_priv(rtwdev);
->
-> +     /* Stop deferred resubmission before killing the active RX URBs. =
-*/
-> +     disable_work_sync(&rtwusb->rx_urb_work);
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-As far as I can see, rx_urb_work can't bring an URB back at this point.
-rtw88 doesn't set soft_unbind, so the USB core disables the endpoints
-before it calls the driver:
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-        usb_unbind_interface()
-          usb_disable_interface()
-            usb_disable_endpoint()
-              ep->enabled =3D 0;
-          driver->disconnect()
-            rtw_usb_disconnect()
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
-After that usb_submit_urb() on the RX pipe fails for the rest of the RX
-teardown, and a failed submit only queues the work again on -ENOMEM. So I
-think cancel_work_sync() on rx_work alone already closes the race, and
-the same change would then work for the older stable trees too.
+[1/1] backing-file: always end a queued write
+      https://git.kernel.org/vfs/vfs/c/627cdcbc2a2e
 
-Keeping disable_work_sync() doesn't hurt, but then the commit message
-shouldn't say the work can restart a killed URB. Or did I miss a path
-where we get here with the endpoints still enabled?
-
-Best regards,
-Luka Gejak
