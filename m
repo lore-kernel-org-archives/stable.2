@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793372775;
-	b=4WYxNhuuXNHzRyiVQS1UCdRC9feoMriQ9Dz0esK1KdjAKxibZf40/7vjN2aMFeLH/CXy
-	 tuWGJy608JzDfciXUoATw2ik4OHBGNEe2szVMsn6+gHwieVqfNyHhql2sAjinKk08MqSh
-	 EKLwa0YN4iL5s6/pFCVuVSckGksmy8jEBtjdiQVLceALG0ZoFRx1NciUWk4SBHifsHWPo
-	 na83H/2OyP5iNrdxMasaygFzchGPJCRwYLSkNX7HXCESBXkt5ggcCkmyyyPs6F9ynG4/3
-	 K4bxrTM2iuD2gtet+Z/KoEkoX/2ktQLMvuQO60IBNqjFTDCdsM6BbUYsYsY0zuu5yIA==
+	t=1793372840;
+	b=LywMf7ymy5G0XMeNTZZcA+luqVIV0XaGlzBmmYqR7OThFLcfloFYEFn8mE/AsnKs04Ei
+	 cvtovUj1iOWSrrg6YlgLXlUVOpRTvjA6PYd2Eu8CeD5thN8kjFWYjG4qu8Et+vlFA6Xid
+	 2Vjbj97AheDeytxr+GSlZ1Trjp6ps7losjTMJ1X7nSh2gk7Yw7akJCrcAh5iK2O/e6NM+
+	 yTyC4Me5bQNzrqWHwdgTu92sIJPTpePXPImvH6zYen+p7ov8kB8rl0fGoYVLYRnSGOOhS
+	 TfbmEXBfPBU+zd9UW5ZmuRnZWasztjj1SJQWO2YFXcpwi9k0YoM0N86xOnQHZNnjqhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372775;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372840;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=Va4KXTHeJA5guykEvZxhkC0KQ++llU8oxL81Jkrl0QM=;
-	b=iiZryTB1HbvkSflm2iVjcS6/cipHkbO3X9UX9I/HAR5hTnMUraxhLEIOuQ+60BBQsNlI
-	 Y6HI7I3RDCS5lONL3DqNfZzXnKE94HrWcY6TLCdc+CNYB3RBB4/OccAMOU4rsQNk1mqAO
-	 wAOKm05zAG17cEqOuYGuMmBAcGEyilRUyG1LvneGIb10rh+LtzC9FdgheK0Ac+bOmkfOO
-	 H0L7l1ZLCFY3EgVJ46Uj9/1sSIoszM85MxgPwbUZmnpNA+CZ+pmp4YV9ldtkEIXVMsbg/
-	 RZQexxGfTLwlx3HpkU0K0tcRu8tSmaB+ZEh2PpIyKduDcvCUy4XIWjemFdXT9Ni0BnA==
+	bh=aaOAKoZaIEKsIzdZ0xdbS0RXzzXtVkV+jQTAE81qpAY=;
+	b=LRN4r/d7FanCThHFGXfPg47GhbTfwql0Lpd83QvbohLTOAw+d3DHABtC8PFzCuVGjZeS
+	 kFxAY+NMBvICtZr77O9Q0WtFfnCNrWyZS4te2nNaF/y4oRMY8mCu9unsq7hPaq1SHu//e
+	 FcQbz8JUFfaj5bbAokcywdPgogY1hKAp4iup4Csuc/CBZQLQV2sAHWEO6esGw4S+1IHJQ
+	 0bJvHk4QEy3z/8xmYqkfdi9tiJ41AHaB1JvPN/uTHGej6a0Z/OUpGRDHNMPrdLs/0BI81
+	 fgBlWeYO1uDJ/+aTMniv4sHVCLYI+waRol9p5e62b4FmHSnmrFvmeS4DTp87Tcgvrog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEW02O3L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UD062HP4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FCE606A321;
-	Fri, 30 Oct 2026 15:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAB0606A31C;
+	Fri, 30 Oct 2026 15:07:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEW02O3L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A061F00A15;
-	Fri, 30 Oct 2026 15:06:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UD062HP4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE3A1F000C1;
+	Fri, 30 Oct 2026 15:07:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793372774;
-	bh=Va4KXTHeJA5guykEvZxhkC0KQ++llU8oxL81Jkrl0QM=;
+	s=k20260515; t=1793372840;
+	bh=aaOAKoZaIEKsIzdZ0xdbS0RXzzXtVkV+jQTAE81qpAY=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=AEW02O3LMy3L7p6547tJ93TiXeeeXRFON111pjP3v/X/jhESDSfoKe6zeufn5xfea
-	 4xflEpEKVpCbONOT+wcaBtISS7EzZz3PlonUhM9/LuDa51R0RyLfix98GZI2rDg4Yy
-	 vfaZLJDMBff9xSFx9Gjx44cgSQPqrenII+EU1jsFfWQPpkGxM66uY9cYd2ob+au7Ps
-	 Bb9wr8HxsXzs76wn5yG2zyKCapLg24EB0PCObg53MEb2HNx4yNClQg6K/ZCltJ8IKG
-	 q8uueKMEl/knPstwuAkIS+W7KRRfNaP3US4MzcM4LQlwrp/0x4XtPYU+jy8N29W1Wm
-	 ElVi1dkLBN5Gg==
+	b=UD062HP4wTnc/5KC6Nab2NkgKztXGi949hgNtJ6ubC2G5SnPW2GqYQoz5kCK1JWz/
+	 WQmjMUgneTxb6tBLNWXilNWlMWogRWcq2s9JHm60/uPz3utJScbkg0QLfMrc16o4Ok
+	 pXadadfNdgi1utyVxX5VfKUfy268GKiA8H8ipfa9QSMVSZcgKY9Hhigtrqy91VdUtr
+	 lHlEltUM3MbRbw1UhJvnQxHDFbao5D3SIdNsa7NfIARSda4Z19QE3PNcKDFWDfjA16
+	 p4uruG+40rl26n35JWnPfIvdyi1nfHxfJd/epgI5BWUNOB6gxCG8yPg8RqylwjyGJN
+	 WUzxACnqlyx1Q==
 From: Christian Brauner <brauner@kernel.org>
 To: viro@zeniv.linux.org.uk, Hungyu Lin <dennylin0707@gmail.com>
-Cc: jack@suse.cz, djwong@kernel.org, amir73il@gmail.com, 
- dchinner@redhat.com, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261026015738.46230-1-dennylin0707@gmail.com>
-References: <20261026015738.46230-1-dennylin0707@gmail.com>
-Subject: Re: [PATCH] fs: skip copy_file_range write limits when there is no
- data
-Message-Id: <20261030-bohrmaschine-postschalter-erleben-caf22a079c0e@brauner>
-Date: Fri, 30 Oct 2026 16:06:11 +0100
+Cc: jack@suse.cz, akpm@linux-foundation.org, dave.hansen@linux.intel.com, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261025171130.16115-1-dennylin0707@gmail.com>
+References: <20261025171130.16115-1-dennylin0707@gmail.com>
+Subject: Re: [PATCH] libfs: do not extend i_size when no data was copied
+Message-Id: <20261030-erzwingen-archaisch-wirrwarr-5a6d0fb751ce@brauner>
+Date: Fri, 30 Oct 2026 16:07:16 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,21 +63,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev-ce4c1
 
-On Mon, 26 Oct 2026 01:57:38 +0000, Hungyu Lin wrote:
-> generic_copy_file_checks() reduces count to zero for a source offset at
-> or beyond EOF, but still checks the destination write limits. If pos_out
-> is at RLIMIT_FSIZE, this sends SIGXFSZ and returns -EFBIG even though
-> there is no data to write.
+On Sun, 25 Oct 2026 17:11:30 +0000, Hungyu Lin wrote:
+> simple_write_end() updates i_size to pos + copied even when copied is
+> zero. A failed buffered write past EOF can therefore extend a ramfs file
+> without writing any data.
 > 
-> For example, GNU cat copying a 1024-byte regular file to another regular
-> file with RLIMIT_FSIZE=1024 copies all bytes and is then killed by its
-> next copy_file_range() call at EOF. A zero-length request can fail in
-> the same way.
+> Since prefaulting was moved to the slow write path, this is reproducible
+> with a one-byte pwrite() at offset 4096 into an empty ramfs file using an
+> unreadable source buffer. The call fails with EFAULT but leaves the file
+> size at 4096. generic_perform_write() calls ->write_end() with copied == 0
+> before trying to fault in the source buffer.
 > 
 > [...]
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.misc branch should appear in linux-next soon.
 
 Please report any outstanding bugs that were missed during review in a
 new review to the original patch series allowing us to drop it.
@@ -90,8 +89,8 @@ Note that commit hashes shown below are subject to change due to rebase,
 trailer updates or similar. If in doubt, please check the listed branch.
 
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+branch: vfs-7.5.misc
 
-[1/1] fs: skip copy_file_range write limits when there is no data
-      https://git.kernel.org/vfs/vfs/c/81dfa035891f
+[1/1] libfs: do not extend i_size when no data was copied
+      https://git.kernel.org/vfs/vfs/c/4a1edc38b617
 
