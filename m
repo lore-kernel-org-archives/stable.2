@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357482;
-	b=MO6VpmQmRw+BLytB62v2YINxhp123TJ9srvBmij9m5pcxw7BVx8dPXhDDU8CfCF1EO9y
-	 tTIo8ax5HXVLeNpueF+CtNZya5XSWBB/XTW/d+wiEQTFUqMwepcseDF2qEPEB5MT+/8SQ
-	 oJEgVm+OuUEPGJaG4lBXHCtSzxMB5cWzWKkTpsVreOBwjNiT0c4H2xVm+p3B0G7zzPwxc
-	 G+pAkefv1gvCGoJCKc8JNtkyk/4/daISw+PkO65s4mN/iElhF0XTwgQEr/yvWohvT5Mr7
-	 D5+MnnXkN5fkfEWmmPLzZPgxV8D+j3ZoKu+QkVFvK3dKD5sXL152EwCeLzDwZ+i2cDA==
+	t=1793357508;
+	b=CNjlqyLhz+zmp5Wany8zfUTfQetksV6XvztnRUUCAmINuA8QQiX9xWPqIhDu8t8EW2oO
+	 1ONQKZcdy1mJQQTj9GVCVb3k91PPZk4D4PuRoOsBaOjV5IcDAg4jr8ihVCMeuIcyOZH5Y
+	 OJUnyUb08TD1Wf7cnPp/hDuR2pr6WfwZq9AKzVp6XCBYrS68D3u8KTmMsFSmhgXJlR2GH
+	 8biFDjvwFEKPsgoS86sZk3qBAYKXZVbDZBNMukFuSyPz0NkkyplxBXKQP+2SumcWx/fS3
+	 9FACCk51eEgZFZb/ViwROZ65/pfS0QAMltQJqDB2UzoVt3PfyzJxUSJWQwVLPXcZMjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357508;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hwPhW4utH1xQoos3/jgYe8fS37Oc5o3R3bndMQ+Pyl8=;
-	b=dQxdnJVCosRfvh7MB057aKQqs3awe/2EM5G0NFYc56ght30h2V+2gVa8sLTn5EbM4YkL
-	 SVwdOARaIMhxjNGkEGxsl2LSpn8grAdfs8tjFxRpGvKnQB328jhByCIqafcH0WFIqabcy
-	 poxLzb1wzZ4KNTSAXzfSDOMWIKauEOWdCJVPAohOFWHFPCPjcQUoVuGoN3djs5NtS+IvD
-	 5TPX95laaV/BRelq0j8uBNBJvkWgj53ZJLbObiRogLBwr6rufyjrFx8Hx0ydiLTXT5oPn
-	 PkOtAPJJW9NlG6W63LECa415MwgeBSu43azcHagH0Q8asSJ14V286+y6LmurUKk0yIg==
+	bh=dY3TW4gVyH389BRWJY/TpocEjcncyQkeiLAGfm7WDB0=;
+	b=ahwJ+KiviAsWJvI272srif8GCF2DzwjkjJ4b0aFAVqzrNkuTNtB0XaWsQVIdLtUO1d4c
+	 oiJEbaf9FOsVD2K0WP73iA3e4oVC+zFUzFoekS3gz3waeZnZ32JsGZGktP/ww7/QTZ3i1
+	 yPBP3HG5yofK8Mvnt1i58sjxodghVz/qm0wICu6qBGzThHl+GqM5UdiqGNZCYExyOY0I4
+	 0s3NQkeziKYjoEO+AgxmngvCybTy3XU6boGJmNM9WwJ6Id9O/eT0+dfnTKw3Iug97mmY1
+	 xr6Cpu99uXlr6BQABzI47YRJK7VCy5gd6ICq0RzyfTL2ki6baBZzVj9kE8XQXKpgtTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H596soXV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gDlSCkg1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562B3606D2B7;
-	Fri, 30 Oct 2026 10:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9E00606A337;
+	Fri, 30 Oct 2026 10:51:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H596soXV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B07D1F000C1;
-	Fri, 30 Oct 2026 10:51:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gDlSCkg1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BFED1F00A16;
+	Fri, 30 Oct 2026 10:51:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357482;
-	bh=hwPhW4utH1xQoos3/jgYe8fS37Oc5o3R3bndMQ+Pyl8=;
+	s=k20260515; t=1793357507;
+	bh=dY3TW4gVyH389BRWJY/TpocEjcncyQkeiLAGfm7WDB0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H596soXVyEIV7BAJj9qQrg3F72bRqcpo5J3/EV5Pq/fYa4nxrV/eDPQMdonZvlPlv
-	 awsbvLkmBiAujrn7FKtDZ+fhZpTTSd5sbai6rNm0lzRnJX8hdhi+SZht6/+hgMSpKp
-	 dZTE+GwpIfS7+XO+OsTeVsEVa1wIi7McJwngaCc8hqF0NcTztS+XU4qIeotr20WDxm
-	 RV/mv3DE9fFMlulp2hAms1vATKjy6lXOurLRD/BWyovNwmIOEGOpaAkYX/FVbDhEnn
-	 3hVZTsnne2ZQQq5YL3Jfzf3yGHqGtFgQb59UiQ3OygtcrFwSHFCaSOjb5+vnY4aND5
-	 cjn4Z6cRieMbg==
+	b=gDlSCkg1nc3GvBuCEqjdT+mWhwEk3my50hDU/dGynPxHevpRA2oU9rkxBJvSP5SHd
+	 +Ygm080yHJuu4TbaX5B0sgljmOayndSJbw+q0Tugj6yCroJJ+deEtSG/ndkzKibqFm
+	 ixU991KKQG1an356pnhyx7OUbeNVpEiDDqMVYMYjkG5UnvPLWQ3i5D+3KO2OFoYG3a
+	 jYDr09BooKyPdobXbHhgv4hFXwriVoQYXLHF4E3wrHGPjqt6c3PN0l5hFAOhbcQI/W
+	 JmcH77WjXsGdvVpHEK/1KSOC/V8D4xB4NBeT1WVwwNuxGXL17MrIg62s/lsQFkBLDs
+	 0lEY6vm0n2NiA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>,
 	Vinod Koul <vkoul@kernel.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
 	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/21] soundwire: qcom: Check clk_prepare_enable() return value
-Date: Fri, 30 Oct 2026 10:46:48 +0000
-Message-ID: <20261030104840.3361217-10-lee@kernel.org>
+Subject: [PATCH 13/21] soundwire: amd: Check ping command response for timeout
+Date: Fri, 30 Oct 2026 10:46:52 +0000
+Message-ID: <20261030104840.3361217-14-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
 References: <20261030104840.3361217-1-lee@kernel.org>
@@ -66,76 +65,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-qcom_swrm_probe(), qcom_swrm_irq_handler(), and swrm_runtime_resume()
-ignore the return value of clk_prepare_enable(ctrl->hclk) and proceed
-to access controller registers even when enabling the interface clock
-fails.  Also jump to err_clk when requesting the wake IRQ fails in
-qcom_swrm_probe() so ctrl->hclk is disabled on error.
+When amd_sdw_send_cmd_get_resp() times out, it returns -ETIMEDOUT as a
+sign-extended 64-bit value.  amd_sdw_read_and_process_ping_status() and
+amd_sdw_read_ping_status() extract peripheral status bits directly from
+the returned value without checking for -ETIMEDOUT, interpreting the
+error code bits as peripheral status values.
 
-Check the return value of clk_prepare_enable() in all three callers and
-abort register access on failure.
+Check for -ETIMEDOUT before extracting peripheral status from the ping
+response, matching amd_program_scp_addr() and amd_sdw_fill_msg_resp().
 
-Fixes: 02efb49aa805 ("soundwire: qcom: add support for SoundWire controller")
-Closes: https://sashiko.dev/#/bug/linux-f65cddc9-08ff-4531-9acf-76981d74d914
+Fixes: d8f48fbdfd9a ("soundwire: amd: Add support for AMD Manager driver")
+Closes: https://sashiko.dev/#/bug/linux-c3a53ed5-eb8f-4982-a3b6-db189e009b68
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/soundwire/qcom.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ drivers/soundwire/amd_manager.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-index 246bc063b850..555045b32a25 100644
---- a/drivers/soundwire/qcom.c
-+++ b/drivers/soundwire/qcom.c
-@@ -778,7 +778,9 @@ static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
- 	u32 i;
- 	int devnum;
- 	int ret = IRQ_HANDLED;
--	clk_prepare_enable(ctrl->hclk);
-+
-+	if (clk_prepare_enable(ctrl->hclk))
-+		return IRQ_NONE;
+diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+index a3316efdf8ac..a8220235a2ae 100644
+--- a/drivers/soundwire/amd_manager.c
++++ b/drivers/soundwire/amd_manager.c
+@@ -448,6 +448,8 @@ static void amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_man
+ 	mutex_lock(&amd_manager->bus.msg_lock);
+ 	response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
+ 	mutex_unlock(&amd_manager->bus.msg_lock);
++	if (response == -ETIMEDOUT)
++		return;
+ 	amd_sdw_process_ping_status(response, amd_manager);
+ }
  
- 	ctrl->reg_read(ctrl, ctrl->reg_layout[SWRM_REG_INTERRUPT_STATUS],
- 		       &intr_sts);
-@@ -1680,7 +1682,9 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 		goto err_init;
- 	}
+@@ -458,6 +460,8 @@ static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
+ 	u32 slave_stat;
  
--	clk_prepare_enable(ctrl->hclk);
-+	ret = clk_prepare_enable(ctrl->hclk);
-+	if (ret)
-+		goto err_init;
- 
- 	ctrl->dev = dev;
- 	dev_set_drvdata(&pdev->dev, ctrl);
-@@ -1736,7 +1740,7 @@ static int qcom_swrm_probe(struct platform_device *pdev)
- 						"swr_wake_irq", ctrl);
- 		if (ret) {
- 			dev_err(dev, "Failed to request soundwire wake irq\n");
--			goto err_init;
-+			goto err_clk;
- 		}
- 	}
- 
-@@ -1805,13 +1809,15 @@ static int __maybe_unused swrm_runtime_resume(struct device *dev)
- 	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dev);
- 	int ret;
- 
-+	ret = clk_prepare_enable(ctrl->hclk);
-+	if (ret)
-+		return ret;
-+
- 	if (ctrl->wake_irq > 0) {
- 		if (!irqd_irq_disabled(irq_get_irq_data(ctrl->wake_irq)))
- 			disable_irq_nosync(ctrl->wake_irq);
- 	}
- 
--	clk_prepare_enable(ctrl->hclk);
--
- 	if (ctrl->clock_stop_not_supported) {
- 		reinit_completion(&ctrl->enumeration);
- 		ctrl->reg_write(ctrl, SWRM_COMP_SW_RESET, 0x01);
+ 	response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
++	if (response == -ETIMEDOUT)
++		return 0;
+ 	/* slave status from ping response */
+ 	slave_stat = FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_0_3, response);
+ 	slave_stat |= FIELD_GET(AMD_SDW_MCP_SLAVE_STAT_4_11, response) << 8;
 -- 
 2.56.0.317.g454f8302e1-goog
 
