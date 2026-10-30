@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793365205;
-	b=TaKjCLe1KOvNKJhdWNnHghzHXkaiWCX71xjvpTbhJHt30jbiyufvr5eoi68NgQNagVZG
-	 Zd6h5Id88NoiGFwuWiGaJoTbMESgsxN6KVlcpeFZ8LTPnofYVOimk1Fd+olNDfNOJMOCp
-	 pESEUN7Mz50PXkxwYlsgmSjDjx/vYmXu9axa0jK3b4io/kEBkCH9sk+jUgaz/HH7TGU8M
-	 n7PAslLsT2TnQeWz7ebdFSf69YVFLJPf7mvxTXCKMRX2W4qxY9yeYLBKLQnDk9BhXFeHv
-	 20rS+E9enVjo4W+OW/U/+0B/QA31z2nI8m58FFxHb4ZXt8H8zefOf37YJD6Xmg+AO8A==
+	t=1793365208;
+	b=NjEfEf50stXjboVx+wIEjejasSQkqB2ZnC7RFLOSsKn0jFs9vsWqvXXTUEgBSHWvoWFU
+	 TpFZwpJ75wjsmn+DgbclSlU+tcPk5QEPQjDqoBq1rm61aWrc5f/EP6PuPxKBdqJ/MWrTn
+	 WM12wNnB3lVuOU1uB/nXseQBxdme9maH80ag07wTuhGTse4KiHrpAdOuo/sA1oHbIjEEq
+	 h47RzAB7+ssy1kj1lG20XAZkulS57jkLmVO3FBj8zwSSZa2n+3tL+h4czBuv27b9cs+GN
+	 DD+ebqigVzABXhYp0CifBTatzFztOCn2tPd9Ui1rtxc3v+7k5Vo9Hcn66iikjGbyIpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365205;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365208;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ykRLx0xtV2JFezn1qE46TAjktQ1p07zr3t0RG2JR5nM=;
-	b=2zrsnQrZKNf2UiW5QXHIOqRu2txiVwtltypBjS4dOXzWzr9L579hVP4pW6+9bbzglVrj
-	 9T52DEER4PJ0izFV5JOso2zLFywQg5s5/d3M8ei0hY4mCMTtnU5RYPtmHEx7PmoCMBqyV
-	 pAmF6TUS1WHxICrbTggH2Ixn7rFlUY8WSsem4R6vhM8lLfAHwEfONt4Fm6JpSg8gkeHGw
-	 wZyAzE3btf9PUyn8Rz4Eh9brcerWzSnCqQS/K4lzCUI59wUlea5CAILfnYvYhhGlitcSa
-	 vv4nvb0ttEy6yoVuDVjpGkG8UIRML8O34q3ayRbehylJZbFALFDHMyh0IXB83VnxJ7A==
+	bh=nH54Ozn9lZF+FVBrx7lei5cOZ6E8IORtKLKEiQ1jZr4=;
+	b=gz+KO86R6UBUZS5tevXaOuYTckJEHFEugdpHXBe1ObqK8kHCVHh6LjPRCLwYhXNZY27g
+	 5PKBvCjct7Ou2nCBb0X2aSUD2Xn5387rt+12azWh0lc5UxEPpsNQ9TPUV9//cEyNyQX8S
+	 vZOgwHKHQsIxgaDyZawCBnoxC/WjVcXgDBpZSLdyJEFiKmo4m1nI8KHQ1N01gicKxdGWM
+	 WYqrhZoWu5XUjxFkvX1PZIDetjgvsM5iUH0omT5CEYJTPtMBXvRPl/oSEixmFczVhvXey
+	 5bvpKVY2TCtdyFyoumoPuD+/qZSTdq0Q1E+XCICwuYy5Cw5X5c/6ND+f9lp4LuKgOlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hjaRT9Lk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYNgY22r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01AF606A325;
-	Fri, 30 Oct 2026 13:00:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8280F606A31A;
+	Fri, 30 Oct 2026 13:00:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hjaRT9Lk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25A911F0093A;
-	Fri, 30 Oct 2026 13:00:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FYNgY22r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 418DE1F0093A;
+	Fri, 30 Oct 2026 13:00:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793365204;
-	bh=ykRLx0xtV2JFezn1qE46TAjktQ1p07zr3t0RG2JR5nM=;
+	s=k20260515; t=1793365208;
+	bh=nH54Ozn9lZF+FVBrx7lei5cOZ6E8IORtKLKEiQ1jZr4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hjaRT9LkhjOPVXAZdpiSupdBB6Xj1ZQOFns0UppLlH/L3/NTTYItUHKaAaExfFpxY
-	 CF8GKilC+6zJUjV6v06tflu1A/sskQ5jzOB0X9qQ1SJWXDKh/kIAvv6BzQIR0AZ8q2
-	 5qGZq6IOhjYVAWcWA3L3QEoE+l/DXkigv9tmYPG8XUxVtxPA1CBpM47u33qIEYsjfb
-	 56LhAwto5cgr0PLzI0xIR+teLzG2JOoJUGbTgZ8v9c7gAUaa/oqdlbSvwk6G7r+owr
-	 kvCqnRnQzUryrt9qJMlCEodcSf1+OiTRhkwyYyQty169q09mH5V+RDXneMEC6aqhRJ
-	 VYOiQjvx2DFLA==
+	b=FYNgY22re7rYvE39NgS16wGpTSJosu69m+/0r06rmL1AWbhBKTG40sHuB/xPVYUq3
+	 0xv2m101YAbdNXa2uU5UyYMGBYBe/Vg0y7LXLL8iWpdP3UaSnsUyxj4JC+OSSKL3gz
+	 Hwut5cv/G+0rX2HfQruhQpkUHNwa34DmJBhMXVxNAPu3aKBtd0GrNbIveb49uH1v7W
+	 nxh31qJQkABaZ7uh14aQq2D/4NWaISfTTzm7wrN9txyyngxZWVeOBOeMGELrxssiOn
+	 MKxpgUYcl6/Y4e8IAcG1n/XYsjGCbZQyPvGvaOI/Qbia2gPYchunlSWinBAG7WhIrQ
+	 RjOKdBG+tEj2g==
 From: Eric Dumazet <edumazet@kernel.org>
 To: "David S . Miller" <davem@davemloft.net>,
 	Jakub Kicinski <kuba@kernel.org>,
@@ -51,10 +51,11 @@ Cc: Simon Horman <horms@kernel.org>,
 	Tom Herbert <tom@herbertland.com>,
 	Cen Zhang <cenzhang@linux.microsoft.com>,
 	AutonomousCodeSecurity@microsoft.com,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 1/2] net: gro: do not undo remote checksum offload on merged packets
-Date: Fri, 30 Oct 2026 13:59:54 +0100
-Message-ID: <20261030125955.3107383-2-edumazet@kernel.org>
+	stable@vger.kernel.org,
+	Taesoo Kim <tsgatesv@gmail.com>
+Subject: [PATCH net v2 2/2] net: gro: invalidate frag0 after a pull
+Date: Fri, 30 Oct 2026 13:59:55 +0100
+Message-ID: <20261030125955.3107383-3-edumazet@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261030125955.3107383-1-edumazet@kernel.org>
 References: <20261030125955.3107383-1-edumazet@kernel.org>
@@ -69,73 +70,132 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-skb_gro_flush_final_remcsum() calls skb_gro_remcsum_cleanup() to undo
-the checksum adjustment done by skb_gro_remcsum_process() when the
-packet was not consumed by GRO.
+Since commit bd56a29c7a4e ("net: gro: change skb_gro_network_header()"),
+skb_gro_header_slow() no longer invalidates NAPI_GRO_CB(skb)->frag0
+after pskb_may_pull(). skb_gro_may_pull() keeps comparing against the
+frag0_len value set in skb_gro_reset_offset(), assuming that after a
+slow pull, all later accesses are beyond frag0_len.
 
-When the inner handler merged the packet (NAPI_GRO_CB(skb)->same_flow
-is set), grc->offset can no longer be trusted:
+This is not true:
 
-- skb_gro_receive() either gives the frags or the head of the skb
-  to the held packet, or uses __skb_pull(skb, offset) before adding
-  the skb to the frag_list of the held packet.
+- udp4_gro_receive() and udp6_gro_receive() read the network header
+  with skb_gro_network_header() after udp_gro_udphdr() pulled the
+  UDP header.
 
-- skb_gro_receive_list() uses skb_pull(skb, skb_gro_offset(skb)).
+- vxlan_gro_receive() calls skb_gro_remcsum_cleanup() at a lower
+  offset after the inner handlers pulled their headers.
 
-grc->offset is relative to the original skb->data, so the 2-byte
-read-modify-write done by skb_gro_remcsum_cleanup() can land in
-the payload of a packet which now belongs to the GRO packet.
-pskb_may_pull() can also be called on this frag_list member.
+- skb_gro_remcsum_process() can pull beyond the inner Ethernet header
+  before eth_gro_receive() reads it.
 
-With fraglist GRO, this can also be a use-after-free:
-pskb_may_pull(skb, skb_gro_offset(skb)) in skb_gro_receive_list()
-or udp_gro_receive_segment() releases the first page fragment if it
-only contains headers. NAPI_GRO_CB(skb)->frag0 and frag0_len are not
-updated, so skb_gro_remcsum_cleanup() takes the fast path and writes
-through frag0 into a page the skb no longer holds a reference on.
-The non merged case, where frag0 is used after this pull, is handled
-in the following patch.
+- napi_frags_skb() calls __skb_pull(skb, ETH_HLEN) after a slow pull,
+  so frag0 still points to the Ethernet header.
 
-Skipping the cleanup for a merged skb is correct:
+If the pull consumed the first page fragment, __skb_pull_tail() released
+it. If the head had to grow, pskb_expand_head() freed the old one.
+These reads, and the 2-byte write in skb_gro_remcsum_cleanup(), then
+access memory the skb no longer holds a reference on.
 
-- With skb_gro_receive(), the skb is freed, or its headers are
-  rebuilt from the head skb in skb_segment().
+esp4_gro_receive(), esp6_gro_receive(), skb_gro_receive_list() and
+udp_gro_receive_segment() also pull directly and never invalidated
+frag0.
 
-- skb_segment_list() only copies the link-layer and tunnel headers
-  from the head skb, so fraglist members keep their own inner headers.
-  grc->delta is only set with VXLAN_F_REMCSUM_NOPARTIAL, where
-  skb_remcsum_process() writes the same adjusted checksum in the non
-  GRO path. Keeping it is the intended result.
+Add skb_gro_frag0_invalidate(), which only clears frag0_len, and call
+it before each of these pulls. This is a single store in the slow path,
+and frag0 stays non NULL, so skb_gro_network_header() does not need
+a NULL test.
 
-This affects VXLAN and GUE with remote checksum offload enabled.
+frag0 must be invalidated even if the pull fails: __pskb_pull_tail()
+can return NULL after pskb_expand_head() freed the old head, for
+instance if a frag_list member has to be cloned or pulled.
 
-Fixes: 26c4f7da3e41 ("net: Fix remcsum in GRO path to not change packet")
+Fixes: bd56a29c7a4e ("net: gro: change skb_gro_network_header()")
+Fixes: 9fd1ff5d2ac7 ("udp: Support UDP fraglist GRO/GSO.")
 Cc: stable@vger.kernel.org
+Reported-by: Taesoo Kim <tsgatesv@gmail.com>
+Reported-by: Cen Zhang <cenzhang@linux.microsoft.com>
 Tested-by: Cen Zhang <cenzhang@linux.microsoft.com>
 Signed-off-by: Eric Dumazet <edumazet@kernel.org>
 ---
- include/net/gro.h | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ include/net/gro.h       | 10 ++++++++++
+ net/core/gro.c          |  1 +
+ net/ipv4/esp4_offload.c |  1 +
+ net/ipv4/udp_offload.c  |  1 +
+ net/ipv6/esp6_offload.c |  1 +
+ 5 files changed, 14 insertions(+)
 
 diff --git a/include/net/gro.h b/include/net/gro.h
-index 2300b6da05b2..00b49b6b9e74 100644
+index 00b49b6b9e74..6f6affc8ab91 100644
 --- a/include/net/gro.h
 +++ b/include/net/gro.h
-@@ -351,7 +351,13 @@ static inline void skb_gro_remcsum_cleanup(struct sk_buff *skb,
- 	void *ptr;
- 	size_t plen = grc->offset + sizeof(u16);
+@@ -160,9 +160,19 @@ static inline bool skb_gro_may_pull(const struct sk_buff *skb,
+ 	return likely(hlen <= NAPI_GRO_CB(skb)->frag0_len);
+ }
  
--	if (!grc->delta)
-+	/* Once merged, grc->offset can not be trusted: the frags or head
-+	 * of this skb now belong to the GRO packet, or skb->data was pulled
-+	 * past the headers before adding it to a frag_list.
-+	 * Fraglist members keep their adjusted inner checksum, which is the
-+	 * value skb_remcsum_process() would have written.
-+	 */
-+	if (!grc->delta || NAPI_GRO_CB(skb)->same_flow)
- 		return;
++/* A pull can release the page fragment frag0 points to, or reallocate
++ * skb->head, even if it fails. Call this before the pull, to make sure later
++ * skb_gro_header() and skb_gro_network_header() calls no longer use frag0.
++ */
++static inline void skb_gro_frag0_invalidate(struct sk_buff *skb)
++{
++	NAPI_GRO_CB(skb)->frag0_len = 0;
++}
++
+ static inline void *skb_gro_header_slow(struct sk_buff *skb, unsigned int hlen,
+ 					unsigned int offset)
+ {
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_may_pull(skb, hlen))
+ 		return NULL;
  
- 	ptr = skb_gro_header(skb, plen, grc->offset);
+diff --git a/net/core/gro.c b/net/core/gro.c
+index 1b033855a20d..bc88652e353a 100644
+--- a/net/core/gro.c
++++ b/net/core/gro.c
+@@ -238,6 +238,7 @@ int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+ 		     NAPI_GRO_CB(skb)->flush))
+ 		return -E2BIG;
+ 
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+ 		NAPI_GRO_CB(skb)->flush = 1;
+ 		return -ENOMEM;
+diff --git a/net/ipv4/esp4_offload.c b/net/ipv4/esp4_offload.c
+index abd77162f5e7..2309468cfc3d 100644
+--- a/net/ipv4/esp4_offload.c
++++ b/net/ipv4/esp4_offload.c
+@@ -37,6 +37,7 @@ static struct sk_buff *esp4_gro_receive(struct list_head *head,
+ 	__be32 seq;
+ 	__be32 spi;
+ 
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_pull(skb, offset))
+ 		return NULL;
+ 
+diff --git a/net/ipv4/udp_offload.c b/net/ipv4/udp_offload.c
+index cf07c3c6611a..cd9d7426b227 100644
+--- a/net/ipv4/udp_offload.c
++++ b/net/ipv4/udp_offload.c
+@@ -743,6 +743,7 @@ static struct sk_buff *udp_gro_receive_segment(struct list_head *head,
+ 			pp = p;
+ 		} else {
+ 			if (NAPI_GRO_CB(skb)->is_flist) {
++				skb_gro_frag0_invalidate(skb);
+ 				if (!pskb_may_pull(skb, skb_gro_offset(skb))) {
+ 					NAPI_GRO_CB(skb)->flush = 1;
+ 					return NULL;
+diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
+index 22895521a57d..ca947cb94fb7 100644
+--- a/net/ipv6/esp6_offload.c
++++ b/net/ipv6/esp6_offload.c
+@@ -64,6 +64,7 @@ static struct sk_buff *esp6_gro_receive(struct list_head *head,
+ 	if (NAPI_GRO_CB(skb)->proto == IPPROTO_UDP)
+ 		encap_type = UDP_ENCAP_ESPINUDP;
+ 
++	skb_gro_frag0_invalidate(skb);
+ 	if (!pskb_pull(skb, offset))
+ 		return NULL;
+ 
 -- 
 2.53.0
 
