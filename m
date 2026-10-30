@@ -1,103 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793399105;
-	b=e2PGeWTIYXVImrhVKYDsgM1hPQvzz6bZsLPw9CCFNUV3e/Bo4Ilewy2aGamtfazpzXf+
-	 xTMNSgkHvmExhFG9aEVNgZcZ1GdSqfiM7eBLvQEKkUOhth4DkN6DHjynYUkcoPGD18f4a
-	 kvhs+V2d1TUO7RWx1uVHx/ynwqdLlvZ+D/HayCx4BmpFAAySGH4d+sTBaMUSL6Gw08h3x
-	 tX/7pM58wg9pOk7iWFo+be74NhdhOh0y1xU+vzgnoQmDGshDLui/f7do3dThuBLCdtuxR
-	 DzmMRgPFOsaLSA/BJRyAwcihzWEsaiPHMoubvZ3D6fZrl6jjOE6qosAPfDsaEen5Hhw==
+	t=1793399364;
+	b=YxULz/uPztUiohlVUJ0NJbiaBRKwTLPK66X6ac+JZqLU+RCsHCEGIP6gJ2aWeXmQObZv
+	 Lv5U0mCp57tsV34ONuGfYWvGNhE7Jy33szXfKZbiAtvpUbY1ek+OEpgr0OS/eYoP/eqcC
+	 uPsqikb/8fig7sRCWKlbvnZFwXBV/iLs922YGASXm8fz6jMG1EOr618BVLSrKwrnag81q
+	 j7GoKZPnGYjnkOA10DQEbX/ElsljsBf5TFMkybGQi/qJcvkQndrUxf9f/FeVpPj39vFhw
+	 Y7E8+ejfb7dKqYGI2vQ07IARgd09Q1bcfEKbo75cnx20raYm5gqP5fDeY1ygcAcoaIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793399105;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/+KneAP5j4JycW2Osy6h4oU9OQtsTeRD6BdS9+k/6qE=;
-	b=bEIUw78XR7bYzou9sNRgCmlqhNf20MtCH8Uesz7Z7mdsfWMPpg8pqA9VbiC73I8VyyEw
-	 JlRdrdM4cvC1T9tGKm5oWSh/Fytu0MHjS/F184ft4h8d3W2nDZQW6ETp95mKhTtHKwaol
-	 tDKG/ldkt0T/LHn2zu/M4kNpZmFAdXEXDxKRnZTEP+bwMU2GBoUr2vVsaCN9fbW2WtCnd
-	 C/8c2M/p1/XXFtj37wk5q1fMQ8DepgewFbm0nfzd2Ak214fC3IBEifGOG5QKcfGMg+T/u
-	 glCFqJ3CX7D8kMCOhJzvrwG2iO00gRcs3Az8A25zlmvF2Debvg4Ekst093I1a/c6bfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793399364;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=dLDtdwl/TQOX1alCsSuKQovIt8rojZpgzJ91qw+1M1M=;
+	b=sRxgX23YhuWOhIJsNFyreBTNwcN7jqO0G6jv15vfibSdZXuENTAkDA6rIlqwHIdzb7Lh
+	 YqPGLfAWeIZ8bG0b5qyr/O5rMTi3vnxtnId7zbcgvq4nkEH4KIZNSC/zmfgvVqLGo0Ly3
+	 uTeKk0CJ67G36QqxiNpLDybUnPdDxVjI8hq02fvUQ5WbjLoLo0MN25YjnWp4uMRZLHxk1
+	 oFMCclfr5ZtzJPSGNuUuyOxbRZIkMvFrOANg33v5TO3n64GWbTUowntnSfHp5IabxYSVb
+	 2rcA5uM0oQW1L5vTMSBLtB7U7NOjC7XNohOtVIRhDAlg0MOs6SsSllX8EDT8kRIAntw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fON+oxNo;
-	arc=none smtp.remote-ip=209.85.128.176
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwer52Hj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820C6606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 22:25:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 820C6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C34606A31A;
+	Fri, 30 Oct 2026 22:29:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fON+oxNo
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b0d91601bdso19581027b3.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:25:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793399104; x=1794003904; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/+KneAP5j4JycW2Osy6h4oU9OQtsTeRD6BdS9+k/6qE=;
-        b=fON+oxNodYAgFJVlp9NMyimkvkAqRKgDVxsc7oPe5/oKL+jFJcDMbJD7JyAAlKDN6X
-         Ulrgfg5oRZHZvrJt1/wumsGGM6hnegz6txsFgooLxk17khHW2ooVi/Ebs0ftClD4SO5k
-         n87A+Wy9KTW+fTdyYvj8B78qf8da4YbMqPpTFvdhHzQbqLrSLrSxEbLO9sF5YhJ5aLZH
-         YzEujhIVn4WLLXO+6Is1F/CV7tGZSvmR9kqFIziZ6PFOz+Ezxqzc11v/PzKOrWmTKfIJ
-         HvRSkgc7fXxGW5Y1gE7/dvg5HajVlh5gjWdFt2sz6g7JoT2qcYV/r5PoHimftmTExgD9
-         ApVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793399104; x=1794003904;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/+KneAP5j4JycW2Osy6h4oU9OQtsTeRD6BdS9+k/6qE=;
-        b=B2Ccs9ptEDehaK15WtCp7bTZpnH0GMqXrtLx9HZycaaujpFNK6+oZLz+XdcwFVUkiT
-         SvC1fsgldHzN+EGgHxbNDFichjTtUwBnMyojKTx8FohxHu8Nl3ueCcezJXJUPBK4RQqa
-         sS/0RpCrgJvRy6VohlH9tN8vleBtrukyfFLZ4SEXdpJLgyG6PyPbyNcjPHjojvTkSUD8
-         iP+7Rc/XoV8oCcQYK8juk+ebcOj7YEZObw4kEpRi2Apyed8plAhxkDY+DTSht8+l8Co0
-         kKxekEngJllXlWG/FrxaD9r384qJj5Upx0NxewrP+DPKZIiv1rKjnYoB9XrLkL2rA82O
-         lXVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy0YhMc0DwCepTyi2QIJwPGlPQwzhKVwcryDH0zCw/roaQwraB+UY2H4J4tB6NSujwuRG3IOYE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkdUQWJQV+M2sLPG3MSazHWA6pVCNKC97VquszgtURlmj2y791
-	xEkfG/cHA2tkwpDHMolXLxeOY8UnGkv2zKiWjFAFk0ViNL8pRH+FfGYI
-X-Gm-Gg: AYBFou3K/pVogEnNerwLRoOnxvj1i572ddN7GwSf2VREEfBJTPiqlhx/XagJxn1tez7
-	eOtwqIhveiIxiPrqTt3hB/uipe7jZmL2ah6eFu1zHsx/KwtcUUMWlWiu6CCYU/zBxuQV6x/Kl1h
-	H8+FHpojooz98Fkc2Bc2A5DEqSAXNDSMN38wW3QVExOn8ZHi+YIpI3DoQIZfMSkrEl8lN8ASx2I
-	FiCMk0fUN7xqmLXJbmoVwwF9J99oP4I4YbS6xVyskpAflCMPzXflwmIz016oYzZ3wBk+gUIJbRT
-	hOkh6cATzQC76SLPParHIcMRxuuhdyJ4aMiQ0pBlXaXxgmHUugIuQtWy1OquiUPyk4iZvqpJka7
-	3nE/kYXJRbs+GsdzwjXgM/KO/4/r4JP4nOgCTrHHo0t5TtFducOGyzPvQiswnsfrTWvHQ35Np0h
-	Tpkt3Y5/M5s88gdypMvVtcs5NXJU1OCRG0Xk2Z9Pe2rx02ahFn1M/5gk/xUqrY69BEC5MxONQJ5
-	d0jxrqwkKxGBaBIeNnVn4XFlSnRu2pXTy8tQAmAFaGs7fBLjyxL4Ju4UBCh8V8h0saN2mbVkPlb
-	/EXkBag1MV8SB/U/rCob2n19Tw==
-X-Received: by 2002:a05:690c:92:b0:8a9:8744:c07d with SMTP id 00721157ae682-8b1c67060e0mr55008757b3.18.1793399104308;
-        Fri, 30 Oct 2026 15:25:04 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:72::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf147246sm730246d50.1.2026.10.30.15.25.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 15:25:03 -0700 (PDT)
-Date: Fri, 30 Oct 2026 15:25:02 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: jrmmhm.kernel@eldare.de
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] vsock/virtio: clear vqs[] to avoid a UAF on a failed
- PM restore
-Message-ID: <auUZPiXDIPpQ2/vK@devvm29614.prn0.facebook.com>
-References: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qwer52Hj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC1C1F000C1;
+	Fri, 30 Oct 2026 22:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793399363;
+	bh=dLDtdwl/TQOX1alCsSuKQovIt8rojZpgzJ91qw+1M1M=;
+	h=From:Date:Subject:To:Cc;
+	b=Qwer52HjSNACQ/YTSK005xD2/1Rkq4AV5LGO2/uKDYD+KXgoRbAQ8bjtuZ7EQloPk
+	 uKEk8gDG726+KLhvq7vQ7xCQZ1372w2pBkSM5KcynOkSPA8Zw3pQ27T5/2sT+Vxvs6
+	 GCBHXYelsp+lZq5tBDNGQ3bQV9l7iKwBSr/tYa4slWQGF6H0yvakEyQ09fnnGU1Bgy
+	 F2dBwAMQ1KzrXKkX5R6cxIMzLj1D/Grc1IBehR21ZuvyXQO/7epZA1dzJ2RFAYFPHs
+	 KwtvHHQMaCZyYJOr+lbBKgSWgBCLDwN6+AvLvkAPOganXfaWcAc4zgy45J+8MQCALk
+	 k3c6YCNhYiRSA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Fri, 30 Oct 2026 23:29:13 +0100
+Subject: [PATCH v2] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,143 +53,233 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
+X-B4-Tracking: v=1; b=H4sIADga5WoC/4WNQQ6CMBBFr0K6tqa0gsWV9zCkqTDAKKHNtBIJ4
+ e4WPYDLl7z//soCEEJgl2xlBDMGdFMCechYM9ipB45tYiaFLIUWJY+0mOhM8CNGEwdvvE2SVUX
+ VnVrdVKJjaesJOnx/u7f6x+F1f0AT99huDBiio+V7POe79+9jznnOrSwqUEqfQenrE2iC8eioZ
+ /W2bR+qsti4zQAAAA==
+X-Change-ID: 20260806-try_to_split_thp_page-a359f4d8c90f
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Wei Yang <richard.weiyang@gmail.com>, Nico Pache <nico.pache@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Luis Chamberlain <mcgrof@kernel.org>, Tal Zussman <tz2294@columbia.edu>, 
+ Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6794; i=david@kernel.org;
+ h=from:subject:message-id; bh=zPhj2fcNOfjvbM8UZ+0SfU7LezHBma1fbJ46FG4Yrgg=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKeStnkH3yX82lhdspUF0meKZLqvZPUG6ZnZUwTCvLwO
+ DCpZZJeRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABO5KcvIcGz2jbtxazI229rK
+ Cfe92XruzQY3nTX5X6r94hSzJ6wWF2H4zfptzu0H3/VNoy7sPS5zNeTn0+0lZrVb+Hcsksptzhb
+ cwAgA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On Thu, Oct 01, 2026 at 07:13:29PM +0200, Jerome Mohm via B4 Relay wrote:
-> From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-> 
-> virtio_vsock_vqs_del() frees the virtqueues via del_vqs() but never
-> clears vsock->vqs[]. If a later virtio_vsock_restore() fails to
-> reallocate them (its error path is a bare "goto out" that only unlocks
-> and returns), the driver is left bound with a dangling vqs[]. The next
-> virtio_vsock_vqs_del() - on a second freeze or on remove/unbind - then
-> passes a freed vring_virtqueue to virtqueue_detach_unused_buf(), a slab
-> use-after-free. KASAN on a guest with a virtio-vsock device, after a
-> restore made to fail by fault injection:
-> 
->   BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
->   Read of size 4 at addr ... by task repro
->    virtqueue_detach_unused_buf
->    virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
->    virtio_vsock_remove
->    virtio_dev_remove
->    ... unbind_store
->   Freed by task ...:
->    kfree
->    vp_del_vqs
->    virtio_vsock_freeze          <- the preceding freeze freed the vq
->   Allocated by task 1:
->    vring_create_virtqueue
->    virtio_vsock_vqs_init
->    virtio_vsock_probe           <- original allocation at probe
-> 
-> The object is the RX vring_virtqueue freed during the freeze;
-> vsock->vqs[RX] still points at it. virtqueue_detach_unused_buf() does
-> not guard a NULL vq, so a bare NULL-out is not enough on its own.
-> 
-> Clear vsock->vqs[] after del_vqs() in virtio_vsock_vqs_del(), skip the
-> detach loops when a vq pointer is NULL, and also clear the array when
-> virtio_find_vqs() fails partway in virtio_vsock_vqs_init() (which can
-> leave freed pointers behind). This mirrors virtio_blk
-> commit 0739c2c6a015 ("virtio_blk: NULL out vqs to avoid double free on
-> failed resume") and virtio_rtc commit 548d2208455f ("virtio: rtc: tear
-> down old virtqueues before restore"); virtio_console carries the same
-> stale-pointers-after-failed-restore fix.
-> 
-> Testing: reproduced on a private VM with a KASAN fuzz kernel based on
-> v7.3-rc5. The restore allocation failure was forced with CONFIG_FAILSLAB
-> steered by the fault-injection stacktrace filter to the virtio-vsock
-> restore path only; a guest-root program drives a pm_test=devices
-> freeze/restore cycle (so .restore returns -ENOMEM) and then unbinds the
-> device. The unfixed kernel reports the slab-use-after-free above; with
-> this patch the same run makes restore fail identically yet produces no
-> KASAN report. checkpatch.pl --strict is clean and the build is
-> warning-free. The reproducer is available on request.
-> 
-> Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
-> ---
->  net/vmw_vsock/virtio_transport.c | 28 +++++++++++++++++++++++-----
->  1 file changed, 23 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
-> index 4f9aa9c4c3aa..0553c0641fd2 100644
-> --- a/net/vmw_vsock/virtio_transport.c
-> +++ b/net/vmw_vsock/virtio_transport.c
-> @@ -714,8 +714,15 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
->  	atomic_set(&vsock->queued_replies, 0);
->  
->  	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
-> -	if (ret < 0)
-> +	if (ret < 0) {
-> +		/*
-> +		 * On a partial failure virtio_find_vqs() can leave freed
-> +		 * virtqueue pointers in vsock->vqs[]; clear them so a later
-> +		 * virtio_vsock_vqs_del() does not detach a freed virtqueue.
-> +		 */
+hwpoison code can end up calling min_order_for_split() without holding
+the folio lock. There isn't really something that would prevent
+concurrent folio split. Consequently folio->mapping can get set to
+NULL after checking for "!folio->mapping", and if the compiler
+reloads folio->mapping, mapping_min_folio_order() would try to
+dereference NULL.
 
-IMHO we can drop this comment. Clearing after failure is common enough.
+While very unlikely to happen in practice, let's just enforce that
+min_order_for_split() is called with the folio lock held. We can
+significantly cleanup the calling hwpoison code, and just get rid
+of try_to_split_thp_page() to hold the folio lock for a bit longer.
 
-> +		memset(vsock->vqs, 0, sizeof(vsock->vqs));
->  		return ret;
-> +	}
->  
->  	virtio_vsock_update_guest_cid(vsock);
->  
-> @@ -782,19 +789,30 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
->  	virtio_reset_device(vdev);
->  
->  	mutex_lock(&vsock->rx_lock);
-> -	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
-> -		kfree_skb(skb);
-> +	if (vsock->vqs[VSOCK_VQ_RX])
-> +		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
-> +			kfree_skb(skb);
->  	mutex_unlock(&vsock->rx_lock);
->  
->  	mutex_lock(&vsock->tx_lock);
-> -	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
-> -		kfree_skb(skb);
-> +	if (vsock->vqs[VSOCK_VQ_TX])
-> +		while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_TX])))
-> +			kfree_skb(skb);
->  	mutex_unlock(&vsock->tx_lock);
->  
->  	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
->  
->  	/* Delete virtqueues and flush outstanding callbacks if any */
->  	vdev->config->del_vqs(vdev);
-> +
-> +	/*
-> +	 * del_vqs() has freed the virtqueues. Clear the stale pointers: if a
-> +	 * later virtio_vsock_restore() fails to allocate new ones, the driver
-> +	 * stays bound with a dangling vqs[] and the next virtio_vsock_vqs_del()
-> +	 * would detach a freed virtqueue (use-after-free). Mirrors virtio_blk
-> +	 * commit 0739c2c6a015.
-> +	 */
+Just work on folios now, which further cleans up the code. We just
+have to be careful about doing the page_folio() after splitting, which
+we have to do already either way. Do not change the way we split for
+now, this needs more thought and should be done separately.
 
-Ditto here.
+Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+would currently have leaked a folio reference.
 
-> +	memset(vsock->vqs, 0, sizeof(vsock->vqs));
->  }
->  
->  static int virtio_vsock_probe(struct virtio_device *vdev)
-> 
-> ---
-> base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
-> change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
-> 
-> Best regards,
-> --  
-> Jerome Mohm <jrmmhm.kernel@eldare.de>
-> 
-> 
+In min_order_for_split(), document and assert that we need the folio lock.
+Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
 
-The rest LGTM.
+While updating the comment in soft_offline_in_use_page(), just drop the
+"NOTE" part that does not add any value to current code.
 
-Best,
-Bobby
+The folio->mapping problem was identified by Sashiko, and Li Youhong
+reported it by sending a proposal fix.
+
+This likely does not really warrant CCing stable, but I expect little
+conflicts when doing the backport, so let's just CC stable because of
+the refcount leak.
+
+Reported-by: Li Youhong <liyouhong@kylinos.cn>
+Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Changes in v2:
+- Drop NOTE comment and don't reference new_order.
+- Fixup description and add that we are dropping the NOTE
+- Pick up tags
+- Link to v1: https://patch.msgid.link/20260806-try_to_split_thp_page-v1-1-a259e3387e38@kernel.org
+---
+ mm/huge_memory.c    |  4 ++++
+ mm/memory-failure.c | 63 ++++++++++++++++++-----------------------------------
+ 2 files changed, 25 insertions(+), 42 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index bd44d58e86845..5d5afefda649e 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4490,10 +4490,14 @@ int folio_split(struct folio *folio, unsigned int new_order,
+  * If a file-backed folio is truncated, 0 will be returned. Any subsequent
+  * split attempt should get -EBUSY from split checking code.
+  *
++ * Context: @folio must be locked.
++ *
+  * Return: @folio's minimum order for split
+  */
+ unsigned int min_order_for_split(struct folio *folio)
+ {
++	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
++
+ 	if (folio_test_anon(folio))
+ 		return 0;
+ 
+diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+index b705f9f97f420..12aa4e52b2bce 100644
+--- a/mm/memory-failure.c
++++ b/mm/memory-failure.c
+@@ -1744,26 +1744,6 @@ static int identify_page_state(unsigned long pfn, struct page *p,
+ 	return page_action(ps, p, pfn);
+ }
+ 
+-/*
+- * When 'release' is 'false', it means that if thp split has failed,
+- * there is still more to do, hence the page refcount we took earlier
+- * is still needed.
+- */
+-static int try_to_split_thp_page(struct page *page, unsigned int new_order,
+-		bool release)
+-{
+-	int ret;
+-
+-	lock_page(page);
+-	ret = split_huge_page_to_order(page, new_order);
+-	unlock_page(page);
+-
+-	if (ret && release)
+-		put_page(page);
+-
+-	return ret;
+-}
+-
+ static void unmap_and_kill(struct list_head *to_kill, unsigned long pfn,
+ 		struct address_space *mapping, pgoff_t index, int flags)
+ {
+@@ -2548,9 +2528,6 @@ int memory_failure(unsigned long pfn, int flags)
+ 	folio_unlock(folio);
+ 
+ 	if (folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+-		int err;
+-
+ 		/*
+ 		 * The flag must be set after the refcount is bumped
+ 		 * otherwise it may race with THP split.
+@@ -2565,24 +2542,25 @@ int memory_failure(unsigned long pfn, int flags)
+ 		 * page is a valid handlable page.
+ 		 */
+ 		folio_set_has_hwpoisoned(folio);
+-		err = try_to_split_thp_page(p, new_order, /* release= */ false);
++
++		folio_lock(folio);
++		split_huge_page_to_order(p, min_order_for_split(folio));
++		folio = page_folio(p);
++		folio_unlock(folio);
++
+ 		/*
+ 		 * If splitting a folio to order-0 fails, kill the process.
+ 		 * Split the folio regardless to minimize unusable pages.
+ 		 * Because the memory failure code cannot handle large
+ 		 * folios, this split is always treated as if it failed.
+ 		 */
+-		if (err || new_order) {
+-			/* get folio again in case the original one is split */
+-			folio = page_folio(p);
++		if (folio_test_large(folio)) {
+ 			res = -EHWPOISON;
+ 			kill_procs_now(p, pfn, flags, folio);
+-			put_page(p);
++			folio_put(folio);
+ 			action_result(pfn, MF_MSG_UNSPLIT_THP, MF_FAILED);
+ 			goto unlock_mutex;
+ 		}
+-		VM_BUG_ON_PAGE(!page_count(p), p);
+-		folio = page_folio(p);
+ 	}
+ 
+ 	/*
+@@ -2900,25 +2878,26 @@ static int soft_offline_in_use_page(struct page *page)
+ 		.reason = MR_MEMORY_FAILURE,
+ 	};
+ 
++	folio_lock(folio);
+ 	if (!huge && folio_test_large(folio)) {
+-		const int new_order = min_order_for_split(folio);
+-
+ 		/*
+-		 * If new_order (target split order) is not 0, do not split the
+-		 * folio at all to retain the still accessible large folio.
+-		 * NOTE: if minimizing the number of soft offline pages is
+-		 * preferred, split it to non-zero new_order like it is done in
+-		 * memory_failure().
++		 * If we cannot split to order-0, do not split the folio at all
++		 * to retain the still accessible large folio.
+ 		 */
+-		if (new_order || try_to_split_thp_page(page, /* new_order= */ 0,
+-						       /* release= */ true)) {
++		if (!min_order_for_split(folio))
++			ret = split_huge_page_to_order(page, 0) ? -EBUSY : 0;
++		else
++			ret = -EBUSY;
++		folio = page_folio(page);
++
++		if (ret) {
++			folio_unlock(folio);
++			folio_put(folio);
+ 			pr_info("%#lx: thp split failed\n", pfn);
+-			return -EBUSY;
++			return ret;
+ 		}
+-		folio = page_folio(page);
+ 	}
+ 
+-	folio_lock(folio);
+ 	if (!huge)
+ 		folio_wait_writeback(folio);
+ 	if (PageHWPoison(page)) {
+
+---
+
+base-commit: abf8c33470f78e2226ee3dcdc69004660020ab47
+
+change-id: 20260806-try_to_split_thp_page-a359f4d8c90f
+
+--
+
+Cheers,
+
+David
+
