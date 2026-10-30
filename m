@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355340;
-	b=iWNMOO72s63NZiKNMgLAT0jVuklVH1PrwcZaaInFKvxyaFZTq7h7Tl36xJ12MdrAL+Ha
-	 788XvOkEkUL4R0YZkRCQnY7C6e0j+v9RsESnT0oSQObYB87OEK/GH6uFydfrY6kicsC7I
-	 E/468hpESFCZCCnpZQVyLzlyUjqr6oeP6dF1jS0kciEHBJGqTm2SaSsfnqJZligDvHZ9u
-	 WtluTJOv3Mt9DSmGcohB9mFQJwDryZtHikyMyPrsICXTdEhFRaqOYW30ixERINAosl72j
-	 sDWZ7wGPGh1ndy++EZW0g+bSYamOBj8we3sJbZvC6b2jQMcfhpJJX0T17LOvMMBr9hg==
+	t=1793355454;
+	b=ybPvLQU6h4OrdjtI2Iduo90Z5zz7MQqQQVdJbcH9uBvIl3WtE2K+XiBaais9LpFEB2el
+	 vL56ttJzUhV5ojCK/aSq2CY0AU7V1qH/rQzNNtVGgP+ClK+E8h/4gGGYR/aDq93oYFG8U
+	 EqNXM913mnx7BP1GsNUMFE7AAziEPAmd9OJhdGj3QAHmOZvhcaKyFiVitBYggmfunEmbN
+	 WQrAVfU9XwBUyXzsWg/xwXrVfjkkdDrNQ2xSE/Ip2CyNbR2RscEv0QeWZaAhmkdskTHp0
+	 V5IC6LKLKyLnAwLmSIP+JnB46DqP8PukT29q/lb35WqLjwDT5ASVgA5DINH5uNVZt4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355340;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aa0b8U9AWDYiAQt4ZYGruRRnM7TUUsJIAn+bB9g1SLc=;
-	b=0h1+afJ2wBykUsj1O5bmU7fzE+l2OjNymwrcFNqis/HFP1CqGDJ2eIxO6oWV73ZACP9m
-	 BXKdU6B46OYlzbjrNewRLdAdwFq/l94JfxoxsXkGbFSV2ymZQpALrmFJfFepPJ0RMBxZ1
-	 ExSdgL84ekR4WCLKlpxiivk8Q9MvTeUmVlQKxYJ5LTooZ/sKnxopHZZKhKQySHDyh6FHc
-	 g1qL5NBWvxvfhq1zDld42vybSILUysU6i5A7edZ9NGfCW5ZrCpQQDTKBq3ppRUFAfRjhT
-	 1itRew34BPgy/dZbfDoPJdTGp+JY6xSyHtGIp44WQ+HIOqd50q18pN6De/0/0mzt0tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355454;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=vBUdzf9+5JEYchc3xTK4SAZrJeZ/Y/pZNpI+PW7VW+8=;
+	b=y8mDV7sSlViY9JJ7cNRG3u8ZfdPJOfePzhH8qmXWllQZXM0X3ZaCvSxxwuHAUKiyDNgO
+	 teAmW6rNlWd0mLvzJnfwrhBVSNb/V98BG9ld2GLoBdmp73FopbghRRsWB9n7sAwYm3JCt
+	 UwB1+6BJTtLlhXIQ1x8QpXRcdkAf3mYADKv52anC5JhOTwFZqvFL61GZe+tarALqBPLI3
+	 ZLJ8gQ6/hiIYeCBpqa+69JdwS8TWYu1m0qD5qSWYJWcVIgMpit1wVK/k17sgrXniYZLpU
+	 Z6qAuN02mHEqL3numXvlNobWrwzrcuYpGY3XADtBLzgobSbhhAHS7jlWGbXtkkUZokA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMyQfuIf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=xE3hhwbP;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b="R9/wjDkI";
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDA7606A322;
-	Fri, 30 Oct 2026 10:15:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372CE606A31C;
+	Fri, 30 Oct 2026 10:17:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 372CE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMyQfuIf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603CC1F000C1;
-	Fri, 30 Oct 2026 10:15:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793355340;
-	bh=aa0b8U9AWDYiAQt4ZYGruRRnM7TUUsJIAn+bB9g1SLc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OMyQfuIffZNfdarTlHyo40+MakJOzydRykiIPccZT8mS3haA2z6sDSJ5o8BA9wat2
-	 Wy8UXE/wYttJcEmodR7NwZRyjcAdcW0hBRFeNQ0jw/hXXQc2zN6Ra8EgcSyJpIkImn
-	 v3wIEC4IHvUt7D9Zj5VwsdbRY8U6mQj2Sg3ODRaRy7duJRZ/JyeY7a2YWMSC/NCnk7
-	 JvEIgc0LEE9CSGWo0EiwJOre4HX/+awUJTSNEFduOztb4h5Com0yU0MIM+J71RFzSp
-	 /TXStSSFfOYOMsuarDBLAODYzUAzLU1HABV8xl2Le75smMm6Ka3Ht+H7pA5DMzcM08
-	 YeZqXEJT3XaMg==
-Date: Fri, 30 Oct 2026 10:15:35 +0000
-From: Simon Horman <horms@kernel.org>
-To: Prasad Koya <prasad@arista.com>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] macvlan: fix allmulti reference counting in passthru
- mode
-Message-ID: <20261030101535.GN257209@horms.kernel.org>
-References: <20261027024635.366900-1-prasad@arista.com>
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=xE3hhwbP;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=R9/wjDkI
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 2F31326F7664;
+	Fri, 30 Oct 2026 19:17:31 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1793355451;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vBUdzf9+5JEYchc3xTK4SAZrJeZ/Y/pZNpI+PW7VW+8=;
+	b=xE3hhwbPnUR6Adh08DWezV6Sdi+AaNLuOV+2m885QzRQHj8ZvqVeFkMwtQ9T2Cs3/SyTPC
+	xsHpH6sJATFlX0dszUeU5YQJANFPLryWgYDClAaQ9R5Wpyd0h148cfOBd8I+4qvKRLBk3p
+	zKTViRXzbkOx4hjpdDzSAOvlvfoumZ/HCemY9CP+GtPCqnPrdoPu7QmTRqRF++vicvjZup
+	sCkgzJDYjEf/IdfMG2tIVxJihEY1QYnTSXIAjx3sRRLTSpQUOA15fxWmaEX7jCoTa9BIs1
+	qR14yVgI11VW68PPZxnC+UAXwhdCk2GqOd2imtP1WC4d6NQQ74A7WQACrVrxzg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1793355451;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vBUdzf9+5JEYchc3xTK4SAZrJeZ/Y/pZNpI+PW7VW+8=;
+	b=R9/wjDkIRCnlWtZI+4jrh2V1/worsDuJfBQ2thxeDG+QvCpuqe2PSdoXhCZmjoWzgclbH1
+	CY+iZjrBJIrSO1AQ==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id A8B51E006A9;
+	Fri, 30 Oct 2026 19:17:30 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 9FFCA22001FE; Fri, 30 Oct 2026 19:17:30 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: brauner@kernel.org,  technoboy85@gmail.com,  teknoraver@meta.com,
+  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] fat: check for hidden entries before overwriting
+ end-of-directory marker
+In-Reply-To: <20261030090205.279419-1-hengyul@cs.unc.edu>
+References: <20261030090205.279419-1-hengyul@cs.unc.edu>
+Date: Fri, 30 Oct 2026 19:17:30 +0900
+Message-ID: <875wyjsdad.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,276 +82,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261027024635.366900-1-prasad@arista.com>
+Content-Type: text/plain
 
-On Mon, Oct 26, 2026 at 07:46:35PM -0700, Prasad Koya wrote:
-> Enabling allmulticast on a down passthru macvlan, bringing it up,
-> then toggling allmulticast off and on can underflow the lower device's
-> allmulti reference count.
-> 
-> macvlan_change_rx_flags() only propagates IFF_ALLMULTI changes while
-> the macvlan is up. However, the passthru path in macvlan_open() skips
-> taking an allmulti reference when IFF_ALLMULTI is already set.
-> Clearing allmulticast after opening the device therefore decrements
-> a reference that was never taken. With no other allmulti users, the
-> unsigned counter wraps from zero to UINT_MAX. The next increment
-> fails with -EOVERFLOW and reports "allmulti touches roof".
-> 
+Hengyu Liang <hengyul@cs.unc.edu> writes:
 
-Hi Prasad,
+> Since commit 6a2875517c77 ("fat: stop reading directory entries past the
+> end-of-directory marker"), lookup and readdir stop at a slot whose first
+> name byte is 0, and fat_add_entries() reports corruption when its scan
+> finds an allocated entry after that slot.
+>
+> The scan stops as soon as it has enough free slots, though. When those
+> slots include the marker, the new entries overwrite it and the allocated
+> entries after it become visible again without being checked. A name that
+> lookup could not find can then appear twice in the directory, and removing
+> one copy leaves readdir listing a name that stat cannot find.
 
-A Fixes tag should go here.
-(No blank line between it and your Signed-off-by line).
+Yes, it is true. However, first of all that state is already corrupted
+FAT filesystem.  And there would be many cases like this on corrupted
+image. If we want to detect as possible as many corruptions, I guess it
+will become finally the something like online fsck.
 
-There is no need to repost just to address this.
-Replying with the Fixes tag should be sufficient.
+So I think we should not add additional sanity check has overhead
+(especially to normal path) if it doesn't crash the kernel. Simple
+sanity check is ok though.
 
-> Signed-off-by: Prasad Koya <prasad@arista.com>
+Thanks.
+
+> For example:
+>
+>   mkfs.fat -F 16 -C fat.img 32768
+>   mount -t msdos -o loop fat.img /mnt
+>   touch /mnt/aaa.txt /mnt/bbb.txt /mnt/file1
+>   umount /mnt
+>   off=$(grep -obUa 'BBB     TXT' fat.img | cut -d: -f1)
+>   dd if=/dev/zero of=fat.img bs=1 seek=$off count=32 conv=notrunc
+>   mount -t msdos -o loop fat.img /mnt
+>   touch /mnt/file1
+>   ls /mnt
+>
+> lists file1 twice.
+>
+> Before using free slots that include the marker, scan the slots up to the
+> next marker and take the existing corruption path if one is allocated.
+>
+> Fixes: 6a2875517c77 ("fat: stop reading directory entries past the end-of-directory marker")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 > ---
-> Reproducer:
-> 
->   #!/bin/bash
->   set -euo pipefail
-> 
->   ns=allmulti-test
->   host=am-veth0
->   peer=am-veth1
->   mv=am-mv0
-> 
->   cleanup()
->   {
->       ip netns del "$ns" 2>/dev/null || true
->   }
->   trap cleanup EXIT
-> 
->   ip netns add "$ns"
->   ip link add "$host" type veth peer name "$peer"
->   ip link set "$peer" netns "$ns"
-> 
->   ip link set "$host" up
->   ip -n "$ns" link set lo up
->   ip -n "$ns" link set "$peer" up
-> 
->   ip -n "$ns" link add link "$peer" name "$mv" type macvlan mode passthru
-> 
->   ip -n "$ns" link set dev "$mv" allmulticast on
->   ip -n "$ns" link set dev "$mv" up
->   ip -n "$ns" link set dev "$mv" allmulticast off
->   ip -n "$ns" link set dev "$mv" allmulticast on
-> 
->  drivers/net/macvlan.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-> index afad90b9222a..e20d587453d1 100644
-> --- a/drivers/net/macvlan.c
-> +++ b/drivers/net/macvlan.c
-> @@ -643,6 +643,14 @@ static int macvlan_open(struct net_device *dev)
->  			if (err < 0)
->  				goto out;
->  		}
-> +		if (dev->flags & IFF_ALLMULTI) {
-> +			err = dev_set_allmulti(lowerdev, 1);
-> +			if (err < 0) {
-> +				if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
-> +					dev_set_promiscuity(lowerdev, -1);
-> +				goto out;
-> +			}
+> Tested on x86-64 KVM with KASAN, comparing mainline at d89e1d186ec9 with
+> this patch:
+> - The example above: the base kernel creates a second file1, which is
+>   still there after a remount. With the patch, touch fails with EIO, the
+>   error is logged and fsck.fat only finds the dirty bit.
+> - vfat, three-slot create whose free run ends exactly at the marker:
+>   the base kernel exposes the hidden file, the patch returns EIO.
+> - vfat, one-slot create that leaves a zero slot after the new entry:
+>   succeeds on both and the hidden file stays hidden.
+> - Valid directories on FAT16 and FAT32, msdos and vfat (creates, deletes,
+>   renames and mkdirs, then filling the root): the same entry counts, ENOSPC
+>   on a full FAT16 root and no FAT-fs messages on both; fsck.fat -n exits 0.
+>
+>  fs/fat/dir.c | 34 +++++++++++++++++++++++++++++++++-
+>  1 file changed, 33 insertions(+), 1 deletion(-)
+>
+> diff --git a/fs/fat/dir.c b/fs/fat/dir.c
+> index 35bdb62944a2..ab99d53a719a 100644
+> --- a/fs/fat/dir.c
+> +++ b/fs/fat/dir.c
+> @@ -1318,6 +1318,32 @@ static int fat_add_new_entries(struct inode *dir, void *slots, int nr_slots,
+>  	return err;
+>  }
+>  
+> +/*
+> + * The free slots chosen by fat_add_entries() include the end-of-directory
+> + * marker.  Once the new entries are written over it, the slots up to the
+> + * next marker become visible, so make sure that none of them is allocated.
+> + */
+> +static int fat_check_after_eod(struct inode *dir, loff_t pos)
+> +{
+> +	struct buffer_head *bh = NULL;
+> +	struct msdos_dir_entry *de = NULL;
+> +	int err = 0;
+> +
+> +	while (fat_get_entry(dir, &pos, &bh, &de) > -1) {
+> +		if (de->name[0] == 0)
+> +			break;
+> +		if (!IS_FREE(de->name)) {
+> +			fat_fs_error_ratelimit(dir->i_sb,
+> +				"allocated dir entry found after end-of-directory marker (i_pos %lld)",
+> +				MSDOS_I(dir)->i_pos);
+> +			err = -EIO;
+> +			break;
 > +		}
->  		goto hash_add;
->  	}
->  
-> @@ -713,6 +721,8 @@ static int macvlan_stop(struct net_device *dev)
->  	dev_mc_unsync(lowerdev, dev);
->  
->  	if (macvlan_passthru(vlan->port)) {
-> +		if (dev->flags & IFF_ALLMULTI)
-> +			dev_set_allmulti(lowerdev, -1);
->  		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
->  			dev_set_promiscuity(lowerdev, -1);
->  		goto hash_del;
-> 
-> base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
-> -- 
-> 2.43.0
-> 
+> +	}
+> +	brelse(bh);
+> +	return err;
+> +}
+> +
+>  int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+>  		    struct fat_slot_info *sinfo)
+>  {
+> @@ -1351,8 +1377,14 @@ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+>  				nr_bhs++;
+>  			}
+>  			free_slots++;
+> -			if (free_slots == nr_slots)
+> +			if (free_slots == nr_slots) {
+> +				if (saw_eod) {
+> +					err = fat_check_after_eod(dir, pos);
+> +					if (err)
+> +						goto error;
+> +				}
+>  				goto found;
+> +			}
+>  		} else {
+>  			if (saw_eod) {
+>  				fat_fs_error_ratelimit(sb,
+>
+> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 
-I'm unsure if it matters, but the order of initialisation of multicast and
-promiscuity differs here from the non-pass-through case.
-
-Overall I think the approach you have taken here is appropriate
-as a minimal fix for net.
-
-Reviewed-by: Simon Horman <horms@kernel.org>
-
-
-But I do see that there is growing duplication of code in the
-pass-through and non-pass-through paths. And I believe that
-is due to the approach taken by the existing code of using
-goto to control flow (other than for cleanup in error paths).
-
-In the longer term I think it would be nice to address that.
-I took a stab at that. Perhaps I'm overthinking things.
-But, FWIIW, this is what I cam up with (compile tested only).
-
-diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-index a48c9e662fe9..f2a3cf540e4e 100644
---- a/drivers/net/macvlan.c
-+++ b/drivers/net/macvlan.c
-@@ -631,24 +631,31 @@ static const struct header_ops macvlan_hard_header_ops = {
- 	.parse_protocol	= eth_header_parse_protocol,
- };
- 
--static int macvlan_open(struct net_device *dev)
-+static int macvlan_should_set_promisc(struct net_device *dev)
- {
- 	struct macvlan_dev *vlan = netdev_priv(dev);
--	struct net_device *lowerdev = vlan->lowerdev;
--	int err;
- 
--	if (macvlan_passthru(vlan->port)) {
--		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC)) {
--			err = dev_set_promiscuity(lowerdev, 1);
--			if (err < 0)
--				goto out;
--		}
--		goto hash_add;
--	}
-+	if (macvlan_passthru(vlan->port))
-+		return !(vlan->flags & MACVLAN_FLAG_NOPROMISC);
-+
-+	return dev->flags & IFF_PROMISC;
-+}
-+
-+/* Initialise acceleration or add unicast address.
-+ * Skipped for pass-through ports.
-+ */
-+static int macvlan_init_vlan(struct net_device *dev)
-+{
-+	struct macvlan_dev *vlan = netdev_priv(dev);
-+	struct net_device *lowerdev;
-+
-+	if (macvlan_passthru(vlan->port))
-+		return 0;
- 
--	err = -EADDRINUSE;
- 	if (macvlan_addr_busy(vlan->port, dev->dev_addr))
--		goto out;
-+		return -EADDRINUSE;
-+
-+	lowerdev = vlan->lowerdev;
- 
- 	/* Attempt to populate accel_priv which is used to offload the L2
- 	 * forwarding requests for unicast packets.
-@@ -661,40 +668,71 @@ static int macvlan_open(struct net_device *dev)
- 	 * populated we must add the unicast address to the lower device.
- 	 */
- 	if (IS_ERR_OR_NULL(vlan->accel_priv)) {
-+		int err;
-+
- 		vlan->accel_priv = NULL;
- 		err = dev_uc_add(lowerdev, dev->dev_addr);
- 		if (err < 0)
--			goto out;
-+			return err;
-+	}
-+
-+	return 0;
-+}
-+
-+/* Clean up acceleration or remove unicast address.
-+ * Skipped for pass-through ports.
-+ */
-+static void macvlan_uninit_vlan(struct net_device *dev)
-+{
-+	struct macvlan_dev *vlan = netdev_priv(dev);
-+	struct net_device *lowerdev;
-+
-+	if (macvlan_passthru(vlan->port))
-+		return;
-+
-+	lowerdev = vlan->lowerdev;
-+
-+	if (vlan->accel_priv) {
-+		lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
-+							   vlan->accel_priv);
-+		vlan->accel_priv = NULL;
-+	} else {
-+		dev_uc_del(lowerdev, dev->dev_addr);
- 	}
-+}
-+
-+static int macvlan_open(struct net_device *dev)
-+{
-+	struct macvlan_dev *vlan = netdev_priv(dev);
-+	struct net_device *lowerdev;
-+	int err;
-+
-+	err = macvlan_init_vlan(dev);
-+	if (err)
-+		return err;
-+
-+	lowerdev = vlan->lowerdev;
- 
- 	if (dev->flags & IFF_ALLMULTI) {
- 		err = dev_set_allmulti(lowerdev, 1);
- 		if (err < 0)
--			goto del_unicast;
-+			goto uninit;
- 	}
- 
--	if (dev->flags & IFF_PROMISC) {
-+	if (macvlan_should_set_promisc(dev)) {
- 		err = dev_set_promiscuity(lowerdev, 1);
- 		if (err < 0)
- 			goto clear_multi;
- 	}
- 
--hash_add:
- 	macvlan_hash_add(vlan);
- 	return 0;
- 
- clear_multi:
- 	if (dev->flags & IFF_ALLMULTI)
- 		dev_set_allmulti(lowerdev, -1);
--del_unicast:
--	if (vlan->accel_priv) {
--		lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
--							   vlan->accel_priv);
--		vlan->accel_priv = NULL;
--	} else {
--		dev_uc_del(lowerdev, dev->dev_addr);
--	}
--out:
-+uninit:
-+	macvlan_uninit_vlan(dev);
- 	return err;
- }
- 
-@@ -712,21 +750,15 @@ static int macvlan_stop(struct net_device *dev)
- 	dev_uc_unsync(lowerdev, dev);
- 	dev_mc_unsync(lowerdev, dev);
- 
--	if (macvlan_passthru(vlan->port)) {
--		if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
--			dev_set_promiscuity(lowerdev, -1);
--		goto hash_del;
--	}
--
- 	if (dev->flags & IFF_ALLMULTI)
- 		dev_set_allmulti(lowerdev, -1);
- 
--	if (dev->flags & IFF_PROMISC)
-+	if (macvlan_should_set_promisc(dev))
- 		dev_set_promiscuity(lowerdev, -1);
- 
--	dev_uc_del(lowerdev, dev->dev_addr);
-+	if (!macvlan_passthru(vlan->port))
-+		dev_uc_del(lowerdev, dev->dev_addr);
- 
--hash_del:
- 	macvlan_hash_del(vlan, !dev->dismantle);
- 	return 0;
- }
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
