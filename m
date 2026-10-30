@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357441;
-	b=Baq0DXrBCgNlLPZEa7rxQR7f4z5PpicT1kXLLFIpN8S55eyJivwUOBQzScZDQz6Qbwkw
-	 IS22VL+B5uSn4rOcKub41i8IDfqEljo5A4hG14sXIH/g4+XUmP+aRI/JAw4n1gDdgaLkA
-	 kqD7nWNavGv5iAWEUmbFsOH8vGFKW/JIxt+ZxUqU7+IETpnbBCOm1GtdBeRrshErojimL
-	 p4Z1WSzS96joAFWWfLbiB4aVvCAWADdEwOxyjWqmrItUrdih5fqOBrNbfPdHtmZSiyLeU
-	 9GaYvQNWshZLxwzZnVwaESMaon4u5HcaZLxo1/DdRcYOvOV0xGsaLx7WMJQQSrM0zqA==
+	t=1793357449;
+	b=NuJXb4+YNEnjR8q03/hGW0uJi/SbcZnrzN32MpqJ8evGPe9ACIbnw9spTSu2JVUMMU4G
+	 oZ2zZSVewTwEkd/RZs2bJ6xmKbHHUb1z4yeZ3jFngPaX6QUOc5so/5jw70/aefzFE61yA
+	 nC+gr7v6Wzjr4HK8gCRRjH9rMz7jqWMxdoFQQpPH+MpjkGcvHy9ppT02uAsVe8X/fx5T4
+	 wjO30zu4NLtMYu5Yekag+/lqkyyHp5lOVSlyOTUnjuHTbUa7GexFyDo/C+/6N+sk5SohK
+	 xTrH/CUU1bE/DFS9y96ER3ujzuwhOy9cumXOHbgekzXrwEjhxZBE1vy81nuqFNTYalg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357441;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357449;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nxmRpFjzBtqQtg6QbZ/WLqfmkST/WPtasD+tCo13H/4=;
-	b=avr8s7Du9GnRXQ3DWtD6xeOC5ofCZesvcZVKq+D4rySMNKfPjeGyJkOiayPeK+iVMADH
-	 l7uQQAh5u59pAoiSRrWLZ6vG1rQcObquw4Mjm/pZoGujmDi0S2x9VYOof8rh3kr/5n9pl
-	 dSMRvuj+JK9fZJg2Wp/iylN83xdBWThzQ7ERv7lwg3tW6xQA4f8pE0OrqgPSRipFrlQ+U
-	 2ZhSMv6H+KofDFVeBf2HZS5WYnfMpEsDoQBZEFzhjdQPtj6You3HRVEDHYndkOU66VRaV
-	 jnyYKGHFifMreKoDNOaMRcf5z8OCtz3U7YvbsONdZ7A4t/lQuEeMTIy1/eMeb41QL8g==
+	bh=sXT+nqoG3JcBZZLIfztu38Rfih77/q6GZgRF/MOrDFc=;
+	b=XvvEhm7258jqWoXp26zS82xCKONCgxWonadkKzmX9YguMM1Y+uVIHNWmvlO7BCYX/DAg
+	 F+5oI/Xu6k8JjRiqOk0rUiGHlpZ+Lic7URyKiSzUb9Tjy/zhSLNgYG1lC8IN1oBxBSq+M
+	 q0anOxUku0/2vmDA73OAUlBV8ezF1DeXlbfZNdQ9jaG29qV/RCA+FcugPbG5SjRWTl9Va
+	 F5UISOfLdZcxcNRXFZ+AEk4ajk4Kpv5iKuP0XG3B7YuNZZnIPwqp0qfz4dGrE2A0dqVvi
+	 PBjvVEX4E4EqC1tHjmain3PNN2y/Uof3EAkjKP13lTFiD7a0y/C1mbzn8carLNipM0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czKiws1q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPBvXQqR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BB0606B941;
-	Fri, 30 Oct 2026 10:50:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BF4606B972;
+	Fri, 30 Oct 2026 10:50:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czKiws1q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B2821F00A1F;
-	Fri, 30 Oct 2026 10:50:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPBvXQqR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 037CD1F000C1;
+	Fri, 30 Oct 2026 10:50:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357440;
-	bh=nxmRpFjzBtqQtg6QbZ/WLqfmkST/WPtasD+tCo13H/4=;
+	s=k20260515; t=1793357448;
+	bh=sXT+nqoG3JcBZZLIfztu38Rfih77/q6GZgRF/MOrDFc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=czKiws1qs/nib7N7FZOtJfcQk7ZWzK9rns2VbCINBdfE+6kN8IWubflmNPA0zbR//
-	 rfB7woe9JTFx21EwFg7I9LY1T5Du/ggUPzFXHvrj0BlgakeThp91cawm1L+o1LyqyL
-	 1AHGmtHG74MAlfEoWbZala91E5G3NEYnP0Oi35MZDl8hcTUZff8ulf7/C8m0qYjZNV
-	 dIlKmtLzkn/+rToToYj9YKqjtnpC0jTzaekhFairYUH0q+L0LrURPa6sn62Yyb4VPR
-	 /nA573x1xTko2fmamjoeup3Q6fih2Mb6pEQoQ5qYfnN2ynFrXGVL9XsJGKZEp83SNY
-	 jcD73pBkMsn9Q==
+	b=WPBvXQqRna6Lw26P+AfJSNlfSdRbhBAmCDFzaLC/d1GClOZoJJUmlHf4jMhD3Jlph
+	 Lax6G/F4sPh8viWFjf+DSZhpWbLoPMBmxyVCTO4A57l0SjV85uJzmsSnxvVLvbC83r
+	 pIAN0jI6vPohWj0sbNQO5zSk1kgn/0rzWecvmQ+Q868YZd2lF4/bRJWs1RM+7o4GtG
+	 sHeQ3VDbzfteLRrSDsOQRu5ZvljjyBoZiiqbACHZeazx7CDhKWKhR+f+8J++cvU7IV
+	 rPtVThqRFXbh2+DrRI8hGMmul/zc8bt2wV22ZrhcowYQhCJ+uSq9h27BN7HrJFJVEq
+	 GBeqCwxgfE4sw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Vinod Koul <vkoul@kernel.org>,
@@ -48,9 +48,9 @@ To: lee@kernel.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 03/21] soundwire: stream: Prevent m_rt_count underflow in sdw_stream_remove_master()
-Date: Fri, 30 Oct 2026 10:46:42 +0000
-Message-ID: <20261030104840.3361217-4-lee@kernel.org>
+Subject: [PATCH 04/21] soundwire: stream: Clean up allocated runtime resources on config failure
+Date: Fri, 30 Oct 2026 10:46:43 +0000
+Message-ID: <20261030104840.3361217-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
 References: <20261030104840.3361217-1-lee@kernel.org>
@@ -65,54 +65,139 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-stream->m_rt_count is only incremented in sdw_stream_add_master() after
-sdw_master_port_alloc() succeeds.  However, sdw_stream_add_slave() can
-allocate a master runtime without allocating master ports, and
-sdw_master_port_alloc() can fail after partially populating
-m_rt->port_list.  When sdw_stream_remove_master() subsequently tears
-down the stream, it unconditionally decrements stream->m_rt_count,
-underflowing the counter when master ports were never allocated.
+In sdw_stream_add_master() and sdw_stream_add_slave(), failures during
+runtime or port configuration jump directly to the unlock label,
+bypassing alloc_error and leaving newly allocated master/slave runtime
+and port structures attached to the stream and bus lists.
 
-Free any partially allocated master ports on allocation failure in
-sdw_master_port_alloc(), and only decrement stream->m_rt_count in
-sdw_stream_remove_master() when master ports were allocated.
+Track whether ports were newly allocated in the current invocation and
+route configuration failures through alloc_error so all resources
+allocated by the failing call are released.
 
 Fixes: ac3bc88cc56e ("soundwire: stream: separate alloc and config within sdw_stream_add_xxx()")
-Closes: https://sashiko.dev/#/bug/linux-bce288e6-c97f-46dd-9fc3-023c33d56f36
+Closes: https://sashiko.dev/#/bug/linux-546e137d-6e4d-4f22-99c3-8ccc8beb5350
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/soundwire/stream.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/soundwire/stream.c | 33 +++++++++++++++++++++++++--------
+ 1 file changed, 25 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index 0b00fcdcab2d..f225e5438ccf 100644
+index f225e5438ccf..97338a13c1a0 100644
 --- a/drivers/soundwire/stream.c
 +++ b/drivers/soundwire/stream.c
-@@ -1113,8 +1113,10 @@ static int sdw_master_port_alloc(struct sdw_master_runtime *m_rt,
+@@ -1026,14 +1026,18 @@ static int sdw_slave_port_alloc(struct sdw_slave *slave,
+ 				struct sdw_slave_runtime *s_rt,
+ 				unsigned int num_config)
+ {
+-	struct sdw_port_runtime *p_rt;
++	struct sdw_port_runtime *p_rt, *_p_rt;
+ 	int i;
+ 
  	/* Iterate for number of ports to perform initialization */
- 	for (i = 0; i < num_ports; i++) {
- 		p_rt = sdw_port_alloc(&m_rt->port_list);
+ 	for (i = 0; i < num_config; i++) {
+ 		p_rt = sdw_port_alloc(&s_rt->port_list);
 -		if (!p_rt)
 +		if (!p_rt) {
-+			sdw_master_port_free(m_rt);
++			list_for_each_entry_safe(p_rt, _p_rt,
++						 &s_rt->port_list, port_node)
++				sdw_port_free(p_rt);
  			return -ENOMEM;
 +		}
  	}
  
  	return 0;
-@@ -2108,9 +2110,10 @@ int sdw_stream_remove_master(struct sdw_bus *bus,
- 		if (m_rt->bus != bus)
- 			continue;
+@@ -2018,6 +2022,7 @@ int sdw_stream_add_master(struct sdw_bus *bus,
+ 			  struct sdw_stream_runtime *stream)
+ {
+ 	struct sdw_master_runtime *m_rt;
++	bool alloc_master_port = false;
+ 	bool alloc_master_rt = false;
+ 	int ret;
  
-+		if (sdw_master_port_allocated(m_rt))
-+			stream->m_rt_count--;
- 		sdw_master_port_free(m_rt);
- 		sdw_master_rt_free(m_rt, stream);
--		stream->m_rt_count--;
+@@ -2063,18 +2068,21 @@ int sdw_stream_add_master(struct sdw_bus *bus,
+ 		if (ret)
+ 			goto alloc_error;
+ 
++		alloc_master_port = true;
+ 		stream->m_rt_count++;
  	}
  
- 	if (list_empty(&stream->master_list))
+ 	ret = sdw_master_rt_config(m_rt, stream_config);
+ 	if (ret < 0)
+-		goto unlock;
++		goto alloc_error;
+ 
+ 	ret = sdw_config_stream(bus->dev, stream, stream_config, false);
+ 	if (ret)
+-		goto unlock;
++		goto alloc_error;
+ 
+ 	ret = sdw_master_port_config(m_rt, port_config);
++	if (ret)
++		goto alloc_error;
+ 
+ 	goto unlock;
+ 
+@@ -2082,6 +2090,10 @@ int sdw_stream_add_master(struct sdw_bus *bus,
+ 	/*
+ 	 * we only cleanup what was allocated in this routine
+ 	 */
++	if (alloc_master_port) {
++		sdw_master_port_free(m_rt);
++		stream->m_rt_count--;
++	}
+ 	if (alloc_master_rt)
+ 		sdw_master_rt_free(m_rt, stream);
+ unlock:
+@@ -2147,6 +2159,7 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
+ 	struct sdw_slave_runtime *s_rt;
+ 	struct sdw_master_runtime *m_rt;
+ 	bool alloc_master_rt = false;
++	bool alloc_slave_port = false;
+ 	bool alloc_slave_rt = false;
+ 
+ 	int ret;
+@@ -2197,24 +2210,26 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
+ 		ret = sdw_slave_port_alloc(slave, s_rt, num_ports);
+ 		if (ret)
+ 			goto alloc_error;
++
++		alloc_slave_port = true;
+ 	}
+ 
+ 	ret =  sdw_master_rt_config(m_rt, stream_config);
+ 	if (ret)
+-		goto unlock;
++		goto alloc_error;
+ 
+ 	ret = sdw_slave_rt_config(s_rt, stream_config);
+ 	if (ret)
+-		goto unlock;
++		goto alloc_error;
+ 
+ 	ret = sdw_config_stream(&slave->dev, stream, stream_config, true);
+ 	if (ret)
+-		goto unlock;
++		goto alloc_error;
+ 
+ 	ret = sdw_slave_port_config(slave, s_rt, port_config,
+ 				    stream->type == SDW_STREAM_BPT);
+ 	if (ret)
+-		goto unlock;
++		goto alloc_error;
+ 
+ 	/*
+ 	 * Change stream state to CONFIGURED on first Slave add.
+@@ -2231,6 +2246,8 @@ int sdw_stream_add_slave(struct sdw_slave *slave,
+ 	 * is intentional, the 'master_rt_free' will call sdw_slave_rt_free()
+ 	 * internally.
+ 	 */
++	if (alloc_slave_port)
++		sdw_slave_port_free(slave, stream);
+ 	if (alloc_master_rt)
+ 		sdw_master_rt_free(m_rt, stream);
+ 	else if (alloc_slave_rt)
 -- 
 2.56.0.317.g454f8302e1-goog
 
