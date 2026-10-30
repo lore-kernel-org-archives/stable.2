@@ -1,47 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377158;
-	b=sy1Uc9CcNujjPI1paYK8hSN/bSCGPRPaLozuI4RmnlDZoJwhTEqTSwu3GEEDx8JZHVS5
-	 FlPrF3COb8lH7t/DqrCtb33E987cuUcLvssmcJAECJ00vhxqivtV0Gxu5At+LJFM1VKZ5
-	 uVn0iExORWdSmcmxz6Z2F9Guo97NzXc0apyRxMCI5chsZexGRnENInyujnVnW//+zcPnx
-	 JZAEtEn1r7nb2CtkKPDXiiA+i5niQchQzhSDzQnWXxr98OWT2T5l8ll50/ELBa2JxAt9F
-	 Ut0Zy5mWsa0gUjgbWpMwJjVq+xfkthNS55FGe+3HBzB5oXIYMAY/IPzr6Tj3jDjya2g==
+	t=1793377603;
+	b=2tiXHO7MveBu3gMa09R3UbRZpL+tvpAN9zfTmFnTBbcouhVurMMgbkXZbQxNzGs4pUPs
+	 3hkcKY3CYCN98LVfsNLjUvtcArHgz+oNqrIw+ueg8aNn8uBafBLigfSvUGipcC7n2OPD7
+	 8wfw6gZKuRODsWprF7vAd/4wcfTCaVIt+iv3d5/cxW2IcJGGPnH1LjJw6i5GhJGby724I
+	 R4XUBoqEvBLC9d4Bc7oROt6NLmdTnW1fOofnO7HkjTltRxqALuu68KOYcsvu3MHvPRDdF
+	 TNnDrmUMvsvPcrwk8nOQgxwqM2xV4aQEnV1GJfbWZu/fUjrugTRb4qi/zhH+b8rndCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377158;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=RxROFSyFWRH+6gE4hjBVL+rigwOtdEpYHMih5SK0RW8=;
-	b=nouAVCypIUqFqRuvz71m7VnuTN8311GEPlCi1cqyXm+Tr6xGj+SOFmwiYTO8psmL0SVA
-	 SxSUuEY53wPQQ6HgMcGyPngmk/ny2rZxV3VIMwBJ9bwXRxbzfZ+z9dzQOJ0VJGCKuTKq5
-	 dhAYr2LDPbyljoH32r9k/QQITUNas7bZLLWRxdfdUtNl2bEyvzF5csRalIjM7orJ/FylG
-	 TSDt3D8fq5rMHJLnQWN2tRCWZgziF3WGJo7pI58Mfk9WhVZ6EPSC/DKMV5Sypd2oRRXmj
-	 gHcD/eKG5WYZbjJtQUClAZrSTH/3TBsj8aOITUdkc6L4k29r2kp+SSwSWyO2OJHe2fw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377603;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vewquYtyWMTTPew/3rciXZBlW6QyJvk7tE2jn/GyFDA=;
+	b=rDGX0QP6G+myVTrApWz5PPKeeAYGWmeB87cb4xQi0swRlamk2UIZXw2yfN7lLLdvM3B2
+	 ZA9bepMMxfSDHkqzMju0PNf8cSLq/qLMMFb3CrinOwYdlT0O8OncLh3Ay3AuMFP5a7qQt
+	 qHggEz+/qpdYMTjyoLZoFyudeSUEDmwlpPmOkMDy8TZDdzhX884lEsFFQKpgOQ1MEeM5s
+	 rUKbMge6dq3VRu1pycDYKKfs+60xxKBnzuVeOkYzQI9FAKuiIwYQBV7ltyQ09Ju9jaBgn
+	 69DU7P7ccyYNqcskjxi00Br6Ftdf2ZGMxCwApCI6ZWAmWqoS2VfEfhnKLXJmCfdFLnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fes0PrLT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpBV13Aa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7F3606A31A;
-	Fri, 30 Oct 2026 16:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D67606A31A;
+	Fri, 30 Oct 2026 16:26:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fes0PrLT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36AAB1F000C1;
-	Fri, 30 Oct 2026 16:19:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793377158;
-	bh=RxROFSyFWRH+6gE4hjBVL+rigwOtdEpYHMih5SK0RW8=;
-	h=Date:To:From:Subject;
-	b=fes0PrLT5rOWYCHMcsy7O50mp3X8UYDVMMpUXsZzLrMDlusv5JYbZ4Fm/fIV9KaPF
-	 /OyZ/UFVYs+mlXABMauOSDe/W7RR1hTvVM0NQVE2+effTiL5dS3/AdHyOJJ1k9Bxxm
-	 3YloRsrZIHj5sqLvKqMp5RgpSbT97tKi68g8vcLs=
-Date: Fri, 30 Oct 2026 09:19:17 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
-	stable@vger.kernel.org,rakie.kim@sk.com,joshua.hahnjy@gmail.com,
-	harry@kernel.org,gourry@gourry.net,david@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mempolicy-use-one-node-set-for-interleave-weights.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261030161918.36AAB1F000C1@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MpBV13Aa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E835A1F0093A;
+	Fri, 30 Oct 2026 16:26:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793377603;
+	bh=vewquYtyWMTTPew/3rciXZBlW6QyJvk7tE2jn/GyFDA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MpBV13AanCKDXCGEU+PtepdXmUlfOazM+NDpDUNtZ1if38mgqbsOc8bg19CAqA8YF
+	 C1arMJXKa+5EK2293+KnKeo1cVclGK8iqTR+G+rRYYPwfhB1kBPkRRVeDap25OoH+V
+	 iv9HB7LKU9Ci1GSmqNgJ9TICAVYropjR9EumVcBDfOYzw9CFRAZnFgciJRvwlbPbj5
+	 +wVyP49cQpdVsP8WnCcQQKZvsX8AR7nXYPhRH04Z1LWWTymDkJMUUeuYTRZZFZYHNi
+	 ysCjuVt6czEgMOnCf2b+VVqYYvouYEEuomVLPs+ppsTHm3BPMGqVb09jyF3PMVT2Dq
+	 +Ke+tBceINj8w==
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 0B6BE198003A;
+	Fri, 30 Oct 2026 12:26:37 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-07.internal (MEProxy); Fri, 30 Oct 2026 12:26:40 -0400
+X-ME-Sender: <xms:PcXkarepDZcwkXPaDvw1l9meX1ix8cBNcbSba9-rds1sl6XeloMfDQ>
+    <xme:PcXkaiYAI_vT59BqHq0ZygNMM5okQJjYKU_DN9AduU74co3ByTkWXIHszmuEWklPW
+    pgBXsdumm_lvCkL06kjKhQ-_xXGCB8jRqzrMoP2wm0GjyteJBdcuMs->
+X-ME-Received: <xmr:PcXkak8ezFsZAfxW4l0Mvcm4LtO1fFfXqEJiulOIBKEWLfmrRvW-8zTaQBY>
+X-ME-Proxy-Cause: dmFkZTGEAIFWzBJh0zWLN17+nisZqat9HnPlshouus3rVlwm90kalixREFWaFGYcU/tF0W
+    3UdkUB5dz3jJ/7gphqEuNFHpf+z8VsmOxTezlK75l5ORKrVKFBa2NEgRwbYKxcTq7uyZQA
+    W2W98B6jmDIrAQO8QKfXxueVgpiWnggcI/BJ/18E5DEgyYQ/qfuiqqVvOgCo9BjplJFuNF
+    Cq2lBkk/rOOp1wPHM5RPg+KN1AdKgUA5k0+FVNS57TFgOuKqthusIzIHYb5h9oR56n2lPD
+    m3bIIIT/Oa4M4xQorz7MW066A5A3Ilw7G7kLTJS6cCINZEIS17roHp+ddyILdojq+VTTHE
+    2MY3XR+A2l7OBM2ub01U6gbuYDHwIWf+Swtm5zC7sOi3harXi4z0yCXZWSoHi3RAKslPon
+    otpxzqyqAYRWWojiWcoT7qUs6tH5gim5jFMxHgdLDNVKCh5KbnwHxj24tVQmrM/pPr+8RU
+    Lse0RbqcqIjr9tKNAVnOGXNH8X5IFxsk3dnHXP064AXskGHK77xRqxNkH/D/NDqgQHTFjU
+    4Cn1v8+ReLH7NyMTA+RnhfJZnIw+IahQV8Cs5go/vouHMcd46srIpH0UsKCBuYR6U+VhFT
+    5X4IrG3Jg78xgttGn+AtH7t6hdR4nEakdA4xO0VeCYxleQm716CLywLEHQrQ
+X-ME-Proxy: <xmx:PcXkamVlQ2jGwIgyyw7CUrFTE9b22yNeHLvUZX0SYWvWKneZMieQJA>
+    <xmx:PcXkatdRTC1wqqXKq8XEshFHyfBdgKMD7rGUhJu0dEwBET2-mSU3FQ>
+    <xmx:PcXkarXiQS1P0vfF0vaQ6CaF_zxTEGGxOu_yo6_3rmhGSuJ5WdPWJQ>
+    <xmx:PcXkakWDbmZZj9fKf7Gmq_vbad2xvqM_FADgEPUBMqoLcDaV9qZ0Cw>
+    <xmx:PcXkarMhj1T7gDsxJAxPahlNVUaY2kwoc8YFK8_raX-_IUOofkJZ5i26>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 12:26:36 -0400 (EDT)
+Date: Fri, 30 Oct 2026 16:26:35 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Challvy Tee <challvy.tee@gmail.com>, x86@kernel.org, 
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	regressions@lists.linux.dev, stable@vger.kernel.org, dave.hansen@linux.intel.com, 
+	rick.p.edgecombe@intel.com, vishal.l.verma@intel.com, kai.huang@intel.com, seanjc@google.com
+Subject: Re: [PATCH v3] x86/virt/tdx: Skip TDH.SYS.DISABLE if the TDX module
+ is not initialized
+Message-ID: <auTExTAMoaKKjBrb@thinkstation>
+References: <auM3KKutfutAqgWG@thinkstation>
+ <20261030154851.907726-1-challvy.tee@gmail.com>
+ <939b4cc7-5c7f-429d-a9be-830aa1c53ac5@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,110 +89,35 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <939b4cc7-5c7f-429d-a9be-830aa1c53ac5@intel.com>
 
+On Fri, Oct 30, 2026 at 09:13:12AM -0700, Dave Hansen wrote:
+> On 10/30/26 08:48, Challvy Tee wrote:
+> > --- a/arch/x86/virt/vmx/tdx/tdx.c
+> > +++ b/arch/x86/virt/vmx/tdx/tdx.c
+> > @@ -2321,6 +2321,9 @@ void tdx_sys_disable(void)
+> >  	struct tdx_module_args args = {};
+> >  	u64 ret;
+> >  
+> > +	if (!tdx_module_state.initialized)
+> > +		return;
+> 
+> NAK from me on this.
+> 
+> If SEAMCALL is fatal then we need stronger barriers on the generic paths
+> to SEAMCALLs themselves, not one-off patches of the sites.
 
-The patch titled
-     Subject: mm/mempolicy: use one node set for interleave weights
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-mempolicy-use-one-node-set-for-interleave-weights.patch
+I don't think the generic path is the right place for it. For every
+other caller, reaching a SEAMCALL on a non-TDX system means something
+went wrong higher up, and we want to see it. A check there that quietly
+returns an error hides that. Making it WARN would catch it, but then the
+crash path would still need its own check before the call.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-use-one-node-set-for-interleave-weights.patch
+So gate the call on X86_FEATURE_TDX_HOST_PLATFORM, the same way
+paddr_is_tdx_private() does.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: mm/mempolicy: use one node set for interleave weights
-Date: Fri, 30 Oct 2026 12:10:46 -0400
-
-Switching weighted interleave back to automatic mode while memory is being
-onlined can cause a kernel divide error on x86, and a panic if
-panic_on_oops is set.
-
-reduce_interleave_weights() scans N_MEMORY three times, but hotplug can
-cause N_MEMORY to change at runtime - and torn reads on that nodemask can
-cause a total sum of zero bandwidth.  A node that was hot-unplugged and
-then hotplugged back can then cause this loop to generate a div/0.
-
-Record the nodes visited while summing their bandwidth, then use that same
-set when scaling and reducing the weights.  This gives us a consistent
-state even if N_MEMORY changes.
-
-Link: https://lore.kernel.org/20261030161046.1497894-1-gourry@gourry.net
-Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: <stable@vger.kernel.org>
----
-
- mm/mempolicy.c |   13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
---- a/mm/mempolicy.c~mm-mempolicy-use-one-node-set-for-interleave-weights
-+++ a/mm/mempolicy.c
-@@ -207,15 +207,22 @@ static u8 get_il_weight(int node)
-  */
- static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
- {
-+	nodemask_t nodes = NODE_MASK_NONE;
- 	u64 sum_bw = 0;
- 	unsigned int cast_sum_bw, scaling_factor = 1, iw_gcd = 0;
- 	int nid;
- 
--	for_each_node_state(nid, N_MEMORY)
-+	/*
-+	 * N_MEMORY can change while wi_state_lock is held. Remember the
-+	 * nodes contributing to sum_bw so all passes use the same set.
-+	 */
-+	for_each_node_state(nid, N_MEMORY) {
-+		node_set(nid, nodes);
- 		sum_bw += bw[nid];
-+	}
- 
- 	/* Scale bandwidths to whole numbers in the range [1, weightiness] */
--	for_each_node_state(nid, N_MEMORY) {
-+	for_each_node_mask(nid, nodes) {
- 		/*
- 		 * Try not to perform 64-bit division.
- 		 * If sum_bw < scaling_factor, then sum_bw < U32_MAX.
-@@ -234,7 +241,7 @@ static void reduce_interleave_weights(un
- 	}
- 
- 	/* 1:2 is strictly better than 16:32. Reduce by the weights' GCD. */
--	for_each_node_state(nid, N_MEMORY)
-+	for_each_node_mask(nid, nodes)
- 		new_iw[nid] /= iw_gcd;
- }
- 
-_
-
-Patches currently in -mm which might be from akpm@linux-foundation.org are
-
-openrisc-export-mulsi3.patch
-mm-mempolicy-use-one-node-set-for-interleave-weights.patch
-maintainers-add-ipc-maintainers.patch
-profile-account-for-partial-proc-profile-reads.patch
-profile-simplify-proc-profile-read-layout.patch
-ipc-msg-clamp-negative-msg_info-usage-counts.patch
-drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining.patch
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
