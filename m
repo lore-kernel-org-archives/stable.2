@@ -1,100 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793380075;
-	b=D8hZXh/irw4KqjPgkxo7SJQyExn4+8KuFhAd/vzEXoIKLG/2NF3IOXnJUUS+ODHApjY0
-	 CyJkUBKro5L8qPHcS+I8CHkyrqGlTEudNdt8x/xJrTx5Ho/tQ9WDD5feUyWoKGlOrrncC
-	 z7+cvNVBaL4KKCkdQukZK9/EboUYORqqRuUnuaClwMuvZ2uinTcVkIr4a9B8ZXE9p/wo1
-	 lB3LlUwuH9f8PKTRXtonVlhZrxcRz6pSEK9BlKKlQ19pnOSf1L7M8uQLnGz5ECv0pdV17
-	 mSyFfgUWo8S8azu3nZv33m6MlKbOGRQlR+u/bbQyvX27gjg5IKeHQVsWbnzvdyuoNng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380075;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-	b=sPKFmVdgJXf7k4InXVsaq+sA0mT0As6CK7QKuzorldRxPkA2fWERMWY+8MQHJasPeEbY
-	 p3/RrDiXD8rIM50y8vnSqqOIUdNt6C4i8K+1FjeuUSGobJ+1XLob88Z1pbUOVz8b30/0f
-	 a9IUlQaeqH1Y3px938IuMDH2YNtWQq0kXizuae1ZVCeqIqsa/OY23gvQF2XMONnfo9NZQ
-	 xwMfiN43/ZZ8gRBDKuPEswYb6qs/yP2KgKa5w36E2blpVVdEJpbzdSnM5MoVsnDFv/Ss7
-	 nq+SV4GVB4PLwtfm9DqC1QLswn3mM2rqyovKGhxBM6CudYkZMWFaLSNwNbzdbutlXrQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=VKpR58mA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793380105;
+	b=mJ4Kln/b622Dm8G78H0yScJHQILSTcKXjERv0tiubYd2eyo1k5Q/JWRn45PnC8TiC3zo
+	 ZC2VINt17kHneW9pMUTDzpAZU2tOmqJhaWS2bYRnImzN9Upuu/8fJ0BJP6eNjivgItERR
+	 c+/XoComXR3qhlAm19CX8hCbexuC3tSGDjCjM4IJLPuYhQ8qDnZQSW/UVe2oJeSA9Tg/q
+	 7TbD8q6ONL0GB04En4Sx6fkFQpYee8LaW9NYaTOE9HRmbGHODz8Ht5GtQ7gbkSJBmIGj8
+	 zJx9zCKQ+rmr0TQFFjVx27ZPUHA/CWZzlKPepI3/IuVQgthnThkcWCZv//zZMLmwucg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380105;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=Ar0206v81QreD1XeYeiPdhGSp/Z+z9/udhIHQEQ/t0w=;
+	b=YYIJC0C1AIM/tdryzXIW4F7sFG/Yk/LcwbsTImoHBt2kPVPFH29dSLyWsJN4Y8tCZDyi
+	 NB1rHpsYeP+gYLqqzKkw7dJV3AQiXYvhHCilUZAE+ZNJcj4gm7HZ0+aL2IOgROAR2FSor
+	 uegQFP7j/HQ8vqTuRq2VgHTM0wUIN54XZ7M39ZsQyYHS7qd62SB4JybNS8IP/e+QIIpnt
+	 +HTzeWygI9zfSFLgB43HPCwedNtEPbX6VhQjvtrYQfkNMwuVzCize/RyGdw4QoPtPMTwH
+	 hVheOTLT5793IFjCRQOfiraDVA2cpWo6O8K4/tsbM8N59ukiDEZz10gZRKgIP5qsDsg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mytZGOrU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5FA606A31C
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC5FA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033B9606A331;
+	Fri, 30 Oct 2026 17:08:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=VKpR58mA
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c418e215671so123454166b.0
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:07:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793380072; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cNuuBfscSWSUyHZUDn3F0+tq83AI8teTzfsvjenhHR5SaklIph4VAK7D4nGCewFT+0
-         vDKUKukblki/R2D3+9Ny9wMf+PCIYgbIkWqghm7b0KI79nWXQIp7LHu5/ChcWolqMe38
-         jmp8idnSU3fAKdj1R7MznsCtLyh8t6FJvrt+/FYjhtQUMGlv0tGbV3LLMWWQ66J0GpAf
-         nyjksbKPH38qDmaHjhgeQeef4xvLwG0pi5amYzARw8Pnf7y/eiPMLwSv4V/Q3cDSiW3z
-         SD5HYNxlU/0d9CkBbl4MCeeXNh0xTVWyU3nteeUMR5ts75eF1/McYE1sgkVUxrIA/UEt
-         fgpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-        fh=ez8Q5KUF4onqwt3B/p7QEnH72PzLS5aFKQvGA2ib3Ck=;
-        b=sqcAKt4tcCtG9AoFqgBNg+cUstebNx1NTPsS6kfUV1O9t0eX1a/h6B2j7UzA4qOANr
-         qBDrHKmqqXV58HptNFayvsEb6YF53rv0i90s07Oq/xoVzdA6uh4atVQMZM82DZ3PEQTE
-         LxO8CnTI/365HekBxmvFti3GIQZfpBMtvHZFJ/L0VGKMxuayMtWHcseA2IIXu9wQT8Oj
-         U98ogB9VVzJbw2rvye35BfqPbxXzF3lvbPiaBazZ91s468gBx8q6LWnxMjUwI2YLaf3g
-         sa5A+wnC8ihv89UN3XB4DOBCBlm2XdYmWHufMLOOQ8hyfrHrCpJB3jUADRAtkAXr+zOm
-         lvBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mytZGOrU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69DED1F00A1E;
+	Fri, 30 Oct 2026 17:08:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1793380072; x=1793984872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-        b=VKpR58mApdXvWNJTEvtEi1xVLi2JLTQc671av8hr0+KgnoidMZyEH0u1IUeg+Y3EIU
-         4B/DrBBt111eScqZOtuvkmymJtUO/ejeBgMneMFisL4rbPFo/ubFrOZxJOqwQvhqW6Mr
-         HIFSP2Dn4MGi2O5/MXNrBb7Zag56z9CBNh62tGocFAN5k3cnNycFXqvCXRDwH5aPGbUx
-         zzz6xO9J5S8Wa0rj8FVFzEtfm8YGno5ebQ78UXtwRrhLo4xZ+8SKZfZyYalMtlZaHqST
-         Hj1MHF4OP1TqsuyxdbGlj1d87pnme5W+bU3J3M2BMpSkMVMA3u+36pYJQGvApnQ8lk0E
-         a5bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793380072; x=1793984872;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
-        b=OSfUXHSbezSWH8TYtizHbvw9axobZeHT+65vPmzRsfJqEYmTVLplx1wQnyGqw26f9N
-         6Ht4e8VTRsZIYE0ijISntu/pauITyaZRDPJv5y8WvYcRGCnQQbBpy88pY2+Za32DFUer
-         wJ+FCoBxpQpHpH4y3OUteAMiaJqDFc9D6m520Q+RcG9Sc/wEmmU3Olg5DqbXBK6WkPWK
-         0CKHqIBf9ZhCd9ljMCfWhshHCK7DgCTcy6JEFVY8etPbUbVtpVxDmQ81NSBRkLLbVfSz
-         3Fm70AMjXvMVwu8KuvAuArvVhLIuA/1pjNgdrpGOhDQlL1HGpiHXBUojNBQTG5i+Oy4R
-         VWxw==
-X-Forwarded-Encrypted: i=1; AKwUvBzp+2pxkPxE7/HIvZU3zJ0tXyU/IznLAXDOux97e1p10nsh5dQQr8eVkBd9+AA/H9IJygWC0o0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQwzCa0iAQsA2ZdunGBuf00TJUV2ekUhauNgqehMjFcogOdF1d
-	gf7KGe8VkMUwYSqaLa2voppc8Q/asgMc2Dv+0ADlN8RDYK58ARPV+JTsEWXck2hBq09EH5qxS6s
-	eCdyPlVGFt6Rs95VLssXxQLm/bEatj8LTjOrQsbI34kgV8tElyWEGXIJI
-X-Gm-Gg: AYBFou1DW4es33TPUyJRvimFVUpfTRh3RkeKm+doDRjaiVYnSfqtGHOnTWT7S7xvqOF
-	MNAExuO4fapf7YyUkdl/MpqY+YJwwVsQHSONVd1DW8AgmVlURcrKtvo5PYijEgHJXUJVy6tbAL+
-	DvqHPX1/fyVJFVeQVm6GT5gJmWPF7dlSU58zyKq95yKRdTO8NjZdO2NW4T2BuSgkVSjO2oMcN6z
-	Q+cTIEFWEnfK2o1EM3k/FDHhvHZGFd3ToSosDLqlJcWzhaNBrmg7cFK/G5E7L2vqjI2xaDYOLNy
-	yuwSritS+Le5rLmq5kNKzwTVSnl0Wr01TyhDWu7HjfjlDioVR5PTYUg+Fjz9O9DsVctYaM6P4La
-	rFdNmDBHVOhnFRbGaj2HaB2gwTgvgjlcrHomr1ClSYPTgMXnn99ihUQ0lojtIuRzL4uJTZA==
-X-Received: by 2002:a17:907:1b1e:b0:c46:9d50:8af0 with SMTP id
- a640c23a62f3a-c4ca7ad10cbmr261267566b.36.1793380071989; Fri, 30 Oct 2026
- 10:07:51 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1793380104;
+	bh=Ar0206v81QreD1XeYeiPdhGSp/Z+z9/udhIHQEQ/t0w=;
+	h=Date:To:From:Subject;
+	b=mytZGOrU0Tuh3Frk7XCpmbx7ZiezqWETw6jq+HGCv1DnJF45TYslx5j+VuaVwVAl0
+	 wHFf5NM1+D/jvX2fkIiWJ5qa29FgJJt0ciPQsT/7rij/3R+bICoufgGa4hcgCOh9Rj
+	 ZhNks1ZC1nEOtFxtZOcRDhUnWCPrbV6PlH4V3i+g=
+Date: Fri, 30 Oct 2026 10:08:23 -0700
+To: mm-commits@vger.kernel.org,youngjun.park@lge.com,tz2294@columbia.edu,
+	stable@vger.kernel.org,shikemeng@huaweicloud.com,nphamcs@gmail.com,
+	kasong@tencent.com,hughd@google.com,david@kernel.org,chrisl@kernel.org,
+	baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,
+	mt4022@columbia.edu,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261030170824.69DED1F00A1E@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,304 +52,147 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261027024635.366900-1-prasad@arista.com> <20261030101535.GN257209@horms.kernel.org>
-In-Reply-To: <20261030101535.GN257209@horms.kernel.org>
-From: Prasad Koya <prasad@arista.com>
-Date: Fri, 30 Oct 2026 10:07:40 -0700
-X-Gm-Features: AclHuK-iy31HWG0hImZ2B5mI-iSu54uMUj-w_Tlsie6i_umsKnZ4WLRajsinLec
-Message-ID: <CAKh1g57V4xfLiXk68SMGnUGiAbXdnyEpxUz27bONxNyOQtT4OQ@mail.gmail.com>
-Subject: Re: [PATCH net] macvlan: fix allmulti reference counting in passthru mode
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-  Thanks. Please use the following Fixes tag:
-
-  Fixes: bbeb0eadcf9f ("macvlan: Don't propagate IFF_ALLMULTI changes
-on down interfaces.")
-  Signed-off-by: Prasad Koya <prasad@arista.com>
 
 
-On Fri, Oct 30, 2026 at 3:15=E2=80=AFAM Simon Horman <horms@kernel.org> wro=
-te:
->
-> On Mon, Oct 26, 2026 at 07:46:35PM -0700, Prasad Koya wrote:
-> > Enabling allmulticast on a down passthru macvlan, bringing it up,
-> > then toggling allmulticast off and on can underflow the lower device's
-> > allmulti reference count.
-> >
-> > macvlan_change_rx_flags() only propagates IFF_ALLMULTI changes while
-> > the macvlan is up. However, the passthru path in macvlan_open() skips
-> > taking an allmulti reference when IFF_ALLMULTI is already set.
-> > Clearing allmulticast after opening the device therefore decrements
-> > a reference that was never taken. With no other allmulti users, the
-> > unsigned counter wraps from zero to UINT_MAX. The next increment
-> > fails with -EOVERFLOW and reports "allmulti touches roof".
-> >
->
-> Hi Prasad,
->
-> A Fixes tag should go here.
-> (No blank line between it and your Signed-off-by line).
->
-> There is no need to repost just to address this.
-> Replying with the Fixes tag should be sufficient.
->
-> > Signed-off-by: Prasad Koya <prasad@arista.com>
-> > ---
-> > Reproducer:
-> >
-> >   #!/bin/bash
-> >   set -euo pipefail
-> >
-> >   ns=3Dallmulti-test
-> >   host=3Dam-veth0
-> >   peer=3Dam-veth1
-> >   mv=3Dam-mv0
-> >
-> >   cleanup()
-> >   {
-> >       ip netns del "$ns" 2>/dev/null || true
-> >   }
-> >   trap cleanup EXIT
-> >
-> >   ip netns add "$ns"
-> >   ip link add "$host" type veth peer name "$peer"
-> >   ip link set "$peer" netns "$ns"
-> >
-> >   ip link set "$host" up
-> >   ip -n "$ns" link set lo up
-> >   ip -n "$ns" link set "$peer" up
-> >
-> >   ip -n "$ns" link add link "$peer" name "$mv" type macvlan mode passth=
-ru
-> >
-> >   ip -n "$ns" link set dev "$mv" allmulticast on
-> >   ip -n "$ns" link set dev "$mv" up
-> >   ip -n "$ns" link set dev "$mv" allmulticast off
-> >   ip -n "$ns" link set dev "$mv" allmulticast on
-> >
-> >  drivers/net/macvlan.c | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >
-> > diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-> > index afad90b9222a..e20d587453d1 100644
-> > --- a/drivers/net/macvlan.c
-> > +++ b/drivers/net/macvlan.c
-> > @@ -643,6 +643,14 @@ static int macvlan_open(struct net_device *dev)
-> >                       if (err < 0)
-> >                               goto out;
-> >               }
-> > +             if (dev->flags & IFF_ALLMULTI) {
-> > +                     err =3D dev_set_allmulti(lowerdev, 1);
-> > +                     if (err < 0) {
-> > +                             if (!(vlan->flags & MACVLAN_FLAG_NOPROMIS=
-C))
-> > +                                     dev_set_promiscuity(lowerdev, -1)=
-;
-> > +                             goto out;
-> > +                     }
-> > +             }
-> >               goto hash_add;
-> >       }
-> >
-> > @@ -713,6 +721,8 @@ static int macvlan_stop(struct net_device *dev)
-> >       dev_mc_unsync(lowerdev, dev);
-> >
-> >       if (macvlan_passthru(vlan->port)) {
-> > +             if (dev->flags & IFF_ALLMULTI)
-> > +                     dev_set_allmulti(lowerdev, -1);
-> >               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
-> >                       dev_set_promiscuity(lowerdev, -1);
-> >               goto hash_del;
-> >
-> > base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
-> > --
-> > 2.43.0
-> >
->
-> I'm unsure if it matters, but the order of initialisation of multicast an=
-d
-> promiscuity differs here from the non-pass-through case.
->
-> Overall I think the approach you have taken here is appropriate
-> as a minimal fix for net.
->
-> Reviewed-by: Simon Horman <horms@kernel.org>
->
->
-> But I do see that there is growing duplication of code in the
-> pass-through and non-pass-through paths. And I believe that
-> is due to the approach taken by the existing code of using
-> goto to control flow (other than for cleanup in error paths).
->
-> In the longer term I think it would be nice to address that.
-> I took a stab at that. Perhaps I'm overthinking things.
-> But, FWIIW, this is what I cam up with (compile tested only).
->
-> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
-> index a48c9e662fe9..f2a3cf540e4e 100644
-> --- a/drivers/net/macvlan.c
-> +++ b/drivers/net/macvlan.c
-> @@ -631,24 +631,31 @@ static const struct header_ops macvlan_hard_header_=
-ops =3D {
->         .parse_protocol =3D eth_header_parse_protocol,
->  };
->
-> -static int macvlan_open(struct net_device *dev)
-> +static int macvlan_should_set_promisc(struct net_device *dev)
->  {
->         struct macvlan_dev *vlan =3D netdev_priv(dev);
-> -       struct net_device *lowerdev =3D vlan->lowerdev;
-> -       int err;
->
-> -       if (macvlan_passthru(vlan->port)) {
-> -               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC)) {
-> -                       err =3D dev_set_promiscuity(lowerdev, 1);
-> -                       if (err < 0)
-> -                               goto out;
-> -               }
-> -               goto hash_add;
-> -       }
-> +       if (macvlan_passthru(vlan->port))
-> +               return !(vlan->flags & MACVLAN_FLAG_NOPROMISC);
-> +
-> +       return dev->flags & IFF_PROMISC;
-> +}
-> +
-> +/* Initialise acceleration or add unicast address.
-> + * Skipped for pass-through ports.
-> + */
-> +static int macvlan_init_vlan(struct net_device *dev)
-> +{
-> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
-> +       struct net_device *lowerdev;
-> +
-> +       if (macvlan_passthru(vlan->port))
-> +               return 0;
->
-> -       err =3D -EADDRINUSE;
->         if (macvlan_addr_busy(vlan->port, dev->dev_addr))
-> -               goto out;
-> +               return -EADDRINUSE;
-> +
-> +       lowerdev =3D vlan->lowerdev;
->
->         /* Attempt to populate accel_priv which is used to offload the L2
->          * forwarding requests for unicast packets.
-> @@ -661,40 +668,71 @@ static int macvlan_open(struct net_device *dev)
->          * populated we must add the unicast address to the lower device.
->          */
->         if (IS_ERR_OR_NULL(vlan->accel_priv)) {
-> +               int err;
-> +
->                 vlan->accel_priv =3D NULL;
->                 err =3D dev_uc_add(lowerdev, dev->dev_addr);
->                 if (err < 0)
-> -                       goto out;
-> +                       return err;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +/* Clean up acceleration or remove unicast address.
-> + * Skipped for pass-through ports.
-> + */
-> +static void macvlan_uninit_vlan(struct net_device *dev)
-> +{
-> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
-> +       struct net_device *lowerdev;
-> +
-> +       if (macvlan_passthru(vlan->port))
-> +               return;
-> +
-> +       lowerdev =3D vlan->lowerdev;
-> +
-> +       if (vlan->accel_priv) {
-> +               lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
-> +                                                          vlan->accel_pr=
-iv);
-> +               vlan->accel_priv =3D NULL;
-> +       } else {
-> +               dev_uc_del(lowerdev, dev->dev_addr);
->         }
-> +}
-> +
-> +static int macvlan_open(struct net_device *dev)
-> +{
-> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
-> +       struct net_device *lowerdev;
-> +       int err;
-> +
-> +       err =3D macvlan_init_vlan(dev);
-> +       if (err)
-> +               return err;
-> +
-> +       lowerdev =3D vlan->lowerdev;
->
->         if (dev->flags & IFF_ALLMULTI) {
->                 err =3D dev_set_allmulti(lowerdev, 1);
->                 if (err < 0)
-> -                       goto del_unicast;
-> +                       goto uninit;
->         }
->
-> -       if (dev->flags & IFF_PROMISC) {
-> +       if (macvlan_should_set_promisc(dev)) {
->                 err =3D dev_set_promiscuity(lowerdev, 1);
->                 if (err < 0)
->                         goto clear_multi;
->         }
->
-> -hash_add:
->         macvlan_hash_add(vlan);
->         return 0;
->
->  clear_multi:
->         if (dev->flags & IFF_ALLMULTI)
->                 dev_set_allmulti(lowerdev, -1);
-> -del_unicast:
-> -       if (vlan->accel_priv) {
-> -               lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
-> -                                                          vlan->accel_pr=
-iv);
-> -               vlan->accel_priv =3D NULL;
-> -       } else {
-> -               dev_uc_del(lowerdev, dev->dev_addr);
-> -       }
-> -out:
-> +uninit:
-> +       macvlan_uninit_vlan(dev);
->         return err;
->  }
->
-> @@ -712,21 +750,15 @@ static int macvlan_stop(struct net_device *dev)
->         dev_uc_unsync(lowerdev, dev);
->         dev_mc_unsync(lowerdev, dev);
->
-> -       if (macvlan_passthru(vlan->port)) {
-> -               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
-> -                       dev_set_promiscuity(lowerdev, -1);
-> -               goto hash_del;
-> -       }
-> -
->         if (dev->flags & IFF_ALLMULTI)
->                 dev_set_allmulti(lowerdev, -1);
->
-> -       if (dev->flags & IFF_PROMISC)
-> +       if (macvlan_should_set_promisc(dev))
->                 dev_set_promiscuity(lowerdev, -1);
->
-> -       dev_uc_del(lowerdev, dev->dev_addr);
-> +       if (!macvlan_passthru(vlan->port))
-> +               dev_uc_del(lowerdev, dev->dev_addr);
->
-> -hash_del:
->         macvlan_hash_del(vlan, !dev->dismantle);
->         return 0;
->  }
+The patch titled
+     Subject: mm/shmem: fix swapin livelock on a mismatched large swap cache folio
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch
+
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Mani Tofigh <mt4022@columbia.edu>
+Subject: mm/shmem: fix swapin livelock on a mismatched large swap cache folio
+Date: Tue, 27 Oct 2026 16:33:32 -0400
+
+On a SWP_SYNCHRONOUS_IO swap device, a large shmem folio can be left in
+the swap cache over swap slots that another file now uses.  Reading that
+other file then loops forever in shmem_get_folio_gfp():
+shmem_swapin_folio() finds the large folio, rounds the index and the swap
+entry down to the folio's size, finds no matching entry in the file and
+returns -EEXIST, and the retry finds the same folio again.  Since the task
+keeps the mapping locked, a munmap() of the same mapping waits forever.
+
+The folio is left behind when the slots are freed and reused while the
+swapin is still allocating it:
+
+  Task A (reads X)                      Task B
+  ----------------                      ------
+  shmem_swapin_folio()
+    allocate a large folio
+    for X's slots
+                                        punch a hole in X
+                                        /* X's slots freed */
+                                        swap out file Y
+                                        /* Y reuses those slots */
+    add the folio to the swap
+    cache over those slots
+    shmem_confirm_swap() fails
+    /* -EEXIST, the folio stays
+       in the swap cache */
+
+  Task C (reads Y)
+  ----------------
+  shmem_swapin_folio()
+    finds the large folio
+    rounds down to its start,
+    where Y has no entry
+    /* -EEXIST, retried forever */
+
+Before commit c246d236b18b ("mm/shmem: never bypass the swap cache for
+SWP_SYNCHRONOUS_IO"), a direct swapin that failed this way freed its folio
+instead of leaving it in the swap cache.
+
+do_swap_page() already drops a large swap cache folio that does not fit
+for anonymous memory.  Do the same in shmem_swapin_folio() and on a
+-EEXIST, remove a large folio that is not anonymous/dirty/under-writeback
+from the swap cache so that the retry swaps in a folio that fits.
+
+The reproducer below fills a small brd swap device so that a 64K shmem
+folio and the 4K pages of another file land in the same slots, and races a
+read of the first file with a hole punch and a swapout of the second. 
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development, but the non-deterministic C
+reproducer can typically trigger it in the 2-4s time range.  With the fix,
+nothing is triggered after 600 seconds.
+
+Link: https://lore.kernel.org/20261027-shmem-swapin-mismatch-v1-1-84e30aa3b9e5@columbia.edu
+Fixes: c246d236b18b ("mm/shmem: never bypass the swap cache for SWP_SYNCHRONOUS_IO")
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/shmem.c |   16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+--- a/mm/shmem.c~mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio
++++ a/mm/shmem.c
+@@ -2568,11 +2568,14 @@ static int shmem_swapin_folio(struct ino
+ 	 * and swap cache folios are never partially freed.
+ 	 */
+ 	folio_lock(folio);
+-	if (!folio_matches_swap_entry(folio, swap) ||
+-	    shmem_confirm_swap(mapping, index, swap) < 0) {
++	if (!folio_matches_swap_entry(folio, swap)) {
+ 		error = -EEXIST;
+ 		goto unlock;
+ 	}
++	if (shmem_confirm_swap(mapping, index, swap) < 0) {
++		error = -EEXIST;
++		goto failed;
++	}
+ 	if (!folio_test_uptodate(folio)) {
+ 		error = -EIO;
+ 		goto failed;
+@@ -2613,6 +2616,15 @@ failed:
+ 		error = -EEXIST;
+ 	if (error == -EIO)
+ 		shmem_set_folio_swapin_error(inode, index, folio, swap);
++	/*
++	 * A large folio that does not fit the mapping, e.g. because its swap
++	 * entries were freed and reused, would be found again on every retry.
++	 * Drop it from the swap cache so the retry can swap in a fitting one.
++	 */
++	if (error == -EEXIST && folio && folio_test_large(folio) &&
++	    !folio_test_anon(folio) && !folio_test_dirty(folio) &&
++	    !folio_test_writeback(folio))
++		swap_cache_del_folio(folio);
+ unlock:
+ 	if (folio)
+ 		folio_unlock(folio);
+_
+
+Patches currently in -mm which might be from mt4022@columbia.edu are
+
+mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch
+mm-shmem-fix-swapin-livelock-on-a-mismatched-large-swap-cache-folio.patch
+
