@@ -1,48 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333865;
-	b=AqnOt/sWNDYtGr//LPpEBWTskgnMPUu0BEJX+K6WLQLEJoV0IhUSlK/IsTEjEh2J5wc6
-	 AokhgoZ8IofOr0Nxl8dqec915lI/7f6rwhn6Z+kCLvNDpOyhY9l3hlgvS1jkr/nPt/KKX
-	 egAGrDQU1p2RjTeJQTSLny0Cy8RrR4HrKdNuYVltiqGdyB1k6J7c4+tbsotc1iJovK6iT
-	 rqviFHpNYda58Lqg057HN3D1WtAKZewrPDuQP6s9n2vYLp3vWrUTDPE89JzXMRhr0aBzu
-	 EW/vKtACTE3EdBbmBDr7Lc1KlFWW+t2LAHigNr5nYvQW628qiLn4Ku9srfq6vChNF0g==
+	t=1793334780;
+	b=kVUUFMHAEDvnItJYE21NdTtBf5xt/kh1C60DWS7vDftmopjMno/F8xq3mSP4rJxN+oe7
+	 9k6MwImB349dmtFPM0mzM2qGnhXunQhfe7WGw0DEKvuDQ9xLUFz4UI04DqVys18Xmc8aW
+	 CKk0s0+/aUmISXtfppTp0+RFCEWG8YvPgEpK3/Z7x18awVyPY020QqiO0yUhB5f3qaWV0
+	 +g2i9BCxCZkJzJWqCFrSsbOFu+xvwTbspkE6M5m8o1gwV6vdMVz8muT79mR7yWmSRYcBF
+	 nsFq22NYWrpIpvoZhukUjrfcKU73TTUkXgUQtxz1XbWOZ+geECWyCQpW3KeuTv8zMsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333865;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=l6dgklAXvNJW7Bicp7o9SsNadCOymnW+JHw1c9oe1B8=;
-	b=bMwWAAMyaFdixsD51+L4Gkh/7dvNiQ9XNWv682UzlXrR1lsZdAmqnX6EWAmN9RBU5On/
-	 fstya9/B0pkzky6jKF/yG8eB4jH3ovNGCL3O365PUwXnTrAMC4yLRUPxRtk8SJKjRAGCM
-	 PIQ222yZbRjeGVFyV0NpYFGomdMmo4sZYPitINLIpemX7PLfQjlnt9asshkoFBSEGmEPU
-	 ScOuABJBA5V3Hpxi7t6jCjV11hIuae4zZgz8pEJ3U5vn6x2IEm4KEkBGFz6zQFwKlIsJH
-	 iM6y1S3cmQI7On9/uBAdeSxLoBeU45nMGfT7R46bSyEKCzY8TOcdj1ywJctw5wjsdkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334780;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=08cN2zjiidPHi6YZg4T3YGZ1WyZF/coSaDDzfAKnE0M=;
+	b=otDuzW344t+C1TDqi+wYfEfIFwLBvC/+UNAgmqNHh5DX8qYZkZAiO0csqwbeBpKkiFg2
+	 hXjKCQns4O7ofueEp36IiickWUmhPeptOMEKoR28yFyVOXc/cWF7nDz6J8qcVbM6c20zj
+	 JU164s6FYDEkEFbmTeqCHfMSMDWgvdDrc8ngeu0p3rV56WhT2h3ZpYWjQc2liM01tGSEZ
+	 zwr8171j9WeQvk4ogUEuSVIrub80SqTFEEo+0Jb/gIzp5NJL7EcbxOLVuzirOVHxuutBN
+	 qszGoRJQIufVu32gl3DADkifq4YSZq6m5Jr8D8Q7mehDMUbJw/iTKDpjscoDdnmyLHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GC+ssbcN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=JwLkZznZ;
+	arc=none smtp.remote-ip=209.85.160.180
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC823606A31A;
-	Fri, 30 Oct 2026 04:17:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C50C606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 04:32:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C50C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GC+ssbcN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494641F000C1;
-	Fri, 30 Oct 2026 04:17:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=JwLkZznZ
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-53bb57f1310so2857991cf.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:32:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793333864;
-	bh=l6dgklAXvNJW7Bicp7o9SsNadCOymnW+JHw1c9oe1B8=;
-	h=Date:To:From:Subject;
-	b=GC+ssbcNpFwfV4VzxoSGuvmfsYwgn5AM2S7pPq4pT0dmeEfnKj7fyhoryRoH8Yer+
-	 7XSi0kNWsm7yQk5TMi94AuO2KUexpFMqdnuPMX1DJPj14BlaszEUr0WOmpYxTjbhJ3
-	 DaMP7WwdcJFaMoxE3k3rzuKLbETsbR1nssp2wlac=
-Date: Thu, 29 Oct 2026 21:17:43 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
-	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
-	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-stop-recovery-before-shutting-down-local-allocators.patch added to mm-nonmm-hotfixes-unstable branch
-Message-Id: <20261030041744.494641F000C1@smtp.kernel.org>
+        d=cs.unc.edu; s=google; t=1793334778; x=1793939578; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=08cN2zjiidPHi6YZg4T3YGZ1WyZF/coSaDDzfAKnE0M=;
+        b=JwLkZznZNTP0IQTjsQ/sO8D36bcEPSSHP62VDPaa/tII8C1FIGC4m5nduW2ivEW8Mu
+         nCmyHRx89mNXnFrKVQbwLWREjA83LZ4XrX21KJKCcAp7wVZzrhJXTXHXsQk5sdEFIbae
+         9E9VijIGmjuRKfeByhfOIQCpwPw3O+OW0E1aBbtHaFik5/QZxtAS+CrMIaUlOL5bsNJu
+         Dv6DHhH61VmDQ8aDJIkjC1kJm9f0FoR+0HwZCZ+1JSMBqhZdAAv+kVldgt+SjXWFbzU5
+         4LvhLU7SuMaAypCr0tf5BAWmbjQazsTQpOnmJ5PS4JFZDhqTtNbl477mMzdd5awOcHH3
+         JQPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793334778; x=1793939578;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=08cN2zjiidPHi6YZg4T3YGZ1WyZF/coSaDDzfAKnE0M=;
+        b=DSstum2Bw+cBxy5teCK5nIjcP4CL0683Rik42PSsrHZLjwHXO4aJmxZN3w+GIEKbWW
+         4H38svxmqNUPmoiHQIHYyC9do2j1WutRqyUIBtJIPz7PqEOqT+VsOafB4fV4bYFypVm3
+         n37QKZ/IXnvj/JaMJW4ERlW44aNE1io/qfovOr5A52PJ9+38AIwwZdWP6+tEJQMq/HRm
+         OAlVMdBhDEXzagtuOB4XBSou6Q6dx/OVlXPcmt2YThFvcd3FYRhFoa9BL0uBaHlSqnAo
+         dvPCYWaUhh4cOlZWcBIltyCEYuuBQx++6iT/kKw0b9kR9Hx7IYP1p7tMf076N9++k42R
+         PptA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLdkhfXhajZugOpRcDjqgJNZVwHg6KvdIF2s7vlh+ZkoqUSIeVg0HyahnAeUZ5LjHnSNRH2oo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEAWkeeXTOXbbmu4RMpAbDLkO7Yl5PCRw+c8dhWY9TT991O8a1
+	XQGrrw/gHa71THdngOq4wZ+4MQvU5bp+HivdCES3mksnxpcofCg/a3sd8ymwx6OG6g==
+X-Gm-Gg: AYBFou2x/q2K3pCBEafkWNlMM0udb8DS7LE84foBbX0hdIw/nlTz0G97XLtQEqcXgY+
+	Cvozc1lia5xrObiplSeJj3HEUiGq0wi0Qa3g2uMO3ow2YcfweYoUHV80ysIevLng66lvkQNPDTo
+	Yll2b+6pHKHwwruVFOPrO83K+i7IDfZwkWSbDzRhIQKc7RZjvK8+XWRSOflDWEaGaVUMioZuNKy
+	mJxbX8Nxl1YCZbMmSphso0an/eetAOf8650RiWncN9ABgD8QlljeNQ5HE7qMNUgN0e1ono/Dxpw
+	UfuZhZ3L9PgQGM7rvQJUP3Pmz/TnP9MpgLRRGHg4GEfJ383SQY1jNS94jC63TDbVsKooPN5jsS2
+	ZowdKyAQZMmTPzTc8xh1ENfxB/M8upPTxHMwfZi7CRuLIpICeXmM5zu/5OkvWvKNDStPebaPfXa
+	ELPP1AdT0O3XhuU3NH920GJbtiUteh7QbNq7Zsf9fb2Xrc3ksuHaE8TitJsjGgldxAkA97Z0bjf
+	5EpGj0TGU6631v/pMaLoeVYNHpJE66KcORq3MCxB4WWQQJJfT0I+tmrinV1aix2WGrT3jw8AdrP
+	O4SBjW1mrPSg+P6uwe7yPk400ff+v6vidVX1z8CgF87w8GjqM9/d
+X-Received: by 2002:a05:622a:a1a:b0:535:25db:17ae with SMTP id d75a77b69052e-542b397a4demr17105461cf.11.1793334778444;
+        Thu, 29 Oct 2026 21:32:58 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f25fc2sm5218726d6.10.2026.10.29.21.32.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 21:32:58 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] hfsplus: fall back to buffered I/O for direct writes past phys_size
+Date: Fri, 30 Oct 2026 00:32:52 -0400
+Message-ID: <20261030043252.4163173-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,264 +96,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+hfsplus_direct_IO() passes direct writes to blockdev_direct_IO(), which
+does not go through hfsplus_write_begin(). phys_size only grows by the
+block size when hfsplus_get_block() allocates a new block. It starts at
+i_size when the inode is read, which does not have to be block aligned,
+so after a direct write past the end of the file phys_size is smaller
+than i_size.
 
-The patch titled
-     Subject: ocfs2: stop recovery before shutting down local allocators
-has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
-     ocfs2-stop-recovery-before-shutting-down-local-allocators.patch
+However, at the last close, hfsplus_file_truncate() sees i_size larger
+than phys_size and calls hfsplus_write_begin() at i_size, which zeroes
+the file from phys_size up to i_size. As of now, part of the data that
+a direct write has just written past the old end of the file is lost,
+and fsck reports no error. Commit 5f63ac80aef2 ("hfsplus: fix issue of
+direct writes beyond end-of-file") avoids this only for writes that
+start past the end of the file.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-stop-recovery-before-shutting-down-local-allocators.patch
+The issue can be reproduced with:
 
-This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+    truncate -s 32M hfsplus.img
+    mkfs.hfsplus hfsplus.img
+    mount -o loop hfsplus.img /mnt
+    printf 'A%.0s' $(seq 100) > /mnt/f
+    umount /mnt
+    mount -o loop hfsplus.img /mnt
+    xfs_io -d -c 'pwrite -S 0x42 0 1024' /mnt/f
+    umount /mnt
+    mount -o loop hfsplus.img /mnt
+    od -An -tx1 -j 100 -N 924 /mnt/f
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Bytes 100 to 1023 read back as zeros instead of 0x42.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+This patch will make the other direct writes that end past phys_size
+fall back to a buffered write, as fat_direct_IO() and affs_direct_IO()
+do.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: stop recovery before shutting down local allocators
-Date: Thu, 29 Oct 2026 14:57:35 +0800
-
-Recovery completion needs the local allocators until it has finished
-reclaiming a failed node's allocation window and truncate log.  During
-unmount, quota recovery is stopped first, but that leaves recovery_state
-at OCFS2_REC_QUOTA_DISABLED.  New non-quota recovery can still start.
-
-ocfs2_truncate_log_shutdown() drains existing completion work and releases
-osb_tl_bh before ocfs2_recovery_exit() closes that publication path:
-
-  Unmount                             Recovery
-  -------                             --------
-  stop quota recovery; disable quotas
-  truncate_log_shutdown()
-    flush existing completion work
-                                      recover another failed node
-                                        queue completion
-    flush local log; release buffer
-                                      complete_truncate_log_recovery()
-                                        use released osb_tl_bh
-  recovery_exit(): disable and drain
-
-An extra buffer reference alone would still let completion append new
-records after the final truncate-log flush.
-
-Split stopping and draining recovery from freeing its state. Stop all
-recovery producers and drain completion work before shutting down either
-local allocator. Keep recovery-state release at its existing later point,
-so its lifetime relative to other teardown users stays unchanged. The
-second stop at recovery_exit() is harmless once recovery is disabled.
-
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in ocfs2_truncate_log_needs_flush+0x23d/0x360
-    Read of size 8 at addr ffff8881093711e8 by task kworker/u16:3/53
-    
-    CPU: 0 UID: 0 PID: 53 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy) 
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: ocfs2_wq ocfs2_complete_recovery
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20e/0x420
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     kasan_report+0xe0/0x110
-     ? ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ocfs2_truncate_log_needs_flush+0x23d/0x360
-     ? __pfx_ocfs2_truncate_log_needs_flush+0x10/0x10
-     ? __pfx_down_write+0x10/0x10
-     ocfs2_complete_truncate_log_recovery+0x315/0x780
-     ? trace_hardirqs_on+0x18/0x160
-     ? __pfx_ocfs2_complete_truncate_log_recovery+0x10/0x10
-     ? ocfs2_complete_recovery+0x666/0x11b0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? kfree+0x308/0x580
-     ocfs2_complete_recovery+0x676/0x11b0
-     ? __pfx_ocfs2_complete_recovery+0x10/0x10
-     ? reacquire_held_locks+0xdd/0x200
-     ? process_one_work+0x7c8/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_acquire+0x190/0x300
-     ? __pfx_autoremove_wake_function+0x10/0x10
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    
-    Allocated by task 538:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_slab_alloc+0x89/0x90
-     kmem_cache_alloc_noprof+0x20b/0x5c0
-     alloc_buffer_head+0x26/0x120
-     folio_alloc_buffers+0x122/0x1d0
-     bdev_getblk+0x299/0x4f0
-     ocfs2_read_blocks_sync+0x513/0xbc0
-     ocfs2_iget+0x9cd/0x1a00
-     ocfs2_get_system_file_inode+0x25e/0x7a0
-     ocfs2_fill_super+0x1b05/0x3930
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    Freed by task 553:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kmem_cache_free+0x242/0x580
-     free_buffer_head+0x4b/0xc0
-     try_to_free_buffers+0x1dc/0x330
-     ocfs2_truncate_log_shutdown+0x789/0x1290
-     ocfs2_dismount_volume+0x1da/0x940
-     generic_shutdown_super+0x15f/0x490
-     kill_block_super+0x40/0xa0
-     deactivate_locked_super+0xae/0x120
-     deactivate_super+0xa2/0xc0
-     cleanup_mnt+0x217/0x450
-     task_work_run+0x144/0x230
-     exit_to_user_mode_loop+0x17d/0x570
-     do_syscall_64+0x4d1/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    
-    The buggy address belongs to the object at ffff8881093711c0
-     which belongs to the cache buffer_head of size 160
-    The buggy address is located 40 bytes inside of
-     freed 160-byte region [ffff8881093711c0, ffff888109371260)
-    
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x109371
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff8881008883c0 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000120012 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
-    
-    Memory state around the buggy address:
-     ffff888109371080: 00 00 00 00 fc fc fc fc fc fc fc fc 00 00 00 00
-     ffff888109371100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-    >ffff888109371180: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
-                                                              ^
-     ffff888109371200: fb fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-     ffff888109371280: fc fc fc fc 00 00 00 00 00 00 00 00 00 00 00 00
-    ==================================================================
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0019-v8-574dd69fd3f47f56348b@gmail.com
-Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
+Slava, you mentioned that you are rebuilding the HFS+ direct I/O path
+[1]. This patch fixes the current code, also for stable, and may
+conflict with that work.
 
- fs/ocfs2/journal.c |   15 ++++++++++++---
- fs/ocfs2/journal.h |    1 +
- fs/ocfs2/super.c   |    3 +++
- 3 files changed, 16 insertions(+), 3 deletions(-)
+Writes that start past EOF still expand the file first, as in
+5f63ac80aef2. Only the other writes that end past phys_size fall back.
 
---- a/fs/ocfs2/journal.c~ocfs2-stop-recovery-before-shutting-down-local-allocators
-+++ a/fs/ocfs2/journal.c
-@@ -227,13 +227,22 @@ void ocfs2_recovery_disable_quota(struct
- 	ocfs2_recovery_disable(osb, OCFS2_REC_QUOTA_WANT_DISABLE);
- }
- 
-+/* Stop producers and drain completion work without freeing recovery state. */
-+void ocfs2_recovery_stop(struct ocfs2_super *osb)
-+{
-+	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
-+}
-+
- void ocfs2_recovery_exit(struct ocfs2_super *osb)
- {
- 	struct ocfs2_recovery_map *rm;
- 
--	/* disable any new recovery threads and wait for any currently
--	 * running ones to exit. Do this before setting the vol_state. */
--	ocfs2_recovery_disable(osb, OCFS2_REC_WANT_DISABLE);
-+	/*
-+	 * Disable producers and drain work before freeing recovery state.
-+	 * Do this before setting vol_state to VOLUME_DISMOUNTED: completion
-+	 * work may still be waiting in __ocfs2_wait_on_mount().
-+	 */
-+	ocfs2_recovery_stop(osb);
- 
- 	/*
- 	 * Now that recovery is shut down, and the osb is about to be
---- a/fs/ocfs2/journal.h~ocfs2-stop-recovery-before-shutting-down-local-allocators
-+++ a/fs/ocfs2/journal.h
-@@ -147,6 +147,7 @@ void ocfs2_complete_recovery(struct work
- void ocfs2_wait_for_recovery(struct ocfs2_super *osb);
- 
- int ocfs2_recovery_init(struct ocfs2_super *osb);
-+void ocfs2_recovery_stop(struct ocfs2_super *osb);
- void ocfs2_recovery_exit(struct ocfs2_super *osb);
- void ocfs2_recovery_disable_quota(struct ocfs2_super *osb);
- 
---- a/fs/ocfs2/super.c~ocfs2-stop-recovery-before-shutting-down-local-allocators
-+++ a/fs/ocfs2/super.c
-@@ -1831,6 +1831,9 @@ static void ocfs2_dismount_volume(struct
- 	/* Wait for worker to be done with the work structure in osb */
- 	cancel_work_sync(&osb->dquot_drop_work);
- 
-+	/* Stop recovery producers before releasing their local allocators. */
-+	ocfs2_recovery_stop(osb);
-+
- 	ocfs2_shutdown_local_alloc(osb);
- 
- 	ocfs2_truncate_log_shutdown(osb);
-_
+Tested in KVM with KASAN: the reproducer above, and all 805 fstests on
+HFS+: 10 failures without the patch, 7 with it (generic/521, 617 and
+760 now pass), no new failures.
 
-Patches currently in -mm which might be from zzzccc427@gmail.com are
+[1] https://lore.kernel.org/linux-fsdevel/161fab786f919adb384fbf22dc19f3289bf5f24d.camel@dubeyko.com/
 
-ocfs2-validate-move-extents-against-a-stable-eof.patch
-ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch
-ocfs2-dlm-serialize-migration-mle-cleanup-on-failure.patch
-ocfs2-stop-recovery-before-shutting-down-local-allocators.patch
-ocfs2-wait-for-filecheck-kobject-release-after-a-failed-add.patch
-ocfs2-cache-the-mount-context-for-dentry-lock-callbacks.patch
+ fs/hfsplus/inode.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
+index aed0866499b2..70c13dcdcd8e 100644
+--- a/fs/hfsplus/inode.c
++++ b/fs/hfsplus/inode.c
+@@ -169,6 +169,15 @@ static ssize_t hfsplus_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+ 		end_page = end_off >> PAGE_SHIFT;
+ 
+ 		invalidate_inode_pages2_range(mapping, start_page, end_page);
++	} else if (iov_iter_rw(iter) == WRITE &&
++		   end > HFSPLUS_I(inode)->phys_size) {
++		/*
++		 * blockdev_direct_IO() does not go through ->write_begin(),
++		 * so it neither zeroes the file from phys_size up to the
++		 * write nor keeps phys_size in step with i_size. Return 0,
++		 * so that the write falls back to a buffered write.
++		 */
++		return 0;
+ 	}
+ 
+ 	ret = blockdev_direct_IO(iocb, inode, iter, hfsplus_get_block);
+
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+-- 
+2.53.0
 
