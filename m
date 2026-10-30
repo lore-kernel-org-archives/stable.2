@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347588;
-	b=hxaNpuSnD+JIpwofSilCee5o1No+uThBhSRt2HgnjqVzGFOLm244LLNHi4QLAjsLVR/8
-	 cK79HH0DoQg63RrRfi4XlwKvUgPZMu7t5mIuiP/HcqwZyqzFvfBst7XN2FE+V6ZQ05Znl
-	 3aOxoMsamfVltAnxhKbpkqcurwLhWjqM6Gb5JW5m1IB2YdNIw+NRbHXZnfmTw2s/7CAuM
-	 ujq7EepEOKhiICnA21DN7kYbJtQrwh0iCBlx7TkrdZ10SmPImic+k0IWakwsmdIou+Ojx
-	 +A+dqE+ea0NSh3JSsh3hN8604sEdUUeQNFz0s3Flp//hy0OODQeMt0/Z2YvJLmKbDGQ==
+	t=1793347951;
+	b=btNvBLrGtnGufJpGzOG95Tta9NDBdAJS1ETEsH0cmkSZ+Oj5EBQXSDfTNcR7mti+exfI
+	 xC6U0e5dM1aHLoI8iGc9dd9LS/ajHofiQvtiV6m3mzsjsgH/a8E9gtdL8XFnso087CBTJ
+	 7NlKcSJ1TadfZLMQ/yiPOWSs/k0TpsEe0s/Pf/ko4A937c3bltf17mpFXgLWT9aIVGVXM
+	 XotDJL44BY7qvNbQiOpI/r0J+wIZb8K3AyN5NFEj8Q7mN1wLBS9r4CoitrqRiaXiOpUgC
+	 bq2HVbGT3L8jqgD0wjmcjFFnR6zhLAQ2X+OVTRC7jgf/X4n1Gby2E55t+mkjavheI+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347588;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=C2ZirJKo0vypwPPLrNmCiJuDTnWo0nBD9fcFZAsttqI=;
-	b=wnYzegyeU1mZteCABGB1jjPRg/clVN8sl7hPv5598qePWzqUMyJmoEEsNz2zB9+sVzXF
-	 XtxMGkBBMGvWt5LgrXov+PgOqxtL7GQU+3+35hYcC6yIy4n3r+/cnQfRMT0HOpphoS62n
-	 GUXZv3a3Qiviaj9xnOHYK3EH7tQbKfzu4Q9M+/Hkz+aBQz12krn2TxA5XLeBybPoc64mc
-	 GhrOFRYtk8pwY13vAsk6tFrIL0sEv2V2j+EYw2xIy3ZqZAAmNuIzGGENn+Z6tHx6ATnwr
-	 r8vuukAVu+iCpoNq6DDSMlUlM74h/YJ9geqOCFWkK48ha+pny+Q6pLRuAhYB1YyITww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347951;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cwt4Hg4qMuIaaCvAXceJlYQIKFNEo2HNhM36aeH05D4=;
+	b=xuBoMPdx64+2VQJPLrspW0LsTl83BwTlG5VeAh9hE9S67nQmgSpBCviBp3ZuLOIVohS3
+	 T1Lrh2Ek5OmXk9J2+vLLNs8vZOLZ+2UWaQZmegx3JgHbF70lk0bzUjkUAA74aP6Pg63Oa
+	 U95R99uvYkYCUCSpL1795cqWdQ3/2Ge3909ZzpIPiKKO/i0N3Qq+eZfeM7IFxDPYa79FB
+	 rlb0PKMJldlzGL25c9vnR2BgobHzqj6CrOCwVeuVthJ59kx6Wh4wJ6qYRqy8dZ5xyQY0D
+	 YFSfYXoJ2FAWgiwO+/rfubzLRSLRvqE3OHp/koRYCupm1rMlSdr+0iQMtEBuEHAI/Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6s7p5xB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJnsaMfq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74B3606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:06:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEDB1606A31C;
+	Fri, 30 Oct 2026 08:12:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n6s7p5xB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B841F00A16
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:06:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJnsaMfq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF631F000C1;
+	Fri, 30 Oct 2026 08:12:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793347587;
-	bh=C2ZirJKo0vypwPPLrNmCiJuDTnWo0nBD9fcFZAsttqI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=n6s7p5xBjOVGRmpnwfG72OJ0wLBDRXw2umZ1qOI8xmzj0xuBovVTUWEbSFN9oPcu1
-	 n43di3H+dhghtblDmspmXjL9YdEFQBE2W37319IHlLS0T/a3ztIpKgkGIPH17tS/XB
-	 9KCXss4Ry7Bn1JXUnUXx9fbatEUTa1kJS83ylxkd7KvZM9tstakVE74AbzPzSYSCPQ
-	 hGTYjsierdY6dC1hnLohDTzGKAJVfFWs4yfchgriLW0U0NN2cc2UcdzmR86Dq8+zlY
-	 F+6WEW0Sxrp6hN4lg393xIW0aOwD8CFMY4M6Qz0Je4zD+X4+Tv+MpNr5lDwkRklxi3
-	 XGT2NWN8nZnZw==
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6de1fd5f572so159664eaf.3
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 01:06:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxSidiJRWAdeOsSvBZFSMKhr/sYh/U5IbYdNDTVI4K2Wio06M6p4U9gbaa5VoPiCuYL9JdRxso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKf6V2KwFpvDL/E//hfDl7jsxncwOt0ulF2VWQmdPTUnwKZfu3
-	oRa9BDeMdTPv6GWPVE8K1w7R34QuTvGJJO2E7NgMimrNsCMoCqYrswEudFro4Urh5q/5kymu/Kz
-	gBs7HUtjRD0uow1eOxzZCVtnVQ7sDxy4=
-X-Received: by 2002:a05:6808:11c7:b0:539:dfe8:9960 with SMTP id
- 5614622812f47-5640de0f2bamr1134379b6e.56.1793347586555; Fri, 30 Oct 2026
- 01:06:26 -0700 (PDT)
+	s=k20260515; t=1793347950;
+	bh=cwt4Hg4qMuIaaCvAXceJlYQIKFNEo2HNhM36aeH05D4=;
+	h=From:To:Cc:Subject:Date;
+	b=QJnsaMfq3q22zM8v2AhRdonJAq1zicvekS3FWa1Wh3jaP7OM653ElGaDufODpuzLn
+	 atlGfBVEhY9P5V4x7Qn8r+6cchg/KJ4KmNZAwpBlZV4oKhZ82gRdt8NttcsYYeDLBV
+	 /YHj2XhHaSQnc89zxkHY7EROmScwcnleDu541wUoYKAd9VsNDPjwQmb+xio+KiaoP8
+	 SZoLRvYQkMTGdyP0tIJRL9vYkW2L2D5XdPWpvqCQWB+hY6dcpbxa91wLSK82F2ewLl
+	 wiSTzcqT4KrkYesxYrU2Z6h1LoKOsL+v+mC2WaGYCsgS1FEFAQ/SH8SjdLNdtNKBqm
+	 SH6mfc10UZaNg==
+From: Eric Dumazet <edumazet@kernel.org>
+To: "David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	netdev@vger.kernel.org,
+	edumazet@kernel.org,
+	stable@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	Florian Westphal <fw@strlen.de>
+Subject: [PATCH v2 net] inet: frags: limit the truesize of a reassembly queue
+Date: Fri, 30 Oct 2026 09:12:25 +0100
+Message-ID: <20261030081225.2575462-1-edumazet@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,54 +64,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028182934.2236310-1-edumazet@kernel.org> <20261029153539.1224463-1-wang.zhan@smartx.com>
-In-Reply-To: <20261029153539.1224463-1-wang.zhan@smartx.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Fri, 30 Oct 2026 09:06:15 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiip-ejpT=8bswZBYM1DE32WhJ+cbhjP+N_EnbPtcFRnjFg@mail.gmail.com>
-X-Gm-Features: AclHuK91IS9jZ21-erii4HBfZqZ3TIi3m-ItxwzPgKEm_mQVTWJaDnsYN2Q2QfY
-Message-ID: <CAL4Wiip-ejpT=8bswZBYM1DE32WhJ+cbhjP+N_EnbPtcFRnjFg@mail.gmail.com>
-Subject: Re: [PATCH net] inet: frags: limit the truesize of a reassembly queue
-To: Wang Zhan <wang.zhan@smartx.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	stable@vger.kernel.org, Kyle Zeng <kylebot@openai.com>, 
-	Florian Westphal <fw@strlen.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le jeu. 29 oct. 2026 =C3=A0 16:37, Wang Zhan <wang.zhan@smartx.com> a =C3=
-=A9crit :
->
-> Hi,
->
-> On Wed, 28 Oct 2026 19:29:34 +0100 Eric Dumazet wrote:
-> > @@ -510,6 +513,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *=
-q, struct sk_buff *skb,
-> >       if (offset)
-> >               nf_reset_ct(skb);
-> >
-> > +     q->truesize +=3D skb->truesize;
->
-> I am not sure whether q->truesize should be cleared in
-> inet_frag_queue_flush(). Was this intentional or an oversight?
-> Although this does not affect the fix, after reinit q->truesize includes
-> fragments that have already been freed.
->
-> The call path:
->   ip_frag_queue()
->     if (ip_frag_too_far())
->       ip_frag_reinit()
->         inet_frag_queue_flush()
->     inet_frag_queue_insert()
+The truesize of fragments in a reassembly queue is only bounded by
+the per netns ipfrag_high_thresh sysctl, which has no upper limit.
 
-Good catch, thanks.
+inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+adjustment of the socket owning the reassembled skb can cancel its own
+reference, leading to a use-after-free of this socket.
 
-This was an oversight: inet_frag_queue_flush() should reset q->truesize.
+This can be triggered from an unprivileged user/network namespace,
+raising ipfrag_high_thresh and using padded TUN packets, which keep
+a large truesize after being trimmed by ip_rcv_core().
 
-It is harmless for the overflow itself (we only over-count), but a
-queue repeatedly reinitialized by ip_frag_too_far() could eventually
-hit IPFRAG_TOOBIG for no reason.
-I will send a v2.
+Track the sum of the truesize of fragments in each queue, and refuse
+a fragment that would make it bigger than INT_MAX / 2. Callers kill
+the queue on this error. This bound is far above the needs of
+legitimate traffic.
 
-pw-bot: cr
+Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
+Cc: stable@vger.kernel.org
+Reported-by: Kyle Zeng <kylebot@openai.com>
+Cc: Florian Westphal <fw@strlen.de>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+---
+v2: reset q->truesize in inet_frag_queue_flush(), as ip_frag_reinit()
+    can keep a queue alive after flushing its fragments (Wang Zhan, Sashiko).
+    Document @truesize in struct inet_frag_queue kernel-doc (Sashiko).
+v1: https://lore.kernel.org/netdev/20261028182934.2236310-1-edumazet@kernel.org/
+
+Kyle Zeng provided a more complicated patch, I wrote something much simpler.
+LLM was used to discover the bug, build a repro, and test the fix.
+---
+ include/net/inet_frag.h  | 9 +++++++++
+ net/ipv4/inet_fragment.c | 5 +++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index b02d2472b003ec6e7b8e391d56115e8f0578ca61..c1fb419a9cf03a346edd0424ca0ba5b06b6a20f0 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -79,6 +79,7 @@ struct frag_v6_compare_key {
+  * @tstamp_type: stamp has a mono delivery time (EDT)
+  * @flags: fragment queue flags
+  * @max_size: maximum received fragment size
++ * @truesize: sum of the truesize of queued fragments
+  * @fqdir: pointer to struct fqdir
+  * @rcu: rcu head for freeing deferall
+  */
+@@ -100,6 +101,7 @@ struct inet_frag_queue {
+ 	u8			tstamp_type;
+ 	__u8			flags;
+ 	u16			max_size;
++	unsigned int		truesize;
+ 	struct fqdir		*fqdir;
+ 	struct rcu_head		rcu;
+ };
+@@ -172,6 +174,13 @@ extern const u8 ip_frag_ecn_table[16];
+ #define IPFRAG_DUP	1
+ #define IPFRAG_OVERLAP	2
+ #define IPFRAG_MIXED_SECPATH	3
++#define IPFRAG_TOOBIG	4
++
++/* Max sum of the truesize of fragments in a queue. This keeps the sums
++ * done in inet_frag_reasm_prepare() and inet_frag_reasm_finish() well
++ * below INT_MAX. Legitimate traffic stays far below this limit.
++ */
++#define INET_FRAG_MAX_TRUESIZE	(INT_MAX / 2)
+ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 			   int offset, int end);
+ void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index c18da91c1f031ee0b97f9e072837d053380da2f2..0b8d22ffafca69b2bccd98eca3d4bda93ebb816a 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -336,6 +336,7 @@ void inet_frag_queue_flush(struct inet_frag_queue *q,
+ 	q->rb_fragments = RB_ROOT;
+ 	q->fragments_tail = NULL;
+ 	q->last_run_head = NULL;
++	q->truesize = 0;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_flush);
+ 
+@@ -446,6 +447,9 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 	if (last && !secpath_equal(last, skb))
+ 		return IPFRAG_MIXED_SECPATH;
+ 
++	if (skb->truesize > INET_FRAG_MAX_TRUESIZE - q->truesize)
++		return IPFRAG_TOOBIG;
++
+ 	/* An IP fragment is never a GSO packet, but an untrusted source
+ 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+ 	 * that reach the reassembled skb, whose head keeps the first
+@@ -510,6 +514,7 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 	if (offset)
+ 		nf_reset_ct(skb);
+ 
++	q->truesize += skb->truesize;
+ 	return IPFRAG_OK;
+ }
+ EXPORT_SYMBOL(inet_frag_queue_insert);
+-- 
+2.53.0
+
