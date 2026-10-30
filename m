@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793398717;
-	b=BeN5X0VEYqI3hWCSUWUpzD9SpeU3QuxFuQb/eBd0Jbxm6pGpamaDg7HK9gWgAeb9pjHM
-	 LthlNmxN7/TzOBeD1XQ5jNxPVZ1/uGFQDZq9pI/GU+BA4Ue4xO1qaQQvz1ek6pPve7598
-	 klw5h8IDKu146armShVv80aEr+yKNTJNwxLy0PU3kFcvz+90tqWzWqhVnpokWIEq5XtgS
-	 qqrjJBhNp+mlOIatGpGc/ji1rwPR3tj3eOL5F9jlF4CfJ+ssPj+VoGnx+jOfDtu5ReI3s
-	 t7znQPfHTXhEjVvEA7mOIbkVtLylTricBXvUd1ECy4Pr9SiZAGdLhson3BhRbdrC+IA==
+	t=1793398858;
+	b=FQGEljDcZRTf/u4hOmqW8CAxnut49Nj50AOlqpDqjQdxwfAgMtqeNzmeJaL0J7mki7cI
+	 5tOWFds87RYiNltaR5pFZznzXO1cK3zQB9cVqg8qzoXw2iKzRv5Bm9T4BewLJPNDBdsXt
+	 UdihwsSKgfK2oiXlJDez9Zp2ejMwJ77YSW0R8IbEh2nzqKmxeJbAzRI5qCetftTut3UqQ
+	 hknXdrjscZI0V4qUU8aj4KtJCteXIfKWqnJ4F8BhruYzY3SRA3MLawQ0OQy0zmKcXFtNu
+	 9vNvLM2gE3m2LPUnKHusqsQwzV8pvidn5rHvIUW5A4gQsZre4k8WqSV0w9Y5wqE7+nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793398717;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793398858;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=oduWj+GlQxLwzOkkNtIfxumS7HxJ34KJdwvcCvCC1hQ=;
-	b=ge+9u3d5zShpA9XnoQxSDoDYTb//HRHYODAhPEZ7Rud8WsTMsLvyZl5iz2c8hD279iRa
-	 7VmNakPirtcNguk4dCI5suILDhNyOwrxJdtW/aSi6zZGXoFGKM4DLUPjcMvWPAoDIsHO6
-	 MaBnTVcuDlD7pf1hLyLIsS2RMBEL8ZryEZVhzozhvL8E6OxisJvKxncnWLoCjjVzKqWkb
-	 Xci0Mix+OWTxtNwfviFmgjgWTrMA8WX5g31gRoReiBx2QuVEqGu3Lb+oNED3NeBg1nvqW
-	 P+v3r6dEeg4ZP79furHygK6M5N/Zxx803waBIfOEvCSBcDLwbXqc4KQPRbKDmwrSFkg==
+	bh=W0wF84cKpgfwLnOYrXZw6pCJweTT8rbeu0cwvvIFrYs=;
+	b=FIpkwGEbANlKC2OKMFFxBvMcCgTprv5t+UUJZcbG2kAuBOqEMLUQ8Q6csDg0/CiMYZsU
+	 ZnbPfxYJO8XbKp2ux+OL/O2tjAphvW8ABiHJ5n4yvO9gZ/QvOHrBePESXyDb02AuEFt1Z
+	 LPrweIMrtUyXznqh5yt7pjrEbREQYrk1fKZTdpOuKpImEjmqpPzxwbJzSX0H9iLL5R7d/
+	 Uu9yVa+kM0p9Ga27Po9p6CdzDF8hmelfEw+W5S42nwGtV+rBdvqQlHhLjMmRUIA6DDflp
+	 z9aioRiQVH9/T9VQGfKJfi5hZySYKWeoHGzCWhLkB2qJGbzqOMKwnUljM0GugXuYQVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=N25W7GC9;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xojG2C+o;
+	arc=none smtp.remote-ip=95.215.58.196
+Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA40606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 22:18:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CA40606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03460606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 22:20:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03460606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=N25W7GC9
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso12591185e9.3
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:18:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793398715; x=1794003515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oduWj+GlQxLwzOkkNtIfxumS7HxJ34KJdwvcCvCC1hQ=;
-        b=N25W7GC9rVeS5QXC5L/KPuMSK+bhKYDsWsSl89dqBgjFTiMfe8Xsorb1mBxe2E8CSq
-         EXf75SrKREx7P9x0bOsrivDMzNBHNLja7R7bv1aynZxmK7csfJszs36s66H6claQMP+X
-         +1qPoeA13wR+yfMNsachC7wxeP71KgSovNHv6oBlr2Ji1EotltdA4Bb1SpaVNjvv+ynW
-         qen6y/9gxmits48F4Czt3UjAEoAf+JLpINLl5lB9LvdNrBdkVScJ1GMKVNHZoJLdtu7T
-         2QovK+/1eIfTRbOMCCfe+e5lvS5Pgrfco4Ao7TqUPFJrjq4+op5bBdOlE6bvWfyuxk0M
-         L6iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793398715; x=1794003515;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oduWj+GlQxLwzOkkNtIfxumS7HxJ34KJdwvcCvCC1hQ=;
-        b=oYCfBd8QyXS6x86cyK6zFeswDJYqxkxKAju0T+1BBxaggZzlDqS8k1gg8Zw+mtWFaZ
-         f13KAU/jGU604PaPSkm452hFmOcetcSctnjzV6An44bA1PPyAHiXVzoXNxtkYVbkN+pk
-         ioUMS4utfYQSMQ8mW9ed+Bg4Dl/uW089r7rAdjWI0raleKiEZzTrJFqsWTkkfCIq4Fpi
-         72lG4j8mBx0U+ZndCf+CLfV5ofG93BS1+5Rifdc20INPjIIJi9Ie8cB71nwpWhNqfUlN
-         JQkbS6GshhjUPhd8apkRvleSzpfHYzmKpvdx99Z63SJjyAY+U/hCyrq1yAMKCfRx04Mp
-         wThQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwRlO+Y2a3YIn3DTlosdwlFz+/nxFQnpVSxZWn4omLfjT5UO9KiZdmkGaJM948WlOA61y6WfuQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+EKe2xDOe4JEkj6PQ/ySgZPQZac2+3xGgadaM9T0LemAZeo51
-	JGu5BLuqLWUhKEOPy8YIGcBmEc82tMHIMyQYSPJqvK1Fj0pYZcYsAY5D4DyWJb0jtGY=
-X-Gm-Gg: AYBFou3IHjRxMJUA7AJGv+iuIQsuFQMbWCvoGCbCxHRgiOkM7BguxWWFQoht2HJaO4J
-	Pssm8eS/Vm8+Ra4sCqkiqHacW82xfXyFw7Mf/Or6EkHgpr/HKGP7gYI6Z6qN6LBjzJCs/SQWXPm
-	mJa1SLizP5LOTetBy9M9OK0uqgAayWzTVohE+aExLnz/er0hxXSMTCDO9nyE3nYuI58jM0+2h7j
-	/P0UIRAvc6dIeFBr9XjWHtzERT3Lxviki0eCdK8/Z10DGeNBFq/lSaa/hqMgL17V/NoN9zWVyG6
-	COPQqk16od2Wg4yI6rPvfHsYwTdKMKzOo9hAd9gjlVbd9fYN6xTFmqLynBabXBRDTvb6xYq9iqc
-	ZXigUxEhF4zEFpCT8YKWWY6gQPQqMUOEkJ2jJmboCi+B5cEduqzzx+uifF8O/JaRu46/nQAeSs6
-	33PUReF4gZI6vrKBds2phzoYMdur53XqPx9ShtDHmoH79LT1BeDI22Tdtwbv3vePYBhZLI7cfKg
-	Si70JT5DX5yOx0vCZvLSZD9PD5VigrZkI2pnA0WBVC/Cpj4+ZPw9+R3aB4VqriVwUHg+jScay09
-	ds+a/q6M6SWeF5A9YfOuCg==
-X-Received: by 2002:a05:600c:4e8c:b0:4a1:dade:f049 with SMTP id 5b1f17b1804b1-4ac1793ff26mr81431795e9.15.1793398714909;
-        Fri, 30 Oct 2026 15:18:34 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845fb9f6sm5336668a91.17.2026.10.30.15.18.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 15:18:33 -0700 (PDT)
-Message-ID: <56550269-7158-4286-ac12-0509252f5ce2@suse.com>
-Date: Sat, 31 Oct 2026 08:48:24 +1030
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xojG2C+o
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rfrLPOew4oTV1/b/ZMN6ioBLKrmDuQ240tTpCfS2G5M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793398853; v=1; x=1794003653;
+ b=xojG2C+osOxpuXu3L3Kb5K+9FpYCrA/6gnJN2FDJAJn/JJoThywPQq1eqsnyJJ01KdLM3wNm
+ e9ZVsIhGqE1MBvPO2DhDBdzddv2Wq5fBLm7qUu4YUpVJZw5uZGX6eakxwLH0Hf1BQ0Zs0gn5Ob6
+ m7MqbpvO0UnTVtwpi+hOsECY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 47fb9eebfd2a40a4;
+	Fri, 30 Oct 2026 22:20:53 +0000
+X-Mizu-Trace-ID: 47fb9eebfd2a40a4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f04883fc-563b-41f9-988f-9b8f22c3129c@linux.dev>
+Date: Fri, 30 Oct 2026 15:20:46 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,164 +59,292 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] btrfs: fix a livelock in wait_for_commit() on PREEMPT_RT
-To: Daniel Vacek <neelx@suse.com>, linux-btrfs@vger.kernel.org
-Cc: "Naulls, Peter" <PeterNaulls@eaton.com>, linux-rt-devel@lists.linux.dev,
- stable@vger.kernel.org
-References: <20261030153617.329733-1-neelx@suse.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <20261030153617.329733-1-neelx@suse.com>
+Subject: Re: [PATCH v10 1/2] RDMA/rxe: copy send WQE to kernel buffer before
+ processing
+To: Tristan Madani <tristmd@gmail.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+References: <20261030193235.3470653-1-tristan@talencesecurity.com>
+ <20261030193235.3470653-2-tristan@talencesecurity.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20261030193235.3470653-2-tristan@talencesecurity.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+在 2026/10/30 12:32, Tristan Madani 写道:
+> The rxe send queue is mapped into userspace via mmap. The requester
+> processes Work Queue Entries (WQEs) directly from this shared buffer
+> without first copying them to kernel memory. Userspace can modify WQE
+> fields (num_sge, sge_offset, SGE entries) between kernel reads,
+> leading to inconsistent state in copy_data().
+> 
+> This is the send-path counterpart to the receive-path fixes:
+>    - commit 22b8fbded65b8 ("RDMA/rxe: Fix TOCTOU heap overflow in
+>      get_srq_wqe")
+>    - commit d6ab440240a04 ("RDMA/rxe: Copy WQE to local buffer in
+>      non-SRQ receive path")
+> 
+> Fix by copying the send WQE to a kernel-private buffer in req_next_wqe()
+> before processing. The copy uses the full queue element data size
+> (max of max_sge SGEs and max_inline bytes) so that both SGE entries
+> and inline data are always captured.
+> 
+> After copying, reject out-of-range opcodes by setting mask to 0 so that
+> next_opcode() transitions the QP to error state. Clamp atomic write
+> residual to exactly sizeof(u64) to prevent finish_packet() from reading
+> past the WQE buffer or leaking uninitialized pad bytes. The WR-level
+> mask (WR_ATOMIC_WRITE_MASK) is checked since wr_opcode_mask() populates
+> wqe->mask from enum rxe_wr_mask.
+> 
+> The local copy is reused across multi-packet sends to preserve DMA
+> progress state (cur_sge, sge_offset, resid). Field updates including
+> DMA progress are written back to the shared queue using WRITE_ONCE()
+> for individual fields and smp_store_release() for state transitions,
+> so the completer and userspace observe consistent values without the
+> tearing risk of bulk memcpy(). DMA progress writeback ensures retries
+> can resume from the correct offset.
+> 
+> The copy is invalidated when the WQE index advances (last packet sent,
+> error, local ops, UD oversized), when a retry resets WQE state, on QP
+> reset, or when the QP enters error state for flush.
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 
+Thanks a lot for your efforts.
+I am fine with this.
 
-在 2026/10/31 02:06, Daniel Vacek 写道:
-> Peter reported [1] that running multiple RR tasks doing sync()
-> on fully preemptible kernel may starve other/normal sync() tasks
-> due to fs_info::trans_lock turned into rt_mutex.
-> 
-> This is caused by RR tasks contending over the mutex with priority over
-> other tasks, which in turn lack progress and they are no longer able to
-> remove TRANS_STATE_COMPLETED transactions from the fs_info::trans_list.
-> 
-> The offenders start looping in wait_for_commit() expecting the completed
-> transactions to get off the trans_list but since they're bouncing the
-> trans_lock the tasks with other/normal priority which are about to delist
-> such transactions never get a chance to do so due to lower priority.
-> 
-> A simple reproducer can be found in the mentioned email thread [1].
-> 
-> The situation can be resolved by boosting the priority of the starved
-> tasks or dropping priority of the offenders. Thought this fix prevents
-> the situation from happening in the first place. We simply delist the
-> transactions before changing them to completed state. That breaks the
-> loop condition.
-> 
-> [1] https://lore.kernel.org/linux-btrfs/SJ0PR17MB4288C46458DCE2C015839D0FBB9E2@SJ0PR17MB4288.namprd17.prod.outlook.com/
-> 
-> Reported-by: Naulls, Peter <PeterNaulls@eaton.com>
-> Fixes: 5fd76bf31ccfe ("btrfs: fix relocation crash due to premature return from btrfs_commit_transaction()")
-> CC: stable@vger.kernel.org # 5.15+
-> Tested-by: Naulls, Peter <PeterNaulls@eaton.com>
-> Signed-off-by: Daniel Vacek <neelx@suse.com>
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-
-Thanks,
-Qu
+Zhu Yanjun
 
 > ---
->   fs/btrfs/disk-io.c     | 18 +++++++-----------
->   fs/btrfs/transaction.c | 15 +++++----------
->   2 files changed, 12 insertions(+), 21 deletions(-)
 > 
-> diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
-> index c628c5081d92..6afcd6ca2a8a 100644
-> --- a/fs/btrfs/disk-io.c
-> +++ b/fs/btrfs/disk-io.c
-> @@ -4312,10 +4312,6 @@ static void warn_about_uncommitted_trans(struct btrfs_fs_info *fs_info)
->   			   trans->transid, dirty_bytes);
->   		btrfs_cleanup_one_transaction(trans);
->   
-> -		if (trans == fs_info->running_transaction)
-> -			fs_info->running_transaction = NULL;
-> -		list_del_init(&trans->list);
-> -
->   		btrfs_put_transaction(trans);
->   	}
->   	ASSERT(!found);
-> @@ -4937,7 +4933,13 @@ void btrfs_cleanup_one_transaction(struct btrfs_transaction *cur_trans)
->   				     EXTENT_DIRTY);
->   	btrfs_destroy_pinned_extent(fs_info, &cur_trans->pinned_extents);
->   
-> -	cur_trans->state =TRANS_STATE_COMPLETED;
-> +	spin_lock(&fs_info->trans_lock);
-> +	if (cur_trans == fs_info->running_transaction)
-> +		fs_info->running_transaction = NULL;
-> +	list_del_init(&cur_trans->list);
-> +	spin_unlock(&fs_info->trans_lock);
-> +
-> +	cur_trans->state = TRANS_STATE_COMPLETED;
->   	wake_up(&cur_trans->commit_wait);
+> Changes since v9:
+>    - Atomic write resid: check != sizeof(u64) instead of just > to also
+>      catch undersized resid that would leak uninitialized skb pad bytes
+>      (sashiko finding).
+>    - Bisection fix: move qp->comp.comp_wqe_valid invalidation from
+>      this patch to patch 2/2, since comp_wqe_valid is defined there
+>      (sashiko finding).
+> 
+> Changes since v8:
+>    - Fix atomic write resid check: use WR_ATOMIC_WRITE_MASK (WR-level
+>      mask) instead of RXE_ATOMIC_WRITE_MASK (packet-level mask) so the
+>      condition actually fires for IB_WR_ATOMIC_WRITE WQEs (sashiko
+>      finding).
+>    - Fix atomic write rejection: clamp dma.resid to sizeof(u64) instead
+>      of setting mask to 0, since next_opcode() ignores wqe->mask and
+>      uses wqe->wr.opcode directly (sashiko finding).
+> 
+> Changes since v7:
+>    - Reject atomic write WQEs with oversized dma.resid to prevent
+>      OOB read in finish_packet() (sashiko finding).
+> 
+> Changes since v6:
+>    - Fixed all sashiko review findings (2 Critical + 9 High).
+>    - FORTIFY_SOURCE: memcpy into enclosing struct, not inner member.
+>    - Copy size: max(max_sge * sizeof(ib_sge), max_inline).
+>    - Opcode bound: IB_WR_REG_MR (was IB_WR_ATOMIC_WRITE).
+>    - Removed silent num_sge clamp, use mask=0 for invalid opcodes.
+>    - DMA progress writeback (resid, cur_sge, sge_offset).
+>    - Addressed Zhu Yanjun review feedback.
+> 
+> Changes since v5:
+>    - Added opcode bounds check and num_sge clamp after copy.
+> 
+> Changes since v4:
+>    - Resent from the correct sender address.
+> 
+> Changes since v3:
+>    - Copy full queue element (max_sge SGEs) instead of per-WQE size.
+>    - Invalidate on QP reset, ERR flush, RESET state check.
+> 
+> Changes since v2:
+>    - WRITE_ONCE/smp_store_release for field writeback.
+> 
+> Changes since v1:
+>    - Split into per-path patches. Cache across multi-packet ops.
+> 
+>   drivers/infiniband/sw/rxe/rxe_qp.c    |  1 +
+>   drivers/infiniband/sw/rxe/rxe_req.c   | 71 +++++++++++++++++++++++++--
+>   drivers/infiniband/sw/rxe/rxe_verbs.h |  6 +++
+>   3 files changed, 73 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
+> index 311f285d78a6b..77606c4a039b1 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_qp.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_qp.c
+> @@ -581,6 +581,7 @@ static void rxe_qp_reset(struct rxe_qp *qp)
+>   	qp->req.need_retry = 0;
+>   	qp->req.wait_for_rnr_timer = 0;
+>   	qp->req.noack_pkts = 0;
+> +	qp->req.send_wqe_valid = false;
+>   	qp->resp.msn = 0;
+>   	qp->resp.opcode = -1;
+>   	qp->resp.drop_msg = 0;
+> diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+> index 24f5c044363f7..dd8ad19ed1d86 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_req.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_req.c
+> @@ -161,6 +161,26 @@ static void req_check_sq_drain_done(struct rxe_qp *qp)
+>   	spin_unlock_irqrestore(&qp->state_lock, flags);
 >   }
 >   
-> @@ -4973,12 +4975,6 @@ static int btrfs_cleanup_transaction(struct btrfs_fs_info *fs_info)
->   		}
->   		btrfs_cleanup_one_transaction(t);
->   
-> -		spin_lock(&fs_info->trans_lock);
-> -		if (t == fs_info->running_transaction)
-> -			fs_info->running_transaction = NULL;
-> -		list_del_init(&t->list);
-> -		spin_unlock(&fs_info->trans_lock);
-> -
->   		btrfs_put_transaction(t);
->   		spin_lock(&fs_info->trans_lock);
->   	}
-> diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
-> index d265fac023e5..cd7dff5ba59b 100644
-> --- a/fs/btrfs/transaction.c
-> +++ b/fs/btrfs/transaction.c
-> @@ -2124,12 +2124,7 @@ static void cleanup_transaction(struct btrfs_trans_handle *trans, int err)
->   
->   	spin_unlock(&fs_info->trans_lock);
->   
-> -	btrfs_cleanup_one_transaction(trans->transaction);
-> -
-> -	spin_lock(&fs_info->trans_lock);
-> -	if (cur_trans == fs_info->running_transaction)
-> -		fs_info->running_transaction = NULL;
-> -	spin_unlock(&fs_info->trans_lock);
-> +	btrfs_cleanup_one_transaction(cur_trans);
->   
->   	if (trans->type & TRANS_SB_INTWRITER_MASK)
->   		sb_end_intwrite(fs_info->sb);
-> @@ -2641,6 +2636,10 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
->   		btrfs_clear_space_info_full(fs_info);
->   
->   	btrfs_set_last_trans_committed(fs_info, cur_trans->transid);
+> +static void rxe_req_writeback_wqe(struct rxe_qp *qp)
+> +{
+> +	struct rxe_send_wqe *shared = qp->req.shared_wqe;
+> +	struct rxe_send_wqe *local = &qp->req.send_wqe.wqe;
 > +
-> +	spin_lock(&fs_info->trans_lock);
-> +	list_del_init(&cur_trans->list);
-> +	spin_unlock(&fs_info->trans_lock);
->   	/*
->   	 * We needn't acquire the lock here because there is no other task
->   	 * which can change it.
-> @@ -2650,10 +2649,6 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
->   	wake_up(&cur_trans->commit_wait);
->   	btrfs_trans_state_lockdep_release(fs_info, BTRFS_LOCKDEP_TRANS_COMPLETED);
+> +	if (!qp->req.send_wqe_valid || !shared)
+> +		return;
+> +
+> +	WRITE_ONCE(shared->status, local->status);
+> +	WRITE_ONCE(shared->first_psn, local->first_psn);
+> +	WRITE_ONCE(shared->last_psn, local->last_psn);
+> +	WRITE_ONCE(shared->mask, local->mask);
+> +	WRITE_ONCE(shared->has_rd_atomic, local->has_rd_atomic);
+> +	WRITE_ONCE(shared->dma.resid, local->dma.resid);
+> +	WRITE_ONCE(shared->dma.cur_sge, local->dma.cur_sge);
+> +	WRITE_ONCE(shared->dma.sge_offset, local->dma.sge_offset);
+> +	/* State must be last so the completer sees prior updates */
+> +	smp_store_release(&shared->state, local->state);
+> +}
+> +
+>   static struct rxe_send_wqe *__req_next_wqe(struct rxe_qp *qp)
+>   {
+>   	struct rxe_queue *q = qp->sq.queue;
+> @@ -193,7 +213,35 @@ static struct rxe_send_wqe *req_next_wqe(struct rxe_qp *qp)
+>   	}
+>   	spin_unlock_irqrestore(&qp->state_lock, flags);
 >   
-> -	spin_lock(&fs_info->trans_lock);
-> -	list_del_init(&cur_trans->list);
-> -	spin_unlock(&fs_info->trans_lock);
-> -
->   	btrfs_put_transaction(cur_trans);
->   	btrfs_put_transaction(cur_trans);
+> -	wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
+> +	/* Reuse the existing kernel-private copy if still valid */
+> +	if (qp->req.send_wqe_valid && qp->req.shared_wqe == wqe)
+> +		return &qp->req.send_wqe.wqe;
+> +
+> +	/* Copy WQE from userspace-mapped shared queue to kernel-private
+> +	 * buffer. Copy size matches the queue element data area.
+> +	 */
+> +	memcpy(&qp->req.send_wqe, wqe, sizeof(*wqe) +
+> +	       max_t(int, qp->sq.max_sge * sizeof(struct ib_sge),
+> +		    qp->sq.max_inline));
+> +	qp->req.shared_wqe = wqe;
+> +	qp->req.send_wqe_valid = true;
+> +
+> +	wqe = &qp->req.send_wqe.wqe;
+> +
+> +	/* Prevent OOB in wr_opcode_mask() for corrupted opcodes.
+> +	 * Mask 0 causes next_opcode() to fail, moving QP to error state.
+> +	 */
+> +	if (unlikely(wqe->wr.opcode > IB_WR_REG_MR))
+> +		wqe->mask = 0;
+> +	else
+> +		wqe->mask = wr_opcode_mask(wqe->wr.opcode, qp);
+> +
+> +	/* Atomic writes carry exactly sizeof(u64) payload.
+> +	 * Clamp oversized resid to prevent OOB read in finish_packet().
+> +	 */
+> +	if (unlikely((wqe->mask & WR_ATOMIC_WRITE_MASK) &&
+> +		     wqe->dma.resid != sizeof(u64)))
+> +		wqe->dma.resid = sizeof(u64);
+>   	return wqe;
+>   }
 >   
+> @@ -582,9 +630,13 @@ static void update_state(struct rxe_qp *qp, struct rxe_pkt_info *pkt)
+>   {
+>   	qp->req.opcode = pkt->opcode;
+>   
+> -	if (pkt->mask & RXE_END_MASK)
+> +	rxe_req_writeback_wqe(qp);
+> +
+> +	if (pkt->mask & RXE_END_MASK) {
+>   		qp->req.wqe_index = queue_next_index(qp->sq.queue,
+>   						     qp->req.wqe_index);
+> +		qp->req.send_wqe_valid = false;
+> +	}
+>   
+>   	qp->need_req_skb = 0;
+>   
+> @@ -634,7 +686,9 @@ static int rxe_do_local_ops(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
+>   
+>   	wqe->state = wqe_state_done;
+>   	wqe->status = IB_WC_SUCCESS;
+> +	rxe_req_writeback_wqe(qp);
+>   	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+> +	qp->req.send_wqe_valid = false;
+>   
+>   	return 0;
+>   }
+> @@ -666,6 +720,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   		wqe = __req_next_wqe(qp);
+>   		spin_unlock_irqrestore(&qp->state_lock, flags);
+>   		if (wqe) {
+> +			qp->req.send_wqe_valid = false;
+>   			wqe->status = IB_WC_WR_FLUSH_ERR;
+>   			goto err;
+>   		} else {
+> @@ -681,6 +736,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   		qp->req.wait_psn = 0;
+>   		qp->req.need_retry = 0;
+>   		qp->req.wait_for_rnr_timer = 0;
+> +		qp->req.send_wqe_valid = false;
+>   		spin_unlock_irqrestore(&qp->state_lock, flags);
+>   		goto exit;
+>   	}
+> @@ -695,6 +751,7 @@ int rxe_requester(struct rxe_qp *qp)
+>   	if (unlikely(qp->req.need_retry && !qp->req.wait_for_rnr_timer)) {
+>   		req_retry(qp);
+>   		qp->req.need_retry = 0;
+> +		qp->req.send_wqe_valid = false;
+>   	}
+>   
+>   	wqe = req_next_wqe(qp);
+> @@ -772,10 +829,12 @@ int rxe_requester(struct rxe_qp *qp)
+>   			wqe->last_psn = qp->req.psn;
+>   			qp->req.psn = (qp->req.psn + 1) & BTH_PSN_MASK;
+>   			qp->req.opcode = IB_OPCODE_UD_SEND_ONLY;
+> -			qp->req.wqe_index = queue_next_index(qp->sq.queue,
+> -						       qp->req.wqe_index);
+>   			wqe->state = wqe_state_done;
+>   			wqe->status = IB_WC_SUCCESS;
+> +			rxe_req_writeback_wqe(qp);
+> +			qp->req.wqe_index = queue_next_index(qp->sq.queue,
+> +						       qp->req.wqe_index);
+> +			qp->req.send_wqe_valid = false;
+>   			goto done;
+>   		}
+>   		payload = mtu;
+> @@ -839,8 +898,10 @@ int rxe_requester(struct rxe_qp *qp)
+>   	goto out;
+>   err:
+>   	/* update wqe_index for each wqe completion */
+> -	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+>   	wqe->state = wqe_state_error;
+> +	rxe_req_writeback_wqe(qp);
+> +	qp->req.wqe_index = queue_next_index(qp->sq.queue, qp->req.wqe_index);
+> +	qp->req.send_wqe_valid = false;
+>   	rxe_qp_error(qp);
+>   exit:
+>   	ret = -EAGAIN;
+> diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.h b/drivers/infiniband/sw/rxe/rxe_verbs.h
+> index 0f5ffd94643f9..a22dfc6e5ae3c 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_verbs.h
+> +++ b/drivers/infiniband/sw/rxe/rxe_verbs.h
+> @@ -114,6 +114,12 @@ struct rxe_req_info {
+>   	int			wait_for_rnr_timer;
+>   	int			noack_pkts;
+>   	int			again;
+> +	struct rxe_send_wqe	*shared_wqe;
+> +	bool			send_wqe_valid;
+> +	struct {
+> +		struct rxe_send_wqe	wqe;
+> +		struct ib_sge		sge[RXE_MAX_SGE];
+> +	} send_wqe;
+>   };
+>   
+>   struct rxe_comp_info {
 
