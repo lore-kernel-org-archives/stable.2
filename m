@@ -1,63 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368084;
-	b=Asas+fCUFu335NvZXBj0fjuhrY/QVlJJhfDY3gkJDboBeZ2cSuMUMX1iULt5NKR9gGtH
-	 YlKyrWrl6HIQQvTWqcXYq9tqh7Gy7HXrm37maougCfxYAPbexEaVad3O3xmIl3jAynd0r
-	 KmGVjglZMICFzCyBd4++/6bUl+SQ0NxQcguSrjmMstO3t56ZvfX4aKxLc0ZYwBjpF1FIQ
-	 CIYIeBvvYuTG0nzHE4c5+QjRbCDzKjEsGRpDVeq7T+GfqrhuPessiWmthmnVDAGcQI2HI
-	 HCWx6RoSKZl7jqBTWFn7WkuUz0r843XlRd2q9fFoDmris6BbHrimMA3DtR829THaS6g==
+	t=1793368279;
+	b=hsXxZi78ceO1w5vXStJ4g7hTIlIF6OoeP4XghP53+v0QIYgIm0Z7tb0cSvwMykkN9a6s
+	 ZfjwEr95bUrf4GM4Nl2CC9bmU1EwnJYryMQClO+UmbjIqHEJXzWGkFzhCPZ/nOvnFaFwq
+	 0nAYI4cQyinunJG/q3w48vPwbRO3zxuzM/4tgbIFEcVhGlzDEN1HZPpHBOrVnlWSXkjWg
+	 nE29hZ8D5cvbx/drxDmMC6Sk2MkSM51znOw+VQ1IStQR+e+5LtvVDIDVwakLRzIjUhgyn
+	 HgYhyKzbY/r932XaMKhejPIPB0y6x2ISJNsORwbdbgdfikVkR/fraKarJiOBQH0oGJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368084;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=OQUCECKRV95fBLQhxHRghGxv+UF7o/D+Uq4NFTgG2P0=;
-	b=hPjFGPZ+biB1r+PAJsnupthCim5POsoKZqrmVlYjxqxMtn4Nig5UZfaGhdzp291Ec3e/
-	 KUVs41HUaZzFjBJrefc745/XRlWyQ7HLThK7wfsizbDV+NHNT+L5D9W8lHow0WNfWvu3W
-	 ZkygsWerkmqBABDuw4Lj99LGEoCOGxhnTenwD1G7+aBqoNQvK/odwuwDlJnjopVbfxryb
-	 CJyYUdI1lBqGfnGR2L9CkThqSBDKys1sfGkKklwGV7nEipstGZbNRU7clADlOaySKiord
-	 iapzVJYzqOKtyVBL1JvLqarytYj5u/ScqfWrtGlO2Itafx0h+lx2imo1mKRlPaNNmPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368279;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=X26JA/MFDFcPSUPChPCfILHIVeZni1u9oAU8sdS5v+w=;
+	b=u815fBYTgFTYP13+hX/Kc3WHv+Nf8ahBvadU9dAYaZ7r80Zn38CTiHJxFhXVMEJ/YUBJ
+	 9HnjShzs+4pt1zy9Z2PjqkciaGn5CuvoH3e2sEJSPR8/bKBS6to2L7dsHh+R26V17szns
+	 xtSZGZ6VJG7brtJv8MHKFZBP7qvfOPtHgx59IZm+h5AwpHfD5T1dbf5+gLWshxvQrE/vY
+	 Xuvjnc7M8INrEyxbIBvYptvszCsc+lIzysT06o+j1AkNbVYbv+5/OfoKq8l8v7CQmqtDx
+	 2qFMLk2nNmJtRTsQCpCSHt1TyI353/pS8aU8vXX8y1igX3CqVXZ3OVKg44RlciYljrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=LTnFvruM;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dmarc=pass header.from=simonwunderlich.de;
+	spf=pass smtp.mailfrom=simonwunderlich.de;
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=TS7fKDiH;
+	arc=none smtp.remote-ip=23.88.38.48
+Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622F6606A31C;
-	Fri, 30 Oct 2026 13:48:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 622F6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3EDDF606A326;
+	Fri, 30 Oct 2026 13:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EDDF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=LTnFvruM
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0BC3310AD2C;
-	Fri, 30 Oct 2026 14:47:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793368076;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=OQUCECKRV95fBLQhxHRghGxv+UF7o/D+Uq4NFTgG2P0=;
-	b=LTnFvruM0hUeFYJZl3b4NgxkgAiOFAK8a+REGCaKfU3QpVxrcB97k3KtW2wm2fTH99AFI9
-	O1qzDm5EePyytMdd4AuHC1q1Mk3FSlMr9x+qVsZVHdQcXk5nLHskHjW4aqKpJSB9mkwHxb
-	wneu4Ijrifm/ZfwNl+y00vzjBHDTD57rfbk/kr7omgzfIf/VxJJf0huqIVYWXVHqmDSp7L
-	dIUPEZAmhhWjCpVK+VdWOW0lG+kMYfBCOmFs9Ju3Uz52sRZFVed5+EQaK5sm4hgna/Fio8
-	LYkatR0hwfBHRFoaR1DGbThMIpM3poHjlZlAFrJk59m3DCXJLt+J6F4nHnxOrQ==
-Date: Fri, 30 Oct 2026 14:47:52 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
-Message-ID: <auSgCKf_0YrXeE5K@duo.ucw.cz>
-References: <20261030121255.257615100@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=TS7fKDiH
+Received: from kero.packetmixer.de (p200300C597124Fd839580C360D3eD6F6.dip0.t-ipconnect.de [IPv6:2003:c5:9712:4fd8:3958:c36:d3e:d6f6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id 2D12FFA093;
+	Fri, 30 Oct 2026 14:51:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
+	s=09092022; t=1793368270;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X26JA/MFDFcPSUPChPCfILHIVeZni1u9oAU8sdS5v+w=;
+	b=TS7fKDiHF1ScreJ3I+cqnzV0iAfeyl0+hAM+AdpeX3RqwJnifQSXx0Z602jp7wmZHCxtL4
+	NUhIS7aVA+RHyNBm3WF6Eb3PmpYPWVe59R2M8q0QIJbbDFzDpgB+oxzn/NdQGEcjXWTuog
+	PLfM9x6qtcPGxR2PEDR/pSJDCRRy0A+Ba2yw6h4HB5sTtsH58y4/aiXFJkyKtFWJ2kj2zf
+	MppZJzS3sZEXlTaz7/fSEgz16PseGshCm1+ThRKC/doCTueH+YruSPNSKdwzzjTpINUaIW
+	OBu6c0Hj0XYGy2n3r+tSaTRJjKjCOEhRJM9K5gRflxCmTSwyzw6l+bz4fjGC1Q==
+From: Simon Wunderlich <sw@simonwunderlich.de>
+To: netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	b.a.t.m.a.n@lists.open-mesh.org,
+	Kyle Zeng <kylebot@openai.com>,
+	stable@vger.kernel.org,
+	Sven Eckelmann <sven@narfation.org>,
+	Simon Wunderlich <sw@simonwunderlich.de>
+Subject: [PATCH net 03/14] batman-adv: mcast: validate tracker padding before forwarding
+Date: Fri, 30 Oct 2026 14:50:54 +0100
+Message-ID: <20261030135105.2555887-4-sw@simonwunderlich.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261030135105.2555887-1-sw@simonwunderlich.de>
+References: <20261030135105.2555887-1-sw@simonwunderlich.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +78,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="juEBLUEEKpz1sXSm"
-Content-Disposition: inline
-In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
+From: Kyle Zeng <kylebot@openai.com>
 
---juEBLUEEKpz1sXSm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+A multicast tracker with an even number of destinations needs two
+padding bytes after its destination list. batadv_mcast_forw_packet()
+currently only checks that the count field and the addresses fit in
+the tracker TVLV.
 
-Hi!
+If an unpadded even tracker is compacted to an odd number of
+destinations, batadv_mcast_forw_shrink_update_headers() includes those
+missing padding bytes in the amount to remove. The subsequent memmove
+can then write two bytes past the old packet tail. With no tailroom,
+this corrupts skb_shared_info.
 
-> This is the start of the stable review cycle for the 7.2.15 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Include the required padding in the existing tracker length check.
+This rejects the malformed tracker before either received or locally
+generated packets can reach the compactor.
 
-CIP testing did not find any problems here:
+Fixes: 2dfe644a1ce0 ("batman-adv: mcast: shrink tracker packet after scrubbing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
+---
+ net/batman-adv/multicast_forw.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.2.y
+diff --git a/net/batman-adv/multicast_forw.c b/net/batman-adv/multicast_forw.c
+index ac97cd8b81dc9..9ffed1f237b6b 100644
+--- a/net/batman-adv/multicast_forw.c
++++ b/net/batman-adv/multicast_forw.c
+@@ -950,8 +950,11 @@ static int batadv_mcast_forw_packet(struct batadv_priv *bat_priv,
+ 
+ 	dest = (u8 *)mcast_tracker + sizeof(*mcast_tracker);
+ 
+-	/* check if full tracker tvlv is within skb length */
++	/* check if full tracker tvlv, including padding, is within skb length */
+ 	tvlv_len = sizeof(*mcast_tracker) + ETH_ALEN * num_dests;
++	if (!(num_dests % 2))
++		tvlv_len += 2;
++
+ 	if (tvlv_len > skb_network_header_len(skb))
+ 		return -EINVAL;
+ 
+-- 
+2.47.3
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---juEBLUEEKpz1sXSm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCauSgCAAKCRAw5/Bqldv6
-8sRKAKCNipeITUD08o8VzSvjjrWGXsmuPwCcCntA31QaYp69oVw2l+XtVfeQins=
-=GUil
------END PGP SIGNATURE-----
-
---juEBLUEEKpz1sXSm--
