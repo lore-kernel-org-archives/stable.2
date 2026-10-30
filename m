@@ -1,96 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329034;
-	b=xsh9SRlR3vxmEsPDWdBCAs7s+qhUbFwcyGFfYKX2GQu55dLMU3UFKxB1KcVci2M4QI28
-	 WAan3STfdGqmDgNiCPGVG93o6Ag30DILvrsyU/HyYMg9afx9UtTJsacrbxFjeiu8KHqiX
-	 jMKXWnAWvoGi6nZ5VKiD2GEG7RKvKVH900nIWZ0Yke+EkV4azcUb+RYUZN6EpsnnOr7ET
-	 eGrF2J+iDxgIn3EYNOzHpVIBRlJrcooeZ4N/Hx8QZvdPz/mius0rKf9d5IUDuEZN4UEoH
-	 fTXUM+HjvdQWL9AGtMeVfcdBC+JO8qvpDxw5fFQl9Ns9W/FaNwaKg8ldLeA39vYzcSw==
+	t=1793329059;
+	b=5W46v1asbF21bQvqh1qYFQczBW5xMkLvB/v3rkMxfIehXsm4uJplAWIF0d0MotXA6gAA
+	 ZpwIciFxTNAHm9+ww+9HdqqCpEDzz3YDA+XAk1+0JLkg/UFuBItmP/q7UxsqrYCj3mt5c
+	 da765VBm3hfPDXkBJN5YdpkTcy8v1RjuPH2tFaWTrJ3CG3N+QXQ+pEUFpm2a9hqYG1QNV
+	 A6KuFsysfBfV7+WfidosUcLcC4USMqPVym3xySaioqrywr1DuN9SkdyouA/bFs1Y1nSdF
+	 lwCR6Mcopa8iq/SvHfgADTKVM+cXMY0PakHiRjOkXt7kGyd9xoR8MwydRheUUQGVWpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329059;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=/ZdXC9RaNc34pyVI5ALRxFES86jLTzutVsfPjdP/KMA=;
-	b=atEoBO2YxX5ZKcRKWNV0SMso5L8EodBzg167yYtQ3vG8nMhN9fiQ7bxU39ULSA9hDISJ
-	 6/M1ZrSv/oR9J8ZnIKn4yH+aQ52XXosfok1qmkMJxKRCKM4wTEmeIngjyxu3bFthoxS2U
-	 /Ir/SAgZbHcAUos2q4gKvwNLFiPjZhiOQgQF/oNHLmPQrEXJPRYukEy+3PgoCznquuBad
-	 6h2PkIL8Yf0hnca10+79kXoquPEuqWLYUAzKCsGac/Am7U4OGssKHxZUOf/9P3Vw32vKs
-	 S8jet2ycnosPmbupYuSfBqpJ0ZpuLTN6lDYGlmmb5vnb32xeyQXsnf3absVlfMKhgkw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R29eOO7MluwzQ+8n9YmxiuPXIbP8eqbXNdA0VYXai58=;
+	b=gwZvBMyKS4o6AUqWsXxnxyjsgpTE2urWpyO0a3EJ2eOxBWfcTax+zoZBr4QHeMIy3khQ
+	 CKvj32LcG2x1qqQnqcH5xArNkjXVHtwzUsnRQ3Qv579cd5K8fYtjyuSe25oX6YBVcp1xh
+	 G5SY4oxvymLKBH3JSo4NS+VEYr/hrbt3xS4ne7oDB98yuhHbgLKIhCBsm2glO6NfVBHvF
+	 nAHAvhiYPgM4kE11qEnLBgn1913fe4ErfiwmAlJfSPbQ+SefAy9s/J5Rb+/zj8VFqiIkH
+	 LuLAWk8OpDmQodWnn0Pm7f7oUsnACJjxeFEy0eo2JY4oSehgaVVwPKo3JajxXtlz/ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mCvEF/B0";
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=D0h1BDdj;
+	arc=none smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E34606A31C
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:57:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72E34606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C18A606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:57:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C18A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mCvEF/B0
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a058315c79so75312b3a.3
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:57:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=D0h1BDdj
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67989a98f8bso141755d50.2
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 19:57:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793329034; x=1793933834; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ZdXC9RaNc34pyVI5ALRxFES86jLTzutVsfPjdP/KMA=;
-        b=mCvEF/B0x+B4fIM/iYE4URUqrgWef4VAXimGI6qerYmN+LkM2lC00w7qib/QTR9K+x
-         q8EDgBKBICHnCc3FmbAcwYG/Tr24NW0beOLrPAIAuhvf6gRTt959p2G2o0ya9TgSBY4P
-         lg8942Gku5CIXn5oyE0+a1T6rmsFcJR/zqf9T4MTsND/pXISxluBRn1bZemCja3/B9xB
-         eEB9pOr6KeAozcL+PVhrlqO4upaRtvFRBBOnTOOABAfVJ9uB6HbdnF6mDjICro3ysOHc
-         xQdeWUG1hAdFrw+eX+ckjPQrlxeE4b4fQHUjwJz/sG4pib0SoAGI8zPS9fu2RK8eZUQp
-         lEHg==
+        d=cs.unc.edu; s=google; t=1793329057; x=1793933857; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R29eOO7MluwzQ+8n9YmxiuPXIbP8eqbXNdA0VYXai58=;
+        b=D0h1BDdjx/7rfkEfgzolA/olPpLTEtkcAC8fILKxjO6ClRo7FoeIHl3TtFT2euqOQN
+         zfMslcyqheQPRgDV9RBjtgAZPrzG/20Wbe5GarD9g4supvFu2wBlfk93dan3O0LFaWyr
+         X0rqlIhGXUm8vgBa0NaY7mOutQnpxMs+jON9lh1Y+msRnGBSePP9tFvWcqfyofMUtiNa
+         FuH1SvPNkoKLosDdYSQI8hbWWNbyE+QArk4pbmL1jeNsT1FPDznP4/UkMay7mtHk2ApD
+         1JlZRH6aptNzMRLrluUniTEJ6jccyc9NCbjHEsRI+Ee5iGqMkoLCyTrfdx1wXyazjMV6
+         h6+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793329034; x=1793933834;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/ZdXC9RaNc34pyVI5ALRxFES86jLTzutVsfPjdP/KMA=;
-        b=Y0C/jO6b16GHFdMRzt1Gcop4JXtmbZrWWCHi9xjHhE/VAkyhByvj6vWYaMVCptWHl4
-         er7f+JfYDSVmg1e7x7+uuBdARsu2O7BwCuSpXxM8QMKuh4kfOs32LsCdZVB3PNc6Mm6W
-         /16AfL21ziILbV+we/61xEVt9ql97c0mWRo9FR9qpF0yLtvU/cA0Oc/jAGbtXP8x4pjn
-         O3McadrxKcIOXhFPIjKf2JyVMIJbAMUVi8oQ9xcoe5V97sc0MiLCWXUEz4hqutf1LgKj
-         8ecAjlXnyY/rzVeXScdwToieWuidZqWSXXXY+VpCNVbGHuKnPo1Cr779yARWGCMyU/gw
-         hwCQ==
-X-Forwarded-Encrypted: i=1; AKwUvByxBBgowd9V5M3AORFMqB3gsoiSIK23COETZOvQUpcCTFvadGTQdGIyHu1232EZ/QRTp0bZBkg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ30th9SBRoOgvBATkf8hI05dnmr7u4ZP1PT3Gx5XeRcpTPNOxu
-	Jy/ABRN8bzuo6gY0k2OomlSEbre7wj/jfGBhM7j5z5yZCqpKCWD5bbUQ
-X-Gm-Gg: AYBFou2OH5KFQrb1TtoREd6nbPT0pBlMqlTXOynDhWO6Sty4YOcItQX5pY/9RmApGAk
-	8/iDOd8EeffFHnKuoLV3CcX5uhiPVseDDyBwuJMNyPSERYMP8/VnscAg9aP+DkUxsC8/DNZZfCi
-	gloBGL3TO3yckEgBYmg+RD9UPTcw08MO3q4m5viOjx81xbcVha21w5Ft23GNMjk81haOvqR2Lsp
-	VeXHugpnzOWAZMIOSuHoYXfNLoZpn21mEMxA2CXKXZl5kclYSvYSy6docuMLuZWUORZxNrifBwQ
-	xuNOihOMWrw1183jvBFGt0IqYILtycHwgIhPUqOjzzkIYwKZsI8imXydAIHYA6xPlTVbUGazqQB
-	T+WP4mYujqEs7xBT7OIYsGrUuZJgD5y8POLqh8UA6rn5T3hmgaBEtjZXJdl8JspP/voqrOgYoZo
-	dXOCZMaR0bq4Gz1NPfFsmBJGNvsDu7ui5Xmv4bu4mWfdhHl5o/STHG7FfVXGsvZQc2LI2835795
-	wDa83jEok1Rcvx2E9IC3mhm+LlWQqwhH8wrQvl9ZSFbhDDkjlv5iyS4pu42MKoYaKcrqPODhH4d
-	QBO5uiQTgFhZu2S399xbmidz/Ot3PJHp4b9/IZaV
-X-Received: by 2002:a05:6a00:290f:b0:8a3:df84:4c14 with SMTP id d2e1a72fcca58-8a9bee525bbmr794496b3a.57.1793329033656;
-        Thu, 29 Oct 2026 19:57:13 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9eef95cb5sm162643b3a.9.2026.10.29.19.57.12
+        d=1e100.net; s=20260707; t=1793329057; x=1793933857;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R29eOO7MluwzQ+8n9YmxiuPXIbP8eqbXNdA0VYXai58=;
+        b=RggIY7To2WTcqF1/9SbJnZpiwdOiQN4llG9dOZnh1q93WAzJGPvFqfvjt9PyrRwRBA
+         kuvkGjAgUJFZ7M/CmnMFKj6zRunZuj47P2zVSzH0wIVinnAqbvGEU4mu+o8UMBJZOCVK
+         8KYcUFG0xCsNx5qkBViSMb14KGhwCPCGzRu/47600ui3mwJeAsN2qtlT1dy6nOPNO/qk
+         bLRHjVTOKmfi31BAJKKgcLY+i7+k2vDTkwU/aTT6tT0zAcL72LIxmWkLl3oVwDCWHVo8
+         Ekci1ij/wRfZAlvhqQvmJG4x5VXKosMJ8/Zm9Of75re53QkO3ffK9eVrMX2J2hpoHQ5K
+         onCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxrcovXJSlyRqJXr6nKBcvaXVFjM2nyRCZbFm73PENNMjI5+BimT2wqqhxvW7JoclFWvPBOx9M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIE70G3uwXuLuSeUYGM9S9C2vYzYWexbW8IbsNiRL6uV8reIayI
+	eYZxQb1NnF84TMWC/mIR9ziJ4r82YeKlUJXHFgp56FwwIII9CqsvH6s9bfo/YmyzUg==
+X-Gm-Gg: AYBFou0u0e0+indtGOGX7OZ5hS+vOnfshCY+bgoGaHZ0iq1A8/TtHPiNPFsEPy2PjzG
+	OxaFwBMmR463GEf1uQ6/yFIQJ9nBKCLqGpkC4WdeVKv08PCz9QP6adOv7tqZm+sIo9iEnSE5gKD
+	jPc3GYKg2CzgPDiSivi9DAy1o8+Osieuv+rA/3ZCF6wtI74eUvmiFxJ1ysc+vsegJFI2f5Xmbfi
+	fOoOwHeAEdOBYu+QavpjaBFZ5SPJDfSXzZedpBLLMK65dcmFTTvuHVB/+Mzjr8hdwPeBZrdqpwz
+	0rtuF0lm3Qv3d2H2KWb8LRDWkUjxddW6ABuzu49lggIeZvjhzXrOgI8bqCKDGCckvRul3oOrrIE
+	GWgRWSSKkPbcHm/+nDRYTDYck0WazApWorgBsOf8jMxj/HTVxktAMLuk8ToZhIYjt8Nf72wg+Ag
+	r4WeECfXh/2P4Li3PXS1oK5JfLDg9PHqL57FoHfLkz+/vW5f/NyYGQx9TEp94342e8+OQ0842UT
+	1kDmtB4J7a3Q5rR0CDA7yY1V5qNqYl3ymbN+RsQlDH82KswHQ3iO3bmMk5TkqTk/Jj44Alqjtc8
+	YMH1Hugp6iOy/CranzaM1st1MNg3rJ2hHR9f2hBf3O4e1uj7Zj8=
+X-Received: by 2002:a05:690e:1243:b0:671:70d1:d6e1 with SMTP id 956f58d0204a3-67ba4fdb0bemr838413d50.83.1793329056973;
+        Thu, 29 Oct 2026 19:57:36 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67ba7509f13sm242820d50.13.2026.10.29.19.57.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 19:57:12 -0700 (PDT)
-Date: Fri, 30 Oct 2026 11:57:10 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Shengzhuo Wei <me@cherr.cc>
-Cc: liubaolin <liubaolin12138@163.com>, Namjae Jeon <linkinjeon@kernel.org>,
-	ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
-Message-ID: <auQHhmnBbntRem3o@hyunchul-PC02>
-References: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
- <374bf856-f880-4fa2-abec-c4b2a063bf57@163.com>
- <auLlFEHMZvANXUvU@kernel>
+        Thu, 29 Oct 2026 19:57:36 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kartikey406@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] ext4: do not report inline conversion allocation failures as fs errors
+Date: Thu, 29 Oct 2026 22:57:30 -0400
+Message-ID: <20261030025730.3965245-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,82 +97,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <auLlFEHMZvANXUvU@kernel>
 
-Hi Shengzhuo,
+When truncate grows an inline-data file beyond its inline capacity,
+ext4_setattr() first calls ext4_convert_inline_data(). If the conversion
+fails, it jumps to err_out and passes the error to ext4_std_error().
 
-On Thu, Oct 29, 2026 at 02:17:56PM +0800, Shengzhuo Wei wrote:
-> On 2026-10-29 10:07, liubaolin wrote:
->  
-> > Hi Shengzhuo,
-> >    Could this deadlock during MFT bitmap
-> > expansion？ntfs_mft_bitmap_extend_allocation_nolock() can recurse into MFT
-> > record allocation while holding mftbmp_ni->runlist.lock.
-> > 
-> >   With L being that lock, could we get the following interleaving?
-> > A and B are $MFT::$BITMAP folios; B is outside the cached iomap.
-> > Time flows downwards.
-> > 
-> >   Writeback                        Bitmap expansion
-> >   ---------                        ----------------
-> >   lock A
-> >   set PG_writeback(A)
-> >   map A (take/release L)
-> >   add A to wpc->wb_ctx
-> >   unlock A
-> >   [BIO still unsubmitted]
-> >                                    take L
-> >                                    extend bitmap mapping pairs
-> >                                    need another extent record
-> >                                    ntfs_mft_record_alloc()
-> >                                      mft_bitmap_alloc_free_rec()
-> >                                        lock A
-> >                                        folio_wait_writeback(A)
-> >                                    [wait for A's I/O, holding L]
-> > 
-> >   lock B
-> >   set PG_writeback(B)
-> >   ntfs_writeback_range(B)
-> >     __ntfs_write_iomap_begin()
-> >       down_write(L)
-> >       [blocked on L]
-> > 
-> >   Cannot reach iomap_add_to_ioend()
-> >   to submit A's pending BIO.        Cannot release L until
-> >                                    A's writeback completes.
-> > 
-> >    ntfs_writeback_range() obtains the next mapping before
-> > iomap_add_to_ioend() can submit the pending BIO.
-> >    Would we need to submit that BIO before taking the mapping locks?
-> > 
-> > Thanks,
-> > Baolin.
-> > 
-> 
-> Hi Baolin,
-> 
-> Thanks for the analysis. I checked the paths and agree with you.
-> 
-> Following your suggestion, I prepared a change to submit the pending
-> ioend before obtaining a new mapping in ntfs_writeback_range(), clearing
-> wpc->wb_ctx even on error to avoid resubmission. I plan to make this a
-> prerequisite for v2, retaining all six waits.
-> 
-> One concern is that submitting at mapping boundaries may reduce BIO
-> aggregation, including for ordinary file writeback. The change has
-> passed object builds, but has not been runtime- or performance-tested.
-> 
-> Does this approach look reasonable to you?
+Allocating the first block can fail with -ENOSPC or -EDQUOT on a healthy
+filesystem. Reporting these as filesystem errors records an error in the
+superblock and, with errors=remount-ro, aborts the journal and rejects
+subsequent writes with -EROFS.
 
-I think the early submit should be limited to $MFT:$BITMAP only.
+For example, create a filesystem with inline_data,quota and mount it with
+usrquota,errors=remount-ro. Create a small inline file owned by a user with
+a 1 MiB block quota, then let that user fill the quota in a second file.
+Growing the inline file with ftruncate() returns EDQUOT, after which even
+root can no longer create a file.
 
-> 
-> Thanks,
-> Shengzhuo
+Return conversion errors directly, as other callers of
+ext4_convert_inline_data() do. The conversion helper handles its own
+cleanup, and lower layers report metadata and journal errors.
 
+Fixes: ed9356a30e59 ("ext4: convert inline data to extents when truncate exceeds inline size")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Tested on x86-64 KVM with KASAN, comparing ext4/dev at 8c4f6e337634
+with this patch (28 allocation-pressure cases per kernel):
+- ENOSPC and EDQUOT with 1K/4K blocks, default/nodelalloc/data=journal,
+  buffered_iomap and bigalloc, using remount-ro and continue policies.
+- Failed conversion preserves inline data; 16 repeated failures on the
+  patched kernel do not increase quota usage. Removing the allocation
+  limit permits a successful retry.
+- Remount readback and e2fsck -fn pass for all 28 images per kernel.
+- A device-mapper block-bitmap read failure still returns EIO, records a
+  filesystem error and rejects subsequent writes with EROFS.
+
+ fs/ext4/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 6ede3644a738..02011f65ab32 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -7123,7 +7123,7 @@ int ext4_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		    attr->ia_size > EXT4_I(inode)->i_inline_size) {
+ 			error = ext4_convert_inline_data(inode);
+ 			if (error)
+-				goto err_out;
++				return error;
+ 		}
+ 
+ 		if (shrink) {
 -- 
-Thanks,
-Hyunchul
+2.53.0
+
