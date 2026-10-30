@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793331863;
-	b=k+i1+KKCd0gr/a3KSfZlssJ4Y1Je+nSy2gdEGcz6UbxEAYN3mGu2OdJXkY4HZlX35MBH
-	 OlRnQkQSC8XmdN35/s18CvPJpO1kOsdZ2sAlLdrdzo+nHizsgz+L5LT+ErReqAujx0hBB
-	 VGzQhJZZ0xWIL6PTdua98FHZ87NGt2EOB74sNhsGlZUuQOCaMfyIzl5GoHMU8bMlnu07r
-	 v5yvqeUcPl+o4AYNv9Jp1S1woa+1UcPh1TJio8iPMEF31VBWBfllxrrr7DGqsYCi1hAid
-	 KukflDNxih06pg9GuReGv2cffrJibMovbeLQX5eYw+wxskGrjLDOMotEVbFgj19gpeg==
+	t=1793331935;
+	b=wwTxzMkzOXr+Ir5UVKATep4aLYRk8YuJVDUgOUNJvd1DTViZL5jaM31wYWK15yznADQ4
+	 15+jBUP2It/FwLs60aV5tA7QC0jg5Tz06Pc9Z/swyTY1XOwJIgLXTQBh9he5oKegrvSdm
+	 aI0v4OHVxrRf0ALQamQ/m0dtJ0JWN0IjZoZDrh1f8uGFK5/bcmVjcKpkAiRqujJ8vWL0s
+	 3Jm1OypdclBOgZzeJc32X1aWa5a/j15ZZSGOf8ygmSPVEGgrqNGltJRFsjzBzD4w32xTG
+	 aDHijDIWzU8Kvg1jxS2drRunMA+pRFAKZp9iZeBjOM1BEquQuzaSFo+0ChSchK6kx2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793331863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793331935;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
 	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
 	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
 	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=v4DQsLR0Sr6pSUF5Nmqru+Sp8EwUJhrxZNM3O9AZMaU=;
-	b=xQkPuC+rVo0YN/2GtgCI7vW4yXm1QXHUxs5yANDyBLXRmOgkJ94VEiuDwo4ShPm1G/5L
-	 zMem6PWhX1Tup+h12HhtAqr4d5vUc2mr66HitL3KaOQvhMfxvxCVZ40kIM/7ESZBSWOPy
-	 tV9fuWccO7Baq0DM993n75GDmKC4WtHOYqSNnLLdjjqf23QCFMBL5g9ddE3dY1utktMFx
-	 ZKObLzyvrwP5gFKr0CO7MTkyoWPagpQa9IZ1GUxXQguuhNCjDVygH2NW5/kHqh03u89En
-	 IiUJd1F5xgJwZ2/LqEOHB5Vz2SXnjY8HFCESS7n9wlKsL7wH4ZyMAzjNjswS0k+yk1Q==
+	bh=q48tFhWZcL9isQVRoWO98yZxtDQcZ7rYdK/d2CExFAQ=;
+	b=P4VfhrW5Dg+fjV567wgKPtKIHdyILZPbBGnf9G1uycdiOE3QhJe6XHpqjMIGeV43GQ6P
+	 3q31N44iaa6HA8G6jda0ZChYTlYKP1zeMBaOdZGUDL/auUbCzGaBHRHw5m/VimgPLQq9n
+	 v5s8ft3qCF15CYGeeHH5QohGvcFO53yCJ6yblN3DOyp7nehsvx84RhdQ8GfqTv/IQsDoO
+	 1mGw/9T6hlsoP87Z2us4ouyDDBD9NRTfWe3pUemGpVNFCoomTSo9eKY12uCFWGL+Lpilm
+	 Ty8+kD4nV5qns9GrwPxe1PUNefHSikCQqiVPjLIL3eRBkFR0RHOkCj0Ig1RbvomIHdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EB6606A31A;
-	Fri, 30 Oct 2026 03:44:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1EB6606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B6C606A320;
+	Fri, 30 Oct 2026 03:45:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51B6C606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jG6R73PgXz8Xrrd;
-	Fri, 30 Oct 2026 11:44:19 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 69U3i57m012676;
-	Fri, 30 Oct 2026 11:44:05 +0800 (+08)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jG6SR6BwXz58fdZ;
+	Fri, 30 Oct 2026 11:45:27 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 69U3jMuK041522;
+	Fri, 30 Oct 2026 11:45:22 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
+Received: from mapi (xaxapp02[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Fri, 30 Oct 2026 11:44:06 +0800 (CST)
-X-Zmail-TransId: 2afb6ae41286f05-83c2a
+	Fri, 30 Oct 2026 11:45:23 +0800 (CST)
+X-Zmail-TransId: 2afa6ae412d30cc-acdc7
 X-Mailer: Zmail v1.0
-Message-ID: <20261030114406371EZw_orIqSRlCTxnz_L39Z@zte.com.cn>
-Date: Fri, 30 Oct 2026 11:44:06 +0800 (CST)
+Message-ID: <202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn>
+Date: Fri, 30 Oct 2026 11:45:23 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,125 +61,133 @@ From: <shao.mingyin@zte.com.cn>
 To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
 Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
         <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogcHJvcGFnYXRlIHViaWZzX3NoYXNoX2NvcHlfc3RhdGUoKSBlcnJvcnM=?=
+Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogZml4IGF1dGggbm9kZSBzcGFjZSBhbmQgcGFkZGluZyBpbiBqb3VybmFsIGJ1ZmZlcnM=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 69U3i57m012676
+X-MAIL:mse-fl1.zte.com.cn 69U3jMuK041522
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 30 Oct 2026 11:44:19 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Fri, 30 Oct 2026 11:45:27 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE41293.002/4jG6R73PgXz8Xrrd
+X-Fangmail-MID-QID: 6AE412D7.002/4jG6SR6BwXz58fdZ
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-ubifs_shash_copy_state() duplicates the rolling hash state with
-crypto_shash_export() and crypto_shash_import().  The export buffer is
-allocated with kmalloc(), so the function can fail with -ENOMEM, and
-crypto_shash_import() can fail as well.
+write_head() appends an authentication node to the node group when
+authentication is enabled and writes
+ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
+ubifs_jnl_write_data() allocates its buffer for that, but when the
+allocation fails it falls back to c->write_reserve_buf.  That buffer is
+sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
+block, 4144/4160 bytes), while an incompressible 4 KiB block needs
+4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
+sha256).  ubifs_hash_nodes() then writes the auth node past the end of
+the reserve buffer, and write_head() reads it back from there.
 
-Five callers ignore the return value.  The target descriptor then has no
-valid state, and the crypto_shash_final() that follows computes a digest
-from uninitialized data.  When preparing an auth node this stores a
-wrong HMAC on the media, so the affected journal head no longer
-authenticates after a remount.  During replay it makes the verification
-of a valid image fail with -EPERM, and in replay_bud() and
-add_replay_bud() it leaves the replay hash state inconsistent with the
-media, which corrupts the auth nodes written by later commits.
+The same write path also leaks uninitialized heap data.
+ubifs_jnl_write_data(), ubifs_jnl_write_inode() and
+ubifs_jnl_truncate() build their node groups in kmalloc()ed buffers, and
+when the last node length is not a multiple of 8 the padding up to the
+next auth node is written to the flash.  That padding is covered neither
+by the node CRC nor by the rolling hash.
 
-Check the error at all five call sites and propagate it.  In
-add_replay_bud() the descriptor belongs to the new bud, so free it on
-the added error path.
+Size the reserve buffer for the largest possible auth node (the mount
+path allocates it before authentication is initialized, so it cannot use
+ubifs_auth_node_sz()) and zero the padding after the last node of each
+group before it is written.  The padding is not part of any node, so
+ch.len and the CRCs stay unchanged.
 
 Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
-Fixes: da8ef65f9573 ("ubifs: Authenticate replayed journal")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-diff --git a/fs/ubifs/auth.c b/fs/ubifs/auth.c
-index 1f770795ee70..62dfacfb6d6b 100644
---- a/fs/ubifs/auth.c
-+++ b/fs/ubifs/auth.c
-@@ -70,7 +70,10 @@ int ubifs_prepare_auth_node(struct ubifs_info *c, void *node,
- 		SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
-
- 		hash_desc->tfm = c->hash_tfm;
--		ubifs_shash_copy_state(c, inhash, hash_desc);
-+
-+		err = ubifs_shash_copy_state(c, inhash, hash_desc);
-+		if (err)
-+			return err;
-
- 		err = crypto_shash_final(hash_desc, hash);
- 		if (err)
-diff --git a/fs/ubifs/log.c b/fs/ubifs/log.c
-index c6edcbf35ebc..42cadf558a4f 100644
---- a/fs/ubifs/log.c
-+++ b/fs/ubifs/log.c
-@@ -412,7 +412,11 @@ int ubifs_log_start_commit(struct ubifs_info *c, int *ltail_lnum)
- 					 UBIFS_REF_NODE_SZ);
- 		if (err)
- 			goto out;
--		ubifs_shash_copy_state(c, c->log_hash, c->jheads[i].log_hash);
-+
-+		err = ubifs_shash_copy_state(c, c->log_hash,
-+					     c->jheads[i].log_hash);
-+		if (err)
-+			goto out;
- 	}
-
- 	ubifs_pad(c, buf + len, ALIGN(len, c->min_io_size) - len);
-diff --git a/fs/ubifs/replay.c b/fs/ubifs/replay.c
-index 263045e05cf1..0b82c67a2dcc 100644
---- a/fs/ubifs/replay.c
-+++ b/fs/ubifs/replay.c
-@@ -566,10 +566,14 @@ authenticate_sleb_hash(struct ubifs_info *c,
- 		       struct shash_desc *log_hash, u8 *hash)
- {
- 	SHASH_DESC_ON_STACK(hash_desc, c->hash_tfm);
-+	int err;
-
- 	hash_desc->tfm = c->hash_tfm;
-
--	ubifs_shash_copy_state(c, log_hash, hash_desc);
-+	err = ubifs_shash_copy_state(c, log_hash, hash_desc);
-+	if (err)
-+		return err;
-+
- 	return crypto_shash_final(hash_desc, hash);
+diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+index 40a95a2fad50..38fb59225f27 100644
+--- a/fs/ubifs/journal.c
++++ b/fs/ubifs/journal.c
+@@ -840,6 +840,24 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
+ 	return err;
  }
 
-@@ -694,8 +698,10 @@ static int replay_bud(struct ubifs_info *c, struct bud_entry *b)
++/**
++ * ubifs_zero_node_pad - zero the padding after the last node of a group
++ * @c: UBIFS file-system description object
++ * @node: last node of the group
++ * @len: length of the node
++ *
++ * When authentication is enabled the auth node is placed at the next
++ * 8-byte aligned offset, so the bytes between the end of the last node
++ * and that offset are written to the media.  They are covered neither
++ * by the node CRC nor by the rolling hash, so clear them instead of
++ * writing stale heap contents.
++ */
++static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
++{
++	if (ubifs_authenticated(c))
++		memset((char *)node + len, 0, ALIGN(len, 8) - len);
++}
++
+ /**
+  * ubifs_jnl_write_data - write a data node to the journal.
+  * @c: UBIFS file-system description object
+@@ -925,6 +943,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
+ 	if (err)
+ 		goto out_free;
+
++	ubifs_zero_node_pad(c, data, dlen);
+ 	ubifs_prepare_node(c, data, dlen, 0);
+ 	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
+ 	if (err)
+@@ -1062,6 +1081,7 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
+ 	}
+
+ 	pack_inode(c, ino, inode, 1);
++	ubifs_zero_node_pad(c, ino, ilen);
+ 	err = ubifs_node_calc_hash(c, ino, hash);
+ 	if (err)
+ 		goto out_release;
+@@ -1781,6 +1801,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+ 	ubifs_prep_grp_node(c, trun, UBIFS_TRUN_NODE_SZ, dlen ? 0 : 1);
+ 	if (dlen) {
+ 		ubifs_prep_grp_node(c, dn, dlen, 1);
++		ubifs_zero_node_pad(c, dn, dlen);
+ 		err = ubifs_node_calc_hash(c, dn, hash_dn);
+ 		if (err)
+ 			goto out_release;
+diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+index 38972786817e..538907aba8a0 100644
+--- a/fs/ubifs/super.c
++++ b/fs/ubifs/super.c
+@@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
+ 		bu_init(c);
+
+ 	if (!c->ro_mount) {
+-		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+-					       UBIFS_CIPHER_BLOCK_SIZE,
++		/*
++		 * The reserve buffer is also used as a fallback for data
++		 * nodes which are followed by an authentication node, so
++		 * reserve room for the largest possible one.  Authentication
++		 * is initialized only later, hence the maximum sizes.
++		 */
++		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
++					       UBIFS_CIPHER_BLOCK_SIZE +
++					       UBIFS_AUTH_NODE_SZ +
++					       UBIFS_MAX_HMAC_LEN,
+ 					       GFP_KERNEL);
+ 		if (!c->write_reserve_buf)
+ 			goto out_free;
+@@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
  		goto out;
  	}
 
--	ubifs_shash_copy_state(c, b->bud->log_hash,
--			       c->jheads[b->bud->jhead].log_hash);
-+	err = ubifs_shash_copy_state(c, b->bud->log_hash,
-+				     c->jheads[b->bud->jhead].log_hash);
-+	if (err)
-+		goto out;
-
- 	/*
- 	 * The bud does not have to start from offset zero - the beginning of
-@@ -915,7 +921,9 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
+-	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+-				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
++	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
++				       UBIFS_CIPHER_BLOCK_SIZE +
++				       UBIFS_AUTH_NODE_SZ +
++				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
+ 	if (!c->write_reserve_buf) {
+ 		err = -ENOMEM;
  		goto out;
- 	}
-
--	ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
-+	err = ubifs_shash_copy_state(c, c->log_hash, bud->log_hash);
-+	if (err)
-+		goto out_free_log_hash;
-
- 	ubifs_add_bud(c, bud);
-
-@@ -924,6 +932,8 @@ static int add_replay_bud(struct ubifs_info *c, int lnum, int offs, int jhead,
- 	list_add_tail(&b->list, &c->replay_buds);
-
- 	return 0;
-+out_free_log_hash:
-+	kfree(bud->log_hash);
- out:
- 	kfree(bud);
- 	kfree(b);
