@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793342943;
-	b=SXfS2P2gWg7ADOt3Ln17LrXGGeVCVXEGNLniayeVct2Ww5+0gRu/Uups1I87UlpOm0p0
-	 nqfFbcHiKV110K4QyXSgdSb5Hhn+uvEelavnrvDsKvI8XWSVbokNdR0Q+WGFWNS8gb3TT
-	 7dcx0hRvs1wps7YfI/ictMUx8mukkTrMCA2x0xWGPycCB8IX/KiJjrhLQSI77yb6LJhMS
-	 mlvjs4SnG7BkqYDF3t40/+BfFki90FZ6PKMn44WQdBWFoNaV7yNAOsdOw24pku6sQ1PR6
-	 CaB/ptMLolfZH8zHU2VJtVWW6ceBxUooxkH7mFxSfOsFF4zDGF0M/TCYvgm8l3jvkwg==
+	t=1793343018;
+	b=kvXThNHbt7WJ+PqQwZWLaiTmA36f4X52aLSUNU8exs2iPR6AJj5/lIZ/7q6eHIQSx9Ze
+	 CIg6XlkP8Om6rSjf2q78ZDVVE6BCOj9zUzOPBAXvhvNn9d8k9tRr7GMz95kBtHvXuc+JF
+	 3iwNir9YLDLRNO6wXE/ySX+kpCwwRz+le1ncdQmqbQj1ReGqhHFV4X14buP4Pc+Puy9uK
+	 KOiW4bzUEe2VnMIyfmkJT5qOlFe+7/k45aj4+ETai9rar6duB7QBVx6p0uo4Vj4H2uepZ
+	 UyhNZ4myeH556HTNROIp16iC42MuSMJLgsMFNhiAvX9+zeDEDxhMof6UnV//FtgTUZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793342943;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tFOTpkNEL1hP4uAqzlTD1FxSXnZgA4Pxue5jGbCLMUg=;
-	b=NBokpURJpH27ujpdK6u3zXi0ovk6I7oCU9eVFRbv1nGIIPoQtP9B2gVcnopBmvxBoKh3
-	 66Xk0wQSBLal6yK1A5XKQFfc7ax8Sbsb2US7ceJUAokKQYLs8CdQS8BWPfMPQjrrF3KNJ
-	 ccB+X+ZBTgtgmlEUMdsGgW/+BlxZOq0B4BBGfmKoz4csd5Kr0lWdCDuKF7TcGOGOvNTgk
-	 MEnNFbxRlNvVD+1x36JBLLOo/1lAIl9/YDMeYoa5uzdcVkqG3OsV0y6wxg6TFrXVyvJJq
-	 pyucwk6orQEPiU9QgR6Kj+UlQQqi9NB5HTvwYnut8YPHyOgQ1QKQFfQKMzbUl/DaPNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793343018;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=r1/R+aZcqsYR+3DPQv8/Fhe+b8fa/vAMKub/kpo2HNQ=;
+	b=BFxuFyVPiBXDuJmK20UQshRLP6lfAZ1wF2/5xGb7GM1SNUT4iL59XpH48nO+vaopgIVm
+	 MWjbqIEJfnn63Zz9ScNEPdHIWozWT+DVY4Zi5xqg84Ul1OFx54UdxFJ2qCmHEWwltHe7X
+	 yTDixTGY+7/WwsnQTwAQqkwj2s9ESjbxO6yT4uR5lPZUwHL/QH5t3jKTbIArLVSuoyyuK
+	 OTZuKmvD15Ln6R1edpjEID8THDbbBKKcDp3XEOQdnu/kCVjEJdtcMgtJqb0IV1W3qlvI+
+	 sIZul8uqoFkZ5pfHkMHUhU1z9g8fBxYJuiHyMiKNnXLgdYSq7oVxc8jbm8YuHZDxJRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=lwlsSzqo;
-	arc=none smtp.remote-ip=109.224.244.118
-Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CSGXn+rz;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFB9606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 06:48:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CFB9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05919606A31A;
+	Fri, 30 Oct 2026 06:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05919606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=lwlsSzqo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793342935; x=1793602135;
-	bh=tFOTpkNEL1hP4uAqzlTD1FxSXnZgA4Pxue5jGbCLMUg=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=lwlsSzqoKIvwIH3adiG40omDH6F7re4iug77w3G/zWBHT6e23JpJqH2ChsA3EbOMM
-	 bfEpoUik72iIuKVNsEj1BNc8V9K5iw2j7Ofjjs09m7ln1QH1bYxEph3coC7r5Wp32W
-	 H+DihdB7DmF15M8xGSgzMbtfFpnUY06juQSOgcE9+ghyktbVcBnutm5DS34z/VrRVR
-	 P9WczbyODjmcH3XT7mq1epoYN6wUhcTACWBJGelUnwIaB0ZqvxO7QSkWTepjkruFJR
-	 I8xdLp7oglXIEbsd3cgWwFOh2srb9a5aJM/8b5jFqPEJKZt6ACXkwh/Rn1BjOrI2mV
-	 89J5PDCiogy9A==
-Date: Fri, 30 Oct 2026 06:48:50 +0000
-To: acme@kernel.org, namhyung@kernel.org
-From: Paul <p@1g4.org>
-Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org, atrajeev@linux.vnet.ibm.com, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, Paul Moses <p@1g4.org>, stable@vger.kernel.org
-Subject: [PATCH] perf record: reject CPU indices equal to the mask size
-Message-ID: <20261030064825.2156317-1-p@1g4.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 2745c43373760e728a2ae74218bd47c5d873665d
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CSGXn+rz
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=r1/R+aZcqsYR+3DPQv8/Fhe+b8fa/vAMKub/kpo2HNQ=;
+	b=CSGXn+rz75AHSq8H66iRqwFqFsxlO1cc7V+40y26/wPM4aTLtXZ/a/nOMnC1X803HB5tBvv6L
+	w/dxJglMohKSf8b7v0L0Q06+wJHdtyPX0GgXIEck9Hw8ORdSz39BPzqii3BzOhd50DHFRXkQ8xF
+	DZCFhMG2iaOqI6Oao/v90LA=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jGBYY5hDCz12LFf;
+	Fri, 30 Oct 2026 14:50:09 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id DF60340538;
+	Fri, 30 Oct 2026 14:50:11 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 30 Oct 2026 14:50:10 +0800
+Subject: Re: [PATCH] ubifs: fix auth node space and padding in journal buffers
+To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
+	<linux-mtd@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com>
+Date: Fri, 30 Oct 2026 14:50:10 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,51 +70,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-From: Paul Moses <p@1g4.org>
-
-record__mmap_cpu_mask_init() rejects CPU indices greater than nbits but
-accepts nbits itself. Valid indices end at nbits - 1. When nbits is a
-multiple of BITS_PER_LONG, __set_bit() accesses the word immediately past
-the bitmap allocation.
-
-User specified recording thread masks reach this write before they are
-intersected with the selected CPU mask. For example, an affinity mask
-containing CPU 64 overruns a bitmap allocated for 64 possible CPUs.
-
-=3D=3D40343=3D=3DERROR: AddressSanitizer: heap-buffer-overflow on address 0=
-x7bbab4000018 at pc 0x6195de57af45 bp 0x7ffe25545d20 sp 0x7ffe25545d18
-READ of size 8 at 0x7bbab4000018 thread T0
-   =20
-Reject indices greater than or equal to nbits before setting a bit.
-
-Fixes: cbd7bfc7fd99 ("tools/perf: Fix out of bound access to cpu mask array=
-")
-Cc: stable@vger.kernel.org
-Signed-off-by: Paul Moses <p@1g4.org>
----
- tools/perf/builtin-record.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tools/perf/builtin-record.c b/tools/perf/builtin-record.c
-index d7c8f490cb62..80aaad7d51ec 100644
---- a/tools/perf/builtin-record.c
-+++ b/tools/perf/builtin-record.c
-@@ -3689,8 +3689,8 @@ static int record__mmap_cpu_mask_init(struct mmap_cpu=
-_mask *mask, struct perf_cp
- =09=09return 0;
-=20
- =09perf_cpu_map__for_each_cpu_skip_any(cpu, idx, cpus) {
--=09=09/* Return ENODEV is input cpu is greater than max cpu */
--=09=09if ((unsigned long)cpu.cpu > mask->nbits)
-+=09=09/* Return ENODEV if the CPU index is outside the mask. */
-+=09=09if ((unsigned long)cpu.cpu >=3D mask->nbits)
- =09=09=09return -ENODEV;
- =09=09__set_bit(cpu.cpu, mask->bits);
- =09}
---=20
-2.56.GIT
-
+在 2026/10/30 11:45, shao.mingyin@zte.com.cn 写道:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> write_head() appends an authentication node to the node group when
+> authentication is enabled and writes
+> ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
+> ubifs_jnl_write_data() allocates its buffer for that, but when the
+> allocation fails it falls back to c->write_reserve_buf.  That buffer is
+> sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
+> block, 4144/4160 bytes), while an incompressible 4 KiB block needs
+> 4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
+> sha256).  ubifs_hash_nodes() then writes the auth node past the end of
+> the reserve buffer, and write_head() reads it back from there.
+> 
+> The same write path also leaks uninitialized heap data.
+> ubifs_jnl_write_data(), ubifs_jnl_write_inode() and
+> ubifs_jnl_truncate() build their node groups in kmalloc()ed buffers, and
+> when the last node length is not a multiple of 8 the padding up to the
+> next auth node is written to the flash.  That padding is covered neither
+> by the node CRC nor by the rolling hash.
+> 
+> Size the reserve buffer for the largest possible auth node (the mount
+> path allocates it before authentication is initialized, so it cannot use
+> ubifs_auth_node_sz()) and zero the padding after the last node of each
+> group before it is written.  The padding is not part of any node, so
+> ch.len and the CRCs stay unchanged.
+> 
+> Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+> index 40a95a2fad50..38fb59225f27 100644
+> --- a/fs/ubifs/journal.c
+> +++ b/fs/ubifs/journal.c
+> @@ -840,6 +840,24 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
+>   	return err;
+>   }
+> 
+> +/**
+> + * ubifs_zero_node_pad - zero the padding after the last node of a group
+> + * @c: UBIFS file-system description object
+> + * @node: last node of the group
+> + * @len: length of the node
+> + *
+> + * When authentication is enabled the auth node is placed at the next
+> + * 8-byte aligned offset, so the bytes between the end of the last node
+> + * and that offset are written to the media.  They are covered neither
+> + * by the node CRC nor by the rolling hash, so clear them instead of
+> + * writing stale heap contents.
+> + */
+> +static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
+> +{
+> +	if (ubifs_authenticated(c))
+> +		memset((char *)node + len, 0, ALIGN(len, 8) - len);
+> +}
+> +
+>   /**
+>    * ubifs_jnl_write_data - write a data node to the journal.
+>    * @c: UBIFS file-system description object
+> @@ -925,6 +943,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
+>   	if (err)
+>   		goto out_free;
+> 
+> +	ubifs_zero_node_pad(c, data, dlen);
+>   	ubifs_prepare_node(c, data, dlen, 0);
+>   	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
+>   	if (err)
+Hi Mingyin,
+Since ubifs_jnl_write_data() could use c->write_reserve_buf, we can keep 
+the modification in ubifs_jnl_write_data(). I suggest that replace 
+kmalloc with kzalloc in ubifs_jnl_write_inode() and 
+ubifs_jnl_truncate(), and remove zero_trun_node_unused from 
+ubifs_jnl_truncate().
+> @@ -1062,6 +1081,7 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
+>   	}
+> 
+>   	pack_inode(c, ino, inode, 1);
+> +	ubifs_zero_node_pad(c, ino, ilen);
+>   	err = ubifs_node_calc_hash(c, ino, hash);
+>   	if (err)
+>   		goto out_release;
+> @@ -1781,6 +1801,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+>   	ubifs_prep_grp_node(c, trun, UBIFS_TRUN_NODE_SZ, dlen ? 0 : 1);
+>   	if (dlen) {
+>   		ubifs_prep_grp_node(c, dn, dlen, 1);
+> +		ubifs_zero_node_pad(c, dn, dlen);
+>   		err = ubifs_node_calc_hash(c, dn, hash_dn);
+>   		if (err)
+>   			goto out_release;
+> diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+> index 38972786817e..538907aba8a0 100644
+> --- a/fs/ubifs/super.c
+> +++ b/fs/ubifs/super.c
+> @@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
+>   		bu_init(c);
+> 
+>   	if (!c->ro_mount) {
+> -		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+> -					       UBIFS_CIPHER_BLOCK_SIZE,
+> +		/*
+> +		 * The reserve buffer is also used as a fallback for data
+> +		 * nodes which are followed by an authentication node, so
+> +		 * reserve room for the largest possible one.  Authentication
+> +		 * is initialized only later, hence the maximum sizes.
+> +		 */
+> +		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
+> +					       UBIFS_CIPHER_BLOCK_SIZE +
+> +					       UBIFS_AUTH_NODE_SZ +
+> +					       UBIFS_MAX_HMAC_LEN,
+>   					       GFP_KERNEL);
+>   		if (!c->write_reserve_buf)
+>   			goto out_free;
+> @@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
+>   		goto out;
+>   	}
+> 
+> -	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+> -				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
+> +	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
+> +				       UBIFS_CIPHER_BLOCK_SIZE +
+> +				       UBIFS_AUTH_NODE_SZ +
+> +				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
+>   	if (!c->write_reserve_buf) {
+>   		err = -ENOMEM;
+>   		goto out;
+> .
+> 
 
