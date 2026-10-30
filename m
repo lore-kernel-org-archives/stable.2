@@ -1,87 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793360627;
-	b=3XR6Ubcn/1qN80GPYdT4h6EZfrYgwNjWOnghC4582g1B+BXlj+xnjPOv6d8frgTVzsb/
-	 Gvb4LB3npVRvhWyGSfEZmf+LnXbx3GBK7Vi7soXskVRtAH16SELLbTnbAmEk4zzS8p3LW
-	 hB9Vfrx5qP/0+P4E2xYLVFjQ6paCxb4tVmMhoI3d7pKA55qe3yZgLryTvcsHHJCkx9Bju
-	 B0xMLy0HEouodGud/325NxsuKn++dzTqIdj6fBYejBVkuYnTDEaZ9GhTKde604MWXIbdE
-	 0jbaQngN7GZRFEh0/WkSVVCBS17BWIf4LwvN2ZKcp9KnmCTnXpQcc5oMz/XgabhCTrw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360627;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=28PCckgDhGD/ZLp9OHCQjH3mpXja8gxz92m6X/6oBYs=;
-	b=wtKNtrlRXvwtDZXc3TRjR264Kkqf4EgGDfZuk0R+Hg/1tmS2x9qs+0J5ssNnm/U04J1s
-	 KyDQCCqHoxFSTbFkKZraB/Z5Nl7rCwoy/HYrXVcc3lrrcB+I8BnwhkS+ygSW5s3lHGLNk
-	 7oXoa8GFx+5OS2fAaaH4YRPI3Dks1XnKCL61xmB7fCZuJH33Ds3QzvxmK5a99p+D5AnP9
-	 6oydv1fAZQt4fjeizFRaweeRTQYJRqXMmwhmwJzDKZCTq6QhXfzd+U2kubpH355U0OUsE
-	 KrIvszOxZe8r5qL4TFtSw5pbLcM/HybF+OdkdxjyWReZ3pPCqc0WKTCjfx0Y7FP1QBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BrRcfepc;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793360708;
+	b=R2csUWsP7LLP5/iJzrwMxOmQP1ewYTCL6Vo27PKu1zB3JEGf/gia+UO6tlvYlAr2npwS
+	 7SyVf9DTVHjXk0pqbOVtwCIO6bpGmCe5vlBXk1jO5Ecwge3XJAZQWIAtxNWEufJF0+qb9
+	 ZYgbMqiPkz6A8AD8C8Qxg1l6hhDNvS+0V7EK7O6X2DKC8h54h3B8k+LCFEi+OZActEowz
+	 4+eRvxO4q1hkywyKucHIZOLaK1chbZuhBzGsF/mxJDvZMBtcAets3INnl6sWL76rflm+y
+	 SqxsU0Xz+R3aJoKI7SvbQJDg7kCpK9iNGR0altvUwb29QYc1mnjurvOD+LBnh5sUyrQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360708;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:Organization:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=XU7tyOd1a5V6d0VPnKgkSKl66qhteQPJUyRt1ZWcfMY=;
+	b=H2mbXs4sdNsE0GSAX++axMqa8jrlFrc+NwJwAgHp2O1lbfSoNk14txRcple212AvRdcH
+	 t1SMhDdmc+fYw0p8uY0p7syrVn39ZIe2xRIF6QSzuE6SQK83bXsTTlBfq2lgGyd4oq6he
+	 kyo3mMSRB6SFDVOQbPPe2NrrUcjPa+K+4tWgknkOwmuy5N0R3P0bfkbyyLHtSRJh7/sRl
+	 3KPpWuABjuF7wvQDYQXdW/ryuMqjoDZDsYUj/Fw8A+ThB3DgFwZ2/If3eQTwOOhEqMaGZ
+	 WlSBepHR8CMXmzSF4KY3A8zFxyflPWyiXg/ud/WI2pEaFh0TL/3MdNTr350Vc0gtcOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Li/6lTPa";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3A1606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:43:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E3A1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27376606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:45:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27376606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BrRcfepc
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4550d8ab15so67830266b.2
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 04:43:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793360626; x=1793965426; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=28PCckgDhGD/ZLp9OHCQjH3mpXja8gxz92m6X/6oBYs=;
-        b=BrRcfepciz2w83GNcZbxHrJ2h/DD4uYz5bujei/G8If+M64RnJr1m0opOigiTXRwux
-         uIOzF8dGYeRVyprDCL2z9h0k2rneEVLWdfSOt3Ll4OAYv+WT8MYxtaotoBh0WJN5UHiq
-         EarDp7MVeY16oksd9RM+KmcY+xOzl8Q5EyWt+J3kDdKsgm68J6op3DfoTw8XZCaaOeSk
-         f50avOJeBH2NkLcAwZwDkuoDe79qQ0ObNb18JeaBm0hFzP8ZdnXOVmYyDsyABusdi3IZ
-         qwet0ZXiocIjYi1KjQajjr874HEA1mT3ijQakyjUPHzlOtSRKNN/3yuyuRTwfpOY5Ilw
-         Vmdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793360626; x=1793965426;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=28PCckgDhGD/ZLp9OHCQjH3mpXja8gxz92m6X/6oBYs=;
-        b=tmxd1OzeMRZzXxqVRoyhiAXSFVp2/o25CRleYNaSzkFehh6+K75e0cEZkZeIJZjs6n
-         MtprH4g+ErJzSA0vzOITfSNPhVtbHDkVR8R/3vs3wUUxkAsDa6gVgIZ7B7fNFajqSo8h
-         Lf6o2/5jJwGqeslny6R4J2WO40Xyj9L/hWr0pDzbbMDEMYFy0tqglKcIiNXzJaJbWPIx
-         EZ9sQ/03iVtp2Zc8DJKkhDhPQjTtbbsI9VbXPDsSTTtDCJNs0ttGFnk82Rdygp6m5ekM
-         i+Brv9j83k1B4IqqzStbykRBwb8EdHWKNl5pOxYyj9ecxziWE6cl8aPxlykXU7L5Qol2
-         nPIg==
-X-Gm-Message-State: AFq9FYJvTNeJbxQSMhe/uUQxm0cwh23Y50rjIeX78VX2tA+qLVyerLiC
-	EE7r68tCwuXn4gleFInZ66uEdEc+OkqN15pWOdlt+WDZDcgcJQGQZoUjDAqJJu9kkP8=
-X-Gm-Gg: AYBFou1pwFifNiQn9yFSmGMcgHUzqxAU6oe6od40SYth7m1cnjra7OBvUzZU/6/o2+Q
-	T3n80BnbX55reIGleBj4soqD3JjlotLcJbmgeJVS653xRaye+CQd0RORXYDxvvYskFaq4LDoOeJ
-	ob7l2VlIuB/Q0oQG870oo6fNbwKz/4Ilt/u10M5zUDUI1ffoieccmCyXeb409TjxD9Zc7lk4leC
-	q9XkKap77rRALYLF/OhP025/tA4nZfUNE0X5VFy+b8LU7IT0iWX5cCjtspYwEdIftxLRjlWSvw+
-	Y9q2v3j7UCuDOg1VAYBS5EWAII7SszXNlUH4KOfyAzJkR0DvoLJR/GFIhcx2uxORN+N5pn7Pzv3
-	gUXg86t2ZWQZgOsSCETJdqwfZHBn07Gg7OBDOY/P0b1X/vWrH3rJI+otmBk2/PNbE65pdRoWzNN
-	HsNxO6wSA3xp3jj4xeUyiYwxtcgMAidaZIlS+LyyE/8NanWzwLdTBGV23q2Rkq83vz3ztDifS4H
-	mQz8/vB1yVSEayopAYYOGA6yHkcoP3kL7SikK2c12kkXbg5k4LY2kqVLg3aPvkAXXpbbT18+K8V
-	G1YbnbVKjUDkIxJkCtcsZe1w/o/Mrak2gB9G98IjNyZ0Qcmdrp8mvzhjMo+XJWEHr3XxG8Hwo6n
-	8XtD0FYfP6kRJLr8k8MIK
-X-Received: by 2002:a17:906:9f84:b0:c41:b94c:4538 with SMTP id a640c23a62f3a-c4ca7af1b6cmr189766166b.47.1793360625856;
-        Fri, 30 Oct 2026 04:43:45 -0700 (PDT)
-Received: from puffmais2.c.googlers.com (180.192.141.34.bc.googleusercontent.com. [34.141.192.180])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe1003fsm57506466b.44.2026.10.30.04.43.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:43:45 -0700 (PDT)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Fri, 30 Oct 2026 11:43:33 +0000
-Subject: [PATCH 6.6.y 6.1.y] kbuild: link-vmlinux.sh: improve detection of
- third pass requirement
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Li/6lTPa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793360707; x=1824896707;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=5z3b3t6psIwpyiHstHJ0tQ58HVCsB7rNWaQN2jedEKk=;
+  b=Li/6lTPaR3kCj+p8LCkh7Rw5Rhxd4/fDPR3WdlHZS0UuAMRpAESvybmo
+   WmAIvEhhdopvSCkHVFNQMjAtXTAqeJi6P9GtwQ3yTPnqSdJrH1tPm8rNW
+   A8pVA14C23UfglBm/EpgMJzSCMaOhoSqhy0kS334hGlN5GN5vn7jrVu6X
+   klLRERw/3f4oX4aYhhhkeOdWggFpwmYy4bBXYVAiO3t3g3lErQdq32eBd
+   GrdoDZ8T+wv1s3RTneU7gFKp17MXucZGdLFnFRmHUwgtNIW1/eFJFDozZ
+   WoL0bC+rDPuAz8wN1O1Ec8j/6lEvXNAJadTPVl/+Td9LZmWagYJeqq244
+   w==;
+X-CSE-ConnectionGUID: zKC/vqAKRUeiIDVDOzIiKA==
+X-CSE-MsgGUID: zgZE90F9QL6KwOiDlSbxlw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2113584"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2113584"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:45:06 -0700
+X-CSE-ConnectionGUID: VgmiO/1mSTmmlu61MPBfGw==
+X-CSE-MsgGUID: bdR1UP/vSsSwj+UhKSiFWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5501960"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:45:07 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 30 Oct 2026 04:45:06 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 04:45:06 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.8) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 30 Oct 2026 04:45:06 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yiMMynMsNwshFmKt++avaU6MiU4OwTTpIrXJzCEhgyH2ght3FT6RC8Ll5pspCkxzKLcDIQhj47Tpu2YaYy0s0lEYhcMKdn3+KjA1Z5nrHqALvMjt9qEABtMeZORQROWxRgWaFeQxV66QQJZ3umoJptMysGm30i5ZVcr8JS+D+v6fYKZq4hz9LB499UaknMk7ih/XZvBdxTEtcmBsYaUuhY4kHDS9IuTBjJq+96g9oS14Gb/zsVqkJxW++n98pOnjyhyl1iPt3BUdGR6KfYBwDkMqmT3jYQxJP9+ly0Hpy3vHtEkMm1hvCSEwccW0Yfn4TH7aGQyWsgiYSr6jLVXkqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XU7tyOd1a5V6d0VPnKgkSKl66qhteQPJUyRt1ZWcfMY=;
+ b=SjBPlGw+q51ljQLuSGc9qxcL0k3niADzLkb3IpT1R4usOpaDMhQEnYYblzxU9bAcfIrAibnt+ji2YMNznNCCLnkghIAQ+6rcPZpUs+j8mGSLWCCpMTv7gByDWyzaO/f38y8OYL+0ombeKt05u2k4aoPH3gomxFk8B22cKgRUE32EifhB3zrR24qN4L9tkn9NEpKu08h9TPC4qIu4QgIUcDW5QmlthYwIi5SFhFeC5muMAa3pqT/jMSPqfuFVrGSWIN0KCdpcAe5qSSilMt6nOS5zB91zMMCFUlFqrNzeBUUjLQoWjcsl5LeA3llRY0vsVdkmuZB1H5gTGMD6MpMtVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
+ by CH3PR11MB7203.namprd11.prod.outlook.com (2603:10b6:610:148::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 11:45:03 +0000
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 11:45:02 +0000
+From: Imre Deak <imre.deak@intel.com>
+To: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+CC: <stable@vger.kernel.org>
+Subject: [PATCH v2 5/6] drm/i915/mtl+: Use PHY type to identify TypeC ports in PLL ID lookup
+Date: Fri, 30 Oct 2026 13:44:56 +0200
+Message-ID: <20261030114456.651066-1-imre.deak@intel.com>
+X-Mailer: git-send-email 2.49.1
+In-Reply-To: <20261029113017.618286-6-imre.deak@intel.com>
+References: <20261029113017.618286-6-imre.deak@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: GV2PEPF0002394C.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::34c) To IA3PR11MB9273.namprd11.prod.outlook.com
+ (2603:10b6:208:573::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,122 +132,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261030-linux-kallsyms-fix-6-6-v1-1-91a57d3197cd@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAOSC5GoC/x2MwQ7CMAxDf2XKmVTtpuXAryAOa5tBRCmoEWjTt
- H9fQL742bI3UG7CCudug8ZfUXlVg3DqIN2nemOUbAy97yn4wWOR+lnwMZWi61NxlgXJlOI4x5x
- HohTBxu/GVv2PL0CO3PpLyQUz130/AEyI3AB4AAAA
-X-Change-ID: 20261030-linux-kallsyms-fix-6-6-cb5fbdd566cb
-To: stable@vger.kernel.org
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@android.com, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|CH3PR11MB7203:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02a89e87-2587-47d0-c3d3-08df367b3c0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|261021121427099003|261021123027099003|261009223027099003|261026121527099003|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: IniUcvAa+sTOrN10TxGaFAFGPS8RPfCvyikpEohRd/yj8qCa6/bHX/gIH0BY+p/fSFrhOjZ4pDAkueeTZNTAOLdvZqzTTMfuTcNAjmKLmt0TdlEVftUTMzsrm53TPnVE2xtc/FbFeR/fiGt4oBmLRCwU7yirChfFLVmIkaWiJ8OkGgc59211FMKfjr/ITRXBN6ZH2gW/ESxNklbS4vg8FZuzJIBYECzjViIOLCo/0ktDKg8faZFct5wpToaOEwRCOmFe/QOsDWeZiUco+sI91kG+nk0E0HsXOaCOWc6RtorctQJ4RxbsQlTf+kKrn2zajZvLizYYlW6b/assGkP1M/XZscjLyYcDBq6GpM+IKNfaRLeQ0eUE794gekn2Voy2k25MSMVbB0H09ZUtSsJz90JvtAP2fdOaH6asiHBwR0QcPQI8fmf1xPD4iIJUKuiCdejQW9palx8vEIvIh8g4SPCoKmAQElOONYHbZg53VytlYpEfnh3sK9XfwDNgLYwh3NpCHRhFfdkZSXEnEqnaEw39eZCJTfFtjsu4R19NIgv7BaZe7E8pMnmisfZ3s+ED+WODEcI9Iw/jXU9GQXQX97DT3jaymM4XJLFhsTVt8kIt0nlj+iggfoxplaUEI9l+Al059SO7jhLc9VFFxcjgjzWGrR4oBTI/0OHcwEuX4iE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9273.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?m7GooIwXE59ljOdVMzCZjTq8AaX7+Abojw9pb7W4gog8bn0FqI/DxQ4p09v4?=
+ =?us-ascii?Q?NrkTvIhKMCvcLWT0dbpoS67YgVkaryg0t4diE9jedC24zycz40jYU/qDfShG?=
+ =?us-ascii?Q?caIQxzaltUp/IxjRuCL/6hdCO3taFcz8rab/6OO9/TWtt7PciAqKxlmbaXX4?=
+ =?us-ascii?Q?4JudAk+SUckI8gSoTe2zXocRXgLjKvnwt+BYqZSd4gGm1SPrLpWAUVgvNcD8?=
+ =?us-ascii?Q?KySvlUJi9q5UoSuOb7T+oVCLkvyIdt9SLr8sRW51BGWPN7fX3ocdhOEuq8LT?=
+ =?us-ascii?Q?0PqMWokN9dqW3RHuxYXroQLi0T5F3HHb81yEshbF2tAhrvqh1WSTfvaXHMis?=
+ =?us-ascii?Q?CNgqPz0N50QcYynO1WmQLMy1yV6i3ogXvrsQ7n28pfAegT6cCN8d9QWjVoot?=
+ =?us-ascii?Q?ZNdW9JlY1xfHqp58RzXz0G0I6u6K+6dePqRMu1hloE2f/HzC2yILW55OqvfE?=
+ =?us-ascii?Q?o0OnsF9wYtLXnpmcekMnkxYoqNZQU15ob7kjb6/mr+HL8Tc4SaFzmoyh8Bz2?=
+ =?us-ascii?Q?3Rt9BCoyowDk9mg42PXQQfB6PfWx/ovjdtnqR5W14X8rEdkD4TMLw0rhWYRj?=
+ =?us-ascii?Q?mYaWewXqCxMMUbQoY77aXqw+K+3b9HC5WB8OIu+oF84Ck6SS3X53+5zO/+5C?=
+ =?us-ascii?Q?DprRpbWBAM63YRiN/24ALkjGMRi9bVvfy6K7mnCofh6B1eO99C4pElj/3oFX?=
+ =?us-ascii?Q?4ZEloVuGZixSIj3BE1WzXxdAYAGcArvMkQIMKD3xTPZQfsQR90kBlMqqVf7T?=
+ =?us-ascii?Q?Tae1mrb8uCQO5TJpTayHL9xGi+CTfwnbU4fqGD+BAYQFpsWIZ9CtQ5csdQJC?=
+ =?us-ascii?Q?HWJvGnqaYbk+pu7h29YKqcoBS0VfmCjGNrvkDAPttc+7t7GHSJMooCItBtoJ?=
+ =?us-ascii?Q?j2z74kfzp8gnrGe5KwYBDwuP7jLtrHWJVLzeBf1Q0IfjvfYZfB9Oa2uHIA21?=
+ =?us-ascii?Q?ncn+1XbLqPEWZFjSo6fdtRGP0AxtMkO+zBXVym+bQCwy4U/My4RYuFma2o0M?=
+ =?us-ascii?Q?Pfqw1239A+GK3hqJCz8frqmXI+SpxUFYHAm12Vi1jCCwgrhjdWiRkZ6Osn0Z?=
+ =?us-ascii?Q?j6V3091GpV1cRvKgsV/G7yoyaLadiwIa/6wfdXif6z6mhP5D9Wmf1K1+w6xL?=
+ =?us-ascii?Q?T+dxvbovCPSACXkQhFPj3xzjw4SKVa04ZqSSatayOCB0vWuCYcrqqIzqEfht?=
+ =?us-ascii?Q?x0wPnDjphMjl1mEyM4greN5+I6RAL5hnxG2IJjrCiG7v+sDt42UuOMEGZEx1?=
+ =?us-ascii?Q?5a45mp7QWrotVkxBhjEAOkQqgPsG5imaSRaGEi6PFTmsvrcC0pMp+uAPODFL?=
+ =?us-ascii?Q?20FyYEf1Vxt+W/t077KzLx7v7IWyotFB8T7WwDmr9jv3FVGzXqbQZXxGBQkO?=
+ =?us-ascii?Q?A5zU/6Xcd8P5envFkLKy+f9u13xrfsme3QhD6SIudmr/uSn8ppN7g304r3Ib?=
+ =?us-ascii?Q?xuhvi8WdBRrSgC+xz+J0xNGQVMqG7dDbyL62UowoztwiqWrPRDqTZOWdhN+x?=
+ =?us-ascii?Q?go8d4Gb3l78pZCUe5AGlOHz3sX2VaXd1Zc6hV1m5uD9sAKjgPGlPmEYycazv?=
+ =?us-ascii?Q?R2H7n+PyRs/SSy6Qms3KxfA+tOAFzzACxTdB3iKbcoJ49Jqo00/JPlrUnLg3?=
+ =?us-ascii?Q?IBWkA7uWf19fdlEJMdKiuSs0pjvCzDghcTXO/iADYA60dGtDbIugCjPfCB7K?=
+ =?us-ascii?Q?zrnxJDBob1bDVbd0RkiV2u6JufZg+48pVJAktRRjkNOiC4CdJR+gcGFrc3dC?=
+ =?us-ascii?Q?LSJ5PsAQpQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: TMGbRgPfRuwXURSoZkJR9IiYdzudlXmW7fRQmU/zyISyc31NU11+2qz9OlQdMGGlidP2rXQQH61sYph+mndTXyKQI4g7gKM/ZjotHf52Aovei32nO1zxqfrO5sNyLmocPGs9kQafac52ai/sj94AqkPNMBCY8HAcQyT3SH4aN6leo+mOyrt6GepOY/8Ke8je+wLLtsuUhiTy15Ewf7jF/6pQA0CqQ9LC/oh76BdSrRZjvqnlxmKEMHFm+XzAd+8kzri6fiytXG8wRgZ5PMACjk7KH7lqbqZaejCiL4fqXHVbLCO43fwcH7CAJSY8jPWIgjPdsJDmai5yPapv3egBMQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02a89e87-2587-47d0-c3d3-08df367b3c0d
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:45:02.8922
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: camSjrmHruFIdGIirMJ6nmyzS/ayO73A76ZhfnL2ReKWzmouH1pvX6KEwzwY7bdDc7nJZo4KCFuN4GFSBfvwOg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB7203
+X-OriginatorOrg: intel.com
 
-commit 14b8b4bf2d7bd5d58c17adbeed0edfda1dfc1a7f upstream.
+Use the PHY type to identify TypeC ports in the PLL ID lookup function.
+This ensures that port B takes the TypeC path when an upcoming change
+sets its PHY type to TypeC on PTL+ platforms with an eDP panel connected
+to a TypeC PHY.
 
-It can happen that symbol sizes within .tmp_vmlinux1.kallsyms.o and
-.tmp_vmlinux2.kallsyms.o differ, without affecting file size on disk
-because of section alignment and/or padding emitted by the assembler.
+Keep the existing port >= PORT_TC1 case for BMG, where PORT_TC1 has a
+a TypeC DDI (and so uses the TypeC DDI register addresses, has a C20 PHY
+and the corresponding TC port -> PLL ID mapping), but this C20 PHY is
+not a TypeC PHY (i.e. it's not controlled by the TypeC Subsystem and so
+the driver doesn't need to run the TypeC PHY connect/disconnect,
+power-on/power-off sequences for the PHY).
 
-link-vmlinux.sh doesn't detect this case currently and keeps using
-.tmp_vmlinux2.kallsyms.o to link the final vmlinux. Due to the
-different symbol sizes, other symbols are shifted within the final
-image compared to .tmp_vmlinux2, and the final comparison of System.map
-against "${kallsyms_sysmap}" fails with the message:
+v2: Keep handling the BMG TypeC DDI but non-TypeC PHY cases. (Sashiko)
 
-    Inconsistent kallsyms data
-    Try "make KALLSYMS_EXTRA_PASS=1" as a workaround
-
-This can happen in particular if the linker emits additional symbols
-that might have different names between our (re-)linking steps, e.g.
-because those names depend on the virtual address of the symbol. Linker
-stubs for ARM errata work-arounds are one such case.
-
-These changed symbol names can cause the output of the token
-compression of kallsyms.c to change due to the changed symbol substring
-count, which in turn can change the size of the kallsyms_names symbol
-itself, causing the potential shift of subsequent symbol addresses in
-.tmp_vmlinux2.kallsyms.o and therefore the final image.
-
-Update link-vmlinux.sh to not rely on file size of
-.tmp_vmlinux?.kallsyms.o alone but to also consider symbol offsets
-within to resolve this, and do a third pass if required.
-
-[AD: kallsymso_prev is already tracked by kallsyms_step() here, so only
- add kallsymso_changed() and use it]
-
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
-Tested-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
-Signed-off-by: Nicolas Schier <nsc@kernel.org>
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
+CC: stable@vger.kernel.org # 6.14+
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
-This patch fixes an actual problem people are seeing in various
-different kernel versions.
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-No versions from more recent kernels apply cleanly on 6.6 and a minor
-context update was necessary.
-
-The bug was introduced by 7e2b37c971a2 ("kbuild: kallsyms allow
-3-pass generation if symbols size has changed") in v4.10.
-
-This version of the patch applies cleanly against 6.6 and 6.1, can you
-please apply it to both branches.
-
-Cheers,
-Andre'
----
- scripts/link-vmlinux.sh | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index ad16e25a62ce..2b8746f7bcc8 100755
---- a/scripts/link-vmlinux.sh
-+++ b/scripts/link-vmlinux.sh
-@@ -144,6 +144,18 @@ gen_btf()
- 	printf "${et_rel}" | dd of=${2} conv=notrunc bs=1 seek=16 status=none
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index bfd6f0a197253..ac9d3f1102747 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -207,7 +207,8 @@ enum intel_dpll_id icl_tc_port_to_pll_id(enum tc_port tc_port)
  
-+# Check if kallsymso_prev and kallsymso differ
-+# If symbol sizes within ${kallsymso} change, any symbols within vmlinux are
-+# likely to shift, invalidating ${kallsymso}.
-+# Since file size can remain unchanged even if symbol sizes change, compare the
-+# actual symbols instead of relying on file size only.
-+kallsymso_changed()
-+{
-+	${NM} -n "${kallsymso_prev}" > "${kallsymso_prev}.sym"
-+	${NM} -n "${kallsymso}" > "${kallsymso}.sym"
-+	! cmp -s "${kallsymso_prev}.sym" "${kallsymso}.sym"
-+}
-+
- # Create ${2} .S file with all symbols from the ${1} object file
- kallsyms()
+ enum intel_dpll_id mtl_port_to_pll_id(struct intel_display *display, enum port port)
  {
-@@ -271,7 +283,12 @@ if is_enabled CONFIG_KALLSYMS; then
- 	size1=$(${CONFIG_SHELL} "${srctree}/scripts/file-size.sh" ${kallsymso_prev})
- 	size2=$(${CONFIG_SHELL} "${srctree}/scripts/file-size.sh" ${kallsymso})
+-	if (port >= PORT_TC1)
++	if (port >= PORT_TC1 ||
++	    intel_phy_is_tc(display, intel_port_to_phy(display, port)))
+ 		return icl_tc_port_to_pll_id(intel_port_to_tc(display, port));
  
--	if [ $size1 -ne $size2 ] || [ -n "${KALLSYMS_EXTRA_PASS}" ]; then
-+	# Due to alignment, file size of the kallsymso object file might remain
-+	# unchanged even if individual symbols within change size. Changed
-+	# symbol sizes can still shift other symbols, though. Therefore, don't
-+	# rely on file size alone.
-+	if [ $size1 -ne $size2 ] || kallsymso_changed || \
-+			[ -n "${KALLSYMS_EXTRA_PASS}" ]; then
- 		kallsyms_step 3
- 	fi
- fi
-
----
-base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
-change-id: 20261030-linux-kallsyms-fix-6-6-cb5fbdd566cb
-
-Best regards,
+ 	switch (port) {
 -- 
-André Draszik <andre.draszik@linaro.org>
+2.49.1
 
