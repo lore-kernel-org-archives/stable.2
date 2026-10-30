@@ -1,55 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352427;
-	b=oQYpufTLjMIBhtOXs5vxx0tnf5w/U9OJ5smKxUv480vxD41N8wArbEbX5MOuPKDAOrsz
-	 Fvht6ILbZpbIp/A+dE3esXpECmagtdExFhUr9YFYZFRCq3FH+O8UGtO2rI1V1voAJKnH3
-	 uIJnD0zCT6l88g9+uniNaNUZFYS6ov4aI8uTzTX7TxLJCZahkVoZLI8w3gQHJm3whdatO
-	 dbGinOyxZxh/XzH++1hcDdcRWlQH/cTSua+0PyYZfkIgDo0gqpfGrX1iHb8wR/0kBCY9a
-	 bRU7+pzkV0MsKg0N2ufe5Nsngro0ZhhQbTWBAhbfhf/xmxCJbthl/GCZZSzkCgMx1Aw==
+	t=1793352914;
+	b=vzcxD4l37iez6mHBbqSTe5km20FVG1hYWfHFCc85m6lojxTvp5xh5A/rAeciFhFGPhA4
+	 jGVML8uo00ewptRhMJ7SzaYjMVMw4zbipbqsx5F4+OhhskD+HAyVr6Bii2f8Djd9eXOG2
+	 4e6TyalVcbh4UCLwcgAGp2X+zcaacAKRhDpWDMro+dtx1FlaZPbR2Uk6wEtDqmVP4iDO3
+	 faR5XKHdWWBINXQK/8u9Q+Z4YlRmLN5YR9rUXck/dB+2c2IT7djPbGKWew9+L99u15Dli
+	 1zrImCDrYbGxUV3lz/C/IbD9O82sLuYTWIUOc9pk29Zs6DQkG2scnC1hraszFLwbCWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352427;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=V1pspLk+fckd2Oob0tFDkfoQsu77+dAXAQw/b0Q2v3k=;
-	b=RUBQy/SgGi2b/aJgl/gpUCQGia5VyBGpDSOpom/Du0QoG6EFtLG37Pe1NChPhPbSCGjz
-	 mNlSPFCESEewvvOMJHp92SFIh5xHvta4b9HjU+MsM9Uid7K00oyuAwAbH2lvJHoSKBFQk
-	 etfCr5bHYzYJt0VGGAmMzHOm0L4BlgReZDcMFOYoVNBR1Sm97p1oL2MGdAGqm4VxQt7bQ
-	 BTS5sGBfA8/QDlju0n2MHNnGtw6w5B5tuiyTzfD5jocAEYYURjSOfkCc8MBMfaXIh3f7h
-	 w7+n120xCT/HEpke0IeqFdyBjDsKXQivd2+PijTx/GQ9UpObvJtPV0lsfSOvwwIgT1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352914;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=a4DxPzJFq+Xx+85XSsmDtCfWeMHzGVT6RmNuzkGCqK0=;
+	b=o8knVLg22SWKp8DP2jWjCLiaxx/7XkSIIEJq35iuNqa02qTu2m8VCHflxKz2i+rj35Ca
+	 ng8gOOCMp6mYhr/5mVsc+NLqwKeiw+/OxBuw7UJIn9B6+cokQHi5lrBJ3q8YRguyqyFN6
+	 DfN0rUFs1r493V+kLeWFvCqpALvKgFOiUUe8V1HKIJb+pRo7bM+baFJLSSku5UESlwhop
+	 MldnX2AFhyuNZiiyeIHvk/NNrpmHm9MoF70fwkJnSLcVAMxCmclnUa0uxY2v2J4RuxApW
+	 PK/FcIaiy21PDaBHeAzgAjyQTpP2lWF7EKsMdxDGQSauKzrqa0hQDxGc1MhGk3X64zA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C7F606A326;
-	Fri, 30 Oct 2026 09:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C7F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jGG2W18dVz5B0xd;
-	Fri, 30 Oct 2026 17:26:59 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 69U9Qm49099897;
-	Fri, 30 Oct 2026 17:26:48 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 30 Oct 2026 17:26:50 +0800 (CST)
-X-Zmail-TransId: 2afa6ae462da066-f0b1f
-X-Mailer: Zmail v1.0
-Message-ID: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
-In-Reply-To: <ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com>
-References: 202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn,ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com
-Date: Fri, 30 Oct 2026 17:26:50 +0800 (CST)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=ajaNKjdF;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87E08606A323;
+	Fri, 30 Oct 2026 09:35:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87E08606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=ajaNKjdF
+Received: by linux.microsoft.com (Postfix, from userid 1173)
+	id D9FCB20B7166; Fri, 30 Oct 2026 02:35:00 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D9FCB20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793352900;
+	bh=a4DxPzJFq+Xx+85XSsmDtCfWeMHzGVT6RmNuzkGCqK0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ajaNKjdFDer3GAXHkQRPDDp0vU1Y1zBVj4/NV6ni/hmVLcfMCP31SHP5r3yQnUp3E
+	 BrRWxi9kM+dxbliMh8/GwSK+80jgfBtRLQmmHMrhRT2L3HdGj2Y3l8xtbZCewP1GC2
+	 cDE90UPGdoh3/IpirKeDkyNGrUnwh7UdXa2Kt+fU=
+From: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	lkmlabelt@gmail.com,
+	parri.andrea@gmail.com,
+	linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	stable@vger.kernel.org,
+	Wei Liu <liuwe@microsoft.com>
+Subject: [PATCH net v2] hv_netvsc: Stop PPI parsing on invalid metadata
+Date: Fri, 30 Oct 2026 02:34:59 -0700
+Message-ID: <20261030093459.4004663-1-ernis@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,214 +68,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-        <chengzhihao1@huawei.com>
-Subject: =?UTF-8?B?W1BBVENIIHYyXSB1YmlmczogZml4IGF1dGggbm9kZSBzcGFjZSBhbmQgcGFkZGluZyBpbiBqb3VybmFsIGJ1ZmZlcnM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 69U9Qm49099897
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Fri, 30 Oct 2026 17:26:59 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE462E3.000/4jGG2W18dVz5B0xd
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+rndis_get_ppi() uses continue when a per-packet information entry has an
+invalid size or offset, or cannot hold the requested metadata. However,
+the remaining length and entry pointer are only updated at the bottom
+of the loop. Each error path therefore retries the same invalid entry
+indefinitely, repeatedly logging the error and preventing receive
+processing from completing.
 
-write_head() appends an authentication node to the node group when
-authentication is enabled and writes
-ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
-ubifs_jnl_write_data() allocates its buffer for that, but when the
-allocation fails it falls back to c->write_reserve_buf.  That buffer is
-sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
-block, 4144/4160 bytes), while an incompressible 4 KiB block needs
-4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
-sha256).  ubifs_hash_nodes() then writes the auth node past the end of
-the reserve buffer, and write_head() reads it back from there.
+Return NULL on these validation failures instead of continuing. This
+terminates the lookup when malformed metadata is encountered while
+preserving the existing behavior for valid entries.
 
-The same write path also writes uninitialized heap data.
-ubifs_jnl_write_data() and ubifs_jnl_write_inode() build their node
-groups in kmalloc()ed buffers, and when the last node length is not a
-multiple of 8 the padding up to the next auth node goes to the flash
-uninitialized.  That padding is covered neither by the node CRC nor by
-the rolling hash.
+The issue was reported through an internal bug-tracking system and
+confirmed by manual code inspection. The pre-fix hang has not been
+reproduced locally.
 
-Size the reserve buffer for the largest possible auth node (the mount
-path allocates it before authentication is initialized, so it cannot use
-ubifs_auth_node_sz()), clear the padding after the data node before it is
-written, and allocate the node group buffers of ubifs_jnl_write_inode()
-and ubifs_jnl_truncate() with kzalloc().  The data write path cannot just
-use kzalloc() because it may fall back to the reused reserve buffer.
-ubifs_jnl_truncate() refills its data node with ubifs_tnc_lookup(), so
-what is left after the re-compressed node comes from the old node on the
-media, not from the heap.
-
-The padding is not part of any node, so ch.len and the CRCs stay
-unchanged.  With a zeroed truncation buffer, zero_trun_node_unused() is
-redundant, so remove it and the comments which refer to it.
-
-Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
-Link: https://lore.kernel.org/all/ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com/
+Fixes: 44144185951a ("hv_netvsc: Add validation for untrusted Hyper-V values")
 Cc: stable@vger.kernel.org
-Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Erni Sri Satya Vennela <ernis@linux.microsoft.com>
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Reviewed-by: Wei Liu <liuwe@microsoft.com>
 ---
-v2: Keep the explicit padding clear only in ubifs_jnl_write_data(), which
-    may fall back to the reused write reserve buffer; allocate the node
-    groups of ubifs_jnl_write_inode() and ubifs_jnl_truncate() with
-    kzalloc(), and drop zero_trun_node_unused() together with the
-    comments pointing at it.  Thanks to Zhihao Cheng for the review.
+Changes in v2:
+* Add Cc: stable@vger.kernel.org
+* Clarify how the issue was reported and confirmed in commit message.
+---
+ drivers/net/hyperv/rndis_filter.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
- fs/ubifs/journal.c     | 39 ++++++++++++++++++++++++++-------------
- fs/ubifs/super.c       | 18 ++++++++++++++----
- fs/ubifs/ubifs-media.h |  6 ++----
- 3 files changed, 42 insertions(+), 21 deletions(-)
+diff --git a/drivers/net/hyperv/rndis_filter.c b/drivers/net/hyperv/rndis_filter.c
+index 9b6c44979b4e..2c30abf9faf8 100644
+--- a/drivers/net/hyperv/rndis_filter.c
++++ b/drivers/net/hyperv/rndis_filter.c
+@@ -401,12 +401,12 @@ static inline void *rndis_get_ppi(struct net_device *ndev,
+ 		/* Validate ppi_offset and ppi_size */
+ 		if (ppi->size > len) {
+ 			netdev_err(ndev, "Invalid ppi size: %u\n", ppi->size);
+-			continue;
++			return NULL;
+ 		}
+ 
+ 		if (ppi->ppi_offset >= ppi->size) {
+ 			netdev_err(ndev, "Invalid ppi_offset: %u\n", ppi->ppi_offset);
+-			continue;
++			return NULL;
+ 		}
+ 
+ 		if (ppi->type == type && ppi->internal == internal) {
+@@ -414,7 +414,7 @@ static inline void *rndis_get_ppi(struct net_device *ndev,
+ 			if (ppi->size - ppi->ppi_offset < ppi_size) {
+ 				netdev_err(ndev, "Invalid ppi: size %u ppi_offset %u\n",
+ 					   ppi->size, ppi->ppi_offset);
+-				continue;
++				return NULL;
+ 			}
+ 			return (void *)((ulong)ppi + ppi->ppi_offset);
+ 		}
 
-diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-index 40a95a2fad50..449bc8c0a224 100644
---- a/fs/ubifs/journal.c
-+++ b/fs/ubifs/journal.c
-@@ -68,16 +68,6 @@ static inline void zero_dent_node_unused(struct ubifs_dent_node *dent)
- 	dent->padding1 = 0;
- }
+base-commit: f71ff7d406523748bfb8236830c7eaa6a308aaa1
+-- 
+2.34.1
 
--/**
-- * zero_trun_node_unused - zero out unused fields of an on-flash truncation
-- *                         node.
-- * @trun: the truncation node to zero out
-- */
--static inline void zero_trun_node_unused(struct ubifs_trun_node *trun)
--{
--	memset(trun->padding, 0, 12);
--}
--
- static void ubifs_add_auth_dirt(struct ubifs_info *c, int lnum)
- {
- 	if (ubifs_authenticated(c))
-@@ -840,6 +830,28 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
- 	return err;
- }
-
-+/**
-+ * ubifs_zero_node_pad - zero the padding after a journal node
-+ * @c: UBIFS file-system description object
-+ * @node: node to pad
-+ * @len: length of the node
-+ *
-+ * When authentication is enabled the auth node is placed at the next
-+ * 8-byte aligned offset, so the bytes between the end of the node and
-+ * that offset are written to the media.  They are covered neither by the
-+ * node CRC nor by the rolling hash, so clear them instead of writing
-+ * stale buffer contents.
-+ *
-+ * This is only needed when the buffer is reused, i.e. for the write
-+ * reserve buffer of ubifs_jnl_write_data().  Buffer owners which get a
-+ * fresh allocation use kzalloc() instead.
-+ */
-+static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
-+{
-+	if (ubifs_authenticated(c))
-+		memset((char *)node + len, 0, ALIGN(len, 8) - len);
-+}
-+
- /**
-  * ubifs_jnl_write_data - write a data node to the journal.
-  * @c: UBIFS file-system description object
-@@ -925,6 +937,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
- 	if (err)
- 		goto out_free;
-
-+	ubifs_zero_node_pad(c, data, dlen);
- 	ubifs_prepare_node(c, data, dlen, 0);
- 	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
- 	if (err)
-@@ -1007,9 +1020,10 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
- 	else
- 		write_len += ilen;
-
--	ino_start = ino = kmalloc(write_len, GFP_NOFS);
-+	ino = kzalloc(write_len, GFP_NOFS);
- 	if (!ino)
- 		return -ENOMEM;
-+	ino_start = ino;
-
- 	/* Make reservation before allocating sequence numbers */
- 	err = make_reservation(c, BASEHD, write_len);
-@@ -1716,7 +1730,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
- 	sz =  UBIFS_TRUN_NODE_SZ + UBIFS_INO_NODE_SZ +
- 		dn_size + ubifs_auth_node_sz(c);
-
--	ino = kmalloc(sz, GFP_NOFS);
-+	ino = kzalloc(sz, GFP_NOFS);
- 	if (!ino)
- 		return -ENOMEM;
-
-@@ -1725,7 +1739,6 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
- 	trun->inum = cpu_to_le32(inum);
- 	trun->old_size = cpu_to_le64(old_size);
- 	trun->new_size = cpu_to_le64(new_size);
--	zero_trun_node_unused(trun);
-
- 	dlen = new_size & (UBIFS_BLOCK_SIZE - 1);
- 	if (dlen) {
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index 38972786817e..538907aba8a0 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
- 		bu_init(c);
-
- 	if (!c->ro_mount) {
--		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
--					       UBIFS_CIPHER_BLOCK_SIZE,
-+		/*
-+		 * The reserve buffer is also used as a fallback for data
-+		 * nodes which are followed by an authentication node, so
-+		 * reserve room for the largest possible one.  Authentication
-+		 * is initialized only later, hence the maximum sizes.
-+		 */
-+		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-+					       UBIFS_CIPHER_BLOCK_SIZE +
-+					       UBIFS_AUTH_NODE_SZ +
-+					       UBIFS_MAX_HMAC_LEN,
- 					       GFP_KERNEL);
- 		if (!c->write_reserve_buf)
- 			goto out_free;
-@@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
- 		goto out;
- 	}
-
--	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
--				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
-+	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
-+				       UBIFS_CIPHER_BLOCK_SIZE +
-+				       UBIFS_AUTH_NODE_SZ +
-+				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
- 	if (!c->write_reserve_buf) {
- 		err = -ENOMEM;
- 		goto out;
-diff --git a/fs/ubifs/ubifs-media.h b/fs/ubifs/ubifs-media.h
-index 3c9792cbb6ff..7d4702f3e15f 100644
---- a/fs/ubifs/ubifs-media.h
-+++ b/fs/ubifs/ubifs-media.h
-@@ -591,14 +591,12 @@ struct ubifs_data_node {
-  * @old_size: size before truncation
-  * @new_size: size after truncation
-  *
-- * This node exists only in the journal and never goes to the main area. Note,
-- * do not forget to amend 'zero_trun_node_unused()' function when changing the
-- * padding fields.
-+ * This node exists only in the journal and never goes to the main area.
-  */
- struct ubifs_trun_node {
- 	struct ubifs_ch ch;
- 	__le32 inum;
--	__u8 padding[12]; /* Watch 'zero_trun_node_unused()' if changing! */
-+	__u8 padding[12];
- 	__le64 old_size;
- 	__le64 new_size;
- } __packed;
