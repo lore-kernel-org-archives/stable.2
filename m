@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377085;
-	b=E4rcz/85jlCWvPv4nWu1H9Ko3FnJCF3ZD8xbnOLjuwJJt1SPEMQjZWB7EYM2QmOfi8tc
-	 HlHFqcsM6kF+2mnxcbeX9QFYgpELsUvrwzt6a03n0hCSS+46UiyRRwHf8LNv67oKCzLOm
-	 jkAvC/U6R/5M3xunRQPuXoEFAkkwgu4fh3ffbMYvvRZF7HtMzF3xeBcb3gSeKEh+9DWSD
-	 aY69c9bRYwXpw8+B1yEMWDsxeCzzhVfPhICRL+csS8SqE/D9tA9HqQUf0sfwx9fZy3fp3
-	 wafdEnunj+GoMXq9VYSPvBiYasZgpDzuNbTI4o6eYwG4wCWd/1Hj9zXXPblD4vmrQMQ==
+	t=1793377130;
+	b=fGKN0I/5UR67xHlfWV0XkZ2Z9qCWYwi6iCVHJ9nn+O+XIsenkiM4hyhwZj8dQkPXttXk
+	 hNlWS+sApfyVDSAMShtMT2rvKT3ZMrb80iMH1aT480gtbWqSAN7v0LIp36MrR/DqEsN9+
+	 kIthIoKLSMGjHYpp79785fdF4M2noUrm1+3HW0AraIeHTVT99UQ9OIjMWnEuvNCkqfuyb
+	 JxFLnV7mjpo3qZ+gSZQjQJyZyVIG/w9Pb80M9HJ1w0p2Wqt5iyU8Ey4wHdGeMOdZ6SWPc
+	 iYLanBwszhonqtXngeEgPu6OxjTmYAac8nFvlLA2clY/sD6L1PFghz1PCFNZ/UPSCpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377130;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=ZDNHG8v8zk9WmJP9GH0iqpZHJN79nd4ttmjK0fCFWyk=;
-	b=g+oShhIcx4+U1ExFeVr5j6GsJYo/5175aWY+N0Qql8HHioXVHRwHEe3iC84M4dfssZda
-	 obYJcr917EMqxlx8qpQK2gz6Zg5gbf8u7+NRPVn+gQRKKkC8jFP8TDYs66i/b3FVd6OOU
-	 lkvemoU/loolHnqTI8unhr/CfvAuZl5x0EOfZ/eoGX4/i64ACe/9adlGB46m0abNEI9qz
-	 DmPAq0jZQF447eAu80uooril0wVtnabXyr1Px44juFCSIu7WFcAYsP6yymM0vRlMsXjCz
-	 YohpH8YBaKYFUXPqp0Z7xwbc+qQE9YZzTh+sMbj0g4yHl9vqfhYqGu9+Lvj9pjBAPeQ==
+	bh=QiunOZWJx+P+5gQcCuYIS7lFeRX3edP9D5k4etkLsa0=;
+	b=ar6FrKNYx+V0EwQFXyrGFYBulE62BRZ7dT3XL0jNf2Mp2zhXG3RSxZQ2d1tLUoWvGF8c
+	 Z3+ouWcEBOyCLdjQ2a7C0utCIt3KuAn+gNnfVMpR1stPm+dYI3UVulhAuvP4Evcq4c3mG
+	 NO2J8WSYLayrGg1A9oyPGybYizEjS5dGxlYJIf+cMO+PAerTZMyNt3npuz91FgIORghyg
+	 sfWjYsDCnpDwuh5wG0ywaMtoDhCP8S2ydDGFpfD7ns+8Vrhzmyq5cclqDQqzyqf02fFol
+	 oHW2apSYj7+rSmnRotxu5Weu++ReREsyyYb5g+RHHmxdFXBdJfaaN9R0IS0NT1akB2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWb9BuFd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hK3vCiYx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3F3606A31C;
-	Fri, 30 Oct 2026 16:18:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2021606A324;
+	Fri, 30 Oct 2026 16:18:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWb9BuFd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85BF71F000C1;
-	Fri, 30 Oct 2026 16:18:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hK3vCiYx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB561F00A15;
+	Fri, 30 Oct 2026 16:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793377084;
-	bh=ZDNHG8v8zk9WmJP9GH0iqpZHJN79nd4ttmjK0fCFWyk=;
+	s=k20260515; t=1793377129;
+	bh=QiunOZWJx+P+5gQcCuYIS7lFeRX3edP9D5k4etkLsa0=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eWb9BuFdkxI1AoMZhA1RbZq7J/sUlQ18FiCmi5ShQw/WYHUb+y+CeSsSuuZqY26lW
-	 1/nv4TeLqKesyblsRXZpbD+xxPtpMZj5VfWLthnZjuelUmKZlEQu6WEnqvU/yEuZPG
-	 aJx/6bdO3sgrCSwaR2sTbIj1xu8miLdFRL6KAq72+SLi9OtLq3ycFHm/W1+MWoETdf
-	 BiZ2FQ8ok2GAmsmOv+By3+V63Vc88VU4ZRLqt/IvLJTXfIcpn8LAi97b1WifL7prbi
-	 9YPywOmhwxgnttRnNAMgV7KKwYeJOg7i6Zynast3R7X0DeM7v3UVU1gEpneK8Op02b
-	 N5ACo2z7m2LwA==
+	b=hK3vCiYxVd5d68ZX+j4+jmqrQO++VKvRotjb4ascRXLOIkjCsAsmVGzml20dOJ2L5
+	 21NqVJoTn0/c86x1Ah8Di4xbpagHabKkfEofhe20JZBYDh1FlvZDAE7Fq0KWq8oWWg
+	 wwz9gy0/RWSLtud5i1zkky6bAx7N/PavtuDi418bY6pkt6cWi8+DpTf1Cb+TYMWxBs
+	 J3P95pTvQqZv2KJOZBiwwMPP4WLBZo7rJE49cVI7oNO3XUUP4z+NMXcYEsJaUi4PAB
+	 neCWv71XjQNjvbndWPXK2spv4TF4QFIMipttVGK7aaOZeOPbAZq1q/fojM7mS5DMpB
+	 uo7T5N71bXzWg==
 From: Christian Brauner <brauner@kernel.org>
-To: linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- kernel test robot <yi1.lai@intel.com>, stable@vger.kernel.org
-In-Reply-To: <20261030-work-nsfs-init_ns_tree-v1-1-7ec0adb47c54@kernel.org>
-References: <20261030-work-nsfs-init_ns_tree-v1-1-7ec0adb47c54@kernel.org>
-Subject: Re: [PATCH] ns: don't add init_ipc_ns and init_net without
- namespace support
-Message-Id: <20261030-labil-bergab-besetzen-9a2b7d8d71ac@brauner>
-Date: Fri, 30 Oct 2026 17:18:01 +0100
+To: Amir Goldstein <amir73il@gmail.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
+ Daehyeon Ko <4ncienth@gmail.com>
+In-Reply-To: <20261030-work-dcache-obtain_alias-v1-1-a1f7e44536d2@kernel.org>
+References: <20261030-work-dcache-obtain_alias-v1-1-a1f7e44536d2@kernel.org>
+Subject: Re: [PATCH] fs: don't fail __d_obtain_alias() for unlinked inodes
+Message-Id: <20261030-senkrecht-nahmen-bewahren-1c6cba73eb7a@brauner>
+Date: Fri, 30 Oct 2026 17:18:46 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,22 +64,13 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev-ce4c1
 
-On Fri, 30 Oct 2026 16:50:07 +0100, Christian Brauner wrote:
-> When CONFIG_IPC_NS or CONFIG_NET_NS are turned off we still add the
-> initial ipc and network namespace to the namespace trees. ipc_ns_init()
-> calls ns_tree_add(&init_ipc_ns) whenever CONFIG_SYSVIPC is set and
-> setup_net() calls ns_tree_add_raw() on init_net whenever CONFIG_NET is
-> set.
-> 
-> But without CONFIG_IPC_NS and CONFIG_NET_NS these aren't namespaces
-> userspace can do anything with. They don't have proc_ns_operations so
-> there's no /proc/<pid>/ns/{ipc,net} for them, nsfs_fh_to_dentry()
-> refuses them with -EOPNOTSUPP, and since ns->ops is NULL
-> __ns_tree_add_raw() doesn't add them to the owner list of init_user_ns
-> either. So they end up half registered. That's also not how we treat
-> any of the other namespace types. Without CONFIG_UTS_NS, CONFIG_PID_NS,
-> CONFIG_TIME_NS or CONFIG_USER_NS the initial namespace is never added
-> to the tree.
+On Fri, 30 Oct 2026 16:55:52 +0100, Christian Brauner wrote:
+> Commit 669bb5af15d4 ("fs: make sure to call fsnotify_inoderemove() only
+> once when inode is dead") did two things. It made dentry_unlink_inode()
+> call fsnotify_inoderemove() only once the inode has neither links nor
+> aliases left. And it made __d_obtain_alias() fail with -ESTALE for an
+> inode in that state so that open_by_handle_at() can't create a new alias
+> after FS_DELETE_SELF has been reported and the inode marks are gone.
 > 
 > [...]
 
@@ -97,6 +89,6 @@ trailer updates or similar. If in doubt, please check the listed branch.
 tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
 branch: vfs.fixes
 
-[1/1] ns: don't add init_ipc_ns and init_net without namespace support
-      https://git.kernel.org/vfs/vfs/c/82f1c815aaef
+[1/1] fs: don't fail __d_obtain_alias() for unlinked inodes
+      https://git.kernel.org/vfs/vfs/c/a522dd871024
 
