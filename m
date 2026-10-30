@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358937;
-	b=vdtHArWPuSeon8J1V7wPelNxm6D1oOzdmW2edcHUxhG96pTTI1pW1FirJs0rZPux1Mi/
-	 yhFTjMhkQvkX8eR8AUAgBB6feabOgbmTWzXasOjGpnZcTp9y3p1ahORrmMweV+fAzpFOJ
-	 /x2FmHF0HcBxf70BRACfyAmHM+Dq8l3Tmy2xUKZ9ahxVRwzTA6mGuutKstMw9gMYpwBPk
-	 Jl6ErYo/tS4I5CFiKs26+mA1MMQ2qO0T1xr/kxVHG6UhkZRQaoHdh+bIT0rRdGgiskFL8
-	 xG/2QG/NRQh1gWgsfX18HXP0mVg/YZCiXfgUffS1jGIlyogI3gkMZn3W9XWf0KkUHnA==
+	t=1793359205;
+	b=KgbhG9hLW5xA1VEtSTJHV9JSfsCGEj3wcTeLgQ3vFt4vGWMu9SXObQ7cEbfv2oi5N/7N
+	 CouErP0BTFq1wwmxYtJ8MGvvygvZRjUa/za26Famu/uabxV51d5+kup164AW8AGhKoPlq
+	 wA0yoAVbEkT/gVjV0M/3Qkpj3zCu/f5cxZGPXU73xA70N/wJLsgyJFdudhAzmfCpT4n2o
+	 D9xne6uQBs2bnCprY9SM77XnztoxhgeobRiZymCDcdwRgntbxd7uFAGA+wB6bt+Qk8cge
+	 3QebzBqbD0NmFn7ezbcTarxka3fVevC6SVUKrv1EXxQD2y57WkkfQVDk+fZiWkYYqGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359205;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=jcFVnDvIZ8heZvYaiF3eCzfDTR74GY+V/2n+TMcTvAs=;
-	b=EpWLnvWvZ74/gnYYZW/8DY+pexfcS5kJG4eFXk5cL4o7XxLUryYn9/gwKjK0y6UNWYNm
-	 2jJ62P3nmZJUFOXaj1efAS6TV9GoXnzipaSsPQuYBzZMZBcyN8978qw/snEz0pneEy5DH
-	 cu8DKMk2RKDxpwb/K6Edo0SQ3r6MNTGVFQ8MnjAEz2M5ugPeVVbLV7xgBEnaG3Djz6qqU
-	 vwsWEFMMIdYuWzzN7USAgaSHooOQE1yXKSQOSn6wrWcpPILhDwCzFnuwbXtsuq+zEMOqz
-	 RjNQW3+j7fcNWz9WY8LVcK9wG8qM+sMCk3w3kJ7zLX+OJjikNbUGOTVLAUQFANkbS0w==
+	bh=euk1MZglVLNri+rYCLQwY1lNbQIirnUyD9xcyB6Byp4=;
+	b=dfS1eZelz0eqRK/n901Rw205U80WYdePoUErA5WYQ2leGXYWPjOylTdBqBtTgDskaXeD
+	 Pgc5whLt3FXCNGv5FhIzzxDt4qwRxaJ0H9m62kJyxP5Piy/qoMtCRgPycRxhIFoe71buQ
+	 XftW/NkMAuo/cxmmfry7FANVCBYfLZiOeNhbwZC4lk05Eos2V9ep8dyPsUnkJzlgs77tG
+	 2Thr2R7v5D7axgkgXiAII9HeNXx0N5fgvmdO40A1xPk3DnxzYqTZRcrKQ6wYDvtwx6rM9
+	 QSN1JoL+oHSn9za+gEdhEPhQ0fu7FsBAJ93yiZ8jewFJNefmRk0LKWlQMMgzzaDu3mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0Z5bJ43;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8DkNBsz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C983606A32C;
-	Fri, 30 Oct 2026 11:15:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E048606A31A;
+	Fri, 30 Oct 2026 11:20:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0Z5bJ43
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9548D1F000C1;
-	Fri, 30 Oct 2026 11:15:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8DkNBsz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06A81F000C1;
+	Fri, 30 Oct 2026 11:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793358937;
-	bh=jcFVnDvIZ8heZvYaiF3eCzfDTR74GY+V/2n+TMcTvAs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X0Z5bJ43M9j+dsxw0EOfb2RfVAPvTOOq7wzfRja5C/mo0S5QFye2IEgPAlORI4c3g
-	 ifImjUhJwdI8WKJ5YsmZzwNO9T/m0kviNcNKqqlF1HggGNZPwAWIf5tuKcs2oU5XVz
-	 izKsKdkgcOFL5wt8C5/w8BeHHulb+7ldzTHu+6qfcHg6P136wlJ4Zt/a0lQGMSi3hY
-	 KM0nA2fT0xAsx3g4kOpikLMdyV+GVhDasUmL3YTRLy61zlRQukgrzzF1OnpaAKinvF
-	 CdRbd2dFS6Ly6QcLF/O4Pob9/Zy+lYtZgiUY62l/mQIs9T+8HMZdWboQ0mM+HSpbiP
-	 UY5gtheZjBa1w==
-Message-ID: <48a66134-3522-4b81-adca-4e76d52dc391@kernel.org>
-Date: Fri, 30 Oct 2026 12:15:19 +0100
+	s=k20260515; t=1793359205;
+	bh=euk1MZglVLNri+rYCLQwY1lNbQIirnUyD9xcyB6Byp4=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=X8DkNBszymg7DuZ6+Bhdqn9pMKv5GvRX7MN6A6XfqeofSms7pCCBsQrTGdxenLipv
+	 SfBkuCgtqgHo5NAF2TLOVZP4tnKWXJLqwO+f7RPDcBuWWPWHu+PfR17rMsqBFFNV6S
+	 lPsQnD4cT7ccl6FS6w1siLPO3V4q/J5fOE8TxFzuhxio7xGSYqO+WWbeCP+mJTlFGn
+	 VTwXQGVqR5ftMB6ScKb/G3bIbPgk9qnzJpD5jp+MtS+6lx2FFbv58ZUJDcZ7IwvteO
+	 x7JhGdArobuCUeeCxdmxzteC3/LlouaJl+KZfgJJlhmQmbmIdfM/R8yr4p1n+o8BxR
+	 1kO0q/J2vqvrw==
+Message-ID: <6ac05dd8-321a-4c2e-bce8-bd7ffcac9eac@kernel.org>
+Date: Fri, 30 Oct 2026 12:19:46 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,6 +54,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 27/47] mm/mmu_gather: fix flushing ranges with 4 GiB or
  larger
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: SJ Park <sj@kernel.org>
 Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
  Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
@@ -91,7 +92,7 @@ Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
  linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
  stable@vger.kernel.org
 References: <20261030005726.155279-1-sj@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+ <48a66134-3522-4b81-adca-4e76d52dc391@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
  xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
@@ -137,60 +138,54 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261030005726.155279-1-sj@kernel.org>
+In-Reply-To: <48a66134-3522-4b81-adca-4e76d52dc391@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/30/26 01:57, SJ Park wrote:
-> On Thu, 29 Oct 2026 21:33:22 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On 10/30/26 12:15, David Hildenbrand (Arm) wrote:
+> On 10/30/26 01:57, SJ Park wrote:
+>> On Thu, 29 Oct 2026 21:33:22 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+>>
+>>> From: Josef Bacik <josef@toxicpanda.com>
+>>>
+>>> __tlb_adjust_range() takes the size of the range which has to be flushed
+>>> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+>>> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+>>> gets truncated, possibly to 0.
+>>>
+>>> On arm64 with hugetlb, a 64k kernel can have 16 GiB hugetlb folios
+>>> mapped contiguously at the PMD level and flush them when unmapping, and a
+>>> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+>>> at least these two scenarios are affected.
+>>>
+>>> Fix it by flushing the proper range instead of the truncated one by
+>>> properly using "unsigned long" for range_size.
+>>
+>> Makes sense to me.
+>>
+>>>
+>>> Fix generated by an LLM and sent by Josef Bacik in private.
+>>>
+>>> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+>>> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>>> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> [ david: use two-tab indent, simplify description ]
+>>
+>> It seems the convention [1] is to put the above modification note right before
+>> the last S-o-b: of David.  Maybe you forgot moving it after adding R-b: and
+>> T-b: from great reviewers?
 > 
->> From: Josef Bacik <josef@toxicpanda.com>
->>
->> __tlb_adjust_range() takes the size of the range which has to be flushed
->> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
->> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
->> gets truncated, possibly to 0.
->>
->> On arm64 with hugetlb, a 64k kernel can have 16 GiB hugetlb folios
->> mapped contiguously at the PMD level and flush them when unmapping, and a
->> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
->> at least these two scenarios are affected.
->>
->> Fix it by flushing the proper range instead of the truncated one by
->> properly using "unsigned long" for range_size.
-> 
-> Makes sense to me.
-> 
->>
->> Fix generated by an LLM and sent by Josef Bacik in private.
->>
->> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
->> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->> [ david: use two-tab indent, simplify description ]
-> 
-> It seems the convention [1] is to put the above modification note right before
-> the last S-o-b: of David.  Maybe you forgot moving it after adding R-b: and
-> T-b: from great reviewers?
+> It's "b4 trailers" that apparently messes this up. I don't think it really
+> matters (some move it above all trailers), but I'll fix this up when applying.
 
-It's "b4 trailers" that apparently messes this up. I don't think it really
-matters (some move it above all trailers), but I'll fix this up when applying.
+Thinking again, I *think* this order is correct.
 
-(++ on all the great people around here)
+People reviewed and tested with these changes.
 
-> 
->> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
->> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->> Reviewed-by: Dev Jain <dev.jain@arm.com>
->> Reviewed-by: Muchun Song <muchun.song@linux.dev>
->> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Reviewed-by: SJ Park <sj@kernel.org>
-Thanks!
+it would be something different if I modify a patch while applying it. Because
+then, what people reviewed and tested would be different to the original version.
 
 -- 
 Cheers,
