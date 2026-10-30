@@ -1,83 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793374587;
-	b=04nd7g4wxpPa842uy/IusXODsTB2blF4SkoCnslsdTXNhL4BT+aj4I8Du5Kk6rbSJ2xS
-	 TsC3DYPO/6h9iDOtUIIr7glXtu7Z2F8Sn95weN4wRhQwg3Z9PhIRH4UTs8Qs0v6uMYzWU
-	 jXmrDk73hGPnpamA+l9NWEonj2tncNbISICkOWaH+U8QqKGVlFldo89NP2YhN28b/lUyP
-	 8slpAMk8Fz8Y0/8bPFU/x5Jjg29hhbG5xWt6I0rCBhbeWBjV8AoPch8ri/RgBfZWha+MJ
-	 imsK2CWmADUn40bbPmtjGTB/G40AaDdGxIp1VPHnufrxuS2cfhaRbIAi3DyE6P9W96w==
+	t=1793374926;
+	b=Bv7+Ev9tzoyFXIYqQ/HOGZzOysJy5Bu8WDfrqFI1KXzrgi+nW4T254khTVC8jYWXLGqa
+	 g0VhLg39T/EhRfofRt4tfNaNIEJtFciLBMoG3Ep1rXoLDqV8tkVJEAOwk/HzB2l3uyB82
+	 WXsFLMFv4E4c5sOvs+xnGpBsCl+MQVN2cVUk0KZK3LCWYm5Iu0NjxHdzuHGk34/iVgFl9
+	 8MINrRC7WWrcRzqygN3pcpVEL2dEED9m1TGRyYesKZl79nfJef/kogbGsbyPp4A7n/Tk6
+	 Q2+R6dRjd/WF+ORml1Ful19kWyHOR0z3Xc8+dOfZjra10cmKfwg+2jjQGjZRCZP1waw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793374587;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=sd5RL1XCNlo2sqTNOx3kwpxSRfkZd0uC81i/NNCK/dU=;
-	b=mPyk8tk5OmtRVPf2pLLXvXa9V6iW6nuPjvJvaHic+lbSfcKIaiVts6HyEO9k9dWc0Ire
-	 OSaG6sJfFtNiQYKtP4f8Z/LFyaKC8SseOjnB8rC0cQv3eerJnoiPe9ZAD6s2UlcMpiDdO
-	 +WqYTjvLXb+Hi5QsaoqnUnsR9JYwvSJA4f1qWQohj1nRyP26KMpmLGk4ZcBb3qvrvwUiq
-	 LjToWnkhRiJTRRjZBFTMSWmV+6Co+FHiLcFWCalfv9B91rtLBDGhgUW/lfSWUz18F8xg8
-	 XY6soRsUsv03ZXqG59J96aw9vHbKKRGKm5xXWW5siyJ08ebrl/Ov/0m2oV70yx7ELtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793374926;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=POhY/41PhuxMSqZgcCWiywGbaYgiSE/QllHx5WvgqQU=;
+	b=cpKPgIKI/Ntv0blki7JEJU9diJJmwPiK6TZZUoG4GYgd20dqepMU6nLGKWz+wZ4i7nL3
+	 lrVnUmT49QXSNIR4GOPMusVzczYE9CpdKkFCAHa6kE3z0uWWZYuyewqVL6w684fyBAJN1
+	 z3PJKQITzxE/zvK0/oP/z+ghsyhPKpBMrBiETZJZG09OZNdd5EbByvvixhsj7ZJL/vEdg
+	 BSIDOAPA6t7ItA+VItM2wNbeNjNYyWw4msib/ZZHbs6Uy+x6kC/l70l0EnAVJPwySFQr1
+	 AbOQzZS4AVfJk559hG+M+3lAx4V64jEuYcIs7ZMJRQGUlRA0SzbH9ac+hQftSokNy4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b="GJnaf7C/";
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=uCiLmze4;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oofqVAc0;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAEE606A31F;
-	Fri, 30 Oct 2026 15:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEAEE606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397EE606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:42:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 397EE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=GJnaf7C/;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=uCiLmze4
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id E577E20152;
-	Fri, 30 Oct 2026 15:36:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793374585; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sd5RL1XCNlo2sqTNOx3kwpxSRfkZd0uC81i/NNCK/dU=;
-	b=GJnaf7C/59Bw/iGsZVvdlooRAc1wb7rQ4opA+jjUMVcio3fbDS9jp4mgBn/NDuGMSm+GT4
-	wIK5qzCoN5qsUAD/d/PjNYyVWJehvRUUX31zCMxZB5/ZP2+p0J+4brHoSXOp2hX4BC2h/H
-	sKXxpLAMieW1MX8J0nwvdMrnStd7Vs8=
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1793374584; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=sd5RL1XCNlo2sqTNOx3kwpxSRfkZd0uC81i/NNCK/dU=;
-	b=uCiLmze42TJIkHNiuFigvNYMrMOGTXfy9ENvW/xkpP2JN2n8tj1Df1KwtvYuOGaIUYl42J
-	BeR4LL2WWNLCN2kZJiGV6zkN9VePHq8+61SWcTes4n7GcEIiYwCWmDVCU6zNqQzyqeMvIH
-	bFqGmBDBVF8q1KjsUfJfztIKC7gdApc=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF64E13432;
-	Fri, 30 Oct 2026 15:36:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PZ2HH3i55GrMXwAAD6G6ig
-	(envelope-from <neelx@suse.com>); Fri, 30 Oct 2026 15:36:24 +0000
-From: Daniel Vacek <neelx@suse.com>
-To: linux-btrfs@vger.kernel.org
-Cc: Daniel Vacek <neelx@suse.com>,
-	"Naulls, Peter" <PeterNaulls@eaton.com>,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: fix a livelock in wait_for_commit() on PREEMPT_RT
-Date: Fri, 30 Oct 2026 16:36:17 +0100
-Message-ID: <20261030153617.329733-1-neelx@suse.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oofqVAc0
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so8136255e9.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:42:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793374924; x=1793979724; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=POhY/41PhuxMSqZgcCWiywGbaYgiSE/QllHx5WvgqQU=;
+        b=oofqVAc0woCEGyx/cxu3pYBBvdASXJDrMlU84MQdGkKgQEA93GVn1ig0Csl1mcuKng
+         EPXW1VNeDmvPkfIcHiphDp2Jb7SyHYgSZFo946rSAJa840pkP8icy6IyfnDoNxhC4Yg4
+         /pnjenHd8fAj69qYTdOLmAuG3Xe2dJxUytQITsO6GUzbQx4o9X/TjifPLWrcvVD3lpeW
+         ibjEEKcTi1Jos/choLtw5BkLwbYii+O1V/5lGxIKFkP1ppgaMccie8pWKKC2beMN4gJZ
+         JZNxuf5FTv9dkw23HPKfK07hy68/P1bdgFcvLNp71wygj8yEuSNB7uxFf3cNc9UlDqNh
+         R+Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793374924; x=1793979724;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=POhY/41PhuxMSqZgcCWiywGbaYgiSE/QllHx5WvgqQU=;
+        b=G//0totYpuKy4xVTqSbXWUTyP0lfvqw0roU+j0zHqRjkOX4umdw1j3hXs+WBg7DK7D
+         7KuFv/k0ersCv+l2FTtldoh5ZWIshbbGhhe4gykNatGwyPqTCgweq4mubORZMiFbwOB/
+         ljaKi6tkLPioDTY9pJiUypMaZzptuSUtewuZMqAEoAJj8AYM92TEeBULok5XSPTIK2IL
+         BLJOn7qvVxYx6/MzUchH032AvwHhs9O2mZ7/xWX6K6GSLDS+7DmWXkEH40DNaIU6kgIL
+         Y/83d2v4IxoC2MHFqxMM4JcfMvGg6IbSy/LpADRq/6ZEae/i2vuGn3XehGA8h7cSlOZW
+         UE6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzREAQuvKC9Y0VZGJ7rFdJYUIck661VnearNx0kpeJOUI15vlrKqzLPDTAhXz8Mndhmy6R+mRs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIV/QJZeq7ixYFPe24WtzP/gi3ctZ/8Dv7JYgy2fS8JiVZiJvuM
+	7TN3EztzRiNSypnPrFL8FU5oTSFAzqUdJ0T9etGKn60k7u/hTKNE5ak=
+X-Gm-Gg: AYBFou0g6Cm4bijaYtXOnh7s0k/fdPIicjOm6WwmVBdLrh42R4hhE676qkl7I6WlaMa
+	fj9FVLXCCHzTS8bv1csnN76ke9LtYKudFNQVd+nUueZKBNo9qTOFgW8CBEhryGJMdvYymJ0Nw6S
+	PaZAQAzAH6ju/VP1p1E96pz2iBXg5czCbO+lEs4G2vvY5hbsCoYp34swOLZo6IuQ8eWTyuFsfvc
+	3Z6QkXgKdMUIG1CMhOrdMwEopzQ9vwzR3opcDJBTQa+2w4JPv0TewgkcHkWDlwLW8lo6pmNzCER
+	+zd6L6Y2n0mx0yClNegnDqmvA/wA7zo6/JvcYW/+AMyg1nQUEr5UL1p/dE9UnunEqWjrTz5ntp1
+	lwNK7DUV4S4c8zre00hBq5cwvrMM0a9zpAp+P+1YCihG8bHnqGjoRau9iQDjYbqjOgB5ToE8fBZ
+	WjnAUhOIPLsGjSHysTw3eWtq/Y0XV0RvEYq3sQAkm5oz4hxPUClrLHO65PywaMF9yCL15Yly83E
+	SetuLyIHbZWxn0Ciol6hRdA0MJt68XPzDrqW6t1Yg9tvKigm1k0ZX94shZW9hXGaQNtXZMS5yD1
+	jRGU4Iq9Q1A=
+X-Received: by 2002:a05:600c:5249:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4ac1228b5bfmr59543675e9.0.1793374924310;
+        Fri, 30 Oct 2026 08:42:04 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f047bfsm144419935e9.3.2026.10.30.08.42.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 08:42:03 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Bard Liao <bardliao@realtek.com>,
+	Misael Lopez Cruz <misael.lopez@ti.com>,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v3 0/4] ASoC: cancel pending delayed works on codec removal
+Date: Fri, 30 Oct 2026 15:41:58 +0000
+Message-ID: <20261030154202.2989936-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,146 +104,51 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -11.80
 
-Peter reported [1] that running multiple RR tasks doing sync()
-on fully preemptible kernel may starve other/normal sync() tasks
-due to fs_info::trans_lock turned into rt_mutex.
+Several ASoC codec drivers schedule delayed works for jack detection
+and microphone polling but do not cancel them on component removal,
+leaving handlers that can run against freed memory.
 
-This is caused by RR tasks contending over the mutex with priority over
-other tasks, which in turn lack progress and they are no longer able to
-remove TRANS_STATE_COMPLETED transactions from the fs_info::trans_list.
+This series adds proper teardown ordering in four codec drivers:
+rt5668, rt5659, twl6040, and wm8994.
 
-The offenders start looping in wait_for_commit() expecting the completed
-transactions to get off the trans_list but since they're bouncing the
-trans_lock the tasks with other/normal priority which are about to delist
-such transactions never get a chance to do so due to lower priority.
+Changes since v2:
+  - rt5668 (1/4): also cancel jd_check_work (re-arms itself every
+    500 jiffies while jack inserted). Disable IRQ before cancelling
+    to prevent the handler from scheduling new work in the window
+    between cancel and devm IRQ release.
+  - rt5659 (2/4): no code change from v2.
+  - twl6040 (3/4): swap ordering -- free_irq() first, then cancel
+    residual work. Fixes the race where the handler fires between
+    cancel and free_irq and re-arms the work.
+  - wm8994 (4/4): no code change from v2.
 
-A simple reproducer can be found in the mentioned email thread [1].
+Changes since v1:
+  - Unified series per Mark Brown request.
+  - rt5659: guard cancel with jack_detect_work_inited flag since
+    INIT_DELAYED_WORK is conditional on jd_src, per Mark Brown.
+  - wm8994: cancel mic_work before and after jackdet_bootstrap for
+    cyclic re-arming through DAPM power-up chain.
 
-The situation can be resolved by boosting the priority of the starved
-tasks or dropping priority of the offenders. Thought this fix prevents
-the situation from happening in the first place. We simply delist the
-transactions before changing them to completed state. That breaks the
-loop condition.
+Tristan Madani (4):
+  ASoC: rt5668: cancel delayed works on component removal
+  ASoC: rt5659: cancel jack_detect_work on component removal
+  ASoC: twl6040: cancel headset jack work on component removal
+  ASoC: wm8994: drain delayed works on remove and probe error
 
-[1] https://lore.kernel.org/linux-btrfs/SJ0PR17MB4288C46458DCE2C015839D0FBB9E2@SJ0PR17MB4288.namprd17.prod.outlook.com/
+Tristan Madani (4):
+  ASoC: rt5668: cancel delayed works on component removal
+  ASoC: rt5659: cancel jack_detect_work on component removal
+  ASoC: twl6040: cancel headset jack work on component removal
+  ASoC: wm8994: drain delayed works on remove and probe error
 
-Reported-by: Naulls, Peter <PeterNaulls@eaton.com>
-Fixes: 5fd76bf31ccfe ("btrfs: fix relocation crash due to premature return from btrfs_commit_transaction()")
-CC: stable@vger.kernel.org # 5.15+
-Tested-by: Naulls, Peter <PeterNaulls@eaton.com>
-Signed-off-by: Daniel Vacek <neelx@suse.com>
----
- fs/btrfs/disk-io.c     | 18 +++++++-----------
- fs/btrfs/transaction.c | 15 +++++----------
- 2 files changed, 12 insertions(+), 21 deletions(-)
+ sound/soc/codecs/rt5659.c  | 20 +++++++++++++++++++-
+ sound/soc/codecs/rt5659.h  |  3 +++
+ sound/soc/codecs/rt5668.c  |  7 +++++++
+ sound/soc/codecs/twl6040.c |  1 +
+ sound/soc/codecs/wm8994.c  | 14 ++++++++++++++
+ 5 files changed, 44 insertions(+), 1 deletion(-)
 
-diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
-index c628c5081d92..6afcd6ca2a8a 100644
---- a/fs/btrfs/disk-io.c
-+++ b/fs/btrfs/disk-io.c
-@@ -4312,10 +4312,6 @@ static void warn_about_uncommitted_trans(struct btrfs_fs_info *fs_info)
- 			   trans->transid, dirty_bytes);
- 		btrfs_cleanup_one_transaction(trans);
- 
--		if (trans == fs_info->running_transaction)
--			fs_info->running_transaction = NULL;
--		list_del_init(&trans->list);
--
- 		btrfs_put_transaction(trans);
- 	}
- 	ASSERT(!found);
-@@ -4937,7 +4933,13 @@ void btrfs_cleanup_one_transaction(struct btrfs_transaction *cur_trans)
- 				     EXTENT_DIRTY);
- 	btrfs_destroy_pinned_extent(fs_info, &cur_trans->pinned_extents);
- 
--	cur_trans->state =TRANS_STATE_COMPLETED;
-+	spin_lock(&fs_info->trans_lock);
-+	if (cur_trans == fs_info->running_transaction)
-+		fs_info->running_transaction = NULL;
-+	list_del_init(&cur_trans->list);
-+	spin_unlock(&fs_info->trans_lock);
-+
-+	cur_trans->state = TRANS_STATE_COMPLETED;
- 	wake_up(&cur_trans->commit_wait);
- }
- 
-@@ -4973,12 +4975,6 @@ static int btrfs_cleanup_transaction(struct btrfs_fs_info *fs_info)
- 		}
- 		btrfs_cleanup_one_transaction(t);
- 
--		spin_lock(&fs_info->trans_lock);
--		if (t == fs_info->running_transaction)
--			fs_info->running_transaction = NULL;
--		list_del_init(&t->list);
--		spin_unlock(&fs_info->trans_lock);
--
- 		btrfs_put_transaction(t);
- 		spin_lock(&fs_info->trans_lock);
- 	}
-diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
-index d265fac023e5..cd7dff5ba59b 100644
---- a/fs/btrfs/transaction.c
-+++ b/fs/btrfs/transaction.c
-@@ -2124,12 +2124,7 @@ static void cleanup_transaction(struct btrfs_trans_handle *trans, int err)
- 
- 	spin_unlock(&fs_info->trans_lock);
- 
--	btrfs_cleanup_one_transaction(trans->transaction);
--
--	spin_lock(&fs_info->trans_lock);
--	if (cur_trans == fs_info->running_transaction)
--		fs_info->running_transaction = NULL;
--	spin_unlock(&fs_info->trans_lock);
-+	btrfs_cleanup_one_transaction(cur_trans);
- 
- 	if (trans->type & TRANS_SB_INTWRITER_MASK)
- 		sb_end_intwrite(fs_info->sb);
-@@ -2641,6 +2636,10 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
- 		btrfs_clear_space_info_full(fs_info);
- 
- 	btrfs_set_last_trans_committed(fs_info, cur_trans->transid);
-+
-+	spin_lock(&fs_info->trans_lock);
-+	list_del_init(&cur_trans->list);
-+	spin_unlock(&fs_info->trans_lock);
- 	/*
- 	 * We needn't acquire the lock here because there is no other task
- 	 * which can change it.
-@@ -2650,10 +2649,6 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
- 	wake_up(&cur_trans->commit_wait);
- 	btrfs_trans_state_lockdep_release(fs_info, BTRFS_LOCKDEP_TRANS_COMPLETED);
- 
--	spin_lock(&fs_info->trans_lock);
--	list_del_init(&cur_trans->list);
--	spin_unlock(&fs_info->trans_lock);
--
- 	btrfs_put_transaction(cur_trans);
- 	btrfs_put_transaction(cur_trans);
- 
 -- 
-2.53.0
+2.47.3
 
