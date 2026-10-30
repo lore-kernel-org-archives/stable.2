@@ -1,97 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793375349;
-	b=Bq3PEBZoX5+fxv50qFuN8bRgDOe9rCfYA8RvPpHSDGjuoE/eUazUMMmx6BaH85r8ChjD
-	 R+duWjBqhDWFFJ6LEbawJZT1JV5odU64qJ6qR/tlrIlOIBkIuE+blQwkLx+wp1LYNBPx9
-	 jhx1WOmaYBKZHqbBTGTSPVnZMXV6cPvJzNj3hXkLYw+0a50UHLNROSyC12EdA7/qwgzdT
-	 0BGzLo6doidWaIlz6my7OP9aZina+ll2wmSmGMw8c5y33LRifDxSM6iYzuGVaefwiTxed
-	 jzK1xUuXBbEk6xypFOlhZXVVZJ3aCypr37syv3UlnpaHdl+Zv++o3C1GhsgcZOtrvtQ==
+	t=1793375424;
+	b=lMMSd4fNOJhOqFGW2OtyelOMSc6mO6HW4Xhh+J55b1jPTVHWF+bbNXtF4BtWUxlrQdsm
+	 g/PG8CN6lZAZX3WOV91AAkdvvys15cviVGMXV4nSiuaYpaWjt7Cc7EC5/bWZMBEYKjvw/
+	 cBzxa0aZnhTTeUZ9Patopvhy+36mSadZriTOj6KDKZZiKE2XO9X+Pi6hQpidEc+wWg0HI
+	 7goObSE1yliIkLbH3mvEuMeUT398Yynor/do610XBCkCpsHFD2BL6gxLfvPS2AOa7HOwa
+	 ZtmJnHUmLrTaFjMTQRt2oGNKGkxnPPWLD7V/ZD1hJBqR+V7pE6hRdDEoDuWja2kk/fQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793375349;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
-	b=h+SwL/0MfGmGMViq9a1p/31DlEPiOsfTkVuIpRIpQK3HrUBcNJfYw5rOz5uBB/zBFBq4
-	 4llyj1LZy9cQJr/cLrvU3nUwy2nWr4Lw0qKBlpZxTYXd7j8sGyYkh7PaHoia3TW3vv5j8
-	 PVBk/MD8Ho/lIJjn/pJu7X2iKWGH+rmSfWJCT7hWXm80TmXvBQQxOx6IRMu1XhMHrpotr
-	 mswkzeW+a8zXOx38SbihionG6hkMaQhzhucjdHrDCY/32SXNIavFUWIBRHeKltEL7nsL2
-	 teDRC7R/u2VVYF1K/gzgumSI6qHgbgM4tXer+OhXn2Lqv7jCcSVlOGjMrqq/VHrPE5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793375424;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=6zs7KIdtqObt3G5F3sKpbT+49YyGEZ76NLVtZ95Ea20=;
+	b=xwuF7EBf7kKRRmyWP4PeOQHynVkRZlGZ+IfW0r9gQOryRZcHbgn8taWe6XcBa+xKBsCP
+	 YfTnlF51wRcBj7n1zxjUPlMJOQ/kAwFi1ZhbOVciuuTyKBsoYFZ5HRnjyOzWFON77tzTb
+	 m0/OWd/e3GTWa6bm12sMJJrnmyIvfmkkyQa9OEwsp29Cc/Keg9eMhGlj4vYkF4JYvAqZx
+	 PeCOvongJ4TDTWilk92LOGS4UKCbQqSsWwNts4BWBneTp523705fBX07TiBMpcu8ksylm
+	 /xAARm9flRFnlCKa46iqdeDda3UWbS1UVHJv6zN9uKQQKApTaxNaeZImus3zwGVBXcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjsQIk0I;
-	arc=none smtp.remote-ip=74.125.228.6
-Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Il8+Wfdf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F750606A327
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F750606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6472C606A31C;
+	Fri, 30 Oct 2026 15:50:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjsQIk0I
-Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd8cb23d52eso421116a12.0
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:49:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793375348; x=1793980148; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
-        b=HjsQIk0ITG7q8guMBxqFHFsECZy30VQbxjEJ2NmMCXdkdDWLTQHQ24VH+fluq1N6JE
-         z+kjKcHuearmgOe2xOLYx+LA0iWAcQDxJ3kCfaER8N79zPEGsHUTBHlQ5d9C9W9sbVAS
-         7ctHtlZIi0SUwufe0C/QpNZwiRCmO7lpuHdlQBwXXarUCCeNXI21U9th+pFyKz2luU/8
-         Q8G+wr/FFAdicTFOx8PAbBKHUwprCMXPywThqzPIHxaK08tTqgEVYhFhslkWcjGnho5D
-         7qf6v+xFg4OOHscQYVzoqba0ms9/afxXu5NVaVUuFnBFlftBB/t5d/dI0NEqSLiV3Lmm
-         byvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793375348; x=1793980148;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XeWdEKJNRx847la4OpQ8xK5JYD/W25iZBdkd3AUui+w=;
-        b=yTh+qxJheUXq17rIvfryR0uUSwinhxYyMkuIVUgPoGOaxiS0vN2VrezqcGZrtRkGOW
-         jGKkpVu6SIYU1SvC1m+FWW0zmLOZB8277GrYiyMXLmRrmE1Rsozw9JrBiFwNrnskvdUa
-         D12k6So9/zT/SqZ5wBHfjv8FDchBM+MbUANl2LrHxgG8aZT70Fdt9NaM19addd2aSJJb
-         XURV6vMqKu025+MRd/4cEMBpMJyx4qfOwB4YdZa9mAEd148QfkwYZTM5fhvQPpvD+8ZP
-         SPhh9lljen7Oox0o732HDz28QJv7BEHgVH2pKzNaX9uaa48Dwv1vDvaxt9ZBlslaFTFI
-         /gcg==
-X-Forwarded-Encrypted: i=1; AKwUvBztD1+uwVWx3o1LuMOMCv6biMYFU5iH/f4nFJHGbVCM4Iyb1OYzTqZ6xT4IElqijvEN1tQQcjA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLZ80aUwAgHN6XogYPSptC6U4ojPKnO/OhF2VBMy8rjx0gwIGr
-	MYtoWMTkZXfv0q4KVGLQmcnRd3JND/xAxyZZM4OeEcDb7tXhYNhMTtfI
-X-Gm-Gg: AYBFou1sjmpf+0ANJJ7AvUVhlr1hYWozo+scFGtrAwcJLExrwzxEDYckmFkpUfiktS3
-	xsZCTiYkNCK81+ZIopMHCpVttM9Bjti3k7AashJMlf88Qi74l4zngFXMiEjrLhmTJOyDBjDHMkE
-	BNpM6FgUe5G1eKLrcq7u1dLq88uj1AYryBehXG+6zSdoZPEjwXuqpWv2VtYeXzZ5Kg83OnDk62N
-	jqoBpjvhzS1zeDhQJiaJwdSo+l/JdS+D+uRg3UFF9/G3JzqiX26QKGszz/yia8XLx0r9wHaCLpe
-	N8Ctcqkr0qhE6ujXmxldzfuPSdcirDJUOqhbhU0+0e1l5fn6dZKmoQDQA8OUINLB/86bdnCOn+x
-	U6EC4/jr6vgdBbtZyAYYu6qHbQu+N6PMUNT+OaYF0Rp37Zg9SFCgWaZ5aEL8+jRoKtJyoFHOwsF
-	jv7yr2TPx2VMrPqvrr/e8diXsNj3jk6VpmH/+TT5D1bcjnz+2YWqlZ24tD4vlYVDuLI7QMHPqUs
-	SXAT/BG3QkyvLjqIcXVSyldvb+hkugdjepIulnvCbyS+m2eCy43KBl/GDwqsD5L907UTHYo6jlx
-	ks8kPxnwl1srcyWghBng4TM=
-X-Received: by 2002:a05:6a00:3a19:b0:880:fe7b:bc56 with SMTP id d2e1a72fcca58-8a9bf90d0b5mr2497234b3a.50.1793375347794;
-        Fri, 30 Oct 2026 08:49:07 -0700 (PDT)
-Received: from localhost ([2a03:2880:9ff:70::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d0259fsm181732b3a.21.2026.10.30.08.49.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:49:07 -0700 (PDT)
-Date: Fri, 30 Oct 2026 08:48:55 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Bryan Cochrane <bcochrane@google.com>
-Cc: Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] bnxt_en: Take RTNL before netif_close() when
- aborting FW reset
-Message-ID: <auS8YWtAoDROqY_k@devvm16445.scu0.facebook.com>
-References: <20261029032832.1511180-1-bcochrane@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Il8+Wfdf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12171F000C1;
+	Fri, 30 Oct 2026 15:50:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793375424;
+	bh=6zs7KIdtqObt3G5F3sKpbT+49YyGEZ76NLVtZ95Ea20=;
+	h=From:Date:Subject:To:Cc;
+	b=Il8+WfdfaPZAgRcR1lfjO5no/kPmT1KOA9nhDrRqXG2GUPhhA7WT5QNAni65luq11
+	 F5aIvUSDBWUcEc/gM7vwlJebdqyhEwjOt88ErqE9/6SF4aRTjACQXhk8PJy5PG0hCG
+	 W901Yn/YUJhvhyx2SQ1FvdWUg2cqxFUjWTxl/Ch1VOYJyeG5Q7wsj+VstbDbfs8Cqo
+	 aeKqHtFyt2FjDW/MwmQ1mRdvh5gaUgNJHU5EZC0qHP391bhSsFkLvZHFZkfDejiTnP
+	 xo6Nfk0JF1N9TciSHmq7hHMg706Va/6Uyzm8EfNkapo5c+Ut5vC/aYUN6SuvRUyLsq
+	 tWDajir5fK+fg==
+From: Christian Brauner <brauner@kernel.org>
+Date: Fri, 30 Oct 2026 16:50:07 +0100
+Subject: [PATCH] ns: don't add init_ipc_ns and init_net without namespace
+ support
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,66 +53,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261029032832.1511180-1-bcochrane@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-work-nsfs-init_ns_tree-v1-1-7ec0adb47c54@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBBFr1KydiSJ0oVXESlJOrGjMJWZWIXSu
+ 5vY5fv891ajKIRqLt1qBBdSmrmCO3QmTYHvCDRWNt763tmThc8sT2DNCsRUBtahCCKMCV1IeO4
+ zelPll2Cm7z98ve2s7/jAVFqtPWJQhCiB09SmJetxN7btB81HGOKWAAAA
+X-Change-ID: 20261030-work-nsfs-init_ns_tree-dce1ace46fe2
+To: linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ kernel test robot <yi1.lai@intel.com>, stable@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4035; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=CmeNgtalbAc+JOBUPeLqNAYbAsC85B0PiD2APD63NlM=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ92bOn9dQzRX+ZN+5sS00EXsxYGJkTt2p3i67p+QVuF
+ ozmC/R2d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAExkTjcjw68ivlQvqdPyO36c
+ nfr+xxmXwo/n7tTvujW/LX668+egFUsZ/lmlKDxULRdbfPA9+/TlagV61vO4E08u7hX45VHAEuw
+ szgcA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On 10/28, Bryan Cochrane wrote:
-> netif_close() must be called with RTNL held in addition to the netdev
-> instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
-> and NETDEV_DOWN notifier chains it runs rely on it for serialization.
-> 
-> Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
-> replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
-> bnxt_fw_reset(). That is sufficient for the paths that only tear the
-> NIC down internally with __bnxt_close_nic(), but the abort paths close
-> the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
-> path in bnxt_fw_reset() calls netif_close() directly. Those now run
-> without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
-> aborted:
-> 
->   RTNL: assertion failed at net/core/dev.c (1740)
->   WARNING: net/core/dev.c:1740 at __dev_close_many+0x1be/0x1f0
->   Workqueue: bnxt_pf_wq bnxt_fw_reset_task [bnxt_en]
->   Call Trace:
->    netif_close_many+0xb5/0x190
->    netif_close+0xa2/0xd0
->    bnxt_fw_reset_task.cold+0x8d/0x213 [bnxt_en]
->    process_one_work+0x19d/0x3a0
->    worker_thread+0x1af/0x320
->    kthread+0xe3/0x120
-> 
-> followed by the same assertion from call_netdevice_notifiers_info(),
-> fib_rules_event(), inetdev_event(), rtnl_fill_ifinfo(),
-> devlink_compat_phys_port_name_get() and ip_mc_down().
-> 
-> This was observed on a machine in real use with a BCM57504 (4 PFs,
-> FW 236.1.153.0) running v7.1.6: the firmware crashed, announced a
-> "Fatal firmware reset event" and then failed to come back within the
-> advertised max wait, so bnxt_fw_reset_task() aborted the reset on all
-> ports:
-> 
->   bnxt_en 0000:c1:00.1 eno16905np1: Firmware reset aborted
->   bnxt_en 0000:c1:00.1 eno16905np1: fw_health_status 0x448100
-> 
-> Take RTNL (before the netdev instance lock, matching the OPENING state
-> which already uses rtnl_trylock()) in the fw_reset_abort path of
-> bnxt_fw_reset_task() and route the POLL_VF abort through that same
-> path. In bnxt_fw_reset() go back to bnxt_rtnl_lock_sp() so that its
-> netif_close() error path is covered as well; bnxt_reset() and
-> bnxt_rx_ring_reset() already take RTNL from bnxt_sp_task() the same
-> way.
-> 
-> The bug was found by inspecting the kernel log of the affected machine
-> and the driver source; the fix was prepared with the help of an AI
-> coding assistant (Gemini based) and reviewed by the submitter. It is
-> build tested (allmodconfig with W=1, plus the same change on top of
-> v7.1.6 built as a module for the affected BCM57504 host). The aborted
-> reset path itself only runs when the firmware fails to return from a
-> reset, which could not be reproduced on demand.
-> 
-> Fixes: 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bryan Cochrane <bcochrane@google.com>
+When CONFIG_IPC_NS or CONFIG_NET_NS are turned off we still add the
+initial ipc and network namespace to the namespace trees. ipc_ns_init()
+calls ns_tree_add(&init_ipc_ns) whenever CONFIG_SYSVIPC is set and
+setup_net() calls ns_tree_add_raw() on init_net whenever CONFIG_NET is
+set.
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+But without CONFIG_IPC_NS and CONFIG_NET_NS these aren't namespaces
+userspace can do anything with. They don't have proc_ns_operations so
+there's no /proc/<pid>/ns/{ipc,net} for them, nsfs_fh_to_dentry()
+refuses them with -EOPNOTSUPP, and since ns->ops is NULL
+__ns_tree_add_raw() doesn't add them to the owner list of init_user_ns
+either. So they end up half registered. That's also not how we treat
+any of the other namespace types. Without CONFIG_UTS_NS, CONFIG_PID_NS,
+CONFIG_TIME_NS or CONFIG_USER_NS the initial namespace is never added
+to the tree.
+
+listns() walks the unified tree and calls is_current_namespace() for
+every namespace it finds via may_list_ns(). But is_current_namespace()
+only knows about CLONE_NEWIPC and CLONE_NEWNET if CONFIG_IPC_NS and
+CONFIG_NET_NS are set. Otherwise we end up in the default case and its
+VFS_WARN_ON_ONCE(). Any unprivileged caller can trigger that with a
+plain listns() call:
+
+  WARNING: CPU: 0 PID: 526 at fs/nsfs.c:508 is_current_namespace+0x12f/0x440
+  Call Trace:
+   legitimize_ns+0x25f/0x4c0
+   do_listns+0x185/0x5c0
+   __do_sys_listns+0x13b/0x300
+
+Instead of teaching is_current_namespace() about namespaces that can't
+be opened, only add the initial namespaces to the tree if their
+namespace type is enabled. Move the registration of init_ipc_ns into
+ipc/namespace.c which is only built with CONFIG_IPC_NS. That also fixes
+CONFIG_SYSVIPC=n, CONFIG_POSIX_MQUEUE=y, CONFIG_IPC_NS=y where
+ipc/shm.c isn't built and init_ipc_ns was never added at all. For the
+network namespace only call ns_tree_add_raw() if CONFIG_NET_NS is set.
+Without CONFIG_NET_NS cleanup_net() isn't built and init_net is never
+removed so there's nothing to balance.
+
+Fixes: 74b24a582e1f ("ipc: support ns lookup")
+Fixes: 195f7422298d ("net: support ns lookup")
+Reported-by: kernel test robot <yi1.lai@intel.com>
+Closes: https://lore.kernel.org/oe-lkp/202610260917.6248e316-lkp@intel.com
+Cc: stable@vger.kernel.org # v6.18+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ ipc/namespace.c          | 7 +++++++
+ ipc/shm.c                | 2 --
+ net/core/net_namespace.c | 4 +++-
+ 3 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/ipc/namespace.c b/ipc/namespace.c
+index 75aa7b469348..b54d23fd83d7 100644
+--- a/ipc/namespace.c
++++ b/ipc/namespace.c
+@@ -255,3 +255,10 @@ const struct proc_ns_operations ipcns_operations = {
+ 	.install	= ipcns_install,
+ 	.owner		= ipcns_owner,
+ };
++
++static int __init ipc_ns_tree_init(void)
++{
++	ns_tree_add(&init_ipc_ns);
++	return 0;
++}
++pure_initcall(ipc_ns_tree_init);
+diff --git a/ipc/shm.c b/ipc/shm.c
+index bb1a721a3e74..cbab3d16cf70 100644
+--- a/ipc/shm.c
++++ b/ipc/shm.c
+@@ -45,7 +45,6 @@
+ #include <linux/mount.h>
+ #include <linux/ipc_namespace.h>
+ #include <linux/rhashtable.h>
+-#include <linux/nstree.h>
+ 
+ #include <linux/uaccess.h>
+ 
+@@ -149,7 +148,6 @@ void shm_exit_ns(struct ipc_namespace *ns)
+ static int __init ipc_ns_init(void)
+ {
+ 	shm_init_ns(&init_ipc_ns);
+-	ns_tree_add(&init_ipc_ns);
+ 	return 0;
+ }
+ 
+diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
+index da5f881fbd3b..52c2bd44778a 100644
+--- a/net/core/net_namespace.c
++++ b/net/core/net_namespace.c
+@@ -447,7 +447,9 @@ static __net_init int setup_net(struct net *net)
+ 	down_write(&net_rwsem);
+ 	list_add_tail_rcu(&net->list, &net_namespace_list);
+ 	up_write(&net_rwsem);
+-	ns_tree_add_raw(net);
++	/* Without CONFIG_NET_NS init_net isn't exposed as a namespace. */
++	if (IS_ENABLED(CONFIG_NET_NS))
++		ns_tree_add_raw(net);
+ out:
+ 	return error;
+ 
+
+---
+base-commit: b44341e39d856e4cc6ad8ed94ebffd440f39846c
+change-id: 20261030-work-nsfs-init_ns_tree-dce1ace46fe2
+
