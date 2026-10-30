@@ -1,47 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793350692;
-	b=4uKy/vVHOiP+U+uV0eViIK3R7t8m1ZCdYXaORRW2F2d/t5K7u3CTUMAqOActAX3ccRWw
-	 /yXKVhQRgBqnv8oeQBt2WxZEqtFiF4okWsDGiZn/XPVaDCjMCbgzAn/eQEGmh4x64s8VD
-	 NZM58Kzg9ykjlcxZEJOkiFo3+hZyKWtcV1n9hlprFc1eIEupCZqhVAazfKM0KYKm1aNvd
-	 TRi/hkwQkD00dLwW9mcmv1tqrYpEPvkwVn5OzsmieDBmBi9XzqWo+HozlSlHP06/ITqNO
-	 B7/U6kmX3rEZKmsxMajtFPoJTM1/UVcYVcnUKVv6SM7zszoDQLrnYASWkfCoY+GouMw==
+	t=1793350939;
+	b=Orcr4oznAECN7rDPxYfPRrNsIc6OHKd00ggW0nJZ/rkgni235qslu9M5beoQ7wLYqrxm
+	 Bl/Ao5EByPORBrGXQPs0vL506H6jMVRraRAz4V5avDR1PukXYsXBRBhvTmD0sIZyB0ZjJ
+	 mGL1k4TGkkU/y3o1lUdE1lqA9O3NCEAGnTsgmfUMdA3wyWaqcJWXTAR9HRxl1S6FTYDiD
+	 oxOABMMIV2tl1mO+mzbvt8MgoBegG7RIGHv6XRirA6q/LvrYS+4lV0qcXQepqcWxTvxMr
+	 7b2pSTvfmI0kqS6+lgl5WIANZIyXtHa5IbrwX8VrnjUoyDT/8JBAgL2z+J4Vp/vxWbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793350692;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=r280hiRf1n6xtUd8PrDvA2MR0wI6dZTEfLDR+8JhqFg=;
-	b=IlxevbJeZ//FsCyfG9q70i6SzEY5kGuEV3ckY9kJw08zCc/1TVdtUw4xgYEvBmjV0ouv
-	 07fYVetZENI3B9J3Ya9KMkrPeknHvmNWKOrlVcfz/I4zf/A/G2AnWtDrdyehjzDWcs2VW
-	 xd1VCMXNY6ghCBOYYBudvWSW+I+7a5Li4B6Ha6xw0gwJRvlvhjVYnAfj4XAZII8+UoOqc
-	 webATPNI4Aom4N/Zh9mqcZvRx6ghQsTX3f+p/ig+bTOHOwsqx3wJbyXu/QQ8OjxoQ4g+D
-	 b4/0jwfkEwocw8hb9530IbVUvoub+wiKHTVOdG21YVZ3BoEDTzCNEErKE8cCg7ep3gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350939;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2Mihb4OPZBic55UeIz2xeg7uf8TjtjfwKjVCpWgCi8w=;
+	b=dSm+wWEhGMmicBUM7PHi7T2NMBdIQUvl7GE/e36DxSchtEuYftv+TDvamep1FEFiEMup
+	 SrYTaCBF59Nz3kSf4L6LO7jNU76FUkCmdZP0xSidPBQ4VuJ76IZragJNkgBXAM3p0oyeK
+	 S8qOkF1ldvrXlHoheRb1ZL5/md6zC5WARKwk/j51OV9dq2h62tyC6xps+Vi+IotjnUuh8
+	 QPtoJKL7zN0JEW5lULCp6OWITVoqdhQE9k7KlSQyuN30WVZ9fgxsFUHe4+MaYtobIDV3l
+	 530MmQHjCUaSp6EFx5U6Z3FZkY/j5NVjJEvngycci2vmBbviyRaLgzFvpayEU14DfuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Exq5Sp7z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b="dbg1/IxO";
+	arc=none smtp.remote-ip=209.85.160.171
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE80606A31D;
-	Fri, 30 Oct 2026 08:58:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0586E606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:02:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0586E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Exq5Sp7z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AABA1F00A1B;
-	Fri, 30 Oct 2026 08:58:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793350692;
-	bh=r280hiRf1n6xtUd8PrDvA2MR0wI6dZTEfLDR+8JhqFg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Exq5Sp7zAbqNuqGv6NplKuvdr/nF4Y3VmHgtgpTLaZbU9Jx+zMmy9hxCvaaN31rRH
-	 OXAH49p1efwmh9zrCzsYf1pFWirOHcKauQ7DZ6dnzldnZcaI9rAnWgsVclPTmFxOIu
-	 wqwyFVvJv6NJhGAUPUhuQGODdeljpPlxdAz0GS6+RF7DFvAR8XjS0lo7BevGFn6/wJ
-	 mz7quZWteNXZVRLTrgNo935jT8qWHudzcdV+n3P8+A+zxNy3fWJsf+evbdLNaUs2HL
-	 QSaYI8xsJc88Guj1G+FbrjZM0Ugyi4eqJFZMlH5Wi31jHqemR78BtdXpdRcXqF0es3
-	 ai1bGZuOgGUDg==
-Message-ID: <6086c386-3903-476f-ba55-bd6c21072f72@kernel.org>
-Date: Fri, 30 Oct 2026 09:58:05 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=dbg1/IxO
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-53512cd2f85so5793601cf.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:02:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1793350932; x=1793955732; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2Mihb4OPZBic55UeIz2xeg7uf8TjtjfwKjVCpWgCi8w=;
+        b=dbg1/IxOZ96hc3CHweDCGa5yfW18aW/qdKsZ36dESwYy/4+LqKm2LjwafpEoenOP3L
+         KBnEKqqo78/1KSRUzRUK6zksH0nLRI638ih3w+LnUILAhwxqz1/TnX/HJXnll5CkPT0E
+         U2qRG9IaXl1/2fITjEbMrYdEfGo1kLQgziGPtHlCDUYOwQCLdgBix8QuBT10F7jH9iso
+         ZcvTyx7jmmrTYaxKJABa96QcNO9gFYVjRxOuoDk/eFUDkcNpuM4ABcgYI8ulSSXsGe3y
+         yaGjTjAcpSJMroXXHfANtFep8YfXmGERoHVZiEr34KvHUcBixyM7RxLaL4tZ9EsNX0Mh
+         kqrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793350932; x=1793955732;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2Mihb4OPZBic55UeIz2xeg7uf8TjtjfwKjVCpWgCi8w=;
+        b=lDyCbhrI2Xxi8Hu0HnXW56qS7VAuiNetdsvnXpW/gpNsavURQ2PIJKSNHK1aWyzsft
+         9h3e3b9Xa3Y/A57hzUqygblDRvVkxZQ7qC0t9TCx6yLjCViD/jyOs2GdcKzrrgIewFu3
+         dka1PxxhSilEflLDkAeOc7deCJXSFPT9RolYkMi7ci43RQazq5QYyK/jYBdfyxv/5QYU
+         w1BnPzxBph2YDZPHa9iL7agSZddQmYGcb9lQ9SEubM6UTQ1812WzN9xfT7LpQzONxeBJ
+         HCBiBjuDUz3xqFUF7HJKd61gONYr/lJSr1+b/+JA/fRASEyzy/tekKATkgHGvqOHjeCY
+         8a8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxzo1iulhAo/mhMi16jIHrDydXOEMjy0AYyRA5AYgicta2EvA1SJrV/7KkH9SHe6gf3a/wBbVU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvvfWyn2UsbhnjOMPreJbZY0Q1ayWNAui6WbjpY3rzL5OvMFAH
+	DxzOMwj4IFS8/z5UwYjQ8G9zNUQgECIdfCtnQujdFnL3H3cYJXJ9Lyc9ME9Ko4PwopoSd7hmg3b
+	So6UOrA==
+X-Gm-Gg: AYBFou2jUKEPPYJQaYAcAj17X01mh8+B9hRdLIkIId2+QYSU8LTaLEmvpOjCNZPww2L
+	QrkaXkElp4IIiOzJubmOFDlkni6YzRcUZfw64sw2968JiBxm2XNXmdzKYvFcambhKEUmQNBr/Uy
+	FBXmpBHwxRnhZGpzHooy1DWwqeaCbXgXWsvj1t3g0jaBaaOuGX0kz8swoGUjDR3lSJscIfXekl0
+	edQ8AzvenTS/lbWxG3Yb6imhuqutRaD4zFFvrlHGPZwoC5Z6zFQKsGgNdPKCp18FAq+x7jKNIAo
+	6tc6nPlMuNR5p3lVmW1SCdN9iBRmqJrG6fFxjZVrv6CsfmUE+26ZCx6JDiIe7UkifigGvP7+mdn
+	quNNj7VnR4wMM8wzGkqT8Ws3cGtFlCuqQIVOCLrkPaG13UuI/7guikGgcaJoyULOxWe/CnciESP
+	hv6tHZAloNuGP4d/T3+yOa1eFCLCa6xANuOdpxk+9ORuvdfb0FcOCaN2OFw0vpyK5ufTZm+ra1k
+	aEVhM5VHrLQrE98pAcn8wO1xyKIJGbUXMLy2TNrFmxsXklDcRcyJQFGIWd2fNGtqdT7CC5hF7xg
+	tNdT03iD1GHdUZ1L6bsSlGSL/PJqA4USZJUDui1RKq5KTz2Qknvd
+X-Received: by 2002:a05:622a:408:b0:536:2fd8:a4d8 with SMTP id d75a77b69052e-542b6689ab9mr23251791cf.15.1793350931563;
+        Fri, 30 Oct 2026 02:02:11 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54313234047sm8404251cf.28.2026.10.30.02.02.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 02:02:11 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: hirofumi@mail.parknet.co.jp
+Cc: brauner@kernel.org,
+	technoboy85@gmail.com,
+	teknoraver@meta.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] fat: check for hidden entries before overwriting end-of-directory marker
+Date: Fri, 30 Oct 2026 05:02:05 -0400
+Message-ID: <20261030090205.279419-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,157 +99,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with
- multiple ranges
-To: Tim Chen <tim.c.chen@linux.intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>
-Cc: Frank van der Linden <fvdl@google.com>, Mike Rapoport <rppt@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Mohini Narkhede <mohini.narkhede@intel.com>,
- Pooja Jain <pooja.jain@intel.com>, Doug Nelson <doug.nelson@intel.com>
-References: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/29/26 22:21, Tim Chen wrote:
-> sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
-> per present section in [pnum_begin, pnum_end), and
-> sparse_init_early_section() hands them out in order, with a BUG_ON() when
-> they run out. hugetlb_vmemmap_init_early(nid) however initializes the
-> sections of every bootmem gigantic page on the node, including pages
-> outside the range being initialized. If a node's memory is split into
-> more than one range, sparse_init() calls sparse_init_nid() once per range,
-> and this takes more slots than were allocated. The same happens if a
-> gigantic page straddles a node boundary.
-> 
-> For example, with this SRAT layout every node has a small range below 4G
-> and a large range above 4G:
-> 
->   Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
->   Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
->   Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
->   ...
-> 
-> In 128 MB memory sections (x86_64 SECTION_SIZE_BITS = 27), node 0's low
-> range is sections 0x00-0x05 (6 present sections) and its high range is
-> sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
-> sections, all smaller than the 8 sections of a 1G page.
-> 
-> Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=1G
-> hugepages=400", hugetlb_vmemmap_init_early(0) then initializes node 0's
-> 1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
-> the 7th section hits the BUG_ON() (seen on v7.2.6):
-> 
->   kernel BUG at mm/sparse.c:268!
->   RIP: 0010:sparse_init_early_section+0x9f/0xb0
->   RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
->   RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
->   R10: ff252cb28ffb3d40 R13: 0000000000000d00
->   Call Trace:
->    hugetlb_vmemmap_init_early+0xe1/0x140
->    sparse_init_nid+0x56/0x370
->    sparse_init+0x192/0x2b0
->    free_area_init+0x7f/0x690
->    start_kernel+0x64/0x540
-> 
-> Here RDX is the section number, and R10/RDI are 6 slots apart: the start
-> of the usemap buffer and its current position, which is the end.
-> 
-> Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO a
-> page whose sections are all present and within it. Ranges are disjoint,
-> so each page is handled once, in its own range.
-> 
-> Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
-> regular memmap from sparse_init_nid(), and the pages are optimized later
-> by hugetlb_vmemmap_optimize_bootmem_folios().
-> 
-> Fixes: b1222550fbf7 ("mm/hugetlb: do pre-HVO for bootmem allocated pages")
-> Cc: stable@vger.kernel.org
-> Reported-by: Mohini Narkhede <mohini.narkhede@intel.com>
-> Tested-by: Pooja Jain <pooja.jain@intel.com>
-> Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
-> ---
->  include/linux/mmzone.h |  9 ++++++---
->  mm/hugetlb_vmemmap.c   | 38 ++++++++++++++++++++++++++++++++++----
->  mm/hugetlb_vmemmap.h   |  7 +++++--
->  mm/sparse-vmemmap.c    | 16 +++++++++-------
->  mm/sparse.c            |  2 +-
->  5 files changed, 55 insertions(+), 17 deletions(-)
-> 
-> diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-> index 94f9c3ff54160..da17dae8b057b 100644
-> --- a/include/linux/mmzone.h
-> +++ b/include/linux/mmzone.h
-> @@ -2167,13 +2167,16 @@ static inline int preinited_vmemmap_section(const struct mem_section *section)
->  		(section->section_mem_map & SECTION_IS_VMEMMAP_PREINIT));
->  }
->  
-> -void sparse_vmemmap_init_nid_early(int nid);
-> +void sparse_vmemmap_init_nid_early(int nid, unsigned long pnum_begin,
-> +				   unsigned long pnum_end);
->  #else
->  static inline int preinited_vmemmap_section(const struct mem_section *section)
->  {
->  	return 0;
->  }
-> -static inline void sparse_vmemmap_init_nid_early(int nid)
-> +static inline void sparse_vmemmap_init_nid_early(int nid,
-> +						 unsigned long pnum_begin,
-> +						 unsigned long pnum_end)
+Since commit 6a2875517c77 ("fat: stop reading directory entries past the
+end-of-directory marker"), lookup and readdir stop at a slot whose first
+name byte is 0, and fat_add_entries() reports corruption when its scan
+finds an allocated entry after that slot.
 
-Two tab indent please in all cases here that you are touching, thanks.
+The scan stops as soon as it has enough free slots, though. When those
+slots include the marker, the new entries overwrite it and the allocated
+entries after it become visible again without being checked. A name that
+lookup could not find can then appear twice in the directory, and removing
+one copy leaves readdir listing a name that stat cannot find.
 
+For example:
 
+  mkfs.fat -F 16 -C fat.img 32768
+  mount -t msdos -o loop fat.img /mnt
+  touch /mnt/aaa.txt /mnt/bbb.txt /mnt/file1
+  umount /mnt
+  off=$(grep -obUa 'BBB     TXT' fat.img | cut -d: -f1)
+  dd if=/dev/zero of=fat.img bs=1 seek=$off count=32 conv=notrunc
+  mount -t msdos -o loop fat.img /mnt
+  touch /mnt/file1
+  ls /mnt
+
+lists file1 twice.
+
+Before using free slots that include the marker, scan the slots up to the
+next marker and take the existing corruption path if one is allocated.
+
+Fixes: 6a2875517c77 ("fat: stop reading directory entries past the end-of-directory marker")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Tested on x86-64 KVM with KASAN, comparing mainline at d89e1d186ec9 with
+this patch:
+- The example above: the base kernel creates a second file1, which is
+  still there after a remount. With the patch, touch fails with EIO, the
+  error is logged and fsck.fat only finds the dirty bit.
+- vfat, three-slot create whose free run ends exactly at the marker:
+  the base kernel exposes the hidden file, the patch returns EIO.
+- vfat, one-slot create that leaves a zero slot after the new entry:
+  succeeds on both and the hidden file stays hidden.
+- Valid directories on FAT16 and FAT32, msdos and vfat (creates, deletes,
+  renames and mkdirs, then filling the root): the same entry counts, ENOSPC
+  on a full FAT16 root and no FAT-fs messages on both; fsck.fat -n exits 0.
+
+ fs/fat/dir.c | 34 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/fs/fat/dir.c b/fs/fat/dir.c
+index 35bdb62944a2..ab99d53a719a 100644
+--- a/fs/fat/dir.c
++++ b/fs/fat/dir.c
+@@ -1318,6 +1318,32 @@ static int fat_add_new_entries(struct inode *dir, void *slots, int nr_slots,
+ 	return err;
+ }
+ 
++/*
++ * The free slots chosen by fat_add_entries() include the end-of-directory
++ * marker.  Once the new entries are written over it, the slots up to the
++ * next marker become visible, so make sure that none of them is allocated.
++ */
++static int fat_check_after_eod(struct inode *dir, loff_t pos)
++{
++	struct buffer_head *bh = NULL;
++	struct msdos_dir_entry *de = NULL;
++	int err = 0;
++
++	while (fat_get_entry(dir, &pos, &bh, &de) > -1) {
++		if (de->name[0] == 0)
++			break;
++		if (!IS_FREE(de->name)) {
++			fat_fs_error_ratelimit(dir->i_sb,
++				"allocated dir entry found after end-of-directory marker (i_pos %lld)",
++				MSDOS_I(dir)->i_pos);
++			err = -EIO;
++			break;
++		}
++	}
++	brelse(bh);
++	return err;
++}
++
+ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+ 		    struct fat_slot_info *sinfo)
+ {
+@@ -1351,8 +1377,14 @@ int fat_add_entries(struct inode *dir, void *slots, int nr_slots,
+ 				nr_bhs++;
+ 			}
+ 			free_slots++;
+-			if (free_slots == nr_slots)
++			if (free_slots == nr_slots) {
++				if (saw_eod) {
++					err = fat_check_after_eod(dir, pos);
++					if (err)
++						goto error;
++				}
+ 				goto found;
++			}
+ 		} else {
+ 			if (saw_eod) {
+ 				fat_fs_error_ratelimit(sb,
+
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
-Cheers,
+2.53.0
 
-David
