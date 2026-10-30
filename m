@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352007;
-	b=oV9YIyDXctRvW+bCxsqMX4d+zaNEv1tmeC/wZBLTXsXm+MFGVNuLYP6V6J9r8kV3AWah
-	 W43v4xp+Vdz9BiMvhHl+1HFP5qW/L2QzsOrIYlu+JZaV1pptsNZfS8s7sx0cVzaUQW9yu
-	 x0GBKTU6MoV1q8UmA528AGiR4xRKcsOedxQdQZ+Kt8jJ1LvvtKuBRNoRgimn1WASfZMnR
-	 d4aPhL0nj+YyVYTcSF8mprZpCfx6O6l3HUamP/1fY/6TNXqExUSPTOLyros2JtqmwZQ+O
-	 7RqdnSuqXPBqqOIC/YeIHJkU6XmiQorlwZAZW3bLCyI49uLP0Rbzu/8tiKjPpwQKM8w==
+	t=1793352108;
+	b=u41BirjzJWr/X47T+MGbrzm+5sdTOR2KPr9yjdwsKR82mndv5+jGr279z0RiykvTVAMD
+	 SeKioqZn7vJbm3UAnKKaDh0L/8hMHK55DJ+gZnnyFHM75va9Ia7xFM2XclPsA6N8tiWpL
+	 YfDcUEvAeNOmppdzLVjRtOAktgViGqjL7A6ydxeeWX21L21mB3EB2zj5wWoAQY5/b1TUi
+	 2oLJi7m6i6VClQ2JbbF+zgxqF8SK4wfztQPNmROw9Zi4KcCZ7PyJ7eNbOt4HM8O+FAoFU
+	 NFiFSSX8e8nJKH0coto9zi50oEWH9TO4cteRRl1EF99HvAGPLsvsNIEhqME3b9L4i7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352007;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=wMjH5QFfbXjou1hlcW2es2kuGLk3Uu/YVisNAb4ULls=;
-	b=HHj7SnDBJtv7rSzOVksq/RXze3UgoxQ9b/PLRykH0K153RMoWGK4h4Cw2KD3x2ShAkMg
-	 0FB73YUQNuLZVmgn1gCfOTNzNAqsEZfmlOh5BaFffm6g5GMaLYO0N8IDVfTNLXnVXx4SK
-	 /VcZxb9WbHL3eYN0yHscPSt61On0q3zFH/ztdtuUW5jAboOnHS3J3tjUSHzhure3m1l9Q
-	 ecr2+4kviNoEYBCniH0cF6Q4pYtYtZRcHV7vOkT76sKFHSOu/rJzGsSFRrfCV13/LHELw
-	 on5+6/y400CNgy35Q5+ubE7vwXdpPso/ZNMo18d4Gh84pqwr60+8mK02vvQLo14tv/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352108;
+	h=DMARC-Filter:DKIM-Signature:X-Mailer:Content-Type:References:
+	 X-Original-From:Date:Message-Id:Mime-Version:Received:In-Reply-To:
+	 Content-Transfer-Encoding:From:Subject:X-Lms-Return-Path:To:Cc;
+	bh=lDH6CZonHxdY1g1ae5yoOdLp2lZlZBIVpWVUaxg2sgg=;
+	b=L0B0P/lYv/ODZtz2yeHnUDOmvkxqIfKOu5D3xOXU7pHrtFt9k/hRF0OM8RKZ3Rr9KTLh
+	 uAwI/XtNP9vKBs2a62Ngwafdi3oZYlKlccBtorh121uZA2cvpEHPsWxSdaOBiTzLM3KHx
+	 GoDDr/WV1riJfgXrnK4xqK4GBMHEAcP6hr0E7CrTHI4CCwbrm5mtitvm7hDZAQkem7Ix1
+	 HCTExES3s1jpfRR5I9UEd/QJBKook7CZJlESLBbGpYEBqm7oQLcGLw3EFRrjKCBEAB6BS
+	 amQ9lQqGkwQplKNsnbEEAmGNDmrW2itfxLig2IDBFSlfYTqRHyhtU87qHiB2qD9BivA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kM2bE12P;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=fnnas.com;
+	spf=pass smtp.mailfrom=fnnas.com;
+	dkim=pass header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3I4EWibn;
+	arc=none smtp.remote-ip=209.127.231.56
+Received: from va-2-56.ptr.blmpb.com (va-2-56.ptr.blmpb.com [209.127.231.56])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1439606A31D;
-	Fri, 30 Oct 2026 09:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD1A606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:21:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DD1A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fnnas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kM2bE12P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48DCF1F000C1;
-	Fri, 30 Oct 2026 09:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793352006;
-	bh=wMjH5QFfbXjou1hlcW2es2kuGLk3Uu/YVisNAb4ULls=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=kM2bE12PJtFlNjin4JIptVk0qKzFENz2goHlmx1tOlx8SkT11h5y4WWPFe0kvZ2zl
-	 ke7U4Z3ZBiDdI0VU5rd+Aq1mRiK2fSTTp1GUTKnhvHd6GdHIn8yGf/unFxJ++eowgE
-	 9VYbtXaQQbFTTnTl5uCtWKKKY+dlGGgjSL2HWszPsGHAeTemyDwP0f1KbPodtVWR/7
-	 KCpaB83dRjnNXZU9/b6mRG+K1qzq01gfDvIJGYusRLpZ7e/K3mMeLfDR+hB2s4E48i
-	 bOXOUTVqvR4LP1ryYaQxzb8NnLkLtsqB45L2BtWEBe+z76yyHGGVrxAP/nIJQW0dcl
-	 RYx9uiFmv1Gng==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4017138007EC;
-	Fri, 30 Oct 2026 09:20:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=3I4EWibn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1793352101;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=lDH6CZonHxdY1g1ae5yoOdLp2lZlZBIVpWVUaxg2sgg=;
+ b=3I4EWibnsDdyssBoESwria4Bhkgal1tNmdbWs65gdtJDBrHP2RUbxtvhFple4e6dW8BsTM
+ YUKLgrWLg2K6xV0L7F9hhKYdQndA2Qe9HUFnaCJn6zkKIj/v42flWFchpNlrRHfivVYeJF
+ MwKq2oVYnIjmx3NVe7547wIlTQ3yY2M71egHh6dE4uh1jfX8T3rLg+RY0TkUNxd2SDwDso
+ DBAYKgSdFq5TB0G/kLQnpezQrVOwyMfp5aiBmJSamaEYwXspc+AXhfbI4AcutBsXSZEZ16
+ 89lq41dhnn2oqFeYOqQB5kIa1FT2meOhAoKclra4dk75VUTbNM0NzgGMB5rX9A==
+X-Mailer: git-send-email 2.56.0
+Content-Type: text/plain; charset=UTF-8
+References: <20261030092129.1671254-1-chencheng@fnnas.com>
+X-Original-From: chencheng@fnnas.com
+Date: Fri, 30 Oct 2026 17:21:28 +0800
+Message-Id: <20261030092129.1671254-2-chencheng@fnnas.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,45 +57,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: jme: keep RX MAC clock enabled for WoL
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179335200508.949794.12076819632653160478.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Oct 2026 09:20:05 +0000
-References: <20261024-jme-wol-v2-submit-v2-1-7a89ef6fb4c9@gmail.com>
-In-Reply-To: <20261024-jme-wol-v2-submit-v2-1-7a89ef6fb4c9@gmail.com>
-To: Franck Baur <franck.baur.67@gmail.com>
-Cc: cooldavid@cooldavid.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Mime-Version: 1.0
+Received: from fedora ([183.34.162.132]) by smtp.feishu.cn with ESMTPS; Fri, 30 Oct 2026 17:21:38 +0800
+In-Reply-To: <20261030092129.1671254-1-chencheng@fnnas.com>
+Content-Transfer-Encoding: 7bit
+From: "Chen Cheng" <chencheng@fnnas.com>
+Subject: [PATCH 1/2] dm snapshot: split discards on chunk boundaries
+X-Lms-Return-Path: <lba+26ae461a3+5fc9b5+vger.kernel.org+chencheng@fnnas.com>
+To: <dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>, 
+	<agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>, 
+	<bmarzins@redhat.com>
+Cc: <stable@vger.kernel.org>, <yukuai@fygo.io>, <chencheng@fnnas.com>
 
-Hello:
+From: Chen Cheng <chencheng@fnnas.com>
 
-This patch was applied to netdev/net.git (main)
-by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
+dm-snapshot did not set ti->max_discard_granularity when it allows
+discards, so a discard could reach the target unaligned, or spanning
+several chunks.  Set the flag, so dm splits discards on chunk
+boundaries.
 
-On Sat, 24 Oct 2026 14:40:44 +0200 you wrote:
-> From: Franck Baur <franck.baur.67@gmail.com>
-> 
-> On the JMicron JMC250 revision 03, the MAC reset performed during
-> suspend leaves GPREG1_RXCLKOFF set. Although the driver enables Magic
-> Packet detection, the gated RX MAC clock prevents wake-up from ACPI S3.
-> 
-> Keep the RX MAC clock enabled while WoL is armed. Restore the gated
-> clock state immediately after disabling WoL during resume, preserving
-> the RX engine initialization ordering.
-> 
-> [...]
+Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chen Cheng <chencheng@fnnas.com>
+---
+ drivers/md/dm-snap.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Here is the summary with links:
-  - [net,v2] net: jme: keep RX MAC clock enabled for WoL
-    https://git.kernel.org/netdev/net/c/ed9179fc7228
-
-You are awesome, thank you!
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index 31676ee05514..e49427bdbeef 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -1356,12 +1356,14 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 
+ 	spin_lock_init(&s->tracked_chunk_lock);
+ 
+ 	ti->private = s;
+ 	ti->num_flush_bios = num_flush_bios;
+-	if (s->discard_zeroes_cow)
++	if (s->discard_zeroes_cow) {
+ 		ti->num_discard_bios = (s->discard_passdown_origin ? 2 : 1);
++		ti->max_discard_granularity = true;
++	}
+ 	ti->per_io_data_size = sizeof(struct dm_snap_tracked_chunk);
+ 
+ 	/* Add snapshot to the list of snapshots for this origin */
+ 	/* Exceptions aren't triggered till snapshot_resume() is called */
+ 	r = register_snapshot(s);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+2.56.0
