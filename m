@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793345455;
-	b=3Wut59pad6z4hhb0JZXdMMthOZ0A92lGbs+Te96MSf4ONUFi+OIMaKh/NyPx0/oxEBK9
-	 GuCv/+Wevabeu6/9VeAer05VmdeHN5O2nmzsPt9GEWnl2Fqi/hbw5PozYPCvnZjqhOjHp
-	 Rfqb8RO3wiSDfYhsbalwcWqR7Grzu0SiQ57Uhvyrv1bK89hd0yUFG3r9uOIhYB8yDpuhA
-	 QXM3DZNVhxPFxXOFv7NuYvuN3Xf/unDpDv3GG0tnSb05FISUxtB2mdO3UjyiyOGptJocy
-	 FlhOEja+gGpZvOwUD0V5y3VncZ2/u+5+Vb2LpJohkrGR1Wh/8ilhW16My3W4wgGfCww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793345455;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=f6hSTVr503+xmAIVsp1Ae9a/mr3a7mKY8k2VZgMpr+g=;
-	b=OUjmbKuCUBBTCsL+BkuO9NFlNGQzcgE5Rsp5dIf7H+MCsYibZB8AY441wIZMfhEuW29k
-	 ASKzRrrY1gIejJ/wHDaWz9xLaOdwSfCnt46UIdODKhoNpIe48DGFW9oYgxZzt/4zALlVH
-	 qf+N1apQOE4x2H6zbm/3RHAZiNOdxX0aXNQLgXueUWjqR/PWKl2yga13hKia6G6darpeU
-	 FOHLFN9D6xpuP92afR/9z+9OkOSnIlzilHcxRp3VkNLeFiSwSX62gmkYyR/2vpewD+vOX
-	 NXxYv1+u2QW/NI7yp9dlLBeqD+lRObiPY3muiOpLA/8ItHpkBI5w5mkNUDKiPQ/oQZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=FdtVSnqn;
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793345462;
+	b=nLcLHcZe0a3AIATm0HbCLTCokUIm1StPMoULjh4+sR0+P7XBpe4tBXG+lPXTC/64tGlz
+	 iyfa2LuadDCFwQLqFPtaMlD/EG66zX0lwo2UEdnMaY45tLlkL+/sVacv6tLOue6ZpBbdv
+	 zCPzakVITMKtDu1rbh5uqdvZzMBA54Xer6HC7KYzRrMxEyyepprQZ8YnOMhoruD+9szff
+	 vsF1KHM2tzcN1ME0uFrc9XoUyGKLvUwCnNaN+xhMOPuHXwD7+j9a56UEckZySp5ocog9K
+	 Q/45Fk4jvdVtN15rBRy8k7DZ+n0ZCvJgN1fZ207KqkExa44KWgJjUc0gNyGltrr4eKw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793345462;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
+	b=s7rj6Frs10yZh7ljAiOnQhUhB5jPi6ANvW66ecLXWYSgcWLWK1cRuzJZ1YHdwg0bUBxG
+	 NF/Cq4GqKIBjyd9TUX0WKG0jkMqflBhSZ42g7MvYu6/a09WYnNSEw00pCdRpljc+nt/Ss
+	 HmrcSIoJXY3ON/ezZJoeC/6LcMw29WCFQ4qPUzIARDNS6ahuyQiG29HF8hyCC8RNVHZoK
+	 NT520MbdQlNbZg/NFKLLNgWhgqjE+w+AUFnGV9h7e9soyRchozMqwB+O+qoJt0bro4png
+	 Bgq3V1LukUjlWUZS/gnMCdn7BGOMj64B79HlOo/ouOj7V3srexe0Cj4EUpwyGagCdmw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYCh61Ea;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B49606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 07:30:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B49606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF06606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 07:31:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DF06606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=FdtVSnqn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793345442;
-	bh=f6hSTVr503+xmAIVsp1Ae9a/mr3a7mKY8k2VZgMpr+g=;
-	h=From:To:Cc:Subject:Date;
-	b=FdtVSnqnRtbTgkpJ97XSC/8dAfV5djt7mmWNcBp3uCJEiuDtI9fE2Xtme7VwK+dYW
-	 u+wUUH4PVrlwCbLzUBHUNuzTdoolfraf6yyp5j0YUBoRAiNwK9pCHJExxBrYb/M1Rb
-	 lV2UgTGSGnz0DDwYlahLf82YsJHzfWJzocs0q6Js=
-Received: from HAPYCAO-MC1.tencent.com ([101.226.143.247])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 7A899E33; Fri, 30 Oct 2026 15:30:40 +0800
-X-QQ-mid: xmsmtpt1793345440tzby8u61l
-Message-ID: <tencent_13F84AEDEBCC170BE121ADA2D44EA69CEA07@qq.com>
-X-QQ-XMAILINFO: MHMEtxMLMqJxsWMD/aMU0npTSqh8V45E639L0BYQrjACCYD0JomrwHkQ2IFNsH
-	 hM6a3f+PpasIbjmzf/+FBmQiY25ER9WTNd3eg2y0hqmfVsNf2gdK4eSr9NJ9egMWOFF9iL+7MeN4
-	 tChVGwxEhPZUJU/CCcudNcrgdk7vHB26MMTPirgdVX4sjaGIhvMgsgRjkkdyXP2TZ5Xhu5085QkM
-	 a/17MAuxc9uWhkWzj5K7d3WTjQvgCh8oGRRtNx1vy8CKWjAqMB21/V9gYE4jbXf7TYDWqIGBD9ou
-	 rlVM1/TFF2U+M21Reb8KpU2aRxgB/E2fGHkJuwFYEfSQ77lO4+ixH2ciHpXT6QGUZ7r0auUi7lth
-	 BqUEpO8gLb5NKwSLfSh7QmDErpmud/k90matkEBJPsj/eDl0FgFtCD7pWvd3taxNy+EyRYHW+Ql8
-	 aEjsXXPe2WV6yfvjeflLJUlWIES+l1O3WZQMDJ8MYRXuzuJUK0J8iG8xWx5iqUYewXk5K8tKQ7V2
-	 sEalmpiSxI9nKmxavlxmYfQue+IYDRmtg8nGOT6sW9oHbh8jAADYNNOKjXUzng91yRmzz3HXbefQ
-	 qkTKKZL15g8CIsl6dyzhIi9G3fQOhNJc1Lz60vE8qTNLzSpOr6gxE6cjnST540d6l+ks6EqAj8QY
-	 3OWQQGnIJts1C//daz4Z9E+MLqTiVoDSBgJzpWxY0tis7YENjyODb694hAP9TnEx7WLUx/Fx+jVg
-	 3axjQ9EiVwwelOBRKY8YURD43M1jp++2XjmeXrCHW1JOmVLSQ/CT9TTIdsfxsOLBmgBsY1gGPY2m
-	 vw9XWMOSg+TWvXqHKQW1a8qm/cHOyKv2/CjkeSbEuCN1u52pGXm9LmzlvAfzLrcE+ShJnX/Ripug
-	 B17gQiHAJNaQMhIWExk6J8Cve0cNMfiQ3U119spxqSxe/KCzXY3NIPOavcSwZO6lO4FcmDYnDy8f
-	 FOJHKZIU+OmexVjn+HratjlQY3VEtomsypQhiyIR9FWIbsnOgvPB003a8YEPK/smHB1qLzYOxu0H
-	 1xLuTocb82MKCkMaCBaNySDCHiKVu2uf/G56sGoOwFBtxZdllItQ9lx7EkorKEzZawFqJ9PaqJAP
-	 8WSd028w0ZxyM0rkWj/P6n0mD4A3abDbzIqggn7QFMALV2mNyE3KKTil9YZX7J1ihuq5XPcjSaIA
-	 TGrLYVsu21ewLiHg==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: bo cao <treebacker@foxmail.com>
-To: linux-f2fs-devel@lists.sourceforge.net
-Cc: jaegeuk@kernel.org,
-	chao@kernel.org,
-	daeho43@google.com,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: disallow size-changing truncation on atomic files
-Date: Fri, 30 Oct 2026 15:30:40 +0800
-X-OQ-MSGID: <20261030073040.83304-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYCh61Ea
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c3fd91337baso48805566b.3
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 00:31:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793345460; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mfHWSooWdoVpPwxMxvAY8tFCCVg6G5chowgA8HRApYBkXeHA+bxikpAVM6tB0RrZqd
+         pU/A8bHd9U9np+xA1bpJqUcC7Z1tEyOHtQ4R3PafS/MsFQiaa0yRe9+0t6mkRKwIcr3j
+         X1cK3tcSXxN8oYXwmsCK39atBYRmTzrALL3XtUCYdih/fySzGN+f7t52c324pniZhalY
+         ka+hyuzeMLHnogG/LPR5vVnRWmF5xrjPVsTV3RsHqH5XGYrI6WvC4r5tHi0DVQ7hw4J2
+         guiXx6ogIC8dCNV2/9AI4cPpOB1T3ySddM5foksDs1hzkClSOV24mQ7EG6vOKZ9FuUzB
+         B7Nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
+        fh=zaA06TJqa7Z51qurZ457JwG968RbLl5bN3/LZa6mWH0=;
+        b=ZQtmiO1/i4uMwVK90naC2qaC/QHe8o2NrruP+K76kwa4u0ldXQOg2jv7AmSY9/14bf
+         qWjnEPY6bG1RkFYfz3+2ypvuFttNHflA0pRFRm92ov+065DsNs32GJGjeCrLsDBhAZni
+         RLwP/nnsiTa+LHpjUueVuFHmTESgvx+P/7QJgBBovtR2O7pB+ZqPU8OigesrO2KfFEaP
+         wNgKlW2Qsv5iRnqp/Dzp5ZklmswzrvdLlWG75Pb6n3ADG9nWT8HzOLtAkQXSImSV5TcP
+         PtsbtgxFA6s7Ubtv3AstCBFlVz82njNrUuataqNNeQ+pmeT4nFg7GnE1T7XT9MDH/xGA
+         jn/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793345460; x=1793950260; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
+        b=nYCh61EadQLM/wqJ+snUmPMgI7slVWEW1E7vHasGasP4v+YCMch/PQEosubLG/BWU0
+         o+zg/H9kHstU22yy0r86r/npXPikuhY7i+OfOHOVoFwHZI3w6w0qyQid3Rnjew3fLVgJ
+         MR94YAkd3qMDJK6QbZOeJGNRoTuY40+rWp0eZckzHjWb9BTQFISjd/HoN9fY9X9WqO1J
+         bbpqJKktxfIcubtQeV3MyF9q9A336wl4dKUPr7Ncvn/QFbcyVjKWVLGsLo3TMRfBf4My
+         iLtDBo0TvcLq9HDAajhxvGoiMXCDd5RsT38ya/TgUopnj7ElYlVcqxNWdrd/JMW+Cnml
+         0Stw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793345460; x=1793950260;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ricWTCs0M4NsESlZHHSGvxdphtzZh7pRSrlVHDLTA7E=;
+        b=R6/ApYAD7Lovm3b8vkQJWr2/RHC3lRFencS8g3B0QPiAxpI8NZIBFRvhpsT4UwyhPl
+         imFeMbXo+ccxTapP7sAitOV4q0YFPqXI48p6H+sRtMtJ2HKKgJsAGLLTqsu5ffY3BcJx
+         ikXfx+u1zn27puBc/p3YrSRXkr3Ta2FV0wRtUHORp0PSkZn3lFtGqxeI0+BruNXq9nlc
+         /lFHSp8ydlqfAtDPE9EMBEzb/ILPWscYosbgsHi+w8VkOPg1WG3Bt8dSVHY3LLWe4YEk
+         +f4Gu+zIyYFk+XQTpMWdzGh8kXSpOjTk3DTxwMpxyhB2qU/nzuL1+XpAPi9eiZbWYpRe
+         5hOg==
+X-Forwarded-Encrypted: i=1; AKwUvBz7bLorYapR+XPDKatTG0jzHguKC6OTbSb9JzlWIDHZ3u6e2yF5dqmj5E6XdpySdix9ilej5hA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfi+3/wsmgzyiwlCjwbD13aCJWkcKZ/MLzwOciawNJhPvfkV5i
+	srTOjIpVPTtzvm9rawgIle+XamfuZVxnVDnMTsyi4+gnXH/nt33svM/oHNukj3oiTt1EeS2cWpx
+	ZruOh1bC82lgEec0Ifld+FfAw9pyc1ZY=
+X-Gm-Gg: AYBFou3kYntYsxMKDTgWWkB+U7HfHujxYtf7oReMjXnpg7ngeuQcWTUmSTT3H3ao/lw
+	De8SS2QUrNUirn42pcD2xQxSut4KMU0nsiqfFpdhh6cz3s0U++kDBRm+j3/ImpTjMWYOm1zn2gJ
+	FtfRzTiJPKXgWaqpk0vtNXYrIVIgXnxrOT6PPgQj0CCpuQMQpiP2cZVrFR4wWxVoWn86MK/JTmI
+	e+69Y/jXt5nAuhSfYH1Sx4FQ3trFqMLSkIV//JWYueTtNwQnV1UMXZ5OEuRgWsF1EieYdDJtxjv
+	4f+uwR4r0PcY/i9mOrOtbyw9xZnNkbYSIUsfxdLvaGpHMwCtwbypD7F+W6xJ0Ahy3nHUP3b1bg+
+	987Ywu77cWWsprKkGT6KOAONKYC1CECLjOTeu411RDtLjEjWRQFTD5k9yIe6hLD7f0dmKWg==
+X-Received: by 2002:a17:907:60d3:b0:c31:fb29:a137 with SMTP id
+ a640c23a62f3a-c4ca7a72d9dmr122779566b.21.1793345460293; Fri, 30 Oct 2026
+ 00:31:00 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,119 +104,169 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com>
+ <20261030-swap-fixes-v1-3-73f73a59f2fc@tencent.com> <CAKEwX=MJcyr1GjKNQ81x+fUS07T=THXGivjebt=W0ayjjZ3fgQ@mail.gmail.com>
+In-Reply-To: <CAKEwX=MJcyr1GjKNQ81x+fUS07T=THXGivjebt=W0ayjjZ3fgQ@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Fri, 30 Oct 2026 15:30:23 +0800
+X-Gm-Features: AclHuK_5zGeSFYxm22Ak0DBi9H9DruGl1-1gM-J338_JJvTdWweQtUaJ6xf3TVs
+Message-ID: <CAMgjq7BHC=68=+2DsdZW7_1_PfdjCyd9fXN_2YZiaXFi1pHy=w@mail.gmail.com>
+Subject: Re: [PATCH 3/3] mm, swap: fix large swap-in across swap file extents
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Yosry Ahmed <yosry@kernel.org>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Usama Arif <usamaarif642@gmail.com>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ftruncate() (and open() with O_TRUNC) does not go through ->write_begin,
-so it bypasses the COW inode and modifies the original inode directly:
-it updates i_size and releases the original inode's blocks in
-[new_size, old_size) while the file is in atomic write mode.
+On Fri, Oct 30, 2026 at 5:21=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
+:
+>
+> On Thu, Oct 29, 2026 at 11:32=E2=80=AFAM Kairui Song via B4 Relay
+> <devnull+kasong.tencent.com@kernel.org> wrote:
+> >
+> > From: Chris Mason <mason@kernel.org>
+> >
+> > A page fault can give an unprivileged process blocks of other users'
+> > files instead of its own swapped-out data. This affects systems with a
+> > swap file on a synchronous block device, such as brd or zram. For an
+> > anonymous mapping it also takes a huge page size below the PMD size
+> > (mTHP), such as 64 KiB, that is enabled for anonymous memory.
+> >
+> > A swap area is divided into slots of one page each. A swap file is a
+> > regular file, so adjacent swap slots can lie in two extents, far apart
+> > on disk. A folio is read from swap with a single bio that starts at the
+> > sector of the folio's first slot. So all slots of a large folio must be
+> > contiguous on disk.
+> >
+> > The swap allocator knows this: it only hands out a run of slots for a
+> > large folio if the swap area is a block device (SWP_BLKDEV).
+> >
+> > The swap-in path does not. On a synchronous device (SWP_SYNCHRONOUS_IO)=
+,
+> > one that always completes I/O in the submitter's context, do_swap_page(=
+)
+> > can read several swapped-out pages as one large folio (a large swap-in)=
+.
+> > thp_swapin_suitable_orders() makes that decision, and looks only at the
+> > swap offsets (the slot numbers) in the page table.
+> >
+> > Pages that were swapped out one at a time can end up in consecutive,
+> > aligned slots, and are then read as one large folio. If the extent of
+> > the first slot ends inside that folio, the rest of the folio is filled
+> > from the blocks that follow the extent on disk. These blocks can belong
+> > to other files.
+> >
+> > Reproduced with a fragmented swap file on brd and 64 KiB folios enabled=
+.
+> > After single pages were swapped out, a fault returned blocks of a
+> > root-owned file with mode 0600.
+> >
+> > Fix this by allowing a large swap-in only when SWP_BLKDEV is set.
+> >
+> > Known gaps:
+> > - A swap file on zram, brd, pmem or btt is now read one page at a time,
+> >   even where its slots lie in one extent. Its swpin counters in
+> >   /sys/kernel/mm/transparent_hugepage/hugepages-*/stats stay at 0.
+>
+>
+> I guess we can check for this right? Look for the swap extent of the
+> first offset, then get extent's size (swap_extent->nr_pages).
+>
+> Not sure if these users use swap file here though.
 
-06dfe4a7eb69 ("f2fs: disallow mmap write and data-modifying fallocate on
-atomic files") rejected mmap stores and data-modifying fallocate for
-exactly this reason, but the truncation path slipped through: the
-ATTR_SIZE branch of f2fs_setattr() has no f2fs_is_atomic_file() check
-(compression, device aliasing and pinned files are all checked there,
-but not atomic).
+Thanks for the review!
 
-Consequences observed with a reproducer (Ubuntu 7.3.0-9-generic, arm64):
-fill [0, 1MB) with a non-zero per-page pattern (page pg filled with
-the byte (pg | 0x50), so page 24 reads 0x58), fsync, and verify the
-baseline: 946176 non-zero bytes in [100KB, 1MB).  Then
-F2FS_IOC_START_ATOMIC_WRITE, rewrite [100KB, 1MB) with the byte 0xB1
-(goes to the COW inode), then ftruncate(fd, 100KB).  The
-ftruncate succeeds (it is not rejected) and:
+I think it's really not a good idea to use swap over FS on a
+zram/brd/pmem device, and we already disable mTHP allocation for any
+such setups, and extents is a burden there. Without high-order
+allocation, there is no high-order swapout, so high-order swapin seems
+much less helpful.
 
-- On F2FS_IOC_ABORT_ATOMIC_WRITE, f2fs_abort_atomic_write() restores
-  i_size to fi->original_i_size (1MB) while the blocks in
-  [100KB, 1MB) have already been released.  Note that
-  f2fs_i_size_write() skips f2fs_mark_inode_dirty_sync() and
-  FI_AUTO_RECOVER for atomic files, further persisting the damage.
+So keeping the fix simple is a good first step, IMO. We may revisit
+this after mTHP allocation is doable on these devices, and get rid of
+the extent completely.
 
-- On F2FS_IOC_COMMIT_ATOMIC_WRITE, __f2fs_commit_atomic_write()
-  computes the commit length from the truncated i_size_read(inode)
-  (25 pages) and silently drops the 231 dirty COW pages beyond it,
-  breaking the all-or-nothing atomicity.
+> > - With the posted "mm, swap: enable THP swapin for xswap entries"
+> >   applied as well, the large swap-in that it adds never happens. That
+> >   patch gives its swap device SWP_SYNCHRONOUS_IO but not SWP_BLKDEV, so
+> >   the new check would have to let that device pass.
+>
+> Mentioning unmerged patches in changelog? ;)
 
-Reproducer output:
+I can help simplify that part.
 
-  abort:   i_size=1048576, nonzero bytes in [100KB,1MB): 946176 -> 0,
-           fiemap@100KB: no extent
-  commit:  i_size=102400, range [100KB,1MB) past EOF, 231 dirty COW
-           pages silently dropped, first 25 pages of original data intact
+>
+> >
+> > Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devi=
+ces")
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Chris Mason <mason@kernel.org>
+> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > ---
+> >  mm/memory.c | 16 +++++++++++++---
+> >  1 file changed, 13 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/mm/memory.c b/mm/memory.c
+> > index b65b56fe9714..944f57153c89 100644
+> > --- a/mm/memory.c
+> > +++ b/mm/memory.c
+> > @@ -4863,7 +4863,8 @@ static inline unsigned long thp_swap_suitable_ord=
+ers(pgoff_t swp_offset,
+> >         return orders;
+> >  }
+> >
+> > -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
+> > +static unsigned long thp_swapin_suitable_orders(struct swap_info_struc=
+t *si,
+> > +                                               struct vm_fault *vmf)
+> >  {
+> >         struct vm_area_struct *vma =3D vmf->vma;
+> >         unsigned long orders;
+> > @@ -4888,6 +4889,14 @@ static unsigned long thp_swapin_suitable_orders(=
+struct vm_fault *vmf)
+> >         if (!zswap_never_enabled())
+> >                 return 0;
+> >
+> > +       /*
+> > +        * Neighbouring slots of a swap file can lie in two extents, an=
+d a folio
+> > +        * is read with one bio. The flag is set in swapon() and stays,=
+ so the
+> > +        * race is benign.
+> > +        */
+> > +       if (!data_race(si->flags & SWP_BLKDEV))
+> > +               return 0;
+> > +
+> >         entry =3D softleaf_from_pte(vmf->orig_pte);
+> >         /*
+> >          * Get a list of all the (large) orders below PMD_ORDER that ar=
+e enabled
+> > @@ -4924,7 +4933,8 @@ static unsigned long thp_swapin_suitable_orders(s=
+truct vm_fault *vmf)
+> >         return orders;
+> >  }
+> >  #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
+> > -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
+> > +static unsigned long thp_swapin_suitable_orders(struct swap_info_struc=
+t *si,
+> > +                                               struct vm_fault *vmf)
+>
+> Nice, I think Sashiko is complaining about it on one of my vswap
+> patches lol, and I was wondering how on earth is correct in non-vswap
+> case.
+>
+> Fix LGTM:
+>
+> Reviewed-by: Nhat Pham <nphamcs@gmail.com>
 
-After the abort, the final state of the file can be verified directly
-with stat and hexdump:
-
-  $ stat /tmp/a12-mnt/f
-    File: /tmp/a12-mnt/f
-    Size: 1048576         Blocks: 200        IO Block: 4096   regular file
-  Device: 7,0     Inode: 4           Links: 1
-
-  $ hexdump -s 0x18ff0 -n 0x30 /tmp/a12-mnt/f
-  0018ff0 5858 5858 5858 5858 5858 5858 5858 5858
-  0019000 0000 0000 0000 0000 0000 0000 0000 0000
-  *
-
-stat: the inode claims Size=1048576 (1MB) but holds only
-Blocks=200 * 512B = 100KB of physical blocks.  hexdump: 0x18ff0 is the
-tail of page 24, the last live page (its pattern byte is 0x58 =
-pg24|0x50); from 0x19000 (= 100KB exactly) the file reads as zeros.
-The boundary falls exactly at 100KB -- 924KB of data silently gone,
-with no extent behind it.
-
-Note that the file is not sparse: the [100KB, 1MB) range was filled
-with non-zero patterns, fsync'ed, and read back (946176 non-zero
-bytes) before the atomic write started.  The zeros after the abort
-are lost data, not holes -- unlike a sparse file, where the extent
-table legitimately records never-written ranges as holes.
-
-The committed file shows the mirror-image damage: every step succeeds
-(the 231 pwrites, the ftruncate, the commit ioctl), yet the file ends
-up identical to one that was never written to beyond 100KB:
-
-  $ stat /tmp/a12-mnt/f2
-    File: /tmp/a12-mnt/f2
-    Size: 102400          Blocks: 200        IO Block: 4096   regular file
-  Device: 7,0     Inode: 6           Links: 1
-
-  $ hexdump -s 0x19000 -n 0x100 /tmp/a12-mnt/f2
-  0019000
-  (no output -- 0x19000 is exactly EOF; the range does not exist)
-
-Found by extracting the invariant of 06dfe4a7eb69 and diffing all 24
-f2fs_is_atomic_file() call sites (none in the setattr/truncate path)
-against operations that modify the original inode while bypassing
-->write_begin; ftruncate() is the only uncovered entry point.  The
-analysis was assisted by an LLM and confirmed at runtime by the
-reproducer above.
-
-Reject size-changing truncation on atomic files, mirroring the
-fallocate check added by 06dfe4a7eb69.  Return -EOPNOTSUPP like
-fallocate does.  f2fs_setattr() covers ftruncate(), truncate() and
-open(O_TRUNC) alike.
-
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-f2fs-devel/20261010024133.2444761-1-daeho43@gmail.com/
-Signed-off-by: bo cao <treebacker@foxmail.com>
----
- fs/f2fs/file.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index e2c0f5083313..5ed1f3176f70 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -1165,6 +1165,9 @@ int f2fs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 			F2FS_BLK_TO_BYTES(sbi, fi->i_cluster_size)))
- 			return -EINVAL;
- 
-+		if (f2fs_is_atomic_file(inode))
-+			return -EOPNOTSUPP;
-+
- 		if (f2fs_is_pinned_file(inode)) {
- 			/*
- 			 * It may break section-aligned fallocate recovery
--- 
-2.39.5 (Apple Git-154)
-
+Thanks!
