@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793318962;
-	b=zE29Z5q3Ye8jtVeyPcakJFw+8ljYBncjjWkzcQaWS8maxHOnbQxNlnaPRnd4qAJvI+nO
-	 6x8ne/Gx1lkNA6r7GTTfvxulVNPleXzzG9MGqkaY3eu+k/nIKCOavxnQguSFA3vBl711I
-	 O7YsxDEf5lJgX7Zvi0nfEBwy51LSP0tjAI/lQ9/rJu/JTzu4XmEyuDW4v9EAYJASNufCj
-	 aTUDo5/oedPFqlsgv7h89fGaxTxr2dqqIjfkfIb+rL+b0OK1UdFaV3fStZNwpZ+SBGYC8
-	 esP5KhCuZ2rJThdFeatOfk/Ih6Rmki4+7W6bs5ybAC85h6ElRrSRQUm7gwnvEfqF2Cw==
+	t=1793318963;
+	b=w4qnyx1mgEeo07BPV1hA7mfGGJqHpkc1vTGjPcIIt4gdo1XItGdEL69Hg71Q4LraHhdw
+	 twYxcbd9NlnHJsqsAmM0f1h9VnYFsfWvGhdHXCPWXfRyXio4iEhIgqJoATPj1KLfegACx
+	 ECYyaHG+ssg9cMMmOWPe4Sf3TEoi7yLxLtqDrGwULSP5wl7dhqrKG6w5oPJwpB+HVhAB4
+	 UI5rO9X+qWMVnrPwgjS8O/5L6xna9aiwtvqwQdnzQ5RvjJIeDsxhreLZMARbkOCCPD4Yd
+	 xtmH5YRtj/rE+xTaOMx9HRT/SO6l8eyU1Yz4GHVU1wHrF72IuYN9ecz6Y0VZmdjIq8g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793318962;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793318963;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ECcPVfYhh1YHadNxealesbNjKOWqLn9bWZFXROXuu0s=;
-	b=Sr6F1FbZ3IsZF9rxUg1gSyZiHdO9e2yg2HyfyFw7qwjqjfm+EmD+3o3fToTeMLAzQ9VY
-	 BpSMwuopdSXOvuQuVToRESBhjfTBS2MnyMtMKKGRBBjm87CrX+/zcP+kMxWrJZuAELub7
-	 X5DNsuTcjWZikZYLVb94gJlUNH93Ry56DvzPJie321/8IIVu3payqTLIPE8lLMO8mAoxZ
-	 /LEaWobVfoTz53eK2506V9W5uDNj0Ldq+QfI6Le6moBmFG8O8tacz/qZzhfJqIhTnYpYZ
-	 z5kIf1Q9A20q3idF2AInE33hG6J6sjprd8YgRSvqJfk+v2ii9flaszk9apaGXNo41GQ==
+	bh=9khD7TxMXkLESp82xsCf5KBa6D+rslnaIeRsZC0pqm0=;
+	b=vGhkaX6StkqseSICoabFLBEWAJQwdjXPR4H1fn9CdwGFozYgc2Oa3Wotb0D3XPb85L64
+	 zmDHh72oIYER+MDcKTraXNaLCaZDJmhTMFvtXSlp709RJhUAbhYU+g+ph9pU4yeGXrK+g
+	 guOz0WchsIN2HAykdMIem1JSTh/IWJKnkqvihNOyGKK4hVpW589IEWaH186NbY7rvPF3M
+	 KFp95ocBxUXgN+vgconQi4oKOUdi2pX2D2HwpvmnSXBe2xJVkygcTElsHqwAKx+/YJG+4
+	 XetIIETzTCYZ306xxvlsgRfAdVRWr1c4iP2nfy6uHcUi3Mbaaoq/rovWXotLIW5HvhA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQz9ejkT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mSi/PvNN";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35017606A31D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA2F606A326;
 	Fri, 30 Oct 2026 00:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQz9ejkT
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mSi/PvNN
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793318962;
-	b=jlaDMp9p3yYLcjIewvvq1Ez5gPTPpMk5YPXQAfedQAgFJj5QYni7e/+QxonZC5OWHvty
-	 M278N1nKrL8wbkA6vTx3m4HKGhmfl6cMb+uu9GXIGNONecFPPqoYp7W6jL78xe0Pwj9wo
-	 bypm8QyobqepsA+vZjHofwF1LDqlJkN+vqIeNDTIlXo4WhlU0KlHNxtvA1XJgLz0QVo4b
-	 s4j1zMMLND1sKnwtMK3nk0eU3sf2PCc70xIL2Ba0ybR/lhHZQJBL4NLKe+l4wYarps3/X
-	 OGZuXUDx0t7kUGISzJODv4SzCwqr71yLcKfj6gYyVVBEJl3ARcWrcwu9wIJ72LIKCHg==
+	b=rREzAsmHoGu2X7KQG/WKehzfh6P/xGcGC2OaqBDwXbtskKL2+id8rAaxiDFmPupIk7De
+	 nZ4Ee+cDGurxVCtqX/RhUgwnFyLs6TmRrcOadz1un0P0PwQOHqnwyrEGExoV3yAkJoeWm
+	 TnkRL7HCWJauCbF1uVJ3zGGNCOKTWVT2nfsyUmEJvR4yCAnQTGNMsUfIOkHSGfe/Jbxaf
+	 osgpePOrEUDMdPcwL2Ww+HHx8+n2j8QD53lq2KUWQs9E2Ysa73lIeCw8xWntT7ZpOOeCP
+	 cT/3gKmFHU6iFGBGXUGQ9UCh1jbuOdZyXpgnEbMrfNTnBxjp6prMZJugJSdH6wI19hg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793318962;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ECcPVfYhh1YHadNxealesbNjKOWqLn9bWZFXROXuu0s=;
-	b=HjrY9spzrstRJjTJ0dZ74NHhlrCHeeWsCXDQive1jU65/i6J68QbUuFuE0aJ2NsZ9TrQ
-	 R9QC+kvmAlhW8N6nloKOEaMDTpLHlUCqmaAeIPEarFZZg+iYXMaO5e2Uqfvyu+sZXM6yE
-	 hvtBkuN4fKthLtJv5xKJEcp/xCOpEREITnueDLLWTOb3jmbyeelaGLhHOozgKH42yQCcf
-	 QW7JFDurm+cRUgjqiVH+UhsSsThfgG/300wdpyvZiLphh269uIiKjGbZ1xrAMDZPhcIQp
-	 /uuPZAnCKEnefGO7elGR2wmhWHbLdz6uYtB43aDnY2Q30Tq55nSKlcq2fvKOvV/2ZOw==
+	bh=9khD7TxMXkLESp82xsCf5KBa6D+rslnaIeRsZC0pqm0=;
+	b=3FQDXoAgYjsR6Kd8Z0ocHZd3FlRjoNKT5CFfbh6yOSGYJ3zEQXerAh/MTJuRvOyjaSni
+	 5jsPQtJWETHaX0X0y78K1i4coguXxTb/ToxLI//l8JTqJzGVIYLTj90la/ntRicU/fe/Z
+	 G3XaCWIRqPpUpjQ53QK9Pk2+B9JDd3Ev4Yr3kNJyM9YyuXtM2eNuISnnci9ivDNIgkO/0
+	 3YLDlG7Z8y0ib0L0dYWQFkZrxmQfRKVSecEx750GoOkcaNe0Ixy/t0TR/Sb4OQQla874e
+	 ZrChn2FObhBBPrwyQz6nznYR0Qb00HnwIqGYTZYSYPmBNvc2NLN9fT2BNGVAvHPApKg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 11A581F00A15;
-	Fri, 30 Oct 2026 00:09:21 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id E54E41F00919;
+	Fri, 30 Oct 2026 00:09:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793318962;
-	bh=ECcPVfYhh1YHadNxealesbNjKOWqLn9bWZFXROXuu0s=;
+	bh=9khD7TxMXkLESp82xsCf5KBa6D+rslnaIeRsZC0pqm0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=oQz9ejkTuwI3OQwpc4BhMCyzogfK8Ub2mITkt8Fpiyfe+GtsJ4X8Gr2BAII/Psccd
-	 M5oPPmS8kpJZ8/I619G6SfB5aRlvs681D3o8n4q+1pMLKaGaf8CZZ2ho0EOq81ZDV3
-	 aAW3QLF3cEYJjeJTImGQU/4opTbC/SA2oWwNWxYDtB/ycut/tO/aoxGau+97TnY7Tu
-	 6ozT8y0SJVevwyONRPNCl/o9g0o5CjMfZlAXNkzde3FPSs4wk2ImZReRDNX2+evjfB
-	 7NQv+/+Q+elSMVKX8lNInHorLsq6MuytkTNGqDQPX/a94k0L6zDynD8DvgNgGUAzmg
-	 iKkGP00V2J1FA==
+	b=mSi/PvNNs5DZFcjhh+D2hvJbpYYsxiN8PIBpmHz8afs/2x3TTv09h0UDrwoI9E7Ef
+	 HvWSpQpJHIGOBgLxW8zatapXwzxZNwWBCOuuTMRdp0RWsL+H58V9sIh60jcVQf5rrT
+	 FKPICmP2kVhrvRz3UG5yvIOXiQy4YNYJkwRx/GbdLSwKHxzV1Se7bZmONKNX4Y64jw
+	 6wz+hYSWrA0fFLKk6DYj4Qnf4UguolGNRkygk5Lhf3ztgzZZ3BLQYuE8Zsel6WHhjM
+	 G6NQZRqDAnSIABONc42cePSvdUuj/d65DMwT9hKi5DyG4oGgO1U8p7adc10qU37Dvv
+	 GVRurP2IG2Qug==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 956BB409EC;
+	by lkml.kernel.org (Postfix) with ESMTP id 74CE3409E4;
 	Fri, 30 Oct 2026 00:09:20 +0000 (UTC)
 From: Kamil Chojnowski via B4 Relay <devnull+contact.diath.net@kernel.org>
-Date: Fri, 30 Oct 2026 01:08:13 +0100
-Subject: [PATCH 4/6] fs/ntfs3: write back folios that raced with $DATA
- conversion
+Date: Fri, 30 Oct 2026 01:08:10 +0100
+Subject: [PATCH 1/6] fs/ntfs3: lock folio 0 before ni_lock when converting
+ resident $DATA
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-ntfs3-resident-fixes-v1-4-7b6c857d4330@diath.net>
+Message-Id: <20261030-ntfs3-resident-fixes-v1-1-7b6c857d4330@diath.net>
 References: <20261030-ntfs3-resident-fixes-v1-0-7b6c857d4330@diath.net>
 In-Reply-To: <20261030-ntfs3-resident-fixes-v1-0-7b6c857d4330@diath.net>
 To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
@@ -92,11 +92,11 @@ Cc: Christoph Hellwig <hch@lst.de>, ntfs3@lists.linux.dev,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
  Kamil Chojnowski <contact@diath.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793318890; l=2603;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793318890; l=16256;
  i=contact@diath.net; s=20261029; h=from:subject:message-id;
- bh=W79ey7LkLwclwvNyOK0icIx8SUUOsitBLSIs+VaaqG8=;
- b=aKVF+mCyioHX2ewIERO3mKOPALX8atEHrAl3qyFI4dNGgjCFgPGm/yDvhvO85aeKeUcRHb6+U
- 6FFRCKHC3AtBKkdNVutto55fdL5c4BxwxRJCD00ua0neI2w0ZKqdbxv
+ bh=wLBEy7zyX8A/x6EMYC7KUugm5wJJIwG+bccfT580pGk=;
+ b=vC1q/rU+HedJijwLZth5Jgns5v8xycaPeB4AeK9wkn03/z2FX5gvFVmkXYw0402NdFCsvwQsO
+ X6/QeazynwMAUymJhV1QAHXiBADjODX0KDOCbW0vio83V4h+dcsoeDi
 X-Developer-Key: i=contact@diath.net; a=ed25519;
  pk=G15RQXroUn6f8ud+bOEqlqpPdpLoCB3L3G9XVUf+YaA=
 X-Endpoint-Received: by B4 Relay for contact@diath.net/20261029 with
@@ -107,76 +107,428 @@ Content-Transfer-Encoding: 7bit
 
 From: Kamil Chojnowski <contact@diath.net>
 
-ntfs_writepages() takes the resident path when is_resident() is true on
-entry, then calls attr_data_write_resident() for each dirty folio.  If
-$DATA was moved out of the MFT record in between, it returns the
-internal code E_NTFS_NONRESIDENT.  writeback_iter() has already cleared
-the folio's dirty bit, so its data is never written.
+attr_make_nonresident() copies resident $DATA into folio 0 and locks
+that folio while its callers hold ni_lock and run_lock:
 
-Commit 2727ac2ba87a ("fs/ntfs3: prevent positive E_NTFS_NONRESIDENT from
-reaching writeback error handling") turned the code into -EIO, which
-stops the errseq and writeback warnings, but the folio is still dropped
-and the writeback reports an I/O error for data that could be written.
+  write(2) / ftruncate(2) / fallocate(2)
+    ntfs_set_size() / attr_force_nonresident()   ni_lock, run_lock (W)
+      attr_set_size_ex()
+        attr_make_nonresident()
+          __filemap_get_folio(0, FGP_LOCK)       <- waits for folio 0
 
-Redirty the folio and finish through iomap_writepages(), which writes
-it to the clusters the attribute now has.  ntfs_writepage() handled the
-same race by falling back to block_write_full_page() until commit
-d4428bad14dd ("ntfs3: stop using generic_writepages").
+read_folio and writeback take the same locks in the opposite order:
 
-Reproducer: grow small files with fallocate(2) while another thread
-reads them, with the first patch of this series applied so that the
-deadlock does not hide the race.  Without the -EIO conversion this
-warned in lib/errseq.c and mm/page-writeback.c within seconds.
+  filemap_read_folio()                           folio 0 locked
+    iomap_read_folio()
+      ntfs_iomap_begin()
+        attr_data_get_block()                    run_lock, ni_lock
 
-Fixes: d4428bad14dd ("ntfs3: stop using generic_writepages")
+  ntfs_writepages()                              folio 0 locked
+    ni_lock()                                    (resident file)
+
+So a small file that grows past what fits in its MFT record (about 700
+bytes) deadlocks against a task reading it from a cold page cache, or
+against writeback of an mmap-dirtied folio.  Both tasks sit in D state;
+the writer holds i_rwsem and ni_lock, so everything that touches the
+file next (rename and unlink in its directory, sync, the bdi flusher)
+piles up behind them.  Folio locks are not tracked by lockdep, so it
+never reported this.
+
+The inversion is as old as the driver: before the iomap conversion,
+ntfs_readpage() also took ni_lock with the page locked to read resident
+data, and attr_make_nonresident() locked page 0 under ni_lock.
+
+Lock folio 0 before ni_lock in every path that can convert $DATA
+(ntfs_set_size(), fallocate's attr_force_nonresident() and
+attr_insert_range()) and hand it to attr_make_nonresident().  Callers
+hold i_rwsem, so is_resident() cannot change between the check and the
+conversion.  ext4 converts inline data in the same order.
+
+Reproducer: create a file and grow it to 4 KiB in 64-byte steps
+(append, ftruncate or fallocate) while another thread does
+fadvise(DONTNEED) + pread on it, four such pairs at a time.  On ntfs3
+master this hangs within a minute; with this patch it runs to the end.
+
+Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Kamil Chojnowski <contact@diath.net>
 ---
- fs/ntfs3/inode.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ fs/ntfs3/attrib.c   | 38 +++++++++++++++++++++++++-------------
+ fs/ntfs3/attrlist.c |  4 ++--
+ fs/ntfs3/file.c     | 21 ++++++++++++++++++---
+ fs/ntfs3/frecord.c  |  4 ++--
+ fs/ntfs3/fsntfs.c   |  2 +-
+ fs/ntfs3/inode.c    | 47 ++++++++++++++++++++++++++++++++++++++++++++---
+ fs/ntfs3/ntfs_fs.h  | 13 ++++++++-----
+ 7 files changed, 100 insertions(+), 29 deletions(-)
 
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 913ebd2a2196..8651b9e4ba06 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -1267,6 +1267,7 @@ static int ntfs_writepages(struct address_space *mapping,
+diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
+index 805acc3ed869..080edebe529e 100644
+--- a/fs/ntfs3/attrib.c
++++ b/fs/ntfs3/attrib.c
+@@ -258,11 +258,17 @@ out:
+  *
+  * If page is not NULL - it is already contains resident data
+  * and locked (called from ni_write_frame()).
++ *
++ * If folio is not NULL - it is folio 0 of $DATA, locked by the caller
++ * before ni_lock (see ntfs_lock_folio0()).  The resident data is copied
++ * into it.  Without it, folio 0 is locked here, under ni_lock and run_lock,
++ * which deadlocks against read_folio/writeback: they hold the folio lock
++ * and then take run_lock/ni_lock in ntfs_iomap_begin.
+  */
+ int attr_make_nonresident(struct ntfs_inode *ni, struct ATTRIB *attr,
+ 			  struct ATTR_LIST_ENTRY *le, struct mft_inode *mi,
+ 			  struct runs_tree *run, struct ATTRIB **ins_attr,
+-			  struct page *page)
++			  struct page *page, struct folio *folio)
+ {
+ 	struct ntfs_sb_info *sbi;
+ 	struct ATTRIB *attr_s;
+@@ -323,10 +329,15 @@ int attr_make_nonresident(struct ntfs_inode *ni, struct ATTRIB *attr,
+ 			err = ntfs_sb_write_run(sbi, run, 0, data, rsize, 0);
+ 			if (err)
+ 				goto out2;
++		} else if (folio) {
++			folio_fill_tail(folio, 0, data, rsize);
++			folio_mark_uptodate(folio);
++			folio_mark_dirty(folio);
+ 		} else if (!page) {
+ 			struct address_space *mapping = ni->vfs_inode.i_mapping;
+-			struct folio *folio;
  
- 	if (is_resident(ni)) {
- 		struct folio *folio = NULL;
-+		bool converted = false;
- 		err = 0;
- 
- 		while ((folio = writeback_iter(mapping, wbc, folio, &err))) {
-@@ -1276,6 +1277,18 @@ static int ntfs_writepages(struct address_space *mapping,
- 			err2 = attr_data_write_resident(ni, folio);
- 			ni_unlock(ni);
- 
-+			if (err2 == E_NTFS_NONRESIDENT) {
-+				/*
-+				 * $DATA was moved out of the MFT record after
-+				 * the is_resident() check above.  The folio is
-+				 * no longer dirty: redirty it and write it
-+				 * through iomap below.
-+				 */
-+				folio_redirty_for_writepage(wbc, folio);
-+				converted = true;
-+				err2 = 0;
-+			}
-+
- 			folio_unlock(folio);
- 			if (err2) {
- 				/*
-@@ -1293,7 +1306,8 @@ static int ntfs_writepages(struct address_space *mapping,
- 			}
- 		}
- 
--		return err;
-+		if (!converted || err)
-+			return err;
++			WARN_ONCE(1, "ntfs3: r=%llx: folio 0 locked under ni_lock",
++				  (u64)ni->mi.rno);
+ 			folio = __filemap_get_folio(
+ 				mapping, 0, FGP_LOCK | FGP_ACCESSED | FGP_CREAT,
+ 				mapping_gfp_mask(mapping));
+@@ -390,7 +401,7 @@ out:
+ static int attr_set_size_res(struct ntfs_inode *ni, struct ATTRIB *attr,
+ 			     struct ATTR_LIST_ENTRY *le, struct mft_inode *mi,
+ 			     u64 new_size, struct runs_tree *run,
+-			     struct ATTRIB **ins_attr)
++			     struct ATTRIB **ins_attr, struct folio *folio)
+ {
+ 	struct ntfs_sb_info *sbi = mi->sbi;
+ 	struct MFT_REC *rec = mi->mrec;
+@@ -405,7 +416,7 @@ static int attr_set_size_res(struct ntfs_inode *ni, struct ATTRIB *attr,
+ 	if (new_size > sbi->record_size ||
+ 	    (dsize > 0 && used + dsize > sbi->max_bytes_per_attr)) {
+ 		return attr_make_nonresident(ni, attr, le, mi, run, ins_attr,
+-					     NULL);
++					     NULL, folio);
  	}
  
- 	return iomap_writepages(&wpc);
+ 	if (dsize < 0) {
+@@ -440,7 +451,7 @@ static int attr_set_size_res(struct ntfs_inode *ni, struct ATTRIB *attr,
+ int attr_set_size_ex(struct ntfs_inode *ni, enum ATTR_TYPE type,
+ 		     const __le16 *name, u8 name_len, struct runs_tree *run,
+ 		     u64 new_size, const u64 *new_valid, bool keep_prealloc,
+-		     struct ATTRIB **ret, bool no_da)
++		     struct ATTRIB **ret, bool no_da, struct folio *folio)
+ {
+ 	int err = 0;
+ 	struct ntfs_inode *nb = ni->base;
+@@ -481,7 +492,7 @@ again:
+ 
+ 	if (!attr_b->non_res) {
+ 		err = attr_set_size_res(ni, attr_b, le_b, mi_b, new_size, run,
+-					&attr_b);
++					&attr_b, folio);
+ 		if (err)
+ 			return err;
+ 
+@@ -2134,7 +2145,7 @@ int attr_collapse_range(struct ntfs_inode *ni, u64 vbo, u64 bytes)
+ 			err = attr_set_size_ex(ni, ATTR_DATA, ni->file.ads.name,
+ 					       ni->file.ads.len, run,
+ 					       i_size - bytes, NULL, false,
+-					       NULL, true);
++					       NULL, true, NULL);
+ 			goto out;
+ 		}
+ 
+@@ -2580,7 +2591,8 @@ undo_punch:
+  * attr_insert_range - Insert range (hole) in file.
+  * Not for normal files.
+  */
+-int attr_insert_range(struct ntfs_inode *ni, u64 vbo, u64 bytes)
++int attr_insert_range(struct ntfs_inode *ni, u64 vbo, u64 bytes,
++		      struct folio *folio)
+ {
+ 	int err = 0;
+ 	struct runs_tree *run = &ni->file.run;
+@@ -2645,9 +2657,9 @@ int attr_insert_range(struct ntfs_inode *ni, u64 vbo, u64 bytes)
+ 	down_write(&ni->file.run_lock);
+ 
+ 	if (!attr_b->non_res) {
+-		err = attr_set_size(ni, ATTR_DATA, ni->file.ads.name,
+-				    ni->file.ads.len, run, data_size + bytes,
+-				    NULL, false);
++		err = attr_set_size_ex(ni, ATTR_DATA, ni->file.ads.name,
++				       ni->file.ads.len, run, data_size + bytes,
++				       NULL, false, NULL, false, folio);
+ 
+ 		le_b = NULL;
+ 		attr_b = ni_find_attr(ni, NULL, &le_b, ATTR_DATA,
+@@ -2839,7 +2851,7 @@ undo_insert_range:
+  *
+  * Convert default data attribute into non resident form.
+  */
+-int attr_force_nonresident(struct ntfs_inode *ni)
++int attr_force_nonresident(struct ntfs_inode *ni, struct folio *folio)
+ {
+ 	int err;
+ 	struct ATTRIB *attr;
+@@ -2860,7 +2872,7 @@ int attr_force_nonresident(struct ntfs_inode *ni)
+ 
+ 	down_write(&ni->file.run_lock);
+ 	err = attr_make_nonresident(ni, attr, le, mi, &ni->file.run, &attr,
+-				    NULL);
++				    NULL, folio);
+ 	up_write(&ni->file.run_lock);
+ 
+ 	return err;
+diff --git a/fs/ntfs3/attrlist.c b/fs/ntfs3/attrlist.c
+index 8710560cf294..38be7af82420 100644
+--- a/fs/ntfs3/attrlist.c
++++ b/fs/ntfs3/attrlist.c
+@@ -352,7 +352,7 @@ int al_add_le(struct ntfs_inode *ni, enum ATTR_TYPE type, const __le16 *name,
+ 	memcpy(le->name, name, sizeof(short) * name_len);
+ 
+ 	err = attr_set_size_ex(ni, ATTR_LIST, NULL, 0, &al->run, new_size,
+-			       &new_size, true, &attr, false);
++			       &new_size, true, &attr, false, NULL);
+ 	if (err) {
+ 		/* Undo memmove above. */
+ 		memmove(le, Add2Ptr(le, sz), old_size - off);
+@@ -416,7 +416,7 @@ int al_update(struct ntfs_inode *ni, int sync)
+ 	 * Attribute list decreased here.
+ 	 */
+ 	err = attr_set_size_ex(ni, ATTR_LIST, NULL, 0, &al->run, al->size, NULL,
+-			       false, &attr, false);
++			       false, &attr, false, NULL);
+ 	if (err)
+ 		goto out;
+ 
+diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
+index c11da747270f..384e61a33a84 100644
+--- a/fs/ntfs3/file.c
++++ b/fs/ntfs3/file.c
+@@ -606,6 +606,8 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
+ 		if (err)
+ 			goto out;
+ 	} else if (mode & FALLOC_FL_INSERT_RANGE) {
++		struct folio *folio;
++
+ 		/* Check new size. */
+ 		err = inode_newsize_ok(inode, new_size);
+ 		if (err)
+@@ -618,9 +620,15 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
+ 			goto out;
+ 		truncate_pagecache(inode, vbo_down);
+ 
++		folio = ntfs_lock_folio0(inode);
++		if (IS_ERR(folio)) {
++			err = PTR_ERR(folio);
++			goto out;
++		}
+ 		ni_lock(ni);
+-		err = attr_insert_range(ni, vbo, len);
++		err = attr_insert_range(ni, vbo, len, folio);
+ 		ni_unlock(ni);
++		ntfs_unlock_folio0(folio);
+ 		if (err)
+ 			goto out;
+ 	} else {
+@@ -629,9 +637,16 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
+ 
+ 		/* Be sure file is non resident. */
+ 		if (is_resident(ni)) {
++			struct folio *folio = ntfs_lock_folio0(inode);
++
++			if (IS_ERR(folio)) {
++				err = PTR_ERR(folio);
++				goto out;
++			}
+ 			ni_lock(ni);
+-			err = attr_force_nonresident(ni);
++			err = attr_force_nonresident(ni, folio);
+ 			ni_unlock(ni);
++			ntfs_unlock_folio0(folio);
+ 			if (err)
+ 				goto out;
+ 		}
+@@ -1450,7 +1465,7 @@ static int ntfs_file_release(struct inode *inode, struct file *file)
+ 		err = attr_set_size_ex(ni, ATTR_DATA, ni->file.ads.name,
+ 				       ni->file.ads.len, &ni->file.run,
+ 				       inode->i_size, &ni->i_valid, false, NULL,
+-				       true);
++				       true, NULL);
+ 
+ 		up_write(&ni->file.run_lock);
+ 		ni_unlock(ni);
+diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+index 16ac847de48d..3d10b1519c86 100644
+--- a/fs/ntfs3/frecord.c
++++ b/fs/ntfs3/frecord.c
+@@ -2573,7 +2573,7 @@ int ni_write_frame(struct ntfs_inode *ni, struct page **pages,
+ 	if (!attr->non_res) {
+ 		down_write(&ni->file.run_lock);
+ 		err = attr_make_nonresident(ni, attr, le, mi, &ni->file.run,
+-					    &attr, pages[0]);
++					    &attr, pages[0], NULL);
+ 		up_write(&ni->file.run_lock);
+ 		if (err)
+ 			goto out;
+@@ -3373,7 +3373,7 @@ int ni_allocate_da_blocks_locked(struct ntfs_inode *ni)
+ 		err = attr_set_size_ex(ni, ATTR_DATA, ni->file.ads.name,
+ 				       ni->file.ads.len, &ni->file.run,
+ 				       ni->vfs_inode.i_size, &ni->i_valid,
+-				       false, NULL, true);
++				       false, NULL, true, NULL);
+ 	}
+ 
+ 	return err;
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index b55311ccd229..6d8cddb148cc 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -539,7 +539,7 @@ static int ntfs_extend_mft(struct ntfs_sb_info *sbi)
+ 	/* Step 1: Resize $MFT::DATA. */
+ 	down_write(&ni->file.run_lock);
+ 	err = attr_set_size_ex(ni, ATTR_DATA, NULL, 0, &ni->file.run,
+-			       new_mft_bytes, NULL, false, &attr, false);
++			       new_mft_bytes, NULL, false, &attr, false, NULL);
+ 
+ 	if (err) {
+ 		up_write(&ni->file.run_lock);
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index 8adbdf1a7d11..913ebd2a2196 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -887,11 +887,43 @@ static void ntfs_readahead(struct readahead_control *rac)
+ 	iomap_readahead(&ntfs_iomap_ops, &ctx, NULL);
+ }
+ 
++/*
++ * ntfs_lock_folio0 - Lock folio 0 before converting resident $DATA.
++ *
++ * Moving resident $DATA out of the MFT record copies it into folio 0.
++ * read_folio and writeback hold the folio lock when they enter
++ * ntfs_iomap_begin and take run_lock/ni_lock, so the folio must be locked
++ * before ni_lock, never under it.  Callers hold i_rwsem, which keeps the
++ * file from being converted under them, so is_resident() is stable here.
++ *
++ * Returns NULL if the file is not resident.
++ */
++struct folio *ntfs_lock_folio0(struct inode *inode)
++{
++	struct address_space *mapping = inode->i_mapping;
++
++	if (!is_resident(ntfs_i(inode)))
++		return NULL;
++
++	return __filemap_get_folio(mapping, 0,
++				   FGP_LOCK | FGP_ACCESSED | FGP_CREAT,
++				   mapping_gfp_mask(mapping));
++}
++
++void ntfs_unlock_folio0(struct folio *folio)
++{
++	if (folio) {
++		folio_unlock(folio);
++		folio_put(folio);
++	}
++}
++
+ int ntfs_set_size(struct inode *inode, u64 new_size)
+ {
+ 	struct super_block *sb = inode->i_sb;
+ 	struct ntfs_sb_info *sbi = sb->s_fs_info;
+ 	struct ntfs_inode *ni = ntfs_i(inode);
++	struct folio *folio = NULL;
+ 	int err;
+ 
+ 	/* Check for maximum file size. */
+@@ -906,17 +938,26 @@ int ntfs_set_size(struct inode *inode, u64 new_size)
+ 	/* Mark rw ntfs as dirty. It will be cleared at umount. */
+ 	ntfs_set_state(sbi, NTFS_DIRTY_DIRTY);
+ 
++	/* Only growing can push resident $DATA out of the record. */
++	if (new_size) {
++		folio = ntfs_lock_folio0(inode);
++		if (IS_ERR(folio))
++			return PTR_ERR(folio);
++	}
++
+ 	ni_lock(ni);
+ 	down_write(&ni->file.run_lock);
+ 	if (new_size < ni->i_valid)
+ 		ni->i_valid = new_size;
+ 
+-	/* last 'true' means keep preallocated. */
+-	err = attr_set_size(ni, ATTR_DATA, ni->file.ads.name, ni->file.ads.len,
+-			    &ni->file.run, new_size, &ni->i_valid, true);
++	/* 'true' means keep preallocated. */
++	err = attr_set_size_ex(ni, ATTR_DATA, ni->file.ads.name,
++			       ni->file.ads.len, &ni->file.run, new_size,
++			       &ni->i_valid, true, NULL, false, folio);
+ 
+ 	up_write(&ni->file.run_lock);
+ 	ni_unlock(ni);
++	ntfs_unlock_folio0(folio);
+ 
+ 	return err;
+ }
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 90ccfde951dc..6846c9b9ef46 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -466,18 +466,18 @@ int attr_allocate_clusters(struct ntfs_sb_info *sbi, struct runs_tree *run,
+ int attr_make_nonresident(struct ntfs_inode *ni, struct ATTRIB *attr,
+ 			  struct ATTR_LIST_ENTRY *le, struct mft_inode *mi,
+ 			  struct runs_tree *run, struct ATTRIB **ins_attr,
+-			  struct page *page);
++			  struct page *page, struct folio *folio);
+ int attr_set_size_ex(struct ntfs_inode *ni, enum ATTR_TYPE type,
+ 		     const __le16 *name, u8 name_len, struct runs_tree *run,
+ 		     u64 new_size, const u64 *new_valid, bool keep_prealloc,
+-		     struct ATTRIB **ret, bool no_da);
++		     struct ATTRIB **ret, bool no_da, struct folio *folio);
+ static inline int attr_set_size(struct ntfs_inode *ni, enum ATTR_TYPE type,
+ 				const __le16 *name, u8 name_len,
+ 				struct runs_tree *run, u64 new_size,
+ 				const u64 *new_valid, bool keep_prealloc)
+ {
+ 	return attr_set_size_ex(ni, type, name, name_len, run, new_size,
+-				new_valid, keep_prealloc, NULL, false);
++				new_valid, keep_prealloc, NULL, false, NULL);
+ }
+ int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
+ 			CLST *len, bool *new, bool zero, void **res,
+@@ -501,9 +501,10 @@ int attr_is_frame_compressed(struct ntfs_inode *ni, struct ATTRIB *attr,
+ int attr_allocate_frame(struct ntfs_inode *ni, CLST frame, size_t compr_size,
+ 			u64 new_valid);
+ int attr_collapse_range(struct ntfs_inode *ni, u64 vbo, u64 bytes);
+-int attr_insert_range(struct ntfs_inode *ni, u64 vbo, u64 bytes);
++int attr_insert_range(struct ntfs_inode *ni, u64 vbo, u64 bytes,
++		      struct folio *folio);
+ int attr_punch_hole(struct ntfs_inode *ni, u64 vbo, u64 bytes, u32 *frame_size);
+-int attr_force_nonresident(struct ntfs_inode *ni);
++int attr_force_nonresident(struct ntfs_inode *ni, struct folio *folio);
+ 
+ /* Functions from attrlist.c */
+ void al_destroy(struct ntfs_inode *ni);
+@@ -801,6 +802,8 @@ static inline struct inode *ntfs_iget5(struct super_block *sb,
+ 	return ntfs_iget5_flags(sb, ref, name, 0);
+ }
+ int ntfs_set_size(struct inode *inode, u64 new_size);
++struct folio *ntfs_lock_folio0(struct inode *inode);
++void ntfs_unlock_folio0(struct folio *folio);
+ int ntfs3_write_inode(struct inode *inode, struct writeback_control *wbc);
+ int ntfs_sync_inode(struct inode *inode);
+ int inode_read_data(struct inode *inode, void *data, size_t bytes);
 
 -- 
 2.56.0
