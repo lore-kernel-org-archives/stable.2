@@ -1,48 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333079;
-	b=gvdM1O+TOBA5suh4wCFD4y1UZjbimsMJ2CdMbrASQxp18YSJZifh+woNs0l5Beo+8kpE
-	 4B++xXJmSiUrFw3gD5mxvpPJpBQ+I2HPa7wNJ2VwxJOTMIo2IShMmHTY7YGXCE0OWfDB5
-	 NxsTvcUBf5JsddlSq6iG225B9eHjM+Nd2Y4VElzK2QUAufOyKcIXjLzghO9BflgFwEzEw
-	 FGY0g7wOwnFzAXYEhOgxUavy0R6FxqOi1V5XmPEqdKN4YltvpkXkPuhjl121F/bega3d5
-	 JHqAxczjWzb8sPbMa8LsgF8b3ZTo6OWblV54dfNs47XKYjgvc0ESE5J9Msp7ZHphhkw==
+	t=1793333131;
+	b=o716F/lL9IdQkQNBX2Ev2k35Mn6cwNMDrlgNmBehcoqXNrEVH2+69yVEqe7bVZXXymb7
+	 5WFaQ+P+ojTQqO0PFLmxpSRwb84eh1LJc9B+C3Bl6fr8RmISSOfJTMFdcY1LwiZLvNPM4
+	 DiGrm4/qA7N2rx4deYVfuTIO//jWw7uExiLRSFHHoVQtmj4P2VkYfbjkwDpHzyyyV7Yyt
+	 jZoWJEKbiR4FLxVO35/3yhMbVqCJlSoN+XA1Hr2N4RhcixRIHXVVeSUtNJvVbJDCqmvim
+	 RTkwl9bbtUcB4NQbjV8u7Ma8kVrt2wcB8qMuFdMfO+kF/gygHPqtnqR2tv5cjuxHwOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333079;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=yj9RWK76RXDw0crkcP65KWYauRrQYoOoyZQzp5bU2lc=;
-	b=l0/vrdqy0Sr31uiAaoeJ0UDq8qIArEjEV4Xdk6RQSH80Xq8ym9js/o3nbR3QtOtosGqK
-	 ejTZJy8cJI2UAX467AHxPHap/iaZ1QmNHXviGWqkv3AqveY7oiL6PEgv+84sd5quwrvhA
-	 UHAz33ku8w1GGVPDqWhS57xxyXlqLZPGlmcuL3/xvbnDCkvFWLuUpE7s5xZfP9UZdM+oT
-	 h1YTugRVd3tFX1+E8Xfx2PQaFE9aeEiQoQs2V2OqEakMFI8R8i3/ED9OWywNDzdgXX9OV
-	 OgDiWUBe9Wxhs6iq014gkLX/MlYfPcQ1YHlXqiDiv798uUYclsxLXryGiMcf3Ij/2mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793333131;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=inldKJPdjUUjviysI9T8tJ8KvrfY36K+5GvzIRj3mzM=;
+	b=Do01BkTlWqLhR4ROqcGLY/HUtvMMontUAsjmi6sjZXRvXkcNZg5U0pF8WQGAv18kOsKC
+	 HKrVn5+7nzlWtfvhAL7Wt6uksdE/Wkdd7YmerGiOxUTIGMuksXg9MZ6vkGosrFe2iT0Qj
+	 mpFcy57OaWLyP4v/jPwjULrffL6j5Oue4JjkgozYREtZqrUjlFqRlB5I1IZY+e47Wg0Tb
+	 yVWQb8iyRcWD2HKBNZ53frBBAGQ3CTFRAWv3f8+xPdoQvQsko9joEF/agJAxC8ld3s8Fw
+	 0i8Ahc0kiFOSk4SxmcAwNrT2MYQJnsQKq2m8iomBNWRGrxteoISR1hFYPOXx0q64GMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1b+C1rk6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=B6BcJVh1;
+	arc=none smtp.remote-ip=209.85.219.51
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F44B606A31C;
-	Fri, 30 Oct 2026 04:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1A7606A31E
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 04:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1A7606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=1b+C1rk6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4951F000C1;
-	Fri, 30 Oct 2026 04:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=B6BcJVh1
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91befe703c4so2940786d6.1
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:05:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793333078;
-	bh=yj9RWK76RXDw0crkcP65KWYauRrQYoOoyZQzp5bU2lc=;
-	h=Date:To:From:Subject;
-	b=1b+C1rk6Pjxzc2Sd0ETXxCQXg6+DllARqLB3w2RvZp5FgTok5gTsIhbUtmGUjp/TB
-	 QG7blNpaWjjTQnYpKtxjIL0xP8khgTbu90QrwEncLE5vglM0oB4ByO3wEyO6oIeTKo
-	 /5mGInvMYNfto/fU60cHPJACqjbjnvBu3Z2BtL/g=
-Date: Thu, 29 Oct 2026 21:04:37 -0700
-To: mm-commits@vger.kernel.org,yang.yang29@zte.com.cn,xu.xin@linux.dev,
-	wang.yong12@zte.com.cn,wang.yaxin@zte.com.cn,stable@vger.kernel.org,
-	jiang.kun2@zte.com.cn,bsingharora@gmail.com,brads@mainlining.org,
-	dennylin0707@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + delayacct-preserve-delay-extrema-when-aggregating-taskstats.patch added to mm-nonmm-unstable branch
-Message-Id: <20261030040438.3E4951F000C1@smtp.kernel.org>
+        d=cs.unc.edu; s=google; t=1793333129; x=1793937929; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=inldKJPdjUUjviysI9T8tJ8KvrfY36K+5GvzIRj3mzM=;
+        b=B6BcJVh1LIQiZ3lYnDbQEJJwlpdtM3BZwI22Anwj8q1oOkusRP3UreS0rDXWcIZQ5V
+         4SCwvoVme9KrGXAYL8h0RmuL/E/o9n+qmfuBgZI/JwjKiG4lmztVBoq4SCVMnWsfvDgb
+         Wz7gRJslWGgTdk0Zo5GLioKBl9ezpEpMVe2ac4GywI/rIf/yRspzohF5bGWgojngQ7SG
+         ZctQgULHEXRXzrnH++KMG10pD50ncAdF5wdtuZ3b4YS1/gIoPwMb12vaRuVU9ppgEwxA
+         f5SF/Jx+dDMy3rB6g3UW44HdhkWJQ6cqIW2WVk4UjHUIi4YOesmqgiQZAIAb/FJXupWD
+         M78w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793333129; x=1793937929;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=inldKJPdjUUjviysI9T8tJ8KvrfY36K+5GvzIRj3mzM=;
+        b=rUucGPtt4H3fAmcuFrrj0Qs7WJ8oWrCP8N+Jn5I1865V+vc9eYojHhBcnHuX/IJVqF
+         AKNxa34zRto16juTxes7jr9pSSKxho5Qbcfth/OQetmCX7O/fwnY7G9rtsQHOwkXvTkB
+         SKZH1WI9mtxDiBit3ueA2XLlULuAnQinck308XDnAGfCPbHnmMl0/J5MNwhPWKrTIo8z
+         z376nUziyCkfvIxpqDWqFq53g4/d6EtNJFccLr1PO2K8dMkAx2DoKg80pA7sGz1r7K5g
+         LZyTG51AYgmotZ8KRq00IO2GNrs7KvlPWB3ELsRyIHdcGzMfyhWbjH7BVNrl4WCDRzq9
+         hwqg==
+X-Forwarded-Encrypted: i=1; AKwUvByBcdqCbUCs5+qzqhXE9TraRVgu/uNNv0Ka1UTHGu8H3+MWauijF/me/GgsgfpL9f3RvAL2zUg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKom4d/76JyxQwjQZzFz1+nk3e2iSmJgMry7vmmcjEcajVj9DwW
+	J77tzR1bjQuAhpJUuYWYZbXBLszdCdtuI3AuCrCgOiMEIWRcVvL1Jr+B7OkyXoeF0A==
+X-Gm-Gg: AYBFou1HxUsfztMA1AmXrRKf9iOb9jKE95CBXhQL7ooXZpWHlXQ7DaQo0n8lQjrHvMU
+	0TsfERSeJyB5Gz8pcEfSDZZ4xBU8nwU+czkZrVJ95KzQHmJb928bYPUhza6JrF2tzCICN/LhwnK
+	oZR8Hbrnb3rB6JSDsFBcsEzdACdUAWEamU27YUBqL/NdXOlKXrXPNtfVbdv08dqJC5muiq71HVh
+	mt2e3goUaFq1nx3B5QhTFXTDF+Uz9HdB5c3z9M8myZdd1GEzjXrUy8A/41ylmzZfggjJvUP70M6
+	1BtHYSNaaMvysMcZaKbBAoS8xPh7C6PbrjmXxixrcLNAIY3r2A6D8xCMCSGYhuUF0uZzEcdxwEa
+	/PyF88l8GYS4DJTS54whZ+j2rKx5dTvJ+iXNSU4PQss+OrVc+vhefA4lVE8mJY/XfjK0x4m87+E
+	3NLoBSLdD7FnXkrArtPzTMy8yFkWKMBrF6bzYI5pCa3sQoedqVZN8nkR9UHGQKFFDMbxldy3iVT
+	rFDEz6cFhbjfFJvPkpBzG79eVE1+4FYM3S/lal4aTGRuE4hJcG7ACb8rL9kVqDsWz0PO2K6oqIu
+	S6/9GcqGtoUGtjD1I0K+wwNQMJGVSv+U927gM2+zVPkSuyIpw93M7d51wuqDdaLCnYhZaJ7SBw=
+	=
+X-Received: by 2002:a05:6214:5bc5:b0:91c:7da5:2185 with SMTP id 6a1803df08f44-91ca4bb4a15mr17162136d6.38.1793333128998;
+        Thu, 29 Oct 2026 21:05:28 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f4367dsm4659526d6.20.2026.10.29.21.05.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 21:05:27 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: tytso@mit.edu,
+	linux-ext4@vger.kernel.org
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	yi.zhang@huaweicloud.com,
+	yizhang089@gmail.com,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ext4: do not advance i_size on a buffered write that copied nothing
+Date: Fri, 30 Oct 2026 00:05:20 -0400
+Message-ID: <20261030040520.4138904-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,132 +105,154 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
+made generic_perform_write() call ->write_begin() and ->write_end()
+before it finds out that the source buffer cannot be read.  In that
+case ->write_end() is called with copied == 0.
 
-The patch titled
-     Subject: delayacct: preserve delay extrema when aggregating taskstats
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     delayacct-preserve-delay-extrema-when-aggregating-taskstats.patch
+However, ext4_write_end(), ext4_journalled_write_end() and
+ext4_da_do_write_end() set i_size to pos + copied without checking
+copied.  As of now, a buffered write() past EOF that fails with EFAULT
+grows the file to the write offset, and the new size can reach the
+disk.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/delayacct-preserve-delay-extrema-when-aggregating-taskstats.patch
+The issue can be reproduced on an ext4 mount with:
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+    char *p = mmap(NULL, 4096, PROT_NONE,
+                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
+    pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
+    fstat(fd, &st);
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Before that commit, the result is st_size = 0.
+After it, the result is st_size = 1048576.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+This patch will leave i_size alone when nothing was copied, as
+ext4_write_inline_data_end() already does.  Unlike ext4_write_end(),
+the delalloc path does not trim after a short write, so the folio and
+the delayed blocks that ->write_begin() set up beyond i_size are left
+behind, and the blocks stay reserved until the inode is evicted.  When
+the write ends beyond i_size, drop them as well.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Hungyu Lin <dennylin0707@gmail.com>
-Subject: delayacct: preserve delay extrema when aggregating taskstats
-Date: Thu, 22 Oct 2026 16:06:48 +0000
-
-delayacct_add_tsk() adds each task's statistics to the accumulated TGID
-statistics, but overwrites the delay maxima, minima and peak timestamps.
-Consequently, the last task determines these fields, and a task with no
-recorded delay can erase an earlier task's peak despite a nonzero total.
-
-For example, a four-thread process has a worker writing copy-on-write
-pages and a last-created thread with no WPCOPY events. With the group
-stopped, getdelays -d -t 49 reports the following before and after the
-fix (WPCOPY excerpt, spacing compacted and timestamp column omitted):
-
-Before:
-  WPCOPY count delay total delay average  delay max  delay min
-          4103     5163661       0.001ms 0.000000ms 0.000000ms
-
-After:
-  WPCOPY count delay total delay average  delay max  delay min
-          4101     4680983       0.001ms 0.049292ms 0.000208ms
-
-The timings vary between runs. Before the fix, the zero extrema disagree
-with the individual worker's nonzero values. After the fix, the group
-extrema match the largest maximum and smallest nonzero minimum across
-the individual threads.
-
-Keep the largest maximum and its associated timestamp, and combine the
-minima with min_not_zero() since zero denotes an unrecorded delay. Apply
-this to CPU delay and the seven delay types handled by UPDATE_DELAY().
-Single-task queries still start with zeroed statistics and retain the
-task's values.
-
-Link: https://lore.kernel.org/20261022160648.37411-1-dennylin0707@gmail.com
-Fixes: 658eb5ab916d ("delayacct: add delay max to record delay peak")
-Fixes: f65c64f311ee ("delayacct: add delay min to record delay peak")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Cc: <bsingharora@gmail.com>
-Cc: Yang Yang <yang.yang29@zte.com.cn>
-Cc: Wang Yaxin <wang.yaxin@zte.com.cn>
-Cc: <wang.yong12@zte.com.cn>
-Cc: Xu Xin <xu.xin@linux.dev>
-Cc: Jiang Kun <jiang.kun2@zte.com.cn>
-Cc: <stable@vger.kernel.org>
+Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
+Changes in v3:
+- Also trim after a short copy: drop the '!copied' check and compare
+  pos + len with i_size after the update, as ext4_write_end() does
+  (Zhang Yi).
+- Reword the last paragraph of the commit message.
+- v2: https://lore.kernel.org/r/20261023172532.3271348-1-hengyul@cs.unc.edu
 
- kernel/delayacct.c |   23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+Tested in KVM with KASAN: the reproducer above, failed writes around
+EOF, and short copies on delalloc, nodelalloc and 1k block filesystems.
+e2fsck -fn reports no errors.
 
---- a/kernel/delayacct.c~delayacct-preserve-delay-extrema-when-aggregating-taskstats
-+++ a/kernel/delayacct.c
-@@ -12,14 +12,18 @@
- #include <linux/taskstats.h>
- #include <linux/sysctl.h>
- #include <linux/delayacct.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
+ fs/ext4/inode.c | 39 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 32 insertions(+), 7 deletions(-)
+
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 6ede3644a738..9c20876629bc 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
+ 	 * it's important to update i_size while still holding folio lock:
+ 	 * page writeout could otherwise come in and zero beyond i_size.
+ 	 *
++	 * If nothing was copied (e.g. the source buffer was unreadable), do
++	 * not move i_size up to pos.
++	 *
+ 	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
+ 	 * blocks are being written past EOF, so skip the i_size update.
+ 	 */
+-	if (!verity)
++	if (copied && !verity)
+ 		i_size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	folio_unlock(folio);
+ 	folio_put(folio);
  
- #define UPDATE_DELAY(type) \
- do { \
--	d->type##_delay_max = tsk->delays->type##_delay_max; \
--	d->type##_delay_min = tsk->delays->type##_delay_min; \
--	d->type##_delay_max_ts.tv_sec = tsk->delays->type##_delay_max_ts.tv_sec; \
--	d->type##_delay_max_ts.tv_nsec = tsk->delays->type##_delay_max_ts.tv_nsec; \
-+	if (tsk->delays->type##_delay_max > d->type##_delay_max) { \
-+		d->type##_delay_max = tsk->delays->type##_delay_max; \
-+		d->type##_delay_max_ts.tv_sec = tsk->delays->type##_delay_max_ts.tv_sec; \
-+		d->type##_delay_max_ts.tv_nsec = tsk->delays->type##_delay_max_ts.tv_nsec; \
-+	} \
-+	d->type##_delay_min = min_not_zero(d->type##_delay_min, \
-+					 tsk->delays->type##_delay_min); \
- 	tmp = d->type##_delay_total + tsk->delays->type##_delay; \
- 	d->type##_delay_total = (tmp < d->type##_delay_total) ? 0 : tmp; \
- 	d->type##_count += tsk->delays->type##_count; \
-@@ -174,10 +178,13 @@ int delayacct_add_tsk(struct taskstats *
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
  
- 	d->cpu_count += t1;
+ 	/*
+@@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
+ 		if (!partial)
+ 			folio_mark_uptodate(folio);
+ 	}
+-	if (!verity)
++	if (copied && !verity)
+ 		size_changed = ext4_update_inode_size(inode, pos + copied);
+ 	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
+ 	folio_unlock(folio);
+ 	folio_put(folio);
  
--	d->cpu_delay_max = tsk->sched_info.max_run_delay;
--	d->cpu_delay_min = tsk->sched_info.min_run_delay;
--	d->cpu_delay_max_ts.tv_sec = tsk->sched_info.max_run_delay_ts.tv_sec;
--	d->cpu_delay_max_ts.tv_nsec = tsk->sched_info.max_run_delay_ts.tv_nsec;
-+	if (tsk->sched_info.max_run_delay > d->cpu_delay_max) {
-+		d->cpu_delay_max = tsk->sched_info.max_run_delay;
-+		d->cpu_delay_max_ts.tv_sec = tsk->sched_info.max_run_delay_ts.tv_sec;
-+		d->cpu_delay_max_ts.tv_nsec = tsk->sched_info.max_run_delay_ts.tv_nsec;
-+	}
-+	d->cpu_delay_min = min_not_zero(d->cpu_delay_min,
-+					tsk->sched_info.min_run_delay);
- 	tmp = (s64)d->cpu_delay_total + t2;
- 	d->cpu_delay_total = (tmp < (s64)d->cpu_delay_total) ? 0 : tmp;
- 	tmp = (s64)d->cpu_run_virtual_total + t3;
-_
+-	if (old_size < pos && !verity)
++	if (copied && old_size < pos && !verity)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
+ 	if (size_changed) {
+@@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
+ 	return 1;
+ }
+ 
++/*
++ * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
++ * reserved delayed blocks, so drop the page cache and the delayed extents
++ * beyond i_size and leave the blocks that are allocated there alone.
++ */
++static void ext4_da_truncate_failed_write(struct inode *inode)
++{
++	struct address_space *mapping = inode->i_mapping;
++	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
++
++	filemap_invalidate_lock(mapping);
++	truncate_inode_pages(mapping, inode->i_size);
++	down_write(&EXT4_I(inode)->i_data_sem);
++	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
++	up_write(&EXT4_I(inode)->i_data_sem);
++	filemap_invalidate_unlock(mapping);
++}
++
+ static int ext4_da_do_write_end(struct address_space *mapping,
+ 			loff_t pos, unsigned len, unsigned copied,
+ 			struct folio *folio)
+@@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	 * checked, we need to update i_disksize here as certain
+ 	 * ext4_writepages() paths not allocating blocks and update i_disksize.
+ 	 */
+-	if (new_i_size > inode->i_size) {
++	if (copied && new_i_size > inode->i_size) {
+ 		unsigned long end;
+ 
+ 		i_size_write(inode, new_i_size);
+ 		end = offset_in_folio(folio, new_i_size - 1);
+-		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
++		if (ext4_da_should_update_i_disksize(folio, end)) {
+ 			ext4_update_i_disksize(inode, new_i_size);
+ 			disksize_changed = true;
+ 		}
+@@ -3400,9 +3421,13 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+ 	folio_unlock(folio);
+ 	folio_put(folio);
+ 
+-	if (pos > old_size)
++	if (copied && pos > old_size)
+ 		pagecache_isize_extended(inode, old_size, pos);
+ 
++	/* Drop what ->write_begin() prepared beyond the resulting i_size. */
++	if (pos + len > inode->i_size)
++		ext4_da_truncate_failed_write(inode);
++
+ 	if (!disksize_changed)
+ 		return copied;
+ 
 
-Patches currently in -mm which might be from dennylin0707@gmail.com are
-
-mm-page-writeback-avoid-32-bit-overflow-in-dirty-threshold-shares.patch
-mm-migrate-untag-addresses-when-querying-page-nodes.patch
-fat-fix-parent-link-count-when-replacing-a-sibling-directory.patch
-delayacct-preserve-delay-extrema-when-aggregating-taskstats.patch
+base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
+-- 
+2.53.0
 
