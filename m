@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368279;
-	b=PrKvCPPHp8iMlwMdPrQl/iB6YCtACUaAlzPGiG9y7dM/WUGRAVwhlJ6ExVGOrjYRxMdI
-	 BQQIw35Mi9pUWztdd6j6dAPSFTimTxXOAj9gxrlhmSDtiGmjGgA1zqSMxv/ty3VPfaD50
-	 64+5Mnp2//V0Ab7KfkBj+Ox5F0jZlbCqAWeS6lix0fb7ve5FGAnpnaD+895oOSVh71wzt
-	 OjkFIGAnTtfurtxuS/b4WypmFpU+efC3oeyy55/gtSxIZUJqBQW7uXxf/jgk2bgip/SGt
-	 S6b1chWvK1vucD+2s/aM3plpLIEioYhGfH/YcbRwp7RV9CF/fyytOMTsIHmuEAd92Ew==
+	t=1793368281;
+	b=n8xfvTw9l/Ffw28NNZfRzqT+ZeMu48UKD2SgrpuohHY2MDbuxOlpPCVDrpA6LRX2Wdc2
+	 jU8y2bs9l36LbuYaffsDFsiKhsmPaJSkKGk5TcHuB2cHyGHrMc6UW46CWvpQVNUlr3rsE
+	 NVbXEqiQll76XSefIyyFZIuzIdG2+e91g6eyeKP+LVE1F+F6L2j+GB/ED3iWTpyIC5ehe
+	 E5MB29f+tfE6CWfYpo1O0JIYPkNprJFGD4EJjf0ebYodmS36IoV6rjhZHKGHhv+V/COXf
+	 3wxsiLoyYaiP3aWOUNNogehhFIzccaoTC3pY7PS7O5tWjbj6FlyhJG+gq9VH8YaT+SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368279;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368281;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7RJrvzHfyRH2NludABJx8SkoHJ3QglEZ3QwWWnb4wDA=;
-	b=GCoJZ9jFij+oLRhijiOy4yl+LeAaa/p7IeEL37N3acFs96pVFR4uu1o4VnmOGrGHts6e
-	 2Bjk0H6UfpX05wbftee5zEXMX28fQjnulldqMyIdmKvTN1uB81YmU7kdTu1Px2e5xby1d
-	 HVA8gJS9QqxtBhCKEUM0zjLULm953LrYwNiz+fTepzWQ9GAdvX1MbxSrth5ewf4qj47ME
-	 99Cc/eTDD2jPO+8AyWQbctZ9WI+I8+jiTWuMzxGzjQMQcpE9yXOm5fz56KqoDda0uqvtF
-	 bSUNIV+xqn5Igao7OUX8XP6pqQzfhfR4Nn8Gy2w2UFmuAZIGY4VliPJcltH9rAzTELg==
+	bh=5VFfE+Ja1v7fq+LdBxrDTp1pJJQrK5P+CsSeA/Arnmg=;
+	b=lqupPXmj0cEbC1b+kc4htgLfJWSHOKgb7GyCrQSC+XPgb9hQrnclvqZt9Jfsm5K/CWXJ
+	 qx3o9p3hmXV5AsXME/JKa2hOlsL/IXSzhogeLSK89OAppusWNDQEq+Uiu//YcA/tKx4Ze
+	 KbFMURDyFcwBDnU02wmhRaVm0ATcjQiNn+ffiCrhmmwkEwOVWMmYriu/MJaFU5fBjHGL7
+	 Cygco0UwwPzhsyxV+7VCxO8PjCtrDmd4MBn8xUajc3QDDMdhuZUVznbp8vbTia1jBp82g
+	 HB8W0VRfDDBtvAI5ObzBgGdpyQ+4XemyodgkFiawTstynD2dlueZwmCAGgnhTFhBtqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=simonwunderlich.de;
 	spf=pass smtp.mailfrom=simonwunderlich.de;
-	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Uj9ZNI8M;
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=X7LUlO71;
 	arc=none smtp.remote-ip=23.88.38.48
 Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 3EFA1606A32F;
-	Fri, 30 Oct 2026 13:51:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EFA1606A32F
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 8517F606A33B;
+	Fri, 30 Oct 2026 13:51:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8517F606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=Uj9ZNI8M
-Received: from kero.packetmixer.de (p200300c597124Fd839580C360D3ed6F6.dip0.t-ipconnect.de [IPv6:2003:c5:9712:4fd8:3958:c36:d3e:d6f6])
+	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=X7LUlO71
+Received: from kero.packetmixer.de (p200300c597124Fd839580C360D3ed6f6.dip0.t-ipconnect.de [IPv6:2003:c5:9712:4fd8:3958:c36:d3e:d6f6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id E38E7FA156;
-	Fri, 30 Oct 2026 14:51:10 +0100 (CET)
+	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id 67A5AFA2EE;
+	Fri, 30 Oct 2026 14:51:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1793368271;
+	s=09092022; t=1793368278;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7RJrvzHfyRH2NludABJx8SkoHJ3QglEZ3QwWWnb4wDA=;
-	b=Uj9ZNI8M4c5o4Os1IXz7uiJxfYui+RDzm1Dz5CjSqpmnu1qnnnsztK4BrmhL5dBuo+f4jA
-	e63MWLv7Pi7/1ILRtfyjCjON2tQ2nxNWcppNf/LDZzOh60l7t0AYuWsdeWhBFHekCc5ik3
-	46FKQtt1Nb2gOVEUccTVhIsoRHCUgvShp3Zq+oc7Z0xvVuu0ZzGfb/M7f/Uh8ZMljxX+kl
-	6QACAaZDu7kv2Rj1U2kbF6cxWLpPRTGfnC9A2CFTD83hZHayfhysa/yt0eghDsRwy/eTzi
-	dilHbngjWayN5MjAqApnpvevXOIa1KHh/TIdk/Nt2jSro9EhWuNj2ta7vmS+SQ==
+	bh=5VFfE+Ja1v7fq+LdBxrDTp1pJJQrK5P+CsSeA/Arnmg=;
+	b=X7LUlO71Okd/VctZ/Rom2MH1z5Hg9fQtbTRyNlFWxrh5vqFG7vOnGEoooD1G4qgui064f0
+	PjDCDwKSjX3K1Gitg0XyzLdXsN2hffGzJCwai4p/atXFoSEdmCHwg3kLyLVx871FTZOQs1
+	50ePOaxiISuCi93OlNeMTdV4osz6zqw1G7C9Enaw+SLvR1Uo5QJz5APPBBJkNPRmmLZVdc
+	W/tTFpmKiTEjduTCyjEMLiVl1UJLLN+hIUM2BxtQmBdQBSZlVydB38KBa22gtPrcqMNQIV
+	7/bpUNmQV9ORrA7PqDqCIP+07aTH7EeEkcyL4857TO5Qmh+dG+Fh2NA/mmvCbQ==
 From: Simon Wunderlich <sw@simonwunderlich.de>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -61,11 +61,10 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	b.a.t.m.a.n@lists.open-mesh.org,
 	Sven Eckelmann <sven@narfation.org>,
 	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
 	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net 04/14] batman-adv: tpmeter: fix u32 truncation of reported bytes
-Date: Fri, 30 Oct 2026 14:50:55 +0100
-Message-ID: <20261030135105.2555887-5-sw@simonwunderlich.de>
+Subject: [PATCH net 11/14] batman-adv: tt: ignore ROAM flag of received ADD changes
+Date: Fri, 30 Oct 2026 14:51:02 +0100
+Message-ID: <20261030135105.2555887-12-sw@simonwunderlich.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261030135105.2555887-1-sw@simonwunderlich.de>
 References: <20261030135105.2555887-1-sw@simonwunderlich.de>
@@ -82,36 +81,66 @@ Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-When more than 4 GB are transferred by the throughput meter,
-batadv_tp_batctl_notify() will cut of the upper 32 bit of the u64 counter
-and thus under-report the actual transferred bytes.
+A received TT change (OGM diff or full table response) with the ROAM flag
+but without DEL is handled by batadv_tt_global_add() like a ROAMING_ADV:
 
-The data type of the temporary storage variable must therefore still
-continue to use u64.
+* a newly created global entry gets BATADV_TT_CLIENT_ROAM and is
+  therefore excluded from the global CRC. The sender has it in its local
+  CRC and the receiver has to request the full table again
+* batadv_tt_global_purge_local() removes the local entry of the
+  receiver. The receiver's own client is considered as roamed to the sender
+  and frames for it are rerouted
+
+The ROAM flag only has a meaning together with DEL. Drop it on reception to
+keep it from populating the global table with a temporary ROAMING entry
+which is not part of the CRC - and therefore causing a CRC mismatch.
 
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-08bb3be4-6c6a-452d-b4e4-606940c6cfa5
-Fixes: 33a3bb4a3345 ("batman-adv: throughput meter implementation")
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- net/batman-adv/tp_meter.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/batman-adv/translation-table.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/net/batman-adv/tp_meter.c b/net/batman-adv/tp_meter.c
-index 022eb13e8ec47..56feb02d2b7ef 100644
---- a/net/batman-adv/tp_meter.c
-+++ b/net/batman-adv/tp_meter.c
-@@ -221,7 +221,7 @@ static void batadv_tp_batctl_notify(enum batadv_tp_meter_reason reason,
- 				    unsigned long start_time, u64 total_sent,
- 				    u32 cookie)
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 0df51523dcf0c..247cce95c09f4 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -3941,21 +3941,30 @@ static void _batadv_tt_update_changes(struct batadv_priv *bat_priv,
+ 				      u16 tt_num_changes, u8 ttvn)
  {
--	u32 total_bytes;
-+	u64 total_bytes;
- 	u32 test_time;
- 	u8 result;
+ 	int roams;
++	u8 flags;
+ 	int i;
  
+ 	for (i = 0; i < tt_num_changes; i++) {
+-		if ((tt_change + i)->flags & BATADV_TT_CLIENT_DEL) {
+-			roams = (tt_change + i)->flags & BATADV_TT_CLIENT_ROAM;
++		flags = (tt_change + i)->flags;
++
++		if (flags & BATADV_TT_CLIENT_DEL) {
++			roams = flags & BATADV_TT_CLIENT_ROAM;
+ 			batadv_tt_global_del(bat_priv, orig_node,
+ 					     (tt_change + i)->addr,
+ 					     ntohs((tt_change + i)->vid),
+ 					     "tt removed by changes",
+ 					     roams);
+ 		} else {
++			/* an announced client cannot have roamed away from
++			 * orig_node. Only a ROAMING_ADV is allowed to add a
++			 * global entry with the ROAM flag
++			 */
++			flags &= ~BATADV_TT_CLIENT_ROAM;
++
+ 			if (!batadv_tt_global_add(bat_priv, orig_node,
+ 						  (tt_change + i)->addr,
+ 						  ntohs((tt_change + i)->vid),
+-						  (tt_change + i)->flags, ttvn))
++						  flags, ttvn))
+ 				/* In case of problem while storing a
+ 				 * global_entry, we stop the updating
+ 				 * procedure without committing the
 -- 
 2.47.3
 
