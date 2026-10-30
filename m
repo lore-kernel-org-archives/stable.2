@@ -1,78 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.48.77.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358368;
-	b=oX+s5GmorT2/Gz28xr7QuwPOS6zVMWURNZYzAV4z3YOLlmAUOJMnhjTXdFqwYgQPceFy
-	 a2Oqv7RCbrX1AsDL3C8noxwUU6uKXDSwnmIr24bj6Vrfe2SSuctlVd74TaoElWY9Qate4
-	 6gsofLKhApuO7e+PmpPEIq12MiCSyGUkIxKUw1kSBYIsbIgMV1fQ3rx6HUqm1qMey3H4m
-	 r8bmvxofY1qXSqbRzIRDtlgkvdXCw7+FT8S6F52QUB4GEZsF1r0xi6Q7hQGwuhxV2VIKo
-	 oHd6h7XDfgq8QE4VcBmZ8Ugpenkpq2kAMVa1kGNWm5tztOQBJ9Jnfaij8IS/epMDj/g==
+	t=1793358658;
+	b=Z8OZoet4bRWtqScIUH8txVSsuxELYPpP9XJLdqD3ttU7IjQvKjeE5b3gsdPHCuS1nuju
+	 oQhock+lCKYMFdAZvi6n5g/S4cS/DvvSb3ufC3bQLSx4+BUL8NWlbegwetjy0eplyHJmW
+	 EJBC5/lcfbNB8IriPH1jmvzPXZ635usqonxdMjSSKndqrFIUSggrbRwBay0h4wImgd2bA
+	 gef9JsfMaVwoSHYkYuZCGsba/1uVOvtcEhAZY0L8XKyrDi0IFG/t9ztEgMgcQIIVEYHxN
+	 ZBjChUHJ0xN7JCZCYRd0QmnXgXhoLlLysEj0GIiGal7xICps4cC8rCOFeP0nXdyN5ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358368;
-	h=DMARC-Filter:Content-Language:Content-Type:Content-Transfer-Encoding:
-	 DKIM-Signature:Received:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:x-originating-ip:
-	 MIME-Version;
-	bh=pwD6sWP6AnoZnkuzTiLUv3GKkj4c8qZjxyfsKqHkGGo=;
-	b=1eTn2KNv4mOfDEsD+D42sNGEbHtrqHiKjhxA2NIMiiP8rtUVdsPGFE9IkIcgABWlvWBo
-	 1jPzhwJ1rcpttffsfLE/TF5HuCR0yWq3fZkruSYsThFuRLZmIFyt7Kkj5Qwlpj75EboP9
-	 8l4V+xSlu2WU0xi/DmUIK40gG2lizFf6av5479Hjv6o0v4ig3ZWjCzNU1U1p+YJVsKNUw
-	 LuKjaIXY89KVTp4tekfbxJZCGaM2mNwd01gHt6ZfAZKRno9xj4zioAPXbSnsD63egHJte
-	 g7DAjKNRM4gN5RaXXSse1FSzSS9CdWR9rAV25VXUNOdeU78EfIrWq7BBeQIeOfC6gnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358658;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
+	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
+	 X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=SY4wxRo5GhJ45am6vNPa4jgHWsz5BB1NdrAbB4X90Uk=;
+	b=2f6nZT2v07N85/bQKafHTj668jgAlL1xztzNp6NN68Bz7eTzBxDOhrKJQ0+VOGnUUBxh
+	 cyBLKoJSiBRbMlRyM0V99MSTkTDKTZnydWf4cAV8w/O5tC+V5d6ejlNqYe/lKaARQ84Yw
+	 dXFoe8Qv+UtoQENysgZ+ONAh0I6cmKIhpO+WDdMLDEH14FDhcQgRo2fQDTpCw8/80Caz0
+	 iKVZWE6y0XQ0nW85jCDNh0o3KhNfliEXOFbJoa/1qfbpWw2UI1u7Cb1+vAKbibx/EJUPB
+	 KfRc6bIyZ2TRmiTVdc2rZV6L8cmcApvIRq4O+0wXgBiHqU6/JA/2LDSLtUENC479Ydw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=prosoftsystems.ru;
-	spf=pass smtp.mailfrom=prosoftsystems.ru;
-	dkim=pass header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.a=rsa-sha256 header.s=ps header.b=REcDd4OG;
-	arc=none smtp.remote-ip=46.48.77.131
-Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WuVsOsho;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174BF606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:06:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 174BF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22324606A31F
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:10:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22324606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.a=rsa-sha256 header.s=ps header.b=REcDd4OG
-Content-Language: ru-RU
-Content-Type: text/plain; charset="koi8-r"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1793358370; h=from:to:date:message-id:subject;
-	bh=pwD6sWP6AnoZnkuzTiLUv3GKkj4c8qZjxyfsKqHkGGo=;
-	b=REcDd4OGZbM+C2RzX30tyoviWb0S3bonBqgnl6ylI5rkq8iLRh/vNOFDwA+PjiKZhY8Lp/uohSP
-	xA8vmWMdlgQwq6PeEDP3NnNSlVLDrZDWNa3fjDdgaRQxLzhWSsHnIytGjNwkrZjRTOwsQ58wYSgvG
-	i2XaRqq08XO7rJC9DhSNewyOtPoXBC6gJrpm9HrJXFh7v6TMjRzBAJsOC12vLaPIFmccI1mPx4U73
-	iuyn/9iUZu1p81tYZvEF0goTO6LD73XV3paN1lz8PK360s2Jz2XqEg9Eb8BiUovhPQNJwZkBPGkhn
-	IpVm3k0yw4g19p7KHhDH9kGtgVraomF3jFJQ==
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
- (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 30 Oct
- 2026 16:06:09 +0500
-Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 30 Oct 2026 16:06:05 +0500
-Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
- ([fe80::dd52:6e09:81b8:b31b%17]) with mapi id 15.02.1748.039; Fri, 30 Oct
- 2026 16:06:05 +0500
-From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>
-To: "lvc-patches@linuxtesting.org" <lvc-patches@linuxtesting.org>
-CC: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
-	<r.zhambakiev@prosoftsystems.ru>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: [PATCH net-next v4 4/4] net: fealnx: allocate the card index from an
- IDA
-Thread-Topic: [PATCH net-next v4 4/4] net: fealnx: allocate the card index
- from an IDA
-Thread-Index: AQHdaF6o2SU1qE987U6KYnUnPYG7sQ==
-Date: Fri, 30 Oct 2026 11:06:05 +0000
-Message-ID: <20261030110502.59804-6-r.zhambakiev@prosoftsystems.ru>
-References: <20261030110502.59804-1-r.zhambakiev@prosoftsystems.ru>
-In-Reply-To: <20261030110502.59804-1-r.zhambakiev@prosoftsystems.ru>
-Accept-Language: ru-RU, en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=WuVsOsho
+Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261030111053epoutp0243579fe3e6d47fb22525c85ac9dda5b0~jSjGFrrZ_1660016600epoutp02s
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:10:53 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261030111053epoutp0243579fe3e6d47fb22525c85ac9dda5b0~jSjGFrrZ_1660016600epoutp02s
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793358653;
+	bh=SY4wxRo5GhJ45am6vNPa4jgHWsz5BB1NdrAbB4X90Uk=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=WuVsOshoTwpDilGuOk+yYKZ+QaJtFkyWyg4zQqIuGT0J9hEx1xdYog4XrQ179vH7u
+	 zH0kf8sQmyCtkk94m3OtY7k+6lD+pHw/8L2wKj1HbOEnneKzPJBSdGcHiL/agNiSwo
+	 UopOKbipVzjiUb1EEWUN/b6sCalAeiSVGOqcvS4M=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261030111051epcas2p1739d8d51872fed66f46b0d03aac8c37e~jSjE70Cls2221722217epcas2p1H;
+	Fri, 30 Oct 2026 11:10:51 +0000 (GMT)
+Received: from epcas2p1.samsung.com (unknown [182.195.38.212]) by
+	epsnrtp03.localdomain (Postfix) with ESMTP id 4jGJLM48MZz3hhT7; Fri, 30 Oct
+	2026 11:10:51 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053~jSjEFl-1I2427424274epcas2p27;
+	Fri, 30 Oct 2026 11:10:51 +0000 (GMT)
+Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261030111050epsmtip197593379bee8be86f3c259c6c18b1e03~jSjD9Mf1Y2560625606epsmtip11;
+	Fri, 30 Oct 2026 11:10:50 +0000 (GMT)
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
+	hy50.seo@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
+Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
+	<kwmad.kim@samsung.com>
+Subject: [PATCH v3] ufs: mcq: fix dev cmd abort path and add OCS poll after
+ sq cleanup
+Date: Fri, 30 Oct 2026 20:10:45 +0900
+Message-ID: <20261030111045.982094-1-kwmad.kim@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,121 +81,161 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053
+References: <CGME20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053@epcas2p2.samsung.com>
 
-From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
+for all timed-out commands. However, device management commands (query, NOP)
+use reserved requests and are not SCSI I/O commands. The ABORT TASK task
+management function is designed for SCSI I/O UPIUs and is not applicable to
+device management UPIUs.
 
-card_idx is a static counter that is incremented on every probe.
-It can overflow and wrap to a negative value, which then indexes
-options[] and full_duplex[] out of bounds.
+Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
+the request is a reserved (device management) command, skip the TM path and
+call ufshcd_clear_cmd() directly instead.
 
-Allocate the card index from an IDA and free it on probe failure and
-remove. The IDA reuses ids on re-add, so a re-plugged card
-keeps its options[] and full_duplex[] entry instead of being
-moved to the next slot on every reprobe.
+Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
+UTRD of a device management command after a successful SQ_CUS poll. UFSHCI
+does not specify the order between the OCS update and the SQ_CUS update, so
+OCS may still be stale when cleanup returns. Without this poll, a late
+response to a timed-out query can arrive while a retry is already in flight,
+leaving the host with two query contexts and raising IS.UTPES.
 
-Store the id in the driver-private data so fealnx_remove_one()
-can free it.
+The poll is limited to device management commands because
+ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
+them. For SCSI commands, the OCS in the UTRD stays
+OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
+MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
+OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
+OCS_ABORTED reported by the host controller for the cleaned-up request,
+means the cleanup has completed.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
+--
+Here is the timeline of an actual case for this that happened with kernel 6.18.
+1. The host sent a query but the device didn't respond with it for a long time.
+
+[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
+[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+2. So after the query was timed out, the driver did SQ cleanup.
+Then the host updated CQ update and raised IS.CQES,
+Unfortunately, complete() was called the driver's ISR afterward.
+
+3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
+Then the driver didn't wait for completion due to the previous complete() call,
+and just checked OCS.
+
+[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
+
+5. The driver retried the query again, but the device didn't return anything,
+so the query was also timed-out.
+
+[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
+
+6. A few seconds later, the device returned the response of the 1st query,
+but since the host was holding two query contexts and couldn't handle it,
+it raised IS.UTPES.
+
+Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+
 ---
- drivers/net/ethernet/fealnx.c | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
+Changes since v2:
+- Use read_poll_timeout() for the OCS poll in ufshcd_mcq_sq_cleanup().
+  The open-coded loop did not re-read the OCS after the timeout, so it
+  could return a false -ETIMEDOUT if the OCS was updated while sleeping
+  in the last iteration (Sashiko).
 
-diff --git a/drivers/net/ethernet/fealnx.c b/drivers/net/ethernet/fealnx.c
-index 20d453843e09..00dc116c0817 100644
---- a/drivers/net/ethernet/fealnx.c
-+++ b/drivers/net/ethernet/fealnx.c
-@@ -83,6 +83,7 @@ static int full_duplex[MAX_UNITS] =3D { -1, -1, -1, -1, -=
-1, -1, -1, -1 };
- #include <linux/crc32.h>
- #include <linux/delay.h>
- #include <linux/bitops.h>
-+#include <linux/idr.h>
-=20
- #include <asm/processor.h>	/* Processor type for cache alignment. */
- #include <asm/io.h>
-@@ -143,6 +144,8 @@ struct chip_info {
- 	int flags;
- };
-=20
-+static DEFINE_IDA(fealnx_ida);
-+
- static const struct chip_info skel_netdrv_tbl[] =3D {
- 	{ "100/10M Ethernet PCI Adapter",	HAS_MII_XCVR },
- 	{ "100/10M Ethernet PCI Adapter",	HAS_CHIP_XCVR },
-@@ -411,6 +414,8 @@ struct netdev_private {
- 	unsigned char phys[2];	/* MII device addresses. */
- 	struct mii_if_info mii;
- 	void __iomem *mem;
-+
-+	int card_idx;
- };
-=20
-=20
-@@ -473,8 +478,7 @@ static int fealnx_init_one(struct pci_dev *pdev,
- 			   const struct pci_device_id *ent)
- {
- 	struct netdev_private *np;
--	int i, option, err, irq;
--	static int card_idx =3D -1;
-+	int option, err, irq, i;
- 	void __iomem *ioaddr;
- 	unsigned long len;
- 	unsigned int chip_id =3D ent->driver_data;
-@@ -482,18 +486,22 @@ static int fealnx_init_one(struct pci_dev *pdev,
- 	void *ring_space;
- 	dma_addr_t ring_dma;
- 	u8 addr[ETH_ALEN];
-+	int card_idx;
- #ifdef USE_IO_OPS
- 	int bar =3D 0;
- #else
- 	int bar =3D 1;
- #endif
-=20
--	card_idx++;
-+	card_idx =3D ida_alloc(&fealnx_ida, GFP_KERNEL);
-+	if (card_idx < 0)
-+		return card_idx;
-=20
- 	option =3D card_idx < MAX_UNITS ? options[card_idx] : 0;
-=20
--	i =3D pci_enable_device(pdev);
--	if (i) return i;
-+	err =3D pci_enable_device(pdev);
-+	if (err)
-+		goto err_out_ida;
- 	pci_set_master(pdev);
-=20
- 	len =3D pci_resource_len(pdev, bar);
-@@ -533,6 +541,7 @@ static int fealnx_init_one(struct pci_dev *pdev,
-=20
- 	/* Make certain the descriptor lists are aligned. */
- 	np =3D netdev_priv(dev);
-+	np->card_idx =3D card_idx;
- 	np->mem =3D ioaddr;
- 	spin_lock_init(&np->lock);
- 	np->pci_dev =3D pdev;
-@@ -672,6 +681,8 @@ static int fealnx_init_one(struct pci_dev *pdev,
- 	pci_release_regions(pdev);
- err_out_disable:
- 	pci_disable_device(pdev);
-+err_out_ida:
-+	ida_free(&fealnx_ida, card_idx);
+Link: https://lore.kernel.org/linux-scsi/sashiko-outbox-190791@kernel.org/T/#t
+
+Changes since v1:
+- Limit the OCS poll in ufshcd_mcq_sq_cleanup() to device management
+  commands. ufshcd_compl_one_cqe() copies the OCS from the CQE into the
+  UTRD only for them, so for SCSI commands the poll always ran for
+  MCQ_POLL_US and then failed with -ETIMEDOUT (Sashiko).
+- Return -ETIMEDOUT only if OCS is still OCS_INVALID_COMMAND_STATUS
+  after the poll. OCS_ABORTED, which the host controller reports for
+  the cleaned-up request, is no longer treated as a cleanup failure
+  (Sashiko).
+- Update the commit message to match.
+
+Link: https://lore.kernel.org/linux-scsi/sashiko-outbox-190714@kernel.org/T/#t
+---
+ drivers/ufs/core/ufs-mcq.c | 21 +++++++++++++++++++++
+ drivers/ufs/core/ufshcd.c  |  4 ++++
+ 2 files changed, 25 insertions(+)
+
+diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
+index 8106d55f4041..7c2aa0e9466a 100644
+--- a/drivers/ufs/core/ufs-mcq.c
++++ b/drivers/ufs/core/ufs-mcq.c
+@@ -550,6 +550,13 @@ static int ufshcd_mcq_sq_start(struct ufs_hba *hba, struct ufs_hw_queue *hwq)
  	return err;
  }
-=20
-@@ -689,6 +700,7 @@ static void fealnx_remove_one(struct pci_dev *pdev)
- 		dma_free_coherent(&pdev->dev, RX_TOTAL_SIZE, np->rx_ring,
- 				  np->rx_ring_dma);
- 		pci_iounmap(pdev, np->mem);
-+		ida_free(&fealnx_ida, np->card_idx);
- 		free_netdev(dev);
- 		pci_release_regions(pdev);
- 		pci_disable_device(pdev);
---=20
-2.53.0
+ 
++static enum utp_ocs ufshcd_mcq_read_ocs(struct ufs_hw_queue *hwq,
++					struct ufshcd_lrb *lrbp)
++{
++	guard(spinlock_irqsave)(&hwq->cq_lock);
++	return READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
++}
++
+ /**
+  * ufshcd_mcq_sq_cleanup - Clean up submission queue resources
+  * associated with the pending command.
+@@ -609,6 +616,20 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
+ 			 __func__, id,
+ 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
+ 
++	/*
++	 * For device management commands, there is no order guaranteed between
++	 * OCS update and CUS update, which is why we need to wait here. SCSI
++	 * commands are excluded because the OCS in their UTRD is not updated
++	 * from the CQE.
++	 */
++	if (!err && blk_mq_is_reserved_rq(rq)) {
++		enum utp_ocs ocs;
++
++		err = read_poll_timeout(ufshcd_mcq_read_ocs, ocs,
++					ocs != OCS_INVALID_COMMAND_STATUS, 20,
++					MCQ_POLL_US, false, hwq, lrbp);
++	}
++
+ 	if (ufshcd_mcq_sq_start(hba, hwq))
+ 		err = -ETIMEDOUT;
+ 
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index bcc2512bf34b..7fc80926eeec 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 
+ 	lrbp = scsi_cmd_priv(cmd);
+ 
++	if (!ufshcd_is_scsi_cmd(cmd))
++		goto clear_cmd;
++
+ 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
+ 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
+ 					  &resp);
+@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
+ 		return err;
+ 	}
+ 
++clear_cmd:
+ 	err = ufshcd_clear_cmd(hba, tag);
+ 	if (err)
+ 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
+-- 
+2.43.0
+
