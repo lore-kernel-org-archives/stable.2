@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793352417;
-	b=AZsLuLvFD1KBa0gok4vNBqfjs6+tiFoUvPQljlrjZeM8nKJ3rt/HsM8Qk+KBRcjiRhYS
-	 HlFHD5wpOQdX0zDy6WXC6H3bRrMbEV+E8PN9LiUvSpLopqXicQ9ITySSE3CtVwwJvpN7X
-	 CgBskKa2oIsQt4ocVbXMK5qXR8k8cMlH2Dahb/mhkmmbl0oNA5VdhQujbApgOEaHOgvja
-	 x97Xxpsceypw7wI1eLW6EvhKHKgVouJ1k7NwNOlfs/m9PTfn/B5WFKaPlcJeMzsrqZs1+
-	 j1aHkgzaU42um8z4pGj5NoMHaRw2c2Q3qhLfO8l5Zwk58qJCeJ5f6rQ7KVazW7t4oTw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352417;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
-	b=KZgGGVpjTPVcbcEx2HmBxlV2BXz354fMEFpEM6KJtiK/aGZh8r7R0TbWGqimWvu8zahj
-	 3JKWtcLGNMKwksg8IRmvKVZPIKswW8sGI3VapvXSn56wHYWzfiQzylW3KcVh+t6ViMYNU
-	 aHYoZZaIlqbQAFBn/bGCA5MIscfhUB26OQRUg6gGeFiDan16gQtpG0XhqfVc2+DynTW2q
-	 zTPVImRbmil8tM0gJ0o66bVR6zx1nxrGOkSwBAfmThe7xQT85r5ETL4bI7wvL1dWJv0i1
-	 7l6KYVEUd7QCL1aaQ75mBLuIaaLu3DbaliRM9Pe0yFYny7nXYBfg95bfhYjgCg6Sgyg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ayciZqaX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793352427;
+	b=oQYpufTLjMIBhtOXs5vxx0tnf5w/U9OJ5smKxUv480vxD41N8wArbEbX5MOuPKDAOrsz
+	 Fvht6ILbZpbIp/A+dE3esXpECmagtdExFhUr9YFYZFRCq3FH+O8UGtO2rI1V1voAJKnH3
+	 uIJnD0zCT6l88g9+uniNaNUZFYS6ov4aI8uTzTX7TxLJCZahkVoZLI8w3gQHJm3whdatO
+	 dbGinOyxZxh/XzH++1hcDdcRWlQH/cTSua+0PyYZfkIgDo0gqpfGrX1iHb8wR/0kBCY9a
+	 bRU7+pzkV0MsKg0N2ufe5Nsngro0ZhhQbTWBAhbfhf/xmxCJbthl/GCZZSzkCgMx1Aw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352427;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=V1pspLk+fckd2Oob0tFDkfoQsu77+dAXAQw/b0Q2v3k=;
+	b=RUBQy/SgGi2b/aJgl/gpUCQGia5VyBGpDSOpom/Du0QoG6EFtLG37Pe1NChPhPbSCGjz
+	 mNlSPFCESEewvvOMJHp92SFIh5xHvta4b9HjU+MsM9Uid7K00oyuAwAbH2lvJHoSKBFQk
+	 etfCr5bHYzYJt0VGGAmMzHOm0L4BlgReZDcMFOYoVNBR1Sm97p1oL2MGdAGqm4VxQt7bQ
+	 BTS5sGBfA8/QDlju0n2MHNnGtw6w5B5tuiyTzfD5jocAEYYURjSOfkCc8MBMfaXIh3f7h
+	 w7+n120xCT/HEpke0IeqFdyBjDsKXQivd2+PijTx/GQ9UpObvJtPV0lsfSOvwwIgT1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4E1606A31F
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:26:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A4E1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ayciZqaX
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso37139366b.3
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:26:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793352416; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LpOnSrmZ0LNPFjpADkxZfNt6kAyLt57x1lyHvkWhZcOJ9WLECaSruY2rsn6sqZO6YY
-         7CeA4pHzFD4aRc4UhwsBncbsvAelstVYLiwJUFqmz5dO0j7NxjES2UvVE4DlUUCydMKM
-         ynn6s7xmkphx1TxWZ4h6OqkGEaTMk5MDnipWga/0L1J2UVwN3+TdoiHdK4oNRDnczVNQ
-         4f2tA1cECvoTR0/hh+GiV+/co8+eiLCdSS9yjRsu6PP3kRd16nyF66o0h8TX3hl/tob9
-         cxe/K7/xCrsR6DSRb/LkZB9RnO4/TLz/4bmvhM4Nuukg19uOawAF6NLjOtrPfraMoIeX
-         +YaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
-        fh=PRDS8e5t9m7XlZfhWD44ftAO+BzHg+JtYuJsVXbc7fo=;
-        b=smWQ7B0XxbC2Og3bbSwId+XrmF1nd5F8n5XjmaNV4Iw/jbDbzK1wDNIKGyjujpGCry
-         ghimnjiX9uFFDvysl8At8Gh72NXx+PzDX4Az+Y0GzujjJc47t0DTfYCu/6LUKIpjMdFi
-         maXomFJ9lGqV7oB19MPXGQbOo697LKghxEmdE+zmOASf6kNIAdZUz9gbRGMbx+TLjUTN
-         1Bwo1KwBhFpEMDcKAKTwXPU6o3A/pLw8DOAkQ7es+mV1eOjPoKueCfcefmeUU0W4GnFU
-         BzeRSimWO2kYNMXFU7fHBliCirwxSJz4flNweF5rw63csE/lyaB5PcBYJENVfdglXfLu
-         GpGg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793352416; x=1793957216; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
-        b=ayciZqaXdQP8kxCzQupvDq5/ksF/5+X55nmxdHSDPXRtmFf8SIUDZkZaCXg6JnRxZT
-         /PTNG35skuMUuytLlEpxoAJQ6sNewaygA79NJwF8mxa/zBRUdamK5O6BmpwPv3afvnYc
-         NJ8Hbr3+omGNtgKFNtMzEGPHzmcIS3++nOUYbqexCw6Ob9qX3CD3rpUt2Ukp7kJZT264
-         NpxOo0kDthQ25ZLLxaw87HUmbG7uFxnkhcYvmkjcaZXyCnX6/5bGiw55XEbK57jZhFJ8
-         45Vse3mblR+uUMn6tMWl5Odsfk2aOVTQ/Nar5QHsjTE3aU7OBwVlXyMXOj2D/BB5ss/c
-         WEdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793352416; x=1793957216;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a7q+/4+4zxMUP673wzD4KRVvcydFuIy84hUuAGiF6LM=;
-        b=y4Ld4pE1+RjUA6HOG1PHvIwFvBKD7C3PFayNBSiEoRA6TOOTRhb4zrNzVXohScdLoE
-         2dQ9CW6rey3KkhXWuucvE03Q5D+ljIK6d9VhZv74gxbac6gMxi7atlQOvPJfbTvwm5vR
-         sxasPSLaE9cZp1B15jDNE6HV8pVuXYCaU9bK7pKVDpSBRPCgAONIhdTiZkvdLG4MCCah
-         iCTAsq7TTzwxRrd9skcyW2xYnUuq8oJ+cJP5G7TL5QFRggwlK0spIaHVp911SW8uHLos
-         HiIYykTCaE7IOTDwHyxbe2OyC/vKVG8klPYb5vFDxCWBzXmxedbhlDXjgb3H3xMfs3yl
-         NRPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwk3fnctjfsghdiIkyoFVc/kufzPAWL2Dr3ZgVSLMhtSCWPnRkbGXYlSRSTlQYUMlLKwe9bh6s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOmTsDimmAyvwqT88PVwsE38/Lad+S/E10hlx0ZAERABZTlKvM
-	kVoe10if+sbt1ntvNFDuWLDLKPR5AZJy5KGimrZl2b4zeqzaAWmXYsQPjUXiN4+4epKKjT437rc
-	nDFHhNt3/xonGAIj04A32MJIZB2w0X7c=
-X-Gm-Gg: AYBFou0kM4qDf3wU5Y85XvV4zn8zlU9Kuu0WFtcqqPiGAhlMO+EdB0Q9uwjb7sKyU6c
-	LP5SITGw0FrNNHcUlh1UtZYoav4QxK7kRqUbko7AkJezmDuC3HO+D/mIjFmbsxCe5WG95B73JC6
-	CvL3UJEZapBqci/Y084MCMUaMnGtIQFRDv98pLblrhRGVbRPkRwdI3WFxdsnz3T6p7XAR5VkbAQ
-	iLUxWVBE+kB4NUTMd380KJrlNH7/YWw9Smr1PJuf0nqZj0l7G0v98yQgJkzMhM1Z4fri/DgEHTp
-	5csHh5xvxPmNRTeBzESZpM1A45q89DhgIfI7PW7S1b5c8QEeTt1B64DovXISZswdHijQJ7j8f0p
-	STX5Phm3fzaklpP8BI6+L2p1Xsqzdaws+VM/2JL8+vmGImx3RdseXkiFtOC6wot3m/+edHw==
-X-Received: by 2002:a17:907:72c8:b0:c41:c106:9772 with SMTP id
- a640c23a62f3a-c4ca792f071mr151923666b.1.1793352415540; Fri, 30 Oct 2026
- 02:26:55 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C7F606A326;
+	Fri, 30 Oct 2026 09:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C7F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jGG2W18dVz5B0xd;
+	Fri, 30 Oct 2026 17:26:59 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 69U9Qm49099897;
+	Fri, 30 Oct 2026 17:26:48 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Fri, 30 Oct 2026 17:26:50 +0800 (CST)
+X-Zmail-TransId: 2afa6ae462da066-f0b1f
+X-Mailer: Zmail v1.0
+Message-ID: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
+In-Reply-To: <ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com>
+References: 202610301145238169CxodJv5_0n5vd-Vbd4XA@zte.com.cn,ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com
+Date: Fri, 30 Oct 2026 17:26:50 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,168 +58,214 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <P58Wrer--F-9@tuta.io>
-In-Reply-To: <P58Wrer--F-9@tuta.io>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Fri, 30 Oct 2026 10:26:44 +0100
-X-Gm-Features: AclHuK_RA6XrlgVHuWWMqlPNjOqYiitwMvc6OBqsxoVy-pqo9NlWDMGkDue8iP8
-Message-ID: <CAOQ4uxjqa_bTBaScWMfoUvhHL_xSxDQ2xK7+r9YsaWOaXfKC5Q@mail.gmail.com>
-Subject: Re: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from the
- user file
-To: Edvard Conrad <edvard@tuta.io>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
-	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+        <chengzhihao1@huawei.com>
+Subject: =?UTF-8?B?W1BBVENIIHYyXSB1YmlmczogZml4IGF1dGggbm9kZSBzcGFjZSBhbmQgcGFkZGluZyBpbiBqb3VybmFsIGJ1ZmZlcnM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 69U9Qm49099897
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Fri, 30 Oct 2026 17:26:59 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE462E3.000/4jGG2W18dVz5B0xd
 
-On Thu, Oct 29, 2026 at 10:18=E2=80=AFPM Edvard Conrad <edvard@tuta.io> wro=
-te:
->
-> When fanotify reports a permission event, copy_event_to_user() creates
-> the event fd with dentry_open_nonotify(), so that the listener's use of
-> that fd does not generate further events. If the event's path is on a
-> stacked filesystem, the stacked filesystem's ->open() opens the real
-> file with backing_file_open(). Since commit ebe559609d78 ("fs: get rid
-> of __FMODE_NONOTIFY kludge"), FMODE_NONOTIFY lives in f_mode only and
-> the backing file does not inherit it: it is allocated with the default
-> fsnotify mode, and fsnotify_open_perm_and_set_mode() raises FS_OPEN_PERM
-> on the real path if the backing filesystem has permission event
-> watchers.
->
-> Before that commit __FMODE_NONOTIFY travelled in f_flags, and overlayfs
-> copies the user file's f_flags into the backing open
-> (ovl_open_realfile()), so the backing file was exempt implicitly. Commit
-> bc2473c90fca ("ovl: enable fsnotify events on underlying real files")
-> relied on that when it dropped FMODE_NONOTIFY from OVL_OPEN_FLAGS.
->
-> The nested event is queued to the same group, from inside the
-> listener's read(2), and can only be answered by another reader thread
-> of that group. A listener holding filesystem marks on both the stacked
-> and the backing filesystem therefore deadlocks as soon as all of its
-> reader threads are inside such a read(2) at the same time, and every
-> other task that touches a marked filesystem queues up behind it.
->
-> Observed with a commercial anti-malware agent (16 reader threads) on an
-> ostree/composefs host: / is an overlayfs whose data layer is the ostree
-> object store on the same btrfs that holds /etc and /home, and a
-> systemd-sysext overlay sits on /usr. Every on-demand scan of /usr wedged
-> the whole machine until the group was killed. Stack of a blocked reader
-> thread on 7.2.7:
->
->   fanotify_get_response
->   fanotify_handle_event
->   send_to_group
->   fsnotify
->   __fsnotify_parent
->   do_dentry_open
->   vfs_open
->   backing_file_open
->   ovl_open_realfile [overlay]
->   ovl_open [overlay]
->   do_dentry_open
->   vfs_open
->   backing_file_open
->   ovl_open_realfile [overlay]
->   ovl_open [overlay]
->   do_dentry_open
->   vfs_open
->   dentry_open_nonotify
->   copy_event_to_user
->   fanotify_read
->   vfs_read
->   ksys_read
->
-> Userspace cannot avoid this: the backing open happens while the kernel
-> builds the fd, before the event is reported, and fid reporting is not
-> available for permission event classes.
->
-> Make a backing file inherit FMODE_NONOTIFY when the user file it is
-> opened for must not generate events. This restores the pre-6.14
-> behaviour for the fds that fanotify creates (and for any other
-> FMODE_NONOTIFY file), while ordinary opens through a stacked filesystem
-> keep generating events on the real path, as intended by bc2473c90fca.
->
-> Verified with a self-contained reproducer (private tmpfs lower layers, an
-> overlayfs over them, FAN_OPEN_PERM filesystem marks on the overlay and on
-> one lower layer, a child opening a file through the overlay) in a qemu
-> VM on this tree built with defconfig plus OVERLAY_FS, FANOTIFY and
-> FANOTIFY_ACCESS_PERMISSIONS: without this patch the listener's read(2)
-> never returns and the child's open is released only by the listener's
-> death; with it read(2) returns, the event is answered and the open
-> completes.
->
-> backing_tmpfile_open() is left alone: its only caller is
-> ovl_create_tmpfile(), whose user file is a regular overlayfs file.
->
-> Fixes: ebe559609d78 ("fs: get rid of __FMODE_NONOTIFY kludge")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-> Signed-off-by: Edvard Conrad <edvard@tuta.io>
-> ---
-> v3:
-> - Back to the v1 change in backing_file_open(). The init_file()
->   variant posted as v2 was larger without being more general; Amir
->   withdrew that suggestion and reviewed v1 instead.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Apologies for the detour
+write_head() appends an authentication node to the node group when
+authentication is enabled and writes
+ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
+ubifs_jnl_write_data() allocates its buffer for that, but when the
+allocation fails it falls back to c->write_reserve_buf.  That buffer is
+sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
+block, 4144/4160 bytes), while an incompressible 4 KiB block needs
+4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
+sha256).  ubifs_hash_nodes() then writes the auth node past the end of
+the reserve buffer, and write_head() reads it back from there.
 
-> - Add Amir's Reviewed-by. Drop the Assisted-by and Suggested-by
->   trailers and the blank line in the trailer block, as asked.
-> - Keep the subject line from v2, which is the prefix used for
->   fs/backing-file.c.
-> - The reproducer posted inline with v1 is now an LTP test, under
->   review as syscalls/fanotify26:
->   https://lore.kernel.org/ltp/P50G-yE--F-9@tuta.io/
+The same write path also writes uninitialized heap data.
+ubifs_jnl_write_data() and ubifs_jnl_write_inode() build their node
+groups in kmalloc()ed buffers, and when the last node length is not a
+multiple of 8 the padding up to the next auth node goes to the flash
+uninitialized.  That padding is covered neither by the node CRC nor by
+the rolling hash.
 
-Thanks for following up on that!
-Amir.
+Size the reserve buffer for the largest possible auth node (the mount
+path allocates it before authentication is initialized, so it cannot use
+ubifs_auth_node_sz()), clear the padding after the data node before it is
+written, and allocate the node group buffers of ubifs_jnl_write_inode()
+and ubifs_jnl_truncate() with kzalloc().  The data write path cannot just
+use kzalloc() because it may fall back to the reused reserve buffer.
+ubifs_jnl_truncate() refills its data node with ubifs_tnc_lookup(), so
+what is left after the re-compressed node comes from the old node on the
+media, not from the heap.
 
->
-> v2: https://lore.kernel.org/all/P4wV1J9--F-9@tuta.io/
-> v1: https://lore.kernel.org/all/P4sl5iz--F-9@tuta.io/
->
-> Tool disclosure (Documentation/process/generated-content.rst): the
-> stack analysis, the git-history search for the regressing commit, the
-> patch text, the commit message and the reproducer were produced with
-> an AI coding assistant (Anthropic Claude Code) under my direction over
-> interactive sessions; I reviewed, built and tested the result. No
-> static analysis tools beyond checkpatch were used.
->
->  fs/backing-file.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
->
-> diff --git a/fs/backing-file.c b/fs/backing-file.c
-> index 5614cb7801e..24357bf9328 100644
-> --- a/fs/backing-file.c
-> +++ b/fs/backing-file.c
-> @@ -43,6 +43,17 @@ struct file *backing_file_open(const struct file *user=
-_file, int flags,
->         if (IS_ERR(f))
->                 return f;
->
-> +       /*
-> +        * A user file that must not generate fsnotify events (e.g. the f=
-d
-> +        * that fanotify creates for a permission event with
-> +        * dentry_open_nonotify()) must not generate them through its bac=
-king
-> +        * file either. Otherwise a listener watching the backing filesys=
-tem
-> +        * gets a nested permission event from its own read(2), which onl=
-y
-> +        * another reader of the same group can answer.
-> +        */
-> +       if (FMODE_FSNOTIFY_NONE(user_file->f_mode))
-> +               file_set_fsnotify_mode(f, FMODE_NONOTIFY);
-> +
->         path_get(user_path);
->         backing_file_set_user_path(f, user_path);
->         error =3D vfs_open(real_path, f);
-> --
-> 2.56.0
->
+The padding is not part of any node, so ch.len and the CRCs stay
+unchanged.  With a zeroed truncation buffer, zero_trun_node_unused() is
+redundant, so remove it and the comments which refer to it.
+
+Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
+Link: https://lore.kernel.org/all/ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+v2: Keep the explicit padding clear only in ubifs_jnl_write_data(), which
+    may fall back to the reused write reserve buffer; allocate the node
+    groups of ubifs_jnl_write_inode() and ubifs_jnl_truncate() with
+    kzalloc(), and drop zero_trun_node_unused() together with the
+    comments pointing at it.  Thanks to Zhihao Cheng for the review.
+
+ fs/ubifs/journal.c     | 39 ++++++++++++++++++++++++++-------------
+ fs/ubifs/super.c       | 18 ++++++++++++++----
+ fs/ubifs/ubifs-media.h |  6 ++----
+ 3 files changed, 42 insertions(+), 21 deletions(-)
+
+diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+index 40a95a2fad50..449bc8c0a224 100644
+--- a/fs/ubifs/journal.c
++++ b/fs/ubifs/journal.c
+@@ -68,16 +68,6 @@ static inline void zero_dent_node_unused(struct ubifs_dent_node *dent)
+ 	dent->padding1 = 0;
+ }
+
+-/**
+- * zero_trun_node_unused - zero out unused fields of an on-flash truncation
+- *                         node.
+- * @trun: the truncation node to zero out
+- */
+-static inline void zero_trun_node_unused(struct ubifs_trun_node *trun)
+-{
+-	memset(trun->padding, 0, 12);
+-}
+-
+ static void ubifs_add_auth_dirt(struct ubifs_info *c, int lnum)
+ {
+ 	if (ubifs_authenticated(c))
+@@ -840,6 +830,28 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
+ 	return err;
+ }
+
++/**
++ * ubifs_zero_node_pad - zero the padding after a journal node
++ * @c: UBIFS file-system description object
++ * @node: node to pad
++ * @len: length of the node
++ *
++ * When authentication is enabled the auth node is placed at the next
++ * 8-byte aligned offset, so the bytes between the end of the node and
++ * that offset are written to the media.  They are covered neither by the
++ * node CRC nor by the rolling hash, so clear them instead of writing
++ * stale buffer contents.
++ *
++ * This is only needed when the buffer is reused, i.e. for the write
++ * reserve buffer of ubifs_jnl_write_data().  Buffer owners which get a
++ * fresh allocation use kzalloc() instead.
++ */
++static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
++{
++	if (ubifs_authenticated(c))
++		memset((char *)node + len, 0, ALIGN(len, 8) - len);
++}
++
+ /**
+  * ubifs_jnl_write_data - write a data node to the journal.
+  * @c: UBIFS file-system description object
+@@ -925,6 +937,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
+ 	if (err)
+ 		goto out_free;
+
++	ubifs_zero_node_pad(c, data, dlen);
+ 	ubifs_prepare_node(c, data, dlen, 0);
+ 	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
+ 	if (err)
+@@ -1007,9 +1020,10 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
+ 	else
+ 		write_len += ilen;
+
+-	ino_start = ino = kmalloc(write_len, GFP_NOFS);
++	ino = kzalloc(write_len, GFP_NOFS);
+ 	if (!ino)
+ 		return -ENOMEM;
++	ino_start = ino;
+
+ 	/* Make reservation before allocating sequence numbers */
+ 	err = make_reservation(c, BASEHD, write_len);
+@@ -1716,7 +1730,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+ 	sz =  UBIFS_TRUN_NODE_SZ + UBIFS_INO_NODE_SZ +
+ 		dn_size + ubifs_auth_node_sz(c);
+
+-	ino = kmalloc(sz, GFP_NOFS);
++	ino = kzalloc(sz, GFP_NOFS);
+ 	if (!ino)
+ 		return -ENOMEM;
+
+@@ -1725,7 +1739,6 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+ 	trun->inum = cpu_to_le32(inum);
+ 	trun->old_size = cpu_to_le64(old_size);
+ 	trun->new_size = cpu_to_le64(new_size);
+-	zero_trun_node_unused(trun);
+
+ 	dlen = new_size & (UBIFS_BLOCK_SIZE - 1);
+ 	if (dlen) {
+diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+index 38972786817e..538907aba8a0 100644
+--- a/fs/ubifs/super.c
++++ b/fs/ubifs/super.c
+@@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
+ 		bu_init(c);
+
+ 	if (!c->ro_mount) {
+-		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+-					       UBIFS_CIPHER_BLOCK_SIZE,
++		/*
++		 * The reserve buffer is also used as a fallback for data
++		 * nodes which are followed by an authentication node, so
++		 * reserve room for the largest possible one.  Authentication
++		 * is initialized only later, hence the maximum sizes.
++		 */
++		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
++					       UBIFS_CIPHER_BLOCK_SIZE +
++					       UBIFS_AUTH_NODE_SZ +
++					       UBIFS_MAX_HMAC_LEN,
+ 					       GFP_KERNEL);
+ 		if (!c->write_reserve_buf)
+ 			goto out_free;
+@@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
+ 		goto out;
+ 	}
+
+-	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+-				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
++	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
++				       UBIFS_CIPHER_BLOCK_SIZE +
++				       UBIFS_AUTH_NODE_SZ +
++				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
+ 	if (!c->write_reserve_buf) {
+ 		err = -ENOMEM;
+ 		goto out;
+diff --git a/fs/ubifs/ubifs-media.h b/fs/ubifs/ubifs-media.h
+index 3c9792cbb6ff..7d4702f3e15f 100644
+--- a/fs/ubifs/ubifs-media.h
++++ b/fs/ubifs/ubifs-media.h
+@@ -591,14 +591,12 @@ struct ubifs_data_node {
+  * @old_size: size before truncation
+  * @new_size: size after truncation
+  *
+- * This node exists only in the journal and never goes to the main area. Note,
+- * do not forget to amend 'zero_trun_node_unused()' function when changing the
+- * padding fields.
++ * This node exists only in the journal and never goes to the main area.
+  */
+ struct ubifs_trun_node {
+ 	struct ubifs_ch ch;
+ 	__le32 inum;
+-	__u8 padding[12]; /* Watch 'zero_trun_node_unused()' if changing! */
++	__u8 padding[12];
+ 	__le64 old_size;
+ 	__le64 new_size;
+ } __packed;
