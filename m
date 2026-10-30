@@ -1,84 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793394334;
-	b=OMp5XYALWJTmiZ5S0/fBG3WL1Tp8nbvD/nnccsW+CDDo0WbwtBYDn7LMISm3ANfHF+5p
-	 i6WnIEY1BvLukrWPiaj2NW+DTB9+AjFrhsKyNp8bwyLAKdPCPNFUbYOGGMd0xXz1kOPXX
-	 dF6uZpyW5bAr2k6LDbaEbmEcKWUeXJEU0+99+HUIDgFrp0H4seuVpeLSkrAbPXU0Bcg8R
-	 E/ZECp93+psKzD6+AuF1Mt8J7ExslVpoXBKioYCh7dwSOeRDSp6dkkgmyrI7owXbkvolQ
-	 LE/7zKfiy4dV9OH0wqCOKousWwUzx3FeBhSnp3m9BG+GET9pT1yO+LE5rIyIhEsWtwA==
+	t=1793394378;
+	b=FdoCdoIUvwgrJTezO72b5wz3bg0MClSA9b0pNJdPavNsaib60E3kaKEAN0STM1/8AohL
+	 4QLyijb7SBhLUlMHw25kIGo5/eqGE53rbBH5/MiaJXIpJw/L65UcBo+m1ss1OSkR4W/Pk
+	 k/uG2+ATcz0Wf0sqV4IKzvLo24yx1LN4pBA2qvQg6BhWd0s15U2WpPp7RZfG3OMHEapco
+	 fIG/4uhzWd1gyOxZXR5M0DYY9dgfbzpO0gAPIBitrBcl6rmj0Ngk+SGednPYzNSOsQYRI
+	 WovuNeBXYMo8GCeEX1cvT1Sx0hdFcmQaixKKoejqvpNEHdbOjEabvTT6KwpVs3AyuKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793394334;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Lz3hPdGiB3LtKOV0nNAhQA53cTuUQU9Ot6ASOb7nQ64=;
-	b=J08JKeknSTbYw62VzUpoZwTGfCQ+XKhHRlof3Y86OnU14MBtbnTHb+W3waXMoJjtB07a
-	 DjwctnZkVXd5TjSYlJzMKOQux36zhLRvWLauzpf15N4Rc3jDjDEtv9JulKPH8j20VyHAs
-	 yMz4V3YXxR+SJGfXQ9eovTF9z0tY2Zr7EpeURBSjevGu7DQNnKyuBDUZ82k++QwcmWdxM
-	 g/VGlo2esn/XyvF4PcLPCszUKL2oyg6eBdpDOx6qGWEQXPybShakZ9tE7E0ki8gxt3+mM
-	 JCP69eOwRnbJgkyK1f6j56QQPWSLyVsVzKzZhSIwE+79lL/JtwJX4XHcc9wv5Q4hF6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793394378;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3g6Cz2d8sKkJb6/thMuVsVtyf+10ZaExGlswqtnVU68=;
+	b=N4oR7MwlOJoI3jKbo5rNmH6GUE3iO/kaTbnR8NpNlVpgRf/mgeWFxPL99OCIYm1DwisG
+	 xeHWGLNOdEQYcc72Di1bP1CTqxlcnT7J0cegVcEW/kXeIEeTQm+ddrKvyMvhqlWLAzTqB
+	 DLuKd+eBu/5UGP/bg/jHB2U4D2i9i7RYavvEk5GOQmsh7Eo77e9ygEPvcUR7OEuONuCp2
+	 8sAFLq4CPSJaJcNaRz4WjCuTGRtfZARzao0izCYm8rF6b+HyIKkIWT+Bp55rPMxaO60FC
+	 HrMRLFrpmE/aCSHQ3k7M7JAo4A5UK2ckI4gmfa8yd3h4f+XP+ok736y2BUMP25Zh90g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yq7WHlLT;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="cv+GVt/7";
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9B3606A31A;
-	Fri, 30 Oct 2026 21:05:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA9B3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3B5606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 21:06:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E3B5606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Yq7WHlLT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793394334; x=1824930334;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=iUxaxRahzNaPTiOfDpUTWah4QuJ5Ix+A92v5DpF5sEk=;
-  b=Yq7WHlLTNWvg6KO9vHQJmTP9Yc4SPB+GSfLMj/R+Zh1J9Uid329hDkFS
-   bVGqzsIY1YsNCdHpPePo9QnqNQS7R4eJpiI6oK0C77czOck3a6b/hNNLX
-   mpSXJbp1x24Ia/aNHxO7FbyYaDi9gbt3GH300cC/qYHNMCN7wavyjOkIo
-   r7ghBDs8IcJJsfTvH1iaZxn4hLHRTwRdulW0S+PBGu2j+9Lr1N7mGBpc/
-   +NvXdjrZmS0dVGH6Q37Vwia+AO+DGFIMkC88KgKKxMhdz5WMd99ky4EsS
-   SQOdIefUmhwepURO8vCgwYW2kHR/ZL+F/2336buWSz30RQQwFnzdA4cL1
-   A==;
-X-CSE-ConnectionGUID: /++jg5btSuKCYb7KXeGQhw==
-X-CSE-MsgGUID: P74ps7XSSFuRJTU++nceLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2171990"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2171990"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 14:05:34 -0700
-X-CSE-ConnectionGUID: 7WwhIb3bSwyFDAscpY/TNw==
-X-CSE-MsgGUID: hBwFep02SP+Z7vZWIJRRvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5869865"
-Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
-  by fmviesa008.fm.intel.com with ESMTP; 30 Oct 2026 14:05:32 -0700
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: Tim Chen <tim.c.chen@linux.intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Frank van der Linden <fvdl@google.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Doug Nelson <doug.nelson@intel.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Mohini Narkhede <mohini.narkhede@intel.com>,
-	Pooja Jain <pooja.jain@intel.com>
-Subject: [PATCH v2] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with multiple ranges
-Date: Fri, 30 Oct 2026 14:10:32 -0700
-Message-Id: <17a23a0cb7b98161e0a0d14520c63d2b4d1921b1.1793394603.git.tim.c.chen@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cv+GVt/7
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so7660155e9.2
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 14:06:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793394376; x=1793999176; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3g6Cz2d8sKkJb6/thMuVsVtyf+10ZaExGlswqtnVU68=;
+        b=cv+GVt/7SKogebaL1wDDZ3ih0Ey1kKg7eaGV8pNhO7G/1sggVerA8ddt2xpeWC6mPY
+         fih1/3u95+GTT9mOe9H+cSGgCVxyayRFd0ZNtnp0SYT/5yWYqLqeX/3WoskfqTVHtWMe
+         6jtdSa040A+/bJKeck+yhn6o7JriK9BLtP3au7QL5RA3yTHuc2Pbfn2O8Ujo5N7MNUtj
+         m/aaLbxMJsaafxX0Wf2el5Jj0Pvj/5TPSRh3S7n0j6nlQUju3Gsu4V3MOkaaMLJnjYvM
+         q/K4BMuiNSk+ViFoxXhD7XBURjiVwNUZJcAP7lSugSAJJAOfKPxkkmQlAS3k5u5AaaMk
+         Oytg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793394376; x=1793999176;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3g6Cz2d8sKkJb6/thMuVsVtyf+10ZaExGlswqtnVU68=;
+        b=qsz0V9ZOev/J1kHxy4ZH099TSOxrvjkP3q06tVkE2s2QIAXMjGvW1rab79zFXjxJmn
+         tUZRRHxqLEeWh1jRMAKNYVnlZqP06ZIWzsLGuq3fFon4b4W0nsWQjfer4TRbpVd78U2m
+         KvwhtGfndDQL1B5BtmzBAmrRz8PnEk9CBwHjbcNxwujscEkE3IJHP+iGf+BdwlH1+HB4
+         BoBE0Wz+DvHXxtnBamOlXX61HRSZVjD9gkPiCb8WwJ7uYlCB29GbLRsp3h3w2YXk34DS
+         8Eo4jiRIiX8TWavh2EeM8DflW/VC7Kz1XgT7tDFkHpc/G8IaK1QHsg/1B/7gjznSAv2J
+         eDuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0dLtzgCtXiYPOf2UGYhwS2UVQkdHvfWEXr+GwyUX8IaNC7I0G2HSg9ajbrITmlMHuUnnbDD8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLd7U82Rg31BpuSVI9T/tmm15/wdFHAkAwf//6C0b+uQYz4zg8F
+	NvhOjtheDZtOv6Cna/ANz62Bdz159Dc8cx8zzEWcDaMrAP9VjT0/pXaJHHcTKEES4nqpktldsVt
+	Nw6qK4yT9Ug==
+X-Gm-Gg: AYBFou3+2jZ5bvdyONdZ2lxN9h0It8NUAcGmSl85LtPt/ifB4f9VeYHHSTb+/pHGye+
+	vXMuvl/4jtS9fyzZE+reSstY9m9wnZ9XeKqgqdD0zog9a4Fy06D3xnIrL+aw9xRXBb9JHCd0fS6
+	0E5kdmx+QKoWQ0AG3MPy4Y0cN6yYOyGEpEQgTKO2NN2gBRyOBuVfwMIgUKrv+YhUqO2uXEJtkOY
+	aAcRZA6SWyaRb5L+CHDYK+Y9LJFfD6WEjiXw4AkNV/xG1DFaI6/Zyd8dKQ4X4kQXVIj93+x2HAd
+	jsiqrIyDyuatNwSrUUawiczBgann2lOGGZUH+w8m8sw9fc8kQue7AtPjyGrJZzxnJ2N7zWgXyiQ
+	8V1YWcCCreSNAZVIY5MNuhnQkvPd+dFSJ9kmmKW2iJlHmDWv7UB48FNyceSdzDsr82xAYdBA+xc
+	0valhh3wU4iJPGR37wJWoYcANVhM+ClIMAlSsxRfBEXpz/C+/LAbMpsvwsMzlFrHTo/lCOe9jYK
+	6mQcTyYn+y6UMaf8sGfcN0rhvwVcYVgzq5zjiQ/CmsqZrhVu5dee+Tp/olAwSrtwr95hQUm9lZK
+	vo1BraLQUY+0sPzozTAfLg==
+X-Received: by 2002:a05:600c:1c0f:b0:4a1:ac66:6059 with SMTP id 5b1f17b1804b1-4ac19233381mr76726395e9.26.1793394375823;
+        Fri, 30 Oct 2026 14:06:15 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8fb2c5sm9933851a91.3.2026.10.30.14.06.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 14:06:14 -0700 (PDT)
+Message-ID: <8728a52d-53b5-408e-a541-ee309e970e18@suse.com>
+Date: Sat, 31 Oct 2026 07:36:09 +1030
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,249 +93,190 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] btrfs: make fsync wait after pre-submission errors
+To: Josef Bacik <josef@toxicpanda.com>, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, Boris Burkov
+ <boris@bur.io>, Filipe Manana <fdmanana@suse.com>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
+ <20261030-b4-btrfs-data-integrity-v1-3-f4d4196731e6@toxicpanda.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-3-f4d4196731e6@toxicpanda.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-[Only for 7.3.y, 7.2.y and 6.18.y.
-Master branch 7.4-rc* onwards switched to section-based vmemmap
-optimization without this bug]
 
-sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
-per present section in [pnum_begin, pnum_end), and
-sparse_init_early_section() hands them out in order, with a BUG_ON() when
-they run out. hugetlb_vmemmap_init_early(nid) however initializes the
-sections of every bootmem gigantic page on the node, including pages
-outside the range being initialized. If a node's memory is split into
-more than one range, sparse_init() calls sparse_init_nid() once per range,
-and this takes more slots than were allocated. The same happens if a
-gigantic page straddles a node boundary.
 
-For example, with this SRAT layout every node has a small range below 4G
-and a large range above 4G:
+在 2026/10/31 01:08, Josef Bacik 写道:
+> Commit f13e01b89daf ("btrfs: ensure fast fsync waits for ordered extents
+> after a write failure") made btrfs_finish_ordered_extent() set
+> BTRFS_INODE_COW_WRITE_ERROR in the inode when a COW write fails. The flag
+> makes the next fast fsync wait for the completion of the ordered extents,
+> which is where the extent maps that point to unwritten extents are
+> dropped. Otherwise the fsync logs file extent items for them, which is a
+> corruption if the log is replayed.
+> 
+> As the comment there says, this is also needed for errors that happen
+> before a bio is submitted. But for buffered writes those don't go through
+> btrfs_finish_ordered_extent(). When running delalloc fails for a folio
+> that already got ordered extents, or a block can't be submitted,
+> writepage_delalloc(), submit_write_sector(), extent_write_locked_range()
+> and btrfs_cleanup_ordered_extents() call btrfs_mark_ordered_io_finished(),
+> which marks the ordered extent with BTRFS_ORDERED_IOERR and queues its
+> completion without setting the flag:
+> 
+>    writeback (or a first fsync)             fsync
+> 
+>    writepage_delalloc()
+>      cow_file_range() for range A
+>        creates extent map and ordered
+>        extent
+>      cow_file_range() for range B fails
+>      btrfs_mark_ordered_io_finished(A)
+>        queues the completion
+>                                             no dirty folios, no writeback
+>                                             flag is not set, does not wait
+>                                             btrfs_log_changed_extents()
+>                                               logs the extent map of A
+>                                             btrfs_sync_log()
+>    btrfs_finish_one_ordered()
+>      drops the extent map
+>      frees the reserved extent
+> 
+> If the error was already reported, for example to a previous fsync that
+> triggered the writeback, this fsync even returns success. After a power
+> failure, replaying the log replaces data that was durable before with the
+> unwritten extent, for which there are no checksums:
+> 
+>    BTRFS warning: csum hole found for disk bytenr range [14434304, 14438400)
+>    BTRFS warning: csum failed root 5 ino 267 off 0 csum 0x8941f998 expected
+>    csum 0x00000000 mirror 1
+> 
+> Both functions share can_finish_ordered_extent(), so set the flag there.
 
-  Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
-  Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
-  Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
-  ...
+Sashiko reported a critical level problem, you may want to check it:
 
-In 128 MB memory sections (x86_64 SECTION_SIZE_BITS = 27), node 0's low
-range is sections 0x00-0x05 (6 present sections) and its high range is
-sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
-sections, all smaller than the 8 sections of a 1G page.
+https://sashiko.dev/#/patchset/20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6%40toxicpanda.com
 
-Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=1G
-hugepages=400", hugetlb_vmemmap_init_early(0) then initializes node 0's
-1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
-the 7th section hits the BUG_ON() (seen on v7.2.6):
+Thanks,
+Qu
 
-  kernel BUG at mm/sparse.c:268!
-  RIP: 0010:sparse_init_early_section+0x9f/0xb0
-  RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
-  RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
-  R10: ff252cb28ffb3d40 R13: 0000000000000d00
-  Call Trace:
-   hugetlb_vmemmap_init_early+0xe1/0x140
-   sparse_init_nid+0x56/0x370
-   sparse_init+0x192/0x2b0
-   free_area_init+0x7f/0x690
-   start_kernel+0x64/0x540
-
-Here RDX is the section number, and R10/RDI are 6 slots apart: the start
-of the usemap buffer and its current position, which is the end.
-
-Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO a
-page whose sections are all present and within it. Ranges are disjoint,
-so each page is handled once, in its own range.
-
-Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
-regular memmap from sparse_init_nid(), and the pages are optimized later
-by hugetlb_vmemmap_optimize_bootmem_folios().
-
-Fixes: b1222550fbf7 ("mm/hugetlb: do pre-HVO for bootmem allocated pages")
-Cc: stable@vger.kernel.org # 6.18.y, 7.2.y, 7.3.y
-Reported-by: Mohini Narkhede <mohini.narkhede@intel.com>
-Tested-by: Pooja Jain <pooja.jain@intel.com>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
----
-
-Notes:
-    v1 -> v2:
-    - Use a two-tab indent for continuation lines of all touched prototypes
-    and definitions (David)
-    - Add Muchun's Reviewed-by
-    - State in the changelog that this is a stable-only fix and name the
-    mainline commits that removed the buggy code (Muchun)
-    - v1: https://lore.kernel.org/all/20261029212137.3141875-1-tim.c.chen@linux.intel.com/
-
- include/linux/mmzone.h |  8 +++++---
- mm/hugetlb_vmemmap.c   | 37 +++++++++++++++++++++++++++++++++----
- mm/hugetlb_vmemmap.h   |  6 ++++--
- mm/sparse-vmemmap.c    | 16 +++++++++-------
- mm/sparse.c            |  2 +-
- 5 files changed, 52 insertions(+), 17 deletions(-)
-
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff54160..e25ac1e9d670b 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -2167,13 +2167,15 @@ static inline int preinited_vmemmap_section(const struct mem_section *section)
- 		(section->section_mem_map & SECTION_IS_VMEMMAP_PREINIT));
- }
- 
--void sparse_vmemmap_init_nid_early(int nid);
-+void sparse_vmemmap_init_nid_early(int nid, unsigned long pnum_begin,
-+		unsigned long pnum_end);
- #else
- static inline int preinited_vmemmap_section(const struct mem_section *section)
- {
- 	return 0;
- }
--static inline void sparse_vmemmap_init_nid_early(int nid)
-+static inline void sparse_vmemmap_init_nid_early(int nid,
-+		unsigned long pnum_begin, unsigned long pnum_end)
- {
- }
- #endif
-@@ -2379,7 +2381,7 @@ static inline unsigned long next_present_section_nr(unsigned long section_nr)
- #endif
- 
- #else
--#define sparse_vmemmap_init_nid_early(_nid) do {} while (0)
-+#define sparse_vmemmap_init_nid_early(_nid, _begin, _end) do {} while (0)
- #define pfn_in_present_section pfn_valid
- #endif /* CONFIG_SPARSEMEM */
- 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 917db0984143c..8189f08203192 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -758,10 +758,36 @@ static struct zone *pfn_to_zone(unsigned nid, unsigned long pfn)
- 	return NULL;
- }
- 
-+/*
-+ * sparse_init() initializes a node one run of contiguous, same-node present
-+ * sections at a time, and only reserves usemap space for the sections in
-+ * [pnum_begin, pnum_end). A node may be made up of several such runs (e.g.
-+ * with interleaved NUMA layouts), and a gigantic page may straddle a node
-+ * boundary. Only pre-HVO a page if all of its sections are present and
-+ * within the run being initialized; the rest is left to the generic path.
-+ */
-+static bool __init bootmem_page_in_section_range(unsigned long pnum,
-+		unsigned long ns, unsigned long pnum_begin,
-+		unsigned long pnum_end)
-+{
-+	unsigned long i;
-+
-+	if (pnum < pnum_begin || pnum + ns > pnum_end)
-+		return false;
-+
-+	for (i = 0; i < ns; i++) {
-+		if (!present_section_nr(pnum + i))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- /*
-  * Initialize memmap section for a gigantic page, HVO-style.
-  */
--void __init hugetlb_vmemmap_init_early(int nid)
-+void __init hugetlb_vmemmap_init_early(int nid, unsigned long pnum_begin,
-+		unsigned long pnum_end)
- {
- 	unsigned long psize, paddr, section_size;
- 	unsigned long ns, i, pnum, pfn, nr_pages;
-@@ -784,6 +810,12 @@ void __init hugetlb_vmemmap_init_early(int nid)
- 		psize = nr_pages << PAGE_SHIFT;
- 		paddr = virt_to_phys(m);
- 		pfn = PHYS_PFN(paddr);
-+		pnum = pfn_to_section_nr(pfn);
-+		ns = psize / section_size;
-+
-+		if (!bootmem_page_in_section_range(pnum, ns, pnum_begin, pnum_end))
-+			continue;
-+
- 		map = pfn_to_page(pfn);
- 		start = (unsigned long)map;
- 		end = start + hugetlb_vmemmap_size(m->hstate);
-@@ -794,9 +826,6 @@ void __init hugetlb_vmemmap_init_early(int nid)
- 			panic("Failed to allocate memmap for HugeTLB page\n");
- 		memmap_boot_pages_add(DIV_ROUND_UP(HUGETLB_VMEMMAP_RESERVE_SIZE, PAGE_SIZE));
- 
--		pnum = pfn_to_section_nr(pfn);
--		ns = psize / section_size;
--
- 		for (i = 0; i < ns; i++) {
- 			sparse_init_early_section(nid, map, pnum,
- 					SECTION_IS_VMEMMAP_PREINIT);
-diff --git a/mm/hugetlb_vmemmap.h b/mm/hugetlb_vmemmap.h
-index 7ac49c52457dd..26a018a0dfeb4 100644
---- a/mm/hugetlb_vmemmap.h
-+++ b/mm/hugetlb_vmemmap.h
-@@ -28,7 +28,8 @@ void hugetlb_vmemmap_optimize_folio(const struct hstate *h, struct folio *folio)
- void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_list);
- void hugetlb_vmemmap_optimize_bootmem_folios(struct hstate *h, struct list_head *folio_list);
- #ifdef CONFIG_SPARSEMEM_VMEMMAP_PREINIT
--void hugetlb_vmemmap_init_early(int nid);
-+void hugetlb_vmemmap_init_early(int nid, unsigned long pnum_begin,
-+		unsigned long pnum_end);
- #endif
- 
- 
-@@ -76,7 +77,8 @@ static inline void hugetlb_vmemmap_optimize_bootmem_folios(struct hstate *h,
- {
- }
- 
--static inline void hugetlb_vmemmap_init_early(int nid)
-+static inline void hugetlb_vmemmap_init_early(int nid,
-+		unsigned long pnum_begin, unsigned long pnum_end)
- {
- }
- 
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index 5a2469fb1838c..bade43290922c 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -573,15 +573,17 @@ struct page * __meminit __populate_section_memmap(unsigned long pfn,
- 
- #ifdef CONFIG_SPARSEMEM_VMEMMAP_PREINIT
- /*
-- * This is called just before initializing sections for a NUMA node.
-- * Any special initialization that needs to be done before the
-- * generic initialization can be done from here. Sections that
-- * are initialized in hooks called from here will be skipped by
-- * the generic initialization.
-+ * This is called just before initializing the sections of a NUMA node in
-+ * the range [pnum_begin, pnum_end). A node may span several such ranges,
-+ * in which case this is called once per range. Any special initialization
-+ * that needs to be done before the generic initialization can be done from
-+ * here. Sections that are initialized in hooks called from here will be
-+ * skipped by the generic initialization.
-  */
--void __init sparse_vmemmap_init_nid_early(int nid)
-+void __init sparse_vmemmap_init_nid_early(int nid, unsigned long pnum_begin,
-+		unsigned long pnum_end)
- {
--	hugetlb_vmemmap_init_early(nid);
-+	hugetlb_vmemmap_init_early(nid, pnum_begin, pnum_end);
- }
- #endif
- 
-diff --git a/mm/sparse.c b/mm/sparse.c
-index 7c15406e77f5d..25fe41c69414c 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -288,7 +288,7 @@ static void __init sparse_init_nid(int nid, unsigned long pnum_begin,
- 	if (sparse_usage_init(nid, map_count))
- 		panic("Failed to allocate usemap for node %d\n", nid);
- 
--	sparse_vmemmap_init_nid_early(nid);
-+	sparse_vmemmap_init_nid_early(nid, pnum_begin, pnum_end);
- 
- 	for_each_present_section_nr(pnum_begin, pnum) {
- 		struct mem_section *ms;
--- 
-2.32.0
+> 
+> Fixes: f13e01b89daf ("btrfs: ensure fast fsync waits for ordered extents after a write failure")
+> CC: stable@vger.kernel.org # 6.10+
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>   fs/btrfs/ordered-data.c | 62 ++++++++++++++++++++++++-------------------------
+>   1 file changed, 31 insertions(+), 31 deletions(-)
+> 
+> diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+> index df74c75d6c29..6543e99055f2 100644
+> --- a/fs/btrfs/ordered-data.c
+> +++ b/fs/btrfs/ordered-data.c
+> @@ -401,6 +401,37 @@ static bool can_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+>   	if (!uptodate)
+>   		btrfs_mark_ordered_extent_error(ordered);
+>   
+> +	/*
+> +	 * If this is a COW write it means we created new extent maps for the
+> +	 * range and they point to unwritten locations if we got an error either
+> +	 * before submitting a bio or during IO.
+> +	 *
+> +	 * We have marked the ordered extent with BTRFS_ORDERED_IOERR, and we
+> +	 * are queuing its completion once all its IO is done. During completion,
+> +	 * at btrfs_finish_one_ordered(), we will drop the extent maps for the
+> +	 * unwritten extents.
+> +	 *
+> +	 * However because completion runs in a work queue we can end up having
+> +	 * a fast fsync running before that. In the case of direct IO, once we
+> +	 * unlock the inode the fsync might start, and we queue the completion
+> +	 * before unlocking the inode. In the case of buffered IO when writeback
+> +	 * finishes (end_bbio_data_write()) we queue the completion, so if the
+> +	 * writeback was triggered by a fast fsync, the fsync might start
+> +	 * logging before ordered extent completion runs in the work queue.
+> +	 *
+> +	 * The fast fsync will log file extent items based on the extent maps it
+> +	 * finds, so if by the time it collects extent maps the ordered extent
+> +	 * completion didn't happen yet, it will log file extent items that
+> +	 * point to unwritten extents, resulting in a corruption if a crash
+> +	 * happens and the log tree is replayed. Note that a fast fsync does not
+> +	 * wait for completion of ordered extents in order to reduce latency.
+> +	 *
+> +	 * Set a flag in the inode so that the next fast fsync will wait for
+> +	 * ordered extents to complete before starting to log.
+> +	 */
+> +	if (!uptodate && !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags))
+> +		set_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flags);
+> +
+>   	if (ordered->bytes_left)
+>   		return false;
+>   
+> @@ -436,37 +467,6 @@ void btrfs_finish_ordered_extent(struct btrfs_ordered_extent *ordered,
+>   					uptodate);
+>   	spin_unlock(&inode->ordered_tree_lock);
+>   
+> -	/*
+> -	 * If this is a COW write it means we created new extent maps for the
+> -	 * range and they point to unwritten locations if we got an error either
+> -	 * before submitting a bio or during IO.
+> -	 *
+> -	 * We have marked the ordered extent with BTRFS_ORDERED_IOERR, and we
+> -	 * are queuing its completion below. During completion, at
+> -	 * btrfs_finish_one_ordered(), we will drop the extent maps for the
+> -	 * unwritten extents.
+> -	 *
+> -	 * However because completion runs in a work queue we can end up having
+> -	 * a fast fsync running before that. In the case of direct IO, once we
+> -	 * unlock the inode the fsync might start, and we queue the completion
+> -	 * before unlocking the inode. In the case of buffered IO when writeback
+> -	 * finishes (end_bbio_data_write()) we queue the completion, so if the
+> -	 * writeback was triggered by a fast fsync, the fsync might start
+> -	 * logging before ordered extent completion runs in the work queue.
+> -	 *
+> -	 * The fast fsync will log file extent items based on the extent maps it
+> -	 * finds, so if by the time it collects extent maps the ordered extent
+> -	 * completion didn't happen yet, it will log file extent items that
+> -	 * point to unwritten extents, resulting in a corruption if a crash
+> -	 * happens and the log tree is replayed. Note that a fast fsync does not
+> -	 * wait for completion of ordered extents in order to reduce latency.
+> -	 *
+> -	 * Set a flag in the inode so that the next fast fsync will wait for
+> -	 * ordered extents to complete before starting to log.
+> -	 */
+> -	if (!uptodate && !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags))
+> -		set_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flags);
+> -
+>   	if (ret)
+>   		btrfs_queue_ordered_fn(ordered);
+>   }
+> 
 
