@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793383715;
-	b=Vozt3O/sAeh+CIpQkUgpjlM+oeclDTLE1sQtBltT/TuqiceUHIcf9JGvAETz3ZohkGEq
-	 o3s6Fdlqu7VQUQozvQzSwJFjfXXtI+ndCRXZtDgbVvjU0y3Kdq3tR8jwraf1Nq+0iMIl/
-	 tG2AaQ+gZv8/RDG7mtM0KV4Ql4CovzT+mkB9MoNVaB6SAxNU1RipxgqlD7LzxaYBNzeew
-	 Yv2Go45QkqXA/3Jg4U226u3mZTkgPqI+AWaXgGagDfr8WwCbYe4RdsDFP0KCWrDvsS9el
-	 qwXGYitOByCnqOAweNuNeUUK42EPOFgTdSCl0cuaiCL5m2YK+XsATOyc3QaMpLZ00AA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383715;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QVKMydU/thLME4tk0hjz4sP1iIZCD+FNDdETjFTH1wc=;
-	b=0Hz7CQI6T/Lx0XAN5r+UfWD0joDl9fkefZpPuScYbsHs7vkpOscl7xK/E3rAUUEXfXO/
-	 f1FT7hdG3XJnUd2nwP/0M1UHQSdALNHX/fkv89Aw5+nlafqPzqwXOLTyP2TrFsptjPkYf
-	 WZscgn1ME0ViV7iL4cR8ioHyo7IDXL+ugA6C3xMmnhmTDBIy9e0O4sD5/I7DZPBVYnn0M
-	 jCYAh8lKh4CEA0bmhNHUImRH1M3PxROi9jxhsmLkmd03TKvILyv8H47Z3oXB0C/5syE2+
-	 wCtiQ+hCYa68cftSvDReYGQmh47SOi1iji1LvQBLMiajxyaueY7Zhem17q6S9DZKzww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Lposd8Qn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793384297;
+	b=Ghvv7Skl5gE9RzPsOrt53mCkh426sNPQ75qP2Qrgzck+f5cO4DHoM2mRWmptvAM6EPnH
+	 AR3gnZYlWLSYjbCZBoyS5lZfxMZR7hvITaA5+J9HeXgtQhseJQXJKfRPyikfHdVxcB8Qs
+	 f56splUjo9UIaeUpLUPAN2j/6GSIZDbImCYlEEcJXqyBarYoDgnbPeWMDJKHHYsVXjIRf
+	 ydO0thvUpClfGZCOjbh1AzqCyCWTSbbr7uDYt7JjY5YmD12MJn1VtN+MooTwKTlYms8o3
+	 JTuB80zsI5EcuGmVr594G4usKsNJf0Tiki5JAgq/HinXxnJL7/8rX6RORuaKNVYtxOg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384297;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0oJND6e7p/41BF94Xli4Q3w1gwBLk8Sl1xYufIRgeVw=;
+	b=w8k93rJTguN7gZ1zsI9iN4Sw20uS5kcSZq4GU52j4jomcoNQOWnvpY8Jz+1ECOTbrwwB
+	 m77p6ulPYspongnI7VnllwDNJlwj3cwO8f5//pb6pGk03AOctAxHaGsIFPi17JAbFFr+h
+	 h2etc3Db8TIy9Zt6okJm1gKNd6OVjoEitlftv4N80/+VegX4ZfdT3jt7M5HudXSZ2ls7p
+	 dMRGKbFsrgZhPjD1vqO2dt3TF1FcFyj4A5bAL6dzku3Y4svfbAAest5p72c7QNSYu2hpt
+	 uZmkMFSjlhmxJLaSXgJDTLOTkQyUAQCohYdC2MoX2ZYeFt2u6doUtK9H0Hb5I+yuquA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZM7bRbW1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44EF606A31C;
-	Fri, 30 Oct 2026 18:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C44EF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E4150606A31C;
+	Fri, 30 Oct 2026 18:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Lposd8Qn
-ARC-Seal: i=1; a=rsa-sha256; t=1793383674; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=D3MBAA2RV9JUP7T4/6JJ77ZbLpLnUGmQ/f9MrNVw4WNZBARPtkxqnAMycgC/xNDAPEDv2qTbNMxscTwgNBnxzAWVKMa5r8KKL0eGriVTorMspzOOFXwtkEGy0s7DPuMiMUjNlaegbLPAW5q4cAQ9H5GPugl3ZvVszL88FAdhKDo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793383674; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QVKMydU/thLME4tk0hjz4sP1iIZCD+FNDdETjFTH1wc=; 
-	b=Vbi6DAafjCVdxAwf6rg5DHUhXcXD2xRYQxxnv19Rf9KxZmFgQZVzxm1Ne/DEnGzFeJY8elq7OmWBnjUVgFP9TD9lcPsOOvxX4Wcv4ifYBT0nkJ7MeFM6/XwRCgWGKD+rxkOB0HQvdbVNWrdsEw7M8ELvTf/qPsSQ7PLMboCBGm0=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=Lposd8Qn9kdkRC2sYlxa0WOlkAA0mdUn3f0TOBw4v4w4+IF365qd8Ir3d6eaXQ0+vDAC8JhV8+cWFCuguva1v/4S+OWFZvObVFblzFE2C9crKE8F3KHvtz30JTSYCjecrxq/b1CBY0wxs/CNFsEbuGj2wI9PXEN9fdWmR8kLEPE=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=QVKMydU/thLME4tk0hjz4sP1iIZCD+FNDdETjFTH1wc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793383672930887.0016081954384;
-	Fri, 30 Oct 2026 19:07:52 +0100 (CET)
-From: Igor Velkov <iav@iav.lv>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, Detlev Casanova <detlev.casanova@collabora.com>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Diederik de Haas <diederik@cknow-tech.com>, Jonas Karlman <jonas@kwiboo.se>, Francesco Saverio Pavone <pavone.lawyer@gmail.com>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH] media: rkvdec: Do not keep the clocks enabled from probe
-Date: Fri, 30 Oct 2026 20:05:00 +0200
-Message-ID: <20261030-rkvdec-runtime-pm-clocks-nicolas-reply-1@iav.lv>
-In-Reply-To: <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
-References: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv> <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZM7bRbW1
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DBF571F000C1;
+	Fri, 30 Oct 2026 18:18:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793384296;
+	bh=0oJND6e7p/41BF94Xli4Q3w1gwBLk8Sl1xYufIRgeVw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZM7bRbW1rIAhx89d7oAG7MOv2oBHD2jsurHIdrLr7DkrPtO/S2JU/nK6I1aITh1YG
+	 dAtqFtAD5tMivuMd+5kG6hkv9usgsOqHijCTpp+LX/2OsiF+F4iVjE/ztA9eScl/cs
+	 AO5Emb1HOxQj1V/0XIBZopCIIW+U26yDjjtSbPeuj40nOPF0rlJ+Lg16HYDPD7eMhK
+	 fMQkuXxH6CcstR5kklPxzp0N/d/MVRaIv52DaNwkXFDSNP+kqfVncFFXYGD+Pi7eYL
+	 0JctbfttZ9ainuCvEZe8StrIyKmgB4wPXxfYN9ek09+RqPyEP3vVqIOq9Vxy/LEv/F
+	 /6JvhEpTAO9CQ==
+Date: Fri, 30 Oct 2026 20:18:12 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Anvik Loitongbam <permissiontogallop@gmail.com>
+Cc: keyrings@vger.kernel.org, David Howells <dhowells@redhat.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KEYS: request_key: enforce keyring restrictions on
+ constructed keys
+Message-ID: <auTfZL8RjQqT8uiW@kernel.org>
+References: <20261030173930.40948-1-permissiontogallop@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,16 +58,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030173930.40948-1-permissiontogallop@gmail.com>
 
-On Fri, 30 Oct 2026 08:49:03 -0400, Nicolas Dufresne wrote:
-> So if CONFIG_PM is not set, the initial resume will never occur, and first mmio
-> access will likely hang the CPU. We need a clean pattern to handle this, and
-> perhaps review other similar drivers while at it.
+On Fri, Oct 30, 2026 at 11:09:30PM +0530, Anvik Loitongbam wrote:
+> construct_alloc_key() pre-links a newly allocated key into the destination
+> keyring with __key_link(), bypassing __key_link_check_restriction(). If
+> the request-key helper instantiates the key with ringid 0 (or any keyring
+> other than the restricted destination), the key becomes positive while the
+> provisional link in a restricted keyring remains, so the restriction never
+> sees the payload, potentially resulting in a policy violation, where a
+> user with write access can inject keys which are restricted on the restricted
+> keyring.
 
-PM=n only happens with COMPILE_TEST: ARCH_ROCKCHIP selects PM on arm64 and
-arm. rkvdec had the same gap until 6a846f7d72c7; rga and rkisp1 have it today.
-v2 keeps the clocks enabled from probe when PM is off, as etnaviv and v3d do:
-https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v2-1-8ff510a231de@iav.lv
-rga and rkisp1 as separate patches?
+What does "key becoming positive" mean here broken down?
+
+Also I have really hard time on reading the second paragrah as it is,
+let me count, over five lines long. I honestly cannot say that I
+understood what I read. I tried it three times.
+
+If you understand your fix, you should be able to nail it.
+
+> 
+> Restricted destinations lose the provisional-link deduplication while the
+> key is being constructed. Callers that pass
+> KEY_ALLOC_BYPASS_RESTRICTION keep the existing provisional-link behavior.
+
+The second paragraph should be reformatted and there is no rationale
+or descriptio for the code change.
+
+Br, Jarkko
