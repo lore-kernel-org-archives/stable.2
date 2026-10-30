@@ -1,56 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793332548;
-	b=p9QauEEbfvRad45FgwFlWkRsG/r13jZL6V3I2XujhLV13TWJxACZ8YHVVF/Z44/4OKpc
-	 e8UcxHPQeQLDJLQUV/Lzz5+vQJ21km3Jtv6q0cheXDGZps1Uy+1pT0rxdZrY/138/3PKj
-	 0eZE7JKZyEnK+7Xg/nXbR0cvmJjtJEmgODkTAR9TXeKT0OZ0wsny7QHXuzptJZUIlvK1I
-	 qyU28qMJwWIccUv/JRG8tqsTbEZ62nnow0ql2HK3Mje5VWR8PrJLGrRkTcTRh1TRbhoU2
-	 MQTGJWbk8INCHqwjm0tls3v3Ngo4137gEwMgzcRHJc2jYqqKgJrGTCF9TMKXtDjMHdA==
+	t=1793332554;
+	b=MMK2/7HUCZffG7CuV2Bc9t86P+OdV3c0EjClNVHlZZw+reUR5U6rb6/MJj0mcebC349f
+	 ToRe6yvZ4s+eF9mlnTjhkCYd7Xsi2WIwkZD9m/lMdXKx63BxwDyfpXAUAGf4HOjq1Ciyu
+	 21RUKHNg/5CIx9zYsJDD8Pv/eTHVcU34YtIwB8FQyPmowQhzVImNrPOWsV3ECMUOzFQa2
+	 w/nWkXE9wh9mfuOQUlxzcJTaF7tbc+0rELPASFcRPXv/T+v9Le6HCsnyK3YzaqqCrUWob
+	 MJLZqX1F4rjH1LwdStSreNH8qyK5e7yPTlHjcYFw2dKcEZtVuvAPntL3LHiNs+laWRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793332548;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793332554;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ZkxPW2ruqc0Icv4y+99LJtMWacocG51kIhVn5Ect5og=;
-	b=jQ2LmCYYWJdu1m9yxBsZ1s+hU12zcFxfOrhs6P6IK6NV/29rjfKsBju4DtB2bAJL2IgZ
-	 bHydfBBpzfJ+VvkMpDSNgNsN7KzzCCMUhL0Vj0l6qncVcHgaTQsZH3uqDqC8T2vbKo/LR
-	 dBUpNADfB0md08Wx0mO+QZBrDi9AjIL4u0ZsQliB1dsfVZgu1SXZ38rMraVjlYyNxMAKU
-	 MnvstV+G7Ania9j5wGkd+rKVK4SDYxmbtYjyCXb/JHmuapdFox4G0BzztRHMr7Cs1iDVt
-	 KvUfh3QC3z148+m63jCIpW73rCcLuoN97J+ksd9VoOP3wxWGmRP6uuHiGhv7yoSoEzg==
+	bh=ey3vPsJ2dQFhz2BxI4N3mBDHBT7ectNl9BIu9ANR89g=;
+	b=0NG+jKR+2RY4jYnhmTiTqR0JHjah2euRY0dlQa4tOLF35+oCj79ssWrfJEjoS0VNv2Ah
+	 iw1C/f/yMj54DV3WtTM5vaqwUNUOJ6xrYpwiS7MT15y0/Gb56voCEDGib3EWcKfhe7pa2
+	 A/0L4kE9UPhTpUHC4W6CLKJQ/JNGbGig2Z8NYXP2wXGq2sRRrNx6Qr7J743TaSJ9BhXPP
+	 sKc8MpKl9v3zTMAfjK5ut4lvsfUyzXDOA8MuprkEe4mZFU5LbpVm7tIrgobRt+aJX6bPU
+	 oISkElcY3R6qpyHCHCmlM9mlL80PK+17bUpNnPLNL4HeYx6I2eDlPMmFzTQM2mcXPNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SUUc4n8Y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vhd9hkG2;
+	arc=none smtp.remote-ip=91.218.175.33
+Received: from mta0.migadu.com (out-33.mta0.migadu.com [91.218.175.33])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6AFF606A31C;
-	Fri, 30 Oct 2026 03:55:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00041606A322
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 03:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00041606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=SUUc4n8Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086BE1F000C1;
-	Fri, 30 Oct 2026 03:55:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793332543;
-	bh=ZkxPW2ruqc0Icv4y+99LJtMWacocG51kIhVn5Ect5og=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SUUc4n8Y9twmxefBBWPSiCCNBbkgwNw0CVmf2ItyOZEJv/Y4ha7kDBDwxKdnsbO6J
-	 x1mVLqVUUk290osQYZrec+8tVOIwha/pI8nYNLtqj2PfxUsi1D06/Kx82fUHwiaCFw
-	 9vxMZCneEVL2rlsuJSF/dRDkhIdigfovQ/L2GNrU=
-Date: Thu, 29 Oct 2026 20:55:42 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Uladzislau Rezki <urezki@gmail.com>, Nicholas Piggin
- <npiggin@gmail.com>, Shubhang Kaushik <shubhang@os.amperecomputing.com>,
- "Christoph Lameter (Ampere)" <cl@gentwo.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Dev Jain
- <dev.jain@arm.com>, Anshuman Khandual <anshuman.khandual@arm.com>
-Subject: Re: [PATCH v2] mm/vmalloc: reject overflowing vm_map_ram page
- counts
-Message-Id: <20261029205542.1fdef1d121d9eb720950b67d@linux-foundation.org>
-In-Reply-To: <20261022-vmalloc-reject-overflow-v2-1-0db7a20c53f0@gentwo.org>
-References: <20261022-vmalloc-reject-overflow-v2-1-0db7a20c53f0@gentwo.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vhd9hkG2
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=U6aEVcyx4cbsQT0ReFIAsX7642J2D1rQ7p5hav7hVYg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793332546; v=1; x=1793937346;
+ b=vhd9hkG2nOm1ut6rmXBAumWp/tHKMlW3zjZCCnOvGI1nsCETxLY1hnQ+VXAebOqyqLNP2oO0
+ i5lWDnZPKoA32cy7fX/4ShHMGlAAeYNH2KLWQJusKMmkCE2menaoxtuSFIAH8/lfuEwtJU4aX3S
+ Ln296bZBOxGQ5C9IvNj4v/X4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 29251291072b5e95;
+	Fri, 30 Oct 2026 03:55:20 +0000
+X-Mizu-Trace-ID: 29251291072b5e95
+X-Migadu-Flow: FLOW_OUT
+From: xu.xin@linux.dev
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	aneesh.kumar@kernel.org,
+	apopple@nvidia.com,
+	axelrasmussen@google.com,
+	baohua@kernel.org,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	chengming.zhou@linux.dev,
+	chrisl@kernel.org,
+	dev.jain@arm.com,
+	gourry@gourry.net,
+	hannes@cmpxchg.org,
+	harry@kernel.org,
+	hughd@google.com,
+	jack@suse.cz,
+	jannh@google.com,
+	jgg@ziepe.ca,
+	jhubbard@nvidia.com,
+	joshua.hahnjy@gmail.com,
+	kas@kernel.org,
+	kasong@tencent.com,
+	kees@kernel.org,
+	kexec@lists.infradead.org,
+	lance.yang@linux.dev,
+	liam@infradead.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	mason@kernel.org,
+	matthew.brost@intel.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	minchan@kernel.org,
+	muchun.song@linux.dev,
+	nico.pache@linux.dev,
+	nphamcs@gmail.com,
+	npiggin@gmail.com,
+	osalvador@suse.de,
+	pasha.tatashin@soleen.com,
+	peterx@redhat.com,
+	peterz@infradead.org,
+	pfalcato@suse.de,
+	pratyush@kernel.org,
+	qi.zheng@linux.dev,
+	rakie.kim@sk.com,
+	riel@surriel.com,
+	rppt@kernel.org,
+	ryan.roberts@arm.com,
+	shakeel.butt@linux.dev,
+	shikemeng@huaweicloud.com,
+	stable@vger.kernel.org,
+	surenb@google.com,
+	usama.arif@linux.dev,
+	vbabka@kernel.org,
+	weixugc@google.com,
+	will@kernel.org,
+	willy@infradead.org,
+	xu.xin@linux.dev,
+	ying.huang@linux.alibaba.com,
+	youngjun.park@lge.com,
+	yuanchu@google.com,
+	ziy@nvidia.com
+Subject: Re: [PATCH 39/46] mm/ksm: fix use of a freed anon_vma at swap-in
+Date: Fri, 30 Oct 2026 11:54:47 +0800
+Message-Id: <20261030035447.140856-1-xu.xin@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027-fixes_core-v1-39-6f74bec9a5bb@kernel.org>
+References: <20261027-fixes_core-v1-39-6f74bec9a5bb@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,74 +128,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=y
+Content-Transfer-Encoding: 8bit
 
-On Thu, 22 Oct 2026 23:43:47 -0700 "Shubhang Kaushik (Ampere)" <sh@gentwo.org> wrote:
-
-> vm_map_ram() accepts a page count and must either map that many pages or
-> fail. It currently converts the count to a byte size with:
+> A folio read from a swap slot previously shared by KSM can remain in the
+> swap cache after the process that first mapped it exits. Its anon_vma
+> can then be freed, so ksm_might_need_to_copy() must not dereference it
+> to compare roots.
 > 
->         (unsigned long)count << PAGE_SHIFT
+> Doing so can result in some false-positives, resulting in the reverse
+> mapping missing the new folio mapping, preventing migration and reclaim.
 > 
-> On 32-bit kernels, this conversion overflows when count is greater than
-> ULONG_MAX >> PAGE_SHIFT. vm_map_ram() then allocates and maps only the
-> wrapped byte size, but returns a non-NULL address to its caller.
+> SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
+> immediately after freeing. A stale pointer can then refer to another
+> anon_vma whose root matches, even though the target VMA is not linked
+> to that anon_vma.
 > 
-> For example, with 4 KiB pages, a count of 1048577 wraps to PAGE_SIZE.
-> vm_map_ram() therefore returns a mapping containing one page instead of
-> the requested 1048577 pages.
+> Move the anonymous rmap compatibility checks into
+> folio_anon_rmap_compatible(). Keep the page-index check and compare the
+> folio's anon_vma pointer against the VMA's own anon_vma and root first.
 > 
-> If a caller uses the successful result as a mapping of all requested
-> pages, it can access beyond the allocated mapping. Such an access can
-> fault. If the accessed virtual address is occupied by another vmalloc
-> mapping, it can instead access and corrupt unrelated kernel memory. In a
-> userspace-reachable call path, this can result in a failed operation, a
-> kernel oops or panic, or the effects of corrupted kernel data.
+> If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
+> The VMA keeps these anon_vmas alive, and finding a match guarantees that
+> reverse mapping can find the new mapping.
 > 
-> Return NULL before allocating or mapping anything when count * PAGE_SIZE
-> cannot be represented in an unsigned long.
-
-Thanks.  Let's cc the developers who commented on the v1 patch.
-
-> Fixes: db64fe02258f ("mm: rewrite vmap layer")
+> Lorenzo Stoakes says in a private discussion:
+> 
+>   "This isn't quite equivalent to the existing check.
+> 
+>   Every anon_vma in an anon_vma_chain shares the same root, but if you
+>   split a VMA then fork both of them like this:
+> 
+>                   VMA A
+>                /        \         <split>
+>             VMA B      VMA C
+>                \        /
+>         root <- anon_vma 1
+>                ----^ ^----        <fork>
+>               /   parent  \
+>         anon_vma 2   anon_vma 3
+>              |            |
+>            VMA D        VMA E
+> 
+>   VMA's D and E both get their own new
+>   anon_vma's such that:
+> 
+>   VMA D: anon_vma 2 -> anon_vma 1 -> root
+>   VMA E: anon_vma 3 -> anon_vma 1 -> root
+> 
+>   And if you found a folio referencing anon_vma 2, the existing check:
+> 
+> 	anon_vma->root == vma->anon-vma->root
+> 
+>   Would be true for VMA's B, C, D & E.
+> 
+>   However after your change it'd be true for VMA D only, as it's the only
+>   one with anon_vma 2 in its anon_vma_chain.
+> 
+>   Whether or not that could actually happen in practice... 🙂 I don't
+>   know.
+> 
+>   [...] after your change it'd be true for VMA D only, as it's the only
+>   one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
+>   you are making the test stricter but more correct.
+> "
+> 
+> If this affects performance when KSM was never even involved, we could
+> just track whether KSM ever merged anything and just skip these checks.
+> 
+> There isn't really a lot we can do otherwise: for mapped folios we might
+> be able to use folio_get_anon_vma(), but for unmapped folios there really
+> is no easy way to see if the anon_vma is still valid.
+> 
+> Document the (confusing) lifetime requirements of folio_anon_vma().
+> 
+> Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+> Reported-by: Chris Mason <mason@kernel.org>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
-> Changes in v2:
->   - Use check_mul_overflow() to validate the page-count-to-byte conversion.
->   - Describe the short-mapping failure mode and its worst-case effects.
-> 
-> Link to v1: https://lore.kernel.org/r/20261022-vmalloc-reject-overflow-v1-1-5fde0042ffb9@gentwo.org
-> ---
->  mm/vmalloc.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index bea9f76ed7e74247d4ce919250c2f02dd5c36483..8a056e424a4f2c037c10f736002839014f1f57dc 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -3083,10 +3083,13 @@ EXPORT_SYMBOL(vm_unmap_ram);
->   */
->  void *vm_map_ram(struct page **pages, unsigned int count, int node)
->  {
-> -	unsigned long size = (unsigned long)count << PAGE_SHIFT;
-> +	unsigned long size;
->  	unsigned long addr;
->  	void *mem;
->  
-> +	if (check_mul_overflow((unsigned long)count, PAGE_SIZE, &size))
-> +		return NULL;
-> +
->  	if (likely(count <= VMAP_MAX_ALLOC)) {
->  		mem = vb_alloc(size, GFP_KERNEL);
->  		if (IS_ERR(mem))
-> 
-> ---
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> change-id: 20261022-vmalloc-reject-overflow-e532c556f3fa
-> 
-> Best regards,
-> -- 
-> Shubhang Kaushik (Ampere) <sh@gentwo.org>
+>  mm/ksm.c  | 36 +++++++++++++++++++++++++++++++-----
+>  mm/util.c | 13 +++++++++++++
+>  2 files changed, 44 insertions(+), 5 deletions(-)
+
+Acked-by: Xu Xin <xu.xin@linux.dev>
