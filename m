@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357293;
-	b=Ia/UHGjVqrr19Cm3gcG1k768hrGKZQGak/aXx5MMtxxFaAYqFi47BYR1cUfzL0+ny2r7
-	 3t3LFr5q+7Vm+92OUpZy0r8V1mSHZgkHkq+znZKPkH63fbkrlyUs9+K0OODOdvdyxnrf9
-	 GbVETjKaMnYsCc6RmNujTKX4Nbrm4+7ZPNS00cahGY3XRc/c8Yd85NYhPT0JcNHAOBuxA
-	 xiYq6xXs+ya6Wmz2UKS22An/TEur2LHjq9OtH9ryg53eBFuia6MQHwPZMYCoFpinO1lfg
-	 93cna8A+Gni6QEzasKDuBwMe8YGBTVIII0VFBkY7/01X7uRIwWfRYEQgw/T5rIdPkFA==
+	t=1793357423;
+	b=mEehNuCOejY/OAkeCFVXpiQf1WSBDoo82Vs5a38M/49t62F7kKDaDQKhBhwo32oK+Hoe
+	 SpVthxBEDCt56mLr5lq1B/UeK3+XmrOazDkM/srG12NAxIjBTzDzLFGF2Ia8JipXZtD51
+	 NjcuBSClBrrP1Bsq+O7obXOuQ3wlhBgPWFrIzrwAgZIxiyBymBC5GrbbJvWw8XxIUCVLJ
+	 0mi9PP07QqqGyMOnWMuavPF3ghQbgDKgkcptMI2lkANM5V40l70mk3TmqVC35is0lL/l9
+	 hoyGKaJGwU8dU/B3cQB6zSgvC3QyE4PClMsbTrKQ2SVMM+VIJVLnqOaYhSfrsqgQnwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357293;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y/EYB0/9MsM5P2ptIQrhRFyMMNFz7gDKfR7zADjLWVc=;
-	b=PTk21ETlW7UlE1OoT/TDnrysU3nBc0ZiOn47pPw/+uyQ7745oyR8+yTQp4kivSmOesCo
-	 FqDBoXvGPlBByB1Bihd4EF04wbqeatMG8bV/ECitE7NuIAHLOgXR8ToRVGfSIdDh1bnip
-	 WkZo9h0672SM855zMfAeADlU+hcVdc5IjriN+1WbAFHScr6irOJTlOHSKzMkCKCQSumci
-	 8yBwsleJNN4OWadGlo4p9pykczlHRlOL6dVXEAU0VMY9ecx6Bj8Zxv26TmU6wJ+4HfCg7
-	 hINYC99/YXn+rEo4PhGWJ4V2UGArYRgGz9Oyac3Vh7rwL5ecxz5erGQmtv0iA/5kItQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357423;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=DjtoL8ZtCz0GQZpX57ulkcLnwiYsE5MZAt/R4gtCuDU=;
+	b=1yZlo5ZlAsre3afZNmEWaClvOdQbylcLs2A1SUEEs2mv117RE1p0Tsi/IQtwIM62ntfh
+	 QMMmWb6Xj4V+SmZygZtZSNPLDzqNnPSu7VDUvlt5AFZWBrFfAsJJ5ghYC0g2rIckP6A8e
+	 zMI9ngr1V+8tsTc0jQMkw378OSeKi/L31VDA5tA2BiTTsggBC1191eC6U8alwY7evovRg
+	 MLhXXBM526oo3e/uilo1glA7b998u5DmgcqCl1ikaemXwD9yePmImP2VL9bL8mphECMBu
+	 ituLhKyw09M9jftYtIDfsMzOVGFEDOMntZijOElNtmKULSf7yDxpPKKonh/VlIBe8zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+ErgFMb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPgT3h7T;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF7A606A31E;
-	Fri, 30 Oct 2026 10:48:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291D9606A8E1;
+	Fri, 30 Oct 2026 10:50:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+ErgFMb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BA91F000C1;
-	Fri, 30 Oct 2026 10:48:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPgT3h7T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FAEA1F00A16;
+	Fri, 30 Oct 2026 10:50:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357292;
-	bh=Y/EYB0/9MsM5P2ptIQrhRFyMMNFz7gDKfR7zADjLWVc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n+ErgFMbwCPIcU9V0z9/u98FGG20OmGSFWjLu7X2sPtSYYyhk3dpHEWEJ5hT4a+JO
-	 1a6+nIShM1Llo5RSqey0aIE8YsfOzC/xC9EK2cVElujM4rmoDtmzQgziyxbwhcCc1Y
-	 68lfBTE8fh4KjEeH2yzvNNuWTwC+/ZmAzOIr32XAQ5NPFDIv4GwZyrSM9ZtEvJq2e5
-	 u/ocT1pa6p/z92jJRcSOs/uzs7J15RikjKWtmy+IU11cn6DfdLjM7fP+seGLP+gE+n
-	 f3n7ydd0+uPcBX8m0isufuo1SC2qEsb+AjCMDtRTseWMwEkrlrv7tlkTw1nIVZyGVe
-	 ox90c8Te5gsxA==
-Date: Fri, 30 Oct 2026 10:48:06 +0000
+	s=k20260515; t=1793357422;
+	bh=DjtoL8ZtCz0GQZpX57ulkcLnwiYsE5MZAt/R4gtCuDU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EPgT3h7ThJM3qPhWKv9VEhEHiyJcgoTRyug24Hv6vbldYncqzljke4bEm/FZjFK3b
+	 qeJ8fDNJB/iL+aB7nLvUeP8MVDoGOsMLfQOS9apx4qQO1ftoKYsgRIuLakePMNPNSk
+	 uIDFNfNn1mf84Alv/DeI9bcvHQqcI2+W3UQp7iuWxkAcDspuZTiNmhKTQ01WRB0IrV
+	 z9z5qU6F33txSYcKok0vgX6h1a9ZMO3qYoztNfsUrD1xHVZ+wOravylpXE1e+KLI87
+	 03Z+U5zToyJeY5qm1+WLBpR3NPYd6ctR/HYnuD99WkDxs6CEc1doeox/p63SPwVZZk
+	 SOXBmaln8LHAQ==
 From: Lee Jones <lee@kernel.org>
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Kai Svahn <kai.svahn@nokia.com>, syed khasim <x0khasim@ti.com>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	Samuel Ortiz <sameo@linux.intel.com>, linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on
- teardown and probe failure
-Message-ID: <20261030104806.GC3774906@google.com>
-References: <20261027093306.2812695-1-lee@kernel.org>
- <20261027093306.2812695-14-lee@kernel.org>
- <20261028165003.60d0c033@kemnade.info>
+To: lee@kernel.org,
+	Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Philippe Ombredanne <pombredanne@nexb.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Hardik T Shah <hardik.t.shah@intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 01/21] soundwire: bus: Hold bus_lock when looking up slave devices
+Date: Fri, 30 Oct 2026 10:46:40 +0000
+Message-ID: <20261030104840.3361217-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
+References: <20261030104840.3361217-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,43 +66,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028165003.60d0c033@kemnade.info>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026, Andreas Kemnade wrote:
+sdw_get_slave() iterates over bus->slaves and requires bus->bus_lock to
+be held by the caller.  However, sdw_handle_slave_status() and
+sdw_clear_slave_status() drop bus->bus_lock immediately before calling
+sdw_get_slave().  If a concurrent slave teardown unlinks the node via
+list_del_init() and frees the slave while bus->bus_lock is dropped,
+sdw_get_slave() can spin forever on the self-referential list entry or
+dereference freed memory.
 
-> On Tue, 27 Oct 2026 09:30:42 +0000
-> Lee Jones <lee@kernel.org> wrote:
-> 
-> > twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
-> > and checks for a non-NULL twl_priv at entry to reject multiple device
-> > instances.  However, twl_remove() and the early error paths in
-> > twl_probe() never reset twl_priv to NULL, a failure when adding MFD
-> > child devices bypasses twl_remove() by jumping to free instead of fail,
-> > and twl_remove() tears down the IRQ domain and dummy I2C clients before
-> > child devices are unregistered.  After devres frees the underlying
-> > memory on probe failure or unbind, twl_priv remains a dangling pointer,
-> > causing subsequent exported API calls to dereference freed memory and
-> > blocking future probe attempts with -EBUSY.
-> > 
-> > Unregister DT-populated and MFD child devices at the start of
-> > twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
-> > reset twl_priv to NULL in twl_remove() and on probe error exit.
-> > 
-> > Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
-> > Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> 
-> Hmm, couldn't we use devm_add_action_or_reset() for resetting the
-> twl_priv pointer? Feels more clean for me.
+Keep bus->bus_lock held across the sdw_get_slave() lookup in
+sdw_handle_slave_status() and sdw_clear_slave_status().
 
-Nice!  Thanks for the suggestion.
+Fixes: b0a9c37b0178 ("soundwire: Add slave status handling")
+Closes: https://sashiko.dev/#/bug/linux-b0e65a93-dfd4-4e3d-a96c-8f13ba0aafd2
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/soundwire/bus.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-To keep this fix minimal for Stable backporting (and avoid resending a
-27-patch series), I'll take this one as-is and send a follow-up patch
-converting twl_priv to use devm_add_action_or_reset().
-
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index aeaae5a57c89..15c66effbf4f 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -1907,9 +1907,9 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
+ 			mutex_unlock(&bus->bus_lock);
+ 			continue;
+ 		}
+-		mutex_unlock(&bus->bus_lock);
+ 
+ 		slave = sdw_get_slave(bus, i);
++		mutex_unlock(&bus->bus_lock);
+ 		if (!slave)
+ 			continue;
+ 
+@@ -1954,9 +1954,9 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
+ 			mutex_unlock(&bus->bus_lock);
+ 			continue;
+ 		}
+-		mutex_unlock(&bus->bus_lock);
+ 
+ 		slave = sdw_get_slave(bus, i);
++		mutex_unlock(&bus->bus_lock);
+ 		if (!slave)
+ 			continue;
+ 
+@@ -2052,9 +2052,9 @@ void sdw_clear_slave_status(struct sdw_bus *bus, u32 request)
+ 			mutex_unlock(&bus->bus_lock);
+ 			continue;
+ 		}
+-		mutex_unlock(&bus->bus_lock);
+ 
+ 		slave = sdw_get_slave(bus, i);
++		mutex_unlock(&bus->bus_lock);
+ 		if (!slave)
+ 			continue;
+ 
 -- 
-Lee Jones
+2.56.0.317.g454f8302e1-goog
+
