@@ -1,66 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356095;
-	b=E4iXvDT5h01HQ1iixQaJjnCunrOTXIQzvErlPhJ9DSoIpSQm7JyF5tVJx5US4F+2GTdu
-	 1qADUtvl1Jq71rtEr+gledhtgAXn5VemGwpYnxD/0s0rBi73Yp88Xnu/9u0NJeRPYaTX7
-	 ZdsuWrtaA8A9vMP9jKsiV/xumnmMndJLOg4xGKCiKEipcB2zbZwgDRTFQqdkt7W7BmWIn
-	 pJee0BNkQl9VILXT57GEolp9pK3I3b1flnS//guW10jdYuMty7q9uveF+u9J1WAkMKwOU
-	 bmfcrzUi5zXzV9564R5c6IaUD3YhWQHXaTqJoJJKjvd6kzcOEkrjn89Uke2I1yXtzbw==
+	t=1793356295;
+	b=ZK/UlwgSr6Ww5+kGqGeKHnRJCFFfNFWhXWObNBZUti0r0sHZJj8qSGffK0BVAf9N1oHZ
+	 2uWur/LGhP+TXVAh6InBziCfxXVURFdan2gjKUQHti2+2OsM+R8wUqo9xQ/7ph4M7ooM0
+	 QyqqbUpwYab8r7OU+0S1Wr+Ye6/plkAKVgsYZGn3pQKhjxVG0acFIW0OV0a2rGaLk13Su
+	 HBegZoY6VAFHnqiAq8xzHPRupv6Dn36uNTMCxSlmrSNgGLVqqhLo9VWSzok/kL0JwRBVw
+	 zOY6CeBHRcOTtn3TjLgd9hfCIaJaSBkKSEec5/5uW6SbjgblB/8B+fS+pGVEWm6FCnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356095;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356295;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=qyJeCY+1SCigp3wsQXw3Clfptu3D9KJx2aBdbZMV1xE=;
-	b=Ej0iPV1vy+W5345Gu1vlsCKpI/H+6pQo+LC6s1QT21vKuU2QP2zg9vuGHy+LHsnBszzC
-	 vR3inBqfio86fEZ2pWxTHL7Gynsfp5d+VsEWYfM2e7Hlb4XiB/sK7Ff2PCP6M9JA49FrX
-	 wXankEMTICia4a7UIlIFVMwhlqSNjZLHnlDKJnZWqpmoIGSAzusITF3/mLDn4wqqU9lQD
-	 EtdVo3xgc2lRMGrvxytdlnCeGNCKBXo5qvy2rTeZyEdhCnnulRVILb4w9v9V/JiX6CrAT
-	 xqjfuJYMM75GdTTokHvukRDiV34iKyd+/peKkECg0iqI/77dqoqpJLKDS4r0nNLvxbg==
+	bh=+odUupFlBPfIWlLIIHrecttuzzglpzR9hW0hhIpLUuk=;
+	b=g8/dv5GPJA/UlnX1eGD1jtZQqIwde5dKlvaBoL62/zpIJrF11h54y2OcEH5hlZnTEAxc
+	 83obXxhmEpT6hkh/Zt9oqKmNUBv1M3DwSwxxhQtctVJYeofol2fB4CKxC4ynwZodMvwoK
+	 M7K+p5mOfVHxVHSJh9bAR9rHOa9dguRB4tfeaDf97nkO8ftDZNWldkjB9ll1EuR/4CrFK
+	 esJ19YMoyqFDLB3rh6hD4aZjOI2pUw7Ee3VgBEGG0e2QhjJgMug9RfFGoUPqPB7euQ/fK
+	 yRblnIrSe0WPs8PQx8OnS55cm4kUJryP8hH+c9DH8Z/72R1239guQwmjyz7ibIkC7Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=free.fr;
-	spf=pass smtp.mailfrom=free.fr;
-	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=BD70mgLj;
-	arc=none smtp.remote-ip=212.27.42.4
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=e5q8K4jk;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hpiCLJJM;
+	arc=none smtp.remote-ip=202.12.124.153
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B6F60A3811;
-	Fri, 30 Oct 2026 10:28:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5B6F60A3811
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D98E606A320
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D98E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=BD70mgLj
-Received: from stf-laptop.peak-system.com (unknown [IPv6:2a02:8424:8fef:6e01:2a4e:9a3e:485b:cbb0])
-	(Authenticated sender: stephane.grosjean@free.fr)
-	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 0C19619F5A5;
-	Fri, 30 Oct 2026 11:28:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1793356093;
-	bh=6fAfA2nJ2WjTHNs3g8XX1i9e9d0cKdgzO0QCkae6n6M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BD70mgLjj3ibezMaNF6AeqKjtW1YmhYD1a17JjEl/tysm4Q2t6pfvYpfHbWAVJvQ2
-	 8c6R+aa4wESUDXNfNulcsqjMeCp3tq2X3f+pJ721/35hzGsAOayq/ov2+OWxCRwO4x
-	 nsXP6C+z/9pi2e5zpNje8STuJP1wA3c5ZIkGGyg+8GlKS6MP/p4HB4cEpLGqpWenrG
-	 inJq3uCl4m+LpANOP5E1BDJqlo2wAJJpcH5ynTDg234dRO2vA86ektk1gYJy8PgiQM
-	 wUC0blfL54Ag2YNR9AEQUycM9Qr61mkOFRsS9xb1lih91+t0pmNX8US/yaw8x6W3Ng
-	 bntTMaN42ftmw==
-From: =?UTF-8?q?St=C3=A9phane=20Grosjean?= <stephane.grosjean@free.fr>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: linux-can@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 net] can: peak_usb: fix use-after-free on PCAN-USB disconnect and init failure
-Date: Fri, 30 Oct 2026 11:27:04 +0100
-Message-ID: <20261030102705.30262-6-stephane.grosjean@free.fr>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261025210256.629830-1-tristan@talencesecurity.com>
-References: <20261023195400.3531721-1-tristan@talencesecurity.com> <20261025210256.629830-1-tristan@talencesecurity.com>
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=e5q8K4jk;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hpiCLJJM
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 6E6517A017B
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 06:31:34 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-05.internal (MEProxy); Fri, 30 Oct 2026 06:31:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793356294;
+	 x=1793442694; bh=+odUupFlBPfIWlLIIHrecttuzzglpzR9hW0hhIpLUuk=; b=
+	e5q8K4jkQESFMadK+xZ17bV6sjrMosO7tjB0RmqZHu7zQ3r06k9hd6oE7KelED1L
+	YMXkqHU9rbYMsjR62QPCw1nzUpgkFdno4Oj8EdAvp7D3+AfEzQea3ZOg6UVucuHq
+	TB/HhqIGx5duizGIKIuTE/f2cQlyGcPMjm5MQX0cVgxmYFa0Ixm2o2sMU6glBwOZ
+	wkZe6ZoaFCuW3geDzdwto079fiWZ23lIlKljXAgEweQ2eJG6O2yofD93vmnIwhCJ
+	umRvDlzRJ+ARfz4zF7AAksgOy5xL6XbKaX9g0JJoDhelkicJ/DrkGNS+sRM4q29A
+	P4VednrGM8oW+eg5f4xV1A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793356294; x=
+	1793442694; bh=+odUupFlBPfIWlLIIHrecttuzzglpzR9hW0hhIpLUuk=; b=h
+	piCLJJMbdJjzkhZ+bg55FlZMRNItCxz6stFKOlqmnapBzjuIVBcS4hW+Zy3ck4wW
+	38s406w+LAnkRgAx2D2dxfO8+93ZdwzB7ReofVjWQD+rN8j1pyDTq0NEGXLgVQPD
+	1Y5gbYWk8fH3E6+eYgb/fIaebr29wujxrIc7XqeR+TznByE2rQq9R/X/sA2kh9+X
+	HyAZeGAcM3BZE+YKb3bcluLtds+dBeo0J8hjoUcxuGZLLSrajUYWdklYREef6ZN2
+	0BIBihcMtpqvc5Ed4bO7Z2FDBH+TRA0nmxiJx5FwVfOcqbfAEWKX4T5titQVbsnc
+	mxcgRlQI6UpjQoHVI+5TQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793356294; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:VFrp+/fRCClK8Ml0H3w5hxxxng8CdSGilrQUhWR8bkS+Wjw
+	WDwfGiPHjIwbucTzJNJ8x38UQmLPDQwY76Clrunv06I5NCpvIVkpKHdFpOoQ1QAG
+	8SXEjxdkmtC/NBHXGSvHdoYAImHUqlHJblq/Hh2K0ls76M3hvZQhgvYCcTLx4/h1
+	lZDd7x+uZZkEC5dgXNSEXHcdThZYUyPVbdsq4xYHp/etsB6edMewVu30xopb/4Yh
+	Mj1zbgiSk+KHS1xeC2mD4YHDiGVau3aZsdrNi/1a+G5bwHblhJk//jkYaEd0hmw0
+	YqwDgSrb+Cf6HWlKuS80gEyJI8aYFFUz864R+PQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:JwT+WW6TYVidP4gIWSqdUyCrPSHuYgzk6dZHUxW8FA0=:8v0yoNLjBiupfOwKOZJYNqTd3oll3AUQi2enYI96140=;
+X-ME-Sender: <xms:BXLkavNR9eFc1en5SSJTuYUok_bD5m8H8ZXGfiUuNx4k_ooBk2RR6Q>
+    <xme:BXLkal2FG78TLbYgLhLIUGvEqkwi4S7Nd8vzwBCklu8NFtsz4uxvEZQ3_E17Wmvsz
+    mds_rxWTX9gfXKlV91j3Lpki-DlI2a2RUCZwube9UYIHUi0Go3wX0A>
+X-ME-Received: <xmr:BXLkapw9WbnNpRAcZ86V7M6UC2GR5e4qIUnWnN3IDUaadfD1jcoBi7A4gYOX6Ax467YsC6gUlSDzvbBPZoJj21SLzAn96DUa>
+X-ME-Proxy-Cause: dmFkZTFURojwT9WNm7oLoP28hH/1Cxa/xbHzMwFYCokdz5sEahf0Z/oZ4l9Uc8kERpDO0P
+    Seb9i/qUNCwSZkrxQJbk18JhzE3DIt7u2GcsgwtUtn0XfulHJPeIlLAPjCQN5BJpMOYIwv
+    7Jjn28cKSi50kVcQQUE0yqW1HewqUuYf4+yVPrEjn0h4m7Z2ixZiqxQZPXUoIdNZLQk1oq
+    j/09GmTLEgauwxYEJH77hq5Vmxoy79FPDq8Z2vpzaRlb0YPTVgVAAfPIO+6BwdwFAn3C2f
+    q8bV2GNR9Kjk02pdD2chQA98RChcGkSnCtmmpu47GzQbb1z6ZDt5xRNvFvBRT+WQYfQyaZ
+    4a+NEzUCxwaSBU2bWtqia3LRc4+OIUQagh6Do4dh9sUE0FFXTyR+kaBlvU9jiEamqEVPHQ
+    4gbXc3NBLEiLpddndP6u88pRN5KJ7K/tGBwb0Iq5eqagfS946dk2OOSNXlcTJj6CdL/r0U
+    1se7m7U26O419LntyJa18SPQ85A9mHIqVc9iF3qc79gSnNmlA8TDvbxQSOidveG+6xiAVH
+    IfIpTYF58bm83gaRdNhnZdV4zJmkNrVtUBaawkPHy+SnA4jhKXwzGhPGs0KK/AbrQFbEJh
+    irQ2kGoSlvO8BOARxpkZEjIfgcR+8Q7p4Z6Dtcy5qWDotE9skmnpNVthXc1Q
+X-ME-Proxy: <xmx:BXLkanpNnH_o-nmQ8slmWTlEHLooWD-AyZ2EjImXwHVqoUcFcWcbbA>
+    <xmx:BXLkavVRDHcxn2vS49_jmNFy8IwdcamkiCm_bNJGbGAF2GNUmFCzyw>
+    <xmx:BXLkauqZGIZy05M3SN8McJmS7kLKEY_wblT-XD7O9vs3qhusfKi7jw>
+    <xmx:BXLkajHmQwxfxwWw0Drl4XaMEOWSvsvY5tHjsS9OHw3GFRlJT3Dyiw>
+    <xmx:BnLkahhJ_-gE_V8i3DllFX8PiZwOWNDALPnZzO64pV-kXux8Qpy6YFNN>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 06:31:30 -0400 (EDT)
+Message-ID: <b221befe-572a-46e1-8474-6271af65406a@pobox.com>
+Date: Fri, 30 Oct 2026 03:31:29 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,85 +119,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261028165943.089486480@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Tristan,
+On 10/28/26 9:58 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.161 release.
+> There are 168 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.161-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-On 25/10/2026 22:02, Tristan Madani wrote:
-> The PCAN-USB adapter uses a restart_timer for bus error recovery
-> but does not define a dev_free callback.  When the device is
-> unplugged, peak_usb_disconnect() frees the candev without cancelling
-> the timer.  If a bus error armed the timer and USB disconnect races
-> with the timer callback, the timer fires on freed memory.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-Thanks for the fix, the disconnect part looks right to me.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-A small precision, since you'll respin (see below): the timer is not
-armed by a bus error itself, but by the completion handler of the
-asynchronous restart URB, pcan_usb_restart_pending(), i.e. after a
-restart from bus-off (restart-ms, or "ip link set canX type can
-restart"). This handler ignores urb->status, so it also arms the timer
-when the URB is killed on unplug, and the timer may still be pending
-(PCAN_USB_STARTUP_TIMEOUT, 10 ms) when free_candev() runs.
-
-FYI, Sashiko reported the same issue independently on my peak_usb
-series [1]. I won't fix it there, and will point to your patch instead.
-Both apply in any order, without conflict.
-
-> The same timer is initialized in pcan_usb_init() via timer_setup(),
-> but on error (e.g. failed USB command to read the serial number) the
-> function returns without cancelling it.  Because dev_init failure in
-> peak_usb_create_dev() jumps to lbl_unregister_candev and skips the
-> adap_dev_free label, the dev_free callback is never invoked either.
-
-I agree with the Sashiko review of this patch [2]: the
-timer_shutdown_sync() added in pcan_usb_init() doesn't close this
-path. The netdev is registered before dev_init() runs, so it can be
-opened and restarted while pcan_usb_init() waits for the serial
-number. The restart URB submitted by pcan_usb_restart_async() is not
-anchored, so it may still be in flight when the probe fails, and when
-it completes, pcan_usb_restart_pending() re-arms the timer of the
-freed struct pcan_usb. On the disconnect path, there is no such issue,
-since usb_unbind_interface() flushes the endpoints before calling
-->disconnect().
-
-The init failure path is fixed by patch 9 of my series [3], which does
-what Sashiko suggests: the netdevs are registered only once all the
-channels of the interface are set up, so no channel can be opened, and
-therefore restarted, while pcan_usb_init() is running. v7 of the
-series is coming soon.
-
-So I'd suggest a v3 restricted to the disconnect path: drop the
-timer_shutdown_sync() below, and the init failure part of the subject
-and commit message.
-
-[...]
-> +static void pcan_usb_free(struct peak_usb_device *dev)
-> +{
-> +	struct pcan_usb *pdev =
-> +		container_of(dev, struct pcan_usb, dev);
-
-Nit: this fits on one line, as in pcan_usb_init().
-
-[...]
-> @@ -901,6 +909,7 @@ static int pcan_usb_init(struct peak_usb_device *dev)
->  		dev_err(dev->netdev->dev.parent,
->  			"unable to read %s serial number (err %d)\n",
->  			pcan_usb.name, err);
-> +		timer_shutdown_sync(&pdev->restart_timer);
->  		return err;
->  	}
-
-This is the line I'd drop: it's harmless, but it doesn't fix the init
-failure path, and the timer can't be armed there once [3] is applied.
-
-With the patch restricted to the disconnect path, feel free to add:
-
-Reviewed-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
-
-[1] https://lore.kernel.org/r/179281433446.3130.6290059781976829176@kernel.org
-[2] https://lore.kernel.org/r/179304858361.3134.1029344134259623994@kernel.org
-[3] https://lore.kernel.org/r/20261022-canfd_check_channel_idx-v6-9-197704231551@peak-system.fr
-
-Thanks,
-Stéphane
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
