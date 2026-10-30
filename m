@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348063;
-	b=zWnys+1a/WJ1med7b5WWr+b/ks1qRqQjQKbCIfU67d28eF16xEAxnLuEGoNnPF5yFnzO
-	 mvm+OJNlIeK32aR8XMGxkXsAQNcQPH55KZq+f8DZ5GdVciTyoZo6XIMhP8sM2JiGDqHi1
-	 B3KDhWL2CkyPenbH8aOMRA7fQ3mCNcKsnlk20LJRTpw2fDYg30kY+E1nLzWCrQBYBC73+
-	 AoVgRwrJZ7yRTPz/LDMTBG/jd6MxFEvcSftq4Mhnoz8c7OqSKAWsgRvEU3EC7103GpZuk
-	 KGmhY9Jk9BYRIR8KpDDuT/PqphZmZjY5ZYXdPI/GVOsGcvzHvIm5cfh/h/O5iVithXw==
+	t=1793348299;
+	b=EiA5i0GDgkTjM4H5ObncvhjPwJzoJatvapQWh8SJqkZdFBKM5yzpdCAoR4A/0DUq1JKC
+	 TvEC27xkzVdMQ33lAGgKBFvnz7bNNmcztIf/f3x8cEreuT3iXgkQK922O2iW3hwcw8PhD
+	 +igJxUbEEhQNjCRhupNbcaVGnRqGbmtjOqvPp18DLEP7qZlvHSEDUDZrx2QbD5Z3/vZ6E
+	 Gnf+wBjvsAHMVm+yR8YLmcrtOi/wkZmd113kWZottTVgtxPgtJb3eJblgSZGRSdpZ6ms6
+	 7LUH3fIt2RSJ/h/Bopmw2jWlu4jv6+/DspBSYYTogX1TTsx+RLnylwrMrNf8HvgGpJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348063;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
-	b=VR2EXBb3Qkxzbd11YMb08RdYA/f1N58Bek5uQuocjEyq8xFMUO4p5dqD7py/FeqRCtBT
-	 bwVp79ql2q2FXzDebD+LCtWmTZTRCVykGtmhgf1iQtJG8ozYkbDw8CI9f8tvFXJflY+55
-	 YkZMsVa8Ot0L4Dh3att8dS3fnyh/w7fSshTO0Id98JHLt/OB8Hcd2TGMSo6Fr4e9Gb6/o
-	 wAoH+VqU+UrJQBDL/gxYAsYbPqsZcSzFZ6NnwdMXF3aGwA5kpugzaXQaH6DJMCMQK58cu
-	 7KFmtbIslFTLE4ZTLzrIqtLMqAeTv6YIISDiJBCowTJzrZ6j8c2I0/N8OW2DEMsYJfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348299;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8PFBa0453peGS7/Cs9P1PeciAx/a1xuZsr6ALPAf46o=;
+	b=qm+YCxzjO/H21m34F29wKWq4FPpGtTYyM91tNs1+LA7emriP1+qe86Jodej9Hg2hsGLt
+	 Wml+iaNJRvrszext4JOjSPVqha1FgWXQSlnM8S3ZMPrMr1A955nxk6xjQkJIqSpYsd8Hc
+	 2KUQKk+QdNFXh2UXgZBVFoQKQsZ5NzbWomZu5BKoDGPCjzu5jVow9w4JVCpOrglwOqpOm
+	 T5Zdj7tEZVpZaRO1Z0WRJZuR7N3Z4hIGVWMQir0l1muJERGogbNSQ94NA3s8ckIrmOSXo
+	 WdVXU+Mwg2b6cFYF6mT+jPQdDgAtZrx0ZVwqDwhA7Ht1e7z5TY7BQRdtK/3dFHGe8hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2877606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:14:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2877606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	dmarc=pass header.from=cs.unibo.it;
+	spf=pass smtp.mailfrom=cs.unibo.it;
+	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=d9i1lyjV;
+	arc=none smtp.remote-ip=130.136.161.50
+Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 50FFB606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:18:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50FFB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Z9K9CO0V
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261030081419euoutp027cd1975a8c2a4924ba054a476e819037~jQI8TrO383272932729euoutp02L
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261030081419euoutp027cd1975a8c2a4924ba054a476e819037~jQI8TrO383272932729euoutp02L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793348059;
-	bh=gu3WDc59a1hi8TKSBxLBKANAAP4yeqf1lNEU+Yxmkyw=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Z9K9CO0Va/v7gZBgkS0DUY899rLqH3dtIsFOjM6OQ9gzQe+cvMNoulHJgn2oEg4LW
-	 rz682PJQ+q2eWwNLfDMJJxukW5yecxRwOmUqAU8nrAe3vFwV5FnUn3IFSlj72mojio
-	 2pIWdilYm0wFcyGSv3nGjmk3kWDd1u/2Eq4IdRzA=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260~jQI7-hnsc0143101431eucas1p2t;
-	Fri, 30 Oct 2026 08:14:19 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261030081418eusmtip2609af88f01ad0a91d0eabb01a9b136a8~jQI7PJIYA0992309923eusmtip2W;
-	Fri, 30 Oct 2026 08:14:18 +0000 (GMT)
-Message-ID: <7fa2730a-87e7-47f3-a053-a9fc43fca787@samsung.com>
-Date: Fri, 30 Oct 2026 09:14:18 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=d9i1lyjV
+Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 17E421C025B;
+	Fri, 30 Oct 2026 09:18:17 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
+	s=virtlab; t=1793348297;
+	bh=ZygyKgWUKW+0GU3E/KOJede2S8o2FlDkM5rxc9dDDbk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=d9i1lyjV6sMu9BwEMaUUZHnieCBnjo/nNOEHjI24zDVFyRwIMMliibmQTivyuhNpI
+	 F7ap3GZJJW9Hy05aQelkwHpzaqVEPMLzoJNNPGXRPEOX7ql2fBbxYX9Zkqnth4M8Kh
+	 hOMApdUQQgT66XgjSH0KJhDDkrKp/bHEjGf/pT98=
+From: Renzo Davoli <renzo@cs.unibo.it>
+To: 
+Cc: Renzo Davoli <renzo@cs.unibo.it>,
+	stable@vger.kernel.org,
+	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>
+Subject: [PATCH v3 1/2] powerpc/syscall: Remove TIF_SYSCALL_RET
+Date: Fri, 30 Oct 2026 09:17:54 +0100
+Message-ID: <20261030081757.1065832-2-renzo@cs.unibo.it>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261030081757.1065832-1-renzo@cs.unibo.it>
+References: <20261030081757.1065832-1-renzo@cs.unibo.it>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,80 +60,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] swiotlb: fix out-of-bounds read in
- swiotlb_release_slots()
-To: Michael Kelley <mhklinux@outlook.com>, Giorgi Kobakhia
-	<gkobakhi@asu.edu>
-Cc: "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Xiang Mei
-	<xmei5@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261030081419eucas1p2b83bf1763b5f45fa83a381440d9ca260
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29
-References: <20261026032007.1957949-1-gkobakhi@asu.edu>
-	<CGME20261029173949eucas1p125e51931c2e65b18cd68a6d46cc4cf29@eucas1p1.samsung.com>
-	<MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
 
-On 29.10.2026 18:39, Michael Kelley wrote:
-> From: Giorgi Kobakhia <gkobakhi@asu.edu> Sent: Sunday, October 25, 2026 8:20 PM
->> When buffer is freed, swiotlb_release_slots() tries to merge it with the
->> following free space by reading the list value of the next slot.
->>
->>     if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
->>         count = mem->slots[index + nslots].list;
->>     else
->>         count = 0;
->>
->> If index is in the last segment of the pool and the pool size is not
->> multiple of IO_TLB_SEGSIZE, index + nslots becomes equal to mem->nslabs
->> leading to out of bound read.
->>
->>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
->>  Read of size 2
->>
->>  Call trace:
->>   swiotlb_release_slots (kernel/dma/swiotlb.c:1653)
->>   __swiotlb_tbl_unmap_single (kernel/dma/swiotlb.c:1734)
->>   dma_unmap_phys (./include/linux/swiotlb.h:262 kernel/dma/direct.h:102
->>                     kernel/dma/mapping.c:218)
->>   dma_unmap_page_attrs (kernel/dma/mapping.c:236)
->>
->> The commit 0b84e4f8b793 ("swiotlb: Add restricted DMA pool
->> initialization") makes it possible to initialize a pool with an
->> arbitrary size. Before it nslabs was multiple of IO_TLB_SEGSIZE and no
->> OOB occurred.
->>
->> Add overflow check.
-> I can see that this is a legitimate problem. But I'm not sure this is the right
-> solution.
->
-> All other paths for creating a swiotlb pool ensure that nslabs is a multiple
-> of IO_TLB_SEGSIZE. The better solution may be for rmem_swiotlb_device_init()
-> to round-up nslabs to be a multiple of IO_TLB_SEGSIZE. My concern is
-> that there may be other places in the swiotlb code where there is an
-> implicit assumption that there are no partial segments at the end of
-> a pool. It would take some effort for me to re-immerse myself in the
-> swiotlb code to see if that's true, and I haven't done that. But my
-> guess is that there's a good chance of such an assumption.
->
-> What are the implications of potentially allocating slightly more memory
-> for a restricted pool than is specified? It wouldn't be much additional
-> memory since the segment size is 256 KiB.
-Frankly speaking it would much easier to round the pool size down to match
-the multiple of IO_TLB_SEGSIZE, waste some memory and issue a warning.
-It is not that trivial to allocate "slightly more memory" if the size of
-the restricted pool is statically specified in device tree.
+Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
+seccomp and ptrace") added TIF_SYSCALL_RET, set by
+syscall_set_return_value(), so that system_call_exception() skips a
+system call whose return value has already been set.
 
-Best regards
+The flag is set with set_thread_flag(), i.e. on current rather than on
+the task passed to syscall_set_return_value().  When the caller is a
+tracer, as with PTRACE_SET_SYSCALL_INFO and op ==
+PTRACE_SYSCALL_INFO_EXIT, the flag ends up on the tracer, and the next
+system call of the tracer is silently not executed.  Setting it on the
+right task would not be enough either: at a syscall-exit stop the flag
+would then skip the next system call of the tracee.
+
+The flag is not needed anymore.  Commit 05c033db7e9a ("entry, treewide:
+Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
+made syscall_enter_from_user_mode_randomize_stack() return false when
+ptrace or seccomp skip the system call, and every in-kernel caller of
+syscall_set_return_value() on the syscall entry path (SECCOMP_RET_ERRNO,
+SECCOMP_RET_TRACE without a tracer, SECCOMP_RET_USER_NOTIF) also makes
+it return false.  A system call with an invalid number, including
+syscall(-1), still gets -ENOSYS.
+
+Remove the flag.
+
+Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
+Cc: stable@vger.kernel.org # v7.3
+Suggested-by: Michal Suchánek <msuchanek@suse.de>
+Assisted-by: claude-opus-5-5
+Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+---
+ arch/powerpc/include/asm/syscall.h     | 6 ------
+ arch/powerpc/include/asm/thread_info.h | 1 -
+ arch/powerpc/kernel/syscall.c          | 4 +---
+ 3 files changed, 1 insertion(+), 10 deletions(-)
+
+diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
+index 32be22b995cc..4b3c52ed6e9d 100644
+--- a/arch/powerpc/include/asm/syscall.h
++++ b/arch/powerpc/include/asm/syscall.h
+@@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
+ 			regs->gpr[3] = val;
+ 		}
+ 	}
+-	/*
+-	 * Mark that a return value has been explicitly set by seccomp or
+-	 * ptrace so that system_call_exception() can skip the syscall
+-	 * unconditionally, even when the user requested syscall(-1).
+-	 */
+-	set_thread_flag(TIF_SYSCALL_RET);
+ }
+ 
+ static inline void syscall_get_arguments(struct task_struct *task,
+diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+index 1e069a2e7ce8..0487e94d3416 100644
+--- a/arch/powerpc/include/asm/thread_info.h
++++ b/arch/powerpc/include/asm/thread_info.h
+@@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
+ #endif
+ #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
+ #define TIF_32BIT		20	/* 32 bit binary */
+-#define TIF_SYSCALL_RET		21	/* syscall error value set */
+ 
+ /* as above, but as bit values */
+ #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
+diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
+index 8529827d697f..f7412556a9e8 100644
+--- a/arch/powerpc/kernel/syscall.c
++++ b/arch/powerpc/kernel/syscall.c
+@@ -18,9 +18,7 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
+ 	long ret;
+ 	syscall_fn f;
+ 
+-	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
+-			test_thread_flag(TIF_SYSCALL_RET))) {
+-		clear_thread_flag(TIF_SYSCALL_RET);
++	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
+ 		return syscall_get_error(current, regs);
+ 	}
+ 
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.55.0
 
