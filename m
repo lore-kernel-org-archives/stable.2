@@ -1,122 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793321922;
-	b=2olV/YXcBVf7p2y3fcetb3KWEjJmOFLJY9mYRmB1E4ayBJoTL+WCs6dm06wDdrrUsS10
-	 esiuhvhJMObDZT7ftWwn+EAPemfN83iYedlmWdYGSTr1Y62jHsUFfJcMhwN1NrResF+uV
-	 2lUd2TQZ7jnYsBjMHgWv3wv2iJavYe5PBFCHIBsF4LMfLb1KcB9JR19I0A79k9kI5sXZW
-	 TELBkZh/rHAXLG7JEC6Dyl53xrDrplS+VsUicEJzqts8/oHeVqR2BgsS7edNRhryhZTzq
-	 GDKlmq79uN1tUoSjuyo8KU0MUJRlW6+IFxn0LW3PiX6dm2JMyO2DNaOt7+jDf/1zjlA==
+	t=1793322449;
+	b=A9QdVH51i3fj93CYCuRnk6QVcZ9Mkn8cFjw3lg+EfLP37akEKce+Ue69SNGWVGsLT61Q
+	 SvZRFMj53vlgtZaL7V8+oDPkPdU1B1TcHeeD1w0Ib5thzaCjxCOGQ26iZrgEfuQXMAd/T
+	 cYBfuFRYpidIhtBajDhdzU9CMp8JvEJJ7LO83cd4EOKHaLM+Xj8dbN9ZbddJ1QFOqu0/G
+	 GDVkhTmveNXqEW1WEhSerHhQCQw2s2/a0z3b7ugIlyT65ISzK5/cqhb3HrKPlVXWE3rzP
+	 7uvrSGs8Lwk02x1mmhnV5Dbry+ON7rZJrfhX5EWF/lJT6xbfUj6+YMh8jGyanyl/q7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793321922;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DEFn2XHjOLlJM5OoS27zxetNuXFbNoAKNCQVpNeJL1k=;
-	b=lC73nNRjAUy7j9Dg04W3reBLjuuuGX5PrFHZ4qCMf5fNTrOk3w2TCVD+nH2cgU1mqMGK
-	 4Tr3Xu4LiuI+XDdMERsb7DStU3qyr7SaAxwqh2XkZojwkz95El9ld36ZCMgCK8RxHsr2T
-	 +evghIJDGnRQVNuIIHQmzmYgfeyrdLwPfLTMANrwMeY8Qh24y6ZL5Zcn/caExIFWaCQ3n
-	 UveK8rPz490kDljRu7E4yW7zh9FIqqrSfeh0KUy3/XCkzOj08PyJOB9qDTKNOwOCT0voF
-	 gz7DUQgvelFyRDGuV0Mv9xicNc4Zh5E07LCwkoTpGRNReIQlQxpnSV5tdnQDMSA4XAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793322449;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=PZrFme8Z9ERkoIaIGLnSAqVdeuU7p1Vpb8U9cUCLBTg=;
+	b=YeBSsl050FlRwg39Hncpl1rMQGguN/5Ak48O4AtgTQrddDsnFovdiOzVvTi3r8FkzkgE
+	 +nrbI0j5W54f3XmwPRjhgNohvzOZh0qGsFpQU+aPqlIDK6yGJu9/I/SRCJrKp/e1/vTsn
+	 8J2eHmzsTmBmKkdBYVm3C8MaxkvD08lHfQBs06iLBRqfEKlpNyZuex8vc9JDeJe7k23th
+	 L5swiNSmvGe3++H/WbVl2M1hUJE8r41phGcnoW2C9Nu4WXg6zBLYKIP+FGaRcS72U+tCJ
+	 M1JCr1mmuloobNetHjBgxoEuoL/DqXBRsLfK+hTj2BdPCN+h67q4+PMP47twqUEL7hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=exultantmonkey.co.uk;
-	spf=pass smtp.mailfrom=exultantmonkey.co.uk;
-	dkim=pass header.d=exultantmonkey.co.uk header.i=@exultantmonkey.co.uk header.a=rsa-sha256 header.s=fm1 header.b=S6e35Ojw;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wcRvKNDt;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.112
+Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A173F606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 00:58:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A173F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=exultantmonkey.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=exultantmonkey.co.uk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=exultantmonkey.co.uk header.i=@exultantmonkey.co.uk header.a=rsa-sha256 header.s=fm1 header.b=S6e35Ojw;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wcRvKNDt
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D92F01400164
-	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 20:58:40 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 29 Oct 2026 20:58:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	exultantmonkey.co.uk; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to; s=fm1; t=
-	1793321920; x=1793408320; bh=DEFn2XHjOLlJM5OoS27zxetNuXFbNoAKNCQ
-	VpNeJL1k=; b=S6e35OjwSP1IiFlVkJNaVVwhl/1xWPOVw3iurCKXkCsIXw6OrxA
-	uJvm878c6HIWXOFWtJjC2AJF5Qp7M4MPMl2z6nteBxEjhDDR2bIdeeugivB8FCEN
-	iQfU2BchMzUDkkFoForRaPX7hBNJGPD8BGRTd2fwNierYHp4WT64upajVg78144E
-	z+Hc6KBW3iKs4Rgu40IGGpO3GzENJfu24IjJu0X77oQ7F0w2ccnyP9KXmAmlddtQ
-	xKUapVUgywbvhKvwSawtzuoGiDGR33pUpUQqnwpqbMDRErsWRY70CQQsEEntBBGl
-	9yFC5tQTGah5orNwaTBFj+hZxupkVxf/6SA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793321920; x=1793408320; bh=DEFn2XHjOLlJM5OoS27zxetNuXFbNoAKNCQ
-	VpNeJL1k=; b=wcRvKNDtbRB8KgMxWOAnDcLTu+qjQ0nykABt+qUekz4kvS6Lm9a
-	ZM6k8Cu2CsJ1BBHVLO9RHktXBdhrmeZOIviuDdn8tS186LjDykL5Sn2Bw91615D8
-	9ADl/0NpFCR2/g3ChVIiNlbIGZdAFR+cXR0A9bwOPrpz5ry9BtayZ8cmd1faoI0K
-	8n+/Ynn4neRja8I/aQwv+f34Qs2l4bbY0Y2WRwhFy214c+cM8D+Duqs6Dzc28r8L
-	RzXEEA39Z1F+i+loeyS2OEItg20zu3cbaaKjMqdBxZx+3Ke4rr5U55mmVmjUNWSQ
-	sh9DMGfC1hF/Az+cDSNDMOh8EAvX8Q/5v9w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=exultantmonkey.co.uk a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793321920; d=exultantmonkey.co.uk;
-	mf=PGRhdmlkQGV4dWx0YW50bW9ua2V5LmNvLnVrPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:KNAsJjzHbbFpfJySTWGGF2fkn7UC4J0JPCCDW/SWNY2TTBZ
-	+p0wJYStBe9757+Wxmzs+GeyKmiG/Xzsw3/q5ysnY7RuXjSJypXO7M6zpuCU80b1
-	aS/obNbSiYcjuCRcFLk3a1Zv5vfnHgTMLfFY/udS+kQgbxo1N2HjpzG4XyrfzuZA
-	edOIrNov3OerrScxNYFvOiCLg1i4aC80EW5sZr0RiyEKGvNqUjko573nQg1Y0aAj
-	FNyt8c+kUR0rNEiemSXrQ4EyC6JJwCl7u8iDJSZnRZEareXCnN6+psOEBX40darx
-	zXA7298wEFz8BXZO10XJDguSkdOKWDmjMt6ogYQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:lG5dIxXvAoTaAxrV4F/bLJKy9M6bwtYUDIOIr4ZJYEk=:LUxHGxcxVAdimMLBgUrrKkv9xtsmDEDmHT5VHMx7i8I=;
-X-ME-Sender: <xms:wOvjajO4_1aBKWvKPDdKbwh7FFXi1zdYb-KYBvMLGLkC4oKhzGR3ww>
-    <xme:wOvjan9dTEhJnfoUSXSLWB6vHxjx1NPDFFETiZqCfvJ_iu4dl95qdXY_pUJ7LtNig
-    s3WZIAmzuga6GLvF8KC75MyZqEjSrEPqE-7YEHrrH6MIh4oqgTX-aYOHg>
-X-ME-Received: <xmr:wOvjao531t_rWtM6okrAuutGwC-OogKNicOmFMjKsdmBZ6dgXq7JMurg6AoDM_Vbq09itC4>
-X-ME-Proxy-Cause: dmFkZTFrExGWSUNaf0sWNZj86zZAAbAdxjqIyM4qts/6KLSgrk2qMd2x0qF9bmUPVHy25S
-    P0UvOaN/qlWt0Hes7xh8PwwUqKyYrVFvLzknayokZYx9B4V/RMHwNlm2amxrYoteZHr8d/
-    /+NOaK1J/yq2a8YW23UKVhmlHn6ZRJN0XhrTME7qgs2Z2lACdo74Cb/bQCUuuxQM61JYjL
-    DPquJzTuGYAMMTi4wjgqh6eOgZcRicKgvjQnmnaLAlp0vY5BaX+hg+GnVe7cxgrt4pjc/w
-    Tpo9rYHJBj3F7hh4o0aZn7tDxjExF/cfHXUdfbI/ZnOldaMlGSddEFPkkuWsp5MwXwy9ne
-    AzUzy5XClCveYkj0i6/nidUeo/u2mMC9Arl9f0R3J0IlfFVcYZ/6R81mnmKPWe+6H+A01u
-    0d8WySRNA3G1W6Z8gDELeGSpGXXqLXbtOjF+TMVnm38euyIRsWgb01p+8qkJU4FJ4aQ2lh
-    TUwM8upQUbC3mi45LEWQCJkNVFEFK/rvGJw5MyfY3teThQ5l/R8wuQFeWcSsrkQXoUbfgD
-    CaXggBteu9DbVkaZyRuGbM7stNEgFxq0y8xwOlEaRALd68HAWyuR66r3i44KW6HO9zzJr2
-    zRyVwJn4D5J8F1CxNf48Jegjhnmv6fm6DeX6/AQyc7IwF1f37X+XCgRnpMQQ
-X-ME-Proxy: <xmx:wOvjal55WjlCZuJqO5zGvSSV6k2CTOvRfW1FhfJTvamVVS0Z41446g>
-    <xmx:wOvjappx-52fF0T9c1QUtYgGnMtuQl8jCRM9qyhN6F4Q4YP0yb2Zug>
-    <xmx:wOvjauOay6STYXtzJ3foMtC-FLj1yR7lw5NmWcydnwolR3_IDK48gg>
-    <xmx:wOvjap25OkIeowWYEerAWNeCeVjA0k59YUg3lErP51y5w88hWrcECQ>
-    <xmx:wOvjahUpb8uAX0mnWBvU7kRHW9CFxzVNuhFjoBauUdxckwgcPc8ec74T>
-Feedback-ID: i8d5147ae:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 20:58:39 -0400 (EDT)
-From: David William Richmond Davies-Jones <david@exultantmonkey.co.uk>
-To: platform-driver-x86@vger.kernel.org,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Krishna Chomal <krishna.chomal108@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	David William Richmond Davies-Jones <david@exultantmonkey.co.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH] platform/x86: hp-wmi: Enable cTGP in performance mode on OMEN 15-en1xxx
-Date: Fri, 30 Oct 2026 00:57:24 +0000
-Message-ID: <20261030005724.84507-1-david@exultantmonkey.co.uk>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEB7606A31C;
+	Fri, 30 Oct 2026 01:07:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DEB7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jG2xf4xphz1ygS;
+	Fri, 30 Oct 2026 09:07:02 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id E4CB840657;
+	Fri, 30 Oct 2026 09:07:18 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCn5fTF7eNq3yxsCQ--.62529S3;
+	Fri, 30 Oct 2026 09:07:18 +0800 (CST)
+Message-ID: <cddab9e4-0b57-40c3-a38b-34c738254f87@huaweicloud.com>
+Date: Fri, 30 Oct 2026 09:07:16 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,119 +51,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] iomap: don't mark unwritten parts of a folio uptodate
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ Chris Mason <clm@meta.com>, Josef Bacik <josef@toxicpanda.com>,
+ Matthew Wilcox <willy@infradead.org>, Joanne Koong <joannelkoong@gmail.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, Brian Foster <bfoster@redhat.com>,
+ linux-xfs@vger.kernel.org, stable@vger.kernel.org
+References: <20261029-work-iomap-ai-fixes-v1-0-7eda63bc1b13@kernel.org>
+ <20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgCn5fTF7eNq3yxsCQ--.62529S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF4kGF1DJw4fGr18CrWktFb_yoW5CrWkpr
+	Z8Kayjkrs7tr17Zwn7ZF9rAry0yw43Wr43CF18G3s8Z3Z0qrWxWr1vgayYvF18ZrZ7GFWF
+	qF4v9Fy5W3W5ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
+	kF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
+	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
+	CaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
+	n4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
+	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
+	tVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
+	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
+	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
+	7IU17KsUUUUUU==
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On the OMEN 15-en1xxx (board 88D2) the GPU power limit stays at its
-80 W default in every platform profile, including performance.
+On 10/29/2026 6:34 PM, Christian Brauner wrote:
+> For a buffered write into a hole, an unwritten or new extent, or past
+> EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
+> write and then marks the blocks uptodate. That includes the range of the
+> write itself which still holds whatever was in the folio before. It only
+> becomes valid once the copy from userspace has filled it in.
+> 
+> But the copy can come up short and __iomap_write_end() only rejects a
+> short copy if the folio isn't uptodate. If the zeroed blocks were all
+> that was missing the folio is uptodate by then, the short copy is
+> accepted, and the rest of the range is exposed to readers and can end up
+> on disk. A source buffer that ends in an unmapped page is enough:
+> 
+>         ftruncate(fd, 4096);
+>         pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
+>         pread(fd, buf, 4096, 0);
+> 
+> The write returns 16 and the read returns 2984 bytes of whatever was in
+> that page before. If other blocks of the folio aren't uptodate the short
+> copy is rejected but the zeroed blocks keep their uptodate bits and the
+> retry with the copied length leaves the same bytes behind.
+> 
+> Only mark blocks uptodate in __iomap_write_begin() after reading them.
+> __iomap_write_end() marks the zeroed blocks uptodate once the copy has
+> succeeded and rejects a short copy.
+> 
+> Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
+> fix (cf. [2]) but it never got merged.
+> 
 
-The firmware's SET_PERFORMANCE_MODE handler (GM1A in the DSDT) stores
-the mode byte in EC register 0x95 (HPCM) and enables NVIDIA cTGP through
-the NPCF device only when that byte is 0x01:
+Ha, thanks for picking this fix back up. I had missed this patch while
+sending the iomap fixes.
 
-	If ((HPCM == One)) { NPCF.CTGP = One ... }
-	Else { NPCF.CTGP = Zero ... }
+> [1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
+> [2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
+> 
+> Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-0x01 is the thermal policy v0 performance value. This board reports
-policy v1 (byte 3 of GET_SYSTEM_DESIGN_DATA is 1), so the driver sends
-0x31 for performance and cTGP is never enabled. NPCF only reports the
-cTGP offset to nvidia-powerd (ACBT = 0xA0, i.e. +20 W) when CTGP is set.
+Looks good to me.
 
-For boards in a new omen_ctgp_boards[] list, set cTGP explicitly with
-SET_GPU_THERMAL_MODES after setting the profile: enabled in performance,
-disabled otherwise, with Dynamic Boost (PPAB) left enabled. The Victus S
-code already uses this command. platform_profile_omen_set_ec() is also
-called at probe time and when AC power returns, so cTGP follows the
-profile in those cases too.
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
 
-A report for the Victus 16 board 8934 shows the same HPCM check in its
-GM1A method, so other v1 boards may be affected. Only 88D2 has been
-tested, hence the list.
-
-Tested on an OMEN Laptop 15-en1xxx (board 88D2, BIOS F.20, RTX 3070
-Laptop GPU) on AC: nvidia-smi reports a 100 W power limit in
-performance and 80 W in balanced and cool. Without this change it
-reports 80 W in every profile.
-
-The firmware analysis and this patch were prepared with the help of an
-AI coding assistant (Claude Opus 5.5 in Claude Code). The result was
-reviewed and tested on the hardware by the submitter.
-
-Link: https://lore.kernel.org/platform-driver-x86/CA+LW3S2g4E971by7WhfFZGuyLT47141_Zn+eJ=wyqxB_+4G95A@mail.gmail.com/
-Fixes: 286e937efbc7 ("platform/x86: hp-wmi: support omen thermal profile policy v1")
-Cc: stable@vger.kernel.org
-Signed-off-by: David William Richmond Davies-Jones <david@exultantmonkey.co.uk>
----
- drivers/platform/x86/hp/hp-wmi.c | 34 ++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 52077833ac89..e09a6d261144 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -235,6 +235,14 @@ static const char * const omen_timed_thermal_profile_boards[] = {
- 	"8BAD",
- };
- 
-+/* DMI board names of Omen laptops whose firmware only enables NVIDIA cTGP
-+ * from SET_PERFORMANCE_MODE for the v0 performance value. With v1 values cTGP
-+ * stays disabled, so it has to be set with SET_GPU_THERMAL_MODES instead.
-+ */
-+static const char * const omen_ctgp_boards[] = {
-+	"88D2",
-+};
-+
- /* DMI Board names of Victus 16-d and 16-e laptops */
- static const char * const victus_thermal_profile_boards[] = {
- 	"88EE",
-@@ -2035,6 +2043,17 @@ static bool has_omen_thermal_profile_ec_timer(void)
- 			    board_name) >= 0;
- }
- 
-+static bool has_omen_ctgp_control(void)
-+{
-+	const char *board_name = dmi_get_system_info(DMI_BOARD_NAME);
-+
-+	if (!board_name)
-+		return false;
-+
-+	return match_string(omen_ctgp_boards, ARRAY_SIZE(omen_ctgp_boards),
-+			    board_name) >= 0;
-+}
-+
- inline int omen_thermal_profile_ec_flags_set(enum hp_thermal_profile_omen_flags flags)
- {
- 	return ec_write(HP_OMEN_EC_THERMAL_PROFILE_FLAGS_OFFSET, flags);
-@@ -2045,6 +2064,10 @@ inline int omen_thermal_profile_ec_timer_set(u8 value)
- 	return ec_write(HP_OMEN_EC_THERMAL_PROFILE_TIMER_OFFSET, value);
- }
- 
-+static int victus_s_gpu_thermal_profile_set(bool ctgp_enable,
-+					    bool ppab_enable,
-+					    u8 dstate);
-+
- static int platform_profile_omen_set_ec(enum platform_profile_option profile)
- {
- 	int err, tp, tp_version;
-@@ -2096,6 +2119,17 @@ static int platform_profile_omen_set_ec(enum platform_profile_option profile)
- 			return err;
- 	}
- 
-+	/*
-+	 * Enable cTGP only in performance mode and keep Dynamic Boost enabled.
-+	 * dstate 1 means 100%, as on Victus S.
-+	 */
-+	if (has_omen_ctgp_control()) {
-+		err = victus_s_gpu_thermal_profile_set(profile == PLATFORM_PROFILE_PERFORMANCE,
-+						       true, 1);
-+		if (err)
-+			pr_warn("Failed to set GPU cTGP state: %d\n", err);
-+	}
-+
- 	return 0;
- }
- 
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
--- 
-2.56.0
+> ---
+>  fs/iomap/buffered-io.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index 907873073b03..d6e2f1ded5ca 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -920,6 +920,7 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
+>  		if (iomap_block_needs_zeroing(iter, block_start)) {
+>  			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
+>  				return -EIO;
+> +			/* uptodate once copied, see __iomap_write_end() */
+>  			folio_zero_segments(folio, poff, from, to, poff + plen);
+>  		} else {
+>  			const struct iomap *iomap = iomap_iter_srcmap(iter);
+> @@ -943,8 +944,8 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
+>  
+>  			if (iomap->flags & IOMAP_F_ZERO_TAIL)
+>  				folio_zero_segment(folio, to, poff + plen);
+> +			iomap_set_range_uptodate(folio, poff, plen);
+>  		}
+> -		iomap_set_range_uptodate(folio, poff, plen);
+>  	} while ((block_start += plen) < block_end);
+>  
+>  	return 0;
+> 
 
