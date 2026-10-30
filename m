@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793338346;
-	b=f5QC/o76jY8oTMgE5yIswTVu4+0XY+hjDk3aKcp9xVGiKSNrOkFfaNjoZfq0wDpif8dP
-	 TWv/QyulPczrepZRyTxWreVOZP3hvPdxjaUi6gEhIPu2WV8U/D4061z+aLGsORGgEBxmX
-	 BVAg4D0bxkwLf3x2X3XNOH4YZCtzRZgZ8hcsBun2TyWl57pLPe8sPlw22pGs33lJDl1nN
-	 9u1nZrLjgnJE1wh68a9Qfn2f42gg8zZjRxPrXPZsoq6aaT6MJ88Gtc19ucB8+EBOyxe16
-	 IPkyrzvlN28YjFWU1g0VXlDpfM8b1dKmy5E/vrCniXlNa2lGlXFDyi470zRFR2c5WFA==
+	t=1793338964;
+	b=Uc3B4i5vh0VUGVzjCJV/i5IRh3Wdpu/jv9QIsdor1bZP1vW++Lfk1bfc1bielaYUxoJ0
+	 n6Oj+y08BCYwtfz4XKxYLedSDSPu3hNCWUAWXUDu4qjdsQrFUk4n8jHlPJlTtqsrmceoC
+	 Kqtwu1E7pBSVIDtIvbrLOFh0jYPyTCJM/iKyoH69EJY3fjtBk/yuIVpOB+lZpfKoohaFf
+	 tXy9QdvDKMlZ/j3hmS1xOdbJoBramTTdzwQsWz47gG+sK2zhrcLAkIPTxY6zoL69oKf3K
+	 6DC6G6iaRGz24TXqVghJ6eTeQiE49QW6lVpn7rhnsrS99VfEdB86Xch+C14gdlCQxBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793338346;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=VTDrdrBuAyTJnkqjgvXYYtVwc9zTl+F88XwMGcc4YDE=;
-	b=JuLMzqPz+mjTuDm63YMBJ0YqlbdWnt8EvQsiWitJsa3Hb13ZwrtcUBvh8khLja7elxi2
-	 DA6B1CVjDSm96hHednWa89qPAJWp0lCZJ9fvFWhOG1gVRMKTVx1j9lNpRJnWTvlRKxTkY
-	 vskrRX3qOxhRu05+uznOW1b5jcyGMf3nWwO878ManJRN95gVdEPy/lLvyepJadlfJKFJe
-	 FvjM2AZ2pDQPqnkP+ye6NgrHNQEjnTQCbm5NmHRYiYca80LVglAoxW9IL+1t4FEi7/0/x
-	 OQSMy3bhXt0Z9dpyoskIcYMS0BO85yKlTSOhWdlQ0yw9f3svitigpHb8ZRfE8ULg11w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793338964;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=12tXOxCPsbo39hlb1mF4iGYiaxkf5vgxLfHL6faGPYw=;
+	b=lM7fSYV8vPXXwpW63yvyfjmh7/mcrjJq58G9uH6ZmPiXeUEncuHjmZ/0E/fDCQE9U1H0
+	 uC2ycVp6PGv7jTH7xL0W9cfflMflHHd2oK8phfgCbUWEdoZYE0/YDhYhw40akxI1ExheI
+	 uA/7p0wnw4c++gn2e8A4/He1qy8ULF3t3ViPS0GJytnloUl7nJCullvHEJ0an5fekIAOg
+	 kjNfL5Mni4e4GMll63pHlYUnbJy+zV8DOnymu7tzl7pCVuRBKiK/jzL3m3/POKUXYu77R
+	 bl8AcfYGQWXupXpGDuSfUsbpr0D2L7929j+MSozoj3HfgJSY9eWfZqV+4U6s3LcWtgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vHfRjYMT;
-	arc=none smtp.remote-ip=91.218.175.25
-Received: from mta0.migadu.com (out-25.mta0.migadu.com [91.218.175.25])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vMkfXhwf;
+	arc=none smtp.remote-ip=74.125.229.137
+Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB58606A331
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:32:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB58606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A873E606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:42:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A873E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vHfRjYMT
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Bf0WWkeJSETIqyNNL0Tk2W1KhY+0SCl/fI1XWH+Qygc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793338342; v=1; x=1793943142;
- b=vHfRjYMTLE8GNmV/NQ930J2ywQJhyanjVI75XVY+Rep9T7tsczB1jt3b7nefwWbYQQHhTYpb
- iqzg8eNAu1Xwp0lliVRb1Bc0n0dDbxlw7ENRHSVJ1UOiue1mIXVgC4W1E5mOo6hJME16DhnrQBq
- go8H6oQ4AOnRkh5x1foQvjtU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 9f9ebc0d777873bb;
-	Fri, 30 Oct 2026 05:32:22 +0000
-X-Mizu-Trace-ID: 9f9ebc0d777873bb
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vMkfXhwf
+Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-19305bcb6d5so58499c88.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:42:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793338963; x=1793943763; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=12tXOxCPsbo39hlb1mF4iGYiaxkf5vgxLfHL6faGPYw=;
+        b=vMkfXhwfjyi4TT9vUKlVmpL5S1he8tN0Eb3OBr3LB+59kf0jd0sHTvjS0daU3xZirX
+         38JOrj1dHn2bYAzvy8ok2PFdB5+NB6Gy9s1WZgqEHfOMmmsvx1qYK1DacHnPe4mFeudl
+         +y7nq4O3NBjrzP0YL8fu0bEBEc8bLiM49cB4UGLS8jsYY+o01DjgY0zLBDRpT0ox6mmC
+         16Q7N+X3FZzbKYJZbaYtdiewA9le8ZqXWwIQEB7o4FroqnRw/9Uz5hX9IWoPPOmkUqmK
+         zEVD9+qKrHpzxdYsgyoXSXmXzCoXaXzCZDh5h9gvlHEYQ57w5UESvPOqCLx6xMIQ3kPG
+         FZVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793338963; x=1793943763;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=12tXOxCPsbo39hlb1mF4iGYiaxkf5vgxLfHL6faGPYw=;
+        b=UOrN2FvH7nRd6SpAciz0F0kbMTz2P0/XwUK428xGdhV4xVDcouf2SaO8lTeFRtXNyO
+         gjrZw3xHh0T+d2oq5VkGZn1388X9Xx8XR19G9b3WWuXwVbQBhXkuRadaWOrdu6Uad06d
+         14WNHCeJyTzHRcCKTm7WnGBXtHrAHydWcP5RvMVR0WU4/PsAjkQ61wZVLqYuhAZklHEG
+         xlgMhjTQLmWpkui1D2vffS5bJZUr31m5pOwBXut6ZB8MNJdAyPNP8TDTC5c+7LjZX7iA
+         I6XDP/Udm+B/GdGIH9D7ci0gWTtprGbO8LqezAHXWxfbb7aOlttCl4R7fEafrhATqcCH
+         hLIA==
+X-Forwarded-Encrypted: i=1; AKwUvByZYUPS6SkuicCNoYVKJfZhUdhFan4Ud07XwWAasJF6lB2ENipdNoAqICoWaT9ujO/LoIJy4aY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITf6/IYmcEdMtagzpgGSTpZmeSqD/YsWVuL8zPQm42CNWA3z9d
+	CC5JHvtgp5ExTLqE0hIkUUH6CkdPSAG8cyRfMsCP3pcXVh1BclB2YAgj
+X-Gm-Gg: AYBFou3nK4FZIOeDBBD/G1z/HcezjDXzlT1Q6UJJgtQj0RLO8kYoPtHW0IKMIw+YIte
+	y3WNhH5MzaJqSjW2gpBiKOT6XH385bUfH44bhv/zGrIHY6ICGVB3XyoZXN+3WxaoNidjvClRBcm
+	mmtoWFFi2Bs2TPTLuu1EGX5ZRSrRLTPWcESBltRRnF5/1bxkO6gsWSulP8/4F+KNnfROTBrKbYu
+	RK3KZ76Mi7Cp2/cCQeMqGHMrivcpgdZU4OAmWfetBbxmR+vOdov+r1RAfORhYnTS0oeBJ2wbI4F
+	6zR3mVyqBWrfXKRHB1DM+ae9W5bi+vGcbb2jTBS6MwrJgRyMwcmMnvTGs1sWk7K69eVCrA4zdvz
+	L/vkVQdThkMvQnWr11N6gkca5SixPn7DmfiH0Xu+1o7qAvX09/6AQMBTw1+FaUdlaVMFfPMLOz9
+	4NdhaL0fgVFx5pWkHAU8jHjxklQTFCK3oWcnRwhuyuoB181bUEOUGtUd1KanQjsVciPFEg4tMEt
+	R377UE2D9YC+wGlqaZsVnI/Tu9H/8GR+1spcI9JW8qE1EziLfPdvyNRrGlBP9TOQHZhxRi9a6E/
+	ROxMWQHa3Bo4VLKjSb6sRdRuaW7wXda86MJYvQGLAIQwzsz0O9DlJwjg
+X-Received: by 2002:a05:7301:82a:b0:351:dbc:b663 with SMTP id 5a478bee46e88-36a4244f9f6mr2418639eec.31.1793338962362;
+        Thu, 29 Oct 2026 22:42:42 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm4380426eec.26.2026.10.29.22.42.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 22:42:41 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: tglx@kernel.org,
+	jstultz@google.com
+Cc: sboyd@kernel.org,
+	mlichvar@redhat.com,
+	akpm@linux-foundation.org,
+	oleg@redhat.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH v2 0/2] tsacct: keep task begin times stable across suspend
+Date: Fri, 30 Oct 2026 05:42:25 +0000
+Message-ID: <20261030054227.35453-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,95 +99,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with
- multiple ranges
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-Date: Fri, 30 Oct 2026 13:32:06 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Frank van der Linden <fvdl@google.com>,
- Mike Rapoport <rppt@kernel.org>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Mohini Narkhede <mohini.narkhede@intel.com>,
- Pooja Jain <pooja.jain@intel.com>,
- Doug Nelson <doug.nelson@intel.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <0611C182-4A76-4751-A04B-0849EC31DAD3@linux.dev>
-References: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+Keep taskstats begin times stable across suspend without changing the
+MONOTONIC elapsed-time fields.
+
+Patch 1 makes getboottime64() sample its offsets under tk_core.seq.
+Patch 2 uses that helper and the task's BOOTTIME start timestamp, and
+clamps negative begin times to zero. Keep the helper prerequisite when
+backporting the taskstats change.
+
+Changes in v2, addressing Andrew Morton's review:
+- Add the getboottime64() sampling prerequisite as patch 1/2.
+- Lower-clamp ac_btime64 without imposing a 32-bit upper limit.
+- Add Cc: stable to both patches.
+- Rebase onto mainline d89e1d186ec9.
+
+Validation used GCC 13.3.0 with W=1. ARM64 and native 32-bit SMP x86 QEMU
+guests pass all 36 checks, including the original 24. The 32-bit helper
+stress reproduced inconsistent timestamps before the fix and none after.
+Suspend time was injected through the real timekeeping hook.
+
+v1: https://lore.kernel.org/r/20261026005506.2253-1-dennylin0707@gmail.com
+
+Hungyu Lin (2):
+  timekeeping: Read getboottime64() offsets under the sequence counter
+  tsacct: keep task begin times stable across suspend
+
+ kernel/time/timekeeping.c |  8 +++++++-
+ kernel/tsacct.c           | 10 ++++++----
+ 2 files changed, 13 insertions(+), 5 deletions(-)
 
 
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+-- 
+2.43.0
 
-> On Oct 30, 2026, at 05:21, Tim Chen <tim.c.chen@linux.intel.com> wrote:
-> 
-> sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
-> per present section in [pnum_begin, pnum_end), and
-> sparse_init_early_section() hands them out in order, with a BUG_ON() when
-> they run out. hugetlb_vmemmap_init_early(nid) however initializes the
-> sections of every bootmem gigantic page on the node, including pages
-> outside the range being initialized. If a node's memory is split into
-> more than one range, sparse_init() calls sparse_init_nid() once per range,
-> and this takes more slots than were allocated. The same happens if a
-> gigantic page straddles a node boundary.
-> 
-> For example, with this SRAT layout every node has a small range below 4G
-> and a large range above 4G:
-> 
->  Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
->  Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
->  Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
->  ...
-> 
-> In 128 MB memory sections (x86_64 SECTION_SIZE_BITS = 27), node 0's low
-> range is sections 0x00-0x05 (6 present sections) and its high range is
-> sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
-> sections, all smaller than the 8 sections of a 1G page.
-> 
-> Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=1G
-> hugepages=400", hugetlb_vmemmap_init_early(0) then initializes node 0's
-> 1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
-> the 7th section hits the BUG_ON() (seen on v7.2.6):
-> 
->  kernel BUG at mm/sparse.c:268!
->  RIP: 0010:sparse_init_early_section+0x9f/0xb0
->  RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
->  RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
->  R10: ff252cb28ffb3d40 R13: 0000000000000d00
->  Call Trace:
->   hugetlb_vmemmap_init_early+0xe1/0x140
->   sparse_init_nid+0x56/0x370
->   sparse_init+0x192/0x2b0
->   free_area_init+0x7f/0x690
->   start_kernel+0x64/0x540
-> 
-> Here RDX is the section number, and R10/RDI are 6 slots apart: the start
-> of the usemap buffer and its current position, which is the end.
-
-A detailed analysis.
-
-> 
-> Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO a
-> page whose sections are all present and within it. Ranges are disjoint,
-> so each page is handled once, in its own range.
-> 
-> Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
-> regular memmap from sparse_init_nid(), and the pages are optimized later
-> by hugetlb_vmemmap_optimize_bootmem_folios().
-
-Thanks for fixing this.
-
-However, the master branch has already switched to section-based vmemmap
-optimization, it has been already fixed. So this fix should target the
-stable kernels (6.18, 7.2 and 7.3).
-
-The change LGTM. So:
-
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
