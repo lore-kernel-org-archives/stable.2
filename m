@@ -1,98 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793322935;
-	b=Fw7sBERNg9kNvYjeSJi9oCv3svoFmMWjF23jT4BrrIGSUlSoA0pLiFHs86zstsf3czEa
-	 gfLisLxJVfsRSxjiePSpKJIryl+L3j/SHNcUsrLuWQnHUtF5EWqPPMTHk0LZb9lggZ95H
-	 h4Vskfnqt4dLYyKgaG/0ktAQYdpCZ4RyVk8GvBy7phtKaQgTcoYB9/9RRmxTksSDilKY1
-	 zoFO7nQabtGYMl7RZUOp4OdD6FrGPJjSUi4aOZceliMrVIh7fkjn5SdYvcMdPjUlXL1WS
-	 Lk3vpyTbLuqZ/DtoEke9eXI4sQwZDxjXbrPkVuEiCgYg/N3qCZ+L56jUR9+z0L5T7LA==
+	t=1793322953;
+	b=5i6esp0gFO5Vj6jjFgrG6nXCrMaltd6rR2dtfLuV3RkrZy+ZcU0J5geZj5DhCf4nlQqO
+	 aD96HhAGlrymJSpXXoFvd+ZWQJ+nqGKs6YXTlh3Dd9R6z3zUxg3FabOn8xvk/rbu54uUi
+	 tY1ohCFUP+Aye2Ea9WGE7BQRV4QDyANahrIIMN/e5LDjXtbkorOBQnXweVSqzCL5OsHrT
+	 5n2omhFeJoLglghySQVH7eJbhERwVgHqs8H3q8zAmKLOLvdc5VVlBMIi64+4rzHIO4TIB
+	 WE4+s+fS8WLymrHWiQzEw6xJFIDJOEf88dG87STepQdlikM8z9c78R24QIOLA+kqApw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793322935;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-DetectorID-Processed;
-	bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-	b=YY/H2jMudOtXpgjTIBDg2TqpKL01KHHY0hb7xlAekv8mndBLqF9tD0mxX6Di7FIvnReh
-	 v2OpBmRYJMKkaHgwO0z3/NV/xE5zakH0l/yd1mWElnsoW8pWVYDAt3UqBJRx1lTtYcNeO
-	 N6L2cCWw049z+AS36GA2H5CJ3X/7j0B6J4p4hWvc0Na9oHVpn9CT/G8Fa3/IAPnseLmPl
-	 jIhne6mq7UaXJsHvecbm71njE+jUaxbdLQN8vmkymd4OEqtjrrWqYzAHyfdEK8rKUvTTF
-	 Vw+TAEgR150HgdSStg7OSjswHFBcqkOLF6zMqsDDpRxEfv2ybrtpvJEC12d50mTTQEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793322953;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=HRHzK34BRXV7rBKOPEgJ6hE2eKk3q4OrZtvOz+9Ps9o=;
+	b=XgfOIyH2lZ09QfOPkthEmQdLhuh/pC5WKDFKStvW5tr5de5WuqOmX3dayvKiUKsO0+2g
+	 SO6JQ1SBT63C4A57hD/JKbOeGyixiOVEGQxcIrOW7w+UN2Pbl6b3snv0dy+9HwfvlFZ8O
+	 L5HmQbdnQiGzB5ZsfSi20pACjAhsBmgy3CW8C77/fSNkx+w/8hya57yPjviFQloLZv9SI
+	 zNRWr+5/jK7J9X1TUvWKzFkYZ8vk1KhUTAecWiUb2g8cSQMDTLyrQnVgovEoNvsJICovY
+	 IY0LzbBC9XMzWKHsUTfkty1aPpw+7Z2dWbRrpojaizQP9sNWUncQ+Z+sFminQCX6SyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Q7k9JNio;
-	arc=none smtp.remote-ip=209.85.222.100
-Received: from mail-ua1-f100.google.com (mail-ua1-f100.google.com [209.85.222.100])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=TxY85s89;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47508606A31C
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 01:15:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47508606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB62606A31A;
+	Fri, 30 Oct 2026 01:15:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Q7k9JNio
-Received: by mail-ua1-f100.google.com with SMTP id a1e0cc1a2514c-99059bdcdeaso45977241.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:15:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793322934; x=1793927734;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-        b=S9osF0+ewUt/Rq+QFkxC23UJ+d8JkMxsi6W/ZUVRu1R/D0twUAXLRMD6rBXx8rLvOm
-         XvUbT695y4QQZkzvZ5zFbmlb4c6CwmCYQ2aqOP9sLRQyxRyyec3/TxQqyN8mENfxhvHF
-         58tjYivaywV17+sZxo+5v6B9wOLyPzAxFzWn5vtX45xv60n+LKLm1BxrZt2cPn3MDyef
-         ZXvUSUwPQ6wcoCXlK0Na7O1vTOf6x1KetfHlanEq7EmagSgQvGpUHk12XwFtbYqDCsoh
-         4s0csp2KitkRJt0I1/aDY4MAjNa/WrtBclNXUS9JbFmeAQqOINKwViTcIVqoSyq85PeA
-         D4Sg==
-X-Forwarded-Encrypted: i=1; AKwUvByQ65c4H1XHF7PZWNaORocLSqaNqwma346E9GWMl1V24hYcuEO5bK6XVhpaA9OxeY6weHB/tlM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsbmByM41JVsuz9X9bT80Nw4u/aoKTDImUTFarOr/2D3OzN4XD
-	LKtgKqjwNrVQAgy+XkXFR0sDIBTlcS6Y3A8DYQAaPFmeJfrrwLZzrWcKCNwfJCbmKjwy0PJeBBv
-	L6k/DZBqxFkyL5qQ3m4SDGoyRdr/gebrk7TybosUcZgNlK1ZHS3yBhfHXzdI5LsslALbvJyD76a
-	NJTPGBW4/2lcNQS4IWuGaJNzgnPzexkKA0Z6OJW7eP5hMM1oGpJuySAUsTalb3f4STwRyVgrhHH
-	qC/td7jdMTj5tf7
-X-Gm-Gg: AYBFou05ofQmFDA8DzpVNVcr60yQrdU14beYHYnuNmn+zRbOgFKm0yShuFxLil6uZ1v
-	7mQOuXJeGUKA86F06y8Q0Bw51/7bSwmhA1+Qtj+c1UdDFF+eYSaNc2GqPjgbW2vFoYwRDd0HW7k
-	pvqFPpbf3qeBBqhde1CpRoJLkR8jziBcnMRdrfRfLFPxSMzgsTmIoFxrSApY3//wV00xi8KUqlk
-	s5EzIgOThMu24S9HkD35BZqB3Zt+36GFlr79gyy1JiN5b2JdTfngQ2KrWTKCdh0Bv37sVgfhSCA
-	SSx9126PRYakjiPChEI9KXeL5U2U2AsHuPtBl+Q60RSe7aRbCOExcMs9dthe4DybMnWiu7E8x2h
-	+zGo/pcQF2rtnArvYgThXv2oj9VTbCakFIiGStYoMeYrMYQwB7QrH2QHf9COngA/1C1kQtJzihq
-	8XxPQkQEDRwkNDN6HV6TNxOz9HHXtSqyk9Yhua/ueG
-X-Received: by 2002:a05:6102:9d4:b0:7ce:5952:125d with SMTP id ada2fe7eead31-7d0728d38cemr429407137.36.1793322933887;
-        Thu, 29 Oct 2026 18:15:33 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id ada2fe7eead31-7d07756ee73sm3100137.8.2026.10.29.18.15.33
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Oct 2026 18:15:33 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-542fc619afaso777231cf.2
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 18:15:33 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=TxY85s89
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2B11F000C1;
+	Fri, 30 Oct 2026 01:15:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793322933; x=1793927733; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-        b=Q7k9JNioBTgwrwc7tAzUaUy1vQ5bWN0HI+pJ9G3yKvVOSFaDULewvCwcg0WpC5DPq5
-         xf3u/jdYSZjLZjHiU/zJ23pZuzmelg4XS5EuCGuLhLdRr0q+DE0FK/SrwQ+IGIgsqRvy
-         ACtc/pQsKmBbJhwEFECMcwvZ+a7v8uCUMKDFg=
-X-Forwarded-Encrypted: i=1; AKwUvBzpddS9a+q2ivwCYfqc0L58cOmTOsqXHM1hMqzhoa2eas8wWZHQPDriqvu2wySQiAZkwxYTVJo=@vger.kernel.org
-X-Received: by 2002:a05:622a:a58a:b0:536:aafd:972e with SMTP id d75a77b69052e-542b62a117bmr12705011cf.24.1793322933041;
-        Thu, 29 Oct 2026 18:15:33 -0700 (PDT)
-X-Received: by 2002:a05:622a:a58a:b0:536:aafd:972e with SMTP id d75a77b69052e-542b62a117bmr12704691cf.24.1793322932526;
-        Thu, 29 Oct 2026 18:15:32 -0700 (PDT)
-Received: from localhost ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54312a571fbsm269521cf.23.2026.10.29.18.15.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 18:15:32 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1793322952;
+	bh=HRHzK34BRXV7rBKOPEgJ6hE2eKk3q4OrZtvOz+9Ps9o=;
+	h=Date:To:From:Subject;
+	b=TxY85s89DMRZpjRn+kkgqvNEBXIoyRt3V6wtEZCCMLfxOI4BrCbw4rET7enx/uDGi
+	 rvY+wb6+neIv0UB3GnMsQ+g8UwLV5KjbpTG1suYtjgO6W6CTTKENFtT+4gIqMn5zq5
+	 HG9rAxhfeeERF8fL/iflwilkut6CGB+UkN2n1fJs=
+Date: Thu, 29 Oct 2026 18:15:52 -0700
+To: mm-commits@vger.kernel.org,youngjun.park@lge.com,tz2294@columbia.edu,
+	stable@vger.kernel.org,shikemeng@huaweicloud.com,ryncsn@gmail.com,
+	nphamcs@gmail.com,kasong@tencent.com,chrisl@kernel.org,baoquan.he@linux.dev,
+	baohua@kernel.org,mt4022@columbia.edu,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261030011552.AF2B11F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,27 +51,135 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 29 Oct 2026 18:16:53 -0700
-Message-Id: <DMHRYAXZQ0NV.QGNFOA7HDQO0@broadcom.com>
-Cc: <bcm-kernel-feedback-list@broadcom.com>, <ian.forbes@broadcom.com>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/vmwgfx: log MOB limits outside the manager spinlock
-From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
- <maaz.mombasawala@broadcom.com>
-To: "Zack Rusin" <zack.rusin@broadcom.com>,
- <dri-devel@lists.freedesktop.org>
-X-Mailer: aerc 0.17.0
-References: <20261029215700.3009996-1-zack.rusin@broadcom.com>
-In-Reply-To: <20261029215700.3009996-1-zack.rusin@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-LGTM!
 
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+The patch titled
+     Subject: mm, swap: stop cluster list scans once swapoff clears SWP_WRITEOK
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch
 
---=20
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch
+
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Mani Tofigh <mt4022@columbia.edu>
+Subject: mm, swap: stop cluster list scans once swapoff clears SWP_WRITEOK
+Date: Mon, 26 Oct 2026 11:19:22 -0400
+
+SWP_WRITEOK is cleared under si->lock when swapoff starts so that no
+new swap entries are allocated from the device, and try_to_unuse()
+then waits for writeback of the folios that still use the device.
+
+However, an order-0 allocation that chose the device can race with
+swapoff clearing the flag and then loop forever.  It takes a cluster
+from the fragment cluster list of a higher order with
+isolate_lock_cluster(), the allocation from that cluster fails because
+SWP_WRITEOK is clear, and relocate_cluster() puts the cluster back on
+the same list, so the loop keeps finding clusters on it.
+
+The looping task is in reclaim, and it may have set writeback on a
+folio whose write has been queued but not yet submitted.  swapoff then
+waits for that folio, while the reclaiming task, stuck in the loop,
+never reaches the point where it submits the write:
+
+  CPU0 (reclaim)                          CPU1 (swapoff)
+  --------------                          --------------
+  shrink_folio_list()
+    pageout(F)
+      /* F under writeback,
+         write not submitted */
+    folio_alloc_swap(G)  /* order 0 */
+      swap_alloc_slow()
+                                          del_from_avail_list(si, true)
+                                            si->flags &= ~SWP_WRITEOK
+                                          try_to_unuse()
+                                            folio_wait_writeback(F)
+        cluster_alloc_swap_entry()
+          isolate_lock_cluster()
+          /* allocation fails:
+             !SWP_WRITEOK */
+          relocate_cluster()
+          /* repeats forever */
+    swap_write_submit()
+    /* never reached */
+
+This results in a soft lockup on CPU0 and a swapoff that never returns.
+
+isolate_lock_cluster() used to check SWP_WRITEOK under si->lock until
+commit 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap
+table") removed that check.  Restore the check.  Since swapoff clears
+the flag under the same lock, isolate_lock_cluster() then returns NULL,
+which ends the scan; the swap slot allocation for G fails, and reclaim
+goes on to submit the write of F.
+
+Given that this is a race, its reproducibility is non-deterministic.
+We reproduce it by using a non-rotational swap device that is not
+synchronous, with 64K mTHP enabled, where one CPU repeatedly pages out
+two 64K folios and a 4K page with madvise(MADV_PAGEOUT), while other
+CPUs run swapoff and swapon on the same device.  In my tests it
+triggers within 20s in each run, and with the fix applied, it runs for
+300s without any hang/kernel report.  This bug was found and
+reproduced deterministically using a deterministic hypervisor that is
+currently under development.
+
+Link: https://lore.kernel.org/20261026-swapoff-writeok-v1-1-4f4cd420aa33@columbia.edu
+Fixes: 07adc4cf1ecd ("mm, swap: implement dynamic allocation of swap table")
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Kairui Song <kasong@tencent.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Kairui Song <ryncsn@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/swapfile.c |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+--- a/mm/swapfile.c~mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok
++++ a/mm/swapfile.c
+@@ -635,6 +635,10 @@ static struct swap_cluster_info *isolate
+ 	u8 flags = CLUSTER_FLAG_NONE;
+ 
+ 	spin_lock(&si->lock);
++
++	if (unlikely(!(si->flags & SWP_WRITEOK)))
++		goto out;
++
+ 	list_for_each_entry(ci, list, list) {
+ 		if (!spin_trylock(&ci->lock))
+ 			continue;
+@@ -650,6 +654,7 @@ static struct swap_cluster_info *isolate
+ 		found = ci;
+ 		break;
+ 	}
++out:
+ 	spin_unlock(&si->lock);
+ 
+ 	/* Cluster's table is freed when and only when it's on the free list. */
+_
+
+Patches currently in -mm which might be from mt4022@columbia.edu are
+
+mm-swap-stop-cluster-list-scans-once-swapoff-clears-swp_writeok.patch
 
