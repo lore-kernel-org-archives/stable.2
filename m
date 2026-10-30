@@ -1,58 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793335612;
-	b=0vlWcaw+ybRUhwwtluYF4ok1r7GhhERK7LTaoBlYqC+GBM+F652rpVshX3L/mICLF7ki
-	 9N5aML9nn2FUWhkn3VGjBkRKjuE1+pwNdN/Wnw/zr/+O67AnoOZNmiC4cz/6aRKSYVEw5
-	 SqJYzy9ATIh5pAqzWzSQ/uSpC4pgAw4I80GWkPEJwk/AJdcMdXPjNC9WgANrdIntDurdg
-	 WFMv+dne+LJ1nTOI0IyO6gW14qvHL914ytu+W3IRX9uVBuaLjRGORVvmWlO6avE7qRC1W
-	 anVfA2pW1nxMf38R3EXNDAjATpum1USblv6yuj9ngVM2w4vh6cRODZsb7clF4fCrcOQ==
+	t=1793335712;
+	b=4gLRK7M/YTTKvxIXomyLycq7ibpj/SJVj300wTBCwlOjjmkr22NpkANgqG9dIrr/PzKa
+	 RtHfuSUK2JxDB9fBysZG4kK0ouYo1lbwQCMCVIs/c0fZ3POI9H9LvK6GW8GP0PsBWtNf8
+	 oCC0DPFKheODwNY1M0pttI3Z5noF9sJgLFuSmNsyzlIuGPwayA4kaIST4WpD9V46FcrKM
+	 UPvfC3LjF1uT7rzQuw66F5kndmJk9rp5UggzxJQcGfouFEWWdFM7xU80qOpeKgyn63R7Z
+	 GRKOPEIHrtw6ST1PX5hfWkaKuwAISagsB5Zs1OzGwE7MbkdOxPXgV2krDkmjpSMfd/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793335612;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DZp5otDluq4NV2cKmLa7Nu+U3zJLkg4HxbRo5oi+i0M=;
-	b=5Blh0pUyckYWX15sXTqNxyleeR9uKlBF6bExx1xwl12hoIIJcQE7qsg+B9a/hcIRfCtA
-	 ebVtH5vAhqeyKdJK5DO0SqgTVgkCmE+4otsZLKqabNiAAmH+YO19xeRJ+IAcM1UrcyB+Z
-	 ev3ndGthN9lZS8W0/gNqxQwQicFMYgX3/+fFnUxSBZSGHjTfLzlLkbEAaH7KhL3AHe7Kt
-	 1ZAusxfvzYraLwMNfYTbZfmsF7sSMlAcRgKluHCPq7ZKdM9f3/1GwRpqxRzW7ArRGpiTL
-	 B3i5V/Ur81Pxl5cc9Ra4oQ/2f7OCMBfvUo9MZhOtsoCqTxw44b8PrdQJXQi0BE6dIEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793335712;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=xCO2gpCBQE2FwzGxXtXJnVmZ+zGlw7S7nKOHMvP3QG0=;
+	b=vPTNIdCdmIWA+LBWVoZLIm+pbnbXlYV26Mhc1Z0w+X7kgn2Fjzr9LtTz+rmUHI1B6KUC
+	 O8dlAJ9nhGnyaEsYgg8vCV8hgTAb1Ut66fZl1N9dzCh/TCaIBgZNbZpjR3vh/ld/2gVWW
+	 jiWIHY+WVdUObKA9permuChzM/87r+l8TDSGS5g1hM3xRsf16n2rNwxu8SCIrwH1zOWXf
+	 eght5eqi2s8z0zIMWH2d6D1t9zY8BMDjcG7GSZ/8Jn0psW0Ip2ijVCM0Y/R526KBvb4hQ
+	 HYZkHkZIIdwQocdl7o0Bx6tZzdGmE9J7cYDOUm+jFBOZD+OxDRXI/bOWF5auQ/60F5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZiFfe4M;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=hKQDCwWc;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B4D606A31A;
-	Fri, 30 Oct 2026 04:46:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9103606A31A;
+	Fri, 30 Oct 2026 04:48:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9103606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZiFfe4M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4731F000C1;
-	Fri, 30 Oct 2026 04:46:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793335611;
-	bh=DZp5otDluq4NV2cKmLa7Nu+U3zJLkg4HxbRo5oi+i0M=;
-	h=From:To:Cc:Subject:Date;
-	b=MZiFfe4MaqqgRmB0M8Sok3Bxfg3CbjxRydYTFp7y5XUzPe6DLkiZJUwTknZefJSPr
-	 saZ96LltFBZ124M/oaiB6gcCOLBs4HUO8MYUPaTLrIB3kko2dfCuC0gjv/BITeMs5A
-	 YuKUu69lrKKDpVxInh/TNuYHDscjoLNibIOKlLJU/pK5o7IZu816Jv4IUGx77+a3lT
-	 YMG+qNzOlzINkS7X3PdbZntrmEkkObPHfsWatqZd8MSd+BNcQhokZBWcWIReTo0RSL
-	 RtSh0qwJfgt89xutqRh6vxGG86kdvQDqg7CaQZ4AUT97K+EIM7K+1YGlzEkQPymJ/W
-	 4E8AZY78E4LZQ==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=hKQDCwWc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=xCO2gpCBQE2FwzGxXtXJnVmZ+zGlw7S7nKOHMvP3QG0=; 
+	b=hKQDCwWchBDZrqV2HNumPX2hRrvnfsyuREe+gEk1+dUcp8Ix5tYjEtSit3Ix1F6SCsLMbtLB63R
+	uZ4U+z5dDPcyVnSPDudr+gqN97h9YbEiQymk0YBvHWBreByFOtJgk2Xh6I+GPGa5r+A1nP7BPdYIP
+	vum6ASLLzYK0W339d7mFON4zuKKHSr7CpSgWU+18qIVY7dxeaT9Uuc/rwp+mjogVUayQrhMjXz5zD
+	n43lkbkGyO0OI0eY3jymvs6qA0TbpeZwPR2D2hn4qQklHAvB8BaoZQ3crAbmS47ueoqFaDPrt7W3m
+	RmJKWZjND5ofD7F2w9P0CzgYKXeCgqSSvxJg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xMeXI-00000008yjK-3ZRY;
+	Fri, 30 Oct 2026 12:48:17 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 30 Oct 2026 12:48:16 +0800
+Date: Fri, 30 Oct 2026 12:48:16 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <bhe@redhat.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH] selftests/damon/sysfs_memcg_path_leak: define ksft_skip
-Date: Thu, 29 Oct 2026 21:46:42 -0700
-Message-ID: <20261030044643.157105-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <auQhkHG6XlgNTdRr@gondor.apana.org.au>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
+ <auKshDXKQXt1kvjy@gondor.apana.org.au>
+ <auMbCuecFeRmBFSK@pc636>
+ <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,50 +79,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
 
-sysfs_memcg_path_leak test uses $ksft_skip without defining it.  As a
-result, the test is marked as passed while it was skipped, like below.
+On Thu, Oct 29, 2026 at 10:53:56AM -0400, Liam R. Howlett (Google) wrote:
+>
+> Given where we are in the release, this fixes a real issue that can
+> happen so maybe we take this now and settle the general handling later?
 
-    $ ./sysfs_memcg_path_leak.sh
-    Run as root
-    $ echo $?
-    0
+There is no rush at all since the bug that you found has existed
+since 2025:
 
-Users who run the test could therefore wrongly believe the test was run
-and passed while it was skipped.
+commit c6307674ed82c0c57d6e1e3408e84ac449ab8e94
+Author: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Date:   Tue Oct 7 14:20:35 2025 +0200
 
-Define the value at the beginning of the test.  After this patch, the
-exit code reflects the skip.
+    mm: kvmalloc: add non-blocking support for vmalloc
 
-    $ ./sysfs_memcg_path_leak.sh
-    Run as root
-    $ echo $?
-    4
+Let's take the time to fix this properly.
 
-Fixes: dfa3cf0bc018 ("selftets/damon: add a test for memcg_path leak")
-Cc: <stable@vger.kernel.org> # 6.17.x
-Closes: https://sashiko.dev/#/bug/linux-a0456336-0608-4fec-ac22-0ee61d1d6a91
-Signed-off-by: SJ Park <sj@kernel.org>
----
- tools/testing/selftests/damon/sysfs_memcg_path_leak.sh | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
-index 34c37129c49fe..d407dddb879ec 100755
---- a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
-+++ b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
-@@ -1,6 +1,9 @@
- #!/bin/bash
- # SPDX-License-Identifier: GPL-2.0
- 
-+# Kselftest framework requirement - SKIP code is 4.
-+ksft_skip=4
-+
- if [ $EUID -ne 0 ]
- then
- 	echo "Run as root"
-
-base-commit: 20b1ca206f8a664a16ad3006262c63b5d37b1ecc
+Thanks,
 -- 
-2.47.3
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
