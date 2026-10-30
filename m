@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793364738;
-	b=pt7oWI8fYOnoKAT2s8LdYykUaDHeqaHD2CRMjzxSJdb5O9le0kcjFRM3wp091as/zNYN
-	 OoIraaf/jQKJgn2V6V3VYe+N1WcfvmSue+TdziqFboRrwHGwrYU7X+/K3ZGU5gX2ur+cx
-	 xeAnDh12eyXOQ9kbD2WknvYdUB8dESCOEppEPofjfVszAAdde9n2RKjHNs4UmpznyM4By
-	 WcvrTJhBcepucOj++E8XQdkUecaEWi9MaxlNFq2dqKIYduhmLZuG+FJmtvuGZGCR1h13c
-	 EDth19/WPAFr5LNlgxoCoRtFqUDGYj/07OIO/o/eQC5bIGI6kW33Htu6NDCGfxVLV/g==
+	t=1793364744;
+	b=Km0sHYcJU0VZ5L525+OvZoKxw74NvQhua3SGp1yxDAw+fv6HMJ2rpxC9nggNVE+ZucZn
+	 jO4EpvD9agRKCudtXviN0nN0dqh6INYdWbAS7nFv/1y1v5x9mK/xjZ4aYe7zYnwj3DwpY
+	 u0+4gIqh8OiI7HdzLgrNiwI9OhRdaHhG/sWKDiJ+EkwToADK8DtIhAtwFhcM9CLEnw92T
+	 SiKARZ6Sw4GQkxYGZ0LHyqjjrzkNv7BpVUT/duca1pIojCDTL3X0q7wr4WNkUbLTus3s6
+	 tHxFhBUuWTVAo0DNLzdp12ydAq8qxb7sJNRpeOHOezgpvBGUoM0X/C+o3OZxei3GFhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793364744;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OkkbVR35edVcAhs1xcZxTyF3F/sBovMPGVcdt4f9v28=;
-	b=kwr8+3gs6PjSMSSfhCw4lJTQ2T4xvXDmYs+sGCKEsQESNxoJ4a/RNXPaeAadXEynbKVA
-	 H8+RDY0Bus99I5tuU25nmqsH8/l79PrjK4pTqH/ocxhUy5eUmgJFitJwtO33Q1jxsFgPt
-	 qHnXRZEfuq7L/O+J6aZ2BHSlKOJQuCOk6av7GL8AZS+RbTld+0gLW0cSXS+aaV+imTkKX
-	 BlEziocCSXI+hWLRTAosUGDFzNsPQZXA6HOURnVJWXTQzGJqeq7GUdwOdrGGBPrUpUdA6
-	 mXhbmbyBtv4xx+R3SEh9FLjN3KUmcQ8psoggJbcXxlobZxEP6CkvSYZ50YBf7uyKMdA==
+	bh=pgBEuDSHRtFcQfpeGCqC7PizFbaFAd4KKYaR/f7Bjhw=;
+	b=zI6I1irpnZAfyvs1kDcJX13o3VblSEJ/RgTVSb4uyXk10ElXgaPjoRUlmus+nXouXFE/
+	 9yMxHHbM+nwSByH3JE7MrYuI2Uu5uBhSpReH1PLg4g77IzN5/dYo1Z+2C/YV3Qj/Orhtz
+	 AEZ4r8fZAmJuQEZZLQt6CToQcmcx0L8o1dn/hrg0s05BXUSiOCBNI7WN6LzUkOCzmR0BL
+	 z6O6bgqCJly0eJEcEO49oBaWvHAV4qqD6JsnfeGkBfRY8yVPWceAKOMUwESVLYF3YicEf
+	 0lNtUkXnWLh2vCZ3WB1GxwEQHES/wvbNBBrExtJenpBuFpXlN0m/KypT3u3DtNfmtZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CJ2CHC15;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jxmyGdAu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BAD60A2600
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 12:52:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60451606A32A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 12:52:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CJ2CHC15
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5421F00A22;
-	Fri, 30 Oct 2026 12:52:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jxmyGdAu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5C001F00A1A;
+	Fri, 30 Oct 2026 12:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793364738;
-	bh=OkkbVR35edVcAhs1xcZxTyF3F/sBovMPGVcdt4f9v28=;
+	s=korg; t=1793364732;
+	bh=pgBEuDSHRtFcQfpeGCqC7PizFbaFAd4KKYaR/f7Bjhw=;
 	h=Subject:To:Cc:From:Date;
-	b=CJ2CHC15XjZ992De++rbA9z+Gbs8Ld7gvBKznYpTh3xR50FnVDzMXfGkLnNAsocFQ
-	 2L1F21Q67ikMkSt2zqw32lfUyvCzK1PyY+rpTTdalt/LR47jiOUcQ8T921j2RauUp4
-	 io8ZjnBSqhmMfBoAOIngyRUniKqkNueRxyF6WvFY=
-Subject: FAILED: patch "[PATCH] net: skbuff: propagate shared-frag marker in skb_zerocopy()" failed to apply to 5.10-stable tree
+	b=jxmyGdAuvx7vgxrcyGYlmua5VQxMuaWxm92gh/ncxCpIvDqaEZj7YLrMrZZPEc3Uk
+	 gDrVFDpYsH8qgyuned+zyLPUi4QUdI1AgkPBOrBl7kZYsJoChG/LlNYPNRYGPMPDfL
+	 Ca0zYsdQ5l870sSDVzguWUh2Nbj88jwKHdSsc7aE=
+Subject: FAILED: patch "[PATCH] net: skbuff: propagate shared-frag marker in skb_zerocopy()" failed to apply to 6.1-stable tree
 To: pointerliu@126.com,edumazet@kernel.org,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 30 Oct 2026 13:51:57 +0100
-Message-ID: <2026103057-payer-wobbly-83d2@gregkh>
+Date: Fri, 30 Oct 2026 13:51:56 +0100
+Message-ID: <2026103056-limelight-flashily-4744@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 79dc34beb1fdb3da79753e51e15c68591a2561fe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026103057-payer-wobbly-83d2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026103056-limelight-flashily-4744@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
