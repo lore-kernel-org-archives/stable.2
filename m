@@ -1,57 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793366511;
-	b=VLl8XqscjslklQomya3Vyb6AVBhUtxVaAc52RAQe7MAaac6nWo5gYiBC/PkL+1I7pyfk
-	 pDLttsCV0MxttwafUL04Y8SiMw4IDoHDRmfdX4q5NcQY4OVCRu+dSkXjmWhgG86p67p/9
-	 KXP+QsrA2VNMJLbQ8JMucED8GwXkw8eJIS2F4Zk8xVl4FPNibN8i1Fn3NazChPwvd0/ys
-	 VHWjY719K4Wyg9f7WoSrMX8/xe8cie8N7R3s/Mv1lDsL19aa8IgY58jjF428B0im28KSO
-	 UlwukEV/VrD4/YgRNEsxWads71AM2S28+FVHuxrbXjmNPeL/691KkOosylxj37tZkkw==
+	t=1793366615;
+	b=B1WpnnK7u32JlIn1Em9JImAeTk1DuoCgBoY4GnofLF3yeBXMeS8BX8HMIOj1XolO1zBr
+	 3TMiF4KX6G7X4JyYJTwosyYK+MU3+NpOFnZPHKSB3XeqdAZFa9n/apMzGXdsyjh2U3VkU
+	 WhEsW+dxzukWpZ/fmmp6dtqsow0+LJSyKf9Z4HcwdHEECyILAZhGph4qSYrHxxvAOgJ38
+	 eU0yIsl+auxTme20qXmcIApZrZJDGXk4Sk/ljjBxL+WgM7lNfLbsOxVUfAN/FopFiQ7wI
+	 y6T6CN19hHxNwkkTDSSw/rpxjiTchN3Lq7Zo30mgjzv6hPY84UhjX3snsEBgZRnUOZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793366511;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9ufpfF0exPuwxlva2WzizC+kysBLY6jXA9A/YWNdq9k=;
-	b=iD9nEU0yk5BNpz3VPLoMxN2Vzc0kZfr4jwKCnfiueYqbx7xQ+Q34bRncOkCjFOu1iWxq
-	 K3Fb6gn28D0ipZLKANrU65l2yubpP1QCNyF/L65SaoT0u3CnJ6qOl4NYsHsLtDlXtIJZj
-	 /bmWzQv2OUrjJewaQYqXBFsumFrhVZrX0lyyFZuosDvYNBkwbFAuc9e07vS54yWkc78PF
-	 JSEhYuLuyTjFx8d9jXaeouUAbiNfqFft/WLYZ+YwGNaKkXT2gIipQpdFOBtX8Kec7UxLV
-	 RkEtKLgWCfX7f8ZpKIGYIPFAxQwsAB0awfuSx+AvGUG+jVyHho/q0k+7Q4pgGSDJPRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366615;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=3iFFSDMFcLLNzrnpdKibwgYyXoRd2Mab2qyNz87t56A=;
+	b=1xEktB0IsLbVlQb8GfrteEnC/zVqYmyArjfIxAP5sB/2qgHu6sM/Z7HlYX7HcrI1E/50
+	 F9pCQtPc3CqSAg4aFAoz+VWbzirLL0E6g9rWcSamoZfQG1i9MuHTnSaXbcfaDiyTPl2WZ
+	 SHmrk84HSKfKLDy+dvYJWSMdUTp3o+HwJQ9DWM7cyJulELIioMwwOxffl3vldkmJcl5yr
+	 UyhOPv1gp/YJqn9Uw0TYyC0kLs9kRP8BhUz3VAw63hd++/S4v/xyCi8YJNmJt8rAD6mQ2
+	 Y+NxLgzm7DGBKSNyRdMy4Xt4qXSowROl/dNzghXPd7J/ffn3aOEdCm9rFsacJpnXLag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gSQuO/tr";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=ipbDjU6v;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iaNV8m4q;
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313EF606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 13:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F9A606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 13:23:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8F9A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSQuO/tr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097821F000C1;
-	Fri, 30 Oct 2026 13:21:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793366510;
-	bh=9ufpfF0exPuwxlva2WzizC+kysBLY6jXA9A/YWNdq9k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gSQuO/trg3l+oiPEmbmviJ4hktIms6TXfYTofD0fPUhYj5tHjrjZrJx0YFEkLUTuM
-	 tZyjF3wIW/kJkJxBPbsfd2SjQZOAPnGxeXYo80N6ihuhO5KQYK2vaVlM8HN5Z4Bynx
-	 JL9qD7pO8+pAzdTZyP3dE6qo6ueetktppS4JswCKvTRukmTsQlOobMlvpK3mI2IgbO
-	 yf4D6OV0LbqQAbCWoefczxaZpNBrFuiQXC/MGi2vU71fWoKiDorXmxtglhhNyYhg8a
-	 NvZD+yQoU4MSWVsBpqfw+Tg4cV3fcqPQZwaqmW4br30L5839XFuNhvprYqWK1BtRdV
-	 jTpVTeIekbyvg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zizhen Liu <pointerliu@126.com>,
-	stable@kernel.org,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] net: skbuff: propagate shared-frag marker in skb_zerocopy()
-Date: Fri, 30 Oct 2026 09:21:48 -0400
-Message-ID: <20261030132127.3663989-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026103055-chastise-denial-90ef@gregkh>
-References: <2026103055-chastise-denial-90ef@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=ipbDjU6v;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iaNV8m4q
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 2727214001C4
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:23:33 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Fri, 30 Oct 2026 09:23:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793366613;
+	 x=1793453013; bh=3iFFSDMFcLLNzrnpdKibwgYyXoRd2Mab2qyNz87t56A=; b=
+	ipbDjU6vMBgFlYgZ4nv//SqUjhran7lV5JaohmdCW6FccCrD2bHWiy5sza8RokiC
+	zvSERorqVtqS/8FIOLvdOgt5W5j35J3YjvuWPKCIl9UhhKHcLLFXH29q9uaEhdo1
+	T5KX99gHvFffmqt61ZRmjRIqlkbaAk3Em7mwHa/AgU/U4zFGpj9mBY/Kjupc4tRJ
+	1VDybcv+NEe7K5yqczACaeP/j/eQa1VI/wL++0RhqiJbjR7WONpXSg6fRSHLjbdl
+	7ohCltsFiy8jdQ4WbnBivawN2qg/0yb7F2I1PeKvQ4RuNLeAMyek8xjtzJAiHyo9
+	7HsyAcWAbmGw34y5OXGmeg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793366613; x=
+	1793453013; bh=3iFFSDMFcLLNzrnpdKibwgYyXoRd2Mab2qyNz87t56A=; b=i
+	aNV8m4qA5vBZ5Yx9Wh3y0kNE+d4UfeBKhaX7RloXs3dQ2dcN/bEjUvbdJ+mY9c7W
+	/yruBJS/UsDp1n7vf7oYM7n4tRYw+fcCHkEnRhKJRzn4BBA/KQiA5m7Z7/zAx/S0
+	03VAn50kXVyj4egAxlWUy1kbb7Ra65ch2bVOnQZ9FrRYhJ4E5Yw+qXCDHRf0H9PS
+	jG75A8xVxvmH1Nph49Nr7+7wCRn5BV0EExXcETzC8J40u6hmtRT5j2RsIqhqpKGG
+	XwT+sxDhY0nbVURADJksOIa+2EHUiDZ/zO/CPRZ15FnJ29E4EPG64g1Xo1jxFABY
+	texKJn3rg4fnTULYIrObw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793366613; d=kroah.com;
+	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:VsvxevTpIyyblzaaa7o6hBnLNZBU2YxO6hrszr4B92+gmbW
+	XegoRqH5DgQrCxZMXeJlVtWHtoPZrg4Iao8ZY3CMkJHsnXg8JHnzVkQw6OhCiFca
+	gcsZdmdVc+ylL+n+9Tw9iUFcVmB0lay/H5lKMa9U7NZCIbJUH+xR4b4gZSW4JWz4
+	LWSfMVVL1HS0GrdYDuBmpomWAVzcYDmFH6uaIk7YC+d/87u+RapoU9kjQyRR7cr/
+	nOspHHdWha8cFgOS1o2e/O+qH01XoJJUx5ux5C/V239XVvegFalF4gIBquGKG+ZV
+	hJp7K1KdR5657DEre2hVrQcWCWKP9UWp+HLH7+g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:VERx+3TZYQ5BgoeARkcwD7V3+61VQjl81BzhkNXBJ0g=:npABc192swzfsTp0K+i29xh2HGvrl0+1pYiHUAsgToQ=;
+X-ME-Sender: <xms:VJrkakuTr6yVHY5ssnXklm8njIajhSKtgEBiKmu11-P_RFMsBR1vOA>
+    <xme:VJrkapnqOUNW8iaU7Z6gKpjJC-StUG1uJrK6PkdUAyM384OJVMJJy5mpnrqOCTGvw
+    averxZafmF0xOWLEMAx72btJBl8WHWp4qrcJpFg91K71fmEQuxS>
+X-ME-Received: <xmr:VJrkavRmE2Wb7WbJ70ykM8SM2LhUms6lwX8rK8-Ol3H-Pf5ypQ6GGOOk1b8-YC8oxBI>
+X-ME-Proxy-Cause: dmFkZTGrQ9ERLFaBKIwVbIetyXJ03PlGFnJXk6lW5sR7vq77CBIZF/yfVrvnZOnJNsRs7v
+    9SQVc4rRLF7fmXlkvn22Ia7us8+VCF1dxXt5+DVof+jPIQEfxnfHN/wwcOYkwnMDTbn4b5
+    lYe5KPinDKTWjZhGXlemaqWJDZXhQ2q8BhYw7xXOXoiElSEg4zL2D2lCGbDjIAO2uMxKBf
+    Gd9fXknASByuIm+1tpKBKJhS7zxJlLv5/45KZnDrpFFhXWBcJwsWnzz0N3Q54R/eQ/qWUH
+    Is1Knh+BByUNF36x/bma5Jo5IkhItuucCBdgqFMNDj7/kL+SFTK0KOS1aNzDZeARTiIpg8
+    ae13XMrF4MrNhMsQi/A+7E/angESrvPSvw2T2qM+Vs6W8tJFm1kdIisY4pagJaGek4R9Ts
+    ftT6t97dN9/91SnN5QfpRb5N0wVW0V/oxmubNk8cnMAA1k8pSMT7nXizSrbwM3r5sx4wQp
+    HnZAmfFlcCnajXs1XJBKV3VETWsLVGBApfMlrf9aYPfwLMpm2fkVfkMehQBjRLfyNnp22S
+    prI2M14ZyR0L3vRHHLksWx5WFtJONo3EpSNy4XGvID9ij63twWNhtpq8Hiud7JiY1/my4D
+    fiYQtkFluReKVi12LS+ueQTdt+qkSROFi8hfsSxRJU7sqUlfZux7ExqrnXTg
+X-ME-Proxy: <xmx:VJrkanKMHEs_uyMgGiycU4FW2YVbEgr7RWCcopNzSy82Ku2ufkghJw>
+    <xmx:VJrkahFaXnPbZtuRTU-xKAqcXbPZDMD_SdEHR4KQSjHbklfvTCZkuQ>
+    <xmx:VJrkas0-MQ8m40wBS_Ths3vZQkb_VBFfx_mFr_9xiT0G5I6alW1DKw>
+    <xmx:VJrkahL2SfrYQBVC1VUX3C1XlIcDBFQIXSXKexAsb1N5kiK2AYKnsw>
+    <xmx:VZrkapL2DExd5SglAtqcQdKKd3RpNr_uvzCDpl5l6D1xZRUL8ovSj4wC>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 09:23:30 -0400 (EDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,54 +116,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 4/5] leds: trigger: netdev: Report invalid interval
+ to user space
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+To: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+Cc: linux-leds@vger.kernel.org, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+ "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Kees Cook <kees@kernel.org>, 
+ =?utf-8?q?Marek_Beh=C3=BAn?= <kabel@kernel.org>, 
+ Christian Marangi <ansuelsmth@gmail.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261027113349.383147-5-alexander.sverdlin@siemens.com>
+References: <20261027113349.383147-1-alexander.sverdlin@siemens.com>
+ <20261027113349.383147-5-alexander.sverdlin@siemens.com>
+Date: Fri, 30 Oct 2026 14:23:25 +0100
+Message-Id: <179336660572.12256.13380616711233326853.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793366610; l=414;
+ i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
+ bh=npABc192swzfsTp0K+i29xh2HGvrl0+1pYiHUAsgToQ=;
+ b=RLvWDp1lFv4PcXCMdTdySgvaxoeYhcbnoa5npr8oLI0nT/hKL+5hX77+TBvizfCje3oEosEzN
+ rY01YbO8vN2AeHZMHzgFSwWkNHS/0hbonRnASj1ivqGHBf9slkAxbTZ
+X-Developer-Key: i=griffin@kroah.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-From: Zizhen Liu <pointerliu@126.com>
+On Tue, 27 Oct 2026 12:33:44 +0100, A. Sverdlin <alexander.sverdlin@siemens.com> wrote:
+> interval_store() silently accepts out-of-range values: a write outside
+> the [5, 10000] ms bounds returns the full count as if it succeeded, yet
+> the interval is left unchanged.
+> 
+> Reject out-of-range values with -EINVAL instead.
+> 
+> 
+> [...]
 
-[ Upstream commit 79dc34beb1fdb3da79753e51e15c68591a2561fe ]
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
 
-skb_zerocopy() moves frag descriptors from @from into @to and takes a
-reference on each frag, but it does not copy skb_shinfo(from)->flags into
-skb_shinfo(to)->flags.  A destination skb holding the same page-cache
-backed frags as the source therefore reports skb_has_shared_frag() as
-false.
-
-That breaks the invariant relied on by later in-place writers.  ESP input
-checks skb_has_shared_frag() before deciding whether an uncloned
-nonlinear skb can skip skb_cow_data(); with the marker lost, an skb that
-skb_zerocopy() built for nfnetlink_queue or for an openvswitch upcall is
-decrypted in place, letting an unprivileged user write into the page
-cache of a root-owned read-only file.
-
-Propagate SKBFL_SHARED_FRAG when frag descriptors are copied, as done for
-the other frag-transfer helpers.
-
-Fixes: af2806f8f90a ("net: Export skb_zerocopy() to zerocopy from one skb to another")
-Fixes: f4c50a4034e6 ("xfrm: esp: avoid in-place decrypt on shared skb frags")
-Cc: stable@kernel.org
-Signed-off-by: Zizhen Liu <pointerliu@126.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261022104217.1852191-1-pointerliu@126.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Adjusted context in skb_zerocopy() due to missing from->unreadable propagation. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/core/skbuff.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index cdce2f72fbeaf..1808bed195af1 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3883,6 +3883,8 @@ skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
- 	}
- 	skb_shinfo(to)->nr_frags = j;
- 
-+	skb_shinfo(to)->flags |= skb_shinfo(from)->flags & SKBFL_SHARED_FRAG;
-+
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(skb_zerocopy);
 -- 
-2.53.0
+ 
 
