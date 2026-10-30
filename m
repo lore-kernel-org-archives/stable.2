@@ -1,62 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793361846;
-	b=Ilw8Xvj/EF38ouCfDPgWsmV5ZE/I5HDQBuCH5XFSsQKMYw/UdntdgBfYw1g8VCCWppNr
-	 p2tylxMGheIVp9VAPpiSukHAI/8v7aBKi8M+l8IZeYj+34oNN4Z2/fnNO/P7vvVc+I7Qf
-	 K6N31dL3qH69dNNfPKOsJLoJe+jZcvylg+VNhZ0DNY8Ok6D3A85dOjRJEzwJtqasNJp3b
-	 ObXA4Zw1Fdqhtcae+UQkhbezy0KEopYt7Wy+nBaezesmu4LVEZBz/Yb8B+Cbj2bKcwKnZ
-	 bqsRV+nqDqfIRDNzdcckGGudSgnQ8UJlsCzwTKG+A8SVx3f+wjdQ7v/7Mf9V6/NpTww==
+	t=1793361897;
+	b=MRodZd5UywdsgtdVNLNxQTiVFMRk8tI8HWd5hH8jhgMFGSczTDuMIAZkYaVQqfTupnfk
+	 akrBTSOg9yt8REYKtwnRsw8aCsw6P7ZmWxuGMbCwu62pxaeTNfAoYgeZNSA+UrXDnsfpz
+	 jKkDxL0MIBiJhb8otWLQTq3NnfvQr96J8p8/aSUHAksH5lG5YydETNVySjEG4m54t50OT
+	 FGASANN89IQp5rRMkOCk4xe+0d5mLemP2KL4qD1scQZLKFgv7JVwBPP6qvNsfGlHzKtMR
+	 6RuncBgnTgcNyvCRum76usDxHdRCpTyp1KmYGoF8GVaQ+0ybUVIMyUMZRVW+sMfVRRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361897;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fFskA7BssClkLrdVAmdRHZnh5MEeIpbMmJ/sYbXMQIA=;
-	b=oVBlKDpmGI3EPmuCUA1cqP50/NvaCfSCLl0W7gUno8B2LjKmkp2lqHwKQMnZ6nnGxleo
-	 8nyco+Mp39y0/JAqvqjN7vbJKGXWxbAZZfczqRk9FQYuaj3RK1nLh9wj5mWp1mYLIk7DQ
-	 zy+QF8MiTEiy5E/hHNh1lAZ6mA65nx+kIuE+fWqml9BOgESunKUSJX0VYAEMnaZWlosc8
-	 L9xtpzZMRvbu9vInjrBJNDHQqEy6rHVL+402XZrsUqs/tZRjjNlKKxHc1JQY7NFe3UbJl
-	 rf4l0Cjj7gWXzE4Walv/uobcE99liRGNZQBCNmCMPDnV9nhKz6yefLFgyUHuM2ZKRrg==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=1BzPLi5ldrzbAy5AgNEu0GX66dBkc2cApy1ZIBvasOo=;
+	b=3d5xKhfYZa2iNwhG3Jmd3xVdlQiQgHRJSSX4rzKYon9uStzC877niviasamJ2rrmUhOF
+	 mqKKmgWy/L07jn0IydRfrcqOPf/riExL9cdrQF8q1+iz0U/3pCpNpL6NslyjLEtXrSVkc
+	 oR2qVOWXGPZrX6LpsgjRuyuiy2rsQg/GJO5tuIuLH5+JWDC8tbqkCehJOphptOuDf4JFv
+	 cvxvGZpxMFpp+l3/8GHnFnBfZHbMTKBSsUc7aXQYAFGUaEvN/ZNJFuMTW5xAa0opJ9kmW
+	 UeHNxlpGhWELhxTG7MBQ/pbfHFZSESVwT3FsldFk/8bYwpziFNtgUPdFqvu1e/8tdRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhHYbPbm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zl/3FIs8";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E5E606A336;
-	Fri, 30 Oct 2026 12:04:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0D9606A326;
+	Fri, 30 Oct 2026 12:04:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JhHYbPbm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B1A81F0093A;
-	Fri, 30 Oct 2026 12:04:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zl/3FIs8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1321F000C1;
+	Fri, 30 Oct 2026 12:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793361846;
-	bh=fFskA7BssClkLrdVAmdRHZnh5MEeIpbMmJ/sYbXMQIA=;
+	s=k20260515; t=1793361897;
+	bh=1BzPLi5ldrzbAy5AgNEu0GX66dBkc2cApy1ZIBvasOo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JhHYbPbmPlUKk7hL0xZnl4tgMCzcNtzmSMl6EYeMpMLyjiAx5yCoMsfsfzPtKuJl/
-	 qgItBmRDgUfaBST95tzHm1Twm1SMXoOdawPuR3zhruZji8D6VlFKD8Uxux/zzRSMPC
-	 ZYnW8z+z5GgtC9Sn4E0nRDJJZ0c5jwwTGBaVo8ZP0hj4n5gg1EOR9MjHCA/Ds3B5uV
-	 YwuAZcc1tUZrcZyhHDpOl/Epyoe1MPGBspjwc7O+y31/8TB5QfSC5rzaW+63Diq5fH
-	 +bO1N2sQ8zZXg43wwWvmybfkCF0+VOYS9SQ0k7c6Y5rE439S5I/2OdKCu8S+WN++Eq
-	 1tqoFwsbS2lSA==
-Date: Fri, 30 Oct 2026 12:04:00 +0000
+	b=Zl/3FIs8VpthH5bR5QRxV6qaTWH2gnDIHAlDGgzlu1wFeboZbLim0FqEF+pwbOVjZ
+	 Xa11KE3AgRzDoGie+T9xoFOmW+p1zyZoUK8WIuPmMnGMn1YUMKjtpLfXCqhaboY9NO
+	 RFAxGjb4H1u1MRSd7iYTb0Lsf2tTGh02597aRYnYrta42b3m809JFpKpExXiY5XHey
+	 ILaDfMRTA8fuJj1lOOJGy4+aJdGPjx1VLghugwxTOyB2mngnoVIr3g0sAeGPIJyQ1m
+	 yumsWiAtKBydDdBU282+uyVtuQRPxziDArjPeJ63ff5BdO4x/mA4ZRK5ZeuJNojYXr
+	 RpIcmIjD6r5jw==
+Date: Fri, 30 Oct 2026 12:04:51 +0000
 From: Lee Jones <lee@kernel.org>
 To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
 Cc: Vinod Koul <vkoul@kernel.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
 	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Syed Saba Kareem <syed.sabakareem@amd.com>,
+	"Prasad, Prasad" <venkataprasad.potturu@amd.com>,
 	Mario Limonciello <Mario.Limonciello@amd.com>,
 	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
-	"Prasad, Prasad" <venkataprasad.potturu@amd.com>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
 	"N, Poojitha" <Poojitha.N@amd.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 13/21] soundwire: amd: Check ping command response for
- timeout
-Message-ID: <20261030120400.GG3774906@google.com>
+Subject: Re: [PATCH 15/21] soundwire: amd: Avoid static port offset leak in
+ amd_sdw_compute_params()
+Message-ID: <20261030120451.GH3774906@google.com>
 References: <20261030104840.3361217-1-lee@kernel.org>
- <20261030104840.3361217-14-lee@kernel.org>
- <a81780c5-5692-4cbd-9f7d-1f64e78e9017@amd.com>
+ <20261030104840.3361217-16-lee@kernel.org>
+ <bb7e2262-af12-4891-9070-74058812d5ba@amd.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,53 +67,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <a81780c5-5692-4cbd-9f7d-1f64e78e9017@amd.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <bb7e2262-af12-4891-9070-74058812d5ba@amd.com>
 
 On Fri, 30 Oct 2026, Mukunda,Vijendar wrote:
 
-> 
-> 
 > On 10/30/26 16:16, Lee Jones wrote:
 > > [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > > 
-> > When amd_sdw_send_cmd_get_resp() times out, it returns -ETIMEDOUT as a
-> > sign-extended 64-bit value.  amd_sdw_read_and_process_ping_status() and
-> > amd_sdw_read_ping_status() extract peripheral status bits directly from
-> > the returned value without checking for -ETIMEDOUT, interpreting the
-> > error code bits as peripheral status values.
+> > amd_sdw_compute_params() tracks the next dynamic port block offset in a
+> > static next_offset[] array initialised with {1} (which also leaves
+> > instance 1 initialised to 0).  Because next_offset[] is static and
+> > never reset when streams are freed or when the driver is unbound and
+> > rebound, the offset grows monotonically across stream lifecycles until
+> > it exceeds max_slots - 1 and permanently fails with -ENOMEM.
 > > 
-> > Check for -ETIMEDOUT before extracting peripheral status from the ping
-> > response, matching amd_program_scp_addr() and amd_sdw_fill_msg_resp().
-> > 
-> > Fixes: d8f48fbdfd9a ("soundwire: amd: Add support for AMD Manager driver")
-> > Closes: https://sashiko.dev/#/bug/linux-c3a53ed5-eb8f-4982-a3b6-db189e009b68
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> > ---
-> >   drivers/soundwire/amd_manager.c | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> > index a3316efdf8ac..a8220235a2ae 100644
-> > --- a/drivers/soundwire/amd_manager.c
-> > +++ b/drivers/soundwire/amd_manager.c
-> > @@ -448,6 +448,8 @@ static void amd_sdw_read_and_process_ping_status(struct amd_sdw_manager *amd_man
-> >          mutex_lock(&amd_manager->bus.msg_lock);
-> >          response = amd_sdw_send_cmd_get_resp(amd_manager, 0, 0);
-> >          mutex_unlock(&amd_manager->bus.msg_lock);
-> > +       if (response == -ETIMEDOUT)
-> > +               return;
-> ++
+> > Compute next_offset locally in amd_sdw_compute_params() from the active
+> > ports on the bus and clear port_offset_map[dai->id] in
+> > amd_sdw_hw_free().
 > 
-> Response should be u64.
-> This patch can be dropped.
-> Please refer below fix.
-> https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m786cce22308c97d055566dce17be5a38b5d98e9e
-> I am going to post V4 patch set.
+> This is not a bug for ACP6.3/7.0/7.1/7.2 platforms. These variants
+> do not have banked registers for data port programming. Instead, a
+> fixed port mapping per DAI ID is used by design: each use case (e.g.
+> headset playback, headphone capture) always maps to the same DAI ID
+> and port number across stream lifecycles.
+> 
+> The guard at line 402:
+> 
+>     if (!amd_manager->port_offset_map[p_rt->num])
+> 
+> ensures that port_offset_map[] is populated exactly once per port
+> at first use and never reassigned. Since the DAI-to-port mapping is
+> fixed, next_offset[] advancing after initial assignment has no effect
+> on subsequent stream open/close cycles.
+> 
+> Furthermore, the hw_free change introduced by this patch:
+> 
+>     amd_manager->port_offset_map[dai->id] = 0;
+> 
+> would be a regression. Clearing the map entry on stream teardown
+> causes the port to be reassigned a new block offset on the next
+> stream open, at which point next_offset[] has already advanced past
+> the original value. This breaks the fixed mapping invariant that the
+> driver relies on.
+> 
+> The number of concurrent streams per instance is known and bounded,
+> so -ENOMEM from slot exhaustion cannot occur in practice.
+> Please drop this patch.
 
-Excellent.  Will do.  Thanks again.
+Done.
 
 -- 
 Lee Jones
