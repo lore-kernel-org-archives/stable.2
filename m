@@ -1,80 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356655;
-	b=FtLpJ5YamRRgRg+8zFLhsUK8Vc+NRcjmR3jrpw4oN/pDgQ/rbAxvTsiVXw+JwmfIulcS
-	 z46j+WD0zKRgdNwiMArKeys0MvbIJJKGyNReHKaY9CD2d6/Vwravdry0FtNy5ERUGpGMj
-	 iOxB+EmSQnrr0PRRHzscqrZI1z5wNOCNgAIPjf7Y980PC6kgawQRiDGR+jO4ncCvKHN00
-	 /HgDUcCfYcUm3+PoMYEkcVYfh9xmWUQZMJoxR61wW/ZbZPkfsPg2gy2eQV1z8x3JrBd36
-	 BxOBlL87tyl6Cc7Z9AQa9ZhZSRCKzzw/DTJuMS4vDSqiiNUT3bz+GySiz3Amm3+P72w==
+	t=1793356864;
+	b=tDaBV5RzPIDZGtj/M3Eiu5DxF7B6yvpB3tF+j7ay6V6U38pDnuHx6AwIwnx7KG9xJYix
+	 nDKL8jDdVwQ9UrwCcd6AzlDXWYjhvu1Wl+1jzuv2XJiqvDo+Bw/GTmGhfsVsPFg71rJG3
+	 iGS2OM3HMTsC2Ss7ARRb1lCwLDogclkPJQGsbXywxggA/Gf8sJhCCqE9CAmm9tr/ZW6SO
+	 EBHwoILla/jnDyzDrNMtWFh64/xBClKS3xRvBJbHbG9SA7lcyZqoWaOA0TPEg8Wa8SvBL
+	 Z16BJbhzHy3tKiLctsCga+E3Xq1BdmT2QavXqYAHg/P6ZB7Cu0jFQ7s8SE5qrl9CWrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356655;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356864;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=eaajkiXghFd6LZOq5zJCsgHBWbJZSSddiwuhki+vXyM=;
-	b=lFfqO/MQX4DoU0mJaHsnjb97uG+lhalfH6QBR4xlvUqEMZ8j1SO25QXm/wcbPMc/aSA6
-	 Wb7FuM/CVOwe80Nb7ZAMIY3BPwD3K9P7ipEmsnjoVIK1RDDa+U6dPJxXmVF2feh/Z+wL+
-	 hYsrdNow2ktRngdUdwraFOYF7Iz4Qlk9SeHr1VlpykAo2BwqOMtQZArl84PVZRLxtzgWm
-	 ZTaBC+VVG4eKdOKUsGNQDJMJLbMTyH1mSQ1aQJNmLG7j6oHmJNemEKiOKC7tF3XHp3rgr
-	 iFt3W9cl65lUpE5bO8SzzgJo/KMNXAyJ5eqq5OoT8SPWSPDomNfG8GI6+9St90frgOw==
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=OecWFWtnpeI+kxtFniab3JxKEVWTHzdquNuIUurozis=;
+	b=dko609SEStSj3YXHUX8Azz4hAJP4y/G7UWPqCDMMxt+S3UY4SnPQd0pVpQ7Xqzv59thi
+	 IT+HAH/inmWX3wk+rdONA8V/5IjaGtRM6rGnygvdB1EbfFlE/DQ7IsoXMshae1zzW1Fm+
+	 sFy7+852Jwk9zoLwjfrUbprE6HIwiI30NbpR5QiU9I9oSykVSo/e1gi6Lz1+0ECd3MeLW
+	 twMr8BQxykG5ifxUnBM3ChQ3Kt3S4fkRzOmSmutDvwoEjsC7k4+sPGj49PV67YgF5KOw/
+	 IjbeEuOm9UBcfyXi+IYJQSpf31CFIlocmHWbeeVWqQ46sDbK/lUMAS7pCYeH11TYoxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=QEqshlKc;
-	arc=none smtp.remote-ip=34.218.115.239
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUTeqSZi;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F2760A2611;
-	Fri, 30 Oct 2026 10:37:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F2760A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F03606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:41:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F03606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=QEqshlKc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1793356654; x=1824892654;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=eaajkiXghFd6LZOq5zJCsgHBWbJZSSddiwuhki+vXyM=;
-  b=QEqshlKc5Svq/GK7QWyoparz8sgjsB9q0cp0spwOuOLWHMg5GAAXb6ib
-   Ih9CeEQvBqFkBdBDh6GdDEmAiKqrC42aR5P31AqDSWm7CSnc7kPtwD6b2
-   hojGYcH7RspRprJy58noECBcRopUkdfH013R/sR5zEyJ7t8lAIIWP5HZ8
-   FRqBL0PlcR6PQctj8gRwHjRy3+gXlmP8fK7kNxExrrXxgJGwPAvYTAipj
-   IfosHdEZFa0dGFsLq7RZcezSj8V1Pp1o3X03RIpkU4GjBaO2x7kjNuUXJ
-   9VpsMafd6BBQj4c1GO5uBmQ33MozPdkUzrFt2CyMqA7aRuazu5FH+LNRt
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUTeqSZi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793356864; x=1824892864;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=T5KXMNQ4RIOzej+TfuL+2Xe6pCzPNA+WHYz1J3vH/BY=;
+  b=iUTeqSZit/m18rhGX2Z4BQmvPcwPlU10K6NYJbAQ/1QcRCiDFU70a/55
+   bDRWdqUY69568jsbRCQXDz8bNgFud5jb7zfVt4j40irP3VQX+HUW729I+
+   JSzECFGSWo/TvJdH4hnM9wEo0fhcHU75QItjvpEcNhADz89C23zlbwma7
+   Ym03W+x3ZOPOBQQOPRttMxZxdR0c0Ww3g4UN+y5tJLu7poAyBfsWtoiKO
+   CALw9p0+L3/N8kwLttt7etJQAnaby3vt9/W/+uzfWBIlYYVlkd7juqMV5
+   CARv5+NJ40RkdTrRwtTUIkIO7x2w2EzRz6KuUnbXEMZIry626MbOXSKRM
    g==;
-X-CSE-ConnectionGUID: XOEdu2fQTMqmW/eRUZUkcw==
-X-CSE-MsgGUID: +jln6ROdQ0CovAldpLVP7Q==
-X-IronPort-AV: E=Sophos;i="6.27,186,1787011200"; 
-   d="scan'208";a="32439631"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:37:29 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:2199]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.23:2525] with esmtp (Farcaster)
- id 2db07783-59b1-4622-843d-5f3e11a7fc7f; Fri, 30 Oct 2026 10:37:28 +0000 (UTC)
-X-Farcaster-Flow-ID: 2db07783-59b1-4622-843d-5f3e11a7fc7f
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 30 Oct 2026 10:37:28 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 30 Oct 2026 10:37:27 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: <stable@vger.kernel.org>
-CC: <seanjc@google.com>, <pbonzini@redhat.com>, <kvm@vger.kernel.org>, "Kevin
- Cheng" <chengkev@google.com>, Bjoern Doebel <doebel@amazon.de>
-Subject: [PATCH 6.12.y 3/3] KVM: VMX: Synthesize nested EPT violation GVA_IS_VALID/GVA_TRANSLATED bits
-Date: Fri, 30 Oct 2026 10:37:13 +0000
-Message-ID: <20261030103713.573783-4-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261030103713.573783-1-doebel@amazon.de>
-References: <20261030103713.573783-1-doebel@amazon.de>
+X-CSE-ConnectionGUID: SI6AZLhkThiA/IV+vW1goA==
+X-CSE-MsgGUID: ekwCie7uRsCdMrvxFOR/uw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2022596"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2022596"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:41:03 -0700
+X-CSE-ConnectionGUID: f8auXAckQHChf9XFPNJZtg==
+X-CSE-MsgGUID: wluOryQaRoGcAEOFWd+CcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7230603"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.13])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:41:01 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>, Mitul Golani
+ <mitulkumar.ajitkumar.golani@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, stable@vger.kernel.org, Linux kernel
+ regressions list <regressions@lists.linux.dev>
+Subject: Re: [PATCH v1] drm/i915/display: Allow port sync on PTL
+In-Reply-To: <3918d7f2-2c8e-4c91-8de3-ae412acc75a0@leemhuis.info>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
+ <3918d7f2-2c8e-4c91-8de3-ae412acc75a0@leemhuis.info>
+Date: Fri, 30 Oct 2026 12:40:59 +0200
+Message-ID: <041969576ff0e2ef6abc03650e077e44669a2b72@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,111 +83,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Kevin Cheng <chengkev@google.com>
+On Fri, 30 Oct 2026, Thorsten Leemhuis <regressions@leemhuis.info> wrote:
+> On 10/12/26 06:04, Mitul Golani wrote:
+>> Some dual-SST tiled displays exhibit visual corruption on PTL, with
+>> one tile's image vertically shifted or wrapped by a random amount
+>> that changes on every hotplug.
+>> 
+>> PTL supports port sync, so allow it to be used to avoid these
+>> display issues.
+>
+> Is this fix for a recent regression still in the "to review" list of
+> anyone, or did it fell through the cracks? Or was this solved meanwhile
+> and I just missed it?
 
-[ Upstream commit 96b067b59ad9ccede585fcadab27543188353bff ]
+Pushed now, thanks for the reminder.
 
-When injecting an EPT Violation into L2 in response to a fault detected
-while emulating an L2 GVA access, synthesize the GVA_IS_VALID and
-GVA_TRANSLATED bits using information provided by the walker, instead of
-pulling the bits from vmcs02.EXIT_QUALIFICATION.  The information in
-vmcs02.EXIT_QUALIFICATION is valid/correct if and only if the fault being
-injected into L1 is the direct result of an EPT Violation VM-Exit from L2.
+BR,
+Jani.
 
-E.g. if KVM is emulating an I/O instruction and the memory operand's
-translation through L1's EPT fails, using vmcs02.EXIT_QUALIFICATION is
-wrong as the semantics for EXIT_QUALIFICATION would be for an I/O exit,
-not an EPT Violation exit.
+>
+> Ciao, Thorsten
+>
+>> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8991
+>> Fixes: 05cffc074938 ("drm/i915/display: Implement Wa_16024710867")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_ddi.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+>> index a46ab5d3d70f..a0aff087fafa 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+>> @@ -4629,7 +4629,7 @@ intel_ddi_port_sync_transcoders(const struct intel_crtc_state *ref_crtc_state,
+>>  	 * From, xe3lpd onwards we have defeatured this with reference to
+>>  	 * Wa_16024710867
+>>  	 */
+>> -	if (!IS_DISPLAY_VER(display, 9, 20))
+>> +	if (!IS_DISPLAY_VER(display, 9, 30))
+>>  		return 0;
+>>  
+>>  	if (!intel_crtc_has_type(ref_crtc_state, INTEL_OUTPUT_DP))
+>
 
-Opportunistically clean up the formatting for creating the mask of bits
-to pull from vmcs02.EXIT_QUALIFICATION.
-
-Signed-off-by: Kevin Cheng <chengkev@google.com>
-[sean: use plumbed in @access bits, massage changelog]
-Link: https://patch.msgid.link/20260522232701.3671446-5-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-[doebel: no advanced EPT vmexit info here, so the mask keeps only the two
-GVA bits; set GVA_TRANSLATED via !(access & PFERR_GUEST_PAGE_MASK)]
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
----
- arch/x86/kvm/mmu/paging_tmpl.h | 17 ++++++++++++++++-
- arch/x86/kvm/vmx/nested.c      | 23 +++++++++++++++++++----
- 2 files changed, 35 insertions(+), 5 deletions(-)
-
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 829821fbc8437..0752d1b3d918b 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -495,7 +495,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	 * [2:0] - Derive from the access bits. The exit_qualification might be
- 	 *         out of date if it is serving an EPT misconfiguration.
- 	 * [5:3] - Calculated by the page walk of the guest EPT page tables
--	 * [7:8] - Derived from [7:8] of real exit_qualification
-+	 * [7:8] - Derived from "fault stage" access bits
- 	 *
- 	 * The other bits are set to 0.
- 	 */
-@@ -509,6 +509,21 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 		if (fetch_fault)
- 			walker->fault.exit_qualification |= EPT_VIOLATION_ACC_INSTR;
- 
-+		/*
-+		 * KVM doesn't emulate features that access GPAs directly, e.g.
-+		 * Intel Processor Trace.  Assume the GVA is always valid; when
-+		 * propagating faults from hardware, KVM will discard this info
-+		 * and use the EXIT_QUALIFICATION bits from the VMCS.
-+		 */
-+		walker->fault.exit_qualification |= EPT_VIOLATION_GVA_IS_VALID;
-+
-+		/*
-+		 * Accesses to guest paging structures are not the translation of
-+		 * a guest linear address, i.e. GVA_TRANSLATED must be left clear.
-+		 */
-+		if (!(access & PFERR_GUEST_PAGE_MASK))
-+			walker->fault.exit_qualification |= EPT_VIOLATION_GVA_TRANSLATED;
-+
- 		/*
- 		 * Note, pte_access holds the raw RWX bits from the EPTE, not
- 		 * ACC_*_MASK flags!
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 415e1d4b85cf7..11a784f0eb10f 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -447,10 +447,25 @@ static void nested_ept_inject_page_fault(struct kvm_vcpu *vcpu,
- 			vm_exit_reason = EXIT_REASON_EPT_MISCONFIG;
- 			exit_qualification = 0;
- 		} else {
--			exit_qualification = fault->exit_qualification;
--			exit_qualification |= vmx_get_exit_qual(vcpu) &
--					      (EPT_VIOLATION_GVA_IS_VALID |
--					       EPT_VIOLATION_GVA_TRANSLATED);
-+			const u64 mask = EPT_VIOLATION_GVA_IS_VALID |
-+					 EPT_VIOLATION_GVA_TRANSLATED;
-+
-+			exit_qualification = fault->exit_qualification & ~mask;
-+
-+			/*
-+			 * Use the EXIT_QUALIFICATION from the VMCS if and only
-+			 * if the hardware VM-Exit from L2 was an EPT Violation.
-+			 * If the fault is synthesized, then EXIT_QUALIFICATION
-+			 * is stale and/or holds entirely different data.  And
-+			 * conversely, KVM _must_ rely on EXIT_QUALIFICATION if
-+			 * the fault came from hardware, because KVM only sees
-+			 * and walks the faulting GPA.
-+			 */
-+			if (from_hardware)
-+				exit_qualification |= vmx_get_exit_qual(vcpu) & mask;
-+			else
-+				exit_qualification |= fault->exit_qualification & mask;
-+
- 			vm_exit_reason = EXIT_REASON_EPT_VIOLATION;
- 		}
- 
 -- 
-2.50.1
-
+Jani Nikula, Intel
