@@ -1,102 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793373413;
-	b=kCacosK44rhn3XefwWfDlDsOT8fiFk7UPHSBTmqCuBwshd0L5gpCPhw2+ezUfhDW5YjP
-	 P0n6P2SRUQ5lJtoA7TqhBrYnVQ9YnCB6A2tMYZ+Zbc8WQIeBfLntVpuubORErcOOgvj8c
-	 8CURHFaX00PfbUij9Zj4/4d1zYJ+Og/qwSBZdGEvGcblT7xWX4ehNtM74Nlm/PnFliI69
-	 6BpkJhzIS/6ZORreII7IUWgR+KlNofdz48HVnr8xBz7rUVrcBywIc1OIlLySyF5whGAuB
-	 /Zj/hP12IWlU85l+cxm+MYERtjstEYD4+NcXyWGYOa8VKBHaWWjBVSE+b2oJXP0LCCQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373413;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FdY1F5DdjPISd9Qg7wQGWOZVWGwLHnKYxLWv6t1q/x4=;
-	b=Tsn0JFECkRpyuVRriL9ZdE7DKwApDTIAryHVjwRB7U8I+ETPcaha5+D6ksy7erGrBw5b
-	 Y4USJTmswfpK0oS6+BfaFTQLYmgmmctwpI5+0H/tlwgq4qFmeX3Wag4P0lcKMLcaFps9k
-	 Bxy9NJ+DemfHMt6zQjzM2zRiBn3gA9VBk/evQu3KzLIEcnSiLFyXdYupe1rbc6DYt5OY2
-	 mNPzySaMefkr0UH+75GzcX3TFHxk+QjheDUZ68EFMGG7x2J1G4EtAXTbXrjR/B4QRoeEi
-	 7JBYUbnMVLHUjoMvhJWi16JDzC74QKkPIDuY0xcPJAa6LONr6Wzk57C+y/5QvgO+rzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=e9FdvSmt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.8
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012008.outbound.protection.outlook.com [52.101.66.8])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793373669;
+	b=oDjW7ubK+mvCcG/2e0WbMGE+9xzyJkneT5Hhxp1Fima56xoittSjs1p9/xyB7cgTv4mQ
+	 Rysv5C2pbZgbegt2iPtBrZq9rMBtyeX7iKuTGHczrEbjDAoBYRIxJSoffsl729iMh35M6
+	 3xbzwx5+YrmVK7+plvqiUq3TKY88zq0MpXQYfcXM3DSrG/lSOLCoIwjHuVdSg7AcKlV9L
+	 1hbYB7WgPwBkuDOscw+b/3k1uGuLY3R+BKwN/KKhPnkAQ2oXYCaa6qguTbWl5+/vPzq7H
+	 k42cUZ/GjUwL/icWm41gmAyFSOMBei5JahDC+SLiBCbXYg9CqPCuPrmbFuRCWA5othg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373669;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=hzVHA9oH1fp1U3bxD+Kp/H7EOO1vh46+RK07HTPMYsE=;
+	b=UAIatooWTTn6+lODQz+LpvjjBYCt+9QUWH1XgJokOY4nbNs7YUcwaT4qGdcEIYhLKP2g
+	 PJcm61aKXogPPXqCk2FnQJasixl9TbL1YxtGzvFw92Cr+v0aoM8U7VPJNzyPHCaXXiNHY
+	 01T4x/QDXbjPmCUUNPdf62/ut4/eke5dBdf/pALXfmcaV30GYQMw8xbeoQHMLgdWCo++K
+	 PTp8B+B1t46AW5gRjMrumxEk5g9AHvG3d2U8CgE/N2znsb3eFf1n4BOLG3tWdt/knz9rt
+	 QTCKnKAeET84SJC+X5fLeRoP4b7QFG+yTwYLE40a4JfbFW80pqeReRfanQcRHH6Ka/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=is2eDw+o;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=beciiupL;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE72606A31C;
-	Fri, 30 Oct 2026 15:16:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EE72606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31B1606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:21:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B31B1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=e9FdvSmt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RQ0+B5qzrDQbG2ClxNFgRlmNUawg38/Dc24SET4+Y/GSkMSAsbs7avsU2I1Am2fR4jB+vht0IWFWoHuDO3/K1zBt0zl1bSZDLV+fK1Z8YBWFL7z9bGEGYj6D7laXRRQUFlTEvdC41i12bDJ2I27X0/22WDwq1Qc287jwWSZN971Ws0eyjRn6yKH1AkYJ6XlQeFU1HcVZOKitSKK7nEiroW5Rl1PX03SLdj+ByHf3c2jW2OKdO87prfOR4mpcV6Hm9ngaCZWQ3SS3kc3h7F/+2XIvvGqbRnOdbLdPIhZZFUvMjdO61bZizuA9thZupLLMQ/aUtnu+OgCIG3WjCe57eQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FdY1F5DdjPISd9Qg7wQGWOZVWGwLHnKYxLWv6t1q/x4=;
- b=KtCsDiX+PPyIKwyZbTOjWR7d0d8JQT2+bjA21JjTzCa6aAaX7jrhIYjBjGhbueA9EiAaTMxRgOZPeMopfOIouYkGyaDu6g1xVQCOUnN5aVZN52t143a7n3nYnpGVJGxxlnfnVG89YShKieIPKLVMySMaGGtpIx2ynF4meikpoaUEQGHjfk65KFa69n+tuBF3kgjFngokFxNiQivzlfAeA2qPFS/cHxs6mX9As00iE+tauauaDSDRK0to0Ccy4zTLdSsHbUfKfH+WGaaUcAW36UyxK3crauLlokZAOCz+bLY6DWIxUZgZlL/OG2pkXBULXshnaZwchjnMdeMGhhYJSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FdY1F5DdjPISd9Qg7wQGWOZVWGwLHnKYxLWv6t1q/x4=;
- b=e9FdvSmtqAvcRzPFunrqFrVFgLyU7sCIjVkkfieAf+TkX5yByoT3W4+QY8sE0fNgEbMtiqiGGROm5HIl/bismNdpMet+cMUV9dOO+oRTmg0MLWo5N5nB/Vwb0Zdg6y2OSqq5fX+a5lHtgO8VZEgKlK+Xwt8PySg9XqfRBn0xcR8kEPsGiBBmPjyQ3l54cn/JYZLZ98AZnFbrP7lwlcvXEYgYNsQx33xavm4SoRgq1pwVkfbpProKwZJ/ZckzMJs3dOrXVHXdN+jCp1T03V+nxS0VwCnRx6wbTBYxEg5exV3+ZctV4oDqWvDQHS7+talwXgoxWQJ1QBNf8T+s0TNTwA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21) by VI2PR04MB10713.eurprd04.prod.outlook.com
- (2603:10a6:800:275::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
- 2026 15:16:47 +0000
-Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
- ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 15:16:47 +0000
-Date: Fri, 30 Oct 2026 10:16:37 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Viresh Kumar <vireshk@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, stable@vger.kernel.org
-Subject: Re: [PATCH v4 4/7] dmaengine: dw: calculate residue separately from
- completion
-Message-ID: <auS01eEyWjGD03MQ@SMW015318>
-References: <20261029-submit-dw-dma-synchronize-v1-v4-0-fea447d9f285@gmail.com>
- <20261029-submit-dw-dma-synchronize-v1-v4-4-fea447d9f285@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-submit-dw-dma-synchronize-v1-v4-4-fea447d9f285@gmail.com>
-X-ClientProxiedBy: PH0PR07CA0041.namprd07.prod.outlook.com
- (2603:10b6:510:e::16) To AMBPR04MB12445.eurprd04.prod.outlook.com
- (2603:10a6:20b:75e::21)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=is2eDw+o;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=beciiupL
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UERDMt4102993
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:21:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=hzVHA9oH1fp1U3bxD+Kp/H7EOO1vh46+RK0
+	7HTPMYsE=; b=is2eDw+o/drrlO8mUmPy9wbZBprfadno4l/KkKbuwNKOMSLMQL2
+	eIAc6ypR9D9asIhA/MUElCmHTHmdS0z61YvQ10i9A5ty03s+afRnJSWHqm3J+kaZ
+	rZvOZhPpdF7sAneV7bhoP5gE+vxoVaEYL1VC/Y5FLMrtqHUAiza/+Gn5BUNf3Xxq
+	LM4va1ttWB8lyfQSOZPhc19iBk5nMrcJYiXiNaiE75WnRJt6yVoINEkI0k8WYsUm
+	JNFrcB8failP3+8V/oOb/L0q13jzK8GVtBCQ/DipJGgamreuxGesgCGFXIHwjGa9
+	o42OUof0IhQU7frDkD4NkfRmUfGxf9AgxdA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qkqef-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:21:03 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93909014c85so169226585a.0
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:21:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793373663; x=1793978463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hzVHA9oH1fp1U3bxD+Kp/H7EOO1vh46+RK07HTPMYsE=;
+        b=beciiupLGg14b9ZIRn00pwmpENqmROfqjZMBenarothwqIJr3PB4ebKq3f8BY9PsRC
+         ylPcbeAotfvLHAwIqUb+S/FdHBp3++jU4IbnbDKgfUCCB6X5cGmjF+qrGCeom8VAkne+
+         Nuw6Fy42eusp7mGIla9CJHKsImuJIeleZ6IkW9jsBc9kIeai4M0SeVLXVRCxjWAfLfOo
+         udP4k8ArWIeBLhsflOSXNo9MwKdXfz351wrFIXwFWYlW6cJppQ0WIojH2DCjUFvKb1lq
+         ikfEMkIhRWRRMyep4Gi9KBSgrhxTvUWFJkb9BFwMLtlENVq6CyqLWunzJexjIRsx/P2X
+         BXMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793373663; x=1793978463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hzVHA9oH1fp1U3bxD+Kp/H7EOO1vh46+RK07HTPMYsE=;
+        b=MjsM9tiCipI2ky4bBeJY1dAEl0Hd0BwUKDlVoqiVmHPSmsrozs0imAjLouRQLJL4qh
+         cFh7uc/axdmpAUNotSybjiSel77xtWoM9YvtfFDxbTWJLsvjU7jYzBmmjy+HGFI3NY9I
+         S//KNY6g6R3bAWKb70l9FVjo/uO29aKSbl/gjD3cifugdcWO2asKYitGzhiU2nk5OhDm
+         3abgvhpwk1MxhCiCk8xnt7tlr5SFCfGG4zsZRpbvuiG5bnz/iItTyvXl/zIQ53GoWNMC
+         XVZhlAIHHDxJjUV07SDSWGVmziU2LG/fYDUYkv/WDivXIWr9Uu5+A56PMe3xN/7arf5z
+         YeCw==
+X-Forwarded-Encrypted: i=1; AKwUvBwRoNYp5/0nCep5lLebZGB+kDSSAm6+nICXFrpNO6M2B8Qm9VtIQBE4pjuH48CGDRwRVkYgVS4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+fFtKl06hT/vAEADDzQtf6ENLJH9ehJcnahzPLELNcr8fqIP0
+	9ilJisiC6srS/+2Mu1ZT2m/wsnkmcUcv9uQFgdMV/UBF47H+vd+7vqo8xply89wh5AcC9x3rcjJ
+	s2Vu9PCIOJw/6779BAtZOxq6dsJmoZMQbaxsSIj5/MmdeOPCGljYkgaaWJNc=
+X-Gm-Gg: AYBFou1j0M5RxXuD4KKiQAEY4DhommT5bezA1sm62WssUPv9uyp2v5ORY2XGmo7pCtC
+	FC4+gVjyrVZko4Tl38xbF5EnLIPiiiYnKkUDLgHVVeMiaq7qHWUARvD13mvQvNOwMJ2UolkQ6UL
+	+CpmGekOdnDACwv2hEx8FYWKMLD863A+CEjuL/Hj/zLWqgMiLcySnBuoUgfJS74pqk9jzpqT5La
+	wEcDQAJEcPTtj+zzaDyoGf0IR7zbcudGAAui7D2qausHNhO7AU43I0yvoIqHPEIWGum50rnvle1
+	mkG7TJgn+VWp/gp7VPZJxdcocVV/qu24hSZviDLhTKStAdA9RZX7LsZRzxuWhNwNXAOIWW+4tap
+	YDdbNKcxeURXtly4oZhMr67Sjgz42/v3vVR7ydAMk1zZBvwBZDYlSAQi/KTiMvg==
+X-Received: by 2002:a05:620a:1a08:b0:93c:9d56:a860 with SMTP id af79cd13be357-944217439e4mr452270185a.19.1793373662648;
+        Fri, 30 Oct 2026 08:21:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a08:b0:93c:9d56:a860 with SMTP id af79cd13be357-944217439e4mr452260885a.19.1793373661793;
+        Fri, 30 Oct 2026 08:21:01 -0700 (PDT)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm105732875e9.1.2026.10.30.08.20.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 08:21:00 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Nicolas Ferre <nicolas.ferre@microchip.com>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+        Boris Brezillon <bbrezillon@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        stable@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+        Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] memory: atmel-ebi: Disable SMC clock on probe failure
+Date: Fri, 30 Oct 2026 16:20:56 +0100
+Message-ID: <20261030152055.280193-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,296 +122,134 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|VI2PR04MB10713:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02e8ea04-d9c0-400a-1cd6-08df3698d078
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|7416014|376014|261021121427099003|261022105027099003|261021123027099003|10067099003|261009223027099003|261022075727099003|56012099006|261026121527099003|6133799003|18002099003|22082099003|5023799004|11063799006|261028144727099003|4143699003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	0602yOSxrYoR/7ebzqzU0tdthoX52e8u3kqz9Zk4JW+efuuKzM6y8QVcEul6DC4T98YDRr9VHVt2KhMu3Bb+ww0V7XXhK9sBFIW/vlgKM2I7kyQBx+IGKXBHZlQD6/PUphULZp3QOLLvuCHlS9QSdZPkI3+5KMdz2de7bMQ45jf9On+Sr0EgD4dU5qPK7CyLjlpXMhpBN2yP5wCRHZ4bCo443oMwSLYdpeiZ0jsvPUOOaf5OGfFxXkg96V2CKJ73kgIG9suCjlVEMhU+n9YJVln7tK2bCeH67akHbqNfn9cxDNuVVfN2mSLgkzIsD/k+Oo9yiVl4NlM8w/xSh8CFZgUMwjJFfiDFawuzrwwn7E4gkIMKV3zBwrxzBLG5y1XyXTzQL7kGtYY47jgy1hNwNKD9Mf2IfT5aFKZ9vRG/wMAFD+v2mqF+zNBWeNSH5vN+gvM+xMrtNl2dkIKRUQAerfqELYZMzc1lLFmlaxl0e3EPRrz1vH4n2YklMYmFaEgDv7ur5cnF0j2jLFGBTyURbaU8zqyi6sPY+zqKqHREwxuWf4VXMct5m/UXR13XtNpHViGRie9wZtB4ZScsgUdoJt71uicxwqm8TkG87r15ETGBjvrVhyX9lPRaY357DuClgzh/IULpmTIJhnDS2TclU80GJ/tH6T1kK4Fju6UPWDY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(7416014)(376014)(261021121427099003)(261022105027099003)(261021123027099003)(10067099003)(261009223027099003)(261022075727099003)(56012099006)(261026121527099003)(6133799003)(18002099003)(22082099003)(5023799004)(11063799006)(261028144727099003)(4143699003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WzyR3klOTAvkj+11MSU3d1dUzZoJDg5LEwkLdiNf9+SpwWFyoNH/ZMGeik+m?=
- =?us-ascii?Q?2GavHK1520zA/3quY1VSxwBi9hTc080BukqYZbWRH87V9N4kRxA4cTnEx95f?=
- =?us-ascii?Q?BWc+duqHRi983F5Liy7NXmiAzwbeq28s0vYrCLxvDn3bOuiNYaYlrI7Up96R?=
- =?us-ascii?Q?6rWQkqp6Kvw47Te4p1VwHSqmM7N5atLBYto0SXsO38RmUb0x7KOodLBpphA2?=
- =?us-ascii?Q?88aIQ1/1LlBD4kEIOuQyZCWX9ViM+Eeiq7nTDEY48mUII75HERpMIS4e66ha?=
- =?us-ascii?Q?jOEhbdaEp/EJCUF8/tlcveLIvmJlNlyJ8ab7gm4q8m8j1/iuCh9v411h3Byr?=
- =?us-ascii?Q?KuiwSTf9otLxdX1Ll/xpgpA0HkLKI8/T4L5aZrm2GT0NjexBLYj4Hy+yCFFu?=
- =?us-ascii?Q?A3rLJdFo+wtl/gQ2T7SLQLghDQfiMjotyRLoZDmrHtlqg/LTH/Cof7hbzOlz?=
- =?us-ascii?Q?Bq7WSm3DEo0uaHNW7Noft8aqdgDqDX3RXwQGVSIFtHU1X4W9QCGZoT/emcJu?=
- =?us-ascii?Q?XB5VIYeXraeUSrzfjtU9Gw8QBtY1tdVgD+rXKYubbi4pX2aX3qxeHD7PiQuA?=
- =?us-ascii?Q?jBG52SnIiX+HSschHQT8aQLz+d3a3UdzbK+Od1RuUK9P8DXUlX/d0COzmK/S?=
- =?us-ascii?Q?4vt3cLpB8eyw6IQ8DoWZlX2Jm/HjawU3ubRfFqg48pxwN7Jv0Xc3PVxZOzXg?=
- =?us-ascii?Q?UTfLKDn4703Y/BNZwZq1t3Tte86MxQlfOK3u5LOqbZrMEbeDcXUfUw3P71t8?=
- =?us-ascii?Q?eY9g/veEOKPARqeWpj5KrWPJ6ZYroUaibzJJzRhir3lKkBKercfkkOdO6ZZj?=
- =?us-ascii?Q?Rfkue9x0pzJWeuIy3BfbjhppV0FwoGPbCM3zoQy38R+33kmOEx0ayaojgJGq?=
- =?us-ascii?Q?yL7idgDE3fJX1QOPoEoHBex3IUXkORvh9JsqD5bQEMdfhKWS9okMGTRltdp9?=
- =?us-ascii?Q?LiQTEDCnm2jKOyjHEhX2iqgt0BW5pbXXVh0nr6YJhLOHhD46RiBIKX3sCU+w?=
- =?us-ascii?Q?d8OUVnbiA/JQ2Eu35ToxifXZwwnMopVxefdNAOBkj7PMpqyRhvy1cBW2FP7M?=
- =?us-ascii?Q?T79pdi3StLRmYXMfS6ZLrPcoknAvAqCmLWuus/vMm7l4I5ldB0WFFHWCkOMi?=
- =?us-ascii?Q?3s14jfTPVHc69bMdOaWqftxh3hgO5mjYxbc3AvpCGJDdvvJbIO6VAOKfEZ0D?=
- =?us-ascii?Q?40nXrP+M3UEvRvfEr0xylE5THB23XiDAYi5if+luD04UZC+hVR8Qfqu6HOb2?=
- =?us-ascii?Q?NaCAPalsVJL7fRpAwGJ6dJQShaPAR8RgqT7Ip8Zhv8t7zxlj5/CF6RLLGelj?=
- =?us-ascii?Q?o2+ZLcH1JCahQewCiNmiT15TVEgkw6tld2G8f4YUQcTYxwdQriUcao3BV1cN?=
- =?us-ascii?Q?z7S5cho43R7lfnxH/yymJnpkBihYY2WbnKwby5AJRAemexvAkyQsjkH+jWlw?=
- =?us-ascii?Q?WLTC5RbeZAl07GwPq4cNn3dzgiPQpD8S3BV3PBXG6OmtncYsMS+bEQLuuUlE?=
- =?us-ascii?Q?sCvxpDL2nLBQiNex9L0hsJKv02nCYFBFa/u5f1gYS/k8V7TRSdjRkELyr2+y?=
- =?us-ascii?Q?EU9hT1DuB8PgIOBYYTyX2bKOv8kawZ0SADjemEoiJneaNm8XtwDBECs2aNHW?=
- =?us-ascii?Q?o5FcsuQZddyPQhrBYxLxDT3N1c278X6R+YHCGFyzTCv83cx7YT6Fk8PVVdGh?=
- =?us-ascii?Q?H1hB0IeWNaCUYPDKdYv8j6dDzEa95tF3WFKXiqycXqn3tnKvsA/ABevwZRfD?=
- =?us-ascii?Q?pVGqHqk2VB06Vc/tolKeU7bprfXA/as/aBoopUw26HLM/n5XYx4A?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02e8ea04-d9c0-400a-1cd6-08df3698d078
-X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB12445.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:16:47.2397
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tu9X8ELFH0LBA/Om7HwG2vm0MpNUpDmzJVWAkcbJ5ujUDvs90R3VgBKWpXgnXXMtwS4evaxom/v9Y8u0mP2diTo+BJ9mBBvLq1y0r7II+c2jSoqyUihXPqoeToge2czO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10713
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2649; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=dWU+lW1XZUsON1uVforDhInBvMK+7M9QnKSnKSK5E9A=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq5LXXvtQhu6R3DuDcLTc1io0pSkK52E7jxYEMj
+ PQ9ZI2DgImJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauS11wAKCRDBN2bmhouD
+ 1+ZxD/9cveLk0aYNZU6/ZDm2z8I3ln6xbcr30h+oGeUWaRXMV2v0p22Kq5sQenJIRlqauutDHr/
+ h3AS1sAyfz6MY9ddT9T63Xiojw0sFMiI6/w9CP13cCLbSHjpTYfU94joYFi0BOrkhDjEdtj3YWT
+ w3nxAyiYJ/Tix3wIH36cPCCHCFkBOoE0uUN/ZgVGhIpfmUq5wfeAxtRijwCSKEuKKwRvm6R3+7s
+ UnPgxRkXOntHBwUED5qaIlfAxjKfiCgnptev6qwqD6iHadDv59b0ZtMS4iQwq2ZKczy5O6w1PD3
+ xViUFR1U3kfeQGsfoqWxeQDvte3EsS48iDMaA/TBYZkXySl63G0YZhj8GOn9ZrUfsVrgbZctfbd
+ zbHyfUvunKEqc2ezEg2jcbgXi7tPzkMAf9UVPffBrXeL54IlyprOt6hbN0M5jOSTBFyqUwq8SnX
+ mVyZQ0chCWrnchpEV8klQ1MALoGyJ4BYMft5U4NJeGyjtKjjxEm7U5347a+kUBj1y1jsE9CtqqN
+ uvnSJ7wZUZLMA8wnce4Gu0zlVrxxd+gzSb+2Y3re/Ty9BDhu9otY/4ueiqhBPJtQ3mcrNc2Yz6T
+ UMdZIzDZGGHwCLFgLSJNbHc93wsOO54s65ukkk1oUiBo1zaSXGkdHa2orqEAXj+ufrH66BxIgM1 aK6SJHObYL+HVWw==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2MSBTYWx0ZWRfX5uYqUVS6RpgH
+ EhAf+oam+YRJ0iXYHRhGTPE9jczHkahPnDIULs75xG5OoVRlOyzBazvoz0b1vKkYdyyTpbE2Zpx
+ L+yXWjWZ3T7qCwy9JjEKK06iBxIb0zVniPNRByXgsVt0heuS6YcMQsY8FwePOrog7xom1TRLfDy
+ dvzCnWUi/3JHVq65FTLfM5rpV/uWmhS3s4smXXc34yaGhCqVOeHRlHlrXj+YVsrRRX5qRpP4wrb
+ +j3iF5278LLL+OCwQJBufuocrRwGdhmjwrbPYT9B40ypJcn3zMnPF3AOz+AEQ/HkLONgxus2fDn
+ N0Jq/06ox08H5IqoxFIdn3Ns/KGeXir/qPHRPqu19vVRHAIkKEWcw0PKhw1PmNI3/g4Kl0Kxdju
+ VUIWrKjfMMfVlvO+6rMlfTng9SGza/SChpFdUPcFDx/vNha/CberMo7RjgJSERzxLPZXRUPY75T
+ Nx85ybkZFuQFJblzvPw==
+X-Proofpoint-ORIG-GUID: 7Xh9eA3VW2gVaeuNJ_xeLjqCKOi87Rkb
+X-Authority-Analysis: v=2.4 cv=IeoSymqa c=1 sm=1 tr=0 ts=6ae4b5df cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=BSGzfMJf4aLG5m6vmWAA:9
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2MSBTYWx0ZWRfX9/xZ2zGuiGI1
+ 2AotGK5G+uXx9zfU2Rf7Vn2Xj+J7gWUjuzXa+crjcfig6WKCPAh1l185Dm+7JpOlxTNrNMAEsUX
+ JLaf2d4Du29bns3E8QcgLDdjdunoLQk=
+X-Proofpoint-GUID: 7Xh9eA3VW2gVaeuNJ_xeLjqCKOi87Rkb
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300061
 
-On Thu, Oct 29, 2026 at 04:29:38PM -0600, James Hilliard wrote:
+Unprepare and drop the SMC clock reference, if probe fails to avoid
+resource leakage e.g. during probe deferral.
 
-dmaengine: dw: move residue calculation into helper dwc_get_hard_llp_desc_residue()
+There is no remove() callback, presumably on purpose so only error paths
+are handled.
 
-> From: Serge Semin <fancer.lancer@gmail.com>
->
-> The descriptor scanner mixes transfer-complete handling with hardware-LLP
-> residue calculation. A status query needs the latter for the requested
-> cookie even when no transfer-complete event is pending.
->
-> Move hardware-LLP residue calculation into its own helper and call it from
-> the status getter under the channel lock. Keep software-LLP progress in
-> the scanner and subtract the current block's progress when reporting its
-> residue. The scanner now handles transfer-complete events only, retaining
-> the distinction between zero source residue and destination completion.
->
-> Also search the queued descriptors so a transfer waiting to start reports
-> its full length instead of zero residue.
->
-> Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
-> [james: retain polled completion and report queued residue]
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
->
-> ---
->
-> Changelog RFC:
-> - Instead of just dropping the dwc_scan_descriptors() method invocation
->   calculate the residue in the Tx-status getter.
-> ---
->  drivers/dma/dw/core.c | 166 +++++++++++++++++++++-----------------------------
->  1 file changed, 68 insertions(+), 98 deletions(-)
->
-> diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-> index 1f7afcd01565..1d6419e1cd3c 100644
-> --- a/drivers/dma/dw/core.c
-> +++ b/drivers/dma/dw/core.c
-> @@ -274,123 +274,60 @@ static inline u32 dwc_get_sent(struct dw_dma_chan *dwc)
->
->  static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
->  {
-> -	dma_addr_t llp;
->  	struct dw_desc *desc, *_desc;
->  	struct dw_desc *child;
-> -	u32 status_xfer;
->  	unsigned long flags;
->  	LIST_HEAD(list);
->
->  	spin_lock_irqsave(&dwc->lock, flags);
-> -	llp = channel_readl(dwc, LLP);
-> -	status_xfer = dma_readl(dw, RAW.XFER);
->
-> -	if (status_xfer & dwc->mask) {
-> -		/* Everything we've submitted is done */
-> -		dma_writel(dw, CLEAR.XFER, dwc->mask);
-> -		if (list_empty(&dwc->active_list)) {
-> -			spin_unlock_irqrestore(&dwc->lock, flags);
-> -			return;
-> -		}
-> -
-> -		if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
-> -			struct list_head *head, *active = dwc->tx_node_active;
-> -
-> -			/*
-> -			 * We are inside first active descriptor.
-> -			 * Otherwise something is really wrong.
-> -			 */
-> -			desc = dwc_first_active(dwc);
-> -
-> -			head = &desc->tx_list;
-> -			if (active != head) {
-> -				/* Update residue to reflect last sent descriptor */
-> -				if (active == head->next)
-> -					desc->residue -= desc->len;
-> -				else
-> -					desc->residue -= to_dw_desc(active->prev)->len;
-> -
-> -				child = to_dw_desc(active);
-> +	if (!(dma_readl(dw, RAW.XFER) & dwc->mask))
-> +		goto unlock;
->
-> -				/* Submit next block */
-> -				dwc_do_single_block(dwc, child);
-> +	dma_writel(dw, CLEAR.XFER, dwc->mask);
-> +	if (list_empty(&dwc->active_list))
-> +		goto unlock;
->
-> -				spin_unlock_irqrestore(&dwc->lock, flags);
-> -				return;
-> -			}
-> +	desc = dwc_first_active(dwc);
-> +	if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
-> +		struct list_head *head = &desc->tx_list;
-> +		struct list_head *active = dwc->tx_node_active;
->
-> -			/* We are done here */
-> -			clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
-> -		}
-> +		if (active != head) {
-> +			/* Update residue to reflect last sent descriptor. */
-> +			if (active == head->next)
-> +				desc->residue -= desc->len;
-> +			else
-> +				desc->residue -= to_dw_desc(active->prev)->len;
->
-> -		if (dma_readl(dw, CH_EN) & dwc->mask) {
-> -			dev_err(chan2dev(&dwc->chan),
-> -				"BUG: XFER bit set, but channel not idle!\n");
-> +			child = to_dw_desc(active);
->
-> -			/* Try to continue after resetting the channel... */
-> -			dwc_chan_disable(dw, dwc);
-> +			/* Submit next block, including for polled transfers. */
-> +			dwc_do_single_block(dwc, child);
-> +			goto unlock;
->  		}
->
-> -		/* Detach the completed transfer before starting queued work. */
-> -		list_splice_init(&dwc->active_list, &list);
-> -		list_for_each_entry(desc, &list, desc_node)
-> -			dma_cookie_complete(&desc->txd);
-> -		dwc_dostart_first_queued(dwc);
-> -		spin_unlock_irqrestore(&dwc->lock, flags);
-> -
-> -		list_for_each_entry_safe(desc, _desc, &list, desc_node) {
-> -			list_del_init(&desc->desc_node);
-> -			dwc_descriptor_free(dwc, desc, true);
-> -		}
-> -		return;
-> +		clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
->  	}
->
-> -	if (list_empty(&dwc->active_list)) {
-> -		spin_unlock_irqrestore(&dwc->lock, flags);
-> -		return;
-> -	}
-> +	if (dma_readl(dw, CH_EN) & dwc->mask) {
-> +		dev_err(chan2dev(&dwc->chan),
-> +			"BUG: XFER bit set, but channel not idle!\n");
->
-> -	if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
-> -		dev_vdbg(chan2dev(&dwc->chan), "%s: soft LLP mode\n", __func__);
-> -		spin_unlock_irqrestore(&dwc->lock, flags);
-> -		return;
-> +		/* Try to continue after resetting the channel... */
-> +		dwc_chan_disable(dw, dwc);
->  	}
->
-> -	dev_vdbg(chan2dev(&dwc->chan), "%s: llp=%pad\n", __func__, &llp);
-> -
-> -	list_for_each_entry_safe(desc, _desc, &dwc->active_list, desc_node) {
-> -		/* Initial residue value */
-> -		desc->residue = desc->total_len;
-> -
-> -		/* Check first descriptors addr */
-> -		if (desc->txd.phys == DWC_LLP_LOC(llp)) {
-> -			spin_unlock_irqrestore(&dwc->lock, flags);
-> -			return;
-> -		}
-> -
-> -		/* Check first descriptors llp */
-> -		if (lli_read(desc, llp) == llp) {
-> -			/* This one is currently in progress */
-> -			desc->residue -= dwc_get_sent(dwc);
-> -			spin_unlock_irqrestore(&dwc->lock, flags);
-> -			return;
-> -		}
-> -
-> -		desc->residue -= desc->len;
-> -		list_for_each_entry(child, &desc->tx_list, desc_node) {
-> -			if (lli_read(child, llp) == llp) {
-> -				/* Currently in progress */
-> -				desc->residue -= dwc_get_sent(dwc);
-> -				spin_unlock_irqrestore(&dwc->lock, flags);
-> -				return;
-> -			}
-> -			desc->residue -= child->len;
-> -		}
-> +	dma_cookie_complete(&desc->txd);
-> +	list_move_tail(&desc->desc_node, &list);
-> +	dwc_dostart_first_queued(dwc);
-> +unlock:
-> +	spin_unlock_irqrestore(&dwc->lock, flags);
->
-> +	list_for_each_entry_safe(desc, _desc, &list, desc_node) {
-> +		list_del_init(&desc->desc_node);
-> +		dwc_descriptor_free(dwc, desc, true);
->  	}
-> -
-> -	/* Residue describes source reads; only RAW.XFER completes a transfer. */
-> -	spin_unlock_irqrestore(&dwc->lock, flags);
->  }
->
->  static inline void dwc_dump_lli(struct dw_dma_chan *dwc, struct dw_desc *desc)
-> @@ -969,9 +906,39 @@ static struct dw_desc *dwc_find_desc(struct dw_dma_chan *dwc, dma_cookie_t c)
->  		if (desc->txd.cookie == c)
->  			return desc;
->
-> +	list_for_each_entry(desc, &dwc->queue, desc_node)
-> +		if (desc->txd.cookie == c)
-> +			return desc;
-> +
->  	return NULL;
->  }
->
-> +static u32 dwc_get_hard_llp_desc_residue(struct dw_dma_chan *dwc, struct dw_desc *desc)
-> +{
-> +	u32 residue = desc->total_len;
-> +	struct dw_desc *child;
-> +	dma_addr_t llp;
-> +
-> +	llp = channel_readl(dwc, LLP);
-> +
-> +	/* The first descriptor may still be waiting to be fetched. */
-> +	if (desc->txd.phys == DWC_LLP_LOC(llp))
-> +		return residue;
-> +
-> +	if (lli_read(desc, llp) == llp)
-> +		return residue - dwc_get_sent(dwc);
-> +
-> +	residue -= desc->len;
-> +	list_for_each_entry(child, &desc->tx_list, desc_node) {
-> +		if (lli_read(child, llp) == llp)
-> +			return residue - dwc_get_sent(dwc);
-> +
-> +		residue -= child->len;
-> +	}
-> +
-> +	return residue;
-> +}
+Cc: <stable@vger.kernel.org>
+Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
+Reported-by: Wentao Liang <vulab@iscas.ac.cn>
+Closes: https://lore.kernel.org/all/20260917101623.2146392-1-vulab@iscas.ac.cn/
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-8e236c81-01b2-4274-a213-11c3f31acfc2
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-This patch still too big. You can create new helper()
-dwc_get_hard_llp_desc_residue() and replace orginal code exactly, then
-change gradulatly.
+---
 
-Frank
+I independently developed the patch and then checked the queue with
+pending work of iscas. That one has issues and other complains from me,
+so only credits for report.
+---
+ drivers/memory/atmel-ebi.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
+index 1e8e8aba2542..dec2441173ae 100644
+--- a/drivers/memory/atmel-ebi.c
++++ b/drivers/memory/atmel-ebi.c
+@@ -562,7 +562,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 	}
+ 	ret = clk_prepare_enable(ebi->smc.clk);
+ 	if (ret)
+-		return ret;
++		goto err_put_clk;
+ 
+ 	/*
+ 	 * The sama5d3 does not provide an EBICSA register and thus does need
+@@ -572,14 +572,16 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 		ebi->regmap =
+ 			syscon_regmap_lookup_by_phandle(np,
+ 							ebi->caps->regmap_name);
+-		if (IS_ERR(ebi->regmap))
+-			return PTR_ERR(ebi->regmap);
++		if (IS_ERR(ebi->regmap)) {
++			ret = PTR_ERR(ebi->regmap);
++			goto err_disable_clk;
++		}
+ 	}
+ 
+ 	ret = of_property_read_u32(np, "#address-cells", &val);
+ 	if (ret) {
+ 		dev_err(dev, "missing #address-cells property\n");
+-		return ret;
++		goto err_disable_clk;
+ 	}
+ 
+ 	reg_cells = val;
+@@ -587,7 +589,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 	ret = of_property_read_u32(np, "#size-cells", &val);
+ 	if (ret) {
+ 		dev_err(dev, "missing #address-cells property\n");
+-		return ret;
++		goto err_disable_clk;
+ 	}
+ 
+ 	reg_cells += val;
+@@ -603,11 +605,18 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 
+ 			ret = atmel_ebi_dev_disable(ebi, child);
+ 			if (ret)
+-				return ret;
++				goto err_disable_clk;
+ 		}
+ 	}
+ 
+ 	return of_platform_populate(np, NULL, NULL, dev);
++
++err_disable_clk:
++	clk_disable_unprepare(ebi->smc.clk);
++err_put_clk:
++	clk_put(ebi->smc.clk);
++
++	return ret;
+ }
+ 
+ static __maybe_unused int atmel_ebi_resume(struct device *dev)
+-- 
+2.53.0
 
