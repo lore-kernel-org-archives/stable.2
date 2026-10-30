@@ -1,97 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793363751;
-	b=klSrJ434t/07Nk0RdOyrP0anziNjuPYYxeTUSwbX6hSwsnilUg029oWYC393diBxI+kS
-	 Cuqu1PG94aVQaM4Jo3NjwXBiYpot/WeyME6l9SJHG5srqu9NWSiu43t4GXdOg9stOWSwT
-	 XHNiXBqHh7Gb8Wc0iqKwTzWk/8sJmNWoTIm72lxO9Qw4wnVgovZcSoab8GEVlE0lMO924
-	 DgErwyVavVKJjbiBKl6wS7gmnBmCXWrL1YhJWaTc2eWL12Z5alojiUc46gXua7UirnHEb
-	 8pn4Loir0/HC9QhrYedejJRnG0JJjr/oMqDkqZwb+Hb989eG3AgznlP8GuIOkYArt1A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363751;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4wL2BoxjK0hK5neYFIn9XPGar2g1pwnBrVdx4iMFhqg=;
-	b=p9Q5PCYb6So4xYzW0c129Mbjphv2eDPMsJ9JpBMIAQBTtlWCTS57U1quthQtsmlvjSIp
-	 aohx9/JGNqpFj7p645jbaxA5XUzSYwMpD3Q+1kCJFfuKmEQpdk5LJ7h9Tr7/Dp2F4P7ct
-	 zq9OdqSYAXwdQesHyRMzVQs/5QX6YuMk7uNKZGSK1prgyPeTq8D9uilfhbVBqGczRiaM1
-	 Cn2Mk0JzfgV+ZvYgGaLe25FMIvIIH5tnnsbgVvsaWb5NMoZU2QxZl41cWWOCqR8CH/Q+j
-	 ICYgyHXi7lH3QUx3mjx9EVt6cLJ+zcY/aZFyVsaoUYEXFE8uVgV00M8vTI9/Cmdm4Wg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JMiT5iRL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.18
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010018.outbound.protection.outlook.com [52.101.85.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793363807;
+	b=U9EVhgYosSWNxfqLaT6m9eiSU+HgpLnB2eyLF+qNoHYxo1LwnRLyqM3m0NHMuy6V2Wct
+	 ntRHUjcewyJoNDb8HOfyrtFxR1Nd6rLvmYqPbwT4284orM+69bUMD8tJDsAy+cpltdm0I
+	 f2k+nZ5avtcU9qhR58TktmyeueloHhW2pV8RB9ECtn9tRNvKYfaDlpFHth+QiMg+PR4XN
+	 ES/HThrCTS/Rvx8OI43ngD8g8349oiSKIa1N6HbJXT/6XrE3hHVXFALdo9NW3PluoqwOp
+	 5B5PhIIwNY/JdFRVbUvTdEEWmLGTbEJGRS6yFU4XaXp6kNpv8zQxbLzlATnELEkIIJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363807;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
+	b=H3ex4J8FJFV4s3XHmCk64l0uhzAI/YCRYJa9Lr0BxN+B1WaYtiZw1QcK1ev/XjoW4TsB
+	 J6aa9LIwBAEXDWzTvUUlmhfhpcuPbfEAJc7ySRw+23Ys6AABTh5CPdb9O9Ktjeu9iNzqS
+	 V5whiScKUXzeD8bAyxwixSO/SL4khpbNWwXHz4YZUEboTdnHvCMtprgn7F47MyeFA9tvT
+	 /2LisE5tals9uZcxX/3ErLdSUtCmTjbv85osmLfdPRcwk4Ro1JRA6SOwKkor+28s+wLNx
+	 K04eeTzPjBswhAm+WugFHNulSLmwIxYhl15fEtT+xCCLZIoJV769I2irqaKL2w1469w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj3ZP9Cf;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32811606A31A;
-	Fri, 30 Oct 2026 12:35:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32811606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675FF606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 12:36:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 675FF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=JMiT5iRL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ylLED+KDrOA4dHCs8NpvSZ4flo+uffZhn0qwIcmGMFVDD3lziLopHls2QqtARr+s/R2MpvNJkoD4usbCB7U3ArG0IsE1hcykJB5aqpgKBj8RR9aTDgac0Orfz4y5ledMh5pWheTh/xtu7y2HAJySGNeZ9zZPNM/W1QUW2BumW/P6gfeZmKZRmlUwSIl1PuKlzTy+hEAJctguKNlEmOwRaGfzS4IJ27SppgejH7WffZL7Ir91GIO6XYKqxLxel2MLWBBt0EEWLcZZO+sIKo7yC1vJaqq6rQWTJpo2nt8syeZda5XLeqmatuT/1CllMyB0hfYSS6LP1y8fi8v2KzuJbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4wL2BoxjK0hK5neYFIn9XPGar2g1pwnBrVdx4iMFhqg=;
- b=WraUkK0wnxMySSX3C2xmcSmzHWKGjg7ONArCY0AgQAO10BwvvpiQTLrmVHGmb4kdzM/yo6BX9+SEEADdpFZ0si2iGlUbfrqIEtFYvQec8kPkJJDVETb1iuAsFoBGv1L1MmwBqaZ6cSDGJZ3sADvnyIosJfbMvj/hvA7Rq6r/7hvnZx9WeOXZk5ug4ELH7KpEILWK/UhNNlngcOnz06bPBYK5bOQGPThxgQoDHZohjUtLNNC4uQv3wa0W+bhVOtPCipG6Gfxa+Tq9lQ9+/R03G24LOv0vWuO5a3BIm3urzvyf+bzH1nq1+kL8P9UZAeYuUq5nUHOF30pYxIRmH2vLXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4wL2BoxjK0hK5neYFIn9XPGar2g1pwnBrVdx4iMFhqg=;
- b=JMiT5iRLM5yA90cTMuhnvd4UHrCeM7i4D8Kipdcnkr4RHZ1EvYCOw/sfvL1c0dIvdudUrtK/Cx41AIrM4+60fvlAMkT9l5mGsvXuv4UEZwvmpXcADA+PbjJ59P/IeqohxsoefzWjLzlPraBe8PD0t9hQnIelC+OB3iSOu7+iGzU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
- by MW6PR12MB8834.namprd12.prod.outlook.com (2603:10b6:303:23c::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.20; Fri, 30 Oct
- 2026 12:35:48 +0000
-Received: from CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
- ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 12:35:48 +0000
-Message-ID: <8dcda015-b591-43d0-96d5-1faec73294ee@amd.com>
-Date: Fri, 30 Oct 2026 18:04:44 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 19/21] soundwire: amd: Cancel pending work before
- suspending manager
-To: Lee Jones <lee@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Mastan Katragadda <Mastan.Katragadda@amd.com>, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261030104840.3361217-1-lee@kernel.org>
- <20261030104840.3361217-20-lee@kernel.org>
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <20261030104840.3361217-20-lee@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PNYPR01CA0070.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:2ba::6) To CY5PR12MB6252.namprd12.prod.outlook.com
- (2603:10b6:930:20::17)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj3ZP9Cf
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a18fc7a38so1702812eec.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:36:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793363806; x=1793968606; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
+        b=fj3ZP9Cf5Y+e7SRaimUSFagvNtkpeoPKFhmaUN/TOWxv6iWzE/oJaP4Li4NwNzjOSF
+         YwditmzupbjQkaHhRBJK9P642j5o13rhvL2p2Xmh/RysNjrrSRaHtVDudU528cNZNRzm
+         ndAZVJ9IrDhDAlLg07xslGNbl/1VLsnxzZ/jlRAKdsFsth8qhq0p8IZq+vACSXKox5oZ
+         blxBPKgiWHn/p0w5vxI+udQejA6fBo6JKV7jdXSromfqxshAuHWOZB20pnGBOowFX1lT
+         YFSb1tsVgw/XP/alZzIfMOkIetsIXRWL2AO6Ob3Aemg3ByvLsDjGHUKqICWJB5JF1me/
+         AkYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793363806; x=1793968606;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
+        b=v/7rw1G3CsWYgCyunWvWRaxUEcLTGcFvY78hyFveIdcertE4UOERmSIbT2vIh6Ou/U
+         OBhoI133cGLZkR+Uk8X9pCg0JolGITCS0XdFNwaVgzzmpPEpUGMIz9zaKNh0rQQsOdBM
+         8EXrqBfWdsPr31647B3W4lXx5WBW2HYPVAm5T/68adnNydwiWlCNXVOpASAJT6qyWvC5
+         +msUikK4/3bTDaOhZy2jh3kVAxLbouvv06K6oPKd0vVSIlwo0uLysw2vHGFO1Y2VSbXo
+         3jvYpX0FiJhoVWIBw/eQ6TRcSo8RfPAwrlp4QFLYlGwjHpA3SElplI5VMxqDY9ghDB6W
+         8o7g==
+X-Forwarded-Encrypted: i=1; AKwUvBz17C8X2VFB+JS08FLhVzj8SvHrfpZmf8EpNiTav5IdX22LjaI2jTc/SioJyjkC8ndiBAI3Dp8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWq9LGPw9zVxXV+asVwzXL3oZ7PNW0/U7MHsrMf4cSwJ+PM75O
+	RaULhNPbwyaosRaobUCX3olAqakmYFAB0inglvxdFSV4IN9Xhj2BhwEz
+X-Gm-Gg: AYBFou33M5djX8z+6MG6by1r1JYt9HvazAcA9B12ZG8D4kga6vWknzhfhzShfnaeIar
+	BMfu1e0IBDmqJzI/KjeoOGQ6fxj24bjEWfcEik6IbnBvsi0v8QDKrVQiVvCOyQA4lcTAn7kV+QU
+	SNHyo/KvDxwm6iSYqo+VJzlBh+Fci/Gfp9EDUoXda2GvMpwIaqHHGZxqO1BuHcoMvc0vU4+DUOP
+	TjHFNjRKeXxFoL0U/83+cWfbqr2PvR17nk1gkDvJmvCFaxZe95o5xAWERdXHR9OErIJ4NzsT7HP
+	SF8sE4w/YRx3cloGUlckl00cmh41bN/P8LiZPSCIyE+CSGL9uh7fDuWFEPoeiic3xWjU9vKC0oI
+	Q3INsyR1m2jbVcPPDHwMq4F6K5yKsL5aOPyqlwv3w/kmtITYGYDRH4+F9cjoaahvU17NMp+bSML
+	mPkh57qwV52i5eSnX3Wo4oTe1hhIo1Tu/07ickJWDv1c4IFs/8ihhqZuiR8G+RqoihFeBd0X3qT
+	BaR35Ks25TSOBDRF1b7n9MLjQuHnTsakylFrOvuogw+0jXp5EIJJ8OF5RBzTS26XPg+4iqmrtX1
+	JLDNG++PZ80Ob4lDjbK+Vc5+IJsCVDTr4TlBQ+mZGztScWyGv6SZ+2JUvhqsq0osjbQ=
+X-Received: by 2002:a05:693c:6092:b0:361:7ab9:479d with SMTP id 5a478bee46e88-36a423ee70bmr4018459eec.27.1793363806237;
+        Fri, 30 Oct 2026 05:36:46 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm6382373eec.4.2026.10.30.05.36.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 05:36:45 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	mathieu.poirier@linaro.org,
+	linux-serial@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: [PATCH v5] tty: sysrq: clear the old reset sequence when reset_seq changes
+Date: Fri, 30 Oct 2026 20:36:40 +0800
+Message-ID: <20261030123640.263164-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,223 +100,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|MW6PR12MB8834:EE_
-X-MS-Office365-Filtering-Correlation-Id: efff191e-eaa3-43ac-95cb-08df36825327
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|261026121527099003|261022105027099003|56012099006|11063799006|5023799004|261021121427099003|261009223027099003|261021123027099003|261022075727099003|4143699003|18002099003|22082099003|6133799003|10067099003|261026140227099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	zpGjsHKbdyaQLUQL9VmEoDjg1r9wcvKbdGzh8YMblp/UIP9MtzoTonGCKcg2Ol0EdqFN36hO4fMQJ6ze9LHd/rr8ND7Zmjt2QNbT8JKfoHQWdmh8ACLy7lax4riV+0IohOAEoHUvuEfcQtTpzyddpG0r9PCZNkv1LaE+IPVuhcl35C7Z+01jKEEIHN5CIbsDwlg854glULPyYSuotB8BRE3r8R20zkIPPVMmvicJwyRVsV+Ke4W76P785ZuxSk8x6sc7JvPWbLEPMogAshEGPDnWEpMik9H/rGR9dbv03oPQV+Rle22lZook8BBT8XH/Z4mSzzCFx4snonAIZJ50Z5JB10Lk2v9YX2UIEPyiiTfUsfU8VeMRGDA2v77d8K+RcFSbryAt9aDaZZVTfHNXsacMpMC6iWUMf0mEUKEsSQjOP8lt/9/ynC50ekLYnNKvUNsTdyCzDAxdtCqMK3jNJG4F9ye2HgLwd1SvfSTKsOP3d1AHpU99loekHbEDrYGJIJcnkWchXKpS21Z3AAMeVLQwDPttpbDERnDR/8N6TtI9jibXfLVaoFqcwkIpSHJNnRO+71Yi5DepyGUX33SW2njaAgzYF0lHQTjZvhR4MjU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(261026121527099003)(261022105027099003)(56012099006)(11063799006)(5023799004)(261021121427099003)(261009223027099003)(261021123027099003)(261022075727099003)(4143699003)(18002099003)(22082099003)(6133799003)(10067099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SC9kVmtkNE51ZVBWWXM5dEVneCs2L1pkNDdZUG02N0ovMUFVUE05QXRJb1Br?=
- =?utf-8?B?NzNYWjJXVysyTjRWMHhXS3ltdjUvNjlzOUdzbGlvaVBnZll4aGlXMURkMnh6?=
- =?utf-8?B?UUtMMWZDeXNHSXNkZnk3V2ZVY2trYUxHMVp5TGZEM01GMDJyQlJ2UWxjZVM3?=
- =?utf-8?B?Q2dQSVlJUTl5a0Y0NmJOZ0k2OEZpV0FCY3dhczFGa05nVXFqL0g2cFdFaEJj?=
- =?utf-8?B?SjV4RkR4Q1NUc0syLzZTQW95R0JCY0ZXeFFjMUZUbnFzSTNxNjg4MTJQVlBS?=
- =?utf-8?B?ODhjMThWTktWRjY3Tmt5bDRsbjR2azVYdGtiaEcrcEk1aHRla0dHNE84ZkJP?=
- =?utf-8?B?MkJuMkZHMUd0U2M5UWphL0ZxKzQzODE5SEhkN2tIWmNzYUhTTzVGbDdMcnpK?=
- =?utf-8?B?dDliN3VpY2s2YUwwV0ZDR2ZVZE1nK2hhTVR6OEdjWThrQjM2eXh6RHM3U1ZH?=
- =?utf-8?B?TWdGR2VwMGJqMlBWbVN2M2lxeGRkWWNvS2xBS00rbUkvS05qQVVzQ0F5Q0Ni?=
- =?utf-8?B?MlVSWU8vUGlNa1d0dTQ1NnQybjJtV0VLSlFtcWY2dnBpWlhJbUpRODhiZjIx?=
- =?utf-8?B?U2tmVkVZczlTcFE4d3BYdWhQOVFBcTVVOWZWZU4vUlArV2dLWElETnBKaXBI?=
- =?utf-8?B?MlkwVmJqNngvay9zVkY4akpwVmxRM3Z4V0k3RGVtalFsOURYT2l1T2xQdllB?=
- =?utf-8?B?UVVDK2FnSjMyN2JZaEMvTXJ2N1c5WW9VRW1PVXYrV2VHNmdvODF2RjdJRGhC?=
- =?utf-8?B?OGhxcnFGUDAyb24vNHFvYWIxWjhwcjA0cThzbWlRRi9HNjV3N05sK1BHdlRy?=
- =?utf-8?B?RVFEakxGWnBzK0J6U1Q5M3cySXB0aXZaUGo3eXZFa0k3TjFYWHNGS2x0WXFu?=
- =?utf-8?B?STUyZjBuaVVpUElKSHprWklIcTZ3NGNmWjllRnZzdUtUYWpQOVp6c3VuMFV0?=
- =?utf-8?B?TzRJYUNqVkZBaFl3VkxVWUlvYTFZY1gzZFlHMXRWT2dVRGtEZzlqdWl4SHNj?=
- =?utf-8?B?ZEEwWlRqYVJEc203K3pQUGIzdTdQSzNSbUExc0R0aVl4b0NHUDJzY3o0ZFZ1?=
- =?utf-8?B?cDY4UGk5MjZFc0tIcU5IbC9Gd0duTnltRGxjK3hLeXpCSVYvajhyZ1ZPeVY1?=
- =?utf-8?B?aXlTbGx0OFVXbVNhcE9WaGlqSVo4QmM3QTdKZ3piZlpuQWlXaFEyeDNTN0ly?=
- =?utf-8?B?VTVTVkRZZWpweHUzNkc4eGpzdUlHdmZyYXJvdkZURzJtSG4zYWFpVzgwMGRa?=
- =?utf-8?B?SDhSRmovU0h0T2pkYzhpazNjeTNZMFlnY1VnN2lETCtIaWYzekRYaGRJSHph?=
- =?utf-8?B?NlVDZG4rNEdkWWdvVmdEUVZ4bXByT2tZYmVPMFZoc2d5ZC9XV0NJNUR3WTM2?=
- =?utf-8?B?cUhPNUpJOUxlb2s5SnVUaFZpek92S25mRnhPdFlrYUg4UUZqd1BFMXRRUi82?=
- =?utf-8?B?SE1lNXpQcUxwQU5YbTBBUytRaDNKMWhqRThYZkg5dWRlWjJsSCtqK3Y2NTdh?=
- =?utf-8?B?UUVhQ0RMbHRYRDFuUmx0d25qRUpCWTlhR3gvVjJyVVQzSENxU1JJOXRabDR4?=
- =?utf-8?B?dlZpZFNQT1JKZS9vcDJob295aWdJM1pVRlBGeEU1NXlkdlVid2ZyWUh4cVBE?=
- =?utf-8?B?QUpDTUZ5VitWbXBOcE56emhrTFRlclFhZHRoVGRzdHpVWlhaQVRmRk5iUEZv?=
- =?utf-8?B?c1RVZ0hGNTFtWVNVcXQ1SnVGL2xhZU5uT1Rsa0ZjeTZ3cGtMQ0V0c3pPTjVv?=
- =?utf-8?B?cUFhWFpDOHVFcTU3cklsc1E4U1JTY0VOYzA3VS93TGZBeVJBaDRscjEya25C?=
- =?utf-8?B?VE1udGdKVUFlaDZXR3Bja3JlVDJZNzRGdGlSenpQWTEyenAzUGpMaCtoMXMv?=
- =?utf-8?B?OTJTanRKZXpyMzVtbXNVV0UxTTgrUzN4SGdEVm95OXBPUEo2NWtsZENLK3Qr?=
- =?utf-8?B?d1MwV2owcGN0NEpFYkhoczJPVzkyVWkvUVp6QnpCWFd1QlZYV3Avc0dJMWp3?=
- =?utf-8?B?SmpMaWM1WTd2M2NMYzVWcXlwbkpOSmFSOExyblNNckE1U1FkMFphTmhBeGI2?=
- =?utf-8?B?NVpacXdlL1haV09PcWlJcFFJemdyaS95QVNvWmh2T1pYeEd4YTlsVDhJbTVL?=
- =?utf-8?B?VXpKdzN6TlBmOCt0OCs1T2ZLNXhJa3ZlUkJrL1VpMU1VdE0relRENzVzMDRh?=
- =?utf-8?B?M0Z5V3hpZitoQzMxNElhOFhZbTBTQXZVSnBYd1dnb3plVXVCc0MzN20rclFJ?=
- =?utf-8?B?VjhWYVRnZzVqQ1U0aXZRTWhmTlJ5N0wwWmlTbjZTMThtb29tR3kwdjlqdFZZ?=
- =?utf-8?B?NDMyeDVKT1ZqOEhzL1QySEJ4ejhya3JiMDBKdGZCYkNFZnVHQmprQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: efff191e-eaa3-43ac-95cb-08df36825327
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 12:35:48.1897
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kiwtEGn9GLZphslZKw9+JkEi/KD/7lYM3GK0nE4/0FrmVHbmD3xQpz4ImM+Hk0qpTlku5lTqhISrbRquVl8Obw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8834
+Content-Transfer-Encoding: 8bit
 
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
+Changing reset_seq at runtime does not work on a keyboard that already
+used the old value, because each keyboard adds the new keys to its own
+copy instead of replacing it:
 
-On 10/30/26 16:16, Lee Jones wrote:
-> amd_suspend_runtime() stops the SoundWire bus clock and transitions the
-> controller into D3 without cancelling amd_sdw_irq_thread and
-> amd_sdw_work, and amd_suspend() only cancels amd_sdw_work without first
-> cancelling amd_sdw_irq_thread.  Queued work executing concurrently with
-> suspend can access MMIO registers after the controller is clock-stopped
-> or powered down.
->
-> Mask manager interrupts, synchronise the parent PCI IRQ, and cancel both
-> amd_sdw_irq_thread and amd_sdw_work before stopping the bus clock and in
-> amd_deinit_sdw_manager(), unmask wake interrupts only after clock stop
-> completes, and avoid non-wake register accesses in amd_sdw_irq_thread()
-> while the clock is stopped.
+  echo 56,29,111 > /sys/module/sysrq/parameters/reset_seq # Alt+Ctrl+Del
+  (press any key)
+  echo 59,60 > /sys/module/sysrq/parameters/reset_seq     # F1+F2
 
-Both issues are already addressed in our v3 patch series:
+F1+F2 then does nothing; only all five keys together reset.
 
-https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m7741edcedb1264764edc7f8559e39af8b23433fb
+Clear the old keys when the copy is rebuilt.  If sysrq_downtime_ms is
+set, also stop a reset the old keys already started, since releasing
+them no longer cancels it.
 
-In our v3 implementation, both the suspend and suspend_runtime paths
-call acp_disable_sdw_interrupts() followed by cancel_work_sync() for
-both amd_sdw_irq_thread and amd_sdw_work, in that order, before
-clock stop — for both CLK_STOP_MODE and POWER_OFF_MODE.
+A key pressed while reset_seq is being written can see a partial
+sequence.  With this change that can happen on any keyboard, not only
+on ones that never used a sequence, but the window is a few
+microseconds and not worth closing.
 
-Additionally, the amd_sdw_quiesce_work() helper introduced by this
-patch has the same synchronize_irq() issue raised on the previous
-patch — to_pci_dev(parent)->irq is not the correct IRQ line for the
-ACP dedicated interrupt. The disable_work_sync()/enable_work()
-pattern also introduces a new window where a late IRQ can re-queue
-work after enable_work() but before clock stop completes.
+Fixes: 154b7a489a5b ("Input: sysrq - allow specifying alternate reset sequence")
+Cc: stable@vger.kernel.org
+Assisted-by: Kiro:claude-opus-5.5
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+v5: Dropped v4 1/2 and rewrote the changelog.  Tested in QEMU with a
+uinput keyboard: the new sequence resets, while the old one and a reset
+armed before the rewrite do not.
 
-Please drop this patch. The fix is already on-list as part of our
-v3 series, and v4 with further improvements is being prepared.
-> Fixes: 81ff58ff71ad ("soundwire: amd: add runtime pm ops for AMD SoundWire manager driver")
-> Closes: https://sashiko.dev/#/bug/linux-3b774ace-00cf-41e6-82eb-85cd43f5e1d6
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
->   drivers/soundwire/amd_manager.c | 40 ++++++++++++++++++++++++++++-----
->   1 file changed, 34 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> index f39f4f04db7e..ba8e6d42c467 100644
-> --- a/drivers/soundwire/amd_manager.c
-> +++ b/drivers/soundwire/amd_manager.c
-> @@ -148,9 +148,24 @@ static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
->   	writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
->   }
->   
-> +static void amd_sdw_quiesce_work(struct amd_sdw_manager *amd_manager)
-> +{
-> +	struct device *parent = amd_manager->dev->parent;
-> +
-> +	disable_work_sync(&amd_manager->amd_sdw_work);
-> +	writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
-> +	writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
-> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
-> +	if (parent && dev_is_pci(parent))
-> +		synchronize_irq(to_pci_dev(parent)->irq);
-> +	cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
-> +	enable_work(&amd_manager->amd_sdw_work);
-> +}
-> +
->   static int amd_deinit_sdw_manager(struct amd_sdw_manager *amd_manager)
->   {
->   	amd_disable_sdw_interrupts(amd_manager);
-> +	amd_sdw_quiesce_work(amd_manager);
->   	return amd_disable_sdw_manager(amd_manager);
->   }
->   
-> @@ -1049,6 +1064,14 @@ static void amd_sdw_irq_thread(struct work_struct *work)
->   	u32 status_change_8to11;
->   	u32 status_change_0to7;
->   
-> +	if (amd_manager->clk_stopped) {
-> +		status_change_8to11 = readl(amd_manager->mmio +
-> +					    ACP_SW_STATE_CHANGE_STATUS_8TO11);
-> +		if (status_change_8to11 & AMD_SDW_WAKE_STAT_MASK)
-> +			amd_sdw_process_wake_event(amd_manager);
-> +		return;
-> +	}
-> +
->   	status_change_8to11 = readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_8TO11);
->   	status_change_0to7 = readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_0TO7);
->   	if (!status_change_0to7 && !status_change_8to11)
-> @@ -1341,24 +1364,24 @@ static int __maybe_unused amd_suspend(struct device *dev)
->   	}
->   
->   	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-> -		cancel_work_sync(&amd_manager->amd_sdw_work);
-> -		amd_sdw_wake_enable(amd_manager, false);
->   		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
->   			ret = amd_sdw_host_wake_enable(amd_manager, false);
->   			if (ret)
->   				return ret;
->   		}
-> +		amd_sdw_quiesce_work(amd_manager);
-> +		amd_sdw_wake_enable(amd_manager, false);
->   		ret = amd_sdw_clock_stop(amd_manager);
->   		if (ret)
->   			return ret;
->   	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
-> -		cancel_work_sync(&amd_manager->amd_sdw_work);
-> -		amd_sdw_wake_enable(amd_manager, false);
->   		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
->   			ret = amd_sdw_host_wake_enable(amd_manager, false);
->   			if (ret)
->   				return ret;
->   		}
-> +		amd_sdw_quiesce_work(amd_manager);
-> +		amd_sdw_wake_enable(amd_manager, false);
->   		/*
->   		 * As per hardware programming sequence on AMD platforms,
->   		 * clock stop should be invoked first before powering-off
-> @@ -1391,25 +1414,29 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
->   		return 0;
->   	}
->   	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
-> -		amd_sdw_wake_enable(amd_manager, true);
->   		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
->   			ret = amd_sdw_host_wake_enable(amd_manager, true);
->   			if (ret)
->   				return ret;
->   		}
-> +		amd_sdw_quiesce_work(amd_manager);
->   		ret = amd_sdw_clock_stop(amd_manager);
->   		if (ret)
->   			return ret;
-> +		if (amd_manager->clk_stopped)
-> +			amd_sdw_wake_enable(amd_manager, true);
->   	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
-> -		amd_sdw_wake_enable(amd_manager, true);
->   		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
->   			ret = amd_sdw_host_wake_enable(amd_manager, true);
->   			if (ret)
->   				return ret;
->   		}
-> +		amd_sdw_quiesce_work(amd_manager);
->   		ret = amd_sdw_clock_stop(amd_manager);
->   		if (ret)
->   			return ret;
-> +		if (amd_manager->clk_stopped)
-> +			amd_sdw_wake_enable(amd_manager, true);
->   		ret = amd_deinit_sdw_manager(amd_manager);
->   		if (ret)
->   			return ret;
-> @@ -1452,6 +1479,7 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
->   			if (ret)
->   				return ret;
->   		}
-> +		amd_enable_sdw_interrupts(amd_manager);
->   	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
->   		writel(0x00, amd_manager->acp_mmio + ACP_SW_WAKE_EN(amd_manager->instance));
->   		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
+v4: https://lore.kernel.org/all/20261030045854.153556-1-zhanxusheng1024@gmail.com/
+
+ drivers/tty/sysrq.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
+index f4571d05b496..a90e97a6d7aa 100644
+--- a/drivers/tty/sysrq.c
++++ b/drivers/tty/sysrq.c
+@@ -689,6 +689,11 @@ static void sysrq_parse_reset_sequence(struct sysrq_state *state)
+ 	int i;
+ 	unsigned short key;
+ 
++	/* A reset armed by the old sequence must not outlive it */
++	timer_delete(&state->keyreset_timer);
++
++	bitmap_zero(state->reset_keybit, KEY_CNT);
++	state->reset_seq_len = 0;
+ 	state->reset_seq_cnt = 0;
+ 
+ 	for (i = 0; i < sysrq_reset_seq_len; i++) {
+
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+-- 
+2.43.0
 
