@@ -1,63 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793390562;
-	b=Ym/tE2tCCxUN2G150stNBfz96/rbOULWROjZ3jetVGSVlOr6U+EocDKhipCJOGGwWOYu
-	 xQXI5xcNAh77XMAzw4XyEHyCOYQAL8Ujxgo4NstNGhip/gtj/Tl7fj3dsesh2Xxt3iZ6U
-	 ECPpswGKUldJT3ZdyIOCS+bqsS7isalvDfaeIg7jxfTKlZ3PR51uQD/rAFl4h/NLCQfR2
-	 1cvHhFVOOVGExm19UfuPw/ArhZQfHSyyCxfmDgjIA/kfwBsD57kgZMVdFgezOuXag0Pa8
-	 fChjaaBu+nv6rgoc9HIuAXEjfwhLseMDxBMzUyTVv+bVYFjag8VhwS67aHEl55hk1Gw==
+	t=1793391180;
+	b=q9Se5ZQ2jfJuOhsujVcEtVv5LwRJ5RtCaVKO0PWGxupM2LaSBApCBk2H1rxvHaN2UsOw
+	 idoqlYJHM/BuchpNf+qapVjZq6xqqnSMu54+Qmw624HbleXdWlUxiRXrbIcGHTu47MPkz
+	 tx0k7XWP2UpFDLD62FsoglTPK6g2PZVs+MZNhBDiNKKkY0McNz3VwMm8SDh90yg8EFPo+
+	 ugV25HnVJPa526aZbNqjjrvqilvQRtasHgNTcrO044hGv/8Zgrzw0z8ZjcvUF22p5MxI5
+	 kiASupbde9pBo3qkq3u1pe/pkT6Wde0SLXfbR5QAPbUVRv6Sm+thrAviPmwl648aG6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793390562;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=CdgjB3iMB/xpCXm7PRSva07wAj5gmWKOsYwxpue/r48=;
-	b=mNSlN8ldhvDlnyfZcAlFV7ANByTdeST9rYDgwfnVQrK2qaLlIEhbyT144bFF0Fdfg/ww
-	 9b/CSw2xY7WLUVpoOyynWLjo7ZYu15djQXwL/KhgrFikhPF1wA8+NWzBFrJZy5LWMneRS
-	 m9AnY0UquX2maLGWf+ftlDXlyLUxAWxmLWJffGsRhP9sdaWr883NLemfOWCldXivsOfRs
-	 e+XbDZ1Lbz553p3cGzUva9phrIJinMUs0utN0zOjsgJJu2yyIA1c+raE6offHquNh8YW1
-	 DGhH1ZOnC7azR2PtTUSMv45E18oHHERv1vJ+mIh9ZMRb/F3saczw2R/1mfwTEcXfZYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793391180;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=+uEj7dkzggUb6lkggRktE0fOB+YC39Gh7yxfAZ3lKo4=;
+	b=fDRQDmrezDUMHt+j+QqkxEHfhrH0zZaMSbCtmBhq7sk9YA+4Ic77VpPWE0RptGHfzdao
+	 yYFb7yw+adDztI7uAlu8UTdZ1pvxzW3hf/y7bZXZ7lHrDXPs9/pr50EFtaDWgDLbifF60
+	 TpuSk7qW4PMXY7SEFNtzJlNkcUBPGy6yjaGtBQEivOqk5qkGo6E0hSFumKIVmZ/C2wb/v
+	 FT5/pt5bD0cCcUwliZ670PguXQ5jjOcxYGUpH+jN2cxW0KgqeKc+dhcGyPS47FqWGY2f9
+	 GH0iOg+JyM0EYkyOj5WRuOpP8HPpPiR0gKzlZMNJ1aKiIgifuzVGV1SV66dYZTtSJaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nnvYecgQ;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SbdZiQoN;
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D891A606A31A;
-	Fri, 30 Oct 2026 20:02:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D891A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4652C606A32E
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 20:12:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4652C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nnvYecgQ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=CdgjB3iMB/xpCXm7PRSva07wAj5gmWKOsYwxpue/r48=; b=nnvYecgQBjPgn7ZIxAbvE6MhR8
-	jaKDY1bguj0p8uWbaxpsbCCUBMj0m5XFVq5bkZ8CmnhNN8WsKg1XXK5cQRTx/3r1ae3dNSqRCTNtc
-	3qcYP2vfr6YmksJg689a7UiNps8aeXsiEhfngI+9gDKJoA2gjhpxx2DBqQljUNfNp2xY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xMso4-00DQaS-L0; Fri, 30 Oct 2026 21:02:32 +0100
-Date: Fri, 30 Oct 2026 21:02:32 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Russell King <linux@armlinux.org.uk>,
-	Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH net] net: usb: lan78xx: only stop phylink if the
- interface is running
-Message-ID: <8bc84f9d-4c9a-41db-af34-28377cfb2b1b@lunn.ch>
-References: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SbdZiQoN
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-34cbc588a31so563851eec.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 13:12:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793391178; x=1793995978; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+uEj7dkzggUb6lkggRktE0fOB+YC39Gh7yxfAZ3lKo4=;
+        b=SbdZiQoNd9v8nZxQuOMNPRPAe3YN2K/2lS+7X9Bn5BxLITOLrcB/hcYjzkI20WWS4y
+         fQtDhN+STPp2Dp0/8jJwHW/ofizMr/sz7JyYnt0QKsCias2AT1scQyiu3EUysCy2pkMm
+         5+8smIXAqprspCMZSCaCNLCvO9EIOEqYqVaFzDA4ea+YmKxbDNbpYljFke/oD5wDjtz7
+         KVbwuTxXV9dDsWLdse7wjZIq7JVItQopjnOPpBeL6CnpdEAh51fr4V/62fxwkrOom3al
+         rq9la/RooBlB1Fx85WhoLa0CIdH4Nn6lEELyrTkCoIaEivYuHKS1p/GFeD36Mx+YqvSp
+         eTWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793391178; x=1793995978;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+uEj7dkzggUb6lkggRktE0fOB+YC39Gh7yxfAZ3lKo4=;
+        b=u5BpFVD1NBRNqYHNJlNNpqWx3f8PqRv+p/sePNh9almfDX47K6yr0ceTK78+0fHxxG
+         0Yu81a7DspFmDDAKO1LeQ8c7pkPtYuthXwh51Sa3UE4gDdKdFmCc+2SrZElBw0cRjngo
+         k/1b8p4CiIxWsp0wvH0YD/r9uVgV9bJyYfkyLVb0vn/6KvW8dTa7RkhMMgUX3JHrePZ3
+         4a4UirwbQDLZCFcpGNJNp3JpLHLP7xS5pKFeoBMRxpjlL6OZnBhcsJYz/PRhZXLZtntD
+         e8CV1UErJsZlNH5JkS5jlsuIPnQGfFFuQfKLbBN2jlxR0eVxzX+yg8vFpmxFCCg5zx27
+         lhHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzhiJF1e130RgQNdR5ybCstvlyXwDxH+VYQ7pd2ql8J2CUd6BvK6NKsrod8OmbzQMX4J+cknp4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCrhAudxLcW9P4jTAoWkLw0weT4PzlJPqTRT73yyiPfT06GVCq
+	3ZKAXmSrCodYPR6OSwXZUYuufFDXPNrXRg+jV5P9STx4gqzVsubahX37
+X-Gm-Gg: AYBFou3lWK1596zQ5hbtHxLDy2sejhV8A15O8NsUtTUINSxkZn5W8oEc1JH00g+jspe
+	b6px1s2xx8/fIU5IWMsGxboNjK3gCmsKVFknIwfDyPoKpZVmsbYYrLwVZa7IgECEXyS9VmYtmEi
+	j6pz5M21nAee+p5kc1DI4ZcU6zHzRuwiWiG0kH4g1nmyGPpMfVFX8p8dcow9a0PdcuwabsqafoP
+	7ZD4lqU9d1LsxbvXYof7khLZt3XF3e14QKk4J3LvOV20vocQ0bH6kN27DurnEFWm7u2oC7WCCl6
+	/BhoyVqdTkkc6cffX775Qju1iool5NKJCGdqq6rQKrtP18WqLKyejx3hYn2ZHBCXHCln5x3nr4I
+	ZRBnV/OtjRG1JAS0BxCWmv5LLpuWuRmZqrl8g9UJp0+wzZlm9DSn456ygCmD9DeX29bK2sP1wD5
+	bkNyOu2Mvwq8peaAxEeJ00BadP5vbjA/XTUevl5AIcWj0LLNce1LA7Sq9e1AusRjOGCeGxsmaIX
+	7dq0c+MiUYNDMkXHnELwlkaRcpBTncpTr28y4qoxIoJJ8gLyl8UMJQhLhKJW5cgaQ9wXuRI4b5I
+	gDv9BWaEB3N862YHnsBmR5Y=
+X-Received: by 2002:a05:7300:e9c5:10b0:367:3d68:8480 with SMTP id 5a478bee46e88-36a4206d82emr5086488eec.0.1793391178247;
+        Fri, 30 Oct 2026 13:12:58 -0700 (PDT)
+Received: from localhost ([2a03:2880:9ff:6a::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm9450626eec.19.2026.10.30.13.12.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 13:12:57 -0700 (PDT)
+Date: Fri, 30 Oct 2026 13:12:53 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Rongzheng Wang <testwrzwrz@gmail.com>
+Cc: netdev@vger.kernel.org, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Jason Xing <kerneljasonxing@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 2/2] selftests/bpf: cover AF_XDP multi-buffer TX
+ software checksum
+Message-ID: <auT51NbSPvKJwgiD@devvm16445.scu0.facebook.com>
+References: <20261030023248.78802-1-testwrzwrz@gmail.com>
+ <20261030023248.78802-3-testwrzwrz@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,25 +101,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
+In-Reply-To: <20261030023248.78802-3-testwrzwrz@gmail.com>
 
-On Fri, Oct 30, 2026 at 12:02:04AM +0800, YuanZhe Liu wrote:
-> lan78xx_disconnect() unconditionally calls phylink_stop(), but
-> phylink_start() is only called from lan78xx_open(). When the device is
-> unplugged before the interface has been brought up, the attached PHY is
-> still in PHY_READY and phy_stop() reports:
+On 10/30, Rongzheng Wang wrote:
+> Extend test_xdp_metadata to send the same UDP packet using every descriptor
+> count from 1 through MAX_TX_DESCS (MAX_SKB_FRAGS + 1), and to run the
+> existing metadata and checksum verification for each case.
 > 
->   called from state READY
->   WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
+> Build the packet once and write it into the TX descriptors in a loop
+> instead of using a flat two-descriptor layout. Keep the first descriptor
+> large enough to cover the checksum offset; the remaining payload is split
+> across the continuation descriptors, with the last descriptor taking the
+> remaining length.
 > 
-> The same warning is emitted after an ifup/ifdown cycle, where the PHY is
-> already in PHY_HALTED. Call phylink_stop() only when the network device is
-> running, which is when phylink_start() has been called.
+> Reuse the existing AF_XDP setup, packet generation, completion, and receive
+> helpers in xdp_metadata.c instead of adding a separate test harness.
 > 
-> Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
+> Signed-off-by: Rongzheng Wang <testwrzwrz@gmail.com>
+> ---
+>  .../selftests/bpf/prog_tests/xdp_metadata.c   | 147 +++++++++++-------
+>  1 file changed, 92 insertions(+), 55 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> index 5c31054ad4a4..17da0a145666 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/xdp_metadata.c
+> @@ -18,12 +18,15 @@
+>  #define TX_NAME "veTX"
+>  #define RX_NAME "veRX"
+>  
+> -#define UDP_PAYLOAD_BYTES 4
+> +#define UDP_PAYLOAD_BYTES 32
+> +
 
-Why did you pick this commit?
+[..]
 
-    Andrew
+> +#define MAX_SKB_FRAGS 17 /* minimum CONFIG_MAX_SKB_FRAGS */
+
+Any reason you're not reading the real value from
+/proc/sys/net/core/max_skb_frags ? 
