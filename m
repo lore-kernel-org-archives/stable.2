@@ -1,54 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793329414;
-	b=DoopSufkOQeW/wKS/VEoY5tfuRdG3Oip4KzG5mSeKyojBovw3phU340Ykhz93gdpf241
-	 rO0epUp2tbKS7gsWJEv9e2BFzIkzr1Ef6sMGRCOQbXj0ZIakMV05RVrB5kpb9hTvYPybV
-	 /Prh8o9mR4CiUIomamtPSz3RydpQKMgCw4eGQEvo8AKPhAJp/JISHEIAxxepyXmDc8HyG
-	 pH/40IThiwH5DrEdmNllV28pB+fnL6g0DfB34nlt5E502ICLbvBaL7FhOvXUWpxa3UNZj
-	 CQ8fmO5P3yAyqn5likD1Nl8LyEdVzquWM/z/Q08ESN18ZbACdYE4Ol6Z0UVOlMWmXRQ==
+	t=1793329515;
+	b=22nDDvDG1aLK7LRcm5WB3XK6Or/PHaf65ZExjfhp31BAENnp+EOAMYYU4xHLPK6t93Cf
+	 RCYk2mbI/XfMReyU04Q97X79rbF1PqSgVY2kj91xk/So4Q8QmpithULAfSS98WhempmD/
+	 qhV/HFeMe94NDCi0BwUxDJTwFiZiM24Mb6CzkFCKPtqQQBRgwpNNzHvYIL+q9wClRSBsY
+	 qG8kr38Y/IZ4rAX5Yqc34Hu6eu1nbdbbgPQxlq53ZnjJHlCngwhrsqVR7Kaqlw6U87Miw
+	 lURJikE+NXiH2JfUhPunxGOdAMh51WYMjl/efGXqUzQJAqchP9MWZaPPr41NLuvvCBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793329414;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=P1HTdK9Us/nXxv6524NGuZeaCWy7CFdEOV2AIIWt1JQ=;
-	b=KNA8EMGy3gPg3pZxYryRX08+3JghUMptCm1WAFBCmT3JO9+430OPwXaYRUwVR6VcIswv
-	 wjJmGBXCuU9JxmRDRQRqROfcEbgsE54KB1bJxvWMfH4+NktCmyRg5WMy5++bc6Mwd0PaH
-	 yfpxa6+jMXs9WGs99ZhNmrR7qrIHK/Ikf58mo2ad9ILFuKT9SelU+V7hDmjXOqjeL6hXh
-	 VsG5vj7HZN106g/BwaCg8zwF9TU3zSS5r5L28MZXDDxmbMAuLueIx3Awpkv19BIHC0T3q
-	 9WqhTlK6tO3LP1NxHNTLWvpRHS9RfLDdC/dotsppdzbxPALL73b+ig9ONQY6XT7xD4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793329515;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=LrZBfGhAO98liKGA/GRCTc4NQemOV/QG1w7nMj/i7vg=;
+	b=GVjCQaFU031yg3GW50L/PDl5BX7iKZHNMMEg6wI3uBZcnDgqT0P+u7RhO2ZZZlq7EqJ4
+	 IriNOpG9dr8A5pJYmdGwfVhHr+sFT+eNJF1Tfnazus2gjzNAqmtyyR9XEULdDhXkvj1XU
+	 wgsNtjSU8IV7/sctPjIDAHJW+RWZquzl+RersUy00sgRSfwLWFsxXyfR43617psSlL+3v
+	 NVZREw9UokvqlYzXvL+dn0jhohs/aemAR7/fGN3AEPP7l8X4teHOn/cA2d0th6VlWWqg/
+	 vmLmVudEljKG7wM3PiThz3X/lBtp8yPNGz+4Zx5kAlICCb8U5Bp//bIDFh7FACGsnbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KKaSdtvp;
-	arc=none smtp.remote-ip=95.215.58.196
-Received: from mta1.migadu.com (out-196.mta1.migadu.com [95.215.58.196])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357D8606A31C
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 03:03:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 357D8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="Ag17yy/r";
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8FFC2606A31A;
+	Fri, 30 Oct 2026 03:05:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FFC2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KKaSdtvp
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=A7GiL3udSSdyFKnyh+0Vow6D9krgem3lJz6Fq4u8pT4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793329411; v=1; x=1793934211;
- b=KKaSdtvpu7txiAPoaxO8Yi6oAg91UieXpbfe9qIH3UNe/A6K+26PUE7c87i/lLbsBJfJcwDy
- HnXgdIK9fg6F+VRmcJTj7SAJUXDJfeOGWvmjFSXMhkmUpcqbaQFxIPp4jFyCXa5y/2/JK3WWnBO
- 6f5UQ7hbWl/4DFYCEZ9Mr+n4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 70512d1ee8cb6ea0;
-	Fri, 30 Oct 2026 03:03:31 +0000
-X-Mizu-Trace-ID: 70512d1ee8cb6ea0
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Ag17yy/r
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id C7B9520B7166;
+	Thu, 29 Oct 2026 20:04:54 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C7B9520B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793329501;
+	bh=LrZBfGhAO98liKGA/GRCTc4NQemOV/QG1w7nMj/i7vg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=Ag17yy/rZkIKrpE7YD42xXo6bQ9ZSR9Cm+1MCLR28QzwlpL6csUl7iVmnD2v8jY+s
+	 WYQxpYjVg+x7Hz/O24jtTjzkK08WtL7n7oaWMmAF4zBQHw9cTyvrqxnct2CIzsJusW
+	 6vZiZp18ZYfyUTwJS/dRTlpJtQ6xglK8ts3TMOSg=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	tgopinath@linux.microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH net] net/sched: fix rate estimator use-after-free when clearing NOLOCK
+Date: Thu, 29 Oct 2026 23:04:53 -0400
+Message-ID: <20261030030453.31928-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,168 +67,108 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH] powerpc/mm: fix uninitialized ZONE_DEVICE struct pages
- with PMDs
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <h5i4wlx5.ritesh.list@gmail.com>
-Date: Fri, 30 Oct 2026 11:03:08 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Mike Rapoport <rppt@kernel.org>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Pavithra <pavrampu@linux.ibm.com>,
- "Aneesh Kumar K . V" <aneesh.kumar@linux.ibm.com>,
- linux-mm@kvack.org,
- linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <20FE1232-A48B-4F72-8F18-89EFF70EE0FE@linux.dev>
-References: <20261029063601.1961415-1-songmuchun@bytedance.com>
- <h5i4wlx5.ritesh.list@gmail.com>
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+qdisc_create() creates the rate estimator requested by TCA_RATE before
+qdisc_graft() converts a lockless child of a locking parent. The
+conversion in qdisc_clear_nolock() frees the per-CPU statistics, but
+the estimator keeps its own copy of the cpu_bstats pointer and its
+timer keeps reading the freed per-CPU memory on every estimator tick.
 
+An unprivileged local user can trigger this. The estimator timer can
+access freed per-CPU statistics in softirq context and panic the kernel:
 
-> On Oct 29, 2026, at 23:45, Ritesh Harjani (IBM) =
-<ritesh.list@gmail.com> wrote:
->=20
-> Muchun Song <songmuchun@bytedance.com> writes:
->=20
-> Thanks Muchun,
->=20
->> PowerPC radix vmemmap population can reuse an existing PMD mapping =
-while
->> populating a device DAX range whose section is marked as HVO-enabled. =
-The
->> reused mapping is an ordinary vmemmap mapping: the redundant tail =
-struct
->> pages are not remapped to the shared tail page.
->>=20
->> Leaving the section marked as HVO-enabled makes later ZONE_DEVICE
->> initialization treat the range as optimized and initialize only the =
-struct
->> pages that would be backed by a real HVO mapping. The remaining tail =
-struct
->> pages can then be left uninitialized even though they are still used =
-as
->> metadata for the device DAX compound page.
->>=20
->> This first triggers a zone mismatch warning in __init_single_page(), =
-then
->> faults while initializing the pageblock flags:
->>=20
->>  WARNING: mm/mm_init.c:600 at __init_single_page+0xd0/0xf4
->>  Call Trace:
->>    memmap_init_zone_device+0x164/0x430
->>    memremap_pages+0x43c/0x93c
->>    devm_memremap_pages+0x3c/0xa4
->>    dev_dax_probe+0x264/0x3d0
->>    dax_bus_probe+0x140/0x1c8
->>=20
->>  BUG: Kernel NULL pointer dereference on read at 0x00001400
->>    __set_pfnblock_flags_mask.constprop.0+0x34/0x160
->>    memmap_init_zone_device+0x358/0x430
->>=20
->> On kernels without these initialization-time diagnostics, the
->> uninitialized metadata remains latent. When userspace later maps and
->> accesses the affected device DAX range, the kernel operates on those =
-struct
->> pages and panics at that point instead of during device =
-initialization.
->>=20
->> The Fixes target predates the section-based vmemmap optimization
->> infrastructure, so older kernels do not have section state that can =
-be
->> marked non-HVO. Backports to such kernels need to handle the =
-PMD-reuse case
->> in powerpc radix code directly, for example by initializing the tail =
-struct
->> pages that core ZONE_DEVICE initialization would otherwise skip.
->>=20
->=20
-> Actually that would be totally new code right? It won't be a straight
-> forward backport, correct? ...=20
+  BUG: unable to handle page fault for address: ff9d8b20ffa47920
+  RIP: 0010:gnet_stats_add_basic+0x77/0xc0
+  Call Trace:
+   <IRQ>
+   est_fetch_counters+0x31/0x50
+   est_timer+0x52/0x170
+   call_timer_fn+0x9f/0x210
+   run_timer_softirq+0x6e/0xb0
+   </IRQ>
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-Right. Because it's impossible to backport the whole section-based =
-vmemmap
-optimization infrastructure (48 commits).
+Fix by doing the NOLOCK conversion in qdisc_create(), right before
+the estimator is created, instead of in qdisc_graft(), so that the
+estimator captures the final statistics pointer. Removing the
+conversion from qdisc_graft() is safe: a new qdisc is created by
+qdisc_create() with the parent it is grafted under, and since
+commit bc50835e83f6 ("net: sched: Disallow replacing of child qdisc
+from one parent to another") an existing qdisc can only be grafted
+again under its original parent. Either way the qdisc was already
+converted for that parent at creation.
 
->=20
->> Mark the section as non-HVO when reusing an existing PMD mapping, so =
-the
->> section's HVO state matches the actual vmemmap layout and all =
-required
->> struct pages are initialized.
->>=20
->> Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap =
-optimization for radix")
->> Cc: stable@vger.kernel.org
->=20
-> ... then should we mark Cc: stable here with the above mentioned fixes
-> tag? Because this patch cannot be backported as is to older kernels -
-> for the reasons you mentioned above.
+Fixes: 8a53e616de29 ("net: sched: when clearing NOLOCK, clear TCQ_F_CPUSTATS, too")
+Cc: stable@vger.kernel.org
+Cc: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
 
-The comment following the trailer is used to guide stable maintainers to
-backport proper prerequisite commits. It's hard to do that. So I choose =
-to
-mention the alternative in the commit message. But with the help of LLM,
-I found the alternative is also not the right solution. The reason is as =
-below.
+The bug was found and this fix was developed with the assistance of an
+LLM-based code analysis tool.
 
-That pmd_leaf() path only creates or reuses the vmemmap mapping. After =
-it
-returns, sparse_add_section() calls page_init_poison() on the whole =
-memmap,
-which overwrites any page state initialized there.
+Backport note: trees without commit bc50835e83f6 (v6.14) still allow
+regrafting an existing child qdisc under a different parent and need
+an additional fix for that path, for example cherry-picking that
+commit as well.
 
-Therefore, older kernels must pass the PMD-leaf information to
-memmap_init_zone_device() and let it initialize all real tail struct
-page entries. Initializing them immediately in the PowerPC pmd_leaf()
-branch would be too early.
+ net/sched/sch_api.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-Another solution is making vmemmap_can_optimize() range-aware by passing
-the vmemmap start and end addresses.
-
-On PowerPC, reject the optimization when any part of the range is =
-already
-covered by a PMD leaf. This ensures that an existing PMD mapping is =
-reused
-normally and that all real tail struct page entries are initialized =
-later
-by the core code.
-
-Maybe it should be a separate patch for old kernels? Thoughts?
-
->=20
->> Reported-by: Pavithra <pavrampu@linux.ibm.com>
->> Closes: =
-https://lore.kernel.org/r/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070=
-429.git.ritesh.list@gmail.com
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->> ---
->> arch/powerpc/mm/book3s64/radix_pgtable.c | 11 ++++++++++-
->> 1 file changed, 10 insertions(+), 1 deletion(-)
->>=20
->=20
-> I think, this patch should go via mm tree, due to all the dependencies
-> coming from there, right?
-
-Better. I hope Andrew will pick it up once I send a v2 version with more
-proper commit message changed.
-
-Thanks.
-
->=20
-> -ritesh
-
-
+diff --git a/net/sched/sch_api.c b/net/sched/sch_api.c
+index f36c41224bcc..d89f3f0a3c5f 100644
+--- a/net/sched/sch_api.c
++++ b/net/sched/sch_api.c
+@@ -1247,10 +1247,6 @@ static int qdisc_graft(struct net_device *dev, struct Qdisc *parent,
+ 		unsigned long cl;
+ 		int err;
+ 
+-		/* Only support running class lockless if parent is lockless */
+-		if (new && (new->flags & TCQ_F_NOLOCK) && !(parent->flags & TCQ_F_NOLOCK))
+-			qdisc_clear_nolock(new);
+-
+ 		if (!cops || !cops->graft)
+ 			return -EOPNOTSUPP;
+ 
+@@ -1327,6 +1323,7 @@ static int qdisc_block_indexes_set(struct Qdisc *sch, struct nlattr **tca,
+ 
+ static struct Qdisc *qdisc_create(struct net_device *dev,
+ 				  struct netdev_queue *dev_queue,
++				  struct Qdisc *parent_qdisc,
+ 				  u32 parent, u32 handle,
+ 				  struct nlattr **tca, int *errp,
+ 				  struct netlink_ext_ack *extack)
+@@ -1405,6 +1402,11 @@ static struct Qdisc *qdisc_create(struct net_device *dev,
+ 			goto err_out4;
+ 	}
+ 
++	/* Only support running class lockless if parent is lockless */
++	if ((sch->flags & TCQ_F_NOLOCK) && parent_qdisc &&
++	    !(parent_qdisc->flags & TCQ_F_NOLOCK))
++		qdisc_clear_nolock(sch);
++
+ 	if (tca[TCA_RATE]) {
+ 		err = -EOPNOTSUPP;
+ 		if (sch->flags & TCQ_F_MQROOT) {
+@@ -1817,7 +1819,7 @@ static int __tc_modify_qdisc(struct sk_buff *skb, struct nlmsghdr *n,
+ create_n_graft2:
+ 	if (clid == TC_H_INGRESS) {
+ 		if (dev_ingress_queue(dev)) {
+-			q = qdisc_create(dev, dev_ingress_queue(dev),
++			q = qdisc_create(dev, dev_ingress_queue(dev), NULL,
+ 					 tcm->tcm_parent, tcm->tcm_parent,
+ 					 tca, &err, extack);
+ 		} else {
+@@ -1834,7 +1836,7 @@ static int __tc_modify_qdisc(struct sk_buff *skb, struct nlmsghdr *n,
+ 		else
+ 			dev_queue = netdev_get_tx_queue(dev, 0);
+ 
+-		q = qdisc_create(dev, dev_queue,
++		q = qdisc_create(dev, dev_queue, p,
+ 				 tcm->tcm_parent, tcm->tcm_handle,
+ 				 tca, &err, extack);
+ 	}
+-- 
+2.55.0
