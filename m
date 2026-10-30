@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793393658;
-	b=CinvUVXxA6P5XFFOcjpiVOCvdL3GCOfT5BUATgDbLsxluze59f1QkbIwjw3AMWKHaA3b
-	 m/oLbFaeVr1cS2/kVafYZ3E4KTKMRmB5wa/Tt8PmNA7q5Q8StKj8PP/Il+Td15mz9u4OW
-	 ygg1sSI/1A01W3vN0M15kwEHZUEisCc/Q4mA+q8kohLhlesU3cDsJ24jZv2Q8JhCIfif4
-	 ZwGoDzekFI6GnnHmjcNnBzc8xpyfVGl9AuZAWVB/pMAxhx2GyOzbPfII8OPJzd2pPbfp7
-	 UpS7AjcFWLIKHGgEOqsTaYPV97ZsvIZwOrcidE6aBoYRfqznWUsSC7CVsalXV44Wd8A==
+	t=1793393654;
+	b=XWAFNc/hAMv0CSUPJau42gBd2NjIPF/8NPTZLBMwx2sYT4fFkqvHkbQCcTrr3FY87GFF
+	 M3KAfnoW5+9gGQGWrkDT6fn2jo1hG5uoC/dEtSOohp0DV2j98UqmbvKst3IeWobodven7
+	 WYVBXxSkaX3edO3Msy3FyU5X+6FN5U8D7OowfxVsnavhjtQC+E0FHKWabsl4m0+GMRbr+
+	 qmVo5GPi5kSLHBFkeGadJxiuuqsrwyys4zFIbGneIZI/qVYAWzNEirEfVHfxf2aFnIM/8
+	 rhMPa6iRdJO3FmmJJpn2TJ8NTsaaMHDZGg1wApN+7Xska/wnGQqxPhd3qWdhzJBV/RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793393658;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793393654;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pM1yqaDWOBHq37ytMG7JiHq3JKjVE2Aj9gS6TBKxTaM=;
-	b=q86dauzQ7wqSnlVmp4WYSSS8sP1PorERstPHJbVnKrRw8AlH9InYXunvZDc2n3a+YPvD
-	 pcDe8mdmqHUiE9m0lqnu4X7Lk1Nf9pjnkugZ8moQKxjF16EJRzvAfQTFOVOcgY1eWbY5J
-	 vFldEjxvK5h0errGlJEFH6PZCk+ejXzMgOdM0lLAV0PWsx3IRL8Ksc1HLkTB7++iL0hZF
-	 8laPgOq9invobWTaP7osqXR18VFmbUeXv93hVRw6Ur2+rZzeCktB0QKDdSa1Jy0G12N6T
-	 63HUDtnTB8YSmJx8jmxCYkTqefVIYgWgJ3oUXWwoZveLFXJpeth6sGV0XnKxoRbnl2g==
+	bh=X0lYYe/wCl6huPOqebzWHZTcDSo/atNz2oair4XDCQs=;
+	b=N8UgFsArvKglcvdApGyiIMGDzMQxSw/IYqyqtKPmL1cq8zfOFqUo3FdhSx7XBWido3+h
+	 6RPonTGONm+zljbdPJkb7Ec6hO341YbjyMLi5AFArE5rU+t6dEiXtU0ST0ed9GtMI2Ebn
+	 TS8nNC231fC9hh/PpsqaHBfCnscwizZsOsKcB+SMmESOF8sGFJyGFQzAmCbRIsvkS/6iw
+	 tANgVDSlNEOskoFOkImSxsevzpgSOMn6CuSwGPEz2HLH0unkjHqgYok7KD4XcQaKI84LE
+	 IQS/CaOh0cvK5FZGoWaneEcKP8lyrfZ8ZfvKPy/HhqdNO29omrmoYdG9eeErd2O4iWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGFb8Gi9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJ30ZDQw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F374606A32A;
-	Fri, 30 Oct 2026 20:54:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2E7606A31C;
+	Fri, 30 Oct 2026 20:54:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGFb8Gi9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E1851F0093A;
-	Fri, 30 Oct 2026 20:54:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FJ30ZDQw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9741F00A15;
+	Fri, 30 Oct 2026 20:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793393658;
-	bh=pM1yqaDWOBHq37ytMG7JiHq3JKjVE2Aj9gS6TBKxTaM=;
+	s=k20260515; t=1793393653;
+	bh=X0lYYe/wCl6huPOqebzWHZTcDSo/atNz2oair4XDCQs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SGFb8Gi94WniVAS9M4zBrDgLEk323/Ju0+iNThKWi+XoEczmZD1S70hxTEmUj4Qcp
-	 hKlYrsro0cJWQUvTGopgXvk1pfvx652y3Ly4vDiX+WrxkPwJ3VrlnWO5x+k0xrQjkN
-	 OpyBVr/ElgNKmOo2nl+8etJwLwxHtF/P6E2R0l5BLJwXNSjrRjNTijhhwcHr8RszGj
-	 WLvc65go7tmKIGsX7oiGp75gYlKCA5z7PTsNApifZCalbU9IVORfsyb3PPS+LxMU4l
-	 19JNL0T1SsQrc/6T6nQIsy2TJX29zZssEtYyq0vwmWE0GohXMTUzs6iohORQkgUq7T
-	 AwaIyfVd3sg4A==
+	b=FJ30ZDQw0wH5T06kutDrnBN0YEFnyGDdfBuANz1vbB/xq0kzCM+VHopvcysZnGU08
+	 74QTr1gbUhTBjKlo/XdCCFKoBtqsGaHHAHjOxYxRyXaeS70qU8GYTx8NZbIv28WAdX
+	 tx3gFz2x2tiouBti7mqTVjDV/+o1xjDmf3sSxas8V167NJnUsO8eX07zukPMlhPNyB
+	 oX4Pii+l+MiFVlXd9aaGTZ6vdIWzOK4rWaUEg4drj+fvi2HI9mGrRD++dCxFIOXFre
+	 9nwNCwxE9AX0qqKm/ebjo3DHXCP0pNGMa3k1E/MqbEbxE1NArJ1rKdfhhfb3/1oIX0
+	 c3hSrLXwmFBkA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	seanjc@google.com,
-	pbonzini@redhat.com,
-	kvm@vger.kernel.org,
-	Bjoern Doebel <doebel@amazon.de>
-Subject: Re: [PATCH 6.18.y 0/3] Backport nested EPT violation GVA bit fix
-Date: Fri, 30 Oct 2026 16:54:08 -0400
-Message-ID: <2026-10-30-1-daily-reply-0005-kvm-nested-ept-gva-6-18@kernel.org>
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	Stephan Mueller <smueller@chronox.de>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	linux-crypto@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: Re: [PATCH 6.1 1069/1887] crypto: jitter - replace LFSR with SHA3-256
+Date: Fri, 30 Oct 2026 16:54:04 -0400
+Message-ID: <2026-10-30-1-daily-reply-0001-jitter-sha3-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261030103643.573356-1-doebel@amazon.de>
-References: <20261030103643.573356-1-doebel@amazon.de>
+In-Reply-To: <20261029210038.GB49373@quark>
+References: <20261029210038.GB49373@quark>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,15 +65,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Backport of commit 96b067b59ad9 ("KVM: VMX: Synthesize nested EPT
-> violation GVA_IS_VALID/GVA_TRANSLATED bits") to 6.18.y, with its two
-> dependencies.
+> But also this commit had known bugs that were fixed in follow-up commits
+> such as 735b72568c73, 908dffaf88a2, 9aa7e045f4af7, maybe others.
 
-KVM x86 opts out of stable by default (Documentation/process/maintainer-kvm-x86.rst),
-and none of the three commits carries Cc: stable or a Fixes: tag.
-
-Bjoern, could you get Sean or Paolo to ack this series (and the matching
-6.12.y one) on the thread? I will pick both up once they have.
+Queued the first one for 6.1. 908dffaf88a2 ("crypto: jitter - add oversampling
+of noise source") is already in 6.1. 9aa7e045f4af ("crypto: jitter - Mark
+intermediary memory as clean") only adds a KMSAN annotation and is not in 6.12
+or 6.6 either, so I left it out.
 
 -- 
 Thanks,
