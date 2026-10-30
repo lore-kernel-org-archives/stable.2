@@ -1,66 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793318696;
-	b=GJyKUtqWaDIGcOybm23wmMOJYBXUiX5KR3gL9d+WT7IsSdDSnA+NwzxeoTnoJgRGKisp
-	 VteeVeQlRY5tcCi5fG+gzfbEjfMsb7dRjVBy41L6PA/Q63rfc51oYFIXcSWXNdAFTWum4
-	 wou+9EwZ29YgvU4xchT08jKnry0iUXAYQX+MQnLFGvT+2Vbi5xN5eYg7bM9TAzkipAyfm
-	 tf9Qpt3jcauOv3zZu0uUbmXJ63vL/YsTiBwXI/A7cyYJpgTfJnEVKwq8r9S0fwHdct9RR
-	 p+Wu4wCerT3sJQaDwL0hXflh1VdKSqy/No3M0lRmfc849ZKWnZA23VGVnpHg6NRXM9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793318696;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6HBJvZV2dPTZRQu5LKyPil8pJlXI/lZDJKNMF2wLkEc=;
-	b=qouxpumt12wJXNZOQI5WW3K9YgiRLxPo66gQa2/CHktOBy7y5CZFbN6JIe/SvCuVlog5
-	 KiEOvTXoj9hxpTIJyHhJBo6l0fH/KVnXEQOFOjJ3qvBrnBzqldQSZ/TRftvG+MpnbIKFi
-	 hy+lQOfn36Iaj3iWam2CGgNoHhBpF1vsq2JGFk9RVal17KHrEiDDJ4tGbtOxf4KKTMQWs
-	 Eypx/CApLg77XJnqsme9vpLudXS8KLCnmbAnN7P+C6UcYnogNR6PXnLpEcqvyumVrWX5i
-	 2owkA12B+PvcgzsEJ0XkV4v+eEShMSewSqWup3eU3zZD3he2YrKy/L5qtU9Lr1Gq7sw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HVK/tpV0";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793318851;
+	b=s8t6w1bbXrGWrn9Fo8uSx2DDqT7lCgOiRyWskhAZi6lgf3Ek7n/L3FBhcmM55Fg04Prr
+	 uVUveSZ+evOYqzs19supkMWcBE/h9u2LZ3t59n+p88SHAfuJUw+wQijZz7Um4ViLeW403
+	 lkRaSZcDwpGtmmAerhsk/F6EZ0YKrDvB13pevR4mT9HMqtah4uX0c3qi+o86DljMZvBNX
+	 xYSK9PhEYp59AGnsXiMwjlL4kuLAPOyemJe6iY4d5OuJiDDU7Vki3hTFoAF4+895wmaBn
+	 1MWOpHx4v7mldwqYOe3z2s2IuTYfkHqxXS+0Kp/cfDTn21LW8oLmIqHCxf/STDA1TFQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793318851;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5Is1q1ecUb7pBSKWvaFfSBH1p7ZqbUFX03RWCbwfOws=;
+	b=xkgeJLEsr0hbeEKlIJitsgOaAlgVaPjCLbPN6IjejTHTnKSMG89S67+ozzZpd2/R+gVz
+	 roSi/fX4Tl7OdETzJ8SKd50klI+SIEFIk+9Lz+QNIiYsJU28aJRC9rb68+jbhLKe4CD3A
+	 JRGWnY/ICworPhjEo1cvvxIMwTDVHngfkJSS8f76c7azVmULQrS0xO3bcvFxLb2klVu15
+	 qck9OAM34UE6miE/Skp7tx5xMdY319hg1Z8IuM4RNcFMy1wD5QzjTiUyrTyQ0vTVDzwW/
+	 ulNdwFbWkBoDUjcvjkVOHK167ZWSkZDEad/g2rOKk7Fy7w9UfC0sCjhYDBiUrOL2DoQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=CAMpbUEf;
+	arc=fail smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA08606A31A;
-	Fri, 30 Oct 2026 00:04:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB997606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 00:07:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB997606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVK/tpV0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E302B1F0093A;
-	Fri, 30 Oct 2026 00:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793318696;
-	bh=6HBJvZV2dPTZRQu5LKyPil8pJlXI/lZDJKNMF2wLkEc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HVK/tpV0ZKdvtF02lea0g0LqWP+h1081rOGwZG2eGA484KV66l9vfQt+KhQDtVqOQ
-	 hlmEVtrokSTyRQW3iTgbfzrNeaRRzGcll9GRoDDt1wRBcZMX1ZDhYLKVYoKH0gJKGs
-	 RfkYieSRU9NV9n03/2EQf478Fb1mrQWjWjlbau3RSxjxm3E/8C9+9Q1xyC347IqFH6
-	 OStkSpvmB7Er5L0uSt27Tv5RA2yqde5I1arQBkGLGriiTfWjEqDVkAUM3aJl/yFlZU
-	 gDQLs5xaiAcnUvqmvc26UZd3QqAI4zeTvJZRw/8Zr9/+s4ix2YON6cK8481/ZsgDkk
-	 ZChh0runNeBlg==
-From: SJ Park <sj@kernel.org>
-To: Dan Carpenter <error27@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
-Date: Thu, 29 Oct 2026 17:04:48 -0700
-Message-ID: <20261030000449.154316-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <auNjrR4FyTf4WbgI@stanley.mountain>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=CAMpbUEf
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89f28c3ac7bso22996b3a.0
+        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 17:07:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793318850; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KldbzDK3wJ4RiZx11HYTFDVJpbh8ZeIT6RF6OHbvVbeCk45GhFiws49ey6ra+OV7R0
+         JWuUO3iMmuOHsE9klhvmFVbfDR9NgwOjr+We+p83vqVKOQdxRBg/i59Kl3AT5mRInlY/
+         gUADoNibsyJYPmjyfv2PaFDq6U5S8sGDnu9XAva4VvQdK35Fxi2oeyy2oWW/ecOFP35D
+         1kN4FVJMPWjDEUtuviZYncTG/6d7R1LoTBlgNexW5paXoESg8KSOhkQ3gRiaY+RgvvTv
+         T5cDoH1ZpnIrb7ujgdLDicoMVCVsGh68s9h76WTYABcwJmZiAp2H3DmTD+zH7p3DK0xJ
+         qpBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5Is1q1ecUb7pBSKWvaFfSBH1p7ZqbUFX03RWCbwfOws=;
+        fh=uoDCc0vBcBMKospmMAG9vf7M+QZgslybojPG32TQxfE=;
+        b=CfCEkUNftC7PRYys1LuSqGL5BwfL2wl3AHCC6uz44Z2i0NokPGbwLML68RttkwKgcV
+         4y2moOuxMh3y7fJ6R5JUbwDyu43UqNKD0Ko+cJutu68jP4cSpy7AQqm4xhrUOLqrQi+Q
+         svSOy5jcW7VJSzSUPDF9T43yYRrqXlS+erGj5gXGqzAFfEJogmJeDt4wfsZIaGqfcy11
+         T5h9sjcDO6sXbyPsy8fqXSurzH9p8o43hndV5l5xTSKJ0rU4elVvrO29OiYzpB3/bncb
+         fhmpAVSrFrx25nxil8X1Z+WLLfC6Ud+rzxKHlSs321ZFHhcy8ngOZwAIReD/2iQHkHuq
+         bb9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1793318850; x=1793923650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5Is1q1ecUb7pBSKWvaFfSBH1p7ZqbUFX03RWCbwfOws=;
+        b=CAMpbUEfcPZQe2FNh/d6BZ/+67nypKPYHrdo8SlJyXickSNV2ZNWXHWV2WuakoUonN
+         TleR3EGOw/HINKyt6QtO8WK2r9L4JqpSIwgKOpkyJSOxy0mU8+hKYUYJShXgypz0HSGy
+         OfIIRzOs1wwTkL7jk6L5EgG54mV24y/98SJ0o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793318850; x=1793923650;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5Is1q1ecUb7pBSKWvaFfSBH1p7ZqbUFX03RWCbwfOws=;
+        b=MJjbq68YSMbwlqJNTDFQuS6WscIu3mXCjlSGhynROqVM/9jWcKLbsxtIJvjGmkcq+r
+         lzNA81B5WCzZu4sVU5CzaCMRxFRQeXAcVJ2rzbk0fKyIc7BhrVl6nGJ1Bw0uwuaoewU0
+         k9bFtQJ6H5BwxhDHxcztltmbmkn14R06qu0BEy/yjJzaVlYfDEgEdAKw48pp8odYTE5p
+         19kclpEt1wJ2Feu+ITwiUZFTo79kYzW0lRIxQK/IfKI+Qcsrw24c4HwnqreG4mZAXr2e
+         5fXN+QcLvOW5nqGc8mrhZg/G1bZyjf78u8wJCCs3QudUDRB70idVECrxElDLGIkBYeZC
+         xCMA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkgerurNlwR/5QFYm18ayNVpKHmDZVH/qNOzObDQyIf7gAzKNSwlnlsPQlV/SrFjVgfzFtGCY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIIfUxUG7aWmz/6E5xUK4+mgI7CwwGS26xK55ftg/wjdC5/OxBi
+	Yx38jL3gTzjAtD+wyRpSXge3oHJmJ4tmWd6z32ar9OpQ3q/m8YSqR/0DOFlbgEuGYVVi16jzYZh
+	gW84TMUzIubQy3XY0WuwzsZi7B6LEWqsYHv8dzrti
+X-Gm-Gg: AYBFou0rG29Fuxt8SJWuinE07TwfH7GfYn0Y7frhMRY32gENOkM9zwcqNrJnwEXLohQ
+	V+kIt9BDzvuo+B7A+0NPayzmFMLJPPoTqcV0ooA8Iv51jVwVMftzmjya0UfFaFjD9d1TQgWh6+w
+	K5mATFQjQ2EV3ms6aJlpPV5b1Putn/jcqm83+ReyXu826gOSgo8tWeMEGa7zpL3uxcb6RhYv/wr
+	MnI8dMJh2CAXzRBiGkQNWxkAP2T7Jxbz4HLg8w83z57ogiMG9uHGCmBNveM+cqwXy0kTyverkI4
+	4YBlfY8VxrF8srXcwqxwO7udJiyvgA0lDChXWK2HgvckgzoemsD2BdPlXCw+lCBygQ3680cLi+m
+	l1WLbG61YSp/2j/rw7RQyKs3UgJR/vMVP+jg+CTcXYJb98mf0vThMsXxFLd3RPcScaaxlvRFZu+
+	qSqlN7hEpwRV2i1iU=
+X-Received: by 2002:a05:6a00:e85:b0:886:3a6c:a9da with SMTP id
+ d2e1a72fcca58-8a9beb6139dmr541320b3a.26.1793318849992; Thu, 29 Oct 2026
+ 17:07:29 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,58 +102,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <SER-NSBD.v1.r0.20261029191634@mojatatu.com> <20261029165943.41fc74c0@kernel.org>
+In-Reply-To: <20261029165943.41fc74c0@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Thu, 29 Oct 2026 20:07:18 -0400
+X-Gm-Features: AclHuK9pGK_NVXysy8qJ2rHmdSeqy6lRR3eJt7FQG_a8cHC6dh8dDfx_bs51Zoo
+Message-ID: <CAM0EoM=WYGMNxc=n3j+nwyXA41SHq8o+bVvTR6uYp6HUeEa5aA@mail.gmail.com>
+Subject: Re: [PATCH net 0/3] net/sched: fix short-skb metadata and namespace boundaries
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shaos <shawnq1@163.com>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Jiri Pirko <jiri@resnulli.us>, Paolo Abeni <pabeni@redhat.com>, 
+	Victor Nogueira <victor@mojatatu.com>, Sashiko <sashiko-bot@kernel.org>, Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 29 Oct 2026 18:18:05 +0300 Dan Carpenter <error27@gmail.com> wrote:
+On Thu, Oct 29, 2026 at 7:59=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> On Thu, 29 Oct 2026 19:27:36 -0400 Jamal Hadi Salim wrote:
+> > Subject: [PATCH net 0/3] net/sched: fix short-skb metadata and namespac=
+e boundaries
+>
+> Please fix your setup, Jamal, all your recent postings have patches
+> posted in reply to the previous patch:
+>
+> Patch 2 is in-reply-to patch 1, patch 3 replying to patch 2.
+> They should all be in-reply-to the cover letter.
 
-> On Thu, Oct 29, 2026 at 07:10:40AM -0700, SJ Park wrote:
-> > Hello Xiaolei,
-> > 
-> > On Thu, 29 Oct 2026 15:56:09 +0800 Xiaolei Wang <xiaoleiwangxiaolei@gmail.com> wrote:
-> > 
-> > > From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-> > > 
-> > > damon_sysfs_test_add_targets() creates its monitoring context with
-> > > damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
-> > > DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
-> > > context, and damon_sysfs_add_targets() therefore calls
-> > > damon_set_target_pid() for each target it adds.  That function grabs a
-> > > reference to the target's struct pid via find_get_pid().
-> > > 
-> > > The test then tears the context down with damon_destroy_ctx(), which
-> > > releases such a reference from ctx->ops.cleanup_target().  For the vaddr
-> > > operations set that callback is damon_va_cleanup_target(), and it is the
-> > > only place where the reference is put.  The test never selects an
-> > > operations set, though, so cleanup_target is NULL and both references --
-> > > one for each of the two damon_sysfs_add_targets() calls -- are leaked on
-> > > every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
-> > > enabled reports the leaked struct pid objects as unreferenced.
-> > > 
-> > > Fix this by selecting the vaddr operations set for the context before
-> > > adding the targets, mirroring what the sysfs interface does.
-> > > damon_select_ops() fails if the vaddr operations set is not registered,
-> > > in which case the test cannot exercise the pid handling and skips
-> > > itself.
-> > 
-> > Makes sense.  Thank you for finding and fixing this.
-> > 
-> > > 
-> > > Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
-> > 
-> > The impact is leak.  I think we should add Cc: stable@.
-> 
-> I wouldn't bother Cc stable for unit tests.  It's not something
-> which affects production or real life at all.
+I know this is what you asked for before - but then Sashiko started
+getting weird and i went backwards and saw it accepted this format. I
+will resend this in 24 hours and stick to having it reply to patch 0.
+Maybe the sashiko issue is not even related to this but it was getting
+a little frustrating. In any case , sorry ;->
 
-Thank you for your input, Dan!
-
-I have no strong opinion.  But we got CVEs [1] for this class of unit test code
-in the past.  I'd like to keep it consistent to the past for now.
-
-[1] https://lore.kernel.org/2024102930-CVE-2024-50068-2e3c@gregkh/
-
-
-Thanks,
-SJ
-
-[...]
+cheers,
+jamal
