@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377889;
-	b=s9KTB5+fGpY81H9fnyjZLMs+LU+J2U4/Qwl79s/b9bIzC7CpfWYPZF1AluVm5ehoFkCs
-	 0mRvcdzf0bNMS3C/XZoO5v8g3UDXWX4xejFfnCpH0Phl2GVOR0NtccprkgqOoCmgsVnko
-	 OwcHQrAUxjxH2qAZiU/inu88+VMSm5q0qLiGiuyT+uWmBTveMLb4DNzU2pAT4eNc67507
-	 2DHOLb+5tcbQKhAfOxQ439FykhSRV9BEl0Tt5wu+lH+n5nM5W0UmnvWCKeo61oDdfo2KY
-	 74a61kX8lOVd+WbSYBrmKMbA0ZzUeGO2DTkKPxUXfrJ/QTEIiOARvVqpy+j76/anSXw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377889;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793378151;
+	b=pZ+c0S5Pyhc2IpGGMt62fPM8UEB1d+FY9gjA0r0Fj8QV0vzyePLaT7Z2gWLp5s2M0NNb
+	 //yCHd1BHEDcL1Tz8Vhcpy8W9FxAYJnChulJp+y4O3/uUFOnIeOP+ragHPcAB8aHyxTh7
+	 vEtNXi/fvu4O0Ycdq6ny+Anms292yUx17cpgzMymSL0WXbyteGSiy9ahpN1+7Ntu0dmK1
+	 9ckd6i/CARN3362B9WT8YM7Y/trihMSdaoGvCO55HLoWb7yWv3k+YVoGGQF/ms0OzJS2F
+	 8Ut25Qj9l6U6lkE0/x1x8Mo2HMv7JafCfSgqCR0n18tFNvo8U8SqhtwPS8cnVYdF0Dw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378151;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=trsHnVMI6YDWj7rsoQPF0JN2z6GWW+nTgXWERqdG0yk=;
-	b=G+QAe8naeJ6YJ3VfSulSVWRSKSg1zCJbu7R/0gQV19hTB8UoK+hfbNAAgxgQHqCiKaXZ
-	 9/pXS0Kz/jtNftr2U49FUY2OkR+ZGZV+8Vod4Dhk/eGeKpzuV909XIgzvkj0dZXmBpjR0
-	 npbOWWrUKnrXR5JI9qujl2Z+xiyfnEtfgqDH0U4AIELUACsvhuod6V+PN2UzkKExFW0F8
-	 i8lL6g5vRJXJ+tixMxLX5oqP6mme1gJ2hvH2fyhQO2qzQsArB/PE078gIqtLfFE9qYWZe
-	 4U0kOPa1ZUFTFla7j3pcdx5s2EKPWFSpNFmVfcGEUgA1raOOZdO20dKKiKQcy+jHNAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GEHo4ZEB;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
+	b=k6Z9YxTnPbHPPshAIvTSfHPrFRjPkN0eG4XgDP73X0LjRHJoRGHaLFPcfqQD20o3O3A6
+	 e34itPrU5I7mq0VKpEkC/UYle0z3b7QMaH+C2FqQuv0UYQCOFiVksjQiM9mev5CZDBrjF
+	 qVHV4TKQwBBWD3qolj564Ha8EQ53krHogDpp9OnxSo5wupA5ffHSQvWDK02E4WchLV7qj
+	 eh2de6mGPrDed0RfrjYrbk4P1SdYyC2PSmAW28rWzw9awNd40cTO5GKoQThny7jkzPQkX
+	 igeDLiT3dNg7f4qOv/XRNzti+wx6wkWBc4dXFcRabC6HKdvpG7BfR91slPaWC7OyB1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FSb0SO8d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36DB606A329
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 16:31:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E36DB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5E7606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 16:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C5E7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GEHo4ZEB
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e6eb21a8fso405174f8f.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:31:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FSb0SO8d
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ec3561ad43so567013e0c.0
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:35:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793378149; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G10/A6LnlxlVlE5ap6gBVyWctH1KkYvDaeyfe+8gqtGsm1ZY3g1xTmqx/Iylb48nj9
+         2hpxa0BxwPfX4J/7DTIdAlPncppaya9U7lz/qINzm0KInzitCdcTRXmTDecmVCok3GpQ
+         8VPZ3efEzf//8/W61oERRQW7JHUu31FOoocpNMHiDG0zcBxhPCO4s3vjcGuK+Q1Jj9HD
+         pRsJKyrygEP3e8TDX2Bg8TTKsZzMa/fQZCjSZTTmNK16hVGLp9ZUmPyLHZs2IqpWqKqv
+         NZLJQdnBM2oj3bWSX2OpjC/66GqXl598yGgCI8q0FTOJZjsiUJGJVoNNA79No9vh4uNw
+         iVaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
+        fh=POzenvpv2W/lTGIuRHOAxOly5LhPTzU1hpTYgaL1S2k=;
+        b=YCwbCShO/IHHtKZzdn4lj77EHtlPVLoJ3Ff5IbxFiQ19kOtt/0gNaN3XEN1cNh8Dqz
+         ZRryUnk09nFEQBjtJirDKklSzPbH4SVx1d3rGpXn9NCztAgnWy3XRekdh4e2+p+78TI7
+         H4vnjBrtv+h2OYCMNoaP6Ob7L5D0oAn+Vvh1FAxCM+PfnD7samKwb9N4oTmWgqf8WAT5
+         E+60pcdqRRQAPVh29Zv7+BlRD6jrYG3nO5Cf3MD1aAb0gvYovYwXqsee9TRd5nYxdw4U
+         LLuk44jFiH4vgf74u8kr9e5TWzsp/ySzb2+1Ab6h61H78250hdYKvykJvwcdRaUWfuzk
+         OH5g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793377887; x=1793982687; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793378149; x=1793982949; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=trsHnVMI6YDWj7rsoQPF0JN2z6GWW+nTgXWERqdG0yk=;
-        b=GEHo4ZEBbPgIqvKH/esYl4bKEwIgrqYul6cG5ju2hvDLzsBHXTbzLIiQof86MeshRT
-         0ccaU+Crjup3egqCgGqPwbBMF/SS5dnC+03U0HRLqdK8p6QCiKO7dEQFBlnPlS0xfXZj
-         SbBbAE9WGm2wyHttP9/9yCtzN9YFhBUPOdvJIRMwxZgFLqcwzm8jmeYRExcBIGXaXWwk
-         uB6rnPnnxrsmdrLUEg7DRr9LI7bOjPuFmI3t7aMuh6GeX/gg0Fy+aG4w8iHa64aeeDb4
-         3y1LRVwrhxbt2pHJ0H8U9bIWcLF8FU3QjUR3HvgyEZMQuQS9JcJoYOOZ7s6gXaykSEdc
-         yZvg==
+        bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
+        b=FSb0SO8dEzCjBzxj7XFmH/MJsHgEJiwSmwxWPyGw885/RWyW7qIx+3sO8H0mMTs3TL
+         ietozhtYd/jmOxRok9faH7M/85JDhno+5t64t4hTHRQjs7+VK7hIJeNy1IIBpZoQ+Zl4
+         X747RH8dvqIGlEM5E+h8kuwNapJnRPdE+UTh9zJ0C99drP+nxy6g4PCWZ4cSuMneLnPW
+         e0WnuN6JMdjBpOCrSao+8e9g2FfZvwu7wnm8yV9TB5sZDQ9rRBcYvhZVB6n2uXqlSoYy
+         J48Mci865JW2w+IFFOjhXVW4hpLirTiX4InI1rBIWwXCnA0Mj629v5nw6T1e+HlmLYET
+         SdJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793377887; x=1793982687;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793378149; x=1793982949;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=trsHnVMI6YDWj7rsoQPF0JN2z6GWW+nTgXWERqdG0yk=;
-        b=CKSAgDr1YtE3CDgrGTpGFGp+FZNwP2Bi54j+xl71/cx0q/QR3TkPDVu/Jt+7cB2AxR
-         OHq0z3ZUo6v8qOclGi2wrPsxa1/XJ9aIDSpWUqW0IHNtv9M6nIkpSiFlSN2QUrK4mZNJ
-         x6wOH+4+GFMS/dGMGPaDV9+2JPG29qHvC0vDntEgniTvRYQS8k8taMJ22cecVXS8mQ98
-         dUkxsmsc+kEEayRtjhZmIz3Bh+Gzo6qwaOx7KLa/PIK/ylGtUO63g18egtjLzU5lMvEf
-         1i3TAZTz17q7HBhN4hWhumpEq49oNWJXsLB5335kDOrQkO25fxopD9DQPtvB9v8qKEMN
-         c5fg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIDCh6iC3wGy5H1ojfeGDss2srjmEM8FZWNBCL6OfX2nw68FZ5xS+rXIdi1YBI1MEO07OAUP4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyPKxJNE2NPRppYpm2FqoqWr3KNNi6lzCR30EzPvLm1AjqBeax
-	I/EG9Dn2/RITk81X+ZivJO9ddcVeme70zxqlfZL/QBx6Emmnte6tfcxNtqK5M+3mmOI=
-X-Gm-Gg: AYBFou0c+U4gh5U/+s8AChiEfteYHm64lqqvLxSWb91D+K2ybE9hy63JJFLnGsmVYon
-	cvZiQeB8/92d+pNM7cQGLELcgA6vTPw0DM0B6Qz+FkupToxPmbap2mpF7htDxfeNoZYw9xwdeLQ
-	ZJ0TavRe0Y+i2olPG2+rJzO+pQWDfcNrZRtNWnk3kZtgHWmhiWrDFqYpCz+QsyTt2g7ovvSH7Lv
-	svYPe7qce3AImwwj7YokK22cAQ5F6Kcte09JsztGUpPRAss6OZCI0su3iXduV4xI5p/7OQrUGBJ
-	ZsT4y8MHlHwigg4Q5C+dwnbgcpebxQQKYc99Men5PyvbXrHS81pdFp1yL37VM9yIrBpQOX10JAX
-	RPpUdBnxFJBu+Uxt/y5pn2avqK4WXlkIehfTHxKM7lkSPt+L3eEvOXM4NxispYHClc3FWbohlFr
-	0ax22Hs/zSpsXYcBBZCCgdZBSZOykZQRDhJU5rhQ6Mko+qNVkrGOtoI1WSjGXe5qpErU60eIjdq
-	mx1e9MOVPpJ9dfdktGppUX2KEJmFK38bFPbwUAGpEBRqnt8elpgq2MAsP20jjwDJst8B+r+AkV5
-	I6i+Wi1fapQ1gPcmbuRzyaH0n8L4spCD31NNXxC5dUJ2DtFVjjlci8K/CgODXyxK
-X-Received: by 2002:a05:6000:2282:b0:48d:f14a:9188 with SMTP id ffacd0b85a97d-48e73851611mr3804299f8f.17.1793377887133;
-        Fri, 30 Oct 2026 09:31:27 -0700 (PDT)
-Received: from localhost (109-81-92-234.rct.o2.cz. [109.81.92.234])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728ddsm4025629f8f.9.2026.10.30.09.31.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:31:26 -0700 (PDT)
-Date: Fri, 30 Oct 2026 17:31:25 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, zhengqi.arch@bytedance.com,
-	jp.kobryn@linux.dev, akpm@linux-foundation.org,
-	cgroups@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm: memcontrol: fix NULL pointer deref and UAF from
- high_work_func() on dying memcg
-Message-ID: <auTGXWh2uGK_slxF@tiehlicka>
-References: <20261029201858.2932905-1-tjmercier@google.com>
+        bh=BMm2o25mhTZ/C2HIIR1IZKofC9feViQ2U4GTb8F8Udo=;
+        b=LdPhE+rbZiMC8ArSRgbIJtnmTRAtg7GtmOvw2fwfUo5mqo814D52zj5QzVESNMtDvB
+         2WMANr/RbrGbDIuPTgeNWrZJw83iU/QNfRHpqSMuWLyz3cYX5EEGxS4FKsMk7NmUlAhG
+         fkezQzIohtn22wfb/yLQXVvoty1eyI7dJ6ddvFW1LLXjj+YvF6BG9xBp4y1040reCUa4
+         TNGgjT7ajV7J6oV929QN+zPVm0ZAAx+vrYmfxumuRVD/0553/Ge32rVZjHKZ9vs+cfXN
+         V6nODpo6YGGSoffoB0WTd6aPTQnRV4vhp81cTID73vW8c6EJzgRejfiAsxr8LZPIM926
+         Hl/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxArkXUmBD31kB+16xhdB03oDtsTp++BuLdIU8+YCIIxmeaJMGUxbz3FQyOmaKXeXW55KyXV2o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVHLiylGiBuLBnC+uwU0a7lvZbgEFL+eVfi0afc/CpUQjMgrTg
+	/JRZfd87gGeE8NhkihgLmQV425mWwR5nW6OvzTnTJEz07n+Kax1k7GzLokoFzPoABl257F1f0eZ
+	CQ8Kfwva09DpzI7TvSBLK7TeSBvAGPv0=
+X-Gm-Gg: AYBFou20SNkvA204EsSfAquKicVheDu10CIbHEcKX0tk1nnYmrDbUxDrpAkN91lcrPB
+	sIWdRiVYPbuxGd5MMVQcZVHXtKLAd1H5PqzDsMq/NJENidheKpUxT5Tr2imGPeZL25b0k7zEjIR
+	Bg8bl1V3nomm6BktYBolRpX05zzpoAug8qX4NMWoMQHspoPDW5i+hN7ksQCI57xHlvsDo6RNOyE
+	mtfGsM/bevxiZUCq12QoaFCWOY79rLrXHCckPwtQ4YIk4u8ABa92YwnToV7wOlXDOvef/pjjS7v
+	Zb8oVxBX6HumczCxBJJnJ3X3HmhPFrszp6UkIkLP4NVqfLfp5ZHdXOefm9K88eS16AzqQAn4lV5
+	MsuQV3Q/meJTWGsG25B9dp68IQR/P/swmI5LZyTRi/TJwF+QdhiHWQAcPWPPnI6uqYYeIN/LEBn
+	Ej6yeBidql
+X-Received: by 2002:a05:6122:1822:b0:5ea:9843:fc3e with SMTP id
+ 71dfb90a1353d-5ec68978ff7mr1643923e0c.19.1793378149125; Fri, 30 Oct 2026
+ 09:35:49 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,126 +105,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029201858.2932905-1-tjmercier@google.com>
+References: <20261030161234.1505367-1-gourry@gourry.net>
+In-Reply-To: <20261030161234.1505367-1-gourry@gourry.net>
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Fri, 30 Oct 2026 12:35:38 -0400
+X-Gm-Features: AclHuK9W6RlBHbspzEKRUiw6R1UQQGsojPWuAYuMETiBtEJzcKWSFyDZ9UWEpL0
+Message-ID: <CAN+CAwN+OPMPpVdBA+XtQvFpDy+EOY2TAiusxMjYR+r0F+MPhw@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/mempolicy: recompute automatic interleave weights
+ on memory hotplug
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, rakie.kim@sk.com, 
+	ying.huang@linux.alibaba.com, harry@kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu 29-10-26 13:18:58, T.J. Mercier wrote:
-> When memory.high is exceeded in non-task context, try_charge_memcg()
-> schedules memcg->high_work without taking a reference on the memcg, and
-> high_work_func() invokes reclaim_high() without pinning the memcg.
-> 
-> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
-> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
-> reparented to its parent in mem_cgroup_css_offline() instead of holding
-> a reference on the child until uncharged. Subsequent uncharges of those
-> objects go to the parent, which can leave the child's memory use
-> permanently above its high limit, so any later charge on the offlined
-> memcg in non-task context schedules high_work. This was later widened
-> from kernel memory to LRU folios when commit f1cf8d2f36dc ("mm:
-> memcontrol: eliminate the problem of dying memory cgroup for LRU
-> folios") converted LRU folios to use obj_cgroup reparenting.
-> 
-> cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
-> mem_cgroup_css_free(), so high_work_func() can start or still be running
-> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
-> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
-> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
-> NULL pprev pointer. This issue is specific to MGLRU and was introduced
-> with the memcg LRU in commit e4dde56cd208 ("mm: multi-gen LRU: per-node
-> lru_gen_folio lists").
-> 
-> With either traditional LRU or MGLRU, css_free_rwork_fn() calls
-> css_rstat_exit() which frees per-CPU rstat data before calling
-> mem_cgroup_css_free(). If reclaim_high() is still running, rstat updates
-> via mod_lruvec_state() -> __css_rstat_updated() cause a use-after-free
-> on the per-CPU rstat data. This was introduced when commit 5da3bfa029d6
-> ("cgroup: use separate rstat trees for each subsystem") moved
-> css_rstat_exit() ahead of ss->css_free().
-> 
-> Fix both problems by acquiring a reference with css_tryget_online() in
-> high_work_func() before calling reclaim_high(), and by resetting
-> memory.high and swap.high to PAGE_COUNTER_MAX in
-> mem_cgroup_css_offline() so that charges via references on an offlined
-> memcg do not trigger high_work on the dead child and skip checking live
-> ancestors in try_charge_memcg().
-> 
-> Acquiring the reference in high_work_func() rather than before
-> scheduling high_work is safe because mem_cgroup_css_free() calls
-> irq_work_sync() and cancel_work_sync() which cancels pending work and
-> waits for an already running high_work_func() to complete before
-> mem_cgroup_free() frees the memcg. css_tryget_online() uses
-> percpu_ref_tryget_live() and is safe to call after percpu_ref_exit()
-> before the cgroup is freed unlike css_tryget().
-> 
-> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
-> Tainted: [B]=BAD_PAGE, [W]=WARN  <-- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-> Workqueue: events high_work_func
-> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
-> Call Trace:
->  <TASK>
->  ? read_ctrl_pos+0x22f/0x3f0
->  shrink_lruvec+0x16cb/0x1b80
->  ? ret_from_fork_asm+0x1a/0x30
->  ? lapic_next_event+0x15/0x20
->  ? clockevents_program_event+0x2bb/0x6f0
->  ? lapic_next_event+0x15/0x20
->  ? __pfx_shrink_lruvec+0x10/0x10
->  ? __pfx_clockevents_program_event+0x10/0x10
->  ? _raw_spin_lock+0x84/0xe0
->  ? __pfx__raw_spin_lock+0x10/0x10
->  ? kasan_save_stack+0x30/0x50
->  ? psi_group_change+0x381/0x740
->  ? __pfx_sched_clock_cpu+0x10/0x10
->  ? save_fpregs_to_fpstate+0xc4/0x2c0
->  ? finish_task_switch.isra.0+0x1de/0xac0
->  ? __schedule+0xf62/0x42c0
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx___irq_work_queue_local+0x10/0x10
->  ? shrink_node+0x626/0x31e0
->  shrink_node+0x626/0x31e0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? kswapd_clear_hopeless+0xa0/0x150
->  ? __pfx_shrink_node+0x10/0x10
->  ? 0xffffffffc0000095
->  do_try_to_free_pages+0x255/0x13b0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? reclaim_high+0x10a/0x1b0
->  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
->  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
->  ? irqentry_exit+0xc6/0x670
->  reclaim_high+0x10a/0x1b0
->  ? __pfx_reclaim_high+0x10/0x10
->  ? process_one_work+0x5ff/0x1030
->  ? __pfx_high_work_func+0x10/0x10
->  process_one_work+0x6e2/0x1030
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx_process_one_work+0x10/0x10
->  worker_thread+0x422/0xbb0
->  ? __pfx_worker_thread+0x10/0x10
->  kthread+0x2cd/0x3a0
->  ? recalc_sigpending+0x15c/0x200
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork+0x368/0x590
->  ? __pfx_ret_from_fork+0x10/0x10
->  ? __switch_to+0x588/0xf50
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Fixes: 5da3bfa029d6 ("cgroup: use separate rstat trees for each subsystem")
+On Fri, Oct 30, 2026 at 12:12=E2=80=AFPM Gregory Price (Meta) <gourry@gourr=
+y.net> wrote:
+>
+> In auto mode, weighted interleave derives each node's weight from its
+> bandwidth, reduced over the nodes in N_MEMORY. HMAT and CXL report a
+> node's bandwidth once, when the node first gains memory, and nothing
+> else on the hotplug path recomputes the weights.
+>
+> This can result in a major skew in distribution and overload tiers
+> with more data than their respective bandwidth can support, resulting
+> in a performance regression.
+>
+> With HMAT bandwidths of 100G for nodes 0-3, and 50G and 25G for kmem
+> nodes 4 and 5, weighted_interleave/nodeN reads:
+>
+>   event             node 0-3   node 4   node 5
+>   node 4 online         7         3        -
+>   node 4 removed        7         -        -
+>   node 5 online         7         -        1
+>   node 4 back           7         1        1
+>   Expected:             6         3        1
+>
+> Toggling auto off and on generates the correct result, but we should
+> detect this and fix it during hotplug. Recompute the weights from the
+> recorded bandwidth whenever a node gains/loses its first/last memory.
+>
+> The notifier cannot fail the hotplug, which has already happened, so
+> warn once if the new weights cannot be allocated. The next recompute
+> starts from the full bandwidth table and corrects them.
+>
+> mempolicy_set_node_perf() now only records the bandwidth and calls the
+> same helper, so the bandwidth is kept even if allocating the new weights
+> fails. wi_state_lock is dropped between the two steps, which should be
+> safe because racing writer simply causes it to run with newer state.
+>
+> Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Acked-by: Michal Hocko <mhocko@suse.com>
-Thanks!
+Hello Gregory,
 
--- 
-Michal Hocko
-SUSE Labs
+I think you may have dropped my review tag from the previous
+version!!! I believe the only thing that changes is the warn, so
+please feel free to add:
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
