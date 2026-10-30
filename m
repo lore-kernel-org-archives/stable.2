@@ -1,89 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371387;
-	b=QrDmzyX/ZWa/tVjqC/TVMuCCe5fGPB53INOMKqkSOXCLVnflzmnAlGvb32ncEPgvPuO+
-	 yJrSu5ICWlTfybBcMDJF9W8DvwOdnXrFZrR/19uaZS2tSr8duVxIQliwBR5OtzAS3L24M
-	 2DLfVumMewg6YmSsz43cMLgDTYb33t6nxWtqTudp+Cxx83KEwlOLY2rDPNgaE8QZBGoJ4
-	 4nNfizVBQCQ9yDYuO0Ssa2fhrzKRKShwtYx3+tTEEO2nw9tPt6Qhe/3AM2VAzu9opi3f5
-	 gN4s8nuyA6l8KGCmAKX7eXUhcK1mdkVzv0wwRd+X1mtGrixjkxeU6ojLJ9LHbCYfgaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=ZSW8NWM9gOucFIr1T7wwU0cwLVYpwHF/t22hLvEg2QQ=;
-	b=XRs+IHimsWkZ2L46jCyQEuNkXEjPmK+G7/MYjZQ7riPnjn5sHI05FQwYwfZnYRzCXfDX
-	 OJggYWbxuWjc6MESupiO1ZYMHruOaAOHxt7kxvim3fnFmNftYUDKO/i4bqtfayDLFuMFc
-	 UYVBckmrv3Auokv3y7tSrRCAxqJkUAUcf+JWbFF2/eb7NLE1HW5rfCguWbYgsRV+5IYcR
-	 LquNkTbB9VQ8S5Vn0PePgXU9F0uphCLb154C0SxraF+z92WXP2CcHTfi4Kc23OgdjtKRh
-	 uoS5ndm2uhx3IkYqsYg51Y4N7cZCaYk8yGbxYecBqJrZUbYYg4jyZV1SZUJ7mtbkcxw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=XnlRORDK;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.2
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793371510;
+	b=zCrVckvfxspGP+EX3LQp5Kg/IrjKDyw6nuXDo/D0H/n6e+IudRKTJ2JgeBsKsEHn0zUK
+	 moCXTtvaCmFMNGElkznaqGJ1WXXTzqhPTEQkPTyxflXUigAScZr1ohjWgvUfJus6PLRgZ
+	 8MlbNhQ4g5sKkA0uOecYsz92JX4GY70FeVtDDPcOky2Md8jx5QL4smSL11zcRgD6Ru/ce
+	 2kUgFEUkQVngS2KLNPFjXj+E4x7gPZg7t1xGjxjPKsPGowUlRS+F3PK/kPOpAaeFlXvoA
+	 Ps6SzvkIdlxpt+sQCXdnGH8qplsN54erAK/hnNKPIGIy6LifpJbmWl5lJf9isUcLQhQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371510;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SLBlob-MailProps:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sSVGP5z070jK0BU2x2Dx2OA2xt15GH2VabFX9FZqsQg=;
+	b=skmqCebWJddwBnQsR1k8levasY3vjDDhiL7hwJSqSAkUf0cZ9+49QfQTpYCCUdhhIv8X
+	 LfclPIY8yR5QCkaOg4cTXvyEJm+IXScHTnMh9AZpdZsFJ2M27LpNVKakHVWAKrGnsz5ew
+	 HrvsS9kc+520ayxpCuEYLtjZDPhodca9PibVf2cKLNvA8s4zdirVW4g/GVRrJMy7bFV+d
+	 Q/jdqurIF3GXE4LNB1fELsrJ3gsBqMxi6kuxBVZp5l+l/SQb0CvzIwVNhgd3SSRGT7rJl
+	 5DUam9/iWlmQ6LH2QrmNkbBesJpL861BKhw+wwM7tuydYC9CG36SmBch3CfpTEjZd9g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b="bQy2/SP3";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.2
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azolkn19010002.outbound.protection.outlook.com [52.103.12.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817F9606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 14:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 817F9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3446606A31F;
+	Fri, 30 Oct 2026 14:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3446606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=XnlRORDK
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a215e64962so7592395e9.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 07:43:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793371386; x=1793976186; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZSW8NWM9gOucFIr1T7wwU0cwLVYpwHF/t22hLvEg2QQ=;
-        b=XnlRORDKh1MbI4/llMzBhmHVDaz+8+N4i4RbJrqSNygoqVI4/WBPU1veh+0kka21KO
-         sgC/TPO80BpXDh7Aq3t2VLDGQ1YhKquLuZzSUXYK/sUDjSHEjGD7NKkz1/hg1zC0cW4D
-         sxtQm7E2mbIncpJ3O30ZKI24BRCH0KrzkvzciYo/s3T9hikjjzm37dmVp1FYvDughBRl
-         SvPVOILboZ6JDJ9y352yJgkysCaJIOykjEaBDf0cpIuUtSBEFZ3EJrk2BTgY3LoabY9g
-         XdqHGXJKrajm0M9Pez/S/Phd/Wi/xb8Est0/mIY/NqPbGaiCCfrynNneFbPcmPfF5R2Z
-         mWeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793371386; x=1793976186;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZSW8NWM9gOucFIr1T7wwU0cwLVYpwHF/t22hLvEg2QQ=;
-        b=baYzCUHEYyDtgEjrB09+H5QsLg52DiMlE2YlFznJQfrfADjMVi3TAvU1YiJKYVgoXV
-         DIOkMmVmUYMuJ9tNGq3gzo5p/AG0YmDFfRJzF6MPceBv4dnHFWm4fsTOeqn1yUk2jgKS
-         A6QxLRja4XGm6psgLl3QckcCCFLe443Z2IEorUjO7IxObNyJcMBicwj7rRm3vy508879
-         pkPiENcfiUoi57EcPWGUQQOnPut0Jd4kBfh9jb0T1fjrlbVbYKCcgN8uX1e5XU1yXfj4
-         OhBjUWtmndSib0aBK44bItfP9mMuFnh+o7tkIpGeXmdVtcG5xAgn06N5v6SNK820xhHg
-         RfDg==
-X-Forwarded-Encrypted: i=1; AKwUvBwgvMjdPhpOlmy/wWdzVZojHfLBP64LtZvmur3P8z4pizMFS/w77sDcNe14ezWFwkbsuVQFzpg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBFOTMPkAA6gKcLVFupmPhK/luZQZKd1k2LThGPLDl7VIZQ/gi
-	fOck18V/FmIsWRm7Ng+X7G/bZEtJ0ZfcYAv2PcyYE/mXggD/zzE0axM3wtz7dA1chgU=
-X-Gm-Gg: AYBFou3cKVLX8yypoKDVObd1ibSeiBBXHUbg4Dqs6liZJ7sWjr3Ntt+xbG+yKNffbk4
-	/j9u7shR8CUYAkmcCPVcup/ecy8BvyjSNVpVNGspv2O6aRF1M5dMHSp56nSxuKWSqfbA4rA0h+B
-	RYZyatYEmQm/2p4T4hF/q97RfOSDkaXSv+RQuorR17TyThsHKGPbSk39m2nX1ppjFV6RJWZoOA/
-	GhOvzRp8II0exmMrLreZ0IELcvIpMvIcnj77/f7zNXJq6+qaP3rjdU8WregdXq7c9Jizsz/HcCV
-	jFSRi2MfyHEf2liyrSTu1WPHt62pYPnTazu034qMsQPcssZ+bQE+BOyJX5DGFauqQ+gqXQnqQTs
-	DobaL9OuUsveN6dyfdgcFiCz87ewOBrJpZLHrfu9wAy8f236VYHc2p4KMySSSEawh5JbqhUqBJU
-	9oWvVM3WA5JJR91LughRhyB9y15pKFNL8lZAR8YrVoJcw9RH1wN1KfCKVZaURllsPhrricTJqYY
-	lwgRwacpJL4EYayfu9kqPM2Hh3g8Hgne3qs/F6y8T/OBF+rOW+rzps+CmANWnp5awBsnAQGx5Yi
-	WHzWntOI77iOnLQFtJhZuyvBnUWaTtK77OSaI483UB7cKdiZv3mqU+Cmd91vXxpCj8If
-X-Received: by 2002:a05:600c:1385:b0:4a3:5991:718 with SMTP id 5b1f17b1804b1-4ac182dc0a1mr60049575e9.16.1793371385879;
-        Fri, 30 Oct 2026 07:43:05 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.253])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm101763505e9.1.2026.10.30.07.43.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:43:05 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Fri, 30 Oct 2026 14:42:46 +0000
-Subject: [PATCH 1/6] mm/mremap: fix hugetlb reservation leak on partial
- move
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=bQy2/SP3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lCZg8n4O2S62rTz+NN9dvpAmbFU4dyNwykBC4oZBfWoTxssvzt8/hEF3Ob00vHeTmjTcMK5ntcDP7vU/qTMbug+2EdWf1H0QbXEyAvZsXnhhBJB5K5p0TnWRvChzl/RBCSxtlc8JV7yfai96QiGMTWwhoZFEqscucDkQM8Z4YxkDbaQ/hio70b7O1xy9bNr3Uz5zrgJDabSUbuYX2jWLyNnVhOY2urgorE0CUx/GLvf534+gcu51IVD8JWWMUufEZspdALIKtrzqVOfKZMbLVMmrr+WE+d3OLCtlCklPK96tK4H69Za0CUELTQqr4ZLblxhC2sxSYqie3ZHTgGQfxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sSVGP5z070jK0BU2x2Dx2OA2xt15GH2VabFX9FZqsQg=;
+ b=tV3LTC/BZkw8suhvjbHK3pfEwGZXjZd7Jl2W9KrMtSTTxr6rypjShnTfVXT3QzPAxB7eW1xyn+oPC+90N5k5WsHHdHMLEFS+Pa9XikPtxgKgpiVyK0/CdudcVYjPuexi+lLV8Jtc7tFyEIlViIlYBm8Ce/l1+MMw0P2LOF9JNKx3y++V/OgWXjTBmI6ROnNAg9n1YzLSYX5HZFP2Cx7rA7v6kgkxaYOI8HPHN0V8j7Ja+QtGgVi1B2O8hcRUj2crmEzs1Bp2Cma+UF/LqbDB7FAjx0spNCQzXSjmvi2/gvPgR0yh+CVi/kd938FlxjmanT00MTtwyuOs5Yw912rYuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sSVGP5z070jK0BU2x2Dx2OA2xt15GH2VabFX9FZqsQg=;
+ b=bQy2/SP3NY+Rwpf9iW7dxff05NHfgN6Ld70kutgvd3/I1uAlgvGCwvZKbXPNZDao3FcOhRA3/dZS+UZ2BC8v4QrVZbdCNJ5WVjmXpPyPvRgN27lWsB/SBM3+px/vwXG5OCyTlY5xrJ35IwHY4bkqPfwUCkg9kTK2lQ8NfK7sNFXJZnmuuudqKZutWelmOUoGZp68YH6uLp60Mlr8jPb6RxSzCuJdtB8YRnekBBkNPz31hmNt1ev1PJczRWx+UMAl2UbVBiC+bVGyv/E8goSQHX1n86BWEyEDQWax5n+l+HX2NJDUKTiQ+aXjkvK9fcm5cbNnJOXXYFJ9cvbMaz/4Jw==
+Received: from SA1PR20MB994539.namprd20.prod.outlook.com
+ (2603:10b6:806:4b8::20) by LV2PR20MB4654.namprd20.prod.outlook.com
+ (2603:10b6:408:179::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Fri, 30 Oct
+ 2026 14:43:00 +0000
+Received: from SA1PR20MB994539.namprd20.prod.outlook.com
+ ([fe80::3a8e:481:2eb8:8d70]) by SA1PR20MB994539.namprd20.prod.outlook.com
+ ([fe80::3a8e:481:2eb8:8d70%6]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 14:43:00 +0000
+From: Austin Schlegel <schlegelas@outlook.com>
+To: kmehltretter@gmail.com
+Cc: alan@linux.intel.com,
+	austin.schlegel@arthrex.com,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	jonathanh@nvidia.com,
+	ldewangan@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	schlegelas@outlook.com,
+	stable@vger.kernel.org,
+	swarren@nvidia.com,
+	thierry.reding@kernel.org
+Subject: Re: [PATCH v3 0/3] serial: tegra: fix DMA descriptor use-after-free and stale completions
+Date: Fri, 30 Oct 2026 10:42:53 -0400
+Message-ID:
+ <SA1PR20MB994539626E8C613899CD951CBDD16D2@SA1PR20MB994539.namprd20.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261027065239.95915-1-kmehltretter@gmail.com>
+References: <20261027065239.95915-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SN7PR04CA0113.namprd04.prod.outlook.com
+ (2603:10b6:806:122::28) To SA1PR20MB994539.namprd20.prod.outlook.com
+ (2603:10b6:806:4b8::20)
+X-Microsoft-Original-Message-ID:
+ <20261030144253.3606784-1-schlegelas@outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,127 +108,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-b4-mremap-pre-split-v1-1-c1829811aed0@toxicpanda.com>
-References: <20261030-b4-mremap-pre-split-v1-0-c1829811aed0@toxicpanda.com>
-In-Reply-To: <20261030-b4-mremap-pre-split-v1-0-c1829811aed0@toxicpanda.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- David Hildenbrand <david@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, linux-mm@kvack.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1793371378; l=3779;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=727RyBekzd9lpkJV+79/5zYip4JhzFujNChohpvOxOc=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QKbBQKJFRO9eraUD2FoYjwF7jz42WONgsIsbFgra1tdLv93O728OAsAQmmqZtMeD+fhR4JeSkby
- 7DwP5nASeUgw=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR20MB994539:EE_|LV2PR20MB4654:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92d331b9-e015-4653-d953-08df36941834
+X-MS-Exchange-SLBlob-MailProps:
+	znQPCv1HvwUXBahuwteIkQeW30lJPuxOd2MwCr4OMlcc4/yWNVqqz7IUuarFMR8BC6a3WInIYxd8i606wE+PgvRqlXRMF1mV2SVr7EEQNUCwRqLT0zMpPWR9YfuOHPNkr19SqmpORxKPDqacUi2uw0MTFntOJ9N5o1QOm+5UVUfQiLRB0Y/ujE9l90+B5SQ0dymKfGkW4Y4WqqSe4Cjf678gG64T4MBE+PR3S57G9pVphaNalCFWD/C9/GXBOv23aLrYeFFYLta01pPScj7eec2Orn006p/OL2zH4KI53K3uLjR8O+vJaUubeXfn9eV2hSd3tnqH36Neg7l8kZ9sS7usIsc0tPCTOCPthP2ibtL6OpE49Ip483gICwYdu8W9h7BvTaoOteirzr/8yVKtsE+QgONxFgPK7wC4Xh45xvXyhJivFYdylyqQbFN0UZS3F0tNZUGPvBRAY6cN1W4P0k+oyCoOUxu5TlsyTgSR5HGij1w0LBIIjY4ziEIQUQUsVu1n1dYNQpTJAsJOYgxtPZxYJMriZtDaznoAtujAdZlxo1UJbRAmTDo7OwyDmjONofSJj6bTTSOSdCRbrZsXDBj8CJcQerYlmJPjboTGpQa6afEFziEzx38U2mNQuD9So2rQjGDATxOPFmlurLbmO3sBXAlYx5EaMfZeG2nhiTfTJS5dzAFC0Yem4pYIi4VJ4NpxcLb3iI9fwbyBcA7H2MJdFeptZcxiWXkPcGXl7JfSIKIBGVvSEUXjdLtWo9ATBkoGytb3OYQ=
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|15080799012|25031999004|23021999003|5072599009|24021099003|8060799015|19110799012|39105399006|4140399003|260925184616899003|25010399006|22141099003|3412199025|440099028|11031999003|41105399003|40105399003|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?1EX/2tTpVBZM7iaI86hpPN2wClJs3Hx1v1BNHpnC62MiKO/MA/ZmV0fGJtJd?=
+ =?us-ascii?Q?QvBX23N8RCRoP0LeG1Q6TqkCW0HPqNV5w1WvcSH5pwhmIaRPJWavwwHw7b/H?=
+ =?us-ascii?Q?8aDnso+FRKo/ihNzGcbg5sNcO8Rlt7/k0SE2ZOMCgRRMUvMBHMY4Kqdb2qHy?=
+ =?us-ascii?Q?pdB9bpYptd7C+VzmU6nYAGAcNyC8F+Y7x/emDDbpsH1fCchXM27+mY7RgUNZ?=
+ =?us-ascii?Q?fy26dfL4CgnIwKdOiwUoDmFcXXWamB0iKlpas3BeeBuS26ZUL0S0JqdxtezR?=
+ =?us-ascii?Q?loAFPCNUpnKkOSDiM61Q94Zc6/vSESYBP6jyx0YRU5k7L/+bNHatN97Y9mN5?=
+ =?us-ascii?Q?t23hISbbEChIH3X29wVYhna898farIpm2peTB124qTV4ctBQO+TMgljdGhAb?=
+ =?us-ascii?Q?1ngRUtxLEF9RTFLo238MfQ/3Ai3lKMX/FD9QUF/ZDVZNVFcfA444lEllO2vm?=
+ =?us-ascii?Q?+Nk/OEHHAExeqvcJv5MEjD6aRZQjzeI38ckhcrk4DVmhh2+u1IBYQlPJObnN?=
+ =?us-ascii?Q?avrCqHoZtdz3uY8I5iLb5NhczGhshaH6dz8yDxx5HSXwCtwLePIwdkHpOA1r?=
+ =?us-ascii?Q?PUD1zkfc+KSOuOlTz/RyEHuFYQNGnQGghj/CWwSsuOIpOo1Ca276VZjq15WU?=
+ =?us-ascii?Q?oDljpsSZunHXNVuDx0ocVbNKxHAwGYFLmhgCH8VYNGoJvYAp3UJtf2L9plWV?=
+ =?us-ascii?Q?iJySX+dBiIEHWTGeV8azbGT7qJhiIWgFmwdlA+FxFcZuVIOh5vTlCULafH58?=
+ =?us-ascii?Q?+sWmpzyeTupn5Et/vRUPLNJsDzDnGGSm0/LNHEoMjW0+5EYx+PidIvSv3L21?=
+ =?us-ascii?Q?zaXMlwU/jDP2Y+Lo5MW/9/8DCGBn5DD0fWxkzwAxDP478sHGGCHeuihx228E?=
+ =?us-ascii?Q?idsPW/8UMiB8wTbDTvoUng/227i4SKbEHpnmHreun4pBcEVf+kvVYHEykLyY?=
+ =?us-ascii?Q?9axTuj5WodSuViwj9VM6ANMkqUZlj2CVa+/kJT1U3RdgXEL7zQc0y1sROuJo?=
+ =?us-ascii?Q?2vygmMbR48UcMwCYyPj7TJZ/8QUpNo8DN4fkbqwAEnExeL50Vnykmwaut7Xq?=
+ =?us-ascii?Q?Ti26m9luEf/C7HdB0aRBkq/k+dlITA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?O9uq4jWpkWEuyBo/0Yp/YWkeOYlyWI/fjo8NTenwKdJTUTVlz21FZVVTXAi8?=
+ =?us-ascii?Q?C7g6f4R3wCWvvinI1B3ecEBKbeaYPqy0vClGynSuI8WjmnIHtH05t7nVpeSi?=
+ =?us-ascii?Q?Va3KrsYt2q6Eia7yFF8a0EoVmIta8Qgr8/gORNSw9VHe0wY9YmuEztVZIdiF?=
+ =?us-ascii?Q?up5yquE9Hkf4sdbBtIBidltwbZvUQcgOP4eEoGLOe9Qrg5BUiSHsuNunH6q4?=
+ =?us-ascii?Q?A18ocnqJFyC7D3h6k/m7KR6cQEfFb2DRMPCCj0sj2cdGr5AIXZZ2GlHO7Jkf?=
+ =?us-ascii?Q?2lVA8O8FO5Yb95A4oXrnGTRAoIzAbKCDt0vdRthzidw9w5ipuBL1btZpsdtn?=
+ =?us-ascii?Q?dRsPk3hdM1R+4eO5ipB7jrsbsFt+PKRt0ovl8GkwoAjaurJ7bCVLOAXjTmFx?=
+ =?us-ascii?Q?WJtptFqIcqKqAK6UAI0X8FYV3FEszRZHwH3oQR0/J3YEHkBShzy/vDUSsA9J?=
+ =?us-ascii?Q?cU1L8Jrbo0a4Fi94BD98j069u31gqMm6+eAZHo7UXn0hzWWRjKhhBf1bHpQ+?=
+ =?us-ascii?Q?1tQTExWIQtKKpjpPlpkhFeyYT0GaIHytSSG/QmP5U1pvtmfdXSgNNTPCL2oh?=
+ =?us-ascii?Q?iV4bFNXkBLNB+dgn7aXGW7cukcNGIA9L0XRfhauOa3jLtnOd64lFocAMhnjA?=
+ =?us-ascii?Q?wqpgv324zKoFIs8K7yTZbX2IeRhd8qfDtKRAbkfoKfyE7Ez1cK2dIlYJwT/D?=
+ =?us-ascii?Q?uoNWfAdEDLxKUWJXKis2410huE8tIt49nGg9lqc0m8k+IO4qYmYm3PyBCTw/?=
+ =?us-ascii?Q?oMgqqPRdrgB8/HZby/Zk/DHWw9zusrqTzqGvuO5tax4nqqzOAblU8otfUFS0?=
+ =?us-ascii?Q?gnu2QDo/iJVYP9KnTHDbJRI2B1mK0ZCXIG7YIO8C+BrLz5/I3VyL0klmWG4a?=
+ =?us-ascii?Q?AVrXhA+ZvbuThAUPmCKTKMoZwlaWJayvv0gEXoaLXPQ5WdoqFRvPi5uwZES9?=
+ =?us-ascii?Q?tIIBnDJCPd6ShQJaUWwWAO0v1v7Loax1HVxooJzUUYgYxkbPfcsjjlcqA5tw?=
+ =?us-ascii?Q?p5XOk4Y5U3IqmO4J9iQLmTZZRSHXNVa3G5KOSGr4y6rFsGekdtwWXlDnRlBJ?=
+ =?us-ascii?Q?9CD8Fw/e2oiGa+LjEFT1fcUTfv2vCfCISrRd2PYCC+l62YaIFv1088GYrJSh?=
+ =?us-ascii?Q?oG1h863QQX9c6KNzyin/3vRwAOC/hGMaHiUljdQTr7JrIZ99Oht+1rFkKIpg?=
+ =?us-ascii?Q?kZYXde/kBoIcaHTmBROyEWAXXw1+HnHdlNDlF2g3poawy/4qTRWekTl5nw6o?=
+ =?us-ascii?Q?BqAFAzDSU1I42yxjBsf2aYXP6BthwFXRIQMX+q2it/ZYHEW9HyRnARzz/039?=
+ =?us-ascii?Q?Wf76CdfXtIrw/uDz1AwK7bxLCOItfZp4rS1mFE9P3yDbfxxXrXfeBqrHpEP7?=
+ =?us-ascii?Q?LVI7v5fsApRvzSt9hicr3fcYoTGHgxomP3acPfpVpq94ndIlw6puyYfXwOVF?=
+ =?us-ascii?Q?3IiQYmnNS7iavb+6MEvJxjyqt/Z9/Xz3?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92d331b9-e015-4653-d953-08df36941834
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR20MB994539.namprd20.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:43:00.1633
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR20MB4654
 
-Moving a part of a private hugetlb mapping with mremap() leaks the huge
-page reservations of the parts that stay. They are not returned when the
-mapping is unmapped, when the process exits or when the pool is resized.
+On Tue, Oct 27, 2026 at 07:52:39AM +0100, Karl Mehltretter wrote:
+> Tested on Jetson Nano (Tegra210, 70006040.serial with tegra20-apb-dma)
+[...]
+> Tested-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-fixup_hugetlb_reservations() takes the reservation map away from the old
-VMA while that VMA still spans its whole range, because the moved part is
-only split off by the unmap at the end of the move. hugetlb_vm_op_close()
-then finds no map in the parts that remain and returns nothing for them:
+Thanks Karl, this is really helpful. It covers the APB DMA path I
+couldn't test, and your unpatched run is the first hardware
+reproduction of the tx_in_progress bug that patch 2 fixes.
 
-    mmap() of 4 pages, MAP_PRIVATE | MAP_HUGETLB    HugePages_Rsvd: 4
-    mremap() of the second page to a new address    HugePages_Rsvd: 4
-    munmap() of all of it                           HugePages_Rsvd: 3
+If there's a v4, I'll carry your Tested-by and update the cover letter
+to note the Tegra210 testing and the reproduction.
 
-The source is unmapped in this case, so the number of VMAs ends up where it
-did before and the check against sysctl_max_map_count stays as it is.
-
-Fix by splitting a hugetlb VMA in prep_move_vma() before a part of it is
-moved, as commit 597e4b9ab48a ("mm/mremap: fix locked_vm leak by splitting
-VMA for MREMAP_DONTUNMAP") does for an mlock()'d VMA. A backport needs that
-commit, which is tagged for stable itself.
-
-Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- mm/mremap.c | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
-
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 0d06d7f37f19..cf746bafdee4 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -1038,7 +1038,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
- }
- 
- static bool __check_map_count_against_split(struct mm_struct *mm,
--					    bool pre_split,
-+					    bool source_stays,
- 					    bool before_unmaps)
- {
- 	const int sys_map_count = get_sysctl_max_map_count();
-@@ -1092,14 +1092,15 @@ static bool __check_map_count_against_split(struct mm_struct *mm,
- 	 */
- 	map_count += 2;
- 
--	/* If pre-split, the -1 observed above doesn't apply. */
--	if (pre_split)
-+	/* If the split off source stays, the -1 observed above doesn't apply. */
-+	if (source_stays)
- 		map_count++;
- 
- 	return map_count <= sys_map_count;
- }
- 
--static bool needs_pre_split(struct vma_remap_struct *vrm)
-+/* Is the source range split off its VMA, to then stay mapped? */
-+static bool split_source_stays(struct vma_remap_struct *vrm)
- {
- 	/*
- 	 * An MREMAP_DONTUNMAP of a mlock()'d VMA needs to unlock the
-@@ -1109,11 +1110,23 @@ static bool needs_pre_split(struct vma_remap_struct *vrm)
- 		vma_test(vrm->vma, VMA_LOCKED_BIT);
- }
- 
-+static bool needs_pre_split(struct vma_remap_struct *vrm)
-+{
-+	/*
-+	 * fixup_hugetlb_reservations() takes the reservations away from the
-+	 * source VMA.  The parts of it that do not move have to keep theirs.
-+	 */
-+	if (vma_is_hugetlb(vrm->vma))
-+		return true;
-+
-+	return split_source_stays(vrm);
-+}
-+
- /* Do we violate the map count limit if we split VMAs when moving the VMA? */
- static bool check_map_count_against_split(struct vma_remap_struct *vrm)
- {
- 	return __check_map_count_against_split(current->mm,
--		needs_pre_split(vrm), /*before_unmaps=*/false);
-+		split_source_stays(vrm), /*before_unmaps=*/false);
- }
- 
- /* Do we violate the map count limit if we split VMAs prior to early unmaps? */
-@@ -1162,10 +1175,7 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
- 	if (err)
- 		return err;
- 
--	/*
--	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
--	 * case perform any split ahead of time for an mlock()'d VMA.
--	 */
-+	/* Perform any split ahead of time if the source VMA has to be distinct. */
- 	if (needs_pre_split(vrm)) {
- 		VMA_ITERATOR(vmi, vma->vm_mm, old_addr);
- 
-
--- 
-2.55.0
-
+Austin
