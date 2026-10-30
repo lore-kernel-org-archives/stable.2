@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.22
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793326200;
-	b=xiRZLh6w1qVe2LIFVFkYkBympDT6Q5TXay4IpvP/b96ORZiwqd/s+kVOfvhcjnN3NKG3
-	 WETEtltRRs+J90bUowAgQ/A0p2oEZ52fo9vBfKZfFkoY9DgFMYVuflESh5H2iJN6gNQaB
-	 N2KF0b6wQ7GD+AkP2FQUooReDr/m1ylZYS4RSr1I2n+iexQAoaJGRVHzzsuem1ySmydwk
-	 pVK9YajxiPW09EPu03FO4jY5qkUrno2dEuzJ7Lx9g36G4KtVXcFBYQdHPhZMP0MZpJe+q
-	 FU4St4FXgxcDxN1M+MtxMVWua/7QFy5wpH7ogtqvmtlX4Jhr7anF0PPtzUb+1zwk6+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793326200;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gfanOOaozXx+NMgSq0Z71/Ofp9shW0FRiDHYkg0Mg0c=;
-	b=RTASJXoZyusZWGJ3Bkzznc+lCrFldvoYOIK5WLeXGl3TkyjLfvqguP/WqDdQOX7nzqwH
-	 7H9qgAhID7CCHavH4KVLh0q7q93SJ0Pu199ynGGzuPcnOPyiodCwDt1jqpEQhcYkSUcIG
-	 Iwnza6Pg8sowlgCF6TXHOlvXNKSytFM19W5wu5Um8QAKtSV1Y2QQkr7/rzM16itproIT5
-	 V0JS9AEXWXsq55ISIk+ZWxm80/7/Sv30pNd0+YYSAvte0LMVLOQ7MoQEe5L00cZ6XsKcY
-	 D6b6qk2FojobUrH5ryZECkWfZ9gcnwKkGGOPh21lYvPaYToIzzE/rpl6vvKibXhNTJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DTAiLZtO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.22
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013022.outbound.protection.outlook.com [40.107.201.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98220606A31A;
-	Fri, 30 Oct 2026 02:09:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98220606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DTAiLZtO
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a8oddOVqopzjSVrxVFuDXgV9vK9eEgemIuQNM24mw9vLWKPfhKn5dFgmr2bHM83bXIy9XnRuPUAkfD4pyIIBNDlIQ32SwzZwZiUhPu00KvJ5Z+s8JeKPUQjJ6Kwqgfwl2EnpMrVW8iWpan5FX/K9DB61fGNfC5quN0byLcMGnhp65jV0cAglg4B4NOPGaN3V2iGP0d137a3w0bh15obvHvZzWGhixzV/ZE7BvU3QoOAlHPobGlTesheek6M0BGOvOFNSW3HAExa2RwhT5NKZZS1rNqIREUdfj81Y41bMD7Bb+QHr8MEJpUOq8KalK8PY3UaX8wmVADLA0Fao5NG8Bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gfanOOaozXx+NMgSq0Z71/Ofp9shW0FRiDHYkg0Mg0c=;
- b=m+XSe/PoRknPj2OJ73Q/nzOtEVefDWXAyQIKcUAoRu7CCrZQLLM1VJpKFsxMu98PFYFaPqnpawgOELBYNSVPxZUwDMGN/HjBP89MrpaPjIGgvl5D7NEwYhNN9XzSEW1OovWFj1vZLvALjGn2I6ETwH39ac5jWjCz9EE4z1FG3YUgONL4+M9y8bkjcONgVfwzJ/vjga70c3hE3P8QNh30EGO0rY0Jt71b4uvpbHU1hLsJGqcdvP6q76qoT01sJhCmmSAhAMbTqlxAZ43dvvdnODCUjjpoibMs1auOeovjrd50H19w0iGVuEd9yQaISsgwsDqLNyvuZfpKuqTMndQnkw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gfanOOaozXx+NMgSq0Z71/Ofp9shW0FRiDHYkg0Mg0c=;
- b=DTAiLZtOb5ccTKQBW3lNzLjssqetBAyMuwJ1Pk4MITaim1iYUxWVCjEWn/5JshkJNptB1TWWjwgjlG0BiANQMFnZZPH5rVpahzLkBtOdhvkDXbdbEbhYRqmDpDU/GsR1+4h4i61ffTcrYsdFAaI6BN+cXdCTrDBC5D03K9v6Am8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
- by DS5PPFB8FBD73EA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65e) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 02:09:55 +0000
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589]) by DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589%5]) with mapi id 15.21.0569.007; Fri, 30 Oct 2026
- 02:09:55 +0000
-Message-ID: <4fd44cc2-ce8b-4919-bfcf-586ba0c20469@amd.com>
-Date: Fri, 30 Oct 2026 10:09:47 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: amd: isp4: fix self-deadlock in
- isp4sd_start_stream() error path
-To: caspar.adriani@proton.me, Nirujogi Pratap <pratap.nirujogi@amd.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Benjamin Chan <Benjamin.Chan@amd.com>, King Li <King.Li@amd.com>,
- Sultan Alsawaf <sultan@kerneltoast.com>,
- Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>,
- Yifei Gao <gyf161023@gmail.com>,
- Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Language: en-US
-From: Bin Du <Bin.Du@amd.com>
-In-Reply-To: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR04CA0010.apcprd04.prod.outlook.com
- (2603:1096:4:197::11) To DS0PR12MB7747.namprd12.prod.outlook.com
- (2603:10b6:8:138::20)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793326394;
+	b=3Oxxb57Vq7NaiJdk95/t0w5V1bimwEvvM3439DIpuPf/Szel/x1fIsw0RSXnHwkq63L+
+	 VLM5WJ2k9W6CNka8bQG3aHFbtIB10c8s8YqK2XS9duzAL1sgJyeYFnsvUDLWeahzI1cCx
+	 gPZiuHUlc2hcI+dGX4jAthTNELISWK2z+HtbYdO48apyu2NgR1GaeaQ5cxoepKj+5AlFu
+	 /46ULFHF5WTPoW9RdmLeFHrzTNC35gg3CD7IlEIgppPU/dTUYa6DUr53QTUdOXcw7WKvx
+	 xBtwtJ7utzU3+nSFJhakqukCBCGu2BkxfmU7rLyqoWJUOpd7Y5JE/fiAbptXF2lRxjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793326394;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=s9TN99h06h+xjvhYPwVB3Gbjq5FR8jNNhPs9dg8k7jA=;
+	b=OYZXrkNiZXt2QlUDPJPmMLQku5jJbdvlIK2FU+Y++5qIyLRF9AxwUq0dthFLwp9JINYI
+	 Tc/Y2Gp1oQUBaDab/9fqkoylMsyzvWEXKzjVIaT2X3/245fLf7Ry+OJ9gmcdR19ydhKeU
+	 7/WoJIdwQ3WvNNq6+R/ANCoQUKkjHCfcUxyT9Vaorhzy7zARWpAcqB90UYPkIrxj/o38c
+	 GRKImqOoGyPPker/xESTAMWgMa9MnV1S+TJlE9AGl8MYReJ0NMOolR97wsqEhhnKZIHpl
+	 7OlNhAhA1QwKgLKwI06DSyYN8WcDprD8dLvVWy7j9BPmuxx0dUwQSUmxWCX1k6JFGBA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1FACE606A31A;
+	Fri, 30 Oct 2026 02:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FACE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=s9TN99h06h
+	+xjvhYPwVB3Gbjq5FR8jNNhPs9dg8k7jA=; b=rz8XzhfXL8g+VrQiWr7OE3/xrn
+	1a0fhwccJ0ErfHYoG0U+c7suy8+X2WWlxQsqHde4WcXnSLkQSkKHS0BBDUPkBtCL
+	l107zRlJ4bvrDkMUC9elASAkB/D+V2O0KCXMfYMEr8Ox5ihQqPCK9J8E3TkZSoOr
+	4Iy5SnHZLETGZliPQ=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.123])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBGif4f_eNq05gFAQ--.28179S2;
+	Fri, 30 Oct 2026 10:12:48 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Cc: Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] wifi: mt76: usb: re-enable the rx worker when resuming fails
+Date: Fri, 30 Oct 2026 10:12:47 +0800
+Message-Id: <20261030021247.8032-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,172 +62,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7747:EE_|DS5PPFB8FBD73EA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e7c6455-6560-4821-fd65-08df362ae3bb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|6133799003|18002099003|22082099003|3023799007|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|10067099003|261021123027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	4jx22mmPl8k7iNLK2cMAJqVhzc01Kp75nKm4wSkfHIVryQIWoZvObu+GWXgBth4amhc0t7HYaDL2dNFdaCii5SUTcny3L8zMishOuFB+d8Wm081QI7sbAoeHfX2+ssUSNNSyWhUlWfL6Py6XJc41OY2E7TSG+fPMi7ii3pHMGGxLHDuO03f5vDTUoUXwyKQRleJGclO/HAMCtj/uQr30UmoH7F33wnsnBu1ki7e4DEYFk0+uvetP1lci7sULjtJXtEOtfto8PVTrc1WLFrNjuiPiw2zVqemkuvZ9+wfq61weZBkqmRko2kWX1vAa+PFNq5vYoUzbgqGn8PdZMSohu+Tgm8dvbYQ+f+3uKmMXEYJr8bOX24s7hnHZlwfwkYAZxVFVATpD6H13fGSgbwP6LzEctYoxIPLj6jApew7jQSTywjO+4ws7tsTdz5iJo/5bQqHW+eBZobwnwD+90nW+iehgWqj1aHxEW5YVt5oPNVb22CQVmZ6KAxrEJef1wbByitgdo8JB78UDnqMBS8CYdRunbFd8PtQ/p1jJ052LhiuskApUsl41aPpeGKg2aKavnQ47j4oJwu1kjYopNEbqwFZQPAkYps3hLyCdgh2AzsdYAUFZn43ioYLLr008rlFBX8XFaQv0CpKCyKLOr7zoKHUit2gfu++t2J5HDu3L3dQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7747.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(261021123027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d3FDM2ZJL3FqMm1zblBmVXV6TWV4c1JKQmN0VnpPVXZPQU16TSs2OHhYNlI0?=
- =?utf-8?B?bFZlY0FBaldVKzB5UURia0lab1BHd1RVbzNpVW5Ldm1YM25qYW1pQzZ1SXlQ?=
- =?utf-8?B?MmEvdXpvYnZXSGFPUThsMnRVQlR6WWhEYjFRUWFxc2JhSmhERDl3dHFWQVox?=
- =?utf-8?B?bzI0SEFQeUlxdjhJbzkrK3ZuNWdVcDU4eFJmUUMybDVCY2JDZTF3SHdweU1V?=
- =?utf-8?B?MGM4cFc0TVpTR0F4SWxiZFliQTJQcWdSQktiZUl2VGNyamFDREV5N1lwUjlk?=
- =?utf-8?B?WmRndElQN3FybXlSWnI2a2lMcFlraUVhUTJ5Wko4Y0VFWGpDN2FmRkhRQlpw?=
- =?utf-8?B?UzJtUTB5S2xyckEzcmpaU2xWbktiZ2wrVjVidTF2UllsVWRHZWFNRUp1T2lV?=
- =?utf-8?B?ZkdSVlg5b0t5dnFlVVIyM0taQk1weWthNGd5WkZUS0R5S0JINkNFVm9BRU9L?=
- =?utf-8?B?QlVIcXFlWERRZDlaQTJpNGE2SFQ2cG1wRzc1VmhhSmplWGlQREtDZHluSGE2?=
- =?utf-8?B?Y25SRFdLMGovd0hYQUw3WWgrdU5SSzZkaDhERjlzc2N4Mkx5NGkxKzVTWmhK?=
- =?utf-8?B?MEhvVEFCYmVER0dYZzFWSEkxWXJHTDExcWtVZ2p3ZjdHRnArc3BCbDI0VUZa?=
- =?utf-8?B?THJiWnB3eVVUL083TVFCMCt2MGRlY2I2d2ozWVZ5NWJ5bFhCZ0MwN2IwUkhC?=
- =?utf-8?B?WVBrRGJxa1dRalAwck9Db2FGUXlHSHlyRTZkak4zYTN0cldHYTZGejhkUUx3?=
- =?utf-8?B?aHBlUVdudVhsNG9kbjVUZFdSc3JqcFU2cWluZmtoakcya3g1OTUyU0hDQ0Nu?=
- =?utf-8?B?NGgwS3V6cW0yRlB5N2Zva1ZVdHJmLzkyOW5QWWZHTjY2OWFxemU5MUdSVzFS?=
- =?utf-8?B?ZFdnRXRKMkM1aG5Pamd0ai9OejdBbnlyRkZxUzlkNjMxSE9MUFFFamdldXVN?=
- =?utf-8?B?Ri8xSlN0SUYvZUk2dXFpNFdmUEEwYVI4aXFkNzJSUkhnQXpYTzJYejFBanlz?=
- =?utf-8?B?QlJFdXVNeGdZaHJ4SUg0QU1NRGRpcHl5cnpyNUN5N29rMjZGZEJkZ1dZQ0Rp?=
- =?utf-8?B?Znd0NTBxeTBldXRSSWQ3ZHZmWGZZbkZia3FxeEVBdXl0ZGhhNDZZc0dUV1BL?=
- =?utf-8?B?MDdLQ2haNmZ3Z1FpZ0hUanRReE5VeEZRQVR4cUtKWjE5OUhiYmRJN2dpakhn?=
- =?utf-8?B?d3d6b3k3WlZWRXV4STJYUG9uL1JzWEJHa1NlWE5wdG45RW9adDZnczdKdjEz?=
- =?utf-8?B?OHBUdkN0b0I3WVdYSEJzZTJaNVZNbjBIVUZSZThsTGtRbW9KWlNadUVMNVJ2?=
- =?utf-8?B?UkRJdU0xbnBuSHdiVWVpcklEK2IrTmNmeEFoNDhJSXUydDdXaHc0Wm5ZUEky?=
- =?utf-8?B?VWhsbEhXRDFweXhYL1pPSWd3NHF0aDI3U1JQaU9TK1ZpOHFCMGJQRzI5Vkt3?=
- =?utf-8?B?T1ltRVRDSDJCTHpsakwwWUpjd2xYZnY5SUdDaWxJc3YxZU5UOEs5dDgxL1ZH?=
- =?utf-8?B?L1A0R2pIY3FkQUFnK0ZoUFV5UzhVNmVTQjhkdlFtRU0yZFNFVWtWYUdDRVRi?=
- =?utf-8?B?ODR3T2JSRlNMMytuUXE0LzZmUnRidTBVTzFxOXdJMlpxL09TeVNqMExpNUE2?=
- =?utf-8?B?ZHBndmxXM2p5Rld6b3lXVXJlcldGZVdlNi9aRVVTa21LbjBvNFQ4SVhIV2J2?=
- =?utf-8?B?U3dMakRkVEpPallkekhNM1JpODRFdXR3QlhFVTNkbXQrakJGbk5KLyt5eW1n?=
- =?utf-8?B?N01kRWhGR0VDRGUwamRNdjRUUHBsekNuamI1OUsrWmJYUVQwbnNqSVVPN3Zr?=
- =?utf-8?B?MlMybDhIemVHMTY2Z0tnWTdQMmgrcjAvamM5ektib25hb2o2ZDUxaHZPWDNh?=
- =?utf-8?B?Y2kyd2pJSXNZMnhxUVhXa01oYUJWeDQ5OG5ld2V1V1F0ZnBQaHJpRFgya1Bh?=
- =?utf-8?B?ZXZzNzdTUzkyR0lFd29qK3JndzR4TG51VjJFZURjWXJDR1k4TnZMeGxlcXhR?=
- =?utf-8?B?aUpUUm5DYisyRzRCRkluYmt0aytTaWVIYUtLMEhCaUI2SFVtZ2cxOGJNZmp1?=
- =?utf-8?B?dUl2aEpMYk1RL0U0VTJGb0EzMUxvc3IyUzZxaUdsNkVxMVpTOFF0bU1oVVdo?=
- =?utf-8?B?ZGN4c3RDeHoxWHdFZnVMVXErZXB0RGxIZUFjeTBlMXNGRmYxb2I5VEx1RHNW?=
- =?utf-8?B?c29ZakxzaU1QaXlEMU82dnBaVHhaNHVoRzYxcUJQYjg5TENYZFE5VDNXc0ZC?=
- =?utf-8?B?L3o2QTgyMUtxVWlpQW5NVkRQcHc3VUlTeHBia0VWOTExMnZtWG5mRGRxQXZB?=
- =?utf-8?Q?pSqj86IZOnGwqIkMCQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e7c6455-6560-4821-fd65-08df362ae3bb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7747.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 02:09:54.9596
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mzqLvpgSj9yOtGfPHLvLuwaPCQLbVdZ6gkFzn5eJ/pCd5oC97I7+ooCYUyLi9icC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFB8FBD73EA
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkBGif4f_eNq05gFAQ--.28179S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF15KrW7AF4UZr1fZw45trb_yoW5GrW5pF
+	WYk3yjyryDGF4DGw48A3WjyFWfAan3Gr17GryrW34ru34rAr1rA34Iga4jvryYyFWvka47
+	JF4qyry3GrZYvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBKb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r
+	4UMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU83Ef5UUUUU=
+	=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUBD2rjYVQKMAACsO
 
-Reviewed-by: Bin Du <bin.du@amd.com>
+mt76u_resume_rx() returns as soon as submitting the RX buffers fails, so
+the mt76_worker_enable() at the end of the function is never reached and
+the RX worker stays parked.  The mt792x USB reset path relies on
+mt76u_stop_rx() and mt76u_resume_rx() being a balanced park/unpark pair:
+if firmware download fails, mt7925_init_hardware() retries up to ten
+times and calls mt792xu_init_reset() again, which parks the already
+parked RX worker.  kthread_park() then hits its WARN_ON_ONCE() and
+returns -EBUSY:
 
-On 10/28/2026 10:05 PM, Caspar Adriani via B4 Relay wrote:
-> 
-> From: Caspar Adriani <caspar.adriani@proton.me>
-> 
-> isp4sd_start_stream() takes ops_mutex with guard() and, when
-> isp4sd_init_stream() or isp4sd_setup_output() fails, jumps to
-> err_stop_stream and calls isp4sd_stop_stream(). That function takes
-> ops_mutex again, so the task blocks on a mutex it already holds. Every
-> later open, close or ioctl on the device then blocks behind it, and
-> only a reboot recovers:
-> 
->   INFO: task .v4l2-ctl-wrapp:38440 blocked for more than 122 seconds.
->    isp4sd_stop_stream.isra.0+0x43/0x1d0 [amd_isp4_capture]
->    isp4sd_enable_streams.cold+0x8b/0x26c [amd_isp4_capture]
->    v4l2_subdev_enable_streams+0x1ff/0x360 [videodev]
->    isp4vid_qops_start_streaming+0xf2/0x160 [amd_isp4_capture]
->   INFO: task .v4l2-ctl-wrapp:38440 is blocked on a mutex likely owned
->   by task .v4l2-ctl-wrapp:38440.
-> 
-> One way to reach the error path: start and stop a stream, then start
-> it again without setting the format. isp4sd_uninit_stream() clears the
-> subdev pad format on stop, so isp4sd_get_str_out_prop() fails on the
-> second start with "fail to get out prop" and "fail to setup output".
-> 
-> Move the body of isp4sd_stop_stream() into __isp4sd_stop_stream(),
-> which expects ops_mutex to be held, and call it from the error path.
-> 
-> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Caspar Adriani <caspar.adriani@proton.me>
-> ---
-> Tested on an ASUS ROG Flow Z13 (GZ302EA) on v7.3, with a local,
-> not-for-upstream change that adds its OMNI13B1 sensor to the ISP4 ACPI
-> tables so the capture device is created. The stock firmware does not
-> support that sensor, so no frames arrive, but the start and stop paths
-> run. Sequence: v4l2-ctl --set-fmt-video=1920x1080 NV12 --stream-mmap,
-> stopped after 10 s; the same without --set-fmt-video; then the first
-> command again.
-> 
-> Without this patch (v7.2.8, same setup) this failure hung the task as
-> shown above. With it, VIDIOC_STREAMON returns -EINVAL after "fail to
-> get out prop" / "fail to setup output", v4l2-ctl exits, no task is left
-> blocked, and the third run starts and stops the stream normally.
-> Not run: lockdep (CONFIG_PROVE_LOCKING is off in this kernel).
-> ---
->  drivers/media/platform/amd/isp4/isp4_subdev.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> index a108d90ace..08512f060a 100644
-> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> @@ -745,15 +745,15 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->         return -EINVAL;
->  }
-> 
-> -static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> -                             struct v4l2_subdev_state *state, u32 pad)
-> +static void __isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                                struct v4l2_subdev_state *state, u32 pad)
->  {
->         struct isp4sd_sensor_info *sensor_info = &isp_subdev->sensor_info;
->         struct isp4sd_output_info *output_info = &sensor_info->output_info;
->         struct isp4_interface *ispif = &isp_subdev->ispif;
->         struct device *dev = isp_subdev->dev;
-> 
-> -       guard(mutex)(&isp_subdev->ops_mutex);
-> +       lockdep_assert_held(&isp_subdev->ops_mutex);
->         dev_dbg(dev, "status %i\n", output_info->start_status);
-> 
->         if (output_info->start_status == ISP4SD_START_STATUS_STARTED) {
-> @@ -786,6 +786,13 @@ static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
->         }
-> 
->         isp4sd_uninit_stream(isp_subdev, state, pad);
-> +}
-> +
-> +static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                             struct v4l2_subdev_state *state, u32 pad)
-> +{
-> +       guard(mutex)(&isp_subdev->ops_mutex);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
-> 
->         /*
->          * Return success to ensure the stop process proceeds,
-> @@ -836,7 +843,7 @@ static int isp4sd_start_stream(struct isp4_subdev *isp_subdev,
->         return 0;
-> 
->  err_stop_stream:
-> -       isp4sd_stop_stream(isp_subdev, state, pad);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
->         return ret;
->  }
-> 
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-isp4-start-stream-deadlock-6c33a97d3297
-> 
-> Best regards,
-> --
-> Caspar Adriani <caspar.adriani@proton.me>
+  WARNING: kernel/kthread.c:710 at kthread_park+0x17b/0x1b0
+  Workqueue: events mt7925_init_work
+  Call Trace:
+   mt76_worker_disable     drivers/net/wireless/mediatek/mt76/util.h:93 [inline]
+   mt76u_stop_rx+0x5b/0x2f0 drivers/net/wireless/mediatek/mt76/usb.c:757
+   mt792xu_init_reset+0x52/0x80 drivers/net/wireless/mediatek/mt76/mt792x_usb.c:477
+   mt7925_init_hardware     drivers/net/wireless/mediatek/mt76/mt7925/init.c:152 [inline]
+   mt7925_init_work+0x49b/0x7e0 drivers/net/wireless/mediatek/mt76/mt7925/init.c:196
+
+A stalled RX endpoint makes usb_submit_urb() return -EPIPE, which is the
+failure that leaves the MCU unresponsive and triggers the retry loop.
+Skip the remaining queues but always re-enable the worker, and still
+return the error to the caller.
+
+Fixes: 0d2afe09fad5 ("mt76: mt7921: add mt7921u driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/net/wireless/mediatek/mt76/usb.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/usb.c b/drivers/net/wireless/mediatek/mt76/usb.c
+index a9af3aa6b80a..1c9bf3679774 100644
+--- a/drivers/net/wireless/mediatek/mt76/usb.c
++++ b/drivers/net/wireless/mediatek/mt76/usb.c
+@@ -775,23 +775,23 @@ EXPORT_SYMBOL_GPL(mt76u_stop_rx);
+ 
+ int mt76u_resume_rx(struct mt76_dev *dev)
+ {
+-	int i;
++	int i, err = 0;
+ 
+ 	mt76_for_each_q_rx(dev, i) {
+ 		struct mt76_queue *q = &dev->q_rx[i];
+-		int err, j;
++		int j;
+ 
+ 		for (j = 0; j < q->ndesc; j++)
+ 			usb_unpoison_urb(q->entry[j].urb);
+ 
+ 		err = mt76u_submit_rx_buffers(dev, i);
+ 		if (err < 0)
+-			return err;
++			break;
+ 	}
+ 
+ 	mt76_worker_enable(&dev->usb.rx_worker);
+ 
+-	return 0;
++	return err;
+ }
+ EXPORT_SYMBOL_GPL(mt76u_resume_rx);
+ 
+-- 
+2.34.1
 
