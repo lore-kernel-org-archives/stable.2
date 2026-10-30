@@ -1,135 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793361421;
-	b=aN4n/URSP7zKA/Jx2AWc+WHhTFm1kE0N6A56ud7ow7WvnubzWUpYGwQW3m50B59erT6O
-	 N2b+RL3+o392ZFrhxTypPLMCBxwquo31JCW5PEQOwtoQ4A/kqGw5WGjtWkHkS7Yby8cEs
-	 xqA6sIqpD9mInLs8e79CbxxaMe34onAFBJq+HpCsJvTw1v9nUg26K/YW3eyuPgjdHcUa3
-	 XVZh9lhdVmzzTYSDm1Do1UyXaQG0t56ueV7UcWVyn1T1bdP4ksrp0PujUjs6UOLDatQdH
-	 r1CttMdUwJBYUmZ9Xj5Eaph8eDxUIrVxli4IJLRIi4O2FlAsczQHEiykTD4GNVXkbPw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793361488;
+	b=u+3O1WIxfSfBeKsn+yGpFWytTlzWhbhAyrm+uKLdlXBNGKhZO3QZFgCfkX41hCTa2K9W
+	 X+dToBY/JBC9dC9KPVM8f8uBoytQD40P5++oPqXxynYuvJ7PtP4tGyHiSwoRvrX5eZ5uC
+	 +bqAlop6hN0Fwx793iTBhjpOWYyyuwe61fX1zxQ1HeNYGGFAn/wFIQpsUU0W3OkiE8XOO
+	 04j181kXxZDYsRGw7uwPUcGRD3rFdE6zSloWF9OzrkMnzw5mWOOc1ymJ3vyge/XfCqPC3
+	 lK3iM5XWW94mwIUlm4iUq7x9Q7x2QP6UqVKT8hi0kN1FbYX3MY/eSf8IogPUeW9Jflw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793361421;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:In-Reply-To:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793361488;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=+truXu4NWK9viq+oklDvrDlPLUUyz9G3VrZoBW/G8mY=;
-	b=SyaocbrVk4b+tBHaBwcg0b7q0STNSizrRPOdLtrPqmbEQjFvVq9AtezQVaU1KX8Bq4IQ
-	 cACM7MVz4JdAjCl/UPUFHx3pmoDUPRAk6+yQlNDZXJK2mLpVVArh7WX3yflSTo0SuNcpT
-	 7JPS1esfsCShIVUCaYiHMsh21IhE2+Vr8U6QlGFUglrWJKlVEPDCt9NayNW1QMijjZRPh
-	 UBznVmFNpdI00duR0ijXi431i3FtEPgIpwaVu8SjR00mLRyG7fqJkXjYA1OCEm8QWSekE
-	 XUvvlW1cq0QDFdJiBfkkUT3zc+H4YWiP/bS0VbOo/9kgyGUh6UCgCz77IPvsaWCcmAQ==
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WzQAFx7x7Jx3ZnEm16BcJAd/CNJAmM1mh7mCWc8K820=;
+	b=cBsC0z3LQ/vZVzPiEOZ/parja/J5a4JeLx8XWZ///63YHjiBWtahhRMjdASo+6Vu5WEn
+	 53mzhjTbVxogjHfSZDZ2FZPpvksY4Xz2/UXGfN4OJMmGlI/Ud/obTbFW7BmPAyGgppzFu
+	 9uR09WK+8c/JyF5lkeOmbiVVA6ihrER+X5qQpMNUsExSE2VE4TXq8tHj+GMYCCYZ4c52B
+	 78DDrFco5rUfMXKviwtYrBhkZW91IUqNW2Joa/O+qM0mtodgQhI7O5QqD49xhkGieeB2n
+	 a8EK4OeoDHKvvStR31xtQIe7/EemlYxQIpKeJDf27bMm54STKoeSQowB/JJ9ZEVI3QQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bMVQtz4V;
-	arc=fail smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tvEDazSQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.25
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012025.outbound.protection.outlook.com [52.101.48.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C85606A31A;
-	Fri, 30 Oct 2026 11:57:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66C85606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A5F606A31C;
+	Fri, 30 Oct 2026 11:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23A5F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bMVQtz4V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793361421; x=1824897421;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=x6ThyAeyQB1qmPLSYyWn169cUT3Mf8OKHFdI80+Nizo=;
-  b=bMVQtz4Vg7ny80X/gcHm3LGGF3i8w9+xetKI/4jLGUAMRp5Q6bKQqpEB
-   8vRysraVuSnnpHebfZUaeabZOR7FTXiKtbcqT/S5mBYW28HDBqCRy8F14
-   GwfIr0JSHQ6dRmGZtmY3YxKut9d8ADEY5Y9gAVKM8JpVVRRLFqEm/Zf8+
-   5C3AletA2sYulYk3RHBityMCiUqNHOcufZ7oAT96bHv5yHIqhnW7ufYDQ
-   wA9J0sr1/7MPLXjAmFX+OacIige8jOoawxwwe8/929j+tqooAi2dwLnja
-   16abpYsd9hRYYMj6/ygaCHsCmTJwnuH5UgG3iUPxa51uxHDTuzKNwpPur
-   Q==;
-X-CSE-ConnectionGUID: KejK+tMvTP+bKYSA+qKasA==
-X-CSE-MsgGUID: EmXQw+qLTSuaz5LAjaqddw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2114759"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2114759"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:57:01 -0700
-X-CSE-ConnectionGUID: KM7w7XJyR/atW+B9PSDMMw==
-X-CSE-MsgGUID: EnfDdIKTRt6mVPz5k7xcCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5504475"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:57:01 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 04:57:00 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Fri, 30 Oct 2026 04:57:00 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.22) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Fri, 30 Oct 2026 04:57:00 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tvEDazSQ
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b/MhyEv0DMGOotaacgBnVJqPYknxR4VH9Ls5iUUeMPwf6tYsga05wMZXUovJEcWtXORdHz/TLtiFAgFR0zG6mQBEKL7cdaXoNA6AleH5M0Hy7x30sOnkafyhJOy591CBIjideaFzekF/bQ9gqHDqAH1Sr3bb7P2+0bKMdAy3n9Lp5drDhCK2FWyL1imfegZYL7SKKyBHh6oc5mAXq4GrXY2oZeug3FiFpXto1pmoNL2GhIRUIh9refubo+DXBqhURRpzcPfi7nKAZZxZk31FA8Fczcf9y27jNnpLq4GkXtiAY33g8THOzpDWXqnZ2qL4oTH4kmwhV7kGHx5Vmam4OQ==
+ b=jBe/XFY3XssG12kD3xIAhWYMTC9dGJbURNdCN0GBBWhcYAkAx4+v2aiKLX5+vHMj+lMvaYBEXGLpNdEpnMIdGTS0udJMw+LdngT446OKgiGs04BpY16qLjhhZ7DOKx9tAJn047VHEbmaMcdd7l1FOXxVeIz8RO2Rfb2JWUa7IYoxwnSth8Lp0I7AhtXxrLgThkQ/eejdUa1iPnxxGNSFgxguytZlR2zXGNqVnVHcNPPgHBV2UQcJ9Ux0HRJGizcwhrqqkxzHwqfSzcZJHi4zQb3Md/K+y4qmPmRx4IobWmeccFIG6PPwRJUNmEmsoMRB1/MgUL70X063wIb1KXJ8gQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+truXu4NWK9viq+oklDvrDlPLUUyz9G3VrZoBW/G8mY=;
- b=TQC08BPhDUFz2ieacApILeuK+72oz8objs1Ap9xMFvu8tg3CBhBh9knc4K11RxJXyjnSfnrDsGuOBVugIFgBpoCsjudxK+4Hl216uVFIVFFoAiqYUmO/wmYNqA2AKXCHX9Y0NKj77+kelSXktqMQRPeuT5jzDfrmxzFGFGSu+fO8WAYo6MujpeM1uHTXTIQna7OYVl7D8l5ETtUB7Aw1GKKQu8kZuDCCCGRRfBpi88Pu2iOG5Xpw/qU80ADk23Ce93Aq5LKiCkFHYjNnAQKHjAxuooQbSqaqzP//w6JOoEyYQF3d7Cd0ZF3tOrwHVw5p6WsWqbKpqNwL+Iyz52RWZg==
+ bh=WzQAFx7x7Jx3ZnEm16BcJAd/CNJAmM1mh7mCWc8K820=;
+ b=Y87xQpGPNg91pdVvR4Qzxlj6z3FpjD/Hq/uJFf+5/SRZjdZ1905/DnPj613vdFobodAuCoVrwxhUApI1oomrNVXUspPIUDxB4k8TtIbhUAFG8KSStUPN0Ol/I1ix08CNcIdc5e5wFfifEp2F0U0BX2nIxpmdFG0gYRwUrcKolCI7FLLFZF+gBPt/QwYVyYxJd430eFv3TvevgXDkmdsZSTiX+31XQfAcSTXhCryhWj3iZlhLk7awby2mJ04Yb8wGrFlrdrRJKQYprP+g2IrE5GrWkqId7FplC9sw8KxX7eJNeMYsO7Z1/aCnF8KQFrMZervhK1cTKGk/G6Cx+T5fLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WzQAFx7x7Jx3ZnEm16BcJAd/CNJAmM1mh7mCWc8K820=;
+ b=tvEDazSQg1AzYI3+Id36z6y1HDsXPWvMdjMrkcsDozSKVIcYFej8eMoqTXfXQUkmVCoThg+1gGU0tdFGNB2Be9UpDrZPT3d/BtSVfulxWh4/FFRGQPJL7EsNw7PrAab4+RJ1ypfPEkt7lxplCPj/M7/FVrTLCaLlgVqailpEEII=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV2PR11MB868673.namprd11.prod.outlook.com
- (2603:10b6:408:422::13) by DSVPR11MB9742.namprd11.prod.outlook.com
- (2603:10b6:8:34c::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 11:56:56 +0000
-Received: from LV2PR11MB868673.namprd11.prod.outlook.com
- ([fe80::5bfd:6afe:a9db:b7de]) by LV2PR11MB868673.namprd11.prod.outlook.com
- ([fe80::5bfd:6afe:a9db:b7de%4]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 11:56:56 +0000
-Date: Fri, 30 Oct 2026 12:56:45 +0100
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Rongzheng Wang <testwrzwrz@gmail.com>
-CC: Jason Xing <kerneljasonxing@gmail.com>, <netdev@vger.kernel.org>, "Magnus
- Karlsson" <magnus.karlsson@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
-	Jesper Dangaard Brouer <hawk@kernel.org>, <stable@vger.kernel.org>,
-	<bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v4 1/2] xsk: defer software checksum until the skb is
- complete
-Message-ID: <auSF/bDmOW0Y7T4D@boxer>
-References: <20261030023248.78802-1-testwrzwrz@gmail.com>
- <20261030023248.78802-2-testwrzwrz@gmail.com>
- <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com>
- <20261030084017.16202-1-testwrzwrz@gmail.com>
- <CAL+tcoBThTe7299eVU=tsUdi392dS9cioXX5RA5AKRsYAGbdVg@mail.gmail.com>
- <20261030094633.27910-1-testwrzwrz@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261030094633.27910-1-testwrzwrz@gmail.com>
-X-ClientProxiedBy: DUZPR01CA0296.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b7::25) To LV2PR11MB868673.namprd11.prod.outlook.com
- (2603:10b6:408:422::13)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ by SJ5PPFD525C5379.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::9a3) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 11:58:05 +0000
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 11:58:04 +0000
+Message-ID: <bb7e2262-af12-4891-9070-74058812d5ba@amd.com>
+Date: Fri, 30 Oct 2026 17:27:00 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 15/21] soundwire: amd: Avoid static port offset leak in
+ amd_sdw_compute_params()
+To: Lee Jones <lee@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Syed Saba Kareem <syed.sabakareem@amd.com>,
+ "Prasad, Prasad" <venkataprasad.potturu@amd.com>,
+ Mario Limonciello <Mario.Limonciello@amd.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ "N, Poojitha" <Poojitha.N@amd.com>
+Cc: stable@vger.kernel.org
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-16-lee@kernel.org>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20261030104840.3361217-16-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0050.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:98::11) To CY5PR12MB6252.namprd12.prod.outlook.com
+ (2603:10b6:930:20::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -140,69 +106,204 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR11MB868673:EE_|DSVPR11MB9742:EE_
-X-MS-Office365-Filtering-Correlation-Id: 46aa23c6-881e-481b-3151-08df367ce578
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|SJ5PPFD525C5379:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91ebd79c-c1b6-4948-6ab4-08df367d0e11
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|18002099003|22082099003|56012099006|4143699003|11063799006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|10067099003;
-X-Microsoft-Antispam-Message-Info: I8B3zyzL6qWiCmRTW+Jv73j540MIBbnb/CQgan1m0038VvJ15iLE3Qh1KoCPld8KOjfEw8+ln4BTYva3FyJ8neIrUYZvHwOlUg86vd9UXauGiFAt60zEZOT/ty/AJB6wcIPt5snJpc+k4l3ZPxMt+5O4G8ElDD+6oC2TWazialGk/IuHp06a61bD12OqbxFS6BO9oZXwbA24cyQjFlZKDroDXdO4ZiVA9eYEa5zBhHXNeg0j0aH5Vg1U74atPkGEZDbbYFWD4keOIq0Mv45rP+DfHQfuD9AAxK8JJul38A8pn6GVelV9nbl1/j0WSCoanbUG0IUm1D61qGU05xu3/sW6je3QQJYhIVDgYYnNT6J17m5SJJgeQqQWHYAV/DQJmSd8DWcXLoDIqAAgAnf+8h9oKOhSBtLpswsIozIJyzoNupMXqgyQGaxTe0umj7qYPSrj3AUyDc9TxT5+EEqlDpCGwNRSkmz3fyacBvEeEZH+oH+m8vrUgwcOSYBI5FuPuV0T4NPV4pnaLx8k39smNa5gphUiY5cwuUtLETk447E9lwBeOGTbOnKdAZwnY6WD+21aqcLX74TDkSueZ3NEyfHxujw1qVK/6mwdRXYf2Mihp/kJUS9BP+/iqPAwhcv58b2bt/A3mTJ3mLPF0apoo4+1D4qw3KPi5O1MW1IPQeI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV2PR11MB868673.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|18002099003|22082099003|921020|11063799006|56012099006|4143699003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|10067099003|261021135927099003|261009223027099003|261026140227099003|261028144727099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	ldPjVSDo0NFBdE92kX29gEhGUBwHfLxOF6vzvXcXzpdv01JZ1UbcZNW3JauqPeqir55kYTarU5fK28XHsbINQt70MYzIvFnLcGWo5Y2a+AGK1sr+fBjDmwQRJUe328ZOvx9vArg/1jD4G0Rj8WdKnFKc9zptZ2KcbNUf8c+naN6wm8KswfoYHd+mZa/wpDdRGAXSb7wSHARqz4h6JJ3mi0t4nxNHXXEI8XEciviqy4crfumryCmswG6WYYG1KZ38r0cxm5sQilfGK9dka3oHrqyX4PL8tGPjrZNLRcQ+YPmaZcmEpi17gX2tmkowbBDD9DuCon8Miu6SOaPVmGKJ9qcMkeVZb9ZOKW3WU1JvvxFT2M1JbAr7hhaEXcSyBeO9zSpZdQz5c7/wjq3/54Q12VGMVdK0v6dd7pitu4ifoDM6W1PizpGQcMyLNIymX130LqobNPAgbd9YuVaUl5LrXS9H6GX9bgJ0IAIiSN0J+sFUu24tQqM1b30xHokHGmyhFCBEaGnRA/Fy/lkaG/se/FriGgOnd9L54Bpn3Cjjvufikym4+PAbKmo+2K6gYFTG61B0o1PoIdlbmCBDjxw9EPz+7LXxpH5yKtFyKgqRgfrc/fRqfUnT3hDRuavEplcGpxGH6p3fLG1ir6rQ44cznA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(18002099003)(22082099003)(921020)(11063799006)(56012099006)(4143699003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(10067099003)(261021135927099003)(261009223027099003)(261026140227099003)(261028144727099003)(261026121527099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?z7wyRDx7CKSVJ7WxJQwgKaM6e8HxnDWTmr2dJnCp0HrZqxNBKwTvg3fd9oMQ?=
- =?us-ascii?Q?MdCv8gxbCbjnMPob47Aba/+GTfeU+tC9oEweNE8qUGn1rJ//nfK0gTxmugYA?=
- =?us-ascii?Q?yxz3ShOjEzQO+B+Qy7gbbRZ03oF+2edYSZPlHtTP6HWRdhCNZc3BBuEXk0T7?=
- =?us-ascii?Q?bshU9vRKQJIFHlJPqWuASz/1mwYmM0NKLt0HDu7+jWo4jVqL1u0RL5u7a5N7?=
- =?us-ascii?Q?OK5gmPEYs5V/D75dIb+b8L32OaDJeNJJsQGgo2JxyU2xqlsWrKZu7WNkjmpT?=
- =?us-ascii?Q?4boqp7tMfc0Wy6szeExZtWW+lI8DxsQQTYneWievjH8yHmjl4arg3E+9krd+?=
- =?us-ascii?Q?MaePWvHBeoroUVfzosRR9ASXlGBiFBbc0dnySJEvPHbuQ48EHesy1feR4AxC?=
- =?us-ascii?Q?em1ETXJT5pmSpn2S5c9PMz6kaZK7hQRdWxKYMjlKkr7Je3f7e/63lgiyO5B4?=
- =?us-ascii?Q?BScXLmxCSU1td9fzBbYcCyhq3mzdsBCqyZo5nP449VzjDQR6UxPgHUxoL0gH?=
- =?us-ascii?Q?/s5auMXpvIqEDI0Xzkf8HTry5nSgXsXszDbmfAu0zMASdrrAaVZ8STlKxYue?=
- =?us-ascii?Q?tqbE9xC9rn3RdcyG7jAK+xUAyrCDCFP7GK3CepWpCadMlK2mYf9ynOIA7lTm?=
- =?us-ascii?Q?5Qibt4y3o3Vo0uXL0gRrIptWXG2a4ehG6Ym6a+OD9Iw6VDuUkwzJenu71TFp?=
- =?us-ascii?Q?cUgccW4qQvkKUhxfg9m48WVx8eL+5ukzYXs0831Du7Q7vNRZT1GbMRupPIbB?=
- =?us-ascii?Q?5D8Hx/xPBkNnF7ieTBkiQovNkvTfE0WxaxtOoEHbQbvCW1TLqS1X5GOp6Ki5?=
- =?us-ascii?Q?jueNWaIfZDQD4boQ0yslLqKKTwIyoQLcvJ2R7FFx1npwPL9kWkepkS8cF7VK?=
- =?us-ascii?Q?39UdLSLlUfw5xrUCs1C6b2sDVS7XCbkhDmVKoTIKfJgBmsESnjQk6TQ1lWmh?=
- =?us-ascii?Q?3KgBFrL/HJqmszDe6ORKLkO3dDRG1dg56s1Y/snPKMhG/4rFWFaUytiwbWeF?=
- =?us-ascii?Q?DjGyFxUzCEleEHs5QSGQ9PuN00pD3NHuOGaYF1GR+Fku0NmIQ2VAzCyTQjcS?=
- =?us-ascii?Q?XTeoUGSqliPHruIxszfSoO3hOppM8Z4au1Pitu9OvzKFLUBo+ITTOWm24pjc?=
- =?us-ascii?Q?Btzh84q756A/GeCByf8GfyvuKGd19tE468TqID7NuSyeUoVml0DsizYRJomH?=
- =?us-ascii?Q?0Zud7AoAM186vREVqDDLiEB/fxafD1g4/deUVQrABhs5USAYlC/ce/tTSA7Q?=
- =?us-ascii?Q?/EmVQM20IugPdYV5SwXf83KBXuBp4FSUzNKlThKEi5ZpI6t6yGL3yA89CKRH?=
- =?us-ascii?Q?B+hkKr4L6d2wxPOhAH7TAo9UJsPI1fliH54SQ44IaW448Ln/7+PQuXpJVlBW?=
- =?us-ascii?Q?XrdpdQbwhLTNGKVMs496j0rNFz3Uk7x092Hbuu95kdItmWRQAtMQepzn55gM?=
- =?us-ascii?Q?TJj1EC80CRkNM80qLG6eq6k62GWwOPg1qgTWpbp+6MOzOXlh03B9h1kiQJRq?=
- =?us-ascii?Q?V5qSaEd5bequW1/Bk3o5f0SI909Z+8GY/pl/opW/jlGg9p5wUp82OO+N1Q2t?=
- =?us-ascii?Q?923vLIBJB6krWE3n474h9HnjVPLbr6XjTWv3OKEFtCcP+AEV399h3ypCs9dq?=
- =?us-ascii?Q?gT57yJzKqlpbYvWMneUb3eCjbOrqeOIAVv43LBuuiP9M0LkVD2FJEOv5Zau3?=
- =?us-ascii?Q?PeXyZAfjK40FxPs1mD24Bfif3PmZH/ULAL6LVgytITVraz+5jkRtkeME+H+k?=
- =?us-ascii?Q?5ob8769QmiSxCsQeH5tpkn3dzbWNTx0=3D?=
-X-Exchange-RoutingPolicyChecked: mvcn/7abkDLhGj8RbPeJCsaG5wdH7G2U9YFc0exmt/1gnLic626nILgRAIw7kLEjGblSfgq4mGSY75c0pTcv6BHjUXs72dllQNjp4GIeMBC2GQ5GprMyRNrZuToHMrFFSzbWE8fZYXgz9QiT4m8sv/lPwCR8glHGjxGkYtnI9RRucGipxC7viDbeML4sH6X6qTKRWW2IHkYvXoyNduyE4BRryGTtlAvTvJDsqBfkwBqK2MDToQUb6flWSvpJsGMxWN77QyyW9lCEhTAFDX8VIphEYf5Btx/7UsyMlwT01O98/loue0kVrzuSUXPo6YtEkhZBak03rAovWOenUZbPAg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46aa23c6-881e-481b-3151-08df367ce578
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB868673.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QnBpM2lTVFNWTHVQckMyNnJHb2xFZUZvS29CbFpNclpEZGJmOVA2RjB4RDUz?=
+ =?utf-8?B?MjlRa1M5TjZWdzhFLzRLRm9tQURRRjIwM2FoRHJScG9RanlJU1JFUk1VNVdt?=
+ =?utf-8?B?aGZFUmFpUlFzd2VRTXRzaURrY3hPWW9JdFBPTDRYYU1kaXlVVitrYXNBMG4v?=
+ =?utf-8?B?ZTg1Q01jWFhiTTBOWFdaVXB3ZVBZR1FWdXcyemZmVi93ZHY4a0pmekZZRDVE?=
+ =?utf-8?B?M3FnbmJUejZOQmFDemRDWHA0MzlVdUFCWWdXaytxcHkvVE56RDYzNmhDbm5C?=
+ =?utf-8?B?d1RUYmZxdEJ6d1BKaFVRM3NPV3oyQ1hzSkE2TDY0allUY3VONThFWEdtcU0z?=
+ =?utf-8?B?aXg0Tm4yT2tjcEVYMHpNaGVuVDZRTlk2c2hyTGM0d2ZvMkRBWTdHZWw3eUg2?=
+ =?utf-8?B?a1YwVElCbnJzYldsdys3RHlQRnBibnVYN3NxNnBlbFZ0czNPWUk2RkhxZFRS?=
+ =?utf-8?B?UCtLY3ZtV1duTG83VE9iL0VDL3N1Q0JrTVVCa0IxVjkwYk11R2xyTm4xOU5C?=
+ =?utf-8?B?Z292SmZkNlBQQkZWd2RxWTl4WWxHMEpZaXBMMWtsdTJjNEJCSGRqVUNFRWs0?=
+ =?utf-8?B?TkRSS2lSbmwvSVQvWkY3OEY0cCtnVi9qV0FEdTJWcmljeE90TFNiNE9yNFJ2?=
+ =?utf-8?B?MlQxbkd5OHVuWmZTRWdhKzZnTVROd0lKY2lpbUxyWlFiKy9JYjE3TlllU25Q?=
+ =?utf-8?B?SEdtbkQyd0JoVGFOZ1NyL3R3Z29ZUmhmWDJkZ0grRktLbmZ5NlVZTCtHMHdw?=
+ =?utf-8?B?MG0yMzJGcXBPUmNKUTdMSlovSTlyajdTZkpGTm1WdHRmN3RKMVVDeERvMXJx?=
+ =?utf-8?B?d01UNTVVL2lvV0t4OFIzWC9JRTkxejgyK0tWenQxYSt2ZFQvaWlMY3B4UEs5?=
+ =?utf-8?B?bjVLTld2UmFzNUdkTGFXSWNEQzZicHFXeVdmSVY2M2ZkVXRzR0M0cGVwUEFW?=
+ =?utf-8?B?WG5uMEtlRFV1QUkyZU9kdGhYWnJvZmdFUU9pM0VCaVNnNVBqWWYrNk0zMWF2?=
+ =?utf-8?B?cHA5dHFjVlowOGluTFl5UU44dmlrK0ZqS1lkdXA3NVlhWEU5c0lFejMva2NU?=
+ =?utf-8?B?eExkL2Z5UlBYZjVmRExHa21HQlI2c01SRjJmdEsyeks3cDZkUVNLNUU0MTlX?=
+ =?utf-8?B?R1pncnVrMHBDbDlJOUwvYWJkVDV1SnVBc1N3NFp6Z3l5VXh2T3kvN1hWZWFG?=
+ =?utf-8?B?RGRJL09GdWJHbS9uN2ZsV2Z4UEkwV3N6UTdhU1FaZ05VWnA1UzRqQjlzUmhY?=
+ =?utf-8?B?ZFNSdmdOMlU3OVBQdS81bHdBV3RSS1pLNmFrN0dIbUhqZmR3T05DMDZuNU14?=
+ =?utf-8?B?ZXZNbzZWVmxiVThJY0ttdUJ0aGw2TEZ1cThJcFI0b1JpRHlnRTA5d1R3UjJ6?=
+ =?utf-8?B?NEkzeFFmS3I5NmFkZFJNVTVxY01wcnIrek90RWZUSU9FdWxFa0p3eFdKY2Fr?=
+ =?utf-8?B?dDFjRXpNNWpFdG5SeEZZMW9waGZFeWZiVExEMkFodHp1MisxVmlTMVVpOEFI?=
+ =?utf-8?B?b0diOGFYRHlOdnNObjU4NElVZkhiMEJJMjlvQ2E5azFtVmhrbzNRM2tSNlBW?=
+ =?utf-8?B?cEM1KzlPNkxTTFFGU1pKV0grNkJ4bWxXUHQvTW9mRi9INlYxRUNDMXQ1bGEx?=
+ =?utf-8?B?V3ZqTndTQitIbnhRZWIwUjdZeVJsWWVkeWo4SVRaYWlFcnNydUIyMFB3OHJK?=
+ =?utf-8?B?RWZjUE4ycXBYTVZYRzRRejFudTF5TnhtMGNaZjZLOEtPOVQwd1dHNllFc1B3?=
+ =?utf-8?B?TFFmT0xVSWpGajUxQUlhNlNvZ0tGRXBENWRtb0Uxam85WGVwbGgvdDlncXRD?=
+ =?utf-8?B?aUZJcGdyaGV3bDJ3RjVOa2NYOXlUa1MwS1NORzZ3cGVQbURuTndoT2JDSkRa?=
+ =?utf-8?B?bjFTSFowTFgvMDRLQTl1QVBybFNsYW5ocnlUSTh6WEl3aFIzNThFN3pSRHF1?=
+ =?utf-8?B?YTU1R2w3V1c3aVRWbWxYSkVwWEVUUjdjVnNweGZRQ0VXcTNtelpjeVNSaWJI?=
+ =?utf-8?B?SUoyNzh3c1NHM2h1N3MwbytuN3BLOXBrbFZmdWsvZmlmOFE1OUxsYlRNMUJE?=
+ =?utf-8?B?dmNKWExacjBDYzQzMXpQS1ZTRjEva2MxQ3owUERaOUZRS2FnMEdmMWthMWt3?=
+ =?utf-8?B?VlB5bk14bWp6V0NyL1FGbzRTNXVVbEJ5Sk5MZjBBcGJxMzhobVROcWljbC8r?=
+ =?utf-8?B?c0xnVkdIWDJHaEZLdzZzcFlRQkVWeFAxbXlQcFREQS9QbTZ4SDRKd1RrdHd0?=
+ =?utf-8?B?UVlrZURYWFlPZFc4TjVGWnVjVkttT3M0SElMVXpuRnhHNThEeGVIcmxLbm9R?=
+ =?utf-8?B?R0JacE41STJ3bEpOWTlrM3NBQ1l1NklxMnR3NUViSkovTHpEK0pHZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91ebd79c-c1b6-4948-6ab4-08df367d0e11
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:56:56.4246
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 11:58:04.8099
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nBdPSyNaWp/xWYkPvXtQJh7cKqCr5WGLLvj+ZqsEpe3ytm/mSsaSma2vz0BeB7jVRThJwr14ev9W8Jw1OVedb9JekUXy2uuMMclf0DkZDD4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR11MB9742
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: dY3l1Z2UjriMLSsl17aBZK36ZqGD/GTwa+Mq0q7hoLictPRP9Gfz6Fs1dmvX4NW02pKRfrXx7F/m4yFp5ebGAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFD525C5379
 
-On Fri, Oct 30, 2026 at 05:46:33PM +0800, Rongzheng Wang wrote:
-> Hi Jason,
-> 
-> Makes sense, thanks. I'll wait for their feedback on the selftest patch
-> before sending v5, and fold it in together with the rest.
 
-Can you stop removing all the previous conversations and rather reply
-inline to related paragraphs?
 
-I don't think v5 is necessary. And as Jason said you received 3 review/ack
-tags and none of them got included in v4.
+On 10/30/26 16:16, Lee Jones wrote:
+> [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> amd_sdw_compute_params() tracks the next dynamic port block offset in a
+> static next_offset[] array initialised with {1} (which also leaves
+> instance 1 initialised to 0).  Because next_offset[] is static and
+> never reset when streams are freed or when the driver is unbound and
+> rebound, the offset grows monotonically across stream lifecycles until
+> it exceeds max_slots - 1 and permanently fails with -ENOMEM.
+>
+> Compute next_offset locally in amd_sdw_compute_params() from the active
+> ports on the bus and clear port_offset_map[dai->id] in
+> amd_sdw_hw_free().
 
-> 
-> Thanks,
-> Rongzheng
+This is not a bug for ACP6.3/7.0/7.1/7.2 platforms. These variants
+do not have banked registers for data port programming. Instead, a
+fixed port mapping per DAI ID is used by design: each use case (e.g.
+headset playback, headphone capture) always maps to the same DAI ID
+and port number across stream lifecycles.
+
+The guard at line 402:
+
+     if (!amd_manager->port_offset_map[p_rt->num])
+
+ensures that port_offset_map[] is populated exactly once per port
+at first use and never reassigned. Since the DAI-to-port mapping is
+fixed, next_offset[] advancing after initial assignment has no effect
+on subsequent stream open/close cycles.
+
+Furthermore, the hw_free change introduced by this patch:
+
+     amd_manager->port_offset_map[dai->id] = 0;
+
+would be a regression. Clearing the map entry on stream teardown
+causes the port to be reassigned a new block offset on the next
+stream open, at which point next_offset[] has already advanced past
+the original value. This breaks the fixed mapping invariant that the
+driver relies on.
+
+The number of concurrent streams per instance is known and bounded,
+so -ENOMEM from slot exhaustion cannot occur in practice.
+Please drop this patch.
+>
+> Fixes: 27ab4f1e4909 ("soundwire: amd: refactor bandwidth calculation logic")
+> Closes: https://sashiko.dev/#/bug/linux-a0378066-b3cf-426c-bc88-e4d5208965b9
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>   drivers/soundwire/amd_manager.c | 48 +++++++++++++++++++++++++++++----
+>   1 file changed, 43 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> index 9dfcdde3f2f0..98b09d81f3b8 100644
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> @@ -469,6 +469,41 @@ static u32 amd_sdw_read_ping_status(struct sdw_bus *bus)
+>          return slave_stat;
+>   }
+>
+> +static unsigned int amd_sdw_find_free_port_offset(struct sdw_bus *bus,
+> +                                                 unsigned int slot_size)
+> +{
+> +       struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
+> +       struct sdw_master_runtime *m_rt;
+> +       struct sdw_port_runtime *p_rt;
+> +       unsigned int next_offset = 1;
+> +       bool overlap;
+> +
+> +       do {
+> +               overlap = false;
+> +               list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
+> +                       unsigned int other_size = m_rt->stream->params.bps *
+> +                                                 m_rt->stream->params.ch_count;
+> +
+> +                       list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
+> +                               unsigned int other_bo;
+> +
+> +                               if (p_rt->num >= amd_manager->max_ports)
+> +                                       continue;
+> +                               other_bo = amd_manager->port_offset_map[p_rt->num];
+> +                               if (!other_bo)
+> +                                       continue;
+> +                               if (next_offset < other_bo + other_size &&
+> +                                   other_bo < next_offset + slot_size) {
+> +                                       next_offset = other_bo + other_size;
+> +                                       overlap = true;
+> +                               }
+> +                       }
+> +               }
+> +       } while (overlap);
+> +
+> +       return next_offset;
+> +}
+> +
+>   static int amd_sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime *stream)
+>   {
+>          struct amd_sdw_manager *amd_manager = to_amd_sdw(bus);
+> @@ -479,8 +514,7 @@ static int amd_sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime
+>          int port_bo, hstart, hstop, sample_int;
+>          unsigned int rate, bps, channels;
+>          unsigned int stream_slot_size, max_slots;
+> -       static unsigned int next_offset[AMD_SDW_MAX_MANAGER_COUNT] = {1};
+> -       unsigned int inst_id = amd_manager->instance;
+> +       unsigned int next_offset;
+>
+>          port_bo = 0;
+>          hstart = 1;
+> @@ -511,11 +545,13 @@ static int amd_sdw_compute_params(struct sdw_bus *bus, struct sdw_stream_runtime
+>                                   */
+>                                  if (bus->params.curr_dr_freq == 12000000) {
+>                                          max_slots = bus->params.row * (bus->params.col - 1);
+> -                                       if (next_offset[inst_id] + stream_slot_size <=
+> +                                       next_offset =
+> +                                               amd_sdw_find_free_port_offset(bus,
+> +                                                                             stream_slot_size);
+> +                                       if (next_offset + stream_slot_size <=
+>                                              (max_slots - 1)) {
+>                                                  amd_manager->port_offset_map[p_rt->num] =
+> -                                                                       next_offset[inst_id];
+> -                                               next_offset[inst_id] += stream_slot_size;
+> +                                                                       next_offset;
+>                                          } else {
+>                                                  dev_err(bus->dev,
+>                                                          "No space for port %d\n", p_rt->num);
+> @@ -824,6 +860,8 @@ static int amd_sdw_hw_free(struct snd_pcm_substream *substream, struct snd_soc_d
+>          if (ret < 0)
+>                  dev_err(dai->dev, "remove manager from stream %s failed: %d\n",
+>                          dai_runtime->stream->name, ret);
+> +       if (dai->id >= 0 && dai->id < amd_manager->max_ports)
+> +               amd_manager->port_offset_map[dai->id] = 0;
+>          return ret;
+>   }
+>
+> --
+> 2.56.0.317.g454f8302e1-goog
+
