@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793398384;
-	b=WT+yVnzuM2qURgqF7z9/DYeu8LRiVCZKLTXDka7HOEBdipBfQamp4CSiOMgokeszHq9x
-	 SLjQgpsMbMojSjEkMAUxcvXqE+LRFNRNJ80INo9KKt+G3+Av8P5/mFtgpRAVOzzQkXpLx
-	 DsHPV3MhvSczekUMaOdyNudMUZi0+45zd8bY3rdv5K6NVkhMaQNKgN69NjVJNIGhY9bla
-	 PUq7mTX23viAelSD5jIvzSvezcjKIIF/hO3xFxmLRKYkf/ndlFwXug5ixPjuuCM/xSSSW
-	 dACg5h1O3jdBZiJHobPH+1D65npzhA0zhpXu7YVibmEt1i/atw/0+unZnv3EAHeOdfQ==
+	t=1793398524;
+	b=PEJKS5k8RmgTuv/uBv4p1kcnFkz0t2rflhTkyc30uwPLZVPdENq6obvAKP9v6io8+6fM
+	 HO3pd76bmjQGt6SSa43aVgoqLzLlPMLXHUrFfGCkIeBScg3j0pb8kNmWVzgTUoAiMCowt
+	 L4BpAUf6z/Lo0VFJ4PhaKKIhuD6+SHcF4CmuxHFe14kRSiEPCKUbgLcy3782tmrYupdFy
+	 9mFzPYNTQu62eGOYkL5v4jTct6BxfNfH3eri/enQbql/L6vAuPs6ZZQJzantbxDtxy4IL
+	 wfyQM8nBrL2fbvUxgfuYs43HnvV3XPQNGPeOc2otC2n7Ae/ask3jESUY9lW1pCnorYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793398384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793398524;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=N66ylOpc19XySTxthFzGuhyUuzRzAwFBGv4y3QueXqU=;
-	b=jtDubXmd4l26s6+FVw7vP8nHUuDxw2mWvu1h/o7cJ02tROjxWfx/ZV3emtwU9JzQk/8y
-	 LyXuChAmcNeTxJmGHJsgYXF83A19jTrmP+avj4ynaneSAsrG9K3N2L3nkTmb4pKvTuG0B
-	 pVDFx22Rg/ObdDePPVw+9xyaA2QSJEDWjV9TewVq5MeEKgr2mzMHzEJhtVeBjAD/MFWed
-	 cix4tPTsK/y6UtUPCixE3Jo71u792RDcy2WITQshEiOMAnUl7HXhMNmkK3GAHc34ctZn+
-	 L0iGat1eEvNr5UG/NIp889aY1TCKixT34edh7zhrfWxiIVHxg0Nry1EIQCi+v4Lutgw==
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ae/WNpwhDO2VnWY2svGWtlkmRzAah686LwChcMW5xuY=;
+	b=eKOAUJ/eUAVK16oX3fmuMmO/M6un16aSMJeRMUEvAjv6YPRDbLu9jrstj/2om6JfXO6s
+	 c8ILsdZeQdDqa+JR/mJ+fodRodiJ9EuSHzXLrJWQ42rs5WYlViogNAvf8iMbPN6B6d9aF
+	 yaOVWjAtqeCTGbPztHE8CLRzVbvC8Ca3oVG9hqZ0b9kPPa/EfWhrg3fwMkrwn2nNoiWvU
+	 PsX3js27FG71eGLon88ibAztdpNRYrzpKmV+XAVoj76HqdLGQDunLCHTDAmL3ZswFgxK9
+	 VLrgH539emHL7AxKY3dXURnPhzEpRiR36mMOa5LHeRPo3T9zTDvdanW0HMO0g0iM2AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFS1jTvx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HrSF/e4j";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1464A606A31A;
-	Fri, 30 Oct 2026 22:13:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67796606A31D;
+	Fri, 30 Oct 2026 22:15:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFS1jTvx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F791F000C1;
-	Fri, 30 Oct 2026 22:13:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HrSF/e4j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26BF1F000C1;
+	Fri, 30 Oct 2026 22:15:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793398383;
-	bh=N66ylOpc19XySTxthFzGuhyUuzRzAwFBGv4y3QueXqU=;
+	s=k20260515; t=1793398524;
+	bh=ae/WNpwhDO2VnWY2svGWtlkmRzAah686LwChcMW5xuY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OFS1jTvxvWYsf+fmKXKkLbvrbvs/SLWujaZhgdnwgf/dsfoEvJk2ca1rpjk2yBO70
-	 U6MCRoVIhpPjar34yBLR8UiGcqXR0OSA2gP0EsuEyIk7jMrHZMvfOaCgJWbBOpzhZ3
-	 dFf0aQtxyhMxe8szQ/Ii48riP4H3xuDEb0E/dR/DaxfO7M5P6VexnKfAWSwF9j93xH
-	 X26n8+NVocxmFB8di4IQC2uqwqTN12qUuPZKrjIFzqd9fh7WcVEigc94yraeuTtcen
-	 kKUAYOthw4JpmaFjIs0CU7Cgp7eNsDkS2p8wkFI51edxl2vfjJXpZcn1NQYkkvRd8+
-	 QaZmAm38fQPHg==
-Message-ID: <931d99cc-cc2e-4967-89e7-298d9a3fd0e1@kernel.org>
-Date: Fri, 30 Oct 2026 23:12:57 +0100
+	b=HrSF/e4jvxLJdiVvNyJjOVr3iEP3BLH4f4XAOlLGgXaIvlPhikoj4YcSfGH7ZIMVF
+	 wHUCHkhC6F1spfp2lEuuTiwV0MiUnz53NpxMPVlI+ImhsdAvAAF2hYYkJsCp4hc+hH
+	 byDuDl5TI3NUj/SelCEpqDact3Uutl+KgcA2wnfGPEAilnnOBODMx+JoxsiRjYDO6E
+	 FH9dNeKGww6ELtUIcxcOHYY63B4XaEZw7LZIRDH95QkrBz6eEd2csTie08F49UaUO4
+	 z1AJuSoyoa1fX+EBB3lU0NvvuhtJETgT4+kg8Hk1HqsdhhKjmPkCKL5MSUVaOyNA5J
+	 OvrHw4iesX/tQ==
+Message-ID: <04ad7001-bdd4-47e1-9a80-5b2464da1044@kernel.org>
+Date: Fri, 30 Oct 2026 23:15:18 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,85 +51,215 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v4] mptcp: do not use Fast Open on MP_JOIN subflows
-To: netdev-bot+sinfo@kernel.org
-Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Christoph Paasch <cpaasch@openai.com>,
- Chris Mason <mason@kernel.org>, netdev@vger.kernel.org,
- mptcp@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yilin Zhang <yilinzhang@moonshot.ai>, stable@vger.kernel.org,
- Kimi Security Team <bug-report@moonshot.ai>,
- Jiayuan Chen <jiayuan.chen@linux.dev>
-References: <20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org>
- <179339809972.3286.6931292097714769277@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Content-Language: fr
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <179339809972.3286.6931292097714769277@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/swapfile: drop a large unmapped swap-in folio in
+ unuse_pte()
+To: mt4022@columbia.edu, Andrew Morton <akpm@linux-foundation.org>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30/10/2026 23:08, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
+On 10/30/26 20:11, Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh <mt4022@columbia.edu>
 > 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-Indeed, I forgot to add: the same reproducer from v1 still applies: the
-issue was actually triggered. The symptoms are described in the commit
-message.
 
-Cheers,
-Matt
+Thanks for the report!
+
+> Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
+> for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into
+> one large folio in the swap cache.  The folio only becomes anon once
+> do_swap_page() maps all of it, so if the faulting PTE changes in the
+> meantime the folio stays in the swap cache while not being mapped or
+> anon:
+> 
+>   Task A (fault)                       Task B
+>   do_swap_page()
+>     /* swaps in large folio F */
+>                                        madvise(MADV_DONTNEED)
+>                                          /* zaps the faulting PTE */
+>     /* PTE changed (F not mapped) */
+> 
+> swapoff then maps it, which marks all of its pages as mapped and
+> exclusive, and the next fault on one of the other PTEs crashes in
+> do_swap_page():
+
+Ugh.
+
+Why is this special to large folios? I guess because a single PTE keeps the
+large folio alive, right?
+
+The problem really is that unuse_pte() open-codes whet do_swap_page() would
+usually do. And it doesn't handle large folios in this scenario correctly.
+
+What a mess.
+
+I guess we could just teach unuse_pte() to only map a single PTE.
+
+folio_add_new_anon_rmap() assumes the folios is fully mapped. We could add
+up to twp folio_remove_rmap_ptes() calls with everything except the page we want
+to map.
+
+But reading below ...
+
+> 
+>   [    6.424485] kernel BUG at mm/memory.c:5195!
+>   [    6.424503] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   [    6.427654] CPU: 0 UID: 0 PID: 67 Comm: swapmthp Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+>   [    6.432665] RIP: 0010:do_swap_page+0x24eb/0x2fa0
+>   [    6.451035] Call Trace:
+>   [    6.451567]  <TASK>
+>   [    6.453841]  __handle_mm_fault+0x13b5/0x3b40
+>   [    6.458525]  handle_mm_fault+0x16f/0x480
+>   [    6.461143]  do_user_addr_fault+0x312/0xa30
+>   [    6.462044]  exc_page_fault+0x66/0xc0
+>   [    6.462846]  asm_exc_page_fault+0x26/0x30
+>   [    6.476708]  </TASK>
+> 
+> do_swap_page() already drops such a folio from the swap cache when it
+> can't map all of it.  Do the same in unuse_pte() so that swapoff swaps
+> the entries in again.  With the fix, nothing is reported.
+
+We indeed have this
+
+if (!folio_test_anon(folio) && folio_test_large(folio) &&
+    nr_pages != folio_nr_pages(folio)) {
+	...
+}
+
+check.
+
+The nr_pages check makes sense as in your case below it's simply nr_pages == 1.
+
+> 
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within a second.
+
+Rings a bell :)
+
+> 
+> Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_SYNCHRONOUS_IO")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> This conflicts in context with patch 41/47 of David's v2 series [1],
+> which changes the line right below in unuse_pte() for KSM folios.  I
+> can rebase on top of it once it's applied if needed.
+
+It will likely get applied on top of
+
+	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+
+Tomorrow and then quickly find its way into next. So if a resend is required,
+best to send against that.
+
+> 
+> [1] https://lore.kernel.org/all/20261029-fixes_core-v2-41-a64ce7f83abb@kernel.org/
+> 
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/swapmthp.c
+> ---
+>  mm/swapfile.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 189f04d8838f..b0b75ff16835 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -2518,6 +2518,18 @@ static int unuse_pte(struct vm_area_struct *vma, pmd_t *pmd,
+>  	if (!folio_matches_swap_entry(folio, entry))
+>  		return 0;
+>  
+> +	/*
+> +	 * A large folio that is not anon yet was swapped in by a page fault
+> +	 * that did not map it (yet). It can only be mapped as a whole, by
+> +	 * do_swap_page(). Drop it from the swap cache and swap in small
+> +	 * folios instead.
+> +	 */
+> +	if (unlikely(folio_test_large(folio) && !folio_test_anon(folio))) {
+> +		if (!WARN_ON_ONCE(folio_test_dirty(folio)))
+> +			swap_cache_del_folio(folio);
+> +		return 0;
+> +	}
+
+I don't enjoy the additional code duplication, including the comment.
+
+Can you pack the existing handling in do_swap_page() into a helper, pass
+nr_pages, and reuse it here?
+
+I guess finding a good name is the main challenge ...
+
+
+static bool swapcache_folio_mappable(struct folio *folio,
+		unsigned int nr_pages)
+{
+	if (!folio_test_anon(folio) || !folio_test_large(folio) ||
+	    nr_pages == folio_nr_pages(folio))
+		return true;
+
+	if (!WARN_ON_ONCE(folio_test_dirty(folio)))
+		swap_cache_del_folio(folio);
+
+	return false;
+}
+
+
+Just a thought.
+
+But it does look like the right fix.
+
 -- 
-Sponsored by the NGI0 Core fund.
+Cheers,
 
+David
