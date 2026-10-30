@@ -1,98 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793321757;
-	b=mLQuJtPDNEhb1YAvrpKWw2aLyb/Wea+MYhiusWLyX4ukhjbkaeJk/qGwuKiEUNEHClCb
-	 w02Tckm3A2Gg6INHnXBrGQyVEov0jXN185pfZFj/c2d50iSWFTU+cAYQJeA/g+VgJw9QE
-	 oGCcdnDWT5xOEuv/9+C7RmVt7kRYTPKTAX87nhygfTpoUnc837+F3crY7OXYoJqtPoBz0
-	 6aEs4Uoxu7WY/vhpGvcVZNQ9w9A7yjAq8ijnYGyFHpR6Nr+aWJ9QTguYdHHgxSCP3a6hb
-	 yTZZn4TprqvJBbbpYsmPziI1K274PPf2c4QBYGFPeFZNZeZLmsyNKUw+av9Rjh8U7sw==
+	t=1793321856;
+	b=c3WrQvWd4iR2c/5tkAgxT/9tkncVN0z6xSW24WlhTlOHT9dspMrRI7XXCApCIHlrCUO9
+	 fYjoExFqQOtqmgSo0359wOBdqHLN+ViXBd2d2iCeanNuUZomcB7BhOtbGdGEsx1zLPAH5
+	 6nCM5zRGiukaO5Ch7jpuUIOnwTSHufIsjv8Nl1WNnqDNjbS8daxGnFe6Gfz3XRTJIxdyK
+	 JxKh43YITvcDyDurzR7XO1VF3r+vKg6hvOJk4I9Zw9mRXPOZ7Yy+d60P0L3bSbHU/X6Xn
+	 MfUqW19NJXJbvU7mfSaxii8ZJ9vfd9s7u1uZJ3GhbjbQpNgTdZ0ndI0zmDEjXLL0d0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793321757;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-DetectorID-Processed;
-	bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-	b=dFUtUCc9e174yXPWrR2XLDd1/FMkAM6vu2BVDcQN7L8jT1NBogmn0t4sCkZ02vmiyGaT
-	 h+W4JjXVjEIgQB4LMJXkyTqcS+UA9y1qs+AtISxF92Go6nPOP330kbXjVULvXa3040PIq
-	 gpYZK1HldG6p657ahETnZJTWqsK4zkC9nbC15su8UxRb1tlP+fCT81B7FijCMw6F1Z2KX
-	 VCBRhDgWd2uLpCVFp5ErnPpxKH43cFHyDAbRlqjPSNqxBc9IdHoYjp5C/8/nvlxsTlhiP
-	 klB2g2lAZvVpHjlmnYPH+SGihYAD9u+iTLrpCY0ZHDt3HM5yQO8woFNyfm9OWaZxqkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793321856;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=M6bpDqyFL1t6pXSfv5Po8tZyxphIeTUYr2/GTeN0+Ow=;
+	b=By5COuiElj8L1m0sqckkX2lnkKV+QizJTUVQNPWPVanjeSwWQt5SxUYBg6qoDb8cQqd6
+	 yoiqfYC8osTFlYcOHOZbUTVhCIO6Kc7N/TC0BtyzBN84sDoUN5OUa8T8yJA8wmTcuD3jR
+	 HurW+dX71DGTraTKZFzJY51Gr9As2251GAL2C1jOA4a8ZZJTMoVjLmZlbf5+o7+iJMdzm
+	 O75zZkApayFFiHENllBBTRFv3RVSRhbeuvjskrvcIlvHXT60qG/Btyl1461wlzTC5TERp
+	 xeQQfXXssY9imQGqtZdQXg6hZmOC4vBbL7oKM0NPdGzBo0EaRgnlTkGriXCf+gejQ6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ETAS8aBC;
-	arc=none smtp.remote-ip=209.85.222.226
-Received: from mail-qk1-f226.google.com (mail-qk1-f226.google.com [209.85.222.226])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bck9LEQ0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9742F606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 00:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9742F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E0F606A31A;
+	Fri, 30 Oct 2026 00:57:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ETAS8aBC
-Received: by mail-qk1-f226.google.com with SMTP id af79cd13be357-9440304604aso20947685a.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 17:55:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793321755; x=1793926555;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-        b=QUoNVO/FKpIciiekm3BvZzyZrO70gTlW5jrwilGL0zXHNTJgbvlRoic2y93/BECUV2
-         ZZSfJJaidT7i/RORcd8nrOtbQDGvcp7Yg1zd3Iggdxjg7ZmyEjtPv2KX1hyMKZkA/TEG
-         Vpn7fGGilDdcTZidEi7D89kEEZU8K8k4+bjm8fH6r88yoc27IwPDdWl7PHi/6idNygg0
-         8fra4GzLo/56Rkaol4uAvTqtbZZAmB77T3OQPq2z7wRbAe8lqJozICAfXvrAAKvlhW1C
-         BdbiR4Vw5HhEvpA7m9wxLeWljUkH8ErtYu2YZHl2csSjy2KcwaWLOr33PHsY+uwueZ9P
-         GTLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwhCekWLBlyjvesEQSiUUeQnKnWYibv4mVde0ufnjS2UQZ/2i1Mfzv2CXEOK2QCbFL+TwQAcGM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFumfy3VVkjfGAxbCLYG6iQ1gTKadpBdCwIvdvnH5Bv6Qvz0/F
-	nrEtIIaDYfLHszxxN4mR1Fmkz3uRIJaCVd7+6A2tYUbubVZJpqTLXBp7+TlOg4JRBHT0Pm45nmm
-	z9MbzHV7DVMRE/xVzyEb6/Qh4+eyduRVhAAX7HbCIL9xfEHAHRTYBhK3Mu8fEErE7jdF7smE9yS
-	QYv/e2JKAf/1amvg1t685ZYNKoVyD3VCs7GVocXacPmdUNgm1FhriVR2FpJJHKZbiT9PXHx3p7x
-	4IgjrEBs6rMso36
-X-Gm-Gg: AYBFou2WCEIWqltx9Iku3h+LiN1SjOQXY5lli3S7fFiDu/N2oYXrf9jD2A5lgen9Ldq
-	XH167m+PaLze1/66qtpbasphmgS3JHgIv1FM6EtKdOcDbaIghdNaEIzkmxkLVjH1KiO8Csb9gHz
-	2f40EHPCmFEMVia4oTEL3imfjRMstzFhm8jkOkd4jvkqgZKrR8dgw6442Cr916w3MKZs+Rj5XDr
-	NflGZ1EpoQxBAWCxVDO51NX1FI71uqHrqm38+subHf77D9OyaEn23sPxTXoU1Mmv7256jd1tjno
-	ELLznFMWS15IZNGWpNc4HcuU2Kv2+ld1+kTUcV+v7ZeBowde9oNXowcfXJzEMOfZpYBDErTfWdK
-	NgqzWU5n/iBX1jnQXVavnfW/O+Zj9SSdhL/ZGik2jripqfIqIzBUM0wEL894XFs3QpHWcrnujHf
-	jtxcsxZSkwII/SbXNeuuWkNKCt4xRbucT7i5mTtVDF
-X-Received: by 2002:a05:620a:46ab:b0:93f:2bca:2cf0 with SMTP id af79cd13be357-9442171fb52mr149301085a.35.1793321755549;
-        Thu, 29 Oct 2026 17:55:55 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-94424e8a55csm1443285a.0.2026.10.29.17.55.55
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Oct 2026 17:55:55 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3425098ae4bso1842522eec.0
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 17:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793321754; x=1793926554; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Nfv6FKqQEehlYO6PakQvy8xnbRMYCGdZ1UXiFqagoN0=;
-        b=ETAS8aBCzYATyBjUX3EQVyOm0vO+7gkBSlYL2suYCw8MUsxYh11lPbW9L9mcOaBFHY
-         /kXgqMnM6fkJggryTuqDFunvVuNpBeb5dMsOtteKdPbk1RqK5joSTNDGnDLGcM0oViRQ
-         upykpF6d1xKr0cHVIb1GFlKY/JQz4KmDSqUOQ=
-X-Forwarded-Encrypted: i=1; AKwUvBzRexVShrRBuEKyVaa1QiE24mt4NB0+vxPy4EIHjGfk/lSzsfEQoUQi50VjY3ziKFHbzMvVQS4=@vger.kernel.org
-X-Received: by 2002:a05:701b:2511:b0:182:d0a8:d1a9 with SMTP id a92af1059eb24-1a93c6ccfa7mr5041512c88.0.1793321754037;
-        Thu, 29 Oct 2026 17:55:54 -0700 (PDT)
-X-Received: by 2002:a05:701b:2511:b0:182:d0a8:d1a9 with SMTP id a92af1059eb24-1a93c6ccfa7mr5041486c88.0.1793321753424;
-        Thu, 29 Oct 2026 17:55:53 -0700 (PDT)
-Received: from localhost ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm2198320eec.24.2026.10.29.17.55.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 17:55:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bck9LEQ0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5070C1F000C1;
+	Fri, 30 Oct 2026 00:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793321855;
+	bh=M6bpDqyFL1t6pXSfv5Po8tZyxphIeTUYr2/GTeN0+Ow=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bck9LEQ0UPt4LikhQsWdEDa6SKxVHXgeqY8QxTgswXVFtiDdPukVSUu4n9MbVtYs5
+	 9bJB0UhYlqNoSAncXFJ2j1+NWPJNqcsDIAUWHsMxFaaWRhN5euG3twTUKMEQOkhMHq
+	 kCqRFz7lMFFHp8ifCqslKWbUlluFBnrNX2Gsx1QQZJ1my3+Qiqa83Vi4wtVn+wWcXY
+	 yr12zqlMfd4YaoyLMi/eCnYBn6ROMiu9tbRatmj2MhIT5+dvt+dbydBKyR+FVLJc9O
+	 dqXK/TupCXUvbOJG5GZZZVlCKD/5zJ1rV6kAoCfn2B0Pn4nRrmkZIvQ909w4V4Nmjy
+	 P8zEJJwppvlEQ==
+From: SJ Park <sj@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Kees Cook <kees@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Hugh Dickins <hughd@google.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Zi Yan <ziy@nvidia.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Rik van Riel <riel@surriel.com>,
+	Harry Yoo <harry@kernel.org>,
+	Alistair Popple <apopple@nvidia.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Minchan Kim <minchan@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Xu Xin <xu.xin@linux.dev>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Gregory Price <gourry@gourry.net>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 27/47] mm/mmu_gather: fix flushing ranges with 4 GiB or larger
+Date: Thu, 29 Oct 2026 17:57:25 -0700
+Message-ID: <20261030005726.155279-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261029-fixes_core-v2-27-a64ce7f83abb@kernel.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,29 +120,56 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 29 Oct 2026 17:57:14 -0700
-Message-Id: <DMHRJ9K73XAV.2Z5TV83Y9TJRL@broadcom.com>
-Cc: <bcm-kernel-feedback-list@broadcom.com>, <ian.forbes@broadcom.com>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH 2/2] drm/vmwgfx: bound MKSSTAT lengths before rounding
- to pages
-From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
- <maaz.mombasawala@broadcom.com>
-To: "Zack Rusin" <zack.rusin@broadcom.com>,
- <dri-devel@lists.freedesktop.org>
-X-Mailer: aerc 0.17.0
-References: <20261029215738.3010276-1-zack.rusin@broadcom.com>
- <20261029215738.3010276-2-zack.rusin@broadcom.com>
-In-Reply-To: <20261029215738.3010276-2-zack.rusin@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-LGTM!
+On Thu, 29 Oct 2026 21:33:22 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> __tlb_adjust_range() takes the size of the range which has to be flushed
+> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+> gets truncated, possibly to 0.
+> 
+> On arm64 with hugetlb, a 64k kernel can have 16 GiB hugetlb folios
+> mapped contiguously at the PMD level and flush them when unmapping, and a
+> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+> at least these two scenarios are affected.
+> 
+> Fix it by flushing the proper range instead of the truncated one by
+> properly using "unsigned long" for range_size.
 
---=20
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
+Makes sense to me.
 
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> [ david: use two-tab indent, simplify description ]
+
+It seems the convention [1] is to put the above modification note right before
+the last S-o-b: of David.  Maybe you forgot moving it after adding R-b: and
+T-b: from great reviewers?
+
+> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Dev Jain <dev.jain@arm.com>
+> Reviewed-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+[1] https://docs.kernel.org/maintainer/modifying-patches.html
+
+
+Thanks,
+SJ
+
+[...]
