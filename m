@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358894;
-	b=B8giWU207niluuuCbOSkIklwzZpCUf1HQwcFK1E4IyZKJfTtWWPm3eDjyDrYrekhzaPO
-	 7BxZWxMPDoRv2/Ls11P5POCpjgN9EDvMj4yuzrte/H/zLyJt8WTu03qjQ0DfBhrT6V2K8
-	 AXG7qveOcGIApSWl+Ls8h/SGbbg69ixIliZsHAbvvu7v9JORXBZ+8x8YSJPPU4E872g9F
-	 askOG4gqcyIPoLSVXJFzcF3bKah+kuKSZO0qTNMAzy/VsFSr9fYBIS63RRjcYEJr1n5sP
-	 vhuvQUwYXQKrStcLwSLKrviGv0cJYwicrSggcTypwJfoPloPLXbg4AxEQ4JKDk37wNg==
+	t=1793358937;
+	b=vdtHArWPuSeon8J1V7wPelNxm6D1oOzdmW2edcHUxhG96pTTI1pW1FirJs0rZPux1Mi/
+	 yhFTjMhkQvkX8eR8AUAgBB6feabOgbmTWzXasOjGpnZcTp9y3p1ahORrmMweV+fAzpFOJ
+	 /x2FmHF0HcBxf70BRACfyAmHM+Dq8l3Tmy2xUKZ9ahxVRwzTA6mGuutKstMw9gMYpwBPk
+	 Jl6ErYo/tS4I5CFiKs26+mA1MMQ2qO0T1xr/kxVHG6UhkZRQaoHdh+bIT0rRdGgiskFL8
+	 xG/2QG/NRQh1gWgsfX18HXP0mVg/YZCiXfgUffS1jGIlyogI3gkMZn3W9XWf0KkUHnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358894;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Mr1+XuTgSkjae7K1Qb91H4lBdSosGmI/b2MCp8eMYDU=;
-	b=G7Qj48PtLaUy690Hwt4LC7qSF5u76vPFIP69fxOWApUWVS72GxhP8GUcNtk9anuRmigR
-	 Pql8eC26ZuLTlj3LNTOfSvjw0PpO90idRNAc/K8+/y9M4o4aGnuByLFXHixUL9RfPifb9
-	 Q+QUmgY5pPfPLkOyrqxhTdZ7HIYZKaX35p57Mx/JguHqok8s6GuHfrD6Y2NMwGZt7+CkT
-	 P+2iJekWz7GfHbhTrfmI874vpU0ErnkdZnpzjWMHvdIc0bQfWozuPie+0dKMNq5oH3P87
-	 a7+CtEATYWx4rUeOfsG4gVDsO0HP8gVMu46VqWxQUEFYlq74mSKuVLMcnoHkUP+om+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358937;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jcFVnDvIZ8heZvYaiF3eCzfDTR74GY+V/2n+TMcTvAs=;
+	b=EpWLnvWvZ74/gnYYZW/8DY+pexfcS5kJG4eFXk5cL4o7XxLUryYn9/gwKjK0y6UNWYNm
+	 2jJ62P3nmZJUFOXaj1efAS6TV9GoXnzipaSsPQuYBzZMZBcyN8978qw/snEz0pneEy5DH
+	 cu8DKMk2RKDxpwb/K6Edo0SQ3r6MNTGVFQ8MnjAEz2M5ugPeVVbLV7xgBEnaG3Djz6qqU
+	 vwsWEFMMIdYuWzzN7USAgaSHooOQE1yXKSQOSn6wrWcpPILhDwCzFnuwbXtsuq+zEMOqz
+	 RjNQW3+j7fcNWz9WY8LVcK9wG8qM+sMCk3w3kJ7zLX+OJjikNbUGOTVLAUQFANkbS0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="cKbDNQ/W";
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0Z5bJ43;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67785606A31F
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:14:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67785606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C983606A32C;
+	Fri, 30 Oct 2026 11:15:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cKbDNQ/W
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso371701a91.2
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 04:14:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793358889; x=1793963689; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mr1+XuTgSkjae7K1Qb91H4lBdSosGmI/b2MCp8eMYDU=;
-        b=cKbDNQ/WlZdgYHgXvsoeLIfDefTUui4goSPq94ObGf8vvLgtnUW+WPGBaZQ5llYMq7
-         2PpkB8KatXY5F6q9N1rQNUeARnAR4wqsBmlE8eme18Cmwrtl2RbOqztYdsflN8Dj31XS
-         B+qmtU5mr8amQDdncuO14gvxnAnioSO2TmFOFXBsa3XkDJjiqkeeLuAB86aNi9ZCfQqA
-         HgrX7+Nitfbmk998l4iVm749LxVyb8zlkyd1/UBOxIdqUKi3nVivUXru/ieJTjFPyZU+
-         i7CeZCnEEDfHx2OuTaouP3xCxyp9lVi6U+mrqkp356TUT2eSaeYZiO0ADDxTEj2L1oA4
-         F18Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793358889; x=1793963689;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mr1+XuTgSkjae7K1Qb91H4lBdSosGmI/b2MCp8eMYDU=;
-        b=FGD9nuETPMPW/ZTRp6o3Itcddg6oBvqdfyW3xnTWV694Jybl/XunIerNBGxhEflQ24
-         UOncrwF/esA+wN/wTwz2WRGE/KW4gDEa/Y/7n/tc8NKsxeFVBci462SGZq72UEtWZcQP
-         T6JENvTs2bkM95f3hrBJdZ154FrYgDvgjNRCrZYqJnHlq0j+wx9czQiGutdVCAh0gsDo
-         U7ND8HPvGC4x5HiLxUyhn3BM7VR86qlWE5g6J5WyUtCZTKUdZocc2p08WPBk7Unrv9h3
-         4juqC8jFEV0Gi/K4pW7slt4OkAfVpic6qWx4Hgy/upM7WH24wKkE0evIesL5yuIwurRO
-         Ml8g==
-X-Forwarded-Encrypted: i=1; AKwUvBytUcB2HSNsTEEoyOkiq1cJDbAfCBe+9ih2nEcZ6sbeRPDql5sCwD50k/cPvK1Y7VpY/sGI+k0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJK2H5ZiR7P7IRelVF4HWMWxd0qLasU1pbGP1PExS3bi55yDJgH
-	g15QDOckSf8kPwm5pg+9mRLCGlnZmRI9u/lCWYozOg67ArUMmNCOFECo
-X-Gm-Gg: AYBFou2uFW7xlwgTLhRGcAjLT/hk7yxdl6SMZKnnGENxPSEsFF6TyNySHe+l5tAlK7l
-	gX9EZ42APBdYTsUvB1c3hKpBGQ/LPK9AjhZCt12WMqdPTPtXncTR1FSE2iyJ3wrJ5+9tY2Eg9ct
-	pgGCkZ8XqTLCkObneZcTGr5xV6kZdfdjLvnJfe0KJxElntRyV2EepJqVNt3jckkZIY6HUcTdKXi
-	ICQJdIVDPhrk1uIfCjHwAzlPgpnuoCRcrgY3bVDAuJdObK8psN/hyM34Dt8OgMKBd0oTSj3pFiX
-	zq6XC8yUZDIkE0oCgxuXxYI7DqLlzzRx8sJAV6UrCt1t0iOGVS7lQVEFn6vrVYL56CN4ZWwnAXV
-	jDkAqsC3Hbax/HOO1obVvYIu96HUZLp4WkuPlDKPR1juoXHPEDPjlnvHkISE3Qr4aWzLjEoT4ib
-	bKnYrgPkKPLuHYbuKTimG/2n6NUt5NlX/vHVt+0+x5TiVYfGmK7eDhsdvrD3Azp8h135bqrCnLl
-	vI7GU5fMQ92a7HBgSRrmrUUIM2e8YNUlhbXneLXUFruCZeP7rlAsQeeeOPIpNNhgVVm7xTypape
-	AIFai/+2PkHITCsgE7VaXkRb5LJog6Tawf5BjiSqJWhRJ3E/
-X-Received: by 2002:a17:90b:5827:b0:3ab:be66:ddb7 with SMTP id 98e67ed59e1d1-3ae897bae26mr1591051a91.47.1793358888671;
-        Fri, 30 Oct 2026 04:14:48 -0700 (PDT)
-Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845432e4sm3771544a91.3.2026.10.30.04.14.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:14:47 -0700 (PDT)
-Date: Fri, 30 Oct 2026 19:14:35 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Jia Jia <physicalmtea@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v4 6/7] gpiolib: cdev: don't report a failed line read as
- an edge
-Message-ID: <20261030111435.GA76958@rigel>
-References: <20261029-gpiolib-chip-removal-v4-0-aambrozewicz@nvidia.com>
- <20261029-gpiolib-chip-removal-v4-6-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0Z5bJ43
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9548D1F000C1;
+	Fri, 30 Oct 2026 11:15:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793358937;
+	bh=jcFVnDvIZ8heZvYaiF3eCzfDTR74GY+V/2n+TMcTvAs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=X0Z5bJ43M9j+dsxw0EOfb2RfVAPvTOOq7wzfRja5C/mo0S5QFye2IEgPAlORI4c3g
+	 ifImjUhJwdI8WKJ5YsmZzwNO9T/m0kviNcNKqqlF1HggGNZPwAWIf5tuKcs2oU5XVz
+	 izKsKdkgcOFL5wt8C5/w8BeHHulb+7ldzTHu+6qfcHg6P136wlJ4Zt/a0lQGMSi3hY
+	 KM0nA2fT0xAsx3g4kOpikLMdyV+GVhDasUmL3YTRLy61zlRQukgrzzF1OnpaAKinvF
+	 CdRbd2dFS6Ly6QcLF/O4Pob9/Zy+lYtZgiUY62l/mQIs9T+8HMZdWboQ0mM+HSpbiP
+	 UY5gtheZjBa1w==
+Message-ID: <48a66134-3522-4b81-adca-4e76d52dc391@kernel.org>
+Date: Fri, 30 Oct 2026 12:15:19 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,94 +51,148 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-gpiolib-chip-removal-v4-6-aambrozewicz@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 27/47] mm/mmu_gather: fix flushing ranges with 4 GiB or
+ larger
+To: SJ Park <sj@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ stable@vger.kernel.org
+References: <20261030005726.155279-1-sj@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261030005726.155279-1-sj@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 01:29:21PM +0200, Adrian Ambrozewicz wrote:
-> With both edges requested, the IRQ threads read the line to tell a
-> rising edge from a falling one, and report any non-zero result as
-> rising, an error included. A read fails when a hot-pluggable chip is
-> going away, or when gpiochip_remove() has cleared gdev->chip before the
-> IRQ is freed.
+On 10/30/26 01:57, SJ Park wrote:
+> On Thu, 29 Oct 2026 21:33:22 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 > 
-> Drop the event when the read fails, as debounce_work_func() does.
+>> From: Josef Bacik <josef@toxicpanda.com>
+>>
+>> __tlb_adjust_range() takes the size of the range which has to be flushed
+>> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+>> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+>> gets truncated, possibly to 0.
+>>
+>> On arm64 with hugetlb, a 64k kernel can have 16 GiB hugetlb folios
+>> mapped contiguously at the PMD level and flush them when unmapping, and a
+>> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+>> at least these two scenarios are affected.
+>>
+>> Fix it by flushing the proper range instead of the truncated one by
+>> properly using "unsigned long" for range_size.
 > 
-> Reproduced with gpio-sim and a test delay in the IRQ threads: a falling
-> edge during chip removal is read as rising; with this change, it is
-> dropped and read() returns -ENODEV. The HTE path was compile-tested.
+> Makes sense to me.
 > 
-> Fixes: 61f922db7221 ("gpio: userspace ABI for reading GPIO line events")
-> Fixes: 73e0341992b6 ("gpiolib: cdev: support edge detection for uAPI v2")
-> Fixes: 2068339a6c35 ("gpiolib: cdev: Add hardware timestamp clock type")
+>>
+>> Fix generated by an LLM and sent by Josef Bacik in private.
+>>
+>> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+>> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> [ david: use two-tab indent, simplify description ]
+> 
+> It seems the convention [1] is to put the above modification note right before
+> the last S-o-b: of David.  Maybe you forgot moving it after adding R-b: and
+> T-b: from great reviewers?
 
-How did you determine that?  Those commits are where the associated blocks
-of code were first added - not where the problem first exhibited.
+It's "b4 trailers" that apparently messes this up. I don't think it really
+matters (some move it above all trailers), but I'll fix this up when applying.
 
-The failure mode you are addressing was added by
-commit d83cee3d ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU").
-Prior to that gpiod_get_raw_value_commit(), and gpiod_get_value_cansleep()
-and gpiod_get_raw_value_cansleep() that wrap it, wouldn't return the error
-that you are handling.
+(++ on all the great people around here)
 
-Could you bisect to confirm?
+> 
+>> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+>> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+>> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>> Reviewed-by: Dev Jain <dev.jain@arm.com>
+>> Reviewed-by: Muchun Song <muchun.song@linux.dev>
+>> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> Reviewed-by: SJ Park <sj@kernel.org>
+Thanks!
 
-The code change itself looks good.
-
+-- 
 Cheers,
-Kent.
 
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20261020-gpiolib-chip-removal-v3-0-aambrozewicz@nvidia.com?part=6
-> Assisted-by: LLM
-> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-> ---
->  drivers/gpio/gpiolib-cdev.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-> index cf23b5296fd1..0d6853751e6e 100644
-> --- a/drivers/gpio/gpiolib-cdev.c
-> +++ b/drivers/gpio/gpiolib-cdev.c
-> @@ -643,6 +643,8 @@ static enum hte_return process_hw_ts_thread(void *p)
->  		level = (line->raw_level >= 0) ?
->  				line->raw_level :
->  				gpiod_get_raw_value_cansleep(line->desc);
-> +		if (level < 0)
-> +			return HTE_CB_HANDLED;
->  
->  		if (edflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW)
->  			level = !level;
-> @@ -743,6 +745,7 @@ static irqreturn_t edge_irq_thread(int irq, void *p)
->  	struct line *line = p;
->  	struct linereq *lr = line->req;
->  	struct gpio_v2_line_event le;
-> +	int level;
->  
->  	/* Do not leak kernel stack to userspace */
->  	memset(&le, 0, sizeof(le));
-> @@ -763,7 +766,10 @@ static irqreturn_t edge_irq_thread(int irq, void *p)
->  
->  	switch (READ_ONCE(line->edflags) & GPIO_V2_LINE_EDGE_FLAGS) {
->  	case GPIO_V2_LINE_FLAG_EDGE_BOTH:
-> -		le.id = line_event_id(gpiod_get_value_cansleep(line->desc));
-> +		level = gpiod_get_value_cansleep(line->desc);
-> +		if (level < 0)
-> +			return IRQ_HANDLED;
-> +		le.id = line_event_id(level);
->  		break;
->  	case GPIO_V2_LINE_FLAG_EDGE_RISING:
->  		le.id = GPIO_V2_LINE_EVENT_RISING_EDGE;
-> @@ -2006,6 +2012,8 @@ static irqreturn_t lineevent_irq_thread(int irq, void *p)
->  	    && le->eflags & GPIOEVENT_REQUEST_FALLING_EDGE) {
->  		int level = gpiod_get_value_cansleep(le->desc);
->  
-> +		if (level < 0)
-> +			return IRQ_HANDLED;
->  		if (level)
->  			/* Emit low-to-high event */
->  			ge.id = GPIOEVENT_EVENT_RISING_EDGE;
-> -- 
-> 2.43.0
-> 
+David
