@@ -1,54 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379289;
-	b=f0tVkFREDfHiQXxAEOcw5Yf3f1Sw0OH7NJVThBlRN3NNBKQLePPK64PBF/n9An1YRdMt
-	 MEYv/q/jS/6OkOozSTXBvpnlKHQlTbCnjG5UfUsHt8NVTlyEplK/oipqT+AwcBuTxAlf9
-	 wdxEpWmtKmb8A70iYB+T6p2eTIFFHFWbeGuiBqbQVVNvqyQ/dvL7auiC2KKGcqdZ8O9im
-	 +Bban8u89JLgPDOpFEpYDC3I5rjhHF8thyqr0Qrs5QZDcUl0w84VIZWSBf1cO2LqRcCTp
-	 q2D+9KXJjJ7EfiuF7XYGCt2J6qt6VBJMjZt7U+P1YhkYrJxhBpf8oO4+JwTrR7Rt1fQ==
+	t=1793379329;
+	b=t5toew6dGYfEyQk2KplMosv2LOYFfWvhHJkea2Z8saRuuW+QanfnEkcClj3izPONjAaL
+	 lwlnHUBkOjhHD6pift7LboPx08cg3aCeIzj/ssxrYV8m8x1oqldhkJxwiAja+fA+4osvh
+	 U/v03wkfZoaIKgl266Q0j7WU2OYahJUOrXFns+VD7Dv90UqkvKawVPBmfMopPjaaZ030h
+	 562xS0nCiiRBawZ34NpPZibaO+fHNwTVC0ZSDDvpXaopOaqOh2umR7cKymFQ2Wtgbn/u6
+	 ItpqJ7POeS1wo3pvIepy8EJkA6E1/9d/uQIwIXace5xUXijX0rF4nLZJgw9ixHkYuKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379289;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=5WYmI41jGKmU+EPTuiD4Bw81iGR/uGmO2ZB/q9TxT5c=;
-	b=zLI4llHrlDSquC1dJ8UC0jBuatNxtsF1X+kxrM3q0n/vynNU2n8Mr28oSJ7wsVak7SsW
-	 LFZyhP9LpbEdc90i8525mzRrQ59IJNDxBE07ymI7GqAydqINzbiVHskObyo6TfEYvKlpk
-	 Zd5UV3phwWBk6qGDIvRQ+IgUI51rhY/aa8UZt9P1zFPpvdB42jdWxarnoqU+6sUgmmVtp
-	 kNEaBuJSCpd6nkouKTPRHJYEYcJpYJKaggpYI8tpo7GSUjLk8g1Akd7CcoVoWfnIoQvZq
-	 kxGrFicdAPkn2kMdQmkJZpPCKwghFsSCeE1nQM4c6u86jyb7jxdraJw40tUHUg6skRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379329;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=BgnmbS0qtZzofNOhBfAuY9e9ZGW0X9MHEKQwmV+gFd4=;
+	b=A0vgNxB9RfYa7fs6i+cHaHZbQIW7i7maLxQQ3CvkCDGRkTw+9dPlZN+GmMvWa6yUowfh
+	 bUZTUXe48zRo9zmXKiCaDCGkAuz17z4qKTHnQiAebFakClPExZzM7U/rkiJ1S+p8iEMyA
+	 4tEfyz6/q0XWgwN+7d6ym9LMBUoF5rzUMtvgNLwL+fOnFd9VcwCQZZbZiyDjwtjzeCq4p
+	 ZxVgl0jYXRJrcA6eDC7j9Sz3EVn37V2EEaFmP1QUuz5qLDGLutp1PZD/+kHEx/hy6E+l/
+	 AqF7HtRb5VavWbzX54yrou5y1e8DAbZ2l+hHOwKAbUzIvihxpYXKI06nI43NUrWIm1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=crJIttWt;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jO6GAPtF;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54C3606A31F;
-	Fri, 30 Oct 2026 16:54:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D54C3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1BF606A32D;
+	Fri, 30 Oct 2026 16:55:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA1BF606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=crJIttWt
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52f74f123;
-	Sat, 31 Oct 2026 00:54:44 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	stable@vger.kernel.org,
-	Andy Walls <awalls@md.metrocast.net>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] media: cx18: Fix potential double free on ALSA initialization failure
-Date: Sat, 31 Oct 2026 00:54:40 +0800
-Message-ID: <4d2f79a4ef95eaaf9d4035a864153310254c5781.1793377439.git.liguangshuo@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793377439.media.git.liguangshuo@mail.sdu.edu.cn>
-References: <cover.1793377439.media.git.liguangshuo@mail.sdu.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jO6GAPtF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793379328; x=1824915328;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=SfRf/e5D4fJBitFkWiH24F7RsXJMv4g9Vd/EK7VDuik=;
+  b=jO6GAPtF6FNpocEfxd8Lq4qLOJbfbRtJMCRO8oUyrNF+jkpiScdnp7f6
+   YpEs+d3S5A46Kih0ZWi1keZA5Efh3CdrRh1olbSX+FBxD0MlOodjJ4mA6
+   XR3IcIRxhn5scJA+5zrPgxZMD3loWHaMHj6hKQf5/ui8qbNC4iK4xAykx
+   DvH8SveAflGGQZ0xZXyI4J2hVHqbp5fe1QlBNHAP3l6N8AZS/e1P9rBD9
+   22l6+YzgPO7tpJv64Ipys5AqsEnB2EpITYinvBSSI7EgYEQISlrVeaF75
+   wsxSty53T1Z69TgEBeQsjHrVDzA01NEHZB70XgIEElZii2pCGjSnudESY
+   w==;
+X-CSE-ConnectionGUID: DFCrRd16RwmlXzueluhcXw==
+X-CSE-MsgGUID: vIgRv54bTNujQ8GelJcK4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2241148"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2241148"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 09:55:27 -0700
+X-CSE-ConnectionGUID: rhDb9+csTMmsZXY9RNR4aA==
+X-CSE-MsgGUID: CmQR+n7gRuSQVAfNnNQelw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5487915"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.109.99]) ([10.125.109.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 09:55:27 -0700
+Message-ID: <7efb942eb0f4fb81528e1a97e7f73996a95988ee.camel@linux.intel.com>
+Subject: Re: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with
+ multiple ranges
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Oscar Salvador	
+ <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, Frank van der
+ Linden	 <fvdl@google.com>, Mike Rapoport <rppt@kernel.org>,
+ linux-mm@kvack.org, 	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Mohini Narkhede	 <mohini.narkhede@intel.com>, Pooja Jain
+ <pooja.jain@intel.com>, Doug Nelson	 <doug.nelson@intel.com>
+Date: Fri, 30 Oct 2026 09:55:26 -0700
+In-Reply-To: <0611C182-4A76-4751-A04B-0849EC31DAD3@linux.dev>
+References: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
+	 <0611C182-4A76-4751-A04B-0849EC31DAD3@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,46 +88,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18dbc369b03a1kunm4d3d9b7e52a3c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTxpLVkMZHU0aTR0aTkpLH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
-DKIM-Signature: a=rsa-sha256;
-	b=crJIttWt8Py+5azu9dF7kROzT+3/uQBNIIHtsk82+CV/+KAsEA2xM6PItdxFPuxlVHyq906J5AGMHFLxEt8g0Ev8FIZ0+GfosVVLyEJXd8k4TsnQdYNLfSHCJ0DrVLrYevKMjZdnRe0+4Ij2KUNX5qthHWV0Fq8YWLgl0evwXLk=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=5WYmI41jGKmU+EPTuiD4Bw81iGR/uGmO2ZB/q9TxT5c=;
-	h=date:mime-version:subject:message-id:from;
 
-After snd_cx18_card_create() succeeds, the card's private_free callback
-owns cxsc. snd_card_free() already invokes that callback on subsequent
-initialization failures, so the explicit kfree() frees cxsc twice.
+On Fri, 2026-10-30 at 13:32 +0800, Muchun Song wrote:
+>=20
+> > On Oct 30, 2026, at 05:21, Tim Chen <tim.c.chen@linux.intel.com> wrote:
+> >=20
+> > sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
+> > per present section in [pnum_begin, pnum_end), and
+> > sparse_init_early_section() hands them out in order, with a BUG_ON() wh=
+en
+> > they run out. hugetlb_vmemmap_init_early(nid) however initializes the
+> > sections of every bootmem gigantic page on the node, including pages
+> > outside the range being initialized. If a node's memory is split into
+> > more than one range, sparse_init() calls sparse_init_nid() once per ran=
+ge,
+> > and this takes more slots than were allocated. The same happens if a
+> > gigantic page straddles a node boundary.
+> >=20
+> > For example, with this SRAT layout every node has a small range below 4=
+G
+> > and a large range above 4G:
+> >=20
+> >  Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
+> >  Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
+> >  Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
+> >  ...
+> >=20
+> > In 128 MB memory sections (x86_64 SECTION_SIZE_BITS =3D 27), node 0's l=
+ow
+> > range is sections 0x00-0x05 (6 present sections) and its high range is
+> > sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
+> > sections, all smaller than the 8 sections of a 1G page.
+> >=20
+> > Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=3D1G
+> > hugepages=3D400", hugetlb_vmemmap_init_early(0) then initializes node 0=
+'s
+> > 1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
+> > the 7th section hits the BUG_ON() (seen on v7.2.6):
+> >=20
+> >  kernel BUG at mm/sparse.c:268!
+> >  RIP: 0010:sparse_init_early_section+0x9f/0xb0
+> >  RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
+> >  RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
+> >  R10: ff252cb28ffb3d40 R13: 0000000000000d00
+> >  Call Trace:
+> >   hugetlb_vmemmap_init_early+0xe1/0x140
+> >   sparse_init_nid+0x56/0x370
+> >   sparse_init+0x192/0x2b0
+> >   free_area_init+0x7f/0x690
+> >   start_kernel+0x64/0x540
+> >=20
+> > Here RDX is the section number, and R10/RDI are 6 slots apart: the star=
+t
+> > of the usemap buffer and its current position, which is the end.
+>=20
+> A detailed analysis.
+>=20
+> >=20
+> > Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO=
+ a
+> > page whose sections are all present and within it. Ranges are disjoint,
+> > so each page is handled once, in its own range.
+> >=20
+> > Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
+> > regular memmap from sparse_init_nid(), and the pages are optimized late=
+r
+> > by hugetlb_vmemmap_optimize_bootmem_folios().
+>=20
+> Thanks for fixing this.
+>=20
+> However, the master branch has already switched to section-based vmemmap
+> optimization, it has been already fixed. So this fix should target the
+> stable kernels (6.18, 7.2 and 7.3).
+>=20
+> The change LGTM. So:
+>=20
+> Reviewed-by: Muchun Song <muchun.song@linux.dev>
 
-Remove the redundant free.
+Thanks for the review.  Indeed the master tree has the section rework,
+so this bug is fixed for current master.  It just needs to be
+applied to stable 6.18, 7.2 and 7.3.
 
-This issue was found by our static analysis tool under development.
+Tim
 
-Fixes: 2c87d9db46d1 ("[media] drivers/media/video: fix memory leak of snd_cx18_init()")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:gpt-6-astra
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
-Build-tested the changed object with x86_64 allmodconfig.
-No runtime or fault-injection testing was performed.
-
- drivers/media/pci/cx18/cx18-alsa-main.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/media/pci/cx18/cx18-alsa-main.c b/drivers/media/pci/cx18/cx18-alsa-main.c
-index b77f5375f3ff..7fe538621d4e 100644
---- a/drivers/media/pci/cx18/cx18-alsa-main.c
-+++ b/drivers/media/pci/cx18/cx18-alsa-main.c
-@@ -171,7 +171,6 @@ static int snd_cx18_init(struct v4l2_device *v4l2_dev)
- err_exit_free:
- 	if (sc != NULL)
- 		snd_card_free(sc);
--	kfree(cxsc);
- err_exit:
- 	return ret;
- }
+>=20
+> Thanks.
