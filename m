@@ -1,125 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354556;
-	b=SCWgtOkWMMd8N8AUa77lcXhPijWC7mxvSuotuJxWxRCdp0bv/GHx08dl29TFgvq5E3DM
-	 v4V8vIzIpAJB0hIYMsLuRDkG8YgVditzvQjMSdQNaWgFsmas1fijKXwzt1LC5VxCelpbE
-	 G5BcOnXXdTbCmqxG6kBB6gsEZcarFXcpWpI5KFKLoHjv+Nwa+XrfOxHHY5+R0LRBqcb0m
-	 XXl7qwGKiAfQDQ4OKMVf2USE0kdeFxR9sIDlIaUBNUAfaYKAoG7/I9WdjVAIUGxOyRvWd
-	 1f9fzr8bG6RLj/5A8RQc7REeKsMhKjKkzIKLBJrDo1NGXARozoA5ibMezImIAiD7smw==
+	t=1793354764;
+	b=2jNMWagEIkh9C+YES7Y7XTF36Hyv16ivbWCq+trqH9zeuQluJfASUizy1raa3BmB9psj
+	 kTPqTIR4GadqMmmGSA9ibtIkOCy/px0BOwNUqjhZXNG6207CkgW5MEDPx3IuhdqmVk0dO
+	 7V+uecdDSEbA8P+9KdJcZFG6HTJZHJvZcK5FDnnPiNhSQT+al2sW2n2akJ4+XwfDH3vwV
+	 9CErpyXMQsfqJEPDfPjg0IsX0+dxzcNLcp/Qz/9aDYMAGEgOwQLr+zlGRc8e7zcIFYbiM
+	 l3tEnDagzN3t9d7TnyZN87METapmuDYiLeIyN0gvXM3a0h1nl+C30nlbxP47Kh33CrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354556;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XPOou6CQafNHNZDV+h/LKdSD2kkWtiLvC6RPPBJtYFA=;
-	b=4SyW/tbHhurx5JruXp79jp1yKuz/6N9+nMouE28q5LQy3+Wa1USmVZn7+LqElNfYKD4H
-	 XMb2UGHSCk6cyRgeuxR3lxoQuzyXp6yeYPvePM/lbPNgSEqa3QS1sG2PQmMzVmh6zJ8K1
-	 Sr66tgdjf2o31I4DB33es/aZfOhRrjXIEwPMmyInlSbthRrviSsDQVj3lu/lMiD8MiByq
-	 FvKTBQV4uROxSl58isYLEA+Pw02mgiU+nyoXHOUUV2phYGxGnBk6H2FDfNJ4p7HpVJy9B
-	 hARAb+hvaK4mBbsT53xi4TCylf9ZG5of2mqhEKW9aGRUOrLCer/C79umztnRZ/pISpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354764;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7+KhCK8nbtPPPnxE6PcA8d9mBVnldjGZ8TKiU45jN9I=;
+	b=pzkCVYZ8a48s/IdByXdn0KkfjRanmk+WjwSeB6nA6M4VbNCS7X3wDci1TDcym7TmMJb4
+	 pUAthbVBl6K+HnJccgTBe39dGLrAfd91ISG2ugdPxvTOqBmTXzkqJSXw0psNxqr/91KxM
+	 n8hIomzI14BvThAhJAYUB8ehzf3zMPDuevmM1cFZzbFXJC26BLO2ZI8kVj3Kx747SZvnB
+	 qUr9eElft/Fbgjg3kXw5wZDXZlLaUd9bnOTX8lbvFZaRF1eFr1EGEmbntasGgRoHYmwUm
+	 kng570ZGSjjFEyzLEXYDDSc/NzjgUWNPMHMziRKGPqYEkJkdkyoVALSvg2w44I4KrPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KBFHhwPY;
-	dkim=temperror header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U4giFQcw;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e2GJL6qm;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F84606A31F
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:02:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F84606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC87606A325
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DC87606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KBFHhwPY;
-	dkim=temperror header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=U4giFQcw
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U99I3X3435012
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:02:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=XPOou6CQafNHNZDV+h/LKdSD
-	2kkWtiLvC6RPPBJtYFA=; b=KBFHhwPYr++jbg4TF3vSjdJW1POzBYkAi3+RvfSd
-	RtzlrtdMwBBDIaJx7+ddGCxoPXXfmqWm7EkxNxwTiKaEcrFSpMBa4iZEtM3d+eTU
-	BIylE7jUINtqtnmJpg37mM2mJdqS08SL1ZjE755XYPuNUalOxi3xRMeTeZKKCjeZ
-	EbOL8tbpLV2lQgWI7m+wpdOue51XGnlbu50aUMb0EZ0v4QVqy4tmZbIl9PIM0J+J
-	eiSzVyUm/6rX/jfH+EPgir2UQbmcjw40pAZwGygoR1r5wIuOiTq6yMx1YdVlZIEN
-	ad4DhGtxKOQRaFQQ5SMFS0d4E87WWuYt78zNnAjLxqNc6A==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qtbxb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:02:28 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1221346eec.0
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 03:02:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e2GJL6qm
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso5238455e9.3
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 03:06:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793354548; x=1793959348; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XPOou6CQafNHNZDV+h/LKdSD2kkWtiLvC6RPPBJtYFA=;
-        b=U4giFQcwsLt8O88iH6fF/3J5vLMK0AZLuczdL4lXN18ry31u43LCXFz/OcNNCU3BQA
-         CzcnAoyfclP5+Pk4yXSPHrW1OGIB32+aO1klCCIDdHXz3xcaIZkHJpwFYXnttyCXsTG9
-         cAhffzpEQDariNokkBMlEFusJlkBcDoBaVZZMxgtv0rDWcgSfBBod0RhJMk0mD6zReFc
-         Iv/CA6aOe5AJ2ojj8/YMkJ0dsaDJ9UsWTgS52GqP3hzpPUKwPqdV+yjLoFpM0UEho4d7
-         kAl2HTnDCtmM++K98RA8v7+sJkl49OfeY4iIClunqZ3LpTuBX3EwQXl9zU2idNHqlNyY
-         qsbQ==
+        d=gmail.com; s=20260707; t=1793354763; x=1793959563; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7+KhCK8nbtPPPnxE6PcA8d9mBVnldjGZ8TKiU45jN9I=;
+        b=e2GJL6qmANVTnlHfA1bxL2NGnZc6wH8XAwqMoR5GLxXV6vUbYQCA9ZvxVgPtbKX42b
+         gAdX5mEXx8zPqQ852wU77eEwBVGhv9Qv/680bMJru8zRScXAwfAZft3uO931QgLIOC0z
+         F7mcUWoordixAfJxKwR5EP5ZWYog9epQnHzW4kTtHmyepM3AYh4RYJYhXioqI82+dbgL
+         xNcGG6/0Xojfm+ie+M/4v8gWEk5R1zf71VyIG02WIrKxmPJU9zz1EWpJv6x87yj/TGkd
+         LTiJg5GUtMxPlIDdfVAoXImC9to8J6fir/Ref1HUQIvQ6GUoz3FbGLeZaW6stIl4Htbq
+         4jSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793354548; x=1793959348;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XPOou6CQafNHNZDV+h/LKdSD2kkWtiLvC6RPPBJtYFA=;
-        b=2XzqUsd2+AROtIFDtiS/epmsBqEt2yuiqyYk+pVrpkdsQdRXuWqbuiw6h+9UK7HurA
-         uJ91nKP1vyfpWrxLY1vKowubyAZ/9p3y0QrHlFLqZtg/xsuGkTGA6bOA5cS2G715aDmt
-         HED7x4BulyOuUzALqanuK0S/ywtO9Udr/9w7b21LGg+HLc7Xeq7Gt+oc4ggayoUp0l75
-         f0A/ejv2sWHJaEyLT0WcK9TYsebmDwvQXLkg4P2p+ZfIYrs4jaxfuxvSOte3JjOl5bvz
-         Wgagk8bLfJcAufHq7jPpR1B86nI+DrWkyJkoI30A/tl8f4biW2Ip4XtD1zpHyIdsK1qF
-         zKiA==
-X-Gm-Message-State: AFq9FYIB8wUTo68tM6veGoCR8EeJlExidA0rKebLnHcK8sQYKq1YwJKa
-	7wZzQw/Dsr/072JLDlYUm/rYXGtD2E9CMbmstiH05D5pxIR2qzc6jDWXWNzex0xGHBx+ySyQ7v8
-	2Qps99uUMFBe0icREjsrLwg7icmJZyc2/2/Lom0MQvXfFlmfOV5ElCI2cr40=
-X-Gm-Gg: AYBFou3xMtZUcQhu+CWqbpz5qsuiZnQctG8zh7q48Hdhu4NWaMzJoAYri/V7CzV+4ht
-	K91zK1kcDws4sb95Whgam9quYvvJg7gzR6XTD5usrPl7SUPitGqj7kh2w+xlyfmCBUQn575diCG
-	q7CUS7W7cp9S1oO+ViR9WCK4gSkqKhDvoSBxTYP6vxsH/eiH7VA3Ukj92SOJjpw668vwuBcOudL
-	GdRA6NPYoSBJqbhPP5cIdBRb4iTGBiHXcxTIPq8gZZvDdIHcSXMTVkD0V+dZqX1CxxTUOaCZAjm
-	AkoO9CZgdiS5M6bzaM1i+Lr3Zrgj4KZJdCrwyqU2RPThjUwFJJu4QDjtGHaUnwX7Hn4y9x5q64j
-	3T8WBu0TYwYVI9o2J/twLm1FEjfONlvZNnIiQHZ+Ez/VmPSmaako7+KbQ42nmMQLV7X8ulF1o56
-	Mr/SZUVFyj2j9dqFA=
-X-Received: by 2002:a05:7301:6183:20b0:36a:1089:9836 with SMTP id 5a478bee46e88-36a423c8988mr2702542eec.15.1793354547629;
-        Fri, 30 Oct 2026 03:02:27 -0700 (PDT)
-X-Received: by 2002:a05:7301:6183:20b0:36a:1089:9836 with SMTP id 5a478bee46e88-36a423c8988mr2702509eec.15.1793354547051;
-        Fri, 30 Oct 2026 03:02:27 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42aa8999sm6925218eec.29.2026.10.30.03.02.21
+        d=1e100.net; s=20260707; t=1793354763; x=1793959563;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7+KhCK8nbtPPPnxE6PcA8d9mBVnldjGZ8TKiU45jN9I=;
+        b=18nwfoGjcbcUQzDo2RzjGLdJ7tbYKEkB7zwQ30Kc2oIcsRnzQWJO2pgG1wKKe2PQ0h
+         PRD2TQLNMLID08c+8PlIO6zdQPXM8vM5dMWLojpn7rQEHOQ4rTY9SZ0APrZH9U/4B2qx
+         I09yoR7IQOecDefgai9MKfQXhUNiDJAnXZ1OszpRdac5f8Cg4QOLJbnWckAETwszDlI1
+         nuYCetaSPWwgfh6hF3V+FJn6Hio8jR6exITl8AuxQU3loEyNxXc8IIZNugwcC+wWPXgj
+         r5TTHYwxpO9ZJ5xgneCCIzhHiKZ+VElLr8Zz3BvB9BgxgygjBsWi/W83IOx6IO5YGPnb
+         NsiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFBxNQ+QqucE0FH36m8P+/x0X9b9S3tbtqjV3xgbr332fihsrAHTR8wgBUR0pg2MhVxdlCg0A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ12u1GTkBDAgMvNBcsM9ztanxRmQYUzQwRlj2HdPPsKLxM7IdJ
+	cVy5hlcnwPySqesEHGTpYDn8h+s+9kGqtdgqgw7jSfCGKQeeCt3J3n3x
+X-Gm-Gg: AYBFou2xIgHb7g+8xJuHweCXwfFy2qA7IU8fv1yQQjWFQPd1yWaG/m6tjmTdMft+h0c
+	g9HlOnK6QdP4sfU8Bj7Gy298TaW9DkgoDsYEDvW4bPOvoPEh2D6F1fJHN0Vef8SXfFJTGeU2hhu
+	x3vjjQY9iqjsHsADyweqVQM9tLhVI85qvW09ehYY37OmZgYsDxYC9xYSki/4Y45WXTCKm0edMvq
+	yTIoaII0T0voe3ut4NCOzuBuoSTYA8MzfM0t7wG4s8KF7H3NWDw0naj3mk814XyuKxUyFwTdLVO
+	EF7CN3uQiAhzNXqHscQhhcTREahxtTTqrb3HsHafXQ9vqaQzFk1S8HREbXPz8YIdncD0UdYmOUu
+	uVRbAUFBYKdIGsAl7cxk6hrs9/tfwnVFmoDrQ6D0gTpOLUjMrDvIXedEXAh3ZUOuoVvRr4RpbC4
+	cKpE/cpIiYXcn2Sjqmv0xFGIucuZGcUy8XHzTCobBnL66Y3I9DHB+ZjrBvpA46HkRljkG5YoH2s
+	Fdjejd1hK1/DB8+SyJni1+Z4G6vyyMCkgSE+WGaq/HOi0ziibUiQFKwT4J/HCQji129OL0Zd+T3
+	b4anp4Wl+HT628qJQWQfDXyvCH8ku+rgE2z4Qw7oSsi/LPdiDx2KUF7B1KdC1ZRrOuOY8UbtoC+
+	/Ir6Lot8=
+X-Received: by 2002:a05:600c:8b47:b0:4a2:1960:6db with SMTP id 5b1f17b1804b1-4ac185bc2aemr37877015e9.26.1793354761147;
+        Fri, 30 Oct 2026 03:06:01 -0700 (PDT)
+Received: from pop-os.. ([51.36.40.122])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0a66caefsm36175695e9.5.2026.10.30.03.05.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 03:02:26 -0700 (PDT)
-Date: Fri, 30 Oct 2026 18:02:19 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jeff Johnson <jjohnson@kernel.org>,
-        Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-        Yingying Tang <yingying.tang@oss.qualcomm.com>,
-        Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-        Manivannan Sadhasivam <mani@kernel.org>, ath12k@lists.infradead.org,
-        linux-wireless@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Pavankumar Nandeshwar <pavankumar.nandeshwar@oss.qualcomm.com>,
-        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
-        Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Subject: Re: [PATCH 7.3.y] wifi: ath12k: Increase RXDMA buffer ring size for
- default memory profile
-Message-ID: <auRrK4JWN-7rUcG5@QCOM-aGQu4IUr3Y>
-References: <20261029095541.685879-1-shengchao.guo@oss.qualcomm.com>
- <2026-10-29-1-daily-reply-0011-ath12k-rxdma-ring-7-3@kernel.org>
+        Fri, 30 Oct 2026 03:05:59 -0700 (PDT)
+From: Ahmad AG <ahmadag1001@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: kuba@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ahmad AG <ahmadag1001@gmail.com>
+Subject: [PATCH net v2] net/packet: account user-triggered allocations to memcg
+Date: Fri, 30 Oct 2026 13:05:04 +0300
+Message-ID: <20261030100504.23498-1-ahmadag1001@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -129,43 +102,171 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026-10-29-1-daily-reply-0011-ath12k-rxdma-ring-7-3@kernel.org>
-X-Proofpoint-GUID: GfRqOOTfHzOqaWxOJ9TaKdGc3Ez7giNB
-X-Proofpoint-ORIG-GUID: GfRqOOTfHzOqaWxOJ9TaKdGc3Ez7giNB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzOSBTYWx0ZWRfXwZkfPU2O5qDt
- tyJDI6uEIkd7nt/etyFdDkWonAKucGWhvWB9AsPzplZqqvrJpVmw9YEMRna47RIG8kRkqxGnQKf
- 1H7mXxIVQXB9OcQJB/suK6pIw1mhaJWiSv8EmQGIN8xwpYARaZNA8QRnncM/jJbVYVXQZNDNzaf
- 0bM5ZOBhoVgcWvsXvt9FhLW/y4xOVq6uB0oV4xEeBWZMbbLl0ESaV+dQMILhsHT+UtPFuRb94cK
- Snf0jItmm/yii9UY/0Y8kv+6TMpqmU8VexCnM50i1Qb02TzMmER+UWI7DF7MvCZqhQm0g8ebeVi
- NVLNkJAW2ZrD1rU2b++jjyXBrE1gYNgUFnahyuYKsaZ5PhnUbygre2L7SDqr2hJF/7uhoaisPzo
- msvnUx3FeHUjCa7ZrlrH0jFQJFwIHgNgZsH4IMR9jVY+A19UeuRVcNEHr4OVMbhLaMU+UYlGUSl
- UT7moOKNRTjUtzXPMQw==
-X-Authority-Analysis: v=2.4 cv=dPgzC+Zb c=1 sm=1 tr=0 ts=6ae46b34 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=3Y6tUoXcgYOYlkcqMpIA:9 a=CjuIK1q_8ugA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzOSBTYWx0ZWRfXxAp/7b4+dKHe
- /PFNkIWB45jLhqSd+Q+vOnjQu/qTwByR1f9AzArf3TyOMhm7hsNOECoNsGJDKmOqlAJx1Rqoy6o
- bx2d6fjspj+IZvQy5TBg2RZCpfG55Fc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300039
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 02:43:18PM -0400, Sasha Levin wrote:
-> > commit 15f7603b69a83a0acc7fcc8992ecbea6110f9424 upstream.
-> > commit 643f0bf936176c114d5631da7547e991b5d99f10 upstream.
-> 
-> Queued the upstream chain for 7.3 as Greg asked, rather than the folded patch,
-> thanks.
+A packet socket allocates memory for its user that is not charged to
+the user's memory cgroup:
 
-Awesome! Thank you, Sasha!
+- PACKET_RX_RING and PACKET_TX_RING: the ring blocks themselves
+  (alloc_one_pg_vec_page(), both the page allocation and the vmalloc
+  fallback), the block array (alloc_pg_vec()), the deferred-free work
+  of a TX ring, and the rx_owner_map bitmap of a TPACKET_V1/V2 RX ring.
+  The size comes from the tpacket_req passed to setsockopt() and has
+  no limit other than available memory.
+- PACKET_FANOUT: the group created by fanout_add(), about 1 MB per
+  group with max_num_members = 65536 (a 512 KB array, rounded up to an
+  order-8 allocation) since commit 9c661b0b8544 ("net/packet: make
+  packet_fanout.arr size configurable up to 64K"), and the per-socket
+  rollover state.
+- PACKET_ADD_MEMBERSHIP: one struct packet_mclist per distinct entry
+  (packet_mc_add()), with no limit on the number of entries.
+- socket(): the per-CPU TX ring pending counter
+  (packet_alloc_pending()).
 
-Shawn
+A process with CAP_NET_RAW, which an unprivileged user has in its own
+user and network namespace, can therefore pin kernel memory far beyond
+the memory.max of its cgroup. With memory.max set to 16M, a test
+running as uid 1000 took 525804 KB of system memory with 64 sockets
+each mapping an 8 MB TPACKET_V2 RX ring (1 MB blocks) while
+memory.current grew by 892 KB; 264640 KB with 256 sockets each
+creating a fanout group with max_num_members = 65536 (memory.current
++512 KB); and 46664 KB with 100 sockets holding 2000 PACKET_MR_PROMISC
+entries each on lo (memory.current +256 KB).
+
+Allocate all of these with GFP_KERNEL_ACCOUNT, as other allocations a
+user can make on demand in the networking stack already do, for
+example the AF_XDP rings since commit b0057c68df71 ("xsk: account
+ring allocations to memcg"). vzalloc() takes no gfp mask, so the
+vmalloc fallback becomes __vmalloc() with __GFP_ZERO. skbs are bounded by
+sk_rcvbuf and sk_sndbuf and are left as they are, as is the per-packet
+zerocopy state in tpacket_snd(), which lives only as long as its skb.
+struct packet_sock itself comes from sk_alloc(), and the
+netdev_hw_addr entries that PACKET_MR_MULTICAST and PACKET_MR_UNICAST
+add through dev_mc_add() and dev_uc_add() live in net/core; neither
+is changed here.
+
+With the change each of the three tests in the 16M cgroup is stopped
+by the cgroup's OOM killer. With a higher memory.max the rings charge
+525436 KB for 524832 KB of system memory used (1G), the fanout groups
+262656 KB for 265128 KB (1G), and the membership entries 26880 KB
+(1G). These figures are from a KASAN kernel, which inflates the small
+objects; without KASAN the 200000 membership entries are 20480 KB
+charged for 26412 KB used.
+
+The missing charges were found by code inspection of net/packet/ with
+the help of an LLM and then triggered with a small test program that
+creates the sockets, rings, groups and entries and reads
+memory.current; the numbers above are from that program. Tested in a
+QEMU/KVM guest on this tree (x86_64_defconfig plus kvm_guest.config,
+KASAN, MEMCG, PACKET), running the test as uid 1000 in a cgroup v2
+memory cgroup. tools/testing/selftests/net/psock_fanout, psock_tpacket
+and psock_snd.sh pass before and after.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude Code
+Signed-off-by: Ahmad AG <ahmadag1001@gmail.com>
+---
+v2: cover every user-triggered allocation in net/packet in one patch, as
+Willem suggested on v1, and resend with git send-email; the v1 mail had
+tabs replaced and lines wrapped by the mail client. v1 changed only the
+fanout group allocation.
+v1: https://lore.kernel.org/netdev/CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com/
+
+ net/packet/af_packet.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 823e0911c91..06386db4c8e 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -1233,7 +1233,8 @@ static int packet_alloc_pending(struct packet_sock *po)
+ {
+ 	po->rx_ring.pending_refcnt = NULL;
+ 
+-	po->tx_ring.pending_refcnt = alloc_percpu(unsigned int);
++	po->tx_ring.pending_refcnt = alloc_percpu_gfp(unsigned int,
++						      GFP_KERNEL_ACCOUNT);
+ 	if (unlikely(po->tx_ring.pending_refcnt == NULL))
+ 		return -ENOBUFS;
+ 
+@@ -1735,7 +1736,7 @@ static int fanout_add(struct sock *sk, struct fanout_args *args)
+ 	if (type == PACKET_FANOUT_ROLLOVER ||
+ 	    (type_flags & PACKET_FANOUT_FLAG_ROLLOVER)) {
+ 		err = -ENOMEM;
+-		rollover = kzalloc_obj(*rollover);
++		rollover = kzalloc_obj(*rollover, GFP_KERNEL_ACCOUNT);
+ 		if (!rollover)
+ 			goto out;
+ 		atomic_long_set(&rollover->num, 0);
+@@ -1778,7 +1779,8 @@ static int fanout_add(struct sock *sk, struct fanout_args *args)
+ 			/* legacy PACKET_FANOUT_MAX */
+ 			args->max_num_members = 256;
+ 		err = -ENOMEM;
+-		match = kvzalloc_flex(*match, arr, args->max_num_members);
++		match = kvzalloc_flex(*match, arr, args->max_num_members,
++				      GFP_KERNEL_ACCOUNT);
+ 		if (!match)
+ 			goto out;
+ 		write_pnet(&match->net, sock_net(sk));
+@@ -3773,7 +3775,7 @@ static int packet_mc_add(struct sock *sk, struct packet_mreq_max *mreq)
+ 		goto done;
+ 
+ 	err = -ENOBUFS;
+-	i = kmalloc_obj(*i);
++	i = kmalloc_obj(*i, GFP_KERNEL_ACCOUNT);
+ 	if (i == NULL)
+ 		goto done;
+ 
+@@ -4494,7 +4496,7 @@ static void packet_free_tx_ring(struct sock *sk, struct pgv *pg_vec,
+ static char *alloc_one_pg_vec_page(unsigned long order)
+ {
+ 	char *buffer;
+-	gfp_t gfp_flags = GFP_KERNEL | __GFP_COMP |
++	gfp_t gfp_flags = GFP_KERNEL_ACCOUNT | __GFP_COMP |
+ 			  __GFP_ZERO | __GFP_NOWARN | __GFP_NORETRY;
+ 
+ 	buffer = (char *) __get_free_pages(gfp_flags, order);
+@@ -4502,7 +4504,8 @@ static char *alloc_one_pg_vec_page(unsigned long order)
+ 		return buffer;
+ 
+ 	/* __get_free_pages failed, fall back to vmalloc */
+-	buffer = vzalloc(array_size((1 << order), PAGE_SIZE));
++	buffer = __vmalloc(array_size((1 << order), PAGE_SIZE),
++			   GFP_KERNEL_ACCOUNT | __GFP_ZERO);
+ 	if (buffer)
+ 		return buffer;
+ 
+@@ -4523,7 +4526,8 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
+ 	struct pgv *pg_vec;
+ 	int i;
+ 
+-	vec = kzalloc_flex(*vec, pg_vec, block_nr, GFP_KERNEL | __GFP_NOWARN);
++	vec = kzalloc_flex(*vec, pg_vec, block_nr,
++			   GFP_KERNEL_ACCOUNT | __GFP_NOWARN);
+ 	if (unlikely(!vec))
+ 		return NULL;
+ 	vec->order = order;
+@@ -4532,7 +4536,7 @@ static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring
+ 
+ 	if (tx_ring) {
+ 		vec->deferred = kzalloc_obj(*vec->deferred,
+-					    GFP_KERNEL | __GFP_NOWARN);
++					    GFP_KERNEL_ACCOUNT | __GFP_NOWARN);
+ 		if (!vec->deferred)
+ 			goto out_free_pgvec;
+ 		vec->deferred->vec = vec;
+@@ -4648,7 +4652,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
+ 		default:
+ 			if (!tx_ring) {
+ 				rx_owner_map = bitmap_alloc(req->tp_frame_nr,
+-					GFP_KERNEL | __GFP_NOWARN | __GFP_ZERO);
++					GFP_KERNEL_ACCOUNT | __GFP_NOWARN | __GFP_ZERO);
+ 				if (!rx_owner_map)
+ 					goto out_free_pg_vec;
+ 			}
+
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+-- 
+2.43.0
+
