@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793373364;
-	b=n+CGebz/Ob/R1vP82hKdMOMhjZus/Kf3Rktpfa8bRAIc2XkliZFyQr870gMSZ+hXsx5h
-	 RzeTIHaVeMhHjuhX1hwM4paPP89WB1GiCLc3niTSFcGGdhadPlQclm4c5RQJPbim54S/G
-	 8rCChswYHFW6dd5/VAsAy2oUj/hYwEdLStxW4usyy2VBkxzlXVwJv9txKIqmro9wZEPgr
-	 ku4UzZBMO2x2qIVxAYMMSCqA0m31GPCSEIlRNwGtDk00sSA7y6aqFv7Di57Tmy6xahiD1
-	 VklHlAvDjK4cyGAqQznN7cF0H3R/MKT92AcDny/fsmNGRWiZ3nBBn5KVSYXWQUr8XrQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373364;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9uA/IfCkiaIeDnjEur6PD87lpfcM5Ji//ButOxh5saQ=;
-	b=wvhqPw9InZmeWZOYtSHTNW5bXqw0MFHVkaQFftt1T+uhssfdA2xr3ySwZ6QBf7nDML1I
-	 rdcO6sULaPmn1vzMfsQdJdzH1abNlUf5D1oH2L5RWpqFLB+CY+tja8rGjGIX3/BUYz/eV
-	 m7Mm23Ida0/5QA4S+rzMYk/OhEQGLUMFjTqfS7NW8XZGoI39LbjcwcZmwMtfHrvdFbYvZ
-	 HiEUwoNcC2dMKL6OQFdlN4KowjJfamTTT8Zx1SEA0aWTpYWD1zapRjafT238JB6DH0Ixg
-	 c3qi0bLll/O6Fzc7Pe93xMavOnuWqmhAX1gDr+4L4KpHkQegloH92z9Wvj+G/lVvhiQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrGgEkfj;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793373402;
+	b=VNGj7h5mT8PRDt45z6ytS3fY3sr2xweqPwOp26MsIOj/xnfa8bAXRYNt6QCw+VH9sfme
+	 tyBjxztZ8xbUlxOboQlIO9l+65PYG6t/snjIeCAvhVGVBDucZV81jk6LMXGqJ7/Jmhp/L
+	 dGCK4yJX4QAXZamwYNHa9pW93HxIoJdxqaOJsA8hBzL6wLHvYyt+XMOskfHxEW2TTRWUZ
+	 3H34OH1cx/lqhDutRWhRAEx8KuI+ZyUOKvMNBw049rOyWoLbJnEqyZJpWki5AtN9Tap9A
+	 WTu9mpLpibXEfWiM7Fx/PlsXhWZTUKYL20KWIr6uj7s0VXWRJZ4q6O3v6gXVfQxjHMg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373402;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qzCJMTUBINmSEu3oRmunHpTwoUl8UzbEwXY/5Mw14L4=;
+	b=1UcDwHBkoBNp8mRgv0ZB7evRhs4qVmiRyLxkG7jiwfsV0IrWNauWroSwK3IpvKzXBt+U
+	 I/0JXszdesEt8UP/daR9skhF/wy0mRDIdqXBaZquzTx+m6qlm9ycvdLXY3K/yVLBeem7O
+	 Umr+fw9ytC8UUaISONKcgepcJ7IrcqYfo+ohvxaqf6vRx5D9Cc58i4+lL8zMrbQtgN4wg
+	 GU2ytcT5og0BNyXICr0SLSXXbzJiWjKNUIGrn29eiXMYbJH4SKOWmSu+cTcMGbjHq2dW0
+	 yfoDh2bfhkSjvqsZ86PxFv/QZ3u+3TbJARxRjf4thwcLhibORaR180RkpXFM7b9kiFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OkjEzQqs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.64
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010064.outbound.protection.outlook.com [52.101.85.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FC8606A32A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:16:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6FC8606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF9B606A31D;
+	Fri, 30 Oct 2026 15:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBF9B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrGgEkfj
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e00eee27dso476838f8f.0
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:16:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793373362; x=1793978162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9uA/IfCkiaIeDnjEur6PD87lpfcM5Ji//ButOxh5saQ=;
-        b=MrGgEkfj0lQIVjNHAQytoBIgwZzsnFhNTCvHc+YcE6hzm+Zakb+PLOvToKJV1GAfpt
-         67qWrZWbc+4L0F4F0RmkzwRhtUToYJBcnZYt79rqX7LAVtAxr027Us/xNPSBaZ6j/rBH
-         EkzKH48BgMrzKjb002thIHucOGUFj6cocDOvP8msk3i36karF01Ta8l+ZUyj84m1/ypP
-         zRzIcm8rW4hwf3tC4Ih1I9a/hRcoTHCKY5ACr8hRFwY15KbvIifwIZ8CDJXiN4V/0NbX
-         TfLWDuaBPjwnmciwDQiiaG7Sonyh1Om9BLG5kXq8gKm8IMkOGQvFg09PSAVOzJsGyjxe
-         vDgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793373362; x=1793978162;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9uA/IfCkiaIeDnjEur6PD87lpfcM5Ji//ButOxh5saQ=;
-        b=hWucK81RvRaYstsE8XDPL4ZJoDPqZi1fofWOBxghDgGr+KD44lV8dj13lR/QIFptlp
-         xVnpGyHlXA+fuMkXBL6GcVo5m1MfY4Nl/yHFaA3PaFKBNUuqFQIubP+igDKis4AYK6Uj
-         VEjqH3Te4YoRiqFrHt1KDO7uVqbQ0JnOcmF27kJcWcdL1XMz0r1mrJRNI4QrkJA6yNxD
-         tyIJcKybWCbZxLQPITUogFOuu121legs6bc5c63eVETkRGhFVrafOzKAq6KCDZxKOz/0
-         p4zfSugPIAFztI3uuxeYiK5Tdkep6061Bw4ELWhPseQ0UkhjMuc+sopbg/E1hFaN759w
-         3xVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdWJJZfdKZPbyoo2aKuYlbMTwSp/yuMInwN72F4d3pl3R/Xnfu4g/Axg+j+EzgY/qd0R1z3a0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIr57bmqYWo7BmznZFpIj2GUVbA68NrTvBgDC1Wud7+FZMWBFM+
-	xsJ6yXB4EPud1VUJY2olv5KiVYnZkeasrTWgDssidpKGuckj7BVzYRI=
-X-Gm-Gg: AYBFou140N/8ISY8fRlLZe6WvZnl9hy3dfNNUxIIKFAeYu0Oat0jsBnruI1OnJg/xtc
-	CGe0eQ4fKGvcHV9xxTSYbYiFJ0+PPRHuHFKGXju9ZG5SuCHPU2fEd4hUxq28gku1nWoZpBZkGhq
-	diA38VJf/BXeBIjFU7ZeNL9qSFhRTgrJxgG5+0CLZVHsLS5C3d4H2sEDdKTUJOCTzC8oqo4pHOx
-	ReVU465RiBu8CAO/YqTfphmq44eU1cdQ4HpHMF2nWb/+kAnseS6bCc4z3NmS+qdUmXq6Xxn+lCC
-	MMoufcV/EjUltXChauyzuIhbYL3CnKO+Z8/IVbHf/OzDpSsFsBNle26N2jO4GL6O1I5HArXCbRl
-	7rJFKXlcwNqusls+fpXPdZJ/ppxVK6Ay2ICTZLrDpcN2N+zkNYdnVJ5hh0DPNm9Wos8XcTLGy1A
-	D1yH9UU4q6v/1RbQtuLOsyCrFrvTX0pQ909IYLE9FbEieiQOzqg5F2n+pluXAAdYOkXtMMmd21Z
-	+AAaiCL4TEMn6Q38PcomfbMlYSpc7emhrT5DTS27SnpHkv9Y3I7KDUBUDVWZ3bNsTvQlMTaQp3t
-	zs/5UsqcYaQ=
-X-Received: by 2002:a5d:5f4d:0:b0:48c:77e3:6c8e with SMTP id ffacd0b85a97d-48e6e50042bmr6286721f8f.49.1793373362184;
-        Fri, 30 Oct 2026 08:16:02 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bae0f4sm3268511f8f.58.2026.10.30.08.16.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:16:01 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: Zhu Yanjun <yanjun.zhu@linux.dev>,
-	Bob Pearson <rpearsonhpe@gmail.com>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v7 2/2] RDMA/rxe: copy send WQE to kernel buffer in completer path
-Date: Fri, 30 Oct 2026 15:15:57 +0000
-Message-ID: <20261030151558.1458444-3-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261030151558.1458444-1-tristan@talencesecurity.com>
-References: <20261030151558.1458444-1-tristan@talencesecurity.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OkjEzQqs
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KDLBwsnWY3rrCSk3LEc/3ljrsZW3W43VUk2d9RehR2mveYLbF+7UNGao5AoZvRnwg8m+26m9w0NTC3ccYNL/Lh352mLS0Pt4PzHeenottuD5kN+IwEyQ0pBV4qcyKLceWxRueF3rknj7C3UUEBn4TWUNq5c9XzcGFojEdFUjLm9HsrzakNxJ4eOrUT98vVeyLrnnYUQmMbJWe0B3KS4QBQ8z8MJIZIeAEq/G3CxlKtFw6WeTrU1pqNEq+j3v4OkppX1bNybd/feRhG7kvpelcHz62pHbpFczktrsO6muZOoonKZKQkl2X/rTHAyDnb2sV81Ok+88cuAO+fG78taihQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qzCJMTUBINmSEu3oRmunHpTwoUl8UzbEwXY/5Mw14L4=;
+ b=wWa8R9JZPrf3q8ILg3WSpTwbZ/nvucy+o/4+KMc/hWTn6UvQbYskfKFpOO4E+KeKBOP0Em3fsY7U7kA72BHZCtPo5DDJCVy0qkOhvLZVoSjG7yNb0PwiUAqTKsJAHbMh4HuBWTBUqIeC7ep20i4E0G5KuBTBfBzN+sUkJR5rgupgYEZxHuyGc67KScbnLKb7zfns2grMdyETCTpo4VhQlydE9PovPCHLGlffcHwCDqtO3cQEOlI8ByEKrRdDCIFn3J/6+qNMIZtYm+o9FyKtOYDDcelRgNQOLpUFH+R5vo9EJ1wLgN6zfZu5a5ecY309NzaMict/w9UNynNfVEnRHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qzCJMTUBINmSEu3oRmunHpTwoUl8UzbEwXY/5Mw14L4=;
+ b=OkjEzQqseKfPx8vJ6cQ90//JF4jzeaNKa6k3Ufrj/2+yPPD66NgLmKC+C7pd5D4qMHECZ7Xi07GBh66lOn8PBiWutLmRZERExO7hHK+iNGWTfzBHUy844p/gdh4GZ0n5WbcF/eeESMcr5T4d6a2LvgL6kHRW8v4ulsCo4J8HFoRsVM6ahzR2Sxq8VHhvV3ATjgw+nHzjCLoG8snUBDHH+UZb3QLvlVLADgsIziLltBSWlJtmzYNAhbZ3zATVjy4eJxhbaEe69DesLGicv2699L8J220k23SJDyQNtWhAGAmMe7qVNlS6lx/VZPQSspwFc8Z0knVJQhHts4LDtbZb7w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by IA3PR12MB062244.namprd12.prod.outlook.com (2603:10b6:208:711::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 15:16:39 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 15:16:39 +0000
+Date: Fri, 30 Oct 2026 17:16:29 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, kuniyu@google.com, xeb@mail.ru,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	yana06070@163.com
+Subject: Re: [PATCH net] ip6_gre: fix changelink conflict checks for L2
+ tunnels
+Message-ID: <20261030151629.GA85001@shredder>
+References: <20261028115710.27806-1-yanxia@cmss.chinamobile.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028115710.27806-1-yanxia@cmss.chinamobile.com>
+X-ClientProxiedBy: TLZP290CA0004.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:9::15) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,213 +99,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|IA3PR12MB062244:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7c94fe9-782d-4d6a-c209-08df3698cbaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|11063799006|56012099006|261009223027099003|261026121527099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261022113327099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	Rm0otVqeCo4xdTeOw9pl7Ox1hN59joSCdhyNDKO+L20fKiIYCpYtAanc5RO4uHowHxGH1oFISTZs5WmNdSD1se765vaE5AQNPxTM4Xb1v+cpjD5xfazYXtPB+0fXueGhL+vrfZTP0wJcVMK7eOZQ6mgDr50E7WQL1UVASIInqoParehcRdm0c3jy6xQaveXubzA1cG6Q8HVRyHUaMBaidMup74R8GAJbhEBEV64EHrLC1s+lmhbezu5S0STP+TF1gura7bkqycVbG4BFvr0K7vTTbh4H39gqSqSGduhLTfLPYiYZbGCcPYUY5WBLgBIhGv5WjcqivKLuqzpxSqwFq3ekuHwFc9DXABCHXb09dHtta4tnOSz3o4A/bOR5K22zGT0gEAiEjMtQhjYxbw/52glNF0p4zLmxv9XFKySYLIu5T40NopFtKviSkl9i8m0BFVyMLh0Mj73soV1t0L/y6fRWW4K+HzAPTjBFmpk+GkAZ1pF2W0pQjybUuJfHMoonu0Yi7ZnTcuFqQW+plp3+giurYyHQNaIIUwvm9IGrV5n9Ihd/LO3rwUJ2trx5qBauuoLoKpVWiWHOn7+kHh4A0gUSgASldpGltCJdAg0O3tGVJqwN4sT9WQTfN6TPz8Oq3Hrv7Qd/FB5zmnqP8oNuMOwJgtf+a1jQwRP0L6THVJ0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261022113327099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QkKdsWafkOOHXzyIgQj7dqgMRD3EUtrlNMTQafEgY+j8+BqPSMZLLUzrFZQG?=
+ =?us-ascii?Q?qI6uRcv2AcYHNep/vcJ+3FsWeoAN2HMw8TUeXnlCymrEZEMm8SxLOjWUnW0D?=
+ =?us-ascii?Q?s1fvJfhApdV/IR6SBAbIfG69y+IQJZVW9qB1LX8A/DhzzGhWLDKkAqZhAZRg?=
+ =?us-ascii?Q?a/qV3AKBSIfiHj5XPF3CKGWEvg0mqxgFT3H62UM1/w6F1Y8ScBBkdUR+F2O1?=
+ =?us-ascii?Q?vo6WLgBIvFM2qk57LHr9wbtTMn+1QHw2qlzcd+vTKSG3uqqfxIXJf4eFJGXu?=
+ =?us-ascii?Q?qXRq36AJdeB2e8sxf4CGb1J8NmjmhZpIJLahh2c/EXliZhYFju7Srn5bug0j?=
+ =?us-ascii?Q?0q+9s7j4K1Dr6Jycfr9IhggWEHTt/bagzJqWQa67aIxRSRxj24G2whvs6giz?=
+ =?us-ascii?Q?YdarCBN5j4qhRlE5wlA2g2522RbFhiHkwilwFI5mT1hct2pkUZ7mCfxwlH99?=
+ =?us-ascii?Q?srnucmcwm+a9jAcmV69REmU9W4IE4CV+6PUiF9RUqJyQYwvlgwDKykDPuR8o?=
+ =?us-ascii?Q?NovNmr6807+P/ACDkoClqtfooyHs2e/FU+xBSJmI5mjzPpvMqpKGmwLe4cOR?=
+ =?us-ascii?Q?DCSTfV8GlWSXDtyBPj4qJYSUkL11UDP9UxkLLanfogl0iXYiW+yz6fsrfla4?=
+ =?us-ascii?Q?pks6DJ/sbbd8G19OKYnShzpIA6ZAnWnjhW418LRqRCsQ9Pyb3MdcjfD08k2b?=
+ =?us-ascii?Q?xgG7Lm+4xRu8cICt3ej/VYAnrVNaTgoE/4mKngWilI4Jdbl2+N0n4JofKVre?=
+ =?us-ascii?Q?mjdFGidGUeZFSG96Q1EfKWyg6vZi2TkoI54RsDjBMT9tNXcdq8OJeEeudGQY?=
+ =?us-ascii?Q?11h6nqSwqDIdWFIvqdyJXKZjIg9jQLKChZUpJGHRUxul9K2MOn4I18HBI9hS?=
+ =?us-ascii?Q?74L3H9Yd9idUMBa8486hHnOtbmDb6dGUAmu/U1ShfSyMViNOzTMH7CuxHHR5?=
+ =?us-ascii?Q?7ClZw4InKDL2D6Eh/zckGCUVMNIkfgCbXRVl46tDK37zE2lupO4SEW1nXl9q?=
+ =?us-ascii?Q?2X08YKq65C/4EgZm9EHG5oOhzIpnzlYJOJXHCP5Kl3TUhY+ceUmeZVrC3ijw?=
+ =?us-ascii?Q?CshXNwYugZYWIZt5Perr93UeUkFw34cf1kdmP/L0yTaezdK7Dbj6Dfjy54jE?=
+ =?us-ascii?Q?qPSrqYHIGNSl1Ngb58nbrFbQE/AgspRUx02CXOuvVBjVrJ3WQTygPaFt0Ukj?=
+ =?us-ascii?Q?6ZeZZ+mll+PgmxYGXx7guTqxE5Kdpg1j/bfumwiN0KyqHdSZJGiWDrixHxoU?=
+ =?us-ascii?Q?cpLx2ViWgaq9g+JfknfIVlzY9IknvWuk+OPAn22Q81O4asjKke953MaUXy7w?=
+ =?us-ascii?Q?s4aREJjRdVAwmJDLiKPBNwLnQjf+ztvS9r857qrINmZJ9Ck4J0sTV4Agifxg?=
+ =?us-ascii?Q?PXME2rOdSnqlrVA0A7ITTfLPFQ/qzS5da2zuhgnt1CcelKB4LzFfau5gcJQD?=
+ =?us-ascii?Q?wUDgNbgxJsHkNvCxR5qp+TTz5FwGBmQuIZ3yEJi8D/0KmuDwwCitUrd/u1UW?=
+ =?us-ascii?Q?ubAMwX5s/fYCLSXzJWlpsZm4lw6UyrS1A+f2aoROUMBAdA7xfWAV8XUDkGmk?=
+ =?us-ascii?Q?ySWAxHlqKJJnbur0KNB6CHPn8D0ls8Tbad2Le7JVzPiwk9vJtvgDGKbtwOC6?=
+ =?us-ascii?Q?OigrbfIzPOEcTREhyLHTestAgbTXz9/CzVdK1pEySlEjU/Q1RarCnHmgXCx5?=
+ =?us-ascii?Q?nYDjeNDtdp6PjGo1b3HcA11d+mQerPjxH5ODXw7DXYoJLVn1?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7c94fe9-782d-4d6a-c209-08df3698cbaa
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:16:39.2935
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Lx5JvK/o2bOXnAeyrsC0cTNPhOMtbHVLmO5C5KTN3Uea3ZPg2DKYvK/9zb+669ctP46tQTUI/fNuoINDbNAjfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB062244
 
-The completer reads send WQEs from the same userspace-mapped shared
-queue as the requester. Even after the requester copies the WQE to a
-kernel-private buffer (previous patch), the completer still reads
-directly from shared memory, leaving it exposed to the same TOCTOU
-races.
+On Wed, Oct 28, 2026 at 07:57:10PM +0800, Xia Yan wrote:
+> ip6gre_changelink_common() calls ip6gre_tunnel_locate(), which only
+> looks for ARPHRD_IP6GRE devices. The same changelink helper also handles
+> ip6gretap and ip6erspan devices.
+> 
+> This lets an L2 tunnel change its parameters to match another L2 tunnel,
+> since the duplicate check looks for an L3 device instead. Incoming
+> packets can then be delivered to the wrong interface. An L3 tunnel with
+> matching parameters can also make a valid L2 update fail with EEXIST.
+> 
+> Use ip6gre_tunnel_find() with dev->type, as the newlink paths do.
+> 
+> Found while comparing the duplicate checks in newlink and changelink.
+> Confirmed with ip link commands. For example, with an IPv6 underlay
+> named under already configured:
+> 
+>   ip link add tap1 type ip6gretap local fd26:106::1 \
+>       remote fd26:106::2 key 100 dev under
+>   ip link add tap2 type ip6gretap local fd26:106::1 \
+>       remote fd26:106::2 key 200 dev under
+>   ip link set tap1 up
+>   ip link set tap2 up
+>   ip link set tap2 type ip6gretap key 100
+> 
+> Before the fix, the last command succeeds and received frames move from
+> tap1 to tap2. After the fix, it fails with EEXIST and tap2 is unchanged.
+> 
+> Tested with standalone namespace tests in UML, with three runs each for
+> ip6gretap and ip6erspan, and with L3 GRE IPv4/IPv6 traffic and normal
+> tunnel updates. Full x86_64 W=1 builds with adjusted configurations
+> completed before and after with no new diagnostics.
+> 
+> Fixes: c12b395a4664 ("gre: Support GRE over IPv6")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 
-Fix by copying the WQE in get_wqe() to a completer-private buffer
-using the full queue element data size. The local copy is reused
-when the same WQE is being processed with unchanged state, which
-preserves DMA progress across multi-packet RDMA READ responses.
-A fresh copy is taken when the state changes or a new WQE appears.
+Diff looks OK, but this is not a regression [1][2][3]. Broken since 2012
+and nobody complained. Please remove the Fixes and stable tags and
+target net-next when it re-opens [4].
 
-After copying, reject invalid opcodes (above IB_WR_REG_MR), out-of-
-bounds num_sge, and invalid cur_sge by transitioning the QP to error
-state through COMPST_ERROR. This prevents OOB SGE walks in copy_data()
-from corrupted DMA indices.
-
-The state read from the shared queue is preserved via smp_load_acquire()
-and restored after the memcpy to prevent a concurrent userspace write
-from overwriting it with a stale value.
-
-DMA progress (resid, cur_sge, sge_offset) is written back alongside
-completion status and rd_atomic state, ensuring retries can resume
-from the correct offset rather than restarting from zero.
-
-The cache is invalidated on QP reset, when a completion advances to
-the next WQE, and on retry to ensure the retried response gets a
-fresh copy with the updated PSNs from the requester.
-
-Fixes: 8700e3e7c485 ("Soft RoCE driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-
-Changes since v6:
-  - Fixed all sashiko AI review findings (2 Critical + 9 High).
-  - FORTIFY_SOURCE: memcpy into enclosing struct, not inner member.
-  - Copy size: max(max_sge * sizeof(ib_sge), max_inline).
-  - Opcode bound: IB_WR_REG_MR (was IB_WR_ATOMIC_WRITE).
-  - Requester: removed silent num_sge clamp, use mask=0 for invalid opcodes.
-  - Completer: validate num_sge + cur_sge, preserve smp_load_acquire state.
-  - Both paths: DMA progress writeback (resid, cur_sge, sge_offset).
-  - Completer: *wqe_p = NULL for posted state, invalidate on retry.
-  - Addressed Zhu Yanjun review feedback.
-
-Changes since v5:
-  - Added opcode bounds check and num_sge clamp after copy.
-
-Changes since v4:
-  - Resent from the correct sender address.
-
-Changes since v3:
-  - Copy full queue element (max_sge SGEs) instead of per-WQE size.
-  - Invalidate on QP reset, ERR flush, RESET state check.
-
-Changes since v2:
-  - WRITE_ONCE/smp_store_release for field writeback.
-
-Changes since v1:
-  - Split into per-path patches. Cache across multi-packet ops.
- drivers/infiniband/sw/rxe/rxe_comp.c  | 72 ++++++++++++++++++++++++++-
- drivers/infiniband/sw/rxe/rxe_qp.c    |  1 +
- drivers/infiniband/sw/rxe/rxe_verbs.h |  6 +++
- 3 files changed, 77 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/sw/rxe/rxe_comp.c b/drivers/infiniband/sw/rxe/rxe_comp.c
-index 1390e861bd1d7..cd4085a1bf2f8 100644
---- a/drivers/infiniband/sw/rxe/rxe_comp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_comp.c
-@@ -137,22 +137,87 @@ void rxe_comp_queue_pkt(struct rxe_qp *qp, struct sk_buff *skb)
- 	rxe_sched_task(&qp->send_task);
- }
- 
-+/* Write back completer WQE fields to shared memory */
-+static void rxe_comp_writeback_wqe(struct rxe_qp *qp)
-+{
-+	struct rxe_send_wqe *shared = qp->comp.shared_wqe;
-+	struct rxe_send_wqe *local = &qp->comp.comp_wqe.wqe;
-+
-+	if (!qp->comp.comp_wqe_valid || !shared)
-+		return;
-+
-+	WRITE_ONCE(shared->status, local->status);
-+	WRITE_ONCE(shared->has_rd_atomic, local->has_rd_atomic);
-+	WRITE_ONCE(shared->dma.resid, local->dma.resid);
-+	WRITE_ONCE(shared->dma.cur_sge, local->dma.cur_sge);
-+	WRITE_ONCE(shared->dma.sge_offset, local->dma.sge_offset);
-+}
-+
- static inline enum comp_state get_wqe(struct rxe_qp *qp,
- 				      struct rxe_pkt_info *pkt,
- 				      struct rxe_send_wqe **wqe_p)
- {
- 	struct rxe_send_wqe *wqe;
-+	u32 state;
- 
- 	/* we come here whether or not we found a response packet to see if
- 	 * there are any posted WQEs
- 	 */
- 	wqe = queue_head(qp->sq.queue, QUEUE_TYPE_FROM_CLIENT);
--	*wqe_p = wqe;
- 
- 	/* no WQE or requester has not started it yet */
--	if (!wqe || wqe->state == wqe_state_posted)
-+	if (!wqe) {
-+		*wqe_p = NULL;
- 		return pkt ? COMPST_DONE : COMPST_EXIT;
-+	}
-+
-+	/* Pairs with smp_store_release() in rxe_req_writeback_wqe() */
-+	state = smp_load_acquire(&wqe->state);
-+	if (state == wqe_state_posted) {
-+		*wqe_p = NULL;
-+		return pkt ? COMPST_DONE : COMPST_EXIT;
-+	}
-+
-+	/* Reuse existing local copy if still processing same WQE
-+	 * with unchanged state (preserves DMA progress for multi-packet ops)
-+	 */
-+	if (qp->comp.comp_wqe_valid && qp->comp.shared_wqe == wqe &&
-+	    qp->comp.comp_wqe.wqe.state == state) {
-+		wqe = &qp->comp.comp_wqe.wqe;
-+		*wqe_p = wqe;
-+		goto check_state;
-+	}
-+
-+	/* Copy shared WQE to kernel-private buffer.
-+	 * Copy size matches the queue element data area.
-+	 */
-+	qp->comp.shared_wqe = wqe;
-+	memcpy(&qp->comp.comp_wqe, wqe,
-+	       sizeof(*wqe) + max_t(int,
-+				qp->sq.max_sge * sizeof(struct ib_sge),
-+				qp->sq.max_inline));
-+	qp->comp.comp_wqe_valid = true;
-+
-+	/* Preserve the state we observed via smp_load_acquire()
-+	 * since memcpy may have overwritten it with a stale read.
-+	 */
-+	qp->comp.comp_wqe.wqe.state = state;
-+
-+	/* Reject corrupted opcode or SGE indices, error the QP */
-+	if (unlikely(qp->comp.comp_wqe.wqe.wr.opcode > IB_WR_REG_MR) ||
-+	    qp->comp.comp_wqe.wqe.dma.num_sge > qp->sq.max_sge ||
-+	    (qp->comp.comp_wqe.wqe.dma.resid &&
-+	     qp->comp.comp_wqe.wqe.dma.cur_sge >= qp->sq.max_sge)) {
-+		qp->comp.comp_wqe.wqe.status = IB_WC_LOC_QP_OP_ERR;
-+		wqe = &qp->comp.comp_wqe.wqe;
-+		*wqe_p = wqe;
-+		return COMPST_ERROR;
-+	}
-+
-+	wqe = &qp->comp.comp_wqe.wqe;
-+	*wqe_p = wqe;
- 
-+check_state:
- 	/* WQE does not require an ack */
- 	if (wqe->state == wqe_state_done)
- 		return COMPST_COMP_WQE;
-@@ -454,6 +519,8 @@ static void do_complete(struct rxe_qp *qp, struct rxe_send_wqe *wqe)
- 	if (post)
- 		make_send_cqe(qp, wqe, &cqe);
- 
-+	rxe_comp_writeback_wqe(qp);
-+	qp->comp.comp_wqe_valid = false;
- 	queue_advance_consumer(qp->sq.queue, QUEUE_TYPE_FROM_CLIENT);
- 
- 	if (post)
-@@ -788,6 +855,7 @@ int rxe_completer(struct rxe_qp *qp)
- 							RXE_CNT_COMP_RETRY);
- 					qp->req.need_retry = 1;
- 					qp->comp.started_retry = 1;
-+					qp->comp.comp_wqe_valid = false;
- 					qp->req.again = 1;
- 				}
- 				goto done;
-diff --git a/drivers/infiniband/sw/rxe/rxe_qp.c b/drivers/infiniband/sw/rxe/rxe_qp.c
-index 77606c4a039b1..450254a131017 100644
---- a/drivers/infiniband/sw/rxe/rxe_qp.c
-+++ b/drivers/infiniband/sw/rxe/rxe_qp.c
-@@ -582,6 +582,7 @@ static void rxe_qp_reset(struct rxe_qp *qp)
- 	qp->req.wait_for_rnr_timer = 0;
- 	qp->req.noack_pkts = 0;
- 	qp->req.send_wqe_valid = false;
-+	qp->comp.comp_wqe_valid = false;
- 	qp->resp.msn = 0;
- 	qp->resp.opcode = -1;
- 	qp->resp.drop_msg = 0;
-diff --git a/drivers/infiniband/sw/rxe/rxe_verbs.h b/drivers/infiniband/sw/rxe/rxe_verbs.h
-index a22dfc6e5ae3c..6205dbc29dff6 100644
---- a/drivers/infiniband/sw/rxe/rxe_verbs.h
-+++ b/drivers/infiniband/sw/rxe/rxe_verbs.h
-@@ -130,6 +130,12 @@ struct rxe_comp_info {
- 	int			started_retry;
- 	u32			retry_cnt;
- 	u32			rnr_retry;
-+	struct rxe_send_wqe	*shared_wqe;
-+	bool			comp_wqe_valid;
-+	struct {
-+		struct rxe_send_wqe	wqe;
-+		struct ib_sge		sge[RXE_MAX_SGE];
-+	} comp_wqe;
- };
- 
- /* responder states */
--- 
-2.47.3
-
+[1] https://lore.kernel.org/netdev/CAHk-=wiSnTE9vBZ=5_v+3EEkdazCCbBM5YABRzRHUAeRdyd4Xw@mail.gmail.com/
+[2] https://lkml.org/lkml/2018/6/24/113
+[3] https://lwn.net/Articles/1074171/
+[4] https://netdev.bots.linux.dev/net-next.html
