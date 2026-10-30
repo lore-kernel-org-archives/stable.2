@@ -1,63 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793398101;
-	b=pKrx3I21i9+Fr8r9yT4GlG+vSsImXtmPk03oM2Xqz6p2T7McZlmvlv83/1/aVA3X0/WW
-	 UkSf58O8azRsr8OXaUQnH+X9Tvv4BsZ0oVsb6MEPTSxlVkkXjFio2j+tIWp5HE0vFH6PJ
-	 UquP9TEeZ8VkD/Aeqi8NpIscpat0Ttyn+gf8Oo/oB6UFF/BPal++TAYXW0fwFXSMxCNG7
-	 HI+mb92kBad1b3TSkhsG/STrai5Atjfs0xKjbQvr+SN1Tyb7RjkeukbAlQJ2vvn0ZRI+G
-	 4nHpSRIMWq1uFGswkusLvJopSDCrm1y/TzUHPoO073MPje0kYcMQDySUY7/A4yGOp4g==
+	t=1793398206;
+	b=pCssJuyouW9/b5h5KqsI/958dte4w3/N9A5Rynmr/6DP3zi5FYotfXzOmg3lK9Po1lU6
+	 /7MZq8uYPGS8v8jjBkBzeJ2WxJ/iIS9HdwavHpSjJqy4Gx2vHtlyl/ku8VtTTayNxwy/m
+	 maT9K2qnI8We3gjWczATPn/XkZKicKzDWCNUc7ghjMNdFLsway9LrQK2XcLtPqTX/Gwtg
+	 lKwzEZFDDADmN6eg+vq9Vqz7gLxLBR9gJsbQ7DJN8SfqnaOvyb/qzFaguswYxFCvswIPe
+	 qmGPmEztMTMDY30xGI6g+RJ71wadwEG4J088jtvHDVZ2g95oL3cstkBSVaCu8MN8KsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793398101;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	b=zUI8rJ2y1+m2Eaoh5EtsjGLN4ootg3fG+Cn9GgjUe/Wuofliw3MtymRSIT5Ou0+JBnmG
-	 +CNSJaOeP7tCwuNpUqV4OeLTaEZ+qTT+oDlXCEkUJ8OWX6gwWvY+/LSFCNAEmbNm1OAee
-	 szNxnr/cKNIM780ENng1zHWMK8X72NXPCaoFqXfil/w9yOp8NA+S8tCnq8cP9FOFYFtph
-	 0W7vu3QTXUm6xP6eiDQHh+d7HbXCEYx7mkctGItgGU+wn5/d18QnPNo0zUIvhZheBm+9M
-	 XtVmzhqe6uTxWScnQSJdgVUMfl3HI7573fpsLvEcswBzaL+CW31G0K6/KH/kjiH38qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793398206;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=CacpoIiwxOW4aqpf4E7cdOUOSLNbY/mAK7YBQamRQ+I=;
+	b=5tDgsFzErIYNMq/gPhe3eKcqymbACxChhnobH9QyDtjn5/bQvASxVx2pqlBoyNITltTJ
+	 Paievapg0jIBdTKYhZ8hLr2BbDY0L55fpeLQd2SWBbqk6Wo9oS1x4Zab5yFk/sB2WBjhW
+	 OTpXjm4upglCkc9/3CASl6If4QNMKwZ6n1tSU+S6LxaqMIqVu9EfegoIH/NAbN0CENU/d
+	 5kts3WmM7TsuifVYI+Qmls74zz/bpdFEy3g4ggeIKIiB5ZP+CvUFJminfMBNsu0YrgmJT
+	 3UtP62T0ANk8wVd/ugSerU3ALZdiXzQLC5y1P/yRWquPqK9KxHYUGnNWwjB7+Zg9xdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=goL4eCDd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqGBxai3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E789606A322;
-	Fri, 30 Oct 2026 22:08:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F58606A31A;
+	Fri, 30 Oct 2026 22:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=goL4eCDd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7001F00A1E;
-	Fri, 30 Oct 2026 22:08:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqGBxai3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C60181F0093A;
+	Fri, 30 Oct 2026 22:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793398101;
-	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=goL4eCDdq4PcwCINKh/h2FC/xmJ9uLJGKAEHeYUkLp+BuEMgbhHNf5b9rP3VDEOI4
-	 WbiG6EpEyljJAudy10w6ucvlOiBDsjxKEtkgSnjXeJ/trLlvefpNnRdNG5SrnKcl3p
-	 3IXtdBXpZ+cyOJvmRSqgebCjJ+nOa83oxUdg8CYRhx3Xl0+j1fJZISX0UlnipGEOXu
-	 dYxIoFhEQe4UeAyxLs/NoolZ0c2bywzQMkgRnPsimtK/W943Mf5BDuOXnsKcCEt7Bi
-	 EfwIrd5ngBkFNMXx+aX7E59qUDalHz8ObB+cx27WVGLu5bwxbg6QXtGYm3vJtbujyx
-	 PPR3LMR3hiu7Q==
-From: netdev-bot+sinfo@kernel.org
-To: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Christoph Paasch <cpaasch@openai.com>,
- Chris Mason <mason@kernel.org>, netdev@vger.kernel.org, mptcp@lists.linux.dev,
- linux-kernel@vger.kernel.org, Yilin Zhang <yilinzhang@moonshot.ai>,
- stable@vger.kernel.org, Kimi Security Team <bug-report@moonshot.ai>,
- Jiayuan Chen <jiayuan.chen@linux.dev>
-Subject: Re: [PATCH net v4] mptcp: do not use Fast Open on MP_JOIN subflows
-Date: Fri, 30 Oct 2026 22:08:19 +0000
-Message-ID: <179339809972.3286.6931292097714769277@kernel.org>
-In-Reply-To: <20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org>
-References: <20261030-mptcp-tfo-mpj-v4-1-e6eff2027342@kernel.org>
-Auto-Submitted: auto-generated
+	s=k20260515; t=1793398205;
+	bh=CacpoIiwxOW4aqpf4E7cdOUOSLNbY/mAK7YBQamRQ+I=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=LqGBxai3uwM/30lxdhdBhrx6t56DkrPZUdbX9baeXbLJFQjj90xSha58D9meY30aw
+	 B4CYQhb9SYt8+4yJ9MewYj9k/eXAgXCEdC+aQP3Ea95N1zbZMgSIr2oW8m3++n10g3
+	 Ayvowi0RPQWkQWBCc8CqQq/wwto3zq5ZytfVIcKw2VlLGH677tGXB3UYW1XbbQoNw3
+	 o9+3Bw2arMfNe5faj4OjqnCntdgmrGyeWY2nkQ/HXOYKD/illcVj/H8cSqU89BimgU
+	 2PQgF01Ap6Q+1pdg+GpsGZh4BE/n6GZGv7ZO3V8+vkzMZttSoZ3WiOVf8MOKbcrv9r
+	 s/81IXNvoSAXA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA3D43800478;
+	Fri, 30 Oct 2026 22:10:05 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,21 +53,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] sctp: account for chunk padding in sctp_init_cause()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179339820455.1798442.18307539223937960628.git-patchwork-notify@kernel.org>
+Date: Fri, 30 Oct 2026 22:10:04 +0000
+References: <20261027082405.1297-1-shengshilingmu97@gmail.com>
+In-Reply-To: <20261027082405.1297-1-shengshilingmu97@gmail.com>
+To: =?utf-8?b?44K944O844K544OI44Oe44OIIDxzaGVuZ3NoaWxpbmdtdTk3QGdtYWlsLmNvbT4=?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
+Cc: marcelo.leitner@gmail.com, lucien.xin@gmail.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ linux-sctp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hi!
+Hello:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+On Tue, 27 Oct 2026 17:24:05 +0900 you wrote:
+> sctp_init_cause() accepts a chunk when skb_tailroom() can hold the
+> cause header and the payload. sctp_addto_chunk() then writes 0-3
+> bytes of padding before that header so the chunk stays 4-byte
+> aligned. The check does not include the padding, and the following
+> skb_put() calls skb_over_panic() from softirq.
+> 
+> Count the padding sctp_addto_chunk() is about to write. The cause
+> length on the wire stays the header plus the payload.
+> 
+> [...]
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Here is the summary with links:
+  - [net] sctp: account for chunk padding in sctp_init_cause()
+    https://git.kernel.org/netdev/net/c/ed6c53b27be4
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
