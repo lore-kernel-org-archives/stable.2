@@ -1,99 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793345073;
-	b=GOA7KkeKGjkQUvkKFQVREgDljwCEn0CzNprqiojvnRAmW5iozhHCGDMdyRAnLBUb2Gmq
-	 rjr/xy/r25ohoxWofyOnUgXN0SW/6eVf99Y1okYCb44pXuZlblQ6H60w399QDSL1yvXfA
-	 l2j7QYfbob5ASoZQ2vhPw9I/b73uSZ/STFb6LB0R/LEErAwaZiTg18Q/3FgWIdVzARkhm
-	 7/3FbKOims4zRjjRWY5ylXSqXPIFO/Pr28g4H7/4nPeAXhjeq1AsejEvJONfd16TJymlu
-	 lMs8PAHN5nv/lTxDktDEJ7ulS+q1BJURac2NI/06lV89nSPUEm/+p/VFf7X20N0Z3/A==
+	t=1793345455;
+	b=3Wut59pad6z4hhb0JZXdMMthOZ0A92lGbs+Te96MSf4ONUFi+OIMaKh/NyPx0/oxEBK9
+	 GuCv/+Wevabeu6/9VeAer05VmdeHN5O2nmzsPt9GEWnl2Fqi/hbw5PozYPCvnZjqhOjHp
+	 Rfqb8RO3wiSDfYhsbalwcWqR7Grzu0SiQ57Uhvyrv1bK89hd0yUFG3r9uOIhYB8yDpuhA
+	 QXM3DZNVhxPFxXOFv7NuYvuN3Xf/unDpDv3GG0tnSb05FISUxtB2mdO3UjyiyOGptJocy
+	 FlhOEja+gGpZvOwUD0V5y3VncZ2/u+5+Vb2LpJohkrGR1Wh/8ilhW16My3W4wgGfCww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793345073;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Dye9QdCfM0buqLNAg1xJFfUVdrOuh21D7sWCj6RNeCQ=;
-	b=d2mWIyHMdJcXWPUluRecSVrb123FoZT71N1Rnuznr8CjukR+0mZwVhhH3rMwKR3W31CJ
-	 DVnpzsYPSkq7ytFhngIrXTI/3Om9qmcpnT3yIqhrPcuEL9v5pJBR9uq3cO0KDnqJ8r2+b
-	 /RHSHfqgCKVQl4suEon2Ied8vxfLFecg8KtyCdFTNor+k8yyeF1m0M72V0MnGw17TltFO
-	 WaX1OWFE+giCdTnbcUZOxNGKhcdL6PaW/Ku0TTRTixBylm+BQkamxWQdtNydAU2QduutM
-	 wp4p8wuA5Yx+5pCqC3lqXkM6GnWp7V1HLf7bKO3k11XgqL6nEZ38B40Qsxom+xU/lNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793345455;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=f6hSTVr503+xmAIVsp1Ae9a/mr3a7mKY8k2VZgMpr+g=;
+	b=OUjmbKuCUBBTCsL+BkuO9NFlNGQzcgE5Rsp5dIf7H+MCsYibZB8AY441wIZMfhEuW29k
+	 ASKzRrrY1gIejJ/wHDaWz9xLaOdwSfCnt46UIdODKhoNpIe48DGFW9oYgxZzt/4zALlVH
+	 qf+N1apQOE4x2H6zbm/3RHAZiNOdxX0aXNQLgXueUWjqR/PWKl2yga13hKia6G6darpeU
+	 FOHLFN9D6xpuP92afR/9z+9OkOSnIlzilHcxRp3VkNLeFiSwSX62gmkYyR/2vpewD+vOX
+	 NXxYv1+u2QW/NI7yp9dlLBeqD+lRObiPY3muiOpLA/8ItHpkBI5w5mkNUDKiPQ/oQZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=shXzQXvI;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=FdtVSnqn;
+	arc=none smtp.remote-ip=162.62.57.210
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2238606A335
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 07:24:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2238606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B49606A31A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 07:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B49606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=shXzQXvI
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-185fd3a4ca3so351591c88.0
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 00:24:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793345072; x=1793949872; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dye9QdCfM0buqLNAg1xJFfUVdrOuh21D7sWCj6RNeCQ=;
-        b=shXzQXvIBm8gGEnZ0AkVTNtdg3Q59iPHohFAp1GkluBGadwAmhHYE6lViy4+OWE1XV
-         BQkxpogrsTnFxlNgYpPMbDPeNrt/x7J0OO5MTfTXUdrzEOMHw50id737nF4CTUt6euLB
-         qPhYz/rkeErURDpJVMXQtH9B4oLKzgs/oeqPO62G57k3Bdz0aQ3yP1kVIiss/AXDbSU1
-         jHadz93ORva2TB01ja84qlGroFc34GNvzTKo8xPdHehnHKMIKacDbTgGtnxa2gGMallB
-         OjQYaqABB3K8+djI4dyzWLXgEeKa5MiIVQXdFjL6vwhLFK0zagIZIixNJX4Qm+N4kHjR
-         0rfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793345072; x=1793949872;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dye9QdCfM0buqLNAg1xJFfUVdrOuh21D7sWCj6RNeCQ=;
-        b=fefeSbES8w3vFqRiV2gvSHWTBYDyJV6/5YTGK+4C/dZa7g5YrZr2QbITdKmvNkeHY9
-         mcp8C9iS5FY2sCho7b+0+qCEAIpiaTEs3kZ53Uol/+lJLnNmU6hDegQ9lyfEExOuqyz8
-         yf0hivzwW5KuSB7ZlyAKezXI1b+HPJ+P7MzkRKec8HHpVUOATi2mnM7MMvT8qaDZ9PF1
-         zF9mPweIBr7gYRYN1+pssgEqQN9ZK5G8jZsNXfjTnyarMKzlszwX+k+FFkiPpeYqm8kk
-         vNCWPe6xPAoEdjGDdx/Jl3RojpJAltM7OSn9TwsHwR7HXivlZ3uM5H0QaiOi3Y5vNMgo
-         KXzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx292qWbo0dL/n1jwbcgSKF4JidKosFTQMS1qi25kcAmMNxQiYm0a7oBxqzA+6pbmAcrmQvi9c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJysb+DyGNbmAhmOrH9ZQYx0/bVQptMah2X5H569V/1IXd0MCEL
-	rB/BuYGQv/0HpJBx0sYxhGz8BExAxdxdjnV6bZSQ+eCpPRFGHBhQ90Xs
-X-Gm-Gg: AYBFou2wKDZFuCeEkK9X6CrE6npy/dxa0dCm+57NrY72fZ6IG4VNlF5xcDO7w0TtCen
-	qnlH9MNdZp7+9Cf1nBEMDiq19g8vqn1OqdKOHz3GfwX1kRxfBaOjqsMtzsy83NrkMGa63Nsfkr8
-	iQrQpY40rWNiNWmaxG/SwPE5FGuqizJwJPSX7gFAhCQCMus2fbz3E5Dp64TSBRojHZoWL9ea9lW
-	CAjQn2xRJoDUVhTNZ48e3kpKHXYlL5gHsosYpVteFMwIlVoukVxOhAJQQug1iupuZ8kbCSvpw6U
-	mS3H8Fc5MOs4RLKNPTkEgVMgxV2mYzQTeBpDoTeVZd88y7uVCnIT+1CU1z4/Er80Wn8locZwudx
-	jP15u/+H/TPFs1lJ09ihe4OYk3k4tK4StGYxKhbIZmmRU/ZwD7uwdwS8V/bwih642Vafw8Ez8DA
-	0HnzhjuBtdJRcwivoum/ncTHLLNNh3bmPnmO5XSkgZO6U4pJuB4z3Tw1RxaoXwudl7GuTxxJdja
-	U4d1bCFAz1rMjXQgGfy5pElgljaimO9b3N7LR87UPaY19S3Hu2c4GlDhfJVMfeQti6l3OqdyVqj
-	BxiC+T0HWfvTdhrhS0kQreZ422igRi9UyHpIF7lYWCyH1A==
-X-Received: by 2002:a05:7022:628a:b0:14d:c7ae:85dd with SMTP id a92af1059eb24-1ac5bbb917cmr2714313c88.7.1793345071565;
-        Fri, 30 Oct 2026 00:24:31 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm4462883c88.8.2026.10.30.00.24.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 00:24:31 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: lihongbo22@huawei.com,
-	sandeen@redhat.com,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
-	syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com,
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=FdtVSnqn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793345442;
+	bh=f6hSTVr503+xmAIVsp1Ae9a/mr3a7mKY8k2VZgMpr+g=;
+	h=From:To:Cc:Subject:Date;
+	b=FdtVSnqnRtbTgkpJ97XSC/8dAfV5djt7mmWNcBp3uCJEiuDtI9fE2Xtme7VwK+dYW
+	 u+wUUH4PVrlwCbLzUBHUNuzTdoolfraf6yyp5j0YUBoRAiNwK9pCHJExxBrYb/M1Rb
+	 lV2UgTGSGnz0DDwYlahLf82YsJHzfWJzocs0q6Js=
+Received: from HAPYCAO-MC1.tencent.com ([101.226.143.247])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 7A899E33; Fri, 30 Oct 2026 15:30:40 +0800
+X-QQ-mid: xmsmtpt1793345440tzby8u61l
+Message-ID: <tencent_13F84AEDEBCC170BE121ADA2D44EA69CEA07@qq.com>
+X-QQ-XMAILINFO: MHMEtxMLMqJxsWMD/aMU0npTSqh8V45E639L0BYQrjACCYD0JomrwHkQ2IFNsH
+	 hM6a3f+PpasIbjmzf/+FBmQiY25ER9WTNd3eg2y0hqmfVsNf2gdK4eSr9NJ9egMWOFF9iL+7MeN4
+	 tChVGwxEhPZUJU/CCcudNcrgdk7vHB26MMTPirgdVX4sjaGIhvMgsgRjkkdyXP2TZ5Xhu5085QkM
+	 a/17MAuxc9uWhkWzj5K7d3WTjQvgCh8oGRRtNx1vy8CKWjAqMB21/V9gYE4jbXf7TYDWqIGBD9ou
+	 rlVM1/TFF2U+M21Reb8KpU2aRxgB/E2fGHkJuwFYEfSQ77lO4+ixH2ciHpXT6QGUZ7r0auUi7lth
+	 BqUEpO8gLb5NKwSLfSh7QmDErpmud/k90matkEBJPsj/eDl0FgFtCD7pWvd3taxNy+EyRYHW+Ql8
+	 aEjsXXPe2WV6yfvjeflLJUlWIES+l1O3WZQMDJ8MYRXuzuJUK0J8iG8xWx5iqUYewXk5K8tKQ7V2
+	 sEalmpiSxI9nKmxavlxmYfQue+IYDRmtg8nGOT6sW9oHbh8jAADYNNOKjXUzng91yRmzz3HXbefQ
+	 qkTKKZL15g8CIsl6dyzhIi9G3fQOhNJc1Lz60vE8qTNLzSpOr6gxE6cjnST540d6l+ks6EqAj8QY
+	 3OWQQGnIJts1C//daz4Z9E+MLqTiVoDSBgJzpWxY0tis7YENjyODb694hAP9TnEx7WLUx/Fx+jVg
+	 3axjQ9EiVwwelOBRKY8YURD43M1jp++2XjmeXrCHW1JOmVLSQ/CT9TTIdsfxsOLBmgBsY1gGPY2m
+	 vw9XWMOSg+TWvXqHKQW1a8qm/cHOyKv2/CjkeSbEuCN1u52pGXm9LmzlvAfzLrcE+ShJnX/Ripug
+	 B17gQiHAJNaQMhIWExk6J8Cve0cNMfiQ3U119spxqSxe/KCzXY3NIPOavcSwZO6lO4FcmDYnDy8f
+	 FOJHKZIU+OmexVjn+HratjlQY3VEtomsypQhiyIR9FWIbsnOgvPB003a8YEPK/smHB1qLzYOxu0H
+	 1xLuTocb82MKCkMaCBaNySDCHiKVu2uf/G56sGoOwFBtxZdllItQ9lx7EkorKEzZawFqJ9PaqJAP
+	 8WSd028w0ZxyM0rkWj/P6n0mD4A3abDbzIqggn7QFMALV2mNyE3KKTil9YZX7J1ihuq5XPcjSaIA
+	 TGrLYVsu21ewLiHg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: bo cao <treebacker@foxmail.com>
+To: linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org,
+	chao@kernel.org,
+	daeho43@google.com,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] f2fs: free the quota file name that remount drops
-Date: Fri, 30 Oct 2026 15:24:23 +0800
-Message-ID: <20261030072423.197883-2-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261030072423.197883-1-zhanxusheng1024@gmail.com>
-References: <20261030072423.197883-1-zhanxusheng1024@gmail.com>
+Subject: [PATCH] f2fs: disallow size-changing truncation on atomic files
+Date: Fri, 30 Oct 2026 15:30:40 +0800
+X-OQ-MSGID: <20261030073040.83304-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,53 +83,117 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+ftruncate() (and open() with O_TRUNC) does not go through ->write_begin,
+so it bypasses the COW inode and modifies the original inode directly:
+it updates i_size and releases the original inode's blocks in
+[new_size, old_size) while the file is in atomic write mode.
 
-Remounting with an empty journalled quota option such as "usrjquota="
-clears the name, but f2fs_apply_quota_options() overwrites the old
-string without freeing it, so every such remount leaks it.
+06dfe4a7eb69 ("f2fs: disallow mmap write and data-modifying fallocate on
+atomic files") rejected mmap stores and data-modifying fallocate for
+exactly this reason, but the truncation path slipped through: the
+ATTR_SIZE branch of f2fs_setattr() has no f2fs_is_atomic_file() check
+(compression, device aliasing and pinned files are all checked there,
+but not atomic).
 
-Free it after a grace period, as f2fs_show_options() may still be
-reading it.
+Consequences observed with a reproducer (Ubuntu 7.3.0-9-generic, arm64):
+fill [0, 1MB) with a non-zero per-page pattern (page pg filled with
+the byte (pg | 0x50), so page 24 reads 0x58), fsync, and verify the
+baseline: 946176 non-zero bytes in [100KB, 1MB).  Then
+F2FS_IOC_START_ATOMIC_WRITE, rewrite [100KB, 1MB) with the byte 0xB1
+(goes to the COW inode), then ftruncate(fd, 100KB).  The
+ftruncate succeeds (it is not rejected) and:
 
-Fixes: d18535132523 ("f2fs: separate the options parsing and options checking")
-Reported-by: syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6c000dea1a93b4f5905c
+- On F2FS_IOC_ABORT_ATOMIC_WRITE, f2fs_abort_atomic_write() restores
+  i_size to fi->original_i_size (1MB) while the blocks in
+  [100KB, 1MB) have already been released.  Note that
+  f2fs_i_size_write() skips f2fs_mark_inode_dirty_sync() and
+  FI_AUTO_RECOVER for atomic files, further persisting the damage.
+
+- On F2FS_IOC_COMMIT_ATOMIC_WRITE, __f2fs_commit_atomic_write()
+  computes the commit length from the truncated i_size_read(inode)
+  (25 pages) and silently drops the 231 dirty COW pages beyond it,
+  breaking the all-or-nothing atomicity.
+
+Reproducer output:
+
+  abort:   i_size=1048576, nonzero bytes in [100KB,1MB): 946176 -> 0,
+           fiemap@100KB: no extent
+  commit:  i_size=102400, range [100KB,1MB) past EOF, 231 dirty COW
+           pages silently dropped, first 25 pages of original data intact
+
+After the abort, the final state of the file can be verified directly
+with stat and hexdump:
+
+  $ stat /tmp/a12-mnt/f
+    File: /tmp/a12-mnt/f
+    Size: 1048576         Blocks: 200        IO Block: 4096   regular file
+  Device: 7,0     Inode: 4           Links: 1
+
+  $ hexdump -s 0x18ff0 -n 0x30 /tmp/a12-mnt/f
+  0018ff0 5858 5858 5858 5858 5858 5858 5858 5858
+  0019000 0000 0000 0000 0000 0000 0000 0000 0000
+  *
+
+stat: the inode claims Size=1048576 (1MB) but holds only
+Blocks=200 * 512B = 100KB of physical blocks.  hexdump: 0x18ff0 is the
+tail of page 24, the last live page (its pattern byte is 0x58 =
+pg24|0x50); from 0x19000 (= 100KB exactly) the file reads as zeros.
+The boundary falls exactly at 100KB -- 924KB of data silently gone,
+with no extent behind it.
+
+Note that the file is not sparse: the [100KB, 1MB) range was filled
+with non-zero patterns, fsync'ed, and read back (946176 non-zero
+bytes) before the atomic write started.  The zeros after the abort
+are lost data, not holes -- unlike a sparse file, where the extent
+table legitimately records never-written ranges as holes.
+
+The committed file shows the mirror-image damage: every step succeeds
+(the 231 pwrites, the ftruncate, the commit ioctl), yet the file ends
+up identical to one that was never written to beyond 100KB:
+
+  $ stat /tmp/a12-mnt/f2
+    File: /tmp/a12-mnt/f2
+    Size: 102400          Blocks: 200        IO Block: 4096   regular file
+  Device: 7,0     Inode: 6           Links: 1
+
+  $ hexdump -s 0x19000 -n 0x100 /tmp/a12-mnt/f2
+  0019000
+  (no output -- 0x19000 is exactly EOF; the range does not exist)
+
+Found by extracting the invariant of 06dfe4a7eb69 and diffing all 24
+f2fs_is_atomic_file() call sites (none in the setattr/truncate path)
+against operations that modify the original inode while bypassing
+->write_begin; ftruncate() is the only uncovered entry point.  The
+analysis was assisted by an LLM and confirmed at runtime by the
+reproducer above.
+
+Reject size-changing truncation on atomic files, mirroring the
+fallocate check added by 06dfe4a7eb69.  Return -EOPNOTSUPP like
+fallocate does.  f2fs_setattr() covers ftruncate(), truncate() and
+open(O_TRUNC) alike.
+
+Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Link: https://lore.kernel.org/linux-f2fs-devel/20261010024133.2444761-1-daeho43@gmail.com/
+Signed-off-by: bo cao <treebacker@foxmail.com>
 ---
-Tested in QEMU with KASAN and kmemleak, remounting with "usrjquota="
-and "usrjquota=f2fs" in a loop while reading /proc/mounts: nothing is
-reported.  A plain kfree() here trips KASAN in f2fs_show_options().
+ fs/f2fs/file.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- fs/f2fs/super.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 510df7998c18..d86ab25fbcc5 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -1646,7 +1646,7 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
- 	struct f2fs_fs_context *ctx = fc->fs_private;
- 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
- 	bool quota_feature = f2fs_sb_has_quota_ino(sbi);
--	char *qname;
-+	char *qname, *old;
- 	int i;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index e2c0f5083313..5ed1f3176f70 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1165,6 +1165,9 @@ int f2fs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 			F2FS_BLK_TO_BYTES(sbi, fi->i_cluster_size)))
+ 			return -EINVAL;
  
- 	if (quota_feature)
-@@ -1662,7 +1662,10 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
- 					GFP_KERNEL | __GFP_NOFAIL);
- 			set_opt(sbi, QUOTA);
- 		}
--		F2FS_OPTION(sbi).s_qf_names[i] = qname;
-+		old = F2FS_OPTION(sbi).s_qf_names[i];
-+		/* Pairs with READ_ONCE() in f2fs_show_quota_options() */
-+		smp_store_release(&F2FS_OPTION(sbi).s_qf_names[i], qname);
-+		kfree_rcu_mightsleep(old);
- 	}
- 
- 	if (ctx->spec_mask & F2FS_SPEC_jqfmt)
++		if (f2fs_is_atomic_file(inode))
++			return -EOPNOTSUPP;
++
+ 		if (f2fs_is_pinned_file(inode)) {
+ 			/*
+ 			 * It may break section-aligned fallocate recovery
 -- 
-2.43.0
+2.39.5 (Apple Git-154)
 
