@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356864;
-	b=tDaBV5RzPIDZGtj/M3Eiu5DxF7B6yvpB3tF+j7ay6V6U38pDnuHx6AwIwnx7KG9xJYix
-	 nDKL8jDdVwQ9UrwCcd6AzlDXWYjhvu1Wl+1jzuv2XJiqvDo+Bw/GTmGhfsVsPFg71rJG3
-	 iGS2OM3HMTsC2Ss7ARRb1lCwLDogclkPJQGsbXywxggA/Gf8sJhCCqE9CAmm9tr/ZW6SO
-	 EBHwoILla/jnDyzDrNMtWFh64/xBClKS3xRvBJbHbG9SA7lcyZqoWaOA0TPEg8Wa8SvBL
-	 Z16BJbhzHy3tKiLctsCga+E3Xq1BdmT2QavXqYAHg/P6ZB7Cu0jFQ7s8SE5qrl9CWrg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356864;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=OecWFWtnpeI+kxtFniab3JxKEVWTHzdquNuIUurozis=;
-	b=dko609SEStSj3YXHUX8Azz4hAJP4y/G7UWPqCDMMxt+S3UY4SnPQd0pVpQ7Xqzv59thi
-	 IT+HAH/inmWX3wk+rdONA8V/5IjaGtRM6rGnygvdB1EbfFlE/DQ7IsoXMshae1zzW1Fm+
-	 sFy7+852Jwk9zoLwjfrUbprE6HIwiI30NbpR5QiU9I9oSykVSo/e1gi6Lz1+0ECd3MeLW
-	 twMr8BQxykG5ifxUnBM3ChQ3Kt3S4fkRzOmSmutDvwoEjsC7k4+sPGj49PV67YgF5KOw/
-	 IjbeEuOm9UBcfyXi+IYJQSpf31CFIlocmHWbeeVWqQ46sDbK/lUMAS7pCYeH11TYoxQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUTeqSZi;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793357106;
+	b=EfleHosDTX553ExTj8dT6pkcrQyF4S75hAjU/wT8XAjORRILsMEc1EoSKk2c3Oof9bBR
+	 KIPo1aHqIUDGzERQwAv4n2kLKq4YDhTDrHZwQBXH75lmgUPbBYvU4QpS3RRcOMc59cEm1
+	 AYOUTghIk8BpIHnIrqdFjppl5DlHoPFRduhwc3gbnotKbIR7+oSmH6NbOFvQJKOEoCf8D
+	 D/gKXKEn4HLH5Z1mC98jXgWetZRBnchwHTblZv5x8B3maBxxrFSxEu0bZOYY0D13FAKIB
+	 i1pC9GVtxSaQrdOvIb0cRob3mEAawyxxo3fcOof+YPSVQsqd9m6SXqaU9jnJ9CHhXMA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357106;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
+	b=QfR63dAS50Wd6nGl5AP2HBCrJcRmWus8ZXKjXzdfhta1A3QukGCBAXYf2SGPktWva/74
+	 HkNeLzVmJYyPknIDjH/7ZOiun44Um9amRIpJSknT95fNj06hmFzaQW0u1WI5753ckn003
+	 fvlUpHp8dt5V+N5ZLCH4y+dlgmtKYA7MkGx9+xi4SfEHE3BcsBaf9PUz6a67a/sIhLsoF
+	 1Nd/Cv70FGOopDHUD0urzA2w8cTalPjHqi4LE9SNZAOjeXVIMIAuCdN25M5I/l1qnymWM
+	 XK0Ors9HQsW1hKSX1LD0wV2QCX4XbwxyDRs6QrdoYlye2r5+4nOq3yo1iEFWV4nI/NQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJ9SFY4W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F03606A31C
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:41:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66F03606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10B2606A31E;
+	Fri, 30 Oct 2026 10:45:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iUTeqSZi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793356864; x=1824892864;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=T5KXMNQ4RIOzej+TfuL+2Xe6pCzPNA+WHYz1J3vH/BY=;
-  b=iUTeqSZit/m18rhGX2Z4BQmvPcwPlU10K6NYJbAQ/1QcRCiDFU70a/55
-   bDRWdqUY69568jsbRCQXDz8bNgFud5jb7zfVt4j40irP3VQX+HUW729I+
-   JSzECFGSWo/TvJdH4hnM9wEo0fhcHU75QItjvpEcNhADz89C23zlbwma7
-   Ym03W+x3ZOPOBQQOPRttMxZxdR0c0Ww3g4UN+y5tJLu7poAyBfsWtoiKO
-   CALw9p0+L3/N8kwLttt7etJQAnaby3vt9/W/+uzfWBIlYYVlkd7juqMV5
-   CARv5+NJ40RkdTrRwtTUIkIO7x2w2EzRz6KuUnbXEMZIry626MbOXSKRM
-   g==;
-X-CSE-ConnectionGUID: SI6AZLhkThiA/IV+vW1goA==
-X-CSE-MsgGUID: ekwCie7uRsCdMrvxFOR/uw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2022596"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2022596"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:41:03 -0700
-X-CSE-ConnectionGUID: f8auXAckQHChf9XFPNJZtg==
-X-CSE-MsgGUID: wluOryQaRoGcAEOFWd+CcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7230603"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.13])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 03:41:01 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thorsten Leemhuis <regressions@leemhuis.info>, Mitul Golani
- <mitulkumar.ajitkumar.golani@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, stable@vger.kernel.org, Linux kernel
- regressions list <regressions@lists.linux.dev>
-Subject: Re: [PATCH v1] drm/i915/display: Allow port sync on PTL
-In-Reply-To: <3918d7f2-2c8e-4c91-8de3-ae412acc75a0@leemhuis.info>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261012040402.3332398-1-mitulkumar.ajitkumar.golani@intel.com>
- <3918d7f2-2c8e-4c91-8de3-ae412acc75a0@leemhuis.info>
-Date: Fri, 30 Oct 2026 12:40:59 +0200
-Message-ID: <041969576ff0e2ef6abc03650e077e44669a2b72@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJ9SFY4W
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793357105;
+	b=Mmlw9XBcFRcc9kI6D8QglMCuiljStLBRIlMk7CNqCgONMGOygANpSK9d9jexQxKR8cN2
+	 MpdR2papkJMPbPnAQtXcBcgYJ/4CRwBUR7Wrn3XTMW/ObOrstW6G2v267R0QnyN7xpaTG
+	 EPdXYv9CwmIO8g9/Mlgl4gZoXDRln+8neEecLOK2M9NeKZmcEIQpI5pJEjZxYUhLGY0/3
+	 IH9vgHUlxHkTZ+bcYTFLlAkKMhh/rst+EtFxCRiFbGEVIHiAky5t5jWIOsX/7HjhH9d1c
+	 uldyXmkBeIu5rMlYH86EwrN1fOZmV+Ec5AmfPsxYGOIrlmMcC7uxsflWcjZKg9QGoFA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793357105;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
+	b=cLaztePD2B9I3hRDdrKYe8tHq0P8Vwt0DLo0iubyivaPghjSX3Ut1Qfm1DkM7TSU5m9i
+	 YPasFiJ7lhoniGEqA97f/n5gCt36DDy+ZomTaLS5UHS5e0OaZSIl/KBoJGsmsFZeuERG1
+	 oAa46n5o91A0OzTXTyTt5nkPJ8V8AWQ9w+duo5zHnpCx+xIQkAvJPux8tFNDcn36t6AKl
+	 WB+sGzXKS3QaeuymWGv6MPkO4NHOb77eVepAk94L23uF847Ql4F76TkaWjd8gCu4zMhrR
+	 OSMBtgLiUbUQd0ty9IsUN12aBX+5KzqPSWx209HoCDFmk7+3tZvyq7UWu0gSJDLk9WQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id EB8A41F00A02;
+	Fri, 30 Oct 2026 10:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793357105;
+	bh=PchrU+Va3DZaNKNckQ858GV5JoQCVK375UKKXHl3JXA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WJ9SFY4Ws0cNbct84zCWUvnvYWUO5V0V5troANnmnxc8JoNUkdhrMnb1mmMj3I6l7
+	 yNeCa4QBiew/zmLQBkHSJFJj/iKDH0+QbN9fQnbQ0tTvQR0jX8COGegyIonFRLAZff
+	 3enbF0fsQrG3wrNwtDqMnLCM1VVh/nZqGu70yJxvIcTaU78I9K0fzi1IMh8Sjo9/gp
+	 Usl/hfK+hthZaiTG44oj1Od3rAmBjreYIS31XAjI+pIQsgKOZNHfZyG/ciZZxoB/eE
+	 HXDAuvNB2igRZ3wlPlErxu3ny2G24JstTX84SzL5W7Wuk4FhXhh/sfkKLsdclyE/ny
+	 sY3Vc4SAfNEJA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 594A143721;
+	Fri, 30 Oct 2026 10:45:04 +0000 (UTC)
+From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
+Date: Fri, 30 Oct 2026 11:44:50 +0100
+Subject: [PATCH v7 01/13] can: peak_usb: fix missing CAN_ERR_FLAG when
+ reporting error counters
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,51 +83,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261030-canfd_check_channel_idx-v7-1-fc4a3faf3acf@peak-system.fr>
+References: <20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf@peak-system.fr>
+In-Reply-To: <20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf@peak-system.fr>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, 
+ Wolfgang Grandegger <wg@grandegger.com>, 
+ =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
+ Dan Carpenter <error27@gmail.com>, Lukas Magel <lukas.magel@posteo.net>
+Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Tristan Madani <tristmd@gmail.com>, 
+ =?utf-8?q?Stefan_G=C3=BCnther?= <stefangun@pm.me>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793357103; l=1235;
+ i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
+ bh=yJYGMmDCA5H1YtV9p82vQMvFYiAXoP2GMFxyPs3vVf0=;
+ b=MzAmo/yDJoTojbULI/Ih0m3T5EoAiZl4qpYhBRskLJ4xnpRpnysSl5pzPkBDjkD6FyHMmzIY9
+ fWVOPkMeJYsA0xC0YCDgaOXqEn4WUTLpsPP5SKHHjSQHCLlsNyh7Cgc
+X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
+ pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
+X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
+ with auth_id=1250
+X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
+Reply-To: s.grosjean@peak-system.fr
 
-On Fri, 30 Oct 2026, Thorsten Leemhuis <regressions@leemhuis.info> wrote:
-> On 10/12/26 06:04, Mitul Golani wrote:
->> Some dual-SST tiled displays exhibit visual corruption on PTL, with
->> one tile's image vertically shifted or wrapped by a random amount
->> that changes on every hotplug.
->> 
->> PTL supports port sync, so allow it to be used to avoid these
->> display issues.
->
-> Is this fix for a recent regression still in the "to review" list of
-> anyone, or did it fell through the cracks? Or was this solved meanwhile
-> and I just missed it?
+From: Stefan Günther <stefangun@pm.me>
 
-Pushed now, thanks for the reminder.
+When the device reports error counters, the driver incorrectly uses an
+assignment (=) instead of a bitwise OR (|=) for CAN_ERR_CNT. This wipes
+out the CAN_ERR_FLAG and CAN_ERR_CRTL flags, causing the error frame to
+be sent to userspace as a regular CAN frame with ID 0x200.
 
-BR,
-Jani.
+Fix this by using a bitwise OR to preserve the flags.
 
->
-> Ciao, Thorsten
->
->> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8991
->> Fixes: 05cffc074938 ("drm/i915/display: Implement Wa_16024710867")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
->> ---
->>  drivers/gpu/drm/i915/display/intel_ddi.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->> 
->> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
->> index a46ab5d3d70f..a0aff087fafa 100644
->> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
->> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
->> @@ -4629,7 +4629,7 @@ intel_ddi_port_sync_transcoders(const struct intel_crtc_state *ref_crtc_state,
->>  	 * From, xe3lpd onwards we have defeatured this with reference to
->>  	 * Wa_16024710867
->>  	 */
->> -	if (!IS_DISPLAY_VER(display, 9, 20))
->> +	if (!IS_DISPLAY_VER(display, 9, 30))
->>  		return 0;
->>  
->>  	if (!intel_crtc_has_type(ref_crtc_state, INTEL_OUTPUT_DP))
->
+Signed-off-by: Stefan Günther <stefangun@pm.me>
+Cc: stable@vger.kernel.org
+Fixes: 3e5c291c7942 ("can: add CAN_ERR_CNT flag to notify availability of error counter")
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/usb/peak_usb/pcan_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+index 8fd058c32856..785224e00c4e 100644
+--- a/drivers/net/can/usb/peak_usb/pcan_usb.c
++++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+@@ -526,7 +526,7 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
+ 			/* Supply TX/RX error counters in case of
+ 			 * controller error.
+ 			 */
+-			cf->can_id = CAN_ERR_CNT;
++			cf->can_id |= CAN_ERR_CNT;
+ 			cf->data[6] = mc->pdev->bec.txerr;
+ 			cf->data[7] = mc->pdev->bec.rxerr;
+ 		}
 
 -- 
-Jani Nikula, Intel
+2.53.0
+
+
