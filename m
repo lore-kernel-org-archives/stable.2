@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379880;
-	b=cL0AK7oSPZxVWOTHNt3JAAnNyKCl7v9UAhaPhvKV0vNc+Lpti+mHRY7S3KP3lTDisNKV
-	 7o9BSrGWXCcXo26ebTYiDd6KilZHs2aTWcMXcnraDC8ElwcdJHSF5Mrjas3ZsxjqeGa5T
-	 TO8XAOJuh7XKiZss92hhFCzgHp5mXDuDSl6SGkoaPbA4OA0wyPh3OXryZNO5znLO4y9R1
-	 zMlR86orpG2bgVTNikb8U1Vm/mU2YOCDs9JHCX5XriY632tXhr+zx8ZFNKUJgUR/F+Hsh
-	 Z34fmphdT8w7zLgUnJng2YcFq0snQZM6Vzdh/vTbfJgaw1ZnJALQHPdobnEQVGiD7OA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379880;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793380075;
+	b=D8hZXh/irw4KqjPgkxo7SJQyExn4+8KuFhAd/vzEXoIKLG/2NF3IOXnJUUS+ODHApjY0
+	 CyJkUBKro5L8qPHcS+I8CHkyrqGlTEudNdt8x/xJrTx5Ho/tQ9WDD5feUyWoKGlOrrncC
+	 z7+cvNVBaL4KKCkdQukZK9/EboUYORqqRuUnuaClwMuvZ2uinTcVkIr4a9B8ZXE9p/wo1
+	 lB3LlUwuH9f8PKTRXtonVlhZrxcRz6pSEK9BlKKlQ19pnOSf1L7M8uQLnGz5ECv0pdV17
+	 mSyFfgUWo8S8azu3nZv33m6MlKbOGRQlR+u/bbQyvX27gjg5IKeHQVsWbnzvdyuoNng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380075;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=e5+c9AXhONOxMQgPc6CEGvMQHwLZrqKxnpe3CnRk/A4=;
-	b=gSIjah6007+V6H/c92y6OekbKxq6j2H66WtoA0KBqAKtg0RsoF4dsPmwopMMDeLijlHJ
-	 68JkBujGBJIRNgxBoLvsLvRn6YzAn3zQYdLGLOVYUi05cUQF+3BweL4jqjYAo9fAl7WXO
-	 VC3OoniLqPB8ELheZ1CiKCLqV2DLoPgK/pzfXmx3x9bKy7526h9JOMjtfU/48XZyfrdTi
-	 rPxq290tJsF7G6d2c8fVMVsi7yTrBsY8fh6aKsxn8Lz9DLdoTXtfrX7ecRxOEi51ADQhK
-	 qVOHHBmwUF5kH11ZrAfKJXA9W7hD9+qeGaTrsW4FBMbC6DnHgUlKvB326304zpoSIDg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nkayg9It;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
+	b=sPKFmVdgJXf7k4InXVsaq+sA0mT0As6CK7QKuzorldRxPkA2fWERMWY+8MQHJasPeEbY
+	 p3/RrDiXD8rIM50y8vnSqqOIUdNt6C4i8K+1FjeuUSGobJ+1XLob88Z1pbUOVz8b30/0f
+	 a9IUlQaeqH1Y3px938IuMDH2YNtWQq0kXizuae1ZVCeqIqsa/OY23gvQF2XMONnfo9NZQ
+	 xwMfiN43/ZZ8gRBDKuPEswYb6qs/yP2KgKa5w36E2blpVVdEJpbzdSnM5MoVsnDFv/Ss7
+	 nq+SV4GVB4PLwtfm9DqC1QLswn3mM2rqyovKGhxBM6CudYkZMWFaLSNwNbzdbutlXrQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arista.com;
+	spf=pass smtp.mailfrom=arista.com;
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=VKpR58mA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA07606A31A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:04:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EA07606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5FA606A31C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC5FA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nkayg9It
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso1795378a12.0
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:04:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=VKpR58mA
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c418e215671so123454166b.0
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:07:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793380072; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cNuuBfscSWSUyHZUDn3F0+tq83AI8teTzfsvjenhHR5SaklIph4VAK7D4nGCewFT+0
+         vDKUKukblki/R2D3+9Ny9wMf+PCIYgbIkWqghm7b0KI79nWXQIp7LHu5/ChcWolqMe38
+         jmp8idnSU3fAKdj1R7MznsCtLyh8t6FJvrt+/FYjhtQUMGlv0tGbV3LLMWWQ66J0GpAf
+         nyjksbKPH38qDmaHjhgeQeef4xvLwG0pi5amYzARw8Pnf7y/eiPMLwSv4V/Q3cDSiW3z
+         SD5HYNxlU/0d9CkBbl4MCeeXNh0xTVWyU3nteeUMR5ts75eF1/McYE1sgkVUxrIA/UEt
+         fgpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
+        fh=ez8Q5KUF4onqwt3B/p7QEnH72PzLS5aFKQvGA2ib3Ck=;
+        b=sqcAKt4tcCtG9AoFqgBNg+cUstebNx1NTPsS6kfUV1O9t0eX1a/h6B2j7UzA4qOANr
+         qBDrHKmqqXV58HptNFayvsEb6YF53rv0i90s07Oq/xoVzdA6uh4atVQMZM82DZ3PEQTE
+         LxO8CnTI/365HekBxmvFti3GIQZfpBMtvHZFJ/L0VGKMxuayMtWHcseA2IIXu9wQT8Oj
+         U98ogB9VVzJbw2rvye35BfqPbxXzF3lvbPiaBazZ91s468gBx8q6LWnxMjUwI2YLaf3g
+         sa5A+wnC8ihv89UN3XB4DOBCBlm2XdYmWHufMLOOQ8hyfrHrCpJB3jUADRAtkAXr+zOm
+         lvBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793379879; x=1793984679; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e5+c9AXhONOxMQgPc6CEGvMQHwLZrqKxnpe3CnRk/A4=;
-        b=nkayg9ItWzxMNCzU3NeFuBygS75kj29Ch049Bs3LK6W65Dq1/Kj/fOlMadvexMreav
-         Q7PyGDVJEphPEORQSXxw8QVaCKzE01zHq2ricdU2j1rNCOO+zK5udlNxRC7hg3VKhWOM
-         r2ryhObNhehRbTpw8j9MpL92GsfWCFbv4YWaTyRRhMZwTlOGYR4Vsf7wRaHntUPRCtwS
-         A5Yz4Qi/ZyifJhBiKHaD2+9us4doS0czfz3RRHSm4+kG3xALHzc7XGKVKaYuohWvdltI
-         bV/0mNYV/4FmovEf1W9ITylR2yGmmmwWYa9xD8T3yy7mGZIhKN4gGE21aJm9DGpH+ZWz
-         gZXA==
+        d=arista.com; s=google; t=1793380072; x=1793984872; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
+        b=VKpR58mApdXvWNJTEvtEi1xVLi2JLTQc671av8hr0+KgnoidMZyEH0u1IUeg+Y3EIU
+         4B/DrBBt111eScqZOtuvkmymJtUO/ejeBgMneMFisL4rbPFo/ubFrOZxJOqwQvhqW6Mr
+         HIFSP2Dn4MGi2O5/MXNrBb7Zag56z9CBNh62tGocFAN5k3cnNycFXqvCXRDwH5aPGbUx
+         zzz6xO9J5S8Wa0rj8FVFzEtfm8YGno5ebQ78UXtwRrhLo4xZ+8SKZfZyYalMtlZaHqST
+         Hj1MHF4OP1TqsuyxdbGlj1d87pnme5W+bU3J3M2BMpSkMVMA3u+36pYJQGvApnQ8lk0E
+         a5bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793379879; x=1793984679;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e5+c9AXhONOxMQgPc6CEGvMQHwLZrqKxnpe3CnRk/A4=;
-        b=sZEiCta/sugecc3X3D8cNW3d9FlXYi4wOGaENQK3rhUwSz48Ieyb010tiznOCMG3+1
-         iW2sQe7xk/bhC4u6zU6nCVKlhuH7vvqgWO7D/R0oeKU5Goyh5HpH5IqWO/nEhkEPgg6T
-         mGv3gfdDaMa10pvffFtHykUVoFddzMGmt0vacrLmDxm5dmD53l1v2NJybohj0RVHepd0
-         Z/hvMJmZIvGcBt8VTKhHSzLHPcVIwebDet8SQwinWjNbbn6rpcp8d2Zh+zfJec8NAx6o
-         F9IlsAM7IjNtlqBfoNQFmQDV5wnlAdJ8jQRxGbKf7u0mjBoyFlG2E4Gj0mZyJo6a//Dy
-         /+Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXgt809kKTUZ5kh+RMvkQozCwwiQrSgiarNDLMLrqA+iH27YZyMwkayyi+JSySdnAfOiknojw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqEMZIzxip8i8znFlHNIz0J8b/7LUrida/2HYgdCKVncSA3d5G
-	VgTcyZBDTscZEvnJL8dVJRK7y0zXC3ui77St/Zr3ykULyudU2cv/TvCRYX4A
-X-Gm-Gg: AYBFou0A29cv03a8/C3xDPv0B3sinZ3YKS76ggeTWN/mb+m9AzBq8aTWR8mBV5sVSZG
-	NIWSP/fJJQhJ2YsNPC5J8HvzRKp1xEc/XSAnrIunW0QqGphetvolIgb6lNVKdvLAzUvjHkaUonW
-	xnQbCl7byaycxzZv3HxwAn34UJXXa12bAR8E2IcUKC9Fwb+D+E96H8FuFQP2s/+9GAOUVx5f3BI
-	my7HAFaucXWRFfum6yVOmakguyQNlxAeUkgAhQr5Se6tVN1689rjNRJmdw923UQch8gcUKc4WPW
-	iTUY0myX3VNgwFVzN6Os9uu1yUZZEbSeOgmdzAFAasqeWFlUf/ONx2U0udeNuSamKiQCWWM0/Bv
-	Jby8rxt+fhh9LNSmgTHIBpMBQz7sAN6JM/pM7iKJWnt56WhG6GTLSkJazIGGfh1goMjPX7JoqPp
-	32iqM1aDV13BKX7wfDdsIECq7KsNu2aRRcF70t59MmTmkl1GbdO4DuOCdb4utEBAxTyEPUEKErn
-	++QaIZZNMxX4nzGfs56DvyAGOsbioBvkUssGUrOCWgDSDmgZRkD1C3xJP7qTvYkmr9pDxEvJbrM
-	41X/Q+xd40U=
-X-Received: by 2002:a05:600c:6089:b0:4a2:a8c:22b0 with SMTP id 5b1f17b1804b1-4ac14ec75fbmr62918775e9.1.1793379868131;
-        Fri, 30 Oct 2026 10:04:28 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm75121785e9.13.2026.10.30.10.04.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:04:26 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Mark Brown <broonie@kernel.org>,
-	Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Bard Liao <bardliao@realtek.com>,
-	Misael Lopez Cruz <misael.lopez@ti.com>,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v4 4/4] ASoC: wm8994: drain delayed works on remove and probe error
-Date: Fri, 30 Oct 2026 17:04:16 +0000
-Message-ID: <20261030170416.3561618-5-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261030170416.3561618-1-tristan@talencesecurity.com>
-References: <20261030170416.3561618-1-tristan@talencesecurity.com>
+        d=1e100.net; s=20260707; t=1793380072; x=1793984872;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qob3acME+/uuwxiwUET/rYXw51dpGRAJwWeO+kYwEXg=;
+        b=OSfUXHSbezSWH8TYtizHbvw9axobZeHT+65vPmzRsfJqEYmTVLplx1wQnyGqw26f9N
+         6Ht4e8VTRsZIYE0ijISntu/pauITyaZRDPJv5y8WvYcRGCnQQbBpy88pY2+Za32DFUer
+         wJ+FCoBxpQpHpH4y3OUteAMiaJqDFc9D6m520Q+RcG9Sc/wEmmU3Olg5DqbXBK6WkPWK
+         0CKHqIBf9ZhCd9ljMCfWhshHCK7DgCTcy6JEFVY8etPbUbVtpVxDmQ81NSBRkLLbVfSz
+         3Fm70AMjXvMVwu8KuvAuArvVhLIuA/1pjNgdrpGOhDQlL1HGpiHXBUojNBQTG5i+Oy4R
+         VWxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzp+2pxkPxE7/HIvZU3zJ0tXyU/IznLAXDOux97e1p10nsh5dQQr8eVkBd9+AA/H9IJygWC0o0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQwzCa0iAQsA2ZdunGBuf00TJUV2ekUhauNgqehMjFcogOdF1d
+	gf7KGe8VkMUwYSqaLa2voppc8Q/asgMc2Dv+0ADlN8RDYK58ARPV+JTsEWXck2hBq09EH5qxS6s
+	eCdyPlVGFt6Rs95VLssXxQLm/bEatj8LTjOrQsbI34kgV8tElyWEGXIJI
+X-Gm-Gg: AYBFou1DW4es33TPUyJRvimFVUpfTRh3RkeKm+doDRjaiVYnSfqtGHOnTWT7S7xvqOF
+	MNAExuO4fapf7YyUkdl/MpqY+YJwwVsQHSONVd1DW8AgmVlURcrKtvo5PYijEgHJXUJVy6tbAL+
+	DvqHPX1/fyVJFVeQVm6GT5gJmWPF7dlSU58zyKq95yKRdTO8NjZdO2NW4T2BuSgkVSjO2oMcN6z
+	Q+cTIEFWEnfK2o1EM3k/FDHhvHZGFd3ToSosDLqlJcWzhaNBrmg7cFK/G5E7L2vqjI2xaDYOLNy
+	yuwSritS+Le5rLmq5kNKzwTVSnl0Wr01TyhDWu7HjfjlDioVR5PTYUg+Fjz9O9DsVctYaM6P4La
+	rFdNmDBHVOhnFRbGaj2HaB2gwTgvgjlcrHomr1ClSYPTgMXnn99ihUQ0lojtIuRzL4uJTZA==
+X-Received: by 2002:a17:907:1b1e:b0:c46:9d50:8af0 with SMTP id
+ a640c23a62f3a-c4ca7ad10cbmr261267566b.36.1793380071989; Fri, 30 Oct 2026
+ 10:07:51 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,65 +104,303 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027024635.366900-1-prasad@arista.com> <20261030101535.GN257209@horms.kernel.org>
+In-Reply-To: <20261030101535.GN257209@horms.kernel.org>
+From: Prasad Koya <prasad@arista.com>
+Date: Fri, 30 Oct 2026 10:07:40 -0700
+X-Gm-Features: AclHuK-iy31HWG0hImZ2B5mI-iSu54uMUj-w_Tlsie6i_umsKnZ4WLRajsinLec
+Message-ID: <CAKh1g57V4xfLiXk68SMGnUGiAbXdnyEpxUz27bONxNyOQtT4OQ@mail.gmail.com>
+Subject: Re: [PATCH net] macvlan: fix allmulti reference counting in passthru mode
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-wm8994_component_probe() schedules several delayed works to handle jack
-detection and microphone status polling.  If the component is removed or
-probe fails after these works are scheduled, they can execute after
-resources are freed.
+  Thanks. Please use the following Fixes tag:
 
-Cancel all pending delayed works in the error and removal paths.  Guard
-cancel_delayed_work_sync(&wm8994->mic_work) with a type check because
-INIT_DELAYED_WORK for mic_work only runs in the WM8994 and WM1811 code
-paths.
+  Fixes: bbeb0eadcf9f ("macvlan: Don't propagate IFF_ALLMULTI changes
+on down interfaces.")
+  Signed-off-by: Prasad Koya <prasad@arista.com>
 
-Cancel mic_work before and after jackdet_bootstrap because the two can
-re-arm each other: wm1811_mic_work() can re-arm jackdet_bootstrap
-through the DAPM power-up chain (force-enabling MICBIAS2 triggers
-clk_sys_event which queues jackdet_bootstrap), and
-wm1811_jackdet_bootstrap() detects a jack and ultimately queues
-mic_work.  The second mic_work cancel catches any re-arm from a
-jackdet_bootstrap handler that was in flight during the first cancel.
 
-Fixes: 99af79dff5a6 ("ASoC: wm8994: Ensure we get a notification on startup for jackdet")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- sound/soc/codecs/wm8994.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 8bf58a6a8af7c..b9e0df83b9bfe 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -4551,6 +4551,13 @@ static int wm8994_component_probe(struct snd_soc_component *component)
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_FIFOS_ERR, component);
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_SHUT, component);
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_WARN, component);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->mic_complete_work);
-+	cancel_delayed_work_sync(&wm8994->open_circuit_work);
- 
- 	return ret;
- }
-@@ -4592,6 +4599,13 @@ static void wm8994_component_remove(struct snd_soc_component *component)
- 			free_irq(wm8994->micdet_irq, wm8994);
- 		break;
- 	}
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->mic_complete_work);
-+	cancel_delayed_work_sync(&wm8994->open_circuit_work);
- 	release_firmware(wm8994->mbc);
- 	release_firmware(wm8994->mbc_vss);
- 	release_firmware(wm8994->enh_eq);
--- 
-2.47.3
-
+On Fri, Oct 30, 2026 at 3:15=E2=80=AFAM Simon Horman <horms@kernel.org> wro=
+te:
+>
+> On Mon, Oct 26, 2026 at 07:46:35PM -0700, Prasad Koya wrote:
+> > Enabling allmulticast on a down passthru macvlan, bringing it up,
+> > then toggling allmulticast off and on can underflow the lower device's
+> > allmulti reference count.
+> >
+> > macvlan_change_rx_flags() only propagates IFF_ALLMULTI changes while
+> > the macvlan is up. However, the passthru path in macvlan_open() skips
+> > taking an allmulti reference when IFF_ALLMULTI is already set.
+> > Clearing allmulticast after opening the device therefore decrements
+> > a reference that was never taken. With no other allmulti users, the
+> > unsigned counter wraps from zero to UINT_MAX. The next increment
+> > fails with -EOVERFLOW and reports "allmulti touches roof".
+> >
+>
+> Hi Prasad,
+>
+> A Fixes tag should go here.
+> (No blank line between it and your Signed-off-by line).
+>
+> There is no need to repost just to address this.
+> Replying with the Fixes tag should be sufficient.
+>
+> > Signed-off-by: Prasad Koya <prasad@arista.com>
+> > ---
+> > Reproducer:
+> >
+> >   #!/bin/bash
+> >   set -euo pipefail
+> >
+> >   ns=3Dallmulti-test
+> >   host=3Dam-veth0
+> >   peer=3Dam-veth1
+> >   mv=3Dam-mv0
+> >
+> >   cleanup()
+> >   {
+> >       ip netns del "$ns" 2>/dev/null || true
+> >   }
+> >   trap cleanup EXIT
+> >
+> >   ip netns add "$ns"
+> >   ip link add "$host" type veth peer name "$peer"
+> >   ip link set "$peer" netns "$ns"
+> >
+> >   ip link set "$host" up
+> >   ip -n "$ns" link set lo up
+> >   ip -n "$ns" link set "$peer" up
+> >
+> >   ip -n "$ns" link add link "$peer" name "$mv" type macvlan mode passth=
+ru
+> >
+> >   ip -n "$ns" link set dev "$mv" allmulticast on
+> >   ip -n "$ns" link set dev "$mv" up
+> >   ip -n "$ns" link set dev "$mv" allmulticast off
+> >   ip -n "$ns" link set dev "$mv" allmulticast on
+> >
+> >  drivers/net/macvlan.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
+> > index afad90b9222a..e20d587453d1 100644
+> > --- a/drivers/net/macvlan.c
+> > +++ b/drivers/net/macvlan.c
+> > @@ -643,6 +643,14 @@ static int macvlan_open(struct net_device *dev)
+> >                       if (err < 0)
+> >                               goto out;
+> >               }
+> > +             if (dev->flags & IFF_ALLMULTI) {
+> > +                     err =3D dev_set_allmulti(lowerdev, 1);
+> > +                     if (err < 0) {
+> > +                             if (!(vlan->flags & MACVLAN_FLAG_NOPROMIS=
+C))
+> > +                                     dev_set_promiscuity(lowerdev, -1)=
+;
+> > +                             goto out;
+> > +                     }
+> > +             }
+> >               goto hash_add;
+> >       }
+> >
+> > @@ -713,6 +721,8 @@ static int macvlan_stop(struct net_device *dev)
+> >       dev_mc_unsync(lowerdev, dev);
+> >
+> >       if (macvlan_passthru(vlan->port)) {
+> > +             if (dev->flags & IFF_ALLMULTI)
+> > +                     dev_set_allmulti(lowerdev, -1);
+> >               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
+> >                       dev_set_promiscuity(lowerdev, -1);
+> >               goto hash_del;
+> >
+> > base-commit: 7076f684d5132e6a6145e1da2fa74771ecd052e5
+> > --
+> > 2.43.0
+> >
+>
+> I'm unsure if it matters, but the order of initialisation of multicast an=
+d
+> promiscuity differs here from the non-pass-through case.
+>
+> Overall I think the approach you have taken here is appropriate
+> as a minimal fix for net.
+>
+> Reviewed-by: Simon Horman <horms@kernel.org>
+>
+>
+> But I do see that there is growing duplication of code in the
+> pass-through and non-pass-through paths. And I believe that
+> is due to the approach taken by the existing code of using
+> goto to control flow (other than for cleanup in error paths).
+>
+> In the longer term I think it would be nice to address that.
+> I took a stab at that. Perhaps I'm overthinking things.
+> But, FWIIW, this is what I cam up with (compile tested only).
+>
+> diff --git a/drivers/net/macvlan.c b/drivers/net/macvlan.c
+> index a48c9e662fe9..f2a3cf540e4e 100644
+> --- a/drivers/net/macvlan.c
+> +++ b/drivers/net/macvlan.c
+> @@ -631,24 +631,31 @@ static const struct header_ops macvlan_hard_header_=
+ops =3D {
+>         .parse_protocol =3D eth_header_parse_protocol,
+>  };
+>
+> -static int macvlan_open(struct net_device *dev)
+> +static int macvlan_should_set_promisc(struct net_device *dev)
+>  {
+>         struct macvlan_dev *vlan =3D netdev_priv(dev);
+> -       struct net_device *lowerdev =3D vlan->lowerdev;
+> -       int err;
+>
+> -       if (macvlan_passthru(vlan->port)) {
+> -               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC)) {
+> -                       err =3D dev_set_promiscuity(lowerdev, 1);
+> -                       if (err < 0)
+> -                               goto out;
+> -               }
+> -               goto hash_add;
+> -       }
+> +       if (macvlan_passthru(vlan->port))
+> +               return !(vlan->flags & MACVLAN_FLAG_NOPROMISC);
+> +
+> +       return dev->flags & IFF_PROMISC;
+> +}
+> +
+> +/* Initialise acceleration or add unicast address.
+> + * Skipped for pass-through ports.
+> + */
+> +static int macvlan_init_vlan(struct net_device *dev)
+> +{
+> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
+> +       struct net_device *lowerdev;
+> +
+> +       if (macvlan_passthru(vlan->port))
+> +               return 0;
+>
+> -       err =3D -EADDRINUSE;
+>         if (macvlan_addr_busy(vlan->port, dev->dev_addr))
+> -               goto out;
+> +               return -EADDRINUSE;
+> +
+> +       lowerdev =3D vlan->lowerdev;
+>
+>         /* Attempt to populate accel_priv which is used to offload the L2
+>          * forwarding requests for unicast packets.
+> @@ -661,40 +668,71 @@ static int macvlan_open(struct net_device *dev)
+>          * populated we must add the unicast address to the lower device.
+>          */
+>         if (IS_ERR_OR_NULL(vlan->accel_priv)) {
+> +               int err;
+> +
+>                 vlan->accel_priv =3D NULL;
+>                 err =3D dev_uc_add(lowerdev, dev->dev_addr);
+>                 if (err < 0)
+> -                       goto out;
+> +                       return err;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+> +/* Clean up acceleration or remove unicast address.
+> + * Skipped for pass-through ports.
+> + */
+> +static void macvlan_uninit_vlan(struct net_device *dev)
+> +{
+> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
+> +       struct net_device *lowerdev;
+> +
+> +       if (macvlan_passthru(vlan->port))
+> +               return;
+> +
+> +       lowerdev =3D vlan->lowerdev;
+> +
+> +       if (vlan->accel_priv) {
+> +               lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
+> +                                                          vlan->accel_pr=
+iv);
+> +               vlan->accel_priv =3D NULL;
+> +       } else {
+> +               dev_uc_del(lowerdev, dev->dev_addr);
+>         }
+> +}
+> +
+> +static int macvlan_open(struct net_device *dev)
+> +{
+> +       struct macvlan_dev *vlan =3D netdev_priv(dev);
+> +       struct net_device *lowerdev;
+> +       int err;
+> +
+> +       err =3D macvlan_init_vlan(dev);
+> +       if (err)
+> +               return err;
+> +
+> +       lowerdev =3D vlan->lowerdev;
+>
+>         if (dev->flags & IFF_ALLMULTI) {
+>                 err =3D dev_set_allmulti(lowerdev, 1);
+>                 if (err < 0)
+> -                       goto del_unicast;
+> +                       goto uninit;
+>         }
+>
+> -       if (dev->flags & IFF_PROMISC) {
+> +       if (macvlan_should_set_promisc(dev)) {
+>                 err =3D dev_set_promiscuity(lowerdev, 1);
+>                 if (err < 0)
+>                         goto clear_multi;
+>         }
+>
+> -hash_add:
+>         macvlan_hash_add(vlan);
+>         return 0;
+>
+>  clear_multi:
+>         if (dev->flags & IFF_ALLMULTI)
+>                 dev_set_allmulti(lowerdev, -1);
+> -del_unicast:
+> -       if (vlan->accel_priv) {
+> -               lowerdev->netdev_ops->ndo_dfwd_del_station(lowerdev,
+> -                                                          vlan->accel_pr=
+iv);
+> -               vlan->accel_priv =3D NULL;
+> -       } else {
+> -               dev_uc_del(lowerdev, dev->dev_addr);
+> -       }
+> -out:
+> +uninit:
+> +       macvlan_uninit_vlan(dev);
+>         return err;
+>  }
+>
+> @@ -712,21 +750,15 @@ static int macvlan_stop(struct net_device *dev)
+>         dev_uc_unsync(lowerdev, dev);
+>         dev_mc_unsync(lowerdev, dev);
+>
+> -       if (macvlan_passthru(vlan->port)) {
+> -               if (!(vlan->flags & MACVLAN_FLAG_NOPROMISC))
+> -                       dev_set_promiscuity(lowerdev, -1);
+> -               goto hash_del;
+> -       }
+> -
+>         if (dev->flags & IFF_ALLMULTI)
+>                 dev_set_allmulti(lowerdev, -1);
+>
+> -       if (dev->flags & IFF_PROMISC)
+> +       if (macvlan_should_set_promisc(dev))
+>                 dev_set_promiscuity(lowerdev, -1);
+>
+> -       dev_uc_del(lowerdev, dev->dev_addr);
+> +       if (!macvlan_passthru(vlan->port))
+> +               dev_uc_del(lowerdev, dev->dev_addr);
+>
+> -hash_del:
+>         macvlan_hash_del(vlan, !dev->dismantle);
+>         return 0;
+>  }
