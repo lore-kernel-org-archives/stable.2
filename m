@@ -1,96 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363807;
-	b=U9EVhgYosSWNxfqLaT6m9eiSU+HgpLnB2eyLF+qNoHYxo1LwnRLyqM3m0NHMuy6V2Wct
-	 ntRHUjcewyJoNDb8HOfyrtFxR1Nd6rLvmYqPbwT4284orM+69bUMD8tJDsAy+cpltdm0I
-	 f2k+nZ5avtcU9qhR58TktmyeueloHhW2pV8RB9ECtn9tRNvKYfaDlpFHth+QiMg+PR4XN
-	 ES/HThrCTS/Rvx8OI43ngD8g8349oiSKIa1N6HbJXT/6XrE3hHVXFALdo9NW3PluoqwOp
-	 5B5PhIIwNY/JdFRVbUvTdEEWmLGTbEJGRS6yFU4XaXp6kNpv8zQxbLzlATnELEkIIJw==
+	t=1793363924;
+	b=pwAVhuKtaccIhwc0p64B9VjKDKLYOVjhBPgFbPyHr++ZFraehsDNbrWi0u16SIc00VhW
+	 sB0IkWEdadWsGsyorNliIT4GfJ6/YynH5zCZx1NgerB1N06j4JRavgnlNDCqx4YYUiMkV
+	 7x4mx59jpPX1MQ72ZE55wHLO0Ot4de5kjbYZskPHUqNM+7DI7NhYKPBEHvv7CjBJ73ox6
+	 gQmg3qvfAbaXfqXmmi/NF+YB4QjjcX06EkeQhzTBeMnfNhJfB+DfE2EPepQOMpddRjB0P
+	 i1CPrX5N7pZ3i4ePiCA37doRxrhWO771NqK4REFt+/TvoJXNHirYdNiOTJEB3SvlCGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363807;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
-	b=H3ex4J8FJFV4s3XHmCk64l0uhzAI/YCRYJa9Lr0BxN+B1WaYtiZw1QcK1ev/XjoW4TsB
-	 J6aa9LIwBAEXDWzTvUUlmhfhpcuPbfEAJc7ySRw+23Ys6AABTh5CPdb9O9Ktjeu9iNzqS
-	 V5whiScKUXzeD8bAyxwixSO/SL4khpbNWwXHz4YZUEboTdnHvCMtprgn7F47MyeFA9tvT
-	 /2LisE5tals9uZcxX/3ErLdSUtCmTjbv85osmLfdPRcwk4Ro1JRA6SOwKkor+28s+wLNx
-	 K04eeTzPjBswhAm+WugFHNulSLmwIxYhl15fEtT+xCCLZIoJV769I2irqaKL2w1469w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363924;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=EveTgauBKukpDZW+Dz1ddOxtSk6q8JCAmZ75KYsbri4=;
+	b=zN/8r/0FAVTMJNgEu8d67KaeLUqbtvxIJKwpnZh7RIoKKWpTGNsvRrJfN3OkSo7ivnq5
+	 0BtrLvzwErCa4lC1Cxk8GzDkvq1dDg2UcBn2evZPWYctNS7wa1CEngExibuzri+XgYjID
+	 +DS02TFpVEW3RZVBZf9RdScksSQq7OUjEsrQQOcEsvFxgsdX7XNRx5JooI7n9kEl1QM9j
+	 +Tl1yNSn2KkuxbPFqQtVsX+3UbInJM+vnoyO4vwuKeLKAPy/1Spb7B/wtltcaXrGHauqS
+	 zotnZ/yCWrgrVrPSCYtdiXCqfzLtleKdawTpMXR9d7KlLzsrw9E6V7eIjNWrPyzrxLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj3ZP9Cf;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGI6TE6t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675FF606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 12:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 675FF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16C6606A31A;
+	Fri, 30 Oct 2026 12:38:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj3ZP9Cf
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36a18fc7a38so1702812eec.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:36:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793363806; x=1793968606; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
-        b=fj3ZP9Cf5Y+e7SRaimUSFagvNtkpeoPKFhmaUN/TOWxv6iWzE/oJaP4Li4NwNzjOSF
-         YwditmzupbjQkaHhRBJK9P642j5o13rhvL2p2Xmh/RysNjrrSRaHtVDudU528cNZNRzm
-         ndAZVJ9IrDhDAlLg07xslGNbl/1VLsnxzZ/jlRAKdsFsth8qhq0p8IZq+vACSXKox5oZ
-         blxBPKgiWHn/p0w5vxI+udQejA6fBo6JKV7jdXSromfqxshAuHWOZB20pnGBOowFX1lT
-         YFSb1tsVgw/XP/alZzIfMOkIetsIXRWL2AO6Ob3Aemg3ByvLsDjGHUKqICWJB5JF1me/
-         AkYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793363806; x=1793968606;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
-        b=v/7rw1G3CsWYgCyunWvWRaxUEcLTGcFvY78hyFveIdcertE4UOERmSIbT2vIh6Ou/U
-         OBhoI133cGLZkR+Uk8X9pCg0JolGITCS0XdFNwaVgzzmpPEpUGMIz9zaKNh0rQQsOdBM
-         8EXrqBfWdsPr31647B3W4lXx5WBW2HYPVAm5T/68adnNydwiWlCNXVOpASAJT6qyWvC5
-         +msUikK4/3bTDaOhZy2jh3kVAxLbouvv06K6oPKd0vVSIlwo0uLysw2vHGFO1Y2VSbXo
-         3jvYpX0FiJhoVWIBw/eQ6TRcSo8RfPAwrlp4QFLYlGwjHpA3SElplI5VMxqDY9ghDB6W
-         8o7g==
-X-Forwarded-Encrypted: i=1; AKwUvBz17C8X2VFB+JS08FLhVzj8SvHrfpZmf8EpNiTav5IdX22LjaI2jTc/SioJyjkC8ndiBAI3Dp8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLWq9LGPw9zVxXV+asVwzXL3oZ7PNW0/U7MHsrMf4cSwJ+PM75O
-	RaULhNPbwyaosRaobUCX3olAqakmYFAB0inglvxdFSV4IN9Xhj2BhwEz
-X-Gm-Gg: AYBFou33M5djX8z+6MG6by1r1JYt9HvazAcA9B12ZG8D4kga6vWknzhfhzShfnaeIar
-	BMfu1e0IBDmqJzI/KjeoOGQ6fxj24bjEWfcEik6IbnBvsi0v8QDKrVQiVvCOyQA4lcTAn7kV+QU
-	SNHyo/KvDxwm6iSYqo+VJzlBh+Fci/Gfp9EDUoXda2GvMpwIaqHHGZxqO1BuHcoMvc0vU4+DUOP
-	TjHFNjRKeXxFoL0U/83+cWfbqr2PvR17nk1gkDvJmvCFaxZe95o5xAWERdXHR9OErIJ4NzsT7HP
-	SF8sE4w/YRx3cloGUlckl00cmh41bN/P8LiZPSCIyE+CSGL9uh7fDuWFEPoeiic3xWjU9vKC0oI
-	Q3INsyR1m2jbVcPPDHwMq4F6K5yKsL5aOPyqlwv3w/kmtITYGYDRH4+F9cjoaahvU17NMp+bSML
-	mPkh57qwV52i5eSnX3Wo4oTe1hhIo1Tu/07ickJWDv1c4IFs/8ihhqZuiR8G+RqoihFeBd0X3qT
-	BaR35Ks25TSOBDRF1b7n9MLjQuHnTsakylFrOvuogw+0jXp5EIJJ8OF5RBzTS26XPg+4iqmrtX1
-	JLDNG++PZ80Ob4lDjbK+Vc5+IJsCVDTr4TlBQ+mZGztScWyGv6SZ+2JUvhqsq0osjbQ=
-X-Received: by 2002:a05:693c:6092:b0:361:7ab9:479d with SMTP id 5a478bee46e88-36a423ee70bmr4018459eec.27.1793363806237;
-        Fri, 30 Oct 2026 05:36:46 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm6382373eec.4.2026.10.30.05.36.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 05:36:45 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org
-Cc: dmitry.torokhov@gmail.com,
-	mathieu.poirier@linaro.org,
-	linux-serial@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: [PATCH v5] tty: sysrq: clear the old reset sequence when reset_seq changes
-Date: Fri, 30 Oct 2026 20:36:40 +0800
-Message-ID: <20261030123640.263164-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGI6TE6t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554751F000C1;
+	Fri, 30 Oct 2026 12:38:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793363923;
+	bh=EveTgauBKukpDZW+Dz1ddOxtSk6q8JCAmZ75KYsbri4=;
+	h=From:Subject:Date:To:Cc;
+	b=cGI6TE6tyrqkZlDLAqhBB5vOOEcF97X2AJ0QASUcFzWPOpzKJHg0A4NULm1B0K5gN
+	 lZiPKd5HRB2ZRXIuuoqcNlk3Sc96ws85QIVl4l2R1K7/T1i5iNl+y7HwPbW/O8SDOA
+	 w6uqlgu45JvNdzgjj+8PHUJJw/em8Xf+tMQJ2F+FAgwMBBrye/Bn4NO6YjZQVJy0/3
+	 Hu8utMsmRS1a0bKxRAQVE3KRkgZ/FBt58pWjWkTShYl+7+NC5rw8ZqwYhIoKLe6POQ
+	 g/ag1vZe55ldmFzl8zn1Rpfd1XKA45NE3NdKpPp1wFiqBXDj235TOX4pn4qPvQ6iBJ
+	 yCAUpVTjcqxXg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/3] dcache: fixes for mountpoints racing d_invalidate()
+ and umount
+Date: Fri, 30 Oct 2026 13:38:21 +0100
+Message-Id: <20261030-work-dcache-ai-v1-0-cd6b86e0ccc7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,61 +54,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAxFf2Xk2chWdEN/RXxI08xGoZNGpzD27
+ 7bu8VzuOQuYZBWDc7NAlllNp1Sg2zXAkdJNUENhcK3ru9ad8DPlBwYmjoKk2MtA4SjuMLBAkZ5
+ ZRv3+g5frxvb2d+FXrdSHJxP0mRLHOs2j7TdjXX/CaVxnjgAAAA==
+X-Change-ID: 20261029-work-dcache-ai-6e7ad5e247ce
+To: linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ linux-kernel@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>, 
+ Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2221; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=wzIdJyLdAb9Oqp1TbNk8YrAEQRUm+AaS0bEEP3YYEYQ=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ96T9XX+XssD0l931wo6ppv/p7uc9vs8MWvfnxnonXv
+ Vjwgs3ZjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgInENzL8T7JnlnhzZf3fvdHZ
+ dW9O5+n8WZqjl7altnT1m+lr5a/MEGX4H2H39frzqQrPDri+uqR5rTtdu734D1e6+d7l71V3/Xn
+ QywoA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+d_set_mounted() hasn't bumped the seqcount of rename_lock since v6.17
+and the lockless walk in d_invalidate() neither waits for nor retries
+against a concurrent mount anymore.
 
-Changing reset_seq at runtime does not work on a keyboard that already
-used the old value, because each keyboard adds the new keys to its own
-copy instead of replacing it:
+So a mount below a directory that is being invalidated can end up below
+the unhashed directory. Nobody can reach it anymore and it pins the
+subtree until the mount namespace goes away. Giving d_set_mounted() a
+seqlock of its own that d_invalidate() waits on after its unhash closes
+that without going back to bumping the seqcount.
 
-  echo 56,29,111 > /sys/module/sysrq/parameters/reset_seq # Alt+Ctrl+Del
-  (press any key)
-  echo 59,60 > /sys/module/sysrq/parameters/reset_seq     # F1+F2
+The second one is from v7.3 and was backported to 7.2.6. do_one_tree()
+now takes every secondary root off ->s_roots before its dput(). If
+another thread is evicting the root at the same time umount loses the
+eviction to it and doesn't wait for it. That ends in busy inodes after
+unmount and an iput() on a dead superblock.
 
-F1+F2 then does nothing; only all five keys together reset.
+The third one is old. With CAP_DAC_READ_SEARCH a disconnected dentry
+can be mounted on via open_by_handle_at() and move_mount(). When that
+mount goes away while the filesystem of the dentry is unmounted, umount
+never sees the dentry. Same result as the second one. The fix makes such
+a dentry a secondary root until it's evicted. So it needs the second
+patch and it only goes back to v7.2.
 
-Clear the old keys when the copy is rebuilt.  If sysrq_downtime_ms is
-set, also stop a reset the old keys already started, since releasing
-them no longer cancels it.
+I reproduced all three in a VM. With a FUSE directory 3000 levels deep
+151 of 200 bind mounts racing FUSE_NOTIFY_INVAL_ENTRY ended up below the
+invalidated directory and none did with the fix. The other two need
+delays in the right places to trigger. With them both reliably end in
+busy inodes and a GPF in iput() and with the fixes they don't.
 
-A key pressed while reset_seq is being written can see a partial
-sequence.  With this change that can happen on any keyboard, not only
-on ones that never used a sequence, but the window is a few
-microseconds and not worth closing.
+This goes into vfs.fixes.
 
-Fixes: 154b7a489a5b ("Input: sysrq - allow specifying alternate reset sequence")
-Cc: stable@vger.kernel.org
-Assisted-by: Kiro:claude-opus-5.5
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-v5: Dropped v4 1/2 and rewrote the changelog.  Tested in QEMU with a
-uinput keyboard: the new sequence resets, while the old one and a reset
-armed before the rewrite do not.
+Christian Brauner (1):
+      dcache: let d_invalidate() wait for a d_set_mounted() in flight
 
-v4: https://lore.kernel.org/all/20261030045854.153556-1-zhanxusheng1024@gmail.com/
+Josef Bacik (2):
+      dcache: wait for a racing eviction of a secondary root
+      dcache: let umount find a disconnected ex-mountpoint
 
- drivers/tty/sysrq.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
-index f4571d05b496..a90e97a6d7aa 100644
---- a/drivers/tty/sysrq.c
-+++ b/drivers/tty/sysrq.c
-@@ -689,6 +689,11 @@ static void sysrq_parse_reset_sequence(struct sysrq_state *state)
- 	int i;
- 	unsigned short key;
- 
-+	/* A reset armed by the old sequence must not outlive it */
-+	timer_delete(&state->keyreset_timer);
-+
-+	bitmap_zero(state->reset_keybit, KEY_CNT);
-+	state->reset_seq_len = 0;
- 	state->reset_seq_cnt = 0;
- 
- 	for (i = 0; i < sysrq_reset_seq_len; i++) {
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
--- 
-2.43.0
+ fs/dcache.c                    | 44 ++++++++++++++++++++++++++++++++++--------
+ include/linux/fs/super_types.h |  2 +-
+ 2 files changed, 37 insertions(+), 9 deletions(-)
+---
+base-commit: 172658cf600904ff6121e240f69a0ccb36e65d6b
+change-id: 20261029-work-dcache-ai-6e7ad5e247ce
 
