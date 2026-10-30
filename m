@@ -1,54 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379852;
-	b=VChd1qhji87I5tj78wzmgvgA9GYCzTbWdipkNkXECwVN0zRC5z+QTteQHsIVhQtVm/RL
-	 if1vqOjAMm8PDDDU/levV9PCd96gZjByHPAfzItSw5c76cNcJO75hDMu4aC5PZHLgowlY
-	 JJQwZNdfSQX4RqKn1o69KZ2LjpO2f+qZKMxZt0FD9dho0kWNwSX5c/hgqO/+EXGpupBWb
-	 8gKR0RUvhu0osT9Of5LDubtK46lWxlxq9fxilaXzHX6MZP4GZwtGOr3IDXULoO5KJqMBc
-	 2PKXCcBvllbCNcHUADoF5S04q26X0hWX7Y/DfOgGOfmVrqLjRZASwwLFEYvbwB5zRzg==
+	t=1793379862;
+	b=v7UPvaUFZku53btbEb/r1DmXY7bSLjMGyvmfyBnMdoya57Fz8q8yx/DqQsyaSYwnsKLU
+	 Y1g68iEQDqWyFRYbFvqYE/8ZCiNtv5Kr2pIn9AXEUFvYKo3KRcsZgeLy+zNWedmlqlo5m
+	 3yfq6C2C6LZ+tSAlb4EmzL0CsxzOYxuKoCgE+taSlPG8QPDfgyxFzUWqcu9cER7EazbHn
+	 Mxv6BBdHSwKE1leVopSw+Zed0OzR8SahNdk8mXak48NOKerx8KoFYqGfWYojshyphx9vg
+	 4DpHXHFC6FoUr7dnh1yB3yWtf1G6zr+eK8pt1w8GpvLBvgKdt0h61RjoF5cEqIJoFbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379852;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=seM7soGbHQPvqWwOtTJ+EwTnDU4xqI1VJWNKvfkoonw=;
-	b=iw03HwPKriat9AFXRyLwP42fcvCDzxX6Kf3Jg8OoT+jlo8yd/GHc24esQn4E/uyuAF2g
-	 Ucs/3xeAtg0W2APITkId5J6/COBSnS1uml8w5ntf2i0bBcJ0KSYPFP7e9g+RFRl47MNCg
-	 kBW9C7GsR7Lue6JJ+jO8jU1kpiC3jTkJJxsVMzYg+vDJppKztbIoqxDEZWf1WuvhBehNt
-	 MjiElMCtn1flPZAMNXPMgOzWHv2rBEQtmL9somw40Uu0Ef6aqtfU4Sq2oEE/k4YxlXRE/
-	 4qpvOW1lLlNstuJ1Ydj9HPf5wh8Lk+klh7g065FuOvZCPb2advHAnv/kilGBTmFYYLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379862;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=3klLgljL50YjSiyfASYNU3sNBhIfOofJ+tatrsMN0Lo=;
+	b=D22WKUOqrpMQYYspVkp2PxAadXtZMmzgJBo0AHRLnTNqa6jDG9VL5yLOCF4v+YsYjFsu
+	 0ouupk1MmYn/xJTDK+MqNsHiUTgReOzpdNFbzaK68HPPuRoQ5SS5DKWoH5XIkA04nxCkp
+	 PloLX8eWUd1GHUp+SvRZEpOe5aLUK7Ntdnd/eKpoqp9D8VQjmoZxVtc0oNT6HXSoJs2Pt
+	 wyU8Cyk2L1gOR6WgaIqOartZlS8ejjYd7S1q7gYxCQ4FbcbK4W3gGv7pQRDGVXjsOgQAi
+	 lK51O/B6+NcldKFkvESz6hcCpjhsichq8kjXl7FwTjqfB1OLLV7W0VZOdqJWVAUPptg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blVAeqco;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZgnJAQZi;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597AC606A31C;
-	Fri, 30 Oct 2026 17:04:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3B4606A320
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA3B4606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=blVAeqco
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77C31F000C1;
-	Fri, 30 Oct 2026 17:04:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793379852;
-	bh=seM7soGbHQPvqWwOtTJ+EwTnDU4xqI1VJWNKvfkoonw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=blVAeqco776Fo2OiQh+mOAJwY20maVFppJdfX3uSsq+/l7Pc45atjxTa0iPIOrOR2
-	 an67cjT4xWDmDuAGRo5ijQv91Plk/nTAGRM0UaT96V8SILo0EWIZutnJF36I7qQlCL
-	 5rV0EtZXwrD3952IfDQYKoNjKhiRVOHI5b69qZye7sVK/KPi2wNkHVh4/4iW8cK6Tp
-	 Dt3eyT7nTPS4F2aCZkvgICldtrHpaY0I6wLMjsvhbXlKPXWwoyEf0RMEhNNDjmZStN
-	 X+mos+JZszAJua84mg2SaefiU12VbIPIZ5jkeBXTgmXtzXcIN8fLyqGJRKCCeoP7U5
-	 el/zXWqJbrjdQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 6.1 1/3] Revert "crypto: jitterentropy - replace long-held spinlock with mutex"
-Date: Fri, 30 Oct 2026 10:02:18 -0700
-Message-ID: <20261030170220.120015-2-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030170220.120015-1-ebiggers@kernel.org>
-References: <20261030170220.120015-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZgnJAQZi
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so6492945e9.3
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:04:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793379860; x=1793984660; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3klLgljL50YjSiyfASYNU3sNBhIfOofJ+tatrsMN0Lo=;
+        b=ZgnJAQZit+77wmp8pwrjjySRzjKTs37CgW/TEWVXUymKEIZIINqvKCfL793h8SajtG
+         3DUr8ad214SrhE2k3NOSGqsjTK/IwV0lhcS/Zu+iqYGG+LxshSqrZHK2bPHG3vNEdZeW
+         pKEHrvAPSuZcycGR0vgi4OJfG8PlqSYBlZlMOxmSrUnvQiBx4TN3ZspqczIbQgzCJ+Ci
+         rHRGuPCRaLjEXgpKqJt6f2tI0BuoI84nkQa5DFDQYmvMBcumbcDvgrjoJSzanW53mAw/
+         8uLNnIkNWuYmgN0cdr79xDdTOmVU4nGAIiyPuwF620ijJk65FPMzMGlwkogRz84djazG
+         tN1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793379860; x=1793984660;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3klLgljL50YjSiyfASYNU3sNBhIfOofJ+tatrsMN0Lo=;
+        b=FaRG0gNBoH7P75zI/dNOnwxeUFSMAK2F/476e0Lp9pXVSRqQlSNVZZZVrwWVcIUpmh
+         ar5vJJhpU99rdjqdOcBCcW3pfi3jNrHclYOjmaWDpWuKN6yEVMtO4f8ya9jNpznUehWK
+         479PwWufyo8oXgM8yykbUrjlxdQdsM3okX3USbNEjxIBwB67jzFC6OyN8vCnXSVZ94Fg
+         ap1BXO6XujrwQKStOSqEUfHnqPjAaCX2bc4M5krL+5tGheRoKJCZNS7VKBHl/ibZSCuu
+         +ZGRhRaTKmOtNgUBLmTg+LfrmNmKNZjITE7IyySiIDWHkkA/VlBDubVpKvaVMOZUJaG6
+         7QQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwkbK4POpKydDNZE1MgX7jK8AiRF5xzxg1bLUzMfoVQ1m6eeKt1rpXN5i6xm3b3pHcnL6De5xg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7tCDC1p4+dOT8PRgxyyEWh5yB/BN9MpyJ6gbkbx5fJPF54dbp
+	HmVE6hTi0NDgh7Uha1ETPmzC51QlPo4J/mLSXdw0O7k1M+9BlQ86B4c=
+X-Gm-Gg: AYBFou0wvjVM4wBWQMwt0mt+y2yIe5Utzzxmj5W4+24Zdm/iUF1xqaccxDMHxugRR9p
+	R7IZE19CGOthuiUYHZkBuyo+t/dZQonTkW2hgqytJViW5goPXlMRDmENqFOr5EoTKRkBWmeDiwi
+	chzD6caiflONnwdg3lcPYH70Ht9AmmnoYs2Xhd30iNo7DfJhbsAVE+CHOI5iklVjjwCj8TvwEEo
+	NdYcPmwaki4NFBQX69HU/X4+mLjGKutk92RTRZ9f3Os8Z8jZYvTMp/XLdynsJgYXVmWTcffrqXX
+	i0zIEKhOppSqzasVCU9o3kDyogx0n2daFofzn9/5ZpIU3EWbddLrzFBwW6IRup2PzlQWYGlMc5I
+	qCLWsVuI+g0bN6HrFyeVNbPA0/DET2VIyFGHSXg9ebxeabsvR+5D86l6sLTszGwwbOIX7wQiEFQ
+	wqvpQSMcdeTA30Vx3Bjr0mfPqlLGB859V0SeGk/4ouMBK2KgM2uwAnjMkViJrRu2ABgrSPSTKDq
+	AMQGXfha4FM6j0fqed32OXUGhMfwrF/Rf7q3kcoev109tfsbo0xV0id2/kbpJ6RgN31lA6EhdXv
+	Dsjw4h0QR24=
+X-Received: by 2002:a05:600c:6989:b0:4a7:6425:c274 with SMTP id 5b1f17b1804b1-4ac150b38d0mr64239885e9.2.1793379859483;
+        Fri, 30 Oct 2026 10:04:19 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm75121785e9.13.2026.10.30.10.04.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 10:04:17 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Mark Brown <broonie@kernel.org>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Bard Liao <bardliao@realtek.com>,
+	Misael Lopez Cruz <misael.lopez@ti.com>,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v4 0/4] ASoC: cancel pending delayed works on codec removal
+Date: Fri, 30 Oct 2026 17:04:12 +0000
+Message-ID: <20261030170416.3561618-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,90 +105,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This reverts commit 21de77d06f6b540e870e64ef5ff56be4eb8ba08f.
+Several ASoC codec drivers schedule delayed works for jack detection
+and microphone polling but do not cancel them on component removal,
+leaving handlers that can run against freed memory.
 
-This is needed to cleanly revert commit fc659f1a6903 ("crypto: jitter -
-replace LFSR with SHA3-256").  It will be reapplied.
+This series adds proper teardown ordering in four codec drivers:
+rt5668, rt5659, twl6040, and wm8994.
 
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
- crypto/jitterentropy-kcapi.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Changes since v3:
+  - rt5668 (1/4): track IRQ acquisition with irq_acquired flag to
+    avoid calling disable_irq() when devm_request_threaded_irq()
+    failed.  Re-enable IRQ in rt5668_probe() when a sound card
+    rebinds after rt5668_remove() disabled it, preventing permanent
+    IRQ silencing across unbind/rebind cycles.
+  - Patches 2-4/4: no code changes.
 
-diff --git a/crypto/jitterentropy-kcapi.c b/crypto/jitterentropy-kcapi.c
-index 74d5c8da0e8ab..4b50cbc8a2faf 100644
---- a/crypto/jitterentropy-kcapi.c
-+++ b/crypto/jitterentropy-kcapi.c
-@@ -42,7 +42,6 @@
- #include <linux/fips.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
--#include <linux/mutex.h>
- #include <linux/slab.h>
- #include <linux/time.h>
- #include <crypto/internal/rng.h>
-@@ -181,7 +180,7 @@ int jent_read_random_block(void *hash_state, char *dst, unsigned int dst_len)
-  ***************************************************************************/
- 
- struct jitterentropy {
--	struct mutex jent_lock;
-+	spinlock_t jent_lock;
- 	struct rand_data *entropy_collector;
- 	struct crypto_shash *tfm;
- 	struct shash_desc *sdesc;
-@@ -191,7 +190,7 @@ static void jent_kcapi_cleanup(struct crypto_tfm *tfm)
- {
- 	struct jitterentropy *rng = crypto_tfm_ctx(tfm);
- 
--	mutex_lock(&rng->jent_lock);
-+	spin_lock(&rng->jent_lock);
- 
- 	if (rng->sdesc) {
- 		shash_desc_zero(rng->sdesc);
-@@ -206,7 +205,7 @@ static void jent_kcapi_cleanup(struct crypto_tfm *tfm)
- 	if (rng->entropy_collector)
- 		jent_entropy_collector_free(rng->entropy_collector);
- 	rng->entropy_collector = NULL;
--	mutex_unlock(&rng->jent_lock);
-+	spin_unlock(&rng->jent_lock);
- }
- 
- static int jent_kcapi_init(struct crypto_tfm *tfm)
-@@ -216,7 +215,7 @@ static int jent_kcapi_init(struct crypto_tfm *tfm)
- 	struct shash_desc *sdesc;
- 	int size, ret = 0;
- 
--	mutex_init(&rng->jent_lock);
-+	spin_lock_init(&rng->jent_lock);
- 
- 	/*
- 	 * Use SHA3-256 as conditioner. We allocate only the generic
-@@ -251,6 +250,7 @@ static int jent_kcapi_init(struct crypto_tfm *tfm)
- 		goto err;
- 	}
- 
-+	spin_lock_init(&rng->jent_lock);
- 	return 0;
- 
- err:
-@@ -265,7 +265,7 @@ static int jent_kcapi_random(struct crypto_rng *tfm,
- 	struct jitterentropy *rng = crypto_rng_ctx(tfm);
- 	int ret = 0;
- 
--	mutex_lock(&rng->jent_lock);
-+	spin_lock(&rng->jent_lock);
- 
- 	ret = jent_read_entropy(rng->entropy_collector, rdata, dlen);
- 
-@@ -291,7 +291,7 @@ static int jent_kcapi_random(struct crypto_rng *tfm,
- 		ret = -EINVAL;
- 	}
- 
--	mutex_unlock(&rng->jent_lock);
-+	spin_unlock(&rng->jent_lock);
- 
- 	return ret;
- }
+Changes since v2:
+  - rt5668 (1/4): also cancel jd_check_work (re-arms itself every
+    500 jiffies while jack inserted). Disable IRQ before cancelling
+    to prevent the handler from scheduling new work in the window
+    between cancel and devm IRQ release.
+  - rt5659 (2/4): no code change from v2.
+  - twl6040 (3/4): swap ordering -- free_irq() first, then cancel
+    residual work. Fixes the race where the handler fires between
+    cancel and free_irq and re-arms the work.
+  - wm8994 (4/4): no code change from v2.
+
+Changes since v1:
+  - Unified series per Mark Brown request.
+  - rt5659: guard cancel with jack_detect_work_inited flag since
+    INIT_DELAYED_WORK is conditional on jd_src, per Mark Brown.
+  - wm8994: cancel mic_work before and after jackdet_bootstrap for
+    cyclic re-arming through DAPM power-up chain.
+
+Tristan Madani (4):
+  ASoC: rt5668: cancel delayed works on component removal
+  ASoC: rt5659: cancel jack_detect_work on component removal
+  ASoC: twl6040: cancel headset jack work on component removal
+  ASoC: wm8994: drain delayed works on remove and probe error
+
+ sound/soc/codecs/rt5659.c  | 20 +++++++++++++++++++-
+ sound/soc/codecs/rt5659.h  |  3 +++
+ sound/soc/codecs/rt5668.c  | 20 +++++++++++++++++++-
+ sound/soc/codecs/twl6040.c |  1 +
+ sound/soc/codecs/wm8994.c  | 14 ++++++++++++++
+ 5 files changed, 56 insertions(+), 2 deletions(-)
+
 -- 
-2.56.0
+2.47.3
 
