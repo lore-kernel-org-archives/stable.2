@@ -1,77 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356649;
-	b=g7IiNZueU3+RiqsFrR48fpCZZoroflgWOcP6OtkfdPys7disW8FNRlDPGIfSTm1Grbzi
-	 36vcb1Pp0OIm1Z1N/IE/tWGkuqs/wJfUvD6BFB1LDUb6nz7mPvM3i/3i/yFlriNrfiuA/
-	 FBrG4pAWrISl+Dpl/WmWF0sF8MpQaCk5xaGlYQr542Ro5SD/bhei6CXai3wadJGi7oB5O
-	 YdMKQS4TO8AsDSCH9vhIaPc1xkwMF+bMt7ShDtuAMnHD56TrL8DI0lF4hySP5xswokoAO
-	 QY3ON/KZudvyEpdodvcuuPw2zH9vQd3BEl2aGcgfjpRAkLdimjLBy+ssOqXaFa5Xy/Q==
+	t=1793356655;
+	b=FtLpJ5YamRRgRg+8zFLhsUK8Vc+NRcjmR3jrpw4oN/pDgQ/rbAxvTsiVXw+JwmfIulcS
+	 z46j+WD0zKRgdNwiMArKeys0MvbIJJKGyNReHKaY9CD2d6/Vwravdry0FtNy5ERUGpGMj
+	 iOxB+EmSQnrr0PRRHzscqrZI1z5wNOCNgAIPjf7Y980PC6kgawQRiDGR+jO4ncCvKHN00
+	 /HgDUcCfYcUm3+PoMYEkcVYfh9xmWUQZMJoxR61wW/ZbZPkfsPg2gy2eQV1z8x3JrBd36
+	 BxOBlL87tyl6Cc7Z9AQa9ZhZSRCKzzw/DTJuMS4vDSqiiNUT3bz+GySiz3Amm3+P72w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356649;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356655;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=3TlDRIrdQFFwzDFTq8LEGSiE/Z2sDAfjnObNHmu9h90=;
-	b=EObH+WaqEYUI33iQN/95rOS4by7fclt2ARk+vlAQssnqIw119biffrV3s3cPLf2KDeGs
-	 bvTy9QUIP/EhioFNZHa/ntcsaFy4h3v3Vzcag3FfI2B5UxAdJEeZh/VzHpU96fOJ+0zXI
-	 mAVHQAPPw0RDSpjC/T1YfT2i1f6zvcqGJCpC4Sqx2b40CBTKUC6Hfovl613lJouj7cdOg
-	 bq79BXoCWMTybpAlNhD7Qs3PYHxGwLeb9dxlbaA9Bl+1y5tx8remB5BOkun8AzEB0Rlg/
-	 VyOSfEqdZ7yHzWzEcXo+KUDm1jVCFfnDn/tMMqsi4Mnb50HoY9e8UbCml9R8c1IWLRw==
+	bh=eaajkiXghFd6LZOq5zJCsgHBWbJZSSddiwuhki+vXyM=;
+	b=lFfqO/MQX4DoU0mJaHsnjb97uG+lhalfH6QBR4xlvUqEMZ8j1SO25QXm/wcbPMc/aSA6
+	 Wb7FuM/CVOwe80Nb7ZAMIY3BPwD3K9P7ipEmsnjoVIK1RDDa+U6dPJxXmVF2feh/Z+wL+
+	 hYsrdNow2ktRngdUdwraFOYF7Iz4Qlk9SeHr1VlpykAo2BwqOMtQZArl84PVZRLxtzgWm
+	 ZTaBC+VVG4eKdOKUsGNQDJMJLbMTyH1mSQ1aQJNmLG7j6oHmJNemEKiOKC7tF3XHp3rgr
+	 iFt3W9cl65lUpE5bO8SzzgJo/KMNXAyJ5eqq5OoT8SPWSPDomNfG8GI6+9St90frgOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.de;
 	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=DzZfgUnN;
-	arc=none smtp.remote-ip=44.246.77.92
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=QEqshlKc;
+	arc=none smtp.remote-ip=34.218.115.239
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3A160A2603;
-	Fri, 30 Oct 2026 10:37:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA3A160A2603
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F2760A2611;
+	Fri, 30 Oct 2026 10:37:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F2760A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=DzZfgUnN
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=QEqshlKc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1793356648; x=1824892648;
+  t=1793356654; x=1824892654;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=3TlDRIrdQFFwzDFTq8LEGSiE/Z2sDAfjnObNHmu9h90=;
-  b=DzZfgUnN83ADVwDdyMwCKfl/Il9jBH4fkQ6AgxjhqZvuAJpRc6Strr9G
-   akqkpIp2wloWyvGWov2ePoIf28EGChJy9dRm8U3uhPLsltMbfRLj3cAFO
-   9n+TiHXZ6IAy5YG6iweEDndZ6K7dcSx/RA4SQDIc3/URJyBcnB8VCgH6k
-   6s+c7e8LF4MeypJOcVI2d47kntHjVDL3tdwm0vxJgRUuaWHKpWjtMkJZV
-   Db6MSZENU6/EjoR517b/eUAgR+woIO7k1XuyNPuT8OacOOn4ChGoDsmLd
-   q0d0/S01kZXM3qo0EPCJNJqDahksH3TEHV82OYRrfS4lswoGf47eR71tc
+  bh=eaajkiXghFd6LZOq5zJCsgHBWbJZSSddiwuhki+vXyM=;
+  b=QEqshlKc5Svq/GK7QWyoparz8sgjsB9q0cp0spwOuOLWHMg5GAAXb6ib
+   Ih9CeEQvBqFkBdBDh6GdDEmAiKqrC42aR5P31AqDSWm7CSnc7kPtwD6b2
+   hojGYcH7RspRprJy58noECBcRopUkdfH013R/sR5zEyJ7t8lAIIWP5HZ8
+   FRqBL0PlcR6PQctj8gRwHjRy3+gXlmP8fK7kNxExrrXxgJGwPAvYTAipj
+   IfosHdEZFa0dGFsLq7RZcezSj8V1Pp1o3X03RIpkU4GjBaO2x7kjNuUXJ
+   9VpsMafd6BBQj4c1GO5uBmQ33MozPdkUzrFt2CyMqA7aRuazu5FH+LNRt
    g==;
-X-CSE-ConnectionGUID: Y+oLEREOR4a9nBa6w4j0Fw==
-X-CSE-MsgGUID: GK3kvjY1RciMgmwKZcAVJQ==
+X-CSE-ConnectionGUID: XOEdu2fQTMqmW/eRUZUkcw==
+X-CSE-MsgGUID: +jln6ROdQ0CovAldpLVP7Q==
 X-IronPort-AV: E=Sophos;i="6.27,186,1787011200"; 
-   d="scan'208";a="32653087"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:37:25 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:7122]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.208:2525] with esmtp (Farcaster)
- id c9169a59-1af9-4be8-b42a-3b467efd1cf2; Fri, 30 Oct 2026 10:37:25 +0000 (UTC)
-X-Farcaster-Flow-ID: c9169a59-1af9-4be8-b42a-3b467efd1cf2
+   d="scan'208";a="32439631"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:37:29 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:2199]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.23:2525] with esmtp (Farcaster)
+ id 2db07783-59b1-4622-843d-5f3e11a7fc7f; Fri, 30 Oct 2026 10:37:28 +0000 (UTC)
+X-Farcaster-Flow-ID: 2db07783-59b1-4622-843d-5f3e11a7fc7f
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 30 Oct 2026 10:37:25 +0000
+ Fri, 30 Oct 2026 10:37:28 +0000
 Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 30 Oct 2026 10:37:24 +0000
+ Fri, 30 Oct 2026 10:37:27 +0000
 From: Bjoern Doebel <doebel@amazon.de>
 To: <stable@vger.kernel.org>
-CC: <seanjc@google.com>, <pbonzini@redhat.com>, <kvm@vger.kernel.org>, "David
- Riley" <d.riley@proxmox.com>, Bjoern Doebel <doebel@amazon.de>
-Subject: [PATCH 6.12.y 1/3] KVM: x86/mmu: pass PFERR_GUEST_PAGE/FINAL_MASK to kvm_translate_gpa
-Date: Fri, 30 Oct 2026 10:37:11 +0000
-Message-ID: <20261030103713.573783-2-doebel@amazon.de>
+CC: <seanjc@google.com>, <pbonzini@redhat.com>, <kvm@vger.kernel.org>, "Kevin
+ Cheng" <chengkev@google.com>, Bjoern Doebel <doebel@amazon.de>
+Subject: [PATCH 6.12.y 3/3] KVM: VMX: Synthesize nested EPT violation GVA_IS_VALID/GVA_TRANSLATED bits
+Date: Fri, 30 Oct 2026 10:37:13 +0000
+Message-ID: <20261030103713.573783-4-doebel@amazon.de>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261030103713.573783-1-doebel@amazon.de>
 References: <20261030103713.573783-1-doebel@amazon.de>
@@ -89,96 +89,105 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Paolo Bonzini <pbonzini@redhat.com>
+From: Kevin Cheng <chengkev@google.com>
 
-[ Upstream commit bd1c40114b02cf63ba33da8e7df71ed0fc2a3019 ]
+[ Upstream commit 96b067b59ad9ccede585fcadab27543188353bff ]
 
-The XS/XU bit for EPT are only applied to final accesses, and use the
-U bit from the page walk itself.  While strictly speaking not necessary
-(any value of PFERR_USER_MASK would be the same for page table accesses,
-because they're reads and writes only), it is clearer and less hackish
-to only apply MBEC to PFERR_GUEST_FINAL_MASK.  Allow kvm-intel.ko to
-distinguish the two cases.
+When injecting an EPT Violation into L2 in response to a fault detected
+while emulating an L2 GVA access, synthesize the GVA_IS_VALID and
+GVA_TRANSLATED bits using information provided by the walker, instead of
+pulling the bits from vmcs02.EXIT_QUALIFICATION.  The information in
+vmcs02.EXIT_QUALIFICATION is valid/correct if and only if the fault being
+injected into L1 is the direct result of an EPT Violation VM-Exit from L2.
 
-Tested-by: David Riley <d.riley@proxmox.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[doebel: load_pdptrs() lives in arch/x86/kvm/regs.c in this tree; keep
-this tree's mmu_is_nested() in the Hyper-V hunk]
-Stable-dep-of: 96b067b59ad9 ("KVM: VMX: Synthesize nested EPT violation GVA_IS_VALID/GVA_TRANSLATED bits")
+E.g. if KVM is emulating an I/O instruction and the memory operand's
+translation through L1's EPT fails, using vmcs02.EXIT_QUALIFICATION is
+wrong as the semantics for EXIT_QUALIFICATION would be for an I/O exit,
+not an EPT Violation exit.
+
+Opportunistically clean up the formatting for creating the mask of bits
+to pull from vmcs02.EXIT_QUALIFICATION.
+
+Signed-off-by: Kevin Cheng <chengkev@google.com>
+[sean: use plumbed in @access bits, massage changelog]
+Link: https://patch.msgid.link/20260522232701.3671446-5-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[doebel: no advanced EPT vmexit info here, so the mask keeps only the two
+GVA bits; set GVA_TRANSLATED via !(access & PFERR_GUEST_PAGE_MASK)]
 Signed-off-by: Bjoern Doebel <doebel@amazon.de>
 ---
- arch/x86/kvm/hyperv.c          | 3 ++-
- arch/x86/kvm/mmu/mmu.c         | 3 ++-
- arch/x86/kvm/mmu/paging_tmpl.h | 7 +++++--
- arch/x86/kvm/regs.c            | 3 ++-
- 4 files changed, 11 insertions(+), 5 deletions(-)
+ arch/x86/kvm/mmu/paging_tmpl.h | 17 ++++++++++++++++-
+ arch/x86/kvm/vmx/nested.c      | 23 +++++++++++++++++++----
+ 2 files changed, 35 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 40660da6b7737..8987d8da4baac 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2055,7 +2055,8 @@ static u64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
- 	 * read with kvm_read_guest().
- 	 */
- 	if (!hc->fast && mmu_is_nested(vcpu)) {
--		hc->ingpa = translate_nested_gpa(vcpu, hc->ingpa, 0, NULL);
-+		hc->ingpa = translate_nested_gpa(vcpu, hc->ingpa,
-+					PFERR_GUEST_FINAL_MASK, NULL);
- 		if (unlikely(hc->ingpa == INVALID_GPA))
- 			return HV_STATUS_INVALID_HYPERCALL_INPUT;
- 	}
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 1a4d5fa11922d..b1baaf5161de5 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4136,7 +4136,8 @@ static gpa_t nonpaging_gva_to_gpa(struct kvm_vcpu *vcpu, struct kvm_mmu *mmu,
- {
- 	if (exception)
- 		exception->error_code = 0;
--	return kvm_translate_gpa(vcpu, mmu, vaddr, access, exception);
-+	return kvm_translate_gpa(vcpu, mmu, vaddr, access | PFERR_GUEST_FINAL_MASK,
-+				 exception);
- }
- 
- static bool mmio_info_in_cache(struct kvm_vcpu *vcpu, u64 addr, bool direct)
 diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index ce467bc3383c9..9e17ebcc4c318 100644
+index 829821fbc8437..0752d1b3d918b 100644
 --- a/arch/x86/kvm/mmu/paging_tmpl.h
 +++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -377,7 +377,8 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 		walker->pte_gpa[walker->level - 1] = pte_gpa;
- 
- 		real_gpa = kvm_translate_gpa(vcpu, mmu, gfn_to_gpa(table_gfn),
--					     nested_access, &walker->fault);
-+					     nested_access | PFERR_GUEST_PAGE_MASK,
-+					     &walker->fault);
- 
- 		/*
- 		 * FIXME: This can happen if emulation (for of an INS/OUTS
-@@ -445,7 +446,9 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 		gfn += pse36_gfn_delta(pte);
- #endif
- 
--	real_gpa = kvm_translate_gpa(vcpu, mmu, gfn_to_gpa(gfn), access, &walker->fault);
-+	real_gpa = kvm_translate_gpa(vcpu, mmu, gfn_to_gpa(gfn),
-+				     access | PFERR_GUEST_FINAL_MASK,
-+				     &walker->fault);
- 	if (real_gpa == INVALID_GPA)
- 		return 0;
- 
-diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index 26ee933ef5490..b11e19c729385 100644
---- a/arch/x86/kvm/regs.c
-+++ b/arch/x86/kvm/regs.c
-@@ -166,7 +166,8 @@ int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3)
- 	 * to an L1 GPA.
+@@ -495,7 +495,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	 * [2:0] - Derive from the access bits. The exit_qualification might be
+ 	 *         out of date if it is serving an EPT misconfiguration.
+ 	 * [5:3] - Calculated by the page walk of the guest EPT page tables
+-	 * [7:8] - Derived from [7:8] of real exit_qualification
++	 * [7:8] - Derived from "fault stage" access bits
+ 	 *
+ 	 * The other bits are set to 0.
  	 */
- 	real_gpa = kvm_translate_gpa(vcpu, mmu, gfn_to_gpa(pdpt_gfn),
--				     PFERR_USER_MASK | PFERR_WRITE_MASK, NULL);
-+				     PFERR_USER_MASK | PFERR_WRITE_MASK |
-+				     PFERR_GUEST_PAGE_MASK, NULL);
- 	if (real_gpa == INVALID_GPA)
- 		return 0;
+@@ -509,6 +509,21 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 		if (fetch_fault)
+ 			walker->fault.exit_qualification |= EPT_VIOLATION_ACC_INSTR;
+ 
++		/*
++		 * KVM doesn't emulate features that access GPAs directly, e.g.
++		 * Intel Processor Trace.  Assume the GVA is always valid; when
++		 * propagating faults from hardware, KVM will discard this info
++		 * and use the EXIT_QUALIFICATION bits from the VMCS.
++		 */
++		walker->fault.exit_qualification |= EPT_VIOLATION_GVA_IS_VALID;
++
++		/*
++		 * Accesses to guest paging structures are not the translation of
++		 * a guest linear address, i.e. GVA_TRANSLATED must be left clear.
++		 */
++		if (!(access & PFERR_GUEST_PAGE_MASK))
++			walker->fault.exit_qualification |= EPT_VIOLATION_GVA_TRANSLATED;
++
+ 		/*
+ 		 * Note, pte_access holds the raw RWX bits from the EPTE, not
+ 		 * ACC_*_MASK flags!
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 415e1d4b85cf7..11a784f0eb10f 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -447,10 +447,25 @@ static void nested_ept_inject_page_fault(struct kvm_vcpu *vcpu,
+ 			vm_exit_reason = EXIT_REASON_EPT_MISCONFIG;
+ 			exit_qualification = 0;
+ 		} else {
+-			exit_qualification = fault->exit_qualification;
+-			exit_qualification |= vmx_get_exit_qual(vcpu) &
+-					      (EPT_VIOLATION_GVA_IS_VALID |
+-					       EPT_VIOLATION_GVA_TRANSLATED);
++			const u64 mask = EPT_VIOLATION_GVA_IS_VALID |
++					 EPT_VIOLATION_GVA_TRANSLATED;
++
++			exit_qualification = fault->exit_qualification & ~mask;
++
++			/*
++			 * Use the EXIT_QUALIFICATION from the VMCS if and only
++			 * if the hardware VM-Exit from L2 was an EPT Violation.
++			 * If the fault is synthesized, then EXIT_QUALIFICATION
++			 * is stale and/or holds entirely different data.  And
++			 * conversely, KVM _must_ rely on EXIT_QUALIFICATION if
++			 * the fault came from hardware, because KVM only sees
++			 * and walks the faulting GPA.
++			 */
++			if (from_hardware)
++				exit_qualification |= vmx_get_exit_qual(vcpu) & mask;
++			else
++				exit_qualification |= fault->exit_qualification & mask;
++
+ 			vm_exit_reason = EXIT_REASON_EPT_VIOLATION;
+ 		}
  
 -- 
 2.50.1
