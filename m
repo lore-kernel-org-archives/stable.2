@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.48.77.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358357;
-	b=b/DiuN3EMvm2R4tIiwAuueoJmNX7invsUyW0RuF8qUta4FPyPvVEajW2Q0DHuUssVE16
-	 oJTvvjngh6Be4f5Yg9AIjugNUq9hLGrKVEUCpep9qL6el91St7Iqi6ZMHr1kDPBHUZmhI
-	 B4nyw7iCxlqQ4xStcipOHK7v2w6zVeNYJvXlmQA1bZFZYi9g4lj5487bbbYkNB5Ksk1Sh
-	 YwY7N4B5SD6eU6ug3evgASzLRnNw79UekPz9/FT+xPQzmzIJzdXcJiGV6Kjhm2LPydV3F
-	 IVUOdadhPL1o7XzyWZ/KspMXcgKOfDi9ZaPXcm/zqxPgNOATfUm+Gn5u2DbXqIuMLCw==
+	t=1793358359;
+	b=DknnRQ8FBQ5pyXJg9uUZ0zKpzuqGcTwtxFxI4/71A9EmautOXpYIDH5SAq8W1hBWHyPD
+	 6keTzSCfA0MfboOp/KBfK77i2tNDsTklP/eNmAktvhAde60ZYmWP7BMjpmNiPm2siCK8E
+	 vsibxmRmDjc+rTAfZqBwQVw4RCfON/yOXaPssTDWX5uBa8l2mPwkGx1ZJOlaQAiU4T2/Q
+	 m0DCCBHZYTsDy/ejsERgIe5pdpjWe44kN3L+kbdxDyj2c4ne24IU2aJckm+LYiEzxUywl
+	 8gazOJRfrSlHi2JkPODz6dAiUYqNtcxHUiXy6W5vzvySTmgLqPIGD4GB0Hdf4TNrb+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358359;
 	h=DMARC-Filter:Content-Language:Content-Type:Content-Transfer-Encoding:
 	 DKIM-Signature:Received:Received:Received:From:To:CC:Subject:
 	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
 	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:x-originating-ip:
 	 MIME-Version;
 	bh=WiniaEuh5i/wsjW0YuKIcYJBpMIyEjiA5m8ZmX85ceQ=;
-	b=glR28u0CKi9Q6uKDZqbCUnV7ZmmyjvxdqSJgOp0zVL5DuKiCq28W83AphWWmS76fWiHi
-	 V0YetBkcHvEXIeNcekOKXn//gbxtXXccBxWq98DMuFn0UEDnbVkAMLXHy1iNeMlgxRWBv
-	 jpPEMZPolyjxtLnREsMuvZYINcEm5xLPsVS+sVF2PcSgr+AYg6LVM9Z2Ja5Lq+g0DY9Ni
-	 ep+T21gpbdme07LvnBmKl9la6HPP393/njZptvdES7bJhhMYQ70X4XD1GwtbtiIOM73FP
-	 A0n9nMUEtC6ZA95sw4Ty3g0cPeBi1ALfafM+Xj7F7G54eevIGD5WzMkoHa97rIYVDQw==
+	b=jRfo8am52XSKtMT8WECdDEjGN3sLz0q0CLn7uMwbrQICIJJbUcu5Cq9fgiZSty4nw2oH
+	 htq/U53yP2QqwoBcjLP325UUtJSF2ThpxR8+uA566Tbsv7NMod4kj80HW5SYSzfnTH1wZ
+	 5MbL2XtYyqHtLHNlDsbXAHYbw5bwi11Ab1n5MAsW2ehdPu9y7pj2PyDE95Qt84OmrSJnk
+	 XficnDFbWih/uXblMTQb85HZgdGaMUTGPhP/5UFcwEywVjGQdHgiOoNcc9dfd+EQnyh2G
+	 a+g7b3aXmUB4brlGG0zBeuESJUBNubx7lLTVr3L1QFLC/R4vlsa+2zAOkw0hI8AUWgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=prosoftsystems.ru;
 	spf=pass smtp.mailfrom=prosoftsystems.ru;
-	dkim=pass header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.a=rsa-sha256 header.s=ps header.b="GY8N/94v";
+	dkim=pass header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.a=rsa-sha256 header.s=ps header.b=tenVEh+4;
 	arc=none smtp.remote-ip=46.48.77.131
 Received: from mx.prosyst.ru (m2.prosoftsystems.ru [46.48.77.131])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784D3606A323
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:05:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 784D3606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC05606A32E
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 11:05:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFC05606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=prosoftsystems.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=prosoftsystems.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.a=rsa-sha256 header.s=ps header.b=GY8N/94v
+	dkim=pass (2048-bit key, unprotected) header.d=prosoftsystems.ru header.i=@prosoftsystems.ru header.a=rsa-sha256 header.s=ps header.b=tenVEh+4
 Content-Language: ru-RU
 Content-Type: text/plain; charset="koi8-r"
 Content-Transfer-Encoding: quoted-printable
 DKIM-Signature: v=1; a=rsa-sha256; d=prosoftsystems.ru; s=ps;
-	c=relaxed/relaxed; t=1793358355; h=from:to:date:message-id:subject;
+	c=relaxed/relaxed; t=1793358360; h=from:to:date:message-id:subject;
 	bh=WiniaEuh5i/wsjW0YuKIcYJBpMIyEjiA5m8ZmX85ceQ=;
-	b=GY8N/94vhbaVVdujrmJ5nYWdNZYOgkcITNyZUOEkb0lpK3neVrWvtlLfynljwfAmQ8NGAb7VG2c
-	CS844fi7hO/dCGa+FvYeNyjcQA0zYNUx5Pec7tCzoGAyVeY/RC4sxWk3W90HxYPzT3Xt0U8yCTiCw
-	SX2unjQxiA5gDAdUlqz0z/uTJpa5bMGWv5OQiJhOgqcDTbS9BSFvNHHI2OmD3rLqEHEsKsaU55OgZ
-	QJhyLZpTyNMhb9OQ+YTl7Y2vHbjQA5MZPzQo+zxE1NTtGmRhgffiYVbGfJ2/GTVQPVcwQ0IiuQ8zz
-	sQPcpMUlDdqmfTBzuUZ122GEjwXPnV1IeuUg==
-Received: from ECHO-3.prosoft.ural.ru (172.25.100.229) by mx.prosoftsystems.ru
+	b=tenVEh+4Lz0Gu0JFoPZJkl5IqTR0+aBeHtIsXtXekgzKeUGhM46HqLd1dGVXYczO/00ZBM3SRrH
+	oRvqQ5KkZIl1FOLiXDvzaWExESgSqaRyO3/qlFpkbJ0gWr8d/H1CG8FZhX8+l147B7JpQv04yJ6ji
+	k6iZ+1Sl8cUMoB3vdnfYstyzvIyrfajwMviKwjlY65vXEX3Ps5e6pU9Lnf46W/Ueae2kkRG+C7kjG
+	xSsPvttLBChytPov3j4xrMdKxN6UBzohod9dMYMjhV1aAcltXcywKpps8/vb4nVrzQPB5Pf+whbI8
+	XNbhOj7Ep1UwLhenBGc07txzbKuWv1aDbNTg==
+Received: from echo-2.prosoft.ural.ru (172.21.245.22) by mx.prosoftsystems.ru
  (172.21.240.33) with Microsoft SMTP Server (TLS) id 15.1.396.30; Fri, 30 Oct
- 2026 16:05:54 +0500
+ 2026 16:05:59 +0500
 Received: from echo-2.prosoft.ural.ru (172.21.245.22) by
- ECHO-3.prosoft.ural.ru (172.25.100.229) with Microsoft SMTP Server
+ echo-2.prosoft.ural.ru (172.21.245.22) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.39; Fri, 30 Oct 2026 16:05:50 +0500
+ 15.2.1748.39; Fri, 30 Oct 2026 16:05:55 +0500
 Received: from echo-2.prosoft.ural.ru ([::1]) by echo-2.prosoft.ural.ru
  ([fe80::dd52:6e09:81b8:b31b%17]) with mapi id 15.02.1748.039; Fri, 30 Oct
- 2026 16:05:50 +0500
+ 2026 16:05:55 +0500
 From: =?koi8-r?B?9sHNwsHLycXXIPLBxMnKIPLJy8HSxMnOz9fJ3g==?=
 	<r.zhambakiev@prosoftsystems.ru>
 To: "lvc-patches@linuxtesting.org" <lvc-patches@linuxtesting.org>
@@ -65,9 +65,9 @@ Subject: [PATCH net-next v4 2/4] net: fealnx: disable the PCI device on remove
  and probe failure
 Thread-Topic: [PATCH net-next v4 2/4] net: fealnx: disable the PCI device on
  remove and probe failure
-Thread-Index: AQHdaF6fiK+x2GolY0KN1xpDn6GfcA==
-Date: Fri, 30 Oct 2026 11:05:50 +0000
-Message-ID: <20261030110502.59804-3-r.zhambakiev@prosoftsystems.ru>
+Thread-Index: AQHdaF6i8WZVj9C0w0ikOEv50mt3rg==
+Date: Fri, 30 Oct 2026 11:05:55 +0000
+Message-ID: <20261030110502.59804-4-r.zhambakiev@prosoftsystems.ru>
 References: <20261030110502.59804-1-r.zhambakiev@prosoftsystems.ru>
 In-Reply-To: <20261030110502.59804-1-r.zhambakiev@prosoftsystems.ru>
 Accept-Language: ru-RU, en-US
