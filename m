@@ -1,72 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793369693;
-	b=A1DcQRZEiOkScgU1Oq6B6aq5Xy3XoRojgBra9w/Be9n4YwwYIMInWZOYwG3JJjrOilhD
-	 FRlEJJiWN/4z/lfLk3BxpXKyrz+vr/Z723JAJ+W3h+vlndoWL7Mv7vf/V2m/u5Yq5mWKP
-	 dTQEsUD3OnK2T4SA9G81ESpZvS+kZC4CB3LFDs0ljdAp8mD9HzNlHzcNgTGTITihNJI/E
-	 i/8l9C9Uc3zTRwUD+cGxlLLeSzcUGAmUBZn5ZiPzZRojzxQD/HZ/SgtOU37d8xtIaK/ma
-	 wXai8syckRXzZy24ysOy+DX4Q/x99I9iR4q+fkIgJGI8B6Jg5G7RbvRRkp0baQMvBQw==
+	t=1793369721;
+	b=PAnKrYNxgnwuAS9wYYPQJ4mKv7zMJPzAr2er3gbeNvW6eMiC8Ij2LD6CcGLuto2CoGDy
+	 iTw0HZzjfxBa8Jkd4KEXrD26IZ+TO4jc3pq0Hs1bOyC1keevMHKEonvn8Fs02EM5iSpGv
+	 ZdjoS0ebVH62AgIbi9TEaSGHIbx84j2Tgujip5oQcuSv63M9MbcNxb036S44xL8JT+x/A
+	 ME8EqxHSJGNaL82YWU3jgz0/ZRr10XbXd9NsTEoonMWqC5yC7bo58EemXfmqNH/2+hCkg
+	 VuaxeWXjHCnRTnpEwup2ezUUWT7nOWW+IA2m1g/1d3ZZiScEXnXm9pMs/ZOoVzzIM7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793369693;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uSWkWu0paLSVigzrw+dyHl6X7hCrziDcX3CFcmRfIi4=;
-	b=lASsNfH5PwCYEhW6+ICkCqA/WnH9ojAX9/Qo3Q5OzDB1RYOTHrDVoZey+S51e61DKFRV
-	 Inju0U0qDrIXnwEz8WzqZNEvzNGg46HoyA9jxobS1mRqDbojmwWdH5io9Aj+9dAYnGMNU
-	 GxFBU/I+cZns0zAlgWoopJtPqifw6Okat5GPJognlCTNfQY0+selz7zJsM17UKg6FCI8L
-	 /OZeplbEhcarNgfyXt43iKXQmIwERBBwRY7rwfQMF33+q3L9TbLmjs1AenlVk85Twa5a7
-	 0GY0W2YlMVB9/udOA7PhDlWpfAV6xcFeNYrjDtlxFdNAw7LV45TFNYtdZVo3IgsQatw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793369721;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=6o/wru8YGsBJ8nISiaIwKRCzFTUDQcQKEKhFrnSO15Q=;
+	b=s3jsZQJkZnzM4L0YG9HfsimFlS3oprlRJuUjPwbtELA+8ersyLIvWK/FniUx4KbbtuYX
+	 2Xih/Itcp0fhnLs5Tc3dVkCiy9ZPrOLVPTOmtjY7Qciev5lchmD41Q+HGfVHqMikwRqy1
+	 8TWtRrBskLJpXVbRGn2CZeuVLY87Um5BasTrxNE3XQyhT3KQip9mSapi2+Xk9gTQxvLj9
+	 KireQ9pGOOw1PU85jRhxV2pKkSk6FB+rpWDJ/21zZGxlEm968nflKtxRdZG08uBdfq/KP
+	 YNuLZTEWlaTML2PQqs15osZnDULPUgT+VF4sV+QhItWf6SEVx6fuuAa6WPk2RlJDUFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="Lm/VmcDW";
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 822D4606A31A;
-	Fri, 30 Oct 2026 14:14:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 822D4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2ThaJ8qB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB8D606A320;
+	Fri, 30 Oct 2026 14:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Lm/VmcDW
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Lm/VmcDWU28tEi+s9Wt6fhNwmihn6RsXswUjsNaq8BLTR993hTPqh4Q4oAl+xDB2Q2cXEaD+Vmj2T
-	 Q90ykTShJyc6QpLXAT+tNSSSHIkUsZbqv5tKPC9hVa1fVF2IwMWMtFeqxKIwne/N/MtT3JKWEh9siQ
-	 7pzUVTyq0KFwu86U=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56ae4a657acc-73a14;
-	Fri, 30 Oct 2026 22:14:48 +0800 (CST)
-X-RM-TRANSID:2ee56ae4a657acc-73a14
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[112.23.104.16])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26ae4a6574be-625e7;
-	Fri, 30 Oct 2026 22:14:48 +0800 (CST)
-X-RM-TRANSID:2ee26ae4a6574be-625e7
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	willemdebruijn.kernel@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yana06070@163.com
-Subject: [PATCH net] ipv6: fix cached route reuse for SO_MARK control messages
-Date: Fri, 30 Oct 2026 22:14:35 +0800
-Message-ID: <20261030141435.779302-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2ThaJ8qB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841A61F000C1;
+	Fri, 30 Oct 2026 14:15:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793369720;
+	bh=6o/wru8YGsBJ8nISiaIwKRCzFTUDQcQKEKhFrnSO15Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=2ThaJ8qBhraU6rDhRkC/D6TOscfYLnqxHXJG6QdzkJxpd7V+dj3zuwzSBw9XblvFY
+	 aC57fqDmqaCcYWSVA4Xxom0B/xj/62qrlM4aBxN6EKJMAmhr1M0QiIqgg5hy7Euhx3
+	 dhTKsaLu7JtgjBUcQCdAihs79tw4eSXLgrA3ipWw=
+Date: Fri, 30 Oct 2026 15:15:17 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jason Xing <kerneljasonxing@gmail.com>
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	Gyutae Bae <gyutae.opensource@navercorp.com>,
+	stable@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Minsu Jeon <minsu.jeon@navercorp.com>,
+	Jonghyeon Kim <jong-hyeon.kim@navercorp.com>,
+	Siwan Kim <siwan.kim@navercorp.com>,
+	Gyutae Bae <gyutae.bae@navercorp.com>
+Subject: Re: Backport request: Revert "softirq: Let ksoftirqd do its job"
+ (d15121be7485)
+Message-ID: <2026103018-gothic-sheath-5c34@gregkh>
+References: <20261029054200.97234-1-gyutae.opensource@navercorp.com>
+ <9024faed-854d-411d-96c1-7cefd4d68dc6@redhat.com>
+ <CAL+tcoAmq0WfSzo01xbAQ=g8OtE+GpJ5+RGs1G1SdNPdHx_eZg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,65 +67,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL+tcoAmq0WfSzo01xbAQ=g8OtE+GpJ5+RGs1G1SdNPdHx_eZg@mail.gmail.com>
 
-A connected IPv6 UDP socket can reuse its cached route when a SO_MARK
-control message supplies a different mark. The packet then takes the
-route selected for the socket mark instead of the per-message mark.
+On Fri, Oct 30, 2026 at 02:16:57PM +0800, Jason Xing wrote:
+> Hi Paolo,
+> 
+> On Thu, Oct 29, 2026 at 4:33 PM Paolo Abeni <pabeni@redhat.com> wrote:
+> >
+> > On 10/29/26 06:42, Gyutae Bae wrote:
+> > > Please backport the following upstream commit to 6.1.y and 5.15.y:
+> > >
+> > >    d15121be7485655129101f3960ae6add40204463
+> > >    Revert "softirq: Let ksoftirqd do its job"
+> > >
+> > > On a production 5.15 PREEMPT_NONE node, long-running overlayfs
+> > > getdents64() calls prevented ksoftirqd from running.  RPS IPIs
+> > > continued to arrive, but NET_RX processing on that CPU stalled for
+> > > up to about 3 seconds.  Over 15 days, the node logged about 1,000
+> > > bonding ARP monitor failovers, with no link-state changes recorded
+> > > during that period.  The failovers stopped after the workload was
+> > > removed.
+> > >
+> > > On a 5.15.27 PREEMPT_NONE test node, we used a livepatch to make
+> > > ksoftirqd_running() always return false.  This removes the same
+> > > softirq deferral checks as the revert on this build.  Under the same
+> > > load, we measured three 10-minute windows: before patching, with the
+> > > livepatch active, and after removing it.  The number of HTTP requests
+> > > taking more than 200 ms was 17, 0 and 11, respectively.  TCPTimeouts
+> > > increased by 25, 1 and 21.
+> > >
+> > > We verified with patch --dry-run that the revert applies cleanly
+> > > to v6.1.190 and v5.15.223.  Both already contain the related RCU
+> > > fix 1dd1eff161bd.  6.6.y and later already contain the revert.
+> > >
+> > > The original commit was intended to prevent user-task starvation
+> > > under a softirq flood.  The revert's changelog points to threaded
+> > > NAPI as an alternative, but it is disabled by default.
+> > >
+> > > The revert was merged in v6.5 without a Cc: stable tag.
+> > > Syzbot has also reported bisections to this revert [1].
+> > > Paolo, Thomas, Eric: I would appreciate your thoughts on whether
+> > > this revert is suitable for 6.1.y and 5.15.y.
+> > >
+> > > [1] https://lore.kernel.org/all/000000000000a249880603717c15@google.com/
+> > IMHO such change should not land to stable lightly. It's a behavioural
+> > change with subtle side effects. The threaded napi feature is disabled
+> 
+> Technically speaking, yes, it's actually not a bug but an optimization.
+> 
+> > by default for the same reason. Also the revert has some soft functional
+> > dependencies in napi threaded cleanup and improvements landed into v6.4,
+> > i.e. 6bb218b5a6e3f3c5e2e76faf8fc976f3f6f72496, likely more.
+> 
+> Maybe I have a slightly different thought on this: since I really
+> received/noticed there are not a few reports showing the 'issue' in
+> the older kernels. It's not easy for some people or company to upgrade
+> the stable kernel. I'm wondering if it's still possible to land it
+> with more careful consideration in the patch if Gyutae volunteers to
+> do so? Please feel free to reject the proposal :)
 
-udpv6_sendmsg() sets flowi6_mark from the control message and clears
-connected. However, ip6_sk_dst_lookup_flow() still tries the cached dst;
-connected only controls whether a newly looked-up route is stored.
-ip6_sk_dst_check() checks the addresses and output interface, but not
-the mark.
+Given that 5.15.y is about to go end-of-life in a month, that's a
+non-starter.
 
-Commit 42dcfd850e51 ("udp6: allow SO_MARK ctrl msg to affect routing")
-fixed the mark used for fresh route lookups; connected sockets still
-reuse the route cached before the control message.
+For 6.1.y, you better be planning how to move off of that _now_ given
+that you only have 1 more year before that is gone.  Anyone hitting this
+issue should be moving now as that gives you an incentive to do so :)
 
-Reject the cached dst when flowi6_mark differs from sk_mark so that
-the packet goes through a new route lookup with the requested mark.
+thanks,
 
-Found during code review of IPv6 UDP route caching. Reproduced in UML
-with a connected socket and a fwmark rule pointing to a prohibit route:
-marked sends succeeded before the fix and return EACCES after it.
-A two-interface test also confirms that marked sends use the selected
-interface and subsequent sends without a control message still use the
-socket mark. cmsg_so_mark.sh passes before and after.
-
-Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
----
-
-Tested on net 5838f10563d58afca6711edb5e4eda968ca181d9. The relevant
-send and route-cache code is unchanged at the base commit.
-
-Full x86_64 W=1 builds completed before and after with no new
-diagnostics, using configurations based on allmodconfig and
-allyesconfig. WERROR was disabled for both; allyesconfig also had
-KASAN disabled. Both used LD_ORPHAN_WARN_LEVEL="warn" and
-DRM_WERROR=n.
-
- net/ipv6/ip6_output.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index 25fe0ba98b1a6..843bb95e635b9 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -1125,6 +1125,7 @@ static struct dst_entry *ip6_sk_dst_check(struct sock *sk,
- 	    ip6_rt_check(&rt->rt6i_src, &fl6->saddr,
- 			 np->saddr_cache ? &np->saddr : NULL) ||
- #endif
-+	    fl6->flowi6_mark != READ_ONCE(sk->sk_mark) ||
- 	   (fl6->flowi6_oif && fl6->flowi6_oif != dst_dev(dst)->ifindex)) {
- 		dst_release(dst);
- 		dst = NULL;
-
-base-commit: d8a4f4c59da52b7c31ae337243b8473a19a3f819
--- 
-2.39.0.windows.2
-
-
-
+greg k-h
