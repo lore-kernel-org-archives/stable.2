@@ -1,60 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.117
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378869;
-	b=Hfq+PEWbTJcfe2p+QZU9fROrkByZ3uXPbHtfkEAvWswH+C0XGxfSmK51ZlT/OV4+AGD3
-	 nL1GP5z5Qdkz7qucQHlNAaEErsMXsXsAQgETRqyklUmwqL1apBhuXTIQjDTbGtGrAw/KI
-	 D0UHRjbsH47Fcs6RmPVLcwoRtE8hv6vnDqw5rvgfiKExzRDU9AwgFRwjJs3elU5qF19jx
-	 PxCHmIeYM3NfD3aq3VUTXu4Nz0WWzsS9xJgxfj0hZwB+pNqZG7mTuFQwAl9hG2l9n4HYx
-	 2u2lAen/auefX1HTOcP+wGEdQB+ww0eiXfpJiNHWdOO/3ALJH+WAr53Druf5sHTaEEQ==
+	t=1793379050;
+	b=Lpc88+6YEjD4XU38wpAP/2VTjNhrbonJWKqqEXX5EmqA7gyfUxLuPfQxVcQbvFoU0kBx
+	 9JZy4PTf84H5KW8iPAhgs7upWBD/EmIiOmc6Ujam9k0EM2bA0vrvTpoX9A8b88RHfdu0q
+	 sV5PEnxyY9PtgWcjeEaQSw4ZMgDEWL4/H6va1JQPQNDeSXCLHwuRPF05nOv36LiGLLxoX
+	 Lsp4Sd3aUj+vVw3YbMUMOQbLvOORoKN5vbT4fa2gEw90hs8Pgw9lR7+0fYjzvTAFy8Azh
+	 6eAW74LTgxlluEwMSbkz/PjRsSEGhhLljRiaS1gaMxVJfvCuydTzo/Jju2iKtPhc4dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378869;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PQ4G7FWKXf3yOQR/cwzdiaA0meyXV45WbDf7zl6Ty7Y=;
-	b=u4Xx3XQUU1viYm3bpHLuRReBBaa5ZePUddwNNa4Vgd2hvbXSnnF/OyyG75ejA/cd6Ewq
-	 rorqJOR+rS4T2c9cVQjcD9S38pAU4hv+l9Ws9PpYDXilagZQUlkZwEBrayvhQ8F75cTIG
-	 FFw3g+LgyYjUrLKaetuqymjFsAR+3Ti/AI0CyXXP8ActdyYlNmsswzj0w6C2D8mtzhcoV
-	 9GCOrOz1aL4Mk5zVa8fgzPgtuKGm9hsnv3woQIPpaUS+2wUBjxT89QBe6AbhKhXOvHXNc
-	 +M4UDwdYi6IIbdb9MgxGQEh1irag/TvOvc5IUs8Xg0Rjyk++xRHMhGpFfsT7Z4uLleg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379050;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gzV6WXzPcFzRX8VB8o7goTo1RH2RiPQDDsNBXgNksVA=;
+	b=HZsJg8YxO3Vnjg/8h8XONhFDyag1RKW/vgdE6ZvuFZEMCyws4bEgL6JD/iV6fnqwYfku
+	 oO+bJoTcZVIhcpWgZTbixsh6rmnqd3PL2IbdBR6yhD1Fc3/aYXgx3HNlxUI55YoEboAaQ
+	 OLnJfu2kAeHVyWKq1wx3mRNPMOU9c16tckm94Kwe/XKXs2jo7YTx58y9Th15Vq9CRqj6+
+	 t5dvTe7VPb5Zel0bXPxULdLf97iZYBv+qRSrNXE1ZdeQVuXCbh11qDDPpCAWy669Dt3RS
+	 Z4CFiEDwWYnowAhmz/1FJf4JOkMKzQkmQVJ9d0s1gdWPNyQQMup3+MGGL4VLgGXKL7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b="FVn/2D+f";
-	arc=none smtp.remote-ip=79.135.106.117
-Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XqGTI6OU;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFC7606A31C;
-	Fri, 30 Oct 2026 16:47:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFC7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C1C606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 16:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45C1C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=FVn/2D+f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793378865; x=1793638065;
-	bh=PQ4G7FWKXf3yOQR/cwzdiaA0meyXV45WbDf7zl6Ty7Y=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FVn/2D+flZn6H8vP2GLlWJUdJLMxbEZltl2dwzm79NEaRK/Z8naG14DvxyU87xkwk
-	 wJO5ki6kmYY5rUMMh3rZcD9lXOQ6Eywmf3ICN9PhejJ6h0yjmtQZ0am8E6+jtSZF+N
-	 ALA6WuLnApuJghH8566r/GXuGLyN66TtU75wZKR+/9AHzEda5jNO85vpBRxQ0OEjHa
-	 c8dYnXKlVocWkNRmD2v1i386uaAVdDfFukRaqgMxIE9hz0Hccsq/FL66gTMUZhZDQL
-	 hxiuA1cIhwUm/R7BUPmewtmLU6RtBFQTwxLKFBVUhKxWZZpda5w1hbOn54MWJi9bUx
-	 knwa1R4xP7qpQ==
-Date: Fri, 30 Oct 2026 16:47:36 +0000
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-From: Paul Moses <p@1g4.org>
-Cc: netdev-bot+sashiko@kernel.org, intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, vedang.patel@intel.com, jithu.joseph@intel.com, andre.guedes@intel.com, aleksandr.loktionov@intel.com, avigailx.dahan@intel.com, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] igc: only strip RX timestamp header from first buffer
-Message-ID: <K-58hRuSyY_aSjvzkpmwBMeDzvfjQyLMRjMsDlEL1M60FHZJTS1WXTaTrh79pf1igf7bt5MCaORbxYVJJliJ0FhGCzjtiEVvagd50w65Ssg=@1g4.org>
-In-Reply-To: <auSDQtz8l8hzzr86@boxer>
-References: <20261028083344.3047350-2-p@1g4.org> <179331704005.3134.12545545223659652020@kernel.org> <auSDQtz8l8hzzr86@boxer>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 4c2a5fe1fa4764ac796a6e023df421e8b58cd007
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XqGTI6OU
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso8228305e9.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:50:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793379048; x=1793983848; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gzV6WXzPcFzRX8VB8o7goTo1RH2RiPQDDsNBXgNksVA=;
+        b=XqGTI6OUecTTaaf49qWDvR+vr2Vei3Sw0oVZPnz9BfHkMLJdwcL/zzGA0EGQY0grky
+         uy/08+N7oVRIw9WHLIlXQ5rZ/2pyH9p1T45RNy7ldqs+VJunQVqrInsEzSLJKFzdC+P2
+         04DbvXLUlhwy9vGSU469Oq5zkSdUQbkhC6owWbXuahelT2nxiAjyF1GcyLvhLNZeqlAl
+         b6E2LKhFnWZlJcHLgDulwwaIiFHl4AIPHsJvP3F7sy1RB/nevpfkP7iqFIOaKcI6JGaz
+         5X5GP4W5T3FLl5I21Ac85lgHGmwGpP25CYGRXkiBmKpG5iePIJiBmwk6kvldz7cJNCC1
+         wCyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793379048; x=1793983848;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gzV6WXzPcFzRX8VB8o7goTo1RH2RiPQDDsNBXgNksVA=;
+        b=ELTapK4Yyp5H4NVha/+ZVdKi9wOSdotiwHwA7pEbW9sJcr+fcZBkmX6Rr3Jelvrmxq
+         nQ7G3ECdYWqiN4QTX3EwX9P5WtOCL3xGq9iZskPFMPRAYEBCkaikFhBmJ4pdk2uvDqT+
+         EMxwjVzJ9Z4Bq8lVfKclXbibc0lKY2AnRnWU/dRiPBNT+1xDQLEPeAZDc1y7b5t+TAqu
+         KheyKzEIbtNC0VO7t3xZYqLmgNOMoAEtMpl7z2EPQJveeNSuX07rSQR1HLHx14kR1loz
+         daXTTgl6pb/ABX0tGyPh8w+ZwFfTV0qeeBgLs+B8DLXH2w3pr44+7DeH9p01x2tpAYVM
+         zbMw==
+X-Forwarded-Encrypted: i=1; AKwUvBwZXtt6h14NAvl584YIy10Gg7x0J0DAA587UEbwaAaGqP1z8p+H5319ABLecgsrFDobFfvgZOQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqKKT4FS9TTybY7PHQu/6mfgnhevJEryFSM+sqTW2ERW4SCLID
+	FUfufSxbMRS2jeSPkTs0RXpZSXtLUagKWC0HPROfLs6qCy5tpldnxow=
+X-Gm-Gg: AYBFou2M5FEMjhvHA0k7p7IoPKuq6bqA7Ta7YQnKndwQYNSEXVtjMJdcMf1xXIJN2bw
+	oP80g8LUm85M42oSH8fjs26T7+yn0ltQDLAeFZytNAsuUNClspl/0kaxrkPZBEdV0tDBZPnoECp
+	pKoTAHSn5qihE/dRC+7ADEDC7T79EwySy/94TgB4SCK4E77hyHbtBkq0Wc9LxD1zF0R3cMtxlNm
+	LNRYcR+E5fh4af+qVKedxMYyUBrLwUNZ7+kf2Dkr8ZT2Ouji4cOIprOyVbnS2Za1qA0Zg8FIeCj
+	fUvDMkPLRuaKjW9CgMo5NE1f1AfxvXORTMUykFs6kwJWuKjaayiNfsg0IF3hiLvXo+AUxgYcTaj
+	bIL3YipYiJl/EALOP5KCSgbQU99N5m0X6XJ7mVV5+AYtn2JtnGZVGhEmFCZ1j1vbpGf9K5JHQQW
+	3J2+Eoya7vlE5kkVT3tkLRHbS5V46V4GrpWbrIIH4Qpuk88H5RURPyx11QecYi3Fi2BrFE5USt+
+	7TCEq9lXxLpF5BHd2ojV1g7/7SIVRa9anCu/o95LywsBbtImIy/qlDLRvDmc0fWUn9JZli4y0yk
+	HUo4bbT88tAh
+X-Received: by 2002:a05:600c:848c:b0:4a6:42cc:bf65 with SMTP id 5b1f17b1804b1-4ac1709b206mr69703855e9.17.1793379047454;
+        Fri, 30 Oct 2026 09:50:47 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm94366765e9.12.2026.10.30.09.50.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 09:50:45 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v8 0/2] RDMA/rxe: copy send WQE to kernel buffer before processing
+Date: Fri, 30 Oct 2026 16:50:42 +0000
+Message-ID: <20261030165044.2799619-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,167 +99,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+The SoftRoCE send queue is mmapped into userspace. Both the requester and
+completer read WQE fields directly from shared memory, so userspace can
+modify them between kernel reads.
 
+This series copies each send WQE to a kernel-private buffer before
+processing in both the requester and completer paths, with field-level
+writeback to the shared queue and cache invalidation on completion,
+retry, and QP reset.
 
+Patch 1 covers the requester path (req_next_wqe).
+Patch 2 covers the completer path (get_wqe).
 
+Changes since v7:
+  - Patch 1/2: reject atomic write WQEs with oversized resid to
+    prevent OOB read in finish_packet() (sashiko finding).
+  - Patch 2/2: write back DMA progress before invalidating completer
+    cache on error retry, so req_retry() resumes multi-packet reads
+    from the correct offset (sashiko finding).
+  - Patch 2/2: invalidate completer cache in COMPST_RNR_RETRY to
+    prevent stale state after RNR timer fires (sashiko finding).
 
-On Friday, October 30th, 2026 at 6:45 AM, Maciej Fijalkowski <maciej.fijalk=
-owski@intel.com> wrote:
+Changes since v6:
+  - Fixed all sashiko review findings (2 Critical + 9 High).
+  - FORTIFY_SOURCE: memcpy into enclosing struct, not inner member.
+  - Copy size: max(max_sge * sizeof(ib_sge), max_inline).
+  - Opcode bound: IB_WR_REG_MR (was IB_WR_ATOMIC_WRITE).
+  - Requester: removed silent num_sge clamp, use mask=0 for invalid opcodes.
+  - Completer: validate num_sge + cur_sge, preserve smp_load_acquire state.
+  - Both paths: DMA progress writeback (resid, cur_sge, sge_offset).
+  - Completer: *wqe_p = NULL for posted state, invalidate on retry.
+  - Addressed Zhu Yanjun review feedback.
 
-> On Thu, Oct 29, 2026 at 11:37:20PM +0000, netdev-bot+sashiko@kernel.org w=
-rote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >
-> > - [High] At this commit by itself, the new first-buffer test `!skb &&
-> >   igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)` in igc_clean_rx_irq(=
-)=E2=80=A6
-> >
-> > --
-> >
-> > igc: only strip RX timestamp header from first buffer
-> >
-> > igc_clean_rx_irq() used to subtract IGC_TS_HDR_LEN from every descripto=
-r
-> > with TSIP set, which truncated multi-buffer packets. With this patch th=
-e
-> > timestamp header is only stripped when skb is NULL, which the commit tr=
-eats
-> > as marking the first buffer of a new packet.
-> >
-> > Link: https://lore.kernel.org/all/20260625-igb-rx-ts-fix-v3-1-99b3efa08=
-dca@aweta.nl/
-> >
-> > > diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/=
-ethernet/intel/igc/igc_main.c
-> > > index 1fb5f3cbe93c5..41b293dc10c3a 100644
-> > > --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> > > +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> > > @@ -2639,7 +2639,8 @@ static int igc_clean_rx_irq(struct igc_q_vector=
- *q_vector, const int budget)
-> > >
-> > >  =09=09pktbuf =3D page_address(rx_buffer->page) + rx_buffer->page_off=
-set;
-> > >
-> > > -=09=09if (igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
-> > > +=09=09if (!skb &&
-> > > +=09=09    igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
-> > >  =09=09=09ctx.rx_ts =3D pktbuf;
-> > >  =09=09=09pkt_offset =3D IGC_TS_HDR_LEN;
-> > >  =09=09=09size -=3D IGC_TS_HDR_LEN;
-> >
-> > [Severity: High]
-> >
-> > Is skb =3D=3D NULL a reliable first-buffer marker when an XDP program i=
-s
-> > attached? The commit message says:
-> >
-> >     Only consume the timestamp header when skb is NULL, which identifie=
-s the
-> >     first buffer of a new packet.
-> >
-> > Suppose igc_xdp_run_prog() returns IGC_XDP_CONSUMED, IGC_XDP_TX or
-> > IGC_XDP_REDIRECT for the first, non-EOP buffer of a multi-descriptor fr=
-ame.
-> > Then no skb is built, and igc_clean_rx_irq() moves on to the continuati=
-on
-> > descriptor with skb still NULL:
-> >
-> > =09=09/* fetch next buffer in frame if non-eop */
-> > =09=09if (igc_is_non_eop(rx_ring, rx_desc))
-> > =09=09=09continue;
-> >
-> > The continuation descriptor still has TSIP set, so this check strips
-> > IGC_TS_HDR_LEN a second time. If that descriptor holds fewer than 16 by=
-tes,
-> > can the unsigned size wrap here?
-> >
-> > The continuation buffer then goes through the new-frame path:
-> >
-> > =09=09if (!skb) {
-> > =09=09=09xdp_init_buff(&ctx.xdp, truesize, &rx_ring->xdp_rxq);
-> > =09=09=09xdp_prepare_buff(&ctx.xdp, pktbuf - igc_rx_offset(rx_ring),
-> > =09=09=09=09=09 igc_rx_offset(rx_ring) + pkt_offset,
-> > =09=09=09=09=09 size, true);
-> >
-> > In that case the XDP program would see a data_end about 4 GiB past data=
-.
-> > On XDP_PASS, the same size would reach igc_build_skb() or
-> > igc_construct_skb(), and the __skb_put() there does not check it.
-> >
-> > At this commit, XDP with multi-descriptor frames looks possible on kern=
-els
-> > with PAGE_SIZE >=3D 8192. igc_set_rx_mode() only clamps RLPML under the
-> > small-page #if:
-> >
-> > #if (PAGE_SIZE < 8192)
-> > =09if (adapter->max_frame_size <=3D IGC_MAX_FRAME_BUILD_SKB)
-> > =09=09rlpml =3D IGC_MAX_FRAME_BUILD_SKB;
-> > #endif
-> > =09wr32(IGC_RLPML, rlpml);
-> >
-> > On large-page kernels, RLPML therefore stays at MAX_JUMBO_FRAME_SIZE wh=
-ile
-> > igc_rx_bufsz() returns IGC_RXBUFFER_2048. igc_xdp_set_prog() only check=
-s
-> > dev->mtu > ETH_DATA_LEN, not the hardware receive length limit.
-> >
-> > This needs RX hardware timestamping enabled, an XDP program that return=
-s a
-> > non-PASS verdict for a first buffer, and a peer that sends frames large=
-r
-> > than about 2032 bytes.
-> >
-> > The next patch in this series, "igc: fix AF_XDP receive buffer size for=
- 2K
-> > UMEM chunks", adds igc_set_rlpml(). It caps RLPML at 1526 bytes wheneve=
-r
-> > XDP is enabled, whatever PAGE_SIZE is. It is called from igc_setup_rctl=
-()
-> > and igc_xdp_set_prog(). With that change, XDP frames always fit in a si=
-ngle
-> > descriptor, and skb =3D=3D NULL becomes a correct first-buffer marker.
->=20
-> Wow - finally.
->=20
-> >
-> > This patch is tagged Cc: stable and could be backported on its own. Sho=
-uld
-> > it depend on that follow-up change, or should the two patches be swappe=
-d in
-> > the series?
->=20
-> How would we make sure both commits from this set get actually backported
-> together?
->=20
-> >
-> > --
-> > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
-chset/20261028083344.3047350-1-p%401g4.org
->=20
+Changes since v5:
+  - Added opcode bounds check and num_sge clamp after copy.
 
-I did forget to tag yours for stable, so maybe the will satisfy it?
+Changes since v4:
+  - Resent from the correct sender address.
 
-I think ultimately, it sees all related bugs as one big problem in
-an effort to catch adjacent. My understanding has been that unless
-there's true interdependence of patches, ie. kernel will be left broken
-unless taken together, a series in itself adequately satisfies this require=
-ment.
+Changes since v3:
+  - Copy full queue element (max_sge SGEs) instead of per-WQE size.
+  - Invalidate on QP reset, ERR flush, RESET state check.
 
-Should I do a v4 to add the tag? Or can this be rectified through=20
-intel's process?
+Changes since v2:
+  - WRITE_ONCE/smp_store_release for field writeback.
 
-Paul
+Changes since v1:
+  - Split into per-path patches. Cache across multi-packet ops.
+
+Tristan Madani (2):
+  RDMA/rxe: copy send WQE to kernel buffer before processing
+  RDMA/rxe: copy send WQE to kernel buffer in completer path
+
+ drivers/infiniband/sw/rxe/rxe_comp.c  | 75 +++++++++++++++++++++++++-
+ drivers/infiniband/sw/rxe/rxe_qp.c    |  2 +
+ drivers/infiniband/sw/rxe/rxe_req.c   | 71 ++++++++++++++++++++++---
+ drivers/infiniband/sw/rxe/rxe_verbs.h | 12 +++++
+ 4 files changed, 151 insertions(+), 9 deletions(-)
+
+-- 
+2.47.3
