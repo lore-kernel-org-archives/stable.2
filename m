@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363074;
-	b=28zFWBo+4U9+d8n/+2mtl7Xo85jrLU8wo7BLxE38aRMcjE5TyZDmwrZeeVQenIVeaX/U
-	 T2crBv1YndYgvfmDOGELXVKLqfQkZS/HrCB7Qr3aKDEqRrWGlE9mlP+cX5dmNnhf/HtbA
-	 NyTbdBGiM+FqcV4SMo6F2rDd4mIE80G02y8IYodMDYl5uMIWZm2MOJBInQSneHNilDvu5
-	 EURDK983wZExq6wltAY8wClQgGnCMWSQtDhNRn92Zp5jrsr3bRsTW8eBKHuV7XfjWdUxs
-	 7vF292CYtUsz5c8iIVdcMOubX6HU+MGoE8W1UggQjkLJSUEruPqdJLoIf2npswn5GtA==
+	t=1793363084;
+	b=2BKfveEeVcgRAlL1HTuQ9cX6VGOaG4ZoIEL9+sOaCJgGYCLoq9f/jZQTsI9JLt1elNl6
+	 /RKqnrelirWIgjvoULz/T+aY9J8G0pyP3tCf/l7citFaz5MMWFlsS3AJreIctiCvfuuAF
+	 B41BsU3izJ90B8LjL9CFPZbho/3Q7KRK2WaAxIM/IL7Z6+BbzTKbfmu6u3qfyTvfOF61F
+	 2314s7hc5hYMeAe1p9F1E7Qqwvc0r6GfcS4bjG60rhlW4N+VWEpCrHgYmeV7JCg4mBLGg
+	 0UMl/RWY4GdcHHve9Z7yO2pcHC4slnFG1yEL8XazF6g9YqTHJj1AfrD3BcnrAoFy4VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363074;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/MXVaTgY+OR2LvT2eXa5bdJi/4faMVw3UstafV7VsU0=;
-	b=c5fCLZkEufzVSdLbAIGX5Oaq4T/1DnfZsZQZCrwdgf3TcB94WBhNCyvltXLWlUqp6XM/
-	 nVP0U8M8FW3RYLcc7o8b5IFHykIyQ/FQ64NLvoJX1OpyTGkIYhIaHFH3PYKkY6dDvOEpk
-	 vwygwWJuKIwamS/nWV32vVJ/1W+gP9Ms8LDtNaU/tf8m1o1+/Az19iEYajT8IDz6GeE+w
-	 lUjyWSj07+Y7V6BiStfon9ipWlS8VpRGCMchumLLxyh7KfoOtH4Ux6NGo/NCLxnzPFfud
-	 W8TAYKcAj27z/bQTTAnNb0VK6F28Myvse7jY50GC11lHeJ5uSCqvxnTfnrNtnN1DhFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363084;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=+yrymDp79FZjbqEueI9kZqfriu2oDHzO0g8H9zdbK7E=;
+	b=rVF6ulUxBs/XEhBy9dP2H/7M+EHnfi/MH7JQgpZySe/YdOyRY3/GCBlOI8WZcYrD2woB
+	 xaSYGCxc2yPdViuQoYifxePuE2c4N6l4F393QewYW1mGU7rFwCtXYFMwbZnfB7KF4Q4iI
+	 gm6+NyTFcgJhi6vlRdlLP/0GCiz/UAG5cX6IahOUNtHDNxyYSZu7JczjGHj1AYFybjLGN
+	 o58paWDPO6hPy4pw697ImuckXJOe377JbP/5a42FWig0m1LG6gQbk1igu3d71EbZwSqFJ
+	 MhB30ocXau/4CBBepgBSNBMTZynv4wKeQf4GOpT5DaW7TzWqhomwL53P8X0QExNopbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0oVWitw;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kDl7HVvK;
+	arc=none smtp.remote-ip=74.125.228.5
+Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D06606A323;
-	Fri, 30 Oct 2026 12:24:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D06606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9638B606A320
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 12:24:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9638B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0oVWitw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793363074; x=1824899074;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=2Xg0v6nWvINBmo9px4PhZ7L6GRxGud0XGYXsRIPPo8w=;
-  b=f0oVWitwyQUWit4Ncs+eaxW/DB/ZBsDJmi9+n97dQA6+RdsHxM8EPuHU
-   9t3WIaq/gi1Br+aEV+mGV/acdQfSdayB61/nBt34dUeiRw4vun9JZQuFL
-   nvPHBHw1dVenIUspaQaG20Dmzs8bZNsmni1mxEJzVKGWRdfQ93svxTqX8
-   LqQiynSgfhemBaqNL8DT+UZk9OD21PmAk1EKFcqoay/8fa9H9DKjF7RiQ
-   qzTTmHiyKkHMmurwC+k9eWRUuVldXLoKxwzDkYvCZov7mFf3cig8RECuN
-   8l7QRPUEvcx4R30l+En04tQ41mz7EUI6eoFCJQxA5K2g7qp/m6N216h6y
-   Q==;
-X-CSE-ConnectionGUID: Lyq5IQP7Q9y6yIRXjZaU6A==
-X-CSE-MsgGUID: OK5berg7ThODyQKDwdV8NQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2008390"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2008390"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 05:24:34 -0700
-X-CSE-ConnectionGUID: KA7TjK6zT7+r9k3zzz9msQ==
-X-CSE-MsgGUID: Vg8pKREISQyKO8uSRBTOVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5825649"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.245.230]) ([10.245.245.230])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 05:24:30 -0700
-Message-ID: <b8d821ee-9208-4429-a459-6270b31db191@linux.intel.com>
-Date: Fri, 30 Oct 2026 14:25:04 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kDl7HVvK
+Received: by mail-pz2-f5.google.com with SMTP id 41be03b00d2f7-cdac0ac5f19so340823a12.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:24:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793363083; x=1793967883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+yrymDp79FZjbqEueI9kZqfriu2oDHzO0g8H9zdbK7E=;
+        b=kDl7HVvKhavC8dBhxopELEbRq96LLaI6slGnuyyzzpW6HiVfGW+5iNPWoH9zW/heUE
+         w8JVowdf9BDkIaRkb7XkvY6hKwgR0yzPfsDWcGZ/TEK3ir2aGz2DFMTmEl5ZhJjIRj65
+         IaYA3vc9JbhxAqMO4AE7rw37++O1oUWN3Nmqcedd8UaAiPLTaFv3cdQA9uxOBqo02BDu
+         ss3CrAEcE9GJBCtpgMGVvQtPYxRYHv/K46Bxi/obXBWgOIplzdfvA+5nCQS18C+R5zJo
+         1LWEf+wYAQtEBy64hU04DLZ9zd58muabV/fqQF+M8lsvlA7BwXW74bgmo1u6xwlDDvrO
+         Yo8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793363083; x=1793967883;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+yrymDp79FZjbqEueI9kZqfriu2oDHzO0g8H9zdbK7E=;
+        b=I6w3xPzqTif6HSqehcddMLUEzgvlaRTPylqnOzc8D7zwSxNpA0WjZ8ziH6erTtkj3s
+         vZKn8lJDd+Jaak3ktRDmkUq2Z9imYgyXhQkFxcOIvG0UQXFXw4mChAl1CRXx5rcq1xOX
+         y46q0xGclly5akvTDMDkJ6hvyc4mT8bwnYJaUGs2h3FXDaBplX2rHsUb4GMym9qcmSw3
+         cVQ8Lm2+hP5IXY1XTu6WER46jiMBZtaF5jd35YXDHhlNbuHk3+0eJ3vVNDGkvFVaLJ5E
+         KEvDN6amFxwk1f5bVuZnP1552VdKBVmaR5VpQKnWJ5Ry07NFHhH/t9olaJmDXNHrUhol
+         BPdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOE9LcygJ3Sh7Jjq7Ryui6qCrn/1xzgqFEoHV0NuFyNNUKLt3ul6kYrhOnufksUujyKFDs/Zo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIILeOZWDSOq5ydL7s4PMjK1gQTdbeccvyWbJtLJ0ZUe59JUQ9
+	vkln+aTMQKDO4ydo9Vutjpr+xj7zUEncgnlRY9rm/jIR4Fupm7Johptf
+X-Gm-Gg: AYBFou3kl3QYMKqQ30n0J/8C1psnIfPI/lkFaqiUHwUcJVGlC4Tb4QP0G2U+NOsE4Dw
+	8aXLpiplztgmEqS5WFubfNGCBswKHRIPgsJZpa7SsH7cyJSllVdXf2guvEUIOAzQm9YpxYn3qcM
+	ghmxcbumYbzQUMVjNusiEJjIijsm1jCDXuKJOnSjsQS3M0/oynjbULA9YQbVCSuAHT1sRKjYcOr
+	q5a6gL4fYBMg5hsWDOB9/pjuF5weEIA9qXt5K+kf0BYiVvEDzjpYloQjUULZH8RSfwGaqklW/gN
+	rpYk9vCxPd4vH7cNptXs5snFBJdSoPrvMB1rvvPe+C4e/7n6QLHu8iT4j7bceS/c2uAR29p6Zlx
+	yQiG42kyFsu9gfA0vpnFWLiViZKvTdG9LU5e/fKHYjqEMjai+BgrLqpqePmhYa+u1cAuWLIR2+E
+	ngt1y8W7h1k5sO2IUEns5POJ4p63OVFo6lHlMmde8qKzflcUsJCQ6w/2CWziGUmQEJ1g6yeMqx7
+	eMD2GEUTi7jZxzbFRBD9FMvhvhtod2XOHXqYJgW4xNpwAEbdv4BtTNcpGweVOXAbo/OXxmS71V2
+	AS1DG4XrTyNWykONPzpwD8oBrJpXF4TGacCzA55pjM9VAUK4WK+oHiWuqA==
+X-Received: by 2002:a05:6a00:2d85:b0:873:f7a4:433f with SMTP id d2e1a72fcca58-8a9bea6ad35mr1985118b3a.26.1793363082777;
+        Fri, 30 Oct 2026 05:24:42 -0700 (PDT)
+Received: from 192.168.1.3 ([2409:8a1e:2331:2850:d40c:1fcf:6319:8524])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a9ef56b38dsm687929b3a.31.2026.10.30.05.24.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 30 Oct 2026 05:24:42 -0700 (PDT)
+From: Rongzheng Wang <testwrzwrz@gmail.com>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Jason Xing <kerneljasonxing@gmail.com>,
+	netdev@vger.kernel.org,
+	Magnus Karlsson <magnus.karlsson@intel.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	stable@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 1/2] xsk: defer software checksum until the skb is complete
+Date: Fri, 30 Oct 2026 20:24:34 +0800
+Message-Id: <20261030122434.91530-1-testwrzwrz@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <auSF/bDmOW0Y7T4D@boxer>
+References: <20261030023248.78802-1-testwrzwrz@gmail.com> <20261030023248.78802-2-testwrzwrz@gmail.com> <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com> <20261030084017.16202-1-testwrzwrz@gmail.com> <CAL+tcoBThTe7299eVU=tsUdi392dS9cioXX5RA5AKRsYAGbdVg@mail.gmail.com> <20261030094633.27910-1-testwrzwrz@gmail.com> <auSF/bDmOW0Y7T4D@boxer>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,72 +104,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/21] ASoC: SOF: Intel: hda-sdw-bpt: Stop active DMA
- before closing BPT streams
-To: Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Mark Brown
- <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261030104840.3361217-1-lee@kernel.org>
- <20261030104840.3361217-6-lee@kernel.org>
-From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20261030104840.3361217-6-lee@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Thanks for the review, the suggestions, and the Reviewed-by on 2/2.
 
+> Can you stop removing all the previous conversations and rather reply
+> inline to related paragraphs?
 
-On 30/10/2026 12:46, Lee Jones wrote:
-> When sdw_enable_stream() fails in intel_ace2x_bpt_send_async() after
-> hda_sdw_bpt_send_async() has already started the TX and RX DMA streams,
-> intel_ace2x_bpt_close_stream() invokes hda_sdw_bpt_close() directly
-> without calling hda_sdw_bpt_wait().  As a result,
-> hda_sdw_bpt_dma_deprepare() tears down the DMA buffers and BDL while
-> the DMA hardware is still running.
-> 
-> Disable any running TX or RX BPT DMA stream at the start of
-> hda_sdw_bpt_close() before unmapping channels and depreparing DMA
-> resources.
-> 
-> Fixes: 4c1ce9f37d8a ("soundwire: intel_ace2x: add BPT send_async/wait callbacks")
-> Closes: https://sashiko.dev/#/bug/linux-ff0012de-abdd-4796-875e-b1fbbf47235f
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+Sorry, I'll reply inline from now on.
 
-Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+> I don't think v5 is necessary. And as Jason said you received 3 review/ack
+> tags and none of them got included in v4.
 
-> ---
->  sound/soc/sof/intel/hda-sdw-bpt.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/sound/soc/sof/intel/hda-sdw-bpt.c b/sound/soc/sof/intel/hda-sdw-bpt.c
-> index ba9fbd662b85..9d97d8676251 100644
-> --- a/sound/soc/sof/intel/hda-sdw-bpt.c
-> +++ b/sound/soc/sof/intel/hda-sdw-bpt.c
-> @@ -456,6 +456,12 @@ int hda_sdw_bpt_close(struct device *dev, int link_id, struct hdac_ext_stream *b
->  	int ret;
->  	int ret1;
->  
-> +	if (bpt_rx_stream && hdac_stream(bpt_rx_stream)->running)
-> +		hda_sdw_bpt_dma_disable(dev, bpt_rx_stream);
-> +
-> +	if (bpt_tx_stream && hdac_stream(bpt_tx_stream)->running)
-> +		hda_sdw_bpt_dma_disable(dev, bpt_tx_stream);
-> +
->  	/*
->  	 * In the case of SoundWire we need to reset the PCMSyCM registers.
->  	 * Need to continue depreparing the DMA buffers even if this fails.
+You're right. v4 went out before Jason's tag arrived, and I missed the
+other two tags from v3. Since you don't think v5 is necessary, I won't
+send one; if there is another revision, I'll carry all the tags.
 
--- 
-Péter
-
+I learned a lot from this patch and from the review feedback. I'll be more
+careful with future patches and wait longer for reviewers' feedback before
+sending the next version.
