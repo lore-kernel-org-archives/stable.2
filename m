@@ -1,56 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377130;
-	b=fGKN0I/5UR67xHlfWV0XkZ2Z9qCWYwi6iCVHJ9nn+O+XIsenkiM4hyhwZj8dQkPXttXk
-	 hNlWS+sApfyVDSAMShtMT2rvKT3ZMrb80iMH1aT480gtbWqSAN7v0LIp36MrR/DqEsN9+
-	 kIthIoKLSMGjHYpp79785fdF4M2noUrm1+3HW0AraIeHTVT99UQ9OIjMWnEuvNCkqfuyb
-	 JxFLnV7mjpo3qZ+gSZQjQJyZyVIG/w9Pb80M9HJ1w0p2Wqt5iyU8Ey4wHdGeMOdZ6SWPc
-	 iYLanBwszhonqtXngeEgPu6OxjTmYAac8nFvlLA2clY/sD6L1PFghz1PCFNZ/UPSCpw==
+	t=1793377158;
+	b=sy1Uc9CcNujjPI1paYK8hSN/bSCGPRPaLozuI4RmnlDZoJwhTEqTSwu3GEEDx8JZHVS5
+	 FlPrF3COb8lH7t/DqrCtb33E987cuUcLvssmcJAECJ00vhxqivtV0Gxu5At+LJFM1VKZ5
+	 uVn0iExORWdSmcmxz6Z2F9Guo97NzXc0apyRxMCI5chsZexGRnENInyujnVnW//+zcPnx
+	 JZAEtEn1r7nb2CtkKPDXiiA+i5niQchQzhSDzQnWXxr98OWT2T5l8ll50/ELBa2JxAt9F
+	 Ut0Zy5mWsa0gUjgbWpMwJjVq+xfkthNS55FGe+3HBzB5oXIYMAY/IPzr6Tj3jDjya2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377130;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=QiunOZWJx+P+5gQcCuYIS7lFeRX3edP9D5k4etkLsa0=;
-	b=ar6FrKNYx+V0EwQFXyrGFYBulE62BRZ7dT3XL0jNf2Mp2zhXG3RSxZQ2d1tLUoWvGF8c
-	 Z3+ouWcEBOyCLdjQ2a7C0utCIt3KuAn+gNnfVMpR1stPm+dYI3UVulhAuvP4Evcq4c3mG
-	 NO2J8WSYLayrGg1A9oyPGybYizEjS5dGxlYJIf+cMO+PAerTZMyNt3npuz91FgIORghyg
-	 sfWjYsDCnpDwuh5wG0ywaMtoDhCP8S2ydDGFpfD7ns+8Vrhzmyq5cclqDQqzyqf02fFol
-	 oHW2apSYj7+rSmnRotxu5Weu++ReREsyyYb5g+RHHmxdFXBdJfaaN9R0IS0NT1akB2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377158;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=RxROFSyFWRH+6gE4hjBVL+rigwOtdEpYHMih5SK0RW8=;
+	b=nouAVCypIUqFqRuvz71m7VnuTN8311GEPlCi1cqyXm+Tr6xGj+SOFmwiYTO8psmL0SVA
+	 SxSUuEY53wPQQ6HgMcGyPngmk/ny2rZxV3VIMwBJ9bwXRxbzfZ+z9dzQOJ0VJGCKuTKq5
+	 dhAYr2LDPbyljoH32r9k/QQITUNas7bZLLWRxdfdUtNl2bEyvzF5csRalIjM7orJ/FylG
+	 TSDt3D8fq5rMHJLnQWN2tRCWZgziF3WGJo7pI58Mfk9WhVZ6EPSC/DKMV5Sypd2oRRXmj
+	 gHcD/eKG5WYZbjJtQUClAZrSTH/3TBsj8aOITUdkc6L4k29r2kp+SSwSWyO2OJHe2fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hK3vCiYx;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fes0PrLT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2021606A324;
-	Fri, 30 Oct 2026 16:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7F3606A31A;
+	Fri, 30 Oct 2026 16:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hK3vCiYx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB561F00A15;
-	Fri, 30 Oct 2026 16:18:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793377129;
-	bh=QiunOZWJx+P+5gQcCuYIS7lFeRX3edP9D5k4etkLsa0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hK3vCiYxVd5d68ZX+j4+jmqrQO++VKvRotjb4ascRXLOIkjCsAsmVGzml20dOJ2L5
-	 21NqVJoTn0/c86x1Ah8Di4xbpagHabKkfEofhe20JZBYDh1FlvZDAE7Fq0KWq8oWWg
-	 wwz9gy0/RWSLtud5i1zkky6bAx7N/PavtuDi418bY6pkt6cWi8+DpTf1Cb+TYMWxBs
-	 J3P95pTvQqZv2KJOZBiwwMPP4WLBZo7rJE49cVI7oNO3XUUP4z+NMXcYEsJaUi4PAB
-	 neCWv71XjQNjvbndWPXK2spv4TF4QFIMipttVGK7aaOZeOPbAZq1q/fojM7mS5DMpB
-	 uo7T5N71bXzWg==
-From: Christian Brauner <brauner@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
- Daehyeon Ko <4ncienth@gmail.com>
-In-Reply-To: <20261030-work-dcache-obtain_alias-v1-1-a1f7e44536d2@kernel.org>
-References: <20261030-work-dcache-obtain_alias-v1-1-a1f7e44536d2@kernel.org>
-Subject: Re: [PATCH] fs: don't fail __d_obtain_alias() for unlinked inodes
-Message-Id: <20261030-senkrecht-nahmen-bewahren-1c6cba73eb7a@brauner>
-Date: Fri, 30 Oct 2026 17:18:46 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=fes0PrLT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36AAB1F000C1;
+	Fri, 30 Oct 2026 16:19:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793377158;
+	bh=RxROFSyFWRH+6gE4hjBVL+rigwOtdEpYHMih5SK0RW8=;
+	h=Date:To:From:Subject;
+	b=fes0PrLT5rOWYCHMcsy7O50mp3X8UYDVMMpUXsZzLrMDlusv5JYbZ4Fm/fIV9KaPF
+	 /OyZ/UFVYs+mlXABMauOSDe/W7RR1hTvVM0NQVE2+effTiL5dS3/AdHyOJJ1k9Bxxm
+	 3YloRsrZIHj5sqLvKqMp5RgpSbT97tKi68g8vcLs=
+Date: Fri, 30 Oct 2026 09:19:17 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
+	stable@vger.kernel.org,rakie.kim@sk.com,joshua.hahnjy@gmail.com,
+	harry@kernel.org,gourry@gourry.net,david@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-mempolicy-use-one-node-set-for-interleave-weights.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261030161918.36AAB1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,36 +50,110 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-ce4c1
 
-On Fri, 30 Oct 2026 16:55:52 +0100, Christian Brauner wrote:
-> Commit 669bb5af15d4 ("fs: make sure to call fsnotify_inoderemove() only
-> once when inode is dead") did two things. It made dentry_unlink_inode()
-> call fsnotify_inoderemove() only once the inode has neither links nor
-> aliases left. And it made __d_obtain_alias() fail with -ESTALE for an
-> inode in that state so that open_by_handle_at() can't create a new alias
-> after FS_DELETE_SELF has been reported and the inode marks are gone.
-> 
-> [...]
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+The patch titled
+     Subject: mm/mempolicy: use one node set for interleave weights
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-mempolicy-use-one-node-set-for-interleave-weights.patch
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mempolicy-use-one-node-set-for-interleave-weights.patch
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-[1/1] fs: don't fail __d_obtain_alias() for unlinked inodes
-      https://git.kernel.org/vfs/vfs/c/a522dd871024
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: mm/mempolicy: use one node set for interleave weights
+Date: Fri, 30 Oct 2026 12:10:46 -0400
+
+Switching weighted interleave back to automatic mode while memory is being
+onlined can cause a kernel divide error on x86, and a panic if
+panic_on_oops is set.
+
+reduce_interleave_weights() scans N_MEMORY three times, but hotplug can
+cause N_MEMORY to change at runtime - and torn reads on that nodemask can
+cause a total sum of zero bandwidth.  A node that was hot-unplugged and
+then hotplugged back can then cause this loop to generate a div/0.
+
+Record the nodes visited while summing their bandwidth, then use that same
+set when scaling and reducing the weights.  This gives us a consistent
+state even if N_MEMORY changes.
+
+Link: https://lore.kernel.org/20261030161046.1497894-1-gourry@gourry.net
+Fixes: e341f9c3c841 ("mm/mempolicy: Weighted Interleave Auto-tuning")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/mempolicy.c |   13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+--- a/mm/mempolicy.c~mm-mempolicy-use-one-node-set-for-interleave-weights
++++ a/mm/mempolicy.c
+@@ -207,15 +207,22 @@ static u8 get_il_weight(int node)
+  */
+ static void reduce_interleave_weights(unsigned int *bw, u8 *new_iw)
+ {
++	nodemask_t nodes = NODE_MASK_NONE;
+ 	u64 sum_bw = 0;
+ 	unsigned int cast_sum_bw, scaling_factor = 1, iw_gcd = 0;
+ 	int nid;
+ 
+-	for_each_node_state(nid, N_MEMORY)
++	/*
++	 * N_MEMORY can change while wi_state_lock is held. Remember the
++	 * nodes contributing to sum_bw so all passes use the same set.
++	 */
++	for_each_node_state(nid, N_MEMORY) {
++		node_set(nid, nodes);
+ 		sum_bw += bw[nid];
++	}
+ 
+ 	/* Scale bandwidths to whole numbers in the range [1, weightiness] */
+-	for_each_node_state(nid, N_MEMORY) {
++	for_each_node_mask(nid, nodes) {
+ 		/*
+ 		 * Try not to perform 64-bit division.
+ 		 * If sum_bw < scaling_factor, then sum_bw < U32_MAX.
+@@ -234,7 +241,7 @@ static void reduce_interleave_weights(un
+ 	}
+ 
+ 	/* 1:2 is strictly better than 16:32. Reduce by the weights' GCD. */
+-	for_each_node_state(nid, N_MEMORY)
++	for_each_node_mask(nid, nodes)
+ 		new_iw[nid] /= iw_gcd;
+ }
+ 
+_
+
+Patches currently in -mm which might be from akpm@linux-foundation.org are
+
+openrisc-export-mulsi3.patch
+mm-mempolicy-use-one-node-set-for-interleave-weights.patch
+maintainers-add-ipc-maintainers.patch
+profile-account-for-partial-proc-profile-reads.patch
+profile-simplify-proc-profile-read-layout.patch
+ipc-msg-clamp-negative-msg_info-usage-counts.patch
+drivers-media-v4l2-core-v4l2-vp9c-reduce-inlining.patch
 
