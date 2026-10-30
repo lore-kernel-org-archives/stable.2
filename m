@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793319614;
-	b=4YiCCv5CngZMqoEtOqhdo1lreY05R9RkLFy3d2nEUNCBYUKH15+qywkykUKL+wKZbYWa
-	 uCrpAG8n9EukV6EnsyB9psrneElaPANXxo6ivGNzLYqunaD7CTrRf58dSKTaTW5flpVkJ
-	 ZkAFJgX8hBl/UZYMDaT0+g8chSZpGMvc+WaQJCn6RwSbj7lcC+WQ1oejtwgF63kTgAQxr
-	 oQdMw6uObYCzqJXXLRYWowyzQ4U+tirkIqd4+40WFKUn+Til2AdYn6CO2ntg0snJMzeD+
-	 1+61mABJK8bo+7BXBm9h61txvhmAX5abfBl024JUMSZBMMgEOBLNfqcpML6Mp1ayF9g==
+	t=1793320483;
+	b=CFx3KKxWKkApu+wZGvzCokCcDKhWLLRzq0MeJBmwu4M1G7Z7pXn486UDcMCEBJANzR7x
+	 oOxhfoBefTleT8nj7+t5hH24p/5JV8jLpktQ56qlrNZqPKcL3BNroDtiRu8M7JQ4P5fle
+	 ss+aiAK5p09p87BbIYib+wYuGv1eh3uvt0Z3oVcXc+cMREdJA9oTX4NzYbAenA+4fJ7hR
+	 2VjfvKttJ0cIk4Sv+XmjpPexcotOm/wb54ClOvYwfVDz/a3DgOXsPOObc2/Ab6aBLOanS
+	 l/sRwXWKwKCfIGpoxX3in+FNsYjhVOyvdI+m5nle91BaPOJXoA9VfOhAfwfQkZ4T72w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793319614;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793320483;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gUNDzrcBQCofjPtOZhO0zF/6BwtiodHnLN9kfJEdKls=;
-	b=UMXouqIgSYYfJt3d7hYUpGrMrauHm1eGUQN+3IdzYVv5G7DwEaEpc/KcqMT9j+vlL+H6
-	 AtTr6lUXIQkOaeqqGAVba2P4LN6+bGfi4mmjyc7azqIF4C6iXkdWqCJg3jBxOD1WIV7fF
-	 UF4z1iAG0Qwhi7US06K0l6te14nl5bhmVc5vUm+EKx3k97rU0RJNWZmUIE5maCsZ90YBN
-	 qmM3KjbhZ3Wjh1v1xvpGPiWjl90Sec7Jvon2AmvKnDiAKw9Qxl7h0/WFS6VwvKxZ8AbrL
-	 xP0mzc6x0gwCQT6P4nAF4SXzQ8D+JDjdV76ixm9iZJrfRiB3QysjOjPW/BhqADJOojg==
+	bh=J6qvhedKX/gt9L39bpVgRBd7A0g16i9D1HZNiTvqkfw=;
+	b=DNxJpkOumPZvK+vLn0MMJY8TBE8E4RAO2sUhVqYzq8PUGneH6AX9YFG996RJt70tEutH
+	 03s96UhPmGwCobKI61KIpVjQjpbHsI1W+f0XB1j3Z0ODsrn7DrQCX3Wq+oKdN6MujFZ2i
+	 90J+Zek8DiVXgKp8FKRL59kmhjhfBNQ5mDYI0Kwvh1eGT0GP1ujrg/1k6mxVlL3whxUVH
+	 lylF9EJGA44yTtrCDaA3PvXjjR2oD8JVWPUmHUOaZUuq9LRWKVs/f8+3F2J4JKTV+4A7E
+	 4dpzYb+xl/8D1cpnU2Yt8p1tKfWt8e73pUtsvWb/OHg7F3hkKzsgd0pXOgVgoaHr+jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMv7mkSB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DduHRuPY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD94F606A31C;
-	Fri, 30 Oct 2026 00:20:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8543F606A31A;
+	Fri, 30 Oct 2026 00:34:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OMv7mkSB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E86C1F000C1;
-	Fri, 30 Oct 2026 00:20:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DduHRuPY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03BF11F000C1;
+	Fri, 30 Oct 2026 00:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793319613;
-	bh=gUNDzrcBQCofjPtOZhO0zF/6BwtiodHnLN9kfJEdKls=;
+	s=k20260515; t=1793320483;
+	bh=J6qvhedKX/gt9L39bpVgRBd7A0g16i9D1HZNiTvqkfw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OMv7mkSB943eqjxfOdTCTqRn8rnHCaFZTrdaPeB0aIFCob3E3fqLF62qDpAEPjHQA
-	 B3xh+10xm0pLuUYynSQpI6Nhgsdy13RCNCEvL/EsGdSb7FWvxPCUQBVJ/KVoki3Q3j
-	 A7o8d2rcIlBgQP9lheaOYTIDrvi9q3rsoE+zz/ApHV8bjiyRYYLLaUYBuhT5JdA0R1
-	 w7mbCA1lQdx5BakPTjA+ZD87OkbCVKcnrx9v8R9+8bKdOhFqSO1ssMBMBUYRkSn/Kv
-	 BpHEmrr7LDOBQR8TBi9SkI1IJdsaRv8CC3SznbrHhfqdDWrNhiMX7QP/0o/p/4lUxU
-	 b2bHyvWufwEuQ==
+	b=DduHRuPYmFLQVXIsNcNjApO97/T8X2q8UAfCyYP1FbDA55gYCiFqIxgKlBRMzDPCT
+	 Eqs2Hx8NW5JNHHOwoaWAREmZ9P3g0DpqSD6ZIAALIBan8uNdEC7bloNBM6ojVGEYVk
+	 FENFOG2Gdb/Pe7A0j+ozRR73EUaDH16qGjtXlvUo9kWAgkt1QHi+VdagnEw8C8T74j
+	 Yr8bysC4D0OxTeYJFfW5QuO9Da+Ehdf3XvdtWlh8G5C0H/tFFCwNzQnltS9dLOayxj
+	 OH44Anbtpxbx/w1SEQjMZhJc6+ynBnLLft0fXjVDgMDV3v73CICkPnVUjb7wRDMMx3
+	 S8ms98yTtaxtw==
 From: SJ Park <sj@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: SJ Park <sj@kernel.org>,
@@ -104,14 +104,13 @@ Cc: SJ Park <sj@kernel.org>,
 	linux-fsdevel@vger.kernel.org,
 	linux-arch@vger.kernel.org,
 	linux-cxl@vger.kernel.org,
-	Josef Bacik <josef@toxicpanda.com>,
 	stable@vger.kernel.org,
-	Muhammad Usama Anjum <usama.anjum@arm.com>
-Subject: Re: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking PUD and PMD tables
-Date: Thu, 29 Oct 2026 17:20:03 -0700
-Message-ID: <20261030002004.154595-1-sj@kernel.org>
+	Josef Bacik <josef@toxicpanda.com>
+Subject: Re: [PATCH v2 02/47] fork: take mmap_lock before copying mm_struct
+Date: Thu, 29 Oct 2026 17:34:33 -0700
+Message-ID: <20261030003434.154864-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261029-fixes_core-v2-1-a64ce7f83abb@kernel.org>
+In-Reply-To: <20261029-fixes_core-v2-2-a64ce7f83abb@kernel.org>
 References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -124,58 +123,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-'get_maintainer.pl --nogit --nogit-fallback' suggests adding below recipients.
-But I can show there are already quite a number of recipients, so I'm just
-noting here.
+On Thu, 29 Oct 2026 21:32:57 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-- Brian Geffon <bgeffon@google.com>
-- Oleksandr Natalenko <oleksandr@natalenko.name>
-- Steven Barrett <steven@liquorix.net>
-- Yu Zhao <yuzhao@google.com>
+> dup_mm() copies the parent's mm_struct before dup_mmap() takes the
+> mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
+> and newer heap mappings, causing later brk() requests to fail.
+> 
+> Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
+> cause inconsistencies.
+> 
+> As a simple and robust fix, grab the parent's mmap_lock earlier. This
+> way we don't need to update individual mm fields in dup_mmap() and
+> keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
+> exec_vm, stack_vm), as that is now no longer required.
+> 
+> Keep releasing the parent's mmap_lock in dup_mmap(), before
+> userfaultfd completion, to avoid moving the userfaultfd handling into the
+> caller. This should get cleaned up later.
+> 
+> Move uprobe_start_dup_mmap() to preserve the lock ordering.
 
-On Thu, 29 Oct 2026 21:32:56 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
-
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> MGLRU passes stack copies of page-table entries in walk_pud_range() and
-> walk_pmd_range() when walking to the next level. These copies can become
-> stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
-> table concurrently.
-> 
-> This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
-> support page table walks"). Likely, earlier locking masked the latent
-> bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
-> retract_page_tables() without mmap or vma lock") allowed concurrent
-> retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
-> for MGLRU") dropped the walker's outer RCU protection.
-> 
-> The fix is simple, so just fix the original commit so we don't have to
-> speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
-> RCU-protected lookup and validation against the live PMD. Note that the PUD
-> handling is required as well to handle folded page tables correctly in all
-> cases.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> [ david: handle walk_pud_range() as well, clarify+simplify description,
->          adjust Fixes: ]
-
-Looks all good to me.
+Looks good and makes sense to me.
 
 > 
-> Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Reviewed-by: Rik van Riel <riel@surriel.com>
-> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
-> Reviewed-by: Dev Jain <dev.jain@arm.com>
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
 > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Kairui Song <kasong@tencent.com>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> Reviewed-by: Rik van Riel <riel@surriel.com>
+> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 > Reviewed-by: Barry Song <baohua@kernel.org>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 > Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
 > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
