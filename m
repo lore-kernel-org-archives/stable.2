@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793318963;
-	b=gbvSwOAkoFzcxtlmnjDyrVb4olSH0mPsQfBYV3EFii9P8MEwvYjEEwBnQRRF57S0Z0QW
-	 xBwEsQqc9b6gRQzTLC76uiFxdCtz95tpUwAixSXxz2YV/8JEp8a238Pq2GM7/DeHkoKlU
-	 jSOAd9+1MqScozBU/nnAYB8b1oa4a7ygc9Ev/OSHiuD9sUJUE9OepG5Esvpn5g/F4e6Qg
-	 s1V3H4qQGCuge7PSlf7UvHq2Puhe9CNyD33rliyd8Ww66Pma8+qNWLcWivVxP1RsAmieB
-	 5By+TmSdnG7bE5v3/25Nh6CJEDVJnm+nFQL+mfBa6vPrEIMQF2qUIeYsiBeiwvg1Iqg==
+	t=1793318962;
+	b=huvue5wjNoWgMZZzRDbiuG90fAMcepSy70cq/9nq5tJj3TMDRIySsnF4RCbrIJ1bdSDD
+	 DMhZvUQbe4P/Sz94cfNLIPAENT0pxSuH8CdJKNKXi5hLl5fCDMpbC3tgWSw1BYdMTf6G1
+	 b6Hcl5bik75+orZTZkx+yMhubY+kNMazl+WDdXI90BCjoWhVNKXlna85efU6XERmqlDHW
+	 oy/efHqX8409ZF32pJVKYF5/1DcoZmCSKgrMdBbPBBGIkuCwg4/n+v0TNmXyHuhTaRO5e
+	 PVO3tz31Fk3grC3vJO07rtfovdEq/QTNWl4OGZAGEccR/5eMbN5eUiDT/UQnaTlN9QQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793318963;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=PRp80+j4dxgVQreDUCFVgZ0Tk5+EyF6uJ/o0IBrBiaE=;
-	b=s9+U1bZ7yoG/LYx1OXanh/lCYpO85VlaGaKwsSuP0kQBCcjYBJun8tGXPYAQ4B7DwSQC
-	 O2kR0SuCKtwcacikuBvHOaLdTuRa7yOmbiWPsfwPhztSQCsnViXkYDvTqgc9g3KNRrcV3
-	 dsBIVxCnU/SVjpfZF6H+vEYjbKKic+B648Olb5sbF2e3u5k9EzokI+Ahg1foxb4hU3PaB
-	 1/WpflObNXczQ2LMKDieS1+E1voz5G+e4td7rbSS3ABzqU0lCavEHjRiyHN/fR4HmxcbW
-	 mG+K39tLdeKDp/3/8s8U6GHiEtt5ZC5yFpT6bGSS1LVPnKA3HCTN5q5SxeokPzXELKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793318962;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=79fJ5zsQRH5ZFuAEfEZbISVjHVWUFTm3gRl221dNcnw=;
+	b=eL+UEuM6NWapdIIloxuQLBTSuZr6Sz0hLWsUn7BBVRZ2iAS9B/7z9OBnE0GeIB5Daqnv
+	 aPHUIAGcm9xLjqtBobZO/4FBvGNE3csZKBDXW+PSh1dpwa9J3oIDFQdzJcBJqDN1I+AVU
+	 VzazF09zweeyH2OhyAUkVtUrNWvYRMYA0cMVmR0X8Mn+UWydPMxyahTZDOtihgmkDiI7G
+	 TUYWabJSRshtMKEF7tviJXOduaPNHAd+lthP/MFGTX3nowjS7ot+qFeh7aCp5mTm1WwNP
+	 KD0JDWfe6+mvwQM9zycFdbPmx4Xo4Hw8/vTm8fLajGDj877mVzRoqfkNQYkf0Eq5Lzw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fm98C7WO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doYn0Rdf;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4BD606A32F;
-	Fri, 30 Oct 2026 00:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08434606A31A;
+	Fri, 30 Oct 2026 00:09:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fm98C7WO
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=doYn0Rdf
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793318963;
-	b=ZwcBaW5K2yTw1/AKBb19CRGe4eqrq/+GOTRYatPDh2TUh/bpfJbOFa5rVKFgPHa22efp
-	 NdIDZgv9i47pm8dd0fXD5bWdw76AGYDm6wUiuSpjQZj4TjXBdb/xXAjemwlslbtAx08Dw
-	 YCqWfI6moMCduhOEuGE5If3ISWnx1lMRT60XEfJryldbzPrjb2pO2lZtBfRM2zXOhwMRn
-	 R1oNXi0IKtaumPGyiFyXiv1MjOTXStJBBZy6vLhlLjmXVccJPI22qxaab0hjbUxMrGVcp
-	 3jDLJakns9CLQwydoEefX/ZWHeYII/Qz4ovPRApwKiR5mo8197Y0uEH1vf5lLiy1ckg==
+	t=1793318961;
+	b=gV4DjMtSSWHNruCZEguAbVsatzIMdY4Y46BsFAQEeX+akoDGRe3M+O7mgp7jKOcLhp4M
+	 2OsX2mxnBkIZO76LjihT50M5vADDusvxwS2meabAxlQYmo2SKNt1EbbxaVbVY10jRk1T8
+	 0rFJmHOAD0uYoRZnE7NJSv+DsMIADZHxjX4kcaRrQJLs2sMBaPv6W7fmcBT13MkiYHGAh
+	 LaM8oeuXcVTv6vnAm4Avk6vsZag2kTVPf0TgVYd9nGHrvIxVmVUiVcfbStE9ZU+f2gthq
+	 KZAMh7Ijk36c7S2DeryypT4+H78F0cnrDlQNlgb4ANqdxzcjygVfTnpON/KaTYwPo+w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793318963;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=PRp80+j4dxgVQreDUCFVgZ0Tk5+EyF6uJ/o0IBrBiaE=;
-	b=f6RVkhtbT8CsIST9xhxIxh07fiOe2uOlmIUMEBPgIMB/GXLz2D7N1nbp431KArUlCz0B
-	 90Pcw9ju42Fl/WZYP2MaHPlrFsnVKt2mD35qwTwPFyLDiAjMQviV35uXTffhFRxgc+qzM
-	 cNP+tClLOy/96JzaJiMDtY0gM3bsFJ+XECo8Rn7w5SJlq3+70094NtmcfgqUhl68AnrjA
-	 pUUpYtcd7IB3fQVZZjJAhNCBvOYq7HCmlpGooFRRZtvqCFMprUtmLlrxWNC/48HHqZ9pe
-	 k8+qtvuL/SS6IHuBXLzG4laILrlBpbjpsA9GHOl8WSiY7WXcHbjM+2Sd4E3v9OgL6Tg==
+	c=relaxed/relaxed; t=1793318961;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=79fJ5zsQRH5ZFuAEfEZbISVjHVWUFTm3gRl221dNcnw=;
+	b=hAWam5GkDroucyhM1fh46l8PkAngRHY0rKOxLEBxqT1/Y3ySGL5ZymxzMmnqtqR6gBsX
+	 8hAiMlJT1X+utVKjl9iTabGW/eFhIPCFiXUwF5H3WBxpeBnwmqMmdJLOE/Igcqs5iYtuT
+	 VQLpTppAqcwhgGA5zlw153EmTuFqHSOLX+qiQ0NOely9HjUHnw4gDBP86yAl9nfgVRPeX
+	 mmRtX3pTu0nQsKKVJ0D+qBHezav5VYwhWZ269MRNUYhpNdCBprh+6gX5FDjsFrACgfK/O
+	 IzJzuiWMCvR+OugenIAdfiuN6+pSv5UIYpZ3BHqFImdgDQozJfgKzwGmYgzz/o7PqPA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 042081F00A17;
-	Fri, 30 Oct 2026 00:09:22 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id C2D371F000C1;
+	Fri, 30 Oct 2026 00:09:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793318963;
-	bh=PRp80+j4dxgVQreDUCFVgZ0Tk5+EyF6uJ/o0IBrBiaE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Fm98C7WOBFPUuzS+Srb1lOwkQw5xScihv6b89p/2e0kuQfpZhflkcyeeTK1mI9tpD
-	 HuHUJSg8qtjaRHveWpZ4hfoStMTYhV7cTlTSCqlpP6uPWZUddYpQ3Qljhdkh49CB3B
-	 3XkdPNe3OfzrW+wpgc4CW5cfiPZJCgYj06ryeF5XcKdzxbxttZ5AEmcpAufxxWXFGY
-	 fw5VoG15cBvVpf53oZ2jPfM8xawCaVNI/6K6xbB82xZwXEGHnlRyqiiR9H+YOAmUCf
-	 Ry431Rg9w3CNJUysE46EhJPlIzvjp/m/TYvmD3S5EVlyV0Y3CLNHAfdCR5bHkEbDEd
-	 qkv592TWug3UA==
+	s=k20260515; t=1793318961;
+	bh=79fJ5zsQRH5ZFuAEfEZbISVjHVWUFTm3gRl221dNcnw=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=doYn0RdflSbYdQZ5LPvq3Oe3xZv8xRyRPZdeXHXB0z3Lt1tNHKH9DA7l2ldPqYQ6I
+	 CaxuTB6OW0vbLJQizL04GafGkOH6wxYxfJgV9NRC5r5HwTgjZilvX2WeGK14NWU6tM
+	 q7bGdWq9OP3gqQbqRzRlQcA2TWSSgphPAYMnQSvvtcijgHjnZhOZdJobGXEB4mYqZK
+	 iz4pyK2OEfKFPwcsN4ZiDnXZ4rAR5UzL87mHZ9xYsoNrP+MgcIiDW64tlSRd/d7TX5
+	 nqXMXAUUtKEaw6VuqDC5dYscDR49UBCEiLhVKW3MMEC8NgCyiS5GizqbUt804WDBpa
+	 rZulMyjUgMYBg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ACD5341E17;
+	by lkml.kernel.org (Postfix) with ESMTP id 53851409DF;
 	Fri, 30 Oct 2026 00:09:20 +0000 (UTC)
 From: Kamil Chojnowski via B4 Relay <devnull+contact.diath.net@kernel.org>
-Date: Fri, 30 Oct 2026 01:08:15 +0100
-Subject: [PATCH 6/6] fs/ntfs3: do not reallocate clusters of a partly
- allocated sparse frame
+Subject: [PATCH 0/6] fs/ntfs3: fix a deadlock and data loss in resident and
+ sparse files
+Date: Fri, 30 Oct 2026 01:08:09 +0100
+Message-Id: <20261030-ntfs3-resident-fixes-v1-0-7b6c857d4330@diath.net>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,117 +85,138 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-ntfs3-resident-fixes-v1-6-7b6c857d4330@diath.net>
-References: <20261030-ntfs3-resident-fixes-v1-0-7b6c857d4330@diath.net>
-In-Reply-To: <20261030-ntfs3-resident-fixes-v1-0-7b6c857d4330@diath.net>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWTuQixbpqxQXTTza6SItmbQUx
+ Hc31uXH4T8rKbJA6dqslPEVlVeqsG1D8XFPC1imanLGXazxhlOZ1XOGyoRUeJYflGPoO2sc3DA
+ Equk74z/U8jae1k94Ipbji7ZtB5C/+4t4AAAA
+X-Change-ID: 20261030-ntfs3-resident-fixes-cb54102e288b
 To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Cc: Christoph Hellwig <hch@lst.de>, ntfs3@lists.linux.dev, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
  Kamil Chojnowski <contact@diath.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793318890; l=3450;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793318890; l=5846;
  i=contact@diath.net; s=20261029; h=from:subject:message-id;
- bh=sBOCx5FVq+GEhbTfofjJvzmOyg91nklfg6iIoMV954k=;
- b=1WWAgWrv1PGYmoA43+pGreW65PTmI8ysXLTMnlFYoa6qSwH2UCP9yNJfJfIS9mIi0GHDz5DgE
- prDKNmz4m4CAgDhR7DALUv9f3tuv0EHtQKoWjebRsHeW88523TejvpA
+ bh=IMDHc6D5LBYf9bTtoSfC5z3DtdZSwElxUKK8DMto4jA=;
+ b=VAaw+exSqLGQbsxPkopLvXOvx8VzGT/RxobnSb1F1CWf1lRktAEnmswqI11SHBnAq/Q+JB71C
+ c0ugb/H0nLUDnYg9d+VDk54Z5KBa4cCVDymDNBKvUOR3H9kcuvcbngm
 X-Developer-Key: i=contact@diath.net; a=ed25519;
  pk=G15RQXroUn6f8ud+bOEqlqpPdpLoCB3L3G9XVUf+YaA=
 X-Endpoint-Received: by B4 Relay for contact@diath.net/20261029 with
  auth_id=1360
 X-Original-From: Kamil Chojnowski <contact@diath.net>
 Reply-To: contact@diath.net
-Content-Transfer-Encoding: 7bit
 
-From: Kamil Chojnowski <contact@diath.net>
+Hi Konstantin,
 
-For a sparse or compressed attribute with a compression unit,
-attr_data_get_block_locked() fills a hole by allocating the whole frame
-around it (16 clusters for c_unit 4), assuming a frame is either fully
-allocated or fully sparse.  ntfs.sys keeps it that way, but ntfs-3g
-allocates sparse files cluster by cluster: it marks them sparse with
-c_unit 4 and leaves holes of any length at any offset.  Linker output
-written through ntfs-3g looks like that.
+I have been trying to move my workstation from ntfs-3g to ntfs3 for a
+while.  Every attempt ended with the system wedged: several coding
+agents and git worktrees working on one ntfs3 volume left tasks stuck in
+D state until a reboot, so I kept going back to ntfs-3g.
 
-When such a hole starts or ends inside a frame, attr_allocate_clusters()
-maps new, zeroed clusters over the clusters the frame already has:
+The hang is an ABBA deadlock between folio 0 and ni_lock/run_lock when a
+resident file grows past the MFT record.  attr_make_nonresident() runs
+with ni_lock and run_lock held and locks folio 0 to copy the resident
+data into the page cache, while ntfs_read_folio() (iomap ->
+ntfs_iomap_begin() -> attr_data_get_block()) and the resident path of
+ntfs_writepages() hold folio 0 and then take run_lock/ni_lock.  A writer
+appending to a small file while another task reads it cold hangs within
+a minute on ntfs3 master, 7.3, 7.2.11 and 6.18.59.  The same inversion
+was already in the pre-iomap code, so all stable kernels are affected.
 
- - the data in those clusters is silently replaced with zeros;
- - the old clusters stay marked in use but are no longer referenced;
- - total_size grows by the whole frame, although only the hole was new.
+  1/6 the deadlock: lock folio 0 before ni_lock in every path that can
+      convert $DATA
+  2/6 mmap writes to a small file are lost when it grows: keep an
+      uptodate folio 0 instead of overwriting it from the resident copy
+  3/6 extending a resident file with ftruncate(2) races with readers and
+      gives -EIO plus a WARNING in iomap_read_inline_data(): resize the
+      attribute before i_size
+  4/6 writeback that races with the conversion drops the folio; since
+      2727ac2ba87a it reports -EIO instead of warning, but the data is
+      still lost: redirty it and write it through iomap
+  5/6 ni_write_parents() walks the record without ni_lock, and a
+      concurrent change makes fsync mark a healthy inode bad and the
+      volume dirty
+  6/6 writing into a hole of a sparse file that ntfs-3g created can
+      zero up to 15 clusters of data next to the hole, leak the old
+      clusters and push total_size past alloc_size, after which
+      mi_enum_attr() rejects the file and the volume is marked dirty.
+      ntfs-3g allocates sparse files cluster by cluster with c_unit 4,
+      so every file it wrote with holes (linker output, for instance)
+      can hit this once the volume is mounted with ntfs3.
 
-Once total_size exceeds alloc_size, mi_enum_attr() rejects the record:
-the inode goes bad and the volume is marked dirty.
+Patch 2 depends on patch 1; the others apply on their own.  The readdir
+lockdep splat I also hit is fixed in ntfs3_for_7.4 by commit
+7a5aa6c45072 ("ntfs3: release ni_lock before dir_emit in ntfs_readdir to
+fix deadlocks") together with Christian's pending "fs/ntfs3: fix double
+ni_unlock() in ntfs_readdir()", which I tested separately.
 
-  ntfs3(vda): ino=40, "pwrite" mi_enum_attr
-  ntfs3(vda): Mark volume as dirty due to NTFS errors
-  ntfs3(vda): ino=40, "pwrite" attr_set_size_ex
+Testing: the stress tests run for 120 s (the git workloads for 150 s
+and 8 minutes) in a QEMU/KVM guest with lockdep and a 20 s hung-task
+timeout, on a fresh mkntfs image, or one written by ntfs-3g for the
+sparse file tests.  The guest kernel is 7.3 with fs/ntfs3 from ntfs3
+master; the "this series" column also has Christian's readdir fix
+applied.
 
-Shrink the frame aligned range to the sparse run around the requested
-cluster, so that only the hole is allocated.  Frames that are entirely
-sparse, and so all frames of files written by ntfs.sys or ntfs3, are
-allocated as before.
+                                    ntfs3 master      this series
+  append to 4 KiB vs. cold reader   hung after 46 s   pass, 491k files
+  the same, grown with ftruncate    hung after 46 s,  pass, 589k files
+                                    EIO + WARNING
+  the same, grown with fallocate    hung after 46 s   pass, 714k files
+  mmap store, grow, fsync, while    hung after 45 s,  pass, 192k files
+    another thread fdatasyncs       10 bad files
+  pwrite into a mid-frame hole of   14 clusters       pass
+    an ntfs-3g sparse file          zeroed
+  rewrite that sparse file          rejected, volume  pass
+                                    marked dirty
+  12 threads: create, unlink,       pass              pass, 5.1M ops
+    rename, readdir, mmap, fsync...
+  8 git worktrees of one repo,      -                 pass, 4486 commits
+    3 grep/find watchers
+  16 worktrees, 6 watchers, 8 min   -                 pass, 30815 commits
 
-Reproducer: in a file that ntfs-3g left with a two-cluster hole in the
-middle of a frame, pwrite(2) 4 KiB into the hole.  Before this patch 14
-clusters of data around it read back as zeros and the file uses 16 more
-clusters; after it, only the two hole clusters are allocated.
+The append and mmap tests also hang on 6.18.59, after 45 s each.
 
-Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Kamil Chojnowski <contact@diath.net>
+Patch 1 is larger than the stable size limit and does not apply before
+the iomap conversion; older kernels will need a backport.
+
+Not done: sparse was not run, the code was built only as =y on x86_64,
+and no fault injection was used.
+
+Tool use: the investigation, the reproducers, the patches and their
+changelogs were produced with Claude (Anthropic's Claude Opus 5.5 model
+in Claude Code).  I asked it to set up a test VM with the newest kernel
+and an NTFS volume, reproduce the freezes I saw, find the cause and fix
+it; later I asked it to rebase the fixes onto ntfs3 master and to look
+into the ntfs-3g sparse files that ntfs3 rejected on my volume.  It
+wrote the QEMU harness and reproducers, traced the lock chains from
+lockdep and sysrq-w output, and wrote all six patches.  I reviewed them
+and ran the tests above.  Each patch carries an Assisted-by tag.  The
+reproducers and harness are at
+https://github.com/diath/ntfs3-deadlock-lab
+
+Thanks,
+Kamil
+
 ---
- fs/ntfs3/attrib.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+Kamil Chojnowski (6):
+      fs/ntfs3: lock folio 0 before ni_lock when converting resident $DATA
+      fs/ntfs3: keep page cache data when converting resident $DATA
+      fs/ntfs3: grow $DATA before publishing i_size in setattr
+      fs/ntfs3: write back folios that raced with $DATA conversion
+      fs/ntfs3: walk $FILE_NAME under ni_lock in ni_write_parents()
+      fs/ntfs3: do not reallocate clusters of a partly allocated sparse frame
 
-diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-index b21c913050f7..1bd05639709b 100644
---- a/fs/ntfs3/attrib.c
-+++ b/fs/ntfs3/attrib.c
-@@ -1032,6 +1032,33 @@ int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
- 	return err;
- }
- 
-+/*
-+ * attr_frame_hole - Limit a frame aligned allocation to the hole at @vcn0.
-+ *
-+ * ntfs.sys allocates sparse and compressed attributes in whole frames, but
-+ * ntfs-3g allocates sparse files cluster by cluster, so a frame can be partly
-+ * allocated.  Its allocated clusters hold data and must not be allocated
-+ * again: shrink [*vcn, *vcn + *to_alloc) to the sparse run around @vcn0.
-+ */
-+static void attr_frame_hole(const struct runs_tree *run, CLST vcn0, CLST *vcn,
-+			    CLST *to_alloc)
-+{
-+	CLST start = vcn0, end = *vcn + *to_alloc;
-+	CLST lcn, len;
-+
-+	while (start > *vcn &&
-+	       run_lookup_entry(run, start - 1, &lcn, NULL, NULL) &&
-+	       lcn == SPARSE_LCN)
-+		start--;
-+
-+	if (run_lookup_entry(run, vcn0, &lcn, &len, NULL) &&
-+	    lcn == SPARSE_LCN && vcn0 + len < end)
-+		end = vcn0 + len;
-+
-+	*vcn = start;
-+	*to_alloc = end - start;
-+}
-+
- /*
-  * attr_data_get_block_locked - Helper for attr_data_get_block.
-  */
-@@ -1195,6 +1222,7 @@ again:
- 		/* Get frame aligned vcn and to_alloc. */
- 		vcn = vcn0 & cmask;
- 		to_alloc = ((vcn0 + clen + clst_per_frame - 1) & cmask) - vcn;
-+		attr_frame_hole(run, vcn0, &vcn, &to_alloc);
- 		if (fr < clst_per_frame)
- 			fr = clst_per_frame;
- 		if (vcn != vcn0 || clen < to_alloc)
-
--- 
-2.56.0
+ fs/ntfs3/attrib.c   | 101 +++++++++++++++++++++++++++++++++++++++-------------
+ fs/ntfs3/attrlist.c |   4 +--
+ fs/ntfs3/file.c     |  33 ++++++++++++++---
+ fs/ntfs3/frecord.c  |  46 +++++++++++++++++++-----
+ fs/ntfs3/fsntfs.c   |   2 +-
+ fs/ntfs3/inode.c    |  63 +++++++++++++++++++++++++++++---
+ fs/ntfs3/ntfs_fs.h  |  13 ++++---
+ 7 files changed, 213 insertions(+), 49 deletions(-)
+---
+base-commit: ee1cb3443cff5a800948b662756f75b17ca63fe2
+change-id: 20261030-ntfs3-resident-fixes-cb54102e288b
 
 
