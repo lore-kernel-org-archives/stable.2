@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357540;
-	b=5BRJGBPmFxlDJHJE4xM08unz9fSFFcUvEBhUEOOuJNXfwnD5ycy4xg1Cx3GupXO/7G6N
-	 aM5WSv/JYkeXm9R16gLAtwF0Ag0Z6vIScH1GLqJ7EcqrXkpZC1bZ/XrrFvjWDNsAPCM7/
-	 8EqMaOjxCm3M9WfRzUnrA1Nn+yKpkxhfZ8VSdkUD5Q9lfM6WfKod7n9K6jet0Q1RlkU7X
-	 c9Db97PydB5f8j2yNleIE0yUMhKT3WsHxisBil4c+h5VpKBWQtnoCRsu5Bq9cY4KDPA2d
-	 lWGhUq7QKBLvX6t16w0Zj1DnsmWtvdYqXN1qJ4NO56ueTv4tHIyrq7cllKECm+2s1ug==
+	t=1793357547;
+	b=PsiJ4NPq3DQK9e1eODfBqheYcY5v/Vj1+XwJF0WfIHbmfstgwpXVkkvh7N5kKHD2Fzgp
+	 ClO3CI1JXqsOn901AgbpZBYN0hlrtLMEaRixMzjRZV9ZJta3OMgp8Rqet6FLy1Wf6lq26
+	 LobuevMWAv+teyuVWTz0h6uHVSTd7E+HZt6ozeiD+z7OG2Nrqskbr1tw+QJeT66ujqomt
+	 RLKSEpNPbKAFMgd9KRcyPLE/S9ZBObpUwvK9ATlT1xN0kqYyHJUL9UnXsF076D8TDqJso
+	 YuYYBdEn2qTfkrzWFwQH4NE9rzHYQgz8z2zZWeEIrGjrtHtRws3FoU7OIN4UNing/OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357540;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357547;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=NuqhF3q08xTeVZvsMIZpMZAJJHD2ldPf/dpMypivwf4=;
-	b=yG2e/BvN0qTj2hws48XCyFl4LPEEZjhInCqA4XyKgNLZR7ktk01z/rD3gsZkErl65Rtj
-	 Vwp0gGXWAtHhQCVd7ie+1bvTRhtH6XiQ0z8bYrdK88VRiqE2yXidjxF/EmKHD5C8zHkQN
-	 x9CgOJ83SGFdKdYq+4g47tfIxTgM9oSOr+zEKD0vF5HKIML2cbQjsMczNmDPw3yqXcOKY
-	 QUC2BQ6Wzsn+pQbAHt7GGlM1FUfo4LbDylzP/fFsnrm/4kcK4z/dL/4LOc2Gs0hGZgPz1
-	 CrWtDc+qSN01EPju/knldRc9PuZQlwavIURWX5zZm8r0pcLO8lk5K5BQnIKlhdB0w5A==
+	bh=gmGnnW2R06cvwkr5wUCfO3clTMmGy5/WqCnUR/F4Akw=;
+	b=fgeLVzxfWkRzXAlGJ8w3GLMVqUr+aEpx7MXkE1gjxQRYROQnuloXhDIds6PUBDF5heQC
+	 RC4m3R9Z7C9G0MjU/Q/nofSbw5AfgYvVavP/xBR/TqEWMZQHhk3e+PqAtyCyOpk7X+JuA
+	 NmrbNYB1H23mG11gdWvxWN0I4WLxms2zvj81B6mWmM38FkJxQ3wBxEwKXfA01sllLdWkG
+	 ngOIlsJRxcxpkrXvkbYMyIJj2O3x4l0qO8zngLuV4qkqbNEgHfz55zmzcMAAdC7OVMuA8
+	 jPmITsqkkktDFPzDrDvxVjm7JoBt2jDuXxhnaRISHkR2RI+n8YdADzEU3FVpOviTqsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmo+IT34;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnjB38e5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9F4606B83F;
-	Fri, 30 Oct 2026 10:52:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5AC960A2616;
+	Fri, 30 Oct 2026 10:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mmo+IT34
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704881F000C1;
-	Fri, 30 Oct 2026 10:52:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnjB38e5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD4EC1F000C1;
+	Fri, 30 Oct 2026 10:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357539;
-	bh=NuqhF3q08xTeVZvsMIZpMZAJJHD2ldPf/dpMypivwf4=;
+	s=k20260515; t=1793357546;
+	bh=gmGnnW2R06cvwkr5wUCfO3clTMmGy5/WqCnUR/F4Akw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mmo+IT340Wk40uvY52LPqMCNNCxpEOIV8Pxhh74RgyEky2w6OeE4AtACskrsXJ7xf
-	 KbYyH4LQTcJb49Snv18jZ0J/D/2mLe5gJoLPmFVvXaShay+icRTQFXtgg1G3Ezn76t
-	 r1SLxQ8rsqQdSCR+RowA9XrBsLo1qB6RVkcCFVM260KpwTA4owHEdxtYV5wtVswCMr
-	 EK1z5OHMfj+VSALvMdVi0JChDanv4/897hwtN+zcOQcsCrvGRYYoUZGw2B4b9/9Rdr
-	 iYFfNnumKT+m93ZH1ggpjNWAul1J/sLac4RJqmbF6E3s5XMgFDPk1mCrjv7W7cQNic
-	 2tWEBabpiIz3w==
+	b=DnjB38e51W2hEsEG9GfsfXx6Jpy1edHmYWhlfhZ0fgBhHKSpuzHRUd+d85+nim92m
+	 dEX2HtQPf0j2w5Uv52uGxAEhS0PPs6xD5z/JfAz+DzgUsbRwSMLbh9rAcTSPBXcqwc
+	 YCecO23TKHG1mgL0iHtOkQKt9re206APc9EglhlXRTbq1xtBYv+kFOVXiBJnk4G34h
+	 SrKAKOlPY7K7ix/H/4YjnpAB7ssJY1ygNGyejjhS4AlM0HmMBVm1GlxtHWbd0FDRuB
+	 EGPc8DZcPpki/5ISkjywPm/BbJNXKlAzGjM6Hp8g8Hm81s+RQFJYm3i1dkXN6mKSRC
+	 /M7MXnxgY5NMA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Vinod Koul <vkoul@kernel.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
 	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Mastan Katragadda <Mastan.Katragadda@amd.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 18/21] soundwire: amd: Synchronise parent IRQ and disable work on manager removal
-Date: Fri, 30 Oct 2026 10:46:57 +0000
-Message-ID: <20261030104840.3361217-19-lee@kernel.org>
+Subject: [PATCH 19/21] soundwire: amd: Cancel pending work before suspending manager
+Date: Fri, 30 Oct 2026 10:46:58 +0000
+Message-ID: <20261030104840.3361217-20-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
 References: <20261030104840.3361217-1-lee@kernel.org>
@@ -65,56 +66,140 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the ACP top-half interrupt handlers, amd_manager is retrieved via
-dev_get_drvdata() and used to schedule amd_sdw_irq_thread when
-non-NULL.  If an interrupt is already in flight on another CPU when
-amd_sdw_manager_remove() runs, the handler can call
-schedule_work(&amd_manager->amd_sdw_irq_thread) after cancel_work_sync()
-returns and after devm frees amd_manager.
+amd_suspend_runtime() stops the SoundWire bus clock and transitions the
+controller into D3 without cancelling amd_sdw_irq_thread and
+amd_sdw_work, and amd_suspend() only cancels amd_sdw_work without first
+cancelling amd_sdw_irq_thread.  Queued work executing concurrently with
+suspend can access MMIO registers after the controller is clock-stopped
+or powered down.
 
-Disable SoundWire interrupts, synchronise with the parent PCI device
-IRQ, disable both manager work items with disable_work_sync(), and mask
-interrupts again in case amd_sdw_update_slave_status_work() was running.
+Mask manager interrupts, synchronise the parent PCI IRQ, and cancel both
+amd_sdw_irq_thread and amd_sdw_work before stopping the bus clock and in
+amd_deinit_sdw_manager(), unmask wake interrupts only after clock stop
+completes, and avoid non-wake register accesses in amd_sdw_irq_thread()
+while the clock is stopped.
 
-Fixes: f93b697ed98e ("soundwire: amd: cancel pending slave status handling workqueue during remove sequence")
-Closes: https://sashiko.dev/#/bug/linux-ab458b2e-f505-4a41-8238-a93ceb5d9c77
+Fixes: 81ff58ff71ad ("soundwire: amd: add runtime pm ops for AMD SoundWire manager driver")
+Closes: https://sashiko.dev/#/bug/linux-3b774ace-00cf-41e6-82eb-85cd43f5e1d6
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/soundwire/amd_manager.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/soundwire/amd_manager.c | 40 ++++++++++++++++++++++++++++-----
+ 1 file changed, 34 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 1d8a08bda261..f39f4f04db7e 100644
+index f39f4f04db7e..ba8e6d42c467 100644
 --- a/drivers/soundwire/amd_manager.c
 +++ b/drivers/soundwire/amd_manager.c
-@@ -8,10 +8,12 @@
- #include <linux/completion.h>
- #include <linux/cleanup.h>
- #include <linux/device.h>
-+#include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/pci.h>
- #include <linux/slab.h>
- #include <linux/soundwire/sdw.h>
- #include <linux/soundwire/sdw_registers.h>
-@@ -1199,8 +1201,11 @@ static void amd_sdw_manager_remove(struct platform_device *pdev)
- 	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 	pm_runtime_put_noidle(&pdev->dev);
--	cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
--	cancel_work_sync(&amd_manager->amd_sdw_work);
-+	amd_disable_sdw_interrupts(amd_manager);
-+	if (pdev->dev.parent && dev_is_pci(pdev->dev.parent))
-+		synchronize_irq(to_pci_dev(pdev->dev.parent)->irq);
-+	disable_work_sync(&amd_manager->amd_sdw_irq_thread);
+@@ -148,9 +148,24 @@ static void amd_disable_sdw_interrupts(struct amd_sdw_manager *amd_manager)
+ 	writel(0x00, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
+ }
+ 
++static void amd_sdw_quiesce_work(struct amd_sdw_manager *amd_manager)
++{
++	struct device *parent = amd_manager->dev->parent;
++
 +	disable_work_sync(&amd_manager->amd_sdw_work);
++	writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_0TO7);
++	writel(0, amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_MASK_8TO11);
++	writel(0, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
++	if (parent && dev_is_pci(parent))
++		synchronize_irq(to_pci_dev(parent)->irq);
++	cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
++	enable_work(&amd_manager->amd_sdw_work);
++}
++
+ static int amd_deinit_sdw_manager(struct amd_sdw_manager *amd_manager)
+ {
  	amd_disable_sdw_interrupts(amd_manager);
- 	sdw_bus_master_delete(&amd_manager->bus);
- 	ret = amd_disable_sdw_manager(amd_manager);
++	amd_sdw_quiesce_work(amd_manager);
+ 	return amd_disable_sdw_manager(amd_manager);
+ }
+ 
+@@ -1049,6 +1064,14 @@ static void amd_sdw_irq_thread(struct work_struct *work)
+ 	u32 status_change_8to11;
+ 	u32 status_change_0to7;
+ 
++	if (amd_manager->clk_stopped) {
++		status_change_8to11 = readl(amd_manager->mmio +
++					    ACP_SW_STATE_CHANGE_STATUS_8TO11);
++		if (status_change_8to11 & AMD_SDW_WAKE_STAT_MASK)
++			amd_sdw_process_wake_event(amd_manager);
++		return;
++	}
++
+ 	status_change_8to11 = readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_8TO11);
+ 	status_change_0to7 = readl(amd_manager->mmio + ACP_SW_STATE_CHANGE_STATUS_0TO7);
+ 	if (!status_change_0to7 && !status_change_8to11)
+@@ -1341,24 +1364,24 @@ static int __maybe_unused amd_suspend(struct device *dev)
+ 	}
+ 
+ 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
+-		cancel_work_sync(&amd_manager->amd_sdw_work);
+-		amd_sdw_wake_enable(amd_manager, false);
+ 		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
+ 			ret = amd_sdw_host_wake_enable(amd_manager, false);
+ 			if (ret)
+ 				return ret;
+ 		}
++		amd_sdw_quiesce_work(amd_manager);
++		amd_sdw_wake_enable(amd_manager, false);
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
+ 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
+-		cancel_work_sync(&amd_manager->amd_sdw_work);
+-		amd_sdw_wake_enable(amd_manager, false);
+ 		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
+ 			ret = amd_sdw_host_wake_enable(amd_manager, false);
+ 			if (ret)
+ 				return ret;
+ 		}
++		amd_sdw_quiesce_work(amd_manager);
++		amd_sdw_wake_enable(amd_manager, false);
+ 		/*
+ 		 * As per hardware programming sequence on AMD platforms,
+ 		 * clock stop should be invoked first before powering-off
+@@ -1391,25 +1414,29 @@ static int __maybe_unused amd_suspend_runtime(struct device *dev)
+ 		return 0;
+ 	}
+ 	if (amd_manager->power_mode_mask & AMD_SDW_CLK_STOP_MODE) {
+-		amd_sdw_wake_enable(amd_manager, true);
+ 		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
+ 			ret = amd_sdw_host_wake_enable(amd_manager, true);
+ 			if (ret)
+ 				return ret;
+ 		}
++		amd_sdw_quiesce_work(amd_manager);
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
++		if (amd_manager->clk_stopped)
++			amd_sdw_wake_enable(amd_manager, true);
+ 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
+-		amd_sdw_wake_enable(amd_manager, true);
+ 		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
+ 			ret = amd_sdw_host_wake_enable(amd_manager, true);
+ 			if (ret)
+ 				return ret;
+ 		}
++		amd_sdw_quiesce_work(amd_manager);
+ 		ret = amd_sdw_clock_stop(amd_manager);
+ 		if (ret)
+ 			return ret;
++		if (amd_manager->clk_stopped)
++			amd_sdw_wake_enable(amd_manager, true);
+ 		ret = amd_deinit_sdw_manager(amd_manager);
+ 		if (ret)
+ 			return ret;
+@@ -1452,6 +1479,7 @@ static int __maybe_unused amd_resume_runtime(struct device *dev)
+ 			if (ret)
+ 				return ret;
+ 		}
++		amd_enable_sdw_interrupts(amd_manager);
+ 	} else if (amd_manager->power_mode_mask & AMD_SDW_POWER_OFF_MODE) {
+ 		writel(0x00, amd_manager->acp_mmio + ACP_SW_WAKE_EN(amd_manager->instance));
+ 		if (amd_manager->acp_rev >= ACP70_PCI_REV_ID) {
 -- 
 2.56.0.317.g454f8302e1-goog
 
