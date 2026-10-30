@@ -1,73 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348405;
-	b=b0RadW3Fl/GLDLMWpLjHxm+1BNV5WjXOUX3O90e67AxOYSBINSeugvMhVPpgH49+CaPh
-	 Xrs/uSDWkGL6TK72PiFVsmfwqXgiqq1+Dhc1pixZakKu8nkevXOFtkADildjk+WX8+957
-	 HPorv4darqLj0xYg6Xy7MWINIDRmGjGET+1km8xo6qdc5AAYhtzUZulVwBKigOGOhcl6j
-	 7jUX6is4tkjGdO+Zbvznc9qem4KD3SbkdBUnPPrMS9PKhZ/LXIAsqj4pS3uE7EifrfIoc
-	 c/5CWQqmPe6l5m2332LHtUm30mrYmHnuiQgHq1NJx1gd20Mhy29LNHP5YXHfRkPL6/g==
+	t=1793348422;
+	b=DBfs9Qi+eIvdHwIrwW5E/ASLqVf3Ih1PfKwhK6QEpiCMTbSmL/BfP8t8+jpnxS7CZC9v
+	 l5ezbV3v3lzkG5luJdqTCJLNWkwNFB4jNSahrWxuQsUIpZGArE15WFtgHqfrXctIS3aKf
+	 jqTi/mFafJejIxYyC+cLxaJ6QhrKybB1iW8OM1LSEPRBMdjlTMYIDVxl7nDBzzhpkpFeK
+	 prgHZ9IwaHAubp/iS4hZuoEODGxxl3DDyspJX/Khrs8+L9CQXy2nIDQszkTIH47YvXgB3
+	 ioPamX80JTfU9wo08Noc2chxjiLO6n68UhJ8xErWCIrH58nxaNScOD/cahKOHl3meAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348422;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=vwouWkv3VLbBPbIBA6ZZnoD9+7JPCAt0ykZeDQJi10g=;
-	b=Dvc7lRkdLzFScfKQ2BqBgplKU3hk+G8etxd71xkQcbP5HIS/EaS9K+NMTtmjlFFhGjSd
-	 y8htyzbz4IDVcjQR0OEZToi+svB8jAxrxQka8Pm/E0+7OsuxsICmlS1PLpKc5Y7JlirTA
-	 zxWMWN9HnRaDmgxYj7jNfgME93LaGVwcxq65fNWZ+4MTTg4Ge/mzI2AUkto4Jlg/mN5nG
-	 5R/FI7FvPtn0rPllSdhfA4ZYug0FZdkTCVurP7cTv1RV27MwjvH017vCfabUuHOAHIG/F
-	 RBYV7X/4Dv4gifhLz2eQuf7j+t3OBb+XxfXBne6XLJ3zaZDwDanWcZLtI9aUgxxzgnw==
+	bh=nCHeps+CijbslSPpm8J23zvNgLSPR1Nf4YTEZZ8kbIs=;
+	b=tQo8IzATaHaPiwVFj8neWkRQe/JWtslxaJe2BDLMj6v15rXd3DMupMXKEbb2DSZ2GyBQ
+	 uxDzU9xP72kAkQEIUgCJsPQLp9GvbMh16wpSKFZ9T5AMiUEb86OUfE+IqX0wu3042eK3Y
+	 eQq3rFYeCcV9rXJ3meS0mVLmraEhdpD9is+eeSlyr3EYbj2XDJiFaQtFcduzJt1gbvcUe
+	 VqgP5nCH0RjZZbHVvyI/ifrAgYHlwdPMl+IxpkNaz4kEJpJSCK9gQxJQcVmxvMBhp8g6I
+	 0bqIvfRmVglIMwXk8aVayCs7U9FjKrzRsIJzu6cFGWXlYfNGUugC7O0FrvKEUS/WNrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foxmail.com;
 	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=yMg1LyWZ;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=kh3Ak2fO;
+	arc=none smtp.remote-ip=162.62.57.137
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8C0606A31D;
-	Fri, 30 Oct 2026 08:20:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB8C0606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84410606A31A;
+	Fri, 30 Oct 2026 08:20:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84410606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=yMg1LyWZ
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=kh3Ak2fO
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793348397;
-	bh=vwouWkv3VLbBPbIBA6ZZnoD9+7JPCAt0ykZeDQJi10g=;
+	s=s201512; t=1793348416;
+	bh=nCHeps+CijbslSPpm8J23zvNgLSPR1Nf4YTEZZ8kbIs=;
 	h=From:To:Cc:Subject:Date;
-	b=yMg1LyWZzQHUmbQaO8yFCp9NIEtFp7k35YOhy1RaVvhLEB2wUx1hIZKC4pGs2nKvG
-	 4GaQTefexymMP0GulhVA2YKuhprE7IVmHuX+OgTkx0TpeamKZivc1jGEIP/ysGwKK7
-	 8cQdJyxjSFHM0kjRd+G02R5RL7eNAcwwnOGDH6AA=
+	b=kh3Ak2fOT47MvdLkrRSzVj2sEnVZgRYVlhLpC4sxwdFMHih003w+S5S6jGEoeW9Vh
+	 BXzGyqAvgCXmySV+JJp0i1Ia9PFCkJj55iv+M2dSI6AYgYrDIumXJzRKsm93belAln
+	 odBmrmF1mr9jH4Qqr1Mcjk3Wqqe4j0WY9u7JM0x8=
 Received: from HAPYCAO-MC1.tencent.com ([101.226.143.246])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 4F7AB0C9; Fri, 30 Oct 2026 16:19:55 +0800
-X-QQ-mid: xmsmtpt1793348395td1iriaz7
-Message-ID: <tencent_18454D1845AB2A759EA9AB3ABE52E67AE205@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoenP/Mh6MCkqyiDnVDgLhBJfOYHtI/F90m62xGXVhVMrr9yuuQ0/
-	 QAOHPFu8XYwtjpYPmX8KAKYj3/jPqbXAkU0auKExHrkZcWL+U5lHQNn1Z2q5q37OLv01cVkbyssj
-	 rnfQWGfGZCyvAvPYdOoOqsIBhAytBn/b+x/T1OqntZc2TcT8hDBNC9RIqS4R1si7usBRd4E9uBu3
-	 EJuVyLS/L6huZuKBGjgLcJ30IlzHBIdYL3bjrsc9cWJ+xSIMuVHwxguf/qY/zPxS6dOipPFWlxIw
-	 xY4gKS1ZIBDnf5i7rrkv8TiccJTKvcUoHbfpghaPqRfXeeHjzFYcRhVLzWzQUeRK4TPm+JC3hQXJ
-	 z6aO8+D6cYvDkt8MWpciLROxPlo+x9wuVSs9WM93U9uPlHXDEn776eYAcxuWJXpb8Se9GtmUyBIj
-	 96salvnNjMxQKDsGMZW1w35bm5C8iWf1NyZ3P1VlbuMoyDz4HF7jvEH6EQBxG8TDPxm81dXM4PSQ
-	 b/5bfGy9qO+F5ATlLd34GVTMEehtKlhirLqVyVRWrsN8XkDxAxP4cEM/Qpo4sVwow1eRErOv8ErB
-	 lneW0lqYT6GOdaabJ7TVt9NIeWrkPPUTSx/SArh3E+o6bLqi+JEo+3BRnboYaHCwWxkx94LYjkVS
-	 gYGHf2CmMjJa8BPCQ7crwIodSNuuEbDPxpcF0YcjaoDAP8DahbaN5nRoz+3Z11p6pb5XaN8vtzkl
-	 8VW2ixAzjk+H7OEhOurnrhsar2L5gZHy89NYe+aylXQJ26rvlE2kP9SISn6Ocf247Yg0LXmb/C+G
-	 gRU9Oq9+WADvT998rZE6udKxuLjvhU8ZycVu+2MfvkDhCZhYT0asjPr6iVSlrOVXQrwFb2MIaH75
-	 s46dB8WPzTsCcmwYSnHcVNJMrhPrRjbkdXppnfs47ohAuaMJfH6OWaz+97qCujmsCXAwPitsHx/v
-	 7zmwozC3zeeGWNI/NZAyPzgWJAJ7+sW/gPXIWYyod+hLxUpnPT24fj+rYqnOevSEHtOlJhHbNLgT
-	 GXznH8SfXg2aacPZxL8Lrahd5kqv5opYDLR3RIVsJwp2Uz1ict6FQ5Mhke/So1JEZVOyVkYg==
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 50EAD0B3; Fri, 30 Oct 2026 16:20:14 +0800
+X-QQ-mid: xmsmtpt1793348414taayzalkl
+Message-ID: <tencent_BA84E1B456527B98F8AB612A15AE6F5FA409@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9Xk/01pfTpsZ3Pes5tlgIwrpb4NA4GBHeStZVL8aOjr6TmFuHgMo
+	 iWO8CZnsbudzFvZ7K27WgxBUBWdz6gvouXPK1hnEPR2l5TYK8s+eLWcB66au5HLn5wImWfkldFYS
+	 3Y172rV/LsdvniJ83usHaP7h5bIdhv6cZS172s+8l97yy7rjlZ4CXQy4KqS+LYVl+fJ73ccbO2+w
+	 UFgtAxr463IZEJ7Jx1Wjb2xT3e6mNdCOp1sdtp3loFCNPB57Cqo4rA3KGf6zxYJLpGHi6tJKi2Yb
+	 uqBSxWiFc1V9yrdjjXvIi0Ocu5Or18YVIZKnp6fjd7vD2YFQP8uNDJQd+4EhD5kAbQs8o2oNjNvF
+	 ZTyQzFu3hAFLN43LW3TYzsw5BqywOCeJlWcsq1iLSwTzSmzLEuAvTu0RNryAf2wlz63PN+8OpyEt
+	 cNrswotgaQxQxh+nEzUS07bbtFQf4H7bDOLDpYIR5nnFfG7hPigzst0rRRbUGFJHCHYIlUcfccu5
+	 S2qMFY2aCTVW5JqXHtkTvWzTBBTzSspkMQYwThzwyQNmaVKlRs+YgsHLIpOC+zaBamdwepKeSSZh
+	 jwHT7Zsu/j43RxJRN4bOkVGi/ssQ1xfphATWuQKFAnazG4SZQS1u5v1jHUKd0bXowy7DVOSC1WWK
+	 Dty4lfiCOAOBUEcyFJQjy/rFDHKAsmsf7l5wCNZ9shrlefEZqS9sERb/SxDmpGUe2asGFYGkYHIK
+	 QiVcUXqBtTTvXFbmrvgGc/h4tqvtB7yASOB7D24DeaLqRgot+HGwv9FTJuGsZvjeE4JIyWySHYtZ
+	 c5PgpIldP6fNiSh7xqNQ96/E01Jzy1wkyk207W+W56PZahuuXCOl7OWgs/Kyq6Ox8huV4S1JBRbv
+	 8TW9FWFkqar1LsO7oZNRSTxp0xVbw1c6iw28OkI3h3C8MFAz3YCVaPI+fO3WLp+XkmuvIPxCy6EY
+	 KogkyH9p3p9G+RL4CVgZb2eVWE4qmsqEOoJRS97cKW2lfTpB4Uss3aMoXnxHN0ylaLPrHbDpYv6G
+	 ydpgp9J4rP0UkLJoU631tq8TnVh3FBw/hK8zs1km0ul4AMFsET8PUwQBE/YynsIFDKVHlGIw==
 X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: bo cao <treebacker@foxmail.com>
 To: srini@kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	gregkh@linuxfoundation.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] misc: fastrpc: pin invoke context at glink response lookup
-Date: Fri, 30 Oct 2026 16:19:55 +0800
-X-OQ-MSGID: <20261030081955.33535-1-treebacker@foxmail.com>
+Subject: [PATCH 2/2] misc: fastrpc: consume in-flight reference exactly once
+Date: Fri, 30 Oct 2026 16:20:14 +0800
+X-OQ-MSGID: <20261030082014.34249-1-treebacker@foxmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,102 +80,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fastrpc_rpmsg_callback() looks up the invoke context under cctx->lock
-but then uses it after dropping the lock, including the ctxid read in
-the sequence validation itself, ctx->retval, complete() and
-schedule_work().
+The response path is supposed to drop the in-flight reference taken
+by fastrpc_invoke_send() exactly once: fastrpc_rpmsg_callback() calls
+complete() and schedules fastrpc_context_put_wq(), whose worker drops
+the reference.  Nothing enforces this: a second delivery of the same
+COMPLETE response (identical ctxid and sequence, so it passes the
+sequence validation) re-queues put_work after the first worker has
+run and drops the in-flight reference a second time.  The context is
+then freed while the invoking thread is still processing the first
+completion, and the second fastrpc_context_free() also drops the
+fastrpc_user and channel context references a second time.
 
-The final kref_put() happens outside the lock (in the invoking
-thread's bail path or in the put_work worker) and
-fastrpc_context_free() removes the context from ctx_idr only after
-releasing its maps and DMA buffer, so a context found in the IDR may
-already have a zero refcount with free in progress:
-
-    callback                          freeing thread
-    --------                          --------------
-    lock; idr_find() -> ctx; unlock
-                                      (refcount already 0; free is
-                                       releasing maps and buf)
-                                      lock; idr_remove(); unlock
-                                      kfree(ctx)
-    read ctx->ctxid for the seq
-    check -- use after free
-
-Take a reference on the context inside the same critical section as
-the idr_find() lookup and run the sequence validation there too;
-drop the reference after scheduling the worker (or when the response
-is dropped).  kref_get_unless_zero() is required because the IDR may
-still hold a context whose refcount has already reached zero while
-fastrpc_context_free() is running.
+Track the first delivery with a plain bool checked under cctx->lock,
+together with the sequence validation, and drop duplicates.
 
 Fixes: c68cfb718c8f ("misc: fastrpc: Add support for context Invoke method")
 Cc: stable@vger.kernel.org
 Signed-off-by: bo cao <treebacker@foxmail.com>
 ---
- drivers/misc/fastrpc.c | 24 ++++++++++++++++--------
- 1 file changed, 16 insertions(+), 8 deletions(-)
+ drivers/misc/fastrpc.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index af18ff1992ee..c77048076aee 100644
+index c77048076aee..f56ba5e44e1f 100644
 --- a/drivers/misc/fastrpc.c
 +++ b/drivers/misc/fastrpc.c
-@@ -2724,6 +2724,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	struct fastrpc_invoke_ctx *ctx;
+@@ -271,6 +271,8 @@ struct fastrpc_invoke_ctx {
+ 	bool is_work_done;
+ 	/* process updates poll memory instead of glink response */
+ 	bool is_polled;
++	/* first response already consumed the in-flight reference */
++	bool responded;
+ 	struct kref refcount;
+ 	struct list_head node; /* list of ctxs */
+ 	struct completion work;
+@@ -2725,6 +2727,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
  	unsigned long flags;
  	unsigned long ctxid;
-+	bool stale = false;
+ 	bool stale = false;
++	bool dup = false;
  
  	if (len < sizeof(*rsp))
  		return -EINVAL;
-@@ -2743,6 +2744,13 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 
- 	spin_lock_irqsave(&cctx->lock, flags);
- 	ctx = idr_find(&cctx->ctx_idr, ctxid);
-+	if (ctx && !kref_get_unless_zero(&ctx->refcount)) {
-+		/* Context is being torn down */
-+		ctx = NULL;
+@@ -2749,8 +2752,13 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+ 		ctx = NULL;
+ 	}
+ 	if (ctx && FIELD_GET(FASTRPC_CTXID_SEQ_MASK, rsp->ctx) !=
+-		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid))
++		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid)) {
+ 		stale = true;
++	} else if (ctx && ctx->responded) {
++		dup = true;
++	} else if (ctx) {
++		ctx->responded = true;
 +	}
-+	if (ctx && FIELD_GET(FASTRPC_CTXID_SEQ_MASK, rsp->ctx) !=
-+		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid))
-+		stale = true;
  	spin_unlock_irqrestore(&cctx->lock, flags);
  
  	if (!ctx) {
-@@ -2751,19 +2759,17 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	}
- 
- 	/*
--	 * Validate the sequence number embedded in the upper bits of the
--	 * context ID.  Under high concurrency the IDR slot can be recycled
--	 * for a new request before a late (or duplicate) glink COMPLETE
--	 * response for the previous request arrives.  Without this check the
--	 * driver would call complete() on the wrong context, waking a thread
--	 * whose buffers are still being accessed by the DSP.
-+	 * The IDR slot can be recycled for a new request before a late
-+	 * (or duplicate) glink COMPLETE response for the previous request
-+	 * arrives, so the sequence number was validated above, under
-+	 * cctx->lock.
- 	 */
--	if (FIELD_GET(FASTRPC_CTXID_SEQ_MASK, rsp->ctx) !=
--	    FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid)) {
-+	if (stale) {
- 		dev_dbg(&rpdev->dev,
- 			"Stale glink response ctx 0x%llx (expected seq 0x%llx), dropping\n",
- 			rsp->ctx,
- 			FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid));
-+		fastrpc_context_put(ctx);
+@@ -2773,6 +2781,14 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
  		return 0;
  	}
  
-@@ -2778,6 +2784,8 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	 */
- 	schedule_work(&ctx->put_work);
- 
-+	fastrpc_context_put(ctx);
++	if (dup) {
++		dev_dbg(&rpdev->dev,
++			"Duplicate glink response ctx 0x%llx, dropping\n",
++			rsp->ctx);
++		fastrpc_context_put(ctx);
++		return 0;
++	}
 +
- 	return 0;
- }
- 
+ 	ctx->retval = rsp->retval;
+ 	ctx->is_work_done = true;
+ 	complete(&ctx->work);
 -- 
 2.39.5 (Apple Git-154)
 
