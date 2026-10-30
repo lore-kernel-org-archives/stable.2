@@ -1,56 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348299;
-	b=RZyzc2FIjuk/nVEJu3gthMuBMsr8g+y8f2kZXedZ1IHFQOrYVboE9S08G+brnbg3QZ0Q
-	 ITvcYejJM0k3u4eYehrjPYKunOxs22oR7693u4gYVdbom0FMSH+l1Cnnh++ouM8KJw/QD
-	 n2n7YzL/BEBL9ss4+DscXa0pRHrsR1mnyTgBLno9RlWoIwlh8lpHh5o5tBC7tPfuuWfnU
-	 d6oCVS+5asSua7OmWp6W7bByKHJ3T+XXTDzcaCnXcJHDgHofO4qqESxje/yPmqEQXjFE3
-	 49hOUtAkAg6Oet/YPUX6Un+gpOIPOS+Tngnwkuu5gZl56FOA70q0k1mCnnzIStWSnrg==
+	t=1793348405;
+	b=b0RadW3Fl/GLDLMWpLjHxm+1BNV5WjXOUX3O90e67AxOYSBINSeugvMhVPpgH49+CaPh
+	 Xrs/uSDWkGL6TK72PiFVsmfwqXgiqq1+Dhc1pixZakKu8nkevXOFtkADildjk+WX8+957
+	 HPorv4darqLj0xYg6Xy7MWINIDRmGjGET+1km8xo6qdc5AAYhtzUZulVwBKigOGOhcl6j
+	 7jUX6is4tkjGdO+Zbvznc9qem4KD3SbkdBUnPPrMS9PKhZ/LXIAsqj4pS3uE7EifrfIoc
+	 c/5CWQqmPe6l5m2332LHtUm30mrYmHnuiQgHq1NJx1gd20Mhy29LNHP5YXHfRkPL6/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348299;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yjMdRQDa0BKiCjyBLxfnEtlG7A95NJovK+UaME+7Qrk=;
-	b=rMNeZXeSQq9oVPid7cIc65qcuVtevY2lDW4kL/WzgIoEqcQiI3Bp7qCYFUtM9lnQ0zcR
-	 m9ukASeDQtuF5Hp0wrAj0f/C7Bzj5hMj+i3CAu5dB1XG8Vs2PMFGnWu0s1JsFczX41eDY
-	 g9IvdTbL1Cm2AzQaNylhhg2JHwdkm8c4pbWdEVqnItIiwqGk/aXuZKxbkCdYA0uxU5Bep
-	 XnCkvUMeHHRJakqWIpeBvD7LKS9Qg3WFA8Fn1WJMEWdTgrKE2GPokwDBo7ojCyOxpTdfV
-	 VuJFYto55CAF+lQbjmXrNw9hmOG2TbL2vxmuX9H9eYAcKX4c/bhQpaEXY9yWuvUTmjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348405;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=vwouWkv3VLbBPbIBA6ZZnoD9+7JPCAt0ykZeDQJi10g=;
+	b=Dvc7lRkdLzFScfKQ2BqBgplKU3hk+G8etxd71xkQcbP5HIS/EaS9K+NMTtmjlFFhGjSd
+	 y8htyzbz4IDVcjQR0OEZToi+svB8jAxrxQka8Pm/E0+7OsuxsICmlS1PLpKc5Y7JlirTA
+	 zxWMWN9HnRaDmgxYj7jNfgME93LaGVwcxq65fNWZ+4MTTg4Ge/mzI2AUkto4Jlg/mN5nG
+	 5R/FI7FvPtn0rPllSdhfA4ZYug0FZdkTCVurP7cTv1RV27MwjvH017vCfabUuHOAHIG/F
+	 RBYV7X/4Dv4gifhLz2eQuf7j+t3OBb+XxfXBne6XLJ3zaZDwDanWcZLtI9aUgxxzgnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=rxt5i0Th;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ECE6F606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:18:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECE6F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=yMg1LyWZ;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8C0606A31D;
+	Fri, 30 Oct 2026 08:20:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB8C0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=rxt5i0Th
-Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 151311C025E;
-	Fri, 30 Oct 2026 09:18:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1793348298;
-	bh=nAKASWeLvsdxgMY7KJmCSMlmE5AQrN3mfo3HXClaYIM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=rxt5i0ThsNrl23thNy7cTr9bABZU9b3fe2/C9Lvxnj3av9MeTIKy9j1+BDyrVDscf
-	 X4BL3SwNKryEjF/bh30OUT8qgNRbbXY/sjaegbjwX6KXNhoBlQF4UHdWURi6hor9zY
-	 LsB7KoQF5A2AevA9o5orNX+mXA4Ez7bI0D4u6Enk=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: 
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
-	stable@vger.kernel.org,
-	"Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>
-Subject: [PATCH v3 2/2] powerpc/syscall: Return the preset value of skipped syscalls
-Date: Fri, 30 Oct 2026 09:17:55 +0100
-Message-ID: <20261030081757.1065832-3-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030081757.1065832-1-renzo@cs.unibo.it>
-References: <20261030081757.1065832-1-renzo@cs.unibo.it>
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=yMg1LyWZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793348397;
+	bh=vwouWkv3VLbBPbIBA6ZZnoD9+7JPCAt0ykZeDQJi10g=;
+	h=From:To:Cc:Subject:Date;
+	b=yMg1LyWZzQHUmbQaO8yFCp9NIEtFp7k35YOhy1RaVvhLEB2wUx1hIZKC4pGs2nKvG
+	 4GaQTefexymMP0GulhVA2YKuhprE7IVmHuX+OgTkx0TpeamKZivc1jGEIP/ysGwKK7
+	 8cQdJyxjSFHM0kjRd+G02R5RL7eNAcwwnOGDH6AA=
+Received: from HAPYCAO-MC1.tencent.com ([101.226.143.246])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 4F7AB0C9; Fri, 30 Oct 2026 16:19:55 +0800
+X-QQ-mid: xmsmtpt1793348395td1iriaz7
+Message-ID: <tencent_18454D1845AB2A759EA9AB3ABE52E67AE205@qq.com>
+X-QQ-XMAILINFO: MDbayGdXPuoenP/Mh6MCkqyiDnVDgLhBJfOYHtI/F90m62xGXVhVMrr9yuuQ0/
+	 QAOHPFu8XYwtjpYPmX8KAKYj3/jPqbXAkU0auKExHrkZcWL+U5lHQNn1Z2q5q37OLv01cVkbyssj
+	 rnfQWGfGZCyvAvPYdOoOqsIBhAytBn/b+x/T1OqntZc2TcT8hDBNC9RIqS4R1si7usBRd4E9uBu3
+	 EJuVyLS/L6huZuKBGjgLcJ30IlzHBIdYL3bjrsc9cWJ+xSIMuVHwxguf/qY/zPxS6dOipPFWlxIw
+	 xY4gKS1ZIBDnf5i7rrkv8TiccJTKvcUoHbfpghaPqRfXeeHjzFYcRhVLzWzQUeRK4TPm+JC3hQXJ
+	 z6aO8+D6cYvDkt8MWpciLROxPlo+x9wuVSs9WM93U9uPlHXDEn776eYAcxuWJXpb8Se9GtmUyBIj
+	 96salvnNjMxQKDsGMZW1w35bm5C8iWf1NyZ3P1VlbuMoyDz4HF7jvEH6EQBxG8TDPxm81dXM4PSQ
+	 b/5bfGy9qO+F5ATlLd34GVTMEehtKlhirLqVyVRWrsN8XkDxAxP4cEM/Qpo4sVwow1eRErOv8ErB
+	 lneW0lqYT6GOdaabJ7TVt9NIeWrkPPUTSx/SArh3E+o6bLqi+JEo+3BRnboYaHCwWxkx94LYjkVS
+	 gYGHf2CmMjJa8BPCQ7crwIodSNuuEbDPxpcF0YcjaoDAP8DahbaN5nRoz+3Z11p6pb5XaN8vtzkl
+	 8VW2ixAzjk+H7OEhOurnrhsar2L5gZHy89NYe+aylXQJ26rvlE2kP9SISn6Ocf247Yg0LXmb/C+G
+	 gRU9Oq9+WADvT998rZE6udKxuLjvhU8ZycVu+2MfvkDhCZhYT0asjPr6iVSlrOVXQrwFb2MIaH75
+	 s46dB8WPzTsCcmwYSnHcVNJMrhPrRjbkdXppnfs47ohAuaMJfH6OWaz+97qCujmsCXAwPitsHx/v
+	 7zmwozC3zeeGWNI/NZAyPzgWJAJ7+sW/gPXIWYyod+hLxUpnPT24fj+rYqnOevSEHtOlJhHbNLgT
+	 GXznH8SfXg2aacPZxL8Lrahd5kqv5opYDLR3RIVsJwp2Uz1ict6FQ5Mhke/So1JEZVOyVkYg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: bo cao <treebacker@foxmail.com>
+To: srini@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] misc: fastrpc: pin invoke context at glink response lookup
+Date: Fri, 30 Oct 2026 16:19:55 +0800
+X-OQ-MSGID: <20261030081955.33535-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,54 +80,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When ptrace or seccomp skip a system call, r3 (and CR0.SO for "sc")
-already hold its return value, set either through
-syscall_set_return_value() or directly by a tracer, e.g. with
-PTRACE_POKEUSER at a PTRACE_EVENT_SECCOMP stop.
+fastrpc_rpmsg_callback() looks up the invoke context under cctx->lock
+but then uses it after dropping the lock, including the ctxid read in
+the sequence validation itself, ctx->retval, complete() and
+schedule_work().
 
-Since commit 05c033db7e9a ("entry, treewide: Make
-syscall_enter_from_user_mode[_work]() indicate syscall execution"),
-system_call_exception() returns syscall_get_error() for a skipped system
-call.  syscall_get_error() is 0 for any non-error value, so a success
-value is replaced with 0: the value set by a tracer, or the val of a
-SECCOMP_RET_USER_NOTIF response.  Among others, the seccomp_bpf
-user_notification_* and TRACE_syscall.seccomp.syscall_faked selftests
-fail.
+The final kref_put() happens outside the lock (in the invoking
+thread's bail path or in the put_work worker) and
+fastrpc_context_free() removes the context from ctx_idr only after
+releasing its maps and DMA buffer, so a context found in the IDR may
+already have a zero refcount with free in progress:
 
-Return the error from syscall_get_error() if there is one, and the value
-in r3 otherwise.  The error path is unchanged, and a success value is
-returned as it was before the conversion to GENERIC_ENTRY, when
-system_call_exception() returned regs->gpr[3] for a skipped system call.
+    callback                          freeing thread
+    --------                          --------------
+    lock; idr_find() -> ctx; unlock
+                                      (refcount already 0; free is
+                                       releasing maps and buf)
+                                      lock; idr_remove(); unlock
+                                      kfree(ctx)
+    read ctx->ctxid for the seq
+    check -- use after free
 
-Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
-Cc: stable@vger.kernel.org # v7.3
-Suggested-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-Assisted-by: claude-opus-5-5
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+Take a reference on the context inside the same critical section as
+the idr_find() lookup and run the sequence validation there too;
+drop the reference after scheduling the worker (or when the response
+is dropped).  kref_get_unless_zero() is required because the IDR may
+still hold a context whose refcount has already reached zero while
+fastrpc_context_free() is running.
+
+Fixes: c68cfb718c8f ("misc: fastrpc: Add support for context Invoke method")
+Cc: stable@vger.kernel.org
+Signed-off-by: bo cao <treebacker@foxmail.com>
 ---
- arch/powerpc/kernel/syscall.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/misc/fastrpc.c | 24 ++++++++++++++++--------
+ 1 file changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-index f7412556a9e8..7b35b895b70c 100644
---- a/arch/powerpc/kernel/syscall.c
-+++ b/arch/powerpc/kernel/syscall.c
-@@ -19,7 +19,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
- 	syscall_fn f;
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index af18ff1992ee..c77048076aee 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -2724,6 +2724,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+ 	struct fastrpc_invoke_ctx *ctx;
+ 	unsigned long flags;
+ 	unsigned long ctxid;
++	bool stale = false;
  
- 	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
--		return syscall_get_error(current, regs);
-+		/*
-+		 * The syscall was skipped by seccomp or ptrace. r3 (and CR0.SO
-+		 * for "sc") already hold the return value, set either through
-+		 * syscall_set_return_value() or directly by the tracer. Hand
-+		 * it back in the form syscall_exit_prepare() expects: -errno
-+		 * on failure, else the value in r3.
-+		 */
-+		return syscall_get_error(current, regs) ?: regs->gpr[3];
+ 	if (len < sizeof(*rsp))
+ 		return -EINVAL;
+@@ -2743,6 +2744,13 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+ 
+ 	spin_lock_irqsave(&cctx->lock, flags);
+ 	ctx = idr_find(&cctx->ctx_idr, ctxid);
++	if (ctx && !kref_get_unless_zero(&ctx->refcount)) {
++		/* Context is being torn down */
++		ctx = NULL;
++	}
++	if (ctx && FIELD_GET(FASTRPC_CTXID_SEQ_MASK, rsp->ctx) !=
++		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid))
++		stale = true;
+ 	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
+ 	if (!ctx) {
+@@ -2751,19 +2759,17 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
  	}
  
- 	if (unlikely(r0 >= NR_syscalls)) {
+ 	/*
+-	 * Validate the sequence number embedded in the upper bits of the
+-	 * context ID.  Under high concurrency the IDR slot can be recycled
+-	 * for a new request before a late (or duplicate) glink COMPLETE
+-	 * response for the previous request arrives.  Without this check the
+-	 * driver would call complete() on the wrong context, waking a thread
+-	 * whose buffers are still being accessed by the DSP.
++	 * The IDR slot can be recycled for a new request before a late
++	 * (or duplicate) glink COMPLETE response for the previous request
++	 * arrives, so the sequence number was validated above, under
++	 * cctx->lock.
+ 	 */
+-	if (FIELD_GET(FASTRPC_CTXID_SEQ_MASK, rsp->ctx) !=
+-	    FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid)) {
++	if (stale) {
+ 		dev_dbg(&rpdev->dev,
+ 			"Stale glink response ctx 0x%llx (expected seq 0x%llx), dropping\n",
+ 			rsp->ctx,
+ 			FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid));
++		fastrpc_context_put(ctx);
+ 		return 0;
+ 	}
+ 
+@@ -2778,6 +2784,8 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
+ 	 */
+ 	schedule_work(&ctx->put_work);
+ 
++	fastrpc_context_put(ctx);
++
+ 	return 0;
+ }
+ 
 -- 
-2.55.0
+2.39.5 (Apple Git-154)
 
