@@ -1,115 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356295;
-	b=ZK/UlwgSr6Ww5+kGqGeKHnRJCFFfNFWhXWObNBZUti0r0sHZJj8qSGffK0BVAf9N1oHZ
-	 2uWur/LGhP+TXVAh6InBziCfxXVURFdan2gjKUQHti2+2OsM+R8wUqo9xQ/7ph4M7ooM0
-	 QyqqbUpwYab8r7OU+0S1Wr+Ye6/plkAKVgsYZGn3pQKhjxVG0acFIW0OV0a2rGaLk13Su
-	 HBegZoY6VAFHnqiAq8xzHPRupv6Dn36uNTMCxSlmrSNgGLVqqhLo9VWSzok/kL0JwRBVw
-	 zOY6CeBHRcOTtn3TjLgd9hfCIaJaSBkKSEec5/5uW6SbjgblB/8B+fS+pGVEWm6FCnQ==
+	t=1793356467;
+	b=d3XbxMWoD26ac0HbaZIitLxrAB5wVibxL3dVoga4qXwy/DZqsuBdxhcyDjFUEbk7+AU1
+	 UsrWht/FCfCkhHZ7xYYH6070leECO98IM3VHDWgaPTtyaxVIyGEqxELV7PMNsCqPUalsI
+	 6s0hkRHu5GRyJUYmLSTh05fWdERz2FLCPDgwW2w1EjkFtfkyRNUMebDAiMWjxFJef3BvG
+	 5n7X2M2ceMvyw64A0u7jMkHzKQR3wCaYho5ipLfaIrm5pB0tOyTSiT+1F3T2uG18D5SEP
+	 roh4lbbdK9ERkK3WBr486/06r6MRKqEQY/UhdFrUeyQG6yEXcKB6IQEzIQzCXqgj7Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356295;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356467;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+odUupFlBPfIWlLIIHrecttuzzglpzR9hW0hhIpLUuk=;
-	b=g8/dv5GPJA/UlnX1eGD1jtZQqIwde5dKlvaBoL62/zpIJrF11h54y2OcEH5hlZnTEAxc
-	 83obXxhmEpT6hkh/Zt9oqKmNUBv1M3DwSwxxhQtctVJYeofol2fB4CKxC4ynwZodMvwoK
-	 M7K+p5mOfVHxVHSJh9bAR9rHOa9dguRB4tfeaDf97nkO8ftDZNWldkjB9ll1EuR/4CrFK
-	 esJ19YMoyqFDLB3rh6hD4aZjOI2pUw7Ee3VgBEGG0e2QhjJgMug9RfFGoUPqPB7euQ/fK
-	 yRblnIrSe0WPs8PQx8OnS55cm4kUJryP8hH+c9DH8Z/72R1239guQwmjyz7ibIkC7Ug==
+	bh=M7JJASl+nuTr5h0hwNfOIsigjQbehWTAWvZV7+ghWJc=;
+	b=Ztq00MXVjS6yf0VRspv2BGgUzZ7vYxv8CdVu9OQXqta11GfWZYbXr+VtZzqFPKAAYWGX
+	 ng5hScMeR21ExLvQKRJU0kZcI8yuWmA79DgofMiGQO8kGNh/sETsTWkGLlpyrg1FsnR7Z
+	 zcr6A1bt38V9kk8rXEWBWhKAxmTGOnKdIiNic973M8ZwsFOyoirQ/rZA0LZztfJmE9zfv
+	 qTs4Ye/0thx0Rns1ZaMWavE5yFH+6G92Bjig3yP87qrq7/63LOMeamNfwRE4ZfWGb7fNx
+	 uyL3bZgpQo4XVQ0icWcxZTwJbHvaKBzDbuejw4L3UUCf5iB/heD1C83noizPnQJnFpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=e5q8K4jk;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hpiCLJJM;
-	arc=none smtp.remote-ip=202.12.124.153
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=YUrSWzpf;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D98E606A320
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D98E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF0B60A260C
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:34:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CF0B60A260C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=e5q8K4jk;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=hpiCLJJM
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 6E6517A017B
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 06:31:34 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-05.internal (MEProxy); Fri, 30 Oct 2026 06:31:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793356294;
-	 x=1793442694; bh=+odUupFlBPfIWlLIIHrecttuzzglpzR9hW0hhIpLUuk=; b=
-	e5q8K4jkQESFMadK+xZ17bV6sjrMosO7tjB0RmqZHu7zQ3r06k9hd6oE7KelED1L
-	YMXkqHU9rbYMsjR62QPCw1nzUpgkFdno4Oj8EdAvp7D3+AfEzQea3ZOg6UVucuHq
-	TB/HhqIGx5duizGIKIuTE/f2cQlyGcPMjm5MQX0cVgxmYFa0Ixm2o2sMU6glBwOZ
-	wkZe6ZoaFCuW3geDzdwto079fiWZ23lIlKljXAgEweQ2eJG6O2yofD93vmnIwhCJ
-	umRvDlzRJ+ARfz4zF7AAksgOy5xL6XbKaX9g0JJoDhelkicJ/DrkGNS+sRM4q29A
-	P4VednrGM8oW+eg5f4xV1A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793356294; x=
-	1793442694; bh=+odUupFlBPfIWlLIIHrecttuzzglpzR9hW0hhIpLUuk=; b=h
-	piCLJJMbdJjzkhZ+bg55FlZMRNItCxz6stFKOlqmnapBzjuIVBcS4hW+Zy3ck4wW
-	38s406w+LAnkRgAx2D2dxfO8+93ZdwzB7ReofVjWQD+rN8j1pyDTq0NEGXLgVQPD
-	1Y5gbYWk8fH3E6+eYgb/fIaebr29wujxrIc7XqeR+TznByE2rQq9R/X/sA2kh9+X
-	HyAZeGAcM3BZE+YKb3bcluLtds+dBeo0J8hjoUcxuGZLLSrajUYWdklYREef6ZN2
-	0BIBihcMtpqvc5Ed4bO7Z2FDBH+TRA0nmxiJx5FwVfOcqbfAEWKX4T5titQVbsnc
-	mxcgRlQI6UpjQoHVI+5TQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793356294; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:VFrp+/fRCClK8Ml0H3w5hxxxng8CdSGilrQUhWR8bkS+Wjw
-	WDwfGiPHjIwbucTzJNJ8x38UQmLPDQwY76Clrunv06I5NCpvIVkpKHdFpOoQ1QAG
-	8SXEjxdkmtC/NBHXGSvHdoYAImHUqlHJblq/Hh2K0ls76M3hvZQhgvYCcTLx4/h1
-	lZDd7x+uZZkEC5dgXNSEXHcdThZYUyPVbdsq4xYHp/etsB6edMewVu30xopb/4Yh
-	Mj1zbgiSk+KHS1xeC2mD4YHDiGVau3aZsdrNi/1a+G5bwHblhJk//jkYaEd0hmw0
-	YqwDgSrb+Cf6HWlKuS80gEyJI8aYFFUz864R+PQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:JwT+WW6TYVidP4gIWSqdUyCrPSHuYgzk6dZHUxW8FA0=:8v0yoNLjBiupfOwKOZJYNqTd3oll3AUQi2enYI96140=;
-X-ME-Sender: <xms:BXLkavNR9eFc1en5SSJTuYUok_bD5m8H8ZXGfiUuNx4k_ooBk2RR6Q>
-    <xme:BXLkal2FG78TLbYgLhLIUGvEqkwi4S7Nd8vzwBCklu8NFtsz4uxvEZQ3_E17Wmvsz
-    mds_rxWTX9gfXKlV91j3Lpki-DlI2a2RUCZwube9UYIHUi0Go3wX0A>
-X-ME-Received: <xmr:BXLkapw9WbnNpRAcZ86V7M6UC2GR5e4qIUnWnN3IDUaadfD1jcoBi7A4gYOX6Ax467YsC6gUlSDzvbBPZoJj21SLzAn96DUa>
-X-ME-Proxy-Cause: dmFkZTFURojwT9WNm7oLoP28hH/1Cxa/xbHzMwFYCokdz5sEahf0Z/oZ4l9Uc8kERpDO0P
-    Seb9i/qUNCwSZkrxQJbk18JhzE3DIt7u2GcsgwtUtn0XfulHJPeIlLAPjCQN5BJpMOYIwv
-    7Jjn28cKSi50kVcQQUE0yqW1HewqUuYf4+yVPrEjn0h4m7Z2ixZiqxQZPXUoIdNZLQk1oq
-    j/09GmTLEgauwxYEJH77hq5Vmxoy79FPDq8Z2vpzaRlb0YPTVgVAAfPIO+6BwdwFAn3C2f
-    q8bV2GNR9Kjk02pdD2chQA98RChcGkSnCtmmpu47GzQbb1z6ZDt5xRNvFvBRT+WQYfQyaZ
-    4a+NEzUCxwaSBU2bWtqia3LRc4+OIUQagh6Do4dh9sUE0FFXTyR+kaBlvU9jiEamqEVPHQ
-    4gbXc3NBLEiLpddndP6u88pRN5KJ7K/tGBwb0Iq5eqagfS946dk2OOSNXlcTJj6CdL/r0U
-    1se7m7U26O419LntyJa18SPQ85A9mHIqVc9iF3qc79gSnNmlA8TDvbxQSOidveG+6xiAVH
-    IfIpTYF58bm83gaRdNhnZdV4zJmkNrVtUBaawkPHy+SnA4jhKXwzGhPGs0KK/AbrQFbEJh
-    irQ2kGoSlvO8BOARxpkZEjIfgcR+8Q7p4Z6Dtcy5qWDotE9skmnpNVthXc1Q
-X-ME-Proxy: <xmx:BXLkanpNnH_o-nmQ8slmWTlEHLooWD-AyZ2EjImXwHVqoUcFcWcbbA>
-    <xmx:BXLkavVRDHcxn2vS49_jmNFy8IwdcamkiCm_bNJGbGAF2GNUmFCzyw>
-    <xmx:BXLkauqZGIZy05M3SN8McJmS7kLKEY_wblT-XD7O9vs3qhusfKi7jw>
-    <xmx:BXLkajHmQwxfxwWw0Drl4XaMEOWSvsvY5tHjsS9OHw3GFRlJT3Dyiw>
-    <xmx:BnLkahhJ_-gE_V8i3DllFX8PiZwOWNDALPnZzO64pV-kXux8Qpy6YFNN>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Oct 2026 06:31:30 -0400 (EDT)
-Message-ID: <b221befe-572a-46e1-8474-6271af65406a@pobox.com>
-Date: Fri, 30 Oct 2026 03:31:29 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=YUrSWzpf
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3535a54bed9so903397eec.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 03:34:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793356465; x=1793961265; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M7JJASl+nuTr5h0hwNfOIsigjQbehWTAWvZV7+ghWJc=;
+        b=YUrSWzpf7rEQ3aAa0oXonD5YmD6ZNwZ8VIsDTCVuQwMQ2onrHFnzF/GURSkjiLUapc
+         Vuf5A0cdueIwto/xKYl05FqMDLpavE7zk9wAagx3QuBWKGpYPEnhEZyq5cBLqHDv+/DP
+         29xDN5BV0pRM8YISl3l7Yn8tg0OaKhRGDuf8k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793356465; x=1793961265;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M7JJASl+nuTr5h0hwNfOIsigjQbehWTAWvZV7+ghWJc=;
+        b=B5puWMR7fXwtbLTZ+vMucyB7aUj9VXBI6S3HjQBcRJJNKFrGNPLSTD5Xy9Vl1/7oQ6
+         lvcj12Ms5AU7tTMBEvHz6Zx1IGghxMCq+USdSK9/dS5xWHeSShDXUxQpbiChcfuyzG4p
+         f1lrF8fydIeuws69mvS1viCyWiqqR1YUQxQAIe3sEwe+MdQ3v69yF/wP3syscnpg5cqT
+         5GJTMndTgvAO7U5IOCPUoc+n8aGQhSuracjx4OPcGu757Yd/D19lqoBnn9qi9Hb4faqB
+         2eksxdAfIUsyFRCvL7ebEZBxRjcMYU9dEun8Xz0aeX4D+O9KLU6QY0qVW6Oay6H/Utct
+         XiUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZq/F2pdmb/pgnw4uUaiaXFRnmOvF5EIR7pgXWtv2gN5lvcj4FWl2YaJpd+CENS+rehY0ygNU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGRmbsNTkkawWlcp0zqnQvS1dqSeJRHlGVdcHiSYgXGcHAT2GN
+	x2BJk13qetAdze2zVrsOAaGz2X6cLM763RVkGGnA3wbthXvpX+IRxCeARfKdrZeKAA==
+X-Gm-Gg: AYBFou3j3LIAdvGEGU19mMIYbnIJLrXFL88SZwbfL+2lk1FPdKy6PTIQZn9T2ashL2D
+	WbSB3rcRAccmqisw93hOa3gLay253JxP848etiU1Lb5QvV8IJAJkFjJxyp2AifZKKzdli0eYD8U
+	e6jI4izNtzGpXLxAnw6KWduXmlZ+Dr51taQ4H6G1MEXGK129Xl7wkFBY7zCW0gIBxEAhUDDj3sD
+	6wmYnl0HlRcJzu/0Ux7xobiASpt+Xi9D8ucl2mYSSxbKIV8BQqbV6BVFnFcskU/rjVo2A6+wNBX
+	DRrFJVoUX8Ia1rbr2AXNnrcF4UOyJPmgASt1QZVOG3RIwSzlN8gufsqNklTBu9bnDhvUGNjRvQL
+	XOsEOYNO/nVc53WyjwOVS9QTMzJjmGPxQ5PN244ua2+JVM5yRuCvkP0iOOFMhExJU+R6FWVVObU
+	n+Qd5ng2vsXb+jhIoVQ6/w+i97DC8IorIg0RLCe4otf3rxBepmv8dc4l25xR7Ac/kaDmLiHXAMy
+	88EYskFx+0lZsL5hdjBwaYkWJWI998lRMuNwkrN5dTWVG+p2elBBrNhCErDMyBnRg0J7rIMCRqF
+	brk60VJs4HmUQo7W9ikx3tGvrWTR2zLrBjMjtKEXx7k2w6JAvG2sjyjQaFPsNaNa99HoR2MvRGO
+	km1lVXlrcuZ8l
+X-Received: by 2002:a05:7300:cd90:b0:34b:4b99:24ab with SMTP id 5a478bee46e88-36a42454b8emr4378368eec.22.1793356465021;
+        Fri, 30 Oct 2026 03:34:25 -0700 (PDT)
+Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:6ef0:e162:ed32:a99f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a61a0csm7471774eec.22.2026.10.30.03.34.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:34:24 -0700 (PDT)
+From: Chen-Yu Tsai <wenst@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>,
+	linux-mediatek@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators
+Date: Fri, 30 Oct 2026 18:34:15 +0800
+Message-ID: <20261030103418.2355854-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,46 +96,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261028165943.089486480@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/28/26 9:58 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.161 release.
-> There are 168 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.161-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Asurada, the MT6315 buck regulators (Vbcpu, Vlcpu, and Vgpu) are
+missing the regulator-ramp-delay property. Without the slew rate
+specified, voltage increases may not have settled before switching CPU
+or GPU to higher operating points, risking undervoltage crashes.
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Add regulator-ramp-delay properties matching the slew rates configured
+by firmware, with values provided by MediaTek: 8000 uV/us for Vbcpu, and
+4500 uV/us for Vlcpu and Vgpu.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Fixes: 3183cb62b033 ("arm64: dts: mediatek: asurada: Add SPMI regulators")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+Patch created with LLM. Values were translated from raw register values
+by MediaTek.
+---
+ arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+index d1993b80f9ce..43286241cd22 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada.dtsi
+@@ -1812,6 +1812,7 @@ mt6315_6_vbuck1: vbuck1 {
+ 				regulator-min-microvolt = <400000>;
+ 				regulator-max-microvolt = <1193750>;
+ 				regulator-enable-ramp-delay = <256>;
++				regulator-ramp-delay = <8000>;
+ 				regulator-allowed-modes = <0 1 2>;
+ 				regulator-always-on;
+ 			};
+@@ -1821,6 +1822,7 @@ mt6315_6_vbuck3: vbuck3 {
+ 				regulator-min-microvolt = <400000>;
+ 				regulator-max-microvolt = <1193750>;
+ 				regulator-enable-ramp-delay = <256>;
++				regulator-ramp-delay = <4500>;
+ 				regulator-allowed-modes = <0 1 2>;
+ 				regulator-always-on;
+ 			};
+@@ -1841,6 +1843,7 @@ mt6315_7_vbuck1: vbuck1 {
+ 				regulator-min-microvolt = <400000>;
+ 				regulator-max-microvolt = <800000>;
+ 				regulator-enable-ramp-delay = <256>;
++				regulator-ramp-delay = <4500>;
+ 				regulator-allowed-modes = <0 1 2>;
+ 				regulator-coupled-with = <&mt6359_vsram_others_ldo_reg>;
+ 				regulator-coupled-max-spread = <10000>;
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.56.0.317.g454f8302e1-goog
+
