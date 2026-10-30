@@ -1,69 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793350179;
-	b=lp8EFIe1QdZVcJ4CW10tUY28AZ97z+sKJ0IlZH/a+mM3BuF2TZ70XRI9KVtUXBQX29TC
-	 2mcMicwWiC/jDZvO3X99hK+1UqU5OPfac7Rxb2LcixGc9ktepNAYtE5hbSmFOydhqB/0H
-	 80n2yydrfpel7Q5FzrmcRM8elo53ZusBHHg02LYHLLagR3TTdoqheG7W7piUone9nuyzL
-	 W7+ZaNWo5o/HzbnfGIZkRXN8o4aON9hB84y+l3BSOv5YWcfbh5CBp3nv8iTpEGmh98rVy
-	 YJmFASLNVqt297DJ5D8eoSC9aaeJy3ouTrAowRSwEkxVT+OJ5Nr2JkrDgigGvzcmG7Q==
+	t=1793350319;
+	b=BTPNAwshSMigd8UigvACY1wdVo5c6igoNO7M4PrHcZkWbe2a0X/OnYLeLcXsR440b3X3
+	 1DAPnZjcUENlwke9cHbP6W/akxY8QRmRcERGti3w/QhA8odnpGN4nPR5FdaNG1B6gR14q
+	 /i3dFMM9x/eMXoOOo21ybLmh2ItRfYUmOYwuWHBCGMMpr+xkEtPTyhOZNsWJfET4ut6wo
+	 YLJC/zFGjF62KKr6kdSOjCdp3JKN+PTLS03M+TNCQ+kG3Pmzq6Ct8+GLkC9kZ52pMOacS
+	 fXP0a3gLup8aQB38zkFkxSpQazBSCMzkXY34jL9RKAbjaN99Vf0Alii/gl9NA8WKbzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793350179;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yjMdRQDa0BKiCjyBLxfnEtlG7A95NJovK+UaME+7Qrk=;
-	b=ol2JUyVih50L0QeZuCXp0Ruf4WtEiFEOLrj2642MjvwbTHesbDC81sLfFeTT9YqtjcpH
-	 HHiqEehFE9cOLGXyu7HMeeiJsNLX2ubjqz61cSO2EQRd8JU7+q3WAOEYtHtKqZQkgPY4Q
-	 S9i8AcqSfFrcFmnNiSheVhNo83+ijEGQp2To81+oGDn65ZYXo+HhNBfNzwqn8IsITSLG/
-	 nKBkaig3AnjP1igwq/a2oOaJ9ckWzQQBfEMQbA7osivANfQ7L/LeWGxVxS+LfWLTVr+hE
-	 NmcFFGoQI75Uw2HZHM0MEtBcbd+DeI1CfF20wWRtpcxOkaN4DGNcs49FUXIMFm/vMLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350319;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=0oSq+3LLDBfPlE67BXqRyTf7xK6kh5Hzn6KVpuLBcz8=;
+	b=Ys7Atoxqo0cgtMSg4m+MTh/A8hHtn2tAw7I70FhavTd24Uv8bSsarYwIFWgXdZQ99zWd
+	 aGf54e7y/v+GNvVgV4AG8Uy8O9wCEjmA/4tjYUzLNdcP+UnGrj343oI/mxLonnqSb1b+8
+	 O6yMHfM9I9erJICeYSlPUnQwyFoNkEFTD6J/8Cb/Gl4+HTGASE4SzmMQYQrTtYpJWMyHo
+	 XSRBONi/vgx6dzxHwo1lZADbQSWx/3+mPzXyPIc0vUZBG93OJyMZ9sGMa+W/pw6hiwnof
+	 3jWVFLXmVfcDIZ48LH7kt0PA16beeQYLVKrOBjhbAPZ/YhdZWBHPaNdea8kBPxbG4jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=dQidhxzT;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D63A606A323;
-	Fri, 30 Oct 2026 08:49:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D63A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=dP24nbHp;
+	arc=none smtp.remote-ip=162.62.57.210
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241C4606A31D;
+	Fri, 30 Oct 2026 08:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 241C4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=dQidhxzT
-Received: from eipi10.cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 2D96A1C025D;
-	Fri, 30 Oct 2026 09:49:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1793350177;
-	bh=nAKASWeLvsdxgMY7KJmCSMlmE5AQrN3mfo3HXClaYIM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dQidhxzTAJZ2Z8XUUUbgPOCm9zpmY7boSUY9h9rxbTpGWRum+I27qOoWJsEa5NJhu
-	 hZvPmcCZ2ilUKxhjOrp3sbKnmYiSsz0A3Tsm3IuRyOYTkBmsFXYg/10hFn9McXNTAp
-	 vmFhWdetaz6QgEXdyKZXJbYm6Y3QeBpZHX26ZDfA=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
-	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=dP24nbHp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793350312;
+	bh=0oSq+3LLDBfPlE67BXqRyTf7xK6kh5Hzn6KVpuLBcz8=;
+	h=From:To:Cc:Subject:Date;
+	b=dP24nbHpWtVr+PLB1ag8/a9CvMJMgdONEdmMEjufvMe9M8yddOhRzrfcX5LI+s9Ih
+	 2rfkOkwLPzMZanC3mmmQ65vfJsx2ZX6J7qf/Z5/HdSPDdD8tHOZS7GAAu9PBwpI2LE
+	 thS9QFSZ0nIEFIVRkuDoX+m4dmD8BmW7tAmEKJZ0=
+Received: from HAPYCAO-MC1.tencent.com ([101.226.143.246])
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id CF33741D; Fri, 30 Oct 2026 16:51:51 +0800
+X-QQ-mid: xmsmtpt1793350311tjpg4h2rs
+Message-ID: <tencent_AE37F59DA9A6DAB192F6BAFD054E584FAB05@qq.com>
+X-QQ-XMAILINFO: NPZcszwnKSXOXkHC8xBkb7B9lkn4bAAchtUelJJjMwG+UCfRctxocScpGz755R
+	 CJ9urG9jtT5eKihPldoh5hd8/6FgpueCZAt5yhyCRrq+Lks22HETtGXy0A9A4FW0+N5bTWZfFn4g
+	 8x2HWVDdtNKBqKX1HNPueCCBdAvBerJkgOJoC9xrrAlRri/sTLEXqz5EIYEyVk1sDWuDFriUMZYW
+	 UAuSMrWlnYSAXQ0bn+somXQngeOTi3ImTzdZMGwmksC+UY3HFquiuoHv53lRg9SIVrVeYbjA77O5
+	 YsPqOm/903mGXU40r/ah7DFdq/oUwawLEYsqQcOZEnVF2u28OYvrSvkoe5InNyfW7cbUiMNt3+45
+	 jf44Rzu0V7RW6zCeu+/T6tp2G+vusYJdpm7ZaS0JRMkLKdVKC1LojamlmWmvu8hQgRz9svCxp8/V
+	 +1NzEvKuEHJ08snhvVlYUulbFkn3i6tABl+AvbWrBnnfGYiqMDBzjJC5RpySNahqdZFTQRMtiB2W
+	 LtIlfm/vkMHOAxGbiEOa7D9KSINIyKxyRiC/5qndBSaMWC5j5jpIpJBW2s3Se/02ReG8to7noSho
+	 KK2Ec868CcE+wSnVliiN5HSoebyThYGZvq8uOX4aOJOguwlhQqjodQbIr8WMSdMYENqFTpKiJv+o
+	 bnGI9FCrOWNQB/9dPfN6pabGz5DIOS+6XPv1upcyfe+cJsb+K0IvB1I1uvqvSJYGZFuiXEeb5t1P
+	 wcQXDchHz6el0ND2N5X/v/RQIjS0r7pf9Cbj+B6utT5R/9UuaKPqv/j96Llvdja69EodaPhOc0gw
+	 neaTGkQskSmg+ciUYoDsDxCH5Ch9sCnh/kBiiYpdPpAFAM7O3nuF9R7CF6gsm10/gzv0/e4z/ImN
+	 rD6evQtoQ8HRmcC+BTRixWQ1dPoQlwMf2AyZDNXZfFhSui1XS7eS/cOH745z7+oHHNuFIxKUc+l4
+	 /GtxhwRGIjeFWkxiV5xm1RUWe+2a0i4Z+vDRQBvEz5l/LFBtJjs/kO8Okh8aZ7rUGCGgXgIutaLU
+	 Avs0z/aGI5dMGfVGZQq5xnmXssb9FurZ+680hliI4THWh+7zzf9eeeJL1SiUUSUgb4yK4EGQ==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: bo cao <treebacker@foxmail.com>
+To: srini@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] powerpc/syscall: Return the preset value of skipped syscalls
-Date: Fri, 30 Oct 2026 09:49:25 +0100
-Message-ID: <20261030084926.1068384-3-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030084926.1068384-1-renzo@cs.unibo.it>
-References: <20261030084926.1068384-1-renzo@cs.unibo.it>
+Subject: [PATCH v2 0/2] misc: fastrpc: context lifetime fixes on the glink response path
+Date: Fri, 30 Oct 2026 16:51:48 +0800
+X-OQ-MSGID: <20261030085150.75870-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,54 +80,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When ptrace or seccomp skip a system call, r3 (and CR0.SO for "sc")
-already hold its return value, set either through
-syscall_set_return_value() or directly by a tracer, e.g. with
-PTRACE_POKEUSER at a PTRACE_EVENT_SECCOMP stop.
+This is the public follow-up to the report "fastrpc: use-after-free
+of fastrpc_invoke_ctx on duplicate glink responses in
+fastrpc_rpmsg_callback()" (source analysis of v7.3-rc5 and current
+master), incorporating feedback from Greg KH on the originally
+proposed single patch:
 
-Since commit 05c033db7e9a ("entry, treewide: Make
-syscall_enter_from_user_mode[_work]() indicate syscall execution"),
-system_call_exception() returns syscall_get_error() for a skipped system
-call.  syscall_get_error() is 0 for any non-error value, so a success
-value is replaced with 0: the value set by a tracer, or the val of a
-SECCOMP_RET_USER_NOTIF response.  Among others, the seccomp_bpf
-user_notification_* and TRACE_syscall.seccomp.syscall_faked selftests
-fail.
+  - split into two independent fixes, each with its own Fixes tag;
+  - the atomic bitop and flag bitfield are replaced by a plain bool
+    checked under cctx->lock, together with the sequence validation;
+  - brace and comment style fixed;
+  - kref_get_unless_zero() at the lookup is kept: the lock protects
+    the IDR but not the context lifetime, since the final kref_put()
+    runs outside the lock and fastrpc_context_free() removes the
+    context from ctx_idr only after releasing its maps and DMA
+    buffer, so "found in the IDR" does not imply "refcount > 0".
 
-Return the error from syscall_get_error() if there is one, and the value
-in r3 otherwise.  The error path is unchanged, and a success value is
-returned as it was before the conversion to GENERIC_ENTRY, when
-system_call_exception() returned regs->gpr[3] for a skipped system call.
+Patch 1 pins the context found by idr_find() before dropping
+cctx->lock and runs the sequence validation inside the critical
+section.  Patch 2 makes the response path one-shot so a duplicate
+response cannot consume the in-flight reference a second time.
 
-Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
-Cc: stable@vger.kernel.org # v7.3
-Suggested-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-Assisted-by: claude-opus-5-5
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
----
- arch/powerpc/kernel/syscall.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+No runtime reproducer is included: triggering requires a second
+COMPLETE response for a live context, i.e. a buggy or hostile DSP,
+which cannot be produced from the ARM side on stock firmware.  The
+sequence check added by 96e62cc0a84d already addresses the same
+class of misbehaving remote responses (the recycled-IDR-slot case);
+these patches close the remaining cases (duplicate delivery for the
+same context, and the unlocked use against a concurrent context
+free).
 
-diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-index f7412556a9e8..7b35b895b70c 100644
---- a/arch/powerpc/kernel/syscall.c
-+++ b/arch/powerpc/kernel/syscall.c
-@@ -19,7 +19,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
- 	syscall_fn f;
- 
- 	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
--		return syscall_get_error(current, regs);
-+		/*
-+		 * The syscall was skipped by seccomp or ptrace. r3 (and CR0.SO
-+		 * for "sc") already hold the return value, set either through
-+		 * syscall_set_return_value() or directly by the tracer. Hand
-+		 * it back in the form syscall_exit_prepare() expects: -errno
-+		 * on failure, else the value in r3.
-+		 */
-+		return syscall_get_error(current, regs) ?: regs->gpr[3];
- 	}
- 
- 	if (unlikely(r0 >= NR_syscalls)) {
+v2 is a resend of the two patches previously sent as two separate
+emails, now properly threaded as a series with git send-email.  No
+code changes.
+
+bo cao (2):
+  misc: fastrpc: pin invoke context at glink response lookup
+  misc: fastrpc: consume in-flight reference exactly once
+
+ drivers/misc/fastrpc.c | 40 ++++++++++++++++++++++++++++++++--------
+ 1 file changed, 32 insertions(+), 8 deletions(-)
+
 -- 
-2.55.0
+2.39.5 (Apple Git-154)
 
