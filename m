@@ -1,126 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395284;
-	b=2fNng6I3PLILkq7ZFZdNZIVVVFSGeH0G1UoJWAMJOUDkN/WU5DYYon3i0DMTsm9n1hCJ
-	 AAKWmxuYialRO4mTSZSBkRQKmloXASZBM4e1wd+mj2pC6ZQJOc9sBMokAPW1R7DjWyyyo
-	 DL6E6pxydIC2QuhNKiPWeYSI4vKmrwNkkjy58IVtGaZ1b8RTM101uTzhb6oJ1MMPGOkkB
-	 Vr+auP/3NR1xMoMAuzIdfooiEIlAO3ianujlgyYmYqRZmewKbRaO7AmS2U2XwDGCDUTyQ
-	 0t2MMjV/1kCoT+p1VadmQsiFAZ4VEpEcCrhatsaIyG3c2ExkHBCe/+gFt6XixREW7lA==
+	t=1793396074;
+	b=A+z/aeQLyiljSVfaIyhnD9OlXZTHbF7BqyRyrjlNwunjEqP5cd8D3qKixqZh0i//cr7S
+	 AauKlKLY+spc+2gG5GJnOcPdpukyrpz5t9E4VZH0F8BQJZvv2njppEDPUg5yPso22V5sj
+	 fARHvMc+7RcycBv/46WQNZQEdROCc35jyg/MqF0wW9Z/pHbOnvUTIaakrCIuqfZauMv3Y
+	 QcCJz7/klkiFUDOx/T1Fz+YdfjB66bh64FNKBRVfrNYaae6p6ReQjzffIRG0S1ogJyiyl
+	 7c2rJLlhBEEYBF8KqJyXNC6DliM6w9fzcTlBN1zz9m0/N9vVPzMMOd5PweWyZRaFEWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395284;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=;
-	b=KUxBo/uK1s8wUbr2p/EQJ1XXe/FkhGmEbM0QDRs15TIpAgXm0t0B215zYR4SrBZkfRXU
-	 qxNyMpD5AkuZzuanvCVu9kT3aGNxhrQcYH+eZn9aooFoAyv9iYdtJ4B6W0k716M3skQCf
-	 6sY1S6eyS1Nui26zeMYkMnlgPdRcmAjSccWVsPCYMvmVdN0F4jVMuTqatH88RDVGgmmfH
-	 CKOS3jEy71g2fS6ac+cy3Jq2vRS1dM8ve1JcaIQVwrQwzUYGNysrW5PYlK/XCi+Meq1Sd
-	 8YAKF1KVbL54ewtfXLVXxwxARUiIzWgRYYmqUezNGD9f1ZG1K+gpdWWkqjVwwNmDExQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793396074;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=pfyuaHVWliYihnuN7VxgyTXmn4J3zXZExhdUzMnnin4=;
+	b=MRbf+VW6V7HzUExsnIWgRxcJvls5+Re1aU760MA9Z36RyTjGwUd53ahFGzhMwhbXT2Ya
+	 StPU9dTVHH2NpcbPPeL4q/yJySk+yJFgY4UpyEhxYg1pPqb767Mqv/JcwVqG9uCQxC6/D
+	 yYg8Q1itxOQ7AxviITye/teIc+DP/OEcoMpFGOUw/0KjrfbBlu2mntEu1Pqx19ZxLdJcC
+	 lb6pAmDX4p3Q8iQEjKp+u4KmgAf9gBQ7snhm5Ans/arDjkoihETcFnXWedJAp0m9UiIuo
+	 2r5mjHsxFILq40xvu5FWs7f3quifWT5Hm02ZjOWMgbeCq/u1eXS3tu0xl4Rwq1dJV8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=temperror header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EtigL5D7;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wn6wGwFZ;
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Us1b9MPK;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA0460A6F5A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 21:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EA0460A6F5A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF34606A31D
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 21:34:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BF34606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EtigL5D7;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wn6wGwFZ
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id C051B7A014F
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:21:22 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Fri, 30 Oct 2026 17:21:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793395281;
-	 x=1793481681; bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=; b=
-	EtigL5D7X3Ci0fdiYSyY6w7E2heYOCP4KYtQm64NUT1PLaPa4z3vESeUztDNJzGt
-	iZvEY9sPTHbAqlOd4AydzcBTOsoKwse/lUfrhh+nIQ0WtE3+bGC8EX7iD7BCbDX0
-	Ex5V4jQbKmmnOLTRi1JJZmG5uo3YS25LjpAPyAXRXHkhnFLvF5R5qBGhvtjPVfPz
-	dM3ppSYsfgIEtWpoO8WVa6ydMsdPEMPUMe8LU43E4Ki/M/kgl3SnmOsM1kl0JZ0u
-	GDr2p5040VOF69X3lGI7R5LNg9ddJpvW1PgecuPpUCAypDYVlbb9zOxX1PIT1LzM
-	07Kuum3c7mVvqPYGu+UKKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793395281; x=
-	1793481681; bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=; b=w
-	n6wGwFZzDf8z8hu4ZTzBEmHruyIYa7EKwLy9q6Jxhyiova0T0pka1Y/hD+eBIFmJ
-	9c63wqYYVhgVXiukrJ+rdoZW7Cou+Al8jRbf1+Rg/j0ZlPYxl1ouIiGhJ9cuI2S0
-	2yEuiRW1XmuQFvXbnIlnLlDc3+M3UDj0JDpRSUiR3q57kuT3ez5sn8spmNoKhX2R
-	r0qn0W0DqOax1CVIkA2Z0k2t70jAOwZ/RXucBVR2LU7nAlyw1xhCJaPGLIgyJDda
-	ozEfARV2JK9BS68/sZVbYnJdGD2JXONSB/Rv1SzDcutiKDVIwRfR8pUaNC56O3/d
-	k3JuDsDIjx0PCXZdXymRA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793395281; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:O2MUKTwoCdLFkBLY/Foubnba7wCG2Burk9PrVh3SYhnA7GL
-	gkzPnj53QQhsSZNHt8MR1d1pdKfD2c7r29U3vPuC2FVIJRdyoYZ4FEvWMr6cX4uh
-	gNoo0xQcQm3TEE0wFQkCtUU36fwGOCJ13JU9HNPlDkN0QGCjb6ujEu/gT8r6HbbU
-	furnNH7mpjnS/L1pfOd9/6EeuciRi8uBazsYrqk355B985CBz+6qDCzmvr7psSRF
-	cdsF9H1qtRXIJplz2oHO8hOmY1VcL+gjc3oApLKSmWO0eKFPQNEml/z4fBy4P0BA
-	97N3mQeuDj1Mv60147JeSrzNKXJZvFYj0rzlCFg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:mv4aGPcAwkiXx8VjHMnj2do5S6mOFkP/wTto/isqEDQ=:CkHN/CEk7RtqsrgxCKdks+dxaIj4YkGXmvUoGunDtU0=;
-X-ME-Sender: <xms:UQrlamwQ0wp5NMTR8_DkMZw9udTOE_0tE6HKXbSDPbQCe6LxeGaOZg>
-    <xme:UQrlaqbXLTPCgqL0wurDeYBMCdb2hzT4WAEGyzpX5IyZh75w4EhKMSPpn_4cMBKre
-    pGcGenKkvQjP_EmyMkl9eSCUrmm2AMCUKfV4OZ2DqZqxHyJS8DDDw>
-X-ME-Received: <xmr:UQrlan0D5YSzqL_fNh7UuDr1gQ6aYa5K9HKpctWhkRzEhX087R6MjslZvgAadQ>
-X-ME-Proxy-Cause: dmFkZTE9Qh59DEx5nBSxZ4EeJRHFHQUhtDF7/XkmVFDFZ1f8L9mJVueb32IcXNnhguBPcy
-    oVhHboeHNk9hdJEswRPzUXFTt4r8VkNlA/hsFSvMf/O5KTL7M5hFrbG5vNZ3om0ctjr+7U
-    08HiGDASsNv4o8fW4CNazOXJF/nasRc+CmXNe4E7KbEgewlslmUiXMUwmD5KhBCj9WWwMS
-    T6Wkb+meTa/IhB01JPwRkyqEpj1gT820d6i0HSXfnkS/JNLfbF8t4EkjpkYi8irYjUxdse
-    kMJKsuE9nUEvzkblcySo/ojLVkWWzPeH7dm0err5Aarel59lew26uF2QYMwNHhYI0Ag0Kp
-    TDk6xIhPWm4yKaA3f6hGs18C4XZUop54Wl2swPD53gjeTdt2Fdm0mdCrT8bxKUmcOkEdhS
-    QtD6N3scm8JyelIiJycBKlif3ZPP4S3OoVyAlmcgvHMU0m+TS/8bBfrcWbFiWbmvrKwBZy
-    4i97X7yHFchoUYyqDXS7tP6qutvr5B7sYeoyiuCFelEYj9UVmOZorlfiGI9aP/cI9eMPXM
-    cY1Z7V1EaYt7N3aAREmyuySkfTGRaerZ7HLBWlbfhRbbRmmr9WhdhuPf+AgbzTZw3oIbcl
-    MKgqHOV3B4jBz5xroZpDePlLg2LylNHdjAm5e4E4mqv3HNCqTvPcw85jj9Sw
-X-ME-Proxy: <xmx:UQrlasdIS0aBLRAipTfkHYbCnkUaoh4aSD9-QQLubmqqPHa_oICRMQ>
-    <xmx:UQrlakLo1Lfzqrx-r37RRIV5xqNZ6x6utW1nyG18F2fyRqCdWZQPRg>
-    <xmx:UQrlaqrPl0x1b85hwT7y5l-0AfdHkOBSkYMR8xoNvEM5R3CachtbzA>
-    <xmx:UQrlaisy2HZxZ7svPUW0si3-gyZMFUUxhdawqML4YW_Bje2PmyYaVQ>
-    <xmx:UQrlavZgftgP_iY9aDoLfI03lmwiLeIAG6BtAMIf-TOJLJFkfAcRq5t8>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 30 Oct 2026 17:21:20 -0400 (EDT)
-Date: Fri, 30 Oct 2026 15:21:18 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Kevin Tian
- <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, "Ritesh Harjani
- (IBM)" <ritesh.list@gmail.com>, alex@shazbot.org, David Matlack
- <dmatlack@google.com>
-Subject: Re: [PATCH v1] vfio/pci: pass FAULT_FLAG_WRITE to
- vmf_insert_pfn_pmd/pud()
-Message-ID: <20261030152118.72b62a9a@shazbot.org>
-In-Reply-To: <20261024015540.538758-1-almasrymina@google.com>
-References: <20261024015540.538758-1-almasrymina@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Us1b9MPK
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso1257051a12.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 14:34:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793396073; x=1794000873; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pfyuaHVWliYihnuN7VxgyTXmn4J3zXZExhdUzMnnin4=;
+        b=Us1b9MPK2UkdFkcu8FM3bwwt0idTT53OhPJL2rsEaQj/4F/vgFNF26WjmBSFnyq4v4
+         MpfN1SoSaQygsuMoDR5WtCIWphUmN86VvhGEQCkY+DFQiKoildphuWY85vKqM0Dh4yqG
+         1DUTmVa2NxREgzm0rXCanf/YexfUlUokBAEyyzLnUmW1NWbgpdFhuRsSkOp98zAu9XT9
+         KXj3Vy0l1Msk7esBJDjWmYWdx239d7IZYG7ds/Pt4hcfhwy91zZCvpryWM1X6kynDvjF
+         jAiJ8j5AJTf17Sa7OntEuJ2E0VXmTzYTru6vIGA8l9h1q755yD+m7vbUtewBmXNo20LM
+         Ay/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793396073; x=1794000873;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pfyuaHVWliYihnuN7VxgyTXmn4J3zXZExhdUzMnnin4=;
+        b=GtwrmihF5fmTIO4FIpfYsa5DQKCAIcaaCHGoTYA+M6bMezpl17SrC6tgFo82m0tgVH
+         nIUiVULSa4w7dmlicEwO0bvIDLCHWwVg8c/nYT8EjpvJqTgrHzIqOenwNzdkWg+/fF+D
+         kNkixhw6ZSWsckOtS1lV56+/Fe5hnF3Vei/xx3qCBJXGaxUTuvuJt2KmzKtex1EGZo+N
+         rVOWM/LUSAGJUSXcYEzUCHI0maZwhDCZ9zKwm+uO9XB/g3+RToAq748lFg2xhmuupo+a
+         Ipr2ZMimB0VLnMTlZmXn9XK+Hu3hRupUAgLlfd69kW2ILluiz2izirXvTgWYpzcbBjk+
+         f71g==
+X-Forwarded-Encrypted: i=1; AKwUvBxCIm8W+rq95EpdEJB129rW0FlEBEijR/ADiFVS9zgzP6VqX7qMyx2YFvyPqCNtXrIyo8HZk2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM48X/DMQ7yqiBMpaK8dDhbNxPFFEXcf9VM7UofV9onoErsEoN
+	MNVPY1oLhO8iGB2mnyMicHjy3ajb8Uo7sUg6vDRdjC9yQFoSe2N3sHohq028HIi449HaugVImbv
+	LFBfjzRKRfQ==
+X-Received: from pfbfo7.prod.google.com ([2002:a05:6a00:6007:b0:89e:861c:6b1f])
+ (user=nkapron job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:2583:b0:3e2:86b6:9be1
+ with SMTP id adf61e73a8af0-3e928ac6de9mr3264932637.70.1793396073279; Fri, 30
+ Oct 2026 14:34:33 -0700 (PDT)
+Date: Fri, 30 Oct 2026 21:34:28 +0000
+In-Reply-To: <20261020051446.92179-1-yuz08559@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -129,82 +78,79 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261020051446.92179-1-yuz08559@gmail.com>
+X-Mailer: b4 0.17-dev
+Message-ID: <179339606875.2659781.13239690891562364438.b4-review@b4>
+Subject: Re: [PATCH] usb: gadget: f_hid: avoid copy_from_user() under get_report_spinlock
+From: Neill Kapron <nkapron@google.com>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-On Sat, 24 Oct 2026 01:55:40 +0000
-Mina Almasry <almasrymina@google.com> wrote:
-
-> vfio_pci_vmf_insert_pfn() unconditionally passes write=false to
-> vmf_insert_pfn_pmd() and vmf_insert_pfn_pud().
+> f_hidg_get_report() copies the userspace report into a freshly allocated
+> 'entry' before taking get_report_spinlock.  When the report id is already
+> present in the list it then copies the same userspace buffer a second
+> time into the existing entry, this time while holding get_report_spinlock
+> (acquired with spin_lock_irqsave()):
 > 
-> In insert_pmd() and insert_pud(), write=false skips marking newly
-> inserted PMD/PUD entries dirty/young via pmd_mkyoung(pmd_mkdirty()) and
-> maybe_pmd_mkwrite(). Furthermore, when vma_wants_writenotify() is active
-> on a shared writable VMA (for example, after CLEAR_REFS_SOFT_DIRTY
-> clears VM_SOFTDIRTY and calls vma_set_page_prot()), vm_page_prot is
-> downgraded to read-only so insert_pmd()/insert_pud() with write=false
-> installs a write-protected huge PMD/PUD. Subsequent write faults enter
-> wp_huge_pmd() or wp_huge_pud(), which invoke vma->vm_ops->huge_fault()
-> to upgrade the entry in place. Because vfio_pci_vmf_insert_pfn() passes
-> write=false, insert_pmd() and insert_pud() see !pmd_none(*pmd) with
-> !write, do nothing, and return VM_FAULT_NOPAGE without setting the write
-> bit or splitting the huge page, causing an infinite write page-fault
-> loop.
+> 	spin_lock_irqsave(&hidg->get_report_spinlock, flags);
+> 	ptr = f_hidg_search_for_report(hidg, report_id);
+> 	if (ptr) {
+> 		if (copy_from_user(&ptr->report_data, buffer,
+> 				sizeof(struct usb_hidg_report))) {
 > 
-> Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
-> vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
-> dirty and writable.
-
-This seems correct to me, but the commit log misses the human
-practicality portion of the argument, or at least buries it too subtly
-for me in the soft-dirty references.  AIUI, this is effectively only
-reached by something like CRIU twiddling clear_refs via procfs on a
-running process.  That's the kind of thing someone evaluating this for
-stable would want to know.
-
-Given this unique use case, this also looks like a selftest candidate
-(Cc +David).  Thanks,
-
-Alex
- 
-> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+> copy_from_user() may fault and sleep, which is not allowed while holding
+> a spinlock with interrupts disabled:
+> 
+> 	BUG: sleeping function called from invalid context at ./include/linux/uaccess.h:169
+> 	in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 3481, name: hidg_getreport
+> 	 __might_fault+0x4d/0x60
+> 	 f_hidg_get_report+0x155/0x310
+> 	 f_hidg_ioctl+0xbd/0xe0
+> 	 __x64_sys_ioctl+0x120/0x170
+> 	 do_syscall_64+0xf9/0x540
+> 
+> This is reached by issuing GADGET_HID_WRITE_GET_REPORT twice for the same
+> report id (the first call inserts the entry, the second takes the update
+> path).  On a non-debug kernel a userspace buffer crafted to fault (e.g.
+> via userfaultfd) would sleep with the spinlock held and interrupts
+> disabled.
+> 
+> The data has already been copied into 'entry' before the lock is taken,
+> so reuse it instead of copying from userspace again under the lock.  This
+> also drops a redundant second read of the user buffer.
+> 
+> Fixes: a139c98f760e ("USB: gadget: f_hid: Add GET_REPORT via userspace IOCTL")
 > Cc: stable@vger.kernel.org
-> Cc: Ankit Agrawal <ankita@nvidia.com>
-> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> Assisted-by: LLM
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 > ---
->  drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index fcbb2da860e2..204d959086e9 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
->  				   unsigned long pfn,
->  				   unsigned int order)
->  {
-> +	bool write = vmf->flags & FAULT_FLAG_WRITE;
-> +
->  	lockdep_assert_held_read(&vdev->memory_lock);
+>  drivers/usb/gadget/function/f_hid.c | 8 +-------
+>  1 file changed, 1 insertion(+), 7 deletions(-)
+>
+> diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
+> index 3c6b43d06a6d..520892bbfbef 100644
+> --- a/drivers/usb/gadget/function/f_hid.c
+> +++ b/drivers/usb/gadget/function/f_hid.c
+> @@ -668,13 +668,7 @@ static int f_hidg_get_report(struct file *file, struct usb_hidg_report __user *b
 >  
->  	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
-> @@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
->  		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
->  
->  	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
-> -		return vmf_insert_pfn_pmd(vmf, pfn, false);
-> +		return vmf_insert_pfn_pmd(vmf, pfn, write);
->  
->  	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
-> -		return vmf_insert_pfn_pud(vmf, pfn, false);
-> +		return vmf_insert_pfn_pud(vmf, pfn, write);
->  
->  	return VM_FAULT_FALLBACK;
->  }
-> 
-> base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
+>  	if (ptr) {
+>  		/* Report already exists in list - update it */
+> -		if (copy_from_user(&ptr->report_data, buffer,
+> -				sizeof(struct usb_hidg_report))) {
+> -			spin_unlock_irqrestore(&hidg->get_report_spinlock, flags);
+> -			ERROR(cdev, "copy_from_user error\n");
+> -			kfree(entry);
+> -			return -EINVAL;
+> -		}
+> +		ptr->report_data = entry->report_data;
+>  		kfree(entry);
+>  	} else {
+>  		/* Report does not exist in list - add it */
+LGTM, thanks!
 
+Reviewed-by: Neill Kapron <nkapron@google.com>
+
+-- 
+Neill Kapron <nkapron@google.com>
