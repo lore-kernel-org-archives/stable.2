@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357527;
-	b=0r1dgMrQv8roqIhjO4jjEs05Djr5D4Z+FAijYUqLOwRG85IrsfjDoeMSocNEa+cahFpf
-	 3zaFuQHr4+y22aCMgoScbMa66lksPm2Cx9UJ4JKpJLimVrHB6b8lYrlAmaYUoSDJk9A1T
-	 1hekqlyOx0GyfVM+rxOWiJcpEFR9VN0UpDdGy3QoZsHadyTnaLcS62qgqVreiikbAfcQN
-	 ixuv+5bHyGzfqyCiEjU/WwdoxtHXMThHsdKhy9XwgskRdEL0+ESOuLwKHW995TFzwVTj1
-	 jxBcCugq8SudlL2Xafy7Ft0J+GBzRZvGgNwGN+BaP7OtUnlc+4jJ//ATCvrDDNS5DgQ==
+	t=1793357533;
+	b=gnPCxpr1SzWWA+kC/jQzfcBorSuIGojRbPcn0WS/Z0j4G+C0h/RfvGhFVLkWN3YvOe62
+	 5xbBfH63DUH55a+uzzgetScBSH/asUBhBuduIreU2pd85sr81DrBhW2xcsd+7Tb4Sid/1
+	 9tiDHW55C+AEv5hs1iWDan4IQ3ApFWSTXSOLWf0IpWsXLVaQvFyQwTNRF9ZlXibOcTfvB
+	 J+y/2cinZ8qtI4ZMkRnJT4Az4tRw6RiJexZUR9gyYXZqHb7N0guoqdgO50N4J+hjLKci6
+	 PasTohmxeDj+nihdind4BOsZ2Xj+7L8++eIsaLcAhmlJKNsdWM4XtvtvVjiGBAOWpDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357527;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357533;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lhrGsKLVMbV7XTHftd0nqllhoDlhDEA9CHLB3lRNBB4=;
-	b=IQQGM19rGlOhh5iRGYvIXi/zWQ+zdJG+X06bayo6L8yzHYrBpYFdusTEzuu4e2heSZkY
-	 Emad4l84Lr/ptJ+xnj7nIjRmp5OW7Kd8y/FodCTrDXDgsfgZ8OfQ0D4rU4Kr6/G4nPYjM
-	 +Cqhc9hEXaOGoK/hofsYNSFF+U7TkJ/HB1HWQ7vwXdzOHx3ZtAG6r7oaTqX7qR6ToyVc1
-	 6UFeKzQN1Fpq1BNlyFx1Xe6W1lBWRMHOADvpzCL0KOGtLWX4Lo3A1QGcIwmzhz45Eoo25
-	 jc1MS2QWgeOsMSXokoOgSjG03gIoe70+W9uUah3CVj9Xjb6IT2XhpNYpI5sZN4usJ0g==
+	bh=5zH9TXWdjZFi1KC9joNWtcqdKw1UekwzbafvjRyV3T4=;
+	b=cYB0rN2fjsK/LfnswX5WP0amjAOVCYpSBWeeM/vhOinaUtwFrdVUhuVRnGdYC6GVx34Z
+	 Ey0/e7N9dv1NwL5glq2CMnAy3GxI2h1SL5VkHU9+StZ1GTAeYPjuWhd3+KErRC1WD8ZR9
+	 X4WcGi8YhNjtEoRlzhG3TLxNgnJeg8r4VeAhmc5fU9p6R2pZlnjlHoZYGK+3csbfDk1M8
+	 W+lI7ZzGOdTrAgIXNOV8+wCXm0EqAJGyUUVWYHtd3BX6Dc8GZNYyq0nMbKgljvDt01F+k
+	 VMtrrPhO4WGD/7fxm+3vgJ6CIhlc24TmPf/xzb8P00CBnUgEYL042BNEQ8Xi09sjQpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBn6qrXs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0y9mx8S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AB760A2600;
-	Fri, 30 Oct 2026 10:52:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98108606B816;
+	Fri, 30 Oct 2026 10:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EBn6qrXs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F591F000C1;
-	Fri, 30 Oct 2026 10:52:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0y9mx8S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB88B1F0093A;
+	Fri, 30 Oct 2026 10:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357527;
-	bh=lhrGsKLVMbV7XTHftd0nqllhoDlhDEA9CHLB3lRNBB4=;
+	s=k20260515; t=1793357533;
+	bh=5zH9TXWdjZFi1KC9joNWtcqdKw1UekwzbafvjRyV3T4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EBn6qrXsPtybZJRtAuM3J6ydPP2NzcOGFSNGMHH3yhYyxK6XYN5B3Uc9Lq6eZYUxy
-	 CDwJbu6se6Kc6pbCdVr0X0Mmu2QuHyBIev0dURXork61rrZJsTbcIyOo1kiPXTxG5m
-	 85HInDq4Wn7tq4EHcwfN6ed9sfsOAFX3359KuzlbmpeYCJ7TD28j8gW6Skk3AXz8D0
-	 Q1xz8pQ/eNSP4h2orfGq9X+lcz9u/8xtmDrxr6WhzThPnzTA73HIT6uTqslYWFrGEk
-	 1WiwfzMLwU+Ll3eX5lYiT8vJuWEK9WwmN00zeqoq2GF+eCs//kjFxU9RYTTRwFyOmL
-	 YHeSTSOYRs7bQ==
+	b=b0y9mx8SPQE7Ks7DtUO+XKMm25tnCWONNqdKS/Jtpp6cAD3JpqTwG7Ja0okAZ8Bk2
+	 GGuCCV4BD+GH0yfmTle1z2TO6Y7OJHZE1c+yxg4qaTB/ipnQYoH7FWKtnYPrYOoLQX
+	 DK88g8cNAmwG3XWcoBNIB2mcsmsoCluGHkwnfC2gU3DRpziwuTOWiQg8D243iUyTbr
+	 7wXmCffsXP/Slm8h0jo1Y9ih6/4Q0SANnDMpNYGaYWps6EOu7SpPwAERpx1OPac5pC
+	 iIJCdluKivisFCjyoPkdFC6gHEbK0z0HUp6Mc4Tj7p+9vWFCY3wBR0PcDnkzMisbZy
+	 Pt5raCp//YXkg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Vinod Koul <vkoul@kernel.org>,
@@ -49,9 +49,9 @@ To: lee@kernel.org,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 16/21] soundwire: amd: Initialise and cancel IRQ work around manager lifetime
-Date: Fri, 30 Oct 2026 10:46:55 +0000
-Message-ID: <20261030104840.3361217-17-lee@kernel.org>
+Subject: [PATCH 17/21] soundwire: amd: Resume manager before hardware teardown in amd_sdw_manager_remove()
+Date: Fri, 30 Oct 2026 10:46:56 +0000
+Message-ID: <20261030104840.3361217-18-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
 In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
 References: <20261030104840.3361217-1-lee@kernel.org>
@@ -66,48 +66,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-amd_sdw_manager_probe() publishes amd_manager via dev_set_drvdata()
-before initialising amd_sdw_irq_thread and amd_sdw_work, allowing an
-early interrupt to schedule uninitialised work.  During removal,
-amd_sdw_manager_remove() only cancels amd_sdw_work without first
-cancelling amd_sdw_irq_thread, allowing deferred IRQ work to re-queue
-amd_sdw_work or dereference amd_manager after it is freed.
+amd_sdw_manager_remove() calls pm_runtime_disable() and immediately
+accesses MMIO registers in amd_disable_sdw_interrupts() and
+amd_disable_sdw_manager() without waking the device if it is
+runtime-suspended.
 
-Initialise both work items before calling dev_set_drvdata() in
-amd_sdw_manager_probe(), and cancel amd_sdw_irq_thread before
-amd_sdw_work in amd_sdw_manager_remove().
+Call pm_runtime_get_sync() before disabling runtime PM and balance the
+usage count with pm_runtime_put_noidle() so the controller is awake
+during teardown.
 
-Fixes: 65f93e4096a0 ("soundwire: amd: add SoundWire manager interrupt handling")
-Closes: https://sashiko.dev/#/bug/linux-9890e8dc-4b7d-44d3-bfb0-171dc421e28c
+Fixes: 81ff58ff71ad ("soundwire: amd: add runtime pm ops for AMD SoundWire manager driver")
+Closes: https://sashiko.dev/#/bug/linux-dad4d803-06a7-473d-829d-66860776f4d6
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/soundwire/amd_manager.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/soundwire/amd_manager.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-index 98b09d81f3b8..2e1038ea0f36 100644
+index 2e1038ea0f36..1d8a08bda261 100644
 --- a/drivers/soundwire/amd_manager.c
 +++ b/drivers/soundwire/amd_manager.c
-@@ -1185,9 +1185,9 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
- 		sdw_bus_master_delete(&amd_manager->bus);
- 		return ret;
- 	}
--	dev_set_drvdata(dev, amd_manager);
- 	INIT_WORK(&amd_manager->amd_sdw_irq_thread, amd_sdw_irq_thread);
- 	INIT_WORK(&amd_manager->amd_sdw_work, amd_sdw_update_slave_status_work);
-+	dev_set_drvdata(dev, amd_manager);
- 	return 0;
- }
- 
-@@ -1197,6 +1197,7 @@ static void amd_sdw_manager_remove(struct platform_device *pdev)
+@@ -1196,7 +1196,9 @@ static void amd_sdw_manager_remove(struct platform_device *pdev)
+ 	struct amd_sdw_manager *amd_manager = dev_get_drvdata(&pdev->dev);
  	int ret;
  
++	pm_runtime_get_sync(&pdev->dev);
  	pm_runtime_disable(&pdev->dev);
-+	cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
++	pm_runtime_put_noidle(&pdev->dev);
+ 	cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
  	cancel_work_sync(&amd_manager->amd_sdw_work);
  	amd_disable_sdw_interrupts(amd_manager);
- 	sdw_bus_master_delete(&amd_manager->bus);
 -- 
 2.56.0.317.g454f8302e1-goog
 
