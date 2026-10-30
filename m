@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362668;
-	b=OdY6wJKP0jjDjSGQlLhLEXgH2+hQ+DDLX3EY6clIB2ZhW2n5uxUJzJRSrXW2xLdafFxw
-	 hz84ygFHIHb+MkKKxj4HHJTI6zl47Rmy6eppnTdFysjhkR5LMbptR7zDyNbaWktiz0DPj
-	 IzHKTMKbQTkQaH6Ns/jdfwAygNjF3hxvJ/8bZmoqxN05Z2RnBd/mEodmZe8lgMAzOupp8
-	 EN36bZkJFLHP6uD3ojlOl0PstWypY3YnFgZuD0yee2KlaErjj3bloerdc+Nt+pcfzbj5e
-	 12buH9fFDgXefXozgq1qhAjNbaFESWNZtgUxBts7yY2S8CHbhm3l+EdGufGw+30cTfw==
+	t=1793362769;
+	b=WYXU6kPDTvmZ5hT8lYOjN8pmNbtu3wjC2ZU8AnDms6IVWD1TJXU3HKBCs4/RphKwcO6f
+	 lySQiXYLXo+0ihwnwBkUoyP6f4Kwig6MGufZPjtNqcYKxM/sGMCoQqdsxrcvaoUHthGTM
+	 Cd9gu5yO2tShOKET6Y2uFIts24keX4flLJrNd9H0KgAL/aiq03o+vIu23s7jUB0y3X6oB
+	 wqX5oBz9Kt+/889XEvBMsakyKAtkmFJepnNSQEzZfjhg8btoH5TonzvZxf5YnRuxpQTLc
+	 +swzHv/ZNjlCVzReHk8yeSDKEmAhc+bHFhcYrWqiYnnPfPRiYrMp/gBPACjouCmhQlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362769;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=UK6y1rvEetP4GeIpkkcT7eGv8kcGn/z16mpoP5T1g04=;
-	b=V3y2oCBYHCdbsuZ91grUPLAMMqpLn+yFEW9it0tFdidM6DKZthNnihMp/oqHu7g/Y2qd
-	 vlqFqgb/p0aOSeczIo2hldv4e2ukfcDuQY53yadiIdInZ796FwbCRswKHu2YwOndCjOXC
-	 AEm4qQLepe4GIejUIoGnv8o+CFcOJnU93QaLEB4YLi2qpbtq2YiB0UvWtrcXV79Mvd5gP
-	 pV75towuTgRHW60aAp8+6D5/A5JZuifIyfPu9E1IYSgU01emxBD+ZILr8xiQJDtvsj5f7
-	 howpF6O0eiUnDnAEcrKKIDW1BGOpKoAnPpKJnYRcIH56KNGxEDtC3Y538YwS0XUVUzQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pEOu/AQvgU0OKb5AZqRCUfaOk8gDp8NvYhcCjCvB5JU=;
+	b=KZ9NC3rWeWVxVZK756u/0h/nrPy/VgVXorNgdPTD6Hhh1CcPvm+Z+5nsMLNaS5MiEWZQ
+	 VJYnZzIioaQO4WfqXPztNmL7QyekZtj1Tqfq0lBKYmEy3nqX83Q+bTXKdJII4jRfcH9RY
+	 yF4I3+ckOje6H7YMEBCW2sJeJUHlbqfmwW0LkwUcd6HTfXM6icrlguXkABuZYTzTpxDtV
+	 I8hNK/Fg0mJ86511W9jEHpMS/g1imafaez/ej3f2evH6cPxou3M5WPICiTkIpcRGAt4fz
+	 aO1XsZwsyOh4632SOeERWjQXOsanRG78si0P9WuOEPSqu68ypcNEMHzuThOkv5brtPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XraIJ6OR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1GRqgVU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9EA606A31A;
-	Fri, 30 Oct 2026 12:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC90606A31C;
+	Fri, 30 Oct 2026 12:19:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XraIJ6OR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C16C1F000C1;
-	Fri, 30 Oct 2026 12:17:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z1GRqgVU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EBC11F000C1;
+	Fri, 30 Oct 2026 12:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793362667;
-	bh=UK6y1rvEetP4GeIpkkcT7eGv8kcGn/z16mpoP5T1g04=;
+	s=k20260515; t=1793362768;
+	bh=pEOu/AQvgU0OKb5AZqRCUfaOk8gDp8NvYhcCjCvB5JU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XraIJ6ORxhn6aOLNJ1PzJuMnPc8UhPpMsnkW3aeRyNbbmlBmryRlydRPYjJrKOaFt
-	 ipXhvkqGlCIx70HIow2DVaPIS7NFY2OQStQHqM442z5SEWSw7Xo1dk2h6a459dkIbJ
-	 bYUGabJzgA1cZ+1OEJ/jj39U64gFxztd/BwD5UBJBFTvJ7Shjkqalaq8m86o213aVx
-	 FR/Bp6BZrrvCUmH1cPR8jaLgirSMeIChIcj2t6x3wtFZ94Z82KA8tVNbiu6VX3COEn
-	 qPPvNlfZ9s9Fqs1RTDisWAW7/uWEAKFYhCIfp0XOkgQ8o8zKyZ9ndP2YO/n++l3fp+
-	 V7vRAuFTLdaTA==
-Date: Fri, 30 Oct 2026 12:17:41 +0000
-From: Lee Jones <lee@kernel.org>
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Mastan Katragadda <Mastan.Katragadda@amd.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mario Limonciello <Mario.Limonciello@amd.com>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
-	"Prasad, Prasad" <venkataprasad.potturu@amd.com>,
-	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
-	"N, Poojitha" <Poojitha.N@amd.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 16/21] soundwire: amd: Initialise and cancel IRQ work
- around manager lifetime
-Message-ID: <20261030121741.GI3774906@google.com>
-References: <20261030104840.3361217-1-lee@kernel.org>
- <20261030104840.3361217-17-lee@kernel.org>
- <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
+	b=Z1GRqgVU4WIj2ovDw33wHVQ50+wcmPd8/iVAG4of6NAt3Rr/AR7PDuT4d8fAQTMtU
+	 wXSiDpUBRzGwYOqpuW+G8+Owc6KG88nWoM0t0B9s2tP9+OeTyS8Peqtp9md0yYQYvP
+	 d7Q0dFsYSX/Wu1Gd0vyfD8cIc4sNL96m2fr8q7Tr6vc2TlNNvgMPQVwhPnAPZ2qgNy
+	 9GdRSJFsFof5PtAPP8aa93iHTxTmUTpJT5ygcEksnW7AFb+PSD7rnPpu9om4ZLsKKj
+	 bUNOC/W6HS4UoE600ZsgdUDzGm0y+xdV/sXbDBY2EmdQW1XOZ93Cn2O45iEB5tNixz
+	 aN1QY4oHSWwlw==
+Date: Fri, 30 Oct 2026 14:19:20 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Ritesh Harjani <ritesh.list@gmail.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Pavithra <pavrampu@linux.ibm.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@linux.ibm.com>,
+	Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] powerpc/mm: fix uninitialized ZONE_DEVICE struct
+ pages with PMDs
+Message-ID: <auSLSIwUi2xNIYua@kernel.org>
+References: <20261030115326.1005755-1-songmuchun@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,66 +69,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
+In-Reply-To: <20261030115326.1005755-1-songmuchun@bytedance.com>
 
-On Fri, 30 Oct 2026, Mukunda,Vijendar wrote:
+On Fri, Oct 30, 2026 at 07:53:25PM +0800, Muchun Song wrote:
+> PowerPC radix vmemmap population can reuse an existing PMD mapping for
+> a device DAX range marked HVO-enabled. The reused mapping is ordinary:
+> its tail struct pages are not remapped to the shared tail page.
+> 
+> Leaving the section marked HVO-enabled makes memmap_init_zone_device()
+> treat the range as optimized and skip initializing real tail struct pages
+> that remain in use. This first triggers a zone mismatch warning, then
+> faults while initializing the pageblock flags:
+> 
+>   WARNING: mm/mm_init.c:600 at __init_single_page+0xd0/0xf4
+>   Call Trace:
+>     memmap_init_zone_device+0x164/0x430
+>     memremap_pages+0x43c/0x93c
+>     devm_memremap_pages+0x3c/0xa4
+>     dev_dax_probe+0x264/0x3d0
+>     dax_bus_probe+0x140/0x1c8
+> 
+>   BUG: Kernel NULL pointer dereference on read at 0x00001400
+>     __set_pfnblock_flags_mask.constprop.0+0x34/0x160
+>     memmap_init_zone_device+0x358/0x430
+> 
+> Without these diagnostics, the uninitialized metadata remains latent until
+> userspace accesses the device DAX range and triggers a later panic.
+> 
+> Mark the section non-HVO when reusing a PMD mapping so its state matches
+> the actual vmemmap layout and core ZONE_DEVICE code initializes all real
+> struct pages.
+> 
+> The Fixes target predates the section-based vmemmap optimization
+> infrastructure, so this patch cannot be applied directly to some older
+> kernels. Older kernels instead need to pass the vmemmap bounds to a
+> range-aware vmemmap_can_optimize() and reject optimization on PowerPC if
+> a PMD leaf overlaps the range. This reuses the existing mapping normally
+> and makes core ZONE_DEVICE code initialize all real tail entries.
+> 
+> Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
+> Cc: <stable@vger.kernel.org> # see patch description, needs a different fix for <= 7.3
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> Reported-by: Pavithra <pavrampu@linux.ibm.com>
+> Closes: https://lore.kernel.org/r/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com
+> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Tested-by: Pavithra Prakash <pavrampu@linux.ibm.com>
 
-> 
-> 
-> On 10/30/26 16:16, Lee Jones wrote:
-> > [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> > 
-> > amd_sdw_manager_probe() publishes amd_manager via dev_set_drvdata()
-> > before initialising amd_sdw_irq_thread and amd_sdw_work, allowing an
-> > early interrupt to schedule uninitialised work.  During removal,
-> > amd_sdw_manager_remove() only cancels amd_sdw_work without first
-> > cancelling amd_sdw_irq_thread, allowing deferred IRQ work to re-queue
-> > amd_sdw_work or dereference amd_manager after it is freed.
-> > 
-> > Initialise both work items before calling dev_set_drvdata() in
-> > amd_sdw_manager_probe(), and cancel amd_sdw_irq_thread before
-> > amd_sdw_work in amd_sdw_manager_remove().
-> > 
-> > Fixes: 65f93e4096a0 ("soundwire: amd: add SoundWire manager interrupt handling")
-> > Closes: https://sashiko.dev/#/bug/linux-9890e8dc-4b7d-44d3-bfb0-171dc421e28c
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> > ---
-> >   drivers/soundwire/amd_manager.c | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> > index 98b09d81f3b8..2e1038ea0f36 100644
-> > --- a/drivers/soundwire/amd_manager.c
-> > +++ b/drivers/soundwire/amd_manager.c
-> > @@ -1185,9 +1185,9 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
-> >                  sdw_bus_master_delete(&amd_manager->bus);
-> >                  return ret;
-> >          }
-> > -       dev_set_drvdata(dev, amd_manager);
-> >          INIT_WORK(&amd_manager->amd_sdw_irq_thread, amd_sdw_irq_thread);
-> >          INIT_WORK(&amd_manager->amd_sdw_work, amd_sdw_update_slave_status_work);
-> > +       dev_set_drvdata(dev, amd_manager);
-> The probe-side ordering issue is valid — an interrupt arriving after
-> dev_set_drvdata() but before INIT_WORK() could schedule work on an
-> uninitialised work_struct.
-> 
-> The remove-side fix is already posted as part of our v3 patch series:
-> 
-> https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m60177687bb84758efdd6f5f09eba8ad32f0e4631
-> 
-> The probe-side fix will be included in our upcoming v4 patch series,
-> which contains major driver restructuring and customer-critical bug
-> fixes. Merging this patch independently would conflict with v4 and
-> complicate the review process.
-> 
-> Could you please drop this patch? Both issues will be covered by our
-> v3/v4 series.
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Yes, no problem.
+> ---
+> v2:
+> - Rewrite the commit message.
+> - Describe the range-aware vmemmap_can_optimize() fix for older kernels
+> - Note that kernels through v7.3 require a different stable fix
+>   (suggested by Ritesh Harjani)
+> - Collect Tested-by from Pavithra Prakash
+> ---
+>  arch/powerpc/mm/book3s64/radix_pgtable.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
+> index 44868b62b14e..4f75f10ed68f 100644
+> --- a/arch/powerpc/mm/book3s64/radix_pgtable.c
+> +++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
+> @@ -1261,7 +1261,16 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>  			return -ENOMEM;
+>  
+>  		if (pmd_leaf(READ_ONCE(*pmd))) {
+> -			/* existing huge mapping. Skip the range */
+> +			unsigned long addr_pfn = page_to_pfn((struct page *)addr);
+> +			struct mem_section *ms = __pfn_to_section(addr_pfn);
+> +
+> +			/*
+> +			 * Existing PMD mappings can cover the edges of a valid
+> +			 * HVO populate range. They are ordinary vmemmap mappings,
+> +			 * so the current section must not be treated as HVO-backed
+> +			 * when its struct pages are initialized later.
+> +			 */
+> +			section_set_compound_order(ms, 0);
+>  			next = pmd_addr_end(addr, end);
+>  			continue;
+>  		}
+> 
+> base-commit: d865f2677c44cb2171b833d6775cf692756fa8be
+> -- 
+> 2.54.0
+> 
 
 -- 
-Lee Jones
+Sincerely yours,
+Mike.
