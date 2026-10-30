@@ -1,99 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793338966;
-	b=q6ngagc3nNSBMrD3DqoHekqD9HgA3sU0DXIHkPfnYRO3ZsAVWqH7d6jitZD+7p12g8KA
-	 vFHDlUT4S5+ppohcITGLfAqblQPbefH6IkuCK+sfg7uP/oc+ljIjtkKo6MO9w+65+UPGX
-	 xXKZ1y5KdcIN9Z35/Ho1leA+IEERIEYeqDjqm+nEzeLnHUbAckbMa3DRvhSaoVgYhHL/Z
-	 Sz4RWqzUcmJSJ/EYKQaM5zdOMsrnaXsaqTlcfdUI/BEut5v21uHY5/trCY4UxzfrfsQtq
-	 oq3szLEms8EYxNfVGE3VnxW7nPKqvDmIyupeVgiWG/Yl0hFtExWV16Dqoy4VeOPoaHw==
+	t=1793339652;
+	b=ZcSThKv53NXNhwGonUir2wnC0fto802ymzrXMTwjoYMGlH1HvnAPK8pXLbnCkBwrhuQk
+	 FSsaLQYdp35u5T+GZHTvJY2UqpBvNwp1/PyBOFP7/yvt0CYyoeZkVRVPd5ia2H0y3KrRy
+	 rv2fE9/AFKx3DDWvgAtttVvrIRXm2PPwojEIDF2NsKywuyQ53Q8A+t88JVa/JX3wlz1VG
+	 XqUKcvE5g2xTP7nb89+rVNUQAA5CYWI0XMDdpHFi/IVWl5lo8fpCpbTk2mK+28lz+QFNK
+	 conWufHo2OgljRSZdNUY2MHXSGxgoW9sfhpQJ3zwqnZf1Gbwnzx8RzVfOMvcHqZkLYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793338966;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6Eghy4HGIV34EY41zufCzUQfo19ToUU6k1Z0m6KPcBo=;
-	b=YBXiV3LfsyjxV3VNDPkK1Ey46Q0aWUPngaq15OL/wf+3oaqop4Ysh9cOgeraJBlrfc37
-	 irOuV55ixM+sCJsMctRiqk8sSzf0zlzaPCSEgFAJmiVX0vDfi5f00cEH1AgeKK7jrozQf
-	 GhZ5rPgYtekojME/gqGiQ3oIH7++CQDhvT4HpTSAiys1a5Id1YZXNQ2RkRTX5o4GHEhpC
-	 qUn/cWRrr68sk99kIs1YxOctS7ALJD323LeFgnnS+j9CRd3jcqXvdTmm3JSUTrTjvhA3o
-	 aQGIdXzfPlAayjVY3O1ktPxSYVwUx995bl/vEwOEqNzrkhNAgZ3chCTEzjuyf2ESf5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793339652;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=aG6K/xyTn32KaJFGPbPslUy7+CQ2EaT3/oPs1NUoISg=;
+	b=WCtmFoFDSLVsHzsQh9AH5WYYwVvJMwamQm+GL+nfn0YmbgSr+OW2VBSnajs51ici0TAw
+	 2ZM1+MIBqgRcPAqNETX53/4QX5XOjY6VzJJN6V9MhQ42tqFHydRaBe3xix+ktGiVqf7vj
+	 L8AvYJzadobMPKWMNfT7wiPn1okI7W71Ba+HMmfYCszBcv9RuRnIoq39I13UALXzSoOmE
+	 HLW3/SL99MX2GE5LEUTBCMCcCFFSHiJn+Ay2q14Fmr3cqsxeF9tFF0GSeKn5VdhK97SeW
+	 pvwDiKL2xwWT1TRqzXJ0jTwCawVyczUGnFf75acbVPaGeeJtl4Nvq6ZlesiSWMIMTMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=onTA5y0h;
-	arc=none smtp.remote-ip=74.125.229.2
-Received: from mail-dy2-f2.google.com (mail-dy2-f2.google.com [74.125.229.2])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyJZeJnZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAB1606A33B
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 05:42:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAB1606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D44606A31A;
+	Fri, 30 Oct 2026 05:54:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=onTA5y0h
-Received: by mail-dy2-f2.google.com with SMTP id 5a478bee46e88-327b1d5824fso335282eec.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:42:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793338965; x=1793943765; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Eghy4HGIV34EY41zufCzUQfo19ToUU6k1Z0m6KPcBo=;
-        b=onTA5y0hK+8YD1yU48EkZVATBW2FA1Y8zlqLl81h5FMIQsPGe53QFhKGHn1DzfQRoR
-         yBM7MlfYE2kfkK8p1y0ksr1rFcgQp2XX+qTtcu4qqGkPp47FgSPGXBdLVAoK+UBbWnSR
-         NwbZqoJBmH2EypM8Q8Ys232tVctsfuP7qvyoUChHmWllQQge3x2sD/GjfUz+vFiCex4d
-         i8sZqfKHCpvkj9WuDKFEeVREG8YiNKu5KU2pne47hhvFkIWKmW8a7h19lUeAATvJmdCB
-         UFeg91ZebPlkgRp1dohli9x7RksavJpQ6mk2u+M9xWd0eCHzos3uje/m60ymGr81K3l9
-         LSxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793338965; x=1793943765;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6Eghy4HGIV34EY41zufCzUQfo19ToUU6k1Z0m6KPcBo=;
-        b=nV0oPjYSAZAHvRNORPC4DjJfWpeHGSvzyVDi8Bsw3JA7WaTw5zEyDlmydC/7F5pLG7
-         Nvj2iLxJzzvNKHoopcPdTxW7VBYk7PaFH/hsehfzK+Eo2GGsLhGjhlG0oVJ6VMjMjJu8
-         f83AC1tJEQAao4RXyxBZvGsEL0KRu7ThA51QaedLIBYAlKIUdKa251w4VIPPhh5ZP7oY
-         q6ncIrRyg80de1J6YwW4Enz4touKLTbwoDXrwQyTT0b80Nld+0KtykwE8PvyHJihjE3l
-         m2n9QzTXrzamR3rCScztPc7c8U7Ny79jmbj0IzuDgcRgUXRh3kagZgD1i5NNo2xFy+bp
-         XRcg==
-X-Forwarded-Encrypted: i=1; AKwUvBw9gi2r0DemCpOG/a9IRLU+NQzjRnzcQ5Y6B47tV2FU2FN+dDei4hBvFSBopko9ukxsqCrlePs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZz914LlSiTT8VsDay6o39H0tkTq512fgLpCutUJ5ZbsqG6tn1
-	OOu/w0rRKRMmMfMT0/QESDrDuvENpwWlrCWD/+vSpypDZLD+pLSuPLdK
-X-Gm-Gg: AYBFou2QmYKYkfDSBYVzeDbOe2EjjNdMTUjrzZQ8gJFo5wXtO04okXq3I/5sH5nMkMf
-	BWmxKMwkE0kcW8Qk2oIj1P1m8rCx+WxVr/ol306WyMwMzRtuBdVVMjDBfVQ+FsnvJKg1bMGAS50
-	paHTFv+dDwBrh9tWvKuej11LH6v4vuCvenN6e1+ZK8oc8AmswIVGGG8oPc8hTzMJCLG1F1ctN/E
-	5HecRvtPUJSpe1JgzGut2UygK44i0R7xnoLiNDdfDa4TeGgQoxKU0yR0MRqfplfHCCkkSS5iCWz
-	FXUvHRblVKWO1S/+1BqYEnruOoiMWvU+YVgw1bg7/UMkpukvLza/mHTjG1c36M29Dz3SXW0uJKq
-	2jt0BZCpNeQyo2UgOL+Yt8JxV2LKwG0BaFBaQqWUvlP+bwGokMlCOE3tzLDR9HoWnZiW8RfBPO8
-	WXp+J+DRXSoLLGEgFnIDRC7wtzE1CNbVtAYPk15cGEiJunDgquecI6EAb9zFefRQb/CByeNoYaY
-	iTT28pQOinGvSG8qCzn8QgbenQHX9B6+u2xYU67aDQnjc5GBgGyCAWuDkkHeJ7e1t2FBGI7Yx/c
-	9d1Ndjf/67j+NmtrtOnn4gojAGPqPcnEZzwFDG7NrqhkT8d8ACcCUHCeBg==
-X-Received: by 2002:a05:7301:7306:b0:366:dbf9:32bd with SMTP id 5a478bee46e88-36a4235f4a1mr2065782eec.9.1793338965145;
-        Thu, 29 Oct 2026 22:42:45 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm4380426eec.26.2026.10.29.22.42.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 22:42:44 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: tglx@kernel.org,
-	jstultz@google.com
-Cc: sboyd@kernel.org,
-	mlichvar@redhat.com,
-	akpm@linux-foundation.org,
-	oleg@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v2 2/2] tsacct: keep task begin times stable across suspend
-Date: Fri, 30 Oct 2026 05:42:27 +0000
-Message-ID: <20261030054227.35453-3-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261030054227.35453-1-dennylin0707@gmail.com>
-References: <20261030054227.35453-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyJZeJnZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F701F000C1;
+	Fri, 30 Oct 2026 05:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793339651;
+	bh=aG6K/xyTn32KaJFGPbPslUy7+CQ2EaT3/oPs1NUoISg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RyJZeJnZDtexmwJa1HkC/pBGZ7s77jE35WASXScG2HpFJliUPzOvIudshioSIhRkG
+	 lttp++yrB31e6gd9JmBAK0AX6+E9atBDwGDIYXpG+a4mybFI407IRYWOB97c0yl6Je
+	 5ftBheI7u5zmFI6D/zCWbRk3qdyYt/RHLBOFKoDzGSLVOiaEJSaSIUrPEUvirRhQC3
+	 kbfzsyJjRdzCI7aNKGEBv1EciKSi7MEfdBAebMJikMxJDs15XtgccCBb05QtXstOO8
+	 WzY76uyY0ykNSzczCOx5i3AZp9lbS9F85jXmYXRUwCyyvbj2POg988YVtCJ0347AGu
+	 cEJQ0ntyzUejA==
+Subject:
+ Re: [PATCH net v2] net: atl1c: drop oversized RX frames instead of panicking
+From: netdev-bot+sashiko@kernel.org
+To: federico@rimpianto.com
+Cc: chris.snook@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Fri, 30 Oct 2026 05:54:11 +0000
+Message-ID: <179333965104.3134.9466382803599715684@kernel.org>
+In-Reply-To: <20261027115151.17092-1-federico@rimpianto.com>
+References: <20261027115151.17092-1-federico@rimpianto.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,70 +62,254 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-bacct_add_tsk() derives ac_btime and ac_btime64 by subtracting a
-CLOCK_MONOTONIC elapsed duration from CLOCK_REALTIME. MONOTONIC stops
-during suspend while REALTIME continues, so querying an existing task
-after resume moves its reported begin time forward by the time spent
-suspended.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Calculate the begin time from the wall-clock boot timestamp and the
-task's CLOCK_BOOTTIME start timestamp instead. This accounts for suspend
-and adds the nanoseconds before truncating to seconds. Keep ac_etime and
-ac_tgetime on CLOCK_MONOTONIC and retain the existing rebasing when the
-wall clock is adjusted.
+Critical: 0 · High: 0 (3) · Medium: 1 (2) · Low: 1
 
-The new begin time can be negative: setting CLOCK_REALTIME is bounded
-by CLOCK_MONOTONIC, which excludes suspend, rather than CLOCK_BOOTTIME.
-A permitted backward clock adjustment after suspend can therefore put
-the task's begin time before the epoch. Clamp ac_btime64 at zero too,
-instead of wrapping in the unsigned field, and retain its positive range.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fixes: f3cef7a99469 ("[PATCH] csa: basic accounting over taskstats")
-Cc: stable@vger.kernel.org
-Reported-by: Oleg Nesterov <oleg@redhat.com>
-Link: https://lore.kernel.org/r/20130611200600.GA15168@redhat.com
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://lore.kernel.org/r/alpine.DEB.2.21.1911071335320.4256@nanos.tec.linutronix.de
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Clamp negative ac_btime64 values to zero without a 32-bit upper limit.
-- Precede this change with the getboottime64() sampling fix.
-- Add Cc: stable and rebase onto mainline d89e1d186ec9.
+- [Medium] In atl1c_clean_rx()
+  (drivers/net/ethernet/atheros/atl1c/atl1c_main.c:1952-1953), the new…
+- [Low] atl1c_clean_rx() sends runt frames (length < ETH_HLEN +
+  ETH_FCS_LEN) down the same drop path as oversized frames and frees…
 
- kernel/tsacct.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the
+  RRS_RX_ERR_SUM / RRS_802_3_LEN_ERR branch of atl1c_clean_rx()…
+- [High] This problem wasn't introduced by this patch (the author
+  explicitly leaves it out of scope), but the RRS_RX_ERR_SUM /…
+- [High] This problem wasn't introduced by this patch, but the link-
+  change path of atl1c_common_task() (line 349-353) resets and refills…
+- [Medium] This problem wasn't introduced by this patch, but when an RRD
+  reports rfd_num != 1, atl1c_clean_rx() calls atl1c_clean_rrd(rrd_ring,…
+- [Medium] This problem wasn't introduced by this patch, but struct
+  atl1c_recv_ret_status declares word0 and word3 as __le32, and…
 
-diff --git a/kernel/tsacct.c b/kernel/tsacct.c
-index 5c153106e642..48320684c7c0 100644
---- a/kernel/tsacct.c
-+++ b/kernel/tsacct.c
-@@ -24,7 +24,7 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	const struct cred *tcred;
- 	u64 utime, stime, utimescaled, stimescaled;
- 	u64 now_ns, delta;
--	time64_t btime;
-+	struct timespec64 btime;
- 
- 	BUILD_BUG_ON(TS_COMM_LEN < TASK_COMM_LEN);
- 
-@@ -39,9 +39,11 @@ void bacct_add_tsk(struct user_namespace *user_ns,
- 	do_div(delta, NSEC_PER_USEC);
- 	stats->ac_etime = delta;
- 	/* Convert to seconds for btime (note y2106 limit) */
--	btime = ktime_get_real_seconds() - div_u64(delta, USEC_PER_SEC);
--	stats->ac_btime = clamp_t(time64_t, btime, 0, U32_MAX);
--	stats->ac_btime64 = btime;
-+	getboottime64(&btime);
-+	btime = timespec64_add(btime, ns_to_timespec64(tsk->start_boottime));
-+	stats->ac_btime = clamp_t(time64_t, btime.tv_sec, 0, U32_MAX);
-+	/* Setting the clock back after suspend can make btime negative. */
-+	stats->ac_btime64 = max_t(time64_t, btime.tv_sec, 0);
- 
- 	if (tsk->flags & PF_EXITING)
- 		stats->ac_exitcode = tsk->exit_code;
+--
+
+net: atl1c: drop oversized RX frames instead of panicking
+
+This patch adds a length check to atl1c_clean_rx(). It drops RX frames
+whose descriptor length is shorter than ETH_HLEN + ETH_FCS_LEN or longer
+than buffer_info->length, so skb_put() can no longer panic. Each dropped
+frame is freed with SKB_DROP_REASON_PKT_TOO_BIG, counted as rx_dropped,
+and counted as NAPI work so the RFD ring still gets refilled.
+
+> diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+> index e58f1d2c26bdf..eddd8406867f7 100644
+> --- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+> +++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+> @@ -1934,6 +1934,39 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
+>  			break;
+>  		}
+
+[Severity: Medium]
+This is a pre-existing issue, but the new check only runs when
+rfd_num == 1. What happens to the RFDs behind a descriptor with
+rfd_num != 1?
+
+By the time this break is reached, atl1c_clean_rrd() has already consumed
+the RRD. The branch then exits without dma_unmap_single(), without freeing
+the skb and without atl1c_clean_rfd(). Those slots stay
+ATL1C_BUFFER_BUSY.
+
+Refill in atl1c_alloc_rx_buffer() stops at the first slot that is not
+free:
+
+    while (next_info->flags & ATL1C_BUFFER_FREE) {
+
+Once next_to_use reaches one of these slots, does RX stall for good? The
+skbs and DMA mappings would leak as well.
+
+With REG_MTU larger than REG_RX_BUF_SIZE for MTUs 1501-1522 (see below),
+any frame the hardware splits across RFDs would come through here. It is
+not clear when this hardware reports rfd_num > 1, though. The 1600 byte
+frames in the commit message arrived with rfd_num == 1.
+
+>  		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+> +
+> +		/* A link partner whose l2mtu is larger than ours can hand us a
+
+[ ... ]
+
+> +		if (unlikely(length < ETH_HLEN + ETH_FCS_LEN ||
+> +			     length > buffer_info->length)) {
+
+[Severity: Medium]
+With an MTU between 1501 and 1522, can this bound drop frames that fit
+the MTU and that the MAC was set up to accept?
+
+atl1c_set_rxbufsize() compares the L3 MTU with AT_RX_BUF_SIZE. That
+constant is an L2 frame size, ETH_FRAME_LEN + VLAN_HLEN + ETH_FCS_LEN =
+1522:
+
+    adapter->rx_buffer_len = mtu > AT_RX_BUF_SIZE ?
+        roundup(mtu + ETH_HLEN + ETH_FCS_LEN + VLAN_HLEN, 8) : AT_RX_BUF_SIZE;
+
+So for mtu <= 1522, rx_buffer_len, REG_RX_BUF_SIZE and buffer_info->length
+all stay at 1522. atl1c_configure_mac() meanwhile programs:
+
+    AT_WRITE_REG(hw, REG_MTU, hw->max_frame_size + ETH_HLEN +
+            VLAN_HLEN + ETH_FCS_LEN);
+
+In that MTU range this comes to as much as 1544.
+
+Take MTU 1508 (RFC 4638 PPPoE). A full-size untagged frame is
+1508 + 14 + 4 = 1526 bytes. The MAC accepts it, but this check drops it
+as SKB_DROP_REASON_PKT_TOO_BIG. Before the patch the 64 bytes of slack
+meant skb_put() took the frame and it was delivered.
+
+The REG_MTU and REG_RX_BUF_SIZE mismatch was already there. With this
+check it becomes silent loss of traffic that is within the MTU.
+
+Could rx_buffer_len be sized from mtu + ETH_HLEN + VLAN_HLEN + ETH_FCS_LEN
+instead, for example max(AT_RX_BUF_SIZE, roundup(...))? Then the bound
+enforced here would match what the MAC accepts.
+
+[Severity: Medium]
+This is a pre-existing issue and the patch does not make it worse, but is
+length correct on big-endian hosts? struct atl1c_recv_ret_status declares
+word0 and word3 as __le32. atl1c_clean_rx() masks the raw word and only
+then byte-swaps a 16-bit value:
+
+    length = le16_to_cpu((rrs->word3 >> RRS_PKT_SIZE_SHIFT) &
+            RRS_PKT_SIZE_MASK);
+
+rfd_num and rfd_index are read from rrs->word0 without conversion, and
+RRS_RXD_IS_VALID(rrs->word3) also tests the raw word.
+
+On big-endian, this bound would compare a meaningless length against the
+buffer_info of the wrong slot. Should the length be
+(le32_to_cpu(rrs->word3) >> RRS_PKT_SIZE_SHIFT) & RRS_PKT_SIZE_MASK
+instead?
+
+> +			dev_core_stats_rx_dropped_inc(netdev);
+> +			if (netif_msg_rx_err(adapter))
+> +				dev_warn_ratelimited(&pdev->dev,
+> +						     "dropped rx frame: %u bytes, buffer %u\n",
+> +						     length, buffer_info->length);
+> +			kfree_skb_reason(skb, SKB_DROP_REASON_PKT_TOO_BIG);
+
+[Severity: Low]
+Runt frames (length < ETH_HLEN + ETH_FCS_LEN) take this path too. Won't
+drop_monitor and the kfree_skb tracepoint then report them as
+SKB_DROP_REASON_PKT_TOO_BIG?
+
+SKB_DROP_REASON_PKT_TOO_SMALL already exists for that case. Could the
+reason depend on which bound failed?
+
+[Severity: High]
+This is a pre-existing issue, but could the link-change worker already
+have freed this skb?
+
+atl1c_common_task() resets the rings on a link change without stopping
+NAPI:
+
+    if (test_and_clear_bit(ATL1C_WORK_EVENT_LINK_CHANGE,
+        &adapter->work_event)) {
+        atl1c_irq_disable(adapter);
+        atl1c_check_link_status(adapter);
+        atl1c_irq_enable(adapter);
+    }
+
+atl1c_irq_disable() masks interrupts and calls synchronize_irq(). That
+waits for the hardirq handler, but not for a NAPI poll already running on
+another CPU.
+
+On link down the worker runs:
+
+atl1c_check_link_status()
+    netif_carrier_off()
+    atl1c_reset_mac()
+    atl1c_reset_dma_ring()->atl1c_clean_rx_ring()->atl1c_clean_buffer()
+    atl1c_configure()->atl1c_alloc_rx_buffer(..., false)
+
+A poll that passed its netif_carrier_ok() check before the carrier went
+off may still hold skb = buffer_info->skb. After that it passes the skb to
+kfree_skb_reason() here, or to skb_put()/napi_gro_receive(). It can also
+run atl1c_alloc_rx_buffer() at the same time as the worker.
+
+Can this end in a double free or use-after-free of the RX skbs, and a
+corrupted ring? atl1c_clean_rx() also rewrites REG_IMR at the end, which
+undoes the irq disable. atl1c_down() quiesces NAPI properly. Should the
+link-change path do the same?
+
+> +			/* atl1c_clean_rfd() has already recycled the RFD, so
+> +			 * count the drop as work: the refill at the end of the
+> +			 * poll only runs when work_done is non-zero, and
+> +			 * sustained oversized traffic would otherwise drain the
+> +			 * ring and stop RX for good.
+> +			 */
+> +			work_done++;
+> +			continue;
+> +		}
+
+[Severity: High]
+This is a pre-existing issue, but the error branch earlier in
+atl1c_clean_rx() seems to have the same ring drain problem that this
+comment describes:
+
+    if (rrs->word3 & (RRS_RX_ERR_SUM | RRS_802_3_LEN_ERR)) {
+        atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
+        if (netif_msg_rx_err(adapter))
+            dev_warn(&pdev->dev,
+                 "wrong packet! rrs word3 is %x\n",
+                 rrs->word3);
+        continue;
+    }
+
+atl1c_clean_rfd() marks the slot ATL1C_BUFFER_FREE and advances
+next_to_clean, but work_done is never incremented. The refill only runs
+when work_done is non-zero:
+
+    if (work_done)
+        atl1c_alloc_rx_buffer(adapter, rrd_ring->num, true);
+
+Suppose a run of errored frames (CRC errors, or a crafted 802.3 length
+field mismatch) uses up every posted RFD with no good frame in between.
+Each poll then ends with work_done == 0 and the ring is never refilled.
+The ISR_OVER handler in atl1c_intr() only logs.
+
+Can RX stop permanently in that case? This branch also does not count
+against the NAPI budget, so one poll can consume any number of errored
+descriptors.
+
+[Severity: High]
+Also pre-existing, and the v2 notes say it is deliberately left for a
+separate patch, but the same error branch leaks one skb and one streaming
+DMA mapping per errored frame. Since it is High severity, it is
+reported here as well.
+
+The branch runs before dma_unmap_single() and before the skb is fetched.
+atl1c_clean_rfd() only does:
+
+    buffer_info[rfd_index].skb = NULL;
+    ATL1C_SET_BUFFER_STATE(&buffer_info[rfd_index],
+                ATL1C_BUFFER_FREE);
+
+Teardown cannot recover the slot either, because atl1c_clean_buffer()
+skips free slots:
+
+    if (buffer_info->flags & ATL1C_BUFFER_FREE)
+        return;
+
+atl1c_alloc_rx_buffer() then overwrites buffer_info->skb and
+buffer_info->dma.
+
+Could a peer sending CRC errored or length mismatched frames grow this
+leak without bound, using up memory and IOMMU or swiotlb space? It might
+be worth fixing in the follow-up patch, together with the missing
+work_done accounting above.
+
+>  		skb_put(skb, length - ETH_FCS_LEN);
+>  		skb->protocol = eth_type_trans(skb, netdev);
+>  		atl1c_rx_checksum(adapter, skb, rrs);
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027115151.17092-1-federico%40rimpianto.com
