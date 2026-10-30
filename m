@@ -1,77 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353019;
-	b=zyizabiowPu2nkeyFHSYFksnceGH2CbS4K6iyF5OdJXBouoLEEBL9kp/8A/DtAd9ay4K
-	 khjwINKeSdAxEuaYhMu5gNVdWipwU0QDUChDnI0wabHEm+OByqfL7uQD4XC6VTlsqc45T
-	 gWuyv7utGyTgNRf3opXEAoVR+hdSi0TN12CG3wE1f9Nj5h6Z2Qc09F38T2vGRISQRIT9I
-	 Ofq3ZNjRauWJYnfDuASYRnVAFh/BZPCcS07nPwUU682BHaOIi+zjrnL/BGYUvBnTx/kFg
-	 BIs1jiBTFSzGyxe2CI6p8qQQf/GNVxigsWsvlBoPsYi2NjfQiDQx2OgYMJkyHx3X2JQ==
+	t=1793353156;
+	b=dzzBoQCuScqQJ3J0VT+TbMpiGDXpzVL/wl5fk7PFoOe8SmwnEtp9rrUDJ05VgUbcs+Bs
+	 x+6xriUv2TihU9NA4/UMvwzMs0jrypoC1WRFhbfavzjJQmn8qPcr5wKsfYvzg0mhPprQy
+	 UHXSlI246TZbouzF0W/npCxK4XvUKFHhLohp6w1HBEiMBMAz1BVnAHQtCq8bf0COYQfF+
+	 XOfN7SwMkF7fSZuQBidY7KEICWaxEe9YAmzUsjIML3nHN2kmbCwTShITmZzFJvlbrIYaz
+	 HgDfRHjvv8d2XGFj1na0G/X3Dq4jLe/uD1KDvCWetFoezTf5n4N5aEQSPTl/7sYKsZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353019;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:
-	 X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=lRezFi2aEYM5pYBhR9QtMA9MM0OoaYfh5KLn9jOB7hk=;
-	b=HyTDkA6TUPwILVbRXTrXU01SwAfsjKEsM+5YkYJ0wUGIfm0TWCePruSZibGzXHo0K8FQ
-	 nDu3tzhwqwxVE8fGzVZyxRaqeW8cv1xREa7X0zbVIbgmPw1olRN2I+vuGKykPmqjPFBPc
-	 dM/Sq1dEj8W+VyBtQX+1t35e9NUitos13sew1H3UBeFAUGDyqbwYI4Cl/fK2IZXFrlJE+
-	 jc6OYb1FEPiHPoA6HGcrFHsS3EJXgYu3aKwlTKVxpR4F5YJuwxX4qkTupb17bCxtCAGSu
-	 q2BYQhyp6ov7jWiitVoiIrfATBaoHXTnRmwj63vCiJHwm5sd7SoHAhsOQ2LNnRkpDLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353156;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=p2p6dOL2KDWMR3mhYs0uPWdNBKHHcJR5aV59rO4jsGM=;
+	b=Wwm7wcYig9oAa+aHFthKWTCiibg+0WJvWzw4kkbgWvwec+/cPdPdgOPS78h8Ym0gqTNb
+	 ytM55QblZM3WBd13BYGRATgBdu9UMHi7H48A/GLeo3t+9oNEfDk4nPcvHOblyfFLf2fI+
+	 JvMY+Z9zr7NCu/72QSJcjawaYdDJVnQ2+adf8+/pLlLXJudbMy+T3IV9CEq+XbyJPtD2O
+	 frieq/lwrOvhK1RNyMK1wf97159lIMhQKzPKDp8sW5i1Ebz+r/v0mXSpj7lklPE8jhr9C
+	 1+hxabvF/fq95Jg1/Zi0o9Bsx7UJ74Rfv7ro7Gp0LDAHWMovy4bssGNUl+FxlNliqgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DPuRfTgc;
-	arc=none smtp.remote-ip=203.254.224.24
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="CDIf/thi";
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA58B606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA58B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6312B606A31A;
+	Fri, 30 Oct 2026 09:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6312B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=DPuRfTgc
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20261030093655epoutp01a38146842560ad59218abb90cc4a45c0~jRRDxrndn1279112791epoutp01A
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:36:55 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20261030093655epoutp01a38146842560ad59218abb90cc4a45c0~jRRDxrndn1279112791epoutp01A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793353015;
-	bh=lRezFi2aEYM5pYBhR9QtMA9MM0OoaYfh5KLn9jOB7hk=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=DPuRfTgcoK0rSHIuqviT8PmBt8riCIydZmdpB8keBJRkGMZ31xzSH7f6K1rN6ndLR
-	 fp0SAIPJnnn8Nj5VDFG2y1GyI2XvIbpJQRWpaEja2WOWKJIwSYL3XilSeGqvIFTITp
-	 zVtl8cOfkp+m8c8em2VDxC0pxnGekXbgdL6+B7hk=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
-	20261030093654epcas2p4309772af20fcf1fe55022e80892c6834~jRRCouh4Z2118421184epcas2p4w;
-	Fri, 30 Oct 2026 09:36:54 +0000 (GMT)
-Received: from epcas2p1.samsung.com (unknown [182.195.38.206]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jGGFy12FKz3hhT8; Fri, 30 Oct
-	2026 09:36:54 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261030093653epcas2p329f2bb351b051a118edad4211b4b3470~jRRB2HGzA0937409374epcas2p33;
-	Fri, 30 Oct 2026 09:36:53 +0000 (GMT)
-Received: from apsw.samsungds.net (unknown [12.80.211.160]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261030093653epsmtip1a1b610c9add5241128c785d63eabe859~jRRBvEDKL3236332363epsmtip1c;
-	Fri, 30 Oct 2026 09:36:53 +0000 (GMT)
-From: Kiwoong Kim <kwmad.kim@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com, avri.altman@wdc.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, bvanassche@acm.org, kwangwon.min@samsung.com,
-	hy50.seo@samsung.com, cpgs@samsung.com, h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com, Kiwoong Kim
-	<kwmad.kim@samsung.com>
-Subject: [PATCH v2] ufs: mcq: fix dev cmd abort path and add OCS poll after
- sq cleanup
-Date: Fri, 30 Oct 2026 18:36:45 +0900
-Message-ID: <20261030093645.790159-1-kwmad.kim@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CDIf/thi
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=p2p6dOL2KDWMR3mhYs0uPWdNBKHHcJR5aV59rO4jsGM=;
+	b=CDIf/thi6+FNUxoHVdaP7IeL1YfbVmvpaT9AK93IDixWVIZKAJsiQHjhPGL0lwpzhwpxdBdxm
+	uEAbjyQiOnuSVHxqqspiUxgq736myvR2fL1lZHqoa2RtxaAD7pefU6wpocaorUfxQ9lYzgar0cf
+	YJOGtC4m7NXrPbs1QPz9eNs=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jGGJL3Bt6z1T4G5;
+	Fri, 30 Oct 2026 17:38:58 +0800 (CST)
+Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
+	by mail.maildlp.com (Postfix) with ESMTPS id 01A6C4057F;
+	Fri, 30 Oct 2026 17:39:11 +0800 (CST)
+Received: from [10.174.178.46] (10.174.178.46) by
+ whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 30 Oct 2026 17:39:09 +0800
+Subject: Re: [PATCH v2] ubifs: fix auth node space and padding in journal
+ buffers
+To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
+	<linux-mtd@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <6a391820-7fc6-eabd-e22e-5940b6da2f82@huawei.com>
+Date: Fri, 30 Oct 2026 17:39:09 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,150 +71,209 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+In-Reply-To: <20261030172650531F_VlxVrMiDglCJJ9rESWI@zte.com.cn>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261030093653epcas2p329f2bb351b051a118edad4211b4b3470
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-234,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261030093653epcas2p329f2bb351b051a118edad4211b4b3470
-References: <CGME20261030093653epcas2p329f2bb351b051a118edad4211b4b3470@epcas2p3.samsung.com>
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemo200011.china.huawei.com (7.152.185.179)
 
-In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task()
-for all timed-out commands. However, device management commands (query, NOP)
-use reserved requests and are not SCSI I/O commands. The ABORT TASK task
-management function is designed for SCSI I/O UPIUs and is not applicable to
-device management UPIUs.
-
-Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). When
-the request is a reserved (device management) command, skip the TM path and
-call ufshcd_clear_cmd() directly instead.
-
-Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
-UTRD of a device management command after a successful SQ_CUS poll. UFSHCI
-does not specify the order between the OCS update and the SQ_CUS update, so
-OCS may still be stale when cleanup returns. Without this poll, a late
-response to a timed-out query can arrive while a retry is already in flight,
-leaving the host with two query contexts and raising IS.UTPES.
-
-The poll is limited to device management commands because
-ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
-them. For SCSI commands, the OCS in the UTRD stays
-OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
-
-The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
-MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
-OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
-OCS_ABORTED reported by the host controller for the cleaned-up request,
-means the cleanup has completed.
-
---
-Here is the timeline of an actual case for this that happened with kernel 6.18.
-1. The host sent a query but the device didn't respond with it for a long time.
-
-[ 7384.156142] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
-[ 7384.156154] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-2. So after the query was timed out, the driver did SQ cleanup.
-Then the host updated CQ update and raised IS.CQES,
-Unfortunately, complete() was called the driver's ISR afterward.
-
-3. The driver started to retried the query. In the meantime, it set OCS to 0xF.
-Then the driver didn't wait for completion due to the previous complete() call,
-and just checked OCS.
-
-[ 7384.156163] [4:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = 15
-
-5. The driver retried the query again, but the device didn't return anything,
-so the query was also timed-out.
-
-[ 7385.660108] [3:  kworker/u40:5:10671] exynos-ufs 38300000.ufs: ufshcd_query_flag: Sending flag query for idn 14 failed, err = -11
-
-6. A few seconds later, the device returned the response of the 1st query,
-but since the host was holding two query contexts and couldn't handle it,
-it raised IS.UTPES.
-
-Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
-
----
-Changes since v1:
-- Limit the OCS poll in ufshcd_mcq_sq_cleanup() to device management
-  commands. ufshcd_compl_one_cqe() copies the OCS from the CQE into the
-  UTRD only for them, so for SCSI commands the poll always ran for
-  MCQ_POLL_US and then failed with -ETIMEDOUT (Sashiko).
-- Return -ETIMEDOUT only if OCS is still OCS_INVALID_COMMAND_STATUS
-  after the poll. OCS_ABORTED, which the host controller reports for
-  the cleaned-up request, is no longer treated as a cleanup failure
-  (Sashiko).
-- Update the commit message to match.
-
-Link: https://lore.kernel.org/linux-scsi/20261030083311.602909-1-kwmad.kim@samsung.com/
----
- drivers/ufs/core/ufs-mcq.c | 25 +++++++++++++++++++++++++
- drivers/ufs/core/ufshcd.c  |  4 ++++
- 2 files changed, 29 insertions(+)
-
-diff --git a/drivers/ufs/core/ufs-mcq.c b/drivers/ufs/core/ufs-mcq.c
-index 8106d55f4041..4f42b502d159 100644
---- a/drivers/ufs/core/ufs-mcq.c
-+++ b/drivers/ufs/core/ufs-mcq.c
-@@ -609,6 +609,31 @@ int ufshcd_mcq_sq_cleanup(struct ufs_hba *hba, int task_tag)
- 			 __func__, id,
- 			 FIELD_GET(SQ_ICU_ERR_CODE_MASK, readl(reg)));
- 
-+	/*
-+	 * For device management commands, there is no order guaranteed between
-+	 * OCS update and CUS update, which is why we need to wait here. SCSI
-+	 * commands are excluded because the OCS in their UTRD is not updated
-+	 * from the CQE.
-+	 */
-+	if (!err && blk_mq_is_reserved_rq(rq)) {
-+		enum utp_ocs ocs;
-+		ktime_t start = ktime_get();
-+
-+		do {
-+			unsigned long flags;
-+
-+			spin_lock_irqsave(&hwq->cq_lock, flags);
-+			ocs = READ_ONCE(lrbp->utr_descriptor_ptr->header.ocs);
-+			spin_unlock_irqrestore(&hwq->cq_lock, flags);
-+			if (ocs != OCS_INVALID_COMMAND_STATUS)
-+				break;
-+			usleep_range(20, 50);
-+		} while (ktime_us_delta(ktime_get(), start) < MCQ_POLL_US);
-+
-+		if (ocs == OCS_INVALID_COMMAND_STATUS)
-+			err = -ETIMEDOUT;
-+	}
-+
- 	if (ufshcd_mcq_sq_start(hba, hwq))
- 		err = -ETIMEDOUT;
- 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index bcc2512bf34b..7fc80926eeec 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -8046,6 +8046,9 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
- 
- 	lrbp = scsi_cmd_priv(cmd);
- 
-+	if (!ufshcd_is_scsi_cmd(cmd))
-+		goto clear_cmd;
-+
- 	for (poll_cnt = 100; poll_cnt; poll_cnt--) {
- 		err = ufshcd_issue_tm_cmd(hba, lrbp->lun, tag, UFS_QUERY_TASK,
- 					  &resp);
-@@ -8091,6 +8094,7 @@ int ufshcd_try_to_abort_task(struct ufs_hba *hba, int tag)
- 		return err;
- 	}
- 
-+clear_cmd:
- 	err = ufshcd_clear_cmd(hba, tag);
- 	if (err)
- 		dev_err(hba->dev, "%s: Failed clearing cmd at tag %d, err %d\n",
--- 
-2.43.0
+在 2026/10/30 17:26, shao.mingyin@zte.com.cn 写道:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> write_head() appends an authentication node to the node group when
+> authentication is enabled and writes
+> ALIGN(node_len, 8) + ubifs_auth_node_sz(c) bytes from the buffer.
+> ubifs_jnl_write_data() allocates its buffer for that, but when the
+> allocation fails it falls back to c->write_reserve_buf.  That buffer is
+> sized for a data node only (COMPRESSED_DATA_NODE_BUF_SZ plus the cipher
+> block, 4144/4160 bytes), while an incompressible 4 KiB block needs
+> 4144/4160 bytes plus the auth node (24 + the HMAC length, 56 bytes with
+> sha256).  ubifs_hash_nodes() then writes the auth node past the end of
+> the reserve buffer, and write_head() reads it back from there.
+> 
+> The same write path also writes uninitialized heap data.
+> ubifs_jnl_write_data() and ubifs_jnl_write_inode() build their node
+> groups in kmalloc()ed buffers, and when the last node length is not a
+> multiple of 8 the padding up to the next auth node goes to the flash
+> uninitialized.  That padding is covered neither by the node CRC nor by
+> the rolling hash.
+> 
+> Size the reserve buffer for the largest possible auth node (the mount
+> path allocates it before authentication is initialized, so it cannot use
+> ubifs_auth_node_sz()), clear the padding after the data node before it is
+> written, and allocate the node group buffers of ubifs_jnl_write_inode()
+> and ubifs_jnl_truncate() with kzalloc().  The data write path cannot just
+> use kzalloc() because it may fall back to the reused reserve buffer.
+> ubifs_jnl_truncate() refills its data node with ubifs_tnc_lookup(), so
+> what is left after the re-compressed node comes from the old node on the
+> media, not from the heap.
+> 
+> The padding is not part of any node, so ch.len and the CRCs stay
+> unchanged.  With a zeroed truncation buffer, zero_trun_node_unused() is
+> redundant, so remove it and the comments which refer to it.
+> 
+> Fixes: 6a98bc4614de ("ubifs: Add authentication nodes to journal")
+> Link: https://lore.kernel.org/all/ab51df45-f763-358b-642c-8efe06f33ffb@huawei.com/
+> Cc: stable@vger.kernel.org
+> Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> v2: Keep the explicit padding clear only in ubifs_jnl_write_data(), which
+>      may fall back to the reused write reserve buffer; allocate the node
+>      groups of ubifs_jnl_write_inode() and ubifs_jnl_truncate() with
+>      kzalloc(), and drop zero_trun_node_unused() together with the
+>      comments pointing at it.  Thanks to Zhihao Cheng for the review.
+> 
+>   fs/ubifs/journal.c     | 39 ++++++++++++++++++++++++++-------------
+>   fs/ubifs/super.c       | 18 ++++++++++++++----
+>   fs/ubifs/ubifs-media.h |  6 ++----
+>   3 files changed, 42 insertions(+), 21 deletions(-)
+> 
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
+> index 40a95a2fad50..449bc8c0a224 100644
+> --- a/fs/ubifs/journal.c
+> +++ b/fs/ubifs/journal.c
+> @@ -68,16 +68,6 @@ static inline void zero_dent_node_unused(struct ubifs_dent_node *dent)
+>   	dent->padding1 = 0;
+>   }
+> 
+> -/**
+> - * zero_trun_node_unused - zero out unused fields of an on-flash truncation
+> - *                         node.
+> - * @trun: the truncation node to zero out
+> - */
+> -static inline void zero_trun_node_unused(struct ubifs_trun_node *trun)
+> -{
+> -	memset(trun->padding, 0, 12);
+> -}
+> -
+>   static void ubifs_add_auth_dirt(struct ubifs_info *c, int lnum)
+>   {
+>   	if (ubifs_authenticated(c))
+> @@ -840,6 +830,28 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
+>   	return err;
+>   }
+> 
+> +/**
+> + * ubifs_zero_node_pad - zero the padding after a journal node
+> + * @c: UBIFS file-system description object
+> + * @node: node to pad
+> + * @len: length of the node
+> + *
+> + * When authentication is enabled the auth node is placed at the next
+> + * 8-byte aligned offset, so the bytes between the end of the node and
+> + * that offset are written to the media.  They are covered neither by the
+> + * node CRC nor by the rolling hash, so clear them instead of writing
+> + * stale buffer contents.
+> + *
+> + * This is only needed when the buffer is reused, i.e. for the write
+> + * reserve buffer of ubifs_jnl_write_data().  Buffer owners which get a
+> + * fresh allocation use kzalloc() instead.
+> + */
+> +static void ubifs_zero_node_pad(const struct ubifs_info *c, void *node, int len)
+> +{
+> +	if (ubifs_authenticated(c))
+> +		memset((char *)node + len, 0, ALIGN(len, 8) - len);
+> +}
+> +
+>   /**
+>    * ubifs_jnl_write_data - write a data node to the journal.
+>    * @c: UBIFS file-system description object
+> @@ -925,6 +937,7 @@ int ubifs_jnl_write_data(struct ubifs_info *c, const struct inode *inode,
+>   	if (err)
+>   		goto out_free;
+> 
+> +	ubifs_zero_node_pad(c, data, dlen);
+>   	ubifs_prepare_node(c, data, dlen, 0);
+>   	err = write_head(c, DATAHD, data, write_len, &lnum, &offs, 0);
+>   	if (err)
+> @@ -1007,9 +1020,10 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
+>   	else
+>   		write_len += ilen;
+> 
+> -	ino_start = ino = kmalloc(write_len, GFP_NOFS);
+> +	ino = kzalloc(write_len, GFP_NOFS);
+>   	if (!ino)
+>   		return -ENOMEM;
+> +	ino_start = ino;
+> 
+>   	/* Make reservation before allocating sequence numbers */
+>   	err = make_reservation(c, BASEHD, write_len);
+> @@ -1716,7 +1730,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+>   	sz =  UBIFS_TRUN_NODE_SZ + UBIFS_INO_NODE_SZ +
+>   		dn_size + ubifs_auth_node_sz(c);
+> 
+> -	ino = kmalloc(sz, GFP_NOFS);
+> +	ino = kzalloc(sz, GFP_NOFS);
+>   	if (!ino)
+>   		return -ENOMEM;
+> 
+> @@ -1725,7 +1739,6 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
+>   	trun->inum = cpu_to_le32(inum);
+>   	trun->old_size = cpu_to_le64(old_size);
+>   	trun->new_size = cpu_to_le64(new_size);
+> -	zero_trun_node_unused(trun);
+> 
+>   	dlen = new_size & (UBIFS_BLOCK_SIZE - 1);
+>   	if (dlen) {
+> diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+> index 38972786817e..538907aba8a0 100644
+> --- a/fs/ubifs/super.c
+> +++ b/fs/ubifs/super.c
+> @@ -1263,8 +1263,16 @@ static int mount_ubifs(struct ubifs_info *c)
+>   		bu_init(c);
+> 
+>   	if (!c->ro_mount) {
+> -		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+> -					       UBIFS_CIPHER_BLOCK_SIZE,
+> +		/*
+> +		 * The reserve buffer is also used as a fallback for data
+> +		 * nodes which are followed by an authentication node, so
+> +		 * reserve room for the largest possible one.  Authentication
+> +		 * is initialized only later, hence the maximum sizes.
+> +		 */
+> +		c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
+> +					       UBIFS_CIPHER_BLOCK_SIZE +
+> +					       UBIFS_AUTH_NODE_SZ +
+> +					       UBIFS_MAX_HMAC_LEN,
+>   					       GFP_KERNEL);
+>   		if (!c->write_reserve_buf)
+>   			goto out_free;
+> @@ -1723,8 +1731,10 @@ static int ubifs_remount_rw(struct ubifs_info *c)
+>   		goto out;
+>   	}
+> 
+> -	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ + \
+> -				       UBIFS_CIPHER_BLOCK_SIZE, GFP_KERNEL);
+> +	c->write_reserve_buf = kmalloc(COMPRESSED_DATA_NODE_BUF_SZ +
+> +				       UBIFS_CIPHER_BLOCK_SIZE +
+> +				       UBIFS_AUTH_NODE_SZ +
+> +				       UBIFS_MAX_HMAC_LEN, GFP_KERNEL);
+>   	if (!c->write_reserve_buf) {
+>   		err = -ENOMEM;
+>   		goto out;
+> diff --git a/fs/ubifs/ubifs-media.h b/fs/ubifs/ubifs-media.h
+> index 3c9792cbb6ff..7d4702f3e15f 100644
+> --- a/fs/ubifs/ubifs-media.h
+> +++ b/fs/ubifs/ubifs-media.h
+> @@ -591,14 +591,12 @@ struct ubifs_data_node {
+>    * @old_size: size before truncation
+>    * @new_size: size after truncation
+>    *
+> - * This node exists only in the journal and never goes to the main area. Note,
+> - * do not forget to amend 'zero_trun_node_unused()' function when changing the
+> - * padding fields.
+> + * This node exists only in the journal and never goes to the main area.
+>    */
+>   struct ubifs_trun_node {
+>   	struct ubifs_ch ch;
+>   	__le32 inum;
+> -	__u8 padding[12]; /* Watch 'zero_trun_node_unused()' if changing! */
+> +	__u8 padding[12];
+>   	__le64 old_size;
+>   	__le64 new_size;
+>   } __packed;
+> .
+> 
 
