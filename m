@@ -1,93 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.83.148.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356472;
-	b=lkUBc9zbdM27yEhuYgrRpGcyY/kLtJRzCoKhQC3m0TH46R1pQZM7aK8K0egxN8EMdBtW
-	 TBAdQZxEID/0qEbCwR7Z9O+9bS8gI1enKIXKQBSlXQDxUg6tkwZqxhEt9kucWejUlx/Cm
-	 qJLVgGhNWmbAsSu4y5rpnwxOnwm3pmfBioEKfqZ0YyEi0ayydEG4mhB0QuPfsjUMtLItS
-	 PHP5JY3ct6S4LUhmmSz1x0NZKg9YbjzYLXiS3ZXRa+lCB74qOme0QDRZwcSrSBO6M/pNA
-	 iGKNIGPkExGTa24h+uM2nyVL3ZFEJQLe9KNYjpLV6M2a/X0hqHZOJxfbbXoZCT9FIYg==
+	t=1793356624;
+	b=CSk6I+ufyu2SGBMN8zGErz4P7jjJ/f3CQS6Ay1KcMJ3fppWe7wEuTv3e12rmrZtr019h
+	 2Nmtv4QVhe5ihTtgp9hwoxfODwgvQCvYupfCQsU/gECzlovgekL5Z2CkRp1hVISfPQekL
+	 sHoJxfnNOdJpgvmhbc+6Sio8HA3EMiLd18930vuECM3lX7mSIrIxsfQpMaqNG77xThwW4
+	 Gmt6nWm6Mjb5NC7WO+c7a0f/qzd29T0TvzwSrs8gwAZT5eWxwcMSo4zX25fkv46hMM8+7
+	 5YoSj+VxxsQCEr0vADWFci6fhMtNUvJ98mpg2Fa+8ri1enhTwtmP2BL5U8Rez1ZuEHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356472;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+c1ihJ1Xln4zEcrREqgDAfDTBrnVULNOnFAexlBeung=;
-	b=rcJfMPz47oJubMoplAdyGbHsWcGjLiKwQ/3yEdNsNdmf2dGnLd+7+xZZHsMdQhTBtt7E
-	 wNuaYpJyF/ZV5OfUd0p8Rj4s4SFIkGti+8Oa8xz1dP0xquUKA6OGAL/0p/stQ1h6phVYB
-	 3sGfJ0V5riMW9qAaXEsZ6PW+6D+mdP+ndC20caKvPLnsGrhWUZ1PEC/O65t8EZ0E8GcVy
-	 XCOWUrU7HZrmEnYMv6ujTFIcQaziXgUMSHutCUqhhwub8vmhyXP91NVe0Jhb77ikLJ7/u
-	 wnrdJyBZWcQJup+xBAqgf0oFDN5FkRdtdmBvSer+BVsPP7BbPyrqjQ1+zHQkK1g4sfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356624;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=DmHjgENSEM3/SBgtOokrDXU+0jtEzKN/4QNEBO3+0hw=;
+	b=T8Xpz70haw7Ih2GT7nA9u71I5Tgj6xBbeVIh0GeRLtsvBdOWiClewi/dYt2hUZZTSSO1
+	 i2tmwjGJYOfFW1Dn/+UhdgLmy9vlg2b+UpRKbSJTF+CNhTW2st2rbZCx+dM6A05ziPvhR
+	 TfnNVbULpU19h9nrHFFWDzhWfa2y5fvWBfTz/GVBmVVUTi/siD+4djVqwWm6r5JxuiaGy
+	 2T70QZuZxR3Y9IC3zvs7SrzOO/e3ads8M4jwxCCCDO3ZY3Kk9F5UprBQWljjS0iQ+FRt5
+	 hd8B3u3ogFKtEjqaC7eanm35uhzk4AjbV4rC8M/OcnAnmW0LTbI6ZlCsIDWa1GZmiwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="mt/vlXZ1";
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=XRNQZJBs;
+	arc=none smtp.remote-ip=35.83.148.184
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA85460A382C;
-	Fri, 30 Oct 2026 10:34:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA85460A382C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3691D606A604;
+	Fri, 30 Oct 2026 10:37:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3691D606A604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=mt/vlXZ1
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8F1xQ2395373;
-	Fri, 30 Oct 2026 10:33:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=+c1ihJ
-	1Xln4zEcrREqgDAfDTBrnVULNOnFAexlBeung=; b=mt/vlXZ1DYWCtoZ9NLFkwW
-	pmIREyhUzcuLjPtMbZsJfQrafl7/MVB+Tjlr2jP5/3g8SxlWmHha7/+45ggMwG3g
-	QChpcbkNgIFtzNelUHjjaX/t3WjKQWWH/ej/8mGBi+QXYx8NYD5x/zZ9x2k3vvNB
-	rtXnJ0EL9cenodmySnDnXWqxS2QJ+/sj0Dq0bIQtmc50sJxXyWVBlj1lex85odoJ
-	FqrC0R/gYtY6MFMfVyHFch9ZVAoELKZmlZLOjAzrxf3rBg87X82POHpWkLm0MKxC
-	WTNuD96Vw+vfq8lHk3PZt6O8BQQqMSnvCiX5OF/FpHVoKsuokMkAzM9eL1Ct388g
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hmeb027hk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 10:33:48 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8oNOX3288769;
-	Fri, 30 Oct 2026 10:33:47 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hmr330a7v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 30 Oct 2026 10:33:47 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69UAXj8W49545682
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 30 Oct 2026 10:33:45 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8CD9C2004D;
-	Fri, 30 Oct 2026 10:33:45 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4A9182004B;
-	Fri, 30 Oct 2026 10:33:42 +0000 (GMT)
-Received: from li-49acbccc-2994-11b2-a85c-d51b89e344f1.ibm.com.com (unknown [9.43.39.23])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 30 Oct 2026 10:33:42 +0000 (GMT)
-From: Pavithra <pavrampu@linux.ibm.com>
-To: songmuchun@bytedance.com
-Cc: akpm@linux-foundation.org, alison.schofield@intel.com,
-        dave.jiang@intel.com, djbw@kernel.org, joao.m.martins@oracle.com,
-        linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
-        muchun.song@linux.dev, nvdimm@lists.linux.dev, ritesh.list@gmail.com,
-        stable@vger.kernel.org, pavrampu@linux.ibm.com,
-        vishal.l.verma@intel.com
-Subject: Re: [PATCH] dax/pmem: fix unaligned compound devmap initialization
-Date: Fri, 30 Oct 2026 16:03:39 +0530
-Message-ID: <20261030103339.414145-1-pavrampu@linux.ibm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016054914.2601510-1-songmuchun@bytedance.com>
-References: <20261016054914.2601510-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=XRNQZJBs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1793356624; x=1824892624;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=DmHjgENSEM3/SBgtOokrDXU+0jtEzKN/4QNEBO3+0hw=;
+  b=XRNQZJBsfJyJ8AE+yuJKE5db41ky82ak98DRuQXgPaJHdJkaJiEA7lQV
+   c+zSyBzEBkgNzsc1UMMiNywxyElPsMUAmiSIUY7VeC+6IxB6HlWc1amFB
+   yScOkulerA7rQ2PkeApXhHRcLQiamQuTynZw0igxRyKEUNqreRO4Kys80
+   pLoZjFWtisSmPtYIgmW3n5n2VdAohfi8rOIt1QMVjVuD6FW5wnufph/r5
+   405bU03NePN86y7hpPRLI1HLAZ+jW2VGb3myVZVpoQGcVC00is54U0pM/
+   TxXZrLH2sovtTMu5ARTnfYyevJkaXw8BehUeeh8ScaeCRSzz+UOGqvRsY
+   w==;
+X-CSE-ConnectionGUID: 536e3dnJQjyPQh9pUrBmHA==
+X-CSE-MsgGUID: 7gCkdxJYSqGKNdgGjOhSIw==
+X-IronPort-AV: E=Sophos;i="6.27,186,1787011200"; 
+   d="scan'208";a="32449747"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:37:00 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:7805]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.65:2525] with esmtp (Farcaster)
+ id 15856f3a-0c04-464f-a522-68f6fdd5e38b; Fri, 30 Oct 2026 10:37:00 +0000 (UTC)
+X-Farcaster-Flow-ID: 15856f3a-0c04-464f-a522-68f6fdd5e38b
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 30 Oct 2026 10:37:00 +0000
+Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 30 Oct 2026 10:36:59 +0000
+From: Bjoern Doebel <doebel@amazon.de>
+To: <stable@vger.kernel.org>
+CC: <seanjc@google.com>, <pbonzini@redhat.com>, <kvm@vger.kernel.org>, "Bjoern
+ Doebel" <doebel@amazon.de>
+Subject: [PATCH 6.18.y 0/3] Backport nested EPT violation GVA bit fix
+Date: Fri, 30 Oct 2026 10:36:40 +0000
+Message-ID: <20261030103643.573356-1-doebel@amazon.de>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,54 +82,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: YsSLdPEumXKLleFEXkBsi-1wjpQCQNXu
-X-Proofpoint-GUID: eyhc_jbcvH2WBCbuDro4qt9ghJLhkYSS
-X-Authority-Analysis: v=2.4 cv=JIyuIMKb c=1 sm=1 tr=0 ts=6ae4728c cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=Uv9NjG45AAAA:20 a=VnNF1IyMAAAA:8
- a=8zS9G5xvJLahJeJr1kgA:9 a=zgiPjhLxNE0A:10 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfX9DPHAg0iuUip
- YbcZXvCuK98/L67BDNHKlH6XV7TETkJ3Nnjrrqdvu1s4uFudOBNmUCWyA9TltdpsxNvh4iE1xiv
- 6/d08oj40y69sNO0jDXzSi19HQAumgK2do2kR6Ymfh3I6Pq3VeGDKlQwvZ5Tn6xQN2JfBgxmPKg
- gpOBVTQl7xA3HvFuaPp3FxOwr/YBs3BIjFF2JXHUG+1BLXo5BsjnmjVqXYVMLR8SuwROkUHleSy
- NNC/mavzliBBOGO271rt11x/E9fHz809g7r0n089UAAxz4D7D0MyehSpHF00XuFeXmRzgHzXlFt
- sxP6GYFK2JACTY864iTEJy2rts9/8sx+9YcvXJ1WOn2JLpyQs0OHME7XtE43+ey/bJyW8jDPPbo
- MY+z8gyQ94xri8HViFfQ1r0u6FVK+2hQqyYKlWE4A6vodh2rrhGObSXfY37VzVVIjeQlSuvoqxB
- BHseTtgAEGNhyJoPgNw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MCBTYWx0ZWRfXyGR3abNVAIKN
- MZ16cExgbEasvN0Zd5nRwWQOiDUCSoBXq0+1u+CBiYfMwE6UGSOljtCY0H+hXWfpworyMg/Y6Zf
- maQcQyif3oUbvXyoncEzppWmvX4lu08=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
- adultscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610300040
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Tested on Power10 (ppc64le)
+Backport of commit 96b067b59ad9 ("KVM: VMX: Synthesize nested EPT
+violation GVA_IS_VALID/GVA_TRANSLATED bits") to 6.18.y, with its two
+dependencies.
 
-Test configurations validated:
-  Page sizes : 4K, 64K, 2MB hugepage, 1GB hugepage
+Patch 3 is the fix: KVM pulls the GVA_IS_VALID and GVA_TRANSLATED bits
+from vmcs02.EXIT_QUALIFICATION even when the fault injected into L1 was
+synthesized while emulating an L2 GVA access, i.e. when that field
+describes an unrelated VM-Exit.
 
-Test suites run:
-  - libhugetlbfs test suite
-  - LTP hugetlb tests
-  - mm selftests (tools/testing/selftests/mm)
-  - ndctl test suite via avocado (--map=mem and --map=dev,
-    2MB and 1GB alignment)
-    https://github.com/avocado-framework-tests/avocado-misc-tests/blob/master/memory/ndctl.py
-  - HTX mdt.pmem_all
-  - Memory savings validation with 1GB alignment
-  - Hash mode basic pmem tests
+Patches 1 and 2 are prerequisites, tagged Stable-dep-of; neither changes
+behavior on its own.  Patch 1 lets the EPT walker tell a paging-structure
+access from a final access, patch 2 plumbs in whether a fault came from
+hardware and renames kvm_inject_emulated_page_fault()'s exported symbol
+to __kvm_inject_emulated_page_fault().
 
-No issues observed. Thanks for the patches.
+Context adjustments are noted per patch.  Based on v6.18.56, build tested
+on x86_64 with CONFIG_KVM_INTEL=m and CONFIG_KVM_AMD=m.  Not runtime
+tested under nested virtualization.
 
-Tested-by: Pavithra Prakash <pavrampu@linux.ibm.com>
+Kevin Cheng (1):
+  KVM: VMX: Synthesize nested EPT violation GVA_IS_VALID/GVA_TRANSLATED
+    bits
+
+Paolo Bonzini (1):
+  KVM: x86/mmu: pass PFERR_GUEST_PAGE/FINAL_MASK to kvm_translate_gpa
+
+Sean Christopherson (1):
+  KVM: x86: Tell ->inject_page_fault() whether or a fault came from
+    hardware
+
+ arch/x86/include/asm/kvm_host.h | 18 ++++++++++++++----
+ arch/x86/kvm/hyperv.c           |  3 ++-
+ arch/x86/kvm/mmu/mmu.c          |  3 ++-
+ arch/x86/kvm/mmu/paging_tmpl.h  | 26 ++++++++++++++++++++++----
+ arch/x86/kvm/regs.c             |  3 ++-
+ arch/x86/kvm/svm/nested.c       |  3 ++-
+ arch/x86/kvm/vmx/nested.c       | 26 +++++++++++++++++++++-----
+ arch/x86/kvm/x86.c              | 16 +++++++++-------
+ 8 files changed, 74 insertions(+), 24 deletions(-)
+
+-- 
+2.50.1
+
