@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382500;
-	b=dVQFP9q57FwJoyG6EyJkclK8Pi3qKh5eb0TRJdFb2yTFw6zyJIaijYZq003EvXWQrVPh
-	 LPlzvax0yVC9Ecxw3wBSAhJDj5FGbsFu/YZr7Ro6WEixaSzVCLJ8pbY/+xbKZs9HeIWke
-	 KsRZ/rBJ+q7fZrszhnm5QhusUZamCLg8YxCmuj7+lUUX5fzwNbX7eLVCl7WiM3O7WbszP
-	 YQVcEXfM4gdhS/SO3FaNS9X/S7CDQ5+4JirxzgwRju2j8GsSoyJq6gSLngr3e29MU8Exq
-	 hbNV/4psDziMc41O5PPqYrJQR8UBP0h4Rg1kLOXaAoA1iV7Q09KpncUiAOLJjxg9CnQ==
+	t=1793382522;
+	b=TpCEtH30axTdsdBG8NoUsqwgHH11/+uVNLyKWwCRRoBBpnezJ53Kkq/mAqUwz1f05v0H
+	 rS+qyWyC+Oza6fTE8dXZ5FgWpoVTSVNk6RYRz042sVT133cGWV8pnGsZGumdLigrF0g7e
+	 CWwIh8+ZSPkjzzUCk1+w/jJV00emMArGe/Fa9Pt1LaoL6D1fUbwQMDdDYV5jN253Tw8LP
+	 z1LqKy9GuAZJj7G1WRGq2wA0aCdwO9ThVU/Lb+WIlXBugy3Ay3Ly+wYs0j3n542k4aKXV
+	 3AQeZCqNsO32pFr/otI/QGPhc0xKeSAB+c3ew1boRSUsQL+Qrx5edkeV73/EI8kyLDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382500;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382522;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=0FM1eyvAUwK+fLhgDxNFYZgoPZUDzKxnOOEbqswS2Es=;
-	b=tOXTDRwJHJxM1TkBFEfkFE0d5tGbDLmt6mr/SKFxmQASyBhQj9Y4McnJlDYhcPR99BWD
-	 RDivT4cPmUbU5vSqv0Sb/1hXQrvzm+jkLAKbMvGgBxEPt4rqkO/mn3A8C5FvTLuxUs5xi
-	 s9yVjw58p0OjWWkKEyytbm+Zl9HI1D52hgDd/Dr0kW+2VlJcaBiweZ5LMk9ov/7Vw+kzH
-	 iqJtFiK4SpeIVcLBujKQvbu85INSWAWXAc9am5OrbpPSVZfmJzG6HBUK442j6qXwL567/
-	 FZNEnEyuuS8qyloZi2u99R4KDzkVLoZoflt3OUYMXJm7AzKN0a9z5HdFBY2IBxEoB/A==
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tCjjKUaujfaLQmslqeozg0SLDvgknvluRFAYaG2v0rY=;
+	b=IiX7c+U5Jxn1K1XFEc1lljtt4gV7lrz3O9squhIzg9P678GSLG5Ie3kZh3m6HtOj/ws7
+	 6tzL+PtdHTiIY25IdOjlO5vCjsKIML/GDgolIq35QUOSkXZr+n+M43qMF537EAMpE8HTE
+	 SsEWv3Pcb10EHVnP3mZW+Vdxpab7MDaLIumK4aB/5GfLJMtVow+QrI0zST1uYh2H8eqNY
+	 zL83GFQK+aAUPF8oAYd9WhqSANqecZHM8JrSXAxbmVqgRtXf4Y8zed+g8LGtdmRoRIm/+
+	 2ncLlr1TbowfAi0DZilXK/vARpmm627rpiJc748t2n+bPiJHyw0luLj1CtG/qmwyjiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xhYnTDgb;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eG9YMGAR;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEA8606A321
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:48:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AEA8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1365160A2600
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 17:48:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1365160A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xhYnTDgb
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso418788a12.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:48:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eG9YMGAR
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48af4d4e61fso599876f8f.2
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 10:48:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793382500; x=1793987300; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0FM1eyvAUwK+fLhgDxNFYZgoPZUDzKxnOOEbqswS2Es=;
-        b=xhYnTDgbjHVEDgLd9FeTne28vMcHSOYTrn9emqGQjUbi7VmzKD7Bc3veKg4GaTkhxb
-         VH578t4aonLwErix+BvTS4CePJD6pz1x4JpizuSozYDRPGHMY0WqL1rzG8hAX10QfxoN
-         slsC8eOO9A/HGY2jOtEnWgnLRLCZwUgb2HBm0U+r8guFc8VpvPzV63mSwxXhL43SN56h
-         3ui3PTG8AFMemE4L+RblJZsAzaC3w3GogKUBai0JMDElGxOzKQUSD8Kov3jjZWi4UaZy
-         sYq4U0AiE/9jbJ03K47UF/vDxwyTtcxD5RNl9IwwYWTBENpeyJzrZfmu2M43YFicc9Gb
-         0Riw==
+        d=gmail.com; s=20260707; t=1793382520; x=1793987320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tCjjKUaujfaLQmslqeozg0SLDvgknvluRFAYaG2v0rY=;
+        b=eG9YMGARFvw5RWZ9FOha9w1hmFX4WF2/xGDopuZwL/tK4dlTLz6ZpSjxLSuIXe4XcP
+         GrC788d6VDuzwLPPYzcsB6nejTW20+VOGxtjYcMiuDDOxJC/z3G4CLtgHMrwyVyx2lM8
+         2fWLPpBTmlI63HSKy2oZuHcICBFpTfZd1MrOOwMm2jB40T3hrrulwmZMB5DHkcNdhjCg
+         ytuoYZ6SRlgu6BD1bos23QrTjIC43wYuZISNZVBzM7OZ/sBf3xQioOO759Mjb8NahFzc
+         pvywIu6SODN8TQntMLg7DXwhRNQi8GgiSSsng8ijZaQZ1TwnZGpr5DBIgt1UWcVZPkwO
+         la/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793382500; x=1793987300;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0FM1eyvAUwK+fLhgDxNFYZgoPZUDzKxnOOEbqswS2Es=;
-        b=z02At2cg4vvpjTNrwkt1TQDdkW5fO8zILAwDqSA07sVU0xculOQIun2zJBAOoE4Hhl
-         Kgz4FJMFGrjCAkBNhMiE2FfBaGm8JMacoC0qsO1+2131SPIRJSvA2xCdYDhHuerJkgo0
-         a++xz+aeSoiCtCBeV2kttaf3frM3T1Jy0PeC4tyPPR5t6Y1MXpJhUVighAwccL0yPyEv
-         9jACD/xlS57rC+HYKowiQztBHiND7Cj6hQ/zkn/hPaa6lmKTPJZbN2nBwJqZw2zT0PiV
-         kopKiSNSHs6spY76I0NA2u1iGcK8fGJby4+NdQCWDal5wAmO+H+sijywOeHb8W7eIVCL
-         0Ejw==
-X-Forwarded-Encrypted: i=1; AKwUvBxdy0HWm+3t4WYvrc0U0etzgFH7Ch2VyFjNzw7JzdYRC26RDYKySnh2nq474FMNZCqSBMgpbhI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIE6a7C6r78oVPNK7MTCyUDHY11LWYOglzk+vXqQIbhruJAMJyj
-	L9tDAAlceZftiISUKWZgSEbbtkN6BOTI4odXkgKCi7hJi/PbiMqdxBOXbC7/WHf7f/k=
-X-Gm-Gg: AYBFou3eW8+9wj+Lb+1G+4lFAJA6PJVroBZDjikPYgDM9gtJfu+q6q1wsuV3+7TuF15
-	T7z1XLqigm5eUnCg5idEFBEyOcmwF91lAHeyodagxe2T2xXXKuCtWGoew2UJNAn9eicOgsieacu
-	Par0MuokjZpr/1Gje20+udtK1w+fT1TrlJz0XzY+eMORr8wIQgf//vTC4pjN5YZOKAwDzl8CPhF
-	AEO0YFcNwif9gc46JrfXGx+7s40rq6OLCiKnvYGqs6kDJJ4iV9vdWnnzmzxcqbW5niiC8WdBDhs
-	hdJ9ajkWSSmss8E45AYYObbBa76vjg6LiXmHqneREx92Ld+m5ajKTTsHpPI++wTH7EReP2PyBQT
-	FYHTCDaXJeWhlJfPVhoINy8ALKyCCEdJTBfBRUFE+oE1b0aY2OelZn47WBcHX0moQCbAh6qA4C6
-	4zxeghxsc55CWjYbm6I+tb3wy7s7pUM8cFPmdgtZlPhdJEugK3zYe7GQQ0jA2qKKQaL/gzonsN2
-	SrDF7yS5mM31Kv2UcMt4tzodzPX3vYv0hL+Q6+e5EBf7ev2KgqYBMYlzn/hbcm/rMQp+Q7KWn0l
-	rXxsVGws22zYbQwttR0AbGk+GF5wYHE=
-X-Received: by 2002:a05:6a21:a247:b0:3c3:7a0a:18a6 with SMTP id adf61e73a8af0-3e928ca2358mr2811333637.18.1793382499460;
-        Fri, 30 Oct 2026 10:48:19 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:1341:f404:be4:486c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada9ab752sm297668b3a.45.2026.10.30.10.48.18
+        d=1e100.net; s=20260707; t=1793382520; x=1793987320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tCjjKUaujfaLQmslqeozg0SLDvgknvluRFAYaG2v0rY=;
+        b=nPVo3BZ30NAZndpPHA6Pi58afoxFIP1uC1NneOlHOAXZxpX95PdoDFpwjXuRreC7/F
+         4SGo1Q6dSRX732/9UAjnmkznh7nJdfauMdksumIFxJLVcAO32qRoitkdlLLYmBCjNSgS
+         Y2Dqgoa+BU/N3xRZsQRp2VrdJ6iH/0kV/IyuYvNp+lYudY0TJWcaRtw/wD6XD1D5CQ9a
+         oxJd+K7Da1ls8DHlgTZRsVMzoRQt61lO0GJb4ZIA//sQljsclDO3e+AMpqCvLcsxwQQN
+         NdMFe1Ol8pdG4dYEnE46Z9wnpO/CMSAn43WgGB5QuC46VqkOln3nNyXcFOzGOlt5eyx7
+         1jnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxU+veHRQy6JZCo+nsKZQHQlfpxYdAHanTOM0oOLMlhngBXPpQulJRKLKuNAXSafr4dCzEtdzQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJACDVLPkrZrRWldbyyfJrWg2DMgsT87ADEsI7j+GlZMMzfL1lE
+	ndT3cAKIjDzEGjUszAcIt5IOkt4EfPzJHr7o31JH2xNcAY19J9rw+Bg=
+X-Gm-Gg: AYBFou16ekH4uwkMGJkdhSjhhuLViGIRg6SIX7AjQfchnMp8cX5Hj6UuGFB70dxqfwC
+	sJpwg/OhkB3UfhiTl2EK316zYEBimusn1LaTSgRS4JsBouyQwLFOYHcAivXUE+HwBptAsKGhRvs
+	UMDKs5wL66VRjmoqkNCje1ouoXFz1Hzv8Hi0RYwof5Oy6Dk7iiSziK88BdphyPkzW4SkOb1MakZ
+	LJacATv2FXdWyMC79hxaDgqYBmS+0yB+m5ePIN0m4dC8EqJ2rBcU5UewQQov3ZAtmTPPCgHdoM8
+	sKaG0ajM6zS08EHmaPZoZNWpQxdjoXkjXbYax+pc0LGRzAym2eI8Iu4xwUzw7S8QdPIAv2hwb0b
+	1JGuvjy1xYh4S+u0uqsjmC5ImUJdS+OsVw0UbB6B7oPW8AKIFnAVy/CtU7c9LF0aclTD1h+HBeT
+	KpY0PzAIMmL1NUVEBZt2+VMjHmFrviMsgtFEV5D8QKU4yn8CHNIjRji3nV2g9OWbhQucFZQ/7o2
+	G9FM9Dpk9Pos30J3nSZ6KnjH9FB21EmNwCsiACW+9NOWDC4BAJy8IdWCRmqh3Z/3I9mOc3gVyNo
+	5p1zCTtbZy5wE7lo9xsKNki57BihVetQjQ==
+X-Received: by 2002:a05:6000:310f:b0:488:83f7:6352 with SMTP id ffacd0b85a97d-48e6e2c33admr6901151f8f.4.1793382519367;
+        Fri, 30 Oct 2026 10:48:39 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8e5f4sm4492926f8f.40.2026.10.30.10.48.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:48:18 -0700 (PDT)
-Date: Fri, 30 Oct 2026 11:48:16 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rpmsg: char: take ept_lock in the
- SET_INCOMING_FLOWCONTROL ioctl
-Message-ID: <auTYYGFsSqPalG_y@p14s>
-References: <20261026100306.68019-1-yuz08559@gmail.com>
+        Fri, 30 Oct 2026 10:48:38 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Mark Brown <broonie@kernel.org>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Bard Liao <bardliao@realtek.com>,
+	Misael Lopez Cruz <misael.lopez@ti.com>,
+	patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v5 0/4] ASoC: cancel pending delayed works on codec removal
+Date: Fri, 30 Oct 2026 17:48:33 +0000
+Message-ID: <20261030174837.1839402-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,88 +103,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026100306.68019-1-yuz08559@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Several ASoC codec drivers schedule delayed works for jack detection
+and microphone polling but do not cancel them on component removal,
+leaving handlers that can run against freed memory.
 
-On Mon, Oct 26, 2026 at 08:03:06PM +1000, Yu Zhang wrote:
-> rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
-> rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
-> and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
-> dereferences ept->ops, so this is the only eptdev->ept user that does not
-> honour the ept_lock discipline.
-> 
-> eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
-> (reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
-> device is removed) and rpmsg_eptdev_release() both do
-> 
-> 	mutex_lock(&eptdev->ept_lock);
-> 	rpmsg_destroy_ept(eptdev->ept);
-> 	eptdev->ept = NULL;
-> 	mutex_unlock(&eptdev->ept_lock);
-> 
-> and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
-> A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
-> eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
-> (or a NULL dereference once ept has been cleared).
-> 
-> The other eptdev->ept users get this right: rpmsg_eptdev_write_iter() and
-> rpmsg_eptdev_poll() take ept_lock and re-check eptdev->ept before use. Do
-> the same in the ioctl. Lock only this case: RPMSG_DESTROY_EPT_IOCTL calls
-> rpmsg_chrdev_eptdev_destroy(), which takes ept_lock itself, so the switch
-> as a whole must not hold it.
+This series adds proper teardown ordering in four codec drivers:
+rt5668, rt5659, twl6040, and wm8994.
 
-Please get rid of the above paragraph.
+Changes since v4:
+  - Patch 1/4 (rt5668): correct Fixes tag from nonexistent
+    e13da14e8543 to d59fb2856223 ("ASoC: rt5668: add rt5668B codec
+    driver").  No code changes.
+  - Patches 2-4/4: no changes.
 
-> 
-> Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-> ---
->  drivers/rpmsg/rpmsg_char.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-> index 550fda2..49c0784 100644
-> --- a/drivers/rpmsg/rpmsg_char.c
-> +++ b/drivers/rpmsg/rpmsg_char.c
-> @@ -343,7 +343,15 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
->  			break;
->  		}
->  		set = !!arg;
-> -		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
-> +		ret = mutex_lock_interruptible(&eptdev->ept_lock);
-> +		if (ret)
-> +			break;
-> +		if (eptdev->ept)
-> +			ret = rpmsg_set_flow_control(eptdev->ept, set,
-> +						     eptdev->chinfo.dst);
-> +		else
-> +			ret = -EPIPE;
-> +		mutex_unlock(&eptdev->ept_lock);
+Changes since v3:
+  - rt5668 (1/4): track IRQ acquisition with irq_acquired flag to
+    avoid calling disable_irq() when devm_request_threaded_irq()
+    failed.  Re-enable IRQ in rt5668_probe() when a sound card
+    rebinds after rt5668_remove() disabled it, preventing permanent
+    IRQ silencing across unbind/rebind cycles.
+  - Patches 2-4/4: no code changes.
 
+Changes since v2:
+  - rt5668 (1/4): also cancel jd_check_work (re-arms itself every
+    500 jiffies while jack inserted). Disable IRQ before cancelling
+    to prevent the handler from scheduling new work in the window
+    between cancel and devm IRQ release.
+  - rt5659 (2/4): no code change from v2.
+  - twl6040 (3/4): swap ordering -- free_irq() first, then cancel
+    residual work. Fixes the race where the handler fires between
+    cancel and free_irq and re-arms the work.
+  - wm8994 (4/4): no code change from v2.
 
-                ret = mutex_lock_interruptible(&eptdev->ept_lock);
-		if (ret)
- 			break;
+Changes since v1:
+  - Unified series per Mark Brown request.
+  - rt5659: guard cancel with jack_detect_work_inited flag since
+    INIT_DELAYED_WORK is conditional on jd_src, per Mark Brown.
+  - wm8994: cancel mic_work before and after jackdet_bootstrap for
+    cyclic re-arming through DAPM power-up chain.
 
-                if (!eptdev->ept) {
-                        ret = -EPIEP;
-                        break;
-                }
-		ret = rpmsg_set_flow_control(eptdev->ept, set,
-                                             eptdev->chinfo.dst);
-		mutex_unlock(&eptdev->ept_lock);
+Tristan Madani (4):
+  ASoC: rt5668: cancel delayed works on component removal
+  ASoC: rt5659: cancel jack_detect_work on component removal
+  ASoC: twl6040: cancel headset jack work on component removal
+  ASoC: wm8994: drain delayed works on remove and probe error
 
+ sound/soc/codecs/rt5659.c  | 20 +++++++++++++++++++-
+ sound/soc/codecs/rt5659.h  |  3 +++
+ sound/soc/codecs/rt5668.c  | 20 +++++++++++++++++++-
+ sound/soc/codecs/twl6040.c |  1 +
+ sound/soc/codecs/wm8994.c  | 14 ++++++++++++++
+ 5 files changed, 56 insertions(+), 2 deletions(-)
 
-Thanks,
-Mathieu
+-- 
+2.47.3
 
->  		break;
->  	case RPMSG_DESTROY_EPT_IOCTL:
->  		/* Don't allow to destroy a default endpoint. */
-> -- 
-> 2.43.0
-> 
