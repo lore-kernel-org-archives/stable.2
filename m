@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368284;
-	b=mKjQOEcS/S1QotQ5oMF9IM27LuMI+Ro6B1gkHY+F97ZgU6SZUNaUnKAOP+TxVUpWCvEO
-	 W6Z1SY/zYReMBo9BLNBFuXyyRH/1VwTXzUw3VGLefQTl4gDg2udU4167haiA2SjJLpPij
-	 464kMyfTf13gpgncgKFHyC6fsdygpl+E0+qNEMeKQaJZ5b/Aw3Bvqt1NfNYJ0YUswU2ug
-	 kQ1wzA5vn8siMo0bVFdYiP5KUvrdFFH0zy8gCfb4RIVQn2fYBEx6nf8ubncRX6r/Fr69g
-	 GvR5vLymt41rEF8nSn9BHQ/B7uvDAFe0Ki01jZniiniHboXATkX/zdy6s3AmXQ0WLIw==
+	t=1793368290;
+	b=s++xLNp6e+yyIJVbybBGTKwywjURL2NmKDseWvNl8x3bLIyDOKvE4IuwwkSgNe4ZfvBL
+	 4liBdvaKW5/CP+2bSKTTY2fd61JibDVAoxamsh+pHs049S8m5kTQtzuP+KamPA2DR7nvg
+	 JAt68jGTlnMklpe7g9EmSiVdkKSh+J6Np1nK2O10qd1WdnReznY+MNXWMaEhv3Jzvzifj
+	 tY8eqG+6FHr74Z2qwb+srMAalx3NCmjC23DaJr0zyqqt97+vAGrsN2iN4AJx9m/Eg6byw
+	 okW4mXA8zk2+5aIq0xy5HRurflLusZTrYgbqjuEuVoyoZfYCyuGPVACaGWlSIpvEtGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368284;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368290;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zooGUg5U79hEFPrT6Hi6K1nHULVSW/Tn4sEvAK4VHgM=;
-	b=H1eRKxnY8FBo0Gx7ZzH6xXQTTMqT1ve9gcqOMCyAXff84Y5ZZ/278VZq5cr5M85q/cZl
-	 IQMo7RLYYBHikese/BapO1XRJrLYEejulQ6XlV3Iv235hhTeaHxq9Eq511RKjMglGi0Mm
-	 40+KDvb7EUdtTV1lAVqp3vAWUiLHkazd6P5OFbktvHlx+csmsQCuzmkg1Z94YdW2MnJqp
-	 1ZbVh7h4JudJ7/MYUgQKQQ0krvzEG0kJt7ZahQwZ/5/gE1d1ZDDRMo9qNbAbWH54HH4T3
-	 oq8zEhvmzC6DiThISi3PhRV+gHuoYihJgho4QqvmdXsOmEqzo/r4L/pF6A0SZFpcM9w==
+	bh=IstqoNcnpneLs9BaYOUmzIPD9asveYbGZXS1rxaXSUU=;
+	b=1Wcjxn+YBUAj1gROSPnSOVsBUkjw4R3PuIwwE4SnviQqMszgjju3AFNf4jaMY+5/wWaj
+	 1hK/zYktrpBJX0MQc2ZSqaSv4jgjE0jexIKRxriS7HvErdL5p6uPeGhch0y7OQ96Zv7E1
+	 8rphmpdc/vzN1Rngr4VPLkhx+cwO687sAPBqlBD0NtKi8gcXjDq1zayThN1GQoU0+7JFk
+	 w6AHebZTXF+NUj+VGgo1jRi6jQJJZoWXNtLmlZIsw7nzaakXIEOyCQOp41fD+aoCW//Ok
+	 i7MAUfM+/8VcvFD5+UFbUwXj0/z0QQ4UYj9F6YeIZd5g2LHDDGaoep+cpffvHycW9Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=simonwunderlich.de;
 	spf=pass smtp.mailfrom=simonwunderlich.de;
-	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=BFFAb6w4;
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=pHcvedI2;
 	arc=none smtp.remote-ip=23.88.38.48
 Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7433B606A334;
-	Fri, 30 Oct 2026 13:51:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7433B606A334
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 37779606A339;
+	Fri, 30 Oct 2026 13:51:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37779606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=BFFAb6w4
-Received: from kero.packetmixer.de (p200300C597124Fd839580C360d3Ed6F6.dip0.t-ipconnect.de [IPv6:2003:c5:9712:4fd8:3958:c36:d3e:d6f6])
+	dkim=pass (2048-bit key, unprotected) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=pHcvedI2
+Received: from kero.packetmixer.de (p200300c597124Fd839580C360D3ed6f6.dip0.t-ipconnect.de [IPv6:2003:c5:9712:4fd8:3958:c36:d3e:d6f6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id C70D9FA197;
-	Fri, 30 Oct 2026 14:51:11 +0100 (CET)
+	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id 950DAFA272;
+	Fri, 30 Oct 2026 14:51:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
-	s=09092022; t=1793368271;
+	s=09092022; t=1793368276;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zooGUg5U79hEFPrT6Hi6K1nHULVSW/Tn4sEvAK4VHgM=;
-	b=BFFAb6w48mJG8/X+32JzoBLNREjEax2+Ii+ujqab09H93BmKa4mFxx6dz43FTvXokA0w/5
-	uS9pd+9rBiYgRfZ7iJxsZOzvHFtcXi6eQ8AQQNSX+KB7R6IFQyh/6nJkS3M+B6wySG6fjG
-	QSLxR+SQMU0cYf+84uHeuPZBJpBt5Oi0NVpKfD2ZRUdPlB3E3ji1IjNflfKRECfgooloAV
-	veGDs6EyxD97JzMC34Md1h6QixT9E2NLzKFkOMnGZOiUN+G1lc9QPSLT/QdzklptH4ZUUo
-	HQvcE9TLPo7fS1kXsTE72DPYSvG6QdQfe3A8htrhxLJuWEAcdcPS+Vzb8AGZDA==
+	bh=IstqoNcnpneLs9BaYOUmzIPD9asveYbGZXS1rxaXSUU=;
+	b=pHcvedI2vl/oUlxaGGmP26ilGMqo9kMMCvkP4yLKUm740NJ8fCiz93sCne8Q6AToV12DPm
+	FnnK7C9DCWtWO1vRBgTid/S4W0EPZKo4WguVg4cPYzH1aej0RlfsEnIhnZytKHiXhEZLbW
+	+F81MOQ4eqzCfkmMDJbSEtqOar0ngCZqgXtCLU8Zwdq3tESActzjE5M+sGBxas1Hv3p4vr
+	4dE8qlXGuIg1XxlhNywy2o7tq+7fwZCkbuqC5ACtBr6ZbrjMgl3/Btdua7RVfA1j1SQFCn
+	hOo/fpmGlJnE1RVuOfnecpClnrqLsLJjQXSCyMu41mtmxGLqxIqU10j2wAFS+w==
 From: Simon Wunderlich <sw@simonwunderlich.de>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
@@ -61,12 +61,10 @@ Cc: "David S. Miller" <davem@davemloft.net>,
 	b.a.t.m.a.n@lists.open-mesh.org,
 	Sven Eckelmann <sven@narfation.org>,
 	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	=?UTF-8?q?Linus=20L=C3=BCssing?= <linus.luessing@c0d3.blue>,
 	Simon Wunderlich <sw@simonwunderlich.de>
-Subject: [PATCH net 05/14] batman-adv: dat: initialize orig_node of unfilled candidate slots
-Date: Fri, 30 Oct 2026 14:50:56 +0100
-Message-ID: <20261030135105.2555887-6-sw@simonwunderlich.de>
+Subject: [PATCH net v2 08/14] batman-adv: tt: only transmit local ROAM flag together with DEL
+Date: Fri, 30 Oct 2026 14:50:59 +0100
+Message-ID: <20261030135105.2555887-9-sw@simonwunderlich.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261030135105.2555887-1-sw@simonwunderlich.de>
 References: <20261030135105.2555887-1-sw@simonwunderlich.de>
@@ -79,45 +77,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-batadv_dat_select_candidates() allocates the candidate array without
-zeroing it. batadv_choose_next_candidate() marks each slot as
-BATADV_DAT_CANDIDATE_NOT_FOUND but only sets orig_node when an eligible
-originator was found. In the following rounds,
-batadv_is_orig_node_eligible() compares res[j].orig_node of all previous
-slots against the evaluated originator. For slots without candidates, it
-reads uninitialized memory.
+BATADV_TT_CLIENT_ROAM is part of BATADV_TT_REMOTE_MASK but on the wire it
+only has a defined meaning together with BATADV_TT_CLIENT_DEL: the
+originator no longer serves the client because it roamed to another node.
+Such a DEL is only relevant for events (non-full table requests).
 
-The orig_node has to be cleared together with the
-BATADV_DAT_CANDIDATE_NOT_FOUND type.
+An ADD carrying ROAM is processed (by accident) by the receiver like a
+ROAMING_ADV: a newly created global entry is marked as roaming and is
+excluded from the global CRC. But the sender includes it in its local CRC.
+
+But such a behavior doesn't make sense for non-ROAM_ADV because a new TTVN
+is meant as announced commit of the local TT table of a node and should
+therefore not be used to create a temporary (roam) global entry in a node.
+
+At the moment, such an ADD with the BATADV_TT_CLIENT_ROAM flag set can
+happen due to two mechanisms:
+
+batadv_tt_local_valid() copies all flags of the local entry into a full
+table response. It is not synchronized with batadv_tt_local_mark_removed().
+An entry which was marked as ROAM|PENDING by a ROAMING_ADV is still part of
+the current TTVN and is sent with the ROAM flag set. The receivers then
+create a roaming global entry for it and detect a CRC mismatch, which
+causes them to request the full table again.
+
+The same can happen for an ADD change which is queued for an entry which
+(still) has the ROAM flag set. For example when only the dynamic WIFI or
+ISOLA flags were updated.
+
+It is not triggered by batadv_send_other_tt_response() because
+batadv_tt_global_valid() is already taking care of filtering out
+BATADV_TT_CLIENT_ROAM entries.
+
+For the two problematic announcement mechanism, only send the ROAM flag of
+local entries together with a DEL.
+
+This only fixes the ROAM marking of the global entry and the resulting CRC
+mismatch. When the requester of the full table is the node which sent the
+ROAMING_ADV, the still announced entry will (independent of the ROAM flag)
+cause batadv_tt_global_purge_local() to remove the requester's own (new)
+local entry for the client. This is not addressed here.
 
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-b25d9aa4-10bb-427c-a145-ccaadc2a1bb9
-Fixes: 785ea1144182 ("batman-adv: Distributed ARP Table - create DHT helper functions")
-Acked-by: Linus Lüssing <linus.luessing@c0d3.blue>
+Fixes: 27b37ebfa2d2 ("batman-adv: correctly pass the client flag on tt_response")
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
 ---
- net/batman-adv/distributed-arp-table.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/batman-adv/translation-table.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/net/batman-adv/distributed-arp-table.c b/net/batman-adv/distributed-arp-table.c
-index 74050bffedbce..0260ed7e828b2 100644
---- a/net/batman-adv/distributed-arp-table.c
-+++ b/net/batman-adv/distributed-arp-table.c
-@@ -653,6 +653,7 @@ static void batadv_choose_next_candidate(struct batadv_priv *bat_priv,
- 	 * NOT_FOUND
- 	 */
- 	cands[select].type = BATADV_DAT_CANDIDATE_NOT_FOUND;
-+	cands[select].orig_node = NULL;
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 3349376a9087d..39b61426f1680 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -643,9 +643,17 @@ static void __batadv_tt_local_event(struct batadv_priv *bat_priv,
+ 	ether_addr_copy(tt_change_node->change.addr, common->addr);
+ 	tt_change_node->change.vid = htons(common->vid);
  
- 	/* iterate over the originator list and find the node with the closest
- 	 * dat_address which has not been selected yet
+-	tt_change_node->change.flags = flags;
+ 	del_op_requested = flags & BATADV_TT_CLIENT_DEL;
+ 
++	/* the ROAM flag is only meaningful for the receiver in combination
++	 * with a DEL. An ADD with ROAM would be interpreted as a roaming
++	 * advertisement
++	 */
++	if (!del_op_requested)
++		flags &= ~BATADV_TT_CLIENT_ROAM;
++
++	tt_change_node->change.flags = flags;
++
+ 	/* check for ADD+DEL, DEL+ADD, ADD+ADD or DEL+DEL events */
+ 	spin_lock_bh(&bat_priv->tt.changes_list_lock);
+ 	changes = READ_ONCE(bat_priv->tt.local_changes);
+@@ -3342,8 +3350,12 @@ static bool batadv_tt_local_valid(void *entry_ptr,
+ 	if (tt_flags & BATADV_TT_CLIENT_NEW)
+ 		return false;
+ 
++	/* the entry is (still) announced. A ROAM flag of an entry which is
++	 * pending to be removed must not be transmitted. Otherwise, the
++	 * receiver would handle it like a roaming advertisement
++	 */
+ 	if (flags)
+-		*flags = tt_flags;
++		*flags = tt_flags & ~BATADV_TT_CLIENT_ROAM;
+ 
+ 	return true;
+ }
 -- 
 2.47.3
 
