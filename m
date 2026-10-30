@@ -1,102 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793374930;
-	b=re7NDq/gMZYKntFAztLxX5+CT/muCYQQAUZqSMY+ovtUDYkhgciDdTUPrAOzEjevKO0r
-	 YDao7VG6uXbggDjfK8b4rI9G6TA6bo0uO0jDLwSIviAd9AGnbiCyImMRq2T5w/TLt4l01
-	 4Sz0ENzVzp299xddh8Ay3oOoxpAbKFushgv9CNpcMUMt96XoUqWKBw8XJ8Yk5MyZT6iwL
-	 CmNaMBAbNRFSbu49i1hGeuss3I2qki57/7aziA9GBeTnzynrj5c/B+obk6E3v4U05oRfn
-	 ir5Rn1J1vTn9OrsXJtGrFbMq4q2pOGMxqHK7jhFl+dqOHM/Z11VMLdQkOViUKwZuKQA==
+	t=1793375134;
+	b=XW6Xr7sqtvnsvf4rjy5gpcM/iM8kxPFUjAXrSvibhQ53Bb2AO+JxAr4LnxUalNGQzwCf
+	 vQHzkPd1vRabCwS2sAEcUGtu7AA6V4tJnTbH2RcZrsCJYFDWiy9vdbd9XS83nlE0ZHhh9
+	 8olZiicM/dju+bC0R7rPtzmSBagf97GRRm+fqes4B0xL1QLQhwx5jYYuXf7sDwmoNABaG
+	 9Bx9LuiNDSM36nO8e9USTchWxflcW9jEBPTBwry3zWvVR7b+Ul+f0W3sqIHYNtstBD4Ck
+	 NuVUmZsQ2ifNQCvRihGYi7oQk8ZLREN0PdSVsQlsz3GqLNEW5ypuUNPMxjEDD4bSXKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793374930;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2chJiSmeM/KHh0ZbqVdM0zVWtYPHgi3wnKH/o05KMYU=;
-	b=f4vTaNm6td5Y85VGSBjJhkoZRJdimYvwPxXhR4JPGS3+Nw5w0Qaz9EzWOiX7kuJLD7t4
-	 P0UC6nbQUeLLIF4bVpxhmBXdvtGJgwVY1eaNediQjkF6bNrabJz2/dyJ1jlfa4ysO2XdR
-	 nXTIdIbgQY6Oy5WLG0yxWY9/lldV9Ornm61fpSVeF47GZULRB52RyNYpf4uf4b1oH72O5
-	 gHc0Ranz2kt8esoozMpVtCbra9ZMYuwSrDQKExg9UAEHlIi9XA5mk+UixZjJZ2H5InFAL
-	 WaQk6gg+mHjKVtRi+jLLN4EefTD544oASxMHUETots+M/QtrROwVH53ILbwmWw/gV9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793375134;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=WoonPTDxmI27DT4NSRQ351lwYs7JeMBe8dSHSnt9xRg=;
+	b=embSx6iex9W2qC1ZruV37UlaM+lSi4NcIyXB/jmTGWXDuT4K7lKTQ88xH3Bj8QW190on
+	 S2UJk3duAywtQcg20uGiZFsAoYTJ9sfWa+bUIHRl1pPsbMTOIZXD8howgf0SIhx+ze58g
+	 W7nW3qXE2zmxzb7FSdTS7yxyEY9HD+qHr24e3MnDCG49G5Auz+Kl7yRZMevAl/6XHpGui
+	 43NfKjQ0LFE0NMlJ6mtjUMGECZw+a9gfz8jTcz5DKRqrspePyLjg7q2bEMkk6KxJqatzg
+	 4kX01XOszgPp5eDKZKbq+IUbUbQfjqbhYY5mCc2yaBW+tToQt4cKqlh/KwgPCdzaiHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="QCNiLo/b";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vvTZ4ZQ2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D672606A31C
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 15:42:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D672606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F05606A31C;
+	Fri, 30 Oct 2026 15:45:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QCNiLo/b
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso9066105e9.3
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 08:42:10 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vvTZ4ZQ2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B1531F000C1;
+	Fri, 30 Oct 2026 15:45:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793374929; x=1793979729; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2chJiSmeM/KHh0ZbqVdM0zVWtYPHgi3wnKH/o05KMYU=;
-        b=QCNiLo/b9Ovh4wyt4IeJSLMrw/6R57uC95QRYqdDCPGzdog+dsas4/Hqr8CtQalpWH
-         FRo2ZblFfijeN0G7REGTrKlgCvOvpkd/zVSePu/G4qC4knLNCVlnQzvjh88SDpgWLkRK
-         lZZCAdp3WsrptS0kt+f5Sn/sb5noMuJ6OBWDtz2pa15rGhnVkLruyDIdb9RDpAzGCLIW
-         HytaufkZurmQjt2+WpV6zLUxEWwvAEjmNj+6TgDTIqn1jyLSiraZXOAWHJRcDN6rM3Ve
-         a25ke2ROHnZgj2qeg2Sxd8K85JNI28UTQCIqjUXZn3XTNMSmcmrRWSfti8H5nq2Z8rvK
-         4WTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793374929; x=1793979729;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2chJiSmeM/KHh0ZbqVdM0zVWtYPHgi3wnKH/o05KMYU=;
-        b=tR43RMWzfTCdBWIul6OmRcbYeCQ5eTGNjs/xA7UGWjdBTbe7f62mGYQ0KjtA54EqLl
-         61jkU8eXr6Extpn7rwmWHbxkHSflC/5/OH/qRZ4HnJrfYcAfxWxaZiZf7USlJEruEx9b
-         lPkuIdyBCOBKOZjY74ozYq2DH1oPdhu4jQAkLBRYo5uiKPBPmWXcTzbMq0PihVQVLwNB
-         3tbZCf22E66RtXdmb6CHNrF//BTCaCaak5o6I4ZhiWbxi/egiNXL1IPWrneIfvWisLf8
-         Ra3K4IPYcNc8AnbqmlL2GEoWH7z76SHSua7nFmKlZqQSo3ywz8mRN+GN0KNuVI/TMSzg
-         gytQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpXke+ttmkz851Wgp9hsyaDpzJ03aEepZAcLH10k+srKmSvhDz+tqYN0F0ci1U72Dou0KRa3U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI73yg7xrfo5qWNaSkVCHnQjGVIXnhMrxRi+H+z1JzYfX5XnAzm
-	WqVFct/EA7U5xTIvf3xsy+qCtKrqRTRORPwJAT1eg1mJj4aga3qyoNE=
-X-Gm-Gg: AYBFou2kxi5g0JDXR7SAS98bc32/WN2gTPfBJFcdak+BnD+0btTCDxj0PZcyw5+WRJN
-	fA162zkhaRASZzVxwumETK3G9LX1MnZ8uSZzBaHk8tvCPNL2tSOrtPQk+mLjI3lipG3Hdi+Z8d0
-	yiWG2C7tqEnsDq9wApe6uoYFrMJK9txZD/RFJ4SlX/JVqEl1cK77lWYum7OYiydbUObQxtxJXUk
-	ZrCEcGF2eAVLo0QwPaZSN404uyzp48gWb+Ys/h94RkwNL6Ox/aa0RMF35DrUtPj/9JEtOBlu5IA
-	gi+q2w/SF3WPWMtnnz5Zsu7+jbvqM+9NzfvnxyE04eO5OrxG4VP06ndXtoDC4EpUwa8SytU+vCK
-	JlOBD9xD+Qc5a2skpnHgD99LZrMhzSYqi7zek5f44aQ8u3Rp+OIpO+pjI5WHfJ+iKZi1pv1dRTt
-	VYtewtolVKFzZAV82k7mRx3M+XxzX7HzYeGACI5t59I/ZUE75L5i4/ludDsx8n9kbmlAIZWsvl5
-	tYKzUQ0ftPcie5duHRzO/gzBBQNAyvPBtdpoa2Hvib4oahjD+3ClAYaVYDrDoqCv/rB7gqoTtE3
-	YxgO+5QfqAY=
-X-Received: by 2002:a05:600c:609a:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4ac1709aa77mr55928965e9.16.1793374928702;
-        Fri, 30 Oct 2026 08:42:08 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f047bfsm144419935e9.3.2026.10.30.08.42.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 08:42:08 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Bard Liao <bardliao@realtek.com>,
-	Misael Lopez Cruz <misael.lopez@ti.com>,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v3 4/4] ASoC: wm8994: drain delayed works on remove and probe error
-Date: Fri, 30 Oct 2026 15:42:02 +0000
-Message-ID: <20261030154202.2989936-5-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261030154202.2989936-1-tristan@talencesecurity.com>
-References: <20261030154202.2989936-1-tristan@talencesecurity.com>
+	d=linux-foundation.org; s=korg; t=1793375133;
+	bh=WoonPTDxmI27DT4NSRQ351lwYs7JeMBe8dSHSnt9xRg=;
+	h=Date:To:From:Subject;
+	b=vvTZ4ZQ2fUCizZGzI3hLdlr/ZGYqGY1NFYxazlJ8hUxeXGHUSK/LPktjXiPn1p9m9
+	 SNsn2mmEYSENH5B7DF7xUucvwtTfal1WHBBgwT5ZiJkAZhpG9JszWtlXIRGRP9noUX
+	 fHKmMDIHP8CNDgGUrsthSSMTZll2SRzRwNQ5waPM=
+Date: Fri, 30 Oct 2026 08:45:32 -0700
+To: mm-commits@vger.kernel.org,willy@infradead.org,stable@vger.kernel.org,
+	nickolai@csail.mit.edu,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch removed from -mm tree
+Message-Id: <20261030154533.1B1531F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,73 +49,139 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-wm8994_component_probe() schedules several delayed works to handle jack
-detection and microphone status polling.  If the component is removed or
-probe fails after these works are scheduled, they can execute after
-resources are freed.
 
-Cancel all pending delayed works in the error and removal paths.  Guard
-cancel_delayed_work_sync(&wm8994->mic_work) with a type check because
-INIT_DELAYED_WORK for mic_work only runs in the WM8994 and WM1811 code
-paths.
+The quilt patch titled
+     Subject: xarray: clear the new head's parent before freeing the old head
+has been removed from the -mm tree.  Its filename was
+     xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch
 
-Cancel mic_work before and after jackdet_bootstrap because the two can
-re-arm each other: wm1811_mic_work() can re-arm jackdet_bootstrap
-through the DAPM power-up chain (force-enabling MICBIAS2 triggers
-clk_sys_event which queues jackdet_bootstrap), and
-wm1811_jackdet_bootstrap() detects a jack and ultimately queues
-mic_work.  The second mic_work cancel catches any re-arm from a
-jackdet_bootstrap handler that was in flight during the first cancel.
+This patch was dropped because an updated version will be issued
 
-Fixes: 99af79dff5a6 ("ASoC: wm8994: Ensure we get a notification on startup for jackdet")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+------------------------------------------------------
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: xarray: clear the new head's parent before freeing the old head
+Date: Mon, 12 Oct 2026 16:25:49 -0400
+
+When xas_shrink() replaces the head node of an array with the node in its
+slot 0, it stores the child in xa_head, passes the old head to
+xa_node_free(), which queues it with call_rcu(), and only then clears the
+child's ->parent pointer.  In between, a lockless walker can still reach
+the old head, not from xa_head but upwards from the new head: xas_find(),
+xas_find_marked(), xas_next() and xas_prev() climb through xa_parent()
+when they step past the end of a node.  RCU does not protect a walker that
+gets there: call_rcu() waits only for the read-side critical sections that
+were running when the callback's grace period started, and that grace
+period can start before the parent pointer is cleared.
+
+  CPU 0: xa_erase(), xa_lock held   CPU 1: RCU walker, e.g. xa_find()
+
+  xas_shrink()
+    xa->xa_head = child
+    xa_node_free(old head)
+      call_rcu()
+                    <grace period starts>
+                                     passes a quiescent state
+                                     rcu_read_lock()
+                                     xas_find(): loads xa_head (child),
+                                     steps past its last slot,
+                                     child->parent is still old head
+    child->parent = NULL
+  xa_unlock()
+  quiescent state
+                    <grace period ends>
+  radix_tree_node_rcu_free(old head)
+                                     reads old head's slots[], shift,
+                                     offset and parent
+
+The grace period does not wait for CPU 1, which reported its quiescent
+state before its critical section began; holding xa_lock delays the end of
+the grace period, not its start.  The start can fall inside the window
+when an interrupt arrives in it (interrupts are enabled under xa_lock(),
+and RCU core processing may run on interrupt exit), when callbacks are
+offloaded (rcu_nocbs=) and the rcuog kthread on another CPU handles the
+callback, when many callbacks are queued, or while the writer is preempted
+under PREEMPT_RT.  Interrupts, and in a guest a preempted vCPU, also
+stretch the window.
+
+After the climb, xas_find(), xas_find_marked() and xas_next() resume in
+the old head at the slot after the child and read its slots[] and shift
+(xas_find_marked() also its mark bitmaps); xas_prev(), for which the child
+is the first slot, steps past the old head at once and reads its offset
+and parent, as the others do when they reach its end.  Nothing in the walk
+notices that the node is gone.  The climb takes ->parent as it is, no
+lockless path looks at node->array (XA_RCU_FREE), and xas_shrink() stores
+XA_RETRY_ENTRY in slot 0 of the old head only when the head shrinks to a
+single entry, not to a node; the walker does not look at slot 0 anyway. 
+radix_tree_node_cachep is not SLAB_TYPESAFE_BY_RCU, so the walker reads
+freed memory.  Once the object is reused for a node of another array, the
+walker returns that array's entries or descends and climbs into its nodes.
+
+The order dates from the introduction of xas_shrink() in the commit below,
+which reimplemented radix_tree_shrink().  radix_tree_shrink() clears the
+child's parent pointer before it replaces the head and frees the old node,
+and still does in lib/radix-tree.c.  The commit gives no reason for the
+different order and nothing depends on it: xas_update() and xa_node_free()
+only touch the old head.
+
+Clear the child's parent pointer before freeing the old head, as
+radix_tree_shrink() does.  The stores are the same, the tree and the
+xa_state the caller sees are the same, and a walker that starts after the
+callback's grace period has begun sees the cleared pointer, like every
+store before call_rcu(), and ends its walk at the new head, which covers
+every index that the old head had an entry for.
+
+A check in the radix-tree test harness that no node passed to
+xa_node_free() is still the parent of a node reachable from xa_head fails
+in xas_shrink() 4731 times in the XArray tests without this patch and
+never with it.  No test is added: the race is not deterministic and the
+check needs a hook on xa_node_free().  A harness race test (readers
+walking the whole array with the four climbing walkers while a writer
+stores and erases an entry that adds three levels above the leaf) did not
+hit the window in 20 runs of 200000 erases; with a 1 ms sleep injected
+after xa_node_free() in xas_shrink(), every one of 20 runs reported a
+heap-use-after-free in __xas_next() or __xas_prev() under
+AddressSanitizer, and none did with this patch and the same sleep.  On a
+kernel (x86_64 defconfig + KASAN, QEMU), with a 100 ms delay injected at
+the same place, a walk that starts on another CPU 20 ms into the window
+climbs to the old head in each of 20 rounds, and KASAN reports a
+slab-use-after-free of the radix_tree_node freed from rcu_core() when the
+walk takes its next step; with this patch, the walk ends at the new head. 
+The XArray and IDA self-tests pass on x86_64 and riscv64.
+
+Found while formally verifying xas_store() against the kernel binary.
+
+Link: https://lore.kernel.org/20261012202549.772887-1-nickolai@csail.mit.edu
+Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: LLM
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: <stable@vger.kernel.org>
 ---
 
-Changes in v3:
-  - No code change from v2
+ lib/xarray.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v2:
-  - Resend as part of unified series
-  - Cancel mic_work before and after jackdet_bootstrap for cyclic re-arm
- sound/soc/codecs/wm8994.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 8bf58a6a8af7c..b9e0df83b9bfe 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -4551,6 +4551,13 @@ static int wm8994_component_probe(struct snd_soc_component *component)
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_FIFOS_ERR, component);
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_SHUT, component);
- 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_WARN, component);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->mic_complete_work);
-+	cancel_delayed_work_sync(&wm8994->open_circuit_work);
- 
- 	return ret;
- }
-@@ -4592,6 +4599,13 @@ static void wm8994_component_remove(struct snd_soc_component *component)
- 			free_irq(wm8994->micdet_irq, wm8994);
- 		break;
+--- a/lib/xarray.c~xarray-clear-the-new-heads-parent-before-freeing-the-old-head
++++ a/lib/xarray.c
+@@ -471,11 +471,12 @@ static void xas_shrink(struct xa_state *
+ 		if (!xa_is_node(entry))
+ 			RCU_INIT_POINTER(node->slots[0], XA_RETRY_ENTRY);
+ 		xas_update(xas, node);
++		if (xa_is_node(entry))
++			xa_to_node(entry)->parent = NULL;
+ 		xa_node_free(node);
+ 		if (!xa_is_node(entry))
+ 			break;
+ 		node = xa_to_node(entry);
+-		node->parent = NULL;
  	}
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
-+	if (control->type == WM8994 || control->type == WM1811)
-+		cancel_delayed_work_sync(&wm8994->mic_work);
-+	cancel_delayed_work_sync(&wm8994->mic_complete_work);
-+	cancel_delayed_work_sync(&wm8994->open_circuit_work);
- 	release_firmware(wm8994->mbc);
- 	release_firmware(wm8994->mbc_vss);
- 	release_firmware(wm8994->enh_eq);
--- 
-2.47.3
+ }
+ 
+_
+
+Patches currently in -mm which might be from nickolai@csail.mit.edu are
+
+panic-zero-the-dynamically-allocated-taint-buffer.patch
 
