@@ -1,54 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.88
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793324988;
-	b=XWPrkGUjtYbOm2hrAOQk8sO5bu/hwkh6lRSozSHJEgm6yLjN9EpPQ2q9TmK/t8+1zgCF
-	 jVrrzSebyF0bkISWXnbNuLXZozxSnYYGmAKz+jiIo33bLDCoUlXRHiOU10dUVyEGbKIjW
-	 M/Z3yvgnpsCaZ2S2UpgPJyXji+9/SLtY/vrHpwvA5tcH+7JPsZl336nSNdg9/Yqea1RwA
-	 MEt7rzzoQC7YpK16Fa5DpDyzduSI19eQOwtfuRUJF13kVq/uMiPiAIQ03Kz0Z4cbBy0VW
-	 1p/I/l/Qw0U1qDHRujQdnqk+9fFIE7sGmqSqqWSj4cal8GWMMzgcYaW0xRATz969Rsw==
+	t=1793325951;
+	b=PtBG2OIxmzGBvkrzXNUjL9Xhaeqn8Aeg0MamqvU/I6l5aEApxW2J99LsH+0/8IqZwR9r
+	 /gp8bcohOgDYxGWzvObas1YMg7mgZY8GmF1BkBQX6pUMTILgv0R1li/SyqJdsk2tWlXOz
+	 GYxamXqD1h5CBEKPFogTBk80xixR/Vz1GQnL8FNaUAMnZpAHaMsUhGPeC8/1KQL80+XO+
+	 ppoz3LLvorgjuHvDRl6lRcJz5IP8uR8UTDA8c6KIrUQJAyEsArjwykoM0IQR5THDxL1d6
+	 eECgnSOjqSpgOexNb2gAuKJbnw1cf1o3X3wHQrqciCzvBaFCOTs7SgRgYzhtc9+G9FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793324988;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ks/als92P7W6dfkbUwU45ITyxrQRBrooZjsUBw6Ieik=;
-	b=GwLTLCctIgQOr8YiTS1sL7PwV2nfvvsCUvmD6X6G/nIK6vYB7Ie/3+sJqPPmkYrl8VXp
-	 jLnWc6AQ0D2tijWx21KdViow38QpfoPBlXtoespBoiyn0dmOoxeMW0FDYTN/4CP0639EZ
-	 Sx9N1Dwa/aMLf/LWrejJx8wVhuHQyIqfjWevau/eeHoIpTzm1qXz1keLjWgOYTRalJXT8
-	 MKWON34T3GfyON6tVRLTMkfwcSz/1kr3/nR/YoBpp9uv6U/pEXdq4s4RDKGmaA2VkHbSh
-	 1XDwXJyGXkofkz2in5CaSujs73syJxrl6SgU7zTlCjEphpRtwfnMeBMm8FjxeYXhy6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793325951;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=Gl4Mnl1de8y8qX+Z1yRANIuNnN3G2IMMvqjWCKdjyF0=;
+	b=i+nKyJpF5HrnPMteNBff4Wkg5clEIXgURCiolshEkhoml7ZYGSNfD7KsICgUwz7PobNl
+	 FZcSBvtp9wpexwx7j2ZLaQzJZQeh7kvwClv2IK2vIJ0p4EI4HTSlvDnaktXFgDy779dUw
+	 FZGj/OXSguzpWQBIpn38xMvDS3NG+mw0bDHnyh0pu41BwEih/24OQFvtBil8ZdgLHvJyw
+	 5Zjy25+Rx3s3X1Qi7O+EaDVCmycLvQHUwQJW/fNqZyROR67CYcTLkvZVpbW4iTJpIvLZu
+	 r71S+t0L3N1UY/279+yAQhktAOaefVrWDz6YK8kJROXq1WbtOxpqlIwDdAsOcuJWRdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eTJtC7kt;
-	arc=none smtp.remote-ip=95.215.58.88
-Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=XawUOY68;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=eUBSs+LQ;
+	arc=none smtp.remote-ip=202.12.124.148
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08DEC606A31D
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 01:49:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08DEC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B69D606A324
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B69D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eTJtC7kt
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pbxzV7BQ52dy3p13iURJvjvoZreCLEfbqYQbK2sAiaE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793324980; v=1; x=1793929780;
- b=eTJtC7ktAUuY5L3W1UQViTQr636MoaYCSkTcBs3zlLGNHAdgLHRQM49MILEFsqaJSsKk6ITG
- H5gYKHx/Rroy/cbcecspGxlzA0x5auvaiITnh2f2yYChSJmECHIDr1vyThBJdiS71U3sxrVXj5a
- 6X66Gg3oqhCjVilqNwc+yEfU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eb3448e0ccbbf1c7;
-	Fri, 30 Oct 2026 01:49:39 +0000
-X-Mizu-Trace-ID: eb3448e0ccbbf1c7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8f8d1c9e-da88-45a9-bbe0-c1b1403e949c@linux.dev>
-Date: Fri, 30 Oct 2026 09:49:32 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=XawUOY68;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=eUBSs+LQ
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id C55EC1D000E7
+	for <stable@vger.kernel.org>; Thu, 29 Oct 2026 22:05:50 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 29 Oct 2026 22:05:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1793325949; x=
+	1793412349; bh=Gl4Mnl1de8y8qX+Z1yRANIuNnN3G2IMMvqjWCKdjyF0=; b=X
+	awUOY68dfSlLupblnO+nQixzNXlqanocNgwKPBt7BuhybXlqUf2np0Il+0Hv3wP9
+	E1pYMN51qGPKqRH/JE7+uggct37ILvWLrS5VnhwCm9R5rIYkzwobj4/r9B7mvkQc
+	KdBVJOU/2qBhXVhnTLSc7G2BZtOUCyVr5X80j3EgZQtJmi/8wF0W0S9JoekbDaGK
+	RODUHqy5Ome9nFQj/mfsf/G1x6uD4PK6lQmrgLr5na6ob0Gh/ihQisHwVi7y8yUn
+	MH3uOnBYIUGAuvx18kof52pPVQJ8NJb1Bd5WAFjS10+zWirWRSWTK4lpqjTDQQIq
+	52SYjG9dHgt38e3WOcvcw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1793325949; x=1793412349; bh=G
+	l4Mnl1de8y8qX+Z1yRANIuNnN3G2IMMvqjWCKdjyF0=; b=eUBSs+LQSK2jiEUUZ
+	3yxynF52NUgiLXIA2SlmB7aZZxj0xP3WM3RcW1ekgIcOI934ZBoINfbwb63MnbYS
+	tUdql3UKppd+tULENnVqCL2E4wqhZdkr0vi1iVBwsxgKTmRFeqC2Y8Pob6CrM6wN
+	v0TRVSKLbU6DjHfGe0BohGENnzlGJl8p7QSRO1xRQtsuffI2fEdxVJkVGuExow2z
+	1m2g55D8Cw7y4NzW6j2nstw6VjtMXHXUyaaI484b3riI5u63Ew1VbaOisX2DBBT8
+	UoceGwb4MdRXg73iNldKf8dE/S5zITtCQt+iez04C+nWPIlJkhR7D37MP/+zB6FD
+	x/qPg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793325949; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:BeCqX2IPn0QCD5AD3xb/O5uyT7TKTnP8wr/cwpOt9s8YrnS
+	68aCjxjWHXiPA4gmxwPxAaaYwV15ODTZwmLXqMP9GP+IBTk8xXi04ZysPAocNN77
+	REVvzziVn+DnzJoepA+4nZY+VG4I0YFMEs++IqbN7pHyUXESFFmvdFHqaXk4gWw3
+	qJyJglMuYARfY3OrpZ8vq7rfvS91AyT+r4z6z/ozUl22mWcfApZUd4AznxbEa4it
+	bE4KYToV0oRyHDwNlIPAdE8FZQkTB34qQmMGCTzvnGfeI4oAhBWyeuIZphNkgDDX
+	RkWh7SifVKPLupwVKuPTE+x5Am5+r6EbpaR5hIw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:AYPZDYNGNlmtYSPsCXIAKIGijze+ZlsfU8uxzc0a9wM=:hI4dfG8bOVojDRq5BHyZs1fYi/smlVhSBL+L+IXTwL0=;
+X-ME-Sender: <xms:ffvjaqtjYpwqe_Qb7z03OIBwKTmrUZnTYPhIDImEdYjZlMQAv27H1g>
+    <xme:ffvjarcPzAdOxs_UIHJ_HbWiOvxCT_xjDNhklSVH1Ufb79zqyOLycm2SL2ydIlnlI
+    pRaG18Nt4x1kjxwSTj-CTWo3nFKe3JhoyTeDUPcljw-9p_VMZM_rpOK>
+X-ME-Received: <xmr:ffvjan9reFnl6axcYuuURQdf2DPaNJc7bdzs2QQLKEGIR0xbyz7nOIkfcEVlL1l9>
+X-ME-Proxy-Cause: dmFkZTGdyebkjfFGwvw42pLtM2g+hGtQgI/Hybub609FUMzezdgSM4HnHbZ4/p6BDqSRj8
+    5+7U9MTk9tzrtwPOpAWcCB2jGtUqI3FOkxwrH0y3ki4faABM1CfKiwiRHYAD5xczxUrICw
+    mDUHSD4z0Ebm9lsDIVcyzMdFBbjN4YFGyNU21gJepvWCvv7rFwCEe2UQQQve1OFv0it5gb
+    v9b+iUGn2jISUE7EGf701DJwNKbE8m3Ih2w2aiMeDtESg08yG8+wW/907AIJNNHuNOFD8K
+    oMs3sJ3CqKeruuw6RTMGNWKSNtjHiK4m0lv8+8wCa1NOhNMgZ8737FCud09wdK4+h96eBo
+    cFmTaPvwe8gkXD0l9dldbMkYWfrC93OiggGI/YFbiMDIHabK2lEOzsDqwfbw23E5sIBsnk
+    5GIH4vt8ID7JFu5npRPxAylBJDA0hqxUCV4vEDCdUoIx1vkMRrJryLrqm7SbTFgq7Yxsaj
+    2PtRQ6STddovxMSimIy5TDap939apnOZyT3I9mJvqgL5KYX2hrOw7EU11dqIBIIwwCu5n9
+    ty/UG8dWZF0oTijLPc8358EUfiTdjA5R+ihimmgoXg1WultOZ/jWPtCklQv8tGKos5PolT
+    hM0kA4p0B0Q8gFfbzp/Ap5/QEdVSyaJdWEdBMzSzbfMj98P6NpXgzlWsbJWA
+X-ME-Proxy: <xmx:ffvjamS_obYwWXvppterL0-ZcEM-yhEJB9QstTty3K8cpqRsx_WBYg>
+    <xmx:ffvjaooqIMR2lGlMk7D5Y5gAZN3EYkhlWDtgI5hHAWa7QyldZbblCA>
+    <xmx:ffvjajnOrliWOVmTe8GJ8jF2fFPERG-UFOnZont47hxNSoouelpobg>
+    <xmx:ffvjahc0wdthgiKBUlp6YbqEO6YYcb4bDNXEOD3cE7-XkbXTASaQnA>
+    <xmx:ffvjar05d5wf9lewaf0g9Zvqozvb7P5ziBtDkMEK24Tf3-5EggRwHD9w>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 22:05:48 -0400 (EDT)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ksmbd: evaluate the DACL in order for requested access
+Date: Thu, 29 Oct 2026 21:05:22 -0500
+Message-ID: <20261030020523.302085-2-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261030020523.302085-1-icb@fastmail.org>
+References: <20261030020523.302085-1-icb@fastmail.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,58 +130,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] blk-iocost: account flush sequence latency only once
-To: Zhe Liu <liuzhe1@kylinos.cn>, tj@kernel.org, josef@toxicpanda.com,
- axboe@kernel.dk
-References: <20261029092424.764545-1-liuzhe1@kylinos.cn>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20261029092424.764545-1-liuzhe1@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi, Zhe
+On an acl_xattr share, smb_check_perm_dacl() evaluates the whole DACL in
+order only for a MAXIMUM_ALLOWED open. Any other open is checked against
+a single ACE, the first one whose SID matches the caller.
 
-在 2026/10/29 17:24, Zhe Liu 写道:
-> A flush sequence with a DATA phase can complete its original request
-> twice. Both completions invoke ioc_rqos_done(), causing the request to
-> contribute two latency samples and adding the same queue wait time
-> twice. This gives such requests disproportionate weight compared to
-> ordinary writes, distorting the device-wide latency and queue wait
-> feedback used to adjust iocost's virtual time rate.
-> 
-> Skip requests marked RQF_FLUSH_SEQ in ioc_rqos_done(). The flag is set
-> when the request enters the flush machinery and is still set when the
-> data phase completes; blk_flush_restore_request() clears it before the
-> final completion, so accounting happens only once, after the whole
-> sequence finishes. The remaining sample covers the request's lifetime
-> through any postflush, and its queue wait time is accumulated only
-> once.
-> 
-> Fixes: 7caa47151ab2e ("blkcg: implement blk-iocost")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
-> ---
->  block/blk-iocost.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
-> index 2ae40138e041..601029221e6f 100644
-> --- a/block/blk-iocost.c
-> +++ b/block/blk-iocost.c
-> @@ -2868,6 +2868,9 @@ static void ioc_rqos_done(struct rq_qos *rqos, struct request *rq)
->  	if (!ioc->enabled || !rq->alloc_time_ns || !rq->start_time_ns)
->  		return;
->  
-> +	if (rq->rq_flags & RQF_FLUSH_SEQ)
-> +		return;
-> +
->  	switch (req_op(rq)) {
->  	case REQ_OP_READ:
->  		pidx = QOS_RLAT;
+If that ACE is a deny, the caller gets every right the deny does not
+name. For example, a deny for writing grants read. Later ACEs are never
+checked, and an inherit-only ACE counts as if it applied to the file.
 
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+Evaluate the DACL in order (MS-DTYP 2.5.3.2) for every open, as the
+MAXIMUM_ALLOWED path already does. The extra rights that path gives the
+owner, and the execute right it adds, stay limited to MAXIMUM_ALLOWED.
 
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+
+Notes:
+    Reachable on a share with "vfs objects = acl_xattr", for a file whose
+    DACL has a deny ACE. An authenticated user reaches it through a deny
+    that names them. A guest reaches it through a deny for Everyone on a
+    share that allows guests.
+    
+    Tested on ksmbd-for-next af8c72f65507. tester2's file has the DACL
+    [DENY tester WRITE_DATA] [ALLOW tester2 FULL]. Before this change tester
+    reads its contents over SMB. After it, the open returns
+    STATUS_ACCESS_DENIED. Every combination of one or two allow or deny ACEs
+    for the caller, Everyone and Authenticated Users was tested, with
+    READ_DATA, WRITE_DATA, WRITE_EA, APPEND_DATA or full access as the mask
+    (930 DACLs). Each DACL also ended with an allow ACE giving the owner
+    full access. The DACLs were set on a file and probed with real reads
+    and writes. Every result that changes for an authenticated user moves to
+    what ordered evaluation gives, and none moves away. smbtorture smb2.acls
+    and eight related suites match the base results, apart from smb2.create
+    mkdir-dup, which also fails intermittently on base.
+    
+    The ordered walk this reuses came with cc2f133e80eb
+    ("ksmbd: fix maximum allowed access checks"), so a stable tree without
+    it needs that commit first.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance.
+
+ fs/smb/server/smbacl.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 664f01263611..3542ae9a605c 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1481,6 +1481,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	unsigned int sid_type = SIDOWNER;
+ 	unsigned short ace_size;
+ 	bool is_owner, owner_rights = false;
++	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
+ 	vfsuid_t vfsuid;
+ 
+ 	ksmbd_debug(SMB, "check permission using windows acl\n");
+@@ -1523,7 +1524,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		goto err_out;
+ 	}
+ 
+-	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
++	/*
++	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2) for every request, so a
++	 * deny ACE only denies and a later allow ACE still counts.
++	 */
++	{
+ 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
+ 		aces_size = pdacl_size - sizeof(struct smb_acl);
+ 		for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
+@@ -1570,15 +1575,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ next_ace:
+ 			ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
+ 		}
+-		if (is_owner && !owner_rights)
++		if (maximal && is_owner && !owner_rights)
+ 			access_bits |= READ_CONTROL | WRITE_DAC |
+ 				FILE_READ_ATTRIBUTES | DELETE;
+ 		access_bits &= ~denied;
+-		if ((raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
++		if (maximal && (raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
+ 		    S_ISREG(d_inode(path->dentry)->i_mode) &&
+ 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
+ 			access_bits |= FILE_EXECUTE;
+-		granted = requested | access_bits;
++		if (maximal)
++			granted = requested | access_bits;
+ 	}
+ 
+ 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
+@@ -1651,18 +1657,6 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		}
+ 	}
+ 
+-	if (!(*pdaccess & FILE_MAXIMAL_ACCESS_LE)) {
+-		switch (ace->type) {
+-		case ACCESS_ALLOWED_ACE_TYPE:
+-			access_bits = le32_to_cpu(ace->access_req);
+-			break;
+-		case ACCESS_DENIED_ACE_TYPE:
+-		case ACCESS_DENIED_CALLBACK_ACE_TYPE:
+-			access_bits = le32_to_cpu(~ace->access_req);
+-			break;
+-		}
+-	}
+-
+ check_access_bits:
+ 	if (strict) {
+ 		access_bits &= granted;
+-- 
+2.47.3
 
