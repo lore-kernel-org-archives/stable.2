@@ -1,111 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.34.181.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353963;
-	b=LLACe1Km1lxpenZpsfWCrh7LO97yixeUFX3w/ywgYIjH4HWM5KW6GfIVa95mljICKsVM
-	 m8zYe0ehqepWxfIPl7vgJnLiyTOlU0kMQ5NRAwAJqzoH51eS15pwTvZwJYOBnL6+uX8fI
-	 MrKPdNt7ozna8NIFoshL3RQXhgawFWUXZtJs1xv3c8QY1NYlzDE8jD2HhKzZAZL9FokqR
-	 7j4KaY/DKyarlmBFMRFko3WVmK51Tg7JQTA9678AAlZO5xk4jlnik3S/rvwC82aRxyXp7
-	 H7djtzij8hWghe22B/WW5U3gYUMAVIDzWPa8un4wbIED4dKL11/VP/rgZNu9yOCLcsA==
+	t=1793354435;
+	b=aGOKCJ4whOLC8rx1vyCn8X+wg3ACD+ucpXi+7hYQxyZDSas+H/byZGEF8anL6Dxk2WWw
+	 gPFsaxU22T7qMDT7MuTTNb33675JVvQ1PT2aNQatqZX0fujpP9QeccISsLl1TI0pFnp7R
+	 3urLy7ov4nnciJECv+n5OaAbvH0Dypr+SEbRIyCmNjDQfPiFqxxkpIWio2Yf5z3KmMOPg
+	 f742ERW2CNO2fEWB7jgM3lVPWAtFSdmxgTTuWy6QdahqgzBUDjQ/zGmPqxNxGAS6cAR+W
+	 AXYZ+noHmeIAUHkY5bVLd+78TSukqoILuLHWQ2cava5CrQj6lQsvbboR7oq7pLoknNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353963;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2B3bjvz5/cRFhwo9ukB7ZLLCsSJwpiNTa01piLcwoAs=;
-	b=JU4C7IMdkAzrTbk4mU/Qh+S4hDSUOtXN/A+CzsD/FccqEQOefaPhpf89k8JP3o87aWMW
-	 C69o6XQeKzhJLIT5kNlKLk6bRCAeeeiwzGc7KowynIGfNUxH727rG5UOt+4RiZPcw2xrR
-	 5a+OUVidsBsfxBEpxPVWv0BXT7rwbrPLiWJau2AiZ1VT230FeFETpkGFnxTfmrs6xauL+
-	 EIPiOT28uUkqkGtvuC1zGJ+pQ/s2CQmL0yN1nHHWEH8zfrgCn90Y8HXNlB5f4KKi1pci1
-	 GqnXfFpRlCJy/fyMsMcaZj5JhL73RD0Qd51VCCsUQ4oEV2HX4URrVnsd2cZsOA9E07g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354435;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=ler9Vb08uoWkkGJsgusT3UJ2fmGaAr/9sD2dowX7gwE=;
+	b=V67dGsxIN74O3JBZ02ag3EhMF6Olc9m2zhED2dM69WwVUdv65Y2N2mbF3ORvLHySqSjA
+	 XkDQFR26bYmulBR9bjvsiHuxFwbqp7j2B4IElIkyVf/uL7qRnl+jv+yn6XUSiK5aek7mr
+	 NaEcTVpdFfjfw0jHYvwgHqDxwNQz/5gNRBl0FCsrQFTLtFlcua0bioJ1BQv56NCpl+grV
+	 CnFgaqIdh4IMCSBFdmYpm5JEUi34T0QK2fCRjIMMlEneYxYd9DglDSIBW3oOTjhIulujf
+	 OxitUPr7mB+AVXH481Pvm7/8Ui4z9zZJj2/3gw5jANIxsoUdHoYkKGQ3nSbpnl2pHGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bsuXLYgo;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=HUhq70I3;
+	arc=none smtp.remote-ip=52.34.181.151
+Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2969606A31E
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 09:52:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2969606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD4F606A320;
+	Fri, 30 Oct 2026 10:00:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CD4F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bsuXLYgo
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4c9abc1824so69921966b.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 02:52:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=HUhq70I3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793353961; x=1793958761; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2B3bjvz5/cRFhwo9ukB7ZLLCsSJwpiNTa01piLcwoAs=;
-        b=bsuXLYgolet9UtrpUXTjhF0NtZvh4wUfphWhBPdTzAHZ+voK+TzvSJt4jqtpIr4hDY
-         BC576Tfm8MvgNixvYZj6Dqi4K3sFXUSX/7ZAfmkSmMMCDN7GxC4LIVVNW4r0Hl+mplFs
-         W2by6S5cSgPj0g0wmpKfwfNf/zqgAEOXhiapRngSS2+Fa9wKQHztRhPeqLJ2d8kb2IO7
-         Pq0H2NawTdGX7CmkA2qi3LE66II3XNjS223Mo2JwjVI062D0QJpvSdz+nUrtA+uP1o+G
-         Q76CkUSavVprulwf+DpSyGG/1MWy2CHk3nt+Xc9tqJwtIHmBIFhTi8Seu1+BLrOUwvFD
-         2wXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793353961; x=1793958761;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2B3bjvz5/cRFhwo9ukB7ZLLCsSJwpiNTa01piLcwoAs=;
-        b=CZE+avu80onLVEvs0WQ0GU51OXhWnBS+09ETFDBAUdO5tirT3bOthThXOL5gxMVygB
-         nRi7iWVwfmlfszkASg+7Q48fzEHsOWUiKYrgVXg5leCFFPPnNdXU3XQCuwHgIQq/6Wlu
-         VhMe39PBgYT2SjOOtmQxYD5Af1lgn5Aj/hdbG08U/VPIeVBPlrA0ouICAz1gJaMZu1EK
-         fexhQlI8N74sAN7vloSKBbqK7Nf9UCFSSBlnFctlE33SJ1xtw+QRQPP1YFa0JYctq2gs
-         AKFRfG/J7iscUmMy5aiNZBIwWuaeSlSwUIdYbST5QenqX3asCz/NSI6bIW7DmfSst3mq
-         N66g==
-X-Forwarded-Encrypted: i=1; AKwUvBylrh/ME172dqUt+POG3lEDK9p1xfM2+NhqRQe+XftgKdlqFrx1IoA7QnGRA7TJRmkcRHjJu0M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvOcgc+ArAmZ67Pge6TGh4eFbhF1F3UtExlXTXI7OwWpDuL+7U
-	WKj8270aeCbV3fEgnKqpr44qZxmK88NE97yyiz6ORU1qlFL6fU256qMB
-X-Gm-Gg: AYBFou3AT/am7pcxYJfoZbwvverYNmtu/r09JdaiiGBqoEiZtIOp7OFiLqwgI/2wlqh
-	xoetWglNxSVmyPS64MEWTHLiS4EKmrhSePI6EHGwiWaf12+Ko49LGHkhjqEh6U4b9WbsuLRqQ9v
-	SHZt+UDYF9G4R4RiDIT3NPZ11RwmWpqrx0ZOZBOqqna8TFCCJFlLWNuj8wXbaUM+N+Oa3novqqh
-	pUu7LEHDSQ1TJjj2f+TyhefR5apFdl+3JperZ74oUHHBxyoHght4Vlms6NVsb7+Aay0ze+CgrQ/
-	Rb0Dd4wWKBeiY3tfX4LGMjcJkpjQFOc12tNkSab3BejvcisV68WMgsMVaNVVwNDtu0HpK5aJYoi
-	CBp2L/aiRSLx4KeBCgiY169VS0H8vchZD8F7/JLJCs/NhW+J722LNlpoFf+DZNL0ASmdjzdKQcL
-	mOodOTDvzkXvvNhIwH+3SzvTUtLQtYLT+XKV+9vxgI3JCwOMXnP3Y7gtg3TxgrGFXT+XYtdNFwD
-	F7y4TckxyC2SYmj/iDaDCIzAiH9TviMHNahQMAuUg++nuoxJwZk/22oLk/k234DqQFk7g==
-X-Received: by 2002:a17:907:d26:b0:c2d:c800:d797 with SMTP id a640c23a62f3a-c4ca79478f8mr163699766b.6.1793353960890;
-        Fri, 30 Oct 2026 02:52:40 -0700 (PDT)
-Received: from pc636 ([2001:9b1:d5a0:a500::800])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4d7b1d556sm432290a12.28.2026.10.30.02.52.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 02:52:40 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Fri, 30 Oct 2026 10:52:37 +0100
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>
-Cc: "Liam R. Howlett (Google)" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <bhe@redhat.com>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <auRo5WBj2OlKlWGW@pc636>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
- <auKshDXKQXt1kvjy@gondor.apana.org.au>
- <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
- <auQhkHG6XlgNTdRr@gondor.apana.org.au>
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1793354435; x=1824890435;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ler9Vb08uoWkkGJsgusT3UJ2fmGaAr/9sD2dowX7gwE=;
+  b=HUhq70I3xfLfFzBedmY+/ylM/XSLSUtcZPO3kG3yWr5yUlparGHUJZd3
+   gJqgVoRofkO02SqJC+U4W+ZvkZc8XwviFWLRbz9ew+MJt/o0hjIT5rOUV
+   36Fw2j8KLaKJqVPPu3HHL+yQEOoOETXUAgPhd8t7MZX7VONZ/xnfqKo4I
+   QSYXQpCVJxNrGnJyVlGgodkaaUhJEyiwvN93UdhYExZJGQ4PRGhtmsmMI
+   u8ZWheEvDTXDL7AB2kMD45Pw2onDEZai0tBrj18CGOUNCplHVN3iLB+xW
+   uYKfh0ZnMQuwZaurb1eC9K3Vqv2izK/ChuDmiQ1UFDQw5Qtq8PanHfuWY
+   Q==;
+X-CSE-ConnectionGUID: f41PGanPSUaMqPFAgY0gLw==
+X-CSE-MsgGUID: aXQZUxloQz+Q/vIVKiUTRA==
+X-IronPort-AV: E=Sophos;i="6.27,186,1787011200"; 
+   d="scan'208";a="32646804"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 10:00:32 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:26549]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.238:2525] with esmtp (Farcaster)
+ id 9c26f0e1-9b75-4adb-bb6b-4f1f1a420bc2; Fri, 30 Oct 2026 10:00:32 +0000 (UTC)
+X-Farcaster-Flow-ID: 9c26f0e1-9b75-4adb-bb6b-4f1f1a420bc2
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 30 Oct 2026 10:00:32 +0000
+Received: from dev-dsk-mheyne-1b-8cc83676.eu-west-1.amazon.com (10.13.235.223)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Fri, 30 Oct 2026 10:00:30 +0000
+From: Maximilian Heyne <mheyne@amazon.de>
+To: <stable@vger.kernel.org>
+CC: Maximilian Heyne <mheyne@amazon.de>, Marek Szyprowski
+	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, "Nicolas
+ Saenz Julienne" <nsaenz@kernel.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] dma/pool: eliminate CMA alloc warning in atomic_pool_expand
+Date: Fri, 30 Oct 2026 10:00:00 +0000
+Message-ID: <20261030-ghent-tubes-5abba7d2@mheyne-amazon>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,32 +84,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auQhkHG6XlgNTdRr@gondor.apana.org.au>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-> On Thu, Oct 29, 2026 at 10:53:56AM -0400, Liam R. Howlett (Google) wrote:
-> >
-> > Given where we are in the release, this fixes a real issue that can
-> > happen so maybe we take this now and settle the general handling later?
-> 
-> There is no rush at all since the bug that you found has existed
-> since 2025:
-> 
-> commit c6307674ed82c0c57d6e1e3408e84ac449ab8e94
-> Author: Uladzislau Rezki (Sony) <urezki@gmail.com>
-> Date:   Tue Oct 7 14:20:35 2025 +0200
-> 
->     mm: kvmalloc: add non-blocking support for vmalloc
-> 
-> Let's take the time to fix this properly.
-> 
-The problem with spin_lock_irqsave() is that vmalloc() path can take
-time to alloc and map pages. I am not sure this is worth to switch to
-irq-save locking primitive. So this is the "heaviest" allocator in the
-kernel. Callers have to be careful how the call vmalloc().
+atomic_pool_expand() allocates with decreasing page order first from the
+CMA and if that fails via alloc_pages(). If the cma allocation fails a
+warning, such as the following, is printed:
 
-IMO, this caller has to be fixed.
+  cma: __cma_alloc_frozen: reserved: alloc failed, req-size: 4096 pages, ret: -16
+  cma: number of available pages:
+  cma: range 0: 1024@0
+  cma:
+  => 1024 free of 1024 total pages
+  DMA: preallocated 262144 KiB GFP_KERNEL pool for atomic allocations
 
---
-Uladzislau Rezki
+In this case the allocation succeeded via alloc_pages and therefore,
+printing the warning is not necessary. Therefore, similar to commit
+463d439becb8 ("dma/pool: eliminate alloc_pages warning in
+atomic_pool_expand") silence the warning also for the CMA attempt.
+
+Fixes: d7e673ec2c8e ("dma-pool: Only allocate from CMA when in same memory zone")
+Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+---
+ kernel/dma/pool.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
+index 00f422a1e8966..aa44fd74db538 100644
+--- a/kernel/dma/pool.c
++++ b/kernel/dma/pool.c
+@@ -99,7 +99,7 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
+ 		pool_size = 1 << (PAGE_SHIFT + order);
+ 		if (cma_in_zone(gfp))
+ 			page = dma_alloc_from_contiguous(NULL, 1 << order,
+-							 order, false);
++							 order, true);
+ 		if (!page)
+ 			page = alloc_pages(gfp | __GFP_NOWARN, order);
+ 	} while (!page && order-- > 0);
+-- 
+2.50.1
+
