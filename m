@@ -1,47 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793322449;
-	b=A9QdVH51i3fj93CYCuRnk6QVcZ9Mkn8cFjw3lg+EfLP37akEKce+Ue69SNGWVGsLT61Q
-	 SvZRFMj53vlgtZaL7V8+oDPkPdU1B1TcHeeD1w0Ib5thzaCjxCOGQ26iZrgEfuQXMAd/T
-	 cYBfuFRYpidIhtBajDhdzU9CMp8JvEJJ7LO83cd4EOKHaLM+Xj8dbN9ZbddJ1QFOqu0/G
-	 GDVkhTmveNXqEW1WEhSerHhQCQw2s2/a0z3b7ugIlyT65ISzK5/cqhb3HrKPlVXWE3rzP
-	 7uvrSGs8Lwk02x1mmhnV5Dbry+ON7rZJrfhX5EWF/lJT6xbfUj6+YMh8jGyanyl/q7g==
+	t=1793322799;
+	b=1kgXhYUiiIJVqv7ZU78hvo6lQ6ApFAi/oqwYMaBoxFADKGl/7N8whiFirkQH7XBDZ3sF
+	 cLDirDTOK1Ep0D1uhaoH7gZ6V1gnyEkC/PKJrOW8XDNzaIY0XjezQAiLsLDbn1yP/69j9
+	 95Kw4D7h/0EHhQIT3DAo2NMn8Cl3YcQ6/ZDpA2vC5iVcJlE8TkrSgskSGrjAUbfoleMbi
+	 1oei8ZAHW4v4VQI17tgylGn7Xl4OhdSyel/OnDfakbz4XfGtnkDRI3GjBEOu83CsHH5iD
+	 iibCJSGtRq8GwuiZkPdVhESkKZ9isJSxULXibon4Jw9xGed9yPKVa2U5OB/6bMvYMQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793322449;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=PZrFme8Z9ERkoIaIGLnSAqVdeuU7p1Vpb8U9cUCLBTg=;
-	b=YeBSsl050FlRwg39Hncpl1rMQGguN/5Ak48O4AtgTQrddDsnFovdiOzVvTi3r8FkzkgE
-	 +nrbI0j5W54f3XmwPRjhgNohvzOZh0qGsFpQU+aPqlIDK6yGJu9/I/SRCJrKp/e1/vTsn
-	 8J2eHmzsTmBmKkdBYVm3C8MaxkvD08lHfQBs06iLBRqfEKlpNyZuex8vc9JDeJe7k23th
-	 L5swiNSmvGe3++H/WbVl2M1hUJE8r41phGcnoW2C9Nu4WXg6zBLYKIP+FGaRcS72U+tCJ
-	 M1JCr1mmuloobNetHjBgxoEuoL/DqXBRsLfK+hTj2BdPCN+h67q4+PMP47twqUEL7hA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793322799;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=hWy96pV9U6nh6faH0REJ6R8O8F8tMtOw8PWh9LX2R3I=;
+	b=xJZvU4ZuWc+CjKMdbuC1s2D1JFSr/bZjx3LsZG+CQ0P2e6H5zOkPPTMwN/XXgbJoO9gw
+	 8TVIMwEz1f7BoxOQb1M8Bbtn2MSEhMe0/q2HIq7mSb9BGFVHTvckSmVekWyCbCCnNrzdK
+	 6PRWUFA9Rurnptn/NZRQVBYCQsnWy7v5MlARyoidfE7rZEFtvAEoV8K1u/MLsu3yDAsbp
+	 WQ7F4TnbRJ0G9b8WdNJbTskdQcs8M6cjywqyq2wSZYlZ+19j1K1TIQy9B36YAkGoqqIDc
+	 VXdpfjjintgLOGyO3t6kilAw/XWR5szFxgkF3P/vHNkmE2D5yl0z1gMhaOIvZQiUjgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.112
-Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEB7606A31C;
-	Fri, 30 Oct 2026 01:07:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DEB7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jG2xf4xphz1ygS;
-	Fri, 30 Oct 2026 09:07:02 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id E4CB840657;
-	Fri, 30 Oct 2026 09:07:18 +0800 (CST)
-Received: from [10.174.179.19] (unknown [10.174.179.19])
-	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCn5fTF7eNq3yxsCQ--.62529S3;
-	Fri, 30 Oct 2026 09:07:18 +0800 (CST)
-Message-ID: <cddab9e4-0b57-40c3-a38b-34c738254f87@huaweicloud.com>
-Date: Fri, 30 Oct 2026 09:07:16 +0800
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ighiQjLr;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2339E606A32A
+	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 01:13:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2339E606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ighiQjLr
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 194B41FC7;
+	Thu, 29 Oct 2026 18:13:13 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 42D8C3F7B4;
+	Thu, 29 Oct 2026 18:13:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793322796; bh=/O1MlUidvn8myAgzejSuGI0XnhY3wORZf1yXNm2FiTI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ighiQjLrwI7oYz1ieGEtJ+aGjHwlBQLuh93oENUgOPEkVwyuIeyNQXchfmGzH/+8T
+	 H9kjC/8oEH/fRhoRcjqNWtHqNQu0rN4WBEUHeaDYnaQt4cqPuScv8uF8HV/9nZh/E2
+	 8IW69T16XF3NrNX845VqpG5NV7CWGsQTO7R+j59Q=
+Date: Fri, 30 Oct 2026 01:13:05 +0000
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Fuad Tabba <fuad.tabba@linux.dev>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 5/5] KVM: arm64: nv: Correctly compute the effective
+ TCR_EL1 for nVHE TCR_EL2
+Message-ID: <jwc3vjqx2tw4cirgddkcdeon56fuefbge4u3mza3pmevix5xzl@svr26kj3okgb>
+References: <20261029223732.103785-1-oupton@kernel.org>
+ <20261029223732.103785-6-oupton@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,110 +62,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] iomap: don't mark unwritten parts of a folio uptodate
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Chris Mason <clm@meta.com>, Josef Bacik <josef@toxicpanda.com>,
- Matthew Wilcox <willy@infradead.org>, Joanne Koong <joannelkoong@gmail.com>,
- "Darrick J. Wong" <djwong@kernel.org>, Brian Foster <bfoster@redhat.com>,
- linux-xfs@vger.kernel.org, stable@vger.kernel.org
-References: <20261029-work-iomap-ai-fixes-v1-0-7eda63bc1b13@kernel.org>
- <20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org>
-Content-Language: en-US
-From: Zhang Yi <yi.zhang@huaweicloud.com>
-In-Reply-To: <20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:gCh0CgCn5fTF7eNq3yxsCQ--.62529S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF4kGF1DJw4fGr18CrWktFb_yoW5CrWkpr
-	Z8Kayjkrs7tr17Zwn7ZF9rAry0yw43Wr43CF18G3s8Z3Z0qrWxWr1vgayYvF18ZrZ7GFWF
-	qF4v9Fy5W3W5ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6x
-	kF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAq
-	x4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6x
-	CaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
-	n4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
-	tVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
-	7IU17KsUUUUUU==
-X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029223732.103785-6-oupton@kernel.org>
 
-On 10/29/2026 6:34 PM, Christian Brauner wrote:
-> For a buffered write into a hole, an unwritten or new extent, or past
-> EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
-> write and then marks the blocks uptodate. That includes the range of the
-> write itself which still holds whatever was in the folio before. It only
-> becomes valid once the copy from userspace has filled it in.
+On Thu, Oct 29, 2026 at 03:37:32PM -0700, Oliver Upton wrote:
+> It would appear that nVHE hypervisor support has a few warts which
+> shouldn't come as a surprise. Several fields in TCR_EL2 for features
+> supported in the VM (TCR_EL2.HA for example) are not correctly
+> propagated to the effective value of TCR_EL1.
 > 
-> But the copy can come up short and __iomap_write_end() only rejects a
-> short copy if the folio isn't uptodate. If the zeroed blocks were all
-> that was missing the folio is uptodate by then, the short copy is
-> accepted, and the rest of the range is exposed to readers and can end up
-> on disk. A source buffer that ends in an unmapped page is enough:
+> Forward fields in bulk from nVHE TCR_EL2 to the effective TCR_EL1,
+> relying on config-based sanitisation to enforce the RESx behavior of
+> unsupported features. Deal with the slightly annoying case where the
+> E2H==0 bitfield names are not annotated by TTBR like they are in E2H==1.
 > 
->         ftruncate(fd, 4096);
->         pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
->         pread(fd, buf, 4096, 0);
-> 
-> The write returns 16 and the read returns 2984 bytes of whatever was in
-> that page before. If other blocks of the folio aren't uptodate the short
-> copy is rejected but the zeroed blocks keep their uptodate bits and the
-> retry with the copied length leaves the same bytes behind.
-> 
-> Only mark blocks uptodate in __iomap_write_begin() after reading them.
-> __iomap_write_end() marks the zeroed blocks uptodate once the copy has
-> succeeded and rejects a short copy.
-> 
-> Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
-> fix (cf. [2]) but it never got merged.
-> 
+> Cc: stable@vger.kernel.org # v6.18+
+> Fixes: d5bbb76f4474 ("KVM: arm64: nv: Expose hardware access flag management to NV guests")
+> Fixes: 3606e0b2e462 ("KVM: arm64: nv: Add non-VHE-EL2->EL1 translation helpers")
+> Signed-off-by: Oliver Upton <oupton@kernel.org>
 
-Ha, thanks for picking this fix back up. I had missed this patch while
-sending the iomap fixes.
-
-> [1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
-> [2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
-> 
-> Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-Looks good to me.
-
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Reviewed-by: Wei-Lin Chang <weilin.chang@arm.com>
 
 > ---
->  fs/iomap/buffered-io.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  arch/arm64/include/asm/kvm_nested.h | 38 ++++++++++++++++++++++-------
+>  1 file changed, 29 insertions(+), 9 deletions(-)
 > 
-> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-> index 907873073b03..d6e2f1ded5ca 100644
-> --- a/fs/iomap/buffered-io.c
-> +++ b/fs/iomap/buffered-io.c
-> @@ -920,6 +920,7 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
->  		if (iomap_block_needs_zeroing(iter, block_start)) {
->  			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
->  				return -EIO;
-> +			/* uptodate once copied, see __iomap_write_end() */
->  			folio_zero_segments(folio, poff, from, to, poff + plen);
->  		} else {
->  			const struct iomap *iomap = iomap_iter_srcmap(iter);
-> @@ -943,8 +944,8 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
+> diff --git a/arch/arm64/include/asm/kvm_nested.h b/arch/arm64/include/asm/kvm_nested.h
+> index 0f899addafa8..27ec73da02c6 100644
+> --- a/arch/arm64/include/asm/kvm_nested.h
+> +++ b/arch/arm64/include/asm/kvm_nested.h
+> @@ -20,16 +20,36 @@ static inline u64 tcr_el2_ps_to_tcr_el1_ips(u64 tcr_el2)
+>  	return (u64)FIELD_GET(TCR_EL2_PS_MASK, tcr_el2) << TCR_IPS_SHIFT;
+>  }
 >  
->  			if (iomap->flags & IOMAP_F_ZERO_TAIL)
->  				folio_zero_segment(folio, to, poff + plen);
-> +			iomap_set_range_uptodate(folio, poff, plen);
->  		}
-> -		iomap_set_range_uptodate(folio, poff, plen);
->  	} while ((block_start += plen) < block_end);
+> -static inline u64 translate_tcr_el2_to_tcr_el1(u64 tcr)
+> +#define __xlate_tcr_nvhe_to_vhe(nfld, vfld, nvhe, vhe)				\
+> +	FIELD_MODIFY(VHE_TCR_EL2_##vfld, vhe, FIELD_GET(TCR_EL2_##nfld, *(nvhe)))
+> +
+> +#define __xlate_tcr_nvhe_to_vhe_field(fld, nvhe, vhe)				\
+> +	__xlate_tcr_nvhe_to_vhe(fld, fld, nvhe, vhe)
+> +
+> +static inline u64 translate_tcr_el2_to_tcr_el1(u64 nvhe)
+>  {
+> -	return TCR_EPD1_MASK |				/* disable TTBR1_EL1 */
+> -	       ((tcr & TCR_EL2_DS) ? TCR_DS : 0) |
+> -	       ((tcr & TCR_EL2_TBI) ? TCR_TBI0 : 0) |
+> -	       tcr_el2_ps_to_tcr_el1_ips(tcr) |
+> -	       (tcr & TCR_EL2_TG0_MASK) |
+> -	       (tcr & TCR_EL2_ORGN0_MASK) |
+> -	       (tcr & TCR_EL2_IRGN0_MASK) |
+> -	       (tcr & TCR_EL2_T0SZ_MASK);
+> +	u64 vhe = VHE_TCR_EL2_EPD1 |			/* disable TTBR1_EL1 */
+> +		  tcr_el2_ps_to_tcr_el1_ips(nvhe);
+> +
+> +	__xlate_tcr_nvhe_to_vhe(MTX,	MTX0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(TCMA,	TCMA0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(TBID,	TBID0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(HWU62,	HWU062,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(HWU61,	HWU061,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(HWU60,	HWU060,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(HWU59,	HWU059,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(HPD,	HPD0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe(TBI,	TBI0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	DS,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	HA,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	HD,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	TG0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	SH0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	ORGN0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	IRGN0,	&nvhe,	&vhe);
+> +	__xlate_tcr_nvhe_to_vhe_field(	T0SZ,	&nvhe,	&vhe);
+> +
+> +	return vhe;
+>  }
 >  
->  	return 0;
+>  static inline u64 translate_cptr_el2_to_cpacr_el1(u64 cptr_el2)
+> -- 
+> 2.47.3
 > 
-
