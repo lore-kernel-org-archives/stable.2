@@ -1,102 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333131;
-	b=o716F/lL9IdQkQNBX2Ev2k35Mn6cwNMDrlgNmBehcoqXNrEVH2+69yVEqe7bVZXXymb7
-	 5WFaQ+P+ojTQqO0PFLmxpSRwb84eh1LJc9B+C3Bl6fr8RmISSOfJTMFdcY1LwiZLvNPM4
-	 DiGrm4/qA7N2rx4deYVfuTIO//jWw7uExiLRSFHHoVQtmj4P2VkYfbjkwDpHzyyyV7Yyt
-	 jZoWJEKbiR4FLxVO35/3yhMbVqCJlSoN+XA1Hr2N4RhcixRIHXVVeSUtNJvVbJDCqmvim
-	 RTkwl9bbtUcB4NQbjV8u7Ma8kVrt2wcB8qMuFdMfO+kF/gygHPqtnqR2tv5cjuxHwOQ==
+	t=1793333813;
+	b=3pGUqh9UFLl/dLiccRWxA1HdWYEfYvqk5mgLexSBRStw/vWk2rECE0UOI3Sa9mmhnTXM
+	 Hp/w/q8tP6VJqKgnRgTM+xedXaKIUVZalC4n5Tewg/Fa8vL59JQ1UMJZeVq8h4PHK4sy4
+	 oUR6UZ6aAwKO608IEqmFrqzcD+KRr4biTwJAfAi3cmOZTs2E4opPKgwAqegdR4tWC455T
+	 Cm/3BLCSaPx68hR6mYXJOl0H/lkpitxBGtHTYvN4NRYUg/5JUj69Cfk9PngXmJqP2rn+V
+	 gqETwuXJ7NSzuVwDEJH6o8m5dHS4opQvaIa4YlD7R1KYX1hwJ4oZ7bzZUBBMY2VQ31Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=inldKJPdjUUjviysI9T8tJ8KvrfY36K+5GvzIRj3mzM=;
-	b=Do01BkTlWqLhR4ROqcGLY/HUtvMMontUAsjmi6sjZXRvXkcNZg5U0pF8WQGAv18kOsKC
-	 HKrVn5+7nzlWtfvhAL7Wt6uksdE/Wkdd7YmerGiOxUTIGMuksXg9MZ6vkGosrFe2iT0Qj
-	 mpFcy57OaWLyP4v/jPwjULrffL6j5Oue4JjkgozYREtZqrUjlFqRlB5I1IZY+e47Wg0Tb
-	 yVWQb8iyRcWD2HKBNZ53frBBAGQ3CTFRAWv3f8+xPdoQvQsko9joEF/agJAxC8ld3s8Fw
-	 0i8Ahc0kiFOSk4SxmcAwNrT2MYQJnsQKq2m8iomBNWRGrxteoISR1hFYPOXx0q64GMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793333813;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=iQhxpm71HqsVIR4F3d4eM6WGy7OXNxOYVQQoymZLjAA=;
+	b=mDyuDl90khOzKzBCRRewua3gIpqaj5hxa3DHYoksVaoxv0qfcrQ/B/fCqGd1e1NPv26/
+	 DdI8zhusGPEHuZe96Ejb0119L0d7G0iHBTZ/E4FfXy63LicTAS7pbzvqM+UvaxcPSI/Oc
+	 L2EwMuZlHeG4P2nCit8O+mrWxnDBSg3+QyCi7wgEoXNdoYaZ40fNi3yukbFd5RDd7RVbQ
+	 2tBg3KA1RSoRpW30Ohqh/3S8DlVeJhv+Gho4ucuAlrpSKs6eHrFL+LeLL9QrpWbMa7jet
+	 Mvu6+S+JH+J7GEuFbPDFZlUFlKr57bRZVFUiA6JerlUCYFKVnsIU1A9W+DZzDMSgz7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=B6BcJVh1;
-	arc=none smtp.remote-ip=209.85.219.51
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Yy8FsSNF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1A7606A31E
-	for <stable@vger.kernel.org>; Fri, 30 Oct 2026 04:05:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1A7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C479F606A31A;
+	Fri, 30 Oct 2026 04:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=B6BcJVh1
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91befe703c4so2940786d6.1
-        for <stable@vger.kernel.org>; Thu, 29 Oct 2026 21:05:30 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Yy8FsSNF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721BA1F000C1;
+	Fri, 30 Oct 2026 04:16:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1793333129; x=1793937929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=inldKJPdjUUjviysI9T8tJ8KvrfY36K+5GvzIRj3mzM=;
-        b=B6BcJVh1LIQiZ3lYnDbQEJJwlpdtM3BZwI22Anwj8q1oOkusRP3UreS0rDXWcIZQ5V
-         4SCwvoVme9KrGXAYL8h0RmuL/E/o9n+qmfuBgZI/JwjKiG4lmztVBoq4SCVMnWsfvDgb
-         Wz7gRJslWGgTdk0Zo5GLioKBl9ezpEpMVe2ac4GywI/rIf/yRspzohF5bGWgojngQ7SG
-         ZctQgULHEXRXzrnH++KMG10pD50ncAdF5wdtuZ3b4YS1/gIoPwMb12vaRuVU9ppgEwxA
-         f5SF/Jx+dDMy3rB6g3UW44HdhkWJQ6cqIW2WVk4UjHUIi4YOesmqgiQZAIAb/FJXupWD
-         M78w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793333129; x=1793937929;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=inldKJPdjUUjviysI9T8tJ8KvrfY36K+5GvzIRj3mzM=;
-        b=rUucGPtt4H3fAmcuFrrj0Qs7WJ8oWrCP8N+Jn5I1865V+vc9eYojHhBcnHuX/IJVqF
-         AKNxa34zRto16juTxes7jr9pSSKxho5Qbcfth/OQetmCX7O/fwnY7G9rtsQHOwkXvTkB
-         SKZH1WI9mtxDiBit3ueA2XLlULuAnQinck308XDnAGfCPbHnmMl0/J5MNwhPWKrTIo8z
-         z376nUziyCkfvIxpqDWqFq53g4/d6EtNJFccLr1PO2K8dMkAx2DoKg80pA7sGz1r7K5g
-         LZyTG51AYgmotZ8KRq00IO2GNrs7KvlPWB3ELsRyIHdcGzMfyhWbjH7BVNrl4WCDRzq9
-         hwqg==
-X-Forwarded-Encrypted: i=1; AKwUvByBcdqCbUCs5+qzqhXE9TraRVgu/uNNv0Ka1UTHGu8H3+MWauijF/me/GgsgfpL9f3RvAL2zUg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKom4d/76JyxQwjQZzFz1+nk3e2iSmJgMry7vmmcjEcajVj9DwW
-	J77tzR1bjQuAhpJUuYWYZbXBLszdCdtuI3AuCrCgOiMEIWRcVvL1Jr+B7OkyXoeF0A==
-X-Gm-Gg: AYBFou1HxUsfztMA1AmXrRKf9iOb9jKE95CBXhQL7ooXZpWHlXQ7DaQo0n8lQjrHvMU
-	0TsfERSeJyB5Gz8pcEfSDZZ4xBU8nwU+czkZrVJ95KzQHmJb928bYPUhza6JrF2tzCICN/LhwnK
-	oZR8Hbrnb3rB6JSDsFBcsEzdACdUAWEamU27YUBqL/NdXOlKXrXPNtfVbdv08dqJC5muiq71HVh
-	mt2e3goUaFq1nx3B5QhTFXTDF+Uz9HdB5c3z9M8myZdd1GEzjXrUy8A/41ylmzZfggjJvUP70M6
-	1BtHYSNaaMvysMcZaKbBAoS8xPh7C6PbrjmXxixrcLNAIY3r2A6D8xCMCSGYhuUF0uZzEcdxwEa
-	/PyF88l8GYS4DJTS54whZ+j2rKx5dTvJ+iXNSU4PQss+OrVc+vhefA4lVE8mJY/XfjK0x4m87+E
-	3NLoBSLdD7FnXkrArtPzTMy8yFkWKMBrF6bzYI5pCa3sQoedqVZN8nkR9UHGQKFFDMbxldy3iVT
-	rFDEz6cFhbjfFJvPkpBzG79eVE1+4FYM3S/lal4aTGRuE4hJcG7ACb8rL9kVqDsWz0PO2K6oqIu
-	S6/9GcqGtoUGtjD1I0K+wwNQMJGVSv+U927gM2+zVPkSuyIpw93M7d51wuqDdaLCnYhZaJ7SBw=
-	=
-X-Received: by 2002:a05:6214:5bc5:b0:91c:7da5:2185 with SMTP id 6a1803df08f44-91ca4bb4a15mr17162136d6.38.1793333128998;
-        Thu, 29 Oct 2026 21:05:28 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f4367dsm4659526d6.20.2026.10.29.21.05.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 21:05:27 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: tytso@mit.edu,
-	linux-ext4@vger.kernel.org
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	yi.zhang@huaweicloud.com,
-	yizhang089@gmail.com,
-	dave.hansen@linux.intel.com,
-	akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ext4: do not advance i_size on a buffered write that copied nothing
-Date: Fri, 30 Oct 2026 00:05:20 -0400
-Message-ID: <20261030040520.4138904-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	d=linux-foundation.org; s=korg; t=1793333812;
+	bh=iQhxpm71HqsVIR4F3d4eM6WGy7OXNxOYVQQoymZLjAA=;
+	h=Date:To:From:Subject;
+	b=Yy8FsSNFgI+dc23/dml3wtfSZ6gM1uwo/nJIMNR2GUcW3s0x9qHVkV+KRer3BIsZQ
+	 Mx7+3L58twlNtWzFZCvy33DWY9Icod53gv0K8dAtQJXo8uxqoVjFqio7iRRFP1VPl1
+	 4blgkVJVB0AfIHVTAlSvvt5JmVyisqCYuk2xDSQg=
+Date: Thu, 29 Oct 2026 21:16:52 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
+	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
+	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-dlm-serialize-migration-mle-cleanup-on-failure.patch added to mm-nonmm-hotfixes-unstable branch
+Message-Id: <20261030041652.721BA1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,154 +51,265 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
-made generic_perform_write() call ->write_begin() and ->write_end()
-before it finds out that the source buffer cannot be read.  In that
-case ->write_end() is called with copied == 0.
 
-However, ext4_write_end(), ext4_journalled_write_end() and
-ext4_da_do_write_end() set i_size to pos + copied without checking
-copied.  As of now, a buffered write() past EOF that fails with EFAULT
-grows the file to the write offset, and the new size can reach the
-disk.
+The patch titled
+     Subject: ocfs2/dlm: serialize migration MLE cleanup on failure
+has been added to the -mm mm-nonmm-hotfixes-unstable branch.  Its filename is
+     ocfs2-dlm-serialize-migration-mle-cleanup-on-failure.patch
 
-The issue can be reproduced on an ext4 mount with:
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-dlm-serialize-migration-mle-cleanup-on-failure.patch
 
-    char *p = mmap(NULL, 4096, PROT_NONE,
-                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
-    pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
-    fstat(fd, &st);
+This patch will later appear in the mm-nonmm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Before that commit, the result is st_size = 0.
-After it, the result is st_size = 1048576.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-This patch will leave i_size alone when nothing was copied, as
-ext4_write_inline_data_end() already does.  Unlike ext4_write_end(),
-the delalloc path does not trim after a short write, so the folio and
-the delayed blocks that ->write_begin() set up beyond i_size are left
-behind, and the blocks stay reserved until the inode is evicted.  When
-the write ends beyond i_size, drop them as well.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Cen Zhang <zzzccc427@gmail.com>
+Subject: ocfs2/dlm: serialize migration MLE cleanup on failure
+Date: Tue, 27 Oct 2026 18:14:49 +0800
+
+A migration MLE has a base reference for the mastering answer and an
+in-use reference held by dlm_migrate_lockres(). The finishing assertion
+consumes the base reference, but migration failure drops it again
+without checking whether the assertion already consumed it.
+
+The target queues its migration worker before it acknowledges the
+ALL_DONE packet, so its finishing assertion can be handled while the
+sender still waits for the status. If the connection fails before the
+status arrives, dlm_send_one_lockres() returns an error for a migration
+that the target has already completed:
+
+  Old-master sender                  Finishing assertion
+  -----------------                  -------------------
+  publish MLE; take in-use reference
+  send ALL_DONE; wait for status
+                                     take lookup reference
+                                     unlink MLE
+                                     put lookup and base references
+  send returns a connection error
+  put base reference again; free MLE
+  put in-use reference; access freed MLE
+
+dlm_assert_master_handler() holds dlm->spinlock from the MLE lookup to
+the final puts, and it takes dlm->master_lock around the unlink and the
+puts. Decide under the same locks: if the MLE is already unhashed, the
+assertion consumed the base reference, so drop only the sender's in-use
+reference. Otherwise unlink it before consuming the base reference so a
+later assertion no longer finds it.
+
+An assertion that got there first has also made the target the owner
+and cleared DLM_LOCK_RES_MIGRATING. Treating the attempt as failed at
+that point would leave the lockres owned by the target while this node
+still holds the other nodes' locks and refmap bits, so it could neither
+be purged nor migrated again. Finish our side as a completed migration
+does instead: drop those locks under res->spinlock if the target still
+owns the lockres, and recalculate its usage.
+
+Use the same cleanup for the pre-send failure, the send failure and the
+target-death failure paths. The sender's in-use reference keeps the MLE
+alive until its final put outside the nested locks. Successful
+migration retains its existing in-use-only put.
+
+A target that has died cannot assert after the sender has seen its
+death. The o2net node-down callback runs before the DLM one; it
+disconnects the node and flushes the workqueue that runs the message
+handlers, so an assertion already received has been handled by the time
+the DLM removes the node from the domain map. A node that leaves the
+domain cleanly sends its exit message only after its assertions have
+been answered.
+
+Two windows of the hand-over itself are left as they are: the handler
+switches the owner and the sender drops the other nodes' locks moments
+later, and an assertion from a live target that arrives after the
+sender has given up still meets the owner check in the handler. Waiting
+for the target before giving up would only stretch the first window
+into the time in which recovery of the target can observe it.
+
+KASAN report, only the relevant frames are kept:
+
+BUG: KASAN: slab-use-after-free in dlm_put_mle_inuse+0xce/0xe0
+Read of size 8 at addr ffff8881190e3c20 by task umount/593
+
+Call Trace:
+ <TASK>
+ dlm_put_mle_inuse+0xce/0xe0
+ dlm_migrate_lockres+0x16af/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+ generic_shutdown_super+0x15f/0x490
+ kill_block_super+0x40/0xa0
+ deactivate_locked_super+0xae/0x120
+ deactivate_super+0xa2/0xc0
+ cleanup_mnt+0x217/0x450
+ task_work_run+0x144/0x230
+ </TASK>
+
+Allocated by task 593:
+ kmem_cache_alloc_noprof+0x20b/0x5c0
+ dlm_migrate_lockres+0x20e/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+
+Freed by task 593:
+ kmem_cache_free+0x242/0x580
+ __dlm_put_mle+0x4b2/0x660
+ dlm_migrate_lockres+0x1690/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+
+The buggy address belongs to the object at ffff8881190e3c00
+ which belongs to the cache o2dlm_mle of size 480
+The buggy address is located 32 bytes inside of
+ freed 480-byte region [ffff8881190e3c00, ffff8881190e3de0)
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0038-v9-659f247ea980d5f3fbeb@gmail.com
+Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
-Changes in v3:
-- Also trim after a short copy: drop the '!copied' check and compare
-  pos + len with i_size after the update, as ext4_write_end() does
-  (Zhang Yi).
-- Reword the last paragraph of the commit message.
-- v2: https://lore.kernel.org/r/20261023172532.3271348-1-hengyul@cs.unc.edu
 
-Tested in KVM with KASAN: the reproducer above, failed writes around
-EOF, and short copies on delalloc, nodelalloc and 1k block filesystems.
-e2fsck -fn reports no errors.
+ fs/ocfs2/dlm/dlmmaster.c |   70 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 61 insertions(+), 9 deletions(-)
 
- fs/ext4/inode.c | 39 ++++++++++++++++++++++++++++++++-------
- 1 file changed, 32 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 6ede3644a738..9c20876629bc 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
- 	 * it's important to update i_size while still holding folio lock:
- 	 * page writeout could otherwise come in and zero beyond i_size.
- 	 *
-+	 * If nothing was copied (e.g. the source buffer was unreadable), do
-+	 * not move i_size up to pos.
-+	 *
- 	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
- 	 * blocks are being written past EOF, so skip the i_size update.
- 	 */
--	if (!verity)
-+	if (copied && !verity)
- 		i_size_changed = ext4_update_inode_size(inode, pos + copied);
- 	folio_unlock(folio);
- 	folio_put(folio);
+--- a/fs/ocfs2/dlm/dlmmaster.c~ocfs2-dlm-serialize-migration-mle-cleanup-on-failure
++++ a/fs/ocfs2/dlm/dlmmaster.c
+@@ -2525,6 +2525,52 @@ static int dlm_is_lockres_migratable(str
+  */
  
--	if (old_size < pos && !verity)
-+	if (copied && old_size < pos && !verity)
- 		pagecache_isize_extended(inode, old_size, pos);
- 
- 	/*
-@@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
- 		if (!partial)
- 			folio_mark_uptodate(folio);
- 	}
--	if (!verity)
-+	if (copied && !verity)
- 		size_changed = ext4_update_inode_size(inode, pos + copied);
- 	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
- 	folio_unlock(folio);
- 	folio_put(folio);
- 
--	if (old_size < pos && !verity)
-+	if (copied && old_size < pos && !verity)
- 		pagecache_isize_extended(inode, old_size, pos);
- 
- 	if (size_changed) {
-@@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
- 	return 1;
- }
  
 +/*
-+ * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
-+ * reserved delayed blocks, so drop the page cache and the delayed extents
-+ * beyond i_size and leave the blocks that are allocated there alone.
++ * Drop the sender's references on a migration MLE after the attempt has
++ * failed. The finishing assert from the target may already have unlinked
++ * the MLE and consumed its base reference; decide under the locks the
++ * assert handler holds, and only drop the base reference while the MLE is
++ * still hashed. Returns true when the assert got there first: the target
++ * has become the master, so the caller must complete the migration.
 + */
-+static void ext4_da_truncate_failed_write(struct inode *inode)
++static bool dlm_put_migration_mle(struct dlm_ctxt *dlm,
++				  struct dlm_master_list_entry *mle)
 +{
-+	struct address_space *mapping = inode->i_mapping;
-+	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
++	bool asserted;
 +
-+	filemap_invalidate_lock(mapping);
-+	truncate_inode_pages(mapping, inode->i_size);
-+	down_write(&EXT4_I(inode)->i_data_sem);
-+	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
-+	up_write(&EXT4_I(inode)->i_data_sem);
-+	filemap_invalidate_unlock(mapping);
++	spin_lock(&dlm->spinlock);
++	spin_lock(&dlm->master_lock);
++	__dlm_mle_detach_hb_events(dlm, mle);
++	asserted = hlist_unhashed(&mle->master_hash_node);
++	if (!asserted) {
++		__dlm_unlink_mle(dlm, mle);
++		__dlm_put_mle(mle);
++	}
++	spin_unlock(&dlm->master_lock);
++	spin_unlock(&dlm->spinlock);
++
++	dlm_put_mle_inuse(mle);
++	return asserted;
 +}
 +
- static int ext4_da_do_write_end(struct address_space *mapping,
- 			loff_t pos, unsigned len, unsigned copied,
- 			struct folio *folio)
-@@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
- 	 * checked, we need to update i_disksize here as certain
- 	 * ext4_writepages() paths not allocating blocks and update i_disksize.
- 	 */
--	if (new_i_size > inode->i_size) {
-+	if (copied && new_i_size > inode->i_size) {
- 		unsigned long end;
- 
- 		i_size_write(inode, new_i_size);
- 		end = offset_in_folio(folio, new_i_size - 1);
--		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
-+		if (ext4_da_should_update_i_disksize(folio, end)) {
- 			ext4_update_i_disksize(inode, new_i_size);
- 			disksize_changed = true;
- 		}
-@@ -3400,9 +3421,13 @@ static int ext4_da_do_write_end(struct address_space *mapping,
- 	folio_unlock(folio);
- 	folio_put(folio);
- 
--	if (pos > old_size)
-+	if (copied && pos > old_size)
- 		pagecache_isize_extended(inode, old_size, pos);
- 
-+	/* Drop what ->write_begin() prepared beyond the resulting i_size. */
-+	if (pos + len > inode->i_size)
-+		ext4_da_truncate_failed_write(inode);
++/*
++ * The finishing assert got there first: it switched the owner to the
++ * target and cleared DLM_LOCK_RES_MIGRATING. Drop the other nodes' locks
++ * as a completed migration does, unless recovery has taken the lockres
++ * over since, and let the usage be recalculated.
++ */
++static void dlm_migrate_lockres_asserted(struct dlm_ctxt *dlm,
++					 struct dlm_lock_resource *res,
++					 u8 target)
++{
++	spin_lock(&res->spinlock);
++	if (res->owner == target)
++		dlm_remove_nonlocal_locks(dlm, res);
++	spin_unlock(&res->spinlock);
 +
- 	if (!disksize_changed)
- 		return copied;
++	dlm_lockres_calc_usage(dlm, res);
++}
++
+ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 			       struct dlm_lock_resource *res, u8 target)
+ {
+@@ -2609,9 +2655,10 @@ fail:
  
+ 	if (ret < 0) {
+ 		if (mle_added) {
+-			dlm_mle_detach_hb_events(dlm, mle);
+-			dlm_put_mle(mle);
+-			dlm_put_mle_inuse(mle);
++			if (dlm_put_migration_mle(dlm, mle)) {
++				dlm_migrate_lockres_asserted(dlm, res, target);
++				ret = 0;
++			}
+ 		} else if (mle) {
+ 			kmem_cache_free(dlm_mle_cache, mle);
+ 			mle = NULL;
+@@ -2640,9 +2687,11 @@ fail:
+ 		mlog(0, "migration to node %u failed with %d\n",
+ 		     target, ret);
+ 		/* migration failed, detach and clean up mle */
+-		dlm_mle_detach_hb_events(dlm, mle);
+-		dlm_put_mle(mle);
+-		dlm_put_mle_inuse(mle);
++		if (dlm_put_migration_mle(dlm, mle)) {
++			dlm_migrate_lockres_asserted(dlm, res, target);
++			ret = 0;
++			goto leave;
++		}
+ 		spin_lock(&res->spinlock);
+ 		res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 		wake = 1;
+@@ -2686,9 +2735,12 @@ fail:
+ 				     res->lockname.name, target);
+ 				ret = -EINVAL;
+ 				/* migration failed, detach and clean up mle */
+-				dlm_mle_detach_hb_events(dlm, mle);
+-				dlm_put_mle(mle);
+-				dlm_put_mle_inuse(mle);
++				if (dlm_put_migration_mle(dlm, mle)) {
++					dlm_migrate_lockres_asserted(dlm, res,
++								     target);
++					ret = 0;
++					goto leave;
++				}
+ 				spin_lock(&res->spinlock);
+ 				res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 				wake = 1;
+_
 
-base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
--- 
-2.53.0
+Patches currently in -mm which might be from zzzccc427@gmail.com are
+
+ocfs2-validate-move-extents-against-a-stable-eof.patch
+ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch
+ocfs2-dlm-serialize-migration-mle-cleanup-on-failure.patch
+ocfs2-wait-for-filecheck-kobject-release-after-a-failed-add.patch
+ocfs2-cache-the-mount-context-for-dentry-lock-callbacks.patch
 
