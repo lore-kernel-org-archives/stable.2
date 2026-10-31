@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793474169;
-	b=wjFXrUj9gBkb2U6oRGQZvm+d/jhTB/npySmrSn9H8YZv4bFWFU3KOiKhqRL2+mJmo/oN
-	 Fw+RCSCzjbvmdOFFDWE/89ANzLHQlCu8aEbUt6HSIrX5T68Lu0eGHPVtQdsVnKTIjEi3+
-	 Ceeoeuf1vIIc2rGT8n13tFCSig/AsBGJAzhUNqpoOmCt94ljX/Kxbt68LXABpI4tFYq7z
-	 RiNcv04RXSTsT40fqEi8ErRrBqpEZiXDI6e3oBOKq5gEF+iavrcXbhxmLEC0QoN2xxB4A
-	 cPkh3vJ5emHKqqfsQjiflq/Thj94IYEFUDBLE2Ek9kaqguLStDCzSPVKPwVrxVWZWxg==
+	t=1793475368;
+	b=LPkyWU6psde/pfPtiq3rkqE3vIutNxpBk6WjPldEWWzDgPrp7d9iRcp3U0YXr4wHpR4Y
+	 z/NTiXdC8rUjblwKIuJV4V1D6tog742uulMxReX2b8WCPoYxoi0XHx/PFSWea5TpCGUJn
+	 yNJk/3zuaTaZZ4XGRSUDk2xtgbuoMowp1u/Kk6Ooa8HYLtGgQ5GA0y3Ztt8n9tp/S6LiP
+	 EbvhfRV9tKMoEFj+GSljd8tgywp7pX9Q5d2u4qcsdrJU0oyZnXaeSXD8qAKYeC5vcm7ae
+	 tyTYLSBMOLesf9iyUjo924yW2Fd8NyxYyYO4+IYO+DURIeAMZAwu7NEzEbiuAGNqB4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793474169;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Nh74L2V0w3daekaVVOQrrhXLM9Gl1Uf9oljAtssfNp8=;
-	b=krtlDk+6n3Qlwm7WIVjCe6VuSsci0791iArLXFEumRv3T5bNG9E5+ryqhyYfEWZqlEAG
-	 RCJchLBPkKKmw+FdCtso0Bq19tUCESDjtMhTchlq02fYiyi4Bbt3KLKLu/L4kXR3rHw8Z
-	 OcgDWiDDqm4awJKUyOpc70Vf+rbX2BNl7mivDD9FjZ/M91EFw4da/UiCNa0jIpHMKUCpf
-	 mluP6Kt3siE4Z8BdxEprrMtSzuMv7RfBu8LBTtQvQZOY6nUAYwDqaw9Se/uKdoabbJ1Ge
-	 ouaPPVDoUI0UPt5rF5Fi/wSrMirPX2MnuvN+py+3j/HJkTH0dvw0Fw+ny3KI50CYYdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793475368;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=AlMMKxFjFmgo4xA9KOQX+hBrUwig6pdgmm/mOHyMOq4=;
+	b=OE+Lfs6VVQDNHbwnbxp8siP3WF946uz4jZjl3xoFdkF6PzL1bcoFeVb3Fe6MavXjT3h9
+	 mSKuyoUt1KjpJupJYEmTFwZnFPXHNbhG7WrSSANMQ/G2HlW+pCx3rdw40BIeANWjZNYFZ
+	 ND0/ZhTM86aFmZajdhIi+3h22NxvZi+de5o2Mi3P++BCt0tw4Gp9ss6ac6rPVooPB6Wu+
+	 8PUjeYGOGYsVndK3OtWGKGmc2eLeFLbhzEMujMa4zIe6hb4JKh7FGXdMT2Vour8lfwbIq
+	 Dp/qqJazVepCuxaoj+70/JxkPJsFcAtqzTOAjRmfQYiNBXElKqwOKNJjP7sKwpXt0XQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F4C8606A31A;
-	Sat, 31 Oct 2026 19:16:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F4C8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b="d0hQ/Feb";
+	arc=none smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C8F606A331
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 19:36:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56C8F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=d0hQ/Feb
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-945ae2daa66so12816585a.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:36:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=Nh74L2V0w3daekaVVOQrrhXLM9Gl1Uf9ol
-	jAtssfNp8=; b=e1Sbnki6hsw8gC2qNLcvXFlpjsFXdVTqVAGFLtZajNTlYAGdv1
-	xxO8iSl6ujJA8Max7P8qHRGI01axVE8jHTPX6B0vU3xlPshTfAT+/AlFPGl9keat
-	MM068hqJWZtz9mgdjqLAsT4Sy3RVm040FYZXEIOg302m2n5r6PFJguDTo=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.19])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkD2+fxtPuZqvkQSAQ--.18279S2;
-	Sun, 01 Nov 2026 03:15:58 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.de>
-Cc: Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] ALSA: usx2y: Refuse a retried DSP load after a failure
-Date: Sun,  1 Nov 2026 03:15:57 +0800
-Message-Id: <20261031191557.8460-1-25031212351@stu.xidian.edu.cn>
+        d=mojatatu.com; s=google; t=1793475367; x=1794080167; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AlMMKxFjFmgo4xA9KOQX+hBrUwig6pdgmm/mOHyMOq4=;
+        b=d0hQ/Febmr/nIbkqWhqs3plBZGB8DwI12zp+mNMgaeR8/hFG+GhS6Suuuu5hRTDwwh
+         jPvXI2Or3et9EJG1vSrW4s5ECw8h5gfYlsDlzcZ1HegSGSfV2/WU4bzgN+LwwrlW0SEu
+         F9Nuur6c58FW1j6aXpK0dIKsyo/1IjD025+w0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793475367; x=1794080167;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AlMMKxFjFmgo4xA9KOQX+hBrUwig6pdgmm/mOHyMOq4=;
+        b=AyQ6O6mkVvGBeYKxVQCAny0knZvshOOlwldISKHV4hAPdkzjbDv+XKMksI58bISAPo
+         xBq0LJiMkiRGeNS9LcMa204TQAbtPy2aP+L+oBhaDvULCGb1LAfA8UIM+s1JnmMX6gci
+         KLspJj53R+Pa7CT7H3lbYL6fVrFhZKdL+hhZa+FX6maJRKAzQfKu9Ax8zcAqg+ZO7XRr
+         yN5mEp3339KHOAc36Dg4q1J9mbsSoWOcap2ZaKL0kG6YSG/jXNVS9R53070ce57vSPSx
+         zSFN2EdTEd/6qrzc/dQWOIXzTN8/WjgTHAqeBjqlosWnsNPTJ6x1ZZrocKIYGy6uYipY
+         E9Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBycJ1q0DwCUcgznaMGcLesTfBny8ycTfJaPxNXJbZ72KCecsaUPzNHVbzMlXwKuYSE7tGyWUp0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM6vIGSCEMx+ytfLExo3+H8YjlR0jwk0afzLOgp0F98jYxghNd
+	2tCb3Vud4q/hm0dgS03m+3ZA9VSyoZv2+1r5hgQpdTccFX/9ghcyqF7sgay2WJUciw==
+X-Gm-Gg: AYBFou1hp4/3LcgsmJSyjs57nC9iW9VBdRfYXnvm8aJsML6MumL5+6+QCpSq9hXIEQl
+	Ki6gSQT9HPSqnK+18ea+7L0sLffmih0NPTL9bkNl4syZOFLSp3FJ4Bi4EV84wyQdPQJsVAHNINS
+	Gjngi6toH0MkFTr7PIKX/rixMzMXyugkpfeS92mExXBbI3MVSVobM2bYU2UgGNFDyO0MZf6av42
+	SGo+fHsoQf79AtTj5yL/YTk0+RmxtfMQ1Tsst4Lmee9axgwItzA9z9Hc1BPK7uu8rs0H9UL+tqJ
+	3Z+al6JTGwC5Lp9gVxBfKThR6a1bUHWF3ugDyudj2oa7TfB8wHKpiSKfPqubo9RuFPQFcztFfK8
+	VkalM1anfQJDr1Prtmo/fBqdbr35YlNLUBmYwh8OPuO78DXzGyJ983zx7T28m4P9GVzfxreCRry
+	kl8ok9s2dD1YjWF2sy+oC7+j90wdmKWZgJrJzOixNRwiuDnKUOmHBee0gWvcsp8TGFtxd4uq2mB
+	QWqXggERTwYbe673gH2aYJljpok+RvYpx0OtPzTvkpCfoHmql4BgyDO71Jk+g+vOBIbD352hMap
+	/4aGSQ8oDce3y/yL/c2gnDpW+fUyaUxuoBS/gEEWs7wMxaqGLp5dfqmE547GX72FIWfASdfolt1
+	13cf1gz/UXgj/gcJuqIPs8wgtvJBXLflpBOhj
+X-Received: by 2002:a05:620a:2b89:b0:93f:4d4e:ff6b with SMTP id af79cd13be357-94421585ce2mr951078885a.12.1793475367158;
+        Sat, 31 Oct 2026 12:36:07 -0700 (PDT)
+Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425abd317sm446917585a.36.2026.10.31.12.36.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 12:36:06 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	stable@vger.kernel.org,
+	shaos <shawnq1@163.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Victor Nogueira <victor@mojatatu.com>
+Subject: [PATCH net 1/3 repost1] net/sched: act_ife: encode configured zero metadata values
+Date: Sat, 31 Oct 2026 15:35:58 -0400
+Message-Id: <SER-NSBD.v1.r1.20261030042947-1@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <871p95svvd.wl-tiwai@suse.de>
-References: <871p95svvd.wl-tiwai@suse.de>
+In-Reply-To: <SER-NSBD.v1.r1.20261030042947@mojatatu.com>
+References: <SER-NSBD.v1.r1.20261030042947@mojatatu.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,91 +104,85 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkD2+fxtPuZqvkQSAQ--.18279S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAr1UAr13Kw15tr43ZFWrXwb_yoW5XFW7p3
-	909FWDKrWDXr4q9a1DZw4DK3WIkwsYyFW3A39Yyw18Ar1DAFyfCrWrKw129r42krW8Aa40
-	qrWjgr4UWrW5Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
-	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6rWl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUIl1vUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUDD2rmBFQcDAAAsE
 
-snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
-the interrupt URB when the FPGA firmware image with index 1 is loaded,
-and then creates the ALSA devices.  If usx2y_in04_init() or
-usx2y_create_alsa_devices() fails, the URBs that were already set up
-are left in place.
+Reported by shaos <shawnq1@163.com> with a reproducer for the 32-bit
+case, which was reproduced and verified in our test environment.
 
-The core keeps the index unloaded when the callback fails, so user
-space may issue the same request again.  The second attempt then enters
-usx2y_async_seq04_init() or usx2y_in04_init() with the URBs still
-allocated and trips WARN_ON(usx2y->as04.buffer) or
-WARN_ON(usx2y->in04_urb).
+The issue:
+ife_check_meta_u32() and ife_check_meta_u16() both reserve eight bytes
+of metadata for a configured value even when that value is zero, but the
+matching encoder returns without calling ife_tlv_meta_encode(). The
+encoder therefore writes neither the TLV header nor its value, while the
+enclosing IFE length still includes the reserved bytes, exposing stale
+skb headroom contents to the peer.
 
-The URBs cannot be released at this point: the card may already have
-registered PCM devices that user space can still open, and the
-disconnect handler accesses the URBs without holding the DSP lock.
-Mark the chip as hung instead, so that a retried request is refused
-with -ENODEV and the assertions keep their meaning.  The URBs are
-released by snd_usx2y_card_private_free() when the card is freed.
+The 32-bit helper has been present since the IFE action was introduced
+(v4.6); the 16-bit helper was added with the 16-bit metadata helpers used
+by the skbtcindex callback (v4.9). Both defects predate the oldest
+supported stable kernel (5.10), so they are fixed together in this patch.
+Each hunk keeps its own Fixes: tag for provenance.
 
-A failing usx2y_async_seq04_init() still releases its own URBs, so that
-path remains retryable.
+The fix:
+Encode any configured value, including zero; skip the TLV only when
+there is neither a configured nor a runtime value. The runtime fallback
+is unchanged.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+A raw TCA_IFE_METALST netlink request is needed to express the
+configured zero: the IFE_META_SKBMARK attribute carries four zero
+payload bytes for the u32 helper, and IFE_META_TCINDEX two zero payload
+bytes for the 16-bit helper (not an absent or zero-length attribute).
+Stock tc cannot build these requests; "use mark 0x0" emits no mark
+attribute and "allow mark" emits a zero-length one.
+
+Conditions to recreate the bug:
+CONFIG_NET_ACT_IFE=y, CONFIG_NET_IFE_SKBMARK=y,
+CONFIG_NET_IFE_SKBTCINDEX=y, CONFIG_NET_CLS_MATCHALL=y,
+CONFIG_NET_SCH_INGRESS=y, CONFIG_USER_NS=y, CONFIG_NET_NS=y,
+CONFIG_VETH=y. In a fresh user and network namespace create a veth pair
+and attach clsact to the egress side. Install a matchall filter whose
+ife encode action carries a zero skb mark (or a zero tcindex) in
+TCA_IFE_METALST. Send a frame through the veth and inspect the IFE
+metadata in the received frame. The metadata region is eight bytes but
+holds neither a valid TLV header nor a value; it exposes prior headroom
+contents. Setting the value to a nonzero one does not trigger the leak.
+The namespace needs CAP_NET_ADMIN; no additional privilege is required.
+With the fix the zero TLVs are 0001000800000000 (u32) and
+0005000600000000 (u16).
+
+Fixes: ef6980b6becb ("introduce IFE action")
+Fixes: 6a5d58b67e20 ("net sched ife action: add 16 bit helpers")
+Reported-by: shaos <shawnq1@163.com>
+Link: https://lore.kernel.org/netdev/20261022144739.61342-1-shawnq1@163.com/
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
-v4: drop the release of the URBs on the error paths.  The card may already
-    have registered PCM devices, and the disconnect handler accesses the
-    URBs without the DSP lock; mark the chip as hung instead and let
-    snd_usx2y_card_private_free() release the URBs.
+ net/sched/act_ife.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
- sound/usb/usx2y/usX2Yhwdep.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
-index 7f153a2fcdd8..3800c5b5887c 100644
---- a/sound/usb/usx2y/usX2Yhwdep.c
-+++ b/sound/usb/usx2y/usX2Yhwdep.c
-@@ -179,6 +179,9 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
- 	int lret, err;
- 	char *buf;
+diff --git a/net/sched/act_ife.c b/net/sched/act_ife.c
+index 2afd68983ece..0e6aba9aeff1 100644
+--- a/net/sched/act_ife.c
++++ b/net/sched/act_ife.c
+@@ -50,8 +50,7 @@ int ife_encode_meta_u16(u16 metaval, void *skbdata, struct tcf_meta_info *mi)
+ 		edata = *(u16 *)mi->metaval;
+ 	else if (metaval)
+ 		edata = metaval;
+-
+-	if (!edata) /* will not encode */
++	else
+ 		return 0;
  
-+	if (priv->chip_status & USX2Y_STAT_CHIP_HUP)
-+		return -ENODEV;
-+
- 	buf = memdup_user(dsp->image, dsp->length);
- 	if (IS_ERR(buf))
- 		return PTR_ERR(buf);
-@@ -201,11 +204,13 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
- 		err = usx2y_in04_init(priv);
- 		if (err) {
- 			dev_err(&dev->dev, "usx2y_in04_init error\n");
-+			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
- 			return err;
- 		}
- 		err = usx2y_create_alsa_devices(hw->card);
- 		if (err) {
- 			dev_err(&dev->dev, "usx2y_create_alsa_devices error %i\n", err);
-+			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
- 			return err;
- 		}
- 		priv->chip_status |= USX2Y_STAT_CHIP_INIT;
+ 	edata = htons(edata);
+@@ -94,8 +93,7 @@ int ife_encode_meta_u32(u32 metaval, void *skbdata, struct tcf_meta_info *mi)
+ 		edata = *(u32 *)mi->metaval;
+ 	else if (metaval)
+ 		edata = metaval;
+-
+-	if (!edata) /* will not encode */
++	else
+ 		return 0;
+ 
+ 	edata = htonl(edata);
 -- 
-2.34.1
+2.43.0
 
