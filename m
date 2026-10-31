@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793448440;
-	b=Z0HTtJaHXNYq02HSXgwq1cYu0ANtv3DEPlJWlrm05tRgMi0bAzgfH9QLzanUo8Ddav+y
-	 ISudOO77VJx2haLXrskH4moTTfdCpLFPvh49lDlps0dgGxo66JTI3IC1zDF9yDUjlifck
-	 OIQ0IgZePLUx5naJO0SEuO2wBMMX65dOKS4PwTGuCu/yALymVDJPWo5QFein+GljXheTb
-	 mP7nDwwtnEqwvDxEQubdYcuWGv9fU9JA1vCLMtCYWjlW/A/EaObQAx9DOyBC+jILq5PQY
-	 RBytqTec7mMgGgONu3XNZopPzOXvb+IdAvqzgdXhmByJUuxh7mTpKQVe26OTvRZVClA==
+	t=1793448442;
+	b=eLWrLO7+i8ERtZhCzCB+Ge+byc9vH7pAaztdxcnIhbvknOcalCLAh7c1G7bia44B1iw3
+	 gj7wpeX3XKIIpyCVuMCZrpo0DYlZIFDXoB2KaxWXRovQvstWA85QaDu5XJSfhNRn3zAcv
+	 dW3+X4UGEe/mdUEOq1nkB2Ks7eo18x1gvhTzmmYNE92bsvlfHNGwVHHTyg48cZ2DiDMW6
+	 zIlvWhv+EtucvDA8UqSf6wyBVU/r0QU6L/1LglkvNaWnXgUBEbPXv+HztsQPDMRmlmCx0
+	 39nHlqGhsaV+pnWDpg98BPU+a4ApRVwnfKkHelsI4WGhg3wqDa22gMcBTf83L4SIoiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793448440;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448442;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SHiodlaN/47Q9sQElac/FcGmKIxlHSOhqHHn7r3qETE=;
-	b=lKjP7vsb1U8FLpdZupSW9bi+FGzw8eEfITssqhakV22MrTYmy0p/TUCEf2YnHXGQijCy
-	 ePpRiRtvFlfT1IbGjdnBjXwc4x4/p5pB1YyhjFAn+Kld6BTIjJVy2bHAwvSDzkINUB559
-	 A8eB3TeFs3wpNC25+36EeUQaqPKGOH+3JNXyYkDE6OD7FpksSygVgQpNzzl5GfrPdugPa
-	 1gu0HiYp33DZBg9aL31z37Az0jMemLq7fL4ipZLmFFXDhL8A0eHIwpNwxnuMmZyQJMkSV
-	 waaOm2l/ZiLoMsZGInPY0AhtnJ40BRJdnX1ly8vzsg25RVaoCUVAAnejU+Raicy+sKw==
+	bh=Ra9w+zWZgwoCxB8YuqKLO7gy/hnQxYG7gsDPgEiLLpU=;
+	b=uPpgAt/SYhXlIX/Yxk3DkxeU2hg/A8YX/6sU6OkFzPd2rJJRJGbO7/i0GeFZSgn8VGPF
+	 T/AiCclxCoAbsgNQtCkULA22oGh0Ns2ZTiHCSuOav+KKyUm60NyH/vKerysFsvY/LI41M
+	 Y5Auute14U6pvrznDXBjZWt5dnI4gJLX0kMoumsn2rXpZcwCUWYNSf7NfGtTYbKrsChbX
+	 PFNHa3FEPPaRYyLL06Fb9IzuDlONYP9SUAkbxJKqRPDyx5X3GLSObajG8WrV9L2XB+Fbm
+	 Rdhp+fHhORN+uV+hjgpAuD/XpQ+dr3QD3lEXJLeEgAb1Hce2ESS1ugK0ee6MQN5AEGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=UijhQ10l;
-	arc=none smtp.remote-ip=185.67.36.65
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OjAlI7I3;
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46AE4606A321
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46AE4606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FC1606A331
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:07:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71FC1606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=UijhQ10l
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OjAlI7I3
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id EE09624002D
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:07:11 +0100 (CET)
+	by mout02.posteo.de (Postfix) with ESMTPS id E0598240136
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:07:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793448431;
-	bh=SHiodlaN/47Q9sQElac/FcGmKIxlHSOhqHHn7r3qETE=;
+	s=1984.8680eb; t=1793448434;
+	bh=Ra9w+zWZgwoCxB8YuqKLO7gy/hnQxYG7gsDPgEiLLpU=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=UijhQ10laMoUf4LsQw+gAJUuE8i27pdC3giLUsej6UjDnfT125vfP1vv3HjTDzdti
-	 zj4a7jZ/bQ4PnAnLZnE1kmq5RO58mluNbVDzE2c3bhWQfkJ919VQ7ZjhJ1m5yyK6XM
-	 JuXcm+Ue1QTvaI6XFUqCdvC7sspZDHBOG/gNKYMqhVZ8iwe0jRginrPN3Pe2meYdRs
-	 AfD+mnXou47bdRWYB9OnvNI6bg7Yccqa/pynJW5Wy77/qyt65iYnODsCGLnQFtDmFO
-	 mXOKBSvS3C8D6TUqrIIZDsLbrgMuu+jBqTdKQApwyOrMryY86acXYszwH6Vr5N6M7b
-	 8JCNMmCJmLa+w==
+	b=OjAlI7I37GMxg1ZeHT8HQkXDsSmLMMkV7waYDyjYo0Y1HZ9vQYV7H69rlnUF+vtoy
+	 87i4JOAjwn0lLHfeyNLLhYYb+oeJvv4XSBQ9RuyVZ5SDqdCrFWfKlSzVC7VhtX1ZMY
+	 cz6495e9GBehHoyQQbp7Tcgr0DFXAzWQThSqlNWdXn6Q0oeNvR9uT+4mU3btkyMuHo
+	 Q3KdN+9Q7JcBK7jWz3xgB8zNckqh38qIzxTLEh+gWZbPmhtCbjqsknKz2HtVunDUOV
+	 r3tLlTt9IBfbKBJH23CDyOmElTtDAcYj373hQrUm3ceEWN6md/AXsCbTdYDxrY2JF+
+	 1tskkiQIIUrHQ==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jGxXt00Ntz6v1B;
-	Sat, 31 Oct 2026 13:07:09 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jGxXx0lm9z6v26;
+	Sat, 31 Oct 2026 13:07:13 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Ulf Hansson <ulfh@kernel.org>,
 	linux-mmc@vger.kernel.org
@@ -64,9 +64,9 @@ Cc: Christophe Kerello <christophe.kerello@foss.st.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] mmc: mmci: do not count a data CRC error as a complete transfer
-Date: Sat, 31 Oct 2026 12:07:11 +0000
-Message-ID: <20261031120700.42576-2-mateusz.nowicki@posteo.net>
+Subject: [PATCH 3/3] mmc: mmci: stm32: lock the STM32MP25 delay block again before tuning
+Date: Sat, 31 Oct 2026 12:07:14 +0000
+Message-ID: <20261031120700.42576-4-mateusz.nowicki@posteo.net>
 In-Reply-To: <20261031120700.42576-1-mateusz.nowicki@posteo.net>
 References: <20261031120700.42576-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: stable@vger.kernel.org
@@ -80,39 +80,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With datacnt_useless (STM32 variants) success is 0 on a data error and
-a CRC error subtracts one from it. bytes_xfered becomes 0xfffffe00 and
-mmc_blk completes the whole request as successful, although the
-controller stopped at the failing block. Reads return stale data and
-writes are lost without any error.
+Once locked, the DLL of the delay block follows voltage and temperature
+but not a change of the clock frequency. RM0457 requires the DLL to be
+disabled and locked again after a frequency switch.
 
-Tested on the STM32MP257F-DK eMMC in HS200 with a forced bad tuning:
-without this change 5 of 14 reads returned zeros, with it all 10 reads
-were correct.
+sdmmc_dlyb_mp25_enable() only sets EN, so a DLL left enabled by an
+earlier tuning keeps its old lock. On the STM32MP257F-DK eMMC, switching
+from DDR52 to HS200 then made the tuning pick a wrong phase in 9 of 18
+tries. With this change the phase was correct in all 12 tries.
 
-Fixes: b79220b3e0af ("mmc: mmci: add variant property to not read datacnt")
+Clear EN and wait for LOCK to drop before enabling the DLL again.
+
+Fixes: b5c3eb385797 ("mmc: mmci: stm32: add delay block support for STM32MP25")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
- drivers/mmc/host/mmci.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/mmc/host/mmci_stm32_sdmmc.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mmc/host/mmci.c b/drivers/mmc/host/mmci.c
-index 416bdb184ed4..10eb0439fc52 100644
---- a/drivers/mmc/host/mmci.c
-+++ b/drivers/mmc/host/mmci.c
-@@ -1422,8 +1422,9 @@ mmci_data_irq(struct mmci_host *host, struct mmc_data *data,
- 		dev_dbg(mmc_dev(host->mmc), "MCI ERROR IRQ, status 0x%08x at 0x%08x\n",
- 			status_err, success);
- 		if (status_err & MCI_DATACRCFAIL) {
--			/* Last block was not successful */
--			success -= 1;
-+			/* Last block was not successful, nothing counted when DATACNT is useless */
-+			if (success)
-+				success -= 1;
- 			data->error = -EILSEQ;
- 		} else if (status_err & MCI_DATATIMEOUT) {
- 			data->error = -ETIMEDOUT;
+diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
+index d74efdff6ac2..2310dba75c35 100644
+--- a/drivers/mmc/host/mmci_stm32_sdmmc.c
++++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
+@@ -541,11 +541,21 @@ static int sdmmc_dlyb_mp15_prepare(struct mmci_host *host)
+ static int sdmmc_dlyb_mp25_enable(struct sdmmc_dlyb *dlyb)
+ {
+ 	u32 cr, sr;
++	int ret;
+ 
++	/*
++	 * The DLL tracks voltage and temperature but not a frequency switch
++	 * (RM0457), start the lock sequence again on the current clock
++	 */
+ 	cr = readl_relaxed(dlyb->base + SYSCFG_DLYBSD_CR);
+-	cr |= DLYBSD_CR_EN;
++	writel_relaxed(cr & ~DLYBSD_CR_EN, dlyb->base + SYSCFG_DLYBSD_CR);
++	ret = readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
++					 sr, !(sr & DLYBSD_SR_LOCK), 1,
++					 DLYBSD_TIMEOUT_1S_IN_US);
++	if (ret)
++		return ret;
+ 
+-	writel_relaxed(cr, dlyb->base + SYSCFG_DLYBSD_CR);
++	writel_relaxed(cr | DLYBSD_CR_EN, dlyb->base + SYSCFG_DLYBSD_CR);
+ 
+ 	return readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
+ 					   sr, sr & DLYBSD_SR_LOCK, 1,
 -- 
 2.56.0
 
