@@ -1,111 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793475538;
-	b=OUFYmcw/MTiQlD7vVKpEs1tx8PtFAMszj7+SEMP4Jj1XOBI5tQ80S7+Br6I1vqCtAhY+
-	 2qDpsVMYn8BB+giV55uWb7sXt3xjUsm4Dqo5tfcDmPXWZY3keNgFnnXydwZQePXD0b0Bx
-	 K8qq2ghYYqWjnunDRYaJNLOYhsv5VNqhU8+SniU1FaUVkQ8ZwHAHjkHUseNeMaBfkhX8G
-	 vOlKFXK7tpn/9bMGLft70TRZFEddOqpb1rImI3TKUG6YV4p5iit3x53kesv08YY/9DZLG
-	 The9kQwk2VA3YhnsEBV+5M8ADp0UN6EaviAeJ15+++25FAR2PdsQwgWjTk36pIfnZ3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793475538;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793476603;
+	b=iqOD9zDOusCvfkxCsSgDh7bVxd9qeAz4a1qKQ0w38tC0ZoF7nl+1k/zKlvzFlkW6eKOL
+	 UVBiqhC/SrIi2Qjn7MS+3/CVKQldmm1XgLxX0HnsBgzdJmd4aa2RPV7RDW4l240EXLgNB
+	 sI/Jn7IGgwPRJmmpyNiGGiNKWTF++pPTSn+jij7F+y3xOmjCweMzy2Wke0mbWJxoo/Lki
+	 6EaG1PD6eeZ1lWe2uFdxwuHm60ivmNKKXQIRjQY1DT+J911axqPHCkxQ+Jjh86R4fyyg5
+	 lAiOHAE250fO82R91dS4imcNdT2Vgo0qpgDy7tj/HblYK0dZwYYeEoQ3ApeJX9ajMDw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793476603;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bQgrellhBss/UuVF8iWJXrXw5PzovFu/NGuBFfL7ORU=;
-	b=XD82jxMqCsn7ArIrvR8dtWuNRkedjJpNGxNeaDtnQe1b7WA8m695UrCmB9mn2te67D5M
-	 r8xTfBPx2qDkxe+wLZv0RWAel4iS2u/w/dmRyGH93DRUmdIeLvFJkneUA2lgn/fQ+J8nF
-	 JwAaJfvUf4uh76cF1ydKzBpfERFmKhbXw673sMTmkOEdJWjj83rhTP3QYCe0QYgmWyPSP
-	 Nc9mkVpdT6C0oYKExh/Li64jn+JgQSSQM7JKSCLsonDTLTXXArOTzDaca5ZC+Ltxk8yOG
-	 R2Dt2xdF3czi9MvPD7tst5jO/UMhgzmzsAX76a4B4Fiou3bJIEC7+x6GZx1NpRUWO+Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=aryptuAOBAtBz9hlnvqOhV6KqS5vh4lfw25sRossDrw=;
+	b=hoKTwOI5C6X+PLh++TfzpNuyRJdeNpLlZ5/pFpjdgYmA7kjkOz5kl6/B1OODc1xp4DZ2
+	 zNawgrBS7xKe6G+ti6Pw//rlCMxX7fn9tVoQTW5re3Qc4oP7NBOAt0Jwf5imTDPmg0Bp3
+	 GBd8PAvwuBA8ijuiTh6aK+Xqn9kVt3Uy9I7V4/G7pjuphCRwfPCkjP3BpkUFS+dOt2Y2D
+	 sTwcUe/Y+8wHSF95EKrNmUw15M046Ovbdz0hgcpuq3c5A876Ity8JeTHFCZ9/hKDKskv6
+	 LW/vRkRqjniSjjZhjFBWkDnN/BmhZ7JHSZpSTj/QhM0pwAMU2TOhdZCF9LAQCl+Y2jw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mojatatu.com;
 	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=djtcKBBB;
-	arc=none smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=EQWy5YnJ;
+	arc=fail smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14C2606A31A
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 19:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E14C2606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F292606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 19:56:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F292606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=djtcKBBB
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5365b48238dso16769671cf.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:38:57 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=EQWy5YnJ
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso1232437b3a.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:56:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793476603; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HWS+I0Cm15K+k/3rKSgdPePFMegLx5bgh/RaMgo1ES0fWL78iKuCH2yCZ1sLK6TKcg
+         QRnZYEEc3kwhy8xK/P7TgmtlEUGhHH8GThyxALzB0cmVNj8w1ksDosSu660zwmxZ1RUZ
+         6Kk4gtVutCFHqHvbp/jyMkd+PcD2GOcYKsPk5tJp/JHobfQKyBkoW139EKkb7EiVkNfP
+         jN4UeuuRlUWaW5QcauDKWI8djLXtbrcAwb8C0HPV3dLp9p2ORMLvTRKbYVI2O/VZzM3N
+         SrSIRCFpXFKVRmPQGV4QP1QoGj49r08+vybg9rvUYjShM5Rvhl3DB2Ob9lSNK32VYVix
+         sTCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=aryptuAOBAtBz9hlnvqOhV6KqS5vh4lfw25sRossDrw=;
+        fh=B5iBFtXI11SCovLbAfqDo5uelFKmfXu4lylYV6otXSk=;
+        b=VZ+Wn63vZr8cuCwUbqKc0uVvxF/XG1sJk+euCmqetxj0gQkWWJw81wkVqgVL/sMoms
+         nUq5iWU+0xJiGB29AWt3rAbtW3CeSI4fa+H2fTAOON0Zu5YlmHiFhBtaNuOk3BSxUSbK
+         iRr5xZe538xHOL9vlgLpAu44jfFYkqqDPnDzSyU+WoHD8Kbpt7TgzSjR3gAloPLW2xUG
+         zpT+3PJ/IVnV6s9J3aj1lSScllh/Uy9HYvNZmGwfeN8r+JpHbMuI0HDpkWDzpGxqANLn
+         jWt1UNAx+c2A6NaanH1BokLT/OJhHp7kS7s8ij3yW7pFpHs72ESeF0/2hBOThNkWa6Qd
+         HOww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793475537; x=1794080337; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bQgrellhBss/UuVF8iWJXrXw5PzovFu/NGuBFfL7ORU=;
-        b=djtcKBBBOn+WVZLjii7ZcxViiQUURHCSkc0IPNwbqDRia+Whlq9TL2HsXmtlnvTVOq
-         QREPlWkWCrR6JCi2fuqIDkPdsdhSKfW5OWhmalzlr947MlpFKjWRAUiupsxMcu4oSDpw
-         NyDdrC12mHwYaWbaxPGy9j0sh6OLNYBoZDcH4=
+        d=mojatatu.com; s=google; t=1793476603; x=1794081403; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aryptuAOBAtBz9hlnvqOhV6KqS5vh4lfw25sRossDrw=;
+        b=EQWy5YnJ+StRsCRsI3UjqxM6NhG3RkxbsEiIF6b8lmVFWqJXaFe6EEgM1DxxMYqrhY
+         meISUh1+N863oX0Wmij8QpfEC/9bR3Nkxdso0Ckso2XgF24pONCldB3yk4PH9i45tBe9
+         lvUPBLjXhNSX2MP+GH8ZuCTIxCkhPe8vYbgDg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793475537; x=1794080337;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bQgrellhBss/UuVF8iWJXrXw5PzovFu/NGuBFfL7ORU=;
-        b=jYXie1Ax4qlnw6Rk/4FMRjWbH132mCmlr9GYiN0tWV9O33d6WklDcqrXceY+NdN0sq
-         3zyFpSLzmkUyhWByJkWzXxdHWN5uzOBH/9W9IX9TA0XOb4faaGqXMLQW86JrOQ8L03sV
-         m+5W/WP9bF+p3ic6FORWLeCW0yCaYZKtK/L/GDBrXc4vhdVQO5cfVxZaAZ32YcvgNGU7
-         e3IV19L0thGrUQ7RwWz9IIERmtWAH5IL9VR13rF3UIpFaPqJt/uTFqHEsop8NapjFbhP
-         0P2iDKYkDTUhhP/btic/kcg8E4dtL3Ltk2yVGHggscSlcG0NdGSRlxtN/20HNmYgOGZ8
-         w3RQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxp67M/xPlyvDYAMHmBulPYy14lgehoSIGmZpxwLELyGVPCo7IxJDLR/y7IGF9aqqssKQYj/z4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLXH+G4r0hDilL2WXv1a5PWHeusYYi+Yj4pjl+ai9+v4CRtOWu
-	67rjMQcNAqk3vVV/2c2GHrKzqd/+lmAkUXRvIcA0FZj5AAv5dtSW1WKmHfulzIjIhA==
-X-Gm-Gg: AYBFou0I+1lF3f6jNWz0oxN0kUhVyivbHIRBm4A2S/95xVpF3fiEmQxdvRCfX+X81xO
-	fP2utK0cKY0TklvUPTSER/llnqVQcceq9J2VY/9YJ+YyEh/JO2cmZZvLjUBGYgmAtXR96XjwG8k
-	NAWRBc0FXV0TlkhL/n1udGdKdozApXlz4zUUqXgxuDmGIxVealpfhxNYFngQPqMB7g7Z2cjCIa5
-	YIgbV2B3l+jMawWtigwNVA9GLL5DsofhaTP50DmwStc3dC6Hts2q6QoTJxLTKXZxiIX0nUYJ+cy
-	3R9AoTcT2nWgBaHsdigxmWPEnSlj+xHieyKV0xWx7fm5BOK95vZD3kqI8Dtkb5TdI/OxiPxFZT5
-	5FnVvTGK+iCK9xOEuzVSN5ZX/j77lVkPqMgbHUKP6QxVIc1DAhuy0dsAni0cwOkzpeuYkMLOmgq
-	umRcBmPYaaM5C2m6JkIEraX+h5zmrDFTFK9RsKlI1TlcJPx8TyveA3gzs8qLQwNuBVBoRrOCKUB
-	5v7vLw9vQSGbzgj/yI1WdfGA4xsU/HdokXOtZ3V4edUySsELj+9oOn/vkDQCiseJwCVHBixzX/v
-	p73C00RAAf2/PmPWHw37SbmrBbDQRfCEWbiL2s8TQvHLOmpro2h52fc49XG+FHD4GGLdwJtljQK
-	RgcMu2hcBmIThZkQ=
-X-Received: by 2002:a05:622a:138f:b0:533:8b99:fcd2 with SMTP id d75a77b69052e-542b7048954mr101358611cf.40.1793475536764;
-        Sat, 31 Oct 2026 12:38:56 -0700 (PDT)
-Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca8082914sm47802206d6.42.2026.10.31.12.38.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 12:38:56 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: bpf@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <kafai@fb.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	David Ahern <dsahern@gmail.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Victor Nogueira <victor@mojatatu.com>,
-	stable@vger.kernel.org
-Subject: [PATCH bpf v3] bpf: Fix skb_pull() BUG in __bpf_redirect_neigh()
-Date: Sat, 31 Oct 2026 15:38:52 -0400
-Message-Id: <bpf_redirect_neigh_short_linear.v3.r0.20261031153053-1@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1793476603; x=1794081403;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aryptuAOBAtBz9hlnvqOhV6KqS5vh4lfw25sRossDrw=;
+        b=dUQ//pfW9pRQFj6VmkgRurvK0CiKkzv5srW3FqYS2q9ChPh4RnkNu7yeDebMMK6bY0
+         MoHKLdoK91ntZu3L2kIrkCgTzYbUpf1aHWWODwRGzZdqXpO34hkHqv/gJO5F0n1suhUu
+         WoyAcUF5TRL+IV51na9hruik3xH7/m2QJa3eeMZAiLpRuAkoqRqISNmQXB/oHs+YgOCj
+         18kIVB7p+wYOxSPlsGnFNFpUEcj1dWVV39F1TQcYdT/8lDmRLgoohkVOphQli5psqTde
+         H1iFsjDl2UcLPaOYsyx5pYzcxk9va93vbNDiuhfkXj8fKKM1P2BUdJo4Lnz39SxCE7r6
+         BHTA==
+X-Gm-Message-State: AFq9FYL+XqTDbxytpfIJC+McbC49BjAwQMQ9dj5MYluJBCt6mKbUVP+C
+	QdOkkXo6q9UHEN7eDU1DawU1+G1kNDDD2GP2eW6YPLCbu9OQloCsVC+mh9Og2hYCFayNYXcSJXD
+	vJPw6HmLhf+oHOB/aoENKhj25W0PjVOxEduYGU1JS
+X-Gm-Gg: AYBFou1FyIrfbaqruEM0HYYDfj+6QlVmM6xB43987yKG9HZIgT0zQhV6SedDs3h1ywn
+	TAe9cydTRVKeW1J5h4YTtgarLSaAXiPwOmy5rGrv2DJNSDXu5BMrJBEOsDeqxC5/VnBFRQbp38R
+	eP4Aaxr2VJxfXa9cgnyvbced2ZLtwdVoz1ytxy4DVDXb2RxyL8xq3Em02vhAR0nZTOilMLLttRV
+	2iVGsS+NXp8GKpAx5/gf+DA7EOWrxVToIOpR8l3yATdkgpkFPxl3/GAEmQVLO3Rx/7qZzmf+uPO
+	3mUex1mt7unXRCQ8Ol0wm1e7eyZ9ZNB11HC54T8blWoHcYrRVZg+opMl5NCW/S9TEEf1R05AjfO
+	NSO0311DwokRBt3/kZabohuxzrfmtfDgeFqAY2usB2Ea1y3V8bHPzo2BDHDwnWeX/FOqqqnJVZD
+	+9Pofabs3hZTFea9U=
+X-Received: by 2002:a05:6a00:181b:b0:89d:eb23:4e83 with SMTP id
+ d2e1a72fcca58-8a9beb67de4mr4983680b3a.30.1793476602669; Sat, 31 Oct 2026
+ 12:56:42 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,153 +101,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <SER-NSBD.v1.r1.20261030042947@mojatatu.com> <SER-NSBD.v1.r1.20261030042947-3@mojatatu.com>
+In-Reply-To: <SER-NSBD.v1.r1.20261030042947-3@mojatatu.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Sat, 31 Oct 2026 15:56:31 -0400
+X-Gm-Features: AclHuK_5FcR14Te-KF0vKW6H2qH3L3t-X26CkMjnn0VEbpmmZR6cMUtExiAwJbk
+Message-ID: <CAM0EoMnHR61Z2cW2+x-4Jeaz_mjdCfh8ieYJVZJu3ak5YDkRjQ@mail.gmail.com>
+Subject: Re: [PATCH net 3/3 repost1] net/sched: sch_teql: reject qdiscs from
+ another network namespace
+To: netdev@vger.kernel.org
+Cc: stable@vger.kernel.org, shaos <shawnq1@163.com>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Jiri Pirko <jiri@resnulli.us>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Victor Nogueira <victor@mojatatu.com>, 
+	Tom Goff <thomas.goff@boeing.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The issue:
-This is a follow-up to the short link-layer header fixes from Eric.
-After vlan pop_eth, a privileged SCHED_ACT BPF program can call
-bpf_skb_change_head(skb, 1, 0) and then bpf_redirect_neigh().
+On Sat, Oct 31, 2026 at 3:36=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> Reported by shaos <shawnq1@163.com> with a reproducer, which was
+> reproduced and verified in our test environment.
+>
+> The issue:
+> The teql master devices are created once in the initial network
+> namespace and their Qdisc_ops are global. teql_qdisc_init() takes the
+> teql_master embedded in the registered sch->ops and uses it without
+> checking whether the new qdisc's device lives in the same network
+> namespace as the master. A qdisc created in another netns can therefore
+> attach to the init-net master and change its MTU and flags.
+>
+> The Fix:
+> Reject a teql qdisc whose device is not in the master's network
+> namespace with -EOPNOTSUPP and an extack message; same-netns teql still
+> works.
+>
+> Initialize the private skb queue before any validation so every
+> constructor failure path, including qdisc_create_dflt(), which resets the
+> qdisc before destroying it, sees an initialized empty queue.
+>
+> Conditions to recreate the bug:
+> CONFIG_NET_SCH_TEQL=3Dy, CONFIG_DUMMY=3Dy, CONFIG_USER_NS=3Dy, CONFIG_NET=
+_NS=3Dy.
+> As an unprivileged UID, unshare a user and network namespace, create a
+> dummy device, set its MTU to 60000, and add a root teql0 qdisc:
+>
+>   unshare -Urn
+>   ip link add dummy0 type dummy
+>   ip link set dummy0 mtu 60000
+>   tc qdisc add dev dummy0 root teql0
+>
+> The init-net teql0 device changes from MTU 1500 to 60000. A pfifo control
+> on the same device leaves the MTU unchanged, and a direct MTU change on
+> init-net teql0 is denied. The namespace needs CAP_NET_ADMIN; no init-net
+> privilege is required. With the fix the attach fails with
+> "Operation not supported" and the init-net MTU stays 1500.
+>
+> Fixes: 7316ae88c43d ("net_sched: make traffic control network namespace a=
+ware")
+> Reported-by: shaos <shawnq1@163.com>
+> Link: https://lore.kernel.org/netdev/20261022144830.67948-1-shawnq1@163.c=
+om/
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
-__bpf_redirect_neigh() calls skb_pull(skb, sizeof(*ethh)) after checking
-only that mac_header < network_header.  Nothing verifies that the MAC
-header is long enough, that it is linear, or that the IP header the
-redirect goes on to read is linear either.
+Argh, sorry - this patch 3 is not properly rebased. I will send a
+repost 2. Ive fixed it so it doesnt happen again.
 
-A SCHED_ACT BPF program can do:
+pw-bot:cr
 
-    bpf_skb_change_head(skb, 1, 0);
-    bpf_redirect_neigh(lo, NULL, 0, 0);
+cheers,
+jamal
 
-after vlan pop_eth.  The skb then has mac_len == 1 and only one byte of
-linear data; skb_pull(ETH_HLEN) trips the skb->len < skb->data_len BUG in
-__skb_pull():
-
-    kernel BUG at ./include/linux/skbuff.h:2839!
-    RIP: skb_pull+0x40/0x50
-    Call Trace: skb_do_redirect -> packet_xmit -> packet_sendmsg
-    Kernel panic - not syncing: Fatal exception in interrupt
-
-The v4 and v6 paths read ip_hdr() and ipv6_hdr() as soon as the MAC
-header is gone.  On the AF_PACKET frame below that leaves headlen == 0
-after the pull, so the network header sits at skb->tail and the route
-lookup reads ip4h->protocol, ip4h->saddr and ip4h->daddr past the linear
-area.
-
-The Fix:
-Use skb_network_offset(), which is the MAC header span, instead of
-skb->mac_len.  mac_len is zero for locally generated tc egress and netkit
-packets, while the span still rejects the one-byte header produced by
-pop_eth + bpf_skb_change_head(skb, 1, 0).  The single check also covers
-the mac_header >= network_header test it replaces.
-
-Use pskb_may_pull() to make the Ethernet header linear before it is read
-or pulled, and to make the IP header linear in both the v4 and the v6
-path before ip_hdr()/ipv6_hdr() is read.  The header pointers are taken
-after the pull, since pskb_may_pull() may reallocate skb->head.
-
-Conditions to recreate the bug:
-On x86-64 with 4 KiB pages, enable CONFIG_PACKET, CONFIG_BPF_SYSCALL,
-CONFIG_NET_SCH_INGRESS, CONFIG_NET_CLS_MATCHALL, CONFIG_NET_ACT_VLAN and
-CONFIG_NET_ACT_BPF.  Run as root with BPF loading, network administration
-and raw-packet privileges.  Bring lo up and attach a SCHED_ACT program
-that calls bpf_skb_change_head(skb, 1, 0), then returns
-bpf_redirect_neigh(skb->ifindex, NULL, 0, 0):
-
-  ip link set lo up
-  tc qdisc add dev lo clsact
-  tc filter add dev lo egress matchall action vlan pop_eth pipe \
-      action bpf object-file neigh_chghead.o section action
-
-Send an untagged ETH_P_IP frame of ETH_HLEN + 8192 bytes through an
-AF_PACKET/SOCK_RAW socket bound to lo, without PACKET_VNET_HDR or
-PACKET_QDISC_BYPASS.  Use a unicast destination MAC.  The sender's skb
-has a 14-byte linear Ethernet prefix and a fragmented payload; pop_eth
-removes that prefix and change_head restores only one linear byte.
-The unfixed neighbor redirect then tries to pull 14 bytes and BUGs.
-
-Sending the same frame without pop_eth and change_head leaves the IP
-header in the frags, which is the route lookup reading past skb->tail.
-
-Fixes: b4ab31414970 ("bpf: Add redirect_neigh helper as redirect drop-in")
-Link: https://lore.kernel.org/netdev/20261027082604.1485903-1-edumazet@kernel.org/
-Link: https://lore.kernel.org/all/2a0f5ff1d8db81b07fc4b344b8e68e3505fcbf36f72a471d1678b2f1cecd881b@mail.kernel.org/
-Link: https://lore.kernel.org/netdev/DMII4JGTEUEG.2WRJPT6ODT6J0@gmail.com/
-Cc: stable@vger.kernel.org
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
-v3:
-- linearize the IP header in the v4 and v6 paths with pskb_may_pull()
-  before ip_hdr()/ipv6_hdr() is read; the Ethernet check alone left the
-  route lookup reading past skb->tail
-- collapsed the MAC-header check to skb_network_offset(), which also
-  covers the offset test it replaces (Alexei)
-- dropped the tc-egress: it cannot hit the BUG (Alexei)
-- retarget to the bpf tree
-
-v2:
-- use skb_mac_header_len() instead of mac_len; mac_len is zero for
-  locally generated tc egress and netkit packets
-- add tc-egress coverage to tc_redirect_neigh
-- document the nonlinear AF_PACKET reproduction conditions
----
- net/core/filter.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
-
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 09c60a58c82a..303c0c44dc2c 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -2290,9 +2290,13 @@ static int bpf_out_neigh_v6(struct net *net, struct sk_buff *skb,
- static int __bpf_redirect_neigh_v6(struct sk_buff *skb, struct net_device *dev,
- 				   struct bpf_nh_params *nh)
- {
--	const struct ipv6hdr *ip6h = ipv6_hdr(skb);
- 	struct net *net = dev_net(dev);
- 	int err, ret = NET_XMIT_DROP;
-+	const struct ipv6hdr *ip6h;
-+
-+	if (unlikely(!pskb_may_pull(skb, sizeof(*ip6h))))
-+		goto out_drop;
-+	ip6h = ipv6_hdr(skb);
- 
- 	if (!nh) {
- 		struct dst_entry *dst;
-@@ -2399,9 +2403,13 @@ static int bpf_out_neigh_v4(struct net *net, struct sk_buff *skb,
- static int __bpf_redirect_neigh_v4(struct sk_buff *skb, struct net_device *dev,
- 				   struct bpf_nh_params *nh)
- {
--	const struct iphdr *ip4h = ip_hdr(skb);
- 	struct net *net = dev_net(dev);
- 	int err, ret = NET_XMIT_DROP;
-+	const struct iphdr *ip4h;
-+
-+	if (unlikely(!pskb_may_pull(skb, sizeof(*ip4h))))
-+		goto out_drop;
-+	ip4h = ip_hdr(skb);
- 
- 	if (!nh) {
- 		struct flowi4 fl4 = {
-@@ -2451,15 +2459,14 @@ static int __bpf_redirect_neigh_v4(struct sk_buff *skb, struct net_device *dev,
- static int __bpf_redirect_neigh(struct sk_buff *skb, struct net_device *dev,
- 				struct bpf_nh_params *nh)
- {
--	struct ethhdr *ethh = eth_hdr(skb);
--
--	if (unlikely(skb->mac_header >= skb->network_header))
-+	if (unlikely(skb_network_offset(skb) < ETH_HLEN ||
-+		     !pskb_may_pull(skb, ETH_HLEN)))
- 		goto out;
- 	bpf_push_mac_rcsum(skb);
--	if (is_multicast_ether_addr(ethh->h_dest))
-+	if (is_multicast_ether_addr(eth_hdr(skb)->h_dest))
- 		goto out;
- 
--	skb_pull(skb, sizeof(*ethh));
-+	skb_pull(skb, ETH_HLEN);
- 	skb_unset_mac_header(skb);
- 	skb_reset_network_header(skb);
- 
--- 
-2.43.0
-
+> ---
+>  net/sched/sch_teql.c | 9 +++++++--
+>  1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+> index 409ce50cc0db..55f9944ca47d 100644
+> --- a/net/sched/sch_teql.c
+> +++ b/net/sched/sch_teql.c
+> @@ -188,12 +188,19 @@ static int teql_qdisc_init(struct Qdisc *sch, struc=
+t nlattr *opt,
+>         struct teql_sched_data *q =3D qdisc_priv(sch);
+>         struct Qdisc *first;
+>
+> +       skb_queue_head_init(&q->q);
+> +
+>         if (dev->hard_header_len > m->dev->hard_header_len)
+>                 return -EINVAL;
+>
+>         if (m->dev =3D=3D dev)
+>                 return -ELOOP;
+>
+> +       if (dev_net(dev) !=3D dev_net(m->dev)) {
+> +               NL_SET_ERR_MSG_MOD(extack, "teql master is in a different=
+ network namespace");
+> +               return -EOPNOTSUPP;
+> +       }
+> +
+>         if (sch->parent !=3D TC_H_ROOT) {
+>                 NL_SET_ERR_MSG_MOD(extack, "teql can only be used as root=
+");
+>                 return -EOPNOTSUPP;
+> @@ -201,8 +208,6 @@ static int teql_qdisc_init(struct Qdisc *sch, struct =
+nlattr *opt,
+>
+>         q->m =3D m;
+>
+> -       skb_queue_head_init(&q->q);
+> -
+>         spin_lock_bh(&m->slaves_lock);
+>         first =3D rcu_dereference_protected(m->slaves, lockdep_is_held(&m=
+->slaves_lock));
+>         if (first) {
+> --
+> 2.34.1
+>
