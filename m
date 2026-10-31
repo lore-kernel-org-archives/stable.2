@@ -1,95 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793442111;
-	b=W96qXkriOk3UupbAkjaLMP6HCFlFIxzGkvXPnu0sU7p7aGvvbPXP4JHzZAf2Vz23Plwa
-	 VUSY+RkRDe6iEbj/SFF/c9qxpWdVluD7/0J9IbMEIDhqoJvkqLFzPPeEHe1d7U5rS5TeN
-	 3DvUSMCC51xlY31HMWi1eqIh0wIc9DakK1sEns3l5SnQE2J/DwLMfjFzjvx1pSaWQ4Xog
-	 Q2MIu5KYZvfpcFPDg97wq4wEBTKS2gzbTRZkMKVPJLTAN74bkAjCBFbopDoiLzFdlT91O
-	 ZiygXb7n/rD7bCbiUwd5PHnhfvGN4D2N3x02bkB1Xiiw11KeEf47uaof6EDntUgmxvA==
+	t=1793442752;
+	b=GaV62j2Cu8YlNwSSJKTbHc+t8VK9d26WE5N9tF+jxHSdYai2sjFA5qzoDcaTM7PAfxKM
+	 3r+ugUjcxl0igaIY5HBl9gi/a7oGTE4iazamVTPexAvCVqLdQzcCA25gQVo8t1QELR/Nd
+	 8MWbeC94UR875cFns9HwVFu2r9bIGNU40hFWScaMVez9/4QkGDdmEhdfJH9grWagXhQrV
+	 ueXhhjEpFzsa8T5JD8+xNO1xWV1ty2ughGiweTbx4Kh2PEdf16KHQDbM9U8QXSULgvZ6n
+	 N01unCuxFc7P/cC5beRJx5E3eB2JEtJ0EI8ZseX5hQDmbVhB/htZf4n7/ulFWLpX/EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793442111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793442752;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=H2n5rvEmZawleJvXW2iwJ/2FM80C7pwmFa2gEkkaLOQ=;
-	b=NwmzYP/AJUKag+wNuHrSZurg6txIk6zI1wGDxD+InWA8h2hhtseTQRkjR8BlqOFg/mwV
-	 evlOlDEFOwyAcXBRiagy008i/x/jkbmiGLV5tpU2Ewp8topkfjFQouMlSqd9hBUoF8OkB
-	 xf45RKttLDpr3fHZHSDjRvJeK3/2CEHu8AAMKPO0uYLTdg6B59mDiV1Ifw2zvvChOYbIR
-	 xeKHnwdbVo1n7hesTi3O1LrSIa5mWvZrHYbcURjSpdflpDVOt9G9HfbUa83naC5rWeMdH
-	 +JM7NVFED+e/1B1oeoV9Ktj5fIAhh1NfipPSXTle8yzHxfclMUiZROwDU6qTZFJCwjQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=oJN7YW5/O/ypFLA5SZlEpqsSiwnIwF3r1Sqf8UEUf7U=;
+	b=LHCbGqpWDUt2u7u5gLM3LtyAuk/6rtaHMlB6A0L5NlpMnma/IcobkpIORP6csRHpPN9Y
+	 uzDC9jLNRKtjjwa2YVLCXMJCl4MEquXznQL3Ze1TAMSQDxXMPTy3tdxAwneF/LdWJ+Ziu
+	 AP6b9AkDSnMhWdzjF6/SGOK1rJsnfz8acaxvunsn4xby3T9I8jkkrS8VVmjaNg/VJMCG3
+	 tFC5fTRqF0D3SQS7hEcIYKoIBWddRIb1uvDv0niSyb2SD0RCeshLr7ZI9/uFZGuHU+wr9
+	 ZYepbR9i0aYtG7mw4A+9xyZciMH26TNmSHTXgVQXxpEUnXB1LYDDH71kC/OIuzpWqZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aHCOAozE;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IG2dBK1D;
+	arc=none smtp.remote-ip=74.125.227.133
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFFD606A31D
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 10:21:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEFFD606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC00B606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 10:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC00B606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aHCOAozE
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so13957995e9.1
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 03:21:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IG2dBK1D
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2eb0981df4aso3252385ad.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 03:32:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793442109; x=1794046909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H2n5rvEmZawleJvXW2iwJ/2FM80C7pwmFa2gEkkaLOQ=;
-        b=aHCOAozEayO/tn/0TW0arhTa5D7UGVboOJkhGa0sRb3GIpYYiHFVGlKSaWSg+LkZRG
-         whKqQ+BmwPd0Rz86HU6PuFwNvPDFBcIU/c7aVNVmokCaDm00RZokt6NNSyJz/12Qi04U
-         08r7r3yZs+gsu8z0/AOOy1vO2ViZXsrbw54hHCKBtjBeka+XAeYTJ49NYM0CU2maykdJ
-         Kexc+WL0XAVfVKtuB+5NB17l1gD191egPnSa1AHzCwU38IOJCMtoSu7Ywp1EkgfJXeHW
-         iecdqubAs/ghMtah/Z7BffR5N6ZK1XHTlou19m+xDzqg8ZTCkCd2anWqycIGhQqHq73M
-         edXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793442109; x=1794046909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793442751; x=1794047551; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=H2n5rvEmZawleJvXW2iwJ/2FM80C7pwmFa2gEkkaLOQ=;
-        b=pephk4+If+HC6y+zVRQPWYOKLgyCZBO/73lbniDZ3jeGtiYu5Ci13ZkPC7OmZhhc6O
-         5/gThcRKz/qOiUMPx0MkhXfLwYkq34gFZmIWH+UCAZCbCDZL7hfokAyJ8h/bN9tYNBnc
-         IiEopV958eZ618bt61LXJl7rATqWfidQY5kZt0EISXCly/a/siMdNWpqQTyIQWtXJ5f4
-         yYZ23t6P2Ldp7Et+WzMOO5YHnHYPUM0cmB9ol1mGnNJnfiHAaH95Y2KfuLIR2SZkpILp
-         wO/ZvcF5+boxmrQ0QRssqyh3HhbvhFWmkjT77y1WidCkekVoa4uJqPuHicNCrH4YBPpV
-         YilA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ8e/3d3s8U9/bbdqEk+DL3Bdcxeeq9qFIKMCi2ZheWUKHxp0BaI3KMvdFbO2SmIFTCKF90Ms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLe8HJ5qVGGGK4zUm6y1JnJw4PbQt9Fnbe/Gcm8vGv9xcPUhK6t
-	+ZcEHfxC2h2Vw0M/Op5nvJPilmLCfvh8aWCOnceshEih6HG0xWzc3w9d
-X-Gm-Gg: AYBFou1SBxHYyKoMTIyyuo/KHPSKlb6CXHdTxvbH2V01cfSeIPQA88nyUFP5KMtdCRJ
-	GnNANkFNhigUaOtaMy7Bsi/FYiQxCABMltVzriGMufScjHjnmgmJl11RKkEpekSbsZUlmySWpjp
-	dMl5J3cqEcLY1ziZ0ij+aorQice6ioBrzNdhlkDjI9wxiTVDrWL/B1fb/SkArMC+uQRGYUdaC8A
-	tk+4A1dWUIa3hZeR4JtTEJGGyi/75DYt/JvyB9+oM7Ipd0vvSZYah0kkmiOzNOb/WxzxkuLFNUI
-	gRot6j+iEs7miYrWs3TiuZGgZLhXwdCSDSJWBnnuY05NASg9/rooprigKoEbT+evwGLxI/kQ+gG
-	k2kGKBVnYbSYgZrumI4igjzmhbJ39FfZXctRnTyU3Hf2jwLEwpwxu2eKwIE70Kxf0uo3nJdTm9c
-	MXqe3frbnhHLX/XPb8eLN2UTPfZPcXU7St4BQuRdYEB6DAqQlh5y1GBMm8Dhr+gM0H4krlb9JBy
-	5a5hS9F8DecovBumYga2xTG33vSYSxE4VmmzEzFj4Z8W10GpU3vR4AzSCGz8qoE+repKziwQn/v
-	6t5IC//inkETvih1anvuXwpH4cupCKBVXkEtmvHfWOTImUFrbGfPcrol2bYGET6Ygpw=
-X-Received: by 2002:a05:600c:19c8:b0:4a3:59c9:a743 with SMTP id 5b1f17b1804b1-4ac1913ef8fmr107844405e9.27.1793442109074;
-        Sat, 31 Oct 2026 03:21:49 -0700 (PDT)
-Received: from OmniBook3.station ([2a02:b023:13:69f1:e78:b69f:1c29:ec5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea72254csm65226785e9.1.2026.10.31.03.21.48
+        bh=oJN7YW5/O/ypFLA5SZlEpqsSiwnIwF3r1Sqf8UEUf7U=;
+        b=IG2dBK1D/gON6XrQZb6YL4yw44KeH4c93SSt801VAPx7/9qdsTBfQkL1IrxWBKO69t
+         Nyf7j8xBomGvQ0LAiZ5F7hJNix1WkxBFT4xlj1cU9d/t4CJe43YrMqqpEwMFvGqWPAho
+         CUWhmY3Y4zsVyG2pWNKK2FcJ5m2zN+eWMS5bAUmkFZIhm8QIFOBdfnVy4hm9meIYx0C6
+         3PXF3JCnsrM24zVv9wrdrILEBBPjtNhs7raZw7HWa53ANAFLvn61w2aTwdFYqX1+BWG6
+         POMgq+7RdxCTPjYp4SwAwZ/CCJcPd2vz812Kl3xcZ0pr9CkNJ6aolObgJFTcvE9WywN2
+         y68A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793442751; x=1794047551;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oJN7YW5/O/ypFLA5SZlEpqsSiwnIwF3r1Sqf8UEUf7U=;
+        b=O3OHOJIZGu8yaxR1v+4b2wDtD4mKnCenJe2ikcZYlHcT1T8NvrNYmvd6K4uBgUudga
+         eYGjuBhJw9ZA3aXomhtf2Kv+cOkW5wHkuIWi86d+x6UJoUzUxC1saLZeQ+oSvmRQ/Tks
+         OS1ns4pNxrH9/aY58HuG/Rl1JzQPOwDg6e8sWVfLO88vLOZaO/CB88fJYp+dCgnp6Cic
+         dql8pbFPhURugK1lDSVQyXxRMF4BwpbauPzu3EXEb0JdefSBkWhpl0V0D+bA0ULheYWc
+         yMNTbubV4Ud7rrQQU9E/WGT1GQuj6CYv3z5VDAfGMlvPnD2fNr7YMMIjuFL9+b6544+o
+         UzyA==
+X-Forwarded-Encrypted: i=1; AKwUvBxq5pKMCrVnvKGjv5rqNyv3vwWOjHkVMBEzcDupAwfEp6nj+yQOMpEGCoET8EAevGKHXCaNqV8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtyyr0pIvyd7hTQ4EyCHtEQRK+R3F49oQL3uNp5OQXxWq2v5OX
+	FNEzIWTlSeilImq0x5smnW0sRLrKrfTM0Bdjx6Rx04WYRF6SS1uxIWw=
+X-Gm-Gg: AYBFou0NUDOnY6J4cJIJKW5S+pSBQ2xVOCVcqciiUBDd838Wue/hbvcWjZM31aUA/S7
+	Q5eOKo1Hq2ALW/tR80MEbdKmWUBiQByacEs825BSk8Fo3+OiGIgVrK8QNnsbYP9UO8zSsgUGcPn
+	kJ+zOGPZfDz4zyFf8Tj+W1myRQWcoExVAsKNvRhVBYArd3c5R8T4k86fzwv3KGYWkLG22fJvL8a
+	IjU8esf25EWRylgM+I8UlT6xV9oxPlhQi6fKFTE21vSlz+mJv0fiCFLW+e8KeXACuEpFhaPLy75
+	+UyGGB/I3HIWsmF9uixkJvfXOkXredPBD9capoxOXW8FnbXfflrLB+MmVMMSxLdbWSlXYQMpcL6
+	k/rrAydwywOLdWUs3R7zHaJrZ0S1Cl6Y9iqMMEu0j6NRdbzK4JNbLJR3uTanJUhHy6Fv9W1BYQL
+	v3OMN+NxjxCndf9hc/h1faDFOfcIzYaghgdtxLb1pxuuYDKPVJotZFbypBqZlkja/IK8YTGoz2a
+	NhEFDt6wPceMnJOIlOHD/P9ur8DrIz8//MJ3H650W15g8xa1cWlMOYZqmeUDKJOJssy55oOQRyr
+	9B0eZ/a7fqdmnLoaVhAMVa3dEvdNVRU3pvswRNXoomLYmIuGFiWTSo09/T89GQ==
+X-Received: by 2002:a17:902:f686:b0:2e9:87e8:71c8 with SMTP id d9443c01a7336-2eb36395e36mr51829245ad.4.1793442751062;
+        Sat, 31 Oct 2026 03:32:31 -0700 (PDT)
+Received: from WIN-2DEDQG69EF6.localdomain ([2a13:a5c6:1ff1:280f:be24:11ff:feb0:8690])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3928104asm14817275ad.53.2026.10.31.03.32.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 03:21:48 -0700 (PDT)
-From: Gianluca Balboni <gianluca.balboni06@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	linux-sound@vger.kernel.org,
+        Sat, 31 Oct 2026 03:32:29 -0700 (PDT)
+From: chenhan <chenhan0017.work@gmail.com>
+To: rust-for-linux@vger.kernel.org
+Cc: a.hindborg@kernel.org,
+	boqun@kernel.org,
+	fujita.tomonori@gmail.com,
+	frederic@kernel.org,
+	lyude@redhat.com,
+	tglx@kernel.org,
+	anna-maria@linutronix.de,
+	jstultz@google.com,
+	sboyd@kernel.org,
+	ojeda@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	miguel.ojeda.sandonis@gmail.com,
+	tomo@flapping.org,
+	georgeandrout13@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Gianluca Balboni <gianluca.balboni06@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop 16-by0xxx
-Date: Sat, 31 Oct 2026 11:21:36 +0100
-Message-ID: <20261031102136.24600-1-gianluca.balboni06@gmail.com>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH v5 1/3] rust: time: rename the rem_nanos() divisor
+Date: Sat, 31 Oct 2026 18:32:04 +0800
+Message-Id: <20261031103206.24051-2-chenhan0017.work@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261031103206.24051-1-chenhan0017.work@gmail.com>
+References: <20261031103206.24051-1-chenhan0017.work@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,37 +122,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
-connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
-AcpDmicConnected _DSD property or the _WOV method, and the board is missing
-from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
-capture device is registered.
+The argument to rem_nanos() is the divisor, while self holds the
+dividend. Rename the argument and correct the documentation. Drop the
+architecture-specific implementation explanation from the public API
+documentation; the argument type already states the divisor's width.
 
-Add a DMI quirk entry for this model to enable ACP DMIC support.
+This does not change the function's type or behavior. It is a preparation
+for documenting and checking the invalid divisors in the next patch.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Cc: stable@vger.kernel.org # prerequisite for the Delta division/remainder fix
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Assisted-by: LLM
+Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 ---
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Changes since v4: none.
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index a7fa0e8c460d..7a629b35e076 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -762,6 +762,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 	{
- 		.driver_data = &acp6x_card,
- 		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+			DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+		}
-+	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
- 			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
- 			DMI_MATCH(DMI_BOARD_NAME, "8EE4"),
- 		}
+ rust/kernel/time.rs | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
+index 5ae377e70dd8..16b44e82d2ac 100644
+--- a/rust/kernel/time.rs
++++ b/rust/kernel/time.rs
+@@ -614,16 +614,13 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
+         Delta::<Jiffy>::from_jiffies(jiffies)
+     }
+ 
+-    /// Return `self % dividend` where `dividend` is in nanoseconds.
+-    ///
+-    /// The kernel doesn't have any emulation for `s64 % s64` on 32 bit platforms, so this is
+-    /// limited to 32 bit dividends.
++    /// Return `self % divisor` where `divisor` is in nanoseconds.
+     #[inline]
+-    pub fn rem_nanos(self, dividend: i32) -> Self {
++    pub fn rem_nanos(self, divisor: i32) -> Self {
+         #[cfg(CONFIG_64BIT)]
+         {
+             Self {
+-                value: self.as_nanos() % i64::from(dividend),
++                value: self.as_nanos() % i64::from(divisor),
+             }
+         }
+ 
+@@ -632,7 +629,7 @@ pub fn rem_nanos(self, dividend: i32) -> Self {
+             let mut rem = 0;
+ 
+             // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
+-            unsafe { bindings::div_s64_rem(self.as_nanos(), dividend, &mut rem) };
++            unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
+ 
+             Self {
+                 value: i64::from(rem),
 -- 
-2.56.0
+2.34.1
+
