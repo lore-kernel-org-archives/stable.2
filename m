@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.171
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793461460;
-	b=TEsp6ecx6CHEb4/14zFFYcZU2Gjp1aTkLquet7C6HzoYGql2oYiwXHImGT56eBD4/lTV
-	 jI1faTj3jDsoQL08GZjtlTeWYLEuUg7Sw11eS3lO5NpIfr0jINXV3gx9OYSOYurgUJ2MV
-	 F/YIPDKV3MysQCf9cAVitXkH0Saiew4yqkNdvUcUWA7y0bI2WCDI7dyQnLdlh4Yj3FhmT
-	 Cba0koFYlHlOZUbRQSm8XDKJCoo3TEjnhBd3dOFeBF+P0h3EjOT5P6PK1v5Ro+DdfLAJu
-	 Yn7PEvMUohKpfoEvesBtdcrGIH5i/M9kgkbCgxR09TRnzRGPqARf7qiNF+YaUMBeYeQ==
+	t=1793461530;
+	b=QOIUo0wCx2sJxbzHaFQXS94EY00YYGeG+vKWqRwJL2DbEU8hLIDOwOdhAOsrAgqF8SL+
+	 Ni/h8sjhEsFcSqkpWOzqZlz4veJBJUpzmeYF/HuYjR//aJb3ekyQwXUa9FtpQ309cD65z
+	 WVucnAKev/hcwQAHh0ZdISlvi0wKMS2gUAc2BRfDYxrwU26qPi1CTX6z/xHb7AjhsdpLP
+	 lp+IxcJRv67oyOveQuMUPSJaPahxvzEKnR9GvEASCS8zwqd6vFCflvd9m//wyoBLdF2kl
+	 KItGXTRdL4ZQn3Fnp+BQumo2mfl1yHpljala4xnR9O/VTFaBuZ33SbS9afUJXfhHp8Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793461460;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:From:To:Cc:Message-ID:X-SimpleLogin-Type:
-	 X-SimpleLogin-EmailLog-ID:X-SimpleLogin-Want-Signing;
-	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
-	b=GEzIahHZRvXYbIMg6q/z7NcOszt7hgnfP1T6GGRblrOpn5sNwxTndyeSuKCkz/wD56gF
-	 ND/kAwzUvLQMZdtPnOkBF0FLIhjIo4/++sorEOxJC+PcPfenzmFP5sKyJSqoH+g65cobL
-	 1g54hinx3i6gREiXed+p6GakeEcSMccjn02sbhrTI4cept5MjRGmkVXl/Qp2hhd3LyJlG
-	 JtIGp+lgY3N2m1yJSK8vonU7Awb+JQ5NDtUmJ2H6FBNZkUYdQTMyVydacqxgZ+sTYT8V6
-	 7BMbE74r7zJeZypcX2nLPKEBK8hlB/fu37JhQEKJ58kF01K7QcGTA/YSpSfLypZMZrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793461530;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=qD482B1x9OW46mcV0NOxxvY9DRkgOEV3+OdPHjQp9+k=;
+	b=dEeNT93J8DLD+CScaX0+C/RCZq6NwHtTjl2nCzpBOG0p7ia+64z62Im8H9r4rphaxmPi
+	 YgK6j43mA46QGIcip0qPK7Z+jJMqnRNTgHSdRRhKAN/tWqwdMZDqnkvsUlx4cHDsHzeCZ
+	 4wc20FgXZmPnJYYB/qutolLQlWkvtwepor1xsRtTtqj2TuL5VCtKrP9GFXfnk1tyG8OxU
+	 H0qiF9JjbOq6qJzOMvSH7/ZRFYRX2uMYfaA5Y1V5vowYvJgT20EJabfKeM7LKJbpPhMB+
+	 bzpzTb0W4kS95tz2meR9ySWg/ZPUNN9icWnDZaqUODmxP0b1PZREv3k3Ii5mvKhxQ9A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=8alias.com;
 	spf=pass smtp.mailfrom=8alias.com;
-	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
-Received: from mail-200170.simplelogin.co (mail-200170.simplelogin.co [176.119.200.170])
+	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=pdmSeHB3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.171
+Received: from mail-200171.simplelogin.co (mail-200171.simplelogin.co [176.119.200.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69260606A31C
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 15:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69260606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C6D606A31A
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 15:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03C6D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793461452;
-	cv=none; b=fy1nhGxdBgNPgBGYeULAMIbyVTYhTLWlYJG9Dg5X4DK5q9TR5h08gWPaXE7ssGltP2iEaX9fIomiSaTdWZIVkjb9Yhe/2zkUjy8qQvVPrjt6m0mbQqNM/B63TsmUakCuncyptv4opAn78uoF+H0BXBIPiIrqtpNijmCQVPJpDVt/9gMiu4/oYRvNaco3eKUMfH01epZYuy27C6Q85BcUo/b5BfQS2n/iHvYbXxf/rqxHvHZm4rcCJzBqS8e/82e743q5p1dTnogUCJjeeOVX8/EvIoIznFYLkNxpyTDZn2zDXEefxtAAA2/eHZnP0UG/yFjMZNsp1b6s7eMaFMYHTQ==
+	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=pdmSeHB3
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793461522;
+	cv=none; b=R1yaqRoAkJutIgCrLEX/vyf/pc1F7iJ6ImnoDgWV9cFJm3lEWumVvfycF4yVByHm6oYJymTjcETsFHmCej8HHXMHOdzcGf+exwyGoQ5VxIif1+ozRL7s5Ws9zLTvx1awCEaakZOuNW6ivKk1eJY4/aeHzV4BGjM98UtcF+xktt+uL6uq7cL7Ehgy5yZoBr4ZaxXNb8XyOqf9FS0Oo9y9ggx7Rvkvp3kaHkr9TtiE7j+cM5QWDVnvQiXiZ4I15uq/cWwislZI9dkog5C9d4Luig87n7gjlV+FR+irsEVMpUG+ThB/hMUESuhPcR8bRPoY8YmaEcAl5GsAd+kY5meRcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793461452; c=relaxed/simple;
-	bh=AaZu+tZdoMwvlXleI2bXaZaMVRyFk7eBBWZBUTdqvVg=;
-	h=Date:Subject:From:To:Cc; b=GaJMk2VjNlyoblVTAhJJ3jgsYCI+Y7E0cDKngujSXWVYnlxJLXcQYdljvxiiKiSQOh0Jf9toSWxpjv/Hf4w1vPNhRg5sqDXKMDl/EnO7GOpHSSIkYNeKpmymSNrPZk1K0iUVPHVg6wW8ch4NktAV8iLPsCyXHubIDMxPVlNkRbFL35LAsswigJ3ZA40CZLjfeK68E/ih0u3L0QuX0UNBOvb1nvDcYKRHU9RbObBxi7FrGPKmdSVOVPcDBQggnqQ6N1elFIpCxn5YCDn/Nt4psJIvb7dnAjP4FIqj9JbPIY739G7swjoN0E/kUQEdzbgvPj0Z/C6QG9Kjk50KGkPUiA==
+	t=1793461522; c=relaxed/simple;
+	bh=qD482B1x9OW46mcV0NOxxvY9DRkgOEV3+OdPHjQp9+k=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=1isziRkVfAFINB+SSUOs5Obv+evrJQkOW9IvLevXdy5tSEee1p0mGXEpn4NaUvuBUrqqVmETGUiyuYs/9sHhtPq02hJJJcBg5vIpxrHOP340YzK9dt5J8G1F/o35FP/yQwe9QAODspSMyTftt+hv6UScz4m78tGylDlSqJibbfBlbjW4U6wtHrAgdtnDfzS8N0nT2fRaYoO9AAlEJWsmR4TgZVaZ9X99awff7Br+W+wo4+z+5EA6tYw9UDslLQ3C844LzKcQeNAY5crveq7guv5kz8FnLVMbLO3kOP1i8dx4143MMZqWWaOF7ft8OI2sHHw9LGsm5Gc2OJBFu5PyZw==
 ARC-Authentication-Results: i=1; mail.protonmail.ch
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
-	t=1793461452;
+	t=1793461521;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
-	b=vzQKTonTT5HawogrM6SpGnIN1YVuH4qET1IATmnOM465cKAMVDHshDrQeR3zFKqK2uqMHE
-	UI30wJsVOVqYOOoCS/XAg2NupgZJAc83xu/teB4lcBG0yZYvtt2509EOtVOjZHyTmxYsKC
-	X5w5K+/FECZRp3pfmAoDdmWDZF7it4M=
-Date: Sat, 31 Oct 2026 15:44:03 +0000
-Subject: [PATCH 6.12.y 0/2] Fix ioremap of addresses above 4 GiB on x86-32 PAE
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qD482B1x9OW46mcV0NOxxvY9DRkgOEV3+OdPHjQp9+k=;
+	b=pdmSeHB3HPsR4w43goZTKVojtsSynHw87P4a1NEOtPmgtZT5QfqZEt+qXvamcdJmvbaMrl
+	ork4p8f8wzDYmAZDHHTzv/3AyB0VTL+ZFAWUzl03YR8y0iaEHHa8SOZYJB0cudYdEBd1YI
+	4bzM3VSVh8nmPFCX81qVRycp2p990D4=
+Date: Sat, 31 Oct 2026 15:45:13 +0000
+Subject: [PATCH 6.12.y 1/2] x86/ioremap: Sign-extend PAGE_MASK when aligning
+ the physical address
+In-Reply-To: <179346145167.7.7861216093151225931.1735978772@8alias.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,78 +74,61 @@ Cc: Thomas Gleixner <tglx@kernel.org>,Ingo Molnar <mingo@redhat.com>,Borislav
  <akpm@linux-foundation.org>,David Hildenbrand
  <david@kernel.org>,linux-mm@kvack.org,Arnd Bergmann <arnd@arndb.de>,Michael
  Kelley <mhkelley58@gmail.com>,linux-kernel@vger.kernel.org
-Message-ID: <179346145167.7.7861216093151225931.1735978772@8alias.com>
+Message-ID: <179346151984.7.6028133845439165356.1735980824@8alias.com>
+References: <179346145167.7.7861216093151225931.1735978772@8alias.com>
 X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1735978779
+X-SimpleLogin-EmailLog-ID: 1735980900
 X-SimpleLogin-Want-Signing: yes
 
 From: Radek Marci=C5=88a <github.unusual340@8alias.com>
 
-Both patches are stable-only. In these trees the x86 PAGE_MASK is an
-unsigned long, so "phys_addr &=3D PAGE_MASK" on a 64-bit physical address
-clears bits 32-63. __ioremap_caller() and __early_ioremap() both do
-this and map the low 32-bit alias of anything above 4 GiB.
+[ Stable-only fix: mainline is not affected since v6.13, see below. ]
 
-Mainline is not affected since v6.13, where commit efe8419ae78d ("vdso:
-Introduce vdso/page.h") and commit d4a65302dd84 ("vdso: Change
-PAGE_MASK to signed on all 32-bit architectures") made PAGE_MASK signed
-on 32-bit. Neither was marked for stable. They cannot go to 6.6.y and
-older, which lack CONFIG_PAGE_SHIFT (added in v6.9). They do apply to
-6.12.y, but together with the i915 build fix in commit 8fd236b00fc1
-("drm: i915: Change fault type to unsigned long") they change PAGE_MASK
-on every 32-bit architecture, the kind of change that caused the arm32
-regression d4a65302dd84 itself fixes. So these patches cast at the two
-affected sites instead.
+On x86-32 with PAE, resource_size_t is 64-bit but PAGE_MASK is an
+unsigned long, so in __ioremap_caller()
 
-Please apply to 6.12.y, 6.6.y, 6.1.y, 5.15.y and 5.10.y; the series
-applies unchanged to all five. 6.18.y and later have the upstream
-change.
+=09phys_addr &=3D PAGE_MASK;
 
-Reproducer for 1/2: i386_defconfig plus CONFIG_HIGHMEM64G=3Dy,
-CONFIG_VIRTIO_PCI=3Dy and CONFIG_HW_RANDOM_VIRTIO=3Dy, booted with
+clears bits 32-63 and ioremap() of anything above 4 GiB maps the alias
+at the low 32 bits instead. The RAM check runs earlier on the original
+address, so the alias is mapped even when it is system RAM, and the
+caller's MMIO writes land there.
 
-  qemu-system-x86_64 -M q35 -accel kvm -cpu host,host-phys-bits-limit=3D44 =
-\
-    -m 5G -object memory-backend-ram,id=3Dbig,size=3D4G,share=3Don \
-    -device ivshmem-plain,memdev=3Dbig -device virtio-rng-pci \
-    -nic none -nographic -no-reboot \
-    -kernel arch/x86/boot/bzImage -append "console=3DttyS0 panic=3D-1"
+Commit ffa71f33a820 ("x86, ioremap: Fix incorrect physical address
+handling in PAE mode") fixed this by masking with PHYSICAL_PAGE_MASK,
+which casts PAGE_MASK to signed long. Commit 4dbd6a3e90e0 ("x86/ioremap:
+Fix page aligned size calculation in __ioremap_caller()") reintroduced
+the plain PAGE_MASK to compute the size before the high bits are masked
+off. Cast it the same way here.
 
-The extra options get the virtio BARs above 4 GiB with SeaBIOS 1.16.2,
-1.16.3 and 1.17.0. Since 1.16.3 SeaBIOS places 64-bit BARs high when
-the guest has RAM above 4 GiB, which on q35 starts at -m 2816M; before
-that only when the 32-bit window overflows, which the 4 GiB ivshmem BAR
-forces. host-phys-bits-limit=3D44 keeps SeaBIOS 1.16.3 from placing them
-beyond the 44 bits a PAE kernel can address.
+Mainline lost the bug when commit efe8419ae78d ("vdso: Introduce
+vdso/page.h") and commit d4a65302dd84 ("vdso: Change PAGE_MASK to
+signed on all 32-bit architectures") made PAGE_MASK signed on 32-bit.
+Those rework PAGE_MASK for every architecture, so they are not
+backported.
 
-On 6.12.115 the virtio BAR 4 at 0xe0100000000 gets mapped at physical
-0x0-0x3fff (per /proc/vmallocinfo), the device ends up FAILED and the
-log shows
-
-  virtio_rng virtio0: probe with driver virtio_rng failed with error -2
-
-With 1/2 applied the mapping is at 0xe0100000000, the device reaches
-DRIVER_OK and /dev/hwrng returns data.
-
-Nothing in a QEMU boot early-maps memory above 4 GiB on i386, so 2/2
-was tested with a throwaway late_initcall that calls
-early_memremap(0x100000123, 16) and prints slow_virt_to_phys() of the
-result: 0x123 on 6.12.115, 0x100000123 with 2/2 applied.
-
-Unmodified v7.3 in the same setup (CONFIG_X86_PAE=3Dy in place of
-CONFIG_HIGHMEM64G=3Dy, which no longer exists) gets both mappings right.
-
-Built with GCC 16.2.1, run on QEMU 11.1.2 with KVM.
-
-Radek Marci=C5=88a (2):
-  x86/ioremap: Sign-extend PAGE_MASK when aligning the physical address
-  mm/early_ioremap: Sign-extend PAGE_MASK when aligning the physical
-    address
-
+Fixes: 4dbd6a3e90e0 ("x86/ioremap: Fix page aligned size calculation in __i=
+oremap_caller()")
+Assisted-by: LLM
+Signed-off-by: Radek Marci=C5=88a <github.unusual340@8alias.com>
+---
  arch/x86/mm/ioremap.c | 2 +-
- mm/early_ioremap.c    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/arch/x86/mm/ioremap.c b/arch/x86/mm/ioremap.c
+index 8d29163568a7..14529884671e 100644
+--- a/arch/x86/mm/ioremap.c
++++ b/arch/x86/mm/ioremap.c
+@@ -223,7 +223,7 @@ __ioremap_caller(resource_size_t phys_addr, unsigned lo=
+ng size,
+ =09 * Mappings have to be page-aligned
+ =09 */
+ =09offset =3D phys_addr & ~PAGE_MASK;
+-=09phys_addr &=3D PAGE_MASK;
++=09phys_addr &=3D (signed long)PAGE_MASK;
+ =09size =3D PAGE_ALIGN(last_addr+1) - phys_addr;
+=20
+ =09/*
 --=20
 2.56.0
 
