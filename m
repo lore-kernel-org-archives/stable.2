@@ -1,85 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793465762;
-	b=HXUD99/sleIht4ijDDEIzjNgobe1nFM3tb2LvwOjijKAJumXHcv7yZRo7Od2pLGDZ+uB
-	 6AnhpwKbviEA+ADJWaE1+Cgi//pBqmeoe3vC6AYJwYRJ/ufEVn3nLg8fPkqNawr57PciP
-	 6x3WKGOjA04IbMH7Gz9T4/wGMR4OP9+Jei8nrtzgeDdKsbhH/RG8t2hzDdZ6WfBfzP8ck
-	 U6ty2P+ZWp3+SwPGEe7EX0YUQqzmoVzRnrSDgO5twupUPWOtqdy5oYl9jw//OtLeXS5GF
-	 NjeIjp+07lGExRbvEUbExJWxrJkAoCb17SE4FDDhDGu7saqKwbPNA5fUrmw3s+fUuhg==
+	t=1793466030;
+	b=uLnfxf5infC+oGYiem5s3drXXtcAAZKZmgT6mZSXsdOVuTcVQq1//QugV/p2hQyDXLNz
+	 qdK7yBXqW/rTGDYOdfq2esgiOB0F3hwZKY19yxvtVmISGTJEaKVgrA/RrvEyz7SZI2pu2
+	 zMBGOcW1M28dfVBJp2B53JIA3vEQO0XAQL4x0THhB0Oau+UX0rC4Zn1v6Rce9kvT7h9lQ
+	 g2v2/TsuzwSF3lJmj4bsNLXDW68EbkBi3Gybn1gNMWf5MOWIdBevHxIdxuVl8F8+OKv8Y
+	 1pKYpFKAlu1knF8d+VKmLChIGKLUVEvHJ63INdK+0jJ340LSkIP/eUxvXY+zZOjB/KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465762;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
-	b=wXee0MqvZbfBJ2IvZALYdfsIbnP8Nl/lZ9jxaSm3zS5kkAZ4zbatXoT7ZivQKtKFGYlF
-	 76lC2A2a0pmUvAc/z9UBpdyNChuD+vPkk/sCl2JfTeOLTAmBNSXtDmtDHIEXuiV6FxIii
-	 b/REMHkFjsgLN8+/C7EOoENuph4Jf0AwfM3ayuX8z7KKl1WGoJay5HsOxgm6XqKLr8JpL
-	 6VfP3DRFnD0/3nppvU5X1XootrHu9hCMxKpbSN8UUyDx/2DOzmVubLiJ5eZbh4OCwVs47
-	 0tdNSQwA9idKx5IW9JRh0cZ2W8U5GDc9EAKsaqKchYtExK/1noWsvI3IpuHo6/jOr8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793466030;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=AAnmPk24Kspt1k8yzROJ4hO/XohbeWA2YR2BpXBepyo=;
+	b=PT0HR4GaEB2a0Quv+1GtJQAAF4DMpT2poZv1oDBe3TKDDbOkilTdsD3FIdgX5e7D9QWc
+	 8bb4m+VKSsuLBngQaDRV9JeAbewinEJOS5R2XfQY93z+ZmAkuQkguIwTCECC6I4y5NfBZ
+	 JPD29etaXU63QSJ7/bqTCLMY4i8mP3SM3ym/hopFSgGjgKX0CSFxKkKl5ABsCpxZE24Lt
+	 kMqiRXm7Avf4zNIBzfDH0kR5Tx8svRWKXDFYrnKniKABr0wKaKmq0vCnODWjrcF1qeZZm
+	 kdwhwfdPkVh/QRcOBavT/5JQcAX1m2eCRQXrRNVwyNO0TccF9NpqTBmqxSjA8XIiKuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nexthop.ai;
-	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=REnspDXt;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZT+gA5S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53016606A31E
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 16:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53016606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94AD606A31A;
+	Sat, 31 Oct 2026 17:00:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=REnspDXt
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so1471379c88.1
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 09:56:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1793465760; x=1794070560; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
-        b=REnspDXt+lRcxcp94OICDLypGbuOKyCjYRTlZ8QxpOGOD/WcUbDMN8O87C0EzS5UbH
-         MQ4zjwmACZ/pc67zk2cSLhpLFdA/fPA2CijbU5WtXW+A4anQtI977v6hGmbFP8CAVVbG
-         VeOE/gGNtxRthMf33tWZ6UY4ItrNj/LdHDtfulZtzF82/dqO7e6ppHfP95h+EqkrZgQm
-         tFKGT6wZpO8Oew+0k3NsoOYHf148k6g8PFRY/DLQrssuXEME11rbKsfzQQ9bOF4HyYQl
-         ZxeHqNAkvqaMdt1FXjihcuQZ0kT6wvgGewF5IMb7pOmNBK+g9R4V+K82agU4w5nD4Awk
-         IaVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793465760; x=1794070560;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
-        b=O/OKRDWCymlyAozRh7+m81WPBWY3qb3n525foKpMuGf8T2i0RGqUECj04/yqfBgvSm
-         SvIomDiZ/+nLKVl+uOEL/qcdeoOEXKfZLno/4eYo8l0rZoBtx1/1DTDrgR/FEvUjJYlj
-         UO7z+MWIiyAtRDmmf4bnaohU1GU5PxWDAweUGKnk9Cp43yjpJGTa0VRB0DLC6wqc/w2Z
-         vdu5ehx0mVAholR8vBafd/owOWvb4aizCPczQ7nLG1uKh5rhh6l9tL8I0OfOp93mrURV
-         WC9xKYwn/325dfptzyWPwFaO9mXxh0q9bg9fdX9ocAmpLAOi/knduPCtpmNMeKGCbXJy
-         ke3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxrs8WWy1IM7vi6LbX40mrw8/GND8EmpDewopJgpU5nJGVGgiqVIMtU6fx96voUW5lYrRB8Hyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKc0GSALq0+ZmlRdvYxfKdNAEWehDoPupa+WNxwdhOg4ioWttkE
-	tXbtBngpf6gu24bV/+afwb3jo89Hj+Wz2/aYq8EnWvzhYlfoVAGVLFSKLHLea4LK5nSTFXnlH9g
-	YfRMfdNM=
-X-Gm-Gg: AYBFou1qdKMJLX7NjIyRcbuRoukK+k7zT4OLqp9Ep9gSB6DDwzDZffAep/wLhgA+raS
-	wzpG2OLlgZhDjVPv8Lwm3LgiOLwgAV7Tz8/2L88pvvlbznmhaP5llJKevZg2AA9ywEe44GFBgLk
-	HwhE1HPU0gyt+wEH5HK92PYf9YdcRka0CSVQAGJl4kVRBJtWdsoTyFfrCJp3RqY5aeaDbt3YaQC
-	YFrE2zKA41MlULDmarm7sLMhkD/2+/V1oy/thZWjMMaaPdsMfGwPrhWgmue4GdtK2Tz4T82o6Kh
-	r+KXhFfTpn8fyV091ZcGLR6EBV7ZiEZgfIdUE69njC+40am+2fmyVtB6TkMNFBXz8bTwvCSQe4W
-	6UJf4sRriEK/IBRroQZ8AEaKPhDRm0mCdmAGfyswXHeVl5l67NFNIU4OMGp6rKfSqRXEzCVBhAi
-	Tef5KGbeW1ncwmhKP3hZiLtQkIql88Z2TXRuHblVCU3XWC+xd/AWjg4LLbYvO9GFeV1KEgIRvSM
-	BH+nxGTsl9rPxRMw1wzjhKItueWCg/B1v7L/pwcgMzJKBHtFRqQp1VQoe4av0DTTF/4YQ6ALGwt
-	pA5KscdTpE3+P45dXRck2/tasNQ+zg==
-X-Received: by 2002:a05:701b:4517:10b0:185:fd0c:4585 with SMTP id a92af1059eb24-1ac5fb18de9mr7587298c88.33.1793465760211;
-        Sat, 31 Oct 2026 09:56:00 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm17690437c88.15.2026.10.31.09.55.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 09:55:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JZT+gA5S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42AD11F000C1;
+	Sat, 31 Oct 2026 17:00:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793466029;
+	bh=AAnmPk24Kspt1k8yzROJ4hO/XohbeWA2YR2BpXBepyo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JZT+gA5SAFjdF9kWmFjkp6ugIXcuaDr6mQw9GGdHlEQxvIbqhGMgvru2UJgUu4IhG
+	 XCJ3YxaV8+E1n2/SOZFEpeRIwD2nerI7+aO9P2bbm7Pqa/UvrrLNkxHdJBJBw7SQqW
+	 W7Nf43PSStDd907R90ErHXNEGSwuGE5+ph/Jsh5p+vQT+xOHW9Bw4EJu84v2zCZtHG
+	 7K4qxEvzAIP59X+364UQQjS+Jfab+k5bw6Nnzd0YuByudxz2U5AtjSKSTapIm+Z30E
+	 KaRZkJLVjK/k5cVgp0uEIQsj5+JDsAXmtqKXirnNI6pCtPHS4W+o9qdWgWK2YnlK3e
+	 cvofEuF3VhWdg==
+From: Simon Horman <horms@kernel.org>
+To: jhs@mojatatu.com
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	victor@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH net 2/2 repost3] net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+Date: Sat, 31 Oct 2026 16:59:25 +0000
+Message-ID: <20261031165925.780930-1-horms@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <QDISC-6HS9.v1.r3.20261027034729-2@mojatatu.com>
+References: <QDISC-6HS9.v1.r3.20261027034729-2@mojatatu.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,176 +65,135 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 31 Oct 2026 09:55:58 -0700
-Message-Id: <DMJ6JVD0I6KI.2DKEVAB8RYTO4@nexthop.ai>
-Cc: <linux-arm-kernel@lists.infradead.org>, <linux-i2c@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Sasha Levin" <sashal@kernel.org>,
- "Siddarth Chilukuri" <siddarth@nexthop.ai>, <stable@vger.kernel.org>
-Subject: Re: [PATCH v2] Revert "i2c: xiic: defer RX_FULL until all trailing
- bytes are in FIFO"
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>, "Michal Simek"
- <michal.simek@amd.com>, "Andi Shyti" <andi.shyti@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261008-i2c-xiic-block-read-nack-v2-1-76735ed0b0bf@nexthop.ai>
-In-Reply-To: <20261008-i2c-xiic-block-read-nack-v2-1-76735ed0b0bf@nexthop.ai>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 8, 2026 at 6:01 PM PDT, Abdurrahman Hussain wrote:
-> This reverts commit e6fe3ea04f0113fe4d47c03d76e03805a4768ca7.
->
-> That commit raised the Rx FIFO threshold for an SMBus block read whose
-> trailing bytes fit in the FIFO, on the grounds that firing RX_FULL with
-> the last byte still in flight made xiic_read_rx() NACK, and so truncate,
-> that byte. NACKing the last byte does not truncate it: it is how a
-> master ends a read. The byte is still clocked in and is drained on the
-> bytes_rem =3D=3D 0 path that follows, which also issues the STOP.
->
-> What the higher threshold does instead is skip the bytes_rem =3D=3D 1
-> branch, the only place that sets NO_ACK, so every trailing byte is now
-> ACKed. Having had its last byte ACKed, the target goes on to drive the
-> next one, and the STOP that follows lands in the middle of it.
->
-> Some targets ride this out; others are left wedged until the next
-> transactions clock them free. A TDK FS1412 fails the two transfers that
-> follow any block read, so it never probes: pmbus reads MFR_ID as a block
-> and then VOUT_MODE as a byte. A Renesas RAA228246 and one RAA228244 on
-> the same controller fail the plain block read itself and the byte read
-> after it.
->
-> With commit b7e6df2f52ed ("i2c: xiic: preserve PEC byte length in SMBus
-> block read setup") and commit 840d8acc8792 ("i2c: xiic: don't clobber
-> msg->len to signal block-read completion") in place, PEC block reads
-> pass at the original threshold. The PEC failures the reverted commit
-> attributed to the threshold came from the bugs those two fix; all three
-> were developed together against an ADM1266, which rides out the extra
-> ACK, so the regression did not show.
->
-> Twenty rounds per device of a block read and a PEC block read of MFR_ID,
-> each followed by a byte read:
->
->                before                      after
->             block  PEC   byte after     block  PEC   byte after
->   FS1412    20/20  0/20  20/40 fail     20/20 20/20   0/40 fail
->   RAA228246  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
->   RAA228244  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
->
-> A second RAA228244 and an Infineon XDPE1A2G5B passed every round before
-> and after.
->
-> Fixes: e6fe3ea04f01 ("i2c: xiic: defer RX_FULL until all trailing bytes a=
-re in FIFO")
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Cc: stable@vger.kernel.org # v6.3+
-> ---
-> A follow-up to my xiic block-read series, now in 7.3-rc as
-> b7e6df2f52ed, e6fe3ea04f01 and 840d8acc8792. The second of those
-> stopped NACKing the final byte of a block read that fits in the Rx
-> FIFO, which leaves some PMBus targets wedged for the next couple of
-> transfers.
->
-> Tested on a 6.12 kernel carrying that series, against an AXI IIC
-> controller with an FS1412, RAA228244/RAA228246 and XDPE1A2G5B behind
-> it, using plain and PEC block reads and the byte reads that follow.
->
-> The same happens on a second board, where two of four ISL68225s behind
-> the same AXI IIC core fail plain block reads and the transfer
-> after them. A capture of SCL/SDA taken inside the FPGA shows the
-> mechanism: after the last byte of an MFR_ID block read the master
-> drives ACK, the target starts on the next byte with SDA low, and the
-> STOP the master then attempts never appears, leaving SDA held low. With
-> this change the last byte is NACKed and the STOP is clean, and all four
-> pass.
->
-> PEC block reads do not regress: 1000 PEC block reads of MFR_ID per
-> device, each followed by a byte read, on the FS1412, both RAA parts, the
-> XDPE1A2G5B and a further RAA228244 passed without a failure, both with
-> this revert alone and with Siddarth's patch on top of it.
->
-> With this change a block read ends with a NACK, and so with TX_ERROR,
-> like any other read. That puts it in the window Siddarth's patch closes,
-> where xiic_process() sees TX_ERROR before RX_FULL and resets the core
-> even though the data is already in the Rx FIFO:
->
->   https://lore.kernel.org/linux-i2c/20261005-i2c-xiic-rx-fifo-v1-1-0177ac=
-5f72d7@nexthop.ai/
->
-> The two touch different functions and apply cleanly to v7.3-rc6 in
-> either order.
-> ---
-> Changes in v2:
-> - Revert e6fe3ea04f01 outright instead of moving the threshold back by
->   truncated), and with b7e6df2f52ed and 840d8acc8792 in place PEC block
->   reads pass at the original threshold. The code change is the same
->   single line as v1 minus its tail =3D=3D 1 branch, which could never run
->   (Siddarth, Sashiko): reads with fewer than two trailing bytes are
->   padded to SMBUS_BLOCK_READ_MIN_LEN first.
->   Sashiko review: https://sashiko.dev/#/patchset/20261008-i2c-xiic-block-=
-read-nack-v1-1-94882af6e598%40nexthop.ai
-> - Link to v1: https://patch.msgid.link/20261008-i2c-xiic-block-read-nack-=
-v1-1-94882af6e598@nexthop.ai
->
-> To: Michal Simek <michal.simek@amd.com>
-> To: Andi Shyti <andi.shyti@kernel.org>
-> To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-i2c@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> hand: that commit's premise was wrong (a NACKed last byte is not
-> ---
->  drivers/i2c/busses/i2c-xiic.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.=
-c
-> index 5e397a7e63f6..76ef9c26ed57 100644
-> --- a/drivers/i2c/busses/i2c-xiic.c
-> +++ b/drivers/i2c/busses/i2c-xiic.c
-> @@ -569,11 +569,11 @@ static void xiic_smbus_block_read_setup(struct xiic=
-_i2c *i2c)
->  			i2c->smbus_actual_len =3D 1 + rxmsg_len + pec_len;
->  		} else {
->  			/*
-> -			 * All trailing bytes fit in the Rx FIFO. Defer RX_FULL
-> -			 * until every one of them is buffered, so the drain
-> -			 * takes xiic_read_rx()'s bytes_rem =3D=3D 0 path.
-> +			 * All trailing bytes fit in the Rx FIFO. The widened
-> +			 * condition above guarantees rxmsg_len + pec_len >=3D 2,
-> +			 * so this cannot underflow.
->  			 */
-> -			rfd_set =3D rxmsg_len + pec_len - 1;
-> +			rfd_set =3D rxmsg_len + pec_len - 2;
->  			i2c->rx_msg->len =3D rxmsg_len + 1 + pec_len;
+This is an AI-generated review of your patch. The human sending this
+email says "Sorry Jamal, another round of AI-feedback for this one.
+It is superficually simliar to the \AI-generated feedback for
+repost2, but does raise some specific points that I think warrant
+you expressing an opinion on. Thanks!"
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v1.r3.20261027034729-1@mojatatu.com?part=2
+---
+net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+
+This patch makes teql_master_xmit() set skb->dev to the slave before
+calling teql_resolve(). An skb parked on the slave's arp_queue then no
+longer points at the teql master. It also makes
+neigh_update_process_arp_queue() set skb->dev = n1->dev before it
+reinjects queued skbs.
+
+Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
+
+> The master can be freed while the slave lives, so the
+> queued skb can dereference freed memory.
+
+[Severity: Low]
+Could the commit message say how the master gets freed? As far as I can
+tell, teql_exit() is the only place that frees the master net_device, and
+it only runs on module unload:
+
+net/sched/sch_teql.c:teql_exit() {
+    ...
+	unregister_qdisc(&master->qops);
+	unregister_netdev(master->dev);
+	free_netdev(master->dev);
+    ...
+}
+
+teql_master_setup() never sets rtnl_link_ops, so rtnl_delete_link()
+refuses to delete the master:
+
+	ops = dev->rtnl_link_ops;
+	if (!ops || !ops->dellink)
+		return -EOPNOTSUPP;
+
+default_device_exit_net() moves devices like this back to init_net
+instead of freeing them, so destroying a netns doesn't free it either.
+
+That leaves one window. Every teql qdisc has been removed from the
+slaves, an skb is still sitting on a slave neighbour's arp_queue with
+skb->dev pointing at the master, and then sch_teql is unloaded. The
+unload needs CAP_SYS_MODULE.
+
+This is the justification for a stable-bound change to shared neighbour
+reinjection. Would it help to describe this rmmod-only trigger in the
+message?
+
+> diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> index d6e9c7c59a892..120c3369406fb 100644
+> --- a/net/core/neighbour.c
+> +++ b/net/core/neighbour.c
+> @@ -1339,6 +1339,7 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
+>  			if (n2)
+>  				n1 = n2;
 >  		}
->  		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
->
-> ---
-> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-> change-id: 20261007-i2c-xiic-block-read-nack-d2b735baddd3
->
-> Best regards,
-> --
-> Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> +		skb->dev = n1->dev;
+>  		READ_ONCE(n1->output)(n1, skb);
+>  		if (n2)
+>  			neigh_release(n2);
 
-Hi Andi,
+[Severity: Medium]
+This runs for every neighbour user, not only sch_teql. Here n1 isn't
+always the neighbour the skb was queued on. It comes from
+dst_neigh_lookup_skb() on the skb's retained dst, and
+ipv4_dst_neigh_lookup() looks it up on dst_dev_rcu(dst).
 
-Gentle ping on this one. It missed 7.3, so v7.3 and v7.3.1 now ship
-e6fe3ea04f01, and any pmbus device on xiic that reads a block (the
-FS1412 above, for one) fails to probe. Could you take the revert
-through i2c-fixes for 7.4-rc?
+Two existing parkers set skb->dev to a target device B but leave an
+original route dst whose device is A.
 
-When you apply it, the stable hint should be
+The first is bpf_redirect_neigh() with explicit nexthop params.
+__bpf_redirect_neigh_v4() and __bpf_redirect_neigh_v6() replace the dst
+only when nh is NULL. bpf_out_neigh_v4() and bpf_out_neigh_v6() then set
+skb->dev = B and call neigh_output() on B's nexthop neighbour.
 
-Cc: stable@vger.kernel.org # v7.3
+The second is nft fwd ... neigh. nft_fwd_neigh_eval() decrements
+TTL/hop_limit, sets skb->dev = B and calls neigh_xmit(), and it never
+touches the dst. nft_fwd_validate() allows NF_NETDEV_EGRESS.
 
-rather than "# v6.3+". Sasha dropped e6fe3ea04f01 from the older stable
-queues, so 7.3.y is the only stable branch that has it.
+In __dev_queue_xmit(), nf_hook_egress() and sch_handle_egress() run
+before the IFF_XMIT_DST_RELEASE skb_dst_drop(). __neigh_event_send()
+also calls skb_dst_force() before queueing. So the dst is still attached
+when the skb is parked on B's arp_queue.
 
-The patch still applies cleanly on current mainline. I can resend
-against -rc1 if that's easier for you.
+The resulting sequence looks like this:
 
-Thanks,
-Abdurrahman
+egress on A
+  bpf_redirect_neigh(B, params) or nft fwd ... neigh
+    skb->dev = B, skb_dst(skb)->dev == A
+    __neigh_event_send() on B's NUD_INCOMPLETE neighbour, skb queued
 
+B's neighbour resolves
+  neigh_update_process_arp_queue()
+    dst_neigh_lookup_skb() -> n1 is A's gateway neighbour
+    skb->dev = n1->dev;    /* now A */
+    n1->output() -> dev_queue_xmit(A)
+      nf_hook_egress() / sch_handle_egress() on A again
+
+Doesn't this run A's egress hooks a second time on packets they already
+handled? With nft fwd neigh the TTL is decremented twice, and a packet
+that arrived with TTL 2 would hit this in nft_fwd_neigh_eval():
+
+	if (iph->ttl <= 1) {
+		verdict = NF_DROP;
+		goto out;
+	}
+
+Counters and quotas would also count the packet twice. Tc egress BPF
+programs would run twice and could apply encap or NAT twice.
+
+The second pass might not redirect again, for example if the first pass
+changed a mark the rule depends on. In that case, would the packet leave
+on A toward the original gateway instead of the nexthop the policy chose?
+
+Before this patch skb->dev stayed B. These packets went out on B with A's
+L2 header. That was already wrong, but they did not go back through A's
+egress path.
+
+The bpf_redirect_neigh uAPI docs still say the packet is redirected to
+ifindex, and NFTA_FWD_SREG_DEV is still documented as the output
+interface. The commit message says only "This is a behaviour change for
+those paths", and the patch is Cc: stable.
+
+Could the skb->dev restore be limited to the teql case, or handled in
+sch_teql itself, rather than applied to every neighbour user here?
