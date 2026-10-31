@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793442752;
-	b=GaV62j2Cu8YlNwSSJKTbHc+t8VK9d26WE5N9tF+jxHSdYai2sjFA5qzoDcaTM7PAfxKM
-	 3r+ugUjcxl0igaIY5HBl9gi/a7oGTE4iazamVTPexAvCVqLdQzcCA25gQVo8t1QELR/Nd
-	 8MWbeC94UR875cFns9HwVFu2r9bIGNU40hFWScaMVez9/4QkGDdmEhdfJH9grWagXhQrV
-	 ueXhhjEpFzsa8T5JD8+xNO1xWV1ty2ughGiweTbx4Kh2PEdf16KHQDbM9U8QXSULgvZ6n
-	 N01unCuxFc7P/cC5beRJx5E3eB2JEtJ0EI8ZseX5hQDmbVhB/htZf4n7/ulFWLpX/EQ==
+	t=1793442760;
+	b=SJ2xMA49dm2bPTDgnt88zbdKYNWuGmd/xhI161EPPFzDTb79/p/0sK3/M6kxbbRzzfsj
+	 v8ooIZHnBq7ffB4g6Kj9Aa2r1Ahv16E1O0rrRpH5qSAyr2KbI/WyYrZMQdK175mwwC3Dm
+	 49I573Sd9HCOqMxeShTeLGt9gDVfJMOjeKFHVtqRO1Sc5mgVRGfWS2RYVsYYYqdT485v8
+	 vi5Vmua0ZlqEDIPqe/fNu0O4LyVmv00Q2H9RBkzMFkUj5ydu+lIjSMz4JIogT+9vFcash
+	 JPGSqqCO2PB4/0dgUl4ZEJVVOSPssH02+tNtwtY3LlUGVcRm7IilPO+WZtTHavkVB9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793442752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793442760;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oJN7YW5/O/ypFLA5SZlEpqsSiwnIwF3r1Sqf8UEUf7U=;
-	b=LHCbGqpWDUt2u7u5gLM3LtyAuk/6rtaHMlB6A0L5NlpMnma/IcobkpIORP6csRHpPN9Y
-	 uzDC9jLNRKtjjwa2YVLCXMJCl4MEquXznQL3Ze1TAMSQDxXMPTy3tdxAwneF/LdWJ+Ziu
-	 AP6b9AkDSnMhWdzjF6/SGOK1rJsnfz8acaxvunsn4xby3T9I8jkkrS8VVmjaNg/VJMCG3
-	 tFC5fTRqF0D3SQS7hEcIYKoIBWddRIb1uvDv0niSyb2SD0RCeshLr7ZI9/uFZGuHU+wr9
-	 ZYepbR9i0aYtG7mw4A+9xyZciMH26TNmSHTXgVQXxpEUnXB1LYDDH71kC/OIuzpWqZQ==
+	bh=72vAZbtr72IoRLAfliiOOLU1MN2tQzGpQYioVXZGm+A=;
+	b=nNBExTPghw1z/wZ8eDGDndtC7doLNeRoXb3jU/IN17my5lUmdyeMM+j/YcDV8RzEs+3p
+	 etCxAEeBUhwqhg1Yjjo3Vv1aXgwbTzS0nEWbchDciCIScPkDRoyIZqFzy8lugptSrnR2Z
+	 wx/DlSkP8RKYwUI8sCrdVrAYWrpB4YEzUTuIujt2pMUgN9HL7rcgr0hM4estHroPyWn+X
+	 VHPoptSRcR+M8qXQSR5Z14c/dfdiwBH5EN4d7pg7W7fiyQA3ymR+9ZRrRd0xMRzGky6bF
+	 5LcllFLilzFwHp9uSO8c13kmb8kaRQAcBCdh3uRfAEFZAWR3EQq2kPSOrjrZB1XHPPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IG2dBK1D;
-	arc=none smtp.remote-ip=74.125.227.133
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJla+Xvp;
+	arc=none smtp.remote-ip=74.125.227.139
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC00B606A31D
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 10:32:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC00B606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAB2606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 10:32:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAB2606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IG2dBK1D
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2eb0981df4aso3252385ad.1
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 03:32:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJla+Xvp
+Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2ea993271f2so6643355ad.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 03:32:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793442751; x=1794047551; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793442760; x=1794047560; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oJN7YW5/O/ypFLA5SZlEpqsSiwnIwF3r1Sqf8UEUf7U=;
-        b=IG2dBK1D/gON6XrQZb6YL4yw44KeH4c93SSt801VAPx7/9qdsTBfQkL1IrxWBKO69t
-         Nyf7j8xBomGvQ0LAiZ5F7hJNix1WkxBFT4xlj1cU9d/t4CJe43YrMqqpEwMFvGqWPAho
-         CUWhmY3Y4zsVyG2pWNKK2FcJ5m2zN+eWMS5bAUmkFZIhm8QIFOBdfnVy4hm9meIYx0C6
-         3PXF3JCnsrM24zVv9wrdrILEBBPjtNhs7raZw7HWa53ANAFLvn61w2aTwdFYqX1+BWG6
-         POMgq+7RdxCTPjYp4SwAwZ/CCJcPd2vz812Kl3xcZ0pr9CkNJ6aolObgJFTcvE9WywN2
-         y68A==
+        bh=72vAZbtr72IoRLAfliiOOLU1MN2tQzGpQYioVXZGm+A=;
+        b=qJla+XvpYJ0n1wOLTp/vA2I0Ph+g/WlxhHj1aX+Gq5FJ3rMIl70HU68QPsOxrFNtMf
+         O2d6voG8y7BCFxbNA+HSDr54SHoH8qKQFBMGGvNSaGjpa78feZIva4C5dL39+UdBHCH7
+         nQSLGLQ6rBz7eMaJS4A8fys6ZViwQWuEzNhk6E3OUSPwfdUnS8sf/TVgDrekMFW/duJL
+         JWoqKcASrAoFQAyJJBZbg5BYxIb//X6sotaKjzYyXeuMgLvaZEWxOmcHNbz5X5FIpD60
+         Yvx8LAJbPkN6Pc3npLSHd70Nv0grvVcexKzUMEsaXkGt+iMpHMacdrB5E5FDHuY3f/nU
+         1QSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793442751; x=1794047551;
+        d=1e100.net; s=20260707; t=1793442760; x=1794047560;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oJN7YW5/O/ypFLA5SZlEpqsSiwnIwF3r1Sqf8UEUf7U=;
-        b=O3OHOJIZGu8yaxR1v+4b2wDtD4mKnCenJe2ikcZYlHcT1T8NvrNYmvd6K4uBgUudga
-         eYGjuBhJw9ZA3aXomhtf2Kv+cOkW5wHkuIWi86d+x6UJoUzUxC1saLZeQ+oSvmRQ/Tks
-         OS1ns4pNxrH9/aY58HuG/Rl1JzQPOwDg6e8sWVfLO88vLOZaO/CB88fJYp+dCgnp6Cic
-         dql8pbFPhURugK1lDSVQyXxRMF4BwpbauPzu3EXEb0JdefSBkWhpl0V0D+bA0ULheYWc
-         yMNTbubV4Ud7rrQQU9E/WGT1GQuj6CYv3z5VDAfGMlvPnD2fNr7YMMIjuFL9+b6544+o
-         UzyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxq5pKMCrVnvKGjv5rqNyv3vwWOjHkVMBEzcDupAwfEp6nj+yQOMpEGCoET8EAevGKHXCaNqV8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtyyr0pIvyd7hTQ4EyCHtEQRK+R3F49oQL3uNp5OQXxWq2v5OX
-	FNEzIWTlSeilImq0x5smnW0sRLrKrfTM0Bdjx6Rx04WYRF6SS1uxIWw=
-X-Gm-Gg: AYBFou0NUDOnY6J4cJIJKW5S+pSBQ2xVOCVcqciiUBDd838Wue/hbvcWjZM31aUA/S7
-	Q5eOKo1Hq2ALW/tR80MEbdKmWUBiQByacEs825BSk8Fo3+OiGIgVrK8QNnsbYP9UO8zSsgUGcPn
-	kJ+zOGPZfDz4zyFf8Tj+W1myRQWcoExVAsKNvRhVBYArd3c5R8T4k86fzwv3KGYWkLG22fJvL8a
-	IjU8esf25EWRylgM+I8UlT6xV9oxPlhQi6fKFTE21vSlz+mJv0fiCFLW+e8KeXACuEpFhaPLy75
-	+UyGGB/I3HIWsmF9uixkJvfXOkXredPBD9capoxOXW8FnbXfflrLB+MmVMMSxLdbWSlXYQMpcL6
-	k/rrAydwywOLdWUs3R7zHaJrZ0S1Cl6Y9iqMMEu0j6NRdbzK4JNbLJR3uTanJUhHy6Fv9W1BYQL
-	v3OMN+NxjxCndf9hc/h1faDFOfcIzYaghgdtxLb1pxuuYDKPVJotZFbypBqZlkja/IK8YTGoz2a
-	NhEFDt6wPceMnJOIlOHD/P9ur8DrIz8//MJ3H650W15g8xa1cWlMOYZqmeUDKJOJssy55oOQRyr
-	9B0eZ/a7fqdmnLoaVhAMVa3dEvdNVRU3pvswRNXoomLYmIuGFiWTSo09/T89GQ==
-X-Received: by 2002:a17:902:f686:b0:2e9:87e8:71c8 with SMTP id d9443c01a7336-2eb36395e36mr51829245ad.4.1793442751062;
-        Sat, 31 Oct 2026 03:32:31 -0700 (PDT)
+        bh=72vAZbtr72IoRLAfliiOOLU1MN2tQzGpQYioVXZGm+A=;
+        b=AM2Gdp4UC1qfWOPY08nBkYhuGxpXuVRSBgmtmKwPtaa+ZV3jLctINVty46f5XFzQgQ
+         0JW1SdUrJWVgrSAJCvkdphirJ+qUkAyEWINONjyihmVopCn2/VsT20htYHaaYbYHiIly
+         aBO69rOIYr0nEtWn4u7a6jeE2zbb8MkzpnEQx2TYejzfYGuMU5ri3dCGrR4ERvR+7DZn
+         hK8hkwT0ablSwG/JolbP4F/PQqM5qlhbieCsrBUqxxRQBVZ2AJbPssqkA9+mprl0u2bQ
+         WQm7qX2WLBFKLzwgYMl1jCTLYAgjcvs53OoCn2FyEF8PT0ZVuRxY6cFm6aWlaSQtxfp3
+         zGRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxP1M2laN6bDaRLm60pmlzK8vVQBBP70mUOR0RR39dTyaAzp1ygJe09wwcPYkVE9yqJmYg3oDI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAuVZYc3awJ2RhKcPkbIIVnzGGWR1eHgE9jjgDGp9GYC3pSKTr
+	HGL7n6XySpDO0AHXiQNZGw4h/9EIYhLWVqVHGyWvZS8wHGUS4lskgeA=
+X-Gm-Gg: AYBFou34DtTuXGMFDjgHCzgWqCQVko1cRnpdoznObE59HHWjqo/mVCRCMk7VCvsbfWb
+	Xefoojep4a5X+0+vwNjNZn/nxfF8EQpCsYHvcWvY4r6bWQFCjGWZTMpCRsVJyh0zqFWC6bv2BDi
+	EkIV0/fiPyd/hkOwkVSRy1qf5N/Rwcs+Zq7l31cI9bBfieAVc3s8qlx9wSGo67FJdMceaiZ6QB5
+	v9DKQvvR2CwkhjvAkg7CG8g9kNipakwXq8IOcdIrIWTjp9ifGCzdRU0ptxcF0kDoIqyJVTlEhVX
+	wPQDMumNHa3CcCzVoOr3Rc86U1KIrZxI9CrjNR63zjeDUedN1JSyqK44Llu6WllY27zW0vOhXKp
+	hhTvqiwRMDm+JPN6SyDPz4N+ztw26FMDkfRmt5kI1tMAAvEpCtx2Q6rq7XptjMh04zGUoaV51O2
+	RCmcv/qIzEmupX6JQ7wf99DzseesWKcd9N6nRCHXajINrt2jStLhKmruSnoaInz/qiFJ1gKQwy6
+	2UZj9T2bhS9P5VyfEsbd/jwz9nY+AZAyD1a2nLzt19aRcfLezE3c7LfEGfS7otPq/mjFWtGjqD1
+	YI3E/k9YdbpfrSZ0j6yLGiizemVVvNrlNKC6JN4cfnm1mZuBim4oNEG7imqx6A==
+X-Received: by 2002:a17:903:298f:b0:2e9:66c4:1713 with SMTP id d9443c01a7336-2eb3647f79emr46870175ad.58.1793442759516;
+        Sat, 31 Oct 2026 03:32:39 -0700 (PDT)
 Received: from WIN-2DEDQG69EF6.localdomain ([2a13:a5c6:1ff1:280f:be24:11ff:feb0:8690])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3928104asm14817275ad.53.2026.10.31.03.32.21
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3928104asm14817275ad.53.2026.10.31.03.32.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 03:32:29 -0700 (PDT)
+        Sat, 31 Oct 2026 03:32:39 -0700 (PDT)
 From: chenhan <chenhan0017.work@gmail.com>
 To: rust-for-linux@vger.kernel.org
 Cc: a.hindborg@kernel.org,
@@ -105,9 +105,9 @@ Cc: a.hindborg@kernel.org,
 	georgeandrout13@gmail.com,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v5 1/3] rust: time: rename the rem_nanos() divisor
-Date: Sat, 31 Oct 2026 18:32:04 +0800
-Message-Id: <20261031103206.24051-2-chenhan0017.work@gmail.com>
+Subject: [PATCH v5 2/3] rust: time: make Delta division and remainder fail consistently
+Date: Sat, 31 Oct 2026 18:32:05 +0800
+Message-Id: <20261031103206.24051-3-chenhan0017.work@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261031103206.24051-1-chenhan0017.work@gmail.com>
 References: <20261031103206.24051-1-chenhan0017.work@gmail.com>
@@ -122,57 +122,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The argument to rem_nanos() is the divisor, while self holds the
-dividend. Rename the argument and correct the documentation. Drop the
-architecture-specific implementation explanation from the public API
-documentation; the argument type already states the divisor's width.
+Delta's division and rem_nanos() use Rust operators on 64-bit and C
+helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
+a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
+i64::MIN / -1 case also differs, and neither API documents these inputs.
 
-This does not change the function's type or behavior. It is a preparation
-for documenting and checking the invalid divisors in the next patch.
+Check for zero divisors and i64::MIN with -1 before the architecture-
+specific code, and document the panic conditions on each method. This
+matches Rust's signed division and remainder operators, including when
+overflow checks are disabled. Valid-input results and API signatures
+are unchanged; invalid inputs now panic on 32-bit too.
 
-Cc: stable@vger.kernel.org # prerequisite for the Delta division/remainder fix
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+No in-tree calls to either API were found at the base commit. The checks
+stay in the existing methods so the fix does not depend on introducing
+a math module.
+
+Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
+Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Closes: https://github.com/Rust-for-Linux/linux/issues/1254
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 ---
-Changes since v4: none.
+Changes since v4:
+- Explain that the preceding zero-divisor check establishes the C call
+  precondition; keep MIN/-1 checks for Rust panic semantics.
+- Retain the output-pointer validity explanation for the remainder call.
 
- rust/kernel/time.rs | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
 diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-index 5ae377e70dd8..16b44e82d2ac 100644
+index 16b44e82d2ac..c9a2dc50ff4c 100644
 --- a/rust/kernel/time.rs
 +++ b/rust/kernel/time.rs
-@@ -614,16 +614,13 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
-         Delta::<Jiffy>::from_jiffies(jiffies)
+@@ -412,8 +412,20 @@ fn mul_assign(&mut self, rhs: i64) {
+ impl ops::Div for Delta {
+     type Output = i64;
+ 
++    /// # Panics
++    ///
++    /// Panics if `rhs` is zero, or if `self` represents [`i64::MIN`] nanoseconds
++    /// and `rhs` represents `-1` nanosecond.
+     #[inline]
+     fn div(self, rhs: Self) -> Self::Output {
++        if rhs.value == 0 {
++            panic!("attempt to divide by zero");
++        }
++
++        if self.value == i64::MIN && rhs.value == -1 {
++            panic!("attempt to divide with overflow");
++        }
++
+         #[cfg(CONFIG_64BIT)]
+         {
+             self.value / rhs.value
+@@ -421,7 +433,7 @@ fn div(self, rhs: Self) -> Self::Output {
+ 
+         #[cfg(not(CONFIG_64BIT))]
+         {
+-            // SAFETY: This function is always safe to call regardless of the input values
++            // SAFETY: `rhs.value` is non-zero due to the check above.
+             unsafe { bindings::div64_s64(self.value, rhs.value) }
+         }
+     }
+@@ -615,8 +627,21 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
      }
  
--    /// Return `self % dividend` where `dividend` is in nanoseconds.
--    ///
--    /// The kernel doesn't have any emulation for `s64 % s64` on 32 bit platforms, so this is
--    /// limited to 32 bit dividends.
-+    /// Return `self % divisor` where `divisor` is in nanoseconds.
+     /// Return `self % divisor` where `divisor` is in nanoseconds.
++    ///
++    /// # Panics
++    ///
++    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`]
++    /// nanoseconds and `divisor` is `-1`.
      #[inline]
--    pub fn rem_nanos(self, dividend: i32) -> Self {
-+    pub fn rem_nanos(self, divisor: i32) -> Self {
+     pub fn rem_nanos(self, divisor: i32) -> Self {
++        if divisor == 0 {
++            panic!("attempt to calculate the remainder with a divisor of zero");
++        }
++
++        if self.value == i64::MIN && divisor == -1 {
++            panic!("attempt to calculate the remainder with overflow");
++        }
++
          #[cfg(CONFIG_64BIT)]
          {
              Self {
--                value: self.as_nanos() % i64::from(dividend),
-+                value: self.as_nanos() % i64::from(divisor),
-             }
-         }
- 
-@@ -632,7 +629,7 @@ pub fn rem_nanos(self, dividend: i32) -> Self {
+@@ -628,7 +653,8 @@ pub fn rem_nanos(self, divisor: i32) -> Self {
+         {
              let mut rem = 0;
  
-             // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
--            unsafe { bindings::div_s64_rem(self.as_nanos(), dividend, &mut rem) };
-+            unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
+-            // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
++            // SAFETY: `divisor` is non-zero due to the check above.
++            // `&mut rem` provides a valid, aligned, writable pointer for this call.
+             unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
  
              Self {
-                 value: i64::from(rem),
 -- 
 2.34.1
 
