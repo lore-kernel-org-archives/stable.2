@@ -1,69 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434158;
-	b=am8Lpj2WAQiGoTKjbaA+dy1d1mf7siAvEI39u/WX2H2Yo/J25B9tO+NuUFs0J+lUHU9Q
-	 HXB08YQ1xWckkNBUNubUgehJrCqVzuMbw4vTnAtAZNrzSxpOOVA+Eu3yJ1sSZfyMMw8gL
-	 iPBjJnp9P4czR9VvVt5iQ44zFXhOp/vI7fwxE2JUY3w6or1w1c1ed7nuFVPz1GEiQYqqS
-	 muDr774gAzheogpfc2FirHdnGPxbZSbQA4w86ui2OAd7D/oWlIX5WmK1V56rjcggz1fvH
-	 iZHNf8R4RxcI16URObNVNiG7NPlwT70FjAyWQaKMlKhJsO5mIjyjnFS56gOjf2sPLuA==
+	t=1793434649;
+	b=HXdypWLtmoLoCMT/Fv9SehojOE+7gGsIfS94zU9oEVS4oIHKIF8Bk8ntWY7G2WbmLwkQ
+	 OA0o+np0hneP7JWnlKvw/rQPmoVsXjT0Hyybuz3w8rE/KzO2RUOtg6nUuV3Nfi5klSNqM
+	 GEY81n46vLiUgpyb8dL9at8RbQQGYt5+wRs8cBVKGYOzcqzO3RIPheMWEVsHFkA65/Qd8
+	 Ca1Xtwg9FlHR4rgnspBO4WCN5Oq+9bG8wXQsCXMm+Y/4aVCoy5l4dTDAOJDwNttC2niWq
+	 VqZfTBHcwreZBPkxHHXRrtEMId5SYwVxSiKCmlCQRn6h1+zaQYA/BShST1Qls/b8LHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434158;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=RnvqgoSrjWtcRaf+Oi9x1iTIppA0pS994IV9buzFW1s=;
-	b=qtLno47KPp5HFGbe1Gstdy6HmJD/JSYUQEprjSoK/OPFt9cy96MbgtiQdkA5FEgMsNRR
-	 GTo+lhcUVFFaWmnaw4gw1GDNs3IKyx4PNGQp7sgb6vURKZklWc68CUjWXeu4ATH3iToha
-	 CKV9G4eGSJl0fuJctJjjd9KLIsVxjq1nypfDzMCqqJPCEBq+5uqI5Jyt9eNesKmoQsA/e
-	 uKRBpIxhVEL0836thXyAa63DMCXaf38Y25Bbe96wz3lC6G6cvykkh9KjmsvpGx6e6g5Tx
-	 4gf2MEjb/pMfDWjb/oaW1M3NoihD4qO0SzgWTvIjosIwMbY7yfNXnm7Uy4SoSMD2P+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434649;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=;
+	b=EGIH1z6pWqsLXY2hw7cbsH31uPI9ahsMcqFgWhwt307nNwKY6+flcqBPXRXFGUWIQ5v9
+	 ErHfBTlz7L6YihRVjtm3CrSpT+hH774Kc7AhOCj0psX0EyjP2l5Lpb4G5FqUORsmzRTD2
+	 6eaQe+uuS4cGvwhGHmU8vUAKawG0IhnAOvQQIy2poyBhgpjbGjXaJeN4Cv78l/oZQRv4G
+	 DVcfa3bdT6d1Ix3TYrskrrT1pGY+GuFs7Lt4b2y1UGURDfu+D0bzbrJ+6UK7kY3iHLEWu
+	 1CYjPUwXpJY5e3OHh10LcPdBtdlwFVz5cUeUHDMc2AM9oT+3+SncTD3RXo28gMy71HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ugreen.com;
-	spf=pass smtp.mailfrom=ugreen.com;
-	dkim=pass header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=tGHCZvBU;
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=fC1Xdnrm;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AUtpj+K3;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF68606A31A;
-	Sat, 31 Oct 2026 08:09:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAF68606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ugreen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ugreen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0676606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 08:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0676606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ugreen.com header.i=@ugreen.com header.a=rsa-sha256 header.s=pkvm2402 header.b=tGHCZvBU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
-	s=pkvm2402; t=1793434084;
-	bh=RnvqgoSrjWtcRaf+Oi9x1iTIppA0pS994IV9buzFW1s=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=tGHCZvBUxYwfGQYKElZjMKZBk8eLryqTfJzbCKGnakvz9FqcbW14OR8pVmlCqELzv
-	 kpQhd3KCv2jZHkT79bv/cIS8LfpKdPkLqsGkD2gzlBfUPySiEwouFxIyn5n+xeFmqd
-	 fYGtHIguZRoYdIWzprJptq6b2nLtMA7AytB+Hugs=
-X-QQ-mid: esmtpsz18t1793434078t1649ccbb
-X-QQ-Originating-IP: c8GaQ2EYajltn3AmncXnv8Yt3WeNED7CfE6+ZY7iBSs=
-Received: from exmail.qq.com ( [14.153.241.169])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sat, 31 Oct 2026 16:07:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5247943412128054743
-From: Hanson Wang <hanson.wang@ugreen.com>
-To: netdev@vger.kernel.org
-Cc: Sukhdeep Singh <sukhdeeps@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: atlantic: stop TX again before freeing rings
-Date: Sat, 31 Oct 2026 16:07:49 +0800
-Message-Id: <20261031080749.3688666-1-hanson.wang@ugreen.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261031032308.2991494-1-hanson.wang@ugreen.com>
-References: <20261031032308.2991494-1-hanson.wang@ugreen.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=fC1Xdnrm;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AUtpj+K3
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id D70B8EC01FC
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 04:17:27 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-04.internal (MEProxy); Sat, 31 Oct 2026 04:17:27 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793434647;
+	 x=1793521047; bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=; b=
+	fC1XdnrmdpGbz5gPs6TMNyPflsV1D6yfF/blWE2t4DONYl2dqg31kR8VaX+Y/8ur
+	9z4U6l4/CeSBx7ybEjXxnv99dlqkoQEuP9FiG1ghzJekW3V6C8sh8yBfezngJUt5
+	MRPxJTjI+z56m2IwAABBjIhe4EMTSXhktjN5lbo1Q9u0E0ysfgzeePmNU3gctBpz
+	R9V6Wodgkh32LtiB3Gee9+PuPnFqht0ZmhilqlQa40BYd4ZFUWDLddcLUCd/lYnn
+	68ayN+P7nvZTSkmPr5OtINiKcavaqCMygevmQDsK9V73my+WLWPNDu6LmjPfP0Pm
+	0Lhq1NcnwBfejkNRJWSmGw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793434647; x=
+	1793521047; bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=; b=A
+	Utpj+K3ODS+KpSYo+MzzYuHHnDYqwQFO6zHnQ5dL5/cUDS6CO0sr2+DCp3Bzfnd9
+	mp4nSnaYxDPY8osSeWEz+7VvFn/wM3HQbw4adWrY8WWWfLRtsUkJw89Xel1r9eYT
+	A56mrZOQCeOOCxyxtjhhX4CMeQmNipPhkYWkwMswtTbJAcxr3hRmhp1faVpJdX8Z
+	9AbPvuBXVz9m6yhEyZI2ilWdOAjXPPcwnRqzuR9JFVXOUxkuMHIsgS5O4YMuSLFC
+	JgCFeCQqfWjK547fP09bMdNCAp0p2g1ofHdsIzCQIZoXSXAQEbGF6lkoM7NOAs8T
+	Nug68R8Ebx0H8sDrB6F1A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793434647; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:bBuOyQbybwYklXFnX5IfsgW5n0sFNKx6CL4NCvmEkVNFt76
+	NWLtAQucPv0UKPl9ZIn9JfnUqnkCj+0j2CjBMEE9tF2G1nWl7ASxt1Bz2OpOsDA2
+	40Ewq2u1YnarJlZJapVYSLIDfInpWT9pL+w7nEScVyB4nT5nLOJCt7pLPte4vTDt
+	2g0okXF5FGP1pO09dxfnfqyqbOsQe0/HBXkE+2Lfc6i98soFkU/zSy5tdBEcRGFv
+	eVw4vclbhSLxm1HgSFo9U4WsTbZMtu43KO9PiaH3FMY9Ym7sOgSh8KcixuCJ1Hvz
+	gnbcvDw5I+7blD62aRmv++cbdF3CqwZxBGEAuqg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:NgRDu01O8AU+upvey9fhsFMNhDK+YFrnyvatWUp2FAI=:qA0pD7FKCwuP3nSZJSt+RalrmtELdTli0/GLgZVMqbw=;
+X-ME-Sender: <xms:FqTlarTAXyfJzZTvnKYHsJKhw4oexrrK06Wr0ifXUPQt_vqMY61Feg>
+    <xme:FqTlaooT2mSozW3vIUcf1LDMhpPRydB9_L7UW9STan3911-gBf2dxIhTRddDce12_
+    BTDNnOXvqpKlje0cQl60pGiuuRhhbZnysSP8rlw1jRmBeJs3IAOdDvC>
+X-ME-Received: <xmr:FqTlasU0tJbTmw-Cvuy73cUnd91nAkifnl9SBF13IRmLn-j7ft-cf7q8pSxPZKlyNXIdrlnJmNwaMYftXr95eU5p1Xd7SYsm>
+X-ME-Proxy-Cause: dmFkZTEEH/UJEPA9dFtELWv8H2w/4/6VOoy/nZUvDdlDrm2SZTJQktOY1SfcSO38GcYdzt
+    ZyJVUA5jlXpSokW5ISylG5172c+vkMtf+nEAi2KlNubVue14ToIMna38mONKrORJ27Vg9I
+    BI3IwgY62OaXndpah7x8z2qzlc92s3hte7KYWks3NHycZjregzSbmtLQOHfBMtZx2jAAVb
+    wY7phBpo2F/JQGqm8uYR8xdbDxlwSpWhP76vOVOV96948hLFqJUdp9A+iBx8bW6l8gTKFG
+    KRF6bZtVBh7ld597JyyaBVFIk/2CN7vFz9Eg0SijT3GQmN8xnULwnANcI9hVPWhSkj9hN+
+    lPsclQjJFqARg/Ov28Pzl2nx1n0C/yA2lBJ7aOtcdbntM2jtvDbBlvJcsU6d+U72myzbuG
+    Gh9HP0Cu6be2E0BYezSwd4Xl4lr6DDWfL/PYMVx5whrUnmy9NBfYOxpHi+2pelvBSuN/JQ
+    EelLtSVqEqQPYW/I8wzClQck5y9PbxYWD1wtuMfkaUXPlKL/od2IOLyVrd9gTJAWI+Nzpi
+    X/rvZ+DFB2I/KKwCiopzMA9w8+w9ZiXWx6FCMsukWh8G29ldYYurCRrVuZPbI/7NHWCUmF
+    WHsrKDqXD5O7upJAtoSKC3EYjyLHXYeQFzN5IOrwXtOuiwEeX3G1lJBaYQCw
+X-ME-Proxy: <xmx:FqTlau9fMuF0uW5x39SC0caJCwpoeI7cR_y4ewSjI7zwS49vcd66Lw>
+    <xmx:FqTlasZLY1J3INq9MDp9pbgW6ZATK42k8gjhX8cl3wl9hZWQ3YlDnw>
+    <xmx:FqTlaue9PpkdGY8eaLeuSxmSfugrVT0RFibeKA47RdFg2ADFNBMT7g>
+    <xmx:FqTlauqGEgsJr55ngQlBn5PPGgip4ZD0QbMFP1gPm9iSv15LDR2e4g>
+    <xmx:F6TlamkqZ53OFkNEMU9Yu5eLZQh_vUIeL9E8O5J4cm6wSUwkLct6LR4Y>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 31 Oct 2026 04:17:24 -0400 (EDT)
+Message-ID: <922c7eca-79d5-497f-8739-91973702b969@pobox.com>
+Date: Sat, 31 Oct 2026 01:17:23 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,26 +119,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NdaCjfXsdP3wlt1RKLf7jtqv97F5vtNq70Fvrawe+X+PK3yNWyFzsAxh
-	yGoQVA4N4uGwjp2mxlKTRGcz2isIyzn6Lo2J4JEMML25Gq/zizrfbMTbVs9MvQBDOuyWzEN
-	VVZuj+Gjt/00d+XEz3aaQzSMSr2EJH1v9Z/h6upRL6V4AxekCb1LNIyRY0F6S70x9JXSaV8
-	UliBrBf95fGa0R0PiFhyAZcp1/WU/0bihgzdsIz+G3g+t35+iN55tFGQYOflf2bQq8HsInz
-	5wf35inqvNRMkYm7k5Ff3qktDPYzLxfII1WDujYO2PljxLNAFiehxXFa79SYte3pUbEIMmj
-	sjLNW839NIoNJesayEe3yMZwFJMDOWi/o0mV31bccnImnJ+cevOdYJ1vo+Xk6XPJHz0EPmq
-	YEeqQg7LTPVALip7KGd9AZAzMklJaIOcJZlBLpguKOMk2pkUeyORb5DTSCFplRjJt71oU1g
-	JCYUOWSwpocSIVoXHRQyW644mZ/GQPDsRSjzkSHXAww//J6V3cnuLR22GmnJ5GwSaAPCO7m
-	80CYBrDuK08OLWbUmVvRSB6nyDyOuJktcliEHl4BH3sRE1gV9TpdsPjaRyrSe6wxOwu+VRS
-	hZAv6YCyRDpySSfUcshZh1uGSzD3Vjh/TMgcbvwcDKIyLkQz9LXKbcji/2boxfZX8zgrelS
-	L8Vob7peJtOES039iE9odh38Dkqw93r9MF8JXYEH27NJ0hFjwQclwCj4fGYqPTu0USQpoxo
-	2dTkdoH/OhCcyb9ngSeC87wsbLIIR4vJ28gGHLcFhhns6LVy4caIAwhj6Y5NH7V9AFZeq1f
-	W1SyuXP4szqQ3CgmcqTTMcahu9gl6Fc+rheuOM/3jGYQij4ynuMiizjgI+aPIQET1KtewzR
-	w6sRk62XJm/vbVX52weuknz/oql3MtnncJu/HvPJTtkccfahzV9VPd6CaDZnucZ4lrKdihs
-	ZURpan/67ru+0SJsTI19txF/4B4JzHlOLolvYSJQaN13a853Bgzw0CZOYb7OBURXmm2Z8Jk
-	K2ybPR5VduMWjvOKEU
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261030121255.257615100@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Igor Russkikh is no longer at Marvell. Cc'ing the current atlantic maintainer.
+On 10/30/26 5:15 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.15 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 01 Nov 2026 12:12:50 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.15-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+
+Tested on 3 amd64 systems and an arm64 virtual machine. Working well,
+no regressions observed.
+
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
