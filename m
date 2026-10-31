@@ -1,51 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793408208;
-	b=cg/3i2cOA4gJPn2uGJHfUsg6NHyKkcHcKdCZDUluWRiVd2a902aXdHAEvtY6nLqapF3i
-	 hAW3spuTa8efCDnVCmqL9XhaCZ9yWLAN4fA+trC8Var2p3mC+OFR0I8OfCNbBi48ImLue
-	 YPOBrhkjzaQ5at9DRwq0KiOiNkNw9s3HeSUSOoEkPFYgiHJMp4rjmqhwSG9fgYr9Ni/R4
-	 1mWvnXbwI044Q49cpEE8e+78eh3wPv5OwoCjoN/lQTqE/MMEskKfbHR9c5zTGtnY7c7EF
-	 rZFRwjTTBdghd2jg7/i1wxuivbKB3h/Iiihbr0ylBZWwoemE36qxYClRp2qpF5YZfvw==
+	t=1793408500;
+	b=oCTkYLHoJwwSgqaOuDsgBPuxB4m6Hgt6KiUQ6Hsara4Lq4/2Pso27qfuq5KbfOTzwN3F
+	 GWOVxk/csHGyckh6uRcSIy0shAfReDQ1CI4wfYUZGbALFEg43rkEN4tnm1pEZkEGDxbxr
+	 7E4pLOUEg0mnDb13f4/o26UVgK07e+5cGeEL3LugVqdC2iPD71US0u1MypKwVsg/38K6O
+	 fyAOuePKiRjyafZXw8b2ntqhNzBJ3ikphv+PN1aPpIVJrNoh/TEWXq5cKoUtjNGLG9Mnt
+	 E76uOouEof31+7cV8Mozt63bEfhsMGu/+YUiUcNLmHSeYwyc6tZB2Y5cB81dR0wMogA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793408208;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=NGNpSqdVFcqijpq8vghpRHt6n6KqyjJmatyCS27rYf8=;
-	b=ttg5V3bNNBh88ZP72RfvQaN/hbK2cNOJ7abHh/UajJeXuHCt4eHL+bNADSNdADGoDpE4
-	 m96y+jI5B279U6FyUxPb8ZZk9AR8Qt1lUtyHjIGznRIHLqyEZB3igT0M+vGqDtqhJnz7X
-	 1ZocXEokPisjT5+IemrFe+9fxeQZl99bmDEsCzWVL/J6L5lLJTP5ZMHALMyOiCfSe2Ohm
-	 5hUiIYLQ97NVCFrIJUDgwXJ8Iw703nu7cLuQIqfA6+TxSrNHPv3j600RIPi6A7yC240Nh
-	 MMAfP41BiYyoi3qTfAPu1pkFQta5c20wSXWRGeR5yg31p+6Y9EIXIDqPK16XffAgpoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793408500;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LZfsTBRamD15PPndPrII3yvEWmYbhtdxrXyNeJy7iMk=;
+	b=Otu3XR/LN2U9ZQ9HK6oApWtIGfItNmOzqXYXckPRpoJlAJBzNkGAn9VIvjwCCKS2yfgo
+	 8mjSB9b0+XrEQqSrq4enJcmbEzCdBc+ta+aUPCqsbaH0d8pBopmPIt/9u76CVXlly3fxm
+	 dmjf43sC+uaF3x6mfUXBUvoYJtwXPOxNidtI5jM9aEWvGUGimZQThWH6MzOYETuQzPrcF
+	 4eAlr4VE6twTSW0K6dQf8U0rHH8ljpXn1JEcrm6k1Qj3PGcgv28Syrp5YVyl2rm7JK+uK
+	 fcvapJIHC07xVLZTjHh+nszLwJPulkwyiRoo8YQ7rpY8qhjBuyxRl7Tl3vr4WvHEyjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=MfRPu7jr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=F0Y7D4D1;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C70606A31A;
-	Sat, 31 Oct 2026 00:56:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E585606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 01:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E585606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=MfRPu7jr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 391301F000C1;
-	Sat, 31 Oct 2026 00:56:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=F0Y7D4D1
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso11396855e9.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 18:01:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793408207;
-	bh=NGNpSqdVFcqijpq8vghpRHt6n6KqyjJmatyCS27rYf8=;
-	h=Date:To:From:Subject;
-	b=MfRPu7jrmKMtGWufc/sVnaNv2a7NXChNRDcRJjO4aO8/I0HRWKCd6UVdCvyiroMf5
-	 0SxOsbT8IwP4xUYhmmblC/ESoR5obaE407MoL56x/wt8xhXrIGteIltugsosuqK/Ep
-	 0+Aheeweat/1bNKTo+4g1/tgDxFdU8yKQQgtQR9g=
-Date: Fri, 30 Oct 2026 17:56:46 -0700
-To: mm-commits@vger.kernel.org,ye.liu@linux.dev,vbabka@kernel.org,
-	usama.arif@linux.dev,surenb@google.com,stable@vger.kernel.org,
-	ryan.roberts@arm.com,rppt@kernel.org,nico.pache@linux.dev,mhocko@suse.com,
-	ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kas@kernel.org,
-	hannes@cmpxchg.org,dev.jain@arm.com,david@kernel.org,
-	brendan.jackman@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,
-	ziy@nvidia.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261031005647.391301F000C1@smtp.kernel.org>
+        d=googlemail.com; s=20260707; t=1793408499; x=1794013299; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LZfsTBRamD15PPndPrII3yvEWmYbhtdxrXyNeJy7iMk=;
+        b=F0Y7D4D1WpvD68HyCqk/6sbetNEWS3Lm3B/x8NuTjvGaU2zNv10or/rcVPfy8jPGar
+         MT0/AOmi2oXnoSVQ0PUW9u9NSg7/DLTIwjEwe7Tf6MGUhYkP5HiAG9gsbA5dyC6zXjD8
+         raKZN1ffprH5QTxdJyaTqsNuQAyoTd9torSq1RmwbgTwTO3FUV9Fd0gzh9pFXW14N2/9
+         p/Y7xM3cULiLH5joXcqMPCWsV3bGPLw/TBauugYaITc0/J1ZBh4uicDwsIHJkwoYzJ58
+         8Wv9Oj9xT9DES8kerqQwU3UTYhqHmtO6fSbSLD4tfGxK1mL93M5GUKR2PAhGUIIyyYB5
+         CT7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793408499; x=1794013299;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LZfsTBRamD15PPndPrII3yvEWmYbhtdxrXyNeJy7iMk=;
+        b=14ngmRDwcWOzCIxpJm8TkamHUPIJGKjtkXkouCg9LHJT9cGJRFKPwvfMsQTt1jtarH
+         YKmro+WLcndr8uA4gQgVMgoyWJPrwGOtC7jGfvXmTrN1/3Q3V4OwyQ/ZTpwh84xCLtCh
+         D1ybWdyYcjRSmV9t1ulHyHBSAQR/ezMxwI3/C7nwY6U2rnyYM4n5ZrWcOL3pET5boQEZ
+         pgblmNaUJ2OSL/5isEKTG28kXx6kaZxF1ec9uz116oZGWarHOjiajrIDDpVBFsitsMcu
+         eq+f6YwdfJ1uSaifx7HGS2/CteRxvByo1q0EOAqINKokslN0Ut6BwNzV5GPHDMom4Zcu
+         IjxA==
+X-Forwarded-Encrypted: i=1; AKwUvByRHYo+HFA7mW4s8wkoqnx/eKKEAfOHHWIQmC7zXfXS3UV5wPTx0baNe/bz1eGDP1cqsXP0PUc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI51ipOqq1CSQxvwvKPRyPpQZbYT+8DXuXhVAcM3+smq30bUoJx
+	2KGvfKxIZIbUSKy98PS5qMcg5uwLdsvG6/p2+X0lEiAlOl6Q4JKbBK4=
+X-Gm-Gg: AYBFou1psu0DBEtkcEqDvci+dh+dMQ0fzAxJAoryRFfiZ4FOEq6BT7LjpC7D/wA84q/
+	s4JiDLcKx6/NSreN8d/neKGN+OpK9M/Lr5g8jWjQbWZtsZG9DG5nDIn5SHtxlYqwuj+fFKsTzK1
+	RHLlilTi/LxD77gykGJqGV8qIbBEQfqb3oEVVthlE9olr1cdBBj83SumuhRCNDUogRgJXeHYKtn
+	Bl4d/v7CFxyuixXfqOozX7BCMaTGKKaZmBISNaT9McnYu6MhnMFYoM1WMbhMbcbUB5L9eaw4WSW
+	WJxogNiZbB+XiqZrax3OrANCY93XsEvvFnltnuO36bD0NIXyDLAuWNOUqz5nxzWsCsVUoZGzMn2
+	AcMK/xk9+7CKDOv+ytCRHxmXefGzy4NGNKP5HOAHc8imu2DYJKwsXHijE8XSNSkkPyJuA2kyMLY
+	nb3mNI8yiyk49Hk5oEon8YQoIjQG9coLllFcfDTT8zvV1x9mf0Yi/xd0grte0kFieUrEoDmBE9H
+	I36iSw99+N21nIB5r3RKP5MZRsN7ldr/tmGWnEUOdW7D+yXKEtMDxkFcbAyIVJ/UXE3i0sBcmvy
+	tUN2SUwtV6qicSXczEcagQhfGQWB0q9KUO65QH082Oo2HBKG+++Wd+WX6w92lMIyNyzgtwXD4BI
+	JAvo=
+X-Received: by 2002:a05:600c:198c:b0:4a2:5ca:767f with SMTP id 5b1f17b1804b1-4ac151a9a36mr94244865e9.4.1793408498561;
+        Fri, 30 Oct 2026 18:01:38 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057761.dip0.t-ipconnect.de. [91.5.119.97])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm146688815e9.3.2026.10.30.18.01.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 18:01:38 -0700 (PDT)
+Message-ID: <0db80581-4d82-4771-a495-4dd1c4a1c282@googlemail.com>
+Date: Sat, 31 Oct 2026 02:01:37 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,196 +92,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261030121255.257615100@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 30.10.2026 um 13:15 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 7.2.15 release.
+> There are 10 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
 
-The patch titled
-     Subject: mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order.patch
+Beste Grüße,
+Peter Schneider
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order.patch
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Zi Yan <ziy@nvidia.com>
-Subject: mm/huge_memory: prevent losing PG_waiters in __split_folio_to_order()
-Date: Thu, 29 Oct 2026 22:08:44 -0400
-
-__split_folio_to_order() calls prep_compound_page() on each new head page
-to create a compound page after clear_compound_head(). 
-prep_compound_page() uses non atomic __SetPageHead().  It is mostly OK,
-since the folio is locked and frozen and no one else is supposed to modify
-the folio's flags.
-
-However, code calling migration_entry_wait() can reach the folio by PFN,
-then access its flags.  It is because softleaf_entry_wait_on_locked() used
-by migration_entry_wait() sets PG_waiters concurrently without taking a
-reference and the frozen refcount during split cannot block it. 
-Meanwhile, __SetPageHead() does a plain read and write, so PG_waiters
-atomically set by softleaf_entry_wait_on_locked() will be lost if the set
-happens after __SetPageHead()'s read and before its write.
-
-One example code interleaving:
-
-CPU0: __split_folio_to_order(new_order>0)  CPU1: do_swap_page()
-
-1. clear_compound_head(new_head)
-   new_head->compound_info = 0
-   (page_folio(new_head) == new_head now)
-
-                                           2. migration_entry_wait()
-                                             softleaf_to_folio(entry)
-                                             page_folio() -> new_head
-                                             (not the old head any more)
-
-3. prep_compound_page(new_head, new_order)
-     __SetPageHead(new_head)
-       tmp = new_head->flags.f  <-- load; PG_waiters == 0 in tmp
-
-                                           4. folio_set_waiters(new_head)
-                                             set_bit(PG_waiters, &flags.f)
-                                             enqueue on waitqueue, sleep
-
-5.     new_head->flags.f = tmp | (1UL << PG_head)
-       <-- store; overwrites step 4, PG_waiters == 0 again
-
-Later, folio_unlock(new_folio) sees no PG_waiters, skips folio_wake_bit(),
-and CPU1 can remain blocked indefinitely.
-
-Fix it by adding the atomic version SetPageHead() and
-prep_compound_page_atomic() using it.  __split_folio_to_order() uses
-prep_compound_page_atomic() to avoid the issue without adding an atomic
-ops to other prep_compound_page() users.
-
-Link: https://lore.kernel.org/20261029-fix-split_folio_to_order-race-v1-1-a483c7451b0d@nvidia.com
-Fixes: c010d47f107f ("mm: thp: split huge page to any lower order pages")
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: David Hildenbrand <david@kernel.org>
-Closes: https://lore.kernel.org/all/DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com/
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Ye Liu <ye.liu@linux.dev>
-Cc: <stable@vger.kernel.org>
----
-
- include/linux/page-flags.h |    1 +
- mm/huge_memory.c           |   10 +++++++++-
- mm/internal.h              |    2 ++
- mm/page_alloc.c            |   20 ++++++++++++++++++--
- 4 files changed, 30 insertions(+), 3 deletions(-)
-
---- a/include/linux/page-flags.h~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
-+++ a/include/linux/page-flags.h
-@@ -854,6 +854,7 @@ static __always_inline int PageHead(cons
- 	return test_bit(PG_head, &page->flags.f);
- }
- 
-+SETPAGEFLAG(Head, head, PF_ANY)
- __SETPAGEFLAG(Head, head, PF_ANY)
- __CLEARPAGEFLAG(Head, head, PF_ANY)
- CLEARPAGEFLAG(Head, head, PF_ANY)
---- a/mm/huge_memory.c~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
-+++ a/mm/huge_memory.c
-@@ -3781,7 +3781,15 @@ static void __split_folio_to_order(struc
- 		 */
- 		clear_compound_head(new_head);
- 		if (new_order) {
--			prep_compound_page(new_head, new_order);
-+			/*
-+			 * new_head is recognized as a folio after
-+			 * clear_compound_head().
-+			 * softleaf_entry_wait_on_locked() can set PG_waiters
-+			 * on it without taking a reference, so its frozen state
-+			 * cannot prevent it. Use the atomic version to avoid
-+			 * losing a concurrently set PG_waiters.
-+			 */
-+			prep_compound_page_atomic(new_head, new_order);
- 			folio_set_large_rmappable(new_folio);
- 		}
- 
---- a/mm/internal.h~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
-+++ a/mm/internal.h
-@@ -806,6 +806,8 @@ static inline void prep_compound_tail(st
- 	VM_WARN_ON_ONCE(tail->private);
- }
- 
-+void prep_compound_page_atomic(struct page *page, unsigned int order);
-+
- #if defined CONFIG_COMPACTION || defined CONFIG_CMA
- 
- /*
---- a/mm/page_alloc.c~mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order
-+++ a/mm/page_alloc.c
-@@ -682,18 +682,34 @@ static inline bool pcp_allowed_order(uns
-  * This usage means that zero-order pages may not be compound.
-  */
- 
--void prep_compound_page(struct page *page, unsigned int order)
-+static void __prep_compound_head_and_tail(struct page *page, unsigned int order)
- {
- 	int i;
- 	int nr_pages = 1 << order;
- 
--	__SetPageHead(page);
- 	for (i = 1; i < nr_pages; i++)
- 		prep_compound_tail(page + i, page, order);
- 
- 	prep_compound_head(page, order);
- }
- 
-+void prep_compound_page(struct page *page, unsigned int order)
-+{
-+	__SetPageHead(page);
-+	__prep_compound_head_and_tail(page, order);
-+}
-+
-+/*
-+ * PG_head is set atomically whereas the other metadata is set with plain stores.
-+ * It should be used when @page's flags can be modified concurrently,
-+ * e.g., in __split_folio_to_order().
-+ */
-+void prep_compound_page_atomic(struct page *page, unsigned int order)
-+{
-+	SetPageHead(page);
-+	__prep_compound_head_and_tail(page, order);
-+}
-+
- static inline void set_buddy_order(struct page *page, unsigned int order)
- {
- 	set_page_private(page, order);
-_
-
-Patches currently in -mm which might be from ziy@nvidia.com are
-
-mm-huge_memory-prevent-losing-pg_waiters-in-__split_folio_to_order.patch
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
