@@ -1,52 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793451956;
-	b=p5wYh1bC1SJ0SazBEJp96toccBbT7oBe1eFW2rJSrBwix1q2gkBzCm+y74qg5aPUjEKL
-	 O9VGoYcRSwcSiTRyjAu40n8I03Wme7PfanLNZfOIVtXHgt4JD6UVM/q10yU2ddPlqvnwb
-	 kWAN6Aou5j+2OAgp6o+f7QVFr0CHS7kTeWm0YFxpQVBZuJ2wLqhhmeQApsWe6p6vLUGEC
-	 rrwPIb/uK52ZU/OmB59fRA/1tp/LrMYqvOjWNFCDa6fex+LniR3H/pM6WsyLb2mexVtqm
-	 QtBj45Z2NfNX9TWCUtZzOovE+smB0iR++nbGhcwdx0z0nFh48UtWGMxO2/kzRZI6u0A==
+	t=1793452910;
+	b=MrqqqupkFkh6/Oa0+/xdiwcndhovbdPJeOWj1Lc7y6JuGjbPduLVQAH1js3YVR/VJei5
+	 2br6Jnuy72zHGeTlGoMpvZHcEUxd87ceL+IvcfMAExvPHuaNKk3fCYeSOInGGcrea4QAh
+	 UUtguKseesLbI8Gp+WlzQ8wmxEuMG1dVpnT2KesL0BJ2T4b8lYbLuesNM47ClM3GtJ9Ue
+	 sAlDNiI92z2lFJLho4vcNuz5vIkcGCHLBWrpffec7Dm/L5DgTIqBe7QmO8IRqnOW24sUj
+	 RQnOlcpCO6Jd8QXrFNOmZOMPLkNVVXRGnUHXML/ec4JZjDwao1Az/SxvpV4SFbDd0IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793451956;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=0G1FYbn97ZpskU4kXqlNgRJ9OjsqiMFMjdyQhOyqtCI=;
-	b=L2lzQ2bV9rdla0e42vu5lFoL+jfck0yQWxdMpoqrkbRqOya5T09IuaZx+DNQfUw/vm9R
-	 OjTZBogdUyRFm1aBtJOzGqCOLEj2NtIuKtm8FXUICir6CZ+yrUUL/co48JCvfyAwraFxt
-	 1zny+YdBUGLJim0nfD3Kdu78JgjEKcWEVfLNyzAkZ3eFPhDoFpBuc9lZvsRhRA5YYvQwO
-	 Qjh2JlRedrkauHdlA+La1BTQGS4W5GFLWrK/aSjaqvzlX99oBzh6CLl9TLnf2da49QvOp
-	 TlTiLNopH6fs90Kq+QCujbOcRrJ68GNjqtt9VM1sVK7/eR3Ss7tiDA0ppucSMzEXW7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793452910;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
+	b=Y7U3B+KzbzsYzzcWY583R5xVtoJ5CJXYQmhLn4Z3/rMRBGv6dt0NQy2sQHP2yHuoKivl
+	 GT9z0K8hn3/Itqv7itVVdqCMYfXn2KBzuh75AmI5xiBbVbvWBwVQ1VBWt2YSwVi8uQWwb
+	 WEZIRwoVBnKDQXVNc51P/mTbQVYfcZXccnUkZstAalfmTOFPoPbiEWECC1ad80LXIaLWI
+	 RDgJJk9xbsrSMsEGXbn/0sFA5EbE4T5e0MD9vo0cwIhCZZCRbUjYgs3bASYaEnqLtIiiS
+	 jxe4eIeheWkvY3hR5dG1uLL0aQRpJUyaTsAimJ7LUrm1zpPXqO0G2jgNXS+C1HXSX/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EW8HNwyx;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA886606A326;
-	Sat, 31 Oct 2026 13:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA886606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F9F606A31A;
+	Sat, 31 Oct 2026 13:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EW8HNwyx
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 530655124;
-	Sat, 31 Oct 2026 21:05:44 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Tim Harvey <tharvey@gateworks.com>
-Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	stable@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: tda1997x: Fix potential use-after-free on probe failure
-Date: Sat, 31 Oct 2026 21:05:43 +0800
-Message-ID: <7c26d0753bb5a45f4abdec2ae12f2cba20dbd0c7.1793451813.git.liguangshuo@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618321F00919;
+	Sat, 31 Oct 2026 13:21:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793452909;
+	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
+	h=From:Date:Subject:To:Cc;
+	b=ZkBgRzIEkHeFIEu1mBrLS8uCcW/eiV77hYpKgOQEqGa8JuxCDDpwtONKzFMKLIZWQ
+	 ZDcGHuzAN18w/ICIqeC2OI28lVlMy4TtywZSnMdjOhQjCSlDV2bVbLYGQqL/46AX5R
+	 VWvaOxyloIrL5IlyNls7EHZpGbrkAGiEEFWNPaS62hShlFfYl6JRVKGFwkqHOSLtWK
+	 f+cIjTk02/1X1LxYbiWzezfDLyZuBPbm58lsWZawqPEd9a+DGXu0OlXbHPcBp2J4VT
+	 dgmi+KrBHw9uBoO8Q5mZtbT4K66WJceGDICYAHeM2Y3Otx7VA0evWg5rSpfLHeNClw
+	 IFqLnhGEk65FQ==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Sat, 31 Oct 2026 15:21:46 +0200
+Subject: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,67 +52,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa19210e9cd03a1kunm3ff2cb8183bf1
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGUNOVkhPGhpNSUgaGh4ZHlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
-DKIM-Signature: a=rsa-sha256;
-	b=EW8HNwyxbhgn3VQFjKKPl+AY+t6wmioZvSqh8KHKOKoQB+luLIaCoApxe/7oLTPO7hNysyAZ3puvqpTzWDBSaPocfiqkYYc/soxpXZGAfT/j7PV/OYTL4yw2XCCqYxNkhrWh4hew8AvfW32U21MA5l+WOQbdKhyIAmBpXnXTDcs=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=0G1FYbn97ZpskU4kXqlNgRJ9OjsqiMFMjdyQhOyqtCI=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr9LMWmILqU29inEBdIAxCmamGpOmd
+ xd0+X7e+xsIMqHAuduA8U1CJVcYDh34ZHNERUtl0L0+Db2eVKAPirqXkqNln1RYzDSOwZh5mKF
+ WT8afUqPL9c/ycjf0a7tphrOCyrHNPrWpMEXKx4eVFRn2/Qv0tSeakwAAAA==
+X-Change-ID: 20261027-fixes-loongarch-fd3755f33919
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-If audio component registration or IRQ setup fails after the subdevice
-has been registered, probe frees state without unregistering it. A bound
-notifier can then retain a pointer into freed state and dereference it
-during teardown.
+With KFENCE enabled, resume from hibernation triggers KFENCE reports while
+swsusp_asm_resume() copies the image pages, for example:
 
-Unregister the subdevice on these late probe failures before cleaning up
-the media entity and freeing state.
+  BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
 
-This issue was found by our static analysis tool under development.
+  Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
+   swsusp_asm_resume+0x20/0x94
+   hibernation_restore+0x128/0x1a0
+   load_image_and_restore+0x6c/0xc8
+   software_resume+0x240/0x260
+   do_one_initcall+0x68/0x200
+   kernel_init_freeable+0x26c/0x304
+   kernel_init+0x20/0x134
+   ret_from_kernel_thread+0x24/0x1d0
+   ret_from_kernel_thread_asm+0xc/0x98
 
-Fixes: 9ac0038db9a7 ("media: i2c: Add TDA1997x HDMI receiver driver")
+During resume from hibernation, the image pages that occupy physical pages
+used by the restore kernel are first loaded into free pages and then, as
+the very last step, swsusp_asm_resume() copies them to their final location
+pointed to by pbe->orig_address, which the hibernation core sets to
+page_address() of the page in the restore kernel.
+
+The early KFENCE pool is allocated from memblock and normally occupies the
+same physical pages in the restore kernel and in the image kernel, so these
+pages are usually copied by swsusp_asm_resume().
+
+The KFENCE pool is remapped into the KFENCE area above vm_map_base and
+set_page_address() adjusts page->virtual so that page_address() returns
+the page-table mapped alias rather than the DMW address of the pool pages.
+
+Hence, pbe->orig_address of KFENCE pages points to that alias and
+swsusp_asm_resume() writes them through the page tables. But:
+
+* the copy loop overwrites the kernel page tables, so a TLB refill for the
+  KFENCE alias may use a partially restored page table
+* the KFENCE pool pages that are protected in the restore kernel fault in
+  the middle of the copy
+
+Convert pbe->orig_address to DMW addresses before starting the copy.
+
+Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
 Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:gpt-6-astra
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
-Build-tested drivers/media/i2c/tda1997x.o with x86_64 allmodconfig
-(GCC 13.3, W=1). Rechecked the probe unwind paths in source.
-No hardware runtime or fault-injection testing was performed.
+Reproduced with hibernation in QEMU, the KFENCE reports are gone with
+this patch.
+---
+ arch/loongarch/power/hibernate.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
- drivers/media/i2c/tda1997x.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
-index 30dfd8a7b42b..4ff9acbc005e 100644
---- a/drivers/media/i2c/tda1997x.c
-+++ b/drivers/media/i2c/tda1997x.c
-@@ -2776,7 +2776,7 @@ static int tda1997x_probe(struct i2c_client *client)
- 					     &tda1997x_audio_dai, 1);
- 		if (ret) {
- 			dev_err(&client->dev, "register audio codec failed\n");
--			goto err_free_media;
-+			goto err_unreg_subdev;
- 		}
- 		v4l_info(state->client, "registered audio codec\n");
- 	}
-@@ -2788,11 +2788,13 @@ static int tda1997x_probe(struct i2c_client *client)
- 					KBUILD_MODNAME, state);
- 	if (ret) {
- 		v4l_err(client, "irq%d reg failed: %d\n", client->irq, ret);
--		goto err_free_media;
-+		goto err_unreg_subdev;
- 	}
+diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
+index 817270410ef98..ff571ab4e8df9 100644
+--- a/arch/loongarch/power/hibernate.c
++++ b/arch/loongarch/power/hibernate.c
+@@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
  
- 	return 0;
- 
-+err_unreg_subdev:
-+	v4l2_async_unregister_subdev(sd);
- err_free_media:
- 	media_entity_cleanup(&sd->entity);
- err_free_handler:
+ int swsusp_arch_resume(void)
+ {
++	struct pbe *pbe;
++
++	/*
++	 * page_address() of KFENCE pages is mapped by page tables that are
++	 * overwritten during restore and may be protected by KFENCE, copy
++	 * through DMW instead.
++	 */
++	if (IS_ENABLED(CONFIG_KFENCE)) {
++		for (pbe = restore_pblist; pbe; pbe = pbe->next)
++			pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
++	}
++
+ 	/* Avoid TLB mismatch during and after kernel resume */
+ 	local_flush_tlb_all();
+ 	return swsusp_asm_resume();
 
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261027-fixes-loongarch-fd3755f33919
+
+--
+Sincerely yours,
+Mike.
+
