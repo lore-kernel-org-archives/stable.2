@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793475368;
-	b=LPkyWU6psde/pfPtiq3rkqE3vIutNxpBk6WjPldEWWzDgPrp7d9iRcp3U0YXr4wHpR4Y
-	 z/NTiXdC8rUjblwKIuJV4V1D6tog742uulMxReX2b8WCPoYxoi0XHx/PFSWea5TpCGUJn
-	 yNJk/3zuaTaZZ4XGRSUDk2xtgbuoMowp1u/Kk6Ooa8HYLtGgQ5GA0y3Ztt8n9tp/S6LiP
-	 EbvhfRV9tKMoEFj+GSljd8tgywp7pX9Q5d2u4qcsdrJU0oyZnXaeSXD8qAKYeC5vcm7ae
-	 tyTYLSBMOLesf9iyUjo924yW2Fd8NyxYyYO4+IYO+DURIeAMZAwu7NEzEbiuAGNqB4A==
+	t=1793475367;
+	b=vqoROrv+U9i2HN35xVEbkoodi5qGniSV3/U+in9PJo+nx0X8hGrGFCfOaSBMjMzjQ1ec
+	 QIoNwdQL2k2R1hG/6xoPs4RWGOQ/V8eLme4cKzCIOE+JV9jKLUQDsHNgnzLxQ0lJ39kWJ
+	 R1spAGWu05YG5J4AIbgqLDlKZMselGDZ1Bt8fKwWrVhDKV5C5oKvDgCtirGqTAAXLPE5Z
+	 5fUPAJcUFK9TpattALm30Slg6IRIX6RXH7d15LVZvdeQu5vTFmemKks/E4D8JJHC/nM9n
+	 fce5kuZvhl4OR2iXGmFg2uEHbcLg/j+PezMt3GEFTnCRWyviZcmiC5LfOUIhBzDfznQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793475368;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793475367;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AlMMKxFjFmgo4xA9KOQX+hBrUwig6pdgmm/mOHyMOq4=;
-	b=OE+Lfs6VVQDNHbwnbxp8siP3WF946uz4jZjl3xoFdkF6PzL1bcoFeVb3Fe6MavXjT3h9
-	 mSKuyoUt1KjpJupJYEmTFwZnFPXHNbhG7WrSSANMQ/G2HlW+pCx3rdw40BIeANWjZNYFZ
-	 ND0/ZhTM86aFmZajdhIi+3h22NxvZi+de5o2Mi3P++BCt0tw4Gp9ss6ac6rPVooPB6Wu+
-	 8PUjeYGOGYsVndK3OtWGKGmc2eLeFLbhzEMujMa4zIe6hb4JKh7FGXdMT2Vour8lfwbIq
-	 Dp/qqJazVepCuxaoj+70/JxkPJsFcAtqzTOAjRmfQYiNBXElKqwOKNJjP7sKwpXt0XQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VpNFSaEVPIgaitRWclY27M8HtMOzW/v4lrjfw3GGNTA=;
+	b=HW6HpVyxd1jMBrl8ny3V+09krUxnQ8XzsPny00vuJHhbik7Rav0f6VqUv2NaGyz3Ttc/
+	 1pIJyoNiu3UOB9Pfe5omIL64p82PkE6DumEmoLRIUtD3O3i/1bFLnvS7JFZ52ia7z8vrf
+	 R56thQTlpT5tWqXIC2LGrovJ18QG761qvQbdQAl8CNTWu8woTW6i6c8HSHhHjzYXZihwN
+	 9gv61YoeCT9PPy3fXaA6OtTnTG0X2393mpjT0DrvzuOICmJ0+IsRxe837C30bY8D/yv+B
+	 M9K5LbPTolNUBR2k9G+4ACB/yKbTN2lnXJQmThwglOM7fl6EUnw9/UFvmJim/Z/WVJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mojatatu.com;
 	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b="d0hQ/Feb";
-	arc=none smtp.remote-ip=209.85.222.170
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=eBCqAneR;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C8F606A331
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 19:36:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56C8F606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A252B606A329
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 19:36:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A252B606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=d0hQ/Feb
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-945ae2daa66so12816585a.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:36:08 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=eBCqAneR
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93efc0452b5so118671385a.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:36:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793475367; x=1794080167; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AlMMKxFjFmgo4xA9KOQX+hBrUwig6pdgmm/mOHyMOq4=;
-        b=d0hQ/Febmr/nIbkqWhqs3plBZGB8DwI12zp+mNMgaeR8/hFG+GhS6Suuuu5hRTDwwh
-         jPvXI2Or3et9EJG1vSrW4s5ECw8h5gfYlsDlzcZ1HegSGSfV2/WU4bzgN+LwwrlW0SEu
-         F9Nuur6c58FW1j6aXpK0dIKsyo/1IjD025+w0=
+        d=mojatatu.com; s=google; t=1793475365; x=1794080165; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VpNFSaEVPIgaitRWclY27M8HtMOzW/v4lrjfw3GGNTA=;
+        b=eBCqAneRFI+RfXKoey8DrqbVsgcPFCFEbextDqCDUvKwj+iI1EAeacEigL8Mj/lE56
+         WsZU40Yg0muBrXpN3yHg7WGeJvagMn3vyhKVV7ULktWsY/FxsDMpsWPQKz0rwzlkt9LB
+         YffDbH3m5WfEAITuyigOC8Mayjc8OgBWQHAjs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793475367; x=1794080167;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AlMMKxFjFmgo4xA9KOQX+hBrUwig6pdgmm/mOHyMOq4=;
-        b=AyQ6O6mkVvGBeYKxVQCAny0knZvshOOlwldISKHV4hAPdkzjbDv+XKMksI58bISAPo
-         xBq0LJiMkiRGeNS9LcMa204TQAbtPy2aP+L+oBhaDvULCGb1LAfA8UIM+s1JnmMX6gci
-         KLspJj53R+Pa7CT7H3lbYL6fVrFhZKdL+hhZa+FX6maJRKAzQfKu9Ax8zcAqg+ZO7XRr
-         yN5mEp3339KHOAc36Dg4q1J9mbsSoWOcap2ZaKL0kG6YSG/jXNVS9R53070ce57vSPSx
-         zSFN2EdTEd/6qrzc/dQWOIXzTN8/WjgTHAqeBjqlosWnsNPTJ6x1ZZrocKIYGy6uYipY
-         E9Dw==
-X-Forwarded-Encrypted: i=1; AKwUvBycJ1q0DwCUcgznaMGcLesTfBny8ycTfJaPxNXJbZ72KCecsaUPzNHVbzMlXwKuYSE7tGyWUp0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIM6vIGSCEMx+ytfLExo3+H8YjlR0jwk0afzLOgp0F98jYxghNd
-	2tCb3Vud4q/hm0dgS03m+3ZA9VSyoZv2+1r5hgQpdTccFX/9ghcyqF7sgay2WJUciw==
-X-Gm-Gg: AYBFou1hp4/3LcgsmJSyjs57nC9iW9VBdRfYXnvm8aJsML6MumL5+6+QCpSq9hXIEQl
-	Ki6gSQT9HPSqnK+18ea+7L0sLffmih0NPTL9bkNl4syZOFLSp3FJ4Bi4EV84wyQdPQJsVAHNINS
-	Gjngi6toH0MkFTr7PIKX/rixMzMXyugkpfeS92mExXBbI3MVSVobM2bYU2UgGNFDyO0MZf6av42
-	SGo+fHsoQf79AtTj5yL/YTk0+RmxtfMQ1Tsst4Lmee9axgwItzA9z9Hc1BPK7uu8rs0H9UL+tqJ
-	3Z+al6JTGwC5Lp9gVxBfKThR6a1bUHWF3ugDyudj2oa7TfB8wHKpiSKfPqubo9RuFPQFcztFfK8
-	VkalM1anfQJDr1Prtmo/fBqdbr35YlNLUBmYwh8OPuO78DXzGyJ983zx7T28m4P9GVzfxreCRry
-	kl8ok9s2dD1YjWF2sy+oC7+j90wdmKWZgJrJzOixNRwiuDnKUOmHBee0gWvcsp8TGFtxd4uq2mB
-	QWqXggERTwYbe673gH2aYJljpok+RvYpx0OtPzTvkpCfoHmql4BgyDO71Jk+g+vOBIbD352hMap
-	/4aGSQ8oDce3y/yL/c2gnDpW+fUyaUxuoBS/gEEWs7wMxaqGLp5dfqmE547GX72FIWfASdfolt1
-	13cf1gz/UXgj/gcJuqIPs8wgtvJBXLflpBOhj
-X-Received: by 2002:a05:620a:2b89:b0:93f:4d4e:ff6b with SMTP id af79cd13be357-94421585ce2mr951078885a.12.1793475367158;
-        Sat, 31 Oct 2026 12:36:07 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793475365; x=1794080165;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VpNFSaEVPIgaitRWclY27M8HtMOzW/v4lrjfw3GGNTA=;
+        b=UsUgRQ1pXGuR9hoYe7Zkn+ZAZIYZiEzWGVFgEeaznLodGE+YUdi9rVKdWZB6VpvpFe
+         Tfu9EDT9d5TgVzEaprkcvzyvcd9CbCO6KeBrrzYYgQpX+V6bdntDF2lg/wFNDRE5n23Y
+         CqRy1a+731zEJ7WY+K7iNqk1Akjv3FcOhaDCKE9QtfyxI2+6XquU2JzV9ooQFgtxyG4U
+         KT9Df/V2bHWHSTt6C8FykW8F0Yif2opeT05p0m0se7uhYYEOV+QKipuunpXAEaRg/5PM
+         hDt/gSzg+PO24hqWN4+ysWRmvWKA/ZwZSUGeujHV8cfeRFUOv0zka93MxRVt9aodtRo9
+         a8LA==
+X-Forwarded-Encrypted: i=1; AKwUvBy4bk3ixUG4RdWXEdo87lwlfzhxlVcFrWD8NUOLB6B5k2Uj7vIdUBBd8jBqT+0YXk/YE+8Gvto=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBVARa8kMa1b23Tk7Qy/YcktaIAibWQlRSwdRBRZd5d3ApojV7
+	NcPkk85TXuPsL7HW3cmPFTdRf9ANgYz9B/36vLFshTfl2St538+lQXAuT43rcWGSow==
+X-Gm-Gg: AYBFou3+/x2UiaR3SRao73ZCvniErMxgbAT07LDb12IN9J4pOT5Z65mTvrhbYRwdmQr
+	L+rrTl36rO7hU87iauXf+Bl86Pq2+ym0i7rpmOLyZ58bxZba6d2LAi4BNOzPEru0by+gyrK4y4R
+	fM1v9AOnLtIAeUMHaCdqTI2L5gDz9UsddTq3ZN9jVPb9xm6IoyRBhfzcIor9AfvA0suCSybzudJ
+	rfcEhr0Og/9kSDGjQftquwVRVjTi8E/mU8a70hVOKIG2xc3G9a5O71QNy/eFgCPhrAlWT17Ru8K
+	BoT4viaKO+EWQ6Zv30ODFKbi5jm2NyR5ZY1RYsOgcjd5WsF5sIq819sJZpDqnNxaoartlLctlCP
+	LYr+153s9QuLVtt1OHfV/WtLrYAbDJsTnqvqbDE4yBRXgtn39k0oLhSPTgBcx0+pEu/IdkU1kOV
+	UBi+3cL6LrEpogltBgXyaCzJxXi28MKv6y3CWvyjZvHGd4LL5igck/etQ6bt9oY6pzyNggu/qAZ
+	w/T0gI1Wr3KvQp5pKDBHtE3+GM5E8imvCCFn3GA3F0QAMjBBj5rRXXB4xDxaQSUDdV5ro8A0qNV
+	0YGUxx2ehFgoT62DJkD8nPLlrBnBmI01bOV1bqDjMy/3m6SAo9Y7Dmafp+vAaoK4LwWRLgA/+EK
+	GCRUcQQwZ0GFG3DM=
+X-Received: by 2002:a05:620a:27c3:b0:93f:3576:d428 with SMTP id af79cd13be357-944216b0c4bmr918024685a.22.1793475365487;
+        Sat, 31 Oct 2026 12:36:05 -0700 (PDT)
 Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425abd317sm446917585a.36.2026.10.31.12.36.05
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425abd317sm446917585a.36.2026.10.31.12.36.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 12:36:06 -0700 (PDT)
+        Sat, 31 Oct 2026 12:36:04 -0700 (PDT)
 From: Jamal Hadi Salim <jhs@mojatatu.com>
 To: netdev@vger.kernel.org
 Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
 	stable@vger.kernel.org,
 	shaos <shawnq1@163.com>,
-	Jiri Pirko <jiri@resnulli.us>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Victor Nogueira <victor@mojatatu.com>
-Subject: [PATCH net 1/3 repost1] net/sched: act_ife: encode configured zero metadata values
-Date: Sat, 31 Oct 2026 15:35:58 -0400
-Message-Id: <SER-NSBD.v1.r1.20261030042947-1@mojatatu.com>
+	Victor Nogueira <victor@mojatatu.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Vega <vega@nebusec.ai>
+Subject: [PATCH net 0/3 repost1] net/sched: fix short-skb metadata and namespace boundaries
+Date: Sat, 31 Oct 2026 15:35:57 -0400
+Message-Id: <SER-NSBD.v1.r1.20261030042947@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <SER-NSBD.v1.r1.20261030042947@mojatatu.com>
-References: <SER-NSBD.v1.r1.20261030042947@mojatatu.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,84 +104,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Reported by shaos <shawnq1@163.com> with a reproducer for the 32-bit
-case, which was reproduced and verified in our test environment.
+This series fixes three independent boundary problems in net/sched.
 
-The issue:
-ife_check_meta_u32() and ife_check_meta_u16() both reserve eight bytes
-of metadata for a configured value even when that value is zero, but the
-matching encoder returns without calling ife_tlv_meta_encode(). The
-encoder therefore writes neither the TLV header nor its value, while the
-enclosing IFE length still includes the reserved bytes, exposing stale
-skb headroom contents to the peer.
+1/3 act_ife: encode a configured zero metadata value.  ife_check_meta_u32()
+reserves an 8-byte TLV for a configured zero value, but the encoder
+returned without writing it, leaking stale skb headroom bytes.
 
-The 32-bit helper has been present since the IFE action was introduced
-(v4.6); the 16-bit helper was added with the 16-bit metadata helpers used
-by the skbtcindex callback (v4.9). Both defects predate the oldest
-supported stable kernel (5.10), so they are fixed together in this patch.
-Each hunk keeps its own Fixes: tag for provenance.
+2/3 act_ife: require a full Ethernet header on egress.  An undersized
+linear head can make the encoder read past the end of the skb data.
 
-The fix:
-Encode any configured value, including zero; skip the TLV only when
-there is neither a configured nor a runtime value. The runtime fallback
-is unchanged.
+3/3 sch_teql: reject qdiscs from another network namespace.  The global
+TEQL master lives in the initial netns; a qdisc created in another netns
+could still mutate the master's MTU and flags.
 
-A raw TCA_IFE_METALST netlink request is needed to express the
-configured zero: the IFE_META_SKBMARK attribute carries four zero
-payload bytes for the u32 helper, and IFE_META_TCINDEX two zero payload
-bytes for the 16-bit helper (not an absent or zero-length attribute).
-Stock tc cannot build these requests; "use mark 0x0" emits no mark
-attribute and "allow mark" emits a zero-length one.
+Origins:
 
-Conditions to recreate the bug:
-CONFIG_NET_ACT_IFE=y, CONFIG_NET_IFE_SKBMARK=y,
-CONFIG_NET_IFE_SKBTCINDEX=y, CONFIG_NET_CLS_MATCHALL=y,
-CONFIG_NET_SCH_INGRESS=y, CONFIG_USER_NS=y, CONFIG_NET_NS=y,
-CONFIG_VETH=y. In a fresh user and network namespace create a veth pair
-and attach clsact to the egress side. Install a matchall filter whose
-ife encode action carries a zero skb mark (or a zero tcindex) in
-TCA_IFE_METALST. Send a frame through the veth and inspect the IFE
-metadata in the received frame. The metadata region is eight bytes but
-holds neither a valid TLV header nor a value; it exposes prior headroom
-contents. Setting the value to a nonzero one does not trigger the leak.
-The namespace needs CAP_NET_ADMIN; no additional privilege is required.
-With the fix the zero TLVs are 0001000800000000 (u32) and
-0005000600000000 (u16).
+1/3: reported by shaos <shawnq1@163.com> with a reproducer, which was
+reproduced and verified in our test environment.
+2/3: found by Sashiko (nipa and gemini) while reviewing Victor Nogueira's
+parent act_ife patchset; independently reported by shaos
+<shawnq1@163.com> with a reproducer, which was verified in our test
+environment.
+3/3: reported by shaos <shawnq1@163.com> with a reproducer, which was
+reproduced and verified in our test environment.
 
-Fixes: ef6980b6becb ("introduce IFE action")
-Fixes: 6a5d58b67e20 ("net sched ife action: add 16 bit helpers")
-Reported-by: shaos <shawnq1@163.com>
-Link: https://lore.kernel.org/netdev/20261022144739.61342-1-shawnq1@163.com/
-Cc: stable@vger.kernel.org
+The three patches are independent.  They target net and carry a stable
+nomination.  They are sent together because they share the short-skb and
+namespace-boundary review context.
+
+Jamal Hadi Salim (3):
+  net/sched: act_ife: encode a configured zero metadata value
+  net/sched: act_ife: require a full Ethernet header on egress
+  net/sched: sch_teql: reject qdiscs from another network namespace
+
+ net/sched/act_ife.c  | 8 +++++---
+ net/sched/sch_teql.c | 5 +++++
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
 Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- net/sched/act_ife.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/net/sched/act_ife.c b/net/sched/act_ife.c
-index 2afd68983ece..0e6aba9aeff1 100644
---- a/net/sched/act_ife.c
-+++ b/net/sched/act_ife.c
-@@ -50,8 +50,7 @@ int ife_encode_meta_u16(u16 metaval, void *skbdata, struct tcf_meta_info *mi)
- 		edata = *(u16 *)mi->metaval;
- 	else if (metaval)
- 		edata = metaval;
--
--	if (!edata) /* will not encode */
-+	else
- 		return 0;
- 
- 	edata = htons(edata);
-@@ -94,8 +93,7 @@ int ife_encode_meta_u32(u32 metaval, void *skbdata, struct tcf_meta_info *mi)
- 		edata = *(u32 *)mi->metaval;
- 	else if (metaval)
- 		edata = metaval;
--
--	if (!edata) /* will not encode */
-+	else
- 		return 0;
- 
- 	edata = htonl(edata);
--- 
-2.43.0
-
