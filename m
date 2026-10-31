@@ -1,98 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793437203;
-	b=tXbranBsA0QHAIfuZ8p4UGOEZsbm29dKwA7Ga4ZCMovslddzhx/lfZ+5rBq4HprI9E1w
-	 5Udg3cC1tOLlmI7umLW+EgDMDp9u8elCe9wXqiUPyHzUdAKDHOlxNFGwhZKbdSje2qVbh
-	 8UJGFo0y8ecmxIsEH6WV194rAQ+kZchXUAzMgfOImkyz8LN/DhlV2PMJDOjvqGVYEuE0m
-	 JP26wRF2Lgrz3fup1UvJ+IyMsx5RZ0xyuXkaaRlJW9r1cl7bp1+g2rPCMkW7JJG73CV2v
-	 fznZ+MirwHppvKvn8pjLpDikHaVWISVLIeBjjCbwNfdnOgjIOwYtPcRtlB/oGdZSnRg==
+	t=1793437706;
+	b=P1Rw4S8wwWyuah2rPQsglxxy0eePfTFjht4o1CEd9t8LM4E5IBUfzVZZKZG7DZxuiLP0
+	 HbLZHokZWWY/lpsvKR1x2ozm8qjg3XBGxzk7srClwJ0ZmJgm8hENR9mTF14U83sx+I4jj
+	 bRYAEGvfLQYytudxeh9e0uP01XcFRQwLqdJ9dw2uRWpq08vzvR7Yq1cLHpLkfL67tbnAC
+	 5stjFD+rxCjYRLsJKvg9IQIKxIShW8WlUKuxg/FqqKqz0YXpMwhNxry/N6OVluuK59ugH
+	 LNNkc1jmhK3tiXsxV7VT+TubuxV676Kwdm1zy79Gd4Fm8ySKk9FLDzyO7B85mYyQuAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793437203;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793437706;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+sZ2SGBKL+wA+F9N/uPCteUC32WVd5RJNFGupXt8+xA=;
-	b=sgbwAYJoAqc9qdvo7K9MX2FvweHhgxn7bLpqx55uHmU34SGXkj15VB1zCOekAoQMOx/o
-	 3o/5WCV61LPoSaNndtDHus7/uETntJrmPWMLMfZhrxdYS/OVWxKyBgKSPimDE2wRynhMQ
-	 25oBu5B+/Mdak2Tscl1VxkwNqZvLaU9VwfAlE6qus7oo1EvtexK8yvuHp7ktasBjHygMH
-	 4gUycIbtOu2rQdXWcutdNEBBdH0d/dBhQmvDQ27dBx7SNWkfGxkL7uSl52I3s0fq+QyQt
-	 mfd6Tvb1o3wzs/jxc8HaZ+HPn8BNXgk4TMWnMHqau6EHKWN/T7z5PplqWRpZiOahjiw==
+	bh=aG7uUgIWZ0oyfHEXG9QJCx6yU4GdFnWFe7KXXLifVuA=;
+	b=4ZtkumlRvmoGnyluzT4KnRX9ORDU39YGxc3CAESGy8SBntVTVnvJPncmFvbTf18Hprqh
+	 6YlbWjHUKJAVRUcCFSW6waJ1Gub36nbcJDu8CW45Il2esJTtjmawPIL1m3ZQ0nikwyds8
+	 peZAfRpvdm97D35vGN2Fq/2lAT8GPrBXDb5QcMa9VflnWtJPYrINIGkKAppDyyJei/Xl2
+	 jYheNXKg/3s0VPitzLVwJ/o7zsO2yxAljrSgGqymFhLSh6/P1WoJ2uqBwTY88PnKqAtB+
+	 0AHwB9Ygwzz1zBW90JrM905kkcSIJY3wfX6w5zFRiNR5usBdzmilxYSPGGUt68COr1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wLC4nbCN;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vg5vE9eJ;
+	arc=none smtp.remote-ip=209.85.215.171
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53133606A31C
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 09:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53133606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0BC606A323
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 09:08:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F0BC606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wLC4nbCN
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e98798cbddso7137975ad.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 02:00:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vg5vE9eJ
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso552471a12.3
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 02:08:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793437203; x=1794042003; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793437705; x=1794042505; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+sZ2SGBKL+wA+F9N/uPCteUC32WVd5RJNFGupXt8+xA=;
-        b=wLC4nbCNzS5Lc4pkvG+1R0lZT4CKRKMLrcJ3C7eYNgveSM4ha4ySCLJTKQctRIzj3q
-         pp+KACA3l8OqyNhgTlNA24UEH0JkmomtWkd4Zl4Ixyf3DCuwSbqXpFh7REB+uNN94CD8
-         46KwRIDy2yqHlHmQDz5dMvJsa3ZEQTg9YVyEZAMtZuq7b3HYXNBPkKJapl2yfAPeJzSk
-         PCEtVj72AvkpDVsxtj2QQlHPD7e81GEHcBQZuHZcPZeVNplsA3nOOvBxYA5SrJ3vReKK
-         +HkxaLToOyKReO41QPDuKw/FZtH7JVz9Hf0n4+ioOZvwNyiLer2CE5A0Ogt0bwJiG60S
-         RCiw==
+        bh=aG7uUgIWZ0oyfHEXG9QJCx6yU4GdFnWFe7KXXLifVuA=;
+        b=vg5vE9eJNhVaTMln33GkMcgicuA4inDLsHF5BvImPmEHkyD6jFVW5B3uGrkO1lKCOy
+         fkE6Nl86pPiNat/cAwxbPK1mAY0nRI4jH2D+C/ETCc7ZqybzifUFaJf7bM8F7fucQSDT
+         /Yrz3uDAK6z7FDHPhaCqOZj+UZG7PK/ptf8XtNQy3EdeOpJxdxJIJ3dQ3IOA9oT1+YrJ
+         ErxmzQ1Dcs77K7uuzGdg0ZdLnHS57s600+N9TKEQONeIeW0jSa1cy+6fFFHYwzNsJEMi
+         BrU6nsY2nYG9ONNeQyVPhZDcLeNdk+vYJKbagwk0ThAnSaYNVCM3ZFqcKP8ltuqZfB+3
+         ++gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793437203; x=1794042003;
+        d=1e100.net; s=20260707; t=1793437705; x=1794042505;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+sZ2SGBKL+wA+F9N/uPCteUC32WVd5RJNFGupXt8+xA=;
-        b=diSENr49x2sZV7Xxx+FuDTcQJwOv9MpASRGYsHPF54XLRa8avQR4XwHkjp+xbzCxrF
-         G1cU9bZYV36mUKDjd2Snkmw8/WOxUmh6h6Fm2blWTfcC20MbuCUutdor14/j2GI3yZEe
-         U5dv/1mILos9X6+a4IMEHzUGZyIXiqQ05krhQowZ/V6E+bGd1q7/F5uaVBYjN1+yFCAt
-         f6FxTyt1JvSNScNBttXI00cB4iTV+Gm7fpmoJVoolHEuv75dHNwWBKgjaGiKkecC384i
-         ARCU4EOO0Fgwd/Ly2rrIv3CPVo1eexsIbKYz4DNJheBSnuzC4w62S3zRqQ5g9Q0ubfZR
-         BK/g==
-X-Forwarded-Encrypted: i=1; AKwUvBx9RuYOk8eHkxdZgbHcU6zNpQ8dxkgjOxnT20qy2vGUPgpdkX1OV5mhHAb3bwEJWP7pCrtWC2A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7S72WX9cVAZfzQNOjdzwXCUOnQRPO4VuD+CfNNINxp8Nw8yiN
-	4CXwiETqfI8Kez8azQyMAO/5Hu4G6mgPqyO6bi0Rm9V0HEOlds84Jccd
-X-Gm-Gg: AYBFou10gdZiCbvtfD6QaP3z0aux84J6eqEhmKsIb7CGw87fefo64VkQEPl1nEqqJzO
-	SlvU2Xyt4z155Zj6h6d9XRM26KKtKWpfInYH5KZXSUnbLWEaHqkMtHwVd7dMbihrUDt1GCUo2VX
-	eOevz2b99m1T8aJSiKlMtZBf0drSOEZaa+XF21IYDd1ONPbc4vqnuRSDsC4k8WUmHRxKIRTYGlM
-	v6wfyxJEKpOitSlsI3esXnskHiIWLM2iWaKTADijByKL+sqLHJNpI9VoQxq9PjQhpm2uHKxjEhH
-	DsoNJFrze19quku/LwypY9qFnQXoRcJDSn97RJZMkyKZcnDIksvNVwmttSxWvbZPswdzaKtbi1n
-	rvyrW3kiy00RF71AGxI253Dz9ObXQlouD7AnvgbuspO3q6KkrTom6CVDHeEjheUnC14kjCLnG/Y
-	4HV9o6fXXVxPs9VjaoEy44WegR5l2nLyNN2VvCmPzxKE54XxIRTeIV75yzlGQp2jTHueVke10tx
-	PeI5kwNsVSAza4r1TkYV6Yr1+felg+VChtDQbOMa5gCKrWqvvP0jQRsUhpPNNq17pesgEv3qm0b
-	ibJ51OSY+iZtKrXjE00rxaDXW4YsaKnop9fROT8yKjV6JR0gwYt0zxoli2xqdcM/RVWvFpOJclL
-	xwj+raih4GOVaPAtfmQIeAsaNwl7yRVgP/8mnrFDN5tkB2FUH78PYlBPtWJ7zRfVkuyIN3udydM
-	GbuN+cZ1HAorKsUxvUc0ZWblrn
-X-Received: by 2002:a17:902:d548:b0:2e2:d9fe:51fb with SMTP id d9443c01a7336-2eb363ffa94mr46855425ad.4.1793437202530;
-        Sat, 31 Oct 2026 02:00:02 -0700 (PDT)
+        bh=aG7uUgIWZ0oyfHEXG9QJCx6yU4GdFnWFe7KXXLifVuA=;
+        b=jMnDnIYC5K4XeNKgV63+S2ktUIApYdo/oFyk4qAKTf80Ga2+YHhAfU0vT7djbovevo
+         GRYpziyqTzmL4aF41EnZfu7pnCAor1hKpLJWa+uSX+lXiiK5gsK84bI5dol+K3yXDanj
+         nJTIIQICSkzlsSyRXehVVfq82oxv09QdG1NGOJ5q5lnUWev/HgsyzoPZeYNho1Y+3WHw
+         l9U5KUJBrB7AXg3yAzgug1qkO28ZnFqBqf8Is9outsSyYA3UUP67uM/JeTs2h5PeXV/P
+         Cy7Lw1RyAS1io614oljK3h6t18pfrJa+CFIv6V5HuYrzzKi8192yPbGd65C8tRLMwoSl
+         Ni2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz4kysmzeRDHHxX3R0PQkMDYVkJj07HHbDEU41K0CcJC7y36QNrLMIChIVu7yMS6qaaZGrc0vU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKSOtGQuofCocSk0xx5LZfeOa2sEr2vbZRDXcZw5M2B/Q1yWo69
+	HVlz24lwW5N4R70XcivKD8HssSGf8WadqsRp2a/LytNb7dd3sbndI7WD
+X-Gm-Gg: AYBFou1UCquL5vs/zh0hlGgy41bITcIbKOW4P1lPvO68uBayX0FU7LYMPZ3NLd/O182
+	0pdQkYfA8vdclX0Sp9aZqYjr3sKzdz+y4GwK/3PyC3/gk3oqejsdRDu974lph/+iQ6v7YavT0BT
+	6DXgkj/tA09Os15paKCWLe8v7Pyh7+QM19reRF3kNBnvfjnM0S2ZqPzPSpFVpVYLpzp1RdP84F0
+	cBG5/Hb2TqnLuWpw2gYWSa0rqUqgg9vW1+dLKbOtUDqNUW2ijecArX1y/PSTg+fzz8tAC9ZlxT2
+	FNWQsQ82gGnAYTWsLiMotR62rTnp4Vig1mf71n/6XG55+1rR37wntEh8mir3BAraVkY+5j0zi6Q
+	Uu5j6BLhY4dV2UU4u4zjoAcznIu31pIwN8vbKmokQqohOGAittFfgrxvm5vVu3qZOJ9KGHGCfM/
+	ehxZoUEgupMiW8uBXQK1cSHg4Icg2N0mbnv77IAUpoX2Q/cZyj6KSdmNIZS6Z5DCBwaDFJXfEfb
+	O9PyqveujO5f6QIRSSRPwggq009rK0NKgJahRsiXCos/v9TlGcKAW723Dvd9NJwOTxAoMJHyzAg
+	QkzVLn48hDcfwAX7xfAFa0H+Wv7eaLWCjhzpZleeBFDtabZaBi2zTPzWGqun9M/IdrfAh7eroI9
+	+u4Vg4Cs1XPXt9obtqcBR5LmqMjC3liPKB4S3o+rH1BcDSmPWfZkgpsdYYnfATDDRXGYDLwjPh3
+	irXYLjBw+Y3zbqQYf/mVY8QWCeHg==
+X-Received: by 2002:a17:90b:3d8e:b0:3a8:86b7:ad95 with SMTP id 98e67ed59e1d1-3ae897c5e7emr4019087a91.60.1793437704316;
+        Sat, 31 Oct 2026 02:08:24 -0700 (PDT)
 Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392486bbsm13932775ad.30.2026.10.31.01.59.50
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb09610f48sm1614184a12.2.2026.10.31.02.08.16
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 31 Oct 2026 02:00:01 -0700 (PDT)
+        Sat, 31 Oct 2026 02:08:23 -0700 (PDT)
 From: Yu Zhang <yuz08559@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Koichiro Den <koichiro.den@canonical.com>,
-	linux-gpio@vger.kernel.org,
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3] gpio: sim: fix the configfs lockup racing with mkdir/rmdir
-Date: Sat, 31 Oct 2026 18:58:21 +1000
-Message-ID: <20261031085821.23385-1-yuz08559@gmail.com>
+Subject: [PATCH v2] rpmsg: char: take ept_lock in the SET_INCOMING_FLOWCONTROL ioctl
+Date: Sat, 31 Oct 2026 19:06:50 +1000
+Message-ID: <20261031090650.23701-1-yuz08559@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027085653.90471-1-yuz08559@gmail.com>
-References: <20261027085653.90471-1-yuz08559@gmail.com>
+In-Reply-To: <20261026100306.68019-1-yuz08559@gmail.com>
+References: <20261026100306.68019-1-yuz08559@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,224 +103,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gpio_sim_device_lockup_configfs() depends (on activation) and undepends
-(on deactivation) the leaf configfs entries of a device. It walks
-dev->bank_list and bank->line_list without dev->lock, while the lists
-are modified and their nodes freed under dev->lock by the configfs
-make/release callbacks. It also walks the lists twice, once to depend
-and once to undepend, and the two walks can see different entries:
+rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
+rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
+and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
+dereferences ept->ops, so this is the only eptdev->ept user that does not
+honour the ept_lock discipline.
 
- - A hog created while the device is live is never depended on, but
-   it is undepended on deactivation, hitting
-   BUG_ON(sd->s_dependent_count < 1) in configfs_undepend_item().
-   The following is enough to trigger it:
+eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
+(reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
+device is removed) and rpmsg_eptdev_release() both do
 
-	mkdir $G/dev $G/dev/bank0 $G/dev/bank0/line0
-	echo 1 > $G/dev/live
-	mkdir $G/dev/bank0/line0/hog
-	echo 0 > $G/dev/live
+	mutex_lock(&eptdev->ept_lock);
+	rpmsg_destroy_ept(eptdev->ept);
+	eptdev->ept = NULL;
+	mutex_unlock(&eptdev->ept_lock);
 
- - An entry that is being created or removed when the device goes live
-   cannot be depended on (the WARN_ON() fires), but it is undepended
-   later, hitting the same BUG_ON(). If it has already been unlinked,
-   configfs_depend_item_unlocked() dereferences its NULL ci_group.
+and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
+A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
+eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
+(or a NULL dereference once ept has been cleared).
 
-Toggling "live" while concurrently creating and removing line and hog
-directories hits the WARN_ON() and then the BUG_ON() within a second.
-
-Hold the configfs subsystem mutex and dev->lock across the whole live
-transition. The subsystem mutex is what configfs holds when it links
-and unlinks entries and when it calls the make_group()/make_item()
-callbacks, which then take dev->lock, so the lock order is the same.
-Record the entries that were actually depended on and undepend exactly
-those. If an entry cannot be depended on because it is being created
-or removed, undo the dependencies already taken and fail with -EBUSY
-instead of warning.
-
-configfs_depend_item_unlocked() and configfs_undepend_item_unlocked()
-only take configfs_dirent_lock for an item of the caller's own
-subsystem, so calling them under these locks is fine.
-
-Fixes: 8bd76b3d3f3a ("gpio: sim: lock up configfs that an instantiated device depends on")
+Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
-v3:
- - Count the lines with list_count_nodes() (Bartosz).
-v2: https://lore.kernel.org/all/20261027085653.90471-1-yuz08559@gmail.com/
- - Supersedes v1 "gpio: sim: snapshot configfs leaf items before
-   depending on them". The v1 approach of taking references on the
-   entries and depending on them after dropping dev->lock still raced
-   with mkdir/rmdir, as the sashiko review pointed out, so the fix
-   was redone: hold the subsystem mutex and dev->lock across the whole
-   live transition, record the entries that were depended on and fail
-   with -EBUSY instead of warning.
-v1: https://lore.kernel.org/all/20261026060049.60599-1-yuz08559@gmail.com/
+v2:
+ - Drop the paragraph about the other ept_lock users from the commit
+   message (Mathieu).
+ - Bail out early when the endpoint is already gone instead of an
+   if/else around the call (Mathieu).
+v1: https://lore.kernel.org/all/20261026100306.68019-1-yuz08559@gmail.com/
 ---
- drivers/gpio/gpio-sim.c | 108 +++++++++++++++++++++++++++++++---------
- 1 file changed, 84 insertions(+), 24 deletions(-)
+ drivers/rpmsg/rpmsg_char.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
-index 0c73bec..abc73bb 100644
---- a/drivers/gpio/gpio-sim.c
-+++ b/drivers/gpio/gpio-sim.c
-@@ -560,6 +560,10 @@ struct gpio_sim_device {
- 	struct mutex lock;
- 
- 	struct list_head bank_list;
-+
-+	/* Leaf entries depended on while the device is live. */
-+	struct config_item **deps;
-+	unsigned int num_deps;
- };
- 
- static struct gpio_sim_device *to_gpio_sim_device(struct config_item *item)
-@@ -974,31 +978,80 @@ static void gpio_sim_device_deactivate(struct gpio_sim_device *dev)
- 	gpio_sim_remove_swnode_recursive(swnode);
- }
- 
--static void
--gpio_sim_device_lockup_configfs(struct gpio_sim_device *dev, bool lock)
-+static void gpio_sim_device_unlock_configfs(struct gpio_sim_device *dev)
-+{
-+	unsigned int i;
-+
-+	lockdep_assert_held(&dev->lock);
-+
-+	for (i = 0; i < dev->num_deps; i++)
-+		configfs_undepend_item_unlocked(dev->deps[i]);
-+
-+	kfree(dev->deps);
-+	dev->deps = NULL;
-+	dev->num_deps = 0;
-+}
-+
-+static int gpio_sim_device_lockup_configfs(struct gpio_sim_device *dev)
- {
- 	struct configfs_subsystem *subsys = dev->group.cg_subsys;
- 	struct gpio_sim_bank *bank;
- 	struct gpio_sim_line *line;
- 	struct config_item *item;
-+	unsigned int num = 0;
-+	int ret;
-+
-+	lockdep_assert_held(&subsys->su_mutex);
-+	lockdep_assert_held(&dev->lock);
- 
- 	/*
- 	 * The device only needs to depend on leaf entries. This is
- 	 * sufficient to lock up all the configfs entries that the
- 	 * instantiated, alive device depends on.
-+	 *
-+	 * dev->lock keeps the bank and line lists stable and the subsystem
-+	 * mutex keeps the entries' ci_group stable. An entry that is still
-+	 * being created or removed cannot be depended on, in which case the
-+	 * device is not brought up. The entries that were actually depended
-+	 * on are recorded, so that exactly those are undepended when the
-+	 * device goes down.
- 	 */
-+	list_for_each_entry(bank, &dev->bank_list, siblings)
-+		num += list_count_nodes(&bank->line_list);
-+
-+	if (!num)
-+		return 0;
-+
-+	dev->deps = kzalloc_objs(*dev->deps, num);
-+	if (!dev->deps)
-+		return -ENOMEM;
-+
- 	list_for_each_entry(bank, &dev->bank_list, siblings) {
- 		list_for_each_entry(line, &bank->line_list, siblings) {
- 			item = line->hog ? &line->hog->item
- 					 : &line->group.cg_item;
- 
--			if (lock)
--				WARN_ON(configfs_depend_item_unlocked(subsys,
--								      item));
--			else
--				configfs_undepend_item_unlocked(item);
-+			/* Already unlinked by a concurrent rmdir(). */
-+			if (!item->ci_group) {
-+				ret = -EBUSY;
-+				goto err_unlock;
-+			}
-+
-+			ret = configfs_depend_item_unlocked(subsys, item);
-+			if (ret) {
-+				ret = -EBUSY;
-+				goto err_unlock;
-+			}
-+
-+			dev->deps[dev->num_deps++] = item;
+diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+index 550fda2..d8868fa 100644
+--- a/drivers/rpmsg/rpmsg_char.c
++++ b/drivers/rpmsg/rpmsg_char.c
+@@ -343,7 +343,20 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
+ 			break;
  		}
- 	}
+ 		set = !!arg;
+-		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
 +
-+	return 0;
-+
-+err_unlock:
-+	gpio_sim_device_unlock_configfs(dev);
-+	return ret;
- }
- 
- static ssize_t
-@@ -1013,26 +1066,32 @@ gpio_sim_device_config_live_store(struct config_item *item,
- 	if (ret)
- 		return ret;
- 
--	if (live)
--		gpio_sim_device_lockup_configfs(dev, true);
--
--	scoped_guard(mutex, &dev->lock) {
--		if (live == gpio_sim_device_is_live(dev))
--			ret = -EPERM;
--		else if (live)
--			ret = gpio_sim_device_activate(dev);
--		else
--			gpio_sim_device_deactivate(dev);
--	}
--
- 	/*
--	 * Undepend is required only if device disablement (live == 0)
--	 * succeeds or if device enablement (live == 1) fails.
-+	 * Lock order: subsystem mutex, then dev->lock. This is the same
-+	 * order as in the make_group()/make_item() callbacks.
- 	 */
--	if (live == !!ret)
--		gpio_sim_device_lockup_configfs(dev, false);
-+	guard(mutex)(&dev->group.cg_subsys->su_mutex);
-+	guard(mutex)(&dev->lock);
-+
-+	if (live == gpio_sim_device_is_live(dev))
-+		return -EPERM;
-+
-+	if (live) {
-+		ret = gpio_sim_device_lockup_configfs(dev);
++		ret = mutex_lock_interruptible(&eptdev->ept_lock);
 +		if (ret)
-+			return ret;
- 
--	return ret ?: count;
-+		ret = gpio_sim_device_activate(dev);
-+		if (ret) {
-+			gpio_sim_device_unlock_configfs(dev);
-+			return ret;
-+		}
-+	} else {
-+		gpio_sim_device_deactivate(dev);
-+		gpio_sim_device_unlock_configfs(dev);
-+	}
++			break;
 +
-+	return count;
- }
- 
- CONFIGFS_ATTR(gpio_sim_device_config_, live);
-@@ -1546,6 +1605,7 @@ static void gpio_sim_device_config_group_release(struct config_item *item)
- 
- 	mutex_destroy(&dev->lock);
- 	ida_free(&gpio_sim_ida, dev->id);
-+	kfree(dev->deps);
- 	kfree(dev);
- }
- 
++		if (!eptdev->ept) {
++			mutex_unlock(&eptdev->ept_lock);
++			ret = -EPIPE;
++			break;
++		}
++
++		ret = rpmsg_set_flow_control(eptdev->ept, set,
++					     eptdev->chinfo.dst);
++		mutex_unlock(&eptdev->ept_lock);
+ 		break;
+ 	case RPMSG_DESTROY_EPT_IOCTL:
+ 		/* Don't allow to destroy a default endpoint. */
 -- 
 2.43.0
 
