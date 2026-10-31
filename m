@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793440021;
-	b=ph2b8KUT8CC+8aI+Ih0rsxoluZjL3hvgYZmHp+befecyl6piXGomqUVTcqTO1Q2QGmMJ
-	 OEqGUHAsry08CzjX0qDQXU7Lp6XEtt+Zh7Z11bU4t4x667+5lu8dDlaExSg+1Ar2LPczd
-	 h/qQqXp/sPYLSly53P0x5Gkg8NA5nzpojajabBiu+3VNqUa8oCMSgsaPeqJM/HVNahqR4
-	 2b6N1eh6zqMbwFIJYFcj+Kxa/vtWv2o3RQpMehcGabBNlP2Tkikdu6qqSK7csSvliM8LL
-	 BqLYBsLE+ecrAzqG1dAmfpwnTLTsel/iuJ3uBW0fR908Dm6rfkK8gw8R8Q+s3SYqsKA==
+	t=1793440037;
+	b=BLmZJ7AgyjDpUp0McjIETA2txwewBb9dJJCLPT7xq7DEawclVgU8asWT/tOxM0VyduCZ
+	 O3M8nR6/p39FAJWXwAi6TUvdGxQpXF+yzdglr/n39BA1x3fex48YKJsDF3Fce3qy4P2gz
+	 2J3RKUPKcm7YGdSxbME/oJql2D6u1OWYD/7u5CNXm3HaTkdQYiBHfmPmm0yEiw/Lc3iWz
+	 8X0BYomNsp7J1xJvvqkV9oWEmwsW4ei8EFcF4Py/XjcdU6FbDmBR9H3IvZmhQW23wOu1M
+	 3Xhd0LiBmgr4JAbmS5rSIg1i0pbKfPOF8m294V6kvxNB7se+RVXd/N07QPgTQdGoQ6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793440021;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440037;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=gNn7/nSxmNJguW2bsADoqLsPI7cv25lI/JHeobxIgIk=;
-	b=wukvSeIeNrXCjsurhGB2f3pe/ELohPOlIfFPCOirkeIriuRZ0FYsBmaA5j4R3hRbTafT
-	 GH5eQOSmIWzgWPrnOm4Ybq0gIonmzTXw94yfymylTwgkthKbmDsJ0aQyVpVBU2wszVG7I
-	 A8DUrzeJx135OigzYCP69xRW0Njr+3PQr8V/h6UWKdwMvSFJ//w6mSv5QqLGPMCwUdrfX
-	 GQq5Xc3XsrBj+5tKJ1I0MrbTiAdDS6AoGHv5HwHGkmEsuKUsfRYAykdf+IwXyIbMCzrqL
-	 wV+e3B4UfHfZiEw4W/9KFW4biQ1FKvaMO/hUwDfjUi2O/WBsPwH91/iUV7hdPXQ7LdQ==
+	bh=KVrdbHh4TefzyeW1e6RlSzEhzIhMK50yL/X3kkZm6/4=;
+	b=4aKuVNPl6xcvYodWyu8/l7mDsK9mT5WlerAi+8Ko2Mja++bqpKyqzvBLfWyFmSTituP7
+	 AqkCNDbNF7fUIPhTMI+bjhfX+g+uWvqZ7JP6xS2WjhORDX4dhK6kEa+KTfnu7/5zmY8Y5
+	 cTA5uTIK6C1x73JGiq2sNwCHeOB5lrhbpN6r55OFNYpHck25d2KuVUC7G2mBq/yye4rKN
+	 jNUcLYR7FIJOZgNPn6rr1ZJFt1G0p1awxUMXsdFPAEHjvM136dfDFG7t5tXXCVCFjnT76
+	 c9FpGzzXMh//K6LRMTBGuMPVnHigxDj/5xzDznITvVJbIsNWSMtcBm2wanda1L0ebBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Goo08VUO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaCWaKaw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DF0606A322;
-	Sat, 31 Oct 2026 09:47:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA666606A320;
+	Sat, 31 Oct 2026 09:47:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Goo08VUO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A131F0093A;
-	Sat, 31 Oct 2026 09:46:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IaCWaKaw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27FC01F00919;
+	Sat, 31 Oct 2026 09:47:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793440020;
-	bh=gNn7/nSxmNJguW2bsADoqLsPI7cv25lI/JHeobxIgIk=;
+	s=k20260515; t=1793440036;
+	bh=KVrdbHh4TefzyeW1e6RlSzEhzIhMK50yL/X3kkZm6/4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Goo08VUOyTuxB+9BiU8tT1hGY7xIbPlcSmnFKYKLEns6CjMozp+42PLDwlris0Wgy
-	 Epy0qZs9ruATYG7k3H09RtPnyDeTrQWjydx2A76PkzWc/HJEqku1kfq+YGHjvzgiu7
-	 PVzQSIFw2G73kn0/TmY4S7YikUWi5ZjSlNlCvW8sTI4Xwv03qxL3EhI9T4GGCOuzOS
-	 wqesxAZme6fwCbZotjvP7RH+qDfB95lIIOdkup1BldzJkCVJXYxqy9DC9vPqebcprH
-	 uLdmoGd5Ixnvi0Tvgq2KahgXTyv1qFs3LN+TYfkQH8ipONbe0mXOCdtPulAg5ZVhx7
-	 dsOwRYfOdSfgQ==
+	b=IaCWaKawXOqDcZ22xFCnwg7umYwYJDgAbJNOOK5GTEKGHR4Bx9Acayri7plzIv2dF
+	 0xsaLS7xr4ETWZusdZHXrFhdvJbU1AhSTCPEA0QR3Dj1ccFkxelrbwXMWTOnrQQWG3
+	 58kyNmdrL4h4kMvLnIkpzCrckrID/LCj0Cf5LWhtYMlVhaHMgI1lgO/M9mXJT3I+oS
+	 Z2xhPUc1AK103gnGCePYltjzgbzdLKcT6Hk2CY7ZOOT3q1CY+nRSeutkrRUi7hRWeR
+	 F8JX7Cij2PkVFNeFOQbrbxnEdvAY1cKNFIxVfTTwYaHRhB/a7xn+bEQBXPQJM9W6rl
+	 g/T9m03kc4kGQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:55 +0100
-Subject: [PATCH v3 26/47] mm/userfaultfd: compare exact registration modes
- before skipping
+Date: Sat, 31 Oct 2026 10:39:56 +0100
+Subject: [PATCH v3 27/47] mm/mmu_gather: fix flushing ranges with 4 GiB or
+ larger
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes_core-v3-26-d6437171ecc3@kernel.org>
+Message-Id: <20261031-fixes_core-v3-27-d6437171ecc3@kernel.org>
 References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
 In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -93,58 +93,69 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ SJ Park <sj@kernel.org>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1520; i=david@kernel.org;
- h=from:subject:message-id; bh=VPLF7ZF60P6QZsc5ogJFtB1G0DgMIn6ux/cdpuH/iTQ=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs/ojGKyT+C9PCWZu/jAdn/xR/eWdutsjRLU8tn3S
- GhxtmtcRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABNZIMzwV1CyVabwyaF8oQum
- Z0+LdgcvbTw/7Wih/MHrHFWK3NvDDzD8Ffi01Oet/XuBJXyLvH7pvd019+vmjPjl/i3pgnKt0x3
- OsgMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2186; i=david@kernel.org;
+ h=from:subject:message-id; bh=XMqAbJynrW+dSeh468tky7AqZSEZvUJFOrLi82qkd/w=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs+Q9csy471kdl/JWJJ57iLLuN+/Dm83vFRrH99oc
+ 7pyn8zijlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACbifp2R4daLlSYBH/m0hd89
+ 6zgm/f7UvRPHexf3Ppv+3PCr3TX9iQqMDGs2JfTrdpm2nXv/RPP2W62itX1MireabfWCQlf+3vo
+ olh8A
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Gregory Price <gourry@gourry.net>
+From: Josef Bacik <josef@toxicpanda.com>
 
-Changing registration from MISSING|WP to WP returns success but leaves
-MISSING enabled. The no-op check sees that WP is already set and skips
-the update, so later accesses to missing pages still wait for userspace.
+__tlb_adjust_range() takes the size of the range which has to be flushed
+as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
+and pass an unsigned long. Consequently, a range that is 4 GiB or larger
+gets truncated, possibly to 0.
 
-Skip the update only when the current and requested UFFD modes match
-exactly.
+On arm64 with hugetlb, a 64k kernel can have 16 GiB hugetlb folios
+mapped contiguously at the PMD level and flush them when unmapping, and a
+16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
+at least these two scenarios are affected.
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fix it by flushing the proper range instead of the truncated one by
+properly using "unsigned long" for range_size.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
+Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: apply fixup from Lorenzo ]
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+[ david: use two-tab indent, simplify description ]
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: SJ Park <sj@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/userfaultfd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/asm-generic/tlb.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 03f1b15bfe63e..dac696bda19f0 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2291,6 +2291,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
+diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+index fbe1114e9a443..3f4a180b48f3c 100644
+--- a/include/asm-generic/tlb.h
++++ b/include/asm-generic/tlb.h
+@@ -350,8 +350,7 @@ struct mmu_gather {
+ void tlb_flush_mmu(struct mmu_gather *tlb);
  
- 	for_each_vma_range(vmi, vma, end) {
- 		const bool any_mode_removed = vma->vm_flags & __VM_UFFD_FLAGS & ~vm_flags;
-+		const vma_flags_t curr_vma_flags = vma_flags_and_mask(&vma->flags, __VMA_UFFD_FLAGS);
- 
- 		cond_resched();
- 
-@@ -2304,7 +2305,7 @@ static int userfaultfd_register_range(struct userfaultfd_ctx *ctx,
- 		 * userfaultfd and with the right tracking mode too.
- 		 */
- 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
--		    vma_test_all_mask(vma, vma_flags))
-+		    vma_flags_same_pair(&curr_vma_flags, &vma_flags))
- 			goto skip;
- 
- 		/*
+ static inline void __tlb_adjust_range(struct mmu_gather *tlb,
+-				      unsigned long address,
+-				      unsigned int range_size)
++		unsigned long address, unsigned long range_size)
+ {
+ 	tlb->start = min(tlb->start, address);
+ 	tlb->end = max(tlb->end, address + range_size);
 
 -- 
 2.43.0
