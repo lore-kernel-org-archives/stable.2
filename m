@@ -1,115 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434649;
-	b=HXdypWLtmoLoCMT/Fv9SehojOE+7gGsIfS94zU9oEVS4oIHKIF8Bk8ntWY7G2WbmLwkQ
-	 OA0o+np0hneP7JWnlKvw/rQPmoVsXjT0Hyybuz3w8rE/KzO2RUOtg6nUuV3Nfi5klSNqM
-	 GEY81n46vLiUgpyb8dL9at8RbQQGYt5+wRs8cBVKGYOzcqzO3RIPheMWEVsHFkA65/Qd8
-	 Ca1Xtwg9FlHR4rgnspBO4WCN5Oq+9bG8wXQsCXMm+Y/4aVCoy5l4dTDAOJDwNttC2niWq
-	 VqZfTBHcwreZBPkxHHXRrtEMId5SYwVxSiKCmlCQRn6h1+zaQYA/BShST1Qls/b8LHg==
+	t=1793434844;
+	b=05Vkut1eaijooc55kEi26h7mephIFIwEoWs7f02VbeGBidkbQoMwAjzvuCDFOEfGfUH4
+	 KAhdYHANrWE9CZ1ems7cRG9XbP2O+vF8x2RkxOBPuGiJ86M753AaODnZXSu/S9anXg8nj
+	 Qx+mEbb4AwaA+BSeSrRrVqj511i17wnttlROW+D3xLc2U/ymY6Gag3120sphH74SuoFO2
+	 stH/81VKYkP+ujX9IiCJ0J0mNBnUF4pZUDWDIk6Jj2Dz/OtSqw3U8qUtIEbqoT780+g4x
+	 PMrs9aa46nm64ktSq+e8tkHtdAL2qQnj2EkiktfJxqlyvvRO8rH+4QyCDB9RB4BD9jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434649;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=;
-	b=EGIH1z6pWqsLXY2hw7cbsH31uPI9ahsMcqFgWhwt307nNwKY6+flcqBPXRXFGUWIQ5v9
-	 ErHfBTlz7L6YihRVjtm3CrSpT+hH774Kc7AhOCj0psX0EyjP2l5Lpb4G5FqUORsmzRTD2
-	 6eaQe+uuS4cGvwhGHmU8vUAKawG0IhnAOvQQIy2poyBhgpjbGjXaJeN4Cv78l/oZQRv4G
-	 DVcfa3bdT6d1Ix3TYrskrrT1pGY+GuFs7Lt4b2y1UGURDfu+D0bzbrJ+6UK7kY3iHLEWu
-	 1CYjPUwXpJY5e3OHh10LcPdBtdlwFVz5cUeUHDMc2AM9oT+3+SncTD3RXo28gMy71HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434844;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QR9ZUM3+BAi7COqEi8WRxHv0xaeR1LV8PUZl/W0E5QA=;
+	b=M5RYJGKkCET7155NN1LwM0OZ/7BZa4EE50tSyhbZ1NHJg783bM9LdlyWsxhP61PoE9wt
+	 y54dj3ujtusJvvEVhKpcg2mHElzWjKr078ob9rc5AJ90H7Gz9BVuMrgMb/VSgjQBdRQ/g
+	 uaEGfiaPmAjpEX+moYot6pkvEys2F4wTgndVbl/zLb0kY+h4hYO99ms4YJB72oe/+0n7M
+	 Bl8Pq1F5ueU1FxI9Tn56dcKy9ZHTW4ng9JUOQHVlFeTSVz3i0mTCX8bE4K6fVEOtdcTqq
+	 wmziE95KChbtsd+WsCT9Zt8SYzxasrmjdYd4z/VhGfit6ONI9ucr5a8+cCb0mAJjznQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=fC1Xdnrm;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AUtpj+K3;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfuOQ2Lg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0676606A31D
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 08:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0676606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4F73E606A31A;
+	Sat, 31 Oct 2026 08:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=fC1Xdnrm;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AUtpj+K3
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id D70B8EC01FC
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 04:17:27 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-04.internal (MEProxy); Sat, 31 Oct 2026 04:17:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793434647;
-	 x=1793521047; bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=; b=
-	fC1XdnrmdpGbz5gPs6TMNyPflsV1D6yfF/blWE2t4DONYl2dqg31kR8VaX+Y/8ur
-	9z4U6l4/CeSBx7ybEjXxnv99dlqkoQEuP9FiG1ghzJekW3V6C8sh8yBfezngJUt5
-	MRPxJTjI+z56m2IwAABBjIhe4EMTSXhktjN5lbo1Q9u0E0ysfgzeePmNU3gctBpz
-	R9V6Wodgkh32LtiB3Gee9+PuPnFqht0ZmhilqlQa40BYd4ZFUWDLddcLUCd/lYnn
-	68ayN+P7nvZTSkmPr5OtINiKcavaqCMygevmQDsK9V73my+WLWPNDu6LmjPfP0Pm
-	0Lhq1NcnwBfejkNRJWSmGw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793434647; x=
-	1793521047; bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=; b=A
-	Utpj+K3ODS+KpSYo+MzzYuHHnDYqwQFO6zHnQ5dL5/cUDS6CO0sr2+DCp3Bzfnd9
-	mp4nSnaYxDPY8osSeWEz+7VvFn/wM3HQbw4adWrY8WWWfLRtsUkJw89Xel1r9eYT
-	A56mrZOQCeOOCxyxtjhhX4CMeQmNipPhkYWkwMswtTbJAcxr3hRmhp1faVpJdX8Z
-	9AbPvuBXVz9m6yhEyZI2ilWdOAjXPPcwnRqzuR9JFVXOUxkuMHIsgS5O4YMuSLFC
-	JgCFeCQqfWjK547fP09bMdNCAp0p2g1ofHdsIzCQIZoXSXAQEbGF6lkoM7NOAs8T
-	Nug68R8Ebx0H8sDrB6F1A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793434647; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:bBuOyQbybwYklXFnX5IfsgW5n0sFNKx6CL4NCvmEkVNFt76
-	NWLtAQucPv0UKPl9ZIn9JfnUqnkCj+0j2CjBMEE9tF2G1nWl7ASxt1Bz2OpOsDA2
-	40Ewq2u1YnarJlZJapVYSLIDfInpWT9pL+w7nEScVyB4nT5nLOJCt7pLPte4vTDt
-	2g0okXF5FGP1pO09dxfnfqyqbOsQe0/HBXkE+2Lfc6i98soFkU/zSy5tdBEcRGFv
-	eVw4vclbhSLxm1HgSFo9U4WsTbZMtu43KO9PiaH3FMY9Ym7sOgSh8KcixuCJ1Hvz
-	gnbcvDw5I+7blD62aRmv++cbdF3CqwZxBGEAuqg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:NgRDu01O8AU+upvey9fhsFMNhDK+YFrnyvatWUp2FAI=:qA0pD7FKCwuP3nSZJSt+RalrmtELdTli0/GLgZVMqbw=;
-X-ME-Sender: <xms:FqTlarTAXyfJzZTvnKYHsJKhw4oexrrK06Wr0ifXUPQt_vqMY61Feg>
-    <xme:FqTlaooT2mSozW3vIUcf1LDMhpPRydB9_L7UW9STan3911-gBf2dxIhTRddDce12_
-    BTDNnOXvqpKlje0cQl60pGiuuRhhbZnysSP8rlw1jRmBeJs3IAOdDvC>
-X-ME-Received: <xmr:FqTlasU0tJbTmw-Cvuy73cUnd91nAkifnl9SBF13IRmLn-j7ft-cf7q8pSxPZKlyNXIdrlnJmNwaMYftXr95eU5p1Xd7SYsm>
-X-ME-Proxy-Cause: dmFkZTEEH/UJEPA9dFtELWv8H2w/4/6VOoy/nZUvDdlDrm2SZTJQktOY1SfcSO38GcYdzt
-    ZyJVUA5jlXpSokW5ISylG5172c+vkMtf+nEAi2KlNubVue14ToIMna38mONKrORJ27Vg9I
-    BI3IwgY62OaXndpah7x8z2qzlc92s3hte7KYWks3NHycZjregzSbmtLQOHfBMtZx2jAAVb
-    wY7phBpo2F/JQGqm8uYR8xdbDxlwSpWhP76vOVOV96948hLFqJUdp9A+iBx8bW6l8gTKFG
-    KRF6bZtVBh7ld597JyyaBVFIk/2CN7vFz9Eg0SijT3GQmN8xnULwnANcI9hVPWhSkj9hN+
-    lPsclQjJFqARg/Ov28Pzl2nx1n0C/yA2lBJ7aOtcdbntM2jtvDbBlvJcsU6d+U72myzbuG
-    Gh9HP0Cu6be2E0BYezSwd4Xl4lr6DDWfL/PYMVx5whrUnmy9NBfYOxpHi+2pelvBSuN/JQ
-    EelLtSVqEqQPYW/I8wzClQck5y9PbxYWD1wtuMfkaUXPlKL/od2IOLyVrd9gTJAWI+Nzpi
-    X/rvZ+DFB2I/KKwCiopzMA9w8+w9ZiXWx6FCMsukWh8G29ldYYurCRrVuZPbI/7NHWCUmF
-    WHsrKDqXD5O7upJAtoSKC3EYjyLHXYeQFzN5IOrwXtOuiwEeX3G1lJBaYQCw
-X-ME-Proxy: <xmx:FqTlau9fMuF0uW5x39SC0caJCwpoeI7cR_y4ewSjI7zwS49vcd66Lw>
-    <xmx:FqTlasZLY1J3INq9MDp9pbgW6ZATK42k8gjhX8cl3wl9hZWQ3YlDnw>
-    <xmx:FqTlaue9PpkdGY8eaLeuSxmSfugrVT0RFibeKA47RdFg2ADFNBMT7g>
-    <xmx:FqTlauqGEgsJr55ngQlBn5PPGgip4ZD0QbMFP1gPm9iSv15LDR2e4g>
-    <xmx:F6TlamkqZ53OFkNEMU9Yu5eLZQh_vUIeL9E8O5J4cm6wSUwkLct6LR4Y>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 31 Oct 2026 04:17:24 -0400 (EDT)
-Message-ID: <922c7eca-79d5-497f-8739-91973702b969@pobox.com>
-Date: Sat, 31 Oct 2026 01:17:23 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfuOQ2Lg
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 479AF1F000C1;
+	Sat, 31 Oct 2026 08:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793434843;
+	bh=QR9ZUM3+BAi7COqEi8WRxHv0xaeR1LV8PUZl/W0E5QA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kfuOQ2LgNAmEchsDESHzYlxeovd2BxBGsYXDJoxQLW8WU7XY8zfHj+jQ9w6FFKyUN
+	 gV1/imK8pMkuziUxMwhkffGOW5MRbABX11XgEhUeW5ImpYDJxyr3GkUVOsRzIw4+cg
+	 7z2Y/RQFWpHXvLY1moCDbPUaHdObrAwfjkTLdajOQFRPpOIfGkFTKJ9I2riq3PFToK
+	 HmywflqYh9SfsubCykmGoaRliWA+8OsE6T/Ei/LUX+TqcEkcQHg5Qv3NYPg4GCt3aT
+	 XLzJC7Hmb/vtqGw5t0IoZs3j3HVX2vyzHVC8fxmX71adale8uXXG9R5EoRDtC7yfx0
+	 OmGXi+LBQUsLw==
+Date: Sat, 31 Oct 2026 10:20:40 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Anvik Loitongbam <permissiontogallop@gmail.com>
+Cc: keyrings@vger.kernel.org, David Howells <dhowells@redhat.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KEYS: request_key: enforce keyring restrictions on
+ constructed keys
+Message-ID: <auWk2PAYDgQGXLqr@kernel.org>
+References: <20261030173930.40948-1-permissiontogallop@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,46 +58,189 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261030121255.257615100@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030173930.40948-1-permissiontogallop@gmail.com>
 
-On 10/30/26 5:15 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.15 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Fri, Oct 30, 2026 at 11:09:30PM +0530, Anvik Loitongbam wrote:
+> diff --git a/security/keys/request_key.c b/security/keys/request_key.c
+> index e6ba2d054399..3de6c9160651 100644
+> --- a/security/keys/request_key.c
+> +++ b/security/keys/request_key.c
+> @@ -370,18 +370,21 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  			       struct key *dest_keyring,
+>  			       unsigned long flags,
+>  			       struct key_user *user,
+> -			       struct key **_key)
+> +			       struct key **_key,
+> +			       bool *defer_link)
+>  {
+>  	struct assoc_array_edit *edit = NULL;
+>  	struct key *key;
+>  	key_perm_t perm;
+>  	key_ref_t key_ref;
+> +	bool link_locked = false;
+>  	int ret;
+>  
+>  	kenter("%s,%s,,,",
+>  	       ctx->index_key.type->name, ctx->index_key.description);
+>  
+>  	*_key = NULL;
+> +	*defer_link = false;
+>  	mutex_lock(&user->cons_lock);
+>  
+>  	perm = KEY_POS_VIEW | KEY_POS_SEARCH | KEY_POS_LINK | KEY_POS_SETATTR;
+> @@ -404,6 +407,21 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  		ret = __key_link_lock(dest_keyring, &key->index_key);
+>  		if (ret < 0)
+>  			goto link_lock_failed;
+> +
+> +		/*
+> +		 * A restricted keyring should not take an uninstantiated key,
+> +		 * the restriction has to be evaluated with the payload,
+> +		 * which is only available after construction. Skip the
+> +		 * provisional link and add the key with key_link() later,
+> +		 * unless the caller explicitly asked to bypass restrictions.
+> +		 */
+> +		if (dest_keyring->restrict_link &&
+> +		    !(flags & KEY_ALLOC_BYPASS_RESTRICTION)) {
+> +			__key_link_end(dest_keyring, &key->index_key, NULL);
+> +			*defer_link = true;
+> +		} else {
+> +			link_locked = true;
+> +		}
+>  	}
+>  
+>  	/*
+> @@ -424,7 +442,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  	if (!IS_ERR(key_ref))
+>  		goto key_already_present;
+>  
+> -	if (dest_keyring) {
+> +	if (dest_keyring && link_locked) {
+>  		ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
+>  		if (ret < 0)
+>  			goto link_alloc_failed;
+> @@ -432,7 +450,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  	}
+>  
+>  	mutex_unlock(&key_construction_mutex);
+> -	if (dest_keyring)
+> +	if (link_locked)
+>  		__key_link_end(dest_keyring, &key->index_key, edit);
+>  	mutex_unlock(&user->cons_lock);
+>  	*_key = key;
+> @@ -446,15 +464,44 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  	mutex_unlock(&key_construction_mutex);
+>  	key = key_ref_to_ptr(key_ref);
+>  	if (dest_keyring) {
+> -		ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
+> -		if (ret < 0)
+> -			goto link_alloc_failed_unlocked;
+> -		ret = __key_link_check_live_key(dest_keyring, key);
+> -		if (ret == 0)
+> -			__key_link(dest_keyring, key, &edit);
+> -		__key_link_end(dest_keyring, &key->index_key, edit);
+> -		if (ret < 0)
+> +		/*
+> +		 * The outer search checks Link permission on a key it finds.
+> +		 * The second search must do the same; otherwise a key that
+> +		 * appeared in the race window could be linked without the
+> +		 * caller holding Link permission on it.
+> +		 */
+> +		ret = key_task_permission(key_ref, ctx->cred, KEY_NEED_LINK);
+> +		if (ret < 0) {
+> +			if (link_locked)
+> +				__key_link_end(dest_keyring, &key->index_key,
+> +					       NULL);
+>  			goto link_check_failed;
+> +		}
+> +		if (*defer_link) {
+> +			/*
+> +			 * The key may still be under construction, in which
+> +			 * case its payload cannot be checked yet.  Do not add
+> +			 * a provisional link to a restricted keyring; only an
+> +			 * already instantiated key can be checked here.
+> +			 */
+> +			if (!key_is_positive(key)) {
+> +				ret = -EPERM;
+> +				goto link_check_failed;
+> +			}
+> +			ret = key_link(dest_keyring, key);
+> +			if (ret < 0)
+> +				goto link_check_failed;
+> +		} else {
+> +			ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
+> +			if (ret < 0)
+> +				goto link_alloc_failed_unlocked;
+> +			ret = __key_link_check_live_key(dest_keyring, key);
+> +			if (ret == 0)
+> +				__key_link(dest_keyring, key, &edit);
+> +			__key_link_end(dest_keyring, &key->index_key, edit);
+> +			if (ret < 0)
+> +				goto link_check_failed;
+> +		}
+>  	}
+>  	mutex_unlock(&user->cons_lock);
+>  	*_key = key;
+> @@ -495,6 +542,7 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
+>  {
+>  	struct key_user *user;
+>  	struct key *key;
+> +	bool defer_link;
+>  	int ret;
+>  
+>  	kenter("");
+> @@ -512,7 +560,8 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
+>  		goto error_put_dest_keyring;
+>  	}
+>  
+> -	ret = construct_alloc_key(ctx, dest_keyring, flags, user, &key);
+> +	ret = construct_alloc_key(ctx, dest_keyring, flags, user, &key,
+> +				  &defer_link);
+>  	key_user_put(user);
+>  
+>  	if (ret == 0) {
+> @@ -522,6 +571,30 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
+>  			kdebug("cons failed");
+>  			goto construction_failed;
+>  		}
+> +
+> +		/*
+> +		 * The key was not provisionally linked because the
+> +		 * destination keyring is restricted. Link it now that the
+> +		 * payload is available so the restriction can be checked.
+> +		 */
+> +		if (defer_link) {
+> +			/*
+> +			 * A helper may have negatively instantiated the key
+> +			 * (e.g. KEYCTL_REJECT) and returned success.  A
+> +			 * restricted keyring must not cache a negative key;
+> +			 * key_reject_and_link() rejects those too.
+> +			 */
+> +			if (!key_is_positive(key)) {
+> +				ret = -EPERM;
+> +				key_put(key);
+> +				goto error_put_dest_keyring;
+> +			}
+> +			ret = key_link(dest_keyring, key);
+> +			if (ret < 0) {
+> +				key_put(key);
+> +				goto error_put_dest_keyring;
+> +			}
+> +		}
+>  	} else if (ret == -EINPROGRESS) {
+>  		ret = 0;
+>  	} else {
+> -- 
+> 2.56.0
 > 
-> Responses should be made by Sun, 01 Nov 2026 12:12:50 +0000.
-> Anything received after that time might be too late.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.15-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
 
-Tested on 3 amd64 systems and an arm64 virtual machine. Working well,
-no regressions observed.
+I tried to go through the code change now as it is huge and there was no
+explanation why you need to do all of this.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+It is full out-of-scope changes. Please redo this just as a scoped bug
+fix, and don't add any new flags.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Br, Jarkk
