@@ -1,49 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793440333;
-	b=qP9SkzxqgQI3kszqIpuBSmIyEN3ESk2iHk0Fsk8cJIUl8EowAsK7Zllj6FS1ons+w1Ku
-	 wZsv392MKEyvjO/Mg9d36yB7fUOTQiRGT7442whKelDUiGME52m/knOM91Hyg09aIeHfV
-	 HvkYOGNnodSMrU5icMETRSo/DgpqOLekfhW6VHNzUPFAXoQSXaX1CYY3fATFmosPuw75/
-	 3An7EHqnXxHJRqYOA5mlxngdL0znULlZvTh8XVsj3fpus3IoCx2qny/dMutK71FX1TeiO
-	 dLyDGuCxp/CcEQxNAMyWlrI0MkCUF08M0yY07tcAi/oUwlRQ593LBg9MHi8iY2zA7uA==
+	t=1793440511;
+	b=j4sdtSsbjhX5UevmYQdlevoFwZyUlWMzs0zd+GZJ93fVByeE5cCizQsojgrkUs19+Kok
+	 1qI8Svf5NrnHGEupe7zUIA+4/sybA9y/3oqpXAtLKSorEryxoVwektW1VuiGqf7D8XAHV
+	 EoNJDUUTMKy5gx/95gfw12yHGrlmIlW+BCgwpXEfcM6Sc2p2Z7RJAxDJufwJ1Hm1N9TjD
+	 c/zVAUCcEfYd9txxjs7e5FDpcdoIjW5LOWVPV1x7Il+KuBLVRPH/J2QRztMBZOsJSGorZ
+	 mgWYO8Acuc25qRpoiw/lf/8AzYqWAKuO3cwCyzP6pMVPP+sCm0prYsIMwd5p5mL+ucg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793440333;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=LXWsGGAuGYMpNthZzj7j0qIEhHCnCLdw4tDv3Dde7tU=;
-	b=pGfNY/QbPia0FakNl1uRPS13fpbEyTru7GFXcT8shxYQRgPTmjJ48D0xOcYasrje2V+F
-	 n1bDHZnkwGK0lIf54VRHF3XaFjldUi5bYK826d3UmIRzi/QHoAJIzHZVqjCy2FW1ytgpa
-	 w+jsRIeMXLZ+oWbl9pJAwLZTXB3WRdgd93lpbRdOChKggeNVUPNixIc0sW9HH0nCvJjiS
-	 yXPlffp31mDh43lHert6n2i9l309dihDFElvDwy5FBkc8GVUuZpAE3K3ymtTx1zWMzJ+r
-	 ALSmCNHbCH0z56aC2MROpe/fNinsSrlbnIIoJi3b0cMfPeCrRigL/bXmguwS2kqaimg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440511;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZRdXRrWaH3GXnj/xf+WF4Od3Gq+lG/ySQbyFtokDobQ=;
+	b=e17Xd3PP6l1OjqxAuBwioxgEGkULMmQAohQX0tk0G+ru+7FTVrPE2b3UJfoFW5rjBy9E
+	 nCZ+rsv002hJKD/zXf8q7ulrLXKUGrBmOfF0mziXrqk+m3EQVerDbpuRiNlLoWxQHmSIf
+	 ERHEjM5XfMtsSqNtJfhnnkCeXrziqi3TBekUSzbOCRKzb+jVbJ66ykFkyK0diPKtkR64k
+	 j3lleznaflieNdbyKGcxZRARU+n8E3XRcnKWm8VggsC+/14TjI+d0eqaltur7ISCYbk54
+	 PniAZS1n3OERD83lofIVoLw4K6xdl4QPwWVqT5y7hZyDcNej6BFZyJjgAF8mcxvMcZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDaRfZV8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A2Qh507H;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACD5606A31E;
-	Sat, 31 Oct 2026 09:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A69606A31C
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 09:55:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2A69606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDaRfZV8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99D3F1F00919;
-	Sat, 31 Oct 2026 09:51:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793440332;
-	bh=LXWsGGAuGYMpNthZzj7j0qIEhHCnCLdw4tDv3Dde7tU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WDaRfZV8lrdSHWo2bJPjhRAvbOAWGSBSNWe8J3upHnl+8qcyY3Ce8G7dfUa1DjNu8
-	 H8f+FSaHVuGPPNLccj7ytAj3BCbt3FdYbeSSKQF/QvfRjblvOsaNaGnbw9hLcvhcsJ
-	 dDRBr8BfUwDlVj32RVLLIYvP7S3lEAMUk4hAgnS3bHgLHai9rCoFXH1JhD19+t2mMl
-	 n7zx2EBIckhQ3seuwiWQtQn9Jl0jqIz4d6PcM9b+vRYVjFs35sap3cB26D91h0RaDe
-	 MOMYNkE9tGqvEbueSr3By16YiV7Ok4fX4v3f6g5/bvzabRudn/+qA5QxL3Z0bM3mj6
-	 nFye94PFipthw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:15 +0100
-Subject: [PATCH v3 46/47] mm/memory-tiers: unregister empty tiers outside
- memory_tier_lock
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A2Qh507H
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1592428f8f.2
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 02:55:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793440509; x=1794045309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZRdXRrWaH3GXnj/xf+WF4Od3Gq+lG/ySQbyFtokDobQ=;
+        b=A2Qh507HjQmeA+P5m9XKhryYbdN17f8lKZGAWxv+nA+hICvwXHyi0LcTij2wosUvp9
+         4T65S+6TaCqcUcWn5ZHncrl2EgOPVXsrxszLH3BT+nWa9T9s3U+uhdm8xtaJNmag0Hxk
+         X9MIg4QnRZ82ONsxf+wgvsWa0D16q+cPDPkRZHGuDnEEXmkrf9UCXjZ3/758k38PLH6N
+         QEolL4+/5vBJiHSpZPmG8GPzEAuQOp+cQfwjjZVO6jS9Hwzzf71bEx2GHHyiDMh199f9
+         T6YXT0njlhFl5YkocjUKdhtqvluDoCaRLRtoHAZj6/KKwjubfvlSbvjENsT/TJ2NzC6O
+         6GPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793440509; x=1794045309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZRdXRrWaH3GXnj/xf+WF4Od3Gq+lG/ySQbyFtokDobQ=;
+        b=mG1j/ZzU6XxHELaqsIiu4HabApBIHRInfRdxgZY1DD4VwKfAZWaDaFh+EubE4oigiA
+         BLlLWBB1Ft1+0xVFxYcZDSxDGQkU+HGZT1r+1dc4NbU60bW/CAdP/Kgp+lrP5SaOkawm
+         z1ILRw0HaY5xtuVq75ypjPM3Rk1+YU2rDc+ceCq9XI08j2UNOIGxeXCFPdGVBSBg6gJd
+         RiylHoWG11EKwCuRcGRM8pOYXf9PMgo6ufRq7nbujE4G5Qcu7NmMkBE8Hq3qElvmSHw9
+         GvThmXVATEGSp81z4gF6+bs2wU7O39hyo9XFhnCWGwTApioxOWX75S+TC33P25gU6Rau
+         tzcw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0ZPrwiyZSYGG7si90x7KhhKuNDpk4hELQRCDtLGNuyj2DiQOCCQY1AaZX+sSQx9xrGnGwDIs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMB0HDDlKJUYwGr83hlO4i+Lvxa0r3i5XoRBo6otSDhCfLr86H
+	0sgBXvRRAy501RcFb29A8Xwp8C5J+UmkVRLJbAW8F6elKDRGAoloBHol
+X-Gm-Gg: AYBFou2kN+8LGLdOVz0/INSOQCX+2SjQJKP6o9N3jb7caCaGCy/4R1kgqj1z8YQHXZy
+	z6utSHeovU6AC10kCLxGzTMp2U68VXZLpq/jYifQUsZyyM9p0Eczm1qh7fsJp65JyZW/YsmxQSf
+	nApNlICcrqm+pkthW/C7f5gIAYkoHu23t/bIaxp6hLN8yl6wTwbMpxpTpU00XIRty3dIvTg/LHw
+	ruxUpt+Ui7mFHDecYMxHcnHIG3lU//w9yorfU+RfCQsbEmsYNMSmevxAxPlVx/Yullihcjr9lIZ
+	4gqFrIhVIw5Fast21WgZwwdc7SF8OA4OA+ASdAurfVUFiHPnV0gpwK5BjwJKVCdefszfPv3D4yQ
+	Vdm8xj7pIEUu9Cgt1oStlJDD+C+hJkM3kaIGY178XZosPd7eNdrXC/oN4aFzfKBjWg5ieiTlb5l
+	jvbFebXal8Q9qT0P4O2S/R8wJJIapnk68Wjj8PpdEIe1rk/g3da3CI2QnvHojQuPzfeeqsIhFj5
+	Q3UIZn5wpzyHa64enD1HiXQgt3TrU+mywPsVxKMBPrnWaMmxxhd2TEMzknglLlHd1k73jNKWn3K
+	KZkyLOkf1ayRDNYQ257vpqCs+17QXs5BZcLoM+vAzmSJUf/0w5Bc1G9aC5R3TWqJCR8B32UtH0q
+	8LuVDcIJAXveC5fYG77bv+Mx69p/9rtGVyfXlICGa6p8+4YIv/mSBRQ0UfNXKRY7EAAU=
+X-Received: by 2002:a05:600c:4752:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4ac18e5d4d0mr113107915e9.29.1793440509125;
+        Sat, 31 Oct 2026 02:55:09 -0700 (PDT)
+Received: from archlinux.tailbe3ea7.ts.net ([95.173.233.214])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a6bsm7869505f8f.27.2026.10.31.02.55.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 02:55:08 -0700 (PDT)
+From: Ismail Tarim <ismailtarim7@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: James Ogletree <jogletre@opensource.cirrus.com>,
+	Fred Treven <fred.treven@cirrus.com>,
+	Ben Bright <ben.bright@cirrus.com>,
+	patches@opensource.cirrus.com,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] Input: cs40l50 - fix OWT upload length
+Date: Sat, 31 Oct 2026 12:54:34 +0300
+Message-ID: <20261031095438.3070451-1-ismailtarim7@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,152 +100,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes_core-v3-46-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3122; i=david@kernel.org;
- h=from:subject:message-id; bh=4kChVYvvx74BRlmNy9r2/KDpSY0XvvEjaE2NRYfL7Rw=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs9+99iyuX3mtNxzRav077QJloZ+YyoR6Cgy2vp4d
- YX/5CM6HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzk4SaGf/ZLKmUk1xgsDAxl
- Pc3A+6Vf/4kPc5PbSzOWCXdu2uiXVTAyrOyZI/RJ5uh8YRfxXwU8K8t/sD5yzZZddPjK5FOzcxM
- mMQAA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-When offlining a node's last memory empties its tier,
-clear_node_memory_tier() calls device_unregister() while holding
-memory_tier_lock. A concurrent sysfs read can hold a kernfs active
-reference and block in nodelist_show() on that mutex. device_unregister()
-then waits in kernfs_drain() for the read to finish and release its active
-reference, while the reader waits for the offlining task to release the
-mutex.
+cs40l50_upload_owt() passes the size of the effect in bytes as the
+val_count argument of regmap_bulk_write(). The cs40l50 regmap uses
+32-bit registers, so val_count is a number of registers and the call
+covers four times the intended length.
 
-Return the node's former tier from clear_node_memory_tier(), making the
-helper more similar to set_node_memory_tier(), which also returns a
-memory_tier pointer. Let the caller unlink an empty tier under
-memory_tier_lock before rebuilding demotion targets, then unregister its
-device after dropping the lock.
+regmap_bulk_write() copies val_count * val_bytes bytes from the source
+buffer, so this reads past the end of new_owt_effect_data, which is
+only sizeof(header) + len bytes long, and writes the extra data to the
+DSP beyond the end of the uploaded effect. The free space check above
+only covers the real size of the effect, so the write can also go past
+the space reported as available in the open wavetable.
 
-Fixes: 9832fb87834e ("mm/demotion: expose memory tier details via sysfs")
+Pass the length in 32-bit words, matching header.data_words.
+
+Fixes: c38fe1bb5d21 ("Input: cs40l50 - Add support for the CS40L50 haptic driver")
 Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Ismail Tarim <ismailtarim7@gmail.com>
 ---
- mm/memory-tiers.c | 29 +++++++++++++----------------
- 1 file changed, 13 insertions(+), 16 deletions(-)
+Build-tested only (W=1, x86_64 defconfig with the CS40L50 drivers as
+modules). I do not have CS40L50 hardware, so this was not runtime
+tested.
 
-diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-index 25e121851b586..8eda313cf6192 100644
---- a/mm/memory-tiers.c
-+++ b/mm/memory-tiers.c
-@@ -572,21 +572,14 @@ static struct memory_tier *set_node_memory_tier(int node)
- 	return memtier;
- }
- 
--static void destroy_memory_tier(struct memory_tier *memtier)
-+static struct memory_tier *clear_node_memory_tier(int node)
- {
--	list_del(&memtier->list);
--	device_unregister(&memtier->dev);
--}
--
--static bool clear_node_memory_tier(int node)
--{
--	bool cleared = false;
- 	pg_data_t *pgdat;
- 	struct memory_tier *memtier;
- 
- 	pgdat = NODE_DATA(node);
- 	if (!pgdat)
--		return false;
-+		return NULL;
- 
- 	/*
- 	 * Make sure that anybody looking at NODE_DATA who finds
-@@ -604,14 +597,10 @@ static bool clear_node_memory_tier(int node)
- 		synchronize_rcu();
- 		memtype = node_memory_types[node].memtype;
- 		node_clear(node, memtype->nodes);
--		if (nodes_empty(memtype->nodes)) {
-+		if (nodes_empty(memtype->nodes))
- 			list_del_init(&memtype->tier_sibling);
--			if (list_empty(&memtier->memory_types))
--				destroy_memory_tier(memtier);
--		}
--		cleared = true;
- 	}
--	return cleared;
-+	return memtier;
- }
- 
- static void release_memtype(struct kref *kref)
-@@ -884,13 +873,21 @@ static int __meminit memtier_hotplug_callback(struct notifier_block *self,
- {
- 	struct memory_tier *memtier;
- 	struct node_notify *nn = _arg;
-+	bool empty = false;
- 
- 	switch (action) {
- 	case NODE_REMOVED_LAST_MEMORY:
- 		mutex_lock(&memory_tier_lock);
--		if (clear_node_memory_tier(nn->nid))
-+		memtier = clear_node_memory_tier(nn->nid);
-+		if (memtier) {
-+			empty = list_empty(&memtier->memory_types);
-+			if (empty)
-+				list_del(&memtier->list);
- 			establish_demotion_targets();
-+		}
- 		mutex_unlock(&memory_tier_lock);
-+		if (empty)
-+			device_unregister(&memtier->dev);
- 		break;
- 	case NODE_ADDED_FIRST_MEMORY:
- 		mutex_lock(&memory_tier_lock);
+ drivers/input/misc/cs40l50-vibra.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/input/misc/cs40l50-vibra.c b/drivers/input/misc/cs40l50-vibra.c
+index 7ef4534fe..68f0c40ef 100644
+--- a/drivers/input/misc/cs40l50-vibra.c
++++ b/drivers/input/misc/cs40l50-vibra.c
+@@ -250,7 +250,7 @@ static int cs40l50_upload_owt(struct cs40l50_work *work_data)
+ 
+ 	error = regmap_bulk_write(vib->regmap, vib->dsp.owt_base_reg +
+ 				  (offset * sizeof(u32)), new_owt_effect_data,
+-				  sizeof(header) + len);
++				  (sizeof(header) + len) / sizeof(u32));
+ 	if (error)
+ 		return error;
+ 
 -- 
-2.43.0
+2.56.0
 
