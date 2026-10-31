@@ -1,116 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793442760;
-	b=SJ2xMA49dm2bPTDgnt88zbdKYNWuGmd/xhI161EPPFzDTb79/p/0sK3/M6kxbbRzzfsj
-	 v8ooIZHnBq7ffB4g6Kj9Aa2r1Ahv16E1O0rrRpH5qSAyr2KbI/WyYrZMQdK175mwwC3Dm
-	 49I573Sd9HCOqMxeShTeLGt9gDVfJMOjeKFHVtqRO1Sc5mgVRGfWS2RYVsYYYqdT485v8
-	 vi5Vmua0ZlqEDIPqe/fNu0O4LyVmv00Q2H9RBkzMFkUj5ydu+lIjSMz4JIogT+9vFcash
-	 JPGSqqCO2PB4/0dgUl4ZEJVVOSPssH02+tNtwtY3LlUGVcRm7IilPO+WZtTHavkVB9g==
+	t=1793443868;
+	b=lvp1KxwUEvMPtpD6ydChzHBEXPU/j6FKTA9iBKWGjxCxzvxRNAuzIJMlP4fT3Dx0U5sm
+	 21VzVkmDYAGJ/gRfA9d9L7TcQwQiwyuY+h/Si6CKWSwL9hNjqWQUvtPTTE3p8nBx+RAFK
+	 iZXpzU3wcqUvLQn5WoVPAdZbNWkmnMnYLs7lyhwLMcjXCksQqn0C/hGGDg0FDvsOqOKxe
+	 Z7+sK/0yzaEj8u7+6ymfSYFYnNJDzOPJ7vs4x9mNVrGFsVfQJ6c/4XxgGHijzMp8dwmLa
+	 u6wKro/9HO88x+/DR3ZL6V6a4ou4E/wYbek6ixGMtdcCFzvzJNj7orc55AfQpmD6/hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793442760;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=72vAZbtr72IoRLAfliiOOLU1MN2tQzGpQYioVXZGm+A=;
-	b=nNBExTPghw1z/wZ8eDGDndtC7doLNeRoXb3jU/IN17my5lUmdyeMM+j/YcDV8RzEs+3p
-	 etCxAEeBUhwqhg1Yjjo3Vv1aXgwbTzS0nEWbchDciCIScPkDRoyIZqFzy8lugptSrnR2Z
-	 wx/DlSkP8RKYwUI8sCrdVrAYWrpB4YEzUTuIujt2pMUgN9HL7rcgr0hM4estHroPyWn+X
-	 VHPoptSRcR+M8qXQSR5Z14c/dfdiwBH5EN4d7pg7W7fiyQA3ymR+9ZRrRd0xMRzGky6bF
-	 5LcllFLilzFwHp9uSO8c13kmb8kaRQAcBCdh3uRfAEFZAWR3EQq2kPSOrjrZB1XHPPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793443868;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=B+jxDJoZ2NJnuhxlFqog+6PCeIn6ndLBhf8KyfLiV6k=;
+	b=Yqum4gK7s9XRSVbOaOiF3WkATic99A5LK2P72yUKh02yiyvsAewJZt68fFmaGts1mPvw
+	 dP0ACmboklmT1GMBo8eG3y5UVSrE7HfA7gTH56oPRuwVkmoqrgyoJ8UwWEjPGzANM8IPw
+	 ZQ+yrA3KPjI2s/ggwKnUSHJj3BV35hT1FL0e2MmLmqHP60mzOa99h1cnzsU5+9h6xLdxx
+	 +FyDZEiVWNEUMGyS3i+MJ9G93EPw/Iu86Rt0MmHvAQYyRsNLdPqLTOM6Zaayk6MbXvQIM
+	 cHBVvq2X5KPoauHfnzn3OxWmf1sQyfgLugyXRoFkCdXmGmuwwGiUAPWomn7hmRvvcBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJla+Xvp;
-	arc=none smtp.remote-ip=74.125.227.139
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Jva9haJ+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAB2606A31D
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 10:32:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAB2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D31606A31A;
+	Sat, 31 Oct 2026 10:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qJla+Xvp
-Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2ea993271f2so6643355ad.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 03:32:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793442760; x=1794047560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=72vAZbtr72IoRLAfliiOOLU1MN2tQzGpQYioVXZGm+A=;
-        b=qJla+XvpYJ0n1wOLTp/vA2I0Ph+g/WlxhHj1aX+Gq5FJ3rMIl70HU68QPsOxrFNtMf
-         O2d6voG8y7BCFxbNA+HSDr54SHoH8qKQFBMGGvNSaGjpa78feZIva4C5dL39+UdBHCH7
-         nQSLGLQ6rBz7eMaJS4A8fys6ZViwQWuEzNhk6E3OUSPwfdUnS8sf/TVgDrekMFW/duJL
-         JWoqKcASrAoFQAyJJBZbg5BYxIb//X6sotaKjzYyXeuMgLvaZEWxOmcHNbz5X5FIpD60
-         Yvx8LAJbPkN6Pc3npLSHd70Nv0grvVcexKzUMEsaXkGt+iMpHMacdrB5E5FDHuY3f/nU
-         1QSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793442760; x=1794047560;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=72vAZbtr72IoRLAfliiOOLU1MN2tQzGpQYioVXZGm+A=;
-        b=AM2Gdp4UC1qfWOPY08nBkYhuGxpXuVRSBgmtmKwPtaa+ZV3jLctINVty46f5XFzQgQ
-         0JW1SdUrJWVgrSAJCvkdphirJ+qUkAyEWINONjyihmVopCn2/VsT20htYHaaYbYHiIly
-         aBO69rOIYr0nEtWn4u7a6jeE2zbb8MkzpnEQx2TYejzfYGuMU5ri3dCGrR4ERvR+7DZn
-         hK8hkwT0ablSwG/JolbP4F/PQqM5qlhbieCsrBUqxxRQBVZ2AJbPssqkA9+mprl0u2bQ
-         WQm7qX2WLBFKLzwgYMl1jCTLYAgjcvs53OoCn2FyEF8PT0ZVuRxY6cFm6aWlaSQtxfp3
-         zGRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxP1M2laN6bDaRLm60pmlzK8vVQBBP70mUOR0RR39dTyaAzp1ygJe09wwcPYkVE9yqJmYg3oDI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAuVZYc3awJ2RhKcPkbIIVnzGGWR1eHgE9jjgDGp9GYC3pSKTr
-	HGL7n6XySpDO0AHXiQNZGw4h/9EIYhLWVqVHGyWvZS8wHGUS4lskgeA=
-X-Gm-Gg: AYBFou34DtTuXGMFDjgHCzgWqCQVko1cRnpdoznObE59HHWjqo/mVCRCMk7VCvsbfWb
-	Xefoojep4a5X+0+vwNjNZn/nxfF8EQpCsYHvcWvY4r6bWQFCjGWZTMpCRsVJyh0zqFWC6bv2BDi
-	EkIV0/fiPyd/hkOwkVSRy1qf5N/Rwcs+Zq7l31cI9bBfieAVc3s8qlx9wSGo67FJdMceaiZ6QB5
-	v9DKQvvR2CwkhjvAkg7CG8g9kNipakwXq8IOcdIrIWTjp9ifGCzdRU0ptxcF0kDoIqyJVTlEhVX
-	wPQDMumNHa3CcCzVoOr3Rc86U1KIrZxI9CrjNR63zjeDUedN1JSyqK44Llu6WllY27zW0vOhXKp
-	hhTvqiwRMDm+JPN6SyDPz4N+ztw26FMDkfRmt5kI1tMAAvEpCtx2Q6rq7XptjMh04zGUoaV51O2
-	RCmcv/qIzEmupX6JQ7wf99DzseesWKcd9N6nRCHXajINrt2jStLhKmruSnoaInz/qiFJ1gKQwy6
-	2UZj9T2bhS9P5VyfEsbd/jwz9nY+AZAyD1a2nLzt19aRcfLezE3c7LfEGfS7otPq/mjFWtGjqD1
-	YI3E/k9YdbpfrSZ0j6yLGiizemVVvNrlNKC6JN4cfnm1mZuBim4oNEG7imqx6A==
-X-Received: by 2002:a17:903:298f:b0:2e9:66c4:1713 with SMTP id d9443c01a7336-2eb3647f79emr46870175ad.58.1793442759516;
-        Sat, 31 Oct 2026 03:32:39 -0700 (PDT)
-Received: from WIN-2DEDQG69EF6.localdomain ([2a13:a5c6:1ff1:280f:be24:11ff:feb0:8690])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3928104asm14817275ad.53.2026.10.31.03.32.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 03:32:39 -0700 (PDT)
-From: chenhan <chenhan0017.work@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: a.hindborg@kernel.org,
-	boqun@kernel.org,
-	fujita.tomonori@gmail.com,
-	frederic@kernel.org,
-	lyude@redhat.com,
-	tglx@kernel.org,
-	anna-maria@linutronix.de,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	ojeda@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	miguel.ojeda.sandonis@gmail.com,
-	tomo@flapping.org,
-	georgeandrout13@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v5 2/3] rust: time: make Delta division and remainder fail consistently
-Date: Sat, 31 Oct 2026 18:32:05 +0800
-Message-Id: <20261031103206.24051-3-chenhan0017.work@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261031103206.24051-1-chenhan0017.work@gmail.com>
-References: <20261031103206.24051-1-chenhan0017.work@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Jva9haJ+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3054C1F000C1;
+	Sat, 31 Oct 2026 10:51:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793443868;
+	bh=B+jxDJoZ2NJnuhxlFqog+6PCeIn6ndLBhf8KyfLiV6k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jva9haJ+ipJNYhfANxPztypI3ud9UGF+NpPwp+IoM8fuKJtLIWnQAa12TjZhTMUXm
+	 HXjxlEeIJ6ozR3hBLCnXpnvttKpSekaWRc9uwodgoihZl4uvmOgmD395n47ZWwhsgb
+	 GWnMvciZCDWg1G9JJcNu7MoJew5MJ3MYxwSCgNSM=
+Date: Sat, 31 Oct 2026 11:51:00 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Struan Bartlett <struan.bartlett@newsnow.co.uk>
+Cc: stable@vger.kernel.org, Jay Vosburgh <jv@jvosburgh.net>,
+	Tonghao Zhang <tonghao@bamaicloud.com>,
+	Hangbin Liu <liuhangbin@gmail.com>, netdev@vger.kernel.org
+Subject: Re: [6.18.y] bonding: please apply 11ea9b8a88dd and 70fc6649b36c
+Message-ID: <2026103152-plow-bounding-4370@gregkh>
+References: <20261030225119.40765-1-struan.bartlett@newsnow.co.uk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,104 +54,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030225119.40765-1-struan.bartlett@newsnow.co.uk>
 
-Delta's division and rem_nanos() use Rust operators on 64-bit and C
-helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
-a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
-i64::MIN / -1 case also differs, and neither API documents these inputs.
+On Fri, Oct 30, 2026 at 10:51:18PM +0000, Struan Bartlett wrote:
+> Hello,
+> 
+> Please apply these two mainline commits (v7.0) to 6.18.y, in this
+> order:
+> 
+>   11ea9b8a88dd ("net: bonding: use workqueue to make sure peer notify updated in lacp mode")
+>   70fc6649b36c ("net: bonding: move bond_should_notify_peers, e.g. into rtnl lock block")
+> 
+> 70fc6649b36c fixes a fault from 7a9214f3d88c ("bonding: ARP monitor
+> spams NETDEV_NOTIFY_PEERS notifiers") that is present in 6.18.y: in
+> active-backup mode with the ARP monitor, if bond_ab_arp_commit() fails
+> over while a peer notification is pending, bond_activebackup_arp_mon()
+> decrements send_peer_notif a second time, on the strength of
+> should_notify_peers computed before the failover. The counter wraps
+> from 0 to UINT_MAX, and the bond then sends NETDEV_NOTIFY_PEERS every
+> arp_interval for years. At boot this happens whenever a backup slave's
+> link comes up shortly before the primary's. On our servers FRR's zebra
+> counted each notification as the bond's link coming up, and ntpd never
+> rescanned its interfaces, so the clock went unsynchronised.
+> 
+> 11ea9b8a88dd is a prerequisite: it adds bond_peer_notify_may_events(),
+> which 70fc6649b36c uses. Neither commit is tagged for stable. Both
+> apply cleanly, in this order, to v6.18.60 and v6.18.9.
+> 
+> Testing: Debian's 6.18.9-1~bpo13+1 kernel, booted in a VM, with the
+> bonding module built from v6.18.9 against Debian's headers. A
+> reproducer (two network namespaces: an active-backup bond with the ARP
+> monitor over two veths to a bridge holding the ARP target; it fails
+> over to the backup with num_grat_arp 255, then lets the ARP monitor
+> fail back to the primary with num_grat_arp 1 while a notification is
+> pending) counted the bond's NETDEV_NOTIFY_PEERS events for 3 s just
+> after the failback and, if there were any, for 3 s again 30 s later,
+> after the 255 would have run out. With arp_interval 100, a bond that
+> notifies on every ARP monitor run sends about 30 in 3 s:
+> 
+>   bonding module                         after  30 s later
+>   Debian's                                 29     28
+>   v6.18.9, unchanged                       29     29
+>   v6.18.9 + 11ea9b8a88dd + 70fc6649b36c     0      -
+> 
+> Neither commit applies to 6.12.y, so I am sending a minimal equivalent
+> patch for 6.12.y separately, with the reproducer:
+> "[PATCH 6.12.y] bonding: re-check pending peer notification under RTNL
+> in ARP monitor".
+> 
+> An AI coding assistant (Claude, model claude-opus-5-5) helped trace
+> the fault, wrote this request and the reproducer, and built and ran
+> the tests above under my direction. I have reviewed this request.
+> 
+> Thank you,
+> 
+> Struan Bartlett
+> 
 
-Check for zero divisors and i64::MIN with -1 before the architecture-
-specific code, and document the panic conditions on each method. This
-matches Rust's signed division and remainder operators, including when
-overflow checks are disabled. Valid-input results and API signatures
-are unchanged; invalid inputs now panic on 32-bit too.
+Now queued up, thanks.
 
-No in-tree calls to either API were found at the base commit. The checks
-stay in the existing methods so the fix does not depend on introducing
-a math module.
-
-Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
-Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Closes: https://github.com/Rust-for-Linux/linux/issues/1254
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: chenhan <chenhan0017.work@gmail.com>
----
-Changes since v4:
-- Explain that the preceding zero-divisor check establishes the C call
-  precondition; keep MIN/-1 checks for Rust panic semantics.
-- Retain the output-pointer validity explanation for the remainder call.
-
- rust/kernel/time.rs | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/rust/kernel/time.rs b/rust/kernel/time.rs
-index 16b44e82d2ac..c9a2dc50ff4c 100644
---- a/rust/kernel/time.rs
-+++ b/rust/kernel/time.rs
-@@ -412,8 +412,20 @@ fn mul_assign(&mut self, rhs: i64) {
- impl ops::Div for Delta {
-     type Output = i64;
- 
-+    /// # Panics
-+    ///
-+    /// Panics if `rhs` is zero, or if `self` represents [`i64::MIN`] nanoseconds
-+    /// and `rhs` represents `-1` nanosecond.
-     #[inline]
-     fn div(self, rhs: Self) -> Self::Output {
-+        if rhs.value == 0 {
-+            panic!("attempt to divide by zero");
-+        }
-+
-+        if self.value == i64::MIN && rhs.value == -1 {
-+            panic!("attempt to divide with overflow");
-+        }
-+
-         #[cfg(CONFIG_64BIT)]
-         {
-             self.value / rhs.value
-@@ -421,7 +433,7 @@ fn div(self, rhs: Self) -> Self::Output {
- 
-         #[cfg(not(CONFIG_64BIT))]
-         {
--            // SAFETY: This function is always safe to call regardless of the input values
-+            // SAFETY: `rhs.value` is non-zero due to the check above.
-             unsafe { bindings::div64_s64(self.value, rhs.value) }
-         }
-     }
-@@ -615,8 +627,21 @@ pub fn to_jiffies_timeout(self) -> Delta<Jiffy> {
-     }
- 
-     /// Return `self % divisor` where `divisor` is in nanoseconds.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `divisor` is zero, or if `self` represents [`i64::MIN`]
-+    /// nanoseconds and `divisor` is `-1`.
-     #[inline]
-     pub fn rem_nanos(self, divisor: i32) -> Self {
-+        if divisor == 0 {
-+            panic!("attempt to calculate the remainder with a divisor of zero");
-+        }
-+
-+        if self.value == i64::MIN && divisor == -1 {
-+            panic!("attempt to calculate the remainder with overflow");
-+        }
-+
-         #[cfg(CONFIG_64BIT)]
-         {
-             Self {
-@@ -628,7 +653,8 @@ pub fn rem_nanos(self, divisor: i32) -> Self {
-         {
-             let mut rem = 0;
- 
--            // SAFETY: `rem` is in the stack, so we can always provide a valid pointer to it.
-+            // SAFETY: `divisor` is non-zero due to the check above.
-+            // `&mut rem` provides a valid, aligned, writable pointer for this call.
-             unsafe { bindings::div_s64_rem(self.as_nanos(), divisor, &mut rem) };
- 
-             Self {
--- 
-2.34.1
-
+greg k-h
