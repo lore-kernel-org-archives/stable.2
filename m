@@ -1,48 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793452910;
-	b=MrqqqupkFkh6/Oa0+/xdiwcndhovbdPJeOWj1Lc7y6JuGjbPduLVQAH1js3YVR/VJei5
-	 2br6Jnuy72zHGeTlGoMpvZHcEUxd87ceL+IvcfMAExvPHuaNKk3fCYeSOInGGcrea4QAh
-	 UUtguKseesLbI8Gp+WlzQ8wmxEuMG1dVpnT2KesL0BJ2T4b8lYbLuesNM47ClM3GtJ9Ue
-	 sAlDNiI92z2lFJLho4vcNuz5vIkcGCHLBWrpffec7Dm/L5DgTIqBe7QmO8IRqnOW24sUj
-	 RQnOlcpCO6Jd8QXrFNOmZOMPLkNVVXRGnUHXML/ec4JZjDwao1Az/SxvpV4SFbDd0IQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793452910;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
-	b=Y7U3B+KzbzsYzzcWY583R5xVtoJ5CJXYQmhLn4Z3/rMRBGv6dt0NQy2sQHP2yHuoKivl
-	 GT9z0K8hn3/Itqv7itVVdqCMYfXn2KBzuh75AmI5xiBbVbvWBwVQ1VBWt2YSwVi8uQWwb
-	 WEZIRwoVBnKDQXVNc51P/mTbQVYfcZXccnUkZstAalfmTOFPoPbiEWECC1ad80LXIaLWI
-	 RDgJJk9xbsrSMsEGXbn/0sFA5EbE4T5e0MD9vo0cwIhCZZCRbUjYgs3bASYaEnqLtIiiS
-	 jxe4eIeheWkvY3hR5dG1uLL0aQRpJUyaTsAimJ7LUrm1zpPXqO0G2jgNXS+C1HXSX/A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793453155;
+	b=MYjZBqmQzbWx9W/YTHQacnvo+dupFBdYAzdiVcpytDKb5aytbVJgJrSvb+wi653WP0XK
+	 1IdVsVvThWtfcZzUTBdY/BYTULApTj6s18qsV+URpJHmKfCHKT5OwfattSHISBjSVamZ1
+	 w8vty7GfIBd13SOT7TP6db8eH1yUVM6DBd4/esh8fLizdvzyXOA1++f00zyXRpSHXeRd8
+	 eMlHLxwTSR1NPGaaski0rwmdZhjBJlqraptC3byNy0fl2pu+d9CKgvupS363uGa/Re3rQ
+	 8A97IdCBEGNBlW0w6PY/XxMy2QAkpugo+qEbK/pfCNKKE1m4JWD5+BVXdc9wXtGkIBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793453155;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=KPfnmxfgCDKDTWO31v/S43Fdk50UfG3zZwHnYB5OXFQ=;
+	b=gzhvqhQA6ZpduxwQChy5ES76A+3qMfBF+vCwU7fyO35NTatBMJvPwqRAq6WSDkgoQ+Sm
+	 PCqN2uJh/3GAMPS3eKNi/jV7GtVuzGTAqdypH4n4Uy6fJAWGpe701mQ+nqlQqIfItkJ/J
+	 TzYt6N759WzrDuXCbnw/x8+ra50y6hsbrX5psFfJ5Znxend4oeduaPU7Fp1oXoM4OxExz
+	 azvWjLW4L3rI1Dq3703FBYTRnqmwPiUZK5E9liiT2HX/4weInGC3HJ4PvMPJgbL7Vq0Qm
+	 uthfDfs/FmCICk9DgjPRR2Jp3JxoKifPUFsck5Dtow8EKJ7dVGvcdX1V+KFpd4yWi8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="P2Pm/ONo";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F9F606A31A;
-	Sat, 31 Oct 2026 13:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F6A606A31A
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:25:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F6A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618321F00919;
-	Sat, 31 Oct 2026 13:21:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793452909;
-	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
-	h=From:Date:Subject:To:Cc;
-	b=ZkBgRzIEkHeFIEu1mBrLS8uCcW/eiV77hYpKgOQEqGa8JuxCDDpwtONKzFMKLIZWQ
-	 ZDcGHuzAN18w/ICIqeC2OI28lVlMy4TtywZSnMdjOhQjCSlDV2bVbLYGQqL/46AX5R
-	 VWvaOxyloIrL5IlyNls7EHZpGbrkAGiEEFWNPaS62hShlFfYl6JRVKGFwkqHOSLtWK
-	 f+cIjTk02/1X1LxYbiWzezfDLyZuBPbm58lsWZawqPEd9a+DGXu0OlXbHPcBp2J4VT
-	 dgmi+KrBHw9uBoO8Q5mZtbT4K66WJceGDICYAHeM2Y3Otx7VA0evWg5rSpfLHeNClw
-	 IFqLnhGEk65FQ==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sat, 31 Oct 2026 15:21:46 +0200
-Subject: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P2Pm/ONo
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3aae7df0971so11790671fa.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 06:25:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793453153; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AruxQoO9g3z9CCzxLjFZaCWMkesVDCwQFrOrnLl+wub4c/bEEDE6q1MOCay3HeUmCy
+         +cUwYpGc+Stcn/JhdTwFneLH9bqmX26Tx4ux4o11X6nk4kDIm9BtoU1PWhgreL1fQRkh
+         E8krZ1Zkh5llDLdOdQjx5raYkGSVlyLvdbsWMsvenQQIA1/hR3UG8ZzyJMCJPxTGa+q4
+         yr/AJqLS8Kv7HLfBcNwF5ADSbyT4K+giSTzt65Q22S9If1r1Ifghz64TsMgyJsfVFbFw
+         IHctAzH3AoeIkZLifvYZjO6jA4k57lDMDSX+YVhL9uE1v7qZ3GoNNr9sTKkogDR5TnMg
+         RqHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=KPfnmxfgCDKDTWO31v/S43Fdk50UfG3zZwHnYB5OXFQ=;
+        fh=k2MquQ0asBstld4T5nb2C7wZxsF2kJQH11ugyqkLAjs=;
+        b=YELVhrZsbJVBAu5TNXe6QQxolTy4962gGl4He6JitIbcohz15cmbevofv/Sn9q6/BP
+         syMABzz1mmmDTEWjaKzHRUFjdKDQkuDki21aaByx4rOhq1foviJ2x4u3XU0GK9jJRVX4
+         R0KyuSDQVGvolUfpmlqjDl6z9cDWxgTGrUYA7jozlHDbe7WXAQbeiV9cUp9wMEYdLix7
+         1DFpYSyfzrTwkNROPAWteC5cpz79biiezvxD6BC0kD8Ruae7yFoZjN/nEzgppGJbwWHh
+         8cFBF+4i8fCD6IDaB0BHnJBFWTJyvqin+IqubTYM93SNU+DjVTvFsuCAL6mUa1k5L4KU
+         W7ZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793453153; x=1794057953; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KPfnmxfgCDKDTWO31v/S43Fdk50UfG3zZwHnYB5OXFQ=;
+        b=P2Pm/ONoyd+lZlQ7fTG+skHVRZhrFCZCzsL2cj1C6Kq4j0LSZjrVFKQ+rTrKCfG4SW
+         GrIbAkCk3K/Oq2w7GJE09FYv8XSlsjPvbESk1b1DsXw++iDAm3twsDm3JQzr1URUA/yy
+         cvkdzU3TQXzKmr2RgfHCsMxkC8cnn0rj91WgTveVWosuv3TfQ5d+ede33AzL/W5edBtL
+         b9+WZPsBEDXq1ckGnhITNAavR2i8vUxUz9qkfsMZACGo20LQ1q+o1yEj8e0Dn9U2Ss5l
+         Lcm5FlZPCiIGx3kQ4c0AtAKbcZon7XnEzstIS+UPlsLBmwtHSa553LEOJOzYviSptW3Q
+         QJag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793453153; x=1794057953;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KPfnmxfgCDKDTWO31v/S43Fdk50UfG3zZwHnYB5OXFQ=;
+        b=QNrRssgD1DenbMoPFe0KFuQ91xaKzfEX6n73yCUpTQuqFDpHuCJFVGk5aX4nJi9DL2
+         8rOFwwJmB0Vx1W629ggMS85xjDSJZ7PsTAN6Sfb01q5B7njTEPnKZTLrUGq7wJcUaf2B
+         /mKovaM5IfOejlYN4tMJJ9yPT/MNlGxROQgwd8qo8Ljcc8p5Kz/nAUYc62bZEimZCw7b
+         3ZPxiM+3IXOoeecYaX5SmHXC4+ND+B8VpwfJTc1UcCNL9+ZgtAzJMO09zlN3jOWyghZ0
+         N9zxf7PlF4Y81oLRuGhWHZNbPKWke5wAHGow4KCoImM+Nzwc4fPzP/lDiL646DzYf5to
+         W7rg==
+X-Gm-Message-State: AFq9FYLijGBa/Ek5Qf7Oxd/3JG7tOtqiuduIfWhTOiBUqTWyongyKQR2
+	bTXF8DsAiRt3A1LNdCaE2oA6L1FCfUm1Saas9aywWSNcBBGZeFnKn5hiVmYKtNChuNRkLYYhPI7
+	27RlpJwowSsz87vNROrpKo9/lghh/va639b14q3Y=
+X-Gm-Gg: AYBFou2nHLWjQby+g0lib0+tQ2xIoMbK9z+15xvQDVxf0aAXulzMU4v+R+SPWpp5liR
+	D7FE0MQp6PZ1+mtIW5L1VhKF9mV0wJn0HYMom5TPRTZ1J+xDqfHfH0Ig+cuY4JoHBoJcqJPtz7X
+	T3YA/Uh99vuv//dB5IEx0fvCOGWbxOvgViepHzYsP2StptS3qldLUNv1uzVH23lYlQsiWDIF3y8
+	KglqzO69M9u46cFzAgSRwGEc2E26OIdWkvN2QA4xvpurK9e+EbhnxtBrjhT4UFXf5Oi4F903qFg
+	TyJbka9kznElb6NmDsf+cjbeMPWaYGOixGjsggQJXFjSLyM+C/s5V1YjiVvd7/gmaz7+mZELQyt
+	59F5+dajhlIBeBXUk9K09Ee8+k+Jqayu1Oum9+Q==
+X-Received: by 2002:a2e:be89:0:b0:3a9:a1ed:6341 with SMTP id
+ 38308e7fff4ca-3acb7ac0796mr12426531fa.11.1793453153247; Sat, 31 Oct 2026
+ 06:25:53 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,98 +99,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr9LMWmILqU29inEBdIAxCmamGpOmd
- xd0+X7e+xsIMqHAuduA8U1CJVcYDh34ZHNERUtl0L0+Db2eVKAPirqXkqNln1RYzDSOwZh5mKF
- WT8afUqPL9c/ycjf0a7tphrOCyrHNPrWpMEXKx4eVFRn2/Qv0tSeakwAAAA==
-X-Change-ID: 20261027-fixes-loongarch-fd3755f33919
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
+From: Chris Marshall <deepspace69@gmail.com>
+Date: Sat, 31 Oct 2026 09:25:42 -0400
+X-Gm-Features: AclHuK_sKgvDCJ9F1bkXoOXlOpf_BDenBVtCxbUg98CiaqxmUSebTJq8LfgRnwE
+Message-ID: <CABxJosiWT3Nrhj9dVShPLGc8dbecjbqwL_pkrZbrT2f8K_OFrQ@mail.gmail.com>
+Subject: Request: c182bfe944eb ("wifi: mt76: mt7925: fix reset panic caused by
+ the WM2 rx irq mask") for 7.3.y
+To: stable@vger.kernel.org
+Cc: "ck.chang" <ck.chang@mediatek.com>, Felix Fietkau <nbd@nbd.name>
+Content-Type: text/plain; charset="UTF-8"
 
-With KFENCE enabled, resume from hibernation triggers KFENCE reports while
-swsusp_asm_resume() copies the image pages, for example:
+Please backport c182bfe944eb to 7.3.y. It fixes c4edf9e3e0e5, which is
+in 7.3 and causes an oops in mt7925e_mac_reset() when the wifi
+firmware times out during hibernate thaw, so the hibernation image is
+never written.
 
-  BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
+Thanks to ck.chang for the fix and Felix for picking it up.
 
-  Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
-   swsusp_asm_resume+0x20/0x94
-   hibernation_restore+0x128/0x1a0
-   load_image_and_restore+0x6c/0xc8
-   software_resume+0x240/0x260
-   do_one_initcall+0x68/0x200
-   kernel_init_freeable+0x26c/0x304
-   kernel_init+0x20/0x134
-   ret_from_kernel_thread+0x24/0x1d0
-   ret_from_kernel_thread_asm+0xc/0x98
-
-During resume from hibernation, the image pages that occupy physical pages
-used by the restore kernel are first loaded into free pages and then, as
-the very last step, swsusp_asm_resume() copies them to their final location
-pointed to by pbe->orig_address, which the hibernation core sets to
-page_address() of the page in the restore kernel.
-
-The early KFENCE pool is allocated from memblock and normally occupies the
-same physical pages in the restore kernel and in the image kernel, so these
-pages are usually copied by swsusp_asm_resume().
-
-The KFENCE pool is remapped into the KFENCE area above vm_map_base and
-set_page_address() adjusts page->virtual so that page_address() returns
-the page-table mapped alias rather than the DMW address of the pool pages.
-
-Hence, pbe->orig_address of KFENCE pages points to that alias and
-swsusp_asm_resume() writes them through the page tables. But:
-
-* the copy loop overwrites the kernel page tables, so a TLB refill for the
-  KFENCE alias may use a partially restored page table
-* the KFENCE pool pages that are protected in the restore kernel fault in
-  the middle of the copy
-
-Convert pbe->orig_address to DMW addresses before starting the copy.
-
-Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
-Reproduced with hibernation in QEMU, the KFENCE reports are gone with
-this patch.
----
- arch/loongarch/power/hibernate.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
-index 817270410ef98..ff571ab4e8df9 100644
---- a/arch/loongarch/power/hibernate.c
-+++ b/arch/loongarch/power/hibernate.c
-@@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
- 
- int swsusp_arch_resume(void)
- {
-+	struct pbe *pbe;
-+
-+	/*
-+	 * page_address() of KFENCE pages is mapped by page tables that are
-+	 * overwritten during restore and may be protected by KFENCE, copy
-+	 * through DMW instead.
-+	 */
-+	if (IS_ENABLED(CONFIG_KFENCE)) {
-+		for (pbe = restore_pblist; pbe; pbe = pbe->next)
-+			pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
-+	}
-+
- 	/* Avoid TLB mismatch during and after kernel resume */
- 	local_flush_tlb_all();
- 	return swsusp_asm_resume();
-
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261027-fixes-loongarch-fd3755f33919
-
---
-Sincerely yours,
-Mike.
-
+Chris Marshall
