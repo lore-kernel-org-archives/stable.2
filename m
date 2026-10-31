@@ -1,49 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793439740;
-	b=oh1QvvUQ/Tfxs1wHnTk/fnr1JhTsb8sZFdMykRQHi2+oOOUYgpNl+vXP8CZXlU7ftI8C
-	 IOGAXiTeNSkU8McH2uzZ/L2xT5ogE52uQbbwy19Gqtso6U1TTcfOjAfBkLghqddEeNHgR
-	 v+X8qKeFn0fmtMM7sG9DW1mnMQgQ12NrGyKc15jc6Y0udwM9uP9e1dSG5RWvMcioLDcQi
-	 fYcN625YYNW04p+ViAm97pc1AMBTRvdDUJ3EKffhPNILuuSZ/HLbRfjkhq+JIYjL3Z864
-	 Kry/P3npc87plHnhVDsXkdK2stmjB1xqTta461rm4aZVbS8tael5KjkkZmGVmhx/r/w==
+	t=1793439754;
+	b=VQf0mayuDGU8QMMZrSInOhZySv7KXtjdR7VAl3YZ2TCBgeu49e3Wg3eKmfHrLV9PDnM/
+	 OvAYYKJZWMPBC14LUlRmN+5/GUScIBbiV7eyUFzQtRnJ3soPfkCd50Lj1nkejFD7aX76C
+	 oCfkyY5OLflyFPamBsOGCj+OLkw2yX08K6qXceBWzQ6wLUrBF2vbLh5714QhjD3LsqTDD
+	 Ij93nJcuBz0HV2UKCZej7Evvf8WfGp+1YIakPPp2yK3YGZVt100mWzv4i2wV2IGwclpRE
+	 bkikzIDYg1TjyanPuKDVwIulADCGyVO1wnkyrA7c9wCvGtqzV+uAzsbs9HjLOU3N2mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793439740;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CIQELR659Q9Tf/3uwyZF+FBJ9ojsDWRhmuf6iagVj0E=;
-	b=1tqnLtfnTpEXAmm3iTDZ3xqZBpYh7uCV1tLXV9tlnl5QnpAxTiNF2aGmRnQpAU387pK4
-	 rFfVTXTA7cZ9UsPYAHDTTfGhDEhds0rRzsRknprSx3Wb/loeC0Ojc5UfjKt6tVliIz43R
-	 g09n8uNuElJe3A2ct1b+0xsoxWfjKKNybVIyu7douRPUMJ4nswVuQTnCEpywMXMyNTJuO
-	 pxrh/jXVFDo4aKb+2MG77ZQx3LPwz3Ky6kV8Xk6H2qfknsdSxJgxogAe2Xx3zzQLgRgP/
-	 ftRn8fx0I99/uG8NqbfSKz7Bjw/3XL0bOY+oAdocdH/Stl+ONIEpgKCFOg3AQPQFcTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793439754;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RLB0kdHt66s3t+IPpIovcCtAwBJ8pIpA8QeJXXPpv0E=;
+	b=sckYDwS1Q8B87tlCex0QiWwWPjADg5DHrCahva27NN5REIe8WcxwC8eeREGGk5nATVgj
+	 T0puP9EsslottSa47YoT3rjKDQEvMyqHZOCHIJL/b1XwG9Q9/U3yvDWmhu5P/vDTV1EZy
+	 7z4gBAxKObSAMJXC/mwZkdeOv3IOxJ80oDoHX/zn/3O6swOzqBzkODh+TH2J/Ac/KNxRq
+	 QFVLiUx0ZQY7ia9MZC51arMB1Pj1aPktwrR8A0momYC30JDV1wUxXWBRhVEwztWkHtS5Z
+	 2rJ9HIPdPQsrdrI+Z2VYPyNCZUZUR7W5i9BDZJL7R5QGB2Y5Y/9t+bGuxUaktZ3ifgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRMlhKX5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VWgLEKxR;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35966606A31C;
-	Sat, 31 Oct 2026 09:42:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134D6606A31C
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 09:42:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 134D6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRMlhKX5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD04B1F00919;
-	Sat, 31 Oct 2026 09:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793439739;
-	bh=CIQELR659Q9Tf/3uwyZF+FBJ9ojsDWRhmuf6iagVj0E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MRMlhKX5yYtu9Zu1TIoDkRBx6SKZ77pEsqYPoGWttWMJ789xLuskCTAEOHqJOJjK5
-	 RzdNIM06+bIZ8ucQfJiba1rtB+ygtl4RpPvBNUGW8+OqH7db7KnS/Xh+NhRAceixnr
-	 Hllht5oMWUQbmnzHBqQOgXVy2DHi7TUe7BPA2VLRKwiTCqR98M6YBJilNAFUhWZ2BR
-	 oWA18ApNVRD15Vz4alM9A15A+UxrdFEGnaeEA9nsPJipiLfQ65pUp5sd7MnyR7XMvg
-	 I0w9rpePXECj6FXlcAjS5Aayn6NFP8ciD3KQhSySn1eaCEPkz6ykj+FfCNCvMpRlRh
-	 kr+/KKjMUexCA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:37 +0100
-Subject: [PATCH v3 08/47] mm/filemap: finish fault cleanup before dropping
- the fault lock
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VWgLEKxR
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35b2c599f43so1111659eec.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 02:42:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793439753; x=1794044553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RLB0kdHt66s3t+IPpIovcCtAwBJ8pIpA8QeJXXPpv0E=;
+        b=VWgLEKxRcfS/9ljvof9oZChkCGzRlROs//Et3cMkFIm/CL80NTVURSo3AWRyZekSuR
+         D3yY3CoxtuzzGJA1U2ViHKXlkLmHTv4SeI64mNZZfkoueIDd103ePYKLV89IHTdXJvn+
+         0LAs8aMhALUyyvcp/YZkwtMm8X1nGSVFnPSYmQK5v8aYskVlOIj0tuOVgaUAodzL4UPz
+         NUA8j3UAj1LfgrgBj2MJygQcHAWW6a0VpkM1wNqKjm7iY4rMvODMi1MwuS0vqOrKNazX
+         63P8YBW5C/FAfpytwd9eI0cPMHg6irpyJ1Jpdj35CS+xDza99M+gWz3Q2SfXM06vqJYY
+         or7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793439753; x=1794044553;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RLB0kdHt66s3t+IPpIovcCtAwBJ8pIpA8QeJXXPpv0E=;
+        b=XTxK2djSiXjKdMDAyL+rBzmopmp8EITGqHxow9dRNSvYzPADZ9kBgeKMnGKSmd9p7O
+         XRAlhcCSHumb/1t1Lyj2pK/n+YsRcBm5UfCmM39YRNYp3hczXfCYbMHa/QpIJ/ABzZAz
+         wCpIPQ8JVsMwBZhvcwpzYFI5cDp18YhxiRrA2ycyIGETvFMAgT5B6rrEOaD2c2rTlPFW
+         WblMs/AbIIxmiRHee1gzAPtMKrOgTErQwAZpIFUttUFdw82LfU2YJq9NF9LA/+fZq/VK
+         SHojxqnsuqnY2mpTp8h+YLJUEfpdPNRQmYB2bjhfRp59BOLQFzQUPvwD/TgcDBljOEfc
+         Rsww==
+X-Forwarded-Encrypted: i=1; AKwUvByWs2aIz8EWaBVEddJvgMUwTVWxqgvcj0jjO66wTutMhp1dCWzMwaw4gULQ7GxAp7J0LD1iWlk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqFd1863BuuJwPHz51KrcCL1Bk2sqNr6F4jOIuVx9KiF1kFDgw
+	XZUniz0ul77D51Ffhl4Nmr3eUtIjhbE2IvKFHP2Itu67ox/06p2GZ+gN
+X-Gm-Gg: AYBFou2MBGt389z0WcTWF4xW1B1iCU5x5RxQKk+WT3Joxfld2oPgdcxAWfLqLmc+uXH
+	nF900ZLgKm+64b2akw4xyzRTUrUjA/urMRsepxotEhNv9fE7d2lRRvOP26dgula8Y9JAYeov6uB
+	Yg4WMWBO2wLbnHeEFsLx6T9oYFO4bTzkUOv2gmqqkf5x1la1Jh+os2nKSlpy1MADd/pu6gLAQU6
+	3rTCf3seOZmZcm6oZGM8e6uvqoSO8hTtM+3qKiorrGuYpVuGJ15SteGHztqGYgPnF1KPeSv2ZV4
+	oGvhLQhqSpTWVyDEk439aBfovQ0XsRMmop4ZcvbhbWBWV+p8zmkgEjtqoR4yfb8I7rSFSq4//2q
+	+CzlqSSY7UIxJ4VQ0msMLm0VBv5kOuRabW1kmEswSlzWGbeq7Emi27yN6VVxcLJb0UShyV6+x3P
+	tG6rXofjPxeDFKVENbD0MzTbPX5CWO63nD21MJVCb4Fsbq2ZdtpAw6UXqyjXyFvnOrvHrIWuvR3
+	VIcXyTJ0gTGEORDvgbXXOtKy1xn1q8MnZ/LaEQ4JuFnWYTw9QJW2uy/Ed8eYXsSTiVtfPfkAalx
+	mBBDoOAP5IZ+V/DjLLHbiGzHaQWxmyNOOlmoOZnh7BtZAiBNYDCfaWRIhDdJEzK6N0lWqwfaKYP
+	eJzflVvrQSOGHmhnQ2WyKAod36Torz6mGVIvhEjWN
+X-Received: by 2002:a05:693c:6092:b0:361:7ab9:479d with SMTP id 5a478bee46e88-36a423ee70bmr8382142eec.27.1793439753023;
+        Sat, 31 Oct 2026 02:42:33 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm15758617eec.7.2026.10.31.02.42.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 02:42:32 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: alexei.starovoitov@gmail.com
+Cc: HyeongJun An <sammiee5311@gmail.com>,
+	Jiri Olsa <olsajiri@gmail.com>,
+	bpf@vger.kernel.org,
+	Christian Simon <simon@swine.de>,
+	ast@kernel.org,
+	andrii@kernel.org,
+	daniel@iogearbox.net,
+	martin.lau@kernel.org,
+	tj@kernel.org,
+	yonghong.song@linux.dev,
+	stable@vger.kernel.org,
+	andrii.nakryiko@gmail.com
+Subject: Re: [PATCH bpf v3 1/2] bpf: disable private stack for sleepable programs
+Date: Sat, 31 Oct 2026 18:42:12 +0900
+Message-ID: <20261031094212.2303487-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <DMIRF0WAH6DP.1Q88Y58797IJ4@gmail.com>
+References: <20260822225444.2774461-2-simon@swine.de> <CAADnVQ+MCsQxn5KTp-y7pZu9DrV0Lhy9=+T4yofCfZEZGZcWdg@mail.gmail.com> <apC6-9YqBpOjFLGr@krava> <20261030012258.3005240-1-sammiee5311@gmail.com> <auUhrnOOUWY3Mb9y@krava> <20261031011900.1355507-1-sammiee5311@gmail.com> <DMIRF0WAH6DP.1Q88Y58797IJ4@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,158 +108,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes_core-v3-8-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4136; i=david@kernel.org;
- h=from:subject:message-id; bh=jVrwzE4M+fmc5d2w4GN18QrhLHyd8aSra6LYB2SIrA4=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebk+b+6H3hOLR81MWSLv0Hb1lHPeKQ3yn+BWW1bcWx
- SsFrtW+2lHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEHlxjZFhw5bPZdF2D6YK9
- mk13VwVUGl+P4ZQNmdc6o1XNLHgH33JGhpuBCUeajn/PNOkO2lFuk8DzyDPmUE3P9m0XVR+/zPn
- SyAAA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
 
-On a retried fault, a fatal signal interrupting the folio lock wait
-makes lock_folio_maybe_drop_mmap() drop the fault lock without pinning
-the file. However, filemap_fault() may still need to release
-mapping->invalidate_lock. A concurrent munmap() can release the last
-file reference and free the mapping before that unlock.
+Sorry, and thank you for the correction. You're right that this was
+already nacked on the list, and I should have found it first. I'll
+be more careful to check lore before sending next time. Sorry for
+the noise.
 
-Defer dropping the fault lock to filemap_fault()'s retry cleanup, after
-releasing invalidate_lock. If the fault lock was already dropped for
-I/O, release the existing file reference instead. Keep the fault lock
-held for FAULT_FLAG_RETRY_NOWAIT as before.
-
-Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/filemap.c | 37 +++++++++++++------------------------
- 1 file changed, 13 insertions(+), 24 deletions(-)
-
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 6b5e1d866a9e0..b04be64a5069f 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3308,11 +3308,11 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
-  * @folio - the folio to lock.
-  * @fpin - the pointer to the file we may pin (or is already pinned).
-  *
-- * This works similar to lock_folio_or_retry in that it can drop the
-- * mmap_lock.  It differs in that it actually returns the folio locked
-- * if it returns 1 and 0 if it couldn't lock the folio.  If we did have
-- * to drop the mmap_lock then fpin will point to the pinned file and
-- * needs to be fput()'ed at a later point.
-+ * Returns 1 with the folio locked, or 0 if locking failed.
-+ *
-+ * On both entry and return, a non-NULL *fpin means the fault lock has
-+ * already been dropped and the caller must eventually fput() the file.
-+ * Otherwise the fault lock is still held, including on failure.
-  */
- static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
- 				     struct file **fpin)
-@@ -3329,21 +3329,9 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
- 		return 0;
- 
- 	*fpin = maybe_unlock_mmap_for_io(vmf, *fpin);
--	if (vmf->flags & FAULT_FLAG_KILLABLE) {
--		if (__folio_lock_killable(folio)) {
--			/*
--			 * We didn't have the right flags to drop the
--			 * fault lock, but all fault_handlers only check
--			 * for fatal signals if we return VM_FAULT_RETRY,
--			 * so we need to drop the fault lock here and
--			 * return 0 if we don't have a fpin.
--			 */
--			if (*fpin == NULL)
--				release_fault_lock(vmf);
--			return 0;
--		}
--	} else
--		__folio_lock(folio);
-+	if (vmf->flags & FAULT_FLAG_KILLABLE)
-+		return !__folio_lock_killable(folio);
-+	__folio_lock(folio);
- 
- 	return 1;
- }
-@@ -3572,7 +3560,7 @@ static vm_fault_t filemap_fault_recheck_pte_none(struct vm_fault *vmf)
-  * vma->vm_mm->mmap_lock must be held on entry.
-  *
-  * If our return value has VM_FAULT_RETRY set, it's because the mmap_lock
-- * may be dropped before doing I/O or by lock_folio_maybe_drop_mmap().
-+ * may be dropped before doing I/O or when aborting an interrupted wait.
-  *
-  * If our return value does not have VM_FAULT_RETRY set, the mmap_lock
-  * has not been released.
-@@ -3728,9 +3716,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
- 
- out_retry:
- 	/*
--	 * We dropped the mmap_lock, we need to return to the fault handler to
--	 * re-find the vma and come back and find our hopefully still populated
--	 * page.
-+	 * With fpin set, the fault lock was already dropped. Otherwise it is
-+	 * still held. Release invalidate_lock before dropping either protection.
- 	 */
- 	if (!IS_ERR(folio))
- 		folio_put(folio);
-@@ -3738,6 +3725,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
- 		filemap_invalidate_unlock_shared(mapping);
- 	if (fpin)
- 		fput(fpin);
-+	else if (!(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
-+		release_fault_lock(vmf);
- 	return ret | VM_FAULT_RETRY;
- }
- EXPORT_SYMBOL(filemap_fault);
-
--- 
-2.43.0
-
+Thanks,
+HyeongJun
