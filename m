@@ -1,88 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793454020;
-	b=TZoAMAur5dIaCPhsITYjpN3CMZQZc+9u4AGopDmVPBr0rHarXnDWZElBdjsyhzfmi7QI
-	 mMuhW0qElaoSURIreJn0Lmk+vjVeDeCyPYkXkwekYZuusBxxvP5q98/CxUfvC/8p5VN0o
-	 Kt1lwnqS+le2bn5uYwnj6zflRbHqc3ysTTXPn7sHBIVEJgI17yq1TJiUXdOZaxSKWv4gE
-	 XRdNitKSRjPlVssyxiiCe4p3G0/ywChZTTQOsQEOKVtfa9i2kMX/WwkiBQTC0I7sqfN/u
-	 rTm2zcR3JmVSa8gr2aCr0jZ0iWyB2DPs4noLnDzYTMOP3OKQsswUcbq6YAC/DCPl5/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793454020;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AvdEESxqCoWismxl8U8najQ6zPeCJtfE4dKqVYiQpFs=;
-	b=vJtVH6btk3xaI63J9kGJq/4hTVoNlfol8JdfTGLiKWXD7YZf76bJLh6lLiMPQ0WPwxex
-	 +Y/wpK9ujm+mJWAKBP+GyBDg014IpvfBgAd9m7Ze940BQfADhmZNW3VFMqWeQ25xNGxGf
-	 suaFjIRwbIrTVrX9VpDs8XAgeTnCV5rceNgqTpBhtvLo22AbBPmis8j1d+AAQrp+wjL2t
-	 lDkGGxrca8P0U9+AzfX2r1xgSL6uWehUShmAih/GlD7bW3C2lbtD7GiGN9aCOf8hGe/w3
-	 50i3RHa6O7ca8N7jTYhrpeU8lLD+iqDq2Lj/LUR2YLl/pyNRN9TvNyhqXzZXt/j7LCg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+63K5Nd;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793454648;
+	b=z4x/EBP/tIIKfq5bCYbU/Pd+2bc52zYPLVA2AnKfsGiO/jVwstdE+l9b8jYOyI8Zx47n
+	 ErRB8T0MLIIGAAOn1QDPFQ2c4CvdAxwZ5RGRQAhs4sAYy4BXcdx8LrFlX3cACbLK7kGBS
+	 fyFsDll9La1ZO/VA75YQ5LoULbFi/glRSUWDoIDsu/BByesF/Hylud6WgYEIqRwcI/7BK
+	 YB9sr864QjVZS1Dgdnpb9bOjnuGWdgLfmxI83SxSrfPPmybFtpJhSMvdeXs+M2JK+Cbh+
+	 qBNhM5JVDPnGREulD1d1lQ44Zn3WUiQM6monpOjizN0p51hxUVA7zVSSSs5K+yjCbcQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793454648;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=r89qqj7ZehlIw26wCt6lB4H+ayR5sCBpdsKCG6AtHok=;
+	b=dIvlOIcIXjsaZRIjuP7fGWAf9ZOBrY/FF8oNg0j7+xRTDC+/iLwh8tprQLUNAn+uCxxd
+	 dQd1tHkmyD7mDwpnpmh5y0G/EOoA8rFlu0AOthjRYe9FhfxTYPrO7PPgs0aso4hdaFVxg
+	 w2v9heOJtxHskZHZV5A8obrl+Ok7Ct8P+tDc6CwGctd7i+4msJU9nmeP6BcQ09dc+A4Te
+	 W9qUvG4TdaBnljVYT8t+ZaolHON9XI9gye63gHuFdpOhUqxYnllUxTJYm7RNSU4hDOqRu
+	 bvIkP4Dh+9dLyhH3JnWQ2hdpjA+HtPKGRL6t6cQDlPKELOe4ny1Tt5WPJZfGSjK7Hzg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Uzr6ABiu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.17
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010017.outbound.protection.outlook.com [52.101.46.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A1C606A31A
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:40:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95A1C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4745606A31A;
+	Sat, 31 Oct 2026 13:50:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4745606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+63K5Nd
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a210470b49so12679865e9.2
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 06:40:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793454018; x=1794058818; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AvdEESxqCoWismxl8U8najQ6zPeCJtfE4dKqVYiQpFs=;
-        b=O+63K5NdydWplMzH/C9VaKUseEdiFaniLRVS89CUSLTdJaUEt5FkpluCK0Mdo/SbGX
-         F53SUcY3/2VT7VZcU5MdGVvuQLwMppgNmKMhVLAvO3ygY2zFnh0+J89VjcoL5W6vqjUH
-         0eTZRRZAHr8WQNXmxV73/uW7tnqwkIwn2x475CU3S8oKZwxaQF2WXmp0OOG79L9ub8F/
-         tlVB/IMzIzjQhOMec9v52q8e5n4lMSeoshtX5/6kfRdMy3ppPqqavrwEJMGsS0uGWekW
-         8+fiAp3wilD58hUhtus6uf6Ybx51EwVg4U0xBcTIhqdvY7Fw+WJunyUoQ0KKW4kA0tDx
-         NaNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793454018; x=1794058818;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AvdEESxqCoWismxl8U8najQ6zPeCJtfE4dKqVYiQpFs=;
-        b=YDnP8Odhl7CHDmjdKkw5+DH3lvTfnMg1mT/JrRgN+lu9ZRfqmw10YYU7YOnRuox3/L
-         oqYfbSjoC6SFNF14mCUMKnq+Sy+T056/oqg8BlfvzwvRscJ2PFBESE87Hc6h+OD6J+z+
-         VCptQ1i5kAz4DENnYr/EH3Ljb0XF8LIdMzBiU1VaUCy++LZFaD54a0oUD0K46gQIkJhG
-         uW5xFSHbTakM54uWD47X4p5V8zXKqBSNqVgyjivdoIeLswKwXDG1WFWfrLzZIkZqspjb
-         osUnrPVQMI6pL70L4jyAJFYsS9Y2vItQqI4Kvc4badtlaGmLxemZCE/DQBArYWo7XzWs
-         v2iQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMsVfUL0+oYgzPFW0/FQf11NE08MRIRS7XUNXmozIqyHIRCsv9d1LfPCdQdjja0trbCmD6ZvM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHM+uPUv+fhZiVFTHV7VoB5gFmxcnbY87UkPDDpv7lCt913ymb
-	pHH4rYc5uaG3txB/x7d9xVJ+FzOXyPQ7AhmNeLa0vWYWKqEFAAu7Ycl+
-X-Gm-Gg: AYBFou3fo3hM369mVpi0F3lqneV+4fqY+VYEjXRrne4XvGw7t96jCAjfMX+9tdtWaJ5
-	Z/aGvvZWvWw1nZMjsYGriTqf48d5iWz4gn34UkgNOEIU2CNtUn+C7+kIaFJtuUe2DxobGuciXPX
-	LS2g4f3HurNgB65+6/mio/OzXQTufzuOko5gZ7506FqGyTLkLuMgxaj1+TBINBapUigejyaLXg0
-	8SKrf211hduKfhYdWkMsGQpQekMlMlsPGCr7U+4gbNQe6ZKYPLZZo4ASLsi/NwMTuB9rkkX1UX8
-	hVaaKViN5pse7UqbXeQC79aZypOqip0FGEnSEvuPU9EkPwJRuG+o6u599B0mp/t7B7jlU1MzhAH
-	zVas5JsX/R+DwgrrQsVNPtS7EXO3yX+JdaqpdgNZ823r+1zgk1Cg42jU5X2ZemVMRb0vrmiE3v6
-	PiqdoIljTE1v4Nx/zM16y/F4UpYsV/68W4Uz2wd0I+2yN4K3HaMjJeG4Crw2AdeTIp2TDf4rgbV
-	/rcYMFQicj23kjGaM1IXVRrI+tfxIYxZWpqqhyEGmqZMxxp/0EiggDHv4KGFCAVdnHNn9mz5OJU
-	rIqDYZLQHL01OzEx8MRe8L6n
-X-Received: by 2002:a05:600c:c16d:b0:4a1:e00b:a0ea with SMTP id 5b1f17b1804b1-4ac150b204fmr125293245e9.1.1793454017873;
-        Sat, 31 Oct 2026 06:40:17 -0700 (PDT)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm193004545e9.1.2026.10.31.06.40.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 06:40:17 -0700 (PDT)
-Message-ID: <2c132a52-1118-4773-866b-a8c713c4933e@gmail.com>
-Date: Sat, 31 Oct 2026 14:40:16 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Uzr6ABiu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CQny3ntYfsray6K/mhQscjKfsG1CGzL/R9kBahyO+v8ZLRYMEDPPhAQ3PE/jSyuFRfvaMywl2uljRAMpT/Z3d+IN72DVTUp8gmhBZbkUcXWO4NTqBE/oVQ8IyUS+TtMN0DXHnzGjr8yCDPgJ4otU9NKcA3vmRBF16iWkhtBEhShNgLt6KSByt1d4KsjA/3JNwDreUAlazxz+eEF23kpLcPbQGr7MypW/J2AqKYvC+0AnTDlem3lbOT5MCERmbnyl7nMBgTG3OJZYo9Maf52hisyx+y7qck50zphVUT6HC6+Y1FVuWzCvaK4Er7FrhfrF1ntFgGZNvu/3CT3nKlHRPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r89qqj7ZehlIw26wCt6lB4H+ayR5sCBpdsKCG6AtHok=;
+ b=gTcJvP8p4GvY0KvOIz96muRfHvl06+4SJLbHrJFfOQu6EPI4DQK9StHsT9QFQ3hepx1TIrEqFAEJ4w/r9lTSLO85twZi7xbu0LESnEVN4NnjDRlR/uDdaNhuzwqfo5MUXNLV8rCATEAKZ8O4FOoVd/mPi6krCWwqG/y9b3cPDum7Aas/hzmLzsx4EzsLSHwT7jsgdCJTUCXqoj1CzcKL85ZcEsDtO/ZMfwex0T4d04iKeZzLVjSOiJv1n1fZVLuo6kdeNK7Ct4bxiMalJdzF+gLBFgcTa1zPIf3qPkA7yBKRoFSO+47Wt+Q+4Mnq6ilsWGqSu+4Ihv7mXkPiOCF11Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r89qqj7ZehlIw26wCt6lB4H+ayR5sCBpdsKCG6AtHok=;
+ b=Uzr6ABiue77RgU/2GAH7T6/mSjfjY7woOkbAIp1b0P+hkgyVWQGxeTn9v/RGgDO8cwdfEGf2FQ5JD69ABu092Eqb+KCBGbCN2DDN7nIUpU4XrIaxXEkbSdLF8dxQQEoC/ApnXQU50/uE/jfU1bgudzo+1Kvw95Gptl8y4lqgzK8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ by SJ2PR12MB9163.namprd12.prod.outlook.com (2603:10b6:a03:559::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sat, 31 Oct
+ 2026 13:50:42 +0000
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.010; Sat, 31 Oct 2026
+ 13:50:42 +0000
+Message-ID: <39fc2fba-482e-45e9-89cf-9625038422c2@amd.com>
+Date: Sat, 31 Oct 2026 19:23:03 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 Laptop
+ 16-by0xxx
+Content-Language: en-US
+To: Gianluca Balboni <gianluca.balboni06@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Venkata Prasad Potturu <venkataprasad.potturu@amd.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261031102136.24600-1-gianluca.balboni06@gmail.com>
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20261031102136.24600-1-gianluca.balboni06@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PNYPR01CA0057.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b5::8) To CY5PR12MB6252.namprd12.prod.outlook.com
+ (2603:10b6:930:20::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,125 +99,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] userfaultfd: clear uffd state in child PTEs if uffd is
- released during fork
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261031-uffd-prot-bits-fork-event-v1-1-3572921c2111@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <20261031-uffd-prot-bits-fork-event-v1-1-3572921c2111@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|SJ2PR12MB9163:EE_
+X-MS-Office365-Filtering-Correlation-Id: 631c93cf-ac3b-4c9b-fcce-08df3755f43c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|22082099003|18002099003|56012099006|11063799006|261021121427099003|261021123027099003|261026121527099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	mhlwEsBiYtR8wKIbRtzjc3tB3w0kAk9vB/Idpzaa87b9cCDuAarQYB1atFmgG+ghnW+hTfMHgqkmkoGIqpvKbFefniUqz1W0mdjk17FiKaNdU3l5CzayX/5NyMH7h3qBCXTvgdTqA9N+aneChD5rYz1q9/YZ2rfIK/vAdqry7KOUSMku1G86YpgU93B0uW3/yy45dGXNwmF1YIX2jkafe1fUz8IM2jUj+xfId/Xlcn5AZjOdnrIO95kGpgx3RDwnAhvEQrEvD2+qt/YK5iwS1sj92k2Y17zS1Wl7aZd5Ibv3m83h3bBlP2GUZm8quLOTOouStCXaVPMYduwV3+NFYdhC+Rmpc0YPjLzH7xjyodCBQ8oqmnzRiwrlIrykgGidcYYxSIkosVQ381EYQ7wSHN5PUjBoaULGhXT37ueBFUta6vZfHE6Gtb30+7p84zRi7ZsyOIMbfN/2QA8z0JHf/tBXBWQWVnve3WG7KW4kqTdcCEPFQ/Yw1jFKF3nKD79oBJl1DDahBqidcrlCYjWWjunN0hO/Lpacq+kur+57JYCeWqopoylDmOpw2EHcq03/SIdot1OPsDCLZ4Mhszg8uEvrP6L2QnqrUaF2yyL4tmBvBXiwVvA5FlTyPYRnoCjUyVga5pj71aVHu/tMn8vKl24xuRq0/UZP8ZWcpZf5RPY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261026121527099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UHhKREwwQXV2NHBvYkdpT2lYTHJkMzNjOWhOWjM3cm9GVDdMN3JFcEpDVXN4?=
+ =?utf-8?B?aGhSZ2F6OGpQV214UnJiMVJtc0JiUjJXVU1JT0hqaDFWcWdyVFBIR00xRVA2?=
+ =?utf-8?B?a1R5RklnYXZYUk45bzViWTZOVlZSNkVNV2ZsY1RsOXNOZ3phQ001S3RQRFdF?=
+ =?utf-8?B?djNPeGZ2ZTlwV0lmck1LZDRsTko5emZUWHV0OTlDUTlHYm0yNW9kV2V2WmFS?=
+ =?utf-8?B?eHYvSFZ5V3g5cHJqWFhVaU1hc1N1Y2JSelg3RnU3MXE4d3NpakxFL1dzclFt?=
+ =?utf-8?B?S2w1VHBMd3hpMDcyZlBCdEZKdDc3ZnByNGEvQjdPV1RmMEFBT1ZCV3lhQldK?=
+ =?utf-8?B?bnEyWG1pSU1yR1pzd21Ua1JwbTVqdWJ6dEkzU0QwL1VxdXoxcHNmcWZEUDVo?=
+ =?utf-8?B?RitwVkRFSW5laWxFc09QWjY5TUV5M3hIbVArRjU1aUpSLzExNTM0NlpoOUtt?=
+ =?utf-8?B?Nk1uVVZUTmNSRnREcyt0K0xaNStoZVBBT3ZxNjV0eUNxNUFtc1ozT1BRS2RF?=
+ =?utf-8?B?ekxMRzAxL09HMGM2THMyQS9uY3JzWGx1bWNKOE9GeXZuT0lmblhwdlJRY3ZQ?=
+ =?utf-8?B?YU1YcnBIVy9vZEwzNXZwMEpNb1g5ZW53d243ODBjN3VodlJHZzJSWnUweDVD?=
+ =?utf-8?B?Y1ZKY1JBZ3lyV2ZhYjFUTnRqeXdzelN5MEhXNHFjRDhLZElKRzhXQ09CVHQ2?=
+ =?utf-8?B?dUE1TFFxNW5KNERmUUhTUEp6aXpOUmZGNVJ0T093ZmFnb2c0eUtSUkFuM1Fa?=
+ =?utf-8?B?UWlTN0U4bDVqbE5LNFNNNkJtcG1WMHRnUFgrb01KL1BEVWpzTE5vMmhlYmJU?=
+ =?utf-8?B?YSthcHlEZzR6bFRVaG5oK3RrdkRHbnBWY1lLd2phYStTVER3Y3FkV1RZNUJi?=
+ =?utf-8?B?RTQwMU10TVQrdW1QYnVRODRjZjh3elErNE9tbjdVWlZOL2J0ZUVaT0tBeUQr?=
+ =?utf-8?B?UEJYMnFkR2h1alcvbmNBcXlGY0k1VlRUOUE2bGE3S2pVQmJ6bU40VzgxeWx6?=
+ =?utf-8?B?ai9jTHliTXN6RVFKWlRkVnhTZGR6ZzUyTGtnSHZlM0VWR0IwcXBxNUFKZDFv?=
+ =?utf-8?B?OVFDMDV3RFRHbWU3Y24yUHRNVTZFdG5OdVB1bXZkSHRHOG04aDV1MUhXb25j?=
+ =?utf-8?B?akFGR1dUKzhtK1QwQVVlRFQ2Z3QxbmF1aTFtb3lqby9yZDR5MTdodXQ3WTBI?=
+ =?utf-8?B?dUpLeEEyQ1JyQWNFays4RXN4Q0ZJODBOS0hPWG5PVGU1aFdhb3pBNUNjYUZj?=
+ =?utf-8?B?NHZNRW44eHhrK0llcDlvYUtvbXVOZ01HcmxDWk9FZFZOUmFYMzdSMFVRSU0r?=
+ =?utf-8?B?NU9DUzQ2YXZMa1o5elBUWFgvaFFLcUVZbWZzT2FLa3hiOVRCOTJVUFl1ZmlD?=
+ =?utf-8?B?QSthdHQxU2F5cjVSVkdwTlY2YU5ZNmdBYno4R2hSaUV3U25xTDYxVHYyNUw5?=
+ =?utf-8?B?UFdERVFIM2hESzlSZVhlbkJHSlRzRTRrUUxUVmFwS2VWcEd4NDI1NDk0cEYz?=
+ =?utf-8?B?NGRENFU1dzRpSnFjMUhPcTlTdVdtcjV6QnN3QXJHejFsUytEaWRHWFYvNEZq?=
+ =?utf-8?B?ZlBZbW81a0N6elh3b2c0ZXRFOFMxVGZtTk1OM0xYVU85TnFkSkhPMzI2cDFE?=
+ =?utf-8?B?dWtwNHFTQTBMSHZmc2lCSE41eXZidDV0b2I3RjZUWExBeWhqN3Q2YnljblQ1?=
+ =?utf-8?B?QmtmYXRSSHZnR001OS8zVnZDQWlISHpqMFZFbGsvb0t2VExHaTBmOVdYRUhs?=
+ =?utf-8?B?clBMUE9rZzBVbGYyR3hMVDJOK3lGSnk1Q09Fcks3djJra0FrM0I5aHFVbVRy?=
+ =?utf-8?B?NDJ3RjNIcmJmMCtxZVBJclkxc01zdEgxWVQxY0dNRmtMNW5vSHU2aW1IMFBU?=
+ =?utf-8?B?Zmx6SUxrZXBZalF0dzJHdmhFcjAreWVsczE0d2RYRVNVMHZtem9zMGlYbm5I?=
+ =?utf-8?B?VDRWajkvSjVGV0JQSElHMlEwRTlseEx2U2hiQ0YwMDY5VzdEcmI4NnVtcTQ5?=
+ =?utf-8?B?cXJ3dUdPd2tnTm5ZQ1VkOWpSV3BVT3A1VEh1dFZYNC9XWWVzVzI2MHlKaWFG?=
+ =?utf-8?B?YmFHQjc2eVhOcXJTRXpFa2g4b25xK1laZXNZWU5Hd1U5VlZCMWlUWFhDb0JY?=
+ =?utf-8?B?ZXhYNXJoQTdjSVBSSWpuM0pCcUFRenZzNFExSW9wZUZHc3ZyNGNURFNoMUpi?=
+ =?utf-8?B?NGZySUtiYkdlTHRoeEQwVUFESEZ2VnRCcEt2MzhEUTNtc3FNZXI3R2I2UnBQ?=
+ =?utf-8?B?ejVrVGZ3ZXljUEdPb2hOL1hKcjFUUkE5alJXSjFDUDErSzBKelJRN0dkalpk?=
+ =?utf-8?B?TmgzT2VmWkNFTFAxbEhYbHRoMjZTeUszTDZUbUk2M3liTmhNY0hRUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 631c93cf-ac3b-4c9b-fcce-08df3755f43c
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 13:50:42.2709
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VDVdlFE1AAVA3UE2/gFtn0Ezx7U781+IYZDIN6juvDhmX2WFQlpGBYkWppoTcpHMAqDJIXjZqlG9S/yX0V5/bw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9163
 
-On 10/31/26 1:35 PM, Mike Rapoport (Microsoft) wrote:
-> With UFFD_FEATURE_EVENT_FORK the userfaultfd context is duplicated for the
-> child process, the child VMAs are registered with the new context, and uffd
-> protection state from the parent PTEs is copied into the child.
-> 
-> If the parent's userfaultfd is released before the fork event is read,
-> userfaultfd_release_new() resets the VMA flags but keeps uffd state in the
-> child PTEs.
-> 
-> This leaves the child's VMAs in an inconsistent state: they are not
-> registered with userfaultfd but their mappings carry uffd protection state.
-> 
-> If the child registers the range with userfaultfd again, the stale state
-> turns into protection the child never asked for.
-> 
-> When a write fault makes such a PTE writable without copying the page, the
-> uffd bit remains set and page_table_check_pte_flags() warns about it.
-> 
-> Split resolving of the uffd PTE state out of userfaultfd_clear_vma() and
-> call it from userfaultfd_release_new() before resetting the VMA.
-> 
-> Fixes: f369b07c8614 ("mm/uffd: reset write protection when unregister with wp-mode")
+On 31/10/26 15:51, Gianluca Balboni wrote:
+> [You don't often get email from gianluca.balboni06@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> The HP OmniBook 3 Laptop 16-by0xxx (board ID 8EE3) has an internal DMIC
+> connected to the AMD ACP6x audio coprocessor. The BIOS does not set the
+> AcpDmicConnected _DSD property or the _WOV method, and the board is missing
+> from yc_acp_quirk_table[], so acp6x_probe() returns -ENODEV and no DMIC
+> capture device is registered.
+>
+> Add a DMI quirk entry for this model to enable ACP DMIC support.
+>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Signed-off-by: Gianluca Balboni <gianluca.balboni06@gmail.com>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
 > ---
->  mm/userfaultfd.c | 43 ++++++++++++++++++++++++++-----------------
->  1 file changed, 26 insertions(+), 17 deletions(-)
-> 
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 3b71712edab4c..2c11ac5dad3d5 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -2220,6 +2220,28 @@ static void userfaultfd_reset_ctx(struct vm_area_struct *vma)
->  	userfaultfd_set_ctx(vma, NULL, 0);
->  }
->  
-> +/* Clear the uffd bit and/or restore protnone PTEs */
-> +static void userfaultfd_clear_ptes(struct vm_area_struct *vma,
-> +		unsigned long start, unsigned long end)
-> +{
-> +	unsigned int mm_cp_flags = 0;
-> +	struct mmu_gather tlb;
-> +
-> +	if (!userfaultfd_protected(vma))
-> +		return;
-> +
-> +	if (userfaultfd_wp(vma))
-> +		mm_cp_flags |= MM_CP_UFFD_WP_RESOLVE;
-> +	if (userfaultfd_rwp(vma))
-> +		mm_cp_flags |= MM_CP_UFFD_RWP_RESOLVE;
-> +	if (vma_wants_manual_pte_write_upgrade(vma))
-> +		mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
-> +
-> +	tlb_gather_mmu(&tlb, vma->vm_mm);
-> +	change_protection(&tlb, vma, start, end, mm_cp_flags);
-> +	tlb_finish_mmu(&tlb);
-> +}
-> +
->  static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
->  					     struct vm_area_struct *prev,
->  					     struct vm_area_struct *vma,
-> @@ -2239,22 +2261,7 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
->  	if (start == vma->vm_start && end == vma->vm_end)
->  		give_up_on_oom = true;
->  
-> -	/* Clear the uffd bit and/or restore protnone PTEs */
-> -	if (userfaultfd_protected(vma)) {
-> -		unsigned int mm_cp_flags = 0;
-> -		struct mmu_gather tlb;
-> -
-> -		if (userfaultfd_wp(vma))
-> -			mm_cp_flags |= MM_CP_UFFD_WP_RESOLVE;
-> -		if (userfaultfd_rwp(vma))
-> -			mm_cp_flags |= MM_CP_UFFD_RWP_RESOLVE;
-> -		if (vma_wants_manual_pte_write_upgrade(vma))
-> -			mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
-> -
-> -		tlb_gather_mmu(&tlb, vma->vm_mm);
-> -		change_protection(&tlb, vma, start, end, mm_cp_flags);
-> -		tlb_finish_mmu(&tlb);
-> -	}
-> +	userfaultfd_clear_ptes(vma, start, end);
->  
->  	ret = vma_modify_flags_uffd(vmi, prev, vma, start, end,
->  				    &new_vma_flags, NULL_VM_UFFD_CTX,
-> @@ -2353,8 +2360,10 @@ static void userfaultfd_release_new(struct userfaultfd_ctx *ctx)
->  	/* the various vma->vm_userfaultfd_ctx still points to it */
->  	mmap_write_lock(mm);
->  	for_each_vma(vmi, vma) {
-> -		if (vma->vm_userfaultfd_ctx.ctx == ctx)
-> +		if (vma->vm_userfaultfd_ctx.ctx == ctx) {
-> +			userfaultfd_clear_ptes(vma, vma->vm_start, vma->vm_end);
->  			userfaultfd_reset_ctx(vma);
-> +		}
->  	}
->  	mmap_write_unlock(mm);
->  }
-> 
+>  sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+> index a7fa0e8c460d..7a629b35e076 100644
+> --- a/sound/soc/amd/yc/acp6x-mach.c
+> +++ b/sound/soc/amd/yc/acp6x-mach.c
+> @@ -762,6 +762,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+>         {
+>                 .driver_data = &acp6x_card,
+>                 .matches = {
+> +                       DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
+> +                       DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
+> +               }
+> +       },
+> +       {
+> +               .driver_data = &acp6x_card,
+> +               .matches = {
+>                         DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
+>                         DMI_MATCH(DMI_BOARD_NAME, "8EE4"),
+>                 }
+> --
+> 2.56.0
 
-reproduced the leftover bits in the child with wp and rwp on all memory
-types, and they're gone with this. tested on x86_64 in qemu. LGTM so:
-
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-
--- 
-cheers,
-jose a. p-a
