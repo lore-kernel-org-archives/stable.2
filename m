@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793491014;
-	b=ea4+01hYn53cF25HzmrVhv8+d2EiFzDyTS+WCj6WmVxvepnvr9wKCLgRnpkYYxjTShuS
-	 89YuA6Q5jVu9rXxNVVZA7MnJzLKDHjZhBhzmI+uXUGGi7NvFJf/TugKYDlUWpz9mUpcoG
-	 RmWr2ttxyd1l2n27O1MekKrEORqp/gexygZPsFImpIK93TQ8Q9saizi4TbeOWhOslHIdF
-	 bXPXPip5w9e2pHSMOOfdDCgNdHhLF6KEeYnBNyfxvB011lCpW5G04DiZrFweVuJCNhTQm
-	 NKiXY10emKvOTAA82GiMxZ403DCb1Z+Akq/VuPMHf13ZZBPsrAuRz5mIQvv7MAVaqIw==
+	t=1793491054;
+	b=VN/OkA4eLBKVlAfl1Egai6xbpm2RY206TTAx3s+5S2XfkunI+whAk8clW9wMztFhufHj
+	 H1uuXRkh7VMMVxHoUhrSG2xJ95ZNdATXAV1/lU9+bv/o73bob3bu2PaOU3GZ7pX/nr7Fp
+	 +dM+nrrr96pUEV5O8UiGQyhPEwz2BLCDu7Tix43LWnvMET6v7kp8hmFXwNr7COnng7HFI
+	 2qAw8qD2IQ2wE8d3/YcDK5wc9J0F7yE0NPo3baGqWDUxaTPbeoXwgLllww9oSOnSxzIL0
+	 iP7kpXeg0RTh8FGCnVkX/vhyJxt2FWezAnnP6OspO/5NW3KM3HjFHK9rXY3zkOl6Cwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793491014;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793491054;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Xp2Q1Tm8g8ofcTkcO3AHq291Sgn2y+s6CdAIBTqEkXc=;
-	b=J5I3//6dOWmEjo0kEQ6h6Cujyt0C2FcZkmC3BjfVv0JMx+9kxthhFwu1eWJaIgCAnsPY
-	 4yTeQdlHc6IcYCdv9gUrGwv+5te9ev4WRKrimiPMW4m6z7E6qbnZzEu+24oXqy1CT0M3A
-	 +u16E+J1C32AklQdoJDIu69zH0pOZV75dpRRb+5BgfVCblOBHphMm0dQz57QAb6s/QlLd
-	 Iqhc8ymmWCR0c064S9JwFgA+0jFcnGi8aldjI5gLr0xFX0JB+czWEwEjhH1sKXl7wPZBe
-	 115AbBLmDzeHvnR3FezgMlXq2ii3NiYgkOr7wSrn+ttY/tSPZvPiYFYUGyug3ccXerQ==
+	bh=ysWUmcxgVRXv2jQI8n69SegsVOhd/dtKdXxdVfo7JLM=;
+	b=0+QuEWcPXB3zy5nuMiEF3vEmbrujnINYRvOhf9w/jGi8C0xzXJdshdcpZ+0MSDFv53v4
+	 IKOuDn54YtHIW5ZswihBetwDO4SuRDRZE4rpsayWJpYe6okgCyz9FCn1/YaI16/3Prg6D
+	 NgwuE6MZBmwhHtjcsKggzOyEs7aYVZUusU1+E40Sh6S9rkQPPE5uJztHMyd1ZHXVjHb5f
+	 2+mm/VAEcqewAQzgsWGLDXdk+RTSMmuJ0XXqTyIsZRZ0p8MlBZVB9DeZL8NQ14S6MNg15
+	 bosNp6ApwrFBh5JaNryXE7kGd9zkEhaFAl5L1UgFS1CYVdxXPAJUszgk49Li9GreXMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2cZtD9r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=pB1hre5h;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Yd6iqCpX;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA3606A31A;
-	Sat, 31 Oct 2026 23:56:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E895A606A31C;
+	Sat, 31 Oct 2026 23:57:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E895A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2cZtD9r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520E61F000C1;
-	Sat, 31 Oct 2026 23:56:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793491013;
-	bh=Xp2Q1Tm8g8ofcTkcO3AHq291Sgn2y+s6CdAIBTqEkXc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=j2cZtD9rhnCcMtqvFQ4MDB+q4EWdGpBtgn3wICyPacsQ20ImCILL6nUsQXT1CPdzu
-	 TomMbHR5J+HFo4ExFewTJYIk1OymJw3q4MCPSvk+y2iZjuE9AzuoUzxN0pPI5QC3Hb
-	 Nww5IguBza24+VFVnGYIMnUWLpaeVMPq5y3zNEzgb+LDjJ77WkTsSjG6wpXBVA5wpc
-	 7sanif2Q4FZkXJ/2aBlwlgewretV+wdO9NImvihhZnEwl5meTut8ivHRp/dHKm5KAR
-	 kqnf6vfjAS9ddKtbU9jN7J6wd4YScuS2f5soTeYk7wR52x2n81ibu8Yi5LIrWsP1F/
-	 kan2d96hTX4Mw==
-Date: Sat, 31 Oct 2026 23:56:44 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Kevin Tsai <ktsai@capellamicro.com>, Lars-Peter Clausen
- <lars@metafoo.de>, David Lechner <dlechner@baylibre.com>, Nuno Sa
- <nuno.sa@analog.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, Hans de
- Goede <hdegoede@redhat.com>, Jean-Baptiste Maneyrol
- <jean-baptiste.maneyrol@tdk.com>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Tristan Madani
- <tristan@talencesecurity.com>
-Subject: Re: [PATCH v3 1/2] iio: light: cm32181: validate ACPI object type
- in cm32181_acpi_get_cpm()
-Message-ID: <20261031235644.226c6a9c@jic23-hlaptop>
-In-Reply-To: <20261029110829.1086835-2-tristmd@gmail.com>
-References: <20261029110829.1086835-1-tristmd@gmail.com>
-	<20261029110829.1086835-2-tristmd@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=pB1hre5h;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Yd6iqCpX
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793491007; bh=ysWUmcxgVRXv2jQI8n69Seg
+	sVOhd/dtKdXxdVfo7JLM=; b=pB1hre5hAAkfc0jGIwgRRWwiOalmOObNdf98xXxeUScj3UJ/oT
+	nyBfIucryEdQF+QGs/OKBvOExqqTRvUz7yAImSr/EXLqFSDWWfuEerCg4CAJRitACX/IjKEDqbg
+	K4HaljVFDt0F8WrnVSaN+w8VQS4fEVHJVmpCSYHOqt2MEcyphXMzVsdZ7AG2o0b04RGiCi5ALQs
+	2pBoOEkE+nJv1YoJ8Pc51X4k9KXueBy+B6n1pZ8UG427kpCzjQheL0H+yUrAgYT2T29vdqgb33R
+	Qc0+H11NtBu47ghZpOZK3Fn6EfuBPudgP68IyG/+XQXVvfX+WeNc3DMX0d+XHa4YRFw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793491007; bh=ysWUmcxgVRXv2jQI8n69Seg
+	sVOhd/dtKdXxdVfo7JLM=; b=Yd6iqCpX1oOWvqiNIDuB4WCPkf06X8/KvpPF73LxUXzFLJ9bMN
+	9H8TigSMJCeMuYbSS4IqDFB5GJKvKtns84BQ==;
+Date: Sat, 31 Oct 2026 23:56:47 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ Paul Moore <paul@paul-moore.com>, Eric Paris <eparis@redhat.com>
+CC: audit@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] audit: fix UAF in kauditd_send_queue()
+In-Reply-To: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Message-ID: <6F0EE0A0-10C3-4B96-AD77-A6952672CDB7@mainlining.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,67 +64,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026 11:08:28 +0000
-Tristan Madani <tristmd@gmail.com> wrote:
+On 31 October 2026 21:12:59 GMT, "Jérémy Jean"
+<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
+>kauditd_send_queue() grabs an extra reference to the skb header before
+>netlink_unicast() since it may need to retry a failed send. If unicast
+>delivery reuses that same header, the receive path stores the
+>destination socket in skb->sk without taking a socket reference.
+>Consequently, after the receiver consumes the skb and closes the
+>socket, the extra reference taken on the skb header makes kauditd
+>release a header whose skb->sk points to freed socket storage.
+>
+>KASAN reports a UAF as:
+>
+>  BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
+>  Write of size 4 at addr ffff888004f94140 by task kauditd/31
+>
+>Clone the header before netlink_unicast(), then use the clone for
+>delivery and keep the original skb only for retries. If cloning fails,
+>handle it as -EAGAIN so the send can be retried.
+>
+>Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages in case auditd comes back")
+>Cc: stable@vger.kernel.org
 
-> From: Tristan Madani <tristan@talencesecurity.com>
+What I cant work out from the changelog is where netlink_trim() went.
+With users == 2 it usually clones for you anyway (skb_shared() is just
+users != 1) and then the receiver owns a different struct, so this
+couldnt happen. Unless it took the early return:
+
+	if (is_vmalloc_addr(skb->head) || delta * 2 < skb->truesize)
+		return skb;
+
+Which one was it? If its the delta side then its the tightly filled
+records that trip this, which explains 18 years of silence pretty well.
+It also tells us what this costs, where trim would have cloned anyway
+you just moved the clone, otherwise you pay one small slab alloc per
+record.
+
+>Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>---
+> kernel/audit.c | 11 +++++++----
+> 1 file changed, 7 insertions(+), 4 deletions(-)
+>
+>diff --git a/kernel/audit.c b/kernel/audit.c
+>index 9412af9144bc..5e739fa606be 100644
+>--- a/kernel/audit.c
+>+++ b/kernel/audit.c
+>@@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
+> {
+> 	int rc = 0;
+> 	struct sk_buff *skb = NULL;
+>+	struct sk_buff *skb_to_send;
+> 	struct sk_buff *skb_tail;
+> 	unsigned int failed = 0;
 > 
-> cm32181_acpi_get_cpm() accesses cpm->package.count and
-> cpm->package.elements without checking that the returned ACPI object
-> is of type ACPI_TYPE_PACKAGE.  If firmware returns a different type,
-> the package union members alias onto unrelated data.
+>@@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
+> 		}
 > 
-> Use acpi_evaluate_object_typed() to request an ACPI_TYPE_PACKAGE
-> directly, so the ACPI core validates the type before returning.
-> Also replace kfree() with ACPI_FREE() for the ACPI-allocated buffer.
-> 
-> Fixes: d34ca613b939 ("iio: light: cm32181: Add support for parsing CPM0 and CPM1 ACPI tables")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-The threading is broken here.  They are in reply to previous version
-which is always a bad idea and not threaded below the cover letter.
-
-Hopefully I picked up the right code.  Applied, but not rushed
-so on the testing branch of iio.git.  These are hardening patches
-against broken firmware rather than fixes, so I've also dropped
-that marking and the +CC stable.
-
-Hardening this stuff is good to have though when it doesn't
-add much complexity like this patch.
-
-Thanks,
-
-Jonathan
+> retry:
+>-		/* grab an extra skb reference in case of error */
+>-		skb_get(skb);
+>-		rc = netlink_unicast(sk, skb, portid, 0);
+>+		/* Keep the original header unowned for retries. */
 
 
-> ---
->  drivers/iio/light/cm32181.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iio/light/cm32181.c b/drivers/iio/light/cm32181.c
-> index 9df85b3999fa8..a16fc83bcbb08 100644
-> --- a/drivers/iio/light/cm32181.c
-> +++ b/drivers/iio/light/cm32181.c
-> @@ -115,7 +115,8 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
->  	if (!handle)
->  		return -ENODEV;
->  
-> -	status = acpi_evaluate_object(handle, obj_name, NULL, &buffer);
-> +	status = acpi_evaluate_object_typed(handle, obj_name, NULL,
-> +					    &buffer, ACPI_TYPE_PACKAGE);
->  	if (ACPI_FAILURE(status)) {
->  		dev_err(dev, "object %s not found\n", obj_name);
->  		return -ENODEV;
-> @@ -132,7 +133,7 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
->  		values[i] = elem->integer.value;
->  	}
->  
-> -	kfree(buffer.pointer);
-> +	ACPI_FREE(buffer.pointer);
->  
->  	return count;
->  }
+A header isnt a skb, and the comment you deleted said skb. Also this
+line is where the why belongs, since the why is the bug itself. e.g,
 
+		/* netlink remembers the sock in skb->sk with no ref,
+		 * so send a clone and keep the original clean
+		 */
+
+
+>+		skb_to_send = skb_clone(skb, GFP_KERNEL);
+>+		/* Preserve the connection on a temporary allocation failure. */
+
+Well, this one doesnt preserve the connection.. -EAGAIN falls into the
+same bail branch which does sk = NULL and then squashes rc to 0, so
+once the alloc failures hit retry_limit the connection is gone anyway.
+
+It also eats a slot of ++failed for what is really just an ENOMEM and
+not a send failure. Might be fine! but the comment says the opposite of
+the code, can you make it match?
+
+>+		rc = skb_to_send ?
+>+			netlink_unicast(sk, skb_to_send, portid, 0) : -EAGAIN;
+> 		if (rc < 0) {
+> 			/* send failed - try a few times unless fatal error */
+> 			if (++failed >= retry_limit ||
+>@@ -827,7 +830,7 @@ retry:
+> 			} else
+> 				goto retry;
+> 		} else {
+>-			/* skb sent - drop the extra reference and continue */
+>+			/* skb sent - consume the original and continue */
+> 			consume_skb(skb);
+> 			failed = 0;
+> 		}
+>
+
+--- Thanks!
