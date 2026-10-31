@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793470802;
-	b=uZIot74UGKlEdIojVQ4bQQVbepv8a1bH5R9aqNmCu/vmye102V6eD2q/4pZXZgtY54E2
-	 IwHw6GZ4AxWzv83H0I0ggwLkrAGU6nCuQzpKPG2YiqfbC5XyzH13cthYs0Ukkydsts1qF
-	 fL9Ik1grQtVeD5U0ZYK3I51BMi0CxzeDuA/GbcN33gQtu/AkdelnfPCqQvWBzib0OocrA
-	 cX40Jzb4uhJ80xyimbiYEz2Vlj2N99QDMbxPKudEUlAVOPPBytGOGdMKWeCX1BnVtrBOJ
-	 ntskWMPLjMRH+FR8jbvMaf/3tmmmVRO9yRYxugT6QyurdgY3fXWEgiBYGDTCSkDOucA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793470802;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=D41Hh/NNI4IUeUq+Enn57cI7GAXB63F2OqaY8vmBuTc=;
-	b=1fCJoRvCOduUDR5jmXYUVToF1k3ZdI7zbOBhm6O5cuwewerpByFWMuB6HPIwT7fWCjnr
-	 3NOmV7ysILgQjJUPmndzyqmwnrS3r28ShW6wku+BtnAOY/hDoURW80W0a9WEAkj7wMTJV
-	 m7r36rJhxL9R3booDriadPmvt7mUiot9E6qpyH27wcJTpUc6ojxhcS4yFUerEaBGwDpMe
-	 jRCTjcgsogNdoacN0DAenxBrg3JOou0Tp7L1g/+IO9UJKx5INRfLB3i2o1hX5RJkxjAVT
-	 6MpMstv1HlHQBXElV1qqapS/Ugfoy0rvjWPfJxHHyoOfcQsPcDJyYhgoL4HOqaGg2lw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=QUt55f4L;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793470888;
+	b=jatLje/oDBW5AAvxRtSF94Hez12R9ccLpp5qsGZJhxKwnWKV+Li4mBHdjorov33RQAiX
+	 ztt2jg6JK8UKblXf1nPiIgvL0s+MhMqpuKqiWpXJLU2wsuLz18lk2ZArlsNFAx4GYm5++
+	 A5Hun1fU6yGnkGBgBF5Sr5Z8qXGy9SKMiyBdEQToLf1SBk/C+O8FGG3Ep7CniHeYZcUKp
+	 HKteochWkJLdD5k9BejL6GqtqRQvxElbDxO9/0oY9a4kDDYssLqTLzH11lGZxvC+HX28f
+	 a2Xzbn/D5hvC9LOWYtsLBsUy1/WNDFi1RSe7D8UMAqD7K9+DDsyF5TcDAdFemF/1U+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793470888;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=lHKFRctLDfXlCv2OU3bCsqyyCRbSpNPu6FlORAWwFwE=;
+	b=UI4kfa3xjgDuUC56w2XLG7y12+SWDOZVlIiAv53T4GTy6DV8kL3P7T/byqN7BJ/AJwo+
+	 IYM3vp/V1RmvGmJ9JJOewGaubL+xTEvMqVE6anfVLl4aaqVyR45FKJO49JzKtAJeLkjEz
+	 hFGi6KxVND/PxccFgFWruB5Cp1J3Y1cUToGpCG8eYLRlgEy0GvEF6Hy0Nc4XSc1GExziI
+	 KySi6OKBpampuzc5+QzoQpTmMnR5uwKl0x6jV7rd+xsYqlfRO1EuJ+NvFzynKHrN5M1b9
+	 37ihAKiWIraTFOoRN3puFlWEiO4KWwtOl0p5T6yvb2OdX0YP1jmWol074Sct4QQ/LYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTiVZ46j;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8D8606A31C
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 18:20:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A8D8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C18606A31A;
+	Sat, 31 Oct 2026 18:21:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=QUt55f4L
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8ac1f2ff78dso70480b3a.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 11:20:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793470801; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VsNgcT43GYa3gL+/SdzfKApobReb9Wol5buM0R4ZHf0SEOx+4XmewXpAfrljVFMwbl
-         dKz4U4OB1OX6M08aI/zqiagaweYHbmZZwQMv1+yODQaT7ySDvPmytSnpNEc7qQEev9Wb
-         hAxJIat5XTnFN0a3MD7dM0n50Sd4wsfk72H6sUX6hr+jYnSQS3XlbaqMsSR6yRjLIJQe
-         rCxnS0KtNL3g9Uw1zvxAzuwHF80Zt5agfFuJUAjOfA8hPWuMNfQUXoG6v2gUVT9W5SSn
-         OXp4kwH6BYhumBT2kqL9xDMGfVOh5WlWezQm1h+jHOJQKeyczEPGfmZqQamnuEIl0Mg2
-         caIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D41Hh/NNI4IUeUq+Enn57cI7GAXB63F2OqaY8vmBuTc=;
-        fh=SjKDuXD0Gn0HVFGkdM7//OtOaMIuAABy9FfSa1Z0f3M=;
-        b=QSMBvShL4HmNfLtvfeZEuH1L3mpA2GYVef4sL4UGUPQlBI/rJV4t5EgJxRTB8qyjV6
-         1xwEZYMMsiXJ+6V6auKWgNGYagJ0FpTV7pS7Iu39ju2/yMOykiHoXGkfitqoXqVRdo3b
-         lqWDvds8F4/brznMpiLdJGjHNY5cgvcvLU/G+DOOU3KJCc/1it9EbfLms6PXPmuTX5as
-         1kxGQpWPFgDUKtBtHRMFH6IVkq1zLQMTr7wIl8Z1pKBRrKjze2/P5Jb8MBZ38gewSuyn
-         d4UTQQ+5NUBaSQDyIbBjXc3qAMYd5XDIiyzE0KXc3tEffArFj/PUqsDxmcNtWh/LvtZu
-         BHIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793470801; x=1794075601; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=D41Hh/NNI4IUeUq+Enn57cI7GAXB63F2OqaY8vmBuTc=;
-        b=QUt55f4Luw2qqAGSZIH4Gu8Aqn3QAekTwR5YXlOoJezua35S0nwd8e1FlH29OazNZW
-         MDAHLxE0kTikZM6rR+giL2QRi9bdWJh4JLhmaxhaaXDPPXBDVQj43ViV8exyExacKv9c
-         2+LaMcQyiJHRqyNm7JS0DhNEu/4tdK5bu6XEs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793470801; x=1794075601;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D41Hh/NNI4IUeUq+Enn57cI7GAXB63F2OqaY8vmBuTc=;
-        b=Ab0GEu62aZWkUQJIDddWkJzBEyJhqrXTOtpNQXARHdO7NPkNWDk9sJeB3I26NuHxwM
-         lTPiVeJzPZl9ZmMdBSETGYgdi0g2sv3+8kTL1ijxAJDz4qgPjhJ/ILBUVYF7962qnPqd
-         Pc1QesLladNSQh17G+g+m/B7LKpZPHDIPJmGbkDhHyZ/jdVeu9gOgRxMUHRXlkjujIEB
-         O62K3sHWiowScH+PPJyBPh7qvd6EJ6UVcIJYOhzSVuNvAOYHLLSQn9mh3ntcq+eS7tQC
-         vEymHI69FFaZGAWOszlbIC6OcWUrIJR93mbr6/8BiWphi3zUuC/rdd71DaM6ogLq47RU
-         dCpg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBIEeOskwhZPG7JfzSLM6ClUwe3nmql6u/jo9cS32KCr6GfJAWeIFW66mQ7zYl7kGxlr1wCQ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfYTT7+Ha4N9VUF9Th4ANUJCXip7B5R5/Pvkk5w4Qd/2DcP3Ge
-	qqkK8xdwq2VKX6JYINVIQ2qQPJTFtd5hmTz+/UPSTa6OOSbdMSG/UkeCestIrG7K6Zpn9r5gGHM
-	6S+l+x9E+abVBYH/bjo6itUUUok1VevOGsvaG3IhT
-X-Gm-Gg: AYBFou0NjCCy7Cla5I5ryNA35e1evaAQztY6LiC9HjCRDl+mvc44AdpjXIq1mP/KJgq
-	ke2jdnsZwoEIIiHmKOr+Qf1BgH+Rxsr4sMZgB/Mxt3j9aHWpz1MScd5LpOEGratOoCfLGI+m0K8
-	2YTEHUsyaCp2G/3buUXthynmKBtJrI3zt0KWPS2pT+XjKblyRcvtyKNp0LZk3ebZ562TiHHxTxM
-	XSYjscXxerdZj4eNzEvhvgRfEHYo0qVVtDYfaM5swXbvYMBmfElTHA7/dCeRBly1xJmzWjqnt4B
-	DBLQUUF0ZTctV/yVQJsjTRSovyNnU+5tNtJksgDFjMBeUMbM9+oVb56PLKO7Wm0LXjqcqcn58mO
-	TuQrUXJAeCbwMAVRpw4Ryyy52fZ5v+2SIB7aMbrEL7S2O4QOhWIg9pmt49Xxb3G7ESfYygzKn7u
-	Kk+xomUjr5vXs47gUuSi1edVGk/Nf4oqXgW468
-X-Received: by 2002:a05:6a20:7348:b0:3e2:2b76:bf37 with SMTP id
- adf61e73a8af0-3e9288c7ae3mr3751337637.9.1793470801396; Sat, 31 Oct 2026
- 11:20:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTiVZ46j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9FFF1F000C1;
+	Sat, 31 Oct 2026 18:21:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793470887;
+	bh=lHKFRctLDfXlCv2OU3bCsqyyCRbSpNPu6FlORAWwFwE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hTiVZ46jpxyLejVCQJV/JU+oCM33Z8pBI4QxA0ZJJUrQRNV/2jfoDvmS4Bz/D4zr7
+	 /1ZFLS8neKlXUNFNy3GkEl4V41ArIFXF9PX+y40Ucv6ynGIDV1LjB3buv0RU/A2Nlv
+	 LCPtpLDllFhQZVZCkeRBFhGTru/QY1O/0DBZnayzBTN5+GNhs9IFid/0GiaYEtmC40
+	 lYPKayUGmUtcHb/LtBlTTjUR9XmFlLTclXORuPBq2UAxDTSc2wRtzY3Y80R1njO6BV
+	 liAvZbOsgi99Z3PrY87WENo/G0TFHijqkvWwlnRoctYGRRp0KTS+D0qQfJ1SsfcKS2
+	 mljHYemnl3+Pg==
+From: William Breathitt Gray <wbg@kernel.org>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: William Breathitt Gray <wbg@kernel.org>,
+	Li Youhong <dayou5941@163.com>,
+	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Li Youhong <liyouhong@kylinos.cn>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] counter: rz-mtu3-cnt: put runtime PM ref if counter init fails
+Date: Sat, 31 Oct 2026 14:21:19 -0400
+Message-ID: <20261031182120.3646747-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <TY3PR01MB1134606C5DE0411FDACBF0001866C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <TY3PR01MB1134606C5DE0411FDACBF0001866C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,54 +65,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <SER-NSBD.v1.r0.20261029191634@mojatatu.com> <20261029165943.41fc74c0@kernel.org>
- <CAM0EoM=WYGMNxc=n3j+nwyXA41SHq8o+bVvTR6uYp6HUeEa5aA@mail.gmail.com> <20261031180149.GU257209@horms.kernel.org>
-In-Reply-To: <20261031180149.GU257209@horms.kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sat, 31 Oct 2026 14:19:49 -0400
-X-Gm-Features: AclHuK-mIz4j-feH-N2bwZ5m92RWDfoh4LoIWUMhaR3znmD1qLdXroDo_03SCv0
-Message-ID: <CAM0EoMmfjXExhtLkYk2QznPJtQ1wjxwXdfwC7iaY5K4qrwei6g@mail.gmail.com>
-Subject: Re: [PATCH net 0/3] net/sched: fix short-skb metadata and namespace boundaries
-To: Simon Horman <horms@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, stable@vger.kernel.org, 
-	shaos <shawnq1@163.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jiri Pirko <jiri@resnulli.us>, Paolo Abeni <pabeni@redhat.com>, 
-	Victor Nogueira <victor@mojatatu.com>, Sashiko <sashiko-bot@kernel.org>, Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2694; i=wbg@kernel.org; h=from:subject; bh=4jOGApQctKuARm0QUpYj59awkb17qYceby5349anA7c=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFnPDLs+zMzxqVJ8LFWoosmlav7pRaBJWszVQw6Vyz9Os z7E6/W7o5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZjI1kMM/5O+vn3F+Xch75LC 9Wt49nzYfkH9RmJBr/WLxTkMv/xOTrzCyPCO8Xn31u3aV/MFP9xKmbJ4s8qL8wIvXgaWNXN8Fd5 gwMAKAA==
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 2:01=E2=80=AFPM Simon Horman <horms@kernel.org> wro=
-te:
->
-> On Thu, Oct 29, 2026 at 08:07:18PM -0400, Jamal Hadi Salim wrote:
-> > On Thu, Oct 29, 2026 at 7:59=E2=80=AFPM Jakub Kicinski <kuba@kernel.org=
-> wrote:
-> > >
-> > > On Thu, 29 Oct 2026 19:27:36 -0400 Jamal Hadi Salim wrote:
-> > > > Subject: [PATCH net 0/3] net/sched: fix short-skb metadata and name=
-space boundaries
-> > >
-> > > Please fix your setup, Jamal, all your recent postings have patches
-> > > posted in reply to the previous patch:
-> > >
-> > > Patch 2 is in-reply-to patch 1, patch 3 replying to patch 2.
-> > > They should all be in-reply-to the cover letter.
+On Sat, Oct 31, 2026 at 04:34:32PM +0000, Biju Das wrote:
+> Hi William Breathitt Gray,
+> 
+> Thanks for the feedback.
+> 
+> > -----Original Message-----
+> > From: William Breathitt Gray <wbg@kernel.org>
+> > Sent: 31 October 2026 16:29
+> > Subject: Re: [PATCH v2] counter: rz-mtu3-cnt: put runtime PM ref if counter init fails
 > >
-> > I know this is what you asked for before - but then Sashiko started
-> > getting weird and i went backwards and saw it accepted this format. I
-> > will resend this in 24 hours and stick to having it reply to patch 0.
-> > Maybe the sashiko issue is not even related to this but it was getting
-> > a little frustrating. In any case , sorry ;->
->
-> Hi Jamal,
->
-> Please also be sure to rebase.
-> It looks like this series does not apply cleanly to current net.
+> > On Sat, Oct 31, 2026 at 10:28:13PM +0800, Li Youhong wrote:
+> > > From: Li Youhong <liyouhong@kylinos.cn>
+> > >
+> > > Counter enable takes a runtime PM reference before initialization but
+> > > only puts it on disable. Drop the reference if initialization fails.
+> > >
+> > > Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter
+> > > driver")
+> > > Cc: stable@vger.kernel.org
+> > > Reviewed-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> > > Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
+> > > ---
+> > > v2:
+> > > - Add Cc: stable@vger.kernel.org.
+> > > - v1:
+> > > https://lore.kernel.org/all/20261008020506.211566-1-dayou5941@163.com/
+> > >
+> > >  drivers/counter/rz-mtu3-cnt.c | 7 +++++--
+> > >  1 file changed, 5 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/counter/rz-mtu3-cnt.c
+> > > b/drivers/counter/rz-mtu3-cnt.c index 7bfb6979193c..61fbeb122851
+> > > 100644
+> > > --- a/drivers/counter/rz-mtu3-cnt.c
+> > > +++ b/drivers/counter/rz-mtu3-cnt.c
+> > > @@ -506,8 +506,11 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
+> > >  	if (enable) {
+> > >  		pm_runtime_get_sync(counter->parent);
+> > >  		ret = rz_mtu3_initialize_counter(counter, count->id);
+> > > -		if (ret == 0)
+> > > -			priv->count_is_enabled[count->id] = true;
+> > > +		if (ret < 0) {
+> > > +			pm_runtime_put(counter->parent);
+> > > +			goto exit;
+> > > +		}
+> > > +		priv->count_is_enabled[count->id] = true;
+> > >  	} else {
+> > >  		rz_mtu3_terminate_counter(counter, count->id);
+> > >  		priv->count_is_enabled[count->id] = false;
+> > > --
+> > > 2.25.1
+> > >
+V> >
+> > This patch seems similar to another we're considering for ti-eqep.[^1] In that patch, runtime PM is
+> > managed via devm which allows us to remove the explicit PM unwind on failures and have them implicitly
+> > handled when the device resource is released. Should we use the same approach for rz-mtu-cnt?
+> 
+> Here we save power, clock is turned on/off during counter enable/disable.
+> On TI case, they enable it during the probe which unnecessarily waste power.
+> Even disable case, the clock is on.
+> 
+> Cheers,
+> Biju
 
-Will do.
+I suppose you are right. There is no need to keep the clocks powered if
+the counter is disabled because we are no longer counting.
 
-cheers,
-jamal
-
-> --
-> pw-bot: cr
+William Breathitt Gray.
