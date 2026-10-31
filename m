@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793440068;
-	b=4KqRvzmRPozgpnyc7cuzrOCC3kd6zDufW5bqTVxnahfSREvh8NGw0QugTKc7/GJadkbO
-	 7gXOj1ZdVGTWQht+Yov96Jle9t17rOR9QCQyGctWidZaJeHsG7/YW0wu8SOReIAURi9bv
-	 AcqmxLTnQjqkoSNjOOX53Qc00Mesv7zj5D7h4hXIyn7QC+OrUA5onGRysdoXkeCFpXzen
-	 K6cvlExE0wCwUUJw7KpkVKlO2OoisSNxhQPr8oNlHlTIDwpDzUK6xptCR3lGC81EF0bxl
-	 fYDnLZ4gbXNepwWCP6j/Kp4oKZN3yCs7ogqJHMC5ZmLUehrE6z5sxavwVPZFgLB7ONQ==
+	t=1793440084;
+	b=XxSekI5XyAXErBpPONSDgHHzVk7S4RJaIdXiod2V1WhgDy1LmZRjSjmz9Lfy+tNNEaCT
+	 kBnHgXmPJHjb2UAHXayaz1kFu8rENOAIAbBCF24StVTTb9UVIY5DGXkZGUPLn1CpXFVUU
+	 F4RMPzSEnKoAQWbWnleSmuQQEP1WzjU4i+UlM+sgaq9UndXypKIZxTz6UPywC5edqIM32
+	 cNA5CVDOJ67hkBMphFwAJqMA8E/hvKtAARmb7tXCjD3FTMEwFoWkgfjs1DzQUKMuLgzRV
+	 PlNnXdRLfZDD66Z9ekxnwB2P+EZcThS71f6M65Ae9ehteJgUdaj4J/Y/gfdBgOAeS6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793440068;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440084;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MOMq9Bo/X1WC/1XHARd8rol7WFT4eC651ZyNYelwklc=;
-	b=ArQydOrt/B9rTlpQ9k1NvUBCN/BF9uC+bgnzZNncZPTymZzv0sTD92jw5KCv2x0Unktg
-	 8ITo8mkE4zzdHGc1ms/JavX82V4Dw5F94uTfjVhcECH3m7EacBrwQBQCvSFz1tae/rjoU
-	 sqirkoUxNY/NTEPJVj0M8TPXssuuyExMK6COLRolNBsaY+vc+w9bbPLVLSvNtCqugALXC
-	 ZNPUDyZAHvMXlnbcXkCgSIeLLop9GsWGKxctpAcOBpIbZN31KAKrPmhxuc1i7dzkACiP6
-	 jR3DnWPtjaT/mO6CaaDRI4Yj4ADqNj29h3S4tBH/HkdtOvClEMKPG8+ub/24Fd8raIQ==
+	bh=oRdxulna6bx7ZoXAJZWTtTOwXgwkKcXU1p7Oe42EAqo=;
+	b=TI8LGv+NYnCdboN6zUM4lhOhELLTfwI0jN7PpwDGhr+W+vloBNqaT47Cek2fIuNN+cGx
+	 lqhocgH2QHyZTfPAJoPUIuzvnxJNLYeSqlmH4oFKmvgdfoKXDV4YYe0rO5AcxpWUCHFLU
+	 EIv2n6e/rk87/SvLjAWB8IyJk4+pUYBQ2ui0hB4bugOicM8t0ulrRv46DqdK06AhnnxDQ
+	 mPsmcSXvVqpL/Zh0APi7OHxFqY3/y/xfcY7QTCzQJ4sZeh+5QmuEMNjLJyl2mMU+82Yf3
+	 tHsjRenpprtdCX+z1W1Z+ZeZO/MJGkac8BTHTesrDAjABKh+2iwEa6ch7eACpyE7C8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0NtaK+z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyYl5dm5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D97606A31D;
-	Sat, 31 Oct 2026 09:47:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D51606A31F;
+	Sat, 31 Oct 2026 09:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0NtaK+z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A551F00A17;
-	Sat, 31 Oct 2026 09:47:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyYl5dm5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC8D1F000C1;
+	Sat, 31 Oct 2026 09:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793440067;
-	bh=MOMq9Bo/X1WC/1XHARd8rol7WFT4eC651ZyNYelwklc=;
+	s=k20260515; t=1793440083;
+	bh=oRdxulna6bx7ZoXAJZWTtTOwXgwkKcXU1p7Oe42EAqo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=O0NtaK+zWEOTRhNj0gXjp5K/M/sd/Bb90jRBQ8hxQ8xq45quOyyco+pKYVCv/e+rC
-	 jhx/NuTe97ABxZM0ywKwuAkVP/8zauiAIanlyRXXeBf2qcu+GpTU8kayuT4pTPc6wP
-	 wRjJ+K+z15pP5Xqspp73jz1pH/YGC4A2MVaJImK2lf4YyVGpw4whdScowfQepp5Q0Y
-	 jgsWDMbZxDZIlwn7aVN8S7cUelh61nAK+j4mm7sfZGhXW8W5C5pVHlip46qyApgRNG
-	 CrNeTqwbPD0FxGz/bDqMXdcwxziaTEUSFttaYaxf6kT6j7DISoD3IkgQ64ctLSxHq/
-	 4Vue8gfskydlw==
+	b=WyYl5dm5PLsvVySkqKWeW4aQqBeXA4uNtbZ0Q7ESvQ9tb1cE7IFM8dVmAypfFv3ew
+	 pK6i+F632f1aj9HT4Cz09nw5s0O0bZ5JJgEVYKNecloJyyHAvxJPkOtixdHmgd9HpI
+	 ydeZ+vEbxoT2hxdhnYJAvglbZQ+7fd+Nssi6fmiuxZu5XAOtvh4jFDcMbwsyhFvb8n
+	 YJpI0mC9y4/JQpQ/d8ePl8NBnMpf+oSAr2oC2r7k6ENsJMAClBoUl5GM/DJi9h5aZw
+	 jNNqW+cyjceGWw0WFsiSKjNfEmU5Ecr8h4R26sYJPRy4YQVxh2ZZdfLKPRODE8MDBn
+	 YEP3nGt6vG92w==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:58 +0100
-Subject: [PATCH v3 29/47] mm/mmu_notifier: set ->mm only after mmgrab()
+Date: Sat, 31 Oct 2026 10:39:59 +0100
+Subject: [PATCH v3 30/47] mm/mremap: use pudp_huge_get_and_clear() when
+ moving huge PUDs
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes_core-v3-29-d6437171ecc3@kernel.org>
+Message-Id: <20261031-fixes_core-v3-30-d6437171ecc3@kernel.org>
 References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
 In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -92,73 +93,53 @@ To: Andrew Morton <akpm@linux-foundation.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
  linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ stable@vger.kernel.org, Muhammad Usama Anjum <usama.anjum@arm.com>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2144; i=david@kernel.org;
- h=from:subject:message-id; bh=uqLLH/rw09nvp1DiWb73Ctop723Qk+Rw11zrHd74dEM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs+MUvecmTf/44Prj77M0zh96qmzHf/nTzWHYufcL
- FbkPxt5tqOUhUGMg0FWTJElKPi+wcuX62qr3fiYYeawMoEMYeDiFICJFDAw/DO/tLAiQThmaQNn
- jOOMa6u7DA9Y/vJat7y89k8vY2/2w6OMDPOV0/VfJLit+PLmfbHWH8PrXodfyJ0Kvdr66tLOiTJ
- Pn/ACAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1350; i=david@kernel.org;
+ h=from:subject:message-id; bh=J+BkXcl4Qvwywi9WLcoERfpKcUUnTN7lTfE+aJlF+GQ=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs8s914UfNrOe/qM8PKSOwFhTJaPeWuqqvs6bhy2z
+ XAoTOTvKGVhEONgkBVTZAkKvm/w8uW62mo3PmaYOaxMIEMYuDgFYCJdMowMM/5zRgrnX8krOPRu
+ eabUTz+9eNN3X64U7kiNWPKmVGDhH4bfrCkLONfNlpM/71PMcqR811mPT4cj1riv3S95hPloRs0
+ 7dgA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+move_huge_pud() reads the old PUD and clears it in separate operations.
+Hardware accessed or dirty updates between those operations can be lost
+when the saved entry is installed at the new address.
 
-Radeon uses a non-NULL notifier->mm to decide whether to call
-mmu_interval_notifier_remove() when freeing a buffer object.
-__mmu_interval_notifier_insert() sets ->mm before validating the range,
-so a wrapping userptr range can leave ->mm set after insertion fails.
-Cleanup then tries to remove an unregistered notifier for which no mm
-reference was acquired.
+The raw pud_clear() also bypasses page_table_check_pud_clear(), while
+set_pud_at() accounts for the destination mapping. This leaves the
+checker counts unbalanced for mappings tracked by page table checking.
 
-Set ->mm only after mmgrab(), once insertion can no longer fail. While
-we could fix radeon's code instead, setting ->mm on success only makes
-the code more robust.
+To fix it, simply use pudp_huge_get_and_clear().
 
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: 3506ff69c3ec ("drm/radeon: use mmu_interval_notifier_insert")
+Fixes: 7d846db7d0e2 ("mm/mremap: convert huge PUD move to separate helper")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify description ]
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/mmu_notifier.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ mm/mremap.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
-index 2e20f88e162d7..a7bae5de5fedc 100644
---- a/mm/mmu_notifier.c
-+++ b/mm/mmu_notifier.c
-@@ -947,7 +947,6 @@ static int __mmu_interval_notifier_insert(
- 	struct mmu_notifier_subscriptions *subscriptions, unsigned long start,
- 	unsigned long length, const struct mmu_interval_notifier_ops *ops)
- {
--	interval_sub->mm = mm;
- 	interval_sub->ops = ops;
- 	RB_CLEAR_NODE(&interval_sub->interval_tree.rb);
- 	interval_sub->interval_tree.start = start;
-@@ -964,8 +963,12 @@ static int __mmu_interval_notifier_insert(
- 	if (WARN_ON(atomic_read(&mm->mm_users) <= 0))
- 		return -EINVAL;
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 0d06d7f37f19a..16e736c72d9cb 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -509,8 +509,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
+ 		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
  
--	/* pairs with mmdrop in mmu_interval_notifier_remove() */
-+	/*
-+	 * Pairs with mmdrop in mmu_interval_notifier_remove(). Drivers take a
-+	 * non-NULL ->mm for "registered", so set it only with the reference.
-+	 */
- 	mmgrab(mm);
-+	interval_sub->mm = mm;
+ 	/* Clear the pud */
+-	pud = *old_pud;
+-	pud_clear(old_pud);
++	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
  
- 	/*
- 	 * If some invalidate_range_start/end region is going on in parallel
+ 	VM_BUG_ON(!pud_none(*new_pud));
+ 
 
 -- 
 2.43.0
