@@ -1,92 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436114;
-	b=4zW9/mmBdZHN4Aej8dPQi9Yggmwr8NjOZ1n26DGalnDe854HLdgAnr/zLKaf1kIHPCnT
-	 h9oQxY+a6GnfSK8Odr3QS5oTAbOZHo7GJ9NxU/xm1EE4m8wOZg8mdDcvgU0yqlVTN202+
-	 dHdgw5UX8fXCfbnuFstdaD76xwK9xZ6j2lve3hBMTaFzKGlIw+qJEQ0gX4IWuFITjWvQ2
-	 Rn1m1kXy0dYBy4Fwe+8uBYDyEsr6w0xQvuaedxWQQKug/TdrS/7h8SVgyvEz0ZzFVG6N+
-	 XQ9eyDW4FZx1nlpxQACNobANbM5vJDtaNFc42OloP8r2yuWxvT7QCMWPUjR5hXpK9Zg==
+	t=1793436405;
+	b=MaK1AoK0Mv+52yLICjL5sIrZsEIdCDEZzaespkh1+rHBPrfX8rbcNqLpO1Qh8mWeUCaB
+	 zsuGtJxi3hg58tFpu2n3eNZttV+UjPZ6ZUKku36O0KMpV+fk+2uHEtKGe5lMNQosKi3dp
+	 4jA1HJ3WqiK/pIPjpb5/DV6MZsuJF5EZ1cKtFIPOISsRkRYAcer5D2x3HUTbwwfbXpw4E
+	 +Gf0TzsrwyrOHQFf6Iu02KmTuQ6kdJgH0ouu8bOFD5OpDsabuFIVhscql5sIXW2dkbrJQ
+	 AkCOgmQvptXnS4hXjAhFsbMstGrcWKIbFujiTZwir1N9K86eAFfN1vn3sw4e0+DCQ0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436114;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=78bE4Ellr1i3XQW6TTPvGswuyz5drWs9Sc9H0dy0gGo=;
-	b=4WMh+0NNAZ/KYH0wOITSP83KNwfEvf8e/RysSvujPBpd/n0gjtlcKoZDG7WLyrhAJyh+
-	 rxE3L4K/FhgKPgO2icd4KFv4R7mVWiRXgilbypO1zmIBC0nOs3VeGVMz3lKe8/CuzY1NA
-	 eS5zKBqReD9kGdLvPWWW4lAqiAEjCmOCxsJJS9krl4aNknHXb37FLt9FT4rpKIDyTPGYd
-	 CA9bB3kKGrlhPVL6TRn0wevGHoXhye2L079kIYlurjpr0hmG2yjgH7qyPjfaUCA2FLZRE
-	 Iv0KdiruvYzdPYZtC6izZHL4nA1MA/+6psBg0ed3VXXRrx88e/VGhvIXhOap9UfG9sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436405;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 Content-Type:MIME-Version:Content-Transfer-Encoding;
+	bh=ADFJourLj++R5GH+t9pIXonKOLiFA6JXJ+zYJJ9JLn8=;
+	b=jikxzk002LuDW6pk9fho1uzEl8NzMlB6ml3GYz+LEavRHs6zSmcGtYXYOZ2uPd0PwPdF
+	 VGwGI4NkrefMXVvloyAvaL4f7yb8y5Sdtb4fQZdnC5swy3JHE64mykjp6CgTIyfm6cZjA
+	 B8iWfLExchfudoR8Gjmmn5UXLVMvmqNFEE6Age0HhldKV2Qf83q19kxnpE/8A7EYCJHD+
+	 Tus+qIQUotLPhflj3/R3lt1XQPuRB5YS9tMniTTV2mW/ZSY1UORjb+cqSOs/Q7PNGuuoI
+	 XzVy10GrHzgivjmPXlcwS5bQSLj/mbO7awEpQBNAoGgoBpDpasuQ19mvKvjweMDsISg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=EsOQ0YMM;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oOJ62FCQ;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBAD606A31A;
-	Sat, 31 Oct 2026 08:41:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DBAD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0311606A31A
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 08:46:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0311606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=EsOQ0YMM
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 0F2C2401D6;
-	Sat, 31 Oct 2026 19:41:47 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1793436107;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=78bE4Ellr1i3XQW6TTPvGswuyz5drWs9Sc9H0dy0gGo=;
-	b=EsOQ0YMMa9j8jRi/VEaKb9RgsXY82OYrC9R2f1Lrb5L3UY6QKuUf2WDoUbPAopD4nG1tOD
-	ssh3M+a3F7HIPIZeMSUXJ3Ugu6/+FCAaJnlRCkXdXHiK5HV1cM4V8FQ02Qx20gTXczp1On
-	1sCBWmKBYpHPkK6nWsPVW61Fduc4/z5XrhLeX2agSbuelIjcLdNPomhjLtDo+Zp6zEqn/h
-	ig+8Gakyc3ZG/32N+DLqYH/rtFyGchei92kuHBngU9splW3rNV2uideDG5KH9pFh5ZbPqn
-	o6BT14Ionej6I/rrIcAPfBSFBK9S+naDdsV/CEVVbLAsFCV4Dk4blHyzZDrLXA==
-Message-ID: <7c8bd6660a0bf47c169ae6a803b57e459ad41bbb.camel@d-silva.org>
-Subject: Re: [PATCH rtw-next v7 2/4] wifi: rtw88: sdio: Track running state
- and cancel TX worker on stop
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Luka Gejak <luka.gejak@linux.dev>, linux-wireless@vger.kernel.org, 
- Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Jernej Skrabec
-	 <jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 31 Oct 2026 19:41:46 +1100
-In-Reply-To: <aa2500ed53d315edb7d6622dac3350fdd92b879b@linux.dev>
-References: <20261031033526.474710-1-alastair@d-silva.org>
-	 <20261031033526.474710-3-alastair@d-silva.org>
-	 <aa2500ed53d315edb7d6622dac3350fdd92b879b@linux.dev>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oOJ62FCQ
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c1c8so5758145ad.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 01:46:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793436404; x=1794041204; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ADFJourLj++R5GH+t9pIXonKOLiFA6JXJ+zYJJ9JLn8=;
+        b=oOJ62FCQ2LNaqHJK4k6l2uTtYPCA2hD0PEmRn3vdYi+Bo2hnnqDBvJw4z6fEVaOauK
+         EUnyNf8Cc2OIuzJOqX70/vOLgHR6YunD40orkxbhK7UNFIMMjL6h+qhKSenSxjKqldbI
+         LQh+FAS8m2gaUtaaYfn3CTpCXSry1bo0LnmuaNogaBgT7D4KIMbKNcZQZf3L95j/YHIl
+         7/3iIR+Ee9ZymPwZRPT9pjrVxYlwcq1ZoM/HlutTVoKVFun2S7ezykfiFEXUk7qaDZgZ
+         2IIz8Ti/yhWyDCwq35CpW5fedNk54hkQujwwnyQKQ8iHS/4n7vxlsn9coOlxk5F+xWFI
+         FDyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793436404; x=1794041204;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ADFJourLj++R5GH+t9pIXonKOLiFA6JXJ+zYJJ9JLn8=;
+        b=1ujUg1aTWanShWFTaYFX6vbvBolUZpfXpGfL3jENpQjenDe3ODGLBeJ9ec7YP6Pr58
+         yWKElNA/NvmuUT+tn1Tt4XJzVBcI7oMiHY3iC4DzWwbKC9kh5UaoTzMLZ9jMqOGHdr98
+         09J6WdPxng5+kPhseYh2sOonqgx8QzqSxbd1Ef5Xu+92ysZ1ChH6T1vElCbPFbSPdKEG
+         o/7r0bvLIRLIapour7nqQfYUo/UWh5we45zKsB928pgra49SXLJfsPx8uq13xk3vNDhq
+         Ji0TxjJV07Omw+EN0HJPg7fmLsSNQHfK38Za04ZQYT5V9uktGqLrJ+T3DWLHUtn1k57K
+         mSTg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/cU0HyUjset0b6qiz268HuMhf2ChNg/8M9hHF6BZ1nQqATHKwFeoPHZMlGrrciS5V2plKijI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRiC9pYcvPUkVrHH2p4B5OlD8PMmitT3AIuj4xsESk8jRDo6cA
+	FBrMrQv93P4DUrSCy2J//0uX6fEh42XrxtCHMx8SR05vgZGSUYmm09o=
+X-Gm-Gg: AYBFou3DPOShxYTN0+hIVuYGtmMneFWzxB37F30upnorqsAqovlKKUn4MOFS3LjLLLt
+	iVBSGOZ8DJoldPPZ3loq9OIWeCCBQHCBQzJob1CtrZFnBa5apELFfxeF+Xcu5WRHrJi0fgKLbX7
+	VFj2Ne95PEunkBR4h5fKxasHas//wiQSM3mnzM2+jVOF9Pi31uyC5HkgAtSrdyFhkDdb6TW0A1G
+	H9Gq75i5BZcaUhndd5JhAN4eV5c3qgJTdzyaIi/phYHz/aLBQRgWVM9g+XqCeXgzciVSkZIoqmb
+	3K2zUnPlV7aC+RqxWBqG0Ev1ornWI0hVrVBatmqRX+Fbg8H0ElB721o8mXsOAK2qp+0b1EX5GMz
+	OVsC8HGYXl7UPZ1ntd+XU6RodeaVFcLLwss6+3D0sWRKeSdVRGAqOxK2eQucDIImJdOitpiwRV+
+	9cltukM9bjcLp55nTX50ZN/5NKqvddukcnohR3l7wa69H+eEqlNUMBemSxXLCUF94CqlZ3bBdsS
+	M5aOvyzroQvFJVDUeSQGO+hpGjrf1Ae3O3HVk83sLwEI4DUxvuD43JUItph4D+4dNqrx9CdPK03
+	hS8Hter5ytoUxv5jbrPVBiXCJO+Rk/cidDXglozwiFjA6F8=
+X-Received: by 2002:a17:902:da4d:b0:2ea:4c42:573c with SMTP id d9443c01a7336-2eb364823cemr42643475ad.51.1793436404146;
+        Sat, 31 Oct 2026 01:46:44 -0700 (PDT)
+Received: from WIN-2DEDQG69EF6.localdomain ([2a06:a005:87f:ffff::102])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3927ff6bsm14261305ad.52.2026.10.31.01.46.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 01:46:42 -0700 (PDT)
+From: chenhan <chenhan0017.work@gmail.com>
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: rust-for-linux@vger.kernel.org,
+	boqun@kernel.org,
+	fujita.tomonori@gmail.com,
+	frederic@kernel.org,
+	lyude@redhat.com,
+	tglx@kernel.org,
+	anna-maria@linutronix.de,
+	jstultz@google.com,
+	sboyd@kernel.org,
+	ojeda@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	miguel.ojeda.sandonis@gmail.com,
+	tomo@flapping.org,
+	georgeandrout13@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] rust: time: make Delta division and remainder fail
+ consistently
+Date: Sat, 31 Oct 2026 16:46:28 +0800
+Message-Id: <20261031084628.13273-1-chenhan0017.work@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <87bj8goc6x.fsf@t14s.mail-host-address-is-not-set>
+References: <20261023130413.178487-1-chenhan0017.work@gmail.com> =?utf-8?q??=
+ =?utf-8?q?=3Com4kxbW6RonEr7EJOnn5nizbkBZi1B662AdSPv=5FiWS7XNJXuPCDAsOeWG0SM?=
+ =?utf-8?q?SeK7XqoTrwOPzwMC1jS2nKknXQ=3D=3D=40protonmail=2Einternalid=3E?=
+ <20261023130413.178487-3-chenhan0017.work@gmail.com>
+ <87bj8goc6x.fsf@t14s.mail-host-address-is-not-set>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,111 +127,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-
-On Sat, 2026-10-31 at 07:10 +0000, Luka Gejak wrote:
-> Hi Alastair,
->=20
-> Thanks for the new version. One comment below.
->=20
-> October 31, 2026 at 4:35 AM, "Alastair D'Silva" <alastair@d-silva.org> wr=
-ote:
->=20
-> > diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c
-> > b/drivers/net/wireless/realtek/rtw88/sdio.c
-> > index e39284b71837..253467250ee6 100644
-> > --- a/drivers/net/wireless/realtek/rtw88/sdio.c
-> > +++ b/drivers/net/wireless/realtek/rtw88/sdio.c
->=20
-> [ ... ]
->=20
-> > @@ -1069,20 +1072,38 @@ static int rtw_sdio_start(struct rtw_dev *rtwde=
-v)
->=20
-> [ ... ]
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 sdio_release_host(rtwsdio->sdio_func);
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 queue_delayed_work(rtwsdio->txwq, &rtwsdio->t=
-x_handler_data->work, 0);
-> >=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
-> > =C2=A0}
->=20
-> I brought up this rearm on v6, but looking at the callers again I think i=
-t
-> may run a bit too early. rtw_sdio_start() is called from rtw_power_on(),
-> so the worker can start on whatever is parked before rtw_core_start() is
-> done with the device:
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_core_start()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_power_on()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_hc=
-i_start()=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 <- worker queued here
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_fw=
-_send_general_info()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_co=
-ex_init_hw_config()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rtw_sec_enable_sec=
-_engine()
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_bit(RTW_FLAG_R=
-UNNING, rtwdev->flags)
->=20
-> The parked frames got their TX descriptor in rtw_sdio_tx_write() before
-> the stop, with the macid and sec type of that session. So if I read it
-> right, after an interface down/up or an idle IPS cycle they can go out fo=
-r
-> a station that is gone, and maybe even before rtw_sec_enable_sec_engine()
-> has run. Resume from WoWLAN looks similar, rtw_wow_stop() starts the
-> HCI while the WoWLAN firmware is still loaded and rtw_wow_swap_fw()
-> follows right after.
->=20
-> PCI drops what is left in its rings in rtw_pci_stop(), through
-> rtw_pci_dma_release(). Maybe doing the same here would be safer, purging
-> rtwsdio->tx_queue[] with ieee80211_purge_tx_queue() and clearing
-> tx_queue_stopped[] with a wake of those queues, instead of the rearm.
-> What do you think?
-
-Agreed, your trace of the callers makes it clear that re-arming in
-rtw_sdio_start() is too early and risks transmitting frames with stale
-TX descriptors from the previous session (or while WoWLAN firmware is
-still loaded).
-
-Purging rtwsdio->tx_queue[] and waking any stopped AC queues in
-rtw_sdio_stop() after cancel_delayed_work_sync() is much cleaner and
-matches rtw_pci_stop(). Since rtwsdio->tx_queue_stopped[] is indexed by
-enum rtw_tx_queue_type while ieee80211_wake_queue() takes the mac80211
-AC index, I propose doing the following in rtw_sdio_stop() (and
-dropping the re-arm from rtw_sdio_start()):
-
-	cancel_delayed_work_sync(&rtwsdio->tx_handler_data->work);
-	for (i =3D 0; i < RTK_MAX_TX_QUEUE_NUM; i++)
-		ieee80211_purge_tx_queue(rtwdev->hw, &rtwsdio->tx_queue[i]);
-	for (i =3D 0; i < IEEE80211_NUM_ACS; i++) {
-		queue =3D rtw_tx_ac_to_hwq(i);
-		if (rtwsdio->tx_queue_stopped[queue]) {
-			rtwsdio->tx_queue_stopped[queue] =3D false;
-			ieee80211_wake_queue(rtwdev->hw, i);
-		}
-	}
-
->=20
-> The stop/start cycling in the cover letter was also run on 7.2.10, where
-> tx_handler_data->work is still a work_struct and the 8723BS HISR mask is
-> not there yet, so I guess the board ran a backport. Was this version run
-> on the board as posted?
->=20
-
-The test board's base kernel is an Armbian sunxi64 build (versioned
-7.2.10-edge-sunxi64 by Armbian). For the test run, rtw88_sdio.ko was
-built directly from the rtw-next sdio.c/sdio.h (including delayed_work
-and RTW_SDIO_HISR_CLEAR_MASK) with our patches applied, and only
-rtw_is_8723bs() stubbed to false so rtw88_sdio.ko matched the struct
-rtw_dev layout of the board's existing rtw88_core.ko. For v8 I will
-build and load the full rtw-next drivers/net/wireless/realtek/rtw88/
-module set on the board so it runs completely unmodified as posted.
-
---=20
-Alastair D'Silva
-0493 18 5566
+Hi Andreas,=0D
+=0D
+Thanks for asking. I should have distinguished the non-zero-divisor=0D
+requirement from the MIN/-1 check in those comments.=0D
+=0D
+> Why change the safety comment here? If the function is always safe to=0D
+> call, the exclusion is not relevant. Was the old comment wrong?=0D
+=0D
+The old "regardless of the input values" statement is too broad. In the=0D
+generic 32-bit implementation, div64_s64() goes through div64_u64() and=0D
+div_u64_rem() to do_div(). The latter contains C division and remainder=0D
+operations which require a non-zero divisor. The kernel's=0D
+-fno-strict-overflow does not define division by zero. An architecture's=0D
+divide-by-zero handling therefore does not establish that the C call is=0D
+safe for every input across implementations.=0D
+=0D
+The zero-divisor check above the call supplies that precondition. I have=0D
+updated the local comments for the next revision to cite that check=0D
+explicitly, without grouping it with MIN/-1. For the division call:=0D
+=0D
+    // SAFETY: `rhs.value` is non-zero due to the check above.=0D
+=0D
+The MIN/-1 check preserves Rust's panic semantics; the generic=0D
+32-bit helpers use unsigned magnitude division and wrapping sign=0D
+arithmetic, so I should not present its rejection as a necessary safety=0D
+precondition of those implementations.=0D
+=0D
+> Again, was the old safety comment wrong?=0D
+=0D
+The old pointer explanation was correct: the local rem supplies valid=0D
+storage for the output. I expanded it to make the validity, alignment=0D
+and writability of &mut rem explicit. The signed remainder helper also=0D
+reaches the division path above, so the comment should explain both=0D
+the non-zero divisor, established by the check, and the valid output=0D
+pointer. The updated comments keep these separate from the MIN/-1=0D
+behavior check; both runtime checks are unchanged.=0D
+=0D
+I have made the corresponding comment changes in the math helpers in=0D
+patch 3 as well, so the explanation remains consistent after extraction.=0D
+=0D
+> Once kunit supports the `#[should_panic]` attribute, we can assert the=0D
+> behavior on all platforms.=0D
+=0D
+Agreed; that would let us keep these panic cases as in-tree regression=0D
+tests when the support is available.=0D
+=0D
+Best regards,=0D
+chenhan=0D
