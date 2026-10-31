@@ -1,54 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420817;
-	b=CSez106GbeRGoTY0/FZ07BbLyx30yf+KDrEjF8uJPz/Vs7QPV8Uhttah67w0phWLuzCH
-	 R2GpASFFZOg3hBgy3wC8fGI1GxPofqIpLNiUtcbYbj3rxNDxWHcqvS8sYSM3rXSMX+Tvb
-	 UDTqZDO23UVQnIibKNsKxZ5airA9JP0C/Cu3MtYpFnDStpd1OP0u/3qAC4fFAK527PaqB
-	 upksP0zeysUQszlxF1YUq6p9/ydcjUzrtpcw/5Fk9nmnmTFPZ/UgwMyGn5YuCk6vC/Tp+
-	 g35sDjr2G3shxdLr8/R5dRSxBGQ9k97UtoC+X04B1ZUKwL3Iq0oQw6uhaP1j5H3Gc9Q==
+	t=1793421257;
+	b=I1i6wVNT7i3HXAIyjWsbBJ4asoZOHm4q4XQzrrVLtPxEnfPRZPF0Vcsym0d79tpG+Ark
+	 kNiTMbH4v9PvMz9cEZ+CaPVpWcbkv3CY0ky3ObS40E9Tfchxa+GvG4cpi7IlcIUUvPblV
+	 yM5dYoGrWcP7iy1UObFnqdoQGgSQwv+JZGsI4JTb0SgNfvyELDdPso1nkSKA5rhVcvIjS
+	 X/8MI/mB+rztBVpa3H/NV3lwnul6acSewbK20OeRwgRq0nfHRxjCkmoJBsYPGk2kw5rFF
+	 D0UXjbVxXJ3YlpbFrCrHKkuuSMRQK88i4I9WQ+xVNEiG6qwYNB1n3GfgiyK1mfV/dYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420817;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=1w1ytPc99jlF/2NSETwrUERR/dm3RP4N5mEmso5/ilo=;
-	b=Wb+tNSxkXajQVE4ub0g6dUUloCfxJA4QOpBgA7UNIR4UJebmpRSHRvKB34yErIKCXrLE
-	 XgXcxHFEHPUuccjdmeWX1IifyjZWCDIFSul/+xKfI+M/gFp+nc4kXd+lggvUJxiGDQIIb
-	 Af4V4XBdPflaY2ck8iZiLWvzeWbmrc/TPqvkUZ1Tui6UeDL1zRVgDtiTK9FZTPGor1GsR
-	 7hM+X0HrPAKexlEhKcdDI6WQGZLBSeNSTsqCfudoEB+CN5E40sLaHl6xRokBpl2tubT7O
-	 nYCbm2g9l9lLdWeNEiQD8M2BIupxD/5Ig4yz/ZlAe08H0km4otu2VfI88KE61FIX5lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793421257;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 X-B4-Tracking:X-Change-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=Flx6BFpBHU/1mQwNgXF0H0qYyTFKKY1odWtVjJY4UAU=;
+	b=Fv5ylZ0FPsHoSGSPKlPoEAIiRonrCQxYA5GcjA0wOBh6XxSbCa8gpl+BR6kPHZJpTS+Z
+	 0Dyh1obc9vrolNKkuOnepN3KUTJdZSc0epHCvQFgaBfALzOX09mUuhgNodS/ZUNclNxGf
+	 fvEK4S/CFP3AQbgisE4lSGLlDeJrJ88MkpeZHq7ejRNeomULz6Ui134O55LlklHNXkVTJ
+	 6uSxULMkG4/v5hV3kHwsuBgdNBiKKrqE4nT4x5bhicGCMizfpk7tZb3i3vSRYkUOawO0b
+	 hGm8FCbdslyOnDMt7Dl/G5ou2N8l521Lm3Sir+bicTRuzhzHqD2Jb0DkgTFT+6MageA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=obcdZO7I;
+	arc=none smtp.remote-ip=91.218.175.59
+Received: from mta0.migadu.com (out-59.mta0.migadu.com [91.218.175.59])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E48C606A32E;
-	Sat, 31 Oct 2026 04:26:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E48C606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-03 (Coremail) with SMTP id rQCowACXaZoKbuVqW7wJAA--.8213S2;
-	Sat, 31 Oct 2026 12:26:50 +0800 (CST)
-Message-ID: <8639aa770c3289b83cc1b55e67885dd73c9e3efd.camel@iscas.ac.cn>
-Subject: Re: [PATCH 1/2] drm/loongson: Fix double free on BO initialization
- failure
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Evanshenf <archwse@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
- Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 31 Oct 2026 12:26:50 +0800
-In-Reply-To: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B645606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 04:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B645606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=obcdZO7I
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sRRglwrZgXV0SrK/OtUomTWdFA+5PNai7nUeEM2ufrs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793421248; v=1; x=1794026048;
+ b=obcdZO7INN1kPM1v5GvlYd70X42q221riOIqjegL1GE8Y3xl3zxAacC/Om/Vt4G8sfHmhE4V
+ lrkL01cLaRw/2ZGemRxFlg1/kqalN891kSFL8xTDO1sd8izjxcLdmV+CdQHPgbbOizq+5r0xXIC
+ hNBzQ8+9eLGKt+aU2Pk/L5sI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 84ce8c3f7c47124b;
+	Sat, 31 Oct 2026 04:34:08 +0000
+X-Mizu-Trace-ID: 84ce8c3f7c47124b
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 31 Oct 2026 04:33:59 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
+	stable@vger.kernel.org, "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
+Message-ID: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
+X-B4-Tracking: v=1; b=H4sIACVu5WoC/yXNyw6CMBCF4Vchs3YSqAmpvopxMbRTHEIvaUVNC
+ O9ugcVZfJv/rFA4Cxe4Nytk/kiRGCrUpQHzojAyiq0G1aq+a5XGyaH36GRmTwn3JRq54By/nHG
+ IS7BIvbqy1aQ7c4NaSpmd/I6Xx/N0WYaJzXtPw7b9AbLiH4eHAAAA
+X-Change-ID: 20261028-jf-mm-filemap-map-pages-lower-bound-a623ed8a81c9
+X-Mailer: b4 0.15.2
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,90 +71,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowACXaZoKbuVqW7wJAA--.8213S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr1rurWrJF1UJF47Zr1kKrg_yoW8ZF1Upa
-	nxCa4jkryDJan2kr9rAF18C3W0ya1FgFWUuF45W3ZxWr13Cr1kCFyrua4jg3W7XFy7CF1a
-	van3GanxWFn09wUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
-	xwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
-	DU0xZFpf9x07jUkucUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-=E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=86=
-=99=E9=81=93=EF=BC=9A
-> If ttm_bo_init_validate() fails, it drops the buffer object's
-> reference
-> and cleans it up through the supplied destroy callback.
-> lsdc_bo_destroy()
-> releases the GEM object and frees the enclosing lsdc_bo, so freeing
-> it
-> again in lsdc_bo_create() causes a double free on a synchronous
-> failure
-> path.
->=20
-> Let TTM own the cleanup after initialization has started and return
-> the
-> error directly. Keep the explicit free on drm_gem_object_init()
-> failure,
-> which occurs before ownership is passed to TTM.
->=20
-> Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for
-> one
-> selected dumb-buffer creation. The error reached userspace, the
-> destroy
-> callback ran once, and no handle was published or tracked BO
-> retained.
-> Normal buffer creation, zeroing, mapping, readback and release
-> passed.
->=20
-> AI assistance was used for the ownership analysis, fix, fault-
-> injection
-> tools, build and test execution.
->=20
-> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
-> controller")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Evanshenf <archwse@gmail.com>
+filemap_map_pages() can dereference a PTE pointer outside the page table
+it locked. KASAN has reported this as a use-after-free read [1]. The
+same path can also write out of bounds. When the stray entry reads as
+none, the fault-around loop maps a page there with set_pte_range().
 
-Applied both to drm-misc-fixes, Thanks for your contribution!
+Its fault-around loop walks the page cache and moves vmf->pte by the
+change in index. A lower index moves it back. xas_find() can step back
+to a lower index when a multi-index entry is split during the walk.
 
-Icenowy
+[1] fixes xas_find(), but the loop still relies on the walk never
+stepping back. Stop the fault-around when the walk steps back. ->fault()
+maps the faulting page if the loop did not.
 
-> ---
-> =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
-> =C2=A01 file changed, 1 insertion(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> index d7441d9..88536e2 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> @@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device
-> *ddev,
-> =C2=A0
-> =C2=A0	ret =3D ttm_bo_init_validate(bdev, tbo, bo_type, &lbo-
-> >placement, 0,
-> =C2=A0				=C2=A0=C2=A0 false, sg, resv,
-> lsdc_bo_destroy);
-> -	if (ret) {
-> -		kfree(lbo);
-> +	if (ret)
-> =C2=A0		return ERR_PTR(ret);
-> -	}
-> =C2=A0
-> =C2=A0	return lbo;
-> =C2=A0}
->=20
-> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com [1]
+Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+---
+Changes in v2:
+- Add Fixes: and Cc: stable tags, and say in the message that the loop
+  can also write out of bounds (David Hildenbrand).
+  https://patch.msgid.link/0a1ad7d2-ff0e-4248-8f03-2a64a9134aae@kernel.org
+- Link to v1: https://patch.msgid.link/20261028-jf-mm-filemap-map-pages-lower-bound-v1-1-0bf126e876d4@linux.dev
+---
+ mm/filemap.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/mm/filemap.c b/mm/filemap.c
+index b74bc1e5015c..1df776907140 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -3968,6 +3968,13 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
+ 		unsigned long end;
+ 		vm_fault_t map_ret;
+ 
++		/* A lower index could move vmf->pte out of its page table. */
++		if (unlikely(xas.xa_index < last_pgoff)) {
++			folio_unlock(folio);
++			folio_put(folio);
++			break;
++		}
++
+ 		addr += (xas.xa_index - last_pgoff) << PAGE_SHIFT;
+ 		vmf->pte += xas.xa_index - last_pgoff;
+ 		last_pgoff = xas.xa_index;
+
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+change-id: 20261028-jf-mm-filemap-map-pages-lower-bound-a623ed8a81c9
+
+Best regards,
+--  
+Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
 
