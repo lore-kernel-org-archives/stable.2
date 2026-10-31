@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793410937;
-	b=2xdj9nYO1Q2pbEux7mByW546Sv/x/w+SAOAgaiv62oFARH0lri43iEvYAMQieqrA9p5w
-	 O0pR7pHdb3NRy5MlwIAg594CUXjnSjG49RCLbuhdf7pQJsPG5B6X3CzTVvcnEmdo7qNFc
-	 XpYQXz5h1VVkFfm01mWWiMCyQY9CgCgHfGnLaz24Sxr3bTnoqcstpQkyIWFvoCFnHPhqQ
-	 CIc+qjxEKlsfqxMjXUbx/kk8ymhOxHzng9zXcC8vWJKWziAE9/s2WjsO7+1tFPKyCKSdZ
-	 DnqDt/EQbbczNZzVm2thhUXUHHRg1bLRwT341f42LjKdEfaMJfNHXotCDcDa9i845jg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793410937;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=i5beK/wqta6fa7ekid99EnBANYB7xsLLW6wDEnyFugQ=;
-	b=Xy6WJclyLo984l6a96gVIoBc1Vh+JS44B5UWlarWbL6UpLaYehEN+u48OY275r593ECA
-	 uJvPQK+jU+Ja0+OvGSVr2PD8xSoIacK69TUPgnvo5datSt8lwFqotCQwN4VFC1iUlUZ1P
-	 8LwQn1kcntk5YO+Tm4nSwqDZqIM3UXNXHRiuod5sJ2gpRlULPSutTJ5ue1IvZ2VvNNxdR
-	 0ZBSwTP0K3T+hxHHymYp+7gWoUvPN2JQ6LGQ+P064jpTqsi8cVx+anQ6zL08drvfznc/j
-	 LyexXOT2CsBC40xhYZ3FhLHEAfLXDey42klHa8QailxwOt4IRZMRdDGuK9I5VicqKBg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=i4RxBCx4;
-	arc=none smtp.remote-ip=95.215.58.18
-Received: from mta1.migadu.com (out-18.mta1.migadu.com [95.215.58.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793411095;
+	b=jhHx1zf6MOKsqCSgXRCxJyr/cVrj0JGi3s6k9i+/GPJwtKkaagrUPiA0RPV9Y8Pj7tha
+	 ueJuPuzXIVTB+0lTBA5TMd7IQcfJk9qdDbSTclQXPX6rnnTRbqSiM0H7Q5FtPAuSE3bjy
+	 Iq65ZKndj3Ri5AGrW+8RIZw7VeyUrFqnYoV0AGEMeh69jV1zMxb56f1TtkuukTZO/Yu4x
+	 tLNc5ox/sgTuZ52mGp1vdIiHPIizLbCDHsa2SYxdUwoCNPGQvSvXY2Xa6uXn67Pjeq2uV
+	 Lf1J2fPqtxyj4Rb7sCafuJmvwtlPGik9i19ptGu3xtCg8+KvR2IdcS7T1BqtQzZ9zrg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793411095;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+	b=DEVFrJ4l+cqqDIDVvbU7pIIZE6kPIAw3/M225QhUO+HHEGnWbGH4a5r+52avNNzYXrGB
+	 sOC4Yivgy66tWE4ILS6etPP/nLhmhOAaY55ncg9N2exgqYEIhrwjjoluKLLJFSwVzAQxp
+	 WeZwaJTbeNNokiceBVVpWqkCHb7ZBAPfDKuEyx6zTl++kZcdS3Ln7pc75wyXzSbbfGNjw
+	 vABuGk6TvdL/vxDjTsRmKJw0of1dSXWXEHd+ndpSN34rN6cemJ7YKiSQQ5iaWeJ8bHq5X
+	 ScrCLP3tIU1wffp3mOADjuGuV6lyyZ1K69oJxvwA9gsCKj8ytcBweUM1xWWzShm2nwQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pTSxiqGX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB90C606A31C
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 01:42:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB90C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BB5606A31C
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 01:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22BB5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=i4RxBCx4
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MpJ2KknoxvhydMM0mBu6hlDwlGwxhQOvcnm75Ft8d4M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793410933; v=1; x=1794015733;
- b=i4RxBCx4+vXFIwhiP6CNwflbt3rAtoBok+EdOFAGJXqPkgnid6trH1RYGNUsz+s0B79enYr8
- c7kWo/qZ/bkJtum4X3dvnr5XpPJDNhEMkqmtbV5EHWkoKh7AlaPIljgPOcsVoG9ZsLRhFMyZGU8
- PtnFVSvFeTCx34K90DjAn8LY=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bee3307f5ff8da89;
-	Sat, 31 Oct 2026 01:42:12 +0000
-X-Mizu-Trace-ID: bee3307f5ff8da89
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <febf6aeb-82dd-4a98-9a33-0ef321792285@linux.dev>
-Date: Sat, 31 Oct 2026 09:41:50 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pTSxiqGX
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso25795e9.0
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 18:44:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793411093; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UKUcbLSJ61N06JIV88t1rrFW3Q7xu7IrhwXOt0+Y2L+Miydubl7QY5NHD8d5De3fmG
+         4GgHF2YERgffzSj2pkVxj9IGlswfd0TZGY4/J/6UtRS3iT7t/MffeYFlMMTllB66u1U2
+         nLVIBANmS9pW99UB1EC4z3p1/rrWY7H7ybrk8Tivx9yyY/IWEdtmnQ+PtXkvJYWX1WF+
+         fhfBzBezgEoBVOdQ0pUTnRwLqSVmyVgujaLEU3XMvFFvEwPmS9hkZ39Yn1cPqCz1rQFp
+         2y4NAtmWOxsilRzq9Weop3tlv2QDtJ3/OqXC/qjVuzZazqut3p8CXE76BXVeBVUAn7Xv
+         N7Rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+        fh=0y0Au2FStsh7xP6HPuzmCrZ6EuNfNk+K7Kxjqw3fwG4=;
+        b=o+Vi1Yc60ptKOUb7AfYLlpYUeG6HY4oRd2vifP2kLf8skVRkfkxWyDHvQdACq528AR
+         CTakp4UBRgeS8TFRZFoF5bbwXzg3HXjw7mz8/D7WXK4xIEcRuZOpViUBi/TlgH8JkPJl
+         5Wz+90ONcPZnNzRfN3KGx5tAmT9D84NFTnOtAovAiQo7L4OosQ0vu4mbH3hJsRcbbtUm
+         UfiUcC9wZxZWTI3yBDV+4b6n2LVOd0lQGRO/xug68LSGJsqst3XVZKf0dbbDee0ucTOW
+         FTHU7cVOlIWG8IUK7l25piK2qyOLWH16A+/GwqaoYvOP5Hykroq1hpEtUO0h5fPPO4wy
+         o26g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793411093; x=1794015893; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+        b=pTSxiqGXeKnIFTgIRow4invbDjsAiH2zV+0YXZVm+lBwyoVWkFdITWNiMcG7yKVf01
+         6cFyb/HbYDwNG2aATzPG6gFN2IRQV92WN5bNaZ5rHzhBF3AV8/qi+goJOPdgjcZ3rUbk
+         HwmCt4WleDebWqlk/QaMCYAYOXRMXQdZILHvTpCBCsNIFi/RAAuVK98S2ApdGpxqMP7h
+         WpiItQjZE43YaWmQwxk/iuvRBP7zBMLoEqpb2ma3YEiVPHXtaStd19R7h2ZfHRUakUMO
+         e/5/bvnZZYIeuorAp4zSgc8GtEI7GmDxY/j902qLCrndoYz2nr4oFlsy+SZlEFxldOEb
+         HiNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793411093; x=1794015893;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+        b=g8XcaEk5kiLRMztUtHzV/7po2Yk3jAIGcuAecM7FBSytQunWD3dS3rpzMiZE4WFbPI
+         9cfxG8hR0t4vBACT65IUZzx/kt63qEpdeKTQUneEh8ROotpkv/YxGnr71LTM7wfMY5it
+         055QeaOHtfrGOLFOuZNP8AjN9ISlOYWvpLAWBtw7hLET4wKD77xOT2vGvPGX32VS+YKu
+         S0pWFvvy4w+qJ5l9krsQUXm3OjfFWELkN9A/Is6T/Jr/WvozfN82TIvcL/ARN0QxMwhe
+         w8um5ZQ/7KFRL5+OMLbGbk++a6YxmZ2MtPOrjtZU6Pa9iJmF3qbOhDtbnMb69C5OiPdF
+         Qu5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzj4X6dtVIxoHyWHNghKY4HYOIjwjZgtC0uBsukcOB+TQ/Tbn2z1wq+ufzSqWow5XqaewnZmO0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIY+ZQRa1pbD97S50G73Wh6D/pM6GaY5gVJXvdUyMoaivL4pIyJ
+	BFTXDk+tt0kQryskjs5BYqagnXqeMdyobGygvY45oICBhpSXxvW+mbe1PKlCH1vVTtBp/gDsbYX
+	lYFkVnUD1WQmQ8x9ZM9eOWW4lX1Im3qPjheMcZC6a
+X-Gm-Gg: AYBFou1bx16fpaxkqSrQR74OZBCFtu31m+rJPU0w6nif6uPBGeD6SDYeKmJNq38wNvJ
+	EoXeFuo2YI4We0oPik4f+pystFNU8P75uAzFGRSCHXQ+fqUOWORIsCUGxJNyeAfzOxWw1RrU0y1
+	Ar6bAGxZCuHmidhDrf9xbBsfFpsCBgmo6+oI/YOGST3k4+VeigwO/JB1IzZhy86alH8pIL563tK
+	RrlApyiN5CkmFAF5Z9s/0AZ80TIkyVS4GVKw7An78ZlUMDzuOtc6OZu6KssZcRPBKmIXDK5Gt/Y
+	7JIVE7JLIR8tcgLsR6FYG8rbYbkiWwEsAMcBrI/0ItDc2UR+NqNivNhoLV+kyqNK5ZkK+bnfqnG
+	9MdFLgi94+5CBtsmz99K4L/FLbQWmVueP4PjkZj+WARnccItIWaVmoW8FF7SoBu1sjs78
+X-Received: by 2002:a05:600c:a183:b0:4a2:ba3:236e with SMTP id
+ 5b1f17b1804b1-4aab73beeffmr1795465e9.14.1793411093182; Fri, 30 Oct 2026
+ 18:44:53 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,85 +104,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
- PUD and PMD tables
-To: "David Hildenbrand (Arm)" <david@kernel.org>, SJ Park <sj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
- stable@vger.kernel.org, Muhammad Usama Anjum <usama.anjum@arm.com>
-References: <20261030002004.154595-1-sj@kernel.org>
- <6d679adb-a866-4a76-b9ea-3b8c64171fae@kernel.org>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <6d679adb-a866-4a76-b9ea-3b8c64171fae@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+In-Reply-To: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Fri, 30 Oct 2026 18:44:41 -0700
+X-Gm-Features: AclHuK_pX8cbPFC7CZhySlOC0JMrDf_CX2tXJ-CkUmaeXv5SLhTNx2Dk4KoCGew
+Message-ID: <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
+Subject: Re: [PATCH] dma-buf: system_heap: Reject private mappings in system_heap_mmap()
+To: Chris Wiseman <chriswiseman@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>
+Cc: John Stultz <jstultz@google.com>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Oct 30, 2026 at 1:44=E2=80=AFPM Chris Wiseman <chriswiseman@google.=
+com> wrote:
+>
+> When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
+> use sgtables instead of pagelists") stopped using heap_helpers.c and
+> added a custom system_heap_mmap(), the check rejecting private mappings
+> was dropped.
+>
+> Other exporters and buffer allocators reject private or copy-on-write
+> mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
+> check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
+> and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
+>
+> However, system_heap_mmap() omits this check and calls remap_pfn_range()
+> even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
+> subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
+> fault into do_wp_page() -> wp_page_copy(), silently allocating private
+> anonymous copy-on-write pages whose writes never reach the underlying
+> system heap buffer pages.
+>
+> Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
+> cma_heap_mmap() and mmap_udmabuf().
+>
+> Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use sgt=
+ables instead of pagelists")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
 
-On 10/30/2026 6:21 PM, David Hildenbrand (Arm) wrote:
-> On 10/30/26 01:20, SJ Park wrote:
->> 'get_maintainer.pl --nogit --nogit-fallback' suggests adding below recipients.
->> But I can show there are already quite a number of recipients, so I'm just
->> noting here.
->>
->> - Brian Geffon <bgeffon@google.com>
->> - Oleksandr Natalenko <oleksandr@natalenko.name>
->> - Steven Barrett <steven@liquorix.net>
->> - Yu Zhao <yuzhao@google.com>
-> 
-> The CC list was so long that I limited it to people that area either a reviewer
-> or a maintainer of code.
-> 
-> MGLRU not having any real maintainer is a big problem; because that maintainer
-> would know whom to CC.
-> 
-Agreed. FWIW, I think Barry Song and Kairui Song would be good candidates
-for the maintainer role.
-
-Both of them have been contributing to MGLRU consistently and
-substantially. Barry is currently working on improving aging and fixing
-the swappiness-related issues, and Kairui is driving the MGLRU-FG
-optimization work.
-
-They have also been active in reviewing MGLRU patches, and their review
-comments are usually to the point and helpful. They have been looking
-after this code well, so I think they would be a good fit as
-maintainers.
-
--- 
-Best regards
-Ridong
-
+I wonder if we should have this in dma_buf_mmap_internal() though. Any
+thoughts Sumit or Christian?
