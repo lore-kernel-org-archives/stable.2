@@ -1,64 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793438932;
-	b=QqrAaTpYh0soixC75+BFm0llwyESOETytIqaemqoxdbIisCenKdPLjxLByPWAfyFgCVk
-	 EX9hOa5T48PCqDfXCxjnhM9LN7VWVz8F1Sn3lYvinVNJLuQfnx5j9MZszH+ZS6nKhkaPl
-	 2eeNLDIZWeJQ/8StQDmjWNa60GSN5FiE1/B4Bk0Z2Airk6K9EDDlQKRzQq08iT0pTdSOn
-	 k5SHSaS5K/ltGY4WGMXXpUqg6VrQ+SXXYRlwe1GpyuYhjYhXaHmN+Bv46voHJvmwo27vU
-	 pV3Ro6Oys3uTfkEj0yapiCSqZ4rKMao6ccIN/3fjyv/2XblWmGOiQ1Y3hWTaHEqkYQA==
+	t=1793438949;
+	b=GOe/ilxXnaBJhUUWCijxVlJe2Wmg77zWYFBu7iDEgbjjWJpGihOTnK/fcJA10Q/QGkZB
+	 KA+vX0BDXtODwR8Ry07ZIXtrPL+U2qswDwEB2fCssGPxGjkQVoskFVDCxdnshdQJsl9ty
+	 wXM/Qwk6nReRZSwkm4oBqP5hYzTLtMTDpsNMEWuf7pYvS/pNZGNzTTFzl6MPzAED8M00l
+	 xIOy8La5+u62mdPTl2kR1+Q76Uarv0881iv+np/OcBx/Gs11yJEqNoMnGMvrYU2nRDWwe
+	 5iXZ6Os8PKop+3IHkjD3Nc1eGSuzA5AH+pumB4ZMwD40AmIfDfeZGp4x7WZKCyDXkMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793438932;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hjlx15+/WpY84ogewYYrVLgz+B1Dn4l9XY08MaKTAGg=;
-	b=H0DLHLo42neLfF9jsjawYSOhDT/Y9mHGg3ywP94g5AgNECeNh6zI0hSpsUdvrLuf+gVH
-	 A5x1aaHcijX7ihMSFP48Z9OOM3YoIB60YSoTymX3pltPLmJ9SiuWChS0Ki2CKpJEDe5Ns
-	 aCCPO9TLNYhAyV64c4aYV0Km3VB8XK24OJaNQe9AzTyebnj6xCeToDEemE1US4gx8g/Hi
-	 cm/aHgk0DvSfgR1CX65b5uceGqEzsj9CvPfnaReGm+RKnb3dpXGat1MNmLxHCX6j2Pdsr
-	 3UcK7/gxtm2Go4bfqd/iXhrP2sMcfEh1+HR8SqDGF/FcB/vrE+7BORD+xW2grmNImLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793438949;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ll2fis6PW3e6O4+ywq8trqmNgeraIhRzhSrv/X2z4g0=;
+	b=ZI0a6FlO1GNJoJRe6+LEw4YyOGSgs9hUT2w6mEukaGUqpACoGutbiANiaUKEgOUx44GS
+	 PXGkyrZckTSgjsshrX1jZzP42yaOKkVm9GIKzu3Z5Y4mfQNWaZmufdJSUCnu35vnfQjRI
+	 MxV1ybfCX2XR2sKWBC+I+4kXYlf1TLbHdt6pdonZgDWyIzt6ul1OxKxmsbKX8g5fGdKQc
+	 bzXKWIkmSw8psSmnBbGHD/UjK52jg0W30GMeUB8Xp77AIXhuWkLzzqCAKtdLraNXtuil2
+	 mFXcoy/LhbCn4P0bwHd3+FyOu2KT5wwH/olhRDbh2FfPfuL9QaoA/68jc1pUQFQvvlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B2aagzNJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHRZmNCY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 58291606A31C;
-	Sat, 31 Oct 2026 09:28:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25907606A31A;
+	Sat, 31 Oct 2026 09:29:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B2aagzNJ
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 72B821F000C1;
-	Sat, 31 Oct 2026 09:28:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHRZmNCY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACA2A1F00919;
+	Sat, 31 Oct 2026 09:29:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793438932;
-	bh=hjlx15+/WpY84ogewYYrVLgz+B1Dn4l9XY08MaKTAGg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B2aagzNJ0u5XHXtRkKA00L0HjBODN++HJK24OwSS1vJiIXGckLB674qBBiVC+JXJK
-	 SiabNm89cVZrXMg/EnMKerCnch0Msw7hUGOZ10uUQYf70j6ZTdZ/L/BENOejpM5mTO
-	 pZGVb1VvR4yz4GB4Ajf/zwo9G9ic1CVvT2xe/oDwjsuNesD3Cejd9waRfJ47jp5Vcb
-	 YRScHYavJt7wa6M+OmwePgWXuFW2XiCyOOq4ZgbG5XirARzqA/y72vWATOATwiTHPo
-	 h6P5d55M69j0lt0XruiLGDLLjWU/sQXIJQuBcQkOM/K4w3CQScuLF3ygtjKKSPDe6U
-	 hMMjoVTEVH13g==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	stable@vger.kernel.org,
-	Anvik Loitongbam <permissiontogallop@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Mimi Zohar <zohar@linux.vnet.ibm.com>,
-	keyrings@vger.kernel.org (open list:KEYS/KEYRINGS),
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] KEYS: Reject restricted dest_keyring in construct_alloc_key()
-Date: Sat, 31 Oct 2026 11:28:19 +0200
-Message-ID: <20261031092820.497238-2-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261031092820.497238-1-jarkko@kernel.org>
-References: <20261031092820.497238-1-jarkko@kernel.org>
+	s=k20260515; t=1793438948;
+	bh=ll2fis6PW3e6O4+ywq8trqmNgeraIhRzhSrv/X2z4g0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gHRZmNCYSYLpZ9UHoD4zM/HC7SGTVM0A+qag4isL8bPqhVyIKmMKxBwYQT/kurhLU
+	 YX4Im7ICJiVFbQdXjxUm1jGIpb9SOovzJ75QNt/SEGA901F1JcUW6APRiOnIjH/HCC
+	 +ttOQJloaaFWtPSM+g+SqBPso2zMPiqyjSHtv7cqV9Ikyax6g7vDG7OSYEatKBpZmA
+	 1ZgClYcVbjTGH7ODF7ZiS7gVXb3tAV3KrkVcje7xbDH6dlhP5xEeUe9mkFlAR614yM
+	 cnOW377XQtEtbpWyRBM4/9L3pb7HUxd0TF+eAaVJCD/wx+3adlIO7y5POMyH/klW2s
+	 VEt7XUYwKd4VQ==
+Message-ID: <895a3483-c773-4d5d-9760-c526c6cfb922@kernel.org>
+Date: Sat, 31 Oct 2026 10:28:59 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,39 +51,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>,
+ Nico Pache <nico.pache@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
+ Tal Zussman <tz2294@columbia.edu>, Li Youhong <liyouhong@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
+ <20261030163553.c5dec200dd39cec4695e545c@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261030163553.c5dec200dd39cec4695e545c@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-construct_alloc_key() links keys into dest_keyring without checking
-restrict_link, allowing keys whose key->state reaches KEY_IS_POSITIVE to
-remain in a restricted keyring when instantiated without relinking into
-dest_keyring. Reject restricted destination keyrings with -EPERM after
-__key_link_lock() unless KEY_ALLOC_BYPASS_RESTRICTION is set.
+On 10/31/26 00:35, Andrew Morton wrote:
+> On Fri, 30 Oct 2026 23:29:13 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+> 
+>> hwpoison code can end up calling min_order_for_split() without holding
+>> the folio lock. There isn't really something that would prevent
+>> concurrent folio split. Consequently folio->mapping can get set to
+>> NULL after checking for "!folio->mapping", and if the compiler
+>> reloads folio->mapping, mapping_min_folio_order() would try to
+>> dereference NULL.
+> 
+> Bit confused here.  Is it referring to folios which end up outside EOF
+> which split effectively truncates, or did it mean to say "truncate"?
 
-Cc: stable@vger.kernel.org
-Fixes: 5ac7eace2d00 ("KEYS: Add a facility to restrict new links into a keyring")
-Reported-by: Anvik Loitongbam <permissiontogallop@gmail.com>
-Closes: https://lore.kernel.org/keyrings/20261030173930.40948-1-permissiontogallop@gmail.com/
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- security/keys/request_key.c | 5 +++++
- 1 file changed, 5 insertions(+)
+I think above should say "There isn't really something that would prevent
+concurrent truncation."
 
-diff --git a/security/keys/request_key.c b/security/keys/request_key.c
-index 22cd66a44da5..d4611dd7cb49 100644
---- a/security/keys/request_key.c
-+++ b/security/keys/request_key.c
-@@ -404,6 +404,11 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
- 		ret = __key_link_lock(dest_keyring, &key->index_key);
- 		if (ret < 0)
- 			goto link_lock_failed;
-+
-+		if (dest_keyring->restrict_link && !(flags & KEY_ALLOC_BYPASS_RESTRICTION)) {
-+			ret = -EPERM;
-+			goto link_alloc_failed_unlocked;
-+		}
- 	}
+> 
+> If the former, how is split able to folio_ref_freeze() a folio which
+> hwpoison has grabbed a ref on?
+> 
+> IOW, is the race against split, or against truncate?
 
- 	/*
---
-2.47.3
+It's splitting (min_order_for_split() reading ->mapping) racing with truncate
+(changing ->mapping).
 
+Want to fix up the s/folio split/truncate/ when applying or want me to resend?
+
+Thanks¡
+
+-- 
+Cheers,
+
+David
