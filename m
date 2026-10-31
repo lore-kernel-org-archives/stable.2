@@ -1,112 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793461356;
-	b=SFLU5oyibY6ttdP5ZifkNbA033UKSwjryQqr28VM+G4xJX5fg9+8NTd15ZHkEAiwThYh
-	 1div9EThF4afu1hscrnyvBiiFE8gSlyLaIWU3oVCP56TB7wn4nCnsT5sy6oGklOQVTvxw
-	 C8rXfUvjLlpbRZwOl/KyDnGKcLmQ40/hNbayKuJnCpPJ7zYQDE7Dh/hnI6RK6g+6jSXO5
-	 eMCp3bhk9BKcCSCV2dYJ0SIEz6SVM0+7K5+/1gZNSX58oOugZM825+LD1F96jOF+fkKXi
-	 3zNrmLl1QNwI29k3k/iL8ILqKB3ycP6mcEM2ajCB+7EmkjSdRR0qlcEgIQOZZMbY+sg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793461356;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=+HCqbyvL9MfEDwnLplDU6XELRdfevqAJufdv6Zeo1jM=;
-	b=OuaE40d1C782bn5QMU3HmRUfGIbXe09KjPpHrszyyoSBCH6F+Ll7E+vJ2txTjMkr5QE8
-	 hZ4rRv9o7Y8AI8Izl3dhRj3a4wiSb7MNMweX9E/5hKK2Whp2UuKRmmVTRvJSAKWKUPkZU
-	 ZbDmF96Hy5/IEOsonGPD99Mdeiik21iUHwom9ifTxOxrIwOhSYQLJCEp3hC7E4WD14VAL
-	 WzvWuelDmAx9ZPExjFUrDXg5HNkO3SCRke8Y0dzCJITmvr3AeXdLqbdJ4nRAnescsao2K
-	 oGcaQIqlmwQopm2dPjnbbaGGAQEwHfZVFqN0pP0vc7CyZs4cRwd3zqjdsP91hZcaEag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KMW02RnY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fjxhC4zD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mzMS91cA;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=F0BH9SUn;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793461460;
+	b=TEsp6ecx6CHEb4/14zFFYcZU2Gjp1aTkLquet7C6HzoYGql2oYiwXHImGT56eBD4/lTV
+	 jI1faTj3jDsoQL08GZjtlTeWYLEuUg7Sw11eS3lO5NpIfr0jINXV3gx9OYSOYurgUJ2MV
+	 F/YIPDKV3MysQCf9cAVitXkH0Saiew4yqkNdvUcUWA7y0bI2WCDI7dyQnLdlh4Yj3FhmT
+	 Cba0koFYlHlOZUbRQSm8XDKJCoo3TEjnhBd3dOFeBF+P0h3EjOT5P6PK1v5Ro+DdfLAJu
+	 Yn7PEvMUohKpfoEvesBtdcrGIH5i/M9kgkbCgxR09TRnzRGPqARf7qiNF+YaUMBeYeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793461460;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From:To:Cc:Message-ID:X-SimpleLogin-Type:
+	 X-SimpleLogin-EmailLog-ID:X-SimpleLogin-Want-Signing;
+	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
+	b=GEzIahHZRvXYbIMg6q/z7NcOszt7hgnfP1T6GGRblrOpn5sNwxTndyeSuKCkz/wD56gF
+	 ND/kAwzUvLQMZdtPnOkBF0FLIhjIo4/++sorEOxJC+PcPfenzmFP5sKyJSqoH+g65cobL
+	 1g54hinx3i6gREiXed+p6GakeEcSMccjn02sbhrTI4cept5MjRGmkVXl/Qp2hhd3LyJlG
+	 JtIGp+lgY3N2m1yJSK8vonU7Awb+JQ5NDtUmJ2H6FBNZkUYdQTMyVydacqxgZ+sTYT8V6
+	 7BMbE74r7zJeZypcX2nLPKEBK8hlB/fu37JhQEKJ58kF01K7QcGTA/YSpSfLypZMZrw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=8alias.com;
+	spf=pass smtp.mailfrom=8alias.com;
+	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.170
+Received: from mail-200170.simplelogin.co (mail-200170.simplelogin.co [176.119.200.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD5E606A31A;
-	Sat, 31 Oct 2026 15:42:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD5E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69260606A31C
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 15:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69260606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=KMW02RnY;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fjxhC4zD;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=mzMS91cA;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=F0BH9SUn
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C16B022313;
-	Sat, 31 Oct 2026 15:42:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793461354; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+HCqbyvL9MfEDwnLplDU6XELRdfevqAJufdv6Zeo1jM=;
-	b=KMW02RnYzvplvbjxFwIw90in39JmjG4apt12CBzJ3y+Yio+eibrBF6/tz/VpwPGTvPq0fh
-	1Vc4FX5C/cOV5w2qtJd+z/CXGUDJJiEKXKloS0247HEgK1qilWYsIpJI1EHmxvY0lQKC+P
-	Bmax+ocL7PCLUB8eMrUwpKnGImqdnWs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793461354;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+HCqbyvL9MfEDwnLplDU6XELRdfevqAJufdv6Zeo1jM=;
-	b=fjxhC4zDiJcYepN62Ny5m/1M/+HcOcsFRaZ1U+phlhCzN3YT82EzHvqbeQgirNdjd1iGxI
-	sLzSANkuWRsGRIAA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mzMS91cA;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=F0BH9SUn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793461353; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+HCqbyvL9MfEDwnLplDU6XELRdfevqAJufdv6Zeo1jM=;
-	b=mzMS91cAjBUX2P4d48u8amUJodGhU7hhUVAuNyZvIsX+Jhmx7G3KZPxq61/IVTu2kXeFWS
-	hScOo0qyjQayqvPc/uKw1h7VTAjbXVeI9D9N6K9BIktK5YNvzwtbrElXgaPq1xziM9t5U5
-	4ILg+hGXOQqaRvH4MzazWgFmdykaIg4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793461353;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+HCqbyvL9MfEDwnLplDU6XELRdfevqAJufdv6Zeo1jM=;
-	b=F0BH9SUnGj9jSYJA6O76d42OkjlRfjkV34v6Qegsk2WcVQAVX/+iPqRAwnrqjmSzytwep2
-	w7t2PNT/uV4Z77Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 68AD413432;
-	Sat, 31 Oct 2026 15:42:33 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jnhFEGkM5mpfGwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 31 Oct 2026 15:42:33 +0000
-Date: Sat, 31 Oct 2026 16:42:32 +0100
-Message-ID: <878q3dswpj.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH] ALSA: usx2y: Initialize idle URBs before submitting streams
-In-Reply-To: <20261028103158.22996-1-25031212351@stu.xidian.edu.cn>
-References: <20261028103158.22996-1-25031212351@stu.xidian.edu.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793461452;
+	cv=none; b=fy1nhGxdBgNPgBGYeULAMIbyVTYhTLWlYJG9Dg5X4DK5q9TR5h08gWPaXE7ssGltP2iEaX9fIomiSaTdWZIVkjb9Yhe/2zkUjy8qQvVPrjt6m0mbQqNM/B63TsmUakCuncyptv4opAn78uoF+H0BXBIPiIrqtpNijmCQVPJpDVt/9gMiu4/oYRvNaco3eKUMfH01epZYuy27C6Q85BcUo/b5BfQS2n/iHvYbXxf/rqxHvHZm4rcCJzBqS8e/82e743q5p1dTnogUCJjeeOVX8/EvIoIznFYLkNxpyTDZn2zDXEefxtAAA2/eHZnP0UG/yFjMZNsp1b6s7eMaFMYHTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793461452; c=relaxed/simple;
+	bh=AaZu+tZdoMwvlXleI2bXaZaMVRyFk7eBBWZBUTdqvVg=;
+	h=Date:Subject:From:To:Cc; b=GaJMk2VjNlyoblVTAhJJ3jgsYCI+Y7E0cDKngujSXWVYnlxJLXcQYdljvxiiKiSQOh0Jf9toSWxpjv/Hf4w1vPNhRg5sqDXKMDl/EnO7GOpHSSIkYNeKpmymSNrPZk1K0iUVPHVg6wW8ch4NktAV8iLPsCyXHubIDMxPVlNkRbFL35LAsswigJ3ZA40CZLjfeK68E/ih0u3L0QuX0UNBOvb1nvDcYKRHU9RbObBxi7FrGPKmdSVOVPcDBQggnqQ6N1elFIpCxn5YCDn/Nt4psJIvb7dnAjP4FIqj9JbPIY739G7swjoN0E/kUQEdzbgvPj0Z/C6QG9Kjk50KGkPUiA==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
+	t=1793461452;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
+	b=vzQKTonTT5HawogrM6SpGnIN1YVuH4qET1IATmnOM465cKAMVDHshDrQeR3zFKqK2uqMHE
+	UI30wJsVOVqYOOoCS/XAg2NupgZJAc83xu/teB4lcBG0yZYvtt2509EOtVOjZHyTmxYsKC
+	X5w5K+/FECZRp3pfmAoDdmWDZF7it4M=
+Date: Sat, 31 Oct 2026 15:44:03 +0000
+Subject: [PATCH 6.12.y 0/2] Fix ioremap of addresses above 4 GiB on x86-32 PAE
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,82 +59,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xidian.edu.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: C16B022313
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: =?utf-8?q?Radek_Marci=C5=88a?= <github.unusual340@8alias.com>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,Ingo Molnar <mingo@redhat.com>,Borislav
+ Petkov <bp@alien8.de>,Dave Hansen
+ <dave.hansen@linux.intel.com>,x86@kernel.org,Andrew Morton
+ <akpm@linux-foundation.org>,David Hildenbrand
+ <david@kernel.org>,linux-mm@kvack.org,Arnd Bergmann <arnd@arndb.de>,Michael
+ Kelley <mhkelley58@gmail.com>,linux-kernel@vger.kernel.org
+Message-ID: <179346145167.7.7861216093151225931.1735978772@8alias.com>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1735978779
+X-SimpleLogin-Want-Signing: yes
 
-On Wed, 28 Oct 2026 11:31:58 +0100,
-YuanZhe Liu wrote:
-> 
-> usb_stream_start() submits the first two capture and playback URBs and
-> only afterwards assigns sk->idle_inurb, sk->idle_outurb,
-> sk->completed_inurb and sk->completed_outurb to the remaining two URBs
-> of each direction.
-> 
-> A transfer can complete as soon as usb_submit_urb() has been called, so
-> the completion handler i_capture_start() or i_playback_start() may run
-> before those pointers are set.  While the stream is still being
-> synchronized (state below usb_stream_sync1), stream_start() then calls
-> playback_prep_freqn(sk, sk->idle_outurb) with sk->idle_outurb still
-> NULL, and the packet descriptors are written through that NULL pointer:
-> 
->   Oops: general protection fault, probably for non-canonical address
->   0xdffffc0000000018: 0000 [#1] SMP KASAN
->   KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
->   RIP: 0010:playback_prep_freqn+0x11c/0x4a0 sound/usb/usx2y/usb_stream.c:33
->   Call Trace:
->    <IRQ>
->    stream_start+0x5dc/0x8d0 sound/usb/usx2y/usb_stream.c:596
->    i_capture_start+0x3da/0x710 sound/usb/usx2y/usb_stream.c:654
->    __usb_hcd_giveback_urb+0x238/0x550 drivers/usb/core/hcd.c:1657
->    usb_giveback_urb_bh+0x20b/0x530 drivers/usb/core/hcd.c:1691
->    tasklet_hi_action+0xa/0x20 kernel/softirq.c:994
->    handle_softirqs+0x16f/0x440 kernel/softirq.c:645
->    </IRQ>
-> 
-> The four URBs referenced by these pointers are allocated long before and
-> do not depend on any transfer state, so assign them before the submit
-> loop.  Keeping the assignment inside the retry path also restores a
-> well-defined URB rotation when the start frame mismatch handling kills
-> and resubmits the streams.
-> 
-> Fixes: 030a07e441296c372f946cd4065b5d831d8dc40c ("ALSA: Add USB US122L driver")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+From: Radek Marci=C5=88a <github.unusual340@8alias.com>
 
-Applied now.  Thanks.
+Both patches are stable-only. In these trees the x86 PAGE_MASK is an
+unsigned long, so "phys_addr &=3D PAGE_MASK" on a 64-bit physical address
+clears bits 32-63. __ioremap_caller() and __early_ioremap() both do
+this and map the low 32-bit alias of anything above 4 GiB.
+
+Mainline is not affected since v6.13, where commit efe8419ae78d ("vdso:
+Introduce vdso/page.h") and commit d4a65302dd84 ("vdso: Change
+PAGE_MASK to signed on all 32-bit architectures") made PAGE_MASK signed
+on 32-bit. Neither was marked for stable. They cannot go to 6.6.y and
+older, which lack CONFIG_PAGE_SHIFT (added in v6.9). They do apply to
+6.12.y, but together with the i915 build fix in commit 8fd236b00fc1
+("drm: i915: Change fault type to unsigned long") they change PAGE_MASK
+on every 32-bit architecture, the kind of change that caused the arm32
+regression d4a65302dd84 itself fixes. So these patches cast at the two
+affected sites instead.
+
+Please apply to 6.12.y, 6.6.y, 6.1.y, 5.15.y and 5.10.y; the series
+applies unchanged to all five. 6.18.y and later have the upstream
+change.
+
+Reproducer for 1/2: i386_defconfig plus CONFIG_HIGHMEM64G=3Dy,
+CONFIG_VIRTIO_PCI=3Dy and CONFIG_HW_RANDOM_VIRTIO=3Dy, booted with
+
+  qemu-system-x86_64 -M q35 -accel kvm -cpu host,host-phys-bits-limit=3D44 =
+\
+    -m 5G -object memory-backend-ram,id=3Dbig,size=3D4G,share=3Don \
+    -device ivshmem-plain,memdev=3Dbig -device virtio-rng-pci \
+    -nic none -nographic -no-reboot \
+    -kernel arch/x86/boot/bzImage -append "console=3DttyS0 panic=3D-1"
+
+The extra options get the virtio BARs above 4 GiB with SeaBIOS 1.16.2,
+1.16.3 and 1.17.0. Since 1.16.3 SeaBIOS places 64-bit BARs high when
+the guest has RAM above 4 GiB, which on q35 starts at -m 2816M; before
+that only when the 32-bit window overflows, which the 4 GiB ivshmem BAR
+forces. host-phys-bits-limit=3D44 keeps SeaBIOS 1.16.3 from placing them
+beyond the 44 bits a PAE kernel can address.
+
+On 6.12.115 the virtio BAR 4 at 0xe0100000000 gets mapped at physical
+0x0-0x3fff (per /proc/vmallocinfo), the device ends up FAILED and the
+log shows
+
+  virtio_rng virtio0: probe with driver virtio_rng failed with error -2
+
+With 1/2 applied the mapping is at 0xe0100000000, the device reaches
+DRIVER_OK and /dev/hwrng returns data.
+
+Nothing in a QEMU boot early-maps memory above 4 GiB on i386, so 2/2
+was tested with a throwaway late_initcall that calls
+early_memremap(0x100000123, 16) and prints slow_virt_to_phys() of the
+result: 0x123 on 6.12.115, 0x100000123 with 2/2 applied.
+
+Unmodified v7.3 in the same setup (CONFIG_X86_PAE=3Dy in place of
+CONFIG_HIGHMEM64G=3Dy, which no longer exists) gets both mappings right.
+
+Built with GCC 16.2.1, run on QEMU 11.1.2 with KVM.
+
+Radek Marci=C5=88a (2):
+  x86/ioremap: Sign-extend PAGE_MASK when aligning the physical address
+  mm/early_ioremap: Sign-extend PAGE_MASK when aligning the physical
+    address
+
+ arch/x86/mm/ioremap.c | 2 +-
+ mm/early_ioremap.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+--=20
+2.56.0
 
 
-Takashi
+
