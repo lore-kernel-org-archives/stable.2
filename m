@@ -1,108 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793462707;
-	b=FJhXUho0JBW9YHw+cgM6I6EqN43SNNpvWHT8lMRGbtp3kc9WIGIZgBC5Lnu1NkPCkns2
-	 XINsk+abw4jE9bJihO8ubqR6QtmhupWx6E47TpQEipwOU9BZJ5nh1bqzc1s3b2BSEUvus
-	 lZTaGAGoFiH3qdmwA31gi6g+P5hUB/m71yQd/cIpCQbNjCEmrU+H2LC5l+GEZhv+BAQH5
-	 BMLcauFmTmz7xtafxWdutV1ta7dgh808eIUMsudbKoL8Wr5zQJpmloLqbJLVAUDJwkEta
-	 V8kexn63otcaolR0/oxYXs2sF3ULN0gZeRIowuGwVGoyNzX8IBIBu+V16p012W6oiiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793462707;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=rllM8VXLfo/aWVmuH/zbhTItmWlijFXocU2MagJhvkMZt5WhOn6C7pmpwimjieNQQr4L
-	 YUuwfMziW3AtDsDzEiLSv8ngMzGYGryHSqU8iXAoXN13p+K/XqtNedcQ9Xaf6fVVLBvtJ
-	 gpmVgyx0QjXGPWf2Zd6MlULzEhKde0QAGA+6iipA847OPw3PXZLAp4Ba8THAHsmLELbzp
-	 wBIccTuU+6b+09pava/gkaDM68SKmafF14DZg1QsoUFoidjEqEcakt4qOYIAWMTTCqlqf
-	 zPU0RG6/qIBenKY8XMSXXF45pApg4gJotkWCi6JsIGEeW4F3yIEfoznbrphujY5GxvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793462764;
+	b=Zo45nhNwL17MBEBs+wqCjnl+SglGVwgvdAd+3XT0hTrLFQT3r+rLNR2Q+Vjeu2+hEstA
+	 wOJu3Kaz3EAT01mU/b4G96+8OMZehV8HzzHBjT5E35Swa1dr5r+iSstxX7w9ligTQ2Mb7
+	 zE6G4yMeqNBHjG3DaPi7YQEnJV9tmLi+t2R7XlNAlfyDKuk3SoMZIuwek0cjX3HflwXCU
+	 H1Ij+5zGJxUQAbLkkiuAkChrL7aDEFfhEtDTiYA4sWfTX89waX/1Ulx43oJPU4xGVphWV
+	 HaB5c3K/RnDU043X3N4+YF1kBy0x04k73nKLT3HEkUZsrze3I3wu8K1qwFMb3yx3wWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793462764;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=rkymqaY7xVAzdi59LAjiM9RaFMfOkE/t6iQNHmjVNAY=;
+	b=1noPrXsDLzQKuUn9tdBtx9mmv9NIT+5Km7KQzudsNdq/I7CVV5M6bV/wfTuaixBWO1P0
+	 91Ur8kWorFvLdY6ki22qlCokHtCw4kVC51TNwyavDtCNCo5QzOWiyTjLoSoXbqS5WDSqB
+	 iVFdk0G6C8dlJaurJE7tHk2ll1tFGAWoy2phMu8hbBuhgvkMrAuW/vsWl29eYyaarF7kI
+	 NLwwWvji12FTTfFEhUrXR+nUYViI6fziHs77eObmlgM6YBSsa7bftRpy13lWg3UC2XJZI
+	 eA2uMgxzjHP5EYrgP3BgjeWuZ8d1boly8wAA9+vbLlb4FWBq3r/sJoX569CGDIUszjA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f48maP2D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054B8606A31A;
+	Sat, 31 Oct 2026 16:06:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f48maP2D
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793462763;
+	b=bmFu7/pzFL1Y8Rl+rCHTK3eh1TEobgsm+cerp+DY4txDqHvpixCCT90NLVq4HjLMQquQ
+	 rvUN/Z/vdeGyq872WgVCoZhj+h7V8J751OLU8SuBfBtsGP2Jd6ukXb2ANsIPn18YrNaWN
+	 V8yfdu8t/llQqLXrvaceUbWhJEPI8ZekyWevt2nwcuU4b8Gl6rSDAI2cRdahICqzrwQcv
+	 W9Behq7nhiKCsrAomEPmx/6y2uV+TsAanCAU4nmnVV4p00qwcV9pyKsw6ox3MkrOQq4BU
+	 RjPHIJjPr2E4C7Jf5kJMTd9irtBs+U5uyXST4ZUh5bx9zB4KEh5aDj04F9yk/mppWmg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793462763;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=rkymqaY7xVAzdi59LAjiM9RaFMfOkE/t6iQNHmjVNAY=;
+	b=vD1lO74qNrmtqWKgDqekRFWyf4CoNkHisOZiMxLLBe0B9z51UXGYUa303rysEHMZjKkh
+	 ItRlbXjgW7popX5X7ZMV2DPAUjbHfoWyxW4quonz4LhcqUy0rlt62MSr26NNPZ5NVt/nW
+	 S4D9jOlHS1UCsryCYJrcJ7TMplINU0fC5BVkffkLjE28FNRX/8iO1HK4Wa/u/0i5v1wOO
+	 OfxfJC6vf/HHD6OYVEr+DF9HEIvdNkskVE8WLT1Srz03qBhRBAASSSXOGYV4sSbJTf21n
+	 vF1SqbfVs1doCPHLS9LI5katvWy42QLkqBy1NJt29GBUEP6R+NCMaDAE5Rj85tVbdLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780C1606A31C;
-	Sat, 31 Oct 2026 16:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 780C1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9B782222C8;
-	Sat, 31 Oct 2026 16:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793462704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=vH9Y4anJTJfCZne4ZOQofOwcpRJkXeP8iIaDpF0NIUikwkz/PeeizFYRnQpQBZ5fJWF5kh
-	nVY7YxsCecy7BSCK4q+RkU1pLUxOp3m1Szu33pzDUfZxIYKvBYS+/6hcdnWhBptNWG+aNM
-	kVPS/gZmgzhDkCt0vpdh5eHxV2+F75Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793462704;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=auAW+fm58VMP6sK6e6x+DRxSzfOvjUdIm3GqFtQTDBzHANATokJd5w5GVFIxIs3t1c3tNj
-	YvRXEI/cmhIncYDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793462704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=vH9Y4anJTJfCZne4ZOQofOwcpRJkXeP8iIaDpF0NIUikwkz/PeeizFYRnQpQBZ5fJWF5kh
-	nVY7YxsCecy7BSCK4q+RkU1pLUxOp3m1Szu33pzDUfZxIYKvBYS+/6hcdnWhBptNWG+aNM
-	kVPS/gZmgzhDkCt0vpdh5eHxV2+F75Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793462704;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=auAW+fm58VMP6sK6e6x+DRxSzfOvjUdIm3GqFtQTDBzHANATokJd5w5GVFIxIs3t1c3tNj
-	YvRXEI/cmhIncYDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A346132D3;
-	Sat, 31 Oct 2026 16:05:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zGDwCLAR5mrtMQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 31 Oct 2026 16:05:04 +0000
-Date: Sat, 31 Oct 2026 17:05:03 +0100
-Message-ID: <87se1lrh3k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: chris@nilk.net
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable bass speakers on Alienware m17 R3
-In-Reply-To: <20261029-alc289-m17r3-v1-1-5d3eac605e7a@nilk.net>
-References: <20261029-alc289-m17r3-v1-1-5d3eac605e7a@nilk.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	by smtp.kernel.org (Postfix) with ESMTPS id ED1DF1F00A02;
+	Sat, 31 Oct 2026 16:06:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793462763;
+	bh=rkymqaY7xVAzdi59LAjiM9RaFMfOkE/t6iQNHmjVNAY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=f48maP2DUE6yleQgq35vY96i4aVCMDxGF80luuZ92fT3SWEC9wQRlHhvzyvMbLRBO
+	 g8rKVu018sDoVKHUf2vvVhfWt0xNSw+dJejYiRDFhRvRUwE1Yg2GPibAbuaEeO0hAC
+	 7vm+1/QQWO/1Agct9CjeoU38sOqi6GfJf1FWeV+MliC21AXLcmZeWgBc0pYR8bXS75
+	 ACU4LekX+VMmVBrZGUWgOhv4obNBxrR9BVCn0LVEBsDaUpyAytsqmyrnSxOR3Nf1fr
+	 TckdJKXtI0lhVev0a+nlsugexYThxMQCGfZgZkb+sHHPLOpwhlXeUzr6Bi/Pg1ygsE
+	 N22JIhUsuxLHQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4ED8945F27;
+	Sat, 31 Oct 2026 16:06:02 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Sat, 31 Oct 2026 16:06:02 +0000
+Subject: [PATCH] hugetlbfs: emit hugetlbfs_free_inode from
+ ->destroy_inode()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,62 +82,123 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-b4-hugetlbfs-trace-v1-1-4ec8d02a30cc@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAOkR5moC/x3MSwqAMAwA0atI1gasrR+8irhoNGpAVNoqQvHuF
+ pdvMRPBsxP20GURHN/i5dgTVJ7BuNp9YZQpGcqirFWhFZLB9Vo4bDR7DM6OjNoo0rq1VDUEKTw
+ dz/L803543w8rE6aMZAAAAA==
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+ Hongbo Li <lihongbo22@huawei.com>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793462761; l=3980;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=CimqNwtPRA6nxILdhyc+0Xn4gqEkC2G7lMQ2JLmnouo=;
+ b=yjuS2uTzQ9DedPHbuDm6WP0AuJe1WwYvU3AL0T/UCB287QqTTK/wXTcArMWRSVnwIEyUeH8rb
+ qV6kSiKFMPyCX4BeVFMi8oIBqxxY16vKLP3MQWAKCoduXNPhXggr+3X
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Thu, 29 Oct 2026 23:49:10 +0100,
-Chris Simpson via B4 Relay wrote:
-> 
-> From: Chris Simpson <chris@nilk.net>
-> 
-> The Alienware m17 R3 (ALC289, PCI SSID 1028:09d1) has a second speaker
-> pair, the bass speakers, on pin 0x17, which the BIOS leaves unconnected
-> (0x411111f0). No PCI SSID quirk matches the machine, so it gets
-> ALC269_FIXUP_DELL4_MIC_NO_PRESENCE from the fallback pin quirk table,
-> and only the speakers on pin 0x14 play.
-> 
-> Use ALC289_FIXUP_DUAL_SPK, as on the Alienware x16 R2 and Dell XPS 15
-> 9510/9520: it sets pin 0x17 up as a speaker on DAC 0x02, so one volume
-> control covers both pairs, and chains to
-> ALC269_FIXUP_DELL4_MIC_NO_PRESENCE, so the headset mic setup is
-> unchanged.
-> 
-> Tested on an Alienware m17 R3 (BIOS 1.38.0), Linux 7.3 with this change
-> applied: the bass speakers play, and volume and mute cover both pairs,
-> also after suspend and resume. Headphones and a headset mic were not
-> tested.
-> 
-> I used Claude Code (Claude Opus 5.5) to find the unused pin, pick the
-> existing fixup and write this patch and changelog; I did the listening
-> tests myself.
-> 
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Chris Simpson <chris@nilk.net>
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-Applied now.  Thanks.
+hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
+hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
+runs from an RCU callback (destroy_inode() queues i_callback() with
+call_rcu()), and Documentation/filesystems/porting.rst says that this
+callback "is *NOT* ordered wrt superblock destruction; as the matter of
+fact, the superblock and all associated structures might be already
+gone".  put_super() frees the superblock with call_rcu() followed by a
+workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
+hit this with the event enabled:
+
+  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
+  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
+   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
+   i_callback+0x46/0x80 fs/inode.c:317
+   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
+  Allocated by task 6134:
+   alloc_super fs/super.c:326 [inline]
+   sget_fc+0x1ba/0x1f60 fs/super.c:874
+   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
+  Freed by task 855:
+   kfree+0x22b/0x6d0 mm/slub.c:6923
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+
+Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
+calls ->destroy_inode() synchronously, before it queues the RCU
+callback, while the superblock is still alive; hugetlbfs_destroy_inode()
+already dereferences inode->i_sb there.  ->free_inode() is left with
+only the kmem_cache_free().
+
+Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
+Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+Resend: my mail provider blocked the original submission to the lists
+on 2026-10-29, so only the direct recipients got it. No change to the
+patch, except dropping a deprecated Assisted-by trailer.
+
+David asked whether the tracepoint should be renamed now that it no
+longer fires from ->free_inode(). I'd keep this patch as is, since it
+is tagged for stable and the event name is visible in tracefs
+(events/hugetlbfs/hugetlbfs_free_inode); renaming it in stable kernels
+would break existing tracing setups just to fix the use-after-free. I
+can send a follow-up for mm-unstable that renames it to
+hugetlbfs_destroy_inode, next to hugetlbfs_evict_inode, or fold the
+rename into a v2 if preferred.
+
+Tested with the syzbot C reproducer on a KASAN kernel with the event
+enabled: the use-after-free reproduced in 3 of 3 boots without the
+patch and in none of 12 runs with it, and the event is still emitted.
+
+Tool-use note: the analysis and testing were done with help from an
+LLM-based assistant; I reviewed the change and ran the tests myself.
+---
+ fs/hugetlbfs/inode.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44..5bd348288 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -1179,12 +1179,16 @@ static struct inode *hugetlbfs_alloc_inode(struct super_block *sb)
+ 
+ static void hugetlbfs_free_inode(struct inode *inode)
+ {
+-	trace_hugetlbfs_free_inode(inode);
+ 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
+ }
+ 
+ static void hugetlbfs_destroy_inode(struct inode *inode)
+ {
++	/*
++	 * Not in ->free_inode(): that runs from an RCU callback, when the
++	 * superblock the event reads may already be freed.
++	 */
++	trace_hugetlbfs_free_inode(inode);
+ 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
+ }
+ 
+
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261031-b4-hugetlbfs-trace-341b338ab57b
+
+Best regards,
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
 
 
-Takashi
