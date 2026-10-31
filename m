@@ -1,101 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468406;
-	b=VRjlLrQHcwr3XeAsGLP9UqWRwJx/mcaDY5DlPN0wRY6py99RuYxY7BRAsp9mkwBSP5db
-	 zW30me6Y3mQAC1UdQ2aX6LCpltn/BS8wbsaweW3gkxTtNaT9Ov/8BZDUDTJPxDGJFlNy6
-	 GJ9BnG5JrC89mpRlFWc+QBE8wmLQL4TYZm/Tx0EExoTs3rw6h7UOnv6j5GHR1fkHfPxcT
-	 ldKuNrhhr3rGwKX8KcMlqlulH4J9JWIG+myzMcHfWt97OShcE7IA6nrsFElk/+L6TyEyv
-	 nXVeudXPk5jy+BlWa7UgZue0RkjHgerLf/pj1ltncist3bOM0EY/BYzny6KmWtLU9ww==
+	t=1793468762;
+	b=r6WmSr8b76Spki/ky5cw4SxkXdGU9pOkX/yv1Xcj6q0UVoWLMbd69dbFU8kqCkwUeUJ0
+	 M8KYmPv65e9cpl5YKeIZnS3+HuPLK07L5NoDiKweECjJEjP4yghA9ESpO9j5N3P+e+8ER
+	 Dk5ZfDkgNyQoBLaV0HbvRS21g3ZW9tZhzLbnvM2YxwhASbqAat5cdfqqhzjCAPXpWk1i0
+	 Qktnhflad8kqDnHgYZYWkPGobUxonWQ6uR3ae+rV1GzAS76DgHNSgHxYI+jQeEYtBjwmU
+	 UYUsLNeFyuSxQlXPmj6bcDXy6FCPpPYNFdm3hT22ZqenScbsvCDV7m/OuThhKCdOFlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468406;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
-	b=2n//HKU54BlqwenPEFkXxer/oo2XfaOF5PUYxPnZJkYum3X/f59xbcGWAuRARNEBxRFn
-	 R1Qz3GmZ6EWb3iJ7Ln7d140TGEZ9oDl+TLJfGynTD4fKqX3JEZ4y+kuzJNFwf4XpRsVZZ
-	 UPcGEZcQNd2970NTCSCWJRulQVuhAOQXY6rUHqMhW2bQvVktxdVUKQUIdCz3URZLWpjJy
-	 F1uWfM0D3mkQf1XFOE3ktHMxDWCqp+Om0basQu6rI0DKQcPAOUImydvbO8ODDgmiGdrxm
-	 2aon7x0AzzzPetUr8sUEhtqKX98AkXDW9BwKiMKzwpRKUDetaZmDebH1YLvfAdhrGlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793468762;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=12TO2e0T31cSdEte/htfI+5i3smqp4TVqWraSxvTy3w=;
+	b=2yt5QlTcXJzAonMXP0Ar1uOUXcxJsWYV/wc3AsaIOVr4vWzbh86wffy0fulXS9DDJL5W
+	 k/LrFI+y2UGwSuZXSelWxMmHu58qHdHBqBwE4dm+rtHyKQUFrypfLWnDW9QLDWuEVOLki
+	 nWoYOhi258m2CQcFRUww0Ua+yQk5OUEBSjMuch8/g51bHkarYf66/m53WXDrc3hEaCsfH
+	 9aukyCCvp68Kfzud0woj4NNOvunaabDgsgeTA7mNE6Pjuj6aMfgvk4910KcdlRwtdJVaF
+	 XubDQwgXePmG6D2H+rzT+uWCZSSAI+cXSz65NSrQBCK7dgPoL7bIGSGl1foCBQNpVSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="JGRW/2AM";
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=jrv2nOZ1;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="neP/A2aO";
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B300C606A31A
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 17:40:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B300C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9E660A2606
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 17:45:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB9E660A2606
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JGRW/2AM
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-353804b591eso2842879eec.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 10:40:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=jrv2nOZ1;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=neP/A2aO
+Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VDkCio636993
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:45:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=12TO2e0T31cSdEte/htfI+5i3s
+	mqp4TVqWraSxvTy3w=; b=jrv2nOZ1hp7gZbhO1vM3/PcfFfO2Eo+JrSCQRcC1ob
+	JZIOAFdqM7Cv70L7PuIETHnhd9trPMvIE4Vhr5Ze645lh6+3Z3Yyu4d6HgjnPR+W
+	LnQeSKOap9tnbXCFr2Yu+24s9nG4SHxLCy42p6uCdErv6i+HSk+zX7/YTMo7Mmyo
+	X56d+LUijffqg2f4G3pQC6yxJs/PWK5DGOYbNI1t2gXcFbRO6bSo1OdlXPsvhW1J
+	dRz2RdOGf5rWwSJFVdPkSwT6YDcnZiNKaiOWQrdff+vERJPAujUGw0u8QERN1//v
+	tFTTHhwz6oVCE1EidtJ61Jgic9T/tAcuIp2psuzp8EXA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hnc7ajfjr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:45:54 -0400 (EDT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f33438950so341335185a.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 10:45:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793468405; x=1794073205; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
-        b=JGRW/2AMeLNySqBe7BDRSGF8sZGlwaRlOclOiqJeJl6Gn6CSX+8lZHX+1zvL1qGGCm
-         WGWgUP1m8VfPe2MSWHHtUqNOqVxwDeWHJkwy3GLSIlOnm6C1fINb47is5eX5lXLvW3PU
-         OHlwOEJRw6uOf/taRkZwpwOHN3bf/P9Th7X4YrEaO1doceMhAhEngG5c8wYLDKFbYhBu
-         g7UngjbOyEdba+Rzo7rnzLRD6hiOwH84SzdDJ4xr3iQo5eGQAh8LPGvLAZhCizOgEbEq
-         7KXgrQhDayXGbFetoF+HFvxTtyh/Zrl/cKdMtljRm0bheY23Un/jpLCIa7whQWD3c/gw
-         whVQ==
+        d=columbia.edu; s=lionmail; t=1793468754; x=1794073554; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=12TO2e0T31cSdEte/htfI+5i3smqp4TVqWraSxvTy3w=;
+        b=neP/A2aOSquMz2IRM3GwjWt3KSLmQ+sHBLc0gTN024tS1j2Ga1TlfzM0rbhUpalhBb
+         MaMW0UySxvH6gCKTLWrXP1KvoUMJMyxZq6Kh87F6QViiC8q1HcJrGWj491QxL2ztzQid
+         xYUcuWjDr6H5ykt/DYN3+8zpB3VcZ9uhk/KMyB3bH58mz9r3g4a7L1if8mbhw1ERRZs7
+         29JUjpUrRNh9L/MmkOIbrleXFGUhDt5/NDUouq/1mRCJcYqL+EtlH0zqjLJ1UYSvL76p
+         UM3mdFlMF1wfPmxDpHYtD3dXpRphcm0GeIwJ1geGp1JFt/9ftzdUPzhDxbSemzHyklBe
+         PK+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793468405; x=1794073205;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
-        b=znHXHlSPLwe6z/yUWk544RI9hHWTdIQAfQqpIwqHguQWNgEksXcHzDVat2WbaCilHx
-         +uD9n8ShAEo02ROXKsxVF/6NBfhyVuQpD+CrNC6rqhcKiUFM8oAHdJQXeFRnUR9XU88Q
-         /rcS6ffJUiVdQFCa23SM0xNp95I75FSZYg/U3BcQsrq/no7HnBBZ5wIhpOfhjQumaqkS
-         brFnEhWudS7bTHWLb2UpyHFSGbZJgmMlVxGQ0lkesu+nNiENQ8NKcwXh0CVMC6UYGd6x
-         C/eqQcsEc3veb2dt0n5hHLpCnhybjzT17Yo7A09hlk/W9tMJi8tTC9yvOz/vQ23hK/CL
-         hnSA==
-X-Forwarded-Encrypted: i=1; AKwUvBwcMN6JMI5WCRha2VDwW3EGKRCzPtLjVXEXhTA9Mendwey2bErBzJ/MHrAt/fcUKasjqrM4Q+c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzL55rTFpsOFRHecNw6ShkYyuY0t5tmGFhbtI95g7vw7ek9CF4
-	pghFLT8DNGqvK8XDpFiChNUVpn9iiVznKOXV/wqd4zjo+EyU0F1E83Hn
-X-Gm-Gg: AYBFou2HxTrbNFOjzA/2GaQD2JVA5Q8ZGFFeGjhpK5uHL6BK6WCfGoMn4BoJeIzUrgJ
-	AKKQmMy/stQBc2Xu3YBwjNUrhISq5PI3GPNKRAHJ2B5LiCSTPOVvuimoNJeO2DOr0cQTfxN8n6g
-	yysq4ci9n+Jdm6d8wEjbQONndqevrRhrKG61LPHpRllbVds+cczFjDYyTwll+O8AgK5lGDvsIRn
-	qmj3ehAmobvR4+NtXIEVWjb2OD4RHsq7cbkebkD2Y6yO9DQWUfgBawRX+WpwvxkSqI5OGB8kCwI
-	Fy3gyDXZCMchBMPRj8B3k3dKkkdsEHd2X/fbnH4kz6Yh9pEbOswyvvtsKWqswZDoSnekyBcBqlS
-	rpbnEW3jIwvZ7aPGOK2USE5jgK4z+pWMlIMIo20cvI2JwKXVRDECY9cCm4tGOQK5MLaYZ7nyPS5
-	MHtwkvdcDEoO4PrdBjnwnShN0cqt6fzZ398/EnMlRSes8qDNRsqkElPvg9JTqLw3iAbpL24ikXy
-	Oo87MeWXsq0S3oqsWGNSSc/qhZcv3PiQWgOJzs/Z2cXWN3yakgaICzz5TUkM/mrBUqbawV0iUIn
-	C+M6LHvfM2Whw/iBgSY0rkDCs9FGnHkI1HU+cuRKnKJ+OA==
-X-Received: by 2002:a05:7301:6787:b0:361:306f:c32a with SMTP id 5a478bee46e88-36a42345b05mr10664935eec.11.1793468404548;
-        Sat, 31 Oct 2026 10:40:04 -0700 (PDT)
-Received: from localhost.localdomain ([2406:7400:51:284f:c2b6:f9ff:fe77:10a0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a96172sm17207026eec.27.2026.10.31.10.39.59
+        d=1e100.net; s=20260707; t=1793468754; x=1794073554;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=12TO2e0T31cSdEte/htfI+5i3smqp4TVqWraSxvTy3w=;
+        b=YlljPFGp2wssyGGDTnzTsGB/3Q7NQQDOVB/ItFx3KCoLKzusiyt7W1XTdoHVMTJOyh
+         XBMYDW6VnyMKiA5+fVEvKiU80JejOeADLTCOfr6xC5GnmonYHeCV38/fncii5v042YzP
+         oweEsEnYAvFSpil+XNPz2f/Y1IsOF/TVUuEeiICtP41hyXG9KNDf3CeW19hDy7Ghrl8h
+         qw5wVpGCRoyg/u0pYMnLRsRWWDTJeTz6ILxXN3n4h0AKgG8tX0VeXZ01UAlLEyc3prYj
+         IWHlOdCL8q/5geSCRTR9OtnfmW+2ASA7bfnRJ+GCCFGdaj+ANJQR5Cy7pWJEyPNd5xAO
+         t7LA==
+X-Forwarded-Encrypted: i=1; AKwUvBzMfU7oFR5hGGVjYe6f3ysKtNHqjORfwxkYzf/lE9LIDNLP+AoGb2iRWhIfqKjTy5CNwZ3FNTo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1TgpD8nhtxwZNjYUyB+dcRJ151hag2IQ/gc/xqA+QoaxBbIcP
+	fCtXUzTd7XuAUI3nECTlJ5yLnNBsYr8xVFCl5OgAwPQCHlY/vxNx2D8L+q04iKAIjwm3JkpNC9c
+	wt7c8kkDElylMg41ultAyjBC8dx22owILZKbuCVkTtAU2/cviyCb6HQ==
+X-Gm-Gg: AYBFou3p2CmuT0MDgg2SaA1BLc905QNLXCaZWH6iE+vhSfI/M6qzwYQee13HR8GDYef
+	U2PGBySlAfCTXe5OeMIgMYuLSBHi0qqLKjMswkFCmrYZ6WUjkVyELaybpbM7OF5S0D7auh/OHt1
+	6R9TeHsPTmo4tVu1mJLNj3d7wyzSwgmeSzG/f0m8D/LxPxuhkpEQBLNz6IB8EFMrPDLpRKYZ662
+	f7Load4ymelLqjhx7LB48gCwjHbQbWF0yVBvuyQ/UVInUrsJ3t5dR23rW55tPPO+Nr9DiSib4w4
+	3oXraV1UOlJtoBDxTJMI/cTMiXJEFHuenSliwCamJVWXf49VDeTudfzixQaNmqNmdD4TpEIiCjP
+	jZPDvtd9oC5N+CjM7N4/HAqRJebNcavbiG4JAkrTN7QjRhIVtgo/A+AnmGQ==
+X-Received: by 2002:a05:620a:270b:b0:93f:565f:e40 with SMTP id af79cd13be357-944217dc91fmr882365685a.65.1793468753917;
+        Sat, 31 Oct 2026 10:45:53 -0700 (PDT)
+X-Received: by 2002:a05:620a:270b:b0:93f:565f:e40 with SMTP id af79cd13be357-944217dc91fmr882361285a.65.1793468753266;
+        Sat, 31 Oct 2026 10:45:53 -0700 (PDT)
+Received: from [127.0.1.1] ([37.142.159.89])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b79059sm10220667f8f.30.2026.10.31.10.45.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 10:40:04 -0700 (PDT)
-From: Amaan Cheval <amaan.cheval@gmail.com>
-To: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Amaan Cheval <amaan.cheval@gmail.com>,
-	stable@vger.kernel.org,
-	Joshua Washington <joshwash@google.com>,
-	Harshitha Ramamurthy <hramamurthy@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Zhiling Zou <zhilinz@nebusec.ai>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Kuniyuki Iwashima <kuniyu@google.com>
-Subject: [PATCH net] gve: leave refcount headroom in the RX page bias
-Date: Sat, 31 Oct 2026 23:04:43 +0530
-Message-ID: <20261031173449.2439047-1-amaan.cheval@gmail.com>
-X-Mailer: git-send-email 2.49.0
+        Sat, 31 Oct 2026 10:45:52 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH 0/2] vhost-vdpa: fix a pin leak and unpin mappings by range
+Date: Sat, 31 Oct 2026 13:45:33 -0400
+Message-Id: <20261031-vhost-vdpa-unpin-v1-0-94ffc9683256@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,161 +114,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD0p5moC/yXMTQ5AMBBA4avIrE3SSvxeRSyKwVhU06GRiLsrl
+ t/ivQuEPJNAk1zgKbDwZiN0msCwGDsT8hgNmcoKrXSOYdlkxzA6g4d1bLGoiMoqN0rXBmLmPE1
+ 8fsu2+y1Hv9Kwvx+47wdX36AmdAAAAA==
+X-Change-ID: 20261015-vhost-vdpa-unpin-68ee785a019a
+To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Si-Wei Liu <si-wei.liu@oracle.com>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev,
+        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793468749; l=869;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=yEsTLW5bz4gADvidYrxq5nthN1/BGAv4JgsFze3VSmg=;
+ b=jeyY9hiphQ8blprG87I1oONkrIN8Q7ZL/IGjRLJbSRY/hU0x0AZTh7Gso9PmhW412uIWzzlh+
+ JxQxyJSbDs9CNUNDmGS7lxZEUsybN2nVwItY57qixt33KLSfa4cYQmD
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-ORIG-GUID: _PefDoWhnqLv3oDyO2VZZk1_OpH76G7E
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA3MCBTYWx0ZWRfXxr1Q0gmakr3x
+ fhCsQkgFAJLeHmLKqP3OKJzxptiK1nx6C3lUb+dzNDfoOl81ay7G+x9laYk4xRJm6ghYZykwq+r
+ pyIRMpv8/1e1DJLl9G/z3zKsOb9DJiREgxupWXDmsoei5m0i5aUo
+X-Proofpoint-GUID: _PefDoWhnqLv3oDyO2VZZk1_OpH76G7E
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA3MCBTYWx0ZWRfX641qpn8Gr6cj
+ IFDBlWCOL4NJ9pqoZwVUl6Riujfx9SjhJeIPQtqmRmlKDSXpB36SYah49Br2KV5WV6Xgz2NxKW3
+ TB+TbDG+N4/h7z9QfNBmy/xVmc1E0/mTBPZXn/ivgNtFAPhs4HXwURnM6q7EB8LDaw5bXaaJXeC
+ coMHs28gmmqcrSfdUHlpYaJXW6qeBncMfN2J1rdaKYrZJ6pY/QoylzbsZUEo4f4DcLBylhp5405
+ Qrvb0ZsVKwM/m68p7YDwaxqbqH6WjwPn4dKk6rItBGdrBQmX3XNlrnjtLVf0BEx+vWXFu+Wqo09
+ BIz20oDR/g7RlSUj3T0rMm3vn1ae9+94xh0lccWqojF1gts0lg20Av/umemuAfJ9ZpVIOt3Agcv
+ 8sW30kvaWDPV+AMX/OxApACTsOSwtorfYOhe+xfAPO6JqXBb9Ccf4ECT7c4xrAm0oFCWrVdyIg9
+ eEyYhoE/fMeBCarA7/g==
+X-Authority-Analysis: v=2.4 cv=St8Fe/O0 c=1 sm=1 tr=0 ts=6ae62952 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=P+xgYyhW+KadpqoI50EQPQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
+ a=mS1D9im87lyf6bhA-bcA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11952
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=10 malwarescore=0 bulkscore=10 priorityscore=1501
+ impostorscore=10 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2610310070
 
-gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX and
-hand references to the stack by decrementing page_info->pagecnt_bias, to
-avoid an atomic op per packet. This leaves the page no headroom: while a
-fresh page's buffer sits in an skb its refcount is already INT_MAX, so a
-single get_page() from the stack wraps it negative.
+While testing the second patch I ran into a pinned page leak in the
+vhost_vdpa_pa_map() error path. The first patch fixes that and is
+tagged for stable.
 
-splice() of received TCP data into a pipe takes such a reference, and the
-onward splice into a socket then fails: skb_splice_from_iter() sees
-page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
-commit 2e910b95329c ("net: Add a function to splice pages into an
-skbuff for MSG_SPLICE_PAGES"))
+The second patch unpins each IOTLB mapping as a range with
+unpin_user_page_range_dirty_lock(), which marks each folio dirty once
+and drops its pins in one go, instead of a set_page_dirty_lock() and
+unpin_user_page() per page. It removes the last use of
+set_page_dirty_lock() in vhost.
 
-tee() of the pipe fails with -EFAULT via try_get_page(). On GQI the reuse
-check gve_rx_can_recycle_buffer() also sees page_count() < pagecnt_bias,
-WARNs and calls gve_schedule_reset(), so a task that merely pins a fresh
-RX page (e.g. holds spliced data in an undrained tee() pipe) can reset
-the NIC.
-
-Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias only
-has to make the per-packet atomic rare so a small value leaves page_count()
-ample headroom below INT_MAX for the stack's references, and the u16 bounds
-it. Refill by adding a fixed batch and setting the bias to it, which keeps
-the rule `references = page_count() - bias` intact.
-
-Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12), no kernel
-changes needed, with relay.py -- a small splice(2) TCP proxy -- relaying a
-download while the RX ring is refilled with fresh pages:
-
-  ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
-  ./relay.py $HOST 8080 &                             # splice()s both ways
-  for i in $(seq 200); do curl -so /dev/null \
-      --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
-
-Most downloads failed with EIO before the fix (tee() with EFAULT) and all
-completed after it, including with the bias forced to 1. Built allmodconfig
-W=1, no new warnings; no selftests run. relay.py is at the Link below.
-
-This bug was found and fixed with the help of an AI coding assistant
-(Claude Code) over an interactive session; it read the driver and
-splice/pipe code and ran the tests above.
-
-Link: https://github.com/amaanc/kernel-bias
-Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
-Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
-Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
 ---
- drivers/net/ethernet/google/gve/gve.h                |  2 +-
- .../net/ethernet/google/gve/gve_buffer_mgmt_dqo.c    |  4 ++--
- drivers/net/ethernet/google/gve/gve_rx.c             |  8 ++++----
- drivers/net/ethernet/google/gve/gve_utils.c          | 12 +++---------
- drivers/net/ethernet/google/gve/gve_utils.h          |  8 +++++++-
- 5 files changed, 17 insertions(+), 17 deletions(-)
+Tal Zussman (2):
+      vhost-vdpa: fix pinned page leak in vhost_vdpa_pa_map() error path
+      vhost-vdpa: unpin mappings by range
 
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index b7ce6e8632db..18d7edbf4b3b 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
- 	void *page_address;
- 	u32 page_offset; /* offset to write to in page */
- 	unsigned int buf_size;
--	int pagecnt_bias; /* expected pagecnt if only the driver has a ref */
-+	u16 pagecnt_bias; /* expected pagecnt if only the driver has a ref */
- 	u16 pad; /* adjustment for rx padding */
- 	u8 can_flip; /* tracks if the networking stack is using the page */
- };
-diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-index 6880d1531ba5..571f851d6dcd 100644
---- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-@@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
- 	buf_state->last_single_ref_offset = 0;
- 
- 	/* The page already has 1 ref. */
--	page_ref_add(buf_state->page_info.page, INT_MAX - 1);
--	buf_state->page_info.pagecnt_bias = INT_MAX;
-+	page_ref_add(buf_state->page_info.page, GVE_PAGECNT_BIAS - 1);
-+	buf_state->page_info.pagecnt_bias = GVE_PAGECNT_BIAS;
- 
- 	return 0;
- }
-diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
-index 81ea800e66e9..6533fff06155 100644
---- a/drivers/net/ethernet/google/gve/gve_rx.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx.c
-@@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
- 	page_info->buf_size = rx->packet_buffer_size;
- 	*slot_addr = cpu_to_be64(addr);
- 	/* The page already has 1 ref */
--	page_ref_add(page, INT_MAX - 1);
--	page_info->pagecnt_bias = INT_MAX;
-+	page_ref_add(page, GVE_PAGECNT_BIAS - 1);
-+	page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
- }
- 
- static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *dev,
-@@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring *rx,
- 			rx->qpl_copy_pool[j].buf_size = rx->packet_buffer_size;
- 
- 			/* The page already has 1 ref. */
--			page_ref_add(page, INT_MAX - 1);
--			rx->qpl_copy_pool[j].pagecnt_bias = INT_MAX;
-+			page_ref_add(page, GVE_PAGECNT_BIAS - 1);
-+			rx->qpl_copy_pool[j].pagecnt_bias = GVE_PAGECNT_BIAS;
- 		}
- 	}
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
-index caed38cd5f2b..cb6fba3122d5 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.c
-+++ b/drivers/net/ethernet/google/gve/gve_utils.c
-@@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
- {
- 	page_info->pagecnt_bias--;
- 	if (page_info->pagecnt_bias == 0) {
--		int pagecount = page_count(page_info->page);
--
--		/* If we have run out of bias - set it back up to INT_MAX
--		 * minus the existing refs.
--		 */
--		page_info->pagecnt_bias = INT_MAX - pagecount;
--
--		/* Set pagecount back up to max. */
--		page_ref_add(page_info->page, INT_MAX - pagecount);
-+		/* Out of bias: take another batch of references. */
-+		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
-+		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
- 	}
- }
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/ethernet/google/gve/gve_utils.h
-index bf2e9a0adb36..316f97607351 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.h
-+++ b/drivers/net/ethernet/google/gve/gve_utils.h
-@@ -25,7 +25,13 @@ struct sk_buff *gve_rx_copy_data(struct net_device *dev, struct napi_struct *nap
- struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
- 			    struct gve_rx_slot_page_info *page_info, u16 len);
- 
--/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. */
-+/* Up-front references gve holds on an RX page, so handing a buffer to the
-+ * stack is a pagecnt_bias decrement, not a get_page(). Keep it in a u16 so
-+ * the 32-bit page refcount keeps the headroom every page needs below INT_MAX.
-+ */
-+#define GVE_PAGECNT_BIAS USHRT_MAX
-+
-+/* Decrement pagecnt_bias. Top it up by GVE_PAGECNT_BIAS if it reached zero. */
- void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
- 
- void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
+ drivers/vhost/vdpa.c | 28 ++++++++--------------------
+ 1 file changed, 8 insertions(+), 20 deletions(-)
+---
+base-commit: c69023b5e16e5ffe9368603dca76d85bd544ee57
+change-id: 20261015-vhost-vdpa-unpin-68ee785a019a
 
-base-commit: d8a4f4c59da52b7c31ae337243b8473a19a3f819
--- 
-2.47.3
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
 
