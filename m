@@ -1,100 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793483040;
-	b=yhKMBPUjuvRpTxpz7RiQULhRboVKLd3uuNm8FfriPdNfOOpHgwjafjPXmPAfVdR3SOJn
-	 vnDtr52ZdxDUYpFhYBeWMV5spI2VS7gzRdIK7yIjiyyafafUA2ifUoAT/m9fhUsBQbZaz
-	 1Ji27qBXjotkTfJHbwCK1/BVLC72+VIJ9/IInJI7sn0CzR2gpZFzht2KjTeeP13Oe9rto
-	 Oq03ZV8/AA2s0qiCrt4P54qgdwkufli0FitYcK0lVy96JRnV3+mBZ19xC+GO7TR8P41DV
-	 7L0Sdf2jTkalF7MdyL232rQbPsN9JWUs2SmVSX2EF0TES3FSWrbP0IyX7lvBUk6akMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793483040;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793484490;
+	b=z04GIrx6vVSkLVbeFUrQop+aj9EKBrCBzn7Ow8MUvq8LgGmTxYkZxn+KQCC1Lm/Y9d4R
+	 m5czUJGrw3onJnJD13E2OFglByoRGGt/oaD27PVRCBrvsyLLISocu3pVShI3/nZqHtGKB
+	 E0Q3ENEt2Zd4nvhvxxTFGNwm8hx59CvPPq8BPLStb3j3rEjuwx/bgrkD3bVkz9fiMfqll
+	 5q7Fl5I4ALl3t+Cua7CG0y6NLXNku5DsMNwz65NvfMu8AERwAqPDM9kI34nYAkQJT7sI/
+	 fgACtrIsDZYU8tSZ7SnAKgfWRFqC8fbJ3YalcFyE/GMaLwP8IgZUZMzOyT5vHvWN+Og==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793484490;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
-	b=pmxjQP+JkRHutzXWZbqKTRKjilDLKcGEwsA6yy2tWW1vocgHvIcuWe46PVOtxgmU4H4B
-	 z9VxU8N4woad3dU3KFf+0V8mbtqtebkFMf2vB/ERdqcaZH+al+3yugVaV8fDT3OqMUbgB
-	 B9Xeh1kFLXPvKxyZxsEg3OrBTHar9Elh+Wh1ZiOCyOs3gfGk6bc+08EOgo8b2PeZJ5Zc4
-	 x1WdWnCwaUIx4p41d2ltxxN8V96WRCTYgyRAOzU0x5RY6gbs7/S88Itptf1djVquVzzIE
-	 Gns+bX47n3g4XvFB+MghlDxIK0c+8oe/EWn1kFLeas6w9wnmGS7RPH4g9w5iLy6GjVQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amacapital.net;
-	spf=pass smtp.mailfrom=amacapital.net;
-	dkim=pass header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VlNTMbus;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:To:Cc:From:Subject:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=u7hkZBdDMOeRJCx/V6agkDJoUh1Bg0n+5YdOFbLpFXQ=;
+	b=IQvNOhasusaOvt4AM/Pqr50a4U15bq8AyqCv1Z0qClFNdb5wgyK/EYwzo+4ZeFMlbHjG
+	 +7Ar1oeyiAS+8sxXWaTUACmMHN5JoNYVJHd3STzaizJmJWxIqkpFA1QPO8uUCCyVKbnUz
+	 QZOcXRXBQItEmiFrKHAPhmMXuAH5hhSf4nH5aVYtB2OCP19TdylSvcJ828C7zwmuRuprR
+	 ezbyvgNy9C51jO/XvQ4kEDNa2EVS8whk7Xgewf2iM6Wkogdr8Nf9qZDl5LDNmjy2Op2XQ
+	 mTflk5jPtMStHFlLllNjraG6HnhHjOSxnzCJbD82uCQzBcVNYhiU9XbYPLIwOcQVrBQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S60zogLR;
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10167606A31C
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 21:43:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10167606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49375606A31E
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 22:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49375606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VlNTMbus
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a98fc80925so25603711fa.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 14:43:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793483038; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c9+YZ37OtCGt0tK9RXqY1D1hkQsWuy6RoM7iSa/hGNOS2vtYnpNDMsQ+iXz5/Yuxg3
-         ljVaYR1vElza7fSn7jMj7d9YvExifKZNd6NDyNwBpRsfRUJ6nWDTgAkMozfzChNCnJgV
-         uGtmmahAZ6fglr5Wm4QxL0Tkft9E6fHOT9Vf6EhmNuEJeiQaNRoHPHG58zI1pWC/1BI5
-         L4pTlhvsXzYKWVvFGJ2eEPItmzXEKeJYKLvpJ0xY6fDKg9WrGt3F8jq8QWJ9PRLq39lT
-         y/24qR2FgV0ZKU2wIW8oUCPGSLrk/77RZjTrlTnDOaE0ppRMdISA9892cqWzM/gT+aZb
-         dr+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
-        fh=HdlQ83ReiDE83OVqnadkR2zlTXW66tklnNaS71GjROQ=;
-        b=fBrVwq9w+W6+zojS4PWLvnGHfOvNxy4axn+6keUCxbV3UrNOSY/pZnFQHiY3YH665K
-         4zOawYq5DxeQcbpjBzIfFZVVTGll5POL3+hNLS6B+QNrbptdTqk1f4xrYnKOHG/z/HWZ
-         a++bkquZPZMBZI4ZbV2lA18q/gTk2acK7mNNEuYh+oj73AhgfqP4XSGb5Bt+QT5kuHTy
-         0adG8QQYg83tfriJUigNCoWL4KtoHGBPPFOxO0F5wJpPZ9CVocKgkEKnWgYNwnHAYWwV
-         5mqBZMF/a1cIQjzVJD++3yWNSxA7ii6hNT3ljXLu9r2ks8hd/02uzWKIfd5eZk/fMHTN
-         rTrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S60zogLR
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b06c0794cfso16318587b3.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 15:08:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amacapital-net.20260707.gappssmtp.com; s=20260707; t=1793483038; x=1794087838; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
-        b=VlNTMbusTTtj5z/0RoodUfO2YXSIX1yilyHP+JCuk4VW/18QD3PGWTc5f6wSekj0ZB
-         j/+TxCN6iTQJfc+1bM9s3GgGh1JITXBXD7UFd4n5QoXYi0rpFXnmP1BAL9QVcG24IZvl
-         8vfpwSx98fuLBVv4938WA/mQbf8V3kTnlfP6z/6KfJWNO9yy4JSyMLOL6qp9+10Dx/dj
-         FJnF850XVbS6l9IgNdVuMVzcEUyf2gIe2JgK/U1/8OmEpQnEBMj4HuRZjXFY+q7Riy9n
-         Q02asQ+mlz0ISiaxbXw6SRrTYj4sy9rJ9dy7IBD+bWMBwSPLBWilnrDW6RmcDd0mpYOG
-         Iy/g==
+        d=gmail.com; s=20260707; t=1793484489; x=1794089289; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:autocrypt:subject:from:cc:to
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u7hkZBdDMOeRJCx/V6agkDJoUh1Bg0n+5YdOFbLpFXQ=;
+        b=S60zogLR4R/USb4y+Plf+PXg7KNiF0R2MWmrsu416v8Fr3noC1aPez7DdMUp4gxnqR
+         MmwOmnExBa6Ii55T8AcFGwgiSBL9Ad8D+KFFjuUSpmMi93+wrq9Qdc2Rr4dyUmmnqxzC
+         X0W2CdFlP1sbytEeoYghQUM792nlkpRa6B83PEdD8muJvORo9HrFAspMIVBrhoKh54Jf
+         gN71ygj0cfyxTvUQiJOVyWYL+09SIBcTtYvopn6uZizDkptxbf8JeudvDDfCs3yqm/P8
+         z1Ak4VOwWFydgg1RnS/Hbk9CLzc91/Es82yACYYVXtPiqZfXJuH+gTGejdVM6+Bz2ZH+
+         saBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793483038; x=1794087838;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
-        b=mqFAt1AkkWGVL7edokTYLB4fWbc9EfpjmLpllVWpC+ThpMJcZuTE7S6xXmPgUpg2RH
-         OiHw8CUHQj9hE8LB0yAg+TbhnOv4ykGuP1jY9Bjduehg5V9OIHTNLBGVgFbfXeGegcbQ
-         xwGmcRZ4fp3FbEolAASCnmptoyBfPydnMRRvQ1Nz8+Ht5+UKd7btEVUW5bi606thyKBY
-         8mcxlQ+BUD/tVoQltxvu7IflHLt7Ee9pQ9NVLT+LZcA0biXUfLWY6VwNDDGf1qTeV7EC
-         npO3T31oWXGufCqo5B/k4vYQ6olTmJ5OaisTeOKD3EedkzF3Qj1fDuuir2UvBYmrMfQA
-         YuHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwywm6Q9nXUVS4dEGMnwpjntwwLjINT8BkCqFSXe9AiOktP2J4vcDJMIthdh8b9KPJByrMvMdk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8UNRsdZMgMzuIR6BAZG1Zlyxshf38BgF8zy+LjFXwF3X/PAO0
-	DOqVlpSphf2xXpMdN0tx4OybOlA29KcO1HiHT3UPatTgLcKjILfT/dzjmuS5e3gXgjPmdTlSqe3
-	IG1g4pKgPVHgVgb9OWadT7sY8XolOtWX62UV5o3FU
-X-Gm-Gg: AYBFou16arX7cNWV6+dR4XFDZcmai967QtHGANPT2XayNzfnA5n6R+5Xqk1HVMjRYLV
-	Qm0ahKgDuXEhkrfWhGH/hKENwnArNmaTxaoFJ+UqcBLUY9aSCVU3umddgQinJFc2FvKSmc0KVsi
-	ziF/THEb5JBxnkbM7UZ8Yn47meA+AsqaiXCPA5lWrgWbDuUzVkWLRV3fawqtvlJypaVGjCMRTrv
-	TugXIM+XcZrospNBBszxa95u7bikLKKejulfK8RIvW1RjYW4yu2lp9KIIFrAFWQvM2n9UzzPAB7
-	UHfXUfcCGv93PfMyf8w7jJ1BEUKL+fbgHrA8IHmmi/SMQNEwIWlrYS+KmnkvWrMdZYn1AJBQHfY
-	A1avuI0gI38RH7xcqEDX7bw1Qj3HNo9mNsBuGWaIQIGWClZEqKWLdan0=
-X-Received: by 2002:ac2:5681:0:b0:5bf:c2af:3915 with SMTP id
- 2adb3069b0e04-5bfd95730d2mr2003629e87.28.1793483037747; Sat, 31 Oct 2026
- 14:43:57 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793484489; x=1794089289;
+        h=content-transfer-encoding:content-type:autocrypt:subject:from:cc:to
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u7hkZBdDMOeRJCx/V6agkDJoUh1Bg0n+5YdOFbLpFXQ=;
+        b=agBcWkYyd05jgfsQMm/AtrE9ndWbghzxlElNIPL9ZyhNJWwOq8fPHoa6qna7FuTlEh
+         0q68VYgi0KutXU05BR4N6GA+D8rlVACMPaNMWja10b0e4WMu1Lj9sSU1i4x4cQ8NKCIm
+         YrT4VFb5hYqbTRjelnyq8Ppjvm/l7MswnpJJ9VCcmKO5uxAPoYy0atUbrJWQ4xTO5hCP
+         xPg6DtK7Fulg0Lwx4Wc73Au47t8E0e1QUUcDkqH/g5TTWPpMbFFOhLNDPU9IlM/DN1Hd
+         e7hWoDJfbfrymt1L25RRTc58NwG1tb7yUkXAesaO4/u4nKbXleSl8BnJTNIHerxDDMUU
+         CfOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSQH3LeJ2C9z7uhPJnc+re+pspzBzbYMHqSjqQqUUXGH9oLkMVH2Nn2cwYorMOQzfnzuaSs5k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8PRC9NrJh4ggK6mYGTr7NrApnvGgsr8ettVsq89HXCEvFxsr4
+	UdYDJZUzBvTaPuuT4vDU2FSwxMf7vrVtyPrF0J85nGMiT7+KDIjZImR05oYIUpg9Jdr3IQ==
+X-Gm-Gg: AYBFou38SszzPubblyArFVtdyt1ztTPDuKtZ69AlsGw/nlm+JVpXmeA3NeoZ9KPLnKc
+	tJBm9mcynFhN9HGZO/+NnmwWG++SCSuVlD8Gwncyq0MC9Xfz3ZExz55eUHGT43WHrNZlbMWwgvc
+	a+q0e5H/yC4qLXl5/E0KRRgXgz+WD57m3oUJWqdE7PVdDdT3qTXqcvhoYOKm8UmO5BOtnS1wH2t
+	zaHp05gGtsW5BgmFS7SUOQQ003xquGgQ8+5UZqTKDYqyfmAGL9ZPyJp3qZKIpAZVtQftkMJP3Ny
+	XWUpS8UCBgZjVW1ZWclbvnyzG3Uy5CdFbboIsn2o7eZwxsCJoyNKuX5M1V2bmBlbfAVigqs6Gks
+	Mo6lMC4yL7WFOrSdr224iU75zkcicZRLsPvUIpbZM+fK+tFND2vOZSHVlN3h2dKU2F8OkAuXj+6
+	Lv7cd/PO/erRiVOKULdsqYuDVOtZQvkTxIEj4/pceSYZqCH9LJBvHN98Y4mBK/nkQJGu2c4XAQ3
+	Y+V/w+0Jtep/NQsOC2LsN0Os7Px7Aq3756CNJ/ExW6wGy+z0H9rw0oCjvNa/HKbFcAyyBnTbmVO
+	BB344Qd0cu/cMFkswyPuTSOG53K/2Yq3XFls0WsOiXI9FEh1sN4ybexTprVRQFw9UD3eOOfzKtp
+	lDiGb6XmQkabKfkGpQ1fKL4GdP93NElYxKD9piR98UFVaU/bJb55jWlPCk49MLSI=
+X-Received: by 2002:a05:690c:3481:b0:8b1:bf85:3624 with SMTP id 00721157ae682-8b2b66c50c4mr45236217b3.11.1793484488972;
+        Sat, 31 Oct 2026 15:08:08 -0700 (PDT)
+Received: from [100.70.73.136] (host-219-69.tnnaknt.nashville.tn.us.clients.pavlovmedia.net. [96.63.219.69])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b71240a4sm26293567b3.7.2026.10.31.15.08.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 15:08:08 -0700 (PDT)
+Message-ID: <14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com>
+Date: Sat, 31 Oct 2026 17:08:07 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,38 +90,467 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031203540.2282507-1-skhawaja@google.com>
-In-Reply-To: <20261031203540.2282507-1-skhawaja@google.com>
-From: Andy Lutomirski <luto@amacapital.net>
-Date: Sat, 31 Oct 2026 14:43:45 -0700
-X-Gm-Features: AclHuK8DXwQuKXG7YuVQ17qPxlP42BoepMeBjGp7aRwX7XDPrtPwMbgsBa7Xe70
-Message-ID: <CALCETrVMC4cPuBeSgPRr21zNoCDqz5op8VR=16382FFSf9ymeA@mail.gmail.com>
-Subject: Re: [PATCH] mm/gup: check folio->mapping under folio lock in memfd_pin_folios()
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+To: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Koutny <mkoutny@suse.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>, cgroups@vger.kernel.org,
+ regressions@lists.linux.dev, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: Weiheng Qiu <weihengqiuu@gmail.com>
+Subject: sched/deadline, cpuset: total_bw corrupted by a sleeping DL task's
+ cpuset move
+Autocrypt: addr=weihengqiuu@gmail.com; keydata=
+ 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
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 31, 2026 at 1:35=E2=80=AFPM Samiullah Khawaja <skhawaja@google.=
-com> wrote:
->
-> memfd_pin_folios() pins folios from the page cache without taking the
-> folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
-> its refcount check while memfd_pin_folios() still pins the old folio,
-> and the caller ends up with a folio that is no longer part of the memfd.
->
-> Lock the folio and recheck folio->mapping before pinning it, like other
-> page cache users do. If the folio was removed, retry the folio lookup
-> from the index that was removed.
->
-> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning me=
-mfd folios")
-> Reported-by: Andy Lutomirski <luto@amacapital.net>
+Hi,
 
-Reviewed-by: Andy Lutomirski <luto@amacapital.net>
+Moving a sleeping SCHED_DEADLINE task from the root cpuset into an
+exclusive partition and back, before it runs again, leaves the root
+domain short by the task's bandwidth. The root then over-admits, and
+when the task exits its total_bw underflows: small DL requests fail
+with -EBUSY while large ones wrap in __dl_overflow() and are admitted.
+The partition also keeps a stale reservation.
 
-(with the caveat that I still don't like the fact that pinning a folio
-does not keep it associated with the mapping.)
+cpuset_can_attach() and set_cpus_allowed_dl() both decide through
+dl_task_needs_bw_move(), which tests task_rq(p)->rd. A sleeping task
+is not migrated when its affinity changes, so task_rq(p) still points
+at the CPU it last ran on, and on the move back the root domain is
+neither re-credited nor the partition debited.
+
+Reproducer below; needs root, cgroup v2 and debugfs, and turns the
+last CPU into a partition, so use a test VM. On mainline c339f4010dea
+with 4 CPUs:
+
+  cpu3 is a partition; sleeping DL task 76 (0.5 CPU) in the root cgroup
+  total_bw in CPUs (change since start):
+  start:                     root  0.650 (+0.000)   partition  0.050 (+0.000)
+  moved into the partition:  root  0.150 (-0.500)   partition  0.550 (+0.500)
+  moved back to the root:    root  0.150 (-0.500)   partition  0.550 (+0.500)
+  (expected: +0.000 and +0.000; the task is in state S and has not run)
+  root domain admits 28 more 0.1-CPU tasks: 0.650 + 28 x 0.1 = 3.450 CPU
+  reserved, limit 3.000 CPU (3 CPUs x 1000000/1000000)
+  those tasks exited:        root  0.150 (-0.500)   partition  0.550 (+0.500)
+  the DL task exited:        root -0.350 (-1.000)   partition  0.550 (+0.500)
+  DL tasks left: 0; new 0.010-CPU request: Device or resource busy
+  DL tasks left: 0; new 0.500-CPU request: accepted
+  after a root-domain rebuild (recomputed): root 0.150, partition 0.050
+  moved in while asleep, then SCHED_DEADLINE: Operation not permitted
+
+Thanks,
+Weiheng Qiu
+Vanderbilt University
+
+/* A sleeping SCHED_DEADLINE task moved into an exclusive cpuset partition and
+ * back, without running in between: the move out debits the root domain and
+ * credits the partition, the move back does neither, because
+ * dl_task_needs_bw_move() looks at task_rq(p)->rd, which for a task that has
+ * not run since the first move is still the root domain.
+ * Needs cgroup v2 with the cpuset controller and at least 2 CPUs.
+ * It temporarily turns the last CPU into a partition; use a test VM.
+ *
+ * Build: gcc -O2 -Wall -o cpuset_blocked_move cpuset_blocked_move.c
+ * Run as root. Needs CONFIG_DEBUG_FS; total_bw is read from
+ * /sys/kernel/debug/sched/debug.
+ */
+#define _GNU_SOURCE
+#include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/mount.h>
+#include <sys/stat.h>
+#include <sys/syscall.h>
+#include <sys/wait.h>
+
+#define SCHED_OTHER_		0
+#define SCHED_DEADLINE_		6
+#define BW_UNIT			(1LL << 20)	/* BW_SHIFT: 1 CPU == 1 << 20 */
+
+struct sched_attr_ {
+	uint32_t size;
+	uint32_t sched_policy;
+	uint64_t sched_flags;
+	int32_t  sched_nice;
+	uint32_t sched_priority;
+	uint64_t sched_runtime;
+	uint64_t sched_deadline;
+	uint64_t sched_period;
+};
+
+static inline int setattr(pid_t pid, uint32_t policy, uint64_t flags,
+		   uint64_t runtime_ns, uint64_t deadline_ns, uint64_t period_ns)
+{
+	struct sched_attr_ a = {
+		.size = sizeof(a), .sched_policy = policy, .sched_flags = flags,
+		.sched_runtime = runtime_ns, .sched_deadline = deadline_ns,
+		.sched_period = period_ns,
+	};
+	return syscall(SYS_sched_setattr, pid, &a, 0) ? -errno : 0;
+}
+
+static inline int getattr(pid_t pid, struct sched_attr_ *a)
+{
+	memset(a, 0, sizeof(*a));
+	return syscall(SYS_sched_getattr, pid, a, sizeof(*a), 0) ? -errno : 0;
+}
+
+static inline void need_debugfs(void)
+{
+	if (access("/sys/kernel/debug/sched/debug", R_OK))
+		mount("debugfs", "/sys/kernel/debug", "debugfs", 0, NULL);
+	if (access("/sys/kernel/debug/sched/debug", R_OK)) {
+		perror("/sys/kernel/debug/sched/debug");
+		exit(2);
+	}
+}
+
+/* dl_bw->total_bw of the root domain @cpu belongs to. */
+static inline long long total_bw(int cpu)
+{
+	FILE *f = fopen("/sys/kernel/debug/sched/debug", "r");
+	char line[256], *p;
+	long long v = 0;
+	int cur = -1, c;
+
+	if (!f) {
+		perror("open sched/debug");
+		exit(2);
+	}
+	while (fgets(line, sizeof(line), f)) {
+		if (sscanf(line, "dl_rq[%d]:", &c) == 1)
+			cur = c;
+		else if (cur == cpu && (p = strstr(line, "dl_bw->total_bw")) &&
+			 (p = strchr(p, ':'))) {
+			v = atoll(p + 1);
+			break;
+		}
+	}
+	fclose(f);
+	return v;
+}
+
+static inline char task_state(pid_t pid)
+{
+	char path[64], buf[512], *p;
+	FILE *f;
+
+	snprintf(path, sizeof(path), "/proc/%d/stat", pid);
+	f = fopen(path, "r");
+	if (!f)
+		return '?';
+	if (!fgets(buf, sizeof(buf), f))
+		buf[0] = 0;
+	fclose(f);
+	p = strrchr(buf, ')');
+	return p && p[1] && p[2] ? p[2] : '?';
+}
+
+/* Wait until @pid is asleep (S) in the kernel. */
+static inline void wait_sleeping(pid_t pid)
+{
+	for (int i = 0; i < 1000 && task_state(pid) != 'S'; i++)
+		usleep(1000);
+}
+
+/* A child that blocks in read() and never wakes up by itself. */
+static inline pid_t spawn_sleeper(void)
+{
+	int fd[2];
+	pid_t pid;
+	char ch;
+
+	if (pipe(fd))
+		exit(2);
+	pid = fork();
+	if (pid == 0) {
+		close(fd[1]);
+		if (read(fd[0], &ch, 1) < 0)
+			_exit(1);
+		_exit(0);
+	}
+	close(fd[0]);
+	wait_sleeping(pid);
+	return pid;
+}
+
+static inline void reap(pid_t pid)
+{
+	kill(pid, SIGKILL);
+	waitpid(pid, NULL, 0);
+	usleep(200 * 1000);	/* well past any 0-lag time */
+}
+
+static inline const char *bw_str(long long bw)
+{
+	static char buf[4][48];
+	static int i;
+	char *b = buf[i++ & 3];
+
+	snprintf(b, 48, "%.3f CPU (%lld)", (double)bw / BW_UNIT, bw);
+	return b;
+}
+
+/* Number of threads whose policy is SCHED_DEADLINE (field 41 of stat). */
+static inline int count_dl_tasks(void)
+{
+	char path[600], buf[1024], *s;
+	struct dirent *p, *t;
+	DIR *pd, *td;
+	FILE *f;
+	int n = 0, i;
+
+	pd = opendir("/proc");
+	while (pd && (p = readdir(pd))) {
+		if (p->d_name[0] < '0' || p->d_name[0] > '9')
+			continue;
+		snprintf(path, sizeof(path), "/proc/%s/task", p->d_name);
+		td = opendir(path);
+		while (td && (t = readdir(td))) {
+			if (t->d_name[0] == '.')
+				continue;
+			snprintf(path, sizeof(path), "/proc/%s/task/%s/stat",
+				 p->d_name, t->d_name);
+			f = fopen(path, "r");
+			if (!f)
+				continue;
+			s = fgets(buf, sizeof(buf), f) ? strrchr(buf, ')') : NULL;
+			fclose(f);
+			for (i = 0; s && i < 39; i++)
+				s = strchr(s + 1, ' ');
+			if (s && atoi(s + 1) == SCHED_DEADLINE_)
+				n++;
+		}
+		if (td)
+			closedir(td);
+	}
+	if (pd)
+		closedir(pd);
+	return n;
+}
+
+/* After a leak, ask for a reservation of the same size for a new task. */
+static inline void try_fresh_admission(uint64_t runtime_ns,
+				       uint64_t period_ns)
+{
+	int dl = count_dl_tasks();
+	pid_t pid = spawn_sleeper();
+	int rc = setattr(pid, SCHED_DEADLINE_, 0, runtime_ns, period_ns,
+			 period_ns);
+
+	printf("DL tasks left: %d; new %.3f-CPU request: %s\n", dl,
+	       (double)runtime_ns / period_ns,
+	       rc ? strerror(-rc) : "accepted");
+	reap(pid);
+}
+
+/* Reading this sysctl makes sched_rt_handler() call rebuild_sched_domains(),
+ * whose dl_rebuild_rd_accounting() recomputes total_bw from the servers and
+ * the SCHED_DEADLINE tasks that actually exist. */
+static inline long long recomputed_total_bw(int cpu)
+{
+	char buf[32];
+	int fd = open("/proc/sys/kernel/sched_rt_runtime_us", O_RDONLY);
+
+	if (fd >= 0) {
+		if (read(fd, buf, sizeof(buf)) < 0)
+			perror("sched_rt_runtime_us");
+		close(fd);
+	}
+	return total_bw(cpu);
+}
+
+#define RUNTIME	(25 * 1000 * 1000ULL)	/* 25ms / 50ms = 0.5 CPU */
+#define PERIOD	(50 * 1000 * 1000ULL)
+#define CG	"/sys/fs/cgroup"
+#define PART	CG "/dl-repro"
+#define MAXF	1000
+
+static int put(const char *path, const char *val)
+{
+	int fd = open(path, O_WRONLY), rc = 0;
+
+	if (fd < 0 || write(fd, val, strlen(val)) < 0)
+		rc = -errno;
+	if (fd >= 0)
+		close(fd);
+	return rc;
+}
+
+static void get(const char *path, char *buf, int len)
+{
+	int fd = open(path, O_RDONLY), n = fd < 0 ? 0 : read(fd, buf, len - 1);
+
+	buf[n > 0 ? n : 0] = 0;
+	if (fd >= 0)
+		close(fd);
+}
+
+static int move(pid_t pid, const char *cg)
+{
+	char path[128], v[32];
+
+	snprintf(path, sizeof(path), "%s/cgroup.procs", cg);
+	snprintf(v, sizeof(v), "%d\n", pid);
+	return put(path, v);
+}
+
+static int iso;
+
+static void show(const char *what, long long r0, long long p0)
+{
+	long long r = total_bw(0), p = total_bw(iso);
+
+	printf("%-26s root %6.3f (%+.3f)   partition %6.3f (%+.3f)\n",
+	       what, (double)r / BW_UNIT, (double)(r - r0) / BW_UNIT,
+	       (double)p / BW_UNIT, (double)(p - p0) / BW_UNIT);
+}
+
+int main(void)
+{
+	pid_t pid, filler[MAXF];
+	long long r0, p0;
+	char buf[64], cpu[16];
+	int rc, n, i, rt_runtime, rt_period;
+
+	need_debugfs();
+	/* Read now: reading these rebuilds the root domains (see
+	 * recomputed_total_bw()). */
+	get("/proc/sys/kernel/sched_rt_runtime_us", buf, sizeof(buf));
+	rt_runtime = atoi(buf);
+	get("/proc/sys/kernel/sched_rt_period_us", buf, sizeof(buf));
+	rt_period = atoi(buf);
+	iso = sysconf(_SC_NPROCESSORS_ONLN) - 1;
+	if (iso < 1) {
+		fprintf(stderr, "needs at least 2 CPUs\n");
+		return 2;
+	}
+	if (access(CG "/cgroup.controllers", F_OK))
+		mount("none", CG, "cgroup2", 0, NULL);
+	put(CG "/cgroup.subtree_control", "+cpuset");
+	mkdir(PART, 0755);
+	snprintf(cpu, sizeof(cpu), "%d", iso);
+	put(PART "/cpuset.cpus", cpu);
+	put(PART "/cpuset.cpus.exclusive", cpu);
+	put(PART "/cpuset.cpus.partition", "root");
+	get(PART "/cpuset.cpus.partition", buf, sizeof(buf));
+	if (strncmp(buf, "root", 4)) {
+		fprintf(stderr, "could not make cpu%d a partition: %s", iso, buf);
+		return 2;
+	}
+
+	pid = spawn_sleeper();
+	rc = setattr(pid, SCHED_DEADLINE_, 0, RUNTIME, PERIOD, PERIOD);
+	if (rc) {
+		fprintf(stderr, "sched_setattr: %s\n", strerror(-rc));
+		return 2;
+	}
+	r0 = total_bw(0);
+	p0 = total_bw(iso);
+	printf("cpu%d is a partition; sleeping DL task %d (0.5 CPU) in the root "
+	       "cgroup\ntotal_bw in CPUs (change since start):\n", iso, pid);
+	show("start:", r0, p0);
+	rc = move(pid, PART);
+	show(rc ? "move out FAILED:" : "moved into the partition:", r0, p0);
+	rc = move(pid, CG);
+	show(rc ? "move back FAILED:" : "moved back to the root:", r0, p0);
+	printf("(expected: +0.000 and +0.000; the task is in state %c and has "
+	       "not run)\n", task_state(pid));
+
+	/* The root domain now has 0.5 CPU more "free" than it really has. */
+	for (n = 0; n < MAXF; n++) {
+		filler[n] = spawn_sleeper();
+		if (setattr(filler[n], SCHED_DEADLINE_, 0, 10000000, 100000000,
+			    100000000)) {
+			reap(filler[n]);
+			break;
+		}
+	}
+	printf("root domain admits %d more 0.1-CPU tasks: %.3f + %d x 0.1 = "
+	       "%.3f CPU\nreserved, limit %.3f CPU (%d CPUs x %d/%d)\n", n,
+	       (double)r0 / BW_UNIT, n, (double)r0 / BW_UNIT + n * 0.1,
+	       iso * (double)rt_runtime / rt_period, iso, rt_runtime,
+	       rt_period);
+	for (i = 0; i < n; i++)
+		reap(filler[i]);
+	show("those tasks exited:", r0, p0);
+
+	reap(pid);
+	show("the DL task exited:", r0, p0);
+	try_fresh_admission(1000000, 100000000);
+	try_fresh_admission(50000000, 100000000);
+	r0 = recomputed_total_bw(0);	/* rebuild first, then read both */
+	printf("after a root-domain rebuild (recomputed): root %.3f, "
+	       "partition %.3f\n", (double)r0 / BW_UNIT,
+	       (double)total_bw(iso) / BW_UNIT);
+
+	/* Same stale rq: a SCHED_OTHER task moved into the partition while
+	 * asleep cannot be made SCHED_DEADLINE before it has run. */
+	pid = spawn_sleeper();
+	rc = move(pid, PART);
+	if (!rc)
+		rc = setattr(pid, SCHED_DEADLINE_, 0, 1000000, 100000000,
+			     100000000);
+	printf("moved in while asleep, then SCHED_DEADLINE: %s\n",
+	       rc ? strerror(-rc) : "accepted");
+	reap(pid);
+
+	put(PART "/cpuset.cpus.partition", "member");
+	rmdir(PART);
+	return 0;
+}
