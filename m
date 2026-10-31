@@ -1,70 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793484664;
-	b=sY3FlDMHU8UiO3dZSvvyAIKF2Kd1mZ/dzOQMUCMvJDmfA8uk71vvXM73clH50K5+0U13
-	 c4pqRRBj7vuMm2KXLmMTgPLCesnGicg1u9OT84FWDmGmEpJK5J1ZBvohxnwef/E1RLF8H
-	 LAiEfoMphBjOBZYJOOpZ7suaNDPRhIJS45k0OPkHpHdmiSzt1W53uxwQP/YFqUby5MCsF
-	 sMdVHDVEFHqonQAIbbYvpXkPhFOi6yCmSkwNNwD84L7TOvkOHExf48yBNQche55ZxK+aI
-	 jcUj2Hium7f9U0A4UTkKpFZRUI9u1o/aQcnN1dliHOXPXSXn9Cuu8h4RDMbYuPJ+bDA==
+	t=1793484824;
+	b=4tJZnX/6J0dNn0TbATopHeVi4LvmQDny8aI46lEb4oJp2biOWb2TJhpyg/DGMZr5T1R5
+	 z3UbtMJSo2utVRSMKtVLFLY7BXlqUZuIJ5/1g670mJlxPLn4r7qYKBX8+wXArXdAkXG3M
+	 1vEjjfRt/YqhgyU43NHZ0F6O40Yrh4CNs9Fd6Qs6zZ+XW+i1Mf6DfHllYtkgEjAp4wlXp
+	 HmkHSwHQjHjhIZQbBEsKRHl1h6/7fiRZDXvywPtTBlxHcpNK9M5e1pjLQYywHsVWCqTg9
+	 UD6/cNIR1xjXmhpidwmtrkTdyRvzccgfhOCbkaglQvQcsXIWMTvvl8O3jCHtJsxweOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793484664;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=QbKyi2Y+nX+sO/WAOcqG4XV1ZkwrVE+BhXDx179zkbk=;
-	b=k0SO6GedFt8tHjQXgwUpd+SyYiM5QtvniI8n/TttXVMf93sihAszRQLIRVwVDyDPc4pO
-	 5l/fLCYJ1x6SfnPPum/XLO7On0lNCNkZX3HGg/mlUpczZ8pGpY9j4XL9KXew8wyl+QANu
-	 GxM6nqd2KJFVwKZSXZcd5rHN4iPxuDR3bXDv/hk7MyI1KG6XD8lcIn31i0MSHdZBeI+y2
-	 hhVL095er7CjFQCVjtTZWNNhZ9O58Yj/Yq3mv99auLZF6nJSiiKBoc0oQIP1WfdcQ+pJi
-	 TwgUhIhIk089IUep2RJxudFBKAv1XIMzUANc7NyntQm/8aZEk3CKnYebZDnxZsDmXRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793484824;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	b=W/VRNZ+XRXyQDBduAiRKhvmXhL67YccMHwiaZ2YK3USaAmmNrymQMN+RjA26MNVVCDuT
+	 uc6h/AdnMm17u29iMN5wwQbAw/28kwBe/Ux6BKCO+7mCMc3soLzy6vhq9CnBt04D8C+dp
+	 AwtsJBGFlpAzuBdvflScPsWiGiBO6aXjRKp+iVZgTbHO6A1JrH8rdObJ0DGY95EC4CDlZ
+	 RsnNRYxJYd4XAWvzgbWQPvN+XJdLndMQmzNbyGAZQfd1fCoyaKcgUz0tTVPcMLcqhV+aw
+	 /1HKluIAEkib1vuyiKLLF3hZgD11OH+CpbTa9dtpQyVlUiKA0jpeaGCuzS79qzBUBvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=oHaRquRf;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DABniCJy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901E8606A321;
-	Sat, 31 Oct 2026 22:11:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 901E8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028B9606A31A;
+	Sat, 31 Oct 2026 22:13:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=oHaRquRf
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=QbKyi2Y+nX+sO/WAOcqG4XV1ZkwrVE+BhXDx179zkbk=; b=oHaRquRfqM1lzQBQ62z6vF5cDh
-	V9gvu9yjB03p/U53uV2/ToSAls00gugg0xRORjYXwuS8R5l8+TBV9861lnZ2ttl9al+Mz8jBoUOPs
-	R2x9sLIh3+DLfFlofiQaXoH1LajsJMLyTuGvZy7rj4zpEhSpOVXcktaj1+eN+l65CV6ya2SBEkbs5
-	5HiWtNNLXOSbOPC5zGRLVU3GDNH2qsWesx4VoHs5m9y+oBrQUpZFjd2NwFMlJvY9dx1KIPi5XfyaX
-	ilNI3gGiuv6zRrdNcDOV7OfBoH0pWTTkAYldodV84C+w33BRlNFWSXW7uOhWBL4X/Xo0Y90ja4d0S
-	3+BuyZSw==;
-Received: from [151.115.150.205] (port=46594 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xNHI1-0000000EZr9-2D3q;
-	Sat, 31 Oct 2026 23:11:01 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
-	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: qualcomm: rmnet: bound TX aggregates on byte-limit update
-Date: Sat, 31 Oct 2026 22:10:52 +0000
-Message-ID: <20261031221052.1642262-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261031221052.1642262-1-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DABniCJy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8723C1F000C1;
+	Sat, 31 Oct 2026 22:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793484823;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DABniCJynMbdmsWGQDy+T2EBfQiI1ngC/BABok18Q80s0NyKnCXWDIuRHizxnakL0
+	 7V1iEboeCcUbemCvnkYFt8Wl4bsh1xdcaQzEQOVREiJWKAp1tVe7HcPMp8yM28eWvY
+	 LuGmgyBfMGWMOb1kk25c6E8MH39N4+VY2jfXysOq1J3zoP/J1NvsxwgO7/EBsOVWlH
+	 fUJepHH9ngGHi/yc8CR+h1Kx0MNSGYv+nqOQCHajfxKM/DF/nRrV25CIs5ghr2/euG
+	 AFBVJRBYPZ9BJJAlWxqYHXwA4x05xd/NDkb//1opN0HBsu5H20cmpV2SdCnznloUx5
+	 MQj0hD1tYD2Vg==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
+ Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: qualcomm: rmnet: bound TX aggregates on
+ byte-limit update
+Date: Sat, 31 Oct 2026 22:13:43 +0000
+Message-ID: <179348482309.3286.17799482231932078029@kernel.org>
+In-Reply-To: <20261031221052.1642262-2-Jeremy.Jean@oss.cyber.gouv.fr>
 References: <20261031221052.1642262-1-Jeremy.Jean@oss.cyber.gouv.fr>
+ <20261031221052.1642262-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,76 +64,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-If userspace reduces the TX aggregation byte limit while a buffered skb
-is pending, subtracting the skb length from the new limit underflows.
-The later comparison with unsigned skb->len then lets the buffered skb
-grow past the limit.
+Hi!
 
-Check lengths before subtracting. Flush a buffered skb if it is already
-at or above the new byte limit.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Fixes: 64b5d1f8f2d1 ("net: qualcomm: rmnet: add tx packets aggregation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-index e6f48dc9fe64..205ac81f2c82 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
-@@ -594,7 +594,7 @@ unsigned int rmnet_map_tx_aggregate(struct sk_buff *skb, struct rmnet_port *port
- 	struct timespec64 diff, last;
- 	unsigned int len = skb->len;
- 	struct sk_buff *agg_skb;
--	int size;
-+	unsigned int size;
- 
- 	spin_lock_bh(&port->agg_lock);
- 	memcpy(&last, &port->agg_last, sizeof(struct timespec64));
-@@ -606,13 +606,14 @@ unsigned int rmnet_map_tx_aggregate(struct sk_buff *skb, struct rmnet_port *port
- 		 */
- new_packet:
- 		diff = timespec64_sub(port->agg_last, last);
--		size = port->egress_agg_params.bytes - skb->len;
-+		size = port->egress_agg_params.bytes;
- 
--		if (size < 0) {
-+		if (skb->len > size) {
- 			/* dropped */
- 			spin_unlock_bh(&port->agg_lock);
- 			return 0;
- 		}
-+		size -= skb->len;
- 
- 		if (diff.tv_sec > 0 || diff.tv_nsec > RMNET_AGG_BYPASS_TIME_NSEC ||
- 		    size == 0)
-@@ -630,9 +631,8 @@ unsigned int rmnet_map_tx_aggregate(struct sk_buff *skb, struct rmnet_port *port
- 		goto schedule;
- 	}
- 	diff = timespec64_sub(port->agg_last, port->agg_time);
--	size = port->egress_agg_params.bytes - port->skbagg_head->len;
--
--	if (skb->len > size) {
-+	if (port->skbagg_head->len >= port->egress_agg_params.bytes ||
-+	    skb->len > port->egress_agg_params.bytes - port->skbagg_head->len) {
- 		agg_skb = port->skbagg_head;
- 		reset_aggr_params(port);
- 		spin_unlock_bh(&port->agg_lock);
--- 
-2.47.3
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
