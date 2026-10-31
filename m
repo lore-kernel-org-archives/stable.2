@@ -1,48 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793415181;
-	b=WH3fUQ4oTdVoXeO/tAIoNof+R/oUvqpg4f2gvovKAp2qTEKoxD9c7bdh+x4OKBrgoNax
-	 C6qRqMHkIFSsChFXS2zLEdFqXP58+dDm8yP9kmVcyMkQ5Hgt/8k+QQXIxeeU9WUAHdV6K
-	 CzD8qf9YZALt8xYczNgr9xkv1Tu2uTtm6TRBEIl45mVLrtQ8Q291m2ALC+6Bi+FUClJF/
-	 zfeRjC/dEK+CBgmDg1gzJo531DSI0YbyHKnE5YH4sPTwyyQDFelcYTLOJKszOSY51L/7R
-	 H6k48zcoj7kxTueNVQ8xBPQZeiYat8VVI7Ci2R1mvBbKNOXvZySZiA2HfV1+HFeZ7IA==
+	t=1793415883;
+	b=E2OvNPpoQIv6buxVsaSlj3akMrb5MBdZ+6CTmOq5eYhg728012+GjBt5oiv5GiQGTkbv
+	 0OkzacMhf7qhjVG1Ydtbj4oxFwKoWSNbZVNjnm2eJRtvlOEhD4LP26qiVhOaqqF4Sa4tn
+	 TYYBVNmm8KITGjh4g5RR9IY5tsei3pQB/4D4D6CFDMWYJYElJY3QxfJK4JftOgVl2ML/5
+	 JFklW0eRcaL3U4FPlddyXpknZMziWR6HomiUQNKdpV5ZnnahZ5fV5eDOoFYe98ZQYASyn
+	 jqy27Efb2AazgcVPrUHCUbtRXAwmYheqao+CUM5IM8N4sY1oFMI8MoqqmdXAKt+pwSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793415181;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=823plt3PyffP3ZYmuJF9wjGMDzFAngVy7Kwn93lFjSw=;
-	b=rWp33qt7RmIF75tzY8NCTQ+Qh5lsEK+PKJp7xidIjADW7Dye1erp1RnEZ7KO2EzMR5t9
-	 YNEAJ9Vt502X7IWQdfM6NV9GOq8X796DJfYwTFvrBizfeNkQqXpqti/BTNPk3aE2X3xbw
-	 A4nANzvL0W6KO091w4gR/HrU2Tn4OXUNWVs51cuWCA0kq58kzM4Vh9MQ49Xp3uXVzwqcL
-	 sdxnwX/OAT46MRI8C2qxSm0b5dGTrOX/y1f0t4LZ2HHVFaCIayL2Wb4K830It6UFO7Gg+
-	 2HiPMNAY8fMV8kL3kjAEyH2VI6TrIoD6o1Xm67eBSwIElhBb1dCLZbJDbrSAIa8v8XA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793415883;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Qq9Gi8fc45uDTXZknavwNPXPkhG36IHpOfWVmgAJTO8=;
+	b=twMP+sELIBEWzBC1h4Kg1bghCQMxYD/HAjeg6jr4sZ0jaKQeEQsEj/UJhuDUsYrH+WYh
+	 Gg6AZfXQS2i0vLeD6lItQhC60HOoBqn/u0q7TPGju2yzHv/VaBIdbXcjBsFQ1RMLdlEDs
+	 6nsKHiFCPbYtPhmHRfyLZkhEUuO8S/OeW+hWXopwO9N8hksg3CsU9zfRRPSH6opeG1k4A
+	 s7k5m7mLqlniJXaoQfk5TY7r0HFeRDglvzmHwamGhTvLa8CMuXmRqf4ckAg4nmCiftSiK
+	 SHXOJaxaP2FGnKxLBsrX/1yOwRH8Yl0vxxafUlfCZtJofgjGye6mD4dnQL5kLK4uUzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GMp8XZfr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CRahfFA6;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FFA606A320;
-	Sat, 31 Oct 2026 02:53:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5818D606A31C;
+	Sat, 31 Oct 2026 03:04:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5818D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GMp8XZfr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C46141F000C1;
-	Sat, 31 Oct 2026 02:53:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793415180;
-	bh=823plt3PyffP3ZYmuJF9wjGMDzFAngVy7Kwn93lFjSw=;
-	h=Date:To:From:Subject;
-	b=GMp8XZfrhhYQWmVTFCAaLiOzIu8knDAAUwOJNypI+znLXtwmc69XV3UgNSgJMseLW
-	 8H0CH6BnlnhdFYzUnUNZT6rT8UYk9BbQm9oMl74MmJG2YY5OQ3Fs/e0IW/1f7G4yY0
-	 lsnLX3qxye2QyqAIc30jP9q5tdtf8ui0hq9T2lmE=
-Date: Fri, 30 Oct 2026 19:53:00 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,
-	shyamsaini@linux.microsoft.com,samitolvanen@google.com,petr.pavlu@suse.com,
-	kees@kernel.org,gregkh@linuxfoundation.org,xujiakai24@mails.ucas.ac.cn,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + params-serialize-lookup_or_create_module_kobject.patch added to mm-nonmm-unstable branch
-Message-Id: <20261031025300.C46141F000C1@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CRahfFA6
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69V2jh6p645601;
+	Sat, 31 Oct 2026 03:04:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Qq9Gi8
+	fc45uDTXZknavwNPXPkhG36IHpOfWVmgAJTO8=; b=CRahfFA6vUO+wZN1OD8QNo
+	caO8ELhRo6MpUzT8redfIzOpD5xgT7MLeEOA/PRcDZYEegATYfTWvARW87F55ZBq
+	fXKFo6mBZTGT89bDqCuiJVAsa5CWsmq3H4a/EWRwc87ZkIBmLh/vboSVeYWt3BKb
+	sqoeEvbGMmn/QhnZevGaQ0fEBZneGeHUiIJOLdi/LvyifcTDcp1gC5Ds/8M7ICeL
+	3Zri3jDNuqsh40HxmubJdJlBq9jxKNiDA0HAci9RvF1esKXSNeiuoOqNwepc9mve
+	8PauJI4bcRG12SGq5jyJ14OKv8WPA++IayMSyOIthRVswIETz5p/EcmFf3fEdwcg
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7u300un-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 31 Oct 2026 03:04:27 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69V1KB5g1279175;
+	Sat, 31 Oct 2026 03:04:26 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hm8qpe9c9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 31 Oct 2026 03:04:26 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69V34Mnb40567104
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 31 Oct 2026 03:04:22 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 04D6020040;
+	Sat, 31 Oct 2026 03:04:22 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8095320043;
+	Sat, 31 Oct 2026 03:04:19 +0000 (GMT)
+Received: from [9.39.24.57] (unknown [9.39.24.57])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Sat, 31 Oct 2026 03:04:19 +0000 (GMT)
+Message-ID: <1b0fa006-67fb-4da0-a670-257ad4c4fefa@linux.ibm.com>
+Date: Sat, 31 Oct 2026 08:34:18 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,132 +85,128 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/1] KVM: PPC: Book3S: Protect TCE IOMMU table walks
+ with RCU
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org
+Cc: Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman
+ <mpe@ellerman.id.au>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Alexey Kardashevskiy
+ <aik@ozlabs.ru>, stable@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261015120137.28843-1-nnmlinux@linux.ibm.com>
+ <5wyjwakz.ritesh.list@gmail.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <5wyjwakz.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Zsp4uN7G c=1 sm=1 tr=0 ts=6ae55abb cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=As-yhAXl9qAxOirNzYsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: v05eA2QtmBvTZ-XActU_C27U97sAgfHL
+X-Proofpoint-GUID: qQkmYWEwTqSXffaXvGu_wHBzkSOkboQg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDAxMCBTYWx0ZWRfX9gfSZjZTjtyE
+ JDav9Keko68lSETS0n0rJ0VGv/0CszVrLhjDy5M1aUfOkhPJtEtBNolYptzHWmUV0SuosaLkaE+
+ pqWwBNsCLeWRtRt/cVbupBru7Mv13M2rYLmyIdqJHD3rVpRH54KkBcHqyKX0KXD3o1PhQuWX5j4
+ EwE8l7aRy1+t/XS3NxMEPNKFg04dyU2rPEMTbGGFDeVjrhYkfQCuupcE0kMWMPX7akqUVnllB3g
+ h7xsKSsJclHRGmuZyRGrEzobO+2EgcgJtrzqI0rv3MS3ndIJnDyMxOVNZjj6XCv/PqLpW8VPxAY
+ 82FtcMnEy64eXmEblSxQ+hHxMrld++roofItI4UEYr5lXED65KoA7EUxhV0JnrDb3COrVv0TVAs
+ 12Ip6i2tTfry91ITPcZ90Of3rirunBi5al6TAvUWatBfzjgWUQoMA4BQ/AcFjs76m3OHFR+mDsD
+ 0hbLgnbjZK4UWyAUMmA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDAxMCBTYWx0ZWRfXyBzqx5U/9GlE
+ k/vlfUifmTXf9V72nMAaD/WheLjzcZk8fClXOBEZVRd7UbNK8mTXkf6IlQogr3bPdQuWLr3g8hS
+ UPMdiN8DzdVgHj6m5GVkIYqmPBWm6eI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 bulkscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310010
 
+Hi Ritesh,
 
-The patch titled
-     Subject: params: serialize lookup_or_create_module_kobject()
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     params-serialize-lookup_or_create_module_kobject.patch
+Thanks for the review.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/params-serialize-lookup_or_create_module_kobject.patch
+On 30/10/26 7:32 PM, Ritesh Harjani (IBM) wrote:
+> Hi Narayana,
+> 
+> Narayana Murty N <nnmlinux@linux.ibm.com> writes:
+> 
+>> Commit cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode
+>> handlers") moved the TCE hcalls from real mode to preemptible virtual
+>> mode.
+>>
+>> The stt->iommu_tables list is RCU managed. Entries are added with
+>> list_add_rcu(), removed with list_del_rcu(), and released after an RCU
+>> grace period with call_rcu().
+>>
+>> However, kvmppc_h_put_tce(), kvmppc_h_put_tce_indirect(), and
+>> kvmppc_h_stuff_tce() traverse iommu_tables using
+>> list_for_each_entry_lockless() without an RCU read-side critical
+>> section.
+>>
+>> A concurrent IOMMU table detach can therefore remove an entry while a
+>> TCE hcall is traversing or using it, without the traversal preventing
+>> the entry from being reclaimed.
+>>
+>> Use list_for_each_entry_rcu() under rcu_read_lock() for these walks so
+>> that an entry removed concurrently is not reclaimed until the reader
+>> has completed.
+>>
+>> Fixes: cad32d9d42e8 ("KVM: PPC: Book3s: Retire H_PUT_TCE/etc real mode handlers")
+> 
+> I am not sure if this is the right fix. On doing git blame, I see the
+> following patch introduced this:
+> 
+> 121f80ba ("KVM: PPC: VFIO: Add in-kernel acceleration for VFIO") - Alexey Kardashevskiy
+> 
+Regarding the Fixes: tag, thanks for pointing this out. I will re-check 
+the history around 121f80ba ("KVM: PPC: VFIO: Add in-kernel acceleration 
+for VFIO") and update the commit message/Fixes tag accordingly, since 
+that appears to be where the lockless iommu_tables traversal was 
+originally introduced rather than cad32d9d42e8.
+> 
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+>> ---
+>>   arch/powerpc/kvm/book3s_64_vio.c | 18 ++++++++++++++----
+>>   1 file changed, 14 insertions(+), 4 deletions(-)
+> 
+> 
+> Sashiko pointed out few more bugs around this path:
+> 
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] kvm: ppc: UAF of spapr_tce_table due to missing rcu_read_lock()
+> - [High] kvmppc_clear_tce: pinned memory leak on partial IOMMU map failure
+> 
+> So, even though these looks to be pre-existing bugs - do you think we
+> can address them in a single patch series itself? This will reduce your
+> testing/validation as well?
+> Also since we are anyway fixing RCU specific bugs in patch-1, so I think
+> we can also fix rcu handling for stt as well?
+> 
+> Do you mind working on v2 and addressing Sashiko review comments please?
+Yes, I will address the Sashiko findings in the next version. I will 
+include the stt lifetime/RCU handling along with the existing 
+stt->iommu_tables RCU fix, and handle the partial IOMMU map 
+failure/pinned-memory leak as part of the same series.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Subject: params: serialize lookup_or_create_module_kobject()
-Date: Fri, 18 Sep 2026 10:07:12 +0000
-
-lookup_or_create_module_kobject() first looks up the module kobject with
-kset_find_obj() and, if not found, creates a new one with
-kobject_init_and_add().  The function is called at runtime from
-module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
-module_kobject creation"), which means two concurrent driver
-registrations for the same built-in module name can both miss the
-lookup and race to create the same kobject.
-
-The loser of the race gets -EEXIST from kobject_init_and_add() and its
-kobject is removed from module_kset by kobject_add_internal() before
-the failure is reported.  The error path then calls kobject_put(),
-which invokes module_kobj_release(), but that only completes
-->kobj_completion and never frees the dynamically allocated
-module_kobject, leaking it (96 bytes) along with the object having been
-detached from the kset.
-
-This is triggerable by unprivileged users, e.g. by concurrently issuing
-the USB_RAW_IOCTL_RUN ioctl of the raw-gadget driver, which registers the
-"raw_gadget" driver on the gadget bus:
-
-  sysfs: cannot create duplicate filename '/module/raw_gadget'
-  ...
-  Adding module 'raw_gadget' to sysfs failed (-17), the system may be
-  unstable.
-  ...
-  unreferenced object 0xffff8880188dacc0 (size 96):
-    backtrace:
-      lookup_or_create_module_kobject+0x47/0x100
-      module_add_driver+0x73/0x1b0
-      bus_add_driver+0x1d9/0x340
-      driver_register+0xde/0x170
-
-Fix it by serializing the lookup and the creation with a mutex, so that
-the second caller finds the kobject created by the first one instead of
-racing with it.
-
-The patch fixes the module_kobject leak in this specific race condition,
-but not in cases when kobject_init_and_add() (or sysfs_create_file())
-fails for another reason.  
-
-Link: https://lore.kernel.org/20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn
-Fixes: f95bbfe18512 ("drivers: base: handle module_kobject creation")
-Fixes: 7c76c813cfc4 ("kernel: globalize lookup_or_create_module_kobject()")
-Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Shyam Saini <shyamsaini@linux.microsoft.com>
-Cc: Sami Tolvanen <samitolvanen@google.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: <stable@vger.kernel.org>
----
-
- kernel/params.c |   14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
---- a/kernel/params.c~params-serialize-lookup_or_create_module_kobject
-+++ a/kernel/params.c
-@@ -3,6 +3,7 @@
-  * Helpers for initial module or kernel cmdline parsing
-  * Copyright (C) 2001 Rusty Russell.
-  */
-+#include <linux/cleanup.h>
- #include <linux/ctype.h>
- #include <linux/device.h>
- #include <linux/err.h>
-@@ -20,6 +21,12 @@
- /* Protects all built-in parameters, modules use their own param_lock */
- static DEFINE_MUTEX(param_lock);
- 
-+/*
-+ * Serializes module kobject lookup and creation in
-+ * lookup_or_create_module_kobject()
-+ */
-+static DEFINE_MUTEX(mod_kobject_mutex);
-+
- /* Use the module's mutex, or if built-in use the built-in mutex */
- #ifdef CONFIG_MODULES
- #define KPARAM_MUTEX(mod)	((mod) ? &(mod)->param_lock : &param_lock)
-@@ -754,6 +761,13 @@ lookup_or_create_module_kobject(const ch
- 	struct kobject *kobj;
- 	int err;
- 
-+	/*
-+	 * The lookup and the creation must be done atomically, otherwise
-+	 * concurrent callers may race to create the same kobject, and the
-+	 * loser of the race gets -EEXIST from kobject_init_and_add().
-+	 */
-+	guard(mutex)(&mod_kobject_mutex);
-+
- 	kobj = kset_find_obj(module_kset, name);
- 	if (kobj)
- 		return to_module_kobject(kobj);
-_
-
-Patches currently in -mm which might be from xujiakai24@mails.ucas.ac.cn are
-
-params-serialize-lookup_or_create_module_kobject.patch
+I'll rework this as v2 addressing these points.
+> 
+> -ritesh
+> 
+> 
 
