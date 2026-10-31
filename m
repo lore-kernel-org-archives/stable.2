@@ -1,87 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793430232;
-	b=r+yqZw/7K2Ug9PyMFFCpMNCPi/7NIe2bs0gXntFowMYZkaCorM5xYj5cpvFYts6+kUCp
-	 AznH6DZfWlGDPFgPgTma+rvZew4PFpYfqRpCCkq73WUrWTHnJ2yj1krKtrIzvv/L76zEU
-	 QyTDqEW9AMptyFj2FDxbaRCL0Wav5GgBaK/Cw+nVyrTxLRJnkwifazZhhVtppyu3KeAkk
-	 bWpn+FpG1aluHCUOL6x3XSGv1BntCJ8cTTuXJJ7XJRZYkcyqZfLSe5DSL9Xqrkqii4UKp
-	 9CYCqRzl3MT9FikGYgQ854fuKoVgcj/jJwaN3eqarCuM/9VJZ7jVywewfDrvCv5sN1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793430232;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793430442;
+	b=T51rOq1/B4L/5pfYLtU7emf5X0NhovtI2raxKmzRyR3cU0dcQxeyNr7SNx0VhRUpgCRB
+	 PtNncCGH17tEe5wcKDIHcJJZYegv4VsmXcQng2caegGKT+04GcsS7Nh2Vu5SP/UGad3AU
+	 l83TjpQ0/gCH8pjihjzqYSZrUke2wkcCDneW0ZVxCd4PKm0LHlWuiLmIvC7jFp2LrvaMl
+	 5QRJiGMiYpw4hDLk7l2LqUM5b2joWoU6OO5ufV/WWnXMz2JFvsFw1/uA7BnxVn1FQWUVG
+	 cdSP7bEsSyXgHQ3Nk3LFKV8m8bTNoiZP65bWJeUkrN0NvTm3vARVQd0KlJp6NCWvQRQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793430442;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Hp49m+PlmWDptABb0PwnQYI2/1Zwbtqs0bt0NWyh6Yo=;
-	b=fC7k7nDyuB3O/MznVG16eQAfVOdwndPmjxOM5s0ZaBYxRxxCQxT3sJt1t4r3MlWoa+mE
-	 2GwmUy+exaVGf8oNxjzmpqEqXExRJ9f3e7akuegoGpmx+hRluxBm2Jeh02Nt9vYlkWb3N
-	 q1hmnQHZ8iiXN5Wtv0/JyKzQAzLDXTtQ1TV/pkkjgobM0LVbJY5U57FPr9ZblV2T37OHI
-	 LEr/snXfDbzZxt/l+wHyi4DXQFHmwZ2yyJgpr3taPvhwYfUwnaEqeqAhhBs3kJA0qg1Xb
-	 07QPX1STUUm1iT39J4YAHMi2nAQraRF1Y72PKwkDbYZOzBGkfLjwrDBs4WITErQh0jg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=blackwall.org;
-	spf=none smtp.mailfrom=blackwall.org;
-	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=Vz50jCiw;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=txDCh0MaBRHOsX7sa9cngelOTlX0ltFLjaAJVMdJYaM=;
+	b=gFMdip4gFQBKhxtw2dYcTlRkpfMblUVUlsiNLWNKA03MiPeDtq82j1RAZn5Y7PPdav0K
+	 wxw/0Z6OmX96laHvjWllGTWhDmElQ5MXzQeRPUqMgbToQt2U5Ielo4QELPXth4ALIlKbl
+	 KKxPNGULqlPpAfvNdVi8zAJ4HqDpg4rWg7lIkEkk8Gbpc9ws1L9u6QjBZeNSME6p6RKYi
+	 7Z6Bl77Ti7vjcbDwtfv14UfwLpBQ+nS6syjyK7j97QwHvIQlaKsaCSx7Lorzy079GggXb
+	 nyq/L3wXGWZIrm0oa3CDJeK/Kp2ahR1/0K4Hv97zIFUuBWJWLCSzvn0KR9kPeyU3uhA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="mUC/ZNRG";
+	arc=fail smtp.remote-ip=209.85.167.54
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0089606A31C
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 07:03:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0089606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C25606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 07:07:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71C25606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=Vz50jCiw
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df54150dfso653177f8f.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 00:03:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mUC/ZNRG
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bcdae234ecso1337393e87.3
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 00:07:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793430441; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IIkVkcPXEnh4+ui2dPyj3DQ6JIKoNkbTHIXjQjebezM75wQrS/zCw4i6f0X7fQn1xe
+         KTYZq5CzVxlAsU+HsxpEC4Xap5IOW8XelEznz6U0Bm+AKBga97wNOizp8xikKV/XxOF9
+         gC/bZQPYuxCWBN5y7kaL4/gNfr5PD5m1QQJJ7cZXD8b9VooWdnjvl8Rb1XQSRwsulNfY
+         7rAIBZUoLIuab/NleGEsAF0nCLML5bMta0p1bdSLnwUCIwbMqEoNuYHCtSirkQ0zLilh
+         Xnx4UDrJvRuMnrmr18hG0g01d8cfpDcXh65wK8YIg19zctahCB+w6VXQG1a2vHClcF8N
+         2Liw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=txDCh0MaBRHOsX7sa9cngelOTlX0ltFLjaAJVMdJYaM=;
+        fh=FebyGzCO/YgxFoxni87lwb+paYICZPtwRvXEkz36Zd0=;
+        b=GhMCx07NlQt/nnFPBRrkzyiqGxtBjh/v4s5kW2pN/ol7ka8NEUDbUJd0ChIhv+AI6q
+         cy5NY4KuXadQ7LijfX4NsZ3QQOQzuQw/kSj50uY76te6MmbmK+MrHCnHxehZ9Xj33sY9
+         7eBQEWPgFxt42NnriTbXtF5XnVXw/IriTeRlvAsoJFrt7/ZTg9XexlRo1gh+N4wSPP5K
+         fOKhjkubFn6h+AWd+hVGZuV5E0/nWCl+YAuCWwRX21GpfUiwXf3iyjRf+qtm85ZbAzmb
+         86P3Silqd/9MB4hD3gjlFRH316G534c2VX/kzivaBBsibNlNq20MFuRSevzyVxM43o8U
+         GtYw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1793430230; x=1794035030; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hp49m+PlmWDptABb0PwnQYI2/1Zwbtqs0bt0NWyh6Yo=;
-        b=Vz50jCiwmutBeV363EBZSdExKVPSOYpLovNtxOSkkSBzWmKtijM9cv0xnfLinhLFem
-         6bMDI1kwHFldgnlCxCPZ1KY6kGF9JVh3gIvfmZj7DK0NiRFDBW9uTbOS5R16oUx990En
-         s2TIgwJebIP54DV2Eb7A5Ky3xzs4qGhncGfeDQ0bfPD/TCD0zN5saWKJMwXaOIuetbk7
-         VAo59PmExaM0TjUu2cHTVo3e76oaCqwTTLUxKnCZwG3XTPo5uS9vG5rKnLHCKmbXnrZs
-         +2M7Be+FVbR41W42Uknh+ASbZ9lKVv7Mhxe4C2fkLw5xjuVr3NKDf1FEnLIehCD7gLtW
-         usBw==
+        d=gmail.com; s=20260707; t=1793430441; x=1794035241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=txDCh0MaBRHOsX7sa9cngelOTlX0ltFLjaAJVMdJYaM=;
+        b=mUC/ZNRGxHvMseEtdOEJmWVOL8SEcrnIyl+LO+rOY+pCywr6fgr+KDK2CIyE8lIsuz
+         yQ1Np9gk8b8jKxaAfhEqP2bROPaNrhie/nknplsY5izO+GtjCMaTsnSI4wdjbSEFbJ2A
+         v1V+FQHw3oxr+3yAX12D/DT/sUQ9qKE4G+uooZlPDxfs/u+oPXzxb9TRBVUps5TvUVPa
+         1zS0+tldYvPBypmRuTh5upf+mvaRVO/3IMi4ZTkryxZGkOjq3yCeaf6+X5a4ylvGgOOQ
+         lKmC7vQgmHoRcJHX40cgu4raIzql04uewGD2ZHWOa8sSFvfRTprZZlnZaInECB72XWYU
+         O0Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793430230; x=1794035030;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hp49m+PlmWDptABb0PwnQYI2/1Zwbtqs0bt0NWyh6Yo=;
-        b=bgH4xEygvqid++fnshaeUh32DpkKWsRUKDM/3LyP6d6MsC8JGxSAUHNUHcHGqiOqWS
-         JzwK5j1abL8c9njOwXQ9IFmLcceCTKApvabeqSmXxQJ0e94eS8H/WFrGaEqbI7St0886
-         ymd6K2D0BmR9j4wmBsOwPNJ1OoZ2LAJCXKkpRQuJC6AkWYxIdr4sZhe2hWoXEWfUi4sz
-         xTGtxR9gwxgLr/U22I0cHOff1B4w1oxZGBCTlI7g7lPkCNgDnFYvvE5HvkDMeEErVbKD
-         OX2047T37IJgh64UBhb9qVLmQkA+L66t+0jLv5/9ZJDIDeZ6wyTlD5pWSF7aQTWpo5Af
-         IdWg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOvq+ATa9TMVsTU+DKyBbonqcsdU8eZWdr9MB13CyDMHJrRjtnhnDkUzG1Cv+rbtw6b8LYZ38=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPFLUIZ6QQh5AluxzQVpKeDpOihS+QjEwnzh9K4gyUHAwjqmt4
-	bYmJ8X0Hxvv5yuJ3vN3uDOkwjak2Pq8Xv2WcfFJwM7yTr7GhKlcnfcm5NrHfe3OimDU=
-X-Gm-Gg: AYBFou1pH+our09HBa8yBbLfY7ZXDwddDnZYllozXNr8pImawk08ZWMrudC/7YLnVF/
-	JkWhwJTtcTLeWTtv+pvvMaHyjGzQtnRU53NpX6LsumiuMDTymLAHQdtKOAvVCijdkH2s5EuKxxm
-	EXLZuQKrzKmuYXM3RADod/THLowXs3sjZxS8lsF/DGcYL3BQ1Yu0C6k+uzgih4jGJwf3aO+53Hi
-	mrPwNyYLBb0GjGk4WMYCikbHEC1lcn4iqb7BHXzpx9+SYrthQ/8sfMF8QWWc1cCHtv9BpD1KNM5
-	cRSCO7l2HBb8AvGr0c6aYd/rm+SHswNAZcb7M+q/tCfZZHt7POKg4rulrhYE4BBfIk7jBZxniKw
-	EFsrGZCtzBfbtokjQGJ5XABN/laK60UO0B5hsxSSgy76aZs5t9zI3W8okaueEoilq+Zi4Bq2QmP
-	N3aXrbHnFDWQ8IgOt/Ij+ASvlt6x3Dg5tjp1WpiwANRPN9Mbi0Weu3lo/okSH3d3pE1s11Huq9C
-	nQ8qzz96+w/e4iWCzTGMqExt6JyOIGwuMoC5l9r4MB9gQniLwbpC03V9NYBU6L6n5K9s0fXwnfG
-	af6WQu0ns3gspKXPUSmZyeG+AiV938suth4mcXEwCcq7C2zZRoRgFpQSSdc=
-X-Received: by 2002:a5d:588e:0:b0:48e:6bbb:c3f3 with SMTP id ffacd0b85a97d-48e6e2fd071mr9785683f8f.28.1793430229695;
-        Sat, 31 Oct 2026 00:03:49 -0700 (PDT)
-Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a6bsm7181698f8f.27.2026.10.31.00.03.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 00:03:49 -0700 (PDT)
-Message-ID: <78c8a252-5e0b-4a38-8dba-125c0dab8ac5@blackwall.org>
-Date: Sat, 31 Oct 2026 09:03:48 +0200
+        d=1e100.net; s=20260707; t=1793430441; x=1794035241;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=txDCh0MaBRHOsX7sa9cngelOTlX0ltFLjaAJVMdJYaM=;
+        b=ZGFfgeqRi2Bi+AxRS0Ic9VOFbGeDJNCNThj6kw+KZK2yYDCJar2Q7e93K7QQFFy30s
+         +TgSzxPb+cyBac6yQhlgUhx/I2sfU0v/WwqGsYvJCUbi6wGlk+G7JruwBhjYlKmpUdvS
+         kV55HW9bHMjZghf+dN0oox3UghREH9HCLvu2I7RvA+86h0g19O5f0CmH/QuHoJaEZEPt
+         UrvxhFpXqlPBOHmDhF4K+Ny7ARqrD7SOaYO4NRW/AVIzvZ3LE/fBFwcnJfdfjQaj1C9m
+         +1WaLc6VZOcZgdWbsV2X3A0brxUGrD4T3K6J9CEz8XRMqBm56FuDiR0So4NnUC7DPDSw
+         JjKg==
+X-Forwarded-Encrypted: i=1; AKwUvByWnyssvujHTggU3jpK+yqc2NersPVPjrC2WIq2WhNaXAMJNsyLIhKLr85o+M3L3XBCr/LRTLQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBqzevHZ1N6npzqeI59+8NcRHZgiwnGOMajuKUgYfu2yP90qE6
+	qCRtPGs2gAqaWIRIQYEfjHtpslC/6e2/gsQL/l1WwcpfE4t1yTKhj/SD0af2JlTj63P5OKIpDXH
+	NJyzQVf7x5JpqSUd2lZnDYPIMtzK0vPo=
+X-Gm-Gg: AYBFou1/QaRpiIuSzDhIB7SbNE8e1Gm7ejl0zUZ0eGm7BD/pnoh9CXaR64lMhdonkNN
+	E29pKEzGLRbE5xVQi95ocY15WayynDpyixhMxDjiHwkR9YFZsAsm1crV3KWYD/Q69fN4f06TcwZ
+	kUE/x37KqWCgjsMHZo4lsmbZ7aIzb9OqzcCGUCoD7/Wq3Mnq9cuhpYHoDni56fm958zbgRLf1Y5
+	+er0arWr083puxYwZfzEB1Sgco7lJp+cwrjK81Nw8AggELDWw87NIEstNGw9lde8lwXDJFPeTqG
+	0aSvlVVugEl5jFuZ6pcF+t820SVSdYCD0K2DBiyNmubk4hCz3sRY/0yjZKaP++JerzSEJoP+Qnk
+	2nUZ092/hyeppDHtAJRTgFjFNMwNX3luo1TsGJKZM5hlhIBWwYc4Llrh/2grgOvmYkW1QC39kul
+	GIp7xEK0F5uZiCSGTDfownRBer4CkzZ+aX8c9p3sohKb5ZUPsJi9Y7jlBVc/zol3n2081oHAKXa
+	+qIsSnG2hE=
+X-Received: by 2002:a05:6512:1393:b0:5bf:cfc6:edb2 with SMTP id
+ 2adb3069b0e04-5bfd951d540mr1610800e87.1.1793430440393; Sat, 31 Oct 2026
+ 00:07:20 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,114 +106,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] vxlan: Stop rejecting dynamic FDB entries with a
- nexthop ID
-Content-Language: en-US, bg
-To: Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- edumazet@kernel.org, andrew+netdev@lunn.ch, horms@kernel.org,
- dsahern@kernel.org, sf@techfak.net, stable@vger.kernel.org
-References: <20261030133750.28668-1-idosch@nvidia.com>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20261030133750.28668-1-idosch@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261030023248.78802-1-testwrzwrz@gmail.com> <20261030023248.78802-2-testwrzwrz@gmail.com>
+ <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com>
+ <20261030084017.16202-1-testwrzwrz@gmail.com> <CAL+tcoBThTe7299eVU=tsUdi392dS9cioXX5RA5AKRsYAGbdVg@mail.gmail.com>
+ <20261030094633.27910-1-testwrzwrz@gmail.com> <auSF/bDmOW0Y7T4D@boxer>
+In-Reply-To: <auSF/bDmOW0Y7T4D@boxer>
+From: Jason Xing <kerneljasonxing@gmail.com>
+Date: Sat, 31 Oct 2026 15:06:42 +0800
+X-Gm-Features: AclHuK-0fsS0Xg_Rkxrpa9yorygM-pSbQySVfqzZJZ8DT6_AjEHZacGUrZv2dts
+Message-ID: <CAL+tcoC+bwVdf2N+Ku92+ifPOQMvak8KMYM9RvMpv6hkdpMt2w@mail.gmail.com>
+Subject: Re: [PATCH net v4 1/2] xsk: defer software checksum until the skb is complete
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+Cc: Rongzheng Wang <testwrzwrz@gmail.com>, netdev@vger.kernel.org, 
+	Magnus Karlsson <magnus.karlsson@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 30/10/2026 15:37, Ido Schimmel wrote:
-> Commit 98fc57d16744 ("vxlan: reject dynamic fdb entries that reference a
-> nexthop id") started rejecting FDB entries that point to FDB nexthops
-> unless they are configured as "permanent" or "static". The intent was to
-> prevent such entries from being aged out by vxlan_cleanup(), which runs
-> without RTNL and can therefore race with other VXLAN devices that modify
-> the same per-nexthop FDB list.
-> 
-> However, FRR installs remote MACs that are behind a multihomed Ethernet
-> Segment (EVPN-MH) as dynamic FDB entries that point to an FDB nexthop
-> group. Since the above commit, these entries are rejected and traffic
-> towards the corresponding MACs is flooded to all the remote VTEPs.
-> 
-> These entries are also marked as externally learned ("extern_learn")
-> and are therefore skipped by vxlan_cleanup(), but exempting externally
-> learned entries from the checks is not enough: vxlan_cleanup() reads
-> the state and flags of an entry without the hash lock, so an entry that
-> is concurrently changed from dynamic and externally learned to static
-> can still be aged out.
-> 
-> Instead, remove the checks added by the above commit and make
-> vxlan_cleanup() skip FDB entries that point to FDB nexthops. Such
-> entries can only be configured from user space, cannot be learned and
-> cannot roam, so there is no reason to age them out. The nexthop pointer
-> of an FDB entry is set before the entry is linked and is only cleared
-> after it was unlinked and an RCU grace period has passed, so it can be
-> checked without the hash lock.
-> 
-> Adjust the test cases added by the above commit and add a test case
-> that checks that dynamic FDB entries that point to FDB nexthops are not
-> aged out. Without the fix:
-> 
->   # ./fib_nexthops.sh -t "ipv4_fdb_grp_fcnal ipv6_fdb_grp_fcnal"
-> 
->   IPv4 fdb groups functional
->   --------------------------
->   [...]
->   TEST: Fdb mac add with nexthop group and dynamic state              [FAIL]
->   TEST: Fdb mac add with nexthop group and extern_learn               [FAIL]
->   TEST: Fdb mac without nexthop group aged out                        [ OK ]
->   TEST: Fdb mac with nexthop group not aged out                       [FAIL]
->   [...]
-> 
->   IPv6 fdb groups functional
->   --------------------------
->   [...]
->   TEST: Fdb mac add with nexthop group and dynamic state              [FAIL]
->   TEST: Fdb mac add with nexthop group and extern_learn               [FAIL]
->   TEST: Fdb mac without nexthop group aged out                        [ OK ]
->   TEST: Fdb mac with nexthop group not aged out                       [FAIL]
->   [...]
-> 
->   Tests passed:  44
->   Tests failed:   6
->   Tests skipped:  0
-> 
-> With the fix:
-> 
->   # ./fib_nexthops.sh -t "ipv4_fdb_grp_fcnal ipv6_fdb_grp_fcnal"
-> 
->   IPv4 fdb groups functional
->   --------------------------
->   [...]
->   TEST: Fdb mac add with nexthop group and dynamic state              [ OK ]
->   TEST: Fdb mac add with nexthop group and extern_learn               [ OK ]
->   TEST: Fdb mac without nexthop group aged out                        [ OK ]
->   TEST: Fdb mac with nexthop group not aged out                       [ OK ]
->   [...]
-> 
->   IPv6 fdb groups functional
->   --------------------------
->   [...]
->   TEST: Fdb mac add with nexthop group and dynamic state              [ OK ]
->   TEST: Fdb mac add with nexthop group and extern_learn               [ OK ]
->   TEST: Fdb mac without nexthop group aged out                        [ OK ]
->   TEST: Fdb mac with nexthop group not aged out                       [ OK ]
->   [...]
-> 
->   Tests passed:  50
->   Tests failed:   0
->   Tests skipped:  0
-> 
-> Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
-> Fixes: 98fc57d16744 ("vxlan: reject dynamic fdb entries that reference a nexthop id")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sascha Frey <sf@techfak.net>
-> Closes: https://lore.kernel.org/netdev/20261028142928.GA8406@techfak.de/
-> Tested-by: Sascha Frey <sf@techfak.net>
-> Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-> ---
->   drivers/net/vxlan/vxlan_core.c              | 14 ++------
->   tools/testing/selftests/net/fib_nexthops.sh | 40 ++++++++++++++-------
->   2 files changed, 31 insertions(+), 23 deletions(-)
-> 
+On Fri, Oct 30, 2026 at 7:57=E2=80=AFPM Maciej Fijalkowski
+<maciej.fijalkowski@intel.com> wrote:
+>
+> On Fri, Oct 30, 2026 at 05:46:33PM +0800, Rongzheng Wang wrote:
+> > Hi Jason,
+> >
+> > Makes sense, thanks. I'll wait for their feedback on the selftest patch
+> > before sending v5, and fold it in together with the rest.
+>
+> Can you stop removing all the previous conversations and rather reply
+> inline to related paragraphs?
+>
+> I don't think v5 is necessary. And as Jason said you received 3 review/ac=
+k
+> tags and none of them got included in v4.
 
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Given it's his first contribution, I suggest sending a v5 with our
+tags and that change (removing else), so you don't need to re-add the
+tags one by one :) And then Jakub can easily pick it up with auto
+tagging.
 
+Thanks,
+Jason
+
+>
+> >
+> > Thanks,
+> > Rongzheng
