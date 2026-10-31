@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793450111;
-	b=GReho+XMULXUrBSPi5ZjSov18J7YVCxeUZP9P6myFEL8rNCmfg0PL3BdG5hxsecBHjO1
-	 K5ukMKj9SExlZvGV2jMdW7Tc6UBIqvACF0/lG9gTCAvF5u7IZEv8Gx4jGrH7fP+561Kvj
-	 6UBow391EPEQ6qn0fM9TV7CrKcwlXQN8Lam1+I7o0fEAjZMeuNvvftBhO5+0gzuE7KtmA
-	 849xrgYjvdJ/11kJYWPQKk8o5zMl3jwh5jOSs5Hu4+7COyy1+AQSJg41PSqeL4wt5CGlU
-	 Kyc4V2K+Owba78XeQDcSokxQOEUsb9l+QF6RWl2Bu7jcCDXdfuqYsqYKNs/ij2hz9dQ==
+	t=1793450443;
+	b=2H7RSB/SjxVrs1t8HzLgsxcHQgUBe0EbjzrpkArpLKWgDEBFZgYVzSZIWyfMVni0UgQF
+	 Zm6VYrIInsiaVF8W9iXgWDj6r7hVoxEAf8IRhZM0WdWpyAA6vCBNr+YACCwI2g70uvoGD
+	 ilIwP84T8eGQTS1LhHUSIAEouR8GJHS9OsX1+qbXThQEuSVo+2yCLlF+qFwqcnSA00t0t
+	 IIyMXgn1rDHNq6I9PIDSmc2pGJZCn/e3OHTcgVKcZ5O+L3oW9dgB8kVh2VVG+EE4b+j2u
+	 iPW+WpmqMYhYXO8KO43R3xegDgUkU7JlPRFfJstLR+cJVMRYuFt8CgYuo4KnHWUxp5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793450111;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=NGJd0b1x2Q+1ueL/OsZfD8yOd2huoS1n0KwD8HqgAlg=;
-	b=LINn5WAhVX6L3Sk5KPhTFa6Pc/hPYn3wcGhxHCfGuMUyZ9isBBGfBh7s1t3q0RiW5m8y
-	 poP9IODu3wq4waKD+8Aw6goL3Gt/MrjEO6zCgmRZmbDSf5VHYcG1qAGOdr5QlCxyD34U6
-	 eVCxJWahXRHZ3bJdr2z6MqPwfmf3us7rZJQiJMqILvXQfRseRYNz06TzAWNLo2b9mDT+G
-	 SFzqPKCU6WLllDpKHLJxSgnvgZE9Hjf3aaHocztHnaHQfN3cTTD+aZ5YK2TGIfvKL0MU1
-	 +5gRkvDKTL801MF+zrf04Ej2sK+HMRj2TqIn3Gr+fsjxaHyN8vIxmxATcHQ/SEJ04kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793450443;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Cxqf9Bqorso0fGl5m6PKE59KMlkjDZ4/kjDJmjbnK7Y=;
+	b=5FQZDSRyE2b0wcakFLrkpw4m0Gjfxh/y50j3G4vu7RWQxuyWac/8fZ47UetSRjS9jFLA
+	 cNvzI9xIg2SlEZkppBa1efWK5LG68Q5M81XVPg9RpVpFsvejlCtJ3Ghtn6P1OZP0BWt+e
+	 oCl8Y1AkE8ugmUjwRdfcberp86TvsKRmi28SqPhu1PUyrDWMBuBA8d7ybT6s3bkJxCGNW
+	 xTY4gVV8+NBFyC5RxZ2RabpCCNpNdm4HhU1Moqqw6b9hg5D1HDWZ+UjbDEUBrrvrlo0Uc
+	 v47iLfPqupH1FxcHUTlVlttJxwX3ABAVENffVDH1CuUJd1+QI+0gWWBXLdvbbYrJANA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zfm6PN8L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy8WbEhN;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF70606A31A;
-	Sat, 31 Oct 2026 12:35:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1B4606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:40:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B1B4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zfm6PN8L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689D01F000C1;
-	Sat, 31 Oct 2026 12:35:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793450110;
-	bh=NGJd0b1x2Q+1ueL/OsZfD8yOd2huoS1n0KwD8HqgAlg=;
-	h=From:Date:Subject:To:Cc;
-	b=Zfm6PN8LblPUTpa6GSuOyMtI4rhBievlZLP8QmaQ2TBLtVx6AZDt0x78JwbUPawzn
-	 YwsjaMNH/W+eJxs492Y5FR6uy8uquro2tsd80mZSO57H/XooUlyYF6sJPoJIwxiWih
-	 CyBSNkjNtUE+BIYMqRebfP6YtCJI3CALiA0nxwItQFB1/s62xchPlQIv4P3BTG1oKB
-	 IurDesNn8jhzIDPg/wf4CJILD04Ebb8xXbsqkWDUYLThn/O+3dQVIaeebLAZWy3MVz
-	 XmbKRgkb+zJRZrTC7gI8KRv9W0Wrq7k5u/87+mxN5QEdnj13oT4lAMpgr4eOBkbyuj
-	 DFgLtXHIYbE9Q==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sat, 31 Oct 2026 14:35:05 +0200
-Subject: [PATCH] userfaultfd: clear uffd state in child PTEs if uffd is
- released during fork
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qy8WbEhN
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e20edd106so1289925f8f.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 05:40:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793450441; x=1794055241; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Cxqf9Bqorso0fGl5m6PKE59KMlkjDZ4/kjDJmjbnK7Y=;
+        b=qy8WbEhNvxLv28vR/bD8Dmmw3fyZBPw4FeqtBM+B5UsizZTUzx99aZZM3rs9fe3wRv
+         CTZvEO/yoOWb851TAoLT5y1t/fM3PEOkEhj7XSDMljPsoYR0GhFQvSoDAvAL848fzLQp
+         bXVAVuNWGnESh09nncjfS3UAOqUnOMM+BYpAGuILeFmTfDugnPI7tdNKbTqyR+xJdEoO
+         qozVY55bD7jSu1YAUzrqGxzH3IPVygjs60wre44jjyjwJg4qql1xoMCfI3ByE73s/83W
+         F1Oy0idXYhtOytdKxVKdQqAdnF3H8/uDPNULdTTvlD8cF94qwQjxtrDErjQqSBJu5qQg
+         ZAIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793450441; x=1794055241;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cxqf9Bqorso0fGl5m6PKE59KMlkjDZ4/kjDJmjbnK7Y=;
+        b=blNF0Afl/zYpq5bYvxUgD8Zwz4mvoCNviBO2DP9DavASmNarn23CwDnO3bZm7JGr2a
+         cVbWnmLwnjqISVdas/2BlRM2EMFBSU9VhJuyEyoKliSnC1nfGfLCAQ4fj1m/ny29PW7Z
+         YNBBCkXXTJJPItscf2QJH+f83EAkG57cU/GcpRabCLWXKe+NPb1kqgxmWF2aIDFaUdL/
+         m2elUjqGcgLf/zTOqilDdExQ5rIt5SbJjIQ87Zxdq+hBEq/GyMvm7Ndv8Lc37vAyXQGu
+         +ZWjh8hRW/HYb7puJH8CgXchCmkcpbnctqB6CBUh+oUJ3/SifaeS0CDeuvZzfYfxnHSG
+         Sr6A==
+X-Forwarded-Encrypted: i=1; AKwUvBzJi1xeOCdfmPiFZ4Xao5MmewiMDfFQaqSJ3xqIMu8lSApJhyC4o9YfSch8b5UCIN0xoIyO8DQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdDZ9MNaql+ZZHrjmwSTuiB44biomerM7ldFnq4YJJpwwgtB35
+	C4Y7TVBVZcW3yceEpzjP06RDYygSzXu7KtG34FvOIrui+6uLwOOxHDIu
+X-Gm-Gg: AYBFou3waR9RJDTuJM2ELqpBxCjP0VFbWpbyGjLugc8XswVLc/I+peGmZ0Yg8cN7s3V
+	dFFKGQFIuviuv/sn4HhN2EoIlUqiFo1/n+Hd5y2f1Nz8W6J8K97w8f1CZ+TFdqcJ9QOHiAslUC+
+	sT7W+WnbnXQLubDcql1HCekM2b2V94uxxsQboBFB5Vr7PFJRZxI+gsASaZrr5HsrNKSeuBMDMjI
+	SMNda723qEgpu36kh3hd08MOs7JNJJS8jttDNNg/FBp9fPvPYtv/bagMNPhsj9f8o2w1PZ/TC5q
+	yMMC+vbwqbe5rzXAF6+5fxRrh737G4mLAFLfe38zKLEhkR1EfDmc2aCWyIrrUHMQvfmczasEfvb
+	zz4raVZWFYKq40CYCVRvK2VgY+FOQq1A2QndfFdYuHwLKlVL/uGw9d7mAIGuKBpYxBCzvin6P3e
+	RryQrjdxnyMSqYFccG3+5aE81YkefamLTbGnxBhz8h4cM26aHgFm9Lr2VU3FOSnrQbHTF4A9WUT
+	hVT0dmkNbRjnRzF1/0ppLDbJyKA1PmAcl6IGAVVhQhjF9tvev8ItRF6U11N3MXGwOqvnDbQ+eNF
+	W1reytSSre+OnGNKKjvXDFgFBBsWiwsI5ZJj+RJgTx2WDA==
+X-Received: by 2002:a05:6000:2c0f:b0:48b:68:594a with SMTP id ffacd0b85a97d-48e6e2e7798mr11167496f8f.12.1793450440315;
+        Sat, 31 Oct 2026 05:40:40 -0700 (PDT)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b789c6sm9294444f8f.26.2026.10.31.05.40.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 05:40:38 -0700 (PDT)
+Message-ID: <57717da3-d309-47c5-8c1d-d4686e8fd8a2@gmail.com>
+Date: Sat, 31 Oct 2026 13:40:37 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,121 +92,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/userfaultfd: recheck WP registration in the
+ hugetlb UFFDIO_COPY retry
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, stable@vger.kernel.org
+References: <20261029221129.89068-1-azpijr@gmail.com>
+ <20261029221129.89068-2-azpijr@gmail.com> <auWz5tAzi0p6NMou@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <auWz5tAzi0p6NMou@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-uffd-prot-bits-fork-event-v1-1-3572921c2111@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMyw7CIBBFf6WZtRMLRmL8FeOCx2BRgYaBxqTpv
- 1t0eW7uOSswlUAM12GFQkvgkNMO4jCAnXR6EAa3M8hRKjGeBDbvHc4lVzShMvpcXkgLpYqOLlI
- 4dRbaKNj9uZAPn1/7dv8zN/MkW3uwP4xmQlN0slOfYsw1HmPElrhq8ybYti8YyPTDoQAAAA==
-X-Change-ID: 20261031-uffd-prot-bits-fork-event-de821d651ab6
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Mike Rapoport <rppt@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
 
-With UFFD_FEATURE_EVENT_FORK the userfaultfd context is duplicated for the
-child process, the child VMAs are registered with the new context, and uffd
-protection state from the parent PTEs is copied into the child.
+On 10/31/26 10:24 AM, Mike Rapoport wrote:
+> Hi Jose,
+> 
+> On Thu, Oct 29, 2026 at 11:11:01PM +0100, Jose A. Perez de Azpillaga wrote:
+>> mfill_atomic_hugetlb() drops its locks to copy the source page with page
+>> faults enabled and then looks the VMA up again. The retry doesn't check
+>> that the VMA is still registered for WP, so if the range is re-registered
+>> without WP in that window, a UFFDIO_COPY_MODE_WP copy installs a uffd-wp
+>> PTE in a VMA without VM_UFFD_WP. That is one of the leftover uffd bits
+>> hugetlb_fault() has to tolerate.
+> 
+> The "leftover" sentence will be confusing for future readers
 
-If the parent's userfaultfd is released before the fork event is read,
-userfaultfd_release_new() resets the VMA flags but keeps uffd state in the
-child PTEs.
+sure, will drop it.
 
-This leaves the child's VMAs in an inconsistent state: they are not
-registered with userfaultfd but their mappings carry uffd protection state.
+>  
+>> The non-hugetlb retry goes through mfill_get_vma() again and fails with
+>> -EINVAL. Do the same check in the hugetlb retry.
+> 
+> No need to reference non-hugetlb path, just describe the added check.
 
-If the child registers the range with userfaultfd again, the stale state
-turns into protection the child never asked for.
+okay, will do in v2.
 
-When a write fault makes such a PTE writable without copying the page, the
-uffd bit remains set and page_table_check_pte_flags() warns about it.
+>  
+>> Fixes: 6041c6917903 ("mm/hugetlb: take care of UFFDIO_COPY_MODE_WP")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> 
+> With those fixed:
+> 
+> Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Split resolving of the uffd PTE state out of userfaultfd_clear_vma() and
-call it from userfaultfd_release_new() before resetting the VMA.
+thanks for the review :)
 
-Fixes: f369b07c8614 ("mm/uffd: reset write protection when unregister with wp-mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- mm/userfaultfd.c | 43 ++++++++++++++++++++++++++-----------------
- 1 file changed, 26 insertions(+), 17 deletions(-)
+> 
+>> ---
+>>  mm/userfaultfd.c | 4 ++++
+>>  1 file changed, 4 insertions(+)
+>>
+>> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+>> index 3b71712edab4..a70ecfc8a998 100644
+>> --- a/mm/userfaultfd.c
+>> +++ b/mm/userfaultfd.c
+>> @@ -810,6 +810,10 @@ static __always_inline ssize_t mfill_atomic_hugetlb(
+>>  		if (vma_hpagesize != vma_kernel_pagesize(dst_vma))
+>>  			goto out_unlock_vma;
+>>  
+>> +		/* The range may have been re-registered without WP meanwhile. */
+>> +		if ((flags & MFILL_ATOMIC_WP) && !(dst_vma->vm_flags & VM_UFFD_WP))
+>> +			goto out_unlock_vma;
+>> +
+>>  		/*
+>>  		 * If memory mappings are changing because of non-cooperative
+>>  		 * operation (e.g. mremap) running in parallel, bail out and
+>> -- 
+>> 2.55.0
+>>
+> 
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3b71712edab4c..2c11ac5dad3d5 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2220,6 +2220,28 @@ static void userfaultfd_reset_ctx(struct vm_area_struct *vma)
- 	userfaultfd_set_ctx(vma, NULL, 0);
- }
- 
-+/* Clear the uffd bit and/or restore protnone PTEs */
-+static void userfaultfd_clear_ptes(struct vm_area_struct *vma,
-+		unsigned long start, unsigned long end)
-+{
-+	unsigned int mm_cp_flags = 0;
-+	struct mmu_gather tlb;
-+
-+	if (!userfaultfd_protected(vma))
-+		return;
-+
-+	if (userfaultfd_wp(vma))
-+		mm_cp_flags |= MM_CP_UFFD_WP_RESOLVE;
-+	if (userfaultfd_rwp(vma))
-+		mm_cp_flags |= MM_CP_UFFD_RWP_RESOLVE;
-+	if (vma_wants_manual_pte_write_upgrade(vma))
-+		mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
-+
-+	tlb_gather_mmu(&tlb, vma->vm_mm);
-+	change_protection(&tlb, vma, start, end, mm_cp_flags);
-+	tlb_finish_mmu(&tlb);
-+}
-+
- static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
- 					     struct vm_area_struct *prev,
- 					     struct vm_area_struct *vma,
-@@ -2239,22 +2261,7 @@ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
- 	if (start == vma->vm_start && end == vma->vm_end)
- 		give_up_on_oom = true;
- 
--	/* Clear the uffd bit and/or restore protnone PTEs */
--	if (userfaultfd_protected(vma)) {
--		unsigned int mm_cp_flags = 0;
--		struct mmu_gather tlb;
--
--		if (userfaultfd_wp(vma))
--			mm_cp_flags |= MM_CP_UFFD_WP_RESOLVE;
--		if (userfaultfd_rwp(vma))
--			mm_cp_flags |= MM_CP_UFFD_RWP_RESOLVE;
--		if (vma_wants_manual_pte_write_upgrade(vma))
--			mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
--
--		tlb_gather_mmu(&tlb, vma->vm_mm);
--		change_protection(&tlb, vma, start, end, mm_cp_flags);
--		tlb_finish_mmu(&tlb);
--	}
-+	userfaultfd_clear_ptes(vma, start, end);
- 
- 	ret = vma_modify_flags_uffd(vmi, prev, vma, start, end,
- 				    &new_vma_flags, NULL_VM_UFFD_CTX,
-@@ -2353,8 +2360,10 @@ static void userfaultfd_release_new(struct userfaultfd_ctx *ctx)
- 	/* the various vma->vm_userfaultfd_ctx still points to it */
- 	mmap_write_lock(mm);
- 	for_each_vma(vmi, vma) {
--		if (vma->vm_userfaultfd_ctx.ctx == ctx)
-+		if (vma->vm_userfaultfd_ctx.ctx == ctx) {
-+			userfaultfd_clear_ptes(vma, vma->vm_start, vma->vm_end);
- 			userfaultfd_reset_ctx(vma);
-+		}
- 	}
- 	mmap_write_unlock(mm);
- }
 
----
-base-commit: b61fa14ce6bcbba2cb9a96feea31b760226d6b43
-change-id: 20261031-uffd-prot-bits-fork-event-de821d651ab6
-
---
-Sincerely yours,
-Mike.
-
+-- 
+cheers,
+jose a. p-a
