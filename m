@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468858;
-	b=2qhKqr3AlCwit2zjnNpo/39ryYfBY0eXDqowrKR02hJP568DtiFIPO6Iv/k8UA39PuXs
-	 vUis0KqimQBhneZUnVDyRjI2p2SMbL199qBqIjMhvT0fb+Xr5Ijx4jIMkAAeHAB8R4N+V
-	 QebSGeuqClM/MMdgQoQ67B5wB0R/TyrDx87qSKrmdb+a9cuknwF9x9sJ6VMQCeNBsQIH2
-	 IvJkPvoa0dC+bUBy+sXnrfVv0G90b8S7gBWBB9KuYKWDXhAjV5Z2aePgULMxCmooUSCQJ
-	 nL+4jC+26RYjtBYSJCKkmcq05B6pakaPSUf+I8EFjZp0lQ+NzDlklg2pNFTZTGYTcCQ==
+	t=1793469244;
+	b=kEAECIpqxqsBmW2pOW4V4NOeLpXshBf/IIDw6MLMmPlR/B6ahgRGLggLQ8jQxOpvkRk8
+	 478CXItMVutktO9enJ6Ax7TQgacL7h6YwexNebVJ091z6xFeBMRj0jUfal4SZ+3bqVHKN
+	 3dVKfMwJVOm/k3WFYUk8MIqEltW9eaQ4xdLgAWL7s2r9HXaIhbfg+ZMOBtEWxixRCqS7s
+	 BqROWjB31xZfOfJhPRSxFV+HR3iFs/JBKiT/fysPmwkKxzomIB4EIehRd2zSB4241NHx/
+	 cjFnewuuwyv/gU7cW//db7/Tfpp/Im+7IOGIAsak7uA8rhiOoNkEy97hxK2TZeDF9oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468858;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1h5N+uXBUkAc2XasWbf+L9wwWxu8fi1nQyRF01jT8d8=;
-	b=SD8bw2jn6w30eJBbV2RVL/26kUoJR7IKVusQOVGv1JeO85I9A4ReciCCrczK9RqvrbUx
-	 37DWP3cjEA8JTvDEfVtv96A+pTPBILk7cu0BsSd5HHo44cttGQvL7ZplZOX9NgQPmcdMQ
-	 /oux/WoMueJ/r8F1Nk+bnl280D+HJ1GRDeW7K8we162aRWkYI6BGlHUQBcnBqXLoiTDSS
-	 4bhE4q24hJo1D6HVE2sUWsF97sgJFMTH5LASEymD8iJcNcKiSivFxpkz+PIxuXzCm2kCu
-	 87I9GCCQogBYp2prs+F7wE2bFMCJm4d2vjv/PoGYStwZJdoVul5brSK3RKP0wVtLsiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793469244;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/MwNJYTzhevleVLT0wB4o/dVQzk0Vd5QdLxqWEpD0FQ=;
+	b=TGQz558JAF0AykvsM0JBOaygPyZ0bGlv9sZf9fYkoWMhtj/MFWtbrPSR+k2WaH2pmlOR
+	 MDmlcggPyxe23brVNmSkXDpk8ic/JNSHDjvt0hB7EOF6oLq/yN2DQ5SXo1LFWj0ALwc8j
+	 wNHKXVkYzduRrBnQLYtENqpjs79DWhUqWdC8X0IGr0wct8iZMNby7FjrtzjZ+Hx6arC1z
+	 /ITJevEQentgAz9D0kQPUErUk+F46M+AJZ/xCZGt9e392R1CtBZ9eRWH4dkAG2ftDa4Dh
+	 ubEfUCKLJVeNSArzzCC87J1NwnNLH8z1MYrJsD3KjZ/p7EbuU7z+1NrbpDrnllRa1lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbuTd6xN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTCFNsmG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF55606A31C;
-	Sat, 31 Oct 2026 17:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1540D606A31A;
+	Sat, 31 Oct 2026 17:54:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbuTd6xN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12FC1F000C1;
-	Sat, 31 Oct 2026 17:47:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTCFNsmG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 594DB1F000C1;
+	Sat, 31 Oct 2026 17:54:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793468858;
-	bh=1h5N+uXBUkAc2XasWbf+L9wwWxu8fi1nQyRF01jT8d8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lbuTd6xNnxzdilE1w0rc0CBCjKyKLmuTFN0ZkPJp8l0CHMEMCSa0pedHFdUP6VI5V
-	 4w7flaCig/G2AcBK3nVYftBnflhgxu/FJXeI8MZ/cSp7jpuuU00xtTQPpgCYh5ElLA
-	 Z3m1Xp0xWuVyP3dGnyhH+KLqvAv+dqucYOrVv6fwjoJNRK+nGmd1lRJkIBgyUYYraJ
-	 EC2NyWGK/s6iE261vlWHrsSqQSEroUYKuD9DQIBqiN4wpCFkRP2L/ROm2C32Kmzb/5
-	 /XKZycPwA3ssUx+64jaA8lO72VWn2Rx9jrII7xA8QqgiQf820IlPUcN52gUviFg345
-	 W8lpSSTJOZAcg==
-From: SJ Park <sj@kernel.org>
-To: Aveline Noir <jm5905938@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	sashiko-bot@kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	Shuah Khan <shuah@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [RFC PATCH] selftests/damon/sysfs_memcg_path_leak: define ksft_skip
-Date: Sat, 31 Oct 2026 10:47:25 -0700
-Message-ID: <20261031174726.85433-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <179346448183.4.15545164251841296990@gmail.com>
-References: 
+	s=k20260515; t=1793469243;
+	bh=/MwNJYTzhevleVLT0wB4o/dVQzk0Vd5QdLxqWEpD0FQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kTCFNsmGcTJfyOV1keEj1/p0CdrFp2vaz+QLyJrN5JCQVApzXwW2K3eOn1LFIPLKt
+	 eox3mYq5wnO/o1+BUQ/N6UDTQ2RBbkteTpg0UMFwyS++Lc1xr3ZoHLcoV1lz/m/qV1
+	 0cTyQWCDJfoGDFMVwJ/NvMZOdHsFLAX0yfQPnARVrnFPlVZ3YjqbzgUQFQIYbnXO4w
+	 VDCuMuUX2BWe8Mlav84GNSKYeoZGh0g0MvICYdxirCX+jsqv5p2paC5UuDvyikBjqP
+	 xjngLZl2Ep2eGBRYY810aGFUm0fFFYZ+eEaikyNY6JtfcBrPNlSopJNv7eqU1z3rfO
+	 PeWW7LSZVo7JQ==
+Date: Sat, 31 Oct 2026 17:53:59 +0000
+From: Simon Horman <horms@kernel.org>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	"John W . Linville" <linville@tuxdriver.com>,
+	Samuel Ortiz <sameo@linux.intel.com>, oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH v2 net] nfc: llcp: use disable_work_sync and
+ timer_shutdown_sync in local_cleanup
+Message-ID: <20261031175359.GT257209@horms.kernel.org>
+References: <20261029162419.2420980-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,37 +64,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029162419.2420980-1-tristmd@gmail.com>
 
-On Sun, 01 Nov 2026 03:34:41 +1100 Aveline Noir <jm5905938@gmail.com> wrote:
-
-> Hi SJ,
+On Thu, Oct 29, 2026 at 04:24:19PM +0000, Tristan Madani wrote:
+> From: Tristan Madani <tristan@talencesecurity.com>
 > 
-> On Sat, 31 Oct 2026 08:38:58 -0700 SJ Park wrote:
+> local_cleanup() tears down timers and work items before
+> local_release_work() frees the nfc_llcp_local structure.  The current
+> code has two ordering problems:
 > 
-> > Thank you for reviewing, Aveline.
+> 1) timer_delete_sync() does not prevent timer callbacks from re-arming
+>    the timer via mod_timer().  nfc_llcp_tx_work() unconditionally
+>    re-arms link_timer, and nfc_llcp_sdreq_timeout_work() conditionally
+>    re-arms sdreq_timer.  A work callback that runs during
+>    cancel_work_sync() and calls mod_timer() causes the timer to fire
+>    after the structure is freed.
 > 
-> Oh, looks like I forgot that. Thanks for the reminder.
-
-No worries!
-
+> 2) cancel_work_sync() does not prevent work items from being
+>    re-queued.  nfc_llcp_rx_work() queues tx_work via
+>    schedule_work(), and the timer callbacks queue their associated
+>    work items.  Since tx_work is cancelled before rx_work, a
+>    running rx_work instance can re-queue tx_work after its
+>    cancel_work_sync() has returned.  The re-queued tx_work then
+>    runs on the freed structure.
 > 
-> That also gives me an idea: maybe I could build a modular tool to help
-> write emails. Building on b4 might be a good starting point.
-
-Sounds like a good plan!
-
+> Switch the timers to timer_shutdown_sync() which rejects subsequent
+> mod_timer() calls.  Switch the work items to disable_work_sync()
+> which rejects subsequent schedule_work() calls.
 > 
-> Tested the non-root skip path on x86-64 Linux with Bash 5.3.20:
-> the exit status changed from 0 to 4.
+> Reorder the teardown sequence so that both timers are shut down
+> first (their callbacks queue work items), rx_work is disabled
+> before tx_work (rx_work queues tx_work), and data structures are
+> freed only after all asynchronous callbacks are quiesced.
 > 
-> Reviewed-by: Aveline Noir <jm5905938@gmail.com>
-> Tested-by: Aveline Noir <jm5905938@gmail.com>
+> Fixes: d646960f7986 ("NFC: Initial LLCP support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> ---
+> v2:
+>   - Switch work items from cancel_work_sync() to disable_work_sync()
+>     to prevent re-queuing after cancellation, as identified by the
+>     automated review and confirmed by Simon Horman
+>   - Reorder teardown: shut down both timers first (their callbacks
+>     queue work items), then disable rx_work before tx_work (rx_work
+>     queues tx_work), then disable remaining work items
+>   - Move data structure cleanup (skb_queue_purge, kfree_skb) after
+>     all asynchronous callbacks are quiesced
 
-Thank you for reviewing and testing!
+Thanks for the updates.
 
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Thanks,
-SJ
-
-[...]
