@@ -1,61 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793444144;
-	b=Pvn8gbW5+veP3Qku5Mb+G0LTSsbQPkP7BmbzmeN8GVdqnTW4ehYNDX17mSj918O2zbEU
-	 y7zPS4BJtQj9NZEGQuBNZHWjMaImfYIxccglnCcoJe9SMiR1F4vgaaaK23Ch+yiXUJFdi
-	 s1EyohVvh0kSTFnIlCkfLU5zcSj2corSPpzz8tup9N6hNd+JvhBiwOu+VsJiY09UUgKBM
-	 1mXXwY8RIfWdtc0iSPNpm1mCRsUcTDCIxwFu5bwSQPYiiS/dd0pEicr9jZKtnw8BRlSQ5
-	 5Imk4i2H+JajW7ZY+8rDstINTh+c/Fj1ne5MsTUlNtmkzLtrcCHWSuownscJO+8JSZg==
+	t=1793444253;
+	b=bab1MS6HlKwFAR0mnkcqgF+D8tZBrRH4jHvv6E7uWNQf4EW7KUQiVvC3fKmA+M3yCZV+
+	 fmouAt/0Tq73kymrztW7tt+eV1icYMeY6UxFGoOMCY7WcMOAX0zvXgU57W/sHj5KIqgB/
+	 TvI0yBn8iTjt14tbwKPg/0Yr1wxvl4PTmWFWoebzWeUYrCXxC9bcT+myHTBOd4CtfcGRr
+	 05Lnn7/+SzI1Yf/YEAv/nqOVfCvZfmL+nYmKqivbXQz74TAYpd39QX6LZa6ifrksPjfO+
+	 DOW9svxu7VDfPgWMQ4ERRMtBgnrqhYgzx9Zpu0VCxFgLrmoixiz6tDqQqhNHnGt9+0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793444144;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=/zHOCVGlKd+Gbw9WkcwRAX9nfU8lVQAZb5r1Oq1ewkk=;
-	b=NFq09kTbSLI+oTwKkl2u4B5BBR5GQ83MmfeqOX59GW2OMCLpdtzE06sXFAjztrsTyaSs
-	 HQVOrTyV7Nt83+j3VeCVO66uJhf72+ZLWkDCPzhUbVxc6qnuh4xEW4H5ngq4M3+ocWSuJ
-	 9H5teq4MlULVKx5FB7pbXh96xTkzTEMwbtUBtFSq47gaD3n0GebYdDP3Ax/OB/O6Ms3Zy
-	 CKLv4MU/1WJ19w+4hy241Zy1QyVdAt6zUkRNxQoHvW84sOWErtnOjU71E9SIFe0XHaZjX
-	 nGgVuxmBeJtx+/A9TotLMQDa6SXvUkYAMgki9oNnwpwbnnRO3PNI5SYt1ppeISoK1SA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793444253;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LiOepWnZL+dUarf0QgRNqFGHI/GzvhTs/Awt0LC75IQ=;
+	b=YxE6JqHmXCkR4INCZa1VT0/7O8jcA8FjYbf1g+gFqnHSEihsS/S4RAqfcc1B/BUvZGIv
+	 I65EXECtT/ZaxQn8/I9C+zpzvABCsfNp+q4iv1MgMX77G+DzuFm85+WjJYINqGJHHErrN
+	 WyEKaKNg35DKEkPuB/19c7mX86K+yqYxBNP8qQE4YWA5RdsmBu9SFjuGCbKjW94JrUntO
+	 a0VNvfwlGU14f8DEv+FbIGeC8HTPbIY3RX4HGlttHXg84vSlWtMWF793j1AR1NltZcOvu
+	 6xHAHMc+AGh9P1PyvyEg7jtQIhdZChjTq2ToI5s9imRxv4sVeg1ZsqyKv/lRz+jWDdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdAdo72s;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SQZP4xbG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A7B606A31D;
-	Sat, 31 Oct 2026 10:55:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34129606A31A;
+	Sat, 31 Oct 2026 10:57:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdAdo72s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF88D1F00A17;
-	Sat, 31 Oct 2026 10:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793444143;
-	bh=/zHOCVGlKd+Gbw9WkcwRAX9nfU8lVQAZb5r1Oq1ewkk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=FdAdo72siP0pWKtPYHKtDnT3myBbO44Iwr2y7PQ+tvrQr16MRxsWBeogf0w1mEycX
-	 F7KTXuXQz91GvFIZwzuFXxSVKD02xpOyrHOGApOiHCw0zx8OXrMxu3khaoylsQzd1m
-	 xKaG+SRpDZHcgyg+l3ScfTlpQdzujaWDiHne2N8c4k9djSAqlQUdQDr7cy3uJ/lzeP
-	 VMrODT4NtA6cATADzB73dBOSZfqgXIV6n2GgvQTDXcVIqnmhMNXHHgSV/nFteiftAi
-	 fv9qjBDhYrKGwvHE3Y0MQhc0eXTV7uKkWuk+6b1W4Y91/zGSNhOl8gODnISQZyt8JJ
-	 jjetI8m0mleMg==
-From: David Hildenbrand <david@kernel.org>
-To: akpm@linux-foundation.org, Lance Yang <lance.yang@linux.dev>
-Cc: david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
- dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, 
- jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, hch@lst.de, pfalcato@suse.de, 
- ngocthang2710.1999@gmail.com, 
- syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, 
- stable@vger.kernel.org
-In-Reply-To: <20261026152013.10511-1-lance.yang@linux.dev>
-References: <20261026152013.10511-1-lance.yang@linux.dev>
-Subject: Re: [PATCH v4] khugepaged: fix readahead lock inversion in
- collapse_file()
-Message-Id: <179344413746.15514.3017134720155207012.b4-ty@b4>
-Date: Sat, 31 Oct 2026 11:55:37 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SQZP4xbG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47511F000C1;
+	Sat, 31 Oct 2026 10:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793444252;
+	bh=LiOepWnZL+dUarf0QgRNqFGHI/GzvhTs/Awt0LC75IQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SQZP4xbGXeK+6+epyCgPSe9HLokUtmmLtqMJcuXRkK5xKL3WXGtRavp5u2On3USon
+	 1fCldTH8/tLdyxDVc7zoGRWxboAj0PxWqn9uscm9zyQLel3mtwMYJW/dwS2fgxKJWr
+	 +107sWXLkOUHBBoqqB17h+KlrlpVdGarB0ZXXUxk=
+Date: Sat, 31 Oct 2026 11:57:25 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Jeremy.Jean@oss.cyber.gouv.fr, Jason@zx2c4.com, stable@vger.kernel.org,
+	linux-crypto@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] lib/crypto: arm64: Fix lost Poly1305
+ carry when resuming NEON" failed to apply to 6.12-stable tree
+Message-ID: <2026103156-underfoot-spender-b534@gregkh>
+References: <2026102137-contently-unshaven-7da4@gregkh>
+ <20261021154806.GA1879@quark>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,47 +55,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021154806.GA1879@quark>
 
-On Mon, 26 Oct 2026 23:20:13 +0800, Lance Yang wrote:
-> collapse_file() can call page_cache_sync_readahead() while still holding
-> source folios locked. If truncate holds mapping->invalidate_lock
-> exclusively and waits for one of those folios, readahead waits for
-> invalidate_lock and neither side can make progress.
+On Wed, Oct 21, 2026 at 08:48:06AM -0700, Eric Biggers wrote:
+> [+Cc linux-crypto@vger.kernel.org]
 > 
-> We need to release those folio locks before starting readahead. On a page
-> cache miss, roll back first, populate the collapse range, and retry once.
-> Doing readahead after rollback avoids an extra pass when all folios are
-> already present. If another miss occurs on retry, give up rather than keep
-> retrying while truncate or reclaim removes folios.
+> On Wed, Oct 21, 2026 at 04:40:37PM +0200, gregkh@linuxfoundation.org wrote:
+> > 
+> > The patch below does not apply to the 6.12-stable tree.
+> > If someone wants it applied there, or to any other stable or longterm
+> > tree, then please email the backport, including the original git commit
+> > id to <stable@vger.kernel.org>.
 > 
-> [...]
+> It's a clean cherry-pick, as git detects the rename of
+> poly1305-armv8.pl.  So there should be no need to require this to be
+> resent.  Also, missing Cc to linux-crypto.
 
-Applied, thanks!
+For both of these, we have explained in the past why that is the case.
 
-tree: mm/core.git
-branch: for-next-fixes
+For the cherry-pick issue, we use quilt for the stable trees because it
+can handle adding/moving/deleting things in any order, like is required
+here.  Using a git tree does not.  So cherry-pick is not part of our
+backport process because it's just not possible.
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+To make it possible, at each commit we would have to keep a local copy
+of the current patches in a git tree, and then generate the new commit
+from that, pull it out of that tree, apply it to the quilt tree, and
+then go and regenerate the git tree (if needed).  In short, a mess and
+would slow us down even more.
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+So yes, renames for "simple" things are a pain at times, it's just part
+of the process.  Luckily Sasha's bot catch them quickly and provide a
+backport easily in a day or so, so if you want, just rely on that.
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+For cc: the mailing list, no, we don't do that as it would make things
+SO much noiser, and for some patches, a total mess.  We cc: everyone
+involved in the original patch based on the info in the commit itself.
+That's a policy decision we aren't going to change at this point in time
+and attempting to add it for only one subsystem like you have asked for
+here is going to be a mess.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
+If you care about these types of failures, just set up a lei filter to
+catch them as we post these failures in public, that way no additional
+mail needs to be sent.
 
-[1/1] khugepaged: fix readahead lock inversion in collapse_file()
-      https://git.kernel.org/mm/core/c/96995467
+thanks,
 
--- 
-Cheers,
-
-David
-
+greg k-h
