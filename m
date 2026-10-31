@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793417758;
-	b=0UVW/POD1UTl0p8SSUxBMCBdmBrv1+XaMQ//g2Us+RSyZaGpTExhjGDIMA8XO1UnviFK
-	 p9trc2l94gOhvYp27VhkcG2wYEQKoALg2FydZtAGvqGhmL1J0Dii8CHMD8Nsn2Jb3aeFZ
-	 OQm0qUilMotMvcwyyUjz1jaAWtJgCZmv9VvbrOJJ8EOznlIJnHKkXxEijTFCoumrA2zLN
-	 NOxfO0+we5SvMk52qKCeGqJF0BDlg6zMNukOq/W02lPLD9BrCAs6hhksXjXw9LzbfTrYt
-	 45UhUop8RxwPCZst1XwXz4hUXyXIk61r1I0hJPo3yVl9qn6DWIPvweFgnP8PVhAyy6g==
+	t=1793420801;
+	b=INbYL0RC+EAWE6ojMuZunEX5V4Yl1k6iNTpzKcWwngUl1D9iemrOZ8GcEH38AFCaDVRU
+	 FuZbSyjoHy2kb97DxPDabKg1JEB58LvoqVxWA3J5G+kEmMWsDpOBWT5H2NdXtikiRaMOP
+	 IIACzENmMd9gNGj8IV8kwTB8DnUS50oeAj9DnPEoe/oo/Vukt+zqZRJuWvO5tu4eP/LTk
+	 vbn7T3UZbaFr5qOO0Vjkq6a67Cli+FUMG6mRBzPM1VFLXZgzT5iVZ5MjcLguCRe43m24h
+	 UTrqBZFVi0H/9tq4oxBBqjbVt2bPyiGLhn73hL/CUXQq8jPMba4nZ6TPR6SE3t8Z5nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793417758;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=u2GnwU/gssAsHL9M1O/zXGt4+/EXK2+c+Gy35OwqvXk=;
-	b=X7x6pD3SzeUmsqGJGn2jhc7HF2dI1lVP2idjdaylJkqZCJ3kExAJd+sn9+izdnxZJiw8
-	 KCRCZ4uR2hH+L0hSPMsCmlKo0irv0GcrdvI9R1C6Ns9F8vqvkAF+BjFpehglRBSfUPMAb
-	 hhBJPlZx3iPRDpc2JvfQBxa6MA0WqNqVI6CDIEbPrl9+2Seu4MKkSOWOTpxCK4PvRz5O3
-	 nWRR4LhjorY4L6FX6RJ3U/J1hOMvbYw4ZDoYWl7bCSvx9sbBpX0k5wNoebs7IRzrY5+XG
-	 zHUp754aixrnLOd+ld3G6Ij6KocixcjYjRR7/ICofUnf98YikC9aUIvpWdA+4cC6NoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420801;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=V21TV/zhZYZBx4vw4bMRfE5IzXMZMg0TRnefxN4ViKk=;
+	b=bU3RUFeIg23/mmKCHjXS3zKRMOnv52UoLVfio43YUaeOf4CbNt2O0nAs9FH8rRnEn0oG
+	 ebtO0UV73qWluLtLYO2ACbgHshXoIyYjEDFmDfjXxyIew2w0xZ6Lg1WgXg0v4D8Sf/Vry
+	 TesJWV4f6AKNH7j0Os24tmg4O5Etj6ahg+jP1qoDpG2wr8NrmWmVZFUSmS5WgxRk5/7t8
+	 ypuKstfzeNB8kVpi9NrbqVs3NrqbsUVRD3w6TfpMPBgh9qapfBSSLJa4q+MuyhbD1LUDU
+	 m2XhR1WXCfEdRZVgKZAyPJ3imeQhHEgBltoY6SJnRnLanAdhpVEylOpmCeJR1NYa/IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=UK6gA2qY;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB73B606A324;
-	Sat, 31 Oct 2026 03:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB73B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=UK6gA2qY
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 919B741403;
-	Sat, 31 Oct 2026 14:35:49 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1793417749;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=u2GnwU/gssAsHL9M1O/zXGt4+/EXK2+c+Gy35OwqvXk=;
-	b=UK6gA2qYkoxfOP6luNXxbSHqZZzjzK6r2bUbVC8FjF1Rm8x5hBolla/RppTL/t5Qu4h5fS
-	tK1dKuTbDyYhqrJ5QXQJEnVhvlzWbmEKhHUZBAJHC+51tvXAKNUVlED+MZCkse1ovWEjOU
-	kV+CBHYYe7slA5/pIAQPc7N5eDbuWtvvdkJZmktCHVRH61wUcSjNtOLJskBXtXo9P3Qm6n
-	ldRg+k5VbpAB8C43XhCSo+pArrOfHHdBcTm1dnzdJb1hCmUDpeOfk2keEVPokJEXT6dAH6
-	m6lqQPTverHJzY1+P011VGTTyVyFLVM77NxWx9m7nQwKmIxw0lli1vEFYQsg1w==
-X-GPT-Reason: legitimate; the message is a technical kernel patch
-	submission that perfectly aligns with the personal/professional
-	mailbox of alastair@d-silva.org. The content describes a specific
-	technical fix for WiFi drivers (rtw88) with a clear "Signed-off-by" and
-	"Fixes" reference, shows no marketing or phishing indicators, and
-	contains no external links or urgency tactics. The From domain
-	(d-silva.org) matches the recipient's domain, and the content is
-	entirely consistent with a developer workflow.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>,
-	stable@vger.kernel.org
-Subject: [PATCH rtw-next v7 3/4] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-Date: Sat, 31 Oct 2026 14:35:25 +1100
-Message-ID: <20261031033526.474710-4-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031033526.474710-1-alastair@d-silva.org>
-References: <20261031033526.474710-1-alastair@d-silva.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B68F606A31C;
+	Sat, 31 Oct 2026 04:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B68F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
+	by APP-03 (Coremail) with SMTP id rQCowABHGpvybeVqSLsJAA--.7893S2;
+	Sat, 31 Oct 2026 12:26:27 +0800 (CST)
+Message-ID: <20933d0650fcead77cb14dc1d07e0b05f0ce2448.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm/loongson: Fix framebuffer selection in async cursor
+ updates
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Evanshenf <archwse@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
+ Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>, kernel
+ test robot <lkp@intel.com>, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Sat, 31 Oct 2026 12:26:25 +0800
+In-Reply-To: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
+References: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,131 +59,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABHGpvybeVqSLsJAA--.7893S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4fCFy3urWUCrykGw1UGFg_yoW8Kr4DpF
+	Z8t340krWkJw4vywsruF1fGFyfua1fWFyxKFyDGw1Fg34Yyr1Svry8u3yUWr47XrZrW34a
+	vrsIkFn8KF4qv3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU84v3UUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-On 3081-based SDIO chips (observed on RTL8821CS; RTL8822BS and RTL8822CS
-are inferred to be affected as they share the 3081 architecture), clearing
-REG_SDIO_HISR_RX_REQUEST requires both a software W1C acknowledge and an
-empty RX FIFO. Masking this bit out before writing back to HISR prevents
-the software acknowledge from happening, leaving the bit asserted even
-after the FIFO is drained and causing an infinite interrupt storm loop
-that locks up the system.
+=E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:00 +0000=EF=BC=8CEvanshenf=E5=86=
+=99=E9=81=93=EF=BC=9A
+> An asynchronous cursor update swaps the new framebuffer into the live
+> plane state. However, the driver reads both old_fb and new_fb from
+> the
+> live state before this swap. When an enabled cursor changes buffers,
+> the
+> address-update condition is therefore false and the hardware
+> continues
+> scanning the previous buffer.
+>=20
+> Read new_fb from the new plane state before swapping the framebuffer
+> references. This updates the hardware address when the framebuffer
+> changes while retaining the existing behavior for cursor movement.
+>=20
+> Verified on a Loongson 3A5000 with LS7A2000 using 32x32 and 64x64
+> legacy
+> cursor updates. Callback counters and read-only register observations
+> confirmed the asynchronous path, the stale address before the change,
+> and the new address afterward. Same-framebuffer movement and cursor
+> disable/re-enable also passed, with the primary framebuffer and mode
+> unchanged.
+>=20
+> AI assistance was used to investigate the existing report, prepare
+> the
+> fix and test tools, run the build and hardware comparison, and draft
+> this message.
+>=20
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes:
+> https://lore.kernel.org/r/202311152357.4KFS0M8f-lkp@intel.com/
+> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> controller")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Evanshenf <archwse@gmail.com>
+>=20
 
-8051-based chips instead clear this bit in hardware once the RX buffer is
-empty without a W1C writeback, and software must not clear it.
+Applied to drm-misc-fixes, Thanks for your contribution!
 
-Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
-For 3081, disable interrupts via HIMR, acknowledge all pending status
-bits via W1C writeback (preserving the existing full status word
-writeback used on non-RTL8723BS chips, now including
-REG_SDIO_HISR_RX_REQUEST), service pending events, and re-enable
-interrupts under irq_lock if still running.
+Icenowy
 
-If unread packets remain in the FIFO when interrupts are re-enabled (or
-if new packets arrived), REG_SDIO_HISR_RX_REQUEST remains asserted and
-re-triggers the IRQ line. For 8051 chips, preserve the existing behavior.
-
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 73 ++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index 253467250ee6..75a5f5a96169 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1481,6 +1481,58 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
-+static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
-+{
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
-+		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
-+		rtw_sdio_rx_isr(rtwdev);
-+	}
-+
-+	/*
-+	 * RTL8723BS keeps raising the interrupt after resume if undefined
-+	 * status bits are written back, so acknowledge only the bits this
-+	 * driver defines. Other chips keep the existing behaviour.
-+	 */
-+	if (rtw_is_8723bs(rtwdev))
-+		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
-+
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+}
-+
-+static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	rtw_sdio_disable_interrupt(rtwdev);
-+
-+	/*
-+	 * Acknowledge all pending status bits via W1C writeback. Unlike 8051,
-+	 * 3081 requires REG_SDIO_HISR_RX_REQUEST to be explicitly cleared by
-+	 * software.
-+	 */
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST)
-+		rtw_sdio_rx_isr(rtwdev);
-+
-+	/*
-+	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
-+	 * unread data remains in the RX FIFO (e.g. if the 64KB budget was
-+	 * reached or an RX error occurred). On 3081 hardware, clearing
-+	 * REG_SDIO_HISR_RX_REQUEST requires both the W1C writeback above and
-+	 * an empty RX FIFO, so the bit remains asserted as long as unread
-+	 * data is in the buffer and re-triggers the interrupt when unmasked.
-+	 */
-+	scoped_guard(mutex, &rtwsdio->irq_lock) {
-+		if (rtwsdio->running)
-+			rtw_sdio_enable_interrupt(rtwdev);
-+	}
-+}
-+
- static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- {
- 	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
-@@ -1499,24 +1551,13 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- 	rtwsdio->irq_thread = current;
- 
- 	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--
--	if (hisr & REG_SDIO_HISR_TXERR)
--		rtw_sdio_tx_err_isr(rtwdev);
--	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
--		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+	if (hisr) {
-+		if (rtw_chip_wcpu_8051(rtwdev))
-+			rtw_sdio_handle_interrupt_8051(rtwdev, hisr);
-+		else
-+			rtw_sdio_handle_interrupt_3081(rtwdev, hisr);
- 	}
- 
--	/*
--	 * RTL8723BS keeps raising the interrupt after resume if undefined
--	 * status bits are written back, so acknowledge only the bits this
--	 * driver defines. Other chips keep the existing behaviour.
--	 */
--	if (rtw_is_8723bs(rtwdev))
--		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
--
--	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
--
- 	rtwsdio->irq_thread = NULL;
- }
- 
--- 
-2.53.0
+> ---
+> =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
+> b/drivers/gpu/drm/loongson/lsdc_plane.c
+> index bcc0ffa..7b9c65c 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+> @@ -230,7 +230,7 @@ static void
+> lsdc_cursor_plane_atomic_async_update(struct drm_plane *plane,
+> =C2=A0
+> =C2=A0	new_state =3D drm_atomic_get_new_plane_state(state, plane);
+> =C2=A0
+> -	new_fb =3D plane->state->fb;
+> +	new_fb =3D new_state->fb;
+> =C2=A0
+> =C2=A0	plane->state->crtc_x =3D new_state->crtc_x;
+> =C2=A0	plane->state->crtc_y =3D new_state->crtc_y;
+>=20
+> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
 
