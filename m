@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793448442;
-	b=eLWrLO7+i8ERtZhCzCB+Ge+byc9vH7pAaztdxcnIhbvknOcalCLAh7c1G7bia44B1iw3
-	 gj7wpeX3XKIIpyCVuMCZrpo0DYlZIFDXoB2KaxWXRovQvstWA85QaDu5XJSfhNRn3zAcv
-	 dW3+X4UGEe/mdUEOq1nkB2Ks7eo18x1gvhTzmmYNE92bsvlfHNGwVHHTyg48cZ2DiDMW6
-	 zIlvWhv+EtucvDA8UqSf6wyBVU/r0QU6L/1LglkvNaWnXgUBEbPXv+HztsQPDMRmlmCx0
-	 39nHlqGhsaV+pnWDpg98BPU+a4ApRVwnfKkHelsI4WGhg3wqDa22gMcBTf83L4SIoiQ==
+	t=1793448441;
+	b=KUQFCShDf5dguC2KCLoWEtZJljOJvjao3G7SUPhZAw2meE4Pmd2l9zT27569YxSeORQY
+	 4XVf3e9zJ2GCxHBWTLHd0zVwVqCDchDLJ+jxmiYXQn1P5qJ5woPP6Mqvkm/3yDXG7MB6L
+	 uo/Hdh3tTUf8QcdrEqnUq5f58glpJLzkZqnEK4FZHBoAPCrIVhaAw+EoU8P2T3Ppx0g0Y
+	 hfANbeBSH39zxPk+XAEjdzQrQQ6XYA/YLEaBNP4eu8EbzXVeM07KK2QkrVhzbf2oY1dLl
+	 IlcMBfWgMdrFTCdfMpF/Xerw2/KJQyx933bLqYqO9b6Ggt/YGNUGtQNVT/EKyLBFHkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793448442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448441;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Ra9w+zWZgwoCxB8YuqKLO7gy/hnQxYG7gsDPgEiLLpU=;
-	b=uPpgAt/SYhXlIX/Yxk3DkxeU2hg/A8YX/6sU6OkFzPd2rJJRJGbO7/i0GeFZSgn8VGPF
-	 T/AiCclxCoAbsgNQtCkULA22oGh0Ns2ZTiHCSuOav+KKyUm60NyH/vKerysFsvY/LI41M
-	 Y5Auute14U6pvrznDXBjZWt5dnI4gJLX0kMoumsn2rXpZcwCUWYNSf7NfGtTYbKrsChbX
-	 PFNHa3FEPPaRYyLL06Fb9IzuDlONYP9SUAkbxJKqRPDyx5X3GLSObajG8WrV9L2XB+Fbm
-	 Rdhp+fHhORN+uV+hjgpAuD/XpQ+dr3QD3lEXJLeEgAb1Hce2ESS1ugK0ee6MQN5AEGQ==
+	bh=jyk3rgi6eH2uBTITUiOecFzmCK/Ol922slxYpE+PPRs=;
+	b=J+HJNlh5JG9cpVR859OnXUWH789zDRiE2Q2xKasH0GFBk8MirhSmtXjLWnZMmsXTg0nI
+	 BcK6fM01HaaiOQ4qTLtXiAk0dhEAyZ1IIl3TkKb9kSL3FedUc7N1YlkE7uzyP9B9wPlyc
+	 2Wo1d1SxLj2Emy+3Cjg4HCIRnvNMxuekBrkVySUEstouCiGWwfROtAbNtdjNbuhVeDBen
+	 KQlcHrN6AcuyMedHsY7RlchypTgpUj4Aw/ScqNm9hkSuj8m0l+ZQSL4z9HLWqaopdlfj1
+	 yQTKPURabfXKMSfgtyN+A7YvIchDE7UKHgBsZh9tMfTpa0pDTlBKg7p6fRdGgDk5KLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=posteo.net;
 	spf=pass smtp.mailfrom=posteo.net;
-	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OjAlI7I3;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	dkim=pass header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=dMplOwLY;
+	arc=none smtp.remote-ip=185.67.36.65
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FC1606A331
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71FC1606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D437606A329
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 12:07:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D437606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=OjAlI7I3
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.net header.i=@posteo.net header.a=rsa-sha256 header.s=1984.8680eb header.b=dMplOwLY
 Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id E0598240136
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:07:14 +0100 (CET)
+	by mout01.posteo.de (Postfix) with ESMTPS id 6BD46240028
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 13:07:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1793448434;
-	bh=Ra9w+zWZgwoCxB8YuqKLO7gy/hnQxYG7gsDPgEiLLpU=;
+	s=1984.8680eb; t=1793448433;
+	bh=jyk3rgi6eH2uBTITUiOecFzmCK/Ol922slxYpE+PPRs=;
 	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
 	 Content-Transfer-Encoding:From;
-	b=OjAlI7I37GMxg1ZeHT8HQkXDsSmLMMkV7waYDyjYo0Y1HZ9vQYV7H69rlnUF+vtoy
-	 87i4JOAjwn0lLHfeyNLLhYYb+oeJvv4XSBQ9RuyVZ5SDqdCrFWfKlSzVC7VhtX1ZMY
-	 cz6495e9GBehHoyQQbp7Tcgr0DFXAzWQThSqlNWdXn6Q0oeNvR9uT+4mU3btkyMuHo
-	 Q3KdN+9Q7JcBK7jWz3xgB8zNckqh38qIzxTLEh+gWZbPmhtCbjqsknKz2HtVunDUOV
-	 r3tLlTt9IBfbKBJH23CDyOmElTtDAcYj373hQrUm3ceEWN6md/AXsCbTdYDxrY2JF+
-	 1tskkiQIIUrHQ==
+	b=dMplOwLY0aDJxLldmkgQcF+xhl9AGuLGcEQamfFFe4Y5i5Il9SE0PX128i4v/oUt3
+	 89JYyQjemRG79JHTl7kpwn965bn5mVrr+FTLhwbkJzJPnJf9SaK6mX7whWon5q6CpV
+	 P/3FbNxLvfjLLB3tZkKVJWdVFc/LlxKL5DmXzvmYooSd1N+afa7nqQvGDWhiIPhBZB
+	 tbUOFvxFdlbM1yYCvgGMx0Lu38/CuCkeSw+bIMF02SlbboZ7gkPl0QRK3k8xadBAa0
+	 6mbkLG7XpqHnlwoC2uU0zKnieWK6wHvls/5ZDPPuoCygkbT51oGSW5JddYMv9gQb7+
+	 9BhKrVEa+/Djg==
 Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jGxXx0lm9z6v26;
-	Sat, 31 Oct 2026 13:07:13 +0100 (CET)
+	by submission (posteo.de) with ESMTPSA id 4jGxXv3CL4z6v1f;
+	Sat, 31 Oct 2026 13:07:11 +0100 (CET)
 From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 To: Ulf Hansson <ulfh@kernel.org>,
 	linux-mmc@vger.kernel.org
@@ -64,9 +64,9 @@ Cc: Christophe Kerello <christophe.kerello@foss.st.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 3/3] mmc: mmci: stm32: lock the STM32MP25 delay block again before tuning
-Date: Sat, 31 Oct 2026 12:07:14 +0000
-Message-ID: <20261031120700.42576-4-mateusz.nowicki@posteo.net>
+Subject: [PATCH 2/3] mmc: mmci: stm32: do not use NEGEDGE in HS200 mode
+Date: Sat, 31 Oct 2026 12:07:12 +0000
+Message-ID: <20261031120700.42576-3-mateusz.nowicki@posteo.net>
 In-Reply-To: <20261031120700.42576-1-mateusz.nowicki@posteo.net>
 References: <20261031120700.42576-1-mateusz.nowicki@posteo.net>
 X-Mailing-List: stable@vger.kernel.org
@@ -80,52 +80,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Once locked, the DLL of the delay block follows voltage and temperature
-but not a change of the clock frequency. RM0457 requires the DLL to be
-disabled and locked again after a frequency switch.
+RM0457 marks NEGEDGE as not applicable in HS200. With a clock divider it
+corrupts multi-block writes: on the STM32MP257F-DK (st,neg-edge, 200 MHz
+kernel clock, HS200 at 100 MHz) written data read back different. The
+same writes are correct without NEGEDGE.
 
-sdmmc_dlyb_mp25_enable() only sets EN, so a DLL left enabled by an
-earlier tuning keeps its old lock. On the STM32MP257F-DK eMMC, switching
-from DDR52 to HS200 then made the tuning pick a wrong phase in 9 of 18
-tries. With this change the phase was correct in all 12 tries.
-
-Clear EN and wait for LOCK to drop before enabling the DLL again.
-
-Fixes: b5c3eb385797 ("mmc: mmci: stm32: add delay block support for STM32MP25")
+Fixes: 36240ef8665b ("mmc: mmci: add hs200 support for stm32 sdmmc")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
 ---
- drivers/mmc/host/mmci_stm32_sdmmc.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+RM0457 describes HS200 only without a divider. If HS200 through a
+divider should not be used at all, the alternatives for the DK are:
+
+- Drop mmc-hs200-1_8v from the DK device tree. DDR52 is tested and only
+  about 5% slower than HS200 at 100 MHz (read/write 78/66 MiB/s against
+  82/68 MiB/s).
+- Drop st,neg-edge from the DK device tree. This also changes DDR52,
+  which was not tested without NEGEDGE.
+- Set the SDMMC2 kernel clock to 150 MHz in the firmware (OP-TEE). HS200
+  then runs without a divider (tested, 119/86 MiB/s).
+
+Which way is preferred?
+
+ drivers/mmc/host/mmci_stm32_sdmmc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-index d74efdff6ac2..2310dba75c35 100644
+index 9dc51859c2e5..d74efdff6ac2 100644
 --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
 +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-@@ -541,11 +541,21 @@ static int sdmmc_dlyb_mp15_prepare(struct mmci_host *host)
- static int sdmmc_dlyb_mp25_enable(struct sdmmc_dlyb *dlyb)
- {
- 	u32 cr, sr;
-+	int ret;
+@@ -342,6 +342,10 @@ static void mmci_sdmmc_set_clkreg(struct mmci_host *host, unsigned int desired)
+ 	clk |= host->clk_reg_add;
+ 	clk |= ddr;
  
-+	/*
-+	 * The DLL tracks voltage and temperature but not a frequency switch
-+	 * (RM0457), start the lock sequence again on the current clock
-+	 */
- 	cr = readl_relaxed(dlyb->base + SYSCFG_DLYBSD_CR);
--	cr |= DLYBSD_CR_EN;
-+	writel_relaxed(cr & ~DLYBSD_CR_EN, dlyb->base + SYSCFG_DLYBSD_CR);
-+	ret = readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
-+					 sr, !(sr & DLYBSD_SR_LOCK), 1,
-+					 DLYBSD_TIMEOUT_1S_IN_US);
-+	if (ret)
-+		return ret;
++	/* NEGEDGE is not applicable in HS200 (RM0457), with a divider it corrupts writes */
++	if (host->mmc->ios.timing == MMC_TIMING_MMC_HS200)
++		clk &= ~MCI_STM32_CLK_NEGEDGE;
++
+ 	if (host->mmc->ios.timing >= MMC_TIMING_UHS_SDR50)
+ 		clk |= MCI_STM32_CLK_BUSSPEED;
  
--	writel_relaxed(cr, dlyb->base + SYSCFG_DLYBSD_CR);
-+	writel_relaxed(cr | DLYBSD_CR_EN, dlyb->base + SYSCFG_DLYBSD_CR);
- 
- 	return readl_relaxed_poll_timeout(dlyb->base + SYSCFG_DLYBSD_SR,
- 					   sr, sr & DLYBSD_SR_LOCK, 1,
 -- 
 2.56.0
 
