@@ -1,69 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793481361;
-	b=NgvzJq84cxhEuyGoBI6M4u/uCA44hJ/cYpcaOArWpsy2WPhlXXvwRaJoYe7edymGZd5x
-	 GyfKjad7STJSiVTb44SjnL+F0h1wi3FzFOpk9WHGYANos4TD3GdvlpTnb1XydZYcxyx1w
-	 ISzNBU+cc/EOw8cJ8aJC4U2KGzvJohnlpSBGP1w4AtWSz+ddyzMfxTX+EHWmhTiS8BDR0
-	 xrNZda8fyABMGLBEagYKhYuAnlJs9WbnGT2CFQhKuwnOQxuxVcMTPCynMGwgtZTcbtK/H
-	 hW/75HO+/DF1e8bVKLg8dNl1Nr5R6DVT0+vE4/4Tfd3Ctzbk/xp2iOxqh/wzBVLBwhw==
+	t=1793481899;
+	b=SG3K36Rmym4moJTyVELdzh7Z2sQVzU4cIXbXg3QhI6NhmhzKJnGCRRC9HdQclw64mgpl
+	 y+R2Bwcb04F9f2pJIunpJaLFm5K9nMlstYnmQppi4YhKMCh28+GlqEl/O49Z4VO3HND/v
+	 bP4klEcU6CiMVqxiABkb4sNjm2dHSpxIKm9lg8NcISf3QhCxIX7deU5rKTB6YqiST2Axq
+	 jveZ4zmaDS57H6hJ+9MSSHpV8g0JwsyfiQWCJzEXtbY6+mqASgppqLsj0Zh+DCbbRrN25
+	 dLqfqDhA9AST5XEpOFQYjwEwc49bsDgocR2uta9HCt1WZO3/OFIx1RXhdsCs4JCDhoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793481361;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=/ba8KQsZ3EiQOcT65AhgZE+XZiuOVWA08LshL8rUrYw=;
-	b=4CerOia1FhJNFHO3SvreNZzSFt2rpJ3PLXrfse0PpTDU19HIuSHgOvVPt4qul7NMmnQv
-	 756UE+olZhEGm5uJ5hfAhRIu3B0LC0+KJ4GYy2THR/JEC5yUVD6fzkySefiY/7tIz4bL6
-	 xOAYKKmp8uV6X+dDdHZEsTH2779uK2Yh0x9YJ7AV5xmdixvVSV2WmH+IQrvpr2tjnQMvB
-	 TR54FWx8cWNDfI8/fvMvu6j1gBK1B+MGt+wjeU79OLAROFGlDa57J1in2mtaw9zmkElsj
-	 fUOjhlMm4u1Cln3ZeKckiDQmad97/SgYLigWowncqeFPR0AlyPUF//gPZp7H4Wn6QSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793481899;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1Vk1hJfR0u61Fe9qHt5Nn3FgFhmPztbFsxazzVHlKZY=;
+	b=jXPioZZJYfO+IuWQ3wPWfOHEfvvLopvU/Tx+Yn9TDvNuTXMMSkBD0Ww7H+du32NyqLWp
+	 K6Mfd1Q9lNOYXWIeIJoskNuQO8nps80QSoXhdC4Uq7H6pg8V13S7d1ULOdFzqD2wIo9k4
+	 LLmMvG7/402qJ+8PWIThVhVn3T3z4t6u0uQvZsWtv+dGb9OxEuXqUR9+S0ufpwCjPZ2Oa
+	 c0hMQLgIcnGjCBVkmdtkcXmF1VDAhJ02wby7fzaVOKN2ZxIuPVzoVbJjX4Lmco/ANlfKB
+	 mHWpj1qVPgR3KKlU9Co7EAiKnttWBgZkuMpsouviBJONnUybdZvexdvIKcXkUIv7XJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=BELv0g6d;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fRulVzh3;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C08B606A31A;
-	Sat, 31 Oct 2026 21:16:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C08B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E577F606A31D
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 21:24:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E577F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=BELv0g6d
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=/ba8KQsZ3EiQOcT65AhgZE+XZiuOVWA08LshL8rUrYw=; b=BELv0g6d+CXyQ4T50I9WNXSiEm
-	xZ1z/ufpnkaOh6RIBuS3mZv4cYN0z9MrPkyEeqI9Tp7AfORdtXEjr2CvjNjs/SM9vPyWQygAsAWHY
-	qDejpKxe0mZ4W3sIBXKouKvSf+A1vkTuF8zF0j6+P/5QsVmEOAWBkxxQFO9hFutDAgV0LxCKGGj7M
-	k2PMC79g+KjJdP2fBnCFwgRdNuw0pKoV9JRkH2H2xlTPEwtR1pFAEtFwIiP9XEwsbK9wTCrzT0xEP
-	bAIrBUEjKnKCSMZ7A098Cn6gexy4IDwGBpm/T4QMLHAyhvTGmPelYjgywobXday2qclmF3faW7qaf
-	ydv8SldQ==;
-Received: from [151.115.150.205] (port=51266 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xNGQj-0000000DA0E-3Sis;
-	Sat, 31 Oct 2026 22:15:58 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Paul Moore <paul@paul-moore.com>,
-	Eric Paris <eparis@redhat.com>
-Cc: Bradley Morgan <brads@mainlining.org>,
-	audit@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fRulVzh3
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b060ec084so1000426f8f.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 14:24:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793481897; x=1794086697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1Vk1hJfR0u61Fe9qHt5Nn3FgFhmPztbFsxazzVHlKZY=;
+        b=fRulVzh31Bhqv4/NY0qSOKuAao7KoNFrPQExsVBxY7qusbFaVTWyHO4RWrHIdAtg07
+         vFUPO5eJXntEXjdfR1QLkzpfOsUJKagNOTK8XkC/c0eOnia4NkMKvJI/Nk3VrVFoxsOh
+         i3oPWiPPU2rtDbWV4kOkc6izndYKP4KXuDEkGhXYsoeRWL/kH2x1YXIiD+1hnaPPH9HG
+         9EzMsLOiHjBNpJGxgjQQzJ7ekqcK37vxtBU4edxk2DSn5o2ErNIoJFaP/+AoToO0aF3U
+         MxjsXR6/F34luSr3gv8m2/9Ro5kDnFDCdNXHMzKkM8aUGzvbYkTbhDMjdSXCvtxNlOXL
+         N7fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793481897; x=1794086697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Vk1hJfR0u61Fe9qHt5Nn3FgFhmPztbFsxazzVHlKZY=;
+        b=JC9VTqbiy4M4BwYk6ufRu9+URIFZdK30v2602vC0YO71+Frj5KaMvlR1MCzgyd2otj
+         BO21xXJ7+6+1amxa3c6kXP+TCbsgGzJZoiCeI5S9EtT3Q0heXBE8E3TImO+S1cFuQK6y
+         aqOe0TQ+Fevi08j+xUF2uHV9dmBR9OtS9K/I9OjJYIFcfqprvGhEgEg/lKJyw2seufhg
+         N4sOA1PqAfUebllw+NgJE5uXxDKpjM4sXs0RhXGQgoGKgqOT6uScwEMNElC2+SIVQ1VX
+         4I/hgzhiGIQwwzyDSrzOq6efiuvllLDajS6k9iZdVokN5HxPtX8PcQA1FF3ZHqpqjR9K
+         draQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzuyGbSVC+Vi/2NLRIxvkDZVnyuuMarHXjWg2xLv+zcPYAGpt35ZSN9W8Gvc8JfFCv3U0AooMo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0pB+11/qe5Ii8nDkNSI73nN7Q8y6vJS2TNeK+Ej1G1R6x86g6
+	CLhbr9cr+iIYFXcOAxP/HsqMnOYDN9a6mJtpu3VzMwvCC8FX5TmUAz2P
+X-Gm-Gg: AYBFou0ukePeTPjaIl4E869P8s7bTaKJ76EwECVHrUmvjVJseCmQEQGCZMctXwtAFHl
+	zEvau5V1FFTXNsBO3ALvMCbAQ7uce5rrk4bp7ZiZp3o9hCU0V955LTXlNPkccpSqVPvFf9eIzZL
+	kjJzC86GSHFGRTsL2U7sKuItHYupwomvnxlWPOUWOEyzwlQFFsQ5fXFRsUMPVjqbkz8vIz37M54
+	gTBXArR4BnERxByTBg0qPkQ0SEiYSBtfyRp7y+6Oxh0cbAD5ZDuGAhdf/1D8qDiSIHYhnwgtxlp
+	YzUoGi5M5J4EX0bLfxXJafjGrHj92Mk2ecoxTn4bgTV9u85gHp9AWHWUuzAVnAgQhDflByVPeIi
+	DUipRRYvIJml1OVZtcMDJ0zYDs/ZOryWJAsS+gez2/lvV6MYTW3R/hgjn/oBuaLa2aP7L2trBil
+	KwlvtO3StNGMT++99KMvcgI5Wk5FNwgqqTwVozsd4uvvoJYCdm5OCmPXZ+NGr3g545q0XI8+Y/c
+	FrYTfYBnS2vN87TU3WqkC3HhDJ9Bb6LsCG7UOXUnvFTwoVKxOkWV5ivTA1i5I46GCaiYqMDzh9y
+	zpkKrjlhzdYiyjC3WKv5wmF6gb5FlhbXqnCd5M49rXFxPRXwDvk1k02kUvetu0CW3GOKdHO/n05
+	qbv3d05KM296TXIcqTP3tB9iv84S5zWrXRT8=
+X-Received: by 2002:a5d:4982:0:b0:48c:7306:18e9 with SMTP id ffacd0b85a97d-48e6e307204mr9624281f8f.43.1793481897073;
+        Sat, 31 Oct 2026 14:24:57 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b81c74sm10204530f8f.36.2026.10.31.14.24.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 14:24:56 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	David Carlier <devnexen@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] audit: fix UAF in kauditd_send_queue()
-Date: Sat, 31 Oct 2026 21:12:59 +0000
-Message-ID: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+Subject: [PATCH v2] tracing/user_events: Don't free an event that a dynamic event still references
+Date: Sat, 31 Oct 2026 21:24:35 +0000
+Message-ID: <20261031212453.16116-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,79 +99,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-kauditd_send_queue() grabs an extra reference to the skb header before
-netlink_unicast() since it may need to retry a failed send. If unicast
-delivery reuses that same header, the receive path stores the
-destination socket in skb->sk without taking a socket reference.
-Consequently, after the receiver consumes the skb and closes the
-socket, the extra reference taken on the skb header makes kauditd
-release a header whose skb->sk points to freed socket storage.
+An eprobe takes a reference on the call of the event it attaches to,
+and kprobe, uprobe, fprobe and synth events all refuse to go away while
+trace_event_dyn_busy() says such a reference exists. user_events never
+checks it, so a user event can be freed under an eprobe:
 
-KASAN reports a UAF as:
+  echo 'u:test u32 a' >> dynamic_events
+  echo 'e:ep user_events/test a=$a' >> dynamic_events
+  echo '-:user_events/test' >> dynamic_events
+  echo '-:eprobes/ep' >> dynamic_events
 
-  BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
-  Write of size 4 at addr ffff888004f94140 by task kauditd/31
+The last write drops the reference on the freed call.
 
-Clone the header before netlink_unicast(), then use the clone for
-delivery and keep the original skb only for retries. If cloning fails,
-handle it as -EAGAIN so the send can be retried.
+If the last fd of a non-persistent event closes while such a reference
+is held, the delayed destroy now fails. Mark the event persistent then,
+so it can still be deleted once the reference is gone instead of being
+leaked.
 
-Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages in case auditd comes back")
+Return -EBUSY from destroy_user_event() in that case.
+
+Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- kernel/audit.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+v2: keep an event whose delayed destroy fails deletable by marking it
+persistent (Sashiko). Deleting it then needs CAP_PERFMON, like any
+persistent event.
+v1: https://lore.kernel.org/all/20261031210420.501187-1-devnexen@gmail.com/
+ kernel/trace/trace_events_user.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/kernel/audit.c b/kernel/audit.c
-index 9412af9144bc..5e739fa606be 100644
---- a/kernel/audit.c
-+++ b/kernel/audit.c
-@@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
- {
- 	int rc = 0;
- 	struct sk_buff *skb = NULL;
-+	struct sk_buff *skb_to_send;
- 	struct sk_buff *skb_tail;
- 	unsigned int failed = 0;
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index f658c3a77aa7..ea6a20a30cf5 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -256,6 +256,11 @@ static void delayed_destroy_user_event(struct work_struct *work)
+ 		 * attempt to delete it later.
+ 		 */
+ 		pr_warn("user_events: Unable to delete event\n");
++		/*
++		 * Keep it as persistent so it can be still deleted
++		 * since nobody own this event
++		 */
++		user->reg_flags |= USER_EVENT_REG_PERSIST;
+ 		refcount_set(&user->refcnt, 1);
+ 	}
+ out:
+@@ -1506,6 +1511,10 @@ static int destroy_user_event(struct user_event *user)
  
-@@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
- 		}
+ 	lockdep_assert_held(&event_mutex);
  
- retry:
--		/* grab an extra skb reference in case of error */
--		skb_get(skb);
--		rc = netlink_unicast(sk, skb, portid, 0);
-+		/* Keep the original header unowned for retries. */
-+		skb_to_send = skb_clone(skb, GFP_KERNEL);
-+		/* Preserve the connection on a temporary allocation failure. */
-+		rc = skb_to_send ?
-+			netlink_unicast(sk, skb_to_send, portid, 0) : -EAGAIN;
- 		if (rc < 0) {
- 			/* send failed - try a few times unless fatal error */
- 			if (++failed >= retry_limit ||
-@@ -827,7 +830,7 @@ retry:
- 			} else
- 				goto retry;
- 		} else {
--			/* skb sent - drop the extra reference and continue */
-+			/* skb sent - consume the original and continue */
- 			consume_skb(skb);
- 			failed = 0;
- 		}
++	/* If there is a reference to a dynamic event */
++	if (trace_event_dyn_busy(&user->call))
++		return -EBUSY;
++
+ 	/*
+ 	 * Detach the fields before removing the call. Removing the event
+ 	 * frees the field list memory (trace_destroy_fields() is run on
 -- 
-2.47.3
+2.55.0
 
