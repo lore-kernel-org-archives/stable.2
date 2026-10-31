@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793438949;
-	b=GOe/ilxXnaBJhUUWCijxVlJe2Wmg77zWYFBu7iDEgbjjWJpGihOTnK/fcJA10Q/QGkZB
-	 KA+vX0BDXtODwR8Ry07ZIXtrPL+U2qswDwEB2fCssGPxGjkQVoskFVDCxdnshdQJsl9ty
-	 wXM/Qwk6nReRZSwkm4oBqP5hYzTLtMTDpsNMEWuf7pYvS/pNZGNzTTFzl6MPzAED8M00l
-	 xIOy8La5+u62mdPTl2kR1+Q76Uarv0881iv+np/OcBx/Gs11yJEqNoMnGMvrYU2nRDWwe
-	 5iXZ6Os8PKop+3IHkjD3Nc1eGSuzA5AH+pumB4ZMwD40AmIfDfeZGp4x7WZKCyDXkMA==
+	t=1793439296;
+	b=Mla7o9BCO4Q/w32RAsDL7MtWie7S6EaJjz/lhGN2cdF1FVCJgtXuAdtiNtxV7fE8kvq3
+	 H0YOrweYiambqiEc195E+KJ9Q+BLnnATzErugWmd3RISY16t+KLweFjD069u+WCG9nEsX
+	 ce3kntiOjX/nr2LkEIXydGcGxA0WB9JUdu6a3EkgQEC16otSgkiDmgvXDEGTax0SjxS0x
+	 z3h8zmbFbXY3HBuDVXGMNMuCinvSpKr0AknxwZueBw54MCpobFSKibLJKA9hFN+vIIf62
+	 64F1NCy/r1vzmOvkxzHsUk0SWtBpQ6pK0Jt85ZZsOC8/svF+8cLKRvZ1Ip1hDNiaBqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793438949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793439296;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ll2fis6PW3e6O4+ywq8trqmNgeraIhRzhSrv/X2z4g0=;
-	b=ZI0a6FlO1GNJoJRe6+LEw4YyOGSgs9hUT2w6mEukaGUqpACoGutbiANiaUKEgOUx44GS
-	 PXGkyrZckTSgjsshrX1jZzP42yaOKkVm9GIKzu3Z5Y4mfQNWaZmufdJSUCnu35vnfQjRI
-	 MxV1ybfCX2XR2sKWBC+I+4kXYlf1TLbHdt6pdonZgDWyIzt6ul1OxKxmsbKX8g5fGdKQc
-	 bzXKWIkmSw8psSmnBbGHD/UjK52jg0W30GMeUB8Xp77AIXhuWkLzzqCAKtdLraNXtuil2
-	 mFXcoy/LhbCn4P0bwHd3+FyOu2KT5wwH/olhRDbh2FfPfuL9QaoA/68jc1pUQFQvvlQ==
+	bh=P9o1mQzkbmTdaiTKQdIgL8fzuR8hlpHa+FcuDOUlG7g=;
+	b=MFEU3drxUGiZ4Nld4T0Y6Ke6xunNJuhCP5Nlx/rNg7Bq/f2dH/3g2dLqqbWesXwV+s9Z
+	 ZPrAFewcvNbRcwmhqjqyDJvco1eyEnf0mDqw6FxQvrmDa1e/ZOQOB+3zL4W0xr8CmMENG
+	 oMTttUfm+jgtLV9uVHY6+LS+1Fvk6lz0/5KINJj8R2jrmT+riaIHSiYZTkIUGZfUzjutS
+	 zAjGNjSsMMcN7kvPNq3GJFOkQGRNhYCKnGTBfWY4qh3NWC4hcz8ibBy1xahAKm3mfrRrt
+	 kdKMsJaSAR/4J9A33om2BN230AAh9UeKhjqD0Kq7Aodpm+olS/46E2sLt8PbccT+SdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHRZmNCY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMeX0QQv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25907606A31A;
-	Sat, 31 Oct 2026 09:29:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAA2606A324;
+	Sat, 31 Oct 2026 09:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHRZmNCY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACA2A1F00919;
-	Sat, 31 Oct 2026 09:29:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMeX0QQv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCAA11F000C1;
+	Sat, 31 Oct 2026 09:34:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793438948;
-	bh=ll2fis6PW3e6O4+ywq8trqmNgeraIhRzhSrv/X2z4g0=;
+	s=k20260515; t=1793439295;
+	bh=P9o1mQzkbmTdaiTKQdIgL8fzuR8hlpHa+FcuDOUlG7g=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gHRZmNCYSYLpZ9UHoD4zM/HC7SGTVM0A+qag4isL8bPqhVyIKmMKxBwYQT/kurhLU
-	 YX4Im7ICJiVFbQdXjxUm1jGIpb9SOovzJ75QNt/SEGA901F1JcUW6APRiOnIjH/HCC
-	 +ttOQJloaaFWtPSM+g+SqBPso2zMPiqyjSHtv7cqV9Ikyax6g7vDG7OSYEatKBpZmA
-	 1ZgClYcVbjTGH7ODF7ZiS7gVXb3tAV3KrkVcje7xbDH6dlhP5xEeUe9mkFlAR614yM
-	 cnOW377XQtEtbpWyRBM4/9L3pb7HUxd0TF+eAaVJCD/wx+3adlIO7y5POMyH/klW2s
-	 VEt7XUYwKd4VQ==
-Message-ID: <895a3483-c773-4d5d-9760-c526c6cfb922@kernel.org>
-Date: Sat, 31 Oct 2026 10:28:59 +0100
+	b=PMeX0QQvPBgkOrecOplu7IqNxYMnMEyiD5AjPxAjtugRusW9fJiuNj9IXZNPcnSH/
+	 WMqSf4rUuty4Ax+BW2IdK8zetJkUQAMx3/TqvyUINiyjs6NfC0rfqsO3X79DBBi4Sc
+	 WhfQaM1PTWd6z3XfFqVDPxoYFuZCr8x+mzLIQ503fxBBUSUX6dp+bH4tgB3FpN4yeA
+	 JimfPT0DLgkb4O0DeQsG/FdpYWITpOIdsyvhtAmXLxivSzB4EiIbnVSluZg62j/4Ro
+	 txxIMOW7G42uEhpVi6RVyYto7K6f2/WDA2zTfShc/YtXJ3HZghe/m3wXmmC0cGiTT8
+	 MG8uqaygp9/SQ==
+Message-ID: <04155e81-a88f-4bba-a77f-0aad1ffdcde0@kernel.org>
+Date: Sat, 31 Oct 2026 10:34:47 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,22 +52,17 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/memory-failure: fix folio refcount leak and
- min_order_for_split() locking
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Wei Yang <richard.weiyang@gmail.com>,
- Nico Pache <nico.pache@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Luis Chamberlain <mcgrof@kernel.org>,
- Tal Zussman <tz2294@columbia.edu>, Li Youhong <liyouhong@kylinos.cn>,
- stable@vger.kernel.org
-References: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
- <20261030163553.c5dec200dd39cec4695e545c@linux-foundation.org>
+Subject: Re: [PATCH] mm/swapfile: drop a large unmapped swap-in folio in
+ unuse_pte()
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Mani Tofigh <mt4022@columbia.edu>
+Cc: Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
+ <20261030155419.b10056c8fb37bc784b0d2778@linux-foundation.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -114,38 +109,72 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261030163553.c5dec200dd39cec4695e545c@linux-foundation.org>
+In-Reply-To: <20261030155419.b10056c8fb37bc784b0d2778@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10/31/26 00:35, Andrew Morton wrote:
-> On Fri, 30 Oct 2026 23:29:13 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On 10/30/26 23:54, Andrew Morton wrote:
+> On Fri, 30 Oct 2026 15:11:56 -0400 Mani Tofigh <mt4022@columbia.edu> wrote:
 > 
->> hwpoison code can end up calling min_order_for_split() without holding
->> the folio lock. There isn't really something that would prevent
->> concurrent folio split. Consequently folio->mapping can get set to
->> NULL after checking for "!folio->mapping", and if the compiler
->> reloads folio->mapping, mapping_min_folio_order() would try to
->> dereference NULL.
+>> Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
+>> for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into
+>> one large folio in the swap cache.  The folio only becomes anon once
+>> do_swap_page() maps all of it, so if the faulting PTE changes in the
+>> meantime the folio stays in the swap cache while not being mapped or
+>> anon:
+>>
+>>   Task A (fault)                       Task B
+>>   do_swap_page()
+>>     /* swaps in large folio F */
+>>                                        madvise(MADV_DONTNEED)
+>>                                          /* zaps the faulting PTE */
+>>     /* PTE changed (F not mapped) */
+>>
+>> swapoff then maps it, which marks all of its pages as mapped and
+>> exclusive, and the next fault on one of the other PTEs crashes in
+>> do_swap_page():
+>>
+>>   [    6.424485] kernel BUG at mm/memory.c:5195!
+>>
+>> ...
+>>
+>> do_swap_page() already drops such a folio from the swap cache when it
+>> can't map all of it.  Do the same in unuse_pte() so that swapoff swaps
+>> the entries in again.  With the fix, nothing is reported.
+>>
+>> This bug was identified and confirmed with the help of a deterministic
+>> hypervisor currently under development.  The C reproducer below however
+>> hits it within a second.
+>>
+>> --- a/mm/swapfile.c
+>> +++ b/mm/swapfile.c
+>> @@ -2518,6 +2518,18 @@ static int unuse_pte(struct vm_area_struct *vma, pmd_t *pmd,
+>>  	if (!folio_matches_swap_entry(folio, entry))
+>>  		return 0;
+>>  
+>> +	/*
+>> +	 * A large folio that is not anon yet was swapped in by a page fault
+>> +	 * that did not map it (yet). It can only be mapped as a whole, by
+>> +	 * do_swap_page(). Drop it from the swap cache and swap in small
+>> +	 * folios instead.
+>> +	 */
+>> +	if (unlikely(folio_test_large(folio) && !folio_test_anon(folio))) {
+>> +		if (!WARN_ON_ONCE(folio_test_dirty(folio)))
+>> +			swap_cache_del_folio(folio);
+>> +		return 0;
+>> +	}
 > 
-> Bit confused here.  Is it referring to folios which end up outside EOF
-> which split effectively truncates, or did it mean to say "truncate"?
+> Let's not WARN here.  If it hits and someone reports it, what do we
+> tell them?  "uh, that's working as designed, no action needed".
 
-I think above should say "There isn't really something that would prevent
-concurrent truncation."
+I thought harder about this, and it just shouldn't happen.
 
-> 
-> If the former, how is split able to folio_ref_freeze() a folio which
-> hwpoison has grabbed a ref on?
-> 
-> IOW, is the race against split, or against truncate?
+Something that was swapped in and never mapped (!anon) that would be dirty would
+reveal a bug elsewhere.
 
-It's splitting (min_order_for_split() reading ->mapping) racing with truncate
-(changing ->mapping).
+I think we can just turn that into a VM_WARN_ON_ONCE() and still drop the folio.
 
-Want to fix up the s/folio split/truncate/ when applying or want me to resend?
-
-Thanks¡
+(there is a reason we never saw this so far in do_swap_page())
 
 -- 
 Cheers,
