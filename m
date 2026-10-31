@@ -1,47 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793405190;
-	b=j+3ziaP9yd3DFHhWodIs2V4lIOeZQg8pYN+aOU3DGq0KONmcCr8qgxS/exIGX4UzOsud
-	 a/wuK7/R29mL0nLAMmjUKczT592x3hgXcbYg5TD3U17I0N7pWNnzwUomJg2hhLu9eq/Dt
-	 pGCYIq4sMzYTpEY0jh1vSdopXim+S8U2en6iX47pfsJ1TbJJG7+5rw9AfRtvX7hw1/Pg2
-	 KyIQKwFGtrGOpgDF1UKMDznKNjyxuS5K12/3Pb7UIDf6RlGLgrkuytW7m3xnQVzjv3C0d
-	 8XGBKGNGJX+/9xHRO5rIX9ycnsvAVRXB/0IbPs1xg95vVAsnJY8gpwnJb+xUWqAGgIg==
+	t=1793408169;
+	b=rC4GZFuhKN+iuR0LGzIapLHuojyUiaE7z1j3iSBdm0JHi/WKjt3uyvWZz2+XK22IQRgo
+	 zGTbVuB9FaX3XoXBSP3Pv/leta87OCfNrM2ZZPp77zZ4J3QZ9GrOpIcX8bnOAYoBgcWsM
+	 iDdxJOnK67FrG0gjsEJP8BBd/PjSmQiFByJrEpiYTDCzhGmTRzaqOlsY8m94iBKkGMw1P
+	 iwD+4lRvNaJ0JF6mJzJ5xFFrY9Ivh0h0RfCDnLRN3CbdWxgSpRfvmiqMRKRHJsQ75h765
+	 MUPRciQiR44NC58P6xiYU8HjJ5YQiJ0k9Pd1ogiVyHkETHSSibrETq8gplK5JUEUJ9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793405190;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=ohloQ+Z05VP4ThDJzzNJRB7GlZ23h2sTe4b3eBy4EBg=;
-	b=sb8UxpX5V/e+CNZYbwgZUC4hzuiquELGpmr28q88b3cbbDQHnwrVQkd5OLA8EEGjHW6w
-	 6fvkheMIyF5amJ3RH2hURmDn7AveeXj3VnSC0uksZwsuPHj2X0P6cBMGalUhXJmQASSua
-	 VED7O028rNylH5Gj/LpQglhAnRzaUpkinsMY6ry7c+bKtROTP59PxH3IAsQfl09O8MSIx
-	 N4bjmpG+3evBkn6QtII3uk2kPuIu4H/Pu9xJDz26Wktt7hhPWLQpEg+mKC2ZglVIcDtiK
-	 1cUO4VqJ4h4lFjyn6VkHo7YWBtou6N9KRu57EB/yPtH3YjE51SjGwiBlifZqayxyGoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793408169;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=NNZ0jWpXyvTAI1fGB9HbbXYilWwVTrHzAZcnT/C24Ac=;
+	b=aeaZIpZj9Dcnjf50Fgr7h9VETg3Kellr/V4p43lI8DgO998DTccrLfh4ocKow77aJjMr
+	 VSLdEwFytwzUN4hqetK5dKOjfoCLE+CBVAHguxh3MAS66JiC0+1vOxHv6gwayvKDVXK7m
+	 /JEsh6/uMkZ1y8sJAlxZUfxCPOrgFYuwFkjQZ50GfrnTF69p9zM7/dGJLSlzEJG04l/vX
+	 46Z9EKi8WJ66noTsU4LktVslkCxZnsRVdmkFDjOqhXtptPCVinHwDnBLlOeAEYMVhrOUu
+	 LwJu9O4e+oQ4aJ/IBmCVrT5h7CvTCaW2xwTyVIOUSIz5ct9Wz/fd4rNoRC0FBQJHzwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Cnhu5MWC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="RWB/ouch";
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC1C606A31A;
-	Sat, 31 Oct 2026 00:06:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445EF606A31A;
+	Sat, 31 Oct 2026 00:56:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 445EF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Cnhu5MWC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFB261F000C1;
-	Sat, 31 Oct 2026 00:06:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793405189;
-	bh=ohloQ+Z05VP4ThDJzzNJRB7GlZ23h2sTe4b3eBy4EBg=;
-	h=Date:To:From:Subject;
-	b=Cnhu5MWC4pYitIe255Q0QUXhO1aNE8CD0N/cZDOG6+NfMpaYT2m1BNCHWAuJ2Klfk
-	 M2gk7uZuXSiJlT/YQ56v2MUMLNzl2zSgOrH4TUdyYo3wjNrnzypnUwobfrZV7TcCWx
-	 RBP9V3c8ThOgX7D16DOHDzJR2/+Y5FkRMdrxObKw=
-Date: Fri, 30 Oct 2026 17:06:29 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,neil@brown.name,
-	maarseveent@gmail.com,jlayton@kernel.org,jack@suse.cz,brauner@kernel.org,
-	jain.sm@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + errseq-dont-let-errseq_check_and_advance-hide-later-errors.patch added to mm-nonmm-unstable branch
-Message-Id: <20261031000629.AFB261F000C1@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=RWB/ouch
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=NNZ0jWpXyvTAI1fGB9HbbXYilWwVTrHzAZcnT/C24Ac=; b=RWB/ouchWeYcNlfYevA/mj7l9N
+	cXBd9jmS0mL/cCVzaorN/VcfjaeExVPwuO0LbceCUiGeqGCEij0CLT5Ovi8h501hFGB70Kh2Ggi3P
+	aapHxvhOQ4B7J0PQn97CMaQwoJZgYWp8wBUwVrAmTxrE5Z9COzjOnpUNnV8NyWpBgpCTCOCnTr6bN
+	6AZsN6OCZl32yis0lLPscYGyMJ5nm3vo+sKP+SvRto8LQam2FWXxXJeERxnAgMQL4AoooO1tIyQFF
+	AXZAU8gYN4FMtVGGhRLtmvP+HZTHXiVAoY5Efs/iYK0KQXINtj/+co/ipfhw5exzZJKYAxdZkhpdy
+	1OlossLw==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMxOA-0000000CoBp-1cwP;
+	Sat, 31 Oct 2026 00:56:06 +0000
+Date: Fri, 30 Oct 2026 20:56:03 -0400
+From: "Liam R. Howlett (Google)" <liam@infradead.org>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
+	Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>, 
+	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
+	stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
+ <auKshDXKQXt1kvjy@gondor.apana.org.au>
+ <auMbCuecFeRmBFSK@pc636>
+ <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,208 +74,100 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
 
+On 26/10/29 10:54AM, Liam R. Howlett (Google) wrote:
+> 
+> Sorry for missing the ML in my initial email, I missed it from
+> get_maintainers.  I should have really clued in with such a small cc
+> list ;)
+> 
+> On 26/10/29 11:08AM, Uladzislau Rezki wrote:
+> > On Thu, Oct 29, 2026 at 10:16:36AM +0800, Herbert Xu wrote:
+> > > On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
+> > > >
+> > > > Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
+> > > > while another CPU is inside vmalloc() or vfree():
+> > > > 
+> > > >     RTM_NEWNEIGH                      vmalloc() or vfree()
+> > > >     ============                      ====================
+> > > >     spin_lock_bh(&br->hash_lock)
+> > > >                                       spin_lock(&vn->busy.lock)
+> > > >     rhashtable_insert_rehash()
+> > > >       kvmalloc(GFP_ATOMIC)
+> > > >         vmalloc()
+> > > >           spin_lock(&vn->busy.lock)
+> > > >             waits for the other CPU
+> > > >                                       softirq: a frame for the bridge
+> > > >                                         spin_lock(&br->hash_lock)
+> > > >                                           waits for RTM_NEWNEIGH
+> > > 
+> > > I think this is a fundamental bug in the kvmalloc non-blocking
+> > > support patch.  How can it be used at all if it is susceptible
+> > > to such dead-locks?
+> > > 
+> > > And if you can't use it safely why don't we just get rid of the
+> > > broken kvmalloc non-block path and have it always go to kmalloc
+> > > like it did before?
+> > >  
+> > If we have a look at this as we did not have vmalloc() here:
+> > 
+> > 
+> >      RTM_NEWNEIGH                      foo() or ...
+> >      ============                      ====================
+> >      lock_bh(&br->hash_lock)
+> >                                        foo()
+> >                                         lock(B)
+> >      rhashtable_insert_rehash()
+> >          foo()
+> >            lock(B)
+> >              waits for the other CPU
+> >                                        softirq: a frame for the bridge
+> >                                          lock(&br->hash_lock)
+> >                                            waits for RTM_NEWNEIGH
+> > 
+> > Same issue?
+> 
+> Looks like it to me.
+> 
+> > 
+> > I have a question:
+> > 
+> > GFP_ATOMIC/GFP_NOWAIT guarantee they do not sleep. Do they guarantee
+> > not hitting ABBA dead-locks or they are not interrupted?
+> 
+> GFP_ATOMIC and GFP_NOWAIT can be interrupted.  It's more about not
+> waiting for reclaim (kswapd might still run) and GFP_ATOMIC might dip
+> into reserves.
+> 
+> The issue is that kvmalloc() now falls back to vmalloc() for
+> non-blocking flags (I am restating this to make sure I'm not missing
+> something here, please correct me).
+> 
+> So this changes what is called internal to rhastable so it doesn't reach
+> vmalloc(), like before, if the caller cannot block - they go to
+> kmalloc() with the old fall back.
+> 
+> I *think* the question is if the change should be here in the caller,
+> internal to mm, or a new call to opt-in.
+> 
+> Considering this is the only kvmalloc() caller that forwards
+> non-blocking gfp from BH lock + softirq context, I think that it makes
+> sense to do it in the caller.
+> 
+> Given where we are in the release, this fixes a real issue that can
+> happen so maybe we take this now and settle the general handling later?
 
-The patch titled
-     Subject: errseq: don't let errseq_check_and_advance() hide later errors
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     errseq-dont-let-errseq_check_and_advance-hide-later-errors.patch
+Hubert, I have another version of this patch set to send out, but this
+particular patch remains the same.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/errseq-dont-let-errseq_check_and_advance-hide-later-errors.patch
+Are you okay with keeping it the way it is for this release?
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+I don't want to force your hand but I also don't want to keep a valid
+deadlock scenario in-tree.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Shashank Mohan Jain <jain.sm@gmail.com>
-Subject: errseq: don't let errseq_check_and_advance() hide later errors
-Date: Sun, 27 Sep 2026 10:47:25 +0530
-
-Patch series "errseq: fix lost writeback errors in
-errseq_check_and_advance()".
-
-errseq_check_and_advance() advances the caller's cursor to the value it
-tried to store even when its cmpxchg() failed.  If errseq_set() stored a
-different errno in the meantime, the cursor holds a value that was never
-in the errseq_t.  errseq_set() does not bump the counter while the current
-error is unseen, so recording the first errno again recreates exactly that
-value, and once another subscriber has marked it seen, the cursor's next
-check returns 0.  For fsync() (file->f_wb_err) and syncfs() (sb->s_wb_err)
-this means that a writeback error recorded after the previous call
-returned is not reported.  The race is rare: it needs two different
-errnos, an error recorded while the check runs, and a second subscriber
-consuming the value.  There is no user report; it was found with a model
-checker.
-
-Patch 1 retries with the value found when the cmpxchg() fails, so the
-cursor is only ever advanced to a value that was stored with ERRSEQ_SEEN
-set.  Patch 2 adds a KUnit case that races errseq_set() against
-errseq_check_and_advance() on two CPUs.
-
-Two behaviour changes are visible to callers, both intended.  When a
-writer wins the race, the call now returns the newer errno (still "the
-latest error", as documented).  And when two threads race on the same
-unserialised cursor (syncfs() does not lock f_sb_err), the loser may now
-return 0 where both used to return the error, so each open file
-description gets one report.
-
-Dependencies: patch 1 applies to mainline (fd179f8a05be) on its own and
-carries Cc: stable.  Patch 2 extends the errseq KUnit suite from commit
-b52f5c1605f2 ("lib/tests: add KUnit tests for errseq"), which is only in
-mm-nonmm-unstable, so the series is based on mm-nonmm-unstable
-(e8d6475e77a7).  Patch 1 could go through mm-hotfixes and patch 2 through
-mm-nonmm-unstable.
-
-The bug was found with a TLA+ model of lib/errseq.c checked with TLC.
-The patches were prepared with Claude Code (Anthropic), model Claude
-Opus 5.5 (claude-opus-5-5).  Testing is described at the Link:.
-
-
-This patch (of 2):
-
-errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
-cmpxchg() and then advances *since to the value it computed, ignoring
-whether the cmpxchg() succeeded. When it fails because errseq_set()
-recorded a different error in the meantime, *since ends up holding a
-value that was never stored in the errseq_t.
-
-errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
-as nobody has seen the new error, recording the original errno again
-recreates exactly the old value, and once another subscriber marks it
-seen, it is equal to the stale *since. The next check through that
-cursor then reports nothing, although -ENOSPC was recorded after the
-value that check reported, and -EIO was recorded again after it
-returned:
-
-  cursor f                writeback              cursor g
-  --------                ---------              --------
-                          set(-EIO)
-  check_and_advance(&f)
-    old = [c, EIO]
-                          set(-ENOSPC)
-                          -> [c, ENOSPC]
-    cmpxchg() fails
-    f = [c, EIO, SEEN]
-    returns -EIO
-                          set(-EIO)
-                          -> [c, EIO]
-                          (no bump: unseen)
-                                                 check_and_advance(&g)
-                                                 -> [c, EIO, SEEN]
-                                                 returns -EIO
-  check_and_advance(&f)
-    [c, EIO, SEEN] == f
-    returns 0             <- -ENOSPC and the second -EIO are lost
-
-For file->f_wb_err this means that fsync() on one descriptor can return 0
-although writeback failed after the previous fsync() on that descriptor
-returned, when writeback errors race with fsync() on another descriptor of
-the same file.  The same applies to syncfs() through sb->s_wb_err, which
-every file on the filesystem shares, and to the ext4 and jbd2 cursors on
-the block device mapping.  The kernel-doc promises "Negative errno if one
-has been stored, or 0 if no new error has occurred".
-
-Retry with the value found when the cmpxchg() fails, so that *since is
-only ever advanced to a value that was actually stored with ERRSEQ_SEEN
-set.  Every later errseq_set() then has to bump the counter, and the error
-is reported.  The retry loop terminates because each iteration needs a
-concurrent update, like the loop in errseq_set().
-
-A TLA+ model of errseq_set() and errseq_check_and_advance(), checked with
-the TLC model checker, finds the lost error with the current code; with
-this change TLC checks that an error recorded after a check returned is
-always reported by the next check (exhaustively for two subscribers with
-three checks each, and one writer recording four errors or two writers
-recording two each).  The KUnit race test added in the next patch misses
-the error in 1-6% of 2 million rounds on 4-CPU UML before this change
-(depending on host load), and in none after it.
-
-Link: https://lore.kernel.org/20260927051726.71337-1-jain.sm@gmail.com
-Link: https://lore.kernel.org/20260927051726.71337-2-jain.sm@gmail.com
-Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Thomas Maarseveen <maarseveent@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: <stable@vger.kernel.org>
----
-
- lib/errseq.c |   29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
---- a/lib/errseq.c~errseq-dont-let-errseq_check_and_advance-hide-later-errors
-+++ a/lib/errseq.c
-@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
-  * points to. If it does, then just return 0.
-  *
-  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
-- * swap it into place as the new eseq value. Then, set that value as the new
-+ * swap it into place as the new eseq value. If the swap fails because the
-+ * value changed, retry with the new value. Then, set that value as the new
-  * "since" value, and return whatever the error portion is set to.
-  *
-  * Note that no locking is provided here for concurrent updates to the "since"
-@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *e
- 	 * to take the lock that protects the "since" value.
- 	 */
- 	old = READ_ONCE(*eseq);
--	if (old != *since) {
-+	while (old != *since) {
- 		/*
- 		 * Set the flag and try to swap it into place if it has
- 		 * changed.
- 		 *
--		 * We don't care about the outcome of the swap here. If the
--		 * swap doesn't occur, then it has either been updated by a
--		 * writer who is altering the value in some way (updating
--		 * counter or resetting the error), or another reader who is
--		 * just setting the "seen" flag. Either outcome is OK, and we
--		 * can advance "since" and return an error based on what we
--		 * have.
-+		 * If the swap fails, a writer or another reader changed the
-+		 * value under us, so retry with the new value.  "since" must
-+		 * only ever be set to a value that was stored with the SEEN
-+		 * flag: errseq_set() does not bump the counter while the
-+		 * flag is clear, so an unstored value could come back later
-+		 * and hide the errors that were recorded in the meantime.
- 		 */
- 		new = old | ERRSEQ_SEEN;
--		if (new != old)
--			cmpxchg(eseq, old, new);
-+		if (new != old) {
-+			errseq_t cur = cmpxchg(eseq, old, new);
-+
-+			if (cur != old) {
-+				old = cur;
-+				continue;
-+			}
-+		}
- 		*since = new;
- 		err = -(new & ERRNO_MASK);
-+		break;
- 	}
- 	return err;
- }
-_
-
-Patches currently in -mm which might be from jain.sm@gmail.com are
-
-errseq-dont-let-errseq_check_and_advance-hide-later-errors.patch
-lib-tests-errseq-add-a-concurrent-check_and_advance-test.patch
-
+Thanks,
+Liam
