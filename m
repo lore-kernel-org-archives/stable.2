@@ -1,55 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793451467;
-	b=lJEikzvMH7mr2lr98gb8ZnX+dDGERDF2baalW51LIGCcZnSWuTSiuXDuhF/tQ9EnCviL
-	 XGv4sMtW1yIslkaS/1DR4UVd9a9xng4zWwjeqYT9BiBwyrk/BcvTsx3QJRmnHbdnv4sKc
-	 9J4iXkuMXvNaQMkmnezzTRhb/1+z7udu2m/TByGh0O/bsvCJ8napB7y1aa9OQ/7t19QM2
-	 19H8wu8B10jbQtF47gtduUh9J8C3ka3kKf2HsRjQK55eBXtqvwVH5bGpyOxmRUMM+aI1/
-	 Wj3gdet2g1EqQTtaOM4Qi4nr78kcDu849jej66bpo3EiZtT/UAoDyg4+qoO4963zsVw==
+	t=1793451956;
+	b=p5wYh1bC1SJ0SazBEJp96toccBbT7oBe1eFW2rJSrBwix1q2gkBzCm+y74qg5aPUjEKL
+	 O9VGoYcRSwcSiTRyjAu40n8I03Wme7PfanLNZfOIVtXHgt4JD6UVM/q10yU2ddPlqvnwb
+	 kWAN6Aou5j+2OAgp6o+f7QVFr0CHS7kTeWm0YFxpQVBZuJ2wLqhhmeQApsWe6p6vLUGEC
+	 rrwPIb/uK52ZU/OmB59fRA/1tp/LrMYqvOjWNFCDa6fex+LniR3H/pM6WsyLb2mexVtqm
+	 QtBj45Z2NfNX9TWCUtZzOovE+smB0iR++nbGhcwdx0z0nFh48UtWGMxO2/kzRZI6u0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793451467;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ADpkKw8ZcHosCss31531pr6bot+Oa4C+WQwAZutcz0I=;
-	b=azzgb3xjTLXPRrwOo/YQVJHnJN3nG+37z9PmKMmkzXZorERmPJ03dE2BH0Y2sreHdj9q
-	 JLpNUwc4er8hvkaEPDqZa2dxuXABst2kkZtMUHET9+hAcB6S5elYRETOEjXzY+Yv2NOVm
-	 tcPdCv2u9qd8SWBM7ExJXmoi+1QkyAPbKtEjLf5XwUdKDxD4SQLYUI5U1duJzIt/FjWAV
-	 yBtO/VkSML3kjLMQNEB9FuSxQLgyzv8Y4ierIZkGSYO14jqwdTWfmyOxBN4a2mxad1pRE
-	 to07UO1IN16ZvZgFOXufSKGKALAAzalK7v7wKDb17MMSvuAtRJ++ltNvyPrKLRsOt9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793451956;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=0G1FYbn97ZpskU4kXqlNgRJ9OjsqiMFMjdyQhOyqtCI=;
+	b=L2lzQ2bV9rdla0e42vu5lFoL+jfck0yQWxdMpoqrkbRqOya5T09IuaZx+DNQfUw/vm9R
+	 OjTZBogdUyRFm1aBtJOzGqCOLEj2NtIuKtm8FXUICir6CZ+yrUUL/co48JCvfyAwraFxt
+	 1zny+YdBUGLJim0nfD3Kdu78JgjEKcWEVfLNyzAkZ3eFPhDoFpBuc9lZvsRhRA5YYvQwO
+	 Qjh2JlRedrkauHdlA+La1BTQGS4W5GFLWrK/aSjaqvzlX99oBzh6CLl9TLnf2da49QvOp
+	 TlTiLNopH6fs90Kq+QCujbOcRrJ68GNjqtt9VM1sVK7/eR3Ss7tiDA0ppucSMzEXW7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="jD7YJ/aP";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EW8HNwyx;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC350606A31A;
-	Sat, 31 Oct 2026 12:57:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA886606A326;
+	Sat, 31 Oct 2026 13:05:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA886606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jD7YJ/aP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685BF1F000C1;
-	Sat, 31 Oct 2026 12:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793451466;
-	bh=ADpkKw8ZcHosCss31531pr6bot+Oa4C+WQwAZutcz0I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jD7YJ/aPzvWc8bhDb3Cu720stmkMJ7M7A1r6OUF5EjHHIePwWGqEgcPnRB2JRAQ8D
-	 uIwyeF1RZDDtg0kZWv6OxsQkoh+tiAaq1fAKHXC21E0DPkIp1wqWNCQ0LQE8eiZHud
-	 gmhV5aqOZPCyC3tRsRPpRL9We0FX7YDanOv38cz0=
-Date: Sat, 31 Oct 2026 13:29:47 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Radek Podgorny <radek@podgorny.cz>
-Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	linux-bluetooth@vger.kernel.org, stable@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: 7.2.y took the on-air address fix without its companion
-Message-ID: <2026103137-purebred-puzzling-4f88@gregkh>
-References: <179097754519.501890.1801734138080126989@podgorny.cz>
- <2026100356-magnitude-esquire-89fc@gregkh>
- <179337661340.2790793.10493980332574129560@podgorny.cz>
- <2026103011-coeditor-debtless-2d94@gregkh>
- <179344898191.3643659.6660410741163325277@podgorny.cz>
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EW8HNwyx
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 530655124;
+	Sat, 31 Oct 2026 21:05:44 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Tim Harvey <tharvey@gateworks.com>
+Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
+	stable@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: tda1997x: Fix potential use-after-free on probe failure
+Date: Sat, 31 Oct 2026 21:05:43 +0800
+Message-ID: <7c26d0753bb5a45f4abdec2ae12f2cba20dbd0c7.1793451813.git.liguangshuo@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,43 +56,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179344898191.3643659.6660410741163325277@podgorny.cz>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19210e9cd03a1kunm3ff2cb8183bf1
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGUNOVkhPGhpNSUgaGh4ZHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
+	++
+DKIM-Signature: a=rsa-sha256;
+	b=EW8HNwyxbhgn3VQFjKKPl+AY+t6wmioZvSqh8KHKOKoQB+luLIaCoApxe/7oLTPO7hNysyAZ3puvqpTzWDBSaPocfiqkYYc/soxpXZGAfT/j7PV/OYTL4yw2XCCqYxNkhrWh4hew8AvfW32U21MA5l+WOQbdKhyIAmBpXnXTDcs=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=0G1FYbn97ZpskU4kXqlNgRJ9OjsqiMFMjdyQhOyqtCI=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, Oct 31, 2026 at 01:16:21PM +0100, Radek Podgorny wrote:
-> On Fri, Oct 30, 2026 at 11:32:40PM +0100, Greg Kroah-Hartman wrote:
-> > I have no context here, sorry, what is wrong?  If that's a bugfix, why
-> > is it not cc: stable?
-> 
-> Sorry, my last mail was too short.
-> 
-> It fixes a regression in stable. I sent two patches as a series:
-> 
->   3889a5fcd091 Bluetooth: forget a peer's RPA once it advertises its
->                identity address
->   4914c4998961 Bluetooth: put the peer's on-air address on air when we
->                cannot resolve
-> 
-> The second depends on the first, but AUTOSEL took only the second into
-> 7.2.8 (as a552b4bc058b). It also reached 7.3 ahead of the first.
-> 
-> So when a bonded peer turns privacy off and advertises its identity
-> address, the host keeps connecting to the old RPA, which the peer no
-> longer answers. That lasts until the adapter is powered off. 7.2.6
-> connected to the identity address and worked.
-> 
-> There is no cc: stable because I left the tags off on purpose. When I
-> posted the first patch, the kernel still hid the stale address, so the
-> patch fixed nothing live on its own. Taking the second patch alone
-> exposed the bug. In effect the first patch is:
-> 
->   Fixes: 4914c4998961 ("Bluetooth: put the peer's on-air address on air when we cannot resolve")
-> 
-> Please queue 3889a5fcd091 for 7.3.y and 7.2.y. It cherry-picks cleanly
-> onto 7.3.1 and 7.2.14. 6.18 and older don't have 4914c4998961 and don't
-> need it. I have run the two patches together since September.
+If audio component registration or IRQ setup fails after the subdevice
+has been registered, probe frees state without unregistering it. A bound
+notifier can then retain a pointer into freed state and dereference it
+during teardown.
 
-Thanks, that helps, now queued up.
+Unregister the subdevice on these late probe failures before cleaning up
+the media entity and freeing state.
 
-greg k-h
+This issue was found by our static analysis tool under development.
+
+Fixes: 9ac0038db9a7 ("media: i2c: Add TDA1997x HDMI receiver driver")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI:gpt-6-astra
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+Build-tested drivers/media/i2c/tda1997x.o with x86_64 allmodconfig
+(GCC 13.3, W=1). Rechecked the probe unwind paths in source.
+No hardware runtime or fault-injection testing was performed.
+
+ drivers/media/i2c/tda1997x.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
+index 30dfd8a7b42b..4ff9acbc005e 100644
+--- a/drivers/media/i2c/tda1997x.c
++++ b/drivers/media/i2c/tda1997x.c
+@@ -2776,7 +2776,7 @@ static int tda1997x_probe(struct i2c_client *client)
+ 					     &tda1997x_audio_dai, 1);
+ 		if (ret) {
+ 			dev_err(&client->dev, "register audio codec failed\n");
+-			goto err_free_media;
++			goto err_unreg_subdev;
+ 		}
+ 		v4l_info(state->client, "registered audio codec\n");
+ 	}
+@@ -2788,11 +2788,13 @@ static int tda1997x_probe(struct i2c_client *client)
+ 					KBUILD_MODNAME, state);
+ 	if (ret) {
+ 		v4l_err(client, "irq%d reg failed: %d\n", client->irq, ret);
+-		goto err_free_media;
++		goto err_unreg_subdev;
+ 	}
+ 
+ 	return 0;
+ 
++err_unreg_subdev:
++	v4l2_async_unregister_subdev(sd);
+ err_free_media:
+ 	media_entity_cleanup(&sd->entity);
+ err_free_handler:
+
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
