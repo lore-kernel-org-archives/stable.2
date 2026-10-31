@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793439849;
-	b=RF0zLNU38Pmauq4ySVSojkeGTRtuXG5kRb+/iiHniq1EU3RFO/u6yJWm5boQH6BNHKW/
-	 OTAJqRUzBv/yJPE2F989DySA3/V/fIw9rKSZ1CpJ7ipEK9iMi7aCNAYw4asSwvFI/KYVT
-	 MoTIeqmu+A2Hf+L/aLuhO+TsvcKm9g1ZyunxaMHMhkVgtoRChyNtqOzLgOyWVHTtHvbzv
-	 uTZzjwEn7lJBAfFvcfD7rqA687KTjDxWnctYlVVrQxV33LPshtaOY8f6cms3b1/E8EaW3
-	 eAwb1JxjKUQybbk1ruCviIjIb79PTuRd0zpqtmwuDyWDfXxLfrEdtu+JqPygUtRvP7g==
+	t=1793439865;
+	b=K8vseOUBU2Q/gdzOmG1tBO0bKGqLccVwHvjSlTYcgCUn0C+9nn8MQO071zfm0oEX1b8h
+	 Ua1ufEI3dkZ+5Hw4wN7DRim+eaHyDnp8aWwrOB53XMBsztgONJBchNG09ZtJWlXjso14v
+	 HUavdEFqTzkOOJoHImPqeif7Dvo7orQgzbv+pOLNR65fStW34twEAvQSTdDUe/HuO/o9D
+	 lu8i8fI7kVv5KKpuObfu6NJ9lrtB0L1ui5iw5WCNte5HF7DHyIFvmYHHaohzYiN5mdl/i
+	 xEHHIjOPUESvuhPmGVFh2W8Ft27+PSYmSDjS9ChbAjHuS6Re7YvJUNrnH4PIgtN8NrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793439849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793439865;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dD8bNaZIuViD1rMmSH8A86u/ZWtm1YEV/epD2uKBbxE=;
-	b=CbilSzJ1EipERfxr4Jmd8EVvfyBp8glCxDhfNCzGy7XC6WwoxP9R8QqxqKfpUae+UGqK
-	 kUgPMCYcSiS2Aa1pOpRe4EcDq048o/aSlxLwR4ORhPcijEnrs3CqFmGEXqTwvp7wpfbf1
-	 oGVf7xzXZ93wNLVRzaAUcI3zoPhZBPnODTOgbB3xP2uARNYCOxFVBuBF1Onfc5gUxgqnI
-	 XdrdeyJY3BqpaB43UsQxK+h0sx0ojr5m0blWJLA6SDN6pTD2Vl+zZiSFuIbFQMP5JQEYw
-	 PJKjZk4XN5ox+HG4WrFPU9Mxl+oyxiV6zQXFoTekro4wdWrCoATHXy645OC5Mla3Gog==
+	bh=v1+ekpwjupL9b9pcbG8pHLIAFF7Z8BWbgINSpSywcxE=;
+	b=GfDQA0NfNsBFzxPxsMmXpTE26ZhoISnpOsjgYv/cv9plQ0Mf+PQeMlggEUy4sOJ1SNy3
+	 kOBgA1mF1Meh8FO0z6yCDhT0+dZrbz/kNhQuzUsCNwRPvXs6Yvb/EckLhYrZ6nBNXyKV5
+	 fiq4kTEpM2oXkeQHsPkF7BmMm9PpiCRZoRNBuONyapQ5SvQix8axaRNZfKqD9K6UsHy3h
+	 VHKadqELQL3FaxXvnNAnraTOPquBGMqGPLtUDVWq4Up/xtua3Il2eIWr0P0MJ8D7GzOX5
+	 VwDCtSkFdYRbnBffiEpfM18KDStQu6gO/99NC+otj7emTgaHbJ7NccY/jBxAUdQdZng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBYWyFJB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n7/dh5mI";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9F9606A31E;
-	Sat, 31 Oct 2026 09:44:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D1B606A31A;
+	Sat, 31 Oct 2026 09:44:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SBYWyFJB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBBC31F0093A;
-	Sat, 31 Oct 2026 09:43:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n7/dh5mI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE60E1F000C1;
+	Sat, 31 Oct 2026 09:44:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793439849;
-	bh=dD8bNaZIuViD1rMmSH8A86u/ZWtm1YEV/epD2uKBbxE=;
+	s=k20260515; t=1793439864;
+	bh=v1+ekpwjupL9b9pcbG8pHLIAFF7Z8BWbgINSpSywcxE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SBYWyFJBjrqmvQU0SLK/yXNYDG03UfEHLHBfhq+cgw3Mp75MofH2A8dc6wPjeEDVv
-	 OgsCgMr8avGx4SVXvGmJOt4L0WLdm8QTqbVfd3IgM2F9nzP1NKoikT78JhjLalaX6y
-	 MJa8/PAIKKtuVGZ6zyGm2qn8asC2gEIT2/RlnUQdveNPyGdqArZM+nJ3oFiB4QJBUD
-	 FqHedcFM3LOFsdKvRRAW7qIWlFNsNLMIvP2f0hRzi9q6829DtyPX0OMj/JaKxv8REN
-	 3jH/Ga4Nqjvn8Vw5Hr0RDErkQgv1hA578/T4CTyi0+/C11MmrghwGE7RVwyCq1+EpW
-	 sR34AEi7oNxPg==
+	b=n7/dh5mINMOMUKO95+gONTx2Ve6Y6XcCPT+ZM+iwTwMTHVAeaRgrXb5ptLGRbx6IX
+	 HzK5Jp3M/dpYJrf4RMfNYcWQgTq4WJkZ7HXkJS42/48ivty7LdE+IOxpHHeTr0z1i4
+	 zWePStQ24ycM28VhK6H9XTW9nXaf6Lpb7uPvj5uNMIEsTMlzWR0sC5wgghJ4aOMSi8
+	 Kna460upm7RSYrBeisDazpPPtMuYKG2Nf7FkLefEcjo/GjwUiOdmNwc66mNiD22Sfb
+	 qFDkujgq7nV/wInZQwbFn6JzF+aKGFfRrTHfoOsRIxGN2kVPc/nK4gg/uujXWCSmEz
+	 aLn6q3dxzkAhg==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:44 +0100
-Subject: [PATCH v3 15/47] mm/khugepaged: always recheck the pmd in
+Date: Sat, 31 Oct 2026 10:39:45 +0100
+Subject: [PATCH v3 16/47] mm/khugepaged: fix PMD table lock leak in
  try_collapse_pte_mapped_thp()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes_core-v3-15-d6437171ecc3@kernel.org>
+Message-Id: <20261031-fixes_core-v3-16-d6437171ecc3@kernel.org>
 References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
 In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -97,61 +97,74 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Muhammad Usama Anjum <usama.anjum@arm.com>, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1665; i=david@kernel.org;
- h=from:subject:message-id; bh=CS7nU47snOvzHXKT1Jq5YnXJ98oWY8rgSlPg1efCrZ0=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebk9PenzlJu+Me5oLPjgcPt+x3vBE0sRXv9/FJ7pPE
- V46WSm6vaOUhUGMg0FWTJElKPi+wcuX62qr3fiYYeawMoEMYeDiFICJnF7PyNBhvkr/s0eeQtOS
- xA+ZX8KZxEMW5rmvFv7Ty3PvlKhu4G9Ghhu37Loa9P4Ieh2Osa9PXXbdul0vIGFp3yn3w0uKr5Z
- OYAYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2443; i=david@kernel.org;
+ h=from:subject:message-id; bh=zTm3MuB5zSsRWepSA3fPzqAd3nAG68NQj/5HuMoa9lA=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebk/fbs00i68oY9Iep743yuyx9rcWbHl6/l2C6Hfj2
+ sv/HrJadZSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjCRZEmG/6XFYhPUGzgPZi+s
+ 62xe6Zsbd2BN9O57u295RvibSO1TPcLwV2DOwbcpy//vEVKP3pJ28u+ybzLuB7gsfe+ySn/tXB8
+ 0mRUA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-try_collapse_pte_mapped_thp() drops the PTE lock after it has cleared the
-page table, and takes the PMD lock and the PTE lock to remove it.
+For a private mapping with userfaultfd, try_collapse_pte_mapped_thp()
+takes the PMD table lock before it maps the page table for the second time.
+If that (pte_offset_map_rw_nolock) fails, because the page table vanished
+in the meantime due to concurrent page table reclaim, it leaves through
+the abort label, where the PMD table lock is unlocked if it differs from
+PTE table lock.
 
-In between, MADV_DONTNEED with CONFIG_PT_RECLAIM can reclaim the
-page table. The pmd_same() check is supposed to handle this, but it is
-only done with CONFIG_SPLIT_PTE_PTLOCKS.
+In case the PMD table lock and the PTE table lock match, which is the
+case without CONFIG_SPLIT_PTE_PTLOCKS after pte_offset_map_rw_nolock()
+failed, we miss to unlock the PMD table.
 
-Fix it by performing the check unconditionally.
+To fix it, forget the PTE table lock when we unmap+unlock the PTE table.
 
 Fix generated by an LLM and sent by Josef Bacik in private.
 
 Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
 Cc: stable@vger.kernel.org
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: adjust description ]
+[ david: move the ptl = NULL handling; rewrite description, drop wrong comments ]
 Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/khugepaged.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ mm/khugepaged.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 3a6f4b7b28453..81496887d827e 100644
+index 81496887d827e..34ebb37c862c0 100644
 --- a/mm/khugepaged.c
 +++ b/mm/khugepaged.c
-@@ -2013,12 +2013,11 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
- 	/* step 4: remove empty page table */
- 	if (!pml) {
- 		pml = pmd_lock(mm, pmd);
--		if (ptl != pml) {
-+		if (ptl != pml)
- 			spin_lock_nested(ptl, SINGLE_DEPTH_NESTING);
--			if (unlikely(!pmd_same(pgt_pmd, pmdp_get_lockless(pmd)))) {
--				flush_tlb_mm(mm);
--				goto unlock;
--			}
-+		if (unlikely(!pmd_same(pgt_pmd, pmdp_get_lockless(pmd)))) {
-+			flush_tlb_mm(mm);
-+			goto unlock;
- 		}
+@@ -1904,7 +1904,7 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 
+ 	result = SCAN_FAIL;
+ 	start_pte = pte_offset_map_lock(mm, pmd, haddr, &ptl);
+-	if (!start_pte)		/* mmap_lock + page lock should prevent this */
++	if (!start_pte)
+ 		goto drop_folio;
+ 
+ 	/* step 1: check all mapped PTEs are to the right huge page */
+@@ -1935,6 +1935,7 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
  	}
- 	pgt_pmd = pmdp_collapse_flush(vma, haddr, pmd);
+ 
+ 	pte_unmap_unlock(start_pte, ptl);
++	ptl = NULL;
+ 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, mm,
+ 				haddr, haddr + HPAGE_PMD_SIZE);
+ 	mmu_notifier_invalidate_range_start(&range);
+@@ -1952,7 +1953,7 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
+ 		pml = pmd_lock(mm, pmd);
+ 
+ 	start_pte = pte_offset_map_rw_nolock(mm, pmd, haddr, &pgt_pmd, &ptl);
+-	if (!start_pte)		/* mmap_lock + page lock should prevent this */
++	if (!start_pte)
+ 		goto abort;
+ 	if (!pml)
+ 		spin_lock(ptl);
 
 -- 
 2.43.0
