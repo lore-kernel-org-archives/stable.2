@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434844;
-	b=05Vkut1eaijooc55kEi26h7mephIFIwEoWs7f02VbeGBidkbQoMwAjzvuCDFOEfGfUH4
-	 KAhdYHANrWE9CZ1ems7cRG9XbP2O+vF8x2RkxOBPuGiJ86M753AaODnZXSu/S9anXg8nj
-	 Qx+mEbb4AwaA+BSeSrRrVqj511i17wnttlROW+D3xLc2U/ymY6Gag3120sphH74SuoFO2
-	 stH/81VKYkP+ujX9IiCJ0J0mNBnUF4pZUDWDIk6Jj2Dz/OtSqw3U8qUtIEbqoT780+g4x
-	 PMrs9aa46nm64ktSq+e8tkHtdAL2qQnj2EkiktfJxqlyvvRO8rH+4QyCDB9RB4BD9jw==
+	t=1793434985;
+	b=uy6fw1P8LV9pKPiQzTWVWHZx+mHMzTTIV4WaulxVO9ZS6DWuAMFbb6FOiU7dBqRDst5c
+	 J2Su55jMGspzO++zYM1TiqJNu49kvJk05f4N9foAGnAvSwGuT77E8hcXoZ9AYGoTJY1SV
+	 oosnBdjFpoL/uQmNytOSVR7MRQLvsoMPRBdB827Os1nzq1ziYjAUDVZrcH25UWZZmMy3q
+	 fLQVwx4Kqz304LlBpIIiz98C3kkYYLGj90QAAsY7yw7GcVKYz0q6y5l3wxW8xf3svpqgV
+	 XVyiDvL3sf3RTumbVBi7CfpkNv6t15WFL1rcQbT1/XxKtDQnBxDv+gRg/Ilr95oaM1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434844;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QR9ZUM3+BAi7COqEi8WRxHv0xaeR1LV8PUZl/W0E5QA=;
-	b=M5RYJGKkCET7155NN1LwM0OZ/7BZa4EE50tSyhbZ1NHJg783bM9LdlyWsxhP61PoE9wt
-	 y54dj3ujtusJvvEVhKpcg2mHElzWjKr078ob9rc5AJ90H7Gz9BVuMrgMb/VSgjQBdRQ/g
-	 uaEGfiaPmAjpEX+moYot6pkvEys2F4wTgndVbl/zLb0kY+h4hYO99ms4YJB72oe/+0n7M
-	 Bl8Pq1F5ueU1FxI9Tn56dcKy9ZHTW4ng9JUOQHVlFeTSVz3i0mTCX8bE4K6fVEOtdcTqq
-	 wmziE95KChbtsd+WsCT9Zt8SYzxasrmjdYd4z/VhGfit6ONI9ucr5a8+cCb0mAJjznQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434985;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=tOj9wR1+oMDTq+geNGWmE+H0ijWQOROYJCn+bfYjsvw=;
+	b=fEe4x9mbV1VPK7rA1smpz7TMuQxwdVJsBgIiW/DmMiv0xWaqCK6c98WcucMUE6FlomH5
+	 QH8GGc43Z1+Jlty/uZr5OEMH8uiBQnFfW+8z+klCXr3SomPp98P2n1eip3KptFdPtFlKI
+	 w8QZsHwc978/P22sJhD8cS4yNKbUyW6CNnRITxXdjlp6oNxNXpiAyChnFsax50cauFko+
+	 WllVFcd/dAYZGUP2vp/mMsmrPet0Dti0ljtkY0WotyScBTMh2DlI1tVIMBvhcxk0K0583
+	 ubtLO+ao3AyneZ1IeQRb3DBwrwfSQFX/AD6nNZgOC7ALu+X2NRmK+sw4xCgCqTaAWag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfuOQ2Lg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.112
+Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4F73E606A31A;
-	Sat, 31 Oct 2026 08:20:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfuOQ2Lg
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 479AF1F000C1;
-	Sat, 31 Oct 2026 08:20:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793434843;
-	bh=QR9ZUM3+BAi7COqEi8WRxHv0xaeR1LV8PUZl/W0E5QA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kfuOQ2LgNAmEchsDESHzYlxeovd2BxBGsYXDJoxQLW8WU7XY8zfHj+jQ9w6FFKyUN
-	 gV1/imK8pMkuziUxMwhkffGOW5MRbABX11XgEhUeW5ImpYDJxyr3GkUVOsRzIw4+cg
-	 7z2Y/RQFWpHXvLY1moCDbPUaHdObrAwfjkTLdajOQFRPpOIfGkFTKJ9I2riq3PFToK
-	 HmywflqYh9SfsubCykmGoaRliWA+8OsE6T/Ei/LUX+TqcEkcQHg5Qv3NYPg4GCt3aT
-	 XLzJC7Hmb/vtqGw5t0IoZs3j3HVX2vyzHVC8fxmX71adale8uXXG9R5EoRDtC7yfx0
-	 OmGXi+LBQUsLw==
-Date: Sat, 31 Oct 2026 10:20:40 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Anvik Loitongbam <permissiontogallop@gmail.com>
-Cc: keyrings@vger.kernel.org, David Howells <dhowells@redhat.com>,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] KEYS: request_key: enforce keyring restrictions on
- constructed keys
-Message-ID: <auWk2PAYDgQGXLqr@kernel.org>
-References: <20261030173930.40948-1-permissiontogallop@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B58A606A31A;
+	Sat, 31 Oct 2026 08:23:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B58A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jGrYh4CGBz20PM;
+	Sat, 31 Oct 2026 16:22:32 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 33D814056E;
+	Sat, 31 Oct 2026 16:22:51 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgAnZPNZpeVqongWCg--.34205S3;
+	Sat, 31 Oct 2026 16:22:50 +0800 (CST)
+Message-ID: <1828cae6-692e-4fe7-a5da-bdfea4ea90e7@huaweicloud.com>
+Date: Sat, 31 Oct 2026 16:22:48 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,189 +51,213 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030173930.40948-1-permissiontogallop@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ext4: do not advance i_size on a buffered write that
+ copied nothing
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
+ ritesh.list@gmail.com, yi.zhang@huaweicloud.com, yizhang089@gmail.com,
+ dave.hansen@linux.intel.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261030040520.4138904-1-hengyul@cs.unc.edu>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20261030040520.4138904-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgAnZPNZpeVqongWCg--.34205S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3AFyrAFy3uF4xtryxArWDurg_yoWxuryUpr
+	WYkw1rArZ2vw1jgrZ3ZF1jqF18K3W8JrW7GFyxKayfZFn8ZFyxKF10qrW5WFWUArZ7XF40
+	qF4kCr95W3WqyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
+	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
+	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
+	67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
+	IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
+	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
+	VjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On Fri, Oct 30, 2026 at 11:09:30PM +0530, Anvik Loitongbam wrote:
-> diff --git a/security/keys/request_key.c b/security/keys/request_key.c
-> index e6ba2d054399..3de6c9160651 100644
-> --- a/security/keys/request_key.c
-> +++ b/security/keys/request_key.c
-> @@ -370,18 +370,21 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
->  			       struct key *dest_keyring,
->  			       unsigned long flags,
->  			       struct key_user *user,
-> -			       struct key **_key)
-> +			       struct key **_key,
-> +			       bool *defer_link)
->  {
->  	struct assoc_array_edit *edit = NULL;
->  	struct key *key;
->  	key_perm_t perm;
->  	key_ref_t key_ref;
-> +	bool link_locked = false;
->  	int ret;
+On 10/30/2026 12:05 PM, Hengyu Liang wrote:
+> Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
+> made generic_perform_write() call ->write_begin() and ->write_end()
+> before it finds out that the source buffer cannot be read.  In that
+> case ->write_end() is called with copied == 0.
+> 
+> However, ext4_write_end(), ext4_journalled_write_end() and
+> ext4_da_do_write_end() set i_size to pos + copied without checking
+> copied.  As of now, a buffered write() past EOF that fails with EFAULT
+> grows the file to the write offset, and the new size can reach the
+> disk.
+> 
+> The issue can be reproduced on an ext4 mount with:
+> 
+>     char *p = mmap(NULL, 4096, PROT_NONE,
+>                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>     int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
+>     pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
+>     fstat(fd, &st);
+> 
+> Before that commit, the result is st_size = 0.
+> After it, the result is st_size = 1048576.
+> 
+> This patch will leave i_size alone when nothing was copied, as
+> ext4_write_inline_data_end() already does.  Unlike ext4_write_end(),
+> the delalloc path does not trim after a short write, so the folio and
+> the delayed blocks that ->write_begin() set up beyond i_size are left
+> behind, and the blocks stay reserved until the inode is evicted.  When
+> the write ends beyond i_size, drop them as well.
+> 
+> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+
+Thank you for the update! This looks good to me.
+
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+
+
+Please note that I went through the three scenarios reported by sashiko.
+I think the first one is a false positive, and I had already sent a
+patch to fix the third one [1].
+
+The second scenario, however, is indeed a real issue. But I think it is
+a pre-existing problem and needs a separate fix, because there is
+another way to end up with a half-converted inline inode passing
+through. That is, a truncate to 0 can catch up in the middle between
+ext4_da_convert_inline_data_to_extent() starting the conversion and
+ext4_do_writepages() completing it. I'm not sure whether this outcome is
+expected, though, since apart from the subsequent ext4_write_begin()
+path, I don't see any other damage.
+
+Perhaps we should, in ext4_write_begin(), after the
+EXT4_STATE_MAY_INLINE_DATA snippet, also check whether there is still
+inline data, and if so call something like ext4_convert_inline_data() to
+let it finish the conversion before copying data.
+
+[1] https://lore.kernel.org/linux-ext4/20261030021338.1768292-3-yi.zhang@huaweicloud.com/
+
+Thanks,
+Yi.
+
+> ---
+> Changes in v3:
+> - Also trim after a short copy: drop the '!copied' check and compare
+>   pos + len with i_size after the update, as ext4_write_end() does
+>   (Zhang Yi).
+> - Reword the last paragraph of the commit message.
+> - v2: https://lore.kernel.org/r/20261023172532.3271348-1-hengyul@cs.unc.edu
+> 
+> Tested in KVM with KASAN: the reproducer above, failed writes around
+> EOF, and short copies on delalloc, nodelalloc and 1k block filesystems.
+> e2fsck -fn reports no errors.
+> 
+>  fs/ext4/inode.c | 39 ++++++++++++++++++++++++++++++++-------
+>  1 file changed, 32 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 6ede3644a738..9c20876629bc 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
+>  	 * it's important to update i_size while still holding folio lock:
+>  	 * page writeout could otherwise come in and zero beyond i_size.
+>  	 *
+> +	 * If nothing was copied (e.g. the source buffer was unreadable), do
+> +	 * not move i_size up to pos.
+> +	 *
+>  	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
+>  	 * blocks are being written past EOF, so skip the i_size update.
+>  	 */
+> -	if (!verity)
+> +	if (copied && !verity)
+>  		i_size_changed = ext4_update_inode_size(inode, pos + copied);
+>  	folio_unlock(folio);
+>  	folio_put(folio);
 >  
->  	kenter("%s,%s,,,",
->  	       ctx->index_key.type->name, ctx->index_key.description);
->  
->  	*_key = NULL;
-> +	*defer_link = false;
->  	mutex_lock(&user->cons_lock);
->  
->  	perm = KEY_POS_VIEW | KEY_POS_SEARCH | KEY_POS_LINK | KEY_POS_SETATTR;
-> @@ -404,6 +407,21 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
->  		ret = __key_link_lock(dest_keyring, &key->index_key);
->  		if (ret < 0)
->  			goto link_lock_failed;
-> +
-> +		/*
-> +		 * A restricted keyring should not take an uninstantiated key,
-> +		 * the restriction has to be evaluated with the payload,
-> +		 * which is only available after construction. Skip the
-> +		 * provisional link and add the key with key_link() later,
-> +		 * unless the caller explicitly asked to bypass restrictions.
-> +		 */
-> +		if (dest_keyring->restrict_link &&
-> +		    !(flags & KEY_ALLOC_BYPASS_RESTRICTION)) {
-> +			__key_link_end(dest_keyring, &key->index_key, NULL);
-> +			*defer_link = true;
-> +		} else {
-> +			link_locked = true;
-> +		}
->  	}
+> -	if (old_size < pos && !verity)
+> +	if (copied && old_size < pos && !verity)
+>  		pagecache_isize_extended(inode, old_size, pos);
 >  
 >  	/*
-> @@ -424,7 +442,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
->  	if (!IS_ERR(key_ref))
->  		goto key_already_present;
->  
-> -	if (dest_keyring) {
-> +	if (dest_keyring && link_locked) {
->  		ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
->  		if (ret < 0)
->  			goto link_alloc_failed;
-> @@ -432,7 +450,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+> @@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
+>  		if (!partial)
+>  			folio_mark_uptodate(folio);
 >  	}
+> -	if (!verity)
+> +	if (copied && !verity)
+>  		size_changed = ext4_update_inode_size(inode, pos + copied);
+>  	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
+>  	folio_unlock(folio);
+>  	folio_put(folio);
 >  
->  	mutex_unlock(&key_construction_mutex);
-> -	if (dest_keyring)
-> +	if (link_locked)
->  		__key_link_end(dest_keyring, &key->index_key, edit);
->  	mutex_unlock(&user->cons_lock);
->  	*_key = key;
-> @@ -446,15 +464,44 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
->  	mutex_unlock(&key_construction_mutex);
->  	key = key_ref_to_ptr(key_ref);
->  	if (dest_keyring) {
-> -		ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
-> -		if (ret < 0)
-> -			goto link_alloc_failed_unlocked;
-> -		ret = __key_link_check_live_key(dest_keyring, key);
-> -		if (ret == 0)
-> -			__key_link(dest_keyring, key, &edit);
-> -		__key_link_end(dest_keyring, &key->index_key, edit);
-> -		if (ret < 0)
-> +		/*
-> +		 * The outer search checks Link permission on a key it finds.
-> +		 * The second search must do the same; otherwise a key that
-> +		 * appeared in the race window could be linked without the
-> +		 * caller holding Link permission on it.
-> +		 */
-> +		ret = key_task_permission(key_ref, ctx->cred, KEY_NEED_LINK);
-> +		if (ret < 0) {
-> +			if (link_locked)
-> +				__key_link_end(dest_keyring, &key->index_key,
-> +					       NULL);
->  			goto link_check_failed;
-> +		}
-> +		if (*defer_link) {
-> +			/*
-> +			 * The key may still be under construction, in which
-> +			 * case its payload cannot be checked yet.  Do not add
-> +			 * a provisional link to a restricted keyring; only an
-> +			 * already instantiated key can be checked here.
-> +			 */
-> +			if (!key_is_positive(key)) {
-> +				ret = -EPERM;
-> +				goto link_check_failed;
-> +			}
-> +			ret = key_link(dest_keyring, key);
-> +			if (ret < 0)
-> +				goto link_check_failed;
-> +		} else {
-> +			ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
-> +			if (ret < 0)
-> +				goto link_alloc_failed_unlocked;
-> +			ret = __key_link_check_live_key(dest_keyring, key);
-> +			if (ret == 0)
-> +				__key_link(dest_keyring, key, &edit);
-> +			__key_link_end(dest_keyring, &key->index_key, edit);
-> +			if (ret < 0)
-> +				goto link_check_failed;
-> +		}
->  	}
->  	mutex_unlock(&user->cons_lock);
->  	*_key = key;
-> @@ -495,6 +542,7 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
->  {
->  	struct key_user *user;
->  	struct key *key;
-> +	bool defer_link;
->  	int ret;
+> -	if (old_size < pos && !verity)
+> +	if (copied && old_size < pos && !verity)
+>  		pagecache_isize_extended(inode, old_size, pos);
 >  
->  	kenter("");
-> @@ -512,7 +560,8 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
->  		goto error_put_dest_keyring;
->  	}
+>  	if (size_changed) {
+> @@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
+>  	return 1;
+>  }
 >  
-> -	ret = construct_alloc_key(ctx, dest_keyring, flags, user, &key);
-> +	ret = construct_alloc_key(ctx, dest_keyring, flags, user, &key,
-> +				  &defer_link);
->  	key_user_put(user);
->  
->  	if (ret == 0) {
-> @@ -522,6 +571,30 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
->  			kdebug("cons failed");
->  			goto construction_failed;
->  		}
+> +/*
+> + * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
+> + * reserved delayed blocks, so drop the page cache and the delayed extents
+> + * beyond i_size and leave the blocks that are allocated there alone.
+> + */
+> +static void ext4_da_truncate_failed_write(struct inode *inode)
+> +{
+> +	struct address_space *mapping = inode->i_mapping;
+> +	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
 > +
-> +		/*
-> +		 * The key was not provisionally linked because the
-> +		 * destination keyring is restricted. Link it now that the
-> +		 * payload is available so the restriction can be checked.
-> +		 */
-> +		if (defer_link) {
-> +			/*
-> +			 * A helper may have negatively instantiated the key
-> +			 * (e.g. KEYCTL_REJECT) and returned success.  A
-> +			 * restricted keyring must not cache a negative key;
-> +			 * key_reject_and_link() rejects those too.
-> +			 */
-> +			if (!key_is_positive(key)) {
-> +				ret = -EPERM;
-> +				key_put(key);
-> +				goto error_put_dest_keyring;
-> +			}
-> +			ret = key_link(dest_keyring, key);
-> +			if (ret < 0) {
-> +				key_put(key);
-> +				goto error_put_dest_keyring;
-> +			}
-> +		}
->  	} else if (ret == -EINPROGRESS) {
->  		ret = 0;
->  	} else {
-> -- 
-> 2.56.0
+> +	filemap_invalidate_lock(mapping);
+> +	truncate_inode_pages(mapping, inode->i_size);
+> +	down_write(&EXT4_I(inode)->i_data_sem);
+> +	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
+> +	up_write(&EXT4_I(inode)->i_data_sem);
+> +	filemap_invalidate_unlock(mapping);
+> +}
+> +
+>  static int ext4_da_do_write_end(struct address_space *mapping,
+>  			loff_t pos, unsigned len, unsigned copied,
+>  			struct folio *folio)
+> @@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+>  	 * checked, we need to update i_disksize here as certain
+>  	 * ext4_writepages() paths not allocating blocks and update i_disksize.
+>  	 */
+> -	if (new_i_size > inode->i_size) {
+> +	if (copied && new_i_size > inode->i_size) {
+>  		unsigned long end;
+>  
+>  		i_size_write(inode, new_i_size);
+>  		end = offset_in_folio(folio, new_i_size - 1);
+> -		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
+> +		if (ext4_da_should_update_i_disksize(folio, end)) {
+>  			ext4_update_i_disksize(inode, new_i_size);
+>  			disksize_changed = true;
+>  		}
+> @@ -3400,9 +3421,13 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+>  	folio_unlock(folio);
+>  	folio_put(folio);
+>  
+> -	if (pos > old_size)
+> +	if (copied && pos > old_size)
+>  		pagecache_isize_extended(inode, old_size, pos);
+>  
+> +	/* Drop what ->write_begin() prepared beyond the resulting i_size. */
+> +	if (pos + len > inode->i_size)
+> +		ext4_da_truncate_failed_write(inode);
+> +
+>  	if (!disksize_changed)
+>  		return copied;
+>  
 > 
-> 
+> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
 
-I tried to go through the code change now as it is huge and there was no
-explanation why you need to do all of this.
-
-It is full out-of-scope changes. Please redo this just as a scoped bug
-fix, and don't add any new flags.
-
-Br, Jarkk
