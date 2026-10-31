@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793463040;
-	b=tRh3dyH/WOEj58SpZwyNYojTGhOZeUoZ9Jm7M2qvQR59kmSkEKsBfPCd3Nhtmo8Q95kl
-	 iObtAOkV6MB42HaTXMCOLyUTG6kk31xz9GWpMx+81ZEc64cHBHxXjypaA/rVsPNzQWZOn
-	 RkMiQh0HnKe8zWjDWgFLRmBBnE52m2nt0ktjH44QKOnFzBmuv0s356BenhMM5yIm/BFv5
-	 f/2HcHuvqgh8a8csGH/JqEZhaHOU15iCfgHL5fxbtt3j/3zdE6WB4esQ7z537bFmFQO8r
-	 ra6k9mTG1l/N/oWQHqyr45euMfJxX+KwTmwRuJSd0834obyLzBzPyyLyv8mZpT5DBLQ==
+	t=1793464085;
+	b=QDpElFZsrHIaYjVNcU1zcDZkYWXr65ieaAVtb7Xfhsxr9nklsCrDjUm+56ZkA1haDWnS
+	 X5aHaHENuMfV2t+gKFNkUzyBFcgqtf4Euj0PnuTGnayV3PpLgK57PRqfDvjFKU0Uws6Ca
+	 7rM4shFqcAoSHid5d/r/6LTx0Jru7CrSICxl3uleNRiOGhGwcvd+XlYnGYxRkE/nae2rE
+	 zj3/jP00f/Wp1gPnDhsE06uCItWbnjvEd/fsA0yW/MAV9znQ4mNaQZYflhxAADebfyDRI
+	 6VvowK6j3WuDt7+8Qo8zVK/bQ5rdyjuxLoC2Cgp4wqGA6jCDpfSr2GDuvSvYcpqOWeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793463040;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=gsabXBdvNmlT29U5627RHQL/AD4UhekVuA2wIXV9kEg=;
-	b=ZClbBX9RV0nBspFWYOAOKOVTHT8BXeHnW/NwG5VwGOuzI3Z2Tkz3/HuL4QI74SV7VZax
-	 QMAXW8m5KqUH18xRJ8oTnZwMVsqNrX9o0/6zzAkzpLS7sC+meVYoNiv/fyMua9iR66fb2
-	 YaDD5avhctckm11T9Ljs99LgtrryL7QCDN3l0O7goEkHGgapMnCtgWCpCc51vXgzYMmht
-	 cfyxzmsuk64uXijRS0Zx0weOIDQRaik1mhnqVP/oZE7yXoigXRTloMu40Vsg8GpN7Tliq
-	 ERGA1eXN+yJdtwIg7g0co5Ss6HMMsMeo22c05RdjEJdGUQixlprPTNpEG46gFY+aAKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793464085;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+aSFrhS77OpQkAXxyRyCw3+whU1yrhy7PcBz3aVmZN4=;
+	b=Dh7u566/d17z0zD/BVcLCsGlsSvgCKTkbG4oG1AiVihKc3fpIm1ziyCcE4op3CTdXymo
+	 0jRmNvw4LOkMMdDMbJOr0/KDelLK/16xpugcvVfjRpoaskWEnuJa+rQab2zoBlaVKlO7V
+	 txrHrH92rkMOpHHe7/w0kP9C80S+yjHyxLJT7XMTpTblPPW1udodOkCn+BIX/xJIxyCFt
+	 qg5F8qHtEw5knUD27iIP7GhUenbgkn/Zzv9MGETbJ2FATPOFCsEQo7Sm7NyUfwzB/q3wk
+	 2T7bdPar8c8SRHxGY9K+KCgvcpLnTU/EjRW8M5TTUpzxQ2/3HYL85BXdsV1e/mN4E4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ti9JMSzt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VbOOBCmF;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Oo28GfAx;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=c0FrquIl;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Bw/1i9gd";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEED0606A31A;
-	Sat, 31 Oct 2026 16:10:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEED0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F91606A31A;
+	Sat, 31 Oct 2026 16:28:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Ti9JMSzt;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=VbOOBCmF;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Oo28GfAx;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=c0FrquIl
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 070021F798;
-	Sat, 31 Oct 2026 16:10:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793463038; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gsabXBdvNmlT29U5627RHQL/AD4UhekVuA2wIXV9kEg=;
-	b=Ti9JMSzt3BG/ZplrSX2TlBfuCODaeynWRNi+dmqhjqtXpjCCQc7Suc9UlEL+kD+Sx8Jnlv
-	A0JrM+qc/03rybetmKckH19l7B55dMtz4sripVVNh7P7xDQrrN5VwdcYUrf+2nMD9D8d0F
-	MkdkMHp0yJ9QB7SOpqXSbHkbB6RvCM4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793463038;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gsabXBdvNmlT29U5627RHQL/AD4UhekVuA2wIXV9kEg=;
-	b=VbOOBCmFz00hnU/JOCHxzaJbRPIRf1inaF+mCuiR65wzvcw9gMp/Nr81FVeu4wiiBHeIW4
-	6TI+GGbOLXa++uCg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793463037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gsabXBdvNmlT29U5627RHQL/AD4UhekVuA2wIXV9kEg=;
-	b=Oo28GfAxQtHEWqubOyfgm+s8esLXqrifr2cmPCAm/805ZDqKzTgqbjsLFTValyYnBkSoOk
-	dSzXHkbcjbQFACSN+zC1IAqdPRcFcnOSdZdxVCQ067WWvSFT3ZvB9kQwKA5JtEfR74PPtq
-	JkXetDxY+cUBkGornEO4wiL90YVfNXM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793463037;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gsabXBdvNmlT29U5627RHQL/AD4UhekVuA2wIXV9kEg=;
-	b=c0FrquIlN453OlRqwIIu75+Rj782jQq4qMPk7U0fmFWGUozz1fMJXGYTx2lSy77DQaz81e
-	REEUoB1T1/Oc3xAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A021F132D3;
-	Sat, 31 Oct 2026 16:10:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BnRbHfwS5mo1NwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 31 Oct 2026 16:10:36 +0000
-Date: Sat, 31 Oct 2026 17:10:36 +0100
-Message-ID: <87o6c9rgub.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Alex Kazinsky <a.kazinsky@ideco.ru>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Denis Arefev <arefev@swemel.ru>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bw/1i9gd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E45B1F000C1;
+	Sat, 31 Oct 2026 16:28:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793464084;
+	bh=+aSFrhS77OpQkAXxyRyCw3+whU1yrhy7PcBz3aVmZN4=;
+	h=From:To:Cc:Subject:Date;
+	b=Bw/1i9gda32yp1ywc6B37CiIP6CDzcRqqDj9BN0v6dYRL4e3S9NrYPDW9HsEIL29y
+	 s7+6IpH57kS9KNW2iVfAQZyBxtFjkA3OeBXUciT7G4ds5s8YNv/OrqZX7sK7iAnaaw
+	 Xk4SYtxUyP9OBME2jFWtLfIM+7uB7WY+nLV/Qd7/kdXYAQ3TPPjj1AT3cUR2eKg+5Q
+	 Iqf/CiBPL+a2g0gXHtYTQpNlug2p2KwDFZmSiJpiAsNOxeDM45fIvki9b4KGv/jK8X
+	 oU4Epn38LPZaN7M2GhOrhVbQ0qFiwq6g55cXUSvP7HKyjoHIkKpriinOQcySb+bzeY
+	 syHjwiqNGdGsw==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
+	Tejun Heo <tj@kernel.org>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: cs46xx: Handle SCB creation failures before dereferencing
-In-Reply-To: <20261030142529.415697-1-a.kazinsky@ideco.ru>
-References: <20261030142529.415697-1-a.kazinsky@ideco.ru>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+Subject: [PATCH v4 sched_ext/for-7.4-fixes] sched_ext: Fix stale pick when the donor changes during dispatch
+Date: Sat, 31 Oct 2026 06:28:03 -1000
+Message-ID: <20261031162803.541236-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,56 +61,165 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[perex.cz,suse.com,swemel.ru,gmail.com,vger.kernel.org,linuxtesting.org];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linuxtesting.org:url,imap1.dmz-prg2.suse.org:helo,ideco.ru:email]
-X-Spam-Score: -10.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 30 Oct 2026 15:25:27 +0100,
-Alex Kazinsky wrote:
-> 
-> With CONFIG_PM_SLEEP enabled, cs46xx_dsp_create_scb() can return NULL
-> if kmemdup() fails to allocate the SCB data saved for resume.
-> cs46xx_dsp_scb_and_task_init() and _dsp_create_generic_scb() dereference
-> the returned pointer without checking it, causing a NULL pointer
-> dereference on allocation failure.
-> 
-> Check both return values before accessing the SCB descriptors.
-> Return -ENOMEM when creating the null SCB fails and propagate NULL
-> from _dsp_create_generic_scb().
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE
-> static analysis tool.
-> 
-> Fixes: 41116e926cb9 ("ALSA: cs46xx - Fix suspend/resume with new DSP")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+Dispatch takes rq->donor as @prev and can drop the rq lock. With proxy
+execution, @prev may not be the running task, and another CPU can reset the
+donor to rq->curr meanwhile, through proxy_needs_return() on a wakeup or
+sched_proxy_block_task() on a class or scheduler change. The wakeup case:
 
-Applied now.  Thanks.
+1. dispatch_one() drops the rq lock, e.g. to move a task from another CPU.
+2. Another CPU wakes the donor, which proxy execution migrated to this CPU.
+   proxy_needs_return() dequeues it and resets the donor to rq->curr, and
+   the wakeup enqueues it, possibly on another CPU.
+3. dispatch_one() sees @prev queued and returns SCX_DSP_PREV.
+4. do_pick_task_scx() returns @prev, and this CPU runs a task that is queued
+   on another rq.
 
+Under core scheduling, the core pick runs dispatch for the sibling rqs with
+each sibling's donor as @prev, and a sibling can switch @prev out while
+dispatch has the lock dropped.
 
-Takashi
+Whatever dispatch concluded, and whatever it does with @prev after the drop,
+is about a task the rq no longer owns, whether it keeps @prev running or
+hands it to ops.dispatch().
+
+rq_modified_above() catches the change only when rq->curr is in a class
+above ext, and the dl_server pick skips that check. dispatch_core_pick()
+retries after a lock drop, but by then dispatch has used @prev.
+
+Restart the pick when @prev is no longer the donor. dispatch_one() tests
+after each step that can drop the lock, and scx_dispatch_sched() decides per
+ops.dispatch() call whether to hand @prev over, which also covers a class or
+scheduler change across a drop.
+
+With proxy execution alone, the donor only ever changes to rq->curr during a
+pick, so the retried pick can't go stale again. Under core scheduling, the
+restart goes through the core pick, which already retries after any lock
+drop.
+
+7a3a6bfbd62a ("sched: Rework prev_balance() to avoid stale prev references")
+closed the same window in prev_balance() by reading rq->donor instead of
+taking @prev. That doesn't work here, as dispatch never evaluated the new
+donor, which may not even be a sched_ext task.
+
+Verified with synthetic reproducers for both cases.
+
+v2: Also cover rq lock drops inside dispatch (sashiko).
+
+v3: Don't keep a stale @prev after ops.dispatch() (sashiko).
+
+v4: Also cover a sibling switching @prev out under core scheduling. Retitle.
+
+Fixes: 7b0888b7cc19 ("sched_ext: Implement core-sched support")
+Fixes: c6fe97c34a1a ("sched: Allow enabling proxy exec with sched_ext")
+Cc: stable@vger.kernel.org # v6.12+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/sched/ext/ext.c     | 10 ++++++++++
+ kernel/sched/ext/inlines.h | 37 +++++++++++++++++++++++++++++++++----
+ 2 files changed, 43 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index cd923f9f1f2a..e533c1a5c56d 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3407,6 +3407,12 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 		rq->scx.cpu_released = false;
+ 	}
+ 
++	/* the ecaps sync may have dropped the rq lock */
++	if (scx_dsp_prev_stale(rq, prev)) {
++		verdict = SCX_DSP_RETRY;
++		goto has_tasks;
++	}
++
+ 	if (prev->sched_class == &ext_sched_class) {
+ 		update_curr_scx(rq);
+ 
+@@ -3449,6 +3455,10 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
+ 	}
+ 
+ 	verdict = scx_dispatch_sched(root_sch, rq, prev, false);
++
++	/* scx_dispatch_sched() may have dropped the rq lock */
++	if (scx_dsp_prev_stale(rq, prev))
++		verdict = SCX_DSP_RETRY;
+ 	if (verdict != SCX_DSP_NONE)
+ 		goto has_tasks;
+ 
+diff --git a/kernel/sched/ext/inlines.h b/kernel/sched/ext/inlines.h
+index 1e39d12678c4..5dce394e0813 100644
+--- a/kernel/sched/ext/inlines.h
++++ b/kernel/sched/ext/inlines.h
+@@ -18,9 +18,32 @@ enum scx_dsp_verdict {
+ 	SCX_DSP_NONE,		/* nothing to run */
+ 	SCX_DSP_LOCAL,		/* local DSQ has tasks */
+ 	SCX_DSP_PREV,		/* keep running @prev */
+-	SCX_DSP_RETRY,		/* pick helpers only: restart the pick */
++	SCX_DSP_RETRY,		/* restart the pick */
+ };
+ 
++/**
++ * scx_dsp_prev_stale - Test whether dispatch's @prev went stale
++ * @rq: rq being dispatched for
++ * @prev: @rq's donor when dispatch started
++ *
++ * @prev can stop being @rq's donor while dispatch has the rq lock dropped. With
++ * proxy execution, @prev may not be the running task, and another CPU can reset
++ * the donor to rq->curr. With core scheduling, the core pick runs dispatch for
++ * the sibling rqs too, and a sibling can switch @prev out. Dispatch restarts
++ * the pick when that happened and doesn't hand the old donor to the BPF
++ * scheduler.
++ *
++ * With proxy execution alone, the donor only ever changes to rq->curr during a
++ * pick. Only __schedule() on this CPU sets a different donor, after the pick,
++ * so the restarted pick takes rq->curr as @prev and can't go stale again. Under
++ * core scheduling, the restart goes through the core pick, which already
++ * retries whenever dispatch dropped the lock.
++ */
++static inline bool scx_dsp_prev_stale(struct rq *rq, struct task_struct *prev)
++{
++	return (sched_proxy_exec() || sched_core_enabled(rq)) && unlikely(prev != rq->donor);
++}
++
+ /*
+  * One user of this function is scx_bpf_sub_dispatch() which can be called
+  * recursively as sub-sched dispatches nest. Always inline to reduce stack usage
+@@ -33,8 +56,7 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 	struct scx_dsp_ctx *dspc = &this_cpu_ptr(sch->pcpu)->dsp_ctx;
+ 	int nr_loops = SCX_DSP_MAX_LOOPS;
+ 	s32 cpu = cpu_of(rq);
+-	bool prev_on_sch = (prev->sched_class == &ext_sched_class) &&
+-		scx_task_on_sched(sch, prev);
++	bool prev_on_sch;
+ 
+ 	if (scx_consume_global_dsq(sch, rq))
+ 		return SCX_DSP_LOCAL;
+@@ -106,6 +128,11 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 			rq->scx.sub_dispatch_prev = prev;
+ #endif
+ 
++		/* the dispatch so far may have dropped the rq lock */
++		prev_on_sch = !scx_dsp_prev_stale(rq, prev) &&
++			      prev->sched_class == &ext_sched_class &&
++			      scx_task_on_sched(sch, prev);
++
+ 		SCX_CALL_OP(sch, dispatch, rq, scx_cpu_arg(cpu),
+ 			    prev_on_sch ? prev : NULL);
+ 
+@@ -116,7 +143,9 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
+ 
+ 		scx_flush_dispatch_buf(sch, rq);
+ 
+-		if ((prev->scx.flags & SCX_TASK_QUEUED) && prev->scx.slice)
++		/* ops.dispatch() and the flush may have dropped the rq lock */
++		if (!scx_dsp_prev_stale(rq, prev) &&
++		    (prev->scx.flags & SCX_TASK_QUEUED) && prev->scx.slice)
+ 			return SCX_DSP_PREV;
+ 		if (rq->scx.local_dsq.nr)
+ 			return SCX_DSP_LOCAL;
+-- 
+2.56.0
+
