@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793423623;
-	b=hi+XWvJsQzdDY0o/32AqJcESZIoedVvKYxBOO7BcSAZlv0hWLBIk5BjS6wW+7inHzKiT
-	 kzyuxAQf8qobKrHL4JU+59shVoM23w5m4aQvpWNV7keWkny4AB/hC5DxUHzhxoPjmFuEH
-	 tVVMqfEH01K+2CCFyu67RtOrlsPCIyEDfGLyNImd2rOWIu6okbGNeGkYqOspfRuK1GaN2
-	 cbZZbFMfL0/tZ/eO1KmK46tZ2/NzJq3mRkKasY5v3rSth7MMOuS4PhqDwpDUkQJMj7/cS
-	 qShaz4Ty6OO0G4S2pbVCeMCF9RyFi7gqrLP2cpgoFf9dAd5sGgwpZoVP7WB35nT9R4g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793423623;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793426108;
+	b=M0rhNIbiSgMlmlzrJQWxDIivlbgMsBUWr8+Si//F0zuHNGUt61MROxYIgEraxHbzK4vO
+	 6GqTYSXZZVIksadS86V6kXwfUuNUC2PqCw2OP2pNSuXUkfMfojcdYItD7RuX6FecqoLml
+	 0c0aJsPAlU8AToETKI2nlw/K8cF68rS8nfVipOZ2D4uu5Rr13AZx8+trH9tYWk3+yZkuk
+	 jmRV0Ju+md9hMjhHKehN7W3M9/wPSmFGkPa6xWbhWrGvcwBuxnyaahOl80MhODyoNkwvm
+	 TKmuTVmoAWDi0AdXu+28JxQYsR606P3xgE682JIj2+ikHOHwNb5XIGc/yj16oCKVLpA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793426108;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xm9qK57iibUFwPkHb0+uEz3ll0FQuAb6bGI1ruSxhhE=;
-	b=rxoYjs4+xqz3QrQucBGl1Ls0+S1r6tPca8pHR3g/6j9wRrWEufFLcSbrkl4bn11OtLF4
-	 7RpG/5PcskMxOkk/YKzFZiU9IMdISkHYSkIPVFlEbd3HfZXoRgpl+Va8JUGK67iI+muHN
-	 Us/2ohkpoXE5wBZebzvmwvnu+jNqGlw4x0gPQnf/gDyCvcHmQp8KgeuDrEJmOTuQGwqwU
-	 Q7fPf6KRB0hxUl5ZxpD0ABMfoPC2eH2yqDibzTWcdOsm0VIW0Tr826p4rkQwdcw6/Jx/H
-	 J9Y/02AKewkoDgFHfuwWLWghVJ2LxypFs9j0POkPpU1/P1xRSZhud4olJ8sMYYNMA0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+	b=F8bxNaaIXfKr0WVbbK6Q8SJ8npwDHKkjM+Kx208VwmWOx4+/OnnVZJ0wt5AJUSRKrTO5
+	 2Cn3ndscG4Xfn4IgaJ7eJDILy1Bf1/9CzXyE2SYgrD51atmQkklhLoelC19xMNhWKbEii
+	 qnnLzRDBposNOUdWBxUWwnNyieegoY8FriMM0io79ORTydFrfm7cKgKnDH3Wq/P+PcDUA
+	 d2bhIp2QMTqhS3DaxuQuaj/IyQ9wIBOxShkL2SnFkGzznRzVMYIZ/tgdN2EzruZd2Zl9z
+	 s+8ctnTOXGMmj85eB8fihiVqmz05uCJxziqplnJjqJQT2kLaREXrlV9P0c3YmmFvN4w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="JPC+/c30";
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xV7PJY0o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956F5606A31A
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 05:13:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 956F5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F3D606A31C
+	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 05:55:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F3D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JPC+/c30
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso525451a12.1
-        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 22:13:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xV7PJY0o
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4395d31228so207513366b.1
+        for <stable@vger.kernel.org>; Fri, 30 Oct 2026 22:55:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793426106; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WamHzdjs3/oJWHRAgeWypstArPfXWTczWYooqVgcEn5CkeKE9MNfAfmxyWspqTj3zW
+         lEVy2+8qe9ekuQsp7yP6jqhC7zOPf+L8jrcgzQ/lnLIrXhpPoa5QQTtgEWsdpSBHQdWB
+         WvFVMZrFj4dFM41oAk7M1+7yhVww4vm5VhozW5ZpwDKzG2e2stb3E/k1cd6vTbN+dE+E
+         UCDatdiYg3GogFHj15ua5ttqWpvf2Nf5nCSRPmbhkzh3/erTogYrO59M0BO3+0UtExNj
+         21SH3awqIBR4W5QdPOXuUhuv+PQZkzcPQRtvoF/Kl3a0nQk7PfafT0EmH0KfyHmmA7qf
+         88og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+        fh=Dcybic+5/TL9o0JIg3iv6lrId8folIYtRBqLzBYArOk=;
+        b=A+mCaZEYoEEUsIQ9aJ5XPYqmld9hFGoi0l1NBlE1bUC4sTTn3E9psNXS06vGe7rfec
+         kZY/8jKui4dLUjlaep9tv9T46ySWdId+kouOMATDu7kUgdHXTgTeH06IcGp/0gz3t356
+         i4RAxaLwxJK0CS7uMasFVP3Xj3lAzCyRLhouHuIDqS9MMwPHNDeQ4nOvAyW3z1haVt0B
+         k8Zcg2MjivIvoq6/kwBWc2q3m8OZlRts83fCuYpYco1MxGglI4X1yFQj1wa1j/18Bmnu
+         QtHctK+6yrWZhWKE3xOEWmP1NrdSZQFuxWvSddgJrjqHXFrjD6tnhItE+6a5e2TqRCn4
+         bAQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793423622; x=1794028422; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xm9qK57iibUFwPkHb0+uEz3ll0FQuAb6bGI1ruSxhhE=;
-        b=JPC+/c30XvM+AfKMmBz/VDN7Gir+Jnht5675kIV4lXshWC8EHGd2esTDByz/nABc8I
-         f1u/x+JlkfUURWB/zBknNY4WmUPBHz1bDPS7mNVC/aScSvb3vuSEJUu9Y/zJA47IQaJ+
-         l6nH/mc3LsPsCWPJnoVii8Lf5ZG8UD9tqcoInJ0ARdmgTQ/GVHuovpuwjFJ4os+V5bQu
-         sNglM5uoe558zr43P+XnOd8YHRfpE2DmBMw7FPcKywmHeaniV80f4ZYi7sBZHHJMKpYu
-         wzkwBJJW5YBYZoCk9/NY6LZRL2v+2sWoWFrfJHhZX9L754kOd+5eMi1gB1WKm763ZWZ1
-         kNIA==
+        d=gmail.com; s=20260707; t=1793426106; x=1794030906; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+        b=xV7PJY0oSGo3+Jmw5WWOaPc0jhDEJMKkRV+2fYmDaQsyVjcNO2rT+mEUN8CPQGwZ+H
+         SLvGGuMp5UAfvdn+TSsSNDMpC3NmqwB27qotDk8PQa+gO/e7Ho0aAkfftj2Pr4xi18Bw
+         JX2i1FOODLAERxdXq4lYYCkEsIJKkSluqSNtB73P6ppguZRZ9aDrmFcz34t6VjlN2b9N
+         8iuYGEdmx5wx1ud7ElRWy4zsm5l1riG9HFw3df7bGHTAbltFEhxj/K1Aj19iKRLb01p1
+         /TvVbnnhJjmBC7gckFQrrelkB8mV4VAyPEA2V64ci+1wZs+/7a4pW7AEutEKtBOm/MwF
+         FHvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793423622; x=1794028422;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xm9qK57iibUFwPkHb0+uEz3ll0FQuAb6bGI1ruSxhhE=;
-        b=NT4kUEI8tbFSmNF6MYch480v15jNClRqflr5YnKXCW+zruzZaYylJMoZjCUOv82RsJ
-         NpwJN7TtB2orCVvCXk15nOWcmSQdrmXe4sWT59pbiEIJFbCE8m6TJlHICRYnrDPDlOF5
-         o8if9+ISAyFv+mxfn7qMHoCyXnJj19WDso2oEbY9656BgIxJH2gzdTUYLGWLxWx3Ck8G
-         RDzDFLbkeSltUn+BXEpSmBK7vzKTGEwI1qzyMJVuLZBUbOEVFahdMd+V+EvpS5HuVfuL
-         iH6/nhMzSWxTx4pit+EGA8XWjUU1lGrWfuK5ARiB02b0ww0DblkHeNWoR6K1pXAObm3G
-         /ctg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMcqsHeS/aNfMDw7D7F5iDuKsFkqSGzIFjXjZqD3u4/2Af3YHsPvhnMtiYvCwOMijA4xga4xg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIR/QBbgjmp3ywaVgKXN7uSitf4xlMXgLLhj2P6q5NpB3V/PTCk
-	443k/nv+evJXM5pe1WjJy8EgWvSXcsF4VvBrVHgscp7rsUssXiumdsIjKubEfsjrt2bQUA==
-X-Gm-Gg: AYBFou1kREIHrx4hJS8wF4S67kZbIS2stD1FhwaRKpfqiDTCH+yvYUgjGL3parJjuF6
-	wpg75tfn3I/qVR//EB+2Vsox1UaMH+AtcDOvMhtb8j21jZhKQ11cejwaZmHK/qwOXzKh3JhQmGC
-	NfUNyogEOClq8xOglgacf862DmEaJ7X+Fi9HFB+MD4uNnNj9Sxw6XtzU8CCc7GJvO/4WiOX60IJ
-	RA1ix8s8UvxcJpQpl54PL7cMghwoOFpn/FsRWcr88gd6IuDD5nW2PcdkwYWTQLcVtvjXoFF5h77
-	wJBy5eQdU5nVDK656xjSF3/tYKaoxXYK6Gc/VT9DfGDBoxbeMm/xSvwP6G4aBiZW10YHHlG8LFV
-	xLUovxbItHXuUHk05NPlRZIVbJn+pLgVn4Cgp6b/Rb27gh//JCyU0MhxVXdywk9jP/pJFg2k3Us
-	jc8BimJBANdRj9Gerc72qw1VbI6OEc3xb9Kos0WhCNaxSMbhCJcJo+q8l2DgROXK/FOUG/+Al0Q
-	trX8br92xxh+xcf35Ylt9K2Ev1G/WCKxxBtpvKqpAWuJPJeI8X9IlCg753eHN6vKqzEcHISvglm
-	OVMZ8NzLf74+X9RRML9mnYsM
-X-Received: by 2002:a17:90b:3c08:b0:3ab:17b6:9a93 with SMTP id 98e67ed59e1d1-3ae897a64b7mr3802893a91.52.1793423621840;
-        Fri, 30 Oct 2026 22:13:41 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae87f5dcc3sm3229860a91.3.2026.10.30.22.13.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 22:13:41 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: mark@fasheh.com,
-	jlbec@evilplan.org,
-	joseph.qi@linux.alibaba.com
-Cc: heming.zhao@suse.com,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v2] ocfs2: drain fs_state readers before journal teardown
-Date: Sat, 31 Oct 2026 13:13:35 +0800
-Message-Id: <pm-ocfs2-objects-candidate-0003-v7-1522d068e5b943786c3e@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1793426106; x=1794030906;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+        b=YGHTHWHZAD/BZStHWQTymFyQ5eT1eiP3T4cF+CJV/G2krw3/WKEHd20RwlBjLhf6by
+         Eu3qSKMzJBISrh+zK+ylHn9GPFpJp10EsLRM6TlXp2vBHLzQVMK8OEUZ1npxx5A/NVtq
+         htx9gTbRB5BytdVNRqo3L0cLc51BHwSnL+qqgZlIkxLy8PBeh2/rQC7Cfzk2nRONf1GC
+         /LN1vun2RC+NQ49HVYgIP6x8gd47hmvLD0FQ2+9zIT4nxJI7m1sEM7DCcNl6/Xz24O5f
+         GHnT6k/6E3AaMGcwVdluIOv2i8rUBvlotUHodlvSPZ32W699dUuLMHHpLR5CvU3WXWUb
+         w/jA==
+X-Forwarded-Encrypted: i=1; AKwUvBwwSr6V+vKUweAwsJjKxvETuHZRmPy8WuCjlAuoQ/4UWW7dAfbvXmFJpp807+3KXeDhs0tfSMo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnrB2ZIyUS3Z1OFzb/dIqX4ydQbiOR+K/TOx6zwLXWIM8oZVM0
+	QjY309id4uYZZBLN1IuWh9EdkhXycvYUg2Uw7avSw5zkDJHLYl/1ai+LY+KGLv/FJryZLNFw4h/
+	Er1xWYWSBV2Y0M6U+kloZd8BbAKFQHEQ=
+X-Gm-Gg: AYBFou30JBRuyXVFsDhjuHT/cd/X2aXA5mVTE+ED8Q7E1vih9II7Dm0qpoBZJVuc9qh
+	MkcMSVPe3z3KThge5cJ8qmc9YGw/bO3xPyUXPh978ko77JLnZqWJ/Pk4ysC924KyHLaEN3aloQL
+	G9CjfpZjTuTb+xgVfwRo7qdRVCCslCHA7exPQyIiIez44wIaHbl/XK0xzK8OED1j4slH+j7DR1r
+	Q1j3AQ5zLG05qbVOuQfF87eusc8R3rryc/c6rOyndoa01x7Bq7IY317LO9cwVo0UC2+9s/mQdJi
+	Su63FpacIalsf6C0xYhIn951d9b/IzXDz8sEBCkHpYH7g7icsNXIY3jwpg6Cez5boAfElJhIEmr
+	ndT/uT7n3CgCr8fX1v5iYABvi8vVc22ksc2YfjUOzq3bPmDLOK2L54KtRNfRFBC3u8yKUS54=
+X-Received: by 2002:a17:907:2d25:b0:c41:1e13:8896 with SMTP id
+ a640c23a62f3a-c4ca7a7586fmr378054666b.28.1793426106050; Fri, 30 Oct 2026
+ 22:55:06 -0700 (PDT)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,136 +104,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
+In-Reply-To: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sat, 31 Oct 2026 13:54:29 +0800
+X-Gm-Features: AclHuK-xDhrqISf5wq7z_z32la-j7uMJ_BSTSk-mqM8zIBPegNWP5UzqHeqNVC0
+Message-ID: <CAMgjq7CwaE1Fmdz1Edm60HVyqSWWpFrUo0n5GZFdJoCZUbhKbA@mail.gmail.com>
+Subject: Re: [PATCH] mm/swapfile: drop a large unmapped swap-in folio in unuse_pte()
+To: mt4022@columbia.edu
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The per-mount fs_state open callback formats journal fields through
-osb->journal. Its debugfs active-user guard protects the open callback,
-but does not keep the journal allocated after journal shutdown.
+On Sat, Oct 31, 2026 at 3:12=E2=80=AFAM Mani Tofigh via B4 Relay
+<devnull+mt4022.columbia.edu@kernel.org> wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
+> for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into
+> one large folio in the swap cache.  The folio only becomes anon once
+> do_swap_page() maps all of it, so if the faulting PTE changes in the
+> meantime the folio stays in the swap cache while not being mapped or
+> anon:
+>
+>   Task A (fault)                       Task B
+>   do_swap_page()
+>     /* swaps in large folio F */
+>                                        madvise(MADV_DONTNEED)
+>                                          /* zaps the faulting PTE */
+>     /* PTE changed (F not mapped) */
+>
+> swapoff then maps it, which marks all of its pages as mapped and
+> exclusive, and the next fault on one of the other PTEs crashes in
+> do_swap_page():
+>
+>   [    6.424485] kernel BUG at mm/memory.c:5195!
 
-Both unmount and the mount-error path in ocfs2_mount_volume() can free
-and clear the journal before the debugfs subtree is removed:
+So what's being triggered here is this right?
+BUG_ON(folio_test_anon(folio) && PageAnonExclusive(page));
 
-  fs_state reader                       Mount cleanup
-  ---------------                       -------------
-  enter ocfs2_osb_debug_open()
-    ocfs2_osb_dump()
-      load osb->journal
-                                        ocfs2_journal_shutdown()
-                                          free journal; clear pointer
-      read journal fields
-  leave the open callback
-                                        remove the debugfs subtree
+That check is a bit overkill to be a BUG I think, and we have been trying
+to remove unnecessary kernel panics. Before f1879e8a0c60 we can occasionall=
+y
+see large folios got stuck in swap cache and partially mapped (e.g. failed
+writeback, see activate_locked: in vmscan.c, much less likely but still
+occurs from time to time), but the ones still referenced by swap PTEs don't
+have PAE set so we are good.
 
-Remove fs_state before cleanup releases its backing state in both
-callers of ocfs2_journal_shutdown(). Debugfs removal prevents new opens
-and waits for admitted open callbacks to finish. Later reads and release
-use only the per-open snapshot buffer, so they do not need the journal.
+Now the problem here is unuse_pte() calls folio_add_new_anon_rmap()
+while only one sub PTE is mapped.  So yeah, that's a problem.
+Still it doesn't have to panic the kernel though.
 
-Keep removal in the caller paths while the per-mount debugfs parent is
-still present. The remaining debug files retain their teardown order.
+>   [    6.424503] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   [    6.427654] CPU: 0 UID: 0 PID: 67 Comm: swapmthp Tainted: G        W=
+            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+>   [    6.432665] RIP: 0010:do_swap_page+0x24eb/0x2fa0
+>   [    6.451035] Call Trace:
+>   [    6.451567]  <TASK>
+>   [    6.453841]  __handle_mm_fault+0x13b5/0x3b40
+>   [    6.458525]  handle_mm_fault+0x16f/0x480
+>   [    6.461143]  do_user_addr_fault+0x312/0xa30
+>   [    6.462044]  exc_page_fault+0x66/0xc0
+>   [    6.462846]  asm_exc_page_fault+0x26/0x30
+>   [    6.476708]  </TASK>
+>
+> do_swap_page() already drops such a folio from the swap cache when it
+> can't map all of it.  Do the same in unuse_pte() so that swapoff swaps
+> the entries in again.  With the fix, nothing is reported.
+>
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within a second.
 
-KASAN report as below:
+Great working catching this!
 
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in ocfs2_osb_debug_open+0x967/0x15e0
-    Read of size 4 at addr ffff888116a56028 by task cat/502
+>
+> Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_=
+SYNCHRONOUS_IO")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> This conflicts in context with patch 41/47 of David's v2 series [1],
+> which changes the line right below in unuse_pte() for KSM folios.  I
+> can rebase on top of it once it's applied if needed.
+>
+> [1] https://lore.kernel.org/all/20261029-fixes_core-v2-41-a64ce7f83abb@ke=
+rnel.org/
+>
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/sw=
+apmthp.c
+> ---
+>  mm/swapfile.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 189f04d8838f..b0b75ff16835 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -2518,6 +2518,18 @@ static int unuse_pte(struct vm_area_struct *vma, p=
+md_t *pmd,
+>         if (!folio_matches_swap_entry(folio, entry))
+>                 return 0;
+>
+> +       /*
+> +        * A large folio that is not anon yet was swapped in by a page fa=
+ult
+> +        * that did not map it (yet). It can only be mapped as a whole, b=
+y
+> +        * do_swap_page(). Drop it from the swap cache and swap in small
+> +        * folios instead.
+> +        */
+> +       if (unlikely(folio_test_large(folio) && !folio_test_anon(folio)))=
+ {
+> +               if (!WARN_ON_ONCE(folio_test_dirty(folio)))
+> +                       swap_cache_del_folio(folio);
+> +               return 0;
+> +       }
 
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     kasan_report+0xe0/0x110
-     kasan_check_range+0x105/0x1b0
-     ocfs2_osb_debug_open+0x967/0x15e0
-     full_proxy_open_regular+0x193/0x310
-     do_dentry_open+0x595/0x12d0
-     vfs_open_consume+0xd1/0x400
-     path_openat+0x18d0/0x2020
-     do_file_open+0x21e/0x470
-     do_sys_openat2+0xf4/0x1b0
-     __x64_sys_openat+0x136/0x1e0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-     </TASK>
+Force dropping a large folio for any swapoff doesn't seems very
+reasonable.. We really should reuse the common large swapin code between
+unuse_pte and the ordinary fault processing code, and there has been quite
+some patches just for unuse_pte just because its out of sync with
+do_swap_page.
 
-    Allocated by task 495:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x28d/0x610
-     ocfs2_journal_alloc+0x91/0x450
-     ocfs2_initialize_super.isra.0+0x11b8/0x3070
-     ocfs2_fill_super+0x801/0x38f0
-     get_tree_bdev_flags+0x35d/0x5f0
-     vfs_get_tree+0x93/0x320
-     fc_mount+0x1d/0x200
-     path_mount+0x592/0x1e00
-     __x64_sys_mount+0x24b/0x2d0
-     do_syscall_64+0x114/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+But, having this fix first and backport for stable looks good to me, clean
+up and improvement can come later and I'm trying to properly split the
+folios when the PTE backing it is partially gone during swapin, that seems
+much more reasonable.
 
-    Freed by task 504:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x308/0x580
-     ocfs2_journal_shutdown+0x10a/0xc20
-     ocfs2_dismount_volume+0x315/0x940
-     generic_shutdown_super+0x15f/0x490
-     kill_block_super+0x40/0xa0
-     deactivate_locked_super+0xae/0x120
-     deactivate_super+0xa2/0xc0
-     cleanup_mnt+0x217/0x450
-     task_work_run+0x144/0x230
-     exit_to_user_mode_loop+0x17d/0x570
-     do_syscall_64+0x4d1/0x620
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    The buggy address belongs to the object at ffff888116a56000
-     which belongs to the cache kmalloc-512 of size 512
-    The buggy address is located 40 bytes inside of
-     freed 512-byte region [ffff888116a56000, ffff888116a56200)
-    ==================================================================
-
-Fixes: da5e7c87827e ("ocfs2: cleanup journal init and shutdown")
-Cc: stable@vger.kernel.org
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Changes in v2:
-- Address the osb dereference before BUG_ON(!osb) raised by Sashiko:
-  https://sashiko.dev/#/patchset/98583
-- Remove fs_state after BUG_ON(!osb) in ocfs2_dismount_volume().
-- Trim the KASAN report.
-
-Assisted-by: LLM
-
-Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0003-v6-2f69dbb7417fcd537be6@gmail.com
-
- fs/ocfs2/super.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/ocfs2/super.c b/fs/ocfs2/super.c
-index 0af2245ae303..c02896e127e5 100644
---- a/fs/ocfs2/super.c
-+++ b/fs/ocfs2/super.c
-@@ -1783,6 +1783,9 @@ static int ocfs2_mount_volume(struct super_block *sb)
- 	return 0;
- 
- out_system_inodes:
-+	/* Drain fs_state readers before releasing their backing state. */
-+	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
-+
- 	if (osb->local_alloc_state == OCFS2_LA_ENABLED)
- 		ocfs2_shutdown_local_alloc(osb);
- 	/* Drain pending suballoc reclaim work before the journal goes away */
-@@ -1812,6 +1815,9 @@ static void ocfs2_dismount_volume(struct super_block *sb, int mnt_err)
- 	osb = OCFS2_SB(sb);
- 	BUG_ON(!osb);
- 
-+	/* Drain fs_state readers before releasing their backing state. */
-+	debugfs_lookup_and_remove("fs_state", osb->osb_debug_root);
-+
- 	/* Remove file check sysfs related directories/files,
- 	 * and wait for the pending file check operations */
- 	ocfs2_filecheck_remove_sysfs(osb);
+Introducing a helper to avoid code duplication from this fix is also a
+good idea.
