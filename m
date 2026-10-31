@@ -1,60 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793491054;
-	b=VN/OkA4eLBKVlAfl1Egai6xbpm2RY206TTAx3s+5S2XfkunI+whAk8clW9wMztFhufHj
-	 H1uuXRkh7VMMVxHoUhrSG2xJ95ZNdATXAV1/lU9+bv/o73bob3bu2PaOU3GZ7pX/nr7Fp
-	 +dM+nrrr96pUEV5O8UiGQyhPEwz2BLCDu7Tix43LWnvMET6v7kp8hmFXwNr7COnng7HFI
-	 2qAw8qD2IQ2wE8d3/YcDK5wc9J0F7yE0NPo3baGqWDUxaTPbeoXwgLllww9oSOnSxzIL0
-	 iP7kpXeg0RTh8FGCnVkX/vhyJxt2FWezAnnP6OspO/5NW3KM3HjFHK9rXY3zkOl6Cwg==
+	t=1793491101;
+	b=EzfeJjAiiiCmvPNFkGwSHZo9cihCwzZM0vmQDBz9Z2wAPqQgqPQ7KQcZ4nL7eY3vjcA2
+	 nPzIVWHVTt1n3klz9LbLdav8WLHSJbGAuEfQT0uP7vnjwypFvr5eOMJ66emlysebPngyI
+	 GZgBxp1q2slPEd0DVQTt/yrXxLTfwcqjclI2NbnuoUjrIGcfCf+NCa4LzsWRpreo2Bznb
+	 oM4znYhwe4Of7XtUkoRPIokhbTUHcSCPXgqDklY9nGsYRMW8iblPbqS3LNaWUJWJulhCm
+	 HDfJpZ6TEn8EwYf7nGa9CeMhRIIDtpIwprRneASbcXbiX8DmsFXjjn7qyYYW9g/zqIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793491054;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793491101;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ysWUmcxgVRXv2jQI8n69SegsVOhd/dtKdXxdVfo7JLM=;
-	b=0+QuEWcPXB3zy5nuMiEF3vEmbrujnINYRvOhf9w/jGi8C0xzXJdshdcpZ+0MSDFv53v4
-	 IKOuDn54YtHIW5ZswihBetwDO4SuRDRZE4rpsayWJpYe6okgCyz9FCn1/YaI16/3Prg6D
-	 NgwuE6MZBmwhHtjcsKggzOyEs7aYVZUusU1+E40Sh6S9rkQPPE5uJztHMyd1ZHXVjHb5f
-	 2+mm/VAEcqewAQzgsWGLDXdk+RTSMmuJ0XXqTyIsZRZ0p8MlBZVB9DeZL8NQ14S6MNg15
-	 bosNp6ApwrFBh5JaNryXE7kGd9zkEhaFAl5L1UgFS1CYVdxXPAJUszgk49Li9GreXMg==
+	bh=6V0NiExjKiMGJ5h/1WwCW23VisWqxFUm51w7ztl/rtw=;
+	b=f1Fu5ckbutAMohD33pQt5+MtsRlwP+v5MwWA9FYVLuYQLXncRjK45tT32SwHLegviP8B
+	 5XY532mGHzJCtoFpliZJ8mRtCBUhJXe/7dOf5vdocOT2GStaw3X6lg2ZZgOi2l4cR1EyX
+	 WHvXVoGEhyfpFZMchQungIFg4UaHO7j2QBgcVNmO0b6QxcG+7q43upCyGio+5uvG84z5N
+	 FewQmvWNhtOLy/wkbExND9EGF9whrgZwckfqw7ilFzxKaHn2KrpZEKS5ESR1dg/D2igFA
+	 58qLIh8CBDxudLV+DlBkI3mqDrfB4c+78zH/MyFjCyltMYfet3I9qbIyQS4h1UNAW0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=pB1hre5h;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Yd6iqCpX;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cVnD0I/9";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E895A606A31C;
-	Sat, 31 Oct 2026 23:57:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E895A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08C5606A31A;
+	Sat, 31 Oct 2026 23:58:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=pB1hre5h;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Yd6iqCpX
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793491007; bh=ysWUmcxgVRXv2jQI8n69Seg
-	sVOhd/dtKdXxdVfo7JLM=; b=pB1hre5hAAkfc0jGIwgRRWwiOalmOObNdf98xXxeUScj3UJ/oT
-	nyBfIucryEdQF+QGs/OKBvOExqqTRvUz7yAImSr/EXLqFSDWWfuEerCg4CAJRitACX/IjKEDqbg
-	K4HaljVFDt0F8WrnVSaN+w8VQS4fEVHJVmpCSYHOqt2MEcyphXMzVsdZ7AG2o0b04RGiCi5ALQs
-	2pBoOEkE+nJv1YoJ8Pc51X4k9KXueBy+B6n1pZ8UG427kpCzjQheL0H+yUrAgYT2T29vdqgb33R
-	Qc0+H11NtBu47ghZpOZK3Fn6EfuBPudgP68IyG/+XQXVvfX+WeNc3DMX0d+XHa4YRFw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793491007; bh=ysWUmcxgVRXv2jQI8n69Seg
-	sVOhd/dtKdXxdVfo7JLM=; b=Yd6iqCpX1oOWvqiNIDuB4WCPkf06X8/KvpPF73LxUXzFLJ9bMN
-	9H8TigSMJCeMuYbSS4IqDFB5GJKvKtns84BQ==;
-Date: Sat, 31 Oct 2026 23:56:47 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: =?ISO-8859-1?Q?J=E9r=E9my_Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- Paul Moore <paul@paul-moore.com>, Eric Paris <eparis@redhat.com>
-CC: audit@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] audit: fix UAF in kauditd_send_queue()
-In-Reply-To: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261031211258.1626829-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Message-ID: <6F0EE0A0-10C3-4B96-AD77-A6952672CDB7@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVnD0I/9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50E11F000C1;
+	Sat, 31 Oct 2026 23:58:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793491100;
+	bh=6V0NiExjKiMGJ5h/1WwCW23VisWqxFUm51w7ztl/rtw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cVnD0I/925gFCOJnVBwIxkZZegH1NRZRU1VUlRVXvS37S8KkDDShwleVoT+PlUwcj
+	 LsyCOGO2YsjHP3pZwxLlQFHmt3Iecy605KhGnarPeNvdwfezWKHIq622wCKlmb0RtO
+	 cApZpSoZLOQM0CTiTd9SlSS78sclPU34sZnG8TJhFreAzUwwY8n3JCO7MZ7PmeMgUK
+	 4eq7A6+HHo1uUmX6U3Zl9fZ4wKpYhlNantSso2zNMALQhHud3S4KH1HktQ1luVbU+n
+	 BlkP4UpKQV2/3TL/GLa1kCXEHajYtyHH7Rol1IEK4F3PjE17UCQzkcTb4WnmuLxD2/
+	 TnLd1R5eWQEYA==
+Date: Sat, 31 Oct 2026 23:58:15 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Kevin Tsai <ktsai@capellamicro.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, David Lechner <dlechner@baylibre.com>, Nuno Sa
+ <nuno.sa@analog.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, Hans de
+ Goede <hdegoede@redhat.com>, Jean-Baptiste Maneyrol
+ <jean-baptiste.maneyrol@tdk.com>, Srinivas Pandruvada
+ <srinivas.pandruvada@linux.intel.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Tristan Madani
+ <tristan@talencesecurity.com>
+Subject: Re: [PATCH v3 2/2] iio: imu: inv_mpu6050: validate ACPI object
+ types in asus_acpi_get_sensor_info()
+Message-ID: <20261031235815.4805cf65@jic23-hlaptop>
+In-Reply-To: <20261029110829.1086835-3-tristmd@gmail.com>
+References: <20261029110829.1086835-1-tristmd@gmail.com>
+	<20261029110829.1086835-3-tristmd@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,106 +67,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 31 October 2026 21:12:59 GMT, "Jérémy Jean"
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->kauditd_send_queue() grabs an extra reference to the skb header before
->netlink_unicast() since it may need to retry a failed send. If unicast
->delivery reuses that same header, the receive path stores the
->destination socket in skb->sk without taking a socket reference.
->Consequently, after the receiver consumes the skb and closes the
->socket, the extra reference taken on the skb header makes kauditd
->release a header whose skb->sk points to freed socket storage.
->
->KASAN reports a UAF as:
->
->  BUG: KASAN: slab-use-after-free in sock_rfree+0x44/0x140
->  Write of size 4 at addr ffff888004f94140 by task kauditd/31
->
->Clone the header before netlink_unicast(), then use the clone for
->delivery and keep the original skb only for retries. If cloning fails,
->handle it as -EAGAIN so the send can be retried.
->
->Fixes: f3d357b09295 ("Audit: save audit_backlog_limit audit messages in case auditd comes back")
->Cc: stable@vger.kernel.org
+On Thu, 29 Oct 2026 11:08:29 +0000
+Tristan Madani <tristmd@gmail.com> wrote:
 
-What I cant work out from the changelog is where netlink_trim() went.
-With users == 2 it usually clones for you anyway (skb_shared() is just
-users != 1) and then the receiver owns a different struct, so this
-couldnt happen. Unless it took the early return:
-
-	if (is_vmalloc_addr(skb->head) || delta * 2 < skb->truesize)
-		return skb;
-
-Which one was it? If its the delta side then its the tightly filled
-records that trip this, which explains 18 years of silence pretty well.
-It also tells us what this costs, where trim would have cloned anyway
-you just moved the clone, otherwise you pay one small slab alloc per
-record.
-
->Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->---
-> kernel/audit.c | 11 +++++++----
-> 1 file changed, 7 insertions(+), 4 deletions(-)
->
->diff --git a/kernel/audit.c b/kernel/audit.c
->index 9412af9144bc..5e739fa606be 100644
->--- a/kernel/audit.c
->+++ b/kernel/audit.c
->@@ -790,6 +790,7 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
-> {
-> 	int rc = 0;
-> 	struct sk_buff *skb = NULL;
->+	struct sk_buff *skb_to_send;
-> 	struct sk_buff *skb_tail;
-> 	unsigned int failed = 0;
+> From: Tristan Madani <tristan@talencesecurity.com>
 > 
->@@ -810,9 +811,11 @@ static int kauditd_send_queue(struct sock *sk, u32 portid,
-> 		}
+> asus_acpi_get_sensor_info() iterates through a nested ACPI package
+> structure without checking types at either level.  The outer object
+> returned by acpi_evaluate_object() and each inner element must be
+> validated as ACPI_TYPE_PACKAGE before accessing their package.count
+> and package.elements members.
 > 
-> retry:
->-		/* grab an extra skb reference in case of error */
->-		skb_get(skb);
->-		rc = netlink_unicast(sk, skb, portid, 0);
->+		/* Keep the original header unowned for retries. */
+> Use acpi_evaluate_object_typed() to validate the outer object type
+> at evaluation time.  Add a type check for each inner element before
+> accessing its package contents.  Also replace kfree() with
+> ACPI_FREE() for the ACPI-allocated buffer.
+> 
+> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
+> Cc: stable@vger.kernel.org
+As with the previous.  Hardening against buggy firmware isn't
+a fix. It is however nice to have so with those tags dropped
+I've applied this to the testing branch of iio.git
 
+Thanks,
 
-A header isnt a skb, and the comment you deleted said skb. Also this
-line is where the why belongs, since the why is the bug itself. e.g,
-
-		/* netlink remembers the sock in skb->sk with no ref,
-		 * so send a clone and keep the original clean
-		 */
-
-
->+		skb_to_send = skb_clone(skb, GFP_KERNEL);
->+		/* Preserve the connection on a temporary allocation failure. */
-
-Well, this one doesnt preserve the connection.. -EAGAIN falls into the
-same bail branch which does sk = NULL and then squashes rc to 0, so
-once the alloc failures hit retry_limit the connection is gone anyway.
-
-It also eats a slot of ++failed for what is really just an ENOMEM and
-not a send failure. Might be fine! but the comment says the opposite of
-the code, can you make it match?
-
->+		rc = skb_to_send ?
->+			netlink_unicast(sk, skb_to_send, portid, 0) : -EAGAIN;
-> 		if (rc < 0) {
-> 			/* send failed - try a few times unless fatal error */
-> 			if (++failed >= retry_limit ||
->@@ -827,7 +830,7 @@ retry:
-> 			} else
-> 				goto retry;
-> 		} else {
->-			/* skb sent - drop the extra reference and continue */
->+			/* skb sent - consume the original and continue */
-> 			consume_skb(skb);
-> 			failed = 0;
-> 		}
->
-
---- Thanks!
+Jonathan
