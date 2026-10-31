@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793484824;
-	b=4tJZnX/6J0dNn0TbATopHeVi4LvmQDny8aI46lEb4oJp2biOWb2TJhpyg/DGMZr5T1R5
-	 z3UbtMJSo2utVRSMKtVLFLY7BXlqUZuIJ5/1g670mJlxPLn4r7qYKBX8+wXArXdAkXG3M
-	 1vEjjfRt/YqhgyU43NHZ0F6O40Yrh4CNs9Fd6Qs6zZ+XW+i1Mf6DfHllYtkgEjAp4wlXp
-	 HmkHSwHQjHjhIZQbBEsKRHl1h6/7fiRZDXvywPtTBlxHcpNK9M5e1pjLQYywHsVWCqTg9
-	 UD6/cNIR1xjXmhpidwmtrkTdyRvzccgfhOCbkaglQvQcsXIWMTvvl8O3jCHtJsxweOQ==
+	t=1793484833;
+	b=J3JmnavJp5YWTXL/Fs9Spj9TC05nNKfupuAMVD15inO/8ORhLmh4Xg+jULQkhNSWDndI
+	 Lhg04zY1lNpKxIsOrngy8YqzaMpMtEZAyURAIZh0lTv97Ikeua+pxPxdwnf2dYzEamS5N
+	 0gAr/Dm2ysi399fmQnHLRoVUj1Lxb8Af2wlZp3dzExkKDnjFDGzBgIVRo7iwiQ0PnsKLy
+	 5hTcQueWIlr9vSnQk+6OD0hxRHgE9uxU+IPJE7jH7AOw+4qqpqyQhuRew+kBkhRfMLtP7
+	 /UrgNeBQAHoLxD1c7xNoWo7BN6SVPLhn2rnYpFJpfwwrKJttzC4xIzG+C/WAuKXxb6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793484824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793484833;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
 	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=W/VRNZ+XRXyQDBduAiRKhvmXhL67YccMHwiaZ2YK3USaAmmNrymQMN+RjA26MNVVCDuT
-	 uc6h/AdnMm17u29iMN5wwQbAw/28kwBe/Ux6BKCO+7mCMc3soLzy6vhq9CnBt04D8C+dp
-	 AwtsJBGFlpAzuBdvflScPsWiGiBO6aXjRKp+iVZgTbHO6A1JrH8rdObJ0DGY95EC4CDlZ
-	 RsnNRYxJYd4XAWvzgbWQPvN+XJdLndMQmzNbyGAZQfd1fCoyaKcgUz0tTVPcMLcqhV+aw
-	 /1HKluIAEkib1vuyiKLLF3hZgD11OH+CpbTa9dtpQyVlUiKA0jpeaGCuzS79qzBUBvQ==
+	b=zSkGsdaYPXtpAHoYp4I1I9hkVVHnJq95Cu6bpgcwS6N8+XqG/bZvtXnxUUtSvqf5520h
+	 l6O777pgLvx8fAWvRFxoWsTf7msIBm62GWfYLSPdmqO/HHPQug3TB2zjEXMYEBDg+vhE0
+	 fnVEl51NGQQAO20C8Ov5OpFVkZApiYvAilCvm47kzQdydiAZTpLea+lkQtvjRGU21pNsY
+	 jq74Ou4B6jVrdGxsxs9PY4OnM7A+v+nr8Jzuct+/VmerRzCFQ0Cc+MgRPccT9tDnQncH0
+	 Aoa/+KIVQIDPjkeB3xmDVgZATNnm4cREhvNoNjYECT4ms05Uyq7iMrtnsd6ErI+8czg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DABniCJy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNBUzQSb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028B9606A31A;
-	Sat, 31 Oct 2026 22:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3851D606A31C;
+	Sat, 31 Oct 2026 22:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DABniCJy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8723C1F000C1;
-	Sat, 31 Oct 2026 22:13:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNBUzQSb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5691F000C1;
+	Sat, 31 Oct 2026 22:13:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793484823;
+	s=k20260515; t=1793484833;
 	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DABniCJynMbdmsWGQDy+T2EBfQiI1ngC/BABok18Q80s0NyKnCXWDIuRHizxnakL0
-	 7V1iEboeCcUbemCvnkYFt8Wl4bsh1xdcaQzEQOVREiJWKAp1tVe7HcPMp8yM28eWvY
-	 LuGmgyBfMGWMOb1kk25c6E8MH39N4+VY2jfXysOq1J3zoP/J1NvsxwgO7/EBsOVWlH
-	 fUJepHH9ngGHi/yc8CR+h1Kx0MNSGYv+nqOQCHajfxKM/DF/nRrV25CIs5ghr2/euG
-	 AFBVJRBYPZ9BJJAlWxqYHXwA4x05xd/NDkb//1opN0HBsu5H20cmpV2SdCnznloUx5
-	 MQj0hD1tYD2Vg==
+	b=ZNBUzQSblARFpyOX9Rby+Jvb27jKexyppCVGaM4BVKfMQ/+gdgDuwU3zjgNegJ8tN
+	 moRmGbSb6SQmmmvPcACQqmPcCWHiQMMAiEO/xZ/ptFu55u9XtParuVmwQDv5iNqTEB
+	 ip1dH9TLmJudPbjJ6KZADx4EbzH2/RV0yL9Kxl7eRmuZ+VtK//MTA5TSBLzuFj35yF
+	 U9sQU/uCncJnJ/7qwfBVd0B+AndVJ9Xur/cnL4n/1ljBfP6D0opXQ0mFaz8VEpmKRB
+	 vCpiS94Zlt57P4ZG5VzPtoig/wb7T1dHK+9bhwAv0pZRzHi/IsDOrgJ2QavtJYvDSx
+	 GW0tmTYtX5qOQ==
 From: netdev-bot+sinfo@kernel.org
 To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 Cc: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
  Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: qualcomm: rmnet: bound TX aggregates on
- byte-limit update
-Date: Sat, 31 Oct 2026 22:13:43 +0000
-Message-ID: <179348482309.3286.17799482231932078029@kernel.org>
-In-Reply-To: <20261031221052.1642262-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: 
+ Re: [PATCH net] net: qualcomm: rmnet: avoid stale VND access on TX drop
+Date: Sat, 31 Oct 2026 22:13:52 +0000
+Message-ID: <179348483231.3286.9114649730090471248@kernel.org>
+In-Reply-To: <20261031221052.1642262-1-Jeremy.Jean@oss.cyber.gouv.fr>
 References: <20261031221052.1642262-1-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261031221052.1642262-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
