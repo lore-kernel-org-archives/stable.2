@@ -1,62 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.242
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793473551;
-	b=HP1/1jNx7YDkDPER2HDJdRTaG7erkbKmdwukp0OzVrDoyFERPWSFBC+dPxysXSl466eb
-	 DZBXklHUavHZM98yUWq3hnlkPCXz1HG/s8EX7t6KxEdowDi/caalGXRdVGqpCenWahoh9
-	 zYbscridnFFoGDni68iPangBvCecPxkN5TiNTugFydcH6kQ/9n0BK8//pwAmrlTniIa89
-	 FpJ4pruUczDtEyOmwM65tO7Xd0O+WldZ30FPR7t2YtAaIIYWYQyMdqUMJfLoqoN5XCn5e
-	 vDKHbUDGHKwFPTAWiXLK45xskp3oZ1Emy7+meTEPJOOTBimTpgvKAE6Z9hBMEZapJDQ==
+	t=1793473790;
+	b=HabjO9x5+8ulz65pLli0g8aqHYW687E2llJq5fcgP1LXpSngXGP7ozw3htXgg28MGUuO
+	 4hYlb+pspkBNhzLkPFamxYW1uj+UJYmbIyEJj9IXNtMSCuexBwSCMI7lSveDNZZcrv1m4
+	 1GiACdKj58h6HXirkWJibGnxoi6NcyVKxqPu3sOYf7mC7bTzssHzClaBqQ0uBPhPSWytT
+	 mdRWn4YQEDDBIWG+qrylXBEndLuRqnj6CFiPzhQixWIXW1796HQM1gRA6hMTZG7drCFyZ
+	 98blSLNCugMXVf5YqxSkNZVGWy7QSBdxNyeEWuVFOM88+jrRIWJgxF0l3FTBQjdG9KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793473551;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gF9FP3okBGaulujfi92bns4Xp8Ex+d3QT0+PXv65Qbc=;
-	b=B6bLD7cezFC1ABCg8tV/eWAvotjjlBAilniEraI1brE6eAvVhT7aUNtNkLGpP+D+Vqry
-	 ynLmyoICkW+P0ea3t6rPuFEOAQOYVRyt0zztqQUoxBgvVFW5fuporpzgUPB3ffolwYK9f
-	 TjJjVc+BURHp7MBON+EtiRZj5EJ7HAu6r3yqihFdwOK27KNJbaHoLDmGQcHfB1yIdczeC
-	 T5eLdv4LX4WT1SN8F2n3bhb1xBZK5ztWEnHWZXnzMSoVDeUvG5R/17HcTfQWlYpS0x29w
-	 HF1vR6zUdad18swaJxh33nCICvlZkfHmBOzdsoxhfVRGTwEVGU0DP04zz55vSq9MA9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793473790;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=b+Qh5Uwalfg4+sQsbYwohX2NOBHbbc/nf2ild3+ohzI=;
+	b=wIPu/tDt0icu52GfUFwuhzI3ClU5hIAr4jXcPa6eAvtQecVLxB5XEoYz1vC2YYSvZ0Ya
+	 irFgFQl/mTCG4uSzVUJV6/dfot56ZWIWUW5lzFpXxtLH98Cv3Xpccs/T0k6pz2mhMUWFE
+	 JN7CxU8j+oPgrn+1pcc5A0HfIb9b8TAaOI06nDmO/6JelpFOGOE9Vl2/Dmm4Ci01e4rLn
+	 GaDbLBhZlENZZGJ+qXqCk3i6EmFcSLLhpg38gr6kXC5V9G72pFAXRSCo4/4XnCZzUC89A
+	 Qlh5FZiTrSvo0r0sH/DcKHotqhv/G2FsbAjT3xLFyNxX59RSjJ6dG6ZEv2ebjgwlAwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L+kUzswU;
-	arc=none smtp.remote-ip=95.215.58.242
-Received: from mta1.migadu.com (out-242.mta1.migadu.com [95.215.58.242])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4C7C606A31F
-	for <stable@vger.kernel.org>; Sat, 31 Oct 2026 19:05:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4C7C606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L+kUzswU
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CbfwumJvnyRc/dDe61N2E5Z8vQbZC6EGlE3DNJg/ZIY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793473548; v=1; x=1794078348;
- b=L+kUzswUjTbrCAF3gBbUSurdKdsKj8MZEDq3pv1MtmxPfnmkV6eaP7fpicoaaCg99i7IM0+4
- 7sw4Vg89mBBHSl+qpwa5wyK2IaKINMjmI/qcBAaEpIdAZSjndcegit7olkOzgokYC3dsc1jAwIQ
- F0jRYA0WvxGfcvP7innvIAF8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 801ab3a65b468602;
-	Sat, 31 Oct 2026 19:05:48 +0000
-X-Mizu-Trace-ID: 801ab3a65b468602
-X-Migadu-Flow: FLOW_OUT
-Date: Sat, 31 Oct 2026 12:05:43 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, 
-	Jason Wang <jasowangio@gmail.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
-	Valentin Schneider <vschneid@redhat.com>, Aaron Lu <ziqianlu@bytedance.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] vhost: Run TIF_NOTIFY_RESUME work in the vhost_task loop
-Message-ID: <auY6zHDao6R6bFNz@linux.dev>
-References: <AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8605F606A31A;
+	Sat, 31 Oct 2026 19:09:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8605F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=b+Qh5Uwalfg4+sQsbYwohX2NOBHbbc/nf2
+	ild3+ohzI=; b=OZLx7He7D9sWFx/jS8d1BqhnntFDHg2vzEGnO6cw6aH1sTzqFR
+	S9/jwtY31X0kzr9yWPE6Li7aVpcL6dJ8+IP3MA38LtYakBiocNxz+ZilyQS/5Cq8
+	/42lp5DfmgmF7GvVxUUqSlKYoP38by4Lq5Fi+JF82KQkOjO4Wp9I7MKgM=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.19])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCm6v_xPOZquI0SAQ--.42611S2;
+	Sun, 01 Nov 2026 03:09:38 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.de>
+Cc: Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ALSA: bcd2000: Fix use-after-free of MIDI URBs on file close
+Date: Sun,  1 Nov 2026 03:09:36 +0800
+Message-Id: <20261031190936.5696-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <874ie1rbge.wl-tiwai@suse.de>
+References: <874ie1rbge.wl-tiwai@suse.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,46 +61,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkCm6v_xPOZquI0SAQ--.42611S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZw1kCr13tFyxWF43Ww45KFg_yoW5Ar1kpF
+	W8Kr4Yyr1DGrn09FySyF1kCF1Fy3Wxta4DKryrW34YyFyrXw13tay0kF15ursxCryfG390
+	vF1ktFWfGFs8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6rWl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUyfb8UUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUDD2rmBsIaGwAAsC
 
-On Sat, Oct 31, 2026 at 01:33:13AM +0000, Aamir Ahmed wrote:
-> Since commit e1fad12dcb66 ("sched/fair: Switch to task based throttle
-> model"), a throttled task is only dequeued when TWA_RESUME task_work
-> runs on its way back to user mode.
-> 
-> vhost workers never return to user mode, and vhost_task_fn() only runs
-> task_work via get_signal() when a signal is pending. A busy vhost worker
-> therefore ignores its cgroup's cpu.max, while its runtime is still
-> charged to the group, throttling the group's other tasks (typically the
-> VM's vCPUs) harder.
-> 
-> Run pending notify-resume work at the top of the worker loop, as io-wq
-> does in io_run_task_work(). Commit 12013e3d4695 ("KVM: powerpc: Use
-> generic xfer to guest work function") fixed the same problem for KVM.
-> 
-> Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
-> Cc: stable@vger.kernel.org # 6.18+
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+bcd2000_disconnect() calls snd_card_disconnect(), which only prevents
+new opens, and then frees the MIDI URBs.  A rawmidi file that was
+already open can still be closed afterwards, and its close callback,
+bcd2000_midi_output_close(), calls usb_kill_urb() on midi_out_urb.
 
-I have this (almost) same patch but for different reasons i.e. memory.high and
-block throtlling. 
+The URB pointers are cleared on disconnect and their accesses are
+serialized with midi_lock, but bcd2000_midi_output_close() reads
+midi_out_urb without that lock.  The check can therefore pass just
+before the pointer is cleared, and usb_kill_urb() then runs on the URB
+that has already been freed:
 
-http://lore.kernel.org/20261031181004.4193627-1-shakeel.butt@linux.dev
+  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
+  Read of size 8 at addr ffff8880078e7d40
+   usb_kill_urb
+   bcd2000_midi_output_close
+   close_substream
+   rawmidi_release_priv
+   snd_rawmidi_release
 
-If you don't mind, can you update the commit message to also include that it
-will fix memory.high and cgroup block throttling as well?
+  Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
+  Freed by:     usb_free_urb <- bcd2000_midi_free
+                <- bcd2000_disconnect
 
-You can add:
+Take the lock in bcd2000_midi_output_close() and reference the URB with
+usb_get_urb() before releasing it.  The URB then stays valid until
+usb_put_urb() after usb_kill_urb() has returned, even if a disconnect
+frees it in the meantime.  usb_kill_urb() itself cannot run under
+midi_lock, as the completion handler takes the same lock.
 
-Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
-Tested-by: Shakeel Butt <shakeel.butt@linux.dev>
+Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
+Cc: stable@vger.kernel.org
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+v3: reference the URB under midi_lock in bcd2000_midi_output_close()
+    instead of waiting for open files in bcd2000_disconnect(), which
+    would block the USB disconnect path on userspace.
 
+ sound/usb/bcd2000/bcd2000.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-BTW there is a similar issue with io_uring SQPOLL thread which I am fixing
-(testing at the moment), you might be interested.
+diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
+index 2bd49bf82748..0fd086cac955 100644
+--- a/sound/usb/bcd2000/bcd2000.c
++++ b/sound/usb/bcd2000/bcd2000.c
+@@ -183,10 +183,24 @@ static int bcd2000_midi_output_open(struct snd_rawmidi_substream *substream)
+ static int bcd2000_midi_output_close(struct snd_rawmidi_substream *substream)
+ {
+ 	struct bcd2000 *bcd2k = substream->rmidi->private_data;
++	struct urb *urb = NULL;
+ 
+-	if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
+-		usb_kill_urb(bcd2k->midi_out_urb);
+-		bcd2k->midi_out_active = 0;
++	/*
++	 * Reference the URB under the lock so that it stays valid until
++	 * usb_kill_urb() returns, even if a disconnect frees it in the
++	 * meantime.  usb_kill_urb() cannot run under the lock, as the
++	 * completion handler takes the same lock.
++	 */
++	scoped_guard(spinlock_irqsave, &bcd2k->midi_lock) {
++		if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
++			urb = usb_get_urb(bcd2k->midi_out_urb);
++			bcd2k->midi_out_active = 0;
++		}
++	}
++
++	if (urb) {
++		usb_kill_urb(urb);
++		usb_put_urb(urb);
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
 
-thanks,
-Shakeel
