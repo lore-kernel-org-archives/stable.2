@@ -1,61 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793517354;
-	b=zpp68KLEvZPRiXooYriVP31FgE8U8GM3fDFpSmaFKaTOgqCbxUMuMKe6Tw6pbnQvYKPG
-	 rlx6YUMmtjQEL3Ebo4kNDRgFasGEiGaRAPWiHFEruSbtgcAlPDR/YK4tF7inhLR6565eT
-	 BTjsn7JUKg/mOVcWJx0SBxQwD4rhwTFnyejtTpDrfDjzYDKd25DPMrCUEkDvfEDymUoqR
-	 F+/5OB3JQmOOXt7Ca/kC0d4WQIGqSAoS836w3Dm7QTPnAO0B7evchAgjfJT15ZJMzM0Q2
-	 ogsy28xF9CogceU9kQS9TRIZenK4VaGwiQVKKLCFcUhp9SDo4EAMkxYG5mjA6SyVEEw==
+	t=1793517510;
+	b=gxjGmgttjD4U7GsqEy/M7keRu2do7b2oNilJkrFw13+VN5g33NTYU1wU2hXtA9hrtPH5
+	 S0QpExd7t7r6nPN5QVB/raN3DQkac2BKu/csAgpnHknc2YUQHrtrFpo+IWW5VgLLF9kuM
+	 3foYfC2UBUIggJRiZR8JKHjKI3ypsiLXsI2pdl7xu5Zk24QBDCcxdS4IDvW+wJRUVcZEp
+	 Ap13ULEpRMu1TXjUieMdb2SS+ETFo9VVF36iqtBYvMixt91JNgvofqVXgCoB019Z95uP5
+	 8pvSM3Ex1RUqtT+KmUVs97YTMFU48U3uBnOonSI2wxa25yK+/ilidGjcF1Lwx53Q0Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793517354;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=YvzwzUPJNamEKyfoAp0xhvLbUbROhQ47J0KFrOAYx5U=;
-	b=nqlzp5vM3E6EWzltIAGeCJfx9jUQgBevzSlGgHhrNjOhnf4sS9JX5x9sXB9mdV9h5vT5
-	 4eUgCN1+mW6vIj3KOl+cP9xsyOLWe94OLeTZ24Xz7VT+LiXiRMuJPwjYobJUGcNJCCAYr
-	 kbqLZGpUEpWj1ztYOzJ5xcRdaFAAphcvRUxdcw0tM3P/+Ke6WRKUNkjXvtFOVdXAM1kpE
-	 vmOEiUweGuqGZgPlyfMbqodWp1TetKXrwccTgZ58okWnxZWlNxRH5dmzKqNdTkTB1eJXs
-	 c0OeSy2nDytPI5tlM+EppW236TneavsXp0wKXGlmVrzrbRpMaP1kBYTYKa0jsXukWqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793517510;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=X+BwoNYH8Zzqv3w5tIVg3636uhE4Ev+ncQBA55QTM0Y=;
+	b=h1a/gwE6EDW9JQGbQ15DHNLjIXo7ZDMrDOqoFECJ7sr5VoFflLdSOXFDRp8HgjrBlRQA
+	 kTcC8YJ73bJIPW7LvB+vOPfH9uMYHQOesVmgSdtytjWD/dMWRkE5mHYECGyETaoiK4Hq2
+	 pZMvPeNx8ta5uRc3LtC8MllLpbcIGkz9B1G+/rpNXiuZb8Xt5ehZshWzklKjuyM9ci5az
+	 hfRCB4pIisd738pEEYA/aNjwItcXuxSVMSCkUvntz/pBEJy0FeSumaLi+ZUiZ08TwOX0e
+	 Lf8FkP2Ax1Tm6YjU2itwUFMgm5nvk3Et39wPqy+7+lgIlXVFXqLjzrnU6OJFhZQ60IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfxBGnwh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ffK5pmQk;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D455D606A324;
-	Sun,  1 Nov 2026 07:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C583606A326
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 07:18:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C583606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfxBGnwh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637351F000C1;
-	Sun,  1 Nov 2026 07:15:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793517353;
-	bh=YvzwzUPJNamEKyfoAp0xhvLbUbROhQ47J0KFrOAYx5U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XfxBGnwhb8vp1blw7XelyO1gyCeW3xZYD2dZT8yw4d+oK/TSPKcWgIh/3xxfjxNMN
-	 UInJRmd3vI3FzYC73yZPyV6Ac8U9Y8ShDt/u+5AdSUx9NZ6MxDAbO8kNyhuP8KAR19
-	 mnnhJckKeAl2uYJroyZEAh6iJvBQCYGbMNIjVnaCQadItC7XlBqdPqsywr3e787A9v
-	 EO8IofPzHBHLdbqKi55s6ZEafjBJcXvWCqQbOr3W65Z3PNJ+yyu64j2lRvbV3pn2/9
-	 fPqw2cpOd4wxRivufRaAXcEp9KqA6MEef4z6j2zKHWKjuOu8SHD29NciOOvAndStgM
-	 0s0sC1ox4zwRQ==
-Subject: Re: [PATCH net v14] net/smc: fix lgr/lnk lifetime vs diag reader race
-From: netdev-bot+sashiko@kernel.org
-To: mjambigi@linux.ibm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Date: Sun, 01 Nov 2026 07:15:51 +0000
-Message-ID: <179351735189.3131.9219259330792018704@kernel.org>
-In-Reply-To: <20261028070210.1685136-1-mjambigi@linux.ibm.com>
-References: <20261028070210.1685136-1-mjambigi@linux.ibm.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ffK5pmQk
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so15613875e9.2
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 00:18:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793517508; x=1794122308; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X+BwoNYH8Zzqv3w5tIVg3636uhE4Ev+ncQBA55QTM0Y=;
+        b=ffK5pmQkqD7xyXFYTYf2tSVw1KfU9AScHuDeQEj0RaUM5ODUuEB3elvi7BIDxa0Wpf
+         oGoDo5g4HwMt0T0SqlJn2SlTSGOUfIbvQ79nfoNdsEYpGRg4aOu5PZ6sZIvFZxrN9PGt
+         IZXKXWAtg/E2YplhIvxZTkBTCo0KKbU8Zno6PK0NZi7qSW3/LlRzO222l8TB6cDdNi4j
+         OEi/YbwnjtvR45G4Sgk7/cjGIf9t7q74+/zbVQQi6LXakNbrazZ1QFvPEPUNpT0KHdko
+         WHqQpnNr5YUt8TpnuzIrTrr1A4+5w/w/6r4r9kPO0444XyUmba+PkTL3vfgUv1A98/cc
+         hi9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793517508; x=1794122308;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X+BwoNYH8Zzqv3w5tIVg3636uhE4Ev+ncQBA55QTM0Y=;
+        b=11itApXzROtoO+ZiyDk2TEUTCTj9/N9rcnkaIezP5vRMRAM9nHufp6o0RXHDC0JZjC
+         8p0tmFyP6s08yY3G2RiWtu5ciRM+41ANIq/wEcALtmkUnhXGPcOHt/34/cdJhxJksEbn
+         fOCdjzNTQ5sd5OXpoofKatfatSEq4y5XAoc02LPWOFdlMblOreQYLa83F8uFAoRzA3tc
+         eUuRrw42OMEczfAIz0UuJ3U2audeKtG7GYAMLJEXDXz3smDcx82zPb36rtEIuQqpm0Bh
+         UkG/p+PfCjAAUTctbIPOagLQawPSXLDPmGlAfsitj9vQSynYTWCIQfncEzjeo9fntsLr
+         pffg==
+X-Forwarded-Encrypted: i=1; AKwUvByjz0ZYoLjtwyZQMave+Yfnei+46g3IiJXv3ioqZm6//9VycoI39nYAIzFr4qMo8rBr9UsTA0w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhabYdfsm7NyO7mDzk01NvWedouveNVXRAmjXumRbgG4MVrMJ0
+	qaZEIj2AeWSWBXkxBuPzKsO7gBUmxbSfMXWdZToHdvEwKyCzwv4QcxR3G3KQYoAeVQc=
+X-Gm-Gg: AYBFou3h+z1hEAqrsA9Bwtt/kR3VOFgYkrGFENcmP7cr5+OR6ecyRL6yPX6bGx1hrGx
+	qDt1bLAec0F34Cj6hB0yH9rNPtKuBIaZs7XTLQ5hiPkbZJy47irmk9dOhqLrwFU0YjdrAXas/zB
+	epny2KIT4Dl78oy5sSswd2YhxI0bDIIonMUoJv2jVaBFEfNM76NL5Rqqx7xjfO+a1GcsxdQyi8l
+	72F9McXxRv+EwQcG0rw7pG+rJ/M5BJGQHYONndBmIqkCUSnlBb86HOyB/22Wf3GmxFagydNAy5R
+	yNeBZIwbzB35L+cgekvTJEDf6fYLSeCeOrEcS2vwbZpKb4eRa3qj8WaKMRe/w2oL+fzojBXAHMt
+	UmqACRI+HvFwe1jJ+c2WQ/Z9E59aoIRACiLpWxHK3/mgyxgHYihlOY297cRjtA9j9mLDlcXJj56
+	8It0UvNaxNHZZF3j6uKK6QYAnYJSGOTutXf0rVhUATAXb3HrK8I4MqKYSz1yhu17A0FTEIk1S1f
+	aq/9IzqBrNNI+BtGo+hdRP6x1Kkd4TEi1LqthEaSBfBUgzm/tGdiQQFgHHC9VvWa0TGoA5013/k
+	x2SIYVquZU73f8XpNVheMlDUjbv8Wg9dnc0vXhuaAg==
+X-Received: by 2002:a05:600c:1f93:b0:4a1:7e76:d02f with SMTP id 5b1f17b1804b1-4ac180f299emr143671995e9.14.1793517507631;
+        Sun, 01 Nov 2026 00:18:27 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm22697298c88.15.2026.11.01.00.18.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 00:18:26 -0700 (PDT)
+Message-ID: <b4962b1b-bc5e-4302-8456-73b9b8a6474b@suse.com>
+Date: Sun, 1 Nov 2026 17:48:21 +1030
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,332 +92,190 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] btrfs: reject refs=0 subvolume without DEAD in
+ SUBVOL_SYNC_WAIT
+To: Qu Wenruo <wqu@suse.com>, Cheng Yongkang <teel4res@gmail.com>,
+ David Sterba <dsterba@suse.com>
+Cc: Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261101062539.1744605-1-teel4res@gmail.com>
+ <a92d223b-55fa-493e-821a-e5acc8afee08@suse.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
+ Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
+ +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
+ WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
+ /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
+ qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
+ SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
+ Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
+ 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
+ os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
+ UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
+In-Reply-To: <a92d223b-55fa-493e-821a-e5acc8afee08@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+
+在 2026/11/1 17:21, Qu Wenruo 写道:
+> 
+> 
+> 在 2026/11/1 16:55, Cheng Yongkang 写道:
+>> btrfs_ioctl_subvol_sync() assumes that a cached root with zero
+>> references has BTRFS_ROOT_SUBVOL_DEAD set, and asserts that before
+>> waiting for the cleaner. Two states break the assumption:
+>>
+>> - A corrupt ROOT_ITEM with zero references and a matching orphan item,
+>>    on a writable filesystem.
+>> - A failed subvolume deletion. btrfs_delete_subvolume() zeroes the
+>>    root references, aborts the transaction, which forces the filesystem
+>>    read-only, and then clears DEAD again. No on-disk metadata is
+>>    corrupted in this case.
+>>
+>> With CONFIG_BTRFS_ASSERT=y, both reach a BUG().
+>>
+>> Before waiting for a deleted subvolume, return -EROFS if the
+>> filesystem is read-only, since the cleaner does not drop dead roots
+>> then. The check runs on every iteration, so it also stops a waiter
+>> when the filesystem becomes read-only during the wait. Subvolume
+>> deletion holds subvol_sem for writing across the abort and the DEAD
+>> rollback, and each iteration takes it for reading before inspecting
+>> the root, so the read-only state and the cleared flag are seen
+>> together. On a writable filesystem, report a zero-reference root
+>> without DEAD and return -EUCLEAN instead of asserting.
+>>
+>> Subvolumes that were not deleted or do not exist still return -EEXIST
+>> and -ENOENT, also on a read-only filesystem.
+>>
+>> Tested on btrfs for-next with CONFIG_BTRFS_ASSERT=y. A deletion made
+>> to fail by fault injection after the references are cleared hits the
+>> assertion in SUBVOL_SYNC_WAIT without this change and gets -EROFS with
+>> it. A waiter on a deleted subvolume now returns -EROFS when the
+>> filesystem is remounted read-only, instead of waiting until it is
+>> signalled.
+>>
+>> Fixes: 6c83d153ed86 ("btrfs: add new ioctl to wait for cleaned 
+>> subvolumes")
+>> Cc: stable@vger.kernel.org
+>> Suggested-by: Qu Wenruo <quwenruo.btrfs@gmx.com>
+>> Link: https://lore.kernel.org/linux-btrfs/dd97efe9-91ec-495b-b698- 
+>> acff1447421c@gmx.com/
+>> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+>> ---
+>> Changes in v2:
+>> - Return -EROFS on a read-only filesystem before waiting for a deleted
+>>    subvolume (Qu).
+>> - Use unlikely() for the inconsistent-root check (Qu).
+>> - Describe the failed-delete case separately from corrupt metadata.
+>> - Add the Fixes tag and Cc stable.
+>>
+>> v1: https://lore.kernel.org/linux-btrfs/20261025180258.349175-1- 
+>> teel4res@gmail.com/
+>>
+>> Testing notes (btrfs for-next d1dca33127ef, KASAN):
+>> - The fault-injection case reached the cleared-references state in 2
+>>    of 4 attempts on each kernel. The other attempts aborted earlier, and
+>>    both kernels returned -EEXIST.
+>> - FOR_ONE, FOR_QUEUED, COUNT and PEEK return the same results with and
+>>    without this change for live, missing and deleted subvolumes, on
+>>    writable and read-only mounts.
+>> - The -EUCLEAN branch was not exercised. A crafted image with a
+>>    zero-reference root and no DEAD flag hits the assertion without this
+>>    change, but remounting that image read-write stalls in a transaction
+>>    commit with or without this change, before the filesystem becomes
+>>    writable.
+>>
+>>   fs/btrfs/ioctl.c | 10 ++++++++--
+>>   1 file changed, 8 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+>> index 9857d6a9d456..5a1f2edfd831 100644
+>> --- a/fs/btrfs/ioctl.c
+>> +++ b/fs/btrfs/ioctl.c
+>> @@ -5166,8 +5166,14 @@ static int btrfs_ioctl_subvol_sync(struct 
+>> btrfs_fs_info *fs_info, void __user *a
+>>               return -ENOENT;
+>>           wait_for_deletion = true;
+>> -        ASSERT(root_flags & BTRFS_ROOT_SUBVOL_DEAD, "root_flags=0x%llx",
+>> -               root_flags);
+>> +        if (unlikely(test_bit(BTRFS_FS_STATE_RO, &fs_info->fs_state)))
+>> +            return -EROFS;
+> 
+> I'm not suggesting such an ad-hoc check, but some more comprehensive 
+> checks, like mnt_want_write_file().
+> As this one won't handle aborted transaction.
+> 
+> But it's not a good idea using that mnt_want_write_file() either, as 
+> that will block pm suspension/hibernation, especially considering the 
+> wait will only be handled by cleaner thread.
+> 
+> The default timeout for waking up cleaner is 30s, which is definitely 
+> not suitable for such calls.
+> 
+> 
+> If you are not sure what to do with the RW check and cleaner behavior, 
+> just don't put an adhoc solution into the update.
+> At least it won't be any worse.
+
+With that said, there are more problems with the ioctl.
+
+- No real user
+   No one is utilizing BTRFS_SUBVOL_SYNC* flags. Btrfs-progs itself
+   doesn't even bother it.
+
+   So all these fixes are very low priority, unless there are some wild
+   programs utilizing this.
+
+   But even btrfs-progs doesn't utilize them, the possibility are very
+   low.
+
+- Incorrect return value
+   For that wait loop, if we waited for several rounds, then the
+   subvolume is properly removed. Then we just return -ENOENT, which is
+   definitely not the correct return code.
+
+- Inconsistent radix tree index checks
+   There is a U32 radix tree check, but there is no such check for any
+   other operations like btrfs_insert_fs_root(), which can lead to
+   subvolid conflicts.
+
+With that said, I'd say it's more meaningful to address those problems, 
+and add a proper btrfs-progs support for it, along with test cases.
+
+Sure, if you only want to fix the ASSERT(), that's fine.
+
+But I would prefer to take a little more time to find out the real 
+problems deeper behind the scene, other than dumping tokens to just grab 
+some low hanging fruit.
+
+> 
+> 
+>> +        if (unlikely(!(root_flags & BTRFS_ROOT_SUBVOL_DEAD))) {
+>> +            btrfs_err(fs_info,
+>> +                  "subvol %llu has refs 0 without DEAD flag",
+>> +                  args.subvolid);
+>> +            return -EUCLEAN;
+>> +        }
+>>           sched_ret = schedule_timeout_interruptible(HZ);
+>>           /* Early wake up or error. */
+>>           if (sched_ret != 0)
+>>
+>> base-commit: d1dca33127efacd86ac550aa86352f8ea9f29a5a
+> 
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 1 (2) · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete.
-- [Medium] After this patch, __smc_diag_dump() (net/smc/smc_diag.c)
-  reports SMC_DIAG_MODE_SMCR for every non-fallback socket in SMC_INIT…
-- [Low] The commit message's 'Fourth' item says the
-  smp_store_release(&newsmcsk->sk_state, SMC_CLOSED) in…
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  smc_conn_free() (net/smc/smc_core.c:1281-1282) calls…
-- [Medium] This problem wasn't introduced by this patch, but
-  smc_diag_handler_dump() (net/smc/smc_diag.c) never checks that the…
-
---
-
-net/smc: fix lgr/lnk lifetime vs diag reader race
-
-This patch tries to close races between the SMC sock_diag dump and the
-teardown of conn/lgr/lnk state. __smc_diag_dump() now skips the extension
-attributes and the lgr based diag_mode test for sockets in SMC_INIT,
-SMC_CLOSED or fallback, and several teardown paths unhash the socket
-before smc_conn_free() or smcd_buf_detach(). It also adds acquire/release
-ordering on sk_state and copies the cached link->ibname.
-
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index d10244af5bd29..ec5980add7a9d 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-
-[ ... ]
-
-> @@ -1971,7 +1971,7 @@ static void smc_listen_out_err(struct smc_sock *new_smc)
->  	this_cpu_inc(net->smc.smc_stats->srv_hshake_err_cnt);
->  	if (newsmcsk->sk_state == SMC_INIT)
->  		sock_put(&new_smc->sk); /* passive closing */
-> -	newsmcsk->sk_state = SMC_CLOSED;
-> +	smp_store_release(&newsmcsk->sk_state, SMC_CLOSED);
-
-[Severity: Low]
-
-The commit message says:
-
-  Fourth, smc_listen_out_err() sets sk_state = SMC_CLOSED with a plain
-  store after smc_conn_abort() -> smc_conn_free() has already cleared
-  alert_token_local under write_lock_bh(). On weakly ordered CPUs a
-  concurrent diag reader using smp_load_acquire() on sk_state can observe
-  SMC_CLOSED while the preceding store to alert_token_local has not yet
-  become visible, causing it to dereference an lgr whose reference was
-  already dropped.
-
-Is this still accurate with the current __smc_diag_dump()?
-
-A reader that sees SMC_CLOSED now skips the conn->lgr dereference in the
-diag_mode test, and the new goto out skips the extension blocks.
-
-Before this store the state is SMC_INIT. smc_listen_work() holds the
-socket lock until smc_listen_out(), so close_work can't change it in
-between, and SMC_INIT is skipped the same way.
-
-So whichever value the reader sees, it never reads alert_token_local or
-conn->lgr, and the release ordering doesn't seem to protect anything the
-reader relies on. The commit message already says this for the
-stale-token case ("the SMC_CLOSED check in __smc_diag_dump() keeps the
-reader from dereferencing conn->lgr").
-
-This reasoning seems to date from v9, before v14 added SMC_CLOSED to the
-diag_mode test. Could the fourth item be described as hardening, or
-dropped, so stable backporters don't treat the barrier as a required
-standalone fix?
-
->  
->  	smc_listen_out(new_smc);
->  }
-> diff --git a/net/smc/smc_close.c b/net/smc/smc_close.c
-> index a8d4b4b65f244..e26586114f802 100644
-> --- a/net/smc/smc_close.c
-> +++ b/net/smc/smc_close.c
-
-[ ... ]
-
-> @@ -437,6 +439,7 @@ static void smc_close_passive_work(struct work_struct *work)
->  		sk->sk_state_change(sk);
->  		if ((sk->sk_state == SMC_CLOSED) &&
->  		    (sock_flag(sk, SOCK_DEAD) || !sk->sk_socket)) {
-> +			sk->sk_prot->unhash(sk);
->  			smc_conn_free(conn);
-
-[Severity: Medium]
-
-This is a pre-existing issue and wasn't introduced by this patch. Does
-smc_conn_free() leak the socket reference held by abort_work when it
-cancels a pending abort_work?
-
-smc_conn_free() in net/smc/smc_core.c does:
-
-	} else {
-		smc_cdc_wait_pend_tx_wr(conn);
-		if (current_work() != &conn->abort_work)
-			cancel_work_sync(&conn->abort_work);
-	}
-
-and ignores the return value. The only code that schedules abort_work is
-smc_cdc_msg_validate(), and it hands a reference to the work:
-
-		sock_hold(&smc->sk); /* sock_put in abort_work */
-		if (!queue_work(smc_close_wq, &conn->abort_work))
-			sock_put(&smc->sk);
-
-smc_conn_abort_work() drops that reference when it runs. Suppose
-abort_work is still pending when an SMC-R connection reaches
-smc_conn_free() from outside abort_work, for example via __smc_release().
-Then cancel_work_sync() returns true, nobody drops the reference, and the
-smc_sock is never freed.
-
-smc_close_cancel_work() handles close_work the same way with:
-
-	if (cancel_work_sync(&smc->conn.close_work))
-		sock_put(sk);
-
-Should smc_conn_free() do the same for abort_work?
-
-[ ... ]
-
-> diff --git a/net/smc/smc_diag.c b/net/smc/smc_diag.c
-> index bf0beaa23bdb6..7b4656d6560a6 100644
-> --- a/net/smc/smc_diag.c
-> +++ b/net/smc/smc_diag.c
-> @@ -87,10 +87,11 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
->  
->  	r = nlmsg_data(nlh);
->  	smc_diag_msg_common_fill(r, sk);
-> -	r->diag_state = sk->sk_state;
-> +	r->diag_state = smp_load_acquire(&sk->sk_state);
->  	if (smc->use_fallback)
->  		r->diag_mode = SMC_DIAG_MODE_FALLBACK_TCP;
-> -	else if (smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
-> +	else if (r->diag_state != SMC_INIT && r->diag_state != SMC_CLOSED &&
-> +		 smc_conn_lgr_valid(&smc->conn) && smc->conn.lgr->is_smcd)
->  		r->diag_mode = SMC_DIAG_MODE_SMCD;
->  	else
->  		r->diag_mode = SMC_DIAG_MODE_SMCR;
-
-[Severity: Medium]
-
-With this change every non-fallback socket in SMC_INIT or SMC_CLOSED is
-reported as SMC_DIAG_MODE_SMCR. That includes SMC-D connections, which
-used to report SMC_DIAG_MODE_SMCD.
-
-include/uapi/linux/smc_diag.h defines diag_mode as:
-
-/* Mode of a connection */
-enum {
-	SMC_DIAG_MODE_SMCR,
-	SMC_DIAG_MODE_FALLBACK_TCP,
-	SMC_DIAG_MODE_SMCD,
-};
-
-It has no "unknown" value. Is it intended that an SMC-D connection is
-reported as SMC-R here?
-
-Live SMC-D sockets can stay hashed in SMC_CLOSED with a valid lgr and
-alert_token_local. smc_close_passive_work() or
-smc_close_passive_abort_received() can move a socket to SMC_CLOSED while
-the fd is still open. smc_close_passive_work() only unhashes and frees
-when:
-
-		if ((sk->sk_state == SMC_CLOSED) &&
-		    (sock_flag(sk, SOCK_DEAD) || !sk->sk_socket)) {
-
-SMC-D sockets in SMC_INIT after smc_conn_create() are affected the same
-way. A tool that filters by mode (smcss -D / -R style) would put these
-sockets in the wrong group.
-
-Could the race be avoided without misreporting? For example, is_smcd
-could be cached in the smc_sock, or SMC-D could be inferred from
-conn.lgr != NULL && conn.lnk == NULL, which only reads pointers and
-doesn't dereference the lgr.
-
->  	user_ns = sk_user_ns(NETLINK_CB(cb->skb).sk);
->  	if (smc_diag_msg_attrs_fill(sk, skb, r, user_ns))
->  		goto errout;
-> @@ -103,6 +104,10 @@ static int __smc_diag_dump(struct sock *sk, struct sk_buff *skb,
->  	if (nla_put(skb, SMC_DIAG_FALLBACK, sizeof(fallback), &fallback) < 0)
->  		goto errout;
->  
-> +	if (r->diag_state == SMC_INIT || r->diag_state == SMC_CLOSED ||
-> +	    smc->use_fallback)
-> +		goto out;
-> +
-
-[Severity: High]
-
-Can a socket whose connection was already released by smc_conn_abort()
-still move into a state this guard doesn't cover?
-
-The guard only checks the sk_state snapshot. Take a client handshake
-that fails with a negative rc after smc_conn_create():
-
-smc_connect_rdma()
-  connect_abort:
-    smc_conn_abort()
-      smc_conn_free()   /* sets conn->freed, drops lgr/lnk refs */
-
-smc_connect_decline_fallback() returns early without changing the state,
-and smc_connect_work() only does:
-
-	rc = __smc_connect(smc);
-	if (rc < 0)
-		smc->sk.sk_err = -rc;
-
-So the socket stays hashed in SMC_INIT with use_fallback == false.
-
-Suppose smc_lgr_terminate_sched() had already emptied lgr->list, which
-is the stale-token case the changelog mentions. Then smc_conn_free()
-skips the unregister:
-
-	if (!list_empty(&lgr->list)) {
-		smc_buf_unuse(conn, lgr); /* allow buffer reuse */
-		smc_lgr_unregister_conn(conn);
-	}
-
-alert_token_local stays non-zero and the conn stays in lgr->conns_all.
-
-smc_cdc_rx_handler() doesn't check conn->freed:
-
-	conn = smc_lgr_find_conn(ntohl(cdc->token), lgr);
-	if (!conn || conn->out_of_sync) {
-
-So a close or peer-abort CDC can still queue close_work. Once the
-handshake thread drops the socket lock, smc_close_passive_work() does:
-
-	case SMC_INIT:
-		sk->sk_state = SMC_APPCLOSEWAIT1;
-		break;
-
-Or smc_close_passive_abort_received() moves SMC_INIT to
-SMC_PROCESSABORT. Both are plain stores, and neither path reaches the
-new unhash plus smc_conn_free() branch.
-
-A diag reader under read_lock(&h->lock) would then see APPCLOSEWAIT1 or
-PROCESSABORT and pass both new checks. It would find
-smc_conn_lgr_valid() true, because conn->lgr is never cleared. It then
-dereferences smc->conn.lgr->is_smcd, conn->sndbuf_desc, conn->rmb_desc
-and lgr->list.
-
-Meanwhile terminate_work runs
-__smc_lgr_terminate()->smc_conn_kill()->smc_close_active_abort(). Its
-ACTIVE/APPCLOSEWAIT branch goes to SMC_CLOSED without unhashing:
-
-	case SMC_ACTIVE:
-	case SMC_APPCLOSEWAIT1:
-	case SMC_APPCLOSEWAIT2:
-		sk->sk_state = SMC_PEERABORTWAIT;
-		smc_close_cancel_work(smc);
-		if (sk->sk_state != SMC_PEERABORTWAIT)
-			break;
-		sk->sk_state = SMC_CLOSED;
-		sock_put(sk); /* (postponed) passive closing */
-
-So the hash write_lock is never taken before smc_lgr_free() drops the
-last lgr reference. Wouldn't the reader then be dereferencing a freed
-smc_link_group?
-
-There is also a weaker variant, where the token is cleared normally and
-the lgr is freed synchronously via smc_lgr_cleanup_early(). Safety then
-depends on the token clear being visible to a reader that acquire-loads
-an sk_state written with a plain store. This is probably ordered in
-practice through lock_sock()/release_sock(), but the patch doesn't
-establish it.
-
-Separately, after a failed handshake the same SMC_INIT to
-SMC_APPCLOSEWAIT1 transition later runs the "postponed passive closing"
-sock_put() in smc_close_active() or smc_close_active_abort(). But
-smc_connect_decline_fallback() has already dropped that reference.
-
-Would one of these work better?
-
-- unhash a socket whose conn was freed by smc_conn_abort(), or
-  otherwise hide it from diag
-- cancel close_work, or check conn->freed in smc_cdc_rx_handler() and
-  in the diag reader
-- pin the lgr for as long as stale conn state is visible
-
->  	if ((req->diag_ext & (1 << (SMC_DIAG_CONNINFO - 1))) &&
->  	    smc->conn.alert_token_local) {
-
-[Severity: Medium]
-
-This is a pre-existing issue and wasn't introduced by this patch. Is
-req->diag_ext guaranteed to be inside the request payload here?
-
-smc_diag_handler_dump() starts the dump after checking only:
-
-	if (h->nlmsg_type == SOCK_DIAG_BY_FAMILY &&
-	    h->nlmsg_flags & NLM_F_DUMP) {
-
-The generic __sock_diag_cmd() only checks for a struct sock_diag_req:
-
-	if (nlmsg_len(nlh) < sizeof(*req))
-		return -EINVAL;
-
-That struct is 2 bytes. So an unprivileged SOCK_DIAG_BY_FAMILY |
-NLM_F_DUMP request for AF_SMC with a 2 byte payload is accepted. diag_ext
-is at payload offset 3, past skb->len, in tailroom that
-netlink_sendmsg() never initialized.
-
-Those uninitialized bits then decide whether SMC_DIAG_CONNINFO,
-SMC_DIAG_LGRINFO and SMC_DIAG_DMBINFO are emitted. That exposes the bits
-to the requester, and KMSAN would report it as uninit-value.
-
-inet_diag and unix_diag reject requests shorter than their family
-request struct. Should smc_diag_handler_dump() also reject
-nlmsg_len(h) < sizeof(struct smc_diag_req)?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028070210.1685136-1-mjambigi%40linux.ibm.com
