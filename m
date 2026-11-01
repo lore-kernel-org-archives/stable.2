@@ -1,95 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793503622;
-	b=JnEbHyxcGdc1PyxQNlfonoMuxogDQXmrLzir2ZlNBEPTQMu6RG2PEpGpkiqiRlUe0dhB
-	 qkBpS0IoT168UyHQ7oUDHX7eKXPExZZQyt7I8wSLb0MjkWObh0JyeGplT5EYBFxsv7y39
-	 ZqhoFqGdO/kqak+0xpxMggD+Dpoe3pRoM9IWJutZBu5UtcHP0S5p7L5/vrO6t2zLm1qrn
-	 cBQbBqZJEn4Dw8jwIB8WyIeuSVmjldUjZBIbhAt0kbgca/R5EEaQHJVk9ALrCbDZw0W6J
-	 ErKkLIqs9mGojeHbljIz5yqxxKSBleKHjWcMblFJqOiCPLG/20D4f2BbKgNEcWaxBvQ==
+	t=1793504342;
+	b=ZK7yzklPBB9VLDb9y6WyHhPp5fEypYd71/9SJtCCYpHiBY3kqJObEKQlJ9koJbB3OzrZ
+	 /dBfeYRyriW/qRT/NexG5V4XDr6eLI73y+U7vPpPOVA7q+g4bgW1LM5rLrXL0x87s4kjM
+	 zVhXKtqrc0wxbITTIHVdH9o+BkKNWF8sejURuba/AOfi3lxuLYMtN9w02+Hvwx/mb9F1G
+	 7WvhYtX5o2iUotIGcbu+Xgdg+P30e7/JqTSYuYpcm/uJ3qg5Sw58v2RwTUV0nzlToEz9p
+	 Fp6W918wtpMcNLzMKtJ9xsSc3m1Tang8Dskqnf4K7D8u1KB1YqRtUC98i2pCDU/E7yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793503622;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Z+poO6efwcGNj69j/DfV8JX7ZC/OFlxZpiE6eh71TzA=;
-	b=rSpq0cRurzmAAEKugZTKEWK3bWAUUgO3yEoIsu8qBnfeze8NSdaVlVlsxxok8CeutX2N
-	 Urw8xGYhGEd2I1Ey5IeIEX907ZU6tMqcUal4JlD2hVrjr1DTiWYvJd8zfHSXfNF3T7nuu
-	 IPr0FFUh502gLUJTO5LsXbhdZwgtEOkkcnTHMzeKT1l0fHFsjYfsCBnJNRWhp47+g5Bco
-	 KifyMuYkiyucfUzb2ZvSrj3mwi7j9e03essQrJwuztOYi3dzQL6cjpfge8cm7TEf6zY3F
-	 S/Au0PzxW2PoWcn+QHtgMYI0a0lSnLF3BBPt7ZlxANiMUNoC7qGuDOYV9+4gNbj4pcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793504342;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=8WvLBNywTRkBo6HPyt44/MH33Yh7FqpzZTb+4PBqLGM=;
+	b=Bw2iFHY7ZXhEYNdbExvxxWVN8yz7q9TosFmoeI2VbDuAPNQCFnsVjRainf7qsuOfyyqs
+	 fXgatm4pPWDFp24/tY4yvYPqFjYI1QUP0GkYTobF+GpCfzb3KQTpiDcd1/XKN2El1bk5R
+	 xlqbbc9h01HCnbm1L36RSQm1n/FelBZnw3ilhbkSaz660NHvKLteiCyK5nPDnHMtKZsLq
+	 umV2Ls2ou5Aqs/LIEZYafjBOco79zegsj/tlYL8voudMY0rFOY8duLv4rHaftYbiFXzrx
+	 XGo9Ho4z/jX7fOQBstkeWTLYcetyKhUl7NPecr8YDlk9eMpDJbDB7X+ywDL3MfJZOYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EP0qY+sw;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=AJQTtPUy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D51606A327
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 03:27:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45D51606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8C9606A324;
+	Sun,  1 Nov 2026 03:39:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EP0qY+sw
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e831e86ebfso11203145ad.1
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 20:27:02 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=AJQTtPUy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DFB61F000C1;
+	Sun,  1 Nov 2026 03:39:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793503622; x=1794108422; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z+poO6efwcGNj69j/DfV8JX7ZC/OFlxZpiE6eh71TzA=;
-        b=EP0qY+sw7BT9C40L2DjSQr1CG4y31Fg9l/l0swU3caaz+JKEmVDp1NgRJmAT30C2Pi
-         /v5HnIXDgXhIAlvaQwGaJWYE+gYaGpHZekD6iy/3GAZL1/98ksvYA3t8K+pfEVvAe0P5
-         amlTeHnb1YXgnXgs3ys9OPWeUXDEe7Dy9AeOwH4pv5mkUI4TirWjwph+ne3CvVhZPG36
-         inSXD2soCbRG24X2RbCWvTnJ0QTpQ/qXqIkYOr/EXvmHg4X8cUtt095oTNOgGOQS00w/
-         QAXcmZkktq4JsboxwR1xwRiWVbA9cRAn4Ca9ZSf0TNnc/j2HAPlk3kMPGEWaaNvOgJr9
-         EVsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793503622; x=1794108422;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z+poO6efwcGNj69j/DfV8JX7ZC/OFlxZpiE6eh71TzA=;
-        b=ij3vZe2aftC4O99O49BBvY7G4/qaM8XnmEXKYjZZSko7LEAe5v+1TOTTrJHkPpiyMZ
-         sVi2xC0Y2AgrKh5W6FyjvmoEl2IGx4nDyJvVgdEJzLspr39QEq57oFnykxaqC4OwUHt+
-         xDxskVz0TtEEFOHPUYgFSJeg+2McSj/MRNXM4Sv6vhOLrXwmXCPxpGaaWxT2BEI7CcK3
-         7xOT95zm6KQmMPYdzKng9djLh6FmBJv5d7d3I/hHKxn06s7Pza5p8Q7+sbz3RlNB+vuN
-         Op6C4oClDKHqsLd+oJzT3fUizT4p+nGAlM5u76H9Epc3iHgIBnvJWcR2TtJLeQsYj1Ps
-         Od5w==
-X-Forwarded-Encrypted: i=1; AKwUvBz6wUSxJAZQGdgVFJCUhWH95EzbYO7C60AgZbwutp3vBIJMD1flHe6F4AlRg3jekWi06uYtwxU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/SNIAxawea13hPhP3NxDTfuoEMa0tcS4DY7Z/ZVM9As8WRcOtW
-	+/37EAhNwwXoWRWKWYOlZUtGKyemDw2zi/Rv90HCExL7p1I5ezSohIFQ
-X-Gm-Gg: AYBFou3I4MCojanK4ZUuTDjhAC0GUVIQwHKTVWENTELBOSo2het/xYgC2YuwBOaWNUg
-	SNuhXNLvr3TixpV8w2WUjWFtrf1uvDQwnGLzKU8LNEsDqJ4CNr2Uwu9E9dHfJMfIHatSbGBlUmm
-	AghJul6dy9q1cSNVc4VF6PYbvpYHTF/+dOdU0BWtA9nxBWbMmkXw3zFb/aOywPkGT7FCxgYihs9
-	A3T6CUI1Ew8H18v/GEUVrFcvmAduWWXLmGLtQc4VZyCh9xAQVUlnBSyIHtVvNQPpvlfeO8A+YYP
-	ZKbG/lieuKYAytQS7kyoNjWnoqCdLvj1W1uJcJCdbWdQAVa6UkALAv/ZSUhQRMEkDCLU8IYWYMl
-	RK1DjsxQRXV6JvQr26NGAkF6Kw9aM9VVAl9esGFmSSf+G9sYD2Vnf/D1H9B756A7R1FzJIjzJz/
-	zN/Y3ZKUQ/jTl2tv7vqj6gCZS4FuN7Lqpg2haixrHY7WcqYzW4/CTX8GS7CKh7emAMMzvih8Tsi
-	WAKBV1+HPxfndlrAHf56CsRZV6oEzcdKxr/Plx86Ff0q+cGX47s6ooHxFFDN7x8n2OSSp8WM5q5
-	mXGW5cb2HsuPxVc4lhglW2kGDhL82ZuI582am+S5+osy7c4lnjaHkw6NMztrNs1yo0Y2jQ4ggD/
-	2iO6cBxmIpCZvCqbujLkOJKEUQp6IY4VzDev5NQBuLz9zKS6vxUtrhB1unKnH5DI3RgzUlgJVXz
-	thDfE=
-X-Received: by 2002:a17:903:11cf:b0:2e4:4eed:5cc5 with SMTP id d9443c01a7336-2eb364c02f9mr64614275ad.38.1793503621559;
-        Sat, 31 Oct 2026 20:27:01 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392a5f48sm17193685ad.64.2026.10.31.20.26.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 31 Oct 2026 20:27:00 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-Cc: Stefan Wahren <wahrenst@gmx.net>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	linux-pwm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] pwm: gpio: unregister the chip on driver unbind
-Date: Sun,  1 Nov 2026 13:26:46 +1000
-Message-ID: <20261101032646.11397-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	d=linux-foundation.org; s=korg; t=1793504341;
+	bh=8WvLBNywTRkBo6HPyt44/MH33Yh7FqpzZTb+4PBqLGM=;
+	h=Date:To:From:Subject;
+	b=AJQTtPUywdIrB6sRVgRiEPFum+U08RAfFo8avQNB+B1dLm+KTD+qYvl64HJQ1CPLp
+	 4xBSneuLqoq9/JeetqH+ISCvFGknf6sajjylpu7Aagkaj7cMwR9XwtdMSJzqJRAGVe
+	 YAwSBzrfB8vmhwFYo/UoAwyB5Ptsdus2JhOVUbD8=
+Date: Sat, 31 Oct 2026 20:39:01 -0700
+To: mm-commits@vger.kernel.org,yuantan098@gmail.com,yifanwucs@gmail.com,
+	tomapufckgml@gmail.com,stable@vger.kernel.org,
+	schuster.simon@siemens-energy.com,n05ec@lzu.edu.cn,manfred@colorfullife.com,
+	ljs@kernel.org,kees@kernel.org,enjou1224z@gmail.com,david@kernel.org,
+	dave@stgolabs.net,bird@lzu.edu.cn,arnd@arndb.de,caoruide123@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ipc-sem-fix-used_sems-overflow-in-newary.patch added to mm-nonmm-unstable branch
+Message-Id: <20261101033901.7DFB61F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,46 +53,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-pwm_gpio_probe() registers the chip with pwmchip_add(), but the driver
-has neither a remove callback nor a devm action calling
-pwmchip_remove(). On unbind the devres callbacks release the GPIO
-descriptor, cancel the hrtimer and drop the reference taken by
-devm_pwmchip_alloc(), while the chip stays registered: it is still in
-the pwm_chips idr, its sysfs attributes and character device are still
-there and chip->operational is still true.
 
-The chip can therefore still be reached through sysfs export, the
-character device, debugfs and pwm_get() from a consumer. Those paths
-call into chip->ops, which point into unloaded module text once the
-module is gone, and pwm_gpio_apply() re-arms the cancelled hrtimer and
-drives a GPIO descriptor the driver no longer owns.
+The patch titled
+     Subject: ipc: sem: fix used_sems overflow in newary()
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ipc-sem-fix-used_sems-overflow-in-newary.patch
 
-Use devm_pwmchip_add() so that the chip is removed before the hrtimer
-is cancelled and the GPIO is released.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ipc-sem-fix-used_sems-overflow-in-newary.patch
 
-Fixes: 7f61257cd6e1 ("pwm: Add GPIO PWM driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Ruide Cao <caoruide123@gmail.com>
+Subject: ipc: sem: fix used_sems overflow in newary()
+Date: Mon, 11 May 2026 18:42:53 +0800
+
+newary() checks namespace-wide semaphore usage before creating a new
+array, but the current accounting uses a plain signed addition.
+
+If the accumulated semaphore count overflows, the limit check can fail
+open and allow allocations past sc_semmns, breaking namespace semaphore
+resource enforcement and potentially leading to resource exhaustion.
+
+Fix this by using check_add_overflow() before comparing the new total
+against sc_semmns, and reject overflow the same way as a true limit
+exceed.
+
+Link: https://lore.kernel.org/849fb1fdecd1cc241fd5b032602dbffa90f9dd93.1778477179.git.caoruide123@gmail.com
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Ruide Cao <caoruide123@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Yuan Tan <yuantan098@gmail.com>
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Reported-by: Xin Liu <bird@lzu.edu.cn>
+Tested-by: Ren Wei <enjou1224z@gmail.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Simon Schuster <schuster.simon@siemens-energy.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Manfred Spraul <manfred@colorfullife.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/pwm/pwm-gpio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pwm/pwm-gpio.c b/drivers/pwm/pwm-gpio.c
-index 5644d78..cffdbcd 100644
---- a/drivers/pwm/pwm-gpio.c
-+++ b/drivers/pwm/pwm-gpio.c
-@@ -212,7 +212,7 @@ static int pwm_gpio_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
+ ipc/sem.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+--- a/ipc/sem.c~ipc-sem-fix-used_sems-overflow-in-newary
++++ a/ipc/sem.c
+@@ -535,11 +535,13 @@ static int newary(struct ipc_namespace *
+ 	key_t key = params->key;
+ 	int nsems = params->u.nsems;
+ 	int semflg = params->flg;
++	int total_sems;
+ 	int i;
  
--	ret = pwmchip_add(chip);
-+	ret = devm_pwmchip_add(dev, chip);
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "could not add pwmchip\n");
+ 	if (!nsems)
+ 		return -EINVAL;
+-	if (ns->used_sems + nsems > ns->sc_semmns)
++	if (check_add_overflow(ns->used_sems, nsems, &total_sems) ||
++	    total_sems > ns->sc_semmns)
+ 		return -ENOSPC;
  
--- 
-2.43.0
+ 	sma = sem_alloc(nsems);
+_
+
+Patches currently in -mm which might be from caoruide123@gmail.com are
+
+ipc-sem-fix-used_sems-overflow-in-newary.patch
 
