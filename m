@@ -1,58 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793539337;
-	b=3s4VVZfbBBzo4sPjp9HEADMAa094rELzg1cYq4n30RCz66dWIP1VIN7N8A6LLOz32Umf
-	 MjRAYpixiFOyZjASh5orXGEH92eh2IWKVCq0b383T3SuePTmFOVZrrzKA3//qgkjrOmw3
-	 CQk4MMWdJonQ1JeWB7CEzTIq6qfFoxpaenAQUCRelJXgEh96YuQELi1CehWOfCk2Ty9Gk
-	 BGQ7ooa+xvgjbFcZYIbcvkzI95OsES++h7e2ER24BEUX+hhR6F7xlrsmX7m+oBUsd9gIo
-	 L6fIGabz4mHZr6Y8CmjvwsfKbQGLLEO+SE3/IIH39NsTA0k/gT1QsNPLrbb1oTdNMpg==
+	t=1793539472;
+	b=Pqblq9rzKm4j5lpeAtRNEE7lhibGIe9DrZCcBjH7wawoxSssNXufkXTnJmpRUOC9rW/K
+	 6s/aD2LojIXSxYYunkHmr5tyJmr7CZAWf4ulyW7KtBLdW9s7EDmJ6A8J7e6OHmH2yjomz
+	 cycNSsUmpv1pC1AVAoGA+UVAsDpFhMQWl2dnCWuZwHqwLo2fJePsd4fRrJVdBzZb44Su6
+	 U8k9+LPzuXZq9kQAKhz1V6FRiefhBgD97c4fnIa7LI3MjgjrL4sLHotuNpxdnFDNOk5Dm
+	 lEwN/VbwTWx1Yl/Vahs4AoffUbz/iEOrZsrnS3RECEzGOacWLb4aHQhhuNe5UGdjB9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793539337;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=geaEcMEl+ei9wD9S1s+3XncmzaUwEsl7gr6NPS3NXfE=;
-	b=iMDmGMOX2eYDsyPQAgzJMy5kbc283/k7wswtWJbLy+G8VlbcVD/ADNRArnNLtzqWvEn3
-	 jVJwyE7daeJsU8El5cZ7c5uJN0uEBu5KGTvwDADKpq/292l1sdBTZ7TQtzVWT+z1KaC5U
-	 aCbY3aEO7ExGwckQgMARv3/sSKe0SENEuRZ9VMJwgTeeD7BiYuexqjThLFCSWEAoFY3Gk
-	 FVbzlVM99zEQfVcMGrEjPCGA79QWZfAsLUmolpE/mXfp6aPLNMLfPElQ+ew+p8N46fMhK
-	 xr+sWZX+zSabfaC/wdwQ1YpJA0+N5QjIYVxG9Ng/UbI8pTEOAL38H5DCc0qkrzp3Ytg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793539472;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
+	b=bHKELkZs4q8kAfRFzfpg/erDkry7+4FVvpw22O+aWLYXk+GUQ1fV86YqztxGbKlD/sZx
+	 czXF3X33uFWkj8yhJLvv8/2OpCA09CrZeOAFfvYXxeTpa+plVk065pC9cncNDWuKw21bj
+	 IT9FHJIeCJiq8ZSQ5h/ThQ0Awd4gX/ZuhjCEuPFuF+WCA1ZnYvQ86t8NAo6QTvrNNehyf
+	 626KBjGwbegEFBv5VWuQumEOFFjpm2d5RcRAxyJykSq48kMl1RmdexepevUUIFwWQbxeT
+	 rIeaTXrPDBoz1Pck5V4MS82OsSm34dQa3dRffHu/R6JSI2YaKhB55n3juqmEDmeTxHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cVrvuxww;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=korea.ac.kr;
+	spf=pass smtp.mailfrom=korea.ac.kr;
+	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ETepvLu0;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228C7606A324;
-	Sun,  1 Nov 2026 13:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F958606A324
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 13:24:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F958606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cVrvuxww
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276FE1F000C1;
-	Sun,  1 Nov 2026 13:22:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793539336;
-	bh=geaEcMEl+ei9wD9S1s+3XncmzaUwEsl7gr6NPS3NXfE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cVrvuxww8pnRK8W8x2t2hHp3nWnOObG7ci5vh7APplcjlzy9fqeTywZQJf+Xmu24J
-	 XFRDFRwlcj5L1TgovuM5MJ/rsQAK9Y/dkxsQPRsq3lCJ1yoKJjTldceJSuvSdkxzgn
-	 e37XNI70rypRxMH116kaNz3AUqiNODedec8pJk8Q=
-Date: Sun, 1 Nov 2026 14:22:10 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, pavel@nabladev.com,
-	f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
-	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
-	achill@achill.org, sr@sladewatkins.com, linux-tegra@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ETepvLu0
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b2d149693fso4045527b3.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 05:24:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=korea.ac.kr; s=google; t=1793539469; x=1794144269; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
+        b=ETepvLu0v3btKNzRkiQzA8a2GUrFc5vI1Pg6UN3Q759yFkLyQJh7sqyODCeM0gEGwi
+         YFnwzYXL2dtvZ8q/IIGEb5bveVzbGBsLNLELkCbs/6ARqLbj4G0psW+zjvHZxqTwiGkl
+         PDO1ZJ5sLqwfQB8MMpZ6UB7hwuSf32eYRbvK7rLwgRTBh8679DF+4Q4c4+NgCnxeAwT6
+         ZpFYlyr3cc+eDFZqGot95/cQxNBt3nq3Dimr7tvTiNo4g/Uj8GA27s+YeG4KXWIZVHDO
+         95HNmnIatqbqN4kwgwSbwggyr0tshtyyT++f+F5U319CEWlILSH7awfSkDFGmD3vOCK1
+         atag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793539469; x=1794144269;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
+        b=J1Ct88b6KicB1kJjlTWJRH9T3TPh0HHO6TNDs0OGBSxhtUdkSx/IrOOCN+XIyzGmbY
+         sxMkD9JhiwA4O9c9Aji/kogX5Xue3iemE9oJjleHLaaFvx2vgK0vlaCXwkzl13L34Aco
+         TGF8lyTSvjsLfcfuSUw6yVithWrV2LcQtOKgT3r6w5VzhE4dZvICIjyG/5Sd2iSSiys1
+         FHc+lQDOYzRY4UQC2h3vPwhbAHeITqzkigH+pxRtJFDxVr446rI2H6XFhnLNz5VhDUpy
+         8doG4bs16cxST9iBkAxy106X44x6jSxCK4bmckvuINb41+FtI2ZgFk3H6I+P/XqlPgWe
+         ayVg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7cAB3Woo5gnvMYLVUMuMFb0rVaCOF2oz3qVyW9LNwunz3wrjM6d26loHURfBT44H8oJsUHV8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3cVpFksEG9NJms4x2IxlamCUeg7VE2OQ55b0OtuFSkuNHgOTi
+	nEiOpKG5ofJe48N2/m54WGUK1xsU/xX4li9QfPi9m2zi7QN0qYXLHi55BNvirnOOZrMccwFG3Z8
+	U1YxGTXUw
+X-Gm-Gg: AYBFou1RlX8HGzTa+qbnRSv0nNP0ZuCF+43OmApwNXA6Hcd8+Y6imvEl5ZTLKCBagpf
+	Lqipiz9SgwT2qDnlM+yvyEvqrUb8t8gVgSjNWsBJO8a43bj95mUnqwNDRZbgETVwLmd5/mRRGkB
+	TDlrRIkEPh85QrlOZZ/BTEAmSw2Yid+p2lWPq4GL69ljxU2VHNyTRKa/BeDnGMyeJWSbs0SyWk0
+	AU8PQddmH0ktN35rtrzOjeonPuOhOgMEZ87ENdvWrcP0faKsrUjX29rGJkfVDyEgEjoqsZahKoQ
+	+H3PktyVGPALg9ThDjcYX7ri2BddAoeIOxxFhCkPGPifeyUCD1XP5SGsOxd0NV7xWPxzRTNHnOF
+	5Ymqwcs41xZs3pxum9slK5rwT8AXRhe9QvSvEAliENx05+Wmi1DlYubPIG4io1PKMn2JXRMzHB3
+	YDRA/JxGlQI7IMSH3Gsb0ZkLKaAAwpAgfua5TGfoJwlZ7DtqSTWHuvLUr1rlQLS2ieQtuGz0saH
+	dRNCv9IsM4d9YYx/2JNx8r+AqghCgMdyp+3MB02IJGBVrnM0uJWMAx69adRD+X4wjruduYC
+X-Received: by 2002:a05:690c:4:b0:8b0:a352:f978 with SMTP id 00721157ae682-8b2b65af008mr40507547b3.4.1793539469488;
+        Sun, 01 Nov 2026 05:24:29 -0800 (PST)
+Received: from s2lab05.. ([163.152.163.130])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b716433bsm37301417b3.26.2026.11.01.05.24.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 05:24:28 -0800 (PST)
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ingyu Jang <ingyujang25@korea.ac.kr>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
-Message-ID: <2026110101-carnivore-harsh-fe38@gregkh>
-References: <20261029073135.159947193@linuxfoundation.org>
- <b85e0697-d669-4b14-859f-52ee295264e4@rnnvmail201.nvidia.com>
- <80816b31-948c-45a8-9f98-4cc55f5bd530@nvidia.com>
- <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
+Subject: [PATCH v2] media: rp1-cfe: Use IS_ERR() check for media_entity_remote_source_pad_unique()
+Date: Sun,  1 Nov 2026 22:24:22 +0900
+Message-Id: <20261101132422.1396104-1-ingyujang25@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
+References: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,69 +109,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 02:41:43PM +0000, Jon Hunter wrote:
-> Hi Greg,
-> 
-> On 31/10/2026 09:26, Jon Hunter wrote:
-> 
-> ...
-> 
-> > On 31/10/2026 09:24, Jon Hunter wrote:
-> >> On Thu, 29 Oct 2026 08:33:04 +0100, Greg Kroah-Hartman wrote:
-> >>> This is the start of the stable review cycle for the 6.1.191 release.
-> >>> There are 1879 patches in this series, all will be posted as a response
-> >>> to this one.  If anyone has any issues with these being applied, please
-> >>> let me know.
-> >>>
-> >>> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
-> >>> Anything received after that time might be too late.
-> >>>
-> >>> The whole patch series can be found in one patch at:
-> >>> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
-> >>> or in the git tree and branch at:
-> >>> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> >>> and the diffstat can be found below.
-> >>>
-> >>> thanks,
-> >>>
-> >>> greg k-h
-> >>
-> >> Failures detected for Tegra ...
-> >>
-> >> Test results for stable-v6.1:
-> >>     builds:	9 pass, 0 fail
-> >>     boots:	28 pass, 4 fail
-> >>     tests:	83 pass, 7 fail
-> >>
-> >> Linux version:	6.1.191-rc2-g3b00df762ebc
-> >> Boards tested:	tegra20-ventana
-> >>                 tegra30-cardhu-a04
-> >>                 tegra124-jetson-tk1
-> >>                 tegra210-p2371-2180
-> >>                 tegra210-p3450-0000
-> >>                 tegra186-p2771-0000
-> >>                 tegra186-p3509-0000+p3636-0001
-> >>                 tegra194-p2972-0000
-> >>                 tegra194-p3509-0000+p3668-0000
-> >>
-> >> Boot failures:	tegra186-p2771-0000, tegra186-p3509-0000+p3636-0001,
-> >>                 tegra194-p2972-0000, tegra194-p3509-0000+p3668-0000
-> >>
-> >> Test failures:	tegra124-jetson-tk1: pm-system-suspend.sh
-> >>                 tegra20-ventana: pm-system-suspend.sh
-> >>                 tegra30-cardhu-a04: pm-system-suspend.sh
-> > I am looking into the above boot and suspend issues and will let you
-> > know what I find.
-> 
-> Bisecting is pointing to the below commit and reverting it fixes
-> the above issues ...
-> 
-> # first bad commit: [26c5e136ba4e94ad708333c9bd34039a1de397b0] net: stmmac: protect updates of 64-bit statistics counters
+media_entity_remote_source_pad_unique() returns either a valid struct
+media_pad pointer or an error pointer (ERR_PTR(-ENOTUNIQ) or
+ERR_PTR(-ENOLINK)); it never returns NULL. The current NULL check
+therefore never triggers, and the "pad not connected" error path is
+unreachable.
 
-Thanks, I've reverted that one now.
+Replace the NULL check with an IS_ERR() check so the validation
+actually detects malformed media graphs.
 
-greg k-h
+Fixes: 6edb685abb2a ("media: raspberrypi: Add support for RP1-CFE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
+---
+Changes in v2:
+- Add Fixes: and Cc: stable tags, as requested by Jai Luthra.
+- Collect Reviewed-by tags from Dave Stevenson and Jai Luthra.
+- Diff unchanged.
+
+Link to v1: https://lore.kernel.org/all/20260514193148.2357371-1-ingyujang25@korea.ac.kr/
+
+ drivers/media/platform/raspberrypi/rp1-cfe/cfe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+index 8375ed3e97b9f..91e9fa0341e06 100644
+--- a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
++++ b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+@@ -1779,7 +1779,7 @@ static int cfe_video_link_validate(struct media_link *link)
+ 		link->source->entity->name, link->source->index,
+ 		link->sink->entity->name, link->sink->index);
+ 
+-	if (!media_entity_remote_source_pad_unique(link->sink->entity)) {
++	if (IS_ERR(media_entity_remote_source_pad_unique(link->sink->entity))) {
+ 		cfe_err(cfe, "video node %s pad not connected\n", vd->name);
+ 		return -ENOTCONN;
+ 	}
+-- 
+2.34.1
+
