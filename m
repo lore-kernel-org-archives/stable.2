@@ -1,69 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793527085;
-	b=U4X6p8HFQW3Hm5xwftBdhdVYaO+tp0vFjbDOezEm2sB10Q/3/rU8AdMpPSq/LEdQ/XJD
-	 TIv68NFB/4XodkI9dv8xOqlVrBMS9w8Qq9FsHPRiR5Q6//gw4VD9SOWa/yabB96Ufctd4
-	 pVfOED5S8SQN7Qr8v4srdqsP4NHs7V1nXTjbupAawTSUzU17a5LxHQtikAtYOmAXQuioy
-	 0yuNtPgR+Ox6BCb/EhATw1cPq4T1jOO3a4K7Qoir9lJMXJAiHw75ajOUghdTYp5q+8gY/
-	 +jafLoDLWJhf5hsm0YuzGRtoHINKerZT4sBBEr8bjOXdcRG79odkvNsu+yl9yUwsLMg==
+	t=1793527380;
+	b=V1hbDFu7UNAbrB7D+tOGMEauNrAVl6bYvwpzbmKe7M1jX4hU9BLERKddCgEKxdwQoLy/
+	 7dlplY/zOYCLdisS78oWcq3InBS0FFdT5RjMDZW7HttG6aSx3jK8eCseex2WsAnXN0CIR
+	 QtxVsChXmGbh9W3QV8Wg8VTUsj1VV9l5gJl7TP75xBoNIuvCWHQ6i5Iexqq0eXTGNSxz0
+	 cvizBvm0cu5l+nF0PJaJyChUYWiiiMtKt9EnF6GZWgsSc5dugdYQKONyevis2WP2db/5B
+	 barmi5a0R4BrysMmcdR2LATOxLW441PEy+b3EF/geKNvZzkXryf29OU7AUbKgv8IC/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793527085;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=8xnBzjwCE8sPHtEp9RM3ZWkfBVkxawpnG/dVeRbBTaw=;
-	b=lZfqd1Fymyj7wRYLXYfWl4uowB2MBpWm0J16Ha07p+Tth1fU4x61MHOy3mH9kXs0tHN0
-	 dLnQH7LtSIKQxDyISIvT9NSKi96LLKvryBYcogKR7FKUamqcoBsU1scGY4kCiYdE4SiC9
-	 Pe0jWR53xGaTqACLvTN0AJtkBgtsSbUSJ0J9NhmNMUHAhfUccdeeDAVPWYUp/87WBx9B3
-	 WPoMT5zYqBm6q4bPIQuhYE5My0WR0YNOJlSIq2wqZqvxM+ApjUOuZWldYwlmWYEBfGK87
-	 wdWaLOuFmnCDdsQRvkJjAdavuHbnzmYNR27DyyZ/ul58lAYL3PxmZsJF3ke+y4llvuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793527380;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CcUb3OEvt4a1yV7+AYfYcqheRryY6o0DxYaBOwnyDcA=;
+	b=gfhuOnILQZf7W0efJgDMSkJQAat781IFH2BuCqXBRuCl2A9/+ZfIvJ1qr8j2s/WOWBbe
+	 ilbn4qSdlDkF+Wtuo3qq9WGhjjM7nKO9FUdAn41zFFyuSbqaLNyZMSH0qNCAhcCWE7oOq
+	 2T3+JMOELfui0spuyG3mISBPYh/Vhw7t5C27ahZ6LKPUxK3uJU3Vow//+Yo0fRHN3O3VT
+	 enEvUK3FjQk5uZ6NybynObiW8JqMgHtGvtWzqEmiwPz5QZr2q1GGcIgzPa5U7He5CfvD0
+	 azjteAURj8PtC4BK6QHx4+f8wP5DdatA8waxIipI1FwMzzYEWTBiOpQ0yyR3MJ6p26Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=softbase.tech;
-	spf=pass smtp.mailfrom=softbase.tech;
-	dkim=pass header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=pPiSD5Lc;
-	arc=none smtp.remote-ip=185.70.43.172
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="qWjjp/ns";
+	arc=none smtp.remote-ip=95.215.58.122
+Received: from mta1.migadu.com (out-122.mta1.migadu.com [95.215.58.122])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6261606A325;
-	Sun,  1 Nov 2026 09:58:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6261606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=softbase.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=softbase.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0F2606A326
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 10:02:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E0F2606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=pPiSD5Lc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=softbase.tech;
-	s=protonmail3; t=1793527082; x=1793786282;
-	bh=8xnBzjwCE8sPHtEp9RM3ZWkfBVkxawpnG/dVeRbBTaw=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=pPiSD5Lc2qdIFUqqQ0hJX5aWFrXBB/VPR2bUzYhKQ3zX4/qdry12Pu8bAzmBtEYRr
-	 iPodWnQatHGVbNigMkL0mcx0JZ93rjajjkywKasIXm5+U/kpWYFOEp2dI2KsR82tbg
-	 vFPQ2rjpSBqo1GT8JHQ8G4AMCyRBPqonceDsf/Lz9nEOn9rfE1NVNS103Ofx3odV1r
-	 T0QrnAJ9gAlcnBTGUX9N4uf0IZwYZfWN/KPuGuAJQPox07kBBcbADeIdAqCw8V7GvV
-	 dsqJmz9GV1r49h/Qhv3abFIz49Volr3TMvesIbTkiPKRPjd+egr0vyon8hD+31gvnF
-	 SPFuSl0MsZTKw==
-X-Pm-Submission-Id: 4jHVdM62gvz2Scn7
-From: "Beat M. Liechti" <beat@softbase.tech>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Federico Amedeo Izzo <federico@izzo.pro>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	"Beat M. Liechti" <beat@softbase.tech>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/msm/dpu: don't reassign resources on color management changes
-Date: Sun,  1 Nov 2026 10:57:45 +0100
-Message-ID: <20261101095754.33840-1-beat@softbase.tech>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qWjjp/ns
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yYCz03GhobTxtAJpUtamnKh4J2bHZRJOFBYPZ9SOXn0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793527377; v=1; x=1794132177;
+ b=qWjjp/nsEzwnbOEVR8nJigKmY8mFTaFKYIppkfv0KBdvQnSZ0Msx5eTRDvzL45ch6rUkm18X
+ t65O8Cp0z2CMM20HDYE7VZ098K3o3jfl6r0qeE7eipmSQdEZnzG4lp5YE7qScOPw4CS+sfS7WgU
+ 32v3QU1sG6TLgvupQW1BKmcE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7d86e53af7001ace;
+	Sun, 01 Nov 2026 10:02:56 +0000
+X-Mizu-Trace-ID: 7d86e53af7001ace
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <062d02ca-e9e1-4f4e-ac57-0de27272a205@linux.dev>
+Date: Sun, 1 Nov 2026 18:02:48 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,115 +58,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] tcp: fix device binding after failed IPv6 connect
+To: Xia Yan <yanxia@cmss.chinamobile.com>, netdev@vger.kernel.org
+Cc: edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, yana06070@163.com
+References: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Since commit 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide
-GAMMA_LUT DRM property"), dpu_crtc_atomic_check() releases and reserves
-the hardware blocks of a CRTC whenever color_mgmt_changed is set, not
-only on a modeset. A commit that merely replaces the GAMMA_LUT or CTM
-blob of an active CRTC can therefore move that CRTC to a different
-CTL/LM pair without disabling and re-enabling the pipeline, and the
-hardware keeps scanning out through blocks the driver no longer
-considers in use.
 
-This is easy to hit with GNOME/mutter on a laptop driving an external
-display: closing the lid disables the eDP CRTC, and in the same atomic
-commit mutter sets new color blobs on the still active HDMI CRTC. With
-drm.debug enabled, dpu_rm_reserve() moves the HDMI CRTC from CTL_1 to
-the just released CTL_0 while its encoder is neither disabled nor
-re-enabled. A few seconds later the display SMMU reports context faults
-at the refresh rate and the external screen fills with garbage. Opening
-the lid again leads to a stream of "vblank timeout" and "frame done
-timeout" errors and the machine has to be power cycled.
+On 10/31/26 3:46 PM, Xia Yan wrote:
+> tcp_v6_connect() sets sk_bound_dev_if from sin6_scope_id when connecting
+> to a link-local address. If the route lookup fails, the failure path
+> clears the destination port and route capabilities but leaves the
+> device binding in place.
+>
+> A failed connection through a down interface can therefore leave the
+> socket bound to that interface. A subsequent connect() on the same
+> socket to ::1 then fails with ENETUNREACH, even though a fresh socket
+> can reach the listener.
+>
+> Save the original device binding before processing the destination and
+> restore it on failure.
+>
+> Found while reviewing the error paths in tcp_v6_connect(). Reproduced
+> in UML by connecting to fe80::1 on a down dummy interface, then retrying
+> the same socket against a listener on ::1. With the fix, the retry
+> succeeds and data flows in both directions. Tests also confirm that
+> existing device bindings are retained after failed IPv6, IPv4-mapped
+> and link-local connections without an explicit scope ID.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+> ---
+>
+> Tested in UML on net fcc00b15cb21. The complete tcp_ipv6.c file is
+> unchanged at the base commit. Before the fix, the socket remains
+> bound after the failed link-local connect and cannot reconnect.
+> With the fix, all 12 checks pass.
+>
+> Build-tested on x86_64 with W=1 using configurations based on
+> allmodconfig and allyesconfig. The corrected tcp_ipv6.o compiles
+> without warnings in both configurations, and incremental kernel
+> builds complete successfully. WERROR was disabled for both;
+> allyesconfig also had KUNIT_ALL_TESTS disabled.
+>
+>  net/ipv6/tcp_ipv6.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index e006a30360eae..7bb8266d9d1b7 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+> @@ -146,6 +146,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+>  	struct flowi6 *fl6;
+>  	int addr_type;
+>  	int err;
+> +	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
+>  
 
-Color management affects the topology in only one way: DSPP blocks are
-requested when either CTM or GAMMA_LUT is set. Handle that case in
-dpu_crtc_check_mode_changed() by forcing a full modeset when the
-presence of CTM/GAMMA_LUT changes, as msm_atomic_check() already does
-for the CTM, and stop reallocating resources on a bare
-color_mgmt_changed.
 
-Fixes: 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT DRM property")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Beat M. Liechti <beat@softbase.tech>
----
+Reverse xmas tree please
 
-Notes:
-    Testing: ThinkPad T14s Gen 6 (X1E78100), GNOME 50 / mutter on Wayland,
-    LG 4K60 monitor on the HDMI port (DP to HDMI bridge), logind set to not
-    suspend on lid close while on external power. Without this patch every
-    lid close reproduces the corruption and hang described above. With it,
-    closing and opening the lid produces no SMMU faults, vblank timeouts or
-    frame done timeouts, and both displays keep working.
-    
-    That testing was done on a v7.0.14 based distribution kernel (Ubuntu
-    7.0.0-42.42). On msm-next the patch has only been compile tested (W=1,
-    no new warnings), not run.
-    
-    Open questions:
-    - Like the existing CTM check in msm_atomic_check() (see the FIXME
-      there), this sets allow_modeset on behalf of userspace when the DSPP
-      requirement changes. Rejecting such commits without
-      DRM_MODE_ATOMIC_ALLOW_MODESET would be stricter, but could break
-      compositors that toggle GAMMA_LUT at runtime (night light). I am happy
-      to change it either way.
-    - The RFC "drm/msm/dpu: Force modeset if new CTLs have been reserved"
-      (https://lists.freedesktop.org/archives/freedreno/2025-March/036824.html)
-      addresses reassignment without a modeset in general. This patch only
-      removes the color management trigger.
-    
-    The root cause analysis of the drm.debug trace, the fix and the
-    changelog were developed with an AI coding assistant (Claude by
-    Anthropic). I reviewed the change and tested it on the hardware above.
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 26 +++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+>  	if (addr_len < SIN6_LEN_RFC2133)
+>  		return -EINVAL;
+> @@ -358,6 +359,7 @@ late_failure:
+>  failure:
+>  	inet->inet_dport = 0;
+>  	sk->sk_route_caps = 0;
+> +	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 42d0a529b..3b304a896 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1516,6 +1516,20 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
- 	    (!clone_mode_requested && clone_mode_enabled))
- 		new_crtc_state->mode_changed = true;
- 
-+	/*
-+	 * DSPP blocks are reserved only when CTM or GAMMA_LUT is set (see
-+	 * dpu_crtc_get_topology()), so enabling or disabling color management
-+	 * changes the hardware topology. Changing resources on an active CRTC
-+	 * requires a full modeset; otherwise the CTL/LM blocks get swapped
-+	 * underneath a running pipeline.
-+	 */
-+	if (new_crtc_state->enable &&
-+	    (!!(old_crtc_state->ctm || old_crtc_state->gamma_lut) !=
-+	     !!(new_crtc_state->ctm || new_crtc_state->gamma_lut))) {
-+		new_crtc_state->mode_changed = true;
-+		new_crtc_state->state->allow_modeset = true;
-+	}
-+
- 	return 0;
- }
- 
-@@ -1534,9 +1548,15 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
- 
- 	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
- 
--	/* don't reallocate resources if only ACTIVE has beeen changed */
--	if (crtc_state->mode_changed || crtc_state->connectors_changed ||
--	    crtc_state->color_mgmt_changed) {
-+	/*
-+	 * Don't reallocate resources if only ACTIVE or color management
-+	 * values have changed. A change in DSPP requirements is turned into a
-+	 * modeset by dpu_crtc_check_mode_changed(). Reallocating on a plain
-+	 * color_mgmt_changed would move an active CRTC to different CTL/LM
-+	 * blocks without a modeset, leaving the hardware scanning out through
-+	 * stale CTL/LM state (SMMU faults, corrupted output, vblank timeouts).
-+	 */
-+	if (crtc_state->mode_changed || crtc_state->connectors_changed) {
- 		rc = dpu_crtc_assign_resources(crtc, crtc_state);
- 		if (rc < 0)
- 			return rc;
--- 
-2.53.0
+
+
+inet_bhash2_reset_saddr uses sk_bound_dev_if too.
+  inet_bhash2_reset_saddr
+    __inet_bhash2_update_saddr
+      inet_sk_bound_l3mdev
+
+So I think we should restore it before  inet_bhash2_reset_saddd ?
+
 
