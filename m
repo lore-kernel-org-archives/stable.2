@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.122
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793527380;
-	b=V1hbDFu7UNAbrB7D+tOGMEauNrAVl6bYvwpzbmKe7M1jX4hU9BLERKddCgEKxdwQoLy/
-	 7dlplY/zOYCLdisS78oWcq3InBS0FFdT5RjMDZW7HttG6aSx3jK8eCseex2WsAnXN0CIR
-	 QtxVsChXmGbh9W3QV8Wg8VTUsj1VV9l5gJl7TP75xBoNIuvCWHQ6i5Iexqq0eXTGNSxz0
-	 cvizBvm0cu5l+nF0PJaJyChUYWiiiMtKt9EnF6GZWgsSc5dugdYQKONyevis2WP2db/5B
-	 barmi5a0R4BrysMmcdR2LATOxLW441PEy+b3EF/geKNvZzkXryf29OU7AUbKgv8IC/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793527380;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CcUb3OEvt4a1yV7+AYfYcqheRryY6o0DxYaBOwnyDcA=;
-	b=gfhuOnILQZf7W0efJgDMSkJQAat781IFH2BuCqXBRuCl2A9/+ZfIvJ1qr8j2s/WOWBbe
-	 ilbn4qSdlDkF+Wtuo3qq9WGhjjM7nKO9FUdAn41zFFyuSbqaLNyZMSH0qNCAhcCWE7oOq
-	 2T3+JMOELfui0spuyG3mISBPYh/Vhw7t5C27ahZ6LKPUxK3uJU3Vow//+Yo0fRHN3O3VT
-	 enEvUK3FjQk5uZ6NybynObiW8JqMgHtGvtWzqEmiwPz5QZr2q1GGcIgzPa5U7He5CfvD0
-	 azjteAURj8PtC4BK6QHx4+f8wP5DdatA8waxIipI1FwMzzYEWTBiOpQ0yyR3MJ6p26Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="qWjjp/ns";
-	arc=none smtp.remote-ip=95.215.58.122
-Received: from mta1.migadu.com (out-122.mta1.migadu.com [95.215.58.122])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.161
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793528057;
+	b=u8BAgwP08rQfzDxXc9+QSHOcBGEATwKJ5sYmj7VioZyCNDcRki9CGWQ/V+YrATpMfikS
+	 xMQERbDqH5FqgUMdsDmWuJWuXOPkgif1RU1PMa1b+0fZRjBhA/1NG9gTX1PTx5UnXWDZn
+	 mG3UFIU3pWp5vZa0Nsbd7n5gpGi0+6KBYKGOwhLOqdPiaaJj4gcFfsMQbjM5jAYZMmeZ4
+	 vv2Js861Yd2/LYNVrIPTPT0DkSpMhLtI6kjX+1ueGk9tV6FexwCEuSfY2vcxedtmXbPLh
+	 7rTUWGWvKCU3hCbqBzTNX9cit3LbRj+aa5b3tAvyKDusfV9i13Uu8ERAZp9x+7sAajg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528057;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=hSHY3WVsUBqgQAxQOpMX314E9mDDGTULiBUsGnrUENs=;
+	b=jHU9BaolApf9KhNLKPbb+nwJhUChIEtwOpSC9a04IaVHdsdroyfhOIhi8URzm9eOlNl8
+	 q20k+vnplTBmoIT+6JQXy980jlFo5UYiIHDsB//i/y/SYtb6bkVX9ayOxv8u8th1QeWXm
+	 hmYF+LDlvY/5tOeUxjfmgnNwrw8h1GrOwiHeZdOWnBDc5Kls01sCD1PGzCAj0UJ6qi8mg
+	 y+kDdTRrhhfrVarMDcCPRVTHQjlbT5WDyLqUFvzeh9qLlMOXgIS/MKg44jB1dWi6+8DXv
+	 EmObEixjPw7HzWm4dzpfwFgeGo2F1iigO/ZkGbgcZF9WgRXhiJGmVSPkB+zFnvje8yg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=8alias.com;
+	spf=pass smtp.mailfrom=8alias.com;
+	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=luNrfBMo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.161
+Received: from mail-200161.simplelogin.co (mail-200161.simplelogin.co [176.119.200.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0F2606A326
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 10:02:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E0F2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B44606A329
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 10:14:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26B44606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=qWjjp/ns
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yYCz03GhobTxtAJpUtamnKh4J2bHZRJOFBYPZ9SOXn0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793527377; v=1; x=1794132177;
- b=qWjjp/nsEzwnbOEVR8nJigKmY8mFTaFKYIppkfv0KBdvQnSZ0Msx5eTRDvzL45ch6rUkm18X
- t65O8Cp0z2CMM20HDYE7VZ098K3o3jfl6r0qeE7eipmSQdEZnzG4lp5YE7qScOPw4CS+sfS7WgU
- 32v3QU1sG6TLgvupQW1BKmcE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7d86e53af7001ace;
-	Sun, 01 Nov 2026 10:02:56 +0000
-X-Mizu-Trace-ID: 7d86e53af7001ace
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <062d02ca-e9e1-4f4e-ac57-0de27272a205@linux.dev>
-Date: Sun, 1 Nov 2026 18:02:48 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=luNrfBMo
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793528055;
+	cv=none; b=N/XJjuHIuTxtx4AOGBy1RG38apD47dz139zc1KQSxHnRWEG8nPn0pmVv42Rx/5Pzaqv1Q51ugc52yQDxHv1mHkW5gjGHIzkb7R/AF+x9sbfUasGFAvrhwLzyN+kIBp5ghwVy7oRFKNDSP8My4eLwslmWSCwKkUBCOdsaip+knxSwTZwjolFOGRKqtifPfIL8nlja3QUWmHxJeEV+FpmjQy3eKONNIhRQjg15qViKXvHV28BW6slBCGcWE1cSHqHgwwvnsU1gjEVKgUkD+dwl4xv+Chd8HIR8oirpxkJDjoayzeiQk/O3e6p1eJSbnZA6TfHA6YOQYkHyp3Yl6aM55Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793528055; c=relaxed/simple;
+	bh=hSHY3WVsUBqgQAxQOpMX314E9mDDGTULiBUsGnrUENs=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=IXvdc0THb2oRVhXTLUma4oLDaY6SPSVfjD7J5yABTsdlRHMnWy+FFofGxM9bm1ZX8atQNOnWt+HPAPIF/5FJWllBHdF/hKishMe6REyiFGfcp6ChdEab/3kNeDYYcOzX0HVIS2QXr66Ytz7G86c1J4cgFQVOQ+gmMA0p+Xs1qqUoDSXCkKBAczZagCkDis7JXK9uSiPvovrDqDNbne1VQ1n8itdS/OspxT+QBhvdXdFo8wujEkPAGW9VimlVWsX/ArB7e8mq28PwBYZc/fwLVuMNYjWgaHxu989RdWSuWeXdPOAd0rSAa7XuO92UGS5yE+/t+u57dgQEFd/FWTFRIg==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
+	t=1793528055;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hSHY3WVsUBqgQAxQOpMX314E9mDDGTULiBUsGnrUENs=;
+	b=luNrfBMobIpIdvKnmGhC5YQ+fCk5xXzXxE8neD3cn8XqbGoywh48XMzuSUfJAbTStHcPUv
+	EF17Xs2TenlUznvZyoED3jzsZfjnR+TowpqjZi86WTzZJ+j0M6JfLIABFC0aEz9TatQ1A0
+	QQSKDngvSUzUQR4h4viB7LYP1eKDefs=
+Date: Sun, 01 Nov 2026 10:14:06 +0000
+Subject: Re: [PATCH 6.12.y 2/2] mm/early_ioremap: Sign-extend PAGE_MASK when
+ aligning the physical address
+In-Reply-To: <2026103137-showplace-numerator-a05b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,90 +64,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tcp: fix device binding after failed IPv6 connect
-To: Xia Yan <yanxia@cmss.chinamobile.com>, netdev@vger.kernel.org
-Cc: edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, yana06070@163.com
-References: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: =?utf-8?q?Radek_Marci=C5=88a?= <github.unusual340@8alias.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org,Thomas Gleixner <tglx@kernel.org>,Ingo Molnar
+ <mingo@redhat.com>,Borislav Petkov <bp@alien8.de>,Dave Hansen
+ <dave.hansen@linux.intel.com>,x86@kernel.org,Andrew Morton
+ <akpm@linux-foundation.org>,David Hildenbrand
+ <david@kernel.org>,linux-mm@kvack.org,Arnd Bergmann <arnd@arndb.de>,Michael
+ Kelley <mhkelley58@gmail.com>,linux-kernel@vger.kernel.org
+Message-ID: <179352805420.7.6433291196676980630.1737402061@8alias.com>
+References: <179346145167.7.7861216093151225931.1735978772@8alias.com>
+ <179346152914.8.7838190602983146541.1735981230@8alias.com>
+ <2026103137-showplace-numerator-a05b@gregkh>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1737402103
+X-SimpleLogin-Want-Signing: yes
+
+On Sat, 2026-10-31 at 21:25 +0100, Greg KH wrote:
+> On Sat, Oct 31, 2026 at 03:45:21PM +0000, Radek Marci=C5=88a wrote:
+> > Signed-off-by: Radek Marci=C5=88a <github.unusual340@8alias.com>
+>=20
+> Sorry, but this isn't going to work for the obvious reason, so we
+> can't take these as-is.
+
+Thanks for a quick reply. I do have a public GitHub identity which
+dates back to 2019 (https://github.com/marcinar).
+
+Here's a recent PR using the same name and email (see the raw patch),
+this proves that I control the account.
+https://github.com/simple-login/app/pull/2866
+https://github.com/simple-login/app/commit/f1eb1fcf36d1fd92a3c2057aab3faf1a=
+5fae1e31.patch
 
 
-On 10/31/26 3:46 PM, Xia Yan wrote:
-> tcp_v6_connect() sets sk_bound_dev_if from sin6_scope_id when connecting
-> to a link-local address. If the route lookup fails, the failure path
-> clears the destination port and route capabilities but leaves the
-> device binding in place.
->
-> A failed connection through a down interface can therefore leave the
-> socket bound to that interface. A subsequent connect() on the same
-> socket to ::1 then fails with ENETUNREACH, even though a fresh socket
-> can reach the listener.
->
-> Save the original device binding before processing the destination and
-> restore it on failure.
->
-> Found while reviewing the error paths in tcp_v6_connect(). Reproduced
-> in UML by connecting to fe80::1 on a down dummy interface, then retrying
-> the same socket against a listener on ::1. With the fix, the retry
-> succeeds and data flows in both directions. Tests also confirm that
-> existing device bindings are retained after failed IPv6, IPv4-mapped
-> and link-local connections without an explicit scope ID.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
-> ---
->
-> Tested in UML on net fcc00b15cb21. The complete tcp_ipv6.c file is
-> unchanged at the base commit. Before the fix, the socket remains
-> bound after the failed link-local connect and cannot reconnect.
-> With the fix, all 12 checks pass.
->
-> Build-tested on x86_64 with W=1 using configurations based on
-> allmodconfig and allyesconfig. The corrected tcp_ipv6.o compiles
-> without warnings in both configurations, and incremental kernel
-> builds complete successfully. WERROR was disabled for both;
-> allyesconfig also had KUNIT_ALL_TESTS disabled.
->
->  net/ipv6/tcp_ipv6.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-> index e006a30360eae..7bb8266d9d1b7 100644
-> --- a/net/ipv6/tcp_ipv6.c
-> +++ b/net/ipv6/tcp_ipv6.c
-> @@ -146,6 +146,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  	struct flowi6 *fl6;
->  	int addr_type;
->  	int err;
-> +	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
->  
+Here's a PR from 2020 that was merged and has my full name (see the raw
+patch), this proves that I didn't change the name or rewrote history.
+https://github.com/ChargeTimeEU/Java-OCA-OCPP/pull/120
+https://github.com/ChargeTimeEU/Java-OCA-OCPP/commit/9e8f2c09ee34a085103d3d=
+6d46856606b05e9a8d.patch
 
-
-Reverse xmas tree please
-
-
->  	if (addr_len < SIN6_LEN_RFC2133)
->  		return -EINVAL;
-> @@ -358,6 +359,7 @@ late_failure:
->  failure:
->  	inet->inet_dport = 0;
->  	sk->sk_route_caps = 0;
-> +	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
-
-
-
-inet_bhash2_reset_saddr uses sk_bound_dev_if too.
-  inet_bhash2_reset_saddr
-    __inet_bhash2_update_saddr
-      inet_sk_bound_l3mdev
-
-So I think we should restore it before  inet_bhash2_reset_saddd ?
+Hopefully, this is enough. But if not, is there a way to contact you
+(or someone else) privately about this?
 
 
