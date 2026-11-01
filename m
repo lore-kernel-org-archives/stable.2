@@ -1,119 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793555662;
-	b=Et/EiKbNtCq3xJ6vEyIHUrLwunLmRKH4albVyKST6wQ6nzEwIk6UA4mFtQEh77nJflgU
-	 9gPAui8RTc6zapYwbcaLyY5fzoP28GaVfkSM4222qn9mHvloUHbzXf3pirj7eyKuTK+WK
-	 6XocKDmLrqjDQxgPgntRQsWaPIRrn71/lhrnClIWmfCbl1kT/C5LtO6vyeNw5NvGbH+OC
-	 vKfUJZTOwpse3Wou0CzAs3POoxPSSEKj0/sQQeXoEWC0dfh/bgb498M/4cqkj8AVZO6Cp
-	 fvt3A7s1E89fWUpbjlJZiVG6zr8eaJ0HPlInQVt09HC+58XyUf4NL2vWkD7PSyJF43g==
+	t=1793556042;
+	b=cAHVVD+9c33zK2/Wc8TQmONAe9XeFs27vfq1su9FT6In1N8rjGVYQ/fD2HXFAqls/3Ho
+	 8dQDCoGZbdIZit1hr8STNWe1J97/jtLt5h5Z9Oard5gY+J1y8c4ddJGHkt08eQlAu1pJM
+	 YBpHtmNS0OkMBACGVhxJSvpJP7ulmDaDKRgi3/OMkUsdQf6qbHxPaH3uBnkvOU4145eod
+	 hecI934u/ZP0e8pJqfRXkirGrnYzI6fu3NJTlkwf6+82oR6+318Hdyp4ymd2vPu0BeHw7
+	 tpJIQMIua9/Rb+32gHXmhi+F4T/3FAayOzehlDE7xbQ5Zza7ZRlAKaEZVnrmtOxwEgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793555662;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081kH3kHkjY=;
-	b=KO2JkfCsLIVzqjKAUdLrmXOy/8edq1M7fDrIY12NxQF7Uv8Bwa0XhL4s8FafnxzqGUIg
-	 vl8ky4aVtGiXU7qxz1d1KpTCewxiWW74zF0NWTQSfyuc3PKtp0GzgsbY6wIorEsBCxqAa
-	 OD7nvNk28AKNDGBdzhhKEV2UHUCqI5I+lQvp7eX4yvbJb6UDetAB6K+d+TDD1aUwPYLGt
-	 X3UAFNio48RzvW74j/vOpLYW/DlD+BlqQC1Yrc4xfF2P6ds/rRBJLqJeyNpV9CoN14D9C
-	 BeBew4L7QzGgc+6Dnayu/2e29W2Zs+76pB/nI+T9SJKoT3E9LFCZ8zXas0Yi7eim+dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556042;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=90aqdG+SrfJSGek/huInxfvZ4wZJxbtx8iY/wQCJzXI=;
+	b=UX2PMaBolzWRkShDAfP0itjeMmiw1S/wzQwqJe/cX5dRhS64oNWSbUauNERwmPnu1P65
+	 zL882zBCyEx9FNdBYFEGdzdYuNea/S0vhvizqz75W2rLZ/ouLjQ9zwxV7thit29GbtbY9
+	 4AQlwfV9AWsyVzAHOK09Ylxrjgp9FeqUAyAqOwCxhU6Lxy8tcgX1A+V7n8Rt4Kvzgag2g
+	 g5LotKTFiIlonCAEQIaDw0Ix7r/18c0R9gVdyqJybyyPnkBqLmOW4/V3Hx05u5mh0NqcM
+	 Y6dZwaPUo30BQqf9iJyqirY3S+futFT6/W46xUli/yxkC+Bss7BbLAri3aJ8lKoa9AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jOMHyELc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oi5g6u0w;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=POJbI7uY;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C833C606A32D
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 17:54:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C833C606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0DF606A324
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 18:00:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E0DF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jOMHyELc;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oi5g6u0w
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1HRjHg381180
-	for <stable@vger.kernel.org>; Sun, 1 Nov 2026 17:54:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081
-	kH3kHkjY=; b=jOMHyELc7YKJrU2lbiIdQ8ccYv1sGKinrcX6pRVIoGtPQxOKdTb
-	ajo2yPCyEsZ6A39YuRUua/PyVE1HSgsTC+msvcgMy6cilaXVrQMAVFoB9Bk+eF1k
-	eq92zAc7d4/T/AJwx+pbwM40qKvHg0DzS/fjR5obDCft5fs9t7Q320FLeRKME+CB
-	pxBlv6MlKSPQklbPtBmxwan+oZDWymKUN7AByfw/mCz5YfZ4CjlUHmjjsaXSsaHx
-	mQcmFHGUbGPYlwAca078PwlIxnNtq4zcw5T9ITL55M32VRMAOqp3WlpmeTkG9m0a
-	Ou7DmlNQPHyEM/8lpx0wf1wUpL9nMZfj5FQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8q7uu89-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Sun, 01 Nov 2026 17:54:20 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e92aad34aso459883785a.0
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 09:54:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=POJbI7uY
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so1792782a91.1
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 10:00:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793555659; x=1794160459; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081kH3kHkjY=;
-        b=Oi5g6u0wMuPbL5mLRDY7c74PZ8cLNzU2KBdkGN57JzUWNpr5q7ikxRd7tpPCIV7q24
-         VB1P6kBGuIQP1SE3diaQUEZvaIeicGP0vUjVguutSKgQ651+f7rGp9nLAf1lK6AcZOJS
-         dkA06vCtZbfAxhxGcs3Bq20XrUdc3q4DLNDMuS5C+tL6ZNxUyX8BthbTxTG/tbVy5+WC
-         DUzCorprBAY2IiTvizikDHHmI/5BRhAVgmEgkuXayJtW5KBynXa4DpA6K7fdO+u2IhJz
-         zqU15DEKkp/i97YyZsPW02HVRqfvzRRQkLrAEt2PGL8hE1iQTUcpNHSEnSkrXcV9go0K
-         JGnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793555659; x=1794160459;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793556041; x=1794160841; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081kH3kHkjY=;
-        b=te9T6RO/85fHAdpOhzU2AN+vSPhtvydZGDZFDdhRmXSWbs3k/bsZF3fyzKVQi9sKPl
-         Luc7PUfb9X00sT8/0FSse7xHeMJnniw4deE+wdoHCbopNoQEwbkuGZpaUKUgHX9CVkGG
-         McSzf4pDhL8KPe18jDSReDpd48RbaqjJH2649+EBxyn5f7SP1zio50GefoYVfdLxp+9J
-         lN3VpbHKd4BXubEYlhjdqFb9W8FOXNaSn2sCpvcCDQBtRNfU5AnrhzIf9xN0eyi398wh
-         ZuiCny1ZSFKtwCUWYJNwxkzU5uOEcMV8pJt5HEWgWJZn5YT8UH8QrOVjzmFlMA0LdM5b
-         qPLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzdACgHMpeGY+3CMYJd/qF+3ExR7u664l53NIwkaSvKtveELtQiOtiZsayTSjkDLMMGyiC+GUk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIH5Ds5pvAThzS5R5echkfF++5uhB+WdusA2YGfgnVOCuNUbGSz
-	/O1aPTe35w+8HPQkwnnaHY777L/OAYQTlqm7MStr+hPY2IRlAw0fcPNJjGwJ5+LO2wH+1zi4Q1L
-	6EAOwhWZM52h3Fn9s1nBPmqMmBD7L9oRMpHZ8orSleu2jjSnH7nJRQ5FWRI8=
-X-Gm-Gg: AYBFou194kinPhkqqMHaF0AQd/pXA105NCsBbMf5YaWOeCeMI0iflBHn2pm3FzTzfVi
-	gFD1vrKiGBvpjFVq9uzvHy9kZ6hOkzlTmWV0hq3yrt/71wwtMvPcNPWJi1dCQVBCujOvXm0csbo
-	PfC0JOIaPEAzUTtmph79KljInkSZacYoh3Uv8Fa1DmGfjlLcprROviaJ3wFOMq9SLGG6lphguC8
-	Ln1unyNz+xEVhpx36Ci5UPXxcouH0ue9Ji4pZx/Uffdpnsw3AdpxtmY7gHWg3TNEOOJQHXe7zfB
-	g51dExwn/rBK4owAx+UyPkFGXxPWR16MVAe3+08kqKKbxzMdPWveXYKeq90ReCPgpdHeI2OsQGH
-	4QPuHXO7zNSzOk6ryr1J0Z1o+V50a8DLaeew6qvImSmu3nltSdfN52uOQdGFrNg==
-X-Received: by 2002:a05:620a:6848:b0:939:ff85:8067 with SMTP id af79cd13be357-94421663f42mr1273097485a.30.1793555659022;
-        Sun, 01 Nov 2026 09:54:19 -0800 (PST)
-X-Received: by 2002:a05:620a:6848:b0:939:ff85:8067 with SMTP id af79cd13be357-94421663f42mr1273094685a.30.1793555658425;
-        Sun, 01 Nov 2026 09:54:18 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04723sm325714735e9.5.2026.11.01.09.54.16
+        bh=90aqdG+SrfJSGek/huInxfvZ4wZJxbtx8iY/wQCJzXI=;
+        b=POJbI7uY6k/OxJGlxrcy13JLDXROLJxeNth0W7JfbndI4sCBCabjMnlTToZSFBnDvR
+         5rwKhR1DDuuWR6l9+6FdakgBMT562qMeVqjwV+Fd7xCuNDiSTc2Y/eVMERYj+W1g4eDb
+         T5Yd/fUifm5+fpIEMH1hpfEQBto259Q9bPAAF1bUHM3+N29g6L6UxH0sH7eaVoPB/Wfu
+         Eu181Omwqs9pjObZ0wWXg7fHws1cRv9VXOVajYrN8K7rNwU/tYp+vCCqcfZcgZVHxkNa
+         S0RQzYuSi3JkjD5sxfbkNtjME6TDvfm8RQOfu3i+hF3XnZl2I2viioATM8KIvbv6w30U
+         LM0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793556041; x=1794160841;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=90aqdG+SrfJSGek/huInxfvZ4wZJxbtx8iY/wQCJzXI=;
+        b=U6r1F9oyFCOB5agO3JROC5EbhXXoSh1FTw7WIgmXlJfENsLz07huKlOb9PNhLl5Zx4
+         2WoOTR51+GncSBJ423fR5bWSqnT/4IDX9QVJwLMcdbpXHFAYAX+QJ7PtYyjYX2Ie3+0r
+         Gr0U7XGUFXnAxkysiLLPg3xqiDy9/6NVracXnCFZx/jUy+QUM8906e/XRgnYVYakBkQL
+         TowIWmY2nBqnRhEkqeQvRzSYC42l6oMtig8NwaMYmp+7/t2xcwpVixkyZjxgdYwLMiTP
+         40+jvfAOsYFaLFAizUcuKWUKVf9SXEaZ0f9EyF6qDRL8dbH8gyk29XBbDxS3AhWFfJuL
+         fUOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxaXAQR5NjJKSWzwMfs7ZvsLqoc2u3q+go7qLkluL86vwkxpvbYzFfYKe5uKtKS80ljoIsuhYw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SEQ6j6RZlCWJwZQsfa07MBuN+ApkAV53/fgyyZttieDx7OoQY
+	hkEnNqaJTSXzr1owy08FENDRoi+qJ1uMf684oQ+KQK0UFvqkFhUwVZYm
+X-Gm-Gg: AYBFou2X0yVMGVb6UGGsWuVBWfJwVEVG0eooLSpIN4s/MffCCjjvxYPTxy5e9SOrEkr
+	1vj6pcQteuqHI4aVmds63Zm86hbiufOnGXTxYjhNjz7M7G3+psDi0BdlniUs0zXDMvVaEzgciJ5
+	ekHWLr8/KWsUHVDE5gs1hmR6NLvFH58740sJnLyedlCJ129yQz90JXgqLF+dpOAgGMC4Qkb8f0y
+	MqNBsae0W3k1LFlWnkLJcw/I2RcDG1tKQNF20Wov+F39w9qq1FHmyH53VZ84O/uvLWu/UO4OtDe
+	9aGvtdMPfMobNtK//0gRzQEEwgLbzciyEwCv4/o/H5mOlvu/e3L/jaO2MtWLLv+ICt9xD02S2b8
+	K0OFMEH/yXG0MQCxd8NvkbWJM9XZ2a9yNv4+7a0UHMyd/3egeZjdgo/dc+0jAHAVhLg7VbTcWc7
+	mdjMM4FGen9865PARHU26mCghswjxXxG+tbqsJFnldhuM7HMz3776395+Cp3jiUiXGWal5uzxfL
+	61wtTvGB8el7A4Vxv3ptHIRhnY+5CtMD2UPTgNVRK/BSbOGrr//jQmbQzeWUuDNtzhOMqm2TX13
+	pE8FMtBR2EQTfL38b+Yyew==
+X-Received: by 2002:a17:90b:4f87:b0:3ae:5572:c4e2 with SMTP id 98e67ed59e1d1-3ae897e5685mr6397230a91.57.1793556040776;
+        Sun, 01 Nov 2026 10:00:40 -0800 (PST)
+Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e949077sm15194159a91.9.2026.11.01.10.00.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 09:54:17 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Andy Gross <andy.gross@linaro.org>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] soc: qcom: apr: Reject packets with header size larger than packet size
-Date: Sun,  1 Nov 2026 18:54:08 +0100
-Message-ID: <20261101175407.110780-2-krzysztof.kozlowski@oss.qualcomm.com>
+        Sun, 01 Nov 2026 10:00:39 -0800 (PST)
+From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sean Paul <sean@poorly.run>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Connor Abbott <cwabbott0@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] drm/msm: don't wait for a fault devcoredump during GPU recovery
+Date: Mon,  2 Nov 2026 01:55:50 +0800
+Message-ID: <20261101175553.53746-2-nicoangelodelacruz@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,94 +111,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1945; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=4MmiwbTe67Vae9D7Lm+Zj++XqRihN9uwcpy1QVEzwR8=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq53y/r7BuYv9eK3+a8QHoZBIisHOoqo5rhSCYT
- x83EJSNlliJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaud8vwAKCRDBN2bmhouD
- 1y9cEACPaj9qjm4Xgq2YAlnapjZ58AL8Ampb8QNuC8Q2em4csesDfI7RlNvwHxZkbCKKftlHP8q
- R1l8jH6moeUbMfPMFoqbtgedazQfS1q+MVgIIzgI4yRkwf/gRPK3dOEGs74dGL2/VRIqriImqm6
- ZRft9ZDOmNscRv8oSlf0cSusfzJhaY76AsT5XfhvdVxv9HHTCCwHmlQ1jqd+CJxdcXjpjdbuJ3/
- f9da1/Wqa/x77gsXo70d/5DMqX/MFjIa/zcNOS9cz06dUAXqd5P+/Xj+ccr0R9o4vzaaIeXZuo1
- +h1xXwIWbePSbuobLX9bs4kFqAXeMiXV//+c39eMpZaKEcwP/i/xo5/zX66AyvKrEoK+t9WzqV6
- lQ2NSAs6ckCdKUAO06lNAcmmk0wo5p5smBNYyoxqTA4a3HdYp0KMucFEseiIpjj4SKRbXSlO6r6
- M2CVnkiKM3i1IAS5NJ8hwuJiJ1mPhHMJXWZ8qyLyUbu6FsvjcdPtyBnazeo4FnZMBO20aGvjTOA
- 8g+IkgWoTb8gHMAux6fT5SReiBGW1txvpPx1afafp6sbvTrp2Bl+VXzGl2YoiR68CnRo03I0sww
- wckAJZ/8dfTPRSGKulNus45bOrJElgXwaAZew84f6a4qsfFQTdzSCDETRQaUX3+pG1IT+Tqa7xM u1hWjU49i/JprBA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: b7gkZLO8IlZtER86bv-KMIqnB1Koz58I
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA3MSBTYWx0ZWRfX5VLyXEtjH7V+
- fCx0ZCCIEAtvtM818oDTbceYaQI8WgCpoAQrNsu29hDMQaOD/Gxmx1ryotO+PKl/Bts8El1dFxn
- WJGgkNWi4EvVotK/BZVMVANes6IhsCc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA3MSBTYWx0ZWRfX8YPh6ctSxnEA
- bqOooG+PF1rYaXNOGJ5gxe4i8sTL4UdIzhn+HmF5srci48mHwZ6bcNpcCWTVYbFE6GpbaXjgfmA
- Euwpv4K6nmTcxG6cvHXssz4AquZ6pBPDJbgn2kGOH4V4dkOjCfpy0ukUN4tBDAFBEsqNYnXfkyq
- 2inO5Lq7jEu0IiNOcRTvozSt/DQBhD/3dv8Y/WsSkcG/FfyLfxi1MrXjQHb2okMwDm4Dfm0E+YB
- kXyZlyLq8V0IomjyQpa/LZc0cD4ki8/XrAix9wxVoKFpTnFIJ93Gl//71uMWncZrZAMUevPYIrv
- OSiWFAHt7LP5RTuQEU94vlypSDfNC00IyF2UUEjb445+OIZPqCgZHVJiBApWj1F2sIY7phMFlGW
- xzPWWtD7bslvHOf0yrqKrTkiTQvGy6NOogrOUrzNpyu1TDGiuhzhkPHVFeylrZr60Xx4Q9xeZXJ
- l7AOKYpd0Yc6YZHtfUg==
-X-Proofpoint-GUID: b7gkZLO8IlZtER86bv-KMIqnB1Koz58I
-X-Authority-Analysis: v=2.4 cv=PucG/AM3 c=1 sm=1 tr=0 ts=6ae77ccc cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=DVh7n887_SxPlczGqH4A:9
- a=IoWCM6iH3mJn3m4BftBB:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-01_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010071
 
-apr_do_rx_callback() and gpr_do_rx_callback() validate the header size
-and the packet size separately, but never check that the header fits
-within the packet.  Both sizes are u16, so with a malformed packet where
-the header size exceeds the packet size, the subtraction computing
-resp.payload_size gets promoted to int and becomes negative.
+adreno_fault_handler() calls reinit_completion() on
+fault_coredump_done and then blocks in
+msm_gpu_fault_crashstate_capture() on mutex_lock(&gpu->lock) to take
+the devcoredump.
 
-Further check "resp.payload_size > 0" would fail, leading to
-resp.payload left uninitialized (stack value).  Reject such packets as
-having a wrong packet size, although unlikely that firmware would
-produce such packets.
+If recover_worker() is already running, it holds gpu->lock and, from
+the runtime suspend in a6xx_recover() or a8xx_recover(), may time out
+in a6xx_hfi_wait_for_msg_interrupt() or a6xx_gmu_set_oob(). Both loops
+then fall into an unbounded wait_for_completion() on
+fault_coredump_done, which has just been reinitialized and which only
+the fault handler can complete. The fault handler is waiting for
+gpu->lock, which recovery will not release until the wait returns, so
+neither side makes progress.
 
-Fixes: 6adba21eb434 ("soc: qcom: Add APR bus driver")
-Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
+A fault dump that needs gpu->lock can never complete while recovery
+holds it, so waiting for it is wrong. Add a recovery_in_progress flag
+to struct msm_gpu, set by recover_worker() under gpu->lock, and check
+it in two places:
+
+ - the fault handler doesn't start a devcoredump capture while
+   recovery is running, so a fault that arrives during recovery no
+   longer reinitializes the completion;
+
+ - both GMU wait loops stop waiting for the completion while recovery
+   is running and fall through to their normal timeout handling. This
+   covers a fault handler that had already reinitialized the
+   completion when recovery took gpu->lock.
+
+GMU waiters that don't hold gpu->lock, such as the devfreq frequency
+change path, also skip the completion wait while recovery is running
+and report their timeout right away; recovery is resetting the GMU
+at that point anyway.
+
+On a OnePlus Pad 3 (Adreno 830), recoveries that saw a CP page fault
+within 2 s of "hangcheck recover!" were stuck 3 of 3 times, while
+12 of 12 recoveries without such a fault completed. With this patch,
+three natural recoveries that took a CP page fault during recovery
+all completed.
+
+Fixes: 50a0b122cfc8 ("drm/msm: Wait for MMU devcoredump when waiting for GMU")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-82d40745-1593-4c20-8432-d86099836525
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link: https://lore.kernel.org/all/CACu1E7EApr6Ne3XxFv4cUa2JuwNW2kfo1c5wSsAUN78iWyQ2sg@mail.gmail.com/
+Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
 ---
- drivers/soc/qcom/apr.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 7 +++++--
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c   | 7 +++++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
+ drivers/gpu/drm/msm/msm_gpu.c           | 2 ++
+ drivers/gpu/drm/msm/msm_gpu.h           | 9 +++++++++
+ 5 files changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
-index 2d5645ff9919..6f29b57aaecc 100644
---- a/drivers/soc/qcom/apr.c
-+++ b/drivers/soc/qcom/apr.c
-@@ -210,7 +210,8 @@ static int apr_do_rx_callback(struct packet_router *apr, struct apr_rx_buf *abuf
- 		return -EINVAL;
- 	}
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec..32ed49abe 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -445,12 +445,15 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ 		if (!ret)
+ 			break;
  
--	if (hdr->pkt_size < APR_HDR_SIZE || hdr->pkt_size != len) {
-+	if (hdr->pkt_size < APR_HDR_SIZE || hdr->pkt_size != len ||
-+	    hdr->pkt_size < hdr_size) {
- 		dev_err(apr->dev, "APR: Wrong packet size\n");
- 		return -EINVAL;
- 	}
-@@ -280,7 +281,8 @@ static int gpr_do_rx_callback(struct packet_router *gpr, struct apr_rx_buf *abuf
- 		return -EINVAL;
- 	}
+-		if (completion_done(&a6xx_gpu->base.fault_coredump_done))
++		if (completion_done(&a6xx_gpu->base.fault_coredump_done) ||
++		    READ_ONCE(a6xx_gpu->base.base.recovery_in_progress))
+ 			break;
  
--	if (hdr->pkt_size < GPR_PKT_HEADER_BYTE_SIZE || hdr->pkt_size != len) {
-+	if (hdr->pkt_size < GPR_PKT_HEADER_BYTE_SIZE || hdr->pkt_size != len ||
-+	    hdr->pkt_size < hdr_size * 4) {
- 		dev_err(gpr->dev, "GPR: Wrong packet size\n");
- 		return -EINVAL;
- 	}
+ 		/* We may timeout because the GMU is temporarily wedged from
+ 		 * pending faults from the GPU and we are taking a devcoredump.
+-		 * Wait until the MMU is resumed and try again.
++		 * Wait until the MMU is resumed and try again. A fault dump
++		 * cannot complete while recovery holds gpu->lock, so don't
++		 * wait for one then.
+ 		 */
+ 		wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
+ 	} while (true);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index 6b34e704a..fe4e35728 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -122,12 +122,15 @@ static int a6xx_hfi_wait_for_msg_interrupt(struct a6xx_gmu *gmu, u32 id, u32 seq
+ 		if (!ret)
+ 			break;
+ 
+-		if (completion_done(&a6xx_gpu->base.fault_coredump_done))
++		if (completion_done(&a6xx_gpu->base.fault_coredump_done) ||
++		    READ_ONCE(a6xx_gpu->base.base.recovery_in_progress))
+ 			break;
+ 
+ 		/* We may timeout because the GMU is temporarily wedged from
+ 		 * pending faults from the GPU and we are taking a devcoredump.
+-		 * Wait until the MMU is resumed and try again.
++		 * Wait until the MMU is resumed and try again. A fault dump
++		 * cannot complete while recovery holds gpu->lock, so don't
++		 * wait for one then.
+ 		 */
+ 		wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
+ 	} while (true);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index dadfe4c69..138bebf5e 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -289,7 +289,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
+ 	struct msm_mmu *mmu = to_msm_vm(gpu->vm)->mmu;
+ 	const char *type = "UNKNOWN";
+ 	bool do_devcoredump = info && (info->fsr & ARM_SMMU_FSR_SS) &&
+-		!READ_ONCE(gpu->crashstate);
++		!READ_ONCE(gpu->crashstate) &&
++		!READ_ONCE(gpu->recovery_in_progress);
+ 	unsigned long irq_flags;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 0c2c35636..caa86279f 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -474,6 +474,7 @@ static void recover_worker(struct kthread_work *work)
+ 	int i;
+ 
+ 	mutex_lock(&gpu->lock);
++	WRITE_ONCE(gpu->recovery_in_progress, true);
+ 
+ 	DRM_DEV_ERROR(dev->dev, "%s: hangcheck recover!\n", gpu->name);
+ 
+@@ -585,6 +586,7 @@ static void recover_worker(struct kthread_work *work)
+ 	pm_runtime_put(&gpu->pdev->dev);
+ 
+ out_unlock:
++	WRITE_ONCE(gpu->recovery_in_progress, false);
+ 	mutex_unlock(&gpu->lock);
+ 
+ 	msm_gpu_retire(gpu);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index d27d54bdb..5cf220f75 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -258,6 +258,15 @@ struct msm_gpu {
+ 
+ 	struct msm_gpu_state *crashstate;
+ 
++	/**
++	 * @recovery_in_progress: true while recover_worker() holds @lock, so
++	 * that fault capture and GMU waits don't wait on a fault devcoredump
++	 * that can't complete while recovery holds @lock.  Written with
++	 * WRITE_ONCE() under @lock; readers (the fault handler, GMU wait
++	 * loops) don't hold @lock and use READ_ONCE().
++	 */
++	bool recovery_in_progress;
++
+ 	/* True if the hardware supports expanded apriv (a650 and newer) */
+ 	bool hw_apriv;
+ 
 -- 
 2.53.0
 
