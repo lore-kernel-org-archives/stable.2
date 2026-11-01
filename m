@@ -1,72 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793514064;
-	b=y2tK4q9fKRhTLj+j1w8rWK+nScCKvHeckZaHVO9tbsc54TXB6U8I+FYFQi8ycvrymwHo
-	 7c4YLysejMJ5QRp7w1yRp6XoHCl3BIEVqZCZ83Az1BJiSszZ7hBCx90DuCZv+nz3hR7UC
-	 kxG4a64rBh4Z+8LC9F2SmPd7qKf6rfPSYAkM77iQXq9csncmSNHxcz3QckiTzmii2dSkL
-	 WtS6tS8ivEoa4qOgKpTZzcnwmEb8wRkJ03DSDfeA/rXhSEgmO0Ya91qePfWRKLkn05kLI
-	 VDuXCQLlqZ6zxI78a3U12NzjL1gwLFWnRUrX5AGUuF04VlPm4Mg6k971IiloKFRlNlg==
+	t=1793514197;
+	b=JVq1ckC6NfnPC1ivl4aTOy6QYlXXnsh1kv0J4uZ518dM1V4xvlO/PGekFrkiBEP4xEug
+	 o93LcmQB+16Ik8Tm4YpvdApX6YKZw9hzVWBFG3T19RV7/1ZyBOuu2SAvF4z5lwhOIxO3d
+	 8bMMsFJjVQzqSE8GjLuAU16D4GAp93XbiPt6yteKlMz1bPfQDdASQbiBYs97Onu/AFjP0
+	 4O2Bh2XpjjiaFcZOmXGP10L2yxu9LG2F+46Itww2mDtLkJ9YVOJtGwPnclm3HoAEJN4W3
+	 W20nuzLlav0Zi+PMYcllSIh6Cvs8bPdmxuyyJFJJ0xvFsQgrNA0zdosRyhaXpTF4PUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793514064;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793514197;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=yNCcoeaVZu8l86yYhX5AKYZ61AL1GukvPzV1U2a1bGA=;
-	b=3wzAcn1f7bllqhyk/CCvZsheToYiycKVyP+4L/1WGDhjfvziQtAbOs8t/YSfO95WPrL5
-	 Flu5TboR/6FTEMj5c92c5nWFQnsJhmWqB/ygapbn8L6gTztG9t/8k3oEk8c4WkotJKJK0
-	 nYsBjy8fylHApKWUDH4mXFHy+GV8aLT0PyaPXPjz7aCZIfn0fU52R4P7D9V3ElJdZ58XZ
-	 gmGWxFKHV/orpMcMRw+TNo8k9MSyM6oYnRhluuBgqd+52Px1/O9784w7mwR6JfiIMMuh6
-	 ItrGm3lyGZkTFoRLY4/a1t91A/7onow29FN0q556OJ4RpResxUNa7fsYFXa/8FvhLKQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=r5JhajIzD9ubXl5M8tJbplpixiasXJVLRaVa00eXAjQ=;
+	b=ydSClncBRkiuKx9SU7ATqPeHXMcQ+IiTJdT2n5KgKX6LWS6qzepHcKW5P1e81QxClG/s
+	 7kBbuvLR8Zb/vZObaTs7aDeWzre/eUmIcFDw8tBh361Msq3Rn5KzEZiZmHf4bBFDFCoWi
+	 wnq8ML4WF+1RW2H2DSD3fn/ZSmCCs9w3q8y0dct/gi7HiWNdNu4dMth/T52LTnXwiy0PW
+	 d6J5FxXJd9R/nVOlAzt6vv9JfnFYJNtCWiTTwqFy9rx5hC4LmmJPRRf/iORRd7JT2qdYc
+	 O/ZI8QK5PdYZuOUcqR+vgj+tlIJmF+b3+eaHdgF6CbgOXxAslVXbPayOPBgAkIXuzjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mazfvG1D;
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NoSqufGz;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32606606A325
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:21:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32606606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1808A606A324
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1808A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mazfvG1D
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-189d17eca17so1533077c88.1
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 23:21:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NoSqufGz
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e940d5d2beso7288135ad.0
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 23:23:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793514063; x=1794118863; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yNCcoeaVZu8l86yYhX5AKYZ61AL1GukvPzV1U2a1bGA=;
-        b=mazfvG1DbvMQQjL3xskaNj7gXtORkR1b46M1XyNfYKPWGOLzN0/oTQLH7J2kbieYA0
-         uMUJamU7SW7KweP3aLWdVsIO9idHieYDYqP5uPuHYgf9k7VghsX1nCmSqxtCc5O/69Yy
-         nRSPpwUjPYQD2U4hHSp1sMkWn7T8UXVLkvlsl5H3H9uV8+zWxf8xETDnzjdClZv7O7Xi
-         a40zQaFG702QiiNcZ1+RtZJbpzasht2QMSb5bkJSMCEiEjDn7QU+5Kmu28Z8B8OdYFI8
-         kj3s36snSN1muKp0ixn9uFzFEiyT1K+Fw6h0XT+uGSxfrKvnafUY2yeqY7K9hbyn212g
-         NIWQ==
+        d=gmail.com; s=20260707; t=1793514196; x=1794118996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r5JhajIzD9ubXl5M8tJbplpixiasXJVLRaVa00eXAjQ=;
+        b=NoSqufGzNtrHCJzWqkLelGubERrGQOSlrCqyXZd/fOCZxBvIqDVAy/Wms1m4X6xNPi
+         KQ8yi4bm7dkuXwOUpqCYlNYmCWY1Z4qnhRyrAaLLk2QHE4wsuC3XrN+kFq5YGxIhz5z2
+         1lchgQn5znNJTSGVc49Q4+Bcla5oWygzotjQlwUQuHHR0bipU20tjMwqryKj+O9qLcn2
+         ctYNi8rcuRASdkz2tvFLUZWlDiBqeBPrK9MFundNCtt4xHyr9eJAMh/EX2G2w5B2fTM8
+         PAN4t8BWLMsBNjOcj03C4mHOfysX7fqZL9XE5151gQFvXdyrREmyqPQu6gzcNKtzYX1G
+         M6Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793514063; x=1794118863;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yNCcoeaVZu8l86yYhX5AKYZ61AL1GukvPzV1U2a1bGA=;
-        b=sqIg4QwBV6KXKNOcHbHyq0hqD+gByusPTlYhINSHiGrjdf+NbM3URlLC9bg9YRfubj
-         edgsA0p1g/HuNurwHQx6K37AxExYnuXtZ54pootHPrBn9zY8pkn7Qu2dY2ZOxS4WFrMn
-         IbmIbRVmzrqscKqk9zqIRylI/UIExhw+XD3HU6LbXs3pxxiQiLnWd7sZbjNyl+kB5/7t
-         XmZ7tJH1CkDOyle4mgzAViQm35zu6sUXxDZdrVczhcwXofrJxoG5yi+DMY03Ysoqhim2
-         8Mwrmc7WKu4mc5NC48tLChTRX/DmrKTGugyrnYc6P7XswcUOIJPHTCTSEL04ows/dmYo
-         i6ug==
-X-Forwarded-Encrypted: i=1; AKwUvBxt+ztHlO/v7rdA5QOHdlP3Ms7LBvPnU+g55koBbANTxPuJ8i2Qm8302iKU82NVgUvTlV9xA/k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJf5U41eeMbl9ImAmek8FjzV23CuOcdlXmpfBwlFB6MuFYT+PgC
-	NitG//77gASlgplItgmqNL4nRHwqoOa2eYCh8KFIFRGITg1fe1e1x+zUFR7owYVLkfIuHrU3jty
-	818wByaHpSVJpEAJLdjU5XcypcQ==
-X-Received: from dleb6-n1.prod.google.com ([2002:a05:701b:4246:10b0:1a8:bca:6c0f])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:418d:20b0:1af:16c4:d06b with SMTP id a92af1059eb24-1af16c4d07emr4745927c88.10.1793514062994;
- Sat, 31 Oct 2026 23:21:02 -0700 (PDT)
-Date: Sun,  1 Nov 2026 06:21:02 +0000
+        d=1e100.net; s=20260707; t=1793514196; x=1794118996;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r5JhajIzD9ubXl5M8tJbplpixiasXJVLRaVa00eXAjQ=;
+        b=pqyzf9vXue6pTVpUfWXWzsVJg18XdkMNQ5a96eCLx9UybMybcftKa5AFZK6o7uu9Md
+         qcWpXzRZ0ZGuSEdk0iRDlu/xo1MW8dOD4+VP7HgwGtTFyfzDgDFaOKuiCJcOOMWn923s
+         KuOFiUxO4er5G5m6Qpl3iRTOL0TJd6qQCYJNR7KE5Tvjai6fvWApcfmoqsM7l497WP+l
+         Of294PGYFsqMdt1cJV/GQAec9ekl+eMT6CqtzxvmJ6rkg5cksn/ut9E3rfrV998Ds2Ge
+         9iEq6fIpZT5VU05yWSHnJAs/lKmNSDQoDeJFiEb2JwC1fWu4wGtMbFgfa0PPY3Rdvd/s
+         TFeA==
+X-Forwarded-Encrypted: i=1; AKwUvBwm2iGPJm5aCPEvd7H31FUnV9GTni7alqxrTHex7eYiqSp8iX6+FMnqA4bB+8lxS+mWyKrgn8Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uVLPLMFgw1NrU700UHaE8bXXQ3iH2iw9KR0q1nHhdg2SlVAr0
+	6bMRbs+I1PoWuk+PIrYuwdac7W67Eqs58VbcibAWqCZBt1UDlcF/z7LUjafAG7mF
+X-Gm-Gg: AYBFou35/y4dCgT/4s5J2IZXlgcW4HqOprnyni5SJYGuzz97/1i5nWxSIQGiL1ocfLw
+	AHoBzfWdlsGOE7/e7bZ1jxu8MfWka6j6gnJXL07WwZLbhTxZGqpVZzf3dqm9lvrAFRRZyhfAq0L
+	VLd3tYUCK1F1r9yYup33uRcw63Wkphqwg21KWgbL5+lF2wFF25nmPOQr39j4xN9lKzrpgme/doP
+	JfrS87TAYxHoCMR8QHPfazW3b4S3HkS/m4gbjWarphN5uK8qT/py3sFuyn3j6dKganQYvqeE5e/
+	SZ9xhkb5FSBL5yqXcwNZK8XFSbr1ps2o8FjnCLtEfSku7Fp/Ta8mZ0A+Ix5/eQ8SRjwYciNJbj/
+	oTUGsasy7w71Wtq4iPB86/RVKGThO3Tq4Fb6/XUxF5yxBaBbfNxJtNekbS3D2ckUA52Qw44ZZBu
+	uw9yFncr4uR+4j7Af1VJlyNFEL9uqGdjYpvPTXqvkZxlEMlFs4ClOMolgMYRNPPOl2J1XABdwyB
+	exlnJfEDVnU4ubVQtnXDbYsCP+aQ4YiW6v2yPDNeQGOs4bzvnw2tGmSZtT67H0TyLSW5t/K7Zro
+	wkOZw6u24iFfumFQhJUHkW9rXx2alAad9PgS44uN+qwz5/6FLU10tA9cCz9xCt3KIyaR2tzp7FJ
+	pQqONrOsPdbiEaL0mAbCk+G8w6+73+Jy59xx5B38FVWEuhXBGV9175RPP7jYqhAfj8x4/sFbusQ
+	Sk0S5ypMSqraUeW5KU10s=
+X-Received: by 2002:a17:90b:1d47:b0:3ac:2788:cab1 with SMTP id 98e67ed59e1d1-3ae897c3dc6mr5582405a91.30.1793514196302;
+        Sat, 31 Oct 2026 23:23:16 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845ae5b9sm9505181a91.12.2026.10.31.23.23.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 31 Oct 2026 23:23:15 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] stm class: fail stm_lookup_protocol() when the protocol module is going away
+Date: Sun,  1 Nov 2026 16:22:53 +1000
+Message-ID: <20261101062253.16528-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,131 +96,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261101062102.1000477-1-almasrymina@google.com>
-Subject: [PATCH v1] iommu/amd: Prevent spurious IRQ disable on high-rate GALog MSIs
-From: Mina Almasry <almasrymina@google.com>
-To: Joerg Roedel <jroedel@suse.de>, Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
-	Vasant Hegde <vasant.hegde@amd.com>, Jerry Snitselaar <jsnitsel@redhat.com>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Cc: Mina Almasry <almasrymina@google.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On AMD EPYC (Turin) hosts with AVIC enabled, passed-through SR-IOV VFs
-in KVM guests log interrupts targeting non-running vCPUs into the IOMMU
-Guest Virtual APIC Log (GALog) ring buffer and signal the host via an
-edge-triggered IntCapXT MSI (AMD-Vi*-GA).
+stm_lookup_protocol() returns 0 whenever a protocol entry with the given
+name exists, even if stm_get_protocol() failed because the protocol
+module is being unloaded. In that case *pdrv and *node_type are left
+untouched and stp_policy_make() goes on to install two uninitialised
+stack pointers as stm->pdrv and stm->pdrv_node_type, and its error path
+and stp_policy_unbind() later dereference them to drop a module
+reference that was never taken.
 
-Both __iommu_setup_intcapxt() and iommu_setup_msi() register their
-handlers via request_threaded_irq(..., NULL, thread_fn, IRQF_ONESHOT,
-...), using irq_default_primary_handler() (which returns
-IRQ_WAKE_THREAD), while intcapxt_irqdomain_alloc() sets handle_edge_irq
-which does not mask edge-triggered MSIs during oneshot thread execution.
+Return -ENOENT unless the protocol was found and its module reference
+taken.
 
-Previously, amd_iommu_handle_irq() cleared MMIO_STATUS_OFFSET at the top
-of the while (status & mask) loop before calling int_handler(iommu)
-(iommu_poll_ga_log()). Under overcommitted multi-VM TCP_RR workloads
-(1,000 to 10,000 flows across 4-8 VMs with vCPU overcommit), new VF
-interrupts for non-running vCPUs arrive while iommu_poll_ga_log() is
-draining the ring buffer, causing GALogInt to transition 0 -> 1 and fire
-additional hardware edge MSIs while the IRQ thread is still inside
-amd_iommu_handle_irq(). Because desc->threads_handled only increments in
-irq_thread_fn() after action->thread_fn() returns, note_interrupt()
-(kernel/irq/spurious.c) accounts every intermediate edge MSI as IRQ_NONE
-(desc->irqs_unhandled++). Once desc->irqs_unhandled exceeds 99,900 out
-of 100,000 interrupts, __report_bad_irq() logs "irq <N>: nobody cared"
-and permanently disables the IOMMU GALog IRQ, breaking guest VF MSI-X
-wakeups.
-
-Fix this in two ways:
-1. Drain the log ring buffer via int_handler(iommu) before writing
-   status & mask to MMIO_STATUS_OFFSET (clearing only the status bits
-   observed set so a concurrent overflow bit is never cleared without
-   running overflow_handler()), followed by a post-clear poll pass so
-   entries written before the status clear took effect are processed
-   without generating redundant edge MSIs or leaving entries stranded.
-2. Set IRQ_IS_POLLED on the AMD-Vi MSI and IntCapXT IRQs (clearing it on
-   request_threaded_irq() failure paths) so note_interrupt() never
-   spuriously disables the dedicated IOMMU event/PPR/GALog IRQ lines
-   under sustained high-rate edge MSI bursts.
-
-Discovered in production testing on AMD EPYC (Turin) hosts running
-multi-VM KVM guests with passed-through SR-IOV VFs where the host
-permanently disabled AMD-Vi-GA under heavy TCP_RR traffic, and verified
-on the same AMD EPYC (Turin) hardware across 4-VM and 8-VM SR-IOV VF
-test suites.
-
-Fixes: 2379f3485239 ("iommu/amd: Refactor IOMMU interrupt handling logic for Event, PPR, and GA logs")
+Fixes: c7fd62bc69d0 ("stm class: Introduce framing protocol drivers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mina Almasry <almasrymina@google.com>
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
- drivers/iommu/amd/init.c  |  4 ++++
- drivers/iommu/amd/iommu.c | 13 ++++++++++---
- 2 files changed, 14 insertions(+), 3 deletions(-)
+ drivers/hwtracing/stm/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index de6db5621194..5eea9204f209 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -2404,9 +2404,11 @@ static int iommu_setup_msi(struct amd_iommu *iommu)
- 	if (r)
- 		return r;
+diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
+index f48c6a8..5fbea4e 100644
+--- a/drivers/hwtracing/stm/core.c
++++ b/drivers/hwtracing/stm/core.c
+@@ -468,6 +468,7 @@ int stm_lookup_protocol(const char *name,
+ 			const struct config_item_type **node_type)
+ {
+ 	const struct stm_pdrv_entry *pe;
++	int ret = -ENOENT;
  
-+	irq_set_status_flags(iommu->dev->irq, IRQ_IS_POLLED);
- 	r = request_threaded_irq(iommu->dev->irq, NULL, amd_iommu_int_thread,
- 				 IRQF_ONESHOT, "AMD-Vi", iommu);
- 	if (r) {
-+		irq_clear_status_flags(iommu->dev->irq, IRQ_IS_POLLED);
- 		pci_disable_msi(iommu->dev);
- 		return r;
- 	}
-@@ -2579,9 +2581,11 @@ static int __iommu_setup_intcapxt(struct amd_iommu *iommu, const char *devname,
- 		return irq;
+ 	mutex_lock(&stm_pdrv_mutex);
+ 
+@@ -475,11 +476,12 @@ int stm_lookup_protocol(const char *name,
+ 	if (pe && pe->pdrv && stm_get_protocol(pe->pdrv)) {
+ 		*pdrv = pe->pdrv;
+ 		*node_type = pe->node_type;
++		ret = 0;
  	}
  
-+	irq_set_status_flags(irq, IRQ_IS_POLLED);
- 	ret = request_threaded_irq(irq, NULL, thread_fn, IRQF_ONESHOT, devname,
- 				   iommu);
- 	if (ret) {
-+		irq_clear_status_flags(irq, IRQ_IS_POLLED);
- 		irq_domain_free_irqs(irq, 1);
- 		irq_domain_remove(domain);
- 		return ret;
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 960e1dc05ec6..ec392da008f9 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -1112,9 +1112,6 @@ static void amd_iommu_handle_irq(void *data, const char *evt_type,
- 	u32 mask = int_mask | overflow_mask;
+ 	mutex_unlock(&stm_pdrv_mutex);
  
- 	while (status & mask) {
--		/* Enable interrupt sources again */
--		writel(mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
--
- 		if (int_handler) {
- 			pr_devel("Processing IOMMU (ivhd%d) %s Log\n",
- 				 iommu->index, evt_type);
-@@ -1124,6 +1121,16 @@ static void amd_iommu_handle_irq(void *data, const char *evt_type,
- 		if ((status & overflow_mask) && overflow_handler)
- 			overflow_handler(iommu);
+-	return pe ? 0 : -ENOENT;
++	return ret;
+ }
  
-+		/*
-+		 * Clear only the status bits observed above, then poll once
-+		 * more so entries written before the clear took effect are not
-+		 * left unprocessed with the interrupt status bit cleared.
-+		 */
-+		writel(status & mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
-+
-+		if (int_handler)
-+			int_handler(iommu);
-+
- 		/*
- 		 * Hardware bug: ERBT1312
- 		 * When re-enabling interrupt (by writing 1
-
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
+ static int stm_char_open(struct inode *inode, struct file *file)
 -- 
-2.56.0.385.gac671c819a-goog
+2.43.0
 
