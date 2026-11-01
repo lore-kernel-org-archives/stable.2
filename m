@@ -1,49 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521449;
-	b=K7bnXh1ZHudN9gu3j11sB8QXFbw0kaVk++HMI6ZyG3GpAPJxpsmyOWBV9peEJXi77Rnq
-	 zjGrVa/csgJD9PXQlym/TI54k7NH7QBmNAtXKMeIbAnDhMWNAyhChV6HYNE/PmI5Wx9lo
-	 NQT16HqbvmCncjPN/r24LEsqyEH/a5MhLxWD6DXMjeXNDbEpSqGzVGk5jc3mwzdo2Z92N
-	 jvpFu+m27otow4vchGQA640VcvIdup8fPhJDlZ+z/oyuAWbWyWTti7OBqGe0gxvZw9Iv1
-	 9I4r2qREyIazAC5uP4tsAVyfFaF3La+23GmyicvtynpvbCx2Zr3UASTYWiJQZtXExdw==
+	t=1793521819;
+	b=nd5naNIh39NyYra7GX2YSLk9bS06wgrAZbWDewvb25D5hWKk2o0IXildv0tlYvXxJyxs
+	 dY+qG47243q9pNP4WuAC3zAzyESYzZRcZcuuaz/su/hvrB+iRDCI96/IJ6otlseeVzWLi
+	 I73ceM112OFAGX75wjMkNfWF93moW9Db5iyN7Ot6zFkMn2YkFWSXFN1erDwVzNBHkC6QU
+	 txVUYpLVylR/cflp7aaISZ6nZlhXAKP/KIZO559OU4LmgtYAEKp1sTcCjTWT80Aqu7+a2
+	 ERjKliukUgTAW/L95/HYH/Dmq0P8jmjQdqsi0GfckuayjPVoMCUBmGuq9ye+VvRh5WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521449;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=zr2bACuemphecdv4BzIcfo+dhb7hRoM9xEUnWOT8OQY=;
-	b=roi8ErohpQ85RO6eMxEHVzgtn1aMkHF8iPyroB9I4BsAN96KQVHRkfyUjXcyfQrwrgf5
-	 x2KgrOGqQooe+nt/OjxcRbLQ3NHRpkAx6NswZSVw2piRsNUNtiRWqupZ892l0CWGd7IDf
-	 UJTvJ1hySmSiL6ETSxrA1izMZSNwZsgQmQc1TrFD7uYVzkjT8CszJDaPJkjRQszT4tBNL
-	 OZIs7ahuqh9g1vVC89lgmf4CmY5VqeScj0l75tRJurF69CC6JDUIObRxHjZeVLWD2QYi4
-	 VKRXVPyC0eaPfE/Bhz6FSoTwSJovKitZ9xcE1FTjsYMMDFvLx+Lws1ce9tEP83QLUWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521819;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sq0GUY/ITn4SQxq/x1kkdeNsQ++qEz4hJvkAkG/WKPU=;
+	b=uHySY9f7c0etHafltNseKZlPF888D5bbSOWQMugeBb16Qv+APIX/6VviQVk3GYo86P0h
+	 r+e1uW9ddm7mNBpVrR/gCUwQsdCWcJC2fva8B/w7k7uw9DAa1Ep34y/tIMvQf0Afg7V6l
+	 vqpQDcJpG461EhgPHS5Y7GP5u6dsRql4PzDRNkLhSkOOTEKsUTwtFb1czFkfWUTSdI3iZ
+	 MKGdIgENs56E1pHHNhsAdnknArKT23XPMfxFdmE1Hx5uvrurfzTQgLZzNMpQXloml+lrq
+	 xPUSl2Kr6o4AUE4lVWJl0/fz0qE4MX+IPyrsrLQU9B5YNNe4ftP8sHsiCm8Q/jaJSKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=atDDT426;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elw9lDlb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514C3606A324;
-	Sun,  1 Nov 2026 08:24:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10EB606A325;
+	Sun,  1 Nov 2026 08:30:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=atDDT426
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1299B1F00A15;
-	Sun,  1 Nov 2026 08:24:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elw9lDlb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0EF1F000C1;
+	Sun,  1 Nov 2026 08:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793521448;
-	bh=zr2bACuemphecdv4BzIcfo+dhb7hRoM9xEUnWOT8OQY=;
-	h=From:Date:Subject:To:Cc;
-	b=atDDT4264LDfkryxKKZT+rFaN0zTUANFgOlvsFn/u8QwzMOE/ykAwQl7QyTmcqKJQ
-	 P8GY+B7tcEeM0uKHOwqIWyHy9uGOCKS0OVLzcyAHYohKCz371SMt6mzOChngqDk2Y9
-	 nM4/NLkAE+NWUF0d2RKqedXyYuL2LQFRwdOUMprkldxG1AKxEdzZP3SoebBcKQuQx/
-	 uV12oPvGNBzx+KBVq68cege5ZOn+WMrNiBD+UYCpFoNLaf8OuS0bpB7CVy7/b/Iz+j
-	 csaxQyQskRuil6fxX5wvMakqCkv0dzHHjhbBYg9aOl76VL0RcME0P596SMDNEuc+bU
-	 +K4wr1Dce2HbA==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sun, 01 Nov 2026 10:24:02 +0200
-Subject: [PATCH] mm/vma: undo userfaultfd unmap preparation when unmapping
- fails
+	s=k20260515; t=1793521818;
+	bh=sq0GUY/ITn4SQxq/x1kkdeNsQ++qEz4hJvkAkG/WKPU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=elw9lDlbOmEjCZYozD36NQhOlOae9eklhjYFasrHzcrnyMhvUeziCy9CqIujQUs9L
+	 S/ghqD5Xzq8eNRw0xtinzVYmLJjdMFZ/YQUM/ussoNwGcWwhLKCu1t1hW0hn/2mzV6
+	 8pN6cyK1an3Z8Hk7WKPcmHk3Kxxs5uYFIJJWJ+tvek1iWQbhpZFIexG2inf4a2Xtkk
+	 zF2zyPQVSiqskfauYkImEhxKQ9OYW+9oqm03GqLtGDuwaRL4SvHnGmbHadOYgOTMek
+	 d/13500EnpMa5lLKcX67IdPZZhohnjMmugmsuwmcDAhrivBVuKFOgLOFX+LzawLDo9
+	 hp8c26JManPzw==
+Subject: Re: [PATCH net] tcp: fix device binding after failed IPv6 connect
+From: netdev-bot+sashiko@kernel.org
+To: yanxia@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, ncardwell@google.com,
+ kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, yana06070@163.com
+Date: Sun, 01 Nov 2026 08:30:17 +0000
+Message-ID: <179352181715.3131.4301656429935322614@kernel.org>
+In-Reply-To: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
+References: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,222 +63,198 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-uffd-unmap-abort-v1-1-1588d7a7c61a@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMzQrCMBCEX6Xs2aCNRcRXEQ+7ycZG3KTkpwil7
- 26ihzl8w8y3QebkOcNt2CDx6rOPocF4GMDMGJ6svG0M+qQvY4uqzllVg+CikGIqSo9uulpj8Ew
- TtNuS2PnPT3l//DlXerEp3dMXhJkVJQxm7pVILHIUadZckN4M+/4FD4NrW5gAAAA=
-X-Change-ID: 20261026-uffd-unmap-abort-21f48dcca3b4
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
- Noah Weinberger <NoahWeinberger2003@proton.me>, 
- Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
- Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, stable@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
 
-vms_gather_munmap_vmas() collects VMAs to unmap and calls
-userfaultfd_unmap_prep() for each of these VMAs. This takes a reference
-to the userfaultfd context, raises ctx->mmap_changing and queues an
-UFFD_EVENT_UNMAP on the caller's list.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-If gathering fails half way, e.g. because one of the VMAs is sealed, or
-the operation fails after the VMAs were gathered, the original mappings
-stay intact but the queued events remain on the list.
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
-Depending on the caller they are either delivered although nothing was
-unmapped (munmap(), mremap(), mmap(MAP_FIXED)), or silently dropped
-(brk()). In the latter case the userfaultfd context and the mm_struct it
-pins are leaked and mmap_changing is never lowered, so UFFDIO_COPY,
-UFFDIO_ZEROPAGE and all other ioctls that check mmap_changing fail with
--EAGAIN forever.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-With mseal() this is trivially triggered by an unprivileged process.
-
-Collect the events in do_vmi_align_munmap() on a local list and splice
-it to the caller's list only when the unmap completes, because mremap()
-may already have events for earlier unmaps on that list.
-
-Drop the pending events with a new userfaultfd_unmap_abort() helper when
-do_vmi_align_munmap() or __mmap_setup() fail.
-
-Fixes: 65ac132027a88 ("userfaultfd: fix regression in userfaultfd_unmap_prep()")
-Reported-by: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: stable@vger.kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
-Noah reported off-list that when an operation that unmaps memory fails
-half way, some UFFD_EVENT_UNMAP events might already be queued for it.
-These events are either delivered although nothing was unmapped, or
-leaked together with the userfaultfd context and the mm_struct it pins.
-
-With mseal() this is trivially triggered by an unprivileged process.
----
- include/linux/userfaultfd_k.h     |  5 +++++
- mm/userfaultfd.c                  | 19 +++++++++++++++++++
- mm/vma.c                          | 28 +++++++++++++++++++++++-----
- tools/testing/vma/include/stubs.h |  4 ++++
- 4 files changed, 51 insertions(+), 5 deletions(-)
-
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index ebd86677b052d..5857ff0542905 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -279,6 +279,7 @@ extern int userfaultfd_unmap_prep(struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end, struct list_head *uf);
- extern void userfaultfd_unmap_complete(struct mm_struct *mm,
- 				       struct list_head *uf);
-+void userfaultfd_unmap_abort(struct list_head *uf);
- extern bool userfaultfd_wp_unpopulated(struct vm_area_struct *vma);
- extern bool userfaultfd_wp_async(struct vm_area_struct *vma);
- extern bool userfaultfd_rwp_async(struct vm_area_struct *vma);
-@@ -445,6 +446,10 @@ static inline void userfaultfd_unmap_complete(struct mm_struct *mm,
- {
- }
- 
-+static inline void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+}
-+
- static inline bool uffd_disable_fault_around(struct vm_area_struct *vma)
- {
- 	return false;
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3b71712edab4c..15d2422345705 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -3295,6 +3295,25 @@ void userfaultfd_unmap_complete(struct mm_struct *mm, struct list_head *uf)
- 	}
- }
- 
-+void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+	struct userfaultfd_unmap_ctx *unmap_ctx, *n;
-+
-+	if (!uf)
-+		return;
-+
-+	list_for_each_entry_safe(unmap_ctx, n, uf, list) {
-+		struct userfaultfd_ctx *ctx = unmap_ctx->ctx;
-+
-+		atomic_dec(&ctx->mmap_changing);
-+		VM_WARN_ON_ONCE(atomic_read(&ctx->mmap_changing) < 0);
-+		userfaultfd_ctx_put(ctx);
-+
-+		list_del(&unmap_ctx->list);
-+		kfree(unmap_ctx);
-+	}
-+}
-+
- static int userfaultfd_release(struct inode *inode, struct file *file)
- {
- 	struct userfaultfd_ctx *ctx = file->private_data;
-diff --git a/mm/vma.c b/mm/vma.c
-index d416ba58eb4c2..4672d420521e3 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1675,9 +1675,18 @@ int do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	mt_init_flags(&mt_detach, vmi->mas.tree->ma_flags & MT_FLAGS_LOCK_MASK);
- 	mt_on_stack(mt_detach);
- 	struct vma_munmap_struct vms;
-+	struct list_head *uf_unmaps;
-+	LIST_HEAD(uf_new_unmaps);
- 	int error;
- 
--	init_vma_munmap(&vms, vmi, vma, start, end, uf, unlock);
-+	/*
-+	 * @uf may already hold events of earlier successful unmaps, e.g. in
-+	 * mremap().
-+	 * Collect new events on a separate list so they can be dropped if this
-+	 * unmap fails, and splice them into @uf on success.
-+	 */
-+	uf_unmaps = uf ? &uf_new_unmaps : NULL;
-+	init_vma_munmap(&vms, vmi, vma, start, end, uf_unmaps, unlock);
- 	error = vms_gather_munmap_vmas(&vms, &mas_detach);
- 	if (error)
- 		goto gather_failed;
-@@ -1687,12 +1696,15 @@ int do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 		goto clear_tree_failed;
- 
- 	/* Point of no return */
-+	if (uf)
-+		list_splice_tail(&uf_new_unmaps, uf);
- 	vms_complete_munmap_vmas(&vms, &mas_detach);
- 	return 0;
- 
- clear_tree_failed:
- 	reattach_vmas(&mas_detach);
- gather_failed:
-+	userfaultfd_unmap_abort(&uf_new_unmaps);
- 	validate_mm(mm);
- 	return error;
- }
-@@ -2581,7 +2593,7 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 		if (error) {
- 			/* On error VMAs will already have been reattached. */
- 			vms->nr_pages = 0;
--			return error;
-+			goto abort_unmaps;
- 		}
- 
- 		map->next = vms->next;
-@@ -2591,8 +2603,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 	}
- 
- 	/* Check against address space limit. */
--	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages))
--		return -ENOMEM;
-+	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages)) {
-+		error = -ENOMEM;
-+		goto abort_unmaps;
-+	}
- 
- 	/* Private writable mapping: check memory availability. */
- 	if (accountable_mapping(map)) {
-@@ -2602,7 +2616,7 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 		if (uncharged) {
- 			error = security_vm_enough_memory_mm(map->mm, uncharged);
- 			if (error)
--				return error;
-+				goto abort_unmaps;
- 		}
- 
- 		/* Our new mapping owns the entire charge now. */
-@@ -2621,6 +2635,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 
- 	set_desc_from_map(desc, map);
- 	return 0;
-+
-+abort_unmaps:
-+	userfaultfd_unmap_abort(uf);
-+	return error;
- }
- 
- static bool map_same_file(struct mmap_state *map)
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index 8d030a3ace848..9f5b8e996abf6 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -148,6 +148,10 @@ static inline int userfaultfd_unmap_prep(struct vm_area_struct *vma,
- 	return 0;
- }
- 
-+static inline void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+}
-+
- static inline void mmap_write_downgrade(struct mm_struct *mm)
- {
- }
-
----
-base-commit: b61fa14ce6bcbba2cb9a96feea31b760226d6b43
-change-id: 20261026-uffd-unmap-abort-21f48dcca3b4
+- [High] The fix is incomplete.
+- [High] tcp: restore sk_bound_dev_if before inet_bhash2_reset_saddr() in
+  tcp_v6_connect()
+- [Low] The restore at the `failure:` label is unconditional.
 
 --
-Sincerely yours,
-Mike.
 
+tcp: fix device binding after failed IPv6 connect
+
+This patch saves sk_bound_dev_if when tcp_v6_connect() is entered and
+restores it at the failure label. The goal is that a binding taken from
+sin6_scope_id for a link-local destination does not stay on the socket
+after a failed connect, so a later connect() to ::1 on the same socket
+can succeed.
+
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index e006a30360eae..7bb8266d9d1b7 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+> @@ -146,6 +146,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+>  	struct flowi6 *fl6;
+>  	int addr_type;
+>  	int err;
+> +	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
+>  
+>  	if (addr_len < SIN6_LEN_RFC2133)
+>  		return -EINVAL;
+
+[ ... ]
+
+> @@ -358,6 +359,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+>  failure:
+>  	inet->inet_dport = 0;
+>  	sk->sk_route_caps = 0;
+> +	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
+>  	return err;
+>  }
+
+[Severity: High]
+Is the restore placed too late for the late_failure path?
+
+When inet6_hash_connect(), tcp_fastopen_defer_connect() or
+tcp_connect() fails, the code jumps to late_failure. That label calls
+tcp_set_state(sk, TCP_CLOSE) and then inet_bhash2_reset_saddr(sk),
+and only after that falls through to failure. Both calls therefore
+run while sk_bound_dev_if still holds the sin6_scope_id value.
+old_bound_dev_if is written back only at the end.
+
+inet_bhash2_reset_saddr() calls __inet_bhash2_update_saddr(). That
+function computes l3mdev with inet_sk_bound_l3mdev(sk), which reads
+sk_bound_dev_if. It then passes that l3mdev to
+inet_bind2_bucket_find() for the wildcard address, and calls
+inet_bind2_bucket_init() if nothing matches.
+
+Consider a socket bound to [::]:port with no device, so tb->l3mdev
+and tb2->l3mdev are 0. It then connects to a link-local address
+whose sin6_scope_id names a VRF slave, with tcp_l3mdev_accept=0.
+sk_dev_equal_l3scope() passes because sk_bound_dev_if is 0, and the
+scope_id is installed.
+
+If the connect then fails after inet_bhash2_update_saddr(), the
+reset rehashes the socket into a bind2 bucket keyed on the VRF
+master's l3mdev. The failure label then puts sk_bound_dev_if back to
+0. The socket is left with an icsk_bind2_hash whose l3mdev disagrees
+with both icsk_bind_hash and its own restored binding.
+
+A later listen() looks up tb2 with the restored l3mdev in
+inet_csk_get_port() and hits
+WARN_ON(inet_csk(sk)->icsk_bind2_hash != tb2).
+
+If another socket shares the port, things get worse. The reset can
+create a duplicate wildcard bucket, or link this socket into another
+VRF socket's bucket. In the second case, closing the sockets in the
+wrong order can destroy the wrong inet_bind_bucket. The VRF tb is
+then leaked with an empty bhash2 list, which later trips
+WARN_ON(hlist_empty(&tb->bhash2)) in __inet_hash_connect().
+
+Before this patch the binding simply stayed in place. Later bhash2
+lookups then at least used the same l3mdev that the reset used. The
+mismatch between the restored binding and icsk_bind2_hash is new
+with this change.
+
+A smaller side effect is that tcp_set_state(sk, TCP_CLOSE) runs the
+BPF_SOCK_OPS_STATE_CB and bpf_tcp_ops state callbacks while the
+failed scope_id binding is still visible.
+
+Should sk_bound_dev_if be restored at the top of late_failure,
+before tcp_set_state() and inet_bhash2_reset_saddr()? Or is there a
+reason the reset is expected to use the connect-time binding?
+
+[Severity: High]
+
+Does this handle a connect() that fails after tcp_v6_connect() has
+already returned 0?
+
+The restore only runs when tcp_v6_connect() itself returns an error.
+After tcp_connect() queues the SYN, the function returns early:
+
+	err = tcp_connect(sk);
+	if (err)
+		goto late_failure;
+
+	return 0;
+
+Suppose the peer sends RST, the SYN times out, or an ICMPv6 error
+arrives. Then __inet_stream_connect() sees TCP_CLOSE and takes the
+sock_error path:
+
+net/ipv4/af_inet.c:__inet_stream_connect() {
+    ...
+sock_error:
+	err = sock_error(sk) ? : -ECONNABORTED;
+	sock->state = SS_UNCONNECTED;
+	sk->sk_disconnects++;
+	if (sk->sk_prot->disconnect(sk, flags))
+		sock->state = SS_DISCONNECTING;
+    ...
+}
+
+tcp_disconnect() undoes the auto-assigned source address with
+inet_bhash2_reset_saddr() and drops the dst with __sk_dst_reset(). It
+never touches sk_bound_dev_if, so the socket stays bound to the
+interface taken from sin6_scope_id.
+
+On a retry connect() to ::1, sk->sk_bound_dev_if is copied into
+fl6->flowi6_oif. ip6_route_output_flags_noref() then adds
+RT6_LOOKUP_F_IFACE:
+
+	if ((sk && sk->sk_bound_dev_if) || rt6_need_strict(&fl6->daddr) ||
+	    (fl6->flowi6_oif && any_src))
+		flags |= RT6_LOOKUP_F_IFACE;
+
+The lookup then fails with ENETUNREACH, which is the symptom the commit
+message describes. A successful link-local connect followed by
+connect(AF_UNSPEC) ends up the same way.
+
+An unprivileged user cannot clear the stale binding either.
+sock_bindtoindex_locked() returns -EPERM when sk_bound_dev_if is already
+set and the caller lacks CAP_NET_RAW.
+
+So with this patch, the implicit binding is undone after a synchronous
+failure (route lookup) but kept after an asynchronous one (RST, timeout,
+ICMP). Would it make sense to also undo the scope_id binding on the
+disconnect path, or to track it so it can be undone there?
+
+[Severity: Low]
+
+Could this write-back clobber a binding that was set after the snapshot
+was taken?
+
+The restore is unconditional. It runs even when the sin6_scope_id
+branch never changed sk_bound_dev_if. tcp_connect() runs the BPF
+connect hooks before several of its error returns:
+
+net/ipv4/tcp_output.c:tcp_connect() {
+    ...
+	tcp_call_bpf(sk, BPF_SOCK_OPS_TCP_CONNECT_CB);
+	bpf_tcp_ops_call(connect, sk);
+    ...
+			return -EKEYREJECTED;
+    ...
+	if (inet_csk(sk)->icsk_af_ops->rebuild_header(sk))
+		return -EHOSTUNREACH; /* Routing failure or similar. */
+    ...
+	if (unlikely(!buff))
+		return -ENOBUFS;
+    ...
+}
+
+A sock_ops program can call bpf_setsockopt() with SO_BINDTODEVICE or
+SO_BINDTOIFINDEX from CONNECT_CB, and sol_socket_sockopt() in
+net/core/filter.c accepts both.
+
+If tcp_connect() fails after that, the path goes late_failure ->
+failure. The value saved on entry then overwrites the binding the BPF
+program just installed, and no sk_dst_reset() follows. Before this
+patch, that binding would have survived.
+
+Would it be better to restore only when tcp_v6_connect() itself wrote
+sin6_scope_id into sk_bound_dev_if?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031074654.73952-1-yanxia%40cmss.chinamobile.com
