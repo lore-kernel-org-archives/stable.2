@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793552465;
-	b=qd6IYnQWZT0E7Qu7tizSUTXekDeMfqpG3RsaABDj7/Mpx0fZnmyns/iLNQACbL/N5sVF
-	 GyzXzVz1yeTkeHvtgtlnNpIhiikmu4jP/wKnrUJaiNtdBmPtHTOy9UF7fTkTX9Qgg8ucG
-	 qzzt0bwcrF66USMfONJ1+4doxuJRK0zOJNrLJ45r4t3U99lKxQkyq3aRlRxV9u9ZmpZGn
-	 GvFImPDmOOjeuwx/VZNjDTLak42ugyffMc5vbvXkWC5P6xyf97wDB7RRyh/CRkXEGG4NV
-	 9pgOqip6+cUpvh/6g4o8u1Uuz83+zrMzz7z/ButIa2PEk7NtvjsW2PSMFxRDpV+DHXw==
+	t=1793552798;
+	b=EZOXCz/MNO6mvjRp5szFRpAPjvRv271UjAXjx8iuM2wj1dNnpA9cX+I9lsUjCEjRZFQd
+	 QD9G0sx9144es4TQcI7s4bGp5XCQ8Yj6/W5Kj5om9qHaR8aPYOgzFbP3Ye0f63y9NRvEP
+	 /zcifaEi3lA46EUTHJ92KhEiqC7AK9gbNBb4hfFxHZVEeCSk8+sQgJjDmW7zto9E/iDoy
+	 u8YC1imjIbfYAXraAcJ11s9dQ5CT8lmUiS+PDIFs7J0pr2f7F+kMPiEwiW9rLgNGqIWRG
+	 C12OOmMAqkpF9JJMcfrv4zGS7bBgfoWWNkE4WNR8kumpEQvhJlonmtZBG6rv41ixcqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793552465;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793552798;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ROsDDi/peHhOy6BynZJX3N2nHlHF3d+geUaRBvCkIfc=;
-	b=Zg2+7ecWPMyNoIqnkZU4ysfOEshCZ5BCE9X6Ks5xX06YVTeMWAhUsAhSx2UHlG70HUMF
-	 BMuVkp0ZX54CVN2wYTa2noauYMDqiVbCogiVDmnTKxuQ9Rbt714t6WJ1pUMbygz50TYd/
-	 yyDgNV5b5FDwOcX1H/pVtAMER8dBYqMJz93CHBg06NRkzdAiD7f9qyvheulKNBwNP/eZc
-	 os2jumD1czvhSoyBaA5BIVJl0HQmLPwsoxXqO9Z7Vf6SEiM4eRDsEpiY1MxJI81uWAeZo
-	 Yguu/MPx+5QUt+DKuEeoYeMnmwDNcQLtnNEH9DXKc9Z6WcJZCHSxjOrCA4xeHOfJQng==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aw39Qev1JSGYdGzVPWR/rCHqkJas2jqRHE7hOubbX28=;
+	b=y57vCaKPT5yeVO+R6AjRaK0OMHciNwNBlH7J02zyEMIg1YeoDw+MmMVnw0brbBbtuX/T
+	 XzR4NxSImMh/ZwhSmFYjWVH+HhZ7tIyarRpaxczbxzoVeY2iqfXglZDuextgRjsZzFywX
+	 WpO+5ieHGnN/PAfxxZvBXtAnywk3Rfkl6uqoD0Ylio/moIdwB6HRiKtQgRY8S1pLSar6X
+	 nEed2fEs4BHYIsZbdtRLgay3bPW1jAdOxDOCSYshReg7oAfWlVyyqqBYAKZsQ6pngpqq+
+	 ycPIcOpVL1QPrG9S3hPT7voKSb1ww+tXkjhEO455St6xJq+XPpsX4LSYE0k386fh9jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1TsPBwM;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dmarc=none header.from=ikotaslabs.com;
+	spf=pass smtp.mailfrom=ikotaslabs.com;
+	dkim=pass header.d=ikotaslabs.com header.i=@ikotaslabs.com header.a=rsa-sha256 header.s=google header.b="fNI/QkZN";
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A35606A324
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 17:01:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6A35606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8019606A324
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 17:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8019606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ikotaslabs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ikotaslabs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F1TsPBwM
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1ae18eb9b69so1327642c88.0
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 09:01:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ikotaslabs.com header.i=@ikotaslabs.com header.a=rsa-sha256 header.s=google header.b=fNI/QkZN
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-35eaf84cc66so2412784eec.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 09:06:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793552464; x=1794157264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ROsDDi/peHhOy6BynZJX3N2nHlHF3d+geUaRBvCkIfc=;
-        b=F1TsPBwMoLjgBx5CuDe4M/U6iY84TGXhDM8ujtQ+4MsBnfzmb67AOTiiRi9DcLBoxD
-         VzIQ7xBJLUolpKZBW3gzsaA1dOtO4FahVvzIU9PW1nI8MqM8jAN8xHWQMbAjiK1/4Rnu
-         POPpuVhrhLvoksaEiEkhCxYqyvh9+8iXxmhY6BkPneTHenqbg1HCFYjF54eArH+HK+mw
-         y5IkOonyGBExt2XlJHdeTp8Bkq/R2w59rbVEqiaFxXsVOmS3ZkJO2MvyereEc9OuHdcE
-         zlzgK05D3i5izmXqsDBUAOe9+3iCXFLgbqSu2jkilq25RSAggW5yA/W31bsLX9VqbwHw
-         Shzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793552464; x=1794157264;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=ikotaslabs.com; s=google; t=1793552797; x=1794157597; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ROsDDi/peHhOy6BynZJX3N2nHlHF3d+geUaRBvCkIfc=;
-        b=spRBC1fU9anoDtjSw8ABpQaV06DXbOidmsdHyEQAXv5ZB4RFCm8aEisVJ3ljMFuNb2
-         Lh82kWGaMegFIzGlY66f1Tlt21SogJDCQp+CE7KD28uM36hAiEEH9yyF0mGAMox2qe6X
-         HYLqMqwFsPwqQ8GZNrfo9vXBovqJaJvcu/PX1Fhy7VaqHB7Wmos67lZtMPP00+JogOqE
-         M80hj24bo88imES21oqfDZLsaDMjM4xN0WLNivqWf+DnZf+tT30mzcK0GdKqcA/j476j
-         wDi5ETFJkL5UjPjZNNVcX4Zzpj6lzW6VM7m8hdMSgc3OKlUsBnfotdQXIapbnh+THqXc
-         cOjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSsMEXiNmS+kJlEKj48fDH9hPvmcAjzkC3qlB/0KwROqZ4GvNyI/MHQ0ks34Z1XYm/f4XoD6Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImeMyEziA2YWzSnuVlYOvjncA+xJucmH5hDhxXrsdwTuec93vK
-	A9aKkKG7Htqrm+GcoLIYzg6zP8aJC/L3LVO+fqsTE6gKngQMS0zaWV0G
-X-Gm-Gg: AYBFou1qn9n2h4rCeg9LOnHrHlnd0YyVp1kFoMVStATAFKo2JxwxKL6OXyPaQm8hsAw
-	oRU2lJvOaSRG4NLKVB29zBKn8tmCfK+AgPnJkBEcWS2qD/oOZyvtXN7iUG4iKhlIy0JJcsUtDd0
-	9UVVFu7omIO/js5TTx4x2ZUCGLomt3VnAug7gYY5XF8hXQYe15bIpgmA98ErQfh1nwFrevDKIcI
-	bToDYy90HYuOCElqvkuzyGqb1BdwXdH28W0vhY0ya4oHXvq3G2G27KbI0NdzUaY1bgjAd8jmwpE
-	k5ysAiSbUgLzqrlJDTUf6Zr0jD0LJXB7eOQba5NUKOXct/lniZOnpaTYq/Cd1QaKdqPadgwSqNr
-	k3Fnv03IK4LR0Dyntw8lO09Jzq5mCvcYKbmENXm6d/Dmgd72vK7XYEH7Ucp3BGbfXcUsIBftgCF
-	IUzfh7aTi+MK5+y0NE5s+StE3oX4Z5CRSQlPLIZsom32l09iKWSvGzr+4cjXUkvPdZnVksyee6m
-	wyQF/3DBfy7dvkGULaNW0CWeRh2TxAssmL1piiVzybLTJABaq6tX2syeNLh6pI7uH61qkhu9+Ur
-	6nT6EwEkmfpshzbVQAwGIY0UKE2vmuBvouURQSwYaABiRNRqHbpIaOSP
-X-Received: by 2002:a05:7022:f50a:b0:144:eb46:be0 with SMTP id a92af1059eb24-1ac5cb19684mr9393895c88.13.1793552463413;
-        Sun, 01 Nov 2026 09:01:03 -0800 (PST)
-Received: from [127.0.1.1] ([2601:647:4184:b3f0:b5a0:ac44:5583:ef02])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm25456350c88.8.2026.11.01.09.01.01
+        bh=aw39Qev1JSGYdGzVPWR/rCHqkJas2jqRHE7hOubbX28=;
+        b=fNI/QkZN74Xkc5wdAuCJsKzax9U6M5pX64S35hE8/de2Ts2gsv4GQv18s9qszbQX+1
+         NUTpG8veJFNxhEMyWRt/RQ11dGCkBRMkQDllDK5KsjLFOJ26ye/21KeDfGZgP69yZAKC
+         D9jWiu/aL+owAZAkMG5w95ZDtBWp0tihZb1xaE/uaWZc8TwlxPbrDH5jx/UuEApO83d9
+         eiuy4ER+b/AzZWb/RwhPNf1ggP6bXJ+2wnlyF9a/WuoFkRL8Je9vhpDdu/9w5ukvYOgN
+         qAvv7St3AFf7jfqovHFM9fHrUtYQtL/eOwiiYbo7Mpl3zanoROy4TMNd5sA+JSYxKfpl
+         ACEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793552797; x=1794157597;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aw39Qev1JSGYdGzVPWR/rCHqkJas2jqRHE7hOubbX28=;
+        b=fnc60TOoeHTwjfMgG3/nqqeTdmuPP3Po1+K+6e75mKXupdrSy9fcpS5SlUurYv97pq
+         7mnbOlcSU4bd6xd1yhU+ghJkUx/D47Xoh+2m51wl1pjLGbXD0jzggKNZx5zEfE7mt3MC
+         /RScjjJNgUuNUm1V3ToJFWNEynDqoa58EvHi8o+gQV6ik8R/zGrXeBcnbljmf7NZqgB8
+         sEsW2kFlx0+VdEFQDbafLD0L5PamzaV5JF+3WLp/zyIfUYMhRJPsVkvWdBc/j0zcoMnX
+         eWyoMeJbZmR5KBfWdJeoH6B8GebB5S05XfKn7GVLsMDW7oMBe+08RpNESSfzjt4woUHk
+         l/Pw==
+X-Forwarded-Encrypted: i=1; AKwUvBw4gFTnBps+3xJ/xoSSIkxbBNmFyUp0IvowUT1EwGI8yKCkO9nveF2coIm/4EuiRNb8Cpi8HkE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/L2Fb2H5chz4okBoMxMO1YitSJI4xncbqGoCFhXdolHELO/q+F
+	2YXsAERnfulzAdciwrbDvrR77IdEuBAMHlfaR8SPAWPhWsqpeZQHVpMz5M1frcw8i029
+X-Gm-Gg: AYBFou04JCfkRhHochqrZGOTfHwqbfzmifNAAfWnTaCUP17I9qXb7b3BTbI1VS9Fm8J
+	qQv9FDWuwlV6zwGBWJxIYeKiR58g3UX/tSqZopJPRMyo1fe+a9Gpe2rvS5QZB0rmr6qJe4m6FCE
+	9hGlSjcqqWLLK5lclf49yiquWlQZm00bLcgrt3wO58ppbd7fS8bW3vkysI/o+37Ef0GnF3ry4g5
+	NIiKFPL9n3icw0qHdFlsLeO4zabOYFoM0TG7NqInH+0f4U8YtlZw+7eX48xUGqs2q2gBf7vmZyw
+	DdqGpa6QatYfEGGfUcfC9tOeLFnZJhf9QC343YWFQQfGMy5XEEYMv1gTCgQEI4uMa4Vr/NT+b2p
+	Jbkr8+dLRSQirf8fHVA+uc2gbCbJrc/doz3EsObJxk8seh+5Jyzhj2kfEbejSP1OKcXhOnKMqGN
+	oXK/kNXb88DGrqZYgMy/Afl7XjRE/wcWfHWClcMYXUjzWuv9NR0+spvuPUSrbuUNZE+EQiS3vT0
+	6nklnMEOO3x0+tXuYTP1JS4eoP1IzAfqZ3W1suutkamfPxBk75nFAFkYcGg+wJ6u7ByqiDfQjlR
+	cuRUEpo9NKsXk0qnnADpeQFyxtn6ilNRdMRMuTfRN7R9GFTG8x8USb+URE0s/VCS6brpWaVmSZc
+	2inPqjs4qk3nFTBuOpkJRfvWF7spDTe6ovmTDbc1NaZETk3W0QlsCgZcI8SaiqA==
+X-Received: by 2002:a05:7300:a9f:b0:369:fb01:2eb7 with SMTP id 5a478bee46e88-36a4235f45emr11482457eec.13.1793552796603;
+        Sun, 01 Nov 2026 09:06:36 -0800 (PST)
+Received: from gx81.tail3ecf1.ts.net ([240b:11:99c0:1c00:9e6b:ff:fe84:e26e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42902649sm33105165eec.11.2026.11.01.09.06.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 09:01:02 -0800 (PST)
-From: Kelvin Zhang <zhangxp1998@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	linux-mm@kvack.org
-Cc: Kelvin Zhang <zhangxp1998@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+        Sun, 01 Nov 2026 09:06:36 -0800 (PST)
+From: Ryosuke Iwahashi <ryosuke@ikotaslabs.com>
+To: pablo@netfilter.org,
+	fw@strlen.de
+Cc: phil@nwl.cc,
+	security@kernel.org,
+	gregkh@linuxfoundation.org,
+	yudai@ikotaslabs.com,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
 	stable@vger.kernel.org
-Subject: [PATCH] fs/proc/task_mmu: check THP exclusivity for each subpage
-Date: Sun,  1 Nov 2026 09:01:00 -0800
-Message-ID: <4c1b393a4b04bd94e4f1c7879ae04e1793eb0931.1793552446.git.zhangxp1998@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH v2 nf] netfilter: nf_conntrack_reasm: restore IPv6 nhoff after reassembly
+Date: Mon,  2 Nov 2026 02:06:33 +0900
+Message-ID: <20261101170633.625161-1-ryosuke@ikotaslabs.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <2026110155-twisting-autism-009a@gregkh>
+References: <2026110155-twisting-autism-009a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,55 +106,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A PMD-mapped THP can contain subpages with different mapcounts. For
-example, after fork(), the child can unmap only part of the THP. The
-parent retains its PMD mapping, while the remaining child mappings
-are PTE mappings.
+nf_ct_frag6_reasm() removes the fragment header and resets the
+transport header, but unlike ip6_frag_reasm() it leaves
+IP6CB(skb)->nhoff set to its pre-reassembly value.
 
-pagemap_pmd_range_thp() passes the same initial page to
-__folio_page_mapped_exclusively() for every pagemap entry. With
-CONFIG_PAGE_MAPCOUNT=y, this applies the first subpage's exclusivity
-to all entries, falsely setting or clearing PM_MMAP_EXCLUSIVE for
-subpages with different sharing.
+Subsequent IPv6 local delivery consumes this stale next-header offset
+alongside the updated transport header. As a result, the two cursors
+can point to different protocol boundaries after conntrack
+defragmentation, causing later processing stages to interpret a
+different transport protocol than the one evaluated by conntrack and
+nftables.
 
-Pass page + idx to check the subpage corresponding to each entry, as
-was done before converting to __folio_page_mapped_exclusively(). The
-index already accounts for reads starting partway through the PMD.
-The conservative whole-folio check without CONFIG_PAGE_MAPCOUNT is
-unchanged.
+Restore IP6CB(skb)->nhoff from the saved pre-fragment next-header
+offset after reassembly, matching ip6_frag_reasm().
 
-Fixes: eb16876971ea ("fs/proc/task_mmu: remove per-page mapcount dependency for PM_MMAP_EXCLUSIVE (CONFIG_NO_PAGE_MAPCOUNT)")
-Cc: stable@vger.kernel.org # 6.15+
-Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+Fixes: 9fb9cbb1082d ("[NETFILTER]: Add nf_conntrack subsystem.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ryosuke Iwahashi <ryosuke@ikotaslabs.com>
 ---
-Tested on x86-64 under QEMU/KVM with CONFIG_TRANSPARENT_HUGEPAGE=y
-and CONFIG_PAGE_MAPCOUNT=y, using the same test binary before and after
-this change. After fork(), the child unmaps the first, second, middle,
-or last 4 KiB subpage, while the parent retains a PMD mapping. Both
-bulk pagemap reads and reads starting inside the PMD are checked.
+v2:
+- resend with git send-email formatting
+- use full real name in the author and sign-off
+- no code change
+---
+ net/ipv6/netfilter/nf_conntrack_reasm.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Across three repetitions (12 cases), the unmodified kernel fails 24 of
-84 assertions; with this change all 84 pass. Fully private and fully
-shared PMD controls pass before and after the fix.
-
- fs/proc/task_mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index b87d3e86442d..da4319d972e4 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -2038,7 +2038,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
- 		pagemap_entry_t pme;
+diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
+index be72c4346..634122055 100644
+--- a/net/ipv6/netfilter/nf_conntrack_reasm.c
++++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
+@@ -321,6 +321,7 @@ static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
+ 			     int *refs)
+ {
+ 	void *reasm_data;
++	unsigned int nhoff;
+ 	int payload_len;
+ 	u8 ecn;
  
- 		if (folio && (flags & PM_PRESENT) &&
--		    __folio_page_mapped_exclusively(folio, page))
-+		    __folio_page_mapped_exclusively(folio, page + idx))
- 			cur_flags |= PM_MMAP_EXCLUSIVE;
+@@ -345,7 +346,8 @@ static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
  
- 		pme = make_pme(frame, cur_flags);
-
-base-commit: 64703f0fee7421f0ddfcbd8ee1bfa53b25ffc4ca
+ 	/* We have to remove fragment header from datagram and to relocate
+ 	 * header in order to calculate ICV correctly. */
+-	skb_network_header(skb)[fq->nhoffset] = skb_transport_header(skb)[0];
++	nhoff = fq->nhoffset;
++	skb_network_header(skb)[nhoff] = skb_transport_header(skb)[0];
+ 	memmove(skb->head + sizeof(struct frag_hdr), skb->head,
+ 		(skb->data - skb->head) - sizeof(struct frag_hdr));
+ 	if (skb_mac_header_was_set(skb))
+@@ -360,6 +362,7 @@ static int nf_ct_frag6_reasm(struct frag_queue *fq, struct sk_buff *skb,
+ 	skb->dev = dev;
+ 	ipv6_hdr(skb)->payload_len = htons(payload_len);
+ 	ipv6_change_dsfield(ipv6_hdr(skb), 0xff, ecn);
++	IP6CB(skb)->nhoff = nhoff;
+ 	IP6CB(skb)->frag_max_size = sizeof(struct ipv6hdr) + fq->q.max_size;
+ 	IP6CB(skb)->flags |= IP6SKB_FRAGMENTED;
+ 
 -- 
-2.53.0
+2.56.0
 
