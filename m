@@ -1,48 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793560922;
-	b=WbURZaq3H2DvUs2zbaxx0/vrFzhix+XN0yjZ9OzYS4GRw0/QNaXgxLYQG3+UvJOhQeLI
-	 4KxYQMR26ViIAYdY0L/Ga/3En15qz/8JtYhca5Lp1U2veBtkNO4OY61HwEicO2kZr7NoP
-	 07/BZUff36EMEJIjuQxI5/zcM0hWKy7yGV9kUuXNW/JKGKg6gqe+n0uO+tpf+vA8+7bsV
-	 6tJhIP9+BRovtkXRIYTN4JxfuTqv8LeaZmjgB6Zf5pCiuPFJmYYzf1uyN9BY8DrG69Wzv
-	 wiJZGbsuf5avJgaE5n92m/SVo/yW90Wu0UmHBk00RS7RD+QfWTE0bpmG6dQMjbK8UBQ==
+	t=1793560965;
+	b=cNtY0dom01XCGnifLtfQL8DT+hIz5Hq8Rg14vw1ip8CwmSXvJjou6Ox5cvXN72HCa3gV
+	 ZCEzmNNQlesMpNzM/aRiIA4+xukZ93ToEpttB9/AnEiY9T9U4N0QFr2U1XZ/ZO+uCv3HQ
+	 pTm8YUqq1R+4BROXkf7BKgu83uXco2Iwe3wpdckcSBMsy/Xv2OWQTNS5+gdv0Ieu7qcnz
+	 6495FlWrNSe5rxNxMCrCZuCdsfHrxeaSQVcy9ziMBur9GmnOapEwXCUarQAIgmKxWaR7h
+	 zxuf2u2JtGuSCyl1VYK7JQJS8OGTPILHRnMlajxBC0NVYewUubnBnfTyLpOu23gtFAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793560922;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=AA0+NJqAFeqIItjoAyZ4cTNOnziC1aV+qwEWlSoDoT0=;
-	b=QnK7FnE0XLZqiu1mXBfl71sLCvcAHdQXeqnsLoxDRAFU2UUyPpclfF9ThM0kgn47tc28
-	 YZYTB96uwl4nF2+aq9VHifktgbDZPsIxmyRW4kEVEyGwj85vEQsne+JscTteqqIanUC3q
-	 S8VM60orLgzmd+NzBn1BAEwRkioCttUx0TlbbglzIf+iuFSGX4cO4zjzK9dPUWoLtPvZv
-	 lskbTnAUTkL+2rgdow8OM7J8UZOELJ0K4G4iouD/eQygpdoGUGCzSmenn4oVg3eKUD4Ep
-	 aYNkup9vQLJ6lV3MlqRHmyOcvhQYhHJKBo7Y3nsGN77vdmMy/B9pBWbXxcZi9e1hLRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793560965;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=kkgPxlepizBLlXhgw2TsN5llBrLCoHqm+pT/V03Io8Q=;
+	b=AdtuQEJncL+HrireYWiQpHXssOsBqrKJ0Kv9DCuHP3eJTT7uwIMPrmePnBwp6CLLqMlC
+	 A82B1MFprbtcewyyL2Sdi4Jcd/oISPU2FOQCp5KGRO2s/Bq7VgDcNnY7XwCvtzRYSn1aP
+	 Gi/Zhewf/0uSGIPSeqpFcRJlqSlWTym+58Fa1zpw9eVcHPLa05gq927pBCaLFJdxmtOet
+	 jOAsl0pw9TWi1xDiiyPChWWX47A3l2iFJZKR7ueTK3huS1iGJP0sZh9uylgTe0XheFVhz
+	 In/9y5wGHD/z7yDa4JfZkG0BKV6hOKMnblp4Yb5dtVmR7uLeNsqBkVAv6X18ajJoSBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=kSIXOR05;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nC6Qxexc;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC6E606A324;
-	Sun,  1 Nov 2026 19:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF722606A32F;
+	Sun,  1 Nov 2026 19:22:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF722606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=kSIXOR05
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D08261F00919;
-	Sun,  1 Nov 2026 19:22:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793560921;
-	bh=AA0+NJqAFeqIItjoAyZ4cTNOnziC1aV+qwEWlSoDoT0=;
-	h=Date:To:From:Subject;
-	b=kSIXOR05DNXlg2ozq6FVUww+3Y4tqfUvN+oLqonPUqRnu1h+YaDefQfQ9BcygWd1R
-	 LDXF5YAr09VqF5RxmWQSzqi8nV+cK+dKBXscEXNMe8hciErZZAXaDRLz1LFyhYw6ND
-	 5oK7G6nOcS5S/WuOEfW5kCLNtF6WOPu8ApfgBnCA=
-Date: Sun, 01 Nov 2026 11:22:01 -0800
-To: mm-commits@vger.kernel.org,
-	syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com,stable@vger.kernel.org,
-	osalvador@suse.de,muchun.song@linux.dev,lihongbo22@huawei.com,
-	david@kernel.org,joasantonio108@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261101192201.D08261F00919@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nC6Qxexc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=kkgPxlepizBLlXhgw2TsN5llBrLCoHqm+pT/V03Io8Q=; b=nC6Qxexcb1LYHfJcON7cNciq0w
+	P7EAHWaqH7HZ2WdN82kt8onrfeZ+ihZZy7LOkPfWmC28+EQCpsOSY0WTMbuhZApllLfjH/+UM1yiN
+	+vHeRUf1JQ2FoarU7Ne9KBUlRDlkCPcc/d9OjINGbNG3jMJcZukXoCURNWjPUMt/k4FI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xNb8Q-00DfA5-RQ; Sun, 01 Nov 2026 20:22:30 +0100
+Date: Sun, 1 Nov 2026 20:22:30 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Russell King <linux@armlinux.org.uk>,
+	Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop
+ phylink
+Message-ID: <2af2ac6e-7993-4566-92ed-c22eb7541bf7@lunn.ch>
+References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
+ <e71cccdf-59e5-407c-b536-9dd47a49b0a7@lunn.ch>
+ <179351078879.2591.15287457752530436149@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,124 +68,30 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179351078879.2591.15287457752530436149@stu.xidian.edu.cn>
 
+On Sun, Nov 01, 2026 at 01:26:28PM +0800, YuanZhe Liu wrote:
+> Hi Andrew,
+> 
+> Yes, I did, but it ended up at the bottom of my reply to the sashiko-bot
+> review, which was not the right place for it. Here it is directly.
+> 
+> e110bc825897 is the commit that introduced the call which warns. Before
+> it, lan78xx_disconnect() did:
+> 
+> 	unregister_netdev(net);
+> 	...
+> 	phydev = net->phydev;
+> 	phy_disconnect(net->phydev);
+> 
+> and phy_stop() only existed in lan78xx_stop(), guarded by
+> "if (net->phydev)". So disconnect never called phy_stop() on a PHY that
+> had not been started, and the warning was not reachable from this path.
 
-The patch titled
-     Subject: hugetlbfs: move hugetlbfs_free_inode tracepoint to ->destroy_inode()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch
+Yes, thanks. I see this patch puts things back into the same order as
+before phylink was introduces, so it is correct.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch
-
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Subject: hugetlbfs: move hugetlbfs_free_inode tracepoint to ->destroy_inode()
-Date: Sun, 01 Nov 2026 13:48:55 +0000
-
-hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
-hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
-runs from an RCU callback (destroy_inode() queues i_callback() with
-call_rcu()), and Documentation/filesystems/porting.rst says that this
-callback "is *NOT* ordered wrt superblock destruction; as the matter of
-fact, the superblock and all associated structures might be already gone".
-put_super() frees the superblock with call_rcu() followed by a workqueue
-item (destroy_super_rcu() -> destroy_super_work()).  syzbot hit this with
-the event enabled:
-
-  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
-  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
-   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
-   i_callback+0x46/0x80 fs/inode.c:317
-   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
-   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
-  Allocated by task 6134:
-   alloc_super fs/super.c:326 [inline]
-   sget_fc+0x1ba/0x1f60 fs/super.c:874
-   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
-  Freed by task 855:
-   kfree+0x22b/0x6d0 mm/slub.c:6923
-   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
-
-Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
-calls ->destroy_inode() synchronously, before it queues the RCU callback,
-while the superblock is still alive; hugetlbfs_destroy_inode() already
-dereferences inode->i_sb there.  ->free_inode() is left with only the
-kmem_cache_free().
-
-Since the event no longer fires from ->free_inode(), rename it to
-hugetlbfs_destroy_inode so that its name matches where it is emitted, as
-suggested by David and Muchun.
-
-Found by syzbot; analysed and tested with the syzbot C reproducer on an
-arm64 KASAN kernel.
-
-Link: https://lore.kernel.org/20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com
-Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com>
-Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Hongbo Li <lihongbo22@huawei.com>
-Cc: <stable@vger.kernel.org>
----
-
- fs/hugetlbfs/inode.c             |    6 +++++-
- include/trace/events/hugetlbfs.h |    2 +-
- 2 files changed, 6 insertions(+), 2 deletions(-)
-
---- a/fs/hugetlbfs/inode.c~hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode
-+++ a/fs/hugetlbfs/inode.c
-@@ -1179,12 +1179,16 @@ static struct inode *hugetlbfs_alloc_ino
- 
- static void hugetlbfs_free_inode(struct inode *inode)
- {
--	trace_hugetlbfs_free_inode(inode);
- 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
- }
- 
- static void hugetlbfs_destroy_inode(struct inode *inode)
- {
-+	/*
-+	 * Not in ->free_inode(): that runs from an RCU callback, when the
-+	 * superblock the event reads may already be freed.
-+	 */
-+	trace_hugetlbfs_destroy_inode(inode);
- 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
- }
- 
---- a/include/trace/events/hugetlbfs.h~hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode
-+++ a/include/trace/events/hugetlbfs.h
-@@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, hugetlbfs
- 	TP_ARGS(inode)
- );
- 
--DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
-+DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
- 
- 	TP_PROTO(struct inode *inode),
- 
-_
-
-Patches currently in -mm which might be from joasantonio108@gmail.com are
-
-hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch
-
+       Andrew
