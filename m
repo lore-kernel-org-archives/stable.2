@@ -1,61 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499719;
-	b=yk1OCYYVjkKHJ8qfjGfKvvRgXZPrdiimcJ1PVEf0CyS1m0VfKS7TB+ACt83hmHrorf3c
-	 2itbKT7QHyCKeQgpY9V5q0Tw8mlhWBBibDi3WBZ1AajZq5Yz3nBsTojEbTY2n/SsnELum
-	 5WkQSVNK9IXQ1dmcKV2HYvu0cm1ZXzKW5Q8N1RffBwqE7cNAf1Xz4rYQNfPVLLwga0a5b
-	 uI3IOBbnOSdEyX6l+1DtSHdwhYD8nsx8740cmwsa5tvrodsWyBn1i0cUTqbXwlkv6TInC
-	 YdWFiqmAsyNY409tiw+K2ukg8nubz9wxRjglr2FMQ1AQ3OVWoQwP55/30DqmagRx2ww==
+	t=1793500859;
+	b=4+vGPiR+a65pS0R/7VpKK0DV9Fe7/+UlhfHJdVOPqrlvDi/Z9DFTqaCSt5jcYk5wOwE8
+	 RHVlpyfEXTIG0+BCL9wYKpB5CKxavhyXD8lpFfV3xpch+6KREaMpPNMyTFAmeGca7R302
+	 SNbBKO7vV4FjDwzHXWaBrhx6qMRzYw01XtaVVOR+irwo4dtI5gpfWOpRdJvw/9OyocwNR
+	 W7yBFDB54u/TOuiWuUBWb50eQyEzuxoCxNzf712tUuxUfNvCrFB8UwxqPpaucgaNMrYZG
+	 OZhtC5sE08la5fREN+FtjAFtL/L/TrTKwz3YCku3SMXJYMkrDLBSwD1HFK4in95iLgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499719;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Pg87gFc6D5vPj6Z68gMhcX5RARC2NQRQPzk8oYKjjSc=;
-	b=zUYZ16myC2oICDIR3OukZOCHg6KRnYNAjosvUt2auObrrQ5mHqqmajXjkj0bihhSDZOZ
-	 e1BUi1aImLOTpQYGwpO3VC31leUPiuTMfS78BZbTl5jCvaUlkscafJO00f2ksbxKkmlZx
-	 vJ5+0wnlkno5lCOjTPWpxU3Y4pG/gI8tuxJMQn8twXkafLI+RpX+1xxrowHP57zIjboeD
-	 1CDApmLnZeEItS2BJaSzJTJhCvVsu0NIoZcBjLxw2lOlWT55bdDBdhrWFC3DiwGde6jVb
-	 QtsAH1PtAVimvZNAav5Wh2rPzBLa2+mfwcRNEb6IzfBynjv1O7oNy/HOy91QsmeMZwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793500859;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vtgNBTDMW/DtrGtv/8hkAbq35pBY5cFFg+9Km6ShdQ4=;
+	b=xyIQP2bVYkNU3LW1Xb9dtwkkfB0I0suQsBAmIHoMQyiu8NIbAxXF3UiHnOlyHVBO7nGY
+	 ccT+djIady4lGn1mLxuWaoTsHy2g6u+zPT9G60byBn8OcDsCEqKau93B4DLxsVCmCXipS
+	 U++cXtEx0IZuhPLajNm1FPce46rgn8qYHP8x78WrcJnRdk/f7KFSiFNzVriKBXEbAjAzv
+	 ghywlGd/ovc/oHgMd5SszyKDx3lGO01n4LbA3VJS7pbzWC2yDJ602Etgnri0dZ1Mbor4f
+	 l6P0/swiAW9zhCiseKPPjB3OD9EDVK3iQkEK8UAWxXh98GFPmWqSD7pBK1BsX12pHTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtU+qDmv;
-	arc=none smtp.remote-ip=91.218.175.166
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=w8ubrdgQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F202B606A32C
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 02:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F202B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD81606A324;
+	Sun,  1 Nov 2026 02:40:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtU+qDmv
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lPd+L3Fi5L/JRb8mgYsEPFBFLc/EK/FoHzehgXk/yCE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793499715; v=1; x=1794104515;
- b=MtU+qDmvGwEezhnxq1/Osl48o/WbBTXtEJ5vMyCs3UC9AGmqBI5U9kFR7Ok9AKWWhECQT9eR
- aLJ5mZa4ceeTS24uf18t6Zdu0iGEGF0Xx4BuF5qki7jqwdEyQGpoFHMghUzN7XY/R1XEmRZB0LF
- piFLg/6zeHN1+TFnWNQbBDew=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7c5fdc765f8b831e;
-	Sun, 01 Nov 2026 02:21:55 +0000
-X-Mizu-Trace-ID: 7c5fdc765f8b831e
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Meta kernel team <kernel-team@meta.com>,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/sqpoll: do the return-to-userspace work in the SQPOLL thread
-Date: Sat, 31 Oct 2026 19:21:46 -0700
-Message-ID: <20261101022146.309201-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=w8ubrdgQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810C41F0093A;
+	Sun,  1 Nov 2026 02:40:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793500858;
+	bh=vtgNBTDMW/DtrGtv/8hkAbq35pBY5cFFg+9Km6ShdQ4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=w8ubrdgQ1H/88s1oR8DPOKefcURK6dl+7lDkz06LB+py/vNtwV5SmJt623XeYDEPG
+	 MmQJmYnC4dazZopFbfUqdgOKXd1qQ5jzZTsIGyf5XJsbvppfZbm0CCL6SFvmZzHExJ
+	 h2qnSkEyYWst05ejBOP+EHuEFy/ccuXV1qGDpCnI=
+Date: Sat, 31 Oct 2026 19:40:58 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Samiullah Khawaja <skhawaja@google.com>
+Cc: David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Andy
+ Lutomirski <luto@amacapital.net>, Chris Mason <mason@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/gup: check folio->mapping under folio lock in
+ memfd_pin_folios()
+Message-Id: <20261031194058.d3bd25ed950e5340ab595f07@linux-foundation.org>
+In-Reply-To: <20261031203540.2282507-1-skhawaja@google.com>
+References: <20261031203540.2282507-1-skhawaja@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,70 +58,34 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The SQPOLL thread never returns to userspace. io_sq_tw() runs its
-task_work, but the rest of resume_user_mode_work(), like memory.high
-reclaim and block cgroup throttling, only runs when the thread exits.
-So memory.high reclaim only happens inside a charge, with sqd->lock and
-ctx->uring_lock held, and not at all if the charges can't block.
+On Sat, 31 Oct 2026 20:35:40 +0000 Samiullah Khawaja <skhawaja@google.com> wrote:
 
-This used to work. The loop called io_run_task_work(), which does this
-work since commit b5d3ae202fbf ("io_uring: handle TIF_NOTIFY_RESUME
-when checking for task_work"). Commit af5d68f8892f ("io_uring/sqpoll:
-manage task_work privately") replaced that call with io_sq_tw().
+> memfd_pin_folios() pins folios from the page cache without taking the
+> folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
+> its refcount check while memfd_pin_folios() still pins the old folio,
+> and the caller ends up with a folio that is no longer part of the memfd.
+> 
+> Lock the folio and recheck folio->mapping before pinning it, like other
+> page cache users do. If the folio was removed, retry the folio lookup
+> from the index that was removed.
 
-Call resume_user_mode_work() at the top of the loop when
-TIF_NOTIFY_RESUME is set, with sqd->lock dropped. It runs once per pass,
-so a pass that charges two or more batches still reclaims inside the
-charge, as before.
+Can we please include a clear description of the userspace-visible
+runtime effects of the bug?
 
-Tested in a VM with memory.high=64M and swap on zram. An SQPOLL ring
-reads 256M from /dev/zero into untouched memory, 64K at a time. Before,
-the thread made 337 calls to __mem_cgroup_handle_over_high(), all from
-inside the charge. After, it makes 704, all from the top of the loop.
-memory.peak stays at 64M. With 1M reads, 296 of its 385 calls still come
-from inside the charge. Both runs take about 50% longer, and the extra
-time is in the handler, which now runs more often. Without memory.high
-pressure, the test never calls resume_user_mode_work() and the times
-do not change. Lockdep showed no warnings, also with io_uring_register()
-racing for sqd->lock.
+> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
+> Reported-by: Andy Lutomirski <luto@amacapital.net>
+> Closes: https://lore.kernel.org/all/CALCETrV5eqg6d9=+BQhCpRwBNe3aCQiut8vxPBs8b7PToqjaHg@mail.gmail.com/
 
-Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
+Includes the words
 
-There was similar code pattern in the same function i.e.
-unlock/cond-resched/lock. I kept this separate for easy backport.
+> The issue is live update doesn't preserve those background punched
+> folios and now we have created an UAF attack on the kernel across
+> kexec if you don't do something about it.
 
- io_uring/sqpoll.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+Is that the extent of it, or are there other effects?
 
-diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-index 49c52284ecdd..0fef4d3f4472 100644
---- a/io_uring/sqpoll.c
-+++ b/io_uring/sqpoll.c
-@@ -348,6 +348,18 @@ static int io_sq_thread(void *data)
- 			timeout = jiffies + sqd->sq_thread_idle;
- 		}
- 
-+		/*
-+		 * The SQPOLL thread never returns to userspace, so do the
-+		 * return-to-userspace work, like memory.high reclaim, here.
-+		 * It can sleep for a long time, so drop sqd->lock.
-+		 */
-+		if (test_thread_flag(TIF_NOTIFY_RESUME)) {
-+			mutex_unlock(&sqd->lock);
-+			resume_user_mode_work(NULL);
-+			mutex_lock(&sqd->lock);
-+			sqd->sq_cpu = raw_smp_processor_id();
-+		}
-+
- 		cap_entries = !list_is_singular(&sqd->ctx_list);
- 		list_for_each_entry(ctx, &sqd->ctx_list, sqd_list) {
- 			int ret;
--- 
-2.53.0-Meta
 
