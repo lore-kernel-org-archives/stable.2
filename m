@@ -1,73 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793536201;
-	b=FEbgiUwkoEAdKIiMvhxXiEIeRauULcsGWVzY750aa+ZaIlBxTkYgEzQl4XDw6mfHgdMY
-	 538OwW1cDB6ZENpZCI4bH+zsmL4d1YFF4u9MYKNCnQkKsCkHqIJwTk9OtCr4aUJR3Dgtl
-	 HlDyrXdiwgxmC4sUo5CH2GfNILMJRP0G2fF50afQ6r/KJnROr4kTbHLmQCrOJWIgZVLRT
-	 TzRh4qNCpjJiE4dCh21UfdvyjWsh9ZJ2KsEO+Ilp89AZtapOwhmXh7r2pFgtZcZE98+Dg
-	 0TrEqAN/jfrqtFej4Bg8HMQbqjJ4pT/Hf8MxpWbXQtQ6peRfFbkPS1omx61HS4NvWIA==
+	t=1793536484;
+	b=MUoe8oG8usqQku/pAxMtTasAOREXs41H4ruF4rieOPzIQ4ZEUVBOE1CgRZbuhgUm+0hQ
+	 QAk60BX5iBtp6vgUKNUbkOqGnnGEgZa3YKiXr3HXnxgSw3IyFWvmjp9VwFU2XfDS1AWhk
+	 7g/sT7CP3X9Ru5mpN5JhqeBCHulp0fo/fTfGcev/OG78QCF+31XTpVZ1ZVwvOV0vD63n3
+	 qRnc6wTBHNSRRxreJP3kXr1hhutkC3ccpBP4EIZV9Z/kAr6FiJtbsaHjIG5r3gHT/qMH1
+	 Z2veL2JDf0Rmre4pu5HVl++tUqxKt+MErLvvG5zEc4kGcLhntNEmmFn+u+cSMpd+F0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793536201;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793536484;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=MXG9XxsNUYUBQFUk2jiqmUkACxCXCveVoiDIppG6/JI=;
-	b=3yN57YzKneEdx31dFSGpNj2sqRBGj3zc/G7SPRS0uhC1iUUSMKKkT9c6mTKLrRl3myRs
-	 zE6MmE79CzPVmbv6WKWzxUd/v13kQ1kpVzgek7jVlc2yt07vI1EUbaqP+N0L87EaM/yRp
-	 qkLfLvktkXkfYQ1AiBri/MT6ggb4XFrJsdKCMsRjTh6DCJgUuDwvtvQfqRB+t12van7zg
-	 M7wVf7lN0ABYJwURwea3Dc6jt8cMyBNR80FF5JJnM8gdd6Wg3tOitvjM6XA1SCntwgeD8
-	 7KRT+dgwM+HMkoVeYnQ8mVqIstq3LvFwJyy15kAhdiB2aCEq2Su+W09fEmhCx2zsHMQ==
+	bh=/D/A9T2EJRYZY/+rdAawlrNFx7uSdrcye6ffwoxRa54=;
+	b=ckY4kgEiZ68dO23BWfEcusVCnIZRcgzqwGL7czCHBcAIBLxRRefAEBZZVZGFZUzXOtx/
+	 f//LyrA5r4PLRQqtx/gDVpt3NZa1ZIpbxpYKoKodhkN+V9hpodVAZ76SOmrvY1JQADU6c
+	 rhdztJtGZVjyiF92kCG9YVRBGhqXJaEttA1pEo6HESOsBVNnLjrG0xChiz2sqcxMu6bBF
+	 x1NLBQS4zPaLnUP35f/fzxHUTHlnVffVVC3YTEWEDXXtYJif1VXGCWMl2uSB04akKVTgW
+	 rf27jGepDt2Ol/dy+GIYJpHr47dkJ9LUEcKvnJrthP79fVY0LIsX+x1gimPae8Kmu0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=softbase.tech;
-	spf=pass smtp.mailfrom=softbase.tech;
-	dkim=pass header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=EXzKOxkl;
-	arc=none smtp.remote-ip=79.135.106.112
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ea5BdI1n;
+	arc=none smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B62606A32E
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 12:30:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B62606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=softbase.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=softbase.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA0B606A327
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 12:34:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA0B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=EXzKOxkl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=softbase.tech;
-	s=protonmail3; t=1793536198; x=1793795398;
-	bh=MXG9XxsNUYUBQFUk2jiqmUkACxCXCveVoiDIppG6/JI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=EXzKOxkl70OCmui4jy79De7H6k0YKei3U0Ft+swv/5PlZ2gHA6piffFlnWhap8wAl
-	 fP6x7bS1Wsmot3KsrCjic1noBx2lnJvLmIqPqECq3ccCnLizh12NZYrbX4rWZxaffm
-	 9R/LTfqnoIAwPQ/XqcfEpNW07uh/0ZNKzWB0bMOcwuKZKtWXlmrTX4WjrQKiozLM1c
-	 5yhSg1buHg2m5kYJ7lYFPtWI0NCX3xbGv/2T3hXsAX3uvg6q+ix8EhTQaZ3fZF5x95
-	 50LPN3wRq5+OZzlKytWMJImMjLGCftSSMJ3uiyz6/9JqORD+7c9gSgkZ3TCBhfVVcX
-	 v+ARvmqWti2Kg==
-X-Pm-Submission-Id: 4jHZ0g3FNKz2Sd2v
-From: "Beat M. Liechti" <beat@softbase.tech>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Federico Amedeo Izzo <federico@izzo.pro>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	"Beat M. Liechti" <beat@softbase.tech>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ea5BdI1n
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c169ae1cb26so512528066b.1
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 04:34:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793536482; x=1794141282; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/D/A9T2EJRYZY/+rdAawlrNFx7uSdrcye6ffwoxRa54=;
+        b=ea5BdI1n3jMl3nTFIjg1OVwLozn1JI9ufbHSZXBBTwqcISfpOrOD/hWSMAK8goj+JV
+         ghJw6j73yFnthUnjFxDslLRT+4HB7LlKV30AQYBDStO7smzuBRVrv8FErRmKnTSoG+Hj
+         HGHO7IrLwKc0e5GRHgH76UfMvD0Kx9ImmbG7L6G4wlqp8coCHtDEUXPTDrPeq16C0EJk
+         B4SjJ2hc8+jSM00jQEiKvveoTypIWvKmLgpreALDqigMx4jHf5g6oCgmucBsLR6y2anN
+         cpWLspOjtXj3p1OjOQQA6moH5MO6dK1nAz8nb8lfgSH1fVyNMRdow7h2cIsuiO7KjvR6
+         4LxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793536482; x=1794141282;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/D/A9T2EJRYZY/+rdAawlrNFx7uSdrcye6ffwoxRa54=;
+        b=pRU/8o/bGQptexdjrf1/QVIp7p2DVtnPf9RcwU/a/1vaDnvfIEvxL9jmkQ1i5BJn8R
+         Fm6Z2CBxYQeLpI6ULgaavTKdczGp2z5GJqi9mSR0rkvFBwIe0ahWIkUD84p/d8knu7UW
+         9eUeOnVsYDh2tvdConn+t+ikTuKaEMuKZZIGZGCPU45sbk1HxJQ/1lnqR+oCXYfNVOAP
+         b4NPKavcAIy8h9NdB+pQOCjQNjCk/jLo1Juaz+SXsjR/YRoIAYjoUJKN1CO2uBV6XoM6
+         /LvXUFgIZfreLiTekGuENOQTuMZJaeBxeTiSrMv0NYQnf7yspKkkN1bFj1u+yJ+JlXAs
+         Q22w==
+X-Forwarded-Encrypted: i=1; AKwUvByTaQLahOe/LE4OhsICqFpCRJfNfFdFORRR4fRSxU/HwhJxK2VEeb/z79Kc0Vw/M5S9lU6bKic=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILmPIduyQ/DgSCwE1mztyllbqMWH/BsiUYEnQHJmjoJuckZ6wn
+	W4ACbhBvBSmOaU7RkSazcHoSz2mpzQEfR8o1kf+qiVreRYkcncGz1GcjpiylAvbC
+X-Gm-Gg: AYBFou2WcTPPSmIA2qO3yDH6PIqNccQ1McMjo5dA74Tqii90tnxvknKvipW/bNUZS4G
+	RB3HhMhjuN/ei9wV8OJDHPgHP4PO/kMvR1RoPHwcodeN97MwFFZKj8ijgincvodaot/fjjGJVPV
+	cvi+lQSonNLQXCsXSy0+w4QAHvhYBpdcVmwKEVHVSxdTsA+ozHiokGWwEngrhR9xRv2ajh158lP
+	3tP95uDxEyqxVTJGmA/62Dw2dYJyc7pju6qmVRYU/YtBJACROyJlONNmKDuGOX3E2VVVH6sOtpl
+	FFyLPzxBQcqqkMQTVc+LFxPJ9tj4LdPyKfYZzb0gM+9ymzI5lSpXxUCo0fFHSokI0Iny5ONXjMC
+	KW31rBcVc1bxhK5nY+xTH18m3/Fs3euWPgSb1blBw3eNsuN8ll88pLxfy5ILzd2UoiUGOIE8/j4
+	9v+G63bcs+e4GAN7aRLULFgQ4wCYzmBBtUVn33Z6KnYJWdqzPK1LmZ5mDjaf45D8T/rmudzOD05
+	7wkCCPaEqNUfmbfD90bYyVXpNwiSFVRQPloAEmvorxQ5qDhw8XyxnJNlwaSpX+cnPAOtacwCW1r
+	O49dKN2TJn4+qAUi1v6zH0bBPrS5ofUTZLzH3bsiUqIYTSTAW/DFt/taVbBaD3XW+vFRs9+eTQo
+	mPEwKrBJWZJQ=
+X-Received: by 2002:a17:907:3f9c:b0:c42:fc8b:6c6a with SMTP id a640c23a62f3a-c4ca7a9ef71mr660488666b.14.1793536481629;
+        Sun, 01 Nov 2026 04:34:41 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc18ec5sm275298666b.12.2026.11.01.04.34.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 04:34:41 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
+	linux-unionfs@vger.kernel.org,
+	Chris Mason <mason@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] drm/msm/dpu: don't reassign resources on color management changes
-Date: Sun,  1 Nov 2026 13:26:57 +0100
-Message-ID: <20261101122943.8155-2-beat@softbase.tech>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101122943.8155-1-beat@softbase.tech>
-References: <20261101095754.33840-1-beat@softbase.tech>
- <20261101122943.8155-1-beat@softbase.tech>
+Subject: [PATCH] backing-file: pass RWF_NOAPPEND to synchronous writes
+Date: Sun,  1 Nov 2026 13:34:40 +0100
+Message-ID: <20261101123440.3184069-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,119 +101,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide
-GAMMA_LUT DRM property"), dpu_crtc_atomic_check() releases and reserves
-the hardware blocks of a CRTC whenever color_mgmt_changed is set, not
-only on a modeset. A commit that merely replaces the GAMMA_LUT or CTM
-blob of an active CRTC can therefore move that CRTC to a different
-CTL/LM pair without disabling and re-enabling the pipeline, and the
-hardware keeps scanning out through blocks the driver no longer
-considers in use.
+From: Chris Mason <mason@kernel.org>
 
-This is easy to hit with GNOME/mutter on a laptop driving an external
-display: closing the lid disables the eDP CRTC, and in the same atomic
-commit mutter sets new color blobs on the still active HDMI CRTC. With
-drm.debug enabled, dpu_rm_reserve() moves the HDMI CRTC from CTL_1 to
-the just released CTL_0 while its encoder is neither disabled nor
-re-enabled. A few seconds later the display SMMU reports context faults
-at the refresh rate and the external screen fills with garbage. Opening
-the lid again leads to a stream of "vblank timeout" and "frame done
-timeout" errors and the machine has to be power cycled.
+pwritev2() with RWF_NOAPPEND ignores the offset and appends the data on
+an overlayfs or FUSE passthrough file that was opened with O_APPEND, and
+the call still returns success. The flag must make the write go to the
+given offset even though the file is in append mode. Any user who can
+write to the file is affected, with the default mount options.
 
-Color management affects the topology in only one way: DSPP blocks are
-requested when either CTM or GAMMA_LUT is set. Handle that case in
-dpu_crtc_check_mode_changed() by requiring a full modeset when the
-presence of CTM/GAMMA_LUT changes, and stop reallocating resources on a
-bare color_mgmt_changed. Don't set allow_modeset here: if userspace
-did not allow a modeset, the atomic core rejects the commit instead of
-the CRTC being silently moved to other blocks.
+overlayfs and FUSE passthrough forward the reads and writes on their
+files to a backing file on an underlying filesystem, through the helpers
+in fs/backing-file.c.
 
-Fixes: 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT DRM property")
+The flag works for the file that the user opened: kiocb_set_rw_flags()
+clears IOCB_APPEND in the write's kiocb. It also copies RWF_NOAPPEND
+into ki_flags, as it does with every RWF_ flag.
+
+overlayfs and FUSE passthrough then pass the write on to the backing
+file. They opened it with the open flags of the user's file, so it is in
+append mode too.
+
+For a synchronous write, do_backing_file_write_iter() calls
+vfs_iter_write(), which sets up a new kiocb for the backing file. That
+kiocb starts out with IOCB_APPEND set. vfs_iter_write() is only given
+the flags of the user's kiocb that are in BACKING_IOCB_MASK, and
+RWF_NOAPPEND is not one of them. So nothing clears IOCB_APPEND again,
+and the data goes to the end of the file while the call returns success.
+
+An asynchronous write reuses the flags of the user's kiocb and is not
+affected.
+
+Reproduced by calling pwritev2() with RWF_NOAPPEND at offset 0, on an
+overlayfs file and on a FUSE passthrough file opened with O_APPEND: the
+data was at the end of the file afterwards.
+
+Fix this by adding RWF_NOAPPEND to BACKING_IOCB_MASK.
+
+Fixes: 73fa7547c70b ("vfs: add RWF_NOAPPEND flag for pwritev2")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Beat M. Liechti <beat@softbase.tech>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
 
-Notes:
-    Changes in v2:
-    - Don't set allow_modeset on behalf of userspace; only set mode_changed
-      and let drm_atomic_check_only() reject commits that did not allow a
-      modeset (Dmitry)
-    - New patch 2/2 removes the CTM-only allow_modeset hack from
-      msm_atomic_check(), which is redundant with this check (Sashiko review)
-    - Link to v1: https://lore.kernel.org/r/20261101095754.33840-1-beat@softbase.tech
-    
-    Testing: ThinkPad T14s Gen 6 (X1E78100), GNOME 50 / mutter on Wayland,
-    LG 4K60 monitor on the HDMI port (DP to HDMI bridge), logind set to not
-    suspend on lid close while on external power. Without this patch every
-    lid close reproduces the corruption and hang described above. With it,
-    closing and opening the lid produces no SMMU faults, vblank timeouts or
-    frame done timeouts, and both displays keep working.
-    
-    v2 was retested on the same kernel with both patches applied: lid
-    close/open, Night Light toggled repeatedly with the lid open and closed,
-    and a color profile change. No SMMU faults or timeouts, no visual
-    problems, and with drm.debug=0x16 no commit was rejected for requiring
-    a modeset, so mutter is not affected by the stricter check.
-    
-    On msm-next the patch has only been compile tested (W=1, no new
-    warnings), not run.
-    
-    The RFC "drm/msm/dpu: Force modeset if new CTLs have been reserved"
-    (https://lists.freedesktop.org/archives/freedreno/2025-March/036824.html)
-    addresses reassignment without a modeset in general. This patch only
-    removes the color management trigger.
-    
-    The root cause analysis of the drm.debug trace, the fix and the
-    changelog were developed with an AI coding assistant (Claude by
-    Anthropic). I reviewed the change and tested it on the hardware above.
+Christian,
 
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 25 +++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+This is a followup to commit 19b18e01d0361 ("backing-file: enforce
+append-only and immutable backing inodes").
 
-diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-index 42d0a529b..cfcc3556a 100644
---- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-@@ -1516,6 +1516,19 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
- 	    (!clone_mode_requested && clone_mode_enabled))
- 		new_crtc_state->mode_changed = true;
+It is NOT a security fix, but a correctness fix for both overlayfs and
+FUSE passthrough. It fixes RWF_NOAPPEND being ignored by sync writes.
+
+It had to go after "enforce append-only", otherwise sync writes could
+also overwrite append-only FUSE backing files, as async writes could.
+
+Thanks,
+Amir.
+
+ fs/backing-file.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/fs/backing-file.c b/fs/backing-file.c
+index 5780f60662d07..c601b27f0fd35 100644
+--- a/fs/backing-file.c
++++ b/fs/backing-file.c
+@@ -115,8 +115,13 @@ struct backing_aio {
  
-+	/*
-+	 * DSPP blocks are reserved only when CTM or GAMMA_LUT is set (see
-+	 * dpu_crtc_get_topology()), so enabling or disabling color management
-+	 * changes the hardware topology. Changing resources on an active CRTC
-+	 * requires a full modeset; otherwise the CTL/LM blocks get swapped
-+	 * underneath a running pipeline. If userspace did not allow a modeset,
-+	 * drm_atomic_check_only() rejects the commit.
-+	 */
-+	if (new_crtc_state->enable &&
-+	    (!!(old_crtc_state->ctm || old_crtc_state->gamma_lut) !=
-+	     !!(new_crtc_state->ctm || new_crtc_state->gamma_lut)))
-+		new_crtc_state->mode_changed = true;
-+
- 	return 0;
- }
+ static struct kmem_cache *backing_aio_cachep;
  
-@@ -1534,9 +1547,15 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
++/*
++ * RWF_NOAPPEND stays set in ki_flags.  Pass it on, because the backing file is
++ * in append mode as well and a new kiocb for it starts with IOCB_APPEND.
++ */
+ #define BACKING_IOCB_MASK \
+-	(IOCB_NOWAIT | IOCB_HIPRI | IOCB_DSYNC | IOCB_SYNC | IOCB_APPEND)
++	(IOCB_NOWAIT | IOCB_HIPRI | IOCB_DSYNC | IOCB_SYNC | IOCB_APPEND | \
++	 (__force int) RWF_NOAPPEND)
  
- 	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
- 
--	/* don't reallocate resources if only ACTIVE has beeen changed */
--	if (crtc_state->mode_changed || crtc_state->connectors_changed ||
--	    crtc_state->color_mgmt_changed) {
-+	/*
-+	 * Don't reallocate resources if only ACTIVE or color management
-+	 * values have changed. A change in DSPP requirements is turned into a
-+	 * modeset by dpu_crtc_check_mode_changed(). Reallocating on a plain
-+	 * color_mgmt_changed would move an active CRTC to different CTL/LM
-+	 * blocks without a modeset, leaving the hardware scanning out through
-+	 * stale CTL/LM state (SMMU faults, corrupted output, vblank timeouts).
-+	 */
-+	if (crtc_state->mode_changed || crtc_state->connectors_changed) {
- 		rc = dpu_crtc_assign_resources(crtc, crtc_state);
- 		if (rc < 0)
- 			return rc;
+ static rwf_t iocb_to_rw_flags(int flags)
+ {
 -- 
-2.53.0
+2.55.0
 
