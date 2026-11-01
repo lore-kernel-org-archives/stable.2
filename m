@@ -1,63 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793491101;
-	b=EzfeJjAiiiCmvPNFkGwSHZo9cihCwzZM0vmQDBz9Z2wAPqQgqPQ7KQcZ4nL7eY3vjcA2
-	 nPzIVWHVTt1n3klz9LbLdav8WLHSJbGAuEfQT0uP7vnjwypFvr5eOMJ66emlysebPngyI
-	 GZgBxp1q2slPEd0DVQTt/yrXxLTfwcqjclI2NbnuoUjrIGcfCf+NCa4LzsWRpreo2Bznb
-	 oM4znYhwe4Of7XtUkoRPIokhbTUHcSCPXgqDklY9nGsYRMW8iblPbqS3LNaWUJWJulhCm
-	 HDfJpZ6TEn8EwYf7nGa9CeMhRIIDtpIwprRneASbcXbiX8DmsFXjjn7qyYYW9g/zqIQ==
+	t=1793492386;
+	b=P6ns8Z1ZN1engobT2nHy/2zgeLO56qOc8n6h1IW98gWQ2zBB1fiod8drvhfC3KjZ2Qk/
+	 26Jue/D7pZw1X6lfkH4FxX1wYSyDE7ofYA4IwFL99KSg+hlI5MwjDkfB6qCllfgQDBf9R
+	 WESWEUlOt/wi7OJqj9Fd0Q+T0ZA3IgiYPurZWfCDbD0JkWcD8KYEMalK9aihOS+GXuDOq
+	 u1PDjFVfH99Ngq88/vT32Pg7We0jE5pdSpEHdwKINjPGuIUxRf+ak04uD2VA+baO38s0L
+	 HBXOR/TBv82nMPg8dDxbB+6YOjvp3Yo4bpwdpMVZDmq4OovQF7s+c1LSHuWtmJbxgYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793491101;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6V0NiExjKiMGJ5h/1WwCW23VisWqxFUm51w7ztl/rtw=;
-	b=f1Fu5ckbutAMohD33pQt5+MtsRlwP+v5MwWA9FYVLuYQLXncRjK45tT32SwHLegviP8B
-	 5XY532mGHzJCtoFpliZJ8mRtCBUhJXe/7dOf5vdocOT2GStaw3X6lg2ZZgOi2l4cR1EyX
-	 WHvXVoGEhyfpFZMchQungIFg4UaHO7j2QBgcVNmO0b6QxcG+7q43upCyGio+5uvG84z5N
-	 FewQmvWNhtOLy/wkbExND9EGF9whrgZwckfqw7ilFzxKaHn2KrpZEKS5ESR1dg/D2igFA
-	 58qLIh8CBDxudLV+DlBkI3mqDrfB4c+78zH/MyFjCyltMYfet3I9qbIyQS4h1UNAW0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793492386;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=1C0upMKH+zbLi4SJoiKyMvaAF5IBekHbTFPSl9D526s=;
+	b=UHKou63FIgx5GMzs0bXAAtGFdwRBfjKY3VvLI/USraoogePmjDXcFYzqTbl24gzkayXt
+	 NYQT+F2j5H3YMotVqShAD6Bga670mSvhKxqSICc6+dSESX3ufRj4yo31K5TSV8eTYwdqh
+	 5Cjhz0KV/OGp81FXT/UIoNiakbPPRk7+mBmZuXU8wttbbKIgpk0UGl9eWYJ4p/A7sFvDd
+	 FHKihPhq8zeiqX4ZqUsOWp4fan8ojaSsHNcFM1d/78A5A4FN9pUwQIqjpIWLM+OG55do8
+	 rWDAmTwPNX+ldNmJ42ivE95wP+pPi796l/uE9qUuBlB3r/zNFTqn8CuMVMPmHFLA6Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cVnD0I/9";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=lkyQI4BJ;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08C5606A31A;
-	Sat, 31 Oct 2026 23:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F1E6606A32F;
+	Sun,  1 Nov 2026 00:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F1E6606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVnD0I/9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50E11F000C1;
-	Sat, 31 Oct 2026 23:58:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793491100;
-	bh=6V0NiExjKiMGJ5h/1WwCW23VisWqxFUm51w7ztl/rtw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cVnD0I/925gFCOJnVBwIxkZZegH1NRZRU1VUlRVXvS37S8KkDDShwleVoT+PlUwcj
-	 LsyCOGO2YsjHP3pZwxLlQFHmt3Iecy605KhGnarPeNvdwfezWKHIq622wCKlmb0RtO
-	 cApZpSoZLOQM0CTiTd9SlSS78sclPU34sZnG8TJhFreAzUwwY8n3JCO7MZ7PmeMgUK
-	 4eq7A6+HHo1uUmX6U3Zl9fZ4wKpYhlNantSso2zNMALQhHud3S4KH1HktQ1luVbU+n
-	 BlkP4UpKQV2/3TL/GLa1kCXEHajYtyHH7Rol1IEK4F3PjE17UCQzkcTb4WnmuLxD2/
-	 TnLd1R5eWQEYA==
-Date: Sat, 31 Oct 2026 23:58:15 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Kevin Tsai <ktsai@capellamicro.com>, Lars-Peter Clausen
- <lars@metafoo.de>, David Lechner <dlechner@baylibre.com>, Nuno Sa
- <nuno.sa@analog.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, Hans de
- Goede <hdegoede@redhat.com>, Jean-Baptiste Maneyrol
- <jean-baptiste.maneyrol@tdk.com>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Tristan Madani
- <tristan@talencesecurity.com>
-Subject: Re: [PATCH v3 2/2] iio: imu: inv_mpu6050: validate ACPI object
- types in asus_acpi_get_sensor_info()
-Message-ID: <20261031235815.4805cf65@jic23-hlaptop>
-In-Reply-To: <20261029110829.1086835-3-tristmd@gmail.com>
-References: <20261029110829.1086835-1-tristmd@gmail.com>
-	<20261029110829.1086835-3-tristmd@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=lkyQI4BJ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=1C0upMKH+zbLi4SJoiKyMvaAF5IBekHbTFPSl9D526s=; 
+	b=lkyQI4BJQJM4QlpFUo5SzXFSGLC4h9MwwD8oRQBAnobiz6XM2fsoCt2xrkyfzuBcm0pmLwYFv91
+	aDWf3RC5jq2sqrGwTNNz3RQHUAZKwhT21H9Py0aeaKI2FXP9EMMEdSJ5f5oiESJb9Dr5VUUHxunMR
+	Y0GYxx/whefT7APpF8NowSHqbdTueONn/SjoSwxrc6CRtjCSWHN6Hl1ht6e4YiVuw7y8HKzfVPbvC
+	mmp+V+pEu6a3Uf6KruAQgje0h/LYiBPYosOzXSAXfLodwgMVgzn65/IMpLQYwztCZDTA0QFwi51Zi
+	uYj4nGY51xJ1qmURuY5itLz0WmitqsUrkB9Q==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xNJI4-00000009U6S-0XzL;
+	Sun, 01 Nov 2026 08:19:17 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sun, 01 Nov 2026 08:19:16 +0800
+Date: Sun, 1 Nov 2026 08:19:16 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>
+Cc: Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <bhe@redhat.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <auaFhOa5EBz4gJwK@gondor.apana.org.au>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
+ <auKshDXKQXt1kvjy@gondor.apana.org.au>
+ <auMbCuecFeRmBFSK@pc636>
+ <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+ <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,31 +81,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
 
-On Thu, 29 Oct 2026 11:08:29 +0000
-Tristan Madani <tristmd@gmail.com> wrote:
+On Fri, Oct 30, 2026 at 08:56:03PM -0400, Liam R. Howlett (Google) wrote:
+>
+> Hubert, I have another version of this patch set to send out, but this
+> particular patch remains the same.
+> 
+> Are you okay with keeping it the way it is for this release?
+> 
+> I don't want to force your hand but I also don't want to keep a valid
+> deadlock scenario in-tree.
 
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> asus_acpi_get_sensor_info() iterates through a nested ACPI package
-> structure without checking types at either level.  The outer object
-> returned by acpi_evaluate_object() and each inner element must be
-> validated as ACPI_TYPE_PACKAGE before accessing their package.count
-> and package.elements members.
-> 
-> Use acpi_evaluate_object_typed() to validate the outer object type
-> at evaluation time.  Add a type check for each inner element before
-> accessing its package contents.  Also replace kfree() with
-> ACPI_FREE() for the ACPI-allocated buffer.
-> 
-> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
-> Cc: stable@vger.kernel.org
-As with the previous.  Hardening against buggy firmware isn't
-a fix. It is however nice to have so with those tags dropped
-I've applied this to the testing branch of iio.git
+Instead of your patch, please revert the original change that
+added kvmalloc to rhashtable:
+
+commit 93f976b5190df32793908d49165f78e67fcb66cf
+Author: Davidlohr Bueso <dave@stgolabs.net>
+Date:   Tue Aug 21 22:01:45 2018 -0700
+
+    lib/rhashtable: simplify bucket_table_alloc()
+
+The newly added alloc_hooks_tag call should go after the if statement.
+
+This patch should also be split out of your series and posted to
+linux-crypto.
 
 Thanks,
-
-Jonathan
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
