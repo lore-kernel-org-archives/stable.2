@@ -1,94 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793514349;
-	b=LYLuN0NqJHiQVyZ61Cts3MY+umfaM5yjfdwWFbvLxoqA/hAlVI0OqMQAIk1DHAJCH+71
-	 sZ3iHOswGHOChGJlZOJHc0Yb73SdXtK7k1hWxyscPA4d3gUl6MOBi+gW8nJfotop/SWsl
-	 gx0xfds1K4kpCt0WNrEpa4bdUbL68OIc4o6/FDwLlmLF2xVGiFXNP3LjIyeBxwuVPoCXw
-	 o32L+SkTRx4V5HkjiKdPRfgIZomKU/Rhvu0J0hBh/FcLryST1R+chfbiv2Old2wo9KUo4
-	 q8p2b7lXisj/ScXPVRyc46Zt976yD/qjR8PtjsBuEXGxRrfB3sH95JGwa8j9VsD2+1g==
+	t=1793515048;
+	b=Ysf8lhEIivj+g5YcIQ3NncaFHWDiMqIopEdiAmvUwiIDHFHWYADDkzlppnJqeAWKaMil
+	 C1fjoJT8deuRiMEXRiZpxQjoYkNE76RolIBQHpqcdRfsWpv0qa+ycVCI86FAH63T8yURX
+	 VKiL8iqWALVzLgK8f6AzGX/5gU3Mwov44Y8O/4eDGdaQz7gBW2eb3nzchE5xlDbgimIAn
+	 hj2sOqtOlgkBGoNKMY9VpHlCubRMmqh0WNiVKS6UHoZcpViz7soQeE3jFo6raNgHqcFV1
+	 o5zaC1SPy+8ElT58lxLTTLU7ZJf6X8aL4VnKdt1S3gYNVYU/EqbDq8B8KhQoIKp7Kig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793514349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793515048;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1KBDUNc4iTIsRLtb0D3MF9g5k9EN16h0slF6SZ+zPLw=;
-	b=xASC1EXu4ev5HLyGq2f0Cj7Ub7TPGt68Ev4XKjHC8FR1lKRjWgBi+zxP+Bakie5XKb6D
-	 NxzdhUVsYeWIw0/tnceE3mVSPJa6KcWIgugz/iDMi0NUr1dyooIyAVerc4a1pQtZ0ZPiz
-	 hPGYBzr+d6+7UX0PGfbSj7Z0haUvFOZkekbP1KvB/9XB0js67XQId7Wo7G+q25XDi/8DH
-	 gXt3vND4O7FK04jZEY5TDvu47aCA76lOGl26iG3DGfoU95umZB+aFsG6ysmEadqYL83Mm
-	 UKTxu/vBtWMLDQhooMV0NBi9JaA1bPMIV0k198a2spV3Gy673MI4O/uK94j60HkB0HA==
+	bh=kaRMUeDRl+naPmm3qUT+oBT7oJDOZeWGKzT1v2c6cow=;
+	b=fNznEa31yJg6ByrhKTWugBvVmwcAtG5rsZ4++A4SdWGfnnpH3SZLHqckYUonouBCKDkB
+	 RzXUP4FTkx0KI/8VcpE0x74RydSvJl7o2hrGlQl2AVeEy9oXVROoLv1j/W/yBtKjXFzrR
+	 ZrjTpslh6afVBQ5HyrwkH7SWGfKg9r1NOTJIT89mjvausfCW5NHsWF3yjw1OsahUTbGMS
+	 fRSDtjMqCynMqjShDKMkyIKOo9U6C779b9sVKCN4CEGKeDVFIQGyXIjmhhiRwSq73d4Uj
+	 vOWKeriOIrCGejUFCN41P7neX5IuuG7W17i4Af7XRGHTHBC+xawZT9j9DTd3ygUF5Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=txOigOOP;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0VlN2uOp;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29789606A326
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29789606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32185606A324
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:37:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32185606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=txOigOOP
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35829219da8so3604794eec.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 23:25:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0VlN2uOp
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso814238a91.2
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 23:37:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793514347; x=1794119147; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793515047; x=1794119847; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1KBDUNc4iTIsRLtb0D3MF9g5k9EN16h0slF6SZ+zPLw=;
-        b=txOigOOP2IN2jI9I7SmGd4eeQSjSj+yGDKCIP6k3JrI1HFRdjP3ynocefzG+ushIp4
-         jZoHviabawNBaUWWo+ruDtKzl1HziTMaM5TOl+jSZSRJrPM4BK4c45DBiPNg10pdPXyj
-         Sc8+2u38oHi+07QT8zUMhuPAE9B9sU7fFIiJZ4QUxItftHFBQvVnxHoH250sOs0efk9D
-         n361AKHO4d79hOscsMCf1AvhkPQKIMIdlikeel3EiL+YmJ7n1u+OmNTm5qMF4OxzM6JU
-         owoWIskQNYTYDRkekHG1cZQ5q55GXF5H1OVRsNgyU9rItLZnVCs35pFmdWlUiC4y/OCF
-         J1pg==
+        bh=kaRMUeDRl+naPmm3qUT+oBT7oJDOZeWGKzT1v2c6cow=;
+        b=0VlN2uOpa2rBfHqz+P34UFeI4XmM/oV6fVJXakdvt5wrQMb1FoS5ag3HPzYt85TOH1
+         xa6XLyiYexXf+CY0aD+FHXC0HjFxalWv0GNXi8z8taU/5lMat5legdx73GyDwsIa+Wwo
+         FG00l+6/zUs0jtBM+nZTM5E9sXDhFmSCCyiIGoMmXxp5ge5Y3T5NAVBs54cjUpiuGSLN
+         /W24FxFL7gLyTt5rkjN7e69qdPGzGQe9eTSDW7V3p0qGRYB3Urd3L/wtCdMm51jB8UNO
+         w3mruK/a7WrXjU6mIzmjM0EO1DnVVHiyI/VyO3TVlvqWixy4dfvia1QSdhs9MYcJSrM3
+         NAsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793514347; x=1794119147;
+        d=1e100.net; s=20260707; t=1793515047; x=1794119847;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1KBDUNc4iTIsRLtb0D3MF9g5k9EN16h0slF6SZ+zPLw=;
-        b=QxY7/pzIW+ZZ0JJKFjFfNIPhzy035SqGNUSVARo2FOzn3znIEmYwoJoxdADOT6WxCJ
-         IWima7t0bATPz90YYW7wK8KKkjO+VMHNuPjkr1waF1Qhck0/aA8NlfNy5FVtTmoSAxkp
-         UMcGnyYkWNbyCj+J3nIWFub1cGIaG2aSItyC57Fz4Mvwrp4QKt0gH10skO32eNCITHy1
-         aWYZR4AvRJsYF8gKCfusX4mT0dxzTvFHwUKAUqmYQJl23674hi7AnbmLHeBtPe/sqOyF
-         cFlnsrV/yRaPbiOqk/jwZe41kcVo+A1NJr9cvWGRLbqFM7y0nTXbVljMZWrI+qqklyGJ
-         ECpg==
-X-Forwarded-Encrypted: i=1; AKwUvBylN+PrgAEATxobPAjeU7VrJkEA+rWn4bKxoQLQMOZKjf8/0Onc9q3R46526WkMf2YnLQeuNfM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+yVmLWCHq7sAxzqmyIGphXtL/nre+a8Zeg2/rhUustboIX2KJJ
-	ooRH1x2cW+QUf4Cy7a2NOF8foqD0tnZDeUQ8LDSUCj9ojLZ4FH3GbtEk
-X-Gm-Gg: AYBFou2AuLlWuz7/Sqw5kc537rI8CpkXOiqLpWVNRqkPrlcIjWcof0SKFINmRgRD0GG
-	Xjs3ifRjPj/dkrx2vH3EIIuozJI8c6CtXGH7L6nEoFKef34dOO5kV/+AZLrRtlkNzz8ST57Er6e
-	hWC6MsNPReZrvrbaUOnS793ub3Up6Rl6OWyOc2MKGnJoYootpnXolGhfvtSuWeIPBpPtnIu4qon
-	GQcmr8GJVjGz8t24sh2po/4Gb+ICnEZ5WytFg34YWSWhKym3BbWish+jmOJmCHedT7YoyE6eQ3C
-	llDfu9tgYkpvgxEJlTm/WD7YSXn3M70y1sjfdieqB+OyFEB5Z6eagbnUlpDO3KsVciykAhR/T0j
-	usrNpIh/GQVVhhSZc9MXxxWsLchCnDs574NymMne7JjXxz+EpJxjIoCoCH8NMhfBCfFJ5ORhugv
-	ylIt47Q1LRNytZU717U4pGmiga317xN6AbuyD+2GgEGolKsudJnO6VQL07M1An7Zs0JZIWsdB6K
-	mYo83fFBaRni2gOQWhbia50TNsZdpf7ISOlgQjLLvjjfRWMhJn1IhWDFzG3W7HkfaAmLL6IhAgo
-	xIkn9EzGk9AgaJ5LppWZ9gTz0HnqQtVnjvM4QlLTd7kdmC9421HLAsT9j0eSTFlX1mzc
-X-Received: by 2002:a05:693c:6393:20b0:359:3991:ce1a with SMTP id 5a478bee46e88-36a30051a55mr14423643eec.16.1793514347104;
-        Sat, 31 Oct 2026 23:25:47 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af91bsm23556242eec.8.2026.10.31.23.25.44
+        bh=kaRMUeDRl+naPmm3qUT+oBT7oJDOZeWGKzT1v2c6cow=;
+        b=EZDP+QCI367DmgPRXWXumy8Y6ULARRGiZOkyNXZFba2Ln2yZ/lasUYsDPQMHguiaMK
+         lzFgTNO1O6+YW9QGV88Cfsdn5tDzX2imUKp74HL/DR3J1g4VwR5e3LSZKWt7b0PDqET2
+         dgyi83JZT0ntjF6o3u0x4btbvkVdk4o50e5v01MEa5iJYodZ7Ifa1uM49cw9RvBXtzkp
+         gyi0q9nK+Rfydx/F5H17OxXIPidqVDsyyUS4obfMcwuoUoNS05HLT04jlDMWxhuSUCp8
+         NbiHMF9hMSQo/TvdH80xrq23S8k81N8v0QA6nR7f88VpYpb1KU+3gs9mVcxBq3eh9EJT
+         kilg==
+X-Forwarded-Encrypted: i=1; AKwUvBxdSUYBRbNIvs6LaEF/akzbJrG7oW5pL4ugoFHJ2NbO2MzMDCaiM5m72OuBgPXhs8kmZ7BBxXc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/FcXvHOTvQqdxRDVDGrgHmfD+JAV4LCHuJUh1Goek8oGo5IK+
+	VCFnXIcUbCSi7THq2EfA+G/AfxlNHArEYZDPP++KodFNyzoC8SNG9pAm
+X-Gm-Gg: AYBFou3OX1PtXQT1EPit+aWYvQ3lOlLUeL0CDyylWAtz1z/NbWraXpUHkZWNZ3blyIJ
+	s5nHucVQB5L8mAwQnNZnUPIDqXd4UD4+t5/pJ4t2oK2Al3a2IzSq5eubk8wz30lV8b7IqqgeJjG
+	ZLclofIzp8F54CUZnPuCGh6319oc3edrlQQ2RNFYunDribldS6dzxu/cv+NyMoMldwnggxQQTKV
+	okQa8BJxyFJ6RkgKE7AVNLiya1gy28YqQW15PsEOTA2NihO9jBXodObo8xZewYAH1dMGB5opvUa
+	UeS+0+aKcJs9g/kacQQmQRvKRgod09AsIj6v+qv32UQaodvwCr41inUT5sGTA5ws0FsYl46t/2T
+	Nh6npAkDygeoRTC1DB9AGhiSubItlluYqv1P8DK0DaRjQIugZ50vSTNYdmufzObArazOl2IbDQc
+	5bnYLWeoZK3bbooQw9ZQZK35fmWSelCh1lsI6Nkw580gkImQH6GxtEd4meabz0zf1xElcTBqXP4
+	ZSycc4xRqxw8LDJwpIPxH0fqvk8fzksKqg4oITljBxj6Vrab3VidnXd7pXmLG2f/wbkRnFV5YIB
+	FA/JG26V37bauR9bWR9vcRupZwORSRDKk8DZyk1Twmy9ENg=
+X-Received: by 2002:a17:90b:268a:b0:3ac:7c52:faeb with SMTP id 98e67ed59e1d1-3ae89769d66mr5583408a91.41.1793515047409;
+        Sat, 31 Oct 2026 23:37:27 -0700 (PDT)
+Received: from ubuntu24.vpn.host.chaitin.net ([124.77.157.93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f3e087sm5465907a91.1.2026.10.31.23.37.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 23:25:46 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Qu Wenruo <quwenruo.btrfs@gmx.com>,
-	linux-btrfs@vger.kernel.org,
+        Sat, 31 Oct 2026 23:37:27 -0700 (PDT)
+From: BeaCox <0xbeac@gmail.com>
+To: Jaehoon Chung <jh80.chung@samsung.com>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Cheng Yongkang <teel4res@gmail.com>
-Subject: [PATCH v2] btrfs: reject refs=0 subvolume without DEAD in SUBVOL_SYNC_WAIT
-Date: Sat, 31 Oct 2026 23:25:39 -0700
-Message-Id: <20261101062539.1744605-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org
+Subject: [RFC PATCH] mmc: dw_mmc: disable bh_work and stop timers on remove
+Date: Sun,  1 Nov 2026 14:37:19 +0800
+Message-ID: <20261101063719.88570-1-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,92 +99,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-btrfs_ioctl_subvol_sync() assumes that a cached root with zero
-references has BTRFS_ROOT_SUBVOL_DEAD set, and asserts that before
-waiting for the cleaner. Two states break the assumption:
+dw_mci_remove() does not drain bh_work before the driver core releases
+the devm-managed host. The interrupt handler, watchdog, fault-injection
+timer and DMA completion path can queue that work, whose callback
+accesses the host and MMC request state.
 
-- A corrupt ROOT_ITEM with zero references and a matching orphan item,
-  on a writable filesystem.
-- A failed subvolume deletion. btrfs_delete_subvolume() zeroes the
-  root references, aborts the transaction, which forces the filesystem
-  read-only, and then clears DEAD again. No on-disk metadata is
-  corrupted in this case.
+After removing the MMC host and masking controller interrupts, drain
+the interrupt handler and disable bh_work synchronously. Disabling the
+work also rejects later queue attempts, unlike cancellation alone.
+Stop both timers after the work callback has finished so that it cannot
+rearm a timer after teardown has cancelled it.
 
-With CONFIG_BTRFS_ASSERT=y, both reach a BUG().
+The analysis, patch and validation were assisted by OpenAI Codex.
 
-Before waiting for a deleted subvolume, return -EROFS if the
-filesystem is read-only, since the cleaner does not drop dead roots
-then. The check runs on every iteration, so it also stops a waiter
-when the filesystem becomes read-only during the wait. Subvolume
-deletion holds subvol_sem for writing across the abort and the DEAD
-rollback, and each iteration takes it for reading before inspecting
-the root, so the read-only state and the cleared flag are seen
-together. On a writable filesystem, report a zero-reference root
-without DEAD and return -EUCLEAN instead of asserting.
-
-Subvolumes that were not deleted or do not exist still return -EEXIST
-and -ENOENT, also on a read-only filesystem.
-
-Tested on btrfs for-next with CONFIG_BTRFS_ASSERT=y. A deletion made
-to fail by fault injection after the references are cleared hits the
-assertion in SUBVOL_SYNC_WAIT without this change and gets -EROFS with
-it. A waiter on a deleted subvolume now returns -EROFS when the
-filesystem is remounted read-only, instead of waiting until it is
-signalled.
-
-Fixes: 6c83d153ed86 ("btrfs: add new ioctl to wait for cleaned subvolumes")
+Fixes: 921c87ba3893 ("mmc: Convert from tasklet to BH workqueue")
 Cc: stable@vger.kernel.org
-Suggested-by: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Link: https://lore.kernel.org/linux-btrfs/dd97efe9-91ec-495b-b698-acff1447421c@gmx.com/
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Signed-off-by: BeaCox <0xbeac@gmail.com>
 ---
-Changes in v2:
-- Return -EROFS on a read-only filesystem before waiting for a deleted
-  subvolume (Qu).
-- Use unlikely() for the inconsistent-root check (Qu).
-- Describe the failed-delete case separately from corrupt metadata.
-- Add the Fixes tag and Cc stable.
+Testing: x86_64 object build with gcc 13.3 and W=1, with
+CONFIG_FAULT_INJECTION enabled and disabled. A userspace model of the
+extracted remove function checks pending work and modeled late IRQ/timer
+queue attempts. It is an ordering check, not a kernel reproducer.
 
-v1: https://lore.kernel.org/linux-btrfs/20261025180258.349175-1-teel4res@gmail.com/
+No matching hardware, kernel crash trace or demonstrated unprivileged
+trigger is available. Please review the MMC shutdown assumptions and
+external DMA callback lifetime. This is an RFC for a teardown fix; no
+privilege-escalation or CVE eligibility claim is made.
 
-Testing notes (btrfs for-next d1dca33127ef, KASAN):
-- The fault-injection case reached the cleared-references state in 2
-  of 4 attempts on each kernel. The other attempts aborted earlier, and
-  both kernels returned -EEXIST.
-- FOR_ONE, FOR_QUEUED, COUNT and PEEK return the same results with and
-  without this change for live, missing and deleted subvolumes, on
-  writable and read-only mounts.
-- The -EUCLEAN branch was not exercised. A crafted image with a
-  zero-reference root and no DEAD flag hits the assertion without this
-  change, but remounting that image read-write stalls in a transaction
-  commit with or without this change, before the filesystem becomes
-  writable.
+ drivers/mmc/host/dw_mmc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- fs/btrfs/ioctl.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 9857d6a9d456..5a1f2edfd831 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -5166,8 +5166,14 @@ static int btrfs_ioctl_subvol_sync(struct btrfs_fs_info *fs_info, void __user *a
- 			return -ENOENT;
+diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
+index ff0b25d287..cc5e163ee7 100644
+--- a/drivers/mmc/host/dw_mmc.c
++++ b/drivers/mmc/host/dw_mmc.c
+@@ -3406,6 +3406,12 @@ void dw_mci_remove(struct dw_mci *host)
+ 	mci_writel(host, RINTSTS, 0xFFFFFFFF);
+ 	mci_writel(host, INTMASK, 0); /* disable all mmc interrupt first */
  
- 		wait_for_deletion = true;
--		ASSERT(root_flags & BTRFS_ROOT_SUBVOL_DEAD, "root_flags=0x%llx",
--		       root_flags);
-+		if (unlikely(test_bit(BTRFS_FS_STATE_RO, &fs_info->fs_state)))
-+			return -EROFS;
-+		if (unlikely(!(root_flags & BTRFS_ROOT_SUBVOL_DEAD))) {
-+			btrfs_err(fs_info,
-+				  "subvol %llu has refs 0 without DEAD flag",
-+				  args.subvolid);
-+			return -EUCLEAN;
-+		}
- 		sched_ret = schedule_timeout_interruptible(HZ);
- 		/* Early wake up or error. */
- 		if (sched_ret != 0)
++	synchronize_irq(host->irq);
++	/* Stop the work before cancelling timers that it can rearm. */
++	disable_work_sync(&host->bh_work);
++	dw_mci_stop_fault_timer(host);
++	hrtimer_cancel(&host->wd_timer);
++
+ 	/* disable clock to CIU */
+ 	mci_writel(host, CLKENA, 0);
+ 	mci_writel(host, CLKSRC, 0);
 
-base-commit: d1dca33127efacd86ac550aa86352f8ea9f29a5a
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
 -- 
-2.34.1
+2.43.0
+
