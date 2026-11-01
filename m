@@ -1,55 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793500859;
-	b=4+vGPiR+a65pS0R/7VpKK0DV9Fe7/+UlhfHJdVOPqrlvDi/Z9DFTqaCSt5jcYk5wOwE8
-	 RHVlpyfEXTIG0+BCL9wYKpB5CKxavhyXD8lpFfV3xpch+6KREaMpPNMyTFAmeGca7R302
-	 SNbBKO7vV4FjDwzHXWaBrhx6qMRzYw01XtaVVOR+irwo4dtI5gpfWOpRdJvw/9OyocwNR
-	 W7yBFDB54u/TOuiWuUBWb50eQyEzuxoCxNzf712tUuxUfNvCrFB8UwxqPpaucgaNMrYZG
-	 OZhtC5sE08la5fREN+FtjAFtL/L/TrTKwz3YCku3SMXJYMkrDLBSwD1HFK4in95iLgA==
+	t=1793500985;
+	b=xkj0jwgdzFvUbsLeDSoKthotMpixCR1EAs79lHtGz1S0RF0PjxCwR8ilAzrjcqQZ20dE
+	 wGFM58eynuOmu7aBJ8zAmgfQ/KOhj0jxc3Ygf83ulrpynKsFZmpxkCGarC7OgayZEx1RX
+	 S6wOOBGMogkM7xyE1O6oQraGPsSReGHZwpAmsGL2xli59fMRcD2G9sNtpDFFOwup9KiDX
+	 Tma/ExiK0q876+I6XiFHiAqrrweaDMcd/c7W8f7+paORl1za8LB2UsOu5kD8Lr4NOD7TW
+	 wyj6AwDXVjKq/L9W2B8sTpvQoeBH1YcxTvGgNshCLF5QRjw0uQCDWe0cobkE6621yrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793500859;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vtgNBTDMW/DtrGtv/8hkAbq35pBY5cFFg+9Km6ShdQ4=;
-	b=xyIQP2bVYkNU3LW1Xb9dtwkkfB0I0suQsBAmIHoMQyiu8NIbAxXF3UiHnOlyHVBO7nGY
-	 ccT+djIady4lGn1mLxuWaoTsHy2g6u+zPT9G60byBn8OcDsCEqKau93B4DLxsVCmCXipS
-	 U++cXtEx0IZuhPLajNm1FPce46rgn8qYHP8x78WrcJnRdk/f7KFSiFNzVriKBXEbAjAzv
-	 ghywlGd/ovc/oHgMd5SszyKDx3lGO01n4LbA3VJS7pbzWC2yDJ602Etgnri0dZ1Mbor4f
-	 l6P0/swiAW9zhCiseKPPjB3OD9EDVK3iQkEK8UAWxXh98GFPmWqSD7pBK1BsX12pHTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793500985;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=td/iMtOuYstq/gC3+MS2yZ7PQiaQQwgkuy5p24lBfvA=;
+	b=Oxfdq+3GPPP30AcuYzbZGBNgTdy10q/3pTa2e/6NdkI2xTnMhhdwamfYOGfN7LisXKJJ
+	 BTq8d9p02YOyPoQL0SL65nWl97zhM8/t94TSm7G1FpaKrIjM3s5U5yzZRMLFTyHcS28wz
+	 bJ9ScvUdMS7BvSDTIFzi7WDBrSaBOtDg3aHLtLS+xKchn8YVFc46pUZaSTYWywNxLEhnQ
+	 mCOET2Q8eJOVRpWxrHbqgGeSTcjP+vgJqDuh3n/q4HAcnqezv2iU0inNZw7gmwQBTptfB
+	 mytE8x2v3q0HjZwKbGxUfclMOldC65HzvqYefXAn2cZl2Awej10k0M3yh00LZMGWBEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=w8ubrdgQ;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vGG+FTf0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CD81606A324;
-	Sun,  1 Nov 2026 02:40:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D73606A324;
+	Sun,  1 Nov 2026 02:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=w8ubrdgQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810C41F0093A;
-	Sun,  1 Nov 2026 02:40:58 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vGG+FTf0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32B8F1F000C1;
+	Sun,  1 Nov 2026 02:43:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793500858;
-	bh=vtgNBTDMW/DtrGtv/8hkAbq35pBY5cFFg+9Km6ShdQ4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=w8ubrdgQ1H/88s1oR8DPOKefcURK6dl+7lDkz06LB+py/vNtwV5SmJt623XeYDEPG
-	 MmQJmYnC4dazZopFbfUqdgOKXd1qQ5jzZTsIGyf5XJsbvppfZbm0CCL6SFvmZzHExJ
-	 h2qnSkEyYWst05ejBOP+EHuEFy/ccuXV1qGDpCnI=
-Date: Sat, 31 Oct 2026 19:40:58 -0700
+	d=linux-foundation.org; s=korg; t=1793500984;
+	bh=td/iMtOuYstq/gC3+MS2yZ7PQiaQQwgkuy5p24lBfvA=;
+	h=Date:To:From:Subject;
+	b=vGG+FTf0gYXA18QOsaTkzYndpxyn//5Rd1MGS8hNHBLvm7jgHvuf45oZym91LAe0/
+	 4LUKmWAgbKHcYJ9ZfWr5JDEURxbN/2SIENY0nFzqKe7ohGGklJIDkyQrCl4bN1IC6i
+	 ydH+hxt2i3SAW7REl2WZ16g8favYAt6AGOi7FFxg=
+Date: Sat, 31 Oct 2026 19:43:03 -0700
+To: mm-commits@vger.kernel.org,tz2294@columbia.edu,stable@vger.kernel.org,
+	peterx@redhat.com,azpijr@gmail.com,rppt@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-To: Samiullah Khawaja <skhawaja@google.com>
-Cc: David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Andy
- Lutomirski <luto@amacapital.net>, Chris Mason <mason@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/gup: check folio->mapping under folio lock in
- memfd_pin_folios()
-Message-Id: <20261031194058.d3bd25ed950e5340ab595f07@linux-foundation.org>
-In-Reply-To: <20261031203540.2282507-1-skhawaja@google.com>
-References: <20261031203540.2282507-1-skhawaja@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Subject: + userfaultfd-clear-uffd-state-in-child-ptes-if-uffd-is-released-during-fork.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261101024304.32B8F1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,34 +49,153 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sat, 31 Oct 2026 20:35:40 +0000 Samiullah Khawaja <skhawaja@google.com> wrote:
 
-> memfd_pin_folios() pins folios from the page cache without taking the
-> folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
-> its refcount check while memfd_pin_folios() still pins the old folio,
-> and the caller ends up with a folio that is no longer part of the memfd.
-> 
-> Lock the folio and recheck folio->mapping before pinning it, like other
-> page cache users do. If the folio was removed, retry the folio lookup
-> from the index that was removed.
+The patch titled
+     Subject: userfaultfd: clear uffd state in child PTEs if uffd is released during fork
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     userfaultfd-clear-uffd-state-in-child-ptes-if-uffd-is-released-during-fork.patch
 
-Can we please include a clear description of the userspace-visible
-runtime effects of the bug?
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/userfaultfd-clear-uffd-state-in-child-ptes-if-uffd-is-released-during-fork.patch
 
-> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
-> Reported-by: Andy Lutomirski <luto@amacapital.net>
-> Closes: https://lore.kernel.org/all/CALCETrV5eqg6d9=+BQhCpRwBNe3aCQiut8vxPBs8b7PToqjaHg@mail.gmail.com/
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Includes the words
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-> The issue is live update doesn't preserve those background punched
-> folios and now we have created an UAF attack on the kernel across
-> kexec if you don't do something about it.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Is that the extent of it, or are there other effects?
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
+------------------------------------------------------
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Subject: userfaultfd: clear uffd state in child PTEs if uffd is released during fork
+Date: Sat, 31 Oct 2026 20:14:03 +0200
+
+With UFFD_FEATURE_EVENT_FORK the userfaultfd context is duplicated for the
+child process, the child VMAs are registered with the new context, and
+uffd protection state from the parent PTEs is copied into the child.
+
+If the parent's userfaultfd is released before the fork event is read,
+userfaultfd_release_new() resets the VMA flags but keeps uffd state in the
+child PTEs.
+
+This leaves the child's VMAs in an inconsistent state: they are not
+registered with userfaultfd but their mappings carry uffd protection
+state.
+
+If the child registers the range with userfaultfd again, the stale state
+turns into protection the child never asked for.
+
+When a write fault makes such a PTE writable without copying the page, the
+uffd bit remains set and page_table_check_pte_flags() warns about it.
+
+Split resolving of the uffd PTE state out of userfaultfd_clear_vma() and
+call it from userfaultfd_release_new() before resetting the VMA.
+
+Link: https://lore.kernel.org/20261031-uffd-prot-bits-fork-event-v2-1-c448e57df417@kernel.org
+Fixes: f369b07c8614 ("mm/uffd: reset write protection when unregister with wp-mode")
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+Tested-by: Tal Zussman <tz2294@columbia.edu>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/userfaultfd.c |   47 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 30 insertions(+), 17 deletions(-)
+
+--- a/mm/userfaultfd.c~userfaultfd-clear-uffd-state-in-child-ptes-if-uffd-is-released-during-fork
++++ a/mm/userfaultfd.c
+@@ -2219,6 +2219,32 @@ static void userfaultfd_reset_ctx(struct
+ 	userfaultfd_set_ctx(vma, NULL, 0);
+ }
+ 
++/*
++ * Clear uffd state from a WP or RWP range: the uffd bit, WP markers and
++ * RWP PAGE_NONE entries. Call this before dropping the registration, as it
++ * needs the VMA flags to know what to resolve.
++ */
++static void userfaultfd_clear_ptes(struct vm_area_struct *vma,
++		unsigned long start, unsigned long end)
++{
++	unsigned int mm_cp_flags = 0;
++	struct mmu_gather tlb;
++
++	if (!userfaultfd_protected(vma))
++		return;
++
++	if (userfaultfd_wp(vma))
++		mm_cp_flags |= MM_CP_UFFD_WP_RESOLVE;
++	if (userfaultfd_rwp(vma))
++		mm_cp_flags |= MM_CP_UFFD_RWP_RESOLVE;
++	if (vma_wants_manual_pte_write_upgrade(vma))
++		mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
++
++	tlb_gather_mmu(&tlb, vma->vm_mm);
++	change_protection(&tlb, vma, start, end, mm_cp_flags);
++	tlb_finish_mmu(&tlb);
++}
++
+ static struct vm_area_struct *userfaultfd_clear_vma(struct vma_iterator *vmi,
+ 					     struct vm_area_struct *prev,
+ 					     struct vm_area_struct *vma,
+@@ -2238,22 +2264,7 @@ static struct vm_area_struct *userfaultf
+ 	if (start == vma->vm_start && end == vma->vm_end)
+ 		give_up_on_oom = true;
+ 
+-	/* Clear the uffd bit and/or restore protnone PTEs */
+-	if (userfaultfd_protected(vma)) {
+-		unsigned int mm_cp_flags = 0;
+-		struct mmu_gather tlb;
+-
+-		if (userfaultfd_wp(vma))
+-			mm_cp_flags |= MM_CP_UFFD_WP_RESOLVE;
+-		if (userfaultfd_rwp(vma))
+-			mm_cp_flags |= MM_CP_UFFD_RWP_RESOLVE;
+-		if (vma_wants_manual_pte_write_upgrade(vma))
+-			mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
+-
+-		tlb_gather_mmu(&tlb, vma->vm_mm);
+-		change_protection(&tlb, vma, start, end, mm_cp_flags);
+-		tlb_finish_mmu(&tlb);
+-	}
++	userfaultfd_clear_ptes(vma, start, end);
+ 
+ 	ret = vma_modify_flags_uffd(vmi, prev, vma, start, end,
+ 				    &new_vma_flags, NULL_VM_UFFD_CTX,
+@@ -2352,8 +2363,10 @@ static void userfaultfd_release_new(stru
+ 	/* the various vma->vm_userfaultfd_ctx still points to it */
+ 	mmap_write_lock(mm);
+ 	for_each_vma(vmi, vma) {
+-		if (vma->vm_userfaultfd_ctx.ctx == ctx)
++		if (vma->vm_userfaultfd_ctx.ctx == ctx) {
++			userfaultfd_clear_ptes(vma, vma->vm_start, vma->vm_end);
+ 			userfaultfd_reset_ctx(vma);
++		}
+ 	}
+ 	mmap_write_unlock(mm);
+ }
+_
+
+Patches currently in -mm which might be from rppt@kernel.org are
+
+mm-cma-accept-memory-of-multi-range-cma-areas.patch
+mm-cma-accept-memory-of-cma-areas-reserved-at-a-fixed-address.patch
+userfaultfd-clear-uffd-state-in-child-ptes-if-uffd-is-released-during-fork.patch
+hibernation-make-swsusp_page-helpers-static.patch
+hibernation-ensure-secretmem-pages-dont-reach-a-snapshot.patch
+hibernate-handle-potential-errors-in-hibernate_mapunmap_page.patch
+hibernation-kfence-explicitly-map-unmap-kfence-pages.patch
+hibernation-make-hibernation-unavailable-when-debug_pagealloc-is-on.patch
 
