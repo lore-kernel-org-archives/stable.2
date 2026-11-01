@@ -1,96 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793496331;
-	b=p2WStUw3ZlniFxLYt0U3QLyxFdn6fJwLpU9K6RLoFSVRTZyu3oEDCs7l2czv/XwDDq9A
-	 wPH+YK+x02DZ3xSZEJ70ZRFdetzM6JK8O8cUXBt4WLNP/92ibXXdk/S0INjmagcnDx/Cs
-	 SJpLrCk9uJlA19DEbI0Ms/m1V4/LPb7FsxNkWVKPDUpYiX/eLMPbP6YCHKMX/pxv5Vw2V
-	 UTMaNCLpleXUWrqm/rOuGOGGDGl39F8xiGxxN7QhD4RRbyafMDX40YsKQMQHC4gaH9Ru5
-	 bJrQe8EAZNstFEMjalL3HCqzonkEmTvFFFIajlIFYsXihWYKXq5q0vvjFquC56oUcIQ==
+	t=1793496380;
+	b=Bx/CrUlM+nWcMHHh01lRg6wsAc+WpmWAi9xFmSQMf+fUn741aq5Pc+ASr+Yizb9gXZwt
+	 Bu092X8Ba3aEzfO9H/OrucfobyW9BXa0EYF14UbJdJWRZ8bqyFr3mLC2ibE1Wu42doVcm
+	 SQs1oPsH6BcxhAU1F+dlbyFzACzN7yhIcuxDjdpwc3e57IGnw+56uTprNmdIbhwlbJ8/1
+	 arqekx/DLAZSL9rCAiQeWvqty53TJX1CN7VkDLKbey9c7lDLUVttos+LSmajKkxDv1VWl
+	 2CuX1gthbpYdQahHo5Nucd+sgxzZQvwba1+XlXv9A24jSMGH3pUH/IbZFlEry7dfF3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793496331;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793496380;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Sender:From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
-	b=WYszKba3LFIaafaLqx8A9KAFb6XwKGx3sAcEjxWBMqrZ+sXOPibbyggl3yZLHWFx1Yrt
-	 f/D4vE7O3KSN6N3Fr7al1qypfKOAfRKo/hBlw9xKGPsWa60OasaRurOFTH0gngt94/yTb
-	 WHZJYdUhwdttMPyzGV+TZO6H96M1xVVIDY9l1zvAcDlM1WcvTeH8wCYe5ESXpyxX4rtd9
-	 MBSrPFn2r11fHygeZDMhW+m9ju0RcimE4ohawCFJBe20OJGq9FPnSZx0MHibCXFPIPZmL
-	 It8rwRroRDYHHx20+1udFFQcxKzN3ovgU6iz9Ee1BA3fxlTZ61iPfBWQKlkLfUIu9kQ==
+	bh=YIO/wuqnNRfPuoyQxCQ5Pvo+F5MRblOAdwgMq3xL4Lc=;
+	b=F5xuOWUad8a9BOXOd5y3r8Npk5KaZ2cX5JStFnNAuuO+wktcC5hl49mabyjnvIFFtz2d
+	 41nGhfs8nV1eI2FlWkfm6tQyAO3DIBdhnS4PcgMGHjGFXe543L7+2BCmj0FDL2RcYTLYA
+	 uBK4qczzWsTlymsH4Z53UvPLbhjzY78y8dAEcVcf+uGK8kISLIMw/HGjEnwquPjzDYc/v
+	 roe8ED7r0DqADGRvVnu5IjbKUgYZXDlNH18mFwli7pbvr1qqeD/nOZn9+nlj5R8v5TroX
+	 Odj6rpp7NE+xyYZWHWheCxkOaLE59DdK1xh0m/ftgihB6LhxD8V54r9Lg6gAMhF+qvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zzqmsNhJ;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NZdzdKzz;
+	arc=none smtp.remote-ip=209.85.217.49
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA51E606A31A
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 01:25:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA51E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8410606A31D
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 01:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8410606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zzqmsNhJ
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93efc0452b5so124636885a.0
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 18:25:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NZdzdKzz
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c03744ef27so600409137.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 18:26:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793496330; x=1794101130; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
-        b=zzqmsNhJEDMfPIIaAUYX/v6Fsch4Y8lYJ6s+0OBgZ+huSDth5hcGBiCf15DYpEXHsg
-         IbTfx8bbGq26DkTqtABxRXxXj77WOvUGw8HdvBpUI/6rIhDnE1CZLEzFQr1V4kFDN5U/
-         XVlnccDeWIW3pd2Zc8+rzNroxTgI6GQl8EsV1hS1u9S2lowukjlLaCqfNvD/sqsenqlj
-         QY75ozAVw/4pN6uimjn7NoZUR2rqO6E2py9zo6vYlGCS/N3ulpxIq9lZDttem6amnspu
-         9ya5W0x4GkM707xUs0MGf0GtNSyGXnNpgYBFZxQdqYGDNNobZh37Ez90AvV11gNz6AGi
-         tKtQ==
+        d=gmail.com; s=20260707; t=1793496379; x=1794101179; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YIO/wuqnNRfPuoyQxCQ5Pvo+F5MRblOAdwgMq3xL4Lc=;
+        b=NZdzdKzzFe070I/A4X0Fc37wFboISxd+dXeprLXL93hPsdzyrxnOaSYC/oKSwdpRBm
+         lpn3m96r40JJqJzs89RLwlSccm9pWzFYp/Emofr0XL3WgAQ7UlSHV8dfA3KNYpWvX+lK
+         wgkjgGR/8jfPobWkC/VnLPZHmkOS7JyCD9b6AoIPE87MXiquya17jytSlyBh0lS9Ii1z
+         6eLpAa4nDORZ9DmL5U0qabmWsvJ8r2n242dLo565TSVzWBbaeWkXZ5M9gghEhvX8eIpS
+         UsRLUsJh2hAj96GuQY74YSZnzPsQcWumuMikix9nioU3RlzSJdu7NLcjsL+Pz7CBOjdj
+         7fEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793496330; x=1794101130;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
-        b=0dWmK15VS4bT+9/woYpDSRFlU6tB4NWlxZyFQHa2izGe5rsw44zHfYrSdWoiCFsLsx
-         JzXquLnL9RuZb2/a7jV0BjBsZAdf2w6AGEn+2xwwqpH6+KE+elowkNDgE6nWn/vQLx2u
-         ug8FoXGS381JcADQ8dTtLDwGnDiFIZ1ERxbv54ThMXSziJvCkP3Jdk+paBbg3DXnorgl
-         rEwqz7Y82trRPReZlD/IdhCdQeVTwS/oH4D5D4zRVpxd9HO//CHxRJvlGSsjyGNlgOlj
-         rEk0WbKqrqXOh+UqNArSCMTmEb9lmoQY+GP7ijh9Ofa4APweEbw2Gci178BU0Cdo7Ntr
-         nYmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxegQK1QQkN8Q2rXDGZ1rVkpr5W5IZF1+VsWqtw4uXq4hHrbAG6SV5pmPNsvpWa0lnnLzvbBVw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0i+pYqbZ41XIiPL4HBnTMF/+wjbdjhvWJ/aJ45uwwYXh5rTo6
-	fc+9oSKct3FKjaWYDKF68kk9+u6asAvDce9pkChROYPUx65jeJ2JVY2B
-X-Gm-Gg: AYBFou1YO/NSJoWystnJyc5u9pHJPG2T1tikN33rUBmQtULYK8J1+n99FBXsKKVXZGu
-	fVEU4ykm6xScfW2vChH5LD1DE6fh5BRYZjFO8lj+6ZExctIb9MSxTwq03eLAIXpDXdLPATSAtYj
-	hdoyc9xRlu9SbIEP/BsYRijJk6V0fToNKNKAhnsfjlh56nv5o4gPv0wanfPC00XwkO/6PU5hMfl
-	cl2OtRPCwrJQIZyHxCy5hW+k60zZMOZ9TU/joDzvQe4KLxh7wSIYNOuQIjMyzE0IjcnVDDIKXR+
-	du+lMapHk4r35siNTrwHkR/gRyjg2GquBo0pz328O8Lf0tTYkyBNaZQTisaWXYFtdIfu5O8xN1M
-	35VfShnWcHMgf75RL6Kvo3CZGHokl5IrAty31CE0/PvcxNcoJZfr3hPaytobgPrrIfQkZCAkzzP
-	GKjF7rtsxcaSJVycEmqNA/wrYTd1bLDAs9tFiI4AlLhIHLEr+hf9tRQaOeNQMn5u3AxKMWUFy1p
-	XdVHMuPH+z/aBFRVVcE/FnQymZWtdnE9o3oj1d5KCqVSDneglQjJdwRt+H30QeerQ78seoNNDrR
-	cDGuXoe9867wI6sirXudr2KX4mWS43o7ltWyuSu2xki+scRdQIUhitqUMCAGWKOBLyFhnKAjhOw
-	m22H1o+rcPb2BP7TujLlKOq/mAzaHT/AIURa2
-X-Received: by 2002:a05:620a:3188:b0:943:ff70:dc00 with SMTP id af79cd13be357-9442174fc9emr1039734385a.56.1793496329626;
-        Sat, 31 Oct 2026 18:25:29 -0700 (PDT)
-Received: from olive.mynetworksettings.com ([2600:4040:b076:8700:60ba:f09c:358e:e7a7])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425ac5322sm493379285a.39.2026.10.31.18.25.29
+        d=1e100.net; s=20260707; t=1793496379; x=1794101179;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YIO/wuqnNRfPuoyQxCQ5Pvo+F5MRblOAdwgMq3xL4Lc=;
+        b=nzuCfNQGii1jEXAksMr5yDM/CNAuF9JPiZDmIqgVWZVsVsgB13RH8X4dYRcSBDDK46
+         iazUH1Ac9Oj0Hmd1LVBf9cwtkhedeQtRquku1eKtv6B0gkAMGb6cacAkc9DaGfBD3C8d
+         ZJv//M8fUm4WHbDxH4BLBH2CrWx7gYHBVu3figEnbkzOmDGeehiuszSSGEDNa7sAiwft
+         ZWZUIPHC4msORmwoqYg25iJeNgDKKT0NG8j0/Vq0oiyS8j4yUyvHogDtS9HIB663Vxf5
+         mdUKeNGgQa6l+QHi557zWP7P+njCa5emZzKqzCHbwR05hJvdGZSfqhoMq1YRwAUUAzT3
+         eXqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzk8b5G5JLerOQjLoX6SrTWJkj5jm2/i4oYlIZdPSdDPP3szen/zr5uCcxaIaSTARfN9lNsms=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrxDlM7qw1n/p4ByWS1HJubbwN2K+wGFSVXjXaSN8UFL2vIyZl
+	R5fw71xeEK0BR+iRs4x1bw9DPQjqRQHovrkmXVM0ncwEq/825qoGA/w3
+X-Gm-Gg: AYBFou3ze4972NdEuqej1Ok8rstgt7LidPwS8A01ARuwGjil8OpcNplZr4+jTFww9Tu
+	LxaBP24MyU3id/zjFw4LgLOvAnGWvPynD19y9ZYoroT/QOITfczIcf+X2qj4xccHVeHGArarXX1
+	AXY9jxUj6ggwMk8nvzqkWK8HwOCMcEljX4DCHi4RqMDgQjufcKiYZ7SjbNj3gNs35EmXA2AuxMp
+	xO3PJUiBJehVMNv7ZlMoWLCAl0+UXdJr9uaphA6HWPUffgUG6ium/ABKyAS5Pfrc/+RjxaNicCs
+	vW2DdKVGaBS89zseuBHsiIfe7voPpdh5ZkwfD/s8llXJaIF6yM1GpoTplzM3CvHr42Ibdzq8LHs
+	l8OxHgNbYchE6cFNjl7yaUBuzjI4M/R7SoZFigOPyzjPD/rOlguAt71uSDaHfQxW8UrvnUyGDaH
+	VQt8VzLELltURPw13bdfF/AyqDWLIDyzU2SQ3noAVGwLuDol6dAcgP2oX3GMs8QPZzN6dEVlBTd
+	QvAD8IC6qwuUlVMEreEQvJ/OeiSg4MVDg13CNsby3ptoVkrtebcJzVkgNWj8uoJx7GiSZtRY4Cb
+	3D0YrLj/xYMq8IWtuJaYAbYvhp5w2WkmJRweyQd2e8RzMy+KqKLBmDZ8GPYQ+HYJWNFFy92Drw=
+	=
+X-Received: by 2002:a05:6102:3309:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-7d072636f57mr2626543137.6.1793496378542;
+        Sat, 31 Oct 2026 18:26:18 -0700 (PDT)
+Received: from nb-x1-03 ([181.120.144.175])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1c6sm7089367137.3.2026.10.31.18.26.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 18:25:29 -0700 (PDT)
-From: Matthew Krebs <matthewkrebs8@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Matthew Krebs <matthewkrebs8@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: Only take the VRAM path for KFD device pages in svm_range_dma_map_dev
-Date: Sat, 31 Oct 2026 21:25:00 -0400
-Message-ID: <20261101012500.7048-1-matthewkrebs8@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sat, 31 Oct 2026 18:26:18 -0700 (PDT)
+Sender: Ciro Iriarte <ciro.iriarte@gmail.com>
+From: Ciro Iriarte <ciro.iriarte+software@gmail.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: target-devel@vger.kernel.org, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] scsi: target: core: Parse APTPL res_type and res_scope as hex
+Date: Sat, 31 Oct 2026 22:21:39 -0300
+Message-ID: <ea903e6c-09b5-4a11-80e8-6e1387f39ef5@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,99 +95,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-svm_range_dma_map_dev() treats every ZONE_DEVICE page returned by
-hmm_range_fault() as VRAM of the range's SVM BO. KFD's own VRAM pages
-are MEMORY_DEVICE_PRIVATE or MEMORY_DEVICE_COHERENT, but fsdax
-(MEMORY_DEVICE_FS_DAX) and device-dax (MEMORY_DEVICE_GENERIC) pages are
-ZONE_DEVICE too. They are system memory.
+core_scsi3_update_aptpl_buf() saves the reservation holder's type and
+scope to the APTPL metadata file as zero-padded hex ("res_type=%02x",
+"res_scope=%02x"), but target_pr_res_aptpl_metadata_store() reads them
+back with "%d" tokens and match_int(), which parse with base 0. A
+leading zero selects octal, so match_token() parses only the "0" of
+"res_type=08", the trailing "8" makes the token not match, and the field
+is ignored as unknown. An Exclusive Access - All Registrants holder
+(type 0x8) is left with type 0 and the write fails with -EINVAL and
 
-When a process maps a file on a filesystem mounted with -o dax and lets
-the GPU access it (for example hipMemcpy() from the mapping, which
-registers the range through the SVM ioctl), the range is in system
-memory and prange->svm_bo is NULL, so the VRAM branch dereferences it:
+  Illegal PR type: 0x00 for reservation holder
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000078
-  RIP: 0010:svm_range_dma_map_dev+0x13b/0x300 [amdgpu]
-  Call Trace:
-   svm_range_validate_and_map+0x600/0xa70 [amdgpu]
-   svm_range_set_attr+0x450/0x8c0 [amdgpu]
-   svm_ioctl+0x62/0x80 [amdgpu]
-   kfd_ioctl_svm+0x5e/0xe0 [amdgpu]
-   kfd_ioctl+0x532/0x680 [amdgpu]
+Userspace that restores APTPL state by writing the saved records back
+to pr/res_aptpl_metadata (rtslib-fb does this when it recreates a
+storage object) therefore loses every type 8 reservation across a
+target restart, and with rtslib the storage object creation fails. The
+other valid types (1, 3, 5, 6, 7) and scope 0 only work because their
+octal and decimal values coincide.
 
-The process is then left unkillable and later KFD calls in other
-processes can block, until a reboot.
+Keep the on-disk format and parse both fields as hex. The valid type
+and scope values have the same hex and decimal representation, so
+records written in decimal by hand keep working.
 
-Even with an SVM BO the computed address would be wrong for such a
-page. Take the VRAM path only for device private and device coherent
-pages and DMA map every other page, as for normal system memory.
-
-Fixes: 1d5dbfe6c06a ("drm/amdkfd: classify and map mixed svm range pages in GPU")
+Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Matthew Krebs <matthewkrebs8@gmail.com>
+Signed-off-by: Ciro Iriarte <ciro.iriarte+software@gmail.com>
 ---
+ drivers/target/target_core_configfs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Notes:
-    Reproducer (needs a filesystem mounted with -o dax; an emulated pmem
-    from memmap=4G!12G and "ndctl create-namespace -m fsdax" works too):
-    
-      fd = open("/mnt/pmem/file", O_RDONLY);          /* >= 64 MiB, on DAX */
-      src = mmap(NULL, 64 << 20, PROT_READ, MAP_SHARED, fd, 0);
-      hipMalloc(&dst, 64 << 20);
-      hipMemcpy(dst, src, 64 << 20, hipMemcpyHostToDevice);
-    
-    An application doing this (hipMemcpy from an mmap of a file on the DAX
-    mount) oopsed as in the commit message. The minimal program above was
-    written afterwards and has only been run on the patched kernel.
-    
-    Tested on Ubuntu 7.0.0-38-generic (based on v7.0.14) with this patch
-    applied to that tree (it applies cleanly), 2x Radeon Pro V620 (Navi 21,
-    gfx1030), ROCm 7.14, Intel Optane in fsdax mode, XFS mounted dax=always:
-    
-    - Before: the application oopsed in svm_range_dma_map_dev on every
-      start (3 of 3, on GPU 0 and on GPU 1); the task was left unkillable
-      and a later hipHostRegister in another process blocked in
-      __synchronize_srcu until a reboot.
-    - After: hipMemcpy and hipHostRegister + copy from the DAX mapping,
-      64 MiB and 1 GiB, on both GPUs, data read back equal; the same on a
-      non-DAX file; the application (an LLM server mapping a 111 GB model
-      file from the DAX mount) starts and answers requests. No oops.
-    - With dynamic debug on svm_range_dma_map_dev, the pages DMA mapped
-      during the copy have pfns inside the pmem region, and KFD's own VRAM
-      pages in the same call still take the VRAM branch.
-    
-    Not tested: MEMORY_DEVICE_COHERENT systems (the GPU memory registered
-    as coherent), device-dax (/dev/daxX.Y) mappings, other ASICs.
-    
-    A stricter test would be "the page belongs to a KFD pgmap", e.g.
-    page_pgmap(page)->ops == &svm_migrate_pgmap_ops, which also rules out
-    another driver's device-coherent pages. I used the type test because it
-    needs no new helper; happy to switch if you prefer that.
-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index ed5e33188..354184829 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -180,7 +180,12 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
- 			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
- 
- 		page = hmm_pfn_to_page(hmm_pfns[i]);
--		if (is_zone_device_page(page)) {
-+		/*
-+		 * Only KFD's own VRAM pages (device private or device coherent)
-+		 * take the VRAM path. Other ZONE_DEVICE pages, such as fsdax or
-+		 * device-dax memory, are system memory and are DMA mapped below.
-+		 */
-+		if (is_device_private_page(page) || is_device_coherent_page(page)) {
- 			struct amdgpu_device *bo_adev = prange->svm_bo->node->adev;
- 
- 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
+diff --git a/drivers/target/target_core_configfs.c b/drivers/target/target_core_configfs.c
+index 2b19a9560..a45bb3d56 100644
+--- a/drivers/target/target_core_configfs.c
++++ b/drivers/target/target_core_configfs.c
+@@ -2126,8 +2126,8 @@ static match_table_t tokens = {
+ 	{Opt_initiator_sid, "initiator_sid=%s"},
+ 	{Opt_sa_res_key, "sa_res_key=%s"},
+ 	{Opt_res_holder, "res_holder=%d"},
+-	{Opt_res_type, "res_type=%d"},
+-	{Opt_res_scope, "res_scope=%d"},
++	{Opt_res_type, "res_type=%x"},
++	{Opt_res_scope, "res_scope=%x"},
+ 	{Opt_res_all_tg_pt, "res_all_tg_pt=%d"},
+ 	{Opt_mapped_lun, "mapped_lun=%u"},
+ 	{Opt_target_fabric, "target_fabric=%s"},
+@@ -2229,13 +2229,13 @@ static ssize_t target_pr_res_aptpl_metadata_store(struct config_item *item,
+ 			res_holder = arg;
+ 			break;
+ 		case Opt_res_type:
+-			ret = match_int(args, &arg);
++			ret = match_hex(args, &arg);
+ 			if (ret)
+ 				goto out;
+ 			type = (u8)arg;
+ 			break;
+ 		case Opt_res_scope:
+-			ret = match_int(args, &arg);
++			ret = match_hex(args, &arg);
+ 			if (ret)
+ 				goto out;
+ 			break;
 -- 
-2.43.0
+2.55.0
 
