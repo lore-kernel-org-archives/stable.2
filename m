@@ -1,54 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793567687;
-	b=O3W4EwKjd3ZhJnDYNgEVg1qSw478EbuHDifwqcycHXXqKN69QObZynWnypP6ohUsaWp+
-	 ybOvktkJVPUJd3Q6ABWEhpK8pFxiiuScMoTlsIwx9UwAjiX1aCvBQUiAV6wbcPWGlrG3w
-	 OEFcpcezaWONcYiZkd5U6uqlfv6lxKO7Yun2U5Yqf/oeJmP9/JTx7Dpg1UW1lPRqYwOqY
-	 KmNmIEwwDt4a2T8kUPLm7IzmtqAOwNZjnkcxsnY9Fl4SMoWtuMcq5toExFpPDuG61nCIo
-	 sHuveBzwIUqmGJkZt1jiVJZdL8p1Rw+an/MP3oQPax7HG+symt1J2i0Jm21khzh/afQ==
+	t=1793569877;
+	b=l6oORBe0Y77IbQGgXN3tUZeDHNjz4ypGQoOveT4DV8NsKcE4HQFBdyzGI++m5gs6Qx6o
+	 +/KFUvizKw5PMC6MYt4ATj/Ze19zvIiCuiZBlEEXo+K1Vbl5nTySVZ7dPzNrvfzHYA268
+	 S6F5mI7q6KE9imECHPcik5G0egKfxuURLYlGAnChvNZdiND9k/MtGi5l2UYRrkTEDEVk1
+	 leiehoN2T//mMp03fcRsW1BGp+q6x8D0bUOnN7bUPQ3gQZV5G0MDZipHJ5gS30oaXgUTf
+	 U5V8gxsd5vmYzrweo4AMG2snBQ2LRZf9rynHE0pGLKG29y9v7pPU44rAfHLW+RJEA5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793567687;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=AvHAhlRhkPgLrmgjNSyRuNLh9GxQ9LIIjKdvXbwFnMA=;
-	b=B4zGXF+RNP+BAtpgT6583CmH/mz0Mf7EQAW4Hq9MCWyT2/WlFUMZ6UTbgqGb7oDk8HiT
-	 PzFrE6BQXpJGqtVsYjVLUBVi9IHNrKvrLVnlVuHEoBxC0s3WtNdTwZLdcglY30ZR3HOY8
-	 2ZRBpZYyj6z839my37e9YSWfKcMs1F3qgL5u1WJ4jDdEq3Pael57ubMkDxZmMMsS6KTcq
-	 0p+I3P4lwSwF6SFB8xCiQ6/zZ0SsOUb+r1e3smc781Fv7GniZZvGPdZNpvKM2yb2jvpl6
-	 dfGXS36p/q04gPVLqB6F2PxGivG8RSOTkHdg34W7GbeYvMjfrMRL2PScw6ueU+t1w9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793569877;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gXbCJ+Z4Wlm8GkoiAeg5stJ+hb5LXK7yuiODoWXbq4E=;
+	b=uF8hCnNsuVaZarEoOYEe4pgtYaQp0IJVdbcr9klE6iumEVkjnPolIoOw2Eq54LYe7V2B
+	 3qWPNCoXX1JK3vf1IvbNhtaEEeiErKAkGlbSCfC5j5xUmEzXmtA4n7cwZlP0As5I5WQ6i
+	 /aHRoK8CEVsBfdj0pw6ZgkG16J4NfOwmuSVtjk9rf5fhE8L3Y5w8wuzRFPup59WfArEOU
+	 EE7K9f9qSxN3ET6S08se5LoY+zKT3JyFxTlWqW5H43alg+lMbVZcTYVcY+hDp15id7k6l
+	 h6523v9xzw2Z8t5fv2eNQKqumFQs34NS/mv/4Xo5JTQ8F2rYSPJqKI4+ttvpsz/2fpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UlB7U4z;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6867606A326
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 21:14:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6867606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4f8281066c4so3328994b6e.2
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 13:14:46 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211DD606A32C
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 21:51:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 211DD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UlB7U4z
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso24476685e9.3
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 13:51:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793569875; x=1794174675; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gXbCJ+Z4Wlm8GkoiAeg5stJ+hb5LXK7yuiODoWXbq4E=;
+        b=0UlB7U4z8EPZoo87aj+uGyErmzAju9AXIJqWYcxdkHWWDjaj7u+VJqzpFrh0Qa4yrH
+         ExXB/uYXubhbjIYdDON5wDB78kL//bgXTF7c5MFqTlfWHSqRmBrTrTwzn6X2tdjfjoUG
+         mrOxgCM89gw172sFDIn5v8ewHvNbFUTkredsUAizHBskDxdw4t8c2WWvV7gN3PMwVW9T
+         6snABxlqEchBwhfFgPtVyAnmta8GObGNOwyRPC9l1guNv9DwVttc93IarxTK4bG1DENm
+         9zDmyEVbELYdVGcebvtK5RMve8g3clLLx/nCbfNgXUY5mUsTKDgklVRqHPGNUKXS9AYF
+         WknA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793567686; x=1794172486;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AvHAhlRhkPgLrmgjNSyRuNLh9GxQ9LIIjKdvXbwFnMA=;
-        b=zC0h7vRuPlw+MI1u4SHUNH+qH07sYR8Kjfz5IGgZlYme+3TIzXHWwUz+lv/e8PSUNs
-         MYTx8907IkG4fyaUKCfrE5OoGR4o8iXHx9Fc36d4HJYMVjcTW9f9XSysDGefD5sE7zxF
-         L3qKnt6s3dgqhg6nQ3MtKm0cjR1h6GzEIKI6EDP3jq9CWKdb0sECzSBbACYdQOkFeXfC
-         8Z4ZUhGkkQ1+ogM2GZN1BXmL7oM/euVPJSRGWLz2I+ZhGzzVCBf+NtMScTqFksfCL/+I
-         0cvLF2xDEijxNDswyXA8ktk6cVBHXLVyHoSa0z0tb9ILPY+lkEq7RgrxdT3e7SNi0+t1
-         aKpw==
-X-Forwarded-Encrypted: i=1; AKwUvBzUBA+uRLLOjIf2paHj2Ya3lxc0pDu46AlNYhfrwIqRsBn1SUM8c/pCG3xfNGL1gJvVLNSZqr0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKncrHMiBg8UDeOlQQZApZ2vgrmIwBfSeuQ+aFqNVe1VfG3Mzw3
-	KYgkIm+lNonGKljYOwDgEyZ426EmdPQT/buhhLK/6MxuKdv5MiTbUHUtxRX09coXALMaFS+vozp
-	DIDjk+vTxvJxX+U/OdnJ7gA7LS7tCDlZhEVHFjHGwDswbsrYProb8t+IxrBI=
+        d=1e100.net; s=20260707; t=1793569875; x=1794174675;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gXbCJ+Z4Wlm8GkoiAeg5stJ+hb5LXK7yuiODoWXbq4E=;
+        b=uziVQ4OMf82xl4Sjml8NZt8+yvAGBCvYdOYtCQHhOztWhEe/U5hTaDGOWFGRn+MzkR
+         LTTQHaszI3B9IEwiqjXgtCeHetOncUdRdQ7wmiUlUN7GE0sFRYRG0NZ7Y0mBqloBucC2
+         2+chWYqg1MfArZaga0KWKhv2iKack+nzTznohGTsoialxHvtexLOkNi8QIYlpE4q7xAc
+         1MYa2PHXfe5GefLxKYZQywo7frG76l43LzfogVKh7igv2OQ9gMdEq4YsCTwebUg34cLS
+         kOkdb0SH2eifbYbTAFu8uQ2i/alCAQ8Fn5gK9JOUlTBKJklQljt4F9OekvBeHhISp25T
+         gJ/A==
+X-Forwarded-Encrypted: i=1; AKwUvByuv8eGRNGr6hH6e3y0B/w/1u9zG7W44pfhcTVULJH7wlGA7lvFubllVdeN5XoLUE8/vumqoag=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbUY5N98CDMqOcqw5Kig3sjuFAIWLrf0p0imUEYF2UBVjecNmI
+	Te6U+gpyPuv/07l40L8wX83BzitXARGMTKb/3mbkr3WBiYIp7DZUGvM=
+X-Gm-Gg: AYBFou0HcLKtyaBu0Lav/FrnRoAFKSlOLhbUzxBhJybEvTFb/yUANInKX+pYoOrVXR7
+	zJ/ibWjupfVgBz5yb1zsyCPFqwfrCY90ACjmbaCN9LfGTbqEAVUQ5QDkBVrk85g7XT10lvvvRB1
+	lIfgKltGfacSBG8q3RC6aFfVgZOdPcGF8znvAadHvX4fPaVbkuA6U9j6qvvzXWMqs4DBv6PAer/
+	xwWrFPNvuiXe9tM+gS72AV1DRckbLLbq30/nCfBXkdZdjHSYR7uMCirTpmP3ob8s8UgvTwOKhKv
+	XW/OlYRxCaP93YOBIeiCXFwkjv4gyNah77BXiYqDorxPTRDPJ17Wq+r3vmbhk01ol0SCdINC/rF
+	/KX3ozRlJ2/Jjp5tEyAH2Z59GZNWxh1m/VWP28ghhtIPWmUkprgmviVx+wTwuZa1FVSVMkUPfVI
+	kzDOy6/a0La8RB7kwK5fQYDIb78oViSPHNmCR5tIzQrrQZf/q7/0MbjqxiWVjuIZSA0dpJ4WTXI
+	yZp+aAYabt2cLwhfCsnRflEG09okWKlRnO31SRkm4b2y1qxl2077OeXR9KZODyL/e0vyYOT/Q==
+X-Received: by 2002:a05:600c:4e48:b0:4a2:150f:1610 with SMTP id 5b1f17b1804b1-4ac183d16eemr180666545e9.23.1793569875535;
+        Sun, 01 Nov 2026 13:51:15 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09ad5ff8sm157249425e9.4.2026.11.01.13.51.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 13:51:14 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: Brian Norris <briannorris@chromium.org>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: linux-wireless@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH wireless 1/2] wifi: mwifiex: validate WMM queue_index in firmware response
+Date: Sun,  1 Nov 2026 21:51:11 +0000
+Message-ID: <20261101215112.3199197-2-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261101215112.3199197-1-tristmd@gmail.com>
+References: <20261101215112.3199197-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,142 +98,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:11cb:b0:55b:f88d:6ebb with SMTP id
- 5614622812f47-5640df0a2eemr5490383b6e.54.1793567685852; Sun, 01 Nov 2026
- 13:14:45 -0800 (PST)
-Date: Sun, 01 Nov 2026 13:14:45 -0800
-In-Reply-To: <20261031204723.1415-1-drifabdelmalekmohamedsaid@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae7abc5.64e51036.15cf6a.001d.GAE@google.com>
-Subject: [syzbot ci] Re: media: em28xx: fix v4l2 use-after-free after failed init
-From: syzbot ci <syzbot+ci612f2c3be50482a3@syzkaller.appspotmail.com>
-To: drifabdelmalekmohamedsaid@gmail.com, hverkuil@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, stable@vger.kernel.org, 
-	syzbot@syzkaller.appspotmail.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot ci has tested the following series
+From: Tristan Madani <tristan@talencesecurity.com>
 
-[v1] media: em28xx: fix v4l2 use-after-free after failed init
-https://lore.kernel.org/all/20261031204723.1415-1-drifabdelmalekmohamedsaid@gmail.com
-* [PATCH] media: em28xx: fix v4l2 use-after-free after failed init
+mwifiex_ret_wmm_get_status() uses the firmware-provided queue_index to
+index into priv->wmm.ac_status[] without checking it is within bounds.
+A firmware response with queue_index >= IEEE80211_NUM_ACS causes an
+access past the end of the array.
 
-and found the following issue:
-possible deadlock in em28xx_release_resources
+Add a bounds check before using queue_index as an array index.
 
-Full report is available here:
-https://ci.syzbot.org/series/92e27f7a-9ca9-4693-ad76-730262f6efd0
-
-***
-
-possible deadlock in em28xx_release_resources
-
-tree:      torvalds
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux
-base:      cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/5e867cfe-3c44-46f3-be9a-3394e10312c7/config
-syz repro: https://ci.syzbot.org/findings/de514af7-755a-455f-9075-91732cf09a76/syz_repro
-
-em28xx 1-1:1.0: Closing video extension
-em28xx 1-1:1.0: Closing input extension
-============================================
-WARNING: possible recursive locking detected
-syzkaller #0 Not tainted
---------------------------------------------
-kworker/0:3/5059 is trying to acquire lock:
-ffff88801cd25cf0 (&dev->lock#3){+.+.}-{4:4}, at: em28xx_release_resources+0x75/0x240 drivers/media/usb/em28xx/em28xx-cards.c:3796
-
-but task is already holding lock:
-ffff88801cd25cf0 (&dev->lock#3){+.+.}-{4:4}, at: em28xx_v4l2_fini+0xb7/0x3f0 drivers/media/usb/em28xx/em28xx-video.c:2431
-
-other info that might help us debug this:
- Possible unsafe locking scenario:
-
-       CPU0
-       ----
-  lock(&dev->lock#3);
-  lock(&dev->lock#3);
-
- *** DEADLOCK ***
-
- May be due to missing lock nesting notation
-
-locks held by kworker/0:3/5059: 6, last CPU#0:
- #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
- #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
- #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
- #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
- #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
- #2: ffff88816eeb71d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1109 [inline]
- #2: ffff88816eeb71d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5917
- #3: ffff88801cdfc1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1109 [inline]
- #3: ffff88801cdfc1d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2346
- #4: ffff88801ce5a1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1109 [inline]
- #4: ffff88801ce5a1a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1046 [inline]
- #4: ffff88801ce5a1a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xa9/0x7d0 drivers/base/dd.c:1377
- #5: ffff88801cd25cf0 (&dev->lock#3){+.+.}-{4:4}, at: em28xx_v4l2_fini+0xb7/0x3f0 drivers/media/usb/em28xx/em28xx-video.c:2431
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 5059 Comm: kworker/0:3 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Workqueue: usb_hub_wq hub_event
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_deadlock_bug+0x27a/0x290 kernel/locking/lockdep.c:3085
- check_deadlock kernel/locking/lockdep.c:3137 [inline]
- validate_chain kernel/locking/lockdep.c:3939 [inline]
- __lock_acquire+0x25db/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
- em28xx_release_resources+0x75/0x240 drivers/media/usb/em28xx/em28xx-cards.c:3796
- em28xx_usb_disconnect+0x19f/0x2f0 drivers/media/usb/em28xx/em28xx-cards.c:4493
- usb_unbind_interface+0x295/0x9c0 drivers/usb/core/driver.c:460
- device_remove drivers/base/dd.c:619 [inline]
- __device_release_driver drivers/base/dd.c:1357 [inline]
- device_release_driver_internal+0x48d/0x7d0 drivers/base/dd.c:1380
- bus_remove_device+0x444/0x560 drivers/base/bus.c:678
- device_del+0x524/0x8f0 drivers/base/core.c:3967
- usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1484
- usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2355
- hub_port_connect drivers/usb/core/hub.c:5425 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
+Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+ drivers/net/wireless/marvell/mwifiex/wmm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+diff --git a/drivers/net/wireless/marvell/mwifiex/wmm.c b/drivers/net/wireless/marvell/mwifiex/wmm.c
+index 841505e83c7fd8..158e4a2ec0dd69 100644
+--- a/drivers/net/wireless/marvell/mwifiex/wmm.c
++++ b/drivers/net/wireless/marvell/mwifiex/wmm.c
+@@ -943,6 +943,9 @@ int mwifiex_ret_wmm_get_status(struct mwifiex_private *priv,
+ 				    tlv_wmm_qstatus->flow_required,
+ 				    tlv_wmm_qstatus->disabled);
+ 
++			if (tlv_wmm_qstatus->queue_index >= IEEE80211_NUM_ACS)
++				break;
++
+ 			ac_status = &priv->wmm.ac_status[tlv_wmm_qstatus->
+ 							 queue_index];
+ 			ac_status->disabled = tlv_wmm_qstatus->disabled;
+-- 
+2.47.3
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
