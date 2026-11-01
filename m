@@ -1,109 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793565114;
-	b=I+ctJ3fAn/5iSEZgndm/Wg1MJOSAuDLRn+OqtSe1f7SeYeVzMcsWtJkWMnCoCGR3YWwp
-	 Uqr7YMNbEoq1eyFIBrlflX0QoO6ai+0FBvximRaTxqKkhQKg8zdsVNV6Q0H0gwBCqmjBa
-	 ScquuvLhWlLTGLDSEUI6FAWiX+sbAO84KAjsR73OAMW1F+H0fvqpSd378iwXZ8ExEYh/d
-	 6PON2LA8h1HuY3NOOu21HCCK8aiAyQlARbQQjeiHT3O/FbwQE6z3e0TnJq7/RtNx58j3x
-	 MWeJwiwcblxPqwurbSX1tERItD1xFq6SxFt9NK5l35jXWULOi8redJ+PZyvlM8/qcDw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793565114;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=qwY6kIQTLPzWov54qHOvM+TK62ot9H/ibtyULblRoOY=;
-	b=if1kqEy5zvdhkpKSqm68n0UAbEBJHVAyHDVqX11lWswTJjlrbl1D5ag3z+txX/IuNzkJ
-	 Ly/JeKSarqMCKGPraqRORmudTugGv94E4ta2uHWm/lB1GEGbMVT6Cyl8rzqek10B5IhXR
-	 iv1ffZaXG2Nw4CkDDCYWa6Ja543iHd6+hcbvSdW0Xj4Iu38JrZk7InHI7QGOi7ds6TGy8
-	 tzcB+ODvXh6r4gIR/EECqSAXBOsC7/AaahPMgsqsx5cf2CA3fyB5ikASsjjPJTTCFcHA2
-	 amQrH3Hrih0wreFh/9DGOsM8xNr0Dn+J1GYT2uTYVrVbJmGjvTZLlTbqujZLpEQh74g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EgcdEJ9N;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.21
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010021.outbound.protection.outlook.com [52.101.85.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793565504;
+	b=q0JkeMOD8hbTTapktTk76Jt1s6HKAeb6dY08600bfu5tbRg1s6DqBp+s5AY/bso5zSX9
+	 Bj0UpDOuBuzXlxYNlQYeo1GJl94RjXmgvviW7w0sAdf8sOqIzY7YhBT34Xau18sGbEPN7
+	 IhDNtjFgjPO+By2ZQ58J5BsdtvmjNHgsdQyrwYjtmi7pDe1zLsV53IucSi2gurrkZOBIB
+	 YsvNkczTwu+DKc8ZVKwup8e/+LEj2zLyTRc6hs6Ko0u2htcSP8bxsaXCP+CCFWxNCC1a0
+	 jFrjtPibyaMcX6fKmDlSTccbZlD/NX/mLGKqqAnY3C8kvRmry6zj5cXIgMhaXUgCWHw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793565504;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=r70pO0BkM9XhlbQWoZA1F+WBsNpHNx2sIfdjIEnRg7c=;
+	b=IY2N/6luTwYoZsumNd+tlb1N1qBelHmnJ8Qb/Cud2OSMy3UQKzeRa9RrkHNzptrCn230
+	 70T5g6xV2mK3RD6tuOkZmUdwZfcWQmOn+bjjX+mc9m6aFjAPCgB1VTHqxyx5SSISnFbpj
+	 1nk5Ohh2pZ1mD4MYZjflkv0384wKKp6qLYCHaqBcTqGanGIt/4PBRD3Kg+z4QRNK8Bziz
+	 Ln7/cR30GTEjBMFH/qKwJX75NyFKbhsof6R4zxOd6TWhpJZoQCBtoiTdrVDNz9GdF66iy
+	 rArfgmLKN96DXaHdQXJoYlHyuK7pV+9tZ0OhDWqjeHEP39EF4bX4Nv3DBIO96YLfDBg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmx.com;
+	spf=pass smtp.mailfrom=gmx.com;
+	dkim=pass header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=tmeRMPP0;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D49606A324;
-	Sun,  1 Nov 2026 20:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5D49606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118B8606A325;
+	Sun,  1 Nov 2026 20:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 118B8606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EgcdEJ9N
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fz/dCxGTz0x2XvaSPV9lc4FreAi31xI7dDJAyZ4cVpRCqkrjs67LmuBnCftLRucSXTWqS1oDSGYRjppFK6OREn1+7EzPvz4dnjL2GRipICeguEF8AWwNeQ25wvRWZVX/w/wFqGSz/1XxY5xYS7nitBskY/xP9i+JAH68Rp0epZXGvxhkgJ2xd/tygzwuIEECze9Yv0ZW2DlFi/xwDThOzerdzug5RPaRmdOkfw+2907IaVKQyMBrd/cKSW/Jxysrmblmz+s9Aig3JqGX/Qap23nZrHsZVZkXmwCNuXuYlIzi0DuxXk965abmgKqgL/bu/ntNUGntIRPn0fUuXyqOFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qwY6kIQTLPzWov54qHOvM+TK62ot9H/ibtyULblRoOY=;
- b=CHPte8F57CqKe5NCoTLuWx6JM25UeciGmSKYQcSuTsJJOSqKjz4I2asHS8Q3tEZyynJcm57iAMTRNBPOdhvOsTCA+cxdvgKQTPW80WICDydqeDhLrYVwEQsA1GM+9bQAr7AnZ2aNG4FdddXgBdoM4O5dpr7S7RUlaAIxoOnR3gYSpW1aIJTIY7hYKt3ESVM8z2E4UI9pb/OUuH/9gHrh0mUqN4ZR76EXxPpxaxNpkmIpvv9uwZO/sm+37c9KGOF/Tk2ckf4ISexHgq/tLQ41frSqYFfj7oIMV+fXPcLwj7S+xTMW2xREjTwpAVwpEE/eh9m68d707L9DqPImPBb34A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qwY6kIQTLPzWov54qHOvM+TK62ot9H/ibtyULblRoOY=;
- b=EgcdEJ9NRCVK3UoEbJdrcfU3JqEpRBeQ5g1HndObOFbl6kcYWvU8STp6pSGJwMzrztsSZcbFDfOrZFNHydassq8m7CZMnkooJSkpKJRTQTd3RJs6SFCUhDuPaZ0jP9Fxydx8z62zoKN6yCPK15JyYIwa2gaZoLZ5l2m1kul6oUKjWj2pUzw7Lnsfm//qhAxg97zBsykUc4ruRfT6z7yUXsMk1EZ++uQ18pG9WQjT9e8fjOfMQLw83x3PeAghkIZM201//OdF4tWY8ttaHCaCWP/W9Iy5QtD2mYD6mdNe/03C9zLlifuVvC+sdTJXSCiNzX5si/aA1kM3L5xfl5kSjQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DM4PR12MB8452.namprd12.prod.outlook.com (2603:10b6:8:184::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sun, 1 Nov
- 2026 20:31:45 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.011; Sun, 1 Nov 2026
- 20:31:45 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 01 Nov 2026 15:31:42 -0500
-Message-Id: <DMK5RLDQBPQE.O1YJZ0ZX5YBV@nvidia.com>
-Subject: Re: [PATCH v5 04/12] mm/page_alloc: detect zonelist rebuilds from
- memory hot-add
-Cc: <linux-trace-kernel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>, <akpm@linux-foundation.org>, <david@kernel.org>,
- <ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>,
- <rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>,
- <kasong@tencent.com>, <qi.zheng@linux.dev>, <shakeel.butt@linux.dev>,
- <baohua@kernel.org>, <axelrasmussen@google.com>, <yuanchu@google.com>,
- <weixugc@google.com>, <baoquan.he@linux.dev>,
- <baolin.wang@linux.alibaba.com>, <rientjes@google.com>,
- <rostedt@goodmis.org>, <mhiramat@kernel.org>,
- <mathieu.desnoyers@efficios.com>, <muchun.song@linux.dev>,
- <osalvador@suse.de>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>,
- <ying.huang@linux.alibaba.com>, <brendan.jackman@linux.dev>,
- <hannes@cmpxchg.org>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
- <nathan@kernel.org>, <ndesaulniers@google.com>, <morbo@google.com>,
- <justinstitt@google.com>, <Bessel.Wang@huawei.com>, <jiang.liu@huawei.com>,
- <mgorman@techsingularity.net>, <anshuman.khandual@arm.com>,
- <stable@vger.kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261101021340.2251928-1-gourry@gourry.net>
- <20261101021340.2251928-5-gourry@gourry.net>
-In-Reply-To: <20261101021340.2251928-5-gourry@gourry.net>
-X-ClientProxiedBy: YQZPR01CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::25) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=tmeRMPP0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1793565489; x=1794170289; i=quwenruo.btrfs@gmx.com;
+	bh=r70pO0BkM9XhlbQWoZA1F+WBsNpHNx2sIfdjIEnRg7c=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=tmeRMPP01BN3hKnapF7zchI1296Z8GlwoLaoLnl6dJXmy8W2w9XHyDLN+yCKbkPO
+	 2tGyfweMTrXy3hnTDHvUcJH8NbLYlrzjzUvKj47G3GJ4BYo9/GuVjOfjctYWfPOIc
+	 e1sD1SPTanx7/1i86POZTSYNlbXOPO821vhWlnUZ6fVDsV4IIxY+Wt5XxJWeOvWCk
+	 PJifKEAf+BzoFIPAK3DNM96xRZnz8CY50SPKzfL3o97EIL4hVz/lrBR3Pd/HI17Qq
+	 yjWdupxF0W9/PTBhZ17tVKTd9XHA+0xbYdhCgGQBWu40LYDOETPKpzCA55bSxhm95
+	 TCXsO4Y9IuyGQ+wtKg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MnJhU-1weLvo1sea-00pe4h; Sun, 01
+ Nov 2026 21:38:09 +0100
+Message-ID: <d9990870-188d-49b5-badf-9e7ae9a273ed@gmx.com>
+Date: Mon, 2 Nov 2026 07:08:01 +1030
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,106 +63,234 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB8452:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6da741a-3ea4-41a7-3547-08df38572587
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261021123027099003|261021121427099003|261022113327099003|261022105027099003|261022075727099003|261026140227099003|261026121527099003|261028144727099003|11063799006|4143699003|10067099003|56012099006|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	QupNHcujqHpU3PwbHyhSOdv1fpb0WZx75ZFn559AjdsN6jETmuoOj00DoKvEgNmC0DiUF64K/DWvTxxFolAV8UVzoGtEpGPU+3abebyVyD8Mh1wsxxS5HV7cBn9Yht/Vury2wedly+hvwlGGKkb9MGPM4ySPLqEXiC0RVp6uhJIDcPF3921SRzbgD5cRPMrfXTLW8FCuRyXQld5NqmudIo4+OzMecintadWWqdG+7Qyi3L4FDWYzPxXg8ABroN1LGwzd/RxfQUkeNRyxLQLQdAjTgqIhRP2X15euN+HwJcAoiodGVdSdFnaesUMthZTpjMX2UGc9BLfdKNCmNQ0wvyRbg/dUvJJ+qtu7IEAIbzsCktQp528Pjj5K339OuvrKWOS+PP2U98zn4Wo9GXdHWKPDjQoigKy8HkEWOSK2i7QepTlIg3pXJcCfHdq/D4nrIk+a0s1wpYX2SI64hHCiX2PAHWF2JtkO3Z0SIFn8uJ/11STR0y2ksMG44N6vvYREpGgkYdJKp8iF37yAkl1Klvrw+CuVxm2ummPd9ewzJyKF6gOiJnfCWRKhw3cMHlOpWRzsCHMw4C7fTVqRTOCmJdIzym5SRpFECxtvOP+WzpwXfDtQoxAeswwx4kFzdEyg6V3q/kSbUt0ekXRq/i1puEO3nBMrdPLAdfIEHZxHTQE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261021123027099003)(261021121427099003)(261022113327099003)(261022105027099003)(261022075727099003)(261026140227099003)(261026121527099003)(261028144727099003)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cHlsSHRjOGIvZ1pEZU5RVFBnTkZySWhnakx4K2hGZzJuanBtWUI5b1FEdWlE?=
- =?utf-8?B?dUFvWUovVkpRN1pSbGJLZzVmd0tFS25WWENhSU1yS01EY3JxV3lHN2xhekNU?=
- =?utf-8?B?ZEVLRy9SODhYR2dpa3VvUzNUbi9MZUhIYXI0N1BkN1hzOG9KQzRxUnQwTVBy?=
- =?utf-8?B?M1A1SUlYUkVlTnNMc2Q0bzRybFo4N0VvM0RKdlRGajkrMlE1dllvOGtXdXZT?=
- =?utf-8?B?SFhSVGFoRHZpUW1CaENQbXNqSlF4SUJSbjJhblZGUnRQNHpHckEzeWVta3JE?=
- =?utf-8?B?NmFEd1lydXI1YVczeDNVbXRPbjRZbVRSUlV1THJtVXZCWEtmSmtRMGRxSHQ4?=
- =?utf-8?B?aktMcitHbFd4U0hQUEpkL2ZrRU8wOFZWTkllY0VBdkNWNERLYjZWVlU2MDVC?=
- =?utf-8?B?Y0FLUWJEU1laVExtQ0xRWm5JTlpmSGtWQmt1VHFyQndvL1I3b2lMdERxMXgr?=
- =?utf-8?B?UWd1T2N5cm01NGxWVS9RM0lxRm10VUVaZStRakNkdkt4SXJwQXRTUHdSbHBi?=
- =?utf-8?B?N2s5aE5rY1p4NFIrQTRpZFVHeGFRMmJHU1RpelA4WmE4M3pYZ1dmemlRTkJk?=
- =?utf-8?B?Q1Q4S2tGL3EzblhIR1FWWUlSdHVYTmRpa3BvVmFJN2Z0M215M0R0VDc4cis0?=
- =?utf-8?B?Mk5YS2hwRG5zVEhvZFdITWhPT2NPeFk1NkRVTlFXK3dQYmVLQWp5UUZxd3E2?=
- =?utf-8?B?WlRtVDFZYy9nWWJRVmlsN2tmUDVndHRzelZRazQ5ai84cVJpVDZsU1NHMGNt?=
- =?utf-8?B?WkVDeU5XVEgyZUFDR09rUFgraWl0TVhOUDZDRjB5T3JWTVBBczg1dmhGK3Z4?=
- =?utf-8?B?NDgzWStwV1FqVWFCeEF5Qm5HNzRqZzNKUmx5NG1LTlRYdm1EVnBTNGNuY2Qv?=
- =?utf-8?B?T0F0aXcxZDZKUFQraldSRDNtL3d5cEE2Y2lkZTY4UENzdllQQUNHVUxlVk1j?=
- =?utf-8?B?ZUNJejQ3WUNhTVVzK0MzdHJONUJOTGZJRDZ6RXFSNEJTQ2JXczlHelV1N0tQ?=
- =?utf-8?B?elIrM3Z6dUlUNDdSbmtzeTc0emZSdC9mRXdaOGo3ZG9qUHIzR3ViTFFNSkd4?=
- =?utf-8?B?ckNLVmZCMWxFdWJGWVVHODZ6cjNEYk5OcHhnWm0rSG90c1JKWDlSQlVreFZy?=
- =?utf-8?B?REhuMk80c3R5U0lOTzN4bU9WaC95QjR6ZHMrKzJ3d3E1S0ttekpxWVU4Ynli?=
- =?utf-8?B?bVlQWjI1R21XY01zMkZEOFFSZjFXQVR6NkhaakN3UGhRMXREK2hwdlRrQWM3?=
- =?utf-8?B?Qlg1dGFIVGUzTHhpQjJVSVhTYSt6a2ovWUNQR1hoaVJTYkkxSzRrT2JBQlFM?=
- =?utf-8?B?TUpvQ1g5ZjFjalBnRG4rTkVnbnIrSjI3alRRbHVKRGw3TFJhaXA3WGF3ckFS?=
- =?utf-8?B?MGFVS2I1U04zZlNpd3MyNUFocmtLWWFxVnA0N3JnNWVDQVRVQkhPbVBiS2pB?=
- =?utf-8?B?a01wU3B5SzhlazJwTE54c0REaXVRZUk0Q29NcEJMcjE4dHlPSHJHQ2lrRmlE?=
- =?utf-8?B?cGFWbnNiRUU0YTUxaHh4d1l5MzExVGIxSUp4Yzc0YkFYekRsdlBsQUZWc3Nw?=
- =?utf-8?B?Sm1vV2toUDJqQWZSNEd2OFVvSXhnN2JrV3Fybi81dVYrRVF5T3BleEdFQTds?=
- =?utf-8?B?RXVTUEp1L1dQT1IvM1NlUFM4aXdyR29ZemF0L09xemZkMjJYeGRYbjdtTkpZ?=
- =?utf-8?B?d0dNTEtpeWhTTXBHcEc1NE1wMHhHOFRUNEdQUWVnZDBQQjh3d1B4aGJwN3Y3?=
- =?utf-8?B?dTVOeFFkK0htc21NUzBZczdhUTRPK2NyKzJBVUp2U2w1cTEzWnY0Q2RISTJM?=
- =?utf-8?B?eUdsN1dVSnRtclo3YVNReXgxOEphb2N4VU1jS1BnMjdMZGowQWUzeTczcHFT?=
- =?utf-8?B?T1haTktxcVAwZVkzSTc1ckxqVVpMQk9lRXpDdStQeXk4ZnhTSVp4ZWtRV2dE?=
- =?utf-8?B?c2Q5SzlVTDFFcXdxY1dNSi9vcEdrNWF5cmQvZStoY24vVkVOOUVJblJ3ejRC?=
- =?utf-8?B?VTZvQjNydGsxRXFBUXd6Y042M2xxVjFyd09vRkU5aUJrYklicXdjam9YRVRK?=
- =?utf-8?B?T1l5WnVzWW1JWmpUQVo4Umh6dmVQeFI2N2VHUm1ZYitzNnhKdjhkQkxvSmdv?=
- =?utf-8?B?eGx1QlBibkpkMURYNVB5TDZiUUZzdGZVOWpHbXI3TjlpYUFoRnNsRXRiUWhQ?=
- =?utf-8?B?bnFkNmRBQ0ZSa3FVYmM4Z2Z1OC9Nb1luMzNDSzVISFJ1NkhXOXlvbU5UakFl?=
- =?utf-8?B?MDFOWWxFYnNlQUdTR2RvV1AwTUpuZU9ianVTeTVseDYxU2thbk9KMjJEK0Jk?=
- =?utf-8?Q?ltx4gaVSJaV0/dOrf9?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6da741a-3ea4-41a7-3547-08df38572587
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 20:31:45.3682
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PCkTGY+GARRPSyq/ivwgPNqzrWdHPRqNU07aRTW2txn1nBDxPUJmiGdwjswUPskp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8452
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: fix bio counter and bioc leak when async
+ checksumming fails
+To: mt4022@columbia.edu, David Sterba <dsterba@suse.com>,
+ Chris Mason <mason@kernel.org>
+Cc: Qu Wenruo <wqu@suse.com>, Christoph Hellwig <hch@lst.de>,
+ Josef Bacik <josef@toxicpanda.com>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261101-btrfs-async-csum-leak-v1-1-feafe7ae61e9@columbia.edu>
+Content-Language: en-US
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
+ BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7o8gUJFKS8
+ OQAKCRDCPZHzoSX+qAogB/9C5ErH7KGAGpcLPte3Wcfdt3acCkGAuMpCjqOt8BVw30mX0kmF
+ SRo2nODjz8YsYhWR1T8L3ylANAS/IGIJ64idBmObaqGHQn845nXLIvG33LqMsAGXmOJdRgTT
+ BnBA+QFCEIZpo7L9Qt1dOQdHSpHT31Ta1kKsbDm582KPVBl6KRcJJBnjudIerOA1/L/zEyDa
+ YjIfHIcvuM3Xm8AS00iBpsmc151QgCPljqnSRXBiup9C1oMgVlaROhY1iDam4UIQB6glkHQs
+ LZhUmFDNimX5LxfOzi2pFJSjJvPclRZVX7Sq6XhK/OFb6IvswN7i0nUYZMQfuGDNqGn70ic3
+ AQImzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
+ CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
+ /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
+ GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
+ q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
+ ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7pCgUJFMw7KQAK
+ CRDCPZHzoSX+qEjbB/9crFFjips2NKxkt2XUutUIKjBoUlg/xCeFIj8PsTuJePhrV9HzgKsa
+ rJgSqo3t78oQWmeaP9WPoDYjfhOkQXEs+G9UwHe/LENm70+Q1jrwY3nlcR3YrkDCJ+EvMZOW
+ ackgcOYn46Iri9DN91FbSTszPMnwHi/nf0aeJXicO9krrY5C8mUxv4CSKeKSRg/5BR59uDiy
+ 9CMRHDtIDnpDWaLOXtUeowCdiC5O/jA571PMFx3Aolc7g4SSyNbYodblCBOdJrh0CVm2LlQW
+ 3SXrvFpSAw7LMVDgsS8pTRt4A11eTIS7mz0zqafTohXP1wt+575IBHK5ZpThQb+PzSQmxAqa
+In-Reply-To: <20261101-btrfs-async-csum-leak-v1-1-feafe7ae61e9@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:Bkq4pLrxfw92HInb7a5U6Vxl/QcOL4Lz0eTr9pslXBdblcoJsM3
+ smXDOgkRVqR1rI63xJiemzcfiJyKSfOtGCxYRZAzQqGnXXEYq6l1W4AzzYWoaJFTER4rDpc
+ Ga3S9y6WWXx3BYogb26bRvr8s9qDkHI9ASa4+aMSK6ETyG4Uvw4Iqqnghe+OLzqP8wVxKWa
+ Qrp75/C0B4ryC+bFuhmLw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:63PMI0Z8+UM=;9gWxktmSJFlV6U4aORO+8OkkH70
+ 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
+ DJdy7
 
-On Sat Oct 31, 2026 at 10:13 PM EDT, Gregory Price (Meta) wrote:
-> The zonelist_update_seq retry was limited to CONFIG_MEMORY_HOTREMOVE,
-> presumably because only hot-remove takes zones out of a zonelist.
->
-> However, build_zonerefs_node() rewrites the zonelists in place, so
-> onlining the first block of a zone shifts the entries that follow it
-> in every zonelist containing that zone.  This can cause a spurious
-> allocation failure for a __GFP_THISNODE caller.
->
-> For a node with only ZONE_NORMAL, onlining its first ZONE_MOVABLE block
-> rewrites the node's ZONELIST_NOFALLBACK list as:
->
->   [NORMAL, NULL] -> [MOVABLE, NULL] -> [MOVABLE, NORMAL, NULL]
->
-> A concurrent GFP_KERNEL | __GFP_THISNODE allocation can observe the
-> intermediate list, skip ZONE_MOVABLE, and find no eligible zone. With
-> CONFIG_MEMORY_HOTREMOVE=3Dn, check_retry_zonelist() returns 0 and the
-> allocation fails even though the node has free ZONE_NORMAL memory.
->
-> Gate the sequence checks on CONFIG_MEMORY_HOTPLUG, which covers every
-> configuration that rebuilds zonelists after boot.
->
-> Fixes: 3d36424b3b58 ("mm/page_alloc: fix race condition between build_all=
-_zonelists and page allocation")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+
+
+=E5=9C=A8 2026/11/2 05:09, Mani Tofigh via B4 Relay =E5=86=99=E9=81=93:
+> From: Mani Tofigh <mt4022@columbia.edu>
+>=20
+> A single failed checksum allocation can make a later device replace
+> hang forever.  btrfs_submit_chunk() takes a dev-replace bio counter
+> reference and a bioc before it hands a write to the checksum worker.
+> If the checksum fails there (eg its allocation fails),
+> run_one_async_done() ends the bio but drops neither.  The counter then
+> never gets back to zero and the next replace waits for it:
+>=20
+>    [    8.369171] BTRFS info (device ram0): dev_replace from /dev/ram0 (=
+devid 1) to /dev/ram1 finished
+>    [   41.534247] INFO: task btrfscsum:80 blocked for more than 20 secon=
+ds.
+>    [   41.534391]  btrfs_rm_dev_replace_blocked+0x135/0x180
+>    [   41.534463]  btrfs_dev_replace_finishing+0xefe/0x13b0
+>=20
+> Put the bioc and drop the counter in that error branch as the
+> synchronous error path does.  Also put the bioc on the synchronous
+> path, which only drops the counter.  With the fix, the replace
+> finishes.
+>=20
+> This bug was identified and confirmed with the help of fault-injection
+> testing on a deterministic hypervisor currently under development.  The
+> C reproducer below however hits it within about 35s.
+>=20
+> Fixes: f8a53bb58ec7 ("btrfs: handle checksum generation in the storage l=
+ayer")
+> Cc: stable@vger.kernel.org # 6.6+
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+
+Although it's not that common to hit this path.
+
+On EXPERIMENTAL builds you are already running with async csum=20
+generation, other than the offload path.
+
+Otherwise on most x86_64, the default CRC32 is considered fast, so is=20
+xxhash on all archs, and they will not go through the offload mode.
+
+So I'm wondering what's your setup? Are you running SHA256 algo for=20
+checksum? I can add it to the commit message during merge.
+
 > ---
->  mm/page_alloc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-
-Acked-by: Zi Yan <ziy@nvidia.com>
-
-
---=20
-Best Regards,
-Yan, Zi
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/b=
+trfscsum.c
+> ---
+>   fs/btrfs/bio.c | 3 +++
+>   1 file changed, 3 insertions(+)
+>=20
+> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+> index 2c6234f6182f..a508f4abd3a3 100644
+> --- a/fs/btrfs/bio.c
+> +++ b/fs/btrfs/bio.c
+> @@ -624,6 +624,8 @@ static void run_one_async_done(struct btrfs_work *wo=
+rk, bool do_free)
+>  =20
+>   	/* If an error occurred we just want to clean up the bio and move on.=
+ */
+>   	if (bio->bi_status) {
+> +		btrfs_put_bioc(async->bioc);
+> +		btrfs_bio_counter_dec(async->bbio->inode->root->fs_info);
+>   		btrfs_bio_end_io(async->bbio, bio->bi_status);
+>   		return;
+>   	}
+> @@ -822,6 +824,7 @@ static bool btrfs_submit_chunk(struct btrfs_bio *bbi=
+o, int mirror_num)
+>   	return map_length =3D=3D length;
+>  =20
+>   fail:
+> +	btrfs_put_bioc(bioc);
+>   	btrfs_bio_counter_dec(fs_info);
+>   	/*
+>   	 * We have split the original bbio, now we have to end both the curre=
+nt
+>=20
+> ---
+> base-commit: 5e6c45aaaf93343c7f8a1cde9797080238af5c1b
+> change-id: 20261030-btrfs-async-csum-leak-1772df5f0c32
+>=20
+> Best regards,
+> --
+> Mani Tofigh <mt4022@columbia.edu>
 
