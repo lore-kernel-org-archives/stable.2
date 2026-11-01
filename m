@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521819;
-	b=nd5naNIh39NyYra7GX2YSLk9bS06wgrAZbWDewvb25D5hWKk2o0IXildv0tlYvXxJyxs
-	 dY+qG47243q9pNP4WuAC3zAzyESYzZRcZcuuaz/su/hvrB+iRDCI96/IJ6otlseeVzWLi
-	 I73ceM112OFAGX75wjMkNfWF93moW9Db5iyN7Ot6zFkMn2YkFWSXFN1erDwVzNBHkC6QU
-	 txVUYpLVylR/cflp7aaISZ6nZlhXAKP/KIZO559OU4LmgtYAEKp1sTcCjTWT80Aqu7+a2
-	 ERjKliukUgTAW/L95/HYH/Dmq0P8jmjQdqsi0GfckuayjPVoMCUBmGuq9ye+VvRh5WQ==
+	t=1793521846;
+	b=lrxiVfSc/GCYpe2yl/LkU0r8/w40B9vyQzWsPQUzY/KK3KptWhDaq4YwKL6US+qITSq6
+	 pybFtV+Ua5PUfnaw0Fj54v9qe/7fKpoNiSiPYjFDel/IdjwiT6xcV2xP1erbu//zeYYLL
+	 IxeeRSCVB+dB/apAZJDyP3y4cc9fVHuCj2LCmrviSykvEYKSJSFmyLgfXU/HH7xvfflHY
+	 MaH5H891fi4rdbjP+9NSrCwJbLcZkbeYsJtZQi6ZoNDfuLAHnhQC3oKN+fl17Hu38DHgM
+	 DIqLhn+sm2s8Fxue73+WpRqu9I5sFh4Duhr128ahqZmF/yVsLQpIlALbOZcqFoac+tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521819;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sq0GUY/ITn4SQxq/x1kkdeNsQ++qEz4hJvkAkG/WKPU=;
-	b=uHySY9f7c0etHafltNseKZlPF888D5bbSOWQMugeBb16Qv+APIX/6VviQVk3GYo86P0h
-	 r+e1uW9ddm7mNBpVrR/gCUwQsdCWcJC2fva8B/w7k7uw9DAa1Ep34y/tIMvQf0Afg7V6l
-	 vqpQDcJpG461EhgPHS5Y7GP5u6dsRql4PzDRNkLhSkOOTEKsUTwtFb1czFkfWUTSdI3iZ
-	 MKGdIgENs56E1pHHNhsAdnknArKT23XPMfxFdmE1Hx5uvrurfzTQgLZzNMpQXloml+lrq
-	 xPUSl2Kr6o4AUE4lVWJl0/fz0qE4MX+IPyrsrLQU9B5YNNe4ftP8sHsiCm8Q/jaJSKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521846;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=F1c0HdyTRLsIzAFM0JN0P2R0UNqNGHuzxSki4WI7BSA=;
+	b=JZqtHLGRbKT4tIug7kkreF3/t49jJCTes/+PXapRHTwqrj1j0QL+Hk6aqThsx1JmZ6jV
+	 fWb41hi6Cy7nm9E8ywcjD8IpbWuV0aXIBsCmsHCDfZe7rwNDfFUAXqDD6Pqd6KPuCecPM
+	 P21bjar+vULyUji+hUmiosxo6GqqM+uT45+3+GSFYmIYVWWxDaGNXlfQNl9FdEDPvFCBA
+	 eRhK/ECTiwjzsaVul/bIfDbTFkqjSuJcdmIU+QKHloCSvSNmZuKoJS3g8Kko8or4XXeAq
+	 tXG1rE4zguzZCtGV4SeHOys6J/f2MPECQMI9mMGOKSvSFpW35TIL1V0RbLz7/qraY3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elw9lDlb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10EB606A325;
-	Sun,  1 Nov 2026 08:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elw9lDlb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0EF1F000C1;
-	Sun,  1 Nov 2026 08:30:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793521818;
-	bh=sq0GUY/ITn4SQxq/x1kkdeNsQ++qEz4hJvkAkG/WKPU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=elw9lDlbOmEjCZYozD36NQhOlOae9eklhjYFasrHzcrnyMhvUeziCy9CqIujQUs9L
-	 S/ghqD5Xzq8eNRw0xtinzVYmLJjdMFZ/YQUM/ussoNwGcWwhLKCu1t1hW0hn/2mzV6
-	 8pN6cyK1an3Z8Hk7WKPcmHk3Kxxs5uYFIJJWJ+tvek1iWQbhpZFIexG2inf4a2Xtkk
-	 zF2zyPQVSiqskfauYkImEhxKQ9OYW+9oqm03GqLtGDuwaRL4SvHnGmbHadOYgOTMek
-	 d/13500EnpMa5lLKcX67IdPZZhohnjMmugmsuwmcDAhrivBVuKFOgLOFX+LzawLDo9
-	 hp8c26JManPzw==
-Subject: Re: [PATCH net] tcp: fix device binding after failed IPv6 connect
-From: netdev-bot+sashiko@kernel.org
-To: yanxia@cmss.chinamobile.com
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, ncardwell@google.com,
- kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, yana06070@163.com
-Date: Sun, 01 Nov 2026 08:30:17 +0000
-Message-ID: <179352181715.3131.4301656429935322614@kernel.org>
-In-Reply-To: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
-References: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1ADA0606A324;
+	Sun,  1 Nov 2026 08:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ADA0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=F1c0HdyTRL
+	sIzAFM0JN0P2R0UNqNGHuzxSki4WI7BSA=; b=UX662lZ+7MwRvSaGww0JuA9nJB
+	FIdNOBqggcOjuaXQ1cussJg78SsSj1mzh+W1/KA44SIL0s23hAKo8VKi6eNL8sMZ
+	9UNQLPkqg2xBS2PSS0VTez9aKVTzUPVHO2nhChrcawXLE4bZ1+CGtUMZuUNQo3iC
+	OrLNsnK808bi117aQ=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.23])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkAWWwCp+OZq3eMUAQ--.23366S2;
+	Sun, 01 Nov 2026 16:30:34 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: usbtv: fix use-after-free on device disconnect
+Date: Sun,  1 Nov 2026 16:30:32 +0800
+Message-Id: <20261101083032.14459-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,198 +58,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkAWWwCp+OZq3eMUAQ--.23366S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF1fAF18CFyUtry3CrWkCrg_yoW5AFW8pa
+	yrGFWj9a4DGw4DKa1DZw48WrWfCws2yFy5CrW5Za4DCws3AayfAry0yFyDurnYka4rAa4U
+	ZFyjgw12qayYgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8E4EtUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2rmBFRXBAABsB
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+usbtv_audio_init() passes the USB interface as the owning device of the
+ALSA card with snd_card_set_dev():
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 1
+	rv = snd_card_new(&usbtv->udev->dev, ...);
+	...
+	snd_card_set_dev(card, usbtv->dev);
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+snd_card_set_dev() is a plain pointer assignment. It replaces the device
+that snd_card_new() took a reference on, the USB device, with the
+interface device, without taking a reference on the latter, and the
+reference on the USB device is leaked. snd_card_do_free() still puts
+card->dev at the end, so the card drops a reference it never owned.
 
-- [High] The fix is incomplete.
-- [High] tcp: restore sk_bound_dev_if before inet_bhash2_reset_saddr() in
-  tcp_v6_connect()
-- [Low] The restore at the `failure:` label is unconditional.
+usbtv_audio_free() releases the card with snd_card_free_when_closed(), so
+the card outlives the disconnect as long as user space keeps a sound
+device open. On the USB side, usb_disable_device() drops the last
+reference to the interface right after the driver has been unbound.
+Closing the last sound file descriptor then runs release_card_device()
+and snd_card_do_free(), and put_device(card->dev) is called on the
+already freed struct usb_interface:
 
---
+	Read of size 1 at addr ffff8881024a008c
+	...
+	kobject_put
+	put_device
+	snd_card_do_free
+	release_card_device
+	device_release
+	kobject_cleanup
+	kobject_release
+	kobject_put
+	snd_card_file_remove
+	snd_ctl_release
+	__fput
 
-tcp: fix device binding after failed IPv6 connect
+Pass the interface device as the parent to snd_card_new() instead. The
+reference taken by snd_card_init() and the one dropped by
+snd_card_do_free() are then balanced, and the card keeps the interface
+alive until the card itself is released. This also fixes the leaked
+reference on the USB device. The sysfs location of the card and the
+device name used in messages stay the same.
 
-This patch saves sk_bound_dev_if when tcp_v6_connect() is entered and
-restores it at the failure label. The goal is that a binding taken from
-sin6_scope_id for a link-local destination does not stay on the socket
-after a failed connect, so a later connect() to ::1 on the same socket
-can succeed.
+Fixes: 63ddf68de52e ("[media] usbtv: add audio support")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/usb/usbtv/usbtv-audio.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-> index e006a30360eae..7bb8266d9d1b7 100644
-> --- a/net/ipv6/tcp_ipv6.c
-> +++ b/net/ipv6/tcp_ipv6.c
-> @@ -146,6 +146,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  	struct flowi6 *fl6;
->  	int addr_type;
->  	int err;
-> +	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
->  
->  	if (addr_len < SIN6_LEN_RFC2133)
->  		return -EINVAL;
-
-[ ... ]
-
-> @@ -358,6 +359,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  failure:
->  	inet->inet_dport = 0;
->  	sk->sk_route_caps = 0;
-> +	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
->  	return err;
->  }
-
-[Severity: High]
-Is the restore placed too late for the late_failure path?
-
-When inet6_hash_connect(), tcp_fastopen_defer_connect() or
-tcp_connect() fails, the code jumps to late_failure. That label calls
-tcp_set_state(sk, TCP_CLOSE) and then inet_bhash2_reset_saddr(sk),
-and only after that falls through to failure. Both calls therefore
-run while sk_bound_dev_if still holds the sin6_scope_id value.
-old_bound_dev_if is written back only at the end.
-
-inet_bhash2_reset_saddr() calls __inet_bhash2_update_saddr(). That
-function computes l3mdev with inet_sk_bound_l3mdev(sk), which reads
-sk_bound_dev_if. It then passes that l3mdev to
-inet_bind2_bucket_find() for the wildcard address, and calls
-inet_bind2_bucket_init() if nothing matches.
-
-Consider a socket bound to [::]:port with no device, so tb->l3mdev
-and tb2->l3mdev are 0. It then connects to a link-local address
-whose sin6_scope_id names a VRF slave, with tcp_l3mdev_accept=0.
-sk_dev_equal_l3scope() passes because sk_bound_dev_if is 0, and the
-scope_id is installed.
-
-If the connect then fails after inet_bhash2_update_saddr(), the
-reset rehashes the socket into a bind2 bucket keyed on the VRF
-master's l3mdev. The failure label then puts sk_bound_dev_if back to
-0. The socket is left with an icsk_bind2_hash whose l3mdev disagrees
-with both icsk_bind_hash and its own restored binding.
-
-A later listen() looks up tb2 with the restored l3mdev in
-inet_csk_get_port() and hits
-WARN_ON(inet_csk(sk)->icsk_bind2_hash != tb2).
-
-If another socket shares the port, things get worse. The reset can
-create a duplicate wildcard bucket, or link this socket into another
-VRF socket's bucket. In the second case, closing the sockets in the
-wrong order can destroy the wrong inet_bind_bucket. The VRF tb is
-then leaked with an empty bhash2 list, which later trips
-WARN_ON(hlist_empty(&tb->bhash2)) in __inet_hash_connect().
-
-Before this patch the binding simply stayed in place. Later bhash2
-lookups then at least used the same l3mdev that the reset used. The
-mismatch between the restored binding and icsk_bind2_hash is new
-with this change.
-
-A smaller side effect is that tcp_set_state(sk, TCP_CLOSE) runs the
-BPF_SOCK_OPS_STATE_CB and bpf_tcp_ops state callbacks while the
-failed scope_id binding is still visible.
-
-Should sk_bound_dev_if be restored at the top of late_failure,
-before tcp_set_state() and inet_bhash2_reset_saddr()? Or is there a
-reason the reset is expected to use the connect-time binding?
-
-[Severity: High]
-
-Does this handle a connect() that fails after tcp_v6_connect() has
-already returned 0?
-
-The restore only runs when tcp_v6_connect() itself returns an error.
-After tcp_connect() queues the SYN, the function returns early:
-
-	err = tcp_connect(sk);
-	if (err)
-		goto late_failure;
-
-	return 0;
-
-Suppose the peer sends RST, the SYN times out, or an ICMPv6 error
-arrives. Then __inet_stream_connect() sees TCP_CLOSE and takes the
-sock_error path:
-
-net/ipv4/af_inet.c:__inet_stream_connect() {
-    ...
-sock_error:
-	err = sock_error(sk) ? : -ECONNABORTED;
-	sock->state = SS_UNCONNECTED;
-	sk->sk_disconnects++;
-	if (sk->sk_prot->disconnect(sk, flags))
-		sock->state = SS_DISCONNECTING;
-    ...
-}
-
-tcp_disconnect() undoes the auto-assigned source address with
-inet_bhash2_reset_saddr() and drops the dst with __sk_dst_reset(). It
-never touches sk_bound_dev_if, so the socket stays bound to the
-interface taken from sin6_scope_id.
-
-On a retry connect() to ::1, sk->sk_bound_dev_if is copied into
-fl6->flowi6_oif. ip6_route_output_flags_noref() then adds
-RT6_LOOKUP_F_IFACE:
-
-	if ((sk && sk->sk_bound_dev_if) || rt6_need_strict(&fl6->daddr) ||
-	    (fl6->flowi6_oif && any_src))
-		flags |= RT6_LOOKUP_F_IFACE;
-
-The lookup then fails with ENETUNREACH, which is the symptom the commit
-message describes. A successful link-local connect followed by
-connect(AF_UNSPEC) ends up the same way.
-
-An unprivileged user cannot clear the stale binding either.
-sock_bindtoindex_locked() returns -EPERM when sk_bound_dev_if is already
-set and the caller lacks CAP_NET_RAW.
-
-So with this patch, the implicit binding is undone after a synchronous
-failure (route lookup) but kept after an asynchronous one (RST, timeout,
-ICMP). Would it make sense to also undo the scope_id binding on the
-disconnect path, or to track it so it can be undone there?
-
-[Severity: Low]
-
-Could this write-back clobber a binding that was set after the snapshot
-was taken?
-
-The restore is unconditional. It runs even when the sin6_scope_id
-branch never changed sk_bound_dev_if. tcp_connect() runs the BPF
-connect hooks before several of its error returns:
-
-net/ipv4/tcp_output.c:tcp_connect() {
-    ...
-	tcp_call_bpf(sk, BPF_SOCK_OPS_TCP_CONNECT_CB);
-	bpf_tcp_ops_call(connect, sk);
-    ...
-			return -EKEYREJECTED;
-    ...
-	if (inet_csk(sk)->icsk_af_ops->rebuild_header(sk))
-		return -EHOSTUNREACH; /* Routing failure or similar. */
-    ...
-	if (unlikely(!buff))
-		return -ENOBUFS;
-    ...
-}
-
-A sock_ops program can call bpf_setsockopt() with SO_BINDTODEVICE or
-SO_BINDTOIFINDEX from CONNECT_CB, and sol_socket_sockopt() in
-net/core/filter.c accepts both.
-
-If tcp_connect() fails after that, the path goes late_failure ->
-failure. The value saved on entry then overwrites the binding the BPF
-program just installed, and no sk_dst_reset() follows. Before this
-patch, that binding would have survived.
-
-Would it be better to restore only when tcp_v6_connect() itself wrote
-sin6_scope_id into sk_bound_dev_if?
-
+diff --git a/drivers/media/usb/usbtv/usbtv-audio.c b/drivers/media/usb/usbtv/usbtv-audio.c
+index ae0a14e5ed2a..6bdb64051cf2 100644
+--- a/drivers/media/usb/usbtv/usbtv-audio.c
++++ b/drivers/media/usb/usbtv/usbtv-audio.c
+@@ -333,7 +333,7 @@ int usbtv_audio_init(struct usbtv *usbtv)
+ 	INIT_WORK(&usbtv->snd_trigger, snd_usbtv_trigger);
+ 	atomic_set(&usbtv->snd_stream, 0);
+ 
+-	rv = snd_card_new(&usbtv->udev->dev, SNDRV_DEFAULT_IDX1, "usbtv",
++	rv = snd_card_new(usbtv->dev, SNDRV_DEFAULT_IDX1, "usbtv",
+ 		THIS_MODULE, 0, &card);
+ 	if (rv < 0)
+ 		return rv;
+@@ -348,8 +348,6 @@ int usbtv_audio_init(struct usbtv *usbtv)
+ 		"USBTV Audio at bus %d device %d", usbtv->udev->bus->busnum,
+ 		usbtv->udev->devnum);
+ 
+-	snd_card_set_dev(card, usbtv->dev);
+-
+ 	usbtv->snd = card;
+ 
+ 	rv = snd_pcm_new(card, "USBTV Audio", 0, 0, 1, &pcm);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031074654.73952-1-yanxia%40cmss.chinamobile.com
+2.34.1
+
