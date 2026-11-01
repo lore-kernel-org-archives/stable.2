@@ -1,48 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793561233;
-	b=vFiouIxrxUTn888FqGy0RTujrkUkaibbRaDasw4PW53HcIrxN3q0WI80e3O5S1sTgb7N
-	 FJj6fRavGMXp6uf+ffGfDSmYI3pFWWUWMYvyRcjOfnn7mBVVPLfSky1kDQ97U6oNY2grr
-	 6/JDqiIdw/2WqYjIutM1mSrvsjk2Vv1ISUAmMuXsk3xkf9C/TWuahu28To55jDyl0znB0
-	 Gs/pPd+4Pwl+U2qG2n+b9PxuZsfMzGDztoO9R2MsYBIEld4zahmbkL0yAYVYVe9s8ZlJ1
-	 pQZmfvhS+l727nEDMPmEFQOYNZc2Slra4mL3SA3+x0wG+VUkU2sO2aiZ9ot3hmUnzsA==
+	t=1793561395;
+	b=MZqWWFUvZgyMJQ1d+PfLMXntApL7ZEyHBrxcZwLVSObdDrbGT5q16sYOUE1C9jXdNKSK
+	 MuxrC9I7ZpXDdColDDrJbPv8/I4M+MadnPK1mY2fmbD5kXFPiUUclGxuc2y6zxA31Zxgk
+	 ZEtgAXLFTRKrgo56xi4Ra5nsdPg8vz/vjdqtrUXyJ2B1/7DKmWZWDUsHVK9WISLWhGO+C
+	 c0jJwxB7ktrbTa48tXnQQKTn6tqaysJGKXObeochaPwLohPKJxnGQcaXo7OxJa9APUetP
+	 X+UAnkbeFkrCShltFVPEFsuQs5joc9UrM0nR6of/zOIAa2ASCDe7FsR0UTBAlItBGng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561233;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=b5pE2M/qGByB97SoTRFgvCbF+xkHvJYXn27Z9gvuRCU=;
-	b=uDEOeNgl9T6UWNyjEao2RTRsumBZXXS3mZsC0HETXBHtlgxJZEv3jkDEPBSVBbP1NWvH
-	 HlneVQD5yJ+Vwii5R+hJbtDSMvgpyEa8z9nBUYNePckP0//VYu9RxiIkdWvrMpzG161ad
-	 CeVnqZZF+MzlJI7skmx5NegYGpbFpfgfg3Z8I8YQQKc4X36jmHFwQACG75Zi7qEdqGpIE
-	 oDU+qhNbiK6y17tiYnH/PwjBTWXqPTBMDbpY0OURf2OdHJjPElao2BtX+HLqBTrlGHx7m
-	 /T5XwxzUnEqJ/8C3Jen5kZQbf2cfUN+CBmRHhMcPdS+ens59ZfnVKfjEzwrpImK3RhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561395;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
+	b=OmrqPqbqSLrTxPrwwKDovmPj6RWMSYs6I7Kj+k1f7lmpayEc6o+kXjuL21YgywcnuVLA
+	 NudlSaJJNPbW29LE675owBvTLQn59GboUCD/KdNXpz7TOMo/e9RWq01gcXiB3kmyKGj7i
+	 fiyHUwepZxNhQlPKMFZFhw0tDFrWvf4+ed9aXPDv2lwwnmuh9adPh6z75xqCPNADPUqrW
+	 9x5mhbDpM0okfdS0Du8H8iCx+Xpd0kDzItrmRZeGpX5hgRCr6RhWke/LURNMfaFxEAbjs
+	 TJsCW6bwrIh5vnot8uuM89T6NGcr6IkItt0da4BmHj7PoW/bJFuOTDYo4gI74nNh/VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=L5rrJVMI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DXExrATK;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D557D606A324;
-	Sun,  1 Nov 2026 19:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2513B606A33A
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 19:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2513B606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=L5rrJVMI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBEE1F000C1;
-	Sun,  1 Nov 2026 19:27:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DXExrATK
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-369f126a526so3125861eec.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 11:29:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793561232;
-	bh=b5pE2M/qGByB97SoTRFgvCbF+xkHvJYXn27Z9gvuRCU=;
-	h=Date:To:From:Subject;
-	b=L5rrJVMISfXavStXFOJLBKKhxNJ+vMKPAifb+kQ5VNONTpOKYChfL7OilcX+QbFRg
-	 J++TfGBajyxs04R7SbDU1yyHk/WEsa6UHL0CiErAiyfDNc1AtDkPyu5NZxvwPseowx
-	 q//y197TkgMKnTZPCy/duKONMI+3FRM7acGBlyOw=
-Date: Sun, 01 Nov 2026 11:27:11 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,tz2294@columbia.edu,
-	stable@vger.kernel.org,pfalcato@suse.de,peterx@redhat.com,
-	NoahWeinberger2003@proton.me,ljs@kernel.org,liam@infradead.org,
-	jannh@google.com,david@kernel.org,rppt@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261101192712.5EBEE1F000C1@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1793561394; x=1794166194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
+        b=DXExrATKhuv2WetJguNn6T+WIyLaHJQ0dzD4VYgImnZt3ZlQUYnYIQSPTA/j5JbPMw
+         9kJfqbPAujFTCGQ4RM7W3G3MwPztfRW/t00V0E+Jy7wU7rDRaAY6rJaY1jgZ2ypTgu3A
+         5eBTeZlT13S3IHbV3RU/p7KjD47jw6mRGiDBhvioib3fPSPl4q5Tbyoz/EPVHII2yYG9
+         w7haRqtHVQvihwGlXhv8sB4IFMfR50bUeNxYAXk3kf4SXTkW45GDup9xMcGcSgDLbpp5
+         QCMY4gDVkUiWm8N4aGC9N90dgJIKpSnU0h6CgvuUelmg9xtw1Feab32eSKvJQoTo/bIi
+         byeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793561394; x=1794166194;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
+        b=0kefNX8a8iFAmOKrni1zXBaFHe6H02DSz/+U72ZaE3sNPbV0RXdu5XN0CK96+Agn45
+         AcKrTylKlbUU/Tl2VG+vOx1/wrOUcdKGnXnL0GZhlWpbwPZaWyLcTJBteRu61jSBBJhM
+         XMIr52o9Vgbb/OGYZ1KbqYDhTVshf7bfwChMt6jvsDZcYJNaKfkYcubUQg9sityxz8hn
+         3x+5jmE1zYemTS0UCgU2F0xXk3R6u77O2WfcbLREmh6nNaAFrwgTL6O/FRMLGDEo8O8U
+         I8b+4nf+yntItiLug1oyzpfHmQElfr7EUhYG3f1gdg3DXamVbLvvrZJ/pmNedV2IBvI2
+         8lZw==
+X-Forwarded-Encrypted: i=1; AKwUvBxws1qxvVk9yZzSjjHjq+r3x5OxsU10kE0dvngd6mVNveMDyj3WHKLZs+sL0gkrP7Jz+apaPmY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RPTYhz8WCQqBxKhvIvO4qaoYjU/rPojsABuKcjAJjqFeTkUWG
+	Fdd1a491lrdtaZHLrYbhzweG+mvNs5bxPg53EvrC4Yvo7EzNhWRva0gX
+X-Gm-Gg: AYBFou1Jk0V8cK0wOaAcoy7zO30rZq8ZKKMRAz2QjPEF55Rw4JR5ko5W9IsF/Y4uwvM
+	axUvQfIAblPR3AK3/Vo3oGBTaXWRR0Zt6ki79soKP8zvtmlqGT4oKP71y9icU4gD7xLYH11qQ6Z
+	egwRWg9bMNQbxS5TIkG7tDb3Ed04tW0ZYlpSkF3QXrfrsIVrf/q/v5JqwoeFMqiKKs3qfvubClG
+	JJtgKQpFkPj50Bgnp/pbvICmw9s5Wigbh00I6h0IqCUbIeM0asF7yoky/lJApHdAhK+PQHEoZw2
+	1qVuYOFLErkgwbEqUUlY/Ul1giEPUyAnJxAALpbwFJ1MzCZmArF/LSoUt/XhaO1ZKsekPnvZWJM
+	VAGa7Rr334kjxUPnmV+nVc1V2B+5FPIiO2rLt9aJp2SYGY2J4UXH/ngjb8up3lllMZiuO/zXtpe
+	OlekSv7i9eZ/4h1Jda7en3p6oV9LcAzUYo8OumNBw1lZsvDy8nLuotbHgDWCxYtmXxM+WXYSSZU
+	ZEA9vxbJZ8/8MH8jmIKtQ0cndrOCB1d6YDP5q9kyBqFU0RgWszWamXF3a52E60n4kLgVot2sRBb
+	SzrWv/oVy6qp4VpyArndaT2BuoU=
+X-Received: by 2002:a05:7301:710f:b0:359:2edc:e1d8 with SMTP id 5a478bee46e88-36a422039fbmr11538413eec.5.1793561393990;
+        Sun, 01 Nov 2026 11:29:53 -0800 (PST)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm31471861eec.7.2026.11.01.11.29.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 11:29:53 -0800 (PST)
+From: Coia Prant <coiaprant@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Frank Wunderlich <frank-w@public-files.de>,
+	Peter Geis <pgwipeout@gmail.com>,
+	Junhao Xie <bigfoot@classfun.cn>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 5/5] arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
+Date: Mon,  2 Nov 2026 03:28:07 +0800
+Message-ID: <20261101192807.897562-6-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261101192807.897562-1-coiaprant@gmail.com>
+References: <20261101192807.897562-1-coiaprant@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,237 +107,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+When the Ariaboard Photonicat runs on battery, the USB port has no power
+output and attached devices are not detected. With the external supply
+connected, the same port works fine. The root cause is that the
+regulator feeding usb2phy0_otg (vcc5v0_usb30_otg0) is only available
+from the external DC input, and there is no 5V rail for the USB PHY
+when the board is powered from the battery.
 
-The patch titled
-     Subject: mm/vma: undo userfaultfd unmap preparation when unmapping fails
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails.patch
+Add a vcc5v0_usb30_otg0_boost regulator, gated by vcc5v0_usb30_otg0,
+and switch usb2phy0_otg to use it as its phy-supply. The boost converter
+is enabled through GPIO4_D2 and generates the 5V USB VBUS from the
+vccin_5v rail. Note that vccin_5v is the actual energy source, while
+vcc5v0_usb30_otg0 gates the path; vin-supply is modelled on the gate so
+the regulator core enables it before the boost.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails.patch
+This restores USB host functionality on battery power, matching the
+vendor firmware behaviour.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: mm/vma: undo userfaultfd unmap preparation when unmapping fails
-Date: Sun, 01 Nov 2026 10:24:02 +0200
-
-vms_gather_munmap_vmas() collects VMAs to unmap and calls
-userfaultfd_unmap_prep() for each of these VMAs. This takes a reference
-to the userfaultfd context, raises ctx->mmap_changing and queues an
-UFFD_EVENT_UNMAP on the caller's list.
-
-If gathering fails half way, e.g. because one of the VMAs is sealed, or
-the operation fails after the VMAs were gathered, the original mappings
-stay intact but the queued events remain on the list.
-
-Depending on the caller they are either delivered although nothing was
-unmapped (munmap(), mremap(), mmap(MAP_FIXED)), or silently dropped
-(brk()). In the latter case the userfaultfd context and the mm_struct it
-pins are leaked and mmap_changing is never lowered, so UFFDIO_COPY,
-UFFDIO_ZEROPAGE and all other ioctls that check mmap_changing fail with
--EAGAIN forever.
-
-With mseal() this is trivially triggered by an unprivileged process.
-
-Collect the events in do_vmi_align_munmap() on a local list and splice
-it to the caller's list only when the unmap completes, because mremap()
-may already have events for earlier unmaps on that list.
-
-Drop the pending events with a new userfaultfd_unmap_abort() helper when
-do_vmi_align_munmap() or __mmap_setup() fail.
-
-Link: https://lore.kernel.org/20261101-uffd-unmap-abort-v1-1-1588d7a7c61a@kernel.org
-Fixes: 65ac132027a8 ("userfaultfd: fix regression in userfaultfd_unmap_prep()")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Noah Weinberger <NoahWeinberger2003@proton.me>
-Reviewed-by: Tal Zussman <tz2294@columbia.edu>
-Tested-by: Tal Zussman <tz2294@columbia.edu>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
+Link: https://github.com/immortalwrt/immortalwrt/issues/1534
+Fixes: ba124e06ce7b ("arm64: dts: rockchip: add dts for Ariaboard Photonicat RK3568")
+Cc: stable@vger.kernel.org
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
+ .../boot/dts/rockchip/rk3568-photonicat.dts   | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
- include/linux/userfaultfd_k.h     |    5 +++++
- mm/userfaultfd.c                  |   19 +++++++++++++++++++
- mm/vma.c                          |   28 +++++++++++++++++++++++-----
- tools/testing/vma/include/stubs.h |    4 ++++
- 4 files changed, 51 insertions(+), 5 deletions(-)
-
---- a/include/linux/userfaultfd_k.h~mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails
-+++ a/include/linux/userfaultfd_k.h
-@@ -279,6 +279,7 @@ extern int userfaultfd_unmap_prep(struct
- 		unsigned long start, unsigned long end, struct list_head *uf);
- extern void userfaultfd_unmap_complete(struct mm_struct *mm,
- 				       struct list_head *uf);
-+void userfaultfd_unmap_abort(struct list_head *uf);
- extern bool userfaultfd_wp_unpopulated(struct vm_area_struct *vma);
- extern bool userfaultfd_wp_async(struct vm_area_struct *vma);
- extern bool userfaultfd_rwp_async(struct vm_area_struct *vma);
-@@ -445,6 +446,10 @@ static inline void userfaultfd_unmap_com
- {
- }
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+index 7e0a2ab829209..bcdfe76000c46 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+@@ -151,6 +151,19 @@ vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
+ 		vin-supply = <&vccin_5v>;
+ 	};
  
-+static inline void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+}
++	/* actually fed by vccin_5v, dependent on vcc5v0_usb30_otg0 */
++	vcc5v0_usb30_otg0_boost: regulator-vcc5v0-boost {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpio = <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&vcc5v0_boost_en>;
++		regulator-name = "vcc5v0_boost";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		vin-supply = <&vcc5v0_usb30_otg0>;
++	};
 +
- static inline bool uffd_disable_fault_around(struct vm_area_struct *vma)
- {
- 	return false;
---- a/mm/userfaultfd.c~mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails
-+++ a/mm/userfaultfd.c
-@@ -3307,6 +3307,25 @@ void userfaultfd_unmap_complete(struct m
- 	}
- }
- 
-+void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+	struct userfaultfd_unmap_ctx *unmap_ctx, *n;
+ 	vccin_5v: regulator-vccin-5v {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vccin_5v";
+@@ -460,6 +473,10 @@ rf_pwr_en: rf-pwr-en {
+ 		usb_host_pwren_h: usb-host-pwren-h {
+ 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
 +
-+	if (!uf)
-+		return;
-+
-+	list_for_each_entry_safe(unmap_ctx, n, uf, list) {
-+		struct userfaultfd_ctx *ctx = unmap_ctx->ctx;
-+
-+		atomic_dec(&ctx->mmap_changing);
-+		VM_WARN_ON_ONCE(atomic_read(&ctx->mmap_changing) < 0);
-+		userfaultfd_ctx_put(ctx);
-+
-+		list_del(&unmap_ctx->list);
-+		kfree(unmap_ctx);
-+	}
-+}
-+
- static int userfaultfd_release(struct inode *inode, struct file *file)
- {
- 	struct userfaultfd_ctx *ctx = file->private_data;
---- a/mm/vma.c~mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails
-+++ a/mm/vma.c
-@@ -1675,9 +1675,18 @@ int do_vmi_align_munmap(struct vma_itera
- 	mt_init_flags(&mt_detach, vmi->mas.tree->ma_flags & MT_FLAGS_LOCK_MASK);
- 	mt_on_stack(mt_detach);
- 	struct vma_munmap_struct vms;
-+	struct list_head *uf_unmaps;
-+	LIST_HEAD(uf_new_unmaps);
- 	int error;
++		vcc5v0_boost_en: vcc5v0-boost-en {
++			rockchip,pins = <4 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
+ 	};
  
--	init_vma_munmap(&vms, vmi, vma, start, end, uf, unlock);
-+	/*
-+	 * @uf may already hold events of earlier successful unmaps, e.g. in
-+	 * mremap().
-+	 * Collect new events on a separate list so they can be dropped if this
-+	 * unmap fails, and splice them into @uf on success.
-+	 */
-+	uf_unmaps = uf ? &uf_new_unmaps : NULL;
-+	init_vma_munmap(&vms, vmi, vma, start, end, uf_unmaps, unlock);
- 	error = vms_gather_munmap_vmas(&vms, &mas_detach);
- 	if (error)
- 		goto gather_failed;
-@@ -1687,12 +1696,15 @@ int do_vmi_align_munmap(struct vma_itera
- 		goto clear_tree_failed;
+ 	wifi {
+@@ -617,7 +634,7 @@ &usb2phy0_host {
+ };
  
- 	/* Point of no return */
-+	if (uf)
-+		list_splice_tail(&uf_new_unmaps, uf);
- 	vms_complete_munmap_vmas(&vms, &mas_detach);
- 	return 0;
+ &usb2phy0_otg {
+-	phy-supply = <&vcc5v0_usb30_otg0>;
++	phy-supply = <&vcc5v0_usb30_otg0_boost>;
+ 	status = "okay";
+ };
  
- clear_tree_failed:
- 	reattach_vmas(&mas_detach);
- gather_failed:
-+	userfaultfd_unmap_abort(&uf_new_unmaps);
- 	validate_mm(mm);
- 	return error;
- }
-@@ -2581,7 +2593,7 @@ static int __mmap_setup(struct mmap_stat
- 		if (error) {
- 			/* On error VMAs will already have been reattached. */
- 			vms->nr_pages = 0;
--			return error;
-+			goto abort_unmaps;
- 		}
- 
- 		map->next = vms->next;
-@@ -2591,8 +2603,10 @@ static int __mmap_setup(struct mmap_stat
- 	}
- 
- 	/* Check against address space limit. */
--	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages))
--		return -ENOMEM;
-+	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages)) {
-+		error = -ENOMEM;
-+		goto abort_unmaps;
-+	}
- 
- 	/* Private writable mapping: check memory availability. */
- 	if (accountable_mapping(map)) {
-@@ -2602,7 +2616,7 @@ static int __mmap_setup(struct mmap_stat
- 		if (uncharged) {
- 			error = security_vm_enough_memory_mm(map->mm, uncharged);
- 			if (error)
--				return error;
-+				goto abort_unmaps;
- 		}
- 
- 		/* Our new mapping owns the entire charge now. */
-@@ -2621,6 +2635,10 @@ static int __mmap_setup(struct mmap_stat
- 
- 	set_desc_from_map(desc, map);
- 	return 0;
-+
-+abort_unmaps:
-+	userfaultfd_unmap_abort(uf);
-+	return error;
- }
- 
- static bool map_same_file(struct mmap_state *map)
---- a/tools/testing/vma/include/stubs.h~mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails
-+++ a/tools/testing/vma/include/stubs.h
-@@ -148,6 +148,10 @@ static inline int userfaultfd_unmap_prep
- 	return 0;
- }
- 
-+static inline void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+}
-+
- static inline void mmap_write_downgrade(struct mm_struct *mm)
- {
- }
-_
-
-Patches currently in -mm which might be from rppt@kernel.org are
-
-mm-cma-accept-memory-of-multi-range-cma-areas.patch
-mm-cma-accept-memory-of-cma-areas-reserved-at-a-fixed-address.patch
-userfaultfd-clear-uffd-state-in-child-ptes-if-uffd-is-released-during-fork.patch
-mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails.patch
-hibernation-make-swsusp_page-helpers-static.patch
-hibernation-ensure-secretmem-pages-dont-reach-a-snapshot.patch
-hibernate-handle-potential-errors-in-hibernate_mapunmap_page.patch
-hibernation-kfence-explicitly-map-unmap-kfence-pages.patch
-hibernation-make-hibernation-unavailable-when-debug_pagealloc-is-on.patch
+-- 
+2.47.3
 
