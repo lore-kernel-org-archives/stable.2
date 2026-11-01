@@ -1,59 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793552921;
-	b=HCINVr6G1X3V4yqhMgQotQOYh4vPIyatk/dmXQ0LNoHBDI9PO/rMmo4mNVihTKq5Uwcq
-	 MwfCfHxfiseXP2l6x2HXBHW/KSUSmRU4PWkw0KGWp/EZNk2yGkLWdngIH7lYXp1fmfC17
-	 8ZgnnWz/vxoTDac9CqTpDeBk5tclVG6WQNkFAAIvfaD4BAm2WCNB/jZtvb5FMzmcysS7f
-	 V8zaRC2ApUKC2C5AiexOoQRdVACqaTg64npzUKVrpZ8QbKuR0/zwoJbf1H/zpXI0x4QZ3
-	 tRodBvjY0i5dXWoyvIlfy+uMpwchLd9OqnNe9ghGcrhTx52pVasXdbUOaXk5RX+quHA==
+	t=1793553357;
+	b=y0jJ86hRmOn84bg7aQQLxs4dBedSVQPW4wKjBp46ZbZUVFL/Ji/fI7T0jkpgt8jaSNM8
+	 DBYARk3VACUcsYE9YnYp8a3+SetH8pJlfzloFzk3oaJIbpPK81pwixH1tzJ8xo9n9Lrl6
+	 bnpXEr+Z1Zrb/KeeBIsy8luAJfAlvWA81730ZvB7CIntzru5lHCnHnSrGaPyfasdu62lQ
+	 wvMi2MuOd9yb8eaOhUmKkT6oU6GR44kTblFiJnPdlvmtXPf6t9aBeHoltFHDFuVpOXdZH
+	 NFS97aCAJEnCWmc8lqs0YrL2RZIurQuc8h8pn7zkP2AlIwQIEP9Ebss9DgU3UD8+Xig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793552921;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=I21QGyvLYuqiW8efrWEKXCzyX85q7lTtLZbUXjSxMZg=;
-	b=AbBKLoV7YUQQF4Pr0h0isH9k0K94fRkkXaDQ8Vi8BrDRXgY+KlOsJuj0HJHtitpbxpt7
-	 wd9nOj88enkNqoqmAwhM0Pb/WiQUBuBS9EcgcQXnBixUcr9e3WwnLZz61xT26WNXshKZc
-	 jzpoIu4kC5L+A0CYRFm2fw03EiidMxzAsEMVm1XoUk63uevDqIrE+3U+MYi3bYXWgNMbD
-	 A5kqxDIG/2LOTmMuyaMhfs/PIKN3IO81KCOoqoLAz3o2VPjtkDZQcrSKZ2bZALmAcqF8u
-	 P+HkUaq+C59WJX5JoXqb4dBdVM0721LnNr7sK2rTbBzHg3m47V5Am3zIeUCI5708ZHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793553357;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=ri6mm4g8aC/HkC6PYUflTSf+2uZxNNs5OIicG2gsEt4=;
+	b=Nes7yg+QsTDKdEJPqnQi19+eGPCGO9ZzacXQUAGJCIbAZq5bvl7AYqfV3vv4EelgerKn
+	 KPLGnk/A/3QpTRI1B6AWn/AWEBoDOQ3OhU91e8IJBNEuLSRD+c+KcJi5fx3s6iRnM1CrD
+	 cXYuLBhTTxbw54XeYFamY+Pyz6Cm9yAyBL14i+OZFBt794y1EWSSTEMMFXF0ZQZCMYg6A
+	 fXmnz4irDdC5AgRTXbWVT+RNAos5KhC1kRcWjnukAgPdOBOwM0Chpf78UBh0xWkpEumiV
+	 M1MjLI0DjRBFdrneF9d1mQRxQYjugMKbLYTzQoxPgd3CuG+/o8odfde23nZ5VuN9cZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hallyn.com;
-	spf=pass smtp.mailfrom=hallyn.com;
-	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=D0F9depx;
-	arc=none smtp.remote-ip=178.63.66.53
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="QuEK/AwJ";
+	arc=none smtp.remote-ip=209.85.214.199
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDDBD606A324;
-	Sun,  1 Nov 2026 17:08:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDDBD606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B8A606A326
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 17:15:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95B8A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=D0F9depx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1793552910; bh=5+DQMvP1EuvF1C06xt4Si4q5kFFWytIZId09erO2zY4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=D0F9depxyP1choXEsj3BLO+NFgOq27OlvisF1QlY1PNNWnc7ogRn0bEN29rJhoKGM
-	 jOOl9z3hmbj8aoUJVK23QJOXi2oj19nHuluRSahgoqlbs0Y43T8lUZljgJJ6lR12JX
-	 4YBJ2Fz0f9xAqDCm8LKx4b6+DwAH/IH6CXX9Pc1FCBliOau8jiH4nnkD63i9uym/zP
-	 iElzlzfONWJYBHnacCC46WmsfSeffGVRifc/2gCg0YPYSTimDeh+UMCSxg3yz0nTIm
-	 0p/Q6rQydT5EewIWUQZFbVIBbLoYLwbsBmjHgeM5QGWbBZK0iojXYKzdLKuf/Uir9d
-	 uAPnglYflHjlw==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id E8010553; Sun,  1 Nov 2026 11:08:30 -0600 (CST)
-Date: Sun, 1 Nov 2026 11:08:30 -0600
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org,
-	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	Jann Horn <jannh@google.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] userns: keep the exec securebits
-Message-ID: <audyDljs8nV8vA6h@hallyn.com>
-References: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QuEK/AwJ
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e9821ca96fso37332505ad.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 09:15:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793553356; x=1794158156; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ri6mm4g8aC/HkC6PYUflTSf+2uZxNNs5OIicG2gsEt4=;
+        b=QuEK/AwJKi2Ixp3yIC2uwMEYm1rKIp/m4C3I3y5ZCuigDFWMM24QOGNikavpmDq+cu
+         fNftJaeLqhSAaV2WDxpGWVzH9XDi2PTm00P4VxgSJMBI03FCfvAoF6wPLw/TPaZoaXUw
+         4RrJpNvVAQQ2z7TLcHOgHKQbvahMnWiE9olc+BFh+pUTaHNO7Pcvl0ffStldf42JsmlE
+         jUcJectpyHQZO2XmvmsiHSWpd1TvCN6ifJ80hUhTlYDAeDZXeEtFL7Mki1V/oHi7dQJG
+         VUsKj/y+DdmOTWWZzOKPxu2dyx3iMJKVMvbeFPZiKsvYXZvH7ArriBxBKiqvUrs7oiUi
+         y7ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793553356; x=1794158156;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ri6mm4g8aC/HkC6PYUflTSf+2uZxNNs5OIicG2gsEt4=;
+        b=rlQYYQJoL3deJWEUCLnr2KxrI7j4QN24x5/Cu1W00bhSZDgmgrpf67jNRfeYT0Ww4n
+         Ov0w8rcUHRA+jkvx6aNvb1BsZfT36xC3hOrX1/2vOrMekO6t9ZgzozhNeGkGhL9vNQLA
+         2r1HPispeQ+BXMEIE1aMlJwSAMAMSMVZCgnIrJZKqJsV6xAFQdyyco8Tn/dnExunbuMv
+         ddls5EY4Msvm+M+Fghzb+yRLrGwccNDUaVEE32LjIRCCazJ9KHB+rFjzaJVUv83kkWZV
+         NkPHiAIjNzjE0Ohaz0VujT7oECLu7zdm1CWY6mdAZvLlkqsLmP83YQK9uewmhdXvk1Ha
+         5bNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzmcPsvuqeEj82g4cxuZxEpdXVEy0xGNi8KS3xC1F0F+jZ0p4IsPqC6l+dp/Tt6MrvujyCJIkI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CIFCG2uBaTV0HKx2TgcaTzrua0YYk6pJRsJsJ583v+RzfPPdT
+	4jwhzTfr8+BoHvot0PPfYW1+g7FgXZROZY7AI8jd5LarVIwH4qpYeh2ZrHRWbogsgaDKy7AVRkh
+	v+gbhbA==
+X-Received: from pjbft1.prod.google.com ([2002:a17:90b:f81:b0:3ad:cde0:ea04])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4c08:b0:3ac:8741:e2e8
+ with SMTP id 98e67ed59e1d1-3ae8957cb02mr6841418a91.8.1793553355750; Sun, 01
+ Nov 2026 09:15:55 -0800 (PST)
+Date: Sun, 1 Nov 2026 17:15:55 +0000
+In-Reply-To: <20261101075145.698399-1-sgzhang@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,56 +77,78 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
+Mime-Version: 1.0
+References: <20261101075145.698399-1-sgzhang@google.com>
+Message-ID: <audwphXNeZhVItS0@google.com>
+Subject: Re: [PATCH net] net: count last skb of each sk_backlog pass in __release_sock()
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Ray Zhang <sgzhang@google.com>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	David Decotigny <decot@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, Oct 26, 2026 at 09:53:28PM +0100, Christian Brauner wrote:
-> The exec securebits are meant to be set and locked by a service manager
-> so that nothing below it can turn them off again. But creating a user
-> namespace resets all securebits, locks included. So anyone who may
-> create a user namespace can shed them with a single
-> unshare(CLONE_NEWUSER), and joining one with setns() does the same.
-> That's pretty much everyone.
-> 
-> systemd gains a SecureBits= setting for the service manager itself. It
-> sets and locks the exec bits for everything it starts, so interpreters
-> that support AT_EXECVE_CHECK enforce the system's execution policy for
-> their scripts. With the reset "unshare -U python3 /tmp/x.py" gets
-> around all of that.
-> 
-> The other securebits are about how capabilities are computed and
-> resetting them in a new user namespace is fine. The exec bits grant
-> nothing. They're restrictions a task placed on itself, like
-> no_new_privs, which a user namespace doesn't drop either. So keep them
-> and their locks and keep resetting the rest.
-> 
-> I also keep the exec bits that aren't locked. fork() and execve()
-> preserve them and the task can clear them itself anyway, so dropping
-> them on unshare() would just be inconsistent.
-> 
-> The new selftests fail on mainline and pass with the fix. I think this
-> wants to go to stable, otherwise the locks don't mean much on any kernel
-> that has these bits.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+On Sun, 01 Nov 2026 00:51:45 -0700, Ray Zhang wrote:
+> Running 500 concurrent TCPv6 streams (neper "tcp_stream -6 -T 1 -F 500")
+> on a 2-core Cortex-A53 (CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN)
 
-thanks, makes sense to me.
+I guess you tested it on 6.18, but note that CONFIG_PREEMPT_NONE
+is no longer selectable on arm64 since 7dadeaa6e851.
 
-Reviewed-by: Serge Hallyn <serge@hallyn.com>
 
-for both.
-
-> ---
-> Christian Brauner (2):
->       userns: don't drop the exec securebits
->       selftests/exec: check that user namespaces keep the exec securebits
+> triggers resched_latency_warn() in __release_sock():
 > 
->  Documentation/userspace-api/check_exec.rst |  4 ++
->  kernel/user_namespace.c                    |  5 +-
->  tools/testing/selftests/exec/check-exec.c  | 83 ++++++++++++++++++++++++++++++
->  3 files changed, 91 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
-> change-id: 20261026-work-securebits-userns-6070b18a9cda
+>   [ 3655.311821] sched: CPU 0 need_resched set for > 100006892 ns (100 ticks) without schedule
+>   [ 3655.311889] Call trace:
+>   ...
+>   [ 3655.311944]  resched_latency_warn+0x7c/0x88
+>   [ 3655.311958]  sched_tick+0x1c0/0x418
+>   ...
+>   [ 3655.312578]  net_rx_action+0x238/0x438
+>   ...
+>   [ 3655.312641]  do_softirq+0x4c/0x90
+>   [ 3655.312651]  __local_bh_enable_ip+0x84/0x90
+>   [ 3655.312663]  local_bh_enable+0x1c/0x28
+>   [ 3655.312674]  __dev_queue_xmit+0x4a8/0xb00
+>   ...
+>   [ 3655.312782]  tcp_v6_do_rcv+0x240/0x5f8
+>   [ 3655.312793]  __release_sock+0x9c/0x188
+>   [ 3655.312806]  release_sock+0x150/0x168
+>   [ 3655.312817]  tcp_sendmsg+0x4c/0x70
+> 
+> __release_sock() can loop past 100 ms without calling cond_resched():
+> 
+> - Each outer-loop pass drains sk_backlog, but "if (!skb) break;" runs
+>   before "++nb", so a pass of B skbs only adds B - 1 to nb (0 for 1 skb).
+> - With 500 TCPv6 streams and NAPI sharing two Cortex-A53 cores, runnable
+>   tasks keep TIF_NEED_RESCHED set on CPU 0.
+> - During spin_unlock_bh() and TX softirqs (__dev_queue_xmit() ->
+>   local_bh_enable()), tcp_add_backlog() coalesces arriving pure ACKs into
+>   a single tail skb.
+> - Repeated 1-skb passes never advance nb or call cond_resched(),
+>   triggering resched_latency_warn() after 100 ticks.
+> 
+> Restore the do-while loop and drop "if (!skb) break;" so every skb
+> increments nb across passes and calls cond_resched() every 16 skbs.
+> 
+> Reproduced the issue and verified the fix on two 2-core Cortex-A53 hosts
+> (CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN, latency_warn_once=0) with
+> a userspace reproducer over /dev/net/tun:
+> 
+> - CPU 0 runs a TCPv6 sender and a second runnable task while CPU 1 writes
+>   pure ACKs to /dev/net/tun (~30k TCPBacklogCoalesce/run), sustaining
+>   1-skb sk_backlog refills in __release_sock() for ~400 ms (ftrace).
+> - Before: CPU 0 stayed unscheduled in __release_sock(), hitting
+>   resched_latency_warn() 293 and 275 times on the two hosts (> 100.9 ms).
+> - After: cond_resched() yielded CPU 0 inside __release_sock(), with
+>   0 resched_latency_warn() hits on both hosts.
+> - Also observed no regression with the workload from
+>   commit 16c610162d1f ("net: call cond_resched() less often in
+>   __release_sock()"), "super_netperf 4 -H srv -T,10 -l 3000 &".
+> 
+> Fixes: 16c610162d1f ("net: call cond_resched() less often in __release_sock()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ray Zhang <sgzhang@google.com>
+
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
