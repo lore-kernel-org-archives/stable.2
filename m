@@ -1,69 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793574525;
-	b=VHCxrDRm4WHK4Mo9PHllNzCmbRia23iSGTi29jTF/dzzMMuqZUnf3woAm4ryEJZiB7nd
-	 gN3HU0JHX6iTqUqA7zLvx74iNI7jO7Kayy6J4pqyZE1huflIeUAZ5uUk1HiIPsCcosxow
-	 I9BET1WNgFSgPnJIN2uPKXMLST+BmS4HTI+6aOiA7LIzk4AmHAcHLategWl/UOXC1DxWq
-	 RjCwwOp9dCPqtZWF9ZAaqkVsooBOMWS4Ccx0nUlIwX9v0wzV/zX8RpHBhjr77t8IFPjXY
-	 olwnmHTUuShkodI+J2fCQFmu31KgVUUa4jKxk06lPyGSh9CjdUCQni6c8mJC7+XUS0Q==
+	t=1793574669;
+	b=l/1fkSEBe/GZnz+xVP/Z856O7dgQ79zLBOfg16m/jrGLXpGqPmuNGKAHTqIZ3qfn31uQ
+	 PVNT56gGgDOkLAeh+QqZM1CFLMID0nZuXaHnKQhL/sgRKfyAayhl8abzd7ssuor5S7NwI
+	 ZrZhS4Mp07rahm5ZuKl8CUUZ1EgvZseglEr46vmGkhPV97SHjUIKPpX9kF9boA8eYA86X
+	 5jk/BLq39gnOhBJwAyUXHVFywfK3NZ79PTHD9mmmRrkvAN/V6XzFY69a/Y94iQnUBGdGi
+	 iq6X/4GNR+Ekc6D5tQdqvXlv8JNw2SGCpvbA/lLIXGlMG6pAUji8ky2hVhDq7ASCwAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793574525;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=EDyFzLWJAx3/EEHiJ5QGNpTHFe63F8uemUyzw+u6ROs=;
-	b=VoqjzvSP7KkcjV6QGyP5wvOxNBamV6NjVtQ4gNUzl7bxxdC6MDZQP8KPOGAhZ+TdQKcn
-	 aVuiwDW2VoAxY6fBrTjXHiRd+nau4SDSpIvyKlWddkMI3qhrJqdYaLyk0fU+eYk+rwFPC
-	 NoTrHZanu1guQHsdg4zMlxOOLHTTqrYy+7pytwJrIEsK4zFYPOGuNkgjP0+oJJI+Pi69s
-	 sYllMJBtXy90qeKgyZ0bxGWjCYoUhrdFqP/asvUFgeJhZS6JLHMCfQOFnyTS3SHjieiHN
-	 kqIh4a+G0GnTlgbjhbt7H6sOqqfSCeH8fYe++E4JTkz2q9hKw22pWzbkmfSikCsXDQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793574669;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=pP4TSECHhZx0zxl/HEDYPKq8T0EGn/TF0YTD8IQWiug=;
+	b=i7+kEilQyxTmVvNEcydYJvd/Lru9d61XIRUTFVd4P5Qg5VhrEkTGNej3OfFogaIG55Ba
+	 OscZcizFanH0lWCgwFGOdFmMMn941sJvEWL3vqh6tNY1UTBiVf069wdRJg07dFyPrHiTB
+	 MZp4EP8+aQfRWxbss8UmA6897NMHi/+WVTm0a9tCwIGsexNgNmafel29qO2DGMfg5AWLH
+	 sXlbrcavxYcCt+KEKLse2Hhz1mQIuLGKjB0VN3nhNOAV6VkrJjKeKiwX+S9tuuqYAQ4qP
+	 CWndk0GMcR9va1NgLQW+CgqWmew6p2x/nv9weWi0/i+s/bN0qS16gIL5tWzfiMPT2dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Unjni+PT;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=Kby+au8r;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E562606A324;
-	Sun,  1 Nov 2026 23:08:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E562606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A6398606A324;
+	Sun,  1 Nov 2026 23:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6398606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Unjni+PT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=EDyFzLWJAx3/EEHiJ5QGNpTHFe63F8uemUyzw+u6ROs=; b=Unjni+PT3jPu/98GYZyI+I8IPB
-	E6HA8M+Y1cv70Yu5s0LAebIlVxlHfo3SWFE0B8SsF2Rw/+hkDu/fi/P+7yhRIXrxi4LqLHrIkOBe1
-	+7oDuezC2gjeP96dfcQAP0ymV0vZqG04i0IZpm8PXjMs7nn0O6smbjRU253a47heIntpm0gE1ANiQ
-	dOxHbneVFqlLMdLMtQBwcNevhU69VRD17p9OwCRlJIyjhbxmCM/QTammkFj5XUmm/AYqSUAIQpaW6
-	3FTudW2DxJ0XAmhw77d9x0vllYOeBgq8ipDtt8kigDBNVCFzMiqs8eHY8cEb+qgLSeXtlIu54ThCV
-	cbaq1bow==;
-Received: from [151.115.150.205] (port=40718 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xNefL-00000004S7h-0IAK;
-	Mon, 02 Nov 2026 00:08:43 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=Kby+au8r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1793574666;
+	bh=pP4TSECHhZx0zxl/HEDYPKq8T0EGn/TF0YTD8IQWiug=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Kby+au8rk/2gDQQrwaEaUYRsa3sad14btpmCw5JdLOy6c8YuLhSPmxt9BOqC23Gs/
+	 0pkG1xXBnLWsDLuZNFuDt3mV6pmTJzJWx1Vm9NG3OpgudaKJ4Y/xG7yeJQr+/uBMuk
+	 C7JJQ8DV+UijEAUPu4z+c9G/vHyyhmoW5WWzOLrYGuGVJQ+ehI4AXrIVn3dI3QX1FL
+	 xnw9FhWv8G+5El+tNfN98wXyBlGm3CbuFm5oWuL+/M1kd9qQyVar5lyFOS4MkRBFt2
+	 42l2GGz1oOkA/SfJtak0gOyyxVQn+ZRowKY/dfo6u+Xwkk7V3MqB7D3vwTWfkN0BWd
+	 jJQztauMwGqVQ==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 0A8D460058;
+	Mon,  2 Nov 2026 00:11:06 +0100 (CET)
+Date: Mon, 2 Nov 2026 00:11:03 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>
+Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
 	"David S. Miller" <davem@davemloft.net>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net] xfrm: fix IPv6 first-fragment protocol decode
-Date: Sun,  1 Nov 2026 23:07:45 +0000
-Message-ID: <20261101230745.2043474-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] netfilter: flowtable: flush delete work after
+ final GC
+Message-ID: <aufHB1HXHtm7rw4M@chamomile>
+References: <20260927163248.1002656-1-nicoyip.dev@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,83 +69,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260927163248.1002656-1-nicoyip.dev@gmail.com>
 
-Commit 7a0207094f1b ("xfrm: policy: replace session decode with flow
-dissector") replaced XFRM session decoding with the flow dissector.
-While the old IPv6 decoder kept walking past an IPv6 Fragment
-extension header, the flow dissector stops unless the caller sets
-FLOW_DISSECTOR_F_PARSE_1ST_FRAG. For an atomic fragment followed by
-extension headers, inbound policy lookup can therefore see the header
-after Fragment instead of the actual upper-layer protocol and miss
-protocol selectors.
+On Mon, Sep 28, 2026 at 12:32:48AM +0800, Chengfeng Ye wrote:
+> nf_flow_table_free() can return while delete work still holds a pointer to
+> the flowtable. Its caller can then free the flowtable before the worker
+> accesses it, causing a use-after-free.
+> 
+> nf_flow_offload_del() sets NF_FLOW_HW_DYING only after allocating the work
+> item. If this GFP_ATOMIC allocation fails during the first teardown GC
+> pass, the flow remains eligible for deletion in the final GC pass inside
+> nf_flow_table_offload_flush_cleanup(). That pass runs after the delete
+> workqueue has been flushed, so a successful retry queues work which is
+> not waited for:
+> 
+>   teardown worker                         delete worker
+>   first GC: work allocation fails
+>     NF_FLOW_HW_DYING remains clear
+>   flush delete workqueue
+>   final GC: allocation succeeds
+>     queue FLOW_CLS_DESTROY work
+>   destroy rhashtable
+>   free flowtable
+>                                           access offload->flowtable
+> 
+> Flush the delete workqueue again after the final GC to complete this work
+> before the flowtable can be freed. All flows have already been marked for
+> teardown, so this GC pass only queues delete work, and the delete worker
+> does not queue further offload work.
+> 
+> KASAN reported:
+> 
+>   BUG: KASAN: slab-use-after-free in flow_offload_work_handler+0xbe8/0xe30
+>   Read of size 8 at addr ffff888109c9fd98 by task kworker/u16:3/397
+>   Workqueue: nf_ft_offload_del flow_offload_work_handler
+>   Call Trace:
+>    flow_offload_work_handler+0xbe8/0xe30
+>    process_one_work+0x63a/0x1070
+>    worker_thread+0x45b/0xd10
+>   Allocated by task 87:
+>    nf_tables_newflowtable+0x5d0/0x22f0
+>    nfnetlink_rcv_batch+0x1396/0x1d00
+>   Freed by task 11:
+>    kfree+0x131/0x3c0
+>    nf_tables_trans_destroy_work+0xb26/0xeb0
+>    process_one_work+0x63a/0x1070
+>   Last potentially related work creation:
+>    __queue_work+0x68e/0x1030
+>    flow_offload_del+0x74c/0xad0
+>    nf_flow_offload_gc_step+0x264/0x8e0
+>    nf_flow_table_gc_run+0xcd/0x150
+>    nf_flow_table_offload_flush_cleanup+0x5c/0x70
+>    nf_flow_table_free+0x280/0x350
+>    nf_tables_flowtable_destroy+0x71/0x270
 
-Make the dissector continue through first IPv6 fragments. Keep GRE and
-ICMPv6 selector fields unset for fragmented packets, matching the old
-decoder's behavior.
+For the record, proposed alternative to this patch:
 
-Fixes: 7a0207094f1b ("xfrm: policy: replace session decode with flow dissector")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- net/xfrm/xfrm_policy.c | 23 ++++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
+https://patch.msgid.link/netfilter-devel/20261029230657.302417-1-pablo@netfilter.org/
 
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 9ea60c7717ff..c9c2370b07cc 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -3489,14 +3489,16 @@ decode_session6(const struct xfrm_flow_keys *flkeys, struct flowi *fl, bool reve
- 		fl6->fl6_dport = flkeys->ports.dst;
- 	}
- 
--	switch (flkeys->basic.ip_proto) {
--	case IPPROTO_GRE:
--		fl6->fl6_gre_key = flkeys->gre.keyid;
--		break;
--	case IPPROTO_ICMPV6:
--		fl6->fl6_icmp_type = flkeys->icmp.type;
--		fl6->fl6_icmp_code = flkeys->icmp.code;
--		break;
-+	if (!(flkeys->control.flags & FLOW_DIS_IS_FRAGMENT)) {
-+		switch (flkeys->basic.ip_proto) {
-+		case IPPROTO_GRE:
-+			fl6->fl6_gre_key = flkeys->gre.keyid;
-+			break;
-+		case IPPROTO_ICMPV6:
-+			fl6->fl6_icmp_type = flkeys->icmp.type;
-+			fl6->fl6_icmp_code = flkeys->icmp.code;
-+			break;
-+		}
- 	}
- 
- 	fl6->flowi6_proto = flkeys->basic.ip_proto;
-@@ -3507,10 +3509,13 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
- 			  unsigned int family, int reverse)
- {
- 	struct xfrm_flow_keys flkeys;
-+	unsigned int flags = FLOW_DISSECTOR_F_STOP_AT_ENCAP;
- 
- 	memset(&flkeys, 0, sizeof(flkeys));
-+	if (family == AF_INET6)
-+		flags |= FLOW_DISSECTOR_F_PARSE_1ST_FRAG;
- 	__skb_flow_dissect(net, skb, &xfrm_session_dissector, &flkeys,
--			   NULL, 0, 0, 0, FLOW_DISSECTOR_F_STOP_AT_ENCAP);
-+			   NULL, 0, 0, 0, flags);
- 
- 	switch (family) {
- 	case AF_INET:
--- 
-2.47.3
-
+> Fixes: c921ffe85333 ("netfilter: flowtable: Fix flushing of offloaded flows on free")
+> Cc: stable@vger.kernel.org
+> Assisted-by: GPT-6-Astra
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+> Changes in v2:
+> - Rebase onto current mainline; the independently revalidated one-line fix
+>   is unchanged from v1.
+> 
+> v1: https://lore.kernel.org/r/20260824115829.205118-1-nicoyip.dev@gmail.com/
+> 
+>  net/netfilter/nf_flow_table_offload.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_flow_table_offload.c
+> index 6757fd89c1f1..728220ba3882 100644
+> --- a/net/netfilter/nf_flow_table_offload.c
+> +++ b/net/netfilter/nf_flow_table_offload.c
+> @@ -1172,6 +1172,7 @@ void nf_flow_table_offload_flush_cleanup(struct nf_flowtable *flowtable)
+>  	if (nf_flowtable_hw_offload(flowtable)) {
+>  		flush_workqueue(nf_flow_offload_del_wq);
+>  		nf_flow_table_gc_run(flowtable);
+> +		flush_workqueue(nf_flow_offload_del_wq);
+>  	}
+>  }
+>  
+> -- 
+> 2.43.0
+> 
