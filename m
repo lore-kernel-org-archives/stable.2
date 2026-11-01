@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793550486;
-	b=zn5lkm+Q9SEiNO5lBXNtXGVRbFcbBkLHAk9fwjqV1shDnbfoNWIwEdxPqzMTkBuImyAO
-	 8tC9iUusBnNWrCX3z3wU9auTa7GrdwA0sP+9kP+C7YgaoFeBRDO/wPS8huufS9o7qhnwL
-	 JSoi4Cult+CopuU1V8YhZol+Pox3OIF4GHc1gcnfI+AH9L8RSUqUJa1ftD/LE2Qi9Cc9p
-	 sKfrmkSv5melf1BaM2K41zCwqAWYxf327RRQnjshbOdldbvt9FA4KqOU7xdPxCPXXqPYF
-	 gGEFuTCByChtrdSIMNPdp1R1e0+6sJDL3h3QbA3dQWkeH4YU65RtbpAIlEM9/qOfeRQ==
+	t=1793550678;
+	b=ODw4ZDgrjB2NYPdXL+1gFGx7P9fVu006fIJ6I61QVJuJLlV3ofgqFn6f/RBQln6b4hu5
+	 zBzv7nNBnthyOlczEdGYyqCmfnnNwqiJ+peE9P2ihxFCz8FmQv/FQiOMwrXDFx0JeJjMy
+	 cxBlzddcdKyUAfhZHr/36tH1BpDqqKU2Rw9avWvTmE9JkB2Bo2bYTd9B3M/3wKn2StcK2
+	 SzBqhPshv77SOv+jApBXAbjhVdbGMArXSP+E87QBL6xPdIFYTplU/Q3jSQ+M+0xN7F8p+
+	 qDoZjSzGbv3KJzy7rJyE3J6zrPVV3f9AX+YEUevrD5bVenauqoLTQ++N3KT4RetYMDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793550486;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793550678;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=gOUXslQy16hktD6E8nWSkfJmsY620ocO63lUGplRni8=;
-	b=NgLmLbxkYLLnF6TUn0e6sQY70mzV2sl7CNqVzI5mTI5wsIiPpHJ+oYCuC4682F1UR0YJ
-	 7egiPq7QZyMXqxSzOX6mWDn0CAwmdoSUWn8rZKJuDoQcnpR8hmhw9kt7nuc836wd1DBbd
-	 mR5BsLicfpW6xzL/Ndj2+tH+1UD11r7Dr5OstTOc8LX7Ncbh4xtvuyFnIKm7bd5Ogrk5O
-	 bAEkNSJ4CiH+rYJgTJ8NfycNX0V1pjGrcFsjO0+YXynEa0y4SvZHYLduxqmUJIE8v8Qt3
-	 YFcPv4E81IHdR0vX442zqaXl5NRc4fd/1graAWkeZVru7sI7PfGUpzULTMv2IP6DI3w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z1wgGnLaHoKZu2/+Ud078CAK3gozxrFVUFtZdHR2t7Q=;
+	b=z9AVRpfyFlmdJoqzw2ijOhW9AaRK1FosQeLUdypw0RuuYseh9qLhkGLwQ5hbVe3jhHDc
+	 07o3RjHBzphLtJxafJ2Ak8buSAZ0/1I75jqIeBaZaOaIjkEJvmgddJOgtVG97vGYQG3/B
+	 fEwj2thT+nK095hq7Ce8Q68BRbQKsssErJHzZvFsADv8Hci9vJvu0sJSiwqoXPv77DRnE
+	 gcWgbqYPFtNdPAHbNWiiEi9Q1Z1wmFKxV0rHlpo4KeDl0CYzkkXomDEhCcuGlcrEECZyM
+	 A2r3XYeToTpLSPTyMAim/OlnR/i2TzGgWHoxn6pywSPapDa+cWezmzMbsk7N51sXgzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=KlSbhk99;
-	arc=none smtp.remote-ip=209.85.222.179
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xz7o3aNL;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9915606A32F
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 16:28:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9915606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA452606A325
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 16:31:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA452606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=KlSbhk99
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f3c616c84so205302285a.1
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 08:28:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xz7o3aNL
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab2cb02816so398644a91.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 08:31:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793550484; x=1794155284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gOUXslQy16hktD6E8nWSkfJmsY620ocO63lUGplRni8=;
-        b=KlSbhk997vYicLVChZABuzfSGqZO4ISJcWPChRKjMTX6ZLwRdmt8W77XAKkDK3U5Mo
-         YxSMeZZ3DdfnlYlb1WTGyTow3tbSO8Fapi5fmUoAULoLCnom4VQpGp/ke4gdWO9p30LK
-         mkPjJ/zkVWo+YzECxJlcWe+TYxSTAct51O/1I=
+        d=gmail.com; s=20260707; t=1793550677; x=1794155477; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z1wgGnLaHoKZu2/+Ud078CAK3gozxrFVUFtZdHR2t7Q=;
+        b=Xz7o3aNLu0EcXJgkFcpNcT9ms9XQbE9FRhuapUyst6lLzOD/XqlbsiUKQjSNbt7WM1
+         mustLlBcHK3qKFtAQoCHJ435p/Z+T+JOF7KRfAdSeF3D7q3Uqn8bslYV/P3gC1nDZXAl
+         oq1ATQwO2pb8mWXr+dGI5e/gLbKhz06tDjmK9Y5F/5kqAITu6JtGWJZkYg51oc20Pomo
+         a2jffLkunx9lY9Z54vt6p7d837s6aRRzT4e6sBF5eEgbIxR5Sc2aVtzqtcg21db9MS6W
+         Dm6GmZ9OKvOjbAXBtZdaTWQsUWhEKkITcHgwjc0cvjcI4/M+zz5iZcXbNsamCBuEKev2
+         2kpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793550484; x=1794155284;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gOUXslQy16hktD6E8nWSkfJmsY620ocO63lUGplRni8=;
-        b=pC7amCsKdD2n2JjytqaID53S8G6I6tllC+c74r8w9IYtDIVFOEUxN+qzN1MoiITfBw
-         HmzOo+T2R+C6HkF5Xt94UUvA1heopLt3pgq8iqUH9HS2Czc3/Ptm2lrbJIlRPMacNY1c
-         DQd5dOsWjuA5SI1xVTXgSd7WmE5P87v/jqL1HvyNWHpBphDS57pcKSKfErm4Wy7vEdId
-         SwG2RzdwsPKwmuGf2H7QyhvXIt31CFghERzbw0DDkIcM6Arca5SE5vHsL4wm65g7ho6D
-         /NOVVCzTsylCoJfWda8IhdmTYzF/SVxZhkpC0SSnTL35TgV+5RIzBjG0zLntWvWbOBRw
-         IdgA==
-X-Forwarded-Encrypted: i=1; AKwUvBx7KLDT6mIwj6APYwAs399OvBKh9NFA9vwT05Xhz2vJzIDeP7BS2bQ2le2Pi2rk/c1Go7ks9U8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKe/tJeRqxJ6iv+na8nZor7xJC+VFVTjUeXGtcNL1WOwnwOE4ql
-	yzr2RL93iinCU5ozGXJ85iTJ+T/eEXhtdovPi04CKkoz2ZQjSjl1ealeJkABtKvaYg==
-X-Gm-Gg: AYBFou1nGVh55ogZOkBCvanTUBQRgs6Y1/9VyECrltsppTxgZnjRmaht3H8NwMXD7P8
-	Qg/Km6135QxHLYKP4LxJuld5kx0wt2RX9k8X3I48BabRMnS+cT91h/nRpT2cltL8enkb5/p3F/x
-	VBdFdLa7n9VRhyFMLrdgQEnFyTyIFB4WNfQRjmv8ii/3dAo8AhMXMSM1JygiWZS0KyWjY1MYYts
-	L2KPrKdrNeWQ3+xf4RALcq9PueZhXDlnbbcD7R3FcfYOh895hkVbYEIaf0uCiqRsLFPSvsYkuf1
-	xj+FDS0fzFQ9VjmjzuxV0YhxZSKsIG5q5BzlL+mQss5P5tzlrSqC0qc+vUqbq4GPvHY0kKE70SF
-	1iw1uznWS3EaYHhWUJ/JhaYHbzKOVhE5hNW6MO0gYKvxtzuuviT5aPXowMhogS75pI6kV5r3O1t
-	6crsjmvUcvxNBZpwt2S0lfjLvlKkMrfOQdhF+FvWMgdjeQLUr8pO93cahHG/uOX+b+kqhmmHMiZ
-	UY87C/QiIwOlge7egR2GO4mytQfMGpNiPONQF/zs9l48npKwiGaJbutV2O753mjALq02+DMUwGF
-	yAwuVKeWOPuFMY5fVLdmhl4JXpQruQTRBxPgb8N26OcvNSgyi+NFpILp7Wx6Pww5Cft8RJOHS59
-	hRYcMvEyqIMiTxT86oIGS4Aub1jNfPQJxp3ME
-X-Received: by 2002:a05:620a:2801:b0:93f:26d6:d70d with SMTP id af79cd13be357-944216a23bcmr1387687485a.31.1793550483739;
-        Sun, 01 Nov 2026 08:28:03 -0800 (PST)
-Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-944252e5492sm627354885a.1.2026.11.01.08.28.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:28:03 -0800 (PST)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	stable@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: [PATCH net v2 2/2] net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
-Date: Sun,  1 Nov 2026 11:27:56 -0500
-Message-Id: <QDISC-6HS9.v2.r0.20261101105945-2@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <QDISC-6HS9.v2.r0.20261101105945@mojatatu.com>
-References: <QDISC-6HS9.v2.r0.20261101105945@mojatatu.com>
+        d=1e100.net; s=20260707; t=1793550677; x=1794155477;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z1wgGnLaHoKZu2/+Ud078CAK3gozxrFVUFtZdHR2t7Q=;
+        b=TGLZk5outgNEXyckb15y9KYcF+Y5z277IfTKGaGZtnzIDFWkzTMaby2k40/0+GY95G
+         T3V3TmZHfn1ilF/6PdAOqhpE7CzektjWqZ3un3EEyQO0Y/GAMM1TUx/cdQiPLsN8NI9f
+         3D+kFwsMi5jRFnJIJnQrnf96T7259CqtnRZ50uU6fR3LwRpS2Z+0cn9IyIa/qMTadvgK
+         K+jpjtngRnZuegC2wtq0fXPJC/rTSAJCbPb0jp9KTG3nmdbQtscOBws4fezAcXxeZMzu
+         ycvArWUXM0gc6TEs9Q6rVEatwlRpe8LOanJp910cAFLSmpxzu4snluYIzFuSaPf4DFBM
+         PjBQ==
+X-Forwarded-Encrypted: i=1; AKwUvByK92gCXkduMfQFPv/aKy4N3lcdxlrwgh5GMa4MtR44MpwbFCVOXNwkEBlApNQc0T7tR89HLxU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aRIMT2sRgYIEIORN16lgsazoU3dM4I6K0eZvBx2BaVtT3rheZ
+	9P8yFjE2akXqVtsFz9lZiWb9IMrPsHxtBtnAHQtIhZKrwBS42cl18WCygD9qv/RhwrykRA==
+X-Gm-Gg: AYBFou0g12kB7udQURbBDk9+XLmtkXF/YM7cjhlPELV2vCElQUiXuo168rWx8+nG8sA
+	eIIuxHz8QJlRjFlGH8K2cqOQySpXS7O6vbqlEYnj1ZUPyUbsh+lw8oY7mffNfNDGl3rtD/me8Wm
+	QoX0pELidneONu1kDlf9iVRkWzTYLz5vWxEShtQrHsiA6eqlkYWsB6SIldryI7QMiFs3Bow2KWZ
+	jsWcrDIXIUiC9rhpaZitu1/PJg0jyn5xRgaEOOroEWAKXb7O+usCk84EcI/qbFtPjaQQbzBPCfM
+	T3Z2UMheWkjRLEE2hob4qc1L6KmKcI5/hxvzsBVJOBH8i7VfhkHLJO1rX0wMwEfK9X6UO88lvuF
+	oCB3jPxVfzdgo7S5K1ZP+ABJBgWe60wnWpFXfiC5Jn8o3/RA+MzrJ7fbyso1pcrWmSaxJUh6nJM
+	aFG5j2VMqVRuTZMlMscezfIILUlQ2rHzsPcXKDYoS30RXEB+rHyhdhPT3UQnImxqbhWwUHNRH8D
+	oANwDQBBbIm3PU2dIBJe5rX1BZBsSH+LmpfslRmIipHRBNaPlRMoUtqmT/HNe97l3TYeqTAsEQ4
+	01HoJSNQeyiQ5II7fIujdoqg7HdL+tmzcA18kyWgZ96bYDQZRqtXepzohLHbd9Q1rrl3rl6GgqQ
+	BV9Qja7TTwtv/8id8XBj119Q=
+X-Received: by 2002:a17:90b:2cc6:b0:3ac:73c7:9c07 with SMTP id 98e67ed59e1d1-3ae89292da7mr11229213a91.0.1793550676949;
+        Sun, 01 Nov 2026 08:31:16 -0800 (PST)
+Received: from localhost.localdomain ([113.102.236.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e944ba9sm15038585a91.8.2026.11.01.08.31.12
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 01 Nov 2026 08:31:16 -0800 (PST)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: Juergen Gross <jgross@suse.com>,
+	xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen/privcmd: fix double free when an irqfd is shut down twice
+Date: Mon,  2 Nov 2026 00:31:06 +0800
+Message-ID: <20261101163107.55037-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,121 +102,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a follow-up to commit dc4b95b8fee9 ("net/sched: sch_teql: restore
-skb->dev on the slave failure path") by Victor Nogueira, which covered the
-slave side of the same mismatch.
+irqfd_deactivate() takes the irqfd off irqfds_list and queues
+irqfd_shutdown().  queue_work() is not a once-only gate: it refuses to
+enqueue a work item only while WORK_STRUCT_PENDING is set, and
+process_one_work() clears that bit before it calls the work function.  So
+nothing records that the shutdown work has already been queued, and
+nothing protects the window between the start of irqfd_shutdown() and the
+kfree() at its end.
 
-The issue:
-teql_master_xmit() sets skb->dev = slave only right before the slave's
-ndo_start_xmit(). If the slave's neighbour is unresolved, teql_resolve()
-parks the skb on the slave's arp_queue with skb->dev still naming the teql
-master. teql_exit() frees the masters on module unload and a slave can
-outlive them, so a queued skb can be reinjected through freed memory.
+Two paths call irqfd_deactivate() for the same irqfd:
 
-The Fix:
-Set skb->dev = slave before teql_resolve() so the parked skb names the
-device whose neighbour owns it, and restore skb->dev = n1->dev at the
-neigh_update_process_arp_queue() reinjection point so the skb goes back
-through teql_master_xmit() instead of leaving headerless.
+  - privcmd_irqfd_deassign(), from the PRIVCMD_IRQFD_FLAG_DEASSIGN ioctl;
 
-The restore is limited to a top-level neighbour whose device has no
-header_ops, which is the shaper/eql/sch_teql class: those devices get
-neigh_direct_output() from arp_constructor() and ndisc_constructor(), an
-output that transmits on skb->dev and builds no link header, so the skb
-has to be moved back.
+  - irqfd_wakeup(), with EPOLLHUP set, when the last reference to the
+    eventfd file goes away, which runs wake_up_poll(&ctx->wqh, EPOLLHUP)
+    from eventfd_release().
 
-A forward that steers the skb to another device, nft fwd ... neigh or
-bpf_redirect_neigh() with explicit nexthop parameters, parks it with the
-dst of the original route still attached. The drain looks the neighbour
-up from that dst and not from the forwarding device, so when the original
-route is itself a headerless device this gate matches there and the skb
-goes back out the original device, running its egress hook a second time.
-Those forwards supply their own device and nexthop and do not consult the
-retained dst, so dropping it at those two sites is where that is fixed;
-that is a separate change to the producers, not part of this series.
+irqfds_lock serialises the two calls, but it does not make the second one
+a no-op, and eventfd_ctx_fdget() takes a reference to the eventfd_ctx,
+not to the struct file, so the last fd can still be closed while the
+ioctl is running:
 
-Some context:
-Only a module unload frees a master. teql_master_setup() installs no
-rtnl_link_ops and default_device_exit_net() moves the device to init_net
-when its namespace exits, so the window is a parked skb plus CAP_SYS_MODULE
-on an unloaded sch_teql.
+  CPU0                                 CPU1
 
-Conditions to recreate the bug:
-CONFIG_NET_SCH_TEQL=y, CONFIG_VETH=y, run as root. Create a veth pair,
-make one end a teql slave, give the master an address and a route, flush
-the slave's neighbour entry and send one packet:
+  eventfd_ctx_fdget()
+  spin_lock(irqfds_lock)
+  list_del_init(&kirqfd->list)
+  queue_work(&kirqfd->shutdown)        close(fd)
+                                         eventfd_release()
+                                           wake_up_poll(EPOLLHUP)
+                                         irqfd_wakeup()
+                                         spin_lock(irqfds_lock)
+                                         irqfd_deactivate() again
 
-  ip link add v0 type veth peer name v0p
-  ip link set v0 up
-  tc qdisc add dev v0 root teql0
-  ip link set teql0 up
-  ip addr add 10.0.0.1/24 dev teql0
-  ip route add 10.0.0.99/32 dev teql0
-  ip neigh flush dev v0
-  ping -I teql0 -c 1 10.0.0.99
+If the work item has already started by then, its pending bit has been
+cleared and the second queue_work() succeeds.  irqfd_shutdown() then runs
+twice, so eventfd_ctx_remove_wait_queue(), eventfd_ctx_put() and kfree()
+each hit the same object a second time; and when the second queue_work()
+lands after the irqfd has been freed, the workqueue list operations write
+to freed memory.
 
-On the unfixed tree the skb is parked on v0's arp_queue while skb->dev
-still names teql0, so the reinjection can reach a master that teql_exit()
-has freed. Moving skb->dev to the slave without restoring it at the
-reinjection point leaves the packet going out v0 without a link header.
+virt/kvm/eventfd.c has the same two callers and has had this guard since
+the original irqfd support (721eecbf4fe99): irqfd_wakeup() calls
+irqfd_deactivate() only if irqfd_is_active().  The comment there explains
+why that is enough: the other side deactivates the irqfd before it takes
+it off the waitqueue, and irqfd_shutdown() needs the waitqueue lock,
+which this callback holds, so the irqfd cannot be freed under it.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824115928.4099988-1-victor@mojatatu.com
-Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
-Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel.org/
-Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel.org/
+Do the same here.  list_del_init() leaves the list head empty and the
+irqfd stays off the list until kfree(), so it serves as a one-way
+"active" flag.  The test is in irqfd_deactivate() rather than in
+irqfd_wakeup() because privcmd_irqfd_deassign() walks irqfds_list and can
+therefore never reach an inactive irqfd; only the wakeup path can, and a
+single test covers both callers.
+
+Fixes: f8941e6c4c712 ("xen: privcmd: Add support for irqfd")
 Cc: stable@vger.kernel.org
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
+ drivers/xen/privcmd.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-v1 -> v2:
-- Limit the skb->dev restore in neigh_update_process_arp_queue() to a
-  top-level neighbour whose device has no header_ops: shaper, eql and
-  sch_teql output straight on skb->dev without building a link header, so
-  the skb has to be moved back for them.
-- Say how a master is freed and add the conditions to recreate the bug.
-  Considered comments from Sashiko (nipa) and Sashiko (gemini).
----
- net/core/neighbour.c | 3 +++
- net/sched/sch_teql.c | 2 +-
- 2 files changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-index d6e9c7c59a89..541cf699abae 100644
---- a/net/core/neighbour.c
-+++ b/net/core/neighbour.c
-@@ -1339,6 +1339,9 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
- 			if (n2)
- 				n1 = n2;
- 		}
-+		/* headerless outputs (teql, shaper) transmit on skb->dev */
-+		if (!n1->dev->header_ops)
-+			skb->dev = n1->dev;
- 		READ_ONCE(n1->output)(n1, skb);
- 		if (n2)
- 			neigh_release(n2);
-diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-index ed8faa848f18..4eac1f9c8ddf 100644
---- a/net/sched/sch_teql.c
-+++ b/net/sched/sch_teql.c
-@@ -368,13 +368,13 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 			continue;
- 		}
+diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+index 5e56fbc934478..221b31611343e 100644
+--- a/drivers/xen/privcmd.c
++++ b/drivers/xen/privcmd.c
+@@ -901,10 +901,25 @@ struct privcmd_kernel_irqfd {
+ 	poll_table pt;
+ };
  
-+		skb->dev = slave;
- 		switch (teql_resolve(skb, skb_res, slave, slave_txq, &hlen)) {
- 		case 0:
- 			if (__netif_tx_trylock(slave_txq)) {
- 				unsigned int length = qdisc_pkt_len(skb);
- 				int rc = NETDEV_TX_BUSY;
++static bool irqfd_is_active(struct privcmd_kernel_irqfd *kirqfd)
++{
++	lockdep_assert_held(&irqfds_lock);
++
++	return !list_empty(&kirqfd->list);
++}
++
+ static void irqfd_deactivate(struct privcmd_kernel_irqfd *kirqfd)
+ {
+ 	lockdep_assert_held(&irqfds_lock);
  
--				skb->dev = slave;
- 				if (!netif_xmit_frozen_or_stopped(slave_txq))
- 					rc = netdev_start_xmit(skb, slave, slave_txq, false);
- 				__netif_tx_unlock(slave_txq);
++	/*
++	 * Both the deassign ioctl and the eventfd wakeup path can reach
++	 * this function.  list_del_init() marks the irqfd inactive, so
++	 * only the first caller may queue the shutdown work.
++	 */
++	if (!irqfd_is_active(kirqfd))
++		return;
++
+ 	list_del_init(&kirqfd->list);
+ 	queue_work(irqfd_cleanup_wq, &kirqfd->shutdown);
+ }
 -- 
-2.43.0
+2.54.0 (Apple Git-157)
 
