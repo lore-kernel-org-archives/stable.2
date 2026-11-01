@@ -1,64 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623303;
-	b=qS2FihkQwr+HQ3rSVIF5sBWhX8WGVy6OjWGzWgtf9qE0yMWmdL2utZPZMldzHkmMOopv
-	 gprw+9dSPHSXilPSa3RwC3ZMPnHQj/Bp1fvdz+1B6eSEuw1eL8p8K8pZ0vz0IoxaE1zE4
-	 t8qiwbVTPzzHZpipPihRrNBKujRm4cbPXHosO7FpEDLTSWTGxwSr7ffNt+8Kic3Pmrj24
-	 uDRtgSDUpZ7kD1lSAxzL5NhUPP3SlbBV/QrchecTa/6gOEnQyVs9SStsVnfele+nxGytV
-	 H39cFHziCRgA4pT5BMRfEqV7q5uUGOEnk82ReMkyCNOHjw9tfGCjvdLirTN/Q3fLdog==
+	t=1793623384;
+	b=jDGRcnR2J+Kww7ZE8c6kbIh/bOWXL3mInC6PHCllnGZWps2iijuxj/lgkpF88DsteUow
+	 SZjWYKbH+WOA//0YDe2viWDpA3aNGNvXcWRY3iaqwQyGbjqkkvO0OdfkXKBtimag09Q9C
+	 L5+R7SCLaNcPoAtz5SRujTcrA0TonTGIPnA7UD0Dhd2pJIAwSk2B4qdQXF/fwxTDSQSsO
+	 MRCrn557MWc3xAXEPZWSR898EMhjGmtNU2d6+5BnaQ6d2TuThV5EpaBo70RtYSGGUoOj7
+	 Ev08S4yf5VK2e0Hrhq5WoWXkxXs7KSGUKivm8rgm+6YH4bVJ+LpiKU0y0AoKF69M8+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623384;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=BIPXY/ZKLgSoQMb6rlsEAducJh08YC58iEGteAsnDi0=;
-	b=IF2d44UWnMITqUQYCR8+ZFVPimrISt8Dv9cndOV7ZRNOfDK2an5ohSmetmMosOirFZxq
-	 BONjaD2x4/bJGtGvDAgGNmrmijAtdAdBONXo4uYp7+WluhUhvW3tP86/7AKv5HlzcoyIj
-	 pIQdx6FfxKsDwOiahDXy3tnKCOFM+KEv+cVZpymYsMA4g/fwemJFAQ72XjW1R+75Z4ZgK
-	 BKrlZ/fMU+8cIvpMjzk8pbIa1XYu7kVRh1NWJBj1MwTtqHQfH3eXCPpe7h7ejdCtAUvlR
-	 Z+XgEnLjwKDfwBp5cnVFLHEzRU4V8LPlvP7I1U+Sg8160xGgMLCAmoiEN8u6qZ4MfgQ==
+	bh=YfQnjtfObBvofioEDPLC2oMr5G1S0KeEw5o9b3Fvb10=;
+	b=vmPqHu0vyWPb5UfQYiFT4cW8qZu50/hkda+Cld9LHe9dB+5wWQXJiBE9E93IDxVdehmD
+	 uQtD+1eHvxqxbPeFdymIwj0Tv/PcgOnHHCd3tJCJVkHP+oCf4dJGTPWVE7nbY2DXYPxv3
+	 wD3pP7896JZIsoc9M2CLV9SbMv0XkgTnijY4436qA/Ux7TVzHpArTF7C4SVFh+Hp0wgD6
+	 nlsJgSNSavgBxjiPX5jJBgoQY2YbzAtYfiUF2g5aNl2je9n9D4LJq9V829btZDeClczBO
+	 uTleXpv8GJ4TU5K0OZd5PwrT61YHZpdL7SiJ48pxpbsYLwtWM1C4Y2ZMprcj2Nbm5Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dx9XPHeI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UAdIqlsZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1C960A2637;
-	Mon,  2 Nov 2026 12:41:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50B8606A327;
+	Mon,  2 Nov 2026 12:43:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dx9XPHeI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92FB21F00A1D;
-	Mon,  2 Nov 2026 12:41:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UAdIqlsZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA431F00A16;
+	Mon,  2 Nov 2026 12:43:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793623302;
-	bh=BIPXY/ZKLgSoQMb6rlsEAducJh08YC58iEGteAsnDi0=;
+	s=k20260515; t=1793623384;
+	bh=YfQnjtfObBvofioEDPLC2oMr5G1S0KeEw5o9b3Fvb10=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Dx9XPHeImChmTs0j9yIksHNHH4FuFP66rUDtfzV3/BdZ3bd1vGwDgwR1bkmJkk5q7
-	 iFQv3el6sBJSYbu22aSZGTi3C4808aJnSzbIcTPEXrinKKq0EPrhNGO+a2aTbBkk3Z
-	 7dFVwury6FYLelOobe0R5L2KJTB3XWaQx64dP+rZwBA/XhxvkppbYZC7pISVxjtIae
-	 tb8uATnQQ5keyEFGkaLScXOeX4jdOvNriBmU2lcXRPZVKFf/xG5umtRc0iMexlgj1W
-	 8uBEYoDEcCY8wHxtEVItLAb6evDBnbvR9lS3bi+fG8Da4P78eNH+VeWcle5LA2TO0u
-	 eTcsexA/YJRqg==
+	b=UAdIqlsZQ9uxtM+3eF1J4bYCsy2DunJl4W+UcYLCVWq3+lVSXFTELovnA0stYV0QU
+	 OAt0kWFqysgeCvRH1U/T/EzDSBytJHbGdnjEwWIjo8/dNvtji3txz40cPH1TR7Rhrz
+	 vwm2rjeUkAcoZaRcqHZh5dmHJeMofhGgJ40rETBDfq8fPgKoY1zkqTop1DrXJRY0KE
+	 tbljoQ9Kb0AQim6VyxmvuesBaAKqr+siTuSPoybICe/XmKS83Z5far4tMyFFSi4Frb
+	 b5OTxkYbxjtwrv8ILhWC9ud1Ola0kM5C9lf9SX+Fbs+2gCGtbZUwLGk6oikknO6e9H
+	 CDTRcYpbdoalQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id D82B72310400;
-	Mon, 02 Nov 2026 12:41:40 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 763E2231051D;
+	Mon, 02 Nov 2026 12:43:02 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Alex Kazinsky <a.kazinsky@ideco.ru>
-Cc: Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Brian Austin <brian.austin@cirrus.com>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- James Schulman <james.schulman@cirrus.com>, linux-sound@vger.kernel.org, 
- patches@opensource.cirrus.com, linux-kernel@vger.kernel.org, 
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-In-Reply-To: <20261030142637.415971-1-a.kazinsky@ideco.ru>
-References: <20261030142637.415971-1-a.kazinsky@ideco.ru>
-Subject: Re: [PATCH] ASoC: cs35l36: Handle zero sysclk frequency
-Message-Id: <179357778962.1716893.15338453614634056539.b4-ty@b4>
-Date: Mon, 02 Nov 2026 00:03:09 +0000
+To: linux-spi@vger.kernel.org, Weibin Liu <liuwb@xiaopeng.com>
+Cc: grant.likely@secretlab.ca, linux-kernel@vger.kernel.org, 
+ tomoya.rohm@gmail.com, Liu Chao <liuc63@xiaopeng.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261014-spi-pch-bpw-clamp-v1-1-3e04b3ac5106@xiaopeng.com>
+References: <20261014-spi-pch-bpw-clamp-v1-1-3e04b3ac5106@xiaopeng.com>
+Subject: Re: [PATCH] spi: topcliff-pch: clamp DMA bpw_len by bytes not
+ words
+Message-Id: <179357725181.1716893.15329166806958652295.b4-ty@b4>
+Date: Sun, 01 Nov 2026 23:54:11 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,26 +67,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1105; i=broonie@kernel.org;
- h=from:subject:message-id; bh=ujMpkKvHBlLbsC3dgXY6O5xqQcsHadrBWxFl4EhFpEw=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetLKsd/Y1FSrcN8P16ff++RHJL2RKuLWPbAubkNh36
- /l3efvkjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkzkWGP3yN5etn1Z7OMDFQ
- uRE+Sf7S+o+a+2dnrOdgZD6Y9mZrYyYjw/qKB7+vnzh3N26SjMwtvorLErOn771jbhDRMNV7/0S
- JVXwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1122; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=35pXmCs8iepxveQPbEokYq5eBfB8CGZkg+WfYlZ7sOI=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJetIatu3lH+eHjvJtn5sjLbHr3uG6iY5Hy69OPv+pLX
+ hBYGeDJ0lHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJMNsy/PcvsFBT5PcvWu3K
+ UcrKPue28xf5aO25/9KvV95gevLJ/CXDb9ZFlxbOntBeGJSdznq7cmKiUofx/LoXV5onrJLft2M
+ mJwcA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 30 Oct 2026 18:26:36 +0400, Alex Kazinsky wrote:
-> ASoC: cs35l36: Handle zero sysclk frequency
+On Wed, 14 Oct 2026 22:12:38 +0800, Weibin Liu wrote:
+> spi: topcliff-pch: clamp DMA bpw_len by bytes not words
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
 Thanks!
 
-[1/1] ASoC: cs35l36: Handle zero sysclk frequency
-      https://git.kernel.org/broonie/sound/c/415f0a7c723f
+[1/1] spi: topcliff-pch: clamp DMA bpw_len by bytes not words
+      https://git.kernel.org/broonie/spi/c/3515e312e096
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
