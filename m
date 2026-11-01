@@ -1,107 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793556343;
-	b=iAjXN0QHS1GCEsY/quuEoSWz4HydNoq+ZFiprNSerLIW0tReC+t9WFrvLq94YFSWwQAB
-	 SVhiXOA9OcQtJhBv883Mb45aXuJYRR1V3/OZX81lgFv0sS/6kwzJi/JYlD5fRfcMMuZOD
-	 oWw8dRMn3FMbZD5O06lDD28IYgeymPGB4Kbx6SfhimMem8U24v2NBKTiCpu61IPsfNtFT
-	 zJ18BMuh1fqPgDNT8YaEl9dY4wCOqrq6YEWwqZq3K/IjYqimY+56UwWIqY1RQAL/relxs
-	 ydj3b08aWP3iDgoqNp3JCbikqmurAQSGvj2iz8CYHB4uVaVUD9/pAJO62wIwbzDmppA==
+	t=1793556475;
+	b=RkrRtcIwDli5Tb7OatMU4vG5dtauaClF5F4WBU/l5JiY46gKC5s2XWWpi2JyI9lRIxRR
+	 iL1j0mmNZxBAep81TlfuhEQ5kihE85XZCxTBFynkDekhvrXLR2ENBxzAtlQ53MJs4UVoF
+	 tdZA3frrc2xgZIIrOy+4wpLdSwMdVqHpXqq4D0l20VVg+mJF3jfV3SS0/We3KeLGuMa3J
+	 rT8+/kRWmHwCsJxSMFr2F8HAHqtonV0CPb1HAW83FoYTYsA1OPE3NoIyqlGXEJEfxhbOm
+	 IR7fJ8GU9bn+nH6pMCiP6N84PIQbT5DeWf91jvK1fWcF36tr9ta/zEAVDLr5WLh4XqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556343;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
-	b=pYLo524Y1XvE7ex2FUS6KC7RmGSvcQhXy6BAbf+chZLK81dCk6eNmyAooEZ7Bnvw5y8x
-	 nWXviEp7Bm/0Bk7F3sBQ3ndJW9g0sFzLQ4jQPMD3WR88nDo+ATj0+7B8Jj9W0J7EWUzRW
-	 gRN5r3SUVuZ+s1S80ZDDvWH7DnmU1XrY5Z8DTcP+j7+dk2d4LL3iobL9d46Y0LBfFoyLo
-	 RxbZQS/sJoI+NkDutE/q9QsxCQP1PXndbDFy+WHXSlRz6Qrh/sNQEPaSZsVi5pNs8U2uK
-	 bEpnEogwIRn+DNqAILya40LYbE42opes2gXG7a96fQnmeIgJ75DxgwSptgHtRiv1lnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556475;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wtVX074xn4Ax9Ym2W5G9udDOf7jc7SoXAtiT9SubY18=;
+	b=uEJbrJLU9m2w68KNEI7WL9YZVYAXRYI70pyEywBOrBAFqnh8M3cA7qWXlyHPRYSpNp80
+	 yYMCgJpitcMy1CDMsiWdjrrTUpmwhbHnqxsdDRfBz+/ZfepBqQkRkanf+sI5KfbAUIHrg
+	 LA38CIy0p+S9z3RQd550KaKc+hRqgZjZKuyIvUw+kAsWZjbkhnYt50Z3NZdDewHYhOvob
+	 ELC8MxHmt6hrp0H3SLKtT+FtYQ3pgubDQNIl5M7U+CZI4sNd9OEWwp4p8oxPAxfcPXTq2
+	 jyePAagXZbEog85Ar3tCGsQniQQOOgfNd+Ddgk7+GEqD+stBg+PVonEndqpMXlVpeRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bidSSP03;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1TzP+oE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A5A606A326
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 18:05:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73A5A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FF2606A324;
+	Sun,  1 Nov 2026 18:07:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bidSSP03
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so1548119b3a.0
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 10:05:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793556343; x=1794161143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
-        b=bidSSP03obNuDoC07GZcasZYOz1qc2TFNIOGi8OCFFs6elFzrTRBTNpDPm3/wlcwq+
-         ZjhG83xHea7YSiCuBjODLd0bFgDHwRsmYj1fkQgM9Rkzfn9oKrJFQchAECzLAVZmO3dn
-         KCUo1b8GanmcWIQoccM8tD1WYT0iXhJ+MpKeCLlXkgQ6JBs32SahI4R7EHDMvyWTFWZx
-         jFWaLW/OMpUFRZxlwl/EnS7p6Xzydd7ps2lXQsdC9X5vIMYXSF1AjyKlmsknBykm/2Cn
-         3ieR0TfANAnWHIiHG/2vjKF/r/oKwa0XR4W69fPhi8t9nC0/1NhLc4ZjFlKXh6ZDC0gR
-         V7LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793556343; x=1794161143;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
-        b=oIdZeXpcQ7zOKGAKvbC3pFUMZpWQcSmYAolRg25ASwmPrUf36pXHqjkrFQEha87WFl
-         sEmuBRlqE3C7OwOq3xgucXB7grTxzAT17mcR88SQhRVTZkPU0cAHiJB2AOzvucDMuxZh
-         Z80tt4AMhEypw5NyTmwghMJCEfKO5WH13Jl4hL5+wMkK8aCk7ZXEbjWCfWsu8IUAHhH3
-         eCh/9s+A3bHvZ+smq4YShDJWcvVFxlyD3aBo1jhKQCzyFgrz5hC7ijoWt6oOnfRbC1EL
-         pO34q3JSTa7VV9bZpMOR95ROHTczwtjVrmd966Wd1bpGiGBhyVSvZRSXt9jtvVlCp1Jo
-         91qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzKOU/1zk9lszfzgrklgFIcZe0iwEzf9MKb2d1ZrA1wZZiaPLZiXEHKVkbuhmu6a159BH32XV0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYISTZ8lRmFQnlKZRCWC+Zz9ywSagCNLkmK1xBYnM3DWh8OJWz8f
-	qrKNsnRosZVJiq5ddV3OX24TIzxOWJwkvDcaAs4OlgANQgNX002Il3Sx
-X-Gm-Gg: AYBFou1TdBxvU1G90oMdYVmC85/J2nMmymfR2I5EWCOeBfx5GyoWgAQV3rQj92vZBLD
-	djFJnHZ4qLmimK5rBBFZTloTeCQ4uK7zlWBCi2TQEjKilICsL9xlxCO22WmD+Fpd+2494eUwNQG
-	Fy+ZbpKjk1kopuV8WbsJmueh82HoOdluCrUblYQTUP3ScRKkFDHN3qSKT2tgtTPzPOgG5ASFzTb
-	YBHd8OpbS64mZzpE2KyomUkkVvdcv66eIgk5mx+VZa/rRHouyUQNZp50LkyUv3SDLlbIHZlytqq
-	xc1+Inz7VH0K8ddGnLZiOfrahHWXnVcRk/fDYIsxv1Mxp3O3JjLEW2BpmzOEPDwraGfSlyICLo9
-	j9RRDHZLPQMAmNwz6ZIBHfkqtt+S0K1o/dCjQxi1rufQjaODROe9wDLfqq4IBMy8gioSH+6n2Rr
-	TfONmvfgX2otj69VFHFMWiH00yvcOyjOdNmItdja9WXyLvaNgqKt+H0T6R77VGw9ZsFle94neaT
-	WeZXrSwDaWf01pa3siQRemmCJkQZlWJ4eA1aQ6VCVUJFANq+Sn+slA1y1OhzgXLXlAWBH6T24BK
-	vxkz24182XLS6QKyTUTFDZY=
-X-Received: by 2002:a05:6a00:181b:b0:89d:eb23:4e83 with SMTP id d2e1a72fcca58-8a9beb67de4mr6450461b3a.30.1793556342787;
-        Sun, 01 Nov 2026 10:05:42 -0800 (PST)
-Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8ac269b8805sm446544b3a.44.2026.11.01.10.05.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 10:05:42 -0800 (PST)
-From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sean Paul <sean@poorly.run>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Connor Abbott <cwabbott0@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] drm/msm: serialize devcoredump reads of the crash state
-Date: Mon,  2 Nov 2026 02:05:08 +0800
-Message-ID: <20261101180508.66598-2-nicoangelodelacruz@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
-References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h1TzP+oE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB141F000C1;
+	Sun,  1 Nov 2026 18:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793556474;
+	bh=wtVX074xn4Ax9Ym2W5G9udDOf7jc7SoXAtiT9SubY18=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h1TzP+oEyvUummX3FBrsaDg6F/T4dtjOssjippILdgLc7Pshpgl+k71VVqaBz6gjZ
+	 00qb4JZ7RpQTw0jGCW58RLWfO0T5DtrzR6+rMbQoflSGjSFxieCo+wMTb+EJjHvCi5
+	 eIQtv8k/EQhMV6LSRI7w+VcB8+BQz/JoJ0xXSate5ZZjFePTzGCy21AkAtA0p9FizX
+	 oXzFJvR08nY5j30ATR+qwIwRpHL1JHdIHYUoH6sbE1KL/lCb78SSctsV9H1wDwCQ49
+	 DOqFTmi2w9Ews2UgoYCcuMGExZtqCXiMR5A6SVQ6/GPcu92wLeFjhk3KCkrIXrwD7I
+	 lDYKLzlxbvAqA==
+Message-ID: <54617273-262f-4e17-b912-8b07113ca45c@kernel.org>
+Date: Sun, 1 Nov 2026 19:07:49 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,109 +51,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/proc/task_mmu: check THP exclusivity for each subpage
+To: Kelvin Zhang <zhangxp1998@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
+Cc: "Liam R . Howlett" <liam@infradead.org>, Lorenzo Stoakes
+ <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Kalesh Singh <kaleshsingh@google.com>, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <4c1b393a4b04bd94e4f1c7879ae04e1793eb0931.1793552446.git.zhangxp1998@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <4c1b393a4b04bd94e4f1c7879ae04e1793eb0931.1793552446.git.zhangxp1998@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-adreno_show_object() converts each captured buffer to ascii85 the
-first time the crash state is shown, in place: it checks *encoded,
-replaces *ptr with the encoded copy and kvfree()s the raw buffer.
-msm_gpu_devcoredump_read() only takes gpu->lock around the reference
-get, and every read() of the devcoredump renders the whole state
-again, so two processes reading the same devcoredump at once can both
-see *encoded == false and both free the same buffer, or print a
-buffer the other one just freed:
+On 11/1/26 18:01, Kelvin Zhang wrote:
+> A PMD-mapped THP can contain subpages with different mapcounts. For
+> example, after fork(), the child can unmap only part of the THP. The
+> parent retains its PMD mapping, while the remaining child mappings
+> are PTE mappings.
+> 
+> pagemap_pmd_range_thp() passes the same initial page to
+> __folio_page_mapped_exclusively() for every pagemap entry. With
+> CONFIG_PAGE_MAPCOUNT=y, this applies the first subpage's exclusivity
+> to all entries, falsely setting or clearing PM_MMAP_EXCLUSIVE for
+> subpages with different sharing.
+> 
+> Pass page + idx to check the subpage corresponding to each entry, as
+> was done before converting to __folio_page_mapped_exclusively(). The
+> index already accounts for reads starting partway through the PMD.
+> The conservative whole-folio check without CONFIG_PAGE_MAPCOUNT is
+> unchanged.
+> 
+> Fixes: eb16876971ea ("fs/proc/task_mmu: remove per-page mapcount dependency for PM_MMAP_EXCLUSIVE (CONFIG_NO_PAGE_MAPCOUNT)")
+> Cc: stable@vger.kernel.org # 6.15+
+> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+> ---
+> Tested on x86-64 under QEMU/KVM with CONFIG_TRANSPARENT_HUGEPAGE=y
+> and CONFIG_PAGE_MAPCOUNT=y, using the same test binary before and after
+> this change. After fork(), the child unmaps the first, second, middle,
+> or last 4 KiB subpage, while the parent retains a PMD mapping. Both
+> bulk pagemap reads and reads starting inside the PMD are checked.
+> 
+> Across three repetitions (12 cases), the unmodified kernel fails 24 of
+> 84 assertions; with this change all 84 pass. Fully private and fully
+> shared PMD controls pass before and after the fix.
+> 
 
-  WARNING: mm/slub.c:6733 at free_large_kmalloc+0xb0/0xf8
-   kvfree+0x44/0x60
-   adreno_show_object+0x190/0x240
-   adreno_show+0x1d0/0x438
-   a6xx_show+0x68/0xbd0
-   msm_gpu_devcoredump_read+0x144/0x1f8
-   devcd_data_read+0x34/0x48
-  page dumped because: Not a kmalloc allocation
+How was this found. Through an LLM or because there was actually a problem in
+practice?
 
-The dump also changes length between reads, so a reader can get a
-short copy that ends at a page boundary.
+Why do you care about this information to be reliable.
 
-Seen on an Adreno 830 with IGT's msm_recovery reading the devcoredump
-while a udev helper copied it out: 16 such warnings in one boot, none
-with this patch.
+If the answer is "I don't care, I don't care, an LLM reported so I blindly
+submit a fix" we might just perform the switch to the CONFIG_NO_PAGE_MAPCOUNT
+variant directly.
 
-Add a mutex to struct msm_gpu and hold it while the state is
-rendered. Only one crash state exists at a time, so a per-GPU lock is
-enough. gpu->lock isn't used because a devcoredump reader would then
-hold up recovery and fault capture for as long as it takes to render
-the dump. The new lock is taken after msm_gpu_crashstate_get() and
-dropped before msm_gpu_crashstate_put(), so it never nests with
-gpu->lock, and it is taken interruptibly so a reader waiting behind
-a slow render can be killed.
 
-Fixes: 1df4289d5b23 ("drm/msm: Optimize adreno_show_object()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
----
- drivers/gpu/drm/msm/msm_gpu.c | 10 ++++++++++
- drivers/gpu/drm/msm/msm_gpu.h |  8 ++++++++
- 2 files changed, 18 insertions(+)
+https://lore.kernel.org/linux-mm/20260412-mapcount-v1-4-05e8dfab52e0@kernel.org/
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index fded78fdb..428dc9666 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -191,11 +191,18 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
- 	struct drm_print_iterator iter;
- 	struct drm_printer p;
- 	struct msm_gpu_state *state;
-+	int ret;
- 
- 	state = msm_gpu_crashstate_get(gpu);
- 	if (!state)
- 		return 0;
- 
-+	ret = mutex_lock_interruptible(&gpu->crashstate_show_lock);
-+	if (ret) {
-+		msm_gpu_crashstate_put(gpu);
-+		return ret;
-+	}
-+
- 	iter.data = buffer;
- 	iter.offset = 0;
- 	iter.start = offset;
-@@ -214,6 +221,8 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
- 
- 	gpu->funcs->show(gpu, state, &p);
- 
-+	mutex_unlock(&gpu->crashstate_show_lock);
-+
- 	msm_gpu_crashstate_put(gpu);
- 
- 	return count - iter.remain;
-@@ -914,6 +923,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	gpu->funcs = funcs;
- 	gpu->name = name;
- 	INIT_WORK(&gpu->crashstate_free_work, msm_gpu_crashstate_free_worker);
-+	mutex_init(&gpu->crashstate_show_lock);
- 
- 	gpu->worker = kthread_run_worker(0, "gpu-worker");
- 	if (IS_ERR(gpu->worker)) {
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index db9e11e7f..9b683973b 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -264,6 +264,14 @@ struct msm_gpu {
- 	 */
- 	struct work_struct crashstate_free_work;
- 
-+	/**
-+	 * @crashstate_show_lock: serializes rendering of @crashstate for the
-+	 * devcoredump.  The show functions convert captured buffers to ascii85
-+	 * in place on first use (see adreno_show_object()), so concurrent
-+	 * readers of the same dump must not render it at the same time.
-+	 */
-+	struct mutex crashstate_show_lock;
-+
- 	/**
- 	 * @recovery_in_progress: true while recover_worker() holds @lock, so
- 	 * that fault capture and GMU waits don't wait on a fault devcoredump
 -- 
-2.53.0
+Cheers,
 
+David
