@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793514223;
-	b=SQpFHCdfbfeQF797FglyjVLCEvJhZ0IWLB9WDE8xzDjPrapnokCBAGZAy+CRCrt2U2Kf
-	 08/3N/cT3yp28VJ5CbbNdnu87BjJUaqA6nWOAWhon1e/nIgWwhIBh2MM4OhUh6Vsijq5F
-	 NMNKmDOWmLr735BD9J1tH3sprsDGXHxqWSY7Wgc1U/kDyHBNSznz3+Y1EMPLQArW4Yv+c
-	 lDDF30L2L3xcbaqE/sne9lfUUAYurFvH6RvONsGR9Mo054NgQhm8lxPzI01/WidXpLzmD
-	 CBaksTtrQIndRNYxTzPiJV3qyIpUexYW3cQAODre5uS0dkRpqVZMZB7WpfdnvnBKMWA==
+	t=1793514243;
+	b=efdHjiyY34C09gY9a5NUllTLVd3njREDpn3eKOPi8HjnVM0RDDF+TZbgWB7Rw+5dGQiC
+	 CL57fTIxHOSf4gpuVABI3EtR1iyYaMoe69Xnp8dWXX0RpeQE4CdCSvcsUtQHZCwu8WIM2
+	 WtyxJP6NT1RBLkRS5iMWIYfSuVJk+TMFCj+A5zCoSyACbBJhBl+dyq4Kexs6hBwy1DH4M
+	 jdvjnvPRC0a4jCI63kg+r+MTAjdfPA4OxrDOqHaarvvSSe6diKtBFl5XDG/qAa2KmJFe/
+	 dbbelwdKSz9Ofb0pBtHr3amAJHgrqNph5j8Sd97Y/jmKjnpuqv2lRbMfq5ltA2HAhvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793514223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793514243;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=V3iVcUnWr9KVu5ckBKFl1JMHxwLvLh7qZfi7p+79FtM=;
-	b=gE27ybCbdpoUOAPGy8o3+0W7WBa88DucahiPmnAAR84yo4ytSzDp7Kgi9p1Du/rfbtSn
-	 Xg8P/1Z/W3ReV3ttqFX2+rjpfoMrkeJXIKGrGgjBe19X0nLGTTGpM9Gw9JQZSWSGDTm0/
-	 mds8XHp9sVLkSUAo17tOO7NcTppnrBgcDeEbZzDWKw0Ah1VvQxQZFyEgb049kkpJxrFOd
-	 IHiekKTzqXb4QPRxY+t0Z0Pe+LFUc5EBEAyzWO6v7eYGkmNXn5UTfCwI6y+2fyWAF1GYE
-	 UwSPQfp4Zh/xRZeBlV4jHxnBcCxdmlwg/U2So0XzIhVFp9nVa0bY5f3G4/UWKhnKiZg==
+	bh=U6RxQqnraCujnuFyGwdEGaWyvDwvEokaINvEdRIrFx8=;
+	b=jbM3605PN4USBLlgw2vVX+lDwZIF81anfVkBWwh9qV51h6GytoKS0hKUegQ7WxJJ193N
+	 eMgOISwXZ9w+0AH8oLF48ar+nlrjEo1lR8lN2sGSceG8mWf3VJ9Jiy9gA+IZynHsewTMi
+	 TWiSIs7sycBx+din1N6Fy+xQ8YzJDcCf8UlFN2q8i04VPN33HmoN8btrGGijAoDd/R1EG
+	 PqcMFGusc2s3GfYNMSXq8Oximzpypb23LdzjQeLx9vQS7A2oVouTStaxonLq+xs5yivwe
+	 ylG0Vc4yPCHdhxwztA8HdLFKWBUmGx9566kyFxEWYT8MPd5Pmp7fFWSCDJuef7dh9xQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="J/a3fqOS";
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+y36DUi;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB18606A324
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:23:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DB18606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBA23606A324
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:24:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBA23606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J/a3fqOS
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso1349400b3a.1
-        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 23:23:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+y36DUi
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso1233799a91.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 23:24:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793514222; x=1794119022; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793514242; x=1794119042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V3iVcUnWr9KVu5ckBKFl1JMHxwLvLh7qZfi7p+79FtM=;
-        b=J/a3fqOSUlU27X0iUhIvxL6HMOzpQpOemLZ7bZZX3WllfYRs5Sdkz1t74ROJMTzMw7
-         tKDOR3s2xLJ3OcNj9iooWxJm5vE6V6SAYZJbP/zkaXsd7piaOO6Py6gZgg4sxt4dudsl
-         Jo0bdB9Cg6jLjDqkfbQs0RR4IxopYnj7VEbVLf9x2h3azDT41Dcaf882qdargx0vItIu
-         xN0Gey/+65JJ2UJe5M6tYGvb0/8LrCIyGbDcHM8d0nPiP9f/j5seVKoXiKrLDoMBnO+d
-         E8LGyExj6OmqobfZ+xOyuMQ41AWPfb3HIYbgmZKYGsZh3wVQJyo34rxdyxOwddc97N4p
-         ZwAQ==
+        bh=U6RxQqnraCujnuFyGwdEGaWyvDwvEokaINvEdRIrFx8=;
+        b=g+y36DUiYCN2ds2/LESOdmzu3PGF7A+GvYMK9x/7YlArL7oT2RqzCbC7NN9x/SDBTS
+         0oWBIi2bEnAH5Nah+GO8HYiV15KdoeWvW5QVplVNIjSksNN2uAJNsb3vKGBAPYHzn4Xj
+         BHSLh+nlOiG/lv3XlLhUjtn2lxC9/FqCn5yE9kcQJxNnZSw9PDTApP2u4ezbgagbtHmq
+         atRhM5RWODdjrTMb3hb2E6u34RoU+0wT9DBcm1vrFr9g1jD5mN/pUXFaY5ZETx9J7efm
+         15nIY26eD7WlMkmHwyhpHBBV5YnyHcR3297OFdiFvMvfdEGQdRdWWKBnUC2yn90ENDOf
+         /XwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793514222; x=1794119022;
+        d=1e100.net; s=20260707; t=1793514242; x=1794119042;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V3iVcUnWr9KVu5ckBKFl1JMHxwLvLh7qZfi7p+79FtM=;
-        b=LfeFU17SovX0l6YFR7dWTnSt+yBPNZqvjgF5O7/R3BJjX2nixPYM56dvmouKIMcwl+
-         pCp3NyaNWB331Y/bT1CZj1So37oCy8NIN1UfNAP+or/KEO5k0KSpwYKoXDzcVJNFC4WP
-         x6XXqxesCXRGJhA2FO7Mag5I85fohtENPAOb5lDNhEufSOWPYE9gcHDq3np7xZtkFniV
-         S9USvrNz92FZVbK5afEKg7tK6h43GCaX0LfrqqGJb0pzcDTz1r1eLaTFVSGETl28+f+0
-         GnyRC4TaTj1iu47MDG/JXNJ+fXBwLDYPBBODTkb1RSsCQd7FNrp+e4w0NfC0+EYuLi0F
-         AESg==
-X-Forwarded-Encrypted: i=1; AKwUvBwV9Is13Yj0NmCifzIWx1boBUuPdEFauvMOd+DJ4GV3eMP/sFsLgnQy27KQYI6l1P73Rq5+qrs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInb5IYyvbylsy+JYHSjvNCNwEmDR7nHVCXUCfUPQg+y2lr9DGJ
-	DRkgxfN1QB4a5xBLZJFwbnvGfTsx+TaCMOvdxLxeRolrsLL5jY8nWmbn
-X-Gm-Gg: AYBFou1Twlc3qSMYzOzEqVbttvuYD5TOueSAT6yDziH8TlU1aoSBB1yo+ocN4TBNPxX
-	AM9iWUXvZZ0GDr1rfFRel16pX5KqdDXn5q5sE5u0K328lDsqTgdYwVp/GlSFjmu4rviBGGU3fAO
-	5El78MY4nJpVop9YtvpHj+Ll+WzEMq3Yhgn2mP1IwN10Vm62V+gguNyCCV4I/XgXfaSaSW8z81G
-	dgbuw081ZyuDkElQxZkh2UM9ORdiB7/4Ef21zyLR8PJFjjTbw2SkgGzYCaxQi5EZTN7Cm2vfNSC
-	HbeVJQxBJKfYlfNpU/F8Qv6drBcmAQpWbpXTybBjhEGe/BGEFt0R22H16HteHUcqfJgTcM5wrdR
-	TQTsXaCh34XUZNrMOlTE1wm8bak08HimZ7CXQFhZtCekHbNTQaDaIeVRT98Wh3DoU2v6yVQwhXP
-	Rt1I025HZyH5bNj5lygRAEVKxGwowfwpi8BntxLu8o9QKOL5lx0egMrs6QJe7emE6nuOnmvUc4R
-	nYTlShk8PoXD2yi9Yg2+MWuIQWlhC46HC7Ffrh/jg/2uHu10R6XjR8DOQonzHWQ/jk/xqA68O53
-	pMb0g8t+0rdqeugnUI5NjAs6wVA5qDdOCniVzZVKdT+u0pFH8KTrGkCo33sjJE1ZqJ4efMHIzwG
-	qjC4L49BFi6nXRznEL/UWki2A+vf8fHZ8vwIgStj4zsHj7kVSiFyC3DZZM4RrbB6r7AtbkS4XbX
-	qE4APKBf5grU4PSjqW2IR7
-X-Received: by 2002:a05:6a00:21cf:b0:882:905d:aa05 with SMTP id d2e1a72fcca58-8a9bfde689amr5497443b3a.50.1793514222525;
-        Sat, 31 Oct 2026 23:23:42 -0700 (PDT)
+        bh=U6RxQqnraCujnuFyGwdEGaWyvDwvEokaINvEdRIrFx8=;
+        b=ZjfjE0y5KVBJQJ+mJY2vAAQB4wfHoGSf43L8GURb+P8iE0IT65UjYkn9Ub27y5f0Xo
+         1hXQSDuFZRUFTkeZr8UqbSR7mhq836AA/CbEel7REeWiOd9Dh3a+1KcVMKjBSkZ0jzXM
+         5fx0oc+vS96YTelfc2Qnc+MI8AMlTZ4kX3ydYmtVYKVAPawXGQCXUOktc2HYz/hFpon2
+         6A+DcGdU1uvsGj3MbqVVjBSPzDxCRmia4DxvxEhw4i851gRoWndi/byHDPIWmmFa1B8C
+         8OPpE+A6UagVr8AS3QM9IGn+UuMR37aMzO3cWS2PK5qgJg6Jn9kiBAQrjVfyX7Zf9bUw
+         pnxA==
+X-Forwarded-Encrypted: i=1; AKwUvBzUL0c3gTjTHpHMDWZqVpDFkEhGUWjJXw4e0l53NHUCtrL4cIdlvBE42kCCgdAl6HO8BJ9ZxSE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sKauc2qm9FBFZfejQkf8bu8mp9I2JwINDovB5u7IscC27sxop
+	cIVrouDkHC6X9AE4r1fG7nnpHtoydJeAtLeLOWEADbVhxK7s2D/c4SZy
+X-Gm-Gg: AYBFou2nGbFXZPuvPYlEqMMAjXz8y+reZVv0FBnEc/YanKqMHWLCfm1lIz3fkKmLMCZ
+	50mpUy8kn2BauD5R6Yzvgg6GNt04WyjnhWcsujpR52TaGDnGJWg0LhCmxxwBQ6bw0/B65WF8MtD
+	5UgoqMbsTRg5g+VN38Cb2k2TgwQ9lAkDpBXBBv369aB6iKjTwMQ2/OheW260XCEPwfBIkmwAIHp
+	Qns03wzZoNbgMUoPw6NhMpY32xH/1Fgmb9OtbNIZZJDHTFquni65jyVpQH8Y4ynuokbg8sdqUN9
+	YrY2ToeTt2SGrljxlHzylsGoWrGTk5KHdG3SxtMdO44B8Pj4ZVPkJAvocnM7BxxevEaPNjKKXrB
+	O9wMXwr9N5woQiNj9W7vfRdTCctINniHhKGxfq7/i6W5goDK+LB2qS3zrRt38stx5fWEWTwFR47
+	Cymuy3oZzYHc/DCgS/NiAaHN1a4toeqmv+++Z6+YDKISgbxScV+TfO+5U5GtokNO7+ZmJIwhKWM
+	scCMkuvewkoFCKUGIVuv7oUe/truAR3sgLWS3HBOJHokO1XeyNVnc7Wy8EA6sIFKx9JNl6vhk+A
+	ainjwc9q3bNi5+ZX/+1RTpKwwq/Aa3inSkzOYGgp0IAacw3jMJiIleydXVtq++UstwTU8nMNIUL
+	P34kOJ9S5qCrBDLko1n53ei/MpX8nlckhtxMAuZdt/fQFOtMChADdhYIAjA6Ao2+t/MmkgeFpC5
+	uqUL1YLn/omuwMWVfAySs=
+X-Received: by 2002:a17:90b:2803:b0:3ac:96a3:77d5 with SMTP id 98e67ed59e1d1-3ae897e066bmr4668404a91.36.1793514242027;
+        Sat, 31 Oct 2026 23:24:02 -0700 (PDT)
 Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadac9c505sm1026348b3a.53.2026.10.31.23.23.32
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e2a703esm14092486a91.0.2026.10.31.23.23.57
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 31 Oct 2026 23:23:41 -0700 (PDT)
+        Sat, 31 Oct 2026 23:24:01 -0700 (PDT)
 From: Yu Zhang <yuz08559@gmail.com>
 To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] stm class: drop the source link after the source device is gone
-Date: Sun,  1 Nov 2026 16:23:17 +1000
-Message-ID: <20261101062317.16608-1-yuz08559@gmail.com>
+Subject: [PATCH] stm class: clear output->pdrv_private when the output is freed
+Date: Sun,  1 Nov 2026 16:23:43 +1000
+Message-ID: <20261101062343.16629-1-yuz08559@gmail.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -99,42 +99,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-stm_source_unregister_device() drops the link of the source and only
-then unregisters its device. The stm_source_link sysfs attribute is
-still reachable in between, so a concurrent write to it re-links the
-source: it ends up on the stm device's link list with src->link set and
-the source's link() callback armed, after which device_unregister()
-frees it and the source module is unloaded. The next unlink walk in
-stm_unregister_device() then touches the freed source, the stm device
-keeps a reference that is never dropped, and a source like
-stm_heartbeat has its hrtimer fire in freed module memory.
+sys_t_output_close() frees output->pdrv_private but leaves the pointer
+in place, and stm_output_free() only calls the output_close() of the
+protocol driver that is bound when the output is freed. The protocol
+driver of an stm device can be changed while an output is unassigned,
+by removing the policy and creating one for another protocol, so the
+stale pointer survives a re-assignment under a driver that has no
+output_open() and is dereferenced again once the sys-t driver is bound
+back:
 
-Delete the device first, which drains the sysfs attribute, then drop
-the link and release the device.
+  P=/sys/kernel/config/stp-policy
+  L=/sys/class/stm_source/heartbeat.0/stm_source_link
+  mkdir $P/dummy_stm.0:p_sys-t.a $P/dummy_stm.0:p_sys-t.a/heartbeat.0
+  echo dummy_stm.0 > $L   # sys_t_output_open() allocates pdrv_private
+  echo none > $L          # unlink: sys_t_output_close() frees it
+  rmdir $P/dummy_stm.0:p_sys-t.a/heartbeat.0 $P/dummy_stm.0:p_sys-t.a
+  mkdir $P/dummy_stm.0:p_basic.b $P/dummy_stm.0:p_basic.b/heartbeat.0
+  echo dummy_stm.0 > $L   # no output_open(), pdrv_private is kept
+  rmdir $P/dummy_stm.0:p_basic.b/heartbeat.0 $P/dummy_stm.0:p_basic.b
+  mkdir $P/dummy_stm.0:p_sys-t.c
 
-Fixes: 7bd1d4093c2f ("stm class: Introduce an abstraction for System Trace Module devices")
+The next heartbeat then runs sys_t_write() on the freed sys_t_output,
+and unlinking the source frees it a second time.
+
+Clear the pointer when the output is freed, so that a stale private
+pointer can neither be used nor freed again. If no protocol driver is
+bound at that point the private data is leaked instead, as before.
+
+Fixes: c7fd62bc69d0 ("stm class: Introduce framing protocol drivers")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
- drivers/hwtracing/stm/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hwtracing/stm/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 5fbea4e..64a9eb1 100644
+index 64a9eb1..5b7dfa3 100644
 --- a/drivers/hwtracing/stm/core.c
 +++ b/drivers/hwtracing/stm/core.c
-@@ -1287,9 +1287,9 @@ void stm_source_unregister_device(struct stm_source_data *data)
- {
- 	struct stm_source_device *src = data->src;
- 
-+	device_del(&src->dev);
- 	stm_source_link_drop(src);
--
--	device_unregister(&src->dev);
-+	put_device(&src->dev);
+@@ -345,6 +345,7 @@ static void stm_output_free(struct stm_device *stm, struct stm_output *output)
+ 		stm_output_disclaim(stm, output);
+ 	if (stm->pdrv && stm->pdrv->output_close)
+ 		stm->pdrv->output_close(output);
++	output->pdrv_private = NULL;
+ 	spin_unlock(&output->lock);
+ 	spin_unlock(&stm->mc_lock);
  }
- EXPORT_SYMBOL_GPL(stm_source_unregister_device);
- 
 -- 
 2.43.0
 
