@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793532632;
-	b=4CAZdsKjGgwPmxiMBvV98fuWf61YWP6zCpx9r04hE1oS7XoNNbtZ/F5QraEnFWFoqYbT
-	 x+hYoeYGehY0sLZnNswntE+A463Fa71n3Cy0/IzkukB47QqKdYJ5Y985i+MwDW1j7jvsr
-	 OhHDGYKrdud8JC30X+UTjesGgNO448cKgkJxrpZb40iCzbKeYX0JuEmpoym+1RZsAkOJH
-	 oeVKXwakykab5loV2bBEJhtq6kYAsiKfT/2EXDcV4NKYU29+CCOLdcway2qNScYxDS+la
-	 +SXS8dNhdG1F+78ySf2xntvkW5Mvd8a3Gklzi3Ze+XOJVB3eoqQ9Yvb8ixxIXnP1cIA==
+	t=1793532631;
+	b=NFzxvQpEQsASdIaOKfD5glqSUdW2tjNBsu4a3T5y5SWb7JFsbZZ86A2JW1q4Pa9xq4Ul
+	 3YSBOBcJrdDhh39KZBhIKVCrDWdsUKivZqdBGSiWjyTnHrHRbHdzTpK5DEhYnp1DtyE5X
+	 tRHqeKmdzBpRocUtOmOQWsffGBsueV6AWF5MSXWMGiR1GJepTYUeS5s/+M3HqVGJ4WrY0
+	 904Jx5mD3Z8kYaU9dsfbSE9he5ZyvTlnx6/Qy6lFpGLqib4SvCFD1cRw7v2/nrv6RVtui
+	 PBhamBHc2h/RheqOrG2WgPw4TdxBRS61JQK4pFTCphGE8bmeqVu3kuW5gOGzcZjEMHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793532632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793532631;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=QKR+8PYQn0QJC3PYuH+CNGQV8EHuF+fb3PL5Dw961vg=;
-	b=RHcDU9I4PGaYLnpfxFaRUr5AH/0z3oVZSxNXzm7YJ+sC2IsGdgrI696CGoNFVnJTx/As
-	 izeYag296/Nu/uyjJVmHd6GMCAL4AYvcmrlnseBRsaJ8mSay20J7rQw2iJO+YZdIb7zbX
-	 Vtnn2GBb2+0okEsmZOmR8e4sEZtsaScrQwUtCGQxmoi4GHPmYNaB89WCQmA51cHPT3zyG
-	 NhSKaX78EAuCDS+d75pd/j86eaqz2nGQsO4sKm5ymWTtflnmaDAEl9dV7oHaXMy1yDYCu
-	 +fLJwndqSzOxiQj3TMjT8Wa8wc57jo+FP7qCNzeVGY6VrkMhrrNoh4cRt+a4hTv/Bew==
+	bh=x3mcuZyG9qk6zYCEmG8zVhZ+uQN9edYhfhzQAy8rRG8=;
+	b=qfSbYb9+NiRomGvCFBE0Z0FQtBZ72Ivnt1wwW52GUdltd35k5Y0MKr/dCC9go3IdbIAF
+	 ssmVCBrkCpHBVqSDlBfYHZnYkwqUtDclKdieSfXjehIcwWcDCLFpPZUpL2y+h90XiFigP
+	 FkD45kU2j1Jok+R6GjSzidTDzqzEFfxWA/V58xZJKMLzp+SRAXa1BjtJqZ3ZgEzHkEC4H
+	 NPXkmEEluMN8UAZEfopS8Qx8VmWPjt8+vneCcPmj8wXgm+qfcaxM6kxRJ2AgqfERhVJA2
+	 5rir6UV2loAH+qwygEV05QlUi/X+frjjwYAkWzhe6dmre6NoQQEvQzrlFUJVTFdMorQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mF7XePRw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYEkj9kh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E583606A324;
-	Sun,  1 Nov 2026 11:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mF7XePRw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F223D1F00919;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6861606A325;
 	Sun,  1 Nov 2026 11:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYEkj9kh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6141F000C1;
+	Sun,  1 Nov 2026 11:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793532631;
-	bh=QKR+8PYQn0QJC3PYuH+CNGQV8EHuF+fb3PL5Dw961vg=;
+	s=k20260515; t=1793532630;
+	bh=x3mcuZyG9qk6zYCEmG8zVhZ+uQN9edYhfhzQAy8rRG8=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mF7XePRwJmAXD1IHvhoY/4aUME4xWQP9Ugvff8Oroc9ikZ9vVtXz4c+ZQDCvYsoLT
-	 KAJtmcU4zGXYfhEvMrja8QQmZM3f2i4JJSC1cl5atwrUwZimsYu8/1RtLme4sPCIDb
-	 fBsLUn+md9QacA6C4Y5kxJdhOSkeLnaySObzW6uUDRX7j0P0o3cClbkSg1Ws7qARj7
-	 yuOoi8hpmO+/t92HGADdQBKd4WSTbKTlNsD3b6kP44OsY0y+5ulDuBqPENyylTIChb
-	 qfHHUnBWbpCC1CwbpPl21qunheFy/KS/HEIxAPESTwZtDF2P3XIPh8aV/9VdBA5Tej
-	 Ew1UJcMt/xtXg==
-Subject: Re: [PATCH net v5 2/2] vxlan: reject VNI add when the default fdb
- entry is nexthop-backed
+	b=XYEkj9kh+aNqp0ItGuMh6oSodE9+C1Opuli7hGyFvUA1k0o6xtMUBm56CK+Q0hd5v
+	 4Iaw5TT830x8kdL9LbkTiNW4uhoxqod9rOzDP7mSYUa+uMSgptiA9gQVbE3sjkiJMj
+	 KomkEH3CikjqkaXst35v8XSdfqoLU+1hAuO9kd1kCHObXIlTLuESASY8mcx/RKWbdw
+	 x5TrnJUS0B7WKxhPSSEIw1yVLBHIDQnGx5GPwbRYBG9Qvf4/NrbAD1n2XiyijsTn2l
+	 vzjrw4EelkRz48GIXb8h18GPZpElhAL9QKp4MEVOGIIBvNF9T8+6VpF7mLeNy9xheq
+	 OUWRNp43mkKRg==
+Subject:
+ Re: [PATCH net v5 1/2] vxlan: reject adding a remote to a nexthop fdb entry
 From: netdev-bot+sashiko@kernel.org
 To: bsdhenrymartin@gmail.com
 Cc: idosch@nvidia.com, i.maximets@ovn.org, davem@davemloft.net,
@@ -49,11 +49,11 @@ Cc: idosch@nvidia.com, i.maximets@ovn.org, davem@davemloft.net,
  horms@kernel.org, kuniyu@google.com, petrm@nvidia.com, ferruh.yigit@amd.com,
  atenart@redhat.com, qotmddnjs@gmail.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 01 Nov 2026 11:30:30 +0000
-Message-ID: <179353263054.3131.3806722064671880892@kernel.org>
-In-Reply-To: <20261028111626.3460759-2-bsdhenrymartin@gmail.com>
-References: <20261028111626.3460759-2-bsdhenrymartin@gmail.com>
-X-sashiko-severity: Low
+Date: Sun, 01 Nov 2026 11:30:28 +0000
+Message-ID: <179353262893.3131.14949958099779309653@kernel.org>
+In-Reply-To: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
+References: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -66,38 +66,93 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-- [Low] The series order leaves a bisect window, and nothing protects the
-  stable backport.
-- [Low] The commit message gets the order of operations in
-  vxlan_vni_add() wrong.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The new fib_nexthops.sh cases never create a nexthop-backed
+  00:00:00:00:00:00 entry.
+- [Low] Baseline decision: false (resolved later in the series).
+- [Low] The commit message says that "vxlan_fdb_notify(), RTM_GETNEIGH
+  dumps and the switchdev FDB programming all prefer the remote list…
+- [Low] The new "Fdb replace with nexthop group" test (fib_nexthops.sh
+  lines 555-557 for IPv6 and 714-716 for IPv4) passes with or without…
 
 --
 
-vxlan: reject VNI add when the default fdb entry is nexthop-backed
+vxlan: reject adding a remote to a nexthop fdb entry
 
-This commit adds vxlan_fdb_entry_nh_backed() and calls it from
-vxlan_vni_add(). A VNI add with a group, or with a device default remote,
-is now rejected when the all-zeros fdb entry for that VNI is backed by a
-nexthop. The check runs before the VNI is installed, so a later
--EOPNOTSUPP from vxlan_fdb_update_existing() can no longer leave the VNI
-half-installed.
+This patch makes vxlan_fdb_update_existing() reject NLM_F_APPEND on a
+multicast or all-zeros fdb entry that is backed by a nexthop group, and
+does the check before any entry state is modified. It also moves the
+non-unicast NLM_F_REPLACE rejection ahead of the state/flags update. New
+fib_nexthops.sh cases are added for both.
 
-> vxlan_vni_add() installs the new VNI - hash table insert, group list,
-> socket attach and the RTM_NEWTUNNEL notification - before calling
-> vxlan_vni_update_group(), which in turn calls
-> vxlan_update_default_fdb_entry() to store the group (or the device's
-> default remote) into the all-zeros fdb entry of that VNI.
+> The entry state is also misreported: vxlan_fdb_notify(), RTM_GETNEIGH
+> dumps and the switchdev FDB programming all prefer the remote list
+> over the nexthop, so user space sees the dead remote while the
+> datapath follows the nexthop group.
 
 [Severity: Low]
-Does this ordering match vxlan_vni_add()? In the code, the notification
-goes out after vxlan_vni_update_group() returns, and it goes out whatever
-the return value is:
+Is this accurate for the netlink paths? vxlan_fdb_info() checks the
+nexthop before the remote:
+
+drivers/net/vxlan/vxlan_core.c:vxlan_fdb_info() {
+    ...
+	if (nh) {
+		if (nla_put_u32(skb, NDA_NH_ID, nh_id))
+			goto nla_put_failure;
+	} else if (rdst) {
+		if (send_ip && vxlan_nla_put_addr(skb, NDA_DST,
+						  &rdst->remote_ip))
+    ...
+}
+
+So the RTM_NEWNEIGH notification sent through
+vxlan_fdb_notify()->__vxlan_fdb_notify() and the vxlan_fdb_get() reply
+both carry NDA_NH_ID, not the stray remote. vxlan_fdb_dump() handles
+f->nh entries before it walks the remote list, and it passes a NULL rdst.
+
+As far as I can tell, only the switchdev notifier part of
+vxlan_fdb_notify() (vxlan_fdb_switchdev_call_notifiers() with rd) uses
+the stray remote. Could the commit message be narrowed to that path?
+
+> diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+> index 278d41f58d895..3aead3c7f65f0 100644
+> --- a/drivers/net/vxlan/vxlan_core.c
+> +++ b/drivers/net/vxlan/vxlan_core.c
+> @@ -1011,6 +1011,22 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+>  		return -EOPNOTSUPP;
+>  	}
+>  
+> +	if (rcu_access_pointer(f->nh) &&
+> +	    (flags & NLM_F_APPEND) &&
+> +	    (is_multicast_ether_addr(f->key.eth_addr) ||
+> +	     is_zero_ether_addr(f->key.eth_addr))) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "Cannot add a remote to a nexthop fdb entry");
+> +		return -EOPNOTSUPP;
+> +	}
+
+[Severity: Low]
+With only this patch applied, can this new rejection leave a VNI
+half-installed on a vnifilter device? The commit message says "so a
+refused request has no side effects". However, vxlan_vni_add() publishes
+the vninode before it makes the call that now fails:
+
+drivers/net/vxlan/vxlan_vnifilter.c:vxlan_vni_add() {
+    ...
+	__vxlan_vni_add_list(vxlan, vg, vninode);
+
+	if (vxlan->dev->flags & IFF_UP)
+		vxlan_vs_add_del_vninode(vxlan, vninode, false);
 
 	err = vxlan_vni_update_group(vxlan, vninode, group, true, &changed,
 				     extack);
@@ -105,80 +160,114 @@ the return value is:
 	vxlan_vnifilter_notify(vxlan, vninode, RTM_NEWTUNNEL);
 
 	return err;
+}
 
-The end state described later in the message is accurate: the VNI is
-installed and announced despite the error. But it is announced after the
-failed update, not before it.
-
-Could this paragraph be reworded to match?
-
-> diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-> index 124ba47758e91..07e17f4b93530 100644
-> --- a/drivers/net/vxlan/vxlan_vnifilter.c
-> +++ b/drivers/net/vxlan/vxlan_vnifilter.c
-> @@ -837,6 +837,20 @@ static int vxlan_vni_add(struct vxlan_dev *vxlan,
->  		return err;
->  	}
->  
-> +	/* A default fdb entry that is backed by a nexthop group can
-> +	 * never take a remote; reject before the VNI is installed,
-> +	 * otherwise a failure in vxlan_vni_update_group() would leave
-> +	 * the VNI half-installed.
-> +	 */
-> +	if ((group && !vxlan_addr_any(group)) ||
-> +	    !vxlan_addr_any(&cfg->remote_ip)) {
-> +		if (vxlan_fdb_entry_nh_backed(vxlan, all_zeros_mac, v)) {
-> +			NL_SET_ERR_MSG(extack,
-> +				       "Cannot add a remote to a nexthop fdb entry");
-> +			return -EOPNOTSUPP;
-> +		}
-> +	}
-
-[Severity: Low]
-Does the series order leave a bisect window between this patch and the
-earlier "vxlan: reject adding a remote to a nexthop fdb entry"?
-
-That earlier patch adds this check to vxlan_fdb_update_existing():
-
-	if (rcu_access_pointer(f->nh) &&
-	    (flags & NLM_F_APPEND) &&
-	    (is_multicast_ether_addr(f->key.eth_addr) ||
-	     is_zero_ether_addr(f->key.eth_addr))) {
-		NL_SET_ERR_MSG(extack,
-			       "Cannot add a remote to a nexthop fdb entry");
-		return -EOPNOTSUPP;
-	}
-
-With only that patch applied, a sequence like this:
-
-  bridge fdb add 00:00:00:00:00:00 dev vx0 nhid X self permanent src_vni N
-  bridge vni add dev vx0 vni N group G
-
-goes through this path:
+Suppose the per-VNI all-zeros entry is nexthop-backed, and either a group
+is given or cfg->remote_ip is not any. Then the call chain is:
 
 vxlan_vni_add()
   vxlan_vni_update_group()
     vxlan_update_default_fdb_entry()
       vxlan_fdb_update()
-        vxlan_fdb_update_existing() returns -EOPNOTSUPP
+        vxlan_fdb_update_existing()   <- -EOPNOTSUPP
 
-By then the VNI is already in the hash table and the group list, and
-RTM_NEWTUNNEL is still sent. That is the half-installed state this patch
-is meant to prevent. Leaving out the group has the same effect when the
-device has a default remote. Before the earlier patch, the same request
-succeeded and appended a stray remote.
+After that failure, vxlan_vni_update_group() jumps to out and skips both
+the remote_ip copy and the IGMP join. vxlan_vni_add() still sends
+RTM_NEWTUNNEL. It returns the error without removing the vninode from
+vg->vni_hash or from the list.
 
-Both patches carry Cc: stable and the same Fixes: tag, but neither one
-records the dependency.
+The next patch in this series, "vxlan: reject VNI add when the default
+fdb entry is nexthop-backed", adds a check in vxlan_vni_add() before
+vxlan_vni_alloc(). That check rejects this case before anything is
+installed, so the problem only exists at the bisect point between the two
+patches. Would it make sense to reorder or fold the two patches so that
+each one is self-consistent on its own?
 
-The earlier patch only touches vxlan_fdb_update_existing(), so it will
-probably apply cleanly to older trees. This patch was reworked in v5 for
-the RCU conversion of vxlan->cfg (the local cfg from
-rtnl_dereference(vxlan->cfg)), so its context is unlikely to apply there.
+[ ... ]
 
-Could stable end up taking the earlier patch on its own? This guard does
-not depend on the earlier patch, so would it make sense to put it first
-in the series, or to squash the two?
+> diff --git a/tools/testing/selftests/net/fib_nexthops.sh b/tools/testing/selftests/net/fib_nexthops.sh
+> index 431d7bed76224..bdc23205bde4c 100755
+> --- a/tools/testing/selftests/net/fib_nexthops.sh
+> +++ b/tools/testing/selftests/net/fib_nexthops.sh
+> @@ -547,6 +547,15 @@ ipv6_fdb_grp_fcnal()
+>  	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
+>  	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
+>  
+> +	# fdb entries with a nexthop group cannot take a remote append
+> +	run_cmd "$BRIDGE fdb add 00:00:00:00:00:00 dev vx10 nhid 102 self static"
+> +	run_cmd "$BRIDGE fdb append 00:00:00:00:00:00 dev vx10 dst 2001:db8:91::11 self"
+> +	log_test $? 255 "Fdb append with nexthop group"
+
+[Severity: Medium]
+Does this fdb add actually create a nexthop-backed all-zeros entry?
+Earlier in ipv6_fdb_grp_fcnal(), vx10 is created with a remote:
+
+	run_cmd "$IP link add name vx10 type vxlan id 1010 local 2001:db8:91::9 remote 2001:db8:91::10 dstport 4789 nolearning noudpcsum tos inherit ttl 100"
+
+Because cfg->remote_ip is set, __vxlan_dev_create() has already installed
+a plain, non-nexthop all_zeros_mac entry:
+
+drivers/net/vxlan/vxlan_core.c:__vxlan_dev_create() {
+    ...
+	/* create an fdb entry for a valid default destination */
+	if (!vxlan_addr_any(&cfg->remote_ip)) {
+		union vxlan_addr rip = cfg->remote_ip;
+
+		spin_lock_bh(&vxlan->hash_lock);
+		err = vxlan_fdb_update(vxlan, all_zeros_mac,
+				       &rip,
+				       NUD_REACHABLE | NUD_PERMANENT,
+				       NLM_F_EXCL | NLM_F_CREATE,
+    ...
+}
+
+bridge fdb add sends NLM_F_CREATE | NLM_F_EXCL. vxlan_fdb_update() finds
+the existing entry and returns -EEXIST:
+
+	f = vxlan_find_mac(vxlan, mac, src_vni);
+	if (f) {
+		if (flags & NLM_F_EXCL) {
+			netdev_dbg(vxlan->dev,
+				   "lost race to create %pM\n", mac);
+			return -EEXIST;
+		}
+
+Nothing checks the result of that run_cmd. The append that follows then
+reaches vxlan_fdb_update_existing() with f->nh == NULL. The new guard does
+not fire, vxlan_fdb_append() adds the remote, and bridge exits 0.
+
+If so, log_test $? 255 would report FAIL on a fixed kernel, and the test
+would never reach the new f->nh check. ipv4_fdb_grp_fcnal() has the same
+problem, because vx10 is created there with remote 10.0.0.2.
+
+Any of these would avoid the collision: delete the default entry first,
+create vx10 without a remote, or use a multicast MAC for the
+nexthop-backed entry.
+
+> +
+> +	# fdb entries with a nexthop group cannot be replaced with a non-unicast MAC
+> +	run_cmd "$BRIDGE fdb replace 00:00:00:00:00:00 dev vx10 dst 2001:db8:91::11 self permanent"
+> +	log_test $? 255 "Fdb replace with nexthop group"
+
+[Severity: Low]
+Can this test distinguish a fixed kernel from an unfixed one? The check
+it hits is the moved "Cannot replace non-unicast fdb entries" rejection
+in vxlan_fdb_update_existing(), and that check does not look at f->nh.
+
+Before this patch the same request also returned -EOPNOTSUPP. The only
+difference was that it did so after f->state and f->flags had been
+rewritten. bridge exits with 255 in both cases.
+
+To cover the half-update this patch fixes, the test could check in bridge
+fdb show that state and flags are unchanged after the failed replace.
+
+Because of the setup problem above, the entry being replaced is also the
+plain default entry, not a nexthop-backed one.
+
+The comment "fdb entries with a nexthop group cannot be replaced with a
+non-unicast MAC" also looks inaccurate. The check is not specific to
+nexthops, and the MAC is the lookup key, not the thing being replaced.
+The copy in ipv4_fdb_grp_fcnal() has the same issues.
 
 [ ... ]
 
