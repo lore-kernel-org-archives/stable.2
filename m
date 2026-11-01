@@ -1,79 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793558394;
-	b=fESnG8icgx2xnwPce1Y/Ib7vTl48cyUdvwppBr+lvcpoyBSOMtp5WzS6rp0KBtiXWCIb
-	 pJ5Jrjw2UcQ2imaAeMkzMMUN9XSL6ne2ISYhoQDhYOFFBv1cfUOutWXNXLnLwejbtNk2j
-	 iRKN0lzQU77ASkFTd2mZd373GVgi6pvw/pD+VG7HuioVDCTSISchbnZxfvN1NdwQ4DsLK
-	 PsUOZTXqKlfCP8mJI0EeJEpoVOY+o+aVnBDGL47+fbAjIEapGr39a0AY6BIuwV5fWiXDD
-	 t7IxDpaf1FTGFDPji2O9NrbOHqD2YHmpPBjifiSPEAmJzABGiKTCdbCbjIPeIfpDUHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793558394;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K8p0/by7agCfj7cfrjXSzQBtR85LBTs3B+zqPUaeaN4=;
-	b=1eLiaDQxiGKHDfEpOj/zFPVlM5/gyd83t1CX2+c2qnz/6FU5m56xW7DJCKBAQeivvPVD
-	 rESqbK5xcO/oXIZigRetFjF/eygu9ucrxK7EBopeiDHbzH7sguJ8EbRoxFbrQZBMCtNjZ
-	 xp0NjToodyWkqCBFru6oNPOijRfk4JOUPbX3b7IktB7BZ24WXCG+xjPiWSmRg4XayA5Yj
-	 jpIbiKvQxYmguN3N1zOGxTNmxdrz9P5RmXNSwDT3qjaqZPIjAFqe4IVaAm3j5MQss2HMV
-	 pijlcLAhp+Np/T33k8z2AG8fpfgnhyJ+am3/a4WcECIZCJVXOOaS6cb6btm2Mlgf/1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ99QUOe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D5B606A324;
-	Sun,  1 Nov 2026 18:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ99QUOe
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793558393;
-	b=p3rsiFaq997RU8zq6h0mnR5tr7kKz9axw4YOpZgMqU8YQWwcQP15rvWh5Ql4W8/DZvp0
-	 4AEWs7tKHnomNzwl+/zs3t5kp3aUazWUiCiXxnyu6iMmJE9MdG9uFsAIezEDEdpSF07mW
-	 B1FA+/G/W/qZGawcpCQKYh/82u5JCYBW3fbXmDWjqwN/GTXjnOB4nCC3Ib6FyQ85voRWI
-	 TqSWlZ3OctdwGJG0Baz0VsE3ZD6yNkCh1lMe0b3e1SSK6+ZEQUaYwOxCnVKB5rxQbH/Wm
-	 IjBg6xq9GOMgMznED7cq2Q1cgM0oCVRaof/MrT2UbrnF1f4nzsBXG6pLCaJ2o6t9+6A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793558393;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K8p0/by7agCfj7cfrjXSzQBtR85LBTs3B+zqPUaeaN4=;
-	b=yfCXEi525eQiAig+Li288e0X9qL4wlvlfwCmO0sTdFR4pqhebxfq1SORxtcQ6aOhRSOJ
-	 u4wOCU+wQ6a9F/OzCEgwcS2ZcalBW214GCTOE0ZXzDlLtopUXHpGb0/4j0cN2rAfAjk7a
-	 Jh455YEmFyNxg9wBlmKEnrAhf78C29gyKZsjUFIGkgZlsJdGrzDf9oisI792dV4y2gTrk
-	 U217LjYT1SglvqE7gW+j7e8uR007UbCpXKQhmSEZaq0S6r99dUd4R4JcZlAJV4CM7GAVn
-	 0S0NlzSQJGH3BTcRmV7njp93ZhcWGxDcJNYG8FqMDdUauGQt14Daf+t62ByFJ/OK+HQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793559484;
+	b=CZGgedDpfd+dXNLQf/GAieqc0f/uiIdbX0nPnIEuZUknZjipaLi751JvBwlk1ESDA88y
+	 3uK01AGUaNyo9HmBA35SlEnJSgryiX2AP74YBz7BfYUUorgmaP/X2xcE8ZyX6/d2xFb5Q
+	 8oTN461ZoEF4BJWS22keDMmOqKQwF3OmRO2htNdGCkYGdJ6vmkTc+PtcW1fgn7NsWblNQ
+	 1gYRjeWV/hR380LHRUvXvvdmIG5foTqHZlObDkQbqlxk+kDMul7/bJpkOGspj6hg9J4Mb
+	 CuKurcPtFQFePDAOwY2JSGlxUAC/Fjnt7saAj1p9skI0C8BYNk6cJzOObp1S8lidmLg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793559484;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=CXYY2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=;
+	b=W3uJcVhSIhmo0U24tc3ByzRVvH7X/AwMesOWX9Z1YdRF+GFdrgs9iAU+/R6qBl3RY9jS
+	 gt9GKJdApYKyO/OnHCwjThzBkKG40fHb//YJ4nJ95MnXbOZAeSIL3G0Q9cp/lhJTMGyxK
+	 OpxqKNLNHu3F3MGK63TY7ttVZkuep0Zl8jMX5f8VUPo9I6wIpCNWT++lmi9JR1Y2DRHPg
+	 FoFAg/7hb1l0j75fPPW6gourfcx78WSUUmCBFCErGSmwwdTz0s+XlnqBIveSr/GCZHNml
+	 wBsoqAKs2lUnAsQTIe1pTDMfzpf7tnGpq72VbgCoQuZu+PD6sdtJqDRw9AvXzbdLnHw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=WSYejO69;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=i1WVUosU;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 369451F000C1;
-	Sun,  1 Nov 2026 18:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793558393;
-	bh=K8p0/by7agCfj7cfrjXSzQBtR85LBTs3B+zqPUaeaN4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OZ99QUOeUvolgMglKWLyMkeX1Uza6gSgu+VRTrnIH4tpfkwKeJZyA5ZTxv/DaY0SG
-	 xumiDWc8gn130x0gcK/AjOll+BLGZSWSKkHj6U221RE2oeOSw99sJpfXDvg7ZISYNk
-	 a+RO4G6ybOuEJz6EGOoDiDiDLH8mLDpWI6FIJ7qmkLgQ2t4zJwhyhu+vb8TUY5d9Yu
-	 CSh4ThVB8fYQY1Fsb1wBj7Oh3sVrjLOAKezC1vJWEPAU0S9bGuycBWy36bcBwZhWq+
-	 fvAZpRcdytNlESvgl2fYRoTst1NNekgLjuGQXfMQAlEPjm90BABED1e8tDaw9XXTP0
-	 wXrJVcu+K0KwA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A2FFB46228;
-	Sun,  1 Nov 2026 18:39:52 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Sun, 01 Nov 2026 13:39:52 -0500
-Subject: [PATCH] btrfs: fix bio counter and bioc leak when async
- checksumming fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53236606A327
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 18:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53236606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=WSYejO69;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=i1WVUosU
+Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1FfZTq3750882
+	for <stable@vger.kernel.org>; Sun, 1 Nov 2026 13:58:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=CXYY
+	2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=; b=WSYejO69CfdNT81DJFNR
+	cTmv2KRMB2Od6Hr6tPG8f678k8F9kgVny2jDKBb7rzPcX8OzDcQ+Q/nHuHfrLMBE
+	Wuvye5NceqxWELSLKYTzrwKWhInhEq2ZXZiJjH7TiVJP+RrydeRait9QXjJrohcn
+	IazreHB5Ht8aD5qiFeapcTqQhP211JwT3xRQ+WQkTye4Izdv+tuDejCl1m2eL13x
+	+UV70Q0BlGM7Qt9pKdSq4W3CqfSrDl24yloIiDMU1BmVJG5/YcMYV/Xi5lp0QBRn
+	4g5Tnui1BW2bPVelveiAE51q0wprWe7sX0wMBqJ6dvkasteXLlVlFjeLZWPU7bol
+	tg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hp89qgvs4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sun, 01 Nov 2026 13:58:02 -0500 (EST)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb71b1443so486081385a.2
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 10:58:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793559481; x=1794164281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CXYY2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=;
+        b=i1WVUosUK+tKdPcwdvkB8p8ZsQvohzdzyFrUraXdDbEUo/GBwHzZFlm/pN2ozsMog+
+         /IO/jLYPgXsTUuWDefz4vlq21tHjFWxHifdIGbyUlOVrzNUS58zS5A9pRg4TA+TjPWqn
+         j5JRsLbXHLmA2UfmdM+xpaSC2q9sC8cCfTurFXpKBBKf60Ck+0IZfJVADIahWuEEUPP+
+         ScmyPErtn0Nrx2PEIoerPVNEd26I8OgC83u93rNsmfsxI6fY0OLcDDfIG0eEIJK9B7xP
+         MEPlPcRYb2uK0AeAKuRBfL7XdQZhZxJ1IDQ/pz3fy+sJjxheOYGMb+ReHVUoetW6Twbe
+         Gbqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793559481; x=1794164281;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CXYY2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=;
+        b=dLAtlZ3UxC2dHBDZiRlTXX93rSSKYXx3f54zSRav5g5RyMfhaI0wGnudMMjF8vDNhd
+         aQk6AekWZwgomfe/+bOkARYGnl90qhjF56730SxI8WJrBiZkGEazBgmCvmvytOt+1i4X
+         z7Nf026dPed1BCynK0Xb1WNToYArsTZZGdfyLsfKlbhLjpsXHwREaz+hpkEb//ASXJYo
+         Dj1CsbJIxHCPsjExYbjauFZXJzAc49gGmLSuQXlOeCv4+GoZZegRk8XvxiALG6EY9bfC
+         1sc6YAPrRqvLKE+CazdE3xVTWD4e+bg3rlviFawKZs2+dGX37sjihAaJJUFj/kqrg49+
+         M09g==
+X-Forwarded-Encrypted: i=1; AKwUvBwG+9Vg0ZPlKaQKMb8k4oX36JNGWjxd7Yg8HcB7Wt5h82bH1YgZYZ7/VWCpP3xXYiMZ7sFPsis=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcHSF6FvYeKoZtY5/mrGKCcOXDvJtkyASsRQH2sR8hu+bdurnh
+	YHOsB01ASGFIR9OeUh4s7mV/I3ENYqlpBn4yNTZHVFwvoh6Jc9D0I1M43Ji/3uhlxVC0svsJufB
+	pFvXll2tTKrGxcF8gAmvVapqVVNmkP2c6jxaxvuzcGfABV7R3mYiRQg==
+X-Gm-Gg: AYBFou1jCeVMtKbCIKH/pNPNtomYXE+LyPqosrZ5eG7r9T5iv8q1kNDvzbMCr8aewat
+	KselFrxqiF8Vo9bRzr88UheyNSUfpMJFRb5IDPRytpP7c0HH00fGAz+t9wDR7XBGaczkVxZOhVv
+	VAR7QvEKDmhiHSTyBotFTK7yspOz1uSjV0kkd8LxN0j3xvkcvvTXXOzqBDqk6mnO8tnybJrJb3a
+	w5mGT6nzTy27YSYVNRwtJAVXk4xvltsG+HAml9XWB8DumV4307yvCfSa0Vwd6Gxe2cZm/egM1Rt
+	a/uGUja9UJtu8Cn4nGbsrwSFE6ZVt/gaDWJt1650nxIiSuMhkAqFkryGWbNpnYfFrsVloWBGevJ
+	/bcwsNtqjMEbnoaLfFwshmT6xlgQpL0RkrRa6eq5BL3FJgnf51ln6J3TZrCG3xQNYpT1thGCN1Q
+	k8t460sMi/Pc7QewvdW8J9aNaTSns11avDGhU=
+X-Received: by 2002:a05:620a:468a:b0:93c:8544:6ad8 with SMTP id af79cd13be357-94421747024mr1398579185a.28.1793559481407;
+        Sun, 01 Nov 2026 10:58:01 -0800 (PST)
+X-Received: by 2002:a05:620a:468a:b0:93c:8544:6ad8 with SMTP id af79cd13be357-94421747024mr1398575885a.28.1793559480868;
+        Sun, 01 Nov 2026 10:58:00 -0800 (PST)
+Received: from ?IPV6:2a00:a040:199:85d9:400f:a731:3a5c:25b9? ([2a00:a040:199:85d9:400f:a731:3a5c:25b9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aa704sm205875525e9.8.2026.11.01.10.57.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 10:57:59 -0800 (PST)
+Message-ID: <b8847a58-1c43-46a8-823a-4ad7a14c8f93@columbia.edu>
+Date: Sun, 1 Nov 2026 20:57:56 +0200
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,93 +116,171 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-btrfs-async-csum-leak-v1-1-feafe7ae61e9@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJW6IkXoWwKMNUB6SaDhAI4
- e5WXL7F/zsoJ2GFe7FD4kVU3jHDXgqgp48PRumywRl3s6Y02E4pKHrdIiHpPOKL/YC2qlwXrsF
- Q6SC3n8RB1vNbN3/r3PZM028Gx/EFeGIUMnkAAAA=
-X-Change-ID: 20261030-btrfs-async-csum-leak-1772df5f0c32
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
-Cc: Qu Wenruo <wqu@suse.com>, Christoph Hellwig <hch@lst.de>, 
- Josef Bacik <josef@toxicpanda.com>, 
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793558392; l=2369;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=mGiLrTH5AqlN5JS+ipDmST7KGFMjGScKRUdjepxjagw=;
- b=i817B+Hk0R44YFLbkmJkWr40ppVxvcWEv5xLvPF4pmkmoUO7WZFnyFJg6PlLMqTOdsEBNgl+w
- BTgE7frgH3tA9Dg6T79LE7JgyO6ikbL2mpIpYqeONCt8vUgikFsn3XI
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+        Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+        Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>,
+        Naoya Horiguchi
+ <nao.horiguchi@gmail.com>,
+        Wei Yang <richard.weiyang@gmail.com>,
+        Nico Pache <nico.pache@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Luis Chamberlain <mcgrof@kernel.org>,
+        Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
+References: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA3NSBTYWx0ZWRfX6wkTGEOQ2baM
+ RUjbe8zgUVblHZ/Yyfn6DmlHHQCKXXPYmc+0RoNjgdOlW3JH6qkPsl/KTK9UUYBuW7iCxPa0PIx
+ +gZ6qRaArpcXgMt7iLQXCt3HCPbU1S0KiTXtIXJP6wflK6QFm5sgrviiqwg46T4VmzhG3Ig3YUy
+ J/ySOKVzO6LM8Byf9vU9S/4u5QjnhVBp4bh8O/wfhHgjTQ9GwCdrSyYrrGa1W7XuURQaL8yLLka
+ /moZJLWZxMZHwXAxKYQUMDJ6nKIXCNOyWyxHbvLYbuKkbNivOqFraGcQjcdqtHkXqvcgQhKsbDV
+ 74j6Wfc5pASVhwUrKDRNLVcNHpFTfUDN53Qi879UFqMCRvpq26xYO8BGjB1HipNApZLYAiQ9lgw
+ qbUNJ9Gl+lv5Vow1jDDGLrFtiVygfPGODi0EX2xtiGTrXJR8KqcmqEid6ZO97TcLGN6kaLq7Tm3
+ CiKyhwlaJt1C/4E4tuw==
+X-Authority-Analysis: v=2.4 cv=ML71C8Zl c=1 sm=1 tr=0 ts=6ae78bba cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
+ a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8 a=Ikd4Dj_1AAAA:8 a=SRrdq9N9AAAA:8
+ a=i0EeH86SAAAA:8 a=ZVJNLgniXcJRS-GVAekA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA3NSBTYWx0ZWRfXz/7p3k+JE3mC
+ Ag3qEGtqx02+Nq8Jrdw5JRv2n7BcF86JO5ll5eSAt3QnZCvVtykdX+HJ7gVIVSAkVQ81R2vhc5a
+ 6lMPDSqyEFIW5ytRIytDvVINFtnsdr4OCAeBK49TyueMHjATPHZj
+X-Proofpoint-GUID: LxR9MTMp9RcCoEvmw9Tyqbte2C-Q9Ytp
+X-Proofpoint-ORIG-GUID: LxR9MTMp9RcCoEvmw9Tyqbte2C-Q9Ytp
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11953
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 bulkscore=10 impostorscore=10 suspectscore=0
+ spamscore=0 clxscore=1015 lowpriorityscore=10 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010075
 
-From: Mani Tofigh <mt4022@columbia.edu>
+On 10/30/26 6:29 PM, David Hildenbrand (Arm) wrote:
+> hwpoison code can end up calling min_order_for_split() without holding
+> the folio lock. There isn't really something that would prevent
+> concurrent folio split. Consequently folio->mapping can get set to
+> NULL after checking for "!folio->mapping", and if the compiler
+> reloads folio->mapping, mapping_min_folio_order() would try to
+> dereference NULL.
+> 
+> While very unlikely to happen in practice, let's just enforce that
+> min_order_for_split() is called with the folio lock held. We can
+> significantly cleanup the calling hwpoison code, and just get rid
+> of try_to_split_thp_page() to hold the folio lock for a bit longer.
+> 
+> Just work on folios now, which further cleans up the code. We just
+> have to be careful about doing the page_folio() after splitting, which
+> we have to do already either way. Do not change the way we split for
+> now, this needs more thought and should be done separately.
+> 
+> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+> would currently have leaked a folio reference.
+> 
+> In min_order_for_split(), document and assert that we need the folio lock.
+> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+> 
+> While updating the comment in soft_offline_in_use_page(), just drop the
+> "NOTE" part that does not add any value to current code.
+> 
+> The folio->mapping problem was identified by Sashiko, and Li Youhong
+> reported it by sending a proposal fix.
+> 
+> This likely does not really warrant CCing stable, but I expect little
+> conflicts when doing the backport, so let's just CC stable because of
+> the refcount leak.
+> 
+> Reported-by: Li Youhong <liyouhong@kylinos.cn>
+> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+> Acked-by: Usama Arif <usama.arif@linux.dev>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-A single failed checksum allocation can make a later device replace
-hang forever.  btrfs_submit_chunk() takes a dev-replace bio counter
-reference and a bioc before it hands a write to the checksum worker.
-If the checksum fails there (eg its allocation fails),
-run_one_async_done() ends the bio but drops neither.  The counter then
-never gets back to zero and the next replace waits for it:
+I managed to trigger a UAF via folio->mapping due to the race with truncation
+that this patch fixes (KASAN output below). Soft offline is preempted inside
+min_order_for_split() after it's loaded folio->mapping. The file is then
+unlinked and closed, the inode is freed after an RCU grace period, and the
+subsequent mapping->flags read hits the freed shmem inode.
 
-  [    8.369171] BTRFS info (device ram0): dev_replace from /dev/ram0 (devid 1) to /dev/ram1 finished
-  [   41.534247] INFO: task btrfscsum:80 blocked for more than 20 seconds.
-  [   41.534391]  btrfs_rm_dev_replace_blocked+0x135/0x180
-  [   41.534463]  btrfs_dev_replace_finishing+0xefe/0x13b0
+As noted, the potential folio->mapping NULL dereference is dependent on
+compiler codegen. x86 GCC and Clang only load folio->mapping once on the
+versions I tested, so I couldn't trigger it.
 
-Put the bioc and drop the counter in that error branch as the
-synchronous error path does.  Also put the bioc on the synchronous
-path, which only drops the counter.  With the fix, the replace
-finishes.
+The above UAF was very, very hard to trigger, but it's less theoretical
+than the NULL deref issue, so I think the Cc: stable is justified :)
 
-This bug was identified and confirmed with the help of fault-injection
-testing on a deterministic hypervisor currently under development.  The
-C reproducer below however hits it within about 35s.
+Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+Tested-by: Tal Zussman <tz2294@columbia.edu>
 
-Fixes: f8a53bb58ec7 ("btrfs: handle checksum generation in the storage layer")
-Cc: stable@vger.kernel.org # 6.6+
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/btrfscsum.c
----
- fs/btrfs/bio.c | 3 +++
- 1 file changed, 3 insertions(+)
+KASAN splat:
 
-diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-index 2c6234f6182f..a508f4abd3a3 100644
---- a/fs/btrfs/bio.c
-+++ b/fs/btrfs/bio.c
-@@ -624,6 +624,8 @@ static void run_one_async_done(struct btrfs_work *work, bool do_free)
- 
- 	/* If an error occurred we just want to clean up the bio and move on. */
- 	if (bio->bi_status) {
-+		btrfs_put_bioc(async->bioc);
-+		btrfs_bio_counter_dec(async->bbio->inode->root->fs_info);
- 		btrfs_bio_end_io(async->bbio, bio->bi_status);
- 		return;
- 	}
-@@ -822,6 +824,7 @@ static bool btrfs_submit_chunk(struct btrfs_bio *bbio, int mirror_num)
- 	return map_length == length;
- 
- fail:
-+	btrfs_put_bioc(bioc);
- 	btrfs_bio_counter_dec(fs_info);
- 	/*
- 	 * We have split the original bbio, now we have to end both the current
+BUG: KASAN: slab-use-after-free in min_order_for_split+0x78/0x80
+Read of size 8 at addr ffff888114bce3d8 by task mfsplit/230
 
----
-base-commit: 5e6c45aaaf93343c7f8a1cde9797080238af5c1b
-change-id: 20261030-btrfs-async-csum-leak-1772df5f0c32
+CPU: 0 UID: 0 PID: 230 Comm: mfsplit Not tainted 7.3.0-virtme #1 PREEMPT(lazy)
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x66/0xa0
+ print_report+0xd0/0x630
+ kasan_report+0xe4/0x120
+ min_order_for_split+0x78/0x80
+ soft_offline_page+0x900/0xc70
+ soft_offline_page_store+0xa0/0x100
+ kernfs_fop_write_iter+0x2f5/0x4a0
+ vfs_write+0x60f/0x1100
+ __x64_sys_pwrite64+0x18a/0x1f0
+ do_syscall_64+0xfa/0x5e0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
 
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
+Allocated by task 229:
+ kmem_cache_alloc_lru_noprof+0x1e0/0x5b0
+ shmem_alloc_inode+0x21/0x40
+ alloc_inode+0x5f/0x1f0
+ new_inode+0x18/0x180
+ __shmem_get_inode+0x173/0xdf0
+ shmem_mknod+0xcb/0x240
+ lookup_open+0xbb7/0x1760
+ path_openat+0xc8b/0x1dd0
+ do_file_open+0x1d2/0x400
+ do_sys_openat2+0x126/0x170
+ __x64_sys_openat+0x122/0x1e0
 
+Freed by task 231:
+ kmem_cache_free+0x29c/0x610
+ rcu_core+0x691/0x1de0
+ handle_softirqs+0x204/0x8e0
+ __irq_exit_rcu+0x153/0x1e0
+ irq_exit_rcu+0xe/0x20
+ sysvec_apic_timer_interrupt+0x3e/0x80
 
+Last potentially related work creation:
+ __call_rcu_common.constprop.0+0x80/0x270
+ evict+0x4da/0x910
+ dentry_kill+0x1f1/0xa90
+ dput.part.0+0xa0/0x180
+ __fput+0x42a/0xaa0
+ fput_close_sync+0xe7/0x1a0
+ __x64_sys_close+0x7d/0xd0
+
+The buggy address belongs to the object at ffff888114bcdf80
+ which belongs to the cache shmem_inode_cache of size 1400
+The buggy address is located 1112 bytes inside of
+ freed 1400-byte region [ffff888114bcdf80, ffff888114bce4f8)
