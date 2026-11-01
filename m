@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793507109;
-	b=37KKCPP6qzyS9LV445+bHlt1O2rdw6gMb7aBi3taQNmEplRZPtuu0WF9+hE9cXweDxQz
-	 mnAubKt2fxO5GnBp4qg4P0L46eC3Udps0+TYPK+y503r2dcZwPW/BS8IqJ5OWBwMmQk0E
-	 LXWTZWimwHTA7BXtKqPvikAP1GIgT3jYyLEr0DtHtjXFy70EjPH+1RMe7m8l+VslsRASc
-	 NJSMIllVAIQHM2b5lRZvR2BolSZKCZuUHccwgPRky/9mLZbL465O16tI9buYiFKgqbgLI
-	 x3nakRpoIiVqWAdv2VcS8EDEGQOJ1UEH32ZnGUvI6OyurCnwsB2J4Vp3ahue41TXsBQ==
+	t=1793510811;
+	b=A6GbFFzt0iASjrmfLihhZ4ss3hfnNqWU0V0YvYDl0AwceGnboS9WJoLPhdvIzZgtunTe
+	 CU91k8xdpqd6pwTgiShm7AsIN8UgTbHqLyFmJrnHFI6ADBJJD9/ZMPo9p1+LYS5zf/fey
+	 lfsXCT5jfBj5Pdmpo4VU6yAupMqz3BHZ5cSW+emsgE20hBr2p5pSvxOWYNqxnhduxYpxn
+	 VXPPB/STHKsBp2Wwl+uPAC2XjqxgtCypQWC6aDyXHBi2oMZ+HzZwP3bZsLcGI5Bcbka6g
+	 /1LOvwQTpja9hqHWlpmocJXJmfUlRjpPFYfF2XiJ1qrncZQVhsYlRCYy/7w2L/ya1hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793507109;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AaJPl9a9qhxWoN0NnjUzfzvyBJovsF7rWwGHYOTv9cA=;
-	b=v3P1qpM8LLi0qnWuiy2F/Nd3zflUA01CDNSO+zpc7ffDPZQyfkZpi/irR0e1VWFsAia0
-	 b4Wqz80zdeaFZ11DgtrXiiWHN60asVOcd1AET1iopIQdtKt/wVwP21FQC25rnubU86Ow9
-	 lRWFqFifIT5+8PRy0XM0cREzXsCbMcCEROW9BOiUz7etAYGLpha+c1ch5+NU9KxJtuxRZ
-	 dNAMZJyhjp7oxOqfisOupOjc8Un2BmLIEd3Y5oU4elO5pkuKsQwDTcUsB9fUCBXvZh0+s
-	 PdZBKHmiwc6PuiHVYsImOuv4orvHG/yKTbZEVRgSg5AgJZqxKChoEnJXlEWdovV4Nww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793510811;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=gM3q15/BMiP6EHVsNFcvdv86I1H+gIVZ8AKY9O890iw=;
+	b=tXNEh88p+GWeX3CCex0d5lr7KsLEDfa86YibOQSZKz3OzWdho0OvslidN0iVdxXCeuyK
+	 EwCxWAsbpKaDNiX035Zh0eHeAnUXcSKUsbZquslIr3/cMH/kXdcek1yerl+zt7qluoQah
+	 cWyFJ3RKwYyrLQweRuoBAB1/FcQdTEBer7Y5zCD9ezDmFIXkTpHvmb2rk29vbhM3z6Pit
+	 Jr0pR6JH61q8TZ9r2G0oOOZMCTS1j8JYmsDfpmgJ3BXWL0u8vL9hNV/FI+52ndow9maNa
+	 YPR3cKWgcgHHwECxMXyydVJ+YR7b74KhW3wX8A6NVUPDo7hpbTIjAlLAqe2A9+sAOQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="XPTW/R/H";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96B6606A324;
-	Sun,  1 Nov 2026 04:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XPTW/R/H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9C91F000C1;
-	Sun,  1 Nov 2026 04:25:08 +0000 (UTC)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D590606A324;
+	Sun,  1 Nov 2026 05:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D590606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793507108;
-	bh=AaJPl9a9qhxWoN0NnjUzfzvyBJovsF7rWwGHYOTv9cA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XPTW/R/HdyZBfz+1MYvVMhTd7exeqadSGQnqrCnmq3Bk1dfSl/sDytOqoQpiSmGMV
-	 w6UIZQnaIrYx5uviPDZFwtdPCywav27UzXlhJdvtV+A/BkrEMrMOa1hjuO168/CGxh
-	 i+gq4WFy6pDFSKYdAEfeJYecWAOdsknlcn3kHk34=
-Date: Sat, 31 Oct 2026 21:25:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Andy Lutomirski <luto@amacapital.net>
-Cc: Samiullah Khawaja <skhawaja@google.com>, David Hildenbrand
- <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard
- <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Chris Mason
- <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] mm/gup: check folio->mapping under folio lock in
- memfd_pin_folios()
-Message-Id: <20261031212507.31609e7ed27de35253b226c3@linux-foundation.org>
-In-Reply-To: <CALCETrU76ThzLDbUfpoota5=xcoOS4aZrwgK2B3ELkYcFOjGJQ@mail.gmail.com>
-References: <20261031203540.2282507-1-skhawaja@google.com>
-	<20261031194058.d3bd25ed950e5340ab595f07@linux-foundation.org>
-	<CALCETrU76ThzLDbUfpoota5=xcoOS4aZrwgK2B3ELkYcFOjGJQ@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=gM3q15/BMiP6EHVsNFcvd
+	v86I1H+gIVZ8AKY9O890iw=; b=DcTmpEt6tu5MPIYYUmzCQvTDZfthEoxo2ZpI8
+	5oir9rrGWoNToWurvWVNwEHj68b2fO49plEFm06tsK1eBQSEp8w5vbFJAzpvvYq5
+	GO03IoZaqsQMupFzAc05qgb3jOj/TFbGiOSvCnEOS2+l7XVIFEU0l+SIczKEfSPx
+	zWHv6E=
+Received: from [127.0.1.1] (unknown [113.200.174.23])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkD2FPuEzeZq_Z0UAQ--.15833S2;
+	Sun, 01 Nov 2026 13:26:30 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+ UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org,
+ Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject:
+ Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop phylink
+Date: Sun, 01 Nov 2026 13:26:28 +0800
+Message-ID: <179351078879.2591.15287457752530436149@stu.xidian.edu.cn>
+In-Reply-To: <e71cccdf-59e5-407c-b536-9dd47a49b0a7@lunn.ch>
+References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
+ <e71cccdf-59e5-407c-b536-9dd47a49b0a7@lunn.ch>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,69 +64,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+X-CM-TRANSID:BrQMCkD2FPuEzeZq_Z0UAQ--.15833S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4UCFWktr1UGF4xGr4UArb_yoW8Jw45pa
+	s8ta97Wr4vyw1S93s5ZF1UZw15AFnrZrW3Cr90grWrX345try7Jw40qFykZF1akrsxA342
+	vr13CayUuFZ5J3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Cb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
+	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
+	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07b5sj8UUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2rmBFRXBAAAsA
 
-On Sat, 31 Oct 2026 20:20:03 -0700 Andy Lutomirski <luto@amacapital.net> wrote:
+Hi Andrew,
 
-> On Sat, Oct 31, 2026 at 7:40 PM Andrew Morton <akpm@linux-foundation.org> wrote:
-> >
-> > On Sat, 31 Oct 2026 20:35:40 +0000 Samiullah Khawaja <skhawaja@google.com> wrote:
-> >
-> > > memfd_pin_folios() pins folios from the page cache without taking the
-> > > folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
-> > > its refcount check while memfd_pin_folios() still pins the old folio,
-> > > and the caller ends up with a folio that is no longer part of the memfd.
-> > >
-> > > Lock the folio and recheck folio->mapping before pinning it, like other
-> > > page cache users do. If the folio was removed, retry the folio lookup
-> > > from the index that was removed.
-> >
-> > Can we please include a clear description of the userspace-visible
-> > runtime effects of the bug?
-> 
-> It's straight-up data corruption if you manage to trigger it, no?  If
-> you manage to race a memfd_pin_folios() against collapse,
-> memfd_pin_folios() will pin the wrong folio.
-> 
-> Fortunately, there are a whopping three callers in the whole tree.
-> You can hit it from udmabuf or iommufd or memfd LUO.
-> 
-> The former two will direct DMA to the wrong folio.  Fortunately it's
-> not UAF as the DMA will be directed to a folio that is still pinned,
-> but it's the wrong one.  DMA reads will read potentially stale data
-> and DMA writes will overwrite that stale data but not update the live
-> copy.  (The DMA will not be directed to some other application's
-> memory, just to a leftover copy of the calling application's memory.)
-> 
-> As far as I know, the effect with LUO would be for stale data to
-> reappear in the memfd after handover.  With the patchset that started
-> this whole discussion applied, I think it might result in misdirected
-> DMA to freed memory (I do not stand by that claim at all), but that
-> patchset is not applied.
+Yes, I did, but it ended up at the bottom of my reply to the sashiko-bot
+review, which was not the right place for it. Here it is directly.
 
-Thanks.  How's this for a changelog?
+e110bc825897 is the commit that introduced the call which warns. Before
+it, lan78xx_disconnect() did:
 
-: memfd_pin_folios() pins folios from the page cache without taking the
-: folio lock. khugepaged or MADV_COLLAPSE can therefore replace a folio
-: after checking its refcount while memfd_pin_folios() still pins the old
-: folio. The caller then receives a folio which is no longer part of the
-: memfd.
-: 
-: For udmabuf and iommufd, this can cause data corruption: DMA accesses
-: the detached folio rather than the live memfd contents. DMA reads can
-: return stale data, while DMA writes update the detached copy and are
-: lost from the live memfd. The detached folio remains pinned, so these
-: accesses do not constitute a use-after-free or target another
-: application's memory. For memfd live update, the stale contents can
-: reappear in the memfd after handover.
-: 
-: Lock the folio and recheck folio->mapping before pinning it, like other
-: page cache users do. If the folio was removed, retry the folio lookup
-: from the index that was removed.
+	unregister_netdev(net);
+	...
+	phydev = net->phydev;
+	phy_disconnect(net->phydev);
 
-Samiullah's patch assumes the presence of Chris Mason's "mm/gup: fix
-clearing folios in memfd_pin_folios()" which is in mm-next, so... 
-->David
+and phy_stop() only existed in lan78xx_stop(), guarded by
+"if (net->phydev)". So disconnect never called phy_stop() on a PHY that
+had not been started, and the warning was not reachable from this path.
+
+e110bc825897 converted the driver to phylink: it moved
+unregister_netdev() after the phylink teardown and added an
+unconditional phylink_stop() before phylink_disconnect_phy(). Since
+phylink_stop() reaches phy_stop(), which warns unless the PHY is at
+least PHY_UP, unplugging before ifup started producing "called from
+state READY".
+
+	git log -S'phylink_stop(dev->phylink)' -- drivers/net/usb/lan78xx.c
+
+returns e110bc825897 and nothing else apart from my own change, so that
+line has not been touched since it was added.
+
+This is also why v2 puts unregister_netdev() back in front: it restores
+the pre-conversion ordering, so an interface that was never started is
+not stopped at all, and a running one is stopped by lan78xx_stop().
+
+Thanks,
+YuanZhe
 
