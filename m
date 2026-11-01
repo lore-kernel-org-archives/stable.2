@@ -1,91 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793569877;
-	b=l6oORBe0Y77IbQGgXN3tUZeDHNjz4ypGQoOveT4DV8NsKcE4HQFBdyzGI++m5gs6Qx6o
-	 +/KFUvizKw5PMC6MYt4ATj/Ze19zvIiCuiZBlEEXo+K1Vbl5nTySVZ7dPzNrvfzHYA268
-	 S6F5mI7q6KE9imECHPcik5G0egKfxuURLYlGAnChvNZdiND9k/MtGi5l2UYRrkTEDEVk1
-	 leiehoN2T//mMp03fcRsW1BGp+q6x8D0bUOnN7bUPQ3gQZV5G0MDZipHJ5gS30oaXgUTf
-	 U5V8gxsd5vmYzrweo4AMG2snBQ2LRZf9rynHE0pGLKG29y9v7pPU44rAfHLW+RJEA5Q==
+	t=1793569878;
+	b=qpSKygcQxRDv4mXzu+5AyDMd0TarH5VfuzwvFrJ1z0mBRKZ0/fOxxapR7li7LxKgJDN0
+	 O9V3/3E3QALVTW+Lhq7xVmLPbtpYfuzKnROnHWpsgr7wmGIpuefvt3PjLuRnNUz95Kym0
+	 iyqn3lVvVuMWP4Q0M9gKjiWnEfdJcY5hZwuywVL9yMogX0H9A01gAOjnhlFkEJFcOzuzT
+	 90oeIlYa16PrwOAB9KZHi8Dwcnn99P7HcZyB9CFP2tKsnLWhrWfZsvdUvDjv23qkb7DHX
+	 CKsRIy1jcQBshvnZ9QPt7+9+dkycJvWHihzDXV0ewJNSay6/Npwwg+ddKFdry96WTAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793569877;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793569878;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=gXbCJ+Z4Wlm8GkoiAeg5stJ+hb5LXK7yuiODoWXbq4E=;
-	b=uF8hCnNsuVaZarEoOYEe4pgtYaQp0IJVdbcr9klE6iumEVkjnPolIoOw2Eq54LYe7V2B
-	 3qWPNCoXX1JK3vf1IvbNhtaEEeiErKAkGlbSCfC5j5xUmEzXmtA4n7cwZlP0As5I5WQ6i
-	 /aHRoK8CEVsBfdj0pw6ZgkG16J4NfOwmuSVtjk9rf5fhE8L3Y5w8wuzRFPup59WfArEOU
-	 EE7K9f9qSxN3ET6S08se5LoY+zKT3JyFxTlWqW5H43alg+lMbVZcTYVcY+hDp15id7k6l
-	 h6523v9xzw2Z8t5fv2eNQKqumFQs34NS/mv/4Xo5JTQ8F2rYSPJqKI4+ttvpsz/2fpw==
+	bh=+fFwfLqRK9JmViO+Rr59prjwvHp0VxvmW/Io5rw0BcM=;
+	b=EsLtjZbgF/ZSsXcLNomRmOzDDhdAKd3u2sMypAyB0vcnFHtGpNMCqSzuwQfGEtzb9K7w
+	 UamEnM6TE0ibIa5L2Jiairi2GdKPkCoFxDTNzVMgNFc/sNLrBb8Y4UgwrUKqDr2I6A70r
+	 nhYb8cG8gXdIxLuLlqUo+ydodFDs+XSAK4PqHmh44zGdaToF2C7HPXUZzydslnTtjznHp
+	 JAb5kqBYDYZXFU7VUkTQ5bt1vzzqNmv7GYl8Oqr7RnnusHhIBRm+2qPh5ZI4zOWt0B8Wb
+	 l0ZI0LEMh3tQf2dGid0vABlSiO018Ey8Z13Yx+QB9k75qEDJBGzfNSz/rux88JblhHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UlB7U4z;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=arA3dOZ8;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211DD606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB678606A337
 	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 21:51:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 211DD606A32C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB678606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0UlB7U4z
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso24476685e9.3
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 13:51:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=arA3dOZ8
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a214af2076so17478345e9.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 13:51:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793569875; x=1794174675; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793569876; x=1794174676; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gXbCJ+Z4Wlm8GkoiAeg5stJ+hb5LXK7yuiODoWXbq4E=;
-        b=0UlB7U4z8EPZoo87aj+uGyErmzAju9AXIJqWYcxdkHWWDjaj7u+VJqzpFrh0Qa4yrH
-         ExXB/uYXubhbjIYdDON5wDB78kL//bgXTF7c5MFqTlfWHSqRmBrTrTwzn6X2tdjfjoUG
-         mrOxgCM89gw172sFDIn5v8ewHvNbFUTkredsUAizHBskDxdw4t8c2WWvV7gN3PMwVW9T
-         6snABxlqEchBwhfFgPtVyAnmta8GObGNOwyRPC9l1guNv9DwVttc93IarxTK4bG1DENm
-         9zDmyEVbELYdVGcebvtK5RMve8g3clLLx/nCbfNgXUY5mUsTKDgklVRqHPGNUKXS9AYF
-         WknA==
+        bh=+fFwfLqRK9JmViO+Rr59prjwvHp0VxvmW/Io5rw0BcM=;
+        b=arA3dOZ8Qw5VaeKLI9WB4WkUoRVxRsRcmtnwspOBQgut4M22YR8KAmSIgd2cy+jpqy
+         nwAVawvJFXB/kMP/qyNmfF2akNs2OZlAS3y6ohNQyqmWgSZPkC76adbAOOLFpGVJSaMb
+         cMa865WRNln0vyvb9mu1VtPQd7m6AJWlpnpCV4GqxkcxQkY+WsJI3ufPtgRsJeDGbYPq
+         Z2QgXVCdAg/LYfIrWvDjiBNvcxFuIMFYyU0yaOdhJs+uNGxvwyiB1hEUfLNkJIJwn5lw
+         qe/mw3qptH76Z36WdpUH9XA377yLNbK/+piYbdM74y3HfU+IeAAvI0ndDsTy8j4VDQGp
+         iXQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793569875; x=1794174675;
+        d=1e100.net; s=20260707; t=1793569876; x=1794174676;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gXbCJ+Z4Wlm8GkoiAeg5stJ+hb5LXK7yuiODoWXbq4E=;
-        b=uziVQ4OMf82xl4Sjml8NZt8+yvAGBCvYdOYtCQHhOztWhEe/U5hTaDGOWFGRn+MzkR
-         LTTQHaszI3B9IEwiqjXgtCeHetOncUdRdQ7wmiUlUN7GE0sFRYRG0NZ7Y0mBqloBucC2
-         2+chWYqg1MfArZaga0KWKhv2iKack+nzTznohGTsoialxHvtexLOkNi8QIYlpE4q7xAc
-         1MYa2PHXfe5GefLxKYZQywo7frG76l43LzfogVKh7igv2OQ9gMdEq4YsCTwebUg34cLS
-         kOkdb0SH2eifbYbTAFu8uQ2i/alCAQ8Fn5gK9JOUlTBKJklQljt4F9OekvBeHhISp25T
-         gJ/A==
-X-Forwarded-Encrypted: i=1; AKwUvByuv8eGRNGr6hH6e3y0B/w/1u9zG7W44pfhcTVULJH7wlGA7lvFubllVdeN5XoLUE8/vumqoag=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbUY5N98CDMqOcqw5Kig3sjuFAIWLrf0p0imUEYF2UBVjecNmI
-	Te6U+gpyPuv/07l40L8wX83BzitXARGMTKb/3mbkr3WBiYIp7DZUGvM=
-X-Gm-Gg: AYBFou0HcLKtyaBu0Lav/FrnRoAFKSlOLhbUzxBhJybEvTFb/yUANInKX+pYoOrVXR7
-	zJ/ibWjupfVgBz5yb1zsyCPFqwfrCY90ACjmbaCN9LfGTbqEAVUQ5QDkBVrk85g7XT10lvvvRB1
-	lIfgKltGfacSBG8q3RC6aFfVgZOdPcGF8znvAadHvX4fPaVbkuA6U9j6qvvzXWMqs4DBv6PAer/
-	xwWrFPNvuiXe9tM+gS72AV1DRckbLLbq30/nCfBXkdZdjHSYR7uMCirTpmP3ob8s8UgvTwOKhKv
-	XW/OlYRxCaP93YOBIeiCXFwkjv4gyNah77BXiYqDorxPTRDPJ17Wq+r3vmbhk01ol0SCdINC/rF
-	/KX3ozRlJ2/Jjp5tEyAH2Z59GZNWxh1m/VWP28ghhtIPWmUkprgmviVx+wTwuZa1FVSVMkUPfVI
-	kzDOy6/a0La8RB7kwK5fQYDIb78oViSPHNmCR5tIzQrrQZf/q7/0MbjqxiWVjuIZSA0dpJ4WTXI
-	yZp+aAYabt2cLwhfCsnRflEG09okWKlRnO31SRkm4b2y1qxl2077OeXR9KZODyL/e0vyYOT/Q==
-X-Received: by 2002:a05:600c:4e48:b0:4a2:150f:1610 with SMTP id 5b1f17b1804b1-4ac183d16eemr180666545e9.23.1793569875535;
-        Sun, 01 Nov 2026 13:51:15 -0800 (PST)
+        bh=+fFwfLqRK9JmViO+Rr59prjwvHp0VxvmW/Io5rw0BcM=;
+        b=gmtmhSs/RJX3MU74qcoU5DeVukXL1jnOaQdvaJhc1uhqHeQ1unMwQehWbjahHRwD0m
+         hekdTpIH45GmUeXal8x6m4krY8tWkQ6DIDyTGQstwd4qVeqZEHmJB0w0eVUrCHmBJbbl
+         smBT1q35dVXi+XkTWaxY3GkX36OSJZmUPGTkRnw3tko1q1Gpk44tVXKOlpTLd0wowjrL
+         dECamjthfToNiaz0Y4l+VFBXr4RleNrU1GLZ8HwuhnYgIuvemQOkAxbbU2QUFfvRdm3W
+         MEkx12QiretQF2Bh7QfKwXgmXORByB6wIZ/xOF3WtbWxMvg8rmr4LgIZLz4K1cJQQ/cj
+         9icg==
+X-Forwarded-Encrypted: i=1; AKwUvBw5Uig2qERGBNiWT/eWBqqY7raqCtvbGznCQG3IDBIHhN50j1qQXbXJoQWOlNA8bLY2Fksh7C8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9rj4b4BMFo+2g0EzIFu847C094r6ilQ9IXFRL5CwPVI/kv1Ld
+	d7bUgy3aJW8ZXtV+Z9slkmur2+lnCgJ51EF1LJMaDYyZfmtgDhPHCsmGmMAl
+X-Gm-Gg: AYBFou3/PGQrKjfxRPh9jHjM+O7gi6kIJT9qOaOj7qSCj1OJBujASUNpFYkBkwzD6Ck
+	+dWDrHoG3jMy9zOLXNBJQ2EKkStLKKbyP0rIdKp4kgnrX7LDTzZp4pUxYfVRWLWFOju41z516Hi
+	C0UEoH2cFGissBFeagHqgd975d2LjWfbP32Qzn6QfSrRaoAmAzxG17UsNSAvy9RAG0ZCiSjwaF3
+	+/BJbvQ+TsYIxV3MgBZn2rmh30PPex8+t+sm6u9/Y0GTv59aplEne1SK1T7/tpDe3T9Tjnke7sa
+	GeG1SgjbFo4FtMKDeLVZBP93dx4qIcEa/Vkchds6r8C0OX3xgcKcaSqrEQWi97sA0+0p+VeSsR6
+	O5/zYeJHbNROOGYdCeyexl4pQuy0Y2fgwrd3zQsHq/PceZWFuMEWFjTXqnB0ItqRPyEMpKvN8S3
+	ejVYN3q0ue6MYutXYh00NsXz6KrzkvJL2+x3EwxYDu/t9fSsaD5eny44NiMUdjSozsVUslzu+KX
+	2whRYHiHENR+whoF2bpQc9NiOYp970oYZyaFZHKCJfYLsJIVTTEmZTDGWFCrfDAY6M+V8E4IS0V
+	6BiPDkGe4Cbm3MLqfdQ=
+X-Received: by 2002:a05:600c:6095:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4ac182dc30fmr173291325e9.22.1793569876416;
+        Sun, 01 Nov 2026 13:51:16 -0800 (PST)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09ad5ff8sm157249425e9.4.2026.11.01.13.51.14
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09ad5ff8sm157249425e9.4.2026.11.01.13.51.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 13:51:14 -0800 (PST)
+        Sun, 01 Nov 2026 13:51:15 -0800 (PST)
 From: Tristan Madani <tristmd@gmail.com>
 To: Brian Norris <briannorris@chromium.org>,
 	Francesco Dolcini <francesco@dolcini.it>
 Cc: linux-wireless@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH wireless 1/2] wifi: mwifiex: validate WMM queue_index in firmware response
-Date: Sun,  1 Nov 2026 21:51:11 +0000
-Message-ID: <20261101215112.3199197-2-tristmd@gmail.com>
+Subject: [PATCH wireless 2/2] wifi: mwifiex: validate sta_count in AP sta_list response
+Date: Sun,  1 Nov 2026 21:51:12 +0000
+Message-ID: <20261101215112.3199197-3-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261101215112.3199197-1-tristmd@gmail.com>
 References: <20261101215112.3199197-1-tristmd@gmail.com>
@@ -102,34 +103,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-mwifiex_ret_wmm_get_status() uses the firmware-provided queue_index to
-index into priv->wmm.ac_status[] without checking it is within bounds.
-A firmware response with queue_index >= IEEE80211_NUM_ACS causes an
-access past the end of the array.
+mwifiex_ret_uap_sta_list() iterates over sta_info entries using the
+firmware-provided sta_count without verifying the response buffer is
+large enough to hold that many entries.
 
-Add a bounds check before using queue_index as an array index.
+Add a size check that validates the response contains enough data for
+the declared number of station entries before iterating.
 
-Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
+Fixes: 8baca1a34d4c ("mwifiex: dump station support in uap mode")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/net/wireless/marvell/mwifiex/wmm.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/wireless/marvell/mwifiex/sta_cmdresp.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/wmm.c b/drivers/net/wireless/marvell/mwifiex/wmm.c
-index 841505e83c7fd8..158e4a2ec0dd69 100644
---- a/drivers/net/wireless/marvell/mwifiex/wmm.c
-+++ b/drivers/net/wireless/marvell/mwifiex/wmm.c
-@@ -943,6 +943,9 @@ int mwifiex_ret_wmm_get_status(struct mwifiex_private *priv,
- 				    tlv_wmm_qstatus->flow_required,
- 				    tlv_wmm_qstatus->disabled);
- 
-+			if (tlv_wmm_qstatus->queue_index >= IEEE80211_NUM_ACS)
-+				break;
+diff --git a/drivers/net/wireless/marvell/mwifiex/sta_cmdresp.c b/drivers/net/wireless/marvell/mwifiex/sta_cmdresp.c
+index 85512f526c5f2a..4d8493f9a6697e 100644
+--- a/drivers/net/wireless/marvell/mwifiex/sta_cmdresp.c
++++ b/drivers/net/wireless/marvell/mwifiex/sta_cmdresp.c
+@@ -973,11 +973,19 @@ static int mwifiex_ret_uap_sta_list(struct mwifiex_private *priv,
+ {
+ 	struct host_cmd_ds_sta_list *sta_list =
+ 		&resp->params.sta_list;
+-	struct mwifiex_ie_types_sta_info *sta_info = (void *)&sta_list->tlv;
+-	int i;
++	struct mwifiex_ie_types_sta_info *sta_info;
++	u16 sta_count = le16_to_cpu(sta_list->sta_count);
++	u16 resp_size = le16_to_cpu(resp->size);
+ 	struct mwifiex_sta_node *sta_node;
++	int i;
 +
- 			ac_status = &priv->wmm.ac_status[tlv_wmm_qstatus->
- 							 queue_index];
- 			ac_status->disabled = tlv_wmm_qstatus->disabled;
++	if (resp_size < sizeof(*resp) - sizeof(resp->params) +
++	    sizeof(*sta_list) + sta_count * sizeof(*sta_info))
++		return -EINVAL;
++
++	sta_info = (void *)&sta_list->tlv;
+ 
+-	for (i = 0; i < (le16_to_cpu(sta_list->sta_count)); i++) {
++	for (i = 0; i < sta_count; i++) {
+ 		sta_node = mwifiex_get_sta_entry(priv, sta_info->mac);
+ 		if (unlikely(!sta_node))
+ 			continue;
 -- 
 2.47.3
 
