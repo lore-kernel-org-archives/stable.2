@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793540937;
-	b=F8bNREcWQLU36b9Odohpn0Eoc4PNGYW/BH0F7c+HkWc94LPEnzn5HtrcuYVY32JF6gmK
-	 ht2OU8wAj14jVTYNruMNM6drvBlgOBcfSbn35loP5gKZ55PMiLgel1pkRkd5cLKYLJlFj
-	 VEWZEcdaSn5pq5VhXauytIwo0EF2lJK6A2lU4R9gDp/1Miur4reevBu3CFTAxgWz8PJm3
-	 GOz3bGwi6PwmCt/aWN2FL+r5EugpLxpNwZ8lsgQ2vpJY1H0W1GUFqPutceI/JCULsOsaI
-	 NX04bEymsZw9yvNAG7+d4Vzl+IZqKojvN0raSnA+yzZwJ1Kj6B4nw6v+/e3NbEMcYaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793540937;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sf2fWx8SkwotfgOzFNKCbxbo9iqhQM6sIeyQ7Y70Yyo=;
-	b=axF/Cz2has4g60YR0CWjZ5RE3W2NTyeQrCP5FCa4HSHeaaOPWfCKEjOJztHbw/+lCsMa
-	 jTifu6eeOCZmRFN82XuHw7V0uoq9/GO929IiBf2xdHB0m6bgZ0oBKVCrEf+WXmAJuKXqN
-	 pMnyIMb4FV5PMzRUBkYQyWoqPtWDJTQGNadw4WxT4YvVRxRsqmFUHI49ZubicNvNtvOX7
-	 j0YlBX/uuX0SSxIkPs+zpXUIWKEzaBx45U3RrB+KVpGmbQal/c5wt0gaA0F1XmoPE/eYM
-	 VyJ8eZLuGYOrCNdVkeSV0f8g2PoJn3jO3sNgj3iB2lLT9k2Poytw0XPw5FnDbZfG+LA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYNSQwiF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793541150;
+	b=rtBQA69BCY+dOBfcsAF8Wq20wOUFCDu+VJZG6J3cJkbvXHd5Ly5EAROc9ZxT7tLmeQhC
+	 FqwS7H34KrKczlkBD5v2UNmpBe11djlcFlqDvI6Qh7zQ7UVyaAUpP/iFXTNG2ktsiCCvG
+	 Frpr5JLgEQqxkxSGDJL3JfPOlx7/A2doCx0FCbZkBTXFeOFcAgTe9bJ0lgLjbNriBnRGV
+	 Jh+BJxTpBthYlBIKmYVfkkSsVV1payJ0KXP4ntklHLhMEL2C8EjdKpIuJ0dU4v27wZBk8
+	 8gWTt4FL5Xb/LdqMmKO69fWsr5maMio7QICGDKywsIUNvIawH7xeLMgdpcKRAVHukyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793541150;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=deb38tc0CgShiFlGF5y7hmWXUTuA2F88Y7i/kEhYh3M=;
+	b=dPA74r0RgNahsRBrVgKQHbtS+O2YQLHfxzQVBfxMcIdrF/815bG/HpZ55JrGzpA2oJoK
+	 O+klHRj79igrie0f0bF5bBRlr76Fg+sva2O812WaOchw5s6AzjJIqfkqsCd+bMHqowxaR
+	 tT8UplhdJgp7sg2Dyd8MgSeYhLhNukzzzSPbwzNm2fx9/vgoE1LaAtdiplFt2KS/zG5an
+	 oo4OaxfTc3xW/I8jGemBLbU1cEvedaB51cS20KrVEWBMO+kP4urQZws511pjTEvAUv5Vw
+	 S2ibwVHZUQ+SxYzxRcASPQasb+W0PfsHmHPJEOYMEgKeQTKYu77l6XLmMxag9fMxEuQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlZV96RB;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69B1606A324;
-	Sun,  1 Nov 2026 13:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B77D606A329;
+	Sun,  1 Nov 2026 13:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYNSQwiF
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793540936;
-	b=T7w5Tyrc4K2ozr+FIjIIs/M0hh8V6ZxF74cBo4nIbrWyV+zCDaOeb9Xe66Vj+8EcIbaH
-	 JSMJtyJ9Tr15rozd/NsorloxK0u77LR4e7XEdQIWtmAr5UsvNXD4vczyO3crg7gkuM5Qu
-	 0bRsR93y5EKHDmy/vLgroN+DYlRtQLYR2UqNJOHvg4U1toN2z4biKqvqh9Ib71t43GqE2
-	 i2gKqIQ3v+MBP9AqO866HRYqaqOluAlBK3PYQdFRk2wfuwdGzDmzHuilGaO5P2G3wSkvH
-	 r/oUomCfY/x2vW/E3nZ7q7p+9jNlVdUHzSQj4dZ6xvDlHiiIel7Il0NC6KdS4UpvXkw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793540936;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=sf2fWx8SkwotfgOzFNKCbxbo9iqhQM6sIeyQ7Y70Yyo=;
-	b=KzdZvJkw3lHyXXQ9suzwBLrH27njJ6wenmxO1B/Z4KhbFSHkCN+hD4kkWfbqrwiVDBFe
-	 OYRdchiQA8SDWwgeqhMBQ+JmhVBbLXDS11lydbJ5ybok28l5jrG+MRdv63zH8H+1K2TUa
-	 Ytka778SLzAl9oUmFmTWZf0KRjY8bcaKbpz1x8766sLyVYd/pahA62NMGHQO/UqjX9wSZ
-	 yeGY3SyJH+JaY40DJHhmOHbYPO6cNNEypt67n20yFfl+Od8AbiYs453jhU1+Q6NUtJ3uL
-	 TLE1Qtb97lW5cCvHyLfAqVAytpxIBDBcg7m0yunslUePp4A3lhehGfrSeXjQY/EBXKA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B936F1F000C1;
-	Sun,  1 Nov 2026 13:48:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UlZV96RB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F8781F00919;
+	Sun,  1 Nov 2026 13:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793540936;
-	bh=sf2fWx8SkwotfgOzFNKCbxbo9iqhQM6sIeyQ7Y70Yyo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=JYNSQwiFGZz73IBHMo4DK3+cb8IZRdzBWiN79Be3d8ZytFx3Qe7HYmGZuNmKT4xTI
-	 b4vxmDyQNJRS7V3T6g2kWrsqogi6aLac0Wjee7UnYdy3SP0k9QJhn5M7hYhshotcOj
-	 SrrdAKwvRvOapBPmBdt+hQcbuM+LPlaaf6H8C5wIYvglMDw/vHC6IIC0ClC+ZzI7p8
-	 IHAF8UGehrfkXGPIbJWLBLrQO9db6KGmTIujtMFDuomZGUM0+ptHCx8uGhBt8o0GVK
-	 H/7KaQgLauMGx77Eiq1awMnWrN8azaLHdb0lP2GuXv4K1yd4HE+f/B0x6tpVX7Sikp
-	 G0UeSscAoxXJw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1FD6646188;
-	Sun,  1 Nov 2026 13:48:55 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Sun, 01 Nov 2026 13:48:55 +0000
-Subject: [PATCH v3] hugetlbfs: move hugetlbfs_free_inode tracepoint to
- ->destroy_inode()
+	s=k20260515; t=1793541149;
+	bh=deb38tc0CgShiFlGF5y7hmWXUTuA2F88Y7i/kEhYh3M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UlZV96RBa96zsrI7RFMGrUd8i1Ob8IZtOTlfGFPhJxCZEtVQthfeXaWyJM8HxDmQz
+	 kPXnoGJmPFdKFtMuiGMtqrkHiMp2i/3gc3WIAnLbM+P1iP4nPBwPSHQO0/I6MKNn6H
+	 lkqHcRwhMfJhGOY+gIYrroKl0hl7OvcvEF4BCZrTApsd0n4Cn/RF7PWkBd9zJn9GYc
+	 r/CNYGxOXBzkkxD+GslCJJPPfWWcAXpS+23ohDQjsrFsLYeChqEMeEueMJ9RBLtsBl
+	 kSNxSluRAACSHvTZ9zgFnVautGO20+Q6EPqgaYa4CXS2/buLNWff8e8SdUN53rxMer
+	 O4pB1AWLu6tIA==
+Subject: Re: [PATCH net v2 14/14] batman-adv: tt: limit local table to single
+ TVLV response size
+From: netdev-bot+sashiko@kernel.org
+To: sw@simonwunderlich.de
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ b.a.t.m.a.n@lists.open-mesh.org, sven@narfation.org, stable@vger.kernel.org,
+ sashiko-bot@kernel.org
+Date: Sun, 01 Nov 2026 13:52:28 +0000
+Message-ID: <179354114897.3131.2074837253295301799@kernel.org>
+In-Reply-To: <20261030135105.2555887-15-sw@simonwunderlich.de>
+References: <20261030135105.2555887-15-sw@simonwunderlich.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,144 +64,220 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEZD52oC/32NQQ6CMBBFr0Jm7ZiWViWuvIdh0ZahnQQoaZFoC
- He3cgCX7yX//Q0yJaYM92qDRCtnjlMBdarABTN5Qu4KQy3qqxRKotUYXp6WwfYZl2QcodLSKtU
- Ye7lZKMM5Uc/vI/psCwfOS0yf42OVP/s3t0qUqMk1naiNEs49/Gh4OLs4Qrvv+xflPZQgtAAAA
- A==
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
- Hongbo Li <lihongbo22@huawei.com>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793540934; l=4610;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=hsjYpEEpLfY06mwC5K6ZIdgYdPIvwZSlg1C/xa03vNE=;
- b=BmXuNSntQmCrvn/OtUUWVl3EBh3PNxguI3icnBQ5TGmrSpMuwaATN0T3mCF81AKlpCxVZw1sq
- LQgetf/RxWvDBb/SVzvpMm/Au532FAPkGM0YXtOvySgToUd5LBN8AyV
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
-hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
-runs from an RCU callback (destroy_inode() queues i_callback() with
-call_rcu()), and Documentation/filesystems/porting.rst says that this
-callback "is *NOT* ordered wrt superblock destruction; as the matter of
-fact, the superblock and all associated structures might be already
-gone".  put_super() frees the superblock with call_rcu() followed by a
-workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
-hit this with the event enabled:
+Low priority / nit picks for your consideration:
 
-  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
-  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
-   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
-   i_callback+0x46/0x80 fs/inode.c:317
-   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
-   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
-  Allocated by task 6134:
-   alloc_super fs/super.c:326 [inline]
-   sget_fc+0x1ba/0x1f60 fs/super.c:874
-   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
-  Freed by task 855:
-   kfree+0x22b/0x6d0 mm/slub.c:6923
-   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+- [Low] The commit message describes the pre-patch behaviour wrongly.
+- [Low] Two kernel-doc comments no longer match the code after this
+  patch.
 
-Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
-calls ->destroy_inode() synchronously, before it queues the RCU
-callback, while the superblock is still alive; hugetlbfs_destroy_inode()
-already dereferences inode->i_sb there.  ->free_inode() is left with
-only the kmem_cache_free().
+Pre-existing issues:
+- [Low] This problem wasn't introduced by this patch, but the same 16-bit
+  tvlv_len limit is still not enforced when a node answers a TT_REQUEST…
+- [Low] This problem wasn't introduced by this patch, but the size limit
+  is read before the lock is taken.
 
-Since the event no longer fires from ->free_inode(), rename it to
-hugetlbfs_destroy_inode so that its name matches where it is emitted,
-as suggested by David and Muchun.
+--
 
-Found by syzbot; analysed and tested with the syzbot C reproducer on an
-arm64 KASAN kernel.
+batman-adv: tt: limit local table to single TVLV response size
 
-Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
-Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-Andrew, this replaces
-hugetlbfs-emit-hugetlbfs_free_inode-from-destroy_inode.patch in
-mm-hotfixes-unstable.
+This patch adds batadv_tt_local_transmit_size_max(). It caps the local TT
+reservation and the resize-to-MTU limit at the smaller of packet_size_max
+and the largest full table response that fits in a single unicast TVLV
+packet with a 16 bit tvlv_len. The reservation logic now computes the new
+totals in locals and writes the counters only when the reservation
+succeeds.
 
-Tested with the syzbot C reproducer (adjusted for the new event name)
-on an arm64 KASAN kernel: no splat in 3 of 3 boots, and
-hugetlbfs_destroy_inode events are recorded.
+> The size limit was already missing the 16 bit tvlv_len cap since the
+> original packet_size_max check was introduced. But this check was only
+> reachable with fragmentation disabled and a hard interface MTU larger than
+> the maximum unicast TVLV packet. In this case,
+> batadv_tt_prepare_tvlv_local_data() refuses to build the full table
+> response and no oversized packet is created.
 
-Tool-use note: the analysis and testing were done with help from an
-LLM-based assistant; I reviewed the change and ran the tests myself.
----
-Changes in v3:
-- Rename the tracepoint to hugetlbfs_destroy_inode in the same patch,
-  so its name matches where it now fires (David, Muchun).
-- v2 was the resend with the Assisted-by trailer dropped; it should
-  have been marked v2 in the subject, sorry about that.
-- Link to v2: https://lore.kernel.org/r/20261031-b4-hugetlbfs-trace-v1-1-4ec8d02a30cc@gmail.com
----
- fs/hugetlbfs/inode.c             | 6 +++++-
- include/trace/events/hugetlbfs.h | 2 +-
- 2 files changed, 6 insertions(+), 2 deletions(-)
+[Severity: Low]
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44e..095b7fceee 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1179,12 +1179,16 @@ static struct inode *hugetlbfs_alloc_inode(struct super_block *sb)
- 
- static void hugetlbfs_free_inode(struct inode *inode)
- {
--	trace_hugetlbfs_free_inode(inode);
- 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
- }
- 
- static void hugetlbfs_destroy_inode(struct inode *inode)
- {
-+	/*
-+	 * Not in ->free_inode(): that runs from an RCU callback, when the
-+	 * superblock the event reads may already be freed.
-+	 */
-+	trace_hugetlbfs_destroy_inode(inode);
- 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
- }
- 
-diff --git a/include/trace/events/hugetlbfs.h b/include/trace/events/hugetlbfs.h
-index 8ba72c1d4f..a7932e0db0 100644
---- a/include/trace/events/hugetlbfs.h
-+++ b/include/trace/events/hugetlbfs.h
-@@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_evict_inode,
- 	TP_ARGS(inode)
- );
- 
--DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
-+DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
- 
- 	TP_PROTO(struct inode *inode),
- 
+Does this describe the old behaviour accurately?
 
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261031-b4-hugetlbfs-trace-341b338ab57b
+batadv_tt_prepare_tvlv_local_data() only bounds the TT value with a u16,
+and does not count the 4 byte struct batadv_tvlv_hdr:
 
-Best regards,
+	if (check_add_overflow(*tt_len, change_offset, &tvlv_len)) {
+
+batadv_tvlv_unicast_send() then adds the header and stores the result
+without a range check:
+
+	tvlv_len = sizeof(*tvlv_hdr) + tvlv_value_len;
+	...
+	unicast_tvlv_packet->tvlv_len = htons(tvlv_len);
+
+All TT components are multiples of 4, so a 65532 byte TT value is
+reachable. For example, 1 VLAN and 5460 entries gives 4 + 8 + 65520.
+
+Before this patch, the reservation allowed that table whenever
+packet_size_max >= 65556. The full table response would then be built and
+sent with tvlv_len = 65536, which htons() truncates to 0. So an oversized,
+malformed packet does seem to have been created. The receiver in
+batadv_recv_unicast_tvlv() then just processes no TVLVs.
+
+The code change handles this for the local table: table_size includes the
+TVLV header and is capped at sizeof(struct batadv_unicast_tvlv_packet) +
+U16_MAX.
+
+The stable+noautosel reasoning depends on how the old behaviour is
+described. Could the commit message be made more precise here?
+
+> diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+> index f0100ccf93deb..46304069b3b75 100644
+> --- a/net/batman-adv/translation-table.c
+> +++ b/net/batman-adv/translation-table.c
+
+[ ... ]
+
+> @@ -266,6 +269,25 @@ static int batadv_tt_local_transmit_size(u16 num_vlan, u16 num_entries)
+>  	return hdr_size + batadv_tt_len(num_entries);
+>  }
+>  
+> +/**
+> + * batadv_tt_local_transmit_size_max() - get the maximum size of a full local table
+> + *  response
+> + * @bat_priv: the bat priv with all the mesh interface information
+> + *
+> + * The full table response is sent as a single unicast TVLV packet. Its
+> + * tvlv_len, which covers the TVLV header and the TT TVLV, is only 16 bit wide.
+> + * This limits the response size even when packet_size_max is larger.
+> + *
+> + * Return: maximum size of a full local table response in bytes
+> + */
+> +static int batadv_tt_local_transmit_size_max(struct batadv_priv *bat_priv)
+> +{
+> +	int tvlv_size_max = sizeof(struct batadv_unicast_tvlv_packet) + U16_MAX;
+> +	int packet_size_max = READ_ONCE(bat_priv->packet_size_max);
+> +
+> +	return min(packet_size_max, tvlv_size_max);
+> +}
+
+[Severity: Low]
+
+This is a pre-existing issue and was not introduced by this patch. The
+same 16 bit tvlv_len limit does not seem to be enforced when a node
+answers a TT_REQUEST on behalf of another originator.
+batadv_send_other_tt_response() only checks this:
+
+	/* Don't send the response, if larger than fragmented packet. */
+	tt_len = sizeof(struct batadv_unicast_tvlv_packet) + tvlv_len;
+	if (tt_len > READ_ONCE(bat_priv->packet_size_max)) {
+
+That check leaves out the 4 byte batadv_tvlv_hdr. It also has no cap at
+sizeof(struct batadv_unicast_tvlv_packet) + U16_MAX.
+batadv_tt_prepare_tvlv_global_data() has the same u16-only
+check_add_overflow() as the local variant.
+
+A remote originator's global entries come from OGM TT diffs. The local
+reserve_lock accounting does not limit them.
+
+Take fragmentation disabled and a hard interface MTU >= 65552. A relayed
+table with a 65532 byte TT value (1 VLAN and 5460 entries) passes both
+checks. batadv_tvlv_unicast_send() then sends it with tvlv_len truncated
+from 65536 to 0.
+
+Only the local reservation and resize paths use the new
+batadv_tt_local_transmit_size_max(). Would a check in
+batadv_tvlv_unicast_send() that rejects tvlv_value_len >
+U16_MAX - sizeof(struct batadv_tvlv_hdr) cover every caller?
+
+> @@ -290,22 +312,23 @@ static int batadv_tt_local_transmit_size(u16 num_vlan, u16 num_entries)
+>  static bool batadv_tt_local_reserve(struct batadv_priv *bat_priv, u16 num_vlan,
+>  				    u16 num_entries, int *table_size)
+>  {
+> -	int packet_size_max = READ_ONCE(bat_priv->packet_size_max);
+> +	int size_max = batadv_tt_local_transmit_size_max(bat_priv);
+> +	unsigned int entries;
+> +	unsigned int vlans;
+>  
+>  	scoped_guard(spinlock_bh, &bat_priv->tt.reserve_lock) {
+
+[Severity: Low]
+
+This isn't a bug introduced by this patch, but the limit is still read
+before reserve_lock is taken. The old code had the same READ_ONCE() before
+the guard. batadv_tt_local_resize_to_mtu() also reads the limit before
+taking commit_lock.
+
+Can a concurrent MTU decrease leave the local table larger than the new
+packet_size_max?
+
+CPU0                                CPU1
+batadv_tt_local_add()
+ batadv_tt_local_reserve_entry()
+  batadv_tt_local_reserve()
+   size_max = <old, larger limit>
+                                    batadv_update_min_mtu()
+                                     batadv_hardif_min_mtu()
+                                      WRITE_ONCE(packet_size_max, ...)
+                                     batadv_tt_local_resize_to_mtu()
+                                      /* table fits, nothing purged */
+   scoped_guard(reserve_lock)
+    reservation committed against
+    the stale size_max
+ entry inserted
+
+The purge decision uses batadv_tt_local_table_transmit_size(), which only
+counts vlan->tt.num_entries. It does not see in-flight reservations
+(tt.reserved_entries and tt.reserved_vlans) or entries that still carry
+BATADV_TT_CLIENT_NEW.
+
+Nothing checks the table again until entries age out, so full table
+responses may be dropped until then.
+
+[ ... ]
+
+> @@ -4727,16 +4752,16 @@ void batadv_tt_local_resize_to_mtu(struct net_device *mesh_iface)
+>  	struct batadv_priv *bat_priv = netdev_priv(mesh_iface);
+>  	int timeout = BATADV_TT_LOCAL_TIMEOUT / 2;
+>  	bool reduced = false;
+> -	int packet_size_max;
+>  	int table_size;
+> +	int size_max;
+>  
+> -	packet_size_max = READ_ONCE(bat_priv->packet_size_max);
+> +	size_max = batadv_tt_local_transmit_size_max(bat_priv);
+>  
+>  	spin_lock_bh(&bat_priv->tt.commit_lock);
+>  
+>  	while (timeout) {
+>  		table_size = batadv_tt_local_table_transmit_size(bat_priv);
+> -		if (packet_size_max >= table_size)
+> +		if (size_max >= table_size)
+>  			break;
+
+[Severity: Low]
+
+Should the kernel-doc be updated to match? The kernel-doc for
+batadv_tt_local_resize_to_mtu() still says:
+
+ * batadv_tt_local_resize_to_mtu() - resize the local translation table fit the
+ *  maximum packet size that can be transported through the mesh
+
+The loop now compares against batadv_tt_local_transmit_size_max(), and the
+log message below already says "maximum table response size".
+
+The kernel-doc for batadv_tt_local_reserve() also still describes the old
+add-then-drop handling:
+
+ * Add the requested number of VLANs and local TT entries to the reservation
+ * counters and check whether the local translation table would then still fit
+ * in a single full table response. The reservation is dropped again when it
+ * would not.
+
+The new body computes the totals in vlans and entries and writes the
+counters only on success. Nothing is dropped any more.
+
+[ ... ]
+
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030135105.2555887-2-sw%40simonwunderlich.de
