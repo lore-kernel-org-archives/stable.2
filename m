@@ -1,59 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793574796;
-	b=GFVfBsLqqnbSCtVnE+A3VK7er5fNpRVZcs2oPKjhKGGCmX5T95AZoetldFCC5HpFZVCa
-	 66U6WZD7MFJXXVPyDEAL0zt/kxtNQNSUZG1PnKk+xNqe5a3R3OpIT3tGrcCcNNJ5vygF8
-	 JtQcYVi771a8aImq57Ao80H7Zy78lS44NggohtQMirWWt3/zT15WGMizxp6tErAZd05ET
-	 t/7UWX4FG14n/DUB7oLrzIH4D7DsytryZifsC6seTpLsss9imQ+WU/8TZnqOKhaat/eOs
-	 yfLAXfn5pOmzfDo32qREk9iGLoibAm3F0SKKtVhasMiWP/EclHJe9D58zNnk6wGB/9Q==
+	t=1793575508;
+	b=R/nHHM8HiZP/J432bQkHhWKChbh5gzS6sCU89I0KjuvALPRsAPBnAdhLqgDpEfl8e1J+
+	 +0KAFWQT8I8bBmk1Mdi4x/FaCTSRQmbzYLZmjZVG/NwuuNuuys8zdU1+q/UzdTsBTTXRw
+	 49HiJBXjmZx0j1zIOqkP91KyfXfxe9IZF5O772jf8DQoeZ1tU4eRJIaxmCeFaoCaGVty6
+	 FGO4n+8T0jhS/U/f+aj9W9CoM2c/OwW7mTchT+oMG3kzg+k/wJSxOdwAckwBjPKcDMRrk
+	 dTQ1sj92P+tmaF9NE1WoGBpGiWYmfu5EVxWT3KZYxfszgmGrCe2y+EpzGQ6ySURlhfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793574796;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=EcL5d7p7mrVTGncXK+sVuPmBiP1dIV35QFJDE59S5+hoSU7hDynXhOpzBitTtzys49i5
-	 vkWaXFCjKkzRL7VvTF7Cu0fBMhFUt5dXc8BRz73CSamo3mh0QsQdt7ZHiXvyDPgLFJA4r
-	 zQMtGK6g6MNlKe2lEZ3zdnmgj8P9qFIiKf2qBDQgf3jpLwmLdiCUoQwiQNpFruNDw/WHg
-	 +35TiH0hx+65HcjI/7BqFS7JZZu5L769trWG5l9AlFtk6OjKESdsKHJMfFo/sm286kWDr
-	 jH2VyAEmBHuha7P5kEIsjxiWMdBLvTcj/g10FeCbKnCKd6aaabwiaQ0tvcz1mEhQLPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575508;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=UG8rsdKQKWtqfb7CnEJqSbG1l0IONjhXQyydvT12edk=;
+	b=Kd+mGkWviYDYrLCjtU2Y5+rtaLPC+YVw7A917Tqu/Bt2OaTe9cxN91zQIN5dPIwC/9dn
+	 uXJw9MR4wZfHWNbm7xxpRrBBs92eJgA/jybidzchGYMvqJclj4M0LOI+CTz7limqlUZJo
+	 NgKEX7+JcciKEnmrfs0Hdhr92OM8SY0uDPqsjPrhPnbSKjVuWOYI55qbn1n/N9iAOjOQP
+	 9RxUCRnkQHOcYIBnEYQKyfdXIPl0oZCE8z3kIJgDkZGe8xVNCtmt9ug+ltJssgMltubdV
+	 yXVByOa7VNVRb0rZmQgJhi4HUS3mMXr9WAlWqTDrhk92D1rRrB0CpKzDSoNIS3h/5sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcXRSv6o;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b="JoQgkD/S";
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19032606A326;
-	Sun,  1 Nov 2026 23:13:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40004606A324;
+	Sun,  1 Nov 2026 23:25:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40004606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RcXRSv6o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4A71F000C1;
-	Sun,  1 Nov 2026 23:13:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793574795;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RcXRSv6or0cg+d/a9azAtBA1u3q/oFcmbFkf3Vj30PXUUHriR9l+SEzGk7iqW9wSb
-	 lTNhYeccFf+CzWpo+8O1OT8xcI+CqVsNdizniK3tObu0gBvUs1MSxsiIYJ84DHxMF6
-	 7w8L+zg7nwFRiLPSFFi5mHPfs3L+rRu2/uPLfTh+XzyuV+jLP8LaVldeliSITfFJ3Y
-	 T/esXOmSzk9WUGmQdTaA74RQQZVgKM37+9EyHD8WcV3/eDA+RqkMMA8UCZEbkJDEmV
-	 3spJZ5mLqZuwgMLXu27UAFE2T8PG1Ec1xdbP4LMM7UBT1JslcyDOicHYZmhtcKSSSl
-	 aKnkDoUce5rBA==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] xfrm: fix IPv6 first-fragment protocol decode
-Date: Sun, 01 Nov 2026 23:13:14 +0000
-Message-ID: <179357479474.3286.17356070785427096801@kernel.org>
-In-Reply-To: <20261101230745.2043474-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261101230745.2043474-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=JoQgkD/S
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=UG8rsdKQKWtqfb7CnEJqSbG1l0IONjhXQyydvT12edk=; b=JoQgkD/SwwR0VT3aJtB3CU0kK+
+	NVRMDy4h0MBKe7FWmv73ft5Rw2hgeuFn5IWnoOPEPGeW2dIhDJ3m1zGQhctGbVbujkI4Z110f5BTV
+	5jW/tsu2+B2WA4b+PpIwkJAK3BdgNiKeiiTKD3tlh9z4zyFgSkIAE2DUPQVzmilO9EzrUxiasDPfk
+	gEUB48Gfh3oczcL37J66JZlaqdchqpS+TCtyqrG2s+tqj+O/subpl9RQV2fy7U+VRLfWwXz5kaZbx
+	DakRQuapRThkVTNlqDiBH1IK2V2T0QW6Q+YxiJCxr5DmcMvtIRUU4ln8fuQS3+NzRYYQktF94gz79
+	KwBYq9Bg==;
+Received: from [151.115.150.205] (port=38008 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xNevC-00000004spB-0W58;
+	Mon, 02 Nov 2026 00:25:05 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
+	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] net: qualcomm: rmnet: avoid stale VND access on TX drop
+Date: Sun,  1 Nov 2026 23:23:54 +0000
+Message-ID: <20261101232354.2047804-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,25 +72,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hi!
+A struct rmnet_port stores a pointer to the most recently created
+RMNET VND in port->rmnet_dev, but userspace can delete that VND while
+the port still has another attached VND. When RMNET later sends a
+buffered TX skb, a failure in __skb_linearize() makes rmnet_send_skb()
+update the drop counter through that stale pointer, which causes a UAF.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+The stale pointer can also be used by rmnet_unregister_bridge() when a
+real device leaves bridge mode. In that case it is passed to
+netdev_upper_dev_unlink(), which dereferences the freed VND and leaves
+the actual bridge adjacency behind.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Account TX drops on the lower device and use the current bridge master
+instead of port->rmnet_dev when unlinking. Remove the now useless
+port->rmnet_dev.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+Fixes: d939b6d30bea ("net: rmnet: fix bridge mode bugs")
+Fixes: 64b5d1f8f2d1 ("net: qualcomm: rmnet: add tx packets aggregation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Changes in v2:
+ - Strengthen the UAF fix following review by Sashiko on the v1 (https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031221052.1642262-1-Jeremy.Jean%40oss.cyber.gouv.fr)
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+v1: https://lore.kernel.org/all/20261031221052.1642262-1-Jeremy.Jean@oss.cyber.gouv.fr/
+
+ drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c   | 4 +---
+ drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h   | 1 -
+ drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c | 5 +----
+ 3 files changed, 2 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+index 61b04c6c0390..fb586514b41d 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+@@ -96,7 +96,6 @@ static void rmnet_unregister_bridge(struct rmnet_port *port)
+ 	if (port->rmnet_mode != RMNET_EPMODE_BRIDGE)
+ 		return;
+ 
+-	rmnet_dev = port->rmnet_dev;
+ 	if (!port->nr_rmnet_devs) {
+ 		/* bridge device */
+ 		real_dev = port->bridge_ep;
+@@ -113,6 +112,7 @@ static void rmnet_unregister_bridge(struct rmnet_port *port)
+ 		port->rmnet_mode = RMNET_EPMODE_VND;
+ 	}
+ 
++	rmnet_dev = netdev_master_upper_dev_get(bridge_dev);
+ 	netdev_upper_dev_unlink(bridge_dev, rmnet_dev);
+ 	rmnet_unregister_real_device(bridge_dev);
+ }
+@@ -163,7 +163,6 @@ static int rmnet_newlink(struct net_device *dev,
+ 		goto err2;
+ 
+ 	port->rmnet_mode = mode;
+-	port->rmnet_dev = dev;
+ 
+ 	hlist_add_head_rcu(&ep->hlnode, &port->muxed_ep[mux_id]);
+ 
+@@ -487,7 +486,6 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ 	slave_port = rmnet_get_port_rtnl(slave_dev);
+ 	slave_port->rmnet_mode = RMNET_EPMODE_BRIDGE;
+ 	slave_port->bridge_ep = real_dev;
+-	slave_port->rmnet_dev = rmnet_dev;
+ 
+ 	port->rmnet_mode = RMNET_EPMODE_BRIDGE;
+ 	port->bridge_ep = slave_dev;
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h
+index 5adda0323dda..26c1d8bccc14 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.h
+@@ -37,7 +37,6 @@ struct rmnet_port {
+ 	u8 rmnet_mode;
+ 	struct hlist_head muxed_ep[RMNET_MAX_LOGICAL_EP];
+ 	struct net_device *bridge_ep;
+-	struct net_device *rmnet_dev;
+ 
+ 	/* Egress aggregation information */
+ 	struct rmnet_egress_agg_params egress_agg_params;
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
+index 39d6d084e73f..bd68d60b50d3 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_map_data.c
+@@ -543,10 +543,7 @@ static void rmnet_send_skb(struct rmnet_port *port, struct sk_buff *skb)
+ {
+ 	if (skb_needs_linearize(skb, port->dev->features)) {
+ 		if (unlikely(__skb_linearize(skb))) {
+-			struct rmnet_priv *priv;
+-
+-			priv = netdev_priv(port->rmnet_dev);
+-			this_cpu_inc(priv->pcpu_stats->stats.tx_drops);
++			dev_core_stats_tx_dropped_inc(port->dev);
+ 			dev_kfree_skb_any(skb);
+ 			return;
+ 		}
+-- 
+2.47.3
+
