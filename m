@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793517510;
-	b=gxjGmgttjD4U7GsqEy/M7keRu2do7b2oNilJkrFw13+VN5g33NTYU1wU2hXtA9hrtPH5
-	 S0QpExd7t7r6nPN5QVB/raN3DQkac2BKu/csAgpnHknc2YUQHrtrFpo+IWW5VgLLF9kuM
-	 3foYfC2UBUIggJRiZR8JKHjKI3ypsiLXsI2pdl7xu5Zk24QBDCcxdS4IDvW+wJRUVcZEp
-	 Ap13ULEpRMu1TXjUieMdb2SS+ETFo9VVF36iqtBYvMixt91JNgvofqVXgCoB019Z95uP5
-	 8pvSM3Ex1RUqtT+KmUVs97YTMFU48U3uBnOonSI2wxa25yK+/ilidGjcF1Lwx53Q0Gg==
+	t=1793518656;
+	b=C6OC2AUSy//bF5E+PeeWlkvRCk2NmRK5rjZeNwVkCdTLxkFigT3aqc8gBBccjqi5lWdj
+	 CgmhbBr5uLEtlOjsm6sY1b2ixq70JQPnt9JsxthynB6gu2+c64qHQDaBaTk+sAKDyFqrG
+	 PLPRvkrfRdTdh1gU8s/wHR0vGf9/9Dtuxu23/zcrPFuhHkFgISb9ho8fsTAVtHMmtDs6x
+	 TKudr0RxOEs0vUo6Dgmo/p6lTlXSXRRkuFyWBv1azxU9FR6qir/IhkjFIySr0rGld6m4U
+	 rp7rajXqYT2q0W+zJZ7bT/x35eRAzOfYdUhhvkX/tr6tVX0MX5WpmBvOHY3+GdEBhMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793517510;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793518656;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=X+BwoNYH8Zzqv3w5tIVg3636uhE4Ev+ncQBA55QTM0Y=;
-	b=h1a/gwE6EDW9JQGbQ15DHNLjIXo7ZDMrDOqoFECJ7sr5VoFflLdSOXFDRp8HgjrBlRQA
-	 kTcC8YJ73bJIPW7LvB+vOPfH9uMYHQOesVmgSdtytjWD/dMWRkE5mHYECGyETaoiK4Hq2
-	 pZMvPeNx8ta5uRc3LtC8MllLpbcIGkz9B1G+/rpNXiuZb8Xt5ehZshWzklKjuyM9ci5az
-	 hfRCB4pIisd738pEEYA/aNjwItcXuxSVMSCkUvntz/pBEJy0FeSumaLi+ZUiZ08TwOX0e
-	 Lf8FkP2Ax1Tm6YjU2itwUFMgm5nvk3Et39wPqy+7+lgIlXVFXqLjzrnU6OJFhZQ60IQ==
+	bh=t/gjE8PAV/l+wGQLdHNbUraby6W5o/4waIhxkQthi2Q=;
+	b=va3ii8XBOjOPvxjJsXWfy57nTF2+FGDoe6C8U7tmFmbn8jO+dFc78NIePoptJJTPiegh
+	 YqtXZvWvfpvkmTneEi0loCBWDojwJEBfzmRBTrJc0/IEipG9t7Hc8/v7prVvavC41QaoK
+	 WCatiLwY9DHvXAOFp0oDZAAzPncM0Pyq9xvM0hXAlABHEOuN0TcN5iys/l2GNc9VB/68/
+	 W04uhn6rxXGutG53BJyU717Y2JcCbQCjqkObcVdIcvgtss2B8ZvdYKL9jVN1nFKB555Fc
+	 H9ojvyDa70XjjZ3/rlkXCxkHNBYqLjRjXgMTWDin+Noa4vKBlqryAV0k0WkdeKTr0NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ffK5pmQk;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eg8zAMIA;
+	arc=none smtp.remote-ip=209.85.214.181
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C583606A326
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 07:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C583606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD3E606A324
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 07:37:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD3E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ffK5pmQk
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so15613875e9.2
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 00:18:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Eg8zAMIA
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2e5378b281aso11270975ad.2
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 00:37:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793517508; x=1794122308; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X+BwoNYH8Zzqv3w5tIVg3636uhE4Ev+ncQBA55QTM0Y=;
-        b=ffK5pmQkqD7xyXFYTYf2tSVw1KfU9AScHuDeQEj0RaUM5ODUuEB3elvi7BIDxa0Wpf
-         oGoDo5g4HwMt0T0SqlJn2SlTSGOUfIbvQ79nfoNdsEYpGRg4aOu5PZ6sZIvFZxrN9PGt
-         IZXKXWAtg/E2YplhIvxZTkBTCo0KKbU8Zno6PK0NZi7qSW3/LlRzO222l8TB6cDdNi4j
-         OEi/YbwnjtvR45G4Sgk7/cjGIf9t7q74+/zbVQQi6LXakNbrazZ1QFvPEPUNpT0KHdko
-         WHqQpnNr5YUt8TpnuzIrTrr1A4+5w/w/6r4r9kPO0444XyUmba+PkTL3vfgUv1A98/cc
-         hi9g==
+        d=gmail.com; s=20260707; t=1793518655; x=1794123455; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=t/gjE8PAV/l+wGQLdHNbUraby6W5o/4waIhxkQthi2Q=;
+        b=Eg8zAMIAxmNBY9xTCn49zIrcM3RsmmBffLXfZ/+M7oiexTKYXznFILfdD979X/MB+N
+         fRNQ+AtY/kiW6HTz1sXJZxgnN5X5N6biyUAEwkp7eJ6rHrRgqoMhAfl3MqLsyML0Xb8C
+         gM6TDAOj/iDcb74cFrjSPDSQlKy3zqLgKwFMOCWtVy3dbrJ/NJmwAsq0Yv39HMSzYiAQ
+         5zfs63tA/mWW5lrcazqtN3BpughNXcNQDcS29ajCKboHICeI5nx44wczaMx/rIv5myjJ
+         5mQl+ahg8dDQrnQphxvZWqYoZfS+a7KiQQU8kfd3n05QCWf3SyIcY0HfGYsshLzmVklA
+         yi6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793517508; x=1794122308;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793518655; x=1794123455;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X+BwoNYH8Zzqv3w5tIVg3636uhE4Ev+ncQBA55QTM0Y=;
-        b=11itApXzROtoO+ZiyDk2TEUTCTj9/N9rcnkaIezP5vRMRAM9nHufp6o0RXHDC0JZjC
-         8p0tmFyP6s08yY3G2RiWtu5ciRM+41ANIq/wEcALtmkUnhXGPcOHt/34/cdJhxJksEbn
-         fOCdjzNTQ5sd5OXpoofKatfatSEq4y5XAoc02LPWOFdlMblOreQYLa83F8uFAoRzA3tc
-         eUuRrw42OMEczfAIz0UuJ3U2audeKtG7GYAMLJEXDXz3smDcx82zPb36rtEIuQqpm0Bh
-         UkG/p+PfCjAAUTctbIPOagLQawPSXLDPmGlAfsitj9vQSynYTWCIQfncEzjeo9fntsLr
-         pffg==
-X-Forwarded-Encrypted: i=1; AKwUvByjz0ZYoLjtwyZQMave+Yfnei+46g3IiJXv3ioqZm6//9VycoI39nYAIzFr4qMo8rBr9UsTA0w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhabYdfsm7NyO7mDzk01NvWedouveNVXRAmjXumRbgG4MVrMJ0
-	qaZEIj2AeWSWBXkxBuPzKsO7gBUmxbSfMXWdZToHdvEwKyCzwv4QcxR3G3KQYoAeVQc=
-X-Gm-Gg: AYBFou3h+z1hEAqrsA9Bwtt/kR3VOFgYkrGFENcmP7cr5+OR6ecyRL6yPX6bGx1hrGx
-	qDt1bLAec0F34Cj6hB0yH9rNPtKuBIaZs7XTLQ5hiPkbZJy47irmk9dOhqLrwFU0YjdrAXas/zB
-	epny2KIT4Dl78oy5sSswd2YhxI0bDIIonMUoJv2jVaBFEfNM76NL5Rqqx7xjfO+a1GcsxdQyi8l
-	72F9McXxRv+EwQcG0rw7pG+rJ/M5BJGQHYONndBmIqkCUSnlBb86HOyB/22Wf3GmxFagydNAy5R
-	yNeBZIwbzB35L+cgekvTJEDf6fYLSeCeOrEcS2vwbZpKb4eRa3qj8WaKMRe/w2oL+fzojBXAHMt
-	UmqACRI+HvFwe1jJ+c2WQ/Z9E59aoIRACiLpWxHK3/mgyxgHYihlOY297cRjtA9j9mLDlcXJj56
-	8It0UvNaxNHZZF3j6uKK6QYAnYJSGOTutXf0rVhUATAXb3HrK8I4MqKYSz1yhu17A0FTEIk1S1f
-	aq/9IzqBrNNI+BtGo+hdRP6x1Kkd4TEi1LqthEaSBfBUgzm/tGdiQQFgHHC9VvWa0TGoA5013/k
-	x2SIYVquZU73f8XpNVheMlDUjbv8Wg9dnc0vXhuaAg==
-X-Received: by 2002:a05:600c:1f93:b0:4a1:7e76:d02f with SMTP id 5b1f17b1804b1-4ac180f299emr143671995e9.14.1793517507631;
-        Sun, 01 Nov 2026 00:18:27 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm22697298c88.15.2026.11.01.00.18.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 00:18:26 -0700 (PDT)
-Message-ID: <b4962b1b-bc5e-4302-8456-73b9b8a6474b@suse.com>
-Date: Sun, 1 Nov 2026 17:48:21 +1030
+        bh=t/gjE8PAV/l+wGQLdHNbUraby6W5o/4waIhxkQthi2Q=;
+        b=qn2vRebGoH5NfKAKNVedcvSwQUxqw24XJdCScrkvc2XJOPglbPAd+YQBuQGYy02uIG
+         ziuXkpTvAXCy/yeuxIF817TYRUPLWTNrOpM6CN/RhM9kDHrb7m7oUYucBZIkSPDPLrjs
+         WPZAqrgwcdyYV5zU33/AGR8ZY0vkYIFdFpfeuJZmEcZ9oPdeNJSfHimf2EJsJXA+a6PD
+         EHieLKMcYWX4mKzW8TS1CK1yMakNgPadCtB8200JduJednK6AEWKNrTPwOThv9jIzieM
+         AGkod3RDxxgDMbomejH84d2L4DWpLL9+FZdVtosDY+mr6Y8ouvDlmWyn19zfupQS6xWq
+         8tCg==
+X-Forwarded-Encrypted: i=1; AKwUvBx55duBN4jXgBLWY9EM1b19Cwb3PLl8W6wE73OVCpd9XT2G5Td3dyN3GuobP7MaIWimhhCb39g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9azU7UcXW55S1xRJQ6Srs+S3xBP9a+rKlb1Ofl6NljPbzcFNMs
+	AoQ4A8eozoTONM5GvV4WQFv9+1xij8JnYbXW634ZJrpiBTz7xmzrZNOm
+X-Gm-Gg: AYBFou3F4GH8LAm+KS6cWpb1oFujVHAsE8zEgcMUxy390Hoj3oEhOkTxT/ZW0vuY59C
+	vJ8HR25MdMFGMPl9/DKDBhjoPM9IB2uXtljXPYlZg39XIW3wDZQV/LApmLZOTYSP9HY+tKk2SzI
+	kpPXYTUN+ljJdyaQIJl2jsQ62ILzbtyFMOgzfbIK1DXDBe/DfvZ0JeLgzVtR7K50ZG2qqchJcug
+	IZUyP4j0PWhqnFZpfRz4ZcZ1aUp3sop6MMjldRwmTtkCQ6HwNuVWlvGqPFMpJys7XXXKhX3LVFZ
+	l3zEQ6WcVS/ZgROiTT5I73ryz7ByUj1ninJqznri0cCzPtVHkKMn/nQaTajUqx8eIpW0phd6O4F
+	CIQ+PRGz0BHm49WQ3QSMJXuW8MCB8ugVBHGldLT0uPk9cayEWm7u4C3/TvFkdO/ppyftOyNZpLL
+	4oFk8zc19xSye6wTBv5HH39W4EzDU/RDSyVTlBrJZ0F+stw/6uIVPxkpxB6GnUIX06MwOUR4s39
+	aJ3JiEX6DZdCYTnc1UgBkr7JcGRR48jgS7yK9vJU08cVIVoZ5FXw69JCwnRQgkGj0bwSrwJqYR/
+	BvyRg5tm/EFQqvg34IqnpZiJfeNRfHfxhe27bO8m1ksBFg==
+X-Received: by 2002:a17:90b:2741:b0:3a0:e4ce:31fd with SMTP id 98e67ed59e1d1-3ae896f8304mr6013969a91.10.1793518655425;
+        Sun, 01 Nov 2026 00:37:35 -0700 (PDT)
+Received: from gye-SER8.tail6a86d6.ts.net ([121.125.115.175])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb096b8323sm2114642a12.6.2026.11.01.00.37.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 00:37:34 -0700 (PDT)
+From: Gyeyoung Baek <gye976@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Sidong Yang <sidong.yang@furiosa.ai>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] accel/rocket: Fix drm_mm UAF on close vs in-flight job
+Date: Sun,  1 Nov 2026 16:37:00 +0900
+Message-ID: <20261101073700.1261966-1-gye976@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,190 +100,361 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] btrfs: reject refs=0 subvolume without DEAD in
- SUBVOL_SYNC_WAIT
-To: Qu Wenruo <wqu@suse.com>, Cheng Yongkang <teel4res@gmail.com>,
- David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261101062539.1744605-1-teel4res@gmail.com>
- <a92d223b-55fa-493e-821a-e5acc8afee08@suse.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ujyBQkUpLw5AAoJEMI9kfOh
- Jf6o8OIH/0mqW+TQM4m2x3hCsnK+oB4yJH1qnGvIhFF/Lhs48wI02sGh6/4aA0hkCDfd9LHQ
- +ci4FUepZ9y4VS01+oIExbg/8ytzGYTzLtb44jK2GBOBVSJkMiha6jp22XFt7WUkT/tvbreu
- WWdGsaJIRQaZChy7xsMI8lqQ2WdmluZJ4LT0wD3l/l6QU1ZseMGySebdY9sVOQEOJNV7Qj92
- /KOAFNmeZshV/qDI8Iw1RTs6TvLqCcqmlZLCmJkYSVhT1RonWRren8xIRcFEgMe004IDnt7V
- qdQhk/nhTS9x9MBAhMRl0TTE1VKDLvVALsud3iZLrmmtYvwPApzGJk052f0m28vOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJq3ukKBQkUzDspAAoJEMI9kfOhJf6o
- SNsH/1ysUWOKmzY0rGS3ZdS61QgqMGhSWD/EJ4UiPw+xO4l4+GtX0fOAqxqsmBKqje3vyhBa
- Z5o/1Y+gNiN+E6RBcSz4b1TAd78sQ2bvT5DWOvBjeeVxHdiuQMIn4S8xk5ZpySBw5ifjoiuL
- 0M33UVtJOzM8yfAeL+d/Rp4leJw72SutjkLyZTG/gJIp4pJGD/kFHn24OLL0IxEcO0gOekNZ
- os5e1R6jAJ2ILk7+MDnvU8wXHcCiVzuDhJLI1tih1uUIE50muHQJWbYuVBbdJeu8WlIDDssx
- UOCxLylNG3gDXV5MhLubPTOpp9OiFc/XC37nvkgEcrlmlOFBv4/NJCbECpo=
-In-Reply-To: <a92d223b-55fa-493e-821a-e5acc8afee08@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+The drm_mm and its mutex live in rocket_file_priv, which
+rocket_postclose() frees on fd close.  But a BO held by an
+in-flight job is only freed after close, from the drm_sched
+free_job worker, and its destructor then accesses the already
+freed drm_mm and mutex.
 
+  BUG: KASAN: slab-use-after-free in __mutex_trylock_common+0x90/0x1e8
+  Workqueue: <NPU>.npu drm_sched_free_job_work [gpu_sched]
+  Call trace:
+    __mutex_lock
+    rocket_gem_bo_free
+    rocket_job_cleanup
+    rocket_job_free
+    drm_sched_free_job_work [gpu_sched]
 
-在 2026/11/1 17:21, Qu Wenruo 写道:
-> 
-> 
-> 在 2026/11/1 16:55, Cheng Yongkang 写道:
->> btrfs_ioctl_subvol_sync() assumes that a cached root with zero
->> references has BTRFS_ROOT_SUBVOL_DEAD set, and asserts that before
->> waiting for the cleaner. Two states break the assumption:
->>
->> - A corrupt ROOT_ITEM with zero references and a matching orphan item,
->>    on a writable filesystem.
->> - A failed subvolume deletion. btrfs_delete_subvolume() zeroes the
->>    root references, aborts the transaction, which forces the filesystem
->>    read-only, and then clears DEAD again. No on-disk metadata is
->>    corrupted in this case.
->>
->> With CONFIG_BTRFS_ASSERT=y, both reach a BUG().
->>
->> Before waiting for a deleted subvolume, return -EROFS if the
->> filesystem is read-only, since the cleaner does not drop dead roots
->> then. The check runs on every iteration, so it also stops a waiter
->> when the filesystem becomes read-only during the wait. Subvolume
->> deletion holds subvol_sem for writing across the abort and the DEAD
->> rollback, and each iteration takes it for reading before inspecting
->> the root, so the read-only state and the cleared flag are seen
->> together. On a writable filesystem, report a zero-reference root
->> without DEAD and return -EUCLEAN instead of asserting.
->>
->> Subvolumes that were not deleted or do not exist still return -EEXIST
->> and -ENOENT, also on a read-only filesystem.
->>
->> Tested on btrfs for-next with CONFIG_BTRFS_ASSERT=y. A deletion made
->> to fail by fault injection after the references are cleared hits the
->> assertion in SUBVOL_SYNC_WAIT without this change and gets -EROFS with
->> it. A waiter on a deleted subvolume now returns -EROFS when the
->> filesystem is remounted read-only, instead of waiting until it is
->> signalled.
->>
->> Fixes: 6c83d153ed86 ("btrfs: add new ioctl to wait for cleaned 
->> subvolumes")
->> Cc: stable@vger.kernel.org
->> Suggested-by: Qu Wenruo <quwenruo.btrfs@gmx.com>
->> Link: https://lore.kernel.org/linux-btrfs/dd97efe9-91ec-495b-b698- 
->> acff1447421c@gmx.com/
->> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
->> ---
->> Changes in v2:
->> - Return -EROFS on a read-only filesystem before waiting for a deleted
->>    subvolume (Qu).
->> - Use unlikely() for the inconsistent-root check (Qu).
->> - Describe the failed-delete case separately from corrupt metadata.
->> - Add the Fixes tag and Cc stable.
->>
->> v1: https://lore.kernel.org/linux-btrfs/20261025180258.349175-1- 
->> teel4res@gmail.com/
->>
->> Testing notes (btrfs for-next d1dca33127ef, KASAN):
->> - The fault-injection case reached the cleared-references state in 2
->>    of 4 attempts on each kernel. The other attempts aborted earlier, and
->>    both kernels returned -EEXIST.
->> - FOR_ONE, FOR_QUEUED, COUNT and PEEK return the same results with and
->>    without this change for live, missing and deleted subvolumes, on
->>    writable and read-only mounts.
->> - The -EUCLEAN branch was not exercised. A crafted image with a
->>    zero-reference root and no DEAD flag hits the assertion without this
->>    change, but remounting that image read-write stalls in a transaction
->>    commit with or without this change, before the filesystem becomes
->>    writable.
->>
->>   fs/btrfs/ioctl.c | 10 ++++++++--
->>   1 file changed, 8 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
->> index 9857d6a9d456..5a1f2edfd831 100644
->> --- a/fs/btrfs/ioctl.c
->> +++ b/fs/btrfs/ioctl.c
->> @@ -5166,8 +5166,14 @@ static int btrfs_ioctl_subvol_sync(struct 
->> btrfs_fs_info *fs_info, void __user *a
->>               return -ENOENT;
->>           wait_for_deletion = true;
->> -        ASSERT(root_flags & BTRFS_ROOT_SUBVOL_DEAD, "root_flags=0x%llx",
->> -               root_flags);
->> +        if (unlikely(test_bit(BTRFS_FS_STATE_RO, &fs_info->fs_state)))
->> +            return -EROFS;
-> 
-> I'm not suggesting such an ad-hoc check, but some more comprehensive 
-> checks, like mnt_want_write_file().
-> As this one won't handle aborted transaction.
-> 
-> But it's not a good idea using that mnt_want_write_file() either, as 
-> that will block pm suspension/hibernation, especially considering the 
-> wait will only be handled by cleaner thread.
-> 
-> The default timeout for waking up cleaner is 30s, which is definitely 
-> not suitable for such calls.
-> 
-> 
-> If you are not sure what to do with the RW check and cleaner behavior, 
-> just don't put an adhoc solution into the update.
-> At least it won't be any worse.
+Move drm_mm and the mutex out of rocket_file_priv into the
+kref-managed rocket_iommu_domain (renamed to rocket_vm).  Their
+lifetime now matches the vm's: as long as a BO or job references
+the vm, the address-space state stays alive.
 
-With that said, there are more problems with the ioctl.
+Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gyeyoung Baek <gye976@gmail.com>
+---
+Changes in v2:
+- Rebased on drm-misc-fixes and resent. No functional changes.
+- Link to v1: https://lore.kernel.org/r/20260426103758.1373137-1-gye976@gmail.com
 
-- No real user
-   No one is utilizing BTRFS_SUBVOL_SYNC* flags. Btrfs-progs itself
-   doesn't even bother it.
+ drivers/accel/rocket/rocket_drv.c | 74 +++++++++++++++----------------
+ drivers/accel/rocket/rocket_drv.h | 13 +++---
+ drivers/accel/rocket/rocket_gem.c | 31 ++++++-------
+ drivers/accel/rocket/rocket_gem.h |  4 +-
+ drivers/accel/rocket/rocket_job.c |  6 +--
+ drivers/accel/rocket/rocket_job.h |  2 +-
+ 6 files changed, 64 insertions(+), 66 deletions(-)
 
-   So all these fixes are very low priority, unless there are some wild
-   programs utilizing this.
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 5d7805c41dc..f58c15131dc 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -26,46 +26,54 @@ static struct platform_device *drm_dev;
+ static struct rocket_device *rdev;
+ 
+ static void
+-rocket_iommu_domain_destroy(struct kref *kref)
++rocket_vm_destroy(struct kref *kref)
+ {
+-	struct rocket_iommu_domain *domain = container_of(kref, struct rocket_iommu_domain, kref);
++	struct rocket_vm *vm = container_of(kref, struct rocket_vm, kref);
+ 
+-	iommu_domain_free(domain->domain);
+-	domain->domain = NULL;
+-	kfree(domain);
++	drm_mm_takedown(&vm->mm);
++	mutex_destroy(&vm->lock);
++	iommu_domain_free(vm->domain);
++	vm->domain = NULL;
++	kfree(vm);
+ }
+ 
+-static struct rocket_iommu_domain*
+-rocket_iommu_domain_create(struct device *dev)
++static struct rocket_vm *
++rocket_vm_create(struct device *dev)
+ {
+-	struct rocket_iommu_domain *domain = kmalloc_obj(*domain);
++	struct rocket_vm *vm = kmalloc_obj(*vm);
++	u64 start, end;
+ 	void *err;
+ 
+-	if (!domain)
++	if (!vm)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	domain->domain = iommu_paging_domain_alloc(dev);
+-	if (IS_ERR(domain->domain)) {
+-		err = ERR_CAST(domain->domain);
+-		kfree(domain);
++	vm->domain = iommu_paging_domain_alloc(dev);
++	if (IS_ERR(vm->domain)) {
++		err = ERR_CAST(vm->domain);
++		kfree(vm);
+ 		return err;
+ 	}
+-	kref_init(&domain->kref);
+ 
+-	return domain;
++	start = vm->domain->geometry.aperture_start;
++	end = vm->domain->geometry.aperture_end;
++	drm_mm_init(&vm->mm, start, end - start + 1);
++	mutex_init(&vm->lock);
++	kref_init(&vm->kref);
++
++	return vm;
+ }
+ 
+-struct rocket_iommu_domain *
+-rocket_iommu_domain_get(struct rocket_file_priv *rocket_priv)
++struct rocket_vm *
++rocket_vm_get(struct rocket_file_priv *rocket_priv)
+ {
+-	kref_get(&rocket_priv->domain->kref);
+-	return rocket_priv->domain;
++	kref_get(&rocket_priv->vm->kref);
++	return rocket_priv->vm;
+ }
+ 
+ void
+-rocket_iommu_domain_put(struct rocket_iommu_domain *domain)
++rocket_vm_put(struct rocket_vm *vm)
+ {
+-	kref_put(&domain->kref, rocket_iommu_domain_destroy);
++	kref_put(&vm->kref, rocket_vm_destroy);
+ }
+ 
+ static int
+@@ -73,7 +81,6 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct rocket_device *rdev = to_rocket_device(dev);
+ 	struct rocket_file_priv *rocket_priv;
+-	u64 start, end;
+ 	int ret;
+ 
+ 	if (!try_module_get(THIS_MODULE))
+@@ -86,29 +93,22 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 	}
+ 
+ 	rocket_priv->rdev = rdev;
+-	rocket_priv->domain = rocket_iommu_domain_create(rdev->cores[0].dev);
+-	if (IS_ERR(rocket_priv->domain)) {
+-		ret = PTR_ERR(rocket_priv->domain);
++	rocket_priv->vm = rocket_vm_create(rdev->cores[0].dev);
++	if (IS_ERR(rocket_priv->vm)) {
++		ret = PTR_ERR(rocket_priv->vm);
+ 		goto err_free;
+ 	}
+ 
+ 	file->driver_priv = rocket_priv;
+ 
+-	start = rocket_priv->domain->domain->geometry.aperture_start;
+-	end = rocket_priv->domain->domain->geometry.aperture_end;
+-	drm_mm_init(&rocket_priv->mm, start, end - start + 1);
+-	mutex_init(&rocket_priv->mm_lock);
+-
+ 	ret = rocket_job_open(rocket_priv);
+ 	if (ret)
+-		goto err_mm_takedown;
++		goto err_vm_put;
+ 
+ 	return 0;
+ 
+-err_mm_takedown:
+-	mutex_destroy(&rocket_priv->mm_lock);
+-	drm_mm_takedown(&rocket_priv->mm);
+-	rocket_iommu_domain_put(rocket_priv->domain);
++err_vm_put:
++	rocket_vm_put(rocket_priv->vm);
+ err_free:
+ 	kfree(rocket_priv);
+ err_put_mod:
+@@ -122,9 +122,7 @@ rocket_postclose(struct drm_device *dev, struct drm_file *file)
+ 	struct rocket_file_priv *rocket_priv = file->driver_priv;
+ 
+ 	rocket_job_close(rocket_priv);
+-	mutex_destroy(&rocket_priv->mm_lock);
+-	drm_mm_takedown(&rocket_priv->mm);
+-	rocket_iommu_domain_put(rocket_priv->domain);
++	rocket_vm_put(rocket_priv->vm);
+ 	kfree(rocket_priv);
+ 	module_put(THIS_MODULE);
+ }
+diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
+index 2c673bb99cc..2754f46f174 100644
+--- a/drivers/accel/rocket/rocket_drv.h
++++ b/drivers/accel/rocket/rocket_drv.h
+@@ -11,22 +11,23 @@
+ 
+ extern const struct dev_pm_ops rocket_pm_ops;
+ 
+-struct rocket_iommu_domain {
++struct rocket_vm {
+ 	struct iommu_domain *domain;
++	struct drm_mm mm;
++	/* protects @mm */
++	struct mutex lock;
+ 	struct kref kref;
+ };
+ 
+ struct rocket_file_priv {
+ 	struct rocket_device *rdev;
+ 
+-	struct rocket_iommu_domain *domain;
+-	struct drm_mm mm;
+-	struct mutex mm_lock;
++	struct rocket_vm *vm;
+ 
+ 	struct drm_sched_entity sched_entity;
+ };
+ 
+-struct rocket_iommu_domain *rocket_iommu_domain_get(struct rocket_file_priv *rocket_priv);
+-void rocket_iommu_domain_put(struct rocket_iommu_domain *domain);
++struct rocket_vm *rocket_vm_get(struct rocket_file_priv *rocket_priv);
++void rocket_vm_put(struct rocket_vm *vm);
+ 
+ #endif
+diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
+index a5fffa51ff3..057fd82e2a5 100644
+--- a/drivers/accel/rocket/rocket_gem.c
++++ b/drivers/accel/rocket/rocket_gem.c
+@@ -14,20 +14,20 @@
+ static void rocket_gem_bo_free(struct drm_gem_object *obj)
+ {
+ 	struct rocket_gem_object *bo = to_rocket_bo(obj);
+-	struct rocket_file_priv *rocket_priv = bo->driver_priv;
++	struct rocket_vm *vm = bo->vm;
+ 	size_t unmapped;
+ 
+ 	drm_WARN_ON(obj->dev, refcount_read(&bo->base.pages_use_count) > 1);
+ 
+-	unmapped = iommu_unmap(bo->domain->domain, bo->mm.start, bo->size);
++	unmapped = iommu_unmap(vm->domain, bo->mm.start, bo->size);
+ 	drm_WARN_ON(obj->dev, unmapped != bo->size);
+ 
+-	mutex_lock(&rocket_priv->mm_lock);
++	mutex_lock(&vm->lock);
+ 	drm_mm_remove_node(&bo->mm);
+-	mutex_unlock(&rocket_priv->mm_lock);
++	mutex_unlock(&vm->lock);
+ 
+-	rocket_iommu_domain_put(bo->domain);
+-	bo->domain = NULL;
++	rocket_vm_put(vm);
++	bo->vm = NULL;
+ 
+ 	drm_gem_shmem_free(&bo->base);
+ }
+@@ -64,6 +64,7 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
+ 	struct drm_gem_shmem_object *shmem_obj;
+ 	struct rocket_gem_object *rkt_obj;
+ 	struct drm_gem_object *gem_obj;
++	struct rocket_vm *vm;
+ 	struct sg_table *sgt;
+ 	int ret;
+ 
+@@ -74,8 +75,8 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
+ 	gem_obj = &shmem_obj->base;
+ 	rkt_obj = to_rocket_bo(gem_obj);
+ 
+-	rkt_obj->driver_priv = rocket_priv;
+-	rkt_obj->domain = rocket_iommu_domain_get(rocket_priv);
++	vm = rocket_vm_get(rocket_priv);
++	rkt_obj->vm = vm;
+ 	rkt_obj->size = args->size;
+ 	rkt_obj->offset = 0;
+ 
+@@ -85,15 +86,15 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
+ 		goto err;
+ 	}
+ 
+-	mutex_lock(&rocket_priv->mm_lock);
+-	ret = drm_mm_insert_node_generic(&rocket_priv->mm, &rkt_obj->mm,
++	mutex_lock(&vm->lock);
++	ret = drm_mm_insert_node_generic(&vm->mm, &rkt_obj->mm,
+ 					 rkt_obj->size, PAGE_SIZE,
+ 					 0, 0);
+-	mutex_unlock(&rocket_priv->mm_lock);
++	mutex_unlock(&vm->lock);
+ 	if (ret)
+ 		goto err;
+ 
+-	ret = iommu_map_sgtable(rocket_priv->domain->domain,
++	ret = iommu_map_sgtable(vm->domain,
+ 				rkt_obj->mm.start,
+ 				shmem_obj->sgt,
+ 				IOMMU_READ | IOMMU_WRITE);
+@@ -118,13 +119,13 @@ int rocket_ioctl_create_bo(struct drm_device *dev, void *data, struct drm_file *
+ 	return 0;
+ 
+ err_unmap:
+-	iommu_unmap(rocket_priv->domain->domain,
++	iommu_unmap(vm->domain,
+ 		    rkt_obj->mm.start, rkt_obj->size);
+ 
+ err_remove_node:
+-	mutex_lock(&rocket_priv->mm_lock);
++	mutex_lock(&vm->lock);
+ 	drm_mm_remove_node(&rkt_obj->mm);
+-	mutex_unlock(&rocket_priv->mm_lock);
++	mutex_unlock(&vm->lock);
+ 
+ err:
+ 	drm_gem_shmem_object_free(gem_obj);
+diff --git a/drivers/accel/rocket/rocket_gem.h b/drivers/accel/rocket/rocket_gem.h
+index 24043033450..e1fbbd8cf71 100644
+--- a/drivers/accel/rocket/rocket_gem.h
++++ b/drivers/accel/rocket/rocket_gem.h
+@@ -9,9 +9,7 @@
+ struct rocket_gem_object {
+ 	struct drm_gem_shmem_object base;
+ 
+-	struct rocket_file_priv *driver_priv;
+-
+-	struct rocket_iommu_domain *domain;
++	struct rocket_vm *vm;
+ 	struct drm_mm_node mm;
+ 	size_t size;
+ 	u32 offset;
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 4bc4f9c8ee4..0de56bb84e3 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -240,7 +240,7 @@ static void rocket_job_cleanup(struct kref *ref)
+ 						refcount);
+ 	unsigned int i;
+ 
+-	rocket_iommu_domain_put(job->domain);
++	rocket_vm_put(job->vm);
+ 
+ 	dma_fence_put(job->done_fence);
+ 	dma_fence_put(job->inference_done_fence);
+@@ -321,7 +321,7 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 	if (ret < 0)
+ 		goto err_put_fences;
+ 
+-	ret = iommu_attach_group(job->domain->domain, core->iommu_group);
++	ret = iommu_attach_group(job->vm->domain, core->iommu_group);
+ 	if (ret < 0)
+ 		goto err_put_pm;
+ 
+@@ -564,7 +564,7 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 	kref_init(&rjob->refcount);
+ 
+ 	rjob->rdev = rdev;
+-	rjob->domain = rocket_iommu_domain_get(file_priv);
++	rjob->vm = rocket_vm_get(file_priv);
+ 
+ 	ret = drm_sched_job_init(&rjob->base,
+ 				 &file_priv->sched_entity,
+diff --git a/drivers/accel/rocket/rocket_job.h b/drivers/accel/rocket/rocket_job.h
+index 4ae00feec3b..9373c3d0273 100644
+--- a/drivers/accel/rocket/rocket_job.h
++++ b/drivers/accel/rocket/rocket_job.h
+@@ -36,7 +36,7 @@ struct rocket_job {
+ 	/* Fence to be signaled by IRQ handler when the job is complete. */
+ 	struct dma_fence *done_fence;
+ 
+-	struct rocket_iommu_domain *domain;
++	struct rocket_vm *vm;
+ 
+ 	struct kref refcount;
+ };
 
-   But even btrfs-progs doesn't utilize them, the possibility are very
-   low.
-
-- Incorrect return value
-   For that wait loop, if we waited for several rounds, then the
-   subvolume is properly removed. Then we just return -ENOENT, which is
-   definitely not the correct return code.
-
-- Inconsistent radix tree index checks
-   There is a U32 radix tree check, but there is no such check for any
-   other operations like btrfs_insert_fs_root(), which can lead to
-   subvolid conflicts.
-
-With that said, I'd say it's more meaningful to address those problems, 
-and add a proper btrfs-progs support for it, along with test cases.
-
-Sure, if you only want to fix the ASSERT(), that's fine.
-
-But I would prefer to take a little more time to find out the real 
-problems deeper behind the scene, other than dumping tokens to just grab 
-some low hanging fruit.
-
-> 
-> 
->> +        if (unlikely(!(root_flags & BTRFS_ROOT_SUBVOL_DEAD))) {
->> +            btrfs_err(fs_info,
->> +                  "subvol %llu has refs 0 without DEAD flag",
->> +                  args.subvolid);
->> +            return -EUCLEAN;
->> +        }
->>           sched_ret = schedule_timeout_interruptible(HZ);
->>           /* Early wake up or error. */
->>           if (sched_ret != 0)
->>
->> base-commit: d1dca33127efacd86ac550aa86352f8ea9f29a5a
-> 
+base-commit: f00d7a241f846b053e89c0bb2285ef5988d4cafc
+-- 
+2.43.0
 
