@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571390;
-	b=dDntn0GPp56wng/7NI+SDjvfMd0Bibb8r1v2jtp3gMH/vB90ip42yjBsZ+l+hh7rWIWG
-	 PrGYug4/ElbOL2VeOj9waEQZiGZGs6XleAAmC97y02dCHX/fgblpBHsSj3nvWm3U0WRMP
-	 L0fcRODuZtyo4kZGdmcEA3I9S6JcCtiGWfa+yCKvtmBLbSEQeyhGMj8dL/LgVWvIy9q1Z
-	 dryMFFzPGvotrkCmt/gYJ7Ml3FQAtlkfqZi4DoVFwxg/spCp2ZVFuA1+lNuglqu6ZK8wL
-	 SsMTdxrW6Cn0aw//oVPlkIP3Khzm60hsv9c+uuBLP+xnuzkr0GehN903wH1u+edWxwg==
+	t=1793571424;
+	b=NK0Z3CmsIm27d2HJ8lyRr1MOfg949a+lKsu3GvpR1sF7campVKHnDamUJ8aqcuNb6vcv
+	 1G7sC7S9MCvxA6O08iomTvvoqu3vRkIY7mGD5XGokVaPCqZraaTHxKHlLl7nVE/Fn0Mko
+	 F8wVore+kwURo1sZgoAKo5QPxfbT1QBj6vEq+dfj27g1IH8i3QmaAqAeNUBDppUQAy4W1
+	 c9/hapUjntuq0jZhHUmq53uks4XKJYhTIIpBRJ2WPt8KBOWvbKlpsPqFT7KtxqkwVDNdx
+	 XkNNWhq0F3IKndawjv4fjji7qa0WmYZ49wts9UDBy/Yh3ZnT3ar17OsZZP16Ial2DbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571424;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=kd1+6McIMPpXCjM/eK1XnUd0MHKq5CNasIzBEPub8/I=;
-	b=qq9D7pfpH65u+G4zyWKzEOHW0THcah1m7sen2xw/kdvl+6r0gTm8spq5x1EprwywyTfC
-	 EBcAkRK4cI/KbThDdjZvaaDxBCdVYmy7c7Z/GLm0tmSURAkOzAekejMG0UZtRNHAOxv1K
-	 6/Hn4h2BzfQhhVbiC6vlHNkv7grx4zmNantIeINkYFCur+rhAPeM7BkWkZBpM3tLH9iUB
-	 H2F5qXS98pFn0ujQAKOF92gJb8hFSI3dVeNWsTYcguQrn3mwj1ZREBrUvBRn0MTsok5fD
-	 yg2zd1iZxNr+O+Kr0EYzHKv5+6PaBvJdZjPlAKAaxTfoYMzfhnQ4pjuhNJNp+gNVXcQ==
+	bh=mwQ54c5JkfJpHrp/y55v3+7zzLJcgDNuv3Y/w5BwAbI=;
+	b=FVc7X8dBzPmDvsDt7RV/jlCMI4n5gIEjrPKj9b5sDeZ3zY2wcJE2mv+/nwClEC003vbL
+	 7PmH6joRkftQxNZGCKk4TNF82tHHmKNzlY+QX/tIFPv6AUBix1xE6cCAWZJslDps7If6g
+	 AVkLS1qxQNeURzaJCyfmQLZM22O102upbTj70/TmmmQZa6ymBkwh2W2AcxPGO2t5biz/u
+	 CILjYn6Ra0hkULP/mpGCEdW6MLdHA7qBZIPJfMoTX3H8DZWuvmwuXfz0Z7lO+isLOei+F
+	 AoICQj8aFIUUGi8lAIHQ6QbhrqLvxZW0gG1isNdH3nSM/dgvwzL8Nb4CxXyLkBYbbVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUlLLBZ6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiQKvFdK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF6560A2630;
-	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E670B6074111;
+	Sun,  1 Nov 2026 22:17:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUlLLBZ6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79751F0093A;
-	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiQKvFdK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30891F00A15;
+	Sun,  1 Nov 2026 22:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571389;
-	bh=kd1+6McIMPpXCjM/eK1XnUd0MHKq5CNasIzBEPub8/I=;
+	s=k20260515; t=1793571423;
+	bh=mwQ54c5JkfJpHrp/y55v3+7zzLJcgDNuv3Y/w5BwAbI=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=YUlLLBZ6pm30l0+huWgQS5KFcpacV3sIViYlLlgtZBTFchxrnyS8Bp46ptx800GpH
-	 ms0tcCCwnBu8jhUpAixHI2ZMpbJ4BXne5Su4dMXO/7bUCVl9AQVIuUBLP4vl7wQZgv
-	 rZUklVe7MxMb57TOckoPSQz/SDQn9b5pexQYQ6rnr5y2PQEq0m0iBuIwllJyuFYCPt
-	 FgWrKGlFZ3mCBkOH5hjwzxX8senRjOfUuL2jk1ZgZ27JyA3nz0QEa+hdXnKH2Ks7cd
-	 yjsnEcGAfd78jUx35wSizQNDIH/DFAduRns5hrtdjcBw963LMRfCTmY/LrgNPoYmff
-	 gPp6G7yyQ4ZFA==
+	b=ZiQKvFdKyyD65+V/GWduNoaVFFc7LGWrjAt3G2vakfNBLq64wie4OtAB6Lxc2cPzm
+	 bU/0maqb8ZSvBgayOuYeaQxSaxCKsLoMgcR0LF/TSdCYbGWkbMB7vvPuNFOuveS/zP
+	 8wg3MU06V9Si4ZkuKrfCO0Ch0SRRL/ez40yzZ7d2o2K1HKATkfWSebtBA4Uf51hMa1
+	 VDiUGOOsMjstqnDIzz+e/WoXOWvM82m+tZ4Hh4r3b9RzjGQ4EGqswTPobUzsua9GPi
+	 /7JnHzakObPpyVXHNcfYIHxhdW0rQnaIz0VrOtcSpkTv1hwVH+VwKuImOMK+A0TNCS
+	 gvYlWm4P8QYIw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA1F138003B8;
-	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA3CE38003B8;
+	Sun,  1 Nov 2026 22:17:03 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,36 +54,42 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
+Subject: Re: [RESEND PATCH] riscv: mm: exclude invalid THP PMDs from page
+ table
+ check
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357138858.2624073.15621784518365922237.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:28 +0000
-References: <20260817033038.2286436-1-guoren@kernel.org>
-In-Reply-To: <20260817033038.2286436-1-guoren@kernel.org>
-To: Guo Ren <guoren@kernel.org>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- dlan@kernel.org, devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- junhui.liu@pigmoral.tech, stable@vger.kernel.org, docular.xu@gmail.com
+ <179357142229.2624073.6074262524879972441.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:17:02 +0000
+References: <20260523042052.35476-1-cuiyunhui@bytedance.com>
+In-Reply-To: <20260523042052.35476-1-cuiyunhui@bytedance.com>
+To: yunhui cui <cuiyunhui@bytedance.com>
+Cc: linux-riscv@lists.infradead.org, paul.walmsley@sifive.com,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, tongtiangen@huawei.com,
+ akpm@linux-foundation.org, pasha.tatashin@soleen.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
 This patch was applied to riscv/linux.git (fixes)
-by Yixun Lan <dlan@kernel.org>:
+by Andrew Morton <akpm@linux-foundation.org>:
 
-On Mon, 17 Aug 2026 03:30:38 +0000 you wrote:
-> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+On Sat, 23 May 2026 12:20:52 +0800 you wrote:
+> RISC-V THP splitting uses a temporary invalid PMD state where
+> pmd_mkinvalid() clears _PAGE_PRESENT and _PAGE_PROT_NONE but leaves
+> _PAGE_LEAF set so the MM code can still recognize the PMD as a THP split
+> in-progress entry.
 > 
-> The initial K3 device tree used generic/placeholder values for the
-> IMSIC guest configuration:
-> 
->   riscv,num-guest-ids    = <511>;
+> That temporary state no longer describes a user-accessible mapping, but
+> page_table_check currently treats it as one because the RISC-V PMD
+> user-accessibility test only checks whether the PMD is a leaf and has
+> user permissions.
 > 
 > [...]
 
 Here is the summary with links:
-  - [V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
-    https://git.kernel.org/riscv/c/69f95409f005
+  - [RESEND] riscv: mm: exclude invalid THP PMDs from page table check
+    https://git.kernel.org/riscv/c/bdda2887cbf3
 
 You are awesome, thank you!
 -- 
