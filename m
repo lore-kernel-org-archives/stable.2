@@ -1,84 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571153;
-	b=F+F2EYfO38vBzu4b8SIUKpxXSY8Yjrel7sT+oenptoM1uSlfHuRjabA+O1tXxbjIpqhd
-	 dzqHaHVQoHexTTfKUjQ9pgTJji5tUUm5rjUE5TLdrUeEf5XHutL3V9w8h/igZSBi0uK8W
-	 Uj6pJn6mqNjAXMrfXiW3sM2/57J6KPYRPov79iMurVsIX9ACskfXbEJLdC65tx3SrZSPL
-	 rBIqRFpWuvis+2gJMe/IKbZBZPc4DjXRi4efZJfHJwooM4az4I1cxfhLQYpa3q/0Ab+AB
-	 bvqUP+OEAbwrW1Smuf55jqa3bAmmoZaEejffdULUhjmvU5HdivNc9j8NjXL7ane/VWg==
+	t=1793571353;
+	b=oW8iSLYHE0RKicn81PmAsV5cCAEv8WwZOusDQqRHNE40T2YzSan5GIP5h6KI4lJAQKKg
+	 JGwqg2qhKbCU/30PkOfQqCuJNMqCXHFVP19NXh7SSeWoZioTWI26kHLMl+ay673haxBLX
+	 voNRHaor1zkHCpeolyz8yVFUgQaBgRCi7+90CI0S2Tcn6woBHpmAP/hDSA65QPhW3pbqD
+	 8pIUImkSe1WflEEiSVxzGFj4rzL1q9sUQDPbu+W9BPPMf1KncKeBksVe3ch6PbCnme/BN
+	 fi/t+nlZV3SNrz6qEny2i9z4lK0J6/YfQSQOUZUgghA6Qio9sh3AdaDWt/CfO5kyf6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571153;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=O1xTtR8bYZgc9ttKCOcN7tWHfrNZC+O68gXNav3eZMg=;
-	b=gEg9aBjNV5F2/0Jzp5M1KGz78Gw8AFYF0qdpPhKmS0bKwyYPT1DspniQ095eP667N1Lb
-	 e45/WgGtAljhMgBIaX/xJ8LpuffAOgpPWA3WuIsxKZRkKvBvvdX6GKHks/4hYT69BtnTt
-	 d2A4N1e/9dxQnQ8QrKdH9KqooKlcnLi9mUq2Dmr94XX8G9fCG6M6GK8wlekK9XPZk8M0C
-	 pr2VPfN+jkMj+l48BuFd8B2mZ2uzW7kJ1slmXABYuI779Ajx7lc257Ksi5GPunhNClkSo
-	 Mop3YvajbEbIyT1sYLZttykt81Am3yyaly9lA7Rwaj7DRmAoZi+LkukPoIlnk0caMnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571353;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dzHxCP/qlD9U2Pnz2CYx8W1+O2sBTItyxz8i84HwCSk=;
+	b=J5Pv9jkEBsdwo1+gE9cuv8m0UwJKvhBAkpiQknFKEvkBa8/+N/JcoSIHcONoQxGQ8fCb
+	 0Q6qZCYKTmclS7MjYZBk1MbC4Ud75HAPrk2R22+6hNPD3MePpJ7r082SxJOv7dufXhJBF
+	 6D7WasSNbsPBXZUoZ6Gm5qkq1IpfqdTCIbs2Ter5EJZjKjNOI4lOr9l8aSL0svHzZjRcr
+	 GBgedxby3lgj2odDqgo1gLNbfe2VenF1tO27Dj5mKbULRLUDbjmyWliJHFqgLRJKHbBY9
+	 m/WHLtS8s1aADP7Iamdi5d0Y0vIoKWMvud8/uR6zAYwMcP8s/S0rI1/REAjtxxhclAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.de;
-	spf=pass smtp.mailfrom=amazon.de;
-	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=T5GPnble;
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=i5d2cbhq;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4232C606A326;
-	Sun,  1 Nov 2026 22:12:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4232C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D58760A2603;
+	Sun,  1 Nov 2026 22:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D58760A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=T5GPnble
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1793571153; x=1825107153;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=O1xTtR8bYZgc9ttKCOcN7tWHfrNZC+O68gXNav3eZMg=;
-  b=T5GPnbledqpuAqSGV2CG64tuhs/dth6/0M6je66HX2rgpX2J/zCMCqD5
-   ZuR87SZMJD0p5KF/tgEP3wWEPwfTGN+OvuCumI68y+5wvpB/XHN2QyCLr
-   WNyYGdwe502OnLjH4+Uegis4JX3wa/yjOdtZvqh9bp3bZ9GzpY9RbPqMD
-   CX69vookRtBZtD97lNCvtnLNUdu8x5NbGRtiqnuQH8JVXLVDY3qKOLAkp
-   e/UpaoNs2AEmL6Ixqvgd3yhHhAiechATFlQp6/rM3Ij/QxIJxeo0E5cKK
-   /WjqtrL52Q6ge5imkX4XO0B+q2KE0q9eTfYDGVjb5M3ptObJ0l4EGJMOs
-   A==;
-X-CSE-ConnectionGUID: 0ho+LU4oR2WGGz7NnctnkA==
-X-CSE-MsgGUID: xOBQIBMTQxGYPYUKY6Ck6Q==
-X-IronPort-AV: E=Sophos;i="6.27,190,1787011200"; 
-   d="scan'208";a="32853302"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 22:12:30 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:23905]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.65:2525] with esmtp (Farcaster)
- id aa741cc0-9725-44bf-b19c-348e2cc752b1; Sun, 1 Nov 2026 22:12:30 +0000 (UTC)
-X-Farcaster-Flow-ID: aa741cc0-9725-44bf-b19c-348e2cc752b1
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sun, 1 Nov 2026 22:12:29 +0000
-Received: from dev-dsk-araoof-1b-23e02486.eu-west-1.amazon.com (10.253.65.187)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sun, 1 Nov 2026 22:12:27 +0000
-From: Ahmed Abdelraoof <araoof@amazon.de>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
- Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, "K
- Prateek Nayak" <kprateek.nayak@amd.com>, "Vineeth Pillai (Microsoft)"
-	<vineethrp@gmail.com>, Josh Don <joshdon@google.com>
-CC: Ahmed Abdelraoof <araoof@amazon.com>, <stable@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH] sched/core: keep offline cpus out of core-wide selections
-Date: Sun, 1 Nov 2026 22:12:18 +0000
-Message-ID: <20261101221219.118052-1-araoof@amazon.de>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=i5d2cbhq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=dzHxCP/qlD9U2Pnz2CYx8W1+O2sBTItyxz8i84HwCSk=; b=i5d2cbhq02cEiFA3UdTTb0AY1q
+	0Llb1mDrR9x6zaFxdqunHTec4sA/W7RR35xBlTxiCxWNWNQUelPcrb1tLVsF3SeGx3X9bz2xNs1TZ
+	Zkdel6DtXGM7lZY2KHBfo6GFDnpL9g6BiGJowo3OpMVTkigQYTM7Adk/lUt+LfRNz1Ecp0bYTX5rp
+	7lDyco/nl2rP+NQ9+x6P+g5M+EtCyeiK9WFEJ5wHkMjsYG+ZDr0Trs4uFRtFt1tfItfZM5BlIii6w
+	NJvou2MDY7gErqc76cmtcrL5KTlHRWB6age/1B2K+E4fPisTdpNHTIU8pay0J8IDW8iX6s0QRbUkL
+	ZB3f15ag==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Ondrej Jirman <megi@xff.cz>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+Date: Sun,  1 Nov 2026 23:15:29 +0100
+Message-ID: <179357131393.4107717.8550224711242554057.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908111908.19371-1-royalnet026@gmail.com>
+References: <20260908111908.19371-1-royalnet026@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,99 +70,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Ahmed Abdelraoof <araoof@amazon.com>
 
-During CPU hotplug in start_secondary(), the incoming CPU joins the
-core-scheduling sibling sets by calling set_cpu_sibling_map() from
-ap_starting(). Next, it runs notify_cpu_starting(), where
-sched_core_cpu_starting() points the CPU's rq->core at the group's
-leader. Finally, the CPU is set online via set_cpu_online().
+On Tue, 08 Sep 2026 13:19:08 +0200, Igor Paunovic wrote:
+> The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
+> to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 for this
+> pin; the mainline board file uses RK_PB0, which does not carry the RTC
+> interrupt on this board.
+> 
+> As a result the alarm interrupt never reaches the SoC, so the RTC alarm
+> cannot be used as a wakeup source on this board.
+> 
+> [...]
 
-This creates a narrow race leading to potentially silent corruptions: an
-online CPU o performs a core-wide selection via pick_next_task() and
-encounters an incoming CPU i that has joined the sibling set but has not
-yet pointed its rq->core at the group's leader. o calls pick_task() on
-i's runqueue and sets i's rq->core_pick while holding only o's rq lock,
-which is not the lock serializing i's runqueue.
+Applied, thanks!
 
-The same window has another ordering that leads to crashes. o can
-complete the first walk of the sibling set before i joins it, leaving
-i's rq->core_pick NULL. If set_cpu_sibling_map() then publishes i
-before o starts the second walk, that walk visits i, reads the NULL
-rq->core_pick and passes it to cookie_equals(), which dereferences
-it, leading to crashes.
+[1/1] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+      commit: dc963c9ec182ec24f0b10f11fe377db00528f7a8
 
-Skip offline CPUs during the initial core-wide pick. Use the resulting
-non-NULL rq->core_pick values to identify participants in the later
-passes as online mask can change between walks.
-
-Opportunistically also, exclude offline CPUs from the single-pass
-forced-idle accounting.
-
-Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
-Fixes: bc9ffef31bf5 ("sched/core: Simplify core-wide task selection")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ahmed Abdelraoof <araoof@amazon.com>
----
- kernel/sched/core.c       | 12 ++++++++++++
- kernel/sched/core_sched.c |  2 +-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index d7c3b43158de..f55f6a0befcc 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -6413,6 +6413,9 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	 */
- 	max = NULL;
- 	for_each_cpu_wrap(i, smt_mask, cpu) {
-+		if (!cpu_online(i))
-+			continue;
-+
- 		rq_i = cpu_rq(i);
- 
- 		/*
-@@ -6448,6 +6451,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
- 	for_each_cpu(i, smt_mask) {
- 		rq_i = cpu_rq(i);
- 		p = rq_i->core_pick;
-+		if (!p)
-+			continue;
- 
- 		if (!cookie_equals(p, cookie)) {
- 			p = NULL;
-@@ -6760,6 +6765,13 @@ static inline void sched_core_cpu_dying(unsigned int cpu)
- 
- 	if (rq->core != rq)
- 		rq->core = rq;
-+
-+	/*
-+	 * Core-wide selections skip offline siblings and rely on a NULL
-+	 * core_pick to tell them apart from participants.
-+	 */
-+	rq->core_pick = NULL;
-+	rq->core_dl_server = NULL;
- }
- 
- #else /* !CONFIG_SCHED_CORE: */
-diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
-index 43e0bde3038e..1efde88da76e 100644
---- a/kernel/sched/core_sched.c
-+++ b/kernel/sched/core_sched.c
-@@ -273,7 +273,7 @@ void __sched_core_account_forceidle(struct rq *rq)
- 		delta = div_u64(delta, rq->core->core_forceidle_occupation);
- 	}
- 
--	for_each_cpu(i, smt_mask) {
-+	for_each_cpu_and(i, smt_mask, cpu_online_mask) {
- 		rq_i = cpu_rq(i);
- 		p = rq_i->core_pick ?: rq_i->curr;
- 
+Best regards,
 -- 
-2.47.3
-
+Heiko Stuebner <heiko@sntech.de>
