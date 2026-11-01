@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793530658;
-	b=lo5Yd/qnpxKwdq/F5k1xEtXqJPiewdZ4Ziyp51Iw7PGWFn0kIG0pabvve5hBTCOaUO+V
-	 IAvkECku5rd8lOwAR/9ITncWE1nV3MrzOF0qA+c4N3UH3DZl+JIwmVf3p8QIvDTTMThvO
-	 Nw/YKm4CCvKbQYTlCXT/FtAgFbumLP3eQWUpj5gruIOmkCHI14WHSctVkDd6t6x2IfkE1
-	 XiSSV6slgzojMEQsx3MNN+VIemXW8Zo2zAj1HfOzXL5d9LVmrBybQeymOhD7Qp5/fMZOn
-	 RC0zREJT9M9lJZfZ3bm8htHhcqeg55jTKw7N8mG+fmh854zCRxo6gDgunzCWPnov9bw==
+	t=1793530660;
+	b=hC1Q9eo5KvYh+HBujdYUVa1PsbBYMgI5sUGc/j6clV5OWKaH7oeiT/0xhPsohu8vznzM
+	 3ScgyjaqbC041tYZT8CC7/J+co+iEXlVP57Uv9Pleye1+7uAx5Kv/iCTnJgfg3rifR7Ji
+	 zPDqKtK3PTjc6KK/rNS0kgnbd3YjD6YMcaA4UCIeomGrU+ydKpHSkSWumxiVysD0FnmHD
+	 vQZGApSHOv1U03NonAO/ANFwPtx/CsL6KMF9CBJrdlb+fuB4MEZAr73jo2ftdE1HIvIKN
+	 rmcKdcwvGgsg7IgIG0vy4Dj4QtwE+zqXL87nZGDBXvu3T96MAh0w/Xymd+9qZY2qxfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793530658;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Sg22FFzQle62bHhfMwPNo5Hy5ytXL6aSon5hd35zBMM=;
-	b=NB1veJr7jyPIVUAUaZ+qD41P5EGpl4k+wLiY7KIAGCSKZjcYi1qWjAonax48bnjdhAD6
-	 OcrOj5vZsGe8NviIhMUJv+m7ZTTs1xgWkgmqyTw4m6c+hsfMDSeIWjrxM3gS1xlxPGvyB
-	 60DH3vtghn4nchwJVSQcSLx1kT3r+5lQ7Fes2+Hf6tAHv22j1X7J3Lx3zDpjUUXuFSI7k
-	 OrXt4p2QIK6v6IxdR3uODEMsDiLjNunZ3Jy6I9vPYy7ZrMgkaprqSn+wNDJns999fFHbL
-	 K4wQx7aQJ3dvfiDx3WZXV00qaK0MmnT/etOHhyIhsoWF17Lv8+EdUhkfh09yCCndT+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793530660;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=CaNbPm8GSlwcuwEQUeWdr27EY5F5E2f3iKAah0Gmz8U=;
+	b=22jNYfBqIAK86wH11NCH/afxguYBTAgweYNIBxIvipSlLQazEZIs3+xaXplDx2H24mcv
+	 mcJIvvKFZgEYOAJ4V0cSH1FEAjayqaBzdA2vgku/ZWch13sG3jFRF33pTqNB8EGV6VHpr
+	 6PBCRnjQu0I+vzo/ucFHyLKuY73Cd6mEraJpn8CcMU4PvPZHeMuEAFkcpe6fvg4oV3mVX
+	 q765fpdTGkUP/3gPWJpC1n3VKmk5X8XQUTbq/x9ZG9I8vhhCDS6eO/hTCkrSiDaXS7DMN
+	 YWaIcLjZICdNAopxdWpX5ALuKGZr6iM2g9ZtPcmjPwB1HHLLdW2AblWQ5u7NT/6uDCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbPd7j05;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMGqDiqX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AA6A606A325;
-	Sun,  1 Nov 2026 10:57:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3973606A325;
+	Sun,  1 Nov 2026 10:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbPd7j05
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9891F000C1;
-	Sun,  1 Nov 2026 10:57:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMGqDiqX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 226311F00919;
+	Sun,  1 Nov 2026 10:57:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793530657;
-	bh=Sg22FFzQle62bHhfMwPNo5Hy5ytXL6aSon5hd35zBMM=;
-	h=From:Subject:Date:To:Cc;
-	b=BbPd7j05qv9DXwXTyXLKH5d+RigaVxQHQMQ0bv9xYERLvTQQSg+bme+ny8/CLC/Y9
-	 d2AJWOOUTNfAnMCUewG7n1WpXY3iviLVYCioRlqmHNYEIJ0lMrrG0y+D50HKtGU45E
-	 pNhC4MHldg3qJspBn+xJ7JIGm9w5wvSPIEvQgbmosxAGvSn8gF84vTJ0ZI9f9jq3Ck
-	 t5u1J8OON6rO+3H54gH26CBzXpVt2SsKTJOpEhHivZ/cIm9aMURS+sikvsVTWzr9kk
-	 TFLigsWRajfKMSEyH9jVbdP4T8AQCKBNakSdK4leiH4NpszSvQxt40sJLNmGLnr46f
-	 Gegyem1OJWIcA==
+	s=k20260515; t=1793530659;
+	bh=CaNbPm8GSlwcuwEQUeWdr27EY5F5E2f3iKAah0Gmz8U=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=lMGqDiqXQuXH0k0dCXtjpgPN5dVNAO4HbpcAOxrOH85vU+oq8SNkUcmbjsrdXg9ju
+	 nlLaFnPfTTSVCJzsE8qiYB17EVL41CuuFLE5PdB1xTMIr2feHmLcfqSTCyLMYQqlyJ
+	 /CDAZ/F1aTPXIy/YveLNaCZywAQNcO9ocTbC67ExfxquLTLoWs7QJGoVBI4GjvJdxf
+	 QPA27ngILYClU90K9vM9xvQDNlZbz0rjnIbtyqmoOuVYcxZjN1iWAkopr42NBcllEB
+	 7c5jRHklOzZSMVGhl27o+KwfaixPBUmyIVNnuu2ApptngIOH1Ae2DlTUTcc+fq/uGy
+	 uA3Q/RE5h41/w==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH v2 0/3] libfs: fix readdir of offset directories
-Date: Sun, 01 Nov 2026 11:57:19 +0100
-Message-Id: <20261101-work-libfs-offset_readdir-v2-0-c621125b56d1@kernel.org>
+Date: Sun, 01 Nov 2026 11:57:20 +0100
+Subject: [PATCH v2 1/3] libfs: make i_rwsem the lock of the offset tree
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,70 +54,195 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OWw6CMBBFt0L6bUkfBNQv92GIoXQKFdOaGUQNY
- e9S2ICfZ+bekzszAvRA7JzNDGHy5GNYQR0y1vZN6IB7uzJTQpVSaMHfEQf+8MYRj84RjDeExlq
- P/Cgqq01VFaoUbO0/EZz/bO5rvTO9zB3aMQlTwjQE3GAT2j6dJkf53lh/vacx4ncbNsnk+GfDJ
- LnkYCutW1kodYLLABjgkUfsWL0syw8BigNB8QAAAA==
-X-Change-ID: 20261030-work-libfs-offset_readdir-807d3b774260
+Message-Id: <20261101-work-libfs-offset_readdir-v2-1-c621125b56d1@kernel.org>
+References: <20261101-work-libfs-offset_readdir-v2-0-c621125b56d1@kernel.org>
+In-Reply-To: <20261101-work-libfs-offset_readdir-v2-0-c621125b56d1@kernel.org>
 To: Chuck Lever <cel@kernel.org>, linux-fsdevel@vger.kernel.org
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org, 
- Nickolai Zeldovich <nickolai@csail.mit.edu>
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2304; i=brauner@kernel.org;
- h=from:subject:message-id; bh=2/A8ggTd1QAYPPBcgoigIM2jvlPvMi9eZnCLEoLzb9I=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9l5YNKHtzRDD7zLSaiucrr8Y78v3fuUfv0fbY8pkre
- KODtHWWd5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzkvADD/7qEqRdm1NwK55q4
- 2rksutggpMBgmYzLys7+es1nya/DeRkZDqs7b29eYBj7bq1uv4fcww8CnmfO+TxdyL5g5evNGaU
- ZXAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6479; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=l8quPRz6awv7vGP6uW0Cn/ymAyGI7LYomrzn8h0G4p4=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ9l5aN3FvGYnLlxKSo+l1zO7a8jqifXz59xeQ243V7H
+ y+LuLNne0cpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBFVBgZWlx+LEzcNV39T+CF
+ +G0fvYv3dS95GSXzMPuT+XL7T4FOMxl+s789mntRabvI/RabaWI3NvXertz43coq8f2tXQ1b90s
+ mMAEA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-readdir on tmpfs walks d_children and only uses the offset tree to map
-the file position back to a dentry. d_children and offset order
-disagree after a rename over a name, an exchange or a wrap of the
-offset allocator. An unlink between two getdents64() calls then makes
-the walk skip entries or return the whole directory again. So walk the
-offset tree itself in descending offset order.
+The offset tree of a directory is only changed with the directory's
+i_rwsem held exclusive and offset_readdir() walks it with i_rwsem held
+shared. But the maple tree doesn't know that. It is set up with its
+internal spinlock, which every mtree_*() helper takes, and readdir takes
+rcu_read_lock() around each lookup.
 
-v1 did that with a full tree descent and a reference for every entry
-and was quite a bit slower. Now the walk keeps one ma_state for the
-whole call and takes no references at all. That relies on all writers
-holding i_rwsem exclusive while readdir holds it shared, and the maple
-tree only allows that if i_rwsem is the lock of the tree. The first
-patch makes it so, and lockdep now checks the writers. The last patch
-stops an lseek() past the end from returning the whole directory again.
+The next patch makes readdir keep one ma_state across dir_emit(), which
+can sleep. That is safe because no writer can run while readdir holds
+i_rwsem. But the maple tree only allows keeping a ma_state across a
+sleep if it is protected by the tree's lock. A reader that relies on
+rcu_read_lock() has to mas_pause() before it drops it, and that means a
+walk from the root for every entry again.
 
-1M entries on tmpfs, getdents64() with a 32k buffer: 146ms before,
-about 230ms with v1, 114ms now. Four processes listing the directory at
-the same time: 470ms per listing before, 113ms now.
+So tell the tree what protects it. Initialize it with
+MT_FLAGS_LOCK_EXTERN and the directory's i_rwsem as its lock and switch
+the writers from the mtree_*() helpers to the mas_*() api. They all run
+with i_rwsem held exclusive already. With lockdep enabled the maple tree
+now also checks that every writer holds i_rwsem exclusive.
 
-Tested with Nickolai's reproducer, generic/736 and a seek-after-closedir
-test, on tmpfs and on tmpfs exported over NFSv3 and NFSv4.2, on KASAN
-and lockdep kernels. I also wrote a TLA+ model of the walk (cf. [1]).
+Nothing can reach the offset tree anymore when the directory inode is
+destroyed. So clear the external lock with mt_on_stack() and destroy the
+tree with __mt_destroy() instead of taking i_rwsem in ->destroy_inode().
 
-[1]: https://github.com/brauner/linux-formal/tree/main/kernel/libfs/offset-readdir
-
+Cc: stable@vger.kernel.org # v6.14+
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Changes in v2:
-- Make i_rwsem the lock of the offset tree.
-- Keep one ma_state across the walk and take no references (Chuck).
-- Don't return the whole directory again after an lseek() past
-  DIR_OFFSET_EOD.
-- Link to v1: https://patch.msgid.link/20261030-work-libfs-offset_readdir-v1-1-ed733c14229e@kernel.org
+ fs/libfs.c         | 46 +++++++++++++++++++++++++++++-----------------
+ include/linux/fs.h |  2 +-
+ mm/shmem.c         |  2 +-
+ 3 files changed, 31 insertions(+), 19 deletions(-)
 
----
-Christian Brauner (3):
-      libfs: make i_rwsem the lock of the offset tree
-      libfs: walk offset directories in offset order
-      libfs: end offset readdir at positions past DIR_OFFSET_EOD
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 96a6e9b1535f..653ee8461a8f 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -263,17 +263,18 @@ static long dentry2offset(struct dentry *dentry)
+ 	return (long)dentry->d_fsdata;
+ }
+ 
+-static struct lock_class_key simple_offset_lock_class;
+-
+ /**
+  * simple_offset_init - initialize an offset_ctx
+  * @octx: directory offset map to be initialized
++ * @dir: the directory @octx belongs to
+  *
++ * The directory's i_rwsem is the lock of the offset map. Writers hold it
++ * exclusive, offset_readdir() holds it shared.
+  */
+-void simple_offset_init(struct offset_ctx *octx)
++void simple_offset_init(struct offset_ctx *octx, struct inode *dir)
+ {
+-	mt_init_flags(&octx->mt, MT_FLAGS_ALLOC_RANGE);
+-	lockdep_set_class(&octx->mt.ma_lock, &simple_offset_lock_class);
++	mt_init_flags(&octx->mt, MT_FLAGS_ALLOC_RANGE | MT_FLAGS_LOCK_EXTERN);
++	mt_set_external_lock(&octx->mt, &dir->i_rwsem);
+ 	octx->next_offset = DIR_OFFSET_MIN;
+ }
+ 
+@@ -290,12 +291,13 @@ int simple_offset_add(struct offset_ctx *octx, struct dentry *dentry)
+ 	unsigned long offset;
+ 	int ret;
+ 
++	MA_STATE(mas, &octx->mt, 0, 0);
++
+ 	if (dentry2offset(dentry) != 0)
+ 		return -EBUSY;
+ 
+-	ret = mtree_alloc_cyclic(&octx->mt, &offset, dentry, DIR_OFFSET_MIN,
+-				 DIR_OFFSET_MAX, &octx->next_offset,
+-				 GFP_KERNEL);
++	ret = mas_alloc_cyclic(&mas, &offset, dentry, DIR_OFFSET_MIN,
++			       DIR_OFFSET_MAX, &octx->next_offset, GFP_KERNEL);
+ 	if (unlikely(ret < 0))
+ 		return ret == -EBUSY ? -ENOSPC : ret;
+ 
+@@ -308,7 +310,9 @@ static int simple_offset_replace(struct offset_ctx *octx, struct dentry *dentry,
+ {
+ 	int ret;
+ 
+-	ret = mtree_store(&octx->mt, offset, dentry, GFP_KERNEL);
++	MA_STATE(mas, &octx->mt, offset, offset);
++
++	ret = mas_store_gfp(&mas, dentry, GFP_KERNEL);
+ 	if (ret)
+ 		return ret;
+ 	offset_set(dentry, offset);
+@@ -323,13 +327,14 @@ static int simple_offset_replace(struct offset_ctx *octx, struct dentry *dentry,
+  */
+ void simple_offset_remove(struct offset_ctx *octx, struct dentry *dentry)
+ {
+-	long offset;
++	long offset = dentry2offset(dentry);
++
++	MA_STATE(mas, &octx->mt, offset, offset);
+ 
+-	offset = dentry2offset(dentry);
+ 	if (offset == 0)
+ 		return;
+ 
+-	mtree_erase(&octx->mt, offset);
++	mas_erase(&mas);
+ 	offset_set(dentry, 0);
+ }
+ 
+@@ -387,16 +392,20 @@ int simple_offset_rename_exchange(struct inode *old_dir,
+ 	long new_index = dentry2offset(new_dentry);
+ 	int ret;
+ 
++	MA_STATE(old_mas, &old_ctx->mt, old_index, old_index);
++	MA_STATE(new_mas, &new_ctx->mt, new_index, new_index);
++
+ 	if (WARN_ON(!old_index || !new_index))
+ 		return -EINVAL;
+ 
+-	ret = mtree_store(&new_ctx->mt, new_index, old_dentry, GFP_KERNEL);
++	ret = mas_store_gfp(&new_mas, old_dentry, GFP_KERNEL);
+ 	if (WARN_ON(ret))
+ 		return ret;
+ 
+-	ret = mtree_store(&old_ctx->mt, old_index, new_dentry, GFP_KERNEL);
++	ret = mas_store_gfp(&old_mas, new_dentry, GFP_KERNEL);
+ 	if (WARN_ON(ret)) {
+-		mtree_store(&new_ctx->mt, new_index, new_dentry, GFP_KERNEL);
++		mas_set(&new_mas, new_index);
++		mas_store_gfp(&new_mas, new_dentry, GFP_KERNEL);
+ 		return ret;
+ 	}
+ 
+@@ -411,11 +420,14 @@ int simple_offset_rename_exchange(struct inode *old_dir,
+  * @octx: directory offset ctx that is about to be destroyed
+  *
+  * During fs teardown (eg. umount), a directory's offset map might still
+- * contain entries. xa_destroy() cleans out anything that remains.
++ * contain entries. __mt_destroy() cleans out anything that remains.
++ * Nothing can reach the map of a directory that is being destroyed, so
++ * this runs without the directory's i_rwsem.
+  */
+ void simple_offset_destroy(struct offset_ctx *octx)
+ {
+-	mtree_destroy(&octx->mt);
++	mt_on_stack(octx->mt);
++	__mt_destroy(&octx->mt);
+ }
+ 
+ /**
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index b5485f2c1f2b..a2046718e839 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -3330,7 +3330,7 @@ struct offset_ctx {
+ 	unsigned long		next_offset;
+ };
+ 
+-void simple_offset_init(struct offset_ctx *octx);
++void simple_offset_init(struct offset_ctx *octx, struct inode *dir);
+ int simple_offset_add(struct offset_ctx *octx, struct dentry *dentry);
+ void simple_offset_remove(struct offset_ctx *octx, struct dentry *dentry);
+ void simple_offset_rename(struct inode *old_dir, struct dentry *old_dentry,
+diff --git a/mm/shmem.c b/mm/shmem.c
+index 0d891ade18b5..24e2b9510c7c 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -3089,7 +3089,7 @@ static struct inode *__shmem_get_inode(const struct mnt_idmap *idmap,
+ 		inode->i_size = 2 * BOGO_DIRENT_SIZE;
+ 		inode->i_op = &shmem_dir_inode_operations;
+ 		inode->i_fop = &simple_offset_dir_operations;
+-		simple_offset_init(shmem_get_offset_ctx(inode));
++		simple_offset_init(shmem_get_offset_ctx(inode), inode);
+ 		break;
+ 	case S_IFLNK:
+ 		/*
 
- fs/libfs.c         | 133 +++++++++++++++++++++--------------------------------
- include/linux/fs.h |   2 +-
- mm/shmem.c         |   2 +-
- 3 files changed, 54 insertions(+), 83 deletions(-)
----
-base-commit: b44341e39d856e4cc6ad8ed94ebffd440f39846c
-change-id: 20261030-work-libfs-offset_readdir-807d3b774260
+-- 
+2.53.0
 
