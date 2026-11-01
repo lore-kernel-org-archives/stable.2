@@ -1,72 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793519589;
-	b=OfZXin38OC5uPBFus8JibvG+mCvrjdaPhOdMBVihXczR/Bs3aSdeUwW717tjDUjKfbwa
-	 fe+E5X97LbZVXeBM4xRM0u5E/fXyTneCxRe/3zOosumUEa9/xyPg+ZJv0iABU1XohSuYk
-	 zRHOvdnl9WoyHsYVoT+xyROnKvdg8k4Wn6kYZyGy5syx/N34spvYuFhFpiUe4ZSb0NJZC
-	 2pXXIfPrpiZlUb7pDLTVKlja1YcephXJqIvP1sItsjpYn07UojAo9J+vy6hX/agfS02hu
-	 QUUAiab9W7jzovRES8iRHr5JsISuukprl9fHRNe9Kb3QB40SNIFlsKZ4dzpadxZJdEA==
+	t=1793521068;
+	b=Hv8/jbtkK5XPME5LyGbpZciR/Be1hYFDZpu3sFTc6ypb16vq3Jf26154RPZC0zH31n+u
+	 o6mvRRhsCzmx95yfh+ehw3YyIVySww41dJaXtd55vxXf/F49XIpM6Ib6WBNFHI7wiRmTG
+	 8sHaAvJTITZPVSxMeQjNA1yumtDNCR/m3FarAURJgcLuyTHV2X27Fk7G83Gygc3b2bQZ3
+	 GOK49FucTh32lga+4OKhSJhnCaJhdjkAQtDKjq8KsOuf2AL9yLvOz4Wz++U4rXo4P4QHu
+	 qr6uv3/iT5kmqAUtZv5z1vKI5AtoqkLxwrwq434BDBTgKAUkQh3Bl2YhUPim6nvf4kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793519589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521068;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=OuHPb5BnUNYHQ7S5xQzTpeXYGXd1c8j2VbkTuL8vhYQ=;
-	b=pMhpokif3v7mCuSWFIsS8YawBVigAseaJMVJoL87s1C3kpCsJoTQhtKgG1u+PZqRl8vv
-	 d9ukptWRDOzZF+WA7qLM/K9gAgC855gawob2zX7RFj+TaUkfI8lotW7i/Ej6YGBV+jjOO
-	 LNS04G1gJ0TVloKLzF96wJndMM6DM5VSBNirckGwE+lJ3+lPNT+pTV9TW9H2AkXhWB2p2
-	 /WljxgEBOj8HYVopY6WU9NFMKhvC+XBYKbvfkUkVQchWiez/I3dgzlc+RSKoARWL6uhrI
-	 7VxVl3vXPoFUWkS2J/nIklD4JGolohRAlOTQINnOJCfEAVrURnUiOLihHZQTStdheMw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PquNKABWi0C6tGTol3B3b6YxtKfoZjVRBFpfFj8hv80=;
+	b=UK90VQdJUNYeTc8uJjbqF8GRrd70ncX3V4d6A8fQDASC5ePY4PWtXcvadbTVw8o8tF1+
+	 EFebw+UlpFj/oauwCiI+lUlPaDmSUxqTtAR0oX1E6xPZEzTykriH8NVOtv1QAZPjY0jZa
+	 5z1XSCrCfOlcAcXVrWySD13Vt7cmsjUYJpHp+wEHvuDJwzMv0+gRVqrchEF8RjQ8FhQQG
+	 ibJIW5SFonrbXW/ET1L+4Iv1grO5i3CYdujhcca/g2tURWrPU7iqCnDO2sXUAni6vn7cD
+	 su/70BCInoYmq7XtDq1hS8kgMbJm4e7aht44BDLoR/AOBNGYAYQtjDFQMqi8M2D2PPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sgzhang.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=T5AkWNou;
-	arc=none smtp.remote-ip=209.85.216.71
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=guLijxjT;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D469E606A326
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 07:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D469E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgzhang.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3D4606A326
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 08:17:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C3D4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=T5AkWNou
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so2886054a91.3
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 00:53:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=guLijxjT
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so1136436a91.1
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 01:17:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793519588; x=1794124388; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OuHPb5BnUNYHQ7S5xQzTpeXYGXd1c8j2VbkTuL8vhYQ=;
-        b=T5AkWNouwodDcP4IB/ERF7vG+QYJ998+5MCCQmxB2ZGHS6tXoBOmjNdbUv4FKUM3D8
-         5G9NLLyDQG6+I012g77byWxcIe8w/De1g73KAmFICtWBcN9KWmo2OdD/hIbLa+Ne/jOk
-         AJSqikeX4CCx8IdCyajGJtTV3oTlRy0n1qKC4anRFY7SIjLn5gqpXxd2kdP+9hkYtUTl
-         u9ej/hvWYRPxNSYs68mx0GJHBlMnhiR55cTBh9Jzuo25vW//NasU389GrAw3mbg6WHFu
-         btuISQbbuZVbuJWDosHDCU+vQaOQ5GD5S/ZGTVeIP2ybT7hvxC4Vmg/VNIIGLeyoesXX
-         0CkQ==
+        d=gmail.com; s=20260707; t=1793521067; x=1794125867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PquNKABWi0C6tGTol3B3b6YxtKfoZjVRBFpfFj8hv80=;
+        b=guLijxjTMJ66lfe8n6JMhPGpbFDCjjgWc1gp+wR2hHlNR2BFETzJHyZvtojeB4V0ap
+         Qgwr4Nvp8zeubBiwsErHaPxQ1dx7Kc7iHSxjfoPrKEWUZsMzEYzwxmPsEtixyD/TD4du
+         bbF6dCwa5HSE96wTUvihfcqYutieQhyyGuWmo3VZLWpubLCrtbKsz0pk19k16Avhp6fN
+         GIhlUnytDFwfQZ9K/HjeNscYCWHrrUx9rXrg/28tR/2dZ14Vc0ohkzEocbO5MD5IQvQ2
+         9w2oIAkyHdT4HMU1jnxuj+bLqxrxjRCVVkkNINuzWr877xU+8FfrXRogVQuqZYziny95
+         /+Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793519588; x=1794124388;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OuHPb5BnUNYHQ7S5xQzTpeXYGXd1c8j2VbkTuL8vhYQ=;
-        b=nbZxNZOMuHtcUglEL1ep/q4mk6RcdizHUFCDVLAevQhES0TvQ3WAivEhzf7aeYza8J
-         H2Ogh+DXSYWk9snXLrxMRVwe5AnYDKa00go2j82vOrL3xEompVuT/Bq9zVXiHE9WBqAk
-         fsNryXhlGNcd6l7AuvTyXdIJIXS0FUeupAHbGeo3jZYyGV3YT38W4ZfVTT76gPIu3K+P
-         4ccxM66aOM6o9fg/VwihRNzFJ3/3KDAPLuanljIzgHUS5tbSunOxYOSBMXN5czdb8WiC
-         Mf5tA8plU80K4cXV+ZwNMWBTKsomQHARgHcqcIjBq5Tjm9cRKTP8GNLHwxS9ZYwP8QiC
-         X8SA==
-X-Forwarded-Encrypted: i=1; AKwUvByj/NRc52IV45hhMZYXEJwxUKpHqwoyuuHXHHvphScSt+t8WYW5neGeRgO1EqOOJXC3fBu4fYE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LmJPZD+WBqkZOXJi23SZPmJGsw5odBP2sJQt7G/YWZjIlP1p2
-	ZKBGtK9NIA+qBm/QZ4gPqt6nd7B5U0iCyzge6qr/7AxOFF7syDYpk3VRjx6yGq7bzDLV8+lLDcV
-	KJ4Emsor52w==
-X-Received: from pjyt8.prod.google.com ([2002:a17:90a:e508:b0:3ae:7abe:56ae])
- (user=sgzhang job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e70c:b0:3ab:2737:3393
- with SMTP id 98e67ed59e1d1-3ae89835d94mr5728121a91.40.1793519587822; Sun, 01
- Nov 2026 00:53:07 -0700 (PDT)
-Date: Sun,  1 Nov 2026 00:51:45 -0700
+        d=1e100.net; s=20260707; t=1793521067; x=1794125867;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PquNKABWi0C6tGTol3B3b6YxtKfoZjVRBFpfFj8hv80=;
+        b=c/K+5MYRcJk2rXpMRgqI9GPfI+WwKJtSql7IbfWHFGE1cXgNISj+ebzswJ0EmhndrV
+         1bmrJrFzD22g8IYB0TtyC04wGTO1OHQxDJFZ5HCjeuFG/ZCBXnCN38nJfJ3mfuWtjDyc
+         Dni6yPn9xDzyDMR0wZamrk19DQ+/WSA65ObpfhvsujmOvv4wZzoWoI8gJIo90UTm3C0s
+         taZ4iHN98y/ph2nyBPfqc3JSoxIVPn2vFSgd/1AGbeP+1e2INfrNuDx/Wfh42WtZILjS
+         e5FZ9gxOMxkHlrPzzVZLkkX9AtRoFr0nX7bDPsE65sfU9PGWAAfscDymBQFIKQPH6W1O
+         UqAQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOeECcbx0/7Liqs8pLdjE9diIEUADG6NC4vfPq7miPpKRvDQzvqaMOWtn/hLqpIRIX+ct+i1U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jObqTfQsTX41jZDSsQB2jtS7+TcNsRV/XDjHpLUWVSClv1A7Z
+	CG7grB6eSBJI5hLwq/YuRg2HZwIgKuOsO6LDCRMO/EVQvu4shek+QH6s
+X-Gm-Gg: AYBFou3LC9sayBZgf65aM40/OZ0LtfhaUxyiUr3FCvCmvcSLhd6FHaDmAzCODxQtCxL
+	/yx4cp9Km+ngPiM+IDl3OJJTpACbIvaf5BlPJztzm/sOXyGJktYGiLxKKFIIsjwLg1y4183SKh1
+	fdX1wMxGjctz8FOp32k5/A6l8X3C7ldA4DUj+EoZge/vXaDwxYhI3b+q210gtEkJIuLffOBGQEI
+	bcdyDsBLVLLRXagT6h5a8K0ZYFcpbxEZ4NeH1KRxbA6X/gELg02nPgXqcaJ7tng/FGQug0ZleSV
+	kTB5joDWoV9ie4ZDCOMNlTy8iZjy5OYkRC5JbGkzox8rrn8iEqOlpoR88HwOogcr1f050tJATN0
+	/2mifKw4PAcLRTZ420aU8Vz4eAiIERdLG+rcdR1//lZ2/va+ZJRdkV0Fn8cxllRY+DXbPthBQ04
+	EO+IhdGvRIAv5ZpPPBV5FkRQ1li2KFOfx7+POUVSpgQZKjdI7/0dest5Rh9notxrqgI/cALIUT0
+	rI+vfR9DKWQLa2tFDjvpz+fC8idzENe1bWnHp+zWoMnQjTPgcuRvFtEGoOoyoDFBXyFz1amIdOL
+	XxplExNSreGgyX8qp+dL7Ve/RBdsVpdb43IaNJMdu7cl2uBYWx348EV6Ra3YbqjV5JLpHpf3Ay6
+	b4CNUKHiDydC8BppDR/ExCGm/
+X-Received: by 2002:a17:90b:53c7:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3ae89559e5emr3615666a91.5.1793521066862;
+        Sun, 01 Nov 2026 01:17:46 -0700 (PDT)
+Received: from LDYT9Q2G2M ([2a09:bac5:cad2:3228::4ff:28])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84596e3bsm10011455a91.9.2026.11.01.01.17.43
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 01 Nov 2026 01:17:46 -0700 (PDT)
+From: Zhiqi Zhang <zhiqizhangg@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	kunit-dev@googlegroups.com,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Finke Lennart <lfinke@student.ethz.ch>,
+	netfilter-devel@vger.kernel.org,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] lib/ts_fsm: preserve token types when exporting patterns
+Date: Sun,  1 Nov 2026 16:17:35 +0800
+Message-ID: <20261101081736.51803-2-zhiqizhangg@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261101081736.51803-1-zhiqizhangg@gmail.com>
+References: <20261101081736.51803-1-zhiqizhangg@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,107 +104,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261101075145.698399-1-sgzhang@google.com>
-Subject: [PATCH net] net: count last skb of each sk_backlog pass in __release_sock()
-From: Ray Zhang <sgzhang@google.com>
-To: netdev@vger.kernel.org
-Cc: Eric Dumazet <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	David Decotigny <decot@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Ray Zhang <sgzhang@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Running 500 concurrent TCPv6 streams (neper "tcp_stream -6 -T 1 -F 500")
-on a 2-core Cortex-A53 (CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN)
-triggers resched_latency_warn() in __release_sock():
+Dumping and restoring a tc filter with an FSM text ematch can silently
+change which packets it matches, or fail to restore it with EINVAL. This
+happens when userspace reuses the pattern returned by RTM_GETTFILTER to
+configure another filter. Dumping alone does not change the live filter.
 
-  [ 3655.311821] sched: CPU 0 need_resched set for > 100006892 ns (100 ticks) without schedule
-  [ 3655.311889] Call trace:
-  ...
-  [ 3655.311944]  resched_latency_warn+0x7c/0x88
-  [ 3655.311958]  sched_tick+0x1c0/0x418
-  ...
-  [ 3655.312578]  net_rx_action+0x238/0x438
-  ...
-  [ 3655.312641]  do_softirq+0x4c/0x90
-  [ 3655.312651]  __local_bh_enable_ip+0x84/0x90
-  [ 3655.312663]  local_bh_enable+0x1c/0x28
-  [ 3655.312674]  __dev_queue_xmit+0x4a8/0xb00
-  ...
-  [ 3655.312782]  tcp_v6_do_rcv+0x240/0x5f8
-  [ 3655.312793]  __release_sock+0x9c/0x188
-  [ 3655.312806]  release_sock+0x150/0x168
-  [ 3655.312817]  tcp_sendmsg+0x4c/0x70
+fsm_init() replaces each public token type with an internal character-class
+mask, and fsm_get_pattern() returns that converted array. For example,
+TS_FSM_DIGIT (2) becomes the _D mask (4). Restoring the exported pattern
+interprets 4 as TS_FSM_PRINT. With a DIGIT/MULTI pattern, a rule that
+matched the UDP payload "7777" but rejected "AAAA" starts matching both
+after restoration. Other exported masks exceed TS_FSM_TYPE_MAX and are
+rejected with EINVAL.
 
-__release_sock() can loop past 100 ms without calling cond_resched():
+Keep the public token types in the configuration and look up their masks
+in match_token(). This preserves the exported representation without
+adding another pattern allocation. Initialization still validates every
+type before it can be used to index token_map. The extra lookup during
+character-class matching avoids storing a second copy of the pattern.
 
-- Each outer-loop pass drains sk_backlog, but "if (!skb) break;" runs
-  before "++nb", so a pass of B skbs only adds B - 1 to nb (0 for 1 skb).
-- With 500 TCPv6 streams and NAPI sharing two Cortex-A53 cores, runnable
-  tasks keep TIF_NEED_RESCHED set on CPU 0.
-- During spin_unlock_bh() and TX softirqs (__dev_queue_xmit() ->
-  local_bh_enable()), tcp_add_backlog() coalesces arriving pure ACKs into
-  a single tail skb.
-- Repeated 1-skb passes never advance nb or call cond_resched(),
-  triggering resched_latency_warn() after 100 ticks.
+I identified this issue. OpenAI Codex helped confirm it and drafted the
+fix and changelog. I reviewed the fix, built it and verified that the
+tests passed.
 
-Restore the do-while loop and drop "if (!skb) break;" so every skb
-increments nb across passes and calls cond_resched() every 16 skbs.
-
-Reproduced the issue and verified the fix on two 2-core Cortex-A53 hosts
-(CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN, latency_warn_once=0) with
-a userspace reproducer over /dev/net/tun:
-
-- CPU 0 runs a TCPv6 sender and a second runnable task while CPU 1 writes
-  pure ACKs to /dev/net/tun (~30k TCPBacklogCoalesce/run), sustaining
-  1-skb sk_backlog refills in __release_sock() for ~400 ms (ftrace).
-- Before: CPU 0 stayed unscheduled in __release_sock(), hitting
-  resched_latency_warn() 293 and 275 times on the two hosts (> 100.9 ms).
-- After: cond_resched() yielded CPU 0 inside __release_sock(), with
-  0 resched_latency_warn() hits on both hosts.
-- Also observed no regression with the workload from
-  commit 16c610162d1f ("net: call cond_resched() less often in
-  __release_sock()"), "super_netperf 4 -H srv -T,10 -l 3000 &".
-
-Fixes: 16c610162d1f ("net: call cond_resched() less often in __release_sock()")
+Fixes: 6408f79cce40 ("[LIB]: Naive finite state machine based textsearch")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ray Zhang <sgzhang@google.com>
+Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
 ---
- net/core/sock.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Changes in v2: describe the tc impact, split out the KUnit tests and add
+stable. The production code change is unchanged from v1.
 
-diff --git a/net/core/sock.c b/net/core/sock.c
-index e7405be8941f..e2401d735c5a 100644
---- a/net/core/sock.c
-+++ b/net/core/sock.c
-@@ -3333,7 +3333,7 @@ void __release_sock(struct sock *sk)
- 
- 		spin_unlock_bh(&sk->sk_lock.slock);
- 
--		while (1) {
-+		do {
- 			next = skb->next;
- 			prefetch(next);
- 			DEBUG_NET_WARN_ON_ONCE(skb_dst_is_noref(skb));
-@@ -3341,12 +3341,10 @@ void __release_sock(struct sock *sk)
- 			sk_backlog_rcv(sk, skb);
- 
- 			skb = next;
--			if (!skb)
--				break;
- 
- 			if (!(++nb & 15))
- 				cond_resched();
--		}
-+		} while (skb);
- 
- 		spin_lock_bh(&sk->sk_lock.slock);
- 	}
+Validation: updated KUnit tests change from 2/15 to 15/15 passing on ARM64
+GCC; ARM32 GCC and ARM64 Clang also pass. An isolated QEMU rtnetlink/UDP
+test demonstrates altered packet matching and EINVAL restoration before
+the fix, with both corrected afterwards. See the cover letter for details.
 
-base-commit: cb284914e749388eef402938bdb3115fe1f6d337
+An ARM64 userspace microbenchmark of the extracted matcher measured median
+paired slowdowns of about 1-5% for tested long character-class scans and
+13% for a one-byte rejection case with appreciable variability. This is
+not a measurement of in-kernel or packet throughput.
+
+ lib/ts_fsm.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/lib/ts_fsm.c b/lib/ts_fsm.c
+index 053615f4f..8725ea6f0 100644
+--- a/lib/ts_fsm.c
++++ b/lib/ts_fsm.c
+@@ -126,7 +126,7 @@ _W|_L,         _W|_L,        _W|_L,        _W|_L};		/* 252-255 */
+ static inline int match_token(struct ts_fsm_token *t, u8 d)
+ {
+ 	if (t->type)
+-		return (token_lookup_tbl[d] & t->type) != 0;
++		return (token_lookup_tbl[d] & token_map[t->type]) != 0;
+ 	else
+ 		return t->value == d;
+ }
+@@ -288,11 +288,6 @@ static struct ts_config *fsm_init(const void *pattern, unsigned int len,
+ 	fsm->ntokens = ntokens;
+ 	memcpy(fsm->tokens, pattern, len);
+ 
+-	for (i = 0; i < fsm->ntokens; i++) {
+-		struct ts_fsm_token *t = &fsm->tokens[i];
+-		t->type = token_map[t->type];
+-	}
+-
+ 	return conf;
+ 
+ errout:
 -- 
-2.56.0.317.g454f8302e1-goog
+2.54.0 (Apple Git-157)
 
