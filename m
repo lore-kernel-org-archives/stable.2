@@ -1,79 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793546851;
-	b=l0LpasXNvYl+995cN0/JSXenqbOBzOT68vOaHE52YW7EmtktIeK3I3qJ6CoRKksd8Bvh
-	 jVwXANJhfE4ZoA30xWbvXQ23j93KpFKCB4GTDgXHCy+Su7BlH+3mAtqS8JanjlVEIz0tY
-	 HFeh/gKMV8CLnHgn31hwNAV8am/JDU19KKE8JBfQvUax87mmno+PL5xOy4uf6svlN8UMG
-	 Ke1TZ3cHRGZdHpoV4Ss6UWq+HlsjxUjTFJSve65hR8BLJF+sug2Cm0UGMJH5tqE0o2Vwt
-	 f8QRwIBn4H9ZriqZjiLj9Ct5QzONwYwMvtHJt5AE6VRJGxh5wooNcEx3wNICm4r+QMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793546851;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=kzHG3U5mPCWUEex7OY86dtSbzk7Mb6Blykz4xA7vO1w=;
-	b=q6KXNkv3IU9E4Wp74hzU+DiSIqWEVqJrwR21HvFErQQkt2opJOuPk03Gp3VSN+7C1oKV
-	 K4wKfkwZ2oduz7iZfUB6GIwmCXKagZfEMjo28tx+Z1AXajXj7nrJDxIHia6bh9vQytr0o
-	 JUHumnO9uoRDLkhdsP5ggMJmp1Dpr01GWfdWce+49nSWITUZIgCWKCzwN1N+G3O8T0XYU
-	 mQh0LHlSQT3nrKtUq8FhzhEvaqz6nmmEWK1GrZwwPfRLRMyTSaTMwpJPYruO+2qS3O2nQ
-	 YCI0Mye0uhwQMFv1vJPvcDR2Oh6jQ9R5MLbTSOrT6sKXRq018xlh5hC2Iv4LZkCmJRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6+3enpi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A18D606A324;
-	Sun,  1 Nov 2026 15:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m6+3enpi
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793546850;
-	b=zo1CPIWMBoSJqtx/rcrV3HIK92pmtFV0BbYoG2AJ3PlMZwLQZd3Wj7DvamFyyPKTKWBv
-	 Z2bLGy6mwfF0yWwSDQWiC7hXhLEA65qE/02ydVGFRv2qTiKUmTEtYHw9oDTAM7dpoxD4C
-	 1Wte3ifRMelTlIZugwVt4cxD5q0ChHLXJ2UpEHxgXuEw11OMFprmXL3IhQq6Y5J1BhWYu
-	 1hGE8HUli60C64eku3fDSXTn2s3ad/V/IpHnLI8JV2vA3iIVZC7FiLWHsIOyPlrvqtkXQ
-	 fTdSl7Lm4CQHj+t85lPRfdNV8T+b8L399X04/h9XfHwkrMBnwaYU4ZAaIhppQ3lDgbg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793546850;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=kzHG3U5mPCWUEex7OY86dtSbzk7Mb6Blykz4xA7vO1w=;
-	b=ySrAt4x8XykMKt2ZgsNoxRfVHyXzPw0xMrGhPHLmXERDgWyQgctv8zbE8qspWUzXPGNW
-	 dKEY6mQY7burHNYGEQYchWo9d/XsIb9wTZS8GBO2x0SGjnEsWl44i62UXxVqYfIfF13pI
-	 9syLT7kTSHcYN0QStvfnNCIBldiZSrfFWt85ejgxFbzj7ho+fYPW0UiWT8KywPDbk/ePI
-	 ePxqUBsIbVBWJO1KEPcLMu8NnHme5bQpMT3f0pAOxtJhlQo52lDjFP1HCQ0w4oS+Ngq2a
-	 yHClSwz7Tu9V7lPFLFsYceWE2mL8IlrzHRGJyw2IqcPrS+Du4QtmNvOabG3H7bJ+6lQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793547164;
+	b=3hxQzX6XJHvAV5vDMCwk9kiRBjPquOnFQCzM6Nuw/OBvmXLvIF16JKMu53AHN6VXdH7c
+	 vLa9sbocDudsu0Y0Cpg6C/z8tI2kabvD2C1gfK6DmV7CGNcCOH2+jphzUXfWtjk7dT7pK
+	 1GeKSCvhGCJwMjKaR3zzpAR4AZlb3W2ZIqtTbigeYyQpDlWSjK+ijL8Uv7/O0mlkFBHu6
+	 9JOycjLx5Gx/cTwta8NKLCGr/qu36ooMRcLVSi/vsPP4ZL5qrmlJWAVglZgBPHLeb/9lP
+	 hnVmDLl2q5ygTEyb9MjdEDjR5gGlr775EoB/8InloXXnBJ01SoQFp1z241CdWbtFaag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793547164;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=Hvpx/ahIxVQP35occbNZa581qq41bBI9D98Rab5woag=;
+	b=yiPpe6IjiYzRS0U+JA/GE0X17j/SmNKb4z3w0uWq2nKzOMCIURPEAdG20xCO34XmYPuO
+	 hx1vgtBAzRb7vxjSoU+KesF9JFTu400IXDzjb+AL3o/15IlC+7exshkQQg0TnJYN8Xnp1
+	 4gxTV4Lmwtp/WwxJnA35w0RDc8MXpaZN3Ca7xKlhygFdA/4/B7Q+pjc0X2nYABd8QM37y
+	 ON2MEk3pbeFDnW25ooqmbndb2Bw8Se2CZs3eCXsA8DXtfmppMOZ7zmt4bW4ItVArCEATV
+	 7poEX9MDNSmY0p4Rqubp0opYDtVaFaaxXonyyOhvkqM7G3sRtqZPeO07I6mD2qkN7Aw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xRwQuUE4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="mCC/XQHI";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xRwQuUE4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="mCC/XQHI";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0FB6C1F00919;
-	Sun,  1 Nov 2026 15:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793546850;
-	bh=kzHG3U5mPCWUEex7OY86dtSbzk7Mb6Blykz4xA7vO1w=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=m6+3enpi6FFwopJKYu8PmGOoPAsQjy3vEyOrhoDpNppykMSm00ohsVJTIVmQJRQyI
-	 Bxw9sFarVoROGy8jb9G8A7g7gN/CWxZOBbndI5W2SJZ/P9HR6bx2qRNA2dpTLsBkc8
-	 +y+6Ol3bArLPhwYbSKXQLYu0oVz8KRU2kdi7Zpj0uwDW3LUrH8VFO9kXckrKAP3sU1
-	 8Dz84tqOOxKfs9TehDqVwGLoO0ebuH5FVsMvj33s4abnxA1w9Ir6auTHp1LU2gy0OA
-	 QIALosWQUxytbuoNUMNo7GxnQJhXWt5YhPLXt/5HOCdaCNcyrzdRg4GK7NRFkRW6UR
-	 FM/sZne7s7B3Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 91886461CA;
-	Sun,  1 Nov 2026 15:27:29 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Sun, 01 Nov 2026 15:27:30 +0000
-Subject: [PATCH 6.12.y] netfilter: nf_conntrack_expect: add and use
- nf_ct_expect_related_pair()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBC8606A324;
+	Sun,  1 Nov 2026 15:32:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBC8606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xRwQuUE4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mCC/XQHI;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=xRwQuUE4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mCC/XQHI
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F14F51F7BD;
+	Sun,  1 Nov 2026 15:32:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793547156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hvpx/ahIxVQP35occbNZa581qq41bBI9D98Rab5woag=;
+	b=xRwQuUE4pd3UTBUUfBWu1jKyyGXisxvq3YD4ebJnFiUuHlLHmalKFxHrwGuf4vtNjfLVkT
+	P+nQQrKXTzKRk67LEbeMhXeXAwCsR/68UJ7JKGyDcU2x64cDuDsCpNR0z/xqmIa3TPiWZ6
+	O35iJ7ZVZp9CS2k/W+Z2QX9DdgKhums=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793547156;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hvpx/ahIxVQP35occbNZa581qq41bBI9D98Rab5woag=;
+	b=mCC/XQHImKF+H2eiZFg9yJzu38lQZxZQxMLuM+9KkH7Tl9HwnWOjjcJ197LoLDaYowBmFQ
+	g4G28QkXYtlrrcCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=xRwQuUE4;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="mCC/XQHI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793547156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hvpx/ahIxVQP35occbNZa581qq41bBI9D98Rab5woag=;
+	b=xRwQuUE4pd3UTBUUfBWu1jKyyGXisxvq3YD4ebJnFiUuHlLHmalKFxHrwGuf4vtNjfLVkT
+	P+nQQrKXTzKRk67LEbeMhXeXAwCsR/68UJ7JKGyDcU2x64cDuDsCpNR0z/xqmIa3TPiWZ6
+	O35iJ7ZVZp9CS2k/W+Z2QX9DdgKhums=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793547156;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hvpx/ahIxVQP35occbNZa581qq41bBI9D98Rab5woag=;
+	b=mCC/XQHImKF+H2eiZFg9yJzu38lQZxZQxMLuM+9KkH7Tl9HwnWOjjcJ197LoLDaYowBmFQ
+	g4G28QkXYtlrrcCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7B650134B3;
+	Sun,  1 Nov 2026 15:32:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1MkkFJNb52qQLgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 01 Nov 2026 15:32:35 +0000
+Date: Sun, 01 Nov 2026 16:32:35 +0100
+Message-ID: <87ld7cpnxo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.de>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3] ALSA: bcd2000: Fix use-after-free of MIDI URBs on file close
+In-Reply-To: <20261031190936.5696-1-25031212351@stu.xidian.edu.cn>
+References: <874ie1rbge.wl-tiwai@suse.de>
+	<20261031190936.5696-1-25031212351@stu.xidian.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,266 +116,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-nfexp-pair-6-12-y-v1-1-56cef5744745@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAGFa52oC/x3MMQqAMAxA0atIZiMmagevIg5VU81SSwuiFO9uc
- XzD/xmSRJUEY5UhyqVJT19AdQXrYf0uqFsxcMuGqCX0Tu6AwWpEg8T4oOV1oaFns3UOSheiOL3
- /5wSmIW4emN/3A9wrPilrAAAA
-To: stable@vger.kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>, 
- Florian Westphal <fw@strlen.de>, netfilter-devel@vger.kernel.org, 
- Sasha Levin <sashal@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jaeyeong Lee <iostreampy@proton.me>, 
- Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793546849; l=8784;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=EqbEn189WmeevYWc7bg9S1G6ESHTGh6V3LrxMu8nVsQ=;
- b=rD1va6wGfLy2OZ4f9SS+mPgSziTtlnXpjQbcMVxVHaXy6JUS/hUMRjIDgOv3w57K9uRtam7tv
- wSZQR7yAMvWAKMSGiGSa86vOBz24axNayhy6z8By8rZPkgIoezc9GEA
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: F14F51F7BD
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_ALL(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -12.51
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+On Sat, 31 Oct 2026 20:09:36 +0100,
+YuanZhe Liu wrote:
+> 
+> bcd2000_disconnect() calls snd_card_disconnect(), which only prevents
+> new opens, and then frees the MIDI URBs.  A rawmidi file that was
+> already open can still be closed afterwards, and its close callback,
+> bcd2000_midi_output_close(), calls usb_kill_urb() on midi_out_urb.
+> 
+> The URB pointers are cleared on disconnect and their accesses are
+> serialized with midi_lock, but bcd2000_midi_output_close() reads
+> midi_out_urb without that lock.  The check can therefore pass just
+> before the pointer is cleared, and usb_kill_urb() then runs on the URB
+> that has already been freed:
+> 
+>   BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
+>   Read of size 8 at addr ffff8880078e7d40
+>    usb_kill_urb
+>    bcd2000_midi_output_close
+>    close_substream
+>    rawmidi_release_priv
+>    snd_rawmidi_release
+> 
+>   Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
+>   Freed by:     usb_free_urb <- bcd2000_midi_free
+>                 <- bcd2000_disconnect
+> 
+> Take the lock in bcd2000_midi_output_close() and reference the URB with
+> usb_get_urb() before releasing it.  The URB then stays valid until
+> usb_put_urb() after usb_kill_urb() has returned, even if a disconnect
+> frees it in the meantime.  usb_kill_urb() itself cannot run under
+> midi_lock, as the completion handler takes the same lock.
+> 
+> Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-commit 4aa63842fc92de1bce59d4709a0d32e718890bb2 upstream.
-
-Add a new function to insert a pair of expectations, this is required by
-the SIP and H323 NAT helpers. The spinlock is held to check if there is
-a slot for both expectations, in such case, insert them.
-
-This removes the need for nf_ct_unexpect_related() inside the loop to
-find a pair of consecutive ports, otherwise inserting expectations whose
-dead flag is already set on can happen.
-
-Bump master_help->expecting for the expectation class after checking if
-the expectation fits in the master expectation list, which is needed for
-this new _pair() function variant to run the eviction routine including
-the preallocated slot for the first expectation in the pair.
-
-[ Joas: nf_ct_expect_insert() and __nf_ct_expect_check() do not take
-  a master_help argument in this tree, so keep their existing
-  signatures; nf_ct_expect_related_report() gets master_help from
-  nfct_help(expect->master) for the moved expecting[] increment. ]
-
-Fixes: b8b09dc2bf35 ("netfilter: nf_conntrack_expect: use conntrack GC to reap expectations")
-Reported-by: Jaeyeong Lee <iostreampy@proton.me>
-Link: https://patch.msgid.link/178377968720.33756.12204817361601593230@proton.me/
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-b8b09dc2bf35 ("netfilter: nf_conntrack_expect: use conntrack GC to reap
-expectations") is in 6.6.160+, 6.12.114+ and 6.1.191, but its follow-up
-4aa63842fc92 is not, and it is not in the stable queue either.  Sasha
-noted the missing dependency on 2026-09-20.
-
-Without it, nf_ct_unexpect_related() only sets NF_CT_EXPECT_DEAD and
-leaves the expectation linked, while the SIP and H.323 NAT port loops
-still call nf_ct_unexpect_related(rtp_exp) on -EBUSY and re-insert the
-same, still-linked rtp_exp.  That corrupts the master expectation list
-and the expect hash.  It is reachable from an unprivileged user and
-network namespace (sip helper + NAT, plus one ctnetlink expectation
-occupying the RTCP port).
-
-The affected code is the same in v6.12.115.  Runtime-tested on v6.6.161
-arm64 with KASAN and DEBUG_LIST, as uid 1000 in a new user+net
-namespace; on v6.12.115 the patch is build-tested.  On v6.6.161 without it:
-
-  KASAN: maybe wild-memory-access in range [0xdead000000000120-0xdead000000000127]
-  pc : nf_ct_unlink_expect_report+0xfc/0x418
-   nf_ct_unlink_expect_report
-   flush_expectations
-   process_invite_request
-   process_sip_msg
-   sip_help_udp
-   nf_confirm
-  Kernel panic - not syncing: Oops: Fatal exception in interrupt
-
-With it, the same reproducer runs clean.  The same backport applies to
-6.6.y and 6.1.y (sent separately); I can share the reproducer
-privately if useful.
-
-Tool-use note: the analysis, backport and testing were done with help
-from an LLM-based assistant; I reviewed the change and ran the tests
-myself.
----
- include/net/netfilter/nf_conntrack_expect.h |  3 +++
- net/ipv4/netfilter/nf_nat_h323.c            | 22 ++++++------------
- net/netfilter/nf_conntrack_expect.c         | 35 ++++++++++++++++++++++++++++-
- net/netfilter/nf_nat_sip.c                  | 20 +++++------------
- 4 files changed, 50 insertions(+), 30 deletions(-)
-
-diff --git a/include/net/netfilter/nf_conntrack_expect.h b/include/net/netfilter/nf_conntrack_expect.h
-index be4a120d549e..8efc1ed0925a 100644
---- a/include/net/netfilter/nf_conntrack_expect.h
-+++ b/include/net/netfilter/nf_conntrack_expect.h
-@@ -160,6 +160,9 @@ static inline int nf_ct_expect_related(struct nf_conntrack_expect *expect,
- 	return nf_ct_expect_related_report(expect, 0, 0, flags);
- }
- 
-+int nf_ct_expect_related_pair(struct nf_conntrack_expect *expect[],
-+			      unsigned int flag);
-+
- struct nf_conn_help;
- void nf_ct_expectation_gc(struct nf_conn_help *master_help);
- 
-diff --git a/net/ipv4/netfilter/nf_nat_h323.c b/net/ipv4/netfilter/nf_nat_h323.c
-index 10e1b0837731..d55994fccf5d 100644
---- a/net/ipv4/netfilter/nf_nat_h323.c
-+++ b/net/ipv4/netfilter/nf_nat_h323.c
-@@ -179,6 +179,7 @@ static int nat_rtp_rtcp(struct sk_buff *skb, struct nf_conn *ct,
- 			struct nf_conntrack_expect *rtp_exp,
- 			struct nf_conntrack_expect *rtcp_exp)
- {
-+	struct nf_conntrack_expect *rtp_pair[2] = { rtp_exp, rtcp_exp };
- 	struct nf_ct_h323_master *info = nfct_help_data(ct);
- 	int dir = CTINFO2DIR(ctinfo);
- 	int i;
-@@ -221,22 +222,13 @@ static int nat_rtp_rtcp(struct sk_buff *skb, struct nf_conn *ct,
- 		int ret;
- 
- 		rtp_exp->tuple.dst.u.udp.port = htons(nated_port);
--		ret = nf_ct_expect_related(rtp_exp, 0);
-+		rtcp_exp->tuple.dst.u.udp.port = htons(nated_port + 1);
-+		ret = nf_ct_expect_related_pair(rtp_pair, 0);
- 		if (ret == 0) {
--			rtcp_exp->tuple.dst.u.udp.port =
--			    htons(nated_port + 1);
--			ret = nf_ct_expect_related(rtcp_exp, 0);
--			if (ret == 0)
--				break;
--			else if (ret == -EBUSY) {
--				nf_ct_unexpect_related(rtp_exp);
--				continue;
--			} else if (ret < 0) {
--				nf_ct_unexpect_related(rtp_exp);
--				nated_port = 0;
--				break;
--			}
--		} else if (ret != -EBUSY) {
-+			break;
-+		} else if (ret == -EBUSY) {
-+			continue;
-+		} else if (ret < 0) {
- 			nated_port = 0;
- 			break;
- 		}
-diff --git a/net/netfilter/nf_conntrack_expect.c b/net/netfilter/nf_conntrack_expect.c
-index f9352dada84e..1e1e3a4a0d1c 100644
---- a/net/netfilter/nf_conntrack_expect.c
-+++ b/net/netfilter/nf_conntrack_expect.c
-@@ -425,7 +425,6 @@ static void nf_ct_expect_insert(struct nf_conntrack_expect *exp)
- 		exp->timeout += helper->expect_policy[exp->class].timeout * HZ;
- 
- 	hlist_add_head_rcu(&exp->lnode, &master_help->expectations);
--	master_help->expecting[exp->class]++;
- 
- 	hlist_add_head_rcu(&exp->hnode, &nf_ct_expect_hash[h]);
- 	cnet = nf_ct_pernet(net);
-@@ -524,6 +523,7 @@ int nf_ct_expect_related_report(struct nf_conntrack_expect *expect,
- 	if (ret < 0)
- 		goto out;
- 
-+	nfct_help(expect->master)->expecting[expect->class]++;
- 	nf_ct_expect_insert(expect);
- 
- 	nf_ct_expect_event_report(IPEXP_NEW, expect, portid, report);
-@@ -536,6 +536,39 @@ int nf_ct_expect_related_report(struct nf_conntrack_expect *expect,
- }
- EXPORT_SYMBOL_GPL(nf_ct_expect_related_report);
- 
-+int nf_ct_expect_related_pair(struct nf_conntrack_expect *expect[],
-+			      unsigned int flags)
-+{
-+	struct nf_conn_help *master_help;
-+	int i, ret;
-+
-+	spin_lock_bh(&nf_conntrack_expect_lock);
-+	master_help = nfct_help(expect[0]->master);
-+	if (!master_help || master_help != nfct_help(expect[1]->master)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	for (i = 0; i < 2; i++) {
-+		ret = __nf_ct_expect_check(expect[i], flags);
-+		if (ret < 0) {
-+			if (i == 1)
-+				master_help->expecting[expect[0]->class]--;
-+			goto out;
-+		}
-+		master_help->expecting[expect[i]->class]++;
-+	}
-+
-+	for (i = 0; i < 2; i++) {
-+		nf_ct_expect_insert(expect[i]);
-+		nf_ct_expect_event_report(IPEXP_NEW, expect[i], 0, 0);
-+	}
-+out:
-+	spin_unlock_bh(&nf_conntrack_expect_lock);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(nf_ct_expect_related_pair);
-+
- void nf_ct_expect_iterate_destroy(bool (*iter)(struct nf_conntrack_expect *e, void *data),
- 				  void *data)
- {
-diff --git a/net/netfilter/nf_nat_sip.c b/net/netfilter/nf_nat_sip.c
-index 6b00c81084fe..115d955bfaef 100644
---- a/net/netfilter/nf_nat_sip.c
-+++ b/net/netfilter/nf_nat_sip.c
-@@ -585,6 +585,7 @@ static unsigned int nf_nat_sdp_media(struct sk_buff *skb, unsigned int protoff,
- 				     unsigned int medialen,
- 				     union nf_inet_addr *rtp_addr)
- {
-+	struct nf_conntrack_expect *rtp_pair[2] = { rtp_exp, rtcp_exp };
- 	enum ip_conntrack_info ctinfo;
- 	struct nf_conn *ct = nf_ct_get(skb, &ctinfo);
- 	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
-@@ -615,24 +616,15 @@ static unsigned int nf_nat_sdp_media(struct sk_buff *skb, unsigned int protoff,
- 		int ret;
- 
- 		rtp_exp->tuple.dst.u.udp.port = htons(port);
--		ret = nf_ct_expect_related(rtp_exp,
--					   NF_CT_EXP_F_SKIP_MASTER);
--		if (ret == -EBUSY)
--			continue;
--		else if (ret < 0) {
--			port = 0;
--			break;
--		}
- 		rtcp_exp->tuple.dst.u.udp.port = htons(port + 1);
--		ret = nf_ct_expect_related(rtcp_exp,
--					   NF_CT_EXP_F_SKIP_MASTER);
-+
-+		ret = nf_ct_expect_related_pair(rtp_pair,
-+						NF_CT_EXP_F_SKIP_MASTER);
- 		if (ret == 0)
- 			break;
--		else if (ret == -EBUSY) {
--			nf_ct_unexpect_related(rtp_exp);
-+		else if (ret == -EBUSY)
- 			continue;
--		} else if (ret < 0) {
--			nf_ct_unexpect_related(rtp_exp);
-+		else if (ret < 0) {
- 			port = 0;
- 			break;
- 		}
-
----
-base-commit: 03bae623ec326c2738198739625832aab0eb120a
-change-id: 20261101-nfexp-pair-6-12-y-a2cb15426d3f
-
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
+Applied now.  Thanks.
 
 
+Takashi
