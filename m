@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793532631;
-	b=NFzxvQpEQsASdIaOKfD5glqSUdW2tjNBsu4a3T5y5SWb7JFsbZZ86A2JW1q4Pa9xq4Ul
-	 3YSBOBcJrdDhh39KZBhIKVCrDWdsUKivZqdBGSiWjyTnHrHRbHdzTpK5DEhYnp1DtyE5X
-	 tRHqeKmdzBpRocUtOmOQWsffGBsueV6AWF5MSXWMGiR1GJepTYUeS5s/+M3HqVGJ4WrY0
-	 904Jx5mD3Z8kYaU9dsfbSE9he5ZyvTlnx6/Qy6lFpGLqib4SvCFD1cRw7v2/nrv6RVtui
-	 PBhamBHc2h/RheqOrG2WgPw4TdxBRS61JQK4pFTCphGE8bmeqVu3kuW5gOGzcZjEMHQ==
+	t=1793533742;
+	b=CfODO5RZL7DOzkVNbLfaloJZRUUm6tabvKcofB3cSjGJ+S+hcAUk7oVrD4ohFkELtLvp
+	 PUaWy7uedrhVYwnWHv8ihOFHa2MIe+bgsyvL0d2ZS5w4APmT3sJR286+fbGtCXY/Y+6fH
+	 gNeLTV2QYyJtpu2U5M/hdBj7UwcqM217y/TRNKB9WeV5yKJkzx20WljG8b8uU2OgkO9CH
+	 RzcRV3y4oX+US/iQsabPZpNXc/ZOiObBq1APbRaXPF+U99ry/RS+tsIj/bmaQzVQasMP+
+	 Tgxb08bUz1cRJMSKhdiR82OPwI0cv12i9vdgLusx3+O9I3Xq+GckGt4uSN7Ys+MsOSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793532631;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793533742;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=x3mcuZyG9qk6zYCEmG8zVhZ+uQN9edYhfhzQAy8rRG8=;
-	b=qfSbYb9+NiRomGvCFBE0Z0FQtBZ72Ivnt1wwW52GUdltd35k5Y0MKr/dCC9go3IdbIAF
-	 ssmVCBrkCpHBVqSDlBfYHZnYkwqUtDclKdieSfXjehIcwWcDCLFpPZUpL2y+h90XiFigP
-	 FkD45kU2j1Jok+R6GjSzidTDzqzEFfxWA/V58xZJKMLzp+SRAXa1BjtJqZ3ZgEzHkEC4H
-	 NPXkmEEluMN8UAZEfopS8Qx8VmWPjt8+vneCcPmj8wXgm+qfcaxM6kxRJ2AgqfERhVJA2
-	 5rir6UV2loAH+qwygEV05QlUi/X+frjjwYAkWzhe6dmre6NoQQEvQzrlFUJVTFdMorQ==
+	bh=uhqQZWYhQfQseqw3TWhQ06TGIfzrnlFvPN/L9zUwqpE=;
+	b=y0/8LU4ChWARF+3Lvofwq55U5vmt+apgIneJDGdv8gShuHAFnSkbm9eNzVU8rnHkqJ55
+	 iEKW5fyc2tQHR6CZyVLa4rQ5ndS2H03TIOcdejS0x9iaRf9sw71JEqiOi63wTwgkvrMoL
+	 bEmLZNOhY4CgnxcImmANJsx05lhqr3osg/FkXcryhPlK9sbW3DJi5NCKUFHmgwglUS3BQ
+	 aY5cawQKtlKw5FDaGPGfppzdnHQ4PAM76AWqGElK9G7zPbRPkhq6OWvHNw0PUgxIy4FIC
+	 +iRbs2BdjDQFiE91aW6a6wm04+WiMovaMEBqrsTUZiolcpUvqZAwqdcbnMfEyMWMJRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYEkj9kh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldkaxfbS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6861606A325;
-	Sun,  1 Nov 2026 11:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17FC606A324;
+	Sun,  1 Nov 2026 11:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYEkj9kh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6141F000C1;
-	Sun,  1 Nov 2026 11:30:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldkaxfbS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6E21F000C1;
+	Sun,  1 Nov 2026 11:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793532630;
-	bh=x3mcuZyG9qk6zYCEmG8zVhZ+uQN9edYhfhzQAy8rRG8=;
+	s=k20260515; t=1793533741;
+	bh=uhqQZWYhQfQseqw3TWhQ06TGIfzrnlFvPN/L9zUwqpE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XYEkj9kh+aNqp0ItGuMh6oSodE9+C1Opuli7hGyFvUA1k0o6xtMUBm56CK+Q0hd5v
-	 4Iaw5TT830x8kdL9LbkTiNW4uhoxqod9rOzDP7mSYUa+uMSgptiA9gQVbE3sjkiJMj
-	 KomkEH3CikjqkaXst35v8XSdfqoLU+1hAuO9kd1kCHObXIlTLuESASY8mcx/RKWbdw
-	 x5TrnJUS0B7WKxhPSSEIw1yVLBHIDQnGx5GPwbRYBG9Qvf4/NrbAD1n2XiyijsTn2l
-	 vzjrw4EelkRz48GIXb8h18GPZpElhAL9QKp4MEVOGIIBvNF9T8+6VpF7mLeNy9xheq
-	 OUWRNp43mkKRg==
+	b=ldkaxfbSysz0X0K2rHj+IB3XF9NOWWt/iLkNc8wNpYpF5HYGrfK3hFE/eTf4ztgGM
+	 hNaKxknKioNxk/kZMqQKItDTezc9UAFTBbfc/FPXheupCV+pbci/IHAsWWcD9kowau
+	 VBddHTzLkS1Ihf/nVpV5cgdbEHqMILE7CCRri6+Gmi5M0cKu0sCblKpsWigrnIrGws
+	 FZ91SDb7GLF/WjuXsWJt3gSekZA1ZaErAe3iQDx+vIQozD6pwywuB1lAyWpy3+gBho
+	 rl77ZHRQ8gq3nz7oJWmkWSRSURJ2YCc/7PC3uAHPlqbzBHudBUauH0rFLENloB56HE
+	 LS4kx6VWblE5w==
 Subject:
- Re: [PATCH net v5 1/2] vxlan: reject adding a remote to a nexthop fdb entry
+ Re: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
 From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: idosch@nvidia.com, i.maximets@ovn.org, davem@davemloft.net,
- kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com, andrew@lunn.ch,
- horms@kernel.org, kuniyu@google.com, petrm@nvidia.com, ferruh.yigit@amd.com,
- atenart@redhat.com, qotmddnjs@gmail.com, netdev@vger.kernel.org,
+To: tangbin@cmss.chinamobile.com
+Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 01 Nov 2026 11:30:28 +0000
-Message-ID: <179353262893.3131.14949958099779309653@kernel.org>
-In-Reply-To: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
-References: <20261028111626.3460759-1-bsdhenrymartin@gmail.com>
+Date: Sun, 01 Nov 2026 11:49:00 +0000
+Message-ID: <179353374041.3131.16148032694599738830@kernel.org>
+In-Reply-To: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
+References: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,10 +64,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 3
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,199 +75,129 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The new fib_nexthops.sh cases never create a nexthop-backed
-  00:00:00:00:00:00 entry.
-- [Low] Baseline decision: false (resolved later in the series).
-- [Low] The commit message says that "vxlan_fdb_notify(), RTM_GETNEIGH
-  dumps and the switchdev FDB programming all prefer the remote list…
-- [Low] The new "Fdb replace with nexthop group" test (fib_nexthops.sh
-  lines 555-557 for IPv6 and 714-716 for IPv4) passes with or without…
+- [Medium] The commit message describes a bug that the current tree does
+  not have.
+- [Low] The patch adds a second NULL return to advance_nextseg() in
+  net/ipv6/seg6_local.c, for segments_left == 0, with drop reason…
 
 --
 
-vxlan: reject adding a remote to a nexthop fdb entry
+seg6: fix OOB read in advance_nextseg when segments_left is 0
 
-This patch makes vxlan_fdb_update_existing() reject NLM_F_APPEND on a
-multicast or all-zeros fdb entry that is backed by a nexthop group, and
-does the check before any entry state is modified. It also moves the
-non-unicast NLM_F_REPLACE rejection ahead of the state/flags update. New
-fib_nexthops.sh cases are added for both.
+This commit adds a segments_left == 0 check to advance_nextseg() in
+net/ipv6/seg6_local.c. The check runs before the field is decremented and
+used to index srh->segments. The commit message says the End, End.X,
+End.T, End.B6.Encap and End.BPF paths can reach advance_nextseg() with
+segments_left == 0 and read out of bounds.
 
-> The entry state is also misreported: vxlan_fdb_notify(), RTM_GETNEIGH
-> dumps and the switchdev FDB programming all prefer the remote list
-> over the nexthop, so user space sees the dead remote while the
-> datapath follows the nexthop group.
+> advance_nextseg() decrements srh->segments_left and uses it to index
+> srh->segments without checking it is non-zero. seg6_validate_srh() permits
+> segments_left == 0, so a packet with SRH segments_left==0 reaching an End*
+> action underflows the u8 (255) and reads srh->segments[255] (~4KB out of
+> bounds); the read bytes are then used as the new IPv6 destination address
+> (info leak) or crash on unmapped memory. The decap path
+> (decap_and_validate) already checks segments_left > 0, but the standard
+> End/End.X/End.T/End.B6.Encap/End.BPF paths do not. Reject segments_left ==
+> 0 before decrementing.
 
-[Severity: Low]
-Is this accurate for the netlink paths? vxlan_fdb_info() checks the
-nexthop before the remote:
+[Severity: Medium]
+Can any of these paths actually reach advance_nextseg() with
+segments_left == 0?
 
-drivers/net/vxlan/vxlan_core.c:vxlan_fdb_info() {
-    ...
-	if (nh) {
-		if (nla_put_u32(skb, NDA_NH_ID, nh_id))
-			goto nla_put_failure;
-	} else if (rdst) {
-		if (send_ip && vxlan_nla_put_addr(skb, NDA_DST,
-						  &rdst->remote_ip))
+input_action_end_core(), input_action_end_x_core(), input_action_end_t(),
+input_action_end_b6_encap() and input_action_end_bpf() all get the SRH
+from get_and_validate_srh(), which asks for IP6_FH_F_SKIP_RH:
+
+net/ipv6/seg6_local.c:get_and_validate_srh() {
+	srh = seg6_get_srh(skb, IP6_FH_F_SKIP_RH);
+	if (!srh)
+		return NULL;
     ...
 }
 
-So the RTM_NEWNEIGH notification sent through
-vxlan_fdb_notify()->__vxlan_fdb_notify() and the vxlan_fdb_get() reply
-both carry NDA_NH_ID, not the stray remote. vxlan_fdb_dump() handles
-f->nh entries before it walks the remote list, and it passes a NULL rdst.
+When that flag is set, ipv6_find_hdr() skips any routing header with
+segments_left == 0:
 
-As far as I can tell, only the switchdev notifier part of
-vxlan_fdb_notify() (vxlan_fdb_switchdev_call_notifiers() with rd) uses
-the stray remote. Could the commit message be narrowed to that path?
+net/ipv6/exthdrs_core.c:ipv6_find_hdr() {
+    ...
+			if (flags && (*flags & IP6_FH_F_SKIP_RH) &&
+			    rh->segments_left == 0)
+				found = false;
+    ...
+}
 
-> diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-> index 278d41f58d895..3aead3c7f65f0 100644
-> --- a/drivers/net/vxlan/vxlan_core.c
-> +++ b/drivers/net/vxlan/vxlan_core.c
-> @@ -1011,6 +1011,22 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
->  		return -EOPNOTSUPP;
->  	}
+So these callers never get back an SRH with segments_left == 0. Nothing
+between the lookup and advance_nextseg() writes segments_left, and the
+HMAC check only reads it.
+
+end_flv8986_core() is the only caller that uses seg6_get_srh(skb, 0).
+There, seg6_get_srh_pktinfo() maps segments_left == 0 to
+SEG6_LOCAL_PKTINFO_SL_ZERO. flv8986_act_tbl only has entries for SL_ONE
+and SL_MORE:
+
+static const u8 flv8986_act_tbl[FLV8986_ACT_TBL_SIZE] = {
+	/* PSP variant for packet where SRH with SL = 1 */
+	tbl_cfg(PSP, SL_ONE, F_PSP),
+	/* End for packet where the SRH with SL > 1*/
+	tbl_cfg(END, SL_MORE, F_PSP),
+};
+
+So SL_ZERO resolves to SEG6_LOCAL_FLV_ACT_UNSPEC, and the packet is
+dropped before advance_nextseg() is called.
+
+The commit named in the Fixes: tag, d7a669dd2f8b ("ipv6: sr: add helper
+functions for seg6local"), also already rejected segments_left == 0
+explicitly in get_and_validate_srh().
+
+Given that, is it accurate to say the standard End* paths "do not" check
+segments_left? The SKIP_RH lookup flag appears to do that check.
+
+If no path reaches this code with segments_left == 0, should the patch be
+described as hardening, without the Fixes: and Cc: stable tags? As
+written, it would likely be backported and triaged as a remotely
+triggerable OOB read and info leak.
+
+> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+> index 0c3d1be7f1299..0f72b7fe3ac14 100644
+> --- a/net/ipv6/seg6_local.c
+> +++ b/net/ipv6/seg6_local.c
+> @@ -310,6 +310,10 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
+>  	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
+>  	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
 >  
-> +	if (rcu_access_pointer(f->nh) &&
-> +	    (flags & NLM_F_APPEND) &&
-> +	    (is_multicast_ether_addr(f->key.eth_addr) ||
-> +	     is_zero_ether_addr(f->key.eth_addr))) {
-> +		NL_SET_ERR_MSG(extack,
-> +			       "Cannot add a remote to a nexthop fdb entry");
-> +		return -EOPNOTSUPP;
+> +	if (srh->segments_left == 0) {
+> +		*reason = SKB_DROP_REASON_NOT_SPECIFIED;
+> +		return NULL;
 > +	}
 
 [Severity: Low]
-With only this patch applied, can this new rejection leave a VNI
-half-installed on a vnifilter device? The commit message says "so a
-refused request has no side effects". However, vxlan_vni_add() publishes
-the vninode before it makes the call that now fails:
+Should the kernel-doc above advance_nextseg() be updated for this new
+NULL return? It still says:
 
-drivers/net/vxlan/vxlan_vnifilter.c:vxlan_vni_add() {
-    ...
-	__vxlan_vni_add_list(vxlan, vg, vninode);
+ *  - NULL when the skb cannot be made writable. In this case, the function
+ *    sets the drop reason to SKB_DROP_REASON_NOMEM.
 
-	if (vxlan->dev->flags & IFF_UP)
-		vxlan_vs_add_del_vninode(vxlan, vninode, false);
+The callers follow that contract and turn any NULL into -ENOMEM. For
+example, in input_action_end_core():
 
-	err = vxlan_vni_update_group(vxlan, vninode, group, true, &changed,
-				     extack);
+	srh = advance_nextseg(skb, srh, &reason);
+	if (!srh) {
+		err = -ENOMEM;
+		goto drop;
+	}
 
-	vxlan_vnifilter_notify(vxlan, vninode, RTM_NEWTUNNEL);
+The same pattern appears in input_action_end_x_core(), in both the END
+and PSP cases of end_flv8986_core(), in input_action_end_t() and in
+input_action_end_b6_encap(). input_action_end_bpf() returns -ENOMEM
+directly.
 
-	return err;
-}
+If this branch ever fired, a malformed SRH would be reported as -ENOMEM
+with drop reason SKB_DROP_REASON_NOT_SPECIFIED. As noted above, no
+current caller appears able to reach it.
 
-Suppose the per-VNI all-zeros entry is nexthop-backed, and either a group
-is given or cfg->remote_ip is not any. Then the call chain is:
-
-vxlan_vni_add()
-  vxlan_vni_update_group()
-    vxlan_update_default_fdb_entry()
-      vxlan_fdb_update()
-        vxlan_fdb_update_existing()   <- -EOPNOTSUPP
-
-After that failure, vxlan_vni_update_group() jumps to out and skips both
-the remote_ip copy and the IGMP join. vxlan_vni_add() still sends
-RTM_NEWTUNNEL. It returns the error without removing the vninode from
-vg->vni_hash or from the list.
-
-The next patch in this series, "vxlan: reject VNI add when the default
-fdb entry is nexthop-backed", adds a check in vxlan_vni_add() before
-vxlan_vni_alloc(). That check rejects this case before anything is
-installed, so the problem only exists at the bisect point between the two
-patches. Would it make sense to reorder or fold the two patches so that
-each one is self-consistent on its own?
-
-[ ... ]
-
-> diff --git a/tools/testing/selftests/net/fib_nexthops.sh b/tools/testing/selftests/net/fib_nexthops.sh
-> index 431d7bed76224..bdc23205bde4c 100755
-> --- a/tools/testing/selftests/net/fib_nexthops.sh
-> +++ b/tools/testing/selftests/net/fib_nexthops.sh
-> @@ -547,6 +547,15 @@ ipv6_fdb_grp_fcnal()
->  	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
->  	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
->  
-> +	# fdb entries with a nexthop group cannot take a remote append
-> +	run_cmd "$BRIDGE fdb add 00:00:00:00:00:00 dev vx10 nhid 102 self static"
-> +	run_cmd "$BRIDGE fdb append 00:00:00:00:00:00 dev vx10 dst 2001:db8:91::11 self"
-> +	log_test $? 255 "Fdb append with nexthop group"
-
-[Severity: Medium]
-Does this fdb add actually create a nexthop-backed all-zeros entry?
-Earlier in ipv6_fdb_grp_fcnal(), vx10 is created with a remote:
-
-	run_cmd "$IP link add name vx10 type vxlan id 1010 local 2001:db8:91::9 remote 2001:db8:91::10 dstport 4789 nolearning noudpcsum tos inherit ttl 100"
-
-Because cfg->remote_ip is set, __vxlan_dev_create() has already installed
-a plain, non-nexthop all_zeros_mac entry:
-
-drivers/net/vxlan/vxlan_core.c:__vxlan_dev_create() {
-    ...
-	/* create an fdb entry for a valid default destination */
-	if (!vxlan_addr_any(&cfg->remote_ip)) {
-		union vxlan_addr rip = cfg->remote_ip;
-
-		spin_lock_bh(&vxlan->hash_lock);
-		err = vxlan_fdb_update(vxlan, all_zeros_mac,
-				       &rip,
-				       NUD_REACHABLE | NUD_PERMANENT,
-				       NLM_F_EXCL | NLM_F_CREATE,
-    ...
-}
-
-bridge fdb add sends NLM_F_CREATE | NLM_F_EXCL. vxlan_fdb_update() finds
-the existing entry and returns -EEXIST:
-
-	f = vxlan_find_mac(vxlan, mac, src_vni);
-	if (f) {
-		if (flags & NLM_F_EXCL) {
-			netdev_dbg(vxlan->dev,
-				   "lost race to create %pM\n", mac);
-			return -EEXIST;
-		}
-
-Nothing checks the result of that run_cmd. The append that follows then
-reaches vxlan_fdb_update_existing() with f->nh == NULL. The new guard does
-not fire, vxlan_fdb_append() adds the remote, and bridge exits 0.
-
-If so, log_test $? 255 would report FAIL on a fixed kernel, and the test
-would never reach the new f->nh check. ipv4_fdb_grp_fcnal() has the same
-problem, because vx10 is created there with remote 10.0.0.2.
-
-Any of these would avoid the collision: delete the default entry first,
-create vx10 without a remote, or use a multicast MAC for the
-nexthop-backed entry.
-
-> +
-> +	# fdb entries with a nexthop group cannot be replaced with a non-unicast MAC
-> +	run_cmd "$BRIDGE fdb replace 00:00:00:00:00:00 dev vx10 dst 2001:db8:91::11 self permanent"
-> +	log_test $? 255 "Fdb replace with nexthop group"
-
-[Severity: Low]
-Can this test distinguish a fixed kernel from an unfixed one? The check
-it hits is the moved "Cannot replace non-unicast fdb entries" rejection
-in vxlan_fdb_update_existing(), and that check does not look at f->nh.
-
-Before this patch the same request also returned -EOPNOTSUPP. The only
-difference was that it did so after f->state and f->flags had been
-rewritten. bridge exits with 255 in both cases.
-
-To cover the half-update this patch fixes, the test could check in bridge
-fdb show that state and flags are unchanged after the failed replace.
-
-Because of the setup problem above, the entry being replaced is also the
-plain default entry, not a nexthop-backed one.
-
-The comment "fdb entries with a nexthop group cannot be replaced with a
-non-unicast MAC" also looks inaccurate. The check is not specific to
-nexthops, and the MAC is the lookup key, not the thing being replaced.
-The copy in ipv4_fdb_grp_fcnal() has the same issues.
-
-[ ... ]
+>  	srh->segments_left--;
+>  	addr = srh->segments + srh->segments_left;
+>  	ipv6_hdr(skb)->daddr = *addr;
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028111626.3460759-1-bsdhenrymartin%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028113141.2111-1-tangbin%40cmss.chinamobile.com
