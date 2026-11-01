@@ -1,98 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793550769;
-	b=tGu+at09miSJAnemNlclr5YWPfN9eQVDCKAkYtvwv/lNPz+y3yFHaebD2+yQ7Yta0AP3
-	 4drUUillWmq+dwyz0Gzxfhhm/rgwLXE32n5MX9DeIfpi8ElLX4OTP6nfCYnNGGJA54rPG
-	 n4saZAy3K+A4dbkIR8MHuRsnqoUIpkzIXJBQhSPVf3QOraD6eGUPmyGo7wBdHxfn1IygS
-	 t67SDw0u/rJKbZ3g5AqMVrOGDP9/CLW3WZxf7ju02tFyCXiEpTX+UYfyduAG6b7AG/u+D
-	 ixJt1BobmocQtnZYlynL5KVB8gquLW1+P3dj9675/xKWGSGcvaWrvBaSfxgNvC/JjNg==
+	t=1793550793;
+	b=qTsCMCzSRueMkFD2IQMwESfY20YI3h6AvZNia600x6vcslHshDUUEeAKFRwntW5biGAp
+	 lJU9ZmlNHQXh+maVq46IzHkpDgFNoOaM/m9G1bBugpJr5UKVJJsVAFb9fNvt3pRBtjAXs
+	 blLeMSki66gmz141oOR6ZwwCXwOq4759b66sG9iaye1IHqkK6+LAvyqChonuPbDEjK15y
+	 xGu2doo81QfnTjKfvvFmEBHQn0HpbA9MJ1S5HOJSqEOb1ZXbEamNcqEIyQ/Xj6zyjnzOG
+	 Ruwcfh+ZMUBpbXYRiJGFcmcYxn3+vMldLSMOWTyYQp1tgzDmy2xrfNysd++nPpoFnQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793550769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793550793;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=RyXQwyWynVfXHdKU0E4ZYcDDObjBA4aLJVjCkOb/ED4=;
-	b=hpWpJewCz71V4FnjWIp35qjDwgWmULCvkm6ps9A+0mb25+nNATz3n80pMU8i/8Gd58as
-	 SyIC+URgSHN3pZy9epoPwL7VWu7my+iBlnli9erXpvieqBhMfdIXNe+I95PLgK8n/Uyfm
-	 20oXZulu/QXMKvqmFnXH7OKxzEx5oty1STs16ZfjPVO7K8wCJF9sXgYlP0hCttfC07n71
-	 tUd005kKwyy8dVq3jcWm3ivahiFxT3+4YrKIAxwqIeiRkeByoYopNYAbRLEO+wu2PfGeX
-	 cvZWjgt4t4lJO0e1EqqwnnQGmSa2nOxM8tCTAQrY2BlQ9Nwz1NOpk3il9wUqi+gcFXg==
+	bh=z1wgGnLaHoKZu2/+Ud078CAK3gozxrFVUFtZdHR2t7Q=;
+	b=u9/jttJy0nR0gQSUGWjFBy/JXPE0/1kaKvUg2EPN/SAjPoF38mCXlBnLS0oI4tgPptO3
+	 HSMdLxe1NCahqRAo5EOkR1crMT2AcLNOiCEegcw7172CjSOfm8MBg8hx7skpEEAJV5nP9
+	 IrRq1LbtrEsq21jcQMV2iRdtZ2Na4UwgLN3coDUSmf1rWTYDjNgmVqapqInHs22uNhzXu
+	 GyafbSePWqnbPyxW1/tRd+Ht44v16JYOcNQaSvqkI6cQVwgsmbbeXdQBmhfqs+NgCkjUw
+	 cwtpOfTrJKw2OPJc4rtQ2r3sMTLWIBVtArYYf9Vl6ZjalFKPgZoLNh3Pdyvdba/w8Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ayOxp/3c";
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i+MmRGdI;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F75606A325
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 16:32:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94F75606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77636606A325
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 16:33:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77636606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ayOxp/3c
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a599e9110eso10734815e9.0
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 08:32:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i+MmRGdI
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac6008c914so292656a91.3
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 08:33:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793550767; x=1794155567; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RyXQwyWynVfXHdKU0E4ZYcDDObjBA4aLJVjCkOb/ED4=;
-        b=ayOxp/3cYiA511HvLHeR3I7kI4JX2H8rYHM8fVo83VOvHVuwdrX+rOmqhP8JczQkCf
-         NqrenYh0TP5xWMhh9Mv7JQ1HFTVqvE9wiKXu677KcRUqIEKEEBCRQGZkbWTJB31JtqiE
-         OgjQhqmZo5tzMuRPMtCVmORG7zgmv7fOuzQ0mde7LyDiTzkTEKSttvEsPUgcRT3kM3/m
-         VCRm1idDMdBj3dYf8FHsBlt+sYHQR6WTNDA44zWceVpaZAMpLlKg6fvYHbQP0MsqRS6y
-         miuBQrReD1f2xjL6fm6/qLp80vlBVGgn+YrG4bqSmk7WbpDkkON3JfdFrlvUnukHbj3e
-         F+LQ==
+        d=gmail.com; s=20260707; t=1793550792; x=1794155592; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z1wgGnLaHoKZu2/+Ud078CAK3gozxrFVUFtZdHR2t7Q=;
+        b=i+MmRGdIPHvaRXB6Fj5arp1lNW1XvIIeAqBKs39M6I8fVaRMTNTti9f8p04KTbn2XG
+         gbDrcBvUa4PwHLtFllbkEw7Lv3nKjpseY45dmaOaWamcTIPECpieM203pt0MX3DPu6wL
+         0Ko55HWdibTQBzFsD5RjIN0rN13+B0e1jnKQgPTWpX9ruwkSZ9SuomHRJeFnowbRAfWE
+         eDl/9ndwfg2OVwP2o3kPLE7ThVvlsVMAUtT6Uyrk70DkfjRxq/8lnslsaOXH+5GzyIeM
+         QqogZYk1vFXPM6tzNa0oBql/6pITmvdDOy5OEq9VQPlgR2eyb9pL3u/4CS7YYAXr9Rvj
+         sssw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793550767; x=1794155567;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RyXQwyWynVfXHdKU0E4ZYcDDObjBA4aLJVjCkOb/ED4=;
-        b=QjNjWRahyAwoZHG8drk5S1ViosHZM+0ZjmkX97pzlpgHjSHkJ1VBt0LE3sMmXahr9J
-         HTfOm/TShoSzUqJyoH7PwzInZjj2PK8WijNQOd8EeE6loJcQ1AN0SIkkLl21o/b9vA5d
-         oJt8l21gGotSs1eMpEqHTcfNJCSZuwCW0gyM2gdAzauXazKHnpwzJU1MQAMOZ+yJqUAX
-         /yG/3bXwnhI7+ucWYOjBbiXmicwQXq/Vw01pDDPE6/hd7v2sNm1/Hhur0A5hIDRICejR
-         aL5UIs2ILuY/1YxyRUsuPBFb1369NQkEdnZfR9dWVURhHxUTIU5QHM+Jno7egRWktHXv
-         O0ww==
-X-Gm-Message-State: AFq9FYKoghTdf4n9yPSAw3lKT+jiqs3k3SI6BxAuswLSKdrlC2ovTI8F
-	dfv9xXbbMH8YhX4LopMnlaq2SV5yiijIYkMeHAHBNxHjnfiR3pvjFne+QiDSnA==
-X-Gm-Gg: AYBFou1Plvi9/X4WtGf4nsIwxuxc8r/wl3Q3NS41qMtgm+OdhhJq+0Wm9R5igtesYh8
-	60W5Mglq+8Bzv9ODrIA8+BLFrRBGIp/XbvY1TYXygTHHipXsLZuQBjENPVa91rALzfOukg2ys28
-	yYp2AIWo+IpCO+aCHVCig4TtEllxfDUSmFAK1+FAC1lMyC3j/E22wNAwiVM4lnZuGU8q2qq9BU/
-	MNzDGL5f/wATNhq1AS2Jxa7SvlwatVG4vIHuOtPFGS692oZ+2gvXGiVL9eow1jRYkYIHBaeDY13
-	mspKYpLhUuWTG47gucQlDbPNOpBpQ2tSDLWVi+rEDLK98iq0BbvKC5HaUaWx192Ub6Bo3pzRQIE
-	Y4XY1LFh5JVZq5C7wBmBEkhlbIgw5AcF1km++WqYoVhjzqpZBSqlQkwFG0ymc8it2jaYYg4jDQ7
-	dYB7DvQciMULxwIjY0IaY3swtqO/KJ2p7zWyQiYV3d1FkY1CHbTKV/vGxCDF511pG0SyBdauWFT
-	AAvxn1tutK4QLtUj0VVsBjnXMupvgHddQkhFv0xv++o0qiIsVShxEN7tQ9yJqzgW+dz1u0gBrZr
-	1qHB0nlweLrvZWljh1ZRugpqo1b09PXYKWgMOVf1DlEeTmkl5Q==
-X-Received: by 2002:a05:600c:1c06:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ac12194311mr219582685e9.0.1793550766921;
-        Sun, 01 Nov 2026 08:32:46 -0800 (PST)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm97219875e9.0.2026.11.01.08.32.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:32:46 -0800 (PST)
-From: Itai Handler <itai.handler@gmail.com>
-To: stable@vger.kernel.org
-Cc: Itai Handler <itai.handler@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Marek Vasut <marex@nabladev.com>,
-	Marek Vasut <marex@denx.de>,
-	Michal Simek <michal.simek@amd.com>,
-	linux-spi@vger.kernel.org
-Subject: [PATCH 5.10.y v2 4/4] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-Date: Sun,  1 Nov 2026 18:31:54 +0200
-Message-Id: <20261101163154.2274099-5-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261101163154.2274099-1-itai.handler@gmail.com>
-References: <20261101163154.2274099-1-itai.handler@gmail.com>
+        d=1e100.net; s=20260707; t=1793550792; x=1794155592;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z1wgGnLaHoKZu2/+Ud078CAK3gozxrFVUFtZdHR2t7Q=;
+        b=SAwRzUm2CoYFnEcS202d4cgQKjf8xzIhvWhddCwgd3a1i0ICwq5KD5hQe+KzkOvdkn
+         JNSoHk+L8X/qjfuxY3vCR9ucX2xaqdHt+jQlZk3iwutZ3P+sxs7/5mUc5xcCZafv4Laq
+         1ulztfrwVOUV/2EE3ySziCvBq1qaxlA3EQP/TVtI9O6wlH/NRXY4GOVzbHEK4+/mJ2BD
+         WsCyExN5v2ptubqU3eYJQc5jhHEUpjcPaC2xKAR/nfDaqotr5I3L1CGu9sRKiPukR/VK
+         OvOTluWuD7p6O+JyTerSTPUdpSzeowsMGo8RNanFuZlaq7hjhP4FIp/H9Jlol/jPTrDU
+         ptzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxp9kqhPLdJqzOfyAMon7+kdQZ3qq+RYsYiBkVe/jPpS79Uv9wC9KtArO4HY43Ty9hKQ1HejXA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8zJ/wkV/FOsWeuY2m2SefolbwBjy+0D/+4MVnRSRr008RTT4Iu
+	eMieEtbR3jV5kXWKvjIXZUcdxxNOj6L6w9EYcikFtq8HCzyip3ISDObPUrHFThTiU6qAdw==
+X-Gm-Gg: AYBFou2Bb4emW7iLu6yZOOqNXFq1J0MNmR/feXfa9bAZOaYi68EKLenFjxKww5m1/aa
+	NOVuo2UCvYz47+GpnHJlj09zcgCN/OGXyzF2Y6zyGZ6a/hOTJLcMr3X6ck3p8bpZ1anmHhNqCfy
+	VvPK5/YI3zJPTXujVuRz9Z231A5SUIUKSF67utWS+zk8aWSiSSz9S095aoGDEtaKBfXl6hUIvRL
+	TONX1sJ5eGueUE/sOBVolqG+wuD0u26hVfJc6GZ3NcSSlLVGV9LNvB67QRr58SjIvaYauCGuWra
+	aP48lQ6/wQSFPymvGRn99VjPpRIApR56+ZhpQQaA+QmZRGDqeSylEU1lQ8GHPkvmVO+PG+UjljK
+	FHLRrp6rNN1MY7jVNoqzZqLGqw9DdgbPu1pE7yf/qz3WmI3qBdXSQ6qA8wknoyZU2Axf7ROQKeg
+	crQl46hrtBCpxFvddQSAhOglwXXY0yxpT13aOZhdiUmWwoVl7XoPFh94sC8BgDg4l7SvjThj/0h
+	oQJ+uQfxzWAN4DunFidf+gbPaWDt8z8NfiEA5iCBJfxdX1wnXBK5YN0Dh1hJbwv244pxOyN1+NJ
+	JZ+9JDPiFhmLPlSwJ9oJtvs6TxavafR9rLEyJyCt1HRYpEZ4MM0LY4PeymiNiZOJxO7wz+WodJ3
+	JPEI2FCgU6zen5lvts71dp4s=
+X-Received: by 2002:a17:90b:1808:b0:3ab:a188:b898 with SMTP id 98e67ed59e1d1-3ae895f8623mr10840887a91.2.1793550792550;
+        Sun, 01 Nov 2026 08:33:12 -0800 (PST)
+Received: from localhost.localdomain ([113.102.236.131])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb0981c5desm2063394a12.27.2026.11.01.08.33.06
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 01 Nov 2026 08:33:11 -0800 (PST)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: Juergen Gross <jgross@suse.com>,
+	xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	linux-kernel@vger.kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen/privcmd: fix double free when an irqfd is shut down twice
+Date: Mon,  2 Nov 2026 00:32:50 +0800
+Message-ID: <20261101163251.55099-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,115 +102,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit e922bad8b2d5028c51a096d083fea41cd0987154 upstream.
+irqfd_deactivate() takes the irqfd off irqfds_list and queues
+irqfd_shutdown().  queue_work() is not a once-only gate: it refuses to
+enqueue a work item only while WORK_STRUCT_PENDING is set, and
+process_one_work() clears that bit before it calls the work function.  So
+nothing records that the shutdown work has already been queued, and
+nothing protects the window between the start of irqfd_shutdown() and the
+kfree() at its end.
 
-The driver has no ->shutdown, and platform_drv_shutdown() has no
-fallback of its own.  Unlike pci_device_shutdown(), which clears bus
-mastering when kexec_in_progress, nothing on the platform bus disarms a
-device that can still write to memory.  The normal kexec path never
-calls ->suspend either, so the quiesce in zynqmp_qspi_suspend() is not
-reached.
+Two paths call irqfd_deactivate() for the same irqfd:
 
-A controller that is still executing a DMA read may therefore keep
-writing to memory across a kexec.  QSPIDMA_DST_ADDR still points at
-memory owned by the kernel that called kexec, DST_SIZE is non-zero and
-the flash is still clocked, so data can keep landing in RAM while the
-new kernel is being relocated, and after it has started executing.
+  - privcmd_irqfd_deassign(), from the PRIVCMD_IRQFD_FLAG_DEASSIGN ioctl;
 
-That destination is a physical address which means nothing to the new
-kernel, so the writes can corrupt whatever now occupies it: kernel text
-or data, page tables, or the initrd.  Nothing reports an error and the
-resulting behaviour is undefined.
+  - irqfd_wakeup(), with EPOLLHUP set, when the last reference to the
+    eventfd file goes away, which runs wake_up_poll(&ctx->wqh, EPOLLHUP)
+    from eventfd_release().
 
-This can be observed by reading GQSPI_EN (offset 0x114) and
-QSPIDMA_DST_ADDR/SIZE/STS/CTRL (offsets 0x800 to 0x80c) early in the new
-kernel, before the driver probes: without this patch GQSPI_EN reads 1
-and QSPIDMA_DST_ADDR still points into the previous kernel's memory.
+irqfds_lock serialises the two calls, but it does not make the second one
+a no-op, and eventfd_ctx_fdget() takes a reference to the eventfd_ctx,
+not to the struct file, so the last fd can still be closed while the
+ioctl is running:
 
-Add a ->shutdown that stops the controller the way zynqmp_qspi_suspend()
-already does.  spi_controller_suspend() stops the queue, waits for a
-message that is already executing and makes any later transfer fail with
--ESHUTDOWN, so nothing can be cut short by the register write that
-follows.  It may sleep, which is fine here: device_shutdown() runs in
-process context.  Unlike ->suspend this cannot abort on error, because a
-controller left mastering the bus is worse than a truncated transfer, so
-a failure to drain is only logged.
+  CPU0                                 CPU1
 
-GQSPI_EN_OFST is then cleared, as zynqmp_qspi_remove() and
-zynqmp_qspi_suspend() already do.  Skip that write only when
-pm_runtime_get_if_in_use() returns 0, i.e. runtime suspended: the clocks
-are gated, so the registers are unreachable and the controller cannot be
-mastering the bus.  A negative return is not the same thing - it is what
-the CONFIG_PM=n stub always returns, and there probe() has enabled pclk
-and refclk for good, so the controller is running and must be stopped.
+  eventfd_ctx_fdget()
+  spin_lock(irqfds_lock)
+  list_del_init(&kirqfd->list)
+  queue_work(&kirqfd->shutdown)        close(fd)
+                                         eventfd_release()
+                                           wake_up_poll(EPOLLHUP)
+                                         irqfd_wakeup()
+                                         spin_lock(irqfds_lock)
+                                         irqfd_deactivate() again
 
-Fixes: dfe11a11d523 ("spi: Add support for Zynq Ultrascale+ MPSoC GQSPI controller")
+If the work item has already started by then, its pending bit has been
+cleared and the second queue_work() succeeds.  irqfd_shutdown() then runs
+twice, so eventfd_ctx_remove_wait_queue(), eventfd_ctx_put() and kfree()
+each hit the same object a second time; and when the second queue_work()
+lands after the irqfd has been freed, the workqueue list operations write
+to freed memory.
+
+virt/kvm/eventfd.c has the same two callers and has had this guard since
+the original irqfd support (721eecbf4fe99): irqfd_wakeup() calls
+irqfd_deactivate() only if irqfd_is_active().  The comment there explains
+why that is enough: the other side deactivates the irqfd before it takes
+it off the waitqueue, and irqfd_shutdown() needs the waitqueue lock,
+which this callback holds, so the irqfd cannot be freed under it.
+
+Do the same here.  list_del_init() leaves the list head empty and the
+irqfd stays off the list until kfree(), so it serves as a one-way
+"active" flag.  The test is in irqfd_deactivate() rather than in
+irqfd_wakeup() because privcmd_irqfd_deassign() walks irqfds_list and can
+therefore never reach an inactive irqfd; only the wakeup path can, and a
+single test covers both callers.
+
+Fixes: f8941e6c4c712 ("xen: privcmd: Add support for irqfd")
 Cc: stable@vger.kernel.org
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
-Link: https://patch.msgid.link/20260910174832.873352-1-itai.handler@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ itai: context only - zynqmp_qspi_of_match[] still sits between
-  zynqmp_qspi_remove() and MODULE_DEVICE_TABLE() in this tree, hoisted to
-  the top of the file upstream by commit 29f4d95b97bc ("spi:
-  spi-zynqmp-gqspi: Add tap delay support for GQSPI controller on Versal
-  platform"), so zynqmp_qspi_shutdown() is placed above it ]
-Signed-off-by: Itai Handler <itai.handler@gmail.com>
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
- drivers/spi/spi-zynqmp-gqspi.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ drivers/xen/privcmd.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index 167eb9072c3e..840ba03b204a 100644
---- a/drivers/spi/spi-zynqmp-gqspi.c
-+++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -1230,6 +1230,39 @@ static int zynqmp_qspi_remove(struct platform_device *pdev)
- 	return 0;
- }
+diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+index 5e56fbc934478..221b31611343e 100644
+--- a/drivers/xen/privcmd.c
++++ b/drivers/xen/privcmd.c
+@@ -901,10 +901,25 @@ struct privcmd_kernel_irqfd {
+ 	poll_table pt;
+ };
  
-+static void zynqmp_qspi_shutdown(struct platform_device *pdev)
++static bool irqfd_is_active(struct privcmd_kernel_irqfd *kirqfd)
 +{
-+	struct zynqmp_qspi *xqspi = platform_get_drvdata(pdev);
-+	int ret;
++	lockdep_assert_held(&irqfds_lock);
 +
-+	/*
-+	 * Stop the queue and reject any later transfer first, so the write
-+	 * below cannot cut into a message that is still being executed.
-+	 * Unlike ->suspend this cannot abort on error: a controller left
-+	 * mastering the bus is worse than a truncated transfer.
-+	 */
-+	ret = spi_controller_suspend(xqspi->ctlr);
-+	if (ret)
-+		dev_warn(&pdev->dev, "could not stop the queue: %d\n", ret);
-+
-+	/*
-+	 * Only a runtime suspended controller can be left alone: its clocks
-+	 * are gated, so it cannot be mastering the bus, and its registers
-+	 * must not be accessed either.  Any other answer means it may be
-+	 * running and has to be stopped.  In particular, on a kernel built
-+	 * without runtime PM this returns -EINVAL, and there the clocks
-+	 * enabled in probe() are never gated at all.
-+	 */
-+	ret = pm_runtime_get_if_in_use(&pdev->dev);
-+	if (!ret)
-+		return;
-+
-+	zynqmp_gqspi_write(xqspi, GQSPI_EN_OFST, 0x0);
-+
-+	if (ret > 0)
-+		pm_runtime_put_noidle(&pdev->dev);
++	return !list_empty(&kirqfd->list);
 +}
 +
- static const struct of_device_id zynqmp_qspi_of_match[] = {
- 	{ .compatible = "xlnx,zynqmp-qspi-1.0", },
- 	{ /* End of table */ }
-@@ -1240,6 +1273,7 @@ MODULE_DEVICE_TABLE(of, zynqmp_qspi_of_match);
- static struct platform_driver zynqmp_qspi_driver = {
- 	.probe = zynqmp_qspi_probe,
- 	.remove = zynqmp_qspi_remove,
-+	.shutdown = zynqmp_qspi_shutdown,
- 	.driver = {
- 		.name = "zynqmp-qspi",
- 		.of_match_table = zynqmp_qspi_of_match,
+ static void irqfd_deactivate(struct privcmd_kernel_irqfd *kirqfd)
+ {
+ 	lockdep_assert_held(&irqfds_lock);
+ 
++	/*
++	 * Both the deassign ioctl and the eventfd wakeup path can reach
++	 * this function.  list_del_init() marks the irqfd inactive, so
++	 * only the first caller may queue the shutdown work.
++	 */
++	if (!irqfd_is_active(kirqfd))
++		return;
++
+ 	list_del_init(&kirqfd->list);
+ 	queue_work(irqfd_cleanup_wq, &kirqfd->shutdown);
+ }
 -- 
-2.34.1
+2.54.0 (Apple Git-157)
 
