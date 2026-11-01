@@ -1,60 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.161
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793528057;
-	b=u8BAgwP08rQfzDxXc9+QSHOcBGEATwKJ5sYmj7VioZyCNDcRki9CGWQ/V+YrATpMfikS
-	 xMQERbDqH5FqgUMdsDmWuJWuXOPkgif1RU1PMa1b+0fZRjBhA/1NG9gTX1PTx5UnXWDZn
-	 mG3UFIU3pWp5vZa0Nsbd7n5gpGi0+6KBYKGOwhLOqdPiaaJj4gcFfsMQbjM5jAYZMmeZ4
-	 vv2Js861Yd2/LYNVrIPTPT0DkSpMhLtI6kjX+1ueGk9tV6FexwCEuSfY2vcxedtmXbPLh
-	 7rTUWGWvKCU3hCbqBzTNX9cit3LbRj+aa5b3tAvyKDusfV9i13Uu8ERAZp9x+7sAajg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793528057;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=hSHY3WVsUBqgQAxQOpMX314E9mDDGTULiBUsGnrUENs=;
-	b=jHU9BaolApf9KhNLKPbb+nwJhUChIEtwOpSC9a04IaVHdsdroyfhOIhi8URzm9eOlNl8
-	 q20k+vnplTBmoIT+6JQXy980jlFo5UYiIHDsB//i/y/SYtb6bkVX9ayOxv8u8th1QeWXm
-	 hmYF+LDlvY/5tOeUxjfmgnNwrw8h1GrOwiHeZdOWnBDc5Kls01sCD1PGzCAj0UJ6qi8mg
-	 y+kDdTRrhhfrVarMDcCPRVTHQjlbT5WDyLqUFvzeh9qLlMOXgIS/MKg44jB1dWi6+8DXv
-	 EmObEixjPw7HzWm4dzpfwFgeGo2F1iigO/ZkGbgcZF9WgRXhiJGmVSPkB+zFnvje8yg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=8alias.com;
-	spf=pass smtp.mailfrom=8alias.com;
-	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=luNrfBMo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.161
-Received: from mail-200161.simplelogin.co (mail-200161.simplelogin.co [176.119.200.161])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793528081;
+	b=Bm4NHy0pIcx6wxSHVu4haX4GUujBu/Gvfhjz1MVkH21fq1hEni0tntThMczMtIYIiL/2
+	 gbjd5y02FsG83rOLxE4PxunDOmJcSPdm+lWGziERjfM8lFScM/nBuCl3dn0gSKnZkZBRO
+	 r1hMKGgvHd3rXCe4rsO3kdXpJYPW1cgWIYqZjb7xdn5PJq7rUcndzeJH6dhctHedpmxlG
+	 W6tDRFG/uMXi27gO4WLWmgA2JwiKAU7eUVAweczlj29M7s34/IEQrL9jk6k2OaTXubaWZ
+	 jEOAOOQTovHsqge9QBWlLMJl6u89Y57xhVS6bohawqvbu6xyUbFoGUDZcWcQTQm3x7g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528081;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=qcpQH98yXrG88iN1/9biSPLXhNxIVIr/aoycHhtDoAQ=;
+	b=N3/cvluxN3rCMpfCMbgtLPVflG4g1IzXVMSPe0eBpsZ012fehZdHs/IE4FgDrcE09Swt
+	 OCVs57lHeY+SknEpGHvigrNDVWqbo291jvPcv2Og1n7heZes3nwwntN3GfyxB/utDRbbD
+	 I33i/IYKkwPl8KuEsOdRllMtqidjYtNnIjEb+Bq91VS125Zi+69y6rJX34H5m1ijLncPt
+	 gR0J1XAWx33nCSLe+omwGGXLEMXkWJt1MALxtiJ2lw9fB0m4SIexb0GfHIJ/YwqeEBFUx
+	 bjTsPtvwId01ZnM1xWGP3MtdbZ8F6cSKuVKtsnYJDwZGENFptjjdk2030Lfr+BcT0Tg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7CxUNq4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B44606A329
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 10:14:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26B44606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B5D606A325;
+	Sun,  1 Nov 2026 10:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=luNrfBMo
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793528055;
-	cv=none; b=N/XJjuHIuTxtx4AOGBy1RG38apD47dz139zc1KQSxHnRWEG8nPn0pmVv42Rx/5Pzaqv1Q51ugc52yQDxHv1mHkW5gjGHIzkb7R/AF+x9sbfUasGFAvrhwLzyN+kIBp5ghwVy7oRFKNDSP8My4eLwslmWSCwKkUBCOdsaip+knxSwTZwjolFOGRKqtifPfIL8nlja3QUWmHxJeEV+FpmjQy3eKONNIhRQjg15qViKXvHV28BW6slBCGcWE1cSHqHgwwvnsU1gjEVKgUkD+dwl4xv+Chd8HIR8oirpxkJDjoayzeiQk/O3e6p1eJSbnZA6TfHA6YOQYkHyp3Yl6aM55Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793528055; c=relaxed/simple;
-	bh=hSHY3WVsUBqgQAxQOpMX314E9mDDGTULiBUsGnrUENs=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=IXvdc0THb2oRVhXTLUma4oLDaY6SPSVfjD7J5yABTsdlRHMnWy+FFofGxM9bm1ZX8atQNOnWt+HPAPIF/5FJWllBHdF/hKishMe6REyiFGfcp6ChdEab/3kNeDYYcOzX0HVIS2QXr66Ytz7G86c1J4cgFQVOQ+gmMA0p+Xs1qqUoDSXCkKBAczZagCkDis7JXK9uSiPvovrDqDNbne1VQ1n8itdS/OspxT+QBhvdXdFo8wujEkPAGW9VimlVWsX/ArB7e8mq28PwBYZc/fwLVuMNYjWgaHxu989RdWSuWeXdPOAd0rSAa7XuO92UGS5yE+/t+u57dgQEFd/FWTFRIg==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
-	t=1793528055;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hSHY3WVsUBqgQAxQOpMX314E9mDDGTULiBUsGnrUENs=;
-	b=luNrfBMobIpIdvKnmGhC5YQ+fCk5xXzXxE8neD3cn8XqbGoywh48XMzuSUfJAbTStHcPUv
-	EF17Xs2TenlUznvZyoED3jzsZfjnR+TowpqjZi86WTzZJ+j0M6JfLIABFC0aEz9TatQ1A0
-	QQSKDngvSUzUQR4h4viB7LYP1eKDefs=
-Date: Sun, 01 Nov 2026 10:14:06 +0000
-Subject: Re: [PATCH 6.12.y 2/2] mm/early_ioremap: Sign-extend PAGE_MASK when
- aligning the physical address
-In-Reply-To: <2026103137-showplace-numerator-a05b@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7CxUNq4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C430A1F000C1;
+	Sun,  1 Nov 2026 10:14:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793528080;
+	bh=qcpQH98yXrG88iN1/9biSPLXhNxIVIr/aoycHhtDoAQ=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=M7CxUNq40UIbSLROAPliuG7tkrW9JpaehQpsIv3r8tXQdA49Ux47V0htIXaF1PaaL
+	 GNBai8Zm/ABvjQHG9hL63+cxydQ3OxtgnDiK94YIFOEd7ATmlGhQodjDKAYONYOY0W
+	 HB7QoreIcV2Ak3F19NxNZakldWJNzzZchxVg49lYmjrZjA/ljxyHvnmBSoiZMlsMS4
+	 L22G8PnK7H95s3troYg4KjxHJia/SGeDBQgrIMuuX3UPCfhNF0C5pdCBJdtJgCqocs
+	 yvZRJaqywmTlneWtMnolOJcXcwYHLtSYPZAPAAiMtreDImto2AaOWoniu/hHZUkUyy
+	 v0YbC+10sGsQQ==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,48 +49,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: =?utf-8?q?Radek_Marci=C5=88a?= <github.unusual340@8alias.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org,Thomas Gleixner <tglx@kernel.org>,Ingo Molnar
- <mingo@redhat.com>,Borislav Petkov <bp@alien8.de>,Dave Hansen
- <dave.hansen@linux.intel.com>,x86@kernel.org,Andrew Morton
- <akpm@linux-foundation.org>,David Hildenbrand
- <david@kernel.org>,linux-mm@kvack.org,Arnd Bergmann <arnd@arndb.de>,Michael
- Kelley <mhkelley58@gmail.com>,linux-kernel@vger.kernel.org
-Message-ID: <179352805420.7.6433291196676980630.1737402061@8alias.com>
-References: <179346145167.7.7861216093151225931.1735978772@8alias.com>
- <179346152914.8.7838190602983146541.1735981230@8alias.com>
- <2026103137-showplace-numerator-a05b@gregkh>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1737402103
-X-SimpleLogin-Want-Signing: yes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] phy: ti: twl4030-usb: free the IRQ before canceling
+ work
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Ijae Kim <ae878000@gmail.com>
+In-Reply-To: <20261003035111.623790-1-mhun512@gmail.com>
+References: <20261003035111.623790-1-mhun512@gmail.com>
+Date: Sun, 01 Nov 2026 15:44:30 +0530
+Message-Id: <179352807066.2955.5695904295125910316.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2336; i=mani@kernel.org;
+ h=from:subject:message-id; bh=kmrEgjTeKEpg6c3EfWWIz1qK8YoFa3C7wI+02vgixBQ=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xEIW6g18hEmrVsa5SmDh3ZvjXkWVyQONX+vq
+ vVAtC2sXFeJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucRCAAKCRBVnxHm/pHO
+ 9eIEB/0a4PqI70aHy6yZippaf0c03Ksr9Q8Io/qNY2QmaJQ1poTKJG7YZT6rSdTNQxi7PeemIcb
+ t5iIUpDcaj33xFQlhF3HNrrNiqPADl+LWp1bhP6WesmLQAaNbOc3/tycOEP8lIZWxEQL5zj28nN
+ 0VMcm9ImMQpQBb8bSGm7wPBZmHsnJs5KEBMC2SaXKXyNL84dmc1nNvMlBKWG5w9at0KtRzin/od
+ 4M6hId3vY4MHw4ld/WgSKYNHb7NLEzTWBw6y8PQGgRLNGuTw1WPSG8+yUBeYJHrQCmVqxdir17v
+ v2vUXGjbYSijGUIR9fBQ3Id9X22ehhlfgidxp8ZrzdGRNRap
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On Sat, 2026-10-31 at 21:25 +0100, Greg KH wrote:
-> On Sat, Oct 31, 2026 at 03:45:21PM +0000, Radek Marci=C5=88a wrote:
-> > Signed-off-by: Radek Marci=C5=88a <github.unusual340@8alias.com>
->=20
-> Sorry, but this isn't going to work for the obvious reason, so we
-> can't take these as-is.
+On 2026-10-02 23:51 -0400, Myeonghun Pak wrote:
+> The threaded IRQ handler can schedule id_workaround_work while the PHY
+> is runtime active. The remove callback cancels that work, but leaves
+> the managed IRQ registered until devres cleanup after remove returns.
+> An interrupt after the cancellation can therefore queue work that
+> accesses the freed twl4030_usb allocation.
+> 
+> The same work can be queued after IRQ registration if phy_create_lookup()
+> fails during probe. Failed probe cleanup releases the managed IRQ and
+> allocation without canceling the delayed work, and does not call remove.
+> 
+> Free the managed IRQ before canceling the delayed work on remove and on
+> the post-IRQ probe failure path. This waits for the threaded IRQ producer
+> to finish before canceling any work it queued. The synchronous work
+> cancellation also handles the worker's own requeueing. Generic PHY
+> consumer callbacks have separate lifetime requirements.
+> 
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+> 
+> Fixes: 85601b8d81e2 ("usb: phy: twl4030-usb: Fix lost interrupts after ID pin goes down")
 
-Thanks for a quick reply. I do have a public GitHub identity which
-dates back to 2019 (https://github.com/marcinar).
+This doesn't look like the correct tag,
 
-Here's a recent PR using the same name and email (see the raw patch),
-this proves that I control the account.
-https://github.com/simple-login/app/pull/2866
-https://github.com/simple-login/app/commit/f1eb1fcf36d1fd92a3c2057aab3faf1a=
-5fae1e31.patch
+> Cc: stable@vger.kernel.org
 
+Is this patch worth backporting?
 
-Here's a PR from 2020 that was merged and has my full name (see the raw
-patch), this proves that I didn't change the name or rewrote history.
-https://github.com/ChargeTimeEU/Java-OCA-OCPP/pull/120
-https://github.com/ChargeTimeEU/Java-OCA-OCPP/commit/9e8f2c09ee34a085103d3d=
-6d46856606b05e9a8d.patch
+> Assisted-by: LLM
 
-Hopefully, this is enough. But if not, is there a way to contact you
-(or someone else) privately about this?
+Not needed anymore.
+
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+>  drivers/phy/ti/phy-twl4030-usb.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/phy/ti/phy-twl4030-usb.c b/drivers/phy/ti/phy-twl4030-usb.c
+> index a26aec3ab29e..37c326cd1d85 100644
+> --- a/drivers/phy/ti/phy-twl4030-usb.c
+> +++ b/drivers/phy/ti/phy-twl4030-usb.c
+> @@ -779,12 +779,17 @@ static int twl4030_usb_probe(struct platform_device *pdev)
+>  	if (pdata)
+>  		err = phy_create_lookup(phy, "usb", "musb-hdrc.0");
+>  	if (err)
+> -		return err;
+> +		goto err_free_irq;
+>  
+>  	pm_runtime_mark_last_busy(&pdev->dev);
+>  	pm_runtime_put_autosuspend(twl->dev);
+>  
+>  	return 0;
+> +
+> +err_free_irq:
+> +	devm_free_irq(twl->dev, twl->irq, twl);
+> +	cancel_delayed_work_sync(&twl->id_workaround_work);
+
+This err path is not unwinding all resources taken during probe.
+
+- Mani
 
 
