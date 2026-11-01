@@ -1,59 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793533742;
-	b=CfODO5RZL7DOzkVNbLfaloJZRUUm6tabvKcofB3cSjGJ+S+hcAUk7oVrD4ohFkELtLvp
-	 PUaWy7uedrhVYwnWHv8ihOFHa2MIe+bgsyvL0d2ZS5w4APmT3sJR286+fbGtCXY/Y+6fH
-	 gNeLTV2QYyJtpu2U5M/hdBj7UwcqM217y/TRNKB9WeV5yKJkzx20WljG8b8uU2OgkO9CH
-	 RzcRV3y4oX+US/iQsabPZpNXc/ZOiObBq1APbRaXPF+U99ry/RS+tsIj/bmaQzVQasMP+
-	 Tgxb08bUz1cRJMSKhdiR82OPwI0cv12i9vdgLusx3+O9I3Xq+GckGt4uSN7Ys+MsOSA==
+	t=1793534930;
+	b=ngfImgZJFIhCqTKIJWuV3zxCWXp0/ME1NYWofkwrbNe3iF+zuEw7KpYj0ttBLdAxCT4M
+	 1tNn4EfY6FWEgWjHpULO7LkVOoHkYBiRGkktT3xBy2xyqWusSvVlrFjPWyHnK9mEXs0TN
+	 7PAcqu9NGbiqHBQ/QhpsuSiH59PXDeQgPqJAs9N91qJ7s0O8Z11MI8ApqZhGqbPTsTKso
+	 13O8LmKWeKAqsqixA0CT9StEl+yYKFZSgPgURX3nSvWqVNG5yAMVep12I0kbV4B92AyTI
+	 GLWTxXkn7Qc09cL0fuChZptGPuJ6oGwa2NKaq8JvvZcOsvrrcRiwi+X37KA8O3DfIMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793533742;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=uhqQZWYhQfQseqw3TWhQ06TGIfzrnlFvPN/L9zUwqpE=;
-	b=y0/8LU4ChWARF+3Lvofwq55U5vmt+apgIneJDGdv8gShuHAFnSkbm9eNzVU8rnHkqJ55
-	 iEKW5fyc2tQHR6CZyVLa4rQ5ndS2H03TIOcdejS0x9iaRf9sw71JEqiOi63wTwgkvrMoL
-	 bEmLZNOhY4CgnxcImmANJsx05lhqr3osg/FkXcryhPlK9sbW3DJi5NCKUFHmgwglUS3BQ
-	 aY5cawQKtlKw5FDaGPGfppzdnHQ4PAM76AWqGElK9G7zPbRPkhq6OWvHNw0PUgxIy4FIC
-	 +iRbs2BdjDQFiE91aW6a6wm04+WiMovaMEBqrsTUZiolcpUvqZAwqdcbnMfEyMWMJRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793534930;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Lw41xzfI4PjmAlmckTUz53uc2rnxdXGe81m6r+MzrRg=;
+	b=a3gAx/Z7yuBLDXwfiksaeFVt5oyGqGkSQJwKam0FUj5QB06QcbxLieqIVYibVvXQMkJR
+	 BB8eLxny7mfiOBYlolY3PsWaDJq3dPJPqm6zfkoes0q3BeIKqGUqB7yhl5Gq/eos+wBlM
+	 rd5XCrcR6bQmy7Lkf19L6UYa50hU/2HskvRvGofEEWQo5vysqYYtqNB+/6HVbGWQUD8ES
+	 qofJeK+MHXYumVMuWxCGPoRB88qPEh61wV1gSPS47/pdtJitilp9ieAgbF7hZTTZKP/3d
+	 IKtmyXjJ5oSXoG4xMXOpgh2QBD98g7pps/I7vdzwaSiOi+S8D7SG0mxTuVSRgPOyFbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldkaxfbS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FF6tw2Px;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZK+ERCd+;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17FC606A324;
-	Sun,  1 Nov 2026 11:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF80606A325
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 12:08:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFF80606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldkaxfbS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6E21F000C1;
-	Sun,  1 Nov 2026 11:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793533741;
-	bh=uhqQZWYhQfQseqw3TWhQ06TGIfzrnlFvPN/L9zUwqpE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ldkaxfbSysz0X0K2rHj+IB3XF9NOWWt/iLkNc8wNpYpF5HYGrfK3hFE/eTf4ztgGM
-	 hNaKxknKioNxk/kZMqQKItDTezc9UAFTBbfc/FPXheupCV+pbci/IHAsWWcD9kowau
-	 VBddHTzLkS1Ihf/nVpV5cgdbEHqMILE7CCRri6+Gmi5M0cKu0sCblKpsWigrnIrGws
-	 FZ91SDb7GLF/WjuXsWJt3gSekZA1ZaErAe3iQDx+vIQozD6pwywuB1lAyWpy3+gBho
-	 rl77ZHRQ8gq3nz7oJWmkWSRSURJ2YCc/7PC3uAHPlqbzBHudBUauH0rFLENloB56HE
-	 LS4kx6VWblE5w==
-Subject:
- Re: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
-From: netdev-bot+sashiko@kernel.org
-To: tangbin@cmss.chinamobile.com
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 01 Nov 2026 11:49:00 +0000
-Message-ID: <179353374041.3131.16148032694599738830@kernel.org>
-In-Reply-To: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
-References: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FF6tw2Px;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZK+ERCd+
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1BHlao667739
+	for <stable@vger.kernel.org>; Sun, 1 Nov 2026 12:08:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=Lw41xzfI4PjmAlmckTUz53uc2rnxdXGe81m
+	6r+MzrRg=; b=FF6tw2PxbCzAy/U0XJ++z6j5HalRo9AFUq/lm/vHRwZfZer+8RP
+	P/CiO+AUel1221YUtc7jsDtEOnosyvwcCNgNwSj0FLC9aMMB/Ypnqe/vQCZ2tZWj
+	0KTIrXZx4MnbbACTLXcM5YIkSYPt1VuMi9W5KAHQH2gOkYFRQQQO5SxbdCXWtgQF
+	nHS86jXPjlggcuJ2Ipn0YXmGKAJEHmmLGLOwy5Zu8uTQYiJC+y9ka+1bgD4IJOQQ
+	z1ebVM+WzpVz+AGUxpzWIt5X7LfP3He8Ivc4dWi+WgZYEVg34tXwKR2c5wdHHhtG
+	ZrUu15r2UeyCJT27qI3gYIx2/kbudPEMyGg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8j2ua4q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sun, 01 Nov 2026 12:08:48 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f1f2fafeaso258934085a.2
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 04:08:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793534928; x=1794139728; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lw41xzfI4PjmAlmckTUz53uc2rnxdXGe81m6r+MzrRg=;
+        b=ZK+ERCd+eOs9Wv01i48ksR163pNoENUhte6b0QKV0+4iPKCgOx3NsM/R+X0TejrQJu
+         fB0E6w0pzIfFp2r9+mPOg90lXz42iOKr/jAnIQCPqQ4IVyho/CCfS8osniwbl2QIMrY/
+         fD8SlWnaGYw/DvpgLMjo2Bs+33/Qg3abu2/LRTgxYwUqBh2AkWy3H4c9MKXdv8Z5I17H
+         GmH7UNKBiwBU+RPhaiFnpcYqQe/kAh1RxP3TylJFq0HYhpBNaM8oTLTRwTavG2FeezD5
+         KsjdTH8N4xIIE2yFfPVvpE2nZ5QRlX/B27oaN82Y2jyeOfy5+3fP7r7g6UyK7b+9CvVW
+         XDvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793534928; x=1794139728;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lw41xzfI4PjmAlmckTUz53uc2rnxdXGe81m6r+MzrRg=;
+        b=qt8pxr/ezEyzRfDD7H0C9f9wDyJOHs/GXYOD1DpElebI6UoTzwja+ae1uZOcUT0G1P
+         ZdwROSe7ALi1dFwN1FYnCp1IPnayzJubNx6bpUVtlqGcM+97TLNDQJrsnr8Fxd5BfNKd
+         /nvcp6ntEyff03enJyQ+4C3ZjX8O26lWDvXkfTx5dTOmkvToDXl/xFI5ww3Xkx+KMgkB
+         UgBhQCY/flML8tIzcgCfI2mQ2JaBA9I87s1NB7p/KqTmKUI8a13B2X5s0Uux9NKg8JcF
+         hiuY/gRRC/DXL7fp/qxwdEXqT1Bhe6refzcsVL8G3yzK+fB5cV6Rh4xGQmg9YfNYTxE0
+         DJIg==
+X-Forwarded-Encrypted: i=1; AKwUvBy4NmnhBgAs3nczuJHmlh0k40P5+r1JmuHq+MGSM7Vgjs4DUIBDfaMGtQjVGfbloOb7bwBhERw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIh+gZj5sVWH71DyVQjxYaVGBf+nr1xAauksWw5A8ZqigMzwBQq
+	CyK7+JiMJ7sDIe+3E4IFR/RI3AzXNGCMqiUoYdhPJYahDoWV3/8SvpRTQLWHHc/vxjNIMNnNx3T
+	vH8bWAcOc08sVxQcX7/QST3vi7y4shSa9iYxiq5mbOQrbKmVJeyeGMrxBJiM=
+X-Gm-Gg: AYBFou0naRSiZLc3Z+1C09KLdpPFeXDaCoYXGysqwMTA9zwQmkOT1QgyqFusdGA8PWX
+	mTkiknhRElqmGU8dCYpGNUZIgGXXjMH+9TgtHLRW41e6QDA5M0cjnOuLPNCQVzk+9dDrd56IA6F
+	B7aZOui2v/QfltltGWj75gJ5ZlsEnvV+CckLZKtoEQBVyi0mmjLuBd0NyvKaE17HatzkkCw51WI
+	2S3H8ynVIUTo1UJ+WDvIfGBiO5NMVBR8uQjT/7qEqwqsAW1MUQoAei6faqSPk00C/izaz7GdDo8
+	abVcL4W0GHhF9eubSuHbSmQLj/OwD49jPK5DrAzMwZSD8OJ1fjirz69xBlr0uKUbByE2rAtKGh5
+	qZTMeSf9GjMo1L3Bb4EP5b2/IFcVVoZTq0Q5xxwAQPZqZg5VoCpIiVfgYdGG+9A==
+X-Received: by 2002:a05:620a:2788:b0:940:d8f2:b459 with SMTP id af79cd13be357-944217755a9mr1232089885a.79.1793534927833;
+        Sun, 01 Nov 2026 04:08:47 -0800 (PST)
+X-Received: by 2002:a05:620a:2788:b0:940:d8f2:b459 with SMTP id af79cd13be357-944217755a9mr1232087185a.79.1793534927385;
+        Sun, 01 Nov 2026 04:08:47 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm91318455e9.0.2026.11.01.04.08.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 04:08:46 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Li Yang <leoyang.li@nxp.com>,
+        Liu Shuo <b35362@freescale.com>, Scott Wood <scottwood@freescale.com>,
+        Kumar Gala <galak@kernel.crashing.org>,
+        Dipen Dudhat <Dipen.Dudhat@freescale.com>,
+        linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Reid Downing <skibletz@gmail.com>, Sashiko <sashiko-bot@kernel.org>,
+        stable@vger.kernel.org
+Subject: [PATCH] memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure and removal
+Date: Sun,  1 Nov 2026 13:08:39 +0100
+Message-ID: <20261101120838.36227-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,141 +121,224 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6095; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=C8zhZVnOqh3IOQ+umCnZRkjbv2nT453sTdKtTSgZBsA=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq5yvGRmCZLzBrWccQj4obomp1T2bWWZRzXZuoE
+ C/doDBqcOiJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaucrxgAKCRDBN2bmhouD
+ 1yDTD/9IctnsaHPK2Y/F6hOB1CsvwiHe+nDZWMgV52MOaZz9aOwmMvRvL4FBu2ai5UBmfGJXdRw
+ KQbQ1jS2CTCNIHv+GoU6jo8U/e1HfwnLpH02sDKpyluoLg/HHJ0aeQSfyva3mpIK1H8z49pIv9T
+ 0MccobNUydGaObNOpCYAbCQNgDENeAYS+JdQbb83TONT2Jor5I4iYpZJKH7CVBhmzu/lEo80+oE
+ RQirE7NkS0l+OK08AgilLUOUR1A7XB2ykDTMY3GnqRoIrQvT2IxRGMGiomIlVR41qAJFbwBGipQ
+ AMmdY3uiAbFeAH5TZzzog+8veuIGzTwpEV+bTPfAHlomgUMCe+ZcsqN8z0w1jcEYshdb87nmRAs
+ MhMbM63FxKx03QtPCuEAt93pWI+f/enJs+k0c8T6rbFITLqwBL5p11jp6eig4nutxg2/YiTkz+e
+ G5AWSKOvti3PsQBi+7fhnSCesdfXQ1HYo9i+jCkpQtWnRyBp1sWJqTwX+467GlQWOiULOGmiCSI
+ M3RN1HvLRWXNBEv1BSqKx99fUYGc8EauC3sV0Iyt1uyPc/ok8YlXv5pn9rdJtsk6PvibymvbbRs
+ pCyrJqWC9N2r9+vDNsa4eWY7ZO4VBVvzgT9zknxRHUuD/xqqrtUDWOqYyRgTJ9RxLANNB/3XfCN Gb0aOfPaMP0vmMQ==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: BOBjUXNlg1OCuXBYSWTBUlc2pTlclhMt
+X-Proofpoint-ORIG-GUID: BOBjUXNlg1OCuXBYSWTBUlc2pTlclhMt
+X-Authority-Analysis: v=2.4 cv=S5RMU4sP c=1 sm=1 tr=0 ts=6ae72bd0 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=UxsxSofaEGUHor0GY1AA:9
+ a=IoWCM6iH3mJn3m4BftBB:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA0OCBTYWx0ZWRfXx4iIMqKRbocW
+ 8Zm5JQYZVw5S3rx9CRcFviExUv0szii0wsFT6ZMHyne3uT5kr/FeEoYm+yOyo3T1/u+Fbxj1W6e
+ 0z9I7C//tqj82nlZ3lUajOGVjeBhjbY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA0OCBTYWx0ZWRfX+9xYgb4x5hsL
+ l+8bhcp+cho5QspXChr4m5jAr7e2xC89CHBBK2CIsF0wqrg/3VVL2G0C0lubsPCv0s4V/SEMfFt
+ wb91krv/Qi6Pt5454bnJuOjtFAFvI+K1WUGs5haCKfK5wrDGkEu+IbnkOQd9luxjcbP/i8V40Q9
+ Q0Hydb6ksCZRObBlRcupGaZkJPv2k4Q0LF1mV/cxyEpkKil6pfAoUz8jB7LfUoha40IHJWcGUTQ
+ /eYik1DLlWNB0V8nEDzpRVHYn2pR9bv//uDz2OtSmXcmBAkOOgOifren4zRjH0iBz81PTzxf5/6
+ vuvNn+Z0R/20uHYxRMDmnLWQzUoVDt6BJCD9NnErPCvfcw4JRDMszfeiaVCbRPlf4R7yZoGv081
+ vqtEX2gwAai2oJ7MZVtYkdnRVcfgONtFkMEOAzDGkpkrkq+6dXmIvdDl+6jiKYwCZdjTbDXR9kN
+ p1ALzzxQZeIrFFED71Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-01_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ malwarescore=0 phishscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010048
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Global fsl_ifc_ctrl_dev is allocated with devm_kzalloc(), so it is freed
+when probe fails or when the device is unbound, but the exported global
+pointer is never reset.  Subsequent calls to fsl_ifc_find() or probing
+of fsl_ifc_nand would then pass the NULL check and dereference freed
+memory.  Issue is mostly theoretical, because there are no users/calls
+to fsl_ifc_find().
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Rework the logic, so the global fsl_ifc_ctrl_dev is assigned only after
+device state is properly initialized in probe(), except requesting
+interrupts.  This makes sure that early call to fsl_ifc_find() will not
+use the device driver while it is not fully initialized.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Clear the global pointer on exit and error paths, to fix the possible
+use-after-free.
 
-- [Medium] The commit message describes a bug that the current tree does
-  not have.
-- [Low] The patch adds a second NULL return to advance_nextseg() in
-  net/ipv6/seg6_local.c, for segments_left == 0, with drop reason…
+Reported-by: Reid Downing <skibletz@gmail.com>
+Closes: https://lore.kernel.org/all/20261025170833.1316443-1-skibletz@gmail.com/
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-72f58ab4-9f9d-4b00-949c-00929918a3b3
+Fixes: 8e0d09b1232d ("memory: fsl_ifc: fix leak of private memory on probe failure")
+Fixes: a20cbdeffce2 ("powerpc/fsl: Add support for Integrated Flash Controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ drivers/memory/fsl_ifc.c | 73 +++++++++++++++++++++-------------------
+ 1 file changed, 38 insertions(+), 35 deletions(-)
 
---
-
-seg6: fix OOB read in advance_nextseg when segments_left is 0
-
-This commit adds a segments_left == 0 check to advance_nextseg() in
-net/ipv6/seg6_local.c. The check runs before the field is decremented and
-used to index srh->segments. The commit message says the End, End.X,
-End.T, End.B6.Encap and End.BPF paths can reach advance_nextseg() with
-segments_left == 0 and read out of bounds.
-
-> advance_nextseg() decrements srh->segments_left and uses it to index
-> srh->segments without checking it is non-zero. seg6_validate_srh() permits
-> segments_left == 0, so a packet with SRH segments_left==0 reaching an End*
-> action underflows the u8 (255) and reads srh->segments[255] (~4KB out of
-> bounds); the read bytes are then used as the new IPv6 destination address
-> (info leak) or crash on unmapped memory. The decap path
-> (decap_and_validate) already checks segments_left > 0, but the standard
-> End/End.X/End.T/End.B6.Encap/End.BPF paths do not. Reject segments_left ==
-> 0 before decrementing.
-
-[Severity: Medium]
-Can any of these paths actually reach advance_nextseg() with
-segments_left == 0?
-
-input_action_end_core(), input_action_end_x_core(), input_action_end_t(),
-input_action_end_b6_encap() and input_action_end_bpf() all get the SRH
-from get_and_validate_srh(), which asks for IP6_FH_F_SKIP_RH:
-
-net/ipv6/seg6_local.c:get_and_validate_srh() {
-	srh = seg6_get_srh(skb, IP6_FH_F_SKIP_RH);
-	if (!srh)
-		return NULL;
-    ...
-}
-
-When that flag is set, ipv6_find_hdr() skips any routing header with
-segments_left == 0:
-
-net/ipv6/exthdrs_core.c:ipv6_find_hdr() {
-    ...
-			if (flags && (*flags & IP6_FH_F_SKIP_RH) &&
-			    rh->segments_left == 0)
-				found = false;
-    ...
-}
-
-So these callers never get back an SRH with segments_left == 0. Nothing
-between the lookup and advance_nextseg() writes segments_left, and the
-HMAC check only reads it.
-
-end_flv8986_core() is the only caller that uses seg6_get_srh(skb, 0).
-There, seg6_get_srh_pktinfo() maps segments_left == 0 to
-SEG6_LOCAL_PKTINFO_SL_ZERO. flv8986_act_tbl only has entries for SL_ONE
-and SL_MORE:
-
-static const u8 flv8986_act_tbl[FLV8986_ACT_TBL_SIZE] = {
-	/* PSP variant for packet where SRH with SL = 1 */
-	tbl_cfg(PSP, SL_ONE, F_PSP),
-	/* End for packet where the SRH with SL > 1*/
-	tbl_cfg(END, SL_MORE, F_PSP),
-};
-
-So SL_ZERO resolves to SEG6_LOCAL_FLV_ACT_UNSPEC, and the packet is
-dropped before advance_nextseg() is called.
-
-The commit named in the Fixes: tag, d7a669dd2f8b ("ipv6: sr: add helper
-functions for seg6local"), also already rejected segments_left == 0
-explicitly in get_and_validate_srh().
-
-Given that, is it accurate to say the standard End* paths "do not" check
-segments_left? The SKIP_RH lookup flag appears to do that check.
-
-If no path reaches this code with segments_left == 0, should the patch be
-described as hardening, without the Fixes: and Cc: stable tags? As
-written, it would likely be backported and triaged as a remotely
-triggerable OOB read and info leak.
-
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 0c3d1be7f1299..0f72b7fe3ac14 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -310,6 +310,10 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
->  	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
->  	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
->  
-> +	if (srh->segments_left == 0) {
-> +		*reason = SKB_DROP_REASON_NOT_SPECIFIED;
-> +		return NULL;
-> +	}
-
-[Severity: Low]
-Should the kernel-doc above advance_nextseg() be updated for this new
-NULL return? It still says:
-
- *  - NULL when the skb cannot be made writable. In this case, the function
- *    sets the drop reason to SKB_DROP_REASON_NOMEM.
-
-The callers follow that contract and turn any NULL into -ENOMEM. For
-example, in input_action_end_core():
-
-	srh = advance_nextseg(skb, srh, &reason);
-	if (!srh) {
-		err = -ENOMEM;
-		goto drop;
-	}
-
-The same pattern appears in input_action_end_x_core(), in both the END
-and PSP cases of end_flv8986_core(), in input_action_end_t() and in
-input_action_end_b6_encap(). input_action_end_bpf() returns -ENOMEM
-directly.
-
-If this branch ever fired, a malformed SRH would be reported as -ENOMEM
-with drop reason SKB_DROP_REASON_NOT_SPECIFIED. As noted above, no
-current caller appears able to reach it.
-
->  	srh->segments_left--;
->  	addr = srh->segments + srh->segments_left;
->  	ipv6_hdr(skb)->daddr = *addr;
-
+diff --git a/drivers/memory/fsl_ifc.c b/drivers/memory/fsl_ifc.c
+index 6dcc317d95d4..ab188f151c94 100644
+--- a/drivers/memory/fsl_ifc.c
++++ b/drivers/memory/fsl_ifc.c
+@@ -92,6 +92,7 @@ static void fsl_ifc_ctrl_remove(struct platform_device *dev)
+ 	if (ctrl->nand_irq)
+ 		free_irq(ctrl->nand_irq, ctrl);
+ 	free_irq(ctrl->irq, ctrl);
++	fsl_ifc_ctrl_dev = NULL;
+ 
+ 	irq_dispose_mapping(ctrl->nand_irq);
+ 	irq_dispose_mapping(ctrl->irq);
+@@ -205,82 +206,82 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
+ 	int ret = 0;
+ 	int version, banks;
+ 	void __iomem *addr;
++	struct fsl_ifc_ctrl *ctrl;
+ 
+ 	dev_info(&dev->dev, "Freescale Integrated Flash Controller\n");
+ 
+-	fsl_ifc_ctrl_dev = devm_kzalloc(&dev->dev, sizeof(*fsl_ifc_ctrl_dev),
+-					GFP_KERNEL);
+-	if (!fsl_ifc_ctrl_dev)
++	ctrl = devm_kzalloc(&dev->dev, sizeof(*ctrl), GFP_KERNEL);
++	if (!ctrl)
+ 		return -ENOMEM;
+ 
+-	dev_set_drvdata(&dev->dev, fsl_ifc_ctrl_dev);
++	dev_set_drvdata(&dev->dev, ctrl);
+ 
+ 	/* IOMAP the entire IFC region */
+-	fsl_ifc_ctrl_dev->gregs = of_iomap(dev->dev.of_node, 0);
+-	if (!fsl_ifc_ctrl_dev->gregs) {
++	ctrl->gregs = of_iomap(dev->dev.of_node, 0);
++	if (!ctrl->gregs) {
+ 		dev_err(&dev->dev, "failed to get memory region\n");
+ 		return -ENODEV;
+ 	}
+ 
+ 	if (of_property_read_bool(dev->dev.of_node, "little-endian")) {
+-		fsl_ifc_ctrl_dev->little_endian = true;
++		ctrl->little_endian = true;
+ 		dev_dbg(&dev->dev, "IFC REGISTERS are LITTLE endian\n");
+ 	} else {
+-		fsl_ifc_ctrl_dev->little_endian = false;
++		ctrl->little_endian = false;
+ 		dev_dbg(&dev->dev, "IFC REGISTERS are BIG endian\n");
+ 	}
+ 
+-	version = ifc_in32(&fsl_ifc_ctrl_dev->gregs->ifc_rev) &
+-			FSL_IFC_VERSION_MASK;
++	version = ifc_in32(&ctrl->gregs->ifc_rev) & FSL_IFC_VERSION_MASK;
+ 
+ 	banks = (version == FSL_IFC_VERSION_1_0_0) ? 4 : 8;
+ 	dev_info(&dev->dev, "IFC version %d.%d, %d banks\n",
+ 		version >> 24, (version >> 16) & 0xf, banks);
+ 
+-	fsl_ifc_ctrl_dev->version = version;
+-	fsl_ifc_ctrl_dev->banks = banks;
++	ctrl->version = version;
++	ctrl->banks = banks;
+ 
+-	addr = fsl_ifc_ctrl_dev->gregs;
++	addr = ctrl->gregs;
+ 	if (version >= FSL_IFC_VERSION_2_0_0)
+ 		addr += PGOFFSET_64K;
+ 	else
+ 		addr += PGOFFSET_4K;
+-	fsl_ifc_ctrl_dev->rregs = addr;
++	ctrl->rregs = addr;
+ 
+ 	/* get the Controller level irq */
+-	fsl_ifc_ctrl_dev->irq = irq_of_parse_and_map(dev->dev.of_node, 0);
+-	if (fsl_ifc_ctrl_dev->irq == 0) {
++	ctrl->irq = irq_of_parse_and_map(dev->dev.of_node, 0);
++	if (ctrl->irq == 0) {
+ 		dev_err(&dev->dev, "failed to get irq resource for IFC\n");
+ 		ret = -ENODEV;
+ 		goto err;
+ 	}
+ 
+ 	/* get the nand machine irq */
+-	fsl_ifc_ctrl_dev->nand_irq =
+-			irq_of_parse_and_map(dev->dev.of_node, 1);
++	ctrl->nand_irq = irq_of_parse_and_map(dev->dev.of_node, 1);
+ 
+-	fsl_ifc_ctrl_dev->dev = &dev->dev;
++	ctrl->dev = &dev->dev;
+ 
+-	ret = fsl_ifc_ctrl_init(fsl_ifc_ctrl_dev);
++	ret = fsl_ifc_ctrl_init(ctrl);
+ 	if (ret < 0)
+ 		goto err_unmap_nandirq;
+ 
+-	init_waitqueue_head(&fsl_ifc_ctrl_dev->nand_wait);
++	init_waitqueue_head(&ctrl->nand_wait);
+ 
+-	ret = request_irq(fsl_ifc_ctrl_dev->irq, fsl_ifc_ctrl_irq, IRQF_SHARED,
+-			  "fsl-ifc", fsl_ifc_ctrl_dev);
++	fsl_ifc_ctrl_dev = ctrl;
++
++	ret = request_irq(ctrl->irq, fsl_ifc_ctrl_irq, IRQF_SHARED,
++			  "fsl-ifc", ctrl);
+ 	if (ret != 0) {
+ 		dev_err(&dev->dev, "failed to install irq (%d)\n",
+-			fsl_ifc_ctrl_dev->irq);
+-		goto err_unmap_nandirq;
++			ctrl->irq);
++		goto err_clear_global;
+ 	}
+ 
+-	if (fsl_ifc_ctrl_dev->nand_irq) {
+-		ret = request_irq(fsl_ifc_ctrl_dev->nand_irq, fsl_ifc_nand_irq,
+-				0, "fsl-ifc-nand", fsl_ifc_ctrl_dev);
++	if (ctrl->nand_irq) {
++		ret = request_irq(ctrl->nand_irq, fsl_ifc_nand_irq,
++				0, "fsl-ifc-nand", ctrl);
+ 		if (ret != 0) {
+ 			dev_err(&dev->dev, "failed to install irq (%d)\n",
+-				fsl_ifc_ctrl_dev->nand_irq);
++				ctrl->nand_irq);
+ 			goto err_free_irq;
+ 		}
+ 	}
+@@ -293,15 +294,17 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
+ 	return 0;
+ 
+ err_free_nandirq:
+-	if (fsl_ifc_ctrl_dev->nand_irq)
+-		free_irq(fsl_ifc_ctrl_dev->nand_irq, fsl_ifc_ctrl_dev);
++	if (ctrl->nand_irq)
++		free_irq(ctrl->nand_irq, ctrl);
+ err_free_irq:
+-	free_irq(fsl_ifc_ctrl_dev->irq, fsl_ifc_ctrl_dev);
++	free_irq(ctrl->irq, ctrl);
++err_clear_global:
++	fsl_ifc_ctrl_dev = NULL;
+ err_unmap_nandirq:
+-	irq_dispose_mapping(fsl_ifc_ctrl_dev->nand_irq);
+-	irq_dispose_mapping(fsl_ifc_ctrl_dev->irq);
++	irq_dispose_mapping(ctrl->nand_irq);
++	irq_dispose_mapping(ctrl->irq);
+ err:
+-	iounmap(fsl_ifc_ctrl_dev->gregs);
++	iounmap(ctrl->gregs);
+ 	return ret;
+ }
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028113141.2111-1-tangbin%40cmss.chinamobile.com
+2.53.0
+
