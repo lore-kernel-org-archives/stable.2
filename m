@@ -1,90 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793513806;
-	b=PBWKYAOXD4tDIX6PwGEGN+f9sRnvm6Gp1b+v+ZcH57bmW2vppo58POWhzmeoQc3swtJY
-	 Usu03dFj0r/J25tXOEnLtuYOHZ9dQwWR2NAdJ1O4EV3LW6M+E6c7nVlOrZlaz3nfkaSLs
-	 +k3Qf9t4SZVxkGhuvvTOwx4Y3XAb8AwNr+YbUFLUl2j2leL59dODUkKv3oao/y5v+EYdI
-	 LjCJd4zlKYZLW8A544KDpaxhgurO2vnMssVAKRgkIqgntmE94la9RJQtxsNrpMAtC/156
-	 Of6aRa5dz1NgC2bAo0EhU+RP561W6YzDv8kMRnIKjSedAd2kFZoraIPQms4y+RuRxMw==
+	t=1793514052;
+	b=VScHJ0OpdDK2G5agZx75FtqPC3RXP9kVe8PpJl40h3FemWMe2aTGO4P3uzM2PzgMHxvt
+	 IcaUQMVWzJlcjrqv7A+Ffaem0janKOo6iB5LaJdTFC/aDYYR+sGKGnKcYS6g4+jefHLwe
+	 ukCzsbwwTcE/2vcGqF5DVWiwu+0sC/rOWvAP29+rdIrvy2BNoouNuZmIUnPIPVsPHmRBZ
+	 gdX+uvQ/ZhmpVTqAIa0IkT/FqDvO9iIKwgutA36+t2okq0GOH50ozne11CZR/bAOy1WP8
+	 U8Hm6se9IXp6eTOWme6+g39lUoMyNA39Md72+Kutc8+OkI913xDhImOzc9HRPffCVsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793513806;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mSF7aPql77EvpJK0U6mtu3706TZgUUeYYH541yBj7IQ=;
-	b=YZdHhQ4byAdvLZkx9ZC0zWzsX1dJqBs6SNxJ5g7BzCZTd+aSrntjvlKy1sChXhwaf1CS
-	 8kdwnlvjlqi7i6UfHg28qqZMiEc/OFAg4Pc5WjD8kR7+UX41Cy93jQRTUUiXZpbZRia+D
-	 kdz48o6EJ2MVjhVyjO+zeCiuXQ48XF/eoTMDOdsVUKB5+Gw2u5/oy0qHsllmrCg/CCwwu
-	 WbAc+arIVO4U6Pg31we5k476O8bRayTL6K9riRsXskQRvSKCZdWUFVlEUvjzB7QpfG7pB
-	 jCt9qaqLOmXRJZBbL0ZfuHBwfImWAD6ljF6kZcqM87cxqtFQNs7UcQlxmw/+2EOkptQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793514052;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=qdpAw2CeVyl2O4/SsZKsGMa/ZVARBuLoVGSK/7j1CNs=;
+	b=DeAjwbAQ3PG0TRZGSC2Jsb/uuDWqjJZwkCRtQitdmNfSVg8OMo6B74SzsT6PEdeOVOXK
+	 awatSDmS0nkrwY8SdHptASa0l+RBYR9A2dUxvPtraPXT1NbhxRZcR+mMhgXXM9TP2S/bp
+	 B1p4mL4WVK1DRyM5zxcwnZciQLgFs7pybAYfGOwTdoXPXbLXE4l05P9DQrhw3b7xJ6dMr
+	 KeLwZf13/Romc2w62vno668tVc7BSlKucTmE7N8NexmXAr0KGpY8MVddJK9xyyl38Gjah
+	 ho/1ZX8NnIUzUa0fYj81u2zRE1W6/sOc0w/SUo3V+VBYKVRl1/H/1WSYAeJ8Mi8OhVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h5sh+LSt;
-	arc=none smtp.remote-ip=95.215.58.20
-Received: from mta1.migadu.com (out-20.mta1.migadu.com [95.215.58.20])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VmB0NE1S;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FE0606A327
-	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3FE0606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BD5F606A336
+	for <stable@vger.kernel.org>; Sun,  1 Nov 2026 06:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BD5F606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h5sh+LSt
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VEj4AXOvyHq7dn47CDsF3SXWHUAqc4UCTqa5O+MQa+s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793513804; v=1; x=1794118604;
- b=h5sh+LStSxjWC71XmeS5IkqQAL1f7KnGA2JcxWkR5mo6njZmSZM0GC+lm31bXYBH8Kv98Zdq
- TvElL5XNLADnzX1yHVj4E8jpyXXIMoppEaJiWDnJhWnDV3+ppOveytqem6w40vclkyBv7fp4HiX
- sozklZeOGImFAWNf4hENqc/8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e3c9e97b33ce8185;
-	Sun, 01 Nov 2026 06:16:44 +0000
-X-Mizu-Trace-ID: e3c9e97b33ce8185
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	stable@vger.kernel.org,
-	Joel Granados <joel.granados@kernel.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Maoyi Xie <maoyi.xie@ntu.edu.sg>,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Neal Cardwell <ncardwell@google.com>,
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
-	Yung Chih Su <yuuchihsu@gmail.com>,
-	Wyatt Feng <bronzed_45_vested@icloud.com>,
-	Hannes Frederic Sowa <hannes@stressinduktion.org>,
-	Flavio Leitner <fbl@redhat.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Petr Mladek <pmladek@suse.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3 5/5] net: restrict message_cost and message_burst to non-negative values
-Date: Sun,  1 Nov 2026 14:12:03 +0800
-Message-ID: <20261101061331.286404-6-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101061331.286404-1-jiayuan.chen@linux.dev>
-References: <20261101061331.286404-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VmB0NE1S
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b0d864826cso1491358c88.1
+        for <stable@vger.kernel.org>; Sat, 31 Oct 2026 23:20:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793514051; x=1794118851; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qdpAw2CeVyl2O4/SsZKsGMa/ZVARBuLoVGSK/7j1CNs=;
+        b=VmB0NE1SK1dSZHehZEKpYbNRGVAGQoG9sQbszpc9MIBSgSAjM/pPWk3zq0OiAMzo4P
+         aXpZMJ1fu/qHOu4kKnjuHertLWFdhPNWWX4AmRNuu6UImMXGGcdtIGQMsnvpV5Sbtr/q
+         5J5Wburg8odMV/IM93Fq91sk6QaDHFBU3aOXdY/lTAnPPejMCw0ztL2fvvYxB1n56ZPy
+         a77OdHFYhf912lAi/ZosyYVBgmvlv5B7ky5ESj24tW2XqkmCnSWXBpUm3DUSQe9SsJxC
+         ng3ES16VGTLfidOgfPLDyGWmR/ey7i6XpFQw+suc1PhoSmKpAPn9QAkJrGJ3ZX+Q2ini
+         T/kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793514051; x=1794118851;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qdpAw2CeVyl2O4/SsZKsGMa/ZVARBuLoVGSK/7j1CNs=;
+        b=c0KHI8O/gk+0AGFxMFnFT9obBpN7AZiYZDsbVBeWRinMj7E5vDgiNRJsOaf+47j2Hu
+         HDMBS1v5qThk5PKbfaj6Oh3aCfG/sb1dG52+T+AH+ObZrTFupxmU/Nt1Sy8MTiflxDho
+         ovFvtzECOXVoervWAD79NPZKKxHAwX03An8OKBnu8Tk/p4bScBGuSzsxQskbx3/W2fht
+         9hZSi1qO1QDAkhAqLCiLGzLMsZAydP9+gS3KZamrpUGFNmpWLt8sj3zD44p9uqGAOubZ
+         IoUlNui8iqtKX78B+oWqGqwY1b9/cOF/MCQ9ngbeyRcAM1iy+J/dAQr6tImjJShxLx0x
+         Me9w==
+X-Forwarded-Encrypted: i=1; AKwUvBx0xTXNMPDi+kfW33mfMrMKWKQQbsRoLOWObbFu0TgYajhKDK7wECUz6ET3TDPvskC6iiEzenw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ90/BP28LWRkskJs/TrKdGJyOV2qICPt0U5Kd2VJR0oXussjtC
+	FjBvBh9d1G1XI/PrnHgg6Iq3NLMdEMDEtjc2oFChqWwE+8PVYyv4Z6mAcYmBL+qy32t15/BnsGR
+	0dQPGORbN8iTRAmAG5cioRRzB/A==
+X-Received: from dlbrx13.prod.google.com ([2002:a05:7022:170d:b0:184:6cc9:b13c])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:3a06:b0:1a5:1c15:9ea3 with SMTP id a92af1059eb24-1ac5ac4b77amr10797606c88.17.1793514050726;
+ Sat, 31 Oct 2026 23:20:50 -0700 (PDT)
+Date: Sun,  1 Nov 2026 06:20:48 +0000
+In-Reply-To: <20261101062049.998160-1-almasrymina@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,161 +78,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261101062049.998160-1-almasrymina@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261101062049.998160-2-almasrymina@google.com>
+Subject: [PATCH v2 1/2] vfio/pci: pass FAULT_FLAG_WRITE to vmf_insert_pfn_pmd/pud()
+From: Mina Almasry <almasrymina@google.com>
+To: Peter Xu <peterx@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, David Matlack <dmatlack@google.com>, 
+	Shuah Khan <shuah@kernel.org>, Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-net.core.message_cost and net.core.message_burst feed the interval and
-burst of net_ratelimit_state, but neither rejects negative values:
-message_burst uses plain proc_dointvec, and message_cost uses
-proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
+vfio_pci_vmf_insert_pfn() is the only caller of vmf_insert_pfn_pmd() and
+vmf_insert_pfn_pud() in the kernel that hardcodes write=false instead of
+passing vmf->flags & FAULT_FLAG_WRITE (unlike drm, panthor, and mshv).
 
-Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
-negative"), ___ratelimit() splats on such values, so the next
-net_ratelimit() caller warns, e.g. a martian source log:
+On x86_64, normal MAP_SHARED | PROT_WRITE VFIO BAR mappings usually mask
+this bug because vma->vm_page_prot already has _PAGE_RW set. However,
+when vma->vm_page_prot starts read-only, insert_pmd() and insert_pud()
+with write=false install a read-only huge entry without calling
+pmd_mkdirty()/maybe_pmd_mkwrite() (and similarly for PUD). Subsequent
+write-protection faults enter wp_huge_pmd() or wp_huge_pud(), which call
+vma->vm_ops->huge_fault() to upgrade the entry in place. Because
+vfio_pci_vmf_insert_pfn() passes write=false, insert_pmd() and
+insert_pud() see !pmd_none(*pmd) with !write, do nothing, and return
+VM_FAULT_NOPAGE, causing an unrecoverable infinite write page-fault loop
+and host CPU soft lockup on the next userspace or KVM guest MMIO store.
 
-  Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
-  WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
-  RIP: 0010:___ratelimit+0x578/0x960
-  Call Trace:
-   <IRQ>
-   net_ratelimit+0x1c/0x30
-   ip_handle_martian_source+0x1bb/0x340
-   ip_route_input_slow+0x1057/0x3650
-   ip_route_input_noref+0x104/0x260
-   arp_process+0x109b/0x2510
-   arp_rcv+0x381/0x460
-   __netif_receive_skb_one_core+0x173/0x1c0
-   __netif_receive_skb+0x21/0x150
-   process_backlog+0x37e/0x1200
-   __napi_poll.constprop.0+0xa5/0x5e0
-   net_rx_action+0x4c0/0xf70
-   handle_softirqs+0x204/0x9b0
-   __do_softirq+0x10/0x18
-   do_softirq.part.0+0x49/0xd0
-   </IRQ>
+In practice, vma->vm_page_prot is read-only on a writable MAP_SHARED BAR
+mapping in two situations:
 
-Negative values never meant anything here: 0 already expresses both
-"no limit" (interval) and "suppress everything" (burst).
+1. Userspace soft-dirty tracking (CONFIG_MEM_SOFT_DIRTY) when a process
+   such as CRIU (during pre-dump/checkpoint), a VMM live-migration loop,
+   a memory profiler, or an unprivileged process holding a VFIO device
+   fd writes "4" (CLEAR_REFS_SOFT_DIRTY) to /proc/<pid>/clear_refs. That
+   clears VM_SOFTDIRTY on all VMAs (including VM_PFNMAP) and calls
+   vma_set_page_prot(), stripping _PAGE_RW from vma->vm_page_prot for
+   subsequent huge faults.
 
-Reject them at write time. message_burst can simply use
-proc_dointvec_minmax with extra1 = 0. proc_dointvec_jiffies has no
-minmax variant, so add proc_dointvec_jiffies_minmax(), mirroring
-proc_dointvec_ms_jiffies_minmax(), and use it for message_cost with
-extra1 = 0. Note that like the ms variant, extra1/extra2 are compared
-against the converted jiffies value.
+2. Architectures where shared writable mappings start read-only for
+   software dirty tracking, such as arm64 without hardware DBM
+   (CONFIG_ARM64_HW_AFDBM off or FEAT_HAFDBS absent), where _PAGE_SHARED
+   sets PTE_RDONLY | PTE_WRITE and pgprot_noncached() preserves
+   PTE_RDONLY on MT_DEVICE_nGnRnE mappings until pmd_mkdirty() clears
+   it on a write fault.
 
-Fixes: a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are negative")
+This bug was found by code inspection while auditing huge_fault handlers
+and reproduced with a VFIO PCI selftest on a 2 MiB-aligned BAR mapping
+after writing "4" to /proc/self/clear_refs.
+
+Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
+vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
+dirty and writable.
+
+Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
 Cc: stable@vger.kernel.org
-Suggested-by: Joel Granados <joel.granados@kernel.org>
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: Ankit Agrawal <ankita@nvidia.com>
+Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Cc: David Matlack <dmatlack@google.com>
+Signed-off-by: Mina Almasry <almasrymina@google.com>
 ---
- include/linux/jiffies.h    |  2 ++
- kernel/time/jiffies.c      | 40 ++++++++++++++++++++++++++++++++++++++
- net/core/sysctl_net_core.c |  6 ++++--
- 3 files changed, 46 insertions(+), 2 deletions(-)
+ drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/jiffies.h b/include/linux/jiffies.h
-index bbd57061802cd..de12920f8e94b 100644
---- a/include/linux/jiffies.h
-+++ b/include/linux/jiffies.h
-@@ -646,6 +646,8 @@ extern unsigned long nsecs_to_jiffies(u64 n);
- struct ctl_table;
- int proc_dointvec_jiffies(const struct ctl_table *table, int dir, void *buffer,
- 			  size_t *lenp, loff_t *ppos);
-+int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir,
-+				 void *buffer, size_t *lenp, loff_t *ppos);
- int proc_dointvec_ms_jiffies_minmax(const struct ctl_table *table, int dir,
- 				    void *buffer, size_t *lenp, loff_t *ppos);
- int proc_dointvec_userhz_jiffies(const struct ctl_table *table, int dir,
-diff --git a/kernel/time/jiffies.c b/kernel/time/jiffies.c
-index 9b3487d40cd6a..1e1dd9f3c48c4 100644
---- a/kernel/time/jiffies.c
-+++ b/kernel/time/jiffies.c
-@@ -165,6 +165,14 @@ static int do_proc_int_conv_jiffies(bool *negp, ulong *u_ptr, int *k_ptr,
- 			     sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz);
- }
- 
-+static int do_proc_int_conv_jiffies_minmax(bool *negp, ulong *u_ptr,
-+					   int *k_ptr, int dir,
-+					   const struct ctl_table *tbl)
-+{
-+	return proc_int_conv(negp, u_ptr, k_ptr, dir, tbl, true,
-+			     sysctl_u2k_int_conv_hz, sysctl_k2u_int_conv_hz);
-+}
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index fcbb2da860e2..204d959086e9 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 				   unsigned long pfn,
+ 				   unsigned int order)
+ {
++	bool write = vmf->flags & FAULT_FLAG_WRITE;
 +
- static int do_proc_int_conv_userhz_jiffies(bool *negp, ulong *u_ptr,
- 					   int *k_ptr, int dir,
- 					   const struct ctl_table *tbl)
-@@ -213,6 +221,13 @@ static int do_proc_int_conv_jiffies(bool *negp, ulong *u_ptr, int *k_ptr,
- 	return -ENOSYS;
- }
+ 	lockdep_assert_held_read(&vdev->memory_lock);
  
-+static int do_proc_int_conv_jiffies_minmax(bool *negp, ulong *u_ptr,
-+					   int *k_ptr, int dir,
-+					   const struct ctl_table *tbl)
-+{
-+	return -ENOSYS;
-+}
-+
- static int do_proc_int_conv_userhz_jiffies(bool *negp, ulong *u_ptr,
- 					   int *k_ptr, int dir,
- 					   const struct ctl_table *tbl)
-@@ -263,6 +278,31 @@ int proc_dointvec_jiffies(const struct ctl_table *table, int dir,
- }
- EXPORT_SYMBOL(proc_dointvec_jiffies);
+ 	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
+@@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
  
-+/**
-+ * proc_dointvec_jiffies_minmax - read a vector of integers as seconds with min/max values
-+ * @table: the sysctl table
-+ * @dir: %TRUE if this is a write to the sysctl file
-+ * @buffer: the user buffer
-+ * @lenp: the size of the user buffer
-+ * @ppos: file position
-+ *
-+ * Reads/writes up to table->maxlen/sizeof(unsigned int) integer
-+ * values from/to the user buffer, treated as an ASCII string.
-+ * The values read are assumed to be in seconds, and are converted into
-+ * jiffies. The converted values are checked against the optional
-+ * table->extra1 (min) and table->extra2 (max) bounds, in jiffies;
-+ * a value outside the range is rejected with -EINVAL.
-+ *
-+ * Return: 0 on success.
-+ */
-+int proc_dointvec_jiffies_minmax(const struct ctl_table *table, int dir,
-+				 void *buffer, size_t *lenp, loff_t *ppos)
-+{
-+	return proc_dointvec_conv(table, dir, buffer, lenp, ppos,
-+				  do_proc_int_conv_jiffies_minmax);
-+}
-+EXPORT_SYMBOL(proc_dointvec_jiffies_minmax);
-+
- /**
-  * proc_dointvec_userhz_jiffies - read a vector of integers as 1/USER_HZ seconds
-  * @table: the sysctl table
-diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
-index 473c162736d69..9226b96f2e89b 100644
---- a/net/core/sysctl_net_core.c
-+++ b/net/core/sysctl_net_core.c
-@@ -544,14 +544,16 @@ static struct ctl_table net_core_table[] = {
- 		.data		= &net_ratelimit_state.interval,
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec_jiffies,
-+		.proc_handler	= proc_dointvec_jiffies_minmax,
-+		.extra1		= SYSCTL_ZERO,
- 	},
- 	{
- 		.procname	= "message_burst",
- 		.data		= &net_ratelimit_state.burst,
- 		.maxlen		= sizeof(int),
- 		.mode		= 0644,
--		.proc_handler	= proc_dointvec,
-+		.proc_handler	= proc_dointvec_minmax,
-+		.extra1		= SYSCTL_ZERO,
- 	},
- #ifdef CONFIG_RPS
- 	{
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
+-		return vmf_insert_pfn_pmd(vmf, pfn, false);
++		return vmf_insert_pfn_pmd(vmf, pfn, write);
+ 
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
+-		return vmf_insert_pfn_pud(vmf, pfn, false);
++		return vmf_insert_pfn_pud(vmf, pfn, write);
+ 
+ 	return VM_FAULT_FALLBACK;
+ }
 -- 
-2.43.0
+2.56.0.385.gac671c819a-goog
 
