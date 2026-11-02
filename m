@@ -1,61 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634946;
-	b=2lUJXcukGgQvV0KEL/biqUBo6ngb/GawRtIhYUVefoMjvPcYWaJtMs0DB8fmui+3z/5e
-	 Bh8uijE4dC0y9OPJHKpMNLeqGbfEB8/nloSM4oK9Po6KazvKC3Tz6+eZwbieXd4avdo1N
-	 n/jVEvlAgba/ZPhZEjHa/PN9jq6D5UcUet3RfuoP1yqHR7E7zU6nzgsz83SfBNSvXD54H
-	 irEc63bJqywKy2HmWdj3VOHsXQvTbtO7SaYDSP4hH0OiEL+rIFNvXqOxWai4UFYUkiv+5
-	 yD1ujYfDdaq4ee7ubnf986jXRkVd41URD0acjDAVdqCPnDY1lb6O5fpf2xsTpm46e1Q==
+	t=1793634991;
+	b=x+N35isOe0p3zogQ+4kMEWaIRQktx5o2+yMCXihXyMyESqJP3A05r8jVrugdV3opu5fg
+	 LHXbZN64KZYMLRDw+QaVOX7m3vi92SnkY+Zrjb9WqNDLpaug1p2pl3VgnA87tJlML14Fl
+	 aST03Mk8JhicEd4tcFge+TX13iEp5pLD89LRN6r3UtxxvO9tDwjQ3TxdMC8XVR1gDzSqc
+	 UtHarVg4RTlWf7v47792ym3B1xmNT9tgqFQGyKhVsCRe6tz6HnKqNDPzq8X+684m58iSB
+	 gO+4SfJQb02LFMIiss6bDl8Mc32ZmuRNJJ4Ws0xulIu8P1plo7m7fvfrxmbpsdr/SGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634946;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634991;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=pbmLFuUUs2hY3LsaVxiT1WIYAS0SESeohktWJy7672k=;
-	b=c1TgkkOL7EKI8LzpDqwhwq78oNNAB8h5hqsslx5oX+LOlVzsk7fdYn8ZhqO4ZYW+SR39
-	 o+Hvo/86aW+iEApb4TTWX+A9IRJwUxq6C3aWM8Br7YV/DUDXcSZDY1PcWmI+Ry3kaKl6N
-	 cN7s6IiW6kGQR5ndxutXfBzNAPS//RSJKQbeXRLTlUStvd7NBiS7cflMJ5GstQqjbYWMM
-	 emxWSYS550yUMfYgSycnSnoNzb8OGF3WyJzBjMqZy/NRsjJSxzZzVdT5bUukMwN7jHpoV
-	 GGv25zxUY78f64olS5ZEEgYGfoME7N+HtW+a+6EzEj9JXeK68aY31lu6O3sS9E5P9Cw==
+	bh=iw0A/6qXyey37hvqhs6dNwEmzIY1VT/a5QdELgvzmDg=;
+	b=tD1mxxK+frvFjMLKdV3OA/Vglnl0JXERrHUTyR6zusID0Afm4LpN8C38SZQ688pRXQUT
+	 94cjtezF1xibNOgNzeWdJ2SMSO5iwSieOJmHZLSdWeD6OPLg2mA1IoVPmA16Vn4g33efy
+	 /ofCtoeKbpV5r7t0bNRg9HqT1xkBhW9WC+JynVXZK5woVAepSkO0yRBrOGNiYa3nK1SJ+
+	 xr7RQy9QiKAkw1sHMbjn5+qGAf6HqtrvUYpVA6rqg4yAItlfX0GNIuk2L9YNL4AZj8/KQ
+	 8cQ/vIEmthShAYTWGx3OXoK2yR5MHIolaa+XIG0HfPGCtx0cvjh0/aw83PTuPsnE06Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mails.tsinghua.edu.cn;
 	spf=pass smtp.mailfrom=mails.tsinghua.edu.cn;
-	dkim=pass header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=o6RRkTEA;
-	arc=none smtp.remote-ip=132.226.202.154
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B0029607BD20;
-	Mon,  2 Nov 2026 15:55:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0029607BD20
+	dkim=pass header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=nt59HVOC;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D00DD606E032;
+	Mon,  2 Nov 2026 15:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D00DD606E032
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=o6RRkTEA
+	dkim=pass (1024-bit key, unprotected) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=nt59HVOC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-Id:MIME-Version:Content-Transfer-Encoding; bh=pbmLF
-	uUUs2hY3LsaVxiT1WIYAS0SESeohktWJy7672k=; b=o6RRkTEAjPV+bMCpvIMu/
-	I4t65PgIO+Rmd439//39fY75VtK13w8gGFykEYVj3ZgnjH5AdEZUdyQ/1xzCxacD
-	CnYdgBRtJxljlHlnPAuV6NcA81TzmhsfGlqEE4j+cgxPQqo5Q7vrfPqHXXMn6cJS
-	trLFcBRkVfb4svv65dvf5w=
+	Date:Message-Id:MIME-Version:Content-Transfer-Encoding; bh=iw0A/
+	6qXyey37hvqhs6dNwEmzIY1VT/a5QdELgvzmDg=; b=nt59HVOCF3BiLHluALOqA
+	xJpjiVE366RtBkK6daL2Scdcmt1Ix1zqTymDxfZcL3FBna2EijoMjWcEHJpZSPOH
+	qPaHFm2WVLUjZdGrRk5+qyJyp2BFYbBA3a//DClZ5djtaGxLhRW9aMiNou9D/bSk
+	g32SIBfieyrKOr4zhymrlo=
 Received: from localhost.localdomain (unknown [202.112.47.69])
-	by web4 (Coremail) with SMTP id ywQGZQC3eAZksuhq+eOvAQ--.35986S2;
-	Mon, 02 Nov 2026 23:55:17 +0800 (CST)
+	by web2 (Coremail) with SMTP id yQQGZQCHtGiosuhqKf0BAQ--.27816S2;
+	Mon, 02 Nov 2026 23:56:24 +0800 (CST)
 From: zhangmh25@mails.tsinghua.edu.cn
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	pshelar@nicira.com,
+To: netfilter-devel@vger.kernel.org
+Cc: netdev@vger.kernel.org,
+	pablo@netfilter.org,
+	coreteam@netfilter.org,
 	stable@vger.kernel.org,
 	zhangmh25@mails.tsinghua.edu.cn,
 	jianjun@tsinghua.edu.cn
-Subject: [PATCH net] net: ipv4: fix tnl_update_pmtu negative MTU advertisement
-Date: Mon,  2 Nov 2026 23:54:44 +0800
-Message-Id: <20261102155444.2658518-1-zhangmh25@mails.tsinghua.edu.cn>
+Subject: [PATCH net] netfilter: nf_reject: validate TCP header length before sending resets
+Date: Mon,  2 Nov 2026 23:56:22 +0800
+Message-Id: <20261102155622.2658789-1-zhangmh25@mails.tsinghua.edu.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,84 +62,95 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:ywQGZQC3eAZksuhq+eOvAQ--.35986S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw43CF48try5JFWxKFWxZwb_yoW5GF1fpF
-	yqk3yYkF1DKrn7Cas2vF1kX3W5Ca95ta97GFs8G34xZ3s8Xa4FvrWSqrWYgF10kwsag34r
-	JFyDtryjk3Z8ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:yQQGZQCHtGiosuhqKf0BAQ--.27816S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxurW3Wr1xAr4fGryxXr1fJFb_yoW5AFy5pa
+	47tw1xA39rKryjyFn7uF48JF1rWF4kGF47WFWFy3s3Kwn8Ja18KayS9ry7uayaya1xKF4f
+	XFWjqw4jy3WDJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBq14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
 	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
 	Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
 	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwACI402YVCY1x02628vn2kIc2xKxwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_Jw
-	0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AK
-	xVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrx
-	kI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v2
-	6r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8Jw
-	CI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYWrWUUUU
-	U
-X-CM-SenderInfo: x2kd0wlpkskqxpdlz2oowvx0pjkxthxhgxhubq/1tbiAQITB2roVd5mqQAAsR
+	rcIFxwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ryrMxAIw2
+	8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
+	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrw
+	CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
+	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
+	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjDDG7UUUUU==
+X-CM-SenderInfo: x2kd0wlpkskqxpdlz2oowvx0pjkxthxhgxhubq/1tbiAgMTB2roVIJoagAAsD
 
 From: Minghao Zhang <zhangmh25@mails.tsinghua.edu.cn>
 
-tnl_update_pmtu() derives the tunnel MTU for DF packets by subtracting
-the outer IP header and the tunnel header length from the MTU of the
-underlay route.  When that route has a very low MTU (for example one
-installed with "ip route ... mtu 15" on an ipip tunnel, where the
-outer header alone is 20 bytes), the result can drop below
-IPV4_MIN_MTU or even become negative.
+The TCP header validation in both nf_reject_ip_tcphdr_get() and
+nf_reject_ip6_tcphdr_get() checks that the TCP segment is at least
+sizeof(struct tcphdr) long, but does not verify that the header
+length claimed via the data offset is actually present in the packet.
+A peer can send a TCP packet claiming a 60-byte header although only
+the fixed 20-byte header is present.
 
-The IPv6 branch of the same function emits ICMPV6_PKT_TOOBIG only
-when mtu >= IPV6_MIN_MTU, but the IPv4 branch passes the unclamped
-value to icmp_ndo_send().  An effective MTU of -5 produces a bogus
-Next-Hop MTU value of 65531 in the generated ICMP_FRAG_NEEDED instead
-of providing usable PMTU feedback.  Values below IPV4_MIN_MTU are not
-valid to advertise (RFC 1191), and ip_tunnel_bind_dev() already
-clamps the device MTU to IPV4_MIN_MTU.
+The reset generation then computes the ACK number using the claimed
+header length, and the subtraction of the data offset from the TCP
+segment length underflows, producing a wrapped ACK value in the
+generated RST. For a 20-byte segment with doff = 15, ACK bit clear,
+sequence number 0, SYN and FIN clear, the RST carries ack_seq
+0xffffffd8 instead of a meaningful value.
 
-Mirror the IPv6 guard and only send the error when mtu >=
-IPV4_MIN_MTU.  The packet is still rejected with -E2BIG.
+Reject TCP headers whose data offset is smaller than the fixed header
+or exceeds the available TCP segment length. This prevents generating
+resets with an ACK number derived from an invalid TCP header length.
 
-IPIP previously rejected packets when the effective tunnel MTU was
-below 68.  Commit fd58156e456d ("IPIP: Use ip-tunneling code.")
-switched IPIP to the shared transmit path, which lacked this check.
+Found during a systematic audit of TCP header validation in the
+netfilter reject paths. Tested in network namespaces with nftables
+"reject with tcp reset" rules: on both IPv4 and IPv6, a probe with
+doff = 15 produced an RST with a wrapped ack_seq; with the fix no
+RST is generated for such packets, while probes with well-formed
+headers still get a correct RST.
 
-Tested in a network namespace with an ipip tunnel: with a tunnel route
-of "mtu 15" the kernel generates an ICMP_FRAG_NEEDED advertising a
-next-hop MTU of 65531, and with a route of "mtu 88" it advertises the
-correct MTU of 68.  After this change no ICMP error is generated for
-the "mtu 15" case while the packet is still rejected with -E2BIG, and
-the "mtu 88" advertisement is unchanged.
-
-Found during a systematic audit of PMTU handling in tunnel
-encapsulation paths.
-
-Fixes: fd58156e456d ("IPIP: Use ip-tunneling code.")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 764d8a9f2407 ("[NETFILTER]: Add IPv6 REJECT target")
 Reported-by: Minghao Zhang <zhangmh25@mails.tsinghua.edu.cn>
 Reported-by: Jianjun Chen <jianjun@tsinghua.edu.cn>
 Cc: stable@vger.kernel.org
 Signed-off-by: Minghao Zhang <zhangmh25@mails.tsinghua.edu.cn>
 ---
- net/ipv4/ip_tunnel.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/ipv4/netfilter/nf_reject_ipv4.c | 5 +++++
+ net/ipv6/netfilter/nf_reject_ipv6.c | 5 +++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
-index e6bcf0141..3200c33d3 100644
---- a/net/ipv4/ip_tunnel.c
-+++ b/net/ipv4/ip_tunnel.c
-@@ -536,7 +536,9 @@ static int tnl_update_pmtu(struct net_device *dev, struct sk_buff *skb,
- 		if (!skb_is_gso(skb) &&
- 		    (inner_iph->frag_off & htons(IP_DF)) &&
- 		    mtu < pkt_size) {
--			icmp_ndo_send(skb, ICMP_DEST_UNREACH, ICMP_FRAG_NEEDED, htonl(mtu));
-+			if (mtu >= IPV4_MIN_MTU)
-+				icmp_ndo_send(skb, ICMP_DEST_UNREACH,
-+					      ICMP_FRAG_NEEDED, htonl(mtu));
- 			return -E2BIG;
- 		}
- 	}
+diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
+index 59ec465a9..0e8823a7d 100644
+--- a/net/ipv4/netfilter/nf_reject_ipv4.c
++++ b/net/ipv4/netfilter/nf_reject_ipv4.c
+@@ -189,6 +189,11 @@ nf_reject_ip_tcphdr_get(struct sk_buff *oldskb,
+ 	if (oth == NULL)
+ 		return NULL;
+ 
++	/* Reject invalid or truncated TCP headers. */
++	if (oth->doff < sizeof(struct tcphdr) / 4 ||
++	    oldskb->len - ip_hdrlen(oldskb) < (oth->doff << 2))
++		return NULL;
++
+ 	/* No RST for RST. */
+ 	if (oth->rst)
+ 		return NULL;
+diff --git a/net/ipv6/netfilter/nf_reject_ipv6.c b/net/ipv6/netfilter/nf_reject_ipv6.c
+index 07cdaa10d..9dc112e50 100644
+--- a/net/ipv6/netfilter/nf_reject_ipv6.c
++++ b/net/ipv6/netfilter/nf_reject_ipv6.c
+@@ -223,6 +223,11 @@ nf_reject_ip6_tcphdr_get(struct sk_buff *oldskb,
+ 	if (otcph == NULL)
+ 		return NULL;
+ 
++	/* Reject invalid or truncated TCP headers. */
++	if (otcph->doff < sizeof(struct tcphdr) / 4 ||
++	    *otcplen < (otcph->doff << 2))
++		return NULL;
++
+ 	/* No RST for RST. */
+ 	if (otcph->rst) {
+ 		pr_debug("RST is set\n");
 -- 
 2.34.1
 
