@@ -1,81 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793584671;
-	b=YQDCDO0JZDbuSDXYvQzea0pzPTR1kiId0bWLWsSwu8pkieGM5Wh0YZNuWyUN84kVIJuB
-	 Pyx8H9HlgrjALC2nofl6FvAAsQ3wH+/O6fhge/FFX8LpA3PLwB/Jr1r5qa/DmfcgdCJTy
-	 QiOWG3NcmSaYadIaO6iNq5zU6XVHMuQaHfNs8rRrVttw8V09d7BUe2stEz40qHmbf8Qm+
-	 U7WXWUiwDliCwy4U5nToRVr4qGHv5nJHExl86+6qpd3EwzJS5KSVJGmw7wau9cha6FbJC
-	 mgDrfLBhge/4ZigwX2lyiDRCOWoBs/yOyq5qCATVkwpRj3tMoLq3oEd6H+I04F7jVjw==
+	t=1793584771;
+	b=3iqJ0C6s0c0p/xbtV7OhIav/WXWSOrDFaiPNi45t8hQaiK4eDAEIwvLcRbRwBcTUxtXp
+	 zbpQT2TrKgExtIKae6PiOV6PwMF/P3syMPI4L4A9eQ9OII3we/B1oZ1Rt4HTXAWjqAW3g
+	 YT9U9nwzYRJGiJS7rs4v7AXpwuVVm8Z/9acCyTfOj87NrzgwJsf/bDswWtiWh6Kri8Hit
+	 tCVKuxyJfzb9hNtZ7RmfQD4dZzg0CT1cCLDf9mHaOEFE0myREFvrcVtS0RDE/s4uo9XJG
+	 yuWAWh64lIp8Lf9MvqCFtC0yanT6rCp/gKONcP6tzrXB89P8OLkXj7tx8HA2G2JPooQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793584671;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=TvpTzi8L0ZRWR0mVAbSBCUuTyz3j9j00g6UtTPOySZE=;
-	b=0lOpBhM624rFG5oBa3F12Y9OphOoc8xn5ADCYs9P+kqsr99JqCkloB0ivh0Zhh+qRWpu
-	 HgJ1H3SZ717uGGCc5sP6wvoDZILvKCsrEUHCxkgPVzURhxiZPYOG8i5xAmj5mlT8cVUX/
-	 mcLXKOudAxGVvNeO2s47Ba7PAuS+BH9gRauhNg986vOo05T+XKAdAHMVxaou1/VsI29SJ
-	 g5tYngM1dwha4VXzQO+QMeKoSsC6gIKyd8IRgJEMYRio8068FcDg1S+YY8zlX+CZKS5mc
-	 99yFnr7K2GIKnrqNp4R5NBqqA25e+4a/UbVs1o3S1kAcAJPVPaVGbOSxdE29FLR8qZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793584771;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=TOa81AMcZ39FVPpdKUi4a+jsK34E7NL5Bi1fu+zvPwA=;
+	b=g0kNf3mKtQ9RAlCTVNJJ8S0ZmTCq9Cz1GXPwHHUQ+xs2nnRJJxIFuEy9fh8+frS8eEH+
+	 iUswMtS6bp03bYeEv0Ug6a3B7/zU11qjAASL1I6ZffAmP4dATjnw20mdmgvV6XpO/1gzK
+	 +dc3hkVodPmFiMo9Xo70xaDQ0MapG3/M04vf46WOoM7X9LCPGjVzjm71KawCnmPhqiDYA
+	 2cBdB3VfGV6dPKC/zQVdwzs0lnjWkNLIsbDDvZEt5YpyQAvvAOMT+Xl9CZJLgFv4vGB2n
+	 WG+bOvG/tiP+XsebkUsJbSdmZXkLKR0JWf5X8X9EYYDGofKjnThRllIQ1ok8IwOOqQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=XiufxJuD;
-	arc=none smtp.remote-ip=203.205.221.231
-Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Mz6kD96k;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=TNNLVyBO;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51755606A324;
-	Mon,  2 Nov 2026 01:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51755606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AF5606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 01:59:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95AF5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=XiufxJuD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793584660;
-	bh=TvpTzi8L0ZRWR0mVAbSBCUuTyz3j9j00g6UtTPOySZE=;
-	h=From:To:Cc:Subject:Date;
-	b=XiufxJuD9RBVMxXzCuURboolbfjU2kmL84RSMEVL/ZZKV8smy+0M0FCTrt9GgbGEG
-	 phUMPES+WYSQNLSOszyB8lGYxbTByoLlJFpCTAiqGRXm2Bz4InDDO5cC4XC1ILumip
-	 ALABIKprKcJyqYg4wxT6xLbMp7lwIUxQMAaI5HVE=
-Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id E6531245; Mon, 02 Nov 2026 09:57:37 +0800
-X-QQ-mid: xmsmtpt1793584657ta2b66kj9
-Message-ID: <tencent_0A4B784EEB3D358B09B43AA2B2F13AE44505@qq.com>
-X-QQ-XMAILINFO: N8xf3Kn/xs1HBUfGmattMNB7+yKUBgyS6w9hE05dNpGZAJ7OXBN53xrj/d7j8m
-	 kAtrXYjFbxUYmmy4ZfV3o5Bi5Pf4jXZ8tdxbeoSbqvqFgg5mqQrWD1wkQbkxfEUU0HnS947jrrFS
-	 Oi1NCkyWyFQnMYW6/9wfAxeA7lJHCwcv0wdpOxTflzDyVzhGyxRYZCxzOGaiKJT69BbXaoL+UEzH
-	 IBTU8f4AI795r7ec7eIKB2yh8eXc+jgSvd7ropAWfho2zo0EMYBNMgUo1Rhl/acsRj8VTqcMPnOI
-	 T0DQPeb9ZU4BMBXigfVLvVAwaqNM0eqzwPWmVueAnQXV8KTRfXsB/w22xFKrYYlXhNqOKRdw/LLW
-	 xSIlYMmKt+8vjUAFn6kdBdpKXvK/hVU5+r6OCnwrifggZOB+AayXO947KRTPjF4pUgeazjve15jd
-	 7aB8fqp61dC39dAUx5xdBznQIXvFOadB1XNqRbxLNR6wVsLdR7fFy+D7OGD+0mEzHQykxVTOEzlK
-	 dUUjmdAUhJ/03ireIY2K1fsSjhICoMFb97UWhaI/EFEmvHKXoKsLs+8xZ6bPNW+qIMAo4PBnMnRW
-	 uwNS2Cu7HATj6Ce0MKW1JwRLxLauw/2SlRQp5bsOptoPWo0h/qyVIQDHlg3m1iCoOA4klNbNkp8/
-	 BOLLyog9IWXyNZC4LsxHMHqtOTjd+Xw06Y6CY2tqogXoyF49rV+Ch/CXmeSvd50M9rnUtw3Nzfmz
-	 hWgIk0e0C1iWJ+0nH5tBCQpyvUWbTcYEM3LuwQE8cuueVh9/KzSGhvlETtHyeZxOTcky03HC+B+J
-	 0WdmGGCsn0u1Scc2g/jd5CtKm1Y/CneVb9RtmwTQZDuqNPFOpdk1XxqYN2poY69rogrZeorKNJ+y
-	 vV+PKZjYRh7jo28m+ZDRFM3R6o5bEpJlbdAXrc6ho6fiH+Ti2eA8H1QgBKnTPZf3qlfHfQFin/g9
-	 wEYe7zh7ISYxpdc9jxAs6W8GGgULEtVX3C7HfyjhBGSoDtkn0CohE205XEMe5ehkAAI346AjpadG
-	 +Pu+KO/aYPGzz3n7z+UX18BVEKkQKFn1Inljf511zzzpksorgFIyYj4MN32XaWGgxvMYniZQ==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: bo cao <treebacker@foxmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	dsahern@kernel.org,
-	edumazet@kernel.org,
-	idosch@nvidia.com,
-	horms@kernel.org,
-	willemdebruijn.kernel@gmail.com,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v4] ipv6: fix dead half of the MTU guard in __ip6_append_data()
-Date: Mon,  2 Nov 2026 09:57:36 +0800
-X-OQ-MSGID: <20261102015736.64157-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Mz6kD96k;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=TNNLVyBO
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1EpsAi3065935
+	for <stable@vger.kernel.org>; Sun, 1 Nov 2026 20:59:30 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=TOa8
+	1AMcZ39FVPpdKUi4a+jsK34E7NL5Bi1fu+zvPwA=; b=Mz6kD96kVplItFSo8ra0
+	2qdsM4Hk13j55ItZQHvGa91+l2LcpZpC6YSnV19GSCxGIYVbivLeQu+eSwmmdV/m
+	snscUURbS+gNrPOnuJkxuAuonUERyq6VhndtrXQRj1VnhF5KSN9TIJyJ3MdULojq
+	4e4qeB42BTz7FPZcCLZzdAg6g4Z50XZNvULk2re7VwZEygPY1ORu7A5IcpOk+WB+
+	KXEW5sB1MF7feBUYvmO+Kltpt5OyL5TDuZEO4UpzOWJsVxGCaIq/8jFulqpD6Dkt
+	4PAkKHadGxT+FGV4R8AVup96qqXZvuGFIGbOcRYU4AzVW9V5NOusxyYt3vJSmlE3
+	Dg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hp7hujuf0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Sun, 01 Nov 2026 20:59:29 -0500 (EST)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f26dd2165so189659085a.3
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 17:59:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793584769; x=1794189569; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TOa81AMcZ39FVPpdKUi4a+jsK34E7NL5Bi1fu+zvPwA=;
+        b=TNNLVyBOfQ4HYc2qWQV5Hs9a2k/mgCM+owx4CTV9+yAcIo0sMFPrECssRDjF+5Q1YW
+         MFvEbJDOuYswJePR7P1VPKibo/wvi4sBpm96erRUvOl0VK95Qm5Q7A+zXpnE3Y4NLa7d
+         k84ImLnqrB3PhoYPrxAgIvGu8bxPAFrwYf8VTyKIWT2u1HkQoomkoYR6o6Wm9k1gx2Xp
+         139w8p/Tm4oKPa/9JuqRQ9KjJRNILTSM9ZaZEQ5ZY0/lzEoIqLLWu30xzdIQO3L50Svn
+         t5312P+x8lcdGhJ/ZxZkHwq1Kp851yWBHo2vDxWuRCV09snirwLbUplZcPX6hsBWHGGw
+         u9Hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793584769; x=1794189569;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TOa81AMcZ39FVPpdKUi4a+jsK34E7NL5Bi1fu+zvPwA=;
+        b=zmIl1/l4kEihD+v5KWH6iBjTD6ctqdoxtIznV/kYz4UnN9hFky9QPRErqwU1z1DxES
+         HagmcDu89J44+CGTOvzMU1fgqj8RxuT8vHQQKlkGfocgpwHBsb+98PWo1Mi3YclfkwNV
+         5NXz79rKGTiFumjpNyRYwgV2z7nk6vweehBjJLkIiwkvMjfQph8eB4zjHZPGHQmdGim7
+         Zx2oxIA6vaCWDE1NbMiW6rpsdgSDE0UkiWJBZ1uwp9Vuje5L85F2oPVBR9eouDhIBCcs
+         gFEU3sNQHRmchqaMKbKZo9vTZYLnSu4/MzVpzLzTKBI+sd0y51Xz4nVYLnXTbiVxbPWv
+         IrvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxiCV30uUsbSZ97DERLSHSuccRguZACSZtiP8af3dAoeupQ2ExnLvrW8Vlr+iRZqkX/VrfAOu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYG/xAT8bW2NPgYw6cNN1kONKWaxZc+1/VTmR5hoIB4KlZV+CQ
+	OqOjepJfWxNauvTnYTz5x0Ehz3Jy0pnq0Bs9FwOdnMLDAXBhtAlRqWaFIX8PAxwnvnsdLh6UuCe
+	Gz1cTOuGh4vc5TNbQIawoa+N2kQ/okFfUKfmF2L3HWWbVjb4tcUGKymP1216DqXax
+X-Gm-Gg: AYBFou3LnuNIw17ARaq6/ZGkcutC9vHFgsXjOI1RmdSD3eDrOQLuqAeD82NVBb9ibqq
+	lfdNALRC80EWDAEZIjq5E3WU0Gn4tTqHNd7JNciihKdYv0ypTsZXarkLBh2klXT9V/6HzrMFIT1
+	lYin6bKR++LyjnPy/OEghXHz7MU0xfDHCPicORUT6gRId7bBHP6/dLnlT2pBpn7Ji9MMPupgz3Z
+	SkCGYFvUh13KNWeUF6RY4TJ8PWl6SHXEC3W7Xdv+RIb5Jqjg+UitriLyDYbTAViBlQGL4sKMCRQ
+	qHt1JxjGZV3L0oPb8N68u1aUoa6KPt84rZ0xuVp8hzxhtyqsyl46+1+5t/mJ4T7mY8WiAwvmAOO
+	DFBTiTInKRYmOXav2advt+s4MyQWzv1UdNrsijpml62XaX1nFrz/8zaOAyYBcOpLb8gSKxhgZ4m
+	7B2ZlclXdovg/Rf9nhO6uux3OgmiuZ0f4Lv7Cj2n2+lK2eD1gKAO9PoyDyx9CD4dNB1kgnqN1IL
+	dL/FRmdsk8KnUsPuunSJze/dlEHEzB7scRSfzgxuSUYQbgxPvmctp3NYOE9O5I15XNt3wsXoP48
+	dytZyDpSSFTE5pkdh8egNbv9L9mP/kkeEw==
+X-Received: by 2002:a05:620a:2996:b0:93c:c405:3215 with SMTP id af79cd13be357-944216970b3mr1557092785a.44.1793584768859;
+        Sun, 01 Nov 2026 17:59:28 -0800 (PST)
+X-Received: by 2002:a05:620a:2996:b0:93c:c405:3215 with SMTP id af79cd13be357-944216970b3mr1557091085a.44.1793584768559;
+        Sun, 01 Nov 2026 17:59:28 -0800 (PST)
+Received: from [192.168.1.179] (pool-98-113-200-94.nycmny.fios.verizon.net. [98.113.200.94])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425ac6bddsm715383785a.37.2026.11.01.17.59.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 17:59:28 -0800 (PST)
+Message-ID: <1b21a602-aeb1-4e76-9f12-87761d89de86@columbia.edu>
+Date: Sun, 1 Nov 2026 20:59:27 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,132 +118,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: fix bio counter and bioc leak when async
+ checksumming fails
+To: Qu Wenruo <wqu@suse.com>, Qu Wenruo <quwenruo.btrfs@gmx.com>,
+        David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Josef Bacik <josef@toxicpanda.com>,
+        Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+        linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261101-btrfs-async-csum-leak-v1-1-feafe7ae61e9@columbia.edu>
+ <d9990870-188d-49b5-badf-9e7ae9a273ed@gmx.com>
+ <3d3cedc7-a148-40ef-ac22-9aa89d0920f6@suse.com>
+Content-Language: en-US
+From: Mani Tofigh <mt4022@columbia.edu>
+In-Reply-To: <3d3cedc7-a148-40ef-ac22-9aa89d0920f6@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAwNyBTYWx0ZWRfX5bGFxvYMSmMq
+ cOaFdO0L5+dhKOwoyxMiUnAU5TiJxpcV8AAF/Sls0q0kEUOGhNBDwfHw1Jm0FofMuXnQpyj6GkB
+ baiAbi43sx4xMz/76uNiDfuQcZxJzImm41NYAI+i9JAFqV0d6vJ4NizvDM2vKlqPIQVHm1/sUER
+ P0pv1FV6Dky52OcPtgrb/JDlg/7afDyHu/tkcmcMMXg/c72OKDSIrbovBvyGwb+O37iREeERE7I
+ 0noKol+v8Hy2I+bV3yRvSX0H1gJFh5R6czYSIqDktSUvtPd9tU1QKwUK4LqJ5N37PRwFxRA5Nob
+ V+1kSSztQCQP186GvHBfbFSbYBoX6ZwN86fJIAzisJqTtBUZY0riRbymPqbqcJlNOLKv9D+FgOt
+ RIlp9+DV3srpkAUV09thC4Bix4W7w+UPB4Uc7nHspCpON7y4awHb3dd+NcWzg1Wwyzat3cY7VYB
+ Y6XZ/BWyXBjn6mC19lg==
+X-Authority-Analysis: v=2.4 cv=SZJi5fRu c=1 sm=1 tr=0 ts=6ae7ee81 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xAVkXJFauo6zK1gNGjfgTg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
+ a=6ma1GsHSQ2guFgE4MT8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: T-_j-ySBNk-lIAkvqfDQ9MbJxvVkAbpd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAwNyBTYWx0ZWRfX3DTdbeEr1QL4
+ Lmd+r2CZ+L34cy1bWOoPmyTjtKhCSd8NH1nj6kPdpl6EwQRFsKlBt22Hci+DiDN9QRp6rcAJiPX
+ 29uiKBAD934HuEV4e28xjPHtjzE4lw4O8nqOPToZfYxWy+xjSP0e
+X-Proofpoint-ORIG-GUID: T-_j-ySBNk-lIAkvqfDQ9MbJxvVkAbpd
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11953
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 clxscore=1015 lowpriorityscore=10 malwarescore=0 phishscore=0
+ impostorscore=10 suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020007
 
-The second half of the MTU guard in __ip6_append_data() has been dead
-code since the initial git import:
+On 11/1/26 3:53 PM, Qu Wenruo wrote:
+> 在 2026/11/2 07:08, Qu Wenruo 写道:
+>> So I'm wondering what's your setup? Are you running SHA256 algo for 
+>> checksum? I can add it to the commit message during merge.
 
-	if (mtu <= fragheaderlen ||
-	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
-		goto emsgsize;
 
-(x & ~7) is unsigned and >= 0, and fragheaderlen is at least
-sizeof(struct ipv6hdr) = 40 > sizeof(struct frag_hdr) = 8, so the
-second condition can never be true.
+Yep, it's a sha256 filesystem on a non-EXPERIMENTAL build, with
+failslab failing the checksum allocation in the worker.
 
-For mtu - fragheaderlen in [1,7], (x & ~7) == 0, so
+> And Sashiko exposed an existing problem, even with this patch applied, 
+> the error handling of btrfs_split_bio() is not going to release the bioc.
 
-	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen - 8
+Good catch, I'll put the bioc there too and send a v2 with the sha256
+setup mentioned in the commit message.
 
-underflows below fragheaderlen.  Every later bound computed as
-maxfraglen - fragheaderlen then wraps to 0xfffffff8, in particular the
-datalen clamp inside the fragment loop, which never fires and lets
-fraglen = datalen + fragheaderlen escape the MTU constraint.
-
-With MSG_MORE on an egress device without NETIF_F_SG, alloclen = mtu
-while skb_put() is called with the unclamped fraglen, so a single
-sendmsg() on a raw IPv6 socket with a 1240-byte HOPOPTS cmsg and
-IPV6_MTU = fragheaderlen + 1 triggers:
-
-  skbuff: skb_over_panic: len:61280 put:61280 ...
-  kernel BUG at net/core/skbuff.c
-  skb_put __ip6_append_data ip6_append_data rawv6_sendmsg
-
-The same re-lowering exists with a transport-mode xfrm bundle: ESP/AH
-bytes counted in rt->dst.header_len are not part of fragheaderlen
-(ESP lacks XFRM_TYPE_NON_FRAGMENT), and ip6_append_data_mtu()
-subtracts dst.header_len from mtu for the first fragment, so after
-the entry guard passes, the recomputed maxfraglen can be pushed below
-fragheaderlen the same way.
-
-Remove the dead expression and, when the datagram actually has to be
-fragmented, require room for at least one 8-octet payload block after
-the fragment header, matching the minimum ip6_fragment() already
-enforces once skb->len > mtu.  The check is placed after the dontfrag
-and maxnonfragsize handling so that unfragmented datagrams that fit
-within mtu, and the dontfrag PMTU notification path, keep their
-current behaviour.
-
-reserved_headerlen accounts for the first fragment's xfrm header
-space regardless of whether this append is the first one on the cork:
-a subsequent append that pushes an initially unfragmented datagram
-past mtu still fragments, and ip6_append_data_mtu() subtracts
-dst.header_len from mtu for the first fragment.  The check runs
-before any zerocopy uarg is allocated, so the emsgsize path needs no
-cleanup.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Link: https://lore.kernel.org/netdev/willemdebruijn.kernel.22a3131380a8c@gmail.com/
-Signed-off-by: bo cao <treebacker@foxmail.com>
----
-Changes in v2: move the check into ip6_append_data_mtu() (review of v1).
-Changes in v3: collapse the fix into a single entry check, leaving
-ip6_append_data_mtu() unchanged (review of v2).
-Changes in v4: gate the check on fragmentation actually being needed
-and place it after the dontfrag / maxnonfragsize handling, so valid
-unfragmented datagrams and the dontfrag PMTU notification path are not
-affected; include dst.header_len in reserved_headerlen regardless of
-!skb, so a subsequent corked append that fragments still accounts for
-the first fragment's xfrm header space (review of v3).
----
- net/ipv6/ip6_output.c | 28 +++++++++++++++++++++++++---
- 1 file changed, 25 insertions(+), 3 deletions(-)
-
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index 25fe0ba98b1a..4353b154f216 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -1477,7 +1477,7 @@ static int __ip6_append_data(struct sock *sk,
- 	bool paged, hold_tskey = false, extra_uref = false;
- 	struct ipv6_txoptions *opt = v6_cork->opt;
- 	int csummode = CHECKSUM_NONE;
--	unsigned int maxnonfragsize, headersize;
-+	unsigned int maxnonfragsize, headersize, reserved_headerlen;
- 	unsigned int wmem_alloc_delta = 0;
- 
- 	skb = skb_peek_tail(queue);
-@@ -1499,8 +1499,7 @@ static int __ip6_append_data(struct sock *sk,
- 		     (opt ? opt->opt_flen + opt->opt_nflen : 0) +
- 		     rt->rt6i_nfheader_len;
- 
--	if (mtu <= fragheaderlen ||
--	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
-+	if (mtu <= fragheaderlen)
- 		goto emsgsize;
- 
- 	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen -
-@@ -1533,6 +1532,29 @@ static int __ip6_append_data(struct sock *sk,
- 		return -EMSGSIZE;
- 	}
- 
-+	/*
-+	 * If the datagram has to be fragmented, each non-final fragment
-+	 * must leave room for at least 8 bytes of payload after the
-+	 * fragment header, matching the minimum ip6_fragment() enforces
-+	 * once skb->len > mtu.  This rejects the MTUs that make maxfraglen
-+	 * underflow below fragheaderlen and defeat the datalen clamp,
-+	 * which leads to skb_over_panic() from skb_put().
-+	 *
-+	 * reserved_headerlen accounts for the first fragment's xfrm header
-+	 * space (with a transport-mode xfrm bundle, ESP/AH bytes counted
-+	 * in dst.header_len are not part of fragheaderlen), regardless of
-+	 * whether this append is the first one on the cork: a subsequent
-+	 * append that pushes an initially unfragmented datagram past mtu
-+	 * still fragments, and ip6_append_data_mtu() subtracts
-+	 * dst.header_len from mtu for the first fragment.
-+	 */
-+	reserved_headerlen = fragheaderlen;
-+	if (!(rt->dst.flags & DST_XFRM_TUNNEL))
-+		reserved_headerlen += rt->dst.header_len;
-+	if (reserved_headerlen + cork->length + length > mtu &&
-+	    mtu < reserved_headerlen + sizeof(struct frag_hdr) + 8)
-+		goto emsgsize;
-+
- 	/* CHECKSUM_PARTIAL only with no extension headers and when
- 	 * we are not going to fragment
- 	 */
--- 
-2.39.5 (Apple Git-154)
-
+Thanks for the review!
+Mani
