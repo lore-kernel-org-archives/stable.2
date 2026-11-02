@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613000;
-	b=BJ2fAFC+49f8P1+mwC3jv9sBszqMVt119lM7VPhMGrb0T7o0M7Wzn9aFRO+VqrzfjScA
-	 ePwUWlaTLLerg00AhC0bOxcsOPJxUO0TvLE3g6vYZRb92y9dFkReO5xxe2sB80q/O83sF
-	 rdpMYSCXukJZsmGxJCYvExKZYef4jXhaWCoGjzirojE75ZTWverwq+ohmm/puLoCQGsEs
-	 IgvSTTB+nM8CsKca1sa9NJkmovudi3Fc5MwnR8tDNxsSh5oB4uDm4aNKtKq1rW6uRa+WO
-	 DoTczpmvmSXFv/VahF0uJwOjURguQG3fwgFDfSoJqnhtYaV7bcaUKbKsZD2DZen4JDg==
+	t=1793613022;
+	b=hEWq9/wB21fsxg5XMlWE37tqEBIIMxNBVh85RrZhgkKBvHqPSuYVy5YVZpktgK5if069
+	 lCBkRg8dqxN4S2ivh4l6RJAQukbK7/wBxKFiMXIZUkuqiAa0AlNnm3cE6iHUSTx/ihFWH
+	 C76dxueO4jAsZH7997yVRFdBYgUc3hf9vEvv8Jq3G3k+Egw3LNFfrMk41et/48xbPvVK/
+	 hwGMXFHCRlAlT1pFYK5WmghVCiLQZxOZ2vpRwtKYgva0FEa+LShla4NT7iHwPqC4RVIx+
+	 wE4Nxfo3i2o89S526sLKMEDSqGAu3qE3HwQvL8fanfiNMcEm520ReXwSj7ZLaqclU9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613000;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VdIeZiZJFHbR5PLckz439tLtWXlINLYdh7DGhSmS02s=;
-	b=t7rF1xT+Xf2ctgWne6MdJWz9zFOIjvd0mHyGLQ4GQNMjXZ+2m2FGVpIqt3XmbMtFiySy
-	 OyNMa4HUaAw8y+PscQjfSkMnD1p9M2gbnR2NI7gWeMPyxQNCyDNDfzVhzKWEc20j8gScl
-	 D5EQoXAevDaX5MqKNBxtvavfGt4FkdmC1qpcwP2uucGsdb4RJYl8yPObQNxppOF+u1L7q
-	 mAePe9Sglzfd5W9WkxFpH+14q8nEBDCFEurx7kzUEB/kcjgK/EgfAPS7lLp7qZtcxP7/3
-	 qp/e2cQ/G42Fzy6oGLtt6xiC7SgL5hSJsODe8McZMbwvtniwjPUG6lkZi61ZitXSHYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613022;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LDtf/6qsvrJUn6LMYvjURkTS8eXDbVvfh2YukZT9J2w=;
+	b=q97Q1strSV9lFW6Om37/xeFxfrxRY+mWRL9JL7lTuhK2zNwiti9MBy9Hbay0KsOAnkzM
+	 kufLGCs7+MIofVwJ0w33TPNcY+25Zk4ZOxgyafTluNpJwHpGeBJqnuZoeT4psa/BXTg+z
+	 FO0WNLAP4fAcOc50rbbL28n0/KlWidtf0Fmi1NQlIwRStU3xQc9Vgb5WTzQYqhhLLegVu
+	 Mq++42f0rQN96QRS8pvsexJaNeqPK2bhKKbbzI/lNhKAlI5KUKOBhOr7qr79/unY0LGhC
+	 7DmQVmSFMZVzZj5SXF3YPFAEH2DM63tiMJYWQYaOAF4vWMTtPZBbbjfT2lp889X6Y2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ixit.cz;
-	spf=pass smtp.mailfrom=ixit.cz;
-	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=F4o+MnVb;
-	arc=none smtp.remote-ip=84.42.129.46
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="YThFbOX/";
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF39D606A331;
-	Mon,  2 Nov 2026 09:49:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF39D606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E75606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:50:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6E75606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=F4o+MnVb
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 0954653401D6;
-	Mon, 02 Nov 2026 10:41:00 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1793612465;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=VdIeZiZJFHbR5PLckz439tLtWXlINLYdh7DGhSmS02s=;
-	b=F4o+MnVbPvsgTC7ym3QxAUH2+/8UzbC77rvSNZ2Q2mZiZwDv1J60J5FCohTvIu29A8b8nk
-	RZ1+tLz+nctvzCwzlaMINya0G5udYsWRnRtPzxkRqgQ1kEZ4IsCcRvVjDw2M6ubMq/nwdX
-	Mz+fNtmoppP0AG5wMiBY+JHXtLjDva4=
-Message-ID: <1eca9b3f-3b61-4663-b52f-4e2dba38ca21@ixit.cz>
-Date: Mon, 2 Nov 2026 10:40:49 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YThFbOX/
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so1812400b3a.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 01:50:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793613021; x=1794217821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LDtf/6qsvrJUn6LMYvjURkTS8eXDbVvfh2YukZT9J2w=;
+        b=YThFbOX/+NerO+qiIlkPOU2Hijtz8tqyMMq4Kkwmc6XuBMoS+d/hUgVAEFqc+BDvEi
+         y/qUbJAA/XzwfMs7ZRNNKqlauOH8a0aaKatvFXv/Gxg36pp6AzuJdH0akInGrMKh73Bd
+         /NDeK6g4a3ZPRV3ABTZYYB/jKD2AO9ARUAeKPIEwwD6GsgI0H8MndNhKqNfh1StoiH5t
+         fdn/kKCil80ztfxg2OgLoVHno9wTiz8llYZ1cpARbpKHcmlXDAUL53aazSwuWv+duU0Q
+         5hIok3FtPMBammUaABOfXQYwe/nLzmkbn5WHsJRbxJ+5+/OjY7Y/eyftcKoeaQPNh0p2
+         urOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793613021; x=1794217821;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LDtf/6qsvrJUn6LMYvjURkTS8eXDbVvfh2YukZT9J2w=;
+        b=QEZE34QfdfZSgf1P9zE+hubL4IU24k1aFtFo9SM7btd9V0CB5mCbnFkhpV05clmQSN
+         62TIZPpat3MP5PD2LVpI6O6wzxDCkiPNRFuN1REsXqwiwXEg1QF6FmcHfZiOUz3Pw+Pq
+         XO1G4B9NyTT5N+eDnRRIVI40Bn8m0p1SdCAliXRhZu7QFZnoTTo4+e5slSNyqJoDkCZW
+         DExW4yi3RHQc6vo+PgaljLGRhMl4L9qFhvsw9GJ22W28T4mC+RoUBD0wjOmz7DZBGtvr
+         VcYrhMZB6JEOqBpotU7HHhER+rAfRr48qASqqWllPQPS3r2S3HiUZ4tFIKSExDXR5DSk
+         Jyyg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYu6n36zDzw6eVhI64g395zMMmb/oS7D8RQLNEUxPV20lcIlpX0utFXDeDZfOHATltewgPalc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgwL4/YqD3G7yfxN15mJH0YxqtO13vvKcG0v1ZnrFDzkdalD+K
+	TylJQkS8Zj2jj5las0otjGW5QfScspyR7ZtjELoatEsuviv6Qkjv3fWI
+X-Gm-Gg: AYBFou1FFLq0W5SYhw8cg2fBkjiE0dnfiwbrj0KP1/ZO1YTHTzvEAeUJJW1+H/Pa4kC
+	kr7jmbAGUnHD5VbZH0AFKgTZyZ1qTIgYbp+r3xql1cVXqayu9KKuptyzadfdu9zC5z7GD9MMAMA
+	P71a87GH3ZKnlFIqN0U5B6hZTm740GPfFkid9iwtGAM9epUs/UP4KJwAO27DTfsPYurxmfO6uJ+
+	EGv18LGJa5/gd3CpFWJ58N9DMdd7L4f88aDJVSVzcuDqX5YympYQlS3BtZ5ieLVKdWwJKMvkDXW
+	hXlrdmXNiYIf+1Q/hc5cO6HpPDIERUgCuWd6LcVccdFYl/Br4xd2iMJ+LejddRRatUX2a5BIaOo
+	Lo4VYtzxx6h3m0afxu9UYutAgajnaqEIJ0rK6J8Ox8VrT4HGERutHlcBNkyrqSSjgnYJwuwQF6W
+	z+FNN+c3zm7UNqET5kw7BGV2wZACr0y0KNMHSuUKUVLVwuqbeybaJsJD8wLw106CSSHjSMe1SDv
+	dvExcsE74tXjZZ/OPbYyWti0NY+Z1XYmPmchWoVDsYLf30pcQEfrBlza1vihhNHUlV6CKer4F2g
+	K4x0/KqmJ6yXmy2bF0MfCGWMvb+74Gu6V4fwUdFQK6e/bBIO3NBcrzA=
+X-Received: by 2002:a05:6a20:a120:b0:3e4:b458:5239 with SMTP id adf61e73a8af0-3e928d687ddmr9858850637.45.1793613021164;
+        Mon, 02 Nov 2026 01:50:21 -0800 (PST)
+Received: from localhost.localdomain ([155.69.168.11])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d06ae7sm1797411b3a.30.2026.11.02.01.50.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 02 Nov 2026 01:50:20 -0800 (PST)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: kbusch@kernel.org,
+	hch@lst.de,
+	sagi@grimberg.me,
+	axboe@kernel.dk
+Cc: john.garry@linux.dev,
+	nilay@linux.ibm.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] nvme: Do not drop the cdev reference twice when cdev_device_add() fails
+Date: Mon,  2 Nov 2026 17:50:15 +0800
+Message-ID: <20261102095015.36448-1-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,119 +100,146 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/5] Input: support for STM FTS5
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
- stable@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>, Miro Mraz <mraz.miro@seznam.cz>
-References: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
- <4590302cb7f26ea6173018f5d7083977@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <4590302cb7f26ea6173018f5d7083977@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02/11/2026 04:18, Dmitry Torokhov wrote:
-> Hi David,
-> 
-> On Fri, Sep 25, 2026 at 11:22:18PM +0200, David Heidelberg wrote:
->> Used on various phones. Minimal viable driver.
->>
->> Includes device-tree enabling touchscreen on Pixel 3.
->> Also, tested on Xiaomi Mi 8 (device-tree is not yet inside the mainline).
-> 
-> I applied patches 1 through 4 (leaving patch 5/5 for the Qualcomm SoC
-> tree) with a few small adjustments folded in:
-> 
->   - In patch 1/5, added a missing trailing newline to the reset timeout
->     error message and fixed a typo in the comment in stmfts_power_on().
->   - In patch 3/5, wrapped "const: st,stmfts5" under "contains:" in the
->     allOf condition so the check keeps working if a fallback compatible
->     is added later.
->   - In patch 4/5:
->     - moved ABS_MT_TOOL_TYPE setup from stmfts_setup_input() to
->       stmfts5_setup_input() since FTS4 does not report tool types;
->     - dropped the undocumented "stylus-enabled" property check so stylus
->       contacts unconditionally report MT_TOOL_PEN;
->     - checked X and Y resolutions independently before applying the
->       10 units/mm fallback;
->     - added a check for !sdata->ops in stmfts_probe();
->     - fixed the GPIO name in the "mode-switch" error message and a couple
->       of minor comment/log formatting nits.
-> 
-> I will also send out a few separate follow-up patches shortly: one
-> teaching touchscreen_parse_properties() to parse touchscreen-x-mm and
-> touchscreen-y-mm directly so drivers do not have to open-code resolution
-> handling, plus a few fixes in stmfts (not aborting FIFO parsing early on
-> non-touch events, validating the 4-bit slot ID against
-> STMFTS_MAX_FINGERS, and switching coordinate reporting to
-> touchscreen_report_pos() so axis inversion and swapping properties are
-> honored).
+Since commit 9952f3882ecb ("nvme: fix cdev lifetime"),
+nvme_add_ns_cdev() and nvme_add_ns_head_cdev() take a reference to the
+namespace (or namespace head) before calling nvme_cdev_add(), to be
+dropped by the char device's release, nvme_cdev_rel(), and drop it
+themselves when nvme_cdev_add() fails. But when cdev_device_add()
+fails, nvme_cdev_add() has already put the device, and nvme_cdev_rel()
+has already dropped that reference: the caller drops it a second time.
 
-Hello Dmitry.
+With one allocation failure injected into cdev_device_add() for a
+namespace on an NVMe over loop controller, deleting the controller
+gives, with native multipath:
 
-Thank you so much for improvements and merging stmfts5, I'll pick up the patches 
-back to my sdm845 tree so we can apply followup improvements easily :)
+  BUG: KASAN: slab-use-after-free in nvme_put_ns_head+0x21/0x140
+  Write of size 4 at addr ff1100000a4ea078 by task init/1
+   nvme_put_ns_head
+   nvme_put_ns
+   nvme_remove_namespaces
+   nvme_do_delete_ctrl
+   nvme_delete_ctrl_sync
+   nvme_sysfs_delete
+  Freed by task 1:
+   kfree
+   nvme_ns_remove
+   nvme_remove_namespaces
+  refcount_t: underflow; use-after-free.
 
-David
+Take the reference in nvme_cdev_add() instead, right before
+cdev_device_add(), and let the callers neither take nor drop it. Add
+nvme_is_ns_cdev() for the check that nvme_cdev_rel() and nvme_cdev_add()
+now share.
 
-> 
-> Thanks.
-> 
+Fixes: 9952f3882ecb ("nvme: fix cdev lifetime")
+Cc: stable@vger.kernel.org
+Reviewed-by: John Garry <john.garry@linux.dev>
+---
+
+Notes:
+    The bug was found with kbound, a research static analysis prototype.
+    The patch, the changelog and the test setup were written with the help
+    of an AI coding assistant (Claude); I have reviewed and tested them as
+    described below.
+    
+    Changes in v2, after John's review:
+    - Add nvme_is_ns_cdev() for the check shared by nvme_cdev_rel() and
+      nvme_cdev_add().
+    - Shorten the comment and the changelog; the testing is below.
+    - Add John's Reviewed-by.
+    
+    Tested on QEMU (x86_64, KVM) with KASAN, on next-20261030, with a loop
+    target exporting a null_blk device, with nvme_core.multipath=N and Y:
+    - failslab failing each allocation under nvme_cdev_add() in turn: before
+      this patch every failure in cdev_device_add() gives the report above
+      (or, with multipath=N, a use-after-free of the namespace in
+      nvme_mpath_clear_ctrl_paths()); with it nothing is reported, also
+      with lockdep and kmemleak.
+    - the case of 9952f3882ecb: hold /dev/ng0n1 open while the controller
+      is deleted, then issue NVME_IOCTL_ID and close it. With 9952f3882ecb
+      reverted this gives KASAN slab-use-after-free in cdev_put() at the
+      close, with either setting; with this patch nothing is reported.
+    
+    v1: https://lore.kernel.org/linux-nvme/20261101173400.98931-1-izaiahsun@gmail.com/
+
+ drivers/nvme/host/core.c      | 18 +++++++++++++++---
+ drivers/nvme/host/multipath.c |  2 --
+ 2 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index af71d02b8476..9ea9db0271c2 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -3941,10 +3941,16 @@ static int nvme_subsys_check_duplicate_ids(struct nvme_subsystem *subsys,
+ 	return 0;
+ }
+ 
++/* The char device of a namespace rather than of a namespace head */
++static bool nvme_is_ns_cdev(struct device *dev)
++{
++	return dev->parent->class == &nvme_class;
++}
++
+ static void nvme_cdev_rel(struct device *dev)
+ {
+ 	ida_free(&nvme_ns_chr_minor_ida, MINOR(dev->devt));
+-	if (dev->parent->class == &nvme_class)
++	if (nvme_is_ns_cdev(dev))
+ 		nvme_put_ns(container_of(dev, struct nvme_ns, cdev_device));
+ 	else
+ 		nvme_put_ns_head(container_of(dev, struct nvme_ns_head,
+@@ -3978,6 +3984,14 @@ int nvme_cdev_add(struct cdev *cdev, struct device *cdev_device,
+ 	device_initialize(cdev_device);
+ 	cdev_init(cdev, fops);
+ 	cdev->owner = owner;
++	/* Undone in nvme_cdev_rel() */
++	if (nvme_is_ns_cdev(cdev_device))
++		nvme_get_ns(container_of(cdev_device, struct nvme_ns,
++					 cdev_device));
++	else
++		nvme_get_ns_head(container_of(cdev_device,
++					      struct nvme_ns_head,
++					      cdev_device));
+ 	ret = cdev_device_add(cdev, cdev_device);
+ 	if (ret)
+ 		put_device(cdev_device);
+@@ -4010,13 +4024,11 @@ static void nvme_add_ns_cdev(struct nvme_ns *ns)
+ {
+ 	ns->cdev_device.parent = ns->ctrl->device;
+ 
+-	nvme_get_ns(ns); /* Undone in nvme_cdev_rel() */
+ 	if (nvme_cdev_add(&ns->cdev, &ns->cdev_device,
+ 			&nvme_ns_chr_fops, ns->ctrl->ops->module,
+ 			ns->ctrl->instance, ns->head->instance)) {
+ 		dev_err(ns->ctrl->device, "Unable to create the ng%dn%d device\n",
+ 			ns->ctrl->instance, ns->head->instance);
+-		nvme_put_ns(ns);
+ 		return;
+ 	}
+ 	set_bit(NVME_NS_CDEV_LIVE, &ns->flags);
+diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+index 9e0a0fd77c56..ae8059366b57 100644
+--- a/drivers/nvme/host/multipath.c
++++ b/drivers/nvme/host/multipath.c
+@@ -681,14 +681,12 @@ static void nvme_add_ns_head_cdev(struct nvme_ns_head *head)
+ {
+ 	head->cdev_device.parent = &head->subsys->dev;
+ 
+-	nvme_get_ns_head(head); /* Undone in nvme_cdev_rel() */
+ 	if (nvme_cdev_add(&head->cdev, &head->cdev_device,
+ 			&nvme_ns_head_chr_fops, THIS_MODULE,
+ 			head->subsys->instance, head->instance)) {
+ 		dev_err(disk_to_dev(head->disk),
+ 			"Unable to create the ng%dn%d device\n",
+ 			head->subsys->instance, head->instance);
+-		nvme_put_ns_head(head);
+ 		return;
+ 	}
+ 	set_bit(NVME_NSHEAD_CDEV_LIVE, &head->flags);
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.53.0
 
