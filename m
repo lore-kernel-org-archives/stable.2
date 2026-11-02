@@ -1,47 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602877;
-	b=Vgsb1Rt2qJk7svrfKHWoU49m8bZkdAeEMNBnQ3RGYp7b13MsbbM0fMx8KN7l9jvS0TXp
-	 j1eXCecZgfaIPPIKcHSuEBW4sz8kTtaKSaA7V7TJPMeq50V8x7g7NOQ8C3MZX7Z+ZHDMr
-	 xmIyS7v9ZFRyOY0JPbprX4x19C0fRWXEZaDsrRyq2ZKLoFQc5074hXgu+11+yNtjPoEYX
-	 H5e9nQE0pfbhzp4wGpN6BYglccF+N0GBYDnCAQZD4bqQLad8RgMedM6BaPTnOgnVsHW9l
-	 8UM0vJBcZnaC1XCBSo+C01HsqIeyJBMTFI/A7CbJ46LtHKVKz/wpMpvN8XgDcJFmkZA==
+	t=1793602982;
+	b=DnpLJNldjnUjVFPx0kUEHgo/sq/C5NO6MB/quDabUwitws8wSmUzFlAvbnb5TjAWpjPl
+	 sP/j7XM9d/T/BYbURk/+fFhfzCUwJ+V1YVuLvsACH+qk/kMcVJrJqtaNyhmOtlUKi84lQ
+	 Z8H9B6O8y+ckyErQKrbQ1+1NEl+jpgyK83h2ZcfXPOhveEtjuFYV2JkJrVEHZdUUiF4a0
+	 tXXpgRiTSguS50mXaq3I5mKs36DJ20ipCGM7H/0fEM3OIS6GV4bP3kcRrjFseEas8OGll
+	 vz6FO0G5GS36275anKiVEmTGWPuXJANnllOj6VtM5IsXJVTPat756wO0RTwqx495koA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602877;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8jY8XpaYgmA53HXY22kW+XbJRfVwUAnog+5j0SSxl6A=;
-	b=JGcOXJQE7z4+uVqeLnzyxzj6xnxhUPtLAf+QVF1K3ezxvzs2NuUwZoHjIlTIYsMWOKkz
-	 e/JmZzwS8VMJJqLOVMNrnzcx57P1fOOSIuexBCCeq4sHe+assKN8a8yL7D/ZOjnU9n/02
-	 DKC5DmDR+tSAMU6nH+r7hJaEbcM2hy42xlKAIYgxAt9Jwmn98SceU4a8xRIhnHudxeasE
-	 PYW0hk5Rhj2gJPju68I3lZLVQTSkD/0bGMVw+3hko0bJAHDFNPLPYrsOI3eRTZ3s5HliF
-	 6HWgr50hsAm9mqtfc+af+hXUdGXwd90p/bnmSrcDxMrcT6fjfXGwt6SjU7yBM+49wHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602982;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=aFyPqufKPTRfFHH6kiVo0N40szheXQ5ACKShZcHFEdc=;
+	b=QDSMh0JZ9ubAz/+1/vjg57w8AfjvYY6ddWSEKBABCmhMyPXoOj/H5bxw78LExNwlWDaf
+	 Gu0gvNVF7TndXMC3jz9uN7GCRl6Nhfil3cs2Z6qKIUaD/lGNfuvVtQ062lz6i9wb8uEp7
+	 1/qEbhpL5aUK05bONfLJtKA34o5vrtwbhQ+YkS8IAghJ6iNuflLQTPg1lqNisi4E0w9N7
+	 uuI1DAXJD9Uh5ZJ5rZJV7ukB5pvaFaMYV4PEqs9Nwy2sUSQXSzvtNOmvv85J5TJKDTMpT
+	 YM2JJQSufXZBH/30r0KLAjxA2Mp66CcRR1sMYEFFBuhVpm6a34EzBDoWvY8oDKT3Ajg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayLpLZrD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jtJt+6aY;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92E8606A324;
-	Mon,  2 Nov 2026 07:01:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C183606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 07:03:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C183606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayLpLZrD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1BF1F000C1;
-	Mon,  2 Nov 2026 07:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793602876;
-	bh=8jY8XpaYgmA53HXY22kW+XbJRfVwUAnog+5j0SSxl6A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ayLpLZrD91MV+ICG3Fack6rUmwXp0VVRmmG7WDL665UIqgU6aQAHE2cfgeEAFj2w6
-	 3OfRdFnV9rNSF40NFSb/mC7TU6W9P2pqYZw4O6X9nx89FPsUKVy5Zk0oPjTnzja2CE
-	 j8zI7LfbKJL0GiikRYKCKlGArzfqQhnKzWAcab4bLDfFSLiajTkI7Hc1ePyxAzfG+h
-	 2J+mqjiI3fgSphgmWft6k46KLM666AovCEVi+NwBQC9jRIKlAGgE1aTdGYQiylbMe7
-	 2cq8J8kxXVr0UzQQa3PkEJUvDn1u51KL6XA2qoDuRecvHG2QH68KeiI0YA+ufzhGNA
-	 zQKGG44cskMxQ==
-Message-ID: <6b69aa22-f392-4cc8-9f7e-d9077e951cc4@kernel.org>
-Date: Mon, 2 Nov 2026 08:01:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jtJt+6aY
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so4080900a91.2
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 23:03:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793602981; x=1794207781; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aFyPqufKPTRfFHH6kiVo0N40szheXQ5ACKShZcHFEdc=;
+        b=jtJt+6aYbPByuXxUOxALSzqcBfCqep5WAKQ+Mk8/QBES5us1Qq15iqrp8nkRpEaF7C
+         TAb3ErLjuxlY8l+G4NAoyqa/YSHJqTRj3rr1FboPnvyZjTFdo7KiGULsdyLMexpwSjum
+         iJHobQFMrschpujBVY/0UJu/EHl0LYZGj814V7Oi75XQZ0wZLyv61jQpEzyxwDwpn7aj
+         ElhkbcvFlu067KOGpeYkCDeAnIfuaKEOC/Nil1UvmrXzImaGhCnr5vJK7joltytG6+mN
+         d+vUS6Ff9v5Nn2XEQBj3hNRTB19zqfnhW1ftaAdyx3qCvXkdjW5z27Sa7WGQS9waxRbT
+         U1hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793602981; x=1794207781;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aFyPqufKPTRfFHH6kiVo0N40szheXQ5ACKShZcHFEdc=;
+        b=G3HneX2AXPhVxwbNY97YXy+gq5yKnVL01wkJmajIymFgrKuuo+Xdgi9qAdPRiEolVN
+         Uw2S3HlninWkBn6iravqHcg4DDTLn3DOoflnPcy4JB63mQtgH6lI1huuITaX37K+6lgn
+         VWMh8HT7ivJAjaP61k/VOJJvXid5aKmYtu0MNpFu5NYjtuI74Q9dCu6/fmRkZxuZBgXF
+         XC4kRcmoWBy2efW7VA5CN90N0hTYjXxCaEtkPdbtVfNh+0tnA1GUZk2gyS8cyiwEk892
+         HyhvPy/kzt3MKJkzyxjFbeUUN5wXCK7NCmPxFtx28gJl2b3RHNGrghaN3LUfTQutYF34
+         cVqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzG6B1/eC04DmNHEg91WzFX0LOvHLH0OxlAqlipEuc0cZTTQqjcTA3fohq602scBQoa3Hr0afI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2RB/AdGTCVLyHCj4ZgAmfHIpUqOThq0zQ7o7QmDVD+VajLWz0
+	XKenKvaksuq7Sw7mvMzkxfj4O2wKGddhhqzN/gcCZgBduhjLXRHyEeM3Xzca4SEwn9HtD2ZZTlO
+	fzBM53Q==
+X-Received: from pglk11-n1.prod.google.com ([2002:a05:6a02:6b8b:10b0:cca:d82:90fc])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:180d:b0:3ab:2d46:1dd2
+ with SMTP id 98e67ed59e1d1-3ae895a5c46mr7949392a91.6.1793602981199; Sun, 01
+ Nov 2026 23:03:01 -0800 (PST)
+Date: Mon, 2 Nov 2026 07:03:00 +0000
+In-Reply-To: <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,142 +77,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/proc/task_mmu: check THP exclusivity for each subpage
-To: Andrew Morton <akpm@linux-foundation.org>,
- Kelvin Zhang <zhangxp1998@gmail.com>
-Cc: linux-mm@kvack.org, "Liam R . Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Kalesh Singh <kaleshsingh@google.com>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <4c1b393a4b04bd94e4f1c7879ae04e1793eb0931.1793552446.git.zhangxp1998@gmail.com>
- <20261101110247.95a03a5601f235ffb39c54c1@linux-foundation.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261101110247.95a03a5601f235ffb39c54c1@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
+Message-ID: <aug0tMr2QXRxTWuE@google.com>
+Subject: Re: [PATCH net] tcp: ipv6: keep request pktopts alive until request destruction
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "edumazet@kernel.org" <edumazet@kernel.org>, 
+	"ncardwell@google.com" <ncardwell@google.com>, "davem@davemloft.net" <davem@davemloft.net>, 
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
+	"horms@kernel.org" <horms@kernel.org>, "daniel@iogearbox.net" <daniel@iogearbox.net>, 
+	"martin.lau@linux.dev" <martin.lau@linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 
-On 11/1/26 20:02, Andrew Morton wrote:
-> On Sun,  1 Nov 2026 09:01:00 -0800 Kelvin Zhang <zhangxp1998@gmail.com> wrote:
+On Mon, 02 Nov 2026 06:12:18 +0000, Yingjie Wang wrote:
+> When IPv6 flow label reflection is enabled, tcp_v6_send_synack() reads
+> ireq->pktopts to copy the flow label from the initial SYN.
 > 
->> A PMD-mapped THP can contain subpages with different mapcounts. For
->> example, after fork(), the child can unmap only part of the THP. The
->> parent retains its PMD mapping, while the remaining child mappings
->> are PTE mappings.
->>
->> pagemap_pmd_range_thp() passes the same initial page to
->> __folio_page_mapped_exclusively() for every pagemap entry. With
->> CONFIG_PAGE_MAPCOUNT=y, this applies the first subpage's exclusivity
->> to all entries, falsely setting or clearing PM_MMAP_EXCLUSIVE for
->> subpages with different sharing.
->>
->> Pass page + idx to check the subpage corresponding to each entry, as
->> was done before converting to __folio_page_mapped_exclusively(). The
->> index already accounts for reads starting partway through the PMD.
->> The conservative whole-folio check without CONFIG_PAGE_MAPCOUNT is
->> unchanged.
+> Request sockets can be processed without the listener lock. A
+> retransmitted SYN can therefore run tcp_v6_send_synack() while a
+> concurrent final ACK creates the child in tcp_v6_syn_recv_sock(). The
+> latter clones ireq->pktopts for the child and immediately consumes the
+> request's reference. This can free the skb while the retransmit path is
+> still reading its IPv6 header, causing a use-after-free.
 > 
-> Thanks.
+> Request migration has the same ownership problem. inet_reqsk_clone()
+> copies pktopts without taking an skb reference, and reqsk_migrate_reset()
+> then clears the old request's pointer. A CPU holding the old request can
+> still be sending a SYNACK when the cloned request releases the only skb
+> reference.
 > 
-> I don't want to pick on you at all, but this is a classic changelog - I
-> see this pattern so often.
+> Do not consume pktopts while creating the child. Give each cloned request
+> its own skb reference and let every request release its reference from
+> tcp_v6_reqsk_destructor().
 > 
-> 	a) here's what the code does
+> I found this while testing IPv6 TCP request-socket lifetime handling. The
+> reproducer required no source changes, artificial delay, or fault
+> injection beyond enabling KASAN. It triggered the use-after-free before
+> this change. With this change, a 2000-round run completed without a KASAN
+> report. A separate 10-round test recorded four successful request
+> migrations and no KASAN report. Networking selftests were not run because
+> none directly exercises this race.
 > 
-> 	b) here's why that's wrong
+> Fixes: e994b2f0fb92 ("tcp: do not lock listener to process SYN packets")
+> Fixes: 079096f103fa ("tcp/dccp: install syn_recv requests into ehash table")
+> Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  net/ipv4/inet_connection_sock.c | 6 +++++-
+>  net/ipv6/tcp_ipv6.c             | 7 ++++---
+>  2 files changed, 9 insertions(+), 4 deletions(-)
 > 
-> 	c) here's how I fixed it.
-> 
-> But that's missing a very important bullet point:
-> 
-> 	a) here's what the code does
-> 
-> 	b) here's why that's wrong
-> 
-> 	c) here's how this affects users
-> 
-> 	d) here's how I fixed it.
-> 
-> see?  This omission is so common!  And I might have sent one or two
-> emails asking people for the missing info.
-> 
-> For the missing c), how does this sound?
-> 
-> : With transparent huge pages, /proc/PID/pagemap can incorrectly
-> : report shared pages as exclusive, or vice versa, after fork() and
-> : partial unmapping.  This can mislead memory-analysis and
-> : checkpoint/restore tools.  Actual mappings and copy-on-write behavior
-> : are unaffected.
-> 
-> And now that we have our statement of userspace impact, busy non-mm
-> downstream readers of this patch can easily see why your proposed
-> cc:stable is justified.
-> 
-> 
-> Also, it would be helpful to show brief before-and-after excerpts from
-> /proc/PID/pagemap to help others understand the impact of the change. 
-> But I don't think we need a v2 just for this.
+> diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+> index 93b306d91b6d..66f8ce25aa38 100644
+> --- a/net/ipv4/inet_connection_sock.c
+> +++ b/net/ipv4/inet_connection_sock.c
+> @@ -936,6 +936,11 @@ static struct request_sock *inet_reqsk_clone(struct request_sock *req,
+>  		      req->rsk_ops->obj_size - offsetof(struct sock, sk_dontcopy_end),
+>  		      /* alloc is larger than struct, see above */);
+>  
+> +#if IS_ENABLED(CONFIG_IPV6)
+> +	if (inet_rsk(nreq)->pktopts)
+> +		skb_get(inet_rsk(nreq)->pktopts);
+> +#endif
+> +
+>  	sk_node_init(&nreq_sk->sk_node);
+>  	nreq_sk->sk_tx_queue_mapping = req_sk->sk_tx_queue_mapping;
+>  #ifdef CONFIG_SOCK_RX_QUEUE_MAPPING
+> @@ -982,7 +987,6 @@ static void reqsk_migrate_reset(struct request_sock *req)
+>  	req->saved_syn = NULL;
+>  #if IS_ENABLED(CONFIG_IPV6)
+>  	inet_rsk(req)->ipv6_opt = NULL;
+> -	inet_rsk(req)->pktopts = NULL;
+>  #else
+>  	inet_rsk(req)->ireq_opt = NULL;
+>  #endif
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index e006a30360ea..0b51cb4ad960 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+> @@ -1522,11 +1522,12 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
+>  	if (*own_req) {
+>  		tcp_move_syn(newtp, req);
+>  
+> -		/* Clone pktoptions received with SYN, if we own the req */
+> +		/* Clone pktoptions received with SYN. Keep the request's
+> +		 * reference until the request is destroyed, as a concurrent
+> +		 * SYN retransmit may still read it.
+> +		 */
+>  		if (ireq->pktopts) {
+>  			newnp->pktoptions = skb_clone_and_charge_r(ireq->pktopts, newsk);
+> -			consume_skb(ireq->pktopts);
+> -			ireq->pktopts = NULL;
 
-See my reply. I'm not sure what to best do here, but I want to use this as an
-opportunity to say "see, nobody noticed in 1.5 years; and it was found be code
-analysis then, so let's simplify it".
+This is reported from another person in security@ mailing list
+yesterday and Eric has a better fix.
 
-So it's either straight to [1] or a "let's do i first the old way" followed by
-[1]. I would just do [1] immediately.
-
-Because nobody cares about that flag.
-
-
-[1] https://lore.kernel.org/linux-mm/20260412-mapcount-v1-4-05e8dfab52e0@kernel.org/
-
--- 
-Cheers,
-
-David
+pw-bot: rejected
