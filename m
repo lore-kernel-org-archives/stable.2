@@ -1,101 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.0
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793647167;
-	b=5DwEdCwc/BOtMRBmQf62IJddAA4Q9lW/WuuuX9YWYi4rN2y75LrOOUtp8TMUH9GaYJi6
-	 271hMhclYSFlDLhCCiNVaT4jquw7fJ8Y+Tl2Q4v8hGnF3gr2r4GNPvnCKxiNqxEWYDz+J
-	 R6hDWkuevhFJpocAt4g/KVUopZ4c5SKHYOiKjIY6Gm+LKHx/U6Hd7PQ+KpTa0fum9Tx7V
-	 NRspyFwRb2NxTvJhkiGw71rGSZ1rYCYqA5X3EcHfP75o6eUrZnAWHRWBmEtS3rbsS7sig
-	 lICTmZF8ErGtG7436IsQneXEL6glE7n01fPI/lZiZO2xdfa3GB9Hmj9fkzfVNz1KZug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793647167;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rFSxBWUyWD/Jw5BtxHIA0Vj7XnWhnkBjvZImOmimzZY=;
-	b=XxgfxGcUBCUTn3rugPq9lOnwi7756Hz3f44yHgdysi8Mn7gCH0vh4Q/SB2NekAzlwLM0
-	 0TqK3HFEk+GM9M/V7lqutOpuYTdVgCDCaWMeQoiTan9LdAZMLpRR2bHaqALNF7J4IoLpW
-	 X+J9GYTfr4LHWB5UiiTsNGu16LJrqtypqF5Qz6rj5o0IPdiuUQ6yDGpw0/nmUSBrKe6AR
-	 JvEFzrfEg4hwYSjaXWjp/Lo6Wbk2aZsKlToXMcuFYPCx1yOuDMckaGZbUUAhIJYQnXfFs
-	 gSW0mMj80e6ZzY+uUZf2ui2uZfaW7m/yMheJ13gxmtGdwzyxzhD0P57Tmk3orPzv51A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QAT6mCfV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.0
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010000.outbound.protection.outlook.com [52.101.193.0])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.228
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793647242;
+	b=qG32OcQ2ZM6f5QWz356Ywg6+T+zghwe4q0citXSbsg3Hn3FIBYiiqoljopymfN81r3C5
+	 CaMBRZkD1P+yCQPapyW6fF4af6W5vvlsrBIZSM2lSXUffSu2VrmFvcblmbieZglPXWSqt
+	 h7WtjoGh0Ec00GsYLz1GS3w0HVGvqp7rj7QYM5vx2dAAe6EY04oOTOw6I/qFvqyatcm/k
+	 T2HK2JDWBsJsGEvS/LMg0NYN6Yjc6/poGRS34zLpIoFvFWKKkNo2GrSWKHHdoMc2xzQKj
+	 ova9npT+qgqWR/iNLG5O0d3yVYcvK6krOpMx/9DqW9IpKDIsd0C7MNjLNIB06eTMRIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793647242;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
+	 Content-Type;
+	bh=SAZ3nonOrrN34SwjaYpvATIBke7R/Q97oSkEj0Eda54=;
+	b=Pz9RBZ55hHEkfyjMpUBkDA6Mvafs8mRl29M6BVAGr9gC1Rdt1hAEDnbMHnFXyRDIar2H
+	 szE529JJFdAuI8r5ILvbf3L5v1uB+0XuljoErcu9dr0UNKkzHNU4rOodpn002YbiGCojH
+	 9OrkG0fOg5rpt3z7GjPY0avYpjkRSqzruQ+jZBgMt9k/6ZDcU4VC4dTaXRDwfFb+Uky5o
+	 QNB6XolN7jUq1YvzGk2zrmzLsJJXpjZcJXD3kyLKPFe4xinXAPXs9lc3KxsY375gxSqLE
+	 3rHPZL60IzeiwscYsgTrSKvqblXnTMJ3cmTza3aNyW0KNglLjEXVrpaKxoh16Frkk+g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=V9J+LHwL;
+	arc=none smtp.remote-ip=209.85.222.228
+Received: from mail-qk1-f228.google.com (mail-qk1-f228.google.com [209.85.222.228])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC484606A324;
-	Mon,  2 Nov 2026 19:19:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC484606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3157E606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 19:20:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3157E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QAT6mCfV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDlYK/fOuTlhtchg8WV6OsELcPSFbkhKsrsYbv0ftUro28gEo2j7+9y0Yv3ABCsYf/LdrcBSODPtqzKijkL71aGOwKOLRk/TYo3yO18Rtrnrfp7uvCCu6Fo0Gw3fsjJCB/zIZhg0CCmtXa5yvu1rjvYkUW1CN++P0B1Z+Ml7j05FXB9QWSgnH1e2+4kTzVOEpS96RSNhpuwZIx7op9/rPZqyrPZ4vbARvyGMG9BbdS2DjO+aFlmqEk3wj5dOIEXuJdCu+a8TGIpNxyPDUNRSgwOfXjNJp7qCsPoFqtxb6wjz34t90w7VUksCqMFLPxuyq1J3xrkhnzDNUorjzYWHBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rFSxBWUyWD/Jw5BtxHIA0Vj7XnWhnkBjvZImOmimzZY=;
- b=Hk+UOBQhj7q0IIJay3WXJxn3YuLbVvvAf47DIds+8LBv1XoF+WOsNFRtPq2AyPSzaLQXUhCuc/M5ksRq+xpdLhuVFtZBZyRwC1h4q/9hslMP4L/VErt5Och+Vlh26aE8YfRqnQbnJ7quPItlzCuYfaMyXJj3ZBY3gYWHQgd/B7yMsNvMCXREofZilPICRjGMmrXiLLU4vnoFjKocsN/Mje4eoBNxNBOrCoDlEmdzk5sCDfhp3qJv9own5Iid1wXVXHasyckCi6G/VcwgylotRgG+FdebaSUPVsFkf/Gw+gMtobrePFjICfB6y/Rd+dTHtTSxayyxs1dUUtEguVbXxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFSxBWUyWD/Jw5BtxHIA0Vj7XnWhnkBjvZImOmimzZY=;
- b=QAT6mCfVBu+sps7RSOtdDbGqL0NmmmFRYhomCaqRuA7mz4XJ49S4GaqbuAz4H8HQ/SLmUpNvqc5hADeWXQgGKqPIAls21KBh6NVSuELWw30r8GIhph8Jj03Bm2pD3YMZQHugCsCmHuCPCamrulxQ4Cr0bKgdw9onngYHhYokzeA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
- by SN7PR12MB8172.namprd12.prod.outlook.com (2603:10b6:806:352::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 19:19:22 +0000
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 19:19:22 +0000
-Message-ID: <6df15eda-d160-4f61-8cc2-34e528d70764@amd.com>
-Date: Mon, 2 Nov 2026 14:19:21 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: amd: isp4: fix self-deadlock in
- isp4sd_start_stream() error path
-To: caspar.adriani@proton.me, Bin Du <bin.du@amd.com>,
- Nirujogi Pratap <pratap.nirujogi@amd.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Benjamin Chan <Benjamin.Chan@amd.com>, King Li <King.Li@amd.com>,
- Sultan Alsawaf <sultan@kerneltoast.com>,
- Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>,
- Yifei Gao <gyf161023@gmail.com>,
- Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Language: en-GB
-From: "Nirujogi, Pratap" <pnirujog@amd.com>
-In-Reply-To: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0139.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::18) To LV8PR12MB9133.namprd12.prod.outlook.com
- (2603:10b6:408:188::15)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=V9J+LHwL
+Received: by mail-qk1-f228.google.com with SMTP id af79cd13be357-93e635220b4so338795585a.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 11:20:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793647240; x=1794252040;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SAZ3nonOrrN34SwjaYpvATIBke7R/Q97oSkEj0Eda54=;
+        b=1foTCGlQwvG9O8oMVbGPPICkIJoaeuog4fGuDUA6SqxAXFEkv8oQ68Hq5Ij1jD8VF5
+         WegNDKoCMtx230h2sTUasFiApdqkVuF47qqfRZELVOv/5oOyozQJ+QbCO9ODeDszfG3C
+         SFrJaLnzIFttGhKnS8gqMkKHe+okniuzW9frUR3rzc8urQWXM1MsPvTUDhEQlxn0T1ia
+         YTzYF299sXsM01VwstupixZ5TXpHF1H2GP3knnfFFE+743XLMMqMXpot7fHmIxZAxMX5
+         K1GbRYRSGO7qEBaThCrFPoROfcZ3kgLnGvs9niILgVsW5cR406gf5+1cBLRwZ4BkFpk9
+         xRWA==
+X-Forwarded-Encrypted: i=1; AKwUvByP+K6IpI3pCP5IdfYJAAQ29nlQ/CKavl/tL9hXO/YE0F5fNxcjEFHZgD9kXzmc4bgM8eZP7nk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/qFsUi06EaY0lNjxDSY/DgCGV+CNB0gM5s3QG8Y0GkvSxtHBf
+	ioQ+8MBiZGG4GEkKuki8D0XkTaJywiliiE9ZKv8wbaeSq4mh/7O2J09aPrRd1VZsARwIOZkH/La
+	UHFPuPtJXsVRYNbDyp5JyFlwY5q2pCqWJerXbzzqRLcntvqlM+xWeYSiHlTdtiekrwJqR4t7qVD
+	6XPnZd89OyvgcRFictXT0rkb/QHjn2V7Yn1NuvQmrhlaSsRNXO2nefUIQVluECdCz6T0HWH1QYL
+	oG8oOfvXTc=
+X-Gm-Gg: AYBFou0T4QjDe2cIXZxTp2tMR8UzIZizvFuUpCWhQbPi/hji8R4b955UB/ZamdicPmP
+	d8bfO8Dcpf20XzTyh28t6XH5qmwsSM8WOuNE9mUN6R1X9DyOQqyIrI7vJbiZjipWr9hdENNMvkA
+	VLWq8fjw7x314VIfqZYv5izyIs/1+snf3W+gtnHuKbT7DSbIux9I1fSrKZxDU7mJzHztFhkg3sz
+	zRVpRkdJniqWm7RTUVO+L0kmVeWGXLOoBQ5L/5uQUX+FdTZ+J0EbNrg9/PhwK8AiIDhdRQ0LIQy
+	ox2FjwxLPG8NcBEN6H+3FEyXezE+L9TXlPA0BQ2MvlIZtQS+2i5tLEyLZWbVTAVtJqCSTbaIPhG
+	vbxv7LdPFKVOY57H+kxSThHj0epssozACFx8hypVmPa70E+HdqJOh4QVyGfuY5PVEyD0Y1U7v45
+	UpezL5OKgvC7j3q5A+GWBRbWcOLEClIe30Yik=
+X-Received: by 2002:a05:620a:2a05:b0:93b:bc51:b40 with SMTP id af79cd13be357-944214dc4bdmr1816617685a.2.1793647239691;
+        Mon, 02 Nov 2026 11:20:39 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9442585c6ebsm90219885a.19.2026.11.02.11.20.39
+        for <stable@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 02 Nov 2026 11:20:39 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c40aa03ded8so239732466b.2
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 11:20:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793647238; x=1794252038; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SAZ3nonOrrN34SwjaYpvATIBke7R/Q97oSkEj0Eda54=;
+        b=V9J+LHwLL4wuUuq7c/iynOHbdw6j69M/IMAJYE4eMQfoazozSzUDDERtfD5+KB35wf
+         WY/FSmettnp8bB+Ab/OsP3B2KzJsM8NKOUYwuDxiyoE7ueA+PwHLYrplS9bt9wl/mUT4
+         KzhlaLl2+c5g0gRVa374nK5OT55UtyIjqcyF8=
+X-Forwarded-Encrypted: i=1; AKwUvBySQpCy435cXP3my3NDfTz30g+EBlLkJxa8Xub1CmBzBaGFT8E7Syjf0QReX/aFIcD+GxOaFhE=@vger.kernel.org
+X-Received: by 2002:a17:907:969e:b0:c41:8e21:4d5a with SMTP id a640c23a62f3a-c4ca793c08emr880251666b.5.1793647238073;
+        Mon, 02 Nov 2026 11:20:38 -0800 (PST)
+X-Received: by 2002:a17:907:969e:b0:c41:8e21:4d5a with SMTP id
+ a640c23a62f3a-c4ca793c08emr880250466b.5.1793647237724; Mon, 02 Nov 2026
+ 11:20:37 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,182 +98,163 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|SN7PR12MB8172:EE_
-X-MS-Office365-Filtering-Correlation-Id: b28e9d1b-4bfb-4bab-2819-08df39163366
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|3023799007|261102123227099003|56012099006|11063799006|261021123027099003|261022105027099003|261026140227099003|261026121527099003|261009223027099003|261028144727099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	gGzK0gYBuD+LMT+2HSAYOhwmCTjKI697MTpwFHxnNlUY6f4DgpKxxk3NCfW+ufEp0gq6Oxlj3+dq8qaPwqiz6mFhg/9OiEjX42WuSWx1E/5ckYlHgLGMx1MCgLBuScaYrPb2AqPmTkjr1ci58brqAMERF97qYmc3+hiu63CQDGcCs7V8E0GUyGM1F/StUrXIrpXzTW+e1LCI3+yZXjC1QXrEQUXohywWlsPFWStMvosw1LfmztbnxA1oKCpkoywaeoepHlooGRRlPp42siMK+/waYq1vNgBGb0rMhc2XkOeukluTVQgcsrA8I2zd3zT6CWxooBKGRcGpKUasEoxRU0Zg/ArYpC7A0zASs3QDVTSzPOCkbxA+zFCNzr89VPttJTagujMznr0OA5mxkqV88NNXj7XUCeEP2Nf99o9fpBdijQZiQCw1iWodChoyuGJco5R/qJBYp7b5sR4ng/yeMa5msrlzD7DcETA4MD0fYmlOD6e1B4939uGY7lmQGGM9XJVAdyZMVvytx3gmxIC/76Po3uJvRL+l0hVfuc37gN/p/ZWAuORDN68lX8z4qvzMHTCPEwbns1qGyCAgZSwrv/FKYbJBCgjIUFKm+95J2sVNoN100552vblesqIXRBV9YwLJp4RkWin4nwXy4J/FYolD8yL0xQ6sciTPgNzkgSA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9133.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(261102123227099003)(56012099006)(11063799006)(261021123027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261009223027099003)(261028144727099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Lzg5TDYrUVdXT1ZDdDd3dVJGTGxVRnRBdEQvaGU0M0dMeS9DSml3QjF5ZFFq?=
- =?utf-8?B?elY5ZFJEM3ZqL0VIY043UG9YM0NXN2RhQUl6U21kaDYrb205YURxTWlPUFdF?=
- =?utf-8?B?N3Q1a2NWQ21YRThKQUd1MmxJaURYemUxbm02bWRVcGhVb00rYlZJQlJHbU83?=
- =?utf-8?B?Z0lhMTdXUGRkRC9GQUJ6T0pURlYyS2V6SHlPRGJXNjhwMWZZcUhnQXV5L1ho?=
- =?utf-8?B?eFFKTVczSDNuOXM4eHlQVVNheGFaMkhwWDZwMDZpRXdhWUNQdnFmOE9jN1o2?=
- =?utf-8?B?WTNlWm9ySlNHeTZSSTI4VitkTFJCTjk5SjZKODFtbVNxb3pQUVJ5TEp4cGN0?=
- =?utf-8?B?Wno4Y1ovdjV0SU1kejVMWXFXMENld1dYT2kvM3dWZ1dnZkszSkFBc3EyYm41?=
- =?utf-8?B?L0hDNG91OFRvWFZzSTlESHk0aENXSlpMWXFVTE5oZUpESGdiYnlKcmI3ZXhX?=
- =?utf-8?B?aWx2ajZod1BiUFdtR0Nldm5UTkpBbGR1Nm1oaktHMUdTKzhNdWhIc0M3ZmZM?=
- =?utf-8?B?d0cyVERkZmhQM0VyMFU5MUh0QjBTVXo4VGt3Z1duREZSYXRrVE5KZVlKNjdR?=
- =?utf-8?B?NGliem1VLy9zZVRzMCtZRUlESEJCVlFYTGVYRWw0dkRWNEZvc3Y5bGx3Z01G?=
- =?utf-8?B?VzRGZVg2czZUYU02TkhGd0l0UmZrSnBtRU4rZElSdWNSOHgzalZvbWpKZW04?=
- =?utf-8?B?UUowNmVJWnZuVkxrWTVZbmtMZkUvbUxoaXhuNEEzaVF2WkpjUS9JM0dPQ1Ay?=
- =?utf-8?B?RnRMM3hpeVlXNHFkc1YvS3BFdUtwNkxEa3FjaE5rTlpDS3NsZWZQakFYWmtI?=
- =?utf-8?B?d3BNNWNKNzRTQkVMSmFkL2M2b0JsRGxFbUNzb2lLR3dNZTVQV0NRREZXR09H?=
- =?utf-8?B?STAvRFZRSi93M296dU1ublppT29OTkpzSE1KbzZVVkRVaFVPV2RpbDJ6alg3?=
- =?utf-8?B?WnZDSDdzdk1vWnNZTHdFQ3dqSDUybzBWMTZ0VXBhNHc4MGUrZDZOOEIxVVNW?=
- =?utf-8?B?SkFXSXRRUU15dmZrTGpYbC9Td1djeDFnZEd5aVdzTVRISitIYWluVi80NlJz?=
- =?utf-8?B?dVgrVGs2TEFkSlRJRmtuNVRFdVBHTzBTMlA0bk83bFlld2wxWExzdVJsOXE4?=
- =?utf-8?B?SWZITHJZRHdmUnBsOXJEMmNpelZpazBSQW1LL1R2dTZiUjQrbFcxUDVlaW1E?=
- =?utf-8?B?Sk1rdDZxZy96UlA4c000ODRNbVUySDgrNER4Rml4UGRweWoyTTNDRVQ0bVJz?=
- =?utf-8?B?clpIUXZWNUsyUGR6alVWODhORGpQVWxZTHIxT0VGbkc1ZHBNeStGQVliN3NJ?=
- =?utf-8?B?Q2ZzVU4waGUvWEw3K0tka3hmWDFuUlhjVzUxVFZiMjl6QXRNUEZYL3B6cmhH?=
- =?utf-8?B?R05zcHV6NzR0akh0ZXVpYy9KUDJnVnBPSmpFOHdZaDRVTDU4dHZiMEtaakhI?=
- =?utf-8?B?KzVwSHJsaC8veGZraDVJVHMzY0w1U00xUUlxQVQvTENqVmU4TEM1UUs4VjJa?=
- =?utf-8?B?WmtwZVJQekJzcURMY2hYMEpMYzdUWlZEWjVKdTM4VWdTbmlCV3FwSTNiYUhz?=
- =?utf-8?B?cmxIREY4RnpaRG05S01wNlUxbzlidnpuMThqSXhsd2k3SWMrZlhtTjVCbC9u?=
- =?utf-8?B?R05GRXJ4N0ZGOXoxcTVWWjVFRW0rRWRPTFhSSDI4QjVBenpiVnVjN2RKZEpn?=
- =?utf-8?B?UDFaTHhWeWN4UUt5NFY4SzRIUXBTQVd5QjRDZUhUZkdTbHl1aEo4WS9lNEg5?=
- =?utf-8?B?eDA3TXhEMGZCSnVITUFhZzVmK0VLb1F5UVRTRUZsc25wMS95WDlaRDBaSHpt?=
- =?utf-8?B?YjQ4R0IzamJiZEp3MmQwK1poSXFSQ2hBK3pld2wzSmNFMzRsUVZWSUhkcGU2?=
- =?utf-8?B?MzNtejZHTFNvQWowZFNUUmZKVEt4YnpDOUhidmJyTmtnQ1hkbHdpQjV2UUtO?=
- =?utf-8?B?RDFFLzQ1T3BVdmR0V1BtZnhrVmFqOWZ3cXJXeWkvRzNNQ0VYQnRoR3FoUE9G?=
- =?utf-8?B?T3pDR2tMalIvWDQrelpyKzFqOGkwOXRoS3JvUUh4TnVUMXU4d1BQY1owMEhJ?=
- =?utf-8?B?Und2a0IrTDZyNGs1ZUQ5K0ZwVGorTlhCSVY4YldmbXczcVR3bks4OTZqdlRY?=
- =?utf-8?B?eVcyOEFLWWhRbVBROXNkT1MwQjFFNzNveGdVR2RCQThKMENKVGVPbkw0MmJq?=
- =?utf-8?B?SEJ3blFRa2ZWR0duT2pVMUMrLzZaVXk4akg0d1hrb2tHUHF3My94NnhzRU1J?=
- =?utf-8?B?cW1DY3pwNDVQcW04OUd0M0NaSFZucDAxZWhYTmErQ21ZdWY0N3E5REhCYlUy?=
- =?utf-8?B?VVdpcjJkNVdydHBPNDR1bGhqV0V4cFZqYmlGSmZldlhNWFFYLzRLdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b28e9d1b-4bfb-4bab-2819-08df39163366
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 19:19:22.6180
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +RbXiRZsSc+mDQbQzQ3D2BHqMYbUUhUNSuLgO2UhCf0Ror50TN6Ru44sx0/hyJpWCZizHDJK5xQFu1SnNsZAeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8172
+References: <20261029032832.1511180-1-bcochrane@google.com> <CACKFLimgKYe9Ow6UKivoyXaFU5UGEKB7Tb2VEUQ83=5Dghyw7w@mail.gmail.com>
+In-Reply-To: <CACKFLimgKYe9Ow6UKivoyXaFU5UGEKB7Tb2VEUQ83=5Dghyw7w@mail.gmail.com>
+From: Michael Chan <michael.chan@broadcom.com>
+Date: Mon, 2 Nov 2026 11:20:26 -0800
+X-Gm-Features: AclHuK8EO6z5qqqZMv9IXsN9W1_-JzKAVx0EtVnZVi_zqy4EeM1iiqQFl2bYuRU
+Message-ID: <CACKFLinnoPdJs=TLv_OOxXcWez-zfMX9Q+L+s8ponqvjG3Yshg@mail.gmail.com>
+Subject: Re: [PATCH net] bnxt_en: Take RTNL before netif_close() when aborting
+ FW reset
+To: Bryan Cochrane <bcochrane@google.com>
+Cc: Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000007e6fbe065f500ac6"
 
+--0000000000007e6fbe065f500ac6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Nov 2, 2026 at 10:59=E2=80=AFAM Michael Chan <michael.chan@broadcom=
+.com> wrote:
+>
+> On Wed, Oct 28, 2026 at 8:28=E2=80=AFPM Bryan Cochrane <bcochrane@google.=
+com> wrote:
+>
+> >  drivers/net/ethernet/broadcom/bnxt/bnxt.c | 9 +++++----
+> >  1 file changed, 5 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/et=
+hernet/broadcom/bnxt/bnxt.c
+> > index 0682060b048c..0f37639b70ba 100644
+> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > @@ -14798,7 +14798,7 @@ static int bnxt_get_registered_vfs(struct bnxt =
+*bp)
+> >  void bnxt_fw_reset(struct bnxt *bp)
+> >  {
+> >         bnxt_ulp_stop(bp);
+> > -       bnxt_lock_sp(bp);
+> > +       bnxt_rtnl_lock_sp(bp);
+>
+> Thanks for the patch.  This isignificantly increases the scope of the
+> rtnl_lock to cover the whole FW reset sequence.  I'm concerned that
+> with a large number of VFs running in the same kernel, the rtnl_lock
+> contention will cause some of the VFs to fail recovery.
+>
 
-On 10/28/2026 10:05 AM, Caspar Adriani via B4 Relay wrote:
-> [Some people who received this message don't often get email from devnull+caspar.adriani.proton.me@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> From: Caspar Adriani <caspar.adriani@proton.me>
-> 
-> isp4sd_start_stream() takes ops_mutex with guard() and, when
-> isp4sd_init_stream() or isp4sd_setup_output() fails, jumps to
-> err_stop_stream and calls isp4sd_stop_stream(). That function takes
-> ops_mutex again, so the task blocks on a mutex it already holds. Every
-> later open, close or ioctl on the device then blocks behind it, and
-> only a reboot recovers:
-> 
->    INFO: task .v4l2-ctl-wrapp:38440 blocked for more than 122 seconds.
->     isp4sd_stop_stream.isra.0+0x43/0x1d0 [amd_isp4_capture]
->     isp4sd_enable_streams.cold+0x8b/0x26c [amd_isp4_capture]
->     v4l2_subdev_enable_streams+0x1ff/0x360 [videodev]
->     isp4vid_qops_start_streaming+0xf2/0x160 [amd_isp4_capture]
->    INFO: task .v4l2-ctl-wrapp:38440 is blocked on a mutex likely owned
->    by task .v4l2-ctl-wrapp:38440.
-> 
-> One way to reach the error path: start and stop a stream, then start
-> it again without setting the format. isp4sd_uninit_stream() clears the
-> subdev pad format on stop, so isp4sd_get_str_out_prop() fails on the
-> second start with "fail to get out prop" and "fail to setup output".
-> 
-> Move the body of isp4sd_stop_stream() into __isp4sd_stop_stream(),
-> which expects ops_mutex to be held, and call it from the error path.
-> 
-> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Caspar Adriani <caspar.adriani@proton.me>
-> ---
-> Tested on an ASUS ROG Flow Z13 (GZ302EA) on v7.3, with a local,
-> not-for-upstream change that adds its OMNI13B1 sensor to the ISP4 ACPI
-> tables so the capture device is created. The stock firmware does not
-> support that sensor, so no frames arrive, but the start and stop paths
-> run. Sequence: v4l2-ctl --set-fmt-video=1920x1080 NV12 --stream-mmap,
-> stopped after 10 s; the same without --set-fmt-video; then the first
-> command again.
-> 
-> Without this patch (v7.2.8, same setup) this failure hung the task as
-> shown above. With it, VIDIOC_STREAMON returns -EINVAL after "fail to
-> get out prop" / "fail to setup output", v4l2-ctl exits, no task is left
-> blocked, and the third run starts and stops the stream normally.
-> Not run: lockdep (CONFIG_PROVE_LOCKING is off in this kernel).
-> ---
->   drivers/media/platform/amd/isp4/isp4_subdev.c | 15 +++++++++++----
->   1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> index a108d90ace..08512f060a 100644
-> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> @@ -745,15 +745,15 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->          return -EINVAL;
->   }
-> 
-> -static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> -                             struct v4l2_subdev_state *state, u32 pad)
-> +static void __isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                                struct v4l2_subdev_state *state, u32 pad)
->   {
->          struct isp4sd_sensor_info *sensor_info = &isp_subdev->sensor_info;
->          struct isp4sd_output_info *output_info = &sensor_info->output_info;
->          struct isp4_interface *ispif = &isp_subdev->ispif;
->          struct device *dev = isp_subdev->dev;
-> 
-> -       guard(mutex)(&isp_subdev->ops_mutex);
-> +       lockdep_assert_held(&isp_subdev->ops_mutex);
->          dev_dbg(dev, "status %i\n", output_info->start_status);
-> 
->          if (output_info->start_status == ISP4SD_START_STATUS_STARTED) {
-> @@ -786,6 +786,13 @@ static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
->          }
-> 
->          isp4sd_uninit_stream(isp_subdev, state, pad);
-> +}
-> +
-> +static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                             struct v4l2_subdev_state *state, u32 pad)
-> +{
-> +       guard(mutex)(&isp_subdev->ops_mutex);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
-> 
->          /*
->           * Return success to ensure the stop process proceeds,
-> @@ -836,7 +843,7 @@ static int isp4sd_start_stream(struct isp4_subdev *isp_subdev,
->          return 0;
-> 
->   err_stop_stream:
-> -       isp4sd_stop_stream(isp_subdev, state, pad);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
->          return ret;
->   }
-> 
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-isp4-start-stream-deadlock-6c33a97d3297
-> 
-> Best regards,
-> --
-> Caspar Adriani <caspar.adriani@proton.me>
-> 
-> 
-Reviewed-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
+Looking more closely, I think the case that requires the rtnl_lock is
+very narrow.  Only a PF with active VFs will need it in case
+bnxt_get_registered_vfs() fails.  For example, all the VFs now will
+take the rtnl_lock for no reason and will cause unnecessary
+contention.  I suggest fixing this bnxt_get_registered_vfs() failure
+more locally without increasing the scope of the rtnl_lock.  Thanks.
 
-Thanks,
-Pratap
+--0000000000007e6fbe065f500ac6
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
+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
+DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
+qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
+5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
+rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
+oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
+Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
+BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
+IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
+FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
+hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
+BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
+HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
+qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
+2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
+K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
+H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
+Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
+WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
+q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
+2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
+bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
+R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
+ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
+MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCBvZkXz
+PgehN29Jx7JoPvvf6W+RZ9/dspwvECHZaRgTyzAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
+CSqGSIb3DQEJBTEPFw0yNjExMDIxOTIwMzhaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
+MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
+SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBh9xWDr4S6VHI9DM6fk7/Qe8TSPkyNI599NPPMt0Ud
+p3nZgvv3aK6B7v4ZxeUf+AeAU6iAyp8nZP1T0yFMBh9Rea0Y0q3g7ant0YyQro0lpRm2ZqFX9zVU
+HwOh8hAvrL9IE8RFYFo66Yn/JeM/oO4hkdHUXc/QOkFPF+fdpONErOTAmvYdEsxLhbDdwdUaDPp1
+8tVdx6lhmEC+0/h2EWOre+ImrjD1Z968PEWlHxx2rBK0oadThzugEYI3kbZDlpLaSPYY/KzW0ZlS
+2WuFScQqljIc4YwH3zUFsZ3NNtTC6AyRlEO7BGq9QBCkRaOP5VA3fV5FMfmIql13wqwD3QV7
+--0000000000007e6fbe065f500ac6--
