@@ -1,65 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614442;
-	b=RRRlst6Jsl20RPJoqbKMmU0m6pLeONEslMIXIbmqSS8zpZTYnv0M00KDPtYsHxrbpDKc
-	 XiJ9OxU1LsaTg35zREfyhhOiAE7rev5gFWonR3qnk6iR7+YhrFhK/o9Xd6xweHIUhrsbq
-	 ++CfR1gNDaMnCU2THTTGfvF2SMQNYpJUL5zoGfYeISgBF9JKp3QaS2XRmifSUgkcDc2i8
-	 xIFj513AUSoX87SLZnF5R10Pde67XarI2kUiKsikDaauc5ZM2qfALbb/nvZTHuUjhgC8o
-	 jV9/FO8Yo/jeqXjk4JS5v3AB5EyzbJMQD1oIiPHDKXbxqK8QxGRSI9oSEC+tj14r7HQ==
+	t=1793614738;
+	b=TPdlqUqAYAWacesVWrpyaJshg2FpqbQgyqRSKQtSRbMwm1QcQWGFyuwqTZMDi8eRDdLM
+	 GuureRmGkHf7Rty3QDlDAEOIPZho92qQdkWmtgWGwtSfPVQioawEQV/wokGBYlum4zBIG
+	 6nGXLzrSKmqyrpvQwsnDSC1zG5z7FdJbFVvFeYGP3LGVrcxjr5djvOUFNGxp5dfp+u7cj
+	 DLvH0pil2jgmkL2apLHGW9WWVlqOANA5sBzvOdbSNJz8zOZqjt/OwT8TGEBLz5NglmeQL
+	 wWvmycimS0h1XDaDmOjRsSq5Eld0IwfX0q8hA6m531aLTN7pO2IjaXWMFsBx30Wmm0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614442;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9XxIqirAG9D56BcIeaHVZySoAG+yF8xDS5voiiVDsuA=;
-	b=quhCibf5rAnIRLVZoeWymXLiDrWKLSubNLsmdhXCUsSkETzMORhYciojnrbq664K4aq5
-	 XYiU5pWswJB3zv7ZTWrhSJA+UHLqtzkYzbCZIECTpgtDBIRFmzjQ9pStgWfttFxZIrmI2
-	 Wlgjo128L2BH0BIwEeDNzvleFDPcbeoK3Dzy7kuJa6Z4RobuiCcDl6C4WN8W93IIUJ+qA
-	 4mVVIVLqpSSblIob7cVu7Ln3YDKm50XPgdMQmjuDLcXeObWmrrrju7i9BdAaFg3qIVcFg
-	 6KRWTVqiq+yVxzLWolqJzcW4NKbtyjOSlOSNxdbjABmGBwe/aZ9v6RDVHySLJtv+/cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614738;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
+	b=lWkpzjq1QtGjMctVcoGEgXt2QtL5IBjQA20Dq2Nr/sAtnzItqW6mddK0c2Ymy+2fXafB
+	 24QE76FJTyOYc9VchNTsgz7nr6SQhmVphwtNdvKBpTN3mqkIgbK0ArBkAm25BLiAIPd0v
+	 1m/fqsnsb1W0kA06vjSiiOx+URaPBFUP5BT7sDWoUF0q7fSTepU8MkOSIG4vFs4zmPaD1
+	 JCSYIz1DCyd/Lvmi8W/uIeB+OEJ2XP7fE//+1aYdXRUmSfH6XfboUt6xl+dfhpjM4EdJX
+	 kUY0wATjBA4qXsuINvbpAo/drfE6F1CMOJowrFX7H4xJ4r68W8AE0FGozS3nXy9O3Kw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFqYM9Or;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxRdv5SA;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A28606A331;
-	Mon,  2 Nov 2026 10:14:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5792060A261D
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5792060A261D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFqYM9Or
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6C11F00A15;
-	Mon,  2 Nov 2026 10:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793614441;
-	bh=9XxIqirAG9D56BcIeaHVZySoAG+yF8xDS5voiiVDsuA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LFqYM9OrlIwewmMAudK8Nb2PgbWj38oj2L+52Pc86pKmF1yKSGXZZybmDJaCNkYog
-	 frTq7cCZ3kZzJhvkTCyNDeeXGdXqSoqeKuOBC4KVETWzfkVnCXdcaQGOUw9OhFcflU
-	 iMtAt6M3uylm3p6Q60suUSLPvd7oaSOPJgCImlgQ0BQa5s1C5+UX/VgywS0rHz9Dzb
-	 MDBfhxsrhf9SYBk7qSp9YkSL2mGnrjxEW6mGo0wVNTnMshvRP+XXtm5KAaxWnL3dsC
-	 huR/6o6dz+8c3UuMI1f5VMC5jaR//OrCZ9RqjglOOSt3iS8kyPanygIGlLkHY0VabP
-	 LhcYoE9WTVt8A==
-Date: Mon, 2 Nov 2026 10:13:56 +0000
-From: Lee Jones <lee@kernel.org>
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Kai Svahn <kai.svahn@nokia.com>, syed khasim <x0khasim@ti.com>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	Samuel Ortiz <sameo@linux.intel.com>, linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on
- teardown and probe failure
-Message-ID: <20261102101356.GD13023@google.com>
-References: <20261027093306.2812695-1-lee@kernel.org>
- <20261027093306.2812695-14-lee@kernel.org>
- <20261028165003.60d0c033@kemnade.info>
- <20261030104806.GC3774906@google.com>
- <20261030115241.642c5971@kemnade.info>
- <20261030112835.GD3774906@google.com>
- <20261030131049.10167177@kemnade.info>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxRdv5SA
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so25998665e9.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 02:18:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793614736; x=1794219536; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
+        b=XxRdv5SAPtprMCixlSykpa9IdCsjIms0i58gM4n9WkmvL8mJ5T7nTQXKs1RGSXZyiN
+         yxa/3V7py96cIQ42Lm0vOJBL2LtKqssWb1eSYc9jZmdHxsBDxBc37uYMA/D7P0ZRYn6Z
+         lXQI3lnIz2AFJSE4tYTHitTh2GQYrXXhlQRCPTaBsYfV/Tx8DEcDVgyYB5ep45hw24KU
+         XpY+P/OTW1FJxkURBHhTBEBWxC9bpjeW6V/X053l5mcsQ5hi/5wMZQDl9kVnGw4FEtSl
+         /ZM9mLhndLMyxOkTYUYXS5yQRpj4sKAT8i3hSej5+PF5oW31Kyo6c0SuJg5/g4i/Q3m3
+         ODzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793614736; x=1794219536;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
+        b=Y2Gr0xeUjWv1bQVx3eIlbTvZ+TSuU0sVz39+KXAmbivUWdZpfnWDOFyXdSHe5q21x0
+         ERilgFXtaBhOvYIQ8mCxniTOZ2niTEYiyJsdOo+jXk9utCEhr5ZEcazFUYJkhvLdgOYm
+         1fE2Nul41nidq+sGwZo+1Atjz2acVvLHNwdosTmnrp6S6B1cRUzZw2/1814GsNaR1IET
+         S55oXzdoUX7Rpz/9rRME2eE4gzyGBsVRhm2SNYIpBxjL0/tfUShWDjFf/0SoyDGSpyAH
+         uq8OYaT29Swf9YjTkPBhTCDXl8b8C0mFWAUuDPPVPvPqWm8ezfB04U59de+wezSjmVdg
+         BR6w==
+X-Forwarded-Encrypted: i=1; AKwUvBy080kNQyEo9C8N3fecsKB7BwRTwcU5qMBCbi4J7EMgOs9xN8usfk/O+1I7+iTw9uedlmOFf4E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPUKVx7uDfJhdfWhhE170bXycyEUMaVICyKw2nJ7NmxB4EVfu2
+	GvSP2qUozz0E70WcrxzlQDdX57DetbQIXAufakPtAYjNgTCH7/+24IkV
+X-Gm-Gg: AYBFou02bwe2Q1Nvhrhk1FSfNXspWRkUKjpAjJUyB8pa8N4ZGq9CDgt0nmQzB1dpWGN
+	Eq3reMSBAz+aDYgonKkdSgbVZcWlOv7ABJPs9kH8XoOWKLQMWrLXpqmOF5EeGSmyFo7x0h8/Yjn
+	WaWitCf2RdtSLF48aYkxD0LRO4zzxotdsCqpq7jrVkLxjYwxJwnFz42y2wlYLU2h+zfsLnRsjzK
+	H3R3N7/qK9T11PYdMGSuY3dfs5Wr65YokI0j1XGJX3UYrqGx3nSLjjCQ14aHKqFuVQJs5RJvqPZ
+	0v9gq41TXx0Pm6DBo2Kh9JR24+HbhgDybkMEJrR73MzWLDg6CKt0lOIvr+okBmU7yEscQ57L1RN
+	AcpeuLRDyN8g+ksSFvrpyOXLxh1Xl5eN0gz4Vyt/mcXjEGu0f4ZBmE8mdREXunJjG4VtI+HggdZ
+	/JDpjKA1AxWFVy8yHhU1mMngk6IWvo2vUiNRoBcGP8o3AVGgkZq02mmzDX2AoiGvT9lEEXzA9MT
+	3l93cDAt8Oly6WtYZR0H1TAdXQKvA7FLJiYhBRoi4HIqWflXDBAJauV6pKxDhw+FXrO6J3nGDqm
+	hG6+qIB2zxRDLYrTefNWXt9ZRu5sl2EgJk+85O7pdG1XWSkJioeXh/YYOn2fnBEhSivL/WR8mKR
+	xLHtvELpCF8Tqlgswm9imZWPNkk40wECohJKELesvNjiuzhSBaJOhnefvBKRq+WU8h/wOeG4K
+X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id 5b1f17b1804b1-4ac1932bac0mr190329705e9.29.1793614735583;
+        Mon, 02 Nov 2026 02:18:55 -0800 (PST)
+Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f322c46sm321930265e9.2.2026.11.02.02.18.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 02:18:54 -0800 (PST)
+From: Christian Gmeiner <christian.gmeiner@gmail.com>
+Date: Mon, 02 Nov 2026 11:18:53 +0100
+Subject: [PATCH] drm/etnaviv: Flush the tile status cache through both the
+ PE and BLT
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,72 +92,143 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030131049.10167177@kemnade.info>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-etna-pe-ts-flush-v1-1-e4454ed86f85@igalia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0auUrA30A6JeRVxUTTUgVZoqgnh3i
+ 8u3mHlAKDEJdOqBRBcL77HAVAqm1ceFkOdisNrWxmiLlKPHgzALhu2UFUPw2rjajW0zQcmORIH
+ vf9kP7/sBFDvhz2IAAAA=
+X-Change-ID: 20261102-etna-pe-ts-flush-ffa01363b98c
+To: Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
 
-On Fri, 30 Oct 2026, Andreas Kemnade wrote:
+From: Christian Gmeiner <cgmeiner@igalia.com>
 
-> On Fri, 30 Oct 2026 11:28:35 +0000
-> Lee Jones <lee@kernel.org> wrote:
-> 
-> > On Fri, 30 Oct 2026, Andreas Kemnade wrote:
-> > 
-> > > On Fri, 30 Oct 2026 10:48:06 +0000
-> > > Lee Jones <lee@kernel.org> wrote:
-> > >   
-> > > > On Wed, 28 Oct 2026, Andreas Kemnade wrote:
-> > > >   
-> > > > > On Tue, 27 Oct 2026 09:30:42 +0000
-> > > > > Lee Jones <lee@kernel.org> wrote:
-> > > > >     
-> > > > > > twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
-> > > > > > and checks for a non-NULL twl_priv at entry to reject multiple device
-> > > > > > instances.  However, twl_remove() and the early error paths in
-> > > > > > twl_probe() never reset twl_priv to NULL, a failure when adding MFD
-> > > > > > child devices bypasses twl_remove() by jumping to free instead of fail,
-> > > > > > and twl_remove() tears down the IRQ domain and dummy I2C clients before
-> > > > > > child devices are unregistered.  After devres frees the underlying
-> > > > > > memory on probe failure or unbind, twl_priv remains a dangling pointer,
-> > > > > > causing subsequent exported API calls to dereference freed memory and
-> > > > > > blocking future probe attempts with -EBUSY.
-> > > > > > 
-> > > > > > Unregister DT-populated and MFD child devices at the start of
-> > > > > > twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
-> > > > > > reset twl_priv to NULL in twl_remove() and on probe error exit.
-> > > > > > 
-> > > > > > Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
-> > > > > > Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
-> > > > > > Cc: stable@vger.kernel.org
-> > > > > > Signed-off-by: Lee Jones <lee@kernel.org>    
-> > > > > 
-> > > > > Hmm, couldn't we use devm_add_action_or_reset() for resetting the
-> > > > > twl_priv pointer? Feels more clean for me.    
-> > > > 
-> > > > Nice!  Thanks for the suggestion.
-> > > > 
-> > > > To keep this fix minimal for Stable backporting (and avoid resending a
-> > > > 27-patch series), I'll take this one as-is and send a follow-up patch
-> > > > converting twl_priv to use devm_add_action_or_reset().
-> > > >   
-> > > 
-> > > I think the whole patch can be simplified a lot then, 
-> > > 
-> > > devm_mfd_add_devices can stay.  
-> > 
-> > twl_remove() runs before devres teardown and destroys the IRQ domain,
-> > unregisters the dummy I2C clients and clears twl_priv->ready.
-> > 
-> > So the MFD child devices still need to be unregistered at the start of
-> > twl_remove() (alongside of_platform_depopulate()) before the parent
-> > transport is torn down beneath them, at least until the rest of
-> > twl_remove() is also converted to devm_*().
-> > 
-> 
-> ok, I merged the two chunks of twl_remove() into one in my head without
-> the lines in between... So you are right.
+Since commit f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs
+with BLT engine"), jobs on GPUs with a BLT engine use a BLT command to
+flush the tile status cache instead of TS_FLUSH_CACHE, which is broken
+on most of these GPUs.
 
-No problem.  Thanks for your review.
+GC7000 r6008/r6009 and GC8200 r6401 are the other way around:
+TS_FLUSH_CACHE works, but the BLT command does not flush the cache.
+The vendor driver handles these GPUs using TS_FLUSH_CACHE, but the
+etnaviv kernel driver has no way to identify them.
 
+As a result, dirty tile status cache lines survive the end of a job.
+They are written back by the next cache flush, using the page table of
+the job issuing it. If that job belongs to another process, the write
+goes to the wrong address space.
+
+On GC7000 r6009 this causes MMU faults and GPU recoveries blamed on an
+innocent process. I see around 1100 per run of a multisample
+depth/stencil test running alongside two other GPU clients.
+
+Emit both flushes at the end of every job on GPUs with a BLT engine.
+Whichever does not work on a given GPU is a no-op. Since dirty lines
+are only written back once, this costs one additional state load per
+job.
+
+Fixes: f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs with BLT engine")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+---
+ drivers/gpu/drm/etnaviv/etnaviv_buffer.c | 40 ++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
+index 03b2576af67f..99c91a9eecf1 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
+@@ -168,6 +168,17 @@ u16 etnaviv_buffer_config_pta(struct etnaviv_gpu *gpu, unsigned short id)
+ 	return buffer->user_size / 8;
+ }
+ 
++static void etnaviv_cmd_flush_ts(struct etnaviv_cmdbuf *buffer, bool has_blt)
++{
++	CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE, VIVS_TS_FLUSH_CACHE_FLUSH);
++
++	if (has_blt) {
++		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
++		CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
++		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
++	}
++}
++
+ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
+ {
+ 	struct etnaviv_cmdbuf *buffer = &gpu->buffer;
+@@ -191,7 +202,7 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
+ 		unsigned int dwords = 7;
+ 
+ 		if (has_blt)
+-			dwords += 10;
++			dwords += 11;
+ 
+ 		link_target = etnaviv_buffer_reserve(gpu, buffer, dwords);
+ 
+@@ -204,16 +215,8 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
+ 			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+ 		}
+ 		CMD_LOAD_STATE(buffer, VIVS_GL_FLUSH_CACHE, flush);
+-		if (gpu->exec_state == ETNA_PIPE_3D) {
+-			if (has_blt) {
+-				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
+-				CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
+-				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+-			} else {
+-				CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
+-					       VIVS_TS_FLUSH_CACHE_FLUSH);
+-			}
+-		}
++		if (gpu->exec_state == ETNA_PIPE_3D)
++			etnaviv_cmd_flush_ts(buffer, has_blt);
+ 		CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+ 		CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+ 		if (has_blt) {
+@@ -400,12 +403,12 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u32 exec_state,
+ 	return_dwords = 7;
+ 
+ 	/*
+-	 * When the BLT engine is present we need 6 more dwords in the return
++	 * When the BLT engine is present we need 7 more dwords in the return
+ 	 * target: 3 enable/flush/disable + 4 enable/semaphore stall/disable,
+-	 * but we don't need the normal TS flush state.
++	 * on top of the normal TS flush state.
+ 	 */
+ 	if (has_blt)
+-		return_dwords += 6;
++		return_dwords += 7;
+ 
+ 	return_target = etnaviv_buffer_reserve(gpu, buffer, return_dwords);
+ 	CMD_LINK(cmdbuf, return_dwords, return_target);
+@@ -422,14 +425,7 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u32 exec_state,
+ 				       VIVS_GL_FLUSH_CACHE_DEPTH |
+ 				       VIVS_GL_FLUSH_CACHE_COLOR |
+ 				       VIVS_GL_FLUSH_CACHE_SHADER_L1);
+-		if (has_blt) {
+-			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
+-			CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
+-			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
+-		} else {
+-			CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
+-					       VIVS_TS_FLUSH_CACHE_FLUSH);
+-		}
++		etnaviv_cmd_flush_ts(buffer, has_blt);
+ 	}
+ 	CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+ 	CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-etna-pe-ts-flush-ffa01363b98c
+
+Best regards,
 -- 
-Lee Jones
+Christian Gmeiner <cgmeiner@igalia.com>
+
