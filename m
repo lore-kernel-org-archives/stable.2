@@ -1,67 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585638;
-	b=o+mtoQtP1I+vwgp9yOle9ThzZ5RxV0VusQxaMaQ14ff9cn1UVKJYmU2GB2rQEOHkNzKP
-	 jmtsPomYejdLL98UOpy5zIAAP2oXfwiR5SIoUGOet1JrU3AfOZameih9coKrInmU86j5R
-	 x9HTVjuemVH0otvqFVFTcy8caqSJgeEtAQDCFXRSNhII7quBbOhsti/GnCY1+ovhoDloF
-	 mRf/tyEUp9nOZ6p4IZea18tsjpa/KOFUHH2FYr19BYDHewKr4s2xSd7KmiX6ebf8pzvMB
-	 FX1/PSEH56CNsYlgvzeBI96x+g8C8IyVamuwvOiTnTedUzc13x6E3TTmlrLSphfQzOQ==
+	t=1793585910;
+	b=cmPr7vU8mPtpuuPPy6bSLGUbzDgAVejNL+mmvmss9YzZSir0QyLE2BpvTh7kCc4uXYlY
+	 B4vkktwM5tbXKVo67Zvj9YWdsutuyZo4YMUDRV7/ujnY2CTZWVAEg3D6t52dIZfh166Yr
+	 cCE5ndt9LkTrf/N5Y8rdL9vqjzU9j1vruSG+UPo2nYLiLVxyU9i7Dz/OLqREftwXnmgpZ
+	 2TzPvCqcUhii5o9kjKxCiZzQ8y4+9drY+k+xh7dBHbYqugwJhx9Ppa7jPfMxMIL3LvlyD
+	 bWF8INR9fbKOBURsqgjlxMRutX4jaZMREAOE1ajJQ8MQpH6zVuKN/z8Ev3qVja5A4Cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585638;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy;
-	bh=qgE8n7yW5SC6aLalyjWlKIFFYYtc4u+TIhJY+ne9Wfg=;
-	b=tOktxv8nzrEzEYFjworzYLjWuJT7S2kZiRbFRLTVAeHsUXcFw4h/7MrTH03jajf2f+Jd
-	 pK5TEHZD7nChJ+KgRQ9Z91sGocq0ZIejoZwxR9PhedELr5gx6uIecI9u0KgWvdeARwzFd
-	 rgFEoCSxmFCaNjayjxPOeaVkBJ/3e9bUGo5e1OF/xUOpFExaBnmxfHWirbmbUOUtt1qLa
-	 ficSPFmwV0mkUJTu2uI8pnwFBs+NI7WPDw1UoZsns8EtenIvl/TDuwjUoh6kNuEONco7P
-	 8VjGYcuJjN1AnKTg77jInneXsr9PPj6QaexYWwFeFVbt9FsIWYdn+CczBegvkqrAjCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585910;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LzpH6ZlFtWx3iq/V4Ca3j+tPjclLZq1yC4pTJfDWRc8=;
+	b=BwKhXK5No52c8sEcV9cVdHYzC9SvrETFHIsqdH2ASXFlbp0q+nKU2HuNA1kwdqYEnRws
+	 jg1eUtWQyMZVrpul3xiGlXMwRsM8fYme8vjtuVoiEKfaEJxg05TdGKaWKxPTtN62JdMEk
+	 51CKE/Tjb5bysTwlqE/PSsSbClr1YQ36Zwvfwf7XNqRt+ly++4c9ueFE339Wn8w/Zj947
+	 VfMcXOdYi+76ZhcxJS2XtmyOjYG8sxoe8Wn+53S0K+9AubuDeqNRtROEryfllp4ZpAprf
+	 VfILQCxtnGKBVFaVpj3XJ4hP/QqIRmUPKKAoqstzMweAQOScDiGNB0jgyxhcB1QMytA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UGaQpPDT;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=S6zdqfib;
+	arc=none smtp.remote-ip=203.205.221.164
+Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F2B606A333;
-	Mon,  2 Nov 2026 02:13:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65F2B606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CB2606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:18:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8CB2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UGaQpPDT
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=qgE8n7yW5SC6aLalyjWlKIFFYYtc4u+TIhJY+ne9Wfg=;
-	b=UGaQpPDTVn/Gntfv6VeHIZqORc3iLrXrsQihIgp0OXr0k6kZu3NI1d2LhMu5L4f0mmNSc+6h8
-	M2952QJCQoDDTaVA/zf2kR4nXy4aO3GtZGirt+vmrjAFFvqAUl5DNu5BBGiDY/BspJmCzOcM/NG
-	ycLF2AkPWxgxJDeZD3v8m6s=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jHwH85S29zRhST;
-	Mon,  2 Nov 2026 10:13:40 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 9A91F4057D;
-	Mon,  2 Nov 2026 10:13:45 +0800 (CST)
-Received: from octopus.huawei.com (10.67.174.191) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 2 Nov 2026 10:13:44 +0800
-From: Cai Xinchen <caixinchen1@huawei.com>
-To: <zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
-	<amir73il@gmail.com>, <caixinchen1@huawei.com>
-CC: <linux-integrity@vger.kernel.org>,
-	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <lujialin4@huawei.com>
-Subject: [PATCH] ima: initialize the real inode attributes of the iint cache
-Date: Mon, 2 Nov 2026 10:47:03 +0800
-Message-ID: <20261102024703.816178-1-caixinchen1@huawei.com>
-X-Mailer: git-send-email 2.18.0.huawei.25
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=S6zdqfib
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793585906;
+	bh=LzpH6ZlFtWx3iq/V4Ca3j+tPjclLZq1yC4pTJfDWRc8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=S6zdqfibLP8H6Zdr9umZyiK2q3aifHaVmVT+mJIwGHRyMZ1iwn8x6OiBXEUOw3Q0s
+	 FBF4FEs6/dP2rlHkxmArRQC1L8rDn7rcPl1qe9+b5V8H5GAlUIo7XPCEeSGPowGkiL
+	 cD14CqSnLHr6RgSyXe5wiJQwzyATBjQmczsDcG/0=
+Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 496A20BF; Mon, 02 Nov 2026 10:18:22 +0800
+X-QQ-mid: xmsmtpt1793585902tmd4v4x7m
+Message-ID: <tencent_F82F58C2455AF9A94D4C0FD52495CAD72308@qq.com>
+X-QQ-XMAILINFO: NiqzJuKCE4mBRyz1QDXp2j/ZkT+xuxIe05NGxcYlTGV8GEezSHfKoryJkXsZJB
+	 1llyNa6yFZVVAWVwGw2fcqVeLmCNexacwb9sjrqMnP1KNLc2zgrOakwYCyeU0NKEalvdlbVslc4A
+	 JQVh0rwZKlLhZ2D8ivvJ6iGPrQLLdGqREiDVaS//QGSItB0EY6IR+lrtvJ5Q98HWxEtBKmmGX6Uq
+	 M+bd/HUqom9qy+6Nqnu9xEQ73N+vIYg0gVIEp8ONZF6VOm/skfCLnMaxa11Y+2Mc5WGpCOrxp9M9
+	 YUswaPHdYazWoLHqPd6cXZoOnVhuyW1o3puWAppADPw532wOt+QKtb+rVAb6s5H5lYabvq0hSpe8
+	 jzRQfAeCkWmkGSSPkPGeGMJ4e6fWkSELkpzlJVA/S3TVkzGlsl2JnKW/biFAfmWtK1/qsxbU2w29
+	 EsO3nDwVNeHNdCO8jGJjapLHkII/0fDa4U1hQq0dsg1n3zjHraJQgbWtvMo+ho681zTOSrFgDf+N
+	 GMDHMPr8Fksc+V0qg69mY/G2gjZpY2gAjJg+m4Uthzs681jKtUrCM6SyBQRwj22gqo3ND7mB/waj
+	 p00aTFP1v9lcFTDv8EXCVVvKX61jp/22RJjg9WB+QqutSo959MJD7C1R2L0kb31hGgAs0YZACt2l
+	 eNAGqHumSaVelopu/qC+DxQe2LORC7qgtzqywZ92cu3um258yLASOCGGqhwNsMjeH2UCobJSt19M
+	 CkrX8JsDMnozeYutGbrTc4Ja+c5lWTv+jrCDjcrq6ly2mfsSsOOcG3q81TqWkTh3AwO5gUNT1QCr
+	 3xMH9loKXjkv3+z88I+4uFZk2F7Em7Rn7jtp0EWiJS90NEEPc5nBMaMmpXpyFaYhCeg7aO4O2inO
+	 N8f3TOSaMNcwZFITlFIhu2fKBFXqyYHr6/hbxcBn7k5Q9jvT4dyQsqUP5d4xPi9JmnVfrX6tbcCS
+	 qVXGc//tb+iFT7PeODR4/LyswXItgIkYnjfjlZqKanvbhkcagXa6V2PLaOvNbJFRRj9Qs7t43G66
+	 CjnKe8OwAvJCWs4OMXMAIy2jNeSwjwkYh/nIN9+TPaiaDFKebLMWuIF1vWBLegcXQdpV6xVNTzkI
+	 dTkdXjTKso12NDPMB0gTLcPslB+Y3uWM7lbE32xr8GXRLs4VM5xN14dD1hAFGiJsJlQs4tUDRx8Y
+	 UkXu4lMyler4tHSn6EBUv3t0bObpYaT2K3sN0CCsyJ5RxxMgs9b2BDJeKiPFxmlZHYHU4=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: bo cao <treebacker@foxmail.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: davem@davemloft.net,
+	dsahern@kernel.org,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	idosch@nvidia.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	treebacker@foxmail.com,
+	willemdebruijn.kernel@gmail.com
+Subject: Re: [PATCH net v4] ipv6: fix dead half of the MTU guard in __ip6_append_data()
+Date: Mon,  2 Nov 2026 10:18:22 +0800
+X-OQ-MSGID: <20261102021822.91796-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <179358500215.3286.12801503551646664009@kernel.org>
+References: <179358500215.3286.12801503551646664009@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,51 +92,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Content-Transfer-Encoding: 8bit
 
-ima_iint_cache objects are allocated with kmem_cache_alloc() from a
-dedicated slab whose constructor only runs once, when the slab is first
-created; the constructor does not run again when a freed object is
-reallocated.  ima_iint_init_always() resets all iint fields except
-real_inode.ino and real_inode.dev, which therefore keep the values of
-the previously freed iint.
+Apologies -- this information was already provided in the v3 thread,
+and it was my oversight not to carry it into the v4 commit message as
+the bot had asked.  It will be included in the commit message of any
+future revision.
 
-integrity_inode_attrs_changed() reads those fields in
-process_measurement() to detect changes to the backing file on stacked
-filesystems.  The fields are normally written by
-integrity_inode_attrs_store() from ima_collect_measurement(), but the
-IMA_HASH path sets IMA_HASHED without calling it, so on the next file
-open the stale, uninitialized ino and dev are read.  Depending on the
-residual values, IMA may skip re-evaluating a file whose backing data
-or metadata changed, or needlessly re-evaluate it.
+As replied on the v3 thread:
 
-Initialize real_inode.ino and real_inode.dev with the identification
-of the inode the iint is being associated with at allocation time.
-On stacked filesystems the first comparison against the underlying
-real inode will then fail until ima_collect_measurement() stores the
-real inode's attributes, which is the safe, conservative direction.
+The issue was found during an LLM-assisted source audit of the IPv6
+fragmentation path (manual code inspection with an LLM's help, not a
+production hit or a syzbot report).
 
-Fixes: b836c4d29f27 ("ima: detect changes to the backing overlay file")
-Signed-off-by: Cai Xinchen <caixinchen1@huawei.com>
----
- security/integrity/ima/ima_iint.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+It was then verified at runtime with a standalone reproducer: a
+single sendmsg() on a raw IPv6 socket with a 1240-byte HOPOPTS cmsg
+and IPV6_MTU set to fragheaderlen + 1 triggers the skb_over_panic()
+described in the commit message (tested on 6.x, MSG_MORE on a device
+without NETIF_F_SG).  The xfrm transport-mode variant from the v2
+discussion was identified the same way, by inspection of the
+ip6_append_data_mtu() recompute path.
 
-diff --git a/security/integrity/ima/ima_iint.c b/security/integrity/ima/ima_iint.c
-index 00b249101f98..02efa8eef28e 100644
---- a/security/integrity/ima/ima_iint.c
-+++ b/security/integrity/ima/ima_iint.c
-@@ -59,7 +59,7 @@ static void ima_iint_init_always(struct ima_iint_cache *iint,
- 				 struct inode *inode)
- {
- 	iint->ima_hash = NULL;
--	iint->real_inode.version = 0;
-+	integrity_inode_attrs_store(&iint->real_inode, 0, inode);
- 	iint->flags = 0UL;
- 	iint->atomic_flags = 0UL;
- 	iint->ima_file_status = INTEGRITY_UNKNOWN;
--- 
-2.18.0.huawei.25
+bo cao
 
