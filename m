@@ -1,49 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629575;
-	b=Bsi+wTfh9ugiNpheRubJuSIBFuRTVK+cNj0tvQjOQ2mN5z6Zcg2IWb4nmJ2BQnkwtNVG
-	 RIs3JpfAMdwj7i+hQsOOEEoBLoBCoEf8rBC8fdQkirrdGSUX8xfQievVPaY1469LJvuGc
-	 n8XVZHWZ3EjF1Cg2HXBXjdqJy8t1fXLi1o3Xv1PO4tPWdulgWM3+lY+OoWWEzc7Xs1Lnd
-	 AtG/FhYSSG2bMvdkKd/Ul2mSlH7DnA4rNcYOiMPtyM9kbLZLxqhEwXVdkllHKBNyAKg1c
-	 G+6o/zxIKMEvWakTxGCkGjCVWyCNqyAeZ/sJVp4kAP4NHgLbXslF3JxQBOEoBYv68/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629575;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=uamuXcUsXcKXZuaRlkz0YhJ28OVmOkK6UsWfY7fTPbk=;
-	b=TR5qEG2eFbWzh9QMSA9hyBFYQZtGC+ivt9ppNXq3ZhJLzW/FF94/E2o9WrHyJhG2y4jI
-	 r4Iu34sHGspiOS8AqHEG+1qGVYkpbbyDQUQ8aK6tuH4u5VsrPrUhgL7DaYbVyZlqjgtjp
-	 y+WRjFx2TjXKx+cIV9D4VUwcd2JnW1spSlQ/VzSgKW0zDU5iNZKu5VNLR36iZOJSSHlXH
-	 WrdBo2BZc10vQgK3f+HLtbBqDw4HNOr5UFzTSMw0/LY5NXpz9FNIlGRkc+3D5OP9JBcxK
-	 1P0XreVaUvbZbJXwHsMDvtFy8eWPray/Q9oJVL//nLmIPhCbB+BvbZf8l3ZE67AxbmQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5WhCI6A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793629582;
+	b=eLqUIeLyKimRJdqOqYufy017G1M/rkZYWMCLPH9PGzhRx9TKHTnv07C4+cO6XFcwqOgD
+	 MHBjj0ml97zuYg65/9LiwTPzPAZ2fWD9KT1or19mntOATDk4mpSMc7x3/15k8T73d2jO4
+	 GoqoZItS7jGzxkcCNNqFVwXQiVYE35lDPpZZStiA4Bt0JgP7kt1QdhPbgiGL5KxpAT05G
+	 q0mKCjImBdOH7pqrS3aQKek5SX+GQimfZQHilZoumC87FdXThE2/a1ne5hqD/ErHYctB8
+	 Aghyqg63i+uAQDqlPmt7b69A3unFxr62xx07+saCOLRXjvLqNuK4UzjHQbqU2boAbtw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629582;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Reason;
+	bh=tWqozxyFrdFEt0XVxqE03dmjHUpPunMGDVo5iYeswY4=;
+	b=p7MipSxPk9xcITOZeIk9byTnH/ctu8f2IelzOomo51pTsuzveK7AwIKMllLVAlYztb0K
+	 85Hz/qqNyOUazQUFTVtpb1lFnDJliiuKHb5/kGBX1LrOQo4JZUdPnOV9b0vrku/keqIrB
+	 kCnpQhZ1+7aw4J9P8i4d+q7Ik3pwPwEpOp1t842NYbH6knUgEPkJ+kggnLzy9/5UDUg6B
+	 7cjZsobSL4S8i1W5SOAOWOAuu9Lc9qP1gBK6F3ltivzOefJCPYvNelPyxaAynWBKpT6XW
+	 +4O9cy5dG4zOj753gih7/UUo/6eHOvjbjc6sNGhMD4tSdS/oxdviIf5mEM7442cgeuQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opensource.cirrus.com;
+	spf=pass smtp.mailfrom=opensource.cirrus.com;
+	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=e11Ue3q5;
+	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=dZ1UQcxo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.149.25
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B77606B924;
-	Mon,  2 Nov 2026 14:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488A3606D817;
+	Mon,  2 Nov 2026 14:26:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 488A3606D817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i5WhCI6A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB871F00A16;
-	Mon,  2 Nov 2026 14:26:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793629574;
-	bh=uamuXcUsXcKXZuaRlkz0YhJ28OVmOkK6UsWfY7fTPbk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=i5WhCI6ADDNe0HKJ5NzcfawjVqUbryc4wNhSFPtww0vwQtB/EhujGlgJ3yFN2wuQ3
-	 ELkvngc+3q9Bm/kdTVyzOOZrj/2UcmfBa8lINbsLb6xyGiYyRj9J8eMQXru5BVwQ5j
-	 MJLqma0W8RCDIemvmnl+JUXsPugT1fmlbHOnf6UoN5acVZarxMRbxGTftc4jPXdKWn
-	 UI5tdwsEVvdET14X+gOKrGA4ie2mBhWMK956CF24hZ3FEDHJCM4leCMxm/bLrsWCYU
-	 AOe95i8Hd+XH8PXXMBCzbV5jAUFh9vCYjgIXjWbD6dLajbUfhiJVabMIXLp+a5ZLA8
-	 qVF2ns5tgUqRg==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 15:21:34 +0100
-Subject: [PATCH RFC 19/38] proc: resume readdir after the last name it
- returned
+	dkim=pass (2048-bit key, unprotected) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=e11Ue3q5;
+	dkim=pass (1024-bit key, unprotected) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=dZ1UQcxo
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EOWUA3054427;
+	Mon, 2 Nov 2026 08:25:21 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=PODMain02222019; bh=tWqozxyFrdFEt0XVxq
+	E03dmjHUpPunMGDVo5iYeswY4=; b=e11Ue3q5GNuYEUfA85UIl7ikFRv3L+jYZo
+	SrZ8ZIhtYmzpam9GtWtI4BMjYpk57ONx8dkO5v2xzzY53Tc5MmFVEs63zu23bqDF
+	MxUJVQJDWfqTWEFt50+3K4T8YsxjyaBTSK3Up7RqqkzL1NACK+aPerhpcW6//Gfk
+	5q0pWr1AGkWH7hvfOK24b1e/VB4sh6ZGmv9ELD/M0QYTUSzS+zzevGZTaHWSRGeA
+	4HD+nrh4rV8AqHxfawv2XkeHW1jxdoQM7eU81qKkphYbMiu7G2+wQBaoi+cXjoK2
+	y6Ed7eLadW2henScJH5SEqA/B/tJxqEWGOmCli1jsllMnnIT96Dw==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11022128.outbound.protection.outlook.com [40.93.195.128])
+	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4hndrf9wgc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 08:25:21 -0600 (CST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tc2kWIETpwj0h8GUmcSBmnDL9u4Zg7KQC0J+Go1Wllu9l9dLC/NEMLQwptY3JeTmv6LTZF3/xLb8R7zRWA5ljr7CO5I+RCF4ngLVSLLxqSG/JUGTZm5PYtlkzcV/Mxr7NOX4CdUDVq5vduzu9yWdiK9xAp9wgX/2+5MYsKcCre7zK/dspOHcfvSajZipuaFfdcKIXt8NSA1k3TwYwFpqYxnnna8nFDMoXJ+245EkhwL/ddUmuGRUHXke0mmqY8XfT7lN8QEqO5jzbhKJKCWhQTTk8PQpW2zT6J2cNTo5SbFsmnc5QEOvjUaqXcL1psH20bM/ItJlxF2xKWGYWtL6+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tWqozxyFrdFEt0XVxqE03dmjHUpPunMGDVo5iYeswY4=;
+ b=tW+qY3tuqS403rm4ToFXjQp6lx0ar+E0KjmtZ24rCbjNYoSJm92gyK2/xslfMDI98gbZQMcuDuh9QIrA8vU61VPICIYPeoh7kdSEdOe9xcEZ4Gqm3fff6fdG6oeds2RQF1gfxQrMoyiY1OV4+pmUmmebdFmcO68NSh49Mr0qOxScrrjqH/P4MhJtj4M+a4Xs0S1SXlR2szW6uI9JPmIh/ACeQfAtfXtDVQokTHIZUmLHEc4dJaoGBJAIBVQUzBCE4R9/Yp6mfYZMmKCIC6bRLp0BOEeLFCx8hSUy08mGHBC2ohV7vy7fbdKlUGUTSlvMWoCscaNz8wLk72XA+Go7AA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=cirrus.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tWqozxyFrdFEt0XVxqE03dmjHUpPunMGDVo5iYeswY4=;
+ b=dZ1UQcxofHZlpriJNE4aEVvXxOQ7oCb0CnH38NegkeOV0cd5Y9YH4Z8db8fcvqi4jV3IHDbkMr3uyw/MO7DVHjU4ZkTuEjnqCHDvYNGYssU0GE4NRpP4QqRvU/Gkchup0Pf9Zn3oswh3BsGehdQgODUPutMhTnav+X4I9X1+hqs=
+Received: from CH5P221CA0022.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::23)
+ by DM6PR19MB3755.namprd19.prod.outlook.com (2603:10b6:5:229::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 14:25:15 +0000
+Received: from BN7PEPF000000A7.namprd05.prod.outlook.com
+ (2603:10b6:610:1f2:cafe::50) by CH5P221CA0022.outlook.office365.com
+ (2603:10b6:610:1f2::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
+ Nov 2026 14:25:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
+ not signed) header.d=none;dmarc=fail action=oreject
+ header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ BN7PEPF000000A7.mail.protection.outlook.com (10.167.245.231) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.5
+ via Frontend Transport; Mon, 2 Nov 2026 14:25:15 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id BB431406544;
+	Mon,  2 Nov 2026 14:25:13 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 99347820273;
+	Mon,  2 Nov 2026 14:25:13 +0000 (UTC)
+Date: Mon, 2 Nov 2026 14:25:12 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>, Oder Chiou <oder_chiou@realtek.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, Bard Liao <bardliao@realtek.com>,
+        Misael Lopez Cruz <misael.lopez@ti.com>, patches@opensource.cirrus.com,
+        linux-sound@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] ASoC: wm8994: drain delayed works on remove and
+ probe error
+Message-ID: <auidSMrWVmT8cW2u@opensource.cirrus.com>
+References: <20261030170416.1839402-5-tristmd@gmail.com>
+ <auhdJGbYnY95tJBS@opensource.cirrus.com>
+ <6ae87c48.eabad26b.28ae48.d5ab@mx.google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,260 +135,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-bugfixes-v1-19-59422ed3e465@kernel.org>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7297; i=brauner@kernel.org;
- h=from:subject:message-id; bh=hHAY+oLncj11ebCsOV+U4+kuEOtQwhGolI+cXd3wPh0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJN988y6uj1BC/zUSpgvF01snCO7cs2Fevn0TZNnb
- N3M+2LC745SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJXClh+B+z8I3WoXXN2uFb
- pkxXmSHHXLVl54S2mm1v2AX2FJuXB35kZNh8lcUw5kSj3NFnJtcWaDhMKDEOm+Izq8p+8epVUf4
- iqvwA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6ae87c48.eabad26b.28ae48.d5ab@mx.google.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A7:EE_|DM6PR19MB3755:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c0fe751-8341-4cc7-f659-08df38ed1cd9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|7416014|61400799027|6133799003|10067099003|22082099003|16102099003|18002099003|56012099006|11063799006|4143699003|261021121427099003|261022105027099003|261022075727099003|261026140227099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	H9Oa4ZyUYzhGvwQ3ztoHC2OHHtiiheWzdnhnoXW61tha1W/OXQ1sLPe5ce9cOQxYLJlr7nEZrbbLrDwpp9+ugMKrr5R8yFZr9p0ovGGofhlu3LjMxdB6YH4BjwQKeifPq2nQowPNdYZORnZ1kYTL2JFJ06d7KdhTyWlLS/gooj+C2T6stUqKXb7uF6fFVECR2C6LEGJQzFvyfBUHi8xdhes0DKAy4H0Iy9k9gp9rw3mDKs/s8pMhTxd2xXbam/PZl3xRZrjGRE0ApLHyWUuvQgVEDzzPWc6biVRT+kiVV81mGIF4IkhbIUCwUZYJFP6ZToUMqsZDzEoDAT/hyBUbAXlo5kVdDpkCcuS2SMLCbPVoTUh7W6V6Yr2FFu5x2RnYKmitoG5w0bueuPwA4VQarbKtzJjS19QO0YtdeAedSZX6YZ4kOBdgkDWMv6gL5Lqc2KsIvko3Uv50bSwdLcZEGqrlud41bzq89518xUC0ZRmMW/FUV5Ks88C+HSQxwREOHKyyT+5J2+Bun5TJRMQt5dmMAu6v1JAImEmYBKBuUJRGXNg0aybiIu1368g/zHiUE06xSt9lCizMw70T6N0XFsD1+ExPNj4g+yjDml5+Eg0rbr1ais8jO5v+md5YgrIe8Fyw2bKLn22xVSehcMW0kxTRwIjU2X5HUvpPogL+lvgc4/ZgAp+KrXy9F7A2US/8erbp5XzhW1HQBon2X1oMhg==
+X-Forefront-Antispam-Report:
+	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(7416014)(61400799027)(6133799003)(10067099003)(22082099003)(16102099003)(18002099003)(56012099006)(11063799006)(4143699003)(261021121427099003)(261022105027099003)(261022075727099003)(261026140227099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jCJH2mJ/BRLbApaxiVHj/HA0dPKSK4O8aw3Iq5IKOnQU4I5TiWLwpnwluKlMcU9O5qSvvAGwk3t4P3jnKhJehzxDSQabQpkiKHh9R0o6e7k5YsG1bWyFGpB8P+4HI8rJ78Uwt3nm7aR21dSZHs0blO9PmtpEkvaKItMAnZ3LpUMOaRY19jA87p8Ep0NI/Rde0f3/2cvonT6E0Vj+l9FSWniXy4ZgLPfaqHUB5NNSEREsBJ+vpQLMOKNWmTajDnr+GTDXyaXnAsHF3D8oXHaJL8NokYRY10dVtCz9llhK3OE9M2VUhLMGr+Sf5p/Na5lOx4R8STQdGQOTzMqbFdA4jbyHsQ25UAM2Bsh4myVcEDCn6a54M/nbAhTr39CDtcooTlAP43Mxxuk9bZeAbtmQpz0vj25tlEkMYN53Z4lSTH5+gaDT8aI020PAlBIPIZrC
+X-Exchange-RoutingPolicyChecked:
+	lOi+Bb4Bmhe4lU58HmDAjZrf+YfiAF7wdk5YJmtQodbvWHAt4+41YJWoX7UBUFQus9JrQ04/LSwb9NlJ9yMFSVkNDqppklx4Yuib2qyeJj7T0lcfS4yWGIjLixjNWwyLfBgniTm0dvDIeHtL7RlVsN4GLq7VhTa48anTnAx5wibB5RESysrS5N65M2K0DyjqtntLr+2bQlZxeG9DvK7bKXlOkgCCbFPHtlAtfOOOdf8GPNae7gTfqCSz+jAkhRBkWbMm6QZNZqLgEta//LCZPd7CyUQHVsB5AvlHnxIGZdA0XDekCfuiaqHaMAQOF9bOncbgbVwxKjqyU/uS0NvbBw==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:25:15.0213
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c0fe751-8341-4cc7-f659-08df38ed1cd9
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN7PEPF000000A7.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR19MB3755
+X-Proofpoint-GUID: T89DtutAddZyMwniePjvYoy9CURTf_uK
+X-Authority-Analysis: v=2.4 cv=HMRWhYtv c=1 sm=1 tr=0 ts=6ae89d51 cx=c_pps
+ a=+WkigaN7fx4UYWmYucrQAQ==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
+ a=pSIma_B1SM4golTAR9AA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: T89DtutAddZyMwniePjvYoy9CURTf_uK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NyBTYWx0ZWRfX3B/QKfQJr6/8
+ sSL9ohJ+1d6xd2Hf9Z5ZsLEXVUHmepkNqn+Xw1KMAkjAXGuU8qNFbCyq5AButbqi0apnEUIODTk
+ iOhrnYYi9XIbOi8xenALE/sfgD4BNwXEeFe320Z3z33N3PTA/7V2RVLDw77Nq5+vm2Bb2qgCFnZ
+ mMv53u/BrJIjZj+LSkSyfOnKwtJI9qs4AE5kwL9dc9IkuA1GQ3+ZF9rMHXsUVYAvCl7/7VPsQBv
+ fivMHZEILjnP4WCUzTkLk57pZvmWUbysZLRHSvePKYfBulPn1O+48zhxPD7gjVO8leUHvN5Y4ON
+ Q2hZcvJtKqg+IjPF84Ni5F+wmwm2hGeYdyuPbZGdyuJBFyGjTXbo2+uHzzhyXViwEV32I2uxsRM
+ S+A4xV/oRdFm3rxlbklgNeNgF/5+6iSn9zZVNk8p+sLYJ5z5snV8ZLHTud3iDQRlxa41nDmbKiZ
+ 83k0vCh8YhXGaAsU2Rg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NyBTYWx0ZWRfX+dizXFwCOg6R
+ f69xPNBsjAUEzK22FL5/uYZvibkh6MlN9DC3GgKHAJ91rNSsEEz3dss/Po4N3/AxNZJxkFWtyg8
+ FliK1qSQMWRdSKCkd6gdQuEgE/3mBTk=
+X-Proofpoint-Spam-Reason: safe
 
-proc_readdir_de() counts the entries of a directory and resumes a
-listing at the number getdents64() stopped at. The entries are sorted
-by name, so one that is added or removed in between shifts everything
-behind it by one. Listing /proc/net/dev_snmp6 with a buffer that holds
-".", ".." and "lo" and adding a device whose name sorts before "lo"
-makes the next call return "lo" a second time. Removing one that sorted
-before the position makes the next call skip an entry instead.
+On Mon, Nov 02, 2026 at 01:04:24PM +0100, Tristan Madani wrote:
+> On Mon, 2 Nov 2026 at 09:51:32 +0000, Charles Keepax wrote:
+> > Both paths appears to cancel the mic_work twice?
+> 
+> Yes, intentional.  wm1811_mic_work() can re-arm jackdet_bootstrap
+> through the DAPM power-up chain (force-enabling MICBIAS2 triggers
+> clk_sys_event which queues jackdet_bootstrap), and
+> wm1811_jackdet_bootstrap() ultimately queues mic_work back.
+> 
+> So the sequence is:
+> 
+>   1. cancel mic_work           -- drain whatever is pending
+>   2. cancel jackdet_bootstrap  -- drain; if its handler was in flight
+>                                   during (1) it may have re-queued
+>                                   mic_work
+>   3. cancel mic_work           -- catch that re-arm
+> 
+> Without the second mic_work cancel, a jackdet_bootstrap handler
+> running concurrently with step 1 can slip a mic_work re-queue in
+> between steps 1 and 2, and that work fires after resources are freed.
 
-Since commit 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()") an
-entry that is removed while it is being emitted also ends the listing
-right there. pde_subdir_next() finds nothing after an erased entry, so
-proc_readdir_de() reports the end of the directory and the next call
-resumes by number, skipping another entry. For /proc itself
-proc_root_readdir() takes that as the end of the static entries and
-moves on to the pids, so the rest of the static entries is missing.
-And if the position is behind the last entry when a call starts
-proc_readdir_de() returns 0, so /proc then lists no pids at all.
+:-) I see, I think would be good to add a comment in the code for
+that.
 
-So remember the name of the last entry a call emitted in the file and
-resume at the first entry after it, like kernfs resumes after the node
-it stopped at. An entry that was removed while it was emitted is
-continued after by its name as well. If the position was moved by a
-seek in between the listing counts from the start like before.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 895b4c0c79b0 ("fs/proc: fix uaf in proc_readdir_de()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/proc/generic.c  | 89 ++++++++++++++++++++++++++++++++++++++++++++++--------
- fs/proc/internal.h |  1 +
- fs/proc/proc_net.c |  1 +
- fs/proc/root.c     |  1 +
- 4 files changed, 80 insertions(+), 12 deletions(-)
-
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index ef804cd3ec45..47830d6af255 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -87,6 +87,28 @@ static struct proc_dir_entry *pde_subdir_find(struct proc_dir_entry *dir,
- 	return NULL;
- }
- 
-+/* The first entry of @dir that sorts after @name. */
-+static struct proc_dir_entry *pde_subdir_after(struct proc_dir_entry *dir,
-+					       const char *name,
-+					       unsigned int len)
-+{
-+	struct rb_node *node = dir->subdir.rb_node, *after = NULL;
-+
-+	while (node) {
-+		struct proc_dir_entry *de = rb_entry(node,
-+						     struct proc_dir_entry,
-+						     subdir_node);
-+
-+		if (proc_match(name, de, len) < 0) {
-+			after = node;
-+			node = node->rb_left;
-+		} else {
-+			node = node->rb_right;
-+		}
-+	}
-+	return rb_entry_safe(after, struct proc_dir_entry, subdir_node);
-+}
-+
- static bool pde_subdir_insert(struct proc_dir_entry *dir,
- 			      struct proc_dir_entry *de)
- {
-@@ -277,6 +299,40 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
- 	return proc_lookup_de(dir, dentry, PDE(dir));
- }
- 
-+/*
-+ * Where the next readdir resumes. The entries are counted, so one that is
-+ * added or removed in front of the position would shift what the next call
-+ * returns. The name of the last entry emitted doesn't move.
-+ */
-+struct proc_dir_cursor {
-+	loff_t pos;			/* the position behind the entry */
-+	unsigned int len;
-+	char name[NAME_MAX + 1];
-+};
-+
-+/* If this can't remember the entry the next call counts from the start. */
-+static void proc_dir_cursor_set(struct file *file, struct proc_dir_entry *de,
-+				loff_t pos)
-+{
-+	struct proc_dir_cursor *cursor = file->private_data;
-+
-+	if (!cursor) {
-+		cursor = kmalloc(sizeof(*cursor), GFP_KERNEL);
-+		if (!cursor)
-+			return;
-+		file->private_data = cursor;
-+	}
-+	cursor->pos = pos;
-+	cursor->len = de->namelen;
-+	memcpy(cursor->name, de->name, de->namelen);
-+}
-+
-+int proc_dir_release(struct inode *inode, struct file *file)
-+{
-+	kfree(file->private_data);
-+	return 0;
-+}
-+
- /*
-  * This returns non-zero if at EOF, so that the /proc
-  * root directory can use this and check if it should
-@@ -289,23 +345,26 @@ struct dentry *proc_lookup(struct inode *dir, struct dentry *dentry,
- int proc_readdir_de(struct file *file, struct dir_context *ctx,
- 		    struct proc_dir_entry *de)
- {
-+	struct proc_dir_cursor *cursor = file->private_data;
-+	struct proc_dir_entry *dir = de;
- 	int i;
- 
- 	if (!dir_emit_dots(file, ctx))
- 		return 0;
- 
--	i = ctx->pos - 2;
- 	read_lock(&proc_subdir_lock);
--	de = pde_subdir_first(de);
--	for (;;) {
--		if (!de) {
--			read_unlock(&proc_subdir_lock);
--			return 0;
--		}
--		if (!i)
--			break;
--		de = pde_subdir_next(de);
--		i--;
-+	if (cursor && cursor->pos == ctx->pos) {
-+		/* Resume after the last entry emitted, wherever it is now. */
-+		de = pde_subdir_after(dir, cursor->name, cursor->len);
-+	} else {
-+		/* Moved by a seek, count from the start like always. */
-+		de = pde_subdir_first(dir);
-+		for (i = ctx->pos - 2; de && i; i--)
-+			de = pde_subdir_next(de);
-+	}
-+	if (!de) {
-+		read_unlock(&proc_subdir_lock);
-+		return 1;
- 	}
- 
- 	do {
-@@ -318,8 +377,13 @@ int proc_readdir_de(struct file *file, struct dir_context *ctx,
- 			return 0;
- 		}
- 		ctx->pos++;
-+		proc_dir_cursor_set(file, de, ctx->pos);
- 		read_lock(&proc_subdir_lock);
--		next = pde_subdir_next(de);
-+		/* Removed in the meantime, go on after its name. */
-+		if (RB_EMPTY_NODE(&de->subdir_node))
-+			next = pde_subdir_after(dir, de->name, de->namelen);
-+		else
-+			next = pde_subdir_next(de);
- 		pde_put(de);
- 		de = next;
- 	} while (de);
-@@ -347,6 +411,7 @@ static const struct file_operations proc_dir_operations = {
- 	.llseek			= generic_file_llseek,
- 	.read			= generic_read_dir,
- 	.iterate_shared		= proc_readdir,
-+	.release		= proc_dir_release,
- };
- 
- static int proc_net_d_revalidate(struct inode *dir, const struct qstr *name,
-diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index df873df9afc5..04f7ce2b24ed 100644
---- a/fs/proc/internal.h
-+++ b/fs/proc/internal.h
-@@ -287,6 +287,7 @@ extern struct dentry *proc_lookup(struct inode *, struct dentry *, unsigned int)
- struct dentry *proc_lookup_de(struct inode *, struct dentry *, struct proc_dir_entry *);
- extern int proc_readdir(struct file *, struct dir_context *);
- int proc_readdir_de(struct file *, struct dir_context *, struct proc_dir_entry *);
-+int proc_dir_release(struct inode *, struct file *);
- 
- static inline void pde_get(struct proc_dir_entry *pde)
- {
-diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
-index b1f5eafb069a..dbcf87a257e1 100644
---- a/fs/proc/proc_net.c
-+++ b/fs/proc/proc_net.c
-@@ -351,6 +351,7 @@ const struct file_operations proc_net_operations = {
- 	.llseek		= generic_file_llseek,
- 	.read		= generic_read_dir,
- 	.iterate_shared	= proc_tgid_net_readdir,
-+	.release	= proc_dir_release,
- };
- 
- static __net_init int proc_net_ns_init(struct net *net)
-diff --git a/fs/proc/root.c b/fs/proc/root.c
-index 7fbbe92bf73a..dfee1caa26f7 100644
---- a/fs/proc/root.c
-+++ b/fs/proc/root.c
-@@ -441,6 +441,7 @@ static const struct file_operations proc_root_operations = {
- 	.read		 = generic_read_dir,
- 	.iterate_shared	 = proc_root_readdir,
- 	.llseek		= generic_file_llseek,
-+	.release	= proc_dir_release,
- };
- 
- /*
-
--- 
-2.53.0
-
+Thanks,
+Charles
