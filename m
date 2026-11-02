@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633590;
-	b=v78YuivYsIngwUKBJl4PSxFNCmqKAFiItComeLpuouh5hZCLMhex+FGlshgcnn+tAdRI
-	 efPbZV5GHmtymYofU3BGP1GRy4yP+slYPMN7juNovYwSYyZVQZVC97G6120EEOUYNP+06
-	 0jcRo0uJ2G757PZcSilcblAoEPNbWj5m2RCKYsuq5T6OPn8KQn437Tb1t9Fc37p+CYc1e
-	 u6N8/j/AyNze3li8+RsL8vOjK2Bx7wqmIfI6VPO0Fu3L3dTFB4gtSbEj6OU+r/NOQXYst
-	 ClTEYtPINbvvCKfYvnH7J0sFjdZHZFdhkmEN409G2VOmWBUoCACVIWTRlWEdnlzAoaQ==
+	t=1793633596;
+	b=wbPbHW+t1VN/kpGl0tz8VQUFSD8iCAzS/aTFGV3ROVO5qSwmwqBv0kPUWbn56EVrpLV9
+	 bwfGZqUe7pMLJhG+63JYudvraNE72XN1Pq/OCodIHrOmardGENr+eB5WTC44B3oSploqd
+	 JtTOeeJ58KWj99YJRWSagqAQVj73z8u1OSQzgJtYE9wWu3EdSgkEcmV/R4yxoGMRsl304
+	 dChYh4Uh2rWUN8jV0WmokpzdZEWZ4n/5mv4P8+iEtYtiMsOlgF2MV00euMDZds4n/1Gow
+	 JsL/MOY/uQyy2OcJu0LgQVXE+6RWCjhYHPAdU+kp3ylxk1DzZkgBHAOyQ+IxbBEEDYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633590;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633596;
 	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=P3gziTHx8CMmwlI1c6o4J2lA5lTkZqRgb1nFTn/4q7c=;
-	b=JS49/8jvjS8vUYwZch4LpUTMkyMMHjZS0xrZ68HsastZzCtntCNyb4+t/9Ak2QHk3619
-	 xPPF2pIwfyPkCnlrW+cj91xZtPxhTjDAbK/I+XE4FPn1Wfigfb8FVJEOwKRi4l00emWOB
-	 hclGNTUIwvys8Wp2+Sm5276F88vKNn6Ds/VxY5zGOwMn40mmNv3ae9Ewq579jaXaxivdR
-	 hw1HaEk86efE4COSIxjkdoeHZvLZXqV0hnIgkzunaQ0CkF4/51HPOt7kMXMC9832K3QW9
-	 W41kvvVNIzOBa98xxqsowwEPQJT1Cao08oCAaZu2EYmwFeud0whXkC6Cs3XZ+MNSDgw==
+	bh=v+D0D7gwO9eEkB3WVqiwBrJfrYEsyonPDFETvujz8EE=;
+	b=dE9nBwgU0th+KxM+6MNiEcHTgM38aFZYBRLsOZHeNHv777SiG7DiYWO3vhN/TaL+3CcW
+	 yH+d8QMYnxIOKyB/9Y1AKsjFBbsdoWmfFyfJROPxvVEA6AxCslJUzvEaItRhfPWXi5Oz3
+	 /j52K9b4f72nndDsWrRsyP+RM5zj8h4BY61zr/T5XPvsRYa/UkL1u7frOWmSsrm6N73ln
+	 t5HRbrLJtqRa+EU9Tgj8pte99sfJpV/VYFrUC1LCaJq51eH9W++bUsyhEp51A+ddVwcD2
+	 LuEEzNBI+Huw7p9DoHpnBtMaWBBx+vrmmLPL7P4iXQ6cXsbkoyagcU3KBde0hP1HUvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=online.de;
 	spf=pass smtp.mailfrom=online.de;
-	dkim=pass header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=LqEanx5m;
-	arc=none smtp.remote-ip=212.227.126.134
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
+	dkim=pass header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=UJHmVRZv;
+	arc=none smtp.remote-ip=212.227.126.133
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5618608A351;
-	Mon,  2 Nov 2026 15:33:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5618608A351
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1323260D95E3;
+	Mon,  2 Nov 2026 15:33:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1323260D95E3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=online.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=LqEanx5m
+	dkim=pass (2048-bit key, unprotected) header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=UJHmVRZv
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=online.de;
-	s=s42582890; t=1793633564; x=1794238364; i=cito@online.de;
-	bh=P3gziTHx8CMmwlI1c6o4J2lA5lTkZqRgb1nFTn/4q7c=;
+	s=s42582890; t=1793633563; x=1794238363; i=cito@online.de;
+	bh=v+D0D7gwO9eEkB3WVqiwBrJfrYEsyonPDFETvujz8EE=;
 	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:cc:
 	 content-transfer-encoding:content-type:date:from:message-id:
 	 mime-version:reply-to:subject:to;
-	b=LqEanx5mqDs4UHDsrifBWjTcv5U+VpLsvDdhDYlLkYwnYIQ/GJJab2tBUtnv1BSv
-	 LrvW6c64MeAQ7qy4Vxp9pq+if02KT3VIZsbfHqRwvkp2H/NP/Eqrmyvn4atBM3Anv
-	 qcK055fqs1ONH5AikfRaNyO1w+srsmxJz8J1tAmzsZxjwkCMP7gGpCVsad4QyGtLE
-	 HQkwmClWVST3Rbhuzgv4IAIetVDFNO8m7QCsBpPhZjMyX3E5+mPVs78078IWkcE9j
-	 3tKc3Sh270N6Hfj3rf5ovpqXHtU/FRqAUWBd9PhRWPPfhsyk9UQXVheYR4okWVJ0C
-	 V1fMQyHGZC06QHf/og==
+	b=UJHmVRZvbP4hIGvBPbb+mPEEapuAZ+zeWEztJDPdV5/vx7AmWAPCyLI13p3JPKqd
+	 ObrTH97VLZArn1MLKuan0S795e5E/iS+iDxCM0vEdkByqdke1+NwFzeTZEji0PwQw
+	 P7IbQ2ybIGoTW8MJSFSCRWxFQNwzxz7tldY5TKlXNfRF9nEbmzBXVBdRb0WUFibVM
+	 i1KPch42sXxIQLy/wRsMjstmwUiUUJQ5ToMdUaIjxj8fc+vt4churqNguc2IGhdfh
+	 Ew+QhW/HOkj0kXbum5If/3oB+MpwmNwZ7bByh/b8ig5TjqrzMPGYB/TQRNNTyzaxE
+	 ElKM5hS85Vx5BhOLZg==
 X-UI-Sender-Class: 6003b46c-3fee-4677-9b8b-2b628d989298
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue012
- [212.227.15.167]) with ESMTPSA (Nemesis) id 1Mxpqo-1watV402ec-00vlcx; Mon, 02
- Nov 2026 16:32:44 +0100
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
+ [212.227.15.167]) with ESMTPSA (Nemesis) id 1Mi2BV-1wtG6E0d3x-00diWI; Mon, 02
+ Nov 2026 16:32:43 +0100
 From: Christoph Zwerschke <cito@online.de>
 To: stable@vger.kernel.org
 Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
@@ -63,12 +63,13 @@ Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
 	linux-bluetooth@vger.kernel.org,
 	regressions@lists.linux.dev,
 	1149377@bugs.debian.org
-Subject: [PATCH 6.12 1/2] Revert "Bluetooth: btusb: Add ASUS USB-BT600 for Realtek 8761CU"
-Date: Mon,  2 Nov 2026 16:32:42 +0100
-Message-ID: <20261102153243.373899-1-cito@online.de>
+Subject: [PATCH 6.18 2/2] Revert "Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU"
+Date: Mon,  2 Nov 2026 16:32:41 +0100
+Message-ID: <20261102153241.373878-2-cito@online.de>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <0cf3aaf2-9911-4918-8f6f-c11d6077d39b@leemhuis.info>
+In-Reply-To: <20261102153241.373878-1-cito@online.de>
 References: <0cf3aaf2-9911-4918-8f6f-c11d6077d39b@leemhuis.info>
+ <20261102153241.373878-1-cito@online.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,68 +80,69 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:SwOeEke6jMmGJ3rFIcPIGcokqfXxSxdPALB3a+wgHSZUHS/FqrB
- TcdanMyQFgKPEdKW2dp0UXFiwm5B3U77cHrjyHHLc64y2yEXPAEcBj2DmKzieQlaOC2Jc99
- CZaS5iRxomJS/PPEBb1KGi+9uAe7zbcLqb+2FXFDVv1DYN3tLMVNuauDJZ9KSzTgw1oi9AE
- bQOIVl6tB7fbfnPXy+1qw==
+X-Provags-ID: V03:K1:CNfaH5AzoLko6AUgTrUQvFKiE/1miiRurP+XSNDgMErRemo0S7P
+ kAN3uKfYy6VsymcN7VizVp6TaifFgJg7gtjJDt81CNxRSw+apUo2D+9i375LBp+I7dpVQsQ
+ UkjnzfuttLoXgEGTC+o+AzlnOdwBAOXPPzRnGfBunmdAQzHHQhxuMkvqVoaCXMicv3FiICH
+ STkgl3UjFm2Jrnb6ugu2Q==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:5Pjwte9dNI0=;ndSHZ6UfCHGaI1uQ1Qfn5ll4sy7
- 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
+UI-OutboundReport: notjunk:1;M01:P0:0XhjqiBUSZ0=;lZ5nkc5ESEeHedpojZJwi8enJ2h
+ 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
+ 7QYs+7N7
 
-This reverts commit 32412aff8d11d00672053cb10750869f2de94a1f which is
-commit 6f0624b4427e38c3bb63a951c536cf8adaee1238 upstream.
+This reverts commit aa7b93fe98ba726971b7d0c68320ce513e68aac2 which is
+commit 980084de4d9b25193398d89a1c0430ba3501b683 upstream.
 
 With the device ID in the table, the adapter is handed over to btrtl,
 which in this tree, together with the backport of commit 4a23ce935f74
@@ -151,7 +153,7 @@ Debian trixie, the adapter no longer initializes. Without the ID entry
 it binds via the generic Bluetooth class and works on its ROM firmware,
 as it did before the backport.
 
-Mainline keeps the ID entry, so this revert is for 6.12.y only, as agreed
+Mainline keeps the ID entry, so this revert is for 6.18.y only, as agreed
 in the regression thread.
 
 Reported-by: Erik Brangs <erik.brangs@gmx.de>
@@ -160,26 +162,25 @@ Link: https://lore.kernel.org/all/179104011040.2214689.5921682013387867802=
 @eldamar.lan/
 Signed-off-by: Christoph Zwerschke <cito@online.de>
 =2D--
-Not tested on 6.12.y. The same change was tested on 6.18.55 with both
-adapters and without rtl8761cu_fw.bin: with the ID entries they fail to
-initialize, with both reverts they come up on ROM firmware and A2DP works.
-
- drivers/bluetooth/btusb.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/bluetooth/btusb.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
 diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 00aa0fffd0c9..bb83dc0b031e 100644
+index 9d6610b8ecfc..0229d0637013 100644
 =2D-- a/drivers/bluetooth/btusb.c
 +++ b/drivers/bluetooth/btusb.c
-@@ -820,8 +820,6 @@ static const struct usb_device_id quirks_table[] =3D {
- 	/* Additional Realtek 8761CU Bluetooth devices */
- 	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info =3D BTUSB_REALTEK |
+@@ -842,10 +842,6 @@ static const struct usb_device_id quirks_table[] =3D =
+{
+ 	{ USB_DEVICE(0x37ad, 0x0600), .driver_info =3D BTUSB_REALTEK |
  						     BTUSB_WIDEBAND_SPEECH },
--	{ USB_DEVICE(0x0b05, 0x1d70), .driver_info =3D BTUSB_REALTEK |
--						     BTUSB_WIDEBAND_SPEECH },
 =20
+-	/* Additional Realtek 8761CU Bluetooth devices */
+-	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info =3D BTUSB_REALTEK |
+-						     BTUSB_WIDEBAND_SPEECH },
+-
  	/* Additional Realtek 8821AE Bluetooth devices */
  	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info =3D BTUSB_REALTEK },
+ 	{ USB_DEVICE(0x13d3, 0x3414), .driver_info =3D BTUSB_REALTEK },
 =2D-=20
 2.56.0
 
