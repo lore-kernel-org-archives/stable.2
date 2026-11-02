@@ -1,61 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608134;
-	b=RdYfEwclw0ir6dam0NCGgHY52xcnuUsxZb9BORsrqvUY3EqStJGF/4LRpCpDorMx+mRY
-	 9OwKnii1WsICr8h+LcCEpjLSKM8OXiMry1339bMooV7xTImkSbP+NQiZzDhRlistMinPc
-	 6u8f+NjiWt+ALkXpUDXXKL6qqvwoYaMvGm7x5nOxi9BOpFm7baV20yqACAr+r12ViBzpc
-	 ln5r7yvWGl0gv83+u6WUGEGUKf6kpcY4wDyG9xULybMKXMcIpSARy/rdlzccKWMpGMehq
-	 7RbN3NlIHfrYRBz0l82xeSQAGYBhnBtu67JteRVeNDXD5LulOah4BU9a06rY6yLmdEw==
+	t=1793608177;
+	b=4LDglghpCbcohHmecxWRK7hosNmMH7Y8SmGd630HYBbPMg3RPYG/z/LWJv3En9RkkcbI
+	 g6QobeJ9K/Daf7qN4LiCT8EVPNujYELRjtGiv8fNljNXda2XwWCg7XPBQZFqXRSDKtMFh
+	 JvUEWXOBMBr7Odj+4LutpnTS0iBQ/cVUckc/uIyAulLwp+h0RIUp+MYPolW4/1+YXTT35
+	 v3G4IBZbsuPOd4gHOdTBYsxhz/AftIbxLB88F4KdoKHvRRaj9djxjNYUG16yQLFOYFmqF
+	 7Jy0BAU+hVDgHYCsf3Q/pO8RqhcbhoYWubBwgdh3yY8RLHTCe+kKNR37qAo2ZhZ4hAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608134;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608177;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ZRrtV4cXLsAnCpJIyAQ3ENe8TsYuX6DXwBdX6nqjxSs=;
-	b=RwPf2mnEVHbUzNDF729vbFhetlrlP7ZJagxHM5PpWVa3pRalecB1nymRCHH3tqV4CFAT
-	 L4XnxpW2OPu5fCDUzOeZeA9Y0MRoar4lsPGTuxfAz2+bnBLXKvdl7M5OL/Tp34eFJ7O0p
-	 kcJNYm+Kl2wtUAb1iu/1Nz59YFZw1nFdXeK+g7NbKMMvqyzX2GM/wweHBh7bi7AgPs48n
-	 Vo94hqx6yzuOsc2m0ERtTRKWry4AzYzej/bSKKpbkLNgTQlhhXXMhTuKJVdsK7llP0u7/
-	 Nvx57BQFLG8rbwaBKoJ9fB7Mxs+iBZCXVXJ1A0soUM3A4sfd+PDlXAhFroLGO9xptBA==
+	bh=euznYBocIb8kfNgcKlt2GHcUVDSBs2gzY/11E05nVeE=;
+	b=Jctip3fHHRc/S1k0r2ShGDjjItDiOu0LB0iCDiiTc0B/oHF1IqoHmidX7RTjHtamXtYr
+	 sEcuqnqVwY6rCTv1AYo41RvmTbVdNVict/dtK3laPE2HQjbKC/XeEMtFBfEfTzssUyygo
+	 VUlQCXvbsy4NUc5xAWo+wqP3hCW4mfgYaqCENeM39LPgwyWs96k0RDa77ZkxiTwNZZ18B
+	 TK26PQIBzlEhFeTMNjZ/QBFQMwyNdsY5WBzR/2TJPLfcqpA3fZ08IF7M1J+OvKQzQJ3Lj
+	 esZ1vultEmIN6knteSzw8v9GIyoZuS/OQTzaLP01AHZjZvATOL2JBCO+n+GYjZ+WhWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orJ3OuXD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW;
+	arc=none smtp.remote-ip=95.215.58.5
+Received: from mta1.migadu.com (out-5.mta1.migadu.com [95.215.58.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A464606A324;
-	Mon,  2 Nov 2026 08:28:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C088B606A32C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 08:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C088B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=orJ3OuXD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC10F1F000C1;
-	Mon,  2 Nov 2026 08:28:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608134;
-	bh=ZRrtV4cXLsAnCpJIyAQ3ENe8TsYuX6DXwBdX6nqjxSs=;
-	h=From:To:Cc:Subject:Date;
-	b=orJ3OuXDVfQVa5i4MUWO3y4lNNhRoEPHM33flesUeTx4vcnhKifDB89UZ4eDGxdn1
-	 uw5K6cNOCJ3FdqKfN9KhpFWU8TDHie2ulB7KqNnnS+/HRDk4bvfMe912jfs+TEf8ip
-	 /q+bQJCzxLDQcUInYQx26Q1IOeonv0xVgNm2KmO2uqmuARDXKEdmZ1K8WzoAJQqQzZ
-	 Vr15rfsuLUHi/CUojP2XlIon3aCMEFnrhmC+tsRBANWL/AMULzhAUlh66oV8auUoS9
-	 He0OMqk8MjZvYonS1mo1E5h2JBECKKU6GhA99BA3nHi+OkRZUhEeCNMn48rR8+SfOj
-	 8iEF6YnN1pZ8w==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xNnPP-00000005Lnv-3z6m;
-	Mon, 02 Nov 2026 09:28:51 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: driver-core@lists.linux.dev,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y8BgwjagvHGf78IlM6ng3nm9vDTk3b3hu1EyL1SF7ec=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793608174; v=1; x=1794212974;
+ b=F+5WWgPWHTgZkLOdWp34fjp8vKNTzLwWGqZ/4900AI/b1FTmGpR1sFpQt8SzIiPVy20OvRLv
+ h7fwwNHkpAZeLqoAxkwBPghJibjqFi5yr5vvVF8G2NWNsTRh8Fx/D44CNgsqKctPTHRQgrIphKQ
+ IaHcegGiTwV+63OFDSO3Vjy0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eddade33f188acbf;
+	Mon, 02 Nov 2026 08:29:34 +0000
+X-Mizu-Trace-ID: eddade33f188acbf
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Eric Auger <eauger@redhat.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Will Deacon <will@kernel.org>,
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Sebastian Ene <sebastianene@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH] driver core: platform: fix fwnode leak on registration failure
-Date: Mon,  2 Nov 2026 09:28:22 +0100
-Message-ID: <20261102082822.1275425-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	stable@vger.kernel.org
+Subject: [PATCH v2] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock
+Date: Mon,  2 Nov 2026 08:29:33 +0000
+Message-ID: <20261102082933.2673799-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +78,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A recent change started taking a reference also to non-OF firmware nodes
-when registering platform devices.
+A GITS_CTLR write that disables the ITS clears its->enabled and
+invalidates the translation cache under cmd_lock, while an MSI
+injection tests the enable bit and populates the cache under its_lock.
+An injection that passed the test before the disable can cache its
+translation after the invalidation, and the cached path then injects
+the LPI from the disabled ITS on every later MSI for that event.
 
-The firmware node pointer is however still cleared on registration
-failure when ACPI support is enabled, which means that the reference
-leaks in platform_device_release() when the device is freed.
+Take its_lock around the store and the invalidation, so that it
+serializes the store against the test. Nest it under cmd_lock, as the
+command handlers do.
 
-A software node also stays registered as device_remove_software_node()
-returns early.
-
-Drop the clearing of the fwnode pointer when registration fails to fix
-the leak.
-
-This issue was flagged by an LLM.
-
-Fixes: 7b5b51b2b05c ("driver core: platform: count references to all kinds of firmware nodes")
-Cc: stable@vger.kernel.org	# 7.3
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
+Fixes: 86a7dae884f38 ("KVM: arm/arm64: vgic-its: Check the LPI translation cache on MSI injection")
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Link: https://lore.kernel.org/ah6Lsi4MfKUU6wBR@v4bel/
+Suggested-by: Oliver Upton <oupton@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- drivers/base/platform.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 3593d45f4a7a..979593e5cca1 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -971,7 +971,6 @@ struct platform_device *platform_device_register_full(const struct platform_devi
- 	ret = platform_device_add(pdev);
- 	if (ret) {
- err:
--		ACPI_COMPANION_SET(&pdev->dev, NULL);
- 		platform_device_put(pdev);
- 		return ERR_PTR(ret);
- 	}
+Notes:
+    Changes since v1 [1]:
+      - Reworded the commit message.
+      - Rebased on 7.4-rc1.
+    
+    Picking up the fix Marc was worried had stalled [2].
+    
+    The GICR_CTLR.EnableLPIs path has the same window and is left as
+    is. vgic_its_invalidate_all_caches() can't take kvm->lock there (it
+    runs with vcpu->mutex held) or config_lock (the userspace GICR_CTLR
+    route already holds it). Instead, the vgic_target_oracle() check in
+    my LPIs-disabled series [3] keeps an LPI off a redistributor with
+    EnableLPIs clear. The two don't depend on each other.
+    
+    vgic_its_free_collection_list() still leaves the cache alone. A
+    guest reaches it only through a GITS_BASER write, which already
+    drops the cache (8cd92f77ae4f). An ITS reset frees the devices
+    first, which drops it too. That leaves a failed collection-table
+    restore. A VMM gets there with translations cached only by enabling
+    the ITS before the restore, against the documented order. Those
+    translations then keep injecting their LPIs into the old target
+    vCPUs.
+    
+    Based on Linux 7.4-rc1 (6628e7d4c6b25; also applies to kvmarm/fixes
+    79f3724ca8913).
+    
+    [1] https://lore.kernel.org/all/20260917162020.1612577-1-fuad.tabba@linux.dev/
+    [2] https://lore.kernel.org/861pbr6emw.wl-maz@kernel.org/
+    [3] https://lore.kernel.org/all/20261026092802.2636798-1-fuad.tabba@linux.dev/
+
+ arch/arm64/kvm/vgic/vgic-its.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index 7e9b265b1f521..68e3034e52236 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -1800,9 +1800,12 @@ static void vgic_mmio_write_its_ctlr(struct kvm *kvm, struct vgic_its *its,
+ 		 !(its->cbaser & GITS_CBASER_VALID)))
+ 		goto out;
+ 
++	/* vgic_its_resolve_lpi() tests the enable bit and caches under its_lock. */
++	mutex_lock(&its->its_lock);
+ 	its->enabled = !!(val & GITS_CTLR_ENABLE);
+ 	if (!its->enabled)
+ 		vgic_its_invalidate_cache(its);
++	mutex_unlock(&its->its_lock);
+ 
+ 	/*
+ 	 * Try to process any pending commands. This function bails out early
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.55.0
+2.47.3
 
