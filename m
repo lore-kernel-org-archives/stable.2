@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633417;
-	b=VHpNjE9k/vKRr55LnlO8QcPqEt/NPWN2XkxKYktFv0EYN7bZ841sJESxxJYbb8yPQBKZ
-	 ij9E0bjimFYYDsiL7cbq6qs82FEAlF9H+bO4m+uRsV44OvCxmHpa0I1jlLxNHKLUoU7pW
-	 gs84dRiedMa8fcJoyY9TCDQNUJlCTW2X66i6a+08ENNQDOXs04tgPwZPy48yMGC4rLNln
-	 EUBDq0KPgAxU8H9nCsoZmx8J1RJ1ofadgusz9LUJVj75nOfipXCMFVopcdHugisXRqkPJ
-	 7/ChEvvypazKLN9NcBBkPj9Q9iESIrr2ZSKb5ZqI7ZWOsd8GEArs3BXw17Kv9mWehDQ==
+	t=1793633419;
+	b=UAgPDFouh567LqXNVOMRRiAd/2BKlx9AU9QMITwqUbbNw+2Fm9MJtaUN0BTpZMinkrS8
+	 FtVFhpeSW3JmHW1K5LleaTWcSZwB/nrNCNLKgJFXBeF8zR88uHqm8cB7626/ZyYDPsnLe
+	 VBD+fQBUcrquYZjIAi3qXpEUR/Q9FTvY1f2a/UiPgUWV7LCFNlYnV+wjAlcBcrIa+Jjju
+	 reeoti/LQhFP2ljDf31tYCy80DYlWp1atRqZFYQMVZAyLmMYT8/RGcQ2bx7g627sevhOe
+	 UdVpv19xGhMecmIKvCbIRyw6Mp6gFGlBw3j5h6GpkGfx0I6JvJjOuc95VIJ3mXEclWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633417;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633419;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ovQbiBMowuHc6t0NcUDHhlEujtquP5qv5Wxv/1+6JzM=;
-	b=gdaroP1fN8gSWZIP7QuiitaAsLZ6BytMgZQwlJBsz26shbUsx6XopLY8V2WKMZDqKns+
-	 zc1ElDjbbotIJq4iwIz1b5Br//epZsRBJGUxA/lhT1tMjjAUj7Yqf1Q0sGbo1JAKmf4T6
-	 4rb2EiVpNLmLygvBbKoNKw9CiA61btFxkBDrI7Qo2TqyBuwEHWQ+YbZ6crOY6xMANcFmb
-	 +p1z3OdhdsdMWztwM08lx/qcGmnUmoC97LCOn6B8WEavWf00ZdFgUdOSSMoSVSZwC3xyT
-	 cS72Tm+CXTd95SOM8qOcMZqWDhsrE4cozU+gDedEShWo9WffeQZCngwzrFG+9HBNUxA==
+	bh=PG/B8sQ4VkfPhgJncgrY0D18B0E9UiSJfe5ZMd4xYIA=;
+	b=PAGOx4eSuKORdnVkmeCtHcgZskErwhCXEVf8hM47t0K88Gp9uZJgGRRyDk3qUKFLxrY8
+	 kWmWj6leNSNdxc5IHFTfJzHrlR0TX3vpO9PZllQfeUqveNKIUhLwltKzoCwcO0sp1W4J0
+	 M7d9R0ZGSImnct2lkdkDivGTTF1/ahu8I79ImZZhc15tHqWiYqMAoHY1Ao2zJNAGItPmw
+	 fqTxTlhJuyJAQx8zwVf9mSOzROZLYRXMYxtcJYcXXEdlpiueh2jKCSAYIE1uSGiw5V78G
+	 zUrQubzhPYnlzjOaM73cQ4fVGnUghWU+TaetUnRwE+Rl1+a+EtVAUyDAzsJgj3G+6xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rwfn3gtC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XPbRC3Tu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9D0606AE86
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:30:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0984606AE84
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:30:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rwfn3gtC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E5B1F00A16;
-	Mon,  2 Nov 2026 15:30:16 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XPbRC3Tu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186121F00A1E;
+	Mon,  2 Nov 2026 15:30:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793633416;
-	bh=ovQbiBMowuHc6t0NcUDHhlEujtquP5qv5Wxv/1+6JzM=;
+	s=korg; t=1793633418;
+	bh=PG/B8sQ4VkfPhgJncgrY0D18B0E9UiSJfe5ZMd4xYIA=;
 	h=Subject:To:Cc:From:Date;
-	b=rwfn3gtCeLSYr9/RUoorgRyTnXb9FUrzV1GW1ORhgMvAs/fTOxaamTyaLYJbGW0Zt
-	 AOeumViv2n44V5jO6xxc9mBQTngs/kj4qlavwJ1jDa+TLoNvPWWRFn7V2bUPDR2Ttv
-	 jAFWD/5ucIbz6oa22CKeoQWsjZfcAka6PdCLqS2M=
-Subject: FAILED: patch "[PATCH] smb: client: do not pass a NULL buf to is_oplock_break()" failed to apply to 6.12-stable tree
+	b=XPbRC3Tui1TGuMwN04b4iKi4kqahQ1ZcglTF1LVkJP5QBpSYeYwq1Wnue0CMiAqMF
+	 MWUQT41WBPMWdZtboPDYzw+KGLH9RbxBjKOmn9UFHZRlTPOvPYaVDzT7h/kvtymjk1
+	 uIKgaZEvjBBOzVCLi/8XGG5dx0teM32OxyAcMQtk=
+Subject: FAILED: patch "[PATCH] smb: client: do not pass a NULL buf to is_oplock_break()" failed to apply to 6.6-stable tree
 To: 2715417602@qq.com,dhowells@redhat.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:30:13 +0100
-Message-ID: <2026110213-sliver-doctrine-6a23@gregkh>
+Date: Mon, 02 Nov 2026 16:30:14 +0100
+Message-ID: <2026110214-audience-apostle-d632@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2225ab306575e424b3dad2ee1be2521c89249d15
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110213-sliver-doctrine-6a23@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110214-audience-apostle-d632@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
