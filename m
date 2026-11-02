@@ -1,74 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793661279;
-	b=gSHPFknUzerHaBE6RahVf53vyf6s4TzErsOsUzfaJQFbmRSETAkC52MsVFr7Dwe6sl2L
-	 96hUiXXWSYFayNTh4Nc+5Gp0bM9b+AYNwofPulvhRvZKlKe8qB1DnOla8U3NF+ZFFEze3
-	 xbj7CsU7MxcYuDWoFMUKYeYXAC3DuFCxMgdQbE8tV6uOce0mLtHpB9N96aLe4djiu0gXt
-	 P7e1d43I4mmXCzJriCLf9I9XNoZ7dr+3NpZq1icCI6jWTHnLDj8CbTpsk7aGZxIAbIkRT
-	 7mEyvNJhgvHE8k4Izrubv0UJhuMTxyiXFrhnJoeLuK/TP6yq9YKeRF+cF4RFC7/8bTQ==
+	t=1793661281;
+	b=DkC60+2nQWqlyGVFQDDMlwYv2A4l/tLRqWf4NS1EuHzZjoOZduxIo61IlVQgN1Px7fAJ
+	 X06ABi0qrpFPoxDUWdR0ct/1gO6/N+/fdM9kf9qIuwtgDpaptVSIYwEgDLsZp9csR2P4n
+	 sDHF1sAh3mxrcuFiuJ4qxPQXT6wmicjCbhLMaQm0lKnIyFyb/7oYE8LAV/vmSD+JmfFOq
+	 MGLKOLjPnPgU5gQwsZyloD9+bnINO6h8SOyqH6zm6qGFCGuKhsAlguszuG7Qju3zmV2oH
+	 u3zIZB0UNPj4mIyS3BGKsPmb8vODf7xGdBGsCPKe2e+xwB2CR7PXAtppJrUG1B/uVsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793661279;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793661281;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=3+6FRavmCgIlofFAI66EfQeYrz6NFFwg0C655ZeGgZg=;
-	b=iHPKPauTT98EeCYwnwCz0Of/rsRB6pMNLsiHv4vHFHx7h/WSubz7/cCUopVHXdvUMMtr
-	 jMZIV+5m54C0bWRAhEZ9SIqcHRaZTZxdVJpgaLWg76qWoA9gPbZtXbROHLbYxMbrbLTEz
-	 hMIE7OFcveZXKOHpCmu/VmAtR3XOg2ZOR06ydUJkIKj91zz7q4KJUn+LBaAQckbzhi1s2
-	 fpAwoWfbl9ZePmicbN4ayc6ooqMTbJi6jzG1OONOD3VMeJZ6xisF9r7+3c7SDomFrJPmy
-	 OLrFl46lDJC+Rboez28PyuCmVFindCRxQNS/Y53USalqSae8GyrKYWGfE0Qxl+8hjag==
+	bh=etM9WyQmfIPzfMLv/GTxvxnLWL1yIZR3UqJiNo2KVLc=;
+	b=PeH4odyGlhz5ntL1CT6Og8KKC54KHsXdnfOkyWHcCaJe6weteBm0dq52fOE63LdUG4kR
+	 4kO4hjWkI2t5Wl+qxcHV+J8BiY2F6VjF49ymH7kCrpRl+JHwVYHJmaFFGJO5Fm69EFEv1
+	 NZlnoYWqRPBeKLbSvrbUITZJJLT9PEngFbYj3W0eSN4OmT9fIgAaz3r5Vm2RgwOTNb3qA
+	 Rh4Fwohm3Iri7u+fXhoJoEER2Zi0Akdwswml5Gst4Nkg0gptq7QjWE9LNeD6UKF55+NAZ
+	 ul6KoVVaQEx1ibZoZGVVFqwr/Cx+pILoOaCBwkyaEKOw0vlg5s+4e+foL+KbRj2SZ0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=b6s5jCqM;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FW982Yz8;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8B4606D82A
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC8B4606D82A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B4D606EE94
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:14:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11B4D606EE94
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=b6s5jCqM
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FW982Yz8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793661278;
+	s=mimecast20190719; t=1793661280;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3+6FRavmCgIlofFAI66EfQeYrz6NFFwg0C655ZeGgZg=;
-	b=b6s5jCqMVoub4g6f9x/S5/LrIp1zNWQyYQJhOfxmrTKJasEZ4kiCSwB17Uuu/uhUJHbMyf
-	x0za/Vxf40qJ+dE8JIiZM81X2crODtCdUBVr9eSfSdDBgH2bdmQAZgbOaMBq3ox+3ol+3R
-	wmyOzi5xn3sU0qRiDt6NtWPx9pFYUfw=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+	bh=etM9WyQmfIPzfMLv/GTxvxnLWL1yIZR3UqJiNo2KVLc=;
+	b=FW982Yz8s8M9viqacjOi25OLn+Ob6QXqNu3fFgRPeANVwYoHTk4iD0tR6vzlzx7gdZN/XE
+	YdxRspKFuNJMAhNtG8cbFQxz5ofB4tCFWlh0Jaf6lVKfZUn/nkeJErq3QSe1kK5YA7f04Y
+	JdXtIdDwsPUzAKrxnEiapEl3j975J9g=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-480--GH3GszYOnG-6CATvZjN3Q-1; Mon,
- 02 Nov 2026 18:14:32 -0500
-X-MC-Unique: -GH3GszYOnG-6CATvZjN3Q-1
-X-Mimecast-MFC-AGG-ID: -GH3GszYOnG-6CATvZjN3Q_1793661271
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-326-ZJ455oz0PCC8BD_SFMchsw-1; Mon,
+ 02 Nov 2026 18:14:36 -0500
+X-MC-Unique: ZJ455oz0PCC8BD_SFMchsw-1
+X-Mimecast-MFC-AGG-ID: ZJ455oz0PCC8BD_SFMchsw_1793661275
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 80165180065E;
-	Mon,  2 Nov 2026 23:14:31 +0000 (UTC)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1708B1956075;
+	Mon,  2 Nov 2026 23:14:35 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CE6AF26C;
-	Mon,  2 Nov 2026 23:14:30 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0F52B7D5;
+	Mon,  2 Nov 2026 23:14:33 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Sean Christopherson <seanjc@google.com>,
+	Jim Mattson <jmattson@google.com>,
+	James Houghton <jthoughton@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Woodhouse <dwmw2@infradead.org>,
 	stable@vger.kernel.org,
 	Stefan Teodorescu <fane@google.com>
-Subject: [PATCH 2/7] KVM: x86/mmu: Conditionally resched when retrying gPTE walk on A/D update failure
-Date: Mon,  2 Nov 2026 18:14:23 -0500
-Message-ID: <20261102231428.13523-3-pbonzini@redhat.com>
+Subject: [PATCH 5/7] KVM: x86/mmu: Cap number of parent PTEs per SP at 1000 (the arbitrary rmap limit)
+Date: Mon,  2 Nov 2026 18:14:26 -0500
+Message-ID: <20261102231428.13523-6-pbonzini@redhat.com>
 In-Reply-To: <20261102231428.13523-1-pbonzini@redhat.com>
 References: <20261102231428.13523-1-pbonzini@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
@@ -86,53 +90,79 @@ X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
 From: Sean Christopherson <seanjc@google.com>
 
-Conditionally reschedule when retrying a guest PTE walk because the CMPXCHG
-to update A/D bits failed, e.g. because a different task/vCPU modified the
-relevant gPTEs.  On kernels without involuntary preemption of some kind, a
-misbehaving guest can "capture" a pCPU effectively indefinitely and trigger
-soft lockups by continuously modifying its gPTEs such that the result of
-the walk is remains valid.
+When potentially reusing a shadow page, zap the shadow page if its number
+of parent PTEs exceeds KVM's (mostly) arbitrary rmap recycling threshold.
+Letting the guest create a (mostly) unbounded number of parent PTEs allows
+the guest to coerce KVM into creating lists containing millions of PTEs,
+effectively bounded only by the maximum number of shadow pages.
 
-Fixes: b3e4e63fd9ee ("KVM: MMU: Use cmpxchg for pte updates on walk_addr()")
+Because PTE lists are simple singly linked lists, removal is O(n).  Even
+worse, if a list is constructed just so, teardown can be O(n^2), e.g. if
+SPTEs are built such that zapping child SPTEs always zaps the last entry
+in the list.  To cap things off, all paths that walk PTE lists do so
+while holding mmu_lock, without conditionally rescheduling.
+
+Using a doubly linked list would not address the issue, as removal would
+remain O(n) since KVM still wouldn't know where in the list to remove from.
+Removal could be made O(1) by storing a per-SPTE pointer, but that would
+largely defeat the purpose of reusing SPs, and would penalize well-behaved
+guests, especially for nested TDP where aliasing page tables is uncommon.
+
+So, cap the maximum number of parent PTEs at the rmap limit.  In practice,
+well-behaved guests will likely never run afoul of the limit.  E.g. when
+running Linux as L1 with TDP, the number of parent PTEs for a single SP
+tops out at under 200 (though undoubtedly obscure workloads can push it
+higher).  Deliberately use a "greater than or equal" as opposed to rmap's
+strictly "greater than", as the rmap code checks the threshold immediately
+*after* inserting into the list, i.e. the limit is 1000 for rmaps, KVM just
+very briefly blows past it.
+
+Apply the check to both indirect and direct SPs, because while a fully
+direct MMU naturally limits the number of parent PTEs to '1', direct SPs in
+indirect MMUs have no such constraint.  E.g. if the guest maps a huge PTE
+into many locations in its page tables, and KVM is backing the hugepage
+with a direct SP, i.e. with a series of smaller pages, then KVM could end
+up with a direct SP with many parents.
+
+Note, shadow_mmu_try_split_huge_pages() always restarts the rmap walk or
+bails entirely if it gets to the point where it tries to grab a SP, i.e.
+there is *no* pre-existing bug that would be tripped by zapping a SP and
+thus rmaps when getting a SP.
+
+Cc: Jim Mattson <jmattson@google.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Yosry Ahmed <yosry@kernel.org>
+Cc: David Woodhouse <dwmw2@infradead.org>
 Cc: stable@vger.kernel.org
 Reported-by: Stefan Teodorescu <fane@google.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
-Message-ID: <20261022015903.282261-1-seanjc@google.com>
+Message-ID: <20261027171518.1432557-1-seanjc@google.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/paging_tmpl.h | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ arch/x86/kvm/mmu/mmu.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 8e350095508c..18f7eb633127 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -340,6 +340,13 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 	gpa_t real_gpa;
- 	gfn_t gfn;
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 5a2cc6a17a9b..f4b12d6aef55 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2355,6 +2355,16 @@ static struct kvm_mmu_page *kvm_mmu_find_shadow_page(struct kvm *kvm,
+ 			continue;
+ 		}
  
-+	/*
-+	 * KVM might sleep/resched when retrying the walk if the updating A/D
-+	 * fails because the gPTE changed between reading the gPTE and trying
-+	 * the CMPXHG to set A/D bits.
-+	 */
-+	might_sleep();
-+
- 	trace_kvm_mmu_pagetable_walk(addr, access);
- retry_walk:
- 	walker->level = w->cpu_role.base.level;
-@@ -482,8 +489,10 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
- 							addr, write_fault);
- 		if (unlikely(ret < 0))
- 			goto error;
--		else if (ret)
-+		else if (ret) {
-+			cond_resched();
- 			goto retry_walk;
++		/*
++		 * Note!  Unlike fully direct MMUs, direct SPs in indirect MMUs
++		 * can have an arbitrary number of parents, e.g if the guest is
++		 * mapping a huge PTE at many points in its page tables.
++		 */
++		if (pte_list_count(&sp->parent_ptes) >= RMAP_RECYCLE_THRESHOLD) {
++			kvm_mmu_prepare_zap_page(kvm, sp, &invalid_list);
++			break;
 +		}
- 	}
- 
- 	return 1;
++
+ 		/* unsync and write-flooding only apply to indirect SPs. */
+ 		if (sp->role.direct)
+ 			goto out;
 -- 
 2.52.0
 
