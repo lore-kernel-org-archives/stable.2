@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636869;
-	b=YQnl5EwDpcdV0QteMtK9CLUBWaqQNsOl/yJMHbFuUkVtV3KsddJRN5HdplLNu6C4LU0M
-	 l4q1VPKKV9GFJtsKXpi8TynZDm0I3F8a8SFBb2KR+dLuUXclHMPn1vqyJkXWl15eweQoi
-	 OUzuJjr53tgjcHrjSeAV0z1M34+mVfp55ayU/bPANuARdfWEtYoy1bOyBYBUT7NNSkY1+
-	 alRPJy3HOXoHvER08KZUIV99FHAHIZlwkQvlvg4jmuok9OUBlhhaFgbMYsJfSRFXDAJFr
-	 Jwp5To23fOG39xVFL2oXWgsVhJwhTbo8sFuXiOkuglrBABOykXAEnrI7ooTqSbb63SQ==
+	t=1793636952;
+	b=d0vCzZ6qoQhOCeYMENkS2vs3GF7Aoh11Cp7l40/KM3ENhJSfIAUgjsGlRAc8rF9RoZLg
+	 0RRtGydy0q59YBi6fbAFvivpxgmZ2sqKD4b9H8B2bbdkVqEtGcfppH5z9UqHtuFzkotdU
+	 5x/9StlIAP2fpzelVISj1icsCI7/0LTZs1kOn+o0SaK8OHwboHWtC5+of+aEFIOZjIwcJ
+	 Yi39mzFw7kROH4KGeXQJB4OpfC7GyBqjDBHTu1+V0Lc0ISbw9TRuRKdTqNu7eiG0n0VK4
+	 Si2IQ1mfztaXmiD4A0bGPB3PRfHv+ZcL4l54SrgcxrAoJgIH2/XFsQ7Y1gJXt1jk3xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636952;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wHdtFy4kp/ZwM1BqNPeMTtm2ddmGgb+Bt7+4Qa7+AJg=;
-	b=fJT7+Q13JYXHp+ghDLsh+bwYFjUSfGAgsqW4ro1ec152uKAUvg0U55LbXXZoyW4l3nb9
-	 /u4kQPSQxbwtsmg3+bPnNhgjAKLIeS7Lwj4IZPutFRlpy/icoGQkCIS+Auy9g6GShPYXj
-	 SIrAT6FazVP6CFZTRtuRc7mmv8RYvnkgh+NdHnIJVrU8VRGXUlTdkueny0H2I0RjHB7RE
-	 CHCy6R4lUU4pOuah18n/dB8+T04oVxK+96BkPnHSjlturrMyUrwp2qqLAGWcScDlYyYku
-	 n/KCMfmTZzEr1GCyoi6tg8To3jsfgbL03TdX/1tLppOpYuFQXVw71Jz6tMlcmLTombA==
+	bh=IOiMng9RZC5ZsHueklZu31oTVbf21Mt0IXmlLvcfDKU=;
+	b=iKlbwTV/tyt71Os3ubkWaqJt1FvtmoEvUHeGG5ytZMjEEJ/luWbY6ocBkvZTbCvD60Ri
+	 PTo5BgaEeSzmZCy7fO8NUm5CDbKFCXA+Kj9X2BAZfC72jwVlCwGtmOnhTpOn5EoIqxrco
+	 5I5yT7bb1k67SJzcjn/ZiuuIfqmy6KME48rdblwF805hE5WBcmtbqkfAO/Znt2aBlt10r
+	 km7aHsTp9iApYve7Ap5eXbzaj6xJ6u0G+Z4bTBjdDl1QisYltLpjYss7vv8N+9zomzslN
+	 icLKev4/K9opUIYijEok3rfFtzoJCKrOgc9H/J8UDTJ9SVHgFWOV6FAMWT0YQaMa8ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQiClhc3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jhgj9Hsk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D65609EE4F
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:27:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B1C606A917
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQiClhc3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C42C1F00A2B
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:27:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jhgj9Hsk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223381F00A17
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:29:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793636869;
-	bh=wHdtFy4kp/ZwM1BqNPeMTtm2ddmGgb+Bt7+4Qa7+AJg=;
+	s=k20260515; t=1793636952;
+	bh=IOiMng9RZC5ZsHueklZu31oTVbf21Mt0IXmlLvcfDKU=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eQiClhc3f5SHGtIVBHZ4EBE4/N9ECAPQxqSFBKGKsk6A1gBkKKB3KVGS0zXArEqj5
-	 WpifqFDNH2UNvXK40cNTsrOWSd/R3DPD6Jnr4lG86r5H+DNoUJXe+Y6Mx1q9yOv2Kn
-	 4nFfaOpl5WlxYJBr/89t0ER2Hb18dh3cvl7yGV++MVX+Ur5DIXLhxT8TtA1hW/KTLh
-	 W6b4w67lWb9blRbQ2gMz5Dm3cLpj04e4GGhj5mj8s6BmUz1XCV6uebtA9and2GBqHf
-	 ytbS1BUUqIGz9dRWFn+EKbShfLUTohazZrL9uw6fuWQke1FBaifS0IAzLpJzc0hXFk
-	 Y9JW9pdpphhpg==
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5eabf7d5bbeso2602649e0c.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:27:49 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBw2U3P6GjPH1Vab4zi2FYgAu3g4b4lI9EcJSuTJ6zCDp/74sM6RvrrMSt6y4d5B6XMUX36Tf0A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HGnntFrFYEuc3o2YLfH8VMCmyQqgsSmk+hUWlk4odT7vYfm12
-	4iTbRDKgvMfJXXETFn0D34mgbRwrl5MO3/4lqjhJbDbcndk+/jVwEEDNaRqHDgwNj2+4mmtxROO
-	anHIGEPAKSwNyBoBXw8pbtMW0RDRAR8o=
-X-Received: by 2002:a05:6102:8092:b0:7cc:56a:58d3 with SMTP id
- ada2fe7eead31-7d07279cd1amr4474738137.31.1793636868341; Mon, 02 Nov 2026
- 08:27:48 -0800 (PST)
+	b=Jhgj9Hsk/pWSW0JNuD8gX/AgK/d+vsH0olhOBy3YqsDBZ9idYURMpqnvEsCav1U6C
+	 QWZAe/Pzj860mO0lbTSotZe3R+0hAZ6cjmDnypZfNBm2xFK93vvSgiNAweLNopRkoX
+	 9j+ORfW0JF2G6hIHU1eFQwgZDY//chJvsYJt91S+0Hkacmo0TXfo+lH1Aw4/zlYQMD
+	 zpgsj0Ric1+KOK1XeMU9Xc2tKo4rexzRCIHN86Ucbr2s2qNqo7Sirj59Ap/xoYCi8f
+	 sMijI6YGlbBe/SCyYwVgJyYYJh5O7AUWMI4pV2/OpM6SgXY0sKqaD9wfdlvBYyJA+h
+	 R4MS4Y2tFa+kw==
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-9906034086cso710708241.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:29:12 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxpCGqzVg4OjH3PLzZTYeG+tRna2IjfmR/qEN2rr3r5Chpc6SPwDKCSa4ARTb6ZQb89GfdiSW4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lXlLh/SR9/WEQ2nQzIF2eB6B/lhLJCKQL5Lk8XkT6afO1t6f6
+	1eDox3sYGk/VCOsv7RiduR/Qlvl5M1FLJDFZ3HKYLPZkXEzFAjB/Yya5aoQYRZuiwjNwvGI9eSC
+	gn2PCdn/EyVt7dy9b3FPMDXnsDLAFx18=
+X-Received: by 2002:a05:6102:50a8:b0:7cc:2bb7:1321 with SMTP id
+ ada2fe7eead31-7d072715882mr3923901137.31.1793636951321; Mon, 02 Nov 2026
+ 08:29:11 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,14 +60,14 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
- <20261030-b4-btrfs-data-integrity-v1-4-f4d4196731e6@toxicpanda.com>
-In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-4-f4d4196731e6@toxicpanda.com>
+ <20261030-b4-btrfs-data-integrity-v1-5-f4d4196731e6@toxicpanda.com>
+In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-5-f4d4196731e6@toxicpanda.com>
 From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 2 Nov 2026 16:27:11 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H5e4abXv+RCsy09Sb824yqNsrxMkn6PPt49aN9ZyZTj2w@mail.gmail.com>
-X-Gm-Features: AclHuK9TcHojbk1WRwyX4MQgObBjTqCYoP4bFkRVWUT4s-4JmwoAESI9qBfcvLM
-Message-ID: <CAL3q7H5e4abXv+RCsy09Sb824yqNsrxMkn6PPt49aN9ZyZTj2w@mail.gmail.com>
-Subject: Re: [PATCH 4/5] btrfs: don't report success for a skipped log sync
+Date: Mon, 2 Nov 2026 16:28:35 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H6vCcysZasPMMgLyuCDU2ejCV4PwbEDn_oN-eNdePU_UQ@mail.gmail.com>
+X-Gm-Features: AclHuK_9b2GWogEgG12V-2vwKZf19vf23a3IVQXLAo9Or9iJQQ38_LkwhNYOFCQ
+Message-ID: <CAL3q7H6vCcysZasPMMgLyuCDU2ejCV4PwbEDn_oN-eNdePU_UQ@mail.gmail.com>
+Subject: Re: [PATCH 5/5] btrfs: don't trim the target of a device replace
 To: Josef Bacik <josef@toxicpanda.com>
 Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
 	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
@@ -76,122 +76,72 @@ Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 2:39=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
+On Fri, Oct 30, 2026 at 2:40=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
 wrote:
 >
-> When a commit of the log root tree gives up, because the transaction
-> needs a full commit or writing the log failed, btrfs_sync_log() still
-> advances log_transid_committed and hands the result to the contexts on
-> the list. Unlike a successful commit it does not advance log_transid, so
-> the log transaction it just retired is still the one new syncs join.
+> FITRIM also discards the space of every device that is not allocated to a
+> chunk. btrfs_trim_free_extents() goes over fs_devices->devices and, for
+> each device that is writeable, discards the ranges that have neither
+> CHUNK_ALLOCATED nor CHUNK_TRIMMED set in device->alloc_state.
 >
-> A sync that gets to the log root tree after that adds its context to
-> the emptied list, sees log_transid_committed >=3D its log_transid and
-> returns its log_ret, which is still 0:
+> The target device of a running replace operation is on that list and it i=
+s
+> writeable. But its alloc_state is empty. The allocated ranges of the
+> source device are only copied to it by btrfs_set_target_alloc_state(),
+> when the replace finishes. Until then the whole device looks unallocated,
+> so an fstrim discards everything that was copied to it so far, and what i=
+s
+> being written to it in parallel to the source device.
 >
->   fsync A (subvol 1)           rename       fsync B (subvol 2)
+> The replace finishes without any error and the source device is dropped.
+> With a single device filesystem, 700M of data and fstrim called in a loop
+> while the replace runs:
 >
->                                             btrfs_need_log_full_commit()
->                                               -> false
->                                btrfs_set_log_full_commit()
->   btrfs_need_log_full_commit()
->     -> true
->   btrfs_remove_all_log_ctxs()
->   log_transid_committed =3D N
->   log_transid stays N
->                                             log_transid =3D N, log_ret =
-=3D 0
->                                             log_transid_committed >=3D N
->                                             return 0
+>   BTRFS info: dev_replace from /dev/vdb (devid 1) to /dev/vdc finished
+>   BTRFS error: bad tree block start, mirror 1 want 30638080 have 0
+>   BTRFS error: bad tree block start, mirror 2 want 30638080 have 0
+>   BTRFS info: scrub: not finished on devid 1 with status: -5
 >
-> btrfs_sync_file() then ends the transaction without committing it, and a
-> crash before A's transaction commit loses what B was told is durable.
-> This was reproduced with delays added to btrfs_sync_log().
+> Skip the target device. The flag is cleared with the device list mutex
+> held, after the alloc_state was set up, and the trimming code holds that
+> mutex while it works on a device.
 >
-> Fix by advancing log_transid when a commit of the log root tree gives
-> up, so a later sync joins the next log transaction and either commits it
-> or gives up itself. The check for an already committed log transaction
-> can then no longer be true, so assert that it isn't, and still force a
-> full commit if it is.
->
-> Fixes: d1433debe7f4 ("Btrfs: just wait or commit our own log sub-transact=
-ion")
+> Fixes: 499f377f49f0 ("btrfs: iterate over unused chunk space in FITRIM")
 > CC: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> ---
->  fs/btrfs/tree-log.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
-> index 1d9dfb63fc5a..b542b1d97989 100644
-> --- a/fs/btrfs/tree-log.c
-> +++ b/fs/btrfs/tree-log.c
-> @@ -3437,11 +3437,20 @@ int btrfs_sync_log(struct btrfs_trans_handle *tra=
-ns,
->                 goto out;
->         }
->
-> -       if (log_root_tree->log_transid_committed >=3D root_log_ctx.log_tr=
-ansid) {
-> +       /*
-> +        * A commit of the log root tree moves log_transid on even when i=
-t
-> +        * gives up, so the log transaction we just joined can't be done.
-> +        */
-> +       if (unlikely(log_root_tree->log_transid_committed >=3D
-> +                    root_log_ctx.log_transid)) {
-> +               ASSERT(0, "log_transid_committed=3D%d log_transid=3D%d",
-> +                      log_root_tree->log_transid_committed,
-> +                      root_log_ctx.log_transid);
-
-Can we please stop using ASSERT() where we pass a false value and have
-code to handle the unexpected case?
-Some distros like SUSE ones enable assertions by default, so this is
-effectively the same as BUG_ON().
-
-As we have code to deal with this and avoid a crash, just use
-WARN_ON() in the if statements expression with btrfs_warn(), or the
-DEBUG_WARN() macro we have.
-Both will trigger a stack trace and make fstests report it if we ever
-hit it, while avoiding the unnecessary crash from the BUG() call done
-by ASSERT().
-
-Otherwise, it looks good.
-With that change:
 
 Reviewed-by: Filipe Manana <fdmanana@suse.com>
 
-Thanks.
+Looks good, thanks.
 
-
-
->                 blk_finish_plug(&plug);
->                 list_del_init(&root_log_ctx.list);
-> +               btrfs_wait_tree_log_extents(log, mark);
->                 mutex_unlock(&log_root_tree->log_mutex);
-> -               ret =3D root_log_ctx.log_ret;
-> +               ret =3D BTRFS_LOG_FORCE_COMMIT;
->                 trace_btrfs_sync_log_exit(trans, root, ctx, ret);
->                 goto out;
->         }
-> @@ -3575,6 +3584,13 @@ int btrfs_sync_log(struct btrfs_trans_handle *tran=
-s,
->         mutex_lock(&log_root_tree->log_mutex);
->         btrfs_remove_all_log_ctxs(log_root_tree, index2, ret);
+> ---
+>  fs/btrfs/extent-tree.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+> index 9b0a5c6b96f3..22155507f905 100644
+> --- a/fs/btrfs/extent-tree.c
+> +++ b/fs/btrfs/extent-tree.c
+> @@ -6641,6 +6641,14 @@ static int btrfs_trim_free_extents_throttle(struct=
+ btrfs_device *device,
+>         if (!test_bit(BTRFS_DEV_STATE_WRITEABLE, &device->dev_state) || !=
+device->bdev)
+>                 return 0;
 >
 > +       /*
-> +        * If the commit gave up, log_transid still names the log transac=
-tion
-> +        * we are retiring. Move it on, so that nobody joins a log transa=
-ction
-> +        * whose result has already been handed out.
+> +        * The target of a running device replace has nothing in its allo=
+c_state
+> +        * until the replace finishes, all of it would look unallocated a=
+nd we
+> +        * would discard what was already copied to it.
 > +        */
-> +       if (log_root_tree->log_transid =3D=3D root_log_ctx.log_transid)
-> +               log_root_tree->log_transid++;
->         log_root_tree->log_transid_committed++;
->         log_root_tree->log_commit[index2] =3D false;
->         mutex_unlock(&log_root_tree->log_mutex);
+> +       if (test_bit(BTRFS_DEV_STATE_REPLACE_TGT, &device->dev_state))
+> +               return 0;
+> +
+>         /* Discard not supported =3D nothing to do. */
+>         if (!bdev_max_discard_sectors(device->bdev))
+>                 return 0;
 >
 > --
 > 2.55.0
