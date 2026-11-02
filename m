@@ -1,81 +1,163 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616855;
-	b=f/z923/v+0gvv75oN/hn4a9cjrV+H9sQBeAX7yVAj/HtDIZLKWvS8JwvJP89tInpMLwH
-	 KlHGb2FnV2xiaGxRQSJRvuDqI2mxBwIcUHlUOSYbFSHCo68Yt3iryVSYiHokEiiEePv0F
-	 MwIcEu5VAAmVJlLxMjNLoVusExHxSEAlZ25F7jJXT98bGULv09egn0wk5xQUeMjAjuuAG
-	 J2QtMemZJ9Q8Ta4EOONoArST3nl4VckojRfHa6wgXFyg/wyqvj2eZ1MvuGqTlLvWvABpu
-	 4NkXPjQFqWRJzjiwqFPCkExiyfFCY4QiY8s9/afBlja3PPyjljp49+lYjVLvPjGFIrw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616855;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=QDgDwZRpPcgIl1VpXeHffTamZF8y2bE2/UZPlXLTFj8=;
-	b=P5H6i5qcvZyiDYkLrMMAch99ruLSa3vTN7eBg7AJi4ujUc7+P6wzR+oGXYfwnMrpMZoz
-	 Hwe+QOhkI3IiVCAp9Yf/9L6m98P48yUtMpAxAOzwX/pOQ/XwU8OJVbdCMIMtaoLIY7cVK
-	 JM2U2pK+NAxMmelHGexkL+W0aKKkDkqDaDahdQ2xJb17nH+FmrIaCF46q8NX2Usc9Jt0O
-	 tNDMzzRd+N62CECIxgX1mB8xbLvghfY6D/UdDO+9q9fuJeTrAq6qRLxkp98DSnvrCl2dh
-	 8x+L5x7WSU48UJAGr92Or9Gps0Zc/H164di9p8vAI0mIEHdS1BDUx4q05GCVnxvkCqA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rtGdzWjE;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.20.0
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793616962;
+	b=1tdwrtGuZKP3wvCsV36FYgxiJQ9gpNmGbX4TTt/Blxf/cWLkCgXexPpFqFyYNWjZ3bEK
+	 flIXSX5VZBpJDb69rCJFxTYa+6AvlYivSHRESmzUYzuTBLyULJk59+vJ8CL2Keq1Y2elM
+	 Nb/Cu6CHYRFqeIIGzXaNZEXfKHzNR7HWrTL/wsuV3dhSBO2NiRCDt3E1lTs5LhCAZt7sO
+	 NnDiqqzi08ohfyg7ZPPUnS3G0v6NXQ3hEzyrC8Y6TKB6MQ2jsy09R0tEPJyynCcUo/aWO
+	 /TVmyas9GVobW//JmY827/VDOWHYStps7UvAuQuQTo3sjM6Q80IwdkqobE19fmgRjkA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616962;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=aQSOwc9cmXcpesIfKcYslw8ZqvuuM8rC+Pn6bYZx388=;
+	b=pOz3uCpLfkmii7hIT1M1U5Ws+W21rt7/pjoDzpq11YekdrgWL/izEygFqA06FmVYDFYe
+	 LF8+/0POwSyjq2R4Rox0SB8CQVSGkkYTJS7SsP5Zn1axDaq5Z81IjPT8BmoflRFhbqyzk
+	 penNRtqwYXqMwNZDZrSqVLSk1yetph1Ugg85XTUJlFAGKYHjpU+96CDD9yobg5qR7mYsp
+	 9pGpwgQTk3+BfJtSIkH/b5+GQtYgeL4pEHPhLB7kTkRx8Vv4gNDDjcFy/J1bmwLihZm4D
+	 9LR/GM7ili+jdaIElS9kekNSIGQ1cQyYcZSh1VnyzNxLzCD0xPxGwHRDhLPx6nR/csQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=gQRXzRXr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.20.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazolkn19010000.outbound.protection.outlook.com [52.103.20.0])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50012606A32C;
-	Mon,  2 Nov 2026 10:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50012606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA630606A32F;
+	Mon,  2 Nov 2026 10:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA630606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rtGdzWjE
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29F2cO2432668;
-	Mon, 2 Nov 2026 10:53:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=QDgDwZ
-	RpPcgIl1VpXeHffTamZF8y2bE2/UZPlXLTFj8=; b=rtGdzWjErVSk4VnDqTHEAg
-	K5s0f2Bq3vejt8ZxfS5QhxZuCurrSqgdnQjyayCE4V77V2/0ll2M8MaYZdJBjBgb
-	/JwVTRjRqX1/97AdlISxxn6CrqvWJRN5fcemDUMA1kMOZyf9xFPfcP2/CcmAqyO1
-	9PbK8O+Cmzs7XsPiv735sTySqFewxXDE2bLctXSBn5baifnpSYb9lp4mT7MUVjmM
-	FSqhKYk4iZcik9WTqzsJGzwBLE3JiHn1TmK17DHKrM8MgZtfdpugF57qXH5t5L4f
-	RnnxFvGZVp+lGlYB70dVqjrwSidUtaJ0rMFvRV4qU88o372IPIoWZ1crm4xX49iQ
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rhg73w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 10:53:49 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29JxFB762308;
-	Mon, 2 Nov 2026 10:53:49 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnv5gnape-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 10:53:49 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2Arl0C29295296
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 10:53:48 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D903858060;
-	Mon,  2 Nov 2026 10:53:47 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 58C9258058;
-	Mon,  2 Nov 2026 10:53:42 +0000 (GMT)
-Received: from [9.43.102.230] (unknown [9.43.102.230])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 10:53:42 +0000 (GMT)
-Message-ID: <a9d9d5d1-35c0-45e4-afe7-58af3c5789fa@linux.ibm.com>
-Date: Mon, 2 Nov 2026 16:23:40 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=gQRXzRXr
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LTNLjow+uEAR3pE9DbTbrOKb69638octdmChJCIujdQige/0IpXSrZOvSDVRQr6xmJK/ve0MLOq44VttU54Of/j4rkaifZonxWQlGXRI0rhBDWBIkZ3jAtXa4pZRDWYQQFWOV2sMginsmO0EeEhRAYmtQSeTN42tSCmM9nPjRTQUk9UKeaQFI0WdX+cl22UJEPkvCDYFcqTkf/XN5CMv7tzZSLEOr1R/FjCf/m2QaoWWrasiOA63PCjCGq0LZo/0isWRPkGI/k+wqolA1XltwDmBmI/WGSrSjbQi9/Pamvd8/iDzL68MjctnplvSj428QPrKsoUx+9h5hlZWSfnWsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=aQSOwc9cmXcpesIfKcYslw8ZqvuuM8rC+Pn6bYZx388=;
+ b=GuD5kwwkuMhmATWNtD8NXbojtH5Dcufka65NnK+Uc6gPU8tu218INxKmAEl7NqPXxJuUPOQ7iJAjU8UaagezzBR7GrryXRVeEF7RTlsmXNBkxrH3LZj+ZqRHUuYYROquwVJp7G52e4ZtLyv1kCj6FcSiSgM9Q/SjuF/cltSXUG73lSeKvGcxzM0fnFXD+m8fAVzJy3hrx0ngzL8UCuA2EKXJbWLhPzZVK2MnyhBW5IqaohAn+UnPz71jfsu6DS0k0ypK6uTKIUZZ3xLYAIn8oQaN6G2n9Rs13WOU0/WKJdnz5UBWPqBs2Ne97w59s8Mt0TWwoKlvNShlhV8cjZQUtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aQSOwc9cmXcpesIfKcYslw8ZqvuuM8rC+Pn6bYZx388=;
+ b=gQRXzRXrm0ixR+0aWYTZvwkhDVaJHXYgJmCsBF+zIEcXSbcB3gqs9atonV0Ulipnsxjqs0yrTVINsxJhzH/JpEFW0Mh6At+ekXXaOlHKzq2mDFS7iV3az883Is3j388akMGQAon2MzqDicfT/Rra2f2rq8cYdRq+EHN/xAHdcdvtzsxyYVFzUIeiFa6UHr5j3PayuzbwpEIEBnc4CsAkmDpn5rdBjgSWzTMbRKxYiQnjAgl9zcOhd6mpePrHJaIV0aVsUwvNPnvB30GrtQsMtIjb64ahRvqV7A2/Rfof8dijoQdIGVGw7fRa7W061l0moAe7ZO8Q3avyN4K35HSwxQ==
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ (2603:10b6:806:39d::17) by PH8PR05MB999189.namprd05.prod.outlook.com
+ (2603:10b6:510:430::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 10:55:59 +0000
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 10:55:58 +0000
+From: Yingjie Wang <x-professor@outlook.com>
+To: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>
+CC: Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller"
+	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Alexei Starovoitov
+	<ast@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, Daniel Borkmann
+	<daniel@iogearbox.net>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"bpf@vger.kernel.org" <bpf@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: [PATCH net] tcp: free saved_syn after an RCU grace period
+Thread-Topic: [PATCH net] tcp: free saved_syn after an RCU grace period
+Thread-Index: AQHdari+bccwth3yzkqADfh5v5W7qA==
+Date: Mon, 2 Nov 2026 10:55:58 +0000
+Message-ID:
+ <34f32e63b803f9f7faf0b0a5754219e48a986136.1793616950.git.x-professor@outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|PH8PR05MB999189:EE_
+x-ms-office365-filtering-correlation-id: 9076a8ed-f090-40cd-e7de-08df38cfe0a5
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|25010399006|4140399003|19110799012|8062599012|12121999013|8060799015|38102599003|24121999003|15080799012|22091999003|5062599005|31061999003|51005399006|24021099003|12091999003|11031999003|40105399003|26121999007|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?YmdSWWROanZTSi9kOUgyVk1NbHZ5WjR4TmhBYk5JL0s5bFdTcnlxTVRIdFdt?=
+ =?utf-8?B?Y0JBeUZhbE5DRXhqZGl3MmIrQzlFQmJNdkRJVjMzY0w5YVpzZjhmTGYySUVv?=
+ =?utf-8?B?S2tDM2E5aGZybExBdzZ0eEl4RDRMdVVOdFVGbG9XdHh3NmhBNlAzd3BLd1hp?=
+ =?utf-8?B?ZnFRV3FVcWt1VEtzTzU3U29jaGJyOVlDSVF0TmlIK1lEeCtpZUp5SU1nUmVO?=
+ =?utf-8?B?OW5sa04ycFJocVBXaWo1VEVlM2FCQVgrb2NkaFRTZ1lYOFR0UEJRckpNb29r?=
+ =?utf-8?B?aWI2VjJQd2JybnlIZ0x1YitSdklXMGZlUkloUHI2SmxpUHIweXArRXFsOVJV?=
+ =?utf-8?B?cG45SDBIZ0NIZ1BzZk1yMEJyWnZ3U0tDc2d2SnRqYm4vbGc0cDF6UlR0Q2s1?=
+ =?utf-8?B?MTRoN3N0dkZoUkxtQzRCZnRRS3R3Ujk2RFlGTjhZNE9icEkyWmc4MGZxejRR?=
+ =?utf-8?B?bmFpTWpLR0lxOTE4VStLWjR3Mk56cHVMTzc3WEFjU0lhZktEU1NYMXZ6ZDZG?=
+ =?utf-8?B?SWRrN1Y5ZHlKd3R0bmo0TytwbG5jRU9aaFppdG5NUXE1dm5iZEJDNittNGp2?=
+ =?utf-8?B?Qld2V2FNc01NeTB2UG91N0x2SXVMb3RKWGpiMkppQWkvcVc1d2VjTkQrSVZL?=
+ =?utf-8?B?bVprVnJ3VXJEVDVmMlIrd0lWK1dEN3VKQ3ZaK3Vlbzdvd2Z3L29wNmZlRWNQ?=
+ =?utf-8?B?MXg3Si84R3hyNjZ4NlpWSHI1elNTNXRRR01YU0hQL2R0aVAxUDM5S0J3dmUv?=
+ =?utf-8?B?NTNZV1ZJcTlVZ09iajJweldWa1J2MitQdE8rVHRRWTBRbWxjMnZRSFh2YVVK?=
+ =?utf-8?B?Y1YyWDFodGl5L3FKK3J1blZTcUJDT0ZUSlhmUW5iMjgyMEtsOFFUUG5vRE1P?=
+ =?utf-8?B?M1BsVkhxbERzZ3hQUE5DYzlRRmo2ajhIaU5KMEVEcTl1N3NsY2ZxcmE2czF4?=
+ =?utf-8?B?dHJDQ0JiUHp3SENDNmFyaGpJNG0zL2dvRWswQ3Era1UyK2ZnaHJNK21lWE5B?=
+ =?utf-8?B?OWN2NGQzL1FnV0wzWENpaXdXdlkyL0pMVDJmT1R3cmNLMHVGOW0vdlVXSUd3?=
+ =?utf-8?B?SHBZdURidFlBL1orUVkvdGlhcklVTUpjbkJFYXVLR2gwUWVGVzhiOVVmT3Q5?=
+ =?utf-8?B?dFBIWE9lOUZXSnZnUXpFYmQ5UlFGMHI1Mk1JQlNDbG9jYk5lb0wxSGNvK0E4?=
+ =?utf-8?B?bEUwL0dMb3NJYmNoRU04SlJsVzk3anBGVE9WaUh1dDRvR0JWV1pOblc0ak5K?=
+ =?utf-8?B?YXpnWEIyN25UNG5FY0NzMXFMcVB1VlNQVHdxeWdhSHNvazNaVmw0WmNqb1U3?=
+ =?utf-8?B?aU16cFNES0Y1M1RTOWNuRk8zRG5vU3IzdUk2USszbmw4ZHdYb1dyQ0RUcmtv?=
+ =?utf-8?B?WFYxK2NlOE9FN0owczQwNGFjMEkyOHNMY2dpQWRnSXdXcFZQNmVJU0NjcURJ?=
+ =?utf-8?B?bEFhWFlXeklxWFV4NVlGR2lleFl3RCsyRDVmcXJwWUJjamMrV3UwOXdsWmQ5?=
+ =?utf-8?B?UkNpUjMwejlid2owenZhbUJFVS96Y2g3UWt3RnUyS0NHMmY2Q2NiZ2ZIazNT?=
+ =?utf-8?Q?E90FGWWbLtse+k1AlXov0k0yBcblnO0df6h/KENoIJ2MuV?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dXBMQ3cwYmthNlIvMVVad3BacjRvNXNwckhPamh1WFNraEtJZEwyLzFsTlln?=
+ =?utf-8?B?QjVOVkoxSVIvTGZVR0FTa1VOVlp2ZU9RR2hsbmQwNWVUQ2RscWlWRmtUanhX?=
+ =?utf-8?B?Vk9oMVV3bm43QnMvSEJ4c3hmY21KTWpIYWllUGc5UU5BNERJMU91L1NlNGFB?=
+ =?utf-8?B?MmZnYUVncjdTRzN0UXIzTTFvRlZ3cmFJQllzVTRJbG9LQnJacnRnU0JUYmFa?=
+ =?utf-8?B?c1VpS2l6OE95U3Bhcm5sZGVIOTBHVjd1c0k2SU5hT2pTakVJNURMUmgyR0wv?=
+ =?utf-8?B?dnVTNXpMZzJDSjlra2ZFRUg4WEJMS3IwR1RqQnZra05kR09lcUZNd2V6cEtq?=
+ =?utf-8?B?NDRuKy8vMlZiYllSSlUxZGd1RVUxR2pUTk1NdkkvVEVuRElNOFZqeUhuOEp4?=
+ =?utf-8?B?REdQZmxZcjFyeEJnUzdIQWVmT1ptQW1RdWdaYUNza3ZHa3dHWHN3bk9KK1FB?=
+ =?utf-8?B?WmRvTXU0RCsxSGdEenliZUlZT2d4aGllRHZFbStEQ3NQV1gycTIvdVBpU3F3?=
+ =?utf-8?B?b1VxaGRHUzk2V3diYzdsK2pTNVpXTnozOTVZT3hPOHA5VDkwano3Y3cyNW9G?=
+ =?utf-8?B?b0RCcmJvcjJMSHkwWGl0L25BTkNOVk50czg3clFVVXM4VlpYeVFyWlFFbDBo?=
+ =?utf-8?B?MHU0SVh5d1Bha3dtOHcycVdDeXoyM3Zvb3N3ZjVxR0VaTFdNU29OZDZyYlp4?=
+ =?utf-8?B?MGk5T3hIcFVnUytzNm9EOS9MZWZXVHZaQU9QakJadWl1cVNJVWgwUGNtc3RK?=
+ =?utf-8?B?SXZ0aG8ybG5YamZsNVNoWGd6NmcvN2dOZVV4anp2UGVVcnpTaWlYL0VsWHgr?=
+ =?utf-8?B?eDNnVUpKRHNHNi9sZE1iak9qVlR4eTNlQURILzJiREdZTGwzOSt1Q2FzY2pT?=
+ =?utf-8?B?TG14VzBIeVhIbERvNUMxVlJpUmtIaTdmUE1ZZHg1WEdFQ3Z5cHZEajNFUTRl?=
+ =?utf-8?B?ZU5BVU9tbXJ1aFhwVnBuWGdmMTZmS2ZlSWxyOUhJNU5FZUlkOTgxaUlnckti?=
+ =?utf-8?B?dTVURURaNGkwaHI3aDRocEZLenE2NWQ2cDFKbWFweEVqZVg3NEFwaHo5UGJG?=
+ =?utf-8?B?aFVFVUtUY1grMGswT2REaDU3aDlHS1NwSzl4Y3V3RENZdkFzcnpFazYvOXNH?=
+ =?utf-8?B?bnN6ZmZzVEhHcyswdnJzYTU5QmZBRm9XMHhKaUVvY0dlMGxVVTRLWlR0cVM5?=
+ =?utf-8?B?R202VHMrRStrazlodkFFTnV6SEt3cGc4SGcvTGtDRnhzQkl4aXpmNlNidURZ?=
+ =?utf-8?B?YVFKUitHMGRmaGdXZ3kvQWs4eUlEZUU1N012blRvdUpYeXByYlRrZWEzekV3?=
+ =?utf-8?B?bEUyT3lvR0FPSFp3MmdNZjU3amFzcHRkYWJKN1pHQ28rRGpsc1BaZzZhNmtx?=
+ =?utf-8?B?VnRyUGI4M2VCdTlsWWxXNW9UQ0toTlNSclFIYmdZMzdFWTJxUFJnWVBveUo5?=
+ =?utf-8?B?bTg4ODB3YVlDOVZ3aXdGVUFqNHlGSkNUZVByc2plclNyVzI5YnRxQ2RjaWh1?=
+ =?utf-8?B?YUdyN3lTM3VQYXRTZElHN0xOR0hrQzlwejFudmlvMVdFMm9kNlloMXhYdHp1?=
+ =?utf-8?B?UlVaUHJlcTA4aXRteTB1OXRLT2xzOVhUUEpZY2diak96T3lUVDh6OSt0dDJN?=
+ =?utf-8?B?RGlmWC9mRE5GK1FvbWtEQTh2VFpkQW15NUF5YWhEMzBPYU9zZUZaWkFkR3J6?=
+ =?utf-8?B?eU9lUFdUbWd2ZWFrZmVNOG44akdiQWtpTi9uYnJkbWplR0QrZ2lSdzhWVXBy?=
+ =?utf-8?B?VTdZeDcxazNrUVR4cUtoL01wN1A0STV4dVlQNm9pSllYT1dNZ21VbHdDYXJw?=
+ =?utf-8?B?THZtTEFnaEJCWklUbkhjVVZ5a2plNUZ3elh5bUI3OWRTRVdLamNVYjY1d3J3?=
+ =?utf-8?Q?Kw3eMmMBHyf8T?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,281 +167,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] powerpc: Restore all registers after a traced
- syscall again
-To: Michal Suchanek <msuchanek@suse.de>, linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, Kees Cook <kees@kernel.org>,
-        Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>,
-        "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
-        "Bernhard M. Wiedemann" <bwiedemann@suse.de>,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <961c058f3f3e03045552186c083a68a0fde3f43f.1791975972.git.msuchanek@suse.de>
-Content-Language: en-US
-From: samir <samir@linux.ibm.com>
-In-Reply-To: <961c058f3f3e03045552186c083a68a0fde3f43f.1791975972.git.msuchanek@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: iavYIBXUShm_Sxf5jcQ9QxUuIQlXkw5A
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfXzL6giz5W5ILH
- aP1knsrmRIQKiyJR1eWuuK6fMPL8WyCsVHL5Q9mWC1KAGggnCUcQlSZUGUO0LlVLTocGkCKgjia
- RtMkUDAk9EDsH8ekPs/e5Q1ASVWD9Qg=
-X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6ae86bbe cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
- a=49ibadiY4wVRzWEyoZAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=O8hF6Hzn-FEA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX8BoJQTwukymP
- NpqpnZ4FBkMQt47VlM+0u+lwBq0KC2VN+sPq9eeAaEp+pn2usHV2BoCBUQ8IrAzUPLyTeOe8d0f
- zdUGb+D7hEND5nIKd67S2Klbi9UK7fcZjbZI3oKg9aUyW517HXzuW3h93C9sT+mH9F73FKpCIv4
- TJ6S2TRMHF+zfEmQ6wNTGQ7fxV8AB/QAjm3cuR++KKHGqjt1wI9S9/nfLig06evvizxIf4ytFzW
- f/ADyl2lJowcPw/aQMDHzRHeitEH63baxkdpTLCWYNTEF1kbGZ1MprvTJfi07p2fDNCylXwm25+
- 0SEWINXR3GQodYFsBhIa7mCxP1szWu6sL5ftjyUKO6iohfuLvChzU0kL2LU5+/t+FrCe670KlAW
- u98/ZhADCxPNCRynJXFy0ylD73N6j4+vAfRW0q/sOEykVH//j+rR/9OFicOkGYJTbVR/843o1+u
- 0aRJ5Zsu4LobQezdQiw==
-X-Proofpoint-GUID: 0h9FKnfKeJqgqpYCyDdI2iSJrtbHlH1K
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
- priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020042
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9076a8ed-f090-40cd-e7de-08df38cfe0a5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 10:55:58.8158
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR05MB999189
 
-Hi Michal,
-
-On 14/10/26 4:36 pm, Michal Suchanek wrote:
-> From: Bernhard M. Wiedemann <bwiedemann@suse.de>
->
-> syscall_exit_prepare() asks the exit assembly to reload all GPRs, CTR
-> and XER from pt_regs only if the thread flags contain any of the flags
-> in _TIF_SYSCALL_DOTRACE. With the new entry code based GENERIC_ENTRY the
-> flags are no longer set.
->
-> This breaks tracers that modify a stopped syscall, for example ones that
-> re-execute the syscall instruction by moving the NIP back by 4 at the
-> syscall-exit stop with the syscall number put back into r0: the sc then
-> runs with r0 = 0, which is __NR_restart_syscall. dettrace fails like
-> this with "No filter rule for system call: restart_syscall". A tracer
-> that writes r4 at the syscall-exit stop of an sc sees the tracee
-> continue with r4 = 0 instead; with a 7.1 kernel both work.
->
-> Check the equivalent syscall_work bits instead, and drop the now unused
-> _TIF_SYSCALL_DOTRACE.
->
-> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> Cc: stable@vger.kernel.org # 7.2.x: c7585b8e99ad: powerpc: Don't drop _TIF_RESTOREALL on syscall restart
-> Cc: stable@vger.kernel.org # 7.2.x
-> Assisted-by: LLM
-> Signed-off-by: Bernhard M. Wiedemann <bwiedemann@suse.de>
-> [ms: reword commit message]
-> Signed-off-by: Michal Suchánek <msuchanek@suse.de>
-> ---
-> A backport also needs commit c7585b8e99ad ("powerpc: Don't drop
-> _TIF_RESTOREALL on syscall restart"), without which the flag can still
-> be lost.
->
-> v2: rename PPC_SYSCALL_WORK_RESTOREALL to SYSCALL_WORK_RESTOREALL and
-> move it from interrupt.c to thread_info.h
->
-> v1: https://lore.kernel.org/linuxppc-dev/4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de/
->
-> Testing: a small tracer (pokes r4 at the syscall-exit stop of an sc,
-> and replays a syscall by moving NIP back with a new r0) shows both
-> writes lost on a ppc64le and both working on 7.1.8.
-> ------------[ cut here ]------------
-> // SPDX-License-Identifier: GPL-2.0
-> /*
->   * Does a register a tracer writes at the syscall-exit stop of an "sc"
->   * reach the tracee? Checks r4, and a replay: NIP moved back onto the sc
->   * with r0 set to another syscall number.
->   * Build: gcc -O2 -o ppc-exitregs ppc-exitregs.c (powerpc64 only)
->   */
->
-> /* word offsets in struct pt_regs, arch/powerpc/include/uapi/asm/ptrace.h */
->
-> static long do_sc(long nr, long *r4io)
-> {
-> 	register long r0 __asm__("r0") = nr;
-> 	register long r3 __asm__("r3") = 0;
-> 	register long r4 __asm__("r4") = *r4io;
->
-> 	__asm__ volatile("sc"
-> 			 : "+r"(r0), "+r"(r3), "+r"(r4)
-> 			 :
-> 			 : "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12",
-> 			   "cr0", "ctr", "xer", "memory");
-> 	*r4io = r4;
-> 	return r3;
-> }
->
-> static long peek(pid_t pid, int w)
-> {
-> 	errno = 0;
-> 	long v = ptrace(PTRACE_PEEKUSER, pid, (void *)(w * sizeof(long)), 0);
-> 	if (errno) {
-> 		perror("PEEKUSER");
-> 		exit(2);
-> 	}
-> 	return v;
-> }
->
-> static void poke(pid_t pid, int w, long v)
-> {
-> 	if (ptrace(PTRACE_POKEUSER, pid, (void *)(w * sizeof(long)), (void *)v)) {
-> 		perror("POKEUSER");
-> 		exit(2);
-> 	}
-> }
->
-> /* Resume to the next syscall stop, which must be one. */
-> static void next_stop(pid_t pid)
-> {
-> 	int st;
->
-> 	ptrace(PTRACE_SYSCALL, pid, 0, 0);
-> 	if (waitpid(pid, &st, 0) != pid || !WIFSTOPPED(st) ||
-> 	    WSTOPSIG(st) != (SIGTRAP | 0x80)) {
-> 		fprintf(stderr, "unexpected wait status %#x\n", st);
-> 		exit(2);
-> 	}
-> }
->
-> int main(void)
-> {
-> 	pid_t pid = fork();
-> 	int st, fail = 0;
->
-> 	if (pid == 0) {
-> 		long r4 = 0x1111, r4a, ret;
->
-> 		ptrace(PTRACE_TRACEME, 0, 0, 0);
-> 		raise(SIGSTOP);
-> 		do_sc(__NR_getpid, &r4);
-> 		r4a = r4;
-> 		ret = do_sc(__NR_getpid, &r4);
-> 		/* bit 0: the tracer's r4 was lost; bit 1: the replay of
-> 		 * the second getpid as getppid returned something else */
-> 		_exit((r4a != 0x2222) | (ret != getppid()) << 1);
-> 	}
->
-> 	waitpid(pid, &st, 0);
-> 	ptrace(PTRACE_SETOPTIONS, pid, 0, (void *)PTRACE_O_TRACESYSGOOD);
->
-> 	/* 1: write r4 at the exit stop of getpid */
-> 	next_stop(pid);				/* entry */
-> 	next_stop(pid);				/* exit */
-> 	poke(pid, W_R4, 0x2222);
-> 	next_stop(pid);				/* entry of the second getpid */
->
-> 	/* 2: replay the second getpid as getppid */
-> 	next_stop(pid);				/* exit */
-> 	poke(pid, W_NIP, peek(pid, W_NIP) - 4);
-> 	poke(pid, W_R0, __NR_getppid);
-> 	next_stop(pid);				/* entry of the replay */
-> 	long nr = peek(pid, W_R0);
-> 	printf("replayed syscall arrives as nr %ld (%s)\n", nr,
-> 	       nr == __NR_getppid ? "getppid, OK" :
-> 	       nr == __NR_restart_syscall ? "restart_syscall, BUG" : "?");
-> 	if (nr != __NR_getppid) {
-> 		fail = 1;
-> 		poke(pid, W_R0, __NR_getppid);	/* entry writes do work */
-> 	}
-> 	next_stop(pid);				/* exit */
-> 	ptrace(PTRACE_CONT, pid, 0, 0);
-> 	waitpid(pid, &st, 0);
-> 	if (!WIFEXITED(st)) {
-> 		printf("child did not exit normally: %#x\n", st);
-> 		return 2;
-> 	}
-> 	printf("r4 written at the exit stop: %s\n",
-> 	       WEXITSTATUS(st) & 1 ? "lost, BUG" : "kept, OK");
-> 	printf("replay result: %s\n",
-> 	       WEXITSTATUS(st) & 2 ? "wrong" : "getppid(), OK");
-> 	return fail || WEXITSTATUS(st);
-> }
-> ---
->   arch/powerpc/include/asm/thread_info.h | 15 ++++++++++++---
->   arch/powerpc/kernel/interrupt.c        |  3 +--
->   2 files changed, 13 insertions(+), 5 deletions(-)
->
-> diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-> index 1e069a2e7ce87..31a7a157bc902 100644
-> --- a/arch/powerpc/include/asm/thread_info.h
-> +++ b/arch/powerpc/include/asm/thread_info.h
-> @@ -142,9 +142,6 @@ void arch_setup_new_exec(void);
->   #define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
->   #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
->   #define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
-> -#define _TIF_SYSCALL_DOTRACE	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
-> -				 _TIF_SECCOMP | _TIF_SYSCALL_TRACEPOINT | \
-> -				 _TIF_SYSCALL_EMU)
->   
->   #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
->   				 _TIF_NEED_RESCHED_LAZY | _TIF_NOTIFY_RESUME | \
-> @@ -153,6 +150,18 @@ void arch_setup_new_exec(void);
->   
->   #define _TIF_PERSYSCALL_MASK	(_TIF_RESTOREALL|_TIF_NOERROR)
->   
-> +/*
-> + * Syscall work after which the exit must reload all registers from
-> + * pt_regs: a tracer may have changed any of them at a syscall or seccomp
-> + * stop, or under PTRACE_SYSEMU. Audit and the tracepoint are included to
-> + * keep the pre-GENERIC_ENTRY behaviour.
-> + */
-> +#define SYSCALL_WORK_RESTOREALL (SYSCALL_WORK_SECCOMP |			\
-> +				 SYSCALL_WORK_SYSCALL_TRACEPOINT |	\
-> +				 SYSCALL_WORK_SYSCALL_TRACE |		\
-> +				 SYSCALL_WORK_SYSCALL_EMU |		\
-> +				 SYSCALL_WORK_SYSCALL_AUDIT)
-> +
->   /* Bits in local_flags */
->   /* Don't move TLF_NAPPING without adjusting the code in entry_32.S */
->   #define TLF_NAPPING		0	/* idle thread enabled NAP mode */
-> diff --git a/arch/powerpc/kernel/interrupt.c b/arch/powerpc/kernel/interrupt.c
-> index 55f9c0c9922ac..d6a7b6d2b4bd2 100644
-> --- a/arch/powerpc/kernel/interrupt.c
-> +++ b/arch/powerpc/kernel/interrupt.c
-> @@ -117,9 +117,8 @@ notrace unsigned long syscall_exit_prepare(unsigned long r3,
->   		regs->gpr[3] = r3;
->   	}
->   
-> -	if (unlikely(ti_flags & _TIF_SYSCALL_DOTRACE)) {
-> +	if (unlikely(READ_ONCE(current_thread_info()->syscall_work) & SYSCALL_WORK_RESTOREALL))
->   		ret |= _TIF_RESTOREALL;
-> -	}
->   
->   	syscall_exit_to_user_mode(regs);
->   
-
-I have verified these patches along with the following patch on a 
-ppc64le system and observed no issues during testing.
-Patch: 
-https://lore.kernel.org/lkml/20261023180735.853655-1-renzo@cs.unibo.it/
-
-Test Environment:
-Architecture: ppc64le
-CPU: 10 cores (80 logical CPUs)
-LPAR Mode: Dedicated
-Memory: 100 GB
-
-
-As part of the verification, I ran the LTP syscall tests and Linux 
-kernel selftests, particularly the ptrace and seccomp tests.
-Tests passed successfully, and no kernel call traces or system crashes 
-were observed during testing.
-
-Thanks,
-Samir
+dGNwX3JlcXNrX3JlY29yZF9zeW4oKSBhbGxvY2F0ZXMgc2F2ZWRfc3luIHNlcGFyYXRlbHkgZnJv
+bSBpdHMgcmVxdWVzdApzb2NrZXQuICBicGZfc29ja19vcHNfZ2V0X3N5bigpIGNhbiBsb2FkIHRo
+YXQgcG9pbnRlciB3aGlsZSBwcm9jZXNzaW5nIGEKcmV0cmFuc21pdHRlZCBTWU4gdW5kZXIgUkNV
+LgoKVGhlcmUgYXJlIHR3byBvd25lcnNoaXAgdHJhbnNmZXJzIHdoaWNoIGNhbiBsZXQgYW5vdGhl
+ciBDUFUgcmVjbGFpbSB0aGUKYWxsb2NhdGlvbiB3aGlsZSBzdWNoIGEgcmVhZGVyIGlzIHN0aWxs
+IHVzaW5nIGl0LgoKRmlyc3QsIHRjcF9tb3ZlX3N5bigpIHRyYW5zZmVycyByZXEtPnNhdmVkX3N5
+biB0byBhIG5ld2x5IGNyZWF0ZWQgY2hpbGQKc29ja2V0LiAgVGhlIGNoaWxkIGNhbiBiZSBjbG9z
+ZWQgYW5kIHRjcF9zYXZlZF9zeW5fZnJlZSgpIGNhbiByZWNsYWltIHRoZQphbGxvY2F0aW9uIGJl
+Zm9yZSBhIHJlYWRlciBvZiB0aGUgb2xkIHJlcXVlc3QgZmluaXNoZXMuCgpTZWNvbmQsIGluZXRf
+cmVxc2tfY2xvbmUoKSBzaGFsbG93LWNvcGllcyByZXF1ZXN0X3NvY2sgZHVyaW5nIHJlcXVlc3QK
+bWlncmF0aW9uLiAgVGhlIG1pZ3JhdGVkIGNsb25lIGJlY29tZXMgdGhlIG93bmVyIGFmdGVyCnJl
+cXNrX21pZ3JhdGVfcmVzZXQoKSBjbGVhcnMgdGhlIG9sZCByZXF1ZXN0J3MgcG9pbnRlciwgYnV0
+IGEgcmVhZGVyIHdoaWNoCmFscmVhZHkgbG9hZGVkIHRoZSBwb2ludGVyIGZyb20gdGhlIG9sZCBy
+ZXF1ZXN0IGNhbiBzdGlsbCBiZSB1c2luZyBpdCB3aGVuCnRoZSBjbG9uZSBpcyByZWxlYXNlZC4K
+CkJvdGggcmVxdWVzdCBhbmQgZnVsbCBUQ1Agc29ja2V0cyBjdXJyZW50bHkgZnJlZSBzYXZlZF9z
+eW4gd2l0aCBwbGFpbgprZnJlZSgpLiAgRW1iZWQgYW4gcmN1X2hlYWQgaW4gc3RydWN0IHNhdmVk
+X3N5biBhbmQgdXNlIGtmcmVlX3JjdSgpIGZvcgpib3RoIHRlYXJkb3duIHBhdGhzLiAgVGhpcyBm
+b2xsb3dzIGNvbW1pdCBlM2YzM2IwYTFkODkgKCJpcHY0OiBmcmVlCmluZXRfb3B0IGFuZCBpcmVx
+X29wdCBhZnRlciBhbiBSQ1UgZ3JhY2UgcGVyaW9kIiksIHdoaWNoIGZpeGVkIHRoZSBzYW1lCm93
+bmVyc2hpcC10cmFuc2ZlciBwYXR0ZXJuIGZvciBJUHY0IG9wdGlvbnMuCgpUaGUgaXNzdWUgd2Fz
+IGNvbmZpcm1lZCB3aXRoIEtBU0FOIG9uIHY3LjMtMTYwMDctZzM2YWFkMjFkNTBkMSB1c2luZwp0
+ZW1wb3Jhcnkga2VybmVsIGluc3RydW1lbnRhdGlvbiB0byB3aWRlbiB0aGUgcmVhZGVyIGFuZCBy
+ZXF1ZXN0LW1pZ3JhdGlvbgp3aW5kb3cuICBLQVNBTiByZXBvcnRlZCBhIHNsYWItdXNlLWFmdGVy
+LWZyZWUgcmVhZCBpbgpicGZfc29ja19vcHNfZ2V0X3N5bigpLCB3aXRoIHRoZSBhbGxvY2F0aW9u
+IGZyZWVkIGJ5IF9fcmVxc2tfZnJlZSgpIGZyb20KcmVxc2tfdGltZXJfaGFuZGxlcigpLiAgVGhl
+IHNhbWUgZXhwbGljaXQgbWlncmF0aW9uIHRlc3QgY29tcGxldGVkIHdpdGhvdXQKYSByZXBvcnQg
+d2l0aCB0aGlzIGNoYW5nZS4gIEEgcGF0Y2hlZCBrZXJuZWwgd2l0aG91dCB0aGUgZGVsYXkKaW5z
+dHJ1bWVudGF0aW9uIGFsc28gY29tcGxldGVkIGEgc3VjY2Vzc2Z1bCBtaWdyYXRpb24gYW5kIHNl
+dmVuIHNhdmVkLVNZTgpyZWFkcyB3aXRob3V0IGEgS0FTQU4gcmVwb3J0LgoKRnVsbCBhbGxtb2Rj
+b25maWcgYW5kIGFsbHllc2NvbmZpZyBidWlsZHMgY29tcGxldGVkIHdpdGggVz0xLiAgRXhpc3Rp
+bmcKd2FybmluZ3Mgb3V0c2lkZSB0aGUgbW9kaWZpZWQgZmlsZXMgd2VyZSBtYWRlIG5vbi1mYXRh
+bCB3aXRoCktDRkxBR1M9LVduby1lcnJvcjsgdGhlIG1vZGlmaWVkIGZpbGVzIGVtaXR0ZWQgbm9u
+ZS4KCkZpeGVzOiAwODEzYTg0MTU2NmYgKCJicGY6IHRjcDogQWxsb3cgYnBmIHByb2cgdG8gd3Jp
+dGUgYW5kIHBhcnNlIFRDUCBoZWFkZXIgb3B0aW9uIikKRml4ZXM6IGM5MDVkZWU2MjIzMiAoInRj
+cDogTWlncmF0ZSBUQ1BfTkVXX1NZTl9SRUNWIHJlcXVlc3RzIGF0IHJldHJhbnNtaXR0aW5nIFNZ
+TitBQ0tzLiIpCkNjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IFlpbmdq
+aWUgV2FuZyA8eC1wcm9mZXNzb3JAb3V0bG9vay5jb20+Ci0tLQogaW5jbHVkZS9saW51eC90Y3Au
+aCAgICAgICAgICAgICB8IDIgKy0KIGluY2x1ZGUvbmV0L3JlcXVlc3Rfc29jay5oICAgICAgfCAy
+ICsrCiBuZXQvaXB2NC9pbmV0X2Nvbm5lY3Rpb25fc29jay5jIHwgMiArLQogMyBmaWxlcyBjaGFu
+Z2VkLCA0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvaW5jbHVk
+ZS9saW51eC90Y3AuaCBiL2luY2x1ZGUvbGludXgvdGNwLmgKaW5kZXggZDE4ZjdiYzFlNWQwLi5k
+ZDNiMDk3ZGFhYzkgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbGludXgvdGNwLmgKKysrIGIvaW5jbHVk
+ZS9saW51eC90Y3AuaApAQCAtNjI0LDcgKzYyNCw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCB0Y3Bf
+bW92ZV9zeW4oc3RydWN0IHRjcF9zb2NrICp0cCwKIAogc3RhdGljIGlubGluZSB2b2lkIHRjcF9z
+YXZlZF9zeW5fZnJlZShzdHJ1Y3QgdGNwX3NvY2sgKnRwKQogewotCWtmcmVlKHRwLT5zYXZlZF9z
+eW4pOworCWtmcmVlX3JjdSh0cC0+c2F2ZWRfc3luLCByY3UpOwogCXRwLT5zYXZlZF9zeW4gPSBO
+VUxMOwogfQogCmRpZmYgLS1naXQgYS9pbmNsdWRlL25ldC9yZXF1ZXN0X3NvY2suaCBiL2luY2x1
+ZGUvbmV0L3JlcXVlc3Rfc29jay5oCmluZGV4IDVhOWM4MjZhNzA5Mi4uYjZjY2ZjMzExNDdkIDEw
+MDY0NAotLS0gYS9pbmNsdWRlL25ldC9yZXF1ZXN0X3NvY2suaAorKysgYi9pbmNsdWRlL25ldC9y
+ZXF1ZXN0X3NvY2suaApAQCAtMTYsNiArMTYsNyBAQAogI2luY2x1ZGUgPGxpbnV4L3R5cGVzLmg+
+CiAjaW5jbHVkZSA8bGludXgvYnVnLmg+CiAjaW5jbHVkZSA8bGludXgvcmVmY291bnQuaD4KKyNp
+bmNsdWRlIDxsaW51eC9yY3VwZGF0ZS5oPgogCiAjaW5jbHVkZSA8bmV0L3NvY2suaD4KICNpbmNs
+dWRlIDxuZXQvcnN0cmVhc29uLmg+CkBAIC0zOSw2ICs0MCw3IEBAIHN0cnVjdCByZXF1ZXN0X3Nv
+Y2tfb3BzIHsKIH07CiAKIHN0cnVjdCBzYXZlZF9zeW4geworCXN0cnVjdCByY3VfaGVhZCByY3U7
+CiAJdTMyIG1hY19oZHJsZW47CiAJdTMyIG5ldHdvcmtfaGRybGVuOwogCXUzMiB0Y3BfaGRybGVu
+OwpkaWZmIC0tZ2l0IGEvbmV0L2lwdjQvaW5ldF9jb25uZWN0aW9uX3NvY2suYyBiL25ldC9pcHY0
+L2luZXRfY29ubmVjdGlvbl9zb2NrLmMKaW5kZXggOTNiMzA2ZDkxYjZkLi5hMjYyMmVjY2FmZjEg
+MTAwNjQ0Ci0tLSBhL25ldC9pcHY0L2luZXRfY29ubmVjdGlvbl9zb2NrLmMKKysrIGIvbmV0L2lw
+djQvaW5ldF9jb25uZWN0aW9uX3NvY2suYwpAQCAtOTA4LDcgKzkwOCw3IEBAIHZvaWQgX19yZXFz
+a19mcmVlKHN0cnVjdCByZXF1ZXN0X3NvY2sgKnJlcSkKIAlyZXEtPnJza19vcHMtPmRlc3RydWN0
+b3IocmVxKTsKIAlpZiAocmVxLT5yc2tfbGlzdGVuZXIpCiAJCXNvY2tfcHV0KHJlcS0+cnNrX2xp
+c3RlbmVyKTsKLQlrZnJlZShyZXEtPnNhdmVkX3N5bik7CisJa2ZyZWVfcmN1KHJlcS0+c2F2ZWRf
+c3luLCByY3UpOwogCWttZW1fY2FjaGVfZnJlZShyZXEtPnJza19vcHMtPnNsYWIsIHJlcSk7CiB9
+CiAKCmJhc2UtY29tbWl0OiA5MDI0MDdiYzU4ODU3NWFmMGNlYWU1ZGU0ZjYzNWZlMWUwMjRmMjU4
+Ci0tIAoyLjQzLjAKCg==
