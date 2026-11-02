@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627315;
-	b=akcwoUQ0LySeCHo0E0StcX4J4evV7k9BaUFtIyCUAcAPkDkdq/KtNjjNZwphdnCclYID
-	 FdBAzXNMkrJ/Vdm18nPjtZFCKqOkNdcrnd/OGCdrcpWIivU/O9Rvo4mMoe6vaP873BpXk
-	 QnVckctwn/7rgeFlp21RWSht6otqWMZp7QVmSpbHAu5JYoxKfUcErfmrS5xaX+i1M4eLb
-	 /RYwTN0050aUalsi4OGOdDjaLmaJ+t6zyW0u5GBKhw/5bp5ZrrsDi03ruBxxaSGh44S1D
-	 R8f9k6yDmk9JLHNPr38xr00XIrNPBiTBNxF2k8jykNhAA0N8aZ35eidT7FMeUzlXSKQ==
+	t=1793627385;
+	b=YxUZo0wGjrFuEJSQm4T6o0HH2UfXw/u3C5mPPxvhoyD4CyordtJfkQoJf0w1TM3DGHFO
+	 wnEon/XTOBySQqK0CJznbW6KAWvfAhsgWQJvyHwLOu8F+p/CIAxSIalomGTrQK8tn2KWt
+	 17l+ZvVZ31FBGgsCDfpscEEuBunUARubxYjOmgPm+O2uDQHBJpVTwI1kcpKgnW299QPIV
+	 9xodDAiDGL+1NWFbq30a2/BKl6ZgS6stFP9X5+xiWsrwn+VWU0OGIoOnP3F5HyKO9dBlg
+	 Px2LUOEnmrKhjBoI/OV4GxEaiaolnW6GLRK4UYAPi+RSfhKzg/rAnqjL3QB/Us7uJ9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627315;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ba3OC82NN/lvsRG6i9lb5qxN6JoglqcW6uXN9iH7vuE=;
-	b=4p+RqDPqYpS2r/L4wdLxc7O+aUGDY8orGRTCxkaRwTNf55ej08MVhxifdXF6IEEFDUZE
-	 DsnydxuPlzHtxhQSfosr+vI54TjrST/fvlKNRCAfg8qIPICaaJPtyEXti4xRsxIubOo2B
-	 tgMV5eGaXLN6tDO19xDbDiTZ4NDjL6jmthzDV0XGcK/OIuOEA/2gIe5aObPPniO7MB8uq
-	 bUDc2l/Y84rNQBcwinQojaA8MeQBaAxzfny8Z2VyJEc8I4NptXd3tbiRUKE7IuC7NXbN0
-	 /jTYntndV/qQYuDfWiwXFkFyQMd1wlTEzGrOhtw/sCRA/Le8biI2XYAswKAZ4nNqV7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627385;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=6cvgVMoPYt/reZdqbQhO6yAzIHruJWWmPF0VYpvrEII=;
+	b=TnrGjOI4QMSuid7l7n4wtCsl0DUeh7ShiLE6touk1YGAI0WOdAR5w/hYm72GmU2CWKe/
+	 zaTD1ZWdsTNuIdVYp3Q5hMT3LeK/6u9wnGN14v7XyatAaM/sjmWG+s0svTf1pqplHGR2Q
+	 lMr3B9Caa2ckwqbHZM8gshlQW8HcEaIb8yVElOT2fuARROFgEuBarhML0lJ1VmP4jhLrE
+	 9CjFEvY9O5dhT7BabRs2fh+AkmkCd706To/uhThnHozbYcFq4zwbvpOjOFgjR8hq0LKAM
+	 QITaxaYRiP4I2KaqOjWMFyy9CsbuPx+893HRbjzf+O2gwOJ4nnDX9A9yYThfqd0UcQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DimkgNb5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D9E5C606A326;
-	Mon,  2 Nov 2026 13:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DimkgNb5
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E108B1F00A16;
-	Mon,  2 Nov 2026 13:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793627314;
-	bh=Ba3OC82NN/lvsRG6i9lb5qxN6JoglqcW6uXN9iH7vuE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DimkgNb5p10enBsmXQ2DwlFYqqwGoRFkvZrk66VAtcC1UVqP/I9qluGDdTwZUVNNS
-	 NxN5lA6BT820y0pLWtbn4XeiYSxEHXdit8g6ncWdNY7gr1GWcK5TVwSgnjjrOc+bbe
-	 ny6N8D4GxcB8Pf6rTD7sYFPAX5M4uio6DkduyaXpecif0rtNQcimCeJmffVInEDFtK
-	 w9BRsG+o6Dqi1HDqmyuUzLntUi/UUlKSq/B1iiL9Hf1dUccRvcP1R0plUUE0vFtuZq
-	 miAUSTnvGNO96IvoZ0uIqTWTotKW92SpA9EMzRR71SXkZ3APc39X8lwqk/gfUF+Mz+
-	 ZCXsXiLpMcwAA==
-Date: Mon, 2 Nov 2026 14:48:27 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	driver-core@lists.linux.dev, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH 1/2] driver core: platform: fix sw node use-after-free on
- device release
-Message-ID: <2qx3dvudu7vjotw7t5isaf3sm2becvgqmuu47pwqbrgyfxjvhi@2zybktm7pmp2>
-References: <20261102111420.1330760-1-johan@kernel.org>
- <20261102111420.1330760-2-johan@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EB4606A326;
+	Mon,  2 Nov 2026 13:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79EB4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJCkG698hz8XrrM;
+	Mon, 02 Nov 2026 21:49:42 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 6A2DnWDW052816;
+	Mon, 2 Nov 2026 21:49:32 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 2 Nov 2026 21:49:34 +0800 (CST)
+X-Zmail-TransId: 2afc6ae894ee124-0ff25
+X-Mailer: Zmail v1.0
+Message-ID: <20261102214934411GPsnXXiPDuCvO4pgPeTgU@zte.com.cn>
+In-Reply-To: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
+References: 20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn
+Date: Mon, 2 Nov 2026 21:49:34 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,29 +58,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102111420.1330760-2-johan@kernel.org>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
+Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDIvNV0gdWJpZnM6IHJlamVjdCB4YXR0ciBpbm9kZXMgd2hvc2Ugc2l6ZSBkb2VzIG5vdCBtYXRjaCB0aGUgdmFsdWU=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A2DnWDW052816
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 02 Nov 2026 21:49:42 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE894F6.000/4jJCkG698hz8XrrM
 
-On Mon, Nov 02, 2026 at 12:14:19PM +0100, Johan Hovold wrote:
-> When a device has a software node, device_remove_software_node() may
-> drop the last reference and free it during platform_device_release().
-> And if the software node is the primary node then the device fwnode
-> pointer is currently never cleared.
-> 
-> Use a temporary variable to track whether the primary node is a software
-> node to avoid a use-after-free in is_software_node() and having
-> fwnode_handle_put() call a function pointer via poisoned or reallocated
-> memory when the primary node is a software node.
-> 
-> This issue was flagged by Sashiko when reviewing a related fix.
-> 
-> Fixes: 7d80509ff0da ("driver core: platform: unify release path")
-> Closes: https://sashiko.dev/#/bug/linux-b860000b-f1d0-46a0-ab52-d47cec8eab99
-> Cc: stable@vger.kernel.org	# 7.3
-> Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
+An extended attribute inode stores the value in the inode node and
+UBIFS keeps inode->i_size equal to ubifs_inode->data_len (see
+create_xattr() and change_xattr()).  validate_inode() does not check
+this for inodes that carry UBIFS_XATTR_FL, so an image with a mismatch
+is accepted.  ubifs_xattr_get() and remove_xattr() then trip their
+ubifs_assert() on the invariant; with the assert=read-only or
+assert=panic mount option a plain getxattr() or removexattr() turns the
+file system read-only or panics the kernel.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reject such inodes at iget time.
+
+Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+index 38972786817e..9f608c10b39e 100644
+--- a/fs/ubifs/super.c
++++ b/fs/ubifs/super.c
+@@ -91,6 +91,18 @@ static int validate_inode(struct ubifs_info *c, const struct inode *inode)
+ 	if (ui->xattr && !S_ISREG(inode->i_mode))
+ 		return 5;
+ 
++	/*
++	 * Extended attribute inodes keep the value in the inode node and
++	 * maintain i_size == data_len everywhere (see create_xattr() and
++	 * change_xattr()).
++	 */
++	if (ui->xattr && inode->i_size != ui->data_len) {
++		ubifs_err(c, "xattr inode %llu has size %lld, but %d bytes of data",
++			  inode->i_ino, (long long)inode->i_size,
++			  ui->data_len);
++		return 6;
++	}
++
+ 	if (!ubifs_compr_present(c, ui->compr_type)) {
+ 		ubifs_warn(c, "inode %llu uses '%s' compression, but it was not compiled in",
+ 			   inode->i_ino, ubifs_compr_name(c, ui->compr_type));
