@@ -1,57 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634991;
-	b=x+N35isOe0p3zogQ+4kMEWaIRQktx5o2+yMCXihXyMyESqJP3A05r8jVrugdV3opu5fg
-	 LHXbZN64KZYMLRDw+QaVOX7m3vi92SnkY+Zrjb9WqNDLpaug1p2pl3VgnA87tJlML14Fl
-	 aST03Mk8JhicEd4tcFge+TX13iEp5pLD89LRN6r3UtxxvO9tDwjQ3TxdMC8XVR1gDzSqc
-	 UtHarVg4RTlWf7v47792ym3B1xmNT9tgqFQGyKhVsCRe6tz6HnKqNDPzq8X+684m58iSB
-	 gO+4SfJQb02LFMIiss6bDl8Mc32ZmuRNJJ4Ws0xulIu8P1plo7m7fvfrxmbpsdr/SGg==
+	t=1793634994;
+	b=Gpmwh/9z8XcjbYXgvK11tgPYnkdFS9QyUO2Ozg6C+5KrwMng7WoQcgu0AsbFvC1Omk+W
+	 lHtTCbSfuvzqCKYbF4ZqfcxriiFWkfqDZKA+MnX5rPgBSqIXwKcPxbt41YHStKYGbpVgA
+	 oqqx4bV2UDR6holMTBXclQmBaY5ycmHD9aRuJsWiawUKSdDVgE8bI4g0bKCsUy3/wNXz5
+	 9lkoiaV6goc2ZtJYOzNddwRS8E5InCGH05EQ68FayZlccSmfgrDGm6Qpizmj1U9Zp6d/N
+	 ZcIkK40LYASGDVnefqrKG4EQUhxm3VGP7oR2p58nnYBYE703lzpE5MCQGEnBjYqJbEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634991;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=iw0A/6qXyey37hvqhs6dNwEmzIY1VT/a5QdELgvzmDg=;
-	b=tD1mxxK+frvFjMLKdV3OA/Vglnl0JXERrHUTyR6zusID0Afm4LpN8C38SZQ688pRXQUT
-	 94cjtezF1xibNOgNzeWdJ2SMSO5iwSieOJmHZLSdWeD6OPLg2mA1IoVPmA16Vn4g33efy
-	 /ofCtoeKbpV5r7t0bNRg9HqT1xkBhW9WC+JynVXZK5woVAepSkO0yRBrOGNiYa3nK1SJ+
-	 xr7RQy9QiKAkw1sHMbjn5+qGAf6HqtrvUYpVA6rqg4yAItlfX0GNIuk2L9YNL4AZj8/KQ
-	 8cQ/vIEmthShAYTWGx3OXoK2yR5MHIolaa+XIG0HfPGCtx0cvjh0/aw83PTuPsnE06Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634994;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=rIIz/gtfC2Y+ir/ymx8Qwz0qEnZD5kOfLUgExDZlSUE=;
+	b=ZBFzFfuNNOOI2FzVWFTDHGxFFE1zph1aMhnHUqt67y7xUnVwBZXzPXr4rcda9L1KaAFU
+	 PG5x2794AJ3qIV8FXl+SZKuoedRlcppc1ludNTDU0jpb0Y7QhV3e4HLgJtdyU531Fe+D0
+	 Os+H6hsNg24MivYNkQCQdnyqFcqajNRQFXh4YYV0n9EuRtfjpdIpW2jRabjMljnNRrFch
+	 h/CLXg6SuM88Tfk5fU7EXbphOgnJi+tzrX/HNPXeLYQ7NVWQTQzNLTRZ4Dd4Z9GG6bBBz
+	 A7wmZqvt9EHRWEZH/CGnc24C5uCKxb0CNiapsRbjp/0OA3LwPR3LV4Qt9CkDyxG8Xsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mails.tsinghua.edu.cn;
-	spf=pass smtp.mailfrom=mails.tsinghua.edu.cn;
-	dkim=pass header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=nt59HVOC;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D00DD606E032;
-	Mon,  2 Nov 2026 15:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D00DD606E032
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="X0TlLx/+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA66606EE90;
+	Mon,  2 Nov 2026 15:56:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=nt59HVOC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:
-	Date:Message-Id:MIME-Version:Content-Transfer-Encoding; bh=iw0A/
-	6qXyey37hvqhs6dNwEmzIY1VT/a5QdELgvzmDg=; b=nt59HVOCF3BiLHluALOqA
-	xJpjiVE366RtBkK6daL2Scdcmt1Ix1zqTymDxfZcL3FBna2EijoMjWcEHJpZSPOH
-	qPaHFm2WVLUjZdGrRk5+qyJyp2BFYbBA3a//DClZ5djtaGxLhRW9aMiNou9D/bSk
-	g32SIBfieyrKOr4zhymrlo=
-Received: from localhost.localdomain (unknown [202.112.47.69])
-	by web2 (Coremail) with SMTP id yQQGZQCHtGiosuhqKf0BAQ--.27816S2;
-	Mon, 02 Nov 2026 23:56:24 +0800 (CST)
-From: zhangmh25@mails.tsinghua.edu.cn
-To: netfilter-devel@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	pablo@netfilter.org,
-	coreteam@netfilter.org,
-	stable@vger.kernel.org,
-	zhangmh25@mails.tsinghua.edu.cn,
-	jianjun@tsinghua.edu.cn
-Subject: [PATCH net] netfilter: nf_reject: validate TCP header length before sending resets
-Date: Mon,  2 Nov 2026 23:56:22 +0800
-Message-Id: <20261102155622.2658789-1-zhangmh25@mails.tsinghua.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0TlLx/+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3842E1F00A16;
+	Mon,  2 Nov 2026 15:56:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793634994;
+	bh=rIIz/gtfC2Y+ir/ymx8Qwz0qEnZD5kOfLUgExDZlSUE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X0TlLx/+2BqpUJ0O7uF4HJlMVjvUqcctCY4wJh2DmEYtVPJMg/9bWsnMuFoxFMO7/
+	 MHHvPM999easQh4jTVkg75DMRhcS29B06kRPVVmHKc75emzSi00DGtxtv/DxIyQ4yg
+	 w9PQDEyAO1LRnGyVBgqgsSIafZzzptaLT4MEa/zEFBFuAXD/5ot8yT8pfKc6e1GYYD
+	 AF7yXXmK9NChbzEO1Fv/Tzj0lvMDW+wZbc2tvAum4QhbDU/pVrCQL36pdKP+WiC5eQ
+	 SxSj10W/ACEPziCQVHNxjY+RYeC4lNHQrtSIvBcliS/BFJ09TguCFozEEGSZ78+nna
+	 JjEmR9ugF0lQQ==
+Date: Mon, 2 Nov 2026 16:56:28 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 04/10] irqchip/gic-v5: Serialise ITS invalidation commands
+Message-ID: <auiyrFXjX0hGgd7D@red-moon>
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+ <20261102-host_gicv5_fixes-v1-4-743b61626fc5@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,96 +63,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yQQGZQCHtGiosuhqKf0BAQ--.27816S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxurW3Wr1xAr4fGryxXr1fJFb_yoW5AFy5pa
-	47tw1xA39rKryjyFn7uF48JF1rWF4kGF47WFWFy3s3Kwn8Ja18KayS9ry7uayaya1xKF4f
-	XFWjqw4jy3WDJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBq14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwAKzVCY07xG64k0F24lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ryrMxAIw2
-	8IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
-	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrw
-	CI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
-	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
-	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjDDG7UUUUU==
-X-CM-SenderInfo: x2kd0wlpkskqxpdlz2oowvx0pjkxthxhgxhubq/1tbiAgMTB2roVIJoagAAsD
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-host_gicv5_fixes-v1-4-743b61626fc5@arm.com>
 
-From: Minghao Zhang <zhangmh25@mails.tsinghua.edu.cn>
+On Mon, Nov 02, 2026 at 01:32:57PM +0000, Sascha Bischoff wrote:
+> The ITS uses DIDR and EIDR to select the translation to invalidate.
+> These registers are shared by all interrupts targeting the ITS. Event
+> invalidation can run concurrently for different IRQs, and device
+> invalidation can overlap it. The per-IRQ descriptor lock does not
+> serialise the commands, so one CPU can accidentally issue an
+> invalidation using another CPU's DeviceID or EventID.
 
-The TCP header validation in both nf_reject_ip_tcphdr_get() and
-nf_reject_ip6_tcphdr_get() checks that the TCP segment is at least
-sizeof(struct tcphdr) long, but does not verify that the header
-length claimed via the data offset is actually present in the packet.
-A peer can send a TCP packet claiming a 60-byte header although only
-the fixed 20-byte header is present.
+"Another CPU's DeviceID or EventID " can probably be explained better
+(or just removed because it is unclear) I understand there is a link to
+Sashiko's report but it is worth updating the log IMO.
 
-The reset generation then computes the ACK number using the claimed
-header length, and the subtraction of the data offset from the TCP
-segment length underflows, producing a wrapped ACK value in the
-generated RST. For a 20-byte segment with doff = 15, ACK bit clear,
-sequence number 0, SYN and FIN clear, the RST carries ack_seq
-0xffffffd8 instead of a meaningful value.
+"using the DeviceID or EventID associated with an IRQ that is invalidated
+on another CPU" or something like that.
 
-Reject TCP headers whose data offset is smaller than the fixed header
-or exceeds the available TCP segment length. This prevents generating
-resets with an ACK number derived from an invalid TCP header length.
+> Add a raw spinlock to each ITS and hold it across the command register
+> writes and the STATUSR.IDLE poll for both invalidation paths. A raw
+> spinlock is required because the forwarding path calls the event
 
-Found during a systematic audit of TCP header validation in the
-netfilter reject paths. Tested in network namespaces with nftables
-"reject with tcp reset" rules: on both IPv4 and IPv6, a probe with
-doff = 15 produced an RST with a wrapped ack_seq; with the fix no
-RST is generated for such packets, while probes with well-formed
-headers still get a correct RST.
+Can you please define "the forwarding path" more explicitly ?  See above.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 764d8a9f2407 ("[NETFILTER]: Add IPv6 REJECT target")
-Reported-by: Minghao Zhang <zhangmh25@mails.tsinghua.edu.cn>
-Reported-by: Jianjun Chen <jianjun@tsinghua.edu.cn>
-Cc: stable@vger.kernel.org
-Signed-off-by: Minghao Zhang <zhangmh25@mails.tsinghua.edu.cn>
----
- net/ipv4/netfilter/nf_reject_ipv4.c | 5 +++++
- net/ipv6/netfilter/nf_reject_ipv6.c | 5 +++++
- 2 files changed, 10 insertions(+)
+Thanks,
+Lorenzo
 
-diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
-index 59ec465a9..0e8823a7d 100644
---- a/net/ipv4/netfilter/nf_reject_ipv4.c
-+++ b/net/ipv4/netfilter/nf_reject_ipv4.c
-@@ -189,6 +189,11 @@ nf_reject_ip_tcphdr_get(struct sk_buff *oldskb,
- 	if (oth == NULL)
- 		return NULL;
- 
-+	/* Reject invalid or truncated TCP headers. */
-+	if (oth->doff < sizeof(struct tcphdr) / 4 ||
-+	    oldskb->len - ip_hdrlen(oldskb) < (oth->doff << 2))
-+		return NULL;
-+
- 	/* No RST for RST. */
- 	if (oth->rst)
- 		return NULL;
-diff --git a/net/ipv6/netfilter/nf_reject_ipv6.c b/net/ipv6/netfilter/nf_reject_ipv6.c
-index 07cdaa10d..9dc112e50 100644
---- a/net/ipv6/netfilter/nf_reject_ipv6.c
-+++ b/net/ipv6/netfilter/nf_reject_ipv6.c
-@@ -223,6 +223,11 @@ nf_reject_ip6_tcphdr_get(struct sk_buff *oldskb,
- 	if (otcph == NULL)
- 		return NULL;
- 
-+	/* Reject invalid or truncated TCP headers. */
-+	if (otcph->doff < sizeof(struct tcphdr) / 4 ||
-+	    *otcplen < (otcph->doff << 2))
-+		return NULL;
-+
- 	/* No RST for RST. */
- 	if (otcph->rst) {
- 		pr_debug("RST is set\n");
--- 
-2.34.1
-
+> invalidation helper with the IRQ descriptor lock held.
+> 
+> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> ---
+>  drivers/irqchip/irq-gic-v5-its.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+> index 28e39b065de0e..6d98f3dbe34b6 100644
+> --- a/drivers/irqchip/irq-gic-v5-its.c
+> +++ b/drivers/irqchip/irq-gic-v5-its.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/of_address.h>
+>  #include <linux/of_irq.h>
+>  #include <linux/slab.h>
+> +#include <linux/spinlock.h>
+>  
+>  #include <linux/irqchip.h>
+>  #include <linux/irqchip/arm-gic-v5.h>
+> @@ -28,6 +29,8 @@
+>  struct gicv5_its_chip_data {
+>  	struct	xarray			its_devices;
+>  	struct	mutex			dev_alloc_lock;
+> +	/* Event and device invalidation commands share DIDR. */
+> +	raw_spinlock_t			inv_lock;
+>  	struct	fwnode_handle		*fwnode;
+>  	struct gicv5_its_devtab_cfg	devtab_cfgr;
+>  	void	__iomem			*its_base;
+> @@ -129,6 +132,8 @@ static int gicv5_its_itt_cache_inv(struct gicv5_its_chip_data *its, u32 device_i
+>  	eidr = FIELD_PREP(GICV5_ITS_EIDR_EVENTID, event_id);
+>  	eventr = FIELD_PREP(GICV5_ITS_INV_EVENTR_I, 0x1);
+>  
+> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
+> +
+>  	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
+>  	its_writel_relaxed(its, eidr, GICV5_ITS_EIDR);
+>  	its_writel_relaxed(its, eventr, GICV5_ITS_INV_EVENTR);
+> @@ -371,6 +376,9 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
+>  		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
+>  			     its_dev->itt_cfg.event_id_bits)	|
+>  		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
+> +
+> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
+> +
+>  	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
+>  	its_writel_relaxed(its, devicer, GICV5_ITS_INV_DEVICER);
+>  
+> @@ -1112,6 +1120,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
+>  		return -ENOMEM;
+>  
+>  	mutex_init(&its_node->dev_alloc_lock);
+> +	raw_spin_lock_init(&its_node->inv_lock);
+>  	xa_init(&its_node->its_devices);
+>  	its_node->fwnode = handle;
+>  	its_node->its_base = its_base;
+> 
+> -- 
+> 2.34.1
+> 
