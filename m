@@ -1,47 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793645952;
-	b=5I5cd1ay38O/D/jivWJ8KxlHFI7Q5asQQs61JCZ9tK60Ffsb7OIsXqTPQHoZYCLdgNBn
-	 tUhpyqnxpxAmlRRq3o0uTMA0Ccl86By4hypZbnu5Zp7RBfaN3OT+dFtOURf39QTA/CMjm
-	 VplOP3mMrdBiuLpA3Vik/yMlXgd6a22HAgTZG8owrHvDH+/eEaELXSN8Dn0lr5vUxWKC/
-	 /+Zm3+ueC6X+GZXLgR4djR+ufgVmriTe/RNrgRm5PFZz8eZhwL7azKzfHKkB3ZTTWxZNb
-	 2PYGWL0wQQ+0WG+eopkXGzI2PxBJ/YCSJGRZTvCmfDf4bP9/VPE2tnSElbh5YLZ3gVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645952;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=96LKreaXMlntEzmtxkbqmsh2x2E8Jn1R2laoCZLdONY=;
-	b=I2VJ55ZcIcbG8QYjJAg9R0vnhBGQwiSdA4T2QRP+/osrQt8+1CkuK1DQxvbY58gn35eF
-	 y8rp8EB4TPImibNwB5dYCcudB6sf1AWoUPnF2vCwfsJxt+n1F6Ql1KkTR8yg9oHkHWup8
-	 f9gMmvqD6OGU+wp3DSNRvy53pBlSkkqSLQQfwHAkZOmcz8iCHQStm+9HRXDLgnKs1So0C
-	 gek48MEjSX01O6By+XDlB6tze6pAY9KB53AMqJX7buAsblqMS+g0gnRkHPYmNMVLxkwtS
-	 MGhF6Jjn4iSU/O/78o3K/iq9bSN40fHS4tKLFLIlAinNQjyFeNcFP/LAnQd/USg1qvw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=iAysOjIA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793645953;
+	b=Xu8OAZIzsRpwKUHtC+RbxyF6CsM8dj1T2b7gkwfWQVWELqCyB6NWLgCjiT/AX65DyqyE
+	 lfvmiuxR/VlgkHm8Jxrm2gyUEMciUUsHFYSUYUWWIlsCT65Lfjsr6BNI5t03hzesl7Sdl
+	 cTgiukvwcLLMej6ijcBEHqR/Y2sfaJNX8OWrq5IR3lHaRbzXxCyWYkyDDP5Lixjhxsdrr
+	 Bdg4IbdH3yf+MH7Vu3a1F2kM9WKoxtsBz7TdXEobic66iudf5wy7HKM7K0t5PiIEuhxGR
+	 OjojzJB9qODcQ7HrB89jIF0B7gjRnc1D0lNb6KAGScq7JBpJJu2Zl6qU1EoysjfA8rg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645953;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp;
+	bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=;
+	b=2vSRC/E7OWpDkhkYtjekf0RLPvwxBqpjj6iPBD9tEFH0snQ+ep2xAu3llBWYAiR29mv0
+	 2RIcOu+5ObHsbUzW1Tbph5oxyuCPtwIt/aTVoqoj9Ujb+yhgrsz2/Fe8bZxkg4jPnwFch
+	 siCM/A/NW0a5EgGSx7O3FyyZjdVomd53KH6hCIj1hv6nUdlcpYT/3KTrIQQ1qmR5CJMEG
+	 mSc6ph4LnBwdegFRKGXpHdrZAQ3diAOUC2XXyKCY6rFJiErnRQqDyh0jEZH6cxfyb4/lO
+	 K8aOieXmAY8KQ+wNJ235+GjFeU3Eaw6jicyl5ssb+mXTJKXiA+hIlg8mH2ZEjwfRaeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GlFbjFdR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C06606A324;
-	Mon,  2 Nov 2026 18:59:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AC9606A339;
+	Mon,  2 Nov 2026 18:59:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9AC9606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=iAysOjIA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162C11F00A16;
-	Mon,  2 Nov 2026 18:59:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793645951;
-	bh=96LKreaXMlntEzmtxkbqmsh2x2E8Jn1R2laoCZLdONY=;
-	h=Date:To:From:Subject;
-	b=iAysOjIA6sObnkEWfBgXTdtqMcvuP7AgNv81zGCA2ELCf8kMs4VIMUuO+X6OyP3lI
-	 8OdqdTbljJJPOtt9mHfKfQDyx4Be36kXDTimaCWwlHCpeE/Ak3zHy1+MPvrWilrhsv
-	 Ee18fdRdKD77t/Vgcuu8SGe4CIIdnlh0JDceZ7J0=
-Date: Mon, 02 Nov 2026 10:59:00 -0800
-To: mm-commits@vger.kernel.org,xiaoleiwangxiaolei@gmail.com,
-	stable@vger.kernel.org,sj@kernel.org,jm5905938@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch added to mm-new branch
-Message-Id: <20261102185911.162C11F00A16@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GlFbjFdR
+ARC-Seal: i=1; a=rsa-sha256; t=1793645931; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=k+k3BxfmINTBv26V4GK90M+bQkHthaUzYFN6eiJ9zfsSgd+btWnYgbdIXKbFM6y+A2r+iEnX4Ddobs/rQWdHM91FEjhBTMR07HV8dE0ojFOneMLzq72okklP9a74dJXYVeaDWA+GXqqb7H/zY30STkoHf/r/t8f9iIkvUCYYRo4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793645931; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=; 
+	b=CHYZwEnLMtHawOzNr8WKQA6z8PtG53Ud5dUM83zmtdY1qsv4ovPteJnGMMBIPiR13LQHRI565Po7dV4KXkpKOgEuFNcUWYh6grt474Fs1H2WAgkDHIfteEtiAVR7ZDKe8lb/bNJx88oq3u+8cgP6WxFymFnQ65gOJgE9x02t81A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=GlFbjFdRcIs964QhLu3f6OXVJRtFeG+Zgukho7gHBH+WFH+nQCg+jsZWYlwhrL7kLCMAsUjnKJgXdPljL1ig7SvUNXZmj/rpnzrkFwFu5C8Xx61ek91FORfKcsmwMwBuXy9nXTDk0ig+gJTqy/e9Wg1aIMdcDysuu/rU/mRxIAc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793645930423756.5918385363401;
+	Mon, 2 Nov 2026 10:58:50 -0800 (PST)
+Date: Mon, 2 Nov 2026 18:58:45 +0000
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Boris Breyillon <boris.brezillon@collabora.com>, 
+	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panfrost: add missing
+ pm_runtime_dont_use_autosuspend() calls
+Message-ID: <aujdLAyik6MT6TxN@sobremesa>
+References: <20260916075051.1353-1-joshua.crofts1@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,111 +67,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260916075051.1353-1-joshua.crofts1@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.627.56
 
+Hi Joshua, thanks for the patch.
 
-The patch titled
-     Subject: mm/damon/core: reset watermark wait state on each iteration
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch
+However, a fix for the same issue had been in the making for some time. It's already been upstreamed:
+e9672bf9382f ("drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove")
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch
+Kind Regards,
+Adrian
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+On 16.09.2026 07:50, Joshua Crofts wrote:
+> panfrost_remove() and panfrost_probe() disable PM runtime on teardown or
+> failure but don't call the pm_runtime_dont_use_autosuspend() function,
+> causing potential resource leaks.
+> 
+> Add the missing function calls.
+> 
+> Found using Coccinelle.
+> 
+> Fixes: 5c0c825ae4c6 ("drm/panfrost: Replace DRM driver allocation method with newer one")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> ---
+>  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> index 36cc2e67a308..74e8e5783f9b 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -1012,6 +1012,7 @@ static int panfrost_probe(struct platform_device *pdev)
+>  err_out2:
+>  	drm_dev_unregister(&pfdev->base);
+>  err_out1:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> @@ -1027,6 +1028,7 @@ static void panfrost_remove(struct platform_device *pdev)
+>  	panfrost_gem_shrinker_cleanup(&pfdev->base);
+>  
+>  	pm_runtime_get_sync(pfdev->base.dev);
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+>  	pm_runtime_set_suspended(pfdev->base.dev);
+> -- 
+> 2.47.3
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Aveline Noir <jm5905938@gmail.com>
-Subject: mm/damon/core: reset watermark wait state on each iteration
-Date: Mon, 02 Nov 2026 06:46:24 -0800
-
-Patch series "mm/damon: fix watermark state, kunit pid leak and selftest
-fake pass".
-
-Three hotfixes for core, kunit and selftest.  Fix kdamond deactivation
-from missed watermark reset with patch 1.  Fix pid leak in kunit test
-with patch 2.  Fix a selftest wrongly passing when it should skip, with
-patch 3.
-
-Note for reviewers.  This series is a collection of fixes that were
-initially developed by different people.  Changelog is in each patch.
-
-
-This patch (of 3):
-
-Found while reviewing the DAMON source code that if an online commit
-removes all schemes while kdamond is waiting for watermark activation,
-the scheme loop becomes empty but min_wait_time keeps the previous
-positive value.  kdamond then keeps sleeping instead of resuming
-monitoring without schemes.
-
-The way to wake up the kdamond again without DAMON is bit complicated.
-Install a scheme having watermarks that can activate the kdamond again,
-and remove the scheme again.  Doable but cumbersome and complicated.
-
-Initialize min_wait_time and init_wait_time on each loop iteration so
-the wait is calculated from the current schemes and an empty scheme
-list resumes monitoring.
-
-Link: https://lore.kernel.org/20261102144627.88843-1-sj@kernel.org
-Link: https://lore.kernel.org/20261102144627.88843-2-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: Aveline Noir <jm5905938@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-Cc: <stable@vger.kernel.org> # 5.19.x
----
-
- mm/damon/core.c |    5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
---- a/mm/damon/core.c~mm-damon-core-reset-watermark-wait-state-on-each-iteration
-+++ a/mm/damon/core.c
-@@ -3982,10 +3982,11 @@ static int kdamond_wait_activation(struc
- {
- 	struct damos *s;
- 	unsigned long wait_time;
--	unsigned long min_wait_time = 0;
--	bool init_wait_time = false;
- 
- 	while (!kdamond_need_stop(ctx)) {
-+		unsigned long min_wait_time = 0;
-+		bool init_wait_time = false;
-+
- 		damon_for_each_scheme(s, ctx) {
- 			wait_time = damos_wmark_wait_us(s);
- 			if (!init_wait_time || wait_time < min_wait_time) {
-_
-
-Patches currently in -mm which might be from jm5905938@gmail.com are
-
-mm-damon-ops-common-align-mmu-notifier-range-when-clearing-pmd-young-bit.patch
-mm-damon-stat-avoid-32-bit-overflow-in-idle-percentiles.patch
-mm-damon-pvaddr-skip-folios-already-on-the-migration-target-node.patch
-mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch
 
