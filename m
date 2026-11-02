@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621374;
-	b=R8Lj2Cal06GNEdA3gTRefGz73CEUz+VDl2o6pxkuRqochY8lpZPc9jPgxraO11hTt2F/
-	 CFgmLRGS43U8JOzDeMJiaLw4QK9lJ8cgaRfzjXJnejqlTLxAMZqHi/bizTK9/NStYgdiU
-	 BEzgQGRy24tmvbvTT82HhsLrg7AJGHnJBX+f5w/m5zu1X2ozDjRzteJ2Ie5XLEAEGdZ6t
-	 YlkdSokb12RJgLIGJpAGY4qOF7Ny+SO9+0x97c0yhnoEFLp3D/JfTC1Nlp5iixtB9U49c
-	 2b7J3Ty0OinrQd8basInfY2NrV/zGCDoZyPAA7T08tvzhM4ZqwEkWb62VqK5rV26tfg==
+	t=1793621564;
+	b=0bOLh7qIw1m6DLbO2b+eilPHjm9wGuSArn8jspnc6FvsDsUrJfv0eVObyqTju/phNaID
+	 ozI4AY0ofwn2QKxIlSCIO6ypFNZn6+mrMcUQt6jre0dpyNTlDbBGaPkkEuWVHLwCoNABQ
+	 WdcyrEb1l67LAZ/zCXIbgFGM9iOvxfVfy30XxvbzQPmUAgyGrzpxW+udi40Xe/eickroD
+	 YGcLXSqt/1z4zPfr42sNxc+oXLUWqa1MNLZYEq08rs5ypcqC8127jdTLkfSZ4jnoBuEu7
+	 iCofTsN6/llgP8Zs8Dpxbzt3MKpsxLMTt0KsFDGafFzQ58X0oGItPiGcPR4e9xgj+5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621374;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=zDL/1MJP5TL90RnmLlT28rab6xGthMP97p8sOIl7EEQ=;
-	b=Z0VJ+OLjRcoyfkde1zEsa+ctvuAyVWy99tMoA90GYRIiA1ymqhLlkQiHHW0QGatW+Mr8
-	 kvJlMXc+6+xNBECmd2jGrTK9iZm36kQGKS03j+L1iPPh/85JzFi1YQJmFA5IO7g6mEvNL
-	 LKcZ270IYmki4wRPJXN3ZMMI8i6HkD8LP/lYvLEl0H59PmQ1IdZJpkMj/aWLc6JkOlbp+
-	 U03QDA7nDJLYxtfMjL1RO+VEIXnP9uPulEUuyI5V1l7dOAssW5HOaWtUWRepvruiQFDMq
-	 DU20I3sPq5tunqvUwVXWW5/0FlaiwCQ8S7Wfkg7VMfB3fBZc7l0t+IqOTmrchAnO58w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621564;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=LNqxXIZNaAqYfHTltarRLdW5yFtdpVJT00hDqUHTe5Y=;
+	b=ll1x8u70OjHsgXWjuapJIlmUG3kbklsgTcucENr8ATNWqR/oZov3Deq5e9JyFKg5mTDv
+	 gJZdiNFEPHVlQ/gCcLeHVmhK35WH6IfkI1oj9XFk7NXkXOWAAQ3KWH3VwOcatyNb/H0TM
+	 TbgnzJEkegnbIs5E7b8iqmM3T1U1hB0XlcQqsE3kaaJXg0qPRjaNX5slVUjcWNNFR/hK6
+	 aNLW5CqA8+baNV0MCJiECahCMf1piRWm1/yZuTmBA30UsQ+1AeHLQmwh0ov5rhWeZZA5V
+	 qi/XvRrkfmHZNx10AgyBKzhAVX8+NA8Z650uRjZYZo5ParBIwKgrtoGGbfUjKB1hswg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=HvbIScFW;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E63C606A324;
-	Mon,  2 Nov 2026 12:09:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E63C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=HvbIScFW
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=zDL/1MJP5TL90RnmLlT28rab6xGthMP97p8sOIl7EEQ=;
-	b=HvbIScFWhWDTTwdBbxrP3FBKIxxzLq6vdCLd3CxwXmjXza36bZ9JLJ85pSqVCOL7Jc6SJzscn
-	xMecTl8mvn9SMF7bifpcbLHa9B1shrIXtYYwfOzFCGK44CxuVI26qzK2u2jvXMktjmxON+4PGet
-	nycjVKozzc+PHEVs2HJje/8=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jJ9VD4qJZz1T4GW;
-	Mon,  2 Nov 2026 20:09:08 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id A0AC8203C8;
-	Mon,  2 Nov 2026 20:09:25 +0800 (CST)
-Received: from [10.67.110.140] (10.67.110.140) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 2 Nov 2026 20:09:24 +0800
-Message-ID: <faee04cc-fb04-4e56-bfe4-1eae5b819137@huawei.com>
-Date: Mon, 2 Nov 2026 20:09:23 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC3B606A337;
+	Mon,  2 Nov 2026 12:12:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECC3B606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJ9ZK0hBbz8Xrrh;
+	Mon, 02 Nov 2026 20:12:41 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A2CCXo9023196;
+	Mon, 2 Nov 2026 20:12:33 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 2 Nov 2026 20:12:36 +0800 (CST)
+X-Zmail-TransId: 2afc6ae87e341ad-97026
+X-Mailer: Zmail v1.0
+Message-ID: <20261102201236377NBmEu0bSIAHVWZO6liD9L@zte.com.cn>
+In-Reply-To: <20261102195030814Aeehrb4WmExc085745ldN@zte.com.cn>
+References: 20261102195030814Aeehrb4WmExc085745ldN@zte.com.cn
+Date: Mon, 2 Nov 2026 20:12:36 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,49 +58,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ima: initialize the real inode attributes of the iint
- cache
-To: Mimi Zohar <zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>,
-	<amir73il@gmail.com>
-CC: <linux-integrity@vger.kernel.org>,
-	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, <lujialin4@huawei.com>
-References: <20261102024703.816178-1-caixinchen1@huawei.com>
- <cb3ef53e2e5c6d74051528c2b9b9c0a294d6c119.camel@linux.ibm.com>
-Content-Language: en-US
-From: Cai Xinchen <caixinchen1@huawei.com>
-In-Reply-To: <cb3ef53e2e5c6d74051528c2b9b9c0a294d6c119.camel@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemk100010.china.huawei.com (7.152.184.41)
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
+Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDEvM10gdWJpZnM6IGdjOiBmaXggYXV0aGVudGljYXRpb24gbm9kZSBsZWFr?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A2CCXo9023196
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 20:12:41 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE87E39.000/4jJ9ZK0hBbz8Xrrh
 
-Hi Mimi. Thanks for review.
+move_nodes() allocates the authentication node, writes it to the GC
+write-buffer and only frees it on the error paths.  Every GC pass that
+moves nodes on an authenticated file system therefore leaks
+ubifs_auth_node_sz() bytes.
 
-I mistakenly used integrity_inode_attrs_store. In the next version, I 
-will directly use
-memset to initialize the real_inode structure.
+Free the buffer after it has been written to the write-buffer.
 
-I double checked b836c4d29f27. That commit also added real_ino and 
-real_dev to struct integrity_iinit_cache and started reading them in 
-process_measurement(). However, iinit_init_always() only reset 
-iint->version, leaving real_ino and real_dev stale. After 309e2b775da8, 
-these three variables are encapsulated into integrity_inode_attributes. 
-Therefore, I believe b836c4d29f27 is the appropriate Fixes tag. If I 
-have missed anything, please let me know.
+Fixes: 6f06d96fdf62 ("ubifs: Add auth nodes to garbage collector journal head")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+diff --git a/fs/ubifs/gc.c b/fs/ubifs/gc.c
+index 933c79b5cd6b..2b0f29423f48 100644
+--- a/fs/ubifs/gc.c
++++ b/fs/ubifs/gc.c
+@@ -427,6 +427,7 @@ static int move_nodes(struct ubifs_info *c, struct ubifs_scan_leb *sleb)
+ 				kfree(auth);
+ 				goto out;
+ 			}
++			kfree(auth);
 
-On 11/2/2026 7:20 PM, Mimi Zohar wrote:
-> Thanks, Cai.
->
-> Instead of calling integrity_inode_attrs_store(), reset the entire real_inode
-> structure. The store sets dev and ino to the stacked inode’s values, but at
-> allocation time there are no valid real-inode attributes yet, so the fields
-> should be cleared. The patch only works because the stacked and real inodes
-> happen to be on different superblocks.
->
-> The Fixes: tag looks wrong. In b836c4d29f27, real_inode is an unsigned long
-> version and init_always() resets it fully.
+ 			ubifs_add_dirt(c, wbuf->lnum, ubifs_auth_node_sz(c));
+ 		}
