@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657707;
-	b=u/mHCcggiux7TragfPnkAsyL2bLJIu6yEvDvuk4JLzrirSFjCwQ/RYGr52WlQl0mz3uQ
-	 NkHH8DDz0QN5c5wHLiIebHaracmLAD6/pKiOF/Ygqu/WYM096A8ROFWnWly8XPTDICUlA
-	 V83WolnbTWxOZP7LLdmE9yA2GRG6PWZHn1c/7gePbJR2Y6cmnoKLMMJbMp4z6cuGeBjmw
-	 WkM+CuC4ZqJJk9kwo7e/eGUKxhdIRsH5fe+d+2JenWifAVAszX6G4FAcJEyQ/mpYP6r3R
-	 88OY/S1xdqUFnXQIYJXj3+tMzB4Hoy6IVtt3qO8x9wi3oHTH6qlDyzhhnnlj2NxOh7w==
+	t=1793657713;
+	b=AmD5iufQwAEskFs8el8iiTbO8ys89v3Vft5FuGAU5Eyd8vGOnreVFjv7GJ3ekm4AJiRe
+	 MMauGedVivedBSkUOxS/JXadWAlzm67gbOUppB8hHZM0KkEeVekVWDokwQXf+EAX6aNdy
+	 w1c8abQVerk0JxlQoyScxM46hwn4NievHDcXPHifSuCOeFHK6c4+b2cTZ/xNB8gNjho3S
+	 mL0TSEtIGOS0Eg/76a+P6LNUsd1vx3PMabD0j3nKtIpad1BpoeVp5OYxP+VTsONVvYGhD
+	 C6ltdPtpBQXW/wqWAQG632z6R81U1K2dxWOpFXjRcPwWAJbYcBEX/mrvNvjUZsIJjiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657707;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iqaluuXLU0P5v8XKBT390cdLc5CuEh0nbitnp1+hGq0=;
-	b=LQnbcx2FXLPEkl6NW6oq9NL5SoxgsUG+PywgAAm5px4+90+9aBPB5lLNiG8h3kEnpkQs
-	 HRf84WVpyHNBXh4xSeRoxqNDioye7IVDRqj4Fj8vugwx0dGJrnDh5V5BwEMb/s/ByruKB
-	 uic/WH40bS/IEKufa6/qMbkfjnIIMBJ+nG3nnMxfcuDKEgWO9AXIQvYu+YhvGXzZ2R6kX
-	 weiDAZpGyCG0nQav9O2I9AR8aP/vrShOZEkGwid2TxFZ3E9CS5IPuHcDPSsXx5UOpX8g5
-	 A3oc/e8VVRE/5eANbYRzBcpQfDaJpw8KEKY+pASVQnOUHMXqx9CMg376UYQ5dd7Zh2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657713;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
+	b=TW8J9a7wTRKArNNd19HisJRMnyz+cJKxq4FRg+TmZVOpdtnvSEh9luzCfOKmjF5y+wFg
+	 3BUZp6ufBRqLmwbwZEBOmlnU8lSZn9n3dyEh+wa0BAJ514g7OiKi2rszSeH78OZy27i5B
+	 cWxkl7oGkRyGcdMgdk/Bq8g7/Y8CMfcuaP1EIIvYm+g3k6MXDfRVHZHq0OztFiJ/E2ndh
+	 vXDpCHFOpqKXLeBLe6PoQKilXIDPXFNarCBPvi6F9EPhfx8+o4BFjP6OeD73r1pSki4MO
+	 bNFHkX1mGTqECHPNwk8kT69P7SLLDV3ObT2XtpKC0wr2i48pnm5FE8ZdPmQM1g0e8Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2WzsNdY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
+	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
+	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=TokvcMKc;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2545606A329
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:15:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24257606A32C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:15:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24257606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2WzsNdY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39B11F00A16;
-	Mon,  2 Nov 2026 22:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793657706;
-	bh=iqaluuXLU0P5v8XKBT390cdLc5CuEh0nbitnp1+hGq0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i2WzsNdYZtJSlGGafY0AZ3iAN0ywKM2rbssqGuCTUYBssXwd88HH8SH2UCaLLf7UN
-	 1+tSrj1zQPB9zFw5RMKe7kkt6QvvGU4oMZx/Gbk/jVbbX2B/fUTZbk3r7MhbchQvdc
-	 FPmt0PoRqJMhr1SzSzkzoT9RfCV4qy2f5kNQieH+uDNYf/tmaCu7F17Y1bHNUhl0kI
-	 hlugSGoss7minuBKXg5G6HelQIAZdZOD8wMdVvY1sY4pILodfYUT37DpzSJldoOC+Q
-	 V6SnWbuNcHe/Hx3DcmdY6nFqWYmfNTSfjzNnpIIm6PM8pubEYdSI3s2D+kiqQQMX12
-	 WsiHz7UaXGXhw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] smb: client: fix early procfs exposure race
-Date: Mon,  2 Nov 2026 17:15:04 -0500
-Message-ID: <20261102221432.1871440-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110226-gigantic-arson-32db@gregkh>
-References: <2026110226-gigantic-arson-32db@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=TokvcMKc
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so1423659a12.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 14:15:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=is.s.u-tokyo.ac.jp; s=google; t=1793657711; x=1794262511; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
+        b=TokvcMKc+KYIST87Mai260x4nopeORdiWMi79Bv4kzPWRQ+VEYVkBgKM7J7ubgfMct
+         EAUHAd4PTv1r8+90sVT307xC2pRCL993JZJfQlLMk2O6IzZh1NLpuneUl+BUTtg8XxYx
+         /QTo1JyjHQrs21R11/IBFyP5jg0n9Iy6VouHwlbd7HPaMecsZ/Wd/mOSzz0t9MTSXdHE
+         aLOuN4vTnqJnwHQIzjkLQ3OlWd9efODyiNk9U0HJfXWPInLzKqDV8kugDOiez/o1io2s
+         hF/KO9aruPizc94q+0RDxqUUSB5RHH4v19BLqwrotuv1CHCNEUPHBmPNWoT2ul3T99/0
+         V06g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793657711; x=1794262511;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
+        b=bfgyqhOuQPortrJKSN4n/hnVP4uHDLFM2yBWGr0JFzxJYnmKfLB5fMiyi0crRaM/np
+         MHlNDan6ow+Gj5eqmofvjKw0lJoSkJjKkP+ppXs5rAgZHckxtTPibX6U5I79UB8/CUNq
+         9d2tLiKQlfaednwhgi/k7D4QD/T/dzMZ+3XZYqrAO2m4wvnWZ1vikRElFEVkfGeF2xDg
+         ojcF9TXIyojYB3a7aDsCgyR99IUr0UB6SD7heqPD4yRV96wOVfYyVnePdcUNESv2d0Nf
+         1cORRnPKpXQqxFQg05buD2Jhobe8kN5knzz73+t7QmpRcRHpYbRERnCcZ2+cJRDGvjsM
+         tqKA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3Sea9yz/fjaTpMFsPSrRtYtpabM0YJwnA5agcRVGzgZCsZdVprQb8TrNkZP16GIiUUj29054=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ALk4TrcURoKp6jLJbl50seNlTintU9Mu6bfTdploWi+560B33
+	J+hF38ges+Rjgea/WxCifIY29KQNlhgnVyPwO8gteEihRbUu8J4bXTBRUCkUmWFegw==
+X-Gm-Gg: AYBFou1upSfDcVHCJDafH58FH791fZpqclaKBvQqwllmGsza2ZLiFg/ejbzLIU8ICAW
+	kR2s7Wa9kWn0Nf8sdfhOVyzHhltEczbF9QuE0X2FoklHF9/YPRfIM/44SaYfPg3pu97E6TK7X4/
+	v9Vbo6Qs9D7LHPwn1kqwHxO9qe3fH80+WDsGfg49falR9+t7TE/T4ogdmh4JCfft29l47/Q5xfe
+	0wEA9FJrISJ9Dptkjn823ngwNxuOvBqlm+btqKQsrJr8MacGE9S8/QyT3jMCNEqFRJj7xOYem8S
+	vmTi8YejFVoZ7w8hFy4x9X3axyza3KLwOdtgbvoRGgCsDlcbF+qaLM0pj2bLmF6phCyGjE6fI9+
+	wNTJ5Gl/P17253dVphd3nkdS5n8ERfgRcTJz3/RAC/yOGSqXtXEKQ5cI5HoSBr0DUV7jq8B5kBA
+	dvkfjzkUtx4pGOL8sES71j9iNPjvYxMts/BtR5UxzdlNyUJXLRfaLk/yd+k45x4Ik6bPzTxL633
+	KmkqBdJcl/X8rIlohdVRx9mcXLG0MpKDV3sI/ZFmbgOOOKMtBJneDyrl+VC5LfPGPzISX22kvso
+	3jSElZ6+ne3Zzf4fUL7xtZ+WgTgmPiwreSTD9cI=
+X-Received: by 2002:a17:90a:fc4b:b0:3ab:b64:5893 with SMTP id 98e67ed59e1d1-3ae8981bf35mr8240104a91.53.1793657711239;
+        Mon, 02 Nov 2026 14:15:11 -0800 (PST)
+Received: from wang0.localdomain ([133.11.33.33])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c8b1913sm984336a91.10.2026.11.02.14.15.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 14:15:10 -0800 (PST)
+From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
+	Ohad Ben-Cohen <ohad@wizery.com>,
+	linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
+	stable@vger.kernel.org
+Subject: [PATCH] rpmsg: virtio: Reject a message shorter than its header
+Date: Tue,  3 Nov 2026 07:15:04 +0900
+Message-ID: <20261102221504.175116-1-lian@is.s.u-tokyo.ac.jp>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,130 +101,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+rpmsg_recv_single() rejects a message whose msg_len exceeds len -
+sizeof(struct rpmsg_hdr), where len is the used length the device
+reported. Since len is an unsigned int, a used length shorter than the
+header wraps the difference, and every msg_len passes. The endpoint
+callback receives up to 65535 bytes from a receive buffer of 512 bytes
+by default, and rpmsg_char copies them into an skb that userspace reads.
+The receive and transmit buffers share one DMA allocation, so the copy
+can run through the following buffers and, with small vrings, past the
+end of the allocation. With vrings of 16 buffers and a header claiming
+65535 bytes, KASAN reports:
 
-[ Upstream commit 7b1afb631395c958993cda4631002258ef4151ea ]
+  BUG: KASAN: slab-out-of-bounds in rpmsg_ept_cb+0x4d/0xb0
+  Read of size 65535 at addr ffff888002484010 by task rpmsg_echo/140
+  Call Trace:
+   rpmsg_ept_cb+0x4d/0xb0
+   rpmsg_recv_done+0x29f/0x840
+   vring_interrupt+0x32a/0x540
+   vp_interrupt+0x146/0x180
 
-Currently, init_cifs() calls cifs_proc_init() near the beginning of
-the function, before INIT_LIST_HEAD, leading to a momentarily
-uninitialized, but exposed, procfs. If a userspace process reads this
-empty procfs, iterating over a zeroed list_head leads to a NULL
-pointer dereference and a kernel oops/panic.
+Compare the sum of the header size and msg_len with len. The sum cannot
+overflow, since msg_len has 16 bits. Move the check ahead of the debug
+output, since dynamic_hex_dump() reads sizeof(*msg) + msg_len bytes
+when its dynamic debug site is enabled.
 
-For example, if a delay is added between cifs_proc_init() and
-INIT_LIST_HEAD, and a userspace process is polling
-/proc/fs/cifs/DebugData, the following oops occurs:
+This patch is assisted by Claude Opus 5.5.
 
-BUG: kernel NULL pointer dereference, address: 0000000000000608
-Oops: Oops: 0000 [#1] SMP PTI
-CPU: 0 UID: 0 PID: 3477 Comm: cat Not tainted
-7.3.0-02212-g4df4d2a577db-dirty #6 PREEMPT(lazy)
-RIP: 0010:cifs_debug_data_proc_show+0x103/0xd80 [cifs]
-Call Trace:
-<TASK>
- ? seq_read_iter+0x86/0x400
- ? seq_read_iter+0x86/0x400
- seq_read_iter+0x183/0x400
- proc_reg_read_iter+0x62/0x90
- copy_splice_read+0x215/0x310
- splice_file_to_pipe+0xec/0x1c0
- do_splice+0x4b8/0x780
- __se_sys_splice+0x18f/0x250
- do_syscall_64+0x109/0x330
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-</TASK>
-
-Fix this by moving cifs_proc_init() down in init_cifs(), ensuring it runs
-only after all internal lists, locks, counters, and workqueues are fully
-ready, but before registering the filesystem. Update the error cleanup
-ladder and exit_cifs() to maintain proper LIFO order.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Fixes: 9648224e564a ("rpmsg: validate incoming message length before propagating")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Adjusted init_cifs() context because smb1_init_maperror() and smb2_init_maperror() are absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 ---
- fs/smb/client/cifsfs.c | 20 +++++++++-----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
+ drivers/rpmsg/virtio_rpmsg_bus.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 23ec5c3666d3d..3da0fc08ffd94 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1972,7 +1972,6 @@ static int __init
- init_cifs(void)
- {
- 	int rc = 0;
--	cifs_proc_init();
- 	INIT_LIST_HEAD(&cifs_tcp_ses_list);
- /*
-  *  Initialize Global counters
-@@ -2021,10 +2020,8 @@ init_cifs(void)
- 	cifsiod_wq = alloc_workqueue("cifsiod",
- 				     WQ_FREEZABLE | WQ_MEM_RECLAIM | WQ_PERCPU,
- 				     0);
--	if (!cifsiod_wq) {
--		rc = -ENOMEM;
--		goto out_clean_proc;
--	}
-+	if (!cifsiod_wq)
-+		return -ENOMEM;
+diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+index 23ff6c8b7a20b..a9125e81cb150 100644
+--- a/drivers/rpmsg/virtio_rpmsg_bus.c
++++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+@@ -661,6 +661,16 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+ 	unsigned int msg_len = __rpmsg16_to_cpu(little_endian, msg->len);
+ 	int err;
  
- 	/*
- 	 * Consider in future setting limit!=0 maybe to min(num_of_cores - 1, 3)
-@@ -2115,19 +2112,22 @@ init_cifs(void)
- 	if (rc)
- 		goto out_cifs_swn_init;
- 
-+	cifs_proc_init();
++	/*
++	 * We currently use fixed-sized buffers, so trivially sanitize
++	 * the reported payload length.
++	 */
++	if (len > vrp->rx_buf_size ||
++	    sizeof(struct rpmsg_hdr) + msg_len > len) {
++		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
++		return -EINVAL;
++	}
 +
- 	rc = register_filesystem(&cifs_fs_type);
- 	if (rc)
--		goto out_init_cifs_idmap;
-+		goto out_clean_proc;
+ 	dev_dbg(dev, "From: 0x%x, To: 0x%x, Len: %d, Flags: %d, Reserved: %d\n",
+ 		__rpmsg32_to_cpu(little_endian, msg->src),
+ 		__rpmsg32_to_cpu(little_endian, msg->dst), msg_len,
+@@ -671,16 +681,6 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
+ 			 msg, sizeof(*msg) + msg_len, true);
+ #endif
  
- 	rc = register_filesystem(&smb3_fs_type);
- 	if (rc) {
- 		unregister_filesystem(&cifs_fs_type);
--		goto out_init_cifs_idmap;
-+		goto out_clean_proc;
- 	}
+-	/*
+-	 * We currently use fixed-sized buffers, so trivially sanitize
+-	 * the reported payload length.
+-	 */
+-	if (len > vrp->rx_buf_size ||
+-	    msg_len > (len - sizeof(struct rpmsg_hdr))) {
+-		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
+-		return -EINVAL;
+-	}
+-
+ 	/* use the dst addr to fetch the callback of the appropriate user */
+ 	mutex_lock(&vrp->endpoints_lock);
  
- 	return 0;
- 
--out_init_cifs_idmap:
-+out_clean_proc:
-+	cifs_proc_clean();
- 	exit_cifs_idmap();
- out_cifs_swn_init:
- #ifdef CONFIG_CIFS_SWN_UPCALL
-@@ -2163,8 +2163,6 @@ init_cifs(void)
- 	destroy_workqueue(decrypt_wq);
- out_destroy_cifsiod_wq:
- 	destroy_workqueue(cifsiod_wq);
--out_clean_proc:
--	cifs_proc_clean();
- 	return rc;
- }
- 
-@@ -2174,6 +2172,7 @@ exit_cifs(void)
- 	cifs_dbg(NOISY, "exit_smb3\n");
- 	unregister_filesystem(&cifs_fs_type);
- 	unregister_filesystem(&smb3_fs_type);
-+	cifs_proc_clean();
- 	cifs_release_automount_timer();
- 	exit_cifs_idmap();
- #ifdef CONFIG_CIFS_SWN_UPCALL
-@@ -2196,7 +2195,6 @@ exit_cifs(void)
- 	destroy_workqueue(serverclose_wq);
- 	destroy_workqueue(cfid_put_wq);
- 	destroy_workqueue(cifsiod_wq);
--	cifs_proc_clean();
- }
- 
- MODULE_AUTHOR("Steve French");
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.53.0
+2.56.0
 
