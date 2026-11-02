@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646008;
-	b=1HvSXPmvjOW5EPGfXS5+OhdO+1v2jXvgarVjgjgWZHNcDXwbDWoe1twREAjzOMuYj/dM
-	 QLtbjJLZ4sMwcaOmR/c2Map+VVSv+5TzWDLjA3be352jP3GkNB4M8Gw4IXCINeSDiROjB
-	 +RMGkI0D51Bq7ZBZ7eckklM1Oz7TFgcSi5Ik0ETZlRBHpv2CAbNzdsXN19Bw+cp6rlPYG
-	 4er2yM3drz7Ofzi1h5Wle+VFrBzRU+sIL7Q3jKctxExYE7/qtL0lTrw8ez4mXSg5wsgbM
-	 NQxMnkhMM7DxwB7vpG7RsRJJ48hRjOqTIFxAx0Lx/lQ/MH6/nlNB8miRJRa/3Z+cizw==
+	t=1793646003;
+	b=1sKxRBYVUXfHrkwU0nr+8hqqRP63CVKbBfIj42cn4HRETN98QoymNHxg2gyXpu6UlrLk
+	 UvOIOWHZMh0q+/+N862WpeOY6W2K+iIqOllGQKPQuLEShps6IVTQGoSyQtcAw8WCA1NoV
+	 Ya5pwksq0pErHhuw9ngeIajxjHB4rPyIP8IRWyHs3lxy/qllx0T3uvE4bq30Wewm7DWbM
+	 KCeMWkwyQAm2OGNg2rN4GI3hU9axqC3SMOxyDIFwe5wnKRo02+cvY3Byuyh/LJfnmKs2d
+	 IMkKrl7UfLeNh3snkw3tm0qwn9k/KammEAsDCjPWEHXynJe8k4SsGh1Weh+jKpjJWeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646008;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646003;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=bqMpyzuPyICDtSav4owPaTQB8zjioPQrXnEoMVHbcUE=;
-	b=sGqoTyWJ53rI3f3H3hTiUI88+Det5zBYcKRVY0bfNZvNsDjXj1aknX96ft5J9bWvUkRo
-	 /E/xyQzUhrqcylJ/6ZNuIrB3w5N5QSR0EQjLuwCXZiJkE4UWcEW/nymamX7rY/dDBQkLp
-	 D8Vh00f4DnKleJ5j4WK+OJA+D1tuZ+pkbI3XH6SBsE/Ygl+MlITJzVIJRvf+8C17tMjJH
-	 YxTUWq4CcBMVGs0Cmbf3kIckdbCKQTFKBFg2+3gqFeCXGMFeQtLlza7CoKi/EUsXu679t
-	 FjBlt+/69pK+dtn09CKCnwvZ77PkNviRw1blr9ao+UJcKEAzXmVGIs9OI13dfOJNQqQ==
+	bh=xidbMq00lq1vD/qMoM3j9IazFUNu1Vl1hoyzq0QedYs=;
+	b=wlyxp2bqO9RvhT27VIXcnG3XG1sVS6PtFoUZx6q7OaqvUbKWFqgoNY6YAvu2aKyy3vR2
+	 FhxkgTFtWQMo6Et6A7v1idKpSv6GGvvtctLcvSIIVcv+qJXFKclItRDjq5bc6OkY7r05o
+	 L0rAFxpgte2/eH3GBtsu+n+l2Htko3nwmFosx7hizobd1qqeGpW8JtdJHj1pGMFguKghJ
+	 +pnxkCwFpUzicB1p2L4JwPFFs461GYoxDb9NgUHca9cx5u9t4+GiVnHHD4hJgDYGv/3f+
+	 SFjrXrfJU8JXazIVIhyMTh+PrvagGKYS0SasDoObEK5sVmcqjCw8W9TNbnO3Cag0y+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ZAas+4hZ;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=s5j+VKPw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7670606D81B;
-	Mon,  2 Nov 2026 19:00:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22617606A32E;
+	Mon,  2 Nov 2026 19:00:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ZAas+4hZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 966911F00A18;
-	Mon,  2 Nov 2026 19:00:07 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=s5j+VKPw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9865A1F00A17;
+	Mon,  2 Nov 2026 19:00:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793646007;
-	bh=bqMpyzuPyICDtSav4owPaTQB8zjioPQrXnEoMVHbcUE=;
+	d=linux-foundation.org; s=korg; t=1793646002;
+	bh=xidbMq00lq1vD/qMoM3j9IazFUNu1Vl1hoyzq0QedYs=;
 	h=Date:To:From:Subject;
-	b=ZAas+4hZa3DNa4TH3eG5BdyC1KFAfKC+CZ0/e4jkSB036unzDMtPLdndC3zW6VkCe
-	 SLnjjZP/3myASuJNZfoeoLJ4T+4dJyFyB7mOlHEzS50p7kzXxbZHJ9Zlk/ksYLXG6Z
-	 eJOF1hfMgmsnzL7Q1qxz6VNvEXERDBOSAYte/xq4=
-Date: Mon, 02 Nov 2026 11:00:07 -0800
+	b=s5j+VKPwSL3520RVJfxHkA8+1Se7JsTFqtO5THsdNvH65yi0V7fR6k3o44GVGoXdt
+	 M5dDXoanKmYBVPL743wVAEPt9EiiEK1wU9Iy5uDA5rGkdBkQNm41ZjRifwoTsAD0Mh
+	 RRszXmT3keg6phVUTeKjLyKfAi9DDiOYwTjntJTY=
+Date: Mon, 02 Nov 2026 11:00:00 -0800
 To: mm-commits@vger.kernel.org,xiaoleiwangxiaolei@gmail.com,
-	stable@vger.kernel.org,shuah@kernel.org,jm5905938@gmail.com,sj@kernel.org,
+	stable@vger.kernel.org,sj@kernel.org,jm5905938@gmail.com,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261102190007.966911F00A18@smtp.kernel.org>
+Subject: + mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261102190002.9865A1F00A17@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,12 +53,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: selftests/damon/sysfs_memcg_path_leak: define ksft_skip
+     Subject: mm/damon/core: reset watermark wait state on each iteration
 has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
+     mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch
 
 This patch will later appear in the mm-hotfixes-unstable branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -76,63 +76,74 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: selftests/damon/sysfs_memcg_path_leak: define ksft_skip
-Date: Mon, 02 Nov 2026 06:46:26 -0800
+From: Aveline Noir <jm5905938@gmail.com>
+Subject: mm/damon/core: reset watermark wait state on each iteration
+Date: Mon, 02 Nov 2026 06:46:24 -0800
 
-sysfs_memcg_path_leak test uses $ksft_skip without defining it.  As a
-result, the test is marked as passed while it was skipped, like below.
+Patch series "mm/damon: fix watermark state, kunit pid leak and selftest
+fake pass".
 
-    $ ./sysfs_memcg_path_leak.sh
-    Run as root
-    $ echo $?
-    0
+Three hotfixes for core, kunit and selftest.  Fix kdamond deactivation
+from missed watermark reset with patch 1.  Fix pid leak in kunit test
+with patch 2.  Fix a selftest wrongly passing when it should skip, with
+patch 3.
 
-Users who run the test could therefore wrongly believe the test was run
-and passed while it was skipped.
+Note for reviewers.  This series is a collection of fixes that were
+initially developed by different people.  Changelog is in each patch.
 
-Define the value at the beginning of the test.  After this patch, the
-exit code reflects the skip.
 
-    $ ./sysfs_memcg_path_leak.sh
-    Run as root
-    $ echo $?
-    4
+This patch (of 3):
 
-Link: https://lore.kernel.org/20261102144627.88843-4-sj@kernel.org
-Fixes: dfa3cf0bc018 ("selftets/damon: add a test for memcg_path leak")
+Found while reviewing the DAMON source code that if an online commit
+removes all schemes while kdamond is waiting for watermark activation,
+the scheme loop becomes empty but min_wait_time keeps the previous
+positive value.  kdamond then keeps sleeping instead of resuming
+monitoring without schemes.
+
+The way to wake up the kdamond again without DAMON is bit complicated.
+Install a scheme having watermarks that can activate the kdamond again,
+and remove the scheme again.  Doable but cumbersome and complicated.
+
+Initialize min_wait_time and init_wait_time on each loop iteration so
+the wait is calculated from the current schemes and an empty scheme
+list resumes monitoring.
+
+Link: https://lore.kernel.org/20261102144627.88843-1-sj@kernel.org
+Link: https://lore.kernel.org/20261102144627.88843-2-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-a0456336-0608-4fec-ac22-0ee61d1d6a91
-Reviewed-by: Aveline Noir <jm5905938@gmail.com>
-Tested-by: Aveline Noir <jm5905938@gmail.com>
-Cc: Shuah Khan <shuah@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
 Cc: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-Cc: <stable@vger.kernel.org> # 6.17.x
+Cc: <stable@vger.kernel.org> # 5.19.x
 ---
 
- tools/testing/selftests/damon/sysfs_memcg_path_leak.sh |    3 +++
- 1 file changed, 3 insertions(+)
+ mm/damon/core.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
---- a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh~selftests-damon-sysfs_memcg_path_leak-define-ksft_skip
-+++ a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
-@@ -1,6 +1,9 @@
- #!/bin/bash
- # SPDX-License-Identifier: GPL-2.0
+--- a/mm/damon/core.c~mm-damon-core-reset-watermark-wait-state-on-each-iteration
++++ a/mm/damon/core.c
+@@ -3976,10 +3976,11 @@ static int kdamond_wait_activation(struc
+ {
+ 	struct damos *s;
+ 	unsigned long wait_time;
+-	unsigned long min_wait_time = 0;
+-	bool init_wait_time = false;
  
-+# Kselftest framework requirement - SKIP code is 4.
-+ksft_skip=4
+ 	while (!kdamond_need_stop(ctx)) {
++		unsigned long min_wait_time = 0;
++		bool init_wait_time = false;
 +
- if [ $EUID -ne 0 ]
- then
- 	echo "Run as root"
+ 		damon_for_each_scheme(s, ctx) {
+ 			wait_time = damos_wmark_wait_us(s);
+ 			if (!init_wait_time || wait_time < min_wait_time) {
 _
 
-Patches currently in -mm which might be from sj@kernel.org are
+Patches currently in -mm which might be from jm5905938@gmail.com are
 
-mm-damon-sysfs-schemes-hold-damon_sysfs_lock-in-target_metric_store.patch
-mm-damon-core-move-static-variable-last_nr_regions-to-damon_ctx.patch
-mm-damon-core-move-static-variable-rotation-to-damon_ctx.patch
-selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
-mm-damon-core-copy-only-installed-probe-in-damon_split_region_at.patch
+mm-damon-core-reset-watermark-wait-state-on-each-iteration.patch
+mm-damon-ops-common-align-mmu-notifier-range-when-clearing-pmd-young-bit.patch
+mm-damon-stat-avoid-32-bit-overflow-in-idle-percentiles.patch
+mm-damon-pvaddr-skip-folios-already-on-the-migration-target-node.patch
 
