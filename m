@@ -1,55 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629526;
-	b=RRlrDTdTOoD5sMI/tn/6lrktrN/3icTexPU5IoZwongbRrc/T8ibxgaIfX91CEYHRE05
-	 5MTb6SEPgOOgFRGXs07Bb2I0X45lceThk59bhD/obgS4FzvzZePT7UWXEE9hkrpVPV9XT
-	 yWq3l3DWX/Oy5uHukFyltl/aT+IWi4W1RXU/9U2lO48QBVjsA95HXCFwJ4jn/CYsyG2BP
-	 einlfIs3QbQHbe+vmNvSMsiP+hv2xZfWLYRuWi9UwLI8ZwftBOCrjoXZD7xaw7nxTgs0j
-	 LRsYV2Z5ybyvyyi1Z6gDQJboXdLhoc0xLPxfPstGU6BcuvTko5TgrKemGeYF8/bwlHg==
+	t=1793629533;
+	b=xLJmZXLiXJmPFIOc0RMwKlaFHxFy8HVMf8ke/BjssnMX479tdMPc89yqhuHHZNQLt3Bs
+	 mG1IZB428AZJmsKbltRPW4D3IqmT5HOUQI/6hI6elM8E0dEhBjQ368KperwiwLS1z3/oo
+	 XKz/aMNCz3PfaxfTcTbBJ01qxttRJ2Xj6C9p4MxZqEoEf/FV7VrGwlg2lUc18/wnFD+dq
+	 6w9gqYDowKrQasWr4EzoxnlQnE3s19CWp6H0Z/bFn6rtOmu6CPGiIg2KInEja+Cqxjaom
+	 0ncn//MgX3vr+FkxN6YA69qYAqNOIjG2w1fGj5W3kO7mpuogPbMTU0wDo+WB06ZD3NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629526;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=wxk2D2Tyz0niqEJ7raNF2H1HyA1O1DKEL6gbE1BW9h4=;
-	b=m349EwU/JZDSEdk5zBLPD42lPP/OaFYA8hpQxfdEimZySq507/4k7supLVRfCVzvAoLc
-	 XZYUpph1X521FxoOYt3wWNR1Uc+j1lS8Pn9zlUArsTYqQBRNIvAV7+lUViam75H4I2BN0
-	 eiuwWVVZOMPfN0dXF3uvJW35mGPbxxZVQVjg+ApLjA6ygd8/GNbW9frN2/++3vG/zbikX
-	 fcOUXExwzffoBqtqH/BlIOUmGNRef2Q3FNKcyNksENmtztBXWSjiZoIPILpZI76GRAQxU
-	 I7avwzgg6rXTTxc0wMwom2Qk+5f2FdpJBdunExsKE9z7MQMQeyiUnl1MmgdcSMZ5yHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629533;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=mKU98amy9hy90zr0rIuEDpX5DG9FkJnMRpzgeAMYKDA=;
+	b=PrcsqJM+MTgwiprzZ2bU2Xi7HtFTFh/WgEhUFMV7Ll9neVf5aWfgfkNJk8lYWziMK9iG
+	 u9Bkcgox76axM8vtFzc89dVveGN6JAQgDE2v89GSx63CRAlAS1qb56Jr86B+TJPSLYm5k
+	 P91DvvSRbY+2Uq0uWpcc4QnGfFU3HAElviM2LwZ8W2zsG5keCNuBkSmVJMUaNI2GVQ1KV
+	 rG++vATe2Gh95Zy872690OhyIqZQdkT8vOGD/eo/AaPLDA0yMAAw6LQyfvWgtTo2TN4Tq
+	 zt5GkoQhgwMFyQ+QTrHjj+RK5rczM+RjK/mVGA0QTCRzwoso3gUC8bh2W7/jR616tgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5DC61606B0E0;
-	Mon,  2 Nov 2026 14:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DC61606B0E0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=wxk2D2Tyz0
-	niqEJ7raNF2H1HyA1O1DKEL6gbE1BW9h4=; b=Hhum9g4EHbXywPStVc3wWl4tkl
-	vB7y8AsZmnwyiqFJB+lDzIAX7Ji0RzMgM4XzfE1UAgBPeGIszIx3i0ImtOYCN+uA
-	Bg5VicHgwgpmgtvjiFrDBNWR8YiZrktT4gR3sUjpgNXVpOPcgontOlMuJmAZQobL
-	u3cZlEqJMp4yM/vkY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGywBEnehqrvoZAQ--.54106S2;
-	Mon, 02 Nov 2026 22:25:10 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: au0828: release the media source when the device is disconnected
-Date: Mon,  2 Nov 2026 22:25:08 +0800
-Message-Id: <20261102142508.24277-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuiXMui8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2740606B1E0;
+	Mon,  2 Nov 2026 14:25:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RuiXMui8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4C7B1F00A1A;
+	Mon,  2 Nov 2026 14:25:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793629532;
+	bh=mKU98amy9hy90zr0rIuEDpX5DG9FkJnMRpzgeAMYKDA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=RuiXMui8BjXqcKpOkZSSb2fzdRJqOkdTcBMExOILHIUKi584gE62EX9Rp9REsxAIh
+	 tjfzstrESrt5D/m0KQUF1dxAhGVFfymG0E8Js/U44Ve00018P7C9iKFESKyfNdRPH7
+	 jxqcAf+UyNqrfhgRtXxl4xxVCit/7IAdifFgBcmNi28pEmExfPZqlZQ4Q0GbNWzpIU
+	 msgRoEl0hgaDf8LmrTDw9dYe6Yf6s53ZTxmKCSoEgxdjVUtQjEYNmUbpSyhFg70PwG
+	 1lAYyQW6WwhB8zxcVpIbbkLDhHR6Rqo3KCYBrHb/1mUtI2SL/iwP/I6AQGkAgYxSJ7
+	 LV6XKXIW55awQ==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 15:21:31 +0100
+Subject: [PATCH RFC 16/38] proc: don't walk through a non-directory when
+ resolving a name
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,147 +53,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCGywBEnehqrvoZAQ--.54106S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZrW8JFWDKw4UZFWxuFyrXrb_yoW7JFyfpF
-	yftF4ftrWqqF45u3y7Ja47XF1ruF9agFWxJr9Fga93uF4fCFy8Xw1fua43Wrn8CryrurWY
-	yw4jqw4UCFWUWFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUcmhFUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rnWELD1QAAsM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-bugfixes-v1-16-59422ed3e465@kernel.org>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2403; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=/ELhSiescDaKRjbpWYPGx1ceLHTHmhSA6KoiiBWZ7Vg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9mJOt9OXTNdZ5WT/1Ui5nzeZtP2wlv61nddee+08Ux
+ Eyii1I+d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEykaAvD/7pF4SLFW7W7Qx48
+ CBf6zy7QHPZPaforsYxZ6W92nFswPYbhf+p3tsbuWgVbTQW7NyaGa9/nmy3g0Lj3LuPQBLv7vNr
+ OzAA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-au0828_enable_source() starts the media pipeline and saves the link, its
-owner and the source and sink entities in struct au0828_dev.  The matching
-au0828_disable_source() is only called from the frontend open and release
-paths.
+__xlate_proc_name() walks the components of a name like "a/b/c" and
+takes whatever it finds for "a" and "b" as the directory to go on in.
+It never checks that they actually are directories. So
+proc_create("file/x") hangs x into the subdir tree of the regular file
+"file". Nobody can look x up there, but remove_proc_subtree() on the
+file removes and frees x along with it, behind the back of whoever
+registered x.
 
-When the device is disconnected, au0828_dvb_unregister() removes the
-frontend entity through dvb_unregister_frontend().  dvb_remove_device()
-frees the entity unconditionally and __media_entity_remove_links() frees
-every link of it, but the source is not released: the pipeline is never
-stopped and dev->active_link, dev->active_link_owner, dev->active_source
-and dev->active_sink keep pointing at freed memory.
+pktgen passes the name the writer of "add_device" picks to
+proc_create_data(), and only the part in front of the '@' has to name
+a network device:
 
-struct au0828_dev stays alive until the last V4L2 file descriptor is
-closed, because the video device holds a reference to v4l2_device.  A
-later close therefore reaches au0828_disable_source() through
-v4l2_fh_exit() and dereferences the freed link and entity.
+  echo "add_device lo@"   > /proc/net/pktgen/kpktgend_0
+  echo "add_device lo@/x" > /proc/net/pktgen/kpktgend_1
+  echo "rem_device_all"   > /proc/net/pktgen/kpktgend_0
+  echo "rem_device_all"   > /proc/net/pktgen/kpktgend_1
 
-Stop the pipeline and deactivate the link in au0828_usb_disconnect(),
-before the frontend entity is unregistered and while holding graph_mutex.
-Move the cleanup tail of au0828_disable_source() to
-au0828_release_active_link() so that both paths share it; the disconnect
-path must not be skipped by the dev->users > 1 check, which only applies
-to a video owner.  Nothing has to be released when no link was activated,
-so the new call runs only when dev->active_link_owner is set.
+The third write frees both entries and the fourth one makes kpktgend_1
+call proc_remove() on the freed second one:
 
-Fixes: c94903f1f7cc ("[media] media: au0828 add enable, disable source handlers")
+  BUG: KASAN: slab-use-after-free in proc_remove+0x8f/0xa0
+  Read of size 8 at addr ff110001134c8e70 by task kpktgend_1/243
+  Call Trace:
+   proc_remove+0x8f/0xa0
+   pktgen_remove_device.isra.0+0x118/0x500
+   pktgen_rem_all_ifs+0xeb/0x1a0
+   pktgen_thread_worker+0x1b42/0x7280
+
+The files of a network namespace belong to the root of its user
+namespace and these writes don't require a capability. So once pktgen
+is loaded an unprivileged user can do this in namespaces of its own.
+
+Treat a component that isn't a directory like one that doesn't exist.
+All names with a '/' that the tree passes in as literals only walk
+through directories. pktgen is fixed separately to not pass such names
+in the first place.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/media/usb/au0828/au0828-core.c | 53 +++++++++++++++++++-------
- 1 file changed, 39 insertions(+), 14 deletions(-)
+ fs/proc/generic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/au0828/au0828-core.c b/drivers/media/usb/au0828/au0828-core.c
-index 445cbeb7abae..57a163415d1c 100644
---- a/drivers/media/usb/au0828/au0828-core.c
-+++ b/drivers/media/usb/au0828/au0828-core.c
-@@ -120,6 +120,7 @@ static int recv_control_msg(struct au0828_dev *dev, u16 request, u32 value,
- #ifdef CONFIG_MEDIA_CONTROLLER
- static void au0828_media_graph_notify(struct media_entity *new,
- 				      void *notify_data);
-+static void au0828_release_active_link(struct au0828_dev *dev);
- #endif
- 
- static void au0828_unregister_media_device(struct au0828_dev *dev)
-@@ -175,6 +176,18 @@ static void au0828_usb_disconnect(struct usb_interface *interface)
- 	set_bit(DEV_DISCONNECTED, &dev->dev_state);
- 
- 	au0828_rc_unregister(dev);
-+#ifdef CONFIG_MEDIA_CONTROLLER
-+	/*
-+	 * The frontend entity can own the active link.  Its entity is released
-+	 * by au0828_dvb_unregister() below, so stop the pipeline and deactivate
-+	 * the link while the entity is still registered.
-+	 */
-+	if (dev->active_link_owner) {
-+		mutex_lock(&dev->media_dev->graph_mutex);
-+		au0828_release_active_link(dev);
-+		mutex_unlock(&dev->media_dev->graph_mutex);
-+	}
-+#endif
- 	/* Digital TV */
- 	au0828_dvb_unregister(dev);
- 
-@@ -438,6 +451,31 @@ static int au0828_enable_source(struct media_entity *entity,
- 	return ret;
- }
- 
-+/* Callers should hold graph_mutex */
-+static void au0828_release_active_link(struct au0828_dev *dev)
-+{
-+	int ret;
-+
-+	__media_pipeline_stop(dev->active_link_owner->pads);
-+	pr_debug("Pipeline stop for %s\n", dev->active_link_owner->name);
-+
-+	ret = __media_entity_setup_link(dev->active_link, 0);
-+	if (ret)
-+		pr_err("Deactivate link Error %d\n", ret);
-+
-+	pr_info("Disabled Source: %s->%s->%s Ret %d\n",
-+		dev->active_source->name, dev->active_sink->name,
-+		dev->active_link_owner->name, ret);
-+
-+	dev->active_link = NULL;
-+	dev->active_link_owner = NULL;
-+	dev->active_source = NULL;
-+	dev->active_sink = NULL;
-+	dev->active_link_shared = false;
-+	dev->active_link_user = NULL;
-+	dev->active_link_user_pipe = NULL;
-+}
-+
- /* Callers should hold graph_mutex */
- static void au0828_disable_source(struct media_entity *entity)
- {
-@@ -537,20 +575,7 @@ static void au0828_disable_source(struct media_entity *entity)
- 			dev->active_link_owner->name);
- 
- deactivate_link:
--		ret = __media_entity_setup_link(dev->active_link, 0);
--		if (ret)
--			pr_err("Deactivate link Error %d\n", ret);
--
--		pr_info("Disabled Source: %s->%s->%s Ret %d\n",
--			 dev->active_source->name, dev->active_sink->name,
--			 dev->active_link_owner->name, ret);
--
--		dev->active_link = NULL;
--		dev->active_link_owner = NULL;
--		dev->active_source = NULL;
--		dev->active_sink = NULL;
--		dev->active_link_shared = false;
--		dev->active_link_user = NULL;
-+		au0828_release_active_link(dev);
- 	}
- }
- #endif
+diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+index 2b1971da4a85..c560c96a64eb 100644
+--- a/fs/proc/generic.c
++++ b/fs/proc/generic.c
+@@ -170,7 +170,7 @@ static int __xlate_proc_name(const char *name, struct proc_dir_entry **ret,
+ 	de = *ret ?: &proc_root;
+ 	while ((next = strchr(cp, '/')) != NULL) {
+ 		de = pde_subdir_find(de, cp, next - cp);
+-		if (!de) {
++		if (!de || !S_ISDIR(de->mode)) {
+ 			WARN(1, "name '%s'\n", name);
+ 			return -ENOENT;
+ 		}
+
 -- 
-2.34.1
+2.53.0
 
