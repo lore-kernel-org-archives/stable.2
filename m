@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793638097;
-	b=yZAuewMQqAV/gE2aUDVwpSbXyrtrNJcvQaFcFcArAupUkIHGQjP6IzFGHLcdtMWg2C8x
-	 PrgpKNAOKAk7WMtsfdyQlQBUVD1tQQ4JVtwXVJeLhz0FwlkUkNarbjKCOWMvggA+V2Kd8
-	 BlnWUu+977EFE3X0g7kO+wcZulJG+qfIlCH2x7Nr+Qlik41O9qQWuJKZSiRjD1hXRYPZa
-	 nw9ZPOimr7kY33IfLANmfM3viFQ8pBtKV+biW0YWGYQbrbH1Mefq8eZMUiTCFJBNV7TTX
-	 WS54g2sDli5sX+TXF2FfSMwXG+eJWXg0f5IEwmZqKMdsqSL/nC+efkT1ozXRt9tOQUQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638097;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wyGoShxYRaYBKZIJpYvIWwmSQnNz4S7v7I1GDlrX13s=;
-	b=PkVk4cEVkVq+YB4xfKR/AsPg0+98wnEB6xnIGMeJ/6aDTAimrBelXQhB1NRLHcTNlZxV
-	 eqlYLqE632U4UG8XOzWZju9y0Qj2IWpdr4iUTlsy5rijUU7l7NWsQfgbvUfgKXlezzF60
-	 eCenYs+9jUz75e2vzHlkIsNcw+mypVp3tVEPH8Uds58TbnT/9VuBIJiV7qucaaVfz25g+
-	 nvAulO26ZSGIk+OtP+2Z8acPDg+A49CAJRz42tuN2APS1JGLoE21GjusWCtVktq9Rh3Tx
-	 Rhdc+GpdTDZIHp8Dnm0d8/SWOs/cov1ZGvw+UT4a54wbRtlH0MCyU4RGUnQfzENW65A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=msQm7fbT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.4
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011004.outbound.protection.outlook.com [52.101.70.4])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793638108;
+	b=D6IwX8ohV7Ye35ScCntVwo6ngK7iWayYP9HzmHzjVaNKMzqteBzWHiZ6G8L5JWZP0daB
+	 d1tNJT50b5rT18QVz46bqm+tTe7Kn334xq1rHlHHXhCytHy+5S50ajXvI9xrid9Z4cIqf
+	 AA3fnUz+Q5oKQ/3nmrneYjSwJCYwEJSrGYkhPdlY6PJWheq2aYuIxkBG6uOYTJMrTEq17
+	 f2wbAc+YlYVb3ph0zbsvT4DRWsNB0nfYoDxveopC4DVXincNwyWl71EfKe3Kcvn5Hanbg
+	 0CypiXFiuaDfD8AjonyttGiCtQIqFzFS0hAJvSu0RAkTTnSCPAd8kIlS6zT2TSBktLA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638108;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
+	b=lFayFnusgXt2ym0s4hHZ2jK593/6gJuAi12WbUduS9JSrGwwF/rDdEsvBwOv0neGZzSh
+	 kWAJWihOofxlZVCGTBJyLT7XTOt6Ot2FGSTuMOZU2ZcFpf2OQ9HAuxKxF3I4H3SCFhxRe
+	 /g00ERvG9UOT/4yEr0e4jLdZmP+74as/pSi3hphoY8SCaNYXqjkz1tw2IUfRdTt4MGopW
+	 tQi9lnCG8SFp4lSi2yBRTENLm33lm8EB2RZSlcUBfkU/anvZOVnOszn1jDsGS6buBsOQG
+	 RoI3kAdJJObsRr6O9A62noHo1Qo+SGm7vNnoB9COljLlvMsbu2vH7GWjektssw4Xvsw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=02nQqflh;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GwcSGu1H;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MNBhQREX;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aUbDg4gK;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBCE606B1F6;
-	Mon,  2 Nov 2026 16:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FBCE606B1F6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52FA606B1F6
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B52FA606B1F6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=msQm7fbT
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p7wHqnxEnojwSpwpcWsygtWUQit5PtCg79LUWJ/1whogo34At4yfFEbJXylfuc/EeH1wg0vVPPskU6oH45Zrut22uyyxhaMyyochxnbpA1qaLwDO7pFZlGQ+e5QgL2l/9EMUNwLQpbIsj7mgXatzDC09kWAltOwWkv5r4wZ/JpFcDvHZFFqOzondJcXW4t0/8CzJEOOyZz6LFiU3oDogjfyKwnZe6mtGwQFZQeXxqGh2K66O9Z7wMkQ7kOivGwmNUKnyk2Y6+3D5+wsJsYznSF/IWJCA1Y9aMDaEyOCTBjQJA8c+2ZQ8ac0WpcL6VqO+DexUyPDIghFQ2AcF2sOyTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wyGoShxYRaYBKZIJpYvIWwmSQnNz4S7v7I1GDlrX13s=;
- b=O36Iureca91gAHK/tWEgVqc54pYXxHmQGw/Bu28GMZvhrOQWFVUN+tcWc3w8nqxN1PWZbS4LXApxxFd8kWDZaI0+GmtZ86ChoWNRiUHfgmwdMq0XG8OMQfnmtVrnQMyZUI46T8hLN0S0xezsBGIsFY9XBZc/ENHHS/ALbDQtVokNj54JaqEvuo//dG0Mtte3eLHn7M2PorRvHiEFF5r04Ay7m3+mwwqezPDUQULSsL+NcuX+U+0Hfbp3jUbxY23wJUP/+nkpEzktNMKg89WiExUvSdr3IYtRCHtwiFvrlqDMoKWhol4KuDxT5jV3GHfW+qHMHnSk1ZFPkHLixPrdJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=posteo.net smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wyGoShxYRaYBKZIJpYvIWwmSQnNz4S7v7I1GDlrX13s=;
- b=msQm7fbTysovlqHbMd3x80BzZuEooxwkiSXJBohjVuYdHBAFdJYTklZiORWfzh0s+LgrpZrkOEVOlB9dGPXa8GS3quo0HFzYul2Nja4EzGHA36rxu+3iUmwzlCjLN7lGhrQlz1Dxb5rEmro659q8vaOTkG1TBeR5PvY8Tyd5hdKF5yMDq9L8JpA53JZFHG7xPLdO1PG20r6auhdrpG7GH7WU8Iunz8dIhPuT9UFRNcEQLhVPiUmNzgI3y4lXaOySOiQpFv70jKLGQS4Oe84A9DFfRbivbFcwOCrisstMdC+HATynx+AXyn+IYd0R7sQqEmZSJAKHmNuhnIbIUnfKpg==
-Received: from PR1P264CA0128.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:2ce::14)
- by AM8PR10MB4036.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1c9::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 2 Nov 2026
- 16:48:12 +0000
-Received: from MAD0EPF000008C2.eurprd05.prod.outlook.com
- (2603:10a6:102:2ce:cafe::11) by PR1P264CA0128.outlook.office365.com
- (2603:10a6:102:2ce::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Mon, 2
- Nov 2026 16:48:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MAD0EPF000008C2.mail.protection.outlook.com (10.167.241.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 16:48:11 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 2 Nov
- 2026 17:48:55 +0100
-Received: from [10.48.86.101] (10.48.86.101) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 2 Nov
- 2026 17:48:10 +0100
-Message-ID: <a5fff7cd-686a-4fef-b9f7-87e19b870fa9@foss.st.com>
-Date: Mon, 2 Nov 2026 17:48:09 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=02nQqflh;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GwcSGu1H;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MNBhQREX;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aUbDg4gK
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8F4292202B;
+	Mon,  2 Nov 2026 16:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793638105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
+	b=02nQqflhIL2tyzXPE/ieje49qERwo8sAiJEG7oWVVufg+aPKvRN7n3OEnWvbv/B4IUIWiC
+	geLX8hSyJ+4kek5OGMYddofr6Tao5xtPwQHkb34Mx5EAjtFosqg15y8J+VSCG7utl7zfxw
+	z28GC8aMNd0nXINQbWC8rw1Ezn2XgpY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793638105;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
+	b=GwcSGu1HEwIpPPFDsRXsrj8mvXbodhyh+sq92ZFFGcgBdBS0FB3R0JNk1GPffir7OziXta
+	HOq+1FXczPwgJzBw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793638104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
+	b=MNBhQREXmZ9dH0LOn4imoP2vAQDtZhcnQsL0hbHwZYyeyU9wr6PFT82Jemb/Mn6C/RVQLK
+	Cazah5smMSv29m8TOFXxzJBNKoxrW/wfnARz8RmIj4qPlvWxJcvqN4I2ddnqiRZdeJl3mA
+	2tYA6GY4DRMeWrePyOBkfXTro52T9No=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793638104;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
+	b=aUbDg4gKIKZz/M1a3wNTXwMuN9r418R+iAPP1r8WycjozWF12slYyTh4F287xbO19aqLnz
+	/4HT3KlurFDdnnCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2EF75134B8;
+	Mon,  2 Nov 2026 16:48:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id R+UfN9e+6GquTgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 16:48:24 +0000
+Message-ID: <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
+Date: Mon, 2 Nov 2026 17:48:23 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,111 +107,214 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] mmc: mmci: stm32: do not use NEGEDGE in HS200 mode
-To: Mateusz Nowicki <mateusz.nowicki@posteo.net>, Ulf Hansson
-	<ulfh@kernel.org>, <linux-mmc@vger.kernel.org>
-CC: Russell King <linux@armlinux.org.uk>, Linus Walleij <linusw@kernel.org>,
-	Yann Gautier <yann.gautier@foss.st.com>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20261031120700.42576-1-mateusz.nowicki@posteo.net>
- <20261031120700.42576-3-mateusz.nowicki@posteo.net>
+Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
+ deadlock
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, javierm@redhat.com, louis.chauvet@bootlin.com,
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20261102143919.1672293-1-tzimmermann@suse.de>
+ <auioL8zR9O5u4TCF@intel.com>
 Content-Language: en-US
-From: Christophe KERELLO <christophe.kerello@foss.st.com>
-In-Reply-To: <20261031120700.42576-3-mateusz.nowicki@posteo.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <auioL8zR9O5u4TCF@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008C2:EE_|AM8PR10MB4036:EE_
-X-MS-Office365-Filtering-Correlation-Id: c99f029b-6394-474c-cf90-08df39011508
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|261102123227099003|261021121427099003|11063799006|4143699003|56012099006|261009223027099003|261028144727099003|261022105027099003|261021123027099003|261026140227099003|261026121527099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	9IowxUPLnleLduOYSZ/tYJEZlOAcrIIEiXHcVOK7Mc5dDo8SYJBS2GTL0QXPHb1FBWEcF3eQJ9t9+mbNPHgW1KxdfoN0sgl03ngdIoWR2hKWC1K9ZVft7H1dE/GHyTL9X0NAANCjU9oquvGNy4uikndODJY89GWOYZdz4pFJG9kr4Obq35rIvBOk78YMNvWjwoACoWt8Hp/zXFmYtdaDXgG6GiZS457hYsNnPL57n89zQSmweg7nLCqO5212GZewijdrzurxKxfPdBR+gJfe2WzqXDqnOtH4Yl2c59bdn+lCfAjm96GW07z97+vi8rQXqaD01YXlV3ApKE7wOeuC9XJA6o4LrRp2J3EyFIWqxEiCarE17OhJn4HbmxZHXmEa7xUR2Z3cE2wJfdSpG8X9xh3muRL1+KwxM1eMTeSZFmKsT5vtOSbaiR112cx2Wb1pQguWkkeeOeXmGZV3hv4WzJSCq7iC+54GLhvrs1C1Ga0IUfsBsBR3+lkzNAojdKqFR9P/8wHBdCDG0/CAXRZYY+2EwSLeeUhuReyYjWmPJtptb8kFPu0a5hLXMYftiNHOYixa5SIj2VqQwvmFXat7AzqMfvsL0MympyG2aBrJjQ3xET+CcnRsLQLEWdmNOttkPzphtxVjpyNc2uYITvNcqFN5da0Zw9ZsVMAI5nwteWand5tqPk33C/22MyYf3fS3+jD0VxA4/S4wBj/fuDBnKA==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(261102123227099003)(261021121427099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261022105027099003)(261021123027099003)(261026140227099003)(261026121527099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Une9ZxMcnuZ4Fkgp1uVoWrA0ew9WGZsOHcqGf0uchao3TqrCdVElCwTUTN7xRUJVS7GpB/kFqCBUdcc0aDbPwmlm12jiKGSI3NNCqggpG9unziHbDP5m/umosLd4ZnOyNSeu74LmeiSdo5/1KQpOrcfAPoEKll8Q+IoPhyg6EFeLW94CW3zoUacVqaqTmn4wN8/ByJD4hmJ71JJYL/I6H/isTC+RLYxVpvDSUp9kP3j7OQPoFS0wjSwX4e7fAY51peyli+vgyEcidNeunLm2JaunC8VeSqoqo0N6KSDonPrbjq9sHxti/C7pnUiY5ZTAzci+EWeeFUvQVF6Nm0Yjxz0FlKuxU1ShYEvgrQJo4xPgemrpcKVBgHm7Fg/PMf12urSTwBVOuggp1mHxZrts4dx33DDIeHBwwZFcw1Q81/H9lqrf4d411CF4IOxY1PZe
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 16:48:11.9489
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c99f029b-6394-474c-cf90-08df39011508
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008C2.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR10MB4036
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[suse.com:url,intel.com:email,suse.de:email,ffwll.ch:email,bootlin.com:email,bootlin.com:url,imap1.dmz-prg2.suse.org:helo];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,bootlin.com,lists.freedesktop.org,lists.linux.dev,vger.kernel.org];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,lists.freedesktop.org:email,intel.com:email,ffwll.ch:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,bootlin.com:email,bootlin.com:url]
+X-Spam-Score: -13.29
 
-Hello Mateusz,
+Hi
 
-On 10/31/26 13:07, Mateusz Nowicki wrote:
-> RM0457 marks NEGEDGE as not applicable in HS200. With a clock divider it
+Am 02.11.26 um 16:11 schrieb Ville Syrjälä:
+> On Mon, Nov 02, 2026 at 03:38:52PM +0100, Thomas Zimmermann wrote:
+>> Return -EDEADLK when trying to cancel a running hrtimer as part of
+>> enable_vblank(). Reacquire vblank_time_lock and try again.
+>>
+>> The vblank helper drm_vblank_disable_and_save() and the vblank IRQ
+>> handler hold the spin lock vblank_time_lock at some point. This
+>> can result in a deadlock if vblank timer's disable code in
+>> drm_crtc_vblank_cancel_timer() calls hrtimer_cancel() directly: the
+>> helper wais for the timer function to complete and the timer function
+>> waits for the helper to release vblank.time_lock.
+>>
+>> drm_crtc_vblank_cancel_timer() works around this problem by calling
+>> hrtimer_try_to_cancel() instead. For re-enabling the vblank timer,
+>> drm_crtc_vblank_start_timer() must wait for the vblank timer to stop.
+>> It runs into the same deadlock problem while waiting for the timer
+>> function to complete.
+>>
+>> The solution to this problem is to release and reacquire the spin
+>> lock vblank_time_lock if hrtimer_try_to_cancel() signals a running
+>> timer function. Releasing the lock allows for the timer function to
+>> make progress.
+>>
+>> Signal the possible deadlock with -EDEADLK and perform the necessary
+>> steps. No other driver uses -EDEADLK in their enable_vblank, so the
+>> change should not interfere.
+>>
+>> Tested with bochs on qemu.
+>>
+>> Closes: https://lore.kernel.org/dri-devel/20260914111129.300691F00898@smtp.kernel.org/
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
+>> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+>> Cc: Javier Martinez Canillas <javierm@redhat.com>
+>> Cc: David Airlie <airlied@gmail.com>
+>> Cc: Simona Vetter <simona@ffwll.ch>
+>> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>> Cc: Maxime Ripard <mripard@kernel.org>
+>> Cc: dri-devel@lists.freedesktop.org
+>> Cc: <stable@vger.kernel.org> # v6.19+
+>> ---
+>> I also tried to move hrtimer_cancel() out of the critical section. The
+>> result was fairly fragile. So returning an error and re-acquiring the
+>> lock was the easier solution.
+>> ---
+>>   drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++------
+>>   1 file changed, 15 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+>> index 5162250e8813..135efde86298 100644
+>> --- a/drivers/gpu/drm/drm_vblank.c
+>> +++ b/drivers/gpu/drm/drm_vblank.c
+>> @@ -1182,10 +1182,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
+>>   static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+>>   {
+>>   	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
+>> -	int ret = 0;
+>> +	int ret;
+>>   
+>>   	assert_spin_locked(&dev->vbl_lock);
+>>   
+>> +retry:
+>> +	ret = 0;
+>>   	spin_lock(&dev->vblank_time_lock);
+>>   
+>>   	if (!vblank->enabled) {
+>> @@ -1199,7 +1201,11 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
+>>   		ret = __enable_vblank(dev, pipe);
+>>   		drm_dbg_core(dev, "enabling vblank on crtc %u, ret: %d\n",
+>>   			     pipe, ret);
+>> -		if (ret) {
+>> +		if (ret == -EDEADLK) {
+>> +			spin_unlock(&dev->vblank_time_lock);
+>> +			cpu_relax();
+>> +			goto retry;
+>> +		} else if (ret) {
+>>   			atomic_dec(&vblank->refcount);
+>>   		} else {
+>>   			drm_update_vblank_count(dev, pipe, 0);
+>> @@ -2232,11 +2238,14 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
+>>   			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+>>   	} else {
+>>   		/*
+>> -		 * Timer should not be active. If it is, wait for the
+>> -		 * previous cancel operations to finish.
+>> +		 * Timer should not be running. If it is, signal cancellation
+>> +		 * again and restart to release locks.
+>>   		 */
+>> -		while (hrtimer_active(&vtimer->timer))
+>> -			hrtimer_try_to_cancel(&vtimer->timer);
+> Why do you even have to cancel the timer here? Just let it run?
 
-No, it is not what it is written in the RM. If clkdiv is equal to 0, 
-NEGEDGE has no effect.
-NEGEDGE has an effect only when clkdiv > 0, so it can be used with HS200.
+We ran hrtimer_try_to_cancel() in drm_crtc_vblank_cancel_timer() to 
+remove the vblank timer. When we later come here, we need to know if the 
+timer has meanwhile been fully canceled. Hence we need at least one call 
+to hrtimer_try_to_cancel() even if the timer is in some bogus state 
+where it should not be active. The loop here was nonsense and could 
+deadlock. In the new code, we still need that call to 
+hrtimer_try_to_cancel() to detect the possible deadlock.
 
-On ST downstream Linux Kernel, you can find following patch not already 
-upstream:
-mmc: mmci: stm32: use the delay block above 100 MHz on stm32mp25 SoC 
-(Commit ca3b1cf)
-By applying previous downstream patch + patch 3 of this patchset + 
-using  original slew rate that was upstream on
-this board (slew rate set to 2 for the clock IO, 1 for the others IOs), 
-HS200 should run on a ST MP25 DK board at 100 MHz.
+I'm not confident that we can set up the hrtimer with new values while 
+it is in this half-canceled state, can we?
 
-This patch breaks also MP13 SoC that is supporting HS200.
 
-Regards,
-Christophe Kerello.
-
-> corrupts multi-block writes: on the STM32MP257F-DK (st,neg-edge, 200 MHz
-> kernel clock, HS200 at 100 MHz) written data read back different. The
-> same writes are correct without NEGEDGE.
 >
-> Fixes: 36240ef8665b ("mmc: mmci: add hs200 support for stm32 sdmmc")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
-> ---
-> RM0457 describes HS200 only without a divider. If HS200 through a
-> divider should not be used at all, the alternatives for the DK are:
+>> +		if (hrtimer_try_to_cancel(&vtimer->timer) == -1) {
+>> +			scoped_guard(spinlock_irqsave, &vtimer->interval_lock)
+>> +				vtimer->interval = 0;
+> Does this interval_lock serve some actual purpose? Looks like it's just
+> protecting a single variable, and there are no read-modify-writes
+> happening to it that I can see.
+
+Setting vtimer->interval to zero will signal any non-canceled timer to 
+cancel itself immediately. [1]  Either hrtimer_try_to_cancel() is 
+successful or the next run of the timer function will cacnel itself.  We 
+do this because we cannot cancel the timer directl with hrtimer_cancel() 
+due to the possible deadlock.
+
+[1] 
+https://elixir.bootlin.com/linux/v7.3/source/drivers/gpu/drm/drm_vblank.c#L2191
+
+Best regards
+Thomas
+
+
 >
-> - Drop mmc-hs200-1_8v from the DK device tree. DDR52 is tested and only
->    about 5% slower than HS200 at 100 MHz (read/write 78/66 MiB/s against
->    82/68 MiB/s).
-> - Drop st,neg-edge from the DK device tree. This also changes DDR52,
->    which was not tested without NEGEDGE.
-> - Set the SDMMC2 kernel clock to 150 MHz in the firmware (OP-TEE). HS200
->    then runs without a divider (tested, 119/86 MiB/s).
->
-> Which way is preferred?
->
->   drivers/mmc/host/mmci_stm32_sdmmc.c | 4 ++++
->   1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/mmc/host/mmci_stm32_sdmmc.c b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> index 9dc51859c2e5..d74efdff6ac2 100644
-> --- a/drivers/mmc/host/mmci_stm32_sdmmc.c
-> +++ b/drivers/mmc/host/mmci_stm32_sdmmc.c
-> @@ -342,6 +342,10 @@ static void mmci_sdmmc_set_clkreg(struct mmci_host *host, unsigned int desired)
->   	clk |= host->clk_reg_add;
->   	clk |= ddr;
->   
-> +	/* NEGEDGE is not applicable in HS200 (RM0457), with a divider it corrupts writes */
-> +	if (host->mmc->ios.timing == MMC_TIMING_MMC_HS200)
-> +		clk &= ~MCI_STM32_CLK_NEGEDGE;
-> +
->   	if (host->mmc->ios.timing >= MMC_TIMING_UHS_SDR50)
->   		clk |= MCI_STM32_CLK_BUSSPEED;
->   
+>> +			return -EDEADLK;
+>> +		}
+>>   	}
+>>   
+>>   	drm_calc_timestamping_constants(crtc, &crtc->mode);
+>> -- 
+>> 2.56.0
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
