@@ -1,47 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634155;
-	b=uWfFqPdw7+qVKGDaHok+j+XsbGVpAOsQ6/KSSGsHxJ5C0K9hRo5zS/nZh1oamp8kZsJL
-	 +BnAt9+FOHvyd9s7KfZEzcC5p6vOQs7Jnw2XoPhqP43FPtJoVW9B+etpdyN2iGGbKeW5A
-	 g2nesRFuZEK5jnJHivTLUmm/9MEDg3nwciu4/gIN7kmYtrRj5nKHjNrKf7NN8ccBrt24f
-	 PGalZB84XFCd6i1OAG4wOkUSQkSFWii304LrSrJdPj1li9sBeG45VLduqLoevHGeeKJpG
-	 JMUiDjrx+a4D/3/+o+1n2B0/pdYdp0PeiPjJnySWXsSXLf9q86lUL3q6LccbNKGr9Nw==
+	t=1793634309;
+	b=3QYWPZQdV8F2aALE8Lb8rkWzRCCJE4xMno0vS9RfFZifRGiU8moabZyAMMUxHsig/5AD
+	 c09lTkRL+z0JK0E7TaDCxllX8OG1PnkZ+V2tYHn76WtKeAvLHM5mUHLe/mC1fcKPrGHrX
+	 /tGCsO02j53gNYj45Qy2WH9RjKX7ShaxCP3UVXB/Ga3Sdp6W09cG9ViTZ4oXO4CD6hDu/
+	 c8rI7s3ShB6rAa19Nor241iKmGKDKL8O9zUVd2lcAI+N+OsZKyVB9imIWEHumk6Gkcpw6
+	 7mPQ2QjYy6YTacQAqT4uYMVZ6YVgU/qTcPo69ns+q+QhaTV72lTexB72nNSXjLvt2Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634155;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=q2sB6LK7JBem8Wc9iovY0h+gbudzawzx57EtdbyfsBc=;
-	b=33NKxalkzX/7Pv0+Y6eJGJrgC1QexjHnYZQkSMpVHbTp7uQY/BODskYmp+sWWsyQF5LW
-	 SjMZ9Mudp/aLLTq3oXQcESdmDTHEvOTYg+Xlqn+E5oDgA4gJD3qmOzRzZpYR0oOeljD13
-	 UN3Bfc1Sx+e7IKueT6I3l6DKHdwD1jnSGR7LrTmD0Nop7AjFC/XK7F9Por9wZjahJl1OU
-	 BGoHNt+gEpka+cQxh8BHXN8lOLbJ1MXDRO7QPzvd9PxYOzT9Q1E7rALnNGpVU0+oVooDC
-	 v78SxHiGVTalU+bygsoAGD9v/+bpPMj3eIcj8POQ7oLAFk6S69cqwiK15pCNDIPGzBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634309;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+	b=j7EkjMks7ovLXv50fprYIv0iIrdeIzmY61F/ABdi+t1LI9ZYjrQ8aFCuvjQVN65bf6+3
+	 gwaLJE2swyxxonoLTpXfXbYlydp+rALanDvlJKdZZJoMnfQ89ejG+a2qxeS+kB4HD9ejX
+	 ssbhAl5U6i+Lq36BwiOjO131z1d7YW7+axjE2Jfcmc6q1gohFH66DoQoE/BlLcnDcKRCN
+	 Uk2JUGwZtN2REX3x7HJ5N3bb+zVsgcbvwkNdzaVXjnhzH3VeQneIWRRpnl79ycob7P41D
+	 6Lo2kdvvt9WuSpF6RRF87pAwYaUMno3cazIQsCSn7zgsCeXbI6aKXuLm2HtWeh0za2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X+HUWnu6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOO+oafD;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47C86076735
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:42:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8D9606DE8E
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D8D9606DE8E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X+HUWnu6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2C91F00A1C;
-	Mon,  2 Nov 2026 15:42:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793634154;
-	bh=q2sB6LK7JBem8Wc9iovY0h+gbudzawzx57EtdbyfsBc=;
-	h=Subject:To:Cc:From:Date;
-	b=X+HUWnu624wSrlEzYh9PefRUY1BW9iWODViHTx7nMc6BL65hklM3LBL5yv516m2Lz
-	 Qbm7M5P7MjyXD2fZp5Ra6ddzgG3rUevlwadngRU5pXbBRCxG6hFHekQ9m6dFKkC0MY
-	 BMD0StcPqSdGvgCII6J7rd6QUEr+fP1zTsU04/Ok=
-Subject: FAILED: patch "[PATCH] ocfs2/dlm: drain join handlers before releasing module text" failed to apply to 5.10-stable tree
-To: zzzccc427@gmail.com,akpm@linux-foundation.org,baijiaju1990@gmail.com,heming.zhao@suse.com,jjzuming@gmail.com,jlbec@evilplan.org,joseph.qi@linux.alibaba.com,mark@fasheh.com,stable@vger.kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:38:26 +0100
-Message-ID: <2026110226-singular-frayed-fe6b@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOO+oafD
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso36600035e9.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:45:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793634307; x=1794239107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+        b=jOO+oafDQ2vni9CZUtj423urEKRJ69jfP7P1rtCT/lLRYDjvDPw7FUFoXbbgyPo8Cn
+         yt1Oy8naqRqTtH3YENpB/KwgK30dNfiycT12ytLnYPpQA/NKOZ7+zH9XwYEkbtFZA8pu
+         PzdFUh2YdT3h094VfP2ntYWTCzRKfIiB//63Arvj88EkMwFfT+eONgMw6ezvUPafMq4W
+         /x+wSF+8Wt4Vrq7+dGVFU6mzMu7ZRjPOjH/4lXWmJVjTVU04IEkrGL33E6/Vh2NMWgzu
+         cm7A711XcMoQEQf7wAxa+nuf3xplO/L2OK0TCcjTAm0u0in5AiXnE8ypOWmvIUKr888X
+         GPFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793634307; x=1794239107;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+        b=TiDEagak7sIYRTkvar14143CdT/lZe2q4QME+IzFTcHW1RRKATdxy6a1BCkcu/45jE
+         pHKBz5Deqvg2/c/0RCN9Djh7tjctf4+cC4lR5BKn1z7sYwvv5pRv4j4F7VpGuaGCJ8Sh
+         BRg4gsKlzxEhPtwhbzJq8M+e03K2z6BF26PJL8XtHgMSuyy/xE8IyGGyRkaWywSHkwoD
+         6kj2O7VHJt3SjEw2XWJcn3Qpz8mVscIyaXDX6GqAk+a9KJ/EN0cbHSHIDXzM192hiTHr
+         3Dzmlz88agJIPAQ5Uo5dunsJ4w4EDaJdlOXahUdHi20yz8xT89AMFLP3Y6Enh+UjWtN+
+         81lA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrYYROkrTEFhGQb9RFiUKzEUR9/JtsZ97KtZpaIXpHcHNgIoKcpLKIut2IahpQbArhmvzlBuU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxTgZGm4Sijervs9VGXwi+E+ooGHfbXu9MdgkLtdGCgT0RkBCu
+	x7hTX/5zvgv6oY+aHAZaHdSCedAmyxg13FOUrlGhKhOERR3YXyxHmHxKIryM
+X-Gm-Gg: AYBFou3jrDsQOOPHwCI8LoFvcpCuqSCpuBI5Y4oJQ399mf912ZP6G9sFvAM9+mjR+5n
+	pamNA3pN4Kdc0XacJNEDTdEg9cBTtZgLZjpVjes3BcVy1VmzUbfxnJ+dEK2vTSmfiIxnA/A6jl1
+	axQB7W3UH94vXWuLuu7f/OG0NoGogEzUS25PWs1mE/2Xi8p9LyKwoQ2Qbd3UeBmopFP/kKulBiO
+	AvMfpCajamfMz6rqXaZ+1uO+BX9gJYI5x3tg7B6yyul7JBEVVkZSPWdlAbiolfwfV5qcrFyrn4F
+	BMJBaP6D65FK4OCXtl8QYf8SCwQieqCoAix9quZDwyb6jzRbBAaJPkFC/WaOCIib4kIvyydgUTV
+	7lP+TqTgDbGvG2BnE8hBbQU+hO+Y1VDv8weD4VCJS0RiNcVyXTQn27Dyj7BPhG9vB+4E+XLwHg+
+	tURIsk0GmJa1VvaFTNXnriBVy7j7gOYlYS1TvkSVhghjZTItarkLAkE9Y3WSWY6ju1knXq9WZQV
+	UrFnSh+yOuwqHDP6p854MtfIr7zjrlx7OmmD2SvOIjTzAYNLlwx0RWpMWBRFSPAckU85mr4Uy7Q
+	oht2X4PPuNWkg1vbSFs+BIoPsLL99FWS
+X-Received: by 2002:a05:600c:8b04:b0:4a1:db17:c7e6 with SMTP id 5b1f17b1804b1-4ac150b2044mr235626945e9.2.1793634307242;
+        Mon, 02 Nov 2026 07:45:07 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm369026565e9.9.2026.11.02.07.45.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:45:06 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: mchehab@kernel.org
+Cc: linma@zju.edu.cn,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] media: dvbdev: fix dangling minor pointer in dvb_register_device() error paths
+Date: Mon,  2 Nov 2026 15:45:05 +0000
+Message-ID: <20261102154505.1224791-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,149 +98,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+dvb_register_device() stores the dvb_device in the global dvb_minors[]
+array via dvb_device_get() and releases minor_rwsem before calling
+dvb_register_media_device() and device_create(). If either of these
+fails, the error paths call kfree() on dvbdev without clearing the
+dvb_minors[minor] entry and without going through dvb_device_put().
+This leaves a stale pointer in the array that dvb_device_open() can
+dereference under minor_rwsem, and bypasses the reference count
+established by dvb_device_get().
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Fix both error paths by:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+1. Clearing dvb_minors[minor] under minor_rwsem and calling
+   dvb_device_put() to release the array reference.
+2. Replacing the direct kfree() with dvb_device_put() to release
+   the initial reference and allow the release callback to free
+   the object when the count reaches zero.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 28f366d84023651e50e32e29931401ba0df3e679
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110226-singular-frayed-fe6b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+This mirrors the cleanup sequence in dvb_unregister_device().
 
-Possible dependencies:
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/media/dvb-core/dvbdev.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 28f366d84023651e50e32e29931401ba0df3e679 Mon Sep 17 00:00:00 2001
-From: Cen Zhang <zzzccc427@gmail.com>
-Date: Thu, 22 Oct 2026 17:09:10 +0800
-Subject: [PATCH] ocfs2/dlm: drain join handlers before releasing module text
-
-The code for a registered DLM handler must remain resident until its
-last invocation finishes. dlm_unregister_net_handlers() only removes
-dlm_join_handlers from the o2net registry. o2net_handler_get() takes a
-kref on the wrapper, but that reference does not pin ocfs2_dlm text.
-o2net_process_message() calls nh_func after dropping o2net_handler_lock.
-
-With CONFIG_OCFS2_FS_O2CB=m, ocfs2_dlm can be loaded independently of
-ocfs2_stack_o2cb while nodemanager continues handling messages from a
-configured, heartbeating peer. If no dependent module or module reference
-prevents normal unload, the following ordering is possible:
-
-  Receive worker                       Module unload
-  --------------                       -------------
-  o2net_handler_get()
-    take wrapper kref
-    drop handler lock
-  <preempted>
-                                       dlm_exit()
-                                         unregister handlers
-                                       release DLM module text
-  call saved nh_func
-    in released module text
-
-Use o2net_unregister_and_flush_handler_list() in the shared DLM
-unregister helper. It first prevents new lookups, then waits for the
-ordered o2net workqueue to drain, including a concurrent destruction of
-that queue. The acquired invocation therefore finishes before dlm_exit()
-returns and the loader releases the callback code. The same helper
-covers partial registration and dlm_init() error unwind before module
-memory is released.
-
-Skip the drain when the private join-handler list is empty. Early
-dlm_init() failures can reach this helper before any handler has been
-published. Partial-registration failure also reaches it a second time
-after the first call has already unregistered and drained the list.
-Neither case needs to take o2net_wq_mutex or drain unrelated work.
-The list is changed only by serialized module init/exit paths; a
-nonempty list still uses the full unregister-and-flush helper.
-
-Oops report as below:
-
-    Oops: int3: 0000 [#1] SMP KASAN NOPTI
-    CPU: 2 UID: 0 PID: 54 Comm: kworker/u16:3 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
-
-Hardware identification omitted.
-
-    Workqueue: o2net o2net_rx_until_empty [ocfs2_nodemanager]
-    RIP: 0010:0xffffffffc0423871
-    [Instruction byte dump omitted.]
-
-Register dump omitted.
-
-    Call Trace:
-     <TASK>
-     ? o2net_rx_until_empty+0x19b1/0x3300 [ocfs2_nodemanager]
-     ? __pfx_o2net_rx_until_empty+0x10/0x10 [ocfs2_nodemanager]
-     ? lock_acquire+0x190/0x300
-     ? process_one_work+0x935/0x1b40
-     ? process_one_work+0x834/0x1b40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_release+0xc8/0x290
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? process_one_work+0x9a8/0x1b40
-     ? __pfx_process_one_work+0x10/0x10
-     ? lock_acquire+0x190/0x300
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x177/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     ? kthread+0x351/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf70
-     ? __pfx_kthread+0x10/0x10
-     ? ret_from_fork_asm+0x1a/0x30
-     </TASK>
-    Modules linked in: ocfs2_nodemanager [last unloaded: ocfs2_dlm]
-    ---[ end trace 0000000000000000 ]---
-
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0076-v6-12de5f4628f57fba3be3@gmail.com
-Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
-Cc: <stable@vger.kernel.org>
-
-diff --git a/fs/ocfs2/dlm/dlmdomain.c b/fs/ocfs2/dlm/dlmdomain.c
-index 97bb9400e24b..a7dc3da6dfc7 100644
---- a/fs/ocfs2/dlm/dlmdomain.c
-+++ b/fs/ocfs2/dlm/dlmdomain.c
-@@ -2215,7 +2215,8 @@ static LIST_HEAD(dlm_join_handlers);
- 
- static void dlm_unregister_net_handlers(void)
- {
--	o2net_unregister_handler_list(&dlm_join_handlers);
-+	if (!list_empty(&dlm_join_handlers))
-+		o2net_unregister_and_flush_handler_list(&dlm_join_handlers);
- }
- 
- static int dlm_register_net_handlers(void)
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a6..c931c467d4c52 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -551,6 +551,10 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (ret) {
+ 		pr_err("%s: dvb_register_media_device failed to create the mediagraph\n",
+ 		       __func__);
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		dvb_device_put(dvbdev);
++		up_write(&minor_rwsem);
+ 		if (new_node) {
+ 			list_del(&new_node->list_head);
+ 			kfree(dvbdevfops);
+@@ -558,7 +562,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 		}
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
++		dvb_device_put(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
+ 		return ret;
+@@ -570,6 +574,10 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (IS_ERR(clsdev)) {
+ 		pr_err("%s: failed to create device dvb%d.%s%d (%pe)\n",
+ 		       __func__, adap->num, dnames[type], id, clsdev);
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		dvb_device_put(dvbdev);
++		up_write(&minor_rwsem);
+ 		if (new_node) {
+ 			list_del(&new_node->list_head);
+ 			kfree(dvbdevfops);
+@@ -577,7 +585,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 		}
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
++		dvb_device_put(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
+ 		return PTR_ERR(clsdev);
+-- 
+2.47.3
 
