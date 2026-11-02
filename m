@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638432;
-	b=vkl5uDg7nIh0i1oC4l6IiSOwi/fKDzB3NeG964x/OK9J84X5MlgxC6PeQFFYKz/rPUx6
-	 +hC5Uq9QMIkdb2LgJm1MbIwQRTfrqgGhx2pGz6RK7vOWO7RPLw/q50Jcc4ucTCVoAs61U
-	 mD2EkkQmyREQCyoCTO1IIS375W56rH4J0rTmb5F4XHLTw9GYrJv9p8d/5LniGEZUt2mnq
-	 Fa9HbcGKiQcbn5xU20D1Q212chtqlpEVmQxT0/eopIOBiXQalq8zWVF2sVyoSf/pJ9wNc
-	 DWFm2C3lPFKj4fTG2rKGbhxOQtb0x3YSLNoqc/u7mL0Mp8ACJHAXy8TMZ/c8KSvyC8Q==
+	t=1793638434;
+	b=d99YSRrOGXp9+DiWj8dw+Uuih5okc+3XY7ZkfFh7McX+pomTWhs5/DnfQaqlcf+y87pG
+	 UsGL3cI/D5UkYMS6SmoenO3VudHyU3wJ635YxbNfpHGRaS2y1qxaHBrb8ZINtBvBEJapA
+	 +IS1yjDgXu3JdJaNgHadOHd4Lh5ZgjgowGIMHQLxWY2N1ewaN7T8GhffNQW7PeQe4pktv
+	 p8BSaO7KIDYzh8CLhbPmCrOO94Wdpo4RFZPyvnD7nm6KStY4odO4XxfxEHtvH/KnJfckU
+	 qg3VTYY2tmgHZ1fX0OODfTn21s7InSiTkSELSsw7fWEGkvSJ6efGFVJiJl4ckBhz5Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638434;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DK7v6wYvjpWGWACA8NpEPyZSTxrM2x1ZCEappFkN6jE=;
-	b=BZ0ahC4jrrv29/Csa6tWShd2UdvOQm8NKyiNqP3hBFK4RE7c319smUIE9l8+aFh8RLQJ
-	 L0oA1k4JXF6EBrFQ6FIWZjHyc7Cyd7NB3f3fprSxVx09ZO5luUGfGM4tr3XKr4E+H75zZ
-	 Is5XlGRzB4jEe2e5SmjbuiCF/4k48ZBqVQgZ7HK0O1xixkHwwtolrXVQrdAonr+1wKCm/
-	 lrSdMKOgNZ3aJdjROfyaNxkhKWcCNOet1rD+NcFfYfoqX4IvdS4JUUwyDMNE4Vcgxfl9F
-	 JkBZzJMNYZWNw6RUvzAvR8T/b/ugqLem0fb7NBi/7SE1MO7Agl/cUG0obh7/vYOuJpw==
+	bh=6P4yu7uY1XHER0rpA+7RszULXr82chqbIS0XERr58wE=;
+	b=Gg1lkGUPMYv0cst2bYcbLkiHfp0K9yZi2Ci8P8xBFtoGAypVybkau5v7hKZR82Bn4U8M
+	 tjsVct2lAKiJCmWAPHSGevmSINp+Gt8loZsGvEgTx9n0mm3SsEqe2uX7Bs1NyDOdl1MJ4
+	 ngLFKGsdsmWZPBN42HX7dEdqLuVNVBO4YbJDBFUNyG/6/orB5frY8fgAUSnTTaKZJnpgC
+	 I6kLUzg3nwMWLminIhj/iy+TSYDTZm+9Mq0ZpQGj245Ut/JrtltWk+DgJqhLeTzeZGFpT
+	 ttaw8hmfzeDC7wDbSLBPUVyWP2sHmot0Jj6ak1q958zN411+7u6i6+vmPZqCl8e6SeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NWGSDNLL;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWyRE4g7;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1898B6079921
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:53:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1898B6079921
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B3F6079930
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:53:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0B3F6079930
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NWGSDNLL
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso2248977f8f.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:53:51 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWyRE4g7
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df8fe8513so2796962f8f.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:53:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793638430; x=1794243230; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793638432; x=1794243232; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DK7v6wYvjpWGWACA8NpEPyZSTxrM2x1ZCEappFkN6jE=;
-        b=NWGSDNLLPH+2cxYHnjacGqyQ2u8p5nMXfGILetA9gvSqfFXJVOIuVfB0WLP7qg567z
-         ZK6WfmQ6c4giLDzbEFKOsAX3ZfZfXQ0uG7JFqklr5F85wOi+G4YXUrwzA7ij2/US6TWM
-         PQknLieXayUVHYyTtjIN5RwuO2iqB3dQF0wyAjtXqKvz94EA7Avg6pO1wG69RsZFnI1l
-         Z+tFOgU0UEHZFep040jTC5Fo33ePSGa2kqi714wQYOzJM1924OENq0Ew3vGM8d5WtYB2
-         bGzDOGBJ6aJYWEdUHhupISXNA8jlUV+JeEH7RIrud3dMFPry1OB0AVeDbiFDfVNMN8tY
-         gIVg==
+        bh=6P4yu7uY1XHER0rpA+7RszULXr82chqbIS0XERr58wE=;
+        b=lWyRE4g7MbcJRQSiaYnWMAmAuyAnyx/GKHZArn2tjAiM3GzrvoRlTxM7e5TRa4Z7Ua
+         BDFqZCmdiyoUVa90o4mRx77A0KzOovn3vqutBnD/62HMDst3YvjH/jBYcWjBQCYOlXuY
+         JrdEHXaFqMPlceLcz3vsAc8QVWl+mtJ83ZtH5G8YifLOJLXAncAC3zi9zpz2PFmudjjM
+         M1i+5w/nnzj49wYGiyB4Cb6b2OaZzwVN3PK/0nLRo941gW5K5dJ7aC6LT6Qq2Gx7L2aC
+         R79KLyzJuim3LXD0tHtXbYgsk2B+Yerh05QdxBnyVp8XjsDGyMJWmI+w4RFHhX8hqmwF
+         qJKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793638430; x=1794243230;
+        d=1e100.net; s=20260707; t=1793638432; x=1794243232;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DK7v6wYvjpWGWACA8NpEPyZSTxrM2x1ZCEappFkN6jE=;
-        b=FfEybjV3DxED+5tSg4uji6B7+MJZj3YW0A3J6+s35DUDVHo3PVxKgdLv2wO3cvXuWN
-         sRq6V96eKymInuGg++rXuD9TSLgjDkBtC8iI9pSBbhzSnS8/LCVnqfWMVdmIo36FdrVh
-         PbBqKc9hynSYOEwEfshhBw21WmA/MQuLtNmlBPsynZMbh6n1ZfITYN3hvy08rqsb3WJa
-         ClhFa7Vd6ci/7TDZ7LQ98Ic0obykG5xXvsgFoQwfN9nDMX7xvmBCZaSGK4lGfSdVss/3
-         yYDMBJCLi9wQ0LC5rWZsouTv/Odb7kVJefg9GpkZJDkpJKawxkDo66RtmOqF4QoK5gF/
-         IwIw==
-X-Forwarded-Encrypted: i=1; AKwUvBzJEnWlAzNsrBTnIFZogPwcJ570Qg5sL2y5XmQoFV29RlofkRNbKi8ZSx6S2zW4sQKrJ1S9Dbw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JzU3b5lJg48/1EQ8mKDjrBPFUY8a7uAhc2HoTWzbMgruCqT0i
-	qjpW1gea1MNmRwXLQaxqADDH3eURxPYril4xbmq03zNo7HpLBJCrgv8=
-X-Gm-Gg: AYBFou1cbO7lW8z+ueTT+pUlku21N/4R4CPZ2re9C/RbowTUjV4wmQeQb9AOHTg6mQZ
-	2X1a/wG+fn/2ImLSUgaIeYDyfWRX/q85ajdPHcaheO7QMPr/NDJucR9JUOGtp05sZB0kHaIOCxm
-	bswNAc/64LBqADAnEnNmcMCk7LkTbySCmzeDz1bLstoj+44jI2gi0TgT3/sjHM7QC3o8ycidZsK
-	ERHM/RVhwI3qMI8HfAGxMq2u80EE2zRbUB5hUoykKxAPlg9vz+k6nfoObEUXhAruNDiPGQ/hBPT
-	R1oL10H/AgSZTVbB12IkINyncd/DlLg8NwMymFrpIE8/ZSLhPRK0wTIBKI9Qsjeuspsf9P7XnEL
-	FYPb6fBcv2dXOaTICTWk5bVzjYbeFFKd+majnmefADXW+11FLeZUv8UcXCg7k8W12tqj6VlNdTk
-	+7R+R3OWdf8zlmVX7WmGJFEqFIs8pDL8xCPXwE/oMpsjev/g4e5tC05DZfSstgvqkTp7aBlhOiM
-	YoGP6GNITr9szqcG+vZ0pL/h8Dttac3/nwgjLJIT80QecaTu/mYreFlpyKCh5N9dEa7y6Wouw==
-X-Received: by 2002:a05:6000:4202:b0:48e:6159:8274 with SMTP id ffacd0b85a97d-48e6e4f500cmr23446011f8f.27.1793638430339;
-        Mon, 02 Nov 2026 08:53:50 -0800 (PST)
+        bh=6P4yu7uY1XHER0rpA+7RszULXr82chqbIS0XERr58wE=;
+        b=iGGBEyIDx2WBVFShT3Ik+bs8rjMc7xpIV5M8PslhXZ8H3q42VVBNBpbi4/LRkD/tri
+         VtdrNa7l8e+26f67jjJfxu1k37jpicDghqL2XDV7dszrkCaz+Ti1E065W+1y4OnKQwFm
+         QJuL1p7SOWMMpy8NnJl48aGSPlq/3aGhdydHsJn7kOxr4kulNe3xOnu0cm59s8lZ1/2O
+         CghIWosP36ucsdudnoGsOyeS+W4KaJi3cuKz/l7WoXN/aOxiITCcUe/WnI5KPafF0SQg
+         2jyI6RyArycLtM1wCWABKeILqObZ01KdlO9GxVwD3SSrpG7gbMFFA5XHB0EA0nB9iArW
+         fMPw==
+X-Forwarded-Encrypted: i=1; AKwUvByE1VBwqRVyU0zo3FQjgy2oYSWwY8w2o5MzbzQf+fgGW7Bl+4aKxsD8agYVMVP+/lZuBinePJ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Bdcde0zRxJUR0LgL0yu9Aqt5dW4bt5CPTB2a1+o3uZd2odM9u
+	gF/QWhl3RqABkcG+uaQG13HQb+RRF+hAQmRGxK4M37KYG1FxkvXN2zk=
+X-Gm-Gg: AYBFou1baJeCSSjwvXUgf3c/zMOCa/CXt6+8VlkV9xrxRY14R2wayT51COMe3YTL9HU
+	mebeSgPBLMauIe6fVfhJC0tvA5Po/ZtLLllCJOK5BI3FZ1xYTRMR1sJaYH04iw+SzR84QgqEUW4
+	B+cyq2G1l2sRaB21ovw52uTpQvJwDModNBWkkwy0PONllj2zAzgNmNj/MgBxwk8wC34i4eln6L7
+	9wb6zBKnTFWVkFIt20HkMf1QtWWJIK2kL7+qmrUoyrxrfn3UrDgf7vTLCsUrlYqvr3X39mz0HKt
+	SBXTZIWIG6Rf6nHJlELtvS0FpUgA+uzPGsWKq5H0J9h2UrmZDVVXFkPcFeOgwlO56GvuqP+dPY9
+	ZwjTA3yvsMYcYNk/bRMhd3p+bfZw4OVQ71e6y8mxgeAobASvfyJkF3FoBmUXagwhJY7hoD5DLvI
+	T6dqZ++mPF92N7dZ1YioYqlZaEawqzX00pvyn+yRFTnhZUud+ykN5ZRQibZfHZs0sWrP/Yt9gmV
+	PQIgD+wQWfzGCTk6/Tzd2U38jJec6R+U3dt/4WHqF05u+HDU9AYOwYu6wkb/x6uX3EqfaPCRA==
+X-Received: by 2002:a5d:588e:0:b0:48e:6652:fdc9 with SMTP id ffacd0b85a97d-48e6e4f54f1mr22387436f8f.17.1793638431954;
+        Mon, 02 Nov 2026 08:53:51 -0800 (PST)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8e5f4sm21479385f8f.40.2026.11.02.08.53.49
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8e5f4sm21479385f8f.40.2026.11.02.08.53.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:53:49 -0800 (PST)
+        Mon, 02 Nov 2026 08:53:50 -0800 (PST)
 From: Tristan Madani <tristmd@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -93,9 +93,9 @@ Cc: Charles Keepax <ckeepax@opensource.cirrus.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	tristan@talencesecurity.com
-Subject: [PATCH v6 3/4] ASoC: twl6040: cancel headset jack work on component removal
-Date: Mon,  2 Nov 2026 16:53:39 +0000
-Message-ID: <20261102165340.1558853-4-tristmd@gmail.com>
+Subject: [PATCH v6 4/4] ASoC: wm8994: drain delayed works on remove and probe error
+Date: Mon,  2 Nov 2026 16:53:40 +0000
+Message-ID: <20261102165340.1558853-5-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261102165340.1558853-1-tristmd@gmail.com>
 References: <20261102165340.1558853-1-tristmd@gmail.com>
@@ -112,34 +112,69 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-The twl6040 codec driver initializes a delayed work for headset jack
-detection (hs_jack.work) but the component remove callback only frees
-the plug IRQ without cancelling the pending work.
+wm8994_component_probe() schedules several delayed works to handle jack
+detection and microphone status polling.  If the component is removed or
+probe fails after these works are scheduled, they can execute after
+resources are freed.
 
-Free the IRQ first so that the threaded handler cannot schedule new
-work, then cancel any residual queued work synchronously.  This
-ordering prevents the race where the handler fires between a cancel
-and the free_irq, re-arming the work after it was drained.
+Cancel all pending delayed works in the error and removal paths.  Guard
+cancel_delayed_work_sync(&wm8994->mic_work) with a type check because
+INIT_DELAYED_WORK for mic_work only runs in the WM8994 and WM1811 code
+paths.
 
-Fixes: a2d2362edf9f ("ASoC: twl6040: Add jack support for headset and handset")
+Cancel mic_work before and after jackdet_bootstrap because the two can
+re-arm each other: wm1811_mic_work() can re-arm jackdet_bootstrap
+through the DAPM power-up chain (force-enabling MICBIAS2 triggers
+clk_sys_event which queues jackdet_bootstrap), and
+wm1811_jackdet_bootstrap() detects a jack and ultimately queues
+mic_work.  The second mic_work cancel catches any re-arm from a
+jackdet_bootstrap handler that was in flight during the first cancel.
+
+Fixes: 99af79dff5a6 ("ASoC: wm8994: Ensure we get a notification on startup for jackdet")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- sound/soc/codecs/twl6040.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v6:
+- Add comments clarifying why mic_work is cancelled twice, per
+  Charles Keepax review.  No functional change.
 
-diff --git a/sound/soc/codecs/twl6040.c b/sound/soc/codecs/twl6040.c
-index 650836f9615fb..826bde1a9ba46 100644
---- a/sound/soc/codecs/twl6040.c
-+++ b/sound/soc/codecs/twl6040.c
-@@ -1136,6 +1136,7 @@ static void twl6040_remove(struct snd_soc_component *component)
- 	struct twl6040_data *priv = snd_soc_component_get_drvdata(component);
+ sound/soc/codecs/wm8994.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index 6b91e02f130b3..6a790479c8a7e 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -4595,6 +4595,14 @@ static int wm8994_component_probe(struct snd_soc_component *component)
+ 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_FIFOS_ERR, component);
+ 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_SHUT, component);
+ 	wm8994_free_irq(wm8994->wm8994, WM8994_IRQ_TEMP_WARN, component);
++	if (control->type == WM8994 || control->type == WM1811)
++		cancel_delayed_work_sync(&wm8994->mic_work);
++	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
++	/* Catch mic_work re-armed by jackdet_bootstrap running concurrently. */
++	if (control->type == WM8994 || control->type == WM1811)
++		cancel_delayed_work_sync(&wm8994->mic_work);
++	cancel_delayed_work_sync(&wm8994->mic_complete_work);
++	cancel_delayed_work_sync(&wm8994->open_circuit_work);
  
- 	free_irq(priv->plug_irq, component);
-+	cancel_delayed_work_sync(&priv->hs_jack.work);
+ 	return ret;
  }
- 
- static const struct snd_soc_component_driver soc_component_dev_twl6040 = {
+@@ -4636,6 +4644,14 @@ static void wm8994_component_remove(struct snd_soc_component *component)
+ 			free_irq(wm8994->micdet_irq, wm8994);
+ 		break;
+ 	}
++	if (control->type == WM8994 || control->type == WM1811)
++		cancel_delayed_work_sync(&wm8994->mic_work);
++	cancel_delayed_work_sync(&wm8994->jackdet_bootstrap);
++	/* Catch mic_work re-armed by jackdet_bootstrap running concurrently. */
++	if (control->type == WM8994 || control->type == WM1811)
++		cancel_delayed_work_sync(&wm8994->mic_work);
++	cancel_delayed_work_sync(&wm8994->mic_complete_work);
++	cancel_delayed_work_sync(&wm8994->open_circuit_work);
+ 	release_firmware(wm8994->mbc);
+ 	release_firmware(wm8994->mbc_vss);
+ 	release_firmware(wm8994->enh_eq);
 -- 
 2.47.3
 
