@@ -1,60 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630797;
-	b=CMxZrLgMUuxvW03c70A1lpAa3+F0oN1fIda+TT+BjAVmcPVkejiLcHN4GbzIQ5keoHJz
-	 pU4eBBgLfn3qTF8PLo/2HXW0bYiOBHWFvc/RhoDv34qlsz/lrSkhwWiFwgptbzRhc8m3z
-	 AjhKjGe/ugmKq3Zb8+uOtNokluJ8YZh8dmlmnCDPMIzngisDXiirfOdytMF1IZl8k9zK6
-	 jnJigMFi9QEKrgy0RUGUJzT/0Za3RoRBfhXnI0k87aETSDjT+5b73d3CvxY+tov247czc
-	 qaG8IdsK8nebB9qwe5Ai0u3bX/JcWgcEcHpW9OckCl2YHrdXFwybLS+TUt4fFlxRw9g==
+	t=1793630795;
+	b=X2qItx23mivUl9CxXd/7cGQSgXoGTHNG5bXa9Tj+wKsYEMhFqt3kvZUUP0n10qu7KsZz
+	 fxUobOzYZVPMR3DYw63oWdcGdcSD56k9fOSrQ6Axkma2plUpHM2eositKB4AdVeISdNWX
+	 VcpqHTmNW2fhXVksqPZVpUfkJfW/Js8QxcsP/rBhS4oaJaAdzu5T9LMquCTV9dagB9tpZ
+	 7dXzGYg1RqDzkCbZF6HWJ3vfFpvn9QcIIULd3xKVWvwgpoYejgiOKhwdo5qM3wqt8g9Bh
+	 2yk4CjmacV7v4YAy/Ez17JKi3v0OV7ksk/dLJfZ/LNkQLjaYVtNBeyVz1gSgtLedCpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630797;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630795;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nxdFwnzJ2ILCyC6+9MxA+NGU4Ptz9IG819jn1r5qFOg=;
-	b=ibQZU3VD7wzWA3vRewQhjSsMCO/zGeO3i4Dx9N2vbseMouKo2mPBRGzgmZKO1nrBtzzy
-	 Uyv8zLrPFHSAXLt2lwWUR0s6FgM0+OI57HwsifqSc1TPE9IcXF8bM3MVRe3HIqr9vFPDt
-	 pY05T9W+RUgDTFFB65YShMmipT70Rz/Tm/I7fs0+OS+A8Pr89NjjSPI81/iSwkhfYmMqh
-	 4FLEpO/QmmaCF/Ltt8QYMej7Yuxels0sxtt+YDECDU12oxCYUTd3TNADWlNq3GMEapXCt
-	 pd8TxESCi8Aou5Ih2Acwq+4Q2i5RgqyMsxetWXd23uT5fI0Y43f5DcW6cdBQyUU55cg==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+CbOy/w4oZmoVyUdrE5PFeUUqcG8Qy13cgKPirYGonw=;
+	b=tA/oWasUSf0zVHptQRpBY1J6greX4c64ZJHa4dE/pnJxiVfV6RUQkqIJ8LPdIvz9oMeb
+	 egRM8OgcTqdw/9YWRHg88/ynx2JGOhgl+Q3dPMytRcvZvWNjJdyxKO4mSqEYRyAtpiJV9
+	 DN2nYzYxofKo5INAUxxz9Vc/Yi/DfR+HXFT/bH3K01vpm/wpgpCJ4+h/+r0QjwZnvhKkj
+	 8VZx86qsml3g5FMNcogG1/+DvxMHlkq0xiSJ7ttiALCW6dzRUNPJiMYzNMArGlYGtVMOW
+	 fLK8tSOpxHjw4SSb9f/Hmcex8X9IMk5ejYyAFrLQT3N1CDYKruHrK9d7QYI453BjQnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXj3RDV8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzgLpTAs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EB86070D8E;
-	Mon,  2 Nov 2026 14:46:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B3E6070D96;
+	Mon,  2 Nov 2026 14:46:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXj3RDV8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2F51F00A16;
-	Mon,  2 Nov 2026 14:46:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzgLpTAs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735601F00A18;
+	Mon,  2 Nov 2026 14:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630796;
-	bh=nxdFwnzJ2ILCyC6+9MxA+NGU4Ptz9IG819jn1r5qFOg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MXj3RDV81dKUrDy0quCLVlKxNcw//TUhE3A/qQuHALE5D3lK87wijaCmLzlKvZotw
-	 gwP4tPkl40dLdllRhvDfmwVkKLIcm+mbGXHry37PS0045N5i7TUAXL3XUOS3PKZllY
-	 V4UBulTRfGU9FwjHk8elo62wgWxbWtsxDtRnvEKVOQ1AkeeNGyqYM3V14MRiPUbm7/
-	 vmHfK/LjaAYxvbQV/pbbcQM7AEy+Y2QqyhKdJK9jAzR3RR3Xceh09PFAOR1GaWKOIU
-	 jxeNqSp4ghTFEyR6KgwX3dn+evqDC3eN7iZpIkwxm8mx/flTmwFTHIRa5j42KfLJH0
-	 gbv6tdlElgm8g==
+	s=k20260515; t=1793630795;
+	bh=+CbOy/w4oZmoVyUdrE5PFeUUqcG8Qy13cgKPirYGonw=;
+	h=From:To:Cc:Subject:Date;
+	b=UzgLpTAsh/8b2lAuCsP4MmQBFlTwq27nXfldudYpUFO9wJWmkv9UIHFAXDDexAlif
+	 iO1Q0+qe6cHXAUlIT+U3r4HyjZYBl4HukMhSEITaTw4So/C+I1yS3Syg7C5sIxDZPG
+	 5S0ZNudLwPF0WmqBgUtsD6evmUSs8XzPvMYhh9Bl1eVwPb+BqphU2ASIGP7YiG/TJe
+	 ZGwuEjboJWhAA6PG6w3PUOPbiFKqwfO9qGu2VmKADh+w6P2mhbFyIdU7jmBJpgBnal
+	 IG0ZgOE6r9qhpaa0kScLQ3/QfF4TUP+ddUJtSY/QX/sgQfDsbHDsuF3Ku34F0iemg5
+	 EEcdLIA1YJTXQ==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
 	stable@vger.kernel.org,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
 	Shuah Khan <shuah@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org,
-	Aveline Noir <jm5905938@gmail.com>
-Subject: [PATCH mm-hotfixes-unstable 3/3] selftests/damon/sysfs_memcg_path_leak: define ksft_skip
-Date: Mon,  2 Nov 2026 06:46:26 -0800
-Message-ID: <20261102144627.88843-4-sj@kernel.org>
+	linux-mm@kvack.org
+Subject: [PATCH mm-hotfixes-unstable 0/3] mm/damon: fix watermark state, kunit pid leak and selftest fake pass
+Date: Mon,  2 Nov 2026 06:46:23 -0800
+Message-ID: <20261102144627.88843-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102144627.88843-1-sj@kernel.org>
-References: <20261102144627.88843-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,53 +71,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sysfs_memcg_path_leak test uses $ksft_skip without defining it.  As a
-result, the test is marked as passed while it was skipped, like below.
+Three hotfixes for core, kunit and selftest.  Fix kdamond deactivation
+from missed watermark reset with patch 1.  Fix pid leak in kunit test
+with patch 2.  Fix a selftest wrongly passing when it should skip, with
+patch 3.
 
-    $ ./sysfs_memcg_path_leak.sh
-    Run as root
-    $ echo $?
-    0
+Note for reviewers.  This series is a collection of fixes that were
+initially developed by different people.  Changelog is in each patch.
 
-Users who run the test could therefore wrongly believe the test was run
-and passed while it was skipped.
+Aveline Noir (1):
+  mm/damon/core: reset watermark wait state on each iteration
 
-Define the value at the beginning of the test.  After this patch, the
-exit code reflects the skip.
+SJ Park (1):
+  selftests/damon/sysfs_memcg_path_leak: define ksft_skip
 
-    $ ./sysfs_memcg_path_leak.sh
-    Run as root
-    $ echo $?
-    4
+Wang Xiaolei (1):
+  mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets
+    test
 
-Fixes: dfa3cf0bc018 ("selftets/damon: add a test for memcg_path leak")
-Cc: <stable@vger.kernel.org> # 6.17.x
-Closes: https://sashiko.dev/#/bug/linux-a0456336-0608-4fec-ac22-0ee61d1d6a91
-Reviewed-by: Aveline Noir <jm5905938@gmail.com>
-Tested-by: Aveline Noir <jm5905938@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
----
-Changes from RFC
-- RFC: https://lore.kernel.org/20261030044643.157105-1-sj@kernel.org
-- Drop RFC tag.
-- Rebase to latest mm-new.
-
+ mm/damon/core.c                                        | 5 +++--
+ mm/damon/tests/sysfs-kunit.h                           | 9 +++++++++
  tools/testing/selftests/damon/sysfs_memcg_path_leak.sh | 3 +++
- 1 file changed, 3 insertions(+)
+ 3 files changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
-index 34c37129c49fe..d407dddb879ec 100755
---- a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
-+++ b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
-@@ -1,6 +1,9 @@
- #!/bin/bash
- # SPDX-License-Identifier: GPL-2.0
- 
-+# Kselftest framework requirement - SKIP code is 4.
-+ksft_skip=4
-+
- if [ $EUID -ne 0 ]
- then
- 	echo "Run as root"
+
+base-commit: 395206c0e287bdd981918e033a2b1621ea6a3b9a
 -- 
 2.47.3
