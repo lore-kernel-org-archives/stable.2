@@ -1,77 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634015;
-	b=b2+4hrEHy86Bz7mhLXFSZUqB9bc2pK7LsDj1in3mSya96AejnpjdV8+WWIqUDZKYtS14
-	 f0Tf0gfKVLL0hmJaFyNpA/hZet1SC1V6YkstC0edwNBAm5L6x0EuEH+Byd+BpftBdUhaC
-	 WfZRCsY3zhW3mwR0lq6jLprvQzjNuGz6jUwBOc+hGQ3vkdnpc2C60GFufYrGwIoHFgixG
-	 Bc9r5c01yWPTzbYO7y0Wt7kv4UO0MogItII979vWvsxGYExaI1eKdWnWGYenawTDG2J1j
-	 oBMeGO7JTJAIqiDFzJ9kvwdkDLOSZnSg4qvNM+u5RBKjt9riallCvUO4va9wFVNPTrA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634015;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=dUGqfqfNXJ+NeO+UdV4+i/sAm1iD+FfxTNuQmN5fXq0=;
-	b=dtKxZ2WtwPWf9MU8IN2f/uQXnvOmtqR+ONZwddDah/o93w4f/ySX5T1Ty+CTKzglxqPZ
-	 1vr5QR4brKABjpc0W8dgZhkAHVPT6Fw4wNjlp9SLZ9mnQnbakEaOI5UvJ48jDseqzKd5V
-	 sPsfYl+qs6HkGJzNcmLon4yGg6hzkyBkBHykwPlDsH/9riW56OAFc7AKmamQQBzdsWMGZ
-	 HS1ZCjlUSCOa9a3xQce4UGL2sI9yRlgi2GXqoSR4dQoQoPONk9PxMwsTwFqqA9uc6pO04
-	 fWcD/2elKcy0dAA3/ggDmFm25bttMbfozY1TTE0RfpD1FqaAOzP5JhZQT7pKgIKXQ0g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=ZJfGaKte;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793634014;
+	b=SpsVRD0Vvv5TormqotXhoC+XVnolfZpl0LvR4exvSzP4FRJYZlU1TeKnA83P3TYtmPq/
+	 amIzc6fTV7vCPD2S8lL5ME0Pgq+2xSP8P+BpuT4BgGsVQ3QvgYHikD8CgUN2XCcYZ/tx+
+	 RII3sZJCiILKuNBtEDh4emEtGA+XTzLra11lzglPJPm3O4UJ0Ixxt/o3jobk0ipLk7e6R
+	 /olRXoRNY9ynC6+esoMHhYB7Z2cfFOGPSH8JioDFJZMFxuasmdgfTDSNLDrracmFHQZ/8
+	 Kv6RQKfJpnTrwA3wvttRfF7DPuMPmj1ogDtaTQu4Upu1LPj1oes/TuIq/c4MboHJrXw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634014;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=8Wr+MF50CVjtFFib0Ov41e24euoFkgyzKF8gJdzLfHA=;
+	b=j8509Lqy/dPEIdyArw2dtY/K5d1O0H2CiAcGjQEVVFsVIgYf7ReXX5t8mRVIdGCE1XeT
+	 Z4ebUtTcb+v3VaIxYfKk6xatzDHBZT0NaTtQa2gdalIMq0i5dRrtb0EZKISoYlkia/0g+
+	 XN/5VOWdzyiCwr/NJj+vJIiZdyyGHNzMuEUVFCvpVeKrJfuOZKI/E97eW955ZIRYyL10z
+	 FVTLYrvh21SwkrvC4es7V3HJRY+/gmsUXrA0wLgIUfkgsr35ydBIZ2vE4zUQIkfaGS8BO
+	 0YJouU2hM4mE8KORFWvLEEI8EkBzKVUaPfrsD3FDt1avHqLgejio3ukaV373g8yLvnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="f8fVx/5f";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1888606B1F4
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:40:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1888606B1F4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE19606B1FB;
+	Mon,  2 Nov 2026 15:40:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDE19606B1FB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=ZJfGaKte
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jJG9l5Jtfz8t53;
-	Mon, 02 Nov 2026 16:40:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793634011; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=f8fVx/5f
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 78F5C200681;
+	Mon, 02 Nov 2026 16:40:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793634010;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=dUGqfqfNXJ+NeO+UdV4+i/sAm1iD+FfxTNuQmN5fXq0=;
-	b=ZJfGaKteF192khBUuklQ6Xw5liAqkmoqqW286YTqNFHiTpfFVKhU6vHZWBov2skspqFpeL
-	mLfoBIlwy61eMvsxsX82pHork/l398irXUM25j+A9vWkcejGFpaQBawPEvRKm1dCUVacI+
-	zGmXMusCtsqZd/ZKrq1C68kLF4lfEKuvaLfZ32jmJLFYVb9uMa1Ny9PWjLT5sHnZxIK1Fm
-	pSjD6lfRNeLVW/3PUwoot9U0SbkPaMRTdj4+qn4jWWBbx6AzYIfKe6H5ZiVUJvKLggSQ9h
-	3av+HfeZfxm2MqF7YW6PvfYr91VF+xPDmwhJZQznfA8bQVy5ObGQi2jHOwljMA==
-Message-ID: <72cba5d23a977185696db12ac547174708652bcc.camel@mailbox.org>
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing
- priority at runtime
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
-	dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>,
- stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 16:40:09 +0100
-In-Reply-To: <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
-	 <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
-	 <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
-	 <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	bh=8Wr+MF50CVjtFFib0Ov41e24euoFkgyzKF8gJdzLfHA=;
+	b=f8fVx/5fAuxUKHPHSqwyA8weZHJXrVWvsPXYSt8UwG8p+wXb9Gkbzzl51dHnmSEZN/80ft
+	6nneNdi2RiVSJ2fPEdNdDYR+SaX+3SegyGtkBgO1Ypf2hQkb8zRyC7rcBJNKYFZAzoCEE4
+	nuFaKjOx9klS4GPEugCvmFW8qxnwVDsy9AO65v98ai9CCqVk9juXTq8D2RdxnfrWiGPPpw
+	bhog7kfELnXpkKxGE4og2jK60r0CROL8GoScoarg/AxTHWZHj3ZragQPxJvagUrQqMe/rm
+	P/yIWhXfuTXtYD4/GxrABVPkDQ0KzzJVoqotFpQqDvP5NvsHcAnGtXTq0LRUVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793634010;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8Wr+MF50CVjtFFib0Ov41e24euoFkgyzKF8gJdzLfHA=;
+	b=AwM+BU3xQME3SvInDPAwBXPK10/BZrDj4A5IJjfSsD90m2HMICgmC5jxGrQSGb16nIk5Gs
+	6qcgXUy9JMbh3IKgFcgd+j+mzL+rqUKdAdcHTxgFlzjF0F2aP/WaJG7EPMD7jTtguWbi5V
+	5PZ2uL3SONM+k7a+4gYxLHwdLWM3yF48aD+GBeH9XP1qiLZlbRuzM7U16uZM3073Z3J7gv
+	H8Dbq9xnC1xxVI+T6rDIEYDILxAI/XuiwEcgL48VgemusSxwHGXfSm8KryxmGalpb/qKhj
+	sDjSK2Gp7y49/Dz9m9bUJYFEp1sFsIYwoWNBcFyYRLyfqK73SamhlwQr2x6vpw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793634010; a=rsa-sha256;
+	cv=none;
+	b=ZUqpDqJHj014j6on3sJFVM7dsfrlHk32LDGdhCF6zJlaQKZ+rXW5sLHXO7Olb7IOcogkbT
+	bNWW6uqbJigrbsv7m8IQktPhPrCy9gH4Fj/WSyuoNA1YHfmn81txu5iVOF8s1i8AbovyfD
+	LstSpzUsq94/6qXcPzZOP96seszwtFuUPdN8AT7sUHpb5zryWAel4aqzlVDiJF5aCejS2x
+	H6JOk1pHmVi6GJVcoLCvRomprYXDuiJjsZEMTB4jHG5mahrAgH/2tm992subSbWWzX12rm
+	s5+JQ9W4VDWhc8hkjIqqXeNWAMOb1MCFukmmNASDYupLC0NM8X6LlFhVroEFcg==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xNu8o-002K1Q-1K;
+	Mon, 02 Nov 2026 16:40:10 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xNu8o-00000005wnx-1GVS;
+	Mon, 02 Nov 2026 16:40:10 +0100
+Date: Mon, 2 Nov 2026 16:40:10 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+	UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Russell King <linux@armlinux.org.uk>, stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH net] net: usb: lan78xx: only stop phylink if the
+ interface is running
+Message-ID: <auiu2voApMN42KV4@pengutronix.de>
+References: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,30 +102,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: e456fc94603ff365fc3
-X-MBO-RS-META: 9zsm311osryyku1ki34bkx49oi936zaj
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-On Mon, 2026-11-02 at 14:47 +0000, Tvrtko Ursulin wrote:
-> With FIFO and RR, on amdgpu, SDMA rings, only if more than one, *if*=20
-> there exists userspace which does dynamic priority changes (calls=20
-> DRM_IOCTL_AMDGPU_SCHED / AMDGPU_SCHED_OP_*_PRIORITY_OVERRIDE) on=20
-> entities using those SDMA engines directly. All clear now? :))
+On Fri, Oct 30, 2026 at 12:02:04AM +0800, YuanZhe Liu wrote:
+> lan78xx_disconnect() unconditionally calls phylink_stop(), but
+> phylink_start() is only called from lan78xx_open(). When the device is
+> unplugged before the interface has been brought up, the attached PHY is
+> still in PHY_READY and phy_stop() reports:
+> 
+>   called from state READY
+>   WARNING: drivers/net/phy/phy.c:1670 at phy_stop+0xad/0x380
+> 
+> The same warning is emitted after an ifup/ifdown cycle, where the PHY is
+> already in PHY_HALTED. Call phylink_stop() only when the network device is
+> running, which is when phylink_start() has been called.
+> 
+> Fixes: e110bc825897 ("net: usb: lan78xx: Convert to PHYLINK for improved PHY and MAC management")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
+Tested-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Reviewed-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-Argh, maybe I should not have asked, but since we are here already=E2=80=A6
+I reproduced the phy_stop() warning on a LAN7850 behind an i.MX8MP, by
+unbinding the driver or by writing 0 to the USB device's "authorized"
+attribute:
 
+- interface never opened: "called from state READY"
+- after ifup and ifdown: "called from state HALTED"
+- ifup/ifdown loop during the removal: "called from state HALTED"
 
-It seems that all this is inconsistent already.
-Why do we even have both, priority and rq_priority? Both should always
-be identical.
+On kernels before the phylink conversion, none of these three cases hit
+the phy_stop() warning.
 
-I suppose it is because we're in the "transition to CFS" phase where
-you will actually need a per-RQ-priority (rq_priority), later phasing
-entity->priority out.
+With this patch, none of them warns, on net-next and on ba28ef3ccfa9
+("Merge branch 'convert-lan78xx-driver-to-the-phylink'") with
+312c816c6bc3 ("net: usb: lan78xx: fix WARN in __netif_napi_del_locked on
+disconnect") applied. Removals with the interface open, sending, with
+link up, link down or link flapping did not warn either. I ran each
+case twice per patched kernel, with lockdep, KASAN and kmemleak enabled.
+After re-adding the device the interface came up again.
 
-Right?
+The suspend/resume problems in the Sashiko review are not caused or
+fixed by this patch.
 
-If so, I wonder if we can't leave it be until we are at CFS?
-
-
-P.
+Best Regards,
+Oleksij
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
