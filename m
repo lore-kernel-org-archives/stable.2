@@ -1,102 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623474;
-	b=BpVmZYLfB1tToSRsA9e17VpPPM5muwg4SJx9eUOO3nL1AUH9TOEDgzNEEuFqdOj3BlK0
-	 qZ23dRjB7dkXyhnewbiTLSVlW1UKtBpdrsLeksm5TUKeCL863gQ1gEjyqspnIDvw8nORr
-	 heOzP+3sUxGbGwrJi91IoH7LvXROAW+oLjMcbDvoqQzRkSnfbnvC9MXqXSIepjN9P7pDp
-	 Ph2meS+/oYQC8ubHLoZI5IRs0s3vwP5KU/E9LlUZN3cK/GtUg/9vob483GOn6JxUKo+AZ
-	 9+vRvhzbyEYl7HLMk7v1U+pUveba0VrGRBNwsd1iayUjDjYdOnEfcCKeUeV7z/WF37w==
+	t=1793623623;
+	b=zJn9eN7VHx3kBIZ/eD1r7kc0KfbOQU2xHTtNH2adTZrbNgM0h3y+UAgqlxuk3LOkUOgX
+	 D5rHF86xpnhFnM+W9O4DzozbigRVS4TQH4FVOefh/dCC7RYZeB8JabSqELKJNJlYgNjpU
+	 MhJyITyLlkUkl0icdXWVXd5thZyujtWcQP6RBcJICSnQrj9m6jL+WiorGT5ZA0q28CFgt
+	 WHdTjc7oknqWGfO8C7OKzwaSmKSGYWBIOdhM9VFJy+3Rhy4r1eZ8WePwV8uNruRf1U8ee
+	 xbys7Rjh2wrTb0RCDJYMdsSIdlDfkRTMCts9PnLtiByIxtxAdaflwxYbGI2T2406UeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623474;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Disposition-Notification-To:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=dYanbEJ7ydWKIVlseZIgyCbLcRNjwGo/7gUCZwqpJKs=;
-	b=X1S+7eJ/EBigoJc9u9MbZb7Nof/tsP1KMSinV8mzKT0/FzysN/SQqfPr8inwNKC3zJIu
-	 yVh8DDtfV+m4GTzYBkHjPieUD0eJbUV2nPruOnO7JLdDMcdwqeNCq0OdfcyEe1FnvnUBf
-	 tGsK15pKYK6ch29jmiR2NsvGKuqZD0pK4vigJ5LkjyQbeeGsMxjqc4F2sdeRMqfui7C7A
-	 was0wmvBaDLEqFiCSfzQ9GlzW/bk8pqg/EV+XWJUWwL/bYPfYauqRMmNRev68UWuV2xJ6
-	 F9XMNM+mQlgerbBI5ssGjpIyN0lrYEIyysZIEECO3dT2RzJlQatZTCl89CUmDfl99Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623623;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=;
+	b=PPGEtXe78aeBCnVlpBE64TpCBkFia1IOORK8medXmerlDMCg9IXnAuJB0MHZK05S/huh
+	 hKnmEQsCxY3Z4gwMQnOK6Lf1Bcm3PAwKkW4oQTBzGzhSOIqMpZ5ZBHivu2UXCRH5abHKY
+	 nzKS79eWFVJKjNGwKfaI+kCmLOpZoESOBgKyS8FKketnunF2Y9+mAtISA0ZVykUVTsSRO
+	 aX5mg5vyHUDi52hLpPrOqa1URWCkAb2IhcvtV88r1mwSrqzYGMQI3NYiW6Uq3eVTBLemL
+	 VQ/vCVHy6o0m4bbohPUzBzpD691i3M/vufr1nrVv36RiJh4eHdbdW2p8obl62jg8IOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ipripHyn;
-	arc=none smtp.remote-ip=209.85.218.44
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cnzmRqkZ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ao0AYPIH;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F1760A3839
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 12:44:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5F1760A3839
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE19606A32D
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 12:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCE19606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ipripHyn
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c40aa03a96fso54143366b.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 04:44:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cnzmRqkZ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ao0AYPIH
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AMck1821122
+	for <stable@vger.kernel.org>; Mon, 2 Nov 2026 12:47:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=; b=cnzmRqkZOtbkKeM/
+	GYWcgwpVIqDdqsQp88AO8H61KrXRo08UJjICqFbhm/trFV+hgXGHkRWyeg/heM/u
+	5omLInZrkBB7YGGnHVC48MmnlTtGUzI8UeRIqhtsrKuPd558WuUGOhumnXPN68Fu
+	4YhF4kRjnpLKlPtHcHquSkGOdRppWlXXYrV/v7+rVGU3JF/d7avydvADMAqQlCJd
+	siR7Nn4Z3Hj0odovVhMHC7qlBESugrHOkLF3XFVCjaSL/1b60reim3mKXWoQio8A
+	N2IPEv/OI6Za9y7cvY1xiOki9zXqopPJeQhAgghsryaEsFlDusOq/BmIg+6Z6zTd
+	DWFJcw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4hq79-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 02 Nov 2026 12:47:02 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5350173dc7aso7953111cf.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 04:47:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793623472; x=1794228272; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :disposition-notification-to:references:in-reply-to:date:cc:to:from
-         :subject:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1793623621; x=1794228421; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dYanbEJ7ydWKIVlseZIgyCbLcRNjwGo/7gUCZwqpJKs=;
-        b=ipripHynXFhBUZYO3ONkgpAkySdmoxAaDbs93kVcEyX1tuR6xSxgQMnbjh+OfX4ozK
-         3ROdQxJdv3Vh/6K70Ycd/gX7I1HGc+HbdWgEcCn281ZdUL5H66Hb2hfk1oIwK8OyZGCV
-         YqFq0wo6Z48sEqRXQJVBxDPjcHuXWpPtINRmOjaKecvPs6TuwLfdDiPm6RuhX6UabD6J
-         3PWpz/tm8vagnQFLxPv/SqjZySmGtt8OdhXGJhHWx0svC6YSsK4K/BHln98i0VrJwGQB
-         +yYMwH2I5/K64IWYRaWxD1RnvziHZPS0ZDU2Yv7bxaUKh4hD44bxeluaiDP3p5/RpAKz
-         ERqg==
+        bh=kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=;
+        b=ao0AYPIHgnPm801+52YtfreEZc8KcuKBrXdt8ArBI8AE0CoGPAkdKmMeqDs1nFkFyo
+         XY2YtxiA5ByshLNWOkV3lKNVb+2x/s2S3svtZuT4G8dVLFtxIX5lQSibBrtPYGYqxbbh
+         BDR0yO5gpwu6MbR+gN73f3VolaKUXdS1MLdBiMo6JOfvikQ6JC5+5L42lkKXr+zpcInz
+         IVpJZDFXw1JzKypXZRuNEymcfNF1oI7QNot2+IN9cEmvoQvHAgwuUPQFPJAgc7WtnJ/v
+         OCed/DNyIWu7AI/As0Q6aJbHz/ZMA1wSvuCD0v2opmvrCLoEQP9EjNV2CIcKUX/zLmqs
+         exbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793623472; x=1794228272;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :disposition-notification-to:references:in-reply-to:date:cc:to:from
-         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dYanbEJ7ydWKIVlseZIgyCbLcRNjwGo/7gUCZwqpJKs=;
-        b=yyQDlWDTITjPnVciGwSR4A5GGl4NGuH7v7SwUsXbj45FoowNfRCtFZNK3IbvlrnZzc
-         rytBKDeVHVfLdJeYdkBQUEvzPwb0RaaQM9KdynbI4Ybpn0wx3sbyFnA5nTsFKcBHXKsJ
-         DMUquHPMgDxn8Of4pEXrrhIaHfvLNvpJfsi4tUFpYqFbp2P1LJHeWbjwLrqoCHhUeBOp
-         yp4Enobci8ix3dKHMeiz3Z9pkw0hua/EJpFLPJ+c7aFBAFDUKK/xw2TotRI36IFiVVOl
-         2HDM4QFziTjZNZ7eQNQYQxPKTrtSvHYvFOL97ffcigsvi18A8ZLXQA3UCJNZ7flzRg9b
-         WHMg==
-X-Forwarded-Encrypted: i=1; AKwUvByCSnrm6fHtjbdd5TWTii8ktPrXiug/bs8maDKN8NEx5/SfMPcYjEiq9rYdMzEN1w4Yx0I60vQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wH2Lx25jZaeYxO2pCg6mHUsYGNLBx4ojDHNNtdVRJJ83OcveY
-	CHi3UEMEevmH9HuKZXbVIyFD8P+XEbanFgrTMWuWnX8ElNHA5vjBjBYg
-X-Gm-Gg: AYBFou3CUTjnwgKWL95GF3hxP/zOoSXUjdgSf3FyOk8pvHtaFoh2MHNWtwsKWJyrhK8
-	+8KtTyxGBM8vHuJc9n+X939J0FWrHKWZ+P+xBlE206MDOcd/1BJJaQVKeKzhwzJnEa6Gey0jHeD
-	9avOHOnbzJnlR53nba3Ab0Q5bobTKo/5RjsjpsKM7cQoiUHfGfT8OLViwbNNe4Y5F/Rr9DH801S
-	KiboVDN9fzSOW2xTjGF2ZL3krNPoy+VWxQwNrw9rnQ9gCPz2KCOdBEBE72Lwx3MV0d6AeWx1dUE
-	GnHaNvfmIH9Nri0dzwwM8gPRYg5SqVWZapl+3Jan4+nee//cdjK59tVApLc6SPvtkVEmX27dg5K
-	tTs3NWin3B54t3OlBISZiutDLoKwkCwzSJMj1tQXMrfGtJvTlug1/RM0YDFVlJPldpRxx4dW6ZX
-	es/ZAs5sxuouoswT4+7IZBoPEEqwPfycEZ1k19mOeMIRHxrBLGgcdwzagfBPmQD/Sq7+P7R+WBy
-	pWPMjXdybHLUDcgjzIWLOmwmdbrkQ4WapRKhPXr5x/mitAk6EqZgyintjgB+QeFkNRJb9iJHagg
-	jM5R8ZTS3TotMCD06BpAyz9bt8ddRYsSjfPNukaTpbslNvtD8OoHT/ZGWkMpSKdJ5mr7/PN0bba
-	NJxjqABG/QZSlAb3K0BqSaKKm1u/dl5AqyxE=
-X-Received: by 2002:a17:906:178e:b0:c46:b5a7:5b29 with SMTP id a640c23a62f3a-c4ca7a50798mr780727266b.2.1793623472076;
-        Mon, 02 Nov 2026 04:44:32 -0800 (PST)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca214fdsm3152504a12.36.2026.11.02.04.44.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:44:31 -0800 (PST)
-Message-ID: <bbd1ec87a9fff50b189f74cbd21e1d5bddf41136.camel@gmail.com>
-Subject: Re: [PATCH] HID: pidff: bound the unit exponent rescaling loop
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: Shengzhuo Wei <me@cherr.cc>, Oleg Makarenko <oleg@makarenk.ooo>, Jiri
- Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- =?UTF-8?Q?Micha=C5=82_Kope=C4=87?=
-	 <michal@nozomi.space>, Paul Dino Jones <paul@spacefreak18.xyz>
-Cc: linux-input@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 13:44:28 +0100
-In-Reply-To: <20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc>
-References: <20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 
+        d=1e100.net; s=20260707; t=1793623621; x=1794228421;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=;
+        b=TzuHU4OFDLzGkQFeSduz9INh8oW2TX8oflxwoQGICAeC5Bex79zNOLi9xc1eVGq3fk
+         oGLIwrcfmjpMonxD+fmFTrFaxix+v2NHCsGFt4cZEMb+w6tcNHH5WVegVgz5+qW6x7GO
+         KjbMfZrT+e/LTd3YmsTi3Kn1RPmV2ifxRoLkw46g8E/fd6sdVRYXqPE7nDoq4NYGfkjt
+         kguUr3Rnr3ESmWhomZKVqf6C6Gq2hvxt0wJD4ad7rcT4ra1UyX/Xw7vJfRKJ3taOpvZv
+         bD9zU4Dg73T16isFnaQPVUwEhdk+EIUmA5jXUSyRlbFNvHtpu4KdBg1j2o/Amu3q5GHI
+         7/dw==
+X-Forwarded-Encrypted: i=1; AKwUvByONMIn3gWNjeialRj0clFddoL0a2XbQRdTDlMoogItG+/0W/ziLK1OooaotH27lI3HsMLYZmc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuyxmET6zQFpTjETDXIOhfp0Sg+MuA8rrcL+bEde3al4H2sLSY
+	JuoUxIp5ZKqw78meXG+cD7t1Efddza6JT0cklrrsfOgTClkAYmNwb317c52RLzClB8Wk5vEpQWd
+	UUNeDLmhALsfrfWP/qEQbqVpIqmia+SycUzfkyisuXqTkOMLsqJsFOfan36g=
+X-Gm-Gg: AYBFou0AS3UmrPmA2NLYCpBQPcjwkkDGjSdSckItO9Cbq0mjt7VfrG3IC2Iz/pGAC7F
+	eJwx2XikaG0IP2Dsq0MlTWFRs5w03nBlsjXk1ce5dtdTKdVa/rSZWIGx2OD4BlzrB5wq9VJOc8B
+	L1wjU6sfP70w0YSlB3S7xH2Cgk6ZexE9QAuGwlfsoshfe3dzl2Riha7867NmSI1ILv2uNURWmm3
+	yPpbtu7M6zfZMDMQ6pwWHJKjZgtwf6BposRmYDbRhU2LOeXirk3UUtC5qtrXAfa2+dE3jsI3q5v
+	NjrYQq5HQb5+xK/r9yw30Q/lLDztMFjIbU0KjYTB/4CtiEQJ93TNuUOyzGS/DkMSKrut5rgOJfL
+	ScN68NTXCveMLC5BSGDMv5LSWgnyVURjb0V1QweqU4Um1k4icqo1I39gjtqPzjfEGzuWZcto=
+X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr1632533985a.1.1793623620851;
+        Mon, 02 Nov 2026 04:47:00 -0800 (PST)
+X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr1632529985a.1.1793623620444;
+        Mon, 02 Nov 2026 04:47:00 -0800 (PST)
+Received: from [192.168.226.248] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca0f376sm3452213a12.26.2026.11.02.04.46.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 04:46:59 -0800 (PST)
+Message-ID: <30265695-c3a7-4440-a0ff-7fd80fc721e3@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 13:46:55 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,60 +115,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for
+ CDSP compute CBs
+To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+        stable@vger.kernel.org
+References: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 95d0ytuv7TTsB1Ak_6OSzAHNdiV1n8aJ
+X-Proofpoint-GUID: 95d0ytuv7TTsB1Ak_6OSzAHNdiV1n8aJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX3vScdhb5069d
+ NWYIqOMWAIv9IH/0n0Y9Bj7hw667jp0Qm8SFzNte1uYcZNBxXlDdpiaU8rFIVaa5kE9LmiP/oWc
+ jhVjbe/BdWBe96E1awn8vOnw+nNaRPA=
+X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae88646 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rqUuZ-GaD-BuahIUHWQA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX1tzavSKwQlZo
+ eSSi+09H4/68AmHeTRcVAzxQ08l2/ZL9z9VmtOWIH63oUiZQW+THs9xLVhSPUsuQliwmeBkWPlb
+ fhOkW90XetPKAASst0GgahyBfl9ETBqz9jqmzyAMwnoeXSkuLbURk1uBs+hK41q4J48SO/DnmRE
+ TydGdkYAqwA7XhHMArNAcQjmRzm2cCgiUG87Y8cLum4+Px1rgxYUKbg7fUsv/9EgtKo0PvIWBsv
+ pi9XC0+keh4QWM7HYEUk44AXcAY+HOuLUs8Izatuy361++OQQ2GDUkISeOuRsBgSybneA3B7tos
+ uw11rNNZlT1Sp3D5iXmidZns2GJhLeBDEbUK+INSnpXzJdzHD5O2eWAHiF4jdb5cS4o9F5ux0P6
+ 0hTtzcrfDl60ALqTuNlc9n/spThsEXQWJ2WMRT8P1kGt22BlvKPWCbx99USSYgf2vsE3jVXNgft
+ 77aidUYIT19HiusPd3A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020050
 
-On Thu, 2026-10-29 at 00:04 +0800, Shengzhuo Wei wrote:
-> pidff_rescale_time() walks the device-provided unit exponent one step
-> at a time, allowing extreme values to cause billions of iterations
-> while ff->mutex is held. In a UHID test with an INT_MIN exponent,
-> EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
->=20
-> Stop rescaling once scaled_time becomes zero, since further
-> multiplication or division by 10 cannot change the result. The u32
-> value becomes zero within 32 multiplications by 10, and the u16
-> input within 5 divisions. This bounds the loops while preserving
-> their results for all exponents, including wraparound.
->=20
-> Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field unit=
-s")
+On 10/29/26 3:41 PM, Vinayak Katoch wrote:
+> The stream ID masks of compute-cb@12 and compute-cb@14 are wrong, so
+> these two context banks fail to probe.
+> 
+> Fix the masks:
+>  - compute-cb@12: SID 0x0c2c, mask 0x20 -> 0x0
+>  - compute-cb@14: SID 0x0c0e, mask 0x20 -> 0x40
+> 
+> Fixes: 58471055ae76 ("arm64: dts: qcom: sm8750: Add CDSP")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 > ---
->  drivers/hid/usbhid/hid-pidff.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidf=
-f.c
-> index 22951b7ecd17..1a2fffcf204e 100644
-> --- a/drivers/hid/usbhid/hid-pidff.c
-> +++ b/drivers/hid/usbhid/hid-pidff.c
-> @@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_fi=
-eld *field)
->  =09int exponent =3D field->unit_exponent;
-> =20
->  =09pr_debug("time field exponent: %d\n", exponent);
-> -=09for (; exponent < FF_TIME_EXPONENT; exponent++)
-> +=09for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
->  =09=09scaled_time *=3D 10;
-> -=09for (; exponent > FF_TIME_EXPONENT; exponent--)
-> +=09for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
->  =09=09scaled_time /=3D 10;
-> =20
->  =09pr_debug("time calculated from %d to %d\n", time, scaled_time);
->=20
-> ---
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-> change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
->=20
-> Best regards,
-> -- =20
-> Shengzhuo Wei <me@cherr.cc>
 
-Tested this locally and works nice.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Should we maybe add a warning to the driver that the time exponent might
-be out of a sane range? Sane range being, say, 10 to 0? This of course
-would have to happen during init stage not to spam dmesg.
-
-Regardless of that:
---=20
-Reviewed-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+Konrad
