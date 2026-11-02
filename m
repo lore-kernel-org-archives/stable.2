@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657713;
-	b=AmD5iufQwAEskFs8el8iiTbO8ys89v3Vft5FuGAU5Eyd8vGOnreVFjv7GJ3ekm4AJiRe
-	 MMauGedVivedBSkUOxS/JXadWAlzm67gbOUppB8hHZM0KkEeVekVWDokwQXf+EAX6aNdy
-	 w1c8abQVerk0JxlQoyScxM46hwn4NievHDcXPHifSuCOeFHK6c4+b2cTZ/xNB8gNjho3S
-	 mL0TSEtIGOS0Eg/76a+P6LNUsd1vx3PMabD0j3nKtIpad1BpoeVp5OYxP+VTsONVvYGhD
-	 C6ltdPtpBQXW/wqWAQG632z6R81U1K2dxWOpFXjRcPwWAJbYcBEX/mrvNvjUZsIJjiA==
+	t=1793657728;
+	b=zGH9NGAf3tYp7dGunQRWcu2KUmTi/+s8Er5rtvLZYBW5mOgnH9je0J7gv3S77R1ldac0
+	 h3r3wSTN3GuwNGoZUu4e/Hd5GBZb6XdOxRYVM7htYMog5ZBvD1/ACAShDfMV9vYPUO6Qh
+	 OdZpemvaXmNlRAVhDnBXtBeOvTfYi2khF6/3fKKsG4d7rnCb9llGNxr4ZM/fV67nQUS06
+	 ud+42rdtAp112mKisiKnxH/VRKTpBMSe3aOnVUN2MRwkSDqzu+qL4esXobc/REdnnEdOr
+	 Qk5vYwefUq8d0ZIlIa1j/5G+XbNhNLYsfYG/HuBgSkJzRKtEGQBEvoTqCwpW9sIo46g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657713;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
-	b=TW8J9a7wTRKArNNd19HisJRMnyz+cJKxq4FRg+TmZVOpdtnvSEh9luzCfOKmjF5y+wFg
-	 3BUZp6ufBRqLmwbwZEBOmlnU8lSZn9n3dyEh+wa0BAJ514g7OiKi2rszSeH78OZy27i5B
-	 cWxkl7oGkRyGcdMgdk/Bq8g7/Y8CMfcuaP1EIIvYm+g3k6MXDfRVHZHq0OztFiJ/E2ndh
-	 vXDpCHFOpqKXLeBLe6PoQKilXIDPXFNarCBPvi6F9EPhfx8+o4BFjP6OeD73r1pSki4MO
-	 bNFHkX1mGTqECHPNwk8kT69P7SLLDV3ObT2XtpKC0wr2i48pnm5FE8ZdPmQM1g0e8Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657728;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8b5ULcVEEMSYAqO+yslC0UqeEuaJkEAY07J9LgZtD2c=;
+	b=gKOii6e5iwTBm/lE+q31auDbO5KAn0BDPFUh1XMCidEidV7ZCmwr0BnHB3tNiourfDfn
+	 do4rEf67tj3qnIKC/AvQHPE1jVkp7CQrm1Nem9SnptyZLHgBaLvyP+2y7l6Ntmc0Xfvd0
+	 TGHliUcRzavCUOsRESifr8uXvBIQnOe78fQqY6qydBqrBYz8339D+UDtNNS2ujGeCuiHw
+	 uDVwxQQi1PBhOi697JI7xooNSsszmxOYkJFvE5Xw3lF+Wve1QegUgW/0SAqjD35leJ3v7
+	 9FYU8hUkm9hjQkYL+wpFvuLZZyw4chU3zogsK6f82+9OU+J2gAh7PeansodpvviMTJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
-	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
-	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=TokvcMKc;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gVKvVB1o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24257606A32C
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:15:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24257606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69687606A327
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:15:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=TokvcMKc
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so1423659a12.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 14:15:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=is.s.u-tokyo.ac.jp; s=google; t=1793657711; x=1794262511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
-        b=TokvcMKc+KYIST87Mai260x4nopeORdiWMi79Bv4kzPWRQ+VEYVkBgKM7J7ubgfMct
-         EAUHAd4PTv1r8+90sVT307xC2pRCL993JZJfQlLMk2O6IzZh1NLpuneUl+BUTtg8XxYx
-         /QTo1JyjHQrs21R11/IBFyP5jg0n9Iy6VouHwlbd7HPaMecsZ/Wd/mOSzz0t9MTSXdHE
-         aLOuN4vTnqJnwHQIzjkLQ3OlWd9efODyiNk9U0HJfXWPInLzKqDV8kugDOiez/o1io2s
-         hF/KO9aruPizc94q+0RDxqUUSB5RHH4v19BLqwrotuv1CHCNEUPHBmPNWoT2ul3T99/0
-         V06g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793657711; x=1794262511;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DDDq9vrORSWbnT/BmB95bS2gOj2xanzImuHp41SDLD8=;
-        b=bfgyqhOuQPortrJKSN4n/hnVP4uHDLFM2yBWGr0JFzxJYnmKfLB5fMiyi0crRaM/np
-         MHlNDan6ow+Gj5eqmofvjKw0lJoSkJjKkP+ppXs5rAgZHckxtTPibX6U5I79UB8/CUNq
-         9d2tLiKQlfaednwhgi/k7D4QD/T/dzMZ+3XZYqrAO2m4wvnWZ1vikRElFEVkfGeF2xDg
-         ojcF9TXIyojYB3a7aDsCgyR99IUr0UB6SD7heqPD4yRV96wOVfYyVnePdcUNESv2d0Nf
-         1cORRnPKpXQqxFQg05buD2Jhobe8kN5knzz73+t7QmpRcRHpYbRERnCcZ2+cJRDGvjsM
-         tqKA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3Sea9yz/fjaTpMFsPSrRtYtpabM0YJwnA5agcRVGzgZCsZdVprQb8TrNkZP16GIiUUj29054=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ALk4TrcURoKp6jLJbl50seNlTintU9Mu6bfTdploWi+560B33
-	J+hF38ges+Rjgea/WxCifIY29KQNlhgnVyPwO8gteEihRbUu8J4bXTBRUCkUmWFegw==
-X-Gm-Gg: AYBFou1upSfDcVHCJDafH58FH791fZpqclaKBvQqwllmGsza2ZLiFg/ejbzLIU8ICAW
-	kR2s7Wa9kWn0Nf8sdfhOVyzHhltEczbF9QuE0X2FoklHF9/YPRfIM/44SaYfPg3pu97E6TK7X4/
-	v9Vbo6Qs9D7LHPwn1kqwHxO9qe3fH80+WDsGfg49falR9+t7TE/T4ogdmh4JCfft29l47/Q5xfe
-	0wEA9FJrISJ9Dptkjn823ngwNxuOvBqlm+btqKQsrJr8MacGE9S8/QyT3jMCNEqFRJj7xOYem8S
-	vmTi8YejFVoZ7w8hFy4x9X3axyza3KLwOdtgbvoRGgCsDlcbF+qaLM0pj2bLmF6phCyGjE6fI9+
-	wNTJ5Gl/P17253dVphd3nkdS5n8ERfgRcTJz3/RAC/yOGSqXtXEKQ5cI5HoSBr0DUV7jq8B5kBA
-	dvkfjzkUtx4pGOL8sES71j9iNPjvYxMts/BtR5UxzdlNyUJXLRfaLk/yd+k45x4Ik6bPzTxL633
-	KmkqBdJcl/X8rIlohdVRx9mcXLG0MpKDV3sI/ZFmbgOOOKMtBJneDyrl+VC5LfPGPzISX22kvso
-	3jSElZ6+ne3Zzf4fUL7xtZ+WgTgmPiwreSTD9cI=
-X-Received: by 2002:a17:90a:fc4b:b0:3ab:b64:5893 with SMTP id 98e67ed59e1d1-3ae8981bf35mr8240104a91.53.1793657711239;
-        Mon, 02 Nov 2026 14:15:11 -0800 (PST)
-Received: from wang0.localdomain ([133.11.33.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c8b1913sm984336a91.10.2026.11.02.14.15.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 14:15:10 -0800 (PST)
-From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
-	Ohad Ben-Cohen <ohad@wizery.com>,
-	linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
-	stable@vger.kernel.org
-Subject: [PATCH] rpmsg: virtio: Reject a message shorter than its header
-Date: Tue,  3 Nov 2026 07:15:04 +0900
-Message-ID: <20261102221504.175116-1-lian@is.s.u-tokyo.ac.jp>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gVKvVB1o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB221F00A1D;
+	Mon,  2 Nov 2026 22:15:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793657728;
+	bh=8b5ULcVEEMSYAqO+yslC0UqeEuaJkEAY07J9LgZtD2c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gVKvVB1oGmGb9ktxFRR5b4NqdVYHSCFC+PHgI4IJ9XkLXtr4qaXnF3+CUDejdo5lh
+	 N3VQib0kaULXJHLiq1Q7UwhjRruGzYo9tDReshHjpYZCTkKMtfaAxOraRtOyS3WryF
+	 cbWWkIRvW4MIG7+Thv3CQoDi2dWIgo99AB96AAuachxDkX1twUIMbGvVuzrqff8ncn
+	 Z/n9Zw+bCXpHQm5KbRL2X3r8EoI6KQm5vhiPXo8jWANjWZEWhD3VUvY1s77QiGdqSj
+	 r+LSwc8MpYvIfg/6TMfaqKd+DV3aBx1AxMTUO9ifOecB3q2OqqmlJZI644LSGGcxnj
+	 skcQICIzpkNOg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yongjun Gwon <d3bugee@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: serialize directory emptiness checks with readdir
+Date: Mon,  2 Nov 2026 17:15:26 -0500
+Message-ID: <20261102221430.1868858-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110239-facial-handiness-1e99@gregkh>
+References: <2026110239-facial-handiness-1e99@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,79 +61,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rpmsg_recv_single() rejects a message whose msg_len exceeds len -
-sizeof(struct rpmsg_hdr), where len is the used length the device
-reported. Since len is an unsigned int, a used length shorter than the
-header wraps the difference, and every msg_len passes. The endpoint
-callback receives up to 65535 bytes from a receive buffer of 512 bytes
-by default, and rpmsg_char copies them into an skb that userspace reads.
-The receive and transmit buffers share one DMA allocation, so the copy
-can run through the following buffers and, with small vrings, past the
-end of the allocation. With vrings of 16 buffers and a header claiming
-65535 bytes, KASAN reports:
+From: Yongjun Gwon <d3bugee@gmail.com>
 
-  BUG: KASAN: slab-out-of-bounds in rpmsg_ept_cb+0x4d/0xb0
-  Read of size 65535 at addr ffff888002484010 by task rpmsg_echo/140
+[ Upstream commit 7220980b2423d06a0604516129bfa4cec8a697ae ]
+
+SMB2 QUERY_DIRECTORY holds fp->readdir_lock while it calls iterate_dir()
+on fp->filp. An SMB2 SET_INFO request with FILE_DISPOSITION_INFORMATION
+can resolve the same FileId and call ksmbd_vfs_empty_dir() on the same
+filp without that lock.
+
+iterate_dir()'s inode read lock permits concurrent readers and does not
+serialize per-file iterator state. ext4 stores its dx readdir cursor and
+fname RB tree in file->private_data. Concurrent reset or refill can
+therefore free a fname node while the other worker still traverses it or
+retains its RB-tree link, resulting in use-after-free accesses.
+
+An authenticated SMB client with list and delete rights on a directory in
+a writable KSMBD share backed by ext4 can trigger this when the directory
+takes the dx readdir path. The client overlaps an SMB2 QUERY_DIRECTORY
+request with an SMB2 SET_INFO request carrying FILE_DISPOSITION_INFORMATION
+on one live FileId.
+
+In one x86_64 SMP KASAN multi-shot guest using ksmbd-for-next at
+171df27077fb, the unmodified kernel reported a cross-worker use-after-free
+before a panic. The first report's access and free stacks show the two
+request paths directly (trimmed):
+
+  BUG: KASAN: slab-use-after-free in ext4_htree_store_dirent+0x488/0x550
+  Read of size 8 by task kworker/2:0/29
+  Workqueue: ksmbd-io handle_ksmbd_work
   Call Trace:
-   rpmsg_ept_cb+0x4d/0xb0
-   rpmsg_recv_done+0x29f/0x840
-   vring_interrupt+0x32a/0x540
-   vp_interrupt+0x146/0x180
+   ext4_htree_store_dirent+0x488/0x550
+   htree_dirblock_to_tree+0x535/0x990
+   ext4_htree_fill_tree+0x319/0xba0
+   ext4_readdir+0x175a/0x2f40
+   iterate_dir+0x1b6/0x630
+   smb2_query_dir+0x1003/0x1cc0
 
-Compare the sum of the header size and msg_len with len. The sum cannot
-overflow, since msg_len has 16 bits. Move the check ahead of the debug
-output, since dynamic_hex_dump() reads sizeof(*msg) + msg_len bytes
-when its dynamic debug site is enabled.
+  Freed by task 279:
+   free_rb_tree_fname+0x67/0xc0
+   ext4_readdir+0x13a9/0x2f40
+   iterate_dir+0x1b6/0x630
+   ksmbd_vfs_empty_dir+0xa2/0x100
+   smb2_set_info+0x2ffa/0x45d0
 
-This patch is assisted by Claude Opus 5.5.
+Take fp->readdir_lock across the entire emptiness check. This places both
+iterators over that handle's filp in the same lock domain while
+preserving the disposition status handling. The exact code change
+completed a warning-free x86_64 KASAN bzImage build. Tracing three request
+pairs showed that the two iterate_dir() calls no longer overlapped and the
+expected statuses were preserved. A further 1,600 reproducer iterations
+completed with expected statuses and no KASAN report, Oops, or panic.
 
-Fixes: 9648224e564a ("rpmsg: validate incoming message length before propagating")
+The reproducer and complete guest configuration are available privately
+to maintainers on request.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+Assisted-by: LLM
+Signed-off-by: Yongjun Gwon <d3bugee@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: adjusted set_file_disposition_info() context for the existing directory condition and older oplock/delete-pending helpers ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/rpmsg/virtio_rpmsg_bus.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ fs/smb/server/smb2pdu.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
-index 23ff6c8b7a20b..a9125e81cb150 100644
---- a/drivers/rpmsg/virtio_rpmsg_bus.c
-+++ b/drivers/rpmsg/virtio_rpmsg_bus.c
-@@ -661,6 +661,16 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
- 	unsigned int msg_len = __rpmsg16_to_cpu(little_endian, msg->len);
- 	int err;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 7a9eac676cbb9..1b6cd2a1d02e5 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -6596,6 +6596,7 @@ static int set_file_disposition_info(struct ksmbd_work *work,
+ 				     struct smb2_file_disposition_info *file_info)
+ {
+ 	struct inode *inode;
++	int err;
  
-+	/*
-+	 * We currently use fixed-sized buffers, so trivially sanitize
-+	 * the reported payload length.
-+	 */
-+	if (len > vrp->rx_buf_size ||
-+	    sizeof(struct rpmsg_hdr) + msg_len > len) {
-+		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
-+		return -EINVAL;
-+	}
-+
- 	dev_dbg(dev, "From: 0x%x, To: 0x%x, Len: %d, Flags: %d, Reserved: %d\n",
- 		__rpmsg32_to_cpu(little_endian, msg->src),
- 		__rpmsg32_to_cpu(little_endian, msg->dst), msg_len,
-@@ -671,16 +681,6 @@ static int rpmsg_recv_single(struct virtproc_info *vrp, struct device *dev,
- 			 msg, sizeof(*msg) + msg_len, true);
- #endif
+ 	if (!(fp->daccess & FILE_DELETE_LE)) {
+ 		pr_err("no right to delete : 0x%x\n", fp->daccess);
+@@ -6604,9 +6605,13 @@ static int set_file_disposition_info(struct ksmbd_work *work,
  
--	/*
--	 * We currently use fixed-sized buffers, so trivially sanitize
--	 * the reported payload length.
--	 */
--	if (len > vrp->rx_buf_size ||
--	    msg_len > (len - sizeof(struct rpmsg_hdr))) {
--		dev_warn(dev, "inbound msg too big: (%d, %d)\n", len, msg_len);
--		return -EINVAL;
--	}
--
- 	/* use the dst addr to fetch the callback of the appropriate user */
- 	mutex_lock(&vrp->endpoints_lock);
- 
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ 	inode = file_inode(fp->filp);
+ 	if (file_info->DeletePending) {
+-		if (S_ISDIR(inode->i_mode) &&
+-		    ksmbd_vfs_empty_dir(fp) == -ENOTEMPTY)
+-			return -EBUSY;
++		if (S_ISDIR(inode->i_mode)) {
++			mutex_lock(&fp->readdir_lock);
++			err = ksmbd_vfs_empty_dir(fp);
++			mutex_unlock(&fp->readdir_lock);
++			if (err == -ENOTEMPTY)
++				return -EBUSY;
++		}
+ 		smb_break_all_levII_oplock(work, fp, 0);
+ 		ksmbd_set_inode_pending_delete(fp);
+ 	} else {
 -- 
-2.56.0
+2.53.0
 
