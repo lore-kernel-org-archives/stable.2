@@ -1,99 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793591148;
-	b=MFhHo2JSWzAwy92+jHXQdCTvpevp83YXfUJP71zy40XM+QwDpZ6COUAh1EGDfKe/Vsas
-	 qwhHS4aym9k3hg0NoU5vCYpKPP4ApT3nJRvfY8AO+9wrublfTO5QTHu+Zc7R9PUrjOM01
-	 dvrKeBClxB0bbjuOkp7Kub9wi9PIGGsh8QJP1lvEqoFYlVPk1dEFQaK1Hnwa44dBOPhYo
-	 68zSY/CZcXy+cz6sNi4imswKbwBFPiMXH+chqZTJMrtoLlT7pWR6rFUgpCoothlkjWic4
-	 desvgJutpKAd3ZTbPuEwl2HLd6EDO/SgbV8k7zzYojlvo3hJukGtY3wMyje/hA3LV1Q==
+	t=1793591554;
+	b=E09TPEfHaAmQmg4ZifugMCwEIbQ1RDbDUBeOImIVfmKCnEy9nKxoJp0w8MuKtHZiWsQ7
+	 QELFtODJnpVxJRgEnRbj0dnDAl+nE+Gyotfr+kww+Hny3aa9UzFcwC3NdyGbNl9nySz4B
+	 E6HJvhtWeaQPGOD9JsTbjfQTPCMoCJy78WboUGNqz+XimLfgDYWWII2/HEwyfYszMJcEL
+	 szbiIGt/NxSyC/M5qOKjuv9NGqE0OSK+6t0e7sCCxd7q904OKd1d0RdVNSsC4vgRkHfff
+	 FrW1WXqLScxiTfZyKppHbnmvSE/Zca4UkKjCpQ1LudKG78Q/KUnsO9r+Wx3XygmXpuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793591148;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7653Z25URCQw51Ar2IS4ZcgvokQrZoYW0xDq4LSwubQ=;
-	b=3yI8RttAHiIBPI/z+XJJ4CYqFXWVajDR+ilrt4vjr0IVjUJz7Idi7ArmyLJG5GdY6dIS
-	 36/bBUvoprPoE3fMo+ZWClHmYNsUIyTc/irXC7qaFL5trFJFlNoxK/rLf7rJunkw8tcbB
-	 E1p3iXXmy3J1SaFIhdKoXHferpQFonoIZ0913bqx3otX0XS5eZfqmmn0mAfXDm3yuJv0w
-	 CuRZ0NnOeG+HoHHbH61ZjYdOytMooruT07AhGXjWzGzsmY0ijK2k2y7I8d33rz+dTD/pe
-	 fkUoyO9wTn7EIjx7CuD9u3YsT2FUnXga800F4lOdkSp+wJ+Z/c+DNzLAhbhT8Xn3hVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793591554;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UsyOruPU/4uzHcmKvCXiECAPVPbvFO7B0tp+W3CdJrI=;
+	b=v9Eo0pEypBTt+sYV/RqDvG71QtehyaoAEW8EwL0AZKouM4sQ+yAzn5dTjOPfMzsCSDtc
+	 +Zp11JaNvy6IW2gJSWmvMEis/eRjTKa7DWpSWYrM3DF5hJM4fYsnmlAN1+Knr8GkGhzBR
+	 8Cfd14iyiHURedOCQmbMkcYAb3ZKvlpKHP4JkVYPrS8uZcHr+TKWqR+6uocpy9bi5G25q
+	 YZA41HV2Lb0YNoEL00h1SFpavgkm5+I3N3fueJsL+txUGKWtFmNxm51urAHG2R6V3AxTS
+	 rWVu4cCHNKE9CIc4BTT2z+CbmRcCzwwBeowSXjk3s67xmtzAvlq/rCWf9sweuex4c8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wul8qBKR;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YuLJD6aa;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C777B606A327
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 03:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C777B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4CE606A324;
+	Mon,  2 Nov 2026 03:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB4CE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wul8qBKR
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3535a54bed9so3876489eec.1
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 19:45:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793591147; x=1794195947; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7653Z25URCQw51Ar2IS4ZcgvokQrZoYW0xDq4LSwubQ=;
-        b=Wul8qBKRAP0Daw2OPIL2Cy4HHNJ+FoV/0vVmVHZYOA5NVJ5gWZDkIRPHdDSx8covUr
-         uWzh8og36uKFtFcS3tbT3hTw5nyaoGRoegdsnfemQEJTIyMWNuzegAW4uHUBOdgr8ez1
-         noUeR0laq2sce1zBSQl8od17Q1KFMjYxdNaqWvhyWMnP8nq6CEjPfEaRT4GB5+tbEnea
-         Y3tACXNmFc2MDq6qRmuql5mQqeR+NyU6yFOHIRf88d8YzZoZr03WwRKKb0hKrgsvdy+3
-         L3Nf+W0WvLbQBv2mjfZOUdVjrJPw/x/ouWtd6xzBYGroEB3fYV0WeaokxUqQQHho/7tb
-         eXVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793591147; x=1794195947;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7653Z25URCQw51Ar2IS4ZcgvokQrZoYW0xDq4LSwubQ=;
-        b=TlRv5T3lDMzvRd5+6iYxhOnE+FXeoCM2USCbt/FVBjDhqoifaWLedbqxhEiZyMMcQP
-         ZUf0Jh210jHsTy+anAu+VioDvLUdm1qwkxS5I8QiM/6evQp2KfPqpEITxpfHXI/2rGFb
-         jc2dwVRJgUn7snS3yGPeeAhnEd5b14jNKrmn8uv9rMQg3wE6iOlpS9ZdJcNkWFxb/MxO
-         hJt0LK7u3QU2BzgkEJQtRTEY9reMmozHRrEE8KnpJfJ07Rjg2hFj9+TMfvykEJdhwC3h
-         a34RpGlJLrIZrZ+rN2RSyomz2BooRpK21exFvkcUjUxRUKofrFdOd59OMvxrTR57fv9A
-         X70g==
-X-Forwarded-Encrypted: i=1; AKwUvBzLli+PJT5o+8wbVLF9bu0FokcxBiMV0Xe3f7uYCpy9DfdSSmJeNzQ9o8R0mI3h+6B743hfmH0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9M+FSIaLbfQB2xib+PJRSs9bF6ElMAy5iAcv0Gl+55rvHvVqtU
-	q3a2um3aktHBcRt2PFtiLrDeGfzOBil+K8hglE5gAGKxIdutkFjQsSU2
-X-Gm-Gg: AYBFou18fiL2lXML0u3vpijheL7sadLH8vN1u6XEHS07K5Lo8j/4iwwa4qs+S48+KFM
-	vzbr/UFbbOKLLsElJBCM3ksSGqeVHrfhKcsPILjOqYnZGAuYlNTuET5lp2jPkf3ndQqvLf3yEEp
-	sR/BMchG96d1N7yLmv+5xKIPHUMwyfeTZqXRiyoC9BmQGE6/+Ow2paeRyM7QHpsnJQ7NGEB6ChZ
-	twyMj0fVChyonbyNELsBu6FP7X1ryjTBlkET9qisw2oM4Xfe639DUWxJdCN9PGcMRnQBisw3iak
-	tifDG+IE2kRxTPxjTMCE9ROu7/UXdWCq3lQ9a5OnhdsZr35hekOjsTNIetAplqWdWTssjsZi0xe
-	6JOUe5A8TJWrT2Oi073mtCcZgBl6Q9pK79F3aI0UY2GVuDAj+dPStPr7w62Pr/y5vHfX85ULOsh
-	m27SJ/waygYCWSRK4lOUkbC3Iyf01PoeWsi+ZVJ8E8yOUd68vih/iiEb2M3wIhkPLtoDNAxJ29I
-	eZYkxU6dVuY95H8FJuOaonERVnrfiwLOkiB4wd1qmrJAJuQCwZ44j0Uln/TDi6VtNKgGb9F5nXt
-	bnCfTdpASTZhYdM9iUzQRP1HgpkJ/A5zmJaei1k9DtIg9i5JSTMEP2c/Zd5EbKaNmoSNPIfU4Vm
-	BMc+e9irI1cMoCDQ4VgcpdB8Qv9IuPJ6Mwex534TNS2GIpQAIwOjA6lGn0GbNiYDkThnRVhSTu5
-	DDI1Oa
-X-Received: by 2002:a05:7300:6d22:b0:36a:13e1:c889 with SMTP id 5a478bee46e88-36a425e10f8mr21842182eec.36.1793591145568;
-        Sun, 01 Nov 2026 19:45:45 -0800 (PST)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a504c6sm33470820eec.21.2026.11.01.19.45.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 01 Nov 2026 19:45:45 -0800 (PST)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] iio: trigger: fix use-after-free in current_trigger_store() on concurrent writers
-Date: Mon,  2 Nov 2026 13:45:32 +1000
-Message-ID: <20261102034532.33246-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261026100246.68005-1-yuz08559@gmail.com>
-References: <20261026100246.68005-1-yuz08559@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YuLJD6aa
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793591543; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=UsyOruPU/4uzHcmKvCXiECAPVPbvFO7B0tp+W3CdJrI=;
+	b=YuLJD6aaRbBiLnm3A58MYJlJirznc7UZkbvfmHSz8ZsaGLWCBdLt1bvaMeXvpxnAJwWKWTrl9K4jcZncte9Va/POuK6mPuOFOV0nA/f1nMLb9JI2mb08eNgpTZMLFPskdgZiJCtoO1qW1xSjbuFotKYhbFU+wU6a5QVKUiYn5zI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R791e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=65;SR=0;TI=SMTPD_---0XDsjDyn_1793591534;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDsjDyn_1793591534 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 11:52:15 +0800
+Message-ID: <b684dbff-6f38-4d44-9709-1e9303e2158c@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 11:52:13 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,151 +53,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/47] mm/shmem: make shmem_file() check the file's
+ inode
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-3-d6437171ecc3@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261031-fixes_core-v3-3-d6437171ecc3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-current_trigger_store() holds iio_dev_opaque->mlock only around the
-INDIO_BUFFER_TRIGGERED / trig_readonly checks and then drops it. The rest
-runs unlocked: it reads the current trigger into oldtrig, acquires the new
-one by name, stores it into indio_dev->trig, and drops the old trigger's
-reference with iio_trigger_put().
 
-sysfs does not serialize writes to the same attribute issued through
-different open file descriptors (each open has its own kernfs_open_file),
-so two threads can run current_trigger_store() on the same
-.../trigger/current_trigger concurrently. Both read the same oldtrig, both
-overwrite indio_dev->trig, and both call iio_trigger_put(oldtrig). The
-extra put drops the trigger's refcount to zero while it is still in use,
-frees it, and a concurrent writer then dereferences the freed trigger.
 
-With two sets of writers hammering current_trigger between two software
-triggers on an iio_dummy device, KASAN reports:
+On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+> shmem_file() only checks if file->f_mapping is a shmem mapping. This
+> mapping can belong to another file, however, as with a Coda file backed
+> by a tmpfs container after mmap().
+> 
+> So it does not guarantee that the file inode is an actual shmem inode.
+> 
+> Seal handling and memfd preservation use this check before accessing
+> shmem inode state, so they can access an inode of the wrong type.
+> 
+> Let's make shmem_file() check the inode's file operations instead, to
+> identify shmem inodes reliably. This will identify regular shmem inodes,
+> including memfds and ordinary tmpfs files, independently of wrapper file
+> operations.
+> 
+> Use shmem_mapping() in collapse_file() instead to not change the behavior
+> of collapse_file(): it operates on the page cache and uses mapping->host
+> for shmem inode operations. Focusing on the file does not seem relevant.
+> 
+> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Suggested-by: Pratyush Yadav <pratyush@kernel.org>
+> Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-  refcount_t: addition on 0; use-after-free.
-  WARNING: CPU: 3 PID: 3467 at refcount_warn_saturate+0xbb/0xe0
-   kobject_get+0xf6/0x100
-   current_trigger_store+0x15c/0x4b0
-  ...
-  BUG: KASAN: slab-use-after-free in current_trigger_store+0x168/0x4b0
-  Freed by task 3468:
-   kobject_put+0x125/0x220
-   current_trigger_store+0x2cc/0x4b0
-  Allocated by task 3454:
-   __iio_trigger_alloc+0xc7/0x100
-  ...
-  Oops: general protection fault
-   __module_get+0x27/0xd0
-   current_trigger_store+0x192/0x4b0
-
-Hold mlock across the whole operation so that reading oldtrig, swapping
-indio_dev->trig and dropping the reference are atomic with respect to
-other writers (and to buffer enable, which the -EBUSY check guards).
-Acquiring the new trigger with iio_trigger_acquire_by_name() under mlock
-is safe: it only takes iio_trigger_list_lock, and the buffer path already
-calls iio_trigger_{attach,detach}_poll_func() with mlock held.
-
-The trigger swap itself keeps its goto based cleanup of the newly
-acquired trigger, so move it into a helper and take mlock with guard()
-in current_trigger_store() around the mode checks and the helper call,
-rather than mixing guard() and goto in one function.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/iio/industrialio-trigger.c | 60 +++++++++++++++++-------------
- 1 file changed, 34 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
-index 76926fe..cfc6af0 100644
---- a/drivers/iio/industrialio-trigger.c
-+++ b/drivers/iio/industrialio-trigger.c
-@@ -421,37 +421,14 @@ static ssize_t current_trigger_show(struct device *dev,
- 	return 0;
- }
- 
--/**
-- * current_trigger_store() - trigger consumer sysfs set current trigger
-- * @dev:	device associated with an industrial I/O device
-- * @attr:	device attribute that is being processed
-- * @buf:	string buffer that holds the name of the trigger
-- * @len:	length of the trigger name held by buf
-- *
-- * For trigger consumers the current_trigger interface allows the trigger
-- * used for this device to be specified at run time based on the trigger's
-- * name.
-- *
-- * Return: negative error code on failure or length of the buffer
-- *	   on success
-- */
--static ssize_t current_trigger_store(struct device *dev,
--				     struct device_attribute *attr,
--				     const char *buf, size_t len)
-+/* Must be called with iio_dev_opaque->mlock held. */
-+static ssize_t iio_trigger_set_current(struct iio_dev *indio_dev,
-+				       const char *buf, size_t len)
- {
--	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
--	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
- 	struct iio_trigger *oldtrig = indio_dev->trig;
- 	struct iio_trigger *trig;
- 	int ret;
- 
--	scoped_guard(mutex, &iio_dev_opaque->mlock) {
--		if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
--			return -EBUSY;
--		if (iio_dev_opaque->trig_readonly)
--			return -EPERM;
--	}
--
- 	trig = iio_trigger_acquire_by_name(buf);
- 	if (oldtrig == trig) {
- 		ret = len;
-@@ -492,6 +469,37 @@ out_trigger_put:
- 	return ret;
- }
- 
-+/**
-+ * current_trigger_store() - trigger consumer sysfs set current trigger
-+ * @dev:	device associated with an industrial I/O device
-+ * @attr:	device attribute that is being processed
-+ * @buf:	string buffer that holds the name of the trigger
-+ * @len:	length of the trigger name held by buf
-+ *
-+ * For trigger consumers the current_trigger interface allows the trigger
-+ * used for this device to be specified at run time based on the trigger's
-+ * name.
-+ *
-+ * Return: negative error code on failure or length of the buffer
-+ *	   on success
-+ */
-+static ssize_t current_trigger_store(struct device *dev,
-+				     struct device_attribute *attr,
-+				     const char *buf, size_t len)
-+{
-+	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-+	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
-+
-+	guard(mutex)(&iio_dev_opaque->mlock);
-+
-+	if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
-+		return -EBUSY;
-+	if (iio_dev_opaque->trig_readonly)
-+		return -EPERM;
-+
-+	return iio_trigger_set_current(indio_dev, buf, len);
-+}
-+
- static DEVICE_ATTR_RW(current_trigger);
- 
- static struct attribute *iio_trigger_consumer_attrs[] = {
----
-v2:
- - Move the trigger swap into a helper, iio_trigger_set_current(), and
-   take mlock with guard() in current_trigger_store() only, so that
-   guard() and the goto based cleanup of the newly acquired trigger are
-   not mixed in one function (Jonathan Cameron, Sashiko). No change to
-   the locking itself.
-v1: https://lore.kernel.org/all/20261026100246.68005-1-yuz08559@gmail.com/
-
--- 
-2.43.0
-
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
