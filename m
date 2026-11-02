@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612150;
-	b=lR8n6AWyx90EYxd/pIKFsuLHqPvoACbmBX8rGTUEyxAbQuDZkzRLqF5hXk4Lzl/Cir8f
-	 CPg9xr111Pg6jJPugAZ7TnavD+jQvqMwIQzLqX2HLy6JDPh1TcXtktgPufvrEvWblFuwm
-	 fY0LDGADxEs8N7T3GpE9dpxDPSXayN6qMdqKTa8ubstkR0UTFlPDLiJJD1WBWfI5oyV4b
-	 xE2IBrcJTgrmZ+8pRiEcT75z9gtSt0RGy3+mYDaIAwIlOjGPMz0hfU7YX30piOmTX8T+E
-	 IAXM/28BIgVtw9CRLXzV2NGafhYnopI7tQvgiIax2vqBA3HQvKhrPeMDO44eruJeKtw==
+	t=1793612185;
+	b=XThx6O8Mqn5ooM5zylZHwJWLRy6eLey6j+ASrCQFH6UIb1ue44XzRAhSPC8nBp8bGz3D
+	 scg4EiiWAM6Vq1RilvvSwQtpi8q1jxRnbtHgkNr8kAbRmZkpPNT8Xoq/4rMK85TUyuops
+	 6qoHmOrOQw9gIxtyJWqEYASyfRPnQK7Wf6lHpI5hQx3lDqe7KDQdD5jjCoqNYrsg75vFZ
+	 ypLUr4hC/i4JWQLWvjh6rFCVlqbyl1Mo61C8FV8aZzZPDviXcdPBZgOUXPe8IrrevK3nQ
+	 KXVfUDtcYpjBNFwUEUvI/A0gprCwcERu/PLKgtFZ5s1nLaEweT82VUduhdYouiWiQsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612150;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nvbS9iFrs32HLnd2NRpzXjnfEXZME1jnaetqHlPZ2Dg=;
-	b=Us5xuiwiP9l477ChzZUYny95sIcgvH1vbJm3dmF/TBCGjXnG2LbCn7seD8yg6qS8JEBr
-	 NAHVYfQgQLhmAVl6sNbRd9i3t8pJ5H7QWS9ohIdBtQJibtQx0Dc4Hsfjt3+ROga1NLCYo
-	 OIa5PNjcHAIO0QTCWUv3NFQZVJXmsErWhK2En1T3WQkhHqmtjug+u6yQfg9nwPE2GkpIe
-	 scG/X5zfOo4rtiaNPfjIpDtX1qRs0v6Rm2nW2PiwVR/cI1a4yOFWNo6XiY2T7qhdypvPR
-	 HEtQk4CO48UdISD+JdvDhR0abtlOyPA6rKDHGBwNqgcx5N10BojkoAiezcjiF6jlRbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612185;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Message-Id:Content-Type:
+	 X-Original-From:To:Subject:Mime-Version:Received:
+	 Content-Transfer-Encoding:X-Mailer:X-Lms-Return-Path:Cc;
+	bh=Jpf0sF3BsXWuW2vGarlxt3BK+rqyO+jWFnFGPUZEX7w=;
+	b=VI4tPYUFWLEHkygzGufyWwjBHrmR32C9ymHjyTTsSzjmz3Lri1r75BCnO19s1mhNx9OO
+	 +c0peH11ZrTQqSWBKGR1yAJa/nU0noW5Eqlrx5mvt+QA7uZz1i9fdftyqHcjQ8ISW3YzJ
+	 U6/kKXcpq/OJwnc8bWqrcaJzyogNrVtyMcdkfFEkZVe6yw86gb2vgsYnrobxqeSqzrvXV
+	 TvxHHsmQTx50Nv7Jf9vPboKt/ZLIc5ogHlJLTzwC84wHza18LQerknMSNSejibUmd+62g
+	 9s/+Fgt/O8yOvX+GTDsobCWI0HP5niNZmIBWEWisYapTYlMwAFNB/Prhj9vfUzAxCOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="U/BO/xBj";
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dmarc=none header.from=semidrive.com;
+	spf=pass smtp.mailfrom=semidrive.com;
+	dkim=pass header.d=semidrive-com.20200927.dkim.feishu.cn header.i=@semidrive-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=sYwZGFis;
+	arc=none smtp.remote-ip=209.127.231.59
+Received: from va-2-59.ptr.blmpb.com (va-2-59.ptr.blmpb.com [209.127.231.59])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B965D606A327
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:35:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B965D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F20606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F20606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semidrive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semidrive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U/BO/xBj
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a06210b29fso1053166b3a.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 01:35:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793612149; x=1794216949; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nvbS9iFrs32HLnd2NRpzXjnfEXZME1jnaetqHlPZ2Dg=;
-        b=U/BO/xBjL44xI3TvofHUUDLRyHj5x3r7UKaogyLGXKB3+cA+7n6GEHfKh5XRPM2WDh
-         kA4/xqdZPgAmvRqIX4RK/p41OCdjU4KM94zP0EatJd7oGP2WwvDhIdmbdG98li53TBVM
-         UpTY2x35UArSlPTSTk8SLzdypo6YVp+ziC4butgH459ocIJaSNyJK+vgu6MMRKnGl9sV
-         hO0CBmuLhQSOHMpXz0+NYY4LjcePr1f4zu+jR8HQVk8DiAp5cazorrGLAYkC38IRszLV
-         9BwGp4wq6Prft0okT7AjZkVYSYRUggkO2Q2j2m0BlxaaWMpaf8gFSwD1YZ8H0s0LExRn
-         zQ9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793612149; x=1794216949;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nvbS9iFrs32HLnd2NRpzXjnfEXZME1jnaetqHlPZ2Dg=;
-        b=ZoBV4Tr3/OvKwHNSHhrk4VkOutQ4qG8Bu/FbmrMCdxUHH/gJK5OTwCw/+9KqsoEMRw
-         1mcBanb+FTlFCcZUkL3uxdedhoz79Hgneq4i8+/F8P7WaWtZsnvVMM6t9L0cw39Y/zEd
-         fPBAfA8O8LCiAbSqkF7Y6EBPbvQwE5bWKxvMTIm2jsBx+KuJWDonOo3NO4BUC93T3nNm
-         Kn/sFp6EYjG7IcO6UDIj5rC0gnxdsuEWv6JB7XkrQerpe3e3FvUECRnuW5f6fC9xoDqs
-         iDtz9GInWaTREwIMPY1535U/a0BxG45S3aOdGUWUmtieGtcIv+U/JOgr20GWgaerxyCW
-         yEAw==
-X-Forwarded-Encrypted: i=1; AKwUvBzr3lMpyjrZ/DNse0L4IYBmZQQ9znRlf0xU2WGbt2oKNbYCZVGbewjrZwgecCaPFMxvJy/7y4s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGD3evUa0qlK/At+wWC6hENeXurIj/l8Hl93RRCj/xAvww+Npb
-	ybZ9ulo3f3og+0RLka+Wm5I2fGu2xGIFI1hdqpZqGWTWe98IDDGEypHS
-X-Gm-Gg: AYBFou2DLAoJ54FvFmGf3Mx7DyjEjovMV/pKb2qq/RSVxngDYrj6QUw5qB0G5f4eaHS
-	arQH43FIEmc9M8mDyk/l7yrN/sg4hWFfHHeMMzIIaXb+uNrH+aqT5OaCqIfgej37DcXNAWcioso
-	AZKNNYZPwtZTHchqLA/KN7u5pDJ6nsm3Nn6hC5M647qWIvgCDcqpdQzV1WkMecvbuJVk7eY1eYk
-	r0iH2I5gLWwetGhOj/jbn8kj6nqPe1E7i7xiSuy/qMXG3uaoLLnnlB9o2h1drIaaEy2bRZV2tuM
-	Gky027Gqx38uy/f60d/n00yd5jKB4silDboBprulst8j1KQfCZnIa8vAlniSqOiDC1zT0ccPhR+
-	7rvzt2JRf51tNppoatfC3fSL/YF7Tc+JvcGQZzYN8GvuOvpKx/Z9/jjU3F/3O4wOWP1BrVdFDGA
-	dQzBZMkdopUrZdUTJ4oYJaOugnoX+NmLh1CrEkDCz9zYS3Z4B0i0AtjkJEl2kbov90mZxOs714y
-	/wRVpbtO5PzOrfL13h9ok91Lr1p1colZGNpE7VRpK7DbeJ1vZgrG5PfHfPzhPba8mQnZBgYskRm
-	2E9AUPpwdbAy+tJs4X9n4vmKVxwlXDl/BjGwcP1DLtegoTKqrNC4vE0HgggT7BA18yY=
-X-Received: by 2002:a05:6a20:d81a:b0:3e2:3392:53e7 with SMTP id adf61e73a8af0-3e92885cfb5mr9195393637.0.1793612149040;
-        Mon, 02 Nov 2026 01:35:49 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad963d6acsm1773626b3a.18.2026.11.02.01.35.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:35:48 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: don't allow compression on volumes with clusters larger than 4K
-Date: Mon,  2 Nov 2026 17:35:43 +0800
-Message-ID: <20261102093543.1199671-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=semidrive-com.20200927.dkim.feishu.cn header.i=@semidrive-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=sYwZGFis
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=semidrive-com.20200927.dkim.feishu.cn; t=1793612179;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=Jpf0sF3BsXWuW2vGarlxt3BK+rqyO+jWFnFGPUZEX7w=;
+ b=sYwZGFisUh+qHiYBVjmSf/i0MEGsisH33dSeaRsBRi4nZr0aGf9s7Da9NVPjTZVC8Sd4BO
+ hF4E0m/Y1A1QY33TgRWOuDFzXtGoWC/mXa3xl+w6W9jQ1xmnBaiuDOCG/A0vhDMZh03X60
+ KbvWeLla37lGlktjI3bX9SopDQSWF8idLB1m7QfPZH4721sij5Gd18j2qVbtxgdeBDAbpt
+ hEBgilpXYJhGK8vXCloc2m2nchcGqjXVaY5ULqATepTJ29ETKdgHSaqG0XQXw2ho/9oF1B
+ 5MpzaSDX4uCTwNBp2xrnMtcIeU1nL9vbrjXcjszVYBdxY2YxRoWvYLv7QjsYhA==
+From: "fuzheng.meng" <fuzheng.meng@semidrive.com>
+Date: Mon,  2 Nov 2026 17:36:09 +0800
+Message-Id: <20261102093609.2400381-1-fuzheng.meng@semidrive.com>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: "fuzheng.meng" <fuzheng.meng@semidrive.com>
+To: <gregkh@linuxfoundation.org>
+Subject: [PATCH] serial: 8250: restore FIFO in serial8250_console_restore()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,49 +58,173 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Received: from localhost.localdomain ([163.125.147.214]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 17:36:16 +0800
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: git-send-email 2.43.0
+X-Lms-Return-Path: <lba+26ae85992+645236+vger.kernel.org+fuzheng.meng@semidrive.com>
+Cc: <jirislaby@kernel.org>, <linux-serial@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"fuzheng.meng" <fuzheng.meng@semidrive.com>, <stable@vger.kernel.org>
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+When console_suspend is disabled, the serial console stays enabled
+over a system suspend, and serial8250_suspend_port() writes a canary
+value to the SCR register (if the port has one) to detect whether the
+UART lost power during the sleep cycle.
 
-On a volume made with "mkntfs -c 8192", a user can set
-FILE_ATTR_COMPRESSED on an empty file through system.ntfs_attrib.
-Writing to the file and reading it back after dropping the page cache
-then crashes:
+If the hardware did lose power, all registers are reset, and the
+first console write after resume detects the canary mismatch and
+calls serial8250_console_restore(), which reprograms divisor, LCR and
+MCR, but not the FCR.
 
-  BUG: KASAN: slab-out-of-bounds in ntfs_read_compressed_block+0xa2c/0x2040
-  Read of size 8192 at addr ffff88804355a000 by task dd/106
+serial8250_console_write() decides whether to take the FIFO write
+path from the cached up->fcr, which still carries
+UART_FCR_ENABLE_FIFO. With the hardware FIFO left disabled by the
+reset, the transmit holding register holds only one byte, while
+serial8250_console_fifo_write() pushes up to tx_loadsz bytes into the
+port after waiting for THRE only once. The burst overwrites itself
+and the console output right after resume is garbled.
 
-The read path only handles clusters up to 4K. It copies each cluster
-out of a single page, and a compression block of 16 8K clusters does
-not fit in the 64K ntfs_compression_buffer. Loading an inode already
-rejects compressed data on such volumes.
+Factor the FIFO write path condition out into a new
+serial8250_console_use_fifo() helper and use it from both
+serial8250_console_write() and serial8250_console_restore(). Restore
+the FIFO in serial8250_console_restore() when the FIFO write path is
+going to be used: first write UART_FCR_ENABLE_FIFO, then the cached
+fcr, as dw8250_idle_exit() does after its registers are reset.
 
-Reject the flag change the same way.
+Tested on a DesignWare 8250 based platform with console_suspend=3D0
+over a suspend/resume cycle.
 
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
+Fixes: 8f3631f0f6eb ("serial/8250: Use fifo in 8250 console driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Signed-off-by: fuzheng.meng <fuzheng.meng@semidrive.com>
 ---
- fs/ntfs/ea.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/tty/serial/8250/8250_port.c | 64 ++++++++++++++++++++---------
+ 1 file changed, 45 insertions(+), 19 deletions(-)
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index fa5c5c625751..68397b2a4e43 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -721,6 +721,11 @@ static int ntfs_new_attr_flags(struct ntfs_inode *ni, __le32 fattr)
- 		goto err_out;
- 	}
- 
-+	if ((new_aflags & ATTR_IS_COMPRESSED) && ni->vol->cluster_size > 4096) {
-+		err = -EOPNOTSUPP;
-+		goto err_out;
-+	}
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/=
+8250_port.c
+index 36b2b0a2c05c..ee6b02cff015 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -3321,6 +3321,37 @@ static void serial8250_console_wait_putchar(struct u=
+art_port *port, unsigned cha
+ 	serial8250_console_putchar(port, ch);
+ }
+=20
++/*
++ * Console output can go through the TX FIFO in one tx_loadsz chunk only
++ * if the port has a FIFO and the software state expects it enabled. The
++ * same conditions tell console_restore() whether the FIFO has to be
++ * brought back after a system sleep reset.
++ */
++static bool serial8250_console_use_fifo(struct uart_8250_port *up)
++{
++	struct uart_port *port =3D &up->port;
 +
- 	if (!a->non_resident) {
- 		if (!(new_aflags & (ATTR_IS_SPARSE | ATTR_IS_COMPRESSED))) {
- 			err = 0;
--- 
++	return (up->capabilities & UART_CAP_FIFO) &&
++		/*
++		 * BCM283x requires to check the fifo
++		 * after each byte.
++		 */
++		!(up->capabilities & UART_CAP_MINI) &&
++		/*
++		 * tx_loadsz contains the transmit fifo size
++		 */
++		up->tx_loadsz > 1 &&
++		(up->fcr & UART_FCR_ENABLE_FIFO) &&
++		port->state &&
++		test_bit(TTY_PORT_INITIALIZED, &port->state->port.iflags) &&
++		/*
++		 * After we put a data in the fifo, the controller will send
++		 * it regardless of the CTS state. Therefore, only use fifo
++		 * if we don't use control flow.
++		 */
++		!uart_console_hwflow_active(port);
++}
++
+ /*
+  *	Restore serial console when h/w power-off detected
+  */
+@@ -3345,6 +3376,19 @@ static void serial8250_console_restore(struct uart_8=
+250_port *up)
+ 	serial8250_set_divisor(port, baud, quot, frac);
+ 	serial_port_out(port, UART_LCR, up->lcr);
+ 	serial8250_out_MCR(up, up->mcr | UART_MCR_DTR | UART_MCR_RTS);
++
++	/*
++	 * System sleep may reset the FCR, leaving the FIFO disabled,
++	 * while the cached up->fcr still tells console_write() to push
++	 * tx_loadsz bytes into the FIFO at once; with the hardware FIFO
++	 * off, the THR holds only one byte and earlier ones are
++	 * overwritten, which garbles the console output after resume.
++	 * Restore the FCR when the FIFO write path is going to be used.
++	 */
++	if (serial8250_console_use_fifo(up)) {
++		serial_port_out(port, UART_FCR, UART_FCR_ENABLE_FIFO);
++		serial_port_out(port, UART_FCR, up->fcr);
++	}
+ }
+=20
+ /*
+@@ -3495,25 +3539,7 @@ void serial8250_console_write(struct uart_8250_port =
+*up,
+ 		mdelay(port->rs485.delay_rts_before_send);
+ 	}
+=20
+-	use_fifo =3D (up->capabilities & UART_CAP_FIFO) &&
+-		/*
+-		 * BCM283x requires to check the fifo
+-		 * after each byte.
+-		 */
+-		!(up->capabilities & UART_CAP_MINI) &&
+-		/*
+-		 * tx_loadsz contains the transmit fifo size
+-		 */
+-		up->tx_loadsz > 1 &&
+-		(up->fcr & UART_FCR_ENABLE_FIFO) &&
+-		port->state &&
+-		test_bit(TTY_PORT_INITIALIZED, &port->state->port.iflags) &&
+-		/*
+-		 * After we put a data in the fifo, the controller will send
+-		 * it regardless of the CTS state. Therefore, only use fifo
+-		 * if we don't use control flow.
+-		 */
+-		!uart_console_hwflow_active(&up->port);
++	use_fifo =3D serial8250_console_use_fifo(up);
+=20
+ 	nbcon_exit_unsafe(wctxt);
+=20
+--=20
 2.43.0
-
+=E6=B3=A8=E6=84=8F=EF=BC=9A=E6=9C=AC=E7=94=B5=E5=AD=90=E9=82=AE=E4=BB=B6=E5=
+=8F=8A=E5=85=B6=E4=BB=BB=E4=BD=95=E9=99=84=E4=BB=B6=E5=9D=87=E5=BD=92=E5=8C=
+=97=E4=BA=AC=E8=8A=AF=E9=A9=B0=E5=8D=8A=E5=AF=BC=E4=BD=93=E7=A7=91=E6=8A=80=
+=E8=82=A1=E4=BB=BD=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8=E5=8F=8A=E5=85=B6=E5=
+=90=84=E5=88=86=E5=AD=90=E5=85=AC=E5=8F=B8=EF=BC=88"=E8=8A=AF=E9=A9=B0=E7=
+=A7=91=E6=8A=80"=EF=BC=89=E6=89=80=E6=9C=89=E3=80=82=E6=9C=AC=E7=94=B5=E5=
+=AD=90=E9=82=AE=E4=BB=B6=E5=8F=8A=E5=85=B6=E9=99=84=E4=BB=B6=E4=BB=85=E4=BE=
+=9B=E6=8C=87=E5=AE=9A=E7=9A=84=E6=94=B6=E4=BB=B6=E4=BA=BA=E6=88=96=E6=94=B6=
+=E4=BB=B6=E5=AE=9E=E4=BD=93=E4=BD=BF=E7=94=A8=EF=BC=8C=E5=B9=B6=E5=8F=AF=E8=
+=83=BD=E5=8C=85=E5=90=AB=E8=8A=AF=E9=A9=B0=E7=A7=91=E6=8A=80=E7=9A=84=E6=9C=
+=BA=E5=AF=86=E4=BF=A1=E6=81=AF=E3=80=82=E7=A6=81=E6=AD=A2=E4=BB=BB=E4=BD=95=
+=E6=9C=AA=E7=BB=8F=E6=8E=88=E6=9D=83=E7=9A=84=E4=BD=BF=E7=94=A8=E3=80=81=E5=
+=A4=8D=E5=88=B6=E3=80=81=E4=BC=A0=E6=92=AD=E6=88=96=E5=85=B6=E4=BB=96=E5=9B=
+=A0=E4=BE=9D=E8=B5=96=E6=9C=AC=E7=94=B5=E5=AD=90=E9=82=AE=E4=BB=B6=E8=80=8C=
+=E9=87=87=E5=8F=96=E6=88=96=E4=B8=8D=E9=87=87=E5=8F=96=E7=9A=84=E8=A1=8C=E4=
+=B8=BA=E3=80=82=E5=A6=82=E6=9E=9C=E6=82=A8=E4=B8=8D=E6=98=AF=E6=AD=A4=E7=94=
+=B5=E5=AD=90=E9=82=AE=E4=BB=B6=E7=9A=84=E9=A2=84=E6=9C=9F=E6=94=B6=E4=BB=B6=
+=E4=BA=BA=EF=BC=8C=E8=AF=B7=E7=AB=8B=E5=8D=B3=E9=80=9A=E8=BF=87=E5=9B=9E=E5=
+=A4=8D=E9=82=AE=E4=BB=B6=E9=80=9A=E7=9F=A5=E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=
+=8C=E5=B9=B6=E4=BB=8E=E6=82=A8=E7=9A=84=E7=B3=BB=E7=BB=9F=E4=B8=AD=E5=88=A0=
+=E9=99=A4=E6=AD=A4=E9=82=AE=E4=BB=B6=E5=8F=8A=E4=BB=BB=E4=BD=95=E9=99=84=E4=
+=BB=B6=E3=80=82=E9=9D=9E=E5=B8=B8=E6=84=9F=E8=B0=A2=E3=80=82
+Attention: This email and any attachment hereto belong to Beijing Semidrive=
+ Technology Corporation and each of its affiliates and subsidiaries ("SemiD=
+rive Group"). This email and its attachments are intended solely for the us=
+e of the individual or entity to which they are addressed and may contain c=
+onfidential information of SemiDrive Group. Any unauthorized use, copying, =
+dissemination or other action taken or omitted in reliance upon this email =
+is strictly prohibited. If you are not the intended recipient, please notif=
+y the sender immediately by reply email and delete this message and any att=
+achments from your system. Thank you.
