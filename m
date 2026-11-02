@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629826;
-	b=LLYkhrsDiZ385AR3pATU6O9oqVBFXuRyeieL+hndPZfy156w9IZs2qgnrI435RfjBMNw
-	 PgNVNrSGusUENcXY8CjIwgc+WrdjL3GSk9Kej5t5rNWTlfrIyRHuvCi/b6oRFSYrneyB/
-	 SemtYcffSNztz8nOtRFOClPpzShaE+uUSuo7r8fWYP/70p1XNHZUEVTlK7nat+nRIEonX
-	 oZNSKtwsL9/POIv84I584o6Z0+W/O91Joi2VwLr4Pi0MGm2qrB9gdES9Ek0fDu1wWQuoe
-	 pR8qblTkcCwB+VAV8zkcp3UsZ1+JBLT5ORt4QMgKgaVdQk9VO4QQVrXMjsFgWPemgRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629826;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=xXAdh7MCtVXkdjkxwFTBIoqLmR1zeTpwQISlrhQl0XY=;
-	b=2mkapEodz5buQn/R2XfAbWnnjW9tspd2Z8Ni+FqkpWn/lcUNQZBdZhjLWgVQHZfy81xE
-	 EyiTe7YzDFQHu8jmvWZC3i8hGLjHowHA5PHH6frgc2FQmQD2uWSjzUMiKP/vxrBa0qKYM
-	 GGYQgRhHUNGwBO95SGAfOVBJBQPRuNYHpJsllCRwpQ4j7iTotLOLXBibKhYha7olzIoKd
-	 txsxSqEu8iNp84k70KHeayK4Wm+1GIOagV/TrTPqJbKtD3llsMO9t2rUpRO9d/BwA6/Pu
-	 MeyNYJp/vEuzVgUpwuK4A0t2fhzTjQ/zmrwjmcFXYpL5HvzfthrtQInWhnKPtplDlNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="Ly/x5Cvr";
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793630076;
+	b=EsXoS7oHYWwjwmeuKnHgVbrBOzjsRwRtCSJAI8o476kfOe5bZIQzp+qk5fxzNnmLUHBY
+	 oZBMcyTD095pTnmYyCjAu6PwlIilzYASwj9rhZkHI4yOhU8O3yPqzdYt5UOhfMKXyHq7n
+	 mhc7cvMipKQEiLODmJFPGA++NcEDgWl5KaDXabPxb9Kzn+y5It1dhUh6Gl0m57xVHEEkT
+	 tWpIW1Wp8ViSF9AhYlnVYR67hK+2ild2S1g9M/nw4INKIrGCU+7eDffuM1eQScs+Fx6ob
+	 wrlUQYnMMCvpX1rBtlaYz3TQcHQWhqVxBPdzHSZj3iWfv6QfFsRDrcQSebNGU09H58Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630076;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lbskhWKo7SJ+/nWE+q8G4ds/sA/PEX5/Gei4+WgGXE4=;
+	b=AHycH1GurB2e+uE9ntyjgy8+j3W3R+XecvwygTB+J/gbu4xb32H0go7scwactlR2ZEEi
+	 XACrY1M9AflpEzGgnCGCkzWHntSleyhLzjDSrpD5WZvJxbCuipfuy7qH1aO4EeYoup4to
+	 Uc/bt0HOdT1iV8De4s+tM5GvrM5mApQIdZyJecp7fhwUSgDFSOzR/o2Luxj+qCFzrSb/Y
+	 AwnSrWUU6OCu0G/R3ekbsLgPDoTY7eLkgyI0ZMlIEKe8leOHTar5Kr2qBZ3kUj7onp46b
+	 H59E+gVS2suL/YF9TTWGb34eRCsO/IWdGoKzMe2B/rLtHLKMawTlfmIT89ikPPL9F2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SkXKPFJz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.34
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010034.outbound.protection.outlook.com [52.101.193.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A706087A15;
-	Mon,  2 Nov 2026 14:30:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81A706087A15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1159D606B0ED;
+	Mon,  2 Nov 2026 14:34:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1159D606B0ED
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Ly/x5Cvr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=xXAdh7MCtVXkdjkxwFTBIoqLmR1zeTpwQISlrhQl0XY=; b=Ly/x5CvreHuBiPAnQMKDdkaOoP
-	5g1n8x9SaFMSRd4Bt1ttji4by1J+9VgG6wHlA2e59iBjKUJpXJE0Ec0xcH2I8a1DJvzTiGr+TQdG2
-	C19W6h2R/HdEvhFI9IzfRYxQ7sM75SarbDxLBnalEyd/5Pi+MuBk6/k1koMJ3GE71DhYIGpWV+VmS
-	QgFN/48z+zo1fXqSb1HALOre1dxhOXUk+MqdZi6FuWYdlmwfnGiQX1y9NTbSaSf0uX1UIEL5Cn9uo
-	q0DCptFOyEaahlwPyiqyIXILzhpALHID8gr2FHolvSrv/I2Zp/pBYIxOBwJf6NfBNTUwLcB/oLcF3
-	fxTbqLvg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xNt3A-006DkU-1r;
-	Mon, 02 Nov 2026 14:30:16 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Mon, 02 Nov 2026 06:30:11 -0800
-Subject: [PATCH] ring-buffer: Handle a reader taking the new head in
- rb_handle_head_page()
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SkXKPFJz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M6QDKdT9RigvT+gkuCTs0PFMxc7WmSJQHau+O0U/ABf8eG5H7N6g73ROAygUduNDNtOJJQT8KeX/JeMfJz9bsATRdLpDUHxm7IoNAaL1vb7ciaO0fQAZNhMmFLah6cSzJb0pBuuo5CE03lVuAKnYHpzHiVVTG+WfZAhrIys4TwJ7xiMOYj+vmfTzw5SbfUPRZkYMob8+7/cdna+3cNli+nea3drVa4KRH3c0hzkZ5e8Csov9zrtFSHFa9V6XQaG3UwLmkbkfZIXQwsq56lNmb0+EBA/32Vv2s0RbdyCVQq5GMiicb5Aiiv/mQ6l0/jKKc2jbtd8oOJIXQtZtMLvpWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lbskhWKo7SJ+/nWE+q8G4ds/sA/PEX5/Gei4+WgGXE4=;
+ b=JSr2etTxfCTpzviRc1yK3e6xHBLvJtAk9k1a1a7asAtUNyVGmkRD2oC7kEApBLr8OuGzzfK7bZ0j4MOup1OWu5hcN6gpEKQREWDfSZXVdWfabRUShvv5AerrqBrag8WFwHoSwJPSoRB3CHX6OyaXUmnjQMGBdyL21JJ2xEMTbX3HLUqbdahAObNIugZH9UjaqfOCf41EwbhMFOy/MOP+zDyLC3fzmF/A+ZH3PUqT9H4mWGlezy12z2dydoivFSR38uPJiLaEETIRSmM7auBUFkC5/yJRPYvoXCmvdgqlyMr8pffiAbG6owjmetQnedbDou2clYf2VRoO+17VM2XB+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lbskhWKo7SJ+/nWE+q8G4ds/sA/PEX5/Gei4+WgGXE4=;
+ b=SkXKPFJzgaxsi4gJ7nVdLcfxBestR0G0vVZs9GIn5NXGt301uewjIvMBcz/yWtG0GGEHPuFJ5xS3cCWaEO+R2RblVxSHa875hY3Ariy9Ub5gj52meLXKCK2zNS1QOXR4Tqe7C6Cu9Lqg2vqX3vdguUkdzJuIKg961voY+Ab4JAHSeh7tAEKcF0alR33EdWLzxX7eK6MXKVEfMy+CYD2FBYruuUVsOXTwHFQ0kRPH41QdD0MbBUYKWGcQGlAK+K6KIPtifuo28qEoiAmV55duscGTTxM+Vz+ZGvib5xu2WYrr8VynO5wkycLpWn/hPzkKO0HFvOJJcAxCBuz3NwhWtg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
+ by CH3PR12MB8993.namprd12.prod.outlook.com (2603:10b6:610:17b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 14:34:13 +0000
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 14:34:11 +0000
+Message-ID: <6051255d-96cd-41eb-878b-a4e2e6ccdd7d@nvidia.com>
+Date: Mon, 2 Nov 2026 14:34:04 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com, linux-tegra@vger.kernel.org, stable@vger.kernel.org
+References: <20261029073135.159947193@linuxfoundation.org>
+ <b85e0697-d669-4b14-859f-52ee295264e4@rnnvmail201.nvidia.com>
+ <80816b31-948c-45a8-9f98-4cc55f5bd530@nvidia.com>
+ <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
+ <2026110101-carnivore-harsh-fe38@gregkh>
+From: Jon Hunter <jonathanh@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <2026110101-carnivore-harsh-fe38@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM8P251CA0009.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21b::14) To PH8PR12MB7110.namprd12.prod.outlook.com
+ (2603:10b6:510:22e::11)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,151 +107,161 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-ring-buffer-head-moved-v1-1-165973790be4@debian.org>
-X-B4-Tracking: v=1; b=H4sIAHKe6GoC/yXMQQqDMBBA0avIrDtgQizYqxQXMZnRKTTKpIog3
- t1ol2/x/w6ZVCjDq9pBaZUsUyowjwrC6NNAKLEYbG2fxtQWVdKA/cJMiiP5iN9ppYjcBs9N9K1
- zDko8K7Fs9/jd/Z2X/kPhd93gOE7KoBd5egAAAA==
-X-Change-ID: 20261102-ring-buffer-head-moved-f9caf5da9444
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Vincent Donnefort <vdonnefort@google.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com, 
- stable@vger.kernel.org, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.15-dev-47773
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4635; i=leitao@debian.org;
- h=from:subject:message-id; bh=MqirCjy4LMxfEGQqwd42zRmE/cvyrglBE7IpN4USET0=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6J51RwGT3+NFq8ETCFmY/EVcHmkiOEfARz06i
- YqqvuXCm12JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauiedQAKCRA1o5Of/Hh3
- bcyND/4leZ9SfRd9S5lAT3epSqzEECQiRsU17LEQpHJe81jIuRbClmf2W9sS/FDvyunoGWnH+aL
- VtC01Y8i83InOeKuomDYbE90oVz6el64QF7YKjXU38rQQRZx+W1diwwxjcxi8hkb6JOu62GOxvi
- IaEsrONWR4HoTdYl3y+hX1Vto9JEwFXnjMfMMUcy6EvF+AuKFzLIqztyFmbTrtTbF+9Nnb8DCIm
- d+AKg4bluHcbnJV5XFPZKq2E1UL/SLrDZoai0qqf1edPYk1nhqcBBrGYjLIQ8C2pMMnzzkmwAIE
- LzFpsn6kruu/LnsOvkvuw+nfYbKlIweq7/WfeHUFtx/duQ21cGDfPBgiPIs8Ie1MWsRhL1KT4G1
- hA08QXrLrQTyjNmPxRM38pGj/ohvSoUB7D1BThGaZXEuLlsfpCY5ofyFBWRSvhAyUHaG7XiULR1
- LgKJEa8sd68f+J21W8PYtCtGr3LSHArdgqiuYRmIBAYETt6/lkSFUUfaqtjyorZxAhB8gN+OAVN
- ryQWZ/I0Vqa2RulNa3AscLpIf8+fgQ78T6TVS6MF8agbI69EJO4Pva7f1lvJroHRQeQiawCf9LK
- gZuyYqlX3ePlSqipwBMZqx4EYjniGUfBdrXpoVCldtdyiJEvjNBPSvBQDZQF9c6ferEGX2oFZaY
- BBNybhJcLNpf2DA==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|CH3PR12MB8993:EE_
+X-MS-Office365-Filtering-Correlation-Id: 665311ab-f091-4021-fdba-08df38ee5c71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|366016|376014|23010399003|10070799003|18002099003|22082099003|56012099006|10067099003|261009223027099003|261022105027099003|4143699003|11063799006|261028144727099003|261026140227099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	pw4Ngjy5iaecyhbqSpXmCF4enFjzXHwrFDhvETFdAEuO3WtGrFepiEPGeBGv4KQZ3X6cHToEl2lu/AHuQhIBmBGyqg3cVz5EQ9ddI26QWuWg6nhVX2AR8Ay+/F4y95pK5WjwM2mSMG7oDMf3YEqKMNIwQoXvklqR0/Dwxmck4/8uXjyI7+/gDdB7TFXVAathEIuFMX06QZypiW0CA81uSWojZ327JTWlnILMfGCjwJTO8qnJ5Xen2Bs3CudXDkEkmcA7UFotbaU+FG3IRKWSx8LOuqxjxTa7bmKx6yVA8/rBXRCMqlD90trrCDzPyf1MVDeHi4Xs6eZIT/jqbsw6hgYd7WepPJeYCeElvocJATwex5ElQ10oaX6C3isIn9mkGZ/rnTSDULdWj+JT3/y2VF70+O5G1Bl8DJy3iiLBduUTkXv8353Ao47XD1B4Qu/7UKPvISZMEO3ct/LADDV2bBwAx/LL4ltIMNYIfUo4VvOHEz4zeoejDZKkb1CGF1nu3agmiHWM5Qk9Yf6KuEUC6rzEwvBx3UkKxPaREZt+JJkYrH6v10zECVnC+c/OyZtY7FseCvcH0iL275obzhaWxW2YrEEcyy7l80S0JwW3Knx7CJVSWnszrNMQHR5b/SJDQtmOXTfspeCYHWc16yQokqMKrq5aovu5aZoMl6IH1Bo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(10070799003)(18002099003)(22082099003)(56012099006)(10067099003)(261009223027099003)(261022105027099003)(4143699003)(11063799006)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YXI1eEdPYVpFOEpQQzNSSXJDTm9uaVI1Y0lySEt3VEh6RlExK0dxTytlVmxU?=
+ =?utf-8?B?MDlkVmxtWjZpOUM3ZVQ2Vnk4bkwrRkdDVXRCa3pzMk1XQUw0cDdqbjQ3UHpJ?=
+ =?utf-8?B?dGhMT2s3cmN1WlZPbFVBQW1hdHBnZ3hEaVB0R0F6Q3hRK21iTmxpZ3dnaXkz?=
+ =?utf-8?B?OXdObnlaL3lrZVdvem1mK0V2Zk4wdWdVdHhBdEtMSDFDTVcyVXd3anpPb2JG?=
+ =?utf-8?B?UlNHQ3VaRUZVcStSUTFoVEhyWVYwQUx4ZzFReThrYmd4elRJR2pUZTdNSWFT?=
+ =?utf-8?B?NUQyQkJxeFpQWmRONnJVT0xwSG5ldk1pMndDNFV4ODAvZlE2a2cwR3FJc0Vy?=
+ =?utf-8?B?UDExWmwveHpIdTMrS0Y2aGtzSm1QV1BsUG4xdVhYbVhnejh4SUt4Rmdkb0Iy?=
+ =?utf-8?B?M1luTGJvb3Y5SUNsQXRraHlMM3B6bWZrNmw1VmFxUWs0SWNNbnZRWVIvV3RN?=
+ =?utf-8?B?ZERkQzRyU2p2NkV2ckVxSmpoZm1zazh5bkhLNnl5aTBzbjA4Z2dMb3NxZEM0?=
+ =?utf-8?B?SkJsc01yS1ZrU3BzT2lyT1Z4VWYwNC93RC9KZDYwbkFKQngrTUxQeUlBQVhM?=
+ =?utf-8?B?VmZLS3gyMkQxZ3RMUjl6TlI3L2Z2RVR0SGxMSWQ0TUp6RGttREQxRTZybFBK?=
+ =?utf-8?B?OFVCUGkyd2FsdjM2cFRldU1WcG1oZ0FzMExjYXFvOThxTDQyajIyd2J3YW5q?=
+ =?utf-8?B?R0NCaTIvNUJQVFlTSjdSbVBjeHNNREF6M1dqN2Z3NnhLTG5NcTlZUnFpTWNT?=
+ =?utf-8?B?RkFieU02U0lnVkRWcS9YLzRkMlA3WkhaMStGYk1hYWZQR1VZYlNJWEp3V2do?=
+ =?utf-8?B?b3F1K1VRd0s1QjhUNCt3aDZsYlBCaVVVYzFVYzE4MFpXR3NiUzFSbWFocksr?=
+ =?utf-8?B?c2lPOHgrMU9lSGQrc3BtRmRHQnQ3YUd4UmQ2OXN5OGlxK2dqMlN5K05iR0Vp?=
+ =?utf-8?B?bHAxdm84bFdkd0lnL3FPS2ZEZmRwelI4VU1aLzNuUnIvR2svWGtmVEJMSlBa?=
+ =?utf-8?B?dU50RlBPUU4zeVFaNWtodWlGMEJ0ekxqNHhoeW1JamtZQmt1M0lMVWZyQkJn?=
+ =?utf-8?B?T0E1SnltSFRyVWRiS3BUSGlJL3hiTkhkaDQ2UVJsYnpYY0RSeDRJVTJwYlEx?=
+ =?utf-8?B?UC9UNlZVdEY4REtsN1gyWjdNOWZ1eUM2WHFkVStGbmZseExqQVhVOWlXd1pw?=
+ =?utf-8?B?Tlk2M25OcndWQkRnUThLejV1OHNhYTVqcjMvMmJoeWxya0wyZjZnYlFOOURE?=
+ =?utf-8?B?ajZCcC96Mis3d2JkdzlRL3N6TFJldXRNaFlVN3JtVEIvbWZ3SHBiZ3BqcVB2?=
+ =?utf-8?B?N2RsdDA1aUMvNzhsNDJncWEyRkFEVTFYOVBpemRmUDVodXVjZkloWkxxd2tH?=
+ =?utf-8?B?WENCTExuVU9UUlgvUllONlBuRlJjejlTZ3ZWRFFGMWFoNlBBRitHQWMzWDJj?=
+ =?utf-8?B?emIxL0x1Q21uN2R0WHFrUEE1ZW1nTGxKQ0M3ZXVMb0NCWDN5SWpzNmx0Q2lI?=
+ =?utf-8?B?K2tNa3JIMFhIUURmZXdJY1FjbzlFKzNyQ0x3QUk4cVFrVDRWQ1RCYjcwWG5Y?=
+ =?utf-8?B?YmwwMlFPQjhQTlI4TlRPK3VZZDZSbFYyWDNNb1dVbU1rM1ZIeGthWVNPNnBY?=
+ =?utf-8?B?UDFIaXBENGVTUFFvS3JWVlczdUVRbmllMDZFRHFVbE5KR3I1WER1WndRMlZ5?=
+ =?utf-8?B?amI1eitoUURJVVAzL3g5ZkFqZzdxclFCUmZOd0FIcTJjNktvUU40TE1pWStW?=
+ =?utf-8?B?ZjF2M2FhUlpsREN2bHNQeWtndnNYY3REbW5oRTU3Y1QzdzhEbXozRW4ySE9W?=
+ =?utf-8?B?L1IwR0hlb3JERE1QTWNzekFXaVgxRVd3dnNicVRqbXpyMHdEd2dGWXh5Y2g2?=
+ =?utf-8?B?OXlDak92RXROZjRXVnFvQzVJaVUyN3g0TzhOaUMrWEs0d2MxaVVqQzB5ckpK?=
+ =?utf-8?B?N1kwc0tvbFlqbUtjMVhDamhoaVBPcllNUWZ5bk9pNjRNUHM1T2dBU09BV1FY?=
+ =?utf-8?B?bDJhRlVXclV5amRuSENWUFJ4SW9GeThVbnFuMkUrNTdHd0hXU3RQMm83dGZX?=
+ =?utf-8?B?V0Y4UEdkMENSeE9pcUYvWTUxR0o1cEtjMCs4N0p3elVYUjdHeWNZZExCNDF6?=
+ =?utf-8?B?SDRWL1h0WSt0WEdwUXNCczY4cStTdmEwTTB5djdZcjZCeU4vaDN2U0Yvd3ls?=
+ =?utf-8?B?NWtZWXlFZkxSQlJDUDlmQ1k3Y2NTaStSWVFVd2FQZ1NscFRhVERHWlNyZ0F6?=
+ =?utf-8?B?a1BrcXlmanBYUC81SlgxZFAwNWRudFRBYjdqQzlXZXQremxBWEl1c2RXVGhS?=
+ =?utf-8?B?cXhVblRhZnpxZFVQQkEzWjZtTGpodlo5ZEV4UWMyWWZZM2duNE1UMzVtVGd5?=
+ =?utf-8?Q?MJiJFpNoXxFm2B4rFbAnj1MZC7RnspswxPd+Ud3zAU1Xq?=
+X-MS-Exchange-AntiSpam-MessageData-1: H1Ncx93+sOu5bw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 665311ab-f091-4021-fdba-08df38ee5c71
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:34:11.8183
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7V2zC7Qil0ceEN1Dgkd7eDRB2aJfveQBid77YWm+CwwulfZyb0Ey/Eyap1niTrkjR6FpZxp8LacVmcRkivOMow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8993
 
-I am occasionally seeing the following  KASAN warning when running
-some debug kernel at Meta's fleet:
 
-  WARNING: kernel/trace/ring_buffer.c:3793 at rb_move_tail+0xf78/0x1050
-  Call trace:
-   rb_move_tail+0xf78/0x1050 (P)
-   __rb_reserve_next+0x648/0xac0
-   ring_buffer_lock_reserve+0xd00/0xf00
-   trace_buffer_lock_reserve+0x28/0x188
-   trace_graph_return+0x220/0x3e8
-   ftrace_return_to_handler+0x2bc/0x5a8
-   return_to_handler+0x20/0x48
-   __arm64_sys_sched_yield+0x18/0x30 (F)
+On 01/11/2026 13:22, Greg Kroah-Hartman wrote:
+> On Sat, Oct 31, 2026 at 02:41:43PM +0000, Jon Hunter wrote:
+>> Hi Greg,
+>>
+>> On 31/10/2026 09:26, Jon Hunter wrote:
+>>
+>> ...
+>>
+>>> On 31/10/2026 09:24, Jon Hunter wrote:
+>>>> On Thu, 29 Oct 2026 08:33:04 +0100, Greg Kroah-Hartman wrote:
+>>>>> This is the start of the stable review cycle for the 6.1.191 release.
+>>>>> There are 1879 patches in this series, all will be posted as a response
+>>>>> to this one.  If anyone has any issues with these being applied, please
+>>>>> let me know.
+>>>>>
+>>>>> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
+>>>>> Anything received after that time might be too late.
+>>>>>
+>>>>> The whole patch series can be found in one patch at:
+>>>>> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
+>>>>> or in the git tree and branch at:
+>>>>> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+>>>>> and the diffstat can be found below.
+>>>>>
+>>>>> thanks,
+>>>>>
+>>>>> greg k-h
+>>>>
+>>>> Failures detected for Tegra ...
+>>>>
+>>>> Test results for stable-v6.1:
+>>>>     builds:	9 pass, 0 fail
+>>>>     boots:	28 pass, 4 fail
+>>>>     tests:	83 pass, 7 fail
+>>>>
+>>>> Linux version:	6.1.191-rc2-g3b00df762ebc
+>>>> Boards tested:	tegra20-ventana
+>>>>                 tegra30-cardhu-a04
+>>>>                 tegra124-jetson-tk1
+>>>>                 tegra210-p2371-2180
+>>>>                 tegra210-p3450-0000
+>>>>                 tegra186-p2771-0000
+>>>>                 tegra186-p3509-0000+p3636-0001
+>>>>                 tegra194-p2972-0000
+>>>>                 tegra194-p3509-0000+p3668-0000
+>>>>
+>>>> Boot failures:	tegra186-p2771-0000, tegra186-p3509-0000+p3636-0001,
+>>>>                 tegra194-p2972-0000, tegra194-p3509-0000+p3668-0000
+>>>>
+>>>> Test failures:	tegra124-jetson-tk1: pm-system-suspend.sh
+>>>>                 tegra20-ventana: pm-system-suspend.sh
+>>>>                 tegra30-cardhu-a04: pm-system-suspend.sh
+>>> I am looking into the above boot and suspend issues and will let you
+>>> know what I find.
+>>
+>> Bisecting is pointing to the below commit and reverting it fixes
+>> the above issues ...
+>>
+>> # first bad commit: [26c5e136ba4e94ad708333c9bd34039a1de397b0] net: stmmac: protect updates of 64-bit statistics counters
+> 
+> Thanks, I've reverted that one now.
 
-I've understood that rb_handle_head_page() moves the head page forward
-in two steps: it marks the pointer to the old head page UPDATE, then
-marks the pointer to the page after it (new_head) HEAD. The second
-cmpxchg is assumed to return only HEAD or NORMAL, but it can also return
-RB_PAGE_MOVED:
+Thanks. It turns out that there are two issue here; one causing the
+above boot failures and one causing the above suspend failures. I had
+thought it was the same issue but now I see that suspend is still failing.
 
-  CPU 0 (writer)                        CPU 1 (reader)
-  ------------------------------------  --------------------------------
-  rb_handle_head_page()
-    old head ptr: HEAD -> UPDATE
-    new_head = page after old head
-    <interrupt: nested write>
-      sees UPDATE, marks new_head
-      HEAD and moves the tail page
-    </interrupt>
-                                        rb_get_reader_page()
-                                          swaps new_head out for the
-                                          reader page
-    cmpxchg(new_head|NORMAL ->
-            new_head|HEAD) -> MOVED
-    RB_WARN_ON()
+To fix the suspend issue I also needed to revert ...
 
-RB_WARN_ON() disables the whole ring buffer, and the function returns
-without clearing its UPDATE flag, so tracing stays off until the buffer
-is reset.
+ commit 3d64d18bdd1b2a6bd4af1176a596736b233606be
+ Author: Rob Clark <robdclark@chromium.org>
+ Date:   Mon Aug 7 10:11:40 2023 -0700
 
-Do not treat RB_PAGE_MOVED as fatal, retry after clearing UPDATE. The
-head already advanced past both pages, so the caller can simply try
-again without losing tracing.
+     interconnect: Fix locking for runpm vs reclaim
 
-Fixes: 77ae365eca89 ("ring-buffer: make lockless")
-Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
-A nested writer and a consuming reader can race so that the second
-cmpxchg of a head page move in rb_handle_head_page() returns
-RB_PAGE_MOVED. That trips RB_WARN_ON(), which disables the ring buffer
-and leaves the old head pointer flagged UPDATE. The patch handles the
-return like the RB_PAGE_MOVED case of the first cmpxchg: clear the
-UPDATE flag if this writer set it, and retry.
+The above commit is dependent upon the following and so I had to revert
+the following too ...
 
-Testing, on arm64 KVM guests under virtme-ng (32 vCPUs, KASAN config,
-next-20261030; kernel/trace/ring_buffer.c is identical in v7.4-rc1):
-- Setup: function_graph tracer filtered to "*sched*", buffer_size_kb=7
-  (two pages per CPU), overwrite on, a trace_pipe_raw reader on every
-  CPU plus a trace_pipe reader, and stress-ng --yield/--timer/--futex.
-- Without the patch the warning fired after about 12 minutes. With a
-  debug-only 50us udelay() between computing new_head and the cmpxchg
-  it fired within a second, and a debug print showed ret ==
-  RB_PAGE_MOVED, type == RB_PAGE_HEAD and new_head being the reader's
-  page.
-- With the patch: no warning in a 5 minute run with the udelay() (the
-  RB_PAGE_MOVED case ran about 1000 times) or in a 25 minute run
-  without it (it ran once), and the buffer kept recording in both.
-- checkpatch --strict is clean, and kernel/trace/ring_buffer.o builds
-  without warnings at W=1 on v7.4-rc1.
+ commit da051a8d3d67bb039a26bac02f439c316ac0151a
+ Author: Mike Tipton <quic_mdtipton@quicinc.com>
+ Date:   Tue Mar 5 14:56:52 2024 -0800
 
-Not tested: the fix has not run on the arm64 Grace host where the
-original WARN was seen.
+     interconnect: Don't access req_list while it's being manipulated
 
-The original WARN came from a next-20261030 KASAN kernel on an NVIDIA
-Grace host under stress-ng, after an interrupted ftracetest run had left
-that tracing setup in place.
+So to fix all issues, I needed to revert 3 commits in total (commit
+26c5e136ba4e94ad708333c9bd34039a1de397b0 plus the above 2 commits).
 
-The analysis, reproducer and patch were developed with an AI coding
-assistant (Claude Code). It triaged the WARN from the netconsole logs,
-wrote the virtme-ng reproducer and the debug instrumentation, and
-drafted the fix and changelog.
----
- kernel/trace/ring_buffer.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Jon
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 1fd28a72e6ee13..7a60fa175e2cc6 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -3789,6 +3789,15 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 	case RB_PAGE_NORMAL:
- 		/* OK */
- 		break;
-+	case RB_PAGE_MOVED:
-+		if (type == RB_PAGE_HEAD) {
-+			ret = rb_head_page_set_normal(cpu_buffer, next_page,
-+						      tail_page,
-+						      RB_PAGE_UPDATE);
-+			if (RB_WARN_ON(cpu_buffer, ret != RB_PAGE_UPDATE))
-+				return -1;
-+		}
-+		return 1;
- 	default:
- 		RB_WARN_ON(cpu_buffer, 1);
- 		return -1;
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-ring-buffer-head-moved-f9caf5da9444
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+-- 
+nvpublic
 
