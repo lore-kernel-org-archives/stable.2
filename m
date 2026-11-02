@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616170;
-	b=4P1GgX06HNmLH9+NzrvzuZhuWZiLGCDNeajor/7R4B5MILoTdK2o9Yd0zf8JcNmQhAkw
-	 st25Ti+O8muCOwLA9AT45GA/deA628dMbMCVO6mOgaYCpPqUxgA7EKxDuhsJ/GUaEqzAm
-	 WSgRoyixZjYOs0qOXr3CVJ7jma2hOwWHLCo6SO8UULMc1oepzVSRTF72ExY/gTXpgo5Cp
-	 O56Szu37sxlijvTLURP01BQGYG3NlEw73SLtrRuqvFI43eZjLVKt/2QPbBRRUhm4TJjRD
-	 +YIHjz0vM/tOOeFUks6Iy48G47qYSF7wictojkCBrXkQ2cV1cAYtnnqQnvfJjH9vG0Q==
+	t=1793616373;
+	b=h80f0pZ+PXUo272hgTSeCXoiCjZWrz04ioKpHRrfcmWp7eWaAJZ9jFtFeWXMMreTh0Dh
+	 WUUZUSK23hmHExtYe3iValF/veX403fc8+m8BOKzgMM5g16AiVOUUXa42uKlbFNETTAmQ
+	 s2vANNIqvrxS9/6HN8L5U4AauAeEkttp4QWoas+Gn+x/e3j3nK5Ju9J8au5j9Mov54+kJ
+	 DqURkx7K/ufi48wPkHGFcCO+FwfANG658vB1q9gLEXrCoAa2urQNxxO7y6i1pxO5AiaXD
+	 segymQvlzS/KqlpApLYoD5/UE8gWyxf0LJ+37OScoeP0g759TaYzBuAgNDX/GcSHAIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616170;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616373;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
 	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
 	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
 	 X-MBO-RS-META;
-	bh=jObuHRsCSR9IFpZLb/aXXTzGpA/BD+w9fEoP98E8Ox0=;
-	b=1HqgTHEFGIvmWP2u7qNiT0OouGuHW6e7jNsMDl7sp3xzfwv4u8Dziq+smGpVw1odgOWX
-	 iLkWovml3UF3fGXZ87YtfXWVM3+RVMgqu+ALE/ocvgopgVc6HRwVHu2a91qL7GQQJoI29
-	 7YYOSnVtEo8ZuW2qBCJYD1cQL1sR+nW31siRmA4G+1dbPamK1OPadtXqIcEztBn+EIkFF
-	 hYp80VcN1rtgvBGEkfpLkPz51FbQdOKwghtH/mr3GGUEAmOiKxK1JHeQnQk/6xcgpNJa8
-	 c4zc60VsbqKwyByV0NFgrvcLBIPdsb63Mj4t+2/+k2m6qYkb6bbg1XaPjtafARv6UrA==
+	bh=/4xkEfYxqjbXp4Ci01sdrxpkE7UK56jG7PU71QpI0/s=;
+	b=z5SxWo5lfdLe8PDO7r/upJ/ziaqlDMehzSxrytxbTOG+lArtf/FETh0OvfIKEKzNAsQZ
+	 po54Or2ROL971QAlurSp1eJwugXM4AC6RHm5uDSNnfDXrfD7bk6T9CulmgY8SKiUTkjT/
+	 7Pc4u0Pqbn6DGJQVrtwQppanitImrcC6wYfsC9PFHaB7S/4kR8f2AYjf0dJluI6n7xoF8
+	 nWRiIPT6OSajs8FpuY9mXlZRcb/gxIuBtLk5/A67QSRzB8nO18mdQp/7LfnpL1t/ulnyW
+	 zuf+N3TfGnDqK6pjhFqLx4CgdlgNnXPfSgKqjRdqkZL0F6U6hYxDgDEYO03R8xRiVLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mailbox.org;
 	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="qw0D/m8I";
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=It7MZITQ;
 	arc=none smtp.remote-ip=80.241.56.172
 Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED78B606A86A
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:42:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED78B606A86A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B93E606A32C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:46:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B93E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qw0D/m8I
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=It7MZITQ
 Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ7ZZ1Yg5zMlhg;
-	Mon, 02 Nov 2026 11:42:46 +0100 (CET)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ7fT3m9rzMlD7;
+	Mon, 02 Nov 2026 11:46:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793616166; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	t=1793616369; h=from:from:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=jObuHRsCSR9IFpZLb/aXXTzGpA/BD+w9fEoP98E8Ox0=;
-	b=qw0D/m8Imytu8ZsgVsa+ETNeTdvMDlbM3R4/4L3q80Whi+kdxmJtsdEITuvILnSrWGWYb5
-	D8TSTvx8OiPK9fJ+rLrSCKvwEIGsqve5mjLEB7BglGw5TdCtLdlJcfsHhJ3uxPW1vo73Sw
-	XIn/5cG2F6QpxkcPyZ+pV+k2vOqSPsXGsetddGJ13z0W8SO9kpyTKmzEO0jRWlvfjkNRMC
-	sdJz3seKpWrRpD9w/q9nA3a7cbjGrTqrrTJmWgq/5tpSUNJkfYnAImxmU/HOdvbe2dxf4q
-	BXcVC5I9aYQgfyiTdftNOxVAkYRR/99qGHj1hyOCC0t16VsEfhKZGyhKXIlb0g==
-Message-ID: <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
-Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing
- priority at runtime
+	bh=/4xkEfYxqjbXp4Ci01sdrxpkE7UK56jG7PU71QpI0/s=;
+	b=It7MZITQW6cp44q/4p/4z29YR3KERS8hRpIOZkqiw+Cy0DRLmqIrukC/XU8X/N2MWCBP6v
+	RMPxvCVydvnK85osICRqfZ3mkBA+rPuYAtYg+ryRFzs0Z2+eHwepVo+C8T6yKwM/iNxXqo
+	vYEuG9Dj7FouVHIXr70teKd/yO8Y8uKnn/U/evOmsZNX5WFkc9WDI8o356Vbg4a3nI9TT8
+	nfTyctcfqPMs50Y1NQSnRqPPjDoQD5NTPGjpD9pYSJK73OxMTb7Fjpai6ydXLhxjyAa81N
+	0L3XPokGXHPYsh9yv18AX9Sy0Py5k+Wfoq0/igioNjW2NtnDrUM2N3pijFMT9w==
+Message-ID: <45a8324481c367a69f25e8c395ff6784b441a834.camel@mailbox.org>
+Subject: Re: [PATCH v2 1/2] drm/sched: Fix out of bounds entity priority
+ check
 From: Philipp Stanner <phasta@mailbox.org>
 Reply-To: phasta@kernel.org
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
@@ -63,10 +63,10 @@ Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
  =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
  <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>, Philipp
  Stanner <phasta@kernel.org>, 	stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 11:42:42 +0100
-In-Reply-To: <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+Date: Mon, 02 Nov 2026 11:46:08 +0100
+In-Reply-To: <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
 References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
-	 <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+	 <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
@@ -79,36 +79,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 96b871bb8528972feba
-X-MBO-RS-META: 6ic51pac587qqeu37c4brbfhyxpg39nf
+X-MBO-RS-ID: be023fd9551cd454391
+X-MBO-RS-META: mryqex7mdyz7hmerchnuaoynbob4gght
 
 On Wed, 2026-10-21 at 10:42 +0100, Tvrtko Ursulin wrote:
-> Another consequence of the recent revert of
-> 77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run=
- queue")
-> is that after the revert we need to adjust entity->rq_priority when
-> runtime priority changes are requested.
+> When the out of range priority at entity init time is clamped to the
+> number of run queues in the supplied scheduler the internal run-queue
+> priority needs to be adjusted as well.
 >=20
-> Only amdgpu does that so the impact is minimal.
->  Also considering dynamic
-> priority changes are largely broken there, due currently broken entity
-> scheduler list handling where the special case of a single scheduler can
-> never change it's run-queue. And coupled with the fact for the rest a two=
--
-> tier approach of drm_sched_entity_set_priority() and
-> drm_sched_entity_modify_sched() is used, where later directly maps to
-> different hardware queue priority by replacing the set of schedulers
-> completely.
+> There is no impact since none of the drivers hit the clamping path, but
+> we still need to address it by moving the entity->rq_priority assignment
+> to after the clamping is done.
 >=20
-> Hence the regression is limited to rings which have multiple instances
-> other than compute and graphics, which would be SDMA only, for which I am
-> not sure any userspace actually does dynamic priority changes in the firs=
-t
-> place.
+> Note that a lot of this will hopefully get removed once again when the
+> single run-queue simplification lands.
 
-I can't fully grasp what the bug actually is. So is it that we forgot
-to adjust the priority in the CFS series, or is it that the partial
-revert made this necessary?
+So this is no existing bug out there, but merely for formal
+correctness?
 
 >=20
 > Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
@@ -119,25 +106,72 @@ revert made this necessary?
 > Cc: Philipp Stanner <phasta@kernel.org>
 > Cc: <stable@vger.kernel.org> # v7.2+
 > ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c | 27 +++++++++++----------=
+---
+> =C2=A01 file changed, 12 insertions(+), 15 deletions(-)
 >=20
 > diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
 cheduler/sched_entity.c
-> index e12709b7bd0c..03e68b4102d5 100644
+> index 7be0387bac3c..e12709b7bd0c 100644
 > --- a/drivers/gpu/drm/scheduler/sched_entity.c
 > +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -456,6 +456,8 @@ void drm_sched_entity_set_priority(struct drm_sched_e=
-ntity *entity,
-> =C2=A0{
-> =C2=A0	spin_lock(&entity->lock);
-> =C2=A0	entity->priority =3D priority;
-> +	if (drm_sched_policy !=3D DRM_SCHED_POLICY_FAIR)
-> +		entity->rq_priority =3D priority;
-> =C2=A0	spin_unlock(&entity->lock);
+> @@ -130,10 +130,7 @@ int drm_sched_entity_init(struct drm_sched_entity *e=
+ntity,
+> =C2=A0
+> =C2=A0	INIT_LIST_HEAD(&entity->list);
+> =C2=A0	entity->guilty =3D guilty;
+> -	entity->priority =3D priority;
+> =C2=A0	entity->last_user =3D current->group_leader;
+> -	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
+> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
+> =C2=A0	entity->num_sched_list =3D num_sched_list;
+> =C2=A0	entity->sched_list =3D num_sched_list > 1 ? sched_list : NULL;
+> =C2=A0	RB_CLEAR_NODE(&entity->rb_tree_node);
+> @@ -144,25 +141,25 @@ int drm_sched_entity_init(struct drm_sched_entity *=
+entity,
+> =C2=A0		 * not to do this and to fix their DRM calling order.
+> =C2=A0		 */
+> =C2=A0		pr_warn("%s: called with uninitialized scheduler\n", __func__);
+> -	} else {
+> -		enum drm_sched_priority p =3D entity->priority;
+> -
+> +	} else if (priority >=3D sched_list[0]->num_user_rqs) {
+> =C2=A0		/*
+> =C2=A0		 * The "priority" of an entity cannot exceed the number of
+> =C2=A0		 * run-queues of a scheduler. Protect against num_rqs being 0,
+> =C2=A0		 * by converting to signed. Choose the lowest priority
+> =C2=A0		 * available.
+> =C2=A0		 */
+> -		if (p >=3D sched_list[0]->num_user_rqs) {
+> -			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u nu=
+m_user_rqs:%u\n",
+> -				p, sched_list[0]->num_user_rqs);
+> -			p =3D max_t(s32,
+> -				=C2=A0 (s32)sched_list[0]->num_user_rqs - 1,
+> -				=C2=A0 (s32)DRM_SCHED_PRIORITY_KERNEL);
+> -			entity->priority =3D p;
+> -		}
+> +		dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num=
+_user_rqs:%u\n",
+> +			priority, sched_list[0]->num_user_rqs);
+> +		priority =3D max_t(s32,
+> +				 (s32)sched_list[0]->num_user_rqs - 1,
+> +				 (s32)DRM_SCHED_PRIORITY_KERNEL);
+> +	}
+> +
+> +	entity->priority =3D priority;
+> +	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
+> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
 
-So is there always a bug, or only for FAIR?
+I guess my main question regarding the code is why you moved those
+lines?
 
+> +	if (sched_list[0]->sched_rq)
 
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL(drm_sched_entity_set_priority);
+Couldn't that remain in a terminating `else`, reducing the git churn?
+
+> =C2=A0		entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
+> -	}
+> =C2=A0
+> =C2=A0	init_completion(&entity->entity_idle);
+> =C2=A0
