@@ -1,120 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626545;
-	b=FnenRtkSDNffi/locuTxOOXqBdt3pXqkrsr1rDcrhxRdNatnWN2hiYI8CheYjK24A8xo
-	 1/T4xNaRdMS+Q9ynmrfs4qSsbi0GosEHwA/XYLOS2+JtwCQ4Q6Rf2MWsacER26O1HPwse
-	 eZxiDOyIQTGSJkFYYd9AlTTw0zZ35n5jS805ecrH4YZA17ojxBF8I0ziogW9K0xcdd+2C
-	 kJ5OGMoTi8QEaZIIUEiwgta7GYbDUS9FDOzPXk1wJnbdQs1d+twsJskCf5g8nXK/GVBzK
-	 cLoBIY3gek9+1PizwUaHDih00JtbAINlY5sGmXHMSCaJ1vxVsLu4BnJSwNxrR4nK6XQ==
+	t=1793626763;
+	b=qkUH2y9LpOJ5mv3ecJxzEpWNn04bKtYfAf+KPlEdL/e46WQWhM8ir7ntHsdG7HeeK0hC
+	 gGhZnlaOLfUDNk3oE0lsc5G2JApWr9cjdRkIVa2As//2kQ5s07cCdiSszvUE9c99CNNDh
+	 /xD9oEgSBVZ1G5iLkDvi3WnkyIDyzb1hgmug2wFEqfPqpPw3Gk94MUfcM+bMSbkg6EEep
+	 uBbovKUVnyqt45ovEUri09ey4tCnHbJomqOdfG2HVDpfvpPMYmJJyxyQtj0o1Ca1+CW2V
+	 222dQjxWNsUIyWYdfr0lT7AeilmVxNS1+vtqZwfhGHG5JGNME8fHeWd0O2BtGumGLzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626545;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+kKcL/SGl6027ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=;
-	b=bBK64r59KBMCvb0LoL7kVS2PNtEIrVCXW/n96NwygAw4oP6ispxTB3Hg4OMrlXejZCcI
-	 bTQIee+0C/rahHO33zmKCxxUpsFOfaT7Vdqwez6Uia1f44phYPruKBeG909969hSLl6R+
-	 G0pNMIzjIDg/iGGQhr4VoZKEcIkUF+etqSc4s8cFIp939CKEUkzEILQCm9asQY5mNbmbp
-	 MBOsrxXTWt/yHvjD5HbTu+U0Zuy5Twx5M+AwRYGGqrdl7ItSAuQ8chn6WQt7/yny0lbq9
-	 spg631qr+z+eT3G3rMFe6IhBsLzAMgn4r+AEjQmGUUOil0OiRm/g21VmY9lOjA6ZDsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626763;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lFJVdr2pKdNME7t4AJW04aj4Lc5pq236bqQdeqyqOvo=;
+	b=djsMwJgLsfb/J4Ut99Z+3b4IT519G5S+Sszt3haY27O3jSZKSUhzMEqYc9V2k6ehbn/o
+	 7RL4CmupqHhoj0pefZrr1EVt4rCCnkK43TR5ymCmIK3gtsA2Syi+ccPx/ZCsj6NHv4Bku
+	 +1V2fFVTBHs84Uq6dd9QiEhrCKkuhpTLWueXrjqtW3i3L8uLB3WnZuCL+RUTQ9/3EpAmy
+	 2tgJS0HMCSScCpIsubFnz20tDUDAxPxLtA8CTgQCh/n1Od3nLrTPgRO3tCznvXEAw1m2X
+	 e13cUHFB9FQwepKjSbrFqCMYY27vRdAetBNFqJuWBZIbIdYuSDa3a4NDenZ6SNSl2fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CKZbqlVI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ci+Xq3lh;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FosV7S9N;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=paydM+AM;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BDB60A262A
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64BDB60A262A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D32606A327
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:39:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99D32606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CKZbqlVI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ci+Xq3lh
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAb8p3627242
-	for <stable@vger.kernel.org>; Mon, 2 Nov 2026 13:35:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=+kKcL/SGl60
-	27ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=; b=CKZbqlVI/olP+C1SjAtSUQfNqiO
-	KUN7qkpys2KZwBQCTNutJ5gX40nBjRaOMIj56MQ7N5ebazW5h5X63CzZXsfJTYmx
-	c/GcMBCkfyMEdvihL3qGMIs+0T3sBZE6sNnNxxKwV+LilZW6LzaXymEEfnDyPQfm
-	2uXmBvmWFivOQjngkXVNI2JFNFCFCganp5LUiS4iRd4HP/rRWqxNaUQQtB7+CGBS
-	6Yy/pxwT4vl/yGzsE6TtJb/hKZTQB4z5PHwAGI88Ic4orclvspnL02AC6miP7xoZ
-	GNWLmplJUmX0ZnT9oXGsaCqWFj9bnFhqkkrx/3/xYW4/TjLEh3m2oeVLhIA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka6212b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 02 Nov 2026 13:35:44 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7c0bad5ec1cso797517137.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 05:35:44 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=FosV7S9N;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=paydM+AM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793626761;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lFJVdr2pKdNME7t4AJW04aj4Lc5pq236bqQdeqyqOvo=;
+	b=FosV7S9NMGGtT4hY0IZkF1TmDorZE/UzwgVwS3h+iS8HC3bLV+PptY/Kw+XROBx0XDLD+a
+	qY6TLzdbZI+ZYgUxNJ4C1iixmXNT10guVtKrSDyfngFMm6EfJ0hPLV4jG2G9y4T82vVFM5
+	cMMJI+rfVjnZCX3OjO3CZJdssnGa0M0=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-472-BhGda13pPiyRrHYN4d7i6g-1; Mon, 02 Nov 2026 08:39:20 -0500
+X-MC-Unique: BhGda13pPiyRrHYN4d7i6g-1
+X-Mimecast-MFC-AGG-ID: BhGda13pPiyRrHYN4d7i6g_1793626759
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48b00febba3so2085166f8f.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 05:39:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793626544; x=1794231344; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+kKcL/SGl6027ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=;
-        b=Ci+Xq3lhwc7NlTqvrfwHtuyn9RBkIoYgfPWVYDupaIpKXAvLLXU1zYH5TormzXoKpY
-         1GPThkoAxE2/gZX5P/g/m5I9fibghRokX4By88OxGCCTVmfStMp2meMQINqjMkOlk463
-         yTEs81DQ+gwEbOI+5ITRoawyHYaPG77hQrTSbw6zpcm/vhmdflZtEjte5mXXBiNsvKmG
-         YAtR8si4r3LZyqZp4iLcTdAgQr8Dj4wRVLylOW5MmGLEBCHeQzVBhKzyZHueUONFNfsM
-         UDJjbqamFqPJjrmEDoaDh6s9OmtEW4fY2cBUwZkkKKJcTZIvykKzF+zbwLiRbcvrSaFY
-         jt/Q==
+        d=redhat.com; s=google; t=1793626759; x=1794231559; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lFJVdr2pKdNME7t4AJW04aj4Lc5pq236bqQdeqyqOvo=;
+        b=paydM+AMHzzAlZygzTr0BBG+/DyD2fz8CAqTZLCpSZsfKEXWCeprSbJd7qMVEL1a/o
+         R0AMnrW+Txc+7YLtKzunkfMoUYfdvnsly1y3OW/MEvKcqQZYhAS/hFUrgtMda1d19SF4
+         1nsjBhNsLvj/jbr96TKj7Am7ciaw2UY0D5qalfdYLWqyN8h2y8xBcTCSHQ0b7cwx26jc
+         IWhe3nAWI1kqsIfsP6N3VYNe4kg7LX+SQ0AqQgGjM5Uo57efC9Nmot4b4o2S1cbEGIAK
+         J/dyRMG8ic9S95/ARlgiqdgcXe8qYkPpzJiVHBPtII2PrbvQ0xj7gQLaXiemnPZjNGNE
+         imaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626544; x=1794231344;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+kKcL/SGl6027ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=;
-        b=kOl2F/nGCpdVKf//cYx10q0mtEeI2hF2kcN2HkA+4b221XdpO/4UlVrlor3MfUEKR5
-         z4hiiqSX7LEogQ+5Gd2V72h37b6L+2aODOE4fQZ/bo4BgzHSwP1582Up+cR99WlMXNSz
-         fY0pgLAXH/w7COJAZFBjxJim0MFpnMvFpMLAkbUNe4Zt/eaMtc0Splhs4ztL4TzZztZB
-         CG5+/H0UAB+HkmMbE36D/owQn8L0Vdo41ckZm0yNwUEnr2Idc7MfqE+7+Cm0BtkR7/Rt
-         z15Sr5MQyKu2tqMddc/4V/A1f9NCEoxoERvB8x1N0mWAAc4QsqZZ6mobw6kXfNt6CDKf
-         4plA==
-X-Forwarded-Encrypted: i=1; AKwUvBziFCRgO6zg4iY7xFmnSl2enTQsGBGEkyJblBjbDKP0SL4Wm52/xRoPRbRbDSh1rK5jEgAqzq8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87CHBhDVKlgHWmbQ3pfOrPUBpNDSHy0x5FoM5RjX363We2sGhP
-	4xBI/hpFFZHuTtBgJcAVMn7xzzDeybyG7plDgqOOWirfWjbVb9DsJ0Zr3qNkhcbyE37RFUrhzBv
-	CpbeuuAdtffGUE8aeSIGKFEPKxNMcBMbt/hcF/cQPegMyf42w/eRuXxPI6/U50ms/cFg=
-X-Gm-Gg: AYBFou00axow3q0d3xYSugoUmDZGqEZnCZ65Kc9STD7XMrRtgStdIEiXW1oydKVJUMN
-	jw3HneqjZGHaD6e4n4mixEkCxDp9doDmRA2YFkgOnXf5gFMb8RwA92pcjkfypyH2byaWCdvM0FY
-	z/UN58CMuyIjFEWYErUxdzpZuo1YdJXEhnCJMJeAkUia0dILQjKwgBLwLQaQqCn0rxXPAgCtjpw
-	XarTJbKDihx8/at2RqctWm/BEsYescSJ4uVRiWCfPkL6jcN2Ud2PObONrpVSA86KC63viEvdh25
-	b7tZIJtuaFqMEfezFFKxYYZJ5T7SHb4R3SF7AmEXMo1gZwi4AViTc7SpsAV9DM9V7YseLq8Mas/
-	AAzXwned71EhwCy0MRea1XEaDqWXaXC4kgrvHKKCdxtRiB74JoUF+6ognHjJUUw==
-X-Received: by 2002:a05:6102:1481:b0:7a6:85d6:8ae0 with SMTP id ada2fe7eead31-7d0727aa79fmr3912515137.1.1793626543712;
-        Mon, 02 Nov 2026 05:35:43 -0800 (PST)
-X-Received: by 2002:a05:6102:1481:b0:7a6:85d6:8ae0 with SMTP id ada2fe7eead31-7d0727aa79fmr3912503137.1.1793626543282;
-        Mon, 02 Nov 2026 05:35:43 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba53d7sm25735864f8f.53.2026.11.02.05.35.41
+        d=1e100.net; s=20260707; t=1793626759; x=1794231559;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lFJVdr2pKdNME7t4AJW04aj4Lc5pq236bqQdeqyqOvo=;
+        b=lYozI+c8N6GyKKRNpoH05V1Smt1kcNZ6ObKfxYvr3suZFKWrUxmjM8AMnXrTuaOyJN
+         W92yiQ11slG4pI2fMYSHVMktASmAAQaMOzRpUT56OCNwhENfZ2u1H5oJr9HkjAu2Mazr
+         3IsCPhtegyRUP94J4T6Y4fywVG0rUNACQwRNEHLElOw9WnL67KxckjbhixdW4lsb4cEg
+         jtN9G29zcTpckc3oFF+LoTW5gbfWML5zI1CYuwzDUEWdX6vBh1SnJq62AxfCCFcaH+Ay
+         ZRd/ieGxg6JV9VB3ZBfbAzdFSkHABY9G0m0WKOe48PtX0pmr59eUodcVtJHBoOgPLFNf
+         M+5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw7yR83ohahZ8td3OF5x7ZcEp3aoNgM2X2Y6+SxYtWQiA9gNssbQNEB8hIx1i9gjq+hWsaXv0k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+r2f6+mhq4Pw7Ou4gLtthSrxvR95CEQg0JXCUZ9+PNcNz+bBjk
+	D20QrG+BD+GBS6G2mYPS1QPLqFxz2KLSp4olRWHjdNP5kF1XOE32nE6uCMAQ2dsm1ITqfNCmXQW
+	lXas3RbbLioQkqHXVRDVzGOy13L6YyniH2YU96YM7JoXscLuJnUdWvebagA==
+X-Gm-Gg: AYBFou3zxHQMW9D0sXyDwHimdnHPXSs+yxo67gZO0tmGzfbTAKBf7txF3xGxNpPGG18
+	i3/1nf2zyEYqhLnsSpz9uxpzEBrH4PnOHae5rK8elwFsU2k8fukz+pNMtd9HAa2zbOUJMbup+EC
+	M3Yju3uCBVtTePtxKP9omJuBPjOUBhJgoRX70JRh2zw5srY9MiiFEkROL3mTdgJyziOLBjNQKhp
+	LphwxpeAgfnaIwXU8cHp5Pczyr6A/V0Qx3jg8DN283LqkmuZb8HuigRcBZdgl+ACFBGUvixYXPl
+	CbE6fkbGxDworHWNDw9Mn4YNjsATh8EnORKyd0ODPwA6oHvehXhgFZGzl2Hfq5Vx3SfjyGsjerE
+	4F6MAQdl/u3fGPD2I0HEycGlb9FYFp8c+KDKFOj9C05+afsA+otn1b279x/9YWFQZwpb+460UdV
+	jq3g==
+X-Received: by 2002:a5d:588a:0:b0:48e:4e3e:45fb with SMTP id ffacd0b85a97d-48e6e2ff039mr22169056f8f.22.1793626758982;
+        Mon, 02 Nov 2026 05:39:18 -0800 (PST)
+X-Received: by 2002:a5d:588a:0:b0:48e:4e3e:45fb with SMTP id ffacd0b85a97d-48e6e2ff039mr22168991f8f.22.1793626758540;
+        Mon, 02 Nov 2026 05:39:18 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b725b8sm20245980f8f.20.2026.11.02.05.39.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:35:42 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Andy Gross <agross@codeaurora.org>,
-        Chris Lew <chris.lew@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v2 3/3] soc: qcom: smp2p: Fix possible out-of-bounds read with too many inbound entries
-Date: Mon,  2 Nov 2026 14:35:34 +0100
-Message-ID: <20261102133531.173434-6-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102133531.173434-4-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261102133531.173434-4-krzysztof.kozlowski@oss.qualcomm.com>
+        Mon, 02 Nov 2026 05:39:17 -0800 (PST)
+Date: Mon, 2 Nov 2026 14:39:15 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Weiheng Qiu <weihengqiuu@gmail.com>
+Cc: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Koutny <mkoutny@suse.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Guopeng Zhang <guopeng.zhang@linux.dev>,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>, cgroups@vger.kernel.org,
+	regressions@lists.linux.dev, stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: sched/deadline, cpuset: total_bw corrupted by a sleeping DL
+ task's cpuset move
+Message-ID: <auiSg2cB6BSjtg9a@jlelli-thinkpadt14gen4.remote.csb>
+References: <14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,132 +129,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2967; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=JGHmjvxqVCLnaNTJ8V4rzYMgx7betONf24ha/0ULrEE=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq6JGldf0YXSarv2R6DJiy/HuZHOsc5U8l26bgo
- 2yQL6A8D7SJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauiRpQAKCRDBN2bmhouD
- 1xVXD/914HmoaJ/b2T1r6wpQ2AL8E8eMIWGwbQDZmsQzjN7xMnCDnoCGMsBaXEJePekDHosYrk3
- M2yh0pmq6/g+nfP4r2sqThrWOZf37AxvBpVp/98DxcQdGh4cPoCeRRxZxcr/N1QfTz4ezZDHSeg
- 44Ivn2EmmYAtdugLEqmYAlVattEB8nfnmHDSK2ArVs02BsRxHGBQsZDXgPDUVIi1BPPVHiQqgtK
- pvnWCWfWbXUc4pigk5jONtD28B2q1EJ1LUcE1GD9EKurwgOirE1FTLfthVBXcwZY785bbdyfjKD
- ukxK5OKhwkoeMaEcwVqXjDFVN7tqCz/sJVfPlO78O9UPjSDG72lxLRh6Cj3D54OTp8vZxHxucnF
- Jogzg2yzvOM5vt2tOmlzaUx/6LJ+3eWAkfA7tZNG6svizCHVDMoibvUtUOrLBUXG+inhMDmaJVo
- 8rksl5qiyCxlKUFkhr9gw9IQ+pBPuFk86WAWUywNBSxwWu/TFIrmD5wjONQ2Am5HuQOmT2akqbf
- QX9PrG3/8hANg82gYdanrGnORp3/NraWlGxjE2dYvr+lUMLGTsjhVdTXRQIV55YayD8gIJkbMXT
- XgVozkj0T+19a4pSMLSS53Ra0nJ7LybBNXwOOXjnsG8NwiRdxsJS6iDEgnZhi9oV3JVTkIDlH2k C8WKN9egLmPWRTA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: tWkk2rLUHSLjWl_YCE_TjVu7swbemUDK
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfXyPJ0FpZj8VQX
- YU/aAkUq29ZPAQK8V3uUHtnBfGL9TCXuonjQ6hYdw55YkGlLZUDd8pJ8+ZaOd5bVriM/3xBBkq+
- gNlbH4S0sL2QEQNqYOlSWwAJvBB958U=
-X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae891b0 cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Xix-rBOErL6eV1CkEnYA:9
- a=crWF4MFLhNY0qMRaF8an:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX6Lnqjx4S/G0v
- 3QywAoKtZpLGdKidQQpFYHH3qFxSd8PE8VZ6SYggTa0/zMhsOTybKgohXLfZA6rBvI+9ZmugkCT
- ka7NSRh4hBHRR5ASvZHdso+vybtfrijFf3C7XDCBrbIdz9d0Vw7I736ljnmuvw0D21JGnPYsFfe
- TcTDvfv3I7jhtnJccO3miRYQgTGsU5v9DZ2tPy+ym2JXsARyQDdMXp34LFcQkNgTGt/Tj5NUi+8
- EjwU4FDz4aZ2MKCYsysGSYwdWfGYi5lzC8K4PEA6HwW9aWos1RnXQgCvYRYhs9opmPSr1aTvdJS
- hd/kDX1EYE3IQRAEmYO67hdZzHsTaVEooSqqglhGGRln6whaGcdA4XZUxca1bnUYrkxGN+fOYrz
- azaxqVnJ+8df9KTXHZo3P6x+om6yHTCr17SBC2Iy57OrO+apZU3zWoZXXaHa08z3MH/u9LztdjR
- 9SViAzDJS1Ce6m6+XvA==
-X-Proofpoint-GUID: tWkk2rLUHSLjWl_YCE_TjVu7swbemUDK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
- phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020054
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com>
 
-The inbound SMEM item is populated by the remote processor, so its
-contents, including number of entries, should be validated by the
-kernel.  Number of inbound entries is directly used when iterating over
-inbound data structure, so if it is higher than actual count of elements
-in the data, kernel would read memory out-of-bounds.
+Hello,
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-b79427c9-5d22-4b48-8ee7-1d7808101e52
-Fixes: 8a9a7b9d14c2 ("soc: qcom: smp2p: Add irqchip state support")
-Fixes: 50e99641413e ("soc: qcom: smp2p: Qualcomm Shared Memory Point to Point")
-Cc: stable@vger.kernel.org
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+On 31/10/26 17:08, Weiheng Qiu wrote:
+> Hi,
+> 
+> Moving a sleeping SCHED_DEADLINE task from the root cpuset into an
+> exclusive partition and back, before it runs again, leaves the root
+> domain short by the task's bandwidth. The root then over-admits, and
+> when the task exits its total_bw underflows: small DL requests fail
+> with -EBUSY while large ones wrap in __dl_overflow() and are admitted.
+> The partition also keeps a stale reservation.
+> 
+> cpuset_can_attach() and set_cpus_allowed_dl() both decide through
+> dl_task_needs_bw_move(), which tests task_rq(p)->rd. A sleeping task
+> is not migrated when its affinity changes, so task_rq(p) still points
+> at the CPU it last ran on, and on the move back the root domain is
+> neither re-credited nor the partition debited.
+> 
+> Reproducer below; needs root, cgroup v2 and debugfs, and turns the
+> last CPU into a partition, so use a test VM. On mainline c339f4010dea
+> with 4 CPUs:
+> 
+>   cpu3 is a partition; sleeping DL task 76 (0.5 CPU) in the root cgroup
+>   total_bw in CPUs (change since start):
+>   start:                     root  0.650 (+0.000)   partition  0.050 (+0.000)
+>   moved into the partition:  root  0.150 (-0.500)   partition  0.550 (+0.500)
+>   moved back to the root:    root  0.150 (-0.500)   partition  0.550 (+0.500)
+>   (expected: +0.000 and +0.000; the task is in state S and has not run)
+>   root domain admits 28 more 0.1-CPU tasks: 0.650 + 28 x 0.1 = 3.450 CPU
+>   reserved, limit 3.000 CPU (3 CPUs x 1000000/1000000)
+>   those tasks exited:        root  0.150 (-0.500)   partition  0.550 (+0.500)
+>   the DL task exited:        root -0.350 (-1.000)   partition  0.550 (+0.500)
+>   DL tasks left: 0; new 0.010-CPU request: Device or resource busy
+>   DL tasks left: 0; new 0.500-CPU request: accepted
+>   after a root-domain rebuild (recomputed): root 0.150, partition 0.050
+>   moved in while asleep, then SCHED_DEADLINE: Operation not permitted
 
+Thanks for the report and reproducer.
+
+Can you check if what below helps with it?
+
+Best,
+Juri
 ---
+ kernel/sched/deadline.c | 29 ++++++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
-Changes in v2:
-1. None
----
- drivers/soc/qcom/smp2p.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/soc/qcom/smp2p.c b/drivers/soc/qcom/smp2p.c
-index 49fb738d02a9..9af5004620ff 100644
---- a/drivers/soc/qcom/smp2p.c
-+++ b/drivers/soc/qcom/smp2p.c
-@@ -252,6 +252,21 @@ static int qcom_smp2p_in_version(struct qcom_smp2p *smp2p)
- 	return in->version;
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 4d66e7298b686..2eebb688891a8 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -3324,14 +3324,26 @@ static void task_woken_dl(struct rq *rq, struct task_struct *p)
+ 	}
  }
  
-+static unsigned int qcom_smp2p_in_valid_entries(struct qcom_smp2p *smp2p)
++/*
++ * Find the root domain where a DL task's bandwidth is currently
++ * accounted. For a sleeping task that was moved between cpusets
++ * without running, task_rq(p)->rd may be stale. Use the task's
++ * current cpus_ptr (not yet updated to the new mask) to find the
++ * actual root domain.
++ */
++static unsigned int dl_task_root_domain_cpu(struct task_struct *p)
 +{
-+	unsigned int valid_entries = smp2p->in->valid_entries;
++	unsigned int cpu = cpumask_first_and(p->cpus_ptr, cpu_active_mask);
 +
-+	/* Remote side controls the value, so do not trust it */
-+	if (valid_entries > SMP2P_MAX_ENTRY) {
-+		dev_err_ratelimited(smp2p->dev,
-+				    "too many inbound entries: %u\n",
-+				    valid_entries);
-+		return SMP2P_MAX_ENTRY;
-+	}
-+
-+	return valid_entries;
++	BUG_ON(cpu >= nr_cpu_ids);
++	return cpu;
 +}
 +
- static void qcom_smp2p_start_in(struct qcom_smp2p *smp2p)
+ static void set_cpus_allowed_dl(struct task_struct *p,
+ 				struct affinity_context *ctx)
  {
- 	unsigned int smem_id = smp2p->smem_items[SMP2P_INBOUND];
-@@ -259,6 +274,7 @@ static void qcom_smp2p_start_in(struct qcom_smp2p *smp2p)
- 	char buf[SMP2P_MAX_ENTRY_NAME];
- 	struct smp2p_smem_item *in;
- 	struct smp2p_entry *entry;
-+	unsigned int valid_entries;
- 	size_t size;
- 	int i;
+-	struct rq *rq;
+-
+ 	WARN_ON_ONCE(!dl_task(p));
  
-@@ -272,7 +288,8 @@ static void qcom_smp2p_start_in(struct qcom_smp2p *smp2p)
- 	if (in->version == 0)
- 		return;
+-	rq = task_rq(p);
+ 	/*
+ 	 * Migrating a SCHED_DEADLINE task between exclusive
+ 	 * cpusets (different root_domains) entails a bandwidth
+@@ -3339,16 +3351,16 @@ static void set_cpus_allowed_dl(struct task_struct *p,
+ 	 * domain (see cpuset_can_attach()).
+ 	 */
+ 	if (dl_task_needs_bw_move(p, ctx->new_mask)) {
+-		struct dl_bw *src_dl_b;
++		unsigned int src_cpu = dl_task_root_domain_cpu(p);
++		struct dl_bw *src_dl_b = &cpu_rq(src_cpu)->rd->dl_bw;
  
--	for (i = smp2p->valid_entries; i < in->valid_entries; i++) {
-+	valid_entries = qcom_smp2p_in_valid_entries(smp2p);
-+	for (i = smp2p->valid_entries; i < valid_entries; i++) {
- 		list_for_each_entry(entry, &smp2p->inbound, node) {
- 			memcpy(buf, in->entries[i].name, sizeof(buf));
- 			if (!strcmp(buf, entry->name)) {
-@@ -292,13 +309,15 @@ static void qcom_smp2p_notify_in(struct qcom_smp2p *smp2p)
- 	int irq_pin;
- 	u32 status;
- 	char buf[SMP2P_MAX_ENTRY_NAME];
-+	unsigned int valid_entries;
- 	u32 val;
- 	int i;
+-		src_dl_b = dl_bw_of(cpu_of(rq));
+ 		/*
+ 		 * We now free resources of the root_domain we are migrating
+ 		 * off. In the worst case, sched_setattr() may temporary fail
+ 		 * until we complete the update.
+ 		 */
+ 		raw_spin_lock(&src_dl_b->lock);
+-		__dl_sub(src_dl_b, p->dl.dl_bw, dl_bw_cpus(task_cpu(p)));
++		__dl_sub(src_dl_b, p->dl.dl_bw, dl_bw_cpus(src_cpu));
+ 		raw_spin_unlock(&src_dl_b->lock);
+ 	}
  
- 	in = smp2p->in;
+@@ -3358,10 +3370,13 @@ static void set_cpus_allowed_dl(struct task_struct *p,
+ bool dl_task_needs_bw_move(struct task_struct *p,
+ 			   const struct cpumask *new_mask)
+ {
++	unsigned int cpu;
++
+ 	if (!dl_task(p))
+ 		return false;
  
- 	/* Match newly created entries */
--	for (i = smp2p->valid_entries; i < in->valid_entries; i++) {
-+	valid_entries = qcom_smp2p_in_valid_entries(smp2p);
-+	for (i = smp2p->valid_entries; i < valid_entries; i++) {
- 		list_for_each_entry(entry, &smp2p->inbound, node) {
- 			memcpy(buf, in->entries[i].name, sizeof(buf));
- 			if (!strcmp(buf, entry->name)) {
--- 
-2.53.0
+-	return !cpumask_intersects(task_rq(p)->rd->span, new_mask);
++	cpu = dl_task_root_domain_cpu(p);
++	return !cpumask_intersects(cpu_rq(cpu)->rd->span, new_mask);
+ }
+ 
+ /* Assumes rq->lock is held */
 
