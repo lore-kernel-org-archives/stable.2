@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793645953;
-	b=Xu8OAZIzsRpwKUHtC+RbxyF6CsM8dj1T2b7gkwfWQVWELqCyB6NWLgCjiT/AX65DyqyE
-	 lfvmiuxR/VlgkHm8Jxrm2gyUEMciUUsHFYSUYUWWIlsCT65Lfjsr6BNI5t03hzesl7Sdl
-	 cTgiukvwcLLMej6ijcBEHqR/Y2sfaJNX8OWrq5IR3lHaRbzXxCyWYkyDDP5Lixjhxsdrr
-	 Bdg4IbdH3yf+MH7Vu3a1F2kM9WKoxtsBz7TdXEobic66iudf5wy7HKM7K0t5PiIEuhxGR
-	 OjojzJB9qODcQ7HrB89jIF0B7gjRnc1D0lNb6KAGScq7JBpJJu2Zl6qU1EoysjfA8rg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645953;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp;
-	bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=;
-	b=2vSRC/E7OWpDkhkYtjekf0RLPvwxBqpjj6iPBD9tEFH0snQ+ep2xAu3llBWYAiR29mv0
-	 2RIcOu+5ObHsbUzW1Tbph5oxyuCPtwIt/aTVoqoj9Ujb+yhgrsz2/Fe8bZxkg4jPnwFch
-	 siCM/A/NW0a5EgGSx7O3FyyZjdVomd53KH6hCIj1hv6nUdlcpYT/3KTrIQQ1qmR5CJMEG
-	 mSc6ph4LnBwdegFRKGXpHdrZAQ3diAOUC2XXyKCY6rFJiErnRQqDyh0jEZH6cxfyb4/lO
-	 K8aOieXmAY8KQ+wNJ235+GjFeU3Eaw6jicyl5ssb+mXTJKXiA+hIlg8mH2ZEjwfRaeQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GlFbjFdR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793645963;
+	b=pvTk6R5GE3A2F8KCr9/csvVyWa3USkp4XJeeWedzyckSfiPEe6VTTVZoQzu2954pz2MA
+	 ZrfB7XTbuoqAR5N3221kQI7G1SiuRZx6rQI7pcEO6AfVMu8mv+ytZ1yP4O8ddSc/PQ0ls
+	 ciOXy6mfFFXQ2hD0qd1Q7aFLaZPdZrykobX0xPAXHRwcxjSll7cKjnn+EeWBPiJK0UQwr
+	 LeOCVB3+QxrEoGcwk/ZJM0uK0t4KsS3WKCckjhuv8s2giSBcZywf0CQiBXScbujY7VRTS
+	 HYsyakzhc6PGmfhopt6tXU0em8adCa+tFKPvA4UNhZafxTydfnegcxw/wIxgQFLl4ng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645963;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=5mRtPrKiTj1NJfBurVT+6eR+VCtcqV1JQpewnXNZ3cg=;
+	b=aESWaB5l78lUwQqLRPvHzVsrDOuzt88tLRVbnjnEiCcsdRYY46u9Z13Mq9PNDAgQVuZD
+	 Ouxm2BxWr673hmnUXHZegF67MyqC3cJy7cfM/zxvzgydvvPvhlXqfjdoR15jhJZXLw5Wm
+	 jjOGNdpnCXeVf9brwIZqB+5X/4S58LmYVD5wn+DxtxFzG3QX0oSb28Iw64iYk1yBuatGj
+	 kgd/VrYh1g35kxqmAFqdUGkWLGcP/fG1hWt5Cx14fmqW99NilkAMXn0NHvKoA96deQAGG
+	 gvGbSPp+29iyWaeQTIiHQD8tWYgcwgZx2MomJsBV3VPyB2PpFB2sXBNA9Ic6061Y2gQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NOKZgW1s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AC9606A339;
-	Mon,  2 Nov 2026 18:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9AC9606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE9606A32C;
+	Mon,  2 Nov 2026 18:59:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=GlFbjFdR
-ARC-Seal: i=1; a=rsa-sha256; t=1793645931; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=k+k3BxfmINTBv26V4GK90M+bQkHthaUzYFN6eiJ9zfsSgd+btWnYgbdIXKbFM6y+A2r+iEnX4Ddobs/rQWdHM91FEjhBTMR07HV8dE0ojFOneMLzq72okklP9a74dJXYVeaDWA+GXqqb7H/zY30STkoHf/r/t8f9iIkvUCYYRo4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793645931; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=; 
-	b=CHYZwEnLMtHawOzNr8WKQA6z8PtG53Ud5dUM83zmtdY1qsv4ovPteJnGMMBIPiR13LQHRI565Po7dV4KXkpKOgEuFNcUWYh6grt474Fs1H2WAgkDHIfteEtiAVR7ZDKe8lb/bNJx88oq3u+8cgP6WxFymFnQ65gOJgE9x02t81A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=GlFbjFdRcIs964QhLu3f6OXVJRtFeG+Zgukho7gHBH+WFH+nQCg+jsZWYlwhrL7kLCMAsUjnKJgXdPljL1ig7SvUNXZmj/rpnzrkFwFu5C8Xx61ek91FORfKcsmwMwBuXy9nXTDk0ig+gJTqy/e9Wg1aIMdcDysuu/rU/mRxIAc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=5G/MT9AU1YYv+31eCpWvkJ7LR+8cbCi0bWza4l5yhow=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793645930423756.5918385363401;
-	Mon, 2 Nov 2026 10:58:50 -0800 (PST)
-Date: Mon, 2 Nov 2026 18:58:45 +0000
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Boris Breyillon <boris.brezillon@collabora.com>, 
-	Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panfrost: add missing
- pm_runtime_dont_use_autosuspend() calls
-Message-ID: <aujdLAyik6MT6TxN@sobremesa>
-References: <20260916075051.1353-1-joshua.crofts1@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NOKZgW1s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7D61F00A17;
+	Mon,  2 Nov 2026 18:59:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793645962;
+	bh=5mRtPrKiTj1NJfBurVT+6eR+VCtcqV1JQpewnXNZ3cg=;
+	h=Date:To:From:Subject;
+	b=NOKZgW1sjkpQYKELqiWvyyrVt/mnJU8xdVOai76a9hvJqh3SFSz5Yjhu88L8JfDs6
+	 Vb0D+d10k9cq9kSYCOMf6ek1mt8A1/WEGoUxsOCB49yiVywqMTCKzMIBoBHIPz/XFw
+	 ZU+B2q55wwXk1+WhisgG5B1EASCMRys4G7Bb6UYk=
+Date: Mon, 02 Nov 2026 10:59:12 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
+	stable@vger.kernel.org,sj@kernel.org,rppt@kernel.org,mhocko@suse.com,
+	liam@infradead.org,jm5905938@gmail.com,davidgow@davidgow.net,
+	brendan.higgins@linux.dev,xiaoleiwangxiaolei@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch added to mm-new branch
+Message-Id: <20261102185922.BA7D61F00A17@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,58 +52,110 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260916075051.1353-1-joshua.crofts1@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.627.56
 
-Hi Joshua, thanks for the patch.
 
-However, a fix for the same issue had been in the making for some time. It's already been upstreamed:
-e9672bf9382f ("drm/panfrost: Fix PM refcnt and autosuspend issues at device probe/remove")
+The patch titled
+     Subject: mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
+has been added to the -mm mm-new branch.  Its filename is
+     mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch
 
-Kind Regards,
-Adrian
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch
 
-On 16.09.2026 07:50, Joshua Crofts wrote:
-> panfrost_remove() and panfrost_probe() disable PM runtime on teardown or
-> failure but don't call the pm_runtime_dont_use_autosuspend() function,
-> causing potential resource leaks.
-> 
-> Add the missing function calls.
-> 
-> Found using Coccinelle.
-> 
-> Fixes: 5c0c825ae4c6 ("drm/panfrost: Replace DRM driver allocation method with newer one")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
->  drivers/gpu/drm/panfrost/panfrost_drv.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> index 36cc2e67a308..74e8e5783f9b 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1012,6 +1012,7 @@ static int panfrost_probe(struct platform_device *pdev)
->  err_out2:
->  	drm_dev_unregister(&pfdev->base);
->  err_out1:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> @@ -1027,6 +1028,7 @@ static void panfrost_remove(struct platform_device *pdev)
->  	panfrost_gem_shrinker_cleanup(&pfdev->base);
->  
->  	pm_runtime_get_sync(pfdev->base.dev);
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
->  	pm_runtime_set_suspended(pfdev->base.dev);
-> -- 
-> 2.47.3
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+Subject: mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
+Date: Mon, 02 Nov 2026 06:46:25 -0800
+
+damon_sysfs_test_add_targets() creates its monitoring context with
+damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
+DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
+context, and damon_sysfs_add_targets() therefore calls
+damon_set_target_pid() for each target it adds.  That function grabs a
+reference to the target's struct pid via find_get_pid().
+
+The test then tears the context down with damon_destroy_ctx(), which
+releases such a reference from ctx->ops.cleanup_target().  For the vaddr
+operations set that callback is damon_va_cleanup_target(), and it is the
+only place where the reference is put.  The test never selects an
+operations set, though, so cleanup_target is NULL and both references --
+one for each of the two damon_sysfs_add_targets() calls -- are leaked on
+every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
+enabled reports the leaked struct pid objects as unreferenced.
+
+Fix this by selecting the vaddr operations set for the context before
+adding the targets, mirroring what the sysfs interface does.
+damon_select_ops() fails if the vaddr operations set is not registered,
+in which case the test cannot exercise the pid handling and skips
+itself.
+
+Link: https://lore.kernel.org/20261102144627.88843-3-sj@kernel.org
+Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
+Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: David Gow <davidgow@davidgow.net>
+Cc: Aveline Noir <jm5905938@gmail.com>
+Cc: <stable@vger.kernel.org> # 6.7.x
+---
+
+ mm/damon/tests/sysfs-kunit.h |    9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+--- a/mm/damon/tests/sysfs-kunit.h~mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test
++++ a/mm/damon/tests/sysfs-kunit.h
+@@ -79,6 +79,15 @@ static void damon_sysfs_test_add_targets
+ 		kunit_skip(test, "ctx alloc fail");
+ 	}
+ 
++	if (damon_select_ops(ctx, DAMON_OPS_VADDR)) {
++		damon_destroy_ctx(ctx);
++		kfree(sysfs_targets->targets_arr);
++		kfree(sysfs_targets);
++		kfree(sysfs_target->regions);
++		kfree(sysfs_target);
++		kunit_skip(test, "vaddr ops not registered");
++	}
++
+ 	damon_sysfs_add_targets(ctx, sysfs_targets);
+ 	KUNIT_EXPECT_EQ(test, 1u, nr_damon_targets(ctx));
+ 
+_
+
+Patches currently in -mm which might be from xiaoleiwangxiaolei@gmail.com are
+
+mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch
 
