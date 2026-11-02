@@ -1,98 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643911;
-	b=3A2AhfBl7vt6ctcOUsRAkv1BwMSVM6uBplRbO4vvz3aMU0Wl0z+ndaLk/gVzCKh+1qVw
-	 oXDRB0+XTuaGD4DIRpGGOz2ZGQa7+b8gYrtwwQ5D1ZxjgHLWp8m9iNLQqeJGXmlLr1PPt
-	 azmMXhxbOZNrlgTFP8rv2DIgxoKmmcGrLkySPlwP1IKomLgfTSUfFwe08OJgeEtRgPCjE
-	 Bbtgq4+mvciVAtER7haloJ2rV8Oe1/zrOc+c1+KG3JjIc6cdtFFvRZWQXQwz1hkkOZyGf
-	 MxEK12APSWrvV2Yej29zMTODnYDSnVlu7D9/HPrLawOT9Tay+0pk8AumCnppOZGnctw==
+	t=1793644695;
+	b=MPD0HaGAu2nlAJQ/kBwOk0ODdBQFm5Nx+EQ0Ir9ubxXfEnTsChKQFNUToBNcWAcxjReJ
+	 GCmSfQZ3h2St8mevshCw/8DzhcPVLSdGpwlWFZDPg1JFk3Jg8g1xdX1hpbszdW2IEx8W2
+	 Ws0b2GhSoUkUDUWRWuqlUh3v4WLtLzRcmeR3XpUO3DcI73kudfw9avHBQP1/CZlgZUqzn
+	 3K+Sh61RLBJ0x74Dxgl7b2YZO/m5BewIAmvWGpfNKX2/w8PrCGonuE4q8FBkDmwAbGVIM
+	 b3RCj8h80Wo5PjE2JM6ofjtYJRFYK7w8VQGdeughjNXwtRh+m8qbwnFv4aXd+vylLXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643911;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Z41mKtHOm7Mi5CS6B12EWoUXhaoVqMrutmZJokfP2gM=;
-	b=Jgnvqih4paH6SxDGNGQudi1FziP/0RzBXUtERi4HT2TiL2ULcJjy7HGnyzpacC/EyXTQ
-	 6PHHoHRw3RwQ+7whJtkCTjOrCk7LwpHXkwWSU4rpEpc3ybt/VwejP8e8fiSbmonFLdN5A
-	 nmSGVDgDTZ23ZE13AL2h4KGmyIeneTyjc9FEVU/Ma25CBYNGoYfonVv6xk1WdGKE2vmX/
-	 r4KX4BUT3rR7oUeN6L2AfWUJsSHsmsbrmWWHFMLpVb9VYo05J9vOyqu69fHMWXOiNa8bE
-	 oDWEiYyusO+A1i0wJmQl1vaFxLjyFlwYP94xbZSuVinQ5Mlme4UCrLGLVJrAjLCUQrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793644695;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=CvKjhSbJQ64yej8CMcvSWHlywJ3U5WGeaWL/y+D+TmE=;
+	b=TED6hvqbRgKLjWIVfMPk+xYpyUx9aWjCSiTEbIxJAwVbG9sPcAMfgaDlVDaXNzPh2IgR
+	 8zvNCpWn3xQjaQOTuaDJ7BZPiSrdJyafhBZYWPmsP2vHIvzlGBLIKjPwnbviwYvS1csUW
+	 8ghZQAViqzb3QdYrU27fT4GZ4v218xxOjXfsGKMLgWNR54maPAnL0X3v6gFspNZbKmXjb
+	 AlkPVSFmniz5bYEW/CBxLkGksRpBguarl2c20GIf76fV378ArprIWPQfB1xJ/iFM51Kzp
+	 ebT0jCiVmBwes72J0igB0TJHIGa+dH6/aNJwO+nWXDpXQCCscieQAMA8fnEwGcjME5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRJX0RF8;
-	arc=none smtp.remote-ip=74.125.229.6
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNFFt+gG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696D8606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 18:25:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 696D8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6251C606A324;
+	Mon,  2 Nov 2026 18:38:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRJX0RF8
-Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-3537f63c9e6so1350489eec.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:25:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793643909; x=1794248709; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z41mKtHOm7Mi5CS6B12EWoUXhaoVqMrutmZJokfP2gM=;
-        b=wRJX0RF8HzOJ5vHpbUCAKfZVjV3IC026OA9dQPQiz8FmPUdyqsaFHt8LcpZ43ExlRJ
-         V131kcsJQSQmh60QT+FT7u391++5YsW/YO1DbR+WV8QL6E8eYBo3gGcPwCrAgWVG5rBl
-         xPlLnxQ9m5+fvTxjr/g4bwZc0JGUnpU3natXbNrqN3XDX/Q6L7zzd4F6iGzyKrsPQItj
-         Xqx1Ed0Gcr6oSkwDipSu2F2AE2yVj9CdZEI/GzDD2emXcMnfxaEAOEUnQ52JLAyxCcTe
-         vMadz6FaT/RD/UTS6WJ220Qt5fRzD49ZSypC9hgqQxdy3e/lboRbOgyp1bUDlnQ3/dgj
-         PATA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793643909; x=1794248709;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z41mKtHOm7Mi5CS6B12EWoUXhaoVqMrutmZJokfP2gM=;
-        b=PoRFRDfLX8+VYj4QvxpHA4x2nzfsvelFixUOBa8v/q8eGmQaT/X9z/x5XgyeXFA2CN
-         kHFUZKAC9x6XlFwNBAiciEZMMEqYx/Z7EYVL1Oq49yhv58EsrSnrQMUSIdm8nADJvOCO
-         VCeNHRDL96goomW8cgt+TNH7grloOTIeBN37XnyfEBqD9N3Y5Iu1tzTza9eHCKCJ9o/N
-         bb9UvX8t4hm/ru+do4lS1HXlyyF66jACe+HpTZDW3KzNQuSwXLez05zSPDEW82zujxWO
-         2ZHu2SmptFz4kFOPSyupyDWrxVe3qnVK9F+FYHFhKowoOwOGX6VXh8aHCuZfFbstCNQl
-         CEjA==
-X-Forwarded-Encrypted: i=1; AKwUvBzY6yyepxyMvoQMpuGDqTUQss+/SmEujcrNFa+RBPbbTtAfPb5kQGoqQ+HsMkNpADEdcChh1K4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRvk7T6Nsc0a7knu/+JEyiKs0gIxIk00FiCL1cgDRuu4uv7EWM
-	YXCGmNYQ0VfMEPBBp0HJZ2EME2TpPSg+fkvSgtK68nMztZhjVsg5Of2M
-X-Gm-Gg: AYBFou0zb/nWCd6FkYyrcpP75P3T6RBVLGNFZA5vB3DAsME3bVcZvkSuLBUFYt8ymmX
-	ShTTZkLk3+/fqXro/gAQnuxiWgSPrdPmctSThVBMQoaMaUeF7ikIK2ckZZ5F792rZdYQ3U7ksh5
-	y7O7f0VG/dLwHWaMI364Xr+FEsu8s/wdvDGB7nbGaqr4NFIw6aon/rMMKe2Dirf4ulVC4FuRazm
-	wOEichSCQuCj7i8vvUr0IQbwFnDyPNWfMonR7TQJdgPeSdFljMRfdf6EppeajEGzAt704W4h5xe
-	btZPyi2cq0wO+lZTQkyGmNQhFyyMf7m6gPs1xN3HAE02p6xUnNFiKHxMHr1PWLq+3VsJyzk/mlh
-	c6Yx56KJmsptbtV/qFhX8HzfG2cjgSGI9vSAroZQL7BjkChj4KNHqSZS20y5D/zqskRzFkMfMLP
-	E4De+/lLgqgXgLLGewxzoCDfIhj/6lVEqlxP8hCjidzQjBEkyWpd0oj4YP01ErkH+0XD2JyD8LD
-	0TgAZn4LGjEs1vo7kxYv6Y7+AkGbqt7gnY42N/ObFv6bn1P1BxfaXOoZ6GFAmw7YkqWbnc3UnGy
-	03S0CdGnbGbQVzmaLgZf1fQ=
-X-Received: by 2002:a05:7022:ef12:b0:14d:ef19:246f with SMTP id a92af1059eb24-1ac5f36d5cbmr18049891c88.45.1793643909092;
-        Mon, 02 Nov 2026 10:25:09 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:42::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854da78sm46557054c88.6.2026.11.02.10.25.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 10:25:08 -0800 (PST)
-Date: Mon, 2 Nov 2026 10:25:04 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Rongzheng Wang <testwrzwrz@gmail.com>
-Cc: netdev@vger.kernel.org, 
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Magnus Karlsson <magnus.karlsson@intel.com>, 
-	Jason Xing <kerneljasonxing@gmail.com>, Jesper Dangaard Brouer <hawk@kernel.org>, stable@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 2/2] selftests/bpf: cover AF_XDP multi-buffer TX
- software checksum
-Message-ID: <aujU8-MBZ9LrhFMd@devvm16445.scu0.facebook.com>
-References: <20261030023248.78802-1-testwrzwrz@gmail.com>
- <20261030023248.78802-3-testwrzwrz@gmail.com>
- <auT51NbSPvKJwgiD@devvm16445.scu0.facebook.com>
- <20261031013143.42509-1-testwrzwrz@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNFFt+gG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3AA1F00A16;
+	Mon,  2 Nov 2026 18:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793644694;
+	bh=CvKjhSbJQ64yej8CMcvSWHlywJ3U5WGeaWL/y+D+TmE=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=gNFFt+gGp1PdCFm2zN7wLPMeJh8eWhbYcmz0DA4ESe0Ejn6RWJXcXRwUqNHIugyfL
+	 aOF/c92f3lq+deLdHuD+n91tEpZSseiPV6kENrQO6Mg+u0NMVm3c6S0Wbgm6VpuwvS
+	 V4L+KjUd9yEVNM/Byh6VC47LNV1KmEOx/lLeyNWqIN7cffrxx/Zbtv/CvPTfbvGxxX
+	 h6/okYy/ejX7pf7m3UKXJU+aKmh+a23tfQEiN1WuEClseE9/SkyTt3jcfQsWL38dN9
+	 Bd/FUPkymq5dGRNDwt94Q3pxgGOQqV6rzCd/TsCd8/QpgvTta5MgsUH3FdLwBoCp6U
+	 sLMUnC29XjXYw==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 76756CE0B0B; Mon,  2 Nov 2026 10:38:14 -0800 (PST)
+Date: Mon, 2 Nov 2026 10:38:14 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Marco Elver <elver@google.com>
+Cc: Alexander Potapenko <glider@google.com>,
+	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	Kees Cook <kees@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] kcsan: Reset per-task KCSAN state on fork
+Message-ID: <10162189-3057-4c84-8a23-056ad33d401e@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261030145655.439579-1-elver@google.com>
+ <b32fabb0-a9ee-4a9f-acd6-3511548a7f65@paulmck-laptop>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,39 +63,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261031013143.42509-1-testwrzwrz@gmail.com>
+In-Reply-To: <b32fabb0-a9ee-4a9f-acd6-3511548a7f65@paulmck-laptop>
 
-On 10/31, Rongzheng Wang wrote:
-> > Any reason you're not reading the real value from
-> > /proc/sys/net/core/max_skb_frags ?
+On Fri, Oct 30, 2026 at 09:37:41AM -0700, Paul E. McKenney wrote:
+> On Fri, Oct 30, 2026 at 02:56:19PM +0000, Marco Elver wrote:
+> > arch_dup_task_struct() copies the parent's task_struct verbatim, which
+> > includes kcsan_ctx and kcsan_stack_depth; nothing reinitializes them for
+> > the child.
+> > 
+> > With CONFIG_KCSAN_WEAK_MEMORY this leaks a live reorder_access: an
+> > access whose simulated reordering is only valid until the parent returns
+> > from the frame that performed it (tracked via kcsan_stack_depth and
+> > cleared by __tsan_func_exit()). The child inherits both the entry and
+> > the parent's stack depth, but never returns through the parent's frames,
+> > so the entry is never invalidated and is replayed on every subsequent
+> > check_access() of the child.
+> > 
+> > The most direct way to hit this is the copy itself: __tsan_memcpy()
+> > runs check_access() on the destination before copying. If that access is
+> > selected for a watchpoint, set_reorder_access() records it (ptr = the
+> > child's task_struct, ip in arch_dup_task_struct()) in the parent's ctx,
+> > and the memcpy then copies that entry into the child. For an idle task
+> > created by fork_idle(), the stale access covers thread_info.flags, which
+> > other CPUs frequently access, resulting in false positive reports and:
+> > 
+> >   WARNING: kernel/kcsan/report.c:344 at sanitize_stack_entries+0x120/0x12c
+> >   Cannot find frame for arch_dup_task_struct+0x40/0x154 in stack trace
+> >   ...
+> >   Call trace:
+> >    sanitize_stack_entries+0x120/0x12c (P)
+> >    print_report+0x84/0x488
+> >    kcsan_report_known_origin+0x14c/0x1ec
+> >    kcsan_setup_watchpoint+0x578/0x864
+> >    __kcsan_check_access+0x1ec/0x1f8
+> >    do_raw_spin_lock+0xa4/0x1c4
+> >    _raw_spin_lock+0x70/0x88
+> >    rcutree_report_cpu_starting+0x1ac/0x4b8
+> >    secondary_start_kernel+0xe8/0x28c
+> >    __secondary_switched+0xc0/0xc4
+> > 
+> > Reset the child's KCSAN state in dup_task_struct() after the copy,
+> > alongside the existing kcov/kmsan initializers.
+> > 
+> > Reported-by: Paul E. McKenney <paulmck@kernel.org>
+> > Link: https://lore.kernel.org/all/97f6213a-1dec-494e-96d1-abe546bce993@paulmck-laptop/
+> > Fixes: 69562e4983d9 ("kcsan: Add core support for a subset of weak memory modeling")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Marco Elver <elver@google.com>
 > 
-> The test wants to exercise the maximum supported number of frames, but also
-> needs to run on every build. CONFIG_MAX_SKB_FRAGS ranges from 17 to 45, so
-> using the minimum (17, i.e. 18 frames) gives the largest bound that works
-> everywhere. af_xdp.rst documents the same limit:
-> 
->   "For copy mode, the maximum supported number of frames in a packet is
->    equal to CONFIG_MAX_SKB_FRAGS + 1."
-> 
-> xsk checks MAX_SKB_FRAGS directly (net/xdp/xsk.c), not
-> net.core.max_skb_frags. I also set net.core.max_skb_frags=4 and ran
-> xdp_metadata; it still passes, which confirms xsk does not consume that
-> sysctl. Reading it in this test would not tell us the xsk limit, and would
-> only reduce coverage if it is lowered.
-> 
-> CONFIG_MAX_SKB_FRAGS is compile-time and has no userspace interface, so 18
-> frames is the portable upper bound. That is why I used 17.
+> Thank you, Marco!  I will be testing this over the weekend.
 
-Sure, people can set max_skb_frags to < CONFIG_MAX_SKB_FRAGS, but I
-don't think we are gonna do it on our runners. So for the purpose of
-this test we can essentially assume CONFIG_MAX_SKB_FRAGS ==
-max_skb_frags.
+And the testing went well:
 
-I'm just trying to understand whether on the builds that have
-CONFIG_MAX_SKB_FRAGS > 17 we want to exercise all CONFIG_MAX_SKB_FRAGS
-or we are ok wit just 17.. But we probably aren't going to bump
-CONFIG_MAX_SKB_FRAGS on upstream kernels anytime soon..
+Tested-by: Paul E. McKenney <paulmck@kernel.org>
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+							Thanx, Paul
+
+> > ---
+> >  include/linux/kcsan.h | 10 ++++++++++
+> >  kernel/fork.c         |  2 ++
+> >  kernel/kcsan/core.c   | 13 +++++++++++++
+> >  3 files changed, 25 insertions(+)
+> > 
+> > diff --git a/include/linux/kcsan.h b/include/linux/kcsan.h
+> > index c07c71f5ba4f..c7e9d15dd7bd 100644
+> > --- a/include/linux/kcsan.h
+> > +++ b/include/linux/kcsan.h
+> > @@ -13,6 +13,8 @@
+> >  #include <linux/kcsan-checks.h>
+> >  #include <linux/types.h>
+> >  
+> > +struct task_struct;
+> > +
+> >  #ifdef CONFIG_KCSAN
+> >  
+> >  /*
+> > @@ -66,9 +68,17 @@ struct kcsan_ctx {
+> >   */
+> >  void kcsan_init(void);
+> >  
+> > +/**
+> > + * kcsan_task_init - initialize KCSAN state of a new task
+> > + *
+> > + * @task: task to initialize; must have been copied from its parent already.
+> > + */
+> > +void kcsan_task_init(struct task_struct *task);
+> > +
+> >  #else /* CONFIG_KCSAN */
+> >  
+> >  static inline void kcsan_init(void)			{ }
+> > +static inline void kcsan_task_init(struct task_struct *task) { }
+> >  
+> >  #endif /* CONFIG_KCSAN */
+> >  
+> > diff --git a/kernel/fork.c b/kernel/fork.c
+> > index 5ef413368912..62a096ca8dce 100644
+> > --- a/kernel/fork.c
+> > +++ b/kernel/fork.c
+> > @@ -93,6 +93,7 @@
+> >  #include <linux/compiler.h>
+> >  #include <linux/sysctl.h>
+> >  #include <linux/kcov.h>
+> > +#include <linux/kcsan.h>
+> >  #include <linux/livepatch.h>
+> >  #include <linux/thread_info.h>
+> >  #include <linux/kstack_erase.h>
+> > @@ -986,6 +987,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+> >  
+> >  	kcov_task_init(tsk);
+> >  	kmsan_task_create(tsk);
+> > +	kcsan_task_init(tsk);
+> >  	kmap_local_fork(tsk);
+> >  
+> >  #ifdef CONFIG_FAULT_INJECTION
+> > diff --git a/kernel/kcsan/core.c b/kernel/kcsan/core.c
+> > index a3aa5e5b039d..26755add7cdb 100644
+> > --- a/kernel/kcsan/core.c
+> > +++ b/kernel/kcsan/core.c
+> > @@ -828,6 +828,19 @@ void __init kcsan_init(void)
+> >  	}
+> >  }
+> >  
+> > +void kcsan_task_init(struct task_struct *task)
+> > +{
+> > +	/*
+> > +	 * dup_task_struct() copies the parent's kcsan_ctx, including a
+> > +	 * reorder_access that is still live in the parent's frame.
+> > +	 */
+> > +	memset(&task->kcsan_ctx, 0, sizeof(task->kcsan_ctx));
+> > +	task->kcsan_ctx.scoped_accesses = (struct list_head){ LIST_POISON1, NULL };
+> > +#ifdef CONFIG_KCSAN_WEAK_MEMORY
+> > +	task->kcsan_stack_depth = 0;
+> > +#endif
+> > +}
+> > +
+> >  /* === Exported interface =================================================== */
+> >  
+> >  void kcsan_disable_current(void)
+> > -- 
+> > 2.56.0.317.g454f8302e1-goog
+> > 
