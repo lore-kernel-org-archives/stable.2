@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793660464;
-	b=c/Df8hZj99wBB9netOeI8jTVGzeo4EOTUsjh3gQ2kfzlojvUWHvdr5ntAztqlsWlNxtE
-	 CxYv0PWwlX+CHdwVqLPomMViPweaRNxeB3NBI4Fz41E1AackhBOIJY/Y3UayHMeVWAwd9
-	 2no/f/bK1VFgblY5JB12gJiwg+QUh+fpEvstHaTB8PnbxlKcOEqi/QhmX6AG58otdLyQ9
-	 +69fD2ZQl/lCv/FW4p3n+o4Jr4F/btkFk8skdG7mq56oLw+CUSLCSc6OwEwBbdEXqehXF
-	 ae3mtkLvF2C+7T0jSZ51RHzVlehBEOTPfNdUm0P+znV++fm24EnIBblkmJdEJbkZlzA==
+	t=1793660465;
+	b=01d8RmEv4VxbqQ+SjllpFqYmUxstPz8Y23JHAFn9WgjIK7eD8SXihbhMbrNMntBZ0QtR
+	 /LMztMjrLXVZzWJ+4LSI7AmNc+IOf0sW4mPnFa1IceCJKN9ULcu5dpwEQtzWxOzFwFhfc
+	 JMWieyRIPGcwgVkQlecSviXsswK470oa2Y9RPiq3hU5+eNKwyA6//usUOs/FVcZvwCtzW
+	 gE9eEP/G5VKBzeTQGzpFaKBAhXCXjzgheZJ5S7YxyLjq913w5JToX96KaVKUDdyi28OtG
+	 XxMLwJeXUEhik69rLDs3oaHcIOz8B6dcnC6vg6VNzjim0GGLeTzNi5fVaF3wtkV/VmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793660464;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793660465;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pEsErr8/B9QW6r/vBViHOeVO+a5kU1j9VPBmnw9SyxI=;
-	b=5jglQHLAyaHeej0DkuLvr5bcBccw8x2upiGRmcEr5WKA7VxKvNBUU3tBgUQ99Bnad9lg
-	 ftHxIW/gAiXuH7pQbF/IdDA/DrTyHvTh+wM5NoDhiHHwmUyCarA8fjoQAd5KOsog/4qpw
-	 mdXZ38/5euA6+jWKajxMl52+u/L5vgcdN8gYR5eO1RWeR2JRf5L9fKQQGpR5stJDepQ6O
-	 DzCvVTj9GxSDvitihTSnFMqafHJ5MVBDJabBieiCEjCafsofWYrgqWor/pX7V/RGl5cxr
-	 5qYyZy8aZla4bwBHuOqqfRQQNJIY+TPzZlL0r4XrTNgZoCB0YKhQhEWnNQq8EnOadtg==
+	bh=nIGeSlGbltWu63u4xhU73nscapidk/GXgKX9hQ0zNZg=;
+	b=FewbUH6Qs5v4OtsU9Z+oxwM56kJsfBz5MHV2cdwjNk8YlkuzBTnpYY0Ddo2MYUhzBvb3
+	 683XqkZYRqxKgGrHIC/NQCmgI88N8JuJNAFsOv4CsPYOmVtWv2YIqaQ7RlZEW9BWLcI4i
+	 VPwGO6VY6vFj0T0yuqDYL2Vltl4lUeG12jBVunMaYystUEmbnTT4L+bxv1UEk8FPsHHLA
+	 uhyu9ISVoPDlZAtKnMDUWm89T/Wesd4KDRUjCKgce0RYjjmvaT7K/WeIhbYgzRZSSlzeW
+	 P74aYPQ2PJm+Ja5HCvGvXdmUz09mdXBX5RYtinFn08DiOOeBDUK8+wHokLwVYt3XAKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i63YNQDY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B7PCUrB4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F4A606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:01:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A4A606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i63YNQDY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FFE1F00A17;
-	Mon,  2 Nov 2026 23:01:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B7PCUrB4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755E81F00A1A;
+	Mon,  2 Nov 2026 23:01:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793660464;
-	bh=pEsErr8/B9QW6r/vBViHOeVO+a5kU1j9VPBmnw9SyxI=;
+	s=k20260515; t=1793660465;
+	bh=nIGeSlGbltWu63u4xhU73nscapidk/GXgKX9hQ0zNZg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i63YNQDYV1Hfey7lvI0BMH2xhtqQdVjKDSB/CB5Uz8Vfu+1WH3IA5yuq1iuqLRYU/
-	 eCSPJ4Gct0fYPYSvgiFBFUlXBbyk94w5ZzXENQ2ODNqzhnW3RDwQ4/qs5HCAhSOUYl
-	 lsCS5VcLz+bVREMomO9pCQGW4p9Uz/OvuVvmQzwK+S66TFu58ivvU6SmaT/Xtz5Mm4
-	 2AeHyiM2Ux56JZsS+lG28QrBCEnxnMIOnMt4mrRWVoGRWc5PBcyovUM3orwWQxEuZF
-	 vy9t5cA7MALhfZNiYbY81TqqXzcSCDAdmDtdJPPQV3AtmS474XG93JfXQmjnqnr+BD
-	 uWTJPzS+i93qQ==
+	b=B7PCUrB47CQGQWTbd12OL2HFToutTLXIw3Rp9RIu7NF/nceH5Q+jPAMqiEM5s7KJx
+	 npLCx9ML7lwKoiO0Fpdmx6X+2DVM4zBB3LgDqpIyOVdV4eTZ7o0ehRn/78VbfXgRGe
+	 waaU9EMGw+4852R+XsGRtkv/sOh09yyRbMXmuh2FhO8YkXIvylg1i7H52JoC9tj9NN
+	 tewbhPwbpbjnRX1/tJWtw2nf+UeB6pB72NDrTW5SnMWOtFrs5DhCKoWK9WKi9IqZUv
+	 ltzxpQOJuKsCWGHaKeH+rLHZ0HgoySpLUTD17y2uUNwywnC1dIM7KSU4GvVQ5PIjP8
+	 cSEv7c/mymmWw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johan Hovold <johan@kernel.org>,
+Cc: Aleksandr Nogikh <nogikh@google.com>,
+	syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] media: usbtv: drop redundant device reference
-Date: Mon,  2 Nov 2026 18:01:01 -0500
-Message-ID: <20261102230043.2412225-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] media: usbtv: fix null-pointer dereference on disconnect
+Date: Mon,  2 Nov 2026 18:01:02 -0500
+Message-ID: <20261102230043.2412225-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110228-skimmed-freefall-ac5b@gregkh>
+In-Reply-To: <20261102230043.2412225-1-sashal@kernel.org>
 References: <2026110228-skimmed-freefall-ac5b@gregkh>
+ <20261102230043.2412225-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,56 +63,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johan Hovold <johan@kernel.org>
+From: Aleksandr Nogikh <nogikh@google.com>
 
-[ Upstream commit dbc6798b80481a20f9aff671bc4d529eae63c9e8 ]
+[ Upstream commit cb705f75d03e946a4514488beb9e3bac9bcdb2e6 ]
 
-Driver core holds a reference to the USB interface and its parent USB
-device while the interface is bound to a driver and there is no need to
-take additional references unless the structures are needed after
-disconnect.
+A null-pointer dereference can occur in usb_make_path() when called from
+usbtv_querycap() (and other ioctl handlers) during device disconnection.
 
-Drop the redundant device reference to reduce cargo culting, make it
-easier to spot drivers where an extra reference is needed, and reduce
-the risk of memory leaks when drivers fail to release it.
+Oops: general protection fault, probably for non-canonical address
+0xdffffc000000000a: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
+RIP: 0010:usb_make_path include/linux/usb.h:985 [inline]
+RIP: 0010:usbtv_querycap+0x9c/0x100
+drivers/media/usb/usbtv/usbtv-video.c:612
+...
+Call Trace:
+ <TASK>
+ v4l_querycap+0x236/0x470 drivers/media/v4l2-core/v4l2-ioctl.c:1106
+ __video_do_ioctl+0x8af/0xc70 drivers/media/v4l2-core/v4l2-ioctl.c:3133
+ video_usercopy+0x860/0x1430 drivers/media/v4l2-core/v4l2-ioctl.c:3475
+ v4l2_ioctl+0x18d/0x1e0 drivers/media/v4l2-core/v4l2-dev.c:366
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
 
-Signed-off-by: Johan Hovold <johan@kernel.org>
+This happens due to a race condition between the USB device disconnect
+routine (usbtv_disconnect()) and V4L2 ioctls. When the device is
+disconnected, usbtv_disconnect() sets usbtv->udev = NULL without holding
+the usbtv->v4l2_lock mutex. Concurrently, an ioctl handler like
+usbtv_querycap() can be executing under the v4l2_lock and attempt to use
+usbtv->udev, leading to a crash.
+
+To fix this, move the usbtv->udev = NULL assignment into usbtv_video_free()
+and protect it with mutex_lock(&usbtv->v4l2_lock). This ensures that no
+non-queue ioctl handler can run concurrently with the pointer being
+nullified. If an ioctl is already running, the mutex will block the
+disconnect path until the ioctl finishes. If an ioctl is blocked waiting
+for the lock, it will acquire it after the disconnect routine releases it,
+but will then check video_is_registered() (which was cleared by
+vb2_video_unregister_device()) and safely return -ENODEV.
+
+Acquiring v4l2_lock after vb2_video_unregister_device() avoids
+reintroducing a historical deadlock issue, and usbtv_audio_free() remains
+safe as it is called before usbtv_video_free().
+
+Fixes: 65e6a2773d65 ("media: usbtv: Remove useless locks in usbtv_video_free()")
+Cc: stable@vger.kernel.org
+Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=37a57a84893052ab6071
+Link: https://syzkaller.appspot.com/ai_job?id=5abbe65a-5853-4bc2-9135-5c75f88d51ed
+Signed-off-by: Aleksandr Nogikh <nogikh@google.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Stable-dep-of: cb705f75d03e ("media: usbtv: fix null-pointer dereference on disconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/usb/usbtv/usbtv-core.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/media/usb/usbtv/usbtv-core.c  | 2 --
+ drivers/media/usb/usbtv/usbtv-video.c | 4 ++++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
-index 1f7620cd2996d..4925113af9603 100644
+index 4925113af9603..a444ef56b4668 100644
 --- a/drivers/media/usb/usbtv/usbtv-core.c
 +++ b/drivers/media/usb/usbtv/usbtv-core.c
-@@ -91,7 +91,7 @@ static int usbtv_probe(struct usb_interface *intf,
- 	if (usbtv == NULL)
- 		return -ENOMEM;
- 	usbtv->dev = dev;
--	usbtv->udev = usb_get_dev(interface_to_usbdev(intf));
-+	usbtv->udev = interface_to_usbdev(intf);
- 
- 	usbtv->iso_size = size;
- 
-@@ -119,7 +119,6 @@ static int usbtv_probe(struct usb_interface *intf,
- 
- usbtv_video_fail:
- 	usb_set_intfdata(intf, NULL);
--	usb_put_dev(usbtv->udev);
- 	kfree(usbtv);
- 
- 	return ret;
-@@ -137,7 +136,6 @@ static void usbtv_disconnect(struct usb_interface *intf)
+@@ -136,8 +136,6 @@ static void usbtv_disconnect(struct usb_interface *intf)
  	usbtv_audio_free(usbtv);
  	usbtv_video_free(usbtv);
  
--	usb_put_dev(usbtv->udev);
- 	usbtv->udev = NULL;
- 
+-	usbtv->udev = NULL;
+-
  	/* the usbtv structure will be deallocated when v4l2 will be
+ 	   done using it */
+ 	v4l2_device_put(&usbtv->v4l2_dev);
+diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
+index f3633448e8b96..8c9f09b56bfbd 100644
+--- a/drivers/media/usb/usbtv/usbtv-video.c
++++ b/drivers/media/usb/usbtv/usbtv-video.c
+@@ -969,5 +969,9 @@ void usbtv_video_free(struct usbtv *usbtv)
+ 	vb2_video_unregister_device(&usbtv->vdev);
+ 	v4l2_device_disconnect(&usbtv->v4l2_dev);
+ 
++	mutex_lock(&usbtv->v4l2_lock);
++	usbtv->udev = NULL;
++	mutex_unlock(&usbtv->v4l2_lock);
++
+ 	v4l2_device_put(&usbtv->v4l2_dev);
+ }
 -- 
 2.53.0
 
