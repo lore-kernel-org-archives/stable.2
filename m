@@ -1,61 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608425;
-	b=1gsrm04cy3BYMHhNUsF06baF9grwGsM/5Eicaz56YvcxJSWCXLpxyWPML6VkR4GFFww0
-	 cjWLrDDCyEDABkd/Mcy9gUruUPGIDiseV9jhs/dFE/6OtF2YVNVnc1TUpTzq0v8S9j5pG
-	 0Nyk3BhSoTd+QQsGM0Jxn25W4L1XgacPSj6dc1koZCRHRO0+lxOF6Pt5nMblKMSe3RPO5
-	 JoejIy5nHGzYOtjedMgt0IITcZR80S+K3BC/ODr7AAIMY8YALVxX+te+4mqhtvwt280io
-	 jd1myXmVqaMUmNPvMFoGG+/Rx4n3f4Ok+XP8KNipSb23WupXCu0ifvXYHn4jKBlVzqA==
+	t=1793608631;
+	b=ZwsIj4RnVQu1+lcEnpo0R0buN9JtPpsi7oWTDwfh0N8rjpLNLgQrcautyC4ev4ZJGehn
+	 57+n81IS1jhpII3x2azEkzuiP3JbHDzRbViTXJx7xjljmASjRDRU/bYjRrHR/bq/18tok
+	 cDyneNm+IgxZEmNPiqD7N5GhCVI/yLa9EeuQMdaqkS+7Byi/cRFLVcVkpsa34yr3URv0z
+	 d5NNxL+CFQzAW4N6btoN70+TdD3f7plkMOtRh90tfNwE6E+cbZHHhrH7eZqil73nRhyMs
+	 s/S2gD1C0ibggQ5aV2ge9m5wNTBZWJkz1etBM4maPuaqAJtDWPGprJUPp+kvkmjVYvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608425;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=SLzhqG8pDEvj6F+5VxWMY4T6vKOHocxnUklCm7H1nM/9ckhNEx0BF2y89hQ15uNddGAY
-	 FMDiynxW6aQSGTUmovubesNcSTRe1Yw7cVrl91Ylg3VTWmI91yAkkC+RvB5VLltsPhhkp
-	 7MA5DYwWZZWIJVE+yUXxNOr7QB7LVyFwRdVe6SGoHahFAHmYFg4d2MP5umvfGlmC73Rfp
-	 3d0kW58Bgz4YrlTZ9kmgZt2SgWlQ4rfPYZBv9eYdzSEbyc5t0o4BqcSpbCiT0a5VdA7ai
-	 xJfW6/3cbg0cDFk5Wm8B3nICIs5aOF4112FLdBiV8HJplPMJaQ6NWO+DHlEwZ9AqIFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608631;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=yzXseiMIZr7N0dWirYcZ+U7lpx9OdFBrYRkW0qlBAag=;
+	b=t5mcXdDXXf9YJksEIyTnysRZnHXMBlBmSbQqUcu1M5ACebvxn6w4KnFGfBM9KfxDQym3
+	 Jk7S0SGXZzpj9wgxby8kKe7DePz5I6AczxTDY4fm6lyHJAsaOf1R/22hcOEs6F+X6q/XP
+	 ONKYd89TiDc8F5ApM+m+iiPionciizoXSfOc1dRVh0maJv+g8+/0w5xlikD62Petvkkgn
+	 /o9ok8qb0B89nLSEDDEgT02HT65f0QwQXbHimIG1kh2yGL3keu6Bd1FUlQ86Zg5iNztLe
+	 kVcqemSkBm5eqh298nEpRD6nf2pGvb2p8nuiOf2JSHAmH6QWkvJNRjRsywF0XbZ6IDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFXqdrNl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tju.edu.cn;
+	spf=pass smtp.mailfrom=tju.edu.cn;
+	dkim=pass header.d=tju.edu.cn header.i=@tju.edu.cn header.a=rsa-sha256 header.s=default header.b=voeIEOpR;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4AA606A327;
-	Mon,  2 Nov 2026 08:33:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0019C606A324;
+	Mon,  2 Nov 2026 08:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0019C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFXqdrNl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5140B1F00919;
-	Mon,  2 Nov 2026 08:33:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608425;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QFXqdrNlRVs2GzYsHVrrcBnXHWylh+06W4tOTEpiMSa0atWU3udBa9HHrQ6I0n08V
-	 rdfWH/vtT8iAicqVSNK/xAYSurxwOwMom+V1SMDCMklRsztwixQmhxUmZkh4sFiblz
-	 kcnVngYyhC+f+v2w2ZGyZ7jicdk0SeACksuuyBAXVap73iOfnNuou3WmtL67tgMFtA
-	 q/ucdKIk7Pu18K1KEzRbvAtOGyyQEuOfn9S4XDttZyoMgKwhPOjJIxOl/hvYgm5TaH
-	 Kek7AIykzRdS/Z6DiblEE3E0BPrFjr+GgjseC5DU9KLBLQfjZOJcfh8wiNgOZ5y/yt
-	 XLZ7Eh0g+XCvw==
-From: netdev-bot+sinfo@kernel.org
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net v15] net/smc: fix lgr/lnk lifetime vs diag reader race
-Date: Mon, 02 Nov 2026 08:33:43 +0000
-Message-ID: <179360842382.3286.18382469718020495778@kernel.org>
-In-Reply-To: <20261102083122.1098393-1-mjambigi@linux.ibm.com>
-References: <20261102083122.1098393-1-mjambigi@linux.ibm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=tju.edu.cn header.i=@tju.edu.cn header.a=rsa-sha256 header.s=default header.b=voeIEOpR
+Received: from localhost (gyproxy-mailtls1-entmail-virt216.gy.ntes [39.144.128.111])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5329f41ce;
+	Mon, 2 Nov 2026 16:36:55 +0800 (GMT+08:00)
+From: guolingxing <guolingxing@tju.edu.cn>
+To: sunjunchao@bytedance.com
+Cc: linux-ext4@vger.kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	riteshh@linux.ibm.com,
+	yi.zhang@huawei.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/6] ext4: put folio on partial writeback validation failure
+Date: Mon,  2 Nov 2026 08:36:49 +0000
+Message-Id: <20261102083649.3798099-1-guolingxing@tju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023061851.45579-5-sunjunchao@bytedance.com>
+References: <20261023061851.45579-5-sunjunchao@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,25 +63,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19b67851203a2kunm832f224fdf066
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGh8YVkNPS09PSU1LQ04eT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlIQlVKT09VSklDVUpKSllXWRYaDxIVHRRZQVlPS0hVSktJQk
+	1LSlVKS0tVS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=voeIEOpRVZ0zZ9i8PBAMtyopQ/dWG8HRbXPqS36kXYruYdZ9Ab15QaKHHQu6l0VrOCoItX3OpFvm03XtfV8FfHBlor63dTjqJZbB/h0aU7dZ4IR423V30YJEac1w/HslGB8R92Yrs4FTN8z8O6PB3XAOBmy8wcauawNfIqg2R4U=; s=default; c=relaxed/relaxed; d=tju.edu.cn; v=1;
+	bh=yzXseiMIZr7N0dWirYcZ+U7lpx9OdFBrYRkW0qlBAag=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi!
+Hi,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Thanks for agreeing to drop patch 5/6.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+I also noticed that patch 4/6 duplicates an earlier patch I posted on
+October 16:
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+https://lore.kernel.org/linux-ext4/20261016142524.655789-1-guolingxing@tju.edu.cn/
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+The earlier patch has already received a Reviewed-by from Zhang Yi:
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+https://lore.kernel.org/linux-ext4/743d1d96-40f9-4dac-839f-5d5269364b50@gmail.com/
+
+Could patch 4/6 also be dropped from the next version of the series?
+
+Thanks,
+Guolingxing
