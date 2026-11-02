@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632892;
-	b=uWvJDaiVXr4rm3VOczR3YZmH4oIIxA5uloz0xqOH/YKp1UG0w8bxHgyRZzyX+Q+oQvW1
-	 1b0oTyv08QBSoweuC4ExCuX9cU0JT4GzhJZb6X2BW9YnS519JqcbmVr3Ico0ujv9uXOFD
-	 05wvorkH+/9K9PFHJAIDe3nVxk+P8YKEuYorh9t6so3zqZo5lGNixffEOvQd/YRFYVxjf
-	 33wmI3XQg8pNbk06+7DFP1fwhvXms5YYMoMjWa0yU6n4lzAyxmJVFrPaIecjJ80BWS+FZ
-	 mI8KA5SNvK/Bw01oEJkL6VCV7CNb4oPSFVXCdpRbfuF4JHfjNNnt5Zr3YzFLZCtnE9Q==
+	t=1793632950;
+	b=eMF2WIGTpk9O2VmbWyCFllF3JZ95bld+9xQ7413Op0/WSzthrJt5Dzj4BFbHOt/9dHs5
+	 6pxYUMIiWJghFdvF6dMjIdlrTuNln2P0PrzmMKljHQU/Zi0GCqiRndCsu0+YDM5eQop/x
+	 NO0ncxoO3wz8z99IqSmTn1EyIzHRBo5Y5AKaJKNMnAOqMRyUKjttd8quVQ/gZv9Vmb0o1
+	 4Mvrun6QttqDws5lqImJgMh9ZQK5h+5QRQmQ1UDiEkapglOvyE236SbU2DD93kTkSrN8e
+	 hzEB6R/eVP7TEClKV3vvTfWSw7ZpQee+GEKYlCPzFqVTrH99VHZNMPbCgZO0EhxGq0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632892;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=Ar1uWTj3IJ9tEnHxn97KponzoGGyMBUmz+xZ4dUR9+c=;
-	b=MVbT/jKI8NX/m66Vw7g+JZ/iYT1VssQTRGHsLVr0WL08CRjWwLpNvPeG2jP8x4fbr2oz
-	 Rmh5I0nphjOk2iUM2UX3W5xdpOjklk+pOU/QnO94cOzi9OIdksKKxuu4n3oZ1NsdcFZ/d
-	 CWBSZHmFVH4sIiPy1NUqq7ET92VlCZHcsP5nI3/pRJIx6Frocx6QZ8dNMT3JS9Mo9VGpR
-	 vbUogLIZUa/WGcOUvN5NnPGZWrS/CJ5nMu0yIHk1ed00F3xTIm38TzJzdCsg19EnG7Aia
-	 4DSA9TRRDUKKQgtxUUV7K8ymSanjKHW3XigPDg+ZNvyXxhwSdYJonm21NsLBnyUywvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632950;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ODeQNKP0UJzemh4mAsPTNTViZ9w8JQQkxq+xVPOOp4A=;
+	b=H4HfQNX1SlZg5WP/Z6S17RaeNRhkKe9D7Bybj8rtBj4q4QVJtcxc4GL0bZpRpydaa60x
+	 CbgUey0OCn3iAzf75lwA9NB2zev9mXDf3bMlnD+HQlrzTLZtAjao2vv7aDJ6Dj/B4gwQD
+	 rFTbyYMM5xUIgSufWoyf+fY1xmPJRhGJdH4hK0vHqu/z+nP1LAetJ6tMp9FRgkuBBTxFV
+	 4qbtUr4xQ9/dFuCl7hORzNqrMOhGSvcIfyF4her1WLNps5itajKdzgz4lyCug1TtolHpj
+	 pabMUQWuaiQqrtNt8SAtzgsBCIyuiVS9+vrh33yWP7VYNLLf5333HcfXdMLhu2XWV9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=P6WLKQUF;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MkPK98Gk;
+	arc=none smtp.remote-ip=91.218.175.121
+Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E8B76070C8B;
-	Mon,  2 Nov 2026 15:21:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E8B76070C8B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4A8608058C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:22:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED4A8608058C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=P6WLKQUF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793632884;
-	bh=Ar1uWTj3IJ9tEnHxn97KponzoGGyMBUmz+xZ4dUR9+c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=P6WLKQUFiubdMDE0OEw1poZ6yEA4wkfMqqhvYPHCAAmlMNL+ctJOISpnAkne2oTKe
-	 4AudCORZvnveIWShv5rOYfq1hG3s66mEc8ESXvREckIHK3RR6dxlnqpyrma43bfm6d
-	 KgWGXnIRg1479oYEq82uad35CqqRXQZKyaHujEoUnwZX/anoqcxlAHyX6DOuyPIINz
-	 /DZQr55svI9G9pmzFQfC3ruwNw+nPsW8cWVWe2dPVt+rHaRzx0GpEhtIz7lJqnVtzy
-	 50X/ewlusJVTQxlE3uiR/DwkC+5l0zTjIdkzCPQ3mhxVksz9koofPR7/wFaGzR1ggi
-	 SBPALVcGjeLSA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5DCCA17E038E;
-	Mon, 02 Nov 2026 16:21:22 +0100 (CET)
-Message-ID: <8aafdbbf04a0d939c6b4d7d5577d97bb58d1c439.camel@collabora.com>
-Subject: Re: [PATCH] media: rkvdec: Do not keep the clocks enabled from probe
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Igor Velkov <iav@iav.lv>, Detlev Casanova
- <detlev.casanova@collabora.com>,  Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Diederik de Haas	
- <diederik@cknow-tech.com>, Jonas Karlman <jonas@kwiboo.se>, Francesco
- Saverio Pavone <pavone.lawyer@gmail.com>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 10:21:20 -0500
-In-Reply-To: <20261030-rkvdec-runtime-pm-clocks-nicolas-reply-1@iav.lv>
-References: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv>
-	 <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
-	 <20261030-rkvdec-runtime-pm-clocks-nicolas-reply-1@iav.lv>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Hy9+b3DoQgbhz4pK6YIj"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MkPK98Gk
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ODeQNKP0UJzemh4mAsPTNTViZ9w8JQQkxq+xVPOOp4A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793632947; v=1; x=1794237747;
+ b=MkPK98Gk6+VtkxKxcLCiTZ79pZE+KHJ10FDlU0JuKqId69E4Br9BDm2UG5xM2pXu6bh8SDK/
+ l/Cyoh85ozVnbJj2YmWmmk2CpYSnM3Uh3ew27r3OqktJwvxXv4J0LhnPVerVbbdrI6+WMLyqwPq
+ y8ALbIKiQlQ+YNE2I9BMpwvk=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e6dff1b99e2386a3;
+	Mon, 02 Nov 2026 15:22:27 +0000
+X-Mizu-Trace-ID: e6dff1b99e2386a3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d108788e-bd69-4bc2-aca5-d8080fea818b@linux.dev>
+Date: Mon, 2 Nov 2026 23:22:18 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,57 +58,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-
---=-Hy9+b3DoQgbhz4pK6YIj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le vendredi 30 octobre 2026 =C3=A0 20:05 +0200, Igor Velkov a =C3=A9crit=C2=
-=A0:
-> On Fri, 30 Oct 2026 08:49:03 -0400, Nicolas Dufresne wrote:
-> > So if CONFIG_PM is not set, the initial resume will never occur, and fi=
-rst mmio
-> > access will likely hang the CPU. We need a clean pattern to handle this=
-, and
-> > perhaps review other similar drivers while at it.
->=20
-> PM=3Dn only happens with COMPILE_TEST: ARCH_ROCKCHIP selects PM on arm64 =
-and
-> arm. rkvdec had the same gap until 6a846f7d72c7; rga and rkisp1 have it t=
-oday.
-> v2 keeps the clocks enabled from probe when PM is off, as etnaviv and v3d=
- do:
-> https://lore.kernel.org/r/20261030-rkvdec-runtime-pm-clocks-v2-1-8ff510a2=
-31de@iav.lv
-> rga and rkisp1 as separate patches?
-
-Thanks for v2, and yes, best to send0 independent patches per driver assumi=
-ng
-you have time to do so.
-
-regards,
-Nicolas
-
->=20
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
-
---=-Hy9+b3DoQgbhz4pK6YIj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 net] inet: frags: limit the truesize of a reassembly
+ queue
+To: Eric Dumazet <edumazet@kernel.org>, "David S . Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org,
+ stable@vger.kernel.org, Kyle Zeng <kylebot@openai.com>,
+ Florian Westphal <fw@strlen.de>
+References: <20261030081225.2575462-1-edumazet@kernel.org>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <20261030081225.2575462-1-edumazet@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauiqcAAKCRDZQZRRKWBy
-9KSfAP9Nfn/3c2GIjb7SxlVxK+rFOQ/ctwy9o9h5pMp7BSlPvwEA8+Vc93Ax4Ube
-2Xd1IZcCaTchUxJf8yNfTlcW8z70FA4=
-=wPZr
------END PGP SIGNATURE-----
+On 10/30/26 4:12 PM, Eric Dumazet wrote:
+> The truesize of fragments in a reassembly queue is only bounded by
+> the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+>
+> inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+> If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+> adjustment of the socket owning the reassembled skb can cancel its own
+> reference, leading to a use-after-free of this socket.
+>
+> This can be triggered from an unprivileged user/network namespace,
+> raising ipfrag_high_thresh and using padded TUN packets, which keep
+> a large truesize after being trimmed by ip_rcv_core().
+>
+> Track the sum of the truesize of fragments in each queue, and refuse
+> a fragment that would make it bigger than INT_MAX / 2. Callers kill
+> the queue on this error. This bound is far above the needs of
+> legitimate traffic.
+>
+> Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Cc: Florian Westphal <fw@strlen.de>
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
 
---=-Hy9+b3DoQgbhz4pK6YIj--
+
+
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+
