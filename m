@@ -1,60 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585004;
-	b=xL4loPITYNQMD5hKoBbC5Qh0ZwnLUOgrhZfDxllD0El2U4Jj3MJVV7s33Ldeh4igwRS6
-	 pGols3wb2Z1lNWmZANY/ZyHk/fTIYy6b5hI1NRXETBo/aTGNSBV+0NhZy2LY2rL0lLh5w
-	 AsFvYEFR0BNrPRuwdkX8jkt7gmRwCjk5eOdgCbHJPcXepDI+i80mSWh08SlptuiZLk5qF
-	 s9x+f5dONUpcZAszOya6Ks5km2VuYuZolU/eG7GubSAzd2e1XtqkXsXtcCoNHzKwNI5Rp
-	 LsDF8xIC7asx87V+e84/URph9PfEbi1YyPTtih/sXh2qYWlyeJOKmBvrC5VI6RwwJqw==
+	t=1793585030;
+	b=rFiwciRJ0V9IfyAKgJpCZltvOO28avMGaKhZxlvCoskyIVssNbglqTqk5m0W1llpRR17
+	 F24kIXEW9mogdKMFegFu2vmkUnmfpCnfeJmGXnE7uHv6Ao/2PccCP3epm4JSXF/8foX6r
+	 BC6dTTUGQ+I9bL8rzISjmBOpSWKm/EFb5W3U4eE9uS/AonOnF1WLPnPgTagUNRuP750BF
+	 g0Fl/K7nxxOFA+CyqZQfWXuQQcltUCycgtP7i2GbkjLz4U6qnMngri0R4sTqHYqioPXM/
+	 fuHdnge5IPjTGdt49dM1ygSL/8oFPbcHlp9RgHP4Xyajwecw7LTipCpPv54mBHp5g9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585004;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=vbjAxX9Qy4b76rdgzSkrR0jEbOkdVtxQvCiJUr1ahQL/3vpFAMJ8ecDePhoH9t0yGj0T
-	 fpNKw6VB+rcO0Qzc6AiAHlYQkfbSbGv+uBRFfQyMsnQ6CY6CnuIFErVKkrqyX6m4t1MYk
-	 9wsY6LkfEIDiqIG3IC1uTXj+mOx4mOBa9uCO/xabaqG1gUTV2sTG7Qd1+wnzNiG3ewd5Z
-	 +8SVgP3h1z7sFvHAQw8n5Xqc5ZQ1iFzLTEeVgog7Ei3R2FKZJ86YXycBNBr8KkUz6ETZs
-	 HBE1UxMkvEHwPEhBgKjQJKdtdKBhazZh7SgqMvVB7RuavvqoCVl3Gzu36FJS1yfhsVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585030;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:To:Cc:X-Mailer;
+	bh=TosNnawzDPsGc04sRZxwMHLtTq8rVKPb8WELyOmoWoo=;
+	b=k/IQcrux5pMgnYmOQqT8gN2rk8nPPAZh25fzBP8LU7ZoGXVkdb3+MMKyHiw18tOB8qje
+	 7wV6/sYwPuKvdr9BdmBrZUuZkRKh5fu84WE8SJpvGp32nab+vZT5xIspzyh1x66QjY+mR
+	 uj2ld6T5rtW6TsERK58zpqGHZaBf0wskXr/HNtFm0WS2OY1l7H4lRpSgqEaQ8njbn6Mut
+	 qsBOuASVD8sxRS5hQSW2oAWdddV9xUV5zD4gM86NA8bX60uW/eQcg0hEF1jHxHyrmK3/d
+	 r8b+fvUQvOl5Co3qOFYKqIq3WL7l26bF4QUBb42WJmxnrD8DtTLmO1H8av9i8EwQE3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmGzi9JC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PSv9GLFT;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AB6606A324;
-	Mon,  2 Nov 2026 02:03:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94EE606A327
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:03:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C94EE606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmGzi9JC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CCB01F000C1;
-	Mon,  2 Nov 2026 02:03:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793585003;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cmGzi9JC/l4trm2uERbpxDwTgJLepMnRLAb6LXkBISWCA5NvhMadbML4XHYhgiypg
-	 N//7uLYm4hQsu+QWZFzwulEP7erDMoV3nrgtEnyufSWIC3vtMk9DvHephD6ztFhFwH
-	 AlMVx3eG0obmBkehNfrOWLtvYauQioeeTGvVcMb248Phq4bKGQ3H9azaPaj1HOKBBe
-	 IDDXf1/x6jqiqD11Chtvkfalt8xtmNkyQkxuIk9O70aJhpJcV2eTDWCNBmYmytFmyA
-	 /KpyNxsdGODW7dO5sYkg2xkyvRUqGT+IPg2O/Vg+GJw/XEWeEisI+J6Cd3b0sXtFO4
-	 e7pvRhErYCixg==
-From: netdev-bot+sinfo@kernel.org
-To: bo cao <treebacker@foxmail.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, dsahern@kernel.org, edumazet@kernel.org, idosch@nvidia.com,
- horms@kernel.org, willemdebruijn.kernel@gmail.com, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4] ipv6: fix dead half of the MTU guard in
- __ip6_append_data()
-Date: Mon, 02 Nov 2026 02:03:22 +0000
-Message-ID: <179358500215.3286.12801503551646664009@kernel.org>
-In-Reply-To: <tencent_0A4B784EEB3D358B09B43AA2B2F13AE44505@qq.com>
-References: <tencent_0A4B784EEB3D358B09B43AA2B2F13AE44505@qq.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PSv9GLFT
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1931ff67a29so4264573c88.1
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 18:03:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793585029; x=1794189829; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TosNnawzDPsGc04sRZxwMHLtTq8rVKPb8WELyOmoWoo=;
+        b=PSv9GLFT1ZtVRmQvaE8bj+A3wyLLxPoH46yd2oRCfsYLUQy92TkfTZEla9NBNBdF+M
+         1O7oze+DNm8E7cTg6oaK1GfS7cR7D/b8QHDX7b1wX8rhX33zYYuxAJtu84EcVQl3C1ST
+         vSCFJ36v5dtGxqXF1ykGfOnZG9OYnWyZNfH1pXi1n37PIG0c9VMk2o6UD5zEJwilpvBm
+         hgFcD23ZMau0EBGgCtmSEdUVsqbnr/sWyaaDYT+Jqz/fdCMPZswi7jE/JNfgwRYTvlA7
+         ahy6bw3qHLCF2HCD8Og28vQkvRXCrBYFT41ptNBrfct2H+RBhOOignDfuFTbNG0q2Sza
+         G0yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793585029; x=1794189829;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TosNnawzDPsGc04sRZxwMHLtTq8rVKPb8WELyOmoWoo=;
+        b=c8dxwKAxoZ11tFifhkZ/4Dn2ICpiMGVW89d6mlUe/vsqdAAFn9ldqbMo73u08VOC6U
+         7qcFnYdaimUezdE1+7JbWsKqQLIMH3p6bYCr0R4Zkr4EPfGFAzXs34/VVwDVad8T5zTz
+         RHO6tvD/eX2uvKz+foNtp/XlC44qCi6MrHN5U4Ec0RL68SeR0i6fIa6LA7bZ5/KxVAkM
+         ZVo84e5k6lkxboSrojxLBLag1Fsn9iaNV/SIvqefuZHNQYlrcmEvIGZwgge+7AE01Vp0
+         UTQveaMrSwnc2E0BuTewtwidRguNZql5AHJekCbRhhmRz5/4mUPS0TXs04lkGjrmgPYy
+         KnKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz8AfZU7SLgfIBzoJDKLdKmYtwDncKi64C4HRNSxLAAXARPsYxjGTakRyYz2g+hI36bUqjXYwQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7x8UqS+lfkrvx5Efv110CUi0ic5NOJp/H8lRetP5i9GIshyDU
+	4SW4JHirJYqlsByrHpWX9BMAKJ+53NVGOkLa7oG5cLzf/uLMWUDJqc43
+X-Gm-Gg: AYBFou2Rg2C9XejGPoEGdI/dyZJugUgeOi8d3q66D2oZulbZM/Psej5LATyy/+CeuTI
+	Y/YIsht0cDW2EzS5BF9ZpgiVVz6Fkk9h/8zSsva3NnuEZ3O59wKwMGrEn/QhwwQWTE4q4w+QNH5
+	YfxdXv9CwJE50ucY8Fp9m9GxNK23KVRr9SyoAOMUR6xqNtyS7UxULygG5IIjxK5lulose7yavno
+	OT18FNOSYxZj842Bjoc6RoQxZIpqNA1GfCQroTf6DVofikAKhaJD/H/Aq2HAJqPpIHGfP0gkTey
+	rPQ6lC3Br4jZwuUEnowKh8CNI7Rip3FoN0IVcEJ5HKnI3Mn9UggEIgLnzH/Dfyvvvl5Mx69bJ9X
+	zQM4r4x5V+1XZD20ojjexEX5TW6KO3y6Nezd13DuX9UbZam2B+sD0Ybn8h7jIlsNX+Nv/0CSaYg
+	1xVL+jDA6UX895O+urckOHRXPaur0MzBYQDHuy0qQKJ9Y4dDKF98oojtY2UbWCqG00iM+ppnezY
+	iWu6UjAVtOx/dzLt0gUjkBimxld+mCYtg8HIVDFiV5hezlG2kkdPyGBthqVYp2CPGo+6GNzOdLn
+	HTQyfK0d7765gRL/gdldOoo+
+X-Received: by 2002:a05:7022:1117:b0:195:49ee:94c7 with SMTP id a92af1059eb24-1ac5a0b579emr12094810c88.8.1793585028691;
+        Sun, 01 Nov 2026 18:03:48 -0800 (PST)
+Received: from [127.0.1.1] ([23.254.208.9])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b38ac58sm28456015c88.23.2026.11.01.18.03.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 18:03:48 -0800 (PST)
+From: Qiliang Yuan <odys.yuan@gmail.com>
+Subject: [PATCH RESEND v4 0/2] ext4: fix shrinker scan budget accounting,
+ plus a related cleanup
+Date: Sun, 01 Nov 2026 21:03:43 -0500
+Message-Id: <20261101-fix-ext4-es-scan-nr-scanned-v4-0-1290a288f5ea@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,21 +92,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: Theodore Ts'o <tytso@mit.edu>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ Zhang Yi <yi.zhang@huawei.com>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-Hi!
+This reverts the v3 simplification of the ext4_es_scan() shrinker
+scan-budget fix, keeping the unrelated locked_ei cleanup from v3.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Patch 1 keys SHRINK_STOP off nr_scanned (extents actually examined)
+again instead of nr_shrunk (extents actually freed). Jan Kara pointed
+out that a batch finding every extent still referenced and freeing
+none of it is still real, useful aging progress, not "nothing left to
+reclaim"; Sashiko AI review independently flagged the same issue.
+This restores Jan Kara's v1 Reviewed-by: the diff in ext4_es_scan()
+and __es_shrink() is unchanged from what he reviewed there (only the
+explanatory comment reads differently).
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Patch 2 is unchanged from v3: it removes __es_shrink()'s locked_ei
+parameter, which Zhang Yi noted is dead since its sole caller always
+passes NULL. It keeps Jan Kara's Reviewed-by from v3, which still
+applies unchanged.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+---
+V3 -> V4:
+- Revert the v3 simplification in patch 1: key SHRINK_STOP off
+  nr_scanned (extents actually examined) again, not nr_shrunk
+  (extents actually freed). Jan Kara rejected v3 on exactly this
+  point; Sashiko AI review independently flagged the same issue.
+  Restore Jan Kara's v1 Reviewed-by on patch 1, since the diff is
+  unchanged from what he reviewed there. Patch 2 is untouched by
+  this revert and keeps Jan Kara's Reviewed-by from v3.
+- Re-measure patch 1's test data against the reverted fix
+  (239 -> 1 calls with nr_scanned == 0, vs v3's 238 -> 1 with
+  nr_shrunk == 0).
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+V2 -> V3:
+- Drop the sc->nr_scanned computation entirely; just return
+  SHRINK_STOP when __es_shrink() frees nothing (Zhang Yi, Sashiko AI
+  review).
+- Add patch 2/2: remove the now-dead locked_ei parameter (Zhang Yi).
+- Add a Fixes: tag for the commit that split count_objects()/
+  scan_objects() apart, and Cc: stable, matching the equivalent jbd2
+  fix.
+- Re-measure test data against the simplified fix (429 -> 238 calls).
+
+V1 -> V2:
+- Correct the comment and commit message: nr_scanned == 0 is not
+  only reachable when sbi->s_es_list is genuinely empty, also when
+  every inode walked was skipped or had nothing currently
+  shrinkable. No code or test data changes.
+
+v3: https://lore.kernel.org/r/20260930-fix-ext4-es-scan-nr-scanned-v3-0-9aef0be87d21@gmail.com
+v2: https://lore.kernel.org/r/20260929-fix-ext4-es-scan-nr-scanned-v2-1-f4e8f6f6b8b1@gmail.com
+v1: https://lore.kernel.org/r/20260928-fix-ext4-es-scan-nr-scanned-v1-1-91d88228b0c8@gmail.com
+
+---
+Qiliang Yuan (2):
+      ext4: fix shrinker scan budget accounting in ext4_es_scan()
+      ext4: remove unused locked_ei parameter from __es_shrink()
+
+ fs/ext4/extents_status.c | 37 +++++++++++++++++++++++++++++--------
+ 1 file changed, 29 insertions(+), 8 deletions(-)
+---
+base-commit: 502d801f0ab03e4f32f9a33d203154ce84887921
+change-id: 20260928-fix-ext4-es-scan-nr-scanned-5af70744f6cd
+
+Best regards,
+-- 
+Qiliang Yuan <odys.yuan@gmail.com>
+
