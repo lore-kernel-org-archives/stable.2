@@ -1,96 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613022;
-	b=hEWq9/wB21fsxg5XMlWE37tqEBIIMxNBVh85RrZhgkKBvHqPSuYVy5YVZpktgK5if069
-	 lCBkRg8dqxN4S2ivh4l6RJAQukbK7/wBxKFiMXIZUkuqiAa0AlNnm3cE6iHUSTx/ihFWH
-	 C76dxueO4jAsZH7997yVRFdBYgUc3hf9vEvv8Jq3G3k+Egw3LNFfrMk41et/48xbPvVK/
-	 hwGMXFHCRlAlT1pFYK5WmghVCiLQZxOZ2vpRwtKYgva0FEa+LShla4NT7iHwPqC4RVIx+
-	 wE4Nxfo3i2o89S526sLKMEDSqGAu3qE3HwQvL8fanfiNMcEm520ReXwSj7ZLaqclU9w==
+	t=1793613134;
+	b=NN+mOXJVJxxEoXyYBbi6RxY09XFDAH0afpVNg15DOcdGWBpbhasL0j15MkZYn+/agLiS
+	 nNuGbKqGriq9hyoZ0c/j2M9ylkD4alE5/u0lbO+xFkLiAgz1gfsZIGKnQt61L1V7l1rUV
+	 jddYbce5GF4Ss4dq+hC4Ae9FEGnKROs4FQgB+1OJxfCjIhAWECm6m5fgGIhfSq3USwxOc
+	 htdjFt5FXZyhjhxMcAtKZm9r0sN77IYs7cPx80i4lH+rjvBT4MooUVTy3GKAok1zdCpLg
+	 kwf1Y196MXUrkmFW0Oagd1pMZH+tMfMRs/4BN0sn5Eb7E7pqzA8hU4w1HdhnGCyZYug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613022;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LDtf/6qsvrJUn6LMYvjURkTS8eXDbVvfh2YukZT9J2w=;
-	b=q97Q1strSV9lFW6Om37/xeFxfrxRY+mWRL9JL7lTuhK2zNwiti9MBy9Hbay0KsOAnkzM
-	 kufLGCs7+MIofVwJ0w33TPNcY+25Zk4ZOxgyafTluNpJwHpGeBJqnuZoeT4psa/BXTg+z
-	 FO0WNLAP4fAcOc50rbbL28n0/KlWidtf0Fmi1NQlIwRStU3xQc9Vgb5WTzQYqhhLLegVu
-	 Mq++42f0rQN96QRS8pvsexJaNeqPK2bhKKbbzI/lNhKAlI5KUKOBhOr7qr79/unY0LGhC
-	 7DmQVmSFMZVzZj5SXF3YPFAEH2DM63tiMJYWQYaOAF4vWMTtPZBbbjfT2lp889X6Y2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613134;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc;
+	bh=mdTdMiz11OwjFDuQPUpInPXEYyjJ06QsX5+vG3JFC18=;
+	b=HPCqBHmnh1+PDIG/U2gaIrmNWIMQnhTS2V+uzfJ9Ktr+TEFi8HuzGc9t2a5p2YvJ7NP3
+	 eIOeR/4IFJ13PGLYbN5PXGhSsJ8JP5rMjVaV5MLIbtbZxSMPCw3Loe+8AFoCe2Hbp1iT3
+	 pSCe2Z3OEiHA4fOAhVE7CFZOsg0isnwZRmfc4Xi5PiE1w6iYQlAqql+cPM2Ds3faURZRp
+	 3jIg9oqWMSKSvC1NryurZxFZjW6em0uj++/RQ/k+17kAzefCn6wEyK8MG7dROpwGOrO1L
+	 L8K0jJKdhOcmSVrJY0m81WbV4FFWKHKqkqRrUh/gdr6vS/w1nLH9LfA8jwotJ+2t5qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="YThFbOX/";
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=fJFWfGCn;
+	arc=none smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E75606A329
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:50:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6E75606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E97260A260B
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:52:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E97260A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YThFbOX/
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06ca6e8f4so1812400b3a.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 01:50:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793613021; x=1794217821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LDtf/6qsvrJUn6LMYvjURkTS8eXDbVvfh2YukZT9J2w=;
-        b=YThFbOX/+NerO+qiIlkPOU2Hijtz8tqyMMq4Kkwmc6XuBMoS+d/hUgVAEFqc+BDvEi
-         y/qUbJAA/XzwfMs7ZRNNKqlauOH8a0aaKatvFXv/Gxg36pp6AzuJdH0akInGrMKh73Bd
-         /NDeK6g4a3ZPRV3ABTZYYB/jKD2AO9ARUAeKPIEwwD6GsgI0H8MndNhKqNfh1StoiH5t
-         fdn/kKCil80ztfxg2OgLoVHno9wTiz8llYZ1cpARbpKHcmlXDAUL53aazSwuWv+duU0Q
-         5hIok3FtPMBammUaABOfXQYwe/nLzmkbn5WHsJRbxJ+5+/OjY7Y/eyftcKoeaQPNh0p2
-         urOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793613021; x=1794217821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LDtf/6qsvrJUn6LMYvjURkTS8eXDbVvfh2YukZT9J2w=;
-        b=QEZE34QfdfZSgf1P9zE+hubL4IU24k1aFtFo9SM7btd9V0CB5mCbnFkhpV05clmQSN
-         62TIZPpat3MP5PD2LVpI6O6wzxDCkiPNRFuN1REsXqwiwXEg1QF6FmcHfZiOUz3Pw+Pq
-         XO1G4B9NyTT5N+eDnRRIVI40Bn8m0p1SdCAliXRhZu7QFZnoTTo4+e5slSNyqJoDkCZW
-         DExW4yi3RHQc6vo+PgaljLGRhMl4L9qFhvsw9GJ22W28T4mC+RoUBD0wjOmz7DZBGtvr
-         VcYrhMZB6JEOqBpotU7HHhER+rAfRr48qASqqWllPQPS3r2S3HiUZ4tFIKSExDXR5DSk
-         Jyyg==
-X-Forwarded-Encrypted: i=1; AKwUvBxYu6n36zDzw6eVhI64g395zMMmb/oS7D8RQLNEUxPV20lcIlpX0utFXDeDZfOHATltewgPalc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgwL4/YqD3G7yfxN15mJH0YxqtO13vvKcG0v1ZnrFDzkdalD+K
-	TylJQkS8Zj2jj5las0otjGW5QfScspyR7ZtjELoatEsuviv6Qkjv3fWI
-X-Gm-Gg: AYBFou1FFLq0W5SYhw8cg2fBkjiE0dnfiwbrj0KP1/ZO1YTHTzvEAeUJJW1+H/Pa4kC
-	kr7jmbAGUnHD5VbZH0AFKgTZyZ1qTIgYbp+r3xql1cVXqayu9KKuptyzadfdu9zC5z7GD9MMAMA
-	P71a87GH3ZKnlFIqN0U5B6hZTm740GPfFkid9iwtGAM9epUs/UP4KJwAO27DTfsPYurxmfO6uJ+
-	EGv18LGJa5/gd3CpFWJ58N9DMdd7L4f88aDJVSVzcuDqX5YympYQlS3BtZ5ieLVKdWwJKMvkDXW
-	hXlrdmXNiYIf+1Q/hc5cO6HpPDIERUgCuWd6LcVccdFYl/Br4xd2iMJ+LejddRRatUX2a5BIaOo
-	Lo4VYtzxx6h3m0afxu9UYutAgajnaqEIJ0rK6J8Ox8VrT4HGERutHlcBNkyrqSSjgnYJwuwQF6W
-	z+FNN+c3zm7UNqET5kw7BGV2wZACr0y0KNMHSuUKUVLVwuqbeybaJsJD8wLw106CSSHjSMe1SDv
-	dvExcsE74tXjZZ/OPbYyWti0NY+Z1XYmPmchWoVDsYLf30pcQEfrBlza1vihhNHUlV6CKer4F2g
-	K4x0/KqmJ6yXmy2bF0MfCGWMvb+74Gu6V4fwUdFQK6e/bBIO3NBcrzA=
-X-Received: by 2002:a05:6a20:a120:b0:3e4:b458:5239 with SMTP id adf61e73a8af0-3e928d687ddmr9858850637.45.1793613021164;
-        Mon, 02 Nov 2026 01:50:21 -0800 (PST)
-Received: from localhost.localdomain ([155.69.168.11])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d06ae7sm1797411b3a.30.2026.11.02.01.50.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 02 Nov 2026 01:50:20 -0800 (PST)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk
-Cc: john.garry@linux.dev,
-	nilay@linux.ibm.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nvme: Do not drop the cdev reference twice when cdev_device_add() fails
-Date: Mon,  2 Nov 2026 17:50:15 +0800
-Message-ID: <20261102095015.36448-1-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=fJFWfGCn
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1MSTeM3111058;
+	Mon, 2 Nov 2026 09:52:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=mdTdMiz11OwjFDuQPUpInPXEYyjJ0
+	6QsX5+vG3JFC18=; b=fJFWfGCndbqsuWIFF60mPQiVr7Fd6rh4Jr8INefaF+Ubd
+	hsWH21J43KSx2hc0OnHKKncajwTmpMKpLAicAdsRn4M3S3zZ6rLL9p+Q1kZWeGBL
+	x/G6a9wl4tRjIj+0EPWKu1ZHg+WTh5PXpkUyza23ZFKFp+c98pcqLYX0H0VaPCIS
+	vVwV554PaHxP2oQzSxqjUd5gL0UcAWOndR/oBLQVeVUSYo0NnKJYO6SpEkvw9FWI
+	ojVaXNO/x7N7726KAoEoL0jOtbWg5k8Qk2ur2z6A+uzQS9eV4/4Or9ll3vL4kuVW
+	zOeFDsKn76eWhR1gPC2RQ9T00rDMt21gFAIbftaww==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn6x01k0n-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Mon, 02 Nov 2026 09:52:06 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29D6Xw3047535;
+	Mon, 2 Nov 2026 09:52:05 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
+	by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpq8ehupe-1;
+	Mon, 02 Nov 2026 09:52:05 +0000 (GMT)
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: stable@vger.kernel.org
+Cc: Qing Luo <luoqing@kylinos.cn>, Xin Long <lucien.xin@gmail.com>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Harshvardhan Jha <harshvardhan.j.jha@oracle.com>,
+        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 6.18.y] sctp: auth: discard auth_chunk when skb_clone fails
+Date: Mon,  2 Nov 2026 01:52:02 -0800
+Message-ID: <20261102095202.1516572-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,145 +78,89 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ suspectscore=0 adultscore=0 spamscore=0 mlxscore=0 bulkscore=0
+ mlxlogscore=999 lowpriorityscore=0 malwarescore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020038
+X-Proofpoint-GUID: GWIlrTQvP8f__7oW92pXMZqRBR3cS495
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfXz0qoYhhN4S3C
+ rEsGq1ZozKfDThGd9hxCjwAu8WpqqTbqXQ3Vku37VtmrNcSrhYKng6du8DC8B41mWeCMj0Oa0aY
+ SxfZo7MiorMiFJXGLXC0MGca0FGXMEClOLLMpmPU/DYes2Qvayqt
+X-Proofpoint-ORIG-GUID: GWIlrTQvP8f__7oW92pXMZqRBR3cS495
+X-Authority-Analysis: v=2.4 cv=J6g/fwnS c=1 sm=1 tr=0 ts=6ae85d46 cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=RD47p0oAkeU5bO7t-o6f:22 a=bC-a23v3AAAA:8 a=Byx-y9mGAAAA:8 a=pGLkceISAAAA:8
+ a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8 a=_JKKyeupEGsTx9GmwKEA:9
+ a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOCBTYWx0ZWRfX9NPUcCA6kKqW
+ pocAkZsurYF2T5+coLHaObD6aWM29uuZ0nRcGxhzSHduwM9CQn79HEvKROIHDdoG6ZRQeYhfE7C
+ uQq032/Wxi8SMYLfOhugcy/ylQihP7WZleRh0lBA/DKCSJJCt8R1rhGLJQ9QMDGn4G+fUuv7tz7
+ SS3JDS0/fcch1usQTYCC1Y4BjzzgPTzBdwl0ooX/WD+MShoVBfvlBuFm1wcFhgkikGqjGqQhJPi
+ RmBZI9OzEP8EGRKdahzmshQ78tTEPrDUx//la5NESCmlRvEanEpunpcunNa4GbpFNqjrVmGp8DQ
+ tWk7678T2mq/aCVw1iGi7vkbJuegqOZ7By++3dV0RoBQGgRD0wG/FIuMn90b9BGZShyPgxG0je0
+ Q4Yx5LWL35gVoUriyrUQS5fcPsaFBnCDxJoAFCX1V6wZ51Q2ZcKc13hcdsuThIhgDNDZu2KrdFs
+ GzRMfau1PLHt4CIv4RQ==
 
-Since commit 9952f3882ecb ("nvme: fix cdev lifetime"),
-nvme_add_ns_cdev() and nvme_add_ns_head_cdev() take a reference to the
-namespace (or namespace head) before calling nvme_cdev_add(), to be
-dropped by the char device's release, nvme_cdev_rel(), and drop it
-themselves when nvme_cdev_add() fails. But when cdev_device_add()
-fails, nvme_cdev_add() has already put the device, and nvme_cdev_rel()
-has already dropped that reference: the caller drops it a second time.
+From: Qing Luo <luoqing@kylinos.cn>
 
-With one allocation failure injected into cdev_device_add() for a
-namespace on an NVMe over loop controller, deleting the controller
-gives, with native multipath:
+[ Upstream commit 9ae7ed101cf28613071ebfbc42668c8917a670cf ]
 
-  BUG: KASAN: slab-use-after-free in nvme_put_ns_head+0x21/0x140
-  Write of size 4 at addr ff1100000a4ea078 by task init/1
-   nvme_put_ns_head
-   nvme_put_ns
-   nvme_remove_namespaces
-   nvme_do_delete_ctrl
-   nvme_delete_ctrl_sync
-   nvme_sysfs_delete
-  Freed by task 1:
-   kfree
-   nvme_ns_remove
-   nvme_remove_namespaces
-  refcount_t: underflow; use-after-free.
+When processing AUTH + COOKIE-ECHO packets, if skb_clone() fails
+due to memory pressure, chunk->auth_chunk is NULL. The original
+code still sets chunk->auth = 1 and continues, leaving the
+COOKIE-ECHO to be processed without a valid auth_chunk for
+deferred verification.
 
-Take the reference in nvme_cdev_add() instead, right before
-cdev_device_add(), and let the callers neither take nor drop it. Add
-nvme_is_ns_cdev() for the check that nvme_cdev_rel() and nvme_cdev_add()
-now share.
+Discard the AUTH chunk early via pdiscard when skb_clone() fails,
+so that the receive loop can continue processing remaining chunks
+in the inqueue instead of stalling the entire packet.
 
-Fixes: 9952f3882ecb ("nvme: fix cdev lifetime")
-Cc: stable@vger.kernel.org
-Reviewed-by: John Garry <john.garry@linux.dev>
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20260723061107.384106-1-l1138897701@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
+ net/sctp/associola.c   | 4 ++++
+ net/sctp/endpointola.c | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-Notes:
-    The bug was found with kbound, a research static analysis prototype.
-    The patch, the changelog and the test setup were written with the help
-    of an AI coding assistant (Claude); I have reviewed and tested them as
-    described below.
-    
-    Changes in v2, after John's review:
-    - Add nvme_is_ns_cdev() for the check shared by nvme_cdev_rel() and
-      nvme_cdev_add().
-    - Shorten the comment and the changelog; the testing is below.
-    - Add John's Reviewed-by.
-    
-    Tested on QEMU (x86_64, KVM) with KASAN, on next-20261030, with a loop
-    target exporting a null_blk device, with nvme_core.multipath=N and Y:
-    - failslab failing each allocation under nvme_cdev_add() in turn: before
-      this patch every failure in cdev_device_add() gives the report above
-      (or, with multipath=N, a use-after-free of the namespace in
-      nvme_mpath_clear_ctrl_paths()); with it nothing is reported, also
-      with lockdep and kmemleak.
-    - the case of 9952f3882ecb: hold /dev/ng0n1 open while the controller
-      is deleted, then issue NVME_IOCTL_ID and close it. With 9952f3882ecb
-      reverted this gives KASAN slab-use-after-free in cdev_put() at the
-      close, with either setting; with this patch nothing is reported.
-    
-    v1: https://lore.kernel.org/linux-nvme/20261101173400.98931-1-izaiahsun@gmail.com/
-
- drivers/nvme/host/core.c      | 18 +++++++++++++++---
- drivers/nvme/host/multipath.c |  2 --
- 2 files changed, 15 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index af71d02b8476..9ea9db0271c2 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -3941,10 +3941,16 @@ static int nvme_subsys_check_duplicate_ids(struct nvme_subsystem *subsys,
- 	return 0;
- }
- 
-+/* The char device of a namespace rather than of a namespace head */
-+static bool nvme_is_ns_cdev(struct device *dev)
-+{
-+	return dev->parent->class == &nvme_class;
-+}
-+
- static void nvme_cdev_rel(struct device *dev)
- {
- 	ida_free(&nvme_ns_chr_minor_ida, MINOR(dev->devt));
--	if (dev->parent->class == &nvme_class)
-+	if (nvme_is_ns_cdev(dev))
- 		nvme_put_ns(container_of(dev, struct nvme_ns, cdev_device));
- 	else
- 		nvme_put_ns_head(container_of(dev, struct nvme_ns_head,
-@@ -3978,6 +3984,14 @@ int nvme_cdev_add(struct cdev *cdev, struct device *cdev_device,
- 	device_initialize(cdev_device);
- 	cdev_init(cdev, fops);
- 	cdev->owner = owner;
-+	/* Undone in nvme_cdev_rel() */
-+	if (nvme_is_ns_cdev(cdev_device))
-+		nvme_get_ns(container_of(cdev_device, struct nvme_ns,
-+					 cdev_device));
-+	else
-+		nvme_get_ns_head(container_of(cdev_device,
-+					      struct nvme_ns_head,
-+					      cdev_device));
- 	ret = cdev_device_add(cdev, cdev_device);
- 	if (ret)
- 		put_device(cdev_device);
-@@ -4010,13 +4024,11 @@ static void nvme_add_ns_cdev(struct nvme_ns *ns)
- {
- 	ns->cdev_device.parent = ns->ctrl->device;
- 
--	nvme_get_ns(ns); /* Undone in nvme_cdev_rel() */
- 	if (nvme_cdev_add(&ns->cdev, &ns->cdev_device,
- 			&nvme_ns_chr_fops, ns->ctrl->ops->module,
- 			ns->ctrl->instance, ns->head->instance)) {
- 		dev_err(ns->ctrl->device, "Unable to create the ng%dn%d device\n",
- 			ns->ctrl->instance, ns->head->instance);
--		nvme_put_ns(ns);
- 		return;
- 	}
- 	set_bit(NVME_NS_CDEV_LIVE, &ns->flags);
-diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-index 9e0a0fd77c56..ae8059366b57 100644
---- a/drivers/nvme/host/multipath.c
-+++ b/drivers/nvme/host/multipath.c
-@@ -681,14 +681,12 @@ static void nvme_add_ns_head_cdev(struct nvme_ns_head *head)
- {
- 	head->cdev_device.parent = &head->subsys->dev;
- 
--	nvme_get_ns_head(head); /* Undone in nvme_cdev_rel() */
- 	if (nvme_cdev_add(&head->cdev, &head->cdev_device,
- 			&nvme_ns_head_chr_fops, THIS_MODULE,
- 			head->subsys->instance, head->instance)) {
- 		dev_err(disk_to_dev(head->disk),
- 			"Unable to create the ng%dn%d device\n",
- 			head->subsys->instance, head->instance);
--		nvme_put_ns_head(head);
- 		return;
- 	}
- 	set_bit(NVME_NSHEAD_CDEV_LIVE, &head->flags);
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+index ca55be94e8d4..db339618ba55 100644
+--- a/net/sctp/associola.c
++++ b/net/sctp/associola.c
+@@ -1009,6 +1009,10 @@ static void sctp_assoc_bh_rcv(struct work_struct *work)
+ 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
+ 				chunk->auth_chunk = skb_clone(chunk->skb,
+ 							      GFP_ATOMIC);
++				if (!chunk->auth_chunk) {
++					chunk->pdiscard = 1;
++					continue;
++				}
+ 				chunk->auth = 1;
+ 				continue;
+ 			}
+diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
+index 31e989dfe846..be2e2bb2c117 100644
+--- a/net/sctp/endpointola.c
++++ b/net/sctp/endpointola.c
+@@ -368,6 +368,10 @@ static void sctp_endpoint_bh_rcv(struct work_struct *work)
+ 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
+ 				chunk->auth_chunk = skb_clone(chunk->skb,
+ 								GFP_ATOMIC);
++				if (!chunk->auth_chunk) {
++					chunk->pdiscard = 1;
++					continue;
++				}
+ 				chunk->auth = 1;
+ 				continue;
+ 			}
 -- 
-2.53.0
+2.55.0
 
