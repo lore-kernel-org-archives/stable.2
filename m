@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635339;
-	b=QbCaKaSSWT/QfaZAtKgYT5ktRTBJd9VPpLx8h6Pls1PyuEoOv1sKvMwCmkr2xSzYHSFh
-	 nxURWhXdlE6DGRUXyhHAZWV8Ba2wosTi9/4p0KEh6mcgUUStMN34lWbbo0M1EyapWRd1X
-	 n0qR6VweWPjY28eYtLmMQtFOetHLi3tXCYlhUKvs07AS2wShgLZcwa+fgd2+eYy2mp8Es
-	 3s4pX3IBqEEA6jD4QsBhZjKxcLYjwTGKLpMxSpc4dgQEBqppu+nhkwaURngsM7D1Pwkqn
-	 bJVW63yBdlDnYm9jywEt8s35NslZnuM1x+9UVQcZBjvNBMZKSbdo2+FfYcHgUbhr3pg==
+	t=1793635386;
+	b=mY1zQjXICDvZwgMw8CWoSSu89Fs2mz+jE+5DpzpK7Nv2cR+f7umeYTIsl2QG9J9WAZut
+	 E8jLGuU8gw8L/lnCD5u+PTEQAytjw0sOTnaKrHUzVdGgmDgSeL4n0xXsLiAkt+Z+Nt79T
+	 Xwe+6jl3S0d+F5diHxsYfGELaA5q8XaBNhj/RvhZbutX8f5SWvstCWsw2Qs0ueEa74wzE
+	 2e5cCmpvF5bZIINtfjsyF/pRPjnZDhGSHF7t9cSW3nD0OVOJmSSzoPA9TufA/5h56s2nn
+	 WVvahBgHrrxdxgLzOtEoF+MeAiIiz5EzHw/q5YCl9rE/EhtPpRqdZSWUlguwz6p1tng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635339;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635386;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=my3Gy4VhBcCnxn3lpGePp3/MUKijhn1RD2kN7QnV5ow=;
-	b=sNLgoK6ix5nodFQGbSx27862lXrDJVZnXZL5uwnWOMT5xvd3c78ODs1MZh8ThGN9tJUS
-	 uhZCZUI2HkOO/lcaSWKGcgzDxoHZm4Jgw+DhajG1s/4pyEP5NSLltILltK+tsw+lE739X
-	 iocKEY7EZO5c9sw3EcC+4PNLqFwXWL45dfpDBXmikcX6RnjWzWkmiFZG69jOUlrFArKVG
-	 GhKdIW2MX3U1r8MEeus3C4dH6WscApdFVcBI99ISvWCi0dcCasWnMKPwSGdriB/Itndqe
-	 7dz0cVsyWuos1Ee+/Yk0m9R7fKq3LuyuWiCyddKwtybEUeSBOYTe1UhnagrbSqu6+3Q==
+	bh=bZtDBjzgkv5xQcYlp5Yum+2Qy7bTJw3wf4TUeP34ezY=;
+	b=mQVW+5mivxnon4knuMqVQzy2QO8Q03g1zgXM6vlf+WUTJe7ISuDrxlC34iY/Qlbb0gXD
+	 XjRjeGxEkXYlKcDmsaKdbWYIzXyq/tNLlXmiku5An1bTMKgqW1mvRM5HKZZHcLNevJnOu
+	 Ks5XKFfreTKGVLM6Mm9cSoyen6aYCLs51VreUArDax/BIBBpVcyU1d0RHWEOy60Nrn8qN
+	 rKZ/Q9wg0lHupM5yM1GECnDuhPIGYeJcJVhoJpWanPzjgRjGKvymQzsurH30GbkhIA++u
+	 etJF4rEffKvZ/H1QkePYoiekKSOImXcmv9iDfFHYPwZdYs0eLfo5rkS60iD4qI0eaKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJ5U5Pab;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNRl1L5s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52670606C3C8
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:02:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A503A606A5BC
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DJ5U5Pab
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30FB41F00A24
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:02:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNRl1L5s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DF8D1F00A1B
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:03:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793635339;
-	bh=my3Gy4VhBcCnxn3lpGePp3/MUKijhn1RD2kN7QnV5ow=;
+	s=k20260515; t=1793635386;
+	bh=bZtDBjzgkv5xQcYlp5Yum+2Qy7bTJw3wf4TUeP34ezY=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DJ5U5PabOmA/ey/5VjSH6gWp7xcsN6kcQEujnrwH8+5TEy/9vQyT+8QkLM/rdd8+4
-	 /9Feok7QwkpV+5tHZ3qaBHqaleIelJ+CJVi9Llm9JosTvkF2T5N6JWsRqkb5YPBk5G
-	 egTyxaSZ3B4YcHsINFY9oxatYAUBFFP+UZgN9LwGQMw3qqBKyCaZW9uAjmb8igLIIj
-	 b/5z7rAJeWMccktDeDU0dHO3oAYBc48vE5+b/6WYPnL92ynFGemx/G/txA8UiJG/bd
-	 mNLD8YCSC95hMpOBhCVE1Zk6FVAB5a80/J2tuLR1sPIu4LhBJ8kyNVwb1FSDkSR5Uw
-	 +ZBQv5SmG0j4Q==
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5eafb65e204so843426e0c.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:02:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzYjOqMEpH1mh8JoGL0RrsiTxU/0b9C5ZV4Uq1XXUKwk9OCqakzXuMz0QM2RTmrQnm+IC4rWuY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9i1UHdKZamr8VHSt9AA9ocELZ+4u5HD1cHkNg9Tr5mWGIQ+Sdw
-	ykV+4Eum034jgAyOaGqxDbMxB1k7PYbTLVkP0T1neAVAj45xGgD5Fd3TNInT+rVEtpsPAJgbvjD
-	/QrayzxC0//+H/b7pl+T3rIGCeXKC2tg=
-X-Received: by 2002:a05:6122:9006:b0:5e9:5e79:ab3 with SMTP id
- 71dfb90a1353d-5ec689b817amr4907502e0c.21.1793635338188; Mon, 02 Nov 2026
- 08:02:18 -0800 (PST)
+	b=KNRl1L5s6/wEyvvsLuFpJ6plEXwOmrCadaiQnku6A1vaHVWQtMmYscsY9m4HRFLoK
+	 eS7l2l/rzSvw7FCzbD+wftk5ezxRbLYqX1a/7EFKjsl1CClVhwnY9KF7jv0Qcyh2n6
+	 vtulGe8hNAvgiXu6HVmquT9II9muR5M2r1GJpFWEDTdW/aEPK/OgvuTgwsbQbv0+v5
+	 cucbeCjXYXFaA6zy9XHdqmZNiDyCKvZC4+Di0z+5y0fm6+rhR3iAyEpb28STEOFgLn
+	 WkLSK37mZNco1WUUF9HNi0uLmrYzZGbJKpyuIrnnFDZJ+cJHq29ZHfSw4z2auSsRdN
+	 3HiDujdROvHSQ==
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eadf48fb2dso1141431e0c.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:03:06 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBy4ZgVxrEyWAaMwAxTPWtmeVwYL5NmNZ4NMWHrsyxR/bxbhcYvyzWa5AyvBYO1SPRsnMQXRfcY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RGFb3EEPaZ64F03jJDW8hnw4gIe4olNiO4le8ZD+d/nD0on6x
+	f90gtBYpoO6ncM1e6gJgdLm0tJp0tki5azi31UV1SPmY2Sl2UHTNIas3cxVM1M3cH5o4mIgCoXK
+	H2I+WWze0g8d3D6UzPxYPmySODv1qf+I=
+X-Received: by 2002:a05:6122:c88:b0:5ea:d03c:f0e9 with SMTP id
+ 71dfb90a1353d-5ec68944736mr4322887e0c.12.1793635385467; Mon, 02 Nov 2026
+ 08:03:05 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,14 +60,14 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
- <20261030-b4-btrfs-data-integrity-v1-1-f4d4196731e6@toxicpanda.com>
-In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-1-f4d4196731e6@toxicpanda.com>
+ <20261030-b4-btrfs-data-integrity-v1-2-f4d4196731e6@toxicpanda.com>
+In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-2-f4d4196731e6@toxicpanda.com>
 From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 2 Nov 2026 16:01:42 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H6VYYcfH+WHVZW482_6f2EPoyPFE-_qbyPfcS580LhPhQ@mail.gmail.com>
-X-Gm-Features: AclHuK_KPgnKhXM8k7V-XuqKmmKo6NZT17VCZXB4CaNbVG-gg0vK1J3OI0FLct8
-Message-ID: <CAL3q7H6VYYcfH+WHVZW482_6f2EPoyPFE-_qbyPfcS580LhPhQ@mail.gmail.com>
-Subject: Re: [PATCH 1/5] btrfs: don't drop the error of the last split bio
+Date: Mon, 2 Nov 2026 16:02:28 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H69Ci=+6xdadWanzMNFwKJXzCzQwgBP2AZNz-GjVkSmKQ@mail.gmail.com>
+X-Gm-Features: AclHuK9hJ6ZkQF9NbDoC3yqIUdGKzYNetSEDAGDD0vFFCJQvSJFv8xogAO1abdg
+Message-ID: <CAL3q7H69Ci=+6xdadWanzMNFwKJXzCzQwgBP2AZNz-GjVkSmKQ@mail.gmail.com>
+Subject: Re: [PATCH 2/5] btrfs: clear dirty blocks after a delalloc failure
 To: Josef Bacik <josef@toxicpanda.com>
 Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
 	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
@@ -79,52 +79,19 @@ Content-Transfer-Encoding: quoted-printable
 On Fri, Oct 30, 2026 at 2:38=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
 wrote:
 >
-> When a btrfs_bio had to be split, btrfs_bio_end_io() saves the first erro=
-r
-> of any of its parts in the status field of the original btrfs_bio. The
-> part that completes last is supposed to load it into bi_status of the
-> original bio before calling the end_io handler, but that is only done if
-> that last part was successful:
+> If writepage_delalloc() runs the first delalloc ranges of a folio and
+> then btrfs_run_delalloc_range() fails, the blocks that already got an
+> ordered extent are finished with an error through
+> btrfs_mark_ordered_io_finished(), but their dirty bits are left set. The
+> next writeback then submits blocks whose ordered extent is gone, or is
+> about to be completed a second time.
 >
->         if (atomic_dec_and_test(&bbio->pending_ios)) {
->                 /* Load split bio's error which might be set above. */
->                 if (status =3D=3D BLK_STS_OK)
->                         bbio->bio.bi_status =3D READ_ONCE(bbio->status);
+> Fix by clearing the dirty bits and cycling the writeback state for those
+> blocks, as submit_write_sector() does for a block it fails to submit.
 >
-> If the last part failed, the assumption is that bi_status was set at the
-> top of the function. That is true if the last part is what is left of the
-> original bio. If it is a split bio, the assignment was done to the split
-> bio, which was freed right after. If the original bio has completed befor=
-e
-> without an error, its bi_status is BLK_STS_OK and stays like that:
->
->   original bio (tail)                 split bio (head)
->
->   btrfs_bio_end_io(orig, OK)
->     orig->bio.bi_status =3D OK
->     pending_ios 2 -> 1
->                                       btrfs_bio_end_io(split, IOERR)
->                                         split->bio.bi_status =3D IOERR
->                                         bio_put(split)
->                                         cmpxchg(&orig->status, OK, IOERR)
->                                         pending_ios 1 -> 0
->                                         orig->end_io(), bi_status is OK
->
-> The end_io handler covers the whole range, so for a buffered read all the
-> folios are marked uptodate, including the ones that were never filled, an=
-d
-> read(2) returns their content instead of -EIO. For a write the ordered
-> extent is completed as if all the data had reached the device.
->
-> This can be reproduced with raid0 data on two devices, one of them slower
-> than the other and with a bad block, by reading a file whose last stripe
-> is on the fast device.
->
-> The saved status has the first error of all the parts, or BLK_STS_OK if
-> there was none, so always use it.
->
-> Fixes: d48e1dea3931 ("btrfs: fix error propagation of split bios")
-> CC: stable@vger.kernel.org # 6.12+
+> Fixes: 72dad8e377af ("btrfs: fix double accounting race when btrfs_run_de=
+lalloc_range() failed")
+> CC: stable@vger.kernel.org # 6.14+
 > Assisted-by: LLM
 > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
@@ -133,33 +100,41 @@ Reviewed-by: Filipe Manana <fdmanana@suse.com>
 Looks good, thanks.
 
 > ---
->  fs/btrfs/bio.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
+>  fs/btrfs/extent_io.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 >
-> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-> index 2c6234f6182f..fc0b021cdefb 100644
-> --- a/fs/btrfs/bio.c
-> +++ b/fs/btrfs/bio.c
-> @@ -127,9 +127,12 @@ void btrfs_bio_end_io(struct btrfs_bio *bbio, blk_st=
-atus_t status)
->                 cmpxchg(&bbio->status, BLK_STS_OK, status);
+> diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
+> index 5ff630630490..3283835ccb5e 100644
+> --- a/fs/btrfs/extent_io.c
+> +++ b/fs/btrfs/extent_io.c
+> @@ -1746,6 +1746,16 @@ static noinline_for_stack int writepage_delalloc(s=
+truct btrfs_inode *inode,
+>                         u64 start =3D page_start + (start_bit << fs_info-=
+>sectorsize_bits);
+>                         u32 len =3D (end_bit - start_bit) << fs_info->sec=
+torsize_bits;
 >
->         if (atomic_dec_and_test(&bbio->pending_ios)) {
-> -               /* Load split bio's error which might be set above. */
-> -               if (status =3D=3D BLK_STS_OK)
-> -                       bbio->bio.bi_status =3D READ_ONCE(bbio->status);
-> +               /*
-> +                * Load the first error, if any. It may come from a split=
- bio,
-> +                * including the one we were called for, in which case no=
-thing
-> +                * stored it in the original bio yet.
-> +                */
-> +               bbio->bio.bi_status =3D READ_ONCE(bbio->status);
->
->                 if (bbio_has_ordered_extent(bbio)) {
->                         struct btrfs_ordered_extent *ordered =3D bbio->or=
-dered;
+> +                       /*
+> +                        * The blocks are not going to be submitted, so t=
+hey
+> +                        * must not stay dirty. Otherwise they are writte=
+n back
+> +                        * later without an ordered extent, or worse, wit=
+h this
+> +                        * one if it is still around, and invalidating th=
+e folio
+> +                        * would account for them again.
+> +                        */
+> +                       btrfs_folio_clear_dirty(fs_info, folio, start, le=
+n);
+> +                       btrfs_folio_set_writeback(fs_info, folio, start, =
+len);
+> +                       btrfs_folio_clear_writeback(fs_info, folio, start=
+, len);
+>                         btrfs_mark_ordered_io_finished(inode, start, len,=
+ false);
+>                 }
+>                 return ret;
 >
 > --
 > 2.55.0
