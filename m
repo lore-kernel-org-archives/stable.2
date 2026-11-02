@@ -1,53 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620241;
-	b=il2TMlAmE6ZvwnAnWvv/3QHUHbA5Kv+r2NG8ACmPa/tTvbtZ3sLjcs0NwAcmE49y+Rkm
-	 KbYc0coDMZPnelgdcxVBWQiXkrgYuBecJuhzmWa0YmODE85DuOGHiWTwB4f9Ws6MAZdrK
-	 mu5DerBexMTvCOxv9xkDYMhaTK2qBstD69by0hGaFFiN2ITUDApoA0UsjPYbjQKA8Heyr
-	 jlTbZIGFYe5PhsCcup//p2agm5wn1PAk00WaO83tVrzqTXPKc0O6OicXNf6TTSZKPLwrv
-	 CjphmMJM009TJ/NaabwizYmO/cCrp9yGPEY9YAZeQpHQxiAyUy2kUauZ5xYWS1OR5OQ==
+	t=1793620260;
+	b=gbSAT5CVWWqCSGlkrqcORhbujRjtPyODZfA+Mt39r3I/XtSmm3QWQ6K/4DG4mPmwrrUf
+	 r15f0MVS0B+0+ydYQxlWk6QK8WYUKc0bPufEN2hKF8p63QoawXP4pG1A9EMTDIEKGrKsl
+	 FZV0OrGIf/tgsHN+oOQF/2q2XhLM9vOE/p4tJSMAnMVe3JC61BU3nqKMEyxN0nG/GAQwG
+	 4gL04+KBSvRe5X3KU1980qdmnCWZ2mxWfY5ddEr4ss9Ss1H9uHEdKRZiaDSB+c2R5XljN
+	 +CtA5Fz8hMrPOwHuG8x2phyOwnzDZkqK/3GRlC3sFMNT5rRlhWQMRL8EJHJYXUv1rbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620241;
-	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=IO3YFHnhAuew1qKAqNJkEYxad9XP8pflUZUw4Tx+Jd4=;
-	b=yItGpSsnJao/QDgKwDDTQjiGA9kF64sycE6o8rKow24vPoBnYxLA8iCSvmnYZtRMtLYl
-	 kEwtctcGps2rA1qOc3KHX09b7I/i7Yy774TiGp4iyTj+fCVoyNoVp3AUcN9Sy65DlQrxG
-	 yPndmO0h4CHRrSgnv/dtqFUQ6EKLnYK5wo8PkXM8mIVt1XxyL9LD5XF8giGxEjOOvaq42
-	 muYdjz2mEpOaOo+Cdu00cWFUxNlTJxgN4aTPFcd4A4jJJmPeEtiBLNyMTbtw40wZmBh20
-	 rebNPSxJl+toVMwyRJJ/IWzd4yeFTH7TxuwSxO/ipY7rd21pouCwmrN7G4awhRF7L5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620260;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=yBfXxrtyA/u/OWX/eqMUUK3wKj96MZ0bPzQISUlZz2g=;
+	b=C8li4QvtbKM/4i2rt56TU4ACV1LGSXp62jmImBSCO/uFZBoreLSBM785LN+mGeXVRSap
+	 m6XrltQFqdL4vE8VsKNmZjI1nbGZ0r0ypkjCztdWijuzTosHU5ZUjtUijdQqhwOOw1yOO
+	 ztgHizgJL6wEIsE6CSkIZ6zGVHS4bRULattU4MJ2xZg+8CswhiIknEA4h6wIc1xW32vSX
+	 sC5PpV4wY0G3GgEKt7aBf/6Kv5YRhXzFD1bXiSXsVelHKH0oFdSF4rRmbv1XYdCwc3K94
+	 3ubA4+pStTzTLl8PhCVQ550dGlaCQduBAVdq/mjL5+eoV++C+dC4c6mtdfO8m+mm0Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620B4606A326;
-	Mon,  2 Nov 2026 11:50:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620B4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJ94m28Tgz59tjr;
-	Mon, 02 Nov 2026 19:50:32 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6A2BoRSc068839;
-	Mon, 2 Nov 2026 19:50:27 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Mon, 2 Nov 2026 19:50:30 +0800 (CST)
-X-Zmail-TransId: 2af96ae87906b1d-7b9b2
-X-Mailer: Zmail v1.0
-Message-ID: <20261102195030814Aeehrb4WmExc085745ldN@zte.com.cn>
-Date: Mon, 2 Nov 2026 19:50:30 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF45606A324;
+	Mon,  2 Nov 2026 11:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BF45606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jJ94j4Qh1z1rqfJ;
+	Mon,  2 Nov 2026 19:50:29 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 159914056D;
+	Mon,  2 Nov 2026 19:50:53 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgB3tfQbeehq7KkwCw--.20107S3;
+	Mon, 02 Nov 2026 19:50:52 +0800 (CST)
+Message-ID: <a77a4e79-582a-46fe-a01e-070db9fa43ca@huaweicloud.com>
+Date: Mon, 2 Nov 2026 19:50:51 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,63 +50,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <richard@nod.at>
-Cc: <linux-mtd@lists.infradead.org>, <chengzhihao1@huawei.com>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvM10gdWJpZnM6IGZpeCBhbiBhdXRoIG5vZGUgbGVhayBhbmQgdHdvIGVycm9yLWhhbmRsaW5nIGJ1Z3M=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A2BoRSc068839
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 02 Nov 2026 19:50:32 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE87908.000/4jJ94m28Tgz59tjr
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ext4: report unwritten extent conversion failures as
+ writeback errors
+To: guolingxing <guolingxing@tju.edu.cn>
+Cc: Theodore Ts'o <tytso@mit.edu>, Jan Kara <jack@suse.cz>,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>,
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261015102943.74632-1-guolingxing@tju.edu.cn>
+ <20261101102145.647496-1-guolingxing@tju.edu.cn>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20261101102145.647496-1-guolingxing@tju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgB3tfQbeehq7KkwCw--.20107S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1DCw47XF47Zw48ur18uFg_yoW8Ar1UpF
+	WDG34qgFWv9a4fCFs5GFW7Ja4vqa4xKr47ury7KFsF934DXFnYyry8KF1IgF1UC3y7Ja1x
+	ZFWFkFykXwsrJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1
+	v3UUUUU
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-This series fixes three independent problems in ubifs, all found while
-auditing the error paths around the GC write-buffer, xattr creation and
-authenticated node hashing.
+On 11/1/2026 6:21 PM, guolingxing wrote:
+> When a data writeback bio completes successfully but the subsequent
+> unwritten extent conversion fails, ext4_end_io_end() does not record
+> the error in the inode's mapping writeback error state.
+> 
+> Bio failures are already recorded by ext4_end_bio(), but conversion
+> failures are not. When the conversion is processed asynchronously,
+> its return value is not propagated to userspace, so fsync() may
+> return success despite the failed conversion.
+> 
+> Record conversion errors with mapping_set_error() before
+> ext4_release_io_end() ends folio writeback and wakes waiters. This
+> allows fsync() to observe the failure.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+> Reviewed-by: Jan Kara <jack@suse.cz>
 
-Patch 1 fixes a leak.  move_nodes() allocates the authentication node for
-the GC journal head and writes it into the GC write-buffer; the buffer is
-freed only when one of the steps fails.  On an authenticated file system
-every GC pass that moves nodes therefore leaks ubifs_auth_node_sz()
-bytes, so the loss is unbounded on a long-running system.
+Thank you for the fix. This looks good to me.
 
-Patch 2 fixes state that survives a failed operation.  create_xattr()
-sets UBIFS_CRYPT_FL for inodes that carry an encryption context, but its
-error path clears the flag whether this call set it or not.  A setxattr()
-that fails before anything reaches the journal, for example because its
-journal buffer cannot be allocated, therefore leaves the in-memory inode
-marked as unencrypted; the next inode write persists that, and after the
-next mount the inode is no longer treated as encrypted although its names
-and data still are.
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
 
-Patch 3 stops five call sites from ignoring ubifs_node_calc_hash().  With
-authentication enabled a failing crypto operation leaves those callers
-using an uninitialised stack buffer as the node hash; it is then stored in
-the TNC or in the master node, and the affected nodes fail verification
-later.
+> ---
+> Changes since v1:
+> - Drop the incorrect Fixes tag. The conversion error was already lost
+>   before commit b82e384c7bb9, as pointed out by Jan Kara.
+> - Collect Reviewed-by from Jan Kara.
+> 
+>  fs/ext4/page-io.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
+> index 734d856a6d478..2701452fa65ca 100644
+> --- a/fs/ext4/page-io.c
+> +++ b/fs/ext4/page-io.c
+> @@ -192,6 +192,8 @@ static int ext4_end_io_end(ext4_io_end_t *io_end)
+>  			jbd2_journal_abort(EXT4_SB(sb)->s_journal, ret);
+>  	} else {
+>  		ret = ext4_convert_unwritten_io_end_vec(handle, io_end);
+> +		if (ret < 0)
+> +			mapping_set_error(inode->i_mapping, ret);
+>  	}
+>  	if (ret < 0 && !ext4_emergency_state(sb) &&
+>  	    io_end->flag & EXT4_IO_END_UNWRITTEN) {
 
-The three patches are independent and can be applied in any order or as a
-subset.  They are listed by severity, not by dependency: the leak first,
-then the persistent state loss, then the error propagation.
-
-All three carry Fixes: and Cc: stable.
-
-Testing: the patches apply to next-20261030, pass checkpatch.pl --strict
-with 0 errors/0 warnings/0 checks, and fs/ubifs/ builds with
-CONFIG_UBIFS_FS_AUTHENTICATION, CONFIG_UBIFS_FS_XATTR and
-CONFIG_UBIFS_FS_SECURITY enabled and W=1 without new warnings.  They were
-not exercised at runtime: this machine has no UBI/MTD tooling or
-emulation, so there is no mount test.  Patch 1 is the easiest to verify by
-inspection; patch 2 needs an allocation or I/O failure in
-ubifs_jnl_update(); patch 3 needs a crypto failure inside
-ubifs_node_calc_hash().
-
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
