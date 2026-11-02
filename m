@@ -1,66 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626912;
-	b=cUPJsXReuL8C6ltJI+Idi36/kQf8od1n9TabyhtI6ZpdH0Li6qhzHXnNhNXJjdb6iyNY
-	 cZh5oKSEv2URAbKAXwVr4mJY063tjWtwka5sbto3NbKjQfE1TaLcJSUvOGdNE/IhGqGrN
-	 4SI0F8sS3OoEO0ZnyZK4nTrC8P48Si03LUc3FiKdp5Wk3atWeoshlf0qbXr5FnL+aYGSY
-	 h/8dnfuWQcoTU7Yr/jLuePRtOFxohD5ZAOlign96f6464U6XuZ5oKZdTicl45TSoNHeqi
-	 5g91qGX2BLZkSCytIftksS15S07EUbEQ2jSSsWjyh/E0Vgcx29UpcZjB7v5QbwzPabA==
+	t=1793627136;
+	b=xlb4LV6NFQyOBTXs8Dnxek1tPopVpFL5EpAPjAvxlP2XskOrbvHOELA9Gm9od6AalBze
+	 x5DTH66vaRa+x2Qkj3ToxrSMyy9qVH5w1o8MHDV86QoRAjgBlDE9APxRAY/jkiba/OHCR
+	 TTfEibQNxBN4uOp35iyssRFGBPPVq7p2w2m9fDPw6OXFadshG62A1ewcRYK4MV6v1Dc0/
+	 h/vSuoZsmpk5hye8rjVBfLBNFW6p63lTwDypJrU5aBt4kzHSsZIlFPDuqK44icRyO76Pz
+	 AJqdg5JrdNkkGH/ObfaipxxkYTdEPkGEqQcY5mM93lHbMJPY2oH6y93To2xqW2sZhfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626912;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=fNLxPmfF5iOP6VBGiv9ly7jRrpfCi96AxdL2bHwH7mI=;
-	b=MXaY+jmDEptvCNI+llMd5yqfOD6mjmF8kEyOTdfFGBOcrb97YTHLG4P3SCANOFOu8Ngj
-	 Jjk7uETXVFcQOrRBUjHw64bSwVQ4edz7KBLSxt6Bf3wQ8S/iJahaVcs8UAAVQJusxk420
-	 XX1aCBwXxv9pcj/AbcEyBBa5Wq8z9p5Kpe8sTzhNl24KAcAoLgoXAFVCoARpvePbwPgYt
-	 8X723BluckIoAHqM/rnbtpK8bIm0W2RRA6D8y2k3VJGQVPSuMUFP2ogmMoZbBNeuhQniw
-	 +UZ7HjtyAnKfvfL/YzJ2bThxjmQsC5Yrg1IZOVajRxdmrc5oL39zo8TyMH86FRt5fdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627136;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=pVXNoWjABdU5RPs5u+4FyGSTCEAB3njAGPbzu/Xpj+o=;
+	b=Es9DC1u7zfjmkQcDrIlZozekjsAXKh0shw8WAwguL2gI+VJgKJzopde9iT/vRHXEPfHw
+	 4zEIyixPo45Bwl/xMocbw6gklHLMdbq0NKlNCtkjRdejlMB3JD7lTcfpR5buTW3lmCDkR
+	 vJ08nTsRRU7WLbjbqSXnLLRMcGCkSUMGGgvgXeXogaAoOYjXoYp1TVJ0Mg/UvAyA8CI62
+	 5VPeH9c3zdCNsfd01mczSbLSAhlA0GSkRKAWrZPOecWUWUjG0hef1eFNDJyje7O5kDtBr
+	 22vq3TaSeWrBsZBHYNIFwOY8pAljLvakNI3x//e+AMfdeE5dpZqyX7HRyGbBKelofzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TwyyYEyO;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C55F606A33C;
-	Mon,  2 Nov 2026 13:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C55F606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=TwyyYEyO
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=fNLxPmfF5iOP6VBGiv9ly7jRrpfCi96AxdL2bHwH7mI=;
-	b=TwyyYEyOEN3aUj1kjI1mjCxe1ezOva1vhveshpKccqj8miwYXnmodIuQTuN+RX4WAJFSOm2xW
-	PTJ16NBPd1V0cMYeIdBYkXYmNVx8JM3aoZ//UKCZDufgBnRWY4lrjfpgw9C/fH0OVfVllWBikbP
-	hHOsJs1hE2S95pH0wjHQd+w=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jJCXw00MvzLlTq;
-	Mon,  2 Nov 2026 21:41:35 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id AACF440572;
-	Mon,  2 Nov 2026 21:41:45 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 2 Nov 2026 21:41:44 +0800
-Subject: Re: [PATCH 3/3] ubifs: check node hash calculation errors
-To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
-	<linux-mtd@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <202611022014201140sh13oFtWkIgBr7UQKyMK@zte.com.cn>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <2bf579ac-cc55-b88a-3ce5-9214d8434909@huawei.com>
-Date: Mon, 2 Nov 2026 21:41:43 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62A7606A327;
+	Mon,  2 Nov 2026 13:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62A7606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJCdS11NSz8XrrJ;
+	Mon, 02 Nov 2026 21:45:32 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl2.zte.com.cn with SMTP id 6A2DjS7c084264;
+	Mon, 2 Nov 2026 21:45:28 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 2 Nov 2026 21:45:31 +0800 (CST)
+X-Zmail-TransId: 2af96ae893fbe0f-10c10
+X-Mailer: Zmail v1.0
+Message-ID: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
+Date: Mon, 2 Nov 2026 21:45:31 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,95 +56,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-In-Reply-To: <202611022014201140sh13oFtWkIgBr7UQKyMK@zte.com.cn>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemo200011.china.huawei.com (7.152.185.179)
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
+Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvNV0gdWJpZnM6IGhhcmRlbiB2YWxpZGF0aW9uIG9mIG9uLWRpc2sgaW5vZGUgYW5kIG5vZGUgbWV0YWRhdGE=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A2DjS7c084264
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 21:45:32 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE893FC.000/4jJCdS11NSz8XrrJ
 
-在 2026/11/2 20:14, shao.mingyin@zte.com.cn 写道:
-> ubifs_node_calc_hash() can fail when authentication is enabled and the
-> crypto operation fails.  Five calls ignore the return value and use the
-> uninitialized stack buffer as the node hash: replay_bud() stores it in
-> the replay entry, make_idx_node() and write_index() copy it into the
-> parent branch or the index root, and create_default_filesystem() copies
-> it into an index branch and into the master node.  Verifying those nodes
-> later then fails with a hash mismatch.
-> 
-> Propagate the error from all five call sites.
-> 
-> Fixes: 16a26b20d2af ("ubifs: authentication: Add hashes to index nodes")
-> Fixes: 104115a3eb54 ("ubifs: Add hashes and HMACs to default filesystem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> ---
-> diff --git a/fs/ubifs/replay.c b/fs/ubifs/replay.c
-> index 263045e05cf1..442493dc18c6 100644
-> --- a/fs/ubifs/replay.c
-> +++ b/fs/ubifs/replay.c
-> @@ -730,7 +730,9 @@ static int replay_bud(struct ubifs_info *c, struct bud_entry *b)
->   			goto out_dump;
->   		}
-> 
-> -		ubifs_node_calc_hash(c, snod->node, hash);
-> +		err = ubifs_node_calc_hash(c, snod->node, hash);
-> +		if (err)
-> +			goto out;
-> 
->   		if (snod->sqnum > c->max_sqnum)
->   			c->max_sqnum = snod->sqnum;
-> diff --git a/fs/ubifs/sb.c b/fs/ubifs/sb.c
-> index e7693b94e5b5..1c176be261e0 100644
-> --- a/fs/ubifs/sb.c
-> +++ b/fs/ubifs/sb.c
-> @@ -329,14 +329,18 @@ static int create_default_filesystem(struct ubifs_info *c)
->   	if (err)
->   		goto out;
-> 
-> -	ubifs_node_calc_hash(c, ino, hash);
-> +	err = ubifs_node_calc_hash(c, ino, hash);
-> +	if (err)
-> +		goto out;
->   	ubifs_copy_hash(c, hash, ubifs_branch_hash(c, br));
-> 
->   	err = ubifs_write_node(c, idx, idx_node_size, main_first + DEFAULT_IDX_LEB, 0);
->   	if (err)
->   		goto out;
-> 
-> -	ubifs_node_calc_hash(c, idx, hash);
-> +	err = ubifs_node_calc_hash(c, idx, hash);
-> +	if (err)
-> +		goto out;
->   	ubifs_copy_hash(c, hash, mst->hash_root_idx);
-> 
->   	err = ubifs_write_node_hmac(c, mst, UBIFS_MST_NODE_SZ, UBIFS_MST_LNUM, 0,
-> diff --git a/fs/ubifs/tnc_commit.c b/fs/ubifs/tnc_commit.c
-> index 7bf2672062a2..1a62739c3731 100644
-> --- a/fs/ubifs/tnc_commit.c
-> +++ b/fs/ubifs/tnc_commit.c
-> @@ -52,7 +52,9 @@ static int make_idx_node(struct ubifs_info *c, struct ubifs_idx_node *idx,
->   		}
->   	}
->   	ubifs_prepare_node(c, idx, len, 0);
-> -	ubifs_node_calc_hash(c, idx, hash);
-> +	err = ubifs_node_calc_hash(c, idx, hash);
-> +	if (err)
-> +		return err;
-> 
->   	znode->lnum = lnum;
->   	znode->offs = offs;
-> @@ -887,7 +889,9 @@ static int write_index(struct ubifs_info *c)
->   		}
->   		len = ubifs_idx_node_sz(c, znode->child_cnt);
->   		ubifs_prepare_node(c, idx, len, 0);
-> -		ubifs_node_calc_hash(c, idx, hash);
-> +		err = ubifs_node_calc_hash(c, idx, hash);
-> +		if (err)
-> +			return err;
-> 
->   		mutex_lock(&c->tnc_mutex);
-> .
-> 
+This series tightens the checks ubifs performs on the metadata it reads
+from flash.  All five patches are about size and accounting fields that
+are taken from the image and later used without a range check; an image
+whose CRCs and node tags are intact can therefore drive the code into
+state it never expects.
 
+Patch 1 rejects inodes whose size does not fit the signed loff_t the size
+is stored in.  A 64-bit value with the top bit set becomes negative and
+passes the max_inode_sz check, and the read paths then do size arithmetic
+with it, for example (i_size + UBIFS_BLOCK_SIZE - 1) >> UBIFS_BLOCK_SHIFT
+in do_readpage() and (i_size - 1) >> PAGE_SHIFT in populate_page().
+
+Patch 2 rejects xattr inodes whose i_size does not match data_len.  ubifs
+keeps the two equal for attribute inodes, and ubifs_xattr_get() and
+remove_xattr() assert on the invariant; with assert=read-only or
+assert=panic a plain getxattr() or removexattr() turns the file system
+read-only or panics the kernel.
+
+Patch 3 checks the lower bound of the master node's highest_inum.  Today
+only the upper bound is validated, so a value below UBIFS_FIRST_INO is
+accepted and ubifs_new_inode() allocates numbers from the range reserved
+for special inodes.  With highest_inum == 0 the first new inode gets
+number 1, which is UBIFS_ROOT_INO and already in use, and the index ends
+up with two inodes sharing a number.
+
+Patch 4 validates inode and data node sizes during replay.  replay_bud()
+trusts them, and ubifs_recover_size() may then extend an inode to a bogus
+size.  The normal read paths already reject such nodes, and truncation
+nodes are checked in replay_bud() as well; do the same here.  The data
+node end offset is also computed in 64 bits so that a large block number
+cannot wrap.
+
+Patch 5 refuses xattr accounting that cannot be decremented.  On an image
+whose counters are already zero or smaller than the entry being removed,
+the unsigned counters wrap and ubifs_jnl_delete_xattr() writes the bogus
+values back to flash; the next mount then rejects the inode because
+xattr_names + xattr_cnt exceeds XATTR_LIST_MAX, so a single removexattr()
+makes the image unmountable.
+
+To keep the severity claims honest: mounting such an image needs
+CAP_SYS_ADMIN in the mounting namespace (or access to the flash), so none
+of these is a non-root attack.  Patch 2 only turns into read-only or panic
+with the assert= option; the default action is to report.  Patch 5 is the
+one with a persistent effect.  Patches 1-3 are mount-time validation,
+patch 4 is in replay, patch 5 is runtime accounting.
+
+The patches are independent, have no inter-patch dependencies and can be
+applied in any order or as a subset.  All five carry Fixes: and
+Cc: stable.
+
+Testing: each patch applies to next-20261030, passes checkpatch.pl
+--strict with 0 errors/0 warnings/0 checks, and fs/ubifs/ builds with
+CONFIG_UBIFS_FS_AUTHENTICATION, CONFIG_UBIFS_FS_XATTR and
+CONFIG_UBIFS_FS_SECURITY enabled and W=1 without new warnings.  I did not
+mount crafted images: this machine has no mkfs.ubifs/ubi tools and no
+mtdram or nandsim setup.  I can put together an image for any of the five
+if a runtime check would help the review.
+
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
