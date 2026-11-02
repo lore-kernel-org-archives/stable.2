@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633430;
-	b=VhXJSDlyCz2vdSSHqO+JEH6OFhW56Khuuip8cNCwf+qktzRt+///careTQVvsa7qjrhH
-	 MGJTTpvIjU/4/IxrnMKgG0rOWb70SH94s6e62wuzpFK+T7hUvry5d16dnSa4IvRbjOEzG
-	 H2oHk9S879qgBfmJT5rLdiVdu2odyrotLG/dn3OdrjJBnUn9HJXuexrfaqIQrGCUf2mqw
-	 6UobsM0sSVA212hdhmFrrK7D7oAMm4qpBt2lqe8H5vwnooEX3SYm38EdzcGoN6JgPOptd
-	 dxDYoj55K+Oa9PN4uvtZUQE3gVeXGyLDX8f1xxQb2JVajl7h3De5kkoLNjQicMeFYng==
+	t=1793633432;
+	b=Am40q43IIYVWBvxfAYVDnDjNTM4rBYk0Zka//DYmezX0zFv1KTPHSerrdp+RJRdiaDeb
+	 FdGd7HA7WFb+tf/DTKXj9NCrgWp4v59JhmUh8jPbw3ekKxxGklsGB8KwnykR+UFUxQ2ia
+	 XNYaclHN6H1Q8SNOthBY0Fczx8oS7Knx3c2UfsbxLt7csjgs0i1rt77q2aL02d/oiv3Cn
+	 qh4qJ9evnTdd+GgbPzidgKTXt42vLWhMsIOCn+32y1ACPk/lw5OFxS3foavQL19HBCIy9
+	 IXVPMVbOeGE3Hs/EXHa6i2BgpS+OSVlcjThoG4OZc4LP21Am7r/bA0LOMl5t8/aUO2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633430;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633432;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=G/OG59v8N/i/e5SexocK2Na/1Z9K6o0PPIIDzjmGEd4=;
-	b=nQy1HMjhRbqDoaesK9+x22TINKm2FdPMIWrlJq88TR9+awsi5Bp+0dsh7GhMFIXDgZE3
-	 uAhKvPEWM6lqm7iGKL/QMAeUdJe3fo4dgIP07KQOGuqKNozzPpY0C1tJVqoK8tZ+XLJjZ
-	 NFyFI5dsi2t9ebVJL9q60ir4fJR/drQMppx1KXM0kyfJ/FJ2VeOh1yM3mgR0sDVSvDvON
-	 mBzlsravvzzWOEEQv9wW00ZybY4tVDR0RKQOMSo3nfOz+9ILLnC2wM1Yg21UJD+oTd7sx
-	 Lw1J4MHeonR6LCSGTfz+uN2FVFbhbWsUmpRLttJoAqGIuNUoPpcGtouo6zczXfS3+1w==
+	bh=DrDkF3vzS1EaJhqP1XIwQmfjpr9Upek9y+DqhnqcXFo=;
+	b=hE5Zmts+wKpoe4cjMi1mDbIEt3+SLhJtAEDjupcBf2glJcRTHldR3qmxSRbKDdS+27dC
+	 1PLkps/v/nfHtOTtJh/+UJ0rBlZRX+tN8oKSaLFrowJqq0EgIZC1jQGS6/znvsjDyzTbV
+	 +ASth/QMjzIQDeoq0D0rAhRVJPMT+pZy7m+cLzS9gf/Tml0h9uHmm40Zhx8425an+qfvs
+	 UqAtjpTT3wufCbDTDEHcQ3C3Y3oMCcUTnvBCVUV4QZ/VVX442gITkCfO4OE1KlpTjuM7M
+	 ruyoQxa34+WeAb6Y/fmaMto11OLGFRHE8QEvqxo0Dxpy/qAtGSMpfLkF4a7pV+fNszQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e6ikSB7Z;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HyVMr77t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2EC606A33A
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:30:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E252A606AB9C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:30:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e6ikSB7Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9FE1F00A21;
-	Mon,  2 Nov 2026 15:30:29 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HyVMr77t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0971F00A1B;
+	Mon,  2 Nov 2026 15:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793633429;
-	bh=G/OG59v8N/i/e5SexocK2Na/1Z9K6o0PPIIDzjmGEd4=;
+	s=korg; t=1793633431;
+	bh=DrDkF3vzS1EaJhqP1XIwQmfjpr9Upek9y+DqhnqcXFo=;
 	h=Subject:To:Cc:From:Date;
-	b=e6ikSB7ZgoF43L5Gg9lAuJfu6gUd2ze0MAPaqyKnpBT888ddoxpH749zvKYKRbMWl
-	 a7wXcmyMb1QLiA005wdq2Ryray6Kh5ne+eSxpaoV1pq41FfFs0gjqMx2h+TdmfJDYO
-	 fC90FY/o/+z7wzPLXLKVDdbxNo4slKWpEkwq0yAQ=
-Subject: FAILED: patch "[PATCH] smb: client: fix early procfs exposure race" failed to apply to 6.12-stable tree
+	b=HyVMr77tQAVGX66x0G2tc1cFb20bbrfV8sOD+OnTFZZ7lgNNwveS5WBNFwuSXgAlJ
+	 lKftasB5jB8EhxJguX4SvGP24HENF9uuTj1MYu3DF2EPcWJfN9ZtjXCII4m/m/F14N
+	 bI7CZ/5IB7H9eDJLii9uhNADW9aZQ7U7SlzvLApc=
+Subject: FAILED: patch "[PATCH] smb: client: fix early procfs exposure race" failed to apply to 6.6-stable tree
 To: fredric.cover.lkernel@gmail.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:30:27 +0100
-Message-ID: <2026110227-triumph-worry-bc74@gregkh>
+Date: Mon, 02 Nov 2026 16:30:28 +0100
+Message-ID: <2026110228-badge-squeak-7e20@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7b1afb631395c958993cda4631002258ef4151ea
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110227-triumph-worry-bc74@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110228-badge-squeak-7e20@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
