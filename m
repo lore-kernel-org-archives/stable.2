@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793579834;
-	b=CiXjiquP4VA3qtKeocPaVoKUwdUX+OsZP9JnSzjSj99PeFEKWMnmYpPp37IQqUBO0GOf
-	 +Uz8k2/O4xzvRMKXqpTg2X8u/L88S+llQhvV7UjfxcLYhR/TwyTIz++VKuLLdteRFG8Vm
-	 U1araNoh2qk6hrQXdzLtXJT9gJX5LUJfPfsqD5KnzHk5HIWyPh+TDOEw7bBKm3JVanO2g
-	 jdspiavogQ/bMjO1BKZbMNCRlSVS9f0J6/p9zxfj2N+298Z/NHXDQKQhWS71MElg2qu9P
-	 A+ly2wSTgMleBZPKLQQ+ccxE8QMdlcMD7WjKGNsMR7hPnPuG21NQrPo2cGHh2E9iU+g==
+	t=1793580304;
+	b=y1QfxOYy74Yx9ELpVENu2D8QzY9W3f8PSSLNdJAQ3Tg8PyptfwUY512D83Nw6WO/Jiy0
+	 P6UMXMKAWI7/GeUnA7V95JKsCLyYjllVOM2UyISMPrfPn4q5iSFA3IwtZnXnsZKquDtQ8
+	 HY74L5DUKGMpg06cCSyav5pxAfotrDKgaC8WfIT8IgurDktH/ogdI+ldGnWgDGYDCNU0E
+	 use+G5wigV79lBHfsRWdyRcj/CwhTLwuP/FMNKYRhixFzGd99tmL/0IJ8duhKTqlKmPG2
+	 2PJQfBGCON9EIqh5rdNeq4A9/tLGLPG7bmeBORGhXRSJHQDQtXvHpfsfDiMTy7kCQ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793579834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793580304;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=6KogHPxXZesrjjVkrlJVMb4Eo3ELPLnD2xsloqw8RZM=;
-	b=asttrj0328Iiz7X6wFhinMaohMJyHNiQWFvDgz/lTXNH+w7rrin5wkG2qR/jxwgGyAvt
-	 T1sAxlJnX0iBi+G6SFEo7kxs24stAR3sYZ4C4+9iHbOSBUQd+fLOpngwQa1XLrZ7pGvad
-	 HJYqu3MZ3PABVaQj3XPdcq+gzGaaZWpoRAbePkHuWAfcj7XTdOoK66Hdy0GxUeb9FIrBD
-	 oN9GRN4YAEI+crrx/KPNX+mhcpDmMT7uLoJ5M9fmocsnqaUiACoxp7atxsHiddi8S5e48
-	 36gRsWEgxRfPD0wvF6MaHDF9StIGH8+l8iRbWMl9KroTNUsaUKu9tq5PvMMOvuLTmWw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KgTB+cignjVRgjQLxHLa4kjWTCIUS/wqnaBRjGnD9Jk=;
+	b=q2sYJo1XMe7plbuHR2J84G27Q8CbCMudpGzFbHUv18YThgLSTXzPK85myY/pCOZxdzlR
+	 ji6mGhU5a13EFP8xUBhvYSU/6xKeJSJjaXMKWQqrqp3Uj0F9LXrL8QPBg+fLIiaNZlVkS
+	 C51zbAP+a7K4WNkx3Fxl7+GVxZv+d8UrFrJRbmzrhT7ooK33M0xVQsp6Wpe+RV/SMa1En
+	 Me73+3Em9ZG0WUYJu/30ftIu0cPsiKV14ct92YEl2wowWDDwS49EwgIxbpmU4TupxDi71
+	 VexC8879rd0A0cHRlb+2K5oKgVP6MX7R2Rlrqxg5iKrkoKOevXuaAlTb1cMfsdSMFKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=cqlHdd19;
-	arc=none smtp.remote-ip=209.85.219.45
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e5mVdzUs;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47A7606A333
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 00:37:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C47A7606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B663606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 00:45:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B663606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=cqlHdd19
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-91c1f548f87so44902196d6.2
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 16:37:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e5mVdzUs
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3514b90bb89so5020117eec.1
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 16:45:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793579833; x=1794184633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6KogHPxXZesrjjVkrlJVMb4Eo3ELPLnD2xsloqw8RZM=;
-        b=cqlHdd19IIRGaf3lGxatlIyX1riEouhuFUnPqZYVXG0a3svGrr34ocv1h19tWrNIUB
-         myfwN4CY1vhyAkJMLVP13CyAvDx/iAxE8Nu15187ANtPU8WMcOaXhCetV7yvbsoUbuBQ
-         YH6svszhVEibUdivohKdUBiPgMInmoAupe6XQ=
+        d=gmail.com; s=20260707; t=1793580303; x=1794185103; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KgTB+cignjVRgjQLxHLa4kjWTCIUS/wqnaBRjGnD9Jk=;
+        b=e5mVdzUszWOQ1k0lfWiGZN7UQZO2C5j4Zqn2HgMmKnJtlhdYoUScQCeZLmwWj19Aup
+         gdhy1ssuu6zwdYQAz5L8tv/KohMt73cBmyyYXMT1pomVW+rdbFxX7c4gMCzSfIx9Jc7l
+         Y1uw+njWLWcD+glz55kQJG3lhKa9KHWZaUSJt4Jja5tUMEDcWc08/kjzwZAvpud6115H
+         2PlePqxdytxVNYbtyRqGcK5iCviblwUV7L2evOA6kCovO0yzAOB6BzEDbf1yZe28BCor
+         UHTatKhOqQE7ZBpqGunC9DOVBv19w6JyYMvvmiHkXIzBQCvfFr1KPeUozIyFDHhsLw5h
+         zitQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793579833; x=1794184633;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6KogHPxXZesrjjVkrlJVMb4Eo3ELPLnD2xsloqw8RZM=;
-        b=1CcVijoEm3R15xC3THbdg0RCIo4pMsFfF35/9+DUmMuJBpxkvcKxtBOweyTsuzsMAr
-         BRlaA2Skpv7tztaFL2nNzJtVXhSILOVKxUEJNZBxo9Kn6UyTb0v6A92sxnUxJfIAg4si
-         /t9EvyIphqwsN+DDSxR56H5dAkhDPwZExy0VcShx4yAm/e873FvIOhcjK7SiYqhJwuzj
-         osM8LbiKZj8+nURP2W5rMiqqsymd2uxlP/Bc3VtEcu297hfgPO1yMS7saoIEheEl5vOS
-         E2Y/OB4OqVMwCD2KUZ4hu4qLyRzjLpb+gX1SKyelfRRVvqnsF1tLVPq+jwF2vU5wGbQ/
-         sWPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGSiAeV8in7u68Esgje1/e40Wg6F4wlTLwTckKdUFUYR384cx6teJxkesRazdbSotdLSz+fYo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hTbMldurqEJqxyDRnSShlM27AzfELi0MUj3MsMgcmgM5kTX8H
-	a+c7HQfDLJ6vhn9rk3pmKJkl5tA2yN6/VRM7w6TYQRoZosKWRk+7Kjj3M8BGZhfhCA==
-X-Gm-Gg: AYBFou2DzAcc9W5fuNgIm+mJaOqB0A9LsKWBzCuv0leI5Tryuy/Yj5jH9bvu5Ilyjb0
-	8zgBPyQ+5H9op/ipKDZ6SgLL2d1tIHZuaSiToybeQjgYha8yumx1z7DkV/Y5UoU//fBrbA2X/Ej
-	IwjwLnGIeOOC+5i+WpKT2RmrWt/DQbSZjFPj7+rgzFzsEpAMxk+3g4iwCPMPzz3G/hOevRlLk29
-	QrwQ2+qzsWJXzm/HJHpILZcwny7oCKF+IxWTs7/6yqKmjFLsd0uFEyligouDD8apjz/+M6j6fxj
-	qVJhc19mxFpMu6OLTR8q0C7UUDia7LEnBDuNeUo1dvKad93Tv8/VlqQ6mP5WHrtaKNRVueAMpT4
-	59hxgUHPt13MoQK3+7rE4e3eLiwCuRuM7n84Tm0whBDJGBt7N5rVkDQdmNA5X/UBu/V9WmkUe4u
-	PRjk2i1k2Io5UxElJ5EjpBOWKw7Of27mhOpCTvMJJRR77YKV5ikvgHcqaOG8eiKWBvgTcPemPUn
-	L7i4SsRk8lUTh3jNxV9WZV8jIdXlm5kv/ZHCaMbepZ4x84QSJmkaLX+OVrGni9wQK55KbYWKNlT
-	C2J/bOK8E6sZygXPWTlvtO/gFCUo9nQXQCazi22nc1XLmi+DoIA3E3xxKZEd83viTjwRTjr7Wog
-	8tCGcvost93hLReMth0V86841nI747gkkJxqs
-X-Received: by 2002:a05:6214:3993:b0:91c:7786:dd4 with SMTP id 6a1803df08f44-91ca4ae17f8mr151929446d6.11.1793579832593;
-        Sun, 01 Nov 2026 16:37:12 -0800 (PST)
-Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f23754sm77043066d6.9.2026.11.01.16.37.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 16:37:12 -0800 (PST)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	stable@vger.kernel.org,
-	shaos <shawnq1@163.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Tom Goff <thomas.goff@boeing.com>
-Subject: [PATCH net v2 1/4] net/sched: act_ife: encode configured zero metadata values
-Date: Sun,  1 Nov 2026 19:37:03 -0500
-Message-Id: <SER-NSBD.v2.r0.20261101171325-1@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <SER-NSBD.v2.r0.20261101171325@mojatatu.com>
-References: <SER-NSBD.v2.r0.20261101171325@mojatatu.com>
+        d=1e100.net; s=20260707; t=1793580303; x=1794185103;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KgTB+cignjVRgjQLxHLa4kjWTCIUS/wqnaBRjGnD9Jk=;
+        b=OSGJg7xzI0bmLimFBFfAgSN9Lqj4NBv2qkBO6o+wWwrtxvYm3GT0GGs5RahpcLNhTf
+         R+nRqTrybWOKzx7WIlXY38PPMeg1hYK8dzcs6Hs6qb3um+gA2hdZ3XzWx7KV9nHwwTJo
+         +airZVldAFQhkRh8V3m+i7CVA6c00Rpp4BeG5irunwGmKqFbBHZy3ZZglNPAsWy8BBGJ
+         tT1/0smquwO1DV6/OniWgJ+d5LzkXKNhJ883RtDFztFQVs4nMJc606rrS7Mr+nL6HcK1
+         LA6SEG9X45buX3ijolNbs+N7bJSS0VrgsstMgdc1m8SANSgPw6icLvqTcTFNBvH9W7rq
+         4QIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2i+WEKOd2p4P6hbOKkvb3yJdugpro8sLwANyHBGArDA2mHxO2dnfDM2IiUHcsqBDE7UDNLHs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLyTSyRdocM2kgG4Uxv5amYfULRkICz5ACtrD9niCaM1IdoikV+
+	ehzu1IRL44C5KxXoH4mGeBe6wrkP8iMzZeczyoW+e7HsJOyljMvbpYd4
+X-Gm-Gg: AYBFou2Ddc9HvKECXmeiNksaSNEByxi/anzqGZXGqXi7YTB1NT3wcPO5XuMT/moF86d
+	hrKnNbP4qsaI3BceLMW9+wVjH/GjslmIn3AfmWkqi0Q+l2MHhP5IgU4YRWRHUFAwpN/r4kuLcwb
+	JvKekwyoqXPfj8imwP2REF8TQQxSmS+nwyEnmm43jWS4WhfgJpH8S2KiQ0bO+LRGSmlbrOfLGMl
+	CNCgUtcEqijkS1Kt0g6DOAOxqlsbcF4dAYpkmheWKed+ZKUI4ztu221W0rRPIk0bNabW324rUDd
+	lM93iSlKVlv3bcgH5Q3/gY2udmphZqs9p9SnlawbeX0WXU5JFOaxnMvbjdBt2OZCp0mr3VKJMUB
+	Rc1ms1fG3Yl00d2P5c+2A3NxpOQeUyvHF8TrzncahY6ORZk/GZSCR+edxuWY2dFkoZzxECXxABt
+	OKNZ/ZbWUnfhnoXF3ckbizdr6F1ZOyxUMmYMQb9Jv+NPyBM8WB99LBOSz+tuJJdkEbqv5WQy0VI
+	lP1l4dZmFZXLElrbnvmZ6ArYlf2Rvu/Dzh/IKTJamfK4uGNd9Q48SCSk+hUPoyrWVVL7VL+jKi4
+	81dwP8Gby/q4cIOgUFlfhAXXNLiXxyBK0wd5cwBfEQsJxr/68RQAHtBuRIv0bZD7snBB+E4czk7
+	dwA==
+X-Received: by 2002:a05:7022:ef07:b0:188:ea93:6cf9 with SMTP id a92af1059eb24-1ac5eea1fe9mr15602497c88.43.1793580302546;
+        Sun, 01 Nov 2026 16:45:02 -0800 (PST)
+Received: from [192.168.0.22] ([211.226.54.223])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854d925sm49255251c88.7.2026.11.01.16.44.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 16:45:02 -0800 (PST)
+Message-ID: <e11a0f9b-e703-4f83-a5e9-cb28c85aadc2@gmail.com>
+Date: Mon, 2 Nov 2026 09:44:56 +0900
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,87 +92,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] scsi: ufs: mcq: Reap aborted CQEs before returning
+ from abort
+Content-Language: ko
+To: Peter Wang <peter.wang@mediatek.com>, bvanassche@acm.org
+Cc: James.Bottomley@HansenPartnership.com, alim.akhtar@samsung.com,
+ avri.altman@sandisk.com, beanhuo@micron.com, can.guo@oss.qualcomm.com,
+ cw9316.lee@samsung.com, hyenc.jeong@samsung.com, j-young.choi@samsung.com,
+ jeuk20.kim@samsung.com, john.garry@linux.dev, linux-kernel@vger.kernel.org,
+ linux-scsi@vger.kernel.org, mkp@kernel.org, ping.gao@samsung.com,
+ rafael.j.wysocki@intel.com, stanleyjhu@google.com, vamshigajjela@google.com,
+ stable@vger.kernel.org
+References: <20261030011321.1868029-1-jeuk20.kim@gmail.com>
+ <c6c84b433923fb2c4d332dfd79875be9ebbd1681.camel@mediatek.com>
+From: Jeuk Kim <jeuk20.kim@gmail.com>
+In-Reply-To: <c6c84b433923fb2c4d332dfd79875be9ebbd1681.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Reported by shaos <shawnq1@163.com> with a reproducer for the 32-bit
-case, which was reproduced and verified in our test environment.
 
-The issue:
-ife_check_meta_u32() and ife_check_meta_u16() both reserve eight bytes
-of metadata for a configured value even when that value is zero, but the
-matching encoder returns without calling ife_tlv_meta_encode(). The
-encoder therefore writes neither the TLV header nor its value, while the
-enclosing IFE length still includes the reserved bytes, exposing stale
-skb headroom contents to the peer.
+On 10/30/2026 5:00 PM, Peter Wang wrote:
+>
+> On Fri, 2026-10-30 at 10:13 +0900, Jeuk Kim wrote:
+> > From: Jeuk Kim <jeuk20.kim@samsung.com>
+> > 
+> > ufshcd_mcq_abort() can return before the OCS_ABORTED CQE is reaped.
+>
+> The Initiate Cleanup procedure polls SQ_CUS until the
+> MCQ_POLL_US (500000) timeout expires. So is this issue caused by
+> the hardware completing the cleanup operation only after the
+> timeout had already expired?
+>
+Hi Peter,
 
-The 32-bit helper has been present since the IFE action was introduced
-(v4.6); the 16-bit helper was added with the 16-bit metadata helpers used
-by the skbtcindex callback (v4.9). Both defects predate the oldest
-supported stable kernel (5.10), so they are fixed together in this patch.
-Each hunk keeps its own Fixes: tag for provenance.
+No, this issue can occur even when SQ cleanup completes within the timeout.
 
-The fix:
-Encode any configured value, including zero; skip the TLV only when
-there is neither a configured nor a runtime value. The runtime fallback
-is unchanged.
+SQRTSy.CUS indicates hardware cleanup completion, but it does not
+guarantee that the driver has finished processing the OCS_ABORTED CQE.
 
-A raw TCA_IFE_METALST netlink request is needed to express the
-configured zero: the IFE_META_SKBMARK attribute carries four zero
-payload bytes for the u32 helper, and IFE_META_TCINDEX two zero payload
-bytes for the 16-bit helper (not an absent or zero-length attribute).
-Stock tc cannot build these requests; "use mark 0x0" emits no mark
-attribute and "allow mark" emits a zero-length one.
+Before this patch, ufshcd_mcq_abort() could return SUCCESS before CQE
+processing completed, allowing the SCSI core to retry or finish the
+command.
 
-Conditions to recreate the bug:
-CONFIG_NET_ACT_IFE=y, CONFIG_NET_IFE_SKBMARK=y,
-CONFIG_NET_IFE_SKBTCINDEX=y, CONFIG_NET_CLS_MATCHALL=y,
-CONFIG_NET_SCH_INGRESS=y, CONFIG_USER_NS=y, CONFIG_NET_NS=y,
-CONFIG_VETH=y. In a fresh user and network namespace create a veth pair
-and attach clsact to the egress side. Install a matchall filter whose
-ife encode action carries a zero skb mark (or a zero tcindex) in
-TCA_IFE_METALST. Send a frame through the veth and inspect the IFE
-metadata in the received frame. The metadata region is eight bytes but
-holds neither a valid TLV header nor a value; it exposes prior headroom
-contents. Setting the value to a nonzero one does not trigger the leak.
-The namespace needs CAP_NET_ADMIN; no additional privilege is required.
-With the fix the zero TLVs are 0001000800000000 (u32) and
-0005000600000000 (u16).
-
-Fixes: ef6980b6becb ("introduce IFE action")
-Fixes: 6a5d58b67e20 ("net sched ife action: add 16 bit helpers")
-Reported-by: shaos <shawnq1@163.com>
-Link: https://lore.kernel.org/netdev/20261022144739.61342-1-shawnq1@163.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
-
- net/sched/act_ife.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/net/sched/act_ife.c b/net/sched/act_ife.c
-index 3946a9589bb8..6b23a3965121 100644
---- a/net/sched/act_ife.c
-+++ b/net/sched/act_ife.c
-@@ -50,8 +50,7 @@ int ife_encode_meta_u16(u16 metaval, void *skbdata, struct tcf_meta_info *mi)
- 		edata = *(u16 *)mi->metaval;
- 	else if (metaval)
- 		edata = metaval;
--
--	if (!edata) /* will not encode */
-+	else
- 		return 0;
- 
- 	edata = htons(edata);
-@@ -94,8 +93,7 @@ int ife_encode_meta_u32(u32 metaval, void *skbdata, struct tcf_meta_info *mi)
- 		edata = *(u32 *)mi->metaval;
- 	else if (metaval)
- 		edata = metaval;
--
--	if (!edata) /* will not encode */
-+	else
- 		return 0;
- 
- 	edata = htonl(edata);
--- 
-2.43.0
+Thanks,
+Jeuk
 
