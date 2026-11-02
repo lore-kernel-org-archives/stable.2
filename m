@@ -1,108 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655987;
-	b=D04TEeUN/B48n7pB2NSHvltMZ/B91ri8DGyLZjGxYdU/togiZ3Yc9fwkPveDBbqN8nA5
-	 zaU1haig8qUtcSnXYqRWG/2Rih2xCJETJyoZhelLyziEpk6XWxP8P+vhB3rDdSYnz4Ydg
-	 0Jw5p8KPWF4EgCdLNPE2hnd3mBnoM3550bTRLMmLVyBgW40fB1kXvcWnkw4ZJChUf59eu
-	 y5TQDda3c2IYZkHfhtNRq3zkrZyuOWfR2ZynWmNRHsfIQNoySo5pYNPQLws6Q0MVntsQ+
-	 ycPihengThnw9ww9ly/o6APODs4akAPPaXwhTmjFCxxYpLRPjLCXsOR5tdB2fM0qPIg==
+	t=1793656052;
+	b=GeeskOEDLsa8yqB38oJXYGLgTGfvEeF4+ZPJ6iuTDCQ7VEVIJ9vt9PYFRrg923ypGygD
+	 rCKi3rmxnDHc7ndKus2R3mwdSdg9pz0VdM995XE8Ie0znT1CptBP4lcf4U/afR6yctmk7
+	 FKqwr33sp3Pe9DLoyhHbkuZ7ILE1VB/+85V3hO1To99AfebbOxE2EVv03QDFJclPnO05B
+	 lbUU0rpL6xvp2U283uFJEhxFopFPIgBmP+1euD20VG1yuvavcjXc5amrX+Q7/3UJAs/oW
+	 fn0XyNYoqg0hWbocysPuWZc6dlYLyY8GAbKlTZhk6F/b+FaisZulGQQQp8jJfUlWBwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655987;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656052;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
-	b=RLkT45mM54y0srUa+cxg+1OJQ7b4fJyHrBtK6K3FYIFrG+4gQxYMKt2fHVozox+4VTHC
-	 28xrgch5RIb9KZzOgAPWe75XC2wWLnOhVv1w60T0dWw8Jgg6YaIzEqQHaXUgClW+aDvK8
-	 NqjgSDqGUyxx9y5mPpE2NqL0Ez8svvCyR1n/CUiRAnZVJboJKPH9pjAUITeUNV/ABslAb
-	 0FEEDHE377L+Ev3OykSkVJV2/le+ElOa5i1dycFfZJ8pCO2bIqetrNbEBMOhDCpn0JKPk
-	 VQBgdLCFwFFjPqrG5Ui6h18gHuqTLo2+Q+0dVYyG3NWcN58zgc4td7uy26yYkOWteXA==
+	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=+S5fYIQuj3BUxUqAK0leDOjuKRbrbr4JsrG+bnGWsX0=;
+	b=ssSIEU6JlrtI3CqfRvm2y7JIB9H+7aTjM+VG5Wm1xiWXn+i0ZduRy0TQOc476gsGf56l
+	 AVDy5OsO4/9Basun61w4MfTj0zHa9flE93DUx2sI3iHXSWv3PVHoS7pcVwlJJ3odlaqNo
+	 iIYvYyPQ5xqylIwqHOoFoYh/58JrB+8G/P2KFg0w6Scli4PgttKK0Ns73zm0ht+9TbHPK
+	 9w5HYSqhQXd6hTbwzRYesjpyDpzeCC4+doj2LkdRCs2tVxl7iKlrBObGg5I3yOzfZTCBB
+	 C4wggRP0RTcyMEFM7yBLGtyy+nM3NlGA6DebKUgG1hhrKgZwVjvY1M7NyU1ce0JKAqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=suse.cz;
 	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Z5Wr7Xlk;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QzV2K6E2;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WsNqg78j;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+e2ZHuHV;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="oRIDl/Hu";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jLnuHfHr;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="oRIDl/Hu";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jLnuHfHr;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73404606D805
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 21:46:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73404606D805
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53613606A326;
+	Mon,  2 Nov 2026 21:47:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53613606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Z5Wr7Xlk;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=QzV2K6E2;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=WsNqg78j;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+e2ZHuHV
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=oRIDl/Hu;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jLnuHfHr;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=oRIDl/Hu;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jLnuHfHr
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 783EE1FB0B;
-	Mon,  2 Nov 2026 21:46:15 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8216921F95;
+	Mon,  2 Nov 2026 21:47:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793655976; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793656050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
-	b=Z5Wr7XlkIKLyxNsfGEG46FSbSP4fT2MkGoUUnP8U3jSBZVCy81UNDrtNTRvlzxJizahELh
-	tLVPtq7BdFq7/wflaHFn85Fi+KqjlGxZVtjbhIyTKMI4y65DdhS0E6neIi7YxY17bg+Djc
-	zdaacuU033xAoLYWp008Sux1aLvV7ts=
+	bh=+S5fYIQuj3BUxUqAK0leDOjuKRbrbr4JsrG+bnGWsX0=;
+	b=oRIDl/HuiKbEutVmYmHe7PDImuAzoGNaZxXO1wAquJ59X/brnqMXVDjSTbDwxsgCq7ywPd
+	snPMbdpmge2hbhmwr7D1hViSDGT2wwm0tOjsPZUfmKtr4blSc9hWTShAbMHSlJsm4L7l3C
+	tZRF9xAAEvZyPDbHA+6gNEFQhU0+93I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793655976;
+	s=susede2_ed25519; t=1793656050;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
-	b=QzV2K6E2oTnrR+E26DD3IWvAnEgaKPaEu7jP+7ndlz93PS+jTOC/oTa/FF+OY1XZ8ivonm
-	PaM38zsn33u9vYDA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=WsNqg78j;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=+e2ZHuHV
+	bh=+S5fYIQuj3BUxUqAK0leDOjuKRbrbr4JsrG+bnGWsX0=;
+	b=jLnuHfHr+ig8M9xF8fZ/ZgmwcUfN3u2v5qe5fvBIsMWLaWwJVvP3KpKhNQW/emCIQ7t980
+	OfTEoG2JSIOUSVCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793655975; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793656050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
-	b=WsNqg78jKbyhjDmnFbRDS0eqkxeGVRpDe0tuPdYO6jvx5n+r3yunu7ZGvWAdjJ+Zr0ylbo
-	ZVcwyACmdCwd4OqS9Q4aBGicjsTaWKpwuI3F38AXSBJbitwXUxwZ9HDxcqAETRP69OObeR
-	ik9unSZqpa1LTLHbYNCi4mfe8qhy+nw=
+	bh=+S5fYIQuj3BUxUqAK0leDOjuKRbrbr4JsrG+bnGWsX0=;
+	b=oRIDl/HuiKbEutVmYmHe7PDImuAzoGNaZxXO1wAquJ59X/brnqMXVDjSTbDwxsgCq7ywPd
+	snPMbdpmge2hbhmwr7D1hViSDGT2wwm0tOjsPZUfmKtr4blSc9hWTShAbMHSlJsm4L7l3C
+	tZRF9xAAEvZyPDbHA+6gNEFQhU0+93I=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793655975;
+	s=susede2_ed25519; t=1793656050;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5soQLmBgkKeOj8rMxNKT/IDhzVx/M1YaBunsKqd2vBo=;
-	b=+e2ZHuHVYDXzM9eoqYywchpCtcUcJiKL7nTiy+mnG33DxAKNcFSBaSk6hmH6QsgLGTn85o
-	TAQr9rG4QT2vB8CQ==
+	bh=+S5fYIQuj3BUxUqAK0leDOjuKRbrbr4JsrG+bnGWsX0=;
+	b=jLnuHfHr+ig8M9xF8fZ/ZgmwcUfN3u2v5qe5fvBIsMWLaWwJVvP3KpKhNQW/emCIQ7t980
+	OfTEoG2JSIOUSVCg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2E55A134B3;
-	Mon,  2 Nov 2026 21:46:15 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56866134B3;
+	Mon,  2 Nov 2026 21:47:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id enAeAqcE6WqGfwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:46:15 +0000
+	id hhVdC/IE6Wq5AQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:47:30 +0000
 Received: by quack.suse.cz (Postfix, from userid 1000)
-	id AB37EB15F; Mon, 02 Nov 2026 22:46:14 +0100 (CET)
-Date: Mon, 2 Nov 2026 22:46:14 +0100
+	id E6E9EB175; Mon, 02 Nov 2026 22:47:29 +0100 (CET)
+Date: Mon, 2 Nov 2026 22:47:29 +0100
 From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: Jan Kara <jack@suse.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ext2: preserve completed DIO bytes when buffered
- fallback fails
-Message-ID: <rf4wqzjsxgpujhaegwonjk77gscw5sj4rv6dbhtc47qpmzrlnq@ea533mcohg5i>
-References: <20261102061555.55183-1-dennylin0707@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Chris Mason <mason@kernel.org>, 
+	Josef Bacik <josef@toxicpanda.com>, Amir Goldstein <amir73il@gmail.com>, 
+	Jens Axboe <axboe@kernel.dk>, linux-aio@kvack.org, linux-unionfs@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] aio: fix NULL deref when a fault races ring
+ truncation
+Message-ID: <anqvh3jeie3gxtqjkferbusmqiigq4edkw3ijywct764j5bz32@gb54lzmvgxyj>
+References: <20261029-work-fs-ai-fixes-v1-0-88f22792f6f7@kernel.org>
+ <20261029-work-fs-ai-fixes-v1-1-88f22792f6f7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,87 +116,128 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102061555.55183-1-dennylin0707@gmail.com>
-X-Spamd-Result: default: False [-13.01 / 50.00];
+In-Reply-To: <20261029-work-fs-ai-fixes-v1-1-88f22792f6f7@kernel.org>
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.80 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,gmail.com,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 783EE1FB0B
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,kernel.org,toxicpanda.com,gmail.com,kernel.dk,kvack.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
 
-On Mon 02-11-26 06:15:55, Hungyu Lin wrote:
-> ext2_dio_write_iter() can complete part of a direct write before
-> falling back to buffered I/O for a hole inside i_size. If
-> generic_perform_write() then fails, its error overwrites the completed
-> direct-I/O byte count.
+On Thu 29-10-26 15:00:20, Christian Brauner wrote:
+> From: Chris Mason <mason@kernel.org>
 > 
-> For example, on a full filesystem, an 8 KiB write to a file with an
-> allocated 4 KiB prefix and a 4 KiB hole overwrites the prefix but returns
-> ENOSPC and leaves the file position unchanged. GNU dd with oflag=direct
-> consequently reports zero bytes written.
+> The aio ring lives in a file on the aio pseudo filesystem and the ring
+> VMA uses filemap_fault(). aio_ctx_aops doesn't have a ->read_folio
+> because aio_setup_ring() puts all folios of the ring into the page
+> cache. So a fault on the ring only works as long as it finds its folio
+> in the page cache. If it doesn't, filemap_fault() calls ->read_folio
+> without checking and we jump to NULL.
 > 
-> Preserve a positive direct-I/O result and return the buffered error
-> when no bytes were direct-written. This restores the fallback policy of
-> generic_file_write_iter(), which ext2 used before its iomap conversion.
+> We already fixed this twice this year. A forked child could inherit the
+> ring mapping, fixed by commit c03ce4173c7b ("fs: aio: set
+> VMA_DONTCOPY_BIT in mmap to fix NULL-pointer-dereference error"). And a
+> partial mremap() could leave part of the ring mapped, fixed by
+> commit 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
+> Null-pointer-dereference error"). Both times a VMA outlived the ring and
+> the ring file was truncated under it.
 > 
-> Fixes: fb5de4358e1a ("ext2: Move direct-io to use iomap")
+> There's a third way to get there. kill_ioctx() and the error path of
+> ioctx_alloc() unmap the ring with vm_munmap() and ignore the return
+> value. If vm_munmap() has to wait for mmap_lock and a fatal signal is
+> pending it returns -EINTR and the VMA stays. free_ioctx() then calls
+> put_aio_ring_file() which truncates the ring file to zero. A fault that
+> passed the i_size check in filemap_fault() before that doesn't find its
+> folio anymore, allocates a new one and calls ->read_folio:
+> 
+>     fault on the ring                 io_destroy() with SIGKILL pending
+>     =================                 =================================
+>                                       vm_munmap() returns -EINTR
+>     filemap_fault()
+>       i_size check passes
+>                                       free_ioctx()
+>                                         put_aio_ring_file()
+>                                           truncate_setsize(inode, 0)
+>       no folio, allocate a new one
+>       filemap_read_folio()
+>         ->read_folio == NULL
+> 
+> All that's needed is a second process that shares the mm. If a CLONE_VM
+> child calls io_destroy() and gets SIGKILLed while it waits for mmap_lock
+> the ring stays mapped for the threads of the parent. Any user can do
+> that.
+> 
+> Instead of plugging the routes one by one give the ring a ->read_folio
+> that unlocks the folio and returns -EIO. All folios of a live ring are
+> in the page cache so a fault can only end up there if the ring was
+> truncated. The fault now gets SIGBUS. Nothing else reads the ring file
+> and the aio filesystem uses noop_backing_dev_info so there's no
+> readahead either.
+> 
+> Making vm_munmap() unkillable in those two places would only close this
+> one route and bring back what commit ae7987835643 ("mm: make vm_munmap
+> killable") fixed.
+> 
+> Fixes: 36bc08cc0170 ("fs/aio: Add support to aio ring pages migration")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Thanks. Applied to my tree.
+I agree this looks like a more comprehensive fix. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
 
 								Honza
 
 > ---
->  fs/ext2/file.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  fs/aio.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
-> diff --git a/fs/ext2/file.c b/fs/ext2/file.c
-> index 67fe423c3828..8ddc149d4884 100644
-> --- a/fs/ext2/file.c
-> +++ b/fs/ext2/file.c
-> @@ -145,7 +145,8 @@ static ssize_t ext2_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
->  		pos = iocb->ki_pos;
->  		status = generic_perform_write(iocb, from);
->  		if (unlikely(status < 0)) {
-> -			ret = status;
-> +			if (!ret)
-> +				ret = status;
->  			goto out_unlock;
->  		}
+> diff --git a/fs/aio.c b/fs/aio.c
+> index 4f32b45cb8a0..893db6961ad3 100644
+> --- a/fs/aio.c
+> +++ b/fs/aio.c
+> @@ -528,7 +528,18 @@ static int aio_migrate_folio(struct address_space *mapping, struct folio *dst,
+>  #define aio_migrate_folio NULL
+>  #endif
 >  
+> +/*
+> + * filemap_fault() reads a folio that it did not find in the page cache. All
+> + * folios of a live ring are there, so the ring was truncated under the fault.
+> + */
+> +static int aio_read_folio(struct file *file, struct folio *folio)
+> +{
+> +	folio_unlock(folio);
+> +	return -EIO;
+> +}
+> +
+>  static const struct address_space_operations aio_ctx_aops = {
+> +	.read_folio	= aio_read_folio,
+>  	.dirty_folio	= noop_dirty_folio,
+>  	.migrate_folio	= aio_migrate_folio,
+>  };
+> 
 > -- 
-> 2.43.0
+> 2.53.0
 > 
 -- 
 Jan Kara <jack@suse.com>
