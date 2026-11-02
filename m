@@ -1,127 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600169;
-	b=CYZW9ai6nlO/I2dS1bKxeZSFEzvrufpN1htCEiARHSItP9PeEbD4qq4jE5W+GXuAzcIo
-	 bfzlsApqD2OhafXVoHBDHH8JCbJqxOT1v5oxGDp9WI2Pq0YysQtcmeq4vWn0xt+gve26d
-	 zIhO+mKTFi8lD3eafBqWJfiDkYp5jZPot2LvWW1/0Ql1/uL/i3B8fIo4KTnlI//5ewD77
-	 FdwxBzzoDR0Y9XkhihslsarpWZRVJn9vqjjexmpSGdwE80OamWPPGSANqCvPMCVx6nDW4
-	 Td5BckqBlNsMmLqen/+nL4AHU76aDk4vHP5eejZ52dWG9hJkhdMGCqioiZ4w0EtwScQ==
+	t=1793600217;
+	b=SUZ7aNvGBLxmSSglLihTShggI+dwakiGGOOz62sQTc8phhFu7Ym4PzYe52UzwndaVnWd
+	 J278aE4vUaDoMkSPEBM0wfrg/0nEvr48LB8+y+a7IqXNBeg+apFvcTpbNLCbero0umjTo
+	 dNt/KVCsvae6eP4/2q2awkubf/nd7LC7NMDootmAtf3/w5Nhpw7m+GhfNZrETyTxAUBt9
+	 rKslJDq8vVFdxHzJlzK517ruJQxfczrZ+f2FDdsNW2Sy0IstWOhV5jncPbJGSX7yCpcI9
+	 KshjyFxWhp4z8nd4Mh8TbKynQROwB0oVci5jP18Pww49D1JlUEt0b2ddsmNys3e/7EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600169;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=sosDF1rU/7Wp1aBkxa/i7da3zLE4z8Guhsps9jNy6UE=;
-	b=C5CMNz/+SVPvSN7/ZxgPyVgzOUJHAMgf5fB8ZwJX1PilaGpaI5x2RNvzQ8yTZmYlFCuY
-	 16AkUUYaMYYPmSWr+nmxGWXsAP04aapHr4d1z76XOTXv/24SqUPvwY8RsxIJYmMYS0PNQ
-	 XgzgBwTfC19gkr1dd/jfihBwktKD9omRnEkAZjrz5fRS+1wL2zVKaUYuOFDR3XYL5Brnx
-	 IDTJc6zOr3llm8vqtMGd2T9LzXx3MKN24rzy9GxN9tvM221MQQBwlQTULuZlsSI52C4Iu
-	 QbHGSLB444ghyWQNW44bGxsRUpolQ9Je1m+tybJ1zifgTMOhAnYSuDdEtZp9UtWj0vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600217;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YCiwuv2XbkHXLdK+n+DZWu0Zkx5l+8DgTvFsHFnO3k0=;
+	b=wfTweWNvtDJLQRj7cnyujl8NfQTPqAzWDXeRkcNJbF8lNXXQjeTOokWhH4Ld7mEUpSG6
+	 punYRRzWUW80tV72j5djl5tJ1K7/iN5pyMr+BSuDGcDgcVZBkULC+8nGUHxCirdzDN74d
+	 kARkF+Grix1NI4ryXzS6THCbEg70EieNcwZygfFnmEBUc47ImEzEWUC8cPDEpzAIZYpo+
+	 hlgafsTHFB+4AbpjJF5Iv/9kxGJbT9xyJGiKzFnt/fC17hrykZap/eg4LsVwL+uD+xu4V
+	 hyLaIG6wyV1rvK8TVj2ZOgHXZLVTARt+2Drv3E5Xvs7dGs4sxNUGql4sfiLAVMmCB2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=mJHLAsaR;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=J5nXNTVf;
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aHCootD4;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80574606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 06:16:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80574606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C735F60A2601
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 06:16:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C735F60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=mJHLAsaR;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=J5nXNTVf
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id EF31F1D001EF
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 01:16:08 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Mon, 02 Nov 2026 01:16:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1793600167; x=
-	1793686567; bh=sosDF1rU/7Wp1aBkxa/i7da3zLE4z8Guhsps9jNy6UE=; b=m
-	JHLAsaRisYPxEH2s9LKYj15bEExh8aF/po3ggkekxFpgASHIVp+JymuZWEUdOjCW
-	Y/jbsofRXb//f3No6QwGxf1456CMqHi4zY9ujhgV94BXcc62RMysFoHiMdfr2kVU
-	yaLKLhsu1VIAu9waGBgRQNfZ0RZRMy0Klc41Z2ApcxOteNWSjLnLzPSedjBvdY/q
-	3mGBL4rCOJA+9B+m0v6KmaZnPMV/ebENWj2lU26kA9IJe1wPG7JgWTjeOY8kbCSW
-	1FCHnVZJDxI19im9ZbbwCJHHiMRDI9+Ey/M223na7cVp/DmLEY/kckAlEyDUtBSH
-	qHyuRV567RX4/CdjnISNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1793600167; x=1793686567; bh=s
-	osDF1rU/7Wp1aBkxa/i7da3zLE4z8Guhsps9jNy6UE=; b=J5nXNTVfPjr62uHS3
-	99uGlbgII1HWvBambT4V/S0MmJOAycJEQQqkZ0m3HWlLYxqv6nkPCG4cgW1FwwOc
-	YXPPYcLospyq3E2DR/thdsnjkus0q+5MIUmBwN7Vt15xC15U+zXvJc+XumX1mmPp
-	e4NQzlZCCvFeLP2KBnLFsBOonte/W7BJ0Z/edclZUKkFdWnZb5SjNpTTwXEIjCZz
-	NvTGz1RUVpo/mD872ZFcVwAGqqcs/2gz0xPEsvzny8C/nPpzXVHSlpEiWXH3g5x4
-	FYNReggFdMxF5OCX1abrCGVSM5lJd7p7nl1P2T3xBjcEHMj5giZUPnNuppcO4JMN
-	SBAQg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793600167; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:abWQotlxPa/Xa9S546DufO0VtR1hA54x6lH/rgT1qsbE6qQ
-	eH66+gMEhKaQPq1Iqhx8FQKIz7cegRUHqPC8zQLvjm3/oHrDSRR+T5Uc2UFryMD+
-	R2/GHQjbRUYpV/afcT/AbqfiWoc7hruCWu+7FGqwCVO/+du9MinFe3KqHuQ0PYH2
-	YGPlDn6yJk0wwDQis3MiJz6P/30XP1sPzfdkrM4uk/ko9YN4cVUDoMl1omYie0hP
-	BikExGZgEsPcbyw8UaGHPQIJoGiWFrxp4GikE78JSWbbnWtHpNED+DUukHM8TjKx
-	MDp2tUkc/mr277tRTEgqHoOBwlr2ESNcXUBxkHw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:QMSuHKtCdVDD7Z3D31kxx7aQWAUTMQhDq7IoNB97T54=:jjPoJMKzq+Mof7kNX9Cw8xyn8kYFngqSIACAaYsxrGk=;
-X-ME-Sender: <xms:pyroasCwn_FibyolRvhHPO4QGd-TrT-ai353yZifNqwFwm_xS8jHtw>
-    <xme:pyroarGolkJjPR5_feP5hXUtxHS1ecQwK1e4Y8VVIjXGPCEyhsQc1ZV9JMS_EJn9v
-    -qRyxG9J2h4bPtRv1GyHaf3r8Ng_XvByug5frnngTcFvYmA-bBUgo8>
-X-ME-Received: <xmr:pyroakAShyogV1Z-HknPyPPQcPnUhKeoOrklOftS3epPVyKQtliC5R0aX-aI-ne3>
-X-ME-Proxy-Cause: dmFkZTFGKk/WNkmd39cyK5kg4BSYFhiJducBg0q1Dxb/yw6McJPeF1k53VrIA8oFQ5r40l
-    efUL3sv/8CAXT8lgRt8Iz7IjTiWfVT2ebK2NwBpvdLS8Pjffu/hHGhn+gqv/rBNe83ITNx
-    isYSXwB5NsSv+wIZUQnX2Twt2UHiwYUdH9okdl+Tcoof6j+mv1wOcVdaGK1nzN5QxMHC34
-    691NClNUMb4l54cR295xvnobYFBPXHIPXvC13rnrhOZuAA3zMtBCYTUL1GH1N1scDmrvCU
-    NsduhI/xR7REwD8kOsukMODjx2QIz+iv5MoEUnKw+1TXCUDQretHLbYHKiCh6sRN4WCpR0
-    l2FdwUALw4f65Z8PaWb9U3j5U15utHMPIUAj75ldGOjEKmJfxkjGqJHEOE7a/F7G5+g4EA
-    mp5GVpgn8GQlFr6pbyDDGgncU0p3nVB5i3h0+k9wS9bWXw8LOiQsX1b6wQFUKVleWsWn7V
-    G3Ir5XFQMixMM9HHJTaC74DW0VCvqDkC3obtIQSkiK6JbdzigyRSosdwpBLP2w5I/a7MXH
-    IoB2utETn6oJKYqAdKfBswvA5JlZE0J4HU9iKjeV9eQOYJ+CyJdWDyX3a2AhC/RcIF6SV0
-    l0xkwD5+WooUm1gJYdITpaYYJ9RRnEH1PhXCiT1O+nAe/9Qkpav6uzwqrqzw
-X-ME-Proxy: <xmx:pyroaplGXfkytQfPmZCH1S2LTE1lyPAu2y7IR1xsYk5CzxweCFWFPA>
-    <xmx:pyroaiNdThk30EaLGZP94VH-ALQvT-7N1LfRn2fy2u8Y2ZBus_5T0w>
-    <xmx:pyroam-RUT0CHnX6xunX0zrQCQt-M_JvH7M_VNLBPPABcHDKC6N9VA>
-    <xmx:pyroakEPeUxaCdhxL2zlfxsBRwLHY7tzkAvED0DOvg0jJCXxQJm_4g>
-    <xmx:pyroap3M6DvtbKFOUK8pnoVLmTamtXSmne1xOhvsNktr_NSWvFSih7pB>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 01:16:06 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aHCootD4
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a05b210703so857226b3a.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 22:16:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793600215; x=1794205015; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YCiwuv2XbkHXLdK+n+DZWu0Zkx5l+8DgTvFsHFnO3k0=;
+        b=aHCootD4bV8nb52RYRWtSQIiMUzdltRgBwv4bTMJ2neHqHawPiXVSksHTjnMrgcP8G
+         oxZYM1Jqb3iuZeapLeM1sJdHLl7m8idHU99q/CjacMP8mR6FUM0QKG655JfiXxvtmonc
+         LoLRqdbaSyk6rm8qE8UMvJAgsExaX3Tzcy446ExcllEvZ6yQm0T7fzv4Gyz77J0zKyv7
+         UCsslC54c5dDy+xvGFz+vwwP6t6LhuZZIUiR/qz4u34i39M8KBBmtc/2Bsu78DVlsuh0
+         o8zrBNDTHJa6NfA52WmutnRP5IAOHk5qe2Uni09EodGoRzQxir/WJVmkyiSQgtfd/a/p
+         W63Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793600215; x=1794205015;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YCiwuv2XbkHXLdK+n+DZWu0Zkx5l+8DgTvFsHFnO3k0=;
+        b=lLSUbR2tzmeR7KSV89sY/PuU4+AiV8eZfMvcrvyynLdf9Xje66IJocaQC4/sDR7BHL
+         7BwUpnWsxXibYf3zhqF8BZIg+RL3b9OEQNZFjQMG5aeG9v643UmK3RwURfBTdUOcyORG
+         P/MrbC2TyUsAOOG1TvasJx8OpgIIaJ5CKLGVjzUyE3Mi+o8b39nPQQjUczZYGuxr5rfm
+         SbVHXcSDBxnl5/o5Kt6T32zODeRuwk9z0Roh+H0fkVEDqa6LRtjtL891AFjcNIlcilHb
+         75TVjG61T/ygpMAfiOeVCHtS5o4eB8oSiryIXeGHXHE1p75fJWUJmoWk/od90oRHiQvh
+         Xm6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwrc4K0qbJKR5OccU8zNPaFyaL1/2bl/7pSkfChmdi5U9fTSe2UX9/xc9gC2sjcsrKd6DEX3pg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95en4UlLvMn239A7uD540KgcQ65u20+ipcqLtyUQ8GCs4wkg0V
+	Tp9FN7CM2MajzQE8ncfcCCYsQuhs4szez+3U1GMW7/ucJLwePaO5fQaESMTKFgAHVcXaDSDtsMY
+	XfKGSWM4=
+X-Gm-Gg: AYBFou1sv+mZAsjAVPI4tCDzu4g+B0xdlxCeXXdhN1EknaImxlz3wpqtnZsO+F1g85V
+	VPJkfS+Oer1LECobHHPVYLOnUyaGWiKqdAU8v2ZlDRQoxCM3Pn8zfeEf9PAIwFjBW98bjrU1fg0
+	GrIe3GSI1MgsdVtgd17FC9eTq2iBBrE2Ut7YeRA5zB0ORk+QB68e2a1Mu4gGLXbREAiD/I66miN
+	N+oWhKYFTgalr1wOv73F/R0os6XfOn6ywX37EfXrUAgfsrF1wrPt3S/8rkungcmiN3295OzE0qZ
+	P2QFSpiYeYdVyIYAEy5wvtcqyVZM49qt6MoYSVgOr664PxnLCm6xOwiL2sUZwRsnqsqvbrxYXgx
+	BpKINPyS0bthBUIjabzHw5sh7RcIKVFVuZZEHY9gDDVax5uVuH4iVQ4bFT81N/E27foa9QtKn7Y
+	KaD+2YPdf0vfojx/o6DYxugW++ED0kaCfBx/i1PPVJnRTjUVQhGOrkSLRDZOKiY9rpoklnGGh06
+	x5NMvxNnMcXeJuspnsFnY0MWgPylXDsacjeHm2ABtLWSyxeTkr3cPnVHq6aqtI1EQRDz3DpvdKg
+	imYPfl/D6mDJoohf6PPfCVArYLpNVspJuCtOWU7XeeG69BxXUrLUhni37LBL+OLbgFKzMd4jCHc
+	/Ii67IjokLuss++amRbyBJmaaC6YoDGURrXHwQw==
+X-Received: by 2002:a05:6a00:a0c:b0:881:be70:4490 with SMTP id d2e1a72fcca58-8a9be68059fmr7998645b3a.28.1793600215068;
+        Sun, 01 Nov 2026 22:16:55 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:d115:e4f4:23fd:61df])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d03be0sm1509071b3a.27.2026.11.01.22.16.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 22:16:54 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Sagi Grimberg <sagi@grimberg.me>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+	Mike Christie <michael.christie@oracle.com>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>,
-	Ian Bridges <icb@fastmail.org>,
+	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow
-Date: Mon,  2 Nov 2026 00:15:37 -0600
-Message-ID: <20261102061537.830714-3-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102061537.830714-1-icb@fastmail.org>
-References: <20261102061537.830714-1-icb@fastmail.org>
+Subject: [PATCH v3 2/2] IB/isert: tear connections down from an ib_client on device removal
+Date: Mon,  2 Nov 2026 15:16:07 +0900
+Message-ID: <20261102061608.617186-3-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102061608.617186-1-yhlee@isslab.korea.ac.kr>
+References: <20261102061608.617186-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -133,176 +109,476 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb_check_perm_dacl() does not match ACEs for the caller's groups. It
-also refuses an owner named only by an OWNER RIGHTS ACE, although its
-MAXIMUM_ALLOWED walk already counts that ACE. These callers cannot use
-rights the DACL grants them under MS-DTYP 2.5.3.2.
+The RDMA_CM_EVENT_DEVICE_REMOVAL callback waits on the connection state:
 
-Run the existing ordered walk for every request and match Unix group
-ACEs (S-1-22-2) against the caller's credentials. Use its result when
-the existing SID lookup and POSIX ACL fallback do not decide the open.
+	wait_event_interruptible(isert_conn->rem_wait,
+				 isert_conn->state == ISER_CONN_DOWN);
+	kfree(isert_conn);
 
-Group ACEs remain excluded from MAXIMUM_ALLOWED. Adding them requires
-corresponding changes in smb2_open(), which derives open flags and the
-maximal access reply from that answer.
+That is a use-after-free.  isert_release_work() publishes ISER_CONN_DOWN
+before dropping the last reference, so the wait returns while that work is
+still on its way into kref_put(), as in the splat below.  The state is read
+with no lock held, so reordering the store does not help.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+It also deadlocks.  cma_send_device_removal_put() runs the callback under
+the cm_id's handler_mutex, which rdma_destroy_id() needs, so a teardown
+past the dev_removed test blocks there while the callback waits for it.
+
+Tear the connections down from an ib_client removal callback instead,
+where no cm_id lock is held, and wait there for the last isert_device
+reference, which isert_connect_release() drops.  nvmet-rdma did the same
+in commit f1d4ef7d8883 ("nvmet-rdma: register ib_client to not deadlock
+in device removal").  The cm callback keeps the cm_id and returns zero,
+so dev_removed and rem_wait are gone.
+
+Three things make that wait terminate.  A connection in ISER_CONN_INIT is
+only marked, and isert_connected_handler() releases it.
+isert_connect_request() fills isert_conn_list and isert_np->accepted under
+isert_conn_mutex and rejects a request once the device is being removed.
+isert_remove_one() holds isert_conn_mutex across the whole walk, because
+it guards the lifetime of those connections and not just the list.
+
+4 of 12 unpatched runs hit this use-after-free; none of 12 patched runs
+did.
+
+  BUG: KASAN: slab-use-after-free in isert_release_work+0x78/0x160
+  Write of size 4 at addr ffff888105829180 by task kworker/u16:5/70
+
+  CPU: 0 UID: 0 PID: 70 Comm: kworker/u16:5 Not tainted 7.3.0-CTL-13247-g330517c63aa9 #12 PREEMPT(full)
+  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: isert_release_wq isert_release_work
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x53/0x70
+   print_report+0xd0/0x630
+   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+   ? queued_spin_lock_slowpath+0xef/0xb10
+   ? isert_release_work+0x78/0x160
+   kasan_report+0xce/0x100
+   ? isert_release_work+0x78/0x160
+   kasan_check_range+0x105/0x1b0
+   isert_release_work+0x78/0x160
+   process_one_work+0x697/0x1060
+   ? __pfx___schedule+0x10/0x10
+   ? __pfx_process_one_work+0x10/0x10
+   ? _raw_spin_lock_irq+0x81/0xe0
+   ? __pfx_isert_release_work+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x45b/0xd10
+   ? __pfx_worker_thread+0x10/0x10
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x2c8/0x3b0
+   ? recalc_sigpending+0x15c/0x1e0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x36e/0x5a0
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x572/0xdc0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+
+  Allocated by task 29:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_cache_noprof+0x148/0x360
+   isert_cma_handler+0x1e3/0x2840
+   cma_cm_event_handler+0x3e/0x240
+   cma_ib_req_handler+0x17d9/0x4480
+   cm_process_work+0x41/0x330
+   cm_work_handler+0x5727/0xc160
+   process_one_work+0x697/0x1060
+   worker_thread+0x45b/0xd10
+   kthread+0x2c8/0x3b0
+   ret_from_fork+0x36e/0x5a0
+   ret_from_fork_asm+0x1a/0x30
+
+  Freed by task 218:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kfree+0x121/0x390
+   isert_cma_handler+0x10ff/0x2840
+   cma_cm_event_handler+0x3e/0x240
+   cma_process_remove+0xff/0x5a0
+   cma_remove_one+0xcc/0x250
+   remove_client_context+0xa4/0xf0
+   disable_device+0x128/0x240
+   __ib_unregister_device+0x226/0x3f0
+   ib_unregister_device_and_put+0x50/0x70
+   nldev_dellink+0x28e/0x3d0
+   rdma_nl_rcv_msg+0x29c/0x4e0
+   rdma_nl_rcv_skb.constprop.0.isra.0+0x21d/0x370
+   netlink_unicast+0x68f/0x940
+   netlink_sendmsg+0x810/0xf20
+   __sys_sendto+0x337/0x390
+   __x64_sys_sendto+0xdb/0x1b0
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+  Last potentially related work creation:
+   kasan_save_stack+0x33/0x60
+   kasan_record_aux_stack+0x8c/0xa0
+   __queue_work+0x7a1/0x15e0
+   queue_work_on+0x5d/0x70
+   isert_disconnected_handler.isra.0+0x20b/0x380
+   isert_cma_handler+0x101b/0x2840
+   cma_cm_event_handler+0x3e/0x240
+   cma_process_remove+0xff/0x5a0
+   cma_remove_one+0xcc/0x250
+   remove_client_context+0xa4/0xf0
+   disable_device+0x128/0x240
+   __ib_unregister_device+0x226/0x3f0
+   ib_unregister_device_and_put+0x50/0x70
+   nldev_dellink+0x28e/0x3d0
+   rdma_nl_rcv_msg+0x29c/0x4e0
+   rdma_nl_rcv_skb.constprop.0.isra.0+0x21d/0x370
+   netlink_unicast+0x68f/0x940
+   netlink_sendmsg+0x810/0xf20
+   __sys_sendto+0x337/0x390
+   __x64_sys_sendto+0xdb/0x1b0
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+  The buggy address belongs to the object at ffff888105828000
+   which belongs to the cache kmalloc-8k of size 8192
+  The buggy address is located 4480 bytes inside of
+   freed 8192-byte region [ffff888105828000, ffff88810582a000)
+
+Fixes: 63b268d232b8 ("IB/isert: Properly release resources on DEVICE_REMOVAL")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
+ drivers/infiniband/ulp/isert/ib_isert.c | 149 +++++++++++++++++++-----
+ drivers/infiniband/ulp/isert/ib_isert.h |   5 +-
+ 2 files changed, 120 insertions(+), 34 deletions(-)
 
-Notes:
-    Reachable on a share with "vfs objects = acl_xattr", for example on a
-    file whose DACL only has ACEs for Unix groups (S-1-22-2) or OWNER
-    RIGHTS.
-    
-    MAXIMUM_ALLOWED does not count groups here because smb2_open() also
-    builds the open flags and the maximal access reply from that answer.
-    Counting them there makes some MAXIMUM_ALLOWED opens fail that work
-    today.
-    
-    Tested on ksmbd-for-next d13da43938d1 with KASAN, on top of the earlier
-    patch of this series. Results change for members of the file's group and
-    of other groups the DACL names, and for the owner. A member of a group
-    that the DACL grants full access now reads the file. An owner that only
-    an OWNER RIGHTS ACE names now gets what that ACE allows. Its
-    MAXIMUM_ALLOWED opens, refused before, now succeed with the rights in
-    the maximal access reply. DACLs with no ACE give the same results as
-    before.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance.
-
- fs/smb/server/smbacl.c | 55 +++++++++++++++++++++++++++++++++++-------
- 1 file changed, 46 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 83974643aa88..2abb7ead9948 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1459,6 +1459,22 @@ bool smb_inherit_flags(int flags, bool is_dir)
- 	return false;
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
+index 5371bba71ba3cb..223a727c1d0dec 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.c
++++ b/drivers/infiniband/ulp/isert/ib_isert.c
+@@ -43,6 +43,8 @@ MODULE_PARM_DESC(sg_tablesize,
+ 
+ static DEFINE_MUTEX(device_list_mutex);
+ static LIST_HEAD(device_list);
++static DEFINE_MUTEX(isert_conn_mutex);
++static LIST_HEAD(isert_conn_list);
+ static struct workqueue_struct *isert_login_wq;
+ static struct workqueue_struct *isert_comp_wq;
+ static struct workqueue_struct *isert_release_wq;
+@@ -56,6 +58,8 @@ isert_rdma_accept(struct isert_conn *isert_conn);
+ struct rdma_cm_id *isert_setup_id(struct isert_np *isert_np);
+ 
+ static void isert_release_work(struct work_struct *work);
++static void
++isert_handle_unbound_conn(struct isert_conn *isert_conn, bool iscsi_ref);
+ static void isert_recv_done(struct ib_cq *cq, struct ib_wc *wc);
+ static void isert_send_done(struct ib_cq *cq, struct ib_wc *wc);
+ static void isert_login_recv_done(struct ib_cq *cq, struct ib_wc *wc);
+@@ -255,6 +259,8 @@ isert_device_put(struct isert_device *device)
+ 	if (!device->refcount) {
+ 		isert_free_device_ib_res(device);
+ 		list_del(&device->dev_node);
++		if (device->removal_comp)
++			complete(device->removal_comp);
+ 		kfree(device);
+ 	}
+ 	mutex_unlock(&device_list_mutex);
+@@ -309,7 +315,7 @@ isert_init_conn(struct isert_conn *isert_conn)
+ 	INIT_LIST_HEAD(&isert_conn->node);
+ 	init_completion(&isert_conn->login_comp);
+ 	init_completion(&isert_conn->login_req_comp);
+-	init_waitqueue_head(&isert_conn->rem_wait);
++	INIT_LIST_HEAD(&isert_conn->conn_list);
+ 	kref_init(&isert_conn->kref);
+ 	atomic_set(&isert_conn->ctrl_comp_cnt, 0);
+ 	mutex_init(&isert_conn->mutex);
+@@ -464,9 +470,19 @@ isert_connect_request(struct rdma_cm_id *cma_id, struct rdma_cm_event *event)
+ 	if (ret)
+ 		goto out_destroy_qp;
+ 
++	mutex_lock(&isert_conn_mutex);
++	if (device->removing) {
++		mutex_unlock(&isert_conn_mutex);
++		isert_info("device %p is being removed, rejecting conn %p\n",
++			   device, isert_conn);
++		ret = -ENODEV;
++		goto out_destroy_qp;
++	}
++	list_add_tail(&isert_conn->conn_list, &isert_conn_list);
+ 	mutex_lock(&isert_np->mutex);
+ 	list_add_tail(&isert_conn->node, &isert_np->accepted);
+ 	mutex_unlock(&isert_np->mutex);
++	mutex_unlock(&isert_conn_mutex);
+ 
+ 	return 0;
+ 
+@@ -491,9 +507,12 @@ isert_connect_release(struct isert_conn *isert_conn)
+ 
+ 	BUG_ON(!device);
+ 
++	mutex_lock(&isert_conn_mutex);
++	list_del_init(&isert_conn->conn_list);
++	mutex_unlock(&isert_conn_mutex);
++
+ 	isert_free_rx_descriptors(isert_conn);
+-	if (isert_conn->cm_id &&
+-	    !isert_conn->dev_removed)
++	if (isert_conn->cm_id)
+ 		rdma_destroy_id(isert_conn->cm_id);
+ 
+ 	if (isert_conn->qp)
+@@ -504,12 +523,9 @@ isert_connect_release(struct isert_conn *isert_conn)
+ 	if (isert_conn->login_desc)
+ 		isert_free_login_buf(isert_conn);
+ 
+-	isert_device_put(device);
++	kfree(isert_conn);
+ 
+-	if (isert_conn->dev_removed)
+-		wake_up_interruptible(&isert_conn->rem_wait);
+-	else
+-		kfree(isert_conn);
++	isert_device_put(device);
  }
  
-+/* Whether the caller's credentials hold the group of an S-1-22-2-<gid> SID */
-+static bool smb_sid_in_group(const struct smb_sid *sid)
-+{
-+	if (sid->num_subauth != 2 || compare_sids(sid, &sid_unix_groups))
-+		return false;
-+	/*
-+	 * ksmbd_override_fsids() builds the caller's credentials with
-+	 * make_kgid(&init_user_ns, ...), so the group membership test must
-+	 * compare in that space.  Applying the mount idmap here (as when
-+	 * resolving a SID to an on-disk gid) would mismatch on idmapped
-+	 * mounts.
-+	 */
-+	return in_group_p(make_kgid(&init_user_ns,
-+				    le32_to_cpu(sid->sub_auth[1])));
+ static void
+@@ -521,13 +537,25 @@ isert_connected_handler(struct rdma_cm_id *cma_id)
+ 	isert_info("conn %p\n", isert_conn);
+ 
+ 	mutex_lock(&isert_conn->mutex);
++	if (isert_conn->state >= ISER_CONN_TERMINATING) {
++		/* The login receive is still posted, drain before releasing. */
++		isert_info("conn %p is terminating, state %d\n",
++			   isert_conn, isert_conn->state);
++		if (rdma_disconnect(isert_conn->cm_id))
++			isert_warn("Failed rdma_disconnect isert_conn %p\n",
++				   isert_conn);
++		ib_drain_qp(isert_conn->qp);
++		isert_handle_unbound_conn(isert_conn, false);
++		mutex_unlock(&isert_conn->mutex);
++		return;
++	}
+ 	isert_conn->state = ISER_CONN_UP;
+ 	kref_get(&isert_conn->kref);
+-	mutex_unlock(&isert_conn->mutex);
+ 
+ 	mutex_lock(&isert_np->mutex);
+ 	list_move_tail(&isert_conn->node, &isert_np->pending);
+ 	mutex_unlock(&isert_np->mutex);
++	mutex_unlock(&isert_conn->mutex);
+ 
+ 	isert_info("np %p: Allow accept_np to continue\n", isert_np);
+ 	up(&isert_np->sem);
+@@ -552,7 +580,7 @@ isert_put_conn(struct isert_conn *isert_conn)
+ }
+ 
+ static void
+-isert_handle_unbound_conn(struct isert_conn *isert_conn)
++isert_handle_unbound_conn(struct isert_conn *isert_conn, bool iscsi_ref)
+ {
+ 	struct isert_np *isert_np = isert_conn->cm_id->context;
+ 
+@@ -563,7 +591,8 @@ isert_handle_unbound_conn(struct isert_conn *isert_conn)
+ 		 * so schedule a cleanup ourselves
+ 		 */
+ 		list_del_init(&isert_conn->node);
+-		isert_put_conn(isert_conn);
++		if (iscsi_ref)
++			isert_put_conn(isert_conn);
+ 		queue_work(isert_release_wq, &isert_conn->release_work);
+ 	}
+ 	mutex_unlock(&isert_np->mutex);
+@@ -625,20 +654,23 @@ isert_np_cma_handler(struct isert_np *isert_np,
+ 	return -1;
+ }
+ 
+-static int
+-isert_disconnected_handler(struct rdma_cm_id *cma_id,
+-			   enum rdma_cm_event_type event)
++static void
++isert_teardown_conn(struct isert_conn *isert_conn)
+ {
+-	struct isert_conn *isert_conn = cma_id->qp->qp_context;
++	lockdep_assert_held(&isert_conn->mutex);
+ 
+-	mutex_lock(&isert_conn->mutex);
+ 	switch (isert_conn->state) {
+ 	case ISER_CONN_TERMINATING:
++	case ISER_CONN_DOWN:
++		break;
++	case ISER_CONN_INIT:
++		/* Mark only; isert_connected_handler() releases it. */
++		isert_conn->state = ISER_CONN_TERMINATING;
+ 		break;
+ 	case ISER_CONN_UP:
+ 		isert_conn_terminate(isert_conn);
+ 		ib_drain_qp(isert_conn->qp);
+-		isert_handle_unbound_conn(isert_conn);
++		isert_handle_unbound_conn(isert_conn, true);
+ 		break;
+ 	case ISER_CONN_BOUND:
+ 	case ISER_CONN_FULL_FEATURE: /* FALLTHRU */
+@@ -648,6 +680,16 @@ isert_disconnected_handler(struct rdma_cm_id *cma_id,
+ 		isert_warn("conn %p terminating in state %d\n",
+ 			   isert_conn, isert_conn->state);
+ 	}
 +}
 +
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
- 			bool strict)
-@@ -1475,13 +1491,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	int granted = requested;
- 	struct smb_ace *ace;
- 	int i, found = 0;
--	unsigned int access_bits = 0, denied = 0;
-+	unsigned int access_bits = 0, denied = 0, ordered = 0;
- 	struct smb_ace *others_ace = NULL;
--	bool or_ace = false;
-+	bool or_ace = false, in_group = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
- 	bool is_owner, owner_rights = false;
-+	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
-+	/* The answer to MAXIMUM_ALLOWED stays without the caller's groups */
-+	bool groups = !maximal;
- 	vfsuid_t vfsuid;
++static int
++isert_disconnected_handler(struct rdma_cm_id *cma_id,
++			   enum rdma_cm_event_type event)
++{
++	struct isert_conn *isert_conn = cma_id->qp->qp_context;
++
++	mutex_lock(&isert_conn->mutex);
++	isert_teardown_conn(isert_conn);
+ 	mutex_unlock(&isert_conn->mutex);
  
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
-@@ -1522,7 +1541,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		 */
- 		if (is_owner)
- 			allowed = READ_CONTROL | WRITE_DAC;
--		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+		if (maximal)
- 			requested |= allowed;
- 		if (!allowed || requested & ~allowed)
- 			rc = -EACCES;
-@@ -1531,7 +1550,12 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		goto err_out;
+ 	return 0;
+@@ -674,7 +716,6 @@ static int
+ isert_cma_handler(struct rdma_cm_id *cma_id, struct rdma_cm_event *event)
+ {
+ 	struct isert_np *isert_np = cma_id->context;
+-	struct isert_conn *isert_conn;
+ 	int ret = 0;
+ 
+ 	isert_info("%s (%d): status %d id %p np %p\n",
+@@ -695,21 +736,10 @@ isert_cma_handler(struct rdma_cm_id *cma_id, struct rdma_cm_event *event)
+ 		break;
+ 	case RDMA_CM_EVENT_ADDR_CHANGE:
+ 	case RDMA_CM_EVENT_DISCONNECTED:
+-	case RDMA_CM_EVENT_TIMEWAIT_EXIT:  /* FALLTHRU */
++	case RDMA_CM_EVENT_TIMEWAIT_EXIT:
++	case RDMA_CM_EVENT_DEVICE_REMOVAL:
+ 		ret = isert_disconnected_handler(cma_id, event->event);
+ 		break;
+-	case RDMA_CM_EVENT_DEVICE_REMOVAL:
+-		isert_conn = cma_id->qp->qp_context;
+-		isert_conn->dev_removed = true;
+-		isert_disconnected_handler(cma_id, event->event);
+-		wait_event_interruptible(isert_conn->rem_wait,
+-					 isert_conn->state == ISER_CONN_DOWN);
+-		kfree(isert_conn);
+-		/*
+-		 * return non-zero from the callback to destroy
+-		 * the rdma cm id
+-		 */
+-		return 1;
+ 	case RDMA_CM_EVENT_REJECTED:
+ 		isert_info("Connection rejected: %s\n",
+ 			   rdma_reject_msg(cma_id, event->status));
+@@ -2697,8 +2727,54 @@ static struct iscsit_transport iser_target_transport = {
+ 	.iscsit_get_sup_prot_ops = isert_get_sup_prot_ops,
+ };
+ 
++static void
++isert_remove_one(struct ib_device *ib_device, void *client_data)
++{
++	DECLARE_COMPLETION_ONSTACK(removal_comp);
++	struct isert_device *device, *found = NULL;
++	struct isert_conn *isert_conn;
++
++	mutex_lock(&device_list_mutex);
++	list_for_each_entry(device, &device_list, dev_node) {
++		if (device->ib_device != ib_device)
++			continue;
++		device->refcount++;
++		device->removal_comp = &removal_comp;
++		found = device;
++		break;
++	}
++	mutex_unlock(&device_list_mutex);
++
++	if (!found)
++		return;
++
++	mutex_lock(&isert_conn_mutex);
++	found->removing = true;
++	list_for_each_entry(isert_conn, &isert_conn_list, conn_list) {
++		if (isert_conn->device != found)
++			continue;
++
++		isert_info("removing conn %p state %d\n",
++			   isert_conn, isert_conn->state);
++		mutex_lock(&isert_conn->mutex);
++		isert_teardown_conn(isert_conn);
++		mutex_unlock(&isert_conn->mutex);
++	}
++	mutex_unlock(&isert_conn_mutex);
++
++	isert_device_put(found);
++	wait_for_completion(&removal_comp);
++}
++
++static struct ib_client isert_ib_client = {
++	.name   = "isert",
++	.remove = isert_remove_one,
++};
++
+ static int __init isert_init(void)
+ {
++	int ret = -ENOMEM;
++
+ 	isert_login_wq = alloc_workqueue("isert_login_wq", WQ_PERCPU, 0);
+ 	if (!isert_login_wq) {
+ 		isert_err("Unable to allocate isert_login_wq\n");
+@@ -2719,21 +2795,30 @@ static int __init isert_init(void)
+ 		goto destroy_comp_wq;
  	}
  
--	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
-+	/*
-+	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2). MAXIMUM_ALLOWED takes
-+	 * its result, and so does a caller that only group or OWNER RIGHTS
-+	 * ACEs name.
-+	 */
-+	{
- 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 		aces_size = pdacl_size - sizeof(struct smb_acl);
- 		for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
-@@ -1562,7 +1586,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			     compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
- 			     compare_sids(&sid_everyone, &ace->sid) &&
- 			     compare_sids(&sid_authusers, &ace->sid) &&
--			     compare_sids(&sid_owner_rights, &ace->sid)))
-+			     compare_sids(&sid_owner_rights, &ace->sid) &&
-+			     !(groups && smb_sid_in_group(&ace->sid))))
- 				goto next_ace;
++	ret = ib_register_client(&isert_ib_client);
++	if (ret) {
++		isert_err("Unable to register isert ib client\n");
++		goto destroy_release_wq;
++	}
++
+ 	iscsit_register_transport(&iser_target_transport);
+ 	isert_info("iSER_TARGET[0] - Loaded iser_target_transport\n");
  
- 			switch (ace->type) {
-@@ -1578,15 +1603,17 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- next_ace:
- 			ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
- 		}
--		if (is_owner && !owner_rights)
-+		ordered = access_bits & ~denied;
-+		if (maximal && is_owner && !owner_rights)
- 			access_bits |= READ_CONTROL | WRITE_DAC |
- 				FILE_READ_ATTRIBUTES | DELETE;
- 		access_bits &= ~denied;
--		if ((raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
-+		if (maximal && (raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
- 		    S_ISREG(d_inode(path->dentry)->i_mode) &&
- 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
- 			access_bits |= FILE_EXECUTE;
--		granted = requested | access_bits;
-+		if (maximal)
-+			granted = requested | access_bits;
- 	}
+ 	return 0;
  
- 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
-@@ -1615,6 +1642,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
- 		    !(ace->flags & INHERIT_ONLY_ACE))
- 			or_ace = true;
-+		if (!(ace->flags & INHERIT_ONLY_ACE) &&
-+		    (smb_sid_in_group(&ace->sid) ||
-+		     (is_owner && !compare_sids(&sid_owner_rights, &ace->sid))))
-+			in_group = true;
- 		if (!compare_sids(&sid_everyone, &ace->sid) ||
- 		    !compare_sids(&sid_authusers, &ace->sid))
- 			others_ace = ace;
-@@ -1665,7 +1696,13 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			 */
- 			if (is_owner && !or_ace)
- 				allowed = READ_CONTROL | WRITE_DAC;
--			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+			/*
-+			 * A group the caller is in, or OWNER RIGHTS for the
-+			 * owner, gives what the DACL grants it in order.
-+			 */
-+			if (in_group)
-+				allowed |= ordered;
-+			if (maximal)
- 				requested |= allowed;
- 			if (!allowed || requested & ~allowed) {
- 				ksmbd_debug(SMB, "Can't find corresponding sid\n");
++destroy_release_wq:
++	destroy_workqueue(isert_release_wq);
+ destroy_comp_wq:
+ 	destroy_workqueue(isert_comp_wq);
+ destroy_login_wq:
+ 	destroy_workqueue(isert_login_wq);
+ 
+-	return -ENOMEM;
++	return ret;
+ }
+ 
+ static void __exit isert_exit(void)
+ {
++	ib_unregister_client(&isert_ib_client);
+ 	flush_workqueue(isert_login_wq);
+ 	destroy_workqueue(isert_release_wq);
+ 	destroy_workqueue(isert_comp_wq);
+diff --git a/drivers/infiniband/ulp/isert/ib_isert.h b/drivers/infiniband/ulp/isert/ib_isert.h
+index 519b17e54bd342..802a12c5aae086 100644
+--- a/drivers/infiniband/ulp/isert/ib_isert.h
++++ b/drivers/infiniband/ulp/isert/ib_isert.h
+@@ -191,8 +191,7 @@ struct isert_conn {
+ 	atomic_t		ctrl_comp_cnt;
+ 	bool                    logout_posted;
+ 	bool                    snd_w_inv;
+-	wait_queue_head_t	rem_wait;
+-	bool			dev_removed;
++	struct list_head	conn_list;
+ };
+ 
+ struct isert_device {
+@@ -203,6 +202,8 @@ struct isert_device {
+ 	struct isert_comp	*comps;
+ 	int                     comps_used;
+ 	struct list_head	dev_node;
++	struct completion	*removal_comp;
++	bool			removing;
+ };
+ 
+ struct isert_np {
 -- 
-2.47.3
+2.43.0
 
