@@ -1,57 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625209;
-	b=UraNjDVUIuKJadzSghfV5GhleoGuA8Ws+tmGDuaweVfxN/puwKVYhnVmy1IQsvckp0Uy
-	 6qebwMGlilTLOs7JHMZdAadxMJPWs8w19wJOEFpPmtVfirz3YNuWnPhaiT8Q9uqbOd2+O
-	 mnPR7/9a8ymEUADDPDv0rQS0Opyep984N1U5VdUXke577xCND0+bgSlwj7MqPw5qjUmde
-	 xxfzFGIrTsbuECSUMG+oTsw6O7cAvMSQZqjxGIda0fy2cLoRUPm1khlw/wHdBB0QEE0CW
-	 d6+zyY4JPLcJpQ3u1CshuziuSjpFiEm9K2skYDdIg00yAmunFIl94Dqo4qsA60SlofA==
+	t=1793625260;
+	b=3JtT1XSJTnXHvGVmlJE5AvzBqZfhojiRhjZO6K8ceMGYCJ2AIVxp2bKhI9EHPH05VXON
+	 0A4JdbuNxTTYltdXiLiWutG3SL9LwU08VhjNTjP7MJiNmPlmL0Bl1I/soH2bijJNCj71L
+	 PepGibFw093L5scSmAqRle7+TrJJ1kTpZSVczZmNpnZ9O1q6uPPUyrF/51oPF2YCqXY2Z
+	 cAlQQ4sBgkepg2ABAaGiD/m4IPN3fnVF1fy9kAseefTv49TwWlXN6TQoNguvTo60b5pSw
+	 Y0X4CkrOUl7ol3R8zQC3w/FBazVvH754YL0sKz1Gm/MGk+pHJEYayczeyl/gnHldwBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625209;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Yvtg7UEHcDn0BhPld9BffcD6kymWDnPG5L08CfILpNQ=;
-	b=1auLWzy42ViIPZ5hWmUMiLelC6zCgm4oLrb21tDJOOUe+iTtft7hBDeKDEEvxn8BEmSv
-	 EuZcqzOz2p87brU18d7dKJRI92+kCC/+wajcUa62UZUVKomj99Dl/KiHRaUxcd0fKAcDZ
-	 LCCH1jiNaaAci75egu9TIM0pDyrNiFPDeHnmutuwJeDnYBHS5nWc6qzSABZ9rVVmCN3lc
-	 SebiImJ9irQ4y5cqoM1NUy3m4tld79yzbGbJIdggbxSlt11nZKVh/WFcsfSpxM1s6KsJK
-	 PNQ13q911aihFHda4o0bP1JntX8mKa6vVkY8K1ra0ItSbRGi4VQP3Yu5lFS7rL5eVUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625260;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kTGtskkzFNm/uze28ayZ+fevtF8cgxfFpWUG/kR5BZI=;
+	b=jXZGlKRUkuBrnFkkdvh7pD6Y2FNT4kmjb3Mdde12Scj0aV0NJP9kY52njl+9TmuTEhmD
+	 hC/C6kdimh74528NiDDpa12b682N6PU5NGVxO3RGQJhgDhohfJAfm+IG4KCV86pG34RBI
+	 qSDu4a7parWV/8T4be8spzsqY7JV6/wc8zGqn8CwBSNQ9bOmv0L5kJZWX0c8iniCIblsM
+	 JIsNqfnwwxowYsZBf77c4WsWBQIbXfmp+EWppdzXiA3PSMiAlpKkfAblCmLhR0bqaLOVJ
+	 tlKJQ09eU4mwN8BjPapv1SKzR9QYFSFTcML5InAdT+4urgCJI+ccNvyKOx27Pf4+qEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JO/gGD9e";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=bKVbfavn;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C998606A327
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:13:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA7B606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:14:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EA7B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JO/gGD9e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE751F00A16;
-	Mon,  2 Nov 2026 13:13:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793625208;
-	bh=Yvtg7UEHcDn0BhPld9BffcD6kymWDnPG5L08CfILpNQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JO/gGD9ewHyz2SLuQSnWnv5SkRYnjW6Jlif4kKehidqN1K7Ls90VV+U9KAKZIAX7q
-	 I68srTMzUM/97p9GI4YCKRv+h2VcTO1HFSKU5iLgqQH/1KhZn/bImVB8RnGEUwGkuR
-	 j9ZuAHOca+gT5pcdFkG2v1PqNoqpqWzgQzUa892tURhDbsdXJ4vWvXEL9swBYlIdCm
-	 ygLFkZxPMK+1eDYPrerqdItygGbXfPvJDCRnSR+bQOxzPIbDTuMSv7T0uf6cUMwaVz
-	 Q3MNvnI4nJxN/nWFEqeuQGh1hU6ksvsx4fD01hsq0nNa2P59pjXg3az+vM/YmLn7gP
-	 A7qEIsD2DHJ3A==
-Date: Mon, 2 Nov 2026 13:13:23 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, linux-mm@kvack.org, 
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=bKVbfavn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=kTGtskkzFNm/uze28ayZ+fevtF8cgxfFpWUG/kR5BZI=; t=1793625258; x=2108985258; 
+	b=bKVbfavnv+39mOIhb5BKrr4qgMiDv8Rg3RLhbhryjNmezAclOHyehjc5F7c/1sRJFaiaKNuE/dg
+	+4q+Jlq2v3F2hSRsVJsLEhDqprwTBgG/X1stBJt8U3hBszZNgOgPBWW1oajtfcGsOyqm4ybJqlvdF
+	ekMx6Q55FgVNIwxUdN+YbVtTq4TO9Q36DLwQ97DsBUsJBNyqI6eqP50dD/eb8f71wwGJ3jgdMsZBf
+	1+iDIgiCJE98b0VhQkJWvwzhORJiqzfOga+kSyLfhDKlPGRCpLuWadoCiJkPvGsyVgSR7mAiwWlpU
+	AiNnS2xjJ2bkItkYv4x5Kjv8gOH1ZTbSxGmw==;
+Received: from [179.105.94.163] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xNrrT-0009Eu-VU; Mon, 02 Nov 2026 14:14:08 +0100
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Melissa Wen <mwen@igalia.com>,
+	Iago Toral <itoral@igalia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org,
+	kernel-dev@igalia.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 1/6] mm/mremap: fix hugetlb reservation leak on partial
- move
-Message-ID: <auiJW4jzNs76F90O@gremlin>
-References: <20261030-b4-mremap-pre-split-v1-0-c1829811aed0@toxicpanda.com>
- <20261030-b4-mremap-pre-split-v1-1-c1829811aed0@toxicpanda.com>
+Subject: Re: [PATCH] drm/v3d: Widen cache_clean_lock over the whole L2TCACTL sequence
+Date: Mon,  2 Nov 2026 10:13:48 -0300
+Message-ID: <179362522211.52532.2556381030815772891.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260707200738.659002-2-mcanal@igalia.com>
+References: <20260707200738.659002-2-mcanal@igalia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,131 +70,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-b4-mremap-pre-split-v1-1-c1829811aed0@toxicpanda.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 02:42:46PM +0000, Josef Bacik wrote:
-> Moving a part of a private hugetlb mapping with mremap() leaks the huge
-> page reservations of the parts that stay. They are not returned when the
-> mapping is unmapped, when the process exits or when the pool is resized.
->
-> fixup_hugetlb_reservations() takes the reservation map away from the old
-> VMA while that VMA still spans its whole range, because the moved part is
-> only split off by the unmap at the end of the move. hugetlb_vm_op_close()
-> then finds no map in the parts that remain and returns nothing for them:
->
->     mmap() of 4 pages, MAP_PRIVATE | MAP_HUGETLB    HugePages_Rsvd: 4
->     mremap() of the second page to a new address    HugePages_Rsvd: 4
->     munmap() of all of it                           HugePages_Rsvd: 3
->
-> The source is unmapped in this case, so the number of VMAs ends up where it
-> did before and the check against sysctl_max_map_count stays as it is.
->
-> Fix by splitting a hugetlb VMA in prep_move_vma() before a part of it is
-> moved, as commit 597e4b9ab48a ("mm/mremap: fix locked_vm leak by splitting
-> VMA for MREMAP_DONTUNMAP") does for an mlock()'d VMA. A backport needs that
-> commit, which is tagged for stable itself.
 
-Ack, that one goes back to 5.7 in theory, this one 5.16 so all good.
+On Tue, 07 Jul 2026 17:05:48 -0300, Maíra Canal wrote:
+> v3d_clean_caches() and v3d_flush_l2t() both write the single L2TCACTL
+> register and poll its status bits. The mutex cache_clean_lock exists to
+> serialize them, but v3d_clean_caches() only took the lock around its final
+> FLM_CLEAN write.
+> 
+> These functions run concurrently: v3d_flush_l2t() is issued from the
+> BIN/RENDER/CSD invalidate path while v3d_clean_caches() runs from the
+> CACHE_CLEAN queue, and each queue's scheduler uses its own ordered
+> workqueue, so their run_job callbacks execute in parallel.
+> 
+> [...]
 
->
-> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Applied, thanks!
 
-Some nits below but LGTM, so:
+[1/1] drm/v3d: Widen cache_clean_lock over the whole L2TCACTL sequence
+      commit: 994ba6e5c87d6a3d471ea987fe8622168f092334
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/mremap.c | 28 +++++++++++++++++++---------
->  1 file changed, 19 insertions(+), 9 deletions(-)
->
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index 0d06d7f37f19..cf746bafdee4 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -1038,7 +1038,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
->  }
->
->  static bool __check_map_count_against_split(struct mm_struct *mm,
-> -					    bool pre_split,
-> +					    bool source_stays,
->  					    bool before_unmaps)
->  {
->  	const int sys_map_count = get_sysctl_max_map_count();
-> @@ -1092,14 +1092,15 @@ static bool __check_map_count_against_split(struct mm_struct *mm,
->  	 */
->  	map_count += 2;
->
-> -	/* If pre-split, the -1 observed above doesn't apply. */
-> -	if (pre_split)
-> +	/* If the split off source stays, the -1 observed above doesn't apply. */
-> +	if (source_stays)
->  		map_count++;
->
->  	return map_count <= sys_map_count;
->  }
->
-> -static bool needs_pre_split(struct vma_remap_struct *vrm)
-> +/* Is the source range split off its VMA, to then stay mapped? */
-
-NIT, but slightly awkward wording. Honestly I think we can just do without a
-comment here, the name self-documents, and the hugetlb 'stuff' is documented in
-the comment below.
-
-> +static bool split_source_stays(struct vma_remap_struct *vrm)
->  {
->  	/*
->  	 * An MREMAP_DONTUNMAP of a mlock()'d VMA needs to unlock the
-> @@ -1109,11 +1110,23 @@ static bool needs_pre_split(struct vma_remap_struct *vrm)
->  		vma_test(vrm->vma, VMA_LOCKED_BIT);
->  }
->
-> +static bool needs_pre_split(struct vma_remap_struct *vrm)
-> +{
-> +	/*
-> +	 * fixup_hugetlb_reservations() takes the reservations away from the
-> +	 * source VMA.  The parts of it that do not move have to keep theirs.
-> +	 */
-
-If only we could swear in comments... :)
-
-> +	if (vma_is_hugetlb(vrm->vma))
-> +		return true;
-> +
-> +	return split_source_stays(vrm);
-> +}
-> +
->  /* Do we violate the map count limit if we split VMAs when moving the VMA? */
->  static bool check_map_count_against_split(struct vma_remap_struct *vrm)
->  {
->  	return __check_map_count_against_split(current->mm,
-> -		needs_pre_split(vrm), /*before_unmaps=*/false);
-> +		split_source_stays(vrm), /*before_unmaps=*/false);
->  }
->
->  /* Do we violate the map count limit if we split VMAs prior to early unmaps? */
-> @@ -1162,10 +1175,7 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
->  	if (err)
->  		return err;
->
-> -	/*
-> -	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
-> -	 * case perform any split ahead of time for an mlock()'d VMA.
-> -	 */
-> +	/* Perform any split ahead of time if the source VMA has to be distinct. */
-
-Nice reduction in comment size too :)
-
->  	if (needs_pre_split(vrm)) {
->  		VMA_ITERATOR(vmi, vma->vm_mm, old_addr);
->
->
-> --
-> 2.55.0
->
-
---
-Cheers, Lorenzo
+Best regards,
+- Maíra
