@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793611513;
-	b=dvVzTOejbtRzkAgxPRP3CDG+138yCaIF/OV0wRlRNKWSNwKQiyIUym2707c6zc/91hT+
-	 rvT4TVqrqgyIBHUFsq9wa5ib6s+8cYBYV/3X0rHCSiiTEV8BYn0M6gIsC0xkg2br+Kb+a
-	 8nwB1asuCT2PFAhSXIs0DSN/uwe2QRh3DpCQum4WCkxSI8v9SjChUefI3HgjkjzWhIuDV
-	 SlcQcyTU6FGXTcrIkdSJIy54kqIu2k/8z45dj8wHyUz4wyAUu9P5Akm0Mi9LY8fU9A+tL
-	 8ykCxfyvWX1nXxYcWZRxDnc1KRXCHABPAZP5HdTLx5sLClpC83rPH1IBmr76X9uWJCQ==
+	t=1793611538;
+	b=Hztjm69DExYRuvoUtQoZchI7OHETW6zcquBoKEwSf1d7DDnXX9baVgbX84EPZqO/B1bz
+	 XGY+JW5DtmnQ0tuXAwgKtc1+dzIAHfdwTUlKxLbaf8Z7fEhkKA6uO4wPempNsP+e19O1s
+	 kv42HjfC6kyHejGm4ZAzSxbPSalPekWxkUr5ZErild3apcUIwphTn/Fh3zgVcay/uFLUE
+	 MIqOYGU7kflgwIut2qu07SfKqYz5AEV43gZMQNsqCj/2l0vOpntNI3o9JkrwL60GgoLVW
+	 SG8vuKsS/25CMJCephxvVegJBUmybpKtIbIBLeKC7BtySwkg2FgyozkuhclAaXDG4hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793611513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793611538;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=sQmszYsiU1aH4zaNe/s9tHOhAixVwmjm3hciCk+1aLg=;
-	b=yqNcJEsseldwCO3ywUfSERZfVH/uyH7SyeAm0qvwVl81YsqpjoOinvdxyL3BoY6YkGlH
-	 ArVeRXsMVdzrku7LsS88ZjRJJ9swWOCR2PH3XQU3JJiHY9KJs2c4r/eSp8IrYX1C4C07C
-	 qm8vHdJZMjWJXbqN6MlgIOUxNVycoXvgUVkUwJ9jsibR8NcoKCoabt/DCOhCQbLdhhhO6
-	 +e43WMZJuVbCfGgCT27ORLnxx4aqSofpGgW9WivOk8LL5DujooekdNq+s3/nfesCwK3Gg
-	 Kxjp0WXFaAyqCj4wujadZuauy1aycnB2X2IOyeHGsnm9CRP9hwo4G6aEm1B1B7tZpBw==
+	bh=LNx9hSZ9We7ZO5wkYLxI8aesL/8TIpZpdBJMnBpdWFc=;
+	b=W+TuAqK2Vpz1tc1TkU76ymjPJoGOT1fRwYIQ77iiNCh3DRQxVRPhyal5S5tXpCQUZSup
+	 MjD0EqciVxAKfmKZNOu6Z0QUxa7nEO/F0wbw3M3WO91GCfmeH+2hSi/DvKr1qp7jp6vd7
+	 3Nu6omSAGGma5SCqAIjbL0dzVJwn6bsLGKeYcTdVX9VpGYsKv3L8GteA6qQ9QHXLbdqbO
+	 7n/Tj7HOsm/lYX2ZPJknq8mYRt7oEt/6+uO9LanYs/3B2eOA75Vp7Dae407cJKqe0qXcS
+	 1wDPVGtl3JwARWsfaZ+3M62vQU0jW9Grv6KSnWZdsi7+HduumdZJfDviWiifmdTVjXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPLMAb0N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zaw+wRPV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6261F606A329
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:25:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF2160A260D
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:25:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPLMAb0N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401D51F00A15
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:25:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zaw+wRPV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66551F01803
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:25:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793611513;
-	bh=sQmszYsiU1aH4zaNe/s9tHOhAixVwmjm3hciCk+1aLg=;
+	s=k20260515; t=1793611537;
+	bh=LNx9hSZ9We7ZO5wkYLxI8aesL/8TIpZpdBJMnBpdWFc=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SPLMAb0NvBbOFBUdM/6Zni0FVowpO/PF6vu1PZBPI1f/TzZU2eCbsNKPybVG19hf/
-	 4PtwU3h8QcMSH3BNAsdUJCh3v09ZyJ0eLPhACdNcPVLcxk6GR1YbBfJMjp46IJ3F9E
-	 3d8R++T1W9v3pedygE7yq1gMcslvZLM+BvJdLHTVvchE+oMx7ucsOmEFe6qBzuj65w
-	 GJp5/TXC7W2kpzV7FuPTSeDgaBqBrLfy0cvYMivjhEakreTy0G2VQ8f5bgfZWVdFci
-	 dAkdF5O8ltpz7OXvuUiE8MB87VnQTKG/2Dz4AaYeKBlB1Wp943aOay3XfAXgdjbowA
-	 1G2t5Erl+Dksg==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso309199166b.3
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 01:25:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzYf3MUiSfUOxq0oIOqxbrjA5fPRaj2cBpNZdhtlH114mxhHWj2ALj2H/b1HBMqnD6lwGYb/k4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLEmyi0EABDfJhwOgyj361+mbF76LcyPNgf+bC9sg6fWMeqBQZT
-	Jn8xeujn/ijCOaNnLpLw748R6b64gn3AsFd15Sv7A0Ms1o7nRH3rD5dzjZaZJmmByFZIpR/JFve
-	JQQa93VsuFiKfYAIY7qiCoMYF+633UO0=
-X-Received: by 2002:a17:906:99ca:b0:c41:53a9:c65c with SMTP id
- a640c23a62f3a-c4ca7a9ecc8mr749164566b.34.1793611511940; Mon, 02 Nov 2026
- 01:25:11 -0800 (PST)
+	b=Zaw+wRPVkCfPy0LP7ToojmYV1uvZ7wz5OITq7kyiu1Em1JIxJSEJfl8dQaRzd1TcZ
+	 7AMTyoCgjsgeZNmqGbyu7S+mCrG6zavdEF8aTcehRAoT8v6geTMfxVmeQIsmfJ9MYo
+	 Z583rAmA+JUtI/CW+3TcQgUbycp+AOuIs1cjeLb1SIa0+l8w/da20FjRAOX457+IcX
+	 ibjWUlHAB+UbGauwXUuYlrr9vklJUcgoVS/+KUBUHB0bj96YNWAQ+eEa52/OPj/iP4
+	 NVnrkgYqICtBjS/LiGwosCSz8qMjydieutKOJ4uaNS32LQeF/guuyCpA9AtDjJ/qrL
+	 1bU9ACI9JZphw==
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b3dd83e779so4861273a12.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 01:25:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxFhtolwIAFrGr9/IeWxOKDe4zh+/qhBdP8a2HmT0RAlrtYLYxtAsXhWf50x2Ip93vP4sVJnOE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmL1knBuH9b+2EoWDXfUz5vonrDQoLmF3n9NYjr26fQ8or92dA
+	ZMBZh/WcAtzuP+HErPr1aXqVuhj8nT26NqNtbrBZf7GpCTRysNC2end+89876Dpizn2tNkXgqko
+	GEWjlczSaN9mxA9TPyeeVwTfsIdKaU9s=
+X-Received: by 2002:a17:907:6d29:b0:c40:3a99:3f96 with SMTP id
+ a640c23a62f3a-c4ca7a16292mr723014166b.10.1793611536413; Mon, 02 Nov 2026
+ 01:25:36 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,37 +59,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102051428.817037-1-icb@fastmail.org>
-In-Reply-To: <20261102051428.817037-1-icb@fastmail.org>
+References: <20261102061537.830714-1-icb@fastmail.org> <20261102061537.830714-2-icb@fastmail.org>
+In-Reply-To: <20261102061537.830714-2-icb@fastmail.org>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 2 Nov 2026 18:25:00 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8RJGv-KmuRnJtbF0Y2rBikj3JfW5f6ss-bKU5JihsBWg@mail.gmail.com>
-X-Gm-Features: AclHuK-EqfaD1FSUon1FCnGqHCPYw4AXak4Fb9tDIjzrIOt-u_mb-5HU_Qy_ces
-Message-ID: <CAKYAXd8RJGv-KmuRnJtbF0Y2rBikj3JfW5f6ss-bKU5JihsBWg@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: grant a POSIX ACL group entry only to the group's members
+Date: Mon, 2 Nov 2026 18:25:23 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-f=SdVTA39eE94=+fNubJWeRXTs2ZzS+6-FsCeaZt9Ng@mail.gmail.com>
+X-Gm-Features: AclHuK-hyRelR43z4vxIAD3_xqk-kPEqP5Abiqe2SZ0RUAsb6GnyPJCZfWkYyxc
+Message-ID: <CAKYAXd-f=SdVTA39eE94=+fNubJWeRXTs2ZzS+6-FsCeaZt9Ng@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ksmbd: let the owner read and change the DACL when no
+ ACE names it
 To: Ian Bridges <icb@fastmail.org>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
 	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+	linux-kernel@vger.kernel.org, Aamir Ahmed <elb12345@hotmail.co.uk>, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 2:14=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrote=
+On Mon, Nov 2, 2026 at 3:16=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrote=
 :
 >
-> When no ACE of the DACL matches the caller, Everyone or Authenticated
-> Users, smb_check_perm_dacl() falls back to the file's POSIX ACL. It
-> takes the first ACL_USER or ACL_GROUP entry whose id equals the
-> caller's uid. For ACL_GROUP, this compares a gid with the caller's uid.
-> A numerical match grants the group's permissions even when the caller
-> is not a member.
+> smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
+> the POSIX ACL fallback matches. The owner then cannot read or replace
+> the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
+> WRITE_DAC unless an OWNER RIGHTS ACE applies.
 >
-> Match a group entry only when the caller is also in the group.
+> An empty DACL allows the owner's explicit requests for these rights but
+> refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
+> access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
+> it asks for that reply.
+>
+> Grant the owner's implicit rights on both paths, for explicit requests
+> and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
 >
 > Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Reported-by: Namjae Jeon <linkinjeon@kernel.org>
-> Closes: https://lore.kernel.org/linux-cifs/CAKYAXd93czbFD=3DznZUq_pJLXzDR=
-5N3zc_auvAGWT7pzKR1f9Ag@mail.gmail.com/
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Ian Bridges <icb@fastmail.org>
 Applied it to #ksmbd-for-next.
