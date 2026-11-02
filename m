@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632536;
-	b=oBrIQijDv0RYRWG1SKDC1ESL7OhZ6U0QdE4VfXkV+dhZ4jvMF2nR4Lw7j580U8Zb4onV
-	 AoMzwO/AkoVfcAcUaV1ntHRjGEVSteep0jHijREBL1HD5VEr3dh2FImGV1Xeuu2UwKZAJ
-	 uAPaFpkwBOH63268rwmshU+5GtMERwJpR1J39TZd4lhbS1MLqOXh/3Xy0kf6mLEDpylHg
-	 YCmZwcmme/TlHMTb+DAteVxDtIj3nd+ZhCmMQlaxwseDjo+dltTQ4xEPeG/U1IFddBjSG
-	 ImeMdmqRdEZ2VKKrumBIjZJJIidfAO0Ice6xYyuzCBfts1ArYCd2B5Nde9W2lfEMRmQ==
+	t=1793632537;
+	b=v+u1fBrfXOSw04OrEZXQQJbEMhavsyVNvB9MV4F2dzjuXeAfz5XDWqbGiX+w2vnNuI9g
+	 v0H23c3AoQjKkEdQm7YNvwb4wiGv+qrcuKMUVuE3IOxdJEV3i3BSsdYwV57nL3pbetiKl
+	 /1AIyhiQVMbxMJJh0w0f/JiIvgM6AGHSUHUhYeom3D95G2bQj0g5YVXgzY+d0+djZ7qKf
+	 WRuAI9qzocIsBP9R6H9vqx0ALMk0CkEGRRMD8A/oEBNe9B+cmFXYo3UBOl/We3AzL8a0R
+	 RfCvuJ6KpQwWsuh7BApyPqdbZl6Kl9GSZOBkjqapMRWUwuAUYHZOwjvqNv8sgxRIuVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632537;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=z45gJVenqDQdfqsulcVzTmokKGR0+PriaPFVgi6XmGI=;
-	b=HGKbYyAU5wbeCkvkPhqctGbOp3Kjr+4zCagQqhkj0iwGK5jfzXxCY1uKimaqbakWRoP4
-	 Ip+gchS3uRzuAivr01f2qpXGtCvnMAKIKwh5JiPuwvz1gT3R5VwZAiUsR5zoAWuAW45KD
-	 BRsy3d8RNPNkVpknkAnwMkDNUEi5uDJpcCewkaxxGbti7OPhPsvfPxE2wMbnRP6YFNUaX
-	 I0K0Ps7QQKs4sXQYT5vfSq3Gonvt/F+RCUT+RG4tsSyrrVvEmWlMHrhC6pc0K4Tr/AOJL
-	 +FUq8ZnBklI1KH6lFtqxg6I4VQhH1cgU/K6tXVLx3A4OGiI/EZFY7rM3m+BaJrN0D3w==
+	bh=1faRywtJCP+JRJGU9PHed7i5GyJR6frSTS25rp7+G2A=;
+	b=qJCvVQaUncnTCHuv9NhfGtKVV2eu7e/i/lYmrm/I3hoRgee3lkWFgdKylX/Cm3xeuZuC
+	 EgI9A/B4HDVce22uC+z751qyj9S2WRDxSprv8RL57OWHU9XBiW2iyStl5dqQBO3npqC+4
+	 ZkTdknrjorPimxpxsjGYztYZ0H2VjjNc/DaMTW2pBW/Z0/t9BQ0TLbZmnQsAF5TQ2i2zo
+	 LTzHuBzGfDWOJ1lz2xPTOu/6TahxVDPPZXJahstD10VZ51hzl2V0GSRupmtR5PlgNxzDy
+	 cDattz5R5YAM2cJR/U2xhUbSt4oQjzgTkK+W3S+R2IR7YE9A8tKhLVPhjLz0+BfERjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=manguebit.org;
 	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=8BlA6hJV;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b="N0M/13/t";
 	arc=none smtp.remote-ip=143.255.12.172
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0319E60B57DF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030B960B57DD;
 	Mon,  2 Nov 2026 15:15:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0319E60B57DF
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 030B960B57DD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=8BlA6hJV
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=N0M/13/t
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=z45gJVenqDQdfqsulcVzTmokKGR0+PriaPFVgi6XmGI=; b=8BlA6hJViU7z5n9nCRqX1chUD2
-	MH5KEFnACNBSknUSxu0o9hog/wHoWZ2w2GJ2oscMJMur3JfwiWfL3hLWt63de6KECaRGDdfTSpyZN
-	9V9PBFLwL/Ba4uQaZimR4pKU/ysGTMw+6XbTBZZgC0JPExWkz4ratv0vYAP9t0IcX9UPeRP9meKAG
-	K8HUzwS+vo9H//ymiFeIyN1vIzQ5L6Rb8c1a8GPEst9Kji821BS+RIx9JGv/EwK+ZYrtmMv0W+/qR
-	jEE/zdqm2+HUM4vcBVc158w+e8JJUiL0z748cqIOjQuzvLCS6GjK59T1CfdjIP508OKI4rRh5OBPY
-	Jz1wj6Qw==;
+	bh=1faRywtJCP+JRJGU9PHed7i5GyJR6frSTS25rp7+G2A=; b=N0M/13/toZveVJ54rE+7QnPXku
+	MPuHuqMRUfpxwMgppGvHEmJFKRWYdkXXC4Vnoay3B4a0xfo05Oqv/txw+HJd/xttv93+SD0Ole0Ln
+	k3Ds+DmDddjTWMA8ksASoN3S6LsvFtAi5/K5nXxxkdIfKMEx5yx097Cg/SyIahw04UZl2ojJ3PG5W
+	4qvCkY059VN4HFddhLsOmkcxd1+dwdMDj4eoamoiHgWfm6/2N9JuHtW+smC4dASMcMGBSVwvx9i3R
+	mFtLFVvyhxVahO35AASeKv0DgXaG1m8JFRWD85r4Z0WzLctAyRrJRtv7NXKMTVi/fsRZ5oVwcieMi
+	ccmSEB9A==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xNtks-00000000aQn-0V91;
-	Mon, 02 Nov 2026 12:15:27 -0300
+	id 1xNtkr-00000000aQY-0NwB;
+	Mon, 02 Nov 2026 12:15:26 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
 	netfs@lists.linux.dev,
@@ -57,9 +57,9 @@ Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Bharath SM <bharathsm@microsoft.com>,
 	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH 04/15] netfs: keep the prepare_read errno when abandoning read retries
-Date: Mon,  2 Nov 2026 12:15:14 -0300
-Message-ID: <20261102151525.925058-5-pc@manguebit.org>
+Subject: [PATCH 01/15] smb: client: don't write back through O_DIRECT handles
+Date: Mon,  2 Nov 2026 12:15:11 -0300
+Message-ID: <20261102151525.925058-2-pc@manguebit.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102151525.925058-1-pc@manguebit.org>
 References: <20261102151525.925058-1-pc@manguebit.org>
@@ -74,73 +74,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When ->prepare_read() fails while retrying a read,
-netfs_retry_read_subrequests() marks the subrequest failed and abandons
-the rest, which overwrites the error of every failed subrequest with
--ENOMEM.  The reader then gets -ENOMEM for e.g. a handle that couldn't be
-reopened (-EHOSTDOWN, -ENOENT), a credit wait interrupted by a signal
-(-ERESTARTSYS) or umount -f (-EIO).  The first pass doesn't have this
-problem, as netfs_cancel_read() keeps the errno.
+Writeback uses the first writable handle of the inode, which may have
+been opened with O_DIRECT.  Such handles are opened with
+FILE_NO_INTERMEDIATE_BUFFERING, for which Windows rejects any unaligned
+I/O with STATUS_INVALID_PARAMETER.  Writeback of partly dirty pages and
+of the unaligned tail of a file through one of them fails, so netfs ends
+it with the folios clean and the data never reaches the server.
 
-Record the errno of ->prepare_read() in the subrequest and keep the error
-of subrequests that already failed, using -ENOMEM only for those
-abandoned while still waiting for a retry.
+xfstests generic/051, where fsstress mixes both kinds of opens, loses
+about 1% of its writes this way:
 
-Fixes: ee4cdf7ba857 ("netfs: Speed up buffered reading")
+  smb3_write_err: ... offset=0xde90d7 len=0xbd0b rc=-22
+
+All the rejected writes in a network capture were unaligned writes on a
+no-buffering handle; none of the aligned ones, and none of the unaligned
+ones on regular handles, were.
+
+Prefer a handle that was not opened with O_DIRECT, and use one that was
+only if there is no other.
+
+Fixes: 1013e760d10e ("SMB3: Don't ignore O_SYNC/O_DSYNC and O_DIRECT flags")
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
 ---
- fs/netfs/read_retry.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ fs/smb/client/cifsglob.h |  1 +
+ fs/smb/client/file.c     | 15 ++++++++++++---
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/fs/netfs/read_retry.c b/fs/netfs/read_retry.c
-index 5bd8dee5a834..8a722995fa9d 100644
---- a/fs/netfs/read_retry.c
-+++ b/fs/netfs/read_retry.c
-@@ -28,6 +28,7 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
- 	struct netfs_io_subrequest *subreq;
- 	struct netfs_io_stream *stream = &rreq->io_streams[0];
- 	struct list_head *next;
-+	int ret;
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index d3ca688b6aba..dbf980fcf05b 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1891,6 +1891,7 @@ enum cifs_find_flags {
+ 	FIND_WITH_DELETE	= (1U << 1),
+ 	FIND_NO_PENDING_DELETE	= (1U << 2),
+ 	FIND_OPEN_FLAGS		= (1U << 3),
++	FIND_NO_DIRECT		= (1U << 4),
+ };
  
- 	_enter("R=%x", rreq->debug_id);
+ #define   MID_FREE 0
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 0767eb5f4687..aa2d09dac44c 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -255,9 +255,15 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
+ 	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
+ 	int ret;
  
-@@ -140,8 +141,11 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
- 
- 			/* Renegotiate max_len (rsize) */
- 			stream->sreq_max_len = subreq->len;
--			if (rreq->netfs_ops->prepare_read &&
--			    rreq->netfs_ops->prepare_read(subreq) < 0) {
-+			ret = 0;
-+			if (rreq->netfs_ops->prepare_read)
-+				ret = rreq->netfs_ops->prepare_read(subreq);
-+			if (ret < 0) {
-+				subreq->error = ret;
- 				trace_netfs_sreq(subreq, netfs_sreq_trace_reprep_failed);
- 				__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
- 				goto abandon;
-@@ -221,7 +225,9 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
- 				part = netfs_limit_iter(&source, 0, part, stream->sreq_max_segs);
- 
- 			netfs_stat(&netfs_n_rh_download);
--			if (rreq->netfs_ops->prepare_read(subreq) < 0) {
-+			ret = rreq->netfs_ops->prepare_read(subreq);
-+			if (ret < 0) {
-+				subreq->error = ret;
- 				trace_netfs_sreq(subreq, netfs_sreq_trace_reprep_failed);
- 				__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
- 				goto abandon;
-@@ -257,7 +263,9 @@ static void netfs_retry_read_subrequests(struct netfs_io_request *rreq)
- 		if (!test_bit(NETFS_SREQ_FAILED, &subreq->flags) &&
- 		    !test_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags))
- 			continue;
--		subreq->error = -ENOMEM;
-+		if (!subreq->error ||
-+		    !test_bit(NETFS_SREQ_FAILED, &subreq->flags))
-+			subreq->error = -ENOMEM;
- 		__set_bit(NETFS_SREQ_FAILED, &subreq->flags);
- 		__clear_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
+-	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY, &req->cfile);
++	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_NO_DIRECT,
++				     &req->cfile);
+ 	if (ret) {
+-		cifs_dbg(VFS, "No writable handle in writepages ret=%d\n", ret);
++		ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY,
++					     &req->cfile);
++	}
++	if (ret) {
++		cifs_dbg(VFS, "%s: couldn't find writable handle: %d\n",
++			 __func__, ret);
+ 		return;
  	}
+ 
+@@ -2722,7 +2728,7 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 	}
+ 
+ 	if (test_bit(CIFS_INO_TMPFILE, &cifs_inode->flags))
+-		find_flags = FIND_ANY;
++		find_flags &= FIND_NO_DIRECT;
+ 
+ 	cifs_sb = CIFS_SB(cifs_inode);
+ 
+@@ -2752,6 +2758,9 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 		    !open_flags_match(cifs_inode, open_flags,
+ 				      open_file->f_flags))
+ 			continue;
++		if ((find_flags & FIND_NO_DIRECT) &&
++		    (open_file->f_flags & O_DIRECT))
++			continue;
+ 		if (OPEN_FMODE(open_file->f_flags) & FMODE_WRITE) {
+ 			if (!open_file->invalidHandle) {
+ 				/* found a good writable file */
 -- 
 2.56.0
 
