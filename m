@@ -1,126 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793599566;
-	b=4qm4uJebLaL9mhbSCb+VFY/zHNS5MjJ0JezqwskNBEcxHj708igcWbPnjJ6LpKN8WdlW
-	 A9qS7MhQTmMygvkh5YhRDbHBwOEk7PQlqgsKfb4KXYK3p6iHl/njYzY/VCvk+nvWNTWb2
-	 nNHYz/EFeeWRr0V9A5AjEalubfwTOixuiVOjLqr+awrzC3xuQpylAy3F00ItMLWd5B4JX
-	 E0cW411x1FviDhEdBKfVdDUGcYQFh3SgbXAAHoDaMLj/R2PK1KvWs4dxsbhVQSXd1lciv
-	 z+/aQPI3ddRJo2wvXv9AVPtK15pnanlhezwxe0yyUjQr+am84xpKiQEiA6ffsCCohuw==
+	t=1793599700;
+	b=Q4SbtZCXFC4qpQcEkeu+RC76lAYDgjBvFXKa41BhIdyVEO3lkmfySeGWhyPr1KnB+ofr
+	 jswcOPqgPu359QuSqK6ofLVVp+KSwPfcmDq3mZioFQTM0p81yPhL9a6UWlTI+n+IO94wF
+	 4eNOiiA7o1EQwi//nBmJzknY5BxHTYjDU7IZ5pmXzgEnjHF2iQBVU8zkBUGUksCLz4YSb
+	 tZQZTSfYhFQaRawR1ub1Cgq8EmmZmfizdUH3fgFoeNBGLUOiWB5+5vhBkh/EFyHzsP1lU
+	 35Gzc9K/Rd7ckgOfHW3pNF2JfYwjqiA7UNUbzcjP/8QHWdpy41E4nJZ1oa/kFrkuImQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599566;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+yuFDhrhf3kM/PO/AnTTpZJjMtV5tAkK8200L66uGl8=;
-	b=bpKZRLPHo+pGdiLfjj5SHFxl4IzIlUcZERjo+oUtzqI5nhi8D+OcnyEkzWEA5moMo2j4
-	 hcdHReyNPQv9fGgN9zo6y0kg3V7biQUBfQntRVjExTedmw5WppgLmHKEBYDbqBiMLO4aq
-	 b/zSPKXrN0WOICqkMbLJkaNjtZTAJKFbok32RJGdC065LQrzcnriiYI8OhFxWV5h5KCF+
-	 MesgctRdf2xIekm4phgirChK6tB0B7x0aMaH4Uxs2B66hxJwHofA29v+Ht0FA6fJI4+6K
-	 CyN/YJSc5vfKCJ8Ayli5mnC1xOgxucxSjEs6wDtGcAbBmkMOLhMJNQ6ZH04CuhaGX6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793599700;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=hBHoVDgYosEEjwFENvnqm8RfVk+ydgr5qWMoLpA4mck=;
+	b=WcYG+bUPqhw2fSTdo0n9q3g4Jp9JmrKaeYEufKl/D6ASzCzPFq2VPEsly+e2CvP5Qy6C
+	 zRkIUKgbrmoezIiP+/Hs0TwbNnRynv1gnx+h64BFADZs+1Qg5MxgGfIdVxEv+ubeTtcc/
+	 yPUi2eO5Yei2LogcDSRfpvOwo7bH5Hvy5TdCEeYUC0hq095icRN3uO8Lbi5qIezgS1mpA
+	 CKrdcmrpx77J6/krizEVyCBpqUCaR0c1VPVylr90VR6v5eCAhhtNZOS81DW1twbPD9+Hi
+	 8BAVrlVZP0uV2kxfMxtdm4n9WKHbAiDAyMIiO1Re2zA0+y8XbdSOv7whR1RjFWaffGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mnLeKo3J;
-	arc=none smtp.remote-ip=91.218.175.86
-Received: from mta0.migadu.com (out-86.mta0.migadu.com [91.218.175.86])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QpBWZ7hS;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1725606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 06:05:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1725606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA6F606A324;
+	Mon,  2 Nov 2026 06:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA6F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mnLeKo3J
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ex0bR+wqY48y7Ys0l1lS/C4xyqfg/lqStx93s8K9wXI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793599557; v=1; x=1794204357;
- b=mnLeKo3JIlrjZ0v8csYIXQvs0MqjNYBAaha6FI+GsXgzsTBscKhu47xfdxei1GstkYX55TtU
- s7+ijDrBsSQikbWr4RhQIABec//XfnZQfXcLKbZqgwK2XEUTDJ36HqPkKEIRh6O+ifRMQgl5bW3
- ABiUUGhU4PsBaXEJa27dL80Y=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 85932c5ab249e449;
-	Mon, 02 Nov 2026 06:05:56 +0000
-X-Mizu-Trace-ID: 85932c5ab249e449
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com
-Subject: Re: [PATCH v3 17/47] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
-Date: Mon,  2 Nov 2026 14:05:47 +0800
-Message-ID: <20261102060547.39942-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-17-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-17-d6437171ecc3@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QpBWZ7hS
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793599696; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=hBHoVDgYosEEjwFENvnqm8RfVk+ydgr5qWMoLpA4mck=;
+	b=QpBWZ7hSm+I+U2aCg6L8NDwYV69Hycgk0zL26kk+Qt5J7hlY1w1z82HfB76j5rheOSm5gXgQvydEiA7xgUDL8tfBxYMTnURXdWuKiFc2o0nwkPclSX0ALfOmyTe534rQ7VzsZcwnhGfz5yn0O1htSl3s4+5rbcuBWHVyVFYJV7c=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R801e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=66;SR=0;TI=SMTPD_---0XDuTEnB_1793599690;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDuTEnB_1793599690 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 14:08:12 +0800
+Message-ID: <dda009fe-abda-4745-810c-da02d8440b3c@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 14:08:10 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -130,74 +53,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/47] mm/rmap: handle device-exclusive entries in
+ folio_referenced_one()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-9-d6437171ecc3@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261031-fixes_core-v3-9-d6437171ecc3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-On Sat, Oct 31, 2026 at 10:39:46AM +0100, David Hildenbrand (Arm) wrote:
->From: Chris Mason <mason@kernel.org>
->
->try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
->bits to the folio. A shmem read fault can map a clean folio writable, so
->a later store only dirties the PTE. Losing that dirty bit allows reclaim
->to discard modified data.
->
->The assumption that regular files are read-only is also obsolete since
->commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
->for writable files"). In any case, transferring PTE dirty bits to the folio
->when removing mappings (and while the folio is still mapped) is the right
->thing to do.
->
->Use get_and_clear_ptes() to collect the dirty bits and mark the folio
->dirty before unmapping it. Update the comment.
->
->This was reproduced with shmem using MADV_COLLAPSE followed by
->MADV_PAGEOUT.
->
->Fix generated by an LLM and sent by Chris Mason in private.
->
->Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
->Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
->Cc: stable@vger.kernel.org
->Signed-off-by: Chris Mason <mason@kernel.org>
->[ david: adjust comment; simplify description; cover file-thp as well ]
->Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
-> mm/khugepaged.c | 5 +++--
-> 1 file changed, 3 insertions(+), 2 deletions(-)
->
->diff --git a/mm/khugepaged.c b/mm/khugepaged.c
->index 34ebb37c862c0..ce794d9760a87 100644
->--- a/mm/khugepaged.c
->+++ b/mm/khugepaged.c
->@@ -1995,9 +1995,10 @@ static enum scan_result try_collapse_pte_mapped_thp(struct mm_struct *mm, unsign
-> 		/*
-> 		 * Must clear entry, or a racing truncate may re-remove it.
-> 		 * TLB flush can be left until pmdp_collapse_flush() does it.
->-		 * PTE dirty? Shmem page is already dirty; file is read-only.
-> 		 */
->-		clear_ptes(mm, addr, pte, nr_batch_ptes);
->+		ptent = get_and_clear_ptes(mm, addr, pte, nr_batch_ptes);
 
-I went through get_and_clear_ptes() as well. It merges dirty bits across
-the batch, so we're covered even when the first PTE is clean and a later
-one is dirty.
+On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+> page_vma_mapped_walk() can return non-present device-exclusive entries,
+> but folio_referenced_one() passes them to PTE young-bit accessors that
+> require present PTEs.
+> 
+> We must neither call clear_flush_young_ptes_notify() nor
+> folio_pte_batch() with non-present entries. For example, clearing the
+> young bit on non-present PTEs can corrupt the entry: on arm64
+> PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
+> entry into an ordinary swap entry.
+> 
+> folio_pte_batch() will VM_WARN_ON_FOLIO.
+> 
+> Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
+> treat these entries as old from the CPU's perspective and obtain their
+> young state through the MMU notifier.
+> 
+> Skip PTE batching and MGLRU look-around for non-present entries, and
+> don't modify non-present PTEs.
+> 
+> Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Cc: stable@vger.kernel.org
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> Reviewed-by: Dev Jain <dev.jain@arm.com>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-LGTM!
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-
->+		if (pte_dirty(ptent))
->+			folio_mark_dirty(folio);
-> 		folio_remove_rmap_ptes(folio, page, nr_batch_ptes, vma);
-> 		nr_mapped_ptes += nr_batch_ptes;
-> 	}
->
->-- 
->2.43.0
->
->
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
