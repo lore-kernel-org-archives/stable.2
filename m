@@ -1,100 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793653277;
-	b=h5mU0T2e1U+/JhmEDXK1dtwLNZr0scgaP89VyejcngV/s/WF5eSjDbeFQ8V5KMHKJolY
-	 HQNZUV+xWI9JGDVq8C93fmU9o1E1omNwfqvbkqh5IUP+kRt1lez5rbxURJ57wI9Njpgjl
-	 w8Dh21oc3LJndu3t3/jueYQoeL4GZ6fNXPtee5urSogAi2NcWFUsgIz3ScuAOf3f6tWdl
-	 2KtHHy2dPn7k8wFGIaJ0Vn9tLuVk2gLDcVYHROXxECdWxVDMMqoFc5Eq4+6ZrvVWkV8Nq
-	 hhqiWsaL0UmUc5oSk4Hx3qV+EWWnlfdn+37negORhNRYllBZizBKAciVSz0RvYS3ixQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793653277;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-	b=c6I2qRTGKW+BSVkL4Gn2oml72Ea1XbUUvwC0i51mbbUOASU7So+LAUSF49/MLLHOjfS9
-	 C9AuwaDOo3x5MCNZzW5YJk0U30rWXPKomGhj67RCVMNDOKYdSKQnyI867a4FOUHfTkU27
-	 qKYjfsjp70t8Jb6C2ItcYLXNR1Ob6nqNiYCVZExztGmOM7tztAaKYdaLyq72dC5wL4xkV
-	 NIS5TChnKmBcdkoutOXsgNXzqdC70A7pHo/DTcDd/8CoDHJPXHwz/0xZ0SpXZcRW1E47T
-	 kI/B7fw/ugycr7fB2KKno5hcErbptnNVnjaQxDpDSooQ5S5nMhwklyVNaN7taGDlrKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IY+K5/MB";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.50
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793653401;
+	b=oP1IqNBs2WgjYWg53ICKKsnXcErLqqWF0O5VaoHikMnfVNpKP/oIU9w3UlgicFJJO+yy
+	 LFKu5tlhiy26RbUBKb4z3q/rJShh+Len3Jt6ozM35FXyeeYNg0EZVHqcc+a8W6XcPLMBH
+	 KSlvajhnttRsya/fm8wTBPSR81eTFBS8heu4X65BLdGbk+Vto1dAt0yc48iUG+RD+uyUI
+	 ModL1nPZBaYQxcc6xBYpgH9+xNtJ530D8RDzGHM10xnN1iLR4X3Ur9FRflBpAR4/S4WJE
+	 kNvaNTKQPJa3M6hMJRfkapGofgu0cmD32FvkPOtGsxpU71t8fRPfbXB/6eZcMomkZ4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793653401;
+	h=DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XI1vibZyT4TcoB3+q9Ej9r2osyH37zBdqNJVHXqLwUM=;
+	b=IM1+e6alDFhpcSGEfsb/iVAeTl1wxwml6dMBmFNBjChmGW0I5eNTQHvBsSVdbNrVxR/E
+	 wo6fDLo6fkU0G5WWLvl6jTiFvl54EMcC756LqUniNQaVK/6sW2bIvSzJpdL6tGStTxRgk
+	 3h91UbKQQ2PlTw68mYdi/+/JUmh83TAOnZIhdj3EBzR7U7X3IhS9RfsP5l6zWChGPvcTi
+	 XgAfPT+H0CqvJY78r9lJAH11GW/oMxW4ZYzcJFsxGVFXLOM15USsUZhv9y/tw+Kiw3G+E
+	 89S0QTwB6dUogALXmyv6SiN2rcjrGuRVH/MHcxpmoBbAHrZGvTUz4qgFp+g5kxSUlRQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=YI76s4ff;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657DF606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 21:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657DF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B60606A324;
+	Mon,  2 Nov 2026 21:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IY+K5/MB
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7c03a445cb8so2430351137.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 13:01:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793653276; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nxaPaE52gjUWU8vlsYIwkDo0p/hCOWZmj4+JGmAP8ptR5De3rO1PvnFAqMd3+xzqqA
-         n95gGrfXRkrxD4VF1wDnm2wCc2DDuE7iFWwHNgHU5aIyRw0fYfLJ34hu0AuuJ0cj9wef
-         1iQMnKEj8m2Us0Xar7jacP9cDS9T8c8EpPrTJ3XEkTJFpm5PH3/VV9Gg1N+1wVOXJtj8
-         yBlwQ5yCSSF/IlSGuTEh/aVChsbviA+rO4+dOindo6iy4O8ZFph43oG/bGZAtHgoWbym
-         HktSYHZECBCUP+IapkBTjO6ois+yDzUUAbOW4Y/7K39NmKPDRM8sZKObGICYOdD8+I75
-         vg3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-        fh=RsDyH1DAFwsOfYrlKiU91bjtptAtVu1M1c88uwHQ79Y=;
-        b=mq8VzgFqbSu706ZI7T9j3Cz7gVaqXCEC7z8os0xoS9HNXXhfeagJJHBqq9PLc3HfOJ
-         LCgm6xcBIKybMvjdhkhbUF6l1Cs0pGSYGyNsJ92P2SgIBMkOtpshmIYRf1u5aUO2+CrG
-         yliIesYt9JG3gIA/A/KxOb4pV1RIZKav3zZWz2fIrRHedzT17DzYVTdIURoeoM6dbXDk
-         EJqQLffngb2tQdbrYlutAZ2zQ+6QEdJB7HoDiqBrSbpfJW5twfh4m4c7YFAxhP6HLBnR
-         xT7LIPy8e1wQCcIX/wJycTARcL5Fd89GP3KzrxKs/OgeejrNYNIAuwCDe5ch4pVFRg4w
-         khjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793653276; x=1794258076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-        b=IY+K5/MByhAcoYjByg//SwKjCLd7vCyBUD5AVnFYpbtetV6vtXkD4sgYdXY8Wftbfk
-         pKtw1qnW+SQ2farNcqPSdjuclT1D1/IAsjncvY15A462e1+/tPCnqNhRsBemKwY+Duvb
-         z3vle4ycsu6NzurclTI8thxVBhz6OOWt7cxXd7RdUTonNDCZ8bbj33Z0iDOJgQxE5sgL
-         YjP4MtBbY/0WF6rq80r2NIfm8XOJlmu8Jc09xpwIrWmI8DHRfhV/7xx+pCnrJVjpRsdI
-         G7pnyiTzNIJLCItK78PpopvclpqMsppDovbdzrPdD1oUIsE0p1mXQS7hA9yqXlu3ipNg
-         L74Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793653276; x=1794258076;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AzGy7urIpGHew7dVJqO61fkpD1EwpGhPhtimR7hndxE=;
-        b=c5vpKO1Nu3cxgrgQ+cPq3ZRMUAK5IqDMMC06uloMx71ijJ2LY+xNiw/1/93xY9z4FQ
-         FgTkf8vdq+jAXi+haxKTuLHQIeUG3Y5n10kEc838OA6A9sD69PPsdKgs7nhWSBJtV7ty
-         efbS+8N5xTjIXPL0mGBhQuha9bYzc7ZLZ3gUc1Ss6jKwsNdRuBeIYFH0NCtdrxwkJ0Sp
-         wXZHN/I0L5t55CNyhcTtnYF0pxwoXW/RGuciDrcG3KoFrGqHA2wsYl34ni4WY9Ci5vYr
-         EMgZuIHq++HFH8l/+9GS9R+eBCeveLzKbptjSqeoNb9IwNFUPikvYXO1ntahb+lPVEvh
-         YwxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzrIXXXiNVUSVdhmhdu/ZWo/EyfajHxaHjJy7D/SM894DcxedtKaBDcyB+FifDgWBVy1bxlAdg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VuboH4A+PCpG2twylObWHbB9IALEF/pTB6i+n7SXUDtBy54uZ
-	9zHIM7dDnoG/lNC9u995rMS5FnO4nno3nyTzd8dc1adFReTtn08CZUFC0c0CVBXz7VO2Wz5cwki
-	pdplsI5IC+1N6/eBROQnV2EYo3QkAx20=
-X-Gm-Gg: AYBFou1/aLSGXWzJfSAFQZXI5gu/tJrQ9w5NLSv8Y4Az79cg6dsUu5s/GR6VlN3xvsw
-	mdg72tF5kfzkzWkDsQfCYk0serdM3dYq1zsqA0MJvDPv4bjNhZ6nMd+P5nKh7l/CD8pLyX4vTj0
-	PDSPiNyIngM0i4w2pp7XVxxsh6MfDiUXi3lWN8ksKSSsUh8U51qxkEkN1jlHEfbheSsPmWj05G8
-	hZZHIArZLmfV/EP/tSS8+r18FJhTh2cB9FfVtJ+bFVQD7e/woL0Wu/EARPgYQ95Ox8pKiQ4VwkR
-	cJrI+kvXzl74kaeQXpbkUCJSubmxL3DWRK+j/fbhcosNnLIZxKjI/cQYnXiAEfJ5lTiWuAtUVky
-	OSeiBUa0YfCWDU9rSY5k6I67HJoKF4wDbOjZpTXFJKJzEYrYPci/hRkhcIK3tIbjA5PLmfUE=
-X-Received: by 2002:a05:6102:5811:b0:7c3:b15:a981 with SMTP id
- ada2fe7eead31-7d072c305d3mr5019729137.15.1793653276174; Mon, 02 Nov 2026
- 13:01:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=YI76s4ff
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Content-Type:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-To:Resent-Cc:
+	Resent-Message-ID:In-Reply-To:References;
+	bh=XI1vibZyT4TcoB3+q9Ej9r2osyH37zBdqNJVHXqLwUM=; t=1793653400; x=1794863000; 
+	b=YI76s4ffRxtnrepuMS5+071FcClMYqOlrmHtERABMfpWhlUDNLnsfklDYYJKm9rl3X6WaFfGmSk
+	A6iyawkT93agLhyDjrO1LHnrG6FsyGKL/twauLM6CxAaRSA0nJxPbhspWM2gwbw5Ph1iXOKuSzA6H
+	+ciQqZUSlh6gcfEmSMZETyOJQJka31O8Z9kEMQHDpzWQxRLyp/uFvdTVh1nLA+33XWWxHQIk3Njf4
+	0lDsrJQYWS/WjceD1KAb4LS7xGTyTrLqjg4xGSGyWc9/OzCW/oAJyx3MOqpHgif7w9vYsNWu0QSeH
+	vNkzUda1DKzD3M/jPqxEqQwEPVIg0dBGgZqg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xNzBU-00000001xqw-3NKe;
+	Mon, 02 Nov 2026 22:03:17 +0100
+From: Johannes Berg <johannes@sipsolutions.net>
+To: linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes.berg@intel.com>,
+	stable@vger.kernel.org,
+	Benjamin Berg <benjamin.berg@intel.com>
+Subject: [PATCH wireless] wifi: mac80211: fix use-after-free on TTLM disconnect
+Date: Mon,  2 Nov 2026 22:03:13 +0100
+Message-ID: <20261102220313.3cf5e709417b.I339967c7e614057253aa68c005d9ae220577f99a@changeid>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,81 +65,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260902124026.1774575-1-max.kellermann@ionos.com> <CAOJNxRJ9rUZ4JRwcqEtOPu97D3NNsjwV1mniM6LdNytRYiA54w@mail.gmail.com>
-In-Reply-To: <CAOJNxRJ9rUZ4JRwcqEtOPu97D3NNsjwV1mniM6LdNytRYiA54w@mail.gmail.com>
-From: Ilya Dryomov <idryomov@gmail.com>
-Date: Mon, 2 Nov 2026 22:01:04 +0100
-X-Gm-Features: AclHuK_u-vaHTlw45n1B7ztDg1G2EXvymWObtejqyMF3Kk8CGrlA6DuBbpPPY8o
-Message-ID: <CAOi1vP-yKSeBwA=269uACaXmmfX+Bpjwk_x_uJNOtRtohH=ybQ@mail.gmail.com>
-Subject: Re: [PATCH] ceph: acquire caps for read_folio requests without an rw context
-To: Xiubo Li <xiubo.li@clyso.com>
-Cc: Max Kellermann <max.kellermann@ionos.com>, amarkuze@redhat.com, 
-	ceph-devel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 6:55=E2=80=AFAM Xiubo Li <xiubo.li@clyso.com> wrote:
->
-> Hi Max,
->
-> The fix mechanism looks right: a NETFS_READPAGE request issued via
-> read_mapping_folio() with no rw context should acquire caps, blocking,
-> before hitting the OSD, so it can't race a writer that hasn't flushed
-> yet. Two things though:
->
-> There is one existing Ceph-internal caller that now lands in the new
-> blocking branch: ceph_uninline_data() calls
-> read_mapping_folio(inode->i_mapping, 0, file) from ceph_init_file_info()
-> (fs/ceph/file.c:262) at open() time, with no rw context. On an
-> O_WRONLY open of an inline-data file with no recent readers, RD isn't
-> part of the file's wanted caps (__ceph_caps_file_wanted() derives them
-> from the used fmode), so __ceph_get_caps(RD) takes the -EUCLEAN path
-> into ceph_renew_caps(), which raises the wanted set via
-> __ceph_touch_fmode() and issues a synchronous MDS open request. Such an
-> open now pays an extra sync MDS round-trip, and open() can newly fail on
-> MDS errors. This read also doesn't need caps: the OSD object is not
-> created until the uninline CREATE, and this path intentionally relies
-> on the -ENOENT -> zero-fill behavior. Could you handle this internal
-> caller explicitly (e.g. have ceph_uninline_data()'s read bypass the caps
-> check), rather than making every cap-less READPAGE unconditionally
-> block?
->
-> The blocking acquisition now happens with the folio locked
-> (read_folio contract), inverting the usual caps-before-folio-lock order
-> of ceph_read_iter()/ceph_filemap_fault(). I checked the obvious cycles
-> and didn't find one: a folio that reaches read_folio is clean (dirty =3D>
-> uptodate =3D> read_folio is never called, and netfs_read_folio() diverts
-> dirty folios to netfs_read_gaps() before the request is allocated), so
-> the Fb-revoke flush/writeback never needs to lock it, and the truncate
-> path uses folio_trylock. But please document that invariant in a
-> comment, since it's what makes waiting for caps under the folio lock
-> safe.
->
-> Minor: the new branch hardcodes want =3D CEPH_CAP_FILE_CACHE, while the
-> other read paths add CEPH_CAP_FILE_LAZYIO for lazyio files
-> (ceph_filemap_fault(), ceph_splice_read()); it may also be worth
-> aligning.
->
-> It might also help stable reviewers if the commit message notes that
-> current mainline erofs fileio reads via vfs_iocb_iter_read() ->
-> ceph_read_iter(), so the trigger is gone there and the patch mainly
-> matters for stable kernels and future direct read_mapping_folio()
-> callers.
+From: Johannes Berg <johannes.berg@intel.com>
 
-Hi Max,
+If ieee80211_process_adv_ttlm() disconnects, and some other
+changes were also detected in the beacon, the link update
+to the driver is still done, leading to use-after-free. Fix
+this by returning, like other functions, whether or not the
+update was accepted by the function.
 
-Did you get a chance to follow up on Xiubo's comments?  Particularly on
-whether the data corruption aspect is indeed gone with EROFS switching
-away from read_mapping_folio() in the upcoming release:
+Cc: stable@vger.kernel.org
+Fixes: 702e80470a33 ("wifi: mac80211: support handling of advertised TID-to-link mapping")
+Reviewed-by: Benjamin Berg <benjamin.berg@intel.com>
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+---
+ net/mac80211/mlme.c | 25 ++++++++++++++-----------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3De587a984d332b76ab89fab546f1594f61f73d5f6
+diff --git a/net/mac80211/mlme.c b/net/mac80211/mlme.c
+index 8eda8154ba3d..4e2e01d2f5d3 100644
+--- a/net/mac80211/mlme.c
++++ b/net/mac80211/mlme.c
+@@ -7950,15 +7950,15 @@ static void ieee80211_tid_to_link_map_work(struct wiphy *wiphy,
+ 	sdata->u.mgd.ttlm_info.switch_time = 0;
+ }
+ 
+-static void ieee80211_process_adv_ttlm(struct ieee80211_sub_if_data *sdata,
+-					  struct ieee802_11_elems *elems,
+-					  u64 beacon_ts)
++static bool ieee80211_process_adv_ttlm(struct ieee80211_sub_if_data *sdata,
++				       struct ieee802_11_elems *elems,
++				       u64 beacon_ts)
+ {
+ 	u8 i;
+ 	int ret;
+ 
+ 	if (!ieee80211_vif_is_mld(&sdata->vif))
+-		return;
++		return true;
+ 
+ 	if (!elems->ttlm_num) {
+ 		if (sdata->u.mgd.ttlm_info.switch_time) {
+@@ -7976,14 +7976,14 @@ static void ieee80211_process_adv_ttlm(struct ieee80211_sub_if_data *sdata,
+ 						      0);
+ 			if (ret) {
+ 				sdata_info(sdata, "Failed setting valid/dormant links\n");
+-				return;
++				return true;
+ 			}
+ 			ieee80211_vif_cfg_change_notify(sdata,
+ 							BSS_CHANGED_MLD_VALID_LINKS);
+ 		}
+ 		memset(&sdata->u.mgd.ttlm_info, 0,
+ 		       sizeof(sdata->u.mgd.ttlm_info));
+-		return;
++		return true;
+ 	}
+ 
+ 	for (i = 0; i < elems->ttlm_num; i++) {
+@@ -7995,7 +7995,7 @@ static void ieee80211_process_adv_ttlm(struct ieee80211_sub_if_data *sdata,
+ 
+ 		if (res) {
+ 			__ieee80211_disconnect(sdata);
+-			return;
++			return false;
+ 		}
+ 
+ 		if (ttlm_info.switch_time) {
+@@ -8020,7 +8020,7 @@ static void ieee80211_process_adv_ttlm(struct ieee80211_sub_if_data *sdata,
+ 			 * switch the AP will continue to announce it anyway.
+ 			 */
+ 			if (delay > IEEE80211_ADV_TTLM_ST_UNDERFLOW)
+-				return;
++				return true;
+ 
+ 			delay_usec = ieee80211_tu_to_usec(delay);
+ 
+@@ -8039,9 +8039,11 @@ static void ieee80211_process_adv_ttlm(struct ieee80211_sub_if_data *sdata,
+ 			wiphy_hrtimer_work_queue(sdata->local->hw.wiphy,
+ 						 &sdata->u.mgd.ttlm_work,
+ 						 us_to_ktime(delay_usec));
+-			return;
++			return true;
+ 		}
+ 	}
++
++	return true;
+ }
+ 
+ static void
+@@ -8535,8 +8537,9 @@ static void ieee80211_rx_mgmt_beacon(struct ieee80211_link_data *link,
+ 					       elems->cisco_dtpc_elem);
+ 
+ 	ieee80211_ml_reconfiguration(sdata, elems);
+-	ieee80211_process_adv_ttlm(sdata, elems,
+-				      le64_to_cpu(mgmt->u.beacon.timestamp));
++	if (!ieee80211_process_adv_ttlm(sdata, elems,
++					le64_to_cpu(mgmt->u.beacon.timestamp)))
++		goto free;
+ 
+ apply:
+ 	ieee80211_link_info_change_notify(sdata, link, changed);
+-- 
+2.56.0
 
-If so, I don't think the Fixes tag applies anymore (although it was
-questionable to begin with as this patch is fixing an oversight in
-CephFS, not in EROFS).
-
-Thanks,
-
-                Ilya
