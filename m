@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627136;
-	b=xlb4LV6NFQyOBTXs8Dnxek1tPopVpFL5EpAPjAvxlP2XskOrbvHOELA9Gm9od6AalBze
-	 x5DTH66vaRa+x2Qkj3ToxrSMyy9qVH5w1o8MHDV86QoRAjgBlDE9APxRAY/jkiba/OHCR
-	 TTfEibQNxBN4uOp35iyssRFGBPPVq7p2w2m9fDPw6OXFadshG62A1ewcRYK4MV6v1Dc0/
-	 h/vSuoZsmpk5hye8rjVBfLBNFW6p63lTwDypJrU5aBt4kzHSsZIlFPDuqK44icRyO76Pz
-	 AJqdg5JrdNkkGH/ObfaipxxkYTdEPkGEqQcY5mM93lHbMJPY2oH6y93To2xqW2sZhfA==
+	t=1793627153;
+	b=cLnjxAhSP16+dUcGxisvIyQKPuwM6mXFerOcSNyBHqoRJpeJHDEx4PCB7Eqlb+WXJbAD
+	 6kEWgHnTxa6+ruTo18DqZt9Fy3/7qgAS1DUKU6tCJ9LfO84mP5gzNShHQv6VWgGnUDPUy
+	 8DW+iw9Vcklb4SVsYn8ESZZz/+3c9xRuHoV8cP5X0tepcwHC7Y0Zg3KM9gYCFOaf61Qq8
+	 D0OrkFiW735gHdP2+jDN0OR6uuWHI7xw9rpkNsZkHYInhFykc5XucxnchydYRdlS4dSak
+	 QC3j3f/FXHCjXhpcDUsADRtAlcyD7H8O1ryGPFr4KCLITOem4yEydhuA+cG8zCrJnYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627153;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=pVXNoWjABdU5RPs5u+4FyGSTCEAB3njAGPbzu/Xpj+o=;
-	b=Es9DC1u7zfjmkQcDrIlZozekjsAXKh0shw8WAwguL2gI+VJgKJzopde9iT/vRHXEPfHw
-	 4zEIyixPo45Bwl/xMocbw6gklHLMdbq0NKlNCtkjRdejlMB3JD7lTcfpR5buTW3lmCDkR
-	 vJ08nTsRRU7WLbjbqSXnLLRMcGCkSUMGGgvgXeXogaAoOYjXoYp1TVJ0Mg/UvAyA8CI62
-	 5VPeH9c3zdCNsfd01mczSbLSAhlA0GSkRKAWrZPOecWUWUjG0hef1eFNDJyje7O5kDtBr
-	 22vq3TaSeWrBsZBHYNIFwOY8pAljLvakNI3x//e+AMfdeE5dpZqyX7HRyGbBKelofzQ==
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=yD4Vavq9bkAU37YHIzdyZESn81dXRsb4B/zIIv/Tc/s=;
+	b=4v3/I1w60MHXMRfOBz79LBS25D1GbxIFJRblqjE2nikOmuycO9vDfFPIDWJQ0rdR7RnE
+	 bLhXhKkh2LJszPHldY6jpObd7ytiO7aLakZVa3KfiDE8zjetqMSzAyEcoLfES6ZleQRZ/
+	 1F1+FZDIueyXDLK/bFS3REanDj/S8S5TXTtatlql93U/bC8SfNfJBg9E8BIrJy/xQKGu8
+	 8D0fivBbMYPXkd3AolwRwD+6nC1ay6pGs+b0HQMVT5awnxrlnFVMSHSFwsO/6kIjFH1wl
+	 2M/i24uSPv9pcoKE9PTGMVvSqhDvVwkHDZehP/YN8kN0UnEvNxdqUh0dV7jTM1r3LGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62A7606A327;
-	Mon,  2 Nov 2026 13:45:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62A7606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0910D606A32E;
+	Mon,  2 Nov 2026 13:45:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0910D606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJCdS11NSz8XrrJ;
-	Mon, 02 Nov 2026 21:45:32 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6A2DjS7c084264;
-	Mon, 2 Nov 2026 21:45:28 +0800 (+08)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJCdh61ghz57HRy;
+	Mon, 02 Nov 2026 21:45:44 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 6A2DjXWh050750;
+	Mon, 2 Nov 2026 21:45:33 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
+Received: from mapi (xaxapp02[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Mon, 2 Nov 2026 21:45:31 +0800 (CST)
-X-Zmail-TransId: 2af96ae893fbe0f-10c10
+	Mon, 2 Nov 2026 21:45:36 +0800 (CST)
+X-Zmail-TransId: 2afa6ae89400676-0f478
 X-Mailer: Zmail v1.0
-Message-ID: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
-Date: Mon, 2 Nov 2026 21:45:31 +0800 (CST)
+Message-ID: <20261102214536590UewltJeUMBYjmXfdz0jD-@zte.com.cn>
+In-Reply-To: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
+References: 20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn
+Date: Mon, 2 Nov 2026 21:45:36 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +63,44 @@ From: <shao.mingyin@zte.com.cn>
 To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
 Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
         <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvNV0gdWJpZnM6IGhhcmRlbiB2YWxpZGF0aW9uIG9mIG9uLWRpc2sgaW5vZGUgYW5kIG5vZGUgbWV0YWRhdGE=?=
+Subject: =?UTF-8?B?W1BBVENIIDEvNV0gdWJpZnM6IHJlamVjdCBpbm9kZXMgd2l0aCBhbiBvdXQtb2YtcmFuZ2Ugc2l6ZQ==?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A2DjS7c084264
+X-MAIL:mse-fl1.zte.com.cn 6A2DjXWh050750
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Mon, 02 Nov 2026 21:45:32 +0800
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 02 Nov 2026 21:45:44 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE893FC.000/4jJCdS11NSz8XrrJ
+X-Fangmail-MID-QID: 6AE89408.001/4jJCdh61ghz57HRy
 
-This series tightens the checks ubifs performs on the metadata it reads
-from flash.  All five patches are about size and accounting fields that
-are taken from the image and later used without a range check; an image
-whose CRCs and node tags are intact can therefore drive the code into
-state it never expects.
+validate_inode() compares inode->i_size with c->max_inode_sz only.  The
+size is read from the on-flash inode node as a 64-bit value and stored
+in the signed loff_t, so a value with the top bit set becomes negative
+and passes the check.
 
-Patch 1 rejects inodes whose size does not fit the signed loff_t the size
-is stored in.  A 64-bit value with the top bit set becomes negative and
-passes the max_inode_sz check, and the read paths then do size arithmetic
-with it, for example (i_size + UBIFS_BLOCK_SIZE - 1) >> UBIFS_BLOCK_SHIFT
-in do_readpage() and (i_size - 1) >> PAGE_SHIFT in populate_page().
+The read paths then do size arithmetic with that negative value, for
+example (i_size + UBIFS_BLOCK_SIZE - 1) >> UBIFS_BLOCK_SHIFT in
+do_readpage() and (i_size - 1) >> PAGE_SHIFT in populate_page().
+Reject such inodes like the other invalid on-flash fields.
 
-Patch 2 rejects xattr inodes whose i_size does not match data_len.  ubifs
-keeps the two equal for attribute inodes, and ubifs_xattr_get() and
-remove_xattr() assert on the invariant; with assert=read-only or
-assert=panic a plain getxattr() or removexattr() turns the file system
-read-only or panics the kernel.
-
-Patch 3 checks the lower bound of the master node's highest_inum.  Today
-only the upper bound is validated, so a value below UBIFS_FIRST_INO is
-accepted and ubifs_new_inode() allocates numbers from the range reserved
-for special inodes.  With highest_inum == 0 the first new inode gets
-number 1, which is UBIFS_ROOT_INO and already in use, and the index ends
-up with two inodes sharing a number.
-
-Patch 4 validates inode and data node sizes during replay.  replay_bud()
-trusts them, and ubifs_recover_size() may then extend an inode to a bogus
-size.  The normal read paths already reject such nodes, and truncation
-nodes are checked in replay_bud() as well; do the same here.  The data
-node end offset is also computed in 64 bits so that a large block number
-cannot wrap.
-
-Patch 5 refuses xattr accounting that cannot be decremented.  On an image
-whose counters are already zero or smaller than the entry being removed,
-the unsigned counters wrap and ubifs_jnl_delete_xattr() writes the bogus
-values back to flash; the next mount then rejects the inode because
-xattr_names + xattr_cnt exceeds XATTR_LIST_MAX, so a single removexattr()
-makes the image unmountable.
-
-To keep the severity claims honest: mounting such an image needs
-CAP_SYS_ADMIN in the mounting namespace (or access to the flash), so none
-of these is a non-root attack.  Patch 2 only turns into read-only or panic
-with the assert= option; the default action is to report.  Patch 5 is the
-one with a persistent effect.  Patches 1-3 are mount-time validation,
-patch 4 is in replay, patch 5 is runtime accounting.
-
-The patches are independent, have no inter-patch dependencies and can be
-applied in any order or as a subset.  All five carry Fixes: and
-Cc: stable.
-
-Testing: each patch applies to next-20261030, passes checkpatch.pl
---strict with 0 errors/0 warnings/0 checks, and fs/ubifs/ builds with
-CONFIG_UBIFS_FS_AUTHENTICATION, CONFIG_UBIFS_FS_XATTR and
-CONFIG_UBIFS_FS_SECURITY enabled and W=1 without new warnings.  I did not
-mount crafted images: this machine has no mkfs.ubifs/ubi tools and no
-mtdram or nandsim setup.  I can put together an image for any of the five
-if a runtime check would help the review.
-
+Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+index 38972786817e..602f0cd9713f 100644
+--- a/fs/ubifs/super.c
++++ b/fs/ubifs/super.c
+@@ -71,9 +71,9 @@ static int validate_inode(struct ubifs_info *c, const struct inode *inode)
+ 	int err;
+ 	const struct ubifs_inode *ui = ubifs_inode(inode);
+ 
+-	if (inode->i_size > c->max_inode_sz) {
+-		ubifs_err(c, "inode is too large (%lld)",
+-			  (long long)inode->i_size);
++	if (inode->i_size < 0 || inode->i_size > c->max_inode_sz) {
++		ubifs_err(c, "inode size %lld is out of range (max. is %lld)",
++			  (long long)inode->i_size, c->max_inode_sz);
+ 		return 1;
+ 	}
