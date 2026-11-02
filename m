@@ -1,54 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633630;
-	b=XlFaPEiMl1VHSL7YsVr2IT9aN5etiwVUyUp3vJiEyhyCtBSc56/E05kxiTTjCiDCm0e7
-	 pedDKTYohTv4Iqqtm0+9z108g++MvCw9Hft51f6XX/SeU/aSeLa6pFqFsFUzT4Zcmjnkw
-	 JoLtapvzpkeTxwmXkfBtqYcRh4WlgodJ2m+VURYWrodtJtMUVyZALCsS3Uo2dMHsSwxbU
-	 zz1/a7lTtzEPqji5xAHoZ50E2H2MSKpno89cATkV6nmAIVyZRG1MJYda+9F/3QEux0uAc
-	 DSLkrG9e43HxLOrzDr0972slGZB9oUejwuLIxXh6iMocm84sctQym90QXGtCisaCXEA==
+	t=1793633631;
+	b=lPYxRo8JPCsmKy9upqnIHYNfRNsrM9ITVSisKnLeA2EFouiNQXkQMYO+cY9qMFZc2X+2
+	 0Xy71lETOvOuKT4RMLxAUTC6GRXvvIEr3f45CCx2prZDl4CW0c0cVwECloAzQeMWWYi/2
+	 06dlAOFdhczyDTSxt0TyGqusCgtnhAiVTYasE+4PE9ZsFd0A3qo2TR/s2mjhYC7z51No1
+	 9U96WAtT1OP+6h/mxCsFVUjJUQS6t2+kFcBvIETUBSWlyJaLmKRZ9VLdPVYdOPvLKLUDD
+	 I9kpcF+FkqDUcb/nhhJvgjRNX0RZX4idgK8dQIupic2C46smtj/gLdyr8EPhVTYCgdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633630;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633631;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9w/T1qxUcNkfnQM6qNThQKEStGTRJOfXaFqRr1vX6yI=;
-	b=RGYU6QE+hFYeGTL+vIa3dCMQXB5/5JuyBW0qQkBh8toTgYTwpTOck75yq2goK3xU0LHi
-	 x299xM86VHaAxipQsUpPFGsCtvJn8MV2QhM8xzB/0YdO7txk31wz5O5Jc6wVvEcJ6AquQ
-	 bDNsA2bzVv7FZzFeCToN7u2l6U5WxjzlGbPbr+RGUzID3e6G1dyFUZQDGDVKIKa3ML8rc
-	 CGUMLv+e3Ujd/HAtElb8+CrPoq4PgvsKKDT7RdKWO+DG60mXnrExzjm3bpM5cGOKRnq0m
-	 AhDDKostXDOo14085hJKUODsgioAL1H//hvOWB6qsAQnCqlqS3wtG3LsrhBOTkwKZaw==
+	bh=Eyp6T51/32QnJYJemSX4gOvOFzILBHN+PdCWPBKPPKY=;
+	b=RH4JQGg/QbtoAmRvw24hM6Ce/oTXxExE/dF42620vhhhO++enwcIYnOeEdlglpJf3uMF
+	 k4rjlMDYtiyFa08cgxf0Y4yZf1rx/tSo3SYJzc75ofLjSX1jvGg5dsKHAnRt0kD9hOcVB
+	 LEYYLf2Aq0ln8BEEI8LyOp66nvbS+4lV9Ao9opNE3Oxi96za5KQ1ze4JavBiuZ4EFcWu5
+	 RXCdmF/BUK/0FZwremugLeTixtnRqRATC1wBg3vLWT0zVf74jvkRQIlrdjYO04GwpN91c
+	 GBAbc7eO2CKtRnacnYdpzA/qGTfIMXMGwYmw6OPSahUTLoi/pFW3KaDni/ibLGSHG1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJwdfafO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jloO+X9s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D25CD608A36F
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:33:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E54A609FD80
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:33:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJwdfafO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457C41F00A1E;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jloO+X9s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C461F00A21;
 	Mon,  2 Nov 2026 15:33:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633629;
-	bh=9w/T1qxUcNkfnQM6qNThQKEStGTRJOfXaFqRr1vX6yI=;
+	s=k20260515; t=1793633630;
+	bh=Eyp6T51/32QnJYJemSX4gOvOFzILBHN+PdCWPBKPPKY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZJwdfafOviK31nGuK13jWtucwhWZvbOh5Y/zd/IN7fPb0uWG9zyhqHOQugBAaPsKj
-	 vCHb+Dq66ptTIP8Ae8KRwJBhmVBdMXpVxVaeLijYgZ2dUEY6oJ49wR0abPcoPwEBYl
-	 ZlRpNSaUuQQhU+Cgl8v0g/TPcEdzAVMEdHiPvZsSAb2Mm04MIIiM1Z8arbHZc2BdcV
-	 Yv0cRQiYu+4+yOT+BXIdc9ox560elqAYAG2bmp5rpFAW3f0ATP2dlLND+xd91HkRe7
-	 t7Qkydyy7hAY/1o4pWqIQh/ZTl10xhsrCLUU+VeEsfnvATlsQxyMf2rT0ttivgfFPr
-	 L6vZX37RmLlbA==
+	b=jloO+X9sb9+zARHZNiAEeXIDrYsnlGmOzB1dM2bduHba8Ydkud3h0X0L51lsJev/1
+	 k+QjHiiVSLFo/sD7cvr6O0X+te/0WysWAy6dc+6QlbsddNYur7nxvq0S8dSjT337EN
+	 hKTjDNAc2ukG+PNChAnBezQQZ0npPphXlGlnq83fP0Ri7d9pYCCPrp0uKZwatjdXPJ
+	 W7UrtYUYX5GO4Jeosno7NPKW6ciI6vwv7zTMzuTSGGOvSoBStoTse5lrvyv9bzguVf
+	 rbi4RmHupVvmQIxJt7kbL+3hrYvDZb29TrIa4DbutWxATRk3SQAEAa95lWi3MalNuR
+	 NMPy5EryUOfEw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Mark Tinguely <mark.tinguely@oracle.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	Srikanth C S <srikanth.c.s@oracle.com>,
 	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 5.15.y 00/11] Few CVE backports to 5.15.y
-Date: Mon,  2 Nov 2026 10:33:34 -0500
-Message-ID: <2026-11-02-1-daily-reply-0008-few-cve-backports-5-15@kernel.org>
+Subject: Re: [PATCH 5.15.y 11/11] xfs: remove xfs_attr_leaf_hasname
+Date: Mon,  2 Nov 2026 10:33:35 -0500
+Message-ID: <2026-11-02-1-daily-reply-0009-xfs-attr-leaf-hasname-5-15-needs-ack@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
-References: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
+In-Reply-To: <20261102101239.1557688-12-harshit.m.mogalapalli@oracle.com>
+References: <20261102101239.1557688-12-harshit.m.mogalapalli@oracle.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,9 +65,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> We have backported some upstream fixes to stable kernel 5.15.y.
+> [Srikanth: Fix the additional leaf-add caller retained in 5.15 and
+> adapt leaf reads to the four-argument API.]
 
-Queued patches 1 to 10 for 5.15, thanks.
+I did not queue this one. It is a hand-adapted XFS backport, and no XFS
+maintainer has acked this 5.15 version.
 
 -- 
 Thanks,
