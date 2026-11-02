@@ -1,104 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639957;
-	b=WqgE71GfW5GPEmhj/Avst/xuLaaEmyzetaHuneFcbmsHy7VqzCZzNiS99dpv2/aN0qDb
-	 eTU07NbonjEmE/6xY82P1Z2N+NUr8c7w+xVCL+Dnw8xutdHvKQMjoeU5BSS8m16y+34HT
-	 EnGkB3ox6fhM2+aXwPC38bTiypaW9oGjGtrDsBuC5vDkwyVL2mucAY8Y1sgsd2e/PcIih
-	 CekjJK/rPGfAmp9Xma7pBdMi0EeVXIg29zCSMtISyvKzd52mMMBnADYRDy7dvrZ0V3o5B
-	 +t4Khrru6djPf6OGHG0eBn/dtAwb8AcUMrTs+SlR6IsJ7AF3xZbt4HkM/t//svA34FQ==
+	t=1793639987;
+	b=okq8JG1vZzJS5r9xgmsyAI2+Rwzslf1uyU5qvFP4seY+t4WSMQhvDNq4RvY55zFFFWT5
+	 LVwSLZwEmzsfONm5Z0RkiPTz2YV91ovU01lLkDNor3wopJWnOPV7ZDwYBvhBZbnJO7mNX
+	 /FpZpNDX2MQeAqkp/DuEhExyoYv6ZkJAHiHucCD2zC+OoZLKzhC1gcuFTEihfL0FB1f8N
+	 fBfH/1W3y1AjlEBYeHn3YmfafLhxxfENfSXcs3x8qYc+8LuNwD1NBA1IZMQH0qc8RYdQx
+	 dgKQqzf8hC3cWgz11IQzovEwBmx9np1EBXCvC96k6sOVJmzUs8+2Uf+pbF9cIFG7XEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639957;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8UsCKoNbKnaX6mGeBQ8/pSx+fuQaOrU6twLBEIFwNZU=;
-	b=iQQkiIpWJuuIHkru86EG2/Ja3+clf8NZXuFUE6rsJT58ukYIIgU1WZkLqOSx7AdQcDe6
-	 +I1xDluuaHM2gZldSfvz+yRONcZHDUev7Dma15S4CyifUV+/k9zoZtT7t0+4UxQ9cxgL9
-	 r2QOO9VeIZHa3/iBT0mVwlPkEbVURENF3ZYIM+NVNR5DozbnZ9hUR0a9d3+4tWSZPbB6r
-	 0Qr+Xz/xTKJsn/YoTxHn14+k1cqfwPq3h61yCBuwGyTE2TysqiaZL+9HGoBbAhVsjux8O
-	 ANfLUSOKUOIA6cr26KRBB0pVzyNqOYwfnluAF0xy5Ppu3lb72GPkP+/1XY91Zk5oIsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639987;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=DT5eWamxtrU19G5Gc7ioBYYTXLklgAXyVHvH2qTCEzA=;
+	b=2RjX0oJrpOw0ieUp3a4qaimsZ/T+bRGjK89/NGkwoWDO+qDln9RBpPrdSW+RyGJcVttW
+	 vpik7/Ffs0oTjdyqwXVCwbjwjj9PbCJy6/qRYu7vewZ0DeABKEBpSoyEvahlT0rvT0hMn
+	 ITavVKuEHQZ5vgz04vQ22njb//q4JaFXSmJX63qkFfiOwAxRsDI28F/dMw5vzSgpwROO5
+	 /wzj3CQsH+fSCJ0MLVUx78lZrlKpuV05vFpM/6KbVcJrPHJvTfXGt9R3vXwJyQqXw2h2W
+	 SLnRqQ0DAgtozcUtNDUDYoC1ico3wnHLcZWbGJ3MNzfOmCu8fOo137Xs5Q4hSye5/6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="df/dOuei";
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VfKhLVsX;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 877636087623
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 17:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 877636087623
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C0A606B0FF;
+	Mon,  2 Nov 2026 17:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40C0A606B0FF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=df/dOuei
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so1974509eec.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 09:19:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793639957; x=1794244757; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8UsCKoNbKnaX6mGeBQ8/pSx+fuQaOrU6twLBEIFwNZU=;
-        b=df/dOuei8USjYH6md+Amf5NygtNA0arfOmQ7OMpPOsPVzqPNPTpCnZ3ml9/6iYbyz3
-         JimNLgdSgLDTchTLwIHQqEfLV0oQhY3QgEssncjnflo37qZsvjjg0af97Z+v9ztRtkYI
-         L6x+9NJzqYo2BDpO1FBgxqvlE57rP2K1dwUkdhiMPOhJ2/Js17D/GjP2PtPAWSNqFwqp
-         ccWMb0h57kH2xzTi0bDzglIDdjtGsHJ1Y+wMcXDTBxJGyWlJ4sxXY/9EEHojINm6bvcM
-         bd5vGoGfGIFmfz9Xltfgk0zhPxHoF7zXmY5KcucDVIN7lvkN7H2JAi/bv9EDA8W9DY/H
-         RxOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793639957; x=1794244757;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8UsCKoNbKnaX6mGeBQ8/pSx+fuQaOrU6twLBEIFwNZU=;
-        b=NRhVoYS1bLJi9GILIln3CWOE/HoEcrjMY+2KPNVOrWyHHAn9CXMtVnOLH9PgPx8NmM
-         F5Vnkn0QI96eKiObqshQ5EJxhucrLUrLHtodU7+7RaPswXC7uWqb+QBgb0Hcfz9yrRX9
-         JyMUw74WCEDt2i3GSU/Yf9mtxgy+C3ZST++HvcpYjqAvDlLAL4ary/jfbFUNxhG9yojh
-         7d31LLZJ0xAzRwv5czv8tutLZkK3Y5ppfnA3BJMUdh8X5xbtu+EOlcIK2swC7ho9jNqW
-         pH3kVJMp17JbVaxy8m6zES9YbI4KJXx+ThRRZqMQ+LfPqlc92GE8ZU6IsVxNyBo17XeO
-         xnzA==
-X-Forwarded-Encrypted: i=1; AKwUvByJ1CAPxqwuLx/nzCzoP0st1RxFAuFooypbrViCCZkhUxmlrtiWB1CUyYKmdqilbWZsodi4BDI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7wq6J18lh76BjgPvqUFPIOTV3gYJGPHA1WiQYHjeYDLBOYvEY
-	gKz23D/vxAb4o7ZtFSQe62M/2li4nMqjDi1za7Qs22SG6XgLYeFZRWSd
-X-Gm-Gg: AYBFou0XbSZmqz79eEWrQBPTSJiQlc3gozy4HvdEioS4dckBXDb1D4ZJSD7Pw0fqdoj
-	7KpA8X6BRiP72JYVDO0muV+j0bkEYmADPJo5ldEFmEyg1nyjeLN10a+T/ELUAaLdoF38sk3h+ca
-	k9zN2TSQjxlmyv6PGHaUiSYfbSJXNyQKy3kxoXYVzLbvpoixSlZRMySzeB29i/H8bQVkBUFqc5y
-	D+qvahQDVWcoMylUJAOBCRuA/PoMPvqaW1n3/BBm/Zbt+nHuE8edeDxLTH9BYSh/DE+p2Bl6ubt
-	6yvjvWyQpwolLUnW+esIt77U+FXn059BWpyxlleujzT4SlSwvHJUBhG5NPjlTiwX1RRwfcDcitB
-	opW86JgmTuSYepQzbJfnLM1IEOHWHs5oNNGb5gDm2rZIazrheAu/4qJYevxVHbVZGXYaIVUkZ4E
-	NYn9jyBmSst2bL995CCF71dQwFe1axXtcg7dmmaZl8gk/4Fk5SyalO8NkVfDzyRZzoLLf8SWprP
-	DCSFGZrTN/4tsNMLNJ301FyAPERNFNFiIlscMj8tePoCY/P6Z50I+/ammoAl7y//SMMrsgFMX3T
-	BV/t6GNB2j8r2uND9Rp6hzid2CQ=
-X-Received: by 2002:a05:7300:c00c:20b0:351:7e5d:2de9 with SMTP id 5a478bee46e88-36a422039cdmr18657739eec.1.1793639956509;
-        Mon, 02 Nov 2026 09:19:16 -0800 (PST)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm36978047eec.19.2026.11.02.09.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:19:15 -0800 (PST)
-From: Coia Prant <coiaprant@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Frank Wunderlich <frank-w@public-files.de>,
-	Peter Geis <pgwipeout@gmail.com>,
-	Junhao Xie <bigfoot@classfun.cn>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 5/6] arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
-Date: Tue,  3 Nov 2026 01:18:37 +0800
-Message-ID: <20261102171838.2958552-6-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102171838.2958552-1-coiaprant@gmail.com>
-References: <20261102171838.2958552-1-coiaprant@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VfKhLVsX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793639987; x=1825175987;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=ninpGkQe1A3RJG31n9ZS8rQNZ+IaBpmi8PE11emBlIo=;
+  b=VfKhLVsXDNOL5ansfv2gw0rXmc+A6I9GsPjrG8liKAdPrPt1Nb65qemp
+   0EgoUcmqtXnhxD4UG8UaZeMbT6sTLEXWz0/nWjjReZ1ywmfBojfK0tUFr
+   PZJ6Z0MOI9/tAkkmxurA0yWYoeQ3o3kiGw0d+I0JRZf4zpSte10fSmvd8
+   yiNWRFmMozixwtevHj2lSLHcxh/zC76PHKnxJ/jxQ1A1zcFX6csw95Ya7
+   I5s2eLQvL78BnVevNUa+shPDiFrtR9eP9J1tWzjE7wk2Oz4ph8NNtGWUJ
+   0ZaE5oPx1Jp2u8nckaa3FxEor+RNb/aeJj8ktva/eCaMtYqg9USEMa0nL
+   A==;
+X-CSE-ConnectionGUID: UERHnDdjQaS8SnQU5XZ+6g==
+X-CSE-MsgGUID: n4NsglR4S4S/RqobQbseOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2336248"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2336248"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:19:46 -0800
+X-CSE-ConnectionGUID: YaD6DFZAQAKj65kb+ApbIQ==
+X-CSE-MsgGUID: RXR9cYE3Qsi+fx0pNAsYTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="8018124"
+Received: from spandruv-desk2.jf.intel.com ([10.24.80.14])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 09:19:45 -0800
+Message-ID: <53e98aa200636737155c122d545afa1fffc9d1cb.camel@linux.intel.com>
+Subject: Re: [PATCH v3 1/3] HID: hid-sensor-hub: Synchronize callback
+ removal with raw events
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Christopher Hoover <ch@murgatroid.com>, Jonathan Cameron
+ <jic23@kernel.org>,  Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires
+ <bentiss@kernel.org>
+Cc: Lixu Zhang <lixu.zhang@intel.com>, Joshua Crofts
+ <joshua.crofts1@gmail.com>,  David Lechner <dlechner@baylibre.com>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko	
+ <andy@kernel.org>, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 09:19:45 -0800
+In-Reply-To: <20261019023420.83976-2-ch@murgatroid.com>
+References: <20261019023420.83976-1-ch@murgatroid.com>
+	 <20261019023420.83976-2-ch@murgatroid.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,112 +89,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When the Ariaboard Photonicat runs on battery, the USB port has no power
-output and attached devices are not detected. With the external supply
-connected, the same port works fine.
+On Sun, 2026-10-18 at 19:34 -0700, Christopher Hoover wrote:
+> sensor_hub_raw_event() holds pdata->lock while it looks a callback up
+> in dyn_callback_list and calls its capture_sample() and send_event().
+> sensor_hub_remove_callback() takes only dyn_callback_lock, so it can
+> unlink a callback and return while another CPU is between the lookup
+> and the call.=C2=A0 The sensor drivers remove their callback in .remove()
+> and keep the struct hid_sensor_hub_callbacks in memory that devres
+> frees right after, so a report racing an unbind can call through
+> freed function pointers.
+>=20
+> Take pdata->lock in sensor_hub_remove_callback() too, outside
+> dyn_callback_lock as in sensor_hub_raw_event(), so the removal waits
+> for a report in flight.=C2=A0 pdata->lock is otherwise only taken in
+> sensor_hub_raw_event(), and callbacks are removed from process
+> context.
+>=20
+> Fixes: 401ca24fb34a ("HID: sensors: introduce sensor framework")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christopher Hoover <ch@murgatroid.com>
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 
-Per the schematic, the 5V_OUT rail that feeds the USB load switch (U12,
-enabled by USB_HOST_PWREN_H) is the OR-ed combination of two sources:
-- VCCIN_5V (external DC input), OR-ed via D16.
-- 5V_BOOST from the VBAT boost converter (U16, enabled by BOOST_EN /
-  GPIO4_D2), OR-ed via D5002.
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-The 5V_OUT rail has no enable pin of its own. Since the regulator
-framework can only model a single power supply dependency per
-fixed-regulator, add a v5v_boost node for the VBAT boost converter, and
-a v5v_out node to represent the OR-ed 5V_OUT rail. Bind the vin-supply
-of v5v_out to v5v_boost to ensure VBAT is boosted when the system runs
-on battery. When VCCIN_5V is present, D16 takes over.
-
-The USB load switch (vcc5v0_usb30_otg0) is then supplied by v5v_out.
-This restores USB host functionality on battery power, matching the
-vendor firmware behaviour.
-
-Link: https://github.com/immortalwrt/immortalwrt/issues/1534
-Link: https://github.com/photonicat/photonicat-hardware/blob/main/Photonicat_rk3568_sch_20221116.pdf (Page 15,18)
-Fixes: ba124e06ce7b ("arm64: dts: rockchip: add dts for Ariaboard Photonicat RK3568")
-Cc: stable@vger.kernel.org
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- .../boot/dts/rockchip/rk3568-photonicat.dts   | 49 ++++++++++++++++++-
- 1 file changed, 48 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-index 7e0a2ab829209..11ac78acca3be 100644
---- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-@@ -59,6 +59,47 @@ hdmi_con_in: endpoint {
- 		};
- 	};
- 
-+	regulator_5v_boost: regulator-5v-boost {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&boost_en>;
-+		regulator-name = "5v_boost";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vbat>;
-+	};
-+
-+	/*
-+	 * 5V_OUT is the OR-ed combination of the VBAT boost (via D5002)
-+	 * and VCCIN_5V (via D16).
-+	 * It has no enable pin of its own.
-+	 * Model it as a fixed regulator depending on the boost converter,
-+	 * so that VBAT is boosted when running on battery.
-+	 *
-+	 * 5V_OUT supplies:
-+	 * - VCC5V0_USB30_OTG0 (USB VBUS via U12 load switch)
-+	 * - VCC5V_HDMI (HDMI 5V via D5000)
-+	 * - J53 expansion header (Pin 1)
-+	 */
-+	regulator_5v_out: regulator-5v-out {
-+		compatible = "regulator-fixed";
-+		regulator-name = "5v_out";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&regulator_5v_boost>;
-+	};
-+
-+	vbat: regulator-vbat {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vbat";
-+		regulator-min-microvolt = <3400000>;
-+		regulator-max-microvolt = <4200000>;
-+		regulator-always-on;
-+		regulator-boot-on;
-+	};
-+
- 	vcc_1v8: regulator-vcc-1v8 {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vcc_1v8";
-@@ -148,7 +189,7 @@ vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
- 		regulator-name = "vcc5v0_usb30_otg0";
- 		regulator-min-microvolt = <5000000>;
- 		regulator-max-microvolt = <5000000>;
--		vin-supply = <&vccin_5v>;
-+		vin-supply = <&regulator_5v_boost>;
- 	};
- 
- 	vccin_5v: regulator-vccin-5v {
-@@ -446,6 +487,12 @@ pcie_pwren_h: pcie-pwren-h {
- 		};
- 	};
- 
-+	power {
-+		boost_en: boost-en {
-+			rockchip,pins = <4 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
- 	sdmmc0 {
- 		sdmmc0_pwren: sdmmc0-pwren {
- 			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
--- 
-2.47.3
-
+> ---
+> =C2=A0drivers/hid/hid-sensor-hub.c | 12 ++++++++++--
+> =C2=A01 file changed, 10 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
+> hub.c
+> index 6470a290ebfc..7cf9f398592e 100644
+> --- a/drivers/hid/hid-sensor-hub.c
+> +++ b/drivers/hid/hid-sensor-hub.c
+> @@ -173,7 +173,14 @@ int sensor_hub_remove_callback(struct
+> hid_sensor_hub_device *hsdev,
+> =C2=A0	struct sensor_hub_data *pdata =3D hid_get_drvdata(hsdev-
+> >hdev);
+> =C2=A0	unsigned long flags;
+> =C2=A0
+> -	spin_lock_irqsave(&pdata->dyn_callback_lock, flags);
+> +	/*
+> +	 * sensor_hub_raw_event() holds pdata->lock while it looks
+> up a
+> +	 * callback and calls it.=C2=A0 Taking it here too means no
+> report is
+> +	 * still using the callback once it is unlinked, so its
+> owner may
+> +	 * free it as soon as this returns.
+> +	 */
+> +	spin_lock_irqsave(&pdata->lock, flags);
+> +	spin_lock(&pdata->dyn_callback_lock);
+> =C2=A0	list_for_each_entry(callback, &pdata->dyn_callback_list,
+> list)
+> =C2=A0		if (callback->usage_id =3D=3D usage_id &&
+> =C2=A0						callback->hsdev =3D=3D
+> hsdev) {
+> @@ -181,7 +188,8 @@ int sensor_hub_remove_callback(struct
+> hid_sensor_hub_device *hsdev,
+> =C2=A0			kfree(callback);
+> =C2=A0			break;
+> =C2=A0		}
+> -	spin_unlock_irqrestore(&pdata->dyn_callback_lock, flags);
+> +	spin_unlock(&pdata->dyn_callback_lock);
+> +	spin_unlock_irqrestore(&pdata->lock, flags);
+> =C2=A0
+> =C2=A0	return 0;
+> =C2=A0}
