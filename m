@@ -1,47 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624058;
-	b=ZkEoAa2TsUHjI//eocI3i2NZibQ9kv25zuA6fkpzaUUPAfniss10gz0zhDT6FS3Laz91
-	 XJOZm5ovM3OZ35JQrkA9HBYbHpe+Bd3D+tYzgELwHMTErqW8AytWw+C6CSCdH6vx5vi5c
-	 mhqurkrvRpmqSDldKi1aCmxxxpEKRlFWWCxDl57MnD6RPO8s3ObLLSU3a9bPunb1Tt9YJ
-	 G3aW+5GkeknaKhuw4Xif98ilrTPiO3K1PFzvcYhG/0OpxtNmNgIdWGJYTl3zoqb3CcMOQ
-	 Sdzk6I3zOeqf+S0GY4a29K0X+LE89TymzqZ5Y6DhdJMIOAwJka+8bqL270GkENEinFA==
+	t=1793624303;
+	b=Gqf7DRqxIwQz+sEtpJiPvtJD9QtLpmaxBJUKh1j4ddcklBaYOTv+5O9MhB+QKwt8xGCm
+	 a7tmC7XZGDE6D+caHDV4/1BWZ8ssMKlX85dCSykWebDVz2x09WY8PdcPZTLbySXKu6fLj
+	 lclSJOSf8MiiDSom+xzXxJ+d6qD/qfCA5j6AVWRaNXLHmaCWN8xBJeXhqJfnH8ruGgnDA
+	 iTf7YIIkGXHE/Qj8JUBP9K1IBbRWLnQaIo+7KeRx+u5e14zdj6vj4LgWitqesJd7dFKBw
+	 TJYfnaurJkZ1vBUzhF/KnHr5DovqpbYT2MCXYSARKcyVZdj9kDbI9NoqI0Y6igjy38A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624058;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VNEpA0+LGM8FEZDZob2AErG/YAyjuu82Sq2jEgA6hQk=;
-	b=GKfe77bQEieIb3n4XsOs+jFtNGBqbxsjGmRMbYfDybob5AbppFzcneC47CDQJP8Bpxh8
-	 U+fxGbrgPkvuTUf12opkRXkMmeVwoI6CsSgAPh8ENjGNQOSiaC+5Jt76XPcajfwo6ZNiV
-	 sp+1na5He4u9zNOKCQ/trPtZg1x4Z5qEE1H1GScpAwn388gYO2cv5jub5VP9K+Iw2vAc5
-	 WrDKWkbsxB/Mi1bMoIIcTdd+bly6rlcU5u7mcKBa2hAbm66QiO5Voq+gOnxGV7+xXHmpA
-	 Obu7XunzfYhqhDQ2EQWqj+dLzceaLqTmo1/eN6tU++h+faJZH242f8T+n1FLs8A7ImQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624303;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
+	bh=i3Eq0UzhBUrozYwhFxDujSvYgE1qs5i/5z/JE8WaraY=;
+	b=E+ZmsfDmZKEcTMmOOc4bZTciVnZLBNf5dIItXd2Ah/cwf5OcSSjQqy6xjP3PUVxiD5Og
+	 9irubCBSf5i/7oShi9KdZk7A+gZLwmf9quRAR7o5xchGONBlFYqN1RA4tZyz228vCNNqi
+	 l2xvxg20fqDUqAKD1tk/nSu9DBvrrXySQN9+5LxBF0O1DmYoodDwYE+AQ+st362nhyD4i
+	 dQgVEOHgKwFT8dDMywjZBb8NSA3K7PvP58hm7V0OTbW9FmZf3aOPMh/DQT4tzoJawJui3
+	 C3NeT9QHFWBrc7KEsDJC8M4ESD2Dr90FQ7hDnNwQrljOmW0CEVG8HSMZCGeLsIQWkcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpvP+y43;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bh9tb340;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485AD606A334;
-	Mon,  2 Nov 2026 12:54:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402EE606A327
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 12:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 402EE606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XpvP+y43
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B6161F00A17;
-	Mon,  2 Nov 2026 12:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793624057;
-	bh=VNEpA0+LGM8FEZDZob2AErG/YAyjuu82Sq2jEgA6hQk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XpvP+y43SUOFiz5hR3BnrVZhWmTruIm5kt9FeTszWdHJK1lLmxrWlYZc7CaqH5WzB
-	 oDaVPDPNPHYwa6JQ2XHmFEpI3jIelhA8jEP9M4/EpySduuKqwevxeIdpvGXFOsL5xj
-	 qiGL+8JX3pAetBCN+qBlBXzVrRLWYjna69E/9XXNySov5UM4k45kLUaUvSSG9HAKpf
-	 D5nNODLZkBRJ6/JQit/DROKEhISX9hy1PG6lrxyp1X8sqcygWa2zJshmPsgbMdUPjF
-	 jTPrzrt5J8xYuojCis5OQ4qfyl3tNBuLhD7LDsSawEPc66UHZAqi7QMJNsngXEtFnv
-	 tOh8R0W6WjMJQ==
-Message-ID: <71a2beb1-a548-4005-bf18-f73286bff4db@kernel.org>
-Date: Mon, 2 Nov 2026 13:54:12 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=bh9tb340
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261102125819euoutp01932a4a529be523ccbbca861094a80373~kO8wkiNAz1966719667euoutp01b
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 12:58:19 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261102125819euoutp01932a4a529be523ccbbca861094a80373~kO8wkiNAz1966719667euoutp01b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793624299;
+	bh=i3Eq0UzhBUrozYwhFxDujSvYgE1qs5i/5z/JE8WaraY=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=bh9tb340G52E7aYD8ixj+tL8jri/TsAzWbwF4MaJkBOY2skgb2M/4vZVAEq2fX0h7
+	 nTs2yKSaSC5AsKnNk0G/3wM4DqkwaTMxDXttozmqYjPozyWVOlOVYVuiIhKqNzvTcN
+	 oudwoNZyhp5AnZhPmTf2jvLlc5jwxchVW0Cjac5U=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261102125819eucas1p1cdd9308cc954788d200e219f43d5ec4e~kO8wWMaxq2336423364eucas1p18;
+	Mon,  2 Nov 2026 12:58:19 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261102125818eusmtip2d465bc14a4c1f00eb3c0f7f72a013ca3~kO8wCUDww2434124341eusmtip2f;
+	Mon,  2 Nov 2026 12:58:18 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: linux-samsung-soc@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
+	<alim.akhtar@samsung.com>, stable@vger.kernel.org
+Subject: [PATCH v2] ARM: dts: samsung: exynos4210-trats: fix BCM4330
+ Bluetooth GPIOs
+Date: Mon,  2 Nov 2026 13:58:10 +0100
+Message-ID: <20261102125811.3111427-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,99 +71,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM: dts: samsung: exynos4210-trats: fix BCM4330
- Bluetooth GPIOs
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- linux-samsung-soc@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, stable@vger.kernel.org
-References: <CGME20261026103600eucas1p25b6792a9a244d71a5f2ca8d06c9e79f8@eucas1p2.samsung.com>
- <20261026103555.968273-1-m.szyprowski@samsung.com>
- <8ab6e4fd-6a84-4a9b-9f2f-311d8a754158@kernel.org>
- <c5e4791d-d402-471a-b8a1-d791e6f3417e@samsung.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <c5e4791d-d402-471a-b8a1-d791e6f3417e@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261102125819eucas1p1cdd9308cc954788d200e219f43d5ec4e
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261102125819eucas1p1cdd9308cc954788d200e219f43d5ec4e
+X-EPHeader: CA
+X-CMS-RootMailID: 20261102125819eucas1p1cdd9308cc954788d200e219f43d5ec4e
+References: <CGME20261102125819eucas1p1cdd9308cc954788d200e219f43d5ec4e@eucas1p1.samsung.com>
 
-On 02/11/2026 13:43, Marek Szyprowski wrote:
-> On 02.11.2026 13:28, Krzysztof Kozlowski wrote:
->> On 26/10/2026 11:35, Marek Szyprowski wrote:
->>> According to the board schematic, BT_REG_ON (BT_EN) line of the BCM4330
->>> WLAN/BT combo chip is connected to GPL0[4], while GPL1[0] is connected
->>> to BT_RST (BT_nRST). The Bluetooth node however used GPL1[0] as
->>> shutdown-gpios and left the real BT_REG_ON line undriven, so it was kept
->>> low by the default SoC pull-down.
->>>
->>> This worked only by accident: the internal regulators of the BCM4330 are
->>> enabled when either WL_REG_ON or BT_REG_ON is high, so the Bluetooth core
->>> was powered via WL_REG_ON driven by the SDIO WLAN power sequence, while
->>> toggling GPL1[0] only released it from reset. Once 'cap-power-off-card'
->>> was added to the SDIO node, the MMC core started to power off the WLAN
->>> part (asserting WL_REG_ON low) whenever it was idle, what cut off the
->>> Bluetooth power as well and resulted in HCI command timeouts:
->>>
->>>   Bluetooth: hci0: Opcode 0x0c03 failed: -110
->>>
->>> Fix this by using GPL0[4] as shutdown-gpios and describing GPL1[0] as
->>> active-low reset-gpios, together with the respective pin configuration.
->>>
->>> Fixes: 2fd18f0a8de6 ("ARM: dts: exynos: add bluetooth support for midas & trats boards")
->> Another unknown SHA.
-> 
-> Aghhh, my fault:
-> 
-> Fixes: 132e900a47b8 ("ARM: dts: exynos: Enable Bluetooth support for Trats board")
-> 
-> Do You want me to resend it?
+According to the board schematic, BT_REG_ON (BT_EN) line of the BCM4330
+WLAN/BT combo chip is connected to GPL0[4], while GPL1[0] is connected
+to BT_RST (BT_nRST). The Bluetooth node however used GPL1[0] as
+shutdown-gpios and left the real BT_REG_ON line undriven, so it was kept
+low by the default SoC pull-down.
 
-Please resend both.
+This worked only by accident: the internal regulators of the BCM4330 are
+enabled when either WL_REG_ON or BT_REG_ON is high, so the Bluetooth core
+was powered via WL_REG_ON driven by the SDIO WLAN power sequence, while
+toggling GPL1[0] only released it from reset. Once 'cap-power-off-card'
+was added to the SDIO node, the MMC core started to power off the WLAN
+part (asserting WL_REG_ON low) whenever it was idle, what cut off the
+Bluetooth power as well and resulted in HCI command timeouts:
 
-Best regards,
-Krzysztof
+  Bluetooth: hci0: Opcode 0x0c03 failed: -110
+
+Fix this by using GPL0[4] as shutdown-gpios and describing GPL1[0] as
+active-low reset-gpios, together with the respective pin configuration.
+
+Fixes: 132e900a47b8 ("ARM: dts: exynos: Enable Bluetooth support for Trats board")
+Cc: stable@vger.kernel.org
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+This patch was developed with LLM assistance and have been tested on the
+real Trats board.
+
+Best regards
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+---
+v2:
+- corrected SHA in Fixes tag
+v1: https://lore.kernel.org/all/20261026103555.968273-1-m.szyprowski@samsung.com/
+---
+ arch/arm/boot/dts/samsung/exynos4210-trats.dts | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/samsung/exynos4210-trats.dts b/arch/arm/boot/dts/samsung/exynos4210-trats.dts
+index 20fe148387fc..ae4327770799 100644
+--- a/arch/arm/boot/dts/samsung/exynos4210-trats.dts
++++ b/arch/arm/boot/dts/samsung/exynos4210-trats.dts
+@@ -469,6 +469,12 @@ EN32KHZ_CP {
+ 
+ &pinctrl_1 {
+ 	bt_shutdown: bt-shutdown-pins {
++		samsung,pins = "gpl0-4";
++		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>;
++		samsung,pin-pud = <EXYNOS_PIN_PULL_NONE>;
++	};
++
++	bt_reset: bt-reset-pins {
+ 		samsung,pins = "gpl1-0";
+ 		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>;
+ 		samsung,pin-pud = <EXYNOS_PIN_PULL_NONE>;
+@@ -548,9 +554,10 @@ bluetooth {
+ 
+ 		max-speed = <3000000>;
+ 
+-		pinctrl-0 = <&bt_shutdown &bt_device_wakeup &bt_host_wakeup>;
++		pinctrl-0 = <&bt_shutdown &bt_reset &bt_device_wakeup &bt_host_wakeup>;
+ 		pinctrl-names = "default";
+-		shutdown-gpios = <&gpl1 0 GPIO_ACTIVE_HIGH>;
++		shutdown-gpios = <&gpl0 4 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&gpl1 0 GPIO_ACTIVE_LOW>;
+ 		device-wakeup-gpios = <&gpx3 1 GPIO_ACTIVE_HIGH>;
+ 		host-wakeup-gpios = <&gpx2 6 GPIO_ACTIVE_HIGH>;
+ 	};
+-- 
+2.43.0
+
