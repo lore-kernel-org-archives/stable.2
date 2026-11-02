@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604789;
-	b=1x9Z786i78x6AXAH85+J6x14S0vpKmToKfFThHam6EzL9DQOEKy7T96myRS1j3j3RHj5
-	 6v0NM3+SNMQbkuuq2kP6cn8pGfEW82meB2LFpctTKLbDmE/9LWMARmGdks2ENziE9kmp9
-	 czvyI/Je/kN62bRaAR3KcGVnWDvdsRy/6DJ2NCZiaJZcbAsA2wpHWEngwbpxfDiYs1iZ6
-	 Dq5G6g6wF3zgtJG3UbRjLO1+9iCUyDr5GaBe1oRF65blNHCgD7OIQ12G0W6akqW6IdYKB
-	 qkzX+mX52tH1PCSts9WP43klbV74VDQAn7S750go2Fk5T5FybIY1MBOScclSIZ9Or2A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604789;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uhlq7lRBnMZgN/FlVC6dxixNTQE9Qh0fbitp0y0qEhA=;
-	b=EbVGO8w0ZZ0gAFOTULlUnRr01NDSqjfD4gMxFChvA2SngtKh3VrI1IoWRUcFeFA7WiJp
-	 mZi6/nX6RxrsRoYILpCMj7NPyyYbfI/WUXIFQ9E3+1Ru9F9VvcS4+4rMKatZ54Rmpe+F2
-	 JO3RDNqtMJy/rNtCpe2TAMGJ5lhZMXzIIA9WocDTImY2fn1NjtOTOl/vhJU5RZy7tDqW6
-	 hhEPB/eRmd0DBk5DdnDkWXT9A7fH1aXRYnIgH0CKu/aiFkEpOQ52Wd2cGC/L0LmwQsELs
-	 AFkfU17WJpGY5O9Z8h6vfNdrjxLc9nASazUO+wa3JWfDCcpwBl8g4T/Q98Sn2zYWwGw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FijoGuQS;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793604843;
+	b=XXI9A17Z3/vPwCw1ILt5x2sSqOAYYd3KMYFZQFvjpG3Eb7SsJJ5IC5Ha/2rNxSHlaVmj
+	 ntbXX88TElmr0A2JnysCM4bebaSfiZ0l8DOadds+fsBZTfUk5XtRqhE5VbyJd6/B8pDv2
+	 Wf7eP3qC9/eQGsINUGxZxvvm2VXaf2m6St+kPzjzRfH4U9adMtv7sXiXfPoAFY0nxsIRu
+	 OThtAL2jDqiAdAhZ9AHPVwwBRwdyyKDGSWET9/7bTunxqwVBvHd2SAl77x6vXZKOrq6hB
+	 O5vL2L9kLws2/2Xe3YBs84xXXDbmgsCQnUQXW7Kydel7wX00XoNmps4I98N0Dk3FFsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604843;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=6fSnqTvYzbwizhskQVeYnh3ptDK0pQWgg0bHBbxuwpM=;
+	b=S0qMowpWfeEa9386DRd7CUiDsICYUS0XiwY5ASX/Egn9f3ZHmJ4gru/YS/ebgri1oNUG
+	 rsdCkHklQzptCK7OyvcW2Wg4yVg351njsd+uThB8cLY0uZ47CZel0Ngqj2y8uiDBMGfgm
+	 D+MW0oJXoBX29DHJ41s7xLmhFwCG9GftcOqkBqjqfFGvPQMmGXM2p9BSrqZWVtGQzqUj1
+	 M/j7Mwbw1Zod4Fdwt59lFt0TaJavd+vuKEHSZmaYTKjem+4kqhmOHqKyrEPTXecKo8Xn/
+	 dvz5bCkEfh/jheWrQ6ZSTay9ct4oOLG3IJkpSoCgFLhxPHEk9a6+Ht96ELm5AsuqyMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kgwakDC+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.34
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010034.outbound.protection.outlook.com [52.101.201.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC65606A329
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 07:33:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DC65606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC00606A326;
+	Mon,  2 Nov 2026 07:34:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BC00606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FijoGuQS
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so1257770b3a.1
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 23:33:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793604789; x=1794209589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uhlq7lRBnMZgN/FlVC6dxixNTQE9Qh0fbitp0y0qEhA=;
-        b=FijoGuQSUaP574cBOPnGIczHrUOjWFNk+Jrj5n35e1QLUZFUl92Q2mJQAAIRY/qjmt
-         yfSIm4cqlrnhqOIhYqMtBfb1vR9mQZtZZuVQk7vUKi/4kAkWME4ZK/onJy0/xUFlCPay
-         P/RYk7M5cYEYydnSHpjzXyv0mTCTPnOJSmOJV0JxkzAPKs4GpSCTpso6tr+e5CyPQLcK
-         5VIY2bgxCNC21HzAb5ZiGCt8JMbOFVDuWDQTJjY7H+YjIm0oweELaFeyNgqG26pMFstz
-         UmlqdiGKZiiWqzGeiQ3nheYmhEBke39hbZKtUL56OgNdNlkET4GIFtEGaUhY8SCkz8/C
-         8S3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793604789; x=1794209589;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uhlq7lRBnMZgN/FlVC6dxixNTQE9Qh0fbitp0y0qEhA=;
-        b=Hz5Yy7EyEh7Qw4xn+VtZxQFZqQDyygKnrdHFB+jzQTW5ikYXU55J2q9zKCM6448AXi
-         EzrpM7ma0w0VWDeaC9GZ3QmhxmBHqLouNf9FHMDI0h//CiZC6RAG6odK3Kvk2jQRqlWy
-         dFTIRdH0xkuqJTHbrGMKpvyycdbdbjTY9F7AsI6TzRFX0EmbdR3xos9iW8DgY8jAyoud
-         sWDQ9CSyCym7L0hxT31yVM5QLWiU6ihmgwIrwVZS8i5Rn1ffSvL0h+JbmcylGzF13j7V
-         kgq15HRqS9oR4hslbmwfmCxpJCSc3V8Hvj0zcInIGRcbbcm/fSGhIADnDSDgcVttCIxv
-         8B0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwKI4pjnpXuxTpuetf3+9U/k+0/rqkIrEZvbtn7L1XtkzHl6reNExnazeiKbm5VtCGjtUOy6/w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Qt3lLvHh+f0zZ/czeOLixoVUXL6QfRNEC7wE8+nnhY+xNvATh
-	thQ0tA6+by77n2ZGcDzkY4gx3+Lm8Lb3FVu/JfDu/OYu7nKXwS+lxDM0
-X-Gm-Gg: AYBFou0dqy5eK+YL6ljTxYqjZ0qrs+PmcaQzV7cpzkfzGvEYUmMzKVIyjJ70AlGsQcQ
-	rksvDwdQNlP7IwkD30pXGnEx6JDkshB9yB2VY6YoVysCp+UP+XCfSlMSRg1J7VtQ7FxLJsfXKFL
-	7jmpufxMrcGpqymOBvx02kRS4S+1WbUTMPq4Z6wwsdN/6GT25irvYUw1ebPyi5xExsZqScycW4B
-	hDrLeFFdDaWSZj1vXqorD5x1QjL/T7dLl3rusxliyGfap95TNasvMgx36X5mTZCaIctIa5aIyMw
-	3c26suSNbfLj9Ohf1kDu8K9vXE14iYCV10/9KVIBtwCUV6YN0hrPrSz+qFXHAeyztvobz1VpUB/
-	1lKVfiahi+Pg6TA3K8fmTYLRY9YAayVNJaCqzOvfemosQPTFtuAzbHm8L3Xv0zqUzt5dYkyWWZT
-	+EmcbREcx7lV4n7dy8ILxrFFO1RUY7Ms78ejgvQ0cfP215KyfeIUiRG/MUhzrxq31s+y7dBIcGy
-	IzgLB4kfyatn9hIPkoFiS5P6oRwxFwj0a9WsLS6Hpzzh3LNoa9F3eQ/rwS9PPJkGzW+uQwWkKbG
-	L6zHFbKcA4NKTCLQUgpes3qtuSbrDhn6dewB/6vFEOA=
-X-Received: by 2002:a05:6a00:340a:b0:89f:d449:7526 with SMTP id d2e1a72fcca58-8a8321b41acmr7898596b3a.21.1793604788690;
-        Sun, 01 Nov 2026 23:33:08 -0800 (PST)
-Received: from iZj6c0kydq3fvfrtx5kta5Z ([47.86.51.122])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada6c2c28sm1563174b3a.43.2026.11.01.23.33.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 23:33:08 -0800 (PST)
-From: Challvy Tee <challvy.tee@gmail.com>
-To: x86@kernel.org,
-	linux-coco@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	kas@kernel.org,
-	dave.hansen@linux.intel.com,
-	rick.p.edgecombe@intel.com,
-	vishal.l.verma@intel.com,
-	kai.huang@intel.com,
-	seanjc@google.com
-Subject: [PATCH v4] x86/virt/tdx: Skip TDH.SYS.DISABLE if the TDX module is not initialized
-Date: Mon,  2 Nov 2026 15:32:44 +0800
-Message-ID: <20261102073244.919864-1-challvy.tee@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <07cfa95a-e766-411b-8765-33352a04c0be@intel.com>
-References: <07cfa95a-e766-411b-8765-33352a04c0be@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kgwakDC+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YB7yyhRNdGrL+LcZKKvTr7sXPVL5LnhITsXWCAQ7Foj3L7HqHjZkdDK7AEJC9lJiNqLb4xfsBoLLdm5bzYOznQj0HOeJdefmEnKLwlyB4RO3gPXo4vSUlKyX9uK5BcN21srp1y8qi0IbaWsQnZoBUxsONXF+7XFrE3qr7HOpPvi2OlGhcZb4qyWynBeriYwcxrClk7iKYu/MqmzKDtgzE0oN1idi+ORrdYmhW+S/QGXvAh0D5IWP+i1yM3kyBv5HHHAuvlYXr9e77M5swg3Z12dNR7Gu7Fz2WQXNyypoARnFnCFRStxoWhN40dmJLWBxIpeqX/NBp6PSPwdavkI++w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6fSnqTvYzbwizhskQVeYnh3ptDK0pQWgg0bHBbxuwpM=;
+ b=DQ5V6qf727c2JylSwKDDsOGL2j2+WM6neF3irgumCOHmlvb2euAa7mSZDOSp65VMKYKkaRm/vC0iifDXUbNpLnfvXo/qeMl7Qp9PwZ0k8Z5DAkA+LAUf5qMC80Ywp5DnNXb66QorP8c/u/jJIPkchRdu7qRCJPjwzGds8nlbQ6rz22Rs8xRSOcs5OG3GoeYK9d2i/14xkNzXnKwwv7xiAs6/8C1Go2BGVnO6dK7GQ+CnsKpdlfu7p4RSDy5YCPXuP7EwTjTIl6Vu6LwRsca8w4NAd3rtMUXz/ZwRsV5zNHjzu6jJ3CZ32hIoSFHhFrmOL2o1Fsu+eA+Iaqhmo1YTZg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6fSnqTvYzbwizhskQVeYnh3ptDK0pQWgg0bHBbxuwpM=;
+ b=kgwakDC+I2UpNtOfKhtKEoWVHvjaxDJxSLQ0HSuQ7ENElTa+SsghWJZuvJPE1iwh4GPhel6cKytLNMB9w8pGShOZ1jz93qtpc8qbxyVz5bqrjtt4co8t/yhAbWcqjYXQzNHg25Z/cEWnVwDkBxqdco03qOXQizESFqyBZoTznhL+O+RaEMPeU13uMDtyqeeW7NGv3qml5dQeegcIO+/boVfQQkwcDOdWUWaW1JK4GV1dqDfm+Ix5BZvMdLWb/hqtDWmmrRxY/+cleBpKMnRNN2/ebMI824RgFi2UQMefAmV14yfVq8LoqUgGZE5rEWBKiOOaZo4oPdlnAFRQpd0t8Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by CY5PR12MB6346.namprd12.prod.outlook.com (2603:10b6:930:21::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 07:33:57 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Mon, 2 Nov 2026
+ 07:33:57 +0000
+Date: Mon, 2 Nov 2026 09:33:47 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Ben Greear <greearb@candelatech.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com, tgopinath@linux.microsoft.com
+Subject: Re: [PATCH net v2] ipv6: fix fib6 walker UAF on NLM_F_REPLACE
+Message-ID: <20261102073347.GA765417@shredder>
+References: <20261028160018.73299-1-cenzhang@linux.microsoft.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028160018.73299-1-cenzhang@linux.microsoft.com>
+X-ClientProxiedBy: TLZP290CA0012.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:9::10) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,111 +102,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|CY5PR12MB6346:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e58660e-0b0b-4ad8-b829-08df38b3a789
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	scWJg1QqpjApkopFiU5C0zqQ0tMEMUwLgAL/1C1jlxzIkHbqx0n5T0keBTcrjf74DF8kCm0PHGTZoVXbT0W29K9qUE4hJ/udHJ4zCz9ofJzKlv3h4burtQOgW0rMAlobUiDKAkFduEdYl9Jp5+iec3I4ZCOpPgIEqY0wkdZScIYij28cLfi6GbTJoizUWM6NySFpgu95sP5Db45v42S7WQzzUQjOxA6NtapFlSvVDRPk9zgtNFPLZZxetsJxoquLlCV+dhLhVed4KfDOCAYlqd6XxK8aBTlMRZeLLRQHZtS+O1pXOeRVa9u6zAoK0WIP1k2s58uetfL7edSO6T5GBHgyMQ81Yzt9KcfOD1cYhuIHlijB4ANJ6kWtzY3s2HlqRgiqqZ0SPENDyVXTmRWJmlW6ZFGH1KdXNpfkD0wnhz1jkHPnGC+6HHeILNxO8BYSQgPlGvyaQ/wBxAJ83Xkz2euuPQDBdQRHQVR+wP4SFS9FDsV7nY4IZSMUAJUc08G8VzIElNevfGoVPN6wjetkuTfKWiegVZcJiyQx1kCJTIlmtgdE9GqLnrw8hRt79ChgvgxQ8AwYApNWz11hHqoWuxdwqZQfPCAE5VUGkYPf0tSJQ+xaLxJCMck3eVmNHZ8O6cwfdkS7WekVdolEew3rQ5Hy2zc55uqAaWlR/jWz4Mg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?U439p3N3r4WoOjbNiBqUeeKKAspZQzimJAA26GJALC3qM73HJF/iPI3hotzO?=
+ =?us-ascii?Q?08Fwzw23g1Evn3zy0qx9Wr0+KmIhzZoCL/Ar7mqFLzbzx6yxXbhGIiG0yQL1?=
+ =?us-ascii?Q?ugn168qkgTWQVSbWaVSLizIhwcRDT/lvWajlNFYOhUat4OT38xeMP/bxCyUz?=
+ =?us-ascii?Q?p8NdUDcgXTqtWRJ4fsULO/V8HHz83CSGxpAt//GAhp812dC0i/AeikSf3ZLV?=
+ =?us-ascii?Q?SkyjmzkZ58NIDxmLkiQOALDnoAwgve5t3CNghDwsE5r668rGLRZ24LkRn047?=
+ =?us-ascii?Q?VK/PYhYcSjL+SfSKToAqkwMkrGqnCHxlgBJziQJYLqnmU7Xnwca8xiSyRaFp?=
+ =?us-ascii?Q?Yk0+HSeCy5EjbMUCN+kxNnOeL4FDBLXtV71OviNwTag0Fmh6GxX2FYP8dQIP?=
+ =?us-ascii?Q?zcY0mBWzxXsbK0VGE/CfSuVWntGeI0FlQZpRxe+7BnQoswtaecS7+vC3V7vb?=
+ =?us-ascii?Q?qoi8fRj+z6Uvwx5cCZLvyhqfI0bBU4+zO3cn5Mmjq0x1kvjaK+/8irDKCIQp?=
+ =?us-ascii?Q?onirhaTZRNPX4YrDMrvClZCxOMPn0QHaav0zmVoHlOZIYBA4FJ+We+k9d6V2?=
+ =?us-ascii?Q?qAMXvef/wpx7wDbuKZyRC+LlEgbtY/QQFVjJuVHQrl7jEbOH4gDP5cD6iAKn?=
+ =?us-ascii?Q?LiqmExT27RXmlWviEZU+DOXyCk55LDieDtsydIe60VXMC5FAmqirX7ep2GPv?=
+ =?us-ascii?Q?NmV524rfbg4amJLj+wxUtivQgJJ12E+az5Mes1wDfUpRYJ/aE2HmoWOVFR8W?=
+ =?us-ascii?Q?5R6Iyfed80TR5eV6r4KQamk7CBf9pHFxzSGGyOBq7BiNiq6XE+Yg8FFp/YXD?=
+ =?us-ascii?Q?p9w/ezqxn1Q2gSK0Ihy86qMjVrMlgkEAICP7j42TIX6zbrCVceSDovjOLk8c?=
+ =?us-ascii?Q?rVarDJAovSs1stQcPDARzsndU6+JNrBd4ukrdYG7SDluDGsLXMdqowfJBleK?=
+ =?us-ascii?Q?q5BC9MT8hyNjcc+wJy+l3hNafMyLqWrfhKtQyfvb/0DiQ1t3egKErzeGn84Z?=
+ =?us-ascii?Q?8jN/k5OvONm2ajlo3TdrtPYs5An4v/9RqCNTuadZ/+I81DHPx8swkcgcJQR6?=
+ =?us-ascii?Q?WwNDScmpu/bb9T61NVb7IGLdIA1pwQK8d0tFHBDL0z/qGc52nhrTsswEjj3H?=
+ =?us-ascii?Q?yFQqRRzRGe95te3OoagVJ3RmT+begelhUMljVZROSkgaea/ibTt8j9KIZzEs?=
+ =?us-ascii?Q?yt9V6/Lkg8ymw+MmnvO1VJJ36IRX1Tg6mbyKzsgKvyzFgXGhD4a9hSFSHNr8?=
+ =?us-ascii?Q?MQ04Pzwt5hlXvyuurtKwsRJ57b9/YkVpAW8JeO/Nx/7tQGqOEv7Ks+R6ZuoG?=
+ =?us-ascii?Q?oP71vGmtjqfPer+kOTT7KBViWfIJN56Cn9kcIKoBwoelJdcFoIfZbxIWyLlu?=
+ =?us-ascii?Q?SPXKrPLdC1O2azf7jxT9hauce1+nz7BdMWwcF9eG7Mx7R88+H8FNGmJ1ZB7E?=
+ =?us-ascii?Q?SdF2lfZ8CGN36bmFCjPBsHPFjjAPbclD2TIZ9pQRsFPPdOFdTjD8cX/2SHjX?=
+ =?us-ascii?Q?HZZEIkHapj74PGGXCAkgjVEgeW9uCR4RGLLOvWqCZUhtfsIonzAgusPRb5+U?=
+ =?us-ascii?Q?c7RIg7f+U2f4UKh3jMt5hnyE11QA5L/N17V/tZ+QZp+BlYJac0sfTR/GQGpy?=
+ =?us-ascii?Q?edJUGquAQiOESY2FdjDejzvBYumwRF/3RU5UPgb8fKryR3rhzcZNEy+7JsXL?=
+ =?us-ascii?Q?alBJkSqfoscY7YkMJKAFnODGz7cbY4zD2vico91AY9EQOjej?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e58660e-0b0b-4ad8-b829-08df38b3a789
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:33:57.4284
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yOTYCHKTUJBXViS4X0WMnaYyuRXveTdCL4UW1CLxq8BHZqO3b3Wp7JeCizp+FGLlt6etmmaIJoKAXnnLtZxsKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6346
 
-Commit 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and
-kdump") made native_machine_crash_shutdown() call tdx_sys_disable(),
-whose only gate is compile time (CONFIG_INTEL_TDX_HOST).  A kernel that
-never initialized the TDX module therefore still issues
-TDH.SYS.DISABLE.
+On Wed, Oct 28, 2026 at 12:00:18PM -0400, Cen Zhang (Microsoft) wrote:
+> fib6_walker uses w->leaf to remember the next fib6_info to dump, so an
+> RTM_GETROUTE dump can continue there on the next recvmsg().  This
+> assumes that whoever removes a route from the tree also updates the
+> walkers pointing at it.  fib6_del_route() does: it moves w->leaf to
+> the next route.  The NLM_F_REPLACE branch of fib6_add_rt2node() does
+> not: it removes the old route, fib6_add() frees it, and w->leaf keeps
+> pointing at the freed object.
+> 
+> The fn_sernum version check in fib6_dump_table() normally protects
+> against resuming on a stale w->leaf, but it can be bypassed:
+> ip6_link_failure() resets fn_sernum to -1 when the default route
+> fails, which an unprivileged user in a user+net namespace can cause:
+> 
+>   1) link failure            fn_sernum = -1
+>   2) dump pauses on route R
+>   3) replace R               fn_sernum changed, R freed
+>   4) link failure            fn_sernum = -1
+>   5) dump resumes            -1 == -1, reads freed R  <- UAF
+> 
+>   BUG: KASAN: slab-use-after-free in rt6_fill_node+0x1c22/0x2cd0
+>   Read of size 4 at addr ff11000011fa0064 by task poc/101
+>    rt6_fill_node <- rt6_dump_route
+> 
+> Fix by adjusting walkers separately for replacement and deletion.
+> For replacement, add fib6_walkers_replace_leaf() points w->leaf
+> at the new route. For deletion and ECMP sibling removal,
+> fib6_walkers_skip_rt() calls fib6_walkers_replace_leaf() with the
+> next route. Reset w->skip_in_node when updating w->leaf, and set
+> w->state to FWS_U when no next route remains.
+> 
+> Fixes: 4a287eba2de3 ("IPv6 routing, NLM_F_* flag support: REPLACE and EXCL flags support, warn about missing CREATE flag")
+> Cc: AutonomousCodeSecurity@microsoft.com
+> Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
 
-In VMX non-root operation on a SEAM-capable host, SEAMCALL causes a VM
-exit instead of a native #UD.  KVM injects #UD only since
-commit 9d7dfb95da2c ("KVM: VMX: Inject #UD if guest tries to execute
-SEAMCALL or TDCALL"), first released in v6.18.  On an older host the
-VMM gets KVM_EXIT_INTERNAL_ERROR and the vCPU never resumes, so
-machine_kexec() is never reached and no vmcore is written.  Kdump is
-thus broken only in guests on SEAM-capable hosts whose hypervisor does
-not handle the exit; plain kexec is unaffected because tdx_shutdown()
-only runs as a syscore op, registered after init_tdx_module() succeeds.
-
-Gate the SEAMCALL on X86_FEATURE_TDX_HOST_PLATFORM before issuing it,
-the way paddr_is_tdx_private() already guards its own SEAMCALL in this
-file.  Without that feature the module is never initialized, so there
-is nothing to disable; on a TDX host the gate is a no-op.
-
-It also decouples kdump from the host KVM version -- a guest cannot
-require its host to inject the #UD.
-
-Fixes: 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and kdump")
-Suggested-by: Kiryl Shutsemau <kas@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Challvy Tee <challvy.tee@gmail.com>
----
-v3 -> v4:
- - Gate on X86_FEATURE_TDX_HOST_PLATFORM instead of
-   tdx_module_state.initialized, guarding the SEAMCALL itself the way
-   paddr_is_tdx_private() already does, as suggested in review.
- - Drop the v3 rationale about covering the syscore and future callers.
- - Retested with this predicate: kdump produces a vmcore on the
-   Alibaba ECS Emerald Rapids guest (6.12.0-278.el10 base).
-   v3: https://lore.kernel.org/all/20261030154851.907726-1-challvy.tee@gmail.com/
-
-Hypervisor -- KVM on all five (CPUID leaf 0x40000000), across three
-clouds: Alibaba Cloud ECS, AWS EC2 and Tencent Cloud CVM.
-
-Host log -- yes, from the Alibaba ECS host of the Emerald Rapids guest:
-
-  KVM internal error. Suberror: 4
-  extra data[0]: 4c
-  extra data[1]: 2f
-  RAX=0000000000000045 RDI=0000000000000045 RIP=ffffffff855422fe
-  R12=8000020300000000 R13=8000000300000000 R14=8000020200000000
-  Code=... 4c 8b 5e 28 <66> 0f 01 cf 72 05 ...
-  check runstate transition: 'running' -> 'internal-error'
-
-Suberror 4 is KVM_INTERNAL_ERROR_UNEXPECTED_EXIT_REASON; the two data
-words are the exit reason (0x4c = EXIT_REASON_SEAMCALL) and
-last_vmentry_cpu, i.e. kvm_prepare_unexpected_reason_exit().
-
-RAX and RDI hold 0x45 = TDH_SYS_DISABLE and RIP is at the '66 0f 01 cf'
-SEAMCALL opcode in __seamcall.  RAX still holds the input leaf rather
-than a status code: the SEAMCALL never returned.
-
-Reproduced with 'echo c > /proc/sysrq-trigger'.  All five have
-CONFIG_INTEL_TDX_HOST=y, kexec_crash_loaded=1, a kernel changelog
-naming both backported commits, and "TDX not supported by the host
-platform" in dmesg:
-
-  Microarch          x86_vfm  Cloud          Kernel             echo c
-  Sapphire Rapids    0x68F    AWS EC2        6.12.0-278.el10    no vmcore
-  Granite Rapids     0x6AD    AWS EC2        6.12.0-278.el10    no vmcore
-  Emerald Rapids     0x6CF    Alibaba ECS    6.12.0-278.el10    no vmcore
-  Granite Rapids     0x6AD    Alibaba ECS    6.12.0-278.el10    no vmcore
-  Granite Rapids     0x6AD    Tencent CVM    6.12.0-278.el10    no vmcore
-
-That dmesg line is printed by tdx_enable() when
-X86_FEATURE_TDX_HOST_PLATFORM is clear, so the feature this patch tests
-is absent on all five.
-
-Controls, each producing a vmcore: the same platform on a kernel
-without 5b25f249be32 (tdx_sys_disable absent from kallsyms), platforms
-without SEAM support (Skylake, Cascade Lake, Ice Lake, AMD), and plain
-kexec.
-
-With the gate applied kdump produces a vmcore on the Alibaba ECS
-Emerald Rapids guest, retested with this predicate.  The Granite
-Rapids guest was verified with the v3 predicate and not re-run; the
-AWS and Tencent guests are reproduction evidence only.  No TDX host was
-available, so the no-op case is reasoned from the code, not measured.
-
- arch/x86/virt/vmx/tdx/tdx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 96ced0494b68..9b01131f7b7b 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -2321,6 +2321,9 @@ void tdx_sys_disable(void)
- 	struct tdx_module_args args = {};
- 	u64 ret;
- 
-+	if (!boot_cpu_has(X86_FEATURE_TDX_HOST_PLATFORM))
-+		return;
-+
- 	/*
- 	 * Don't loop forever.
- 	 *
--- 
-2.52.0
-
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
