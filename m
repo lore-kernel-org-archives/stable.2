@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622177;
-	b=i3oVD5rZ1XoCXq/jfrbFki9cCplHbTVJefq/mM3RnJ0yGKDFJfHz6FuykWshaWQFwxVJ
-	 wlDxzSwq1eVOYjs2rGljs1Mnb6LHkdaagyQp1G2MGiRNhP6UxdNq2KKtB8nMNqvyovRLk
-	 qk101k3gTqr7YP9+UttuTnaayUES0oeIzD6Vl63aVMYqMYO898CdvDSODeTA0VtHpTKIR
-	 Xld85s67rLm0zgx5IgFDcp4aFOsd0VMMnf7U86CcMPymTkHoOmQ67KGMOHvjdblVnTA2U
-	 0lLh4RFpClFzFcHlrfrQrsI+KMzlkJXrd1ewVgbmt3oxU7RHtbe1nUbLnjyueoF3tWA==
+	t=1793622202;
+	b=c62uuzXgTekcdDzkUHM2LZqSjOfjbDf4U6wVPmDc5IfA4fc0Rwz2NMcYm8OU9S3yuIDc
+	 +gTQcP4drD3X9Wn/aQiHXRBHsi1n5UTYs0fO+uJmLVaS3iLXcNitbDPCcPMWAPxCUoHRf
+	 j/KndaNZXkF48jGaSj4B7AysTU0VCbxeN6UvgDkTHpjXr2z7lUIjdNC/oF4KLQ18Btay1
+	 vc3PHzpdOzAA8urco3MNUJ6/S9qQdZrU8a1V/W4EYNGDL/hsrszWffIs6QlsIsHWe+x8O
+	 y/KQ0b4aUUqKnjYGR4lMz/88PrDqwygAP8QJIfJnc5RVhZGppHjfSlsebuZim8zmUeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622177;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622202;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=abibISRiUwSvMFecqGaDadoCAJ+Fmjo80Pp9RI6LfO8=;
-	b=ATXnVhQ7hTv+pxGHPwyfcnjQ6aOWt8vQiPazZt2G6xLw9obgXD0+GusYPY3uekCv76np
-	 V+EJE5QlsXpVyssHJbJ005dIf+82NUuD1tfAYN6puaAW6A1//xqA+krg+BXsvMfllmXak
-	 C33UV9NBCh55cOK9ZGWaHR6E5gw2s4HdrupWPtROG/QUgDc3asUk2QF+dU8PPL77Sessa
-	 m3NhAheg313EqTfOuG1RxXr9UhCKpu7KszbagYzzC3VIzTXe4exuCJQE9eMiyo4WUC4il
-	 xPA+zoHyJNOUw3JCQUPzb07l2FiVp6p34YQW5zrClFfG+OylcgNBczYZXvnXAV2OfSA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GO0eQoXsdHBDsAY8r5qLcEfQWImjpXMenyB3OyA2xhU=;
+	b=LNzUj5O2PSkPBpnQK/yzcWzz4i2cs+4tYrD44RVzizXx7AjBp6+wxiAM7azUCJnb33WW
+	 amWxhZ+q6/WeNnmhWk2vpTUnaNXuyZPJxmN6wpD+4Pw+7DN15dL0EJq9XmPcPradnY2UQ
+	 vbT4rvDsWBGG/mqi6XN3MOM62Ycjezuy8KgJ84BQukDIG20Y1pKTulNYqfrsKwk7lHPE+
+	 FEumSsRreiEvxHSFT+JBkYSPjfisgyRTtjxBMjkqOTh7HThCu0MjmJheV+qBnuMfIYpLz
+	 v7935jRGbyteXPwUK1+U2ZCjSLvlCXr/vbRvhUSmtis6BOfUe3LwCW0nwq4OBUhzuUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ewVK5FsW;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oeIIAX4p;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECDD60A3809
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 12:22:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EECDD60A3809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17AE60A6F4A
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 12:23:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A17AE60A6F4A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ewVK5FsW
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so25728295e9.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 04:22:56 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oeIIAX4p
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so31060205e9.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 04:23:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793622175; x=1794226975; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=abibISRiUwSvMFecqGaDadoCAJ+Fmjo80Pp9RI6LfO8=;
-        b=ewVK5FsWNqs67XMFEWCR81dLwkdrViWaR1Mpa9sViu6UqFO7qZb8ZIKdPkTqiyR1ll
-         AmsdzeWBsRHeyVELcdHZ4+FLGKGrb3JbHEj/Zw+oygRFTpSjz5c+a29ARFitt2XTtMVU
-         l0bzH3XiH0K1MaeKOuvjPlO6SRzzr/f9Slsvg/yYo1uvqaaNK6wnNdJMGsViwgk7hnGS
-         FAKFE0zKQom/9NcpMpWgYX8xy4vW2BfKkLa65iZhIqotW/ArrhwfMadqBG5IwFXHAXQY
-         s3fEUFM8+sGRlAu+tfJfI20Cs8CLCjLCJJArM/cd3tAmC3IitCnbc8fj3vqlUFf9+XCr
-         HSPw==
+        d=gmail.com; s=20260707; t=1793622200; x=1794227000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GO0eQoXsdHBDsAY8r5qLcEfQWImjpXMenyB3OyA2xhU=;
+        b=oeIIAX4pm2Ytu8HtJCliysszXx2L+ft1QWG6iYQQAJNhrx9G4v6CElDYaCW92uxUgQ
+         PbcDRqjrGRfgtFHy03UVVHpCY4ePzARb20txTsium7zzi9mAPT/4uPGtFJGEbr7q4TWs
+         Nj52mspXoZ80PZVZyWvoqFbT6bPBBGoJgHHhI/HPY2mnO2Ueqyf9YqQMitNYWXaAso4y
+         7X72JBKP2aqjgJ2foNDEdhTgFLRx6hUS1sOCDrzayACksxscB+qleHmjUkfkcY1YogoQ
+         YbKLFJfnRcBnUa9f/oZjQNwWoIGtLKrna9SAz6t39+meWa/qfXAgOGPakFgSVqVw4ach
+         h7nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793622175; x=1794226975;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=abibISRiUwSvMFecqGaDadoCAJ+Fmjo80Pp9RI6LfO8=;
-        b=ZPyjijE3YZKSgTStNVDYArMS1ziOvHbti6CT2mRLG3XeEy0OFSKpG5hasCq/kuXusS
-         gMYEs5LfJNEtgX9J1Db7BIN9naYerfmQA4ttzvtpujC8N0QV1fn3FmRLpLq+8IpzjzlD
-         369musfB/L3JavQZJSOCN0X5jM5kSO22cP2u7UE/YyUyEy4BykBi4ArytWPLy8d67y/x
-         TgkdkwUp3ii/T/UJlJcux+8By355M9A7sbmJBFZaZgEUk1drCSwIBtqEPCH6blujVVAC
-         WOO1hvl3zf3jV9k6MuHCKhy/3OEAxEYwKByI/sjcpDaGzDHNDR5fJLl4slmIPgSDC6+a
-         2HqQ==
-X-Forwarded-Encrypted: i=1; AKwUvByx09hJy9o2PLxB4lM/XrXHuPxK2R634Zuqm9mq/Ogi/KerN0Mn7G8a2Z/7nzbSSsww1t/RNSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLF/rYsePHqNoETqCFocM6STAHUY2/5dfk5KfhRY68zkUGqzImt
-	NA4dJPk/qg0Qu/a62bl8H3DbbKXUNeMT2NT3f0JmTYryob106FmTMgEn
-X-Gm-Gg: AYBFou1NzJJ0M6KDTs69+uGve+q8q01er0r3Yoxij8iqfLMhVdWZeXuhv0H3oU8rwHx
-	YLgfEt/1Sm9PNhH9nM8T38oHu3TOOZ5wcImRGq2dRGZye31d70qg1I1pI8jLnNVsWaqrUrY7ay5
-	BvlktG38DnyxBKaFgbIq7iSMWnvzW9DOBS+Z/pFmmCrVFxgwQYfR0TUz7S+fvotnWs6de9M2Z5N
-	JMtVUUBVUlG0aFP6jZ3PbNS0TeDjMS/VdbVoKxxJo+Tp4Qez0he8sCB2gA+6D/XU/sCcKVEwLtt
-	WYY5/YxUjnNRe3svWGm5Mz/KA86fSoUfSi5voXjT+cHXjU10rWDTx33Wuj2YagHuSYqe44C/tnd
-	kxgzycjPDUwpI+feHE9al8TdySicSctgeIy/PhVMg6QnfmRUB3yaEl7vcqkNN1u3s0Zia4y9frZ
-	r1RS3ST3nXtNkijhF0EjLD+IqtdZAlraD/BBdqTHkfbA8memE1LKwOjI2HLz1CKofI555YfxS3x
-	sC8JWpFc0ZTzOJCBh575HmQ5LTsx++wAzIL+JcRMVKohDF5FDYQcgXc8U06T+pfZw0Qdf0cr7t6
-	XA2JRTeyhIJhUYlbv4ocyiW5rHa51WIKewG9dBm5zmVX1Uyh+WfClz2HVODLlRpSBptitRnazzL
-	+u049UDjdevY0/PvP3lXNnWj+JyUwSoKR6FVi0LyemgeJP8e2eVQ5
-X-Received: by 2002:a05:600c:46c8:b0:4a2:1a:a120 with SMTP id 5b1f17b1804b1-4ac16acfde1mr240738005e9.6.1793622175008;
-        Mon, 02 Nov 2026 04:22:55 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b79059sm20361252f8f.30.2026.11.02.04.22.53
+        d=1e100.net; s=20260707; t=1793622200; x=1794227000;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GO0eQoXsdHBDsAY8r5qLcEfQWImjpXMenyB3OyA2xhU=;
+        b=OyyP31cOXXi8xeYsUHYUHj5oyMwLKUGXanVJJyCuLSg4JaEFUlYmSVUJwwBYsQ+fNs
+         BSQQ1HgEAu0lZoxFZlNIwVYP9UKwoRWFoPAw0b0XcgUHrrPrIjjGbgqbZHvGaDW7vKOs
+         2RgG5zcbk9H6YfnS6GhTJZZP7s9Wch0SEVDiK9s002g3p370HOzNOFcdr6UNm/Nyi248
+         1gqlwzIFOBdXefHRxgHdbRii62cmKtUbvjUQzumQ9YZlLHwWiywQDEyq7e3ijM5dIo8g
+         RcX0d+78HHqTsRVXK1h5y1jnrctZRoUrxyLOE/5CsrRzxsFB88K0NYnaW3/CsiDkMO4T
+         b50A==
+X-Forwarded-Encrypted: i=1; AKwUvBxbe0QXrSKjkH3BsNhtYMGZKYjBfESG2pSzfggP+hs82XzZGpEd5FYH3DoafkgnZqQN2c21eiE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJILzRgTVtqxvqeWD8TFIubXdAy8pTT0Mn7r3WOTnwhJg3763+y
+	xZkmifDrEhdfb/WEacrhv7MA2RDgh0V8SHbPJNximTDt3tJUTfiBbg0=
+X-Gm-Gg: AYBFou3H8sGnklUselFcM3HPQw4Udjyf9Y7pEwE7p+KuLJUE6unMaMOkTbZPWBE1NId
+	Kq4WV5Ywj2/QdLRYA+7OegYfwpZqlyb2AXWnkUDeEFbqzH5+5WIbw67TtklPIB0T8Dp/g6k+FV/
+	dDSsxs2/cBacCqkhF9wJdZ6mf7CojnptgfKexVspkkMdgNryuQuCsYGH73QctYyfCJqGM6XBGL+
+	9F11Nz9XcVuiCbEmGe8NMPe2K3jDD3XALe+A1G/xrq23dil43gZ2EqJBCUT03lvqYHbUgmUYM5l
+	2zS+G3q5TfbSTPAAyg+Stn7un6VHiJ97DUGlwjbF3a2lfQH4b790AP7YJEEjOiBAw1Ge9YQGvC7
+	SB8s/6JsasTx5ssxGUH4vLHO5+f0ZiTGsHQxnudeyFK8gNfq2cwiQm7aVmCgpSrFyu1EFBliVwx
+	1/XG6RUjfeDM2rtUauXcvJmAgRX85xkFBBXkM0Mfb0horg40SnU7iClX/2Rb0aYbTdHUmJqGm8L
+	dVrx/cy8B2oGywWwX/gSKHXJhk564iuYBnJYadxdbhpHI5VLv8y+lXvL9eH0IGHxyvmgA0m2Q==
+X-Received: by 2002:a05:600c:c48e:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4ac16bc47f8mr229484545e9.11.1793622199807;
+        Mon, 02 Nov 2026 04:23:19 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aa704sm255490595e9.8.2026.11.02.04.23.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:22:54 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Mon, 02 Nov 2026 13:22:51 +0100
-Subject: [PATCH] drm/etnaviv: Cycle through the MMUv1 address space again
+        Mon, 02 Nov 2026 04:23:18 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: arend.vanspriel@broadcom.com,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	fariyaf@gmail.com,
+	linville@tuxdriver.com,
+	kvalo@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH wireless 1/2] wifi: brcmfmac: zero-pad SDIO write to 4-byte boundary
+Date: Mon,  2 Nov 2026 12:23:10 +0000
+Message-ID: <20261102122311.181075-2-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102122311.181075-1-tristmd@gmail.com>
+References: <20261102122311.181075-1-tristmd@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,125 +103,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-etna-mmuv1-iova-cycle-v1-1-1148f02da254@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQqAMAxA0atIZgNphg5eRRxKTTWgVVotinh3i
- +Mb/n8gS1LJ0DUPJCmadYsVpm3Azy5OgjpWAxNbY4hRjuhwXc9iULfi0N9+EeTgSSwTBWehtnu
- SoNf/7Yf3/QBCPcBNZwAAAA==
-X-Change-ID: 20261102-etna-mmuv1-iova-cycle-2fc0e6200fa6
-To: Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-On MMUv1, all clients share one address space and the allocator
-always picks the lowest free IOVA. When a process frees a range,
-it can immediately be reused by another process.
+brcmf_sdiod_skbuff_write() rounds skb->len up to the next 4-byte
+boundary and passes the larger size to sdio_memcpy_toio().  The 1-3
+extra bytes come from heap memory past skb->data, leaking stale kernel
+data to the wireless device.
 
-The GL.FLUSH_MMU write before the next submit does not reliably
-invalidate stale TLB entries for that range. The GPU may therefore
-continue translating accesses to the old pages. Writes through
-these stale entries are lost for the new owner and may corrupt
-memory that has already been freed.
+Zero-fill the padding before the SDIO write.
 
-The vendor driver works around this in a similar way. It does not
-return freed MMUv1 ranges to its free list until the address space
-is exhausted.
-
-Restore the address space cycling for MMUv1 that was previously
-removed as no longer needed. Start searching after the last
-allocation and only wrap around to the beginning before trying
-to evict existing mappings. This keeps freed ranges in the
-allocator but delays their reuse until the search wraps around.
-
-MMUv2 has a proper TLB flush and keeps the current behavior.
-
-Fixes: ccae45928fc4 ("drm/etnaviv: remove cycling through MMU address space")
+Fixes: 8f13c87ccc49 ("brcmfmac: Split brcmf_sdiod_buffrw function up.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_mmu.c | 21 ++++++++++++++++++++-
- drivers/gpu/drm/etnaviv/etnaviv_mmu.h |  1 +
- 2 files changed, 21 insertions(+), 1 deletion(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
-index e3572461b599..c4e4dd3d4235 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
-@@ -141,10 +141,20 @@ static int etnaviv_iommu_find_iova(struct etnaviv_iommu_context *context,
- {
- 	struct etnaviv_vram_mapping *free = NULL;
- 	enum drm_mm_insert_mode mode = DRM_MM_INSERT_LOW;
-+	u64 start = 0;
- 	int ret;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+index 71c2f99cdb711..c6dd4148a44ce 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/bcmsdh.c
+@@ -323,6 +323,9 @@ static int brcmf_sdiod_skbuff_write(struct brcmf_sdio_dev *sdiodev,
+ 	req_sz = skb->len + 3;
+ 	req_sz &= (uint)~3;
  
- 	lockdep_assert_held(&context->lock);
- 
-+	/*
-+	 * MMUv1 does not reliably drop stale TLB entries on a flush, so a
-+	 * freed IOVA that is handed out again right away can still be
-+	 * translated to the old pages. Cycle through the address space so
-+	 * recently freed IOVAs are only reused once the search wraps around.
-+	 */
-+	if (context->global->version == ETNAVIV_IOMMU_V1)
-+		start = context->last_iova;
++	if (req_sz > skb->len)
++		memset(skb->data + skb->len, 0, req_sz - skb->len);
 +
- 	while (1) {
- 		struct etnaviv_vram_mapping *m, *n;
- 		struct drm_mm_scan scan;
-@@ -152,10 +162,16 @@ static int etnaviv_iommu_find_iova(struct etnaviv_iommu_context *context,
- 		bool found;
+ 	err = sdio_memcpy_toio(func, addr, ((u8 *)(skb->data)), req_sz);
  
- 		ret = drm_mm_insert_node_in_range(&context->mm, node,
--						  size, 0, 0, 0, U64_MAX, mode);
-+						  size, 0, 0, start, U64_MAX, mode);
- 		if (ret != -ENOSPC)
- 			break;
- 
-+		/* Retry from the start of the address space before evicting. */
-+		if (start) {
-+			start = 0;
-+			continue;
-+		}
-+
- 		/* Try to retire some entries */
- 		drm_mm_scan_init(&scan, &context->mm, size, 0, 0, mode);
- 
-@@ -215,6 +231,9 @@ static int etnaviv_iommu_find_iova(struct etnaviv_iommu_context *context,
- 		 */
- 	}
- 
-+	if (!ret && context->global->version == ETNAVIV_IOMMU_V1)
-+		context->last_iova = node->start + node->size;
-+
- 	return ret;
- }
- 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.h b/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
-index 7f8ac0178547..7fa6e3ab427a 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.h
-@@ -75,6 +75,7 @@ struct etnaviv_iommu_context {
- 	struct list_head mappings;
- 	struct drm_mm mm;
- 	unsigned int flush_seq;
-+	u64 last_iova;
- 
- 	/* Not part of the context, but needs to have the same lifetime */
- 	struct etnaviv_vram_mapping cmdbuf_mapping;
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-etna-mmuv1-iova-cycle-2fc0e6200fa6
-
-Best regards,
+ 	if (err == -ENOMEDIUM)
 -- 
-Christian Gmeiner <cgmeiner@igalia.com>
+2.47.3
 
