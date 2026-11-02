@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793626092;
-	b=nvZcb8XOxGQ/5Mj2L+bH0OTJy8DnCmxbzrceERdX5lGeLLESUIkqwO7XTpVGqUga6Nze
-	 b+8OCPrHAaqUlb3894PhjQlJRfEU1PNyzVH0R9YfspnOtAasTgTLCA4q6VTSq9YWkBqiy
-	 OCnqCCfWlmi+QsXV4a/QDgoiqcSLqQNQIUL1cHSqviMfFexxKtcMRbpDg0as+LRyjupjT
-	 4lZcduzxqPVHJ5ybrBCI6wzoViacyBtO69Iqn1LXRjOOsy5/Kc8G3mfrGF/+qLAZs48n4
-	 WlA29foHrFzA5VWnhWJL+477uWxBnElTMR0WuaGxTP/PsPTjKJ4sRQoJ/pL+YfrcnoA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626092;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
-	b=RBKMErTU2qZJyUwPBjxlX0SCzOJPlhsnxEVHaaRcprkxcCh6/dFYsfC4OS2DEMelCyNk
-	 Uw665UpIk1EeROCFlWaiKEIqHzyrCOOpEZX9eMkN6yNns147NFLtAS9Z637tB8EQ03Xdw
-	 U591GPhV4yNIzHcXsqQTu5d6aohmAcbx0vcwHuwpZRsoKc4OyVe7GTV0Xx5sNIrqxvjuW
-	 UQuzVPdwoys2H5gOeGjUPZ/j2JCrK4msSe43Rz4cudLDJUD6hYThu95JPmtCWlaagLKkT
-	 4HWkG6GBOA9x0yKoxF8SnaqdjJuGRX0sVnwwQ/yz5tr4++QIdjuJBrcOgYc+MbARX5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eYS07XxP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793626153;
+	b=0Dg2CBuRJmSwCm3nTRewI2DBA3vRGJ4YOMe3H68WtZvxXXUrYZV14ZOTVYOBeynNPhs+
+	 UfrKx8BKYm0GwJcFftCDw8x6H6vWxys6711IDvNcV3NuetdldUfBoe4Z2KGxM7Yzgz50p
+	 OgC4URaVa8RZq3kCxz4kxNgCjNrSuU6AOy0VJ6Cx5HSVtl6QRvdpwRaGut383fQxRShxc
+	 g3y1ECxbQrQBVvVBhi6XQ1ZjIhLk3xHLdn+1MDGuA5zxwfKTOf9SSX7axK9Mft8pj0Spm
+	 ygkpCYLzGRuB16+Kjtjr4hAYGgwCsrChaT3FpEGgLQuvNl/eingnf5HFGakoSswP3ew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626153;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=c4mwdoBV41dp/el9UexkE6PaovCoClxCt2msJtff3Ts=;
+	b=yByqtmN2J3CYe/vibsNu/lUqXW2viaCDU8/RGyUCn7MGb3PrPTHPYo98Y6fT0tsFzl7B
+	 QePOevfUAUqEPVAMu2bLK6gHMGJqwK0OsyFDAyeJaJK69AbWoTVqE4zZMGt7kzSYrvPt9
+	 lb+jXe/6WgPqXRmmbj+iP9VtlHR+/IuDFy9cJ9k0+mhfMvPJ5pNgqJZGmLecli7fu8l9q
+	 TorC7Tl2SeXPDLcE7vG68TdqzjAt0vOHW0K8yxtr9EU63UFJTzhBLn3eSIkdYdZ7qYLQ8
+	 9Wz4unkaHchRHhQQEg7USctyE+xxSqLxAolGK5J7tOUA+LlVi3fsOO0tTDIWVSIyYIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+tMVeM4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5308B606A327
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5308B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB120606A327;
+	Mon,  2 Nov 2026 13:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eYS07XxP
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4322d310e7so490776666b.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 05:28:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793626090; cv=none;
-        d=google.com; s=arc-20260327;
-        b=n63NZfL4OOM1VNlh2V4GSJ4aGzQXIiGWlH8G06jtEj7dOnvMo7SgT3HS2fEN1Q2v3T
-         6Pxz1ZCg4pD8MNB8RvYi26G0SItZDI19skcZZumKBbkSuHARPivvsxSWizusTM12EstR
-         osDEnY3tSyOURGKUUkumHh+Znf9I5uvcB8/NJ5hOzp+oxVUTUrKuVkGV+DdGn7LfupKt
-         vJ9XJJviS8W0GsI7WuF9V8aJbXcKB8eNFy38kl4FeOqY0gsspZ2VEONh0cgKWmv+FUOC
-         fzc1nTCuhhcMoUguf9oyzSPkWEOUz8ICPIvRc0E/NQRiR4809gt9VMhY3BrjF6sTG1Of
-         JSBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
-        fh=r/MlaERVxNJ6xLPXehanvij6aiRPLMa8j+4ddyk0PFA=;
-        b=GVa87huBeFLxAxNnoupGFzssG6GwR+Q6wwJgnSdZPHYJahBd3j24ERqmqbi6Ps1vQX
-         ePF2aVhJPwBgDefMHqL6aYI6qFEz1htUZvBoh7UE9Xw+fpo7WBeSwf3vP2S3UWqiKEWC
-         EGfp4JRV5hdGmggTGtICnqxzZ2K+RjSOWWewCrKR4wBm0LdFkgBvdWda41gjQYJsE6bZ
-         8giZODxblW9xHfy6TYNxdi/N3SY8ikSOm0qk7ApUMpwrI4h5RKFzIzJioFfj0BDlEDRw
-         ceY1LQMmi1JZs18umIPmZ7Tmlqj/yPeBvsA+GTNnMOhkB20DHuIJBwTvrJrISv/OZQTT
-         nWbA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793626090; x=1794230890; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
-        b=eYS07XxP8utYTK8HWQxrIfweY2AEeSo05MdTGi9bbVESvlC58yszyY6JPLobaWZfxc
-         imk/gxvuIXAaaTqV46KdtWmW3Q1ueQHZpbb2oWgLi8gNn6uXtkdbIzybF0KYsU5j+ayW
-         aKmXNPi+TN8LKEygHmb6+CngLX/IJwGYm57T1XXuB/0Hwxb0BVyeMHl6mO+yjqoQM26r
-         QIGMCxuRZeD0eC9omZ6Wonuh4ev5nNkK8FsviHCI0KaI33iz9G45ISt/6jkeihUvAQhw
-         AZzS1P60h62yvfPoc/o74f7YuADHPSqe7dJKIFt5i7QNTmMya1RJRdwQUTAclTJTikIQ
-         PtOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626090; x=1794230890;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qjPej5w11WbikcynHTF6kveEbA3S0oHjvCfUZQriRUU=;
-        b=O1/6Z4n+xvTnfsgYX8zgTKIB8dio84WMXDkjBKI+BNBIzK/4jHBcQ0MX903K0t+Ma6
-         61TLbdBSq2nCz7CZXWh2WStynP0zMnfqFcsuRz9I1I5jw5Rsb5vAoQnbdOjxstMAGZFY
-         IJgSxYTc8xHtZ+7OoL6Ni1AAw6CECiH9lVj4PmlPwAGjNYPuLm8BegI6+jZ5JQTfhP9U
-         FBCpUvSWnkxQVES6pK4jLgA2DRWHSGIxwC7IorY1SWh45XmJYuI9hjhmBkiRIedKPHXd
-         LtYf0LoaUEIYcdcLKzKlEBDBznz6j8x+IF0XpVETSR242xBYShNGkyl9ZAs+S7bty4+m
-         ndfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzPtlM4ejSWXVjh4Vuyp59nSjfwOb6B+9e+4khej+3FnJj43Lx03c9oNgWddvFIzRpVREglrA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jRuNhthGvUJv4AUHI5HMBoiR3YamitLcIe8PXBaUOaCesp1f+
-	aXDPI900nKE830vfNeKGswtx1UeEKU3RBQjEMuRg4vyLuZK0OeV+BMJEl/Ljd2AOYJvodpurQ1y
-	Rz7TvB1n3dcHWc6uC4+O36KkbSuqqzHM=
-X-Gm-Gg: AYBFou39HV3w5y+ZKSK7UHhib2iAnW5RDeGDdw3CYA10OC6hSyK0LcCjJyGyx74G2MT
-	UYGmkWWw6X0qSWOvrM7oV3BOXoQmQGaL+ahq/OGTaepwYpVh56WeFqUP4YdWQYbeV6mGJslAZN5
-	5/+SioeOheechVNGXVsGuJ1y9uaBC730dHleWn/toGlQ9+djPjgOqqyFqtHf+pB8ZojbMdZwA1k
-	xilIr/sFLypkLghK4lVIUqBL1N5x1+AF6ceaQ01DKemKUID0YVT8VeI1UbIacE3bGMQRay4jvQx
-	kbzhjdh6xez2E6nnRdrMfwMsTLxY5ApYEJQOEOooVvYoS25yZwBsJY+AmWyYSxr9z6zwGvcYahY
-	vOk0O7Zi0e+guOTf3OvqAdAWEQCxq59DAMe9KEc8=
-X-Received: by 2002:a17:907:7212:b0:c2e:3f49:df04 with SMTP id
- a640c23a62f3a-c4ca793bcd1mr794308466b.1.1793626089392; Mon, 02 Nov 2026
- 05:28:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+tMVeM4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A32E1F00A16;
+	Mon,  2 Nov 2026 13:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793626152;
+	bh=c4mwdoBV41dp/el9UexkE6PaovCoClxCt2msJtff3Ts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=j+tMVeM4+zVoOaokgN4+z2ABMaFyx62kJXGZeUYiddLOI7ya2VQzvEgnENNmBa+HY
+	 WanULjAu8qaoAGkhVnJaxnN1pfDhTONL2Lv4h+4CfZHpVj7/Xkj5ZaQ7LBzjopVqtQ
+	 MKc79jBGqYoHhqaOEw1ET3cG2zZJzfc6pfVdLiyVIpRdKcUUC8iryVyLdDv1n15ySv
+	 lX/q17qhDw0kvQ5ENIMiEjUJtcR0vDDz5RLx0oHbbD3KqZvzp90IhCvqlUSaG29+pU
+	 +5IhfKqpyJKevDpFGEe+FkvAXmSEDC5kpKIGUFG2Hayk5rC5+SRK/NdLt6pDZyNIc2
+	 N8VS5fLE9Fyhg==
+Message-ID: <5c0c6ce4-ddbd-4b87-a005-17a7b0b837e4@kernel.org>
+Date: Mon, 2 Nov 2026 14:29:08 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,109 +51,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021085635.3633692-1-r772577952@gmail.com>
-In-Reply-To: <20261021085635.3633692-1-r772577952@gmail.com>
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Mon, 2 Nov 2026 21:27:28 +0800
-X-Gm-Features: AclHuK8kt_THxReORpsQp5Tyrq7frAGmxk4veLrbcHUVI_TWp6z1LJSbwSMGjP0
-Message-ID: <CANypQFYcKGJP7BxP-UAiKUXQ2Uw+H06WJY7kkCxuVQ742QbK_Q@mail.gmail.com>
-Subject: Re: [PATCH v2] ext4: clear in-inode xattr space before adding the
- first xattr
-To: jack@suse.cz, linux-ext4@vger.kernel.org, tytso@mit.edu, 
-	adilger.kernel@dilger.ca
-Cc: libaokun@linux.alibaba.com, linux-kernel@vger.kernel.org, 
-	ojaswin@linux.ibm.com, ritesh.list@gmail.com, stable@vger.kernel.org, 
-	yi.zhang@huawei.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] hugetlbfs: move hugetlbfs_free_inode tracepoint to
+ ->destroy_inode()
+To: joasantonio108@gmail.com, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
+ Hongbo Li <lihongbo22@huawei.com>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com, stable@vger.kernel.org
+References: <20261102-b4-hugetlbfs-trace-v4-1-72371825bb5e@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261102-b4-hugetlbfs-trace-v4-1-72371825bb5e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Jiaming Zhang <r772577952@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8821=E6=
-=97=A5=E5=91=A8=E4=B8=89 16:56=E5=86=99=E9=81=93=EF=BC=9A
->
-> An inode can hold extended attributes in the space that follows its extra
-> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
-> ext4_iget_extra_inode() validates that space only if it starts with the
-> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
-> space is treated as empty and is not checked.
->
-> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
-> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
-> there to find min_offs, the lowest value offset.  That offset decides
-> whether the new value fits and where the value is copied:
->
->         free =3D min_offs - ((void *)last - s->base) - sizeof(__u32);
->         ...
->         void *val =3D s->base + min_offs - new_size;
->
-> A crafted image can leave non-zero bytes in that space without the magic
-> where ext4 looks for it, for example by shrinking i_extra_isize.  Those
-> bytes are parsed as entries, and an entry that claims an in-inode value a=
-t
-> offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
-> then wraps around to a huge value, and the free space check passes althou=
-gh
-> the value does not fit.  The value is copied new_size bytes before the
-> start of the space, over the inode's own fields and, for a large value, t=
-he
-> memory in front of the inode.
->
-> On a kernel without KASAN, the copy corrupts memory: it overwrites the
-> inode's own fields and, for a large value, also the memory in front of th=
-e
-> inode.  The bytes and their length are decided by the setxattr() caller.
-> Nothing is freed and reused here, so the use-after-free in the report onl=
-y
-> reflects where the write happened to land.
->
-> Triggering this issue requires mounting a crafted image, which needs
-> CAP_SYS_ADMIN or automounting of removable media; after that, any
-> setxattr() on the file reaches this path.  The issue was found by fuzzing
-> and has not been seen in production; a reproducer is available in the
-> linked report.
->
-> When EXT4_STATE_XATTR is not set, zero the first 32 bits of the space in
-> ext4_xattr_ibody_set() before calling ext4_xattr_set_entry().  These are
-> the bits IS_LAST_ENTRY() reads, so the space is treated as empty and the
-> walk stops before reading any stale entry.
->
-> Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
-> Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=3D4QRRDoqH6VAw1daAq88N=
-DWiQKoM7QTOnP40sg@mail.gmail.com/
+On 11/2/26 14:03, Joas Antonio dos Santos via B4 Relay wrote:
+> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+> 
+> hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
+> hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
+> runs from an RCU callback (destroy_inode() queues i_callback() with
+> call_rcu()), and Documentation/filesystems/porting.rst says that this
+> callback "is *NOT* ordered wrt superblock destruction; as the matter of
+> fact, the superblock and all associated structures might be already
+> gone".  put_super() frees the superblock with call_rcu() followed by a
+> workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
+> hit this with the event enabled:
+> 
+>   BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
+>   Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
+>    hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
+>    i_callback+0x46/0x80 fs/inode.c:317
+>    rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+>    rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
+>   Allocated by task 6134:
+>    alloc_super fs/super.c:326 [inline]
+>    sget_fc+0x1ba/0x1f60 fs/super.c:874
+>    hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
+>   Freed by task 855:
+>    kfree+0x22b/0x6d0 mm/slub.c:6923
+>    process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+> 
+> Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
+> calls ->destroy_inode() synchronously, before it queues the RCU
+> callback, while the superblock is still alive; hugetlbfs_destroy_inode()
+> already dereferences inode->i_sb there.  ->free_inode() is left with
+> only the kmem_cache_free().
+> 
+> Since the event no longer fires from ->free_inode(), rename it to
+> hugetlbfs_destroy_inode so that its name matches where it is emitted,
+> as suggested by David and Muchun.
+> 
+> Found by syzbot; analysed and tested with the syzbot C reproducer on an
+> arm64 KASAN kernel.
+> 
+> Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
+> Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Suggested-by: Muchun Song <muchun.song@linux.dev>
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code:claude-opus-5-5
-> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+> Reviewed-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 > ---
-> Changes in v2:
-> - Zero only the first 32 bits space instead of the whole space.
-> - Add a comment above the check.
-> - v1: https://lore.kernel.org/lkml/20260916084723.877552-1-r772577952@gma=
-il.com/
->
->  fs/ext4/xattr.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
->
-> diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-> index 5c310747b965..8e1fd26329d3 100644
-> --- a/fs/ext4/xattr.c
-> +++ b/fs/ext4/xattr.c
-> @@ -2274,6 +2274,14 @@ int ext4_xattr_ibody_set(handle_t *handle, struct =
-inode *inode,
->                 if (IS_ERR(ea_inode))
->                         return PTR_ERR(ea_inode);
->         }
-> +
-> +       /*
-> +        * Make sure xattr space is properly initialized so that
-> +        * IS_LAST_ENTRY() returns true for its first entry
-> +        */
-> +       if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
-> +               *(__u32 *)s->first =3D 0;
-> +
->         error =3D ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
->                                      false /* is_block */);
->         if (error) {
-> --
-> 2.43.0
->
 
-Friendly ping, please tell me if any further change is needed.
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
