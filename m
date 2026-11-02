@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634836;
-	b=UcFtIANbcq/jNjTdMLLcImixTIHkeckh6JfZjIkivRphWS+4kUQ/Nz81kwxuliYwEXzT
-	 g+zVPwAc9Trf/aO42bV4MTn0p0jYX1KRKnk07Dg5LKX2dbyLvZRNmnP9YWdEoXQivsMSg
-	 r6VKKSUnhaRo6g+we39egL/hL4ooo0a7y6u6JnqqlQgu3lwh+fiDDd8yDA7AJe8yGdRIX
-	 wP8ed1CBRO+m7PX29Q+Nv1lSXOFX0raqk1EuUisIzZGL7293u9VfRxewJqE1p/Keueomw
-	 wzDfwNeMhoF7lCJsOUGl9Y1gckf/kK2k23QALZg88P2OCAE4q6zGkNuDe7kg4hY51Zw==
+	t=1793634837;
+	b=4f4zAjNMJIEe+39y6m3/OAUzhztgk7JhRQBkrB0U8x3I3HgCrjKW9Z2/zkkvNuTuwHHz
+	 4Rnprfydow+k3nsD0qW4SPipnxWCvxEkfxeVmGz42H01R4rhfRCmRdkXn9eXyWYYlCOkt
+	 q3HV0WKS03KqBecIuTFaRvuVPGNRpk/n2nVaOC5+KISbRNgvwnIXTglPJaqO/T6isV3xk
+	 fIw756AxwPCELQO6JJgIpWwEV10WQdV6poktvUeKYsCYJukhmmF6WqqMkPGSZKWWEDy6U
+	 I+Up2A7L5Wu5wuRVn+XpyqEUOi9EA2WFqNFmfqSd8ySjEm91n5x8qnZ0Qont22gbhOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634836;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=772ZW7xwS5Lb6OoXbHUKU95CKNMFhT7w/NVTOJdJ/Iw=;
-	b=UitXCEU4IVoAtoTqtslCSZJlfELyUuZlFuQflLq9hDYzx7d60ST7eDV9Mxs6q4cenIz9
-	 qe69QTCm2dSiiTgqWlhbfY1PF6PerHCvAIdtuLuNsOigZYNQGyQ/r5dDh1t7WA3c7bAB9
-	 k/lOZuG/Xsee0PLSftsuEz6YkZjPQVJsptC1y63N+GRce63GnN7SblXi4DnJ+2HJjDEHU
-	 KZQ06yWy9Q13+CESh+WjydInZVbaeoZt5C0sXMZ/XCW6KWIGzdRB8+Jq4D0w8UJLG1yMq
-	 oltzZItACOOjX1t+7I7NOarzgH1+C0U9dYLQ1nbqC53pHykTisHRUVmnSQJNzXdRnCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634837;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=73DR8o62Fs8K8T2lKj1AIW1Z0OeA4tbHKQ/fX8k3s30=;
+	b=xuVOv/8JKiIqx2ObZ9w+yjYFRho++mAk2+TEpUIyS+NeOO05wzC7hLQIV6lm6krVJb0t
+	 IWsnYN9hwNooOLLaIVL9LZ66kIi0cIhpTitV4oV0KN4W1pdKpuoWtjrND3BeJzC3CtCQh
+	 a/A4KA4FCajh3BU2ewYO4EeWr270yHDC4uiuPP9m1nxRYs0H60FEwUG9ZGQXoJb/wjhVQ
+	 YA4/GRmu0FuuwBV1eeIuWTkpH6O5/N+Z5anmYSIeK5bl3ueEvm6ZR8OdKN5Wg5gH7/fn1
+	 BIdatdLjvDaLwjOEGd7lT91bc1OEMpp74HCGIXe/bLZpmCSf8GhhlkbDbnXvFuNyiaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kWw/Ia+Q";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GSTzNnTp;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C931A607B44E
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:53:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB13D607B791
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB13D607B791
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWw/Ia+Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70A31F00A24
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:53:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793634835;
-	bh=772ZW7xwS5Lb6OoXbHUKU95CKNMFhT7w/NVTOJdJ/Iw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kWw/Ia+QjBzhXnj5i8zWqJ7FJZCWcXqxeK6lp99YwbsXoRBZdVxV7Lm4RD9rVDjzI
-	 YjDIEsgSi/dTSk7E18MHQk+ZXh8i6K59ZfzW8dNCSv8lVh0pqGPuWu1QsN6THQGdY/
-	 FmM/xkCazevo7gxf4zKL1npDrSnNfypDsUytbOZt0ikdOHJJrVw0K6qdDdjJkt3i1y
-	 9DEoIQo7Zg+FZdKHs22Tbmv+0MSWNGnzVFnXNyEF+wHOpAmo5rS3i38Zfj+E5ZZ0ME
-	 EyTiRoTtAItHBuqrc4/FYw8hBLpkAPstO+gE8Ywe+n5XCmNLfTOzXv7m5FPe45+aF7
-	 obbnVv88a8muQ==
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6fe4372c5f3so2174213eaf.3
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:53:55 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxk4pGxxnsILAPjJqadwrfb0iXN8xVwDdnkC9z8dKrTkA0ryfY6oLzDTmLyKuGR35mHA9NCtUg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJT6N1l8dyZ2Edk2N2BAKJayOZwrgT115uXyb7DR/OIQAoZA5xV
-	j5HTLDSRNSqj9qUQrGNoBxJXiVyujAEdPH3dofWLAYnnY3QOzwgLybgUA0QbV62ex1GZpVO4VeM
-	Tz2gspUpNZey+bmoAPNY4hyHUTc0VNTE=
-X-Received: by 2002:a05:6820:f033:b0:712:c751:22e4 with SMTP id
- 006d021491bc7-714f29918demr6803097eaf.35.1793634834935; Mon, 02 Nov 2026
- 07:53:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GSTzNnTp
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4649b35bso3064261f8f.3
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:53:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793634835; x=1794239635; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=73DR8o62Fs8K8T2lKj1AIW1Z0OeA4tbHKQ/fX8k3s30=;
+        b=GSTzNnTpuWGoXoGwURiFUC+RcXlSjBM2byaI+KR0CSGw+H/KFBUlBesE+xenaYscIB
+         k9GXHRknAoBNiRKs+8i4IeB8dHdxSgdTDVPDk79Ktc17BWcLA99KuIOdGOF38WxFFpbZ
+         ZWqIiya+OOtDEjXCswiSRcmaJ3QgwmjDpfVA9bnJp+DjgnPuu/GbfpbbzuIlhMpXxBdG
+         rJc+cmAmHOTLh8h/sk35iHv2Ml5TB+sdYeDpBoV2NSTsXzSbHhz7WVGvpI6qiv0wsRwM
+         3xZauCPTaOBYo2/eXXNSxiQ1qDolSe78LZwAI8cqy7giQvyF9yCXt7pQVYmaF8Ct1Sn4
+         6kPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793634835; x=1794239635;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=73DR8o62Fs8K8T2lKj1AIW1Z0OeA4tbHKQ/fX8k3s30=;
+        b=CDENYJGN5oO0EDUPRMWan4biQwZi7gvJgGCigC2dA4d8acAwbcf+aPJ2DYEoKpjLQh
+         B1Ynq695KsOuRA++9YfbryYstTIcrpjkpCoSy86J4OZa5M1efXfrejMCYdOeKH0AcAxK
+         0yakY+NKtqXPdWPjHaxbrMoiSZYVwhtIL1S2BCXRdAdzEAtR2QaHWuA+eChPAk296wrR
+         gFZyncJ7WlTXQo/Aqvw7nP/vCs12xBDqDiaiFoH0+m1hyG4bgmzWvx3oyi7cna1fOXB6
+         Ijaz3IIwUZJflC/R8RtZWJ20nyZ9Yg4xmx5Atf1zlZ6N6cKytvPvAHYddf1Wq7vxmXc8
+         bbBA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6rRG6+QHnCqKeS/6IKHM9IqmhLFY5Rl1p2p0yOWtaMy3vXHr1sYNFDQKIZQL+3WGuFo8CQLA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pa069Fi+DJzd9R+kTUJ1dW421J95LEQMtZLeW+RmRWhzSl3rc
+	ynQ604IWwWae38n14h2nGVp8646rR3urIFUynt54YSNYbI6bRND6HMA=
+X-Gm-Gg: AYBFou22lvKDScM//+G3qfCg/F0HP83R9lpOoc/H/3n8J34BbDg1GM9B0rnoY708a2h
+	+fnKnpuqA6qxkt9S21nmK60BGmxWSBsUa6OIGhTC5g2aqTFCMZtCXyd57CSk4zaM2ugqib5OwlH
+	wl+3gekHMNwWz2GF3AzNao/X9BYyTqf5BhNRJRHF8xN9rDb404hzNHU+XNBrzAKmwjoRkey0OZ3
+	VTnjQ/mJ3ID62UKaY8j7fsVBSlD7CmwDovt0khPJvWIWymCLloOobz1IEGT3WEJ1Rb74QuYuZVP
+	ysS6bYw7AqfZ3bDsy4GSCF7k2IWRaDEcg99Mdpu0nM3c1lAehg02JL6m5VU+oCfB3JXJ6BdjNeQ
+	aH7Z80ITxKxgk0FJcdCdhcZWskq9XXvvf54ezyMKbQuesIFY6GnXaup78ge03ag3dZ5hFwBhyGZ
+	rRxefLHhRDTditRfK3OwJKgoq7vTO13Z9Bs8p63Io0BqWLZ9t1eup3pC9vDcqpby6O5MogYH1Nt
+	TqziS5F4k7lFKo7aMnSZoEy4h6JhMI+b0EpWXrc/RaeejV7pfGs8ZHvR4SUWBORNKYTHJyx2eSV
+	dlBfFTnZ3s4=
+X-Received: by 2002:a05:6000:26c1:b0:48e:870:7791 with SMTP id ffacd0b85a97d-48e6e30b824mr21941019f8f.26.1793634834903;
+        Mon, 02 Nov 2026 07:53:54 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80eb1sm22010082f8f.34.2026.11.02.07.53.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:53:54 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: steffen.klassert@secunet.com,
+	daniel.m.jordan@oracle.com
+Cc: herbert@gondor.apana.org.au,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] padata: fix lockdep warning in padata_find_next()
+Date: Mon,  2 Nov 2026 15:53:53 +0000
+Message-ID: <20261102155353.1268322-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,54 +99,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030081225.2575462-1-edumazet@kernel.org> <24feda7d-ae49-45af-9596-2cc5f149f28e@redhat.com>
-In-Reply-To: <24feda7d-ae49-45af-9596-2cc5f149f28e@redhat.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Mon, 2 Nov 2026 16:53:44 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiio-LDx1Z4uWwmUmTP-Xs+Gt=gaM_9T054ZSdY=t3afQJw@mail.gmail.com>
-X-Gm-Features: AclHuK_-XE5Vpi_c17l84qWtsRUvWrKeAkHo-16LCcc1h6-7Xgfi8MPFo7166qQ
-Message-ID: <CAL4Wiio-LDx1Z4uWwmUmTP-Xs+Gt=gaM_9T054ZSdY=t3afQJw@mail.gmail.com>
-Subject: Re: [PATCH v2 net] inet: frags: limit the truesize of a reassembly queue
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	netdev@vger.kernel.org, stable@vger.kernel.org, 
-	Kyle Zeng <kylebot@openai.com>, Florian Westphal <fw@strlen.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le lun. 2 nov. 2026 =C3=A0 16:04, Paolo Abeni <pabeni@redhat.com> a =C3=A9c=
-rit :
->
-> On 10/30/26 09:12, Eric Dumazet wrote:
-> > The truesize of fragments in a reassembly queue is only bounded by
-> > the per netns ipfrag_high_thresh sysctl, which has no upper limit.
-> >
-> > inet_frag_reasm_finish() sums the truesize of all fragments in an int.
-> > If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
-> > adjustment of the socket owning the reassembled skb can cancel its own
-> > reference, leading to a use-after-free of this socket.
-> >
-> > This can be triggered from an unprivileged user/network namespace,
-> > raising ipfrag_high_thresh and using padded TUN packets, which keep
-> > a large truesize after being trimmed by ip_rcv_core().
->
-> Clasiko infers a similar scenario is still reachable using multiple
-> concurrent frag queues:
->
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030081225.257546=
-2-1-edumazet@kernel.org
->
-> I'm unsure if that should be dealt with separately?!?
+padata_find_next() acquires reorder->lock while the caller
+padata_reorder() already holds squeue->serial.lock. Both locks are of
+type struct padata_list and thus share the same lockdep class, which
+triggers a false positive recursive locking warning even though the two
+instances always protect different data.
 
-Sashiko is right that this is still reachable, but it's a pre-existing
-issue and the consequence differs:
-the charge per reassembly is now positive and below INT_MAX/2, so
-__refcount_add() saturates (WARN + leaked socket)
-instead of wrapping, and the UAF is gone.
+Annotate the inner lock with spin_lock_nested() to tell lockdep about
+the valid nesting.
 
-I'd like to keep v2 as the minimal stable fix and send a separate
-patch bounding the sk_wmem_alloc
-charge in inet_frag_reasm_prepare() against the socket's sndbuf.
+Fixes: 16295bec6398 ("padata: Generic parallelization/serialization interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ kernel/padata.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks.
+diff --git a/kernel/padata.c b/kernel/padata.c
+index 0d3ea1b68b1f7..2f769ba7dfa99 100644
+--- a/kernel/padata.c
++++ b/kernel/padata.c
+@@ -253,7 +253,7 @@ static struct padata_priv *padata_find_next(struct parallel_data *pd, int cpu,
+ 
+ 	reorder = per_cpu_ptr(pd->reorder_list, cpu);
+ 
+-	spin_lock(&reorder->lock);
++	spin_lock_nested(&reorder->lock, SINGLE_DEPTH_NESTING);
+ 	if (list_empty(&reorder->list))
+ 		goto notfound;
+ 
+-- 
+2.47.3
+
