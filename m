@@ -1,76 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613195;
-	b=XORulusSEOnj3IOKABZG5g95tOvhfHwctVsbz6PNzSCefQ0z8WBfGayVczcqtabQzqMy
-	 P9HgYxG5UeWqbZhO5+luZmtcg3YeQbEXQeLFNDUbQdgOa3yka/grL+mh8pv9XCF9onFd3
-	 UVJ5JckLGkWnzy3DcQBkp+YW6/tjdI2IiqzIyq/t1WGHLmKO6Cx+9NJQkWDBjIDq/g9Ko
-	 7LrbXV/aCa4ZRKUbJThPUhQqMPM0cMpFQKfBAzcWuOfeYZ4h0kkuDDJx7Y5OKQ8QRUTUn
-	 Rskib/g6UAzIFCyBwq5nIhMAsMrenHSQmtTFhomtfZ8S0Pi47e2iO9QuPKiemZdb6kA==
+	t=1793613239;
+	b=UznZp2//fg9r+HaZbosKpH+Jgi2k4BhVJVuT49Ef7C2ljUK/BYLGN/ypysf7v4CNAFjJ
+	 cw4PsJeRtLXb6vbgDSoxFvyQghsBv7zGtwdjV9b5eiPGvaWJdAZCbYGfk1x2j7FyTShsv
+	 HqB5vAjovOw3V1G+6ckYTiMbgGeojO2bVg3S2eb9EaqWs4IUzs8OMdRUtHxfHP9BxsNxR
+	 cp1g1C36Pao9RfRl2I//rensAvnTMDLHRx5MAmSEUyDqsi6A+3jIpHEiH2YG+CYiHUncL
+	 hlCUQRFOscvpcLAMA+Um7cAy2mnsoGV2RMVcxb79LQ9qyw8qaZ20E30yszLk/CHVzLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613195;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=5306hJs2T+OBGI+e06RqRWHllW79DTgnAOuP0FNXlmE=;
-	b=ihWntJE4evXtPTX6BLX2NAh/b4YTtlowxnyW3j2mtVdp3PA/CJB1jPSl8CFk+Aq9zfwM
-	 cg5O7a6LNdtdunDbgeQtj9cw30Z86n4ubfwmnNqiUbWNkGug9JZcWJpFc5Y1KFmWQ67Hk
-	 swE478ri3HLsm959YfdMKu2H+yGAC/aRMnhkiGCzWWNC0ml3Yd8zoAF7lEdzMdnYSE/dX
-	 nwflWB8Mr8EK4E7hyDguhYmubTPfXI74voMDzXsDRLCuWdpHOomBidyVedeSnC5Zj+PjU
-	 gCQTUwaYWB6CDmQEgKId9OuvK+FqgvB0L4tbyXWNQERW3ApxsxFsXyLucQuTfkjn9mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613239;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc;
+	bh=ap3wtaqCy2sH0gafWCXkXfxFnMi494bpjxSjvVyWxjc=;
+	b=rWL0khzY8wdoQpfxuuufINeNFOUYxg0StB72uk96kSLdOocM5S1bjSO26DM8oa14grld
+	 bCdQlsYHwlo3xV2/MDRhdIx7cqKrHBIr9WRW6yuNoInvn15p2waEeIjCtMn4wQ48Hf+HO
+	 67xyJ/FwInjqHWnaCrj+wsn5jUsiQW+zfV656pi4IzAhbkVw7VV1dGILelkRRtRdc4nhx
+	 gKxnAmgT28Qq/p//BYs52o+nTkHV7z3lylmy4MpchTtLWyyxh2bWPKmJwk9qJ3ihCtiwK
+	 qaOLa6FbQqRESNcf0z6kFP+5woDaIpg6ONFs5FJNoLYH/yCQyAizwRXbEQjlUEPd6IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KgcoQg2K;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=QuVf9uU5;
+	arc=none smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A926C606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:53:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A926C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A58C606A32C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:53:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A58C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KgcoQg2K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793613194; x=1825149194;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=AV3vrdDhM7WPc36BqYCIQNU81o84TJLOF0iF1u4Ufmw=;
-  b=KgcoQg2KSiNbQjHKVDXyo+C5I8G9V/BBIagJIYzPS2H53GDDatCslJi4
-   8PKATwzSVzf7RCv84V5Z6IRyDCsh29kBHMhKdS2f2PStgye6LbYm2IDl2
-   9vQVg2vW3cpPCThxt8yX1cPxV1CQS+hGesCfPJ3h0tNsKlNwhLfqBqSA6
-   83fsC8o6fDQwLIKKHa8qoXqdhIoupOAwrcVRFrK0IMM0ZuZMKJc9x2tx3
-   s/TyZjzGHg1dd21oqKs3njv25zdOxAuS4gheuoRuOufLBvAiE0ZqsIyNM
-   pd/lcH+O6ek1YW+ZaNu6R4iWbXbcZ0dt5fEm8UOfdRfl8uWJfwPrK2lWb
-   g==;
-X-CSE-ConnectionGUID: Go+nnevNRdOwu+YFHfE45g==
-X-CSE-MsgGUID: gvkMQC2HTxuzp987YWGQ0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2177089"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2177089"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 01:53:13 -0800
-X-CSE-ConnectionGUID: MmO5VOZpQA+v3G3aJDYe2A==
-X-CSE-MsgGUID: c57EqIi3T4yQReSmDoSbrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="5994079"
-Received: from yadavs-z690i-a-ultra-plus.iind.intel.com ([10.190.216.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 01:53:11 -0800
-From: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: umesh.nerlige.ramappa@intel.com,
-	stable@vger.kernel.org,
-	Matthew Brost <matthew.brost@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Aleksander Czerwionka <aleksander.czerwionka@intel.com>
-Subject: [PATCH] drm/xe/query: Use ordered clock reads for engine cycles cpu_delta
-Date: Mon,  2 Nov 2026 15:15:58 +0530
-Message-ID: <20261102094557.2321150-2-sanjay.kumar.yadav@intel.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=QuVf9uU5
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1NaAmI3220464;
+	Mon, 2 Nov 2026 09:53:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=ap3wtaqCy2sH0gafWCXkXfxFnMi49
+	4bpjxSjvVyWxjc=; b=QuVf9uU5guGj/yHDJWLmRkCPu7daALE9yFHFr+pYRPuXZ
+	VkrDkCnoB1jo6rKBmrDsymekSf7GFEKIE9in90I9eS1+xEa3+0pPowzgFB4I/YAs
+	1N3ppNp2C2xUFY8D3xfIMPRpnKFbqSqb8ilHeTLjL/5H55uhKaUH68psOFYJsPJo
+	hu+kbELh16ZjZvafTXEfR03mG4wteUARpzHJDY7kV4c9blBfDdxbdG6qXUW6j06Z
+	SYmRNUnzaZJVCqVeCQ5ubBo45zJf1eBJ3cT39jqk/4jUERJAjWFgpv3e43HmhOH3
+	zHWmnYbGvOG/rmjsCYXXn7Ovsma1IqZ0tSYnbxRvQ==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn6x01k2u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Mon, 02 Nov 2026 09:53:52 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29Cs4Z2995785;
+	Mon, 2 Nov 2026 09:53:52 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfj9gyx-1;
+	Mon, 02 Nov 2026 09:53:51 +0000 (GMT)
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: stable@vger.kernel.org
+Cc: Qing Luo <luoqing@kylinos.cn>, Xin Long <lucien.xin@gmail.com>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Harshvardhan Jha <harshvardhan.j.jha@oracle.com>,
+        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 6.12.y] sctp: auth: discard auth_chunk when skb_clone fails
+Date: Mon,  2 Nov 2026 01:53:45 -0800
+Message-ID: <20261102095345.1526404-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,60 +78,89 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ mlxscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
+ bulkscore=0 malwarescore=0 mlxlogscore=999 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020039
+X-Proofpoint-GUID: 89GhaJd6CPR2vPXn-6JQMdN6fVa-XO6M
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX5EWJBC4/+Xi6
+ cObwQkwgYHRv0Y8CnkFmhkkY3/5a6w870M+tYXwKj/s7pSjmtaEazXFi6s66rgtMvVeal+nXr3L
+ 35Ih3+/fbIR2D8PmiG/zB0QMqoSxtIjLmIbqmNjA3RIoNbhZVjHk
+X-Proofpoint-ORIG-GUID: 89GhaJd6CPR2vPXn-6JQMdN6fVa-XO6M
+X-Authority-Analysis: v=2.4 cv=J6g/fwnS c=1 sm=1 tr=0 ts=6ae85db0 b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=RD47p0oAkeU5bO7t-o6f:22 a=bC-a23v3AAAA:8 a=Byx-y9mGAAAA:8 a=pGLkceISAAAA:8
+ a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8 a=_JKKyeupEGsTx9GmwKEA:9
+ a=WmVTiCyuxqgg3mnwYu6p:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX58GhG8NltXb5
+ 13MYfInOcPEKap+/U0ehqfCJlXkAAlZ/ACY/abKcsSU41bbo6EhEBCocT9l1VBdyu5wrw8kf997
+ eJH0Ppc4avTdcwdoImRBnqzWwb1mOZ5iL33s6RBbO7xuFE7DqQ8BvuugN7pAhAKOh+TmnzLPKJ/
+ r5R52XKwL8heq4XS2IPSIXBd/ThbuiS//+IHeWOQNgm47GWJlxmJ4DgZH6+X/LcjeOFCofEP0in
+ QdKvEbIJSv5fdI558oYRfD0fRKKPjlcBDa3s/MJ7fqDP3uEB8FGAdtXxO2TYt5fHfwwXXisRLa7
+ UR9N1GUR/snqfBZz9TfCCNxyOrDB/dNV9JMJywtCArpSyIDH2X13bT5SyCFU6iJqzug7tz1EUT9
+ OHogL34Y1ADm2hd7lqNgURPkYxB8vDSN8OHs5PrybOrnhK4XxfwnpuStRemIPdc1Hljp7Qejzes
+ 9nELx0mUgEVkghGoyYQ==
 
-cpu_delta is meant to bound the time taken to read the engine timestamp
-register, but it is measured with local_clock(), which on x86 is a plain
-RDTSC that is not ordered against loads. Either end of the window can
-thus be sampled while an earlier MMIO read is still in flight.
+From: Qing Luo <luoqing@kylinos.cn>
 
-A reproducer looping on DRM_XE_DEVICE_QUERY_ENGINE_CYCLES on BMG reports
-cpu_delta as low as 18 ns, while the MMIO read alone takes > 1.5 us.
+[ Upstream commit 9ae7ed101cf28613071ebfbc42668c8917a670cf ]
 
-Use ktime_get_raw_ns() at both ends instead. Its clocksource read is
-ordered (rdtsc_ordered() on x86).
-With this, the reproducer reports min/median cpu_delta of 1567/1745 ns
-and no short values.
+When processing AUTH + COOKIE-ECHO packets, if skb_clone() fails
+due to memory pressure, chunk->auth_chunk is NULL. The original
+code still sets chunk->auth = 1 and continues, leaving the
+COOKIE-ECHO to be processed without a valid auth_chunk for
+deferred verification.
 
-Fixes: 7793d00d1bf5 ("drm/xe: Correlate engine and cpu timestamps with better accuracy")
-Cc: <stable@vger.kernel.org> # v6.8+
-Cc: Umesh Nerlige Ramappa <umesh.nerlige.ramappa@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Suggested-by: Aleksander Czerwionka <aleksander.czerwionka@intel.com>
-Signed-off-by: Sanjay Yadav <sanjay.kumar.yadav@intel.com>
+Discard the AUTH chunk early via pdiscard when skb_clone() fails,
+so that the receive loop can continue processing remaining chunks
+in the inqueue instead of stalling the entire packet.
+
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20260723061107.384106-1-l1138897701@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
+Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- drivers/gpu/drm/xe/xe_query.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/sctp/associola.c   | 4 ++++
+ net/sctp/endpointola.c | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_query.c b/drivers/gpu/drm/xe/xe_query.c
-index dc975f595368..9cc35fc83954 100644
---- a/drivers/gpu/drm/xe/xe_query.c
-+++ b/drivers/gpu/drm/xe/xe_query.c
-@@ -6,7 +6,6 @@
- #include "xe_query.h"
- 
- #include <linux/nospec.h>
--#include <linux/sched/clock.h>
- 
- #include <drm/ttm/ttm_placement.h>
- #include <generated/xe_wa_oob.h>
-@@ -97,13 +96,14 @@ hwe_read_timestamp(struct xe_hw_engine *hwe, u64 *engine_ts, u64 *cpu_ts,
- 	u32 upper, lower, old_upper, loop = 0;
- 	struct xe_reg upper_reg = RING_TIMESTAMP_UDW(hwe->mmio_base),
- 		      lower_reg = RING_TIMESTAMP(hwe->mmio_base);
-+	u64 delta_start;
- 
- 	upper = xe_mmio_read32(mmio, upper_reg);
- 	do {
--		*cpu_delta = local_clock();
-+		delta_start = ktime_get_raw_ns();
- 		*cpu_ts = cpu_clock();
- 		lower = xe_mmio_read32(mmio, lower_reg);
--		*cpu_delta = local_clock() - *cpu_delta;
-+		*cpu_delta = ktime_get_raw_ns() - delta_start;
- 		old_upper = upper;
- 		upper = xe_mmio_read32(mmio, upper_reg);
- 	} while (upper != old_upper && loop++ < 2);
+diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+index 0a19aea3b524..9f90cf8f9598 100644
+--- a/net/sctp/associola.c
++++ b/net/sctp/associola.c
+@@ -1027,6 +1027,10 @@ static void sctp_assoc_bh_rcv(struct work_struct *work)
+ 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
+ 				chunk->auth_chunk = skb_clone(chunk->skb,
+ 							      GFP_ATOMIC);
++				if (!chunk->auth_chunk) {
++					chunk->pdiscard = 1;
++					continue;
++				}
+ 				chunk->auth = 1;
+ 				continue;
+ 			}
+diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
+index 7e77b450697c..ffb7e722c9ea 100644
+--- a/net/sctp/endpointola.c
++++ b/net/sctp/endpointola.c
+@@ -367,6 +367,10 @@ static void sctp_endpoint_bh_rcv(struct work_struct *work)
+ 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
+ 				chunk->auth_chunk = skb_clone(chunk->skb,
+ 								GFP_ATOMIC);
++				if (!chunk->auth_chunk) {
++					chunk->pdiscard = 1;
++					continue;
++				}
+ 				chunk->auth = 1;
+ 				continue;
+ 			}
 -- 
-2.52.0
+2.55.0
 
