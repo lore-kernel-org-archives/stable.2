@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609462;
-	b=bx+4DjZZ36B/UNa3Pa83Q3ojnTF3Ps4A6ul58RrwfWoJrTBDwt3/DJEe+5WnYi/xG37Q
-	 9J/NIei8UTCXyUCMV+cEZAH95acnK7+60q4JhQPwsiYZzMsP9e6MCwUu6ZW4LlFgf0SPE
-	 5doNhlXxCBaeHSKf/GIRNKKDH0CLK6K8Yr0RK+aw7yGTtPgmCd/Ka2OBfoFoisjPGuKWi
-	 xwTDM2kyeBkI19dK07vAYAW9XvPML9JwbWnAiOeXfkltNG1Zmy0Gt2CM96Xbg6TjHQ0yX
-	 3FHn4vsMrfqfwvpGAxyxGHZ72OI7kV/q3PgpgEYNcqgaDPxjdqxqFTTDkHPuSiaoyBQ==
+	t=1793609861;
+	b=pefHgv6KycbVQlwMonz9QCndn2TI5D34frXjnPt53abZEqr3oElpq2Bbxsz2Ts8LRZGh
+	 3LLAigW4mYzmW8REgFkEGAHZEI5QwADnaoiUIrL9cAbklPCBD3r92KE3TS+YPCbWY5F5e
+	 r9WUQ6uHOasQ+Ae4x8uRbZESETemPvgvSljjZO+p2MKarZxnLm4QEpwZLU5WmUswWo62a
+	 0JOfnk5JKg3K7npN1NCYJmTnVHMjhY0FPj982eYb57N1lWl5GoCx8Yq4ttbmiPYrelKlR
+	 sbOa+ZF1zdWfiYr5XyCoq/saH8BqI5bnclr3t8A4HN1/7pHN3nh0CVhp44tS9oLFqfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609462;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=FybLTP04cq4U6sgKHlnCBy/A2QdmmVaR5IkgA24/DMI=;
-	b=4klaB/aJhgh0WblPnbagWdee96vnPACrsnQOie3ZPbz/qhdQGEZPhWNA7QZuQ57N57l7
-	 20O4G9gkI7ocSRi9Y5XDjOcphpHPUk59ayRItahMIkLLpOzZfibqsx97Euft/oGWeLmlA
-	 5eEWT9R7N4SoRfvkKVDpfLyqlc226HnG0a5OxIUVj9tRlqbddrfLxFAhoG+Osd4neZ5Wm
-	 v3aAFiy7bt3JvsFMa/By7LmqP4WbL8raJ1X4lY/mm2HPiDE7uHiZovCFR+PJLwuCkP7Fn
-	 bWRoSRJgQ+xntFrPUDlJra7C9VLjVh15WyAXnioRxfA3DQanblEeuhAcrolIEto+YNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609861;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f1pPTgJrxY=;
+	b=mAB3q7JdigGG2rPc20SgjVmTI1r7ZLN+KyLkkMroTAU5U3/6DzoWyAH//IZOVsDciT/A
+	 6IlRLN3HPBAxolOOZHA7siaJOW4wUJwWSxrRqouOB+E7ewQD/f/74RuwNvjxWlm2mAXr0
+	 wMY8AlzPBXlt3NXCyQyJEAd+RfKphAokUENC9ELVu+39qEctP66rQ7LmJNZhue5pHsKzS
+	 aO9lxHI+q0WbhR44XUFUI2F/TXeNcIeroDhoifdYtHiNTKvFg0gF4s9gxOeluVBE9xZJO
+	 alN5YJ6RsBt7Nj+MjMvfViewGDOg7y1b9Dc3WY+iCE3zaDezM4KR9VrVNmkkD5K0J/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nqB8Rzrl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hNP06WHq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nqB8Rzrl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hNP06WHq;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95777606A33E;
-	Mon,  2 Nov 2026 08:51:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95777606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nqB8Rzrl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hNP06WHq;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nqB8Rzrl;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hNP06WHq
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 287481F83D;
-	Mon,  2 Nov 2026 08:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FybLTP04cq4U6sgKHlnCBy/A2QdmmVaR5IkgA24/DMI=;
-	b=nqB8RzrlI+Vl/lNRLw0fz5B+58DCQukMreggpg7UQ6pZ4PcBWwrgZ676VcCUaRwfpHPRpH
-	TunEkIdulqWE1dimHBhA4+PuQmw317lfCYVm9bsZansNZqPB+owy78snm9cRNg+A1E9x13
-	6d4v15AqotWCpfAGDMxHij5SroBdbR4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609453;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FybLTP04cq4U6sgKHlnCBy/A2QdmmVaR5IkgA24/DMI=;
-	b=hNP06WHqmof17lIyKvpH3jD7cgelHi+ZKe3AZA25U/VlSrOYqbDOpmEtCJ/H2GK94Ezt+C
-	72g2jVZg76ppMxAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793609453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FybLTP04cq4U6sgKHlnCBy/A2QdmmVaR5IkgA24/DMI=;
-	b=nqB8RzrlI+Vl/lNRLw0fz5B+58DCQukMreggpg7UQ6pZ4PcBWwrgZ676VcCUaRwfpHPRpH
-	TunEkIdulqWE1dimHBhA4+PuQmw317lfCYVm9bsZansNZqPB+owy78snm9cRNg+A1E9x13
-	6d4v15AqotWCpfAGDMxHij5SroBdbR4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793609453;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FybLTP04cq4U6sgKHlnCBy/A2QdmmVaR5IkgA24/DMI=;
-	b=hNP06WHqmof17lIyKvpH3jD7cgelHi+ZKe3AZA25U/VlSrOYqbDOpmEtCJ/H2GK94Ezt+C
-	72g2jVZg76ppMxAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C2CA9134B8;
-	Mon,  2 Nov 2026 08:50:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id A43gJOxO6GouSQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 08:50:52 +0000
-Date: Mon, 02 Nov 2026 09:50:52 +0100
-Message-ID: <87ld7b4nwz.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Yuqiang Sun <izaiahsun@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	wesley.cheng@oss.qualcomm.com,
-	raoxu@uniontech.com,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED0D1606A33D;
+	Mon,  2 Nov 2026 08:57:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED0D1606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f
+	1pPTgJrxY=; b=2iK4pYuaYJy+wMyeo3b39vJoZY4ccIjt68b84fl+BlGRa7+GB8
+	+/NtxI8CoW0hA6fi0Idesc//54YIztTpoeGgG3E6SuPMwQRa4CItm+GVOT0wRd9/
+	JP8b3SVsPCgioTF+TysiCt75pY1zmoEQRtkkbP9Vx6MlA5LKLeLLCDOoM=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2Of90UOhqVtIYAQ--.48924S2;
+	Mon, 02 Nov 2026 16:57:25 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Helge Deller <deller@gmx.de>,
+	Steve Glendinning <steve.glendinning@shawell.net>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: qcom: Check the return value of qmi_handle_init()
-In-Reply-To: <20261102035237.56253-1-izaiahsun@gmail.com>
-References: <20261102035237.56253-1-izaiahsun@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] fbdev: smscufx: keep the usb_device alive while ufx_data is in use
+Date: Mon,  2 Nov 2026 16:57:24 +0800
+Message-Id: <20261102085724.13456-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+References: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,79 +61,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkD2Of90UOhqVtIYAQ--.48924S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGrW5uFWDuFyfWr1kWFyDWrg_yoW5ur18pF
+	W5Cay5GrWkJr4Y9a9rGr48uFyFqw13Aa4UCr9Fkr15uFn8C3y3JryqyryIg3Z3JFWkAw47
+	Aa45X3yj9a9ru3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17Mc
+	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU5_Ks5UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdSL8QABs5
 
-On Mon, 02 Nov 2026 04:52:37 +0100,
-Yuqiang Sun wrote:
-> 
-> qc_usb_audio_probe() overwrites the return value of qmi_handle_init()
-> with that of qmi_add_server() without checking it. When
-> qmi_handle_init() fails, it has already freed the receive buffer and
-> destroyed the workqueue, and qmi->sock may hold an error pointer. If
-> QRTR is not available, qmi_handle_init() returns -EPROBE_DEFER and
-> qmi->sock is ERR_PTR(-EAFNOSUPPORT), so qmi_add_server() passes it to
-> kernel_sendmsg():
-> 
->   BUG: unable to handle page fault for address: ffffffffffffffb7
->   RIP: 0010:selinux_socket_sendmsg+0xa0/0x590
->   Call Trace:
->    security_socket_sendmsg+0x29/0x50
->    __sock_sendmsg+0x43/0x150
->    kernel_sendmsg+0xd6/0x180
->    qmi_send_new_server+0x1b8/0x2b0
->    qmi_add_server+0x165/0x200
->    qc_usb_audio_probe+0xf4/0x2e0
->    really_probe+0x2b4/0x850
-> 
-> Had the probe gone on, the error and remove paths would call
-> qmi_handle_release() on the half-initialized handle, which destroys the
-> workqueue and frees the receive buffer a second time.
-> 
-> Return the error from qmi_handle_init(), so that -EPROBE_DEFER defers
-> the probe, and check qmi_add_server() as well.
-> 
-> The bug was found with kbound, a static analysis prototype for
-> ownership mismatches at kernel interfaces, on v7.2.12; it is present in
-> mainline.
-> 
-> Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-> warnings. Run-tested on QEMU (x86_64, KVM) with KASAN and kmemleak, with
-> the driver built in and a test module that registers the
-> q6usb.qc-usb-audio-offload auxiliary device. Without QRTR, the probe
-> crashes as above without this patch; with it the device is deferred and
-> removing it again reports nothing. With QRTR the probe succeeds, and
-> removal reports nothing either.
-> 
-> Fixes: 326bbc348298 ("ALSA: usb-audio: qcom: Introduce QC USB SND offloading support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
+ufx_usb_probe() stores the usb_device pointer in dev->udev without
+taking a reference, and ufx_usb_disconnect() does not wait for in-flight
+control transfers.  A mode set or blank request that runs while the
+device is being unplugged - through ufx_ops_set_par() or ufx_ops_blank()
+on an open /dev/fbN file - keeps issuing synchronous control messages for
+the whole ufx_set_vid_mode() sequence, including two msleep(1) delays in
+ufx_config_pix_clk().  Once the disconnect callback returns, the USB core
+may release the usb_device, and the next ufx_reg_write()/ufx_reg_read()
+dereferences dev->udev through __create_pipe():
 
-Applied now.  Thanks.
+  general protection fault, probably for non-canonical address
+  0xdffffc0000000006: 0000 [#1] SMP
+  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
+  RIP: __create_pipe include/linux/usb.h:2031
+  Call Trace:
+   ufx_set_vid_mode
+   ufx_ops_set_par
+   fb_set_var
+   fb_set_var_from_user
+   store_rotate
 
+Take a reference to the usb_device in ufx_usb_probe() and drop it in
+ufx_free(), so dev->udev and dev->gdev stay valid until the last
+ufx_data user is gone.  The control transfers then fail with -ENODEV
+instead of dereferencing freed memory.
 
-Takashi
+Also return early from ufx_set_vid_mode() while the device is inactive,
+matching the other transmit paths.  That check alone is not enough,
+because it is not serialized against ufx_usb_disconnect() and the
+transfer sequence continues after it; it only avoids a long series of
+failing transfers.
+
+Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
+Cc: stable@vger.kernel.org
+---
+Changes in v2:
+ - Hold a reference to the usb_device and drop it in ufx_free() so
+   dev->udev stays valid for the whole transfer sequence; the
+   usb_active check alone only covers the entry (review feedback).
+ drivers/video/fbdev/smscufx.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 5704f60e1741..eac303adb69a 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, struct fb_var_screeninfo *var)
+ 	u32 temp;
+ 	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync_end;
+ 	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync_end;
++	int status;
++
++	if (!atomic_read(&dev->usb_active))
++		return -ENODEV;
+ 
+-	int status = ufx_reg_write(dev, 0x8028, 0);
++	status = ufx_reg_write(dev, 0x8028, 0);
+ 	check_warn_return(status, "ufx_set_vid_mode error disabling RGB pad");
+ 
+ 	status = ufx_reg_write(dev, 0x8024, 0);
+@@ -1064,6 +1068,7 @@ static void ufx_free(struct kref *kref)
+ {
+ 	struct ufx_data *dev = container_of(kref, struct ufx_data, kref);
+ 
++	usb_put_dev(dev->udev);
+ 	kfree(dev);
+ }
+ 
+@@ -1606,6 +1611,8 @@ static int ufx_usb_probe(struct usb_interface *interface,
+ 
+ 	dev->udev = usbdev;
+ 	dev->gdev = &usbdev->dev; /* our generic struct device * */
++	/* keep the device alive until the last ufx_data user is gone */
++	usb_get_dev(usbdev);
+ 	usb_set_intfdata(interface, dev);
+ 
+ 	dev_dbg(dev->gdev, "%s %s - serial #%s\n",
+-- 
+2.34.1
+
