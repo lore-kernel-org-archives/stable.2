@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.244.194.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617495;
-	b=AWI8toVC/zGW6jYY09VE6pqb/n/ghFehlqbJ4Yb8af1ZKrw5X7rN3wUy/AdcxMGzSe5w
-	 GOs+p+QvB6X5AWxZMBMADOzgGNBW5IFImZOm1lop4YR5s/qsjByMD0oO5Kgu08FTytn3M
-	 5eERwV3dnzOhNm3Fl95j+SgdletXUNXHfr/InXIIYEgPJz9rbRtKrOxQUFWeIjvajJ1eM
-	 FHmGxcy9gtGDc2aXdJ0WG/V3lM0Bldyn72RtQZ10pJvdzzub29Q8hv+/p4ipVWQMmynJW
-	 Er1GnonctgvsvHMY9iHVOCz8ou3ROw2hB7Y1lDMB7hiHKU5SiiZqKfyj9TPT3qPodCg==
+	t=1793617597;
+	b=aA5OJkiA6dkOfNbZok5xQ/l3Ytl/72WGtugBFhoeHCwdaY990aTvhX8s0pn4OYpQdSbC
+	 0ZQwqLYdJR0pwl2/LYY6/HtWG9ZRYbJa399He6+vIzEEEBhmoGeAfKofZC3L0Mpgz+FUO
+	 M5o+w5Bz/MaVi9U/muDTQ7l21/XBV3mH81sTpc/5XHiMXcYktJ6b4noVGs9unUhOBWWEW
+	 meM2FBPKi4g4ll4p70QRb71GlLM+c3lpcawK3KMMRQ5s7Lj1SSnOD8ir9SaBx56VvU7SZ
+	 r5rT2laXis2PAhJaHQR18k4QNgNzP/CMdCfnTG9RfZGVuv/c9RRArgFJ0FGIRMBHwSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617495;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=LPqRgZNT+y88TLNdOciC5FJkUfHSTZkGVyZOZAHnn58=;
-	b=ofvDoaYewUK3ve0KzJUiQcvIcb7LE0ihOpSZqADp2XfDUPlGeCsdvl8ZR1qc6MwfIQHJ
-	 oSbrHKl1RoOn640tNf7+6OW6YbI2z8wNza6dhJ+k+6Zn4GnpydEP76jZG8l3MIaX5rd8r
-	 aWzvym6FffFWXjHz+n6vW0O4/59psj625nfUyLQFPKhZcFGAQHlmK6KO1vHp/1pi+oUEF
-	 HsLfr9JDgB/v4AenznJf9R8eJFdzZ5upg95sdn9Q+F8rHXoUIkYeYAECVhvIAGtPBKh9v
-	 KuPwvjSwHxpQv4UTf9mXlOcxiYloR9Q1ItThXb0g0pCc11a9jANWn/uDjuHu6BXaWCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617597;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:
+	 Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=7uACpj18c5vSxhT04PkcvzJ4BcwC0s67cyii/fIfICg=;
+	b=huKm66dAiTb1ly/RPl9yHPnnJAfu061jMKUWnv56/9OZMDlLuKQAPEKbw8uvMNC1d8FT
+	 Rmcy9JVJgYyUaqVlz+p99v1z4rSt0ku0Vh5NeWW784wvr74riPqUVvR8GtySAgBxfy2Vn
+	 uwY6/l1t2GerF20JaCiQ+AcbADNR93lHdPmaDsej5eLOY3agCejZNk0M4DzouFxbKB5A1
+	 xUJd4kw3PTbI0CSKn7pdX0mSmRAD5VmkpZGmCsWfK/tWHeOPU0oD4L/0ViSGLcOS22bYS
+	 BLwyv60/Ol58GQbS69i9Wo6hcv9hgil7LziHKBwXmLxoRwsWA2Uu78TcDngW3UyLnrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61E78606A324;
-	Mon,  2 Nov 2026 11:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E78606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=LPqRgZNT+y
-	88TLNdOciC5FJkUfHSTZkGVyZOZAHnn58=; b=dRp98pJAaGbULIe3PI5UDxyptn
-	SPjE5tvvIPx0zuJHlRMHIXVFQwvWqCEHJ8VlQdoMCeWZ+xlSOHMfdKu03h8vt+b7
-	UReQDvDA+aFQekdMuOb9DKuXroiKWg/naCmqybopUMmm/4y4fGRnVyIAvZtZWb15
-	HsUupZK7XfjGK99EI=
-Received: from user-virtual-machine.localdomain (unknown [223.160.172.231])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBWdftIbuhqkngZAQ--.18698S2;
-	Mon, 02 Nov 2026 19:04:41 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] Bluetooth: btusb: fix use-after-free in force_poll_sync
-Date: Mon,  2 Nov 2026 19:04:40 +0800
-Message-Id: <20261102110440.2589-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=hKn+VAfd;
+	arc=none smtp.remote-ip=185.244.194.184
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1540606A327;
+	Mon,  2 Nov 2026 11:06:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1540606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=hKn+VAfd
+Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jJ85x24xwz9DYb;
+	Mon,  2 Nov 2026 12:06:29 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793617589;
+	bh=JcpHIHPRbTHiaFAGdolcnzsT+BS2ZSoJfZD+/uv9GMk=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=hKn+VAfdEPTJEAo92CKadHZv8WDHz0pIorUb1CnFEExAy23Dsf/RnoOXXFML1oht/
+	 uEYkfky0ygeLrc1+sUJxPVHpf+IsKZof1GgpEATLJRc96GAWB6bqC56Mf7Gg82Kn9f
+	 OD4MnhmvkMPic67+FFfTF+VwwRizrpdZ9rG3IdrJzlu0fw/sI8mtDNOOpi4WYM3C7b
+	 Eqjpc4+pP/e1zB8iyQtTvWDm3UENnS38bRNzIfywQkrw30fcz5gx0vX9qIAi2yWl+9
+	 Bl0JPFsc0m1P6riegrkH4SPEgsKVgQtDbLH1+Hs5XEojEiNeNBhsP/XuoyBklRQys9
+	 sUNWEo/B0FKig==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jJ85x1N37z7wLr;
+	Mon,  2 Nov 2026 12:06:29 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jJ84t2JpZz8tgf;
+	Mon,  2 Nov 2026 12:05:33 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id AB0685F9CA;
+	Mon,  2 Nov 2026 12:05:04 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <509e17d2-ddc7-45a7-b801-08d8125869cf@leemhuis.info>
+Date: Mon, 2 Nov 2026 12:05:04 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,91 +74,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkBWdftIbuhqkngZAQ--.18698S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFyDCry5AFy5CrWxWFyUJrb_yoW5Jr43pF
-	WDCa4YkrWDJr4DCrn8Aa1xAFyFvws7Xa4UC3429w15ur9Ig348AFyxtrWYgr9rurWUAw12
-	yFn8Gr9I9Fy5CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gw4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUxUDJDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rnWEKhAgAAs5
+User-Agent: Mozilla Thunderbird
+Subject: Re: [regression 6.12.y] After backport of 980084de4d9b ("Bluetooth:
+ btusb: Add ASUS USB-BT540 for Realtek 8761CU") bluethooth not anymore working
+ on 0b05:1bef ASUSTek Computer, Inc. Bluetooth Controller (requests firmware)
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Christoph Zwerschke <cito@online.de>
+Cc: Salvatore Bonaccorso <carnil@debian.org>, Sasha Levin
+ <sashal@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Erik Brangs <erik.brangs@gmx.de>, benh@debian.org, stable@vger.kernel.org,
+ regressions@lists.linux.dev, linux-bluetooth@vger.kernel.org,
+ 1149377@bugs.debian.org
+References: <bdafa01c-f75a-41fa-a264-407400a2cd81@leemhuis.info>
+ <2026-10-25-1-daily-reply-0004-bluetooth-asus-rtl8761cu-hold@kernel.org>
+ <auLhWSOpMQg6cALq@eldamar.lan>
+ <0cf3aaf2-9911-4918-8f6f-c11d6077d39b@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <0cf3aaf2-9911-4918-8f6f-c11d6077d39b@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: 
+ <179361750525.1205629.14667278806776514133@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: AB0685F9CA
+X-NC-CID: tK+jJPFNB2NlJBfmjJJ24n4SWq7C3MQrDui4qUqrxrrONCFdJJ4=
 
-The force_poll_sync debugfs file uses the driver's struct btusb_data as
-its private data. The file is created under hdev->debugfs and is removed
-only when the HCI device is released, while btusb_disconnect() frees
-btusb_data unconditionally. The HCI device can outlive the driver data,
-for example when an HCI socket still references it, so reading or
-writing the already opened file then dereferences freed memory:
+On 11/2/26 12:04, Thorsten Leemhuis wrote:
+> On 10/29/26 07:02, Salvatore Bonaccorso wrote:
+>> On Sun, Oct 25, 2026 at 07:29:50PM -0400, Sasha Levin wrote:
+>>>>> If it helps, I can send reverts of 980084de4d9b and 6f0624b4427e
+>>>>> (on top of bluetooth.git master, with Cc: stable). Alternatively,
+>>>>> btrtl could fall back to the ROM firmware when rtl8761cu_fw.bin
+>>>>> is missing.
+>>>> I didn't see any regression reports for 7.x releases about those
+>>>> changes, [...] So I'm still inclined to say: leave everything as it is
+>>>> in mainline to avoid any risk and revert only the backports of those
+>>>> two in 6.18.y and 6.12.y.
+>>>
+>>> Yup, that would be appreciated.
+>>
+>> I'm bit lost here :) Who is now going to sen the reverts for the older
+>> stable series? 
+>
+> Christian, you offered sending the reverts earlier, could you do this
+> please now that we all seem to be in agreement?
+s/Christian/Christoph/
 
-  BUG: KASAN: slab-use-after-free in force_poll_sync_read+0x129/0x140
-  Read of size 1 at addr ffff88800cfb7038
-  ...
-  Freed by task ...:
-   kfree
-   btusb_disconnect
-
-Remove the debugfs file before the private data is freed.
-debugfs_remove() waits for callers that are already inside the file
-operations, and any later access fails with -EIO instead of reaching the
-driver, so btusb_data can no longer be dereferenced after it is gone.
-
-Fixes: 800fe5ec302e ("Bluetooth: btusb: Add support for queuing during polling interval")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/bluetooth/btusb.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index dc7191bf4234..d928580512fa 100644
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -1066,6 +1066,8 @@ struct btusb_data {
- 	int (*disconnect)(struct hci_dev *hdev);
- 
- 	int oob_wake_irq;   /* irq for out-of-band wake-on-bt */
-+
-+	struct dentry *force_poll_sync_dentry;
- };
- 
- static void btusb_reset(struct hci_dev *hdev)
-@@ -4560,8 +4562,9 @@ static int btusb_probe(struct usb_interface *intf,
- 
- 	usb_set_intfdata(intf, data);
- 
--	debugfs_create_file("force_poll_sync", 0644, hdev->debugfs, data,
--			    &force_poll_sync_fops);
-+	data->force_poll_sync_dentry =
-+		debugfs_create_file("force_poll_sync", 0644, hdev->debugfs,
-+				    data, &force_poll_sync_fops);
- 
- 	return 0;
- 
-@@ -4602,6 +4605,9 @@ static void btusb_disconnect(struct usb_interface *intf)
- 	if (!data)
- 		return;
- 
-+	debugfs_remove(data->force_poll_sync_dentry);
-+	data->force_poll_sync_dentry = NULL;
-+
- 	hdev = data->hdev;
- 	usb_set_intfdata(data->intf, NULL);
- 
--- 
-2.34.1
-
+Sorry!
