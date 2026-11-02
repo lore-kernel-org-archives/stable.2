@@ -1,110 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656067;
-	b=wjwFt/IHeGBamgwg/yfV5fteZNELp9LWyQOlVtf0jbJMVO/6q/DuYL+ZonpeHhyTTQfp
-	 4LiBKn6k7iSztlFEIYTijxMZHZcPqNiXwYpOIU3nxBYWTb9dGCbqUun0osYdJ9W6SUKF2
-	 GzCFCyeg5x9+UP8LqO1Oijxg+TpJqQMpoPK99Lum0mThzGfqhXBaPuoQ2vaOo8gieeb/Z
-	 oYoj5o6MZlj9VULxTmHdY6Fkr8Mszg7+BILZuSDYJBDo59ML2+2QM+albU6wNzMsKDsVg
-	 PoCMH9+Yrus/nXCBJsBpSHt5cRCHV7H6NJQxxxhqQMGDkEzPKvERj78kvyYspwMqf7w==
+	t=1793656196;
+	b=Mbb/9+WkYwb35ywBNsvYUydiiIHSiEVNY4W0PpZdtuMzz+3GuHuxCprGyoRk3O/5toss
+	 1eOxKsTYyU0+vT4JLS3hvGjZgJlVZdOgv7XEVS4Hz4ZSEj6ZXIzlzSvQZL8zGZbA98E/6
+	 2qbFDdustbe6IRZnNQijtefN2U4BgWRuR3ySqhqjqVFSn1aCJ/OjCShd8oHs2cqS/vqbX
+	 kKsgU8SSPu3W5lAJfIgRMAKMnmh4qKBCJL02doym2iKlkkH7/anA/eoVgDYmUA/ilcaVN
+	 0OP7LT4847NZOWJB1omB/YoRIQOClAAMx2gkaS8bdCp27JN98d5Y6t7bUum/IrK6eYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656067;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=fRFHM8TclHjxH4d7yOHc55XDbOFrIcVzquq+tWhmmutbitoIpEVWrHYtZmduryP06COO
-	 q0e+h+pwUmmv3kiTVzO4H2Gsjuj3eGrn/Opgn1wZ+CGQ59fG1ICkM5VfI3tK4G3/jqoRt
-	 4ikuroZvI5x4dPzYc5I8nPmTAEdHsG35zts3M2VuW5Le7vsMA22kOFKgAbvoqmpdr2Sqw
-	 jFUFFTa5I4EvDG66OiBohFsEg9tQxqhSsGDk7u5Wvlsuq220+Q7wgX8oEmEd/dOANBxJe
-	 0mvU1H1RRWtA5cAHEOq8SjXUslSydLyRTKpO6c1RR/oODFGVvbm9TD5P6akDqBsz3zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656196;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CId9CHPajlpjIg9hifRIjT/mpuc8nix8F228eUG1znM=;
+	b=SuaRZyNasaJqAR0+CjdQUawY6cCsadWdWbbiq7NcSsXfuTA+IiQcXFTuEtKp7aj0yPen
+	 LkkrTSPickrjNOAv8ZlP3Tu/R5pOw2E9yQIXti9LBcZFfXYIMb0k3awPECoKzj7cP3e/U
+	 ud/GbULXwbqsu+jGc/yKro8JNpVoxOcQzSiKEsc/fc+fWN5hib3EmsM5M7hJq8Rpy1BMv
+	 RGWOCzKu/zaMI0IpF0LDK6N9K+hEYI9c9DA2LJ7ITh1PDUU7WHEiwfkweoexPtp5qmYVQ
+	 0H1W+fc+9MZyVE46MoY4kxpU2k7QS4HmeWCgUtYKaq9tEjmxTHGORkBmjFsb6boMLqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvJIMhGJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835CA606D82D;
-	Mon,  2 Nov 2026 21:47:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 835CA606D82D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF3F606A324;
+	Mon,  2 Nov 2026 21:49:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=KVNiJYe5
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 66BC021FAA;
-	Mon,  2 Nov 2026 21:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=fUzE4Beyy/9uaHzBHgm0a/0E9WDXX2YUGoq3mmbuxpzbD76cPpX00HGegTJTQvIUeu3aSX
-	9QaCFiOtAFIK+PsS3+jgF4iHKXlM3uWZtzXjDVna3uRaFKqtH1Tm2I8CDtW2ZPP8mRHMOw
-	wnRnssT1EZOqce3XIy2EwC4Riq8usXQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656064;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=KVNiJYe5dBXqQS0Zoj5dO/MULZaRCLCLai/0Rde7pMHM3IPbvZnP6m6jmT1uffD6SNnlxa
-	omPZYJIG1NVqnFCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=fUzE4Bey;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=KVNiJYe5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793656064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=fUzE4Beyy/9uaHzBHgm0a/0E9WDXX2YUGoq3mmbuxpzbD76cPpX00HGegTJTQvIUeu3aSX
-	9QaCFiOtAFIK+PsS3+jgF4iHKXlM3uWZtzXjDVna3uRaFKqtH1Tm2I8CDtW2ZPP8mRHMOw
-	wnRnssT1EZOqce3XIy2EwC4Riq8usXQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793656064;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Hm+ytWjWmjwRRRqkaZgxMRCNpo3ZO0Yg6C7lgInlKnY=;
-	b=KVNiJYe5dBXqQS0Zoj5dO/MULZaRCLCLai/0Rde7pMHM3IPbvZnP6m6jmT1uffD6SNnlxa
-	omPZYJIG1NVqnFCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DDF1134B3;
-	Mon,  2 Nov 2026 21:47:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vkdUCQAF6WplAgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 02 Nov 2026 21:47:44 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id E6688B17D; Mon, 02 Nov 2026 22:47:39 +0100 (CET)
-Date: Mon, 2 Nov 2026 22:47:39 +0100
-From: Jan Kara <jack@suse.cz>
-To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Krystian Kaniewski <krystianmkaniewski@gmail.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps back
-Message-ID: <kppowwph3bjl6qnbzmoq5zdjplt5eebiuweuvrm7wa7dqfhgt7@sj7kyq2ja3nh>
-References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IvJIMhGJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66801F00A16;
+	Mon,  2 Nov 2026 21:49:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793656196;
+	bh=CId9CHPajlpjIg9hifRIjT/mpuc8nix8F228eUG1znM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IvJIMhGJ3UzMIoV+MhiqxLIGTUhMH1CHos4+8ve4dkFJwgrG0m34DTwMgTut5ZHNq
+	 eAMMZh3ADP/dg2Gik1mxcuI121HRcJzU9xp15twdsY09Zls+gm75Wt8cbvRSln5037
+	 8K0aI3VW/YU8SogagDUKiC/9ddht6LJcYkTN99NPywzbRVCSE+67x0mDSIcwxfh/nV
+	 0CcrA6sx9NSJEaw2RoWXkgEMd6Aq4Zah1q80TeUwVmW9N22+vjbsUPmO26WjNZ2ieI
+	 UzEnxa60kLQm2P2CWwKRJjonPY/nDmIfwZQ1Kpm4CX+vAHEbUBPD6ARiWXb+mTK+/Q
+	 quR4h9qptwdew==
+Date: Mon, 2 Nov 2026 21:49:50 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+Cc: Maximilian Czirr <maxx-cz@web.de>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=	 <nuno.sa@analog.com>,
+ linux-iio@vger.kernel.org, stable@vger.kernel.org, Jiri Kosina
+ <jikos@kernel.org>, "Zhang, Lixu" <lixu.zhang@intel.com>
+Subject: Re: [PATCH] iio: hid-sensor: Fix scale for magnetic north heading
+Message-ID: <20261102214950.6df57c10@jic23-hlaptop>
+In-Reply-To: <fa1b3732119eafd8dd6944b9324518213026fd0b.camel@linux.intel.com>
+References: <20261007000107.16533-1-maxx-cz@web.de>
+	<20261018203659.4f2b886e@jic23-hlaptop>
+	<20261102003513.2796a9a9@jic23-hlaptop>
+	<fa1b3732119eafd8dd6944b9324518213026fd0b.camel@linux.intel.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,106 +64,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,linux.dev:email,msgid.link:url];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,kernel.org,vger.kernel.org,kvack.org,gmail.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,suse.cz:dkim,linux.dev:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,msgid.link:url]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 66BC021FAA
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat 31-10-26 04:33:59, Jose Fernandez (Anthropic) wrote:
-> filemap_map_pages() can dereference a PTE pointer outside the page table
-> it locked. KASAN has reported this as a use-after-free read [1]. The
-> same path can also write out of bounds. When the stray entry reads as
-> none, the fault-around loop maps a page there with set_pte_range().
-> 
-> Its fault-around loop walks the page cache and moves vmf->pte by the
-> change in index. A lower index moves it back. xas_find() can step back
-> to a lower index when a multi-index entry is split during the walk.
-> 
-> [1] fixes xas_find(), but the loop still relies on the walk never
-> stepping back. Stop the fault-around when the walk steps back. ->fault()
-> maps the faulting page if the loop did not.
-> 
-> Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com [1]
-> Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+On Mon, 02 Nov 2026 09:15:07 -0800
+srinivas pandruvada <srinivas.pandruvada@linux.intel.com> wrote:
 
-Looks good. Feel free to add:
+> On Mon, 2026-11-02 at 00:35 +0000, Jonathan Cameron wrote:
+> > On Sun, 18 Oct 2026 20:36:59 +0100
+> > Jonathan Cameron <jic23@kernel.org> wrote:
+> >  =20
+> > > On Wed,=C2=A0 7 Oct 2026 02:01:07 +0200
+> > > Maximilian Czirr <maxx-cz@web.de> wrote:
+> > >  =20
+> > > > hid_sensor_format_scale() applies the HID unit exponent only when
+> > > > the usage and unit match an entry in unit_conversion[].
+> > > >=20
+> > > > Rotation-from-north support uses
+> > > > HID_USAGE_SENSOR_ORIENT_COMP_MAGN_NORTH, but that usage has no
+> > > > entry in
+> > > > the conversion table. As a result, the unit exponent is ignored
+> > > > and the
+> > > > heading can be exposed with a scale of 1 instead of the scale
+> > > > specified
+> > > > by the HID descriptor.
+> > > >=20
+> > > > Add a unitless conversion entry so the HID unit exponent is
+> > > > applied to
+> > > > the magnetic north heading. A sensor reporting an exponent of -5
+> > > > then
+> > > > correctly exposes a scale of 0.00001 instead of 1.
+> > > >=20
+> > > > Fixes: abea9c62c32f ("iio: hid-sensor-magn-3d: Add support for
+> > > > rotation from north")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Maximilian Czirr <maxx-cz@web.de>=C2=A0  =20
+> > >  =20
+> Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Thanks.
 
-								Honza
+Applied to the fixes-togreg branch of iio.git
 
-> ---
-> Changes in v2:
-> - Add Fixes: and Cc: stable tags, and say in the message that the loop
->   can also write out of bounds (David Hildenbrand).
->   https://patch.msgid.link/0a1ad7d2-ff0e-4248-8f03-2a64a9134aae@kernel.org
-> - Link to v1: https://patch.msgid.link/20261028-jf-mm-filemap-map-pages-lower-bound-v1-1-0bf126e876d4@linux.dev
-> ---
->  mm/filemap.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index b74bc1e5015c..1df776907140 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -3968,6 +3968,13 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
->  		unsigned long end;
->  		vm_fault_t map_ret;
->  
-> +		/* A lower index could move vmf->pte out of its page table. */
-> +		if (unlikely(xas.xa_index < last_pgoff)) {
-> +			folio_unlock(folio);
-> +			folio_put(folio);
-> +			break;
-> +		}
-> +
->  		addr += (xas.xa_index - last_pgoff) << PAGE_SHIFT;
->  		vmf->pte += xas.xa_index - last_pgoff;
->  		last_pgoff = xas.xa_index;
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-jf-mm-filemap-map-pages-lower-bound-a623ed8a81c9
-> 
-> Best regards,
-> --  
-> Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Jonathan
+
+>=20
+> > > +CC the hid-sensors maintainers + Lixu who has been helping a lot
+> > > with this driver recently.
+> > >  =20
+> > Srinivas, another one for you to check when you have a moment!
+> >=20
+> > No huge rush - I'm just having a scan through what is outstanding
+> > in patchwork to make sure I didn't miss anything.
+> >=20
+> > thanks
+> >=20
+> > Jonathan =20
+> > > > ---
+> > > > =C2=A0drivers/iio/common/hid-sensors/hid-sensor-attributes.c | 2 ++
+> > > > =C2=A01 file changed, 2 insertions(+)
+> > > >=20
+> > > > diff --git a/drivers/iio/common/hid-sensors/hid-sensor-
+> > > > attributes.c b/drivers/iio/common/hid-sensors/hid-sensor-
+> > > > attributes.c
+> > > > index 9e7c26e37880..26f8554d18a5 100644
+> > > > --- a/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> > > > +++ b/drivers/iio/common/hid-sensors/hid-sensor-attributes.c
+> > > > @@ -38,6 +38,8 @@ static const struct {
+> > > > =C2=A0	{HID_USAGE_SENSOR_COMPASS_3D, 0, 0, 1000000},
+> > > > =C2=A0	{HID_USAGE_SENSOR_COMPASS_3D,
+> > > > HID_USAGE_SENSOR_UNITS_GAUSS, 1, 0},
+> > > > =C2=A0
+> > > > +	{HID_USAGE_SENSOR_ORIENT_COMP_MAGN_NORTH, 0, 1, 0},
+> > > > +
+> > > > =C2=A0	{HID_USAGE_SENSOR_INCLINOMETER_3D, 0, 0, 17453293},
+> > > > =C2=A0	{HID_USAGE_SENSOR_INCLINOMETER_3D,
+> > > > =C2=A0		HID_USAGE_SENSOR_UNITS_DEGREES, 0, 17453293},=C2=A0  =20
+> > >=20
+> > >  =20
+
