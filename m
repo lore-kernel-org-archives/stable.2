@@ -1,166 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793599941;
-	b=pKSLqlaRdaTDp3+OmqztbzP3xkfNtWkr9bS1oCKMegwCzhtkALTBl4rBdIy2JmPIlz2s
-	 HEbUuk/IES/flZEc4v03Zdn4mojfxPkFNGtjs5GVcNQZFbk8AhwaV0I+nqXL8q/cADUuq
-	 Kljt1InogEP4GLFxvjeDqucvb+tIIT3IGnTy8UD7CGWFCBWAaQXVOfU0fylr7p9f0hZF0
-	 d6tlsKDpcxJWLtY2RINpeCc9yzfCkqKxbwW5betUpfjblMpxKg77hO9LGm4BBOm0luhc5
-	 84X1ouaExgyafcX9SaYXYpneISgFAwaHbaAe9DF1cKMjBRnBvM95E3nFYMW5IArFflA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793599941;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:
-	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eHavJIa6EPuRE+lRIJZD2yk8Nhc5kxtQY9U/UbWZuvk=;
-	b=zqcrHCv3feVZn93brSlZ83+aitzBqlnedvgK53bK+4LFoGGdLvuvZlFFpSBSMbMixWp2
-	 EFbbumAAmIU6rNN2CalHPkbyN8FO+sAgTjA+XL/z5bab5FAhNa52fdYIZXMXRr5qil7wB
-	 dxE+NFPBPObmHEScnvgo2ZGzTHc7nR7ROujVGTSZFHOlzfDc3wOSlXGwPdBK6Tto+0Yl/
-	 mfR6PT3XdVbqVQV7jIldokj1fTgUozZqtucH0O3QQ8Nx895JW8hOCMKtiv8+uB6P/D3nx
-	 TpVmGyUad6wOo3txIjeQtXVmbXlh5CDZcFp8+L/CJIxHLzyaNLjP3T9MQUD65+mAb8g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Ek4oQEu1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.23.39
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19012039.outbound.protection.outlook.com [52.103.23.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793600163;
+	b=qg71PhXEeZ2sFSpeI8zHKsAHnrdm/V+C/JBMydxYFNeRu6FK1Fpih4mqRb8QbZttWWI9
+	 IMBPqy6By7OPv6UHfDmtev2jbNCnwRukEfTsKIv1QywYTAd8VSs0VZceAfpNSC56CVoTz
+	 y8etjeaQns0jaHrtjS1ImhbWk9yzhTFJLW2127xuiyPfPOZsmSTHzo/DD0waZPfddznIi
+	 Zd31wF34beE2ifmjNS/23UKqCQRrI7Q/o5ojyxIZoSiZRV8UKSDuFVvBlRmtQfABwtHlD
+	 t0NqXoMfXSimdv284glPL+LexQBtkDqeafhEW+UjrsOp5TzPtT8jRQayezcDR7MTHKg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600163;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=Aa12U8lqowtEXcBjVgZ153KPUb1ylc4xFCiy3jc52tU=;
+	b=J1ulZQkFlZjokBfg1QZpNNqavUQjh7ua83PcYEyNSD1/6OsFjZRDSerTueaix7Au68cs
+	 jOy1GmVmCh5u1Fk8srici3Ed7h0H6Z0whaebic+w3fr6sa4dOpSnUeO+y0lEO4r49WDYF
+	 bgWtAWa6mQYW7r/rwsCAexbi6XcJsoozQtpbroAOc77Z7PoqAHxRWiT/chEvrEcLtK0w/
+	 sLyO9/+W46Pbjqy7QRlwO5v95u4P9hhaNRTqElk6q9RHJkviLhh7XXv4w1HOSOEAzgrD6
+	 m4wOJlZd10xjJw3y5FYOls7QfNhdrnAa2F4WxRo7JRNA7ZSRcPMa+yIl26p7kG8ewBg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=l+soKsnY;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=blubPZDi;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C0C606A324;
-	Mon,  2 Nov 2026 06:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85C0C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBF9606A32F
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 06:16:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CBF9606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=Ek4oQEu1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gLOSOqXGb6WRctEu0l4PYF56GljYo/84zl2VDvKtAqWkwfeZFiS1qqQGUcGc7J5HU9GGrdnVBmLF/YjJ4GB4nSDk4hsJu2x9VMksZjEzVdAWv/3gdOzF1v3PSBXxriiXWN6J/vkheZHUPpbWMJsHV9Qj7APs9QrpZaf67vhVbKT/9xV2m+hyP1TeiAgyvD7ltSMaYB+NV87UgkiS8ET5Lsc5Coln+lSdIqk8iwOdljiguOPoHXJ5dGKEZv3LrdVrTfZ3vjWeU9DcoNgqoa5CmAeiSP494wczih82NhVYWSBmy9HaRH3eTFplJMc6a4UINzGwbQ2lrZPT33OnjlHMrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=eHavJIa6EPuRE+lRIJZD2yk8Nhc5kxtQY9U/UbWZuvk=;
- b=zJlDGZjzxt2FZJnaP/FpyP4eQ9i+g6w4CesYrItt3pKbPKR8OehKwXLPAcDurk4gnpLfo3CfkeIDfiK9SzEaGMsCktyQL5w7Bqc8NypNso2W0zHLZHQAwjHcOKMv19vu2k+jazjo3ZZt5nCqycxzPtzMRT8FV3kk09yOWlmQ41CxKfOGjDvjm04BiyqxUnQpU2GtH0xaq/qSuZc18RM5Yvo88a4oiU8ysuJqi8N/gKcpm7HdNBXAo7wVH0uiUKQLGM0NGXMzqZIqKduR3oNoRINc3mrSlaCNV67QImu/hNhYcwU1v5BRbSkGLBe150ks+qiwH1m57zBNBigagvHD7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eHavJIa6EPuRE+lRIJZD2yk8Nhc5kxtQY9U/UbWZuvk=;
- b=Ek4oQEu1efCD8Nrf4JZ/UfFOb0gJ2eSVLt6BaSOYpI+Hi+McY12QLJHcMqrb09yCAxNK5BzimjuG+ji4m+nK8AJKDfcPHGkf5RMx0JFQALnYCPli7Ki3rd421v6xvTavN3NFh4rAS18r40q1Mk0xV1RKHz4QET7yt9zU+tj7LFpVfI+P5azO7CeanGfRjZ4iv1Ug7N5uK3gmWGwQhEj51zNg200OLTtx6S5Qo1/iXSsGYclmk1kN1bvg0UUtR796CybhSuzODVfYwd6OmsNesfmo36uR/NMQK4ShAZwDDQ/X95QLXbl/szI43RXIEY2X95kKBkD44nsJSDfFCzVWOw==
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- (2603:10b6:806:39d::17) by SA3PR05MB660978.namprd05.prod.outlook.com
- (2603:10b6:806:531::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 06:12:18 +0000
-Received: from SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
- ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 06:12:18 +0000
-From: Yingjie Wang <x-professor@outlook.com>
-To: "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-CC: "edumazet@kernel.org" <edumazet@kernel.org>, "ncardwell@google.com"
-	<ncardwell@google.com>, "kuniyu@google.com" <kuniyu@google.com>,
-	"davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"horms@kernel.org" <horms@kernel.org>, "daniel@iogearbox.net"
-	<daniel@iogearbox.net>, "martin.lau@linux.dev" <martin.lau@linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: [PATCH net] tcp: ipv6: keep request pktopts alive until request
- destruction
-Thread-Topic: [PATCH net] tcp: ipv6: keep request pktopts alive until request
- destruction
-Thread-Index: AQHdapEdg9xE6W9q5UeOl25gPUd6/g==
-Date: Mon, 2 Nov 2026 06:12:18 +0000
-Message-ID:
- <82c31e4d5043f3dbd11b44177cfba779d335aae3.1793599929.git.x-professor@outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|SA3PR05MB660978:EE_
-x-ms-office365-filtering-correlation-id: 421883bb-5130-418d-cdaa-08df38a83fa2
-x-microsoft-antispam:
- BCL:0;ARA:14566002|31061999003|22091999003|24121999003|38102599003|15080799012|5062599005|24021099003|41001999006|19110799012|10092599007|8060799015|8062599012|25010399006|4140399003|3412199025|440099028|102099032|12091999003|26121999007|52005399003|40105399003|30101999006;
-x-microsoft-antispam-message-info:
- =?utf-8?B?dmR2WlBGWkVpUnJLRS9BdVJXVkx2UGo5KzJBb2t2L0VXOXp6T00raXlISERR?=
- =?utf-8?B?OHZpTHRBRVJRMnlFNG1PdVIxZWFQWUZTTlRXU1FGSnE2SkVPTVkyS2Fpa1kz?=
- =?utf-8?B?Q3RweHZaRWIrZkN3cy81T0Y5MERPK2s4akM4eXBqUlVhVDEwWE5BbGdlMHZ2?=
- =?utf-8?B?NWQ0c2NId2ZPMlA0TktxUnJSZmEvQkFteXoyamF1em9qeHlDdjc1Q1lyb1VQ?=
- =?utf-8?B?RUNkTjVBQURlSGJMcnZtQm9DTnBrdXM5Rm5QTmlwWWJQaWY4TWNTeDdRTFpM?=
- =?utf-8?B?aittNVR5SVlnaWFHcW1EY0UrT1ZDR0UrVXVJVEloMjRmc05SNmR0clp3ckY1?=
- =?utf-8?B?TVZSeDRJdi9VT0pIQ0UrK0VRYTBPdkZUMm0vK21QN2hBU2d1ZkF0ZC9laVBN?=
- =?utf-8?B?YmhTZks4dFYxdkFhWm04dU5VQXhDYjl1cEpYK2dRWkc1UUFidmlyZTA2UFA1?=
- =?utf-8?B?bkVOd1dZdWxiSzh5aWhkckp6dkZPUjFSdFRhZmN4YTFvZWl0TktaR0lDazNN?=
- =?utf-8?B?UVAyMVdMTVdJTWRIMjVRWnlpblo2S3lmZEtJRitsRTkrT0xWaW8wTkwvSEhK?=
- =?utf-8?B?dXBLVXdJcStkd2VVUkxhY01QUFM3alBTTWpNZlRJaEdTMU5vVGdJU2NISity?=
- =?utf-8?B?S1FzMC9xd2hiaDNSeVQ3TGJMR09FczNsT0RsODl6cHp6MXdaZjdMekdjcVpa?=
- =?utf-8?B?ejkyZnBoVCtvMVJKdkkzVEZ2bmFQYWJ0SGFsNjlTSjlvVWR2akZ3VUpkVURp?=
- =?utf-8?B?S0V6NVRyall0RmNlOEM4VXQrSHgzUXNoeDdoMlJyMUFGamF5aDZtSUxQc0Rn?=
- =?utf-8?B?MmppNUdnTHM5QkY1QVprcXluUll4NHptcmRDbml4RlRyc0R2bjhCYnhjT25x?=
- =?utf-8?B?bDNkdGR5VDcvUVNMSEtpZC85dDZMYWt2R3NVNGRZVjV5N0FCNy9od0t0Nmsr?=
- =?utf-8?B?bHF6MTVGcWxpTTAwOENPV2xkYkp4UW9IUlVpZ21yTUlUMEpqOHRkaXU3a2E2?=
- =?utf-8?B?Sm9nNHFoRkVsVXdIR0VEUDYrckJlQ3gvS2JsOGlqcXV5MWUza1dDYlBicVly?=
- =?utf-8?B?RGg1WENSWVJrR2ZkdENzME5PNXdkMUNnaUM1eFgvVUpGQVpuc0tjMGd6NHZW?=
- =?utf-8?B?Rk81a2VmM2VnT3ZzLzkzcklZMmlSNmc1Nzd6QTJLZVZRUmZyMjRpTnNpMG9v?=
- =?utf-8?B?aUFXVE1XMXNKbFpKNExSck5IRXh0YUZadmh5TDJGNnp2d0x3WmRGM0s1MzhI?=
- =?utf-8?B?aVIxa0J2VTBITnFWeXJTbVJDTWJ4K2ZUVGQ4dXZHak9weTA0WlNvOWpVVGpj?=
- =?utf-8?B?KzNuMURRMnlCd3VNUmhvbE84ai9pclBhUWFweDJoQXB0aklKVldidUZQeGZm?=
- =?utf-8?B?Smw4dWJoaXpZYURDTFF5RFhxdlRtbFM1eVd2azNkVy9FMkNGTTl1RWw0QnIy?=
- =?utf-8?B?MUFNcHl5eWNYK1BnY1J3RHFONGJZZ2FiWTNSZk9SNEpFamkyUkV2cmtGQjNl?=
- =?utf-8?B?RGFMZlljUjlLcDJURzhWWEwxdGFlWmtJQUhLTjhiWlQzWklBaEk4TThwaEQ3?=
- =?utf-8?B?UERkZGltc1VWd2pyOHoza2w3WjNEODlXbHFaRU1sMjNxMWowekhPbUxSTnVi?=
- =?utf-8?B?b1BFcm1lbW9HRkl0bjRsWHFIcmhSZFE9PQ==?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SHovb3A5VUVJYXJhcGwxVVNSVENxdlg2TTJDaG1iKzFzSWlBTldnN3RiYkg1?=
- =?utf-8?B?bHVVOTh3K05mZGJCVnAvSkxQbU1yVHNrU2JDdDQwb2s0ODhVWEt1ekdqTTc1?=
- =?utf-8?B?eFk1azlhNkFrTkpvbEd3SnBEbmNqM2JheC9YUmNOTittcG4rTzExZmRITlFr?=
- =?utf-8?B?d3R2SkNYRVVqdnczVWlobkp4QWg1TW1CYUtkWVFSN1FiWWVjYUI5VlR1TG9l?=
- =?utf-8?B?UlpEUXFFYnRsZFpTKzgra2hmdUppY095czBuNGpHU1lYZUQxUk85Vi84aTVz?=
- =?utf-8?B?c3R1NFByMXpXcEVGbHFuemd4MC9VWGx5a3hyczFWM25ZZGc3M3ZBa3lGaHFy?=
- =?utf-8?B?TlFoc1U0TmF0cy9odjY4NUJsZVJybVBwZ3JmWGs0Vm44dU9wcFdFcHhzQzdl?=
- =?utf-8?B?ODdwejI4N1RhL2pORlVuNFVWWHE4WW5jQWt4WC9kQmlFN1VIWEpDMGNGcDk3?=
- =?utf-8?B?SVVqZEZRTGI5MEZ5ejJWMTVVd00yc2I4QklkNnJFQmV6T2dTK3FVVWt4dlc4?=
- =?utf-8?B?RE5QVS9tZkE3d29yWHNNRDhkMUlQcXBVTk14dWVrdElPY0g3QmxSL1pkSW8w?=
- =?utf-8?B?ZFZvcTgwSVZQeTZlaVNxVnJvaGFWVVh3ZW1IS3lnZ1ZCWFZsWFRNQytObDNY?=
- =?utf-8?B?cHZESHUrUHhBSHVmbGFKczBnbDFoNE42a253Ulc5QktEN3lZODZaa2J4djMy?=
- =?utf-8?B?Z2J2Uy82RmMwMENrTDBFeXFnTnhsdnVvR0JibitIQ3BrSGNLM0pJclJKN1FG?=
- =?utf-8?B?WGJBYmFKMStwNUVQWTdhZDZHMW1TaDRlOU12WCtKVFB3Z0pXQ1pZdU01eG53?=
- =?utf-8?B?cjNBaGo3aXd5eDkwZFpWNkVpcU9KSm1PdkY4UWpEUUNVYXpzMHphd3Y2VGxj?=
- =?utf-8?B?UDVURHZzVTkvYWFlck11RTZnc3BacEVmNFVBYnRqNjhmOFpUUFFKa2RqdmY3?=
- =?utf-8?B?b1JqdWFQTmRrZ2FrVnRXTWlsVUZHQ0FGL1E0QlgwWklGaHZ6WmpSbjh1TkRJ?=
- =?utf-8?B?bUpNSDduTjZxV1gzWnp4VkxmbGNuSEliMTFzbFNoTUppRGRRR0ZxLzdNaXUr?=
- =?utf-8?B?NFIwTVczZjBnV3Z2eGhxVnhmckFWU1ZzN2NQQWMyanNiT1VOcDlsMmR0M1Nq?=
- =?utf-8?B?aWhsaDljVi85bVZ3eTZibkxKRnd5aW1ydTRZM3JmZ1BsQzFBTEduMEltMjZP?=
- =?utf-8?B?c0VKVWJYWm5vZWtOWHdaVmJrRW9kSG1aQkh4YlAxWG5PS1ZHNU1jdDVWVXVn?=
- =?utf-8?B?MnkwWExpZEJidy96Q3l0TXJtLzBjSTFPK0ZISHhKa0FUZDZOMGwyVndCSnBG?=
- =?utf-8?B?Ty9uOGVNZXlCSlRmbmpsWmRzK3k0RDZOWHJXMnowSmRXS2JvblgxKzliTS9h?=
- =?utf-8?B?RUJGV0hDZi84Mm5Ub2ZsUGxlZkNrUFhyUjh5WEc2cUtSTTNuNWtMZ3NuZ25r?=
- =?utf-8?B?OXB3QlBIZVFJeHgxUTRFMERFckszN0p2WC85N1JTWHJQNWI3TWcyc05sSnpz?=
- =?utf-8?B?ejErUGdTdlRDaW5Tb1NrTE9GODNpcmtVd3BMNjVobDdxL25XcEFPMXFxYWJE?=
- =?utf-8?B?OUJmUWdUYWpFY2RudlV3elNwTWRBK210dU1mdkY3a0hLZHBJK211SzRMRXFD?=
- =?utf-8?B?V0xZWWViS3N4RCtGMWpFUm51NXQzL2Z3VGt5NGdYSEphL3FQdnFGR2ZEem5E?=
- =?utf-8?B?MkIrZ0ZmZURuRHRZeTdiN0tDSzlESzRnZEZSYXk0LzZyTXg2aU9yMGpnSG01?=
- =?utf-8?B?Qk1tMGhqb2ZwRTBiZURHVXpGSEV5L1hLYmxpMVcwbWErcitCb01kZ2pyVG4v?=
- =?utf-8?B?UHJpWXM0VzJkdjREcGhwUkY1VWltNTBqMUkxc3dGNHl2am9tQ3dxRjZDR3Nj?=
- =?utf-8?Q?04pxVitfBLCLP?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=l+soKsnY;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=blubPZDi
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id CD70C7A00D9
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 01:16:01 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Mon, 02 Nov 2026 01:16:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1793600160; x=
+	1793686560; bh=Aa12U8lqowtEXcBjVgZ153KPUb1ylc4xFCiy3jc52tU=; b=l
+	+soKsnYwAYkAVSuVUptUKZMuEY+4qHbQcnz3ZlgBBnoavs8dnxkk5aDItKp52yXc
+	xPHD5HIp5Rblg9O4/jQWRAnHPnso8jT4xBV0dhLf+vRqXDx7vbN2utVA3F76Leq6
+	pbImbXst13KObHN9HawxTbzFSakCUdY1ugNPMKW8+by9oH2yKtcIZO+S/jFg30Vj
+	A7igZkm3q3zxAHLe9TinhATOHJFcHJ0ae4qHGGu4RH9tOKf9sZx5X/AF+dOI6LIe
+	jQ6RfZ75L7r3j6+9fqe5cTDnUOK8fnjKJVubv6qa5NSvWGZ4f6vznG2+XHL1mVx7
+	SR18DH5fn5rrTHpCYPJgg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1793600160; x=1793686560; bh=A
+	a12U8lqowtEXcBjVgZ153KPUb1ylc4xFCiy3jc52tU=; b=blubPZDiWMZ3ZGMRL
+	EvlBlZe26CPNfTY1iQ61CRJxRPGbzN0EwJR0EgaPCK3OcR8YnzZduIvTnJRqokdB
+	532zpC8jDdZAXqL6G/kJQEVIseTmQMb4O2G+joUh+Pc73/8OwI/zWdcrDqBrYES5
+	OeK4I8O7lhWagpTuAAPzAO6aGcddgV6sB++8XxYjTFD53ps6zy3qvHeOWBIMdKWj
+	1XeoOAGxzMXRyD5jSRQq2DVSqzgicdFJHGtkGmBV2nKZkn5QWvqy7+5nvRIqwp/z
+	CDuHUwbfeWYeiiS3x9mdD1hVjBm9ILNw40QI83EoUr95MTksOvC1ultaHngI19jl
+	fGiUQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793600160; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:PQJySKFX+mBm+WlBd0yyKpv0I1GjmLzkU/rRcXPvT7gwr+s
+	svj+Qg8TQSkbOMWevBixlTajCvuEZILApJYhbYTL5I625kYpDiMKFNZ4CdIQoi5L
+	RBKhz5kG9WnyrF+d058jjRfTG7NIWr+3RX9Bf4r1+qzN7gfFLSk6TEa7yYlLh9Lp
+	ddePU+024qpX/fNnOcxdCcrMVzJoef8ofht0RNfEQLOVrh/MTO0ZcdZNTWvqecZe
+	2UhAoFm5lNIwr938zn6mntLrt7Yx4ueo+H0mRzgC6xTEypsBCkfoR4AXvUOpg93l
+	yYo8ZQbztbFqhWowWDZ9aA2iODMEW/4Z9OiKBTA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:HSlNcvgtdmCPsHYCgd1XKvn0vimtPw23B2wXWYY7RPw=:Q6zNsfO1MCog57yNg6sYxuUY+nPIW/8pMj/8aCJCaqc=;
+X-ME-Sender: <xms:oCroam4VAkTQoSwcP1ow3VReVMeGo_npMnBQtcM1S_mwTNt4-CzPoQ>
+    <xme:oCroasfaV3FbDWEgV3EyBH06zu5m3yX5i-LOawqUNBB5yqKIEkQ2LLQg-ADS0qxjh
+    404k-oImoFoQFXb5AxqvkGro_-LWPkFrDsnuWKaJpX8tLLbdw_9LsPX>
+X-ME-Received: <xmr:oCroap4pEeYueNCgtH5CmGz8Zw-YLud-OA7Do8NLUi8VEtuYWPLSieXilt4PN99r>
+X-ME-Proxy-Cause: dmFkZTFGKk/WNkmd39cyK5kg4BSYFhiJducBg0q1Dxb/yw6McJPeF1k53VrIA8oFQ5r40l
+    efUL3sv/8CAXT8lgRt8Iz7IjTiWfVT2ebK2NwBpvdLS8Pjffu/hHGhn+gqv/rBNe83ITNx
+    isYSXwB5NsSv+wIZUQnX2Twt2UHiwYUdH9okdl+Tcoof6j+mv1wOcVdaGK1nzN5QxMHC34
+    691NClNUMb4l54cR295xvnobYFBPXHIPXvC13rnrhOZuAA3zMtBCYTUL1GH1N1scDmrvCU
+    NsduhI/xR7REwD8kOsukMODjx2QIz+iv5MoEUnKw+1TXCUDQretHLbYHKiCh6sRN4WCpWQ
+    Zcb53vE3fp1+sCH10+gIzlVsEa5EmB/hUIpWbqbkcvZ32u7MU51Yrj8fVqlc/kSMY6hMWO
+    Lb96foJE4FXvI63BDnSb4vaSFdbkpX1Fm3he28DrrwStpZWgA2pWYTC7EQIjYEUNx/gb//
+    PaeQZf9/KWUQiI2KmVQBncvY9JMQj+xHdonhrddr8rxslIRy2xgWIiac2wnILWsk4xbFVE
+    5UySjqw2PBMNunlrChmKaFI5hBgh8euN2rVQwLtEV84/WpOJmP4gl5Mjf2ukko5dRw72ii
+    R0Gm26SwmthyiUVvVqs22T0aTDTsnauHRUo6+98iP+l08K3PY9Cd8Jf4Q1kA
+X-ME-Proxy: <xmx:oCroap-tz_JJ1TOG-J6glT60OqU3rCJ7JtUnDII83kt1caC2HDZnhA>
+    <xmx:oCroarGeG0WO7VvGU7Ze6j9k9hDtJW9knm5Lh8pXfevHF84OUHwt7g>
+    <xmx:oCroauUOhN-8kVK55ptPoGstzyPVQATN66Mk9HcN7yoRwhFW1EDl6w>
+    <xmx:oCroan9-eLUysO4DksyN0gSyf33C0NUUOoncTZBRiBI61ji0-VFVlA>
+    <xmx:oCroalKWDPdI_3-b1XG3X0p1wRtksRjyhLCxkQ5ZWDjhw6iQQAuXKiLJ>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 01:15:59 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] ksmbd: let the owner read and change the DACL when no ACE names it
+Date: Mon,  2 Nov 2026 00:15:36 -0600
+Message-ID: <20261102061537.830714-2-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102061537.830714-1-icb@fastmail.org>
+References: <20261102061537.830714-1-icb@fastmail.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -170,80 +131,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 421883bb-5130-418d-cdaa-08df38a83fa2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 06:12:18.2565
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR05MB660978
+Content-Transfer-Encoding: 8bit
 
-V2hlbiBJUHY2IGZsb3cgbGFiZWwgcmVmbGVjdGlvbiBpcyBlbmFibGVkLCB0Y3BfdjZfc2VuZF9z
-eW5hY2soKSByZWFkcwppcmVxLT5wa3RvcHRzIHRvIGNvcHkgdGhlIGZsb3cgbGFiZWwgZnJvbSB0
-aGUgaW5pdGlhbCBTWU4uCgpSZXF1ZXN0IHNvY2tldHMgY2FuIGJlIHByb2Nlc3NlZCB3aXRob3V0
-IHRoZSBsaXN0ZW5lciBsb2NrLiBBCnJldHJhbnNtaXR0ZWQgU1lOIGNhbiB0aGVyZWZvcmUgcnVu
-IHRjcF92Nl9zZW5kX3N5bmFjaygpIHdoaWxlIGEKY29uY3VycmVudCBmaW5hbCBBQ0sgY3JlYXRl
-cyB0aGUgY2hpbGQgaW4gdGNwX3Y2X3N5bl9yZWN2X3NvY2soKS4gVGhlCmxhdHRlciBjbG9uZXMg
-aXJlcS0+cGt0b3B0cyBmb3IgdGhlIGNoaWxkIGFuZCBpbW1lZGlhdGVseSBjb25zdW1lcyB0aGUK
-cmVxdWVzdCdzIHJlZmVyZW5jZS4gVGhpcyBjYW4gZnJlZSB0aGUgc2tiIHdoaWxlIHRoZSByZXRy
-YW5zbWl0IHBhdGggaXMKc3RpbGwgcmVhZGluZyBpdHMgSVB2NiBoZWFkZXIsIGNhdXNpbmcgYSB1
-c2UtYWZ0ZXItZnJlZS4KClJlcXVlc3QgbWlncmF0aW9uIGhhcyB0aGUgc2FtZSBvd25lcnNoaXAg
-cHJvYmxlbS4gaW5ldF9yZXFza19jbG9uZSgpCmNvcGllcyBwa3RvcHRzIHdpdGhvdXQgdGFraW5n
-IGFuIHNrYiByZWZlcmVuY2UsIGFuZCByZXFza19taWdyYXRlX3Jlc2V0KCkKdGhlbiBjbGVhcnMg
-dGhlIG9sZCByZXF1ZXN0J3MgcG9pbnRlci4gQSBDUFUgaG9sZGluZyB0aGUgb2xkIHJlcXVlc3Qg
-Y2FuCnN0aWxsIGJlIHNlbmRpbmcgYSBTWU5BQ0sgd2hlbiB0aGUgY2xvbmVkIHJlcXVlc3QgcmVs
-ZWFzZXMgdGhlIG9ubHkgc2tiCnJlZmVyZW5jZS4KCkRvIG5vdCBjb25zdW1lIHBrdG9wdHMgd2hp
-bGUgY3JlYXRpbmcgdGhlIGNoaWxkLiBHaXZlIGVhY2ggY2xvbmVkIHJlcXVlc3QKaXRzIG93biBz
-a2IgcmVmZXJlbmNlIGFuZCBsZXQgZXZlcnkgcmVxdWVzdCByZWxlYXNlIGl0cyByZWZlcmVuY2Ug
-ZnJvbQp0Y3BfdjZfcmVxc2tfZGVzdHJ1Y3RvcigpLgoKSSBmb3VuZCB0aGlzIHdoaWxlIHRlc3Rp
-bmcgSVB2NiBUQ1AgcmVxdWVzdC1zb2NrZXQgbGlmZXRpbWUgaGFuZGxpbmcuIFRoZQpyZXByb2R1
-Y2VyIHJlcXVpcmVkIG5vIHNvdXJjZSBjaGFuZ2VzLCBhcnRpZmljaWFsIGRlbGF5LCBvciBmYXVs
-dAppbmplY3Rpb24gYmV5b25kIGVuYWJsaW5nIEtBU0FOLiBJdCB0cmlnZ2VyZWQgdGhlIHVzZS1h
-ZnRlci1mcmVlIGJlZm9yZQp0aGlzIGNoYW5nZS4gV2l0aCB0aGlzIGNoYW5nZSwgYSAyMDAwLXJv
-dW5kIHJ1biBjb21wbGV0ZWQgd2l0aG91dCBhIEtBU0FOCnJlcG9ydC4gQSBzZXBhcmF0ZSAxMC1y
-b3VuZCB0ZXN0IHJlY29yZGVkIGZvdXIgc3VjY2Vzc2Z1bCByZXF1ZXN0Cm1pZ3JhdGlvbnMgYW5k
-IG5vIEtBU0FOIHJlcG9ydC4gTmV0d29ya2luZyBzZWxmdGVzdHMgd2VyZSBub3QgcnVuIGJlY2F1
-c2UKbm9uZSBkaXJlY3RseSBleGVyY2lzZXMgdGhpcyByYWNlLgoKRml4ZXM6IGU5OTRiMmYwZmI5
-MiAoInRjcDogZG8gbm90IGxvY2sgbGlzdGVuZXIgdG8gcHJvY2VzcyBTWU4gcGFja2V0cyIpCkZp
-eGVzOiAwNzkwOTZmMTAzZmEgKCJ0Y3AvZGNjcDogaW5zdGFsbCBzeW5fcmVjdiByZXF1ZXN0cyBp
-bnRvIGVoYXNoIHRhYmxlIikKRml4ZXM6IGM5MDVkZWU2MjIzMiAoInRjcDogTWlncmF0ZSBUQ1Bf
-TkVXX1NZTl9SRUNWIHJlcXVlc3RzIGF0IHJldHJhbnNtaXR0aW5nIFNZTitBQ0tzLiIpCkNjOiBz
-dGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IFlpbmdqaWUgV2FuZyA8eC1wcm9m
-ZXNzb3JAb3V0bG9vay5jb20+Ci0tLQogbmV0L2lwdjQvaW5ldF9jb25uZWN0aW9uX3NvY2suYyB8
-IDYgKysrKystCiBuZXQvaXB2Ni90Y3BfaXB2Ni5jICAgICAgICAgICAgIHwgNyArKysrLS0tCiAy
-IGZpbGVzIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
-aXQgYS9uZXQvaXB2NC9pbmV0X2Nvbm5lY3Rpb25fc29jay5jIGIvbmV0L2lwdjQvaW5ldF9jb25u
-ZWN0aW9uX3NvY2suYwppbmRleCA5M2IzMDZkOTFiNmQuLjY2ZjhjZTI1YWEzOCAxMDA2NDQKLS0t
-IGEvbmV0L2lwdjQvaW5ldF9jb25uZWN0aW9uX3NvY2suYworKysgYi9uZXQvaXB2NC9pbmV0X2Nv
-bm5lY3Rpb25fc29jay5jCkBAIC05MzYsNiArOTM2LDExIEBAIHN0YXRpYyBzdHJ1Y3QgcmVxdWVz
-dF9zb2NrICppbmV0X3JlcXNrX2Nsb25lKHN0cnVjdCByZXF1ZXN0X3NvY2sgKnJlcSwKIAkJICAg
-ICAgcmVxLT5yc2tfb3BzLT5vYmpfc2l6ZSAtIG9mZnNldG9mKHN0cnVjdCBzb2NrLCBza19kb250
-Y29weV9lbmQpLAogCQkgICAgICAvKiBhbGxvYyBpcyBsYXJnZXIgdGhhbiBzdHJ1Y3QsIHNlZSBh
-Ym92ZSAqLyk7CiAKKyNpZiBJU19FTkFCTEVEKENPTkZJR19JUFY2KQorCWlmIChpbmV0X3Jzayhu
-cmVxKS0+cGt0b3B0cykKKwkJc2tiX2dldChpbmV0X3JzayhucmVxKS0+cGt0b3B0cyk7CisjZW5k
-aWYKKwogCXNrX25vZGVfaW5pdCgmbnJlcV9zay0+c2tfbm9kZSk7CiAJbnJlcV9zay0+c2tfdHhf
-cXVldWVfbWFwcGluZyA9IHJlcV9zay0+c2tfdHhfcXVldWVfbWFwcGluZzsKICNpZmRlZiBDT05G
-SUdfU09DS19SWF9RVUVVRV9NQVBQSU5HCkBAIC05ODIsNyArOTg3LDYgQEAgc3RhdGljIHZvaWQg
-cmVxc2tfbWlncmF0ZV9yZXNldChzdHJ1Y3QgcmVxdWVzdF9zb2NrICpyZXEpCiAJcmVxLT5zYXZl
-ZF9zeW4gPSBOVUxMOwogI2lmIElTX0VOQUJMRUQoQ09ORklHX0lQVjYpCiAJaW5ldF9yc2socmVx
-KS0+aXB2Nl9vcHQgPSBOVUxMOwotCWluZXRfcnNrKHJlcSktPnBrdG9wdHMgPSBOVUxMOwogI2Vs
-c2UKIAlpbmV0X3JzayhyZXEpLT5pcmVxX29wdCA9IE5VTEw7CiAjZW5kaWYKZGlmZiAtLWdpdCBh
-L25ldC9pcHY2L3RjcF9pcHY2LmMgYi9uZXQvaXB2Ni90Y3BfaXB2Ni5jCmluZGV4IGUwMDZhMzAz
-NjBlYS4uMGI1MWNiNGFkOTYwIDEwMDY0NAotLS0gYS9uZXQvaXB2Ni90Y3BfaXB2Ni5jCisrKyBi
-L25ldC9pcHY2L3RjcF9pcHY2LmMKQEAgLTE1MjIsMTEgKzE1MjIsMTIgQEAgc3RhdGljIHN0cnVj
-dCBzb2NrICp0Y3BfdjZfc3luX3JlY3Zfc29jayhjb25zdCBzdHJ1Y3Qgc29jayAqc2ssIHN0cnVj
-dCBza19idWZmICoKIAlpZiAoKm93bl9yZXEpIHsKIAkJdGNwX21vdmVfc3luKG5ld3RwLCByZXEp
-OwogCi0JCS8qIENsb25lIHBrdG9wdGlvbnMgcmVjZWl2ZWQgd2l0aCBTWU4sIGlmIHdlIG93biB0
-aGUgcmVxICovCisJCS8qIENsb25lIHBrdG9wdGlvbnMgcmVjZWl2ZWQgd2l0aCBTWU4uIEtlZXAg
-dGhlIHJlcXVlc3QncworCQkgKiByZWZlcmVuY2UgdW50aWwgdGhlIHJlcXVlc3QgaXMgZGVzdHJv
-eWVkLCBhcyBhIGNvbmN1cnJlbnQKKwkJICogU1lOIHJldHJhbnNtaXQgbWF5IHN0aWxsIHJlYWQg
-aXQuCisJCSAqLwogCQlpZiAoaXJlcS0+cGt0b3B0cykgewogCQkJbmV3bnAtPnBrdG9wdGlvbnMg
-PSBza2JfY2xvbmVfYW5kX2NoYXJnZV9yKGlyZXEtPnBrdG9wdHMsIG5ld3NrKTsKLQkJCWNvbnN1
-bWVfc2tiKGlyZXEtPnBrdG9wdHMpOwotCQkJaXJlcS0+cGt0b3B0cyA9IE5VTEw7CiAJCQlpZiAo
-bmV3bnAtPnBrdG9wdGlvbnMpCiAJCQkJdGNwX3Y2X3Jlc3RvcmVfY2IobmV3bnAtPnBrdG9wdGlv
-bnMpOwogCQl9CgpiYXNlLWNvbW1pdDogY2IyODQ5MTRlNzQ5Mzg4ZWVmNDAyOTM4YmRiMzExNWZl
-MWY2ZDMzNwotLSAKMi40My4wCgo=
+smb_check_perm_dacl() refuses the owner when neither its DACL lookup nor
+the POSIX ACL fallback matches. The owner then cannot read or replace
+the DACL over SMB. MS-DTYP 2.5.3.2 grants the owner READ_CONTROL and
+WRITE_DAC unless an OWNER RIGHTS ACE applies.
+
+An empty DACL allows the owner's explicit requests for these rights but
+refuses MAXIMUM_ALLOWED. smb2_open() uses that check for the maximal
+access reply (MS-SMB2 3.3.5.9.5), so even a READ_CONTROL open fails when
+it asks for that reply.
+
+Grant the owner's implicit rights on both paths, for explicit requests
+and MAXIMUM_ALLOWED, unless an OWNER RIGHTS ACE applies.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+---
+
+Notes:
+    Reachable on a share with "vfs objects = acl_xattr", for example after
+    the owner replaces a file's DACL with one that grants only another
+    user.
+    
+    The empty-DACL check this patch changes came with de0cffef897c ("ksmbd:
+    deny access for an empty DACL instead of granting the request"), merged
+    for v7.4, so an older stable tree needs that commit first. The check
+    before it refused MAXIMUM_ALLOWED on an empty DACL as well.
+    
+    Tested on ksmbd-for-next d13da43938d1 with KASAN. Only the owner's
+    results change. The owner of a file whose only ACE grants another user
+    can now open it for READ_CONTROL or WRITE_DAC, and is still refused
+    READ_DATA. On an empty DACL, the owner's MAXIMUM_ALLOWED handle gets
+    READ_CONTROL and WRITE_DAC when POSIX permits the open. A READ_CONTROL
+    open with a maximal access context also succeeds. Its handle holds
+    READ_CONTROL, and its reply reports both rights. Without POSIX read
+    permission, MAXIMUM_ALLOWED still fails in smb2_open(). An ACE stored
+    after a DACL whose ACE count is zero still grants nothing.
+    
+    A reproducer is available on request.
+    
+    This fix was developed with LLM assistance.
+
+ fs/smb/server/smbacl.c | 34 ++++++++++++++++++++++++++++++----
+ 1 file changed, 30 insertions(+), 4 deletions(-)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 664f01263611..83974643aa88 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1477,6 +1477,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	int i, found = 0;
+ 	unsigned int access_bits = 0, denied = 0;
+ 	struct smb_ace *others_ace = NULL;
++	bool or_ace = false;
+ 	struct posix_acl_entry *pa_entry;
+ 	unsigned int sid_type = SIDOWNER;
+ 	unsigned short ace_size;
+@@ -1509,6 +1510,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
+ 
+ 	if (!pdacl->num_aces) {
++		unsigned int allowed = 0;
++
+ 		/*
+ 		 * An empty (present, zero-ACE) DACL grants no access to
+ 		 * anyone except the object owner's implicit READ_CONTROL
+@@ -1517,9 +1520,14 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		 * not let trailing bytes after a zero-ACE DACL become an
+ 		 * implicit grant.
+ 		 */
+-		if (!is_owner ||
+-		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
++		if (is_owner)
++			allowed = READ_CONTROL | WRITE_DAC;
++		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++			requested |= allowed;
++		if (!allowed || requested & ~allowed)
+ 			rc = -EACCES;
++		else
++			*pdaccess = cpu_to_le32(requested);
+ 		goto err_out;
+ 	}
+ 
+@@ -1604,6 +1612,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 			found = 1;
+ 			break;
+ 		}
++		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
++		    !(ace->flags & INHERIT_ONLY_ACE))
++			or_ace = true;
+ 		if (!compare_sids(&sid_everyone, &ace->sid) ||
+ 		    !compare_sids(&sid_authusers, &ace->sid))
+ 			others_ace = ace;
+@@ -1645,8 +1656,23 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 		if (others_ace) {
+ 			ace = others_ace;
+ 		} else {
+-			ksmbd_debug(SMB, "Can't find corresponding sid\n");
+-			rc = -EACCES;
++			unsigned int allowed = 0;
++
++			/*
++			 * No ACE names the owner, who may still read and
++			 * change the DACL unless OWNER RIGHTS applies
++			 * (MS-DTYP 2.5.3.2).
++			 */
++			if (is_owner && !or_ace)
++				allowed = READ_CONTROL | WRITE_DAC;
++			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
++				requested |= allowed;
++			if (!allowed || requested & ~allowed) {
++				ksmbd_debug(SMB, "Can't find corresponding sid\n");
++				rc = -EACCES;
++				goto err_out;
++			}
++			*pdaccess = cpu_to_le32(requested);
+ 			goto err_out;
+ 		}
+ 	}
+-- 
+2.47.3
+
