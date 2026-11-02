@@ -1,51 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793594817;
-	b=j8npdhAHgVsj31Up8nckUujya1L2qOl1jl+RXR2NGRaz3MFWd31vJEJ+xjPCug0bZO54
-	 LiyAFwwI9W+q7ewaiRNudqpAxPPlG3hsyOvKKl6DzVBLTUW7fMc+h8xVFqVWX3v7yXFu1
-	 Z+Updgqv/puHXl5PUKa6G9MlSwnNSesH66up30PEpsjuFR4oF0sm8kzW009ZRzL3f1+bs
-	 vKDOTz6VZsF7qAXGcKzpePAAT5+whFFncYQMkjIBGbv5z12wXY/YBL9IJY8s8zCHW80dj
-	 KoalUGPZ+vpOINJNrMHg41BuswRNo0oQQZSrlfYiEr7s9CTJbtdCK90hYG1cNTckyNg==
+	t=1793595491;
+	b=YbD3tT3sB0a+0Dni3T9D3H6XQn5lmKX/KVzDZERX3C6VFNQrK9Wo7R/8DgfAGVWbYswv
+	 o0EGWnQY8IkryRor7X447HM3JMYfvkKtPuQQBt29f9BjtvRL/qqduLAQ4AkJLu1lbxXpv
+	 CrR3bCiHQFuj9La3jLxyLsLwd7Sl3tI9fFYWrU5qz09hO3vd1DdTII6L8sxA4nJ+aQ9kN
+	 bxJZLFWeLwZBUEGhl9/NMC3q0h/Wl0AtlzFqd2EbNmbnBoh02Y8X4q/zRX5CnrXSVI2Tf
+	 gFA+9zvc+YL5+rbuycu21v0jS6niXnmP3QOgWNGwwUlGRvvNw2eCoxmBT7TUZs5HNLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793594817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793595491;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=pRumD9wLinzEvAPlvHgnbog+/WM1mG1VlBridWjM71Y=;
-	b=WS4yiDDdIl6MvtpiVU2qadTMduMLhTWAHhXFx84084MiVmKEDTtwASL8K1kFV27sEszW
-	 xG2uqASxBt+zZmZDyOSiJSq6arDsAofC/Ru40eeqikEgQKpZ9QPcJETP549x7TNRgArF2
-	 DhJXIsO6Lfa1I7Iwzo5NXnlfVD4gskPy4Z3xiDT3bPxsrbzXsm/o4quveBMVBmUrUhbx2
-	 6WjNhEcHtXVQvJNzAlxneuiEU0ZbdmGA47CkFKyCeiMnWI3CbsA+GGcWtXrQQrPoWzX5L
-	 qBenSZf43VulvfR9gaCYpnONCoDrzL2z75XYTCZeLpiWsHQ2bSVobz7P8FyWvtcydyA==
+	bh=VjEa8aUzoMl3SYNFpAhF7zUKPZ6wHLLQaYP9asa0BH0=;
+	b=FcA8BhOq9gR9oXYc/jwii6ew9jc3Ah8zMmTFdjUQJur0eoT1w75nHf7NG8HRlqKt2X+Y
+	 s/pfn33r/kk53N/llLd0k9d73TLhTygo+lz7HdO6xnh6dDMSCmaWeLwtqmCVtghLMfB7O
+	 JdS/L9NAPf9Z6LZge0xf54ObDc7JFvkQqlc34fIyVtk/ZrMQTx8TGg4g7U7PgT5Lb0Jum
+	 Q3/mAaPNjr7zuP6ESsR2HYUv7D9VlMHdz4dQv2NNWwpa9oKw9XhKDE4LIwQjjmaIPf355
+	 adaJmNbc0q2CZUy9+F7tdAfV12yYzQdEsxHthmo0q+/hiKMJhePNY542nUJXOVJ9f+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ou5yWqPu;
-	arc=none smtp.remote-ip=91.218.175.77
-Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
+	arc=none smtp.remote-ip=91.218.175.197
+Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD17606A329
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 04:46:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD17606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B25606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 04:58:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18B25606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ou5yWqPu
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pRumD9wLinzEvAPlvHgnbog+/WM1mG1VlBridWjM71Y=;
+DKIM-Signature: a=rsa-sha256; bh=VjEa8aUzoMl3SYNFpAhF7zUKPZ6wHLLQaYP9asa0BH0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793594814; v=1; x=1794199614;
- b=ou5yWqPuqDPK9MoS2gwOxtV0nJaHNjRepasuddqg99TIMooIrdJvtjgGZKpTZcF/gB3K4dzf
- F83dASp54zTsXmk8of1QtTgg8faFGLmsE3OBvH51el7fLTUHVJbVcULFotuBADSOIQMJ/xS1kDf
- fz+DlXYolSLhCfSHBhCNDdtk=
+ t=1793595483; v=1; x=1794200283;
+ b=Hd5/4EfZTqDJhoJQj3RsxtDVnqKy1aamG9WHQGlhuYDbiUFMRMuVUh4U5WZxWeDr/5mCNBgn
+ FHjhJk19Z2BSSg+yJ71g766NnsgHdRSQLGkOUEsKwe+DVjg5v3ia4eonJn1QqSAdzJyZEe1pud3
+ zdEAiA5fQmMfolu9HsRAjM9w=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eb600a511e081679;
-	Mon, 02 Nov 2026 04:46:53 +0000
-X-Mizu-Trace-ID: eb600a511e081679
+Received: by smtp.migadu.com with ESMTPS id 36faa33dfd74c51c;
+	Mon, 02 Nov 2026 04:58:02 +0000
+X-Mizu-Trace-ID: 36faa33dfd74c51c
 X-Migadu-Flow: FLOW_OUT
 From: Lance Yang <lance.yang@linux.dev>
 To: david@kernel.org
@@ -112,14 +109,15 @@ Cc: akpm@linux-foundation.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-arch@vger.kernel.org,
 	linux-cxl@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 14/47] mm/huge_memory: fix zapping migration entries for device-private THPs
-Date: Mon,  2 Nov 2026 12:46:43 +0800
-Message-ID: <20261102044643.33636-1-lance.yang@linux.dev>
+	josef@toxicpanda.com,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com
+Subject: Re: [PATCH v3 15/47] mm/khugepaged: always recheck the pmd in try_collapse_pte_mapped_thp()
+Date: Mon,  2 Nov 2026 12:57:53 +0800
+Message-ID: <20261102045753.34901-1-lance.yang@linux.dev>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-14-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-14-d6437171ecc3@kernel.org>
+In-Reply-To: <20261031-fixes_core-v3-15-d6437171ecc3@kernel.org>
+References: <20261031-fixes_core-v3-15-d6437171ecc3@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -133,28 +131,30 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, Oct 31, 2026 at 10:39:43AM +0100, David Hildenbrand (Arm) wrote:
->From: Chris Mason <mason@kernel.org>
+On Sat, Oct 31, 2026 at 10:39:44AM +0100, David Hildenbrand (Arm) wrote:
+>From: Josef Bacik <josef@toxicpanda.com>
 >
->A PMD migration entry can refer to a device-private folio.
->zap_huge_pmd_folio() checks the folio type instead of the entry type,
->so it treats such a migration entry as a device-private entry.
+>try_collapse_pte_mapped_thp() drops the PTE lock after it has cleared the
+>page table, and takes the PMD lock and the PTE lock to remove it.
 >
->Installing the migration entry already removed the reverse mapping and
->dropped the mapping reference. Zapping it must not repeat those
->operations. Concurrent MADV_DONTNEED during migration back to system
->memory can trigger this.
+>In between, MADV_DONTNEED with CONFIG_PT_RECLAIM can reclaim the
+>page table. The pmd_same() check is supposed to handle this, but it is
+>only done with CONFIG_SPLIT_PTE_PTLOCKS.
 >
->Check the PMD entry type using pmd_is_device_private_entry().
+>Fix it by performing the check unconditionally.
 >
->Fix generated by an LLM and sent by Chris Mason in private.
+>Fix generated by an LLM and sent by Josef Bacik in private.
 >
->Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to PMD operations")
+>Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
 >Cc: stable@vger.kernel.org
->Signed-off-by: Chris Mason <mason@kernel.org>
->[ david: simplify description ]
+>Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>[ david: adjust description ]
 >Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+>Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+>Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 >Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 >---
+
+Nothing jumped out at me, so:
 
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
