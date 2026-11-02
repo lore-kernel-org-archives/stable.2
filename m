@@ -1,111 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793623623;
-	b=zJn9eN7VHx3kBIZ/eD1r7kc0KfbOQU2xHTtNH2adTZrbNgM0h3y+UAgqlxuk3LOkUOgX
-	 D5rHF86xpnhFnM+W9O4DzozbigRVS4TQH4FVOefh/dCC7RYZeB8JabSqELKJNJlYgNjpU
-	 MhJyITyLlkUkl0icdXWVXd5thZyujtWcQP6RBcJICSnQrj9m6jL+WiorGT5ZA0q28CFgt
-	 WHdTjc7oknqWGfO8C7OKzwaSmKSGYWBIOdhM9VFJy+3Rhy4r1eZ8WePwV8uNruRf1U8ee
-	 xbys7Rjh2wrTb0RCDJYMdsSIdlDfkRTMCts9PnLtiByIxtxAdaflwxYbGI2T2406UeQ==
+	t=1793623675;
+	b=t2hTAcIbwdr2dMKYZCvk4w67W6IXjErPmvVrrdmWG+0E0yayPYuLGoWvF1yO1D0Zb9aE
+	 Mtq6PM9YSWfuwYvqGvGf6xaSqWIDj8M4NzksDdWgPrsh0snF3jfmRmXB6hqRYvuTKyqFl
+	 Ij8H3iS7uT3p7ntadlNw6vECWM7GLQfZ0vXTSj5oi2sR3VgBo0VI5DHPi2942hYxVVLoz
+	 sC0f3P3IPVOfPuSN+QxrzYCt8XBMpAbWJW2nH3qZFjJXne5Q1K36BdTwycxPTaosAIkEM
+	 Op/RByl3n4YiMjuCyktLx+qjbBeiBYKBWaZXTYlnib4Tj6Cy3+brTEoxrleiFveKOoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793623623;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=;
-	b=PPGEtXe78aeBCnVlpBE64TpCBkFia1IOORK8medXmerlDMCg9IXnAuJB0MHZK05S/huh
-	 hKnmEQsCxY3Z4gwMQnOK6Lf1Bcm3PAwKkW4oQTBzGzhSOIqMpZ5ZBHivu2UXCRH5abHKY
-	 nzKS79eWFVJKjNGwKfaI+kCmLOpZoESOBgKyS8FKketnunF2Y9+mAtISA0ZVykUVTsSRO
-	 aX5mg5vyHUDi52hLpPrOqa1URWCkAb2IhcvtV88r1mwSrqzYGMQI3NYiW6Uq3eVTBLemL
-	 VQ/vCVHy6o0m4bbohPUzBzpD691i3M/vufr1nrVv36RiJh4eHdbdW2p8obl62jg8IOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793623675;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=RJ8/+4zRbRQOCmyB92scD/xfl0eq4A7aEUo/NcgGRfw=;
+	b=rmbqYLPxthl1SAcxFDrUkv4XBg1m97AfXkD0S3+Rk8Jm+mHH9QWlxG1cGk+naLpTCNn8
+	 oeEVlgHaQqEwGGclW9WGj4hTvgcYRRDZIGRX++7BlAcm71O3lv85513tY2FAaJYe3JfyT
+	 5rD4dnpk2XtEi0hMDAhvAOXJo+t5yMKK51Wp9XvLmSzMeQPj7d8FzS8J7ekbce58mS+5s
+	 TenCJYy5jIEKSP5HcrKlSt1ALldgt18EVKmKq/d/RP8hhp2D5+Pmk1AuPjy/8+FdCzZBR
+	 DPcoRwzWW6Lc1j1xn3fvI8wF3pzQQdqnq6FCUKevtbftd8V/x6fDUV/v1a1RatUbSUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cnzmRqkZ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ao0AYPIH;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=oVB1x2HZ;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE19606A32D
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 12:47:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCE19606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B599B606A326;
+	Mon,  2 Nov 2026 12:47:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B599B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cnzmRqkZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ao0AYPIH
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AMck1821122
-	for <stable@vger.kernel.org>; Mon, 2 Nov 2026 12:47:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=; b=cnzmRqkZOtbkKeM/
-	GYWcgwpVIqDdqsQp88AO8H61KrXRo08UJjICqFbhm/trFV+hgXGHkRWyeg/heM/u
-	5omLInZrkBB7YGGnHVC48MmnlTtGUzI8UeRIqhtsrKuPd558WuUGOhumnXPN68Fu
-	4YhF4kRjnpLKlPtHcHquSkGOdRppWlXXYrV/v7+rVGU3JF/d7avydvADMAqQlCJd
-	siR7Nn4Z3Hj0odovVhMHC7qlBESugrHOkLF3XFVCjaSL/1b60reim3mKXWoQio8A
-	N2IPEv/OI6Za9y7cvY1xiOki9zXqopPJeQhAgghsryaEsFlDusOq/BmIg+6Z6zTd
-	DWFJcw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpky4hq79-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 02 Nov 2026 12:47:02 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5350173dc7aso7953111cf.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 04:47:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793623621; x=1794228421; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=;
-        b=ao0AYPIHgnPm801+52YtfreEZc8KcuKBrXdt8ArBI8AE0CoGPAkdKmMeqDs1nFkFyo
-         XY2YtxiA5ByshLNWOkV3lKNVb+2x/s2S3svtZuT4G8dVLFtxIX5lQSibBrtPYGYqxbbh
-         BDR0yO5gpwu6MbR+gN73f3VolaKUXdS1MLdBiMo6JOfvikQ6JC5+5L42lkKXr+zpcInz
-         IVpJZDFXw1JzKypXZRuNEymcfNF1oI7QNot2+IN9cEmvoQvHAgwuUPQFPJAgc7WtnJ/v
-         OCed/DNyIWu7AI/As0Q6aJbHz/ZMA1wSvuCD0v2opmvrCLoEQP9EjNV2CIcKUX/zLmqs
-         exbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793623621; x=1794228421;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kcVN0VfboVi6VrY9yl+dHujm6iBJUTIYiZ/2tcPIgp4=;
-        b=TzuHU4OFDLzGkQFeSduz9INh8oW2TX8oflxwoQGICAeC5Bex79zNOLi9xc1eVGq3fk
-         oGLIwrcfmjpMonxD+fmFTrFaxix+v2NHCsGFt4cZEMb+w6tcNHH5WVegVgz5+qW6x7GO
-         KjbMfZrT+e/LTd3YmsTi3Kn1RPmV2ifxRoLkw46g8E/fd6sdVRYXqPE7nDoq4NYGfkjt
-         kguUr3Rnr3ESmWhomZKVqf6C6Gq2hvxt0wJD4ad7rcT4ra1UyX/Xw7vJfRKJ3taOpvZv
-         bD9zU4Dg73T16isFnaQPVUwEhdk+EIUmA5jXUSyRlbFNvHtpu4KdBg1j2o/Amu3q5GHI
-         7/dw==
-X-Forwarded-Encrypted: i=1; AKwUvByONMIn3gWNjeialRj0clFddoL0a2XbQRdTDlMoogItG+/0W/ziLK1OooaotH27lI3HsMLYZmc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuyxmET6zQFpTjETDXIOhfp0Sg+MuA8rrcL+bEde3al4H2sLSY
-	JuoUxIp5ZKqw78meXG+cD7t1Efddza6JT0cklrrsfOgTClkAYmNwb317c52RLzClB8Wk5vEpQWd
-	UUNeDLmhALsfrfWP/qEQbqVpIqmia+SycUzfkyisuXqTkOMLsqJsFOfan36g=
-X-Gm-Gg: AYBFou0AS3UmrPmA2NLYCpBQPcjwkkDGjSdSckItO9Cbq0mjt7VfrG3IC2Iz/pGAC7F
-	eJwx2XikaG0IP2Dsq0MlTWFRs5w03nBlsjXk1ce5dtdTKdVa/rSZWIGx2OD4BlzrB5wq9VJOc8B
-	L1wjU6sfP70w0YSlB3S7xH2Cgk6ZexE9QAuGwlfsoshfe3dzl2Riha7867NmSI1ILv2uNURWmm3
-	yPpbtu7M6zfZMDMQ6pwWHJKjZgtwf6BposRmYDbRhU2LOeXirk3UUtC5qtrXAfa2+dE3jsI3q5v
-	NjrYQq5HQb5+xK/r9yw30Q/lLDztMFjIbU0KjYTB/4CtiEQJ93TNuUOyzGS/DkMSKrut5rgOJfL
-	ScN68NTXCveMLC5BSGDMv5LSWgnyVURjb0V1QweqU4Um1k4icqo1I39gjtqPzjfEGzuWZcto=
-X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr1632533985a.1.1793623620851;
-        Mon, 02 Nov 2026 04:47:00 -0800 (PST)
-X-Received: by 2002:a05:620a:a8d5:10b0:93a:14c:329c with SMTP id af79cd13be357-944214d09d9mr1632529985a.1.1793623620444;
-        Mon, 02 Nov 2026 04:47:00 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca0f376sm3452213a12.26.2026.11.02.04.46.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 04:46:59 -0800 (PST)
-Message-ID: <30265695-c3a7-4440-a0ff-7fd80fc721e3@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 13:46:55 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=oVB1x2HZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793623670;
+	bh=lYeFDHWwV3TAhUAPVjToHsZAn0kkozNC4IY2PXrzNZw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=oVB1x2HZnk2Ro5mWfppnJd5Z/I/7Payc+9HpNKhSN2shq9aXCsXlvolK2sIf4twya
+	 skB9mfC7Vp+cgGMog/jadmWH4g/dvaL67Kw3ycKjzoOKvFNUen0e3qyvj3deulhH9H
+	 asO8Kmmb6moWFiflisgPbhyQ0BJnpbti210B+sLWS5XRNPOJsgz9io2iQhMS1SFF7N
+	 1iFxJtnkWOtZ7ahC9NPHdidUgusZ6RN/yuEBDX0aXaNGgn8IL/cYYCh30arAkX35YH
+	 axvHDQXczT6tSNLiGCkDOjd2q8jLKqeVDdSuvgMRF+tz3T+1dHRDntcOrtM+AF5ah8
+	 ilizCRC0t8ELw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 4B29C255AA;
+	Mon,  2 Nov 2026 15:47:50 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon,  2 Nov 2026 15:47:46 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.31.164])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJBLn4gNSz1r4m;
+	Mon, 02 Nov 2026 15:47:45 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Xiang Mei <xmei5@asu.edu>,
+	Takashi Iwai <tiwai@suse.de>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Torsten Schenk <torsten.schenk@zoho.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	co+855929c2df672879@bugs.sh
+Subject: [PATCH 5.10/5.15] ALSA: 6fire: fix OOB write from device-reported iso length
+Date: Mon,  2 Nov 2026 15:45:44 +0300
+Message-ID: <20261102124546.757-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,69 +87,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sm8750: Fix iommu stream ID masks for
- CDSP compute CBs
-To: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
-        stable@vger.kernel.org
-References: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261029-sm8750-fix-sid-masks-v1-1-5ed50a1a0342@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 95d0ytuv7TTsB1Ak_6OSzAHNdiV1n8aJ
-X-Proofpoint-GUID: 95d0ytuv7TTsB1Ak_6OSzAHNdiV1n8aJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX3vScdhb5069d
- NWYIqOMWAIv9IH/0n0Y9Bj7hw667jp0Qm8SFzNte1uYcZNBxXlDdpiaU8rFIVaa5kE9LmiP/oWc
- jhVjbe/BdWBe96E1awn8vOnw+nNaRPA=
-X-Authority-Analysis: v=2.4 cv=QoHLTlyd c=1 sm=1 tr=0 ts=6ae88646 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rqUuZ-GaD-BuahIUHWQA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1MCBTYWx0ZWRfX1tzavSKwQlZo
- eSSi+09H4/68AmHeTRcVAzxQ08l2/ZL9z9VmtOWIH63oUiZQW+THs9xLVhSPUsuQliwmeBkWPlb
- fhOkW90XetPKAASst0GgahyBfl9ETBqz9jqmzyAMwnoeXSkuLbURk1uBs+hK41q4J48SO/DnmRE
- TydGdkYAqwA7XhHMArNAcQjmRzm2cCgiUG87Y8cLum4+Px1rgxYUKbg7fUsv/9EgtKo0PvIWBsv
- pi9XC0+keh4QWM7HYEUk44AXcAY+HOuLUs8Izatuy361++OQQ2GDUkISeOuRsBgSybneA3B7tos
- uw11rNNZlT1Sp3D5iXmidZns2GJhLeBDEbUK+INSnpXzJdzHD5O2eWAHiF4jdb5cS4o9F5ux0P6
- 0hTtzcrfDl60ALqTuNlc9n/spThsEXQWJ2WMRT8P1kGt22BlvKPWCbx99USSYgf2vsE3jVXNgft
- 77aidUYIT19HiusPd3A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020050
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/02 11:22:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, patch.msgid.link:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;lore.kernel.org:7.1.1;astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207177 [Nov 02 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/02 11:53:00 #28780498
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/11/02 09:49:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On 10/29/26 3:41 PM, Vinayak Katoch wrote:
-> The stream ID masks of compute-cb@12 and compute-cb@14 are wrong, so
-> these two context banks fail to probe.
-> 
-> Fix the masks:
->  - compute-cb@12: SID 0x0c2c, mask 0x20 -> 0x0
->  - compute-cb@14: SID 0x0c0e, mask 0x20 -> 0x40
-> 
-> Fixes: 58471055ae76 ("arm64: dts: qcom: sm8750: Add CDSP")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-> ---
+From: Xiang Mei <xmei5@asu.edu>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 1589afe2d099d3e817873bc474676968d7080410 upstream.
 
-Konrad
+usb6fire_pcm_in_urb_handler() sizes each outgoing isochronous packet as
+(actual_length - 4) / (in_n_analog << 2) * (out_n_analog << 2) + 4, where
+actual_length is the unsigned length the device reported for the matching
+IN packet.  A packet completed with status 0 and actual_length < 4 wraps
+the subtraction to 0x7fffffec; a zero-length isochronous packet is legal
+on the bus, and the preceding loop rejects only non-zero status.  The sum
+reaches memset() on out_urb->buffer, a 4832-byte object from
+kcalloc(PCM_MAX_PACKET_SIZE, PCM_N_PACKETS_PER_URB).
+
+Even without the wrap the result is out of bounds: at 88.2/96 kHz the
+4-in/6-out scaling turns a full 420-byte IN packet into 628, so eight
+packets span 5024 bytes of that buffer.  usb_submit_urb() rejects an
+over-long descriptor only after the memset() and the
+usb6fire_pcm_playback() copy of user PCM data have run.
+
+Guard the subtraction as the sibling usb6fire_pcm_capture() already does,
+and limit the frame count to what fits in rt->out_packet_size, the OUT
+endpoint's wMaxPacketSize.  This bounds total_length by the buffer size
+while keeping each packet length aligned to a whole output frame.
+
+  BUG: KASAN: out-of-bounds in usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
+  Write of size 18446744073709551456 at addr ffff88802a3d0000 by task vhci_rx/5018
+  Call Trace:
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+   __asan_memset (mm/kasan/shadow.c:84)
+   usb6fire_pcm_in_urb_handler (sound/usb/6fire/pcm.c:338)
+   __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+   usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+   vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107 drivers/usb/usbip/vhci_rx.c:242)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+
+  Allocated by task 10:
+   __kmalloc_cache_noprof (mm/slub.c:5563)
+   usb6fire_pcm_init (sound/usb/6fire/pcm.c:560 sound/usb/6fire/pcm.c:595)
+   usb6fire_chip_probe (sound/usb/6fire/chip.c:133)
+   usb_probe_interface (drivers/usb/core/driver.c:399)
+
+  The buggy address belongs to the object at ffff88802a3d0000
+   which belongs to the cache kmalloc-8k of size 8192
+  The buggy address is located 0 bytes inside of
+   4832-byte region [ffff88802a3d0000, ffff88802a3d12e0)
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+Fixes: c6d43ba816d1 ("ALSA: usb/6fire - Driver for TerraTec DMX 6Fire USB")
+Reported-by: co+855929c2df672879@bugs.sh
+Closes: https://lore.kernel.org/all/gisnub8aWGLbyZLcDCSc7zWsHonMWGcyRgt5%40bugs.sh/
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Link: https://patch.msgid.link/20260914074324.3590843-1-xmei5@asu.edu
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[ mdmitrichenko: Use pcm_urb.packets[] instead of urb.iso_frame_desc[];
+  5.10 and 5.15 predate 9fe49dbc023e ("ALSA: usb: 6fire: Avoid embedded
+  URBs"). ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-98312
+
+ sound/usb/6fire/pcm.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/sound/usb/6fire/pcm.c b/sound/usb/6fire/pcm.c
+index 7168f1c6a37a..d209009108ab 100644
+--- a/sound/usb/6fire/pcm.c
++++ b/sound/usb/6fire/pcm.c
+@@ -327,10 +327,17 @@ static void usb6fire_pcm_in_urb_handler(struct urb *usb_urb)
+ 
+ 	/* setup out urb structure */
+ 	for (i = 0; i < PCM_N_PACKETS_PER_URB; i++) {
++		unsigned int frames = 0;
++
++		if (in_urb->packets[i].actual_length > 4)
++			frames = (in_urb->packets[i].actual_length - 4)
++					/ (rt->in_n_analog << 2);
++		frames = min_t(unsigned int, frames,
++			       (rt->out_packet_size - 4)
++			       / (rt->out_n_analog << 2));
++
+ 		out_urb->packets[i].offset = total_length;
+-		out_urb->packets[i].length = (in_urb->packets[i].actual_length
+-				- 4) / (rt->in_n_analog << 2)
+-				* (rt->out_n_analog << 2) + 4;
++		out_urb->packets[i].length = frames * (rt->out_n_analog << 2) + 4;
+ 		out_urb->packets[i].status = 0;
+ 		total_length += out_urb->packets[i].length;
+ 	}
+-- 
+2.43.0
+
