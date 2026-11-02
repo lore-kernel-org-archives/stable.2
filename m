@@ -1,107 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616034;
-	b=TjkFjSZHR5DHDiqK//GTa+RasXj62HlJthOfhZQY3LU0qDhiCYMs/Z1fDmRDeJyGIRmJ
-	 q0YV0dm1wVZfytRZtXcopEbzf72LUPqX4sNJ2X7aHEE5ymRqZLq3/qF0WBMFClazOundP
-	 WcNsLiFR659MdVJlTADPih+qVukGr6sZABgYQSFGeuZ53BtndQJI8TNwsPGwwWSY2ya1c
-	 Y5ihl0pnLj2h3mSoGwF2GbwMkv10qqUF7uoAOPVTnQija7zQU29n+HkFArP37GtNkeYrn
-	 rWFPQaku6zSpe5ZGMnsWmuUYX5UTg1tP9KDkn6ul+MjSL84upyjbuNiqlKxrZ/Nwa9A==
+	t=1793616096;
+	b=rTfa3Hg6NRVeof+AMLS14e1zz4U6ehCjXPHqdARYdxLGLhsDG3O8TO6VcvElzUkTcFUq
+	 LRIwnRPcfRNcI+MALI/jV7JT6mVLXPT4tf7gEkSShe1Lo77uRbUAqOdyvIHzvRpCS0zJG
+	 UIRQw3txnQDJbqOmbRMfb0/CcfZ537OmfbU6BtNrDpF4Ibea+dlBOf8o8iofDoQtwDw7+
+	 f8pMrDibHHjbjTOWe1dMei1LNULo147DXEgjf9WkZpIkadQT6Tmht7ug7pJ8NYWNbZtSi
+	 Jsd2cnuVu4HR9oB6ohWktCEPDTfCOlDP9wNHS3udUFAQh+O7kv4Smc4q66uY6YT29UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616034;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1te04bf//E5SpRzi7/p3EXRLBCHHr4nOp8CWHAZHHok=;
-	b=bzHRxLRwtfaKbwsMtqhfNQrEyHHkft8J3L73yYxIsiyX3ViaDvJ74DTY4ResNtu1CfUQ
-	 ARH2TEUv7uQZyHBasvy922I6VNW3kBNhCcglRkrJEL2MEatQtWxicitTBUbCsbihLLCLh
-	 6sqMFm9DA546io5Phos43em6jyDuT9QqHRcL2DKupnPC3aXWQOAwlz6JNKX4aHYsZUrU5
-	 yrwG5TdurVjt++kSoxxY/SwAV/4OktDTWx/a35Js8ZoegIsgqDLA/T4RoDV+/1o6FT4WP
-	 EnIMJ9JtSYdWarsaE2i2ikn7p8RAQAmZSfup+YBvvK+21udbihkY6ZZkT5HamUfX7Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616096;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=w4LlOPP020au30EZIDHlk1alCgqnzjFeQiEleoj/jqY=;
+	b=cnEZEILawKNGTAYgmVDDL13OXxkbeMOaq4AMfe/akk/yQ62TKMnFdD2IiRWSHUSAeZIh
+	 fDsYsxY421kFypyh/lggZwdSk4v/55/xBvln0BieR8aiIxgbg/bjyM42RGvcWSaFZM3SH
+	 L6N+gcfqWvJEJEpR8ctS0mvtg3cg1Y11HyBEwH21ueoGCAyGG/ZFug4NNJ6QSFSue83Dk
+	 SumwEgE12jDPTNGMm4sfFxpIbXFqnq0mIqtDaweaHYjpwVMBaEzdBG8/MkBQXoRwIXxHz
+	 23FPrbcA+ypTuvZ38Sv2XQ4fsMow5As0XCgs6S0Iu7kDhgK+QbT25Ahusv8fKOZ3C9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="g4/1sJl0";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jfWxIkgm;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HDmiOFg9;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F011606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:40:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F011606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB6760A3808
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:41:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AB6760A3808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g4/1sJl0;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jfWxIkgm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793616028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1te04bf//E5SpRzi7/p3EXRLBCHHr4nOp8CWHAZHHok=;
-	b=g4/1sJl04mZi22zDxxa2ljWMdyrunRKN9xX4G2zShsqjlKCSmK8Gw136sCxEqm5dEeUvT0
-	loFF6QpcHZASWwTxt4YEQB5nvXuufpmNiw7AvwSN+S59TnNjNbLE0H+wus+eF+P+cnsK/V
-	jmr908306g0U7F9PWB+3ueT6r67BWic=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-340-Cw8o-3M8NGmeo-XJZ-qpyQ-1; Mon, 02 Nov 2026 05:40:26 -0500
-X-MC-Unique: Cw8o-3M8NGmeo-XJZ-qpyQ-1
-X-Mimecast-MFC-AGG-ID: Cw8o-3M8NGmeo-XJZ-qpyQ_1793616025
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48c4445512dso2407584f8f.2
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 02:40:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HDmiOFg9
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e940d5d2beso10315715ad.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 02:41:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793616025; x=1794220825; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1te04bf//E5SpRzi7/p3EXRLBCHHr4nOp8CWHAZHHok=;
-        b=jfWxIkgmx+p0GWeBUL6kyI1wktmaQ20NM6B6cw2s9Mo2CmnM72HFmQL+HNFibfMfcW
-         kAGsibMB9o7m34VfvLL6xBZn+jrQ134pr03AwOIIp+MApG3MewIqAEVJ85a7G/G83f9A
-         EMTckJkMovjFcpnFomuYoi8h6QP1MgJjQ96EgLeV8sQeHzIuHxkOOSTNXbf1Ob1bQHuh
-         oE4ixHa2uegFSDp8IWFM+Q22BubIMiF2L6i0yKTaLhK7dXWEE/8JAw10BLSeWKTL59db
-         cmgpOb3e+RuaLmZjU8S0wY6gWPSOu8F7VpwaKfDjHSJg3tuNalFRAxmvNwQNCsizH8hn
-         1xWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616025; x=1794220825;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793616095; x=1794220895; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1te04bf//E5SpRzi7/p3EXRLBCHHr4nOp8CWHAZHHok=;
-        b=cXeUb6mJPWAxk4vOUKFxvy1POqbm13YNbciNG50SIDUko6Lk/UkUYQYwFoxB5aARIl
-         2oEMsYlHSzjsivn5YF0HF8UqiRTtAdU7vqoIwe095RhP3qEt36QosiBBRwXP4W9SuLpb
-         VL6fZwWTjec90FuevKFajq0NdF7l/qKgZXYavy9AmeIqbkW2ivs0bIjI3WHgosiredBh
-         PWyjak9FXHZpb38B25GOup60IvzpuVdE3hpz5g7GnDVO6QMIgChY3VtZ7bHxhxquJ2Jk
-         aLVM9jxme0+5KfzT6cq+Hn7E/VoqsU4PZPnJeiOwHPEJss5YqNZqYdc29+wMorlmHn4p
-         +mdA==
-X-Gm-Message-State: AFq9FYK6PeRyXQknn3csZbIYP4nZLnt3JHDeHth6TIQEKKkJGnAurlv0
-	7keb7ZGf+Od86lfkQ6nW1RGc3ikBBeB8qNDZJQciuhstBiimW8QcLH6fuVZsSF87n7Qc55MsAtX
-	2a9xWJssjHlIRauilY/eINJ/P43gwj7hPkvIwU3FSEmLBiDmVrs1Lu3k4qw==
-X-Gm-Gg: AYBFou0U+cZEXMv1LhJGjOMrVIlrVzfFtsLd2UwVeabg8EJ7QJf7T+bSd5dXaLdJQBy
-	yKdWE8u9nl7XO+n80Zq13RyafEgR4ntbsHoHQnAg43nV5+nhptDVke8rdrUJdF10UwmvpRWWOUm
-	2nSyN8xHwhTyQ1OFuJYbS26JrK0feXi7yMCp044GYkUhqYyrW1cXlwK+COx61O8yDuss25JYN+6
-	EZzZTeEPK9MwpQSLNlywy2WrKAwe2oVrWjeMsZpf7s88+ddQnjfhUtR+zzykctFKOc1XIQDRmdR
-	5rbSy3g5MKzbdGVFbUi0comGTF/fzTE0fQQaewyXI4tz2DHwWBB2fLJcqnermBKpv6/PZA8JC7o
-	2ENLRtEpOj2iujEFJ4/FOI0X80saOal1rbefeTdSkAyqc625paV/DH615xZ5QxLGiAg9rXQQX67
-	AWWLMAMGRp4nlnzUv3FUEM+PAyxeuTf4smq9a/ptskzbk=
-X-Received: by 2002:a05:600c:19c9:b0:4a1:f377:5c68 with SMTP id 5b1f17b1804b1-4ac18a8911amr223282115e9.34.1793616025375;
-        Mon, 02 Nov 2026 02:40:25 -0800 (PST)
-X-Received: by 2002:a05:600c:19c9:b0:4a1:f377:5c68 with SMTP id 5b1f17b1804b1-4ac18a8911amr223281775e9.34.1793616024956;
-        Mon, 02 Nov 2026 02:40:24 -0800 (PST)
-Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm267462905e9.13.2026.11.02.02.40.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:40:24 -0800 (PST)
-Message-ID: <924ed39e-5298-4ac9-a5a9-12c6427ab281@redhat.com>
-Date: Mon, 2 Nov 2026 11:40:23 +0100
+        bh=w4LlOPP020au30EZIDHlk1alCgqnzjFeQiEleoj/jqY=;
+        b=HDmiOFg9LmWC1qeIeOmdtC0BdN5SaLCKolsBcI4ZZdNKTGn0LHthir7vWVd1xjBdol
+         o7pODJQWwOqFNCJKbr5oTsGtSkAhzdjOhsiKKq8KZsiudWLjYot3nJ1iGFMuVOti6Vm+
+         AolaRGT33An/VO1zqH7BFHx2RleU5szmO3vL1BFJ2dSpmOzf7QrQ4pLH2Gu/BgmKyzGJ
+         XHrykPkhekEYSgCv5VVgO2W9u2fhCbD/rslgsXGoyVOiNxw2QHj6cYCezWEy2KEwdZCX
+         Rkg5iHHTT8Xfhmbps7DNrcTeAZd/Ap4dhBcGCrS3R0pMmg0c4Y+ZJqt7E48lLOv3dsbA
+         pqmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793616095; x=1794220895;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w4LlOPP020au30EZIDHlk1alCgqnzjFeQiEleoj/jqY=;
+        b=K/H6I+BIqFHdUoWSj3qILdR6IwZbgpZ898+NG6xZO6jzrT/3LozTKZyscwuo8ZTJ0e
+         XFhiErUrOQenugWly5F0GVzpIsq14JHTxAmfwXEY3LMHrbVSr7I+6G74JDxLFxbrX0mh
+         xoCuGWtHXvkYFYmGPz/4jGDpF5X38xTpnw7o/CrovDTH7jyzI7UMl4TKLQKl/Bnp32u0
+         8Oq/ajA6MuxEZFxEIu0mmCi/TVtf+lhDJzUZ07rnJLN31MWYxSMEh18vAPUf4yYZSMXQ
+         v0Yo1tlJFU1WFjtHTL1BHZybArc3QXqwo0ZVSXG/V3DMRPl/gecGsMyVl7FNKt0xU8Qm
+         +c2g==
+X-Forwarded-Encrypted: i=1; AKwUvBw7MJb9Pvni+0fAnvihRdlxbmXVqaD6meVLfLO0WlvOnkxX50DA8hMTbgM+QrnxJxiRc14vfJ4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Wo9H4oKh75Px1VWbqNi+ED/qMhESU+dRXNQ23iWypcIqj5YoH
+	2Rvn8Nl0HHmWdOXyZ04cAMfhFXe7rnfsPFQsxy25dNUjm6FU9U23/LO0
+X-Gm-Gg: AYBFou1UpxtFM5odUsnaHYmvKUnwragE8UCjlF/kIS04R3wD6dY9K5bZY4TZ9FuQ/21
+	BFv7tdekXA6ElmjOGR/mMbPjF5GCxXQKV3PM/kfCQAIgAU2oRTp/jamC7l4qr7h6cHtPzX3jVXC
+	2OQxtSIJV3+zXBBtLcHGJegRofjiPL0KB+oO1gih1Qk0jmrw1NVOknbRUJwYrzop0I28OG2i6bX
+	XtSosCGx3wmmNbtFSU7rk8xazZO6D6PqywHmzL/a4/EaBmdlEKcAxzQx9Lh+ZgMkvMq9W30lEai
+	pv2OWHCLRF/Eq3xHHFas3jhGW/ccCUOCxOR3iLZ/nEaz7/t5SppeXHQ6T/pDtiImrOVBQeQc/7h
+	pCxtExjF2UmMJyPJ2JVrBEwCkcUMDqjOyq8z6LllJ2pe2OG5pqkav0Khvk3N2l509V5uWstFaoi
+	7n/GRmb2F4gK1JXCzfW5eEuL4Z7AB+7WL6AmMggD4cb+hUqqAEWH2aNinIkl8VjrFEq8NFusVaM
+	1HheXbl/qCp98e11T5UzhusHNWT4BfvhrgQ7Bhf0nW1w/SISaqLXEGpjWoiikvcvbkaje+aoxd1
+	WmXDbRcpQEYRFKWqkOTfUvb5alQllg+y/vAbfLit3oHEAhBZlx6m
+X-Received: by 2002:a17:903:3bd0:b0:2e9:f354:e97f with SMTP id d9443c01a7336-2eb36482f5cmr79668765ad.60.1793616094571;
+        Mon, 02 Nov 2026 02:41:34 -0800 (PST)
+Received: from umang-Inspiron-3501 ([2401:4900:1f3a:7c59:eeec:de7d:b077:9b9f])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3925ff38sm25195465ad.36.2026.11.02.02.41.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 02:41:34 -0800 (PST)
+From: Umang Pokhriyal <umangpokhriyall@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Umang Pokhriyal <umangpokhriyall@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] userfaultfd: validate the whole range before changing write protection
+Date: Mon,  2 Nov 2026 16:06:20 +0530
+Message-ID: <20261102103621.156928-2-umangpokhriyall@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261102103621.156928-1-umangpokhriyall@gmail.com>
+References: <20261102103621.156928-1-umangpokhriyall@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,37 +109,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 0/2] hdlc_cisco/hdlc_fr: shut down protocol timers on
- ->detach
-To: Chengyu Liu <19290937@qq.com>, khc@pm.waw.pl, netdev@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+
+mwriteprotect_range() checks each VMA as it walks the range.  When a later
+VMA is not registered for write protection, or is a hugetlb VMA the range
+is not aligned to, the call fails after the earlier VMAs were already
+changed.  When unprotecting, userfaultfd_writeprotect() then skips
+wake_userfault(), so threads blocked on those pages are not woken although
+the pages are writable again.
+
+An unprivileged process can trigger this with a range that spans an
+unregistered VMA.  It hasn't been seen in practice; it was found while
+reviewing the userfaultfd range ioctls with an LLM.
+
+Validate the whole range first, as mrwprotect_range() already does.
+
+Fixes: a1b92a3f1498 ("mm/userfaultfd: support WP on multiple VMAs")
 Cc: stable@vger.kernel.org
-References: <tencent_83B7D10D4DBCC6118AB6F6B83A509FFA5C06@qq.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <tencent_83B7D10D4DBCC6118AB6F6B83A509FFA5C06@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
+---
+ mm/userfaultfd.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-On 10/28/26 04:23, Chengyu Liu wrote:
-> This is the same defect class as CVE-2026-63803 ("hdlc_ppp: sync
-> per-proto timers before freeing hdlc state").  That fix added
-> ppp_timer_release() as ppp's ->detach; cisco and fr have the same hole:
-> 
->   * hdlc_cisco: cisco_start() arms st->timer unconditionally and
->     cisco_timer() re-arms itself.  The proto has no ->detach at all.
-> 
->   * hdlc_fr: ->detach = fr_destroy() tears down the PVC list but never
->     touches the LMI timer armed by fr_start() when LMI is enabled.
-As per Linus's guidance, this is net-next material and should not
-include CC: stable. (note: the reference change landed before such
-guidance).
-
-The above usually does not require a repost, but for some reasons
-this series has not been processed by the nipa sashiko instance.
-
-Please repost for net-next (retaining the fixes tag). The new
-revision should land in a new thread.
-
-/P
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 87da92526..b8a9d9574 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -1105,21 +1105,31 @@ static int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
+ 	if (atomic_read(&ctx->mmap_changing))
+ 		goto out_unlock;
+ 
++	/*
++	 * Validate every spanned VMA before changing any of them, so an
++	 * invalid range is rejected without changing part of it.
++	 */
+ 	err = -ENOENT;
+ 	for_each_vma_range(vmi, dst_vma, end) {
+-
+ 		if (!userfaultfd_wp(dst_vma)) {
+ 			err = -ENOENT;
+-			break;
++			goto out_unlock;
+ 		}
+ 
+ 		if (vma_is_hugetlb(dst_vma)) {
+-			err = -EINVAL;
+ 			page_mask = vma_kernel_pagesize(dst_vma) - 1;
+-			if ((start & page_mask) || (len & page_mask))
+-				break;
++			if ((start & page_mask) || (len & page_mask)) {
++				err = -EINVAL;
++				goto out_unlock;
++			}
+ 		}
++		err = 0;
++	}
++	if (err)
++		goto out_unlock;
+ 
++	vma_iter_set(&vmi, start);
++	for_each_vma_range(vmi, dst_vma, end) {
+ 		_start = max(dst_vma->vm_start, start);
+ 		_end = min(dst_vma->vm_end, end);
+ 
+-- 
+2.53.0
 
