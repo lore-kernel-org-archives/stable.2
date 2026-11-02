@@ -1,73 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632354;
-	b=WuvYZE20KGMhvLBJRyOssg1rL4Ji0DG6rVnWMPW5bKZaUXbAW+F2EdgU/pBIy9OUbmRj
-	 P2NFGe0SwJh9DZgc4hSZteO2fQZtqwwzHFc2512PjHqQCM7xdGtENvNph4/YvxRhNvAHd
-	 5tUGE7U0cSpGXVL2RQsUYTRXKOJ+jtsf0gjEy3fX/OGQEXwfl0dPralYPKBgv65uGQdQ3
-	 gnVi7kcAdInLWEexpaudjrpQjlmm1qOBrGDPYu0Hv03lR3uSvsnVZXRHGjQ88mt5ziVjk
-	 z6jy6AptUdbqITFz3wh4c1TakZROewPAj3QReYH1amv79NOtGjSZiIWm/l/ZOMlyfRg==
+	t=1793632395;
+	b=B/YqyxdTegJHihqLgjbDs1po6rn2l0De+v8Wh7TB6Z2RYhQvFxagfR0sF4wda81OO9Jw
+	 z0aIwsKZilKwDJgXn//1cELNbbF2RtqILSryh8xGfSUTxajSkRMoQZFnwKb6pMqy99Uyu
+	 xk3A6wDZ1znToc5SP+aXq9FT8rALT7p638G/ln825/fTICuZOpkYAfMVRe3rOi5zLpzGH
+	 sQ4oRRAaLygeCNnBMhNDMlwJEZ1jEHdZYwjp9VZi+CxHlvAANDMjNg9j4pEhl9U6QF/Hi
+	 yUi01GtgrgCEPbRDjhdSxy5scPRIH5YnKouPFPGcX3SigDKQh+wzeS9GvJfCVWUifHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632354;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=2puUSp7/76IVMJdmyNoOx/+sDBWWUsstBNYgnLqWADw=;
-	b=UMjfQCccFOhv1o4iFfzGtw5grTEnH0ZLHrqd9emSpufV2kzW+bMFAEwMfcQkr0sa+PR9
-	 VkGFBZxUcEXpwnLBsPdMNJHqRiKMrcXwcM2UPGlZ6aP3q2IjMPL5MZ+XJp0bqWvfXuRWg
-	 dtZb2weZg04Lm+wXB5iT5MENc0IhQ4RPHvpAUyKhX6BFijyOjvBN9e/ROgosmbeg1VlKR
-	 hAZtuwPXuZ5jaUaN8bicXWlHJ+tyDgMGMq6G3S9gCUi2ZP9bLBP7D51aaPqln9ft4PrdB
-	 BdepKOWtMr/5A4OhtlAR0x3CPMRnraluRVjiKuIGDcNtXUdyTfRNjx0dOLSsZ3x9fEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632395;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=fB9PkDgCE2U0R6bh8YV+nog83PKus3S1gygS4ZBj95U=;
+	b=H5I4hu3GWYlHsk3Ao1h6tmEoDOFP1c02THuTDjE/8JQd+b2f+4UrVNjKD2ElLFCjyT2b
+	 Nx5C6TfjApGS1lV6X7r4VtBCR13tkq9vVpolmQBWZi3vIGWPDsRi4HQykMRk5OSYkfTN+
+	 D3aGmJzNKssnffdWNS4iaaS5L8G4GxXrcMGaWst497VbJ6mGsnjSM8jURAE8uFXoNWebX
+	 T2lGH04e/vJeh3GxZTY9yImuyoBoR2uruT6qUsdJm/Cb8pnDusTjaMQdjWFaCNMlNT39a
+	 oxpgKKY1Mggp3imEmkfBOP+AOTAvyIDggraDII1uldhJeJic2fd4p6xouMtqPv0L+Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sfo/4AT7";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ejdOEXst;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE606606E001;
-	Mon,  2 Nov 2026 15:12:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBC5606D828;
+	Mon,  2 Nov 2026 15:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sfo/4AT7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8ED1F00A16;
-	Mon,  2 Nov 2026 15:12:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ejdOEXst
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF19E1F00A17;
+	Mon,  2 Nov 2026 15:13:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632353;
-	bh=2puUSp7/76IVMJdmyNoOx/+sDBWWUsstBNYgnLqWADw=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Sfo/4AT7eUqvUQF2IM0e4yUEA2S9bpSgz1XRSpjXSv6ivoD7gSmdHg3A8zkMAzcYF
-	 kDeGVWk3w/Tf8dF2CaaqoDKojou4fpxW/on8Svaj+X1DsQ+lK5Z5lhob5+JYVA7rw6
-	 hITFfUucA9qYfQ8dPtI4POqoUKejJwAfyqbxGiCXRDyz5vtCphvlDDhACUZcWSe4n/
-	 ZVHvC1IZ3kRo3yXPQWrol3dLHlfbECyrsb8CqMIBuOtjWNn600zPylndtXWynXYehg
-	 5byT636d5OG32RU0HlJaXhW8fAU3PP9qmYjTFfxdvhBHu58rPWCtlcB3lPJonv+QGn
-	 dVYMBTLl9OINw==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 64F40F40068;
-	Mon,  2 Nov 2026 10:12:32 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Mon, 02 Nov 2026 10:12:32 -0500
-X-ME-Sender: <xms:YKjoaq8wAwd1IxUiNYUpg-bkAIevhoVV9sHdGLHZFj4QUhhzr1x5dQ>
-    <xme:YKjoaljI-1gGkFxaVyg_RqXwj5e_0QeGd2rUXEBcY1YCCDDrc86cgxF5xbiC-_Cyk
-    eeUYesQG6CNyMpPZfeTzNarIloBQGkO5keAuTJbX4C1LvGugkip7jU>
-X-ME-Proxy-Cause: dmFkZTEpafQGZH1RQHraPbR3WHAFR05zdMzeN9033f2qTgB7dcFqSOfXqTOx0NsnLhw7RM
-    t4KdFk7naEvVgIj/Z+/r4wqxKPOiZvigH11WmNrz/u7/O6i5K5shWdxKaODLIvcArDmp5/
-    qndNFVKeXJ3sh1NXWVNTKi/f4Rew9h2JP1HN5dSGNPeCJYu7x5a3H8LsoXn8EhN4ZjsAvm
-    /bED5Y0vKx7GQlt/0hSGrTZnAD9OLn1kAybK9sGzqh2Zq0UvMp2FTqaVuKBk/gi41sjl26
-    /rIVYFwvydSbfMatEx+7lJ8J3VmRw3IeLBLJbi9GYEeXDptwe8H5zILOCv2qRxqKoQzcX7
-    hPgLViYfGwx2iwsPEJoWchmJ3TIop7fYjZ48Bx7ibXnIoxjvHdBXfdG6wFKlG348EI2Q1w
-    vauIP56PdA/Ls5ERDf3LXyHFvGGr5GZavecratgQSsWiI1fIs/OBdCe543F+RoU/DRx88u
-    Y4xY0Yz432+umY+PGsUQvKduBltnzUzHdH9p7mNKs9B+1aRWZ9sTlNN3wFPqdtlFNpQD0J
-    AspjcLf4x4Y1ZTk+Hmj8GytvXphaLBgSYqvkHiS/BgYavnqOy/Od3KhxXOSyjKUEBNKhxX
-    gIbVdFtmJzsdMKMnsFVsGZx0rWNsYIOjwaZTVGysGXYo8LNPGECoq0wD+gKw
-X-ME-Proxy: <xmx:YKjoaoiFH3KJWJxPJNP6RgVDRJnRZqabHPC0TlSatlT1AbgfNmmgtQ>
-    <xmx:YKjoailIciWpQqUXZJnA3LXb1URirrNW2DnWgTxtKfYfpyae1_HZdg>
-    <xmx:YKjoavUl1PiISqAcnsiY1t8zKyiZTJkZa9xV9NCA_Qs5qfyjBbkdNQ>
-    <xmx:YKjoavsYSSsfdxcsdgd_dZkXzpdAhtBFmmKV6oj9EC0Hyomvq5YQ7w>
-    <xmx:YKjoaq4yjpW-RjcSpdiQDCrjtodwfPysFTH0NY0ctqy0rG92WwlUU8GY>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 42C93782738; Mon,  2 Nov 2026 10:12:32 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1793632394;
+	bh=fB9PkDgCE2U0R6bh8YV+nog83PKus3S1gygS4ZBj95U=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ejdOEXst3nyIpYGm8MqeuqVMpWK/Gp8b/HMrHlkW+SdRhncJR0GgBspNfMILBDSmb
+	 vdrjN0S9dtFsGk7XivXNW4D5JzUIwOQlHXBoAUTdJHKmwBVv3ukk4iuW7uHlcKN8VX
+	 nMjVdOUUzL4Y2P7A9DW1k6yojj440/HodKea3ga7ly6HrbLk/OAuaT/h+obbIxEbZx
+	 +kWIjcc/hJOF1IcYwz4xHRqQhDPocGoTTiNYDkUlnQpnh7K9T0eXAZYGipfvU69YnS
+	 tPN+dk2+Uo8Sm0xoMa5bEqZZkMGNP9M5NTQRchbAi9U+ItRYOBLe/h+DYy4c+sMP94
+	 JFwGUb2LnjHZw==
+Subject: Re: [PATCH net] netdevsim: reject port addition and clean up ports
+ after a failed reload
+From: netdev-bot+sashiko@kernel.org
+To: omermetekaya0@gmail.com
+Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, jiri@resnulli.us,
+ syzbot+88435e204734072bf39a@syzkaller.appspotmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 02 Nov 2026 15:13:13 +0000
+Message-ID: <179363239328.3131.10039779072179462995@kernel.org>
+In-Reply-To: <20261029145844.231018-1-omermetekaya0@gmail.com>
+References: <20261029145844.231018-1-omermetekaya0@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,110 +64,173 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ARCrrC6bRUOw
-Date: Mon, 02 Nov 2026 10:12:12 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: "Christian Brauner" <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
- "Jann Horn" <jannh@google.com>, "Josef Bacik" <josef@toxicpanda.com>,
- "Chris Mason" <mason@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, "Eric Dumazet" <edumazet@kernel.org>,
- "Thomas Gleixner" <tglx@kernel.org>,
- "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Jonathan Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>,
- "Greg Kroah-Hartman" <gregkh@suse.de>,
- "Joel Granados" <joel.granados@kernel.org>, "Kees Cook" <kees@kernel.org>,
- "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-s390@vger.kernel.org,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
- "Linuxppc Dev" <linuxppc-dev@lists.ozlabs.org>, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
- coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net,
- jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org,
- linux-sh@vger.kernel.org, linux-usb@vger.kernel.org,
- samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org,
- linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
- "Takashi Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org,
- stable@vger.kernel.org
-Message-Id: <16f91f93-16b4-49b1-b7fa-cec69759c349@app.fastmail.com>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-27-59422ed3e465@kernel.org>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-27-59422ed3e465@kernel.org>
-Subject: Re: [PATCH RFC 27/38] sunrpc: make queue_wait a global wait queue again
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
 
-On Mon, Nov 2, 2026, at 9:21 AM, Christian Brauner wrote:
-> Since commit 552d0e17ea04 ("sunrpc: convert queue_wait from global to
-> per-cache-detail waitqueue") poll() and epoll queue their waiters for a
-> channel file on the queue_wait head in struct cache_detail. But the
-> cache_detail can be freed while its channel file is still open and
-> waited on.
->
-> The procfs channel files of a network namespace are removed when the
-> namespace goes away. Removing a procfs file waits for the callers that
-> are in one of its methods right now and then calls ->release on every
-> file that is still open (cf. close_pdeo()). The waiters that poll() and
-> epoll left on the head stay queued until their file is really closed.
-> So:
->
->   sunrpc_exit_net()
->   -> ip_map_cache_destroy()
->      -> cache_unregister_net()
->         -> remove_cache_proc_entries()
->            -> proc_remove()      // ->release, the waiters stay queued
->      -> cache_destroy_net()      // kfree(cd)
->
-> and when poll() returns remove_wait_queue() writes to the freed
-> cache_detail:
->
->   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x4b/0xa0
->   Read of size 1 at addr ff110001131bb570 by task sunrpc-poll-uaf/242
->   Call Trace:
->    remove_wait_queue+0x22/0x1c0
->    poll_freewait+0xc2/0x230
->    do_sys_poll+0x9ba/0xd50
->    __x64_sys_poll+0x165/0x470
->   Freed by task 12:
->    kfree+0x267/0x620
->    sunrpc_exit_net+0x34/0x80
->    ops_undo_list+0x271/0x8d0
->    cleanup_net+0x3f3/0x860
->
-> Closing an epoll instance that watches the file gets there through
-> ep_unregister_pollwait() instead.
->
-> The channel files of a network namespace belong to the root of its
-> user namespace and cache_open() doesn't check for a capability. So an
-> unprivileged user can open the channel file of a namespace of its own
-> from the outside, poll it and let the namespace die.
->
-> Go back to a single static wait queue that never goes away. A wakeup
-> for one cache wakes the waiters of all caches again but cache_poll()
-> reports per cache_detail so that's just a spurious wakeup. procfs
-> should really own the wait queue of its files like kernfs does but
-> that's nothing for stable.
->
-> Reported-by: Chris Mason <mason@kernel.org>
-> Fixes: 552d0e17ea04 ("sunrpc: convert queue_wait from global to 
-> per-cache-detail waitqueue")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Acked-by: Chuck Lever <cel@kernel.org>
+- [Medium] The patch is meant to block port creation with -EIO after a
+  failed reload, but the check only lives in nsim_drv_port_add(), so VF…
 
+Pre-existing issues:
+- [High] Pre-existing, not introduced by this patch: new_port_store()
+  (drivers/net/netdevsim/bus.c) calls nsim_drv_port_add() without…
+
+--
+
+netdevsim: reject port addition and clean up ports after a failed reload
+
+After a failed devlink reload, nsim_drv_port_add() now returns -EIO.
+nsim_dev_reload_destroy() now deletes any leftover ports on its early
+return path when reload has failed. This fixes a syzbot report of a
+WARN_ON in bpf_offload_dev_destroy() followed by a use-after-free in
+nsim_drv_remove().
+
+> diff --git a/drivers/net/netdevsim/dev.c b/drivers/net/netdevsim/dev.c
+> index feb88ccbbcedb..61f0824ce4d3b 100644
+> --- a/drivers/net/netdevsim/dev.c
+> +++ b/drivers/net/netdevsim/dev.c
+> @@ -1697,8 +1697,10 @@ static void nsim_dev_reload_destroy(struct nsim_dev *nsim_dev)
+>  {
+>  	struct devlink *devlink = priv_to_devlink(nsim_dev);
+>  
+> -	if (devlink_is_reload_failed(devlink))
+> +	if (devlink_is_reload_failed(devlink)) {
+> +		nsim_dev_port_del_all(nsim_dev);
+>  		return;
+> +	}
+>  	debugfs_remove(nsim_dev->take_snapshot);
+>  
+>  	if (nsim_dev_get_vfs(nsim_dev)) {
+
+[ ... ]
+
+> @@ -1758,7 +1760,9 @@ int nsim_drv_port_add(struct nsim_bus_dev *nsim_bus_dev, enum nsim_dev_port_type
+>  	int err;
+>  
+>  	devl_lock(priv_to_devlink(nsim_dev));
+
+[Severity: High]
+This is a pre-existing issue, but can nsim_drv_port_add() be reached here
+with a NULL or freed nsim_dev?
+
+In drivers/net/netdevsim/bus.c, new_port_store() calls nsim_drv_port_add()
+without taking device_lock() and without checking drvdata. The sibling
+handler nsim_bus_dev_numvfs_store() does both:
+
+	device_lock(dev);
+	ret = -ENOENT;
+	if (dev_get_drvdata(dev))
+		ret = nsim_drv_configure_vfs(nsim_bus_dev, num_vfs);
+	device_unlock(dev);
+
+The netdevsim driver does not set suppress_bind_attrs. Unbinding it runs
+nsim_bus_remove()->nsim_drv_remove(), which ends with:
+
+	devlink_free(devlink);
+	dev_set_drvdata(&nsim_bus_dev->dev, NULL);
+
+nsim_bus_dev->init stays true and the new_port attribute is not removed,
+so the following sequence seems possible:
+
+  echo netdevsimN > /sys/bus/netdevsim/drivers/netdevsim/unbind
+  echo 0 > /sys/bus/netdevsim/devices/netdevsimN/new_port
+
+new_port_store() passes the init check, then dev_get_drvdata() in
+nsim_drv_port_add() returns NULL. After that,
+devl_lock(priv_to_devlink(NULL)) dereferences an invalid pointer.
+
+Suppose instead the unbind races with a new_port write and lands between
+dev_get_drvdata() and devl_lock(). Would that become a use-after-free of
+the devlink allocation?
+
+The new reload_failed check runs after devl_lock(), so it does not help
+here. del_port_store()->nsim_drv_port_del() appears to have the same
+pattern.
+
+> -	if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
+> +	if (devlink_is_reload_failed(priv_to_devlink(nsim_dev)))
+> +		err = -EIO;
+
+[Severity: Medium]
+The commit message says "Block port creation with -EIO when reload has
+failed". Does this check cover every path that creates ports?
+
+nsim_esw_switchdev_enable() calls __nsim_dev_port_add() directly and does
+not check devlink_is_reload_failed():
+
+drivers/net/netdevsim/dev.c:nsim_esw_switchdev_enable() {
+	for (i = 0; i < nsim_dev_get_vfs(nsim_dev); i++) {
+		err = __nsim_dev_port_add(nsim_dev, NSIM_DEV_PORT_TYPE_VF, i, NULL);
+	...
+}
+
+After a failed reload, it can still be reached in two ways:
+
+nsim_bus_dev_numvfs_store()
+  nsim_drv_configure_vfs()
+    nsim_esw_switchdev_enable()
+      __nsim_dev_port_add()
+
+devlink_nl_eswitch_set_doit()
+  nsim_devlink_eswitch_mode_set()
+    nsim_esw_switchdev_enable()
+      __nsim_dev_port_add()
+
+The devlink core does not block driver ops when reload_failed is set.
+esw_mode can also stay at DEVLINK_ESWITCH_MODE_SWITCHDEV across a failed
+reload, for two reasons:
+
+- nsim_dev_reload_destroy() only calls nsim_esw_legacy_enable() when
+  num_vfs is non-zero.
+- nsim_dev_reload_create() does not reset esw_mode.
+
+For example:
+
+  devlink dev eswitch set ... mode switchdev   (with 0 VFs)
+  set fail_reload in debugfs
+  devlink dev reload ...                       (reload_failed is set)
+  echo N > sriov_numvfs
+
+This seems to create N VF netdevs and devlink ports on a device whose
+traps, fib, health, psample and hwstats are already torn down. It never
+returns -EIO.
+
+At remove time, the new nsim_dev_port_del_all() call in the reload_failed
+branch deletes these ports, so the bpf_offload_dev_destroy() warning does
+not come back this way. However, that branch skips the VF and eswitch
+reset that the normal path does:
+
+	if (nsim_dev_get_vfs(nsim_dev)) {
+		nsim_bus_dev_set_vfs(nsim_dev->nsim_bus_dev, 0);
+		if (nsim_esw_mode_is_switchdev(nsim_dev))
+			nsim_esw_legacy_enable(nsim_dev, NULL);
+	}
+
+After a successful retry reload, wouldn't the device be left in switchdev
+mode with num_vfs == N but no VF representor ports?
+
+A second eswitch set to switchdev returns 0 early because
+mode == esw_mode. Writing the same num_vfs value is also a no-op. The
+representors would only come back after num_vfs is cleared or the mode is
+toggled.
+
+Could the reload_failed check go into __nsim_dev_port_add() or
+nsim_esw_switchdev_enable() instead? Putting it in nsim_drv_configure_vfs()
+and nsim_devlink_eswitch_mode_set() would also work. Either way, all
+port-creation paths would be covered.
+
+> +	else if (__nsim_dev_port_lookup(nsim_dev, type, port_index))
+>  		err = -EEXIST;
+>  	else
+>  		err = __nsim_dev_port_add(nsim_dev, type, port_index, perm_addr);
 
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029145844.231018-1-omermetekaya0%40gmail.com
