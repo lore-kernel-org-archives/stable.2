@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630813;
-	b=GPk34UsXHps8l4U1AN6ZcKeXGrFhZjxrwb9KPT1qpy8dnTj3kJm36m5kGUBvXDqtFzL4
-	 pOMO1jhckaHtzBsjtIgv0hPgZBR2rbgg2lan0+HQfUTGNaDZlcIZhun8MTJAZKFBiXdc9
-	 9Mzkv1jNRvJsio0tfJ0WD5a5IKKmbEgpcb4Xf754Rvw45gckXemV59HIsFgKWoQOmKReD
-	 1ML9bd7+7r+hSzvxOBQxK7wr8Pg5RFm29c4Yrk67Ghf/eTI4DlzVYB8gKty0JJbdp3L53
-	 e9WCELPdfTqifzzLUpdS4HhALnzmuSNH+91fIH1gF8oWhsFgjOgJ7yK2Db9ZdLV62fQ==
+	t=1793630838;
+	b=RrAkM1BfnfwjnLclYqtXWG7yjeGoJytSC8ocEp2tHGrzdYkd5XOjR1sj3ZZiwTV+u1zf
+	 Z4Shq5fWGVAvuf/xkIHGmPHpL8lV6nJYhpDpzWl9HyN4lNTocubkOav9ddeom8pIcyerI
+	 Yx6+AZovFGEjW2n/eirR3nCbdEzHv8CpuSydn265zEtBW6QPaqupZhvwwtJ25EHFaepiE
+	 XHjKMCHmbEie8Rarl/4QbDto93qkwqeAph5++l/UbicxrIG9YcdWzvTjFEY3RF+pTaZ+/
+	 wqz16mZkXWR9JLn/pbrzgyxRXvuanFAcx8FPeuzUKHuDP6DWmLfoGuGle7qZh2+OGGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630813;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=gGh9qQAToZE5wrWgcgjg72Buy8fnK2LgswQGjbfg87A=;
-	b=VctTc1D0vKhE7Z+//kNMKTKXo9jCVmn+vgK+kMxJgwzXFpCMU+fjc7gfsENbhaCqfBlf
-	 ZWufPfMblzProrp8YadU5J/SJohiW+36Iz+Ddxn2F85aBQEobmy8mVGSF8BfaHX2RyQfK
-	 I4PU+JmcYgV99tBN82ztsx8zXMNuiSbLfI7m+TrhDMFy2KbLc4i1MEAeMEcDtg81ZHZB3
-	 MorzoaK+Wx6OS2KDg9B9DKMefaTZIm1xRNhuTRGUUqd5GVtzEjJto+DRZJL7seTPaZO/g
-	 CN/t3tRipumb0y9nONwpHhteOsJ161FWsPTe5JwOeanit3E8wtCiLDDlvEfW6t2tKmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630838;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jQw5ix+gEQdGpmFbBmDqsmFBc8+v6QKH8bqPjj6E844=;
+	b=YLOKQ7QJGSsFEzUKpBZgQjw9DjRthzhXG5uvH1HZt8DX7IZHm34p4UFBTV2I0KuqxKUu
+	 b7WEf3v/KxCz95f7+ge55cIHAYHlsbRjDutuQlw0BBX+c5a2IQCA4BBHXNawbLkekKYFQ
+	 mcCqxvh3GcN4suCBWTlNuCm2c+zgaXZCHgRacYE0mqb1Pw5ih4DHBpXtEjT82NJsrZpsh
+	 rUXXdzfUUeVtzNqV4tN/LZPFlE+CjbIWqSEBvzMAzzThigpuGAi9r30jXD/PCfiVZBXmM
+	 UWd+4hlPW0cra8/cjtEkq8cE1UOvGCD6I8VeiGSgTLlx2ZfKHsjC/GnppevQJgCqA5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k68ttWG6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Y1CBWeCE;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65BD606A906;
-	Mon,  2 Nov 2026 14:46:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D21606A911
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 14:47:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4D21606A911
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k68ttWG6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FD21F00A1B;
-	Mon,  2 Nov 2026 14:46:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630812;
-	bh=gGh9qQAToZE5wrWgcgjg72Buy8fnK2LgswQGjbfg87A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=k68ttWG6wR2uYUNWQI+ECVf+fO/XJ0eqvyJRIGqlTdn3SeSK5FwYTdTBaVjsoBsYJ
-	 kJXwecLDVVqkc0QtPna5nnmOaGhEH6lV2p3+n4SMeLLTjqLfMHRMfS6+IdU5FeP6Ex
-	 EEbVMiiZNLXMTNclGmw6p8mC8yLNPYuUSTnCtn6ZR27qjgY9RaX2RJuHLWLPx9jmMt
-	 9JJmAL/6SUvZypF7nop8NC5qp7LgJYP8eJFNNtNBvtdk7y2N5+2qF+LGhO9FlXYxla
-	 LSU+v/oAHtst3btNP9gxZgyUrKBFNLcCwNm+jD4+mesxl+NmeCWqzBEWi80sNRNQ/1
-	 Y+2ZOSQK06ITw==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 15:43:28 +0100
-Subject: [PATCH RFC 37/38] proc: don't pin a symlink's entry while
- readlink() copies it out
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=Y1CBWeCE
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=jQw5ix+gEQdGpmFbBmDqsmFBc8+v6QKH8bqPjj6E844=; t=1793630836; x=2108990836; 
+	b=Y1CBWeCEv9LIMPxcEGCquWBYUCDvwP9/0IQxgqUjJw+ZnagCrd7LbBLYpkCLLu5hK2nsyPC0Eey
+	0rt+CqzbkoJOig9HtUHu/Ny6afdTzogY4tz8RVOp9hbcqI6FRl7BsH+x4DogL0TwY12Qi58EdmCF2
+	7RiyZxRodFNpVxanA0aKrf6bgywnAksMOrfQrz4OtU6EEx+Zd06IAkWHd3SweaPsH8/ZeJukOne9W
+	Pb3n7Kt+BZL0kiZi8C2WDZoyAYZWdX6Xk13e3Jk/RRZx1bx7VOmMKlUV86nOfzXJS/BAtqQvR71Ky
+	OD5k4qEBmi7Q/cocgSr0BE/AoEwUn7LqIT0Q==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xNtJR-000DtQ-LI; Mon, 02 Nov 2026 15:47:05 +0100
+Message-ID: <6e113935-f303-4f49-bc27-e1d85abffa70@igalia.com>
+Date: Mon, 2 Nov 2026 14:47:04 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,98 +57,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-bugfixes-v1-37-59422ed3e465@kernel.org>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] drm/sched: Adjust run-queue when changing priority
+ at runtime
+To: phasta@kernel.org, dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ stable@vger.kernel.org
+References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
+ <20261021094227.48034-3-tvrtko.ursulin@igalia.com>
+ <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <84b5777a04dc75c013eb9ac0a44d972cf88db12e.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-proc_get_link() pins the entry with use_pde() and the delayed call
-unpins it. vfs_readlink() copies the link to userspace in between. So a
-page fault in that copy holds up remove_proc_entry() just like the
-copies of reads and writes do, and the callers hold locks while they
-wait. /proc/asound/<id> is removed with snd_card_mutex and info_mutex
-held when a card changes its id.
 
-The pin doesn't keep anything alive. proc_symlink() copies the target
-and pde_free() frees it with the entry, and the inode holds a reference
-to the entry. What the pin does is keep a removed symlink from being
-followed. So check ->in_use instead and drop the delayed call. That
-also takes an atomic pair off every traversal of /proc/net and
-/proc/mounts.
+On 02/11/2026 10:42, Philipp Stanner wrote:
+> On Wed, 2026-10-21 at 10:42 +0100, Tvrtko Ursulin wrote:
+>> Another consequence of the recent revert of
+>> 77a6809f1dc3 ("drm/sched: Remove FIFO and RR and simplify to a single run queue")
+>> is that after the revert we need to adjust entity->rq_priority when
+>> runtime priority changes are requested.
+>>
+>> Only amdgpu does that so the impact is minimal.
+>>   Also considering dynamic
+>> priority changes are largely broken there, due currently broken entity
+>> scheduler list handling where the special case of a single scheduler can
+>> never change it's run-queue. And coupled with the fact for the rest a two-
+>> tier approach of drm_sched_entity_set_priority() and
+>> drm_sched_entity_modify_sched() is used, where later directly maps to
+>> different hardware queue priority by replacing the set of schedulers
+>> completely.
+>>
+>> Hence the regression is limited to rings which have multiple instances
+>> other than compute and graphics, which would be SDMA only, for which I am
+>> not sure any userspace actually does dynamic priority changes in the first
+>> place.
+> 
+> I can't fully grasp what the bug actually is. So is it that we forgot
+> to adjust the priority in the CFS series, or is it that the partial
+> revert made this necessary?
 
-Fixes: 7e0e953bb0cf ("procfs: fix race between symlink removals and traversals")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/proc/inode.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Partial revert makes this necessary, albeit mostly on paper. In reality 
+it is complicated. Only amdgpu calls it, plus, for single scheduler IP 
+blocks there is not bug because of the "single scheduler special case" 
+run-queue cannot change at all (bug I am trying to address in that 
+different patch, and which also got re-uncovered due the partial revert 
+of the fair series), while in the multiple scheduler case there is no 
+bug because amdgpu pairs drm_sched_entity_set_priority() with 
+drm_sched_entity_modify_sched(), which actually changes the priority in 
+the driver. This leaves SDMA as the only potential place where there can 
+be a regression, and there I am not sure those do dynamic priority 
+changes from the userspace side in the first place. But theorethicaly, 
+from the UAPI point of view, it could be a regression so needs to be fixed.
 
-diff --git a/fs/proc/inode.c b/fs/proc/inode.c
-index 9933f03ab9fb..2d65f3c8ec03 100644
---- a/fs/proc/inode.c
-+++ b/fs/proc/inode.c
-@@ -629,19 +629,19 @@ static const struct file_operations proc_iter_file_ops_compat = {
- };
- #endif
- 
--static void proc_put_link(void *p)
--{
--	unuse_pde(p);
--}
--
- static const char *proc_get_link(struct dentry *dentry,
- 				 struct inode *inode,
- 				 struct delayed_call *done)
- {
- 	struct proc_dir_entry *pde = PDE(inode);
--	if (!use_pde(pde))
-+
-+	/*
-+	 * No pin. The link lives with the entry, which the inode holds, and a
-+	 * reader could fault while vfs_readlink() copies it out. Just don't
-+	 * follow a removed one.
-+	 */
-+	if (unlikely(atomic_read(&pde->in_use) < 0))
- 		return ERR_PTR(-EINVAL);
--	set_delayed_call(done, proc_put_link, pde);
- 	return pde->data;
- }
- 
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Danilo Krummrich <dakr@kernel.org>
+>> Cc: Matthew Brost <matthew.brost@intel.com>
+>> Cc: Philipp Stanner <phasta@kernel.org>
+>> Cc: <stable@vger.kernel.org> # v7.2+
+>> ---
+>>   drivers/gpu/drm/scheduler/sched_entity.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+>> index e12709b7bd0c..03e68b4102d5 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_entity.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
+>> @@ -456,6 +456,8 @@ void drm_sched_entity_set_priority(struct drm_sched_entity *entity,
+>>   {
+>>   	spin_lock(&entity->lock);
+>>   	entity->priority = priority;
+>> +	if (drm_sched_policy != DRM_SCHED_POLICY_FAIR)
+>> +		entity->rq_priority = priority;
+>>   	spin_unlock(&entity->lock);
+> 
+> So is there always a bug, or only for FAIR?
 
--- 
-2.53.0
+With FIFO and RR, on amdgpu, SDMA rings, only if more than one, *if* 
+there exists userspace which does dynamic priority changes (calls 
+DRM_IOCTL_AMDGPU_SCHED / AMDGPU_SCHED_OP_*_PRIORITY_OVERRIDE) on 
+entities using those SDMA engines directly. All clear now? :))
+
+Regards,
+
+Tvrtko
+
+> 
+> 
+>>   }
+>>   EXPORT_SYMBOL(drm_sched_entity_set_priority);
 
