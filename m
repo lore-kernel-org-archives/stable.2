@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633264;
-	b=Zp5/fqjGDjOyXddAeZ5BaHLoKRzzHTju4KwPddkSg+1ypYULI4Wy7ZAXPmCF89GzH4zq
-	 /X3ZfJPJgti73ceq71gW6Ej2nP9tQbpjcBCyoo4cbhqwRYOubiM8Jw0mzPWCXg/ZDuC/K
-	 H/r4ouhrvDsQCG4qe24IiDpCoMNZdjc2AYNuK1S8329mW8GaNCyC5BDTuCkTyxo9N1KlX
-	 mzRVmI0EGMdBeJy+7o+pSAE3HoU8+N8TLP4fll8popnMoXWLzgpCCRqYVNjtAofz3Voyk
-	 qmcPY7pJaC1ntjhBfa1jbwtpeOUO7P1w/fYv6gLl61LxGwQS9T8qOX3DgmvDM0i9Nvg==
+	t=1793633266;
+	b=iC789hPji2XPT/v7p0o4J0v4vv8czU9uqxAh/mf72LTKpK7umLlAks/EGnPrDr0kY6II
+	 xl8JlHhZoda3V8LOq7ZacTCZdlZSlEw4sSyjCda2fWlyM/kE4NR5P3ZrWjpsSxs8mHYOW
+	 YY6Kr3UU1U+bTEH3L98+cdTM2xjRZem2edot2MkT5MH6/0Li4Xp5aMwAzzb2uIRSI3cGg
+	 vSUjItKJuhsYjFwmTuixkGWaHEgg+GJ4c5iS/SKZVWvgKMd35ofgkoFJTaTwTF8il7WRc
+	 FpNUP+LFVwKWh+lCqj3H1LuHbF6dGlGioj12MKFSHDUDnsKnRKJ3uCsDg1JDgj1Q9yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633264;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633266;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RCLREU3ug6s0nq3vvgZoAVXVzQ57l3I6oW/fEoaBMow=;
-	b=3SEDMVve+xOzzw+n9V85yX67os1YM5kWNbZ4oBPM7MM0nO+DpvbQoSNrj0Dzx7bw37BV
-	 /RoXADu1Ux2pVgzLaNAAXx+bzR2U5UUDwQuAzTkZAEphFd8D93l38ZJClqBUSB7isWBKE
-	 iWHts5qxV1JdyQqoL0pxvPIEgTGGc1sJw9ZL2DyCcK3NvjAaoZRbc5o2WKTvWV6gzLYMU
-	 SQPiKduifKaddh33wGX4aXjBmTKBDnfJrsNRq0Bc2YrtRnPf4UEHyJ58i9TWT7Hy0iE3K
-	 7eK9wOXMefyfkmKp55WRAUaeR6GQ5bHkjqQqOn4vsg4NUrLR6MAUHP5davsc4o2WHJg==
+	bh=JLWEXv9qqNGSc/ojLC4bwmhaWv5T1sZkLFpk6JaqDbE=;
+	b=hM/a4Zveae2Q+UZ4UKKkZ1/3ed02JBkroQUD5bZCQDfNpwrWfToGRKHTM6vD02Ptug9Y
+	 7jMmTs7yjsqFNDXkivzO6r17jtBPgyOo9bmmFwjptRth2tvN0nL5MUjgE4ANjqvH1Q9gw
+	 2eYgynShIKn5wmORBXH32y7ovflW4oF0vSuJvgbvW4qaH3ZbIJ21/ffAZeQ501DlRGfcS
+	 54TK0r6iSFQibCIKmXJogV1HDmMGhpkt6ny1eFQd47wvaaPa3VR3v5IqnHeSb8yIu/5i3
+	 uwmDBJ/idyr0mbYyugaJ8ORVmHcUOKr0NdAkV0/hceHQ2Xeh6mMMGvHeaZVguo02zQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kUhxPalx;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kwLepr48;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBE4609C7E5
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A07609C7F1
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:27:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kUhxPalx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A701F00A1B;
-	Mon,  2 Nov 2026 15:27:43 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kwLepr48
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3681F00A20;
+	Mon,  2 Nov 2026 15:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793633263;
-	bh=RCLREU3ug6s0nq3vvgZoAVXVzQ57l3I6oW/fEoaBMow=;
+	s=korg; t=1793633265;
+	bh=JLWEXv9qqNGSc/ojLC4bwmhaWv5T1sZkLFpk6JaqDbE=;
 	h=Subject:To:Cc:From:Date;
-	b=kUhxPalxzD/hHe08wSGoYf0/1h1WOwNlor/jB+juATdY+FZG8Ky4xfY8FPK6+p4EO
-	 lz7yZPangqneNzfz99gigX0tduPcnW02g3Iop575bLEijk/mqBvJcOEp/dLL1Igu3P
-	 z0PhUJOgtqgO4ssVUeV+W6YINL513lvnOpgx0j8E=
-Subject: FAILED: patch "[PATCH] ksmbd: serialize directory emptiness checks with readdir" failed to apply to 6.12-stable tree
+	b=kwLepr48bB+7+6RoHh2ojN2bkkR+zFH4vOZj1zT/jo0o/PAT8ocMuMlqaUxFx5kM7
+	 LV0J/enHCWzlkAtp1vV6cDfPUg4bZhRa9BW6nGw6aIQJk0q/TwwzZjqdnU47rtrfvk
+	 QEpuqtP+67e4yF2mbIxPp/fOJffwrP0eKKASGSk0=
+Subject: FAILED: patch "[PATCH] ksmbd: serialize directory emptiness checks with readdir" failed to apply to 6.6-stable tree
 To: d3bugee@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:27:41 +0100
-Message-ID: <2026110241-arrest-granny-ae4b@gregkh>
+Date: Mon, 02 Nov 2026 16:27:42 +0100
+Message-ID: <2026110242-rental-truce-4d21@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7220980b2423d06a0604516129bfa4cec8a697ae
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110241-arrest-granny-ae4b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110242-rental-truce-4d21@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
