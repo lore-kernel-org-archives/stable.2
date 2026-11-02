@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633309;
-	b=PKPzzLYV+JVhNPWivn92aQvwQ04o26vb7rQZy7ewFdCV2bGv4pZnUd5odmUbrlxcx84i
-	 wEDKrI8YTErJzr7pxGb1pcxWPGjYivRZWmcZh+eQuUQc5kqMXTC6L8vGcxxLSzrlrZMSs
-	 WiXH+WsWYU8sD+4DMLs6xtNDI7DausQWsXrkjy1trLs4PusDaRyXRqU60ghCJbMubPTdY
-	 P05ywKy95cfKzi2vhBn0zFoDa1bwBOpwtgdQGS2RxnsEHkU1HQVOMCrHZfiDQOEB1UXOT
-	 O4LRdPvbalyM5U1+qDiWpmk63/RAiNGeQVl44O7jEjN9oibQx7eeg/x/rwvCvmiVT1g==
+	t=1793633311;
+	b=vzarPJgEdkBIPDjje9KTh/lGQSn5N699SYOJkV/U98ajl2K1XpmAqucEd6NfjnXXsCzP
+	 zS8nPgwVEx4BxYsjCroYoJQIpyl7YgSOOZIF0ES+gBCHjuL5Jj7Qxy7gj8J1LvMKOmSzo
+	 jBZys09uESTMrrUF/B8MbVj1GwaDmMM96/dxevLAwO1VvxbbNK3c6ujRPRcqD+4KpLoXF
+	 p9G/tZa+kn32C1JBKygJSQx6Ov3W/v0c3oXfUPkHBtfkZgaOju/CLWHw5RtxW00tYLMGM
+	 k0q1M/d72ieodqwUYYSYC8k1n5KuQFoQj8lgU2R8c2ALFCHXaxqjIhkaAyyeGklbujA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633311;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=O9S+pPW6GB+jcJTRKkHVsz6xyxfgYhEeB2CQiomviIk=;
-	b=KGrVDLr5oj5upcGetY2Ss5CP/JrTwB/bBCq7D2DCHMqAv0M7OWc4rA+A7FVFngoVgVxl
-	 r/LPjTf/UVSWw+CPeIByVPCouF4bsRRsVtE1L7o5OvcOgz/TAfAtacYv6M/+AWRdtVv5V
-	 pVU7aKthnJ08mM7Pu2xPBDUg9i1365JP54r9G43XC+wDJaYHfJaq4jpi4pot2ut/OJSqZ
-	 NBc13hbLasQe+KPfSx1YE5vmqTwsihjdPs9wIlYLpC2vNN6uTtNZOT4bbU/Kx2WzEA1Sh
-	 ETQLS/jgDcewaAlm4DWbpMdYiMvrm9DjuqwMxx7TjntAgFAH0ry56tlCnODQwDGRM9w==
+	bh=XA0gLzbn7f2AjvwhezWlVJXDT1t5FEzHWTu1c5zyhoE=;
+	b=zrT4Nxywi7YGimNCq2zfMbOm+X21wU94EFztBUfy01h2a89WOih9eyWnQH25+xgdQ/6a
+	 WapFSjcrmqXbeMjimJ0ftG9ytI3nKmEKLywXJvUTDv4mM+crOWaKbgzGXJTlxo4I4Q/hw
+	 LYlWvT1pUt4f8j+LMcIUElSLL2nmjeA4m/KS+ddvm+wXDbim07508lMUrnN2BUUIa2cpW
+	 W44ROjsm0zc3gx1SGNORPsDCfwXgtE+mCEBkejLsUHmD81B4LminblFFP9HnsaxBBhXpD
+	 EcXHk1As6XvVX0ImOD2UysWLa9fjUME9FHue43wFtD/kqIyizSzdn6KEZU9VWEe9exw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q0smQy00;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=117SOyHi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D2660850A3
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D072760716C2
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:28:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q0smQy00
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B931F00A18;
-	Mon,  2 Nov 2026 15:28:28 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=117SOyHi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F8151F00A1A;
+	Mon,  2 Nov 2026 15:28:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793633308;
-	bh=O9S+pPW6GB+jcJTRKkHVsz6xyxfgYhEeB2CQiomviIk=;
+	s=korg; t=1793633310;
+	bh=XA0gLzbn7f2AjvwhezWlVJXDT1t5FEzHWTu1c5zyhoE=;
 	h=Subject:To:Cc:From:Date;
-	b=Q0smQy00erdzQe1rOtAbCtkX/85ucpvvifEQzrckmoi+fduirnPxnzc5/Lq0RwUtJ
-	 DmNs1dCGcsdq+b56O9sqfQ+BcXmOpx4HGj2FE+If+oEx9Ubnm8EU/SWDd2DcZjCbx/
-	 OXHwIAAylBtrlEkQ4agNeDDNihy7CmP+vzO5L/GM=
-Subject: FAILED: patch "[PATCH] media: usbtv: fix null-pointer dereference on disconnect" failed to apply to 6.18-stable tree
+	b=117SOyHi9Votq7kx5tfeS9pvzg0SjAAnmBj7WLxwN8OFGMXUEHYvvDDhUaIEFn/+Q
+	 J4ULt26ZYBA5dzBL/6exFUyRmggL8dPZfpmfB3ZnEvztZ/X/zbE0qaP4FRHTJLo8m5
+	 +VPVx+ucMAWOmcwLTunCAVB2SWLrH+rafG23twLI=
+Subject: FAILED: patch "[PATCH] media: usbtv: fix null-pointer dereference on disconnect" failed to apply to 6.12-stable tree
 To: nogikh@google.com,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:28:26 +0100
-Message-ID: <2026110226-immunize-simile-9c23@gregkh>
+Date: Mon, 02 Nov 2026 16:28:27 +0100
+Message-ID: <2026110227-ravine-cider-7c49@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x cb705f75d03e946a4514488beb9e3bac9bcdb2e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110226-immunize-simile-9c23@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110227-ravine-cider-7c49@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
