@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657699;
-	b=qZ8mEd3rAks1xURYlMLf05DkooLZPm5vyS66m37Sc/V2rvK3RgxkkdsphSSyPj2lxbPR
-	 O7TQ2vXlcK/wtNuJTy5/r/i02F6wWs4CiwhvyniI1h2VI8sK+av63Z9ejLJxpuVv3fk6d
-	 UZ/njHjL4aEFMk4jl8XWybGn5Ru2/LcsK41qC2Tbea6ABMlRVkGhumE4nuzo1xmAh5iEC
-	 jBHAPA5L7WoVEQ0HtYOuJu6mj0IODOQnhhHJgqT/8OZWDz3pzHT6TNj1b96Q1HiFpG3rX
-	 6qz6ik+64WqKkWGXQJPoEwjKVYn+Ob/qYPe0h/1feErx7IJi6t7bYUNlyOG4duicz7Q==
+	t=1793657707;
+	b=u/mHCcggiux7TragfPnkAsyL2bLJIu6yEvDvuk4JLzrirSFjCwQ/RYGr52WlQl0mz3uQ
+	 NkHH8DDz0QN5c5wHLiIebHaracmLAD6/pKiOF/Ygqu/WYM096A8ROFWnWly8XPTDICUlA
+	 V83WolnbTWxOZP7LLdmE9yA2GRG6PWZHn1c/7gePbJR2Y6cmnoKLMMJbMp4z6cuGeBjmw
+	 WkM+CuC4ZqJJk9kwo7e/eGUKxhdIRsH5fe+d+2JenWifAVAszX6G4FAcJEyQ/mpYP6r3R
+	 88OY/S1xdqUFnXQIYJXj3+tMzB4Hoy6IVtt3qO8x9wi3oHTH6qlDyzhhnnlj2NxOh7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657699;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657707;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ug09H4cDoBD1zxtG7vKcaZPU7V8kruIfW1s/zcIR/lA=;
-	b=pNieUJ8pMc+zcar0BO5HLLX67m0lQib1AA80QjCT9phcqE+JJjEIx/3iKjPLT9ISkMXa
-	 RlZh+7ia8H2TMHYr3vkTQdRJsO1+z7cNpgm1qjFtJCbZvAqh7/P/xlIOhFEo42SLg5Fw7
-	 YuWKDJEmeuFvpNufFLQgjJ/rwSwcTvEQYB5boTfsSjadBmXNqAjABKuzcx+w+lDMwSKDB
-	 G/gu0uR99n29pmQQQoGQ2aIlQs/kyvGDUK1yYWPBQzKwatwGNwiIRjXP7qRDQju9T+3fr
-	 kq2x08Fha0rUfCwyBPO2QvLY3USxVF7Ako4AEJbRXi5lmnY8ntADBWqJu1tfH294Gjg==
+	bh=iqaluuXLU0P5v8XKBT390cdLc5CuEh0nbitnp1+hGq0=;
+	b=LQnbcx2FXLPEkl6NW6oq9NL5SoxgsUG+PywgAAm5px4+90+9aBPB5lLNiG8h3kEnpkQs
+	 HRf84WVpyHNBXh4xSeRoxqNDioye7IVDRqj4Fj8vugwx0dGJrnDh5V5BwEMb/s/ByruKB
+	 uic/WH40bS/IEKufa6/qMbkfjnIIMBJ+nG3nnMxfcuDKEgWO9AXIQvYu+YhvGXzZ2R6kX
+	 weiDAZpGyCG0nQav9O2I9AR8aP/vrShOZEkGwid2TxFZ3E9CS5IPuHcDPSsXx5UOpX8g5
+	 A3oc/e8VVRE/5eANbYRzBcpQfDaJpw8KEKY+pASVQnOUHMXqx9CMg376UYQ5dd7Zh2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4tbfCOL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2WzsNdY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F90606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:14:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2545606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:15:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4tbfCOL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8821F00A16;
-	Mon,  2 Nov 2026 22:14:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i2WzsNdY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39B11F00A16;
+	Mon,  2 Nov 2026 22:15:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793657699;
-	bh=ug09H4cDoBD1zxtG7vKcaZPU7V8kruIfW1s/zcIR/lA=;
+	s=k20260515; t=1793657706;
+	bh=iqaluuXLU0P5v8XKBT390cdLc5CuEh0nbitnp1+hGq0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P4tbfCOLDH6eABrIadcN9+tGltBbmSNn0N8GPxlx7AEq1Cz26cktHk37dS47yYloL
-	 VUJWdQfNtU0k/94Ya9GQkY1BmxnUHicJjjJ7jCYH3d9xAIKvA3Ma77oW0TrwsBcAf4
-	 0fqbPvZtIWZ12YiR92OTBjJjNClBvekmZG7mXHmTMTo1rYXUtHq3tEaiLpwHn1zA3A
-	 ppBkqjPG77bnvQEKR5lKqLh9731vRG1u6hytTc5xuvXlUuXFuvHUcuC0bNeHzRaGp4
-	 UtPl7TuHAG9UMSvk4DsoHs9LGD2bzs5/nbhydNAkJdRhLjVuBsYgaluQ1aEoBTdF7d
-	 3+d9RD2aTovCQ==
+	b=i2WzsNdYZtJSlGGafY0AZ3iAN0ywKM2rbssqGuCTUYBssXwd88HH8SH2UCaLLf7UN
+	 1+tSrj1zQPB9zFw5RMKe7kkt6QvvGU4oMZx/Gbk/jVbbX2B/fUTZbk3r7MhbchQvdc
+	 FPmt0PoRqJMhr1SzSzkzoT9RfCV4qy2f5kNQieH+uDNYf/tmaCu7F17Y1bHNUhl0kI
+	 hlugSGoss7minuBKXg5G6HelQIAZdZOD8wMdVvY1sY4pILodfYUT37DpzSJldoOC+Q
+	 V6SnWbuNcHe/Hx3DcmdY6nFqWYmfNTSfjzNnpIIm6PM8pubEYdSI3s2D+kiqQQMX12
+	 WsiHz7UaXGXhw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zikang Gao <2715417602@qq.com>,
-	David Howells <dhowells@redhat.com>,
+Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
 	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] smb: client: do not pass a NULL buf to is_oplock_break()
-Date: Mon,  2 Nov 2026 17:14:57 -0500
-Message-ID: <20261102221432.1933275-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: fix early procfs exposure race
+Date: Mon,  2 Nov 2026 17:15:04 -0500
+Message-ID: <20261102221432.1871440-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110212-catfish-confined-03b8@gregkh>
-References: <2026110212-catfish-confined-03b8@gregkh>
+In-Reply-To: <2026110226-gigantic-arson-32db@gregkh>
+References: <2026110226-gigantic-arson-32db@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,82 +61,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zikang Gao <2715417602@qq.com>
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-[ Upstream commit 2225ab306575e424b3dad2ee1be2521c89249d15 ]
+[ Upstream commit 7b1afb631395c958993cda4631002258ef4151ea ]
 
-receive_encrypted_read() sets *num_mids = 1 and never writes the
-caller's bufs[]. Offload returns -1 with *num_mids = 0, so the
-demultiplex thread skips the frame. The inline decrypt path
-returns 0 even when smb2_find_mid() fails.
+Currently, init_cifs() calls cifs_proc_init() near the beginning of
+the function, before INIT_LIST_HEAD, leading to a momentarily
+uninitialized, but exposed, procfs. If a userspace process reads this
+empty procfs, iterating over a zeroed list_head leads to a NULL
+pointer dereference and a kernel oops/panic.
 
-cifs_demultiplex_thread() then treats mids[i] == NULL as an
-oplock break and calls is_oplock_break(bufs[i], server) with
-bufs[i] still NULL. smb2_is_valid_oplock_break() reads
-hdr.Command at offset 12 and oopses.
+For example, if a delay is added between cifs_proc_init() and
+INIT_LIST_HEAD, and a userspace process is polling
+/proc/fs/cifs/DebugData, the following oops occurs:
 
-A large encrypted READ whose MessageId does not match is enough
-to panic cifsd.
+BUG: kernel NULL pointer dereference, address: 0000000000000608
+Oops: Oops: 0000 [#1] SMP PTI
+CPU: 0 UID: 0 PID: 3477 Comm: cat Not tainted
+7.3.0-02212-g4df4d2a577db-dirty #6 PREEMPT(lazy)
+RIP: 0010:cifs_debug_data_proc_show+0x103/0xd80 [cifs]
+Call Trace:
+<TASK>
+ ? seq_read_iter+0x86/0x400
+ ? seq_read_iter+0x86/0x400
+ seq_read_iter+0x183/0x400
+ proc_reg_read_iter+0x62/0x90
+ copy_splice_read+0x215/0x310
+ splice_file_to_pipe+0xec/0x1c0
+ do_splice+0x4b8/0x780
+ __se_sys_splice+0x18f/0x250
+ do_syscall_64+0x109/0x330
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+</TASK>
 
-    Oops: general protection fault, probably for non-canonical address
-    0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
-    KASAN: null-ptr-deref in range
-    [0x0000000000000008-0x000000000000000f]
-    CPU: 0 PID: 100 Comm: cifsd
-    RIP: smb2_is_valid_oplock_break+0xc8/0x2270 [cifs]
-    cifs_demultiplex_thread
-    Kernel panic - not syncing: Fatal exception
+Fix this by moving cifs_proc_init() down in init_cifs(), ensuring it runs
+only after all internal lists, locks, counters, and workqueues are fully
+ready, but before registering the filesystem. Update the error cleanup
+ladder and exit_cifs() to maintain proper LIFO order.
 
-Return -1 when inline decrypt finds no mid, and skip
-is_oplock_break() plus the unknown-frame dump when bufs[i]
-is NULL. receive_encrypted_standard() already assigns
-bufs[*num_mids].
-
-Fixes: c42a6abe3012 ("CIFS: Add capability to decrypt big read responses")
-Assisted-by: LLM
-Signed-off-by: Zikang Gao <2715417602@qq.com>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
 Cc: stable@vger.kernel.org
-[ sashal: Adjusted context to retain the existing one-argument mid_execute_callback() and release_mid() calls. ]
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Adjusted init_cifs() context because smb1_init_maperror() and smb2_init_maperror() are absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/connect.c | 4 +++-
- fs/smb/client/smb2ops.c | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ fs/smb/client/cifsfs.c | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index e908d522920c8..ca71026799e0c 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -1400,12 +1400,14 @@ cifs_demultiplex_thread(void *p)
- 					mid_execute_callback(mids[i]);
+diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+index 23ec5c3666d3d..3da0fc08ffd94 100644
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -1972,7 +1972,6 @@ static int __init
+ init_cifs(void)
+ {
+ 	int rc = 0;
+-	cifs_proc_init();
+ 	INIT_LIST_HEAD(&cifs_tcp_ses_list);
+ /*
+  *  Initialize Global counters
+@@ -2021,10 +2020,8 @@ init_cifs(void)
+ 	cifsiod_wq = alloc_workqueue("cifsiod",
+ 				     WQ_FREEZABLE | WQ_MEM_RECLAIM | WQ_PERCPU,
+ 				     0);
+-	if (!cifsiod_wq) {
+-		rc = -ENOMEM;
+-		goto out_clean_proc;
+-	}
++	if (!cifsiod_wq)
++		return -ENOMEM;
  
- 				release_mid(mids[i]);
--			} else if (server->ops->is_oplock_break &&
-+			} else if (bufs[i] && server->ops->is_oplock_break &&
- 				   server->ops->is_oplock_break(bufs[i],
- 								server)) {
- 				smb2_add_credits_from_hdr(bufs[i], server);
- 				cifs_dbg(FYI, "Received oplock break\n");
- 			} else {
-+				if (!bufs[i])
-+					continue;
- 				cifs_server_dbg(VFS, "No task to wake, unknown frame received! NumMids %d\n",
- 						atomic_read(&mid_count));
- 				cifs_dump_mem("Received Data is: ", bufs[i],
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 5ad3804826d9a..702e32e0e51ad 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -5357,6 +5357,7 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
- 	*mid = smb2_find_mid(server, buf);
- 	if (*mid == NULL) {
- 		cifs_dbg(FYI, "mid not found\n");
-+		rc = -1;
- 	} else {
- 		cifs_dbg(FYI, "mid found\n");
- 		(*mid)->decrypted = true;
+ 	/*
+ 	 * Consider in future setting limit!=0 maybe to min(num_of_cores - 1, 3)
+@@ -2115,19 +2112,22 @@ init_cifs(void)
+ 	if (rc)
+ 		goto out_cifs_swn_init;
+ 
++	cifs_proc_init();
++
+ 	rc = register_filesystem(&cifs_fs_type);
+ 	if (rc)
+-		goto out_init_cifs_idmap;
++		goto out_clean_proc;
+ 
+ 	rc = register_filesystem(&smb3_fs_type);
+ 	if (rc) {
+ 		unregister_filesystem(&cifs_fs_type);
+-		goto out_init_cifs_idmap;
++		goto out_clean_proc;
+ 	}
+ 
+ 	return 0;
+ 
+-out_init_cifs_idmap:
++out_clean_proc:
++	cifs_proc_clean();
+ 	exit_cifs_idmap();
+ out_cifs_swn_init:
+ #ifdef CONFIG_CIFS_SWN_UPCALL
+@@ -2163,8 +2163,6 @@ init_cifs(void)
+ 	destroy_workqueue(decrypt_wq);
+ out_destroy_cifsiod_wq:
+ 	destroy_workqueue(cifsiod_wq);
+-out_clean_proc:
+-	cifs_proc_clean();
+ 	return rc;
+ }
+ 
+@@ -2174,6 +2172,7 @@ exit_cifs(void)
+ 	cifs_dbg(NOISY, "exit_smb3\n");
+ 	unregister_filesystem(&cifs_fs_type);
+ 	unregister_filesystem(&smb3_fs_type);
++	cifs_proc_clean();
+ 	cifs_release_automount_timer();
+ 	exit_cifs_idmap();
+ #ifdef CONFIG_CIFS_SWN_UPCALL
+@@ -2196,7 +2195,6 @@ exit_cifs(void)
+ 	destroy_workqueue(serverclose_wq);
+ 	destroy_workqueue(cfid_put_wq);
+ 	destroy_workqueue(cifsiod_wq);
+-	cifs_proc_clean();
+ }
+ 
+ MODULE_AUTHOR("Steve French");
 -- 
 2.53.0
 
