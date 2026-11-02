@@ -1,88 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636988;
-	b=Be5ocTQvryO+G1UXbEUrzOVBarsmYKTILwNaBYhsGNH7DXrYBH27/JxSfAkEZ1/eiHAh
-	 v430TbNmEyJfIcV6ELHWbQGfpG3G4O63jWPNTUAVOa8VJKFx23WI7PqDPh48TnEgiXOr7
-	 8x/jRFHHORAYLRbO3i8VTKa+CF6TKa73UTHW9GLZ0YArPOJw/0F7BsNq9OmMKGi6a97vo
-	 I/kQALF+6FNFPWmhSJr4c4Seev37Y2m8Ic1zh9JjnfXUVDpWkBXcjFa8ld7D5S8CdN2i3
-	 I51EyG206zikiCg2VllwLKQOzVR2uM8MOput5wwPaXxz0KIqtIT9YzqaIfPYUVOIeRg==
+	t=1793637004;
+	b=PwGmHL5iib1P9vFoJRzW1a0u7SbW2MshtT4u6WJOIhcyNbV3KxZOMQFJqm9Mqu2N73D4
+	 IPgJc3H3v6o84UxQFzrcr+JKSa6UOiKqEnoRYX8KJ3lTgqfNbyGv3GANsYSms+ur3J/Wt
+	 JgpqAMrLdBdJAGpH0roUcfejqPX4tdwPHBGZtVV4UbWpFKZ8uYRef3O4Ot5vbaI4QY19v
+	 fde7Xj+ppuNBj7VuCFIKVqblpZQugnK+XN3w0qYWi7TsslLTmR6xDbE7isCbwJUEHz+yU
+	 w0yOKG4tDc7AdOQi1WB03mF8ajYZ2xl5VzV2tVC8VUFt1wbuSphpkFQEvfV8wmPdUKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636988;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=+edsoFX5PqL65dJFkIJ/uSxWsDbol4HH9AaqaASjRno=;
-	b=TfltQrONkkr3BNGGMRwjJBFx8qEyVqAMrkOwvwFx1/8XC4mHNM6/fCq1q18cwgGWs08b
-	 5x/eAyvyV8oCJOeRhqPpm53ilZklEyBmDb4YdipcHEiP9RxF7Y9QlOjbrY0kcRWFWpCiA
-	 hXsvEPEnCG25TvzjLnjey6RjQJjTHTnKTU8d7AUoA7o+TVnF2RbG/jiYNCXPDvcrnqcmF
-	 U+89f6N3D6JSNjZUGaIiyimORhx2MOw98x1KTyVOvMQLxNj5N5bQZckD5wesqy/LMes41
-	 1IlPRGA98IJLfCLceyI/6trXjHhmpFMO6stFb4q5vbGM7QkunUwzVFdxKp+kJ4IuBPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637004;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=h4kYxvFfAorg4Jasu3Jf/tQfK1V990SC2QcBhguelIE=;
+	b=djXBs6D1CeU8SWe1YYpnFCHmT+Tg3fYy4cWQIj09k4T/cQq6tdZsGABInSRlfJdJtSb4
+	 swkn6PgIzpkA57ecK14ji7h+98v5b0LJS9hwN0vB1kCYsggvOHsevV3kvs+1YqV9aSahU
+	 mMCSryd7t77QdJPTRXiI/D4uGhTUyBzYBpTV78L8zTGQg9fo/WszI5t2JHCCevk4VlfDq
+	 brluc0bn5mOi4la3aDHfFYEfYzHyfDHOcPWeDrxBs79xHowpmRUXgXb/1yKh4eAIMdg/k
+	 fi1bWzUrD5HJmVXQFEh8pQFYWnoeSWaWiDvAZ55e6kfqB7YdgvY7eVp0QgRwOTmbGew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8zUtrMl;
-	arc=none smtp.remote-ip=209.85.160.65
-Received: from mail-oa1-f65.google.com (mail-oa1-f65.google.com [209.85.160.65])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyjvVe50;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE82F606A92B
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:29:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE82F606A92B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873266072ECD;
+	Mon,  2 Nov 2026 16:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8zUtrMl
-Received: by mail-oa1-f65.google.com with SMTP id 586e51a60fabf-4a755bbe158so2271078fac.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:29:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793636986; x=1794241786; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+edsoFX5PqL65dJFkIJ/uSxWsDbol4HH9AaqaASjRno=;
-        b=v8zUtrMljNUtLz+CqlbFk+YIIGnWVX5EXDm4JNH+3L+QxCcY81FSHga8Vg1+k2gvVM
-         XTnwRYpIV52ruhyIQCtA3oLzXLdGlt9WSDkChr7d15A/upKwvTycraCmbc6fXXR7p37A
-         R9pe/oh8vfZzrjrumppNEsFY78SgXu4QK8jGdgvwRiYURyi0TH8MqJQrwBHE8gB/JAyb
-         DeXACr7q14BBGSJaSCFSEzEVGiO+X4slfS5DXGkFJYJFAi5uODp0MFwA0WogoLxile8C
-         h6JSdPdpBDNfbdGiVYXZWOcmWiGlfv7ZcvFE3+PrvB2BoEO0bbBwgKzsIyDFBbUvclau
-         roHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793636986; x=1794241786;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+edsoFX5PqL65dJFkIJ/uSxWsDbol4HH9AaqaASjRno=;
-        b=HI6JiuI5HOEsdz1mBayzygz4JqBp2g++CQjhVE2T+mbjDfUH+2ImRHcUzqbXoXsBJv
-         bRKWMD00mXDTIWKRBpVAvzoXAfuj/HuXLRSRGL+gq/yHeINTU7aadXJeMayDITaIhjj4
-         EZLX2jYBjLNT8pRVhM6BjRrX0ERvvEYKUpPPvpwWxAvzXxhrRxXZxLBFvIGnEgbbztjy
-         9PvJRFYyPNksPUVpnDQIgUXnmULBQfqa8rEKBz4ZjnlOCXWHgOH4u06ypTnHNIyvwp27
-         VA8yLtcGDNk7O0LvdAj7cZ2TQrSqq6P7vLN4cxD+9J9HhXy9l4BYqZ1tkXNcCjeVPgxx
-         dQHg==
-X-Forwarded-Encrypted: i=1; AKwUvByFCb9T2MNs3OoEKClenIKrodpFKxmI0uu5FPg1BbsVQyrr3RWCg/v6VYPgVu+Y0nGbBhATsk4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VON2DqKQNzBUky5zQ1T8K4y1V2phyZWFWvD3bQshvYBKAqeO4
-	FllSupZpLPiwA7ijoqYHiH21h9gg+hzoIn9VbSi4BdnNyg5y32xqMB0x
-X-Gm-Gg: AYBFou2omIxkJZRr8bRccNi/LsH1cGpQVsmKny7WdWLH6cfiSJYPwPQl/oGenvIsyJ/
-	WORac2uU0ZoM2oRQcdzWRsPqOBhRoeyphgxGhS5zKvJxq6pfgh6B7vYFK0MBqRc24JnmWT4T3cl
-	nu00yIBddVt6Zp8d3VfGskcr+1Bvfey7rDEUjUqKJzFAFhQFYndQ7sxBMRsUCC3MxXaE1o1KMWy
-	dBZ5u8FwKWBJi02Hc1nhP+BuwdNGsKshMxVHMAsc/9wbUdffkS1/eESEgbDxg6hagquOR1zuYpD
-	XWgDTjBL4G7M4L0yqTUbOPeOPSQPEGwgUSxgWhKxHppL8hPxv+eOE61yUbtKEV+uSoRhGIa8M1V
-	DFm+eysdFOhiOS16pRZSbTAwDe+Rf2DyfmuaanoBoiRq0c1pSXsI35suzgzMl2y/4OJLO+I0t/E
-	cFmM6228SPRBiGS2WWhCGOKB6NBIc/juUSMJKAfd2pTmiBJlF4ix1VowGpbWlcI2yihS48BlCOG
-	nrAvHCBpS+knoPkd5nySR6mXBA4bsFSv3XAabvZ4ReQVNC+8c/F6S1KJ++jI0DgPUAgREU1zRY7
-	7yRCRmqqu9rLaTjWfMV+RmTXP4Fn+WUTjbR1Apk6LGCtrhmh53sfODpSJw1xhDR4LNh+mQQyOQq
-	wNMdlNbiHKG28hw3LeIRAdvJB8GWtyU1VzM7MuHDc
-X-Received: by 2002:a05:6870:169a:b0:470:e97e:8f88 with SMTP id 586e51a60fabf-4a8e099f2c1mr6622916fac.24.1793636986507;
-        Mon, 02 Nov 2026 08:29:46 -0800 (PST)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a92167984dsm7251024fac.1.2026.11.02.08.29.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 08:29:46 -0800 (PST)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Mon, 02 Nov 2026 10:29:45 -0600
-Subject: [PATCH RESEND] usb: mtu3: don't run gadget completion callbacks
- with interrupts disabled
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyjvVe50
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7731F00A17;
+	Mon,  2 Nov 2026 16:30:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793637004;
+	bh=h4kYxvFfAorg4Jasu3Jf/tQfK1V990SC2QcBhguelIE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=HyjvVe50V1qRRZmBvd+x34by7kotPH65/V3/vkTrSkGNb7vwg03xJWIMSwGwDjshO
+	 XkIFoxI3BThH4CYRpKomAxdFGsaB7xGeVlDx3EcwhW34SL4J5H0Lr0OlIww0djo8lc
+	 DbDqwwA6qV0uF/9Q/BaBYBfAgq3uik8P5nivkWyVmfNbl9xRN6FUlf40fmPElkSgyY
+	 rJrsn5+zrz+tE18a+xZSRWH/TcHOzkiAwTfScmHVyeEr9+fOVvmoKD3HjAD/CySky/
+	 f//WYNPwA0Pfw16PASXN+g5e1ZQwTojMPqJ4qSrJ3dDfgAlQbuJ08xr/fvHg7JuSxc
+	 HNuxpVNRa7w4w==
+Subject: Re: [PATCH net v2 2/2] net/sched: sch_teql: keep skb->dev consistent
+ on the arp-queue path
+From: netdev-bot+sashiko@kernel.org
+To: jhs@mojatatu.com
+Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
+Date: Mon, 02 Nov 2026 16:30:03 +0000
+Message-ID: <179363700308.3131.11778179538290251434@kernel.org>
+In-Reply-To: <QDISC-6HS9.v2.r0.20261101105945-2@mojatatu.com>
+References: <QDISC-6HS9.v2.r0.20261101105945-2@mojatatu.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,116 +63,261 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-usb-mtu3-gadget-completion-callback-fix-v1-1-93c3a6dda31f@gmail.com>
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793636985; l=3859;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=ctXSxhL8cB96oM2LlBR4kk7hbE12PJXfiPWlYJLZFo0=;
- b=S9dPlOrGvAhCl5WVQYdsJfPpa5BoiRYpZW64kvQU0m9zClp2Ht7qcVyfHxTiljy/6ZkSqDgd9
- C0E4bVjxXGFAHGsSwhRgWmeoEriZ/yCXt7Q3nhq0zbb8GwVF2AQUwWm
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-mtu3_irq() is a threaded handler, so it runs in process context, but it
-takes mtu->lock with spin_lock_irqsave(). mtu3_req_complete() then drops
-the lock with a plain spin_unlock() around
-usb_gadget_giveback_request(), which leaves hardware interrupts disabled
-across the gadget function's completion callback.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-That breaks any callback that reaches netif_rx(). Since the threaded
-handler is in neither hardirq nor softirq context, netif_rx() takes its
-local_bh_disable()/local_bh_enable() path, and enabling softirqs with
-interrupts disabled is not allowed:
+Critical: 0 · High: 0 (1) · Medium: 2 · Low: 1
 
-  WARNING: kernel/softirq.c:430 at __local_bh_enable_ip+0x17c/0x188
-    __local_bh_enable_ip
-    netif_rx
-    rx_complete [u_ether]
-    usb_gadget_giveback_request
-    mtu3_req_complete
-    mtu3_qmu_isr
-    mtu3_irq
-    irq_thread_fn
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-With CONFIG_TRACE_IRQFLAGS, __local_bh_enable_ip() ends with an
-unconditional local_irq_enable(), so the plain spin_lock() re-taking
-mtu->lock afterwards runs with interrupts on and is recorded
-SOFTIRQ-ON-W, while mtu3_gadget_queue() takes the same lock from a
-softirq (ncm's tx hrtimer), and lockdep follows up with an inconsistent
-lock state report naming mtu->lock.
+- [Medium] The new gate in neigh_update_process_arp_queue()
+  (net/core/neighbour.c:1343-1344), `if (!n1->dev->header_ops) skb->dev…
+- [Medium] teql_master_xmit() now sets skb->dev = slave before
+  teql_resolve() (sch_teql.c:371).
+- [Low] The commit message's reproducer cannot show the use-after-free
+  the patch says it fixes.
 
-The locking was right when mtu3_irq() was a hardirq handler. It stopped
-being right when the handler became threaded without a primary handler;
-dwc3 hit the same thing the same way and fixed it in the controller
-driver, in commit 84918a89d6ef ("usb: dwc3: gadget: Let the interrupt
-handler disable bottom halves.").
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  teql_qdisc_init() (net/sched/sch_teql.c:194-253) never checks that the…
 
-mtu->lock is never taken in hardirq context: the only handler is
-threaded and has no primary handler, so disabling softirqs is enough.
-Take it with spin_lock_bh() in mtu3_irq(). The completion callback then
-runs with interrupts enabled and softirqs disabled, which is the context
-netif_rx() expects. The other sites keep spin_lock_irqsave(), which is
-strictly stronger and still correct; several of them really can be
-reached from softirq context.
-
-Both reports need lockdep to be seen, but the context violation is real:
-netif_rx() wants either hardirq/softirq context or interrupts enabled,
-and mtu3 gives it neither. The fallout on a PROVE_LOCKING kernel is not
-cosmetic either - copying a 21 MB file over USB ethernet hung and reset
-this board repeatedly before this change. Once interrupts have been
-left enabled while the thread holds mtu->lock, the tx hrtimer softirq on
-the same CPU spins on it forever, which is the "CPU0: lock(&mtu->lock);
-<Interrupt> lock(&mtu->lock);" scenario lockdep names. The same copy is
-reliable after it.
-
-Fixes: 13118959cb1a ("usb: mtu3: register mtu3_irq by threaded irq")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/usb/mtu3/mtu3_core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index a40bf5bad2d5..ed0e426645fd 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -790,10 +790,9 @@ static irqreturn_t mtu3_u2_common_isr(struct mtu3 *mtu)
- static irqreturn_t mtu3_irq(int irq, void *data)
- {
- 	struct mtu3 *mtu = (struct mtu3 *)data;
--	unsigned long flags;
- 	u32 level1;
- 
--	spin_lock_irqsave(&mtu->lock, flags);
-+	spin_lock_bh(&mtu->lock);
- 
- 	/* U3D_LV1ISR is RU */
- 	level1 = mtu3_readl(mtu->mac_base, U3D_LV1ISR);
-@@ -814,7 +813,7 @@ static irqreturn_t mtu3_irq(int irq, void *data)
- 	if (level1 & QMU_INTR)
- 		mtu3_qmu_isr(mtu);
- 
--	spin_unlock_irqrestore(&mtu->lock, flags);
-+	spin_unlock_bh(&mtu->lock);
- 
- 	return IRQ_HANDLED;
- }
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260913-usb-mtu3-gadget-completion-callback-fix-d334f7e99a17
-
-Best regards,
 --
-Ryan Brue <ryanbrue.dev@gmail.com>
--- 
-Ryan Brue <ryanbrue.dev@gmail.com>
 
+net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+
+This patch moves skb->dev = slave ahead of teql_resolve(). An skb parked
+on the slave's arp_queue then names the slave instead of the teql master.
+It also restores skb->dev = n1->dev in neigh_update_process_arp_queue()
+when the top-level neighbour's device has no header_ops, so the skb goes
+back through teql_master_xmit().
+
+Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
+Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel.org/
+Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel.org/
+
+> Conditions to recreate the bug:
+> CONFIG_NET_SCH_TEQL=y, CONFIG_VETH=y, run as root. Create a veth pair,
+> make one end a teql slave, give the master an address and a route, flush
+> the slave's neighbour entry and send one packet:
+
+[ ... ]
+
+> On the unfixed tree the skb is parked on v0's arp_queue while skb->dev
+> still names teql0, so the reinjection can reach a master that teql_exit()
+> has freed.
+
+[Severity: Low]
+Can this recipe reach the use-after-free it describes?
+
+With CONFIG_NET_SCH_TEQL=y, teql_exit() is __exit and never runs, so no
+master is ever freed:
+
+net/sched/sch_teql.c:teql_exit() {
+    ...
+		unregister_qdisc(&master->qops);
+		unregister_netdev(master->dev);
+		free_netdev(master->dev);
+    ...
+}
+
+teql_master_setup() installs no rtnl_link_ops, so "ip link del teql0"
+can't free the master either.
+
+Building sch_teql as a module doesn't change this. teql_master_setup()
+sets ops->owner = THIS_MODULE, and qdisc_lookup_ops() takes a module
+reference through bpf_try_module_get() for each slave qdisc. rmmod
+therefore fails while the slave qdisc on v0 exists.
+
+To reach a freed master you seem to need sch_teql as a module, then
+"tc qdisc del dev v0 root", then "rmmod sch_teql". All of this has to
+happen while the skb is still parked on v0's arp_queue. None of these
+steps are in the recipe. Could the recipe be updated to match?
+
+Also, the message only names the reinjection path. Commit dc4b95b8fee9
+showed this KASAN-confirmed path for a stale skb->dev:
+
+neigh_invalidate()->arp_error_report()->ipv4_link_failure()->__icmp_send()
+
+Here __icmp_send() reads skb_in->dev. This patch covers that path too,
+because the parked skb now names the slave. Would it be worth saying so
+in the message?
+
+> diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> index d6e9c7c59a892..541cf699abae4 100644
+> --- a/net/core/neighbour.c
+> +++ b/net/core/neighbour.c
+> @@ -1339,6 +1339,9 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
+>  			if (n2)
+>  				n1 = n2;
+>  		}
+> +		/* headerless outputs (teql, shaper) transmit on skb->dev */
+> +		if (!n1->dev->header_ops)
+> +			skb->dev = n1->dev;
+>  		READ_ONCE(n1->output)(n1, skb);
+
+[Severity: Medium]
+Is this check narrow enough to match only teql?
+
+n1 comes from dst_neigh_lookup_skb() on the skb's retained dst. It does
+not come from neigh, the neighbour the skb was parked on. Nothing checks
+that neigh->dev is a teql slave of n1->dev, so any headerless route
+device matches.
+
+Two producers park the skb on another device Y's neighbour while keeping
+the original route's dst:
+
+- nft "fwd ... neigh", via nft_fwd_neigh_eval(). nft_fwd_validate()
+  allows it at NF_NETDEV_EGRESS.
+- bpf_redirect_neigh() with an explicit nexthop.
+  __bpf_redirect_neigh_v4/v6 only replace the dst when nh == NULL.
+
+Suppose such a forward runs at the egress hook of a headerless device X
+and the neighbour on Y is unresolved:
+
+__neigh_event_send()
+  skb_dst_force(skb)                    /* dst->dev is still X */
+  queue on Y's arp_queue
+
+neigh_update_process_arp_queue()
+  n1 = dst_neigh_lookup_skb(dst, skb)   /* X's neighbour */
+  skb->dev = n1->dev                    /* X */
+  neigh_direct_output()->dev_queue_xmit(X)
+
+nf_skip_egress was reset after sch_handle_egress(), so nf_hook_egress()
+runs X's egress chain a second time.
+
+The forward then runs twice. nft_fwd_neigh_eval() decrements TTL again,
+so a TTL=2 packet that should leave Y with TTL 1 is dropped here on the
+second pass:
+
+		if (iph->ttl <= 1) {
+			verdict = NF_DROP;
+			goto out;
+		}
+
+Quota, limit and counter state are charged twice. The second pass may
+also decide differently, for example with numgen, an expired set element
+or a ruleset change. The packet then leaves through X, the route the
+forward was meant to bypass.
+
+Devices that match as X include:
+
+- point-to-point ipgre with a unicast remote, and collect_md gre
+  (ipgre_tunnel_init() leaves header_ops NULL)
+- ppp, eql and teql
+
+Tunnels using ip_tunnel_header_ops (wireguard, tun, ipip, sit, xfrmi and
+so on) don't match. Before this patch these skbs left Y without a link
+header. That was broken, but they never re-entered X.
+
+The commit message acknowledges this and leaves the producer fix to a
+separate change. This net/core change is going to stable under a
+sch_teql subject. Could the producer fix be included, or the gate
+narrowed, for example by requiring neigh->dev to be a teql slave of
+n1->dev?
+
+> diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+> index ed8faa848f184..4eac1f9c8ddf6 100644
+> --- a/net/sched/sch_teql.c
+> +++ b/net/sched/sch_teql.c
+> @@ -368,13 +368,13 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
+>  			continue;
+>  		}
+>  
+> +		skb->dev = slave;
+>  		switch (teql_resolve(skb, skb_res, slave, slave_txq, &hlen)) {
+
+[Severity: Medium]
+What happens to an skb parked here if the neighbour then fails?
+
+In case 1 of teql_resolve(), teql_master_xmit() returns before the
+skb->dev = dev restore at the bottom of the loop. The skb therefore sits
+on the slave's arp_queue with skb->dev = slave.
+
+Only neigh_update_process_arp_queue() was changed to put the master back.
+The other consumer of the queue passes the skb on unchanged:
+
+net/core/neighbour.c:neigh_invalidate() {
+    ...
+	while (neigh->nud_state == NUD_FAILED &&
+	       (skb = __skb_dequeue(&neigh->arp_queue)) != NULL) {
+		write_unlock(&neigh->lock);
+		neigh->ops->error_report(neigh, skb);
+    ...
+}
+
+For IPv6 the call chain is:
+
+ndisc_error_report()->dst_link_failure()->ip6_link_failure()->
+icmpv6_send()->icmp6_send()
+
+icmp6_send() takes its context from skb->dev:
+
+	net = dev_net_rcu(skb->dev);
+	...
+		iif = l3mdev_master_ifindex(skb->dev);
+
+It also uses ipv6_chk_addr(net, &hdr->daddr, skb->dev, 0), and
+icmp6_iif(skb) for link-local sources. That iif becomes flowi6_oif for
+the route lookup of the error.
+
+These values used to come from the teql master. Now they come from the
+slave, which changes the result in these setups:
+
+- teql0 in a VRF with the slave outside it: the ICMPv6 Destination
+  Unreachable is routed in the main table instead of the VRF table.
+- A link-local source on teql0: the oif becomes the slave.
+- A slave in another netns: the error is built in that netns.
+
+Can the local sender's error be dropped or misrouted in these setups?
+
+Would restoring skb->dev on this path as well avoid this? One option is
+skb_dst(skb)->dev, which dst_dev_put() keeps valid.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but should teql_qdisc_init()
+check that the slave and the master are in the same network namespace?
+
+The teql Qdisc_ops are on the global qdisc_base list, so
+qdisc_lookup_ops() finds "teql0" from any netns. rtnetlink_rcv_msg()
+only checks netlink_net_capable(skb, CAP_NET_ADMIN) against the caller's
+own netns. teql_qdisc_init() then checks only hard_header_len,
+m->dev == dev and the root parent:
+
+net/sched/sch_teql.c:teql_qdisc_init() {
+    ...
+	if (dev->hard_header_len > m->dev->hard_header_len)
+		return -EINVAL;
+
+	if (m->dev == dev)
+		return -ELOOP;
+    ...
+		m->dev->mtu = dev->mtu;
+		m->dev->flags = (m->dev->flags&~FMASK)|(dev->flags&FMASK);
+    ...
+}
+
+As a result, root inside an unprivileged user+net namespace can run
+"tc qdisc add dev <own veth> root teql0". That enslaves its own device
+to the init_net master. If it is the first slave, it also overwrites the
+master's mtu and flags.
+
+teql_master_xmit() then round-robins init_net traffic routed through
+teql0 onto that device. __teql_resolve() creates the neighbour there, so
+the namespace can read or drop that traffic and controls neighbour
+resolution for parked skbs. This needs sch_teql loaded or built in by
+the host. There is no MODULE_ALIAS for autoloading.
+
+With this patch, parked skbs also carry skb->dev = slave. ICMPv6 errors
+from neighbour failure that quote the init_net packet are therefore
+built in that namespace, through dev_net_rcu(skb->dev) in icmp6_send().
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v2.r0.20261101105945%40mojatatu.com
