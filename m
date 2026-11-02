@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793658907;
-	b=iK7/mPKLEc3yWZVfp5WlhcXze7vNW6+voAPC13pZpyVMxs7a1q+/uOnVPEfIlRKJTxN5
-	 ZUoGNlS7RjZBYhUcee9Da85sf0FvIxSw4eCoFQrMQsdP8+mqg3cAY72+2/1K5MLvvmrrV
-	 3mZ6ZJVAKxxahpNu8vA74/Jj15aA0z2lTEHiSbVtsRb6skGg64ASn9k2urP4Hn4VonzVt
-	 kieROLULVNjyEZ6QRZc0/kNLJ5LqzHuiFmRYtNWdEqqZOzOgdNqtM39Nt00CxDtaopqVu
-	 QQSSlpS3FgjxS6MVjk2oYB1lWKmz/FkfvQahuTpBZxZYYgi/wTsSWOMUj1Uuemj087Q==
+	t=1793659143;
+	b=Ngpmj/h3OW/ThNYNTYtIP0uvvPGPlTlyMVzlqFqFtUkcdYX3s+HGvosQ6OyzQU7Xle3C
+	 D4b4Do+J/QHOJcfC2pIN3T9lWZXI3BVQTlTCKi/RK/GUE2uYifZFPDMWL8Exsz8tIVd7c
+	 7/qVtlzNZOYLc3blmH7LzQdFZVJ4R1j1FAoIc2d/V2k+6pirb7v1YlRbOcG2SphaZXQrW
+	 mYZfabPiJ3pr4Kcnjl4OUL8CJelvOEGntbmyyAxDA6rztR9lv/qnvLt8zFRVdrEK2V9P/
+	 oI/LiaHQgznkkAcuIRDfVuJ+/PaYFbs3GRvW27H/th1Oz7KKUurBMgaUS91vRMNK2aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793658907;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=nySh5y0liynVsY0bHng3Wlzu90DnKeR+CEn9IJgSdwE=;
-	b=f0Hs9EjAYPFnrAACDCIfewDMxOBxODngahWUadtPOVBOzTyB3uXfPBKGSvlyLebn92Kb
-	 N8O/v/WD8NZV+/wQZ/SsBTurFLONHorjvNzrjQl3yh2YE0n0z2fE1G53olnPIF9gWr0iJ
-	 GnsHQvVmMe4Bcx0ljkHZv5Keh8P78UP6bDworETdiaI3pndfckyu/eJ17mUVFSgCFfZPl
-	 SGCzhzd0rc/4CPHdMDxMomYaMMIy85OiT3bjs1ntM7vIHnPRLgfDFtwaRtvT1JGtkZBiU
-	 +yu1QxBbkNJHBNWOTV4o7yDt3wACD3KprWSQqRxbgrIURGqdk77LBeOqCpPqQC4ygSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793659143;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=pEsErr8/B9QW6r/vBViHOeVO+a5kU1j9VPBmnw9SyxI=;
+	b=WjBOzed6u8BrURV2cKI+cz1oHBJye3jeDtnMitVT449M7E3Hjg9p3o3I9YeIrNIr8EHh
+	 wAvPw6q1ZmCg03VPaQAMobxlAQzhG/9vCh64RkueNjVzEYweREk4Bw+W1XmkpSAetGwQ0
+	 mCHTkWoyz2sNY6tn/P7s08izC7QoQMBbeBbx/mke5RzCDvXxQyXzuToJooceAnzMIjIob
+	 OdwicV1OQFknAvA26ajeOTRzEyLfxsaeghW3LI7PvUoUtgjGFgd6aZh1kt9IH6jVZ0auX
+	 eN6ngP8c6qJ4JBl1CJ5R9ooW8Fmp7nt6vckkik5ORGj9MCgkJOeSI/gnTPco7QYgSLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7lypcZr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B477C606D822;
-	Mon,  2 Nov 2026 22:35:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B477C606D822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=nySh5y0liynVsY0bHng3Wlzu90DnKeR+CEn9IJgSdwE=; b=onnHTcC35wt01xG4RX2AX4bQQC
-	56Az6rX3rN2FWWbLOZW58qtZRPZxmtopQI+lSPbUQud4ct7syXI1X4xZnmIPn0uIcIlFwd1JL/iTb
-	lButy6YaMp7TOzBy6HIDtIGxVIxE0qPy5H39La4m+vP83MqJasCtXb34rbYP4iBLt6rh0pirzoOmC
-	cDrNp+FD6mAjFyS8NT8iezeO1h0TXDNJIDq93JxvK6L+1qC/JbZPqoisNllG0u7frytwEa/dOlmN3
-	+6KtA5xcSYiEwAWovoabfAiXuJdyj8NiY6MxON0aU+ZM+dXhk74d6GK2rTZVkXq6+7TB6KOSmUiz/
-	qjohC9Bg==;
-Received: from [::1] (port=53530 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xO0cJ-00000009Lic-40Sh;
-	Mon, 02 Nov 2026 23:35:03 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDA4606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7lypcZr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B76D1F00A16;
+	Mon,  2 Nov 2026 22:39:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793659142;
+	bh=pEsErr8/B9QW6r/vBViHOeVO+a5kU1j9VPBmnw9SyxI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=g7lypcZrjodG9Gc8HmwP3RwXTk+3g9y444tsawaMYGr1vkNf1Ysd4oJPsAvIFzrex
+	 3zeYoOqWiSqMKVLB3wMsKzXKb728krPCtz0WfRWGxAIFSXL2bNCkWhC6ZoZ0r8Kf9c
+	 P0AP6Ccd59UCL0VaFDcL/6+y+6YjJzqDR7PQfTV/j5Em7r8P2rvK885xfQ5/DQz0VJ
+	 Np1HOp99L/AMmtDj8nQhv/sCMOu2BMp1iAvdnkKzW1OGsS4+XjvEWQpf5xTfiMg6sS
+	 v9Yzc4TJlr+gpw2RkViVxkfczA4BK3jXv7fmW2XRAbees9tmmDzgNZqcjOm0/QOUSp
+	 0SxE1ajORF82w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Johan Hovold <johan@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] media: usbtv: drop redundant device reference
+Date: Mon,  2 Nov 2026 17:38:59 -0500
+Message-ID: <20261102223800.2122371-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110227-ravine-cider-7c49@gregkh>
+References: <2026110227-ravine-cider-7c49@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,53 +59,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 02 Nov 2026 23:35:03 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
- Dwivedi <memxor@gmail.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] bpf: netns: require CAP_NET_ADMIN for link targets
-In-Reply-To: <DML2GFI6LWXU.3ODKDXNQDBYYA@gmail.com>
-References: <20261102202922.2515317-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <DML2GFI6LWXU.3ODKDXNQDBYYA@gmail.com>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <d984ed03fbd7b6c12b88f1a18d7762f6@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-On 2026-11-02 23:08, Alexei Starovoitov wrote:
-> On Mon, Nov 02, 2026 at 12:29 PM Jérémy Jean 
-> <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->> BPF tokens allow a process to load BPF programs using CAP_NET_ADMIN in
->> a userns, however, netns_bpf_link_create() does not check for
->> CAP_NET_ADMIN in the target netns. Consequently, a token can be used
->> to attach a BPF program to a netns it does not control.
-> 
-> That's not a gap. The prog FD and the netns FD are the permission.
-> 
-> pw-bot: cr
+From: Johan Hovold <johan@kernel.org>
 
-Thanks for the reply, yet I feel that I misunderstood something.
-At first, it seemed to me that there was a security boundary issue,
-but digging more with your feedback and Sashiko's one, I believe I was 
-wrong,
-that there is no issue and that this patch should instead simply be 
-dropped.
-Am I right? Or do you believe that there are still things to fix?
+[ Upstream commit dbc6798b80481a20f9aff671bc4d529eae63c9e8 ]
 
-Regards,
-Jérémy
+Driver core holds a reference to the USB interface and its parent USB
+device while the interface is bound to a driver and there is no need to
+take additional references unless the structures are needed after
+disconnect.
+
+Drop the redundant device reference to reduce cargo culting, make it
+easier to spot drivers where an extra reference is needed, and reduce
+the risk of memory leaks when drivers fail to release it.
+
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Stable-dep-of: cb705f75d03e ("media: usbtv: fix null-pointer dereference on disconnect")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/usb/usbtv/usbtv-core.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
+index 1f7620cd2996d..4925113af9603 100644
+--- a/drivers/media/usb/usbtv/usbtv-core.c
++++ b/drivers/media/usb/usbtv/usbtv-core.c
+@@ -91,7 +91,7 @@ static int usbtv_probe(struct usb_interface *intf,
+ 	if (usbtv == NULL)
+ 		return -ENOMEM;
+ 	usbtv->dev = dev;
+-	usbtv->udev = usb_get_dev(interface_to_usbdev(intf));
++	usbtv->udev = interface_to_usbdev(intf);
+ 
+ 	usbtv->iso_size = size;
+ 
+@@ -119,7 +119,6 @@ static int usbtv_probe(struct usb_interface *intf,
+ 
+ usbtv_video_fail:
+ 	usb_set_intfdata(intf, NULL);
+-	usb_put_dev(usbtv->udev);
+ 	kfree(usbtv);
+ 
+ 	return ret;
+@@ -137,7 +136,6 @@ static void usbtv_disconnect(struct usb_interface *intf)
+ 	usbtv_audio_free(usbtv);
+ 	usbtv_video_free(usbtv);
+ 
+-	usb_put_dev(usbtv->udev);
+ 	usbtv->udev = NULL;
+ 
+ 	/* the usbtv structure will be deallocated when v4l2 will be
+-- 
+2.53.0
+
