@@ -1,76 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.177.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614903;
-	b=zGfwzCLX5r+L0hrZTnKzdohRJrKbXh2vSwGG8zlJ4JBxR/QEwh0Da/OQAlQWjlG2/cag
-	 o13MrL9lBYEKBRbEUdgOAOL5RCZYugG+Hs1juRVtVG1nFULydd/KuObxKOdrCqVGQXEqL
-	 RrOd/PZpcPAVVTvzZHB80gHcFLJDaTNJ6nC4az76oZSXtEnEZN44Hj6VsQXQIbptGNjis
-	 i8qZ2cvv96Ox/38GqSIkjfBJ5+fG96IIDC7PUYf9W86MkSuoi2tqfw5BD0jxWRaPa2vVR
-	 5H1OFMQj64o93JBX1pjQVtP+BXSkL6KthZgfKaOXFT0TjK/S9XSojifi5f7JnYJeVZA==
+	t=1793614904;
+	b=TF/NUlFHxYq7PEVj8wWmm9M9LGd2CGzoj2hU7QL+4MifPDej2tPeyE6ZhUez9zEsLAE1
+	 8R+ii411EMbK+KL8k6/FAE/KicKngOND68W+VITCeNpeokHOBiUdH1p6IMoaSfaHTmg6+
+	 qccCrrsbSpjdFpKGC24eOlfbyerZIHMXaE191fZ5+F2jBegXqGYVpz/HW34w3R8DLxAuF
+	 mCGo3zHAhF16KIeLnBCVxC60Ux/eEcTfMpdp9pR5ikk6UmpxVREYRbI3FOUhFuVa/adyG
+	 8aeZKAr3w4fwX63U0hKfd/l1wY/gTY/D637jllIZ9RlexJKp8b8yh+f3D8uvXf3BibQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614903;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614904;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
-	bh=OyuIekzX2H3dt85C40PmF5/9+dw7ODKhM+xJmU+z0gY=;
-	b=MGD2Emjc10lN1vmVDV2nawTHy1glt06f65Rhk76OHo7s7xyBayFhq0ghtPxZLh2x+b1f
-	 UWLj9YFJLDy9WvFGyprFUthCjxkG98R398IclgqYacr/dZK9ncvy6bm2Dv6hK8HGp638u
-	 l7T7gmgHXcbmE0kCqsmnqluyqLfAaaRJIMVhzjy0a6XjClVh5CpbAOBWt7N7mNjklpgJ5
-	 v5HzofaY9AQy/aILvGiu96maP60L2nIQjf7J4RuF9wQvuXRGhv2zRIagkTtRzPNfvnV63
-	 +Kzq+tSGYYUxurN/PcRDdCit0CJmwTK0jReKYe3TBBDRTLHqHihN+ayT3KHoGSy3T9g==
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc;
+	bh=QaxbI6atKW20N91KEv+tejJPUoSeBlS0MmVcpfGagZ8=;
+	b=NBlz/zEpaDHNmIbCYbmJqKwx6dycPTXOzjLASAJKxeeG1+52G0IiY72qxfgmdoZY5fwm
+	 y/BrurE2GSfO6k2bZqI2v49j+vq76nWqzUr/bxWPnqyXsD9MFR5VnyKedVwsKpeAKpHXE
+	 uw2x8+FH6AEJrsrDM6Xw60jQVcG3kHRqwvpj7bd8ipl95PcV3lCLvP8qHXq2/bUFxq7Ml
+	 OkpJJ7BjwWGP1mmOKipLvyojmC8iiY0uJAagVw1uKRx4UsTf3qZ/e5GYa7vu0FnGzeGh8
+	 h4V/3TolpTq1qYLrcKBc6tNUDS8yZkGGsMzPDngRoXflw3YPLTTXzOqtaWdkbS3siIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oracle.com;
 	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=IsRDVnjb;
-	arc=none smtp.remote-ip=205.220.177.32
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=WnqR3qEm;
+	arc=none smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792C8606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 792C8606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD65606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAD65606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=IsRDVnjb
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20e3Ru887237;
-	Mon, 2 Nov 2026 10:21:23 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=WnqR3qEm
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A22U2Ub3502493;
+	Mon, 2 Nov 2026 10:21:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=OyuIe
-	kzX2H3dt85C40PmF5/9+dw7ODKhM+xJmU+z0gY=; b=IsRDVnjb6tGTIsTjPWKMD
-	PzvyQ44+fH9tqUjT5ngumvfIZ3AYQN6gEvGux1wkaGEypZtnml4967V9TRHS8TFO
-	uMZaEbsRnAWIW4um12cZrEAoYExOAB2j6jeIDT2KZslOTaMMFK9a/CzkpMkZXxRB
-	kr1Qkn7LqHSApqLikeuWAl36Y9JuXHHovtxMjgvZIqKmsALIwXa4j/L7cqPYkHUF
-	9+7AsTVMpIP+jNb/6Di3vW1OlI1klYwKKYIEgdNcSpBrXHEkT8fIK88EJQ+QsmtN
-	C+sr13Traq1xOwB2wM690BxGNyJ9Ppiog/phPnsTzMX8ExIBAyEZgNCCkiAcZ38a
+	:mime-version:references:subject:to; s=corp-2025-04-25; bh=QaxbI
+	6atKW20N91KEv+tejJPUoSeBlS0MmVcpfGagZ8=; b=WnqR3qEmq37Y5/867BeiY
+	pLPC/3xkk5BF5VatvN5g0UlDH0B3ppjWXpFWdnFLrrhZrh+BXrJCiwtM6RiMLvJS
+	ULQucHd9MgGe1WfehsF5tHsL8MFZa7Wnza43zQ/e8DHb/u1TNKb+Z61+69IuBSjg
+	gFVCSufNr9NESBVhjCEr06AqUAT/y/Dx7XmMF1b1LkWeBlj2clxlSSXtILx3+9nk
+	D7acdG77uvhnHDyENW+YBG3eyZ0+9uv4oPtg6Rk5WGZoDg2jATrYg7XT5ybwg/wk
+	QGkPpSZ/5AblVeW7YzoFqSak+BkJwoIqe1cw4Z36V2P6TNU0MMYYHp2wB2HdNovg
 	Q==
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn7431kxk-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn6x01m7e-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 02 Nov 2026 10:21:22 +0000 (GMT)
+	Mon, 02 Nov 2026 10:21:25 +0000 (GMT)
 Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29D2oG1424341;
-	Mon, 2 Nov 2026 10:21:22 GMT
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29Cw2K1424216;
+	Mon, 2 Nov 2026 10:21:24 GMT
 Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4hpqhua27a-8;
-	Mon, 02 Nov 2026 10:21:21 +0000 (GMT)
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4hpqhua27a-9;
+	Mon, 02 Nov 2026 10:21:23 +0000 (GMT)
 From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 To: stable@vger.kernel.org
-Cc: Yucheng Lu <kanolyc@gmail.com>, Yifan Wu <yifanwucs@gmail.com>,
-        Juefei Pu <tomapufckgml@gmail.com>, Yuan Tan <tanyuan98@outlook.com>,
-        Xin Liu <bird@lzu.edu.cn>, Yuhang Zheng <z1652074432@gmail.com>,
-        Stephen Hemminger <stephen@networkplumber.org>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Wengang Wang <wen.gang.wang@oracle.com>,
+Cc: Matt Bobrowski <mattbobrowski@google.com>,
+        Daniel Borkmann <daniel@iogearbox.net>,
+        Kuniyuki Iwashima <kuniyu@google.com>,
+        Imran Khan <imran.f.khan@oracle.com>,
         Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: [PATCH 5.10.y 7/9] net/sched: sch_netem: fix out-of-bounds access in packet corruption
-Date: Mon,  2 Nov 2026 02:21:02 -0800
-Message-ID: <20261102102104.1558500-8-harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 5.10.y 8/9] bpf: Fix UAF in sock clone early bailouts
+Date: Mon,  2 Nov 2026 02:21:03 -0800
+Message-ID: <20261102102104.1558500-9-harshit.m.mogalapalli@oracle.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261102102104.1558500-1-harshit.m.mogalapalli@oracle.com>
 References: <20261102102104.1558500-1-harshit.m.mogalapalli@oracle.com>
@@ -92,81 +90,108 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 bulkscore=0
  mlxlogscore=999 spamscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.22.0-2610300000 definitions=main-2611020040
-X-Authority-Analysis: v=2.4 cv=OpXaWC/t c=1 sm=1 tr=0 ts=6ae86422 b=1 cx=c_pps
+X-Proofpoint-GUID: 0siPBEXDZpjDbwao14Cms2wS-hqKUiLW
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX10SvPKRBQ2+N
+ oG7yPOyQXhYmCgs5L+z1TzWRbPA1TtzyaoDmPjVNaujhJQtBZRItEfZ4icoHXYlOsQ59pCBRbFx
+ tqHn94ee8k7ZuNkhr48YaPY0xSoIy4mQIj6tgB56xLy+8d9vFMFj
+X-Proofpoint-ORIG-GUID: 0siPBEXDZpjDbwao14Cms2wS-hqKUiLW
+X-Authority-Analysis: v=2.4 cv=J6g/fwnS c=1 sm=1 tr=0 ts=6ae86425 b=1 cx=c_pps
  a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=o5oIOnhZENCTenyL_yNV:22 a=bC-a23v3AAAA:8 a=pGLkceISAAAA:8 a=UqCG9HQmAAAA:8
- a=jZVsG21pAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8 a=9i_USOwr8XsMwLcr2esA:9
- a=FO4_E8m0qiDe52t0p3_H:22 a=3Sh2lD0sZASs_lUdrUhf:22 a=5yU3S35YU4bGjq-dph-N:22
- a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13537
-X-Proofpoint-GUID: dcIqJqpjW_wuz0de0O2mLCed8Pt_PGAe
-X-Proofpoint-ORIG-GUID: dcIqJqpjW_wuz0de0O2mLCed8Pt_PGAe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX7B8QsUP12vk6
- nciuUNcod7r0OjQZ9XhG8CyUY8XfRl81veVstRcp+AHrlHcc8WM4b+vFNmM2/eyl0Y/pygD/jf1
- bpUa+WKRL3j9nxW8IoWVABLwtX7mX1YlvxMdlgPVTQRCh5b4m6IX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX9uHOXDrO9yMq
- yo+chgMJbHaf/eu73OJW40fVLtrrk1PYqIUNIaLoiC1cYNyjdZ5EfEjTxH3G79/kKBocrnCnYae
- vlw1BC3eVhzolcBpVNl6F8H9jqpKR6lnfoOXTbeK6LdwU3r0FQFCI/+L6RE9y/YbAphRfnZpDBA
- HCIrKCgbZKCgSZog1rbv2sDGXqJE7DtxA/IGgJ05zT5Vp50d2a7vkPjoZu49GvtvJAkxaD2EQfL
- lpW7dmCmuqqIeqQy/TYb7xastL81jckxReLnz/J+mmIm71lUEUCzjX2JaeugUsrjUsm3DPC7AF3
- vJYIxOKF+YefW3NL1+s6ieX7DnOws4yxCh7u/rZszn5+SF5EvrnwI3GVusW/uOO+bQ9jhoMQzrZ
- SCiga2dF/wvFgYzSiMqF7LfdkufJO1Qnm2p9GEadnfktW7/sJ6TuFsT7F7VeOabbrPkB7+quNuE
- qvNyFZk8KRqYQ8/9zNECGvb5WOv5FymtRemVD+W4=
+ a=RD47p0oAkeU5bO7t-o6f:22 a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8 a=hWMQpYRtAAAA:8
+ a=yPCof4ZbAAAA:8 a=70zJCswRkpu8aivx3D4A:9 a=KCsI-UfzjElwHeZNREa_:22
+ a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13537
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX2o8FlZfs2/rr
+ xkXAPhrfBSIXSMq3wk8vKfV9UioCMjhMhoLXf4efAZm+RWkqRBZFg+K1/5ZvgMjvSYDWzM+Rz+u
+ J6nOkUuMuFl7A9xi4kdm1huPqbewagG8E1ksiuepim2kR1fuuU2Fby6bEyxyfBSuMNe5Ne6ZU2+
+ w/uiWEYanHGnIHDrB20hL058lksqkuGR7omupIgmkhg0n4GFtPi91UewMz6C4V/j7pMTu0e6wm4
+ ZQsRHrxw6s6aaYeEfZRjJjzvhdDcXvpoiEulBaRW1dLdDCLjCjYcoyB3C8T+X/JAoOQTKTmXc7C
+ Ft0B0UtmMn05TPmbrIuSDkuvPja7CzgAyFer0vjKtGnIGJoTvvwdmb5qG6Gz5tlIRj/kZsdHzz0
+ zd7LkJqGOsIEtCKhAFkvyX3A7tTsK9preNcNA1GpWmbMZ/pgAa7+v75inye/ci2vqalJ4jwLnBQ
+ fWccPA71AZl+pCwFrZRA9PigoQ6sRQRgPPvBzQDM=
 
-From: Yucheng Lu <kanolyc@gmail.com>
+From: Matt Bobrowski <mattbobrowski@google.com>
 
-[ Upstream commit  d64cb81dcbd54927515a7f65e5e24affdc73c14b ]
+[ Upstream commit 7cbd0c4cebe4c9f678d15e6b9ba975e1155a107f ]
 
-In netem_enqueue(), the packet corruption logic uses
-get_random_u32_below(skb_headlen(skb)) to select an index for
-modifying skb->data. When an AF_PACKET TX_RING sends fully non-linear
-packets over an IPIP tunnel, skb_headlen(skb) evaluates to 0.
+Similar to recent commit 9b51a6155d14 ("bpf,fork: wipe ->bpf_storage
+before bailouts that access it"), sk_clone() performs an initial
+shallow copy of the socket field ->sk_bpf_storage via sock_copy()
+for the cloned socket newsk.
 
-Passing 0 to get_random_u32_below() takes the variable-ceil slow path
-which returns an unconstrained 32-bit random integer. Using this
-unconstrained value as an offset into skb->data results in an
-out-of-bounds memory access.
+If sk_clone() bails out early (e.g. if sk_filter_charge() fails) prior
+to calling bpf_sk_storage_clone(), newsk->sk_bpf_storage still points
+to the parent socket's BPF local storage. When newsk is subsequently
+freed via sk_free(), the deallocation path (__sk_destruct() ->
+bpf_sk_storage_free()) destroys the parent socket's BPF local storage,
+leading to a use-after-free (UAF) on the parent socket.
 
-Fix this by verifying skb_headlen(skb) is non-zero before attempting
-to corrupt the linear data area. Fully non-linear packets will silently
-bypass the corruption logic.
+Fix this by resetting newsk->sk_bpf_storage to NULL immediately after
+sock_copy() in sk_clone(), and remove the now redundant initialization
+from bpf_sk_storage_clone().
 
-Fixes: c865e5d99e25 ("[PKT_SCHED] netem: packet corruption option")
-Reported-by: Yifan Wu <yifanwucs@gmail.com>
-Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-Signed-off-by: Yuan Tan <tanyuan98@outlook.com>
-Signed-off-by: Xin Liu <bird@lzu.edu.cn>
-Signed-off-by: Yuhang Zheng <z1652074432@gmail.com>
-Signed-off-by: Yucheng Lu <kanolyc@gmail.com>
-Reviewed-by: Stephen Hemminger <stephen@networkplumber.org>
-Link: https://patch.msgid.link/45435c0935df877853a81e6d06205ac738ec65fa.1774941614.git.kanolyc@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-(cherry picked from commit d64cb81dcbd54927515a7f65e5e24affdc73c14b)
+Fixes: 6ac99e8f23d4 ("bpf: Introduce bpf sk local storage")
+Fixes: f12dd75959b0 ("bpf: net: Set sk_bpf_storage back to NULL for cloned sk")
+Signed-off-by: Matt Bobrowski <mattbobrowski@google.com>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Acked-by: Daniel Borkmann <daniel@iogearbox.net>
+Link: https://lore.kernel.org/bpf/20260709025316.999913-1-mattbobrowski@google.com
 
-Conflicts:
-	net/sched/sch_netem.c
-Signed-off-by: Wengang Wang <wen.gang.wang@oracle.com>
+[ Imran: Backport to linux-5.10.y, linux-5.15.y, linux-6.1.y,
+  linux-6.6.y and linux-6.12.y. The same patch applies to all five
+  branches. Conflict and context differences:
+
+  - net/core/bpf_sk_storage.c: upstream commit 0db4941d9dae ("bpf: Use
+    rcu_read_lock_dont_migrate in bpf_sk_storage.c"), got merged in
+    v6.19-rc1, and is not present in these branches. So the line following
+    RCU_INIT_POINTER() in bpf_sk_storage_clone() still uses the old RCU
+    api (rcu_read_lock()).
+
+  - net/core/sock.c: upstream commit 151b98d10ef7 ("net: Add
+    sk_clone()."), merged in v6.19-rc1, moved the body of
+    sk_clone_lock() into the new sk_clone(). That commit is not present
+    in these branches, and the code relevant to this backport is still
+    in sk_clone_lock().
+
+  In all five branches, sk_clone_lock() is the only caller of
+  bpf_sk_storage_clone(), so taking the NULL initialisation out of that
+  function is safe. ]
+
+Signed-off-by: Imran Khan <imran.f.khan@oracle.com>
 Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- net/sched/sch_netem.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ net/core/bpf_sk_storage.c | 2 --
+ net/core/sock.c           | 3 +++
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
-index 3e3bced82c56..6c206c97759a 100644
---- a/net/sched/sch_netem.c
-+++ b/net/sched/sch_netem.c
-@@ -508,8 +508,9 @@ static int netem_enqueue(struct sk_buff *skb, struct Qdisc *sch,
- 			goto finish_segs;
- 		}
+diff --git a/net/core/bpf_sk_storage.c b/net/core/bpf_sk_storage.c
+index a811fe0f0f6f..d651b3e87875 100644
+--- a/net/core/bpf_sk_storage.c
++++ b/net/core/bpf_sk_storage.c
+@@ -190,8 +190,6 @@ int bpf_sk_storage_clone(const struct sock *sk, struct sock *newsk)
+ 	struct bpf_local_storage_elem *selem;
+ 	int ret = 0;
  
--		skb->data[prandom_u32() % skb_headlen(skb)] ^=
--			1<<(prandom_u32() % 8);
-+		if (skb_headlen(skb))
-+			skb->data[prandom_u32() % skb_headlen(skb)] ^=
-+				1 << (prandom_u32() % 8);
- 	}
+-	RCU_INIT_POINTER(newsk->sk_bpf_storage, NULL);
+-
+ 	rcu_read_lock();
+ 	sk_storage = rcu_dereference(sk->sk_bpf_storage);
  
- 	if (unlikely(sch->q.qlen >= sch->limit)) {
+diff --git a/net/core/sock.c b/net/core/sock.c
+index 07a90a08a4ed..7d645d85da9f 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -1914,6 +1914,9 @@ struct sock *sk_clone_lock(const struct sock *sk, const gfp_t priority)
+ 	sock_copy(newsk, sk);
+ 
+ 	newsk->sk_prot_creator = prot;
++#ifdef CONFIG_BPF_SYSCALL
++	RCU_INIT_POINTER(newsk->sk_bpf_storage, NULL);
++#endif
+ 
+ 	/* SANITY */
+ 	if (likely(newsk->sk_net_refcnt)) {
 -- 
 2.55.0
 
