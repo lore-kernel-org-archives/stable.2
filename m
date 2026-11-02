@@ -1,72 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608177;
-	b=4LDglghpCbcohHmecxWRK7hosNmMH7Y8SmGd630HYBbPMg3RPYG/z/LWJv3En9RkkcbI
-	 g6QobeJ9K/Daf7qN4LiCT8EVPNujYELRjtGiv8fNljNXda2XwWCg7XPBQZFqXRSDKtMFh
-	 JvUEWXOBMBr7Odj+4LutpnTS0iBQ/cVUckc/uIyAulLwp+h0RIUp+MYPolW4/1+YXTT35
-	 v3G4IBZbsuPOd4gHOdTBYsxhz/AftIbxLB88F4KdoKHvRRaj9djxjNYUG16yQLFOYFmqF
-	 7Jy0BAU+hVDgHYCsf3Q/pO8RqhcbhoYWubBwgdh3yY8RLHTCe+kKNR37qAo2ZhZ4hAQ==
+	t=1793608206;
+	b=iGDkjnwjrib//dlUDOyYczkNt8bkvpUzRqQyYpa+sYbipvlrC2VqgI4qjnu0Xsk2gm6X
+	 bqQfTtWMK7GkHmDIq+D8otvYfhNfCBlftSzUz5ZIP3FX1MoCBQKvo+Ehd8IA+fH4sphxd
+	 3HS6hO5xfQ7Nkm+HN76lsJuSx8cgXO5b2Gq+iirUQMBExIGO18A8wqmRzHNGHQvZxCqzy
+	 pVTHsY43ApiEHrsPa9sjwsc1ymWyUa/EP8Fqjgkj45iAAmw3NrD9Ee/otuo2iC4Lz07cN
+	 wdyu59E8y64i6tDkSOJ2EzKFWeHxJUBYGpMQiha0f11blF1SRRiEhsPKrV55aPO3iQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608177;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=euznYBocIb8kfNgcKlt2GHcUVDSBs2gzY/11E05nVeE=;
-	b=Jctip3fHHRc/S1k0r2ShGDjjItDiOu0LB0iCDiiTc0B/oHF1IqoHmidX7RTjHtamXtYr
-	 sEcuqnqVwY6rCTv1AYo41RvmTbVdNVict/dtK3laPE2HQjbKC/XeEMtFBfEfTzssUyygo
-	 VUlQCXvbsy4NUc5xAWo+wqP3hCW4mfgYaqCENeM39LPgwyWs96k0RDa77ZkxiTwNZZ18B
-	 TK26PQIBzlEhFeTMNjZ/QBFQMwyNdsY5WBzR/2TJPLfcqpA3fZ08IF7M1J+OvKQzQJ3Lj
-	 esZ1vultEmIN6knteSzw8v9GIyoZuS/OQTzaLP01AHZjZvATOL2JBCO+n+GYjZ+WhWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608206;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=S4bdUGJ6Wq8ONmznrpPJdLbwjjINsUOdaR8Ihv8Nrkk=;
+	b=U1hGMTwUAJmN/xQdoIsN+LTMNTmVXKVLcsJd7x+4MwYsyUr/zK5SoNcjawvzsnhftShb
+	 bq75KDHmeDwrz+wlZqoyyCe3MObNM/0ufgCAoYdKaKttnKQvjv5SbCRuAlSJr62D3yvqu
+	 0y4923DoCgKDShC4LJLDeXX81Y/rim9e/oJM3zYsG8Z1rAnvVHl++jEhygXF76zhecxE1
+	 tEVn9AVtPD0jgSOvxmO9T+frDO9cfvJH9eC07tSRFppU0iRU+ygUrH4/CFz4a4Aml2ZsF
+	 WqskPpZpR2WYId2jjMnDGebLsd2RlKAcLpmvO9yYvo7VWP39aGl6yHZRuBXuKKTPhaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW;
-	arc=none smtp.remote-ip=95.215.58.5
-Received: from mta1.migadu.com (out-5.mta1.migadu.com [95.215.58.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4N+X2HQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C088B606A32C
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 08:29:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C088B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A74606A32F;
+	Mon,  2 Nov 2026 08:30:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=y8BgwjagvHGf78IlM6ng3nm9vDTk3b3hu1EyL1SF7ec=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793608174; v=1; x=1794212974;
- b=F+5WWgPWHTgZkLOdWp34fjp8vKNTzLwWGqZ/4900AI/b1FTmGpR1sFpQt8SzIiPVy20OvRLv
- h7fwwNHkpAZeLqoAxkwBPghJibjqFi5yr5vvVF8G2NWNsTRh8Fx/D44CNgsqKctPTHRQgrIphKQ
- IaHcegGiTwV+63OFDSO3Vjy0=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eddade33f188acbf;
-	Mon, 02 Nov 2026 08:29:34 +0000
-X-Mizu-Trace-ID: eddade33f188acbf
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Eric Auger <eauger@redhat.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Will Deacon <will@kernel.org>,
-	Sascha Bischoff <sascha.bischoff@arm.com>,
-	Sebastian Ene <sebastianene@google.com>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock
-Date: Mon,  2 Nov 2026 08:29:33 +0000
-Message-ID: <20261102082933.2673799-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4N+X2HQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FB91F000C1;
+	Mon,  2 Nov 2026 08:30:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793608205;
+	bh=S4bdUGJ6Wq8ONmznrpPJdLbwjjINsUOdaR8Ihv8Nrkk=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=f4N+X2HQ3smXcK8NPrzjcX1p5/ap3eN0zPjgQA96kZqBVk2V9aCcl84lbHhFe1KnH
+	 vALnCKpvbI73XU0Zg+5iqW8HjU6xcRyI3BykumxU+wmpCaLx/xwtWwLKBUXqXYNYuM
+	 7liUUIG8va8hgtn7kRuZ0+t36iCsuArz9SZt2C5iip0EFJE9FdaPtJR52m4r0JDH6C
+	 R8wvbBxQxhX1sLvoiS2d815fbrZg48FqgIH1Gg8ZSRWKy1+7+LjIIIjV9kW416jJ1C
+	 XMITvdqgwe/6JxYIx6G10M5YDF6m8d8uZq8d8k3KlVxNdHowIpPL7nG494EfeB8jxj
+	 ZGskUNJcffUcg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA296380821F;
+	Mon,  2 Nov 2026 08:30:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,78 +54,41 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2] net: atl1c: drop oversized RX frames instead of
+ panicking
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179360820455.3860315.16760613731907588447.git-patchwork-notify@kernel.org>
+Date: Mon, 02 Nov 2026 08:30:04 +0000
+References: <20261027115151.17092-1-federico@rimpianto.com>
+In-Reply-To: <20261027115151.17092-1-federico@rimpianto.com>
+To: Federico Musto <federico@rimpianto.com>
+Cc: chris.snook@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-A GITS_CTLR write that disables the ITS clears its->enabled and
-invalidates the translation cache under cmd_lock, while an MSI
-injection tests the enable bit and populates the cache under its_lock.
-An injection that passed the test before the disable can cache its
-translation after the invalidation, and the cached path then injects
-the LPI from the disabled ITS on every later MSI for that event.
+Hello:
 
-Take its_lock around the store and the invalidation, so that it
-serializes the store against the test. Nest it under cmd_lock, as the
-command handlers do.
+This patch was applied to netdev/net.git (main)
+by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
 
-Fixes: 86a7dae884f38 ("KVM: arm/arm64: vgic-its: Check the LPI translation cache on MSI injection")
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Link: https://lore.kernel.org/ah6Lsi4MfKUU6wBR@v4bel/
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
+On Tue, 27 Oct 2026 12:51:51 +0100 you wrote:
+> atl1c sizes its receive buffers from the netdev MTU plus a fixed set of L2
+> overheads, which comes to 1522 bytes at the default MTU.  A link partner
+> that sends a longer frame - in practice a MikroTik CCR2004-1G-2XS-PCIe,
+> whose RouterOS side defaults to l2mtu 1600 while the host stays at MTU 1500
+> - makes the length reported by the RX return descriptor exceed what the
+> hardware wrote, and skb_put() then either includes bytes that were never
+> received or trips skb_over_panic and takes the host down.
+> 
+> [...]
 
-Notes:
-    Changes since v1 [1]:
-      - Reworded the commit message.
-      - Rebased on 7.4-rc1.
-    
-    Picking up the fix Marc was worried had stalled [2].
-    
-    The GICR_CTLR.EnableLPIs path has the same window and is left as
-    is. vgic_its_invalidate_all_caches() can't take kvm->lock there (it
-    runs with vcpu->mutex held) or config_lock (the userspace GICR_CTLR
-    route already holds it). Instead, the vgic_target_oracle() check in
-    my LPIs-disabled series [3] keeps an LPI off a redistributor with
-    EnableLPIs clear. The two don't depend on each other.
-    
-    vgic_its_free_collection_list() still leaves the cache alone. A
-    guest reaches it only through a GITS_BASER write, which already
-    drops the cache (8cd92f77ae4f). An ITS reset frees the devices
-    first, which drops it too. That leaves a failed collection-table
-    restore. A VMM gets there with translations cached only by enabling
-    the ITS before the restore, against the documented order. Those
-    translations then keep injecting their LPIs into the old target
-    vCPUs.
-    
-    Based on Linux 7.4-rc1 (6628e7d4c6b25; also applies to kvmarm/fixes
-    79f3724ca8913).
-    
-    [1] https://lore.kernel.org/all/20260917162020.1612577-1-fuad.tabba@linux.dev/
-    [2] https://lore.kernel.org/861pbr6emw.wl-maz@kernel.org/
-    [3] https://lore.kernel.org/all/20261026092802.2636798-1-fuad.tabba@linux.dev/
+Here is the summary with links:
+  - [net,v2] net: atl1c: drop oversized RX frames instead of panicking
+    https://git.kernel.org/netdev/net/c/c4ba1716853d
 
- arch/arm64/kvm/vgic/vgic-its.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 7e9b265b1f521..68e3034e52236 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -1800,9 +1800,12 @@ static void vgic_mmio_write_its_ctlr(struct kvm *kvm, struct vgic_its *its,
- 		 !(its->cbaser & GITS_CBASER_VALID)))
- 		goto out;
- 
-+	/* vgic_its_resolve_lpi() tests the enable bit and caches under its_lock. */
-+	mutex_lock(&its->its_lock);
- 	its->enabled = !!(val & GITS_CTLR_ENABLE);
- 	if (!its->enabled)
- 		vgic_its_invalidate_cache(its);
-+	mutex_unlock(&its->its_lock);
- 
- 	/*
- 	 * Try to process any pending commands. This function bails out early
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+You are awesome, thank you!
 -- 
-2.47.3
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
