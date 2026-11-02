@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632950;
-	b=eMF2WIGTpk9O2VmbWyCFllF3JZ95bld+9xQ7413Op0/WSzthrJt5Dzj4BFbHOt/9dHs5
-	 6pxYUMIiWJghFdvF6dMjIdlrTuNln2P0PrzmMKljHQU/Zi0GCqiRndCsu0+YDM5eQop/x
-	 NO0ncxoO3wz8z99IqSmTn1EyIzHRBo5Y5AKaJKNMnAOqMRyUKjttd8quVQ/gZv9Vmb0o1
-	 4Mvrun6QttqDws5lqImJgMh9ZQK5h+5QRQmQ1UDiEkapglOvyE236SbU2DD93kTkSrN8e
-	 hzEB6R/eVP7TEClKV3vvTfWSw7ZpQee+GEKYlCPzFqVTrH99VHZNMPbCgZO0EhxGq0g==
+	t=1793632954;
+	b=YOPjEwMPUaqkvSzBUaaE4JHspKBChtbeSLDmq/B4LId6HbwpGWk6mnTvlIK6y5ezqvrw
+	 jC/m4SdZlobayrh0VMh0jU20AC2vdTj3ODvXl2QdEEvWaYbafdvry7QgdjogVJpEhmbmg
+	 kwIgQRD0FGBCELgWgRfnzskzRaCW6h8cwGmY++Hdjf3i1iLlNSb6GTVWV1A8NW0NUz8dF
+	 lSA4ToygR3h8ygVk1cr+rMvZxZR88Y/rd0WVCuzr4Q1oVHZR46Ds0fNUUVD0oyFUtiAOA
+	 4KAC0aBSUn8xx5vgkfzy8iFbN8RQSvmJnY2oYLu1duIfvGzZuIMXaVzuemfwBUVTK2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632950;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ODeQNKP0UJzemh4mAsPTNTViZ9w8JQQkxq+xVPOOp4A=;
-	b=H4HfQNX1SlZg5WP/Z6S17RaeNRhkKe9D7Bybj8rtBj4q4QVJtcxc4GL0bZpRpydaa60x
-	 CbgUey0OCn3iAzf75lwA9NB2zev9mXDf3bMlnD+HQlrzTLZtAjao2vv7aDJ6Dj/B4gwQD
-	 rFTbyYMM5xUIgSufWoyf+fY1xmPJRhGJdH4hK0vHqu/z+nP1LAetJ6tMp9FRgkuBBTxFV
-	 4qbtUr4xQ9/dFuCl7hORzNqrMOhGSvcIfyF4her1WLNps5itajKdzgz4lyCug1TtolHpj
-	 pabMUQWuaiQqrtNt8SAtzgsBCIyuiVS9+vrh33yWP7VYNLLf5333HcfXdMLhu2XWV9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632954;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=f5654+7smVr1CQ7aQob1YSWPvrXVlsZxaqT0g4gybBw=;
+	b=ST4acMT2ka8omrOMB+2rdKcZ+rF0lG7SVGB5SIHuBmGp+4wSbARznmErM4scAtwTwJOE
+	 MwH+LU6dFj1ZZ6pPxaTBgBNBcyTAKPRLviAPcMhR49HoQyT/MZexASVPDKqEF0HaRMATK
+	 DE2eyZ/wRCVR1Km1VfMnVHcwnOBzivZvtAjvlQu/c/kujZT4G4iGjJOPBK2ebKYcVIqVb
+	 kKX42MlCnMoCzxa2jKg27ULO5V8q13/FDPnm5mhorFGzpVF/DvL/qh0ZEE7rav9r0WjfJ
+	 hR7xsAE6xcmpv1HlJttATMfjGrKChqJbzWtfIDoUmR3hoPEg+xTzeVAHmy+jz+R+oig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MkPK98Gk;
-	arc=none smtp.remote-ip=91.218.175.121
-Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6Wm1xtR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4A8608058C
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:22:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED4A8608058C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E10A6081CEF;
+	Mon,  2 Nov 2026 15:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MkPK98Gk
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ODeQNKP0UJzemh4mAsPTNTViZ9w8JQQkxq+xVPOOp4A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793632947; v=1; x=1794237747;
- b=MkPK98Gk6+VtkxKxcLCiTZ79pZE+KHJ10FDlU0JuKqId69E4Br9BDm2UG5xM2pXu6bh8SDK/
- l/Cyoh85ozVnbJj2YmWmmk2CpYSnM3Uh3ew27r3OqktJwvxXv4J0LhnPVerVbbdrI6+WMLyqwPq
- y8ALbIKiQlQ+YNE2I9BMpwvk=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e6dff1b99e2386a3;
-	Mon, 02 Nov 2026 15:22:27 +0000
-X-Mizu-Trace-ID: e6dff1b99e2386a3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d108788e-bd69-4bc2-aca5-d8080fea818b@linux.dev>
-Date: Mon, 2 Nov 2026 23:22:18 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6Wm1xtR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1501F00AD9;
+	Mon,  2 Nov 2026 15:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632954;
+	bh=f5654+7smVr1CQ7aQob1YSWPvrXVlsZxaqT0g4gybBw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e6Wm1xtRAG1e5mMhVVIAzVQ4WKf8zJG2askyQigi8iO9flMS26oahDyQgxR/OzRGp
+	 BB0E4odaNdF4K+4OagVF4vJtGby8De4NdtycOwEERIkErgd7q+bB579XXl4Gmbe2Ya
+	 LekkuZ+rw+DbPKsY50/w4h8s1COCdDDVdQuGO9rLLjb/CPiNhcksjrU9vjMG3oW9s/
+	 Y6X3uBWQF71cVoJV5pXEtJ/O4PpgAD2NbV8j/tVb13S1sbg5bMMWOKgFGyjnIlwEVX
+	 KA2PABVr3pymM0ugB6v03DEGY1rBRTFLvfxN0TcYjICf4UBPZCzeObX1EeSwzIYIza
+	 DiLmLoFw0BAbQ==
+Date: Mon, 2 Nov 2026 16:22:29 +0100
+From: Carlos Maiolino <cem@kernel.org>
+To: jianyungao89@gmail.com
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	"Darrick J. Wong" <djwong@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Kefeng Wang <wangkefeng.wang@huawei.com>, Viktor Malik <vmalik@redhat.com>, 
+	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>, Bill O'Donnell <billodo@sgi.com>, 
+	David Chinner <david@fromorbit.com>, Lachlan McIlroy <lachlan@sgi.com>, 
+	"open list:XFS FILESYSTEM" <linux-xfs@vger.kernel.org>
+Subject: Re: [PATCH] xfs: fix temporary cursor leak in btree shift corruption
+ paths
+Message-ID: <auiqHYgyi6_7-EOa@nidhogg.toxiclabs.cc>
+References: <20261102150146.19777-1-jianyungao89@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,48 +61,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 net] inet: frags: limit the truesize of a reassembly
- queue
-To: Eric Dumazet <edumazet@kernel.org>, "David S . Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org,
- stable@vger.kernel.org, Kyle Zeng <kylebot@openai.com>,
- Florian Westphal <fw@strlen.de>
-References: <20261030081225.2575462-1-edumazet@kernel.org>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261030081225.2575462-1-edumazet@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102150146.19777-1-jianyungao89@gmail.com>
 
-
-On 10/30/26 4:12 PM, Eric Dumazet wrote:
-> The truesize of fragments in a reassembly queue is only bounded by
-> the per netns ipfrag_high_thresh sysctl, which has no upper limit.
->
-> inet_frag_reasm_finish() sums the truesize of all fragments in an int.
-> If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
-> adjustment of the socket owning the reassembled skb can cancel its own
-> reference, leading to a use-after-free of this socket.
->
-> This can be triggered from an unprivileged user/network namespace,
-> raising ipfrag_high_thresh and using padded TUN packets, which keep
-> a large truesize after being trimmed by ip_rcv_core().
->
-> Track the sum of the truesize of fragments in each queue, and refuse
-> a fragment that would make it bigger than INT_MAX / 2. Callers kill
-> the queue on this error. This bound is far above the needs of
-> legitimate traffic.
->
-> Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
+On Mon, Nov 02, 2026 at 11:01:41PM +0800, jianyungao89@gmail.com wrote:
+> From: Jianyun Gao <jianyungao89@gmail.com>
+> 
+> In xfs_btree_lshift and xfs_btree_rshift, when XFS_IS_CORRUPT detects
+> an invalid firstrec/lastrec result after xfs_btree_dup_cursor has
+> successfully allocated a temporary cursor, the error path jumps to
+> error0 which returns without freeing tcur.  This leaks the cursor
+> memory, the xfs_group reference, and the per-level buffer references
+> held by the duplicated cursor.  Jump to error1 instead, which calls
+> xfs_btree_del_cursor(tcur, XFS_BTREE_ERROR) to properly release all
+> resources.
+> 
 > Cc: stable@vger.kernel.org
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Cc: Florian Westphal <fw@strlen.de>
-> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+> Fixes: 9eaead51bed95 ("[XFS] implement generic xfs_btree_rshift")
+> Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
 
+Yup, that's leaking the duplicated cursor
 
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
 
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-
+> ---
+>  fs/xfs/libxfs/xfs_btree.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_btree.c b/fs/xfs/libxfs/xfs_btree.c
+> index 7effebe297ea..d706f59b0301 100644
+> --- a/fs/xfs/libxfs/xfs_btree.c
+> +++ b/fs/xfs/libxfs/xfs_btree.c
+> @@ -2567,7 +2567,7 @@ xfs_btree_lshift(
+>  		if (XFS_IS_CORRUPT(tcur->bc_mp, i != 1)) {
+>  			xfs_btree_mark_sick(cur);
+>  			error = -EFSCORRUPTED;
+> -			goto error0;
+> +			goto error1;
+>  		}
+>  
+>  		error = xfs_btree_decrement(tcur, level, &i);
+> @@ -2737,7 +2737,7 @@ xfs_btree_rshift(
+>  	if (XFS_IS_CORRUPT(tcur->bc_mp, i != 1)) {
+>  		xfs_btree_mark_sick(cur);
+>  		error = -EFSCORRUPTED;
+> -		goto error0;
+> +		goto error1;
+>  	}
+>  
+>  	error = xfs_btree_increment(tcur, level, &i);
+> -- 
+> 2.34.1
+> 
