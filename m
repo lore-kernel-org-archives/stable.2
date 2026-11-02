@@ -1,75 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.177.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613793;
-	b=3QL7c9BQ104v33/ksNyRm+EPVxFTksoyt6jKQgxa9oZgyrFoHSMfeBbmnD6T9m2ATAP8
-	 /Eh5vESK4JVj/1pVyUA3j3XfKrTikAbk3ih+HzUFE9QGrNUIRE7Hn37/E32ZKpnxYzT+r
-	 YfRXFuhlHzDfh7TMK97aw6N0GqQU01ye8HvhUFMWqdPpL3bzTorWwSX4WJXz4kO+7Lxka
-	 3Psk+z0GTaDSGiq2RyFEMp8mvBQVmbklxv6v8ncfZVCxlNLC0UHUM7TLtDuDyoedvR8zv
-	 7Hfon0Yvlx29G7NgOsIp+NKkdSLMPt9NVTGeI1xiDZ9N5X4bNUmdtAeLKSP/srC6H3Q==
+	t=1793613794;
+	b=SEKffjLZ4nDFhf2LQs6yIHj36R/LBwz+9ihrGjaswkZGPV0WZ92t8M7Ha2PUkZF3GpAD
+	 Wx6LjVS3wnOVwd8Sm206LJMC0aFtrD1gFI1J8cRaX1t/OsByRpk2jfGMfMaTURG2smvHT
+	 1YG5dIarzBd1QUCw0b7letPWqd18ClthUdGJbrDqVHLRBJvSmbI4LslyaJ2Rt7Ts6gyIV
+	 DG4HSlgZmFHpo+KyqwpODJEj1qnTwRYOSeO4KCpFVFuvVi51LATQF+1QtI1VQy0056P94
+	 C6kxWBKwnSJQ/2dwbG48Y9sJSC2ob4duL9a5jQq7OuqcIrZ5u2ZU+h5z36SomkI3ntg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613793;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613794;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID;
-	bh=uL0wexTpBvvxPFLQS2o/E2x5EBsGxSN2nfZQHwNTq3w=;
-	b=o7ZnMenN6afBLJy5wqxXJ7gswmG+GvVSwuirKTegDSpi5kWoBUIli/gZoC1AcVareBC1
-	 WFNWXFu3xbxSumghfccRy8EL0pkNVnpe+opL0NXCRaKjrxuRqBjgEUR1O574y8vImKk9J
-	 1qfI30ZBLQMCKs3DiJgWUTBobQ0r2D3k9FNPNKC5gKdN2ajLQxQoN5T2mk7ahkfWW0DaY
-	 fMF76Fj5TB05ysYYKaLA5auirTTMm7MA4NGaAozYhllPJAAhegA9VPkVkc+4bhaLiUG7z
-	 ueYq8rZeUdjCzSmbTK9HhXYYjvIlGprRmSOIO+RNeH5B5jYnLVRJ1J+CBlGq0XKpioQ==
+	bh=WaWeQql9T1CR583EusQmkcGv4tOsFtrdG/YxEXx1uio=;
+	b=oOcrFb8W1+oBSbdh2eka1HDLec2MYuXRtmZkTqdt0QK5BOvQ4/eH10JyY+1cyQ97EBbB
+	 6EhRbYlNFDhjLWftQYGQfUY89LFgBm7R3/FpNnETr3inrNGh/IPgBT5naBfIXL77DlMta
+	 ihAZBpfDgojeBVYO5Nho1piwpmt/sZbSVisCigBcHeHAspEQLbrfhSZfol037kz55XppE
+	 7JFdgKXMedx+8pnh5LTQkdBa9zzBGn+Mm50i34nSdgU0ySJIsOi7Kkcpv+IIs4JuM9vOt
+	 iiBe7D8L7a5phLQA64LzFurZMAahQpKdoZVqCZSsTfGZnfmnXGOObB2RH5MhKQqSrtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oracle.com;
 	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=GBJq0gnX;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=jFAMxPw3;
 	arc=none smtp.remote-ip=205.220.177.32
 Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F7B60A2609
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:03:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67F7B60A2609
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB957606A330
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:03:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB957606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=GBJq0gnX
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=jFAMxPw3
 Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A22ip644136644;
-	Mon, 2 Nov 2026 10:03:10 GMT
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20U1L73917987;
+	Mon, 2 Nov 2026 10:03:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=uL0we
-	xTpBvvxPFLQS2o/E2x5EBsGxSN2nfZQHwNTq3w=; b=GBJq0gnXvQU+lhlAMWJzE
-	bMdvAoKIaPo2t8rtUnbJ1PVA5xu8piSihzQTdZCQ0j2SBiq5MEMcLMARAosnunTR
-	HBsE8qq40+FDRTQ84h4Pi2KC2U6ZXucWIjAUJ0VdSjvSleqXCyl/V0paJO2Wj3CR
-	M60Ar55q4BP5REbiFkhHC5cKHvWGvKhE2jxaIsM4wPPQhPF7AbCgVuYh6ZHE5yIr
-	NpdGqonkYfStHDSWZgL8U/XNzo4hbnDMiOvJxW/6DDJiDe2SZRuqQxf/1yDuVGJN
-	8arzSBNHVpBPy97zI5sn9tco0qrymziLul2hxMYbPVSgpNhF/z/Wmx7kW27CSJZy
-	w==
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=WaWeQql9T1CR583EusQmkcGv4tOsF
+	trdG/YxEXx1uio=; b=jFAMxPw3tvgtwXnRB5FO9DxyoGNvtoAeg7ozuIxtXqefX
+	tzg0rQLLeZs+lmeW6MWa60DLpek/rHdE3YYhk1GxIzoHmwUxDl6fC+I+OSxLTGmZ
+	seQwFlYnNsqNy2Z/8SA8ZR0Mw2tJRf5skJ02FANXtr/4WiVOVY87nifDXmbQiR0B
+	5VL/9w4BO2VSvhgq8+CdPhYArN1lZNqISCC23lAyuTOzQ5gLnLe1G0KkYpv+uHwb
+	bdnB4mfqZBiGC4AdnlLdslZ9vVJja7q6nCHJ/t5b4wAMA+5cWrpANfShQsD2cm+T
+	mJiKjf4sGFkuiPKIeAiuqxIrcUTRlGbZBWAhx8zsQ==
 Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn6r9skr9-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn6r9skr4-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 02 Nov 2026 10:03:09 +0000 (GMT)
+	Mon, 02 Nov 2026 10:03:06 +0000 (GMT)
 Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29CqmH2995724;
-	Mon, 2 Nov 2026 10:03:09 GMT
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29Cquq2995680;
+	Mon, 2 Nov 2026 10:03:05 GMT
 Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfj9v9n-2;
-	Mon, 02 Nov 2026 10:03:08 +0000 (GMT)
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfj9v9n-1;
+	Mon, 02 Nov 2026 10:03:05 +0000 (GMT)
 From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 To: stable@vger.kernel.org
-Cc: Duoming Zhou <duoming@zju.edu.cn>, Paolo Abeni <pabeni@redhat.com>,
+Cc: Qing Luo <luoqing@kylinos.cn>, Xin Long <lucien.xin@gmail.com>,
+        Jakub Kicinski <kuba@kernel.org>,
         Harshvardhan Jha <harshvardhan.j.jha@oracle.com>,
         Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: [PATCH 6.1.y 2/2] cxgb4: fix use after free bugs caused by circular dependency problem
-Date: Mon,  2 Nov 2026 02:03:00 -0800
-Message-ID: <20261102100300.1546414-2-harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 6.1.y 1/2] sctp: auth: discard auth_chunk when skb_clone fails
+Date: Mon,  2 Nov 2026 02:02:59 -0800
+Message-ID: <20261102100300.1546414-1-harshit.m.mogalapalli@oracle.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102100300.1546414-1-harshit.m.mogalapalli@oracle.com>
-References: <20261102100300.1546414-1-harshit.m.mogalapalli@oracle.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,81 +86,81 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
  mlxscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
  bulkscore=0 malwarescore=0 mlxlogscore=999 classifier=spam adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020039
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX2QqnZa7TS7cZ
- Liejx6DTozS3khtaKPZAolJ2Ek7VLPZvMTxnGh+PztTwery7x+ROp/Ryqvqn9z/g2047RSYYNIo
- 46riaVzOTvSnFQdyOoaTNdbhr9N1KZhb4eg92iPPY9BJ6nhbystf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX297ZMeRXmLku
- edIICr+juzJGRkwgAWUjvTEClosTgieW7/i2Kd0J55fy0VKngEUQ6ioYNPeoYdnVonML/fGDQXT
- R0AnMQdCAXGOOQ0YTUQfOrblc8PC2QfFxwuhMCzyRhb1VjSEGHlYHirTK4x5okaQKVzq8JfFbWI
- Jcedm9zIgIGfmB1Wo/8/mmxWDHfSZwtJNj9qRAKr3k5+xPIxKx+daYWvE8yw7FysQYXbQ9+tbUg
- 9i6ieWj/+F/ANSdwiMYOU26Z26eq3nxFJK8eUfEO7X9GppymE4CeSTok37pL4ZAoLBzB2TyZvDT
- pc6KXYaC8I0rdSwhqrj/fMk9tlKKlDbYwweJnbXTfQMXY1e6YiGstyjN15gX0TSxmJ20qQLLpg1
- J5lBM9psjuEMrhWkqb79rC0bSe/KOezTxJGZCOdH7x54Q5YdsikyOv4gkYsuDCooV8nSaeWkTDO
- NjvrtsqFbYYY2NpiXZQ==
-X-Proofpoint-GUID: Sunafrfqi1QXqCqJj6mdlsZPYktxgw5T
-X-Authority-Analysis: v=2.4 cv=EdZd0/mC c=1 sm=1 tr=0 ts=6ae85fdd b=1 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX6t7ZEF+XwYRc
+ vfanY22sD8zCJpEMvTZLh4asYtwJ9GnM0ZLTcDeVNg9D4Yqi75z5lRl3pf82c98WdE9VecuEr+N
+ blk3vhz6yiAQ9ycarp1p/gLn5r4CsuqohEqThX4OTXJZ4PogtKgR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzOSBTYWx0ZWRfX5WRHjFuhZ0N6
+ RzQiU0NMaShT66KjMXZyBYVnBwkwFPY7Oy1pxtEDeiEnKG6t29CqraMhcqgmYliFWlvpSLc9rvU
+ 1/8ntvAQsJADNzDw0yQfzfWm6L6freweVCo9wnqgpEE/L4IoKppmJTyR9zNooFQxUQF9dBhJmg2
+ 2MvwVL+iesJVZpL/CV1q40KJRvWDHgNUoZOQN6wz3hSc8T4vpuLYIWD0/8HGyc3IdhjOzxipkK7
+ aFgHKLF4A6BhCgXA6msE699Fb2ThIe8xQBIb6GEi5MvmVFy1pi73gjzAULqJF9eH9n83d7kpU+A
+ ooVxuxZHviedhAtIaS53UfjI9G4RhAa2tO5ljmC3vJsJMEPtHRwZwXhDfkqqV0dtaypd9M6P6jt
+ fly+wHk3s9pf8o4fsZdfrjGpsVCgJEby8Ux06seQPRHTC6ZRYByxbJdPMIO1aNbZc/uAuaJoLIF
+ 8QOgl3cdQ/WPC5CKKpw==
+X-Proofpoint-GUID: _g0IyIDQb4U7EmrHz4EB5ETxcECyKV7m
+X-Authority-Analysis: v=2.4 cv=EdZd0/mC c=1 sm=1 tr=0 ts=6ae85fda b=1 cx=c_pps
  a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=x4eqshVgHu-cdnggieHk:22 a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8 a=yPCof4ZbAAAA:8
- a=-nKc8X9TPv6IDXWQXpEA:9 a=WmVTiCyuxqgg3mnwYu6p:22
-X-Proofpoint-ORIG-GUID: Sunafrfqi1QXqCqJj6mdlsZPYktxgw5T
+ a=x4eqshVgHu-cdnggieHk:22 a=bC-a23v3AAAA:8 a=Byx-y9mGAAAA:8 a=pGLkceISAAAA:8
+ a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8 a=_JKKyeupEGsTx9GmwKEA:9
+ a=WmVTiCyuxqgg3mnwYu6p:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: _g0IyIDQb4U7EmrHz4EB5ETxcECyKV7m
 
-From: Duoming Zhou <duoming@zju.edu.cn>
+From: Qing Luo <luoqing@kylinos.cn>
 
-[ Upstream commit e50b9b9e8610d47b7c22529443e45a16b1ea3a15 ]
+[ Upstream commit 9ae7ed101cf28613071ebfbc42668c8917a670cf ]
 
-The flower_stats_timer can schedule flower_stats_work and
-flower_stats_work can also arm the flower_stats_timer. The
-process is shown below:
+When processing AUTH + COOKIE-ECHO packets, if skb_clone() fails
+due to memory pressure, chunk->auth_chunk is NULL. The original
+code still sets chunk->auth = 1 and continues, leaving the
+COOKIE-ECHO to be processed without a valid auth_chunk for
+deferred verification.
 
------------ timer schedules work ------------
-ch_flower_stats_cb() //timer handler
-  schedule_work(&adap->flower_stats_work);
+Discard the AUTH chunk early via pdiscard when skb_clone() fails,
+so that the receive loop can continue processing remaining chunks
+in the inqueue instead of stalling the entire packet.
 
------------ work arms timer ------------
-ch_flower_stats_handler() //workqueue callback function
-  mod_timer(&adap->flower_stats_timer, ...);
-
-When the cxgb4 device is detaching, the timer and workqueue
-could still be rearmed. The process is shown below:
-
-  (cleanup routine)           | (timer and workqueue routine)
-remove_one()                  |
-  free_some_resources()       | ch_flower_stats_cb() //timer
-    cxgb4_cleanup_tc_flower() |   schedule_work()
-      del_timer_sync()        |
-                              | ch_flower_stats_handler() //workqueue
-                              |   mod_timer()
-      cancel_work_sync()      |
-  kfree(adapter) //FREE       | ch_flower_stats_cb() //timer
-                              |   adap->flower_stats_work //USE
-
-This patch changes del_timer_sync() to timer_shutdown_sync(),
-which could prevent rearming of the timer from the workqueue.
-
-Fixes: e0f911c81e93 ("cxgb4: fetch stats for offloaded tc flower flows")
-Signed-off-by: Duoming Zhou <duoming@zju.edu.cn>
-Link: https://lore.kernel.org/r/20230415081227.7463-1-duoming@zju.edu.cn
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20260723061107.384106-1-l1138897701@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
 Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/sctp/associola.c   | 4 ++++
+ net/sctp/endpointola.c | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c
-index dd9be229819a..d3541159487d 100644
---- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c
-+++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_tc_flower.c
-@@ -1135,7 +1135,7 @@ void cxgb4_cleanup_tc_flower(struct adapter *adap)
- 		return;
- 
- 	if (adap->flower_stats_timer.function)
--		del_timer_sync(&adap->flower_stats_timer);
-+		timer_shutdown_sync(&adap->flower_stats_timer);
- 	cancel_work_sync(&adap->flower_stats_work);
- 	rhashtable_destroy(&adap->flower_tbl);
- 	adap->tc_flower_initialized = false;
+diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+index a957142672cb..5149f744eaf2 100644
+--- a/net/sctp/associola.c
++++ b/net/sctp/associola.c
+@@ -1029,6 +1029,10 @@ static void sctp_assoc_bh_rcv(struct work_struct *work)
+ 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
+ 				chunk->auth_chunk = skb_clone(chunk->skb,
+ 							      GFP_ATOMIC);
++				if (!chunk->auth_chunk) {
++					chunk->pdiscard = 1;
++					continue;
++				}
+ 				chunk->auth = 1;
+ 				continue;
+ 			}
+diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
+index efffde7f2328..2313ea9fbe06 100644
+--- a/net/sctp/endpointola.c
++++ b/net/sctp/endpointola.c
+@@ -362,6 +362,10 @@ static void sctp_endpoint_bh_rcv(struct work_struct *work)
+ 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
+ 				chunk->auth_chunk = skb_clone(chunk->skb,
+ 								GFP_ATOMIC);
++				if (!chunk->auth_chunk) {
++					chunk->pdiscard = 1;
++					continue;
++				}
+ 				chunk->auth = 1;
+ 				continue;
+ 			}
 -- 
 2.55.0
 
