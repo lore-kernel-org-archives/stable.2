@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793604672;
-	b=AqW26eEbeJVkES+sCoqHUE/xEcE4Wfk/3GIZypO0dMkzJ6uAmeC0oXZnyLMiZANBfDDp
-	 Iy5oQgpvEH0O5nVoVIVYnNFs7mF/vgrAgZQD33+N95T57Bx0IN2TTVN4kiWxgiWsLvS/k
-	 MXBAB0Xsd70PiTuHfEdqE0ERXREH7Jp5aDF7EhEQzEfvYAWrTiRBJ4YwS/t4VBv8ORWCp
-	 tc6+XosDVkpLdnUu3aYk3FhwDfNw8zctTqiApAQEtUiy9kXxxL1JdwxFEPsgbyCR9k452
-	 GQFBnglMtGx2KN5O78DDjoLYgn501fQ+h6X6rRFS5KArM2bLN2A2hr/NdXojwNFolOg==
+	t=1793604776;
+	b=zy5hVkar71IUO6CiARjom6HU/Agz97u9+8MKEPKXA6fX26veyPKiPr7K5SljJZFSzotd
+	 7HkDfgTCKGhcYL9YTZ8O1ul+idFpK5AaFSi5oSfNOyD3kVPgg06hjKkz9dgRFyKRbXIVY
+	 rFXptyAOXPYJFnE6xP2+j/qZ06SYTdgP8rtE1+IXARussXEdlqhgdaw6mOdriMrBRGw5K
+	 8/bcGR852nLibVflk425AOlp9enyE+i21H9lNShCQAYb9LrRF/mh6M7WuyEnzvd7Ar+bb
+	 0UgX5Y/eHAepYgXsw3IKAiwf48z5U5gPVTae6+5apVsoJFulUro9hn9hIj+tOHiBmXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793604672;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=IzxFenk2G7VefJKCYkyvqMIK7vNzaeYCCl7lHKySqeY=;
-	b=p48IK7vmOD0VAfCQrKPt2Ne6ed2ChveYa0tpwWQ1dcr0eaFfQOYCsGyAvrLkqZw1gN9V
-	 Qu6h+ZKOsRjskRKI+gIR2arOQK1aZ/kHBZLZLEeFgmcAzLoHYVCaCRJLRQ6uguKgxG6A7
-	 riB1pEjWLRGnq9iWio3ckRUO824MTs+OuD7A6wpitzHUQFqayAWJvQulHWWOF62McwrC9
-	 GnBzrRze89cnuCutapOm9an16NAYMGDkb5yho48piUEHRVj38bavIzZo4mYHwE21iq1kf
-	 r2LasAe+23Y/i2RSfgbsCRkfC4G7rVE2VXXI2iePVwFoLOdRPU7RdqJG1NbF1VsxU5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793604776;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=AK/SgB0NJhyyMo/+uhJJDQ0snfVmLXzbzA7HTWtNTBs=;
+	b=jXaHYAHAXWenM8oBcMR4DP9SafHtegMu67n1SNUqdHVTlwA5DOQ8uHmWySzcrcRgLV0/
+	 Wp8VoFqc8tIs1m2R59xSuHmQ53b8hYYDSaykvBFH9dDTi9M7N/Q5JgWsheK52OjYaQqjv
+	 7m9j263HpPQZLUMilbEseUg/ac1jYEoTifMwsmY9CVopyca6ZSFM5FrWAmnN2zayyos9q
+	 lkGHmpT+XqU4sbfl0EueKF0nfDYKS8iiStujCvnJ86DmTBXHGpzI3CYaKq0qKIuFVG255
+	 56icrl/qRuPz+rHtajVzfnaC9canTc970px/7R0I0GVeOJ2zj3rgSRf4lbx0c11wLqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WHk7qfp1;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="z/pehWdh";
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D0A606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 07:31:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D0A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A9E606A324;
+	Mon,  2 Nov 2026 07:32:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A9E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WHk7qfp1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:From:Reply-To;
-	bh=IzxFenk2G7VefJKCYkyvqMIK7vNzaeYCCl7lHKySqeY=; b=WHk7qfp1pQYFR16LwBuP1BdPrV
-	bO+zIkDYXOY/48NsWDmt2lT/HkODjJJIWKcXQH1gnhmJKc/CC1IanQjJbIfsU9d6FciA1mAyuHRjA
-	JzK++EvqC0lbyMIEI+UGfa2dDbzGuzoyaqX/OOKN8J7StZjW6lHRMN9ttmLl3tcnt9G3XjAEZ3J1j
-	TTBPAJOVYq6VfvLjL3x2aG1ieeMVacA5BCV5HSPr1R7LfDEP/FeJSqldTJrP8qvDGNXVNckK+YDsI
-	zILrpUTIT9JZ+gAaINjOoP2cWZgGairKelJoIbghrUMzR3WlyT3+zXPir4BhD2Vf4b3DUGa8wtq7O
-	oLdYvI0g==;
-Received: from 84.124.56.23.static.user.ono.com ([84.124.56.23] helo=[192.168.0.17])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xNmVX-00HUXo-Gv; Mon, 02 Nov 2026 08:31:07 +0100
-Message-ID: <eb5603b15e2154d07b5dc3574026a466b0988877.camel@igalia.com>
-Subject: Re: [PATCH 1/2] drm/v3d: Initialize timedout_batches when running a
- CSD job
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Jose Maria
- Casanova Crespo <jmcasanova@igalia.com>, Melissa Wen <mwen@igalia.com>
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com, 
-	stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 08:30:56 +0100
-In-Reply-To: <20261101125619.2465064-1-mcanal@igalia.com>
-References: <20261101125619.2465064-1-mcanal@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=z/pehWdh
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=AK/SgB0NJhyyMo/+uhJJDQ0snfVmLXzbzA7HTWtNTBs=;
+	b=z/pehWdhVRd/ELfMH/gt5hqXy00rS0mSKpMJfKKpoUb95Kz3+hvKZOcvSGcXpUCFCOFyeTo6I
+	O44kGYOmFW4yb8HA+sfsJmWg8arK1dkAdareBWdQ3WJGeKw2j35GImzfqDptOFrUXROU/JdNmN3
+	XSi3f3715y4lEoE7y1XpwCk=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jJ3MD3sbDz1K97l;
+	Mon,  2 Nov 2026 15:32:40 +0800 (CST)
+Received: from whupemk300004.china.huawei.com (unknown [7.152.185.168])
+	by mail.maildlp.com (Postfix) with ESMTPS id 25E554056C;
+	Mon,  2 Nov 2026 15:32:44 +0800 (CST)
+Received: from huawei.com (10.67.174.33) by whupemk300004.china.huawei.com
+ (7.152.185.168) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 2 Nov
+ 2026 15:32:42 +0800
+From: Gu Bowen <gubowen5@huawei.com>
+To: David Howells <dhowells@redhat.com>, Lukas Wunner <lukas@wunner.de>, Ignat
+ Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>
+CC: <keyrings@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<kexec@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <lujialin4@huawei.com>
+Subject: [PATCH -next] crypto: asymmetric_keys: verify_pefile: fix integer underflow in pefile_strip_sig_wrapper
+Date: Mon, 2 Nov 2026 15:49:34 +0800
+Message-ID: <20261102074934.2925339-1-gubowen5@huawei.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,61 +70,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemk300004.china.huawei.com (7.152.185.168)
 
-Good catch, both patches are:
+The pefile_strip_sig_wrapper() function validates the win_certificate
+wrapper that precedes the PKCS#7 signature in a PE binary.  It checks
+that the wrapper length does not exceed the certificate table size
+(``wrapper.length > ctx->sig_len``) but fails to verify that the
+wrapper length is at least ``sizeof(struct win_certificate)`` (8 bytes).
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+When a crafted PE image supplies a wrapper with ``length`` in the range
+[1, 7], the subsequent arithmetic::
 
-El dom, 01-11-2026 a las 09:53 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> From: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
->=20
-> v3d_csd_job_timedout() decides whether a compute job made progress by
-> comparing CSD_CURRENT_CFG4, the number of batches the dispatcher
-> still
-> has to start, against the value saved at the previous timeout. That
-> saved value is never initialized, so it is zero on the first timeout.
->=20
-> On V3D 7.1.6 and later, CFG4 counts down to zero once the dispatcher
-> has
-> started the last batch, but the dispatch keeps running until the
-> batches
-> in flight complete. If the first timeout fires in that window, the
-> handler sees no change and resets the GPU while the job is about to
-> complete. For example, this happens with long dispatches that only
-> keep a
-> single supergroup in flight.
->=20
-> Initialize timedout_batches to the value programmed in CFG4 when the
-> job
-> is started. The register does not return to it once a batch has
-> started:
-> it counts down to zero on V3D 7.1.6 and later (CFG4 holds the number
-> of
-> batches), and to 0xffffffff on V3D 4.2 (CFG4 holds the number of
-> batches
-> minus one).
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: d223f98f0209 ("drm/v3d: Add support for compute shader
-> dispatch.")
-> Signed-off-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-> Signed-off-by: Ma=C3=ADra Canal <mcanal@igalia.com>
-> ---
-> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c
-> b/drivers/gpu/drm/v3d/v3d_sched.c
-> index e6283a75bcdf..002116efc874 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -360,6 +360,8 @@ v3d_csd_job_run(struct drm_sched_job *sched_job)
-> =C2=A0		dma_fence_put(job->base.irq_fence);
-> =C2=A0	job->base.irq_fence =3D dma_fence_get(fence);
-> =C2=A0
-> +	job->timedout_batches =3D job->args.cfg[4];
-> +
-> =C2=A0	trace_v3d_submit_csd(dev, to_v3d_fence(fence)->seqno);
-> =C2=A0
-> =C2=A0	v3d_job_start_stats(&job->base);
+    ctx->sig_len = wrapper.length;      /* e.g. 1 */
+    ctx->sig_offset += sizeof(wrapper);
+    ctx->sig_len -= sizeof(wrapper);    /* 1 - 8 = 0xFFFFFFF9 (unsigned) */
+
+underflows the unsigned ``ctx->sig_len`` to a value near UINT_MAX.  The
+following ``sig_len < 4`` sanity check is bypassed because 0xFFFFFFF9 is
+greater than 4.
+
+The underflowed ``sig_len`` is then passed to verify_pkcs7_signature()
+and onwards to asn1_ber_decoder().  The ASN.1 decoder's own
+``datalen > 65535`` entry guard can be satisfied by constructing a
+PKCS#7 length field of exactly 65535 (e.g. ``30 82 ff fb``), allowing
+the decoder to proceed and attempt to read OID octets beyond the
+allocated vmalloc buffer, triggering a page fault in look_up_OID()::
+
+  BUG: unable to handle page fault for address: ffffd1e986cb2000
+  #PF: supervisor read access in kernel mode
+  RIP: 0010:look_up_OID+0x14/0x100
+  Call Trace:
+   pkcs7_note_OID+0x33/0xa0
+   asn1_ber_decoder+0x363/0xbd0
+   pkcs7_parse_message+0xd9/0x1b0
+   verify_pkcs7_signature+0x24/0x80
+   verify_pefile_signature+0x7b/0xf0
+   kexec_kernel_verify_pe_sig+0x1b/0x40
+   kimage_file_alloc_init+0x1d8/0x3f0
+   __se_sys_kexec_file_load+0xc6/0x270
+
+This is reachable through the kexec_file_load syscall on architectures
+that verify PE signatures (x86 bzImage with
+CONFIG_KEXEC_BZIMAGE_VERIFY_SIG, arm64 Image with
+CONFIG_KEXEC_IMAGE_VERIFY_SIG), requiring CAP_SYS_BOOT.
+
+The oops occurs while the caller holds kexec_lock; if the faulting task
+is killed, the lock is never released, leaving all subsequent kexec and
+kdump operations permanently returning -EBUSY until reboot.
+
+Add a lower-bound check on wrapper.length before the subtraction to
+prevent the underflow.
+
+Fixes: 09dacbbda935 ("pefile: Strip the wrapper off of the cert data block")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gu Bowen <gubowen5@huawei.com>
+---
+ crypto/asymmetric_keys/verify_pefile.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/crypto/asymmetric_keys/verify_pefile.c b/crypto/asymmetric_keys/verify_pefile.c
+index cec99db14129..cfa85ccb1cf7 100644
+--- a/crypto/asymmetric_keys/verify_pefile.c
++++ b/crypto/asymmetric_keys/verify_pefile.c
+@@ -146,6 +146,11 @@ static int pefile_strip_sig_wrapper(const void *pebuf,
+ 			ctx->sig_len, wrapper.length);
+ 		return -ELIBBAD;
+ 	}
++	if (wrapper.length < sizeof(wrapper)) {
++		pr_warn("Signature wrapper too small (%x < %zx)\n",
++			wrapper.length, sizeof(wrapper));
++		return -ELIBBAD;
++	}
+ 	if (wrapper.revision != WIN_CERT_REVISION_2_0) {
+ 		pr_warn("Signature is not revision 2.0\n");
+ 		return -ENOTSUPP;
+-- 
+2.43.0
 
