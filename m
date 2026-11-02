@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614164;
-	b=j/j47oMO759JPAvORL2pwYtc2FyNWKqjwC62zYWBVTAE8eLVqERSjRRtskQFqFc42k7X
-	 OUJz2updQ7OCqZeHLspxZTfE3dnghxBM05wg/S7J4hTQlmkBC/+LeIgCsfPq7AFUyIiZW
-	 hffDPWbJk46dkIDMc1rF4jyR2erwRPalJYGjKW77yIB8tp+T+YHGgFRYwzMIDiVMWt1Xu
-	 WwuChOT99gP5Vp+OO4KRVRABIS75MKrRuTNAW5ZPjojwg6vJ3a6pMjkwAECM7HuzkBU3B
-	 rU9pc68OasJGiowSMrvbczoqwssQsVw5yzHQG16jZMW56rbDMnRVn9FxOT1vfoNfJ1Q==
+	t=1793614368;
+	b=mx2s3jt5wvjedopfN3zzBc8l0T5/wkw03WX2LJm2F83GVBE6MeRfyzGu3BDdOdEqeqPg
+	 HYkXStWjTj7qQ0YHB+/RiP/CtQx/pmpT2xcfEIp3pjBfq8IzeqjVsLhXvmoworufRazUq
+	 y0pU3HCFcE0/h+y2xdqbl/TneB8Ax9Kf1JY5XKPySlAbyy8pkq245B8d4Kvb64yi+ML1G
+	 J2io57esBHzLB8HbxfZitDDEwk42yWjRHdBPd98joSPi2ieG/QZnVscFl6EHHqB8mZL5j
+	 6UOhUijx1pgKsAEvDLA1rTboSIRrr01ZxxIWcfqWRyh0T1XbeqaWv9DDoWZ3FNyg/jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614164;
-	h=DMARC-Filter:DKIM-Signature:Cc:Content-Transfer-Encoding:
-	 Content-Type:X-Original-From:To:Date:X-Mailer:Mime-Version:
-	 X-Lms-Return-Path:From:Subject:Message-Id;
-	bh=j///8M5sOuCP4zIrDfL0phJ8BzITe20/aCrKuakg3b4=;
-	b=g+iMLz4UOcyXD6Ky887wAZ4FHtCvBYbDdW2a3UY2+ZQc43QNub2ANL2vKwH4g4veEmkq
-	 mHkRirM3/PxcuIaNlVXBEyTq1dTq3db0KEugxUz37rEz3CKqba3T+bl+aLt6akMuwGoAm
-	 kB5hz7+wVE+OPF3xN33oiH+FsvlTAZpZ1KVB7HAfNOaPx6x+pFhP7FNqeu4TntK/WfOv5
-	 I7TL+5qywD3ym6mIePFvqkM403bPYL8vFpa6Uws0g4mSiisyK+On6mKosE5cWTXU3N1jP
-	 hqA8/+M1q2PCt1BolvS9S8UhFkFE8Yl7s4kKNATSY2vBCHmVteujcXJqdfbS+Pw7IKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614368;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=zhAJG7RoUXOoz7M+qXiobMg1MbFShww69uh/kTjgH68=;
+	b=xoXC9Rvphj1lGBT4pOM/AdWyx6Nv/GIlxk1jonMUCw9Jurd1sIMzmggQRBG80nUb8UrW
+	 WxlZ6umVqMuxHGpQt1FXxBFFxjaU9diB+H5N1JDGCYjrf/onQ+CcrOJCrxv7NE4yz+QJn
+	 n4v6js4+W4PmpyU4xsp5QadJYawuXzOiqXmM7L04myg0yhpkS/SJJyth/hNNQPjv7DAj2
+	 d/9FSpHQdxTo/Q1JLPqDZ0PCkN8qAmJFC+/SeEo6FWLkTEEsJtJePJHNX9eUwXglWOfIK
+	 QkotpFtm9UTjpt3nAR7vFNZ37f1IeX6If2o/4ZvVWAopuy7WuD3vhj0Pe1xoX/ukEtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=aVzyIn7h;
-	arc=none smtp.remote-ip=209.127.230.115
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VmuCN7+4;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6A1606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:09:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B6A1606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900ED606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:12:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 900ED606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=aVzyIn7h
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793614157; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=j///8M5sOuCP4zIrDfL0phJ8BzITe20/aCrKuakg3b4=;
- b=aVzyIn7hPAlCdIOx+6LkHu37rCXeiqy+qTzS51y+FHUoaxF4raMqIF30/l+ckwu4C6wFLN
- Id2tg8dfKcrqxvLzaAXPeuE6pe46r7QR61COCjIzyMylTz7xxpdLKaabVOG9U3WWWu70rw
- S2fPiZTc4W8u1M+UUOMm2ChLwB6/K32ZUHu1M/gRWnTDL+VWifqwjRDybV8ffMIZTihG20
- CjH39/YYyt0wpautCoYcaJM8gQwCpcWxTc0bar1NXs4poFMBXbJJ7hTdBZLvfXtLjt0TO2
- aQ8i7TeXEI3ECnD+3FknZNiO7FNViifBPM1+bat1ZAdVzeE2NqI2c3krgcj3SQ==
-Cc: "Guixiong Wei" <weiguixiong@bytedance.com>, 
-	"Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>, 
-	"Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, 
-	"Chang S . Bae" <chang.seok.bae@intel.com>, 
-	"Shuah Khan" <shuah@kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-kselftest@vger.kernel.org>, <stable@vger.kernel.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-To: <x86@kernel.org>
-Date: Mon,  2 Nov 2026 18:08:52 +0800
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=VmuCN7+4
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so25923585e9.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 02:12:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793614366; x=1794219166; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zhAJG7RoUXOoz7M+qXiobMg1MbFShww69uh/kTjgH68=;
+        b=VmuCN7+4AZROpo0l32qa7fIa38GzCV9C5RE7VWKIVqzBzIm8UL5G2FotGfej9c1OcM
+         d+100dYvuuHHZ0DjCCpo9jjJ2fVhZzrXeM4uIDsoYltVvF9/YOv3EYWquqtbS5eJqSwf
+         4dv4PJB4Xr1nR6H4EBRh9oQzkDrntLwyEKVPhMGGLx8ydJK9mxEIeRSbishj8frkFwWP
+         k5J5B3xN93hnv5gX1ouoySBr3tjvb5zuCkTRlySP9nv6oRR79H5I+cyM5FoRwlU2yY4w
+         rt65w5HFcdZi3Sp7dCrV+bT6avv1cp1nXwNTOgr71kCtFEzB4pSYcFq7AO47cM9DxB+i
+         SqzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793614366; x=1794219166;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zhAJG7RoUXOoz7M+qXiobMg1MbFShww69uh/kTjgH68=;
+        b=NOETftnnjwutr+39Hby8GdK/PgHXOK0iclzvWauUD33DVq9j+FIut88CVsV2xHJ80N
+         skWAZW8k9zvOSaVmAeiyLDbzmtZkiWGJx3kEpndTyB9MO5x7aE+VhvFMsywj1YhFpUnC
+         nq9oACicUsM6wsEWpkV6WW1foUxQW25QtJ5H+RsxS+GGAeXEaVCfgIorp9+Ebozcn2v2
+         cRBADzwoU8efb8ZC0iDi/uZgQTuBkQiPbgfvqVCl0/f5q2RQghh3zuXodk9QGVwT8TZz
+         ZPaqglej+Sb4WETrm3FvSmjhf6fI1ePLXYYhgr/tLAYQ+pILlOmf4nICtN9RdbcoJB4R
+         fbpA==
+X-Forwarded-Encrypted: i=1; AKwUvBwOqyrZtAGGvpDWewIefDO/SAPsCzh52LKgPyvSNIFLHSu5KzValimUsre8oqCu99AmmbhxwH0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKej/oPk4+GK5TlXXB5MAkfE7EYFMvTKZbFp+p695z83QafNJ4
+	1YRTVe4XdixF0P27KIkl5IiZcnqAo8/UoW5PqCe61APgwrwUU5O3EUc3dQ90QxgabMQ=
+X-Gm-Gg: AYBFou3wo5ocoKAX1vP43TgAhWqfOwupH9+nYME9s6lL1oDEbi4IAFem7DCF56oKJUp
+	yB4jheDXrf95moLd8Dc+UqpaycWgxGuMP3eGstFM9YwEr0Y1SYDjut4HUULhBn/5rKAYl3gPslQ
+	t442a9WzG4swsSM1l53+feWRw7ZvdDB8Z3LmlEbBH39H3+KpxhWC8eXcB2yrON+JNT42LXe91vr
+	HD3ZPWiUCfLlc9tkH5dQSmtQajVgDvRnww+azlqXxlkuOPuCOa+M47+HRL2PFMV4xAzHI1xEvkd
+	X5eagl5QECXPndc2crvfDMNC+BXujQL6Si4Ftd/SK8UJN13HPtWh53T0bm1jUHPsrlQSR37Pq1v
+	PvArPC6fucpj1PSGH9UX8FOTzmHLatLI2tQLCXtD2ZiwSRrxbHaQWU0tD0L0QDkLejiWgsHClHV
+	LMLXmPnYGsfFe1IGxp/4hHzMOUZ2k5+rM2lknXxdid4WcrDqaQvkX07adSuVJ/SA3NVyW4haJQn
+	d+YzNpGJsjDUmMRtyMuVcNQJLe+k+GsKUCUyqZ6YIzYbALNiGhcEnZPZYkYVVbSEVmj3fhYwIPV
+	Kv6O4M6QnK93IxPJtkqc6MVWzj1DAMTIzlbNEtY=
+X-Received: by 2002:a05:600c:19d1:b0:4a2:677:ad8e with SMTP id 5b1f17b1804b1-4ac1970b9f7mr217205325e9.34.1793614365911;
+        Mon, 02 Nov 2026 02:12:45 -0800 (PST)
+Received: from localhost (109-81-32-81.rct.o2.cz. [109.81.32.81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm20935867f8f.44.2026.11.02.02.12.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 02:12:45 -0800 (PST)
+Date: Mon, 2 Nov 2026 11:12:42 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev, muchun.song@linux.dev,
+	penguin-kernel@i-love.sakura.ne.jp, tj@kernel.org, mkoutny@suse.com,
+	cgroups@vger.kernel.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm: memcontrol: don't miss processes whose leader has
+ exited in OOM scans
+Message-ID: <auhiGqKJeukk7t3P@tiehlicka>
+References: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,42 +100,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ae8614b+9c7a8f+vger.kernel.org+weiguixiong@bytedance.com>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
-Subject: [PATCH v4 0/2] x86/fpu: Fix dynamic fpstate leak on exec()
-Message-Id: <cover.1793604327.git.weiguixiong@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026120248.2188024-1-zhanxusheng1024@gmail.com>
 
-An exec() after using an XFD-controlled xfeature leaks the dynamically
-allocated fpstate. Fix the cleanup in fpstate_reset() and add an AMX
-regression selftest.
+On Mon 26-10-26 20:02:48, Zhan Xusheng wrote:
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> mem_cgroup_scan_tasks() walks with CSS_TASK_ITER_PROCS, so it sees only
+> thread group leaders, plus a dying leader that still has live threads.
+> Moving a process whose leader has exited, by writing its PID to
+> cgroup.procs, moves the live threads but leaves the leader behind, as
+> cgroup_migrate_add_task() skips exiting tasks.
 
-The selftest reports FAIL on an unfixed kernel (10/10 FAILs on 7.1.3),
-SKIP when vmallocinfo addresses are hidden, and OK with the fix applied.
+Is this a desirable/intended behavior? Shouldn't we move the dead leader
+along with the rest?
 
-Changes since v3:
-- Close the use-after-free that freeing in fpstate_reset() exposed.
-  fpu_flush_thread() called fpstate_reset() before
-  fpu_reset_fpstate_regs() set TIF_NEED_FPU_LOAD, so a context switch
-  or a kernel FPU user in that window could still see live register
-  state and save it into the freed buffer. Set TIF_NEED_FPU_LOAD before
-  the reset and document on fpstate_reset() that callers operating on
-  the current task must prevent such a save. The race was caught by
-  the Sashiko review and the fix was suggested by Chang S. Bae.
+> The destination's OOM killer then cannot see the process.  If it is
+> alone there, every attempt ends with "Out of memory and no killable
+> processes..." and the charge is retried indefinitely, and
+> memory.oom.group kills nothing; otherwise another process is killed in
+> its place.  The source's OOM killer still finds the leader, reaches the
+> moved threads' mm through find_lock_task_mm(), and kills a process that
+> has left the memcg.
 
-v3: https://lore.kernel.org/r/cover.1793072271.git.weiguixiong@bytedance.com
-v2: https://lore.kernel.org/r/cover.1791428412.git.weiguixiong@bytedance.com
-v1: https://lore.kernel.org/r/20260929151013.81562-2-weiguixiong@bytedance.com
+While you patch works around this seems like something to address in the
+cgroup core. Should CSS_TASK_ITER_PROCS iteration see all processes
+regardless leader being alive after or prior the migration? AFAIU the
+thread group belongs to the new cgroup in both cases.
 
-Guixiong Wei (2):
-  x86/fpu: Fix memory leak with dynamic fpstate and exec()
-  selftests/x86/amx: Test dynamic fpstate cleanup across exec()
+> 
+> @@ -1452,9 +1482,10 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
+>  		struct css_task_iter it;
+>  		struct task_struct *task;
+>  
+> -		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
+> +		css_task_iter_start(&iter->css, 0, &it);
 
- arch/x86/kernel/fpu/core.c        |  12 ++
- tools/testing/selftests/x86/amx.c | 251 +++++++++++++++++++++++++++++-
- 2 files changed, 261 insertions(+), 2 deletions(-)
+Shouldn't this be CSS_TASK_ITER_THREADED instead of 0?
 
+>  		while (!ret && (task = css_task_iter_next(&it))) {
+> -			ret = fn(task, arg);
+> +			if (!mem_cgroup_scan_skip(task))
+> +				ret = fn(task, arg);
+>  			/* Avoid potential softlockup warning */
+>  			cond_resched();
+>  		}
+> 
+> base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+> -- 
+> 2.43.0
 
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-2.55.0
+Michal Hocko
+SUSE Labs
