@@ -1,75 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616373;
-	b=h80f0pZ+PXUo272hgTSeCXoiCjZWrz04ioKpHRrfcmWp7eWaAJZ9jFtFeWXMMreTh0Dh
-	 WUUZUSK23hmHExtYe3iValF/veX403fc8+m8BOKzgMM5g16AiVOUUXa42uKlbFNETTAmQ
-	 s2vANNIqvrxS9/6HN8L5U4AauAeEkttp4QWoas+Gn+x/e3j3nK5Ju9J8au5j9Mov54+kJ
-	 DqURkx7K/ufi48wPkHGFcCO+FwfANG658vB1q9gLEXrCoAa2urQNxxO7y6i1pxO5AiaXD
-	 segymQvlzS/KqlpApLYoD5/UE8gWyxf0LJ+37OScoeP0g759TaYzBuAgNDX/GcSHAIg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616373;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=/4xkEfYxqjbXp4Ci01sdrxpkE7UK56jG7PU71QpI0/s=;
-	b=z5SxWo5lfdLe8PDO7r/upJ/ziaqlDMehzSxrytxbTOG+lArtf/FETh0OvfIKEKzNAsQZ
-	 po54Or2ROL971QAlurSp1eJwugXM4AC6RHm5uDSNnfDXrfD7bk6T9CulmgY8SKiUTkjT/
-	 7Pc4u0Pqbn6DGJQVrtwQppanitImrcC6wYfsC9PFHaB7S/4kR8f2AYjf0dJluI6n7xoF8
-	 nWRiIPT6OSajs8FpuY9mXlZRcb/gxIuBtLk5/A67QSRzB8nO18mdQp/7LfnpL1t/ulnyW
-	 zuf+N3TfGnDqK6pjhFqLx4CgdlgNnXPfSgKqjRdqkZL0F6U6hYxDgDEYO03R8xRiVLw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=It7MZITQ;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793616476;
+	b=Tgbdhv8Etq4kgNXt63zCJlaJF+U0SaJ+pSnsefiASL+lnj9L2fczp4Wl5dp8/orBNUfP
+	 BmGFhnshrPe2xWXuoAG+QqFFFL9QCX4Mjg1j0AgGiG9uxFuOrjA3xRcbBnD6Fh2rPDWCM
+	 O2t/fU/3psJUKq3AD9vyTzW12v4nyFSy4c4aqjF7qnoZ4h33M5KEl9fzRXSII6LqNbdlT
+	 hLUy2n4SG0QttXH9q18vTblVLI0TPHuEEaLYDku5BIUYCcdmCmYIHjCzCj+X1YPJ6SP2h
+	 Vzz2DpYWq8OUCYto12X5BcAvfFVObibxFAkc45p0h58mGKz2ZifgkgoJaGFgfM6YFhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616476;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=T+XCZlvYvkjk5BF780Tiv3zUsXQtUsUyJd0qG2uowUw=;
+	b=e/f85gShFg0QpUJLvKjeCSShXbtIq0OIEUd/PqSWJIJ7NRCOuqfSXaWI01hn+Od8+xPu
+	 /HXf58/tOUxe9+nAUwzPXDXKbemdSr9FWjJqC2Rz7qTvo449JtlwHACs1hHQ40j16GbHW
+	 WLNKNqN/NA1mp+bihoimC119uupMiXPG/xuYCkRzhqeWRBAqT9yDowWnGZ+ATdfKHaoa7
+	 C2lsbKkRnSvayacc5kv+I8uX/r/2C1HTnhRQZn9ErP3nRig8giun15SOApGITtZFZfW0g
+	 L5+ODL6/OrAYcExva4s2Dq8ln0baDXXETHHaTq+shNePUs7qgVc29YJ1fV9RgQQdb1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASb+OXEq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CF5606A32E;
+	Mon,  2 Nov 2026 10:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASb+OXEq
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793616476;
+	b=sy9ZR3BrQ8I4QJHRe/r2Pz8c3L5C62MroasfB2dZTg4aU9vbqRZcRmcy76lBNIofJubK
+	 LVjgwEcTgDz+0vHIKpq0g3mAtr+ZjkdHcJutgq+S2h3S40NYKcptFldEZzqxTdSCa2OZM
+	 CTqpLFDGGvp6TapAsXfYblyUl4pz1MZlR5Ib71nVUZMd6UvdmNQ0xgj8HrxDnDPsjPWog
+	 EBJirc/JDeyj1MRC2qffYlbiAQL37BmYx/QKubzzVqrt24agD+vcteJPL2BjQBi5VzKd1
+	 1t5LIRwnENdG7HkzDc+cedZAUkrti4WbqhSN68PKIR0RKrqUskp9F+fnUw1uh5BYViQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793616476;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=T+XCZlvYvkjk5BF780Tiv3zUsXQtUsUyJd0qG2uowUw=;
+	b=VoWVe9Fiu0C+p4ERrvEqYTi1PIHlMOwRsG9GqqTq+O65yBHqJAJRFwWvxoe6N+diiqVT
+	 23x+0X5Bc9vIlngIlUoEg1vz0BNMisK+1XZ3FtiJEUXnl336h4+E11+Owd3800LA0U+F7
+	 YFfTdQCeiaA4hmHNTu7as7Ox/TLiAvNAS86+6IOHRvoPA6Ra655MCXzW2+T2clJwVNSr8
+	 YFwmMvraJ358oe7B8binYrRkhPnbKSh3gIqLgSsWS0XbpCu3Cwxo79mvku6r//4fzKec/
+	 eCDjydaiMRiCUy7V6U+eglgm439f0hDi3wRw3l7u8LwHSIATMAj7fp6r4B91A4uP/Fw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B93E606A32C
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:46:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B93E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=It7MZITQ
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ7fT3m9rzMlD7;
-	Mon, 02 Nov 2026 11:46:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793616369; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/4xkEfYxqjbXp4Ci01sdrxpkE7UK56jG7PU71QpI0/s=;
-	b=It7MZITQW6cp44q/4p/4z29YR3KERS8hRpIOZkqiw+Cy0DRLmqIrukC/XU8X/N2MWCBP6v
-	RMPxvCVydvnK85osICRqfZ3mkBA+rPuYAtYg+ryRFzs0Z2+eHwepVo+C8T6yKwM/iNxXqo
-	vYEuG9Dj7FouVHIXr70teKd/yO8Y8uKnn/U/evOmsZNX5WFkc9WDI8o356Vbg4a3nI9TT8
-	nfTyctcfqPMs50Y1NQSnRqPPjDoQD5NTPGjpD9pYSJK73OxMTb7Fjpai6ydXLhxjyAa81N
-	0L3XPokGXHPYsh9yv18AX9Sy0Py5k+Wfoq0/igioNjW2NtnDrUM2N3pijFMT9w==
-Message-ID: <45a8324481c367a69f25e8c395ff6784b441a834.camel@mailbox.org>
-Subject: Re: [PATCH v2 1/2] drm/sched: Fix out of bounds entity priority
- check
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
-	dri-devel@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
- <dakr@kernel.org>, Matthew Brost	 <matthew.brost@intel.com>, Philipp
- Stanner <phasta@kernel.org>, 	stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 11:46:08 +0100
-In-Reply-To: <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
-References: <20261021094227.48034-1-tvrtko.ursulin@igalia.com>
-	 <20261021094227.48034-2-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by smtp.kernel.org (Postfix) with ESMTPS id 035BF1F00A02;
+	Mon,  2 Nov 2026 10:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793616476;
+	bh=T+XCZlvYvkjk5BF780Tiv3zUsXQtUsUyJd0qG2uowUw=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=ASb+OXEqzW/PPS8dNCok0PKiHQrEn27Wg36PJr1zzh+e5JQuDBj545fZ/hYlpIF2u
+	 kS24gGk2kM9tVhnMUpiJ2mbLOoahV1DkZwmmHFQqThfdAH+xQ3RI1yJpdIOVfhKggD
+	 v7CBRwfgKvM+Sh93qr5uYRkKsCqTpnBRGpv2RtdvnmTjxCxGgnX4R+RA027q7nFGiO
+	 6k9vtZqCY74I2gMP9n43U+WLdaWAokT7uqbkt5LEZxNRT/0xyalw7KDDA/KE9m0Ll2
+	 ONmmSYMf1iAESyP2FzcO63rITlW5/+rmh3D/lMgSYyWHdvLAv1UJglQ3fVx1N2d6A/
+	 QfDts3nO8ScVg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 546E94648C;
+	Mon,  2 Nov 2026 10:47:54 +0000 (UTC)
+From: Tjerk Kusters via B4 Relay <devnull+tkusters.aweta.nl@kernel.org>
+Subject: [PATCH net v4 0/2] igb: only strip the Rx timestamp header from
+ the first buffer of a frame
+Date: Mon, 02 Nov 2026 10:58:12 +0100
+Message-Id: <20261102-igb-rx-ts-fix-v4-0-8785124c5d23@aweta.nl>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,99 +84,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: be023fd9551cd454391
-X-MBO-RS-META: mryqex7mdyz7hmerchnuaoynbob4gght
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALRe6GoC/3WNTQ7CIBhEr9KwFkNBsHXlPYwLfr62GEMNINY0v
+ bsUN42Jy5nMezOjAN5CQKdqRh6SDXZ0ORx2FdKDdD1ga3JGlFBBRN1i2yvsJxwD7uyEtTkS3nA
+ AVguUmYeHXBffBTmI6Potw1PdQMfVtM4GG+Lo3+U10TL+c5AorrFhqjGCcC0FPcsXRLl396JOb
+ ANT/guzDLetYtBJ0hgtN/CyLB98Gc3B/QAAAA==
+X-Change-ID: 20260619-igb-rx-ts-fix-cd70585ee316
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Sven Auhagen <sven.auhagen@voleatech.de>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Kurt Kanzenbach <kurt@linutronix.de>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Paul Moses <p@1g4.org>, 
+ stable@vger.kernel.org, Tjerk Kusters <tkusters@aweta.nl>, 
+ Piotr Kwapulinski <piotr.kwapulinski@intel.com>, 
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+ Alexander Nowlin <alexander.nowlin@intel.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793616473; l=4574;
+ i=tkusters@aweta.nl; s=20260619; h=from:subject:message-id;
+ bh=V317TYBLwQ5WuNCyFF4RLDMHWynYiHCEBd2nD508LPI=;
+ b=ryqI9RDn2jIBrVdv2VZ0VDC8gJhkzqTYx+tZ+sPo/GvZamUxOjOLhrxVtuZwgWWzZWNbzkepK
+ yPQNoyJ5XEQDyZDQzBaN1EYLdx1gQ29UMd4z8BCbz+X4Cy5DrHzCYz2
+X-Developer-Key: i=tkusters@aweta.nl; a=ed25519;
+ pk=JYRpYQ3+LrphEabgnxcbiOUpwvNP8WDDMcLzz+cwKsk=
+X-Endpoint-Received: by B4 Relay for tkusters@aweta.nl/20260619 with
+ auth_id=831
+X-Original-From: Tjerk Kusters <tkusters@aweta.nl>
+Reply-To: tkusters@aweta.nl
 
-On Wed, 2026-10-21 at 10:42 +0100, Tvrtko Ursulin wrote:
-> When the out of range priority at entity init time is clamped to the
-> number of run queues in the supplied scheduler the internal run-queue
-> priority needs to be adjusted as well.
->=20
-> There is no impact since none of the drivers hit the clamping path, but
-> we still need to address it by moving the entity->rq_priority assignment
-> to after the clamping is done.
->=20
-> Note that a lot of this will hopefully get removed once again when the
-> single run-queue simplification lands.
+With Rx hardware timestamping enabled (e.g. by ptp4l), igb strips the
+16-byte inline timestamp header from every Rx buffer of a frame instead
+of only from the first one. A continuation buffer that starts with 8
+zero bytes loses 16 bytes, so jumbo frames with zero payload arrive
+short and are dropped.
 
-So this is no existing bug out there, but merely for formal
-correctness?
+v3 used skb == NULL to find the first buffer of a frame. The Sashiko
+AI review pointed out that this does not hold when an XDP program
+consumes the first buffer of a frame that spans several buffers, so v3
+was sent back for rework.
 
->=20
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: <stable@vger.kernel.org> # v7.2+
-> ---
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c | 27 +++++++++++----------=
+The same question came up for igc. There, Maciej suggested not to track
+frame boundaries in the data path, but to make sure that frames never
+span several buffers while XDP is attached [1]. Paul Moses' igc v3 does
+that [2]. This version follows the same approach for igb:
+
+  1/2 limits the receive length (RLPML, or the PF pool's VMOLR with VFs)
+      to the configured frame size while XDP is attached, and leaves
+      room for the timestamp header in the XDP buffer size checks.
+  2/2 is v3, unchanged in code, with a note that it relies on 1/2.
+      The Reviewed-by and Tested-by tags of v3 are kept for that reason.
+
+Not addressed here: the AF_XDP zero-copy Rx path. igb_clean_rx_irq_zc()
+has the same unguarded strip, and with 2 KiB UMEM chunks the hardware
+buffer is rounded down to 1 KiB, so frames span descriptors there. The
+igc counterpart is Maciej's buffer-size patch in [2]. I do not use
+AF_XDP and cannot test it, so I would prefer to leave that to someone
+who can.
+
+How to reproduce
+----------------
+Receiver with igb (eth0), peer with MTU 8228. hwstamp_ctl turns on Rx
+timestamping with filter ALL, no ptp4l needed; this ping method is
+taken from Paul's igc report. One host with two ports also works if
+the sending port is moved into its own network namespace.
+
+1) Truncated jumbo frames (patch 2)
+
+  receiver:  ip link set eth0 mtu 8228
+             hwstamp_ctl -i eth0 -r 1
+  peer:      ping -c 5 -M do -s 8200 -p 00 <receiver>
+
+  Without the series there are no replies, and IpExtInTruncatedPkts
+  goes up by one per frame. With the series all requests are answered.
+
+2) XDP consumes the first buffer (patch 1)
+
+  receiver:  ip link set eth0 mtu 3000
+             hwstamp_ctl -i eth0 -r 1
+             xdp-filter load -m native eth0
+             xdp-filter ip <peer> -m src
+             tcpdump -nn -e -i eth0 'ether src 00:00:00:00:00:00'
+  peer:      ping -c 3 -M do -s 8200 -p 00 <receiver>
+
+  At MTU 3000 XDP can attach, but without patch 1 the MAC still accepts
+  the 8242-byte frames, which then span three Rx buffers. xdp-filter
+  drops the first one, and the rest reaches the stack as a separate
+  frame with all-zero MAC addresses:
+
+    without the series    5154 bytes (header stripped twice)
+    v3 alone              5170 bytes (stripped once)
+    this series           no frame; rx_long_length_errors +1 per frame
+
+Tested on an I350, kernel 6.14.9 with these patches, with the steps
+above: results as listed. The v3 line is from an earlier run with an
+XDP program dropping ICMP. Also checked: XDP attach at MTU 3030 works,
+at MTU 3046 it is refused, as is an MTU change to 3046 with XDP
+attached. With two VFs allocated (booted with pci=realloc), step 2
+gives the same picture: three leftover frames without the series, none
+with it, as the PF pool limit in VMOLR drops the frames.
+Not tested: PAGE_SIZE >= 8192.
+
+The patches, their descriptions and this cover letter were prepared
+with the help of an AI coding assistant (Claude). I reviewed them and
+ran the tests above on my test bench.
+
+[1] https://lore.kernel.org/all/20261025065154.2037149-1-p@1g4.org/
+[2] https://lore.kernel.org/all/20261028083344.3047350-1-p@1g4.org/
+
+Changes in v4:
+- New patch 1: limit the receive length while XDP is attached, so that
+  skb == NULL reliably marks the first buffer (Sashiko review), as
+  done for igc.
+- Patch 2: no code change; added a note that it relies on patch 1.
+- Link to v3: https://patch.msgid.link/20260625-igb-rx-ts-fix-v3-1-99b3efa08dca@aweta.nl
+
 ---
-> =C2=A01 file changed, 12 insertions(+), 15 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/s=
-cheduler/sched_entity.c
-> index 7be0387bac3c..e12709b7bd0c 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -130,10 +130,7 @@ int drm_sched_entity_init(struct drm_sched_entity *e=
-ntity,
-> =C2=A0
-> =C2=A0	INIT_LIST_HEAD(&entity->list);
-> =C2=A0	entity->guilty =3D guilty;
-> -	entity->priority =3D priority;
-> =C2=A0	entity->last_user =3D current->group_leader;
-> -	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
-> =C2=A0	entity->num_sched_list =3D num_sched_list;
-> =C2=A0	entity->sched_list =3D num_sched_list > 1 ? sched_list : NULL;
-> =C2=A0	RB_CLEAR_NODE(&entity->rb_tree_node);
-> @@ -144,25 +141,25 @@ int drm_sched_entity_init(struct drm_sched_entity *=
-entity,
-> =C2=A0		 * not to do this and to fix their DRM calling order.
-> =C2=A0		 */
-> =C2=A0		pr_warn("%s: called with uninitialized scheduler\n", __func__);
-> -	} else {
-> -		enum drm_sched_priority p =3D entity->priority;
-> -
-> +	} else if (priority >=3D sched_list[0]->num_user_rqs) {
-> =C2=A0		/*
-> =C2=A0		 * The "priority" of an entity cannot exceed the number of
-> =C2=A0		 * run-queues of a scheduler. Protect against num_rqs being 0,
-> =C2=A0		 * by converting to signed. Choose the lowest priority
-> =C2=A0		 * available.
-> =C2=A0		 */
-> -		if (p >=3D sched_list[0]->num_user_rqs) {
-> -			dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u nu=
-m_user_rqs:%u\n",
-> -				p, sched_list[0]->num_user_rqs);
-> -			p =3D max_t(s32,
-> -				=C2=A0 (s32)sched_list[0]->num_user_rqs - 1,
-> -				=C2=A0 (s32)DRM_SCHED_PRIORITY_KERNEL);
-> -			entity->priority =3D p;
-> -		}
-> +		dev_err(sched_list[0]->dev, "entity with out-of-bounds priority:%u num=
-_user_rqs:%u\n",
-> +			priority, sched_list[0]->num_user_rqs);
-> +		priority =3D max_t(s32,
-> +				 (s32)sched_list[0]->num_user_rqs - 1,
-> +				 (s32)DRM_SCHED_PRIORITY_KERNEL);
-> +	}
-> +
-> +	entity->priority =3D priority;
-> +	entity->rq_priority =3D drm_sched_policy =3D=3D DRM_SCHED_POLICY_FAIR ?
-> +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_SCHED_PRIORITY_KERNEL : priority;
+Tjerk Kusters (2):
+      igb: do not let XDP frames span more than one Rx buffer
+      igb: only strip Rx timestamp header on the first buffer of a frame
 
-I guess my main question regarding the code is why you moved those
-lines?
+ drivers/net/ethernet/intel/igb/igb_main.c | 37 ++++++++++++++++++++++---------
+ 1 file changed, 26 insertions(+), 11 deletions(-)
+---
+base-commit: 2d3090a8aeb596a26935db0955d46c9a5db5c6ce
+change-id: 20260619-igb-rx-ts-fix-cd70585ee316
 
-> +	if (sched_list[0]->sched_rq)
+Best regards,
+--  
+Tjerk Kusters <tkusters@aweta.nl>
 
-Couldn't that remain in a terminating `else`, reducing the git churn?
 
-> =C2=A0		entity->rq =3D sched_list[0]->sched_rq[entity->rq_priority];
-> -	}
-> =C2=A0
-> =C2=A0	init_completion(&entity->entity_idle);
-> =C2=A0
