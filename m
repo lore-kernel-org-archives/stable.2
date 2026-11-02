@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633632;
-	b=ntqvsi63M7B4Vbl1SFmYA19K57hdQCPZpuLkR9+h5j9+cq8RBqazNeORPJBDF5pppqET
-	 ITI3e7G1pXuDHcaWxW2/pqEmuBaBPoZbjuWP1WZD/kErnr6LFbPmXRox1ld3rJmKx/99R
-	 I/bmdlkIoX45E3IvndrQ6Eyz8HppH4M8bgVuoefavLryCjlJBjxOUz/+8nFMjr7KGVo4y
-	 tCGyGiWzfXqnFKOjhSFMvziZkZxzy/VBxQLib9jeMMu52Mn6SU2z7JFoBR1ZCn9Ij0VlV
-	 KOg89ABtPo4MaDuFcQX9JITQGzgt8pOEDvvLoPBUIWudqdH6mcTWk+tkPX+hXP5kDRQ==
+	t=1793633634;
+	b=Z0UITCDajMVwFulxH4sXlknjcOVEKvp7gyTmaKxhvNiueXzLGerkfp9AATgbHKKScP3h
+	 MEwk6u0Xjea9fXpzts98NsuiSY7q6jInajz50KBYa44/XpUu2cb3hOswKp1R1/dhbO3oJ
+	 WLGO2lK4K3Sfd8+x6Qkn6psOlPS/dUM1uo78dn54NhUmntzDgDOpXNQMxMGadnAGsX7rt
+	 gj9xQDBRtVhUI+MtThgayOL+Qy6ZumTLhfWNPdGONNI/42GgCZX/u6Elc5hxfnx24DUjm
+	 nZzZb388Hz8IwqtxAFIIDSjPLH5k+rPQowX0d11GWu3IgfarociRta4StAQnIiyUXLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633634;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HwKdkxKDmBiLdjawZABkcl1fPHCuoNe0u2BcAB2lutw=;
-	b=1EWcvswlR1EFBbxB3VXL3rKhRcIUXLHAgZ9Tnih5iu1paITOQDA5jxEzQ7sZkdzk6HsZ
-	 Ub+vyil1GYFO3X6AvK2V9jOLMbgP68jVZejZeMuKrZ9E7UL5zbwt2Il2Sm1hB0m/gbOVe
-	 QYoFQqco8pl71qZcJqqxt8Mu9uQScEVZVW7L5Ov2tPdrqYrPj+Ho5ZtMoJZpM5nGNvIvS
-	 WMIqkvAI/Qx7KqZip4z6OIyXOjXvW3bHGZFm36vLU/pTJS9JhFv4P1Hf9BfcdxjLpyPDF
-	 LpSQwEfrBWHtE3aX81oGxrVamaToGcBrTAhKKk+H7C+Az9eJ7njrtBVZtUDxKHt41Xg==
+	bh=yhqrxKniWvmwFSmFCISp+ceOGGboxDBvmWamj+Gedzg=;
+	b=ifsBE2bZxOGb5V6UF2G931vOeTYn8kFr+Ht62foVt3mWb13pnoYC5At9ENC+U+8r5T4+
+	 ddjjCd9uBRCD1S0hWdk7Q8X0uRE5gad/QJQQbk3YvGg3YWJZTC9jTfW1+nIr1tRJ3zQvh
+	 OhsYECM629MbliL14m2BG7xEFd1JycJtVlVVwgPxUPAcz7KOMkIG/pqmu6cG60DPf6Rvm
+	 ki3Ga1g24ML+sUdFsgK/nPFIAnhCwHPgBM7dZDQh3ES2jwdS3HKP4Uo12ftDs5F3R1WSj
+	 ejFkENWLODT8D68E9Q6rHEh71p22Pea0oLW4lxeMytUBVwgak698SbdgYSjSHdRBujQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lHIPSzdx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntSQOlUu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF86C60DAF7A
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:33:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB83D609FD81
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:33:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lHIPSzdx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 225391F00A1D;
-	Mon,  2 Nov 2026 15:33:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntSQOlUu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C641F00A1A;
+	Mon,  2 Nov 2026 15:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633631;
-	bh=HwKdkxKDmBiLdjawZABkcl1fPHCuoNe0u2BcAB2lutw=;
+	s=k20260515; t=1793633633;
+	bh=yhqrxKniWvmwFSmFCISp+ceOGGboxDBvmWamj+Gedzg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lHIPSzdx51l2RfrGLLOssHqcWOM9Ia1pmRp9tafwdZYlJWkr75kzJYhkxJMvMPN8E
-	 wo0WkfvS23wEecCo21i7ga7fnMRuvqznY5WFOJdr+c9PH34rkMVYLqFDtd50a5yUG6
-	 pJEueNF6D+tKoBxdN/Qg1gMLnvTj8w2oFNDfXg6Hxqr/Qso2hta+gc+JbKdv/ypdED
-	 KIUPdzJwwaUn9S3IQrXRdzerTyzq42QjxMK08sQKDQaGFhQrFLF2Oa9TgFfTtfZfNU
-	 9t4ZwUpdaOHw6z3kZWpAj1ITWcKtjFAx6InkjLhMXLYQ4UCLrkVcpWDdHY7nq857Fl
-	 ztcUk+iI+AWgA==
+	b=ntSQOlUujmxDvny6FddaWCjC0XtMeIwEdtQGq2r5qDVHQRdkAENpPeHGuNQkyt9NZ
+	 5cX0Qul7Qgs2+kNTwyvP89a8lXR7JkfgoL564FA3kyg74DzXbX00zGsP/g41nX5GHj
+	 pxsHEGn/zQntNLSyOESpdzrsE+aSe+LNQJGEkJy1MO+/q5t4v8b5tOBVrcPhJysyB4
+	 NQG+teZ5xoeUchJBfQXLTXpy1V5FyDiHCR5oLE82o8FjKKiODMADD6kk+nlIUlHmmg
+	 48bKQQqmJfCwXhXxX7ggK1cVkBSw/FrO1mxNbd3K+ERPY/aAVtBLVyN5/BsEdc8r5P
+	 vj7aB6ukV0VTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 5.10.y 0/9] Few CVE backports to 5.10.y
-Date: Mon,  2 Nov 2026 10:33:36 -0500
-Message-ID: <2026-11-02-1-daily-reply-0010-few-cve-backports-5-10@kernel.org>
+	Lorenzo Pieralisi <lpieralisi@kernel.org>
+Subject: Re: Send two commits to stable kernels
+Date: Mon,  2 Nov 2026 10:33:38 -0500
+Message-ID: <2026-11-02-1-daily-reply-0012-gicv5-send-two-commits-7-3-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102102104.1558500-1-harshit.m.mogalapalli@oracle.com>
-References: <20261102102104.1558500-1-harshit.m.mogalapalli@oracle.com>
+In-Reply-To: <auhU-oxrjzFoFctB@lpieralisi>
+References: <auhU-oxrjzFoFctB@lpieralisi>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,9 +60,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> We have backported some upstream fixes to stable kernel 5.15.y.
+> commit 1d77e79d62cf ("dt-bindings: interrupt-controller: gicv5: Relax IRS
+> properties constraints")
+> commit 64212d63193c ("irqchip/gic-v5: Fix standalone IRSes OF probe")
 
-Queued the series for 5.10, thanks.
+Queued both for 6.18 and 7.3, thanks. Nothing older has GICv5.
 
 -- 
 Thanks,
