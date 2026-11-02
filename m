@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.87
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793586299;
-	b=ubd2dW+7MNAisbzFvEcIgLAyLYF7uailmTY5Qp4a4j6TNejCnZwyi/mP22a91Yvkj6u8
-	 TfZicIVKFbecGKwgbQRbFj8qW9VkLSF/84UT7DkXPHFbAjuR0dB8QHE3BTSknMsKiaiar
-	 7nTXRZ5GUBnmISDpanPQH02KGRl7/Xb0yv9YLWtLqfTuzLOq7y/1kLijkawPP8EdkZcoi
-	 6teCxJj+28bRKVlULCorWcm/qy5rUOmSU4kIAFf+Q7pc2kB3NA5A+826WYpimPSnsoEzA
-	 FrI7qv+JI/aKHWQKvfM2FYioeYkRzuNyrhBTcpKWPyGZWOaARcp/985e/ahIn5JIBCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793586299;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=2mnsyMY9o09dxT12b5diRUF6Cicg8w6KasRAQlIeI/I=;
-	b=pz9Ou7uRC8KUtBbZ9DqUVAzrQsPUVSMm7bkY3qshAEkdkG78/W6KHQtsu1kf0giE5sIe
-	 W13GLclYzOxm+A9BV498Bt56WzCUzPupxHsGDZ3H+LgPdSgOvTATuWF3RgcH6fJFFr90r
-	 7iS8ZUHK3fz39gFW3byBuZpqS6HIdcT+/FXpeWvQN8SmABwBom6TIos27fJf3j6/Ew9Uc
-	 bIq8A3MEbxct6KjZliLWXklLaQiHiuF5qdpk2dl6A+6w9XOzh2T/BnXb3tneT157Iz6xl
-	 swK2+OYvaZfh/YQOxCf/DQZyo+l5xwGTCm+B8PczaNE9YYj69AaRKo7bkA9LkKzSeZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RddVEMc0;
-	arc=none smtp.remote-ip=91.218.175.87
-Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793586342;
+	b=kQ17CnzDoGohqTOpDbkbmUhXtTmyxr5Dsr6vudtKA8TSXaMbFDyrRc6UwDmRfRJ35+UL
+	 M1mb+NXj6+9tvoARPtw6ZIk3awnjlwvi4kPjfKW8DrfDqnLjjyXd3xZfNafm6wrwU9whp
+	 iXCkZA/26D7mZmVKBv7ah7dqmwNb5aeNCWc9T/ezJhgtuhdtPsciJ8fSCfBTtljhkfiCE
+	 ndoG8IHiKpaijTpYaLKsjAldXAczRtvVlomHVN56MpC2p0MH/U7nzWu74+UcwbSf0Jv/D
+	 7Z5reGTRuRlOlzvh3QN53S/zS1K5expTS+dzhB8FTTx6j97YmQnnnk2jToZ05vuADmA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586342;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0m11DqAQsWViOluQPYNzPkQX9NkHKluVITQUvXZ17kE=;
+	b=nok3bMOrVgNk953NMXUlC/doGfklB/vD8PihfXbbkdRlEpzOBIbqhKimqJSGgUIYFv8O
+	 rUeaNdMiO7f0Fr+kXQpMEMICbt2qh6DU9CfL5N7CKUwONrLSzjnAQ2we5I05SQG3Hdj/h
+	 dRsi96K6HH2L1gLJuoudRxEXmGByT8UxZbC0BmA1ykAfyTnx6ta68wnjcqxi1bKZ46zkG
+	 DNsGVxDyanJ5MdV6V4z9XqcrpwVEr3RpViXtzN8aOoJVvm33jxFvsdEvn7fp9zRmDb/E5
+	 8MD8fxbzH6Z0823YruXuGgy9kaBZGyh7sUVWUZdi+SSjl6R8jkFseEa3tUHES+OuqkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ugDCsvDY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.49
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E744F606A327
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:24:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E744F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FF9606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:25:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23FF9606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=RddVEMc0
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9MWJaTq44xn+tvTxU7mQ3vu6AIJLcPaBU+1NzYl4ghk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793586296; v=1; x=1794191096;
- b=RddVEMc0Nc6NAvlP05NTHE/hYX6XO7jCA5N64VxWF8G/+V12NHaXseYCOduZ0SctWX3A7uDu
- L+u9fua1pQ5u2i6+Vm7RredncvQPNGs4PAdTii9cVvi5XHeCVlBVbfXRwIe4gik+HI9JdH4yyKr
- KjWpVYrcR93TY51p6/OHadUw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 112a86c3f0c26040;
-	Mon, 02 Nov 2026 02:24:56 +0000
-X-Mizu-Trace-ID: 112a86c3f0c26040
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ugDCsvDY
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso2075108e87.3
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 18:25:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793586340; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UA+us26lRPyWOg9eMO2Hu5Uxtm8HyCNcRfgt5yKFezIp5cIrxj4len5OZC/oPbeLWj
+         G6LHGYv0VYHh2HaFBo7Dv/o6emkpF6k+8EkKwl7jqrGmW4hzPFi1b1UDn75rgHKAKOUm
+         KugdR4tkzJIs5YoJMBu4OLWcEUfpk8upxMshTFZ+a9NhQnNq0bElXbJjOPuaixiNCiVO
+         BeH1w/p+5JNSI1oYmwV6v2spEwAxFN0cJ7amPyl330TPltW7fzl+ECHVmVjR9EINtTeT
+         S20bYyWjbW++b/GSGKs3tnzxfsN+62AjSumAr++/3vr376skG+Mq10Im1+vHM6ikZctI
+         AHRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0m11DqAQsWViOluQPYNzPkQX9NkHKluVITQUvXZ17kE=;
+        fh=wQr4Jckgcb3ehVzna0rLOl6y/bFWbBwnsuJsCJGDCNU=;
+        b=KPa+xsFJxZ340uxT20KlKen0vGLZHTkKfxm2vUX7SXv4vqX5fHNFdfypQxGMrkrQCo
+         qgaERIDeu4/uRODhOdC3iUIpOwfqLbhAqpqTKVIRX1ziziE+fvFDCG5hj0NJ8OjLEoJJ
+         8Ye797ii36CNa7tdClTJw93AfEVvurqeqx50iqf4B8veyRWJioulVmIKsSfRofBWkbjt
+         L883udp8OxCDszFw2y1GwGuSJOaqFnA4h0/DdysxM5zYStp3C+c2W6XbXYBh8ZdL/Ia2
+         pC+n1sSl6h3oFtPWAQ1KwKitEo+OxqUqnA5ilvlf37CprTOnbI4RqXkpmjWR8nOiHN4/
+         q42Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793586340; x=1794191140; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0m11DqAQsWViOluQPYNzPkQX9NkHKluVITQUvXZ17kE=;
+        b=ugDCsvDYCkDc501EStBD45BR0hKilJ3mHh5PLVzf5klKd9eNQ8fs3jIePlTP0KNAPt
+         r5EOByLZmYdmqZO0W7i0VzKXiB+0qwLpqz19LfLPF5WJEU+UOWoJfrFEFqWtVTcBcdiO
+         Tlwwd/Uf+ihgzH2fBeoSDDPZ3lZjk4bXPpSKc0I5mR1pFeRxHgeLLD5R8ZS1mxu0kOV2
+         BwCpFUQHqwcxEKUL9mvZXZJoeUuLNygu5SgxQecFGOYDKPXe+0mVis5idDsh0w8q5nzV
+         Qd9k+zsIG5Jm9agqPdNs43nJzKTLXs25BjQN1v2kKT+jyshNQ3Aa8/U+ONAzCvLzWUj/
+         GKxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793586340; x=1794191140;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0m11DqAQsWViOluQPYNzPkQX9NkHKluVITQUvXZ17kE=;
+        b=xRKTfyE43hVuhfS0eSEED2ZcnG8DhtqlsYS4bIchk6RoqViGnevBURqMwlPBPH9A//
+         eR1pp9XK/pzIYE9xExBlc0u81lyRQH3gx1ZqShcv53Jo2wOrXjlkoi26H6QO6iz7ARky
+         6LVBOmR7pFRnSXUfC/Cd03BP0wfT0OZf+x/qxdjqO7YvMCcqhekxN6TwBpzQ1BGjx9F9
+         n5DKZb7fnjBpKtnjXtStSy+fzfWr+9mgSUtV7V2XggPHdZDtJE/rDHWUX9WCcoRGLzHT
+         Kf1omDxXy6RsnNSHvoWm9BGTl62Bcfci2ksrSsXdCVpIi9O0KxSm451jw+KIwh2T4u5s
+         B3aQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLMfJ3JKWCfYHMoDpNhWy+cE4BoFTdIIl8znWAn8kUqkHmnbuzEVbBBOm9BHpnQWyAXj0lkPI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9JqKQ2ClBnnLne+A5Tv77K/6U1pwritHYg8+J6KVizp21TsrBB
+	CshUEcoYGkX/KP0Wq90BLlCUxZfTidIBusPraEjmVOg0DybhodYd+vkWT1UqlJyG2bcChzhU8th
+	8xfXVZfdlJOWCx/Ba2K2mUS3hO9kAfsE=
+X-Gm-Gg: AYBFou3Dewsbo2GxNFItiUhiB5V9Eg+0t1YLtSmN4OnxqOTF+XvBaKBLqvYEKM9Trt/
+	bSr0ap0F7jbYBeDugAd6TBLRG9RMUteA2EOhWKZ97PylfpG9SlPBzVtdPeoCJHriAoTXXMM84uS
+	EPdl4wFXRygx08a73rNNQed+Hki8ysRTugOgCsNk4PItkJlCn6ncHtd9Wl/jBn5ne7N2iQ4LFth
+	ADra3tsqgbCWZQUKZI8f6mHG/+5JaGbnDSXpW+zqSksw5cFd70HbQIjjN+ITCqVglmQGpSDEXC1
+	/36EZzyaiON6EciNEnLTz4eSodc+qDAj2ZvjQiKoLfF4PvJCBZeoeuNl/U3vBKFioo1WU13M25N
+	gRorObvmkWOT9N6CQCQen5TCsPsCi6hxnmszF9t+Z5mDrONdOfpuKWyI/r+zVAiO6qoErjkKMOx
+	4J8BV3ZpX2qMlWJQbhzcZin+ALbtWwYx5pbzIwiKF43h+uY67AaR0EA3Kh6VJFm2u7p7RPR9mOF
+	chxn496hs4=
+X-Received: by 2002:a05:6512:a94:b0:5bf:b246:87a2 with SMTP id
+ 2adb3069b0e04-5bfd957b610mr2907633e87.10.1793586340194; Sun, 01 Nov 2026
+ 18:25:40 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,170 +105,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v3] hugetlbfs: move hugetlbfs_free_inode tracepoint to
- ->destroy_inode()
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com>
-Date: Mon, 2 Nov 2026 10:24:38 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- linux-mm@kvack.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Hongbo Li <lihongbo22@huawei.com>,
- linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com,
- stable@vger.kernel.org
+MIME-Version: 1.0
+References: <20261031133455.3070233-2-rsalvaterra@gmail.com>
+ <CAL+tcoB6vg+-w1JZdND_cTN_zPeh76_+-W_NU34jkunJUFwrrA@mail.gmail.com> <CALjTZvbPacWO+NY62fbFdQEAJemD57zmhdYy+v+BXpxFgntcNw@mail.gmail.com>
+In-Reply-To: <CALjTZvbPacWO+NY62fbFdQEAJemD57zmhdYy+v+BXpxFgntcNw@mail.gmail.com>
+From: Jason Xing <kerneljasonxing@gmail.com>
+Date: Mon, 2 Nov 2026 10:25:02 +0800
+X-Gm-Features: AclHuK-ou4PfE1lO6DM3P8nj553WJIIK4Nvl4HbobZUxI6ExZLuUtqWgm0YgoO0
+Message-ID: <CAL+tcoAnw=5vP_s5qTOo8O-8uBntph4MOAxYE3fnw3+K0jhyDQ@mail.gmail.com>
+Subject: Re: [PATCH] tg3: make depend on ZONE_DMA
+To: Rui Salvaterra <rsalvaterra@gmail.com>
+Cc: pavan.chebbi@broadcom.com, michael.chan@broadcom.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <6FC96012-76AA-483B-BDA4-8E1C1ABB5FFE@linux.dev>
-References: <20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com>
-To: joasantonio108@gmail.com
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
+On Mon, Nov 2, 2026 at 3:41=E2=80=AFAM Rui Salvaterra <rsalvaterra@gmail.co=
+m> wrote:
+>
+> Hi, Jason,
+>
+>
+> On Sun, 1 Nov 2026 at 05:48, Jason Xing <kerneljasonxing@gmail.com> wrote=
+:
+> >
+> [snipped]
+> >
+> > The blamed patch seems correct, so I think you need to root cause it
+> > instead of adding a global dependency here.
+>
+> I'm sorry, perhaps I misunderstood, but *I* need to root cause it? I
+> never claimed to fully understand the implications of the patch I
 
+This is not how things are going here. As long as someone proposes a
+patch, they should at least know what they are doing.
 
-> On Nov 1, 2026, at 21:48, Joas Antonio dos Santos via B4 Relay =
-<devnull+joasantonio108.gmail.com@kernel.org> wrote:
->=20
-> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
->=20
-> hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
-> hugetlbfs__inode event class records inode->i_sb->s_dev.  =
-->free_inode()
-> runs from an RCU callback (destroy_inode() queues i_callback() with
-> call_rcu()), and Documentation/filesystems/porting.rst says that this
-> callback "is *NOT* ordered wrt superblock destruction; as the matter =
-of
-> fact, the superblock and all associated structures might be already
-> gone".  put_super() frees the superblock with call_rcu() followed by a
-> workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
-> hit this with the event enabled:
->=20
->  BUG: KASAN: slab-use-after-free in =
-trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 =
-include/trace/events/hugetlbfs.h:36
->  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
->   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
->   i_callback+0x46/0x80 fs/inode.c:317
->   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
->   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
->  Allocated by task 6134:
->   alloc_super fs/super.c:326 [inline]
->   sget_fc+0x1ba/0x1f60 fs/super.c:874
->   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
->  Freed by task 855:
->   kfree+0x22b/0x6d0 mm/slub.c:6923
->   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
->=20
-> Emit the event from hugetlbfs_destroy_inode() instead.  =
-destroy_inode()
-> calls ->destroy_inode() synchronously, before it queues the RCU
-> callback, while the superblock is still alive; =
-hugetlbfs_destroy_inode()
-> already dereferences inode->i_sb there.  ->free_inode() is left with
-> only the kmem_cache_free().
->=20
-> Since the event no longer fires from ->free_inode(), rename it to
-> hugetlbfs_destroy_inode so that its name matches where it is emitted,
-> as suggested by David and Muchun.
->=20
-> Found by syzbot; analysed and tested with the syzbot C reproducer on =
-an
-> arm64 KASAN kernel.
->=20
-> Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs =
-functions.")
-> Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
-> Closes: =
-https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Suggested-by: Muchun Song <muchun.song@linux.dev>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> ---
-> Andrew, this replaces
-> hugetlbfs-emit-hugetlbfs_free_inode-from-destroy_inode.patch in
-> mm-hotfixes-unstable.
->=20
-> Tested with the syzbot C reproducer (adjusted for the new event name)
-> on an arm64 KASAN kernel: no splat in 3 of 3 boots, and
-> hugetlbfs_destroy_inode events are recorded.
->=20
-> Tool-use note: the analysis and testing were done with help from an
-> LLM-based assistant; I reviewed the change and ran the tests myself.
-> ---
-> Changes in v3:
-> - Rename the tracepoint to hugetlbfs_destroy_inode in the same patch,
->  so its name matches where it now fires (David, Muchun).
-> - v2 was the resend with the Assisted-by trailer dropped; it should
->  have been marked v2 in the subject, sorry about that.
-> - Link to v2: =
-https://lore.kernel.org/r/20261031-b4-hugetlbfs-trace-v1-1-4ec8d02a30cc@gm=
-ail.com
-> ---
-> fs/hugetlbfs/inode.c             | 6 +++++-
-> include/trace/events/hugetlbfs.h | 2 +-
-> 2 files changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-> index 01c4d6f44e..095b7fceee 100644
-> --- a/fs/hugetlbfs/inode.c
-> +++ b/fs/hugetlbfs/inode.c
-> @@ -1179,12 +1179,16 @@ static struct inode =
-*hugetlbfs_alloc_inode(struct super_block *sb)
->=20
-> static void hugetlbfs_free_inode(struct inode *inode)
-> {
-> -	trace_hugetlbfs_free_inode(inode);
-> 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
-> }
->=20
-> static void hugetlbfs_destroy_inode(struct inode *inode)
-> {
-> +	/*
-> +	 * Not in ->free_inode(): that runs from an RCU callback, when =
-the
-> +	 * superblock the event reads may already be freed.
-> +	 */
+> sent, nor the intricacies of the tg3 driver. What I *do* understand is
+> that a supposed "fix" from Broadcom has left the Ethernet controller
+> on my late 2012 Mac Mini inoperable since the 24th November 2024, when
+> absolutely nothing changed in my kconfig. That is, by definition, a
+> regression. I'm entirely available for testing any patches people send
+> my way, if whoever fully understands the driver and the hardware is
+> unable to reproduce the issue. However, asking the user to fix a
+> problem created by a patch from the hardware manufacturer is=E2=80=A6 an
+> interesting approach, at best.
 
-Since the trace point name has already been changed, the comment here
-doesn't seem to serve much purpose anymore, as there isn't any =
-ambiguity.
+I see what you meant; I thought you were trying to make your first
+contribution to the kernel :)
 
-With the comment removed:
+With that said, maintainers would pick up this and probably send a fix
+with your credit (reported-by tag). Thanks for your report :)
 
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-
-Thanks.
-
-> +	trace_hugetlbfs_destroy_inode(inode);
-> 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
-> }
->=20
-> diff --git a/include/trace/events/hugetlbfs.h =
-b/include/trace/events/hugetlbfs.h
-> index 8ba72c1d4f..a7932e0db0 100644
-> --- a/include/trace/events/hugetlbfs.h
-> +++ b/include/trace/events/hugetlbfs.h
-> @@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, =
-hugetlbfs_evict_inode,
-> 	TP_ARGS(inode)
-> );
->=20
-> -DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
-> +DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
->=20
-> 	TP_PROTO(struct inode *inode),
->=20
->=20
-> ---
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> change-id: 20261031-b4-hugetlbfs-trace-341b338ab57b
->=20
-> Best regards,
-> --=20
-> Joas Antonio dos Santos <joasantonio108@gmail.com>
->=20
->=20
-
+Thanks,
+Jason
