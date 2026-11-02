@@ -1,66 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793625001;
-	b=tQXQEgMLubmRgC4+NJDbVQkijIE2tRSsw41Szcm1X+UTyt2PcqzL73tx9yXboK8epWWn
-	 8BsxK5CHEKMCjLPGMdeovyRCKnQ+jcY+Z5X8JMsNCihsKW1B5+RQ2VQ6vKlzBefBPdEwm
-	 +4bvLQwXuKP+wy+nChCMzdXTH1AuOrH0dr7DdTwBBjcVuYtmC7lmK29BQJ8Oyvx0y6K5Y
-	 1J7bMJhgqNvX0+Zd39hR9s3f+9C4DPobgwBJA/3PGaqczTeFZSE+5AiY0O8IDHrpQH76n
-	 jJHMTNWXo+Lv5UMtfPouGkxUPrC4N0klLUN5Ljpyujioq93+WbeL5+HUY9cO/m0KsYQ==
+	t=1793625209;
+	b=UraNjDVUIuKJadzSghfV5GhleoGuA8Ws+tmGDuaweVfxN/puwKVYhnVmy1IQsvckp0Uy
+	 6qebwMGlilTLOs7JHMZdAadxMJPWs8w19wJOEFpPmtVfirz3YNuWnPhaiT8Q9uqbOd2+O
+	 mnPR7/9a8ymEUADDPDv0rQS0Opyep984N1U5VdUXke577xCND0+bgSlwj7MqPw5qjUmde
+	 xxfzFGIrTsbuECSUMG+oTsw6O7cAvMSQZqjxGIda0fy2cLoRUPm1khlw/wHdBB0QEE0CW
+	 d6+zyY4JPLcJpQ3u1CshuziuSjpFiEm9K2skYDdIg00yAmunFIl94Dqo4qsA60SlofA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793625001;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Spam-Status:X-Spam-Checker-Version;
-	bh=GHqMw/q7TleuNfGocIGHyAhvtp87XaBBGPNbbQljPFA=;
-	b=yvTfTFHPTPWWog0olJUQkWF8OkD667aT8aJc1k3KfdsjXckYD8KMQugIQvj+dgOddQ3y
-	 164VNYOlZY0g2gUmno3YiE+uDbrGXXNHFnEnoVm32IgrKka0LzUtMPrRlOgRIGLGx+esJ
-	 ItFmzgpBjuaw0uiCNtbbhKGqhKtwvqz08QJxjzZ6dvGbv+KwhfRodm8cJVpB/5oNSW1MI
-	 cEEKQy7XWgWnNzqbVcH7sNS7kwbRuAz2nnBsYH5FWvJVB0qirnlNVXJBejuEdFHdLfKgQ
-	 b9yg9tO5XmyAf0ianSdPU+s9WKA6pxRKFAgqXzKmrE5xEntGGLziRCmy90k2cszuXxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793625209;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Yvtg7UEHcDn0BhPld9BffcD6kymWDnPG5L08CfILpNQ=;
+	b=1auLWzy42ViIPZ5hWmUMiLelC6zCgm4oLrb21tDJOOUe+iTtft7hBDeKDEEvxn8BEmSv
+	 EuZcqzOz2p87brU18d7dKJRI92+kCC/+wajcUa62UZUVKomj99Dl/KiHRaUxcd0fKAcDZ
+	 LCCH1jiNaaAci75egu9TIM0pDyrNiFPDeHnmutuwJeDnYBHS5nWc6qzSABZ9rVVmCN3lc
+	 SebiImJ9irQ4y5cqoM1NUy3m4tld79yzbGbJIdggbxSlt11nZKVh/WFcsfSpxM1s6KsJK
+	 PNQ13q911aihFHda4o0bP1JntX8mKa6vVkY8K1ra0ItSbRGi4VQP3Yu5lFS7rL5eVUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hkDw8QnB;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 820FB606A327;
-	Mon,  2 Nov 2026 13:10:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 820FB606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JO/gGD9e";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C998606A327
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=hkDw8QnB
-Received: from mac.lan (unknown [52.172.102.253])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6952520B7167;
-	Mon,  2 Nov 2026 05:09:38 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6952520B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793624986;
-	bh=GHqMw/q7TleuNfGocIGHyAhvtp87XaBBGPNbbQljPFA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hkDw8QnBTDt6E80Z5hdYd70uvNkEDFdNNuvZS+e8HxPlxvNNVdV54wxhkvPN/mMDg
-	 hzcvyYjkda5LYWou8UhJUmE9gLzTEcFyAq/FMXxK2eFPQyff1C4gWhkOQhc0+XNPs2
-	 RGZ1ZKwJoMHOKMkXgr0chE6tGdKr1/sUf7ZMGAQA=
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Anjali Kulkarni <anjali.k.kulkarni@oracle.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	tgopinath@linux.microsoft.com,
-	Cen Zhang <cenzhang@linux.microsoft.com>
-Subject: [PATCH net 2/2] connector/cn_proc: release socket state and listener count on close
-Date: Mon,  2 Nov 2026 08:09:22 -0500
-Message-ID: <20261102130922.75629-3-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102130922.75629-1-cenzhang@linux.microsoft.com>
-References: <20261102130922.75629-1-cenzhang@linux.microsoft.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JO/gGD9e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE751F00A16;
+	Mon,  2 Nov 2026 13:13:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793625208;
+	bh=Yvtg7UEHcDn0BhPld9BffcD6kymWDnPG5L08CfILpNQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JO/gGD9ewHyz2SLuQSnWnv5SkRYnjW6Jlif4kKehidqN1K7Ls90VV+U9KAKZIAX7q
+	 I68srTMzUM/97p9GI4YCKRv+h2VcTO1HFSKU5iLgqQH/1KhZn/bImVB8RnGEUwGkuR
+	 j9ZuAHOca+gT5pcdFkG2v1PqNoqpqWzgQzUa892tURhDbsdXJ4vWvXEL9swBYlIdCm
+	 ygLFkZxPMK+1eDYPrerqdItygGbXfPvJDCRnSR+bQOxzPIbDTuMSv7T0uf6cUMwaVz
+	 Q3MNvnI4nJxN/nWFEqeuQGh1hU6ksvsx4fD01hsq0nNa2P59pjXg3az+vM/YmLn7gP
+	 A7qEIsD2DHJ3A==
+Date: Mon, 2 Nov 2026 13:13:23 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] mm/mremap: fix hugetlb reservation leak on partial
+ move
+Message-ID: <auiJW4jzNs76F90O@gremlin>
+References: <20261030-b4-mremap-pre-split-v1-0-c1829811aed0@toxicpanda.com>
+ <20261030-b4-mremap-pre-split-v1-1-c1829811aed0@toxicpanda.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,126 +61,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-b4-mremap-pre-split-v1-1-c1829811aed0@toxicpanda.com>
 
-cn_release() is the netlink release callback for NETLINK_CONNECTOR
-sockets. It frees the per-socket proc_input only if the socket is a
-member of the CN_IDX_PROC multicast group, and it never touches
-proc_event_num_listeners. Both are wrong: cn_proc_mcast_ctl() allocates
-proc_input for any socket that sends a control message, and a socket
-that is still in LISTEN state when it closes has incremented the count
-and never decremented it.
+On Fri, Oct 30, 2026 at 02:42:46PM +0000, Josef Bacik wrote:
+> Moving a part of a private hugetlb mapping with mremap() leaks the huge
+> page reservations of the parts that stay. They are not returned when the
+> mapping is unmapped, when the process exits or when the pool is resized.
+>
+> fixup_hugetlb_reservations() takes the reservation map away from the old
+> VMA while that VMA still spans its whole range, because the moved part is
+> only split off by the unmap at the end of the move. hugetlb_vm_op_close()
+> then finds no map in the parts that remain and returns nothing for them:
+>
+>     mmap() of 4 pages, MAP_PRIVATE | MAP_HUGETLB    HugePages_Rsvd: 4
+>     mremap() of the second page to a new address    HugePages_Rsvd: 4
+>     munmap() of all of it                           HugePages_Rsvd: 3
+>
+> The source is unmapped in this case, so the number of VMAs ends up where it
+> did before and the check against sysctl_max_map_count stays as it is.
+>
+> Fix by splitting a hugetlb VMA in prep_move_vma() before a part of it is
+> moved, as commit 597e4b9ab48a ("mm/mremap: fix locked_vm leak by splitting
+> VMA for MREMAP_DONTUNMAP") does for an mlock()'d VMA. A backport needs that
+> commit, which is tagged for stable itself.
 
-This has two consequences. A socket that sends a control message
-without joining the group leaks its proc_input on close; an
-unprivileged user looping over socket(), one control message and
-close() leaks 8 bytes of kmalloc-8 per iteration that no process exit
-gives back, until the OOM killer fires:
+Ack, that one goes back to 5.7 in theory, this one 5.16 so all good.
 
-  Out of memory: Killed process 93 (trigger) total-vm:1016kB, ... UID:1000
+>
+> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-And a listener that exits without sending IGNORE leaves the count too
-high, so the kernel keeps building process events that nobody receives.
+Some nits below but LGTM, so:
 
-Fix by moving the cleanup into cn_proc.c and running it for every
-socket on close: free proc_input if present, and decrement the count if
-the socket was still in LISTEN state.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Fixes: 2aa1f7a1f47c ("connector/cn_proc: Add filtering to fix some bugs")
-Cc: stable@vger.kernel.org
-Cc: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
----
-The bug was found and this fix was developed with the assistance of an
-LLM-based code analysis tool. The analysis, the patch and its testing
-were reviewed and verified by the author.
+> ---
+>  mm/mremap.c | 28 +++++++++++++++++++---------
+>  1 file changed, 19 insertions(+), 9 deletions(-)
+>
+> diff --git a/mm/mremap.c b/mm/mremap.c
+> index 0d06d7f37f19..cf746bafdee4 100644
+> --- a/mm/mremap.c
+> +++ b/mm/mremap.c
+> @@ -1038,7 +1038,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
+>  }
+>
+>  static bool __check_map_count_against_split(struct mm_struct *mm,
+> -					    bool pre_split,
+> +					    bool source_stays,
+>  					    bool before_unmaps)
+>  {
+>  	const int sys_map_count = get_sysctl_max_map_count();
+> @@ -1092,14 +1092,15 @@ static bool __check_map_count_against_split(struct mm_struct *mm,
+>  	 */
+>  	map_count += 2;
+>
+> -	/* If pre-split, the -1 observed above doesn't apply. */
+> -	if (pre_split)
+> +	/* If the split off source stays, the -1 observed above doesn't apply. */
+> +	if (source_stays)
+>  		map_count++;
+>
+>  	return map_count <= sys_map_count;
+>  }
+>
+> -static bool needs_pre_split(struct vma_remap_struct *vrm)
+> +/* Is the source range split off its VMA, to then stay mapped? */
 
- drivers/connector/cn_proc.c   | 14 ++++++++++++++
- drivers/connector/connector.c |  7 +++----
- include/linux/cn_proc.h       |  6 ++++++
- 3 files changed, 23 insertions(+), 4 deletions(-)
+NIT, but slightly awkward wording. Honestly I think we can just do without a
+comment here, the name self-documents, and the hugetlb 'stuff' is documented in
+the comment below.
 
-diff --git a/drivers/connector/cn_proc.c b/drivers/connector/cn_proc.c
-index 4f613c0648ae..a4b62998095e 100644
---- a/drivers/connector/cn_proc.c
-+++ b/drivers/connector/cn_proc.c
-@@ -387,6 +387,20 @@ static void cn_proc_ack(int err, int rcvd_seq, int rcvd_ack)
- 	send_msg(msg);
- }
- 
-+/* Called when a NETLINK_CONNECTOR socket is released. */
-+void cn_proc_release(struct sock *sk)
-+{
-+	struct proc_input *input = sk->sk_user_data;
-+
-+	if (!input)
-+		return;
-+
-+	if (input->mcast_op == PROC_CN_MCAST_LISTEN)
-+		atomic_dec(&proc_event_num_listeners);
-+	kfree(input);
-+	sk->sk_user_data = NULL;
-+}
-+
- /**
-  * cn_proc_mcast_ctl
-  * @msg: message sent from userspace via the connector
-diff --git a/drivers/connector/connector.c b/drivers/connector/connector.c
-index 4028e8eeba82..f31ee8962f7c 100644
---- a/drivers/connector/connector.c
-+++ b/drivers/connector/connector.c
-@@ -14,6 +14,7 @@
- #include <net/netlink.h>
- #include <linux/moduleparam.h>
- #include <linux/connector.h>
-+#include <linux/cn_proc.h>
- #include <linux/slab.h>
- #include <linux/mutex.h>
- #include <linux/proc_fs.h>
-@@ -182,12 +183,10 @@ static int cn_bind(struct net *net, int group)
- 	return -EPERM;
- }
- 
-+/* sk_user_data of a connector socket belongs to cn_proc. */
- static void cn_release(struct sock *sk, unsigned long *groups)
- {
--	if (groups && test_bit(CN_IDX_PROC - 1, groups)) {
--		kfree(sk->sk_user_data);
--		sk->sk_user_data = NULL;
--	}
-+	cn_proc_release(sk);
- }
- 
- /*
-diff --git a/include/linux/cn_proc.h b/include/linux/cn_proc.h
-index 1d5b02a96c46..8de921d731ce 100644
---- a/include/linux/cn_proc.h
-+++ b/include/linux/cn_proc.h
-@@ -19,6 +19,8 @@
- 
- #include <uapi/linux/cn_proc.h>
- 
-+struct sock;
-+
- #ifdef CONFIG_PROC_EVENTS
- void proc_fork_connector(struct task_struct *task);
- void proc_exec_connector(struct task_struct *task);
-@@ -28,6 +30,7 @@ void proc_ptrace_connector(struct task_struct *task, int which_id);
- void proc_comm_connector(struct task_struct *task);
- void proc_coredump_connector(struct task_struct *task);
- void proc_exit_connector(struct task_struct *task);
-+void cn_proc_release(struct sock *sk);
- #else
- static inline void proc_fork_connector(struct task_struct *task)
- {}
-@@ -54,5 +57,8 @@ static inline void proc_coredump_connector(struct task_struct *task)
- 
- static inline void proc_exit_connector(struct task_struct *task)
- {}
-+
-+static inline void cn_proc_release(struct sock *sk)
-+{}
- #endif	/* CONFIG_PROC_EVENTS */
- #endif	/* CN_PROC_H */
--- 
-2.55.0
+> +static bool split_source_stays(struct vma_remap_struct *vrm)
+>  {
+>  	/*
+>  	 * An MREMAP_DONTUNMAP of a mlock()'d VMA needs to unlock the
+> @@ -1109,11 +1110,23 @@ static bool needs_pre_split(struct vma_remap_struct *vrm)
+>  		vma_test(vrm->vma, VMA_LOCKED_BIT);
+>  }
+>
+> +static bool needs_pre_split(struct vma_remap_struct *vrm)
+> +{
+> +	/*
+> +	 * fixup_hugetlb_reservations() takes the reservations away from the
+> +	 * source VMA.  The parts of it that do not move have to keep theirs.
+> +	 */
+
+If only we could swear in comments... :)
+
+> +	if (vma_is_hugetlb(vrm->vma))
+> +		return true;
+> +
+> +	return split_source_stays(vrm);
+> +}
+> +
+>  /* Do we violate the map count limit if we split VMAs when moving the VMA? */
+>  static bool check_map_count_against_split(struct vma_remap_struct *vrm)
+>  {
+>  	return __check_map_count_against_split(current->mm,
+> -		needs_pre_split(vrm), /*before_unmaps=*/false);
+> +		split_source_stays(vrm), /*before_unmaps=*/false);
+>  }
+>
+>  /* Do we violate the map count limit if we split VMAs prior to early unmaps? */
+> @@ -1162,10 +1175,7 @@ static unsigned long prep_move_vma(struct vma_remap_struct *vrm)
+>  	if (err)
+>  		return err;
+>
+> -	/*
+> -	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
+> -	 * case perform any split ahead of time for an mlock()'d VMA.
+> -	 */
+> +	/* Perform any split ahead of time if the source VMA has to be distinct. */
+
+Nice reduction in comment size too :)
+
+>  	if (needs_pre_split(vrm)) {
+>  		VMA_ITERATOR(vmi, vma->vm_mm, old_addr);
+>
+>
+> --
+> 2.55.0
+>
+
+--
+Cheers, Lorenzo
