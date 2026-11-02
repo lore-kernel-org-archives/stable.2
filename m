@@ -1,88 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.177.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614738;
-	b=TPdlqUqAYAWacesVWrpyaJshg2FpqbQgyqRSKQtSRbMwm1QcQWGFyuwqTZMDi8eRDdLM
-	 GuureRmGkHf7Rty3QDlDAEOIPZho92qQdkWmtgWGwtSfPVQioawEQV/wokGBYlum4zBIG
-	 6nGXLzrSKmqyrpvQwsnDSC1zG5z7FdJbFVvFeYGP3LGVrcxjr5djvOUFNGxp5dfp+u7cj
-	 DLvH0pil2jgmkL2apLHGW9WWVlqOANA5sBzvOdbSNJz8zOZqjt/OwT8TGEBLz5NglmeQL
-	 wWvmycimS0h1XDaDmOjRsSq5Eld0IwfX0q8hA6m531aLTN7pO2IjaXWMFsBx30Wmm0g==
+	t=1793614869;
+	b=lXzznsQ3vzEdvbkiEyQVilNyGSsR7/YgtX9Cq5du60frC5yXa6mjK248QbHygqlQror0
+	 pTDYf87gVkRyxSd5jTpLUs6U8GwGbCSVI0Ia8kmD9D7s4gANFh0YqcTzZ6TstVGPtiMZM
+	 PZyJMElTjJVAsBlfHcerr+lNrR9jbZOLFvuZKpb2c2eLkTzHN7ldxHBAuaJZcp+0Ii7ic
+	 cHgAgBDnppUNuRs8fqSNCLwhfRswLDL/1Oz8vSXLMunu8Gw+wCgDnYILAoJO+yLsT7DZR
+	 G2PpaxmVJPMfRxmJkBjyZfapQBAVOsvbT9uxMLWbhv5q99WOBGmWQDA4ULg14x5C/sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614738;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
-	b=lWkpzjq1QtGjMctVcoGEgXt2QtL5IBjQA20Dq2Nr/sAtnzItqW6mddK0c2Ymy+2fXafB
-	 24QE76FJTyOYc9VchNTsgz7nr6SQhmVphwtNdvKBpTN3mqkIgbK0ArBkAm25BLiAIPd0v
-	 1m/fqsnsb1W0kA06vjSiiOx+URaPBFUP5BT7sDWoUF0q7fSTepU8MkOSIG4vFs4zmPaD1
-	 JCSYIz1DCyd/Lvmi8W/uIeB+OEJ2XP7fE//+1aYdXRUmSfH6XfboUt6xl+dfhpjM4EdJX
-	 kUY0wATjBA4qXsuINvbpAo/drfE6F1CMOJowrFX7H4xJ4r68W8AE0FGozS3nXy9O3Kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614869;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID;
+	bh=LEFGGTgz7yjASEUA27ZEa9Yb28E7mZRsuhGgiXdVjGY=;
+	b=JipzkujaKTYiBcF9s2cumznwRYyUPoqieMywrD73lLU8c7PIXMW9yRtruEsAxDqs2xmD
+	 ZaUjagAP8LcJvrEdF3bSeEsg6l04ZXaox/sFRbj9RGbMJuC4GXCk04UwavApTul1Di9Uq
+	 IwhpFwGIsA4I29tH6YJI4jKYYpvBmRXHqTkU0K/d4a5PddwlSHN+miZ9mNO6FY5884Zs1
+	 AKeAT9YrGi/m0Xw3mot+FBkuP2JHgeuhDvtH582uZVsgPT3H9kHYmklgISy7ajiNf7Q1l
+	 lgj3k3nx/leEg1I1ehJaADiWmVZxYPOEijSMn97YdyUCUwFlH7u36eIxqIAuEyLoaTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxRdv5SA;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=hqAkoL83;
+	arc=none smtp.remote-ip=205.220.177.32
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5792060A261D
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:18:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5792060A261D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FFB2606A330
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:21:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FFB2606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XxRdv5SA
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so25998665e9.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 02:18:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793614736; x=1794219536; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
-        b=XxRdv5SAPtprMCixlSykpa9IdCsjIms0i58gM4n9WkmvL8mJ5T7nTQXKs1RGSXZyiN
-         yxa/3V7py96cIQ42Lm0vOJBL2LtKqssWb1eSYc9jZmdHxsBDxBc37uYMA/D7P0ZRYn6Z
-         lXQI3lnIz2AFJSE4tYTHitTh2GQYrXXhlQRCPTaBsYfV/Tx8DEcDVgyYB5ep45hw24KU
-         XpY+P/OTW1FJxkURBHhTBEBWxC9bpjeW6V/X053l5mcsQ5hi/5wMZQDl9kVnGw4FEtSl
-         /ZM9mLhndLMyxOkTYUYXS5yQRpj4sKAT8i3hSej5+PF5oW31Kyo6c0SuJg5/g4i/Q3m3
-         ODzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793614736; x=1794219536;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8OBOniiOD3/1mcF69iMSsD8cgqxrlh2JCSuj6D5fJsM=;
-        b=Y2Gr0xeUjWv1bQVx3eIlbTvZ+TSuU0sVz39+KXAmbivUWdZpfnWDOFyXdSHe5q21x0
-         ERilgFXtaBhOvYIQ8mCxniTOZ2niTEYiyJsdOo+jXk9utCEhr5ZEcazFUYJkhvLdgOYm
-         1fE2Nul41nidq+sGwZo+1Atjz2acVvLHNwdosTmnrp6S6B1cRUzZw2/1814GsNaR1IET
-         S55oXzdoUX7Rpz/9rRME2eE4gzyGBsVRhm2SNYIpBxjL0/tfUShWDjFf/0SoyDGSpyAH
-         uq8OYaT29Swf9YjTkPBhTCDXl8b8C0mFWAUuDPPVPvPqWm8ezfB04U59de+wezSjmVdg
-         BR6w==
-X-Forwarded-Encrypted: i=1; AKwUvBy080kNQyEo9C8N3fecsKB7BwRTwcU5qMBCbi4J7EMgOs9xN8usfk/O+1I7+iTw9uedlmOFf4E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPUKVx7uDfJhdfWhhE170bXycyEUMaVICyKw2nJ7NmxB4EVfu2
-	GvSP2qUozz0E70WcrxzlQDdX57DetbQIXAufakPtAYjNgTCH7/+24IkV
-X-Gm-Gg: AYBFou02bwe2Q1Nvhrhk1FSfNXspWRkUKjpAjJUyB8pa8N4ZGq9CDgt0nmQzB1dpWGN
-	Eq3reMSBAz+aDYgonKkdSgbVZcWlOv7ABJPs9kH8XoOWKLQMWrLXpqmOF5EeGSmyFo7x0h8/Yjn
-	WaWitCf2RdtSLF48aYkxD0LRO4zzxotdsCqpq7jrVkLxjYwxJwnFz42y2wlYLU2h+zfsLnRsjzK
-	H3R3N7/qK9T11PYdMGSuY3dfs5Wr65YokI0j1XGJX3UYrqGx3nSLjjCQ14aHKqFuVQJs5RJvqPZ
-	0v9gq41TXx0Pm6DBo2Kh9JR24+HbhgDybkMEJrR73MzWLDg6CKt0lOIvr+okBmU7yEscQ57L1RN
-	AcpeuLRDyN8g+ksSFvrpyOXLxh1Xl5eN0gz4Vyt/mcXjEGu0f4ZBmE8mdREXunJjG4VtI+HggdZ
-	/JDpjKA1AxWFVy8yHhU1mMngk6IWvo2vUiNRoBcGP8o3AVGgkZq02mmzDX2AoiGvT9lEEXzA9MT
-	3l93cDAt8Oly6WtYZR0H1TAdXQKvA7FLJiYhBRoi4HIqWflXDBAJauV6pKxDhw+FXrO6J3nGDqm
-	hG6+qIB2zxRDLYrTefNWXt9ZRu5sl2EgJk+85O7pdG1XWSkJioeXh/YYOn2fnBEhSivL/WR8mKR
-	xLHtvELpCF8Tqlgswm9imZWPNkk40wECohJKELesvNjiuzhSBaJOhnefvBKRq+WU8h/wOeG4K
-X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id 5b1f17b1804b1-4ac1932bac0mr190329705e9.29.1793614735583;
-        Mon, 02 Nov 2026 02:18:55 -0800 (PST)
-Received: from localhost.localdomain (80-108-121-211.cable.dynamic.surfer.at. [80.108.121.211])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f322c46sm321930265e9.2.2026.11.02.02.18.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:18:54 -0800 (PST)
-From: Christian Gmeiner <christian.gmeiner@gmail.com>
-Date: Mon, 02 Nov 2026 11:18:53 +0100
-Subject: [PATCH] drm/etnaviv: Flush the tile status cache through both the
- PE and BLT
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=hqAkoL83
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A22Tlux4112660
+	for <stable@vger.kernel.org>; Mon, 2 Nov 2026 10:21:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=LEFGGTgz7yjASEUA27ZEa9Yb28E7m
+	ZRsuhGgiXdVjGY=; b=hqAkoL83yZWftbTqNwgjluUtqP8RI4VXowF1JAYNrnr8h
+	fb3p6URLnH3JH9huLM1O2JXGD+cXGxMzNc73Wb67cAQDbXbz3EwrjMqxurdz0KtV
+	tH8Eap1oWFGze+s7cLewPj0Iy1jy0viQ7H6N64Pf6d119fyb+yHZgFQSUFOtbhu3
+	lUDJg5FphJvkb7uaSWZlcd3rmqK5sJbl1nlW2leuEwbAVXlt41BabwH5usdDOlso
+	pC+Bta2xj7pC1xoGA7af/B240AAzf4FQKhj6zFpE5gPeOSgyAD9fZfe/zaZniTtT
+	JD+ZSGzLY+b6mj9XIIW1wMprp9kH9KZIg9XjuM8aA==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn6r9smh2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK)
+	for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:21:08 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29D3md1424376
+	for <stable@vger.kernel.org>; Mon, 2 Nov 2026 10:21:07 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4hpqhua27a-1;
+	Mon, 02 Nov 2026 10:21:07 +0000 (GMT)
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+To: stable@vger.kernel.org
+Cc: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 5.10.y 0/9] Few CVE backports to 5.10.y
+Date: Mon,  2 Nov 2026 02:20:55 -0800
+Message-ID: <20261102102104.1558500-1-harshit.m.mogalapalli@oracle.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,143 +74,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-etna-pe-ts-flush-v1-1-e4454ed86f85@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSwqAMAwA0auUrA30A6JeRVxUTTUgVZoqgnh3i
- 8u3mHlAKDEJdOqBRBcL77HAVAqm1ceFkOdisNrWxmiLlKPHgzALhu2UFUPw2rjajW0zQcmORIH
- vf9kP7/sBFDvhz2IAAAA=
-X-Change-ID: 20261102-etna-pe-ts-flush-ffa01363b98c
-To: Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Christian Gmeiner <cgmeiner@igalia.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 bulkscore=0
+ mlxlogscore=915 spamscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2610300000 definitions=main-2611020040
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX6NfdouNfmUPC
+ kIYM64AIyZ2tE7y6QJWtbcwCXW6y2A6GICTZzl3RGrI1miG+kogFhTEiU7/sAIKkDO39G0cxVSc
+ RsmyyubTNAABDBIxKWZXwTqWmoP2LkZLMC7thBAxpzvf3wXt/JxV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX4SdYcSi9A89d
+ Sqy3L910T+vf5Db+OGusoxH58IbRxTU8/EqP5hdXQbPOAzkJ0CCFNoAA2KGUPfcjTA10D7/Sg6h
+ 9/FxZOPYDCKzV69wjnnZ49T6BWlwQitsjPeJi2Y1RFxIGivwcblDPpLafl4qfJOvzD2Y3e4WaMZ
+ pD46Ec6FwmySwwT1Z+lAQTeQjwq5EveKAUIj7Q+v2ZT4GQGG8SbWVOJDQuovSqXS2Nk6UIcmt9E
+ 4AhwwtAo7Ot5tPHnk0qTj7DZShZlr/G2Eru0s7e3I3rAfFvlXCyuBkb/0QU2J97lMw50fVgDjlY
+ ugoogjoD9GpTpxtyNDEMFe0XX7UOcT3+UVD0n9CVA4zFdkj9MJRyPSN3CW6fB4TK8mT5d/CgWyP
+ xcoZ+upnFMRA+yrZxbxSvnT3LZfIV8Aj/q2vbYrGkjV6LnVtsTzwpo73vdQfLnmvLLCEF8wGN8l
+ KVckwb/y6OdA04cHZFzt0TRrJfD+boejURL5IdW4=
+X-Proofpoint-GUID: AwFErMqF6dekb8Nen_teJG-frQq_uWAP
+X-Authority-Analysis: v=2.4 cv=EdZd0/mC c=1 sm=1 tr=0 ts=6ae86414 b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
+ a=x4eqshVgHu-cdnggieHk:22 a=2mhxUGYMmI0o_qw-IhYA:9 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13537
+X-Proofpoint-ORIG-GUID: AwFErMqF6dekb8Nen_teJG-frQq_uWAP
 
-From: Christian Gmeiner <cgmeiner@igalia.com>
+Hi stable maintainers,
 
-Since commit f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs
-with BLT engine"), jobs on GPUs with a BLT engine use a BLT command to
-flush the tile status cache instead of TS_FLUSH_CACHE, which is broken
-on most of these GPUs.
+We have backported some upstream fixes to stable kernel 5.15.y.
 
-GC7000 r6008/r6009 and GC8200 r6401 are the other way around:
-TS_FLUSH_CACHE works, but the BLT command does not flush the cache.
-The vendor driver handles these GPUs using TS_FLUSH_CACHE, but the
-etnaviv kernel driver has no way to identify them.
+We have only done overall testing that we do for stable release
+candidate testing and not any patch specific testing.
 
-As a result, dirty tile status cache lines survive the end of a job.
-They are written back by the next cache flush, using the page table of
-the job issuing it. If that job belongs to another process, the write
-goes to the wrong address space.
+thanks,
+Harshit
 
-On GC7000 r6009 this causes MMU faults and GPU recoveries blamed on an
-innocent process. I see around 1100 per run of a multisample
-depth/stencil test running alongside two other GPU clients.
+Eric Dumazet (1):
+  ipv4: start using dst_dev_rcu()
 
-Emit both flushes at the end of every job on GPUs with a BLT engine.
-Whichever does not work on a given GPU is a no-op. Since dirty lines
-are only written back once, this costs one additional state load per
-job.
+Ilya Maximets (1):
+  openvswitch: vport: fix self-deadlock on release of tunnel ports
 
-Fixes: f232d9ec029c ("drm/etnaviv: fix TS cache flushing on GPUs with BLT engine")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
----
- drivers/gpu/drm/etnaviv/etnaviv_buffer.c | 40 ++++++++++++++------------------
- 1 file changed, 18 insertions(+), 22 deletions(-)
+Inseo An (1):
+  netfilter: nf_tables: fix use-after-free in nf_tables_addchain()
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
-index 03b2576af67f..99c91a9eecf1 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_buffer.c
-@@ -168,6 +168,17 @@ u16 etnaviv_buffer_config_pta(struct etnaviv_gpu *gpu, unsigned short id)
- 	return buffer->user_size / 8;
- }
- 
-+static void etnaviv_cmd_flush_ts(struct etnaviv_cmdbuf *buffer, bool has_blt)
-+{
-+	CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE, VIVS_TS_FLUSH_CACHE_FLUSH);
-+
-+	if (has_blt) {
-+		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
-+		CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
-+		CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
-+	}
-+}
-+
- void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
- {
- 	struct etnaviv_cmdbuf *buffer = &gpu->buffer;
-@@ -191,7 +202,7 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
- 		unsigned int dwords = 7;
- 
- 		if (has_blt)
--			dwords += 10;
-+			dwords += 11;
- 
- 		link_target = etnaviv_buffer_reserve(gpu, buffer, dwords);
- 
-@@ -204,16 +215,8 @@ void etnaviv_buffer_end(struct etnaviv_gpu *gpu)
- 			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
- 		}
- 		CMD_LOAD_STATE(buffer, VIVS_GL_FLUSH_CACHE, flush);
--		if (gpu->exec_state == ETNA_PIPE_3D) {
--			if (has_blt) {
--				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
--				CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
--				CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
--			} else {
--				CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
--					       VIVS_TS_FLUSH_CACHE_FLUSH);
--			}
--		}
-+		if (gpu->exec_state == ETNA_PIPE_3D)
-+			etnaviv_cmd_flush_ts(buffer, has_blt);
- 		CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
- 		CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
- 		if (has_blt) {
-@@ -400,12 +403,12 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u32 exec_state,
- 	return_dwords = 7;
- 
- 	/*
--	 * When the BLT engine is present we need 6 more dwords in the return
-+	 * When the BLT engine is present we need 7 more dwords in the return
- 	 * target: 3 enable/flush/disable + 4 enable/semaphore stall/disable,
--	 * but we don't need the normal TS flush state.
-+	 * on top of the normal TS flush state.
- 	 */
- 	if (has_blt)
--		return_dwords += 6;
-+		return_dwords += 7;
- 
- 	return_target = etnaviv_buffer_reserve(gpu, buffer, return_dwords);
- 	CMD_LINK(cmdbuf, return_dwords, return_target);
-@@ -422,14 +425,7 @@ void etnaviv_buffer_queue(struct etnaviv_gpu *gpu, u32 exec_state,
- 				       VIVS_GL_FLUSH_CACHE_DEPTH |
- 				       VIVS_GL_FLUSH_CACHE_COLOR |
- 				       VIVS_GL_FLUSH_CACHE_SHADER_L1);
--		if (has_blt) {
--			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x1);
--			CMD_LOAD_STATE(buffer, VIVS_BLT_SET_COMMAND, 0x1);
--			CMD_LOAD_STATE(buffer, VIVS_BLT_ENABLE, 0x0);
--		} else {
--			CMD_LOAD_STATE(buffer, VIVS_TS_FLUSH_CACHE,
--					       VIVS_TS_FLUSH_CACHE_FLUSH);
--		}
-+		etnaviv_cmd_flush_ts(buffer, has_blt);
- 	}
- 	CMD_SEM(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
- 	CMD_STALL(buffer, SYNC_RECIPIENT_FE, SYNC_RECIPIENT_PE);
+Koichiro Den (1):
+  net: sched: avoid qdisc_reset_all_tx_gt() vs dequeue race for lockless
+    qdiscs
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-etna-pe-ts-flush-ffa01363b98c
+Matt Bobrowski (1):
+  bpf: Fix UAF in sock clone early bailouts
 
-Best regards,
+Qing Luo (1):
+  sctp: auth: discard auth_chunk when skb_clone fails
+
+Sean Christopherson (1):
+  KVM: nVMX: Put vmcs12 pages if nested VM-Enter fails due to invalid
+    guest state
+
+Yang Yang (1):
+  openvswitch: defer tunnel netdev_put to RCU release
+
+Yucheng Lu (1):
+  net/sched: sch_netem: fix out-of-bounds access in packet corruption
+
+ arch/x86/kvm/vmx/nested.c      |  8 ++++++++
+ include/net/dst.h              | 12 ++++++++++++
+ include/net/sch_generic.h      |  9 +++++++++
+ net/core/bpf_sk_storage.c      |  2 --
+ net/core/sock.c                |  3 +++
+ net/ipv4/icmp.c                | 10 +++++++---
+ net/ipv4/ip_fragment.c         |  9 +++++++--
+ net/ipv4/ipmr.c                |  4 +++-
+ net/ipv4/route.c               |  5 ++++-
+ net/netfilter/nf_tables_api.c  |  1 +
+ net/openvswitch/vport-netdev.c |  8 +++++---
+ net/sched/sch_netem.c          |  5 +++--
+ net/sctp/associola.c           |  4 ++++
+ net/sctp/endpointola.c         |  4 ++++
+ 14 files changed, 70 insertions(+), 14 deletions(-)
+
 -- 
-Christian Gmeiner <cgmeiner@igalia.com>
+2.55.0
 
