@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637064;
-	b=c+vj+Qz+Tfe97sHVAUk5HESmNl0MkSpyXqQ5GZ9LtsdyrrMtXSwf7GhfUdI+ljiIjrAZ
-	 GcysFvWA8yKLIrkVZdsaOxEq+HsSf+n+uOlZKjBQHA3+Adrvd4Yhm22bpuiwbXy3mCjjX
-	 5qJBnWRpP2/NBzbjHCEC/yZ7TBqQmio3RA5+izRm8SKhwTnnIPbOZY8cKzPeke5vu2Xd8
-	 VW0atRuqQx2miMJ56qNurtVQW/89BwQEzvynaxeMTQSG7ZN+kQx/G+trymAOea6n3N0Iv
-	 0tJxHr9ftsafCXVXwrHMAHUbcn2h/r8eXK9cLnb2ax1o2aOCk5wzig7XoH+4q0ezGTQ==
+	t=1793637228;
+	b=g1U3uyDF7kI2yvNGEeR2b9El8S0mekT/Vo3b7IJ/VXL6hcbsEFX8sHrIS33ZBjZPBjC+
+	 65Uldzf06Y3jQV1tB0tn3QOQSJemQbBhdFtXF5/bmNcAdbLLAlhZ/eVnXm5uRUnf97r5R
+	 NA/qR/SHx3JK3Lg9LDp23pTOFYHCW7/ajVuML9I8pLXFnm6O9iRB1jg68cvQLwSXU0RBZ
+	 cUCwh14D5aQD1lcU13Tgv82Qa/nrTbsvd9JK8YBeb4nEaUVDjEz6G5AsDqk7ffWd6xsH5
+	 bAnHlXaYRFhIHeWbeuZbzDvnDQxJbbb/wDmnJfS1YbFkAavqoV3c0LSTWFJpfxDHapw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637064;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=SM+L4BtZ938Hgq4xOvd1JY347Fs5FQDgq/3V0Ixba/8=;
-	b=SygohA7nMhEVJ9KxG38kEevgBnG6Di8Dzp+fTbQTgXkOvju11cWWXozBTTnNWsV8GE5q
-	 IPULLvfx136lAD1fwATlZ7dOzccekj8UXto79ZTknfnqVST+FdbSefptID1cAeE/zA4jt
-	 8UfOi51w5rZy+lX7OxuqTNoSnbza0xAjEK1NED5NwzECBxuVzzrSBZk7Sh9k5GD9UHiNO
-	 5B/Y/CZaNJyDMBtkDIaWGnpgNwdVHIklRyPUHZ1VPfQ+0W67aQg+msPSpS/IW5fhSCE9L
-	 F00Id4I3F8zAU+FE3Snwp49JZWI/p4Scf2VeaXekTo9cCDfBdYjXDta5+CbvkMToCtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637228;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=+CGY7tF70V7u0OLBsqICi+tyqkgLNUWhoT5j+slS+i4=;
+	b=3G7vkvoVVP6ktyrEGKsKd11QDnSZAeXLXa1D9cbeW8IxdVH6/9ecj3EyISdgtINwTpR3
+	 mJ3gSMI7rbaisyJxFzjF3ryZAbKgDmcR76jMYPwmYVGM/3+YuPW52Yvm//Fsk1e7awDSV
+	 TtuWSxZQfinUJMHCtKPTz16rC4VgE5lxT70y1lfMm0jzMv89NXVEeIsbWW94fxoZS5HLU
+	 03lJ/z9fE4YJFVM1L/og0jbkR59PJ5R8SHlL8LVqoWOzIdI7rDtkZaNBz7dvb0gWMoRHJ
+	 3G7v/i4aBIrdTEUvNoqdrhN7jc3M/wAjgAn2+4q0tvsTtnhLa0wgrQmf88hbh07xBKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRLlf3VL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD15606B0D0;
-	Mon,  2 Nov 2026 16:31:03 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=nMHmjLx6;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 641AF608B071;
+	Mon,  2 Nov 2026 16:33:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 641AF608B071
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRLlf3VL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCED01F00A17;
-	Mon,  2 Nov 2026 16:31:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793637063;
-	bh=SM+L4BtZ938Hgq4xOvd1JY347Fs5FQDgq/3V0Ixba/8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NRLlf3VLUbbvICwrz1RnO2CKpin5JWuQitAqYAIClfhAB0AegadYW31aftpt9Ttqw
-	 9OYQal7Lj2dMSd7PLhpnAF6C04bd6cfq1Cg7jeE8KAEo6XAngtp8lut15TRxijsUBL
-	 FrE8nsNQIKW0bDNiBtIZQR2Na4LT+JT2H0uYyHKWXdWaJvbeCokbuz56os+OqwsKnt
-	 lQJBDQIfIsphTPkhXv4oC7hgfgCZ9XKEdgndtNFYVW7+nR4OmtMqBiPHIFG+qmwE4K
-	 Fqs8IaCL49bYWxFc09fAdmbImZQCuf41NhaPLPlyugs0lcZpIo+x81xMoNedFJ68vZ
-	 /62k15wutL6dA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH] driver core: platform: fix fwnode leak on registration failure
-Date: Mon,  2 Nov 2026 17:30:54 +0100
-Message-ID: <20261102163054.3147841-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102082822.1275425-1-johan@kernel.org>
-References: <20261102082822.1275425-1-johan@kernel.org>
-X-Patch-Reply: applied
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=nMHmjLx6
+Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.20])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 70DD320B7166;
+	Mon,  2 Nov 2026 08:33:31 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 70DD320B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1793637213;
+	bh=+CGY7tF70V7u0OLBsqICi+tyqkgLNUWhoT5j+slS+i4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=nMHmjLx6ZrNTEQcSPL+YLY1D6PQ4a0bqbF7xWfK0RDhwJx5kIfu6sc3Zt5YZoF2si
+	 SVN9PM9f/9Qp2pTFa8dqpLdekjyFSsSlVzXnVXrNiRXLWUlmOKDXv4OUh1vh4iifbr
+	 A+zFwfPPoTxQjtY3kTpDxrCVYQH2gQKAZGjJs444=
+From: Naman Jain <namjain@linux.microsoft.com>
+To: Theodore Ts'o <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Sasha Levin <sashal@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>
+Cc: stable@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.1] ext4: honor NULL returns from __filemap_get_folio()
+Date: Mon,  2 Nov 2026 16:33:41 +0000
+Message-ID: <20261102163341.2170232-1-namjain@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,22 +62,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon,  2 Nov 2026 09:28:22 +0100, Johan Hovold wrote:
-> [PATCH] driver core: platform: fix fwnode leak on registration failure
+The bitmap and buddy folio conversions assume that
+__filemap_get_folio() returns error pointers. In Linux 6.1, however,
+it returns NULL both when a non-creating lookup misses and when folio
+creation fails.
 
-Applied, thanks!
+A cache miss therefore passes the IS_ERR() check and reaches
+folio_test_uptodate(NULL) in ext4_mb_load_buddy_gfp(). Creating-lookup
+failures can also dereference NULL in its slow paths and in
+ext4_mb_get_buddy_page_lock().
 
-  Branch: driver-core-testing
-  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+Restore NULL checks at all six lookup sites and return -ENOMEM when a
+creating lookup fails. Preserve the folio locking and migration checks
+without changing the global filemap API.
 
-[1/1] driver core: platform: fix fwnode leak on registration failure
-      commit: 7b4c25424cf5
+Fixes: d34e4fd4e73f ("ext4: convert bd_bitmap_page to bd_bitmap_folio")
+Fixes: 862483175d3d ("ext4: convert bd_buddy_page to bd_buddy_folio")
+Cc: stable@vger.kernel.org # 6.1.x
+Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+---
+ fs/ext4/mballoc.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
+diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
+index e77d56c533c0b..d0b276ce9401c 100644
+--- a/fs/ext4/mballoc.c
++++ b/fs/ext4/mballoc.c
+@@ -1375,8 +1375,8 @@ static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
+ 	poff = block % blocks_per_page;
+ 	folio = __filemap_get_folio(inode->i_mapping, pnum,
+ 			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
+-	if (IS_ERR(folio))
+-		return PTR_ERR(folio);
++	if (!folio)
++		return -ENOMEM;
+ 	BUG_ON(folio->mapping != inode->i_mapping);
+ 	e4b->bd_bitmap_folio = folio;
+ 	e4b->bd_bitmap = folio_address(folio) + (poff * sb->s_blocksize);
+@@ -1389,8 +1389,8 @@ static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
+ 	/* blocks_per_page == 1, hence we need another page for the buddy */
+ 	folio = __filemap_get_folio(inode->i_mapping, block + 1,
+ 			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
+-	if (IS_ERR(folio))
+-		return PTR_ERR(folio);
++	if (!folio)
++		return -ENOMEM;
+ 	BUG_ON(folio->mapping != inode->i_mapping);
+ 	e4b->bd_buddy_folio = folio;
+ 	return 0;
+@@ -1533,7 +1533,7 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
+ 
+ 	/* Avoid locking the folio in the fast path ... */
+ 	folio = __filemap_get_folio(inode->i_mapping, pnum, FGP_ACCESSED, 0);
+-	if (IS_ERR(folio) || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
++	if (!folio || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
+ 		/*
+ 		 * folio_test_locked is employed to detect ongoing folio
+ 		 * migrations, since concurrent migrations can lead to
+@@ -1543,11 +1543,11 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
+ 		 * try to get the folio with lock in both cases to avoid
+ 		 * concurrency.
+ 		 */
+-		if (!IS_ERR(folio))
++		if (folio)
+ 			folio_put(folio);
+ 		folio = __filemap_get_folio(inode->i_mapping, pnum,
+ 				FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
+-		if (!IS_ERR(folio)) {
++		if (folio) {
+ 			if (WARN_RATELIMIT(folio->mapping != inode->i_mapping,
+ 	"ext4: bitmap's mapping != inode->i_mapping\n")) {
+ 				/* should never happen */
+@@ -1567,8 +1567,8 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
+ 			folio_unlock(folio);
+ 		}
+ 	}
+-	if (IS_ERR(folio)) {
+-		ret = PTR_ERR(folio);
++	if (!folio) {
++		ret = -ENOMEM;
+ 		goto err;
+ 	}
+ 	if (!folio_test_uptodate(folio)) {
+@@ -1585,12 +1585,12 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
+ 	poff = block % blocks_per_page;
+ 
+ 	folio = __filemap_get_folio(inode->i_mapping, pnum, FGP_ACCESSED, 0);
+-	if (IS_ERR(folio) || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
+-		if (!IS_ERR(folio))
++	if (!folio || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
++		if (folio)
+ 			folio_put(folio);
+ 		folio = __filemap_get_folio(inode->i_mapping, pnum,
+ 				FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
+-		if (!IS_ERR(folio)) {
++		if (folio) {
+ 			if (WARN_RATELIMIT(folio->mapping != inode->i_mapping,
+ 	"ext4: buddy bitmap's mapping != inode->i_mapping\n")) {
+ 				/* should never happen */
+@@ -1609,8 +1609,8 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
+ 			folio_unlock(folio);
+ 		}
+ 	}
+-	if (IS_ERR(folio)) {
+-		ret = PTR_ERR(folio);
++	if (!folio) {
++		ret = -ENOMEM;
+ 		goto err;
+ 	}
+ 	if (!folio_test_uptodate(folio)) {
+-- 
+2.43.0
 
-The patch is in the driver-core-testing branch and will be promoted to
-driver-core-next after validation.
