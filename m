@@ -1,182 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793616824;
-	b=hR+jWB/LyG+EThNBVdB4Wiqltra/vkcbu8KQ/WtpGfPZ1sh0VshbjrNoXFcxM6/4nBIT
-	 DNeob3NOcA4xz8O7soZcG7frCSMuips6/Xex5A+h/XIRuNSW7a6htzhkmQ0xJuSBVVDvl
-	 na6SonJ500E9AaIfb812jNLZ6yCBCvqkm7g/v2QB2KGcZZKI6AhNx9JsTxSMTJ5YfW2wG
-	 JsAnYSsCQeDQ/eLxuXmAoU89tPYJgLYgGvTite4JqhHIxpN7EEPCFKnlay3/w/EanDQAT
-	 pxDJbDzCO5rh0WRR2dLxddKGuXjM3rbAeqUxL3AYJE/pvKcXZu7E+gXF4fOldcCLdDg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616824;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=V7c1lDNAgEFHrDKVFLu+jpt4cN/1ESV4ZecJ4zuib98=;
-	b=irjbgBCyecWLyNYh3D5XPtQxBQYDLsFP9FhgxQaUJyaYP5r6DYwcc8ApCJJ3XBp450aK
-	 C7fR0Gvly7AD1SAoe931rREmopqyQnpip1EKbjO3aPD1ON298l7pUOLnRRwwhaZoduhrS
-	 M7yApn8iDJVotAvo3g+fIDec+CycDDArI+KgsP64vCa9+RvNl3A43L6AdCXZdnW02rKiu
-	 V1hegQY0YnMgX8VKIdV6Ial91ENDeWWlegI2YV0mSIUNXx9KPYBIsrAsMnNX26gBP9iQ4
-	 jJJZ+aRoyPEY3Z9u5RlVoKDgbT6n3hUxdw1y0d/ixr++6eZQnkvKjVeUspAJs2gaL/Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YzlaeBqk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793616855;
+	b=f/z923/v+0gvv75oN/hn4a9cjrV+H9sQBeAX7yVAj/HtDIZLKWvS8JwvJP89tInpMLwH
+	 KlHGb2FnV2xiaGxRQSJRvuDqI2mxBwIcUHlUOSYbFSHCo68Yt3iryVSYiHokEiiEePv0F
+	 MwIcEu5VAAmVJlLxMjNLoVusExHxSEAlZ25F7jJXT98bGULv09egn0wk5xQUeMjAjuuAG
+	 J2QtMemZJ9Q8Ta4EOONoArST3nl4VckojRfHa6wgXFyg/wyqvj2eZ1MvuGqTlLvWvABpu
+	 4NkXPjQFqWRJzjiwqFPCkExiyfFCY4QiY8s9/afBlja3PPyjljp49+lYjVLvPjGFIrw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616855;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=QDgDwZRpPcgIl1VpXeHffTamZF8y2bE2/UZPlXLTFj8=;
+	b=P5H6i5qcvZyiDYkLrMMAch99ruLSa3vTN7eBg7AJi4ujUc7+P6wzR+oGXYfwnMrpMZoz
+	 Hwe+QOhkI3IiVCAp9Yf/9L6m98P48yUtMpAxAOzwX/pOQ/XwU8OJVbdCMIMtaoLIY7cVK
+	 JM2U2pK+NAxMmelHGexkL+W0aKKkDkqDaDahdQ2xJb17nH+FmrIaCF46q8NX2Usc9Jt0O
+	 tNDMzzRd+N62CECIxgX1mB8xbLvghfY6D/UdDO+9q9fuJeTrAq6qRLxkp98DSnvrCl2dh
+	 8x+L5x7WSU48UJAGr92Or9Gps0Zc/H164di9p8vAI0mIEHdS1BDUx4q05GCVnxvkCqA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rtGdzWjE;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA6E606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AA6E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50012606A32C;
+	Mon,  2 Nov 2026 10:54:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50012606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YzlaeBqk
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793616824; x=1825152824;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=V7c1lDNAgEFHrDKVFLu+jpt4cN/1ESV4ZecJ4zuib98=;
-  b=YzlaeBqktWcJAlZqQLImkPFVurOt51pse8iPynAfkUKujEZkkwdudcXy
-   0fu2cxqmGBmyYqjK2Bq6MeUYoYOztPRnR5U7act+lQ9POyqclWKkirK2S
-   WBp9XkDZHYCNmXYeMAXVlfMKYLLEphflvTJMvaWyS8HE7FduUH1z/w3v+
-   YS/hk56+aAbeTTqS0la7hy4eSCIdN8jvg71yJMrrw4mHhINUAiQ/LiPN3
-   eogvNNQx43fd8odv5TvyUiciPf5ZsQGBnFdgPqPqaABLDFU4tqRNKLXOz
-   TX0TWQWKuDJmzb6HTYorTJRG52UrB+3ENBAZ0ebTOlr158bOfHRfIMnul
-   A==;
-X-CSE-ConnectionGUID: +LUY/GtVQFe7p1Tfn0COeQ==
-X-CSE-MsgGUID: Vn02cIAdSlCmBGvO6lxAKg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2210382"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2210382"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:53:43 -0800
-X-CSE-ConnectionGUID: YryqLzTzTdqd124G+nP1Tg==
-X-CSE-MsgGUID: wLNrsjLTR++J40S1qNuz7A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6081705"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:53:42 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 02:53:41 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 02:53:41 -0800
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.35) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 02:53:41 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZvvTQP7sXN/zh/womUY2rTxlUdQfCdLyVD0D1/OoX4CirRl4e1eSAd5Rwe6Cv8/Wok5ukVSWlA6/mrm/m+7C+zmSyI4DkIuOPUL843cFRmmQashebrdTOYr/vIxrYF9Si3NoFosn+Zh2p1Y5pqeiuS2DOwhx0lIhDOx+G/DJ5BXVgKIRh8AUx6h4oiRZ9nH9FdXFbqlyJeMAgO7KwbKPcuFLN4fybrrSKCZkZ3ggEGbBCFOQmUddYv2Yu8+r0d+KF5pLzz5WDsa5k6zcx+alkgRJ2HDjeli9sA+iWGejXDUmB6jbqb9IyrHe6Eg0zvCtnu0uxSKzfRNG9KEo/MNpPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V7c1lDNAgEFHrDKVFLu+jpt4cN/1ESV4ZecJ4zuib98=;
- b=uPY+zxyn+WzY0xANs1iORu2N1bfDlSrRQM6hcl0tFZ7Cth1KAvChn8i/ss4Xt6qzJgxPk4KZc79rh7v6fcI0uqC5kzvFeMR6TuaXsUt2ONZ/JczDyOjTiewgdUWBMmq+OxJeDoBHjPCyt5TB0HhdLOxkkZDJwYsYyadbmixHjbVVc1PIBuefXdsOOXqG9HxsIotux7q//gTr9Hxs52DFGo8qMdn+8Mv8328NZ6ZSfhj46kFGfZyyekQ6AR6FgAj4FGuIUWR2+DZDZoAlzfNNLpohLeAbBZ7JdCPGxohosg313o62Y/p9+mBlGaH4VLR+mvFmCQzHJJ4UiA8oXT7ekw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPF69154114F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::28) by DM3PPFA69606334.namprd11.prod.outlook.com
- (2603:10b6:f:fc00::f42) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 10:53:37 +0000
-Received: from DS4PPF69154114F.namprd11.prod.outlook.com
- ([fe80::79ab:f4ae:b1c2:61d9]) by DS4PPF69154114F.namprd11.prod.outlook.com
- ([fe80::79ab:f4ae:b1c2:61d9%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 10:53:37 +0000
-From: "Kahola, Mika" <mika.kahola@intel.com>
-To: "Deak, Imre" <imre.deak@intel.com>, "intel-gfx@lists.freedesktop.org"
-	<intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
-	<intel-xe@lists.freedesktop.org>
-CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH 6/6] drm/i915/ptl+: Fix TypeC detection for eDP on port B
-Thread-Topic: [PATCH 6/6] drm/i915/ptl+: Fix TypeC detection for eDP on port B
-Thread-Index: AQHdZ5nPZmifZl/kyEuNm6V7ndBmQrcaoYpw
-Date: Mon, 2 Nov 2026 10:53:37 +0000
-Message-ID: <DS4PPF69154114F4ABEE5367DDD3D4EC13CEF6A2@DS4PPF69154114F.namprd11.prod.outlook.com>
-References: <20261029113017.618286-1-imre.deak@intel.com>
- <20261029113017.618286-7-imre.deak@intel.com>
-In-Reply-To: <20261029113017.618286-7-imre.deak@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPF69154114F:EE_|DM3PPFA69606334:EE_
-x-ms-office365-filtering-correlation-id: c0a4fa7b-f04b-4520-18f8-08df38cf8c7c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|261021121427099003|261022075727099003|261009223027099003|38070700021|4143699003|11063799006|5023799004|10067099003|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info: 26b6QhhU3go83+bTBXVLux63kfY/e4suXz8AWQ+MD95GH6Zky89vTsy4pMvFpHrvOnEeT2mAeQL8evZByu2HYWcdCnLFcxy5Xu/f1PA8muNjIRLEvj9s4QbMp5KN6Vj3qcjjHdeB1LeddQOFl42ghr85Mt1ErEZFEC4Xh1tjo2xDt4/BdgJSuydvMkAv+zwo5ICkHwI637eMPh61Cx7ejrt6x5UrY1572mLfHuQRahtHqbjxyQc50b4Cr1C3a6I18V/ZhkYa8ZudTPftyyU/uXO7SyzHe6tF7AVRDdwO+VgJAVr3AGltGoEwCkkrGMENZtodIFOzgsMvXGq75v+NxSFsuLgD8ZRkNGUHGUlPxL6rVf/bVBUfZDwEwmZcP87HQ7oOVU0OwaeRxk6Dxh94nltuMyh6XIbHrfESWaIJfyPLnNlzUo7bJIWzvLZEFQ9XzlexlCG80/LzqO5bJo6bt5watbjOFkW1V6J1zd9CWXMCKumSpkTfGH4j0I4zC4roXnPnFu8EMKJ4UUDUhyQgGQqDMCcYtk5Ll5CdWUMsopzb2Zv7sak3cZJvS3OSphRn433pBGNSUQrVcDHxA51RBT6aU0GX2CVIFBrImlJQU16tWXQi+niHzR94Cy3z2bkg7dWNhyz7onFYqknxUR87T5MlXDecUcM/c2kC9oPy9q8=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF69154114F.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(261021121427099003)(261022075727099003)(261009223027099003)(38070700021)(4143699003)(11063799006)(5023799004)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cnBLQ0lFcmpMMjM2SUJhK2psODc1SnBGdjQ0N1ZFR0c5RlNjU2RoYWNzSkVH?=
- =?utf-8?B?cnZuRUMyYXBzaTYwQk85aXAwMFpIdXdrYXM4ZzdCMXdpNjhqQURJSGk5dmpw?=
- =?utf-8?B?T25FR2V4QklwOFc3N2JkNmI3cVNtbHRRN2NDVHA2aE5qRHpVU09oM1ZUM2cz?=
- =?utf-8?B?dWZVTEtpUTN5ejdkVjlVeGs5SkJ0dysvaXZvek1ReDArNzE1ZUUyTmxtSFdG?=
- =?utf-8?B?UTM0RklTRnJPaWpRYW5rU0VYUFVFMGxoRnRId2Y1MC9pTnB3dnJzcHhBQS9x?=
- =?utf-8?B?b1RwSWRkTHJVK1BNM1g2SElPazBBdythOVFjajVxYjBYSVVEb2xwZHplOVVB?=
- =?utf-8?B?aHRGZVRQRU5vdHdRTzJxd3pGWmY2OHVJMHFmaW9pMSs1dWx3bUcxRDhYUHM1?=
- =?utf-8?B?ekN0MUZ6RWdoOTUyS0paN093THJRNy9aU1AvYUkrYlZOT0N0VmRDZXhuVkRo?=
- =?utf-8?B?eU5oYy9GMGFqdkFqMjBiSmpSZWlHeGhTVExlRXNLL0pBZm9ZQ3NkbkxWRHVH?=
- =?utf-8?B?WG9OWHQ4N2RqRXpMRVd4K3dQUmNjRytrZVFsM3RSSmxGSlhwQnBHUFdhNFJ5?=
- =?utf-8?B?NjFNVmcyRW1CN2hBdlZHQUxibi9INmRCTkJYN0p5dG04T0F6L1F1MlFZV2Q4?=
- =?utf-8?B?bHIyQXE4ZUtDVHVYSVNzck1mTURPOHlWQUxMZ0NySHhFcE5sU0xyMUdYUzRm?=
- =?utf-8?B?TDlGam1FeHIrRE1MMEhKTXQ2Ym1vOFpEclhacENNMlg0N1V3bkpXRFpTZTF3?=
- =?utf-8?B?Q2ljUytBaS9Ba21TMnphUzlleXIvS2pidER4dVlhNVp6b1hIa0lVZUdrMDAv?=
- =?utf-8?B?NTlmMlVHdjExUUc3d2E4NnJ0QXBnVEsxUVBlbkV2Q3VFNkFxZnduY2FwUVFm?=
- =?utf-8?B?c3p5UHNHRC9oTUtpUXpZRWtING95dkE5TXZ6VlFDZXF0NXA2anF0ZVJQYzFv?=
- =?utf-8?B?V2dUTzgyQ3dxamV2Snc4QVhQa2grWGoxdFJob3haNGVNOGhtVi9zQkc4Y1hG?=
- =?utf-8?B?T2l2S3Znc00raGMrMnRrYnIrU1lpajFUc25UdVlqN2Z0dUE2alNKSHVDSDB4?=
- =?utf-8?B?Y1VZT0U5RlFqUVRFVC9WR24veURrcXNxRGRGWHVvMUllREF5UDM4Z2RKU3Vx?=
- =?utf-8?B?dUxHdERlVDJGSlZIZklBMjFXeWEyMG5MYUhRMFZIQVFjSWxrTHhuRVRDZXlF?=
- =?utf-8?B?V2dvTE80bnN3YmVFOGdPMUtrOGZiWVI5Nmw4aVJrZmNzZUtGQXhjdjJldFB6?=
- =?utf-8?B?dXA1Um9VWHJVQ2pRU0ZpTE1HVURWd1F1T1gzM1RnNEZncEMrY2dMWVNZRGFv?=
- =?utf-8?B?VE9rV2xDcUYyOU9USEpZZDRKQ3Q4UUdlaU5XUDZoWmlyandqa1VubTd5VXJ2?=
- =?utf-8?B?RWtCVnowTWNKVElVL21WRm9mTnByM3Y0bWhUNit1WUQ5UXBSTzZGYWt5dFl3?=
- =?utf-8?B?bS9HbHZTRzJhSEY0OGJ5cnYrdlRlazdpSXlMdlBmZDRGdGhvaHQrdFVHbUtV?=
- =?utf-8?B?VDhQS3Q3aXZiWFZCVkFrekNUSjJzRjJURjJ4M1k5RUFVd1BiZXkxQUpIWE9x?=
- =?utf-8?B?SDFvcGpoZll1ZXJZaEllb010YzJyNGlUakR4VnpOdVBoWFI2Y3hRNTdqeVV4?=
- =?utf-8?B?Njc1L2MzTjgrMDZqc3dnVTlUN2R5aUlqNnJRaVJOekRCWk0zdCtGWURqY0lp?=
- =?utf-8?B?Z3VGQXl0LzhZdm1CMGhYQ0kvcncwUWlaZXpoancxTkFIZzVHaXQzSkVMdmEy?=
- =?utf-8?B?d00waU1ZZ09URnF1SnBUcncxTFcwbDNTM2RLWEp2clVISkdMZTgvTE5GRVJs?=
- =?utf-8?B?UGxFNCtTYllxQklEY2tUeFUzNE81ejMwYno5RVptazBuRkJlMHVyY1FWck1z?=
- =?utf-8?B?L0J2ci8zVTVSdkl0SjVETGkybFp5aERJclkvK1I3R0p4M1RjVTVMV0RWODFj?=
- =?utf-8?B?TSswUUFLMU81TEVqS1hIMHV0NkhLNDlUTndaV3R0M1EwLzRhRFNiK2xFd0Nu?=
- =?utf-8?B?QXU1bWFoY296YmZkUHdWa0ttblVCYnU2VlRUVjVacFByOEc0RDhiQ1MvZVRy?=
- =?utf-8?B?QWhFUk5TL0o0Q3lTd3ViNWZOcFllV1F2ZExJOStvWjhPTmVNWHJoZlFXSFQ0?=
- =?utf-8?B?cDlUMzJMZW9odmFPSGVOcXMxVS9jNkM5WG1VKzJjZ2xxWThId2VlYnJSeFQ0?=
- =?utf-8?B?WDF3RW1Db0hhQ0hVOXdjSzBxZldPOGRFYVBGS3pHT3UvcFE0TDU0RFJMMGk2?=
- =?utf-8?B?VGhPVzd2bWs2cUVEREFTUHlxK3g0RDl4eWMyOUxFcGMrNmRVN0o4TjNJUDdK?=
- =?utf-8?B?S1BmcTAwTE96bDVUbkZNSGwzSW1Sc0p1czhoRzRvTTRoTSs4Y0wwdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rtGdzWjE
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29F2cO2432668;
+	Mon, 2 Nov 2026 10:53:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=QDgDwZ
+	RpPcgIl1VpXeHffTamZF8y2bE2/UZPlXLTFj8=; b=rtGdzWjErVSk4VnDqTHEAg
+	K5s0f2Bq3vejt8ZxfS5QhxZuCurrSqgdnQjyayCE4V77V2/0ll2M8MaYZdJBjBgb
+	/JwVTRjRqX1/97AdlISxxn6CrqvWJRN5fcemDUMA1kMOZyf9xFPfcP2/CcmAqyO1
+	9PbK8O+Cmzs7XsPiv735sTySqFewxXDE2bLctXSBn5baifnpSYb9lp4mT7MUVjmM
+	FSqhKYk4iZcik9WTqzsJGzwBLE3JiHn1TmK17DHKrM8MgZtfdpugF57qXH5t5L4f
+	RnnxFvGZVp+lGlYB70dVqjrwSidUtaJ0rMFvRV4qU88o372IPIoWZ1crm4xX49iQ
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rhg73w-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 10:53:49 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29JxFB762308;
+	Mon, 2 Nov 2026 10:53:49 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnv5gnape-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 10:53:49 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2Arl0C29295296
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 2 Nov 2026 10:53:48 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D903858060;
+	Mon,  2 Nov 2026 10:53:47 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 58C9258058;
+	Mon,  2 Nov 2026 10:53:42 +0000 (GMT)
+Received: from [9.43.102.230] (unknown [9.43.102.230])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  2 Nov 2026 10:53:42 +0000 (GMT)
+Message-ID: <a9d9d5d1-35c0-45e4-afe7-58af3c5789fa@linux.ibm.com>
+Date: Mon, 2 Nov 2026 16:23:40 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -186,57 +85,281 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: GnGHIBp4w3UWikNOG25mUuZYZZP4zNW0w6lsleoPT/XS02ghOfRL0BBWtdHhUIvSZsNyGIjuScU7zhOclS40Z9zv31HWdZsu2hA4HI1UUUlr/sbWALb/qrLUwwYIuvxt98y+lwatgg3GC4kMooH+B/gckObHpz9OFDogpdTZM1AswisQOKWsmcAXxjGOvzhnU9JXp5mxUxYvfoJmlH83fFnt4QaTOXGGGY58k943YSXq7A27REHTFzER9b0ENfWEahxU0iNQdDMgNOaFyC6bfQEqSBWz5J7N6/BKYn5PiaFYgzodGaG/HpjDreMx3scvYlo8fS5qutTzruyEIBxBKg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPF69154114F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0a4fa7b-f04b-4520-18f8-08df38cf8c7c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 10:53:37.6095
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FOPavybNLglkY+DgB0Y7wgT8gknc1ApU7xh7iIuDdroTpUDhM1Kqmr2dXh40jRZY9s6UgDKJJrm1P/E+6RPdxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFA69606334
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] powerpc: Restore all registers after a traced
+ syscall again
+To: Michal Suchanek <msuchanek@suse.de>, linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, Kees Cook <kees@kernel.org>,
+        Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>,
+        "Mukesh Kumar Chaurasiya (IBM)" <mkchauras@gmail.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+        "Bernhard M. Wiedemann" <bwiedemann@suse.de>,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <961c058f3f3e03045552186c083a68a0fde3f43f.1791975972.git.msuchanek@suse.de>
+Content-Language: en-US
+From: samir <samir@linux.ibm.com>
+In-Reply-To: <961c058f3f3e03045552186c083a68a0fde3f43f.1791975972.git.msuchanek@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: iavYIBXUShm_Sxf5jcQ9QxUuIQlXkw5A
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfXzL6giz5W5ILH
+ aP1knsrmRIQKiyJR1eWuuK6fMPL8WyCsVHL5Q9mWC1KAGggnCUcQlSZUGUO0LlVLTocGkCKgjia
+ RtMkUDAk9EDsH8ekPs/e5Q1ASVWD9Qg=
+X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6ae86bbe cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=49ibadiY4wVRzWEyoZAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=O8hF6Hzn-FEA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX8BoJQTwukymP
+ NpqpnZ4FBkMQt47VlM+0u+lwBq0KC2VN+sPq9eeAaEp+pn2usHV2BoCBUQ8IrAzUPLyTeOe8d0f
+ zdUGb+D7hEND5nIKd67S2Klbi9UK7fcZjbZI3oKg9aUyW517HXzuW3h93C9sT+mH9F73FKpCIv4
+ TJ6S2TRMHF+zfEmQ6wNTGQ7fxV8AB/QAjm3cuR++KKHGqjt1wI9S9/nfLig06evvizxIf4ytFzW
+ f/ADyl2lJowcPw/aQMDHzRHeitEH63baxkdpTLCWYNTEF1kbGZ1MprvTJfi07p2fDNCylXwm25+
+ 0SEWINXR3GQodYFsBhIa7mCxP1szWu6sL5ftjyUKO6iohfuLvChzU0kL2LU5+/t+FrCe670KlAW
+ u98/ZhADCxPNCRynJXFy0ylD73N6j4+vAfRW0q/sOEykVH//j+rR/9OFicOkGYJTbVR/843o1+u
+ 0aRJ5Zsu4LobQezdQiw==
+X-Proofpoint-GUID: 0h9FKnfKeJqgqpYCyDdI2iSJrtbHlH1K
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020042
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBJbnRlbC14ZSA8aW50ZWwteGUt
-Ym91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBJbXJlIERlYWsNCj4g
-U2VudDogVGh1cnNkYXksIDI5IE9jdG9iZXIgMjAyNiAxMy4zMA0KPiBUbzogaW50ZWwtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZzsgaW50ZWwteGVAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENj
-OiBzdGFibGVAdmdlci5rZXJuZWwub3JnDQo+IFN1YmplY3Q6IFtQQVRDSCA2LzZdIGRybS9pOTE1
-L3B0bCs6IEZpeCBUeXBlQyBkZXRlY3Rpb24gZm9yIGVEUCBvbiBwb3J0IEINCj4gDQo+IE9uIFBU
-TCsgcGxhdGZvcm1zIHdpdGggZURQIG9uIFR5cGVDLCBwb3J0IEIncyBEREkgaXMgY29ubmVjdGVk
-IHRvIGEgQzIwDQo+IFR5cGVDIFBIWS4gSWRlbnRpZnkgUEhZIEIgYXMgVHlwZUMgYW5kIG1hcCBw
-b3J0IEIgdG8gVENfUE9SVF8xIHdoZW4gZURQDQo+IFR5cGVDIHN1cHBvcnQgaXMgZW5hYmxlZC4N
-Cj4gDQo+IENsb3NlczogaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS94ZS9rZXJu
-ZWwvLS9pc3N1ZXMvOTE5Ng0KPiBDQzogc3RhYmxlQHZnZXIua2VybmVsLm9yZyAjIDYuMTQrDQo+
-IFNpZ25lZC1vZmYtYnk6IEltcmUgRGVhayA8aW1yZS5kZWFrQGludGVsLmNvbT4NCg0KUmV2aWV3
-ZWQtYnk6IE1pa2EgS2Fob2xhIDxtaWthLmthaG9sYUBpbnRlbC5jb20+DQoNCj4gLS0tDQo+ICBk
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXkuYyB8IDExICsrKysrKysr
-KysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxheS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMNCj4gaW5kZXggNWU0MDQ4N2U5
-YWIwNi4uMTBhZjEyODQ2ZTczMCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUv
-ZGlzcGxheS9pbnRlbF9kaXNwbGF5LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlz
-cGxheS9pbnRlbF9kaXNwbGF5LmMNCj4gQEAgLTE5MDQsNiArMTkwNCwxMSBAQCBib29sIGludGVs
-X3BoeV9pc19jb21ibyhzdHJ1Y3QgaW50ZWxfZGlzcGxheSAqZGlzcGxheSwgZW51bSBwaHkgcGh5
-KQ0KPiAgCQlyZXR1cm4gZmFsc2U7DQo+ICB9DQo+IA0KPiArc3RhdGljIGJvb2wgaW50ZWxfcGh5
-X2lzX2VkcF9vbl90YyhzdHJ1Y3QgaW50ZWxfZGlzcGxheSAqZGlzcGxheSwgZW51bSBwaHkgcGh5
-KQ0KPiArew0KPiArCXJldHVybiBESVNQTEFZX1JVTlRJTUVfSU5GTyhkaXNwbGF5KS0+ZWRwX3R5
-cGVjX3N1cHBvcnQgJiYgcGh5ID09IFBIWV9COw0KPiArfQ0KPiArDQo+ICAvKg0KPiAgICogVGhp
-cyBmdW5jdGlvbiByZXR1cm5zIHRydWUgaWYgdGhlIERESSBwb3J0IHJlc3BlY3RpdmUgdG8gdGhl
-IFBIWSBlbnVtZXJhdGlvbg0KPiAgICogaXMgYSBUeXBlLUMgY2FwYWJsZSBwb3J0Lg0KPiBAQCAt
-MTkyNCw2ICsxOTI5LDkgQEAgYm9vbCBpbnRlbF9waHlfaXNfdGMoc3RydWN0IGludGVsX2Rpc3Bs
-YXkgKmRpc3BsYXksIGVudW0gcGh5IHBoeSkNCj4gIAlpZiAoZGlzcGxheS0+cGxhdGZvcm0uZGdm
-eCkNCj4gIAkJcmV0dXJuIGZhbHNlOw0KPiANCj4gKwlpZiAoaW50ZWxfcGh5X2lzX2VkcF9vbl90
-YyhkaXNwbGF5LCBwaHkpKQ0KPiArCQlyZXR1cm4gdHJ1ZTsNCj4gKw0KPiAgCWlmIChESVNQTEFZ
-X1ZFUihkaXNwbGF5KSA+PSAxMykNCj4gIAkJcmV0dXJuIHBoeSA+PSBQSFlfRiAmJiBwaHkgPD0g
-UEhZX0k7DQo+ICAJZWxzZSBpZiAoZGlzcGxheS0+cGxhdGZvcm0udGlnZXJsYWtlKQ0KPiBAQCAt
-MTk3NCw2ICsxOTgyLDkgQEAgZW51bSBwaHkgaW50ZWxfcG9ydF90b19waHkoc3RydWN0IGludGVs
-X2Rpc3BsYXkgKmRpc3BsYXksIGVudW0gcG9ydCBwb3J0KQ0KPiAgICovDQo+ICBlbnVtIHRjX3Bv
-cnQgaW50ZWxfcG9ydF90b190YyhzdHJ1Y3QgaW50ZWxfZGlzcGxheSAqZGlzcGxheSwgZW51bSBw
-b3J0IHBvcnQpDQo+ICB7DQo+ICsJaWYgKGludGVsX3BoeV9pc19lZHBfb25fdGMoZGlzcGxheSwg
-aW50ZWxfcG9ydF90b19waHkoZGlzcGxheSwgcG9ydCkpKQ0KPiArCQlyZXR1cm4gVENfUE9SVF8x
-Ow0KPiArDQo+ICAJaWYgKERJU1BMQVlfVkVSKGRpc3BsYXkpID49IDEyKQ0KPiAgCQlyZXR1cm4g
-VENfUE9SVF8xICsgcG9ydCAtIFBPUlRfVEMxOw0KPiAgCWVsc2UNCj4gLS0NCj4gMi40OS4xDQoN
-Cg==
+Hi Michal,
+
+On 14/10/26 4:36 pm, Michal Suchanek wrote:
+> From: Bernhard M. Wiedemann <bwiedemann@suse.de>
+>
+> syscall_exit_prepare() asks the exit assembly to reload all GPRs, CTR
+> and XER from pt_regs only if the thread flags contain any of the flags
+> in _TIF_SYSCALL_DOTRACE. With the new entry code based GENERIC_ENTRY the
+> flags are no longer set.
+>
+> This breaks tracers that modify a stopped syscall, for example ones that
+> re-execute the syscall instruction by moving the NIP back by 4 at the
+> syscall-exit stop with the syscall number put back into r0: the sc then
+> runs with r0 = 0, which is __NR_restart_syscall. dettrace fails like
+> this with "No filter rule for system call: restart_syscall". A tracer
+> that writes r4 at the syscall-exit stop of an sc sees the tracee
+> continue with r4 = 0 instead; with a 7.1 kernel both work.
+>
+> Check the equivalent syscall_work bits instead, and drop the now unused
+> _TIF_SYSCALL_DOTRACE.
+>
+> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> Cc: stable@vger.kernel.org # 7.2.x: c7585b8e99ad: powerpc: Don't drop _TIF_RESTOREALL on syscall restart
+> Cc: stable@vger.kernel.org # 7.2.x
+> Assisted-by: LLM
+> Signed-off-by: Bernhard M. Wiedemann <bwiedemann@suse.de>
+> [ms: reword commit message]
+> Signed-off-by: Michal Suchánek <msuchanek@suse.de>
+> ---
+> A backport also needs commit c7585b8e99ad ("powerpc: Don't drop
+> _TIF_RESTOREALL on syscall restart"), without which the flag can still
+> be lost.
+>
+> v2: rename PPC_SYSCALL_WORK_RESTOREALL to SYSCALL_WORK_RESTOREALL and
+> move it from interrupt.c to thread_info.h
+>
+> v1: https://lore.kernel.org/linuxppc-dev/4c1da7f31a6603455ec452960af529e4d77f5334.1791826411.git.msuchanek@suse.de/
+>
+> Testing: a small tracer (pokes r4 at the syscall-exit stop of an sc,
+> and replays a syscall by moving NIP back with a new r0) shows both
+> writes lost on a ppc64le and both working on 7.1.8.
+> ------------[ cut here ]------------
+> // SPDX-License-Identifier: GPL-2.0
+> /*
+>   * Does a register a tracer writes at the syscall-exit stop of an "sc"
+>   * reach the tracee? Checks r4, and a replay: NIP moved back onto the sc
+>   * with r0 set to another syscall number.
+>   * Build: gcc -O2 -o ppc-exitregs ppc-exitregs.c (powerpc64 only)
+>   */
+>
+> /* word offsets in struct pt_regs, arch/powerpc/include/uapi/asm/ptrace.h */
+>
+> static long do_sc(long nr, long *r4io)
+> {
+> 	register long r0 __asm__("r0") = nr;
+> 	register long r3 __asm__("r3") = 0;
+> 	register long r4 __asm__("r4") = *r4io;
+>
+> 	__asm__ volatile("sc"
+> 			 : "+r"(r0), "+r"(r3), "+r"(r4)
+> 			 :
+> 			 : "r5", "r6", "r7", "r8", "r9", "r10", "r11", "r12",
+> 			   "cr0", "ctr", "xer", "memory");
+> 	*r4io = r4;
+> 	return r3;
+> }
+>
+> static long peek(pid_t pid, int w)
+> {
+> 	errno = 0;
+> 	long v = ptrace(PTRACE_PEEKUSER, pid, (void *)(w * sizeof(long)), 0);
+> 	if (errno) {
+> 		perror("PEEKUSER");
+> 		exit(2);
+> 	}
+> 	return v;
+> }
+>
+> static void poke(pid_t pid, int w, long v)
+> {
+> 	if (ptrace(PTRACE_POKEUSER, pid, (void *)(w * sizeof(long)), (void *)v)) {
+> 		perror("POKEUSER");
+> 		exit(2);
+> 	}
+> }
+>
+> /* Resume to the next syscall stop, which must be one. */
+> static void next_stop(pid_t pid)
+> {
+> 	int st;
+>
+> 	ptrace(PTRACE_SYSCALL, pid, 0, 0);
+> 	if (waitpid(pid, &st, 0) != pid || !WIFSTOPPED(st) ||
+> 	    WSTOPSIG(st) != (SIGTRAP | 0x80)) {
+> 		fprintf(stderr, "unexpected wait status %#x\n", st);
+> 		exit(2);
+> 	}
+> }
+>
+> int main(void)
+> {
+> 	pid_t pid = fork();
+> 	int st, fail = 0;
+>
+> 	if (pid == 0) {
+> 		long r4 = 0x1111, r4a, ret;
+>
+> 		ptrace(PTRACE_TRACEME, 0, 0, 0);
+> 		raise(SIGSTOP);
+> 		do_sc(__NR_getpid, &r4);
+> 		r4a = r4;
+> 		ret = do_sc(__NR_getpid, &r4);
+> 		/* bit 0: the tracer's r4 was lost; bit 1: the replay of
+> 		 * the second getpid as getppid returned something else */
+> 		_exit((r4a != 0x2222) | (ret != getppid()) << 1);
+> 	}
+>
+> 	waitpid(pid, &st, 0);
+> 	ptrace(PTRACE_SETOPTIONS, pid, 0, (void *)PTRACE_O_TRACESYSGOOD);
+>
+> 	/* 1: write r4 at the exit stop of getpid */
+> 	next_stop(pid);				/* entry */
+> 	next_stop(pid);				/* exit */
+> 	poke(pid, W_R4, 0x2222);
+> 	next_stop(pid);				/* entry of the second getpid */
+>
+> 	/* 2: replay the second getpid as getppid */
+> 	next_stop(pid);				/* exit */
+> 	poke(pid, W_NIP, peek(pid, W_NIP) - 4);
+> 	poke(pid, W_R0, __NR_getppid);
+> 	next_stop(pid);				/* entry of the replay */
+> 	long nr = peek(pid, W_R0);
+> 	printf("replayed syscall arrives as nr %ld (%s)\n", nr,
+> 	       nr == __NR_getppid ? "getppid, OK" :
+> 	       nr == __NR_restart_syscall ? "restart_syscall, BUG" : "?");
+> 	if (nr != __NR_getppid) {
+> 		fail = 1;
+> 		poke(pid, W_R0, __NR_getppid);	/* entry writes do work */
+> 	}
+> 	next_stop(pid);				/* exit */
+> 	ptrace(PTRACE_CONT, pid, 0, 0);
+> 	waitpid(pid, &st, 0);
+> 	if (!WIFEXITED(st)) {
+> 		printf("child did not exit normally: %#x\n", st);
+> 		return 2;
+> 	}
+> 	printf("r4 written at the exit stop: %s\n",
+> 	       WEXITSTATUS(st) & 1 ? "lost, BUG" : "kept, OK");
+> 	printf("replay result: %s\n",
+> 	       WEXITSTATUS(st) & 2 ? "wrong" : "getppid(), OK");
+> 	return fail || WEXITSTATUS(st);
+> }
+> ---
+>   arch/powerpc/include/asm/thread_info.h | 15 ++++++++++++---
+>   arch/powerpc/kernel/interrupt.c        |  3 +--
+>   2 files changed, 13 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+> index 1e069a2e7ce87..31a7a157bc902 100644
+> --- a/arch/powerpc/include/asm/thread_info.h
+> +++ b/arch/powerpc/include/asm/thread_info.h
+> @@ -142,9 +142,6 @@ void arch_setup_new_exec(void);
+>   #define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
+>   #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
+>   #define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
+> -#define _TIF_SYSCALL_DOTRACE	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
+> -				 _TIF_SECCOMP | _TIF_SYSCALL_TRACEPOINT | \
+> -				 _TIF_SYSCALL_EMU)
+>   
+>   #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
+>   				 _TIF_NEED_RESCHED_LAZY | _TIF_NOTIFY_RESUME | \
+> @@ -153,6 +150,18 @@ void arch_setup_new_exec(void);
+>   
+>   #define _TIF_PERSYSCALL_MASK	(_TIF_RESTOREALL|_TIF_NOERROR)
+>   
+> +/*
+> + * Syscall work after which the exit must reload all registers from
+> + * pt_regs: a tracer may have changed any of them at a syscall or seccomp
+> + * stop, or under PTRACE_SYSEMU. Audit and the tracepoint are included to
+> + * keep the pre-GENERIC_ENTRY behaviour.
+> + */
+> +#define SYSCALL_WORK_RESTOREALL (SYSCALL_WORK_SECCOMP |			\
+> +				 SYSCALL_WORK_SYSCALL_TRACEPOINT |	\
+> +				 SYSCALL_WORK_SYSCALL_TRACE |		\
+> +				 SYSCALL_WORK_SYSCALL_EMU |		\
+> +				 SYSCALL_WORK_SYSCALL_AUDIT)
+> +
+>   /* Bits in local_flags */
+>   /* Don't move TLF_NAPPING without adjusting the code in entry_32.S */
+>   #define TLF_NAPPING		0	/* idle thread enabled NAP mode */
+> diff --git a/arch/powerpc/kernel/interrupt.c b/arch/powerpc/kernel/interrupt.c
+> index 55f9c0c9922ac..d6a7b6d2b4bd2 100644
+> --- a/arch/powerpc/kernel/interrupt.c
+> +++ b/arch/powerpc/kernel/interrupt.c
+> @@ -117,9 +117,8 @@ notrace unsigned long syscall_exit_prepare(unsigned long r3,
+>   		regs->gpr[3] = r3;
+>   	}
+>   
+> -	if (unlikely(ti_flags & _TIF_SYSCALL_DOTRACE)) {
+> +	if (unlikely(READ_ONCE(current_thread_info()->syscall_work) & SYSCALL_WORK_RESTOREALL))
+>   		ret |= _TIF_RESTOREALL;
+> -	}
+>   
+>   	syscall_exit_to_user_mode(regs);
+>   
+
+I have verified these patches along with the following patch on a 
+ppc64le system and observed no issues during testing.
+Patch: 
+https://lore.kernel.org/lkml/20261023180735.853655-1-renzo@cs.unibo.it/
+
+Test Environment:
+Architecture: ppc64le
+CPU: 10 cores (80 logical CPUs)
+LPAR Mode: Dedicated
+Memory: 100 GB
+
+
+As part of the verification, I ran the LTP syscall tests and Linux 
+kernel selftests, particularly the ptrace and seccomp tests.
+Tests passed successfully, and no kernel call traces or system crashes 
+were observed during testing.
+
+Thanks,
+Samir
