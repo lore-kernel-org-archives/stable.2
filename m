@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793663311;
-	b=0PRztt8lepMd0CMLxWBescA46mp5Z8kLayEMLmHoS4vcRrGSZepeeX7UTqu8ApANQgkO
-	 oPj9AbDYH+OSFec3lOqfMxw5bJXW9XNKe3xxOtgx0U3AuTJ75QMrUyISF2Yua9oaDMRBu
-	 EeoeGrNUC9eDQG5BubplKBvYYpV5eyUDQP8bH1s8h8jxrB8Jk/LmaUCAX/5ZKd2SE38ye
-	 cBs5d2SqBN0Mfmc6URi3pZ6MwaWPV6QZBv08SwRBDh7ASGoqLbYA0KN0fLH1BJgpeRdVy
-	 EQKuhzJ+Y0/xPz4aYaO746K9VniFgVf834+97EGd3QzPTXI/67GbQCsHB8yF6y7H/Cw==
+	t=1793663396;
+	b=UD3+EiFKMMUYtd2RFzhFl0p6vurSBaXM6qYW4e4pff1ww9YW6hGQ/sGxY0dQ25Os5YC0
+	 /xf7iwQo/4pxpg0QK/qZneT0WbDBXnBkB2+yzLK+kiVb8kywphc5pQlImmJpCN9CZ5e8Y
+	 g0eN6W00FaQsOJ2UmT7Yr9hHqqLhAItu0uUhB7la203BwKC4YHXImksAfrpJQKzp1L+Ji
+	 2H7e3+7nQmDrlRXMM1mdLkczqOiZMSRqeChu2BC/ThGCTZH8IiWDZneuJ+J5Ak+DeXxYv
+	 T3FD0ErD1BMIyOT5HZDYpE6jSZaprAjIhlXKFcMKLkQVeU+PxgwS7IMvOcwKWUTD9GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793663311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=IGU12cZi2tmQMvp1fhf4MEtvE65rIlZACEHRBr3EMUM=;
-	b=KC6XN2syD4HQVOAf/UhjOUVQJYCfEEWLPgw4u5LJWCbORqfBBy+Wd+YENonIZnwVu3zR
-	 BiuR+ctzqi5tGOMitlKYy2oTDrGf84s5JhuYr8fcaPhrrcerR079CvVUKEoaS4d/ijaQt
-	 NBfmgKK9C/SfV3MNGtd6pdH3D9jLkIkAbfX6MY+kcbggnmRV6/p+5Ee5laeg/vvsH2G4D
-	 Qe7Y50D9Haq23vOHxBNxQh7CMm8DfJS35uaR794wSVEpDwCjGwYnBpaiwEWQm1Hkt/0eT
-	 HDnBVsz2inpeZQeK2Vmt7MQ2pQ7ETpZhUaOkEGrJVwBaEwQ6OqpNy1qQotU7FeWgErQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793663396;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zS/70lzOc5uq92zhpWECnTO2t8BcmxJuzYjr0GWM7xY=;
+	b=r2kcg4Y8CoFeUW67Hx9jkT4/qhNPRM+yT9sN5VOyJfwd3Jdq/s/2/4wI4gsbB5P5Xljv
+	 o+G2uFrP9xXqnG5wOWDo7lujhUZY8NC//YXnmXPldGxRZVVSzJTEWIIq/nvFaSnm5IX/D
+	 oRGI6WdtKE7LvrWvyaFwCGLOQAlPjoRn5W+UZpFoGBGqD2mXutPGtJ74PEnTNrgw8PFvv
+	 vTQfdwyJFoBgYkxFTpGZJIMTM2e3f/T2xxWs/P4Ra5RLboeiUWRYQFDFkGJD0JFdYacsK
+	 xA1NsdYcDbnY0yjmysC0QNQjf6U05+zToLIlqIc6W7c0efHuJUW3VpwRzu0JlyqY18Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--wvw.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W2KfG5nC;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUKboSEQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EF3606A32C
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:48:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6EF3606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wvw.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD17606A336
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W2KfG5nC
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eaae8d29e0so31994085ad.2
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 15:48:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793663310; x=1794268110; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IGU12cZi2tmQMvp1fhf4MEtvE65rIlZACEHRBr3EMUM=;
-        b=W2KfG5nCkXaahHYfdBYaC1C+Tu82n9C0Cs3aOnonE4V1eEw1Gr0v62d6a1UWZwHBsQ
-         xhpXUncfov5Sn51QZhe16GrzZalfaOBrrrVGfHYbm9s1CmBwNC5tfHRG/Id8RadVIhVE
-         CzZJvwJ6A0viyIBIkc+sBN7VaOcUIm5XIEw5WW0T/AJXSpM8otfwQz0/INSlcHecYIi6
-         rOrZ6dig7EdIH2wAHP7P7CD7hy8+JBdTLApTQHiQXq6mAF3578oW2+PsL9vzbakrBMiu
-         9WMbmbn9tKyuTYLWUfY1h+MTHb6J+xmheIfTt3rtGa6j0KfCbfLxsZj3Zbycq/t/5Bna
-         WDfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793663310; x=1794268110;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IGU12cZi2tmQMvp1fhf4MEtvE65rIlZACEHRBr3EMUM=;
-        b=Ka3BaZLGg99s4LQpDJ/FDntZzgZK9wToPdmRXsdJIrF/+R9kSw6sPhcznAOqPfe786
-         ni/Pjqe+snAbNsYjmbzRRel1gbr6oK0lSg1sLN4EHohPgYwg+okeSvKCXAf1Jd/bobOb
-         sgNoMM7n6zqq0ZbG6hLuBFmrBkLgzA83l/B875ciYgK1i7q7pqEL4z8ekJgCxl973Uel
-         H9vfvSfldzWheHWKAGri2i5yttr9kAuze6uFKyjjs9h6+NFNbf3Yempl4FKVzMge4M2W
-         8n34Dg9mX5LwVmeLlDa7IQuDj3o9qrWUaB6B8+Yi6gntyy184PVN7DWbO04ZChv0ERyV
-         FkrA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQEcLMiSO3ffNBKUguWdQaGJmFvlcpFFsDR2YxVJRsAHtb9Sz3e/0xFrUz6jXuliRCbSdVMnA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+whIq+RCzz4QtN2519uP3rWw2aq6wnBTS7Pu8xW5e98QqOehsw
-	trWQ2tZqpSlyFW/XEBwA5n7LZUUDonVQWEG0mtzFM69PMWwMHg0cORmG3b2AFx64ZgQCzg==
-X-Received: from plil13.prod.google.com ([2002:a17:903:17cd:b0:2eb:515:b000])
- (user=wvw job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:2442:b0:2e2:cebe:d811
- with SMTP id d9443c01a7336-2eb3646de8amr99595635ad.46.1793663309587; Mon, 02
- Nov 2026 15:48:29 -0800 (PST)
-Date: Mon,  2 Nov 2026 23:48:13 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jUKboSEQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5EA71F00A16;
+	Mon,  2 Nov 2026 23:49:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793663395;
+	bh=zS/70lzOc5uq92zhpWECnTO2t8BcmxJuzYjr0GWM7xY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jUKboSEQNj4liNC/H/7u10HfHn7/0jaInzmxzMHBDgoDATuMopSrLWfYf5tYADLff
+	 Xc17ocSH8SWEzKPG9pZBlhbTg661vrLLM8eTOSzHrGrn53RQOB+FwGO2Cd1HhoP4Td
+	 e4rdNc3QNBi2ABXHSZsZYaNTa3+wURBgb0V9uiRDU7+zqFjOa8454nXaEUKkmFtkAY
+	 Akfaabh7K3AGky/a66GfO42zAkL0FCtyoRLwKH7jJpGd1cnQoWn2icL8ARowLexxKH
+	 2Ey/cQ2pN5mLOZquliYGzRAj8QO0bdBHUGNFMUGLwWKkQoxUp27yHKcYgBHM7vDgqn
+	 cxNgLNR4Woa3g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zikang Gao <2715417602@qq.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] smb: client: do not pass a NULL buf to is_oplock_break()
+Date: Mon,  2 Nov 2026 18:49:53 -0500
+Message-ID: <20261102234412.2560495-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110214-audience-apostle-d632@gregkh>
+References: <2026110214-audience-apostle-d632@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,105 +59,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261102234813.1069156-1-wvw@google.com>
-Subject: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
-From: Wei Wang <wvw@google.com>
-To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, wei.vince.wang@gmail.com, Wei Wang <wvw@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On systems with FEAT_SME, TPIDR2_EL0 is part of userspace thread state:
-the AAPCS64 SME ABI uses it as the ZA lazy-save pointer, and the kernel
-context-switches it eagerly in tls_thread_switch(). While a task is
-running, the live register is the only copy of its value.
+From: Zikang Gao <2715417602@qq.com>
 
-The architecture defines TPIDR2_EL0 as UNKNOWN after a warm reset, so
-a CPU power-down through PSCI CPU_SUSPEND or SYSTEM_SUSPEND can lose it.
-cpu_do_suspend() and cpu_do_resume() already preserve TPIDR_EL0 and
-TPIDRRO_EL0, but not TPIDR2_EL0.
+[ Upstream commit 2225ab306575e424b3dad2ee1be2521c89249d15 ]
 
-For CPU idle this is harmless: current is the idle task, and the next
-context switch reloads TPIDR2_EL0 from next->thread.tpidr2_el0. For
-suspend-to-RAM and hibernation, however, cpu_suspend() runs in the
-context of the userspace task that wrote /sys/power/state, and that
-task returns to EL0 with an UNKNOWN TPIDR2_EL0. On hardware where the
-reset value is non-zero, the next SME ABI lazy-save check in that
-thread faults. For example, bionic's fork() -> clone() ->
-__arm_za_disable() -> __arm_tpidr2_save() loads from the garbage
-pointer:
+receive_encrypted_read() sets *num_mids = 1 and never writes the
+caller's bufs[]. Offload returns -1 with *num_mids = 0, so the
+demultiplex thread skips the frame. The inline decrypt path
+returns 0 even when smb2_find_mid() fails.
 
-  # echo mem > /sys/power/state; true
-  signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0xa3bad11bcaf72e93
-      x16 a3bad11bcaf72e89
-  #00 pc ... libc.so (__arm_tpidr2_save+24)
-  #01 pc ... libc.so (__arm_za_disable+32)
-  #02 pc ... libc.so (clone+480)
-  #03 pc ... libc.so (fork+60)
+cifs_demultiplex_thread() then treats mids[i] == NULL as an
+oplock break and calls is_oplock_break(bufs[i], server) with
+bufs[i] still NULL. smb2_is_valid_oplock_break() reads
+hdr.Command at offset 12 and oopses.
 
-Having firmware zero TPIDR2_EL0 on warm reset avoids the crash. It is
-not enough on its own, though: a thread that enters the kernel with a
-lazy save pending (TPIDR2_EL0 pointing at a valid TPIDR2 block) would
-see TPIDR2_EL0 == 0 on return. It would then wrongly conclude that ZA
-had been committed and restore stale data from its save buffer. The
-kernel owns this state and must preserve it.
+A large encrypted READ whose MessageId does not match is enough
+to panic cifsd.
 
-Save TPIDR2_EL0 in cpu_do_suspend() and restore it in cpu_do_resume()
-when SME is present. Placing this in proc.S covers both cpu_suspend()
-and hibernation. The new slot uses ctx_regs[14]; sp moves into what was
-previously tail padding, so sizeof(struct cpu_suspend_ctx) stays 128
-bytes. sp is only accessed through the CPU_CTX_SP asm-offset.
+    Oops: general protection fault, probably for non-canonical address
+    0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
+    KASAN: null-ptr-deref in range
+    [0x0000000000000008-0x000000000000000f]
+    CPU: 0 PID: 100 Comm: cifsd
+    RIP: smb2_is_valid_oplock_break+0xc8/0x2270 [cifs]
+    cifs_demultiplex_thread
+    Kernel panic - not syncing: Fatal exception
 
-Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
-Signed-off-by: Wei Wang <wvw@google.com>
+Return -1 when inline decrypt finds no mid, and skip
+is_oplock_break() plus the unknown-frame dump when bufs[i]
+is NULL. receive_encrypted_standard() already assigns
+bufs[*num_mids].
+
+Fixes: c42a6abe3012 ("CIFS: Add capability to decrypt big read responses")
+Assisted-by: LLM
+Signed-off-by: Zikang Gao <2715417602@qq.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
+[ sashal: adjusted context for older MID callback and release APIs ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/include/asm/suspend.h | 2 +-
- arch/arm64/mm/proc.S             | 8 ++++++++
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ fs/smb/client/connect.c | 4 +++-
+ fs/smb/client/smb2ops.c | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
-index eb60c9735553..2cc5fb405769 100644
---- a/arch/arm64/include/asm/suspend.h
-+++ b/arch/arm64/include/asm/suspend.h
-@@ -2,7 +2,7 @@
- #ifndef __ASM_SUSPEND_H
- #define __ASM_SUSPEND_H
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index 1c21ae3d61e24..e56a2501465b0 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1335,12 +1335,14 @@ cifs_demultiplex_thread(void *p)
+ 					mids[i]->callback(mids[i]);
  
--#define NR_CTX_REGS 14
-+#define NR_CTX_REGS 15
- #define NR_CALLEE_SAVED_REGS 12
- 
- /*
-diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-index 7afbece885a3..c7b7fa6491c3 100644
---- a/arch/arm64/mm/proc.S
-+++ b/arch/arm64/mm/proc.S
-@@ -103,6 +103,10 @@ SYM_FUNC_START(cpu_do_suspend)
- alternative_if ARM64_HAS_TCR2
- 	mrs	x2, REG_TCR2_EL1
- 	str	x2, [x0, #104]
-+alternative_else_nop_endif
-+alternative_if ARM64_SME
-+	mrs_s	x2, SYS_TPIDR2_EL0
-+	str	x2, [x0, #112]
- alternative_else_nop_endif
- 	ret
- SYM_FUNC_END(cpu_do_suspend)
-@@ -142,6 +146,10 @@ alternative_if ARM64_HAS_TCR2
- 	ldr	x2, [x0, #104]
- 	msr	REG_TCR2_EL1, x2
- alternative_else_nop_endif
-+alternative_if ARM64_SME
-+	ldr	x2, [x0, #112]
-+	msr_s	SYS_TPIDR2_EL0, x2
-+alternative_else_nop_endif
- 
- 	msr	sctlr_el1, x12
- 	set_this_cpu_offset x13
+ 				release_mid(mids[i]);
+-			} else if (server->ops->is_oplock_break &&
++			} else if (bufs[i] && server->ops->is_oplock_break &&
+ 				   server->ops->is_oplock_break(bufs[i],
+ 								server)) {
+ 				smb2_add_credits_from_hdr(bufs[i], server);
+ 				cifs_dbg(FYI, "Received oplock break\n");
+ 			} else {
++				if (!bufs[i])
++					continue;
+ 				cifs_server_dbg(VFS, "No task to wake, unknown frame received! NumMids %d\n",
+ 						atomic_read(&mid_count));
+ 				cifs_dump_mem("Received Data is: ", bufs[i],
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index f657d9696d1da..12c6c6f1c504b 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -5027,6 +5027,7 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 	*mid = smb2_find_mid(server, buf);
+ 	if (*mid == NULL) {
+ 		cifs_dbg(FYI, "mid not found\n");
++		rc = -1;
+ 	} else {
+ 		cifs_dbg(FYI, "mid found\n");
+ 		(*mid)->decrypted = true;
 -- 
-2.56.0.385.gac671c819a-goog
+2.53.0
 
