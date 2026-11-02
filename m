@@ -1,77 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614413;
-	b=JNPzue7wI6qap4IxmnPimikL46rbnDlnqSI2NW+2U7+UwG52DJm9SLAtiWn27CMxH9SZ
-	 umb6dnWDkb7yqLE1KYa8DxKIExwnbpaQuy7VShqV7bDyGzok/j/iUgsylsI5qTd6vERP4
-	 0NmczM6XN6bGeweTn4Y02O8+0jfNqm+Ln25mTuQcoPZMignTQnon4MSF+rEh2Q69lqIlv
-	 r3UMItMIkVDRn+tzQ8CR+eayYq73CLynm3TdizcdoY4ZkAbot0rL2kokyWvi4Wj0c+K+8
-	 qXQ9qj/uHp9UtBxwksoyxzGvwDbXPs/qSWAZa+J3vtPdngyRMdmYgfz3yRB343Da4cw==
+	t=1793614442;
+	b=RRRlst6Jsl20RPJoqbKMmU0m6pLeONEslMIXIbmqSS8zpZTYnv0M00KDPtYsHxrbpDKc
+	 XiJ9OxU1LsaTg35zREfyhhOiAE7rev5gFWonR3qnk6iR7+YhrFhK/o9Xd6xweHIUhrsbq
+	 ++CfR1gNDaMnCU2THTTGfvF2SMQNYpJUL5zoGfYeISgBF9JKp3QaS2XRmifSUgkcDc2i8
+	 xIFj513AUSoX87SLZnF5R10Pde67XarI2kUiKsikDaauc5ZM2qfALbb/nvZTHuUjhgC8o
+	 jV9/FO8Yo/jeqXjk4JS5v3AB5EyzbJMQD1oIiPHDKXbxqK8QxGRSI9oSEC+tj14r7HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614413;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info;
-	bh=oYLpTWG9C77wubb/x2b38bdgnU4giBzlQ8bxySDdwdE=;
-	b=3bhWo4zsGLnF55WIwasHXBHO2jJDvnefvZQTd74v7nhHEPBNZdWcLHbzpPHbk+Id46WJ
-	 /HM/B1cja/b34IHgUnv/H9xfZooytLFQRn86yOotxjek+pyszmHpY8Mpr4A2AurqDYaMy
-	 QKu+1Nf40F8c8yO3f4ZPL2HIpi5BRXjQM9PGld78Hgn3kS9o5cdu8RTWIznA9EO2G0IQH
-	 cJaJKwnuF4kxPYPh2XBcQb0CC7D7m1zE6W+IYCe71jIxFvjlEv4xqh05bXYxmXqfFSzO+
-	 oB7tW0neOEAEU0xRIccnusH5QHauhy7GvmBYp7xDlmpuvg4VXoqeDSSAsxoXLsKDChw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614442;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9XxIqirAG9D56BcIeaHVZySoAG+yF8xDS5voiiVDsuA=;
+	b=quhCibf5rAnIRLVZoeWymXLiDrWKLSubNLsmdhXCUsSkETzMORhYciojnrbq664K4aq5
+	 XYiU5pWswJB3zv7ZTWrhSJA+UHLqtzkYzbCZIECTpgtDBIRFmzjQ9pStgWfttFxZIrmI2
+	 Wlgjo128L2BH0BIwEeDNzvleFDPcbeoK3Dzy7kuJa6Z4RobuiCcDl6C4WN8W93IIUJ+qA
+	 4mVVIVLqpSSblIob7cVu7Ln3YDKm50XPgdMQmjuDLcXeObWmrrrju7i9BdAaFg3qIVcFg
+	 6KRWTVqiq+yVxzLWolqJzcW4NKbtyjOSlOSNxdbjABmGBwe/aZ9v6RDVHySLJtv+/cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oracle.com;
-	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=qcO2TCEJ;
-	arc=none smtp.remote-ip=205.220.165.32
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFqYM9Or;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21742606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:13:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21742606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A28606A331;
+	Mon,  2 Nov 2026 10:14:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=qcO2TCEJ
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1Nt2sp1181321;
-	Mon, 2 Nov 2026 10:13:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=oYLpT
-	WG9C77wubb/x2b38bdgnU4giBzlQ8bxySDdwdE=; b=qcO2TCEJ6H3+0LXRp4AMm
-	OBkakifaQNIBmrLqV/IpWzqmYs3llUN2f9iVkfBAUPjVn9bvx4hzUspWxsnhbcOs
-	CA8D8D8wRawVbbSiUZNpYvH8JlFdE19zrkxFurcNb2dfi9hETbE2/t0PeiAbSZ6q
-	bXWxtFIakJhy6RW2VUpZO6mUBh/r2SVDSbt/Diq8LgXxp+2eTd41kycB2gP5HNIs
-	mJKpOAh6Efejy99eQgnyCgh0kSfk4eowa9teK7x1NF7oPVNwfq9srbWMV4YsigBT
-	tJ1XAv/V/ougOqRwR6z1hzofkTuGtq7DXpNQOwAdN6gzneFOc8yR7BoKO7HxofrP
-	w==
-Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn876hk8t-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 02 Nov 2026 10:13:27 +0000 (GMT)
-Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29D28u2995966;
-	Mon, 2 Nov 2026 10:13:27 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfja56j-12;
-	Mon, 02 Nov 2026 10:13:26 +0000 (GMT)
-From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-To: stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>, Mark Tinguely <mark.tinguely@oracle.com>,
-        "Darrick J. Wong" <djwong@kernel.org>,
-        Carlos Maiolino <cem@kernel.org>,
-        Srikanth C S <srikanth.c.s@oracle.com>,
-        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: [PATCH 5.15.y 11/11] xfs: remove xfs_attr_leaf_hasname
-Date: Mon,  2 Nov 2026 02:12:39 -0800
-Message-ID: <20261102101239.1557688-12-harshit.m.mogalapalli@oracle.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
-References: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFqYM9Or
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6C11F00A15;
+	Mon,  2 Nov 2026 10:13:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793614441;
+	bh=9XxIqirAG9D56BcIeaHVZySoAG+yF8xDS5voiiVDsuA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LFqYM9OrlIwewmMAudK8Nb2PgbWj38oj2L+52Pc86pKmF1yKSGXZZybmDJaCNkYog
+	 frTq7cCZ3kZzJhvkTCyNDeeXGdXqSoqeKuOBC4KVETWzfkVnCXdcaQGOUw9OhFcflU
+	 iMtAt6M3uylm3p6Q60suUSLPvd7oaSOPJgCImlgQ0BQa5s1C5+UX/VgywS0rHz9Dzb
+	 MDBfhxsrhf9SYBk7qSp9YkSL2mGnrjxEW6mGo0wVNTnMshvRP+XXtm5KAaxWnL3dsC
+	 huR/6o6dz+8c3UuMI1f5VMC5jaR//OrCZ9RqjglOOSt3iS8kyPanygIGlLkHY0VabP
+	 LhcYoE9WTVt8A==
+Date: Mon, 2 Nov 2026 10:13:56 +0000
+From: Lee Jones <lee@kernel.org>
+To: Andreas Kemnade <andreas@kemnade.info>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Kai Svahn <kai.svahn@nokia.com>, syed khasim <x0khasim@ti.com>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Samuel Ortiz <sameo@linux.intel.com>, linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on
+ teardown and probe failure
+Message-ID: <20261102101356.GD13023@google.com>
+References: <20261027093306.2812695-1-lee@kernel.org>
+ <20261027093306.2812695-14-lee@kernel.org>
+ <20261028165003.60d0c033@kemnade.info>
+ <20261030104806.GC3774906@google.com>
+ <20261030115241.642c5971@kemnade.info>
+ <20261030112835.GD3774906@google.com>
+ <20261030131049.10167177@kemnade.info>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,201 +69,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
- mlxscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
- bulkscore=0 malwarescore=0 mlxlogscore=999 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020040
-X-Proofpoint-GUID: q-bgO47F-hHimJ7z89JxCmxQvK78B_Mp
-X-Proofpoint-ORIG-GUID: q-bgO47F-hHimJ7z89JxCmxQvK78B_Mp
-X-Authority-Analysis: v=2.4 cv=JJauIMKb c=1 sm=1 tr=0 ts=6ae86247 b=1 cx=c_pps
- a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=EIcjfB9IiI4px24ztqRk:22 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8
- a=FywrB9mEr2nvRk0Q_dsA:9 a=WmVTiCyuxqgg3mnwYu6p:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX/ZPknxxMp0hY
- rRCSjFT2obeSYKb/fSLYd6UKf00/5KuksCZiWZlHH95KwxJI7EFspK8rEaV1XndR/5+ylhJb62Z
- V27QSHCdpDPxIiPBLtswYYOFPOkL4v6IDSt+73kKfcPqfKdBHnLl2QVXBP6cOOTTYpyY8S4Wr8I
- 4be9IoOR6JY70utj+DYm21vDOxayXvH5rJ/yQgx2HnEXQABwEgpmR7tBT1coTB2byVGxoDrGu1T
- gsrXNRqlSHLwqmJHkzgYixbrvgsIo44JJOsrv8jCc5/8/T/iTaY7Ah0Hykyw82Eopraa31G0SFU
- 4QM90T2gEgPvfMOum6tyXs9iBX/ds53QPamTkV8ifZTMLi76n68ryGfHC14j95emTni0KZfRAq1
- D0jDgOXs8G5wLVru/NoG2FsMlmOs063H3DNHhGgGw7EmXVt7rZ2xSk2r51xsbgtKtJuAOT/vcXb
- CbGoxtC0RtDS2DOZz+Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfXyDTlsXdE4ox9
- ybYyquzH4XvI2Q51o2s7vvh6Spa2OZXFWQkXzR2KUstTyncx2bQoBcZEDnQElqvVdz5VYvnzFii
- 3jRB79nEqJRuXt971F2qpN9X8V6RVowT0dOr198BAAiXdZs/XNfR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030131049.10167177@kemnade.info>
 
-From: Christoph Hellwig <hch@lst.de>
+On Fri, 30 Oct 2026, Andreas Kemnade wrote:
 
-[ Upstream commit 3a65ea768b8094e4699e72f9ab420eb9e0f3f568 ]
+> On Fri, 30 Oct 2026 11:28:35 +0000
+> Lee Jones <lee@kernel.org> wrote:
+> 
+> > On Fri, 30 Oct 2026, Andreas Kemnade wrote:
+> > 
+> > > On Fri, 30 Oct 2026 10:48:06 +0000
+> > > Lee Jones <lee@kernel.org> wrote:
+> > >   
+> > > > On Wed, 28 Oct 2026, Andreas Kemnade wrote:
+> > > >   
+> > > > > On Tue, 27 Oct 2026 09:30:42 +0000
+> > > > > Lee Jones <lee@kernel.org> wrote:
+> > > > >     
+> > > > > > twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
+> > > > > > and checks for a non-NULL twl_priv at entry to reject multiple device
+> > > > > > instances.  However, twl_remove() and the early error paths in
+> > > > > > twl_probe() never reset twl_priv to NULL, a failure when adding MFD
+> > > > > > child devices bypasses twl_remove() by jumping to free instead of fail,
+> > > > > > and twl_remove() tears down the IRQ domain and dummy I2C clients before
+> > > > > > child devices are unregistered.  After devres frees the underlying
+> > > > > > memory on probe failure or unbind, twl_priv remains a dangling pointer,
+> > > > > > causing subsequent exported API calls to dereference freed memory and
+> > > > > > blocking future probe attempts with -EBUSY.
+> > > > > > 
+> > > > > > Unregister DT-populated and MFD child devices at the start of
+> > > > > > twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
+> > > > > > reset twl_priv to NULL in twl_remove() and on probe error exit.
+> > > > > > 
+> > > > > > Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
+> > > > > > Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
+> > > > > > Cc: stable@vger.kernel.org
+> > > > > > Signed-off-by: Lee Jones <lee@kernel.org>    
+> > > > > 
+> > > > > Hmm, couldn't we use devm_add_action_or_reset() for resetting the
+> > > > > twl_priv pointer? Feels more clean for me.    
+> > > > 
+> > > > Nice!  Thanks for the suggestion.
+> > > > 
+> > > > To keep this fix minimal for Stable backporting (and avoid resending a
+> > > > 27-patch series), I'll take this one as-is and send a follow-up patch
+> > > > converting twl_priv to use devm_add_action_or_reset().
+> > > >   
+> > > 
+> > > I think the whole patch can be simplified a lot then, 
+> > > 
+> > > devm_mfd_add_devices can stay.  
+> > 
+> > twl_remove() runs before devres teardown and destroys the IRQ domain,
+> > unregisters the dummy I2C clients and clears twl_priv->ready.
+> > 
+> > So the MFD child devices still need to be unregistered at the start of
+> > twl_remove() (alongside of_platform_depopulate()) before the parent
+> > transport is torn down beneath them, at least until the rest of
+> > twl_remove() is also converted to devm_*().
+> > 
+> 
+> ok, I merged the two chunks of twl_remove() into one in my head without
+> the lines in between... So you are right.
 
-The calling convention of xfs_attr_leaf_hasname() is problematic, because
-it returns a NULL buffer when xfs_attr3_leaf_read fails, a valid buffer
-when xfs_attr3_leaf_lookup_int returns -ENOATTR or -EEXIST, and a
-non-NULL buffer pointer for an already released buffer when
-xfs_attr3_leaf_lookup_int fails with other error values.
+No problem.  Thanks for your review.
 
-Fix this by simply open coding xfs_attr_leaf_hasname in the callers, so
-that the buffer release code is done by each caller of
-xfs_attr3_leaf_read.
-
-Cc: stable@vger.kernel.org # v5.19+
-Fixes: 07120f1abdff ("xfs: Add xfs_has_attr and subroutines")
-Reported-by: Mark Tinguely <mark.tinguely@oracle.com>
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-(cherry picked from commit 3a65ea768b8094e4699e72f9ab420eb9e0f3f568)
-[Srikanth: Fix the additional leaf-add caller retained in 5.15 and
-adapt leaf reads to the four-argument API.]
-Signed-off-by: Srikanth C S <srikanth.c.s@oracle.com>
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
----
- fs/xfs/libxfs/xfs_attr.c | 80 ++++++++++++++--------------------------
- 1 file changed, 27 insertions(+), 53 deletions(-)
-
-diff --git a/fs/xfs/libxfs/xfs_attr.c b/fs/xfs/libxfs/xfs_attr.c
-index 23523b802539..baeaf8805a2a 100644
---- a/fs/xfs/libxfs/xfs_attr.c
-+++ b/fs/xfs/libxfs/xfs_attr.c
-@@ -45,7 +45,6 @@ STATIC int xfs_attr_shortform_addname(xfs_da_args_t *args);
-  */
- STATIC int xfs_attr_leaf_get(xfs_da_args_t *args);
- STATIC int xfs_attr_leaf_removename(xfs_da_args_t *args);
--STATIC int xfs_attr_leaf_hasname(struct xfs_da_args *args, struct xfs_buf **bp);
- STATIC int xfs_attr_leaf_try_add(struct xfs_da_args *args, struct xfs_buf *bp);
- 
- /*
-@@ -657,11 +656,11 @@ xfs_attr_lookup(
- 		return xfs_attr_sf_findname(args, NULL, NULL);
- 
- 	if (xfs_attr_is_leaf(dp)) {
--		error = xfs_attr_leaf_hasname(args, &bp);
--
--		if (bp)
--			xfs_trans_brelse(args->trans, bp);
--
-+		error = xfs_attr3_leaf_read(args->trans, args->dp, 0, &bp);
-+		if (error)
-+			return error;
-+		error = xfs_attr3_leaf_lookup_int(bp, args);
-+		xfs_trans_brelse(args->trans, bp);
- 		return error;
- 	}
- 
-@@ -934,9 +933,12 @@ xfs_attr_leaf_try_add(
- 	 * Look up the given attribute in the leaf block.  Figure out if
- 	 * the given flags produce an error or call for an atomic rename.
- 	 */
--	retval = xfs_attr_leaf_hasname(args, &bp);
--	if (retval != -ENOATTR && retval != -EEXIST)
-+	retval = xfs_attr3_leaf_read(args->trans, args->dp, 0, &bp);
-+	if (retval)
- 		return retval;
-+	retval = xfs_attr3_leaf_lookup_int(bp, args);
-+	if (retval != -ENOATTR && retval != -EEXIST)
-+		goto out_brelse;
- 	if (retval == -ENOATTR && (args->attr_flags & XATTR_REPLACE))
- 		goto out_brelse;
- 	if (retval == -EEXIST) {
-@@ -969,27 +971,6 @@ xfs_attr_leaf_try_add(
- 	return retval;
- }
- 
--/*
-- * Return EEXIST if attr is found, or ENOATTR if not
-- */
--STATIC int
--xfs_attr_leaf_hasname(
--	struct xfs_da_args	*args,
--	struct xfs_buf		**bp)
--{
--	int                     error = 0;
--
--	error = xfs_attr3_leaf_read(args->trans, args->dp, 0, bp);
--	if (error)
--		return error;
--
--	error = xfs_attr3_leaf_lookup_int(*bp, args);
--	if (error != -ENOATTR && error != -EEXIST)
--		xfs_trans_brelse(args->trans, *bp);
--
--	return error;
--}
--
- /*
-  * Remove a name from the leaf attribute list structure
-  *
-@@ -1000,24 +981,20 @@ STATIC int
- xfs_attr_leaf_removename(
- 	struct xfs_da_args	*args)
- {
--	struct xfs_inode	*dp;
--	struct xfs_buf		*bp;
-+	struct xfs_inode	*dp = args->dp;
- 	int			error, forkoff;
-+	struct xfs_buf		*bp;
- 
- 	trace_xfs_attr_leaf_removename(args);
- 
--	/*
--	 * Remove the attribute.
--	 */
--	dp = args->dp;
--
--	error = xfs_attr_leaf_hasname(args, &bp);
--
--	if (error == -ENOATTR) {
--		xfs_trans_brelse(args->trans, bp);
-+	error = xfs_attr3_leaf_read(args->trans, args->dp, 0, &bp);
-+	if (error)
- 		return error;
--	} else if (error != -EEXIST)
-+	error = xfs_attr3_leaf_lookup_int(bp, args);
-+	if (error != -EEXIST) {
-+		xfs_trans_brelse(args->trans, bp);
- 		return error;
-+	}
- 
- 	xfs_attr3_leaf_remove(bp, args);
- 
-@@ -1041,23 +1018,20 @@ xfs_attr_leaf_removename(
-  * Returns 0 on successful retrieval, otherwise an error.
-  */
- STATIC int
--xfs_attr_leaf_get(xfs_da_args_t *args)
-+xfs_attr_leaf_get(
-+	struct xfs_da_args	*args)
- {
--	struct xfs_buf *bp;
--	int error;
-+	struct xfs_buf		*bp;
-+	int			error;
- 
- 	trace_xfs_attr_leaf_get(args);
- 
--	error = xfs_attr_leaf_hasname(args, &bp);
--
--	if (error == -ENOATTR)  {
--		xfs_trans_brelse(args->trans, bp);
--		return error;
--	} else if (error != -EEXIST)
-+	error = xfs_attr3_leaf_read(args->trans, args->dp, 0, &bp);
-+	if (error)
- 		return error;
--
--
--	error = xfs_attr3_leaf_getvalue(bp, args);
-+	error = xfs_attr3_leaf_lookup_int(bp, args);
-+	if (error == -EEXIST)
-+		error = xfs_attr3_leaf_getvalue(bp, args);
- 	xfs_trans_brelse(args->trans, bp);
- 	return error;
- }
 -- 
-2.55.0
-
+Lee Jones
