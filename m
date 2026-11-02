@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602593;
-	b=qoLyFA21HRBe8T0UMC9UsyLrDkkLu9wIl6Ecp5wcjSjZl3UbQd0y76qka3PFG8BWOe1N
-	 pPA7OtG4mPJ9PCxrKFhsqRyNw9ebQE7wEWye+on7jJh+Bs5JhFB3RX5CScmoUcWPNNxaX
-	 S1Nkw+mWFLnBU7p3Jp23zlhiDkkeCI3GUJsjTKnuXPPfvYRWb3UykgH+GkoHv+1iMYDEF
-	 PvhS6XPAL7shJ18bcqd4HyJoRsaCF7qjTlN/NUGJMX7uSlYF/m5APON08RDHEgObFH5tD
-	 HvR/CuLV8pOVXnavCrS1vylaNWT8Gb4rRajNVTSkzVMBbbXI3zuO00SUgt5GciD99lA==
+	t=1793602877;
+	b=Vgsb1Rt2qJk7svrfKHWoU49m8bZkdAeEMNBnQ3RGYp7b13MsbbM0fMx8KN7l9jvS0TXp
+	 j1eXCecZgfaIPPIKcHSuEBW4sz8kTtaKSaA7V7TJPMeq50V8x7g7NOQ8C3MZX7Z+ZHDMr
+	 xmIyS7v9ZFRyOY0JPbprX4x19C0fRWXEZaDsrRyq2ZKLoFQc5074hXgu+11+yNtjPoEYX
+	 H5e9nQE0pfbhzp4wGpN6BYglccF+N0GBYDnCAQZD4bqQLad8RgMedM6BaPTnOgnVsHW9l
+	 8UM0vJBcZnaC1XCBSo+C01HsqIeyJBMTFI/A7CbJ46LtHKVKz/wpMpvN8XgDcJFmkZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602593;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602877;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=bCDf4ZW3rE+CGNZfOsXMT1wgJaQq6SHV/zB4PxcXzws=;
-	b=RUMdinw6k4zt64zoF8Ahps4g7QHSQsg0X6+bb8IL9cpamc9YSmCD+npsUfPWZPu4jnc7
-	 wEwA2bSr+otF4gEzuMBgLjLVCAT9BbtYjRkgGFGBv20kq8gCpeTUkfgYyrMZveSPSpuxD
-	 +/3Qrksyp0MlSOP+FkNjy5WH6YM6Gcr6QoPvSppDdXs/nbTmcw+7yo+z6gAOaOXaxvMCo
-	 rZYKgdG0CziAtusgSMev50sE+VgC0vD8AjYEVtIFehUXisk2c8rLhgl0dQ1yOq1EKms9X
-	 /lehbhLEAz2uo7+UXjUJyfG19dNG3JJmwv7n0JOaSq8GWO+Oiwh3nA7Vl6yi7x2dYEA==
+	bh=8jY8XpaYgmA53HXY22kW+XbJRfVwUAnog+5j0SSxl6A=;
+	b=JGcOXJQE7z4+uVqeLnzyxzj6xnxhUPtLAf+QVF1K3ezxvzs2NuUwZoHjIlTIYsMWOKkz
+	 e/JmZzwS8VMJJqLOVMNrnzcx57P1fOOSIuexBCCeq4sHe+assKN8a8yL7D/ZOjnU9n/02
+	 DKC5DmDR+tSAMU6nH+r7hJaEbcM2hy42xlKAIYgxAt9Jwmn98SceU4a8xRIhnHudxeasE
+	 PYW0hk5Rhj2gJPju68I3lZLVQTSkD/0bGMVw+3hko0bJAHDFNPLPYrsOI3eRTZ3s5HliF
+	 6HWgr50hsAm9mqtfc+af+hXUdGXwd90p/bnmSrcDxMrcT6fjfXGwt6SjU7yBM+49wHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSuGB1Vz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayLpLZrD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DAF606A324;
-	Mon,  2 Nov 2026 06:56:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E92E8606A324;
+	Mon,  2 Nov 2026 07:01:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iSuGB1Vz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C08C1F000C1;
-	Mon,  2 Nov 2026 06:56:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayLpLZrD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D1BF1F000C1;
+	Mon,  2 Nov 2026 07:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793602592;
-	bh=bCDf4ZW3rE+CGNZfOsXMT1wgJaQq6SHV/zB4PxcXzws=;
+	s=k20260515; t=1793602876;
+	bh=8jY8XpaYgmA53HXY22kW+XbJRfVwUAnog+5j0SSxl6A=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iSuGB1Vz47JLVuaefZLVIZbkKz4UmxB7ofSbm1uICkj4KSw6wznxNSxosbBdF/Myj
-	 1172MZCKJE+mCnBhjE0+n392O0Xy17f1ZRp1kugIyZiNlEFqdCZlnm41tX9BtY8YMw
-	 g4kKoG9kky/Cjzl9ygn5On1pV7zLTQFlUOq22z8XU++r5vbcPVlEt2Oxi9SmnBIJWF
-	 dKMjleveJCPhmc5m5J/2X63qnk+rY9WZk9P4wRRG+hPV9jXlncLZL74wcu/wbmPGNg
-	 sg4Yfxwd4ivD2/RW9Qh7dpXCxMg8aLA0gM3MipHCDq+udFLRKarizzHSIf+43c6z3L
-	 vthFWNjBRaSHA==
-Message-ID: <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
-Date: Mon, 2 Nov 2026 07:56:27 +0100
+	b=ayLpLZrD91MV+ICG3Fack6rUmwXp0VVRmmG7WDL665UIqgU6aQAHE2cfgeEAFj2w6
+	 3OfRdFnV9rNSF40NFSb/mC7TU6W9P2pqYZw4O6X9nx89FPsUKVy5Zk0oPjTnzja2CE
+	 j8zI7LfbKJL0GiikRYKCKlGArzfqQhnKzWAcab4bLDfFSLiajTkI7Hc1ePyxAzfG+h
+	 2J+mqjiI3fgSphgmWft6k46KLM666AovCEVi+NwBQC9jRIKlAGgE1aTdGYQiylbMe7
+	 2cq8J8kxXVr0UzQQa3PkEJUvDn1u51KL6XA2qoDuRecvHG2QH68KeiI0YA+ufzhGNA
+	 zQKGG44cskMxQ==
+Message-ID: <6b69aa22-f392-4cc8-9f7e-d9077e951cc4@kernel.org>
+Date: Mon, 2 Nov 2026 08:01:11 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,16 +52,16 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/memory_hotplug: don't offline a hwpoisoned page still
- in the page cache
-To: mt4022@columbia.edu, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>,
- linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
- tz2294@columbia.edu, stable@vger.kernel.org
-References: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
+Subject: Re: [PATCH] fs/proc/task_mmu: check THP exclusivity for each subpage
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Kelvin Zhang <zhangxp1998@gmail.com>
+Cc: linux-mm@kvack.org, "Liam R . Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Kalesh Singh <kaleshsingh@google.com>, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <4c1b393a4b04bd94e4f1c7879ae04e1793eb0931.1793552446.git.zhangxp1998@gmail.com>
+ <20261101110247.95a03a5601f235ffb39c54c1@linux-foundation.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -108,144 +108,82 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
+In-Reply-To: <20261101110247.95a03a5601f235ffb39c54c1@linux-foundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/1/26 20:40, Mani Tofigh via B4 Relay wrote:
-> From: Mani Tofigh <mt4022@columbia.edu>
+On 11/1/26 20:02, Andrew Morton wrote:
+> On Sun,  1 Nov 2026 09:01:00 -0800 Kelvin Zhang <zhangxp1998@gmail.com> wrote:
 > 
-> Memory offline skips hwpoisoned pages, assuming nobody uses them
-> anymore.  memory_failure() however sets PG_hwpoison before it takes the
-> page, and taking it waits on pcp_batch_high_lock, which offline_pages()
-> holds for the whole offline.  A memory error during the offline thus
-> marks the page and then waits while the offline skips it:
+>> A PMD-mapped THP can contain subpages with different mapcounts. For
+>> example, after fork(), the child can unmap only part of the THP. The
+>> parent retains its PMD mapping, while the remaining child mappings
+>> are PTE mappings.
+>>
+>> pagemap_pmd_range_thp() passes the same initial page to
+>> __folio_page_mapped_exclusively() for every pagemap entry. With
+>> CONFIG_PAGE_MAPCOUNT=y, this applies the first subpage's exclusivity
+>> to all entries, falsely setting or clearing PM_MMAP_EXCLUSIVE for
+>> subpages with different sharing.
+>>
+>> Pass page + idx to check the subpage corresponding to each entry, as
+>> was done before converting to __folio_page_mapped_exclusively(). The
+>> index already accounts for reads starting partway through the PMD.
+>> The conservative whole-folio check without CONFIG_PAGE_MAPCOUNT is
+>> unchanged.
 > 
->   Task A (offline_pages)               Task B (memory_failure)
->   zone_pcp_disable()
->                                        TestSetPageHWPoison(P)
->                                        get_hwpoison_page()
->                                          /* waits for Task A */
->   do_migrate_range()
->     /* P is poisoned (not migrated) */
->   test_pages_isolated()
->     /* P is poisoned (accepted) */
->   zone_pcp_enable()
->                                        /* P is off the LRU (Ignored) */
+> Thanks.
 > 
-> The block goes offline while the file still points to P, and the next
-> walk of the file's pages (here drop_caches on ext4) crashes on a struct
-> page of offlined memory:
+> I don't want to pick on you at all, but this is a classic changelog - I
+> see this pattern so often.
 > 
->   [   11.710348] Memory failure: 0x24224: unhandlable page.
->   [   11.710372] Memory failure: 0x24224: recovery action for get hwpoison page: Ignored
->   [   11.765371] page:000000008c304eee is uninitialized and poisoned
->   [   11.765389] page dumped because: VM_BUG_ON_PAGE(page_ref_count(page) == 0)
->   [   11.765440] kernel BUG at include/linux/mm.h:1990!
->   [   11.765458] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   [   11.772284] CPU: 3 UID: 0 PID: 85 Comm: mfoffline Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
->   [   11.777970] RIP: 0010:find_lock_entries+0x8ee/0xad0
->   [   11.798761] Call Trace:
->   [   11.799297]  <TASK>
->   [   11.803284]  mapping_try_invalidate+0xfd/0x2c0
->   [   11.810571]  drop_pagecache_sb+0x111/0x330
->   [   11.811572]  __iterate_supers+0x2e2/0x370
->   [   11.815863]  drop_caches_sysctl_handler+0x74/0xb0
->   [   11.816994]  proc_sys_call_handler+0x2ec/0x440
->   [   11.821360]  vfs_write+0x545/0x1250
->   [   11.825220]  ksys_write+0xfa/0x200
->   [   11.830202]  do_syscall_64+0xfb/0x590
->   [   11.832084]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
->   [   11.848423]  </TASK>
+> 	a) here's what the code does
 > 
-> Once the memory is also removed it's a use-after-free of the memory map.
-> tmpfs and the swap cache can end up the same way without the race.
-> Since commit a76054266661 ("mm: shmem: don't truncate page if memory
-> failure happens"), memory_failure() leaves a poisoned tmpfs folio in the
-> page cache on purpose, and it does the same for a dirty folio in the
-> swap cache.
+> 	b) here's why that's wrong
 > 
-> Treat a hwpoisoned page whose folio is still in a page cache or swap
-> cache as busy in scan_movable_pages() and
-> __test_page_isolated_in_pageblock() so that the offline fails and a
-> waiting memory_failure() can go on.  A later offline succeeds once the
-> page is out of the cache.  With the fix, the offline fails with -EBUSY
-> and the file doesn't point to offlined memory anymore.
+> 	c) here's how I fixed it.
 > 
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 10s.
+> But that's missing a very important bullet point:
 > 
-> Fixes: b023f46813cd ("memory-hotplug: skip HWPoisoned page when offlining pages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Taking get_online_mems() in memory_failure(), as in Gregory's series
-> [1], would close only the race and not the tmpfs or swap cache case.
+> 	a) here's what the code does
 > 
-> [1] https://lore.kernel.org/all/20261027042204.3741307-4-gourry@gourry.net/
+> 	b) here's why that's wrong
 > 
-> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/mfoffline.c
-> ---
->  mm/internal.h       | 9 +++++++++
->  mm/memory_hotplug.c | 2 ++
->  mm/page_isolation.c | 2 +-
->  3 files changed, 12 insertions(+), 1 deletion(-)
+> 	c) here's how this affects users
 > 
-> diff --git a/mm/internal.h b/mm/internal.h
-> index aeebb3e49ed1..ba7b1650a5ca 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1195,6 +1195,15 @@ static inline int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, b
->  }
->  #endif
->  
-> +/*
-> + * A hwpoisoned page can be skipped by memory offline only once no page
-> + * cache or swap cache can find it anymore.
-> + */
-> +static inline bool hwpoison_page_offlineable(const struct page *page)
-> +{
-> +	return !folio_mapping(page_folio(page));
-> +}
-> +
->  extern unsigned long  __must_check vm_mmap_pgoff(struct file *, unsigned long,
->          unsigned long, unsigned long,
->          unsigned long, unsigned long);
-> diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-> index c9cc42e54f05..3d36f7f2e04b 100644
-> --- a/mm/memory_hotplug.c
-> +++ b/mm/memory_hotplug.c
-> @@ -1820,6 +1820,8 @@ static int scan_movable_pages(unsigned long start, unsigned long end,
->  		struct folio *folio;
->  
->  		page = pfn_to_page(pfn);
-> +		if (PageHWPoison(page) && !hwpoison_page_offlineable(page))
-> +			return -EBUSY;
->  		if (PageLRU(page) || page_has_movable_ops(page))
->  			goto found;
->  
-> diff --git a/mm/page_isolation.c b/mm/page_isolation.c
-> index 5aaad037384e..beb09ef345ee 100644
-> --- a/mm/page_isolation.c
-> +++ b/mm/page_isolation.c
-> @@ -593,7 +593,7 @@ __test_page_isolated_in_pageblock(unsigned long pfn, unsigned long end_pfn,
->  			 */
->  			pfn += 1 << buddy_order(page);
->  		else if ((mode == PB_ISOLATE_MODE_MEM_OFFLINE) &&
-> -			 PageHWPoison(page))
-> +			 PageHWPoison(page) && hwpoison_page_offlineable(page))
+> 	d) here's how I fixed it.
+> 
+> see?  This omission is so common!  And I might have sent one or two
+> emails asking people for the missing info.
+> 
+> For the missing c), how does this sound?
+> 
+> : With transparent huge pages, /proc/PID/pagemap can incorrectly
+> : report shared pages as exclusive, or vice versa, after fork() and
+> : partial unmapping.  This can mislead memory-analysis and
+> : checkpoint/restore tools.  Actual mappings and copy-on-write behavior
+> : are unaffected.
+> 
+> And now that we have our statement of userspace impact, busy non-mm
+> downstream readers of this patch can easily see why your proposed
+> cc:stable is justified.
+> 
+> 
+> Also, it would be helpful to show brief before-and-after excerpts from
+> /proc/PID/pagemap to help others understand the impact of the change. 
+> But I don't think we need a v2 just for this.
 
-I was recently wondering about that one as well.
+See my reply. I'm not sure what to best do here, but I want to use this as an
+opportunity to say "see, nobody noticed in 1.5 years; and it was found be code
+analysis then, so let's simplify it".
 
-What if we still have the page pinned somehow? (vmscplice etc).
+So it's either straight to [1] or a "let's do i first the old way" followed by
+[1]. I would just do [1] immediately.
 
-Wouldn't it be better to make sure that poisoning code holds exactly one
-reference (whoever set hwpoison) and check here that the refcount is 1 ?
+Because nobody cares about that flag.
 
-Pagecache references would turn it > 1.
 
-A note that I consider this here extremely low priority.
+[1] https://lore.kernel.org/linux-mm/20260412-mapcount-v1-4-05e8dfab52e0@kernel.org/
 
 -- 
 Cheers,
