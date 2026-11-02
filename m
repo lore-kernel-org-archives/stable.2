@@ -1,73 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614374;
-	b=wfbT+Mc+W6n9esJztSy8zk5D8CjX3BGhddKnFfSkDe7rf4U2AMjew9zO8Pbi7NrxuMOb
-	 juXzNb9vaPE48/V6qvIGTGkNd8k0fDg8odV4uflQFwphOhPLPaTGCxvk0NlsNP8BeX/RQ
-	 f4mCd14+4wFCzYl92b43kFxRWJQCuNvp0Gc/xpmr8RaGIVtCRuHRSDM9JGPUlyNnyPNMZ
-	 W0XsUK788O8UjvWR8xQLCLvnA0cLQa+TTbO8Jp5ukzkxzxbLOCzhIqRYNb6LFo0K3UAPk
-	 1LSIBUXAPmJfJgsgFUkF0PnFQRm8DOM5fXTzci1AaNEUSApUP+auYtCVhPwFayR0aYg==
+	t=1793614384;
+	b=upZ4XwJLVfIy+IwBjQywxXndI5eXkafVYgS2gjuHmc4lLp8etjRM719Rc5aacFpQlixb
+	 GaZT3boPZiv8H4HOqPmQb1r27g4QX7aPpvU4ZoPoMykGksnzz5gejXknpJnAJ5DiSz9ur
+	 VOkjsvI/QvqcpqcieVuadhBQbmotJBamZO9mMk3OlqhbRTpwgeO2x1nj1K/b2rrrOemdf
+	 Ky6ethVernK556qCdhMPJcs6hRaWsfT+SWs7WnKcQ05m7ck4kw1G3b0knCjzp/kLa8l8L
+	 86VBK52yF9o8+1HBCeII9aCcbGs1EmnleWuFyh3Tfp70uj0H2UgLou1XmCAVwMtQNOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614374;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614384;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
 	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
 	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info;
-	bh=upEhAo2WWbadjw3sPmk97mom8trWHIDdz/TaO4NX2gA=;
-	b=ijzQZJbWYmH4Oflhswdn+Rujt+jUZtEdovSKLHmODLWlFhhfzGGQuEat5qYvg3cknz/L
-	 GVqU0nj8zGbCyXFn7HJr+G+/gLjwAy7ey7IzfHAVP14f1S+qEwFlsmXpP3YYI+Ve1HU9a
-	 4RlMAT2k3dRkbyXgSHLmIBuwdy7cFeTeDAKyd29ALlRPFb6ay7PqhmkghXq76fFMGlb4K
-	 Xw2PCGvIhQnpU+OuBD3EbsQIsC7Hvey7JPnsRHsrobKVQ9/iX4IkV1/371vEVg7mzUHHo
-	 kanHR5CK9B53p61tbsfiTzEcX3xoRBPc87bD49WU9LXczMknln7G1MEMDDU6WelJxQQ==
+	bh=Vj5RINAOfFDUFpi+mOm+JFRWkzPw3FqrFyL9QQk+W6k=;
+	b=OE0764V43HL7w8iiKFgCerPqZsZb0xDLgE0AEuyl38/ST+tZVsmywN1ytOiZXFG97NBv
+	 74dtmaktWyAvC78DWq8yxTQ95XWpGEoO8Dfa1jdve35paBS7R6zf051cPe1Q0Rbyr5xdb
+	 +33QZTZfHXuy9faNopLDFl31ISj9yuG2mjjbEsxJNPojS4D1I0YkOki/RnDtBpKk/5NX2
+	 9MLXbwmPCtm/1hQ2EwUXMxfW44TLlKMavpE9XBD8+bq/ZiXhMWlKClVjkQla5u/wmoGyE
+	 0tTqYrGvNXd12m1mK+1BHLbiCK3k2tmnRPDHzVkIkznqe/WlRazljf9f3vG2svEVqVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oracle.com;
 	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=oAL2Yizq;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=Ot83zTsL;
 	arc=none smtp.remote-ip=205.220.165.32
 Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE80606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EE80606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ACE3606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:13:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ACE3606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=oAL2Yizq
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=Ot83zTsL
 Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1Nv3MD1184761;
-	Mon, 2 Nov 2026 10:12:50 GMT
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20Bq6D1209164;
+	Mon, 2 Nov 2026 10:12:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=upEhA
-	o2WWbadjw3sPmk97mom8trWHIDdz/TaO4NX2gA=; b=oAL2YizqGaUtKTnpNODMd
-	duo7LWGUyHc6lP1MsgkTsKHgYTWucZq8VVoIZ5759YG3uBygqiS6udmcXG93FMIV
-	rbeg1VLs66ekSkgG8ErrIpVD9EYDHV+IUbXU3HENSHIUv9Eom1c99XoloHceL+fo
-	ZFqcKijICklGEeQ6fOC32IqTI2ilnUGIlyfKF43k/rotqpLoHR47I1j0MDjm3OWu
-	icbkl2W7YQzK4o2FtkjQV9Cuu7Zvp7JlwPJfsLV16LE9/qKypPXBCOq2rkBd/guw
-	Dgd+T4R0xTWRhAh1brsuSckmJ/u8jAcd0eG3TRPbyInOKefd00C70agIilr799gl
-	Q==
+	:mime-version:references:subject:to; s=corp-2025-04-25; bh=Vj5RI
+	NAOfFDUFpi+mOm+JFRWkzPw3FqrFyL9QQk+W6k=; b=Ot83zTsLmIpZDcpiLmpSF
+	b3FB79UWf6hjmXUdVmh76NxqJx1uuPdKQPFfnCizwk1/UwJFgGTlF0wz/NjT5Jpc
+	2e5ixZ5TgJ0da6ZjFOpPVlj6nvrxS59rK/eLr881y3kvKnBiijg9x1Me8nPsQ9K8
+	yIK3k/jKaBJxlNe/bP/UEoDbJltIwvvXsbCQ13APySU+H4QuHDBOtSQlKt+3JZ1e
+	WAsBkMvnNmMOLQwsAvU6F2lG4b9/xs3QHB2afsU+NzzpcD7zu4487wtu8i7JPWNq
+	6zaK2MBYPoqWU2E5+YB+CyOb6GNOoENwEtrPUwxPD1KehW2ixnhKhwe+CPG0Ei/0
+	g==
 Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn876hk7e-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn876hk7r-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 02 Nov 2026 10:12:49 +0000 (GMT)
+	Mon, 02 Nov 2026 10:12:57 +0000 (GMT)
 Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29CuPt2995853;
-	Mon, 2 Nov 2026 10:12:49 GMT
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29D2dH2995969;
+	Mon, 2 Nov 2026 10:12:57 GMT
 Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfja56j-2;
-	Mon, 02 Nov 2026 10:12:48 +0000 (GMT)
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfja56j-4;
+	Mon, 02 Nov 2026 10:12:56 +0000 (GMT)
 From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>, David Ahern <dsahern@kernel.org>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Praveen Kumar Kannoju <praveen.kannoju@oracle.com>,
+Cc: Sean Christopherson <seanjc@google.com>,
+        Minh Nguyen <minhnguyen.080505@gmail.com>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Siddhi Katage <siddhi.katage@oracle.com>,
         Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: [PATCH 5.15.y 01/11] ipv4: start using dst_dev_rcu()
-Date: Mon,  2 Nov 2026 02:12:29 -0800
-Message-ID: <20261102101239.1557688-2-harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 5.15.y 03/11] KVM: nVMX: Put vmcs12 pages if nested VM-Enter fails due to invalid guest state
+Date: Mon,  2 Nov 2026 02:12:31 -0800
+Message-ID: <20261102101239.1557688-4-harshit.m.mogalapalli@oracle.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
 References: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
@@ -87,186 +88,78 @@ X-Proofpoint-Virus-Version: vendor=baseguard
  definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
  mlxscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
- bulkscore=0 malwarescore=0 mlxlogscore=999 classifier=spam adjust=0
+ bulkscore=0 malwarescore=0 mlxlogscore=872 classifier=spam adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020040
-X-Proofpoint-GUID: bOJbSAzv6qNhwoEdf4DryDN4aLjRvhIh
-X-Proofpoint-ORIG-GUID: bOJbSAzv6qNhwoEdf4DryDN4aLjRvhIh
-X-Authority-Analysis: v=2.4 cv=JJauIMKb c=1 sm=1 tr=0 ts=6ae86222 b=1 cx=c_pps
+X-Proofpoint-GUID: Ej7r1pd9akvEVFV5rIbDCb5eVSRzT5BG
+X-Proofpoint-ORIG-GUID: Ej7r1pd9akvEVFV5rIbDCb5eVSRzT5BG
+X-Authority-Analysis: v=2.4 cv=JJauIMKb c=1 sm=1 tr=0 ts=6ae8622a b=1 cx=c_pps
  a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=EIcjfB9IiI4px24ztqRk:22 a=bC-a23v3AAAA:8 a=1XWaLZrsAAAA:8 a=VwQbUJbxAAAA:8
- a=yPCof4ZbAAAA:8 a=dw9mY3PTucIE_kGSVtcA:9 a=WmVTiCyuxqgg3mnwYu6p:22
- a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX0m2fV1CgugVy
- pm+Fzo+eQvNRKgCOZnoFzbb7RmL3QDblE+FrLxISYBKpCPla3g+ZWqDSKNyH0jfDw4AeLgSQ2Hh
- WBNLXi//iYNy9+CxdSNp0jNoHPRwnuC89QSAAuxnPzOAm4GkzKcII3D2wHNegBLcU8dQqwbuYTB
- zT4bixN7vxXr4Zf6aMJadiRnCRNYtdxAxZLizBFbyaxNuBsFTiKZLUJI+eyYrKFkZ+TeNzxTbMK
- qSsZPcuiKmPx8nbMQjC6sp7qwm0oC9Q2SHpBUtLGpMCuz2gBHn6Eq7SgH5GBJrDujEZ+Q6xjHct
- rnNohHt3kQ4jBuwDDNijO/B99Dqr4cBtGs2RBZcxr0DLTGQrwMJnqrq43PNMqAF5H82CooAoq8D
- N8Fp2+vheGG3Oiv6Wj4PqBQ2CTWVh5dE0waqlvh5v7OfTcmZnBlAxQYGb5e/bnR2U42iBQESoQy
- HEPtzwvKvgXANJg9dbQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX9AKxvfDXkXMp
- Mt+qHkS3cOtLZdvW4HinfqRUPsfmiKikXWOtKQZ/sFOS28HlfNuDfV4Hiw3z6gtsij3P/pLBrud
- /alvZOx0D0bZNTKU1KjPH14SlYGSmnGPjkfgQcJOkHt3poh08eg3
+ a=EIcjfB9IiI4px24ztqRk:22 a=1XWaLZrsAAAA:8 a=pGLkceISAAAA:8 a=VwQbUJbxAAAA:8
+ a=20KFwNOVAAAA:8 a=yPCof4ZbAAAA:8 a=FwJbE6n6EM51GTaFqHgA:9
+ a=WmVTiCyuxqgg3mnwYu6p:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfXxEajZoevB9W9
+ U3zT5G7GGc4Zu/FEmLEq0AzKnbTrqPb3BaMv9tEIKbI+2QRKAWm4UclwiEr8jD9aulY/SHO+Mzz
+ hURQN+Ps+S2WH30Fl4MYNHvffqXcFEkFQ57ItdR1NGT+tZmT1+SumBu7S1VlSZJ43vu6vYzhnbB
+ BHrBLlJWuMHeIGlxPmAaSFlRHygD2DwWAM4eEQmN5cZUEfn9Tf0Td9YNTpoNxhHlQiunb/kASZ6
+ TwIjwFY9GvkQNzFQ+ul27CujUfxNXWvrTdJgaLrq0HvNpyRCkzL1Kef4p9fBzMWUaAZa3EfrLaf
+ TY4HCdfhwyZW7NdwtcKZ6GF1MGn/UdbqprxFqcto1W38eTCgLEftN6wer5O7tzUmCptAP/Ce37b
+ 3o1Mi2rXAFfB76r/wLGdEvvgrGAF9fpql3sUpgoohSjewmGVN44QLjso++2GUWMWxfCfE2J7/+D
+ A6+XeAoyyPHyHwBhsRw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX4mr4AXTB+Mit
+ EuWkzWNy2w4tSWDhxAzBltzQ+fx1g9M4BUitNp5FPo566L92hC7xeO8lVxctCdn2cXPKmmlOatD
+ jH7WM47H2bH0J+fYFShKaqo6/6lBEUXhw04yPZWTx3z6uKIwxTTh
 
-From: Eric Dumazet <edumazet@google.com>
+From: Sean Christopherson <seanjc@google.com>
 
-[ Upstream commit 6ad8de3cefdb6ffa6708b21c567df0dbf82c43a8 ]
+[ Upstream commit 2f2312c422fd2695da772cecb30c69994b795964 ]
 
-Change icmpv4_xrlim_allow(), ip_defrag() to prevent possible UAF.
+Put all vmcs12 pages if KVM synthesizes a nested VM-Exit due to invalid
+guest while emulating VMLAUNCH or VMRESUME.  The invalid guest state path
+doesn't use nested_vmx_vmexit() as that API is intended to be used if and
+only if L2 is active, and the open coded equivalent neglects to put the
+vmcs12 pages.  Failure to put the vmcs12 pages leaks any pinned pages
+(and/or mappings) if L1 retries VMLAUNCH/VMRESUME.
 
-Change ipmr_prepare_xmit(), ipmr_queue_fwd_xmit(), ip_mr_output(),
-ipv4_neigh_lookup() to use lockdep enabled dst_dev_rcu().
+Note, the !from_vmenter scenario doesn't suffer the same problem, as
+vmx_get_nested_state_pages() only gets/pins/maps the vmcs12 pages if L2 is
+active, i.e. if a "full" VM-Exit is guaranteed before KVM will retry
+getting vmcs12 pages.
 
-Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20250828195823.3958522-9-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: 96c66e87deee ("KVM/nVMX: Use kvm_vcpu_map when mapping the virtual APIC page")
+Fixes: 3278e0492554 ("KVM/nVMX: Use kvm_vcpu_map when mapping the posted interrupt descriptor table")
+Fixes: fe1911aa443e ("KVM: nVMX: Use kvm_vcpu_map() to get/pin vmcs12's APIC-access page")
+Reported-by: Minh Nguyen <minhnguyen.080505@gmail.com>
 Cc: stable@vger.kernel.org
-
-Conflicts:
-	net/ipv4/icmp.c
-	net/ipv4/ip_fragment.c
-	net/ipv4/ipmr.c
-	net/ipv4/route.c
-
- - Preserve the four-argument inet_getpeer_v4() and inet_putpeer() calls.
-   Return before taking RCU for ICMP types exempt from rate limiting;
-   release RCU on both the loopback and rate-limited paths.
- - Keep ip_frag_queue(qp, skb) and ipq_put(qp). Add RCU protection before
-   selecting the device and release it on both queue lookup outcomes.
- - Use dst_dev_rcu() in the older ipmr_queue_xmit() implementation. Add
-   the IPv4 cache-replay RCU wrapper from b07a9b26e2b1 ("ipmr: Always call
-   ip{,6}_mr_forward() from RCU read-side critical section"), which this
-   baseline lacks. RTNL alone does not satisfy the checked accessor.
- - Nest ordinary RCU inside the existing RCU-BH section in neighbour
-   lookup. dst_dev_rcu() checks ordinary RCU, while the older neighbour
-   hash walkers still require BH protection via rcu_dereference_bh().
-
-Signed-off-by: Praveen Kumar Kannoju <praveen.kannoju@oracle.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+(cherry picked from commit 2f2312c422fd2695da772cecb30c69994b795964)
+[Siddhi: Use 5.15 vmcs12 page teardown because the upstream helper is absent]
+Signed-off-by: Siddhi Katage <siddhi.katage@oracle.com>
 Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- net/ipv4/icmp.c        | 8 +++++---
- net/ipv4/ip_fragment.c | 9 +++++++--
- net/ipv4/ipmr.c        | 4 +++-
- net/ipv4/route.c       | 5 ++++-
- 4 files changed, 19 insertions(+), 7 deletions(-)
+ arch/x86/kvm/vmx/nested.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
-index 49c94aebac32..5f44609671b6 100644
---- a/net/ipv4/icmp.c
-+++ b/net/ipv4/icmp.c
-@@ -323,20 +323,22 @@ static bool icmpv4_xrlim_allow(struct net *net, struct rtable *rt,
- 	int vif;
- 
- 	if (icmpv4_mask_allow(net, type, code))
--		goto out;
-+		return true;
- 
- 	/* No rate limit on loopback */
--	dev = dst_dev(dst);
-+	rcu_read_lock();
-+	dev = dst_dev_rcu(dst);
- 	if (dev && (dev->flags & IFF_LOOPBACK))
- 		goto out;
- 
--	vif = l3mdev_master_ifindex(dev);
-+	vif = l3mdev_master_ifindex_rcu(dev);
- 	peer = inet_getpeer_v4(net->ipv4.peers, fl4->daddr, vif, 1);
- 	rc = inet_peer_xrlim_allow(peer,
- 				   READ_ONCE(net->ipv4.sysctl_icmp_ratelimit));
- 	if (peer)
- 		inet_putpeer(peer);
- out:
-+	rcu_read_unlock();
- 	return rc;
- }
- 
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 23312d028af2..5cdc65a5c010 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -475,13 +475,16 @@ static int ip_frag_reasm(struct ipq *qp, struct sk_buff *skb,
- /* Process an incoming IP datagram fragment. */
- int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
- {
--	struct net_device *dev = skb->dev ? : skb_dst_dev(skb);
--	int vif = l3mdev_master_ifindex_rcu(dev);
-+	struct net_device *dev;
- 	struct ipq *qp;
-+	int vif;
- 
- 	__IP_INC_STATS(net, IPSTATS_MIB_REASMREQDS);
- 
- 	/* Lookup (or create) queue header */
-+	rcu_read_lock();
-+	dev = skb->dev ? : skb_dst_dev_rcu(skb);
-+	vif = l3mdev_master_ifindex_rcu(dev);
- 	qp = ip_find(net, ip_hdr(skb), user, vif);
- 	if (qp) {
- 		int ret;
-@@ -491,9 +494,11 @@ int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
- 		ret = ip_frag_queue(qp, skb);
- 
- 		spin_unlock(&qp->q.lock);
-+		rcu_read_unlock();
- 		ipq_put(qp);
- 		return ret;
- 	}
-+	rcu_read_unlock();
- 
- 	__IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
- 	kfree_skb(skb);
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index d5ae2df481a4..855da7c3a906 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1000,7 +1000,9 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
- 
- 			rtnl_unicast(skb, net, NETLINK_CB(skb).portid);
- 		} else {
-+			rcu_read_lock();
- 			ip_mr_forward(net, mrt, skb->dev, skb, c, 0);
-+			rcu_read_unlock();
- 		}
- 	}
- }
-@@ -1858,7 +1860,7 @@ static void ipmr_queue_xmit(struct net *net, struct mr_table *mrt,
- 			goto out_free;
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index b6c302786b93..82aa349e33af 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -3543,6 +3543,14 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
+ 		return NVMX_VMENTRY_VMEXIT;
  	}
  
--	dev = rt->dst.dev;
-+	dev = dst_dev_rcu(&rt->dst);
- 
- 	if (skb->len+encap > dst_mtu(&rt->dst) && (ntohs(iph->frag_off) & IP_DF)) {
- 		/* Do not fragment multicasts. Alas, IPv4 does not
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index d504d8cdd030..b444a57498c2 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -424,10 +424,12 @@ static struct neighbour *ipv4_neigh_lookup(const struct dst_entry *dst,
- 					   const void *daddr)
- {
- 	const struct rtable *rt = container_of(dst, struct rtable, dst);
--	struct net_device *dev = dst_dev(dst);
-+	struct net_device *dev;
- 	struct neighbour *n;
- 
- 	rcu_read_lock_bh();
-+	rcu_read_lock();
-+	dev = dst_dev_rcu(dst);
- 
- 	if (likely(rt->rt_gw_family == AF_INET)) {
- 		n = ip_neigh_gw4(dev, rt->rt_gw4);
-@@ -443,6 +445,7 @@ static struct neighbour *ipv4_neigh_lookup(const struct dst_entry *dst,
- 	if (!IS_ERR(n) && !refcount_inc_not_zero(&n->refcnt))
- 		n = NULL;
- 
-+	rcu_read_unlock();
- 	rcu_read_unlock_bh();
- 
- 	return n;
++	if (vmx->nested.apic_access_page) {
++		kvm_release_page_clean(vmx->nested.apic_access_page);
++		vmx->nested.apic_access_page = NULL;
++	}
++	kvm_vcpu_unmap(vcpu, &vmx->nested.virtual_apic_map, true);
++	kvm_vcpu_unmap(vcpu, &vmx->nested.pi_desc_map, true);
++	vmx->nested.pi_desc = NULL;
++
+ 	load_vmcs12_host_state(vcpu, vmcs12);
+ 	vmcs12->vm_exit_reason = exit_reason.full;
+ 	if (enable_shadow_vmcs || evmptr_is_valid(vmx->nested.hv_evmcs_vmptr))
 -- 
 2.55.0
 
