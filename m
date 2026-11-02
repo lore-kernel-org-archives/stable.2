@@ -1,101 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631713;
-	b=fVmnRo3H206S8WpnWgeu9wPdvr+AoIoTv1kIOssY/5z6wsqWVPF9kfe/JrUSg4N2bWa4
-	 R75Ljruw8Oy0DW3DO+ia7D19ELw060lUtLBNiK93949STAPjMVx8vZvkakCir85tsljiw
-	 1ncG+Tx06SPE62K022g+gzqv6pf+Aitft90JK7OY5shJ4emVkRrLoQoj/69RMWBnmNKXP
-	 VAw8+Tu4U4o2b1/FSJJEhkkq5sLcxeexqh9Roha1cLW4NUwtubcGnB9OB0hvo/5bIZu5i
-	 bOmz+WaH96Q1ZC56/3vmyjEyiwML66i+L2Eh6nOO8OjoidM3lEmMuBGephdd5vpJ9Kg==
+	t=1793631728;
+	b=yRByVH+Q5Hm8mOu7lY71BcJhdLD6ov4ANYAolcmJaW9hMtsDscrMQNGndYcsDwqZ5S8Y
+	 t5lUUsuR/yp3cHybKX2uR/j0mCaNZ97vvhPnYCzR15XlvpMw81PLTDNTcZAu9PJEqK6CZ
+	 BA9Q3ew5F5MAivoxS6kjSsK6ySfIlTzCAohWqYUSP9ipJ2VvXCFYV8gs37XLF5i1wHPIX
+	 kpWvS1O4WrmlSXKQlLvlO+TMYPxaCDRmAv7Dd027f5ZmLPQVXIUYPMwbIvaz8OIVrnH0i
+	 z4uUfrrWI/yTJ7QSO2VApRQZcQCQfaRLABHi3B3Hj9ywXCfBqlmz5uGMvdIYx5f82Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631713;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631728;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8l44OpvREKctVeUFVW4vf198xHBq2jFaQ6cO5qom3KM=;
-	b=QadNMwC2TNeKAXOsprD9spFqg3gVB83vFdaQkgBNe6ldjLMkhzROw1A8dNnUNEwzWD/J
-	 WxNNhhWpdvVxy3DkBM69hdz7tNYyYnaw/Xz3taTQbD8sBxXVW4TI2ZImdi2X4AaZDYM6N
-	 DPIbtdiUr1sKohfUFZiSRf4UJgaFQC0+KGfpxzY/4smM1ox5xO/DhVPW9OJmWjTg/cZKb
-	 f6NDWeFlZpK3B0Byr+zjXrhu4l4s3GxFcgq3lxlqiswIWWG1j68DPatQvVEvzK70u8BER
-	 1+xcBggBmDmP2BmLfcRzUAVBMuUSZm1zNvF6ZpKCfQdzWmRHK4i3oMWpPftBEdGjTsQ==
+	bh=vMjwo8cmw5PTMuLBYGwQtehcqEVVHRxZCPBH9RAmfLM=;
+	b=16LlswMcXZe3abzb9wYR0vSp8b7B83Hn9W/C9cObv/v+Hlv6+q1pErC3xL3fy/QEfSFP
+	 x8ZNE0GWADwV9ooDmQbdkIal/Ta1R7VNCE/gcU60PkRlZ/tVksWWOX2D9Jr3EejSiA3Wa
+	 8Qzkl+yVnDe1qOh2k/O05W/XACClReEhAut3cC+aaCsbviFRluorVQUmZAN1xkXC/cC2x
+	 SSZ3b0Z2fGwAvYVzv7t+DpBQPFHdJXsWLZMtij3pr5MnJ+G4QzY0Uc8W97HvRFETjGRF8
+	 XBKyRrR+VNyfe/0RWudBWGe3YltIApVViBvxV4jJ32T6DYKk6yX9ipiNBMoDr+/0h+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nrOjI/IQ";
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xwxnj0DD;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABBA60A262F
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:01:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ABBA60A262F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E1C6070C9D
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:02:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39E1C6070C9D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nrOjI/IQ
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2ea19bc317dso29329345ad.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:01:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xwxnj0DD
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-18cdcfc05ffso3524277c88.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:02:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793631712; x=1794236512; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793631727; x=1794236527; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8l44OpvREKctVeUFVW4vf198xHBq2jFaQ6cO5qom3KM=;
-        b=nrOjI/IQ8vLRDHe1WeG4/2R824pmXUtn3ORubIMGUAv81K4aIF1ybSqn14Yc88zYEO
-         kzdxo9I33lORrsimuUAV8Js5ZTDmPmNBpgdeiAzbjjfvgv6Umfx87NRldYWwfIYgPOnW
-         eBR/eJzTfFC1Pyuevj10xoTjKy+DLDs7MYk5Zj8B34Vn2MZtWyFLOsnk2P3VnpdxTW7F
-         ChAKJxH3MxP3TA897ZAKLOBwCdYMscH85vQyOG6LUwmhKHRwrb2s93oyCge7zqiBwQFc
-         /Dw0N5WOr31coa832+VDR0xDGpUv9aCbhXNQoe10iWxMOLG8FPtXYcZPQ5G/P2XHITGy
-         w0SQ==
+        bh=vMjwo8cmw5PTMuLBYGwQtehcqEVVHRxZCPBH9RAmfLM=;
+        b=xwxnj0DD1DKAFVLGNqn/LX/iHKyCUG5RpZ06KLrANvWczMx7mNH3POOJaQTlSKKzRX
+         cZokFQKAXKVzNglOBI+mQ4XVUBXTw3W0475HWABkQPnUVW1CHwj5YTChR68ZEugPnfvV
+         VR7yyicuAN3XPeGZ8SHMJtyfpwb1LLZSI3s+OVfQd/VHWnC/0G3nYNVyrxSnGZpDVkry
+         O1qqcfiVmZjs2LNHitVY20/0RrsRk0HpKvjncr6ifd6OwHirJ4jFSDXYiULwnPsLuvUX
+         5MbjirEj6mMVPT6QVtRrDz3RXhx558Mz5K4uQlOzS1WbBAOylrFf7qch6ZcRJMh+w1G2
+         O24Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793631712; x=1794236512;
+        d=1e100.net; s=20260707; t=1793631727; x=1794236527;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8l44OpvREKctVeUFVW4vf198xHBq2jFaQ6cO5qom3KM=;
-        b=IeslkSUklhlhYUcpFqB9mgrWmHk9OUeZSed1j8S9CtszfLbQc0PgSj4d6KYZzgwxDZ
-         tabWq1ObUi6P/EXxL2KOkIcZpLSz3Rs5WDPfETxjtjynOVozTRnJQ+8cydP6eY2IwOfm
-         MduLyC1f5kHh/QUIlu+99DxSeYoVWjk4cp8Ubq14WJUAh46otp9WbR26ijPO4xK6h7Wb
-         /iEen5GZcearejx84zYGGGF8KA7H5sp0BsDzqvlW6/EPFfQ9ktW2CrLN7IKbmyeGyE+6
-         3ev+BZFi1dyuTRU54bmc7KPLmGACyt4GyZSgWVedfZfV0GPZAx6qq0IhbDotiLW/oBbs
-         0SeA==
-X-Forwarded-Encrypted: i=1; AKwUvBxp5K8i0tb86tRL4Lohx0Y+9lVl+fevOAraghBtDhTjpt6PmG/0e+0OLMOZZOA1DMGQhn2B3Lc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TftpUMQ1/GA4kSlTTT8+8/l5lMIFHRKTkUOkG6YsRf74HfurL
-	2U+PZzmUZaXBQ7VTmr5TXlBeydX4Pf75mFQH7BLkdA0Hc+XbjHoa5FMx
-X-Gm-Gg: AYBFou1JMZNO9APhhcg6uvNl4MYbZBTA9ciVPTGc4Hg9A7Frd3jcxQtDVcMuTIllje1
-	H1HhO+lEHl3WYL5ac1ORjRgyY+E5YHCJLaNmszRI+abjO7LjrZGOGjvm7XiKURFcg45mwcgw+ab
-	Xuv5/o9/kzvNFbXW7/708kPeU/GVrKVPI21Jie0QSn6+fW3nynOT5n9JY+acjfuxhkIma7YKgV7
-	LOa29ayz++WyDTtg3p9pX0xhQxnoLBRBBqQNc6S5PlxR7+UcZUP5+A9EloWTAfQmVTF/dl13bua
-	wBWQg0AKVgUvh/Lz+x0pGIWbw+wdJda1/t++8LYmSlDjwWChODY05GBUiYLUiglI/8ZqewYSGTJ
-	c7lHmPe5DOIZQYaR6zGRMHfyl9ShJdUvBeNQn59HSPF0sy+G1cq3WEakjAVlWJUFoqu1pn/aSSf
-	cPpIyDigbre6r3CYIw4N+w+rhxSslGcKI5XmUhvJhZ4yYIhybBVZBkS3SyucJ4QUjshVtX8I+pO
-	ahRXnWYTHVVR71+4VAdwYNNDr43OO87VQoMLwtkBYL62GSnfJGjjDaVGW2jYOLXBg5varASfHI+
-	sW9GJiekGMurtqI26S/w1iNtKlSpLWA3ctT1tCbetuisPvwPIaWvmU8ikdgN6wMQPKwFBgSi+Jc
-	3zwdW/Oeo3kxQ37ZhuMTgCYoNFqIZF3gLKnk0n7TwOBQ2lX7JWsHt9AK2CtZSMw==
-X-Received: by 2002:a17:903:1a0f:b0:2e9:6788:9369 with SMTP id d9443c01a7336-2eb364cbac0mr99822395ad.34.1793631712330;
-        Mon, 02 Nov 2026 07:01:52 -0800 (PST)
-Received: from localhost (ec2-95-40-37-200.ap-east-1.compute.amazonaws.com. [95.40.37.200])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39052bb1sm31540395ad.1.2026.11.02.07.01.51
+        bh=vMjwo8cmw5PTMuLBYGwQtehcqEVVHRxZCPBH9RAmfLM=;
+        b=fz12YF7e+mXDbRatarDnMKg0hggoeZeezOIVtijTxYlvJBSj2oq24/pnpsTj+tLuD2
+         Lbpx+ws2owNhM1v6TavOxJdJVB3iWWnitZQ4n6hbukZZc4plmRPFTlj8YZIasIW94Je3
+         oZPjXDfaQjeDACAWfMIivMCCDYaxtDEseXkrsHt4eOfGNnk+0Mb37u0sUYJJqYdIqhGT
+         EvLEf1eyCbsF3kuEh89DSY13EzdhbmGCgemtXPZvGVh7Eb6pr9xPX1xNXyofPRXHV72l
+         H5yxX4zkYq4jiFw2h7+QTwt9shxE24KqXOkARFdYTs7+37DLEORJRJOUGUlx4zljqJkv
+         /ELA==
+X-Forwarded-Encrypted: i=1; AKwUvBzeuAaSQnT26LuNNqhhLVlB4AuyJoPkJXaGUG33BlaMU82hbML0o38w3QiAJ0O7gmDfGKF8K5E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4ALZ8tEjwMJjY7rS498Yvr5RI5A+GtinZ8KnPzgMd+Zb3gHeF
+	afF4EZw951Pi6D/9hgok4f1EP/Dd29LFthXNX7rnYnJGOdYOQ/oBUKVA23V7xeDqBcU=
+X-Gm-Gg: AYBFou0o/9Pl99TjZRBXtq2RhdsQL3fd7plfXkLVHrNtHuTf8ZZDoqIVjiwzY8SJp4L
+	rcPWZAm2fX5EzA5JkDB58nB59CbJ9hsd+6C0E8jCLOozAkJFi5u4Dn7a8GvJMUXVXUJrbX1ecZy
+	XvrRo0QcROk2FypJ3NF9CCEs+7dirnloMoLXPV+8rhpFqQT9LyOY0WetC8nRFcnYolDCq8MvN4i
+	J8OWyL6Vt5Imv2UDwpDpFhJav12ZbWMpwmCoqVzcR1nulWCkoFYavTxC/SYFnf3o1jmBa/zJX7U
+	YFlzLL0gd2l9Nx02os0Y2QgwAESnJUDRh+vqHZcIl+tjnC1Fblu3Y+kZg7aIzyv5VYKAeMtUIyo
+	1wg9QWiUBNlFHXudnP4sm6FpB11SkogqeRez08w8prxPKa9sQljHKpbZA8E3GQ+0ngmAkaGgan9
+	QZmQ5wnF+0qe3WtnSAafFHwZc2Hmwc46ZUkVn0WKUunVa5XOWpziXJM532INp2yvqDX1dT6K5l3
+	ih/nEwYSI39QeSePTkkf5/lBWvutjo08k8Gq96CCMzGf4aVeCeLNfgvxcp1TPryy+Gpz6BMJKOg
+	DEi6Zjm2B5L5ZKDzBeaBXGMKr0gdqPVpeYHa
+X-Received: by 2002:a05:7022:92b:b0:1ab:fe29:5055 with SMTP id a92af1059eb24-1ac5bbb9041mr19879405c88.9.1793631727135;
+        Mon, 02 Nov 2026 07:02:07 -0800 (PST)
+Received: from xploitoverload ([2406:b400:f11:1bac:4040:640b:8a1:8629])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a136537sm34406419c88.18.2026.11.02.07.01.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:01:51 -0800 (PST)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
+        Mon, 02 Nov 2026 07:01:59 -0800 (PST)
+From: Kalpesh Solanki <skalpesh942@gmail.com>
+To: andrew@lunn.ch
+Cc: alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
 	stable@vger.kernel.org,
-	Carlos Maiolino <cem@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Viktor Malik <vmalik@redhat.com>,
-	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>,
-	"Bill O'Donnell" <billodo@sgi.com>,
-	David Chinner <david@fromorbit.com>,
-	Lachlan McIlroy <lachlan@sgi.com>,
-	linux-xfs@vger.kernel.org (open list:XFS FILESYSTEM)
-Subject: [PATCH] xfs: fix temporary cursor leak in btree shift corruption paths
-Date: Mon,  2 Nov 2026 23:01:41 +0800
-Message-Id: <20261102150146.19777-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	Kalpesh Solanki <skalpesh942@gmail.com>
+Subject: Re: [PATCH] ieee802154: nl-mac: validate device pointers before dereference
+Date: Mon,  2 Nov 2026 20:31:00 +0530
+Message-ID: <20261102150100.44615-1-skalpesh942@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,46 +108,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+Hi Andrew,
 
-In xfs_btree_lshift and xfs_btree_rshift, when XFS_IS_CORRUPT detects
-an invalid firstrec/lastrec result after xfs_btree_dup_cursor has
-successfully allocated a temporary cursor, the error path jumps to
-error0 which returns without freeing tcur.  This leaks the cursor
-memory, the xfs_group reference, and the per-level buffer references
-held by the duplicated cursor.  Jump to error1 instead, which calls
-xfs_btree_del_cursor(tcur, XFS_BTREE_ERROR) to properly release all
-resources.
+Thank you for the thoughtful feedback and for digging into the git history.
+Your point, together with the Sashiko AI review report on this patch, makes
+the architectural picture very clear.
 
-Cc: stable@vger.kernel.org
-Fixes: 9eaead51bed95 ("[XFS] implement generic xfs_btree_rshift")
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
----
- fs/xfs/libxfs/xfs_btree.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+1. Analysis of Sashiko AI's findings:
+Sashiko correctly pointed out that guarding only nl-mac.c is incomplete:
+- net/ieee802154/nl-phy.c: ieee802154_del_iface() unconditionally reads
+  dev->ieee802154_ptr->wpan_phy when dev->type == ARPHRD_IEEE802154.
+- net/ieee802154/socket.c: ieee802154_get_dev(), dgram_sendmsg() calling
+  wpan_dev_hard_header(), and ieee802154_rcv() / ieee802154_dgram_deliver()
+  all unconditionally dereference dev->ieee802154_ptr.
 
-diff --git a/fs/xfs/libxfs/xfs_btree.c b/fs/xfs/libxfs/xfs_btree.c
-index 7effebe297ea..d706f59b0301 100644
---- a/fs/xfs/libxfs/xfs_btree.c
-+++ b/fs/xfs/libxfs/xfs_btree.c
-@@ -2567,7 +2567,7 @@ xfs_btree_lshift(
- 		if (XFS_IS_CORRUPT(tcur->bc_mp, i != 1)) {
- 			xfs_btree_mark_sick(cur);
- 			error = -EFSCORRUPTED;
--			goto error0;
-+			goto error1;
- 		}
- 
- 		error = xfs_btree_decrement(tcur, level, &i);
-@@ -2737,7 +2737,7 @@ xfs_btree_rshift(
- 	if (XFS_IS_CORRUPT(tcur->bc_mp, i != 1)) {
- 		xfs_btree_mark_sick(cur);
- 		error = -EFSCORRUPTED;
--		goto error0;
-+		goto error1;
- 	}
- 
- 	error = xfs_btree_increment(tcur, level, &i);
--- 
-2.34.1
+As you noted, sprinkling NULL checks across every one of these sites in the
+ieee802154 subsystem would just be papering over the real issue and hiding
+bugs rather than solving the fundamental cause.
 
+2. Audit of other struct net_device subsystem pointers:
+I audited the other pointers you highlighted in struct net_device:
+- ieee80211_ptr (CFG80211): cfg80211 does not rely on dev->type to infer
+  wireless_dev; it uses dev->wireless_data or wdev backpointers, and tun.c
+  does not set 802.11 types in tun_get_addr_len().
+- dsa_ptr (NET_DSA): strictly managed by DSA slave allocations (ARPHRD_ETHER).
+- tipc_ptr (TIPC): managed through explicit bearer enable/disable, not dev->type.
+- mpls_ptr / mctp_ptr: managed via rtnl/subsystem netlink ops rather than
+  arbitrary dev->type mapping.
+
+ieee802154_ptr is unique because drivers/net/tun.c explicitly recognized
+ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR in tun_get_addr_len(),
+allowing TUNSETLINK to stamp dev->type = ARPHRD_IEEE802154 onto a TUN device
+without ever initializing dev->ieee802154_ptr or wpan_dev. The entire
+ieee802154 subsystem operates on the invariant that any net_device with
+dev->type == ARPHRD_IEEE802154 is a genuine wpan device with valid
+ieee802154_ptr.
+
+3. Proposed resolution:
+Setting ieee802154_ptr to dummy ops in TUN does not make sense because TUN
+devices cannot function as 802.15.4 radios (no wpan_phy, no channels, no
+PAN ID, no MLME). Virtual 802.15.4 interfaces are already properly provided
+by mac802154_hwsim and fakelb.
+
+Therefore, the cleanest and most robust fix is to disallow setting
+ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR via TUNSETLINK in
+drivers/net/tun.c (returning -EOPNOTSUPP or -EINVAL).
+
+This single change:
+- Closes the syzbot crash in nl-mac.c.
+- Closes the crashes identified by Sashiko in nl-phy.c and socket.c.
+- Preserves the invariant throughout net/ieee802154 that dev->type ==
+  ARPHRD_IEEE802154 implies a valid dev->ieee802154_ptr.
+
+Alexander, Stefan, Miquel: as IEEE 802.15.4 maintainers, could you please
+confirm if there is any legitimate use case for a TUN device claiming to be
+ARPHRD_IEEE802154?
+
+If you agree with this direction, I will withdraw this patch and submit a v2
+fixing it in drivers/net/tun.c instead.
+
+Thanks,
+Kalpesh
+
+pw-bot: cr
