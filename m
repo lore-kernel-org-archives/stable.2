@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793655151;
-	b=wDXu9v16d4yZ31axgo3PRk0ISMvqEhj9ENo61NKasSVH28FpH0h3AzkYdembM4gCjXjY
-	 5EFZz63EFZ9taMU8SljVzCykfDCy8pMxq4Bzblvbn/aqJ17bN1bzl0Mrkituz3jT1nX2x
-	 FCb7uzavs7kYQOCpglYlW5XoEar14ASCEUBvXR9lbfz+4puKO4jatfEGRpxubaCRcgyMO
-	 Lp7O/38JJNV0NbL1Tmwo9HuOzp7Vp7/7HbdfkW1YteDEvNRvFoSIDXnE3cTamuPai2a5K
-	 Db2ZTden1YZk4Zt2ZMtR8Q9UQc6lvW+QVy9H/UvK9aL5EFLtEXHFOiHnR/mxakcwMTw==
+	t=1793655936;
+	b=BWje/BnY4hLBamxNZnKQJ8gj2qf/HSuAv4jTsECWkZ8OGCZs4vT2ucdtnNva2wHWMNkT
+	 +JOVfgT00/UKK4sTyjYFut/A6KFJvJ8S1E+Dq4sYdF+swy9S1wrlCNB0+1x/M2zVaw3qH
+	 1w/Haea/PbDACLJ0C5aUGBz+/O2/mhmcMtKfcAwPhOY63cx2/duK2a8RF2iR8B5p+L1LW
+	 aMh8vxZs+OkibbBfbDYTwPnGOHxS6X5HtDnHX5CBNpRV2+P9MOJNp61LRvVaf+KOk7vrt
+	 U+5n7LL2d9RU3Pki6mBubpMPL8wzfRN0rvdVIOv/d1liimYr9isKt50fO5uk6usKyPg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655151;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Dy/3+y6cTy46fWlcbVMD558vn7aro/Q74xHtkgWN7Dg=;
-	b=flPtOTjZxDNaIUIL/xxxhh6LB1eBMqCrrcBll8V6EHbrMvyiIG9PBAdfyFKhZD2xLcFe
-	 Y/2u4SLSCgPJQAUs9gbTKDD+wcpPs/O/NYDSnIovWhBOx9lso4VkMlZnozDTxAZp88ImR
-	 QPj/KwTk/Q86MlfsLuIHLZI/lfqVFpcg0ybN8WSlIXHN2qcck2enQGhSZpE5UWrabo07+
-	 hCYxIwlbt5deRBqg0oU5xghJ0tq0gfFjRrlJbkeHRHtjSDNJwtQlXaAdR3XuwXt78Ylto
-	 rDjRZ2VDdjCbfd2aP/XlXA8yVVKXjEWGTjqLmCpv5YmAR8SkIv4PEqnI3r9zzpES/6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655936;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
+	b=YGTIXj8x4JFRiTjMYJwrewetYewrBEpWnaoXdkwmXpC2y3tAGMx5l+fGAj7XKkYF8tYP
+	 gvOK5YBGzSUPaOcl+F1TBsWWefzteiuPFFzNECgjt16eXbJ9Wnz8PIt1uHToevVPNpa27
+	 Qt7JkhW+PQ1ZezYi+97E3qHNquNPa0EV/4RSBodt9aq5YochuZYFYPMWy7z6LQMy31yXs
+	 cH5RQconHY5OY0urVk34fkUHuzP9MOx5s0JMQHJgCB6J/ZVNZCjNw+72iUOzpJ9BIX8K5
+	 viu+H7gwZ6CVtXoc6Sv+Abku6umNk2oqJhoTgZW+WR5DmN4oHGZg78Z9Z/N77Wmb+Hg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OJBl9LUk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+uMB1pT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5272E606A339;
+	Mon,  2 Nov 2026 21:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+uMB1pT
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793655936;
+	b=bbCQ5a6gnfQyeO73FMDZUMDQTkbzW8rf531Z8lKV/ysvEyAgENT9An6GBsA0a+7V1TSt
+	 R4ZdkWEVpERG2eMlSzu4sLPuycrv+ASgSEuVL4Qicng78pXlC8woHSvG7lFLu0cDpyQQe
+	 G6plbmhZXbnY4NS+R04JQ/Iq6+e1PQZj/5c8lhqXN28cOiCmey70qByK+E7pEQg5aQyq+
+	 FI4LRAI5spGbTGzcjI67/iimkLOIXHphiCGrBRCcQH5EttFmG2/2XXV+YyEpEj5ovZQtE
+	 30khjH7gPo6FmxNvsvJRCt0fKXliRNmVjhFduyWJrA460aCvrdvO3/N9xgNMfzH8v8A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793655936;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
+	b=UHQxyVM+2POHLrZKBsrDv8oQszvxLSFzlLlJbPiLwmLKWU3debmgrEQiI++5RVNMdzU1
+	 2d8PcOVTPPohk0n9oYAfkCQmVABSGGutH9fDuPzr3RjdumYxXYL9xzpPI1t7nm730ck4y
+	 FKHD+CI3vGpYI5h8X1uVJzKg0U1qS4x9onf7D0dPkUGeQK7/SGYNI+UL8kWMHmdYGekS2
+	 tyUNsbBC0DJUOwwfK99XTik5liH8zlHhctG/aw5n1gbto/zigTQ4jQI+KjmJ34kGEfEZ7
+	 3VgV8UtlSR0fZHp1UwvOSa8EjfL/Du17OCAPSosWAcuDliTzFCKRF7NKvqo+M73pudA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0666606A327
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 21:32:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0666606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OJBl9LUk
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91c905d7b6bso37332226d6.2
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 13:32:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793655149; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RUgxh7XJ5yAlG9CzH582U/oDhElh8s1GTztaAwFS/CwSrX9VXq44Nxvxy4vjaHF6DE
-         hmUoL4dpAFWKJBZNbzKquJeE6R8qGnpJgWX4dUzdlYFyPiUtXePC57fTwU4PdrrRCJ3u
-         hoPvDXX3pDAJ7gIiS4pwdvvLk7AQP1WC0HujSIOPeO2yWkgZC6d2mrxWoZAXDBIgVLYr
-         Jz1ahDEB3vteMCtQpepNcWgJFd5eMuz47BXRCFnKTc94wJMmsGERKRI4//kYvfaOao9r
-         Or1sLvHTjPkWF3bh2jWKMvCefPQBOudkhzgutqHgthCRU9Hm35uO3kjvUxxR0ry4y9VJ
-         ZyAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Dy/3+y6cTy46fWlcbVMD558vn7aro/Q74xHtkgWN7Dg=;
-        fh=sKw3zjKeojfQFXZ7CV6t6ZPgI+8iEPCFlQqF5Qj7Ims=;
-        b=h0AaGgJ/HRCnjA2WJnXA6OpnTcm8eeJPtAJxzg6XOqKG+EnCUQcYZN9wXKRFYvpxT3
-         4JWEHq+WgSbP7zPRJn/Ys7fycdOM0/VTMgEIoqhxcYkOfDPqzvBYp3S/0ZxtQwzTvp5a
-         0E0IegeIgcsCKUI4S+kYCJTU08ZsZXsaNbzzloUn8bOS+vZ1XfoPyZEajatDC5QRx4+W
-         pWv1Cgimt+woSBpSuWq7C6F4bnX/T0xCVXlwSN5IXX/wikh7QODSsRgQjHkXpu606bbq
-         vtbjngdwo3OQb+UQFqHk/1WTikW8zGlxAbqkjmT37ILWhOmQTEkeHkyHgX8LykSEEPl/
-         O1Dw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793655149; x=1794259949; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dy/3+y6cTy46fWlcbVMD558vn7aro/Q74xHtkgWN7Dg=;
-        b=OJBl9LUki163v7WEot8KNBkz+ZyHxB3U3PZWOzUQnqU1C9gwNWqMqo4ep2zJTiF76E
-         H27U0U2Y2xU1edkWPvCXKNlTdh7FHNvP6iPCbdbi4N485mFhvwTigF1MWvhKjB3dtraS
-         rVPVpUnl8PFkyNlD5j8BF8pdDkAdWyttJ0cI7ax1saMKaIKfFduWLBkxscuo7Xjswgmk
-         KWgTFFt3DNYb1YENzHWh81+7DLhh4cD15nS0R0RZswSSg1fEUniAiObyXCdPXUw4E70b
-         LdyxMtqanpWwzAvoE/TOYetmETdsu/uLnQujF+lPJWE/HBU7sdTJaZxo3v+UlCUj6GfD
-         Y9kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793655149; x=1794259949;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dy/3+y6cTy46fWlcbVMD558vn7aro/Q74xHtkgWN7Dg=;
-        b=aMSBgV0e9Ilkv2MuBrHgUF5thKBL+72fC8IOEFRQoZwzpVfPlJB9D2uoB94bSQbhOO
-         BM4ra0OLBFSCx2/Xpyg/iKhaoPnYMXN/lsx2Ji6rCnfC5im576m/7eqcWECGlAoET0Im
-         1fWMmIkXLtX+Uv2YUGEyelHcUlfNAjjiNngWNVGB6ChWiuj63BEK8oCJi1D9XU8uo6fF
-         HVeM4LEPFJr9cOeMOEoSnBadW5dMco2NW6K3mZJvLrU7mjhd414/IP8JBJFjMJdH0Mi0
-         ec1bdFecMgT3ivEKX9LUOfNTH7eaBcNptW0os2zIuSk971WH6Z5q+0B5Nuj5cVOU2Bae
-         G4ug==
-X-Forwarded-Encrypted: i=1; AKwUvBwkYWCOhU39Ecth8UQk+rHSr71WiQyTNfwTGQjvM2tEXHRAIfQg7O/QKV4bvTOVlnsPoHutgwY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qr8j1pdsJKhWJGl4LR4tL7hz3En94ko0861gH6hGXH7r9W2cv
-	aEkzUeHFiqwFtgLqWuvCtA7JWJhzhWjmfIC0oHSegzM+HtkL0YYd2BEoP1IW6Hpclfxg4X+p+J0
-	B8flMreCb6xH7Ot1ErrQWGBPtgaiF+nU=
-X-Gm-Gg: AYBFou3GjX2SO/iQ6JqiAVJtXq3OxwMe4/MXNvCMFNZQfUec3jwIC13OJwKblZ7UGng
-	9XX9BzfWeTMnakUJ/Zow40dN7yZymO3ACrpGi8WPIi9/jHKE5n2PIwkMnrys/1oxpc+A+8IqCJO
-	cK552WVP+aMVFNdMgqzWROs/d3cNvYBhYMHPBZuoohxY+AJ4SarCPTx0NHOT3lkplRu9iFOupIu
-	JFNnLGDg9lR9dnpVvI+MG3YGDqgaF07OHX9qOjNsivxOMYnpiCkPHouTlE7V0B98tFuvhge1WaH
-	oSXhcbqJnkNeEPbILy7q99IeO7MS13iWkOsII0BrRNMTiACC9V6dEMxFZi0ncKboIPlcZDLTeHP
-	6D+LboQax3mgOTtLzgnfTDqa+amn7bJ0Al070dof/xEk90FPivft6Qi4Y7A==
-X-Received: by 2002:a05:6214:2403:b0:91c:a2b0:dd0d with SMTP id
- 6a1803df08f44-91ca4ae1111mr177407566d6.17.1793655149330; Mon, 02 Nov 2026
- 13:32:29 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 917621F00A16;
+	Mon,  2 Nov 2026 21:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793655936;
+	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=U+uMB1pT1uG7Ud/qU+KfHr7+xEIFskl2Ihk5yp0HLeiSC+8UkNgHSuGNhfQjmMLVp
+	 kALa/QR62zs85WRLfnD1pBhPxhoxA8e3RxcmUFX70MT1Eip82pqNzUaPIJBbCsCr3e
+	 N8eRxEiZ/gckYP26yrLNsqG/aoNE1jIJfIUbdTQfOA0sJ0IqOJFvNzUVeANNhgqWaj
+	 T5+SFazwmA6k2x2HD9M61qarDrFsEowt9jMVnbTTg/SQLMwxIdSc/qjr56shzD//NO
+	 D1qV/zwZMCOA5a+z05S44X6RBKy7d++I5VmG7k5g8uFKoKhxG9Dn/2w5lDdQgOAAfU
+	 Nz7UApaKpDWhA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2081C4668F;
+	Mon,  2 Nov 2026 21:45:35 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Mon, 02 Nov 2026 16:45:35 -0500
+Subject: [PATCH] clocksource: Use the clocksource under test for the skew
+ check timeout
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,83 +83,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260927041138.4112920-1-jinmo44.yang@gmail.com> <20261024033040.316652-1-jinmo44.yang@gmail.com>
-In-Reply-To: <20261024033040.316652-1-jinmo44.yang@gmail.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Mon, 2 Nov 2026 13:32:17 -0800
-X-Gm-Features: AclHuK_Ep6UP7A60iM8FcMVyZcPHYDAlQGKDcoV_PVYPLMetFNaYY3L4D27BGc0
-Message-ID: <CANRwn3TaYNa-i-c-1AOdPb4HVS8otBhFUkFbMFPnwzeKKwHcBg@mail.gmail.com>
-Subject: Re: [PATCH v4 0/6] HID: wacom: guard against NULL input devices on
- successful probe
-To: Jinmo Yang <jinmo44.yang@gmail.com>
-Cc: ping.cheng@wacom.com, jason.gerecke@wacom.com, jikos@kernel.org, 
-	bentiss@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTvQRKroVcRFO/7RsdpIJlGh9
+ O5GXX6L92YyJIXRvpkp4ammcapwq4bk0k9nsJ6qybd+41zrWW5RRoslCdhGvDjrHbFkDr7foQv
+ DOmw7qvkjIej7tz4c/7YyXCH5+6Nl+QBA6AVcfAAAAA==
+X-Change-ID: 20261102-clocksource-skew-timeout-f2a9e5fb3f75
+To: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
+ Srikanth Aithal <Srikanth.Aithal@amd.com>, Borislav Petkov <bp@alien8.de>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793655935; l=5072;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=BwOAXMTSmN3S5CdQQNe0kwBbbM0riuH0AkP9PTw3cow=;
+ b=X4hBPBJpPywiDSpkFxm5qV4E84jNKzIKZezeqM1NLCPq+buPyTkeybhiCSVmSBIjVpkq3+QEZ
+ H63xSgmVSFxASydIlKIHue6PbkZC5vf8sKSYhCeW6fgGeRE1a2zBOt+
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026 at 8:31=E2=80=AFPM Jinmo Yang <jinmo44.yang@gmail.com>=
- wrote:
->
-> When wacom_setup_{pen,touch,pad}_input_capabilities() returns -ENODEV,
-> the corresponding input pointer is set to NULL but probe still succeeds.
-> Subsequent irq handlers dereference those pointers unconditionally,
-> causing NULL-pointer dereferences reachable from a spoofed HID device.
->
-> This series adds per-function NULL guards across all affected handlers.
->
-> Changes in v4:
->   - wacom_intuos_pad() now returns 2 for the normal path, 1 for the
->     NULL-guard path; wacom_intuos_irq() applies "result - 1" uniformly,
->     suppressing the spurious input_sync() the old "return 1" would
->     trigger (Jason).
->   - Added pen_input NULL guard at the top of wacom_intuos_irq() to
->     protect its helpers wacom_intuos_inout() and
->     wacom_intuos_general() (Jason).
->   - Added pen_input NULL guard to wacom_bpt_pen() (Jason).
->
-> Changes in v3:
->   - Fixed wacom_dtus_irq(): DTUSX is pen-only, so do not require
->     pad_input for it (sashiko-bot).
->   - Added patch 6: touch_input guards for wacom_intuos_pro2_bt_touch(),
->     wacom_24hdt_irq(), and wacom_bamboo_pad_touch_event().
->
-> Changes in v2:
->   - Restructured per Jason's review: per-function checks for dtus_irq,
->     graphire_irq, and the Bamboo handlers.
->   - wacom_intuos_pad() returns non-zero when pad_input is NULL so the
->     report does not fall through to wacom_intuos_inout() (sashiko-bot).
->   - wacom_intuos_bt_irq() guards both pen_input and pad_input (Jason).
->   - Added dev_warn_once at every guard (Jason).
->   - Dropped the cp2112 patch (Benjamin prefers Dmitry's series).
->
-> Jinmo Yang (6):
->   HID: wacom: check the input device in the shared report helpers
->   HID: wacom: check the input devices in the legacy irq handlers
->   HID: wacom: add NULL input guards to wacom_intuos_irq() and its
->     helpers
->   HID: wacom: add NULL input guards to wacom_intuos_bt_irq()
->   HID: wacom: add NULL input guards to Bamboo handlers
->   HID: wacom: add NULL touch_input guards to remaining touch handlers
->
->  drivers/hid/wacom_wac.c | 127 ++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 122 insertions(+), 5 deletions(-)
->
-> --
-> 2.53.0
->
->
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Apologies for the delay in reviewing and responding. I'm happy with
-the series in its current state.
+watchdog_check_skew() waits for the remote CPU with interrupts disabled
+and gives up after a timeout measured with ktime_get_raw_fast_ns().
+While the clocksource is still jiffies during boot (or with
+clocksource=jiffies) that timeout can't expire, because only the boot
+CPU's tick advances jiffies and that's the CPU spinning with interrupts
+disabled.
 
-For the set:
-Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
+The boot then hangs when the remote CPU can't answer, eg in the
+stop_machine() of the switch away from jiffies:
 
-Jason (she/they)
+  CPU0                                  CPU1
+  multi_cpu_stop()                      multi_cpu_stop()
+                                          local_irq_disable()
+                                          /* waits for CPU0 */
+    <timer interrupt>
+      clocksource_watchdog()
+        /* sends CSD to CPU1 */
+        watchdog_check_skew()
+          /* waits for CPU1 forever */
+
+Nothing gets printed.  With the hard lockup detector on in a KVM guest:
+
+  [    1.554193] watchdog: CPU0: Watchdog detected hard LOCKUP on cpu 0
+  [    1.554193] CPU: 0 UID: 0 PID: 18 Comm: migration/0 Not tainted 7.3.0-17087-gd865f2677c44 #1 PREEMPT
+  [    1.554193] Stopper: multi_cpu_stop+0x0/0x310 <- __stop_cpus.constprop.0+0xdd/0x150
+  [    1.554193] RIP: 0010:watchdog_check_skew+0x12d/0x5a0
+  [    1.554193] Call Trace:
+  [    1.554193]  <IRQ>
+  [    1.554193]  clocksource_watchdog+0x761/0xc90
+  [    1.554193]  call_timer_fn+0x154/0x470
+  [    1.554193]  __run_timer_base.part.0+0x5d0/0x910
+  [    1.554193]  run_timer_softirq+0xc2/0x280
+  [    1.554193]  handle_softirqs+0x1f9/0x840
+  [    1.554193]  __irq_exit_rcu+0x157/0x210
+  [    1.554193]  irq_exit_rcu+0x9/0x20
+  [    1.554193]  sysvec_apic_timer_interrupt+0x6b/0x80
+  [    1.554193]  </IRQ>
+  [    1.554193]  <TASK>
+  [    1.554193]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
+  [    1.554193] RIP: 0010:multi_cpu_stop+0xf7/0x310
+  ...
+  [    1.554193]  cpu_stopper_thread+0x1fa/0x3f0
+  [    1.554193]  smpboot_thread_fn+0x2fb/0x8a0
+  [    1.554193]  kthread+0x300/0x3e0
+  [    1.554193]  ret_from_fork+0x4f0/0x6f0
+  [    1.554193]  ret_from_fork_asm+0x1a/0x30
+  [    1.554193]  </TASK>
+
+Measure the timeout with the clocksource under test instead, which
+keeps counting with interrupts disabled.  With the fix, the watchdog
+gives up after the timeout and the boot goes on.  A 2-vCPU guest on one
+host core hung in 4 of 150 boots without it, and it didn't hang at all
+in 400 tests with the fix applied.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 80s on a kernel booted with clocksource=jiffies.
+
+Fixes: 763aacf86f1b ("clocksource: Rewrite watchdog code completely")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
+Srikanth reported silent early boot hangs of large KVM guests that he
+bisected to the same commit [1].  I think it's the same bug but it was
+never confirmed.  Srikanth, would you mind giving this a try on your
+setup?
+
+[1] https://lore.kernel.org/all/e4a41d43-4d60-4132-aa2d-70e038a3e9dd@amd.com/
+
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/wdboot.c
+---
+ kernel/time/clocksource.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/time/clocksource.c b/kernel/time/clocksource.c
+index 58c0ca11cdc5..fdce67f7c3d1 100644
+--- a/kernel/time/clocksource.c
++++ b/kernel/time/clocksource.c
+@@ -305,11 +305,16 @@ static bool watchdog_wait_seq(struct watchdog_cpu_data *wd, u64 start, int seq)
+ 		if (READ_ONCE(wd->result) != WD_SUCCESS)
+ 			return false;
+ 
+-		/* Prevent endless loops if the other CPU does not react. */
++		/*
++		 * Prevent endless loops if the other CPU does not react.  The
++		 * timeout uses the clocksource under test because the timekeeping
++		 * clocksource can be jiffies, which doesn't advance while this CPU
++		 * waits with interrupts disabled.
++		 */
+ 		if (cnt == 5000) {
+-			u64 nsecs = ktime_get_raw_fast_ns();
++			struct clocksource *cs = wd->cs;
+ 
+-			if (nsecs - start >=wd->timeout_ns) {
++			if (cycles_to_nsec_safe(cs, start, cs->read(cs)) >= wd->timeout_ns) {
+ 				watchdog_set_result(wd, WD_CPU_TIMEOUT);
+ 				return false;
+ 			}
+@@ -322,12 +327,13 @@ static bool watchdog_wait_seq(struct watchdog_cpu_data *wd, u64 start, int seq)
+ 
+ static void watchdog_check_skew(struct watchdog_cpu_data *wd, int index)
+ {
+-	u64 prev, now, delta, start = ktime_get_raw_fast_ns();
++	u64 prev, now, delta, start;
+ 	int local = index, remote = (index + 1) & 0x1;
+ 	struct clocksource *cs = wd->cs;
+ 
+ 	/* Set the local timestamp so that the first iteration works correctly */
+-	wd->cpu_ts[local] = cs->read(cs);
++	start = cs->read(cs);
++	wd->cpu_ts[local] = start;
+ 
+ 	/* Signal arrival */
+ 	atomic_inc(&wd->seq);
+
+---
+base-commit: f322d7f7ae56bce728ba03a387e35380bc4ad939
+change-id: 20261102-clocksource-skew-timeout-f2a9e5fb3f75
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
+
