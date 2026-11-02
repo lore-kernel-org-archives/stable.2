@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793618163;
-	b=Azz821pINxdQKVEsz6HVD/N7pivLuAfi5W97sIparw48oswx3xO/IICUQhFYKDUviCT+
-	 RuljhCbh7SFRUUptT2rxvz+b5StrND4h2DZb54PU78cyQQFn4eTM6M+jtHXeKDjP3KrqH
-	 rR8wm4L0R2yE+csmP4nQ5UDgLp6oq9jI6esIoAPFQzQ3/3lp3AuowwefHSG930RBfCHNz
-	 DTwJEc9z+pPBjM8FG9HykzTchYqGAdZgUFdnNKu/meGyMnmBSH10UHWGgdEkJd3CeSzGZ
-	 Ix2N3FOZv99xoH1KLhwz7CgDe+FFNI0lOLdBfMDDwBwBsrTIJH8FQwWD8LvFjImbt/A==
+	b=5o5ciN7zHUMYuZ9rHe/wj4cJ74U2ea/8NyotKD6n115DqDkeMStEQJr3wlkRtQVGHt8P
+	 AS9SZ3qrZDBIS+biQEWCjxnYZCW+d7I5pOwgtHhTM9S5aMg3nyXcXDV4pAUZ9VHwcRgcS
+	 OW29J3ht8HHvLhhnEwnhNsk3f0K3f77w6bpE8z7yavKrMqSguBufiPCBSvnptQjQet71Q
+	 0kWuHWDXj59gRnu5949gb94oUbaolw9JyQoL+Lu93XBFgLL55ugL83PweP2m9z5Y9t88p
+	 6khrbABY8VMGJWLt8W7+1472Lggo4HFiBuiIVUlHt4L0mI8R7+5R71Y+Y512g7Yuaqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793618163;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=fLYaH8M14870OTrL/NbVoc9Tvu/OmPJCwvPEuaXdpUI=;
-	b=pSCfXM2Co/Jwll6d74ocWa7SG1Pm1xyD4Vqv1+Gzik+ZnrPKgTnRA0Ng5kXpZ6Mbat+e
-	 72Lfi271j3pjGzFNS52LogzuBL4FuZ2WsZa/d/NeMulusOTgb+hVlNOYdtuojAR9OueII
-	 Rowp1u1JCPafQi3/uVD/Ldlt9zEtUSn1/jyTfUnrMiOA7/5iS2DfpA83e0rJhnDQ7QAUf
-	 7IWj4zzzDPpkhnJEebYDazisauOmVDUS1PqBYXToGtNP245cTT1F7xlj86+kLI3F7VRPO
-	 nIafvbNYkkdNGji5Q4j88BAIF9/u5YyF+TfLmlrZkhwMS++AcwjdCHS46kwJl3oVJkA==
+	bh=ndKvpmqpsXXKNWXd8KEPVUmv4+a8DRhy1Wexw6izFEo=;
+	b=A0T4GmIZKOmMrAjdWetSuxlbKOLWRTNAFM0i7sTBFLlw0uvQTcH47HAy0vIYG4OT44hH
+	 S7Xa/fm3oNzwXJ3nSx45IVlbVuf5Z+3gPPl+1oI0iWnvI30W/9t/IbplDQyIv0V1HS7Yu
+	 Qeo27208lClHhgiMDzCEJ6B2PC+QdAiMXSIUdiSK0De9u255/uSSuNmJtwYpy6/Gp5fOm
+	 CbqMh4nfcvWLs/0Hv+qgy+RuOF17mQY1yb0SCMxxw7RPcLzn4aC0qpC0OGWAaYxmokw6l
+	 11l82/1t6G3bGWRbePgD6YLnoakaTdWAbuWdgOThkrsP/nD2VBwbU1+5zKzXuvwRXPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ag1SB2uz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLox7QM9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BBF60A2604;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A420B606A33F;
 	Mon,  2 Nov 2026 11:16:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ag1SB2uz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BFA1F00A1A;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLox7QM9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E1C1F00A17;
 	Mon,  2 Nov 2026 11:16:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793618162;
-	bh=fLYaH8M14870OTrL/NbVoc9Tvu/OmPJCwvPEuaXdpUI=;
+	bh=ndKvpmqpsXXKNWXd8KEPVUmv4+a8DRhy1Wexw6izFEo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ag1SB2uzsdcrsCwJlNfnKNTWj7UbL5OlJxjDqZU5d+gR85E+EVh4wrEmEpuvnPYRp
-	 qSuAZZF/9q63enHT+HS9E26ccG+S0jTtgjefK8Xv6fQzB/jliGBkhKmZ/SYGlngfOI
-	 87vizUMyDYrR98Ne1YZdgU5Cc7wz4wrhY8/BegWoFP8rbVCF6A8Uc/9zTrmlc+Pk4e
-	 sBHFx5EZLYshOkV9mD3O8CvSDnwQOO+r5LlAS5FWSEwpmfGM+d5zMRiD6cCm0aFaNx
-	 3Tb8tUTtndmJXpoMthoYSre3zeDxSeu+F/s2nZHaDtsyeGHrwdHeCELBv+G0PfPNk3
-	 BdgrF0E3ueYrw==
+	b=hLox7QM9nPlrGHmnxCZZ4vF4foTEpvrL5MWrlI/o7GRu4CZ42Qe7Mv07gwsLq6Rvo
+	 4rxjPokHqVAwxxLn+cy5EO7WVDNYq7DDg2nkIwiRVUg9T+zjYx5i0svDKx82aV1bfu
+	 QTgUsDSRlpF6QrtaHx0EYclwVbmmzk6NqzgvVKHfbZkBbs4jSIvS16cMCuzJUXagUH
+	 u2f6zr+rF3RXW0P2ZIrJa6YDLKn1vVK2QuCSXpz2S5uTnEaGrAT8fzx/uAH4gU9CUr
+	 j6tWtRgxhMkc96Uidq1qCCd5Z4G5fauLU5pr7P89AGmbvyNTc2o2HAeaybQ4gQGqUN
+	 65tuYqeS4M4AA==
 Received: from johan by xi.lan with local (Exim 4.99.5)
 	(envelope-from <johan@kernel.org>)
-	id 1xNq1A-00000005aDw-0x1t;
+	id 1xNq1A-00000005aDy-0zdE;
 	Mon, 02 Nov 2026 12:16:00 +0100
 From: Johan Hovold <johan@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -59,9 +59,9 @@ Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 1/2] driver core: platform: fix sw node use-after-free on device release
-Date: Mon,  2 Nov 2026 12:14:19 +0100
-Message-ID: <20261102111420.1330760-2-johan@kernel.org>
+Subject: [PATCH 2/2] software node: fix primary software node removal
+Date: Mon,  2 Nov 2026 12:14:20 +0100
+Message-ID: <20261102111420.1330760-3-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261102111420.1330760-1-johan@kernel.org>
 References: <20261102111420.1330760-1-johan@kernel.org>
@@ -76,47 +76,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a device has a software node, device_remove_software_node() may
-drop the last reference and free it during platform_device_release().
-And if the software node is the primary node then the device fwnode
-pointer is currently never cleared.
+When removing a software node using device_remove_software_node(), the
+primary fwnode pointer is never cleared if the software node is the
+primary node.
 
-Use a temporary variable to track whether the primary node is a software
-node to avoid a use-after-free in is_software_node() and having
-fwnode_handle_put() call a function pointer via poisoned or reallocated
-memory when the primary node is a software node.
+Since commit 7d80509ff0da ("driver core: platform: unify release path")
+this can lead to a use-after-free when freeing a platform device if a
+driver or subsystem (e.g. mfd) has already removed and freed the node.
 
-This issue was flagged by Sashiko when reviewing a related fix.
+Clear the primary fwnode pointer when removing a software node that is
+the primary node to avoid this.
 
 Fixes: 7d80509ff0da ("driver core: platform: unify release path")
-Closes: https://sashiko.dev/#/bug/linux-b860000b-f1d0-46a0-ab52-d47cec8eab99
 Cc: stable@vger.kernel.org	# 7.3
 Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/base/platform.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/base/swnode.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 979593e5cca1..ef0bfa972653 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -598,13 +598,14 @@ static void platform_device_release(struct device *dev)
- {
- 	struct platform_object *pa = container_of(dev, struct platform_object,
- 						  pdev.dev);
-+	bool primary_is_software_node = is_software_node(dev_fwnode(dev));
+diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
+index 84a77ffa3dc4..9c98234979ec 100644
+--- a/drivers/base/swnode.c
++++ b/drivers/base/swnode.c
+@@ -1110,7 +1110,11 @@ void device_remove_software_node(struct device *dev)
+ 	if (device_is_registered(dev))
+ 		software_node_notify_remove(dev);
  
- 	device_remove_software_node(dev);
- 	/*
- 	 * If the primary firmware node is a software node, its reference count
- 	 * was already decreased by the call to device_remove_software_node().
- 	 */
--	if (!is_software_node(dev_fwnode(dev)))
-+	if (!primary_is_software_node)
- 		fwnode_handle_put(pa->pdev.dev.fwnode);
- 	kfree(pa->pdev.dev.platform_data);
- 	kfree(pa->pdev.mfd_cell);
+-	set_secondary_fwnode(dev, NULL);
++	if (is_software_node(dev_fwnode(dev)))
++		set_primary_fwnode(dev, NULL);
++	else
++		set_secondary_fwnode(dev, NULL);
++
+ 	swnode_put(swnode);
+ }
+ EXPORT_SYMBOL_GPL(device_remove_software_node);
 -- 
 2.55.0
 
