@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.7
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793603398;
-	b=RY2ZzaCVrJN0qfYBP9b+CvVnUElC1f2VZolnGFLN94uGfFHsidFYF82fr6vsu/Rh2BHM
-	 q6+SWZhmuNZUZ/DhDNBFXiYxBMAOXVhj/bFuxrqu1NYSCBhZzHBRBsjCCJ2uC/KfOQyEk
-	 jgX8pC/9g+wcsin5Q0joLV3YVgh6/DAJJ8w+VuAIR8AiTGAuVlhMN5u3b8Us82k9k4Mjh
-	 pOZhASjuTSo7y+DkJCbt99G+zuPxZQVYeVhHQh2xWHNcvC/y1cymbm2S6Pod0CsGrd4i7
-	 +Ad2P0n9iz8RpXAFzhLw8tBxqwlI4hiEpFo9wVBqqoB+cKjld/c5WAUs6Apw6Hma5lg==
+	t=1793603532;
+	b=VgwZZK9cerNfLajwsf+kv7VKMebTSFQNHSkTLsj1q6aLEb2i4Rst+pKohXTB+NEjEiSx
+	 jRq0dNQrbdGALkuIIWb9THvmSARi8vyKFQ4MEmA23WB09/wwitX+A6/5j+xYUzQEmitCn
+	 xZLaORbdTD4RnWrgblrm9YArvJ9gssquhJYLh2RYEv7EohKXhNoklGkf0fY269KME6fme
+	 6NWE1tLcYywXxKZ5hd0BUGNpwq2HSil1VuR5MOXRg3xmF3W1zNddrBe4/8AzRWMPrbko2
+	 SQ/FOgxra+pFMzomWxKJOvf0KAFWpA1dvogkHG+lI1QCBB+xafaG+EYZuWJbX9ALieQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603398;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603532;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dxTCD2EtG39It1GxIrbgqsT26094PsqPX9wwAE4FoME=;
-	b=hEpDza81MU2Yk4C6t/m95NfmhMnWyRd6VY0V5nkVKGQDszf9kxafmBmk9WVJKdyTiWzo
-	 6Zrted2Ni5bWQNB0MjCTQeWbsJp7gzGERxhmc+y6rNw3xg5zveS5udAOHBbD69xQJXQse
-	 i3H9i98om4exhoo77WlpicqTG2dkrMwdUdO8nKnzADrUxIS1e+S/jKMF/ozfUcKRZEw9s
-	 yjJTmWL4uVffGKunLNz5Fi4B6/oBXv1ILR01XoXGqwXDcHRjScO6yftep/UktgFrdt6V9
-	 mwpxk+OLNYNZFAFc1i5JzYrHvGh78dXBcOgAlkUkDTwWxZpb7evQXsn6t7T4F95PNxA==
+	bh=STjztyzTwL0p18OzfDBVbDKy73h6u7sCHye5XimNoyQ=;
+	b=bLGbQ27vcc2rAEvMqus/J0W7afErFLIuTihRbDqnpaQTrgmDMKVE1tIlqW1bbGHO0qy6
+	 GfgAS1/i3WNdZxqgaXbxKnywebx/x6KKFATXESuPJspSIoJ49OPKGiVqNes/F3juyjqsA
+	 ZPRLAnuHQq+RsZWaRETn7CYs1YyapsudJj+cPOL7PWxwAGWamzh9Gsl8Fen1p8+LTkaej
+	 q2pbZ24DkKtb7WGAZ/GjSq6/DIdQLcemPSb2Y6tFSCcg49gHE5xDUXBmB0Wk9cV48Z9k9
+	 U34P63UUrPnrIgOka5qOA1bGGM8BLdp1WnQ5YLs1vPEL+nOPt0gyj4S+4eOufqbscig==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xBgEl5d6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.50
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012050.outbound.protection.outlook.com [40.93.195.50])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="Sf/wagEk";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.7
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A15606A324;
-	Mon,  2 Nov 2026 07:09:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37A15606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7B1606A324;
+	Mon,  2 Nov 2026 07:12:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD7B1606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xBgEl5d6
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Sf/wagEk
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y8YQ0XB51za/wTiXR/Dft+yZNEbsoVbEXCl9RUoSkNAITKwSjOV7A7ZBFy9hYa/xhCwoEN7H8noW7O7VPepXRVBITokdEUxfjhrAoKNLC2PendaS+EW/Vwtb4kZ9JI1Ynl4tcGoaGAfDHG08v/eTSTnBCR+0/q57jiaTI/WYJS0iIg4U6izg/KI7T6hPLdCim5ikLEaqQblbE3rgoTlxZCsVf1aXYq/M2UMiNJPmoXk8D6MjbW1YzC4PBmrXYMRAc6H0PcFbBJQ/5ozOplD2kdGNuG1kSOs3SEy3jdX6ETBrLmxxgktvrNr3F7AQtrKyjGMgby6ayRybAh4upBWElQ==
+ b=eZqJhjXz30YW3Hc4AXZylGMM4IbWuEoC3GqhzRuhdwb7VMiWDP4q2CmPLUwEbWEtK1x1HpLvr7hnnz4Hk3Bfp7Q/YnH8QIEL6BZmrVghKGppQkT21WleLJDbyWQvuGXq+HvyywxSr25JIK4REStjlljNZQbo5DC4BnvTqSNoyoTT/KquoLAtPooC/j1eY1IWJZCnF63Jlovw19GznHxHhHPv/qCDNFD1kQQORFi11PgPY6X5/XJwO88g6KUEM7NeImOqbFUb8GazBKgMjzkZZcWKVgDRVpc3c5z8BIKDHXHAzXop9d6u0y5Ew9jxLI79k07D6C1+uYRykqnaCn7JUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dxTCD2EtG39It1GxIrbgqsT26094PsqPX9wwAE4FoME=;
- b=UyXuJpp7QwN4X1qusaLZgytpEJDqxHW+fA8KAjHSXgqxDZstRc4uH16EpOE2kA4E5YKrjD9txqQS0x0zw7ojNomIr7iUz3cwjQu/1UGRoVdUDWoC2xthRgPBCJ6LYaj6My05TnKIbKQInv0Av/TjsNVE+cyiqPI65R9HW5tq8TlAvttJK0MACjmrw4Of8COGSbMF003Na/Yglpnv/bSJs4OVWGxOpWkWzs+pXTu0bbJbC5zuOBD7tuhw63BDGnMk2q5nt+IhYjFsPZ4WSAaTTulAFj92pLfEcF618fSgPwmUuky87VFDg62y4pekyeTuDSUCKKDzEl0UKib6DILLVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=STjztyzTwL0p18OzfDBVbDKy73h6u7sCHye5XimNoyQ=;
+ b=WydNpY/G529ri9gljnR/YGyfuxpJnWpib8d1SZXTRdrDISOjalXuszjHiRgJZxdOVQt86hmx1GPk51g95WA7O0vhqtWVcKi0tC3NM/t0L/aIi55kXie7tEZ/YMaxHcvXbN1+1VOgUKmwD2y+IASWru3a7iT8uH6VV0DPE2jIuvGIOSJ7zGUccgPES/Yoa9hgrbbmQef0di4zpOs9Lkl8H5G5Zem0TIusBrQ1lu3JWhE9ai/hfe9KXg/8196TdFCN5SN6ReVZPseTcowhxNozPoa8rBWsfFWkflZeGninascZ/ozAoc8ZxKHcKeh8bQsEqdwSW/0ugc+EWgjRXD5qVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dxTCD2EtG39It1GxIrbgqsT26094PsqPX9wwAE4FoME=;
- b=xBgEl5d6f0vFGBN1KFxEpqqAQVUoy+1adYKW3+bTFkZS7KOmgUB2HCjqKzKMv/qd3u1EUlzkjSPWB9V9juL7nzdN3bzWb4uYL4dNKvtFR3Fai5g2X+zwIbfItUOrDj5tlI6/cib+TrHHKv2dYEg2+rdR3gSlhaQ7H0Rs825MfLA=
-Received: from BN9PR03CA0401.namprd03.prod.outlook.com (2603:10b6:408:111::16)
- by DS0PR12MB8479.namprd12.prod.outlook.com (2603:10b6:8:155::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 07:09:52 +0000
-Received: from BN1PEPF00005FFF.namprd05.prod.outlook.com
- (2603:10b6:408:111:cafe::18) by BN9PR03CA0401.outlook.office365.com
- (2603:10b6:408:111::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Mon, 2
- Nov 2026 07:09:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00005FFF.mail.protection.outlook.com (10.167.243.231) with Microsoft
+ bh=STjztyzTwL0p18OzfDBVbDKy73h6u7sCHye5XimNoyQ=;
+ b=Sf/wagEk9B3J5W7gBJQoPIooknL5gDADwSigWich03pdmLEwruN2xbBafv7v4/dG8oUA/WtWKqQ3XbT3Cn5HELPYbNVZ+ocOTEw6+esA9K3Gu1SRWoKziu+Buy3M8EFKgNTX43ysT+MKGWEByRkLXFNUVGPOYjCknu8cYExdvpY=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB9060.namprd12.prod.outlook.com (2603:10b6:8:c4::12) by
+ PH8PR12MB6819.namprd12.prod.outlook.com (2603:10b6:510:1ca::5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 07:09:52 +0000
-Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 01:09:48 -0600
-From: Vishal Badole <Vishal.Badole@amd.com>
-To: <tglx@kernel.org>, <akpm@linux-foundation.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <bp@alien8.de>, <wangyang.guo@intel.com>, <tianyou.li@intel.com>,
-	<tim.c.chen@linux.intel.com>, <dan.liang@intel.com>, Vishal Badole
-	<Vishal.Badole@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v6] lib/group_cpus: Snapshot cluster masks to keep grouping hotplug invariant
-Date: Mon, 2 Nov 2026 12:39:30 +0530
-Message-ID: <20261102070930.1803698-1-Vishal.Badole@amd.com>
-X-Mailer: git-send-email 2.34.1
+ 15.21.569.12; Mon, 2 Nov 2026 07:12:08 +0000
+Received: from DS0PR12MB9060.namprd12.prod.outlook.com
+ ([fe80::e096:864d:d60a:c83f]) by DS0PR12MB9060.namprd12.prod.outlook.com
+ ([fe80::e096:864d:d60a:c83f%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 07:12:07 +0000
+Message-ID: <108cf042-5f7f-4b1e-9656-3193744e8043@amd.com>
+Date: Mon, 2 Nov 2026 12:41:59 +0530
+User-Agent: Mozilla Thunderbird
+From: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+Subject: Re: [PATCH v2] iio: adc: xilinx-ams: fix out-of-bounds accesses when
+ parsing channels
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: "O'Griofa, Conall" <conall.ogriofa@amd.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, "Simek, Michal" <michal.simek@amd.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261023185652.195025-1-kapoorarnav43@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261023185652.195025-1-kapoorarnav43@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0311.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:220::17) To DS0PR12MB9060.namprd12.prod.outlook.com
+ (2603:10b6:8:c4::12)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,351 +104,258 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFF:EE_|DS0PR12MB8479:EE_
-X-MS-Office365-Filtering-Correlation-Id: 681e3c4f-b60a-4e7a-1950-08df38b04a38
+X-MS-TrafficTypeDiagnostic: DS0PR12MB9060:EE_|PH8PR12MB6819:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4555514-e2a7-4ae4-d3c7-08df38b09a5a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|261021121427099003|5023799004|11063799006|56012099006|261009223027099003|261028144727099003|261021123027099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|18002099003|3023799007|13003099007;
+	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261021130227099003|261021123027099003|261021121427099003|261021133027099003|261021135927099003|261022113327099003|261022105027099003|261022115727099003|261022075727099003|261009223027099003|261026130827099003|261026121527099003|261026135527099003|261026140227099003|261028144727099003|11063799006|10067099003|56012099006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	jE4IRAYhbGZYDaGPWHptjiRDR+iX2UxLG4Pa00x/XzIxOmskcpxs9feb6x7p4pwMA6vYn6ipGhuba2zd/CmezLxVY6BzIuImm6HKmZzzsY3tbY18biypa2J+9EwtwIX7v1i6Q9inoHoOPKWXIAuEtB5bZ3z0IbwjhMm9jtANN/+jWChfddwz79aEz+kDhOPoXjnTaHpqiHOtYeH0InaloySiS+i1xHX8OMY9tzUZ+Bo9h7kLw3F3RddM6Pf9PSP4xzJwJ6ViECDjPDTHyK4osLgMMMTYAXnr0wyygeUmOBxS4Y0GmAMfE+F2hheIoQ3bGwFafjeCzuzn77lgJxFBMx7RepozINUx6XEAqiM/ruFHFkW+bgu/rtLYCrHN0ta9etfeU/i2NWtHZ0GYLZY90W39KRxh8lgEcUKplE9Oc0XbffndGF9d8eLsmfhcw1M8RVeaHB9bvTiesWL4N3r2ZKU1TUuf0OSWv+L09mSHvmPDYVgx1FvWIgCfVnnPdbJo8ILK6rI9URkiGRkBUmezkufxkrx0krtd6foQNGLO3E6rlaODpFGOAalVBRFZxw5s7yKT4OkVv09RxZxUWG2P1y5PnWE65u5p+lBDYoHY6K1CCZ3el9lObk+8s4IwTX9v+hh8SQHlg+XdEB2TmdoNIKHxTWnReHNYwR7ZYcvXugk=
+	UGUT9EeMA+KgsyhCzCqqIA3Mpqum8l1niO2bhX3ZYi7v4pT4fhYET4FXSMEm4+KlKc4F5Jl/EEV8s0fDOAJ5MSnkPxfZAEd+EAgpDwqXCq2LAGvoBuLH/8l287d8hEqhcegbbWfUc0xDWj05ztdWTL8TcoKr4fFdPvgc6armJXFCbOHO5ErI3evyNojao+9OBGZFLwJHabfgL0X8rRVLyekBhMMHv1iWxqrUGMgTZxnrwM+Y+/BNnF4+6Qx5jhjlH8/r4cKn91WKWooEZMummbtE+W3eOZKcQRbtioF0oJy8H9cOcLLG8XDPSenVrYxYf4cTNgXhMTnOtxazYDBvAYsESFIjoftmmRvFrmkj5JCuJp3WzmtiOWOzeVmDe2BiRhZcaLYyskU/nHIBKWtJr4UydZzZr3KuzygBKsMiiU5Y5bFZb9iRBiwJhDG/ENTFCYHlJ7v9ymHngUT1OeF9mtvYtG8Cl9r8lhygIIJVBA1iJFBUb8p7SNnv38Zto2ucA3zDBokevx0Esp4WNTJH9D1THW8MN+xsHFnzClDN21e/PjVtJUhyMb5ezuRkSTor1kS3XYhksvw4XCNmGXvBfBoePxO+t6xus74T+HcX+7XXdag2zJvzBIyZG8rAId8f
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(261021121427099003)(5023799004)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021123027099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB9060.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261021130227099003)(261021123027099003)(261021121427099003)(261021133027099003)(261021135927099003)(261022113327099003)(261022105027099003)(261022115727099003)(261022075727099003)(261009223027099003)(261026130827099003)(261026121527099003)(261026135527099003)(261026140227099003)(261028144727099003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	xVQKvxxBlwN0pa4SZXCNQ/7rmJHmHvzMKoiyeAnyOd778+JU7549HQYZu03QVo6xkOKNcodSwvr6BiqE3ffYaYZN+7Zwn97w8VZdeoP64jr3FUfQ+B1vtWWYz5CRKXEcpidwsPTxtF+ni7PxB7ZzccmLc2LP5thKmAXw/csIAJIUjP3l3OSs1hNWDCIWnXsRU1YzuV397I/3p7HPPLFXMfV1fqaEA1ilMLamRLIwGm0F7H4fNFWArqWxU7tEaO17pg0qJrI1rpKc5jd7YWQQtbo/Qm4fPL4Jk+xYTWZFzYeszXUyE8F23AxInsiqgs9+7zZL6vQqjkOFSXq8jdaBDmyTxqLLgRYExAxDUI3z5tsQvK4t9jgjDEg0ZENntudbrxHLLRq02rAqbkT2Q4iR4gLMbWSO4Am/x+wTtLYgpWtsv4vtRboNtsPKFQe1+qoN
+	=?utf-8?B?ZlY2RXl2MmVpSlU5N3FONkFMdGxmUDJQK2hUMEx1L0MxTVc2NWNKZFFlcmZY?=
+ =?utf-8?B?azlNYnNYT0RrNE4yREtrbnNUSXJmNmNpZThTTkZpek81Y014bDlwVXMwZGx3?=
+ =?utf-8?B?REVzVlorQU9WcEUxNWNyUXFuUStBTHBtc2gwTlVtRDRsd0o0cjJEWkluMXVx?=
+ =?utf-8?B?cHZTQ2tYUkpKRDdPdGlKZGVDM1dYWlA3c29RalRYNEJWSnJJNWZMakFGN2JV?=
+ =?utf-8?B?ZlVNbjJFK2Q3eit4TVVldXduNFIyeU5SZWE0WTh5Ulp4Y0FFd1ZOVWZzaWx3?=
+ =?utf-8?B?M0VzdGV6ZFNTMTdKUUZ0N0ZGVVpWSU1rUEZnT3ltWGYyQ1RzdW90TklNYitN?=
+ =?utf-8?B?c1dXTzNlL2NDblNlMnFuWTc1THk0elY4aHBOVHdkdCtQMjM2a3RyVWhEdXls?=
+ =?utf-8?B?V3BLVU05Uk9JR1FkcTdjV3FNSi9PSkxUOE85RHg3SU9lQXZPMHdGQjhjVjlz?=
+ =?utf-8?B?bzl4NzJzYXZ2WG14YXcwMjNqK0dVSUhHOU9UQVp1SkZJMHFNNUEvTng5b3Vq?=
+ =?utf-8?B?cUxxdUR2OEMyaDNBZkNCYWNMNGFIcFIvVHROQ2d6UkJ5TVlnS04zdGV6OGho?=
+ =?utf-8?B?enpuYUtXaU1YWkM1b1ZWSVdpckw2cGVwL1MzQy9VU3RZUG91VWppcS9TUEk5?=
+ =?utf-8?B?dFVuMWxCVHFoTUVob0xxOHdMbEppRWJnSyt2QjBKeWQ2cWFGMXgrSkJ5RmpR?=
+ =?utf-8?B?QVo4czVyN01CeERJK3VuN21LSHV1dDc0N2I5L05pczdnVGhabU42TFlkREZx?=
+ =?utf-8?B?Umh6M3VWNjVHUFM2V3QzdjZnL2M4SzMzUjdja0UvWE9IVThBd3RnMEJ5eWlN?=
+ =?utf-8?B?bmQ4VjBHUUY5Wk1NUHBVT1d4NUtVNEcwTDVOS2ZiWjFJSWZHSytFSkVkYmZw?=
+ =?utf-8?B?QU0yOThWZ1BxVzFlKzBvMkxYRjNuWjBiMG9VWnBFWm4vUDJiVXNjaExOMCtR?=
+ =?utf-8?B?VmkwczZYUkY5cy9Hd0NPMkRXbzlIclZoVnhrRk9DMFdmbXRkRHptdWt6ZkVE?=
+ =?utf-8?B?d2ZmRW5SdldrYStMWEZwL1dBY2J6Um5oWURsQ0I4YjJkRzVkYXE1Q1RSczMw?=
+ =?utf-8?B?MWpVSWdMakRadGMyU2lzMzlLZiszL2ltOVowTlBrUEdrSzVSQTFiQzFrS1Fp?=
+ =?utf-8?B?KzBuSkRKZC9qNndMTG54a3RPUzlmRjNwMUswcjN6bFZpOXlyUzR5bElrYWtl?=
+ =?utf-8?B?TDFDQ2dCS3FZTTVaSFRPSzMrMU9PZ0h2eVZSN0xIbC9oTHBHWkpFVXp6VEUx?=
+ =?utf-8?B?enl3K0hlRXZicXVpNjNOWWR6ZlNKUW0wdnQvL0k0QUlISTZQc01QOWhsRS9P?=
+ =?utf-8?B?UXFnWTBuaFVySHNOS0hjam1yOTNRa0o4MDhMODJaQkh0NEdudC9KTkdxV3J6?=
+ =?utf-8?B?ZWROclZUQmwvWDVLZ0hxUktUTHAwVC9pQUQ5bm9ONzRvdHlmb0NMRkx6cGh4?=
+ =?utf-8?B?Y3g3S3lBbFFscVdsdVNnTGl5U2JmaU1Bb1V4THJwMWJMTHMvMWZnZUl1ajM2?=
+ =?utf-8?B?a0FoL0dtbUFIR0JEZUI5WWFya2RFMFh0MHY0QlFZdnlUWVM4WXhlbWxoWFdF?=
+ =?utf-8?B?cTE4NmFGcWNhQWJMY1pKYSt0T1VNRVJWR3kyQnd2K1JLekZ0N28zbTJvemEx?=
+ =?utf-8?B?cEFQQjRvRGU5eUpUUVMzbURLT2VuSUFNQXlNOVFHLzdsZk9BbjU3a2RCdk9t?=
+ =?utf-8?B?NXZPYjlZVmtaSHpoRWlGTk1DSENYSVFCZy94dG1XenkvV0pPcm9IZHJjV2Ju?=
+ =?utf-8?B?WGt3TXFjV0Rlc0RidTMwWVZZRkRQSkVKb20rSTdVWnFucFFWTXkybGh4Vis4?=
+ =?utf-8?B?SDM2RWhIOVhLUThqSWRCTURjZXo2K3M5Unh6MEc1TGR5SDNzbERHUW16TjVF?=
+ =?utf-8?B?dFdkNzBud2o0a01IYk80eDNxaTB2Z1QvalFXNWYraHJyU0hSUXI5L2VENFky?=
+ =?utf-8?B?YXB5REtiL0JBbEFmc29jd3V0dHNyUXNCOTV6WFh1R2NPRWJNZ0JvdWVXcEhC?=
+ =?utf-8?B?UmEyWTAzcmNHbUd1REVWajZ3SkpWaGdXeUR2MlN3bm9FL3d2M29BMlZBTksv?=
+ =?utf-8?B?elVSOENyUFBvK0JhMi94Y0ZwSEl5VFNMSTNYTW5DNDlwenZCMmI4MjI1c2dp?=
+ =?utf-8?B?czlWb3VHaWUvcGltQnM4dXlQWjY3d3paT0w2RUoyd3J3ZU5QSW1lN3RMb3ph?=
+ =?utf-8?B?cWFZT2UvMUJNYXNGekE1S1h4YWM3SG9vWXF3MFRiVkt3NFBKMWdqek5hUHk2?=
+ =?utf-8?B?UGd5Zk1hWUJiVFpoVFdsalUxY2NYaDdHVGZZSnVnRFZDSG5kK3I1MWNTc20x?=
+ =?utf-8?B?a1B6a3IwZk5Rc0ZhTVZjeW8zN2V2b2lreEhjK3FWaGxRZzNSakVvdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:09:52.0059
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4555514-e2a7-4ae4-d3c7-08df38b09a5a
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB9060.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:12:07.0610
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 681e3c4f-b60a-4e7a-1950-08df38b04a38
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00005FFF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8479
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9vcoSlGLIN5v2NZYjyGI4FCPNGz8OsRyIppD44/d4bOyFsERJy68YagKz/dZGqadyMqDmStA5p8y1dpHUqyFQA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6819
 
-group_cpus_evenly() builds the managed-IRQ affinity spread used by
-multi-queue devices such as NVMe. That spread is meant to be a property
-of the static CPU topology: it walks cpu_present_mask and then
-cpu_possible_mask so every hardware queue owns a fixed set of CPUs,
-including CPUs that are offline at the time. A driver depends on that
-partition staying stable across re-computation - the CPUs a queue is
-given at probe must still describe the same queue after the device is
-later reset and its affinity recomputed.
+Hi Arnav Kapoor,
 
-On an AMD system that stability breaks across an s2idle cycle. CPUs 3-11
-are offlined before suspend, leaving only CPUs 0-2 online. s2idle itself
-does not offline secondary CPUs. The NVMe controller uses the
-simple-suspend quirk, so resume fully re-initialises it and recomputes the
-affinity spread while CPUs 3-11 remain offline. The system then hangs for
-roughly two minutes and stays sluggish afterwards, the controller only
-making progress through its command-timeout poll:
+On 10/24/2026 12:26 AM, Arnav Kapoor wrote:
+> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
+> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
+> channel specs and lets ams_init_module() fill them for the AMS node and
+> each of its children, without telling it how much room is left.
+> 
+> For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
+> "channel@N" child after the 10 fixed PL channels. The binding allows
+> reg values 20..50, so a PL node can have up to 31 such children, i.e.
+> up to 41 PL channels, while only 31 are budgeted for it. Together with
+> the 13 PS and 7 AMS control channels, this writes past the end of the
+> buffer. Since the modules are filled in device tree order, the fixed
+> channel blocks copied after the PL node can overflow as well.
+> 
+> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
+> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
+> far out of bounds.
+> 
+> Pass the remaining capacity down to ams_init_module() and
+> ams_get_ext_chan() and fail with -ENOSPC when a module does not fit,
+> instead of writing past the buffer. Also reject reg values below 20, as
+> the binding requires.
+> 
+> Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> ---
+> Changes in v2:
+> - Fix the truncated subject line (Andy)
+> - Drop the paragraph about an earlier report, I could not find that
+>    thread again to reference it properly
+> - Pass the remaining capacity as unsigned int and drop the casts (Andy)
+> - Keep the ams_get_ext_chan() call on one line (Andy)
+> - Rebase on fixes-togreg
+> - Drop the bouncing @xilinx.com and @huawei.com addresses from Cc
+> 
+> v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
+> 
+> Compile-tested only (W=1); I don't have ZynqMP hardware.
+> 
+>   drivers/iio/adc/xilinx-ams.c | 54 ++++++++++++++++++++++++++++--------
+>   1 file changed, 43 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
+> index 158e6133abf5..7f0f7778d6aa 100644
+> --- a/drivers/iio/adc/xilinx-ams.c
+> +++ b/drivers/iio/adc/xilinx-ams.c
+> @@ -144,7 +144,14 @@
+>   #define AMS_PL_CSTS_ACCESS_MASK		BIT(1)
+>   
+>   #define AMS_PL_MAX_FIXED_CHANNEL	10
+> -#define AMS_PL_MAX_EXT_CHANNEL		20
+> +/*
+> + * The external PL channels are addressed by their channel number. The
+> + * binding allows the range from AMS_PL_EXT_CHANNEL_MIN to
+> + * AMS_PL_EXT_CHANNEL_MAX. AMS_PL_EXT_CHANNEL_MIN maps onto the first
+> + * ams_pl_channels[] entry, AMS_PL_EXT_CHANNEL_MAX onto the last one.
+> + */
+> +#define AMS_PL_EXT_CHANNEL_MIN		20
+> +#define AMS_PL_EXT_CHANNEL_MAX		50
+>   
+>   #define AMS_INIT_POLL_TIME_US		200
+>   #define AMS_INIT_TIMEOUT_US		10000
+> @@ -1142,20 +1149,31 @@ static const struct iio_chan_spec ams_ctrl_channels[] = {
+>   };
+>   
+>   static int ams_get_ext_chan(struct fwnode_handle *chan_node,
+> -			    struct iio_chan_spec *channels, int num_channels)
+> +			    struct iio_chan_spec *channels, int num_channels,
+> +			    unsigned int max_channels)
+>   {
+>   	struct iio_chan_spec *chan;
+> -	struct fwnode_handle *child;
+>   	unsigned int reg, ext_chan;
+>   	int ret;
+>   
+> -	fwnode_for_each_child_node(chan_node, child) {
+> +	fwnode_for_each_child_node_scoped(chan_node, child) {
+>   		ret = fwnode_property_read_u32(child, "reg", &reg);
+> -		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
+> +		if (ret)
+> +			continue;
+> +
+> +		/*
+> +		 * Anything outside of the range of channel numbers allowed
+> +		 * by the binding is not a valid channel.
+> +		 */
+> +		if (reg < AMS_PL_EXT_CHANNEL_MIN ||
+> +		    reg > AMS_PL_EXT_CHANNEL_MAX)
+>   			continue;
+>   
+> +		if (num_channels >= max_channels)
+> +			return -ENOSPC;
+> +
+>   		chan = &channels[num_channels];
+> -		ext_chan = reg + AMS_PL_MAX_FIXED_CHANNEL - 30;
+> +		ext_chan = reg - AMS_PL_EXT_CHANNEL_MIN;
+>   		memcpy(chan, &ams_pl_channels[ext_chan], sizeof(*channels));
+>   
+>   		if (fwnode_property_read_bool(child, "xlnx,bipolar"))
+> @@ -1183,7 +1201,8 @@ static void ams_iounmap_pl(void *data)
+>   
+>   static int ams_init_module(struct iio_dev *indio_dev,
+>   			   struct fwnode_handle *fwnode,
+> -			   struct iio_chan_spec *channels)
+> +			   struct iio_chan_spec *channels,
+> +			   unsigned int max_channels)
+>   {
+>   	struct device *dev = indio_dev->dev.parent;
+>   	struct ams *ams = iio_priv(indio_dev);
+> @@ -1191,6 +1210,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+>   	int ret;
+>   
+>   	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
+> +		if (max_channels < ARRAY_SIZE(ams_ps_channels))
+> +			return -ENOSPC;
+> +
+>   		ams->ps_base = fwnode_iomap(fwnode, 0);
+>   		if (!ams->ps_base)
+>   			return -ENXIO;
+> @@ -1202,6 +1224,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+>   		memcpy(channels, ams_ps_channels, sizeof(ams_ps_channels));
+>   		num_channels = ARRAY_SIZE(ams_ps_channels);
+>   	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
+> +		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
+> +			return -ENOSPC;
+> +
+>   		ams->pl_base = fwnode_iomap(fwnode, 0);
+>   		if (!ams->pl_base)
+>   			return -ENXIO;
+> @@ -1213,9 +1238,14 @@ static int ams_init_module(struct iio_dev *indio_dev,
+>   		/* Copy only first 10 fix channels */
+>   		memcpy(channels, ams_pl_channels, AMS_PL_MAX_FIXED_CHANNEL * sizeof(*channels));
+>   		num_channels += AMS_PL_MAX_FIXED_CHANNEL;
+> -		num_channels = ams_get_ext_chan(fwnode, channels,
+> -						num_channels);
+> +		ret = ams_get_ext_chan(fwnode, channels, num_channels, max_channels);
+> +		if (ret < 0)
+> +			return ret;
+> +		num_channels = ret;
+>   	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
+> +		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
+> +			return -ENOSPC;
+> +
+>   		/* add AMS channels to iio device channels */
+>   		memcpy(channels, ams_ctrl_channels, sizeof(ams_ctrl_channels));
+>   		num_channels += ARRAY_SIZE(ams_ctrl_channels);
+> @@ -1245,7 +1275,7 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+>   		return -ENOMEM;
+>   
+>   	if (fwnode_device_is_available(fwnode)) {
+> -		ret = ams_init_module(indio_dev, fwnode, ams_channels);
+> +		ret = ams_init_module(indio_dev, fwnode, ams_channels, ams_size);
+>   		if (ret < 0)
+>   			return ret;
+>   
+> @@ -1253,7 +1283,9 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+>   	}
+>   
+>   	device_for_each_child_node_scoped(dev, child) {
+> -		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
+> +		ret = ams_init_module(indio_dev, child,
+> +				      ams_channels + num_channels,
+> +				      ams_size - num_channels);
+>   		if (ret < 0)
+>   			return ret;
+>   
 
-  nvme nvme0: I/O tag 898 (3382) QID 9 timeout, completion polled
-  nvme nvme0: I/O tag 398 (618e) QID 11 timeout, completion polled
+Thanks for the patch.
+Changes looks fine to me, it is properly addressing the out-of-bounds
+access. I think the underlying issue is also in the DT binding.
 
-QID 9 and QID 11 are the queues whose CPUs were offline when the spread
-was recomputed. "completion polled" means the commands did finish in
-hardware, but their interrupts were never delivered to a CPU that was
-watching the queue, so nothing reaped them until the timeout fired.
+ams_init_module() already copies ams_pl_channels[0..9] as the 10 fixed
+channels. Inside ams_get_ext_chan(), since ext_chan = reg - 20, DT
+entries with reg = 20..29 map to the same entries and it create
+duplicates.
 
-It happens because commit 89802ca36c96 ("lib/group_cpus: make group CPU
-cluster aware") derives the cluster groups from topology_cluster_cpumask(),
-which lists only the cluster siblings that are online when it is called.
-The resulting partition therefore depends on the transient online mask
-rather than on the topology alone. Recomputed on resume while CPUs 3-11
-remain offline, it no longer matches the boot-time partition, and a
-queue is left with an affinity that does not cover the CPU it is meant to
-serve once that CPU comes back online. The dependence is on the online
-mask, not on any AMD-specific behaviour, so the same stall is reproducible
-on Intel platforms as well.
+DT binding requires update to allow 30..50 for external channels. This
+gives a maximum of 10 fixed + 21 external = 31 PL channels, matching
+ARRAY_SIZE(ams_pl_channels).
+Please let us know if you plan to include the binding change, otherwise,
+we can handle it separately.
 
-Fix this by snapshotting cluster and SMT masks together under
-cpus_read_trylock() when all present CPUs are online. Latch the first
-capture attempt, permanently using CPU-order grouping if it fails, and
-propagate later allocation errors instead of switching algorithms. This
-keeps successful spreads stable across CPU offline/online cycles for an
-unchanged group count, present/possible CPU sets and NUMA topology.
+Regards
+Sai Krishna
 
-Fixes: 89802ca36c96 ("lib/group_cpus: make group CPU cluster aware")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
----
-Changes in v6:
-- Clarify CPUs 3-11 stay offline from before suspend through IRQ remapping.
-- Describe the lock as excluding CPU hotplug, not pinning topology masks.
-- Link to v5: https://lore.kernel.org/all/20261027073627.2589115-1-Vishal.Badole@amd.com/
-
-Changes in v5:
-- Snapshot SMT masks alongside cluster masks using the existing cleanup.
-- Latch capture at entry; use CPU order without live masks on failure.
-- Propagate cluster allocation errors instead of changing the spread.
-- Link to v4: https://lore.kernel.org/all/20260826171537.4167367-1-Vishal.Badole@amd.com/
-
-Changes in v4:
-- Drop the index-based unwind; reuse the mask-based cleanup path.
-- Link to v3: https://lore.kernel.org/all/20260821184923.2462575-1-Vishal.Badole@amd.com/
-
-Changes in v3:
-- Take the snapshot under cpus_read_trylock() to avoid a torn view.
-- Link to v2: https://lore.kernel.org/all/20260814123402.3170161-1-Vishal.Badole@amd.com/
-
-Changes in v2:
-- Gate the snapshot on cpu_present_mask instead of cpu_possible_mask.
-- Reword the changelog and the code comments. No other change.
-- Link to v1: https://lore.kernel.org/all/20260807073612.3711269-1-Vishal.Badole@amd.com/
-
- lib/group_cpus.c | 120 +++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 106 insertions(+), 14 deletions(-)
-
-diff --git a/lib/group_cpus.c b/lib/group_cpus.c
-index e6e18d7a49bba..66628bae79909 100644
---- a/lib/group_cpus.c
-+++ b/lib/group_cpus.c
-@@ -6,11 +6,14 @@
- #include <linux/kernel.h>
- #include <linux/slab.h>
- #include <linux/cpu.h>
-+#include <linux/mutex.h>
- #include <linux/sort.h>
- #include <linux/group_cpus.h>
- 
- #ifdef CONFIG_SMP
- 
-+static cpumask_var_t *sibling_snapshot;
-+
- static void grp_spread_init_one(struct cpumask *irqmsk, struct cpumask *nmsk,
- 				unsigned int cpus_per_grp)
- {
-@@ -29,7 +32,7 @@ static void grp_spread_init_one(struct cpumask *irqmsk, struct cpumask *nmsk,
- 		cpus_per_grp--;
- 
- 		/* If the cpu has siblings, use them first */
--		siblmsk = topology_sibling_cpumask(cpu);
-+		siblmsk = sibling_snapshot ? sibling_snapshot[cpu] : cpumask_of(cpu);
- 		for (sibl = -1; cpus_per_grp > 0; ) {
- 			sibl = cpumask_next(sibl, siblmsk);
- 			if (sibl >= nr_cpu_ids)
-@@ -286,6 +289,84 @@ static void assign_cpus_to_groups(unsigned int ncpus,
- 	}
- }
- 
-+/*
-+ * Cluster and SMT sibling masks change when CPUs go offline. Snapshot both
-+ * on the first spread if every present CPU is online. Latch the attempt even
-+ * on failure, so later spreads cannot enable a different grouping algorithm.
-+ *
-+ * Without a snapshot, use CPU order without cluster or SMT preference.
-+ * Successful spreads remain stable for the same group count, present/possible
-+ * CPU sets and NUMA topology. The snapshot is not refreshed for CPU hot-add.
-+ */
-+static cpumask_var_t *cluster_snapshot;
-+static bool cluster_snapshot_initialized;
-+static DEFINE_MUTEX(cluster_snapshot_lock);
-+
-+static void capture_cluster_snapshot(void)
-+{
-+	cpumask_var_t *snapshot, *siblings;
-+	unsigned int cpu;
-+
-+	/* Pairs with the smp_store_release() below. */
-+	if (smp_load_acquire(&cluster_snapshot_initialized))
-+		return;
-+
-+	mutex_lock(&cluster_snapshot_lock);
-+	if (cluster_snapshot_initialized)
-+		goto out;
-+
-+	/* Only capture when all present CPUs are online. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask)))
-+		goto done;
-+
-+	snapshot = kcalloc(nr_cpu_ids, sizeof(*snapshot), GFP_KERNEL);
-+	if (!snapshot)
-+		goto done;
-+	siblings = kcalloc(nr_cpu_ids, sizeof(*siblings), GFP_KERNEL);
-+	if (!siblings)
-+		goto free_snapshot;
-+
-+	for_each_possible_cpu(cpu)
-+		if (!zalloc_cpumask_var(&snapshot[cpu], GFP_KERNEL) ||
-+		    !zalloc_cpumask_var(&siblings[cpu], GFP_KERNEL))
-+			goto free_snapshot;
-+
-+	/* Trylock: a caller may hold a lock the hotplug writer needs. */
-+	if (!cpus_read_trylock())
-+		goto free_snapshot;
-+
-+	/* Recheck with CPU hotplug excluded before copying the masks. */
-+	if (!data_race(cpumask_equal(cpu_present_mask, cpu_online_mask))) {
-+		cpus_read_unlock();
-+		goto free_snapshot;
-+	}
-+
-+	for_each_possible_cpu(cpu) {
-+		cpumask_copy(snapshot[cpu], topology_cluster_cpumask(cpu));
-+		cpumask_copy(siblings[cpu], topology_sibling_cpumask(cpu));
-+	}
-+	cpus_read_unlock();
-+
-+	cluster_snapshot = snapshot;
-+	sibling_snapshot = siblings;
-+	goto done;
-+
-+free_snapshot:
-+	/* Unallocated entries are NULL, which free_cpumask_var() ignores. */
-+	for_each_possible_cpu(cpu) {
-+		free_cpumask_var(snapshot[cpu]);
-+		if (siblings)
-+			free_cpumask_var(siblings[cpu]);
-+	}
-+	kfree(snapshot);
-+	kfree(siblings);
-+done:
-+	/* Publish the capture outcome, including failure, before grouping. */
-+	smp_store_release(&cluster_snapshot_initialized, true);
-+out:
-+	mutex_unlock(&cluster_snapshot_lock);
-+}
-+
- static int alloc_cluster_groups(unsigned int ncpus,
- 				unsigned int ngroups,
- 				struct cpumask *node_cpumask,
-@@ -299,6 +380,9 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	const struct cpumask **clusters;
- 	struct node_groups *cluster_groups;
- 
-+	if (!cluster_snapshot)
-+		goto no_cluster;
-+
- 	cpumask_copy(msk, node_cpumask);
- 
- 	/* Probe how many clusters in this node. */
-@@ -307,7 +391,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 		if (cpu >= nr_cpu_ids)
- 			break;
- 
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		if (!cpumask_weight(cluster_mask))
- 			goto no_cluster;
- 		/* Clean out CPUs on the same cluster. */
-@@ -322,7 +406,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	/* Allocate memory based on cluster number. */
- 	clusters = kzalloc_objs(*clusters, ncluster);
- 	if (!clusters)
--		goto no_cluster;
-+		return -ENOMEM;
- 	cluster_groups = kzalloc_objs(struct node_groups, ncluster);
- 	if (!cluster_groups)
- 		goto fail_cluster_groups;
-@@ -331,7 +415,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 	cpumask_copy(msk, node_cpumask);
- 	for (n = 0; n < ncluster; n++) {
- 		cpu = cpumask_first(msk);
--		cluster_mask = topology_cluster_cpumask(cpu);
-+		cluster_mask = cluster_snapshot[cpu];
- 		nc = cpumask_weight_and(cluster_mask, node_cpumask);
- 		clusters[n] = cluster_mask;
- 		cluster_groups[n].id = n;
-@@ -347,6 +431,7 @@ static int alloc_cluster_groups(unsigned int ncpus,
- 
-  fail_cluster_groups:
- 	kfree(clusters);
-+	return -ENOMEM;
-  no_cluster:
- 	return 0;
- }
-@@ -354,9 +439,9 @@ static int alloc_cluster_groups(unsigned int ncpus,
- /*
-  * Try group CPUs evenly for cluster locality within a NUMA node.
-  *
-- * Return: true if success, false otherwise.
-+ * Return: 1 if successful, 0 if inapplicable, or -ENOMEM on allocation failure.
-  */
--static bool __try_group_cluster_cpus(unsigned int ncpus,
-+static int __try_group_cluster_cpus(unsigned int ncpus,
- 				     unsigned int ngroups,
- 				     struct cpumask *node_cpumask,
- 				     struct cpumask *masks,
-@@ -365,18 +450,18 @@ static bool __try_group_cluster_cpus(unsigned int ncpus,
- {
- 	struct node_groups *cluster_groups;
- 	const struct cpumask **clusters;
--	unsigned int ncluster;
--	bool ret = false;
-+	int ncluster, ret;
- 	cpumask_var_t nmsk;
- 	unsigned int i, nc;
- 
- 	if (!zalloc_cpumask_var(&nmsk, GFP_KERNEL))
--		goto fail_nmsk_alloc;
-+		return -ENOMEM;
- 
- 	ncluster = alloc_cluster_groups(ncpus, ngroups, node_cpumask, nmsk,
- 					&clusters, &cluster_groups);
- 
--	if (ncluster == 0)
-+	ret = ncluster;
-+	if (ncluster <= 0)
- 		goto fail_no_clusters;
- 
- 	for (i = 0; i < ncluster; i++) {
-@@ -392,12 +477,11 @@ static bool __try_group_cluster_cpus(unsigned int ncpus,
- 		assign_cpus_to_groups(nc, nmsk, nv, masks, curgrp, last_grp);
- 	}
- 
--	ret = true;
-+	ret = 1;
- 	kfree(cluster_groups);
- 	kfree(clusters);
-  fail_no_clusters:
- 	free_cpumask_var(nmsk);
-- fail_nmsk_alloc:
- 	return ret;
- }
- 
-@@ -442,6 +526,7 @@ static int __group_cpus_evenly(unsigned int startgrp, unsigned int numgrps,
- 	for (i = 0; i < nr_node_ids; i++) {
- 		unsigned int ncpus;
- 		struct node_groups *nv = &node_groups[i];
-+		int ret;
- 
- 		if (nv->ngroups == UINT_MAX)
- 			continue;
-@@ -454,8 +539,13 @@ static int __group_cpus_evenly(unsigned int startgrp, unsigned int numgrps,
- 
- 		WARN_ON_ONCE(nv->ngroups > ncpus);
- 
--		if (__try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
--					     masks, &curgrp, last_grp)) {
-+		ret = __try_group_cluster_cpus(ncpus, nv->ngroups, nmsk,
-+					       masks, &curgrp, last_grp);
-+		if (ret < 0) {
-+			kfree(node_groups);
-+			return ret;
-+		}
-+		if (ret) {
- 			done += nv->ngroups;
- 			continue;
- 		}
-@@ -496,6 +586,8 @@ struct cpumask *group_cpus_evenly(unsigned int numgrps, unsigned int *nummasks)
- 	if (numgrps == 0)
- 		return NULL;
- 
-+	capture_cluster_snapshot();
-+
- 	if (!zalloc_cpumask_var(&nmsk, GFP_KERNEL))
- 		return NULL;
- 
--- 
-2.34.1
+> 
+> base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
 
