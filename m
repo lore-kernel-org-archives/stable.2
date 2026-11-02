@@ -1,92 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585211;
-	b=RcymbNTIk0uhAKFmY6g7qPof9IrObBZHS4g0um9AvoCev+0c7iBQVv3t/JOi5UbsM0M0
-	 v2YZJtFfxmY7iqHsYBIbEe7xp7ZhnsJhviUyrwzfJCfpTJtCJPpHA4wzk/Qw/VHgXp1Q/
-	 GPVXUL7OZDl5dsUhk8JzZEpnQ42j5piDQe9YPo8GtrYITI+JkXLbn7xK1f5dHkHSfS2V/
-	 6vU5zOzjNhWhQNbspkxbRcHayeLCCmaLHNcAMNUzGkkcj3RL6FerA0/bYlJjsorbREAL3
-	 sJJX6l7v0CGcSkYGk1Cj2sKHX9/N13IRc/hy1rPQuchc+c/VKer+qzL1DSaEhWgPxlw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=dcFBFWUE+FcI5MXNPVjGcIjPvakXuwpZdE8kWcsdxrU=;
-	b=jSYLp570Rp3UTp1Ih4spFWkPGSxZwiXBa1Wb6ipcvnOvKPJSWWKjW5MGkknGqxUrw1G/
-	 YkQLgat7wymqB/B4H0nF+Kqrlzt+ZnJ+MNJLdgSj6K3sxsNpxujBzhH7XWdACi20owl+C
-	 QJKvRddQdSNE1+ZONuWCxIkyNaKdeR0OpBhQTpPMlAaOvT4Wp0FbhTZqot6wymfCfOqjs
-	 4iSJ/HyGRuV+hT5Ud8+ewEg/d48W1ZNCwdJdXPgaKYeajY2+ExpyQ8AeYy58uWRFUgyLn
-	 G/pAbipnipL8ewWP/5Dm7H8Vwr+i1c64IZG4slG635jQ7y8wwm4YN/CmHAGA0eX1Ksg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=eI1I54pP;
-	arc=none smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793585583;
+	b=TjHOC67FL86iphE+eYFGBaWKrY30J9SoXGYFWRLtz4hqpn1YJ+y9qImZG/zlI2zc6lC4
+	 khxyQcXPf2YANeE4GBsoZuR/ZAMbONAkIk1X2Ru/mAe+bRtXfwOEHYrTG7c6ySOVn/4LX
+	 tFHeq8iOYUsx2IBJ6j7T9rMPjz99jxQAJb4DPurGgsfFWZBXznbSy8R7WkblJ5XXzRuRB
+	 y+3QRgriN5VRVm0KCfCsSp2Z7GVti5Xk9bb9WXQfXlj86nTkBF/ILPLfJ4zPRgyN6hWSg
+	 GR6+Uen7ey/nUPdKOPHu/weIiYO9INUtCO7QxQ+Gyo/H6qmmSgWcrYHL0ITfsFMwWSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793585583;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UvKGLVMRSCX0AiAkdB4p8byqLJ90SU4RD5Npa1QVQjY=;
+	b=bMKwPoTzdXetTwvqpG/+fijb00c+Z07hxKVMvB2pEGNZKAaL7He7gv99MxZtVM9D+JB8
+	 h09AlJm7iUwIsW1lap1L/XvgPx4kmhhfPWrwYRQtSoYbg4DBa8s8JfNsc4grulGr5s7ZQ
+	 FfeR2BY3rNoaYKV+Bc3LoT29f7nwAGKvQ9bNB4a9k+k7tkzDEXangVHwRj1ffAKN0Ei/O
+	 bIkpPPumfKJ7XSvtCvlUw9wkYGidyzT4ylyXjfCRCt3J9SXphQ5gfxYKXBv+tlu+H58bQ
+	 dIOmfY0CrWjbqKs0pzCTSpcuUxj9plI2hI2VZ6cCmQcjERntlv6x7APmsNVJaWWBKuQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHn2kGrJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBF060A262B;
+	Mon,  2 Nov 2026 02:13:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHn2kGrJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793585582;
+	b=tzX1xjEQZXZlwdTfX1bvQkSoK9pyIm/+q+r537F99lOm4CPPf9YV0HYBynbSwuUNM15X
+	 pKzfUwLMC/gZnmuPJPl44GNpRNM/8qXHm5qHV9LBTeIwtrtB7CqLVZWhUxYX7vhf1Gutv
+	 a7ChAbaEfnlZ3pU2fPjk+nMcHOkV2t/Wp4b1K7BYWGI8ArlTbJR8O55/zA3+3t49/f32N
+	 osct8edkYF7kVxyzZoridjluxj1zeJ+tTweeJNFFYI5vLjLMUsztjVL2B0HDulXF+3yLg
+	 35GDbG1HE5AgzTiMzytYaPbmllbr8IXE6fnY0yj14WsdgTrrfBqwYHxxhHt7dbKrWog==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793585582;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UvKGLVMRSCX0AiAkdB4p8byqLJ90SU4RD5Npa1QVQjY=;
+	b=zm7Q/TMWeaGYCrHl53M92YrkaP5+5yK71Td/aHadilbM9JuZvqYud/y/6vcBhBgmSncV
+	 uTUWOktqk+/a+2ZJtD66NXfrkyzrW3oDwX6QXOpzzyYCX4Wh4OVTkD+ZVwv5iCZ4a935/
+	 DoOpxtojJQs+YQtbtw/3L+PuGxBI/pm0wGFzOpcurhxO6K3VVlvWDhDUBu9fq5AzQARV8
+	 vnOZKws+jSZwriGMcD/xf+UsseAawpit1isI3khf9ChhQuLYuPqKqa5ZfwE75ejbvnZEw
+	 xsqrXTDYNScKRlWwk/tic8eG0Tz2PFxy2saH/8ilIk5If5jRTt143NxLrnqd5JKmvLA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B058A606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:06:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B058A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=eI1I54pP
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91c60e30054so28398156d6.1
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 18:06:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1793585210; x=1794190010; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dcFBFWUE+FcI5MXNPVjGcIjPvakXuwpZdE8kWcsdxrU=;
-        b=eI1I54pP4sNRU18kmigYVKdzA2j7INmfP0pOhyIJWUWyn9HdGjuny2p01+EFx3KVIP
-         OlJzSU3Bc2Z1OHFSXrFpt8z/SVF3c3RAdiOl9neXox4aRXrCKmqbBF5eP1kA+N7T036V
-         6neDfF9UZcv7j65OJmRtRESZ7YS7+rod7BKwV6Wj9zYcF/eVzxizLT4BDwRltIXJFWcS
-         cgaQYjDk7VzmrQ0gsomdizXfiblBjmxcoK3vWhDzkSo5p1GcOZTuwnNaQeC5QywTB2z6
-         uxbqPZwHqL04oSubPrJPjJw/ZKPE7OolOMj3YCNsh0g4czSaxTjlTc5K8HL26r8s9VAI
-         DsiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793585210; x=1794190010;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dcFBFWUE+FcI5MXNPVjGcIjPvakXuwpZdE8kWcsdxrU=;
-        b=oJvlRLQe/oGCRBsluynsAFJM/aDua59evfYqC8/Quvw/qQBM1nuTStpvpMT2jFX4da
-         ZSCDYh0vYkIxl1Vn4sAyt4ZcZaXJbqD96TB+vH65cXzKjF80holZC8Cb+22cUHhgrVwi
-         rTTXuIpSfIADCBJ7bo9XyGukN/Qy/BLMePLghQB+z0GYw99T7rvrjweqQUjildoNoQs+
-         B85n9+tcdLffQwEre2AZXW+zsR0O+zkZTHsvKca9dHV02JfPZVf49nfAvnFHP+t62evP
-         eoJJmr92iVOf94QbEsheRdiZ0HQTvlteXgfoGZuST7H3HoZ5TQVp2G7vXmFsJ7ZAp1qd
-         UgNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzuldZpzU0/PQ+jvx6iggK9LqPm0e0HNtcVfrN1wvRfTlSu/tOxEokIdQ5LY1XgrJ/faaMuZzE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImTCtDP8DFopyGy13G/GtgYHhhep3OfwcbzPfl5OeGmMJ6QRTZ
-	MC+mDRWc6rCo9pyq/ws3BG/os4m9VY/7zhQDMuKTK8yoGx0mcXCB2e0uQkr2vKjBow==
-X-Gm-Gg: AYBFou3/qGawHVRVn5dC9XZqM3LH7XXIJg5QxhoblYj9p1g5a7SIAsPixK6LNqjk2Of
-	r/8C+VorDD5EhpfmK6SNhhg29T+gsoGrWAh26WnR3OSkrZ7eN1fzWPdIPz7+StGiRY8tOY1T0bq
-	4mrb1lHROUPrp06NdX61G7aVwH+0yXTwe8F3K0+tQ7lI5P74hHo/yPjwltvBN1pGu8lz9AES5cl
-	dPYXZCuIcg+rUyCTNx7Gw6gxyQ/1Q+AUmhuuNCYmRKfTC76RdkjMzEvxcb5APJEKUyQxd3Gg6+g
-	qmNCAHhyi6gid3mh0G71cIyqRpkbFwBqETbb3uAdgfh4fSGdPKY9ap2Rr/q3eFpyr9ubnfr7TR8
-	xesulPv8iHVYE7Qjbr2SBv718YvBnW5NJo2v52FoMtugvgX5e7fqKcZ5/nTj4V2aBLtMaIk7Jmh
-	qyPQAW+k3Z8CxZeGVgj28JQ5/mhtAEAdT55kZBhC4KRm3q2FYbwyroME4M1NSsAi09cB8RgqaOz
-	froH+/7zQxs6TD2SvBsmKp6+KCpOp4V4bCi+3IZEoOs2yCN3CBHaqYoVHtfNBOzoY7IBYvoWzBX
-	CCByGRN9kf3sF8sB1ngsHb6A6LCEXQ==
-X-Received: by 2002:a05:6214:240a:b0:91c:a1a9:44e0 with SMTP id 6a1803df08f44-91ca4b1bbd2mr149665266d6.28.1793585209484;
-        Sun, 01 Nov 2026 18:06:49 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7f254a1sm78503786d6.7.2026.11.01.18.06.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 18:06:48 -0800 (PST)
-Date: Sun, 1 Nov 2026 21:06:46 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Bram van den Heuvel <bram@vandenheuvel.online>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] USB: quirks: add NO_LPM for Kingston DataTraveler Duo
-Message-ID: <da413fa5-0563-481d-9f14-e156a13f5ac3@rowland.harvard.edu>
-References: <20261101172944.59384-1-bram@vandenheuvel.online>
+	by smtp.kernel.org (Postfix) with ESMTPS id 6CE6F1F00A23;
+	Mon,  2 Nov 2026 02:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793585582;
+	bh=UvKGLVMRSCX0AiAkdB4p8byqLJ90SU4RD5Npa1QVQjY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=MHn2kGrJ+JXOWcV6pEGj8KBjDFgenKrotMsphLZq3HHUPlHuVHSWq6qbTStNgk/S0
+	 N2+QKmlABMW1Om50vUfwH8DJaezBrOLW0rfpg41CZh8iHtLGqTKnnclsQMWBWW8mlw
+	 Z3YZaym+eDbxHjJGMIlPUC+7VsZHhFjxRvPOVjw8k8BNsToR2PYuWX1u1n7OlRwVut
+	 Z+SwoVvFCPrRKYBINY+FQBgY06tt6IreaqqLMtoA/qTjtR0u346cwWY+xNKIlTctEo
+	 Lt4VO5XNO/8IpeG+1DYO45gJJQf9TTGrqZOy0evfftlk6E95HTv1yx4wMLqItwKsnC
+	 DoLs0Jal6OGxg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D725946312;
+	Mon,  2 Nov 2026 02:13:00 +0000 (UTC)
+From: Joseph Telaak via B4 Relay <devnull+joseph.telaak.dev@kernel.org>
+Date: Sun, 01 Nov 2026 21:12:26 -0500
+Subject: [PATCH 02/10] leds: rgb: ktd202x: Fix an out-of-bounds read with
+ unused channels
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,65 +83,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101172944.59384-1-bram@vandenheuvel.online>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261101-ktd202x-et6326-v1-2-eb51eddad08c@telaak.dev>
+References: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+In-Reply-To: <20261101-ktd202x-et6326-v1-0-eb51eddad08c@telaak.dev>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-doc@vger.kernel.org, stable@vger.kernel.org, 
+ Joseph Telaak <joseph@telaak.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793585579; l=2008;
+ i=joseph@telaak.dev; s=20261102; h=from:subject:message-id;
+ bh=mwFEfqp4SCRu2h+8wzzdp0VhrsnxZe7qyijkGUaRI90=;
+ b=l2AjyqU6OQtUEPl6CCNYUZS8H6tz5BGQR9687gz5U9QitYptaESTT9n2ws3fXrg+EbVjWsFRh
+ 6x/dhyLgQbVA5NpdFz4s+aGnt3AEwsPCX2AfGdIZe3wD/opZB/EpH6N
+X-Developer-Key: i=joseph@telaak.dev; a=ed25519;
+ pk=OmwSusdK4grZpiuZVfCZAvYyqz9FBkNemsV1EnHyVr4=
+X-Endpoint-Received: by B4 Relay for joseph@telaak.dev/20261102 with
+ auth_id=1382
+X-Original-From: Joseph Telaak <joseph@telaak.dev>
+Reply-To: joseph@telaak.dev
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 01, 2026 at 06:29:44PM +0100, Bram van den Heuvel wrote:
-> The Kingston DataTraveler Duo (0951:173c) repeatedly disconnects and
-> reconnects when attached to a SuperSpeed root-hub port with USB 3 Link
-> Power Management enabled. The kernel logs only a plain "USB disconnect",
-> with no I/O errors or resets, and the drive re-enumerates about 0.25 s
-> later. On a Framework 13 (Tiger Lake TCSS xHCI, 8086:9a13) running
-> 7.2.11, one drive re-enumerated 72 times in about 5.5 minutes. The same
-> drive also disconnects repeatedly on a Dell XPS from around 2016 with
-> older kernels, so the problem is not tied to one host controller.
-> Several drives of this model show the same behaviour.
-> 
-> The disconnects happen about 0.45 s after the host sends a command to
-> an idle drive, such as the first INQUIRY after enumeration or the
-> periodic media-change poll. Sustained reads are unaffected. This points
-> to the drive failing to exit U1/U2.
-> 
-> Disabling LPM with usbcore.quirks=0951:173c:k stops the disconnects
-> completely, including during a 497 MB read and accesses after idle
-> periods.
-> 
-> Another owner of this drive reported the same problem in 2021
-> (linked below).
-> 
-> The Kingston DataTraveler 3.0 (0951:1666) had the same symptom and
-> already has this quirk, added in commit afaa2e745a24 ("USB: Add NO_LPM
-> quirk for Kingston flash drive") after bugzilla #208257.
-> 
-> Link: https://community.frame.work/t/device-incompatibility-kingston-datatraveler-duo/11477
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222222
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Bram van den Heuvel <bram@vandenheuvel.online>
-> ---
-> Not boot-tested with this patch applied. I tested the same quirk at
-> runtime with usbcore.quirks=0951:173c:k, both on the kernel command
-> line and through /sys/module/usbcore/parameters/quirks.
+From: Joseph Telaak <joseph@telaak.dev>
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
+The LED array is allocated for the number of child nodes, but
+ktd202x_chip_in_use() walks it up to num_leds, the number of channels of
+the chip. With fewer LEDs in the device tree than channels, for example
+two LEDs on a KTD2026, it reads past the end of the allocation and the
+__counted_by() annotation hides that from the bounds checkers.
 
->  drivers/usb/core/quirks.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-> index a4bcbe9..5ac44fe 100644
-> --- a/drivers/usb/core/quirks.c
-> +++ b/drivers/usb/core/quirks.c
-> @@ -425,6 +425,9 @@ static const struct usb_device_id usb_quirk_list[] = {
->  	/* Kingston DataTraveler 3.0 */
->  	{ USB_DEVICE(0x0951, 0x1666), .driver_info = USB_QUIRK_NO_LPM },
->  
-> +	/* Kingston DataTraveler Duo */
-> +	{ USB_DEVICE(0x0951, 0x173c), .driver_info = USB_QUIRK_NO_LPM },
-> +
->  	/* TOSHIBA TransMemory-Mx */
->  	{ USB_DEVICE(0x0930, 0x1408), .driver_info = USB_QUIRK_NO_LPM },
->  
-> -- 
-> 2.56.0
-> 
+Allocate one entry per channel.
+
+Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+---
+ drivers/leds/rgb/leds-ktd202x.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
+index 539cf425c..482af28e8 100644
+--- a/drivers/leds/rgb/leds-ktd202x.c
++++ b/drivers/leds/rgb/leds-ktd202x.c
+@@ -537,6 +537,7 @@ static int ktd202x_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+ 	struct ktd202x *chip;
++	unsigned long num_leds;
+ 	int count;
+ 	int ret;
+ 
+@@ -544,10 +545,13 @@ static int ktd202x_probe(struct i2c_client *client)
+ 	if (!count || count > KTD202X_MAX_LEDS)
+ 		return dev_err_probe(dev, -EINVAL, "Incorrect number of leds (%d)", count);
+ 
+-	chip = devm_kzalloc(dev, struct_size(chip, leds, count), GFP_KERNEL);
++	/* Loops over the LEDs go up to the number of channels, not of child nodes */
++	num_leds = (unsigned long)i2c_get_match_data(client);
++	chip = devm_kzalloc(dev, struct_size(chip, leds, num_leds), GFP_KERNEL);
+ 	if (!chip)
+ 		return -ENOMEM;
+ 
++	chip->num_leds = num_leds;
+ 	chip->dev = dev;
+ 	i2c_set_clientdata(client, chip);
+ 
+@@ -562,8 +566,6 @@ static int ktd202x_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
+-	chip->num_leds = (unsigned long)i2c_get_match_data(client);
+-
+ 	chip->regulators[0].supply = "vin";
+ 	chip->regulators[1].supply = "vio";
+ 	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(chip->regulators), chip->regulators);
+
+-- 
+Git-155)
+
+
