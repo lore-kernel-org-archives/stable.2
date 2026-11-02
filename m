@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793611499;
-	b=NF6RLj4TBmCJ4lPyl9RNAZ/JxMRSrn7DBMuLAjJZ+t+ip1sBTxGGE9oeWa0tUZQXI1G7
-	 satD1d3ZeOEgkKrEnMZ0aAzCUmVeKRAHXTAd5iujX3NlzDGp6bGpjBrzaamblWB2x1WWB
-	 ssifJE6n4G5f9HQs84QKN0ePOZdx83m+QPYjAOCO5JY5t9Ijy9CD4KCiN2nTy+amx8Qcs
-	 ymWIDuz7hUa17aD5fi1fhD8Q6ERsBWYKWcwDyYC7NRya0R9ksG72aldD0t2Q9SrCETJRg
-	 3C9/25BULWgwe7t1Q0tLezGRQfWyWKOp+BIYMJ8q7IPFCLNPCE9CC4phbczXuzVAHfw==
+	t=1793611513;
+	b=dvVzTOejbtRzkAgxPRP3CDG+138yCaIF/OV0wRlRNKWSNwKQiyIUym2707c6zc/91hT+
+	 rvT4TVqrqgyIBHUFsq9wa5ib6s+8cYBYV/3X0rHCSiiTEV8BYn0M6gIsC0xkg2br+Kb+a
+	 8nwB1asuCT2PFAhSXIs0DSN/uwe2QRh3DpCQum4WCkxSI8v9SjChUefI3HgjkjzWhIuDV
+	 SlcQcyTU6FGXTcrIkdSJIy54kqIu2k/8z45dj8wHyUz4wyAUu9P5Akm0Mi9LY8fU9A+tL
+	 8ykCxfyvWX1nXxYcWZRxDnc1KRXCHABPAZP5HdTLx5sLClpC83rPH1IBmr76X9uWJCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793611499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793611513;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oMtMzNhNHZh8/goL8TNHFzkhOp6wv718swehnopLCng=;
-	b=ZBuaRNdTSm8tk/ykUCEqDZ32FfmMuijkWwJ6Y9932lC0IerqiAVOCy6X+/YN79Y9/SEf
-	 oqKuGjjGkBLMN1CJHSSwcoKmxbMuxIfz/le3AGVA0aDvgvdyK6cgxmomnt3eZYAffM/J/
-	 ujSj65ikQSsfyMDl3UmODEA/bJ5St51yhHMFyI/xet1qO6pbarOXQHTmA6a0MK2QmQFmh
-	 xIFDKOu+rG7mMrP9pYnhTMAkhIoiAbvMYqoRrgqe1+imCJJ9O2yGeu1sZRrsMe6mqRkVa
-	 AKSf/SkBV1gVPiyv0aVP/SyjINqumDlYNT6EAvK9vocUwP/587SaisFqO2FwiO8AxjA==
+	bh=sQmszYsiU1aH4zaNe/s9tHOhAixVwmjm3hciCk+1aLg=;
+	b=yqNcJEsseldwCO3ywUfSERZfVH/uyH7SyeAm0qvwVl81YsqpjoOinvdxyL3BoY6YkGlH
+	 ArVeRXsMVdzrku7LsS88ZjRJJ9swWOCR2PH3XQU3JJiHY9KJs2c4r/eSp8IrYX1C4C07C
+	 qm8vHdJZMjWJXbqN6MlgIOUxNVycoXvgUVkUwJ9jsibR8NcoKCoabt/DCOhCQbLdhhhO6
+	 +e43WMZJuVbCfGgCT27ORLnxx4aqSofpGgW9WivOk8LL5DujooekdNq+s3/nfesCwK3Gg
+	 Kxjp0WXFaAyqCj4wujadZuauy1aycnB2X2IOyeHGsnm9CRP9hwo4G6aEm1B1B7tZpBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvwxdFyO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPLMAb0N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF92606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:24:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6261F606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:25:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvwxdFyO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61C21F00A15
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:24:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPLMAb0N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401D51F00A15
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 09:25:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793611498;
-	bh=oMtMzNhNHZh8/goL8TNHFzkhOp6wv718swehnopLCng=;
+	s=k20260515; t=1793611513;
+	bh=sQmszYsiU1aH4zaNe/s9tHOhAixVwmjm3hciCk+1aLg=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kvwxdFyO0HXMFeGT0iQgIaXEFLeqzRxWYhlxg/cLRyd1j4Urey+IB3pi2vxOZLw9P
-	 ABj9uooAFvFw1TXTfBkjKN9V4s6z/hFtJDJTlekjfW1tSG7as2NAfVGKJMQeeH7Ksr
-	 inUNl/RoGQ39sNdFThAULDLpXGm24no7740pnHb1FFXniI4xEY27zelM1Cw2/FAM9T
-	 sTYoainuR3SPgHVxKEF7x94/b3yLIF7YAOGTIrh/Jy26rd6PBvirEzIJRt3TR8MUkk
-	 mg3C0RjbL0Mb0WLBvN4basNBOj+FNaoUDwaUk1g8TIFj+9ZrfYaHKpBGCDXNVhrLsT
-	 3zmc8oDCgcaZw==
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b4f7d3cd98so1688605a12.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 01:24:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByEGFVZ2cSb5Do8o9IbXpx+LL4omhLJCR6J/ep1LVc3hi1f5jmcH/V+Ss1AcL9vtaVTNwDsKmQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJVOLNEY5sV8kLrYOlQvqkAF0kCIv27PRS9EmcguLgvRs4UPHO
-	z9F8UlWeQ46w0LCqy13rJFixsCTnuFO4+OE7hFCvwDAVJq2uO7uHxxnmHOTvblxsGaXz3Cu4J44
-	2VrMz0S40U7ZaLQmoQvrdElhVYXY0jOE=
-X-Received: by 2002:a17:907:9485:b0:c3f:dce3:20d5 with SMTP id
- a640c23a62f3a-c4ca7a41304mr777835866b.22.1793611497501; Mon, 02 Nov 2026
- 01:24:57 -0800 (PST)
+	b=SPLMAb0NvBbOFBUdM/6Zni0FVowpO/PF6vu1PZBPI1f/TzZU2eCbsNKPybVG19hf/
+	 4PtwU3h8QcMSH3BNAsdUJCh3v09ZyJ0eLPhACdNcPVLcxk6GR1YbBfJMjp46IJ3F9E
+	 3d8R++T1W9v3pedygE7yq1gMcslvZLM+BvJdLHTVvchE+oMx7ucsOmEFe6qBzuj65w
+	 GJp5/TXC7W2kpzV7FuPTSeDgaBqBrLfy0cvYMivjhEakreTy0G2VQ8f5bgfZWVdFci
+	 dAkdF5O8ltpz7OXvuUiE8MB87VnQTKG/2Dz4AaYeKBlB1Wp943aOay3XfAXgdjbowA
+	 1G2t5Erl+Dksg==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso309199166b.3
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 01:25:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzYf3MUiSfUOxq0oIOqxbrjA5fPRaj2cBpNZdhtlH114mxhHWj2ALj2H/b1HBMqnD6lwGYb/k4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLEmyi0EABDfJhwOgyj361+mbF76LcyPNgf+bC9sg6fWMeqBQZT
+	Jn8xeujn/ijCOaNnLpLw748R6b64gn3AsFd15Sv7A0Ms1o7nRH3rD5dzjZaZJmmByFZIpR/JFve
+	JQQa93VsuFiKfYAIY7qiCoMYF+633UO0=
+X-Received: by 2002:a17:906:99ca:b0:c41:53a9:c65c with SMTP id
+ a640c23a62f3a-c4ca7a9ecc8mr749164566b.34.1793611511940; Mon, 02 Nov 2026
+ 01:25:11 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,15 +59,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102050915.816373-1-icb@fastmail.org>
-In-Reply-To: <20261102050915.816373-1-icb@fastmail.org>
+References: <20261102051428.817037-1-icb@fastmail.org>
+In-Reply-To: <20261102051428.817037-1-icb@fastmail.org>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 2 Nov 2026 18:24:44 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8MsohzNcYF41R2+xdJ0rguuy3rRHFbJV+kwTX6ERTuCQ@mail.gmail.com>
-X-Gm-Features: AclHuK-MApDjs-MN4JdE4srSXyMSRjTHCFp7gFx9jom8YoDqHu5Q7KgyHGUtiRE
-Message-ID: <CAKYAXd8MsohzNcYF41R2+xdJ0rguuy3rRHFbJV+kwTX6ERTuCQ@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: do not read past the DACL in the access denied
- debug message
+Date: Mon, 2 Nov 2026 18:25:00 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8RJGv-KmuRnJtbF0Y2rBikj3JfW5f6ss-bKU5JihsBWg@mail.gmail.com>
+X-Gm-Features: AclHuK-EqfaD1FSUon1FCnGqHCPYw4AXak4Fb9tDIjzrIOt-u_mb-5HU_Qy_ces
+Message-ID: <CAKYAXd8RJGv-KmuRnJtbF0Y2rBikj3JfW5f6ss-bKU5JihsBWg@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: grant a POSIX ACL group entry only to the group's members
 To: Ian Bridges <icb@fastmail.org>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
 	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
@@ -75,21 +74,22 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 2:10=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrote=
+On Mon, Nov 2, 2026 at 2:14=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrote=
 :
 >
-> When smb_check_perm_dacl() falls back to the POSIX ACL and then denies
-> the request, its debug message prints the access mask of the ACE that
-> the second DACL walk stopped at. On that path the walk ran to the end
-> of the DACL, so the pointer is one past the last ACE. If the DACL is
-> the last part of the stored security descriptor, the message reads 4
-> bytes past the buffer, and KASAN reports a slab-out-of-bounds read in
-> smb_check_perm_dacl().
+> When no ACE of the DACL matches the caller, Everyone or Authenticated
+> Users, smb_check_perm_dacl() falls back to the file's POSIX ACL. It
+> takes the first ACL_USER or ACL_GROUP entry whose id equals the
+> caller's uid. For ACL_GROUP, this compares a gid with the caller's uid.
+> A numerical match grants the group's permissions even when the caller
+> is not a member.
 >
-> Print the requested and allowed masks instead. They are what the check
-> compares.
+> Match a group entry only when the caller is also in the group.
 >
 > Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Reported-by: Namjae Jeon <linkinjeon@kernel.org>
+> Closes: https://lore.kernel.org/linux-cifs/CAKYAXd93czbFD=3DznZUq_pJLXzDR=
+5N3zc_auvAGWT7pzKR1f9Ag@mail.gmail.com/
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Ian Bridges <icb@fastmail.org>
 Applied it to #ksmbd-for-next.
