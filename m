@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634153;
-	b=o9e2iCbCH26vMCPIOha6cmJohzda9EJOlPAxMTmyTS1Yrdw1QSI1XSJAHgS3KvkTln0i
-	 GKwzHW0qoQNJT9gG7akWlLxduI86oS6ekcjoxA7ZvR+P4iuHBFNUYHJhX3Ix8WzHMZPUw
-	 Bdc82JJ3Zm6lIMT96Dwx1B5vDgQ/XavJ2hyLcfdDJprl6N2yavPXocdp383G0Fb6CMsud
-	 JHuoFI5oFwbCCYO/bcV3pVAUCtoFYm1bWmAfRzh8aJGDslZ/ibZ2woaxoKHf/TRE4l+/o
-	 T/ThR8blSidJkJUg3mzd1lkIItKLhCPHi519iYRv/TX2qcuS3nTa8doaH0sg4s42p6g==
+	t=1793634155;
+	b=uWfFqPdw7+qVKGDaHok+j+XsbGVpAOsQ6/KSSGsHxJ5C0K9hRo5zS/nZh1oamp8kZsJL
+	 +BnAt9+FOHvyd9s7KfZEzcC5p6vOQs7Jnw2XoPhqP43FPtJoVW9B+etpdyN2iGGbKeW5A
+	 g2nesRFuZEK5jnJHivTLUmm/9MEDg3nwciu4/gIN7kmYtrRj5nKHjNrKf7NN8ccBrt24f
+	 PGalZB84XFCd6i1OAG4wOkUSQkSFWii304LrSrJdPj1li9sBeG45VLduqLoevHGeeKJpG
+	 JMUiDjrx+a4D/3/+o+1n2B0/pdYdp0PeiPjJnySWXsSXLf9q86lUL3q6LccbNKGr9Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634153;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634155;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XjSmh+d5IwEcuDsBBtJRv27tO5e3qhB6zrPegdKN9fk=;
-	b=CAx+5QLAWGg2pzP4Ap+vqY6QC+6x0ySUf/SlirHMsG0ls2x8fyCoTepwCp7JVuaT3d2i
-	 H36xDe2oknIWl/068SeW7R9wCW7g7sSj/3WsgncKrnsABmp4AD4Wdxz4J/lS6msH27Ue1
-	 Jh7yKiRbz9mYXiqiCgE+Ucv4uj90YaHpIUGUn401jr5mQpzx4xQn1mvS6HOMauvYrxIkY
-	 8pnj1iQY9ByFCifx4/TVhKWe3hCuXflKyq2x4+kwcx7j6qkJdIDj4A2xqwLsfw4Zzvmtg
-	 S37ZbnRpVFwXIaMFLEr2RkWVdBwYvQLAMsh1iFxLh+kutJa55ts/xvIvI9AsrM8ZiKA==
+	bh=q2sB6LK7JBem8Wc9iovY0h+gbudzawzx57EtdbyfsBc=;
+	b=33NKxalkzX/7Pv0+Y6eJGJrgC1QexjHnYZQkSMpVHbTp7uQY/BODskYmp+sWWsyQF5LW
+	 SjMZ9Mudp/aLLTq3oXQcESdmDTHEvOTYg+Xlqn+E5oDgA4gJD3qmOzRzZpYR0oOeljD13
+	 UN3Bfc1Sx+e7IKueT6I3l6DKHdwD1jnSGR7LrTmD0Nop7AjFC/XK7F9Por9wZjahJl1OU
+	 BGoHNt+gEpka+cQxh8BHXN8lOLbJ1MXDRO7QPzvd9PxYOzT9Q1E7rALnNGpVU0+oVooDC
+	 v78SxHiGVTalU+bygsoAGD9v/+bpPMj3eIcj8POQ7oLAFk6S69cqwiK15pCNDIPGzBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BX08x75f;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X+HUWnu6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D41E6076735
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:42:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47C86076735
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BX08x75f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A4E1F00A16;
-	Mon,  2 Nov 2026 15:42:32 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X+HUWnu6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F2C91F00A1C;
+	Mon,  2 Nov 2026 15:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793634153;
-	bh=XjSmh+d5IwEcuDsBBtJRv27tO5e3qhB6zrPegdKN9fk=;
+	s=korg; t=1793634154;
+	bh=q2sB6LK7JBem8Wc9iovY0h+gbudzawzx57EtdbyfsBc=;
 	h=Subject:To:Cc:From:Date;
-	b=BX08x75fk5cPUErpwslAdIa3zCAwXGDwwhGEb8Ay1D6sz7D+O/lxbuMSqCNK54RQ1
-	 2N/fC/iDrV5OXxx3Kem1uBgFe08sS5EY0za1DsAoU255u2Ja5jFaRgSmFz0EFNx6It
-	 Wcq4iNzZKbrjmh1Y+kvRrrsaQfD+E9wsSLG2ooxY=
-Subject: FAILED: patch "[PATCH] ocfs2/dlm: drain join handlers before releasing module text" failed to apply to 5.15-stable tree
+	b=X+HUWnu624wSrlEzYh9PefRUY1BW9iWODViHTx7nMc6BL65hklM3LBL5yv516m2Lz
+	 Qbm7M5P7MjyXD2fZp5Ra6ddzgG3rUevlwadngRU5pXbBRCxG6hFHekQ9m6dFKkC0MY
+	 BMD0StcPqSdGvgCII6J7rd6QUEr+fP1zTsU04/Ok=
+Subject: FAILED: patch "[PATCH] ocfs2/dlm: drain join handlers before releasing module text" failed to apply to 5.10-stable tree
 To: zzzccc427@gmail.com,akpm@linux-foundation.org,baijiaju1990@gmail.com,heming.zhao@suse.com,jjzuming@gmail.com,jlbec@evilplan.org,joseph.qi@linux.alibaba.com,mark@fasheh.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:38:25 +0100
-Message-ID: <2026110225-gaming-concerned-8063@gregkh>
+Date: Mon, 02 Nov 2026 16:38:26 +0100
+Message-ID: <2026110226-singular-frayed-fe6b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 28f366d84023651e50e32e29931401ba0df3e679
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110225-gaming-concerned-8063@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110226-singular-frayed-fe6b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
