@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643376;
-	b=fSQFUMatMJ10FGLs3H5TpD3JMgK0uy6z+Cl/16+ncGxqHoDVm1ytY4yzFZS8YZBTAYoB
-	 WPrlrAlkC9FpzSqa4HgoJFjkgwjWD9QmUAZthbq/b6dQA5zVuW8rAVq22CDfGFEE8k65w
-	 luVSlJ4uK/SkVJPdh9SYxJnpid4e8NCNE2AcjnhNQv95xVviS0i5Xl5+zoW2bBp+iD4Vs
-	 8xIV2nn5bJk4K5VnBZt6Y6GGz7/OHYhZDDEqS8rrnPeQOhYr7wVijuj/sMZHJThdKgpsb
-	 S2qncQ0M6N+mKPN0OIHKi/IPHn8wgFdnqJy0KXOANG0CvLyZLQG9TE9KoITeZZKsBFQ==
+	t=1793643379;
+	b=pGRc6iumJK+1cE8Cim6U7eH/fyqQkRd+wWApPJgeIzRtWCHUt06PWWZdluKiXGt07qJ6
+	 HbJlMkbQ+nCxaG2h7t3YlTeA0zzNXVdgR5l0eQ2q8E60kFtiGlngHyDPOgT7QSUMNc7qt
+	 BKb2u+xpBFQB6+CL8ZyWklHDVG3XJzMH8S2mGKfxVCyMXDSLyeiCDusy+25hyDn7+B1jT
+	 63BBj2TenAzZNQ6oMliV8G4tJrkLQ2K3QrD6OK9PIg/NsSoOiX7gQvxvuO6AVtRgxLu44
+	 pM301YAhOch/BKhsBhBqrW5EvSW0obOq2d+TNktWGp8pkpkjJ/XJl6ZXz/fHoopdeoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643376;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643379;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Debian-User;
-	bh=b+TfbLHD2FzEidJAvDzmQCBeADHzUQDWO+Z2tMvQd9U=;
-	b=0JCg0iEjYYzTZWmV8OGruULnxLSEu74SjEz1WfC7vIZwfMrniypWFCCZEbSeVL2hKH30
-	 1hYulZAFwUPioqniLRn9msHHxIkh023dCpEstbjm3sRmiHJRcoI09/n9oUjIonbf7qQwG
-	 K9OiDHC8cUEHWg6W88zPj01v4cQ6GJzaHK7L9yi7SWzm1yp4yMe2XvuJzHl8ap87QuQ4q
-	 mO2xCLDUGEmNicsqJFc6UdrfWY6gUu1TI7UXmrWHDr3yO2hkCVHtDiFaqxwog9s0VIb4q
-	 Sjrte/g9m/bqLRPDu52/Yeh+0KSMiL9OViOmzNRORl/1QdgjftKs4XYeuS7y7gvwKjg==
+	bh=MZr4xK/e/kskw1+dwAzoYK22bsgBPbQ+0u7SWNx43YY=;
+	b=PZvNTSKQNXM4ZHgfVSLmjHtoy4R+U/tdJovSAh1EqFjpuWpIKBjzCCZt1GXVYo7nZt1X
+	 s9phjfs/w0HdllsFwHHnM45R+NHMMuo5uNwXx7B4BUa7rQX6UY5RxbVluQhRz88Obk8Px
+	 YaJphfuDPbSzLsdiSxVcRkgZ1y1CBiq536e1amz/42VnglDIzBWp0b9IzKHr7XLmWkvgv
+	 mORv1LZu8nXqtGUl9Si3fxL+tGVls3hQdgzYrtCGrjQK3Q/xYPKcnflF3PDgeyPn3hgac
+	 N2c3TvJiSqifBNGh969jdoOWPLsD5wvMnKTSH2kqar6+C+H1qzUtTYYVP0I7rIpSAAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=debian.org;
 	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SfjrBu5l;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=TFybXUFj;
 	arc=none smtp.remote-ip=82.195.75.108
 Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F76606A324;
-	Mon,  2 Nov 2026 18:16:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88F76606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7648B606A336;
+	Mon,  2 Nov 2026 18:16:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7648B606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SfjrBu5l
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=TFybXUFj
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
-	Content-Description:In-Reply-To:References;
-	bh=b+TfbLHD2FzEidJAvDzmQCBeADHzUQDWO+Z2tMvQd9U=; b=SfjrBu5lgBaE3RkJQlfwFPRXMr
-	kErMj54JoE1GzleQoVJM4OeMZaG1YwEzL+0hdVljIDLsAwe6ovAlyoEd5UM9A2lXuBA+73qahrEXr
-	AJTp/r8DAWUP3lx3bOYgdopQ7EnAs0Mnxjifqo4lLIe/cnk1n+WvL6oVzgR/Y5ZQ81XKhMyw0e1rm
-	hQdriZbp3Qht5GFQELTtLht91Mxe+kWwkCin8aJP8/5lQekxCcaDDWbOxSP0xWTe10HLDP/lCP6Rw
-	1Yy+04ReVSjoFQai3Es2KIUtLl+NPHDNN1gekoafblxjp32G4oBw1Qkn50aNqhXbAF9+qqNyARHwJ
-	XnqcQ4Ag==;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=MZr4xK/e/kskw1+dwAzoYK22bsgBPbQ+0u7SWNx43YY=; b=TFybXUFjsa9shueXvUXz6KiP/C
+	iZL3hlLAHdQB/9jVV8yvARO+BcBtzUa37hrTt0ZyCDToEcX2SipB+HcilkpKJ/nBe73Sqfw3+eMK1
+	WKFyWCkh0Minh52LuiF5Szn6A4C9pg5kArF8LG21k/9f+3rny36TmB9FM8IYpWJ4/NVPpWpKrTKqo
+	QWjImC9W0RjVXW/l/FvQSyosrvTYjPgwu8Q7KcNeA3MmBX3NDAWEKmTMl3Nx+QZSLh8IiLFovXQDs
+	EuU9Pgrw4TuI9RQqqi4ePTIJrvdsZDy+wTYuYUCMYC2FI6AlJtw62eUXjYVfbAmNarAqci767EF/I
+	WmR08dKQ==;
 Received: from authenticated-user
 	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
 	(Exim 4.96)
 	(envelope-from <leitao@debian.org>)
-	id 1xNwZn-006L4r-1X;
-	Mon, 02 Nov 2026 18:16:11 +0000
+	id 1xNwZs-006L4x-1D;
+	Mon, 02 Nov 2026 18:16:16 +0000
 From: Breno Leitao <leitao@debian.org>
-Subject: [PATCH 0/2] panic: flush unsafe consoles before reboot and kdump
-Date: Mon, 02 Nov 2026 10:14:53 -0800
-Message-Id: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
+Date: Mon, 02 Nov 2026 10:14:54 -0800
+Subject: [PATCH 1/2] printk: nbcon: Flush unsafe consoles from printk() in
+ panic
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +65,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACLT6GoC/x3MYQqDMAwG0KuE77eFGkFnryIipaYzIFUaHAPx7
- oO9A7wbJlXFEOhGlY+aHgWB2oaQtlje4nRFILDnvvWdd2csmparWMyy5P2yzfU8dmPixC8Z0BD
- OKlm//3San+cH7op+CWQAAAA=
-X-Change-ID: 20261030-panic_unsafe_flush-62939c2c28e7
+Message-Id: <20261102-panic_unsafe_flush-v1-1-12d1e22fd6d8@debian.org>
+References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
+In-Reply-To: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
 To: Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
  Kiryl Shutsemau <kas@kernel.org>
 Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev, 
@@ -76,70 +75,152 @@ Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev,
  brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>, 
  kernel-team@meta.com, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2148; i=leitao@debian.org;
- h=from:subject:message-id; bh=WWR0J519IWUZiYslN8ZtMKOOzmprzyXwOlc4FKv8qM0=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6NNlZnasAivhSouNFr7lBcw+ninAdxy+KQglm
- tn2i/6xk4+JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaujTZQAKCRA1o5Of/Hh3
- bQ5oEACI05PBCsiojZxwztkJKfwaKRsCKaEfSfG83Cum4zp5erGSTgjpXLkMp/4Se5FlRQUcicZ
- LD+1y6CGZLRBeFMZz56rNGVsWCgMnt2VfetdBinhQUOZsUmsC+uwmcNmJBlKgbbTUeIO/xexKgl
- G97rvJG38ionirt8onPkdZ8u2jUO6iZFyZdHnzeeEH2UsD0nBSI94+gvhE5qo3+3UMK34P+FD1h
- OKMSfHmIUXqSwGS0+3CE4+06xq5w/5mC3MlMTMlDHNZK4xA3hYtxkBKesFzBwVdIxqVHi4QwGGl
- wCvbQwqQWZA/KGG4lE5YzQxLpMzbvpOEq1WMeF1xYn9kRBgqbsWnwr1QOU17pv3cCrDnsUdIni8
- NgEORaNGHLLydZW8T+giFaNtRHUz1ztlrdrtvXoLlB4AcMvM8j1R14rpMzr99y35vXAZyyvKzyp
- eRBtRRDor0OZb246t/o8sVWheUh6VYYpdzzwvoGqb15ZHEIQMfE3hS1iAM1ygDHvX0LZLhve0u3
- atTomm1cOP8QCZaVF9YhEUGM/qfq82IP/1H00JPdLgpb5invPicy5oyMbIeybZ0rAQLi4nqwYKI
- 9lLG+R60TuDOKpJb/am3DZL5hXRgVIunJE+89Rte6rDiO6YuWsZAHzfJCj1e5y1sX0Eoc48rfU8
- QWue3GSvRlhfZ+g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5349; i=leitao@debian.org;
+ h=from:subject:message-id; bh=XjqI9zhy44n+3HVWcHa7tpd01JvINrslG4W6DjZMhQc=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6NNl77PaGuThSezE1CeFvFl8hRNLW+BT3KYk7
+ hxf15nZ62OJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaujTZQAKCRA1o5Of/Hh3
+ bSL0D/0ZPJZJbHZIht2uadrAlsYz0xTT5pVl6qEmbfx6pDZiewp594jS8TK50UVnKlGUohnwemD
+ Of1occ2BAxjIc3XUxuT6w0+msKxrIsxOU1x7A9fxYk/Hga9DI6h2XM8fcKzuLrCM+MXT2e76OTt
+ gCPBIrE3d7mfFM5tsalw/RHWhM1QfU7k2+VsC3niktFub9uIRrpAnUtPi3Li/nr2fOVskAQlXGu
+ j84lHGBhllexwv4xN0XTtTKQCFqRfOpihTKhHTGrvO1HKcuhpksp046CIMqphmvCcuxlTXD9BS1
+ mdTjcQrphsvdT5VWpEqFINgZWK6DcaHOGuM/uuUEjJRe7O3z4tJhJ+Emy0Hqcl+V8JfCOWMV7GM
+ 4xlY0bvGJ24Ru+Csye8l8SUa7ZPKuHxB66fPG52CeGxsgBo3TzA3qmldTM4cdsag3p3Tpv0H+dJ
+ pw4P3yui1Ay2ScSmcdRTNL/VOyR3kNadOFe+G7QMVtCcuGBk+l4dAbYgq0eKB7SZdURt6h20Aiq
+ M0IDsEFvAzGCd6iKzHgkgvbtsZwDAeLBHH4w9cBlQ3hLr3Rs6Eq5gGmPQFCmTVfVmk0Zyk1ujEW
+ cbSAaei270skEk44Pf+E4BNHhrg627B/QYoztQ032io7ifgXoWTgYgvgi2AMG4JGNjaDeHXXzKG
+ jhzGqSSLXePmXBQ==
 X-Developer-Key: i=leitao@debian.org; a=openpgp;
  fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
 X-Debian-User: leitao
 
-Since netconsole moved to NBCON, its messages are lost when the
-machine reboots after a panic or boots a crash kernel. netconsole is
-a CON_NBCON_ATOMIC_UNSAFE console, and those are only flushed at the
-very end of panic(), after both.
+netconsole registers with CON_NBCON_ATOMIC_UNSAFE since commit
+7eab73b18630 ("netconsole: convert to NBCON console infrastructure"), so
+its write_atomic() only runs from nbcon_atomic_flush_unsafe(). vpanic()
+calls that right before its final busy loop, after emergency_restart()
+and after __crash_kexec().
 
-Ryan reported this [1], and the fix is based on Petr's suggestions
-[2][3]. Patch 1 flushes the unsafe consoles from printk() on the
-panic CPU. Patch 2 also flushes them in __crash_kexec(), for an oops
-that goes straight to kdump: on x86 that path prints nothing once the
-CPU has become the panic CPU.
+A panic that reboots (panic_timeout != 0) or boots a crash kernel
+therefore never reaches the netconsole target. Before the conversion,
+netconsole was a legacy console and printk() wrote each panic message to
+it as it was printed.
 
-Tested on x86 with netconsole sending to a receiver: panic reboot,
-kdump from sysrq and kdump from an oops all deliver the report, and
-the crash kernel boots. Under virtme-ng that is 21 of 21 runs,
-against 0 of 21 without the series. On a bare-metal host each case
-was run once, and an unpatched kernel delivered nothing in all
-three. arm64 is untested.
+Flush the unsafe consoles from nbcon_atomic_flush_pending() as well,
+right after the safe ones, when it runs on the panic CPU with
+oops_in_progress set. Every printk() on the panic CPU then reaches
+netconsole again, "Rebooting in" included.
 
-One case is left open. A printk() inside machine_crash_shutdown()
-now also reaches netconsole. On x86 that only happens on errors, but
-on a TDX guest tdx_kexec_finish() can pr_err() after it has unmapped
-the shared memory a virtio-net netconsole uses. Stopping the printk()
-flush once __crash_kexec() has flushed would close it, but would also
-drop "Starting crashdump kernel..." and "Bye!" from netconsole on
-arm64.
+An unsafe write_atomic() that hangs now stops the panic CPU at the first
+message, before the other consoles print the rest and before the reboot
+or the crash kernel. Getting the messages out is worth that.
 
-[1] https://lore.kernel.org/all/20260915100140.3631650-1-ryan.roberts@arm.com/
-[2] https://lore.kernel.org/all/auNaD8LELWok3LOF@pathway/
-[3] https://lore.kernel.org/all/auhl3cdwrHt4Vw7U@pathway/
-
+Fixes: 187de7c212e5 ("printk: nbcon: Allow unsafe write_atomic() for panic")
+Reported-by: Ryan Roberts <ryan.roberts@arm.com>
+Closes: https://lore.kernel.org/all/20260915100140.3631650-1-ryan.roberts@arm.com/
+Suggested-by: Petr Mladek <pmladek@suse.com>
+Cc: stable@vger.kernel.org
 Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-Breno Leitao (2):
-      printk: nbcon: Flush unsafe consoles from printk() in panic
-      crash: Flush unsafe consoles before machine_crash_shutdown()
-
  include/linux/console.h |  7 ++++---
- include/linux/printk.h  |  5 +++++
- kernel/crash_core.c     |  1 +
- kernel/printk/nbcon.c   | 38 ++++++++++++++++++++++++++++++++------
- 4 files changed, 42 insertions(+), 9 deletions(-)
----
-base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-change-id: 20261030-panic_unsafe_flush-62939c2c28e7
+ kernel/printk/nbcon.c   | 24 ++++++++++++++++++------
+ 2 files changed, 22 insertions(+), 9 deletions(-)
 
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
+diff --git a/include/linux/console.h b/include/linux/console.h
+index cb8be9ea4a767b..934fe72978b0e5 100644
+--- a/include/linux/console.h
++++ b/include/linux/console.h
+@@ -183,7 +183,8 @@ static inline void con_debug_leave(void) { }
+  * @CON_NBCON:		Console can operate outside of the legacy style console_lock
+  *			constraints.
+  * @CON_NBCON_ATOMIC_UNSAFE: The write_atomic() callback is not safe and is
+- *			therefore only used by nbcon_atomic_flush_unsafe().
++ *			therefore only used in panic, when unsafe takeovers
++ *			are allowed.
+  */
+ enum cons_flags {
+ 	CON_PRINTBUFFER		= BIT(0),
+@@ -246,8 +247,8 @@ static_assert(sizeof(struct nbcon_state) <= sizeof(int));
+  * @NBCON_PRIO_MAX:		The number of priority levels
+  *
+  * A higher priority context can takeover the console when it is
+- * in the safe state. The final attempt to flush consoles in panic()
+- * can be allowed to do so even in an unsafe state (Hope and pray).
++ * in the safe state. The panic CPU can be allowed to do so even in
++ * an unsafe state (Hope and pray).
+  */
+ enum nbcon_prio {
+ 	NBCON_PRIO_NONE = 0,
+diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
+index 5f8afaca886650..19fa9f79cac3cb 100644
+--- a/kernel/printk/nbcon.c
++++ b/kernel/printk/nbcon.c
+@@ -84,8 +84,8 @@
+  *        b) Gives up console ownership by clearing the 'prio' field.
+  *
+  *   3) Unsafe hostile takeover allows to take over the lock even when the
+- *      console is an unsafe state. It is used only in panic() by the final
+- *      attempt to flush consoles in a try and hope mode.
++ *      console is an unsafe state. It is used only on the panic CPU, in a
++ *      try and hope mode.
+  *
+  *      Note that separate record buffers are used in panic(). As a result,
+  *      the messages can be read and formatted without any risk even after
+@@ -543,7 +543,7 @@ static int nbcon_context_try_acquire_handover(struct nbcon_context *ctxt,
+  * Acquire the console even in the unsafe state.
+  *
+  * It can be permitted by setting the 'allow_unsafe_takeover' field only
+- * by the final attempt to flush messages in panic().
++ * on the panic CPU.
+  *
+  * Return:	0 on success. -EPERM when not allowed by the context.
+  */
+@@ -1653,8 +1653,9 @@ static void nbcon_atomic_flush_pending_con(struct console *con, u64 stop_seq)
+  * __nbcon_atomic_flush_pending - Flush all nbcon consoles using their
+  *					write_atomic() callback
+  * @stop_seq:			Flush up until this record
++ * @unsafe_only:		Flush only the CON_NBCON_ATOMIC_UNSAFE consoles
+  */
+-static void __nbcon_atomic_flush_pending(u64 stop_seq)
++static void __nbcon_atomic_flush_pending(u64 stop_seq, bool unsafe_only)
+ {
+ 	struct console *con;
+ 	int cookie;
+@@ -1666,6 +1667,9 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
+ 		if (!(flags & CON_NBCON))
+ 			continue;
+ 
++		if (unsafe_only && !(flags & CON_NBCON_ATOMIC_UNSAFE))
++			continue;
++
+ 		if (!console_is_usable(con, flags, true))
+ 			continue;
+ 
+@@ -1688,7 +1692,15 @@ static void __nbcon_atomic_flush_pending(u64 stop_seq)
+  */
+ void nbcon_atomic_flush_pending(void)
+ {
+-	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
++	u64 stop_seq = prb_next_reserve_seq(prb);
++
++	__nbcon_atomic_flush_pending(stop_seq, false);
++
++	if (panic_on_this_cpu() && oops_in_progress) {
++		panic_nbcon_allow_unsafe_takeover = true;
++		__nbcon_atomic_flush_pending(stop_seq, true);
++		panic_nbcon_allow_unsafe_takeover = false;
++	}
+ }
+ 
+ /**
+@@ -1701,7 +1713,7 @@ void nbcon_atomic_flush_pending(void)
+ void nbcon_atomic_flush_unsafe(void)
+ {
+ 	panic_nbcon_allow_unsafe_takeover = true;
+-	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb));
++	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), false);
+ 	panic_nbcon_allow_unsafe_takeover = false;
+ }
+ 
+
+-- 
+2.53.0-Meta
 
