@@ -1,66 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613147;
-	b=ljo0Yag96jeFrtigak+fvxFQKJw3RzSjstH6QXPjQaxACxGt/W2siz7hv0Lk+u/SfcWU
-	 igQYUGbvV7mVQ7lmiqWbBOYoy0jrnTpgevIq28J+re2F+y/j9DWxDVRELo0rvjK63bm3+
-	 ahrHIXnSblcr0z17XDUV9vTX9lXptIxsam6Nrg+BHF/GUfp6dFanktwEJxyHvwf5qL+Yi
-	 owEpcXHUdNA7vZQb7wTD5Gq6Lk4epC4BbNbNl38S3t0grgmGVvT9DzYH2Y08rG1oGQZ32
-	 gaCTAHVvqIrqu8mWygDBiDsRn38PU0HrkU7a9ORvyJ2CW1M9u8doieZqKjDETQZ20hQ==
+	t=1793613170;
+	b=Zfze3TWPmP50jlUrGWbstGhDUyst4MXD6e+dwuiSQH6bG/U/bBeoZQ+fT32z8jqTWzkh
+	 fYSCw6Jqx4UFyGT/jcuTvy0My8tKI1MucVLCBdxXwTsn6yJxQ/npr7FXo7LLy9HZuMq0Q
+	 XzoZDMqR/iEJb8o3psF2OuU58B/Q8PPbX34ToD0r5thoMlc4+E1rjqpMvikhaniVse2Oh
+	 mW5zHPe4NjQvMPfcSwkTmr8qqHl3/jATTBnHCr0TF8W510V3Nit/N/kE2SJsZ5jYBsWoy
+	 vu/lJPN/ZNeu20XRfypefC3j2Ygeg+bl5hlm1cDyX76T1VxUmCIDaSRy8TmddJHsdtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613147;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0J0BmS8+dLS8Lnfxixm46w2lRSFsoL6zql/BE+pRkys=;
-	b=nUDYbSzWxy4HD81yhjRm7XzqtEl1Ru0hQ/qFaEpXB5NEYN5qcEJdjMq3avtYVk2NwQT8
-	 52ojbtq5giQHJCV/5kP4hsdpEMX59UjiCBXDoS37DMUjUiB/89tOFLfDXDy7BnInH2b9+
-	 IisDfhi8cPLyCmlugISf2RawZQp3A9OFL5qWJ3BuehmG4pt1G8cS5Pcr/O7izYpMwCGrV
-	 ny4zEXoS4QpcH3u8KaOLj/hkiPL0ySk3v1i/IQjwiiYrpljZ6Kp757oUm5M43qGDsYQw7
-	 k1U0z/IctAfhAhECLU63Wtmqk8fMmjC3oVerjGnyuHbBGgwUUK4ZaNY2ZxLdp9t9wWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613170;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=FkYS1w9u0+LaOyzLJRCPz6vwu0WtFSRe65AtlLC83O0=;
+	b=u5sjqemOm1vjOrHPxZSXiqMNlum1TyHCv1Pb+73zUi00qVjpqU89fEQE0xVJQMWjBMfL
+	 MK4FzS2+KTzkXrRweE55chcN2KIa4FJF8PLTq1oK4Gj7p2KZ1JW1Tu3y7QO5N23G4yyBc
+	 8RtOWqxdWZmtf/LbNhq2tbYWlrQnttJG6MdWYc87eJnSZAVNnJpG5W6A4ta65MIrft5TC
+	 z7O/w4UJcpDnqyD72hF0Xx4utwUueF78KSHOQFFfKknVCle1t0PDahPXBYKnNLB4soR0k
+	 9zMET4K14H7ufYIHwjIL0p14wfOQlb8rC5Cksqu44CrydxfDpV0Lt+hAaGZc/olD0VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBzi8KrU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UYznJyHn;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F6C606A329;
-	Mon,  2 Nov 2026 09:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92607606A324;
+	Mon,  2 Nov 2026 09:52:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92607606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBzi8KrU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF2F31F000C1;
-	Mon,  2 Nov 2026 09:52:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793613146;
-	bh=0J0BmS8+dLS8Lnfxixm46w2lRSFsoL6zql/BE+pRkys=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fBzi8KrUITMMy/FxZ//4IX3xaa7J4BrBosrQDqYydu5b3QpyBV7XxvUVgYG2jH1kM
-	 vdkb8jj1+YPi1tX4nep3zJIWBXYu562KFQpFWBXDQB5yn7RZbwFbPLSgcjVrpJuBIn
-	 bu3snGE6mWq0oQOHlVwfbpUaKGj7CksNuW8S4ql0b+E8T1xO7cYrUldJPpIvE5q3Bi
-	 E6l0KO/EeUHDNsAokeSzu6nEi0iETqU1q8l410eOMLHIZz0qP1Q1AImeCXojDk4Ghs
-	 TRfVKR1ZXEtz4UsP8nlAdKDVUQIBJXHpzsFh/xLGUrij5yWqGnjOOmsyzubjjy6pq7
-	 lnOjSSuVRIlxA==
-Subject: Re: [PATCH net v2] bpf: Fix skb_pull() BUG in __bpf_redirect_neigh()
-From: netdev-bot+sashiko@kernel.org
-To: jhs@mojatatu.com
-Cc: netdev@vger.kernel.org, edumazet@kernel.org, bpf@vger.kernel.org,
- bot+bpf-ci@kernel.org, daniel@iogearbox.net, ast@kernel.org,
- dsahern@gmail.com, kafai@fb.com, martin.lau@linux.dev,
- john.fastabend@gmail.com, sdf@fomichev.me, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- jiri@resnulli.us, victor@mojatatu.com, linux-kselftest@vger.kernel.org,
- shuah@kernel.org, stable@vger.kernel.org
-Date: Mon, 02 Nov 2026 09:52:24 +0000
-Message-ID: <179361314430.3131.5109011406127069679@kernel.org>
-In-Reply-To:
- <bpf_redirect_neigh_short_linear.v2.r0.20261028080316-1@mojatatu.com>
-References:
- <bpf_redirect_neigh_short_linear.v2.r0.20261028080316-1@mojatatu.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UYznJyHn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793613158;
+	bh=Nob264xXleauE6t2oflw9XoRF0JlXcR5+ar1pZlg5BE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=UYznJyHn/zFvt2KtUaAUPEQC1+ySyA9x6wTP3UYa+PSY/Xm/k+s9lkD6Ha5r7stv5
+	 f2MpK8SAx3JZouGY6TEeABhUA2+LGjnbwMGljpOkB8W0SoXseAYYmywswJXbOcYE1F
+	 da03Kk98PpSLkpd1cBk3EQ6os5KJEci3BPbiEINcvVRkBWrO/Ys2Jzmr7RUfIoMols
+	 lUTCUc4/AjdwW6zNUYZoG6dJL/46TZe2IZd1vZFgN2rNXvq677wlqjeL2Ir2xQNYzu
+	 0Ud+KeGf9vVwi6SSTbx2w6CHHakVW6Xv5Z0NO6HxnVrc3CHPpGUkzpj9RW9aTAg1tn
+	 YtF7Rx/GXnSTA==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 0BBB4250C8;
+	Mon,  2 Nov 2026 12:52:38 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon,  2 Nov 2026 12:52:32 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.31.164])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJ6Sb3Xfyz2s2s;
+	Mon, 02 Nov 2026 12:52:31 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] mtd: core: call _get_device() with the master MTD
+Date: Mon,  2 Nov 2026 12:52:12 +0300
+Message-ID: <20261102095213.104-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,255 +85,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {diag_burst_silent}, {date_rfc_vio_soft_silent}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207172 [Nov 02 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/02 08:04:00 #28779785
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-Critical: 0 · High: 0 (1) · Medium: 1 (1) · Low: 1
+commit 12b31d1acd20b3185bb5f0748db0cf6874c8e9d1 upstream.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+__get_mtd_device() calls the master's _get_device() callback with mtd,
+which may be a partition. __put_mtd_device() passes the master.
 
-- [Medium] The new netns_load_egress_bpf() calls inside
-  test_tc_redirect_neigh() leave the test thread in the test runner's…
-- [Low] No selftest runs the new rejection branch in
-  __bpf_redirect_neigh() (skb_mac_header_len(skb) < ETH_HLEN ||…
+This breaks gluebi partitions because gluebi_get_device() uses
+container_of() and therefore requires the master MTD. Pass the master
+to _get_device(), matching _put_device().
 
-Pre-existing issues:
-- [High] The patch closes the ETH_HLEN pull BUG only in
-  __bpf_redirect_neigh().
-- [Medium] __bpf_redirect_neigh() now linearizes only ETH_HLEN bytes,
-  then does skb_pull(ETH_HLEN) and skb_reset_network_header(), and…
+Fixes: 46b5889cc2c5 ("mtd: implement proper partition handling")
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ mdmitrichenko: Keep the existing try_module_get()/module_put() error
+  path. 5.10 predates commit 79c4a5625021 ("mtd: call external _get and
+  _put in right order"). ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-98833
 
---
+ drivers/mtd/mtdcore.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-bpf: Fix skb_pull() BUG in __bpf_redirect_neigh()
-
-This commit hardens __bpf_redirect_neigh() before it reads and pulls the
-Ethernet header. The MAC header length (network_header - mac_header) must
-now be at least ETH_HLEN, and pskb_may_pull() must make the header linear.
-It also adds tc egress coverage to the tc_redirect_neigh selftest.
-
-Link: https://lore.kernel.org/all/2a0f5ff1d8db81b07fc4b344b8e68e3505fcbf36f72a471d1678b2f1cecd881b@mail.kernel.org/
-Link: https://lore.kernel.org/netdev/20261027082604.1485903-1-edumazet@kernel.org/
-
-> diff --git a/net/core/filter.c b/net/core/filter.c
-> index 70dc621672f2e..4925f3e355d46 100644
-> --- a/net/core/filter.c
-> +++ b/net/core/filter.c
-> @@ -2432,10 +2432,14 @@ static int __bpf_redirect_neigh_v4(struct sk_buff *skb, struct net_device *dev,
->  static int __bpf_redirect_neigh(struct sk_buff *skb, struct net_device *dev,
->  				struct bpf_nh_params *nh)
->  {
-> -	struct ethhdr *ethh = eth_hdr(skb);
-> +	struct ethhdr *ethh;
->  
->  	if (unlikely(skb->mac_header >= skb->network_header))
->  		goto out;
-> +	if (unlikely(skb_mac_header_len(skb) < ETH_HLEN ||
-> +		     !pskb_may_pull(skb, ETH_HLEN)))
-> +		goto out;
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Still,
-the skb from the commit message's own reproducer looks like it can BUG
-through the sibling redirect paths. Is that expected?
-
-After vlan pop_eth and bpf_skb_change_head(skb, 1, 0) on the nonlinear
-AF_PACKET skb, len is 8193, data_len is 8192, and one L2 byte is linear.
-__bpf_redirect_common() only checks:
-
-net/core/filter.c:__bpf_redirect_common() {
-    ...
-	if (unlikely(skb->mac_header >= skb->network_header || skb->len == 0)) {
-    ...
-}
-
-so the 1-byte MAC header gets through there. With BPF_F_INGRESS:
-
-bpf_redirect(BPF_F_INGRESS)
-  __bpf_rx_skb()
-    dev_forward_skb_nomtu()
-      __dev_forward_skb2()
-        eth_type_trans()
-          eth_skb_pull_mac()
-            skb_pull_inline(skb, ETH_HLEN)
-              __skb_pull() -> BUG()
-
-Without BPF_F_INGRESS the path is:
-
-__bpf_tx_skb()
-  dev_queue_xmit(lo)
-    loopback_xmit()
-      eth_type_trans()
-
-veth goes through __dev_forward_skb() and ends the same way.
-bpf_clone_redirect() takes the same __bpf_redirect() path. On lo, a plain
-TC_ACT_OK instead of bpf_redirect_neigh() also reaches
-loopback_xmit()->eth_type_trans().
-
-In each case the 14 <= 8193 length check passes. __skb_pull() then leaves
-len at 8179, which is below data_len (8192), and hits BUG().
-
-The commit message calls this a follow-up to Eric's short link-layer
-header fixes. This tree has no pskb_may_pull() in eth_type_trans() or
-eth_skb_pull_mac(), and bpf_skb_change_head() still accepts a header
-shorter than ETH_HLEN.
-
-Should one of those two places be hardened as well? Otherwise stable
-backporters may assume this change fully closes the reproducer.
-
-> +	ethh = eth_hdr(skb);
->  	bpf_push_mac_rcsum(skb);
->  	if (is_multicast_ether_addr(ethh->h_dest))
->  		goto out;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but only ETH_HLEN bytes are
-made linear here. After skb_pull(skb, sizeof(*ethh)) and
-skb_reset_network_header(), can the L3 header sit entirely in frags?
-
-__bpf_redirect_neigh_v4() reads the header directly from skb->data:
-
-net/core/filter.c:__bpf_redirect_neigh_v4() {
-	const struct iphdr *ip4h = ip_hdr(skb);
-    ...
-			.flowi4_dscp  = ip4h_dscp(ip4h),
-			.flowi4_oif   = dev->ifindex,
-			.flowi4_proto = ip4h->protocol,
-			.daddr	      = ip4h->daddr,
-			.saddr	      = ip4h->saddr,
-    ...
-}
-
-__bpf_redirect_neigh_v6() does the same with ipv6_hdr(skb) for flowinfo,
-nexthdr, saddr and daddr. When the route has no gateway,
-bpf_out_neigh_v4()->ip_neigh_for_gw() reads ip_hdr(skb)->daddr again.
-
-Take an AF_PACKET SOCK_RAW frame where prepad + len >= PAGE_SIZE.
-packet_snd() and packet_alloc_skb() make only hard_header_len (14) bytes
-linear. The frame passes both new checks, and skb_pull(14) leaves
-skb_headlen() == 0.
-
-Wouldn't the 20 or 40 byte L3 reads then come from past skb->tail, from
-the tailroom or skb_shared_info? Those bytes would become the flowi4 or
-flowi6 keys and drive the neighbour lookup. No pop_eth or change_head is
-needed, just bpf_redirect_neigh() on such a packet.
-
-Would a pskb_may_pull() of sizeof(struct iphdr) or sizeof(struct ipv6hdr)
-before calling the v4/v6 helpers be appropriate?
-
-> diff --git a/tools/testing/selftests/bpf/prog_tests/tc_redirect.c b/tools/testing/selftests/bpf/prog_tests/tc_redirect.c
-> index af8968b89ad7c..829f84fb64a30 100644
-> --- a/tools/testing/selftests/bpf/prog_tests/tc_redirect.c
-> +++ b/tools/testing/selftests/bpf/prog_tests/tc_redirect.c
-> @@ -407,6 +407,26 @@ static int netns_load_bpf(const struct bpf_program *src_prog,
->  	return -1;
->  }
->  
-> +static int netns_load_egress_bpf(const struct bpf_program *prog,
-> +				 const char *ns, int ifindex)
-> +{
-> +	LIBBPF_OPTS(bpf_tc_hook, qdisc);
-> +	struct nstoken *nstoken;
-> +	int err;
-> +
-> +	nstoken = open_netns(ns);
-> +	if (!ASSERT_OK_PTR(nstoken, "setns egress"))
-> +		return -1;
-> +
-> +	QDISC_CLSACT_CREATE(&qdisc, ifindex);
-> +	XGRESS_FILTER_ADD(&qdisc, BPF_TC_EGRESS, prog, 0);
-> +	close_netns(nstoken);
-> +	return 0;
-
-[ ... ]
-
-> @@ -1055,6 +1075,12 @@ static void test_tc_redirect_neigh(struct netns_setup_result *setup_result)
->  			   skel->progs.tc_chk, setup_result))
->  		goto done;
->  
-> +	if (netns_load_egress_bpf(skel->progs.tc_egress, NS_SRC,
-> +				  setup_result->ifindex_src) ||
-> +	    netns_load_egress_bpf(skel->progs.tc_egress, NS_DST,
-> +				  setup_result->ifindex_dst))
-> +		goto done;
-> +
->  	if (!ASSERT_OK(set_forwarding(false), "disable forwarding"))
->  		goto done;
-
-[Severity: Medium]
-Is the test thread still in NS_FWD when set_forwarding(false) runs here?
-
-test_tc_redirect() runs the tests in a separate pthread. open_netns()
-saves the original namespace with:
-
-tools/testing/selftests/bpf/network_helpers.c:open_netns() {
-    ...
-	token->orig_netns_fd = open("/proc/self/ns/net", O_RDONLY);
-    ...
-}
-
-/proc/self resolves to the thread-group leader. So the saved fd points to
-the runner's root netns, not NS_FWD, which the worker entered at the top
-of test_tc_redirect_neigh().
-
-The close_netns() calls in netns_load_egress_bpf() therefore setns() the
-worker back into the root netns. set_forwarding(false) then writes the
-ipv4 and ipv6 forwarding sysctls, and those resolve through
-current->nsproxy->net_ns.
-
-Would this turn off forwarding in the host namespace and leave NS_FWD
-unchanged? Nothing restores the setting afterwards. The test would also no
-longer check redirect_neigh with forwarding disabled in NS_FWD.
-
-test_tc_redirect_peer_ing() already has the same pattern via
-netns_attach_nk(). Any of these would avoid it:
-
-- attach the egress programs before entering NS_FWD
-- re-enter NS_FWD before calling set_forwarding()
-- have open_netns() save /proc/thread-self/ns/net
-
-> diff --git a/tools/testing/selftests/bpf/progs/test_tc_neigh.c b/tools/testing/selftests/bpf/progs/test_tc_neigh.c
-> index de15155f2609f..e0b6c14a3935e 100644
-> --- a/tools/testing/selftests/bpf/progs/test_tc_neigh.c
-> +++ b/tools/testing/selftests/bpf/progs/test_tc_neigh.c
-> @@ -133,4 +133,14 @@ int tc_src(struct __sk_buff *skb)
->  	return bpf_redirect_neigh(IFINDEX_DST, NULL, 0, 0);
->  }
->  
-> +SEC("tc")
-> +int tc_egress(struct __sk_buff *skb)
-> +{
-> +	if (skb->mark)
-> +		return TC_ACT_OK;
-> +
-> +	skb->mark = 1;
-> +	return bpf_redirect_neigh(skb->ifindex, NULL, 0, 0);
-> +}
-
-[Severity: Low]
-This isn't a bug, but does any packet in this test reach the new rejection
-branch in __bpf_redirect_neigh()?
-
-This program sees ordinary locally generated TCP/ICMP packets at veth
-egress. __dev_queue_xmit() has already reset mac_header there, so
-skb_mac_header_len() is 14 and the header is linear. These packets pass
-both the old and the new checks, so removing the new check would go
-unnoticed.
-
-tc_redirect_neigh is also registered only for veth:
-
-	RUN_TEST(tc_redirect_neigh, MODE_VETH);
-
-so the netkit case mentioned in the changelog is not exercised.
-
-Would a negative test be worth adding? For example,
-bpf_skb_change_head(skb, 1, 0) on a nonlinear skb followed by
-bpf_redirect_neigh(), expecting a drop.
-
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index b2d88ff90e93..d960d4ed2e5b 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -990,7 +990,7 @@ int __get_mtd_device(struct mtd_info *mtd)
+ 		return -ENODEV;
+ 
+ 	if (master->_get_device) {
+-		err = master->_get_device(mtd);
++		err = master->_get_device(master);
+ 
+ 		if (err) {
+ 			module_put(master->owner);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/bpf_redirect_neigh_short_linear.v2.r0.20261028080316-1%40mojatatu.com
+2.43.0
+
