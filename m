@@ -1,100 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627976;
-	b=YG1+l2tq6+mzMoThOx45LDD4JsU6+TjVylwq8jFxtYzWYXe7xTufsOrHYmOJMJV5FSyt
-	 osWwtR6dyEs06i8q/MbRDrBqL/veARX46jFImNc3b+nOVOmZpAVXKQyFW4sfBHhnclCVU
-	 VZx3Dfwhju+YiH008GOoA1Jo2yPD1vC+FLBu0eskTb3RJ/FUfU+MT2uPJkZ/QadweoFr6
-	 7QWv03inY/BhNn4ij5NF/FI/ZP/h2rWGTBHkCERf32T5+R+A+6OgKIoCnB1z20BHsrBV/
-	 +6OtJ0gGekNMRdLvbcuB3QJpLfbg2nMRaIexVvkBHnKB0a4ABGO9ARk8264/CP0lJbg==
+	t=1793628028;
+	b=A+t79mEI8v9jthhAuClVgdQTV4Zp0sgp4wUmGGCKUCa5qPEpvAA+qOukdNkAiwb+qISa
+	 /wjxP4Lmvr479XT5ddL9qETg7xzpoMwMN6zcIEyY6KoQSKoKPgGYDbL5uRHNEH7u9k1V5
+	 EY3bc47NXmBAmwFtFsw5I02O1Dd7gan5aTZGB/dWUON14ILklEtVfw0WfuGVAe97NuMnG
+	 Mbbm5TqJvn9XmctTGjkwhulgTyjPD8gPkvwnlaAPuATx5O2Zaiz9T3tEeV9+cvm1kBBPL
+	 Z7l+GVf+dIDt/2DN1KWrVxc6qtaQu6JhgsFFibSCVmBwRR4VRx93ySty3yVapo3lauA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627976;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=JDW3C0JG9F+VgV3yAEYWd1Rq691qrVYJKPbnw+u7tgM=;
-	b=P34NcJMK9/kxbYHbdYPB08QI39ATG6jn62Q/e5gtjiMlwoyPB0qIhqsYWGDWl8GLRT0L
-	 WL5MUTVnqJw70qhDaWUs/Ic57if7hG/f8UmM2tWS6xFJsU0j4ZtcoN6ywEMtrWWoh+X41
-	 s8o9tA85vr/VJqjPdbfHyorYvEu3IfxCFzsS7bf962lAYN1B7D7sBq1r40LsW/xGylzUO
-	 Q4j/ndivw3C125TtCTo0RNfFVBBpc0KjCyIdJeyX6fXixzKfIdyyxJVJ54GbGJ37imJaW
-	 NG3PTnb0aARoQkHlomnRB1SlQjr+xrMw8lu2+9VH9G+21SXbcwzIRujojVtvn2wzR8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628028;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=2pMvQgzqKW4JHpA5fJ7fTyK99AJQvYuqkYywOmupdlI=;
+	b=WwHgrCI8PeloCe891rRuVMUitYiOOLUMFnLVCZmu54fyujt25HEFxWa3GdGk1AC0lplj
+	 Xe5Xd5WCvAAyHKxWFRY/GzEi+8pDH7LF+8ziA1cFzX8VXxXCsrcldO3oULvMTlxddP9ay
+	 2Ou7sOHunkqIMZ03j03A+Tr28TteNYYLsnXV9fh4lqshb7DDnscfrfJiZEG32HWNi0vvP
+	 Z4TjBM9+F/Wems44D849gVDG2W91/fLBdKYrvVG2XXKucHgZyAC2RK/FBIpLwZeggVKIY
+	 rgh0Xp/hVzdixmoCfjRswWRBoR4Sv03xQ0ApBc0xiF9rs6BXTcuvjDUU0kwGp8hw7SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kXFr0qft;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QzSZVLpB;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D101460A3817
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:59:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D101460A3817
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CCE606A32F;
+	Mon,  2 Nov 2026 14:00:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CCE606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kXFr0qft
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48df54150dfso1404236f8f.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 05:59:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793627974; x=1794232774; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JDW3C0JG9F+VgV3yAEYWd1Rq691qrVYJKPbnw+u7tgM=;
-        b=kXFr0qftq8TpaDfhB3HDXokLdzchLcJzDmVA0zhPPblEpo3JTgmFsJpojcN/BHrZ9G
-         3WSwIF35i6AoJfSUkrD4ytMa754Sf8B8AwAXG+pw/q71WkBYxqL+SyCAu2gpTx38JadK
-         +Gla5T9a5vJdXM7PYhInRx6R1gZK9IwsKw9XVzamXU+XL67sKpja0v4JCaf1VYVMbsJN
-         YOiUvDokYHkWF1Lsm21gaeoFrw4wSeBcF5hvw2DJot6QwqBFf7xUaDuLrGCE4J/4Y4S2
-         +Qm6qYH545glnEsHbBm/1v7TsObieZnz+0OfrMW7O56D5pFbNSxQzi2/n5DoFIDix8Op
-         rC7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627974; x=1794232774;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JDW3C0JG9F+VgV3yAEYWd1Rq691qrVYJKPbnw+u7tgM=;
-        b=uR3sIujkPaQI2+/vGTX6bHNGrGctXxPAaRyUqoxWiBb7LDbJ5MH9V5qRzFJZ01h6EM
-         weAXJ2aIi483vwwWfztgxGVqVhO49xR3FoRiFvru/p9H1MTUl4FtvehfKZekMw41mM20
-         +ZB9wgUqZWEWT9znl8DDqOKzro1Jo5CKeYHn/d5rWdOoZxa5rlaFcnoby4uVUNSjRLPZ
-         EmCzmxpXGBa1DdfiHU9m57wxcNxs+NVgFzj1cL2iRLtxB6/eWPbPXo2CNRwqBziXYBWJ
-         7keYNqZi5Jejah4q+TsgkY/Y4mnJrAhQxIR8I/aYX++X49Xc/Y52AZySUdfkBN3xQSeC
-         /1XA==
-X-Forwarded-Encrypted: i=1; AKwUvBzupL8AVQdY+3iB2dTVGiCqu7nAZ2dWlmgEG6Ou9hLkG7xjGqMoQ1uzgp72LBovFVqgCkW0B/o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICPZhXbwLXEPBsPpUcfgUWF8I6vBS7+lfpMRsGCeqU98cy/Gtw
-	BT/yG8vUBL6grntLD/WTERffEKyoqsfodrNSlNfEH/v/uo/W/ds8NDw=
-X-Gm-Gg: AYBFou3kr3PGLHirLGJcGoeNzgkpW7YwVe8X/VE1f/kQWkD3KPJFt9UgMQlMuFzmaMJ
-	BQ8eMwIwfrQ6ml/UiV2M5eoDf0jhNoDzPLcJP/peu2EI6GO6gtlFs8o1WILp+x62Yhi75YnSwOn
-	QhUvFXTzJpF2oEt6D7Trl/kgFCusOHv+mNEXRa+iRESzrlX8DQu0xenxy6/ST1aYxJafE3LCbcW
-	HWe96fjgelqiPZER6i6EN6CfVzdqRaAMhxNZMb/gc2rbTh4LLiz9J5ma4c+a90WspuYGyuU0LST
-	ZRLCaDa0EaikHe2o7wWWb7R5tjUsHpqVcXqzpm6dYgUKZVQ/gnYupfMjvoNBIp+PEtHbb7Vj6bY
-	KXnJ/H90I8JHjFItu/ihOYvUr7tAQoftDrQvNNZnSX0xOgEhlxvbJE6AtfFben8L5HYhJ+QdKEq
-	As0hY2r9dkziBhUPbIvldeNNPHb5zoeHnTehJWpMVWjlRzmD/fwn1tEluCka9uEqHTguPRhysca
-	n8SYLxtGMiqxyucn2tvLw3PixycER4GO8IukrC63aBrrF5+4OTHg1WA/kf7QlPVdVwCbEtcQvPB
-	/sr/Dxg6K/U=
-X-Received: by 2002:a05:600c:3d05:b0:4a1:faa1:3813 with SMTP id 5b1f17b1804b1-4ac187a6960mr231274955e9.27.1793627974216;
-        Mon, 02 Nov 2026 05:59:34 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm352680265e9.12.2026.11.02.05.59.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:59:33 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: briannorris@chromium.org,
-	francesco@dolcini.it
-Cc: bzhao@marvell.com,
-	akarwar@marvell.com,
-	linville@tuxdriver.com,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QzSZVLpB
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=2pMvQgzqKW4JHpA5fJ7fTyK99AJQvYuqkYywOmupdlI=; b=QzSZVLpBZ+yBBFUabsSXv7RsM3
+	lC1XiEmly6EqfPxp77xnAF9C7vRLCMkcYwJZdX8cDftwTetzlIw8HTV3VPR9xsTRXzjEMO8prDBp5
+	U3E14cQTmztTvFGei7hyNLSYGAuVrbPgeQvJKZMsrpMVKq2JZiCx84JpBRf28fcEVlYs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xNsa3-00Dnuc-14; Mon, 02 Nov 2026 15:00:11 +0100
+Date: Mon, 2 Nov 2026 15:00:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kalpesh Solanki <skalpesh942@gmail.com>
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH wireless 2/2] wifi: mwifiex: validate command response size against buffer length
-Date: Mon,  2 Nov 2026 13:59:30 +0000
-Message-ID: <20261102135930.701845-3-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102135930.701845-1-tristan@talencesecurity.com>
-References: <20261102135930.701845-1-tristan@talencesecurity.com>
+	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: nl-mac: validate device pointers before
+ dereference
+Message-ID: <3eba5c55-e1ec-4301-ae09-a3982090d8b0@lunn.ch>
+References: <20261101092219.1278751-1-skalpesh942@gmail.com>
+ <20261102024721.28129-1-skalpesh942@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,49 +68,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102024721.28129-1-skalpesh942@gmail.com>
 
-mwifiex_process_cmdresp() reads the firmware-provided resp->size field
-and passes it to individual command handlers that use it to determine
-how much data to process, but never validates it against the actual
-response buffer length. A firmware response with an inflated size
-field causes subsequent handlers to read past the buffer.
+On Mon, Nov 02, 2026 at 08:17:21AM +0530, Kalpesh Solanki wrote:
+> On Mon, Nov 02, 2026 at 01:13:xx +0100, Andrew Lunn wrote:
+> > Did you consider the other fix? Is there a use case for setting a TUN
+> > interface to ARPHRD_IEEE802154? If not, maybe return EOPNOTSUPP, or
+> > EINVAL?
+> > 
+> > Andrew
+> 
+> Hi Andrew,
+> 
+> Thanks for reviewing and raising this point!
+> 
+> Regarding whether there is a use case for setting a TUN interface to
+> ARPHRD_IEEE802154:
+> In real hardware/subsystem usage, virtual 802.15.4 interfaces are typically
+> handled via mac802154_hwsim or fakelb (which properly allocate wpan_phy and
+> dev->ieee802154_ptr), rather than raw TUN. However, tun.c explicitly recognizes
+> ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR in tun_get_addr_len():
+> 
+> 	case ARPHRD_IEEE802154:
+> 	case ARPHRD_IEEE802154_MONITOR:
+> 		return IEEE802154_EXTENDED_ADDR_LEN;
 
-Add a check early in command response processing that validates the
-declared response size fits within the response skb.
+I looked at the history. Those two were added along with a bunch of
+other ARPHRD_ values. There is nothing i could see to indicate
+IEEE802154 was a deliberate choice. So i think you need the IEEE802154
+Maintainers to comment on if this is useful or not.
 
-Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/net/wireless/marvell/mwifiex/cmdevt.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+> 1. Subsystem robustness / Defense-in-depth:
+>    ieee802154_llsec_dump_table(), ieee802154_dump_iface(), and
+>    ieee802154_nl_get_dev() assumed that any netdevice in the namespace
+>    with dev->type == ARPHRD_IEEE802154 has valid ieee802154_ptr and
+>    mlme_ops. When that assumption fails, it triggers a NULL dereference
+>    while holding genl_mutex, leaving the mutex permanently locked and
+>    deadlocking generic netlink system-wide for unprivileged users.
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/cmdevt.c b/drivers/net/wireless/marvell/mwifiex/cmdevt.c
-index 6e04d7da62179..f59b53c2e7b5f 100644
---- a/drivers/net/wireless/marvell/mwifiex/cmdevt.c
-+++ b/drivers/net/wireless/marvell/mwifiex/cmdevt.c
-@@ -821,6 +821,20 @@ int mwifiex_process_cmdresp(struct mwifiex_adapter *adapter)
- 	orig_cmdresp_no = le16_to_cpu(resp->command);
- 	cmdresp_no = (orig_cmdresp_no & HostCmd_CMD_ID_MASK);
- 
-+	if (le16_to_cpu(resp->size) > adapter->curr_cmd->resp_skb->len) {
-+		mwifiex_dbg(adapter, ERROR,
-+			    "CMD_RESP: resp size %u exceeds buffer %u\n",
-+			    le16_to_cpu(resp->size),
-+			    adapter->curr_cmd->resp_skb->len);
-+		if (adapter->curr_cmd->wait_q_enabled)
-+			adapter->cmd_wait_q.status = -1;
-+		mwifiex_recycle_cmd_node(adapter, adapter->curr_cmd);
-+		spin_lock_bh(&adapter->mwifiex_cmd_lock);
-+		adapter->curr_cmd = NULL;
-+		spin_unlock_bh(&adapter->mwifiex_cmd_lock);
-+		return -1;
-+	}
-+
- 	if (adapter->curr_cmd->cmd_no != cmdresp_no) {
- 		mwifiex_dbg(adapter, ERROR,
- 			    "cmdresp error: cmd=0x%x cmd_resp=0x%x\n",
--- 
-2.47.3
+Which is good. An Opps with a splat makes it clear there is a bug. If
+anybody cares, it will get reported and fixed.
 
+Subsystem robustness / Defense-in-depth generally results in bugs
+being hidden, rather than exposed.
+
+The fact ieee802154 has ieee802154_ptr and the code unconditionally
+accesses it suggests it is actually needed. So the commit message in
+your change needs to argue why TUN is special and does not need
+it. The commit message is all about "Why?". Why did you decided to fix
+it this way, rather than some other way.
+
+Is the correct fix to actually set ieee802154_ptr to something?
+
+>    Other parts of the ieee802154 subsystem already make this defensive check:
+>    - net/ieee802154/6lowpan/core.c (lowpan_newlink):
+>        if (wdev->type != ARPHRD_IEEE802154 || !wdev->ieee802154_ptr)
+>    - net/ieee802154/socket.c:
+>        if (dev->type == ARPHRD_IEEE802154 && dev->ieee802154_ptr && ...)
+> 
+>    Guarding nl-mac.c ensures the IEEE 802.15.4 netlink handlers are safe
+>    regardless of how an ARPHRD_IEEE802154 device was created or modified.
+
+Now look at the history of this. Does the commit message adding this
+code suggest why these checks are there?
+
+I also wondered if IEEE802154 is special? struct net_device has:
+
+#if IS_ENABLED(CONFIG_VLAN_8021Q)
+        struct vlan_info __rcu  *vlan_info;
+#endif
+#if IS_ENABLED(CONFIG_NET_DSA)
+        struct dsa_port         *dsa_ptr;
+#endif
+#if IS_ENABLED(CONFIG_TIPC)
+        struct tipc_bearer __rcu *tipc_ptr;
+#endif
+#if IS_ENABLED(CONFIG_CFG80211)
+        struct wireless_dev     *ieee80211_ptr;
+#endif
+#if IS_ENABLED(CONFIG_IEEE802154) || IS_ENABLED(CONFIG_6LOWPAN)
+        struct wpan_dev         *ieee802154_ptr;
+#endif
+#if IS_ENABLED(CONFIG_MPLS_ROUTING)
+        struct mpls_dev __rcu   *mpls_ptr;
+#endif
+#if IS_ENABLED(CONFIG_MCTP)
+        struct mctp_dev __rcu   *mctp_ptr;
+#endif
+#if IS_ENABLED(CONFIG_INET_PSP)
+        struct psp_dev __rcu    *psp_dev;
+#endif
+
+Did you look at all of these? Can any of them cause issues in the same
+way as ieee802154_ptr?
+
+Something you learn after a while. If you find a bug, look around and
+see if the same bug exists close by, because it often does.
+
+	Andrew
