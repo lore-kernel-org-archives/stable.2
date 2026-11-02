@@ -1,73 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.165.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614390;
-	b=MLrhl5p7aj6NE8SbSYoiNzaymxK97W/KvXmVAjK6AJ6t2lc+Lxf1tg8W/ip8mLApSSZv
-	 u05ZppopDRHfr7K7iE5yCESIo9bUi3ome5cWewVbAnqJIcrAJV6z+oclMfvVNaBOApfyr
-	 7duqsogvb/uEYy4R/pWXgDR+yFfmeWLcn50vgm4nsTKEuWfiSRN1phm1SX43KokX3dyQr
-	 gXeu3phUJ/pYdcUMFYEcbanynK2oHZTfFhZSt1IeLCTSAPG+pCQ59wco0tJQSSXp9gUJG
-	 S0mmdQBIm1yOEcCHiOBV5xbyMzefNgjpyeGwHGomcUs3w/fHNuSydbhO6A3jZOed+IQ==
+	t=1793614395;
+	b=R4xJcpt7oS26Yw0nB3t1+aYdvJQGfNE3+DZGlXEkL9F/XOgjB5YhfKReRMo9ZmuRu7oX
+	 YlMbEkwoHR/esNgbtmbww0Rl4WFCQsyXNIzFXWR6TdsCBhgik8dGEtCvLH1CyH9HYYGiC
+	 4/o/9SvsZP7ElBLkVwf6RMR4aoCDsVhUg/VdoALeCaI4BXdvLylGU8TUkNCvEPNGYiKP1
+	 dJ9YKUN042e8gc13fJ5C062cIOF4GdrYvLmjzORcxA2zsgRVHE9kSGvvRdK83VjWCvCB2
+	 E9hTuehzWRnxiHDsdJjJF7s+8DnQvK3tkaUit2PI072VLaEev+8jtHPok2u9gSUjEzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614395;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info;
-	bh=WaWeQql9T1CR583EusQmkcGv4tOsFtrdG/YxEXx1uio=;
-	b=rOSR+kYqUTRu5Kq0Em1cvGong7Q541sMjJ3s6fjgKvoGsGvipoLIVt8JCLqSZvu3oG1S
-	 U8xk/zhtodytZV+5ic4L2nGN/ycdBDMgToTJgpr9NrBCvOxW7/HmvtANeFWTEs64Oowet
-	 +lk7j5DioG0IOujrR/hR3Q3jyMHbW1DB1L+u3n6qDDX9sRHsEBMWWbQrDa8LIrRjSrmfd
-	 V9bOx5rbBrMldNhyGHjcbBkKB4AaFOCUTTY50xDyDffBeln46aquwt/Fxd0FfY7C9o7In
-	 XIPTwmRS5embJN1nXzwcCv7S27OCkpbBXExIQOoFltSIKlnU6Zh63+iclnzeU310ZBQ==
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID;
+	bh=zN6YwKVtu2ZSj2TAF+9YvL7ESUe8jc5tV+72NfoEBqQ=;
+	b=nHdcPesD+sjv6mFCj6SRj5WOxyVuksGX1mmUYeZPbQPH5VtZl1KOj5THyjFWcXolp82d
+	 omE87lf0HXqb6YzJACYMOQ5B1Rn+mIJ3AFnlsiDMM8qe3a+dxoN4VKFbINpFY1Lz1Qjk/
+	 hz32jyf91fSx9GPipOMUMx8MtX5/p/YzTGxxTKPf6AaBBaHjowxS5R8GrWxGBIa0ocF99
+	 dRC4Y+1RT2fp+k2QoR/zZxyKwwp/eu3nh32Cps0qGi1YVff4nSr2VftX4j4PpZdQhuQ1q
+	 1waGJWtqjRK77v6n0nhAmm1xNnkqdbfNXMbV3vz0DmxkL/XiMUBDhiy2m5/Qkmfrfmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oracle.com;
 	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b="PY/g0WxC";
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=itCJIy4W;
 	arc=none smtp.remote-ip=205.220.165.32
 Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BAA60A2624
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6BAA60A2624
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C9C606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80C9C606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=PY/g0WxC
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1Nt2sk1181321;
-	Mon, 2 Nov 2026 10:13:04 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=itCJIy4W
+Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20lEAE1939749;
+	Mon, 2 Nov 2026 10:12:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=WaWeQ
-	ql9T1CR583EusQmkcGv4tOsFtrdG/YxEXx1uio=; b=PY/g0WxCgBGoU2trP5SYV
-	VmEFRhp6HT8Eh1IhqBF6sYKRrIekEmU/utlbyCuZD1W4FEXkxEgpyuZ66ZcakEZH
-	QD2IDHW90S+lr6PRjDLruR4jiyu6BYcxz6jjQ9wOVtccZd57YO/yhbd7XEl2Ob8d
-	jQSkN3ucZmr3rZ23M72dHXgEx2yy6Cb00qZ5ASZO6NkCPHLtU7T+wm1l6g5yUpR4
-	JjOT0OJZmcNcWmY52q1WIeqtpLNaEtV5clMPe+CgcZtihRC3Gakq88l2+lyq/yZD
-	tFN1TYPjf1BJSBSKFcXvN+5mOVY7GbDXtZdtqvoVNow9JU5Gk8OPVUcW7VT5saAf
-	w==
+	:mime-version:references:subject:to; s=corp-2025-04-25; bh=zN6Yw
+	KVtu2ZSj2TAF+9YvL7ESUe8jc5tV+72NfoEBqQ=; b=itCJIy4Wmlpr5+GlcgLf3
+	r3aJB2C8hOLWgTQYVvTdcy3wJKZQng3BwgeGpt3xZHBgCdsdx4hujrP3/9rJpTsu
+	4u3cuzZJyXnPt8r4/or0iLUBjZNfmSgo2FgtFcr9QFeJVmF5Elb61W31SaiLMeVs
+	Sb2viA0zohgffvQ9LfKxtafIhFBF5aVVxu2wov8IOr4CaApDKKUaaXxsbJdHBvTZ
+	WUmtRaz7p61WKOj7U2xKcT4AcyElWsCDjovjvEW27tTaVO2+BlfCXElP9nZqd2n2
+	ps19acHCOD6JFGHf9YTDDTjn4LMpJ+AQo8vHvylME5NJCTAi8mU4WcqMaQFKdrwb
+	Q==
 Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn876hk7x-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn78a9m7r-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 02 Nov 2026 10:13:03 +0000 (GMT)
+	Mon, 02 Nov 2026 10:12:55 +0000 (GMT)
 Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29CqjN2995687;
-	Mon, 2 Nov 2026 10:13:03 GMT
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29CqOe2995668;
+	Mon, 2 Nov 2026 10:12:55 GMT
 Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfja56j-7;
-	Mon, 02 Nov 2026 10:13:03 +0000 (GMT)
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4hpqfja56j-3;
+	Mon, 02 Nov 2026 10:12:54 +0000 (GMT)
 From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 To: stable@vger.kernel.org
-Cc: Qing Luo <luoqing@kylinos.cn>, Xin Long <lucien.xin@gmail.com>,
-        Jakub Kicinski <kuba@kernel.org>,
-        Harshvardhan Jha <harshvardhan.j.jha@oracle.com>,
+Cc: Inseo An <y0un9sa@gmail.com>, Florian Westphal <fw@strlen.de>,
+        Anand Khoje <anand.a.khoje@oracle.com>,
         Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: [PATCH 5.15.y 06/11] sctp: auth: discard auth_chunk when skb_clone fails
-Date: Mon,  2 Nov 2026 02:12:34 -0800
-Message-ID: <20261102101239.1557688-7-harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 5.15.y 02/11] netfilter: nf_tables: fix use-after-free in nf_tables_addchain()
+Date: Mon,  2 Nov 2026 02:12:30 -0800
+Message-ID: <20261102101239.1557688-3-harshit.m.mogalapalli@oracle.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
 References: <20261102101239.1557688-1-harshit.m.mogalapalli@oracle.com>
@@ -89,81 +88,78 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
  mlxscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 adultscore=0
  bulkscore=0 malwarescore=0 mlxlogscore=999 classifier=spam adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020040
-X-Proofpoint-GUID: qFnAIWVQNxiYfdzEMf0Bqibb_ONqoS4r
-X-Proofpoint-ORIG-GUID: qFnAIWVQNxiYfdzEMf0Bqibb_ONqoS4r
-X-Authority-Analysis: v=2.4 cv=JJauIMKb c=1 sm=1 tr=0 ts=6ae86230 b=1 cx=c_pps
+X-Proofpoint-GUID: uoTFvwD02QoFNEEuXoIe9gj-MAbfkO36
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfXxD5o6ITvyrNh
+ dr82dgj9n3pEEMZBohFzbn/jDaYWnundtH4QV6isMTI0rccuo7i9nzbaArEtID2tcypQ2cmNVJr
+ 9j9LmyhdyEBv4PeNVB9mU5TNGiAEfr9WYJ3yVn/bByrj5bs3Aoc5
+X-Authority-Analysis: v=2.4 cv=Mo3HeGae c=1 sm=1 tr=0 ts=6ae86228 b=1 cx=c_pps
  a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=EIcjfB9IiI4px24ztqRk:22 a=bC-a23v3AAAA:8 a=Byx-y9mGAAAA:8 a=pGLkceISAAAA:8
- a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8 a=_JKKyeupEGsTx9GmwKEA:9
- a=WmVTiCyuxqgg3mnwYu6p:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfXw0imxpyhYVAm
- sLMu8v4uJ/2gqdPc1cWf4uQQbM2QM52CUXPotHUNX1LPvBES7Jx5wwPtrcWhxoAxhBGTxRTj84o
- pPLBy0R4GiU3mVoSSchv5yfjHVvPeBv4qco+DQigec9hRZnT8eLzv38ohpBZ83Run2xvFQEGU43
- dLIPFbR5d+//jtfx5t3rBOhm9W48LVW98y2If1BH1UufX1kgTVeYOruKZTQLiTHPMJ8+as1z/0z
- BukDs4cxclj5eqS5pc/vEVm2HinN6onjvmBVOdi97ldvhB4zcTbbf/Ouj56h6IxWO5EGhE94Igc
- Y6ZyuiKjXkgosOlfYltGcckyMvJEMObp20V1LaXjtLm13WjGjWI+zaahZz0tewiit7fgZRIYuhk
- RlmLwqbj0T2+NjKZTfmMswOyD9JMCZJ9ZlvYs/WVq9HB5aoG+i9/KSLwyiF3sXcPZw6RYqg//Jl
- OJ2OgtAXMiFBac36+Nw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX48KG6EEImmNe
- NqvkS5YW9YMkvXF1e3k3mASns67HSnjoKoiKsnuJFz1uIWuiKa0nSjmAx+rjtYeoVYaew1whL9g
- nOK3Zc72f6AQfmMnotKUjr/sdZKKyKnZpy01oUU9wvp7K59BWqYw
+ a=x0eKOSpe3m1H3M0S9YoZ:22 a=pGLkceISAAAA:8 a=yPCof4ZbAAAA:8
+ a=QjOa6A-HqW6lW5RNUFEA:9 a=WmVTiCyuxqgg3mnwYu6p:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX0pL/ti6TLzdz
+ fOtti3ajq1tLP2BlLEjO0cgASAqXol8OCV1aW8rNPPeakP7PFBGkbqZmhMNQwRuhR50OABldB/Q
+ pvhvhbmuHqEp7b6+2RJLeFTHC5Vfwma6F+ajFSgzqi+p52z1PLYOH4SlSerkJL4y2j729VgT/P0
+ pT9+FCs0Rr96AWU/SQL3csm/oBza3s6fOzfgvCqFc/SHvtqwq5jcJ9IYwtkPI/elricBi4RpNBW
+ psWRQSnW7N6Z5ZKb79lC8jSlP3eErsqLC/ImG2fpR6sxMWd5kSR7ku7Nu9Owj8wduZYcZb74xNh
+ CnQ60kGBVlRHJjw6hSkbWyrhfJN6PHlLBpk65TjiLmhe0cvmn1iKXXfDMWXO8jJmFd68ZJapweA
+ 6Tx2qKt69OANhlv4ROe31zFfgIk6O1kdjPrFTYgFeuf5GK24TRIE/nyDSk0LjrZX72Mat69hSQ3
+ EmxaQaCEhzHmgn0EHNg==
+X-Proofpoint-ORIG-GUID: uoTFvwD02QoFNEEuXoIe9gj-MAbfkO36
 
-From: Qing Luo <luoqing@kylinos.cn>
+From: Inseo An <y0un9sa@gmail.com>
 
-[ Upstream commit 9ae7ed101cf28613071ebfbc42668c8917a670cf ]
+[ Upstream commit 71e99ee20fc3f662555118cf1159443250647533 ]
 
-When processing AUTH + COOKIE-ECHO packets, if skb_clone() fails
-due to memory pressure, chunk->auth_chunk is NULL. The original
-code still sets chunk->auth = 1 and continues, leaving the
-COOKIE-ECHO to be processed without a valid auth_chunk for
-deferred verification.
+nf_tables_addchain() publishes the chain to table->chains via
+list_add_tail_rcu() (in nft_chain_add()) before registering hooks.
+If nf_tables_register_hook() then fails, the error path calls
+nft_chain_del() (list_del_rcu()) followed by nf_tables_chain_destroy()
+with no RCU grace period in between.
 
-Discard the AUTH chunk early via pdiscard when skb_clone() fails,
-so that the receive loop can continue processing remaining chunks
-in the inqueue instead of stalling the entire packet.
+This creates two use-after-free conditions:
 
-Signed-off-by: Qing Luo <luoqing@kylinos.cn>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20260723061107.384106-1-l1138897701@163.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
+ 1) Control-plane: nf_tables_dump_chains() traverses table->chains
+    under rcu_read_lock(). A concurrent dump can still be walking
+    the chain when the error path frees it.
+
+ 2) Packet path: for NFPROTO_INET, nf_register_net_hook() briefly
+    installs the IPv4 hook before IPv6 registration fails.  Packets
+    entering nft_do_chain() via the transient IPv4 hook can still be
+    dereferencing chain->blob_gen_X when the error path frees the
+    chain.
+
+Add synchronize_rcu() between nft_chain_del() and the chain destroy
+so that all RCU readers -- both dump threads and in-flight packet
+evaluation -- have finished before the chain is freed.
+
+Fixes: 91c7b38dc9f0 ("netfilter: nf_tables: use new transaction infrastructure to handle chain")
+Signed-off-by: Inseo An <y0un9sa@gmail.com>
+Signed-off-by: Florian Westphal <fw@strlen.de>
+
+(cherry picked from commit 71e99ee20fc3f662555118cf1159443250647533)
+
+Conflicts:
+ - Only race 2 can be observed in this codebase.
+
+Signed-off-by: Anand Khoje <anand.a.khoje@oracle.com>
 Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- net/sctp/associola.c   | 4 ++++
- net/sctp/endpointola.c | 4 ++++
- 2 files changed, 8 insertions(+)
+ net/netfilter/nf_tables_api.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index a957142672cb..5149f744eaf2 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1029,6 +1029,10 @@ static void sctp_assoc_bh_rcv(struct work_struct *work)
- 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
- 				chunk->auth_chunk = skb_clone(chunk->skb,
- 							      GFP_ATOMIC);
-+				if (!chunk->auth_chunk) {
-+					chunk->pdiscard = 1;
-+					continue;
-+				}
- 				chunk->auth = 1;
- 				continue;
- 			}
-diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
-index efffde7f2328..2313ea9fbe06 100644
---- a/net/sctp/endpointola.c
-+++ b/net/sctp/endpointola.c
-@@ -362,6 +362,10 @@ static void sctp_endpoint_bh_rcv(struct work_struct *work)
- 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
- 				chunk->auth_chunk = skb_clone(chunk->skb,
- 								GFP_ATOMIC);
-+				if (!chunk->auth_chunk) {
-+					chunk->pdiscard = 1;
-+					continue;
-+				}
- 				chunk->auth = 1;
- 				continue;
- 			}
+diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+index f2332b097745..c12b2ded6519 100644
+--- a/net/netfilter/nf_tables_api.c
++++ b/net/netfilter/nf_tables_api.c
+@@ -2451,6 +2451,7 @@ static int nf_tables_addchain(struct nft_ctx *ctx, u8 family, u8 genmask,
+ err_use:
+ 	nf_tables_unregister_hook(net, table, chain);
+ err_destroy_chain:
++	synchronize_rcu();
+ 	nf_tables_chain_destroy(chain);
+ 
+ 	return err;
 -- 
 2.55.0
 
