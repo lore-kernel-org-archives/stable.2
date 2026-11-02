@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657693;
-	b=yUr3zCkPhIlCZGRj9L7ZnfFAEQmQxERUzHtbXThbv4i4RD5MAx+c9/l1VDC30inc1rg0
-	 FP32Ssy1zPDnaqY0hj9Qwl8DdNJwDqa35Nr5V3L2swWRETD5FvmtlrcCIHYB6gDH3yuaX
-	 JsQ7y9jEFA9zfP3hnyByZTXDJGqm0IeHehcnZz1WGLandm+QO3ol2xRvaV8Vv0EVKCa6j
-	 SEyvOTUdzmiuVR2xCW5yAkDOoVjZ4kmCippyyxlEKJYJo8Xni2xtyFv39GpIDYMf1GDDR
-	 2PhY6KiWbd2e4CEpHRtEbbCxMSWxgcJaHYMVkClyLbBjYi+JxNhVrQHQb8/qrJhl0Gw==
+	t=1793657699;
+	b=qZ8mEd3rAks1xURYlMLf05DkooLZPm5vyS66m37Sc/V2rvK3RgxkkdsphSSyPj2lxbPR
+	 O7TQ2vXlcK/wtNuJTy5/r/i02F6wWs4CiwhvyniI1h2VI8sK+av63Z9ejLJxpuVv3fk6d
+	 UZ/njHjL4aEFMk4jl8XWybGn5Ru2/LcsK41qC2Tbea6ABMlRVkGhumE4nuzo1xmAh5iEC
+	 jBHAPA5L7WoVEQ0HtYOuJu6mj0IODOQnhhHJgqT/8OZWDz3pzHT6TNj1b96Q1HiFpG3rX
+	 6qz6ik+64WqKkWGXQJPoEwjKVYn+Ob/qYPe0h/1feErx7IJi6t7bYUNlyOG4duicz7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657699;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HBH7W9GD0BPyieTV+2SaHv3ZD3JpuqnWsNA5ceSlnXI=;
-	b=5B80Ta+WjqXDQr2wZxotbRpQwO+sQv81HkEQApDH3OkD6YbrOTPvx72b3SM7MNYULl2L
-	 2Ar29GQHynGoaMI0tHoCJ77TpF9h49YWKNpdYZx1Yi8du878SYOjXtcAs2231HmSe/ay2
-	 xWMLjDEHlbrFzyiYnpAxBOX1PIkKOq4CLC9kmGktFbQmD1fyvVOB/hpUqBTqWK+xtjrP2
-	 0uGRmYXhDX0WG0V8XrNEZ0F8iR4IoHRpxN8nR1oGunbazkc9ElP06Y/zt18JEXbMxLYQY
-	 tl+rQL+Naer4TF8xJAwi6JO+Y8WPC+n61Y+NoXiHPzkYxe+ssHfU7OQiEVTEZZSs26A==
+	bh=ug09H4cDoBD1zxtG7vKcaZPU7V8kruIfW1s/zcIR/lA=;
+	b=pNieUJ8pMc+zcar0BO5HLLX67m0lQib1AA80QjCT9phcqE+JJjEIx/3iKjPLT9ISkMXa
+	 RlZh+7ia8H2TMHYr3vkTQdRJsO1+z7cNpgm1qjFtJCbZvAqh7/P/xlIOhFEo42SLg5Fw7
+	 YuWKDJEmeuFvpNufFLQgjJ/rwSwcTvEQYB5boTfsSjadBmXNqAjABKuzcx+w+lDMwSKDB
+	 G/gu0uR99n29pmQQQoGQ2aIlQs/kyvGDUK1yYWPBQzKwatwGNwiIRjXP7qRDQju9T+3fr
+	 kq2x08Fha0rUfCwyBPO2QvLY3USxVF7Ako4AEJbRXi5lmnY8ntADBWqJu1tfH294Gjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RPGmL+YD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4tbfCOL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23F5606A329
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F90606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:14:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RPGmL+YD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE71A1F00A1A;
-	Mon,  2 Nov 2026 22:14:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4tbfCOL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F8821F00A16;
+	Mon,  2 Nov 2026 22:14:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793657692;
-	bh=HBH7W9GD0BPyieTV+2SaHv3ZD3JpuqnWsNA5ceSlnXI=;
+	s=k20260515; t=1793657699;
+	bh=ug09H4cDoBD1zxtG7vKcaZPU7V8kruIfW1s/zcIR/lA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RPGmL+YD9D4D/I/JM2QwJXCIJJeUnjZJhrzVvynMGo4yHf28HcMKVn4F9WE44IFNq
-	 FWBGeyBVY9IJmgH6RQfSvVOCtgS4kdz5t9mlyEN9HULVC1YDCFvth2Gje4vxtNEfP2
-	 gwaPivyLK6hcHy1ljmfPK5Wze+G0N8+6yCQ1PG5uMK+c5V6XrxqF+msgfkKqI/RjUo
-	 DpxBDgDVR81i/NTwuCZhF03cPYxZWYlz+oO7IG8lHZ6yXouKNE2g2TtEm9Zvs6l4Vt
-	 X7hgsGkyyMicORknan4wSiPS5qEFNVZHIv4YrLnxZ5IFHP9yHpELrOEvT9yGakllEH
-	 kSVjWdbojZHzA==
+	b=P4tbfCOLDH6eABrIadcN9+tGltBbmSNn0N8GPxlx7AEq1Cz26cktHk37dS47yYloL
+	 VUJWdQfNtU0k/94Ya9GQkY1BmxnUHicJjjJ7jCYH3d9xAIKvA3Ma77oW0TrwsBcAf4
+	 0fqbPvZtIWZ12YiR92OTBjJjNClBvekmZG7mXHmTMTo1rYXUtHq3tEaiLpwHn1zA3A
+	 ppBkqjPG77bnvQEKR5lKqLh9731vRG1u6hytTc5xuvXlUuXFuvHUcuC0bNeHzRaGp4
+	 UtPl7TuHAG9UMSvk4DsoHs9LGD2bzs5/nbhydNAkJdRhLjVuBsYgaluQ1aEoBTdF7d
+	 3+d9RD2aTovCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Aleksandr Nogikh <nogikh@google.com>,
-	syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Zikang Gao <2715417602@qq.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] media: usbtv: fix null-pointer dereference on disconnect
-Date: Mon,  2 Nov 2026 17:14:49 -0500
-Message-ID: <20261102221431.1933091-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] smb: client: do not pass a NULL buf to is_oplock_break()
+Date: Mon,  2 Nov 2026 17:14:57 -0500
+Message-ID: <20261102221432.1933275-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102221431.1933091-1-sashal@kernel.org>
-References: <2026110226-immunize-simile-9c23@gregkh>
- <20261102221431.1933091-1-sashal@kernel.org>
+In-Reply-To: <2026110212-catfish-confined-03b8@gregkh>
+References: <2026110212-catfish-confined-03b8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,93 +62,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aleksandr Nogikh <nogikh@google.com>
+From: Zikang Gao <2715417602@qq.com>
 
-[ Upstream commit cb705f75d03e946a4514488beb9e3bac9bcdb2e6 ]
+[ Upstream commit 2225ab306575e424b3dad2ee1be2521c89249d15 ]
 
-A null-pointer dereference can occur in usb_make_path() when called from
-usbtv_querycap() (and other ioctl handlers) during device disconnection.
+receive_encrypted_read() sets *num_mids = 1 and never writes the
+caller's bufs[]. Offload returns -1 with *num_mids = 0, so the
+demultiplex thread skips the frame. The inline decrypt path
+returns 0 even when smb2_find_mid() fails.
 
-Oops: general protection fault, probably for non-canonical address
-0xdffffc000000000a: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
-RIP: 0010:usb_make_path include/linux/usb.h:985 [inline]
-RIP: 0010:usbtv_querycap+0x9c/0x100
-drivers/media/usb/usbtv/usbtv-video.c:612
-...
-Call Trace:
- <TASK>
- v4l_querycap+0x236/0x470 drivers/media/v4l2-core/v4l2-ioctl.c:1106
- __video_do_ioctl+0x8af/0xc70 drivers/media/v4l2-core/v4l2-ioctl.c:3133
- video_usercopy+0x860/0x1430 drivers/media/v4l2-core/v4l2-ioctl.c:3475
- v4l2_ioctl+0x18d/0x1e0 drivers/media/v4l2-core/v4l2-dev.c:366
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+cifs_demultiplex_thread() then treats mids[i] == NULL as an
+oplock break and calls is_oplock_break(bufs[i], server) with
+bufs[i] still NULL. smb2_is_valid_oplock_break() reads
+hdr.Command at offset 12 and oopses.
 
-This happens due to a race condition between the USB device disconnect
-routine (usbtv_disconnect()) and V4L2 ioctls. When the device is
-disconnected, usbtv_disconnect() sets usbtv->udev = NULL without holding
-the usbtv->v4l2_lock mutex. Concurrently, an ioctl handler like
-usbtv_querycap() can be executing under the v4l2_lock and attempt to use
-usbtv->udev, leading to a crash.
+A large encrypted READ whose MessageId does not match is enough
+to panic cifsd.
 
-To fix this, move the usbtv->udev = NULL assignment into usbtv_video_free()
-and protect it with mutex_lock(&usbtv->v4l2_lock). This ensures that no
-non-queue ioctl handler can run concurrently with the pointer being
-nullified. If an ioctl is already running, the mutex will block the
-disconnect path until the ioctl finishes. If an ioctl is blocked waiting
-for the lock, it will acquire it after the disconnect routine releases it,
-but will then check video_is_registered() (which was cleared by
-vb2_video_unregister_device()) and safely return -ENODEV.
+    Oops: general protection fault, probably for non-canonical address
+    0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
+    KASAN: null-ptr-deref in range
+    [0x0000000000000008-0x000000000000000f]
+    CPU: 0 PID: 100 Comm: cifsd
+    RIP: smb2_is_valid_oplock_break+0xc8/0x2270 [cifs]
+    cifs_demultiplex_thread
+    Kernel panic - not syncing: Fatal exception
 
-Acquiring v4l2_lock after vb2_video_unregister_device() avoids
-reintroducing a historical deadlock issue, and usbtv_audio_free() remains
-safe as it is called before usbtv_video_free().
+Return -1 when inline decrypt finds no mid, and skip
+is_oplock_break() plus the unknown-frame dump when bufs[i]
+is NULL. receive_encrypted_standard() already assigns
+bufs[*num_mids].
 
-Fixes: 65e6a2773d65 ("media: usbtv: Remove useless locks in usbtv_video_free()")
+Fixes: c42a6abe3012 ("CIFS: Add capability to decrypt big read responses")
+Assisted-by: LLM
+Signed-off-by: Zikang Gao <2715417602@qq.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
-Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=37a57a84893052ab6071
-Link: https://syzkaller.appspot.com/ai_job?id=5abbe65a-5853-4bc2-9135-5c75f88d51ed
-Signed-off-by: Aleksandr Nogikh <nogikh@google.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+[ sashal: Adjusted context to retain the existing one-argument mid_execute_callback() and release_mid() calls. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/usb/usbtv/usbtv-core.c  | 2 --
- drivers/media/usb/usbtv/usbtv-video.c | 4 ++++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ fs/smb/client/connect.c | 4 +++-
+ fs/smb/client/smb2ops.c | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
-index 4925113af9603..a444ef56b4668 100644
---- a/drivers/media/usb/usbtv/usbtv-core.c
-+++ b/drivers/media/usb/usbtv/usbtv-core.c
-@@ -136,8 +136,6 @@ static void usbtv_disconnect(struct usb_interface *intf)
- 	usbtv_audio_free(usbtv);
- 	usbtv_video_free(usbtv);
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index e908d522920c8..ca71026799e0c 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -1400,12 +1400,14 @@ cifs_demultiplex_thread(void *p)
+ 					mid_execute_callback(mids[i]);
  
--	usbtv->udev = NULL;
--
- 	/* the usbtv structure will be deallocated when v4l2 will be
- 	   done using it */
- 	v4l2_device_put(&usbtv->v4l2_dev);
-diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-index de0328100a60d..ef066df712469 100644
---- a/drivers/media/usb/usbtv/usbtv-video.c
-+++ b/drivers/media/usb/usbtv/usbtv-video.c
-@@ -968,5 +968,9 @@ void usbtv_video_free(struct usbtv *usbtv)
- 	vb2_video_unregister_device(&usbtv->vdev);
- 	v4l2_device_disconnect(&usbtv->v4l2_dev);
- 
-+	mutex_lock(&usbtv->v4l2_lock);
-+	usbtv->udev = NULL;
-+	mutex_unlock(&usbtv->v4l2_lock);
-+
- 	v4l2_device_put(&usbtv->v4l2_dev);
- }
+ 				release_mid(mids[i]);
+-			} else if (server->ops->is_oplock_break &&
++			} else if (bufs[i] && server->ops->is_oplock_break &&
+ 				   server->ops->is_oplock_break(bufs[i],
+ 								server)) {
+ 				smb2_add_credits_from_hdr(bufs[i], server);
+ 				cifs_dbg(FYI, "Received oplock break\n");
+ 			} else {
++				if (!bufs[i])
++					continue;
+ 				cifs_server_dbg(VFS, "No task to wake, unknown frame received! NumMids %d\n",
+ 						atomic_read(&mid_count));
+ 				cifs_dump_mem("Received Data is: ", bufs[i],
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 5ad3804826d9a..702e32e0e51ad 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -5357,6 +5357,7 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 	*mid = smb2_find_mid(server, buf);
+ 	if (*mid == NULL) {
+ 		cifs_dbg(FYI, "mid not found\n");
++		rc = -1;
+ 	} else {
+ 		cifs_dbg(FYI, "mid found\n");
+ 		(*mid)->decrypted = true;
 -- 
 2.53.0
 
