@@ -1,64 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628028;
-	b=A+t79mEI8v9jthhAuClVgdQTV4Zp0sgp4wUmGGCKUCa5qPEpvAA+qOukdNkAiwb+qISa
-	 /wjxP4Lmvr479XT5ddL9qETg7xzpoMwMN6zcIEyY6KoQSKoKPgGYDbL5uRHNEH7u9k1V5
-	 EY3bc47NXmBAmwFtFsw5I02O1Dd7gan5aTZGB/dWUON14ILklEtVfw0WfuGVAe97NuMnG
-	 Mbbm5TqJvn9XmctTGjkwhulgTyjPD8gPkvwnlaAPuATx5O2Zaiz9T3tEeV9+cvm1kBBPL
-	 Z7l+GVf+dIDt/2DN1KWrVxc6qtaQu6JhgsFFibSCVmBwRR4VRx93ySty3yVapo3lauA==
+	t=1793628672;
+	b=1fGGJpA+lxVYFDjLWXBTyCJ4eInudpctKXrxKgWQNARwzAHi77aw3kq/7XOOM9netwga
+	 p+JmC0zYJd7qc8ZSFQdEYlSDBHkInk+WcI8BjcIuHbXSd0Fh92sg2OzZws6R5UbPxAGiM
+	 +OHOfqYzZwzSbstcy8Uumnisua+3LMHQR6f50xuR3MFWnDNQNOEq3DWB5Av0fkQ0gAJop
+	 euOGdvcKrUgqh9T+FQ97KIHm5WudoahRrN7MmhQmLhn8z+2W7cnOeE0ZrJ343TYESvCLU
+	 9g/w6P61jR+F7MR+GdbrRcT4F5WmRaGVsG8ip0NTL6UnIstSZIUF++YH+E1/3h4uKsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628028;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=2pMvQgzqKW4JHpA5fJ7fTyK99AJQvYuqkYywOmupdlI=;
-	b=WwHgrCI8PeloCe891rRuVMUitYiOOLUMFnLVCZmu54fyujt25HEFxWa3GdGk1AC0lplj
-	 Xe5Xd5WCvAAyHKxWFRY/GzEi+8pDH7LF+8ziA1cFzX8VXxXCsrcldO3oULvMTlxddP9ay
-	 2Ou7sOHunkqIMZ03j03A+Tr28TteNYYLsnXV9fh4lqshb7DDnscfrfJiZEG32HWNi0vvP
-	 Z4TjBM9+F/Wems44D849gVDG2W91/fLBdKYrvVG2XXKucHgZyAC2RK/FBIpLwZeggVKIY
-	 rgh0Xp/hVzdixmoCfjRswWRBoR4Sv03xQ0ApBc0xiF9rs6BXTcuvjDUU0kwGp8hw7SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628672;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vi44JuB66M4crD5hxja6G77GWCvRuh5Zid8iRQ6RjTk=;
+	b=GIe9qjeUlLnZjo8CTNTdoRd6Yu+0Vpv+NRHu8Jt5TP/omhFQx18yyCA1pDpGdXr25UA+
+	 X3l3wajWtseRfbmM028E49LtsBi9tcsVo4zZ1vqLfB+r06u5aBVhDGrOjbQ8ADXbW3UaS
+	 1N7SOrTdpgli9481A5slqaELxkvwxkKNYLytp7NfEJKbvch2Ni78x3Gf98/nPznQqXnfV
+	 cTTiscN/W915hi3shM4kYQEzQrHKNSZloI52kRdgZgIuvAeSF94boddjryNo9AOp1dUo8
+	 HfCyyi4EGvdQmtooj9N7Y+RX0k5e4le7sj1AcExd47OJdI8PLSXc5Hadj7dP4X3emMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QzSZVLpB;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DdWjwxuB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CCE606A32F;
-	Mon,  2 Nov 2026 14:00:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CCE606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29280606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 14:11:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QzSZVLpB
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=2pMvQgzqKW4JHpA5fJ7fTyK99AJQvYuqkYywOmupdlI=; b=QzSZVLpBZ+yBBFUabsSXv7RsM3
-	lC1XiEmly6EqfPxp77xnAF9C7vRLCMkcYwJZdX8cDftwTetzlIw8HTV3VPR9xsTRXzjEMO8prDBp5
-	U3E14cQTmztTvFGei7hyNLSYGAuVrbPgeQvJKZMsrpMVKq2JZiCx84JpBRf28fcEVlYs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xNsa3-00Dnuc-14; Mon, 02 Nov 2026 15:00:11 +0100
-Date: Mon, 2 Nov 2026 15:00:11 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Kalpesh Solanki <skalpesh942@gmail.com>
-Cc: alex.aring@gmail.com, stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ieee802154: nl-mac: validate device pointers before
- dereference
-Message-ID: <3eba5c55-e1ec-4301-ae09-a3982090d8b0@lunn.ch>
-References: <20261101092219.1278751-1-skalpesh942@gmail.com>
- <20261102024721.28129-1-skalpesh942@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DdWjwxuB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59941F00A16
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 14:11:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793628671;
+	bh=vi44JuB66M4crD5hxja6G77GWCvRuh5Zid8iRQ6RjTk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DdWjwxuB7982hwQ17yBhal/0wUL2OpQfjLd3zGgXHVCBo1QHo1CplJS2vO+YXDXtp
+	 6T2Id+fIN9AC0SZBB919WwPdIkVh47xMGmTe2MUd/oEADEMnuBdO2justglx5RVzM3
+	 Its3oAFNk4vEsQVyvKUgGdoJNsK8X2XY+m0spyGwxBxokwRu3WDRauwXYtbPLlBANs
+	 j5q1wbpLtTO+pervlu7zlqR36IbBjFhniQeT+iwKRndfpCT+p3OO5ztmHLQc5ZmajT
+	 DvfwTMbkoBmJCYntYRlfXdEa+85pu8AP6InsCbAk+XkZFxT4vpstTpIjbw7wsl435t
+	 2sAObNhrvXTeg==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5be4d648aacso2605220e87.3
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 06:11:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBw846/NblSbVRtjhKSU0EJUHyx2oMaPzUAnUEMBjOGBQdC96I/608bUlCuD1DaHeGKQ+Od1SAk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+js42NM8gn4Ag9GxeYbNrf95J5TaRXSHbmc3SCF+sqIImUm1u9
+	CxPaxCwoAldacoG8PcVoczmK1s8w4yWkNIhdvc35+luRUZMebIWZiZmxao2E0fSsUAyB89APdS+
+	2XqcfJoGif6y+aqFQuVVYhY/Eb1sTiyQ=
+X-Received: by 2002:a05:6512:3b24:b0:5bb:7923:207e with SMTP id
+ 2adb3069b0e04-5bfd957b635mr3266873e87.52.1793628670143; Mon, 02 Nov 2026
+ 06:11:10 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,103 +59,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102024721.28129-1-skalpesh942@gmail.com>
+References: <20261102-superm1-kbz-222179-v1-0-c91a664ba251@kernel.org> <20261102-superm1-kbz-222179-v1-1-c91a664ba251@kernel.org>
+In-Reply-To: <20261102-superm1-kbz-222179-v1-1-c91a664ba251@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 2 Nov 2026 15:10:58 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jMA2AwzdcwFH7YW-q9LHopvKf_BfZHEpyGXq+=fMTYEA@mail.gmail.com>
+X-Gm-Features: AclHuK9HJv2fcCVOo5llT60Bp3HAHvTaGFzfiEmFxy8h3095W3Oz8AnHquG8ZGo
+Message-ID: <CAJZ5v0jMA2AwzdcwFH7YW-q9LHopvKf_BfZHEpyGXq+=fMTYEA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] PCI/PM: Disable bridge D3 on Lenovo ThinkCentre M90n-1
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, linux-pci@vger.kernel.org, linux-pm@vger.kerenl.org, 
+	linux-kernel@vger.kernel.org, Joshua Perry <josh@6bit.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 08:17:21AM +0530, Kalpesh Solanki wrote:
-> On Mon, Nov 02, 2026 at 01:13:xx +0100, Andrew Lunn wrote:
-> > Did you consider the other fix? Is there a use case for setting a TUN
-> > interface to ARPHRD_IEEE802154? If not, maybe return EOPNOTSUPP, or
-> > EINVAL?
-> > 
-> > Andrew
-> 
-> Hi Andrew,
-> 
-> Thanks for reviewing and raising this point!
-> 
-> Regarding whether there is a use case for setting a TUN interface to
-> ARPHRD_IEEE802154:
-> In real hardware/subsystem usage, virtual 802.15.4 interfaces are typically
-> handled via mac802154_hwsim or fakelb (which properly allocate wpan_phy and
-> dev->ieee802154_ptr), rather than raw TUN. However, tun.c explicitly recognizes
-> ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR in tun_get_addr_len():
-> 
-> 	case ARPHRD_IEEE802154:
-> 	case ARPHRD_IEEE802154_MONITOR:
-> 		return IEEE802154_EXTENDED_ADDR_LEN;
+On Mon, Nov 2, 2026 at 2:57=E2=80=AFPM Mario Limonciello <superm1@kernel.or=
+g> wrote:
+>
+> On the Lenovo ThinkCentre M90n-1 (board 314D), suspending the empty
+> Root Port 9 turns off a clock needed by the onboard RTL8168 behind
+> Root Port 12.  The NIC becomes inaccessible and r8169 fails to probe
+> with "Unable to change power state from D3cold to D0".
+>
+> The RP09.PXP_._OFF method gates PCH SRC clock 1, which also supplies
+> the NIC behind Root Port 12.  Keeping Root Port 9 in D0 preserves
+> that clock and allows the NIC to probe.  Commit 4d4c10f763d7 ("PCI:
+> Explicitly put devices into D0 when initializing") exposed the firmware
+> bug on every boot by ensuring that the first runtime suspend executes
+> the power resource's _OFF method.
+>
+> Add the board to bridge_d3_blacklist to prevent bridge D3 transitions.
+> Check the blacklist before platform_pci_bridge_d3(), since ACPI allows
+> D3 on the affected hotplug port and would otherwise bypass the quirk.
+>
+> Fixes: 4d4c10f763d7 ("PCI: Explicitly put devices into D0 when initializi=
+ng")
+> Reported-by: Joshua Perry <josh@6bit.com>
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222179
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mario Limonciello <superm1@kernel.org>
 
-I looked at the history. Those two were added along with a bunch of
-other ARPHRD_ values. There is nothing i could see to indicate
-IEEE802154 was a deliberate choice. So i think you need the IEEE802154
-Maintainers to comment on if this is useful or not.
+As per the discussion in the bug entry
 
-> 1. Subsystem robustness / Defense-in-depth:
->    ieee802154_llsec_dump_table(), ieee802154_dump_iface(), and
->    ieee802154_nl_get_dev() assumed that any netdevice in the namespace
->    with dev->type == ARPHRD_IEEE802154 has valid ieee802154_ptr and
->    mlme_ops. When that assumption fails, it triggers a NULL dereference
->    while holding genl_mutex, leaving the mutex permanently locked and
->    deadlocking generic netlink system-wide for unprivileged users.
+Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
 
-Which is good. An Opps with a splat makes it clear there is a bug. If
-anybody cares, it will get reported and fixed.
-
-Subsystem robustness / Defense-in-depth generally results in bugs
-being hidden, rather than exposed.
-
-The fact ieee802154 has ieee802154_ptr and the code unconditionally
-accesses it suggests it is actually needed. So the commit message in
-your change needs to argue why TUN is special and does not need
-it. The commit message is all about "Why?". Why did you decided to fix
-it this way, rather than some other way.
-
-Is the correct fix to actually set ieee802154_ptr to something?
-
->    Other parts of the ieee802154 subsystem already make this defensive check:
->    - net/ieee802154/6lowpan/core.c (lowpan_newlink):
->        if (wdev->type != ARPHRD_IEEE802154 || !wdev->ieee802154_ptr)
->    - net/ieee802154/socket.c:
->        if (dev->type == ARPHRD_IEEE802154 && dev->ieee802154_ptr && ...)
-> 
->    Guarding nl-mac.c ensures the IEEE 802.15.4 netlink handlers are safe
->    regardless of how an ARPHRD_IEEE802154 device was created or modified.
-
-Now look at the history of this. Does the commit message adding this
-code suggest why these checks are there?
-
-I also wondered if IEEE802154 is special? struct net_device has:
-
-#if IS_ENABLED(CONFIG_VLAN_8021Q)
-        struct vlan_info __rcu  *vlan_info;
-#endif
-#if IS_ENABLED(CONFIG_NET_DSA)
-        struct dsa_port         *dsa_ptr;
-#endif
-#if IS_ENABLED(CONFIG_TIPC)
-        struct tipc_bearer __rcu *tipc_ptr;
-#endif
-#if IS_ENABLED(CONFIG_CFG80211)
-        struct wireless_dev     *ieee80211_ptr;
-#endif
-#if IS_ENABLED(CONFIG_IEEE802154) || IS_ENABLED(CONFIG_6LOWPAN)
-        struct wpan_dev         *ieee802154_ptr;
-#endif
-#if IS_ENABLED(CONFIG_MPLS_ROUTING)
-        struct mpls_dev __rcu   *mpls_ptr;
-#endif
-#if IS_ENABLED(CONFIG_MCTP)
-        struct mctp_dev __rcu   *mctp_ptr;
-#endif
-#if IS_ENABLED(CONFIG_INET_PSP)
-        struct psp_dev __rcu    *psp_dev;
-#endif
-
-Did you look at all of these? Can any of them cause issues in the same
-way as ieee802154_ptr?
-
-Something you learn after a while. If you find a bug, look around and
-see if the same bug exists close by, because it often does.
-
-	Andrew
+> ---
+>  drivers/pci/pci.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 7c6f2aba81443..17ec7f065682d 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -3028,6 +3028,17 @@ static const struct dmi_system_id bridge_d3_blackl=
+ist[] =3D {
+>                         DMI_MATCH(DMI_BOARD_VERSION, "95.33"),
+>                 },
+>         },
+> +       {
+> +               /*
+> +                * Suspending Root Port 9 gates a clock used by the onboa=
+rd
+> +                * RTL8168 behind Root Port 12, making the NIC inaccessib=
+le.
+> +                */
+> +               .ident =3D "Lenovo ThinkCentre M90n-1",
+> +               .matches =3D {
+> +                       DMI_MATCH(DMI_BOARD_VENDOR, "LENOVO"),
+> +                       DMI_MATCH(DMI_BOARD_NAME, "314D"),
+> +               },
+> +       },
+>  #endif
+>         { }
+>  };
+> @@ -3073,6 +3084,10 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge=
+)
+>                 if (bridge->is_thunderbolt)
+>                         return true;
+>
+> +               /* Firmware D3 support does not override known platform b=
+ugs. */
+> +               if (dmi_check_system(bridge_d3_blacklist))
+> +                       return false;
+> +
+>                 /* Platform might know better if the bridge supports D3 *=
+/
+>                 if (platform_pci_bridge_d3(bridge))
+>                         return true;
+> @@ -3085,9 +3100,6 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
+>                 if (IS_ENABLED(CONFIG_X86) && bridge->is_pciehp)
+>                         return false;
+>
+> -               if (dmi_check_system(bridge_d3_blacklist))
+> -                       return false;
+> -
+>                 /*
+>                  * Out of caution, we only allow PCIe ports from 2015 or =
+newer
+>                  * into D3 on x86.
+>
+> --
+> 2.53.0
+>
