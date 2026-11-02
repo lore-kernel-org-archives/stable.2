@@ -1,78 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632313;
-	b=IOtitm18USAU1O3KxjyNGk3cVAaKF0AgaQasphxDO3+ZWuYFWCSQ/Nh7zYEH/wwEjOR/
-	 hqW+fvGFgFIgLRB3D5+Vw699nkF7aF6WcoRO2PYhC/iq6NhPs8Geh4mcAgQRDVf73tGtM
-	 Tg5CEsBAFkmXC1oWYBywOy8ZpjN/JRMOD6yef6rHaL9wG6C2cZWBM7ETbUk+AQ+doswbu
-	 j4PlQPqeXOG3ZNMXFBfBxDAKYgbZROiEogbd7egYkq4a0DYLNgdRuh6gOuFM1zL19B/Ou
-	 ZKPRrY/DmOaCNMMqsf2EiwsQNMPSm6BxAAm9wLauKWNJ+tZKAdsc1IAZVN46JlIJpTg==
+	t=1793632354;
+	b=WuvYZE20KGMhvLBJRyOssg1rL4Ji0DG6rVnWMPW5bKZaUXbAW+F2EdgU/pBIy9OUbmRj
+	 P2NFGe0SwJh9DZgc4hSZteO2fQZtqwwzHFc2512PjHqQCM7xdGtENvNph4/YvxRhNvAHd
+	 5tUGE7U0cSpGXVL2RQsUYTRXKOJ+jtsf0gjEy3fX/OGQEXwfl0dPralYPKBgv65uGQdQ3
+	 gnVi7kcAdInLWEexpaudjrpQjlmm1qOBrGDPYu0Hv03lR3uSvsnVZXRHGjQ88mt5ziVjk
+	 z6jy6AptUdbqITFz3wh4c1TakZROewPAj3QReYH1amv79NOtGjSZiIWm/l/ZOMlyfRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632313;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Patchwork-Hint:Organization;
-	bh=2/uq2w5qsdU3XkiAfIjdGg0EWb0SbhEqc6DCVolqH0U=;
-	b=To+HH81fUACJbeDUdM8zW/rbkKLKngvFmWjRIbDvLZ3MYr54It/9YO0w36VKUnwTwPuv
-	 Or8PLYzW+CBW/nq5263WzSJ/ouroDhX9YmAL20BICeOkmgPP3RGoHZ2bVoUtIOaxZIEd8
-	 k7xOGl4luIpn4eCGhYB9Uvu/ajFHahD0ixJQAdX4e14sr65gXRe1p9ivONd2JB7FHMUAg
-	 k1pkw1rqaDhc+c8yafsf76e9p7dQ0eVNkpwlUUoWa+tQm9UwgRnrhNtoMmEUM0H7XB3yH
-	 asqP4DqQhl/TxHyEflVkfzm43IsxOfoVGUw1J+bsAMXCzDMIk9paQ1A+3OefNl2Gu7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632354;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=2puUSp7/76IVMJdmyNoOx/+sDBWWUsstBNYgnLqWADw=;
+	b=UMjfQCccFOhv1o4iFfzGtw5grTEnH0ZLHrqd9emSpufV2kzW+bMFAEwMfcQkr0sa+PR9
+	 VkGFBZxUcEXpwnLBsPdMNJHqRiKMrcXwcM2UPGlZ6aP3q2IjMPL5MZ+XJp0bqWvfXuRWg
+	 dtZb2weZg04Lm+wXB5iT5MENc0IhQ4RPHvpAUyKhX6BFijyOjvBN9e/ROgosmbeg1VlKR
+	 hAZtuwPXuZ5jaUaN8bicXWlHJ+tyDgMGMq6G3S9gCUi2ZP9bLBP7D51aaPqln9ft4PrdB
+	 BdepKOWtMr/5A4OhtlAR0x3CPMRnraluRVjiKuIGDcNtXUdyTfRNjx0dOLSsZ3x9fEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f2oaTzZa;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sfo/4AT7";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0222060AB1B7
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:11:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0222060AB1B7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE606606E001;
+	Mon,  2 Nov 2026 15:12:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f2oaTzZa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793632311; x=1825168311;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=A1Z8YVADStasxeVGsvKlCx9NW4+VyRaCaoIqgq9WuaI=;
-  b=f2oaTzZaWQqmk9rkZSoItVo7cUqrW8SFgTljfYBp18JZY3qyi790Ifg9
-   BeuGr99V9EVbDP0KBixdtm7MRg/Fuc+VXPzOXRa7HH3CmIVDTJpCx7TSi
-   Pug2jM5ZVgayce20DLYtBTRrDZEDzzg1s/VUuQnzuUFW5XL5hrM81x/bv
-   lps6F8WJEJHj5vWrCXp+9aBNwbGerpaRXWnKgO1GxmIa+Egc+rKyBAl3A
-   HTub9YwLFPu8jGa9I9Tab6VMWWXJsomyhePaeI1RLYi7cMH8s5gsPPvgg
-   osBNTd4a5L9CvH/F+CEztIGNVhFMtIL+ItVsuvNG9MINHjhOoJlydycdD
-   w==;
-X-CSE-ConnectionGUID: s6xZ5tfgQVCdNbBlyy++/Q==
-X-CSE-MsgGUID: 7wMYKVhjQrGxCTF5bkmIkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2338030"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2338030"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 07:11:51 -0800
-X-CSE-ConnectionGUID: 14KMMsgeT4qr9BW02qAynQ==
-X-CSE-MsgGUID: 0sF9zJAHQhaktVbw3e4vzQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6315995"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.10])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 07:11:48 -0800
-Date: Mon, 2 Nov 2026 17:11:43 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
-	louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
-	sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
- deadlock
-Message-ID: <auioL8zR9O5u4TCF@intel.com>
-References: <20261102143919.1672293-1-tzimmermann@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sfo/4AT7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8ED1F00A16;
+	Mon,  2 Nov 2026 15:12:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632353;
+	bh=2puUSp7/76IVMJdmyNoOx/+sDBWWUsstBNYgnLqWADw=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=Sfo/4AT7eUqvUQF2IM0e4yUEA2S9bpSgz1XRSpjXSv6ivoD7gSmdHg3A8zkMAzcYF
+	 kDeGVWk3w/Tf8dF2CaaqoDKojou4fpxW/on8Svaj+X1DsQ+lK5Z5lhob5+JYVA7rw6
+	 hITFfUucA9qYfQ8dPtI4POqoUKejJwAfyqbxGiCXRDyz5vtCphvlDDhACUZcWSe4n/
+	 ZVHvC1IZ3kRo3yXPQWrol3dLHlfbECyrsb8CqMIBuOtjWNn600zPylndtXWynXYehg
+	 5byT636d5OG32RU0HlJaXhW8fAU3PP9qmYjTFfxdvhBHu58rPWCtlcB3lPJonv+QGn
+	 dVYMBTLl9OINw==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 64F40F40068;
+	Mon,  2 Nov 2026 10:12:32 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Mon, 02 Nov 2026 10:12:32 -0500
+X-ME-Sender: <xms:YKjoaq8wAwd1IxUiNYUpg-bkAIevhoVV9sHdGLHZFj4QUhhzr1x5dQ>
+    <xme:YKjoaljI-1gGkFxaVyg_RqXwj5e_0QeGd2rUXEBcY1YCCDDrc86cgxF5xbiC-_Cyk
+    eeUYesQG6CNyMpPZfeTzNarIloBQGkO5keAuTJbX4C1LvGugkip7jU>
+X-ME-Proxy-Cause: dmFkZTEpafQGZH1RQHraPbR3WHAFR05zdMzeN9033f2qTgB7dcFqSOfXqTOx0NsnLhw7RM
+    t4KdFk7naEvVgIj/Z+/r4wqxKPOiZvigH11WmNrz/u7/O6i5K5shWdxKaODLIvcArDmp5/
+    qndNFVKeXJ3sh1NXWVNTKi/f4Rew9h2JP1HN5dSGNPeCJYu7x5a3H8LsoXn8EhN4ZjsAvm
+    /bED5Y0vKx7GQlt/0hSGrTZnAD9OLn1kAybK9sGzqh2Zq0UvMp2FTqaVuKBk/gi41sjl26
+    /rIVYFwvydSbfMatEx+7lJ8J3VmRw3IeLBLJbi9GYEeXDptwe8H5zILOCv2qRxqKoQzcX7
+    hPgLViYfGwx2iwsPEJoWchmJ3TIop7fYjZ48Bx7ibXnIoxjvHdBXfdG6wFKlG348EI2Q1w
+    vauIP56PdA/Ls5ERDf3LXyHFvGGr5GZavecratgQSsWiI1fIs/OBdCe543F+RoU/DRx88u
+    Y4xY0Yz432+umY+PGsUQvKduBltnzUzHdH9p7mNKs9B+1aRWZ9sTlNN3wFPqdtlFNpQD0J
+    AspjcLf4x4Y1ZTk+Hmj8GytvXphaLBgSYqvkHiS/BgYavnqOy/Od3KhxXOSyjKUEBNKhxX
+    gIbVdFtmJzsdMKMnsFVsGZx0rWNsYIOjwaZTVGysGXYo8LNPGECoq0wD+gKw
+X-ME-Proxy: <xmx:YKjoaoiFH3KJWJxPJNP6RgVDRJnRZqabHPC0TlSatlT1AbgfNmmgtQ>
+    <xmx:YKjoailIciWpQqUXZJnA3LXb1URirrNW2DnWgTxtKfYfpyae1_HZdg>
+    <xmx:YKjoavUl1PiISqAcnsiY1t8zKyiZTJkZa9xV9NCA_Qs5qfyjBbkdNQ>
+    <xmx:YKjoavsYSSsfdxcsdgd_dZkXzpdAhtBFmmKV6oj9EC0Hyomvq5YQ7w>
+    <xmx:YKjoaq4yjpW-RjcSpdiQDCrjtodwfPysFTH0NY0ctqy0rG92WwlUU8GY>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 42C93782738; Mon,  2 Nov 2026 10:12:32 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,123 +77,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261102143919.1672293-1-tzimmermann@suse.de>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-ThreadId: ARCrrC6bRUOw
+Date: Mon, 02 Nov 2026 10:12:12 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Christian Brauner" <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: "Linus Torvalds" <torvalds@linux-foundation.org>,
+ "Jann Horn" <jannh@google.com>, "Josef Bacik" <josef@toxicpanda.com>,
+ "Chris Mason" <mason@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, "Eric Dumazet" <edumazet@kernel.org>,
+ "Thomas Gleixner" <tglx@kernel.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>,
+ "Jonathan Corbet" <corbet@lwn.net>, "Christoph Hellwig" <hch@lst.de>,
+ "Greg Kroah-Hartman" <gregkh@suse.de>,
+ "Joel Granados" <joel.granados@kernel.org>, "Kees Cook" <kees@kernel.org>,
+ "Jan Kara" <jack@suse.cz>, "Jan Kara" <jack@suse.com>,
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-s390@vger.kernel.org,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org,
+ "Linuxppc Dev" <linuxppc-dev@lists.ozlabs.org>, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+ coreteam@netfilter.org, kexec@lists.infradead.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net,
+ jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org,
+ linux-sh@vger.kernel.org, linux-usb@vger.kernel.org,
+ samba-technical@lists.samba.org, sparclinux@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net,
+ "Takashi Iwai" <tiwai@suse.de>, linux-input@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org,
+ stable@vger.kernel.org
+Message-Id: <16f91f93-16b4-49b1-b7fa-cec69759c349@app.fastmail.com>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-27-59422ed3e465@kernel.org>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-27-59422ed3e465@kernel.org>
+Subject: Re: [PATCH RFC 27/38] sunrpc: make queue_wait a global wait queue again
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 03:38:52PM +0100, Thomas Zimmermann wrote:
-> Return -EDEADLK when trying to cancel a running hrtimer as part of
-> enable_vblank(). Reacquire vblank_time_lock and try again.
-> 
-> The vblank helper drm_vblank_disable_and_save() and the vblank IRQ
-> handler hold the spin lock vblank_time_lock at some point. This
-> can result in a deadlock if vblank timer's disable code in
-> drm_crtc_vblank_cancel_timer() calls hrtimer_cancel() directly: the
-> helper wais for the timer function to complete and the timer function
-> waits for the helper to release vblank.time_lock.
-> 
-> drm_crtc_vblank_cancel_timer() works around this problem by calling
-> hrtimer_try_to_cancel() instead. For re-enabling the vblank timer,
-> drm_crtc_vblank_start_timer() must wait for the vblank timer to stop.
-> It runs into the same deadlock problem while waiting for the timer
-> function to complete.
-> 
-> The solution to this problem is to release and reacquire the spin
-> lock vblank_time_lock if hrtimer_try_to_cancel() signals a running
-> timer function. Releasing the lock allows for the timer function to
-> make progress.
-> 
-> Signal the possible deadlock with -EDEADLK and perform the necessary
-> steps. No other driver uses -EDEADLK in their enable_vblank, so the
-> change should not interfere.
-> 
-> Tested with bochs on qemu.
-> 
-> Closes: https://lore.kernel.org/dri-devel/20260914111129.300691F00898@smtp.kernel.org/
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.19+
-> ---
-> I also tried to move hrtimer_cancel() out of the critical section. The
-> result was fairly fragile. So returning an error and re-acquiring the
-> lock was the easier solution.
-> ---
->  drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++------
->  1 file changed, 15 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index 5162250e8813..135efde86298 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -1182,10 +1182,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
->  static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->  {
->  	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
-> -	int ret = 0;
-> +	int ret;
->  
->  	assert_spin_locked(&dev->vbl_lock);
->  
-> +retry:
-> +	ret = 0;
->  	spin_lock(&dev->vblank_time_lock);
->  
->  	if (!vblank->enabled) {
-> @@ -1199,7 +1201,11 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->  		ret = __enable_vblank(dev, pipe);
->  		drm_dbg_core(dev, "enabling vblank on crtc %u, ret: %d\n",
->  			     pipe, ret);
-> -		if (ret) {
-> +		if (ret == -EDEADLK) {
-> +			spin_unlock(&dev->vblank_time_lock);
-> +			cpu_relax();
-> +			goto retry;
-> +		} else if (ret) {
->  			atomic_dec(&vblank->refcount);
->  		} else {
->  			drm_update_vblank_count(dev, pipe, 0);
-> @@ -2232,11 +2238,14 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->  			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
->  	} else {
->  		/*
-> -		 * Timer should not be active. If it is, wait for the
-> -		 * previous cancel operations to finish.
-> +		 * Timer should not be running. If it is, signal cancellation
-> +		 * again and restart to release locks.
->  		 */
-> -		while (hrtimer_active(&vtimer->timer))
-> -			hrtimer_try_to_cancel(&vtimer->timer);
 
-Why do you even have to cancel the timer here? Just let it run?
 
-> +		if (hrtimer_try_to_cancel(&vtimer->timer) == -1) {
-> +			scoped_guard(spinlock_irqsave, &vtimer->interval_lock)
-> +				vtimer->interval = 0;
+On Mon, Nov 2, 2026, at 9:21 AM, Christian Brauner wrote:
+> Since commit 552d0e17ea04 ("sunrpc: convert queue_wait from global to
+> per-cache-detail waitqueue") poll() and epoll queue their waiters for a
+> channel file on the queue_wait head in struct cache_detail. But the
+> cache_detail can be freed while its channel file is still open and
+> waited on.
+>
+> The procfs channel files of a network namespace are removed when the
+> namespace goes away. Removing a procfs file waits for the callers that
+> are in one of its methods right now and then calls ->release on every
+> file that is still open (cf. close_pdeo()). The waiters that poll() and
+> epoll left on the head stay queued until their file is really closed.
+> So:
+>
+>   sunrpc_exit_net()
+>   -> ip_map_cache_destroy()
+>      -> cache_unregister_net()
+>         -> remove_cache_proc_entries()
+>            -> proc_remove()      // ->release, the waiters stay queued
+>      -> cache_destroy_net()      // kfree(cd)
+>
+> and when poll() returns remove_wait_queue() writes to the freed
+> cache_detail:
+>
+>   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x4b/0xa0
+>   Read of size 1 at addr ff110001131bb570 by task sunrpc-poll-uaf/242
+>   Call Trace:
+>    remove_wait_queue+0x22/0x1c0
+>    poll_freewait+0xc2/0x230
+>    do_sys_poll+0x9ba/0xd50
+>    __x64_sys_poll+0x165/0x470
+>   Freed by task 12:
+>    kfree+0x267/0x620
+>    sunrpc_exit_net+0x34/0x80
+>    ops_undo_list+0x271/0x8d0
+>    cleanup_net+0x3f3/0x860
+>
+> Closing an epoll instance that watches the file gets there through
+> ep_unregister_pollwait() instead.
+>
+> The channel files of a network namespace belong to the root of its
+> user namespace and cache_open() doesn't check for a capability. So an
+> unprivileged user can open the channel file of a namespace of its own
+> from the outside, poll it and let the namespace die.
+>
+> Go back to a single static wait queue that never goes away. A wakeup
+> for one cache wakes the waiters of all caches again but cache_poll()
+> reports per cache_detail so that's just a spurious wakeup. procfs
+> should really own the wait queue of its files like kernfs does but
+> that's nothing for stable.
+>
+> Reported-by: Chris Mason <mason@kernel.org>
+> Fixes: 552d0e17ea04 ("sunrpc: convert queue_wait from global to 
+> per-cache-detail waitqueue")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Does this interval_lock serve some actual purpose? Looks like it's just
-protecting a single variable, and there are no read-modify-writes
-happening to it that I can see.
+Acked-by: Chuck Lever <cel@kernel.org>
 
-> +			return -EDEADLK;
-> +		}
->  	}
->  
->  	drm_calc_timestamping_constants(crtc, &crtc->mode);
-> -- 
-> 2.56.0
 
 -- 
-Ville Syrjälä
-Intel
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
