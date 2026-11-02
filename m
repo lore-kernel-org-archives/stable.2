@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793645963;
-	b=pvTk6R5GE3A2F8KCr9/csvVyWa3USkp4XJeeWedzyckSfiPEe6VTTVZoQzu2954pz2MA
-	 ZrfB7XTbuoqAR5N3221kQI7G1SiuRZx6rQI7pcEO6AfVMu8mv+ytZ1yP4O8ddSc/PQ0ls
-	 ciOXy6mfFFXQ2hD0qd1Q7aFLaZPdZrykobX0xPAXHRwcxjSll7cKjnn+EeWBPiJK0UQwr
-	 LeOCVB3+QxrEoGcwk/ZJM0uK0t4KsS3WKCckjhuv8s2giSBcZywf0CQiBXScbujY7VRTS
-	 HYsyakzhc6PGmfhopt6tXU0em8adCa+tFKPvA4UNhZafxTydfnegcxw/wIxgQFLl4ng==
+	t=1793645965;
+	b=o0nbm92ikRCKZcbVTJ7Ow09ThBcnNOEiNXp9hysHO+PlbSQwUo7RvipwWpM1MniB0GzK
+	 zedZy2C4txbQoMLHTUaZCaLheCQZEXTk7LW2qKMhesb3nCj36ipdg6fOKjKQSzrGoZEOX
+	 Vd6amcGgCfcNtbhOmXFrTK9lZyeYWzP0xSrKLO20FOln4FAo/dE/DoEnzVXGVP5bgNYAa
+	 JM56dOHI0KJJa3aCGIdhvy+DKg0srHIeGEZucHEh2QnhnfJe//V+KvK0uNpDs97+VDKsI
+	 vf6A9RfrOuk4NGLVUX4vOFN2RVQLBerPHAgJw2nUrzqyAosEJYX8HRgetaBJnDf+7Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645965;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=5mRtPrKiTj1NJfBurVT+6eR+VCtcqV1JQpewnXNZ3cg=;
-	b=aESWaB5l78lUwQqLRPvHzVsrDOuzt88tLRVbnjnEiCcsdRYY46u9Z13Mq9PNDAgQVuZD
-	 Ouxm2BxWr673hmnUXHZegF67MyqC3cJy7cfM/zxvzgydvvPvhlXqfjdoR15jhJZXLw5Wm
-	 jjOGNdpnCXeVf9brwIZqB+5X/4S58LmYVD5wn+DxtxFzG3QX0oSb28Iw64iYk1yBuatGj
-	 kgd/VrYh1g35kxqmAFqdUGkWLGcP/fG1hWt5Cx14fmqW99NilkAMXn0NHvKoA96deQAGG
-	 gvGbSPp+29iyWaeQTIiHQD8tWYgcwgZx2MomJsBV3VPyB2PpFB2sXBNA9Ic6061Y2gQ==
+	bh=l09uUE5m4Jt1XwhdIwNFNVPKCvijrWu8aYo7W5B2k58=;
+	b=O0LMJ8NzW2Inn4p17bTljGmQtvtdCWgk1oyQCOv7RqJtWMQHtY3sN9b/h2/KV45Xn/Ex
+	 UuvjV6+YH88YbjWBkrpvEmqfZ90vOJTiQG+PJMS7nfT7OpIqi3OmrGzAxIY4i6vFQYyA7
+	 rxUYhuyevK3wKKEQ1c25Zl/Uq0EBQjeyLFiOgJR37demDx8V0iUUD0ROVhxyhMeYM4JFy
+	 i9+ICqFZ+/ZjcyGnu/F9P+d67n29Mdh/muShwEtAjScbapuLCUrlIJZgl35CF/y6JM0uu
+	 GX2Y4n1OUBAQ3aIZJW0u0gHqX8nTtiW2IaoSQ2FXyPr0zDf3GtgfTLp+jzUl4grqcrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NOKZgW1s;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="wB9wq0l/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FE9606A32C;
-	Mon,  2 Nov 2026 18:59:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE93606A327;
+	Mon,  2 Nov 2026 18:59:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=NOKZgW1s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA7D61F00A17;
-	Mon,  2 Nov 2026 18:59:22 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=wB9wq0l/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5D7F1F00A17;
+	Mon,  2 Nov 2026 18:59:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793645962;
-	bh=5mRtPrKiTj1NJfBurVT+6eR+VCtcqV1JQpewnXNZ3cg=;
+	d=linux-foundation.org; s=korg; t=1793645964;
+	bh=l09uUE5m4Jt1XwhdIwNFNVPKCvijrWu8aYo7W5B2k58=;
 	h=Date:To:From:Subject;
-	b=NOKZgW1sjkpQYKELqiWvyyrVt/mnJU8xdVOai76a9hvJqh3SFSz5Yjhu88L8JfDs6
-	 Vb0D+d10k9cq9kSYCOMf6ek1mt8A1/WEGoUxsOCB49yiVywqMTCKzMIBoBHIPz/XFw
-	 ZU+B2q55wwXk1+WhisgG5B1EASCMRys4G7Bb6UYk=
-Date: Mon, 02 Nov 2026 10:59:12 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,sj@kernel.org,rppt@kernel.org,mhocko@suse.com,
-	liam@infradead.org,jm5905938@gmail.com,davidgow@davidgow.net,
-	brendan.higgins@linux.dev,xiaoleiwangxiaolei@gmail.com,
+	b=wB9wq0l/gGU+NjrT8+2OAVPvZ2qmxleMwaQApmQUBGeHIpklmqTIdl2TaBsfJcS8e
+	 LkdKRkgIhUdHNU3NHfo0aZqYYfl0JxvG+sa76FRRGN3c8u7w/GA76VwSemevTWSdLf
+	 HGUPLR9Sfrtfb4IciVB8JfC7biPkA3tMWRP02OPM=
+Date: Mon, 02 Nov 2026 10:59:24 -0800
+To: mm-commits@vger.kernel.org,xiaoleiwangxiaolei@gmail.com,
+	stable@vger.kernel.org,shuah@kernel.org,jm5905938@gmail.com,sj@kernel.org,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch added to mm-new branch
-Message-Id: <20261102185922.BA7D61F00A17@smtp.kernel.org>
+Subject: + selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch added to mm-new branch
+Message-Id: <20261102185924.A5D7F1F00A17@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,12 +53,12 @@ Precedence: list
 
 
 The patch titled
-     Subject: mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
+     Subject: selftests/damon/sysfs_memcg_path_leak: define ksft_skip
 has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch
+     selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
 
 This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
 
 This patch will later appear in the mm-new branch at
     git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
@@ -89,73 +87,63 @@ branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 and is updated there most days
 
 ------------------------------------------------------
-From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
-Subject: mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
-Date: Mon, 02 Nov 2026 06:46:25 -0800
+From: SJ Park <sj@kernel.org>
+Subject: selftests/damon/sysfs_memcg_path_leak: define ksft_skip
+Date: Mon, 02 Nov 2026 06:46:26 -0800
 
-damon_sysfs_test_add_targets() creates its monitoring context with
-damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
-DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
-context, and damon_sysfs_add_targets() therefore calls
-damon_set_target_pid() for each target it adds.  That function grabs a
-reference to the target's struct pid via find_get_pid().
+sysfs_memcg_path_leak test uses $ksft_skip without defining it.  As a
+result, the test is marked as passed while it was skipped, like below.
 
-The test then tears the context down with damon_destroy_ctx(), which
-releases such a reference from ctx->ops.cleanup_target().  For the vaddr
-operations set that callback is damon_va_cleanup_target(), and it is the
-only place where the reference is put.  The test never selects an
-operations set, though, so cleanup_target is NULL and both references --
-one for each of the two damon_sysfs_add_targets() calls -- are leaked on
-every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
-enabled reports the leaked struct pid objects as unreferenced.
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    0
 
-Fix this by selecting the vaddr operations set for the context before
-adding the targets, mirroring what the sysfs interface does.
-damon_select_ops() fails if the vaddr operations set is not registered,
-in which case the test cannot exercise the pid handling and skips
-itself.
+Users who run the test could therefore wrongly believe the test was run
+and passed while it was skipped.
 
-Link: https://lore.kernel.org/20261102144627.88843-3-sj@kernel.org
-Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
-Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+Define the value at the beginning of the test.  After this patch, the
+exit code reflects the skip.
+
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    4
+
+Link: https://lore.kernel.org/20261102144627.88843-4-sj@kernel.org
+Fixes: dfa3cf0bc018 ("selftets/damon: add a test for memcg_path leak")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Aveline Noir <jm5905938@gmail.com>
-Cc: <stable@vger.kernel.org> # 6.7.x
+Closes: https://sashiko.dev/#/bug/linux-a0456336-0608-4fec-ac22-0ee61d1d6a91
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
+Cc: Shuah Khan <shuah@kernel.org>
+Cc: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+Cc: <stable@vger.kernel.org> # 6.17.x
 ---
 
- mm/damon/tests/sysfs-kunit.h |    9 +++++++++
- 1 file changed, 9 insertions(+)
+ tools/testing/selftests/damon/sysfs_memcg_path_leak.sh |    3 +++
+ 1 file changed, 3 insertions(+)
 
---- a/mm/damon/tests/sysfs-kunit.h~mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test
-+++ a/mm/damon/tests/sysfs-kunit.h
-@@ -79,6 +79,15 @@ static void damon_sysfs_test_add_targets
- 		kunit_skip(test, "ctx alloc fail");
- 	}
+--- a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh~selftests-damon-sysfs_memcg_path_leak-define-ksft_skip
++++ a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
+@@ -1,6 +1,9 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
  
-+	if (damon_select_ops(ctx, DAMON_OPS_VADDR)) {
-+		damon_destroy_ctx(ctx);
-+		kfree(sysfs_targets->targets_arr);
-+		kfree(sysfs_targets);
-+		kfree(sysfs_target->regions);
-+		kfree(sysfs_target);
-+		kunit_skip(test, "vaddr ops not registered");
-+	}
++# Kselftest framework requirement - SKIP code is 4.
++ksft_skip=4
 +
- 	damon_sysfs_add_targets(ctx, sysfs_targets);
- 	KUNIT_EXPECT_EQ(test, 1u, nr_damon_targets(ctx));
- 
+ if [ $EUID -ne 0 ]
+ then
+ 	echo "Run as root"
 _
 
-Patches currently in -mm which might be from xiaoleiwangxiaolei@gmail.com are
+Patches currently in -mm which might be from sj@kernel.org are
 
-mm-damon-tests-sysfs-kunit-fix-leaked-pid-reference-in-add_targets-test.patch
+mm-damon-sysfs-schemes-hold-damon_sysfs_lock-in-target_metric_store.patch
+mm-damon-core-move-static-variable-last_nr_regions-to-damon_ctx.patch
+mm-damon-core-move-static-variable-rotation-to-damon_ctx.patch
+mm-damon-core-copy-only-installed-probe-in-damon_split_region_at.patch
+selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
 
