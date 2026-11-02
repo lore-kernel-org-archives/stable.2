@@ -1,56 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627145;
-	b=ulzHJMYOBy4I9fv5f4SJjQckf5WsApR9oK7P21X9kqCS49QWZTzzQjSuWaX9cr/bql+T
-	 kHQNYiEspYItgn/T3BIqaQYHd++Up3pXbTMFTzzjbgw1bhGOXUrmWSA4QlH0wf7GGd9Il
-	 k+G2r87aFKxSaZrYSG6gmPWqrpMRDHyWyh9Dg07zgvX7Hh3n/vbD3jqyJSfo1b/BDV8B4
-	 CkLNtfsPQDRyDkkqOQ83htUXVEcGLD0SlsdemPkmBuEXNBlrjFyiYcnhWZXF/ezSqZMNm
-	 vOTCHl6afzxIeJib2QyIHEEw4pgpS/rc+ispljRW+HE1Dr03h7bebqmvscc1wV0hvsg==
+	t=1793627218;
+	b=Rn+By8dYGv/wYAH4M3Y8gX493JFdfh4qyv1izKJ8hsDD3phNI5lJLfLAzfM+M60roqHG
+	 vwgEUt9IlqsLEbfORoJ1bf5Fl4gs79gVtFoUNkd+66+/ycS7OvhSY1Zzk8tusiG6V6/BF
+	 cCCCulVeNLcDluW2pP3ByD3qDTnuAzjsX9tRsqVpMoV+IO6440xN7g0Z0WA2/pcEFVJID
+	 5gPBQ68JbDReIBb4tjL+cewWltKxfbpulPb5x4ylcyWGLf0zkM6Weg0e9qp0xKkf4wf6w
+	 QlwoMEd3YAmyroFZsVDLg3kgKBgH6DUQ9c1wQTXT4g0/KmFk4g0i0ZRObcrk/W17IXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627145;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=wAjHvNUqvta+sdWtgkRMRvCccI4IjDkWJMkgjZPZg3I=;
-	b=XBPWSKT+jaPwdzA3YlIhhOTExgH7Z21SfjEwUlO0Txv9nbNU0fc/a852HDz8+5SifjTV
-	 J5TIfOfFcPo4zX+ivatGhleSJwDDREi2EFpfJo9zmGnKNlb0mixL8vxCnPf5RvOd6Zsa8
-	 94wnR5gpnLNWTI+9Ri9EG+FHzQIru+el/XhwGE1+MrU3O2tcSNwbHhhQezbzXI7VZyeBD
-	 heG+7sM3+ouIsgez7bJAlrO8/GLgzTCy8sI/WZI18UBvmEEcDsu6QGa2cZdzib9DBNlFF
-	 aJrE+UJRAxywXqki14yvugdg0AJjnAQPmSufxX+rp5OYGj7Q+onObNZrMZNYlUmBkLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627218;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
+	b=zGuUZwu3NEXrdAQcUq9Z+2BqT12dB2R680wYIHSBDeCQIMvAoFfcuc2gaAkba7NCAMIq
+	 CW2N0W6u9f1cC9iQ4oEmryrCxq5h+4VdA2SnqTs5DAkIRnMYrRPLSIXgZMozTQgZHr09O
+	 uqNb70JWEeq1ile3v7lUAIzlBnFHeZziRP2SqlF21tbEH4itTh1+gP8D5Cg/qKz7h9Ett
+	 n84MuX2OptzeudCWjipv+dY6YLazN1cTXcIuihSxKa2qQpS82Z6meMzsQdxA0rSdNMOvP
+	 EKEwDj3xKUfBx9SciwSLj/ZFYRwyOX3Y1qTeVp8P+CMkTy37tWHKbBRCgC5bzh0Vvfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAC33606A327;
-	Mon,  2 Nov 2026 13:45:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAC33606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Q6+Shkn/";
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB649606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:46:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB649606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q6+Shkn/
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so23277035e9.3
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 05:46:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=wAjHvNUqvt
-	a+sdWtgkRMRvCccI4IjDkWJMkgjZPZg3I=; b=4rM3iPsDSb9boXQ6brm7+db4tg
-	PHVq8i1cborxOF9RPrTxKkFecZcykXFwPEd3HIx+Ua9wzmvx2LwJmgBBXqh35fRk
-	nPEJAA4Rf+Vz2tAKF4WDLnb9R0NKw2s14GysDlvBkK3oCkkRnqvqMmYIVhLcO59m
-	+WshH5hKes0PLF45c=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnAH3k+hqs8kZAQ--.13514S2;
-	Mon, 02 Nov 2026 21:45:29 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-media@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1793627216; x=1794232016; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
+        b=Q6+Shkn/ObJr5jdATQDsyRSPLAb9MySAWl+yJX46CQKajHmZsK/iR0yiIQwuUi8y1J
+         9v1QZf3SPv/OiXznYwMqUybwM8VSNfZy96EEl4hAqrzMSwGDlyCLi5unRHhqOymdpMSA
+         yC/CjmhNV24dDnOUp7jrBKE1wsR/P6KqoEbo0STcFrMMOM38FZB4kn89Smwww6mXWspa
+         8rgzTWjmTWIzabmKmTTBqu3Jig0z76xSvrexbGAZaNosC9cP/MchuajEj9hYb343yGgH
+         KSkDgXj2Kb+7dk7qRtR1cUsRy/KLhwlPWtnZG7bHPMSCGjdwZcTgrgHtUiA1m/CgFOBC
+         3QmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793627216; x=1794232016;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
+        b=tWQtV7EGI/X8NW3zk+h/MuNYgZ0AhVKKH1QU0icNUxq1ukEnj3SUQn+XJE9TiVvL2l
+         doLsdr1FtzRrpUEaYsOS6NmZrAorRFAWsS0+UCdGldLKgonxhfr1jQ6FKg3HwbJjGBjX
+         wjjTnZFctqLMYPG7HOZvO51VcVlQM1fkuc7yARzGbCGEbVXmIJE4rI5OgbeSt/aakbdQ
+         aY/kN+xiPEqeDf1AEGqddzDccze7375HaS5uDYnSz8tsPfUkkXxSGpNZGBRi89f0nKpX
+         8ycwtGEIcItEBXh8Txo4BRnPFIWjx+Z5Xh+iI5WgnNACFzDi5S+V4aBScE4Wn5UXUSCi
+         9fEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwS/TqYH94J/usiOtIDlJxWyRQMPXuN2q7lxNVTImLcSVTdQKzJIlPBG3wTFGDAUvayYM/Fn/w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZVTDTi/1neSew1cpdKlUjeWcIBAwYCNaldIDxbaBzpS106ugy
+	4LLRqSODy7pulClocfs9Iqzz22DKNd/16aVWIENrbY7TaURW1Oyveq4=
+X-Gm-Gg: AYBFou0jEGHzvmWl1nuAOAk10yG8os8ktDY1+ow5g9mruSMxUqeqFyeARPJSWkPa1lV
+	CVca6B/u3behZc5brYpQNUiCHi0OlCU28g/czOhDcpiikkxFYwbhnBI+PEh2uocwoIXS7oNCADh
+	ficnXN2rl0vhQxGgbZJDYYddxgx3ehI5XiyASrFRFz/3zwPeMjXETinyAKxDct3e9EnuB2T2xhL
+	sZCsa85+l/tZVwT2+A3ytDgVvHtAQpMEyhVTFTvlXZr0weITD9KdSOsj2k6fpWJtTEMTwMthcBb
+	vgkq1zT0ejdkm8tYOySg2qc1sUnGZi6Q5KWatLu60KSVPxmm250wI07IREe7m91XlBTk2KGLiKW
+	xe5t/eTJmKY0QAh9U5ohjaiQzWj46z0X3WNpzeMXf6T8JWAhMxjNH27JAfqy3Iz8T+vM1feGXoN
+	nBhFmug8baO8cK7FmelUx+UD613RdgPCZFWG7APTYc0akocfSsIKgS+jZj5pH6Fiy4XEM8Pfhs4
+	9NnQplGRRCvTbceh4EMyNGtsPaCZ8Q23z2atvitjLgF+UUN0NtdgkV8xGPT2XLVS7VX1FTq3A==
+X-Received: by 2002:a05:600c:1f94:b0:4a8:f2ad:a9e5 with SMTP id 5b1f17b1804b1-4ac1548f591mr233240795e9.3.1793627216106;
+        Mon, 02 Nov 2026 05:46:56 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm388643405e9.10.2026.11.02.05.46.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:46:55 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: jlee@suse.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: marex@denx.de,
+	mjg@redhat.com,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: au0828: hold the vb2 queue lock when releasing the queue on close
-Date: Mon,  2 Nov 2026 21:45:27 +0800
-Message-Id: <20261102134527.14486-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86: acer-wmi: validate ACPI object type in acer_gsensor_event()
+Date: Mon,  2 Nov 2026 13:46:54 +0000
+Message-ID: <20261102134654.638644-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,75 +100,44 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBWnAH3k+hqs8kZAQ--.13514S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1kCrWrCFW3AFyfAw43KFg_yoW8ur1Dpa
-	95KrWjk395Xr4UWwsrXa1293Wru3Z8uFW0kry7ta1Svr1rZFyIvr1Fyw4jvrWUZ3s7Aw4j
-	qayDtrWakrWUZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Xr4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxU4zBTUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdS+DAAAsw
 
-au0828_v4l2_close() releases the vb2 queue with _vb2_fop_release(filp,
-NULL) while holding dev->lock. The video and VBI queues have their own
-locks (vb_queue_lock and vb_vbi_queue_lock), and v4l2_ioctl_get_lock()
-serializes the queue ioctls with those instead of dev->lock. The queue
-can therefore be released on close while another file handle is in the
-middle of VIDIOC_REQBUFS or read().
+From: Tristan Madani <tristan@talencesecurity.com>
 
-__vb2_queue_alloc() adds each buffer to the queue before allocating its
-planes, so the release can find an MMAP buffer whose mem_priv is still
-NULL and hand it to vb2_vmalloc_put():
+acer_gsensor_event() accesses the ACPI evaluation result as a package
+without first verifying the object type.  If the firmware returns a
+non-package type, the code reads package.count and package.elements
+from the wrong union member, which can cause a NULL pointer
+dereference or read from an invalid address.
 
-  BUG: KASAN: null-ptr-deref in vb2_vmalloc_put
-  Write of size 4 at addr 0000000000000020
-  Call Trace:
-   vb2_vmalloc_put
-   __vb2_buf_mem_free
-   __vb2_queue_free
-   vb2_core_queue_release
-   _vb2_fop_release
-   au0828_v4l2_close
+Add a type check for ACPI_TYPE_PACKAGE before accessing the package
+fields, and validate that each element is ACPI_TYPE_INTEGER before
+reading integer.value.
 
-Pass the queue lock to _vb2_fop_release(). Taking it while holding
-dev->lock matches the lock order the driver already uses in its
-unregister path, where vb2_video_unregister_device() takes the same
-queue lock.
-
-Fixes: 05439b1a3693 ("[media] media: au0828 - convert to use videobuf2")
+Fixes: 1eb3fe1d3b6b ("ACER: Add support for accelerometer sensor")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- drivers/media/usb/au0828/au0828-video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/platform/x86/acer-wmi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/au0828/au0828-video.c b/drivers/media/usb/au0828/au0828-video.c
-index 3c53105f3d2b..e3f894d67d7c 100644
---- a/drivers/media/usb/au0828/au0828-video.c
-+++ b/drivers/media/usb/au0828/au0828-video.c
-@@ -1094,7 +1094,7 @@ static int au0828_v4l2_close(struct file *filp)
- 			pr_info("Au0828 can't set alternate to 0!\n");
- 	}
- end:
--	_vb2_fop_release(filp, NULL);
-+	_vb2_fop_release(filp, vdev->queue->lock);
- 	dev->users--;
- 	mutex_unlock(&dev->lock);
- 	return 0;
+diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
+index 61ae622c93d94..72b44f02a992f 100644
+--- a/drivers/platform/x86/acer-wmi.c
++++ b/drivers/platform/x86/acer-wmi.c
+@@ -2043,7 +2043,12 @@ static int acer_gsensor_event(void)
+ 	if (ACPI_FAILURE(status))
+ 		return -1;
+ 
+-	if (out_obj->package.count != 4)
++	if (out_obj->type != ACPI_TYPE_PACKAGE || out_obj->package.count != 4)
++		return -1;
++
++	if (out_obj->package.elements[0].type != ACPI_TYPE_INTEGER ||
++	    out_obj->package.elements[1].type != ACPI_TYPE_INTEGER ||
++	    out_obj->package.elements[2].type != ACPI_TYPE_INTEGER)
+ 		return -1;
+ 
+ 	input_report_abs(acer_wmi_accel_dev, ABS_X,
 -- 
-2.34.1
+2.47.3
 
