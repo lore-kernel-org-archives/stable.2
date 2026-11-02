@@ -1,75 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.126.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633596;
-	b=wbPbHW+t1VN/kpGl0tz8VQUFSD8iCAzS/aTFGV3ROVO5qSwmwqBv0kPUWbn56EVrpLV9
-	 bwfGZqUe7pMLJhG+63JYudvraNE72XN1Pq/OCodIHrOmardGENr+eB5WTC44B3oSploqd
-	 JtTOeeJ58KWj99YJRWSagqAQVj73z8u1OSQzgJtYE9wWu3EdSgkEcmV/R4yxoGMRsl304
-	 dChYh4Uh2rWUN8jV0WmokpzdZEWZ4n/5mv4P8+iEtYtiMsOlgF2MV00euMDZds4n/1Gow
-	 JsL/MOY/uQyy2OcJu0LgQVXE+6RWCjhYHPAdU+kp3ylxk1DzZkgBHAOyQ+IxbBEEDYQ==
+	t=1793633603;
+	b=j4XLY3LfFXzynFu1mEtbosHLhmJ1YFmx8WxaHLTYEzjL08BHV/HKtLvlGyF1SvW6CqQz
+	 J6Oexlg2bM7mmKd8og0zzBFVAbntV5HhjVR392S7d2GAOtYh5m6feAIUljYlja4tOy7pA
+	 f2uWdKp6WJUB8kUbdrvyUbjCDAABuL5+bYKC7pU2ySNM77END42DPWabLxHWRHKYWxLE9
+	 iW3/gtvf3EJBDTnTcd8gtINX7cBEsHXrcJDMn3P2/Qghb36yXlAjqUt3N1OyNhBnzEu/D
+	 IvgrUZWSX2eHaDfJqpbbAIm6ikryPzIcsA+L3iQZUXwXrqM2wYeCB9kxH2t0ux5s0Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633596;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=v+D0D7gwO9eEkB3WVqiwBrJfrYEsyonPDFETvujz8EE=;
-	b=dE9nBwgU0th+KxM+6MNiEcHTgM38aFZYBRLsOZHeNHv777SiG7DiYWO3vhN/TaL+3CcW
-	 yH+d8QMYnxIOKyB/9Y1AKsjFBbsdoWmfFyfJROPxvVEA6AxCslJUzvEaItRhfPWXi5Oz3
-	 /j52K9b4f72nndDsWrRsyP+RM5zj8h4BY61zr/T5XPvsRYa/UkL1u7frOWmSsrm6N73ln
-	 t5HRbrLJtqRa+EU9Tgj8pte99sfJpV/VYFrUC1LCaJq51eH9W++bUsyhEp51A+ddVwcD2
-	 LuEEzNBI+Huw7p9DoHpnBtMaWBBx+vrmmLPL7P4iXQ6cXsbkoyagcU3KBde0hP1HUvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633603;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=OWA2XPF4LToFYnO4yT1hL4MsaiF9uOHmMKnDy9Fz0JI=;
+	b=gcASnf3TXP2Oc2KoJvlx8Oor7cr+fEPRy0nWEs0WYJU9aPpBKICXzcSMrdW2h+Fa2dht
+	 XaM0OzcVS8OEZP6GoplLB7yADFepyMq4xmnc9u8t3zXWXcaQXBYn+b6HaJzVADaCaitNr
+	 U6+a8rZDZLI5ZOyBcXNZlX613ROx47EeLPkscaKNCLa0MD/oqQHrlp5zM6nXDGJxy+mpX
+	 +4mbqYG5RzyRWEpyzCcBEumQcbmmHfXrNYUf58NezwQz7DX69yE5KIhJxj/HBjyX0Tojg
+	 AePLupAVrBdboLN7eAU4zBOshbdA7Ai99G4kZi0MPJrap4XIfBCpiQQ1SsOo0pZybCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=online.de;
-	spf=pass smtp.mailfrom=online.de;
-	dkim=pass header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=UJHmVRZv;
-	arc=none smtp.remote-ip=212.227.126.133
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+	dmarc=pass header.from=runbox.com;
+	spf=pass smtp.mailfrom=runbox.com;
+	dkim=pass header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=YVqdIVIj;
+	arc=none smtp.remote-ip=185.226.149.37
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1323260D95E3;
-	Mon,  2 Nov 2026 15:33:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1323260D95E3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=online.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=online.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8522609FAA2;
+	Mon,  2 Nov 2026 15:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8522609FAA2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=runbox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runbox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=online.de header.i=cito@online.de header.a=rsa-sha256 header.s=s42582890 header.b=UJHmVRZv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=online.de;
-	s=s42582890; t=1793633563; x=1794238363; i=cito@online.de;
-	bh=v+D0D7gwO9eEkB3WVqiwBrJfrYEsyonPDFETvujz8EE=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=UJHmVRZvbP4hIGvBPbb+mPEEapuAZ+zeWEztJDPdV5/vx7AmWAPCyLI13p3JPKqd
-	 ObrTH97VLZArn1MLKuan0S795e5E/iS+iDxCM0vEdkByqdke1+NwFzeTZEji0PwQw
-	 P7IbQ2ybIGoTW8MJSFSCRWxFQNwzxz7tldY5TKlXNfRF9nEbmzBXVBdRb0WUFibVM
-	 i1KPch42sXxIQLy/wRsMjstmwUiUUJQ5ToMdUaIjxj8fc+vt4churqNguc2IGhdfh
-	 Ew+QhW/HOkj0kXbum5If/3oB+MpwmNwZ7bByh/b8ig5TjqrzMPGYB/TQRNNTyzaxE
-	 ElKM5hS85Vx5BhOLZg==
-X-UI-Sender-Class: 6003b46c-3fee-4677-9b8b-2b628d989298
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
- [212.227.15.167]) with ESMTPSA (Nemesis) id 1Mi2BV-1wtG6E0d3x-00diWI; Mon, 02
- Nov 2026 16:32:43 +0100
-From: Christoph Zwerschke <cito@online.de>
-To: stable@vger.kernel.org
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
-	Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Salvatore Bonaccorso <carnil@debian.org>,
-	Erik Brangs <erik.brangs@gmx.de>,
-	benh@debian.org,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	linux-bluetooth@vger.kernel.org,
-	regressions@lists.linux.dev,
-	1149377@bugs.debian.org
-Subject: [PATCH 6.18 2/2] Revert "Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU"
-Date: Mon,  2 Nov 2026 16:32:41 +0100
-Message-ID: <20261102153241.373878-2-cito@online.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102153241.373878-1-cito@online.de>
-References: <0cf3aaf2-9911-4918-8f6f-c11d6077d39b@leemhuis.info>
- <20261102153241.373878-1-cito@online.de>
+	dkim=pass (2048-bit key, unprotected) header.d=runbox.com header.i=@runbox.com header.a=rsa-sha256 header.s=selector1 header.b=YVqdIVIj
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <m.v.b@runbox.com>)
+	id 1xNu1j-009s2A-HV; Mon, 02 Nov 2026 16:32:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=runbox.com;
+	 s=selector1; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From;
+	bh=OWA2XPF4LToFYnO4yT1hL4MsaiF9uOHmMKnDy9Fz0JI=; b=YVqdIVIjvx3mLyxidi6v4t9gMc
+	Z8oB/yZeWggp5/Vm+IVTnA1L0Hgp3ZQXarF40oYHbjfIL0yhFPZyEk7lAHIda3o2Ece8Q5Yzm1JYb
+	gi2D8lNfKPHPz4KX5In5+waa+NbQo8xqbh2f7wLNZW++DJbUvB6EqnlorPG0XAoStia2xw22Fj+BO
+	YaCqoo5ehX/op6UET2f3vWf/bFziVO4cfiwp6vklC10p4QRSE2HITX1eVDGCQ50PnRyxTU/Mu48Tp
+	tYaq+Sl+Pu6hNgTtfHicMBx0Xo4MJ4BK3vhOuhjYDPeA8dQo7VCcSkPm0c0sz94oYelvRmIkEBX4t
+	8ADz1CLg==;
+Received: from [10.9.9.74] (helo=submission03.runbox)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <m.v.b@runbox.com>)
+	id 1xNu1L-0006cC-C6; Mon, 02 Nov 2026 16:32:27 +0100
+Received: by submission03.runbox with esmtpsa  [Authenticated ID (536975)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xNu1I-00CPK3-46;
+	Mon, 02 Nov 2026 16:32:24 +0100
+From: "M. Vefa Bicakci" <m.v.b@runbox.com>
+Date: Mon, 02 Nov 2026 07:31:55 -0800
+Subject: [PATCH] x86/xen: Fix lazy MMU pause count wrap-around
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,108 +67,173 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:CNfaH5AzoLko6AUgTrUQvFKiE/1miiRurP+XSNDgMErRemo0S7P
- kAN3uKfYy6VsymcN7VizVp6TaifFgJg7gtjJDt81CNxRSw+apUo2D+9i375LBp+I7dpVQsQ
- UkjnzfuttLoXgEGTC+o+AzlnOdwBAOXPPzRnGfBunmdAQzHHQhxuMkvqVoaCXMicv3FiICH
- STkgl3UjFm2Jrnb6ugu2Q==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:0XhjqiBUSZ0=;lZ5nkc5ESEeHedpojZJwi8enJ2h
- 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
- 7QYs+7N7
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-xen-lazy-mmu-v1-1-d99a3050b76d@runbox.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNz3YrUPN2cxKpK3dzcUl1zi0RjM4vkxGRjQ1MloJaCotS0zAqwcdG
+ xEH5xaVJWanIJyAyl2loABmMaTXAAAAA=
+X-Change-ID: 20261027-xen-lazy-mmu-78a368cac315
+To: Juergen Gross <jgross@suse.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, "M. Vefa Bicakci" <m.v.b@runbox.com>
+X-Mailer: b4 0.16.0
 
-This reverts commit aa7b93fe98ba726971b7d0c68320ce513e68aac2 which is
-commit 980084de4d9b25193398d89a1c0430ba3501b683 upstream.
+Commit bec6f41a6fe5 ("x86/xen: Get rid of last XEN_LAZY_MMU uses")
+unintentionally prevents the activation of lazy MMU mode for most tasks
+running on Xen PV VMs (including dom0).
 
-With the device ID in the table, the adapter is handed over to btrtl,
-which in this tree, together with the backport of commit 4a23ce935f74
-("Bluetooth: btrtl: Add the support for RTL8761CUV"), now requires
-rtl_bt/rtl8761cu_fw.bin. That file is only shipped by linux-firmware
-since 20251111. On systems with older firmware packages, such as
-Debian trixie, the adapter no longer initializes. Without the ID entry
-it binds via the generic Bluetooth class and works on its ROM firmware,
-as it did before the backport.
+That commit made xen_end_context_switch() call
+__task_lazy_mmu_mode_resume() with the task being switched to. However,
+the latter function decrements the pause_count field of the task without
+checking whether that task's lazy MMU mode was paused or not. A task
+being switched to for the first time has never been switched from, so
+attempting to resume lazy MMU mode can wrap-around (underflow) the
+pause_count from 0 to 255 (U8_MAX).
 
-Mainline keeps the ID entry, so this revert is for 6.18.y only, as agreed
-in the regression thread.
+Furthermore, the non-zero pause_count is copied to child tasks at fork,
+so all descendants (including the idle tasks of the non-boot CPUs)
+inherit the non-zero pause_count. This prevents enabling lazy MMU mode
+for them, because lazy_mmu_mode_enable() does not do anything when
+pause_count is non-zero.
 
-Reported-by: Erik Brangs <erik.brangs@gmx.de>
-Closes: https://bugs.debian.org/1149377
-Link: https://lore.kernel.org/all/179104011040.2214689.5921682013387867802=
-@eldamar.lan/
-Signed-off-by: Christoph Zwerschke <cito@online.de>
-=2D--
- drivers/bluetooth/btusb.c | 4 ----
- 1 file changed, 4 deletions(-)
+Hence, call __task_lazy_mmu_mode_resume() from xen_end_context_switch()
+only if lazy MMU mode was paused.
 
-diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
-index 9d6610b8ecfc..0229d0637013 100644
-=2D-- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -842,10 +842,6 @@ static const struct usb_device_id quirks_table[] =3D =
-{
- 	{ USB_DEVICE(0x37ad, 0x0600), .driver_info =3D BTUSB_REALTEK |
- 						     BTUSB_WIDEBAND_SPEECH },
-=20
--	/* Additional Realtek 8761CU Bluetooth devices */
--	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info =3D BTUSB_REALTEK |
--						     BTUSB_WIDEBAND_SPEECH },
--
- 	/* Additional Realtek 8821AE Bluetooth devices */
- 	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info =3D BTUSB_REALTEK },
- 	{ USB_DEVICE(0x13d3, 0x3414), .driver_info =3D BTUSB_REALTEK },
-=2D-=20
-2.56.0
+This issue was discovered with CONFIG_DEBUG_VM=y, which enables
+pause_count underflow and overflow warnings. In the examples quoted
+below, the first warning shows the underflow with PID 1. The second
+warning shows the overflow from 255 (U8_MAX) to 0, also for PID 1, as
+indicated by the same RDI register value.
+
+Example pause_count underflow warning:
+
+  WARNING: include/linux/pgtable.h:362 at xen_end_context_switch+0x4e/0x60, CPU#0: swapper/0/0
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.2.4-1 #2 PREEMPT(full)
+  RIP: e030:xen_end_context_switch+0x4e/0x60
+  ...
+  RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff888004930000
+
+Note: The PID is shown as 0 above, because current_task is updated in
+__switch_to() after arch_end_context_switch(). arch_end_context_switch()
+calls xen_end_context_switch() indirectly.
+
+Example pause_count overflow warning:
+
+  WARNING: include/linux/pgtable.h:319 at xen_start_context_switch+0x64/0x70, CPU#0: swapper/0/1
+  CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Tainted: G        W  7.2.4-1 #2 PREEMPT(full)
+  ...
+  RIP: e030:xen_start_context_switch+0x64/0x70
+  ...
+  RDX: 0000000000000000 RSI: 0000000013f7894d RDI: ffff888004930000
+  ...
+  Call Trace:
+   <TASK>
+   __schedule+0x36a/0x1a90
+   schedule+0x27/0xa0
+   schedule_timeout+0xbd/0x100
+   __wait_for_common+0x97/0x1b0
+   wait_for_completion_killable+0x24/0x40
+   __kthread_create_on_node+0x13e/0x240
+   kthread_create_worker_on_node+0xee/0x1c0
+   workqueue_init+0x26/0x420
+   kernel_init_freeable+0x101/0x360
+   kernel_init+0x1a/0x130
+   ret_from_fork+0x2b0/0x340
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+
+Fixes: bec6f41a6fe5 ("x86/xen: Get rid of last XEN_LAZY_MMU uses")
+Cc: stable@vger.kernel.org # 7.2.x
+Signed-off-by: M. Vefa Bicakci <m.v.b@runbox.com>
+---
+=== Testing notes ===
+This commit was tested with kernel v7.3-16755-gd135ab453a74 and v7.4-rc1
+with a domU PV VM, and versions from v7.2.4 to v7.2.14 with dom0 and
+domU PV VMs running on Xen v4.19.5. CONFIG_DEBUG_VM=y was set for all
+tests, and no warnings were observed.
+
+=== Debugging notes ===
+For debugging, I instrumented xen_start_context_switch(),
+xen_end_context_switch() and copy_process(), and I confirmed that the
+inherited pause_count value is decremented for each level of the process
+tree, starting from 255.
+
+=== Credits ===
+The patch was hand-written, but the commit message was polished with a
+few rounds of LLM review.
+---
+ arch/x86/xen/enlighten_pv.c | 10 +++++++++-
+ include/linux/sched.h       | 19 +++++++++++++++++++
+ 2 files changed, 28 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index c5117a7730d6..68f8a977999b 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -431,7 +431,15 @@ static void xen_end_context_switch(struct task_struct *next)
+ 
+ 	xen_mc_flush();
+ 	this_cpu_write(xen_cpu_lazy_mode, false);
+-	__task_lazy_mmu_mode_resume(next);
++
++	/*
++	 * A newly created task can be switched to without ever having been
++	 * switched from, so it will not have a prior lazy MMU pause to undo
++	 * from xen_start_context_switch(). Hence, resume lazy MMU only if it
++	 * was paused.
++	 */
++	if (__task_lazy_mmu_mode_paused(next))
++		__task_lazy_mmu_mode_resume(next);
+ }
+ 
+ static unsigned long xen_store_tr(void)
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 1c93da75226e..3f9341f1f827 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1791,6 +1791,25 @@ static inline bool is_lazy_mmu_mode_active(void)
+ 
+ 	return __task_lazy_mmu_mode_active(current);
+ }
++
++/**
++ * __task_lazy_mmu_mode_paused() - Return a task's lazy MMU mode pause state
++ * @tsk: The task to check.
++ *
++ * Test whether @tsk has its lazy MMU mode state set to paused
++ * (i.e., pause_count > 0).
++ *
++ * This function is intended for architectures that implement the lazy MMU
++ * mode; it must not be called from generic code.
++ *
++ * Return: Whether task @tsk has paused lazy MMU mode.
++ */
++static inline bool __task_lazy_mmu_mode_paused(struct task_struct *tsk)
++{
++	struct lazy_mmu_state *state = &tsk->lazy_mmu_state;
++
++	return state->pause_count > 0;
++}
+ #endif
+ 
+ extern struct pid __rcu *cad_pid;
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261027-xen-lazy-mmu-78a368cac315
+
+Best regards,
+--  
+M. Vefa Bicakci <m.v.b@runbox.com>
 
