@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793640259;
-	b=2qFn+DYIwNAliGUywPMY19ZWkYwYMez/hodNayfeEv/CyDfGI6+bsZ+/GnU/mlJ3e5rb
-	 7EplpAO8wXBPSCoBmwWnYnzYa8VpeZtQGxsRXj5nFgM7F8xam3aHz3BFt3J47OJ+yMs/3
-	 bQOxzSfFb8fBfKGoX3K21M21Il5iOycWoC4PfdKs9+6Ve3POnWmm/oGrTC5a9XmuLhI/+
-	 rwVHR8M26cOcFQrZ8MJ2tiaT3FO4WXaUvq2L9OYy9T+3+Y/aIOFtnC6mNWVLd1Z+tfXkb
-	 KZ1iOslB8Ev3oyF3R35gkzrazZb/GfowVUkXUnG4VROnG7n8GPFXHNGi2msGUq+yhdw==
+	t=1793640416;
+	b=FrjDwexR2cZs8lgYnO+MhazpSCiEgHW1bJnLyaRezbZ6DOiqtuQ4oEA2KHIz9zaRGl5u
+	 qjsQUOVDRlWFW8wLV+neUfU114bi/LLNHqGWEaROAAofgOt3mMRa2ccIHixberm4R80zL
+	 w3kHr4eqsqM6zzPDsIA297xmQYm9ef1teLhklK6feiIMKcFFkYHELAcyqh3bODlNxWIb/
+	 Jo2tmUvC9zmQYagVs4BJlztPBTsPXOtuNpFaJ1eU/HtlOYAFPMT6qEmNf7VYxPL6aWy0/
+	 keUUBF0ApAj/fDgXTua2PbZMqLley1fUYv5Qnrrh+r4EtNa+YLgQj8P+bBfElE7yHjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793640259;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=BBwVsAGDI2P1A8Xz+TjsiWaX1Q+VUcv4TW1ekog7gog=;
-	b=WQZYylYUhCv37wxJK7HX+ruwbJLieSnctyYcdMdH2E6Uozy/D7Euk1HiRTvFVt5t9Lpc
-	 QVJwSgHosMRAWaDKIxhTCHQGnagjdErtrSCZAY0cJAlG3GZcAFiZ3Nx/51i9eNG+GeLnG
-	 BFV5GSyQoOpM9HeXMCYDfSebNRgLiZ7jKmZ7QSYnlEC5vPZv1EK5wC9SYQASf2C5tqIwp
-	 0bwRXQv/dnBLqCpbtIF3texdUC05A8tuxnLuTnSOuQasqNgrf5CP+voBOETDNdXv8PPdm
-	 BET0gOOibhtodkPsxsyskgTT2aBhpDugmY/jreSBUrUNSJAgekUBoy/hJLnXcGMDD/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793640416;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=tYfngvg7XT++PTXAkAj7iYdIkJ9HOL/wrOfCuyIiTzo=;
+	b=uZNbKFMlp2gZolAH2OPrhalR4SIFDHj7lI2k+7vuTwHv0ZNAj9yg+Qk/GeGEumQ6HDml
+	 0KZTxFY4CJhQPI0UyLG2A1DibBFY1wPEJ7Y0U4eLlM1a13TcesLrTznMzHs8vZ3knM1L/
+	 N4pbaJsJu2qcixmDKx2CLBREaRVCkxDWnSaZ1kbdY+rWOqeYnv6nXux4fd5YsGzs3stxY
+	 Zn57oZwYrWiH22afC8ke7y0C29YzuT0IinmnklxpJoLJa5xulN59k9Q8tbFgAn/YUut8s
+	 t5uZ4P/uI2FsiJTmMZ7ZuzA5zk5ZoVnzsySEZS+J0/2OKu5yCCSLgYJpmTEpkUXUX/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="Ny9x/sna";
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6536B606B907;
-	Mon,  2 Nov 2026 17:24:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6536B606B907
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GNaz5Hhm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D90A606BA72;
+	Mon,  2 Nov 2026 17:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=Ny9x/sna
-Received: from [192.168.1.70] (unknown [4.194.122.170])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 0090020B7166;
-	Mon,  2 Nov 2026 09:24:02 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0090020B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793640244;
-	bh=BBwVsAGDI2P1A8Xz+TjsiWaX1Q+VUcv4TW1ekog7gog=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Ny9x/snajR4zT66QEVZqO52W0eHruSPt3TFkBD8xarvPIvaqMl/iFPnPggCvN4Ds6
-	 +/LcieDxmQqtzktl0ypU2/GTpoT+v1vOU5Lwjmr5Hxd6DZKXHuvTWJZroZun8PxVYa
-	 nto8Qxc5tXEeLmU3XWzeJfASzddzgvUbP3Icqob8=
-Message-ID: <f81cdcf4-2e9c-404c-a698-448873b8edf5@linux.microsoft.com>
-Date: Mon, 2 Nov 2026 22:54:13 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=GNaz5Hhm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 694BF1F00A17;
+	Mon,  2 Nov 2026 17:26:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793640416;
+	bh=tYfngvg7XT++PTXAkAj7iYdIkJ9HOL/wrOfCuyIiTzo=;
+	h=Date:To:From:Subject;
+	b=GNaz5HhmwDE1JItIUsfPm+ic7J+edAf3m8aaajVzpj/lnt0mDHInwzvcHoVDJwp9B
+	 ZYZnppwpNXSs26WC3KLr22XFa+hFIqgWuSI587YrNDua4abDpT+NvgNwCTfUm6tBFj
+	 6YbWbcq+mUSixzj4BpOC1on0GRe5WlELTq+HnANc=
+Date: Mon, 02 Nov 2026 09:26:53 -0800
+To: mm-commits@vger.kernel.org,willy@infradead.org,stable@vger.kernel.org,
+	krystianmkaniewski@gmail.com,jack@suse.cz,david@kernel.org,
+	jose.fernandez@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-filemap-stop-fault-around-when-the-walk-steps-back.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261102172656.694BF1F00A17@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,53 +50,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1] ext4: honor NULL returns from __filemap_get_folio()
-To: Matthew Wilcox <willy@infradead.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
- Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
- linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261102163341.2170232-1-namjain@linux.microsoft.com>
- <aujDuxgeH-TyEsXh@casper.infradead.org>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <aujDuxgeH-TyEsXh@casper.infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
 
+The patch titled
+     Subject: mm/filemap: stop fault-around when the walk steps back
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-filemap-stop-fault-around-when-the-walk-steps-back.patch
 
-On 11/2/2026 10:39 PM, Matthew Wilcox wrote:
-> On Mon, Nov 02, 2026 at 04:33:41PM +0000, Naman Jain wrote:
->> The bitmap and buddy folio conversions assume that
->> __filemap_get_folio() returns error pointers. In Linux 6.1, however,
->> it returns NULL both when a non-creating lookup misses and when folio
->> creation fails.
->>
->> A cache miss therefore passes the IS_ERR() check and reaches
->> folio_test_uptodate(NULL) in ext4_mb_load_buddy_gfp(). Creating-lookup
->> failures can also dereference NULL in its slow paths and in
->> ext4_mb_get_buddy_page_lock().
->>
->> Restore NULL checks at all six lookup sites and return -ENOMEM when a
->> creating lookup fails. Preserve the folio locking and migration checks
->> without changing the global filemap API.
->>
->> Fixes: d34e4fd4e73f ("ext4: convert bd_bitmap_page to bd_bitmap_folio")
->> Fixes: 862483175d3d ("ext4: convert bd_buddy_page to bd_buddy_folio")
->> Cc: stable@vger.kernel.org # 6.1.x
->> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
-> 
-> Elliot beat you to it:
-> 
-> https://lore.kernel.org/linux-ext4/20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com/
-> 
-> Care to drop a R-b on his series?
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-filemap-stop-fault-around-when-the-walk-steps-back.patch
 
-Done.
-I actually checked LKML in the morning for this :)
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Regards,
-Naman
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: mm/filemap: stop fault-around when the walk steps back
+Date: Sat, 31 Oct 2026 04:33:59 +0000
+
+filemap_map_pages() can dereference a PTE pointer outside the page table
+it locked.  KASAN has reported this as a use-after-free read [1].  The
+same path can also write out of bounds.  When the stray entry reads as
+none, the fault-around loop maps a page there with set_pte_range().
+
+Its fault-around loop walks the page cache and moves vmf->pte by the
+change in index.  A lower index moves it back.  xas_find() can step back
+to a lower index when a multi-index entry is split during the walk.
+
+[1] fixes xas_find(), but the loop still relies on the walk never stepping
+back.  Stop the fault-around when the walk steps back.  ->fault() maps the
+faulting page if the loop did not.
+
+Link: https://lore.kernel.org/20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev
+Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com [1]
+Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/filemap.c |    7 +++++++
+ 1 file changed, 7 insertions(+)
+
+--- a/mm/filemap.c~mm-filemap-stop-fault-around-when-the-walk-steps-back
++++ a/mm/filemap.c
+@@ -3968,6 +3968,13 @@ vm_fault_t filemap_map_pages(struct vm_f
+ 		unsigned long end;
+ 		vm_fault_t map_ret;
+ 
++		/* A lower index could move vmf->pte out of its page table. */
++		if (unlikely(xas.xa_index < last_pgoff)) {
++			folio_unlock(folio);
++			folio_put(folio);
++			break;
++		}
++
+ 		addr += (xas.xa_index - last_pgoff) << PAGE_SHIFT;
+ 		vmf->pte += xas.xa_index - last_pgoff;
+ 		last_pgoff = xas.xa_index;
+_
+
+Patches currently in -mm which might be from jose.fernandez@linux.dev are
+
+mm-filemap-stop-fault-around-when-the-walk-steps-back.patch
 
