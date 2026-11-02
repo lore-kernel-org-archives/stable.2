@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606241;
-	b=eIDql3EuciBIgIUKMhAqfEWpmBm0ion7pAGhSkDSumncnEoAPWcp1Di1fpz8I87K9ijn
-	 ElJUBWy2bhDijkvL7b0YTUFvwEtaJC+6zq6N5NlJNjq0XbLb8MIlFS8eDLVZHSe4iKwWz
-	 8mhGABpb2QQ83cT0uqj/+q93WjN/tcoOOfyn2xTbECroWDO8f1fCcN5JSReUSmaY3Qa3I
-	 oqMY5I9gVsDjWmN8V1D8+x2qGGVl4I6ZtsvYZSYJxK/WSCzRbfKWyu0de+ljddyubygLa
-	 qJOlqqfQodlXwsf7MBIRLb9w9exeFc3V1O/gpf67uWDHdBViWlw937Q5INlQKVgABog==
+	t=1793606272;
+	b=Hgj0Owdh8UmxL7H2S9Oem2zUQ5n802hVCIoF6wqEYPDdwZxpQm5reIdG3yKFYZb6Sb2j
+	 9ce8B4QAQBnQ7KPdepi5hriTCpQMg8OTF8uppfzAmg3ELSLhw95+9/tbfsnRYtIjT/O7K
+	 wjuMnvT7LQi7gARKAeUe2gAnhAMxiWF1rmExRrwS6Z4gzSV/iMvlMTs5rGy480KtKyuTA
+	 j1Gb2WnzNvSrPR6TfK+CSSlMtOkHmPq+S6/svQCnoVPMiWNCnR5oTwmpeIJnS3ggRwpXj
+	 7A6cuVzkI/48hK9QL+g36JEI1LzcnpIi3sbQiBpVSKgdEANUWm87f7LqBdy8EoIioYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5c8E46H9D8n1iz1NiuFP9wVSIjo8xwMshDoKle/plSc=;
-	b=FRwPxoTf7hn53rTLL8V194eYyhyvZIhoxIYXp0L7qtTHjYJak35G7LEgnlKHFqA0Yqn+
-	 w9YIYPU2oOP448pW487bLPiplQSK2bJfXW2rme8x3xkeXY3Zto4o+ty8HDoVtECk46McG
-	 PnEfB2FUQ8uAd5KRO2Jzi3ughYZMgvLfwgAXrysd5MP2yjZ1Fu8wn+0QM/EX0ZCEoUefV
-	 eg4fPUBXu9VO04/pEoF6XyEVgVYM+laNY+gHr/VQJFW5NWY9q7NawiDI4cgguprXew3qK
-	 BH/Ljk3RnBfz5O7QsvCw/P0ijWUEV52nya5PCzYkxUqrUHNtvq3M0qk4sR9CwL7lI8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606272;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=urqOGiWM43pGOIAX+SQ1xyGmHp8O9dptxy/AFX4SmjE=;
+	b=flA+8bOhMPic+HDQ0sxyYkRj99aa7eaQ9KdP0EelVoiQnW9/kLJQBMZ0SvZygjOhT+Rj
+	 jpO4gL2FBybnj1DNio6VESlppaa50frdl/6IMep3noaRJRBv6mQclmW/wh3uJhORHfRzs
+	 CKE23ckUrlwVrdbCGmPYB4tnl3ME1bko47kY76DQ630pE3/fMU9RStH+fxSZ9B042ve7C
+	 loaPPFgt8Y04W5YMNqcSBsbyuUeqER+kYuJ5xJ0BzU2LugpXOeNZUNqLdO3JlYogKFrso
+	 a1MBxpbrobOTUYTWJFDsC9tynSqt4hTH5senx+aGVdOFqOlFnMeLA288sjs+uX2/UpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDdzpWtG;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QNmcN+WB;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568C9606A32D
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 07:57:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 568C9606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD12606A324;
+	Mon,  2 Nov 2026 07:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AD12606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDdzpWtG
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1947560a91.0
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 23:57:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793606241; x=1794211041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5c8E46H9D8n1iz1NiuFP9wVSIjo8xwMshDoKle/plSc=;
-        b=PDdzpWtGMOwoOLfrPO8sDsEm8c1q5TKZxZsfhrFyo/wZpemg/P6zlhmZzFUPk79JHV
-         3oBL1ytEl1/IWa8+Bn8VeSqcZxIVkdHNCFAMI/ucugnIZucZrmBBuaJuTpXHcc9a8hKo
-         WSmfZu8PFRQeafdtChAIr9j0wOBnqCS2dIjTEt7sS5ZKdGpCyIivbLWgq+h+FGZ5v8cY
-         YSs79YBlKK2gglW313UAlFcNmovMailRncuC7HQVR2C5Y0beO1LvMO5Ho1MrP1kcyx4P
-         tOTtulTapMN97YlVnz5cKUawd1meRglO964+tIlZHUdHA71Ny8JjhkZM3B6n0jbZcpuk
-         dZoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793606241; x=1794211041;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5c8E46H9D8n1iz1NiuFP9wVSIjo8xwMshDoKle/plSc=;
-        b=f48bbkcY5koqPr9Dkzj/ZT/qQbNVoTPWvqpov7iZg1/QaEoxL73swL3Yzaa2/rMbYy
-         NjYPRGz4ghOz/mF/cFgkETUxsIgJB5tZtSn8BLVFNNjaECRpqFnHQ4gE0/iK8J3pEy/o
-         4c0mT3cVC6MHBD4ELZQoJQYqclFUu6um5SG5IXoJrHP+nDGRlptMwGqGX93WgnYsTlbQ
-         10xwxMsKm4U0uymIhAN7b9RDhWv7PyyvsGiYburJGXTHrVGxX/VSiR/F6jyxgtfm9GtO
-         8Vi0hLkiYbZPm2CWjDTsEGl2151ZcRtcreziytuZLpl8KRfSvDGelAi+34cz/kH8K06D
-         6vzg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9OsNT2NV6mpHCvlY/OAZNocRQb/8t7qfcx+7Ju+0iP1kGIJHsNhT89Wm/FRL+QBgaVBnJMCQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FuWjs2iybiuW8J4UUOMY3HWzXbnDEXb4CKlJamOiuMZqjoNve
-	/E8gumZx5/ystXOPbvfzH61LKBJs3zu1opQZFzh7fIatDB3BZorV0gMh
-X-Gm-Gg: AYBFou0fhVxXTmm5TanbqtyEvtSMdKt7M3+hJDnrIQqXlMT8iIP/Hyd5IE/z8qGEevq
-	wZl98ZWHrs/zbVCG1UIYSxBap0cvRRbq4+MaFSBHfDu/cHHnIINBLMjA1Tz5ZW5BFXqLciY1Lc0
-	lGbgmVLOf/fkQA3ZuiAAHMarEIhddSLgZ4MlMFCZMDVYXIbP+PYyd5K1NDo9gox3hQTVtd4mmko
-	kWrFqZfjr6VFEzOlj61kYO5pSofN7Ps16dWieCq00Q9B1le35I6lU2uXzc1agll68/8AZ9WJPq0
-	rNUfH3NPDTn4PRscLRjPzhPo/snJYBZKlWBmktu/3voGe2woPgjtoQ4zJ+aHMzwiD3rJsJU1RUn
-	3IdIO102m/G/ehYUWQRBeL7vaESxZLx4/DZit0xj1wCJiua+zAy8+jdL/A2ZB3RV2blSBo13QIn
-	h+aTLg0ivt9oX5jkWt7RISFPulapldZuwAz3nZf8m/j/YC0u0lsAcyoSmUgfKrvf1+HEvu6nIv3
-	HhXbelpvJe4VDvKG4f3xYZ3dFIkFX+Vqa9RHyHjaL8U7A697XFzBjcTB62s0Wwdz2mK98dJgwN+
-	Lit/2c+8m0c6wJJz6mpvImpFktrzDuwXAHAxgccOHLUT8f81LQU43NpzBM74mB6/NhrhRNlNfdT
-	Lk4uPUJsBIqNI4Lnk0rr1PALQ3ORTnoMaqin5y9QBBTRxOeqTMSjfy/AWaNHG/Jpn4LLD6ZEbj9
-	gtbSY=
-X-Received: by 2002:a17:90b:4b90:b0:3a4:7730:33dd with SMTP id 98e67ed59e1d1-3ae8984b662mr7868096a91.58.1793606240670;
-        Sun, 01 Nov 2026 23:57:20 -0800 (PST)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9583c1sm18649416a91.10.2026.11.01.23.57.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 01 Nov 2026 23:57:20 -0800 (PST)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] gpio: virtuser: remove the debugfs files before freeing the line data
-Date: Mon,  2 Nov 2026 17:57:07 +1000
-Message-ID: <20261102075707.41742-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QNmcN+WB
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793606258; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=urqOGiWM43pGOIAX+SQ1xyGmHp8O9dptxy/AFX4SmjE=;
+	b=QNmcN+WBRZO7d5z8MvNlnvhmVN7NqAxSk2D2D4Y3jNYOq+EIfCvmBjT4kgXikK7Vxs1nNmtg07oso4sGjzg3+NUtjwQ9I60DPgA+15+lJ/I52Uw+UuLrxvzMs+wdVMJlcgpyUjVA+26G5CnsmCeN1cBpZHlMtIzVubs60o14UOI=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R291e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=66;SR=0;TI=SMTPD_---0XDwJ4wk_1793606252;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDwJ4wk_1793606252 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 15:57:34 +0800
+Message-ID: <902b1dd5-f002-4ba8-b6d7-6bf59d07f1d7@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 15:57:32 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,130 +53,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 13/47] mm/huge_memory: fix truncate racing with PMD
+ zapping
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-13-d6437171ecc3@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261031-fixes_core-v3-13-d6437171ecc3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-gpio_virtuser_probe() registers the devm action that removes the debugfs
-directory before it allocates the per-line and per-array data that the
-debugfs files point to. devres releases resources in reverse order, so
-on unbind the line data is freed, the consumer_lock mutex is destroyed
-and the GPIO descriptors are put first, and the debugfs files are only
-removed afterwards.
 
-A read or write of any of the per-line debugfs files (value, direction,
-consumer, interrupts, ...) that runs in that window dereferences the
-freed data. debugfs_remove_recursive() waits for in-flight file
-operations, but by then the data has already been freed.
 
-Running eight threads that read the per-line debugfs files while
-another task writes 1 and 0 to the configfs "live" attribute triggers
-this within a second on a KASAN kernel, with gpio-sim as the provider:
+On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
+> If this was the last mapping, truncation can skip unmapping the folio
+> and proceed without waiting for the PMD lock, racing with dirtying.
+> 
+> ifs_set_range_dirty() can oops if MADV_DONTNEED races with
+> ftruncate() on XFS, when we get the folio set dirty after it was found
+> to not be mapped anymore.
+> 
+> Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
+> matching the PTE zap path. This keeps the folio mapped while updating
+> its state, so truncation must wait for the page table lock.
+> 
+> Fix generated by an LLM and sent by Chris Mason in private.
+> 
+> Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify comment and description ]
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-  BUG: KASAN: slab-use-after-free in gpio_virtuser_value_get+0x19/0x60
-  Read of size 8 at addr ffff888005109e38 by task vu_race/3479
-  Call Trace:
-   gpio_virtuser_value_get+0x19/0x60
-   simple_attr_read+0x109/0x290
-   debugfs_attr_read+0x5e/0x80
-   full_proxy_read+0xae/0xe0
-   vfs_read+0x1bc/0x7a0
-  Allocated by task 1:
-   devm_kmalloc+0x89/0x1d0
-   gpio_virtuser_probe+0x56f/0x910
-  Freed by task 1:
-   kfree+0x196/0x430
-   release_nodes+0x77/0xa0
-   devres_release_all+0xf3/0x150
-   device_unbind_cleanup+0x18/0x130
-   ...
-   platform_device_unregister+0x3c/0x50
-   gpio_virtuser_device_deactivate+0x3c/0xc0
-
-The same run also reports use-after-free on the freed consumer_lock
-from the consumer attribute.
-
-Register the debugfs removal action after the line data has been set
-up, so that it runs first on unbind, and remove the directory by hand
-on the probe error paths before that point.
-
-Fixes: 91581c4b3f29 ("gpio: virtuser: new virtual testing driver for the GPIO API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
- drivers/gpio/gpio-virtuser.c | 46 +++++++++++++++++++++++-------------
- 1 file changed, 29 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/gpio/gpio-virtuser.c b/drivers/gpio/gpio-virtuser.c
-index 70ddccc..03fa951 100644
---- a/drivers/gpio/gpio-virtuser.c
-+++ b/drivers/gpio/gpio-virtuser.c
-@@ -927,38 +927,50 @@ static int gpio_virtuser_probe(struct platform_device *pdev)
- 				     "Failed to get the IDs of GPIOs to request\n");
- 
- 	dbgfs_entry = debugfs_create_dir(dev_name(dev), gpio_virtuser_dbg_root);
--	ret = devm_add_action_or_reset(dev, gpio_virtuser_debugfs_remove,
--				       dbgfs_entry);
--	if (ret)
--		return ret;
- 
- 	for (i = 0; i < num_ids; i++) {
- 		descs = devm_gpiod_get_array(dev, ids[i], GPIOD_ASIS);
--		if (IS_ERR(descs))
--			return dev_err_probe(dev, PTR_ERR(descs),
--					     "Failed to request the '%s' GPIOs\n",
--					     ids[i]);
-+		if (IS_ERR(descs)) {
-+			ret = dev_err_probe(dev, PTR_ERR(descs),
-+					    "Failed to request the '%s' GPIOs\n",
-+					    ids[i]);
-+			goto err_remove_debugfs;
-+		}
- 
- 		ret = gpio_virtuser_dbgfs_init_line_array_attrs(dev, descs,
- 								ids[i],
- 								dbgfs_entry);
--		if (ret)
--			return dev_err_probe(dev, ret,
--					     "Failed to setup the debugfs array interface for the '%s' GPIOs\n",
--					     ids[i]);
-+		if (ret) {
-+			dev_err_probe(dev, ret,
-+				      "Failed to setup the debugfs array interface for the '%s' GPIOs\n",
-+				      ids[i]);
-+			goto err_remove_debugfs;
-+		}
- 
- 		for (j = 0; j < descs->ndescs; j++) {
- 			ret = gpio_virtuser_dbgfs_init_line_attrs(dev,
- 							descs->desc[j], ids[i],
- 							j, dbgfs_entry);
--			if (ret)
--				return dev_err_probe(dev, ret,
--						     "Failed to setup the debugfs line interface for the '%s' GPIOs\n",
--						     ids[i]);
-+			if (ret) {
-+				dev_err_probe(dev, ret,
-+					      "Failed to setup the debugfs line interface for the '%s' GPIOs\n",
-+					      ids[i]);
-+				goto err_remove_debugfs;
-+			}
- 		}
- 	}
- 
--	return 0;
-+	/*
-+	 * The debugfs files point to the devres-managed line data allocated
-+	 * above. Register the removal last so that it runs first on unbind,
-+	 * before any of that data is released.
-+	 */
-+	return devm_add_action_or_reset(dev, gpio_virtuser_debugfs_remove,
-+					dbgfs_entry);
-+
-+err_remove_debugfs:
-+	debugfs_remove_recursive(dbgfs_entry);
-+	return ret;
- }
- 
- static const struct of_device_id gpio_virtuser_of_match[] = {
--- 
-2.43.0
-
+I checked the memory ordering issues, and it looks like the implicit 
+barriers provided by the fully ordered atomic operations already ensure 
+the required ordering. So LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
