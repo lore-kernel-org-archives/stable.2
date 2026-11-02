@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633273;
-	b=aG/rv0T9tlPP3PCpHTRPWaPz96c1ZskBBCI4TQxqCCeCmq3UorUycUBH/P2hmUCPPbQK
-	 CvSVj0Wd2tZJk+XHxXWFxElYSuQKuyehVKn+9gNPH4JaAjHY0ASgNtVes0UWEjc+7/goY
-	 3qMIQbmQRMyVXzn7QbFAhxyMOC+f2O0LcwbEMKi14cZS/1UrIvyKXl5DQ/jH69wxVwOW5
-	 NuT15Ew5rs8PR4Fn488W3IUi5Cg/QCdMT6okYaKOmeKgsMhgZslG8Bk5cDVM5flSzeyP/
-	 wJ/glRvzanEocBjGA+5nx7J7hwvqNB3b7hH6IMWS6bU/02KINb7S8Jkm8VwpGXAerqA==
+	t=1793633309;
+	b=PKPzzLYV+JVhNPWivn92aQvwQ04o26vb7rQZy7ewFdCV2bGv4pZnUd5odmUbrlxcx84i
+	 wEDKrI8YTErJzr7pxGb1pcxWPGjYivRZWmcZh+eQuUQc5kqMXTC6L8vGcxxLSzrlrZMSs
+	 WiXH+WsWYU8sD+4DMLs6xtNDI7DausQWsXrkjy1trLs4PusDaRyXRqU60ghCJbMubPTdY
+	 P05ywKy95cfKzi2vhBn0zFoDa1bwBOpwtgdQGS2RxnsEHkU1HQVOMCrHZfiDQOEB1UXOT
+	 O4LRdPvbalyM5U1+qDiWpmk63/RAiNGeQVl44O7jEjN9oibQx7eeg/x/rwvCvmiVT1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633273;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633309;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=15RYNWcU5alV3QPXKnsX1pEI9eB3JH1G7fyU3avDonY=;
-	b=MOkNO9l/k5f+lifrd5iWp1I3dkPmZSBdn7+UbNG0ezR3lYkwWrc7vDD098BqwpZIR3DT
-	 HjqKVhaBPiAHLX0VQCXPRdj8YgiJEocZmwGctc2gnHs5PamuiJfw/2bR9CtWTda+lieEe
-	 zE/zh6RzerHSpeyxdU5mr4tD6rZFHmeRKLZezCRtQQeLgomyL14hr4y6xYzVtqLFVc0tp
-	 8p635VCmjBJGdNOn9OpNHVO8jV/whf3dpd6BHrTkd0tZHU4sQPBCNxOHMOrbJdbrTAYPf
-	 L2TWjMMwXhrz0Ggv8RVB8MOgMl1LMuvEN4PUm3VXZ2Q2x6AKdqBAC+ysunwQG08ScDA==
+	bh=O9S+pPW6GB+jcJTRKkHVsz6xyxfgYhEeB2CQiomviIk=;
+	b=KGrVDLr5oj5upcGetY2Ss5CP/JrTwB/bBCq7D2DCHMqAv0M7OWc4rA+A7FVFngoVgVxl
+	 r/LPjTf/UVSWw+CPeIByVPCouF4bsRRsVtE1L7o5OvcOgz/TAfAtacYv6M/+AWRdtVv5V
+	 pVU7aKthnJ08mM7Pu2xPBDUg9i1365JP54r9G43XC+wDJaYHfJaq4jpi4pot2ut/OJSqZ
+	 NBc13hbLasQe+KPfSx1YE5vmqTwsihjdPs9wIlYLpC2vNN6uTtNZOT4bbU/Kx2WzEA1Sh
+	 ETQLS/jgDcewaAlm4DWbpMdYiMvrm9DjuqwMxx7TjntAgFAH0ry56tlCnODQwDGRM9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kyAA4PgH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q0smQy00;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89BE606AB9E
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:27:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D2660850A3
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:28:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kyAA4PgH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082621F00A16;
-	Mon,  2 Nov 2026 15:27:51 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q0smQy00
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24B931F00A18;
+	Mon,  2 Nov 2026 15:28:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793633272;
-	bh=15RYNWcU5alV3QPXKnsX1pEI9eB3JH1G7fyU3avDonY=;
+	s=korg; t=1793633308;
+	bh=O9S+pPW6GB+jcJTRKkHVsz6xyxfgYhEeB2CQiomviIk=;
 	h=Subject:To:Cc:From:Date;
-	b=kyAA4PgH8aKrd7lJmo7iVNPpPH1W/f5+7hgabmpbjhkuSycevPDHJ313AFyvC9UGC
-	 dTd6Magwjeqojvf3mgXpOAkECN4w3gOQ7R7/sMADNk57545UjT6ZueyU8rOCqyQQE+
-	 oj5MA4jBAN3P4xKhuIPg4qvcPR1RlRjSaSeijAPU=
-Subject: FAILED: patch "[PATCH] ksmbd: serialize directory emptiness checks with readdir" failed to apply to 5.15-stable tree
-To: d3bugee@gmail.com,linkinjeon@kernel.org
+	b=Q0smQy00erdzQe1rOtAbCtkX/85ucpvvifEQzrckmoi+fduirnPxnzc5/Lq0RwUtJ
+	 DmNs1dCGcsdq+b56O9sqfQ+BcXmOpx4HGj2FE+If+oEx9Ubnm8EU/SWDd2DcZjCbx/
+	 OXHwIAAylBtrlEkQ4agNeDDNihy7CmP+vzO5L/GM=
+Subject: FAILED: patch "[PATCH] media: usbtv: fix null-pointer dereference on disconnect" failed to apply to 6.18-stable tree
+To: nogikh@google.com,hverkuil+cisco@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:27:44 +0100
-Message-ID: <2026110244-jersey-vividly-2239@gregkh>
+Date: Mon, 02 Nov 2026 16:28:26 +0100
+Message-ID: <2026110226-immunize-simile-9c23@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7220980b2423d06a0604516129bfa4cec8a697ae
+git cherry-pick -x cb705f75d03e946a4514488beb9e3bac9bcdb2e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110244-jersey-vividly-2239@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110226-immunize-simile-9c23@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,95 +79,87 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7220980b2423d06a0604516129bfa4cec8a697ae Mon Sep 17 00:00:00 2001
-From: Yongjun Gwon <d3bugee@gmail.com>
-Date: Fri, 23 Oct 2026 02:38:32 +0900
-Subject: [PATCH] ksmbd: serialize directory emptiness checks with readdir
+From cb705f75d03e946a4514488beb9e3bac9bcdb2e6 Mon Sep 17 00:00:00 2001
+From: Aleksandr Nogikh <nogikh@google.com>
+Date: Mon, 17 Aug 2026 14:09:49 +0000
+Subject: [PATCH] media: usbtv: fix null-pointer dereference on disconnect
 
-SMB2 QUERY_DIRECTORY holds fp->readdir_lock while it calls iterate_dir()
-on fp->filp. An SMB2 SET_INFO request with FILE_DISPOSITION_INFORMATION
-can resolve the same FileId and call ksmbd_vfs_empty_dir() on the same
-filp without that lock.
+A null-pointer dereference can occur in usb_make_path() when called from
+usbtv_querycap() (and other ioctl handlers) during device disconnection.
 
-iterate_dir()'s inode read lock permits concurrent readers and does not
-serialize per-file iterator state. ext4 stores its dx readdir cursor and
-fname RB tree in file->private_data. Concurrent reset or refill can
-therefore free a fname node while the other worker still traverses it or
-retains its RB-tree link, resulting in use-after-free accesses.
+Oops: general protection fault, probably for non-canonical address
+0xdffffc000000000a: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
+RIP: 0010:usb_make_path include/linux/usb.h:985 [inline]
+RIP: 0010:usbtv_querycap+0x9c/0x100
+drivers/media/usb/usbtv/usbtv-video.c:612
+...
+Call Trace:
+ <TASK>
+ v4l_querycap+0x236/0x470 drivers/media/v4l2-core/v4l2-ioctl.c:1106
+ __video_do_ioctl+0x8af/0xc70 drivers/media/v4l2-core/v4l2-ioctl.c:3133
+ video_usercopy+0x860/0x1430 drivers/media/v4l2-core/v4l2-ioctl.c:3475
+ v4l2_ioctl+0x18d/0x1e0 drivers/media/v4l2-core/v4l2-dev.c:366
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
 
-An authenticated SMB client with list and delete rights on a directory in
-a writable KSMBD share backed by ext4 can trigger this when the directory
-takes the dx readdir path. The client overlaps an SMB2 QUERY_DIRECTORY
-request with an SMB2 SET_INFO request carrying FILE_DISPOSITION_INFORMATION
-on one live FileId.
+This happens due to a race condition between the USB device disconnect
+routine (usbtv_disconnect()) and V4L2 ioctls. When the device is
+disconnected, usbtv_disconnect() sets usbtv->udev = NULL without holding
+the usbtv->v4l2_lock mutex. Concurrently, an ioctl handler like
+usbtv_querycap() can be executing under the v4l2_lock and attempt to use
+usbtv->udev, leading to a crash.
 
-In one x86_64 SMP KASAN multi-shot guest using ksmbd-for-next at
-171df27077fb, the unmodified kernel reported a cross-worker use-after-free
-before a panic. The first report's access and free stacks show the two
-request paths directly (trimmed):
+To fix this, move the usbtv->udev = NULL assignment into usbtv_video_free()
+and protect it with mutex_lock(&usbtv->v4l2_lock). This ensures that no
+non-queue ioctl handler can run concurrently with the pointer being
+nullified. If an ioctl is already running, the mutex will block the
+disconnect path until the ioctl finishes. If an ioctl is blocked waiting
+for the lock, it will acquire it after the disconnect routine releases it,
+but will then check video_is_registered() (which was cleared by
+vb2_video_unregister_device()) and safely return -ENODEV.
 
-  BUG: KASAN: slab-use-after-free in ext4_htree_store_dirent+0x488/0x550
-  Read of size 8 by task kworker/2:0/29
-  Workqueue: ksmbd-io handle_ksmbd_work
-  Call Trace:
-   ext4_htree_store_dirent+0x488/0x550
-   htree_dirblock_to_tree+0x535/0x990
-   ext4_htree_fill_tree+0x319/0xba0
-   ext4_readdir+0x175a/0x2f40
-   iterate_dir+0x1b6/0x630
-   smb2_query_dir+0x1003/0x1cc0
+Acquiring v4l2_lock after vb2_video_unregister_device() avoids
+reintroducing a historical deadlock issue, and usbtv_audio_free() remains
+safe as it is called before usbtv_video_free().
 
-  Freed by task 279:
-   free_rb_tree_fname+0x67/0xc0
-   ext4_readdir+0x13a9/0x2f40
-   iterate_dir+0x1b6/0x630
-   ksmbd_vfs_empty_dir+0xa2/0x100
-   smb2_set_info+0x2ffa/0x45d0
-
-Take fp->readdir_lock across the entire emptiness check. This places both
-iterators over that handle's filp in the same lock domain while
-preserving the disposition status handling. The exact code change
-completed a warning-free x86_64 KASAN bzImage build. Tracing three request
-pairs showed that the two iterate_dir() calls no longer overlapped and the
-expected statuses were preserved. A further 1,600 reproducer iterations
-completed with expected statuses and no KASAN report, Oops, or panic.
-
-The reproducer and complete guest configuration are available privately
-to maintainers on request.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: 65e6a2773d65 ("media: usbtv: Remove useless locks in usbtv_video_free()")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yongjun Gwon <d3bugee@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=37a57a84893052ab6071
+Link: https://syzkaller.appspot.com/ai_job?id=5abbe65a-5853-4bc2-9135-5c75f88d51ed
+Signed-off-by: Aleksandr Nogikh <nogikh@google.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index da82d80c222a..f5fe3cf8ba32 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -8918,6 +8918,7 @@ static int set_file_disposition_info(struct ksmbd_work *work,
- 				     struct smb2_file_disposition_info *file_info)
- {
- 	struct inode *inode;
-+	int err;
+diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
+index 4f10f6613bc4..89c3424e7685 100644
+--- a/drivers/media/usb/usbtv/usbtv-core.c
++++ b/drivers/media/usb/usbtv/usbtv-core.c
+@@ -139,8 +139,6 @@ static void usbtv_disconnect(struct usb_interface *intf)
+ 	usbtv_audio_free(usbtv);
+ 	usbtv_video_free(usbtv);
  
- 	if (!(fp->daccess & FILE_DELETE_LE)) {
- 		pr_err("no right to delete : 0x%x\n", fp->daccess);
-@@ -8932,9 +8933,13 @@ static int set_file_disposition_info(struct ksmbd_work *work,
- 		if (ksmbd_has_stream_without_delete_share(fp))
- 			return -ESHARE;
+-	usbtv->udev = NULL;
+-
+ 	/* the usbtv structure will be deallocated when v4l2 will be
+ 	   done using it */
+ 	v4l2_device_put(&usbtv->v4l2_dev);
+diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
+index 92bc7a2509c3..2a91af8d1e30 100644
+--- a/drivers/media/usb/usbtv/usbtv-video.c
++++ b/drivers/media/usb/usbtv/usbtv-video.c
+@@ -966,5 +966,9 @@ void usbtv_video_free(struct usbtv *usbtv)
+ 	vb2_video_unregister_device(&usbtv->vdev);
+ 	v4l2_device_disconnect(&usbtv->v4l2_dev);
  
--		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp) &&
--		    ksmbd_vfs_empty_dir(fp) == -ENOTEMPTY)
--			return -EBUSY;
-+		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp)) {
-+			mutex_lock(&fp->readdir_lock);
-+			err = ksmbd_vfs_empty_dir(fp);
-+			mutex_unlock(&fp->readdir_lock);
-+			if (err == -ENOTEMPTY)
-+				return -EBUSY;
-+		}
- 		smb_break_all_levII_oplock_for_delete(work, fp);
- 		ksmbd_fd_set_delete_pending(fp);
- 	} else {
++	mutex_lock(&usbtv->v4l2_lock);
++	usbtv->udev = NULL;
++	mutex_unlock(&usbtv->v4l2_lock);
++
+ 	v4l2_device_put(&usbtv->v4l2_dev);
+ }
 
