@@ -1,49 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793591554;
-	b=E09TPEfHaAmQmg4ZifugMCwEIbQ1RDbDUBeOImIVfmKCnEy9nKxoJp0w8MuKtHZiWsQ7
-	 QELFtODJnpVxJRgEnRbj0dnDAl+nE+Gyotfr+kww+Hny3aa9UzFcwC3NdyGbNl9nySz4B
-	 E6HJvhtWeaQPGOD9JsTbjfQTPCMoCJy78WboUGNqz+XimLfgDYWWII2/HEwyfYszMJcEL
-	 szbiIGt/NxSyC/M5qOKjuv9NGqE0OSK+6t0e7sCCxd7q904OKd1d0RdVNSsC4vgRkHfff
-	 FrW1WXqLScxiTfZyKppHbnmvSE/Zca4UkKjCpQ1LudKG78Q/KUnsO9r+Wx3XygmXpuA==
+	t=1793591579;
+	b=5sodlM6TKFJ5tOWs927SWsZaLUmkhibutdE/H4/6w80nqPK38xdqXGXB48zgFc9hADQ+
+	 oC1iGy54XJfApmb8YDr9e44bjJL2jPlzF3NU5nGAD23FAUmYuY/4Ix24dCPGAkoS9rEKu
+	 zflxQF83p10zAn+8FHCKssTLM23RR1BoyIXfNW9b6c9lg30AsZ8SjoG6t8AEUrVVd8aMy
+	 xq+Gsbjr40gFrZg1RskDnMIykNUe+O0u2+Pwq/AElXbXOcm45+stogPb86e6LkME/uAAM
+	 97nJEZazjxQSVe0B4Yi6VI9AUNSTH0C3ItW0iizbi/aymZs8NI4SzjQs5Lu6fRJEezw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793591554;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=UsyOruPU/4uzHcmKvCXiECAPVPbvFO7B0tp+W3CdJrI=;
-	b=v9Eo0pEypBTt+sYV/RqDvG71QtehyaoAEW8EwL0AZKouM4sQ+yAzn5dTjOPfMzsCSDtc
-	 +Zp11JaNvy6IW2gJSWmvMEis/eRjTKa7DWpSWYrM3DF5hJM4fYsnmlAN1+Knr8GkGhzBR
-	 8Cfd14iyiHURedOCQmbMkcYAb3ZKvlpKHP4JkVYPrS8uZcHr+TKWqR+6uocpy9bi5G25q
-	 YZA41HV2Lb0YNoEL00h1SFpavgkm5+I3N3fueJsL+txUGKWtFmNxm51urAHG2R6V3AxTS
-	 rWVu4cCHNKE9CIc4BTT2z+CbmRcCzwwBeowSXjk3s67xmtzAvlq/rCWf9sweuex4c8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793591579;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GEgLVAromPaUrH1jitVPbv7vIRjTpekHb9MijwFJEpQ=;
+	b=k0bpfLUyLW7Pbq0AdKJtlrj5AYYYl6pzZw0T8xBsOjL2kEHzoXPIV1N7uaswxd77SNN4
+	 EKj/c6jvuDBMFPf3KjWhMouFDm9q2Y6mwhefaHyTrTsIKKaUPaEK8+iytfsHjWsDOZIu0
+	 MTNoGP4Gs3s9ueSA/QgJrcbxWQUfgru4GB8QfGvxYybu62zOEJ9pZjO/nVMAvz79KafA6
+	 YC372f8QY+DUvC478WfggRozP0Fd2dsUVdD05yuI3oK7hEwe0VfFPKhc2IXDBHJLgFqo+
+	 mxSytrCRTDuPeVh6dmkwq1vuMadaf3NuTwjmsrGac47I+b9lcRF7pWEcIbwVxyhTPow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YuLJD6aa;
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MWK818G;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB4CE606A324;
-	Mon,  2 Nov 2026 03:52:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB4CE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907CE606A327
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 03:52:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 907CE606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=YuLJD6aa
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793591543; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=UsyOruPU/4uzHcmKvCXiECAPVPbvFO7B0tp+W3CdJrI=;
-	b=YuLJD6aaRbBiLnm3A58MYJlJirznc7UZkbvfmHSz8ZsaGLWCBdLt1bvaMeXvpxnAJwWKWTrl9K4jcZncte9Va/POuK6mPuOFOV0nA/f1nMLb9JI2mb08eNgpTZMLFPskdgZiJCtoO1qW1xSjbuFotKYhbFU+wU6a5QVKUiYn5zI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R791e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=65;SR=0;TI=SMTPD_---0XDsjDyn_1793591534;
-Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDsjDyn_1793591534 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 02 Nov 2026 11:52:15 +0800
-Message-ID: <b684dbff-6f38-4d44-9709-1e9303e2158c@linux.alibaba.com>
-Date: Mon, 2 Nov 2026 11:52:13 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0MWK818G
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb2dfcca94so58756a12.1
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 19:52:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793591578; x=1794196378; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GEgLVAromPaUrH1jitVPbv7vIRjTpekHb9MijwFJEpQ=;
+        b=0MWK818Gv28nmlTZO12RnNRMhWyi8fhmOjVscQpXx2kRVjMDCPCCYP3SdiYSpuC5nS
+         TdyNkGi10iE0/mH9ZaUN7V9IC+2sGF92ZZn2ClOlgB3IwitEfOVVu6Wq+Brh8QW35R15
+         iEObQv7eQbKWb/IhUaQ7/TPyavQJodNOn1emrXPgD1XL1P7vJcD8ZQSyhlgH7mOJtwrq
+         7ukFqIHqtIzvhT1GN+a3/5yefuvLScma8vNQV9B9X7FrWItWXfdYc+Y1nvDTSVvUKQgz
+         JPNZrPZAGwZqavUPdIbenu0Oc33XFW9s4PVxNkmDxWrT2vhnI24F8iRPWdg+DOhMYZVs
+         EcMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793591578; x=1794196378;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GEgLVAromPaUrH1jitVPbv7vIRjTpekHb9MijwFJEpQ=;
+        b=aoPoc+vQdRir85bcXOyxUHCNNbBxfcmH9H59So1hVbgeXFaWNFkicI0s5IhohLzSlz
+         mvUZWCvpSyq1EgyxRER4xnONU7zmmk9goFni2ggDwsHlH0ozyOx7bsQtV7yVcOe6YBn9
+         TmC3vZRaCNXZarbyNz8DHevRhY4WcnSntzXrVumySHk/4Ux/9QZ07bW+oaMm1ySAjePI
+         fwDl9v52NLFfb0G1CXvgFNKNXrWl74sGtbiKKAnmHygsbtpnc9uwZ0rt5qRZvJWgJJ5W
+         TpmXHLN6Rap/q9LHcJNJneYKWYW8pQZbF7Md4620m+W5KrEiQa1L/wpKxZasv8HyAzSq
+         +hNg==
+X-Forwarded-Encrypted: i=1; AKwUvBzYf08aPI0uqe87alP85JO4bIc8QBc4YzrbkhGcGS1cV2Qru5Ikag73VxY5mpA9Z5IHOfEAaaY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PDlF1S3iqaC24hjtNKDdGUWxy82Zg8KYQpRAM3u5Z1+6NyEoz
+	ytv/jsxunOVrXTykJXnHnetRGGG1w6U6hdZcbBhiax7IdttZEkRxlDpz
+X-Gm-Gg: AYBFou3+I0qV4w1P9BZIbriwfi8Bx/UsACQ0hZgb//K5W9BioW7UukjrHJpDux19vf8
+	jwtJZu6U/xN+wnACp1G1KIdEJ8nQJa//5bYGWIot65Zo8kGte77e21G2D1FUqxcBLmok4tCt0pU
+	MeYzj55xjX+GFv+qarDLHnXbyfOsyo/nlOyYQ+ZGFWqb6UQFb2Qdc5BfwXqYDJIwomuFH2FQa9B
+	udI7SaM6RJaxCFuzutnKiUCXMtWhOCiyVDFmiFZDMO0AS0v7jsLO7oV59uQaAS9VnEe8gkXyTJG
+	vccgg6OK0qLUaERjrWStC4CT4GrMiEqH1b++OduSbre83myy54K8/iVGhExuA+jWrtxaIhYI5IX
+	MLqZcm2rxSWVJwGy2l3MtUj6J12M6LAGGEV7DF5JlaWVgXU6ebvh6DWT0T8bB0jvsFmOvKRsg2X
+	aMg2I30ryuO6oKxtcpZIXgAGPhW0lCTkHNqU0K6kbla60duttk3xSHHR946oqFiwfcIm0nHmPSw
+	jDbs4vFY7AZozqAAwR+lenC8fR2AP8O00pfpXUZOv5HGI2ENaD93KdiWQQsWlMxU/lz6gpIetLJ
+	TLGkmm6vzfTiz1paByCK4y9u2xm3hyUcjPD8mvEnBrqBoZ9LubyOcdCn1PM7lXWGVAc=
+X-Received: by 2002:a17:90b:580d:b0:3ad:25f6:1dd0 with SMTP id 98e67ed59e1d1-3ae8970e5e9mr6935025a91.11.1793591577770;
+        Sun, 01 Nov 2026 19:52:57 -0800 (PST)
+Received: from localhost.localdomain ([2400:d802:dd7:8000:50b9:9b10:1e19:1f0a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae880b1f71sm6998814a91.4.2026.11.01.19.52.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 01 Nov 2026 19:52:57 -0800 (PST)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: wesley.cheng@oss.qualcomm.com,
+	raoxu@uniontech.com,
+	linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: qcom: Check the return value of qmi_handle_init()
+Date: Mon,  2 Nov 2026 11:52:37 +0800
+Message-ID: <20261102035237.56253-1-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,80 +99,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/47] mm/shmem: make shmem_file() check the file's
- inode
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
- <20261031-fixes_core-v3-3-d6437171ecc3@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261031-fixes_core-v3-3-d6437171ecc3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+qc_usb_audio_probe() overwrites the return value of qmi_handle_init()
+with that of qmi_add_server() without checking it. When
+qmi_handle_init() fails, it has already freed the receive buffer and
+destroyed the workqueue, and qmi->sock may hold an error pointer. If
+QRTR is not available, qmi_handle_init() returns -EPROBE_DEFER and
+qmi->sock is ERR_PTR(-EAFNOSUPPORT), so qmi_add_server() passes it to
+kernel_sendmsg():
 
+  BUG: unable to handle page fault for address: ffffffffffffffb7
+  RIP: 0010:selinux_socket_sendmsg+0xa0/0x590
+  Call Trace:
+   security_socket_sendmsg+0x29/0x50
+   __sock_sendmsg+0x43/0x150
+   kernel_sendmsg+0xd6/0x180
+   qmi_send_new_server+0x1b8/0x2b0
+   qmi_add_server+0x165/0x200
+   qc_usb_audio_probe+0xf4/0x2e0
+   really_probe+0x2b4/0x850
 
-On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
-> shmem_file() only checks if file->f_mapping is a shmem mapping. This
-> mapping can belong to another file, however, as with a Coda file backed
-> by a tmpfs container after mmap().
-> 
-> So it does not guarantee that the file inode is an actual shmem inode.
-> 
-> Seal handling and memfd preservation use this check before accessing
-> shmem inode state, so they can access an inode of the wrong type.
-> 
-> Let's make shmem_file() check the inode's file operations instead, to
-> identify shmem inodes reliably. This will identify regular shmem inodes,
-> including memfds and ordinary tmpfs files, independently of wrapper file
-> operations.
-> 
-> Use shmem_mapping() in collapse_file() instead to not change the behavior
-> of collapse_file(): it operates on the page cache and uses mapping->host
-> for shmem inode operations. Focusing on the file does not seem relevant.
-> 
-> Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
-> Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Suggested-by: Pratyush Yadav <pratyush@kernel.org>
-> Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+Had the probe gone on, the error and remove paths would call
+qmi_handle_release() on the half-initialized handle, which destroys the
+workqueue and frees the receive buffer a second time.
 
-Make sense to me.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Return the error from qmi_handle_init(), so that -EPROBE_DEFER defers
+the probe, and check qmi_add_server() as well.
+
+The bug was found with kbound, a static analysis prototype for
+ownership mismatches at kernel interfaces, on v7.2.12; it is present in
+mainline.
+
+Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
+warnings. Run-tested on QEMU (x86_64, KVM) with KASAN and kmemleak, with
+the driver built in and a test module that registers the
+q6usb.qc-usb-audio-offload auxiliary device. Without QRTR, the probe
+crashes as above without this patch; with it the device is deferred and
+removing it again reports nothing. With QRTR the probe succeeds, and
+removal reports nothing either.
+
+Fixes: 326bbc348298 ("ALSA: usb-audio: qcom: Introduce QC USB SND offloading support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
+---
+
+Notes:
+    The bug was found with kbound, a research static analysis prototype.
+    The patch, the changelog and the test setup were written with the help
+    of an AI coding assistant (Claude); I have reviewed and tested them as
+    described above.
+    
+    The runs were on mainline d135ab453a74; the code this patch touches is
+    the same there and in sound for-linus, which it is based on.
+
+ sound/usb/qcom/qc_audio_offload.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/sound/usb/qcom/qc_audio_offload.c b/sound/usb/qcom/qc_audio_offload.c
+index e4bfd43a2488..5ee568e0454c 100644
+--- a/sound/usb/qcom/qc_audio_offload.c
++++ b/sound/usb/qcom/qc_audio_offload.c
+@@ -1969,8 +1969,13 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
+ 			      QMI_UAUDIO_STREAM_REQ_MSG_V01_MAX_MSG_LEN,
+ 			      &uaudio_svc_ops_options,
+ 			      &uaudio_stream_req_handlers);
++	if (ret)
++		goto free_qmi_hdl;
++
+ 	ret = qmi_add_server(svc->uaudio_svc_hdl, UAUDIO_STREAM_SERVICE_ID_V01,
+ 			     UAUDIO_STREAM_SERVICE_VERS_V01, 0);
++	if (ret)
++		goto release_qmi_hdl;
+ 
+ 	uaudio_svc = svc;
+ 
+@@ -1987,7 +1992,9 @@ static int qc_usb_audio_probe(struct auxiliary_device *auxdev,
+ 
+ release_qmi:
+ 	qc_usb_audio_cleanup_qmi_dev();
++release_qmi_hdl:
+ 	qmi_handle_release(svc->uaudio_svc_hdl);
++free_qmi_hdl:
+ 	kfree(svc->uaudio_svc_hdl);
+ free_svc:
+ 	kfree(svc);
+
+base-commit: 56abaa599bbbee5500e166ddb0b5241a00c1f763
+-- 
+2.53.0
+
