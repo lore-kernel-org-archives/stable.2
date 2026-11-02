@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629082;
-	b=1ItWG67VLTEH1PyVW3mkJHylu9+UvHJhi5DP36OyBd7D+K4cJLKVcKBvUjlrnTdIWqCv
-	 IbHOY6MdyhkUL/4TJacLsaV+ocy8vLFuzxfSzguloPBEWv7MTh0pYXtpzRcBLLb839j7b
-	 tp9smF5OC/YnQj4XRDXOtATZWdKfxGw89bvxuB4HEekTXk7WVgnn0KoOyxhWNEYWAdyF0
-	 za4RYwnWg0WeR+Qhg2xWrBEmLgj+OnqtbMTu8DENSA6/mFBHyEP7EhWVV5+7s8HTSLFwE
-	 5inCcv0reZhvgrW/zAWyEu8TOL8C+amiz55BneINVkE6hyZw4uRFqHfn+evb9mTAW0w==
+	t=1793629243;
+	b=U//PJAm/4P+JuT+TPlfVvhKucPI7oD+NDIFWOHGipngQCLY0p2T0D56cbXrdTD1b6kee
+	 jVilgtD9ZNND1zHJKVir1q/cggcF30QlXKjbAI81cgccZjsdZKRKuaFWbmIbf/gC2xiTT
+	 lRRPeVM7VCielTOYuh0fQyOg4UaKqbZOtahPlE4dT+5xs7dg2aQ2TNmnRLXPJQ7Vb/ec+
+	 nLSjRUGPwA4qvzQo6nEQD6a6ulLT+hFjWK/sGxAMBVjmqGy1Q7goZ2VprWR/uaNIkvV/T
+	 epxmMBBdbuIwqKdpR9pWydM1VXN/Pp9I4mPAo9vdXkPQsoHplxPxe6vjGdJiNzEFKVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629082;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=0vE2MW8oPr2NcLO5kkPhYCSI7fkp6SgzAyef2r6+0G4=;
-	b=MRyTL6Kzo1NsLda3c88cL1eiHijpwDj+FgiKSv+0327iUNZVP3xLSM9S1N26L9fbwAc8
-	 xfR8Ckz5+sf3te6Z7J28FwAtR57VLwToxHzEhLdZSKjp7X+A/cDwD9rj2SMadNRM1LrC8
-	 qhAvAwnDk4t05gk7apibnrQtlGyPGjdVnryAfpcHrZKzdw5igRkj1tw+iUR8XmAv2KYRf
-	 YzM/JzVOMv5Nhl14Q3B1HEOUIMqNNzwu0Gbysg4W6LAlU6EEqOd8/SRvoBqdIPJa+gwJp
-	 Jkf6ZmieUqmrHhdTKyK1z1Tn08kD5+K5xZIfcPKGyC09u0cddGLr6g2LZeDCumFQmog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629243;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=rnqkMZ8CRclQ6FinRgL34ebPpXHJ+z3PKdKH9rEdEPc=;
+	b=kFpNetsWTrizE5DwDTZ/iikbUnZncIbapIGN+o4nRvRAMk+unqsGKjP+rqn/JCHzK9r8
+	 GDWoxzKBMabC0cvVLwhTXbLf8QMfy6HDvhk/40z4jTMmHMUqu92atMHoCRQHXoKXuANKf
+	 FaHHiaM0Xiyil/eJwIg+/FR72radoJ2Spu6XW4j1dzodR+0EP5T0Se2P64SDmZFwAXIhP
+	 JPRTzHtpQ9fldyhdhTz8iz86rKCqvoOQSW3JCTVDrxmzshJXJZ0DgjEfCcdSK9W7+gd2E
+	 zU83eVJfKJxs7OYa9MoSKQm76CohSbmts+mnB/liEnDTvKIdzTDsrcF/NjNtaG6SzRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PxLVRN95;
-	arc=none smtp.remote-ip=216.40.44.11
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=krAaTW0J;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D44606B5F7;
-	Mon,  2 Nov 2026 14:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D44606B5F7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9070F606A337;
+	Mon,  2 Nov 2026 14:20:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9070F606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PxLVRN95
-Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id 8963816012D;
-	Mon,  2 Nov 2026 14:17:54 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id AEB112002A;
-	Mon,  2 Nov 2026 14:17:52 +0000 (UTC)
-Date: Mon, 2 Nov 2026 09:17:51 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jaewon Jung <jaewon8868@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH] tracing: Keep copying markers when one instance is
- stopped
-Message-ID: <20261102091751.2ee7c4d3@gandalf.local.home>
-In-Reply-To: <20261031073549.2991066-1-jaewon8868@gmail.com>
-References: <20261031073549.2991066-1-jaewon8868@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=krAaTW0J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793629243; x=1825165243;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6IYdIllU7Skva9Xh9DLUseReR/l/v2CrWzARN5qQP60=;
+  b=krAaTW0JLUmJBkWxjnEAQFBC4ZeLrzOOzIjhqW87ipXireXmq7krvsPB
+   NXV220wh5cb+y/nUvm+ECo7fhjuEF6Vltum16l6NL1mSnyh2dEx9Q4e69
+   QQj0bmQx4/12r2/Xxnn4hhEJDxY/3zrD6JkhTIpRsf4AdO0VtSISJLiTS
+   L1ZdOWvafCqzeBN+8c7AqKUz6Lo9fZHzuDF4PjFSQOP24rXBdo0pePjp2
+   nvx0cvdKscXlGhycBCuoxa732z/fzhgwaQbJt95iZ0UQRQ+NGodzB0BPz
+   DnYzBt8FAbFMV9FLOg/+k2w4BBxXo4mYkeG6BN5jjlr0SupTzQasOSFac
+   g==;
+X-CSE-ConnectionGUID: BvFLyJmsRPuYcvXx9Sl9XA==
+X-CSE-MsgGUID: JxQz9LAeSUSXii12jkCYWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2338480"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2338480"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 06:19:32 -0800
+X-CSE-ConnectionGUID: 3L6NF0M2SF+LAJ8WyX+9kQ==
+X-CSE-MsgGUID: /gSbkW4gQdOl7/nqG217/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="5986053"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa005.jf.intel.com with ESMTP; 02 Nov 2026 06:19:29 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 3E5F499; Mon, 02 Nov 2026 15:19:28 +0100 (CET)
+Date: Mon, 2 Nov 2026 15:19:28 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: JaeGwon Go <ceo@logictree.app>
+Cc: linux-usb@vger.kernel.org, westeri@kernel.org, andreas.noever@gmail.com,
+	YehezkelShB@gmail.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] thunderbolt: Send header-only XDomain properties changed
+ response
+Message-ID: <20261102141928.GX158991@black.igk.intel.com>
+References: <20261029081834.91559-1-ceo@logictree.app>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,53 +82,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: AEB112002A
-X-Stat-Signature: zisrbxd1p3catgtzpzq16r3ymu54ifq3
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+LOQGCiAMa+/kHer8Q/vyDiTbyEEJ4w+k=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=0vE2MW8oPr2NcLO5kkPhYCSI7fkp6SgzAyef2r6+0G4=; b=PxLVRN95U4bpQKmnGAh8I2tiSNseVUpUC2AlABDjfIPi30rhUTXFr6+glpukh0p2Z4gDSTkUl7SwsqoCAorOmmQzSNHnDRcYssXXltRTuH+QEmRWpMdkz37nz1KvDF/4b85bUTz2dW0Qnx9QPuSC8ZTuBy9m6MUgkLLPms3aJwI=
-X-HE-Tag: 1793629072-197361
-X-HE-Meta: U2FsdGVkX1/9V4bQ67ornv0sgZ2E2DvtnZJNxhCMiLeDuzXBR8vVQiE+JLgAHYljUVFoJBOTqweDrUCPau1qI3h2uZp9cvTPuOJVk3c8pkMuiyOK0LrC+vEmnzlqduUWK+4DFr/89ia6DjMed62TG5OhpbiTcxEQVUvVc5L24tIai5Q2MAYcpHSzELewvrqwnvprsf8zaFjObSng/gXLQhUlB7Z31o7cg6IwCpVTKWXBQm9dT9ET+Q/dC4f3nHiNCjXbDP9iN46O3xprz2CE7uJ+W6wGTkXyF1QRkz6PH9iLtVTz3dtOkHl+hXvkhzaK9Gd3CPseDtDKIlzgw1IJG9J+9nmlpOo472XdaDjo+GVwFEveSO4KxA==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029081834.91559-1-ceo@logictree.app>
 
-On Sat, 31 Oct 2026 16:35:45 +0900
-Jaewon Jung <jaewon8868@gmail.com> wrote:
+Hi,
 
-> When several instances enable copy_trace_marker, stopping one instance
-> can prevent the remaining buffers from receiving markers.
+On Thu, Oct 29, 2026 at 05:18:34PM +0900, JaeGwon Go wrote:
+> Commit 19813551701d ("thunderbolt: xdomain: Avoid potential stack OOB
+> read") turned struct tb_xdp_properties_changed_response into a union of
+> struct tb_xdp_error_response and struct tb_xdp_header, so that
+> tb_xdp_handle_error() can safely read the error field of a received
+> response. tb_xdp_properties_changed_response() still sends sizeof(res),
+> so since that commit the response Linux sends is 36 bytes instead of
+> 32: it carries the zeroed error field, and its XDomain length field
+> says 6 dwords instead of 5. The other responses changed by that commit
+> are not affected, because their non-error members are already larger
+> than struct tb_xdp_error_response.
 > 
-> Continue copying text and raw markers even if one copy fails, and
-> return the last error after trying all buffers.
+> macOS sends this response as the header only. macOS 27.2 (26B123) keeps
+> re-sending PROPERTIES_CHANGED_REQUEST when it gets the longer response:
+> after link-up it repeats the request every 1.5 s, ten times, and then
+> resets the link, about 15 seconds after it came up. thunderbolt-net
+> logs in and passes traffic before the reset. The same host stayed
+> connected to the same Mac for about 23 hours while the Mac ran macOS
+> 27.0.1, so the change in behavior came with macOS 27.2.
 > 
-> Fixes: 7b382efd5e8a ("tracing: Allow the top level trace_marker to write into another instances")
+> Send only the header again, as before that commit. The union stays, so
+> a received response still has room for the error field. Linux
+> requesters accept the shorter response: tb_xdomain_match() requires
+> only frame.size >= response_size / 4, and tb_xdp_handle_error() reads
+> the error field only when the type is ERROR_RESPONSE.
+> 
+> Tested on an ASMedia ASM4242 USB4 host running an Ubuntu 7.0.0-38
+> kernel, connected to a Mac17,6 running macOS 27.2. With this change
+> macOS stops re-sending after the first answers, and tracing shows an
+> 8-dword response with length 5, the same as the response macOS sends.
+> The link has stayed up for over 1.5 hours, about 80 minutes of which
+> carried a multi-gigabyte transfer every few minutes. Not tested: a
+> Linux peer, the error response path, and macOS releases other than
+> 27.2.
+> 
+> The analysis, the fix and the tests were done with an AI coding
+> assistant.
+> 
+> Fixes: 19813551701d ("thunderbolt: xdomain: Avoid potential stack OOB read")
 > Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: JaeGwon Go <ceo@logictree.app>
 
-Please remove the stable tag, this is more of an enhancement than a bug fix.
-You can keep the fixes tag though.
-
-> Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
-> ---
-> The current code stops at the first error without trying the remaining
-> buffers. This patch tries all buffers even if a write fails, and returns
-> the last error.
-> 
-> Returning either the first or last error cannot report all failures.
-> I chose the last error to keep the code simple. Per-buffer error
-> reporting is outside the scope of this patch.
-> 
-> Please let me know if you prefer a different error return policy.
-> 
-> Tested on x86_64 QEMU:
-> - Setup: Enable copy_trace_marker in multiple instances and set
->   tracing_on=0 in one instance before a live buffer in the copy order.
-> - Before: No markers in live buffers after the stopped instance;
->   write() returns an error.
-> - After: Markers in all live buffers; write() returns an error.
-> - Existing text/raw marker and instance selftests: 6 PASS.
-
-Honestly, just skip the warnings of the copies and don't even bother
-returning its value.
-
--- Steve
+Applied to thunderbolt.git/fixes, thanks!
