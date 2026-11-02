@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617061;
-	b=TJpR9+oxIeWDOOvr29M/DXPugodROjG1BIOSj2xCWalbJLcZXOr7ms8HrDpORD/X/zAG
-	 ScS5v2OtXOm8/NkA9/Hym2rAECklBFyQUFIyC/yLbH/NdxPDoVeEmHxv9T7mSB23/gQUs
-	 4zeHQrJhB3BNs/W0CmBz9NBRzifMrxXlq1Qpms6lxtqooJV4fGnflghBXtFJyL/glxXD7
-	 GWo8LeciAyG6zPDP+djm0uNq1Cn89xQJSpDpitLuvmJTY6gnRR42oplARlQdztZ9FyImo
-	 4/QxVOYIP3QBsjQc9b1NGgPFIDn3jp9M1cfu8lUC0BnPs6yiR+koOBDGjDxjF9HCbPw==
+	t=1793617167;
+	b=gm8uyKxjrD1y8hki8x+LycLzAQJRMtzGELR9qLcgB60Y8bRCYgTGdymv4si/6J0l7ty3
+	 f4Wvzr93g1KmGoMlrCYULU0ybfCnhsfHZ4wC65UjhOcuVzvZ5b3ctJPb8eE7HlIdKFD/o
+	 mqt80AQkrrxWzLYlj1l2e4ILSMONWddtYJ0e33LWtg8koI0SBDuunCFKfmsTz7Y7HTxOE
+	 QwRDMKJ7bZ0keoTQe1Vzevw7ZEuj0HcQibD1yfPJBcxWZyUeEX0IlIP5M6gyyuZuA4sFz
+	 hTrk1JPqVVxILdoNRRJ07vSYKlzhqJJzJm/zdi58CuQ8Lm8TCUrQVW3EY4J5HNdoEQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617061;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID;
-	bh=j+hZkYzIVJ9tilITm55Z46aHn+yx/FRnXY+i3pCcfjU=;
-	b=V7eU3LcI5UQ54GBn4YRYCvuJMTaGE5NrF+VCRUdy9dZivT3jmJxvD8pN2Q8zVs4e+Q0i
-	 /3FxmB9+zQazsmixPQc1/0gT9NQhcpTztf8NC42sQR1/vxH/0QX5ar3NX2YltTcenHJcn
-	 FrrQ69xJEYbQvR40bKzmVH2Z39kZ+/IlYS7+ezYlcCU/FsjuaQdW66Vhd8+fXthjZCJ0F
-	 BJSqu/Z6Ryoy0dvOd6YIge9hqf1qk15sjMBIagN6Ua0Os32bSYVi2xQPnRPFM7qhWxQwj
-	 b4I3SVhS3QFaa5n/rGsO2jh0sSpGrKvlR/501OJMK4lrqrFNTREMGC6x49FD5AXwCZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617167;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=aB//5RvIjc+u0E9iZDUmK4trDxxGUPJEyf5+Tgpg0v4=;
+	b=ShgU7WYFbn07ydK2fJJx+77lZLFUP7kv21csTcbMb2F4tsGkf6SwCMXBsMOQSFe5W5Uu
+	 CY1wTVTKXj5uf6Uz+cLNegaAbI1i7W2yevV8CJ3znBjVzmyc6KhtrPaW9OHkqBegvRLRH
+	 WRdLZL5p0+BvKJBMUC0vh5HP99pE9GEQ8bHoUhiGC3gAKl/SllFzv1rG42bS9SaSPUUU6
+	 1O6atDm0+Nc3SgMYTSbYJCcmE7Gk6zMdOEdV3iotjwXHIwt9BDD4qSWJwHwMUCW1lTO3+
+	 lJTzsDs/gXuja2LSsis94f9u6lNfGFGx95RCaqEp7lAe33FFhYWSL2FbbI/yukHwzdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuta.io;
-	spf=pass smtp.mailfrom=tuta.io;
-	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=QC1Zl+zA;
-	arc=none smtp.remote-ip=185.205.69.214
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SLkCay5M;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264EF60A5BCD
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:57:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 264EF60A5BCD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CAA1606A324;
+	Mon,  2 Nov 2026 10:59:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CAA1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=QC1Zl+zA
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id 9CCCF1A0E92E7
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 11:57:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793617054;
-	s=s1; d=tuta.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
-	bh=j+hZkYzIVJ9tilITm55Z46aHn+yx/FRnXY+i3pCcfjU=;
-	b=QC1Zl+zAvweFYUJsfIXB+oARRLdGvi5cYOF28k6+f0iavdSy26br8e8t8Dv7vBML
-	7wxYLNwx3lj0kKYwKnuAPGpguvRnFXvSK4QmooUoukAjWHgOa9WvqZ8yXeN6AqSAeB6
-	uQj9nWMbBbr1rgiGv+D6P1YWtFxYapyqSLaaJgpW0K8epeN+xEWKMX/Ixlpp/zAQA0u
-	blNy3ccAhErFiwKOWY5aDZeMNWaAlyeY9hPprt+NYSpOtbkBqVc9IcS/wMkMvYpXO2a
-	L/kJQMl4LLu7hBvruSopBmlTcL71I5tDTL3aF9OqCZeOAThTlRuI1dVKt6umCwzvWxp
-	/FpchbbJZw==
-Date: Mon, 2 Nov 2026 11:57:34 +0100 (CET)
-From: Edvard Conrad <edvard@tuta.io>
-To: Amir Goldstein <amir73il@gmail.com>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	Edvard Conrad <edvard@tuta.io>
-Message-ID: <P5Qu3co--N-9@tuta.io>
-In-Reply-To: <CAOQ4uxjm=cGPnug18VuhKqiMvkWwLPNLO_TE3KxO8iLZG+veYQ@mail.gmail.com>
-References: <P58Wrer--F-9@tuta.io> <20261030-welpen-anbinden-nullen-b2432cee1d10@brauner> <CAOQ4uxjm=cGPnug18VuhKqiMvkWwLPNLO_TE3KxO8iLZG+veYQ@mail.gmail.com>
-Subject: Re: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from
- the user file
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SLkCay5M
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=aB//5RvIjc+u0E9iZDUmK4trDxxGUPJEyf5+Tgpg0v4=; b=SLkCay5MwVPuzASJO8eMRJvpyI
+	q2ESxc9sC5Dsvi+la7s/5Z1viCcU/b+qawdcO1G1mxu5iFO1tmaOfPJHE15fAl4cjokwEpBKHOx16
+	oEfwYAEcO8fFKHk6+sjfiTz1Wc2CSbVGw6frlE7A225FP3gcsiF/GObxJx8633zPb32SZ/txTUMPa
+	/GGwfY9949kwkXtcCVHf2/7hau20NTJVdWVW6ZI3DJjEEOmHWWUtO6krH4vELjoAYymXewJgZDuQU
+	NHz9vaybY41xcIPb32wNJw3FTAjizDbxWZQMivDijlPBI0ZM2OLvNDlpXJMazo2d3wUgH6Gi7LSjp
+	aqz1/4ag==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xNpkz-0066ms-1D;
+	Mon, 02 Nov 2026 10:59:17 +0000
+Date: Mon, 2 Nov 2026 02:59:13 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Tejun Heo <tj@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH wq/for-7.4-fixes] workqueue: Fix drain_workqueue()
+ missing work items chained across pwqs
+Message-ID: <auhlROvLdDKg7-x6@gmail.com>
+References: <20261030164210.3735018-1-tj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,55 +67,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Feedback-ID: 0127f977f5e13e8051b46c6e7f57d0f95a0470d24b79d7c31d07fdf611cc427ab823e0f4692a810119c92d8768973a9281:TurnOnPrivacy!:tutamail
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030164210.3735018-1-tj@kernel.org>
+X-Debian-User: leitao
 
-On Fri, Oct 30, 2026 at 6:13 PM Amir Goldstein <amir73il@gmail.com> wrote:
-> Would you mind adding test cases (or variants) to fanotify26 to cover
-> this find and test the attached (sanity tested only) patch.
+On Fri, Oct 30, 2026 at 06:42:10AM -1000, Tejun Heo wrote:
+> drain_workqueue() flushes the workqueue, then checks each pwq under its
+> pool's lock and returns once a pass finds every pwq empty. Only chained
+> queueing is allowed meanwhile, and a chained work item can land on a pwq
+> other than the one the queueing work item is executing on. The pass misses
+> it when:
+> 
+> 1. The pass finds pwq A empty.
+> 2. A work item executing on pwq B queues a work item on pwq A.
+> 3. The work item on pwq B finishes.
+> 4. The pass finds pwq B empty.
+> 
+> drain_workqueue() returns with the work item on pwq A pending, and
+> destroy_workqueue() can then trip WARN_ON(pwq_busy()) and leak the
+> workqueue.
 
-Two things on the directory side, one settled and one not.
+Very nice finding, basically drain_workqueue() could return while the
+tail of a chain was still pending.
 
-Agreed on 130fdbc3d1f99 ("ovl: pass correct flags for opening real
-directory"). Before it ovl_dir_open() passed the user file's f_flags to
-ovl_path_open(), and __FMODE_NONOTIFY travelled with them; the commit
-reasons through every O_* flag but that one is not an O_* flag. That
-fits v6.13 failing the directory case and passing the file case.
+> Add wq->drain_seq, which counts chained queueings while the workqueue is
+> draining. drain_workqueue() reads it before each flush and retries if it
+> changed by the end of the check pass. Flushing once more after an empty pass
+> is not enough, as a longer chain is missed the same way.
 
-The one that is not settled: with your patch, listing a merged
-directory through the event fd still deadlocks. ovl_iterate() sends a
-directory that has OVL_WHITEOUTS to ovl_iterate_merged(), and
-ovl_dir_read() opens each layer with plain ovl_path_open(), which no
-user file reaches. A listener that calls getdents64() on the fd before
-answering blocks here:
 
-  fanotify_handle_event
-  fsnotify
-  fsnotify_open_perm_and_set_mode
-  do_dentry_open
-  vfs_open
-  dentry_open
-  ovl_dir_read_merged
-  ovl_iterate
-  iterate_dir
-  __x64_sys_getdents64
+I am curious about a work function that keeps re-queueing itself
+forever. That is a bug in the caller for sure, but the current code can
+escape it by luck through this race (and then leak the workqueue), while
+with this patch drain_workqueue() will loop forever. Is my reading
+correct here?
 
-Two controls on the same kernel: the same merged directory without the
-listing passes, and a lower-only directory with the listing passes,
-since od->realfile is nonotify with your patch and iterate_dir() uses
-it directly. That was on 6b4b543fa18 with your patch applied (with some
-fuzz); the readdir.c paths involved are the same in today's master. I
-have it as an extra case in a local copy of fanotify26 and can post it
-once there is a fix to run it against.
+> Verified with reproducers of both shapes: self-requeueing work items on an
+> unbound workqueue and chained queue_work_on() of another work item on a
+> per-cpu workqueue.
+> 
+> Fixes: c8efcc258946 ("workqueue: allow chained queueing during destruction")
+> Cc: stable@vger.kernel.org # v2.6.38+
+> Signed-off-by: Tejun Heo <tj@kernel.org>
 
-Incidentally, I was thinking about your ask for something more
-generic: a task-level "creating an event fd" state in fanotify would
-cover the file and directory opens in one place, and the copy-up opens
-in copy_up.c too, which also go through plain ovl_path_open() and
-which an O_RDWR group would trigger for a lower-only file (from
-reading, not tested). It would not reach the listing case above, which
-runs at getdents() time, long after the fd exists.
-
-Thanks,
-Edvard
+Reviewed-by: Breno Leitao <leitao@debian.org>
