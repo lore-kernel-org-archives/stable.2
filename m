@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793585910;
-	b=cmPr7vU8mPtpuuPPy6bSLGUbzDgAVejNL+mmvmss9YzZSir0QyLE2BpvTh7kCc4uXYlY
-	 B4vkktwM5tbXKVo67Zvj9YWdsutuyZo4YMUDRV7/ujnY2CTZWVAEg3D6t52dIZfh166Yr
-	 cCE5ndt9LkTrf/N5Y8rdL9vqjzU9j1vruSG+UPo2nYLiLVxyU9i7Dz/OLqREftwXnmgpZ
-	 2TzPvCqcUhii5o9kjKxCiZzQ8y4+9drY+k+xh7dBHbYqugwJhx9Ppa7jPfMxMIL3LvlyD
-	 bWF8INR9fbKOBURsqgjlxMRutX4jaZMREAOE1ajJQ8MQpH6zVuKN/z8Ev3qVja5A4Cg==
+	t=1793586229;
+	b=SOTp1GVhqKAgk6Jki646WfXX5pESsM6NkoJ+WBQw8ZkGaAcL4ksDmCoRxD3YY6n1t93O
+	 9alRjs8ly3y15igIpQ+h1S6FEJCoE/ILfa055uYQCpCECa0tBEzndUpUKUAu46jBFF5dO
+	 SKi8Nwa5h9KKBLHfeJicm+eXzZwBfo+g6BDb29lN/7I3zCRTFowGVjO+as0H2cvDrRvnb
+	 QU5l6utTl/7yiDopnuF05sb2zm5dp1BpMOP/x6qX8meMPliVRFYwgDaSQQ+UFxfzA6Lyb
+	 NrTSN/Tc/P43ld50amxyMgF+ND3cl1tPyKNXyucP1up0QRFEmba2l3Ign6d/vl/yKDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793585910;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586229;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LzpH6ZlFtWx3iq/V4Ca3j+tPjclLZq1yC4pTJfDWRc8=;
-	b=BwKhXK5No52c8sEcV9cVdHYzC9SvrETFHIsqdH2ASXFlbp0q+nKU2HuNA1kwdqYEnRws
-	 jg1eUtWQyMZVrpul3xiGlXMwRsM8fYme8vjtuVoiEKfaEJxg05TdGKaWKxPTtN62JdMEk
-	 51CKE/Tjb5bysTwlqE/PSsSbClr1YQ36Zwvfwf7XNqRt+ly++4c9ueFE339Wn8w/Zj947
-	 VfMcXOdYi+76ZhcxJS2XtmyOjYG8sxoe8Wn+53S0K+9AubuDeqNRtROEryfllp4ZpAprf
-	 VfILQCxtnGKBVFaVpj3XJ4hP/QqIRmUPKKAoqstzMweAQOScDiGNB0jgyxhcB1QMytA==
+	bh=o4fSDnmtmbZ30jH6553LXpXrsXHng0trnMhwaBC+PZs=;
+	b=xPZ39rRnEbai161iqsJe0gPh25mvB00HYzdXvO5F9f9NEVVo6ADfx/F9icDBNgpJA2JL
+	 OX1qryXCbaNWBSIA+CvXl55uyUZifgscb7YVQLWgCVe3VVBi6+EQGzTbj4i0nF4IQjIC4
+	 JVWtgGDLPhvxWBsQNxxG/0X9JtvHMKQu9rHOJ9zWJvsmPA/bdLsJuVTXv0hqFHHkzOTWc
+	 G4Fo4QQXqCUxP2NQhGFd+CmwQnmqxDVUdbhJ5M0nvqBO5hAF2PcydelS+K5MeQQOEhLFa
+	 r90IFIF35sYIboUtxrg1m4CQZybcCJ1C0KvlJIQm8/wa+D6nRtfjQm6G4hI+7LYMb9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=S6zdqfib;
-	arc=none smtp.remote-ip=203.205.221.164
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SRqinuuM;
+	arc=none smtp.remote-ip=95.215.58.126
+Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CB2606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:18:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8CB2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D974C606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:23:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D974C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=S6zdqfib
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793585906;
-	bh=LzpH6ZlFtWx3iq/V4Ca3j+tPjclLZq1yC4pTJfDWRc8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S6zdqfibLP8H6Zdr9umZyiK2q3aifHaVmVT+mJIwGHRyMZ1iwn8x6OiBXEUOw3Q0s
-	 FBF4FEs6/dP2rlHkxmArRQC1L8rDn7rcPl1qe9+b5V8H5GAlUIo7XPCEeSGPowGkiL
-	 cD14CqSnLHr6RgSyXe5wiJQwzyATBjQmczsDcG/0=
-Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 496A20BF; Mon, 02 Nov 2026 10:18:22 +0800
-X-QQ-mid: xmsmtpt1793585902tmd4v4x7m
-Message-ID: <tencent_F82F58C2455AF9A94D4C0FD52495CAD72308@qq.com>
-X-QQ-XMAILINFO: NiqzJuKCE4mBRyz1QDXp2j/ZkT+xuxIe05NGxcYlTGV8GEezSHfKoryJkXsZJB
-	 1llyNa6yFZVVAWVwGw2fcqVeLmCNexacwb9sjrqMnP1KNLc2zgrOakwYCyeU0NKEalvdlbVslc4A
-	 JQVh0rwZKlLhZ2D8ivvJ6iGPrQLLdGqREiDVaS//QGSItB0EY6IR+lrtvJ5Q98HWxEtBKmmGX6Uq
-	 M+bd/HUqom9qy+6Nqnu9xEQ73N+vIYg0gVIEp8ONZF6VOm/skfCLnMaxa11Y+2Mc5WGpCOrxp9M9
-	 YUswaPHdYazWoLHqPd6cXZoOnVhuyW1o3puWAppADPw532wOt+QKtb+rVAb6s5H5lYabvq0hSpe8
-	 jzRQfAeCkWmkGSSPkPGeGMJ4e6fWkSELkpzlJVA/S3TVkzGlsl2JnKW/biFAfmWtK1/qsxbU2w29
-	 EsO3nDwVNeHNdCO8jGJjapLHkII/0fDa4U1hQq0dsg1n3zjHraJQgbWtvMo+ho681zTOSrFgDf+N
-	 GMDHMPr8Fksc+V0qg69mY/G2gjZpY2gAjJg+m4Uthzs681jKtUrCM6SyBQRwj22gqo3ND7mB/waj
-	 p00aTFP1v9lcFTDv8EXCVVvKX61jp/22RJjg9WB+QqutSo959MJD7C1R2L0kb31hGgAs0YZACt2l
-	 eNAGqHumSaVelopu/qC+DxQe2LORC7qgtzqywZ92cu3um258yLASOCGGqhwNsMjeH2UCobJSt19M
-	 CkrX8JsDMnozeYutGbrTc4Ja+c5lWTv+jrCDjcrq6ly2mfsSsOOcG3q81TqWkTh3AwO5gUNT1QCr
-	 3xMH9loKXjkv3+z88I+4uFZk2F7Em7Rn7jtp0EWiJS90NEEPc5nBMaMmpXpyFaYhCeg7aO4O2inO
-	 N8f3TOSaMNcwZFITlFIhu2fKBFXqyYHr6/hbxcBn7k5Q9jvT4dyQsqUP5d4xPi9JmnVfrX6tbcCS
-	 qVXGc//tb+iFT7PeODR4/LyswXItgIkYnjfjlZqKanvbhkcagXa6V2PLaOvNbJFRRj9Qs7t43G66
-	 CjnKe8OwAvJCWs4OMXMAIy2jNeSwjwkYh/nIN9+TPaiaDFKebLMWuIF1vWBLegcXQdpV6xVNTzkI
-	 dTkdXjTKso12NDPMB0gTLcPslB+Y3uWM7lbE32xr8GXRLs4VM5xN14dD1hAFGiJsJlQs4tUDRx8Y
-	 UkXu4lMyler4tHSn6EBUv3t0bObpYaT2K3sN0CCsyJ5RxxMgs9b2BDJeKiPFxmlZHYHU4=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: bo cao <treebacker@foxmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: davem@davemloft.net,
-	dsahern@kernel.org,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	idosch@nvidia.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	treebacker@foxmail.com,
-	willemdebruijn.kernel@gmail.com
-Subject: Re: [PATCH net v4] ipv6: fix dead half of the MTU guard in __ip6_append_data()
-Date: Mon,  2 Nov 2026 10:18:22 +0800
-X-OQ-MSGID: <20261102021822.91796-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <179358500215.3286.12801503551646664009@kernel.org>
-References: <179358500215.3286.12801503551646664009@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SRqinuuM
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ALr5TsAEjuwt2pIJ/IP8K7713x8kUZX1icwbiFIInMI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793586220; v=1; x=1794191020;
+ b=SRqinuuMl6gdOXtp9TRbNPvcgF5WtOOqzaWiXWuBanFkmJV9xWmUIEICQ54IcO1dfYLdl/ue
+ PBol2C63lhz91+GDFk7CfJhlOz3rzvVlyg07YN9TBKCWvNhCXfAw4f5el0RhCoZZBWuwu2sgdXc
+ 3mzifa34+JRcDNllCvqsNviU=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 74277f5059ada402;
+	Mon, 02 Nov 2026 02:23:40 +0000
+X-Mizu-Trace-ID: 74277f5059ada402
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2fd1dc53-ae46-4163-90a4-f916c9dce29b@linux.dev>
+Date: Mon, 2 Nov 2026 10:23:30 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,26 +58,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 5/5] net: restrict message_cost and message_burst
+ to non-negative values
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+ Joel Granados <joel.granados@kernel.org>,
+ Fernando Fernandez Mancera <fmancera@suse.de>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>,
+ Petr Pavlu <petr.pavlu@suse.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Maoyi Xie <maoyi.xie@ntu.edu.sg>, Zhan Xusheng <zhanxusheng1024@gmail.com>,
+ Oleg Nesterov <oleg@redhat.com>, Neal Cardwell <ncardwell@google.com>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Yung Chih Su <yuuchihsu@gmail.com>, Wyatt Feng
+ <bronzed_45_vested@icloud.com>,
+ Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261101061331.286404-1-jiayuan.chen@linux.dev>
+ <20261101061331.286404-6-jiayuan.chen@linux.dev> <auftqzpuuNFiScrb@fedora>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <auftqzpuuNFiScrb@fedora>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Apologies -- this information was already provided in the v3 thread,
-and it was my oversight not to carry it into the v4 commit message as
-the bot had asked.  It will be included in the commit message of any
-future revision.
 
-As replied on the v3 thread:
+On 11/2/26 9:55 AM, Hangbin Liu wrote:
+> Hi Jiayuan,
+> On Sun, Nov 01, 2026 at 02:12:03PM +0800, Jiayuan Chen wrote:
+>> net.core.message_cost and net.core.message_burst feed the interval and
+>> burst of net_ratelimit_state, but neither rejects negative values:
+>> message_burst uses plain proc_dointvec, and message_cost uses
+>> proc_dointvec_jiffies, which happily stores -1 second as -HZ jiffies.
+>>
+>> Since commit a940d145cc38 ("ratelimit: Warn if ->interval or ->burst are
+>> negative"), ___ratelimit() splats on such values, so the next
+>> net_ratelimit() caller warns, e.g. a martian source log:
+>>
+>>   Negative interval (-250) or burst (10): Uninitialized ratelimit_state structure?
+>>   WARNING: lib/ratelimit.c:43 at ___ratelimit+0x56e/0x960, CPU#1: ping/3218
+>>   RIP: 0010:___ratelimit+0x578/0x960
+>>   Call Trace:
+>>    <IRQ>
+>>    net_ratelimit+0x1c/0x30
+>>    ip_handle_martian_source+0x1bb/0x340
+>>    ip_route_input_slow+0x1057/0x3650
+>>    ip_route_input_noref+0x104/0x260
+>>    arp_process+0x109b/0x2510
+>>    arp_rcv+0x381/0x460
+>>    __netif_receive_skb_one_core+0x173/0x1c0
+>>    __netif_receive_skb+0x21/0x150
+>>    process_backlog+0x37e/0x1200
+>>    __napi_poll.constprop.0+0xa5/0x5e0
+>>    net_rx_action+0x4c0/0xf70
+>>    handle_softirqs+0x204/0x9b0
+>>    __do_softirq+0x10/0x18
+>>    do_softirq.part.0+0x49/0xd0
+>>    </IRQ>
+>>
+>> Negative values never meant anything here: 0 already expresses both
+>> "no limit" (interval) and "suppress everything" (burst).
+> Will this limit breaks the UAPI on old kernels that supports negative values?
 
-The issue was found during an LLM-assisted source audit of the IPv6
-fragmentation path (manual code inspection with an LLM's help, not a
-production hit or a syzbot report).
+All commits in this series restrict config values, and every one of them
+changes the old behavior to some degree; the question is whether the
 
-It was then verified at runtime with a standalone reproducer: a
-single sendmsg() on a raw IPv6 socket with a 1240-byte HOPOPTS cmsg
-and IPV6_MTU set to fragheaderlen + 1 triggers the skb_over_panic()
-described in the commit message (tested on 6.x, MSG_MORE on a device
-without NETIF_F_SG).  The xfrm transport-mode variant from the v2
-discussion was identified the same way, by inspection of the
-ip6_append_data_mtu() recompute path.
+change is reasonable.
 
-bo cao
 
+For this one, negative values never did anything that 0 doesn't, and
+since a940d145cc38 setting one already triggers the WARN_ONCE().
+
+
+> As the comment in ___ratelimit() says:
+>
+>         /*
+>          * Zero interval says never limit, otherwise, non-positive burst
+>          * says always limit.
+>          */
+>
+> If all others agree to set the limit in this patch. I think the comment
+
+
+The comment and the WARN_ONCE() are about ratelimit_state in general, not
+net only. There are still other ways to set a negative value,
+printk_ratelimit for example, so updating them is not this net patch's
+job.
+
+> and the WARN_ONCE() , and the admin-guide/sysctl/net.rst all need to be updated.
+
+
+
+net.rst never documented a range or even the unit for these two, which is
+why I didn't touch it. No strong preference though.
+
+> Thanks
+> Hangbin
