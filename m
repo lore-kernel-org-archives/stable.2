@@ -1,50 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626450;
-	b=vkC/JmPRfQXstrbKIqlD8flv+5ez9WDOWfAbTJITorFKDoKPoIkCysueFJEOAiu6Up8B
-	 fjxDnuWjFCfFsjNo79Qfesp4bax7icXBZu+WPuFR72UsfeSchi2z6ftWjRULBYP+VNG2H
-	 Kcyw3TL8ccXKzSv+YkcorUmbFIF+s8Fi6yJuJrk05UEDMn2y9njHqZ5KDdAJlAU0mBN5t
-	 0/Z7UZl8VNFqpSXyGJQJfoPDNoWTguVyq7I2+p7Are1IjZswVlKyvR8JPwPffLheLBlRA
-	 2bcgK2RVfRlAOCfzxLRuhu5WrAvYnJaPccEkDUebwma6GGJA0vDCr3NKC+LFfttpHMg==
+	t=1793626447;
+	b=ZQW+I7QOJIUjpBx9tIl/qDyE2MWNqb7mk9iaSF0MLb1qNGvu3rklQsBC6lLnM+nG3U/2
+	 xxJwIrx9vuFpIVWfcLFzI5Nc4HI4C7rkG3APiAFF/HTCQDpw5rfpbVbogMish2ubC+6g+
+	 PYAjF7/paIoRy/mIm0h2KMuIHlioWDrOrfC+jD8jbvgoVAvhIraTyqe5Ygl6JUPPtc2Yo
+	 lPMugZivgVjG48M8htRXU0SlWQ3Zg42yg4svQ4GhtPi6mWcOBNLfZVf/G04Xo2v7Kv8bo
+	 P4fJ6kypH1otPMTCOZstn9f+yRT9Ek8SFhNe5RgjaEKkiIpZHDHTWhtT3KqgtyDr7bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626450;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626447;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Q8znRvI0VTrl4E0TMpGoTe5ad2gAMpin+AN0qRYm0Gs=;
-	b=yJHk18Jvpn1CbKC/LeWgTb2ReFLpVH+HDrNGiEPCzdmv8t52UnQweg0C3xz3lH6+rUGm
-	 DYMpGdEYfHzboXB/EXWYAm4OqcYafJj290WR8a76LoX4OwDiRgZqhOqADuGRe2zoYqO+Y
-	 YOYZQ+QNLcsFTxSS/9RvIB89ve2K+6wIsJQT8Mc2tH9DO7bGgrGcwJp5JI9ZN7Fijx5pH
-	 9/ybeDnxnJ/YOD4PT9wPs61gkBLL6j0BOQpIJeX6cRYTpwsqFIultXr3kk6VDuRKP7Fof
-	 cUrMfA8ccBsVQe67splEkFgrMM8c0K3g2/JbmXUS3XbhtlUl+Sq3P72M4wrFOh7fKSA==
+	bh=HdE8s/oDZnvA9c/rDs3AdCW8i2SXAODW6/GcFo46Vaw=;
+	b=VC/X47ucyjMDlxlYHjDKD/0F747LD0c9eB/764deUX+SqYFa2WJw6efjn3rrBgqKL08L
+	 /W/1Q6zKi6PcZOae//UHpJPo9UgXrils70g7c+ttuHOrAN7VqROeTtzXfIyTLrRc/XfjB
+	 6WScZWIhN6mES25TBDyahSvsLFwOhHknCZsdZTHCZqirOWSwfWvKfThm7z8IuZZSm4Jwi
+	 X5nGEQWh5t4U/n5+i08OsPjnM42H+eTjfUWTHczw1nvKgEhD+4czVFO6N1Vm1A/5RY7Ei
+	 4KEGAg2+9g7e6oajv73wq80wi1xDiN4G/XryZ4gBdTKWw7XjS6wgY453hc0KNkf7jfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uIDWGIhO;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bK8pSNVx;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F030C606A337;
-	Mon,  2 Nov 2026 13:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F030C606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1990960A2604;
+	Mon,  2 Nov 2026 13:34:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1990960A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=uIDWGIhO
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bK8pSNVx
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 453F62A6B;
-	Mon,  2 Nov 2026 05:34:05 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A5AD19F0;
+	Mon,  2 Nov 2026 05:34:03 -0800 (PST)
 Received: from e133894.arm.com (e133894.arm.com [10.2.80.62])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB6F93F632;
-	Mon,  2 Nov 2026 05:34:06 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3ABDF3F632;
+	Mon,  2 Nov 2026 05:34:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793626448; bh=9EjYXGrMhWNlI/LRxAdAiu7J1bzQdr57A+5D3tpgm8c=;
+	t=1793626446; bh=1l84DnyE29UIZqaXwocfj0eDW62EnczijBTcbjuB21g=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=uIDWGIhOT2+f2tNAFrP9hW7EypprwudOiPdIi4PtT8zndGm97Y+CzL4YWHKHmJYgY
-	 aeKFSFS/ZwS5PdER6XTIqDTBSnlAAagg5zQ1XOmPM3+l0xQUB1nc7KfzAWYV/pMVQ1
-	 LunqJYuXgab+ogqbuBKbwxQgMiHoY9sCwGph0MIE=
+	b=bK8pSNVxgrbvVGlvdtQpUQSUgrQdlqngjBVIHSN4i5sIxM0D2TlVckxHOdpJmz0/H
+	 Cc+310cUynRQnplmCusETOhwi3QI2XECO2cPXpYdyl9OYnTebBTB2TOy7bLfWmXKKn
+	 M6gu0LgHNJTZHCX9AByvObMrNW1RMveHeCIMaiKQ=
 From: Sascha Bischoff <sascha.bischoff@arm.com>
-Date: Mon, 02 Nov 2026 13:32:59 +0000
-Subject: [PATCH 06/10] irqchip/gic-v5: Honour ACPI ITS noncoherent flag
+Date: Mon, 02 Nov 2026 13:32:58 +0000
+Subject: [PATCH 05/10] irqchip/gic-v5: Use linear DT and ITT when L2 covers
+ all IDs
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,7 +57,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-host_gicv5_fixes-v1-6-743b61626fc5@arm.com>
+Message-Id: <20261102-host_gicv5_fixes-v1-5-743b61626fc5@arm.com>
 References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
 In-Reply-To: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
 To: Marc Zyngier <maz@kernel.org>, 
@@ -70,15 +71,15 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  Sascha Bischoff <sascha.bischoff@arm.com>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-The ACPI ITS probe passes its noncoherent flag to
-gicv5_its_init_bases(), but the common initializer checks a DT
-property instead. For an ACPI ITS, this always selects coherent cache
-settings and skips the cache maintenance required for its tables.
+The DT and ITT level selector incorrectly chooses a two-level table
+when the selected L2 table has exactly enough entries to cover the
+full ID space. There are no L1 index bits in this case. ITT allocation
+correctly rejects the layout and device registration fails; the DT
+path instead allocates an unnecessary one-entry L1 table.
 
-Use the noncoherent argument, which both firmware paths already
-supply.
+Select a linear DT or ITT when the L2 width equals the ID width.
 
-Fixes: a97efa5ba5946 ("irqchip/gic-v5: Add ACPI ITS probing")
+Fixes: 57d72196dfc85 ("irqchip/gic-v5: Add GICv5 ITS support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
 ---
@@ -86,18 +87,18 @@ Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
-index 866c238f08dfe..c5d057f713134 100644
+index 6d98f3dbe34b6..866c238f08dfe 100644
 --- a/drivers/irqchip/irq-gic-v5-its.c
 +++ b/drivers/irqchip/irq-gic-v5-its.c
-@@ -1135,7 +1135,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
- 			goto out_free_node;
- 	}
+@@ -337,7 +337,7 @@ static bool gicv5_its_l2sz_two_level(bool devtab, u32 its_idr1, u8 id_bits, u8 *
  
--	if (of_property_read_bool(np, "dma-noncoherent")) {
-+	if (noncoherent) {
- 		/*
- 		 * A non-coherent ITS implies that some cache levels cannot be
- 		 * used coherently by the cores and GIC. Our only option is to mark
+ 	l2_bits = gicv5_its_l2sz_to_l2_bits(l2_sz);
+ 
+-	if (l2_bits > id_bits)
++	if (l2_bits >= id_bits)
+ 		return false;
+ 
+ 	*sz = l2_sz;
 
 -- 
 2.34.1
