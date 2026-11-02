@@ -1,59 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627937;
-	b=eGqHWMttAaHev3ItIej4qYAh0dNNZe6jsf2gA7bmu9mEexEadg44HZsZtP2SR6lPuv5B
-	 nrw0DGm2mkmt6I2aamEIvT9EvuIBEeG+GZd/JLRHZNZHGv/MTjvdnVJ7fzYCdloVISU40
-	 8OwuGuH+H91jz2VGHEBzFi3N8vjFmE0RFd3cVtM+mIrO2l4Z9k2fE5roYeicwX3KRtu6k
-	 yDDEEyjrkVeK5loQEcvgUsvLRGoGIZm+7xUZcTD9J5Xh2ATn8GBTOQwFKBW/fjzqOjHje
-	 BHXl2oOTyZI9PHDuqAUFeBDQ/QZpa9XwMqucfMZxBwlZJRcMBZsmPk9Zm3Rlc0rE9Gw==
+	t=1793627975;
+	b=PHKNqmeFjEb5IIm46KScv9rBfGeZB7qEBzyLwTjyqk8S9LXZ/ulmtyOFEc2ePVdd7RX3
+	 UFRRLspCtRQ0Tob/pLg6xmqZ1uk0omE/EP4S5+xBBjf90IcOhkDPt8rDQD4OF2nTS6JO1
+	 dF/5Np3ar8fhdhmyGacWleapDLchY+RXRGu7zJrGtQxJxYDTtusaabpyL54JdWeODDYks
+	 qLqX8ZC1Tsg2bObsppo6QQ6hSYzcCqtUCMAaBgQzu0eGm9taP8hdb+A0WrunbtpiBfVlx
+	 wfUPR4gyMP05iBw2UtmKjIOPBY5ujpK91ZYQvhQqan2ju7/7Xu/xQRqiEstxUuxMNAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627937;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=F5bX9LxXmM/a058JbeXjccAF344bS/YmCY7trRb5PMQ=;
-	b=XqZYf5TMoHjkdpfe+RjOkeOwZzvIIuiI79wGK5dNvb/GpPTD/xQ2l0uqAqVk8RoywqXg
-	 SoEV3dLL6EgDcpHs0/H3ThcwEoOctypx0NAUq0XfLRom7/DY9EnyyKBEX74kuz/Aw/LBn
-	 CxAbu+MezCk0a3b4+0qZMgZgM9Cbr3OjaiYAF2MozrPZBBUMCtMI+NpUnrGcb/p6fHKUn
-	 fF+tMyUm34JuhZh8/No++CbGrvzj/qVeA3YfpISf7viDsjXJB0puYch6YdX19tlJeBSxq
-	 6WfNU+2MHUnXExtTbXeVxl2IEGe5Mn5FcGrPnJ3MPAocJhNMovhNpW/zjcjAjUTk6zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627975;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=S2d7OdEO5Uy3arxUL89OA5ZZcKM4fqZIMbcJ+h02Lps=;
+	b=PWBdEOhNKPDrNaCkWUFD0dyrqxtQPpCVMZOaUSJmkcKY5UToI2icw8DoB3+nlvax1Dux
+	 cMMDWAt4P2HRdeeDy1KdNWOrJCluu4oUdA4eZ7SFeLOF40l6PM+2FwfRUVWkDaHaEaOgJ
+	 3pXNKsmukEqzBcYf5krroaWTr7VEt2bK65M5sVEPNJOZiVWMsP4IgNle7HYn4aCrg9H9r
+	 xk9cAXcQII0dUTKmN4Kt/8MTepOMjq+d5ut2xKzRE/tYWmmdV/AjouMW+Vow2Og91hGhR
+	 n63+ptanq6IxclTJRo2LCQiH4S/oGCy1SDqRT7xXye+OfldlP7+Ber2iyBvoQxZAizw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC45C60A3837;
-	Mon,  2 Nov 2026 13:58:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC45C60A3837
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oBUnxIfJ;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27810606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 13:59:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27810606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oBUnxIfJ
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4649b35bso2948879f8f.3
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 05:59:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=F5bX9LxXmM/a058JbeXjccAF344bS/YmCY
-	7trRb5PMQ=; b=thQADmLnRD2cGU0QggbmbEX5++SYWh7vOdWZm5Khn0svek/igK
-	yZCVfAzYnxIkXG7Tp5QGFgHbMcfbm6z+9NBmLYfYJA3FUv7x/8TD7XAArU09qLmS
-	e7bZqnKg8DdP0YNGuUBi3dKyKIxO81ndUsVa/4mjwdoqaKAs5DZwDTV84=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkB2fP8Ql+hqBIAZAQ--.47013S2;
-	Mon, 02 Nov 2026 21:58:41 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-media@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1793627972; x=1794232772; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S2d7OdEO5Uy3arxUL89OA5ZZcKM4fqZIMbcJ+h02Lps=;
+        b=oBUnxIfJDoTZEByopHtEIdJUz07MmRKUaOQlkZrSFrJ6mML3CxCbB18dGoaYnGq9Vs
+         pTOhEao7IAJrPqBvsd8MQDNNWlYs/e5e6z71xIxUoB1IGN3Y5JdagVUXIPbx24AGPbFv
+         YFJbTrgXPE5Ed3Se2V7RQfOWd5ZOxah21CKOVc+IBQrcAJVVD5xA0q3n18X9wP0n6nEb
+         cZ/9SgaF99UQAK7Lb1rUDImy7wEdptuQWjdGz4718wSaLxnpX0zJTaZFVWf9zz+qkKwh
+         EI12EzgwYLDcf10HIn78HuD+UKeOJh86v+6tcH2yfyo9UvEhbHBNRxVNLTaW6/mvlaJL
+         QivQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793627972; x=1794232772;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S2d7OdEO5Uy3arxUL89OA5ZZcKM4fqZIMbcJ+h02Lps=;
+        b=gm/2gr12mRxL3VUr3gNbW2jnmAzhiktihs4viFUn+FwmNA72EvO6tc5mknCn5abdoF
+         8aLtJqUIj2m6D2MeK74s+lGnujOCLXcthFW5nm5Cmz8MQClRO5P27/5XxkMrqu7yUGfS
+         nalyTvPUilc9tWQHQkDw2gNyQzBQeweOd5jwBvMzm4iOFCVdZjptJsvoqVhrVFZsf8/8
+         kdCzx3lRv7L1YFa6JmAR4LmN2WEH3dLpnc1YRtPyL4mCWcmKWATt3DFAZzgB3lisvste
+         3ACgbzWDGz2sFslspFqwq+pDJCZHxKs7PiXqY+o8eXMvYwq/aBpAag1m4pU/IlI1a/bt
+         RHlw==
+X-Forwarded-Encrypted: i=1; AKwUvByyXeMkRl96HEWV+ECgbvv8Wfqd4fFuFEssFuWZ00QLnuoeHtX2d9/cYtEUUUQFgjeJAMkknVw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaG0fkCTisYGxLDAYsKj1AA40ly99RDayAhcXp+FGcDlCFj8IT
+	Y9si50uaDxP08AsstZCSAslWoIUYLQFxe/frOObFFMcWdXSikc0CQbQ=
+X-Gm-Gg: AYBFou2gY5CrxXepUeyjIFAZOtOdH+E2G52/85+aLdsrv9AwIuS2hXEEo7D+8fFOD8L
+	OOsCl10K/VSsp0aQdep4cqwi4lYuUGrw01Gp8tKVrP796TzFG5Ttu2wP7EkVdx71B5sWh5ufJ2u
+	P+k0/qAA+6O0PI4wAfmy6HR/lxzVoM+vKs5mlL5iDmE6TheaM3bPGsmKV97buR5SNWhaLJrcsCA
+	7WxXKVht9m4u1fXW29jF1cfyC6VDMC900hOATWr+1xckgL87/q1rqEQ+7H4T7EglYdwDKSdqsWu
+	hw6/75DyuwiWimjczKIPoRH3ZZNpAQ9t+S7KOLfwdkDHuXKaF7N6CEfnsd6MYSVmQPBltxnr+Qu
+	GeuuJuPvGeO0FTGrNUBgkMFhy/V2MmAPxYi+4vP3CmZXijm1tw9lSQvl7hgkAI/yr4KGjPP6Y2p
+	8EkO3KpU3KNMjLTrQcj3Jkw4uMfPCwfhkkWMwUZOk4iYby0JwD4cqPfV9B0W2cTBfFRLq0/y+Ej
+	vwILT4isltvWL4ueWz6HaJXbSebl5noTpjLBekFbUYk/XYynjLXHCtgZdxjdIGnYbuyEjj4TonW
+	J+a67pacc6A=
+X-Received: by 2002:a05:600c:848c:b0:4a1:f99e:f22d with SMTP id 5b1f17b1804b1-4ac17471091mr246374955e9.6.1793627972424;
+        Mon, 02 Nov 2026 05:59:32 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm352680265e9.12.2026.11.02.05.59.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:59:31 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: briannorris@chromium.org,
+	francesco@dolcini.it
+Cc: bzhao@marvell.com,
+	akarwar@marvell.com,
+	linville@tuxdriver.com,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: dvb-core: skip disable_source handler for a released entity
-Date: Mon,  2 Nov 2026 21:58:40 +0800
-Message-Id: <20261102135840.17953-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
-References: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH wireless 0/2] wifi: mwifiex: validate firmware response sizes
+Date: Mon,  2 Nov 2026 13:59:28 +0000
+Message-ID: <20261102135930.701845-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,143 +102,25 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkB2fP8Ql+hqBIAZAQ--.47013S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKFyDZFyrtF47Wr18WFWUtwb_yoW7GFy8pa
-	93tayYgrW0ga1UZr42ya17XFn8ZwsYyay5CFy3X39rKr4rXr9aqryFya4DWF17Grs7Aa12
-	q3WaqrZ7u3yrWw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
-	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx
-	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
-	1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Xr4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxU4fM3DUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdS-+AAAsF
 
-dvb_remove_device() frees the media entity of a dvb_device through
-dvb_media_device_free() and sets dvbdev->entity to NULL.  The media
-device of the adapter can still be registered at that point: au0828,
-for example, only clears mdev->disable_source in au0828_usb_release(),
-which runs after au0828_dvb_unregister() has unregistered the frontend
-device.
+Two missing bounds checks on firmware-provided size fields in mwifiex:
 
-A file descriptor that survives the disconnect then reaches
-dvb_frontend_release() with dvbdev->entity already NULL and calls
+  1. ext_scan event: buf_size is used to determine scan response
+     parsing length but never checked against the event buffer.
 
-	fe->dvb->mdev->disable_source(dvbdev->entity);
+  2. command response: resp->size is passed to individual handlers
+     but never validated against the response skb length.
 
-au0828_disable_source() dereferences that argument unconditionally:
+Both patches add early validation that the declared size fits within
+the actual buffer before proceeding with parsing.
 
-	struct media_device *mdev = entity->graph_obj.mdev;
+Tristan Madani (2):
+  wifi: mwifiex: validate ext_scan buf_size against event buffer length
+  wifi: mwifiex: validate command response size against buffer length
 
-which faults:
+ drivers/net/wireless/marvell/mwifiex/cmdevt.c | 14 ++++++++++++++
+ drivers/net/wireless/marvell/mwifiex/scan.c   |  9 +++++++++
+ 2 files changed, 23 insertions(+)
 
-	general protection fault: 0000 [#1] SMP KASAN
-	KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-	RIP: au0828_disable_source+0x27/0xb70 au0828-core.c:445
-	Call Trace:
-	 dvb_frontend_release+0x2eb/0x500 dvb_frontend.c:2946
-
-The error path of __dvb_frontend_open() has the same call.
-
-Skip the handler when dvbdev->entity is gone.  For that check to be
-sufficient, clear dvbdev->entity in dvb_media_device_free() before the
-entity is unregistered and freed: both frontend paths read the pointer
-while holding mdev->graph_mutex, and media_device_unregister_entity()
-takes the same lock, so a reader either still sees a registered entity,
-for which unregister waits, or sees NULL.  Clearing the pointer after
-the unregister would leave a window in which the entity is read after
-it was already freed.
-
-Read the pointer only once, into a local variable, while the lock is
-held.  dvb_media_device_free() stores NULL before taking graph_mutex,
-so re-reading the field to pass it as the argument could still observe
-NULL and hand it to the handler.
-
-Fixes: 68ff5767ddc4 ("[media] media: dvb-frontend invoke enable/disable_source handlers")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-Changes in v2:
-- Read dvbdev->entity once into a local variable under graph_mutex at both
-  call sites.  dvb_media_device_free() clears the pointer without holding
-  that lock, so re-reading the field for the call argument could still pass
-  NULL to the handler.
-
- drivers/media/dvb-core/dvb_frontend.c | 14 ++++++++++----
- drivers/media/dvb-core/dvbdev.c       | 14 +++++++++++---
- 2 files changed, 21 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index 0286da57f382..37bd909fe0fe 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -2826,9 +2826,12 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
- #ifdef CONFIG_MEDIA_CONTROLLER_DVB
- 	mutex_lock(&fe->dvb->mdev_lock);
- 	if (fe->dvb->mdev) {
-+		struct media_entity *entity;
-+
- 		mutex_lock(&fe->dvb->mdev->graph_mutex);
--		if (fe->dvb->mdev->disable_source)
--			fe->dvb->mdev->disable_source(dvbdev->entity);
-+		entity = dvbdev->entity;
-+		if (entity && fe->dvb->mdev->disable_source)
-+			fe->dvb->mdev->disable_source(entity);
- 		mutex_unlock(&fe->dvb->mdev->graph_mutex);
- 	}
- 	mutex_unlock(&fe->dvb->mdev_lock);
-@@ -2941,9 +2944,12 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
- #ifdef CONFIG_MEDIA_CONTROLLER_DVB
- 		mutex_lock(&fe->dvb->mdev_lock);
- 		if (fe->dvb->mdev) {
-+			struct media_entity *entity;
-+
- 			mutex_lock(&fe->dvb->mdev->graph_mutex);
--			if (fe->dvb->mdev->disable_source)
--				fe->dvb->mdev->disable_source(dvbdev->entity);
-+			entity = dvbdev->entity;
-+			if (entity && fe->dvb->mdev->disable_source)
-+				fe->dvb->mdev->disable_source(entity);
- 			mutex_unlock(&fe->dvb->mdev->graph_mutex);
- 		}
- 		mutex_unlock(&fe->dvb->mdev_lock);
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d329502a..0b1ac40af164 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -208,10 +208,18 @@ static void dvb_media_device_free(struct dvb_device *dvbdev)
- {
- #if defined(CONFIG_MEDIA_CONTROLLER_DVB)
- 	if (dvbdev->entity) {
--		media_device_unregister_entity(dvbdev->entity);
--		kfree(dvbdev->entity);
--		kfree(dvbdev->pads);
-+		struct media_entity *entity = dvbdev->entity;
-+
-+		/*
-+		 * Clear the pointer before the entity is unregistered and
-+		 * freed.  The frontend release and open paths read it under
-+		 * mdev->graph_mutex and pass it to the disable_source
-+		 * handler, so a stale entity must not stay reachable.
-+		 */
- 		dvbdev->entity = NULL;
-+		media_device_unregister_entity(entity);
-+		kfree(entity);
-+		kfree(dvbdev->pads);
- 		dvbdev->pads = NULL;
- 	}
- 
 -- 
-2.34.1
-
+2.47.3
