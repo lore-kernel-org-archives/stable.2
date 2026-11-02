@@ -1,72 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.177.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793614895;
-	b=Quqpzd5pfAe0mEOpwu5l1tM4HhgwXMnPCwv+SDTOqkZMvHYkno+gWplsWHjqOzsoamjc
-	 DLAeQA7wtYU2hwKOnPdZrv1QAahbZ/qxWmdct0n+uKyvwNsjcaZBWwPnl0BZFgLASIQn5
-	 Ma4jV78LO7TijIK6rzH4FsfOBCoXSIwZ01IFOyK1R2xFY5R8MgEQlzn2KbjXj/ZeK2mjT
-	 P6qmuXMYdB38V9nuxPLoPccdpx7KfNSTYMePKMuWhH0q0zO3FbxE8TAAxUEvtPzxrRsxu
-	 5UKhqzZDndfy3DjpXWUe8DMYQ3FYgTZ2LNs9dWa5e9Reg0dQ9tuCrGcuiH7aqr84Q2A==
+	t=1793614903;
+	b=zGfwzCLX5r+L0hrZTnKzdohRJrKbXh2vSwGG8zlJ4JBxR/QEwh0Da/OQAlQWjlG2/cag
+	 o13MrL9lBYEKBRbEUdgOAOL5RCZYugG+Hs1juRVtVG1nFULydd/KuObxKOdrCqVGQXEqL
+	 RrOd/PZpcPAVVTvzZHB80gHcFLJDaTNJ6nC4az76oZSXtEnEZN44Hj6VsQXQIbptGNjis
+	 i8qZ2cvv96Ox/38GqSIkjfBJ5+fG96IIDC7PUYf9W86MkSuoi2tqfw5BD0jxWRaPa2vVR
+	 5H1OFMQj64o93JBX1pjQVtP+BXSkL6KthZgfKaOXFT0TjK/S9XSojifi5f7JnYJeVZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614895;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614903;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:X-Proofpoint-Reinject:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
 	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
-	bh=QWytiepXutFTsTSCSDpRiZvRF2lG5vZz/Rih6Uh1kn0=;
-	b=MeeYyj5UMkolZl/Mcmi1Xts2009GXNe8kYGoLXFHkIk/vzFGZbFnj1ieZCzX+dlHEPSh
-	 /ae9GJJ8NcRUzgNu0hr1LBPPSWOhAHOdZLbGsdstKCg3upNQNPNnHrUv+Pq9wEvdAiIxC
-	 JwnJA3QZDU/ZFKrRprSqYZ5fczr6kgal0yOGbwXnxS+ZzBjo8hxkD4ZenHFjnYhTB+hV8
-	 Rkhp39TBVprbEo246RRfP5AwSVQMo4b5Noq+auqJk/vIR9o0e6bzsEnKgWyfnWKkmo2nS
-	 jYAsQzFI3d0LHSL4WjdOmgtaNtk06pQZB+fjacV2mtBaeEK83s380inAGRKKRiQ2S9A==
+	bh=OyuIekzX2H3dt85C40PmF5/9+dw7ODKhM+xJmU+z0gY=;
+	b=MGD2Emjc10lN1vmVDV2nawTHy1glt06f65Rhk76OHo7s7xyBayFhq0ghtPxZLh2x+b1f
+	 UWLj9YFJLDy9WvFGyprFUthCjxkG98R398IclgqYacr/dZK9ncvy6bm2Dv6hK8HGp638u
+	 l7T7gmgHXcbmE0kCqsmnqluyqLfAaaRJIMVhzjy0a6XjClVh5CpbAOBWt7N7mNjklpgJ5
+	 v5HzofaY9AQy/aILvGiu96maP60L2nIQjf7J4RuF9wQvuXRGhv2zRIagkTtRzPNfvnV63
+	 +Kzq+tSGYYUxurN/PcRDdCit0CJmwTK0jReKYe3TBBDRTLHqHihN+ayT3KHoGSy3T9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oracle.com;
 	spf=pass smtp.mailfrom=oracle.com;
-	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=KwTp+CDM;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=IsRDVnjb;
 	arc=none smtp.remote-ip=205.220.177.32
 Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5FE606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:21:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF5FE606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792C8606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:21:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 792C8606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=KwTp+CDM
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=IsRDVnjb
 Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A21AfJC936938;
-	Mon, 2 Nov 2026 10:21:17 GMT
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20e3Ru887237;
+	Mon, 2 Nov 2026 10:21:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
 	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=QWyti
-	epXutFTsTSCSDpRiZvRF2lG5vZz/Rih6Uh1kn0=; b=KwTp+CDMl8gtsAPMigCjM
-	CHc7yR176wxji5h8D4P/W21StD8e3GyKOf7aaWV2Op5siRXvPWdYeGtHERl3UPdO
-	iLueEnsqLEqNMsFsQmulv0KRjGXSqVMT8CkcXmeke/v4vLs7xXD97H6cyaOVaTQX
-	BYv1zBontC3jIFc8SINW2QWQ73b6pNAl0++MYEPb36nqZgsK9iMsxQDWjQkV5gVA
-	KV/6RRGU9EOkYYMWw++YkQTDNW6FwMLC0jxxdZOC3qiLCaAh3+TrEv69xW/bP4xm
-	BEG3FoXd6cJhEewjftmAIiIdid+9oOVW0K9Fu3AKuTRSmTxCym7GTGGcKil6bZ9L
-	g==
+	:mime-version:references:subject:to; s=corp-2025-04-25; bh=OyuIe
+	kzX2H3dt85C40PmF5/9+dw7ODKhM+xJmU+z0gY=; b=IsRDVnjb6tGTIsTjPWKMD
+	PzvyQ44+fH9tqUjT5ngumvfIZ3AYQN6gEvGux1wkaGEypZtnml4967V9TRHS8TFO
+	uMZaEbsRnAWIW4um12cZrEAoYExOAB2j6jeIDT2KZslOTaMMFK9a/CzkpMkZXxRB
+	kr1Qkn7LqHSApqLikeuWAl36Y9JuXHHovtxMjgvZIqKmsALIwXa4j/L7cqPYkHUF
+	9+7AsTVMpIP+jNb/6Di3vW1OlI1klYwKKYIEgdNcSpBrXHEkT8fIK88EJQ+QsmtN
+	C+sr13Traq1xOwB2wM690BxGNyJ9Ppiog/phPnsTzMX8ExIBAyEZgNCCkiAcZ38a
+	Q==
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn7431kxd-1
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn7431kxk-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
-	Mon, 02 Nov 2026 10:21:16 +0000 (GMT)
+	Mon, 02 Nov 2026 10:21:22 +0000 (GMT)
 Received: from pps.filterd (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29Cw6l1424206;
-	Mon, 2 Nov 2026 10:21:16 GMT
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29D2oG1424341;
+	Mon, 2 Nov 2026 10:21:22 GMT
 Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com [10.129.136.47])
-	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4hpqhua27a-5;
-	Mon, 02 Nov 2026 10:21:15 +0000 (GMT)
+	by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id 4hpqhua27a-8;
+	Mon, 02 Nov 2026 10:21:21 +0000 (GMT)
 From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 To: stable@vger.kernel.org
-Cc: Inseo An <y0un9sa@gmail.com>, Florian Westphal <fw@strlen.de>,
-        Anand Khoje <anand.a.khoje@oracle.com>,
+Cc: Yucheng Lu <kanolyc@gmail.com>, Yifan Wu <yifanwucs@gmail.com>,
+        Juefei Pu <tomapufckgml@gmail.com>, Yuan Tan <tanyuan98@outlook.com>,
+        Xin Liu <bird@lzu.edu.cn>, Yuhang Zheng <z1652074432@gmail.com>,
+        Stephen Hemminger <stephen@networkplumber.org>,
+        Jakub Kicinski <kuba@kernel.org>,
+        Wengang Wang <wen.gang.wang@oracle.com>,
         Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: [PATCH 5.10.y 4/9] netfilter: nf_tables: fix use-after-free in nf_tables_addchain()
-Date: Mon,  2 Nov 2026 02:20:59 -0800
-Message-ID: <20261102102104.1558500-5-harshit.m.mogalapalli@oracle.com>
+Subject: [PATCH 5.10.y 7/9] net/sched: sch_netem: fix out-of-bounds access in packet corruption
+Date: Mon,  2 Nov 2026 02:21:02 -0800
+Message-ID: <20261102102104.1558500-8-harshit.m.mogalapalli@oracle.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261102102104.1558500-1-harshit.m.mogalapalli@oracle.com>
 References: <20261102102104.1558500-1-harshit.m.mogalapalli@oracle.com>
@@ -88,85 +92,81 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 bulkscore=0
  mlxlogscore=999 spamscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.22.0-2610300000 definitions=main-2611020040
-X-Authority-Analysis: v=2.4 cv=OpXaWC/t c=1 sm=1 tr=0 ts=6ae8641c b=1 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=OpXaWC/t c=1 sm=1 tr=0 ts=6ae86422 b=1 cx=c_pps
  a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
  a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=o5oIOnhZENCTenyL_yNV:22 a=pGLkceISAAAA:8 a=yPCof4ZbAAAA:8
- a=QjOa6A-HqW6lW5RNUFEA:9 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
- cc=ntf awl=host:13537
-X-Proofpoint-GUID: rZf5msVLfIuKt0pZVzrUqcY8FqrAfHeU
-X-Proofpoint-ORIG-GUID: rZf5msVLfIuKt0pZVzrUqcY8FqrAfHeU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX9j3YkpzH7N9u
- vT+uwbfEHighhxa+/v9XW1s9lvlJu3T/kp/qB80a4Gsm1a5OLrye/sFhFi0B7JbbmVIXBSK0uB3
- OD6uX8nsi2e9uOpzF0/CfEbsQqZ9uvcugXpn0S7e34iidwcf0ruT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX9FrueXlzxv6/
- 5mU7x0Ir18B9O52PPGlgeOrZpkLwOLP1371BGgjb9voF5l30n7iMnD/4Krx1+1pyK8zRsLQuu/P
- /oi+8uRubMUmWXzxUkuEzp+Go/GuJBuCLAC74A3xzWtTgHgw/cnvBSjJZcsigQEdseqlzreWJvo
- oglF/RQpY6OAMCM7ec05eRohuQAqdSF8mSnX2H9RsB86jDb9DmhdnwvbSVCUbep1sRDkEOzL2OR
- 6HbLOv2higzxX+1pw44S6T42c9g10VsUUpMiazO8tD/0rqn+L1DzTL0bm/H2G4BuSPL7oCIcpdK
- cR8+W80F5DEhshFEq22m4xgS35bvqNeOPo0atWhooD/RQezTQcgJ92FBu/B87UKZA+pkjYuShki
- twYvMBzXeMuJ0ISFxVp25nq3UFC9dJwARkAvfGEDZBAJ1aC1Uw8t2XIxQMR11/cEeHxIVxzEWcp
- fA5wCnZRre9KjTgTkWjQdOH9eoczmDMcHaCeKn20=
+ a=o5oIOnhZENCTenyL_yNV:22 a=bC-a23v3AAAA:8 a=pGLkceISAAAA:8 a=UqCG9HQmAAAA:8
+ a=jZVsG21pAAAA:8 a=VwQbUJbxAAAA:8 a=yPCof4ZbAAAA:8 a=9i_USOwr8XsMwLcr2esA:9
+ a=FO4_E8m0qiDe52t0p3_H:22 a=3Sh2lD0sZASs_lUdrUhf:22 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13537
+X-Proofpoint-GUID: dcIqJqpjW_wuz0de0O2mLCed8Pt_PGAe
+X-Proofpoint-ORIG-GUID: dcIqJqpjW_wuz0de0O2mLCed8Pt_PGAe
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX7B8QsUP12vk6
+ nciuUNcod7r0OjQZ9XhG8CyUY8XfRl81veVstRcp+AHrlHcc8WM4b+vFNmM2/eyl0Y/pygD/jf1
+ bpUa+WKRL3j9nxW8IoWVABLwtX7mX1YlvxMdlgPVTQRCh5b4m6IX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MCBTYWx0ZWRfX9uHOXDrO9yMq
+ yo+chgMJbHaf/eu73OJW40fVLtrrk1PYqIUNIaLoiC1cYNyjdZ5EfEjTxH3G79/kKBocrnCnYae
+ vlw1BC3eVhzolcBpVNl6F8H9jqpKR6lnfoOXTbeK6LdwU3r0FQFCI/+L6RE9y/YbAphRfnZpDBA
+ HCIrKCgbZKCgSZog1rbv2sDGXqJE7DtxA/IGgJ05zT5Vp50d2a7vkPjoZu49GvtvJAkxaD2EQfL
+ lpW7dmCmuqqIeqQy/TYb7xastL81jckxReLnz/J+mmIm71lUEUCzjX2JaeugUsrjUsm3DPC7AF3
+ vJYIxOKF+YefW3NL1+s6ieX7DnOws4yxCh7u/rZszn5+SF5EvrnwI3GVusW/uOO+bQ9jhoMQzrZ
+ SCiga2dF/wvFgYzSiMqF7LfdkufJO1Qnm2p9GEadnfktW7/sJ6TuFsT7F7VeOabbrPkB7+quNuE
+ qvNyFZk8KRqYQ8/9zNECGvb5WOv5FymtRemVD+W4=
 
-From: Inseo An <y0un9sa@gmail.com>
+From: Yucheng Lu <kanolyc@gmail.com>
 
-[ Upstream commit 71e99ee20fc3f662555118cf1159443250647533 ]
+[ Upstream commit  d64cb81dcbd54927515a7f65e5e24affdc73c14b ]
 
-nf_tables_addchain() publishes the chain to table->chains via
-list_add_tail_rcu() (in nft_chain_add()) before registering hooks.
-If nf_tables_register_hook() then fails, the error path calls
-nft_chain_del() (list_del_rcu()) followed by nf_tables_chain_destroy()
-with no RCU grace period in between.
+In netem_enqueue(), the packet corruption logic uses
+get_random_u32_below(skb_headlen(skb)) to select an index for
+modifying skb->data. When an AF_PACKET TX_RING sends fully non-linear
+packets over an IPIP tunnel, skb_headlen(skb) evaluates to 0.
 
-This creates two use-after-free conditions:
+Passing 0 to get_random_u32_below() takes the variable-ceil slow path
+which returns an unconstrained 32-bit random integer. Using this
+unconstrained value as an offset into skb->data results in an
+out-of-bounds memory access.
 
- 1) Control-plane: nf_tables_dump_chains() traverses table->chains
-    under rcu_read_lock(). A concurrent dump can still be walking
-    the chain when the error path frees it.
+Fix this by verifying skb_headlen(skb) is non-zero before attempting
+to corrupt the linear data area. Fully non-linear packets will silently
+bypass the corruption logic.
 
- 2) Packet path: for NFPROTO_INET, nf_register_net_hook() briefly
-    installs the IPv4 hook before IPv6 registration fails.  Packets
-    entering nft_do_chain() via the transient IPv4 hook can still be
-    dereferencing chain->blob_gen_X when the error path frees the
-    chain.
-
-Add synchronize_rcu() between nft_chain_del() and the chain destroy
-so that all RCU readers -- both dump threads and in-flight packet
-evaluation -- have finished before the chain is freed.
-
-Fixes: 91c7b38dc9f0 ("netfilter: nf_tables: use new transaction infrastructure to handle chain")
-Signed-off-by: Inseo An <y0un9sa@gmail.com>
-Signed-off-by: Florian Westphal <fw@strlen.de>
-
-(cherry picked from commit 71e99ee20fc3f662555118cf1159443250647533)
+Fixes: c865e5d99e25 ("[PKT_SCHED] netem: packet corruption option")
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Signed-off-by: Yuan Tan <tanyuan98@outlook.com>
+Signed-off-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Yuhang Zheng <z1652074432@gmail.com>
+Signed-off-by: Yucheng Lu <kanolyc@gmail.com>
+Reviewed-by: Stephen Hemminger <stephen@networkplumber.org>
+Link: https://patch.msgid.link/45435c0935df877853a81e6d06205ac738ec65fa.1774941614.git.kanolyc@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+(cherry picked from commit d64cb81dcbd54927515a7f65e5e24affdc73c14b)
 
 Conflicts:
- - Only race 2 can be observed in this codebase.
-
-Signed-off-by: Anand Khoje <anand.a.khoje@oracle.com>
-
-Changes in v2:
- - Use latest 5.15.y branch.
-Changes in v3:
- - Added upstream commit details.
-
+	net/sched/sch_netem.c
+Signed-off-by: Wengang Wang <wen.gang.wang@oracle.com>
 Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
 ---
- net/netfilter/nf_tables_api.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/sched/sch_netem.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index cde499274fd3..6560da6b0b2e 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -2372,6 +2372,7 @@ static int nf_tables_addchain(struct nft_ctx *ctx, u8 family, u8 genmask,
- err_use:
- 	nf_tables_unregister_hook(net, table, chain);
- err_destroy_chain:
-+	synchronize_rcu();
- 	nf_tables_chain_destroy(chain);
+diff --git a/net/sched/sch_netem.c b/net/sched/sch_netem.c
+index 3e3bced82c56..6c206c97759a 100644
+--- a/net/sched/sch_netem.c
++++ b/net/sched/sch_netem.c
+@@ -508,8 +508,9 @@ static int netem_enqueue(struct sk_buff *skb, struct Qdisc *sch,
+ 			goto finish_segs;
+ 		}
  
- 	return err;
+-		skb->data[prandom_u32() % skb_headlen(skb)] ^=
+-			1<<(prandom_u32() % 8);
++		if (skb_headlen(skb))
++			skb->data[prandom_u32() % skb_headlen(skb)] ^=
++				1 << (prandom_u32() % 8);
+ 	}
+ 
+ 	if (unlikely(sch->q.qlen >= sch->limit)) {
 -- 
 2.55.0
 
