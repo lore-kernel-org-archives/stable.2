@@ -1,55 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631102;
-	b=OxECTVPQ2CtsuDBBuYv+Q6cIm+jEXlor1bW8D7aj5dF7NTOdmRoJyTUxy/wrYl6QNQ4V
-	 jLAhk4wMuJa+CTCBmppKFnHGIbdtKQ2+FcYitsr3OmzicaYHO6ZvCgLBnfTbqwYGnOvwX
-	 W411wisdylDBzjHL1en2U6HWc6spj9V9XSGr/qpNDqiB3iAe4Uf2qjmr9LMDVnvnYf7Jp
-	 2TnX7B3zBnAk4RGSw9CbGvtkQLqAfs+dwDnumPZM0Ap6b+fAqlIfq1oz54hS8ZWQnDnIZ
-	 1DI286xMfTJNH805i+juHL1zNS488OgxgL9A4J2Rr7y72Y7mk7SCGTLOLRyWpiPlUfA==
+	t=1793631316;
+	b=wzCZ4Bc2AU6q7chLE2csO3xDClJCwNf4RDlXSnmD1Js0BeO5x7LzI/f2WXwhzwjrmiCG
+	 zaWHBvGO/G1LsFEaxa72qJeYbotQFeheIJyEEKcfNNb0eEStcgUAtwOWDapiaEic6M15E
+	 P4u2bHvOoqkF0+o3KyndHGqdDATWcd5AIDAKv0efj0+FTGbPF77iBwFvQAWy8EGZNAKLG
+	 CR3Zss0QZ7gkNHYrSNQ+7O/VNhyovRhh5HErVE4mMfF7crWfi8Vh5+OmDb+nmhZkAB60w
+	 yQVGvlYtMcqXBrCjP4MNQeH5XnKxi2EiUq3/uHrEl2syuwgOnyLTBMPNmuTIelSADQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631102;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3PMBNHbf4ph/mdyR65c545+LMS26XozggfD62W0AADg=;
-	b=RNYrA13FG/aCXCdqzA30Q1DOfwzmtbFWi+sLHxhn9uobsFj4+n4Lqz/DLodap2KtIpQA
-	 4geEGZBMVrNzSqZlV3efCbBg/zCfksq8b9hO1QbWEgm1KXhe13MFr/xGju+3SrVrdzWyH
-	 ssbXBiOUz+NtkKpPzyfLRV7+v0mbTTEy2nkMx56a2BWRKCzGgxFm2FuAxsJb385V7A70m
-	 qpEQOGrRRh+RjTYqwhahBvJWhYFP4hG7U7vxJfKZrMy1v1NiJWtJzgKj3H4BB6jTeqKOy
-	 2enT7bzUtCr0zYzBtSXbym+YYcpsz7Elvtwzj6cj4ktTQ9rpioSiRRBjhLfV75x9kHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631316;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AY0v1jj+Lfw9X7v3boXRH5QP+ChZJNYF3majuLHichI=;
+	b=qIlxRKKgBbGeZe2V49VATm54Rc8oM7klT8gSBnbydWcpoYPwCVxnD52AJCDx+iexy3aA
+	 +9e5QefpwsmX7ne4x+venG+zOXUOaR0ipoKixDeX9+C10dwfGPj5bK5wjNA180/6N+WWE
+	 VqJPkucooA781zr5aotYhA6suzx2c1lcmjbLsO0vcZi82S17p+r3tJH/PkEMPcrfFOa/c
+	 EvWWcaEOXsWGRNf9e0dw3eX/bZsAEyoY7OHmUiyfb1c8zqXhs3qI+ucywfplAqLLjmh/M
+	 IAAtRQgq0uLLWasgEYlJYZonbRWIyzasQWtmNB/vemGSUIyc6kU4oRlsvZ0O60Wt4Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GlNn/SoM";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMcrXPrR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6834C6076D9D
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 14:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 6E132606A33D;
+	Mon,  2 Nov 2026 14:55:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlNn/SoM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE5DF1F00A2D
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 14:51:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMcrXPrR
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B49AF1F00A17;
+	Mon,  2 Nov 2026 14:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793631100;
-	bh=3PMBNHbf4ph/mdyR65c545+LMS26XozggfD62W0AADg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GlNn/SoMWD5zqxxqX/eCuEquiTNPRgmYC+uyTlQFZ16kexqk/KmCRp3INGj7ss8oQ
-	 VUu1KkbtGSGsG3pM3YZ4MDiwbG5YrkBKBiN14T/X9emJ88g5DPj3pIXVn3phJmyVow
-	 KX2JEr2f7UDK3U8ijM+CbxeE6tC6vIkI/nKJYJzvIxjwONjYrUXdb0ed56rsLZ06JR
-	 rdYISyB5bt/rhPIvfR1HgK23GVD6ypB685bMRxWVtqNBK0a9B3nWL37+brdRtxbv2s
-	 OHz5HfLYY/uUgJVHbpI/TT4TXRUNjrxgB4dmkRp6j56kdwhka9W+cvSiBS0wLtgATL
-	 65EIv4d24CLeA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be47aa555cso2857421e87.3
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 06:51:40 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxggd2ulInrXvkg6ZhrAsX+JIUHY5fJE/hWpVfAlpBzRu3ICktfvmtHl6761flidIg2YUcVqag=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ysnaCuMpgvzrGWcK6g9RkmCCjKZh47Or/CJYBvx8zXmyl18MC
-	06sXmDQN/wp+RCy8RyHv39NzjIhfE3Nkxyzbr4mb+ynuFHLQyBkQnMjTMMrrU2AYKwBjbWObHCh
-	mdLZE3Ku/myGEiEyjN+fAjpS8saRNXYI=
-X-Received: by 2002:a05:6512:39cf:b0:5bc:b0b9:f457 with SMTP id
- 2adb3069b0e04-5bfd95827e8mr3755837e87.47.1793631098488; Mon, 02 Nov 2026
- 06:51:38 -0800 (PST)
+	s=k20260515; t=1793631316;
+	bh=AY0v1jj+Lfw9X7v3boXRH5QP+ChZJNYF3majuLHichI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RMcrXPrRIWgnhvODEQJmURlgvykhtSC0hwl6bHGO3DHh6qL0OddixVQhw/wpsUiX1
+	 zeGT5GtZibo4OguzLItLAJi+VXMTsVLeEYkFG4WwWia6+Lo9nnH66feYXJtdt6juwq
+	 l9HUuG0s9ITlaaYCcvJ6X6kZhqx/g08Pw5UpsKBKKSFKFTAClGTCfyI3XJqLX2uKgC
+	 yL5T9/rkSQZa2seSAjhRNyAiimAqop+AzparLq6+2GpkfZdi1fE4W2wLkBasmBdSM+
+	 nk2vvDAjNxk9emGuuLq7YcVXR1l3bBqJJnDRN/iBus6yTEhpkyUJCw+CMJH4S7rHZB
+	 lrMJTGeRDXytQ==
+Date: Mon, 2 Nov 2026 15:55:10 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Kent Gibson <warthog618@gmail.com>
+Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Herve Codina <herve.codina@bootlin.com>, 
+	Jia Jia <physicalmtea@gmail.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v4 6/7] gpiolib: cdev: don't report a failed line read as
+ an edge
+Message-ID: <fymge7c237d6kqizljn5ppyqz4bn65cbfzkjakt76mmtgd3dse@hk664lcwt6yb>
+References: <20261029-gpiolib-chip-removal-v4-0-aambrozewicz@nvidia.com>
+ <20261029-gpiolib-chip-removal-v4-6-aambrozewicz@nvidia.com>
+ <20261030111435.GA76958@rigel>
+ <20261030123109.1935475-2-aambrozewicz@nvidia.com>
+ <20261030134639.GA94733@rigel>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,91 +65,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org> <20261102-work-procfs-bugfixes-v1-2-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-2-59422ed3e465@kernel.org>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 2 Nov 2026 15:51:25 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gw6xykAX3dvJmjhVOQudF8qKgKLViY0oXGzUWqDsWDbg@mail.gmail.com>
-X-Gm-Features: AclHuK-8h3kqhIhfKB_FBrHc69T85DQwOpvSG7VveYTuGyJayTx7vBef-7fYqkY
-Message-ID: <CAJZ5v0gw6xykAX3dvJmjhVOQudF8qKgKLViY0oXGzUWqDsWDbg@mail.gmail.com>
-Subject: Re: [PATCH RFC 02/38] PNP: isapnp: don't read past the end of the
- buffer on a large pread()
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, 
-	Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
-	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
-	kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
-	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
-	samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
-	linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030134639.GA94733@rigel>
 
-On Mon, Nov 2, 2026 at 3:22=E2=80=AFPM Christian Brauner <brauner@kernel.or=
-g> wrote:
+On Fri, Oct 30, 2026 at 09:46:39PM +0800, Kent Gibson wrote:
+> On Fri, Oct 30, 2026 at 02:31:10PM +0200, Adrian Ambrozewicz wrote:
+> > On Fri, Oct 30, 2026 at 07:14:35PM +0800, Kent Gibson wrote:
+> > > > Fixes: 61f922db7221 ("gpio: userspace ABI for reading GPIO line events")
+> > > > Fixes: 73e0341992b6 ("gpiolib: cdev: support edge detection for uAPI v2")
+> > > > Fixes: 2068339a6c35 ("gpiolib: cdev: Add hardware timestamp clock type")
+> > >
+> > > How did you determine that?  Those commits are where the associated blocks
+> > > of code were first added - not where the problem first exhibited.
+> > 
+> > From the hot-plug case in the message: a driver's ->get() error has
+> > reached these checks since each was added. Removal is newer, as you
+> > say.
+> > 
+> > > The failure mode you are addressing was added by
+> > > commit d83cee3d ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU").
+> > > Prior to that gpiod_get_raw_value_commit(), and gpiod_get_value_cansleep()
+> > > and gpiod_get_raw_value_cansleep() that wrap it, wouldn't return the error
+> > > that you are handling.
+> > >
+> > > Could you bisect to confirm?
+> > 
+> > Confirmed: with gpio-sim and delayed IRQ threads, a falling edge
+> > during removal reads as falling on the parent of commit d83cee3d2bb1
+> > ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+> > and as rising on it, 10 of 10 each.
+> > 
+> > A test chip whose ->get() returns -EIO gives a rising edge on that
+> > parent and on gpio/for-current, none with this patch. pcf857x and dln2
+> > already returned such errors at commit 61f922db7221
+> > ("gpio: userspace ABI for reading GPIO line events").
+> > 
+> 
+> Ok, so the driver ->get() itself may return an error if the physical chip
+> has gone away.  Hadn't considered that path.
+> 
+> Could you update the commit message to better describe that case?
+> 
+> > I would use Fixes: 61f922db7221 for ->get() errors and d83cee3d2bb1
+> > for removal. Is that OK?
+> 
+> Not sure - I'll defer to Bart on that.
 >
-> isapnp_proc_bus_read() truncates the position to an int. A pread() at
-> an offset like 0xfffffc00 turns it negative, the check against the size
-> of the configuration space passes, and the loop then puts everything
-> from that position up to byte 256 into the reader's buffer, no matter
-> how few bytes were asked for.
->
-> Keep the position as a loff_t and clamp the count against what is left
-> of the configuration space.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reviewed-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+Rule of thumb is: the Fixes tag should point to the commit until which
+backporting of this patch makes sense. I'd say your proposal is fine.
 
-> ---
->  drivers/pnp/isapnp/proc.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/pnp/isapnp/proc.c b/drivers/pnp/isapnp/proc.c
-> index c1f6e6bd0eb2..8197c7f29743 100644
-> --- a/drivers/pnp/isapnp/proc.c
-> +++ b/drivers/pnp/isapnp/proc.c
-> @@ -23,14 +23,12 @@ static ssize_t isapnp_proc_bus_read(struct file *file=
-, char __user * buf,
->                                     size_t nbytes, loff_t * ppos)
->  {
->         struct pnp_dev *dev =3D pde_data(file_inode(file));
-> -       int pos =3D *ppos;
-> +       loff_t pos =3D *ppos;
->         int cnt, size =3D 256;
->
->         if (pos >=3D size)
->                 return 0;
-> -       if (nbytes >=3D size)
-> -               nbytes =3D size;
-> -       if (pos + nbytes > size)
-> +       if (nbytes > size - pos)
->                 nbytes =3D size - pos;
->         cnt =3D nbytes;
->
->
-> --
-> 2.53.0
->
->
+Bart
