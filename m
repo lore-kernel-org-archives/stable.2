@@ -1,109 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618974;
-	b=z1+sSzdjMFc/NODoqsOAa0embqxR9EzEtBM3wP1O6ETjD7Tgwl/EYksWE5YMapP4oEap
-	 sdAneZpvO9fDa8sGHE/+jfhXEMqQM0vWrUY/ShRwGZ8R62MHvBMYg+2I57pz8CHQ1400g
-	 Jesr1F/QgMbVKE1O+yJ1ftCd66I2k5SCzEb1DaoGb3QSEuNpnNnQ8cKe5VR+cbeXWFMaJ
-	 wdnP6ZR7V/Bg9Vrcn3JFLi2jhY5ZjSnsghEQlaFpCEcP8oS9GwYExmIFsKQEAVN3z1ynb
-	 3yNjzsJ1hFFrPEKjnbPTuiL9X+wgUqDj3GoiiaGtYUVvrrxeepfd/SOtAX5BwZHia2Q==
+	t=1793619024;
+	b=MWktwSOrQV2GEs4lbwLFrZTyQQ9QHTCDKL+V4cqpq3p1GUsmUzlb7pTCh7kyIw4NYbWQ
+	 2BebL1a4VvpI26q6LOUBV1kv4ruAA12lO5y7MUdQ2l1/bDXNZunAuvjXfFWgEurvDLKKV
+	 LZ64GwuYxcuA0CKgdeBFEZ6tLrO8HefoVXsalY83Xbx6ioYRL+JD8H4QXstuQcTBiIcyP
+	 vyYuXNV0BbhN6oUXtef+Osjzuu9J3GuKN+e2Yqzc7Aaitbz07plXHDhpCFmpC+55dkrXL
+	 AAlb+7SJ4FWUzlQUeG9guS2lLI8kAVTgYZ1A9SlFBnXQ33CTB1poOJN8mujR6U2fqow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QwzwIhZ4Vhg0yMtUFiMQIb6T639ZhIjBjhNGY8JVezQ=;
-	b=TifPUnaOe77L9wlILGjfnx0INowEt20C+fNpuG8kqd6kv6s7638/Q/YvqKCXYTrXYhip
-	 DBqSyBje5n4n2yIktnc9oGPTwUoc38DViZR++lNwfKLLaKiwZB7eBV5sZwpTDU7bZju6w
-	 p1wdQnnBkUkjuxldckI4WJHyiMtXKjN143qepXPhxLnR8Et0hdq6Ybnerrd+o7fzT1Cdx
-	 CcnsIt4nbbSjjtpVeb18JmQyVqV5JiKC7zKIW1zVn6XDCPLifLzPmb0h+/Fq3mTqpYRo4
-	 k0zbn3/qMyDJhi8Kv72PIrHExWyshv/LlFPbNu5CpcX7sDBa0uenbFLB15A6EY6iLsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619024;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-Bm-Milter-Handled:
+	 X-Bm-Transport-Timestamp;
+	bh=hRh+Ct7nFS4KxrPLxdiO8grHaCG9qFyvg94AZZeSRdY=;
+	b=uo1BBsoFwbb7dhqp1JpSyBKFgubV8xEjdjcysCaoq0gQMjwTBkxKRqSCewu8tSoG6un1
+	 UIVkeBIdCGE1JqKj2q80vyxAqGtebY0x1DLnSSw1oOslRpsxyk6G746PzBTRawG1S4tGu
+	 45v4D/YJ+KtEL8MAc5NIHZKMCZiU/nmZW/APl7dJt5jVwuCzqDHb584U4Ab7bBfqF1bIB
+	 8l3/O7V44xDOVxRVmO5Wy8EeHpaVlJIfqUymvEFyCkozq5UkU1AL7uu2FmhEXSFApCDde
+	 p6h9IrpYFBhqyf+3K8zuG9si6gDpT5T3dS6hibGsh0fR1NCYEISEwaLDNR/2huzAGrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qICbsGuG;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=proxmox.com;
+	spf=pass smtp.mailfrom=proxmox.com;
+	arc=none smtp.remote-ip=94.136.29.106
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151F060A2608
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 11:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 151F060A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qICbsGuG
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36a17a332ecso4585679eec.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 03:29:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793618972; x=1794223772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QwzwIhZ4Vhg0yMtUFiMQIb6T639ZhIjBjhNGY8JVezQ=;
-        b=qICbsGuGNoQtaU7lj8qffUjIvxdDaN3KGOFPlwbip0XKuUb044igWgjNgnKwnSxupX
-         S7mR80ZlJPCSxbCzBUo8ZWdeXIIGym1DkmxSpzdeYXiIzUC8Jwg2aFm0V5W7HKLyFiXZ
-         EmN2ppuGdAS7lJPz6i1+G0f0GXjDs1gZpa/V/qo8ZguBMN9eWrB6kVWq4riuwxXOiXUG
-         FkmDYgvKAoyee/u0LFvHpSL26Zb8bbspsNC3vgxcr/sa79iuRJGCzkscATgbyyaaFJRh
-         5SOLpbW/bYLFVqoIXqvFa/7T8LSOqJHLS7mpD2u5tJqx8qNdK/cxmrc2En37ap50FOQE
-         G3mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793618972; x=1794223772;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QwzwIhZ4Vhg0yMtUFiMQIb6T639ZhIjBjhNGY8JVezQ=;
-        b=xMZ9BN8yA8T157IXCp7iBZUflV8IGPJmL+iEcMbHzpEe50CwJKjIMlFoPn6v8SUBjL
-         QJLlHRiQT6mHZkg+8SiFbDN4tmPaUwREEjYhUHpvZg0qhDoNT+Mn0ZmZXTkwoklO0PKC
-         rpJPGejOpw2B3etOvtWEHgd+6SEKqtKxihbbLJU3uFlVErPsFymJ+LlR9C2mzd+aR0hI
-         gI3S78hctaEpJegLzdposxHOHDJ4BXQEvB4njil3CU3MZBavQleDTnWFLkmHmr2N/ha6
-         FnpZSJTxZswEOVGdO+JAKD1vsisl4KVQVtbdk5Y22PispiH2sVos3SXReZmzVykmNYhX
-         Xt6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzmSeJnaB7eLCfi3+bwoQUG3aOMc2R18gLcIgwIduZxlV8ABQ2D/yEE8lMYHolrVRPQZfTsn98=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8tR8EXU7hdSqKs6j1fE7oMfKARS9eZQyyyvO12sjCCSsKR8Smj
-	v88lxjFw2UDSjPQRRkjeM4VXL6B/JOx5r6sZReD2ejze6XnDCZFKT9do
-X-Gm-Gg: AYBFou1KJ2yJyn8ZN2V8kBZD3+PgQs5k8FdZULSE3CD1WlSHHXZFmkIswfOv9L8uSN3
-	II+OtSybxV3rIN75gqSlIcr+EizbJONU059m7Wc0EjErdkgSDIdyuDWO5uz/+vHlpr5vnUF2Nwz
-	V+dfyAd7jd1Vz2DJYxYwVPcqwcNAnyLd3pyX3uJBd2AyjSzze/FfZoOI490QuvOQs27KxfZJoNW
-	EuYPqu7lMkUKXmAy2uWqGdLGiaKqK3tCsTHcObyc9qGfkFrRWrGIJmD+SACGsGM7BuuFA7BGkoD
-	zJj+Sv4UFOz8t5v6CTnsrXLr/XySTB/HSzbCiueuajKui6zJrzoZ4WLORiXczCsFvEzCZaSIxMB
-	2F4TOOgFUBqvuNrEFDgkcV2brhFZPIkboLhRaXQbe0b4pv5JX9isvW883v4jAtER21xXiHFCdIb
-	ec9/WGQi5FtAhV6YEbaCnryJW4bgvAI+ztAJA+wn0hv/qswf03F8JYgkJlxTMm7olrrkHxCPPOw
-	R4wFc18uxMV+9NGSCpJyHt0RvwHosEhwvXyph0L2jysaRltk38CJRKDB6DQu4vgqT+HkjvYtFJk
-	PJq6IpVMpw4kr0dy8teUP7rWyrR5NIki29npm+kpsEi0
-X-Received: by 2002:a05:693c:87cd:20b0:36a:32de:a239 with SMTP id 5a478bee46e88-36a420643f1mr15134932eec.0.1793618971972;
-        Mon, 02 Nov 2026 03:29:31 -0800 (PST)
-Received: from localhost.localdomain ([2406:7400:51:284f:c2b6:f9ff:fe77:10a0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42902649sm42269118eec.11.2026.11.02.03.29.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 03:29:31 -0800 (PST)
-From: Amaan Cheval <amaan.cheval@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Amaan Cheval <amaan.cheval@gmail.com>,
-	joshwash@google.com,
-	hramamurthy@google.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	bcf@google.com,
-	jordanrhee@google.com,
-	przemyslaw.kitszel@intel.com,
-	pkaligineedi@google.com,
-	maolson@google.com,
-	csully@google.com,
-	willemb@google.com,
-	yangchun@google.com,
-	npl@google.com,
-	awogbemila@google.com,
-	shailend@google.com,
-	linux-kernel@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA555606A339
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 11:30:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA555606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 5677543DCA;
+	Mon, 02 Nov 2026 12:30:15 +0100 (CET)
+From: Thomas Lamprecht <t.lamprecht@proxmox.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	dmytro.laktyushkin@amd.com,
+	dillon.varone@amd.com,
+	roman.li@amd.com,
 	stable@vger.kernel.org
-Subject: [PATCH net v2] gve: leave refcount headroom in the RX page bias
-Date: Mon,  2 Nov 2026 16:55:54 +0530
-Message-ID: <20261102112613.18334-1-amaan.cheval@gmail.com>
-X-Mailer: git-send-email 2.49.0
+Subject: [PATCH] drm/amd/display: Don't warn about links without an HPD GPIO
+Date: Mon,  2 Nov 2026 12:29:43 +0100
+Message-ID: <20261102113002.3408350-1-t.lamprecht@proxmox.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,194 +58,76 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1793619014499
 
-gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX and
-hand references to the stack by decrementing page_info->pagecnt_bias, to
-avoid an atomic op per packet. This leaves the page no headroom: while a
-fresh page's buffer sits in an skb its refcount is already INT_MAX, so a
-single get_page() from the stack wraps it negative.
+Since commit def3488eb0fd ("drm/amd/display: refactor HPD to increase
+flexibility"), the link encoder programs the HPD filter, and
+dce110_program_hpd_filter() and dcn10_program_hpd_filter() hit ASSERT(0)
+if the encoder has no HPD GPIO. That is the case if link_get_hpd_gpio()
+finds no usable HPD info for the connector in the VBIOS, where
+program_hpd_filter() used to return early without a warning.
 
-splice() of received TCP data into a pipe takes such a reference, and the
-onward splice into a socket then fails: skb_splice_from_iter() sees
-page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
-commit 2e910b95329c ("net: Add a function to splice pages into an
-skbuff for MSG_SPLICE_PAGES")). tee() of the pipe fails with -EFAULT via
-try_get_page(). On GQI the reuse check gve_rx_can_recycle_buffer() also
-sees page_count() < pagecnt_bias, WARNs and calls gve_schedule_reset(),
-so a task that merely pins a fresh RX page (e.g. holds spliced data in
-an undrained tee() pipe) can reset the NIC.
+This logs a warning with a stack trace on every boot of some systems,
+for example with Ryzen 7 PRO 4750G APUs on ASRock Rack X570D4U and
+X470D4U2-2T boards:
 
-Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias
-only has to make the per-packet atomic rare, so a small value leaves
-page_count() ample headroom below INT_MAX for the stack's references.
-Refill by adding a fixed batch and setting the bias to it, which keeps
-the rule `references = page_count() - bias` intact.
+  WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/dio/dcn10/dcn10_link_encoder.c:1514 at dcn10_program_hpd_filter+0x39/0x90 [amdgpu], CPU#7: (udev-worker)/836
+  Call Trace:
+   program_hpd_filter+0x5d/0xb0 [amdgpu]
+   construct_phy+0x96f/0xe60 [amdgpu]
+   link_create+0x1f0/0x240 [amdgpu]
+   create_links+0x164/0x4f0 [amdgpu]
+   dc_create+0x3ba/0x720 [amdgpu]
+   amdgpu_dm_init+0x2c9/0x420 [amdgpu]
 
-Refill when the bias drops to 1, not 0, so the driver always keeps one
-reference of its own. That matters when a consumer returns its
-reference before the driver has decremented the bias:
-DQO-QPL passes the QPL page itself to xdp_do_redirect() and only calls
-gve_dec_pagecnt_bias() afterwards, and an AF_XDP socket in copy mode
-returns the buffer synchronously via xdp_return_buff(). If the refill
-waits for bias 0, the last handoff of each batch happens at bias 1,
-when the reference being handed off is the page's only one, and that
-put_page() frees a page that is still DMA-mapped and registered with
-the device as part of the QPL. That is a use-after-free: the driver
-then takes new references on freed memory and re-posts the buffer, so
-the NIC keeps writing packets into a page that may already belong to
-someone else. INT_MAX hid this because one page had to be handed off
-2^31 times to get there; a 16-bit bias gets there after 65535.
+Return false without asserting if there is no HPD GPIO, as before, and
+keep the assertion for failing to lock the pin.
 
-Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12) and
-in DQO-RDA mode (GCE c3-standard-8, 6.12) with the help of
-relay.py -- a small splice(2) TCP proxy -- relaying a download while
-the RX ring is refilled with fresh pages:
-
-  ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
-  ./relay.py $HOST 8080 &                             # splice()s both ways
-  for i in $(seq 200); do curl -so /dev/null \
-      --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
-
-Most downloads failed with EIO before the fix (tee() with EFAULT) and
-all completed after it. relay.py is at the Link below.
-
-This bug was found and fixed with the help of an AI coding assistant
-(Claude Code) over an interactive session; it read the driver and
-splice/pipe code and ran the tests above.
-
-Link: https://github.com/amaanc/kernel-bias
-Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
-Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
-Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx path")
+Fixes: def3488eb0fd ("drm/amd/display: refactor HPD to increase flexibility")
+Link: https://forum.proxmox.com/threads/kernel-7-0-14-24-and-7-0-14-25-bug-in-amdgpu.187181/
 Cc: stable@vger.kernel.org
-Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+Signed-off-by: Thomas Lamprecht <t.lamprecht@proxmox.com>
 ---
-v1: https://lore.kernel.org/netdev/20261031173449.2439047-1-amaan.cheval@gmail.com/
+ drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c        | 5 ++++-
+ .../gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c    | 5 ++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-v2:
- - Refill when the bias reaches 1 instead of 0 so the driver keeps a
-   reference of its own across every handoff. At bias 0 a consumer that
-   returns its reference synchronously, such as an AF_XDP socket in copy
-   mode on an XDP_REDIRECT from DQO-QPL, freed a page still registered in
-   the QPL.
- - Commit message: explain the refill point, drop the build notes.
-
-Re-tested on 6.12.113 (c3-standard-8, DQO-RDA, which still uses the
-bias on 6.12), fixes EIO/EFAULT from splice/tee nor a NIC device reset
-after applying the patch.
-DQO-QPL is untested; I have no access to that hardware.
-
-Built allmodconfig W=1, no new warnings.
-
- drivers/net/ethernet/google/gve/gve.h           |  2 +-
- .../ethernet/google/gve/gve_buffer_mgmt_dqo.c   |  4 ++--
- drivers/net/ethernet/google/gve/gve_rx.c        |  8 ++++----
- drivers/net/ethernet/google/gve/gve_utils.c     | 17 ++++++++---------
- drivers/net/ethernet/google/gve/gve_utils.h     |  8 +++++++-
- 5 files changed, 22 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index b7ce6e8632db..18d7edbf4b3b 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
- 	void *page_address;
- 	u32 page_offset; /* offset to write to in page */
- 	unsigned int buf_size;
--	int pagecnt_bias; /* expected pagecnt if only the driver has a ref */
-+	u16 pagecnt_bias; /* expected pagecnt if only the driver has a ref */
- 	u16 pad; /* adjustment for rx padding */
- 	u8 can_flip; /* tracks if the networking stack is using the page */
- };
-diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-index 6880d1531ba5..571f851d6dcd 100644
---- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-@@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
- 	buf_state->last_single_ref_offset = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
+index c6a20378121b..0c1fcfd088ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_link_encoder.c
+@@ -1841,8 +1841,11 @@ bool dce110_get_hpd_state(struct link_encoder *enc)
  
- 	/* The page already has 1 ref. */
--	page_ref_add(buf_state->page_info.page, INT_MAX - 1);
--	buf_state->page_info.pagecnt_bias = INT_MAX;
-+	page_ref_add(buf_state->page_info.page, GVE_PAGECNT_BIAS - 1);
-+	buf_state->page_info.pagecnt_bias = GVE_PAGECNT_BIAS;
- 
- 	return 0;
- }
-diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
-index 81ea800e66e9..6533fff06155 100644
---- a/drivers/net/ethernet/google/gve/gve_rx.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx.c
-@@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
- 	page_info->buf_size = rx->packet_buffer_size;
- 	*slot_addr = cpu_to_be64(addr);
- 	/* The page already has 1 ref */
--	page_ref_add(page, INT_MAX - 1);
--	page_info->pagecnt_bias = INT_MAX;
-+	page_ref_add(page, GVE_PAGECNT_BIAS - 1);
-+	page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
- }
- 
- static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *dev,
-@@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring *rx,
- 			rx->qpl_copy_pool[j].buf_size = rx->packet_buffer_size;
- 
- 			/* The page already has 1 ref. */
--			page_ref_add(page, INT_MAX - 1);
--			rx->qpl_copy_pool[j].pagecnt_bias = INT_MAX;
-+			page_ref_add(page, GVE_PAGECNT_BIAS - 1);
-+			rx->qpl_copy_pool[j].pagecnt_bias = GVE_PAGECNT_BIAS;
- 		}
- 	}
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
-index caed38cd5f2b..adcdccd54684 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.c
-+++ b/drivers/net/ethernet/google/gve/gve_utils.c
-@@ -92,16 +92,15 @@ struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
- void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+ bool dce110_program_hpd_filter(struct link_encoder *enc, int delay_on_connect_in_ms, int delay_on_disconnect_in_ms)
  {
- 	page_info->pagecnt_bias--;
--	if (page_info->pagecnt_bias == 0) {
--		int pagecount = page_count(page_info->page);
--
--		/* If we have run out of bias - set it back up to INT_MAX
--		 * minus the existing refs.
-+	if (page_info->pagecnt_bias == 1) {
-+		/* Refill at 1, not 0: the page's own reference is counted
-+		 * in the bias, and a consumer can put the reference we just
-+		 * handed off before we get here (e.g. a synchronous
-+		 * XDP_REDIRECT return). At bias 0 that put would free a
-+		 * page that is still mapped for the NIC.
- 		 */
--		page_info->pagecnt_bias = INT_MAX - pagecount;
--
--		/* Set pagecount back up to max. */
--		page_ref_add(page_info->page, INT_MAX - pagecount);
-+		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
-+		page_ref_add(page_info->page, GVE_PAGECNT_BIAS - 1);
- 	}
- }
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/ethernet/google/gve/gve_utils.h
-index bf2e9a0adb36..a5e3413234d0 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.h
-+++ b/drivers/net/ethernet/google/gve/gve_utils.h
-@@ -25,7 +25,13 @@ struct sk_buff *gve_rx_copy_data(struct net_device *dev, struct napi_struct *nap
- struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
- 			    struct gve_rx_slot_page_info *page_info, u16 len);
- 
--/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. */
-+/* Up-front references gve holds on an RX page, so handing a buffer to the
-+ * stack is a pagecnt_bias decrement, not a get_page(). Keep it in a u16 so
-+ * the 32-bit page refcount keeps the headroom every page needs below INT_MAX.
-+ */
-+#define GVE_PAGECNT_BIAS USHRT_MAX
++	if (!enc->hpd_gpio)
++		return false;
 +
-+/* Decrement pagecnt_bias. Top it up to GVE_PAGECNT_BIAS if it reached 1. */
- void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
+ 	/* Setup HPD filtering */
+-	if (enc->hpd_gpio && dal_gpio_lock_pin(enc->hpd_gpio) == GPIO_RESULT_OK) {
++	if (dal_gpio_lock_pin(enc->hpd_gpio) == GPIO_RESULT_OK) {
+ 		struct gpio_hpd_config config;
  
- void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
+ 		config.delay_on_connect = delay_on_connect_in_ms;
+diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+index 32e12d894e31..ddb40e6507b5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_link_encoder.c
+@@ -1506,8 +1506,11 @@ bool dcn10_get_hpd_state(struct link_encoder *enc)
+ 
+ bool dcn10_program_hpd_filter(struct link_encoder *enc, int delay_on_connect_in_ms, int delay_on_disconnect_in_ms)
+ {
++	if (!enc->hpd_gpio)
++		return false;
++
+ 	/* Setup HPD filtering */
+-	if (enc->hpd_gpio && dal_gpio_lock_pin(enc->hpd_gpio) == GPIO_RESULT_OK) {
++	if (dal_gpio_lock_pin(enc->hpd_gpio) == GPIO_RESULT_OK) {
+ 		struct gpio_hpd_config config;
+ 
+ 		config.delay_on_connect = delay_on_connect_in_ms;
 -- 
 2.47.3
+
 
