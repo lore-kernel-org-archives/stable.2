@@ -1,65 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630795;
-	b=X2qItx23mivUl9CxXd/7cGQSgXoGTHNG5bXa9Tj+wKsYEMhFqt3kvZUUP0n10qu7KsZz
-	 fxUobOzYZVPMR3DYw63oWdcGdcSD56k9fOSrQ6Axkma2plUpHM2eositKB4AdVeISdNWX
-	 VcpqHTmNW2fhXVksqPZVpUfkJfW/Js8QxcsP/rBhS4oaJaAdzu5T9LMquCTV9dagB9tpZ
-	 7dXzGYg1RqDzkCbZF6HWJ3vfFpvn9QcIIULd3xKVWvwgpoYejgiOKhwdo5qM3wqt8g9Bh
-	 2yk4CjmacV7v4YAy/Ez17JKi3v0OV7ksk/dLJfZ/LNkQLjaYVtNBeyVz1gSgtLedCpw==
+	t=1793630813;
+	b=GPk34UsXHps8l4U1AN6ZcKeXGrFhZjxrwb9KPT1qpy8dnTj3kJm36m5kGUBvXDqtFzL4
+	 pOMO1jhckaHtzBsjtIgv0hPgZBR2rbgg2lan0+HQfUTGNaDZlcIZhun8MTJAZKFBiXdc9
+	 9Mzkv1jNRvJsio0tfJ0WD5a5IKKmbEgpcb4Xf754Rvw45gckXemV59HIsFgKWoQOmKReD
+	 1ML9bd7+7r+hSzvxOBQxK7wr8Pg5RFm29c4Yrk67Ghf/eTI4DlzVYB8gKty0JJbdp3L53
+	 e9WCELPdfTqifzzLUpdS4HhALnzmuSNH+91fIH1gF8oWhsFgjOgJ7yK2Db9ZdLV62fQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630795;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+CbOy/w4oZmoVyUdrE5PFeUUqcG8Qy13cgKPirYGonw=;
-	b=tA/oWasUSf0zVHptQRpBY1J6greX4c64ZJHa4dE/pnJxiVfV6RUQkqIJ8LPdIvz9oMeb
-	 egRM8OgcTqdw/9YWRHg88/ynx2JGOhgl+Q3dPMytRcvZvWNjJdyxKO4mSqEYRyAtpiJV9
-	 DN2nYzYxofKo5INAUxxz9Vc/Yi/DfR+HXFT/bH3K01vpm/wpgpCJ4+h/+r0QjwZnvhKkj
-	 8VZx86qsml3g5FMNcogG1/+DvxMHlkq0xiSJ7ttiALCW6dzRUNPJiMYzNMArGlYGtVMOW
-	 fLK8tSOpxHjw4SSb9f/Hmcex8X9IMk5ejYyAFrLQT3N1CDYKruHrK9d7QYI453BjQnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630813;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=gGh9qQAToZE5wrWgcgjg72Buy8fnK2LgswQGjbfg87A=;
+	b=VctTc1D0vKhE7Z+//kNMKTKXo9jCVmn+vgK+kMxJgwzXFpCMU+fjc7gfsENbhaCqfBlf
+	 ZWufPfMblzProrp8YadU5J/SJohiW+36Iz+Ddxn2F85aBQEobmy8mVGSF8BfaHX2RyQfK
+	 I4PU+JmcYgV99tBN82ztsx8zXMNuiSbLfI7m+TrhDMFy2KbLc4i1MEAeMEcDtg81ZHZB3
+	 MorzoaK+Wx6OS2KDg9B9DKMefaTZIm1xRNhuTRGUUqd5GVtzEjJto+DRZJL7seTPaZO/g
+	 CN/t3tRipumb0y9nONwpHhteOsJ161FWsPTe5JwOeanit3E8wtCiLDDlvEfW6t2tKmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzgLpTAs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k68ttWG6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B3E6070D96;
-	Mon,  2 Nov 2026 14:46:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65BD606A906;
+	Mon,  2 Nov 2026 14:46:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzgLpTAs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735601F00A18;
-	Mon,  2 Nov 2026 14:46:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k68ttWG6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FD21F00A1B;
+	Mon,  2 Nov 2026 14:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630795;
-	bh=+CbOy/w4oZmoVyUdrE5PFeUUqcG8Qy13cgKPirYGonw=;
-	h=From:To:Cc:Subject:Date;
-	b=UzgLpTAsh/8b2lAuCsP4MmQBFlTwq27nXfldudYpUFO9wJWmkv9UIHFAXDDexAlif
-	 iO1Q0+qe6cHXAUlIT+U3r4HyjZYBl4HukMhSEITaTw4So/C+I1yS3Syg7C5sIxDZPG
-	 5S0ZNudLwPF0WmqBgUtsD6evmUSs8XzPvMYhh9Bl1eVwPb+BqphU2ASIGP7YiG/TJe
-	 ZGwuEjboJWhAA6PG6w3PUOPbiFKqwfO9qGu2VmKADh+w6P2mhbFyIdU7jmBJpgBnal
-	 IG0ZgOE6r9qhpaa0kScLQ3/QfF4TUP+ddUJtSY/QX/sgQfDsbHDsuF3Ku34F0iemg5
-	 EEcdLIA1YJTXQ==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH mm-hotfixes-unstable 0/3] mm/damon: fix watermark state, kunit pid leak and selftest fake pass
-Date: Mon,  2 Nov 2026 06:46:23 -0800
-Message-ID: <20261102144627.88843-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=k20260515; t=1793630812;
+	bh=gGh9qQAToZE5wrWgcgjg72Buy8fnK2LgswQGjbfg87A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=k68ttWG6wR2uYUNWQI+ECVf+fO/XJ0eqvyJRIGqlTdn3SeSK5FwYTdTBaVjsoBsYJ
+	 kJXwecLDVVqkc0QtPna5nnmOaGhEH6lV2p3+n4SMeLLTjqLfMHRMfS6+IdU5FeP6Ex
+	 EEbVMiiZNLXMTNclGmw6p8mC8yLNPYuUSTnCtn6ZR27qjgY9RaX2RJuHLWLPx9jmMt
+	 9JJmAL/6SUvZypF7nop8NC5qp7LgJYP8eJFNNtNBvtdk7y2N5+2qF+LGhO9FlXYxla
+	 LSU+v/oAHtst3btNP9gxZgyUrKBFNLcCwNm+jD4+mesxl+NmeCWqzBEWi80sNRNQ/1
+	 Y+2ZOSQK06ITw==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 15:43:28 +0100
+Subject: [PATCH RFC 37/38] proc: don't pin a symlink's entry while
+ readlink() copies it out
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,32 +53,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-bugfixes-v1-37-59422ed3e465@kernel.org>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev
 
-Three hotfixes for core, kunit and selftest.  Fix kdamond deactivation
-from missed watermark reset with patch 1.  Fix pid leak in kunit test
-with patch 2.  Fix a selftest wrongly passing when it should skip, with
-patch 3.
+proc_get_link() pins the entry with use_pde() and the delayed call
+unpins it. vfs_readlink() copies the link to userspace in between. So a
+page fault in that copy holds up remove_proc_entry() just like the
+copies of reads and writes do, and the callers hold locks while they
+wait. /proc/asound/<id> is removed with snd_card_mutex and info_mutex
+held when a card changes its id.
 
-Note for reviewers.  This series is a collection of fixes that were
-initially developed by different people.  Changelog is in each patch.
+The pin doesn't keep anything alive. proc_symlink() copies the target
+and pde_free() frees it with the entry, and the inode holds a reference
+to the entry. What the pin does is keep a removed symlink from being
+followed. So check ->in_use instead and drop the delayed call. That
+also takes an atomic pair off every traversal of /proc/net and
+/proc/mounts.
 
-Aveline Noir (1):
-  mm/damon/core: reset watermark wait state on each iteration
+Fixes: 7e0e953bb0cf ("procfs: fix race between symlink removals and traversals")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ fs/proc/inode.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-SJ Park (1):
-  selftests/damon/sysfs_memcg_path_leak: define ksft_skip
+diff --git a/fs/proc/inode.c b/fs/proc/inode.c
+index 9933f03ab9fb..2d65f3c8ec03 100644
+--- a/fs/proc/inode.c
++++ b/fs/proc/inode.c
+@@ -629,19 +629,19 @@ static const struct file_operations proc_iter_file_ops_compat = {
+ };
+ #endif
+ 
+-static void proc_put_link(void *p)
+-{
+-	unuse_pde(p);
+-}
+-
+ static const char *proc_get_link(struct dentry *dentry,
+ 				 struct inode *inode,
+ 				 struct delayed_call *done)
+ {
+ 	struct proc_dir_entry *pde = PDE(inode);
+-	if (!use_pde(pde))
++
++	/*
++	 * No pin. The link lives with the entry, which the inode holds, and a
++	 * reader could fault while vfs_readlink() copies it out. Just don't
++	 * follow a removed one.
++	 */
++	if (unlikely(atomic_read(&pde->in_use) < 0))
+ 		return ERR_PTR(-EINVAL);
+-	set_delayed_call(done, proc_put_link, pde);
+ 	return pde->data;
+ }
+ 
 
-Wang Xiaolei (1):
-  mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets
-    test
-
- mm/damon/core.c                                        | 5 +++--
- mm/damon/tests/sysfs-kunit.h                           | 9 +++++++++
- tools/testing/selftests/damon/sysfs_memcg_path_leak.sh | 3 +++
- 3 files changed, 15 insertions(+), 2 deletions(-)
-
-
-base-commit: 395206c0e287bdd981918e033a2b1621ea6a3b9a
 -- 
-2.47.3
+2.53.0
+
