@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793624637;
-	b=Ramxf+AiTFAE9MRhHLYYJijMhkXzWDQs62bFA+WXVz+Qy5397rvO+BfjOzbEmqezshEg
-	 QkR6y9j2wkPEPTQFPFctMK4XohPK/hHmS4VNSH42/qnleelz+G2z7WCtAgAVc8NGmu7Vo
-	 Zx6Pv6Np0JMZc6w2jOaNZJRqj/Q7bmdeYMeVwihMDqtdA8Rsnl2mUroHQTxLbTUTYW4JU
-	 +fuPeFLIbitQyxVOhsABDtO/DCQDnHx21V6GfNqcOvV+2A5itPHMUr5NEnDflkFmSPdGj
-	 R+ZacA0PoeacouBnkLui3NYbGG7I5urc6jrU5tqwphemLRU+t0Tlg3w6Vp7DLZZ0ktQ==
+	t=1793624834;
+	b=ADxwdA83DflnEo0TTztUbf2R7YJISeHZ40Xyv13k/NCuwNYPM3wEszem4NoR/FdlXdaS
+	 9k1K40tjOQgFSJvK+2uz/F7gX0JNLOjrihrIvBsD2kRqbeXsxVSK1K0K/cxTUNJRuKmZv
+	 bQqIdLzDlgpW0A2+7elcswU87sjoI2ZP9xLjrfISOzDQRRRPsplz4zfedVx3EcdTfsVKL
+	 drCuwBvda9GOOtSOIMBAwZl96+0qFnVsxcP0zYstaBrC2tylkzbJ0S1BiAqv92PYUXmvR
+	 B/2RufQm3aeEdSsWQmVpmR0+wL/LdCHJo9eeNwBjrx2iCEFt0uFbAJeSPwjOZQHOk8g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624637;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gXkbMf8DM0d4yvmmrUjI+zueCqEc0hq6YJ+3++B1KPQ=;
-	b=c1g3GzJNuAHZ58e9AJFwUlsJwdjGT/T1KHRLn6rraucHmiZe6Q3mG5stgHaMr1plZ/Zn
-	 ixf3oZJDf5CuI/sBjz+wPGl3FujMLgqg62MPTxJT1qOWCU6J8LVd3xBPLqtkUgQF/nEuQ
-	 uLsg1dto3T7cV9zTZIwRtgtGQ77V0jvPtv9vcIrN/i5jjrtDqr4gGUY/qzc/hXpbvKjS/
-	 3+58l4Dg3kvSeOTWd3yYPnwQwnDK96V9DRhk2IF191EgH1D/gEeIKz/Pjx5dpsjIwTQzU
-	 wsCH5ksdpq9VJDNXuye2lEFadyYjFnlxCsJL6OmMxeZC/hT70i4OXuPvfboFXHOOBzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624834;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SwNyy2LNWUprG7oTiXSP+SGIrZbrnmLxnxw36eC3+jw=;
+	b=NyFB1pT9TkDy2KPt5P7qdnCmZs/A7bJBAu77MdyjOlhUJrsAA3BhnB+Q5GY7/uVF5+oV
+	 7+59jFzvHSMgQjfS8PqAb4v7ZR04zmiNItpbZ600jmWnFpof1vtu0wFhJyuWuWMpGSBGx
+	 c5Qs0X0EUaFPxKv6A5Rv/l4kRQObkmqfmz2z5xXwsyCNCGIiaHcrvYHXTDKMF8EoAaUXl
+	 5gjYnG3IJDvAKRtFxA3hR3e4WldKdwWNyxpo41NpzWFvIvtjLRkdhBm3Ozz1YyTnvJ9vA
+	 BgWP2WKET/zHF9/jmfSSfWFq0ASbULE4ErDlQITWcsuszOmV+TgQI4K2rx+KiPUqTmg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMTrcZLa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Y0b8k03s;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.46
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010046.outbound.protection.outlook.com [52.101.193.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8800E606A32C;
-	Mon,  2 Nov 2026 13:03:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733D6606A324;
+	Mon,  2 Nov 2026 13:07:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 733D6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMTrcZLa
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793624637;
-	b=Apk0F0l0z+Age4lGkpc5dfN+nye073H5lX7We+tbrmg8MlaIUFR6TC0CSfvrYlKMEHlE
-	 CyXTOOpR8Yt06QzTrbxPxo2l+e2rl82d5UQsTpjBfVueEpwfibIKmFkUygU1zpR1sTXST
-	 iyfDRE533PXac5O5PSCC03JYy8Xo6XvubuxN9NNKc0+EhSmf/Nqs9WscqxMOZJ1GUqWaP
-	 yzU9zcP+HDtDry0DG6lhf0oNVHITYM587tgH7urh0aHb/zoK0TviqcJIvprRcGmq6xu7a
-	 7nTfun2bnhzDVO5oGPOBq1/f2wYRfVRqz8dLl/pC5JKDJU6Hh0MU8sONR2ki9RkuLTA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793624637;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=gXkbMf8DM0d4yvmmrUjI+zueCqEc0hq6YJ+3++B1KPQ=;
-	b=w11gawSgTHIpF9BnayxDICeTmn7bYnZGFONigLzMC43B9/Xq88Xyfxes0I7VAXYVYmBD
-	 gMhkGlQPApXLSJukQOJsUIUYc1lZUI0iHOlK8L/B6ei5XFpCKLrViAROCHg2vJ+Qq/0+c
-	 9w+Nu7itsuoZJ0KpTr7eysQof1p9d+NIGzb7tBFbDPn5FaokCPc9Kr4q4VoCXWFPoPHNj
-	 s1lSTBifAU9sC0IADpjeHp6pnrpY4uT5aC1xgRvlCgI46x5tBiVmHeV5+Anav9JtbH8PH
-	 Ljsniv7iESZUyEH6cqUkyds2EpKp4J5Jth02u9Jt6gKE5fcyQzXzTpfsWW3OpHxGEaA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8737D1F00A16;
-	Mon,  2 Nov 2026 13:03:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793624637;
-	bh=gXkbMf8DM0d4yvmmrUjI+zueCqEc0hq6YJ+3++B1KPQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=KMTrcZLa4EeOwDolpCOhtcMcHP5jE5HJhdIPmS6cnZyPV8Milyuags4BU/g9SAWkk
-	 P8E2iZWKuSA7v26xrtPm7D8wkBSiAxGfWQBV9HMHROFr+g5ZIUU7C8lXh3PVfqJMxm
-	 lC9UIzkQ8DA5IGsSUWWUyDjncjxFLVas4xYS1w0PMJtoxWYhel15jJD9WOzyk1mkAC
-	 a4KdzQByr6WnzSXQ3xx5iauSebUUxG2kKqgZjSq2Jc6F4TKylgMC+t8vCdfJaJz9W7
-	 wqh+gvQ4BFfxcBMvUlW59DVc8fTknRTISzDCwrUQvN40xW23mKxaKyriNMAydYrcQ3
-	 040YnrD9KgGnw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D66F746519;
-	Mon,  2 Nov 2026 13:03:55 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Mon, 02 Nov 2026 13:03:56 +0000
-Subject: [PATCH v4] hugetlbfs: move hugetlbfs_free_inode tracepoint to
- ->destroy_inode()
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Y0b8k03s
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eyl5t+JIPzgYqCv1mRRqlPAeom2hsQIZB9H3x+P7szBbVYN9+NLae+SrCVr8DdyFJ2vFW+2kLXwVgxU5nV0du8blfh5ysKM7UC5n+wrxK52NKWGU5UpNnrNtswI11knVFXUM1wbRqPRA+Q5ax4G4baS4o/XyxkdFHrbVXjuX0iOltjBWhYvRcMfz67NE71/tJtbSdVJnzftPUk6SBaCAWciRLgiHJLc130hwiSs5C7399NCI8mstA1g7/fO8O3MoHKi7JOI2o9zG+DIV75O5UaobxeH6SYqh0yBYX28v6ih0tTR9G2d7Akje2vIAHhBwwKsKXUbrynuHOl/k9Bi31g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SwNyy2LNWUprG7oTiXSP+SGIrZbrnmLxnxw36eC3+jw=;
+ b=HH6qBM+z+tfNU+O7RjtrJAbIcdlhKlrdN0kRnDgg+81XXs10yST8vwlL0ASp37hlb/qPINiwCE+VkVzvCy5S7WrmtmnCzYGI59vuzl2eGJgACcEIvUCRnr+GKNkpk1ir176qUkeRD2s+TEMQwBAZQ8pt7J+9ftjaQPfRVbR5z+5LZYo5vl/mcxGyKd+gTHZ8Dk2Vof/uHoEbvKzwrdQlr8/pJdJLP/Jwc58poMOhCEtrslVq3CorA8xdfb0/1P/ihiDY29s58FStjDhWS43vmV74jxQF+Ji38WL3MHileurAyUw3GfdOjE2hW6TYrigCU+dIsuCqeFfVYedKZW6qcg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SwNyy2LNWUprG7oTiXSP+SGIrZbrnmLxnxw36eC3+jw=;
+ b=Y0b8k03sdKFm8XxNGPOslNiOuyn5NkznCjRqJQgDkxUzppYpRN/KDBDrQzjM6LiegZmZ2cA0PFVB1RDBg1FMpBx8KwIxt+urMdIlD8ikLycmSSLdTFhX9EdpUVpcl9k/cS1902X+QTRxjU7rQ6Uzvb0+jVenv+KZDNxmqzMdnHU20TB/WJI/uBYMeQEeJqICMe3t+d50PJT90Lzb5ikJWazOBotnb6RzLHDmwI8hb4RgHn+/8rcGTKsJ7Df0TcgxexZl2PT5M+KKfFnZJQ7u/iiGg4fSP38ezLXSKg9UEZXGYCVNz0fuUNp+F8TbR/EfKJ8S1qnFKs8raYA0xPEC2g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by SA0PR12MB4432.namprd12.prod.outlook.com (2603:10b6:806:98::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 13:07:07 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Mon, 2 Nov 2026
+ 13:07:07 +0000
+Date: Mon, 2 Nov 2026 15:06:58 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: Xia Yan <yanxia@cmss.chinamobile.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	stable@vger.kernel.org, yana06070@163.com
+Subject: Re: [PATCH net] ipv4/ipv6: preserve multicast filters after a failed
+ source leave
+Message-ID: <20261102130658.GA922454@shredder>
+References: <20261030063603.697510-1-yanxia@cmss.chinamobile.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030063603.697510-1-yanxia@cmss.chinamobile.com>
+X-ClientProxiedBy: MR1P264CA0035.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:2f::22) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,146 +101,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-b4-hugetlbfs-trace-v4-1-72371825bb5e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADuK6GoC/33Nyw7CIBCF4VdpWIuZKfSiK9/DuAA6tCS9GKhE0
- /Tdpd3owrj8TzLfLCyQdxTYOVuYp+iCm8YU8pAx06mxJe6a1CyHvEQQyLXk3aOludc28NkrQ1x
- I1ELUSheVZunw7sm6545eb6k7F+bJv/YfEbf1LxeRI5dk6gZyJcCYSzso1x/NNLCNi+JDIPwmR
- CKgQF1haeUJ7Dexrusbr4LkXfcAAAA=
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
- Hongbo Li <lihongbo22@huawei.com>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793624635; l=4611;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=KamqvAmHDg6o0N+fTVEMDXuwIqsclHfnbjLf5BnFAeI=;
- b=6KI19Vg+bAxiED0JqPw6cBQwYlbwj43osrwBDrFjsM/YfY07REwyxhqBR4n5b2oqe015nw9Cy
- T6PsmCPy7HUCpwFtBSgbCWDiiT3HPmtT6UUve/QpoSglPtcB7gNcinv
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|SA0PR12MB4432:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0e10df0-d92b-49f8-2afd-08df38e23276
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|261021121427099003|261021130227099003|261026130827099003|261022075727099003|261022105027099003|261022113327099003|261026121527099003|261022115727099003|261026140227099003|261009223027099003|261028144727099003|261021135927099003|261021123027099003;
+X-Microsoft-Antispam-Message-Info:
+	umoTDMV2lyXtqp9hmrkbbxXhTghB79NOPc7UPpyl21nfNm+H9bUG+qLLUjJBNP6Lfpt/EWVmMMrU0ea25fPs4KIL79Uh1bPRtD03A8xsdsimi8HC1u7jlgMNV/MzXdSMX0KF0ZTqAaCsqsZao43HBu3TBIISsi/j8YcbUUoxrT4k/+lJ+kRSmknKKerv3M/pgC7VhbfzHYrJ0UVpZbwilpXRN+IjoxaNhxH+URre9PZ9G+QyrhKITfLe53jcM+bc9HdVhPw4N3RunDC+KHM0rqUb7HnVo1Xpe1PdaGVRMbpRbFK/MJckQW9uvSrJCVGnSIzdjlYnB7y5zgUWdWX0HMhx2UOFffGHWTSjYLV4AUukEUw+tyTWgWpjUK+LH4d+B1vDGhPopLOYgUA0lsDNTkUw7SldsSlPHL2wN/c4/tRxWnNibqmfl95VRyfx2jDyQgi+ySB3/6E2szAQ+cFBs6qpnn1hui7JC9UVCUHLEvOI+8RNVilfW4bQj9v0I38qMJzNwNgDjb17qIglq0f5aKtRkgpmqTZ11AfG1CfQHiKpPFqxH50VxZobf6vlEQoeZ8GuQvMbLzboAMdbQ76L4BQrod7mA1AD8OtS8hEPeTpWBpvUj6WHtjqOLCNWKi/PbPNhED5Z6iAo2ItMbgm+WNP2BUU4//vV9jrw4UZSCOo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261021121427099003)(261021130227099003)(261026130827099003)(261022075727099003)(261022105027099003)(261022113327099003)(261026121527099003)(261022115727099003)(261026140227099003)(261009223027099003)(261028144727099003)(261021135927099003)(261021123027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?aqpS/ymEACQJQ/Czap2jzWnCHpVkb3YOiYbV62dqDYqLqXcNa6tn8czR677E?=
+ =?us-ascii?Q?ifGm0UVBFxDG9gPP7t6D29TOVlLVc6cgVudeoqbEyeVFiBpBM8SFR1ux2Ie1?=
+ =?us-ascii?Q?rTBgNjUfzxa0udNItkhpxx+Ktlsy0Em5DXSOGkJ1c8HhTRPKtrwfYntb+PiE?=
+ =?us-ascii?Q?KBcXhmNUuDbbXOobKB4pOCbn+n8IeJonfCfNjH3vXhBNvXikZdE4xsPUixdg?=
+ =?us-ascii?Q?aKtZ4PSbc3QiunECdpQ+EyBoTB5bn6JNDj6O5uyyCj4apgFkxZ95j1CM+D/X?=
+ =?us-ascii?Q?5GSJZiT6ESJ0a0lsIuDk00pK+Q01KalK0pyJfX6QPt0vkKAVZ/0Hdcr6IDCM?=
+ =?us-ascii?Q?ZqwxmoHFTkhjx2DyQvMMqxTi2Mz6myQABkmWtqsIOxJAQ66SpHYPXvvLf70K?=
+ =?us-ascii?Q?j/dblanhXmZ52nKrXks1TPTe2Q0+R61SwIOMpkwgsxCbF6bPvlYUR3cITGMp?=
+ =?us-ascii?Q?EeX4xfD4SFusijVfauuwxRXkc3XzB1V647xSynrsA02k2K9+fr59oKiIbLp8?=
+ =?us-ascii?Q?QTYqNp1un+dfv9eoS2dTCMhcfbovzbtlLvBI08blKaMQZIL6YYatNBHvZxyu?=
+ =?us-ascii?Q?AvEXKO4wbF9NUYY0eBnl82WHwlfBDKKNJOZeOso+/2p8Mh1sh9vooo6lLSro?=
+ =?us-ascii?Q?7hWSrbNQOTkDTL/Jh6OOPveNsTw+vxfgZ25NE5tWbJmG0Lbr8+XwHXwVYwJA?=
+ =?us-ascii?Q?TXxKGRNmv7ySZDpc28d4Iw9fgpDlCVyu7jLKg7iJmzja8OtiIF4epPl6vSwp?=
+ =?us-ascii?Q?MKningtt4rxhp4NCr9/DzakSOwBvw2+xyJp7Vvnv7QnTQXLHX0Tl1shFV+Bl?=
+ =?us-ascii?Q?2dYVss4b3KrleDmNyBPfHeylVlJHYJyzUspF6bx9X8Q3Zs3ag/GGZgux2EBG?=
+ =?us-ascii?Q?3bMJqfQnQxnJ/mrVcxNeFG6auEf6RGsXO+U0U5ygXr9ThCvPUIf9FkD4otXs?=
+ =?us-ascii?Q?9u3+SkAt9plTc25Gcg9KX7ECoZtMkbyuYUNy689H2NtGsJ7a1p8lhBhvSD8M?=
+ =?us-ascii?Q?23jpRUKVMaGr6v1v4v+UG86ji9Q1NuC9iPBa0IM8nRkSdJ2w7YerSX/XsDFb?=
+ =?us-ascii?Q?GjpytwcAMMZt1T2plvDdw9vxWpKXpUzJInUiYHFcXD36ILHgvJitpT30fz53?=
+ =?us-ascii?Q?zCOeoPogRAVRDImE+ftYj/7zDCdycGiHbp9CcCE5eh176C7+uJp5PIm2M3DY?=
+ =?us-ascii?Q?meTB134Zb8jxwByl4TM055pjyYv2uFqX62PXOzDH/ZYaxbwJy3AMxUvE1nYK?=
+ =?us-ascii?Q?AeifN5kD4Lhjxcm3JwN4FF3Umk1XOOrAfhBilNud90KXghC/YyT5xw54Km+b?=
+ =?us-ascii?Q?NDqIvmLws7quAl0/AK6fpsl7uDSD/xkWwHSIyuhqoYqmJDkw7k/wCUSdynqw?=
+ =?us-ascii?Q?B5qisUAr6PncF5zbAcvsnhMEHfrKaRVxannz6LP84rG+J7gjeaE26hBJGb6f?=
+ =?us-ascii?Q?KBuo7sSuOIuQO9S/6u26XtjiLvX0KFeupJe4qFAOQhybV2oGMUjHZJun0vt4?=
+ =?us-ascii?Q?ntaPCXLEanHB2GRp3LWL4Spu4CZOe5oqCW5O9yhSCoVLQHcyI6W1TU7n4tlW?=
+ =?us-ascii?Q?ohMSksZKw6PKkjYgj4K/hacPFFY9/WNy9VdX8pEPnkcap/hlVEWvTCizczVu?=
+ =?us-ascii?Q?HOQ0/3BWhP4uePZTDnjhYf4r3aMV0EVWPRN1d4cMhs5EMwh5MQoAGGOxaKnq?=
+ =?us-ascii?Q?pe4LxfbIIZ+IxEOpUejZvTqbCQ/O7UXfXoS68CciBHEOXmkU?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0e10df0-d92b-49f8-2afd-08df38e23276
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 13:07:07.1593
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n2J5d27NE44xR9nc4dL4eCbxZOfUEPId2lP+kp701x5aeMhB5SaZretuMoASG3y1jgg2QMsbtpKpFel2tphBiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4432
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+On Fri, Oct 30, 2026 at 02:36:03PM +0800, Xia Yan wrote:
+> After joining a group with IP_ADD_MEMBERSHIP or IPV6_JOIN_GROUP,
+> MCAST_LEAVE_SOURCE_GROUP for an unjoined source returns EADDRNOTAVAIL
+> but switches the socket's filter mode, so the existing membership stops
+> receiving. Leaving and rejoining the group restores reception.
+> IP_DROP_SOURCE_MEMBERSHIP has the same problem.
+> 
+> ip_mc_source() and ip6_mc_source() allow an empty-filter mode switch before
+> checking whether a source list exists for deletion. The failed request
+> changes EXCLUDE {} to INCLUDE {}, so the socket no longer accepts packets
+> from any source.
+> 
+> Check for a missing source list before changing the filter mode. Preserve
+> EADDRNOTAVAIL for the rejected deletion and keep mode switches for valid
+> source additions.
+> 
+> Found while reviewing the error paths of ip_mc_source() and
+> ip6_mc_source().
+> The reproducer uses socket calls without kernel changes or fault injection.
+> 
+> Tested with a UDP socket reproducer under UML using the IPv4 generic and
+> legacy APIs and the IPv6 generic API. All three paths lose reception
+> before this change and keep receiving with the fix. Source joins and
+> leaves, block/unblock, last-source leave, and ordinary leave/rejoin also
+> pass.
+> 
+> W=1 x86_64 builds with derived allmodconfig and allyesconfig configurations
+> also pass, with no changes to the warning sets.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 
-hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
-hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
-runs from an RCU callback (destroy_inode() queues i_callback() with
-call_rcu()), and Documentation/filesystems/porting.rst says that this
-callback "is *NOT* ordered wrt superblock destruction; as the matter of
-fact, the superblock and all associated structures might be already
-gone".  put_super() frees the superblock with call_rcu() followed by a
-workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
-hit this with the event enabled:
+Same comment as:
 
-  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
-  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
-   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
-   i_callback+0x46/0x80 fs/inode.c:317
-   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
-   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
-  Allocated by task 6134:
-   alloc_super fs/super.c:326 [inline]
-   sget_fc+0x1ba/0x1f60 fs/super.c:874
-   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
-  Freed by task 855:
-   kfree+0x22b/0x6d0 mm/slub.c:6923
-   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+https://lore.kernel.org/netdev/20261030151629.GA85001@shredder/
 
-Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
-calls ->destroy_inode() synchronously, before it queues the RCU
-callback, while the superblock is still alive; hugetlbfs_destroy_inode()
-already dereferences inode->i_sb there.  ->free_inode() is left with
-only the kmem_cache_free().
-
-Since the event no longer fires from ->free_inode(), rename it to
-hugetlbfs_destroy_inode so that its name matches where it is emitted,
-as suggested by David and Muchun.
-
-Found by syzbot; analysed and tested with the syzbot C reproducer on an
-arm64 KASAN kernel.
-
-Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
-Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
-Suggested-by: David Hildenbrand <david@kernel.org>
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Cc: stable@vger.kernel.org
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
----
-Changes in v4:
-- Drop the comment in hugetlbfs_destroy_inode(), the new event name
-  makes it clear where it fires (Muchun).
-- Add Muchun's Reviewed-by.
-
-Andrew, this replaces
-hugetlbfs-move-hugetlbfs_free_inode-tracepoint-to-destroy_inode.patch in
-mm-hotfixes-unstable; the only code change from v3 is the removed
-comment.
-
-Changes in v3:
-- Rename the tracepoint to hugetlbfs_destroy_inode in the same patch, so
-  its name matches where it now fires (David, Muchun).
-
-Tested with the syzbot C reproducer on an arm64 KASAN kernel with the
-renamed event enabled: no splat in 3 of 3 boots, and
-hugetlbfs_destroy_inode events are recorded.
-
-Tool-use note: the analysis and testing were done with help from an
-LLM-based assistant; I reviewed the change and ran the tests myself.
-
-v3: https://lore.kernel.org/all/20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com/
----
- fs/hugetlbfs/inode.c             | 2 +-
- include/trace/events/hugetlbfs.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 01c4d6f44ebe..f0be8edb3517 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1179,12 +1179,12 @@ static struct inode *hugetlbfs_alloc_inode(struct super_block *sb)
- 
- static void hugetlbfs_free_inode(struct inode *inode)
- {
--	trace_hugetlbfs_free_inode(inode);
- 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
- }
- 
- static void hugetlbfs_destroy_inode(struct inode *inode)
- {
-+	trace_hugetlbfs_destroy_inode(inode);
- 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
- }
- 
-diff --git a/include/trace/events/hugetlbfs.h b/include/trace/events/hugetlbfs.h
-index 8ba72c1d4f4d..a7932e0db0f8 100644
---- a/include/trace/events/hugetlbfs.h
-+++ b/include/trace/events/hugetlbfs.h
-@@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_evict_inode,
- 	TP_ARGS(inode)
- );
- 
--DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
-+DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
- 
- 	TP_PROTO(struct inode *inode),
- 
-
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261031-b4-hugetlbfs-trace-341b338ab57b
-
-Best regards,
--- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
-
+Not a regression and not a security issue / crash. Please target
+net-next and drop the Fixes and stable tags.
