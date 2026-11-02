@@ -1,90 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642661;
-	b=gWYp+7osAN+bvNhG71t/op97aiYrRAvqy9t4RnW2at67v4B6/IwAVqNjeDvv51hA8YHr
-	 Eu84cq3EBmZAFEIVo3LH1XmwR4WQdMLXNT5JnqqZtF+QTzdbZJ4+clQjSPgxCxWxjMyBu
-	 hpB8i/+Y5PX7M4Ywi189KWjJvhW56l1s5tq1PC3wNN9IClwkgsZczaIuAcgW8Btj6to1z
-	 7yNuWfyI9Dp1i8kmrNkMxvYl6z50ybfWx+vnRDtKxlpg1o5oVT6ilvVYipiBV+LF8tCt+
-	 TgTb6VFmySX0A+PH8uDV7LP1UAG+ThcSlyp/HWEaR8l9fZEdac+hHG/A2bk3PUwGSQg==
+	t=1793643376;
+	b=fSQFUMatMJ10FGLs3H5TpD3JMgK0uy6z+Cl/16+ncGxqHoDVm1ytY4yzFZS8YZBTAYoB
+	 WPrlrAlkC9FpzSqa4HgoJFjkgwjWD9QmUAZthbq/b6dQA5zVuW8rAVq22CDfGFEE8k65w
+	 luVSlJ4uK/SkVJPdh9SYxJnpid4e8NCNE2AcjnhNQv95xVviS0i5Xl5+zoW2bBp+iD4Vs
+	 8xIV2nn5bJk4K5VnBZt6Y6GGz7/OHYhZDDEqS8rrnPeQOhYr7wVijuj/sMZHJThdKgpsb
+	 S2qncQ0M6N+mKPN0OIHKi/IPHn8wgFdnqJy0KXOANG0CvLyZLQG9TE9KoITeZZKsBFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642661;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
-	b=k67Uqur/7Db1kM4dLrD+oC+F20ACbtFJ66369bOMoybLFPTA+XpYhx2F5uYPbqJXvMgE
-	 gnpjuQUPtGwjBEtmu9FMznFmE6yKVhsl7KQtnBNICrpG1BvtBw4Stoz+dZ+7nE0wnPATD
-	 XYpFuKwZssNk2Ocj6si2ch0Li+AixIvKzIlRbkZflfjyNFXcBj0wMESx+OGNE7I13p5KD
-	 UaWzI9h37QAfI3vXUdWDRhW3rCFDdtnNwvCRbNEByCBHujOeUJinupHUoumfquF+Q81gu
-	 ElJJ+ugzmQzz3xXSELtfXdoXbkHuei8YiNYI6kFIUpcOeYVI+wI2TfzPcKfj/S7x9yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643376;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=b+TfbLHD2FzEidJAvDzmQCBeADHzUQDWO+Z2tMvQd9U=;
+	b=0JCg0iEjYYzTZWmV8OGruULnxLSEu74SjEz1WfC7vIZwfMrniypWFCCZEbSeVL2hKH30
+	 1hYulZAFwUPioqniLRn9msHHxIkh023dCpEstbjm3sRmiHJRcoI09/n9oUjIonbf7qQwG
+	 K9OiDHC8cUEHWg6W88zPj01v4cQ6GJzaHK7L9yi7SWzm1yp4yMe2XvuJzHl8ap87QuQ4q
+	 mO2xCLDUGEmNicsqJFc6UdrfWY6gUu1TI7UXmrWHDr3yO2hkCVHtDiFaqxwog9s0VIb4q
+	 Sjrte/g9m/bqLRPDu52/Yeh+0KSMiL9OViOmzNRORl/1QdgjftKs4XYeuS7y7gvwKjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OORRqZXu;
-	arc=none smtp.remote-ip=209.85.167.53
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SfjrBu5l;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20932606A595
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 18:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20932606A595
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F76606A324;
+	Mon,  2 Nov 2026 18:16:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88F76606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OORRqZXu
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcb440d1cbso2154454e87.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:04:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793642658; x=1794247458; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
-        b=OORRqZXu5svxsOkxP9nvh3W+PSYogrqOej3+5tGXfkVuzUkf2X8/W+m3oNpBLcCZfe
-         SVjygfmGaUx0KLZac6oM41ZS2kLSSwldlLr1kcXsC2ZmsDPhqGc6IMeHwX7XaZlR95yn
-         dyEjwn/f15euAVXzslwr9aSuUnHQwPwO5ARNU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793642658; x=1794247458;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
-        b=sCaNiSKQtmIBY3j/8zOVhiV8P7gJV9Jvtv1nL7DlA1uq45NNeKfFUfSR92Q+1y7vzq
-         jii2ENRSpA5knsDt4UStf2X8cwyN5fffJMBeykxQkt5qRtgDBCQD0mZ/ZZfjtuakOKd8
-         KqBVk05Q4aBfWpD/zzBRVROYT+3wRUDXqtkFpO5V+rTwvkwuG5BZMW1tEfdQ11Dz+3VM
-         jpdzyNDGsuHjoOFcAi7abDvwotmEvSo/7g7rS5XJn+1leLxRPSdVoqy/4TEeZQvcaBgK
-         y8A+w2eJ2cByJE49f/5vPRYlx032hch7OUNpN/hRANS4Lan1K35nMf3ZlU4Th4Jvlxff
-         SobQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpJBLSzE3AT6Kp+j0ajxmgsMo3oNabXxv+yOaezuJ8fUBIKGKcPNSVduLuGu0Cu+EJU7yP4EM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+08ISOCwBztdJErahW1JmVzNKlj+5TBibm2IEZtobETzb47WjL
-	QBw7ovW+afHks1EBIPHngK/sg+qtNKbWYTlYLdrWg5LQqAoyUAdMuo2JO/lAZ1N48eQKHjEL9CO
-	O11+H9o+SNg==
-X-Gm-Gg: AYBFou3ty6KM8S5rJO+W1CRc75mRkitzYF2GRpoZBXFpqcSpR5NfksUTCIiYE8TaDJv
-	zodG2iN/gv/qU+yNL/40MdJhW0UsEEL9Fpax29j7vMa8VHfPlAYEWR01DjTShMKvb4ghEYw14cd
-	Od4TKR4I7tkKjKgWRBXhzDRGmJ7flatt+SOPVrKI1THhyCgB69qBPW72kSxyvUfKEoa3v7l2dOq
-	DLinenPApu7iHa3FSg3yooa0dRUDSYUvZlhbPGCDl/bhg7dvnEHPswNG2sMvRbtCXElS7uG5SuQ
-	hgl28J5R7QNev3yQ5DhDX58TFWIx3ULYfpGEX1dMKxxlYarBQImcsFLP5pJ0oo+gjZ+DqIH28NC
-	I+Du1bm5i0TctJyTHlx6K5wR/Qw7RtCOj83nsQ5T/QFO4+TsdFO/7fgNIZvF4ngzVoLHIjzVYpd
-	PEhZgH0PwcQxZ1ny1aR7ivc5hXpLq6R00EfXyX02Pdrzf8dCzX8soAD5rtozOJ2CZK1t0FLDab6
-	VCPI2Wi9pWwusTR0H1jQU+AfumXZDziQTFtNMfSXRX9WFtUdJBs8/P/YW9L1n07d/raXxyV9523
-	7pK/IY+wdK4Gnn4G+jn3LRnaPEm4ng2FCUKvTayQqfjnKb1glIHud9OBrVsRN7vFblzdaHTwpM7
-	aVA==
-X-Received: by 2002:a05:6512:6d2:b0:5bf:d70f:2d99 with SMTP id 2adb3069b0e04-5bfd9564f92mr3140066e87.7.1793642658098;
-        Mon, 02 Nov 2026 10:04:18 -0800 (PST)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com. [209.85.167.48])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe097435asm1746530e87.53.2026.11.02.10.04.17
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 10:04:17 -0800 (PST)
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso4761993e87.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:04:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwYMY1rJjErRxeyQPX70jhQSxfLpT3YiB/8xWmY+eRGqKhLyHHvj9NcjfUllEbss6foxvyj+Sg=@vger.kernel.org
-X-Received: by 2002:a17:907:d94:b0:c2d:c80e:8366 with SMTP id
- a640c23a62f3a-c4ca7426f6emr874452266b.0.1793642348398; Mon, 02 Nov 2026
- 09:59:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SfjrBu5l
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=b+TfbLHD2FzEidJAvDzmQCBeADHzUQDWO+Z2tMvQd9U=; b=SfjrBu5lgBaE3RkJQlfwFPRXMr
+	kErMj54JoE1GzleQoVJM4OeMZaG1YwEzL+0hdVljIDLsAwe6ovAlyoEd5UM9A2lXuBA+73qahrEXr
+	AJTp/r8DAWUP3lx3bOYgdopQ7EnAs0Mnxjifqo4lLIe/cnk1n+WvL6oVzgR/Y5ZQ81XKhMyw0e1rm
+	hQdriZbp3Qht5GFQELTtLht91Mxe+kWwkCin8aJP8/5lQekxCcaDDWbOxSP0xWTe10HLDP/lCP6Rw
+	1Yy+04ReVSjoFQai3Es2KIUtLl+NPHDNN1gekoafblxjp32G4oBw1Qkn50aNqhXbAF9+qqNyARHwJ
+	XnqcQ4Ag==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xNwZn-006L4r-1X;
+	Mon, 02 Nov 2026 18:16:11 +0000
+From: Breno Leitao <leitao@debian.org>
+Subject: [PATCH 0/2] panic: flush unsafe consoles before reboot and kdump
+Date: Mon, 02 Nov 2026 10:14:53 -0800
+Message-Id: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,60 +63,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org> <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
-In-Reply-To: <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 2 Nov 2026 09:58:51 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
-X-Gm-Features: AclHuK_qZTBVsLQIdymgRHScSFenC6XsGggUDmcuOugjrSTbuVkeASUmC_hYPZo
-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
-Subject: Re: [PATCH RFC 01/38] PCI/proc: don't truncate the position of config
- space accesses
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
-	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
-	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
-	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, 
-	Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
-	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
-	kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
-	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
-	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
-	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
-	samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
-	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
-	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
-	linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACLT6GoC/x3MYQqDMAwG0KuE77eFGkFnryIipaYzIFUaHAPx7
+ oO9A7wbJlXFEOhGlY+aHgWB2oaQtlje4nRFILDnvvWdd2csmparWMyy5P2yzfU8dmPixC8Z0BD
+ OKlm//3San+cH7op+CWQAAAA=
+X-Change-ID: 20261030-panic_unsafe_flush-62939c2c28e7
+To: Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
+ Kiryl Shutsemau <kas@kernel.org>
+Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev, 
+ gustavold@gmail.com, samuelcrossley@gmail.com, ryan.roberts@arm.com, 
+ brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>, 
+ kernel-team@meta.com, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2148; i=leitao@debian.org;
+ h=from:subject:message-id; bh=WWR0J519IWUZiYslN8ZtMKOOzmprzyXwOlc4FKv8qM0=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6NNlZnasAivhSouNFr7lBcw+ninAdxy+KQglm
+ tn2i/6xk4+JAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaujTZQAKCRA1o5Of/Hh3
+ bQ5oEACI05PBCsiojZxwztkJKfwaKRsCKaEfSfG83Cum4zp5erGSTgjpXLkMp/4Se5FlRQUcicZ
+ LD+1y6CGZLRBeFMZz56rNGVsWCgMnt2VfetdBinhQUOZsUmsC+uwmcNmJBlKgbbTUeIO/xexKgl
+ G97rvJG38ionirt8onPkdZ8u2jUO6iZFyZdHnzeeEH2UsD0nBSI94+gvhE5qo3+3UMK34P+FD1h
+ OKMSfHmIUXqSwGS0+3CE4+06xq5w/5mC3MlMTMlDHNZK4xA3hYtxkBKesFzBwVdIxqVHi4QwGGl
+ wCvbQwqQWZA/KGG4lE5YzQxLpMzbvpOEq1WMeF1xYn9kRBgqbsWnwr1QOU17pv3cCrDnsUdIni8
+ NgEORaNGHLLydZW8T+giFaNtRHUz1ztlrdrtvXoLlB4AcMvM8j1R14rpMzr99y35vXAZyyvKzyp
+ eRBtRRDor0OZb246t/o8sVWheUh6VYYpdzzwvoGqb15ZHEIQMfE3hS1iAM1ygDHvX0LZLhve0u3
+ atTomm1cOP8QCZaVF9YhEUGM/qfq82IP/1H00JPdLgpb5invPicy5oyMbIeybZ0rAQLi4nqwYKI
+ 9lLG+R60TuDOKpJb/am3DZL5hXRgVIunJE+89Rte6rDiO6YuWsZAHzfJCj1e5y1sX0Eoc48rfU8
+ QWue3GSvRlhfZ+g==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Mon, 2 Nov 2026 at 06:22, Christian Brauner <brauner@kernel.org> wrote:
->
-> proc_bus_pci_write() truncates the file position to an int. A pwrite()
-> at an offset like 0xfffff000 turns it negative [..]
+Since netconsole moved to NBCON, its messages are lost when the
+machine reboots after a panic or boots a crash kernel. netconsole is
+a CON_NBCON_ATOMIC_UNSAFE console, and those are only flushed at the
+very end of panic(), after both.
 
-I think this would actually be better with rw_verify_area() just
-checking a per-file maxbytes.
+Ryan reported this [1], and the fix is based on Petr's suggestions
+[2][3]. Patch 1 flushes the unsafe consoles from printk() on the
+panic CPU. Patch 2 also flushes them in __crash_kexec(), for an oops
+that goes straight to kdump: on x86 that path prints nothing once the
+CPU has become the panic CPU.
 
-We already have that logic for lseek and friends - using that fairly
-hacky combination of s_maxbytes and !unsigned_offsets().
+Tested on x86 with netconsole sending to a receiver: panic reboot,
+kdump from sysrq and kdump from an oops all deliver the report, and
+the crash kernel boots. Under virtme-ng that is 21 of 21 runs,
+against 0 of 21 without the series. On a bare-metal host each case
+was run once, and an unpatched kernel delivered nothing in all
+three. arm64 is untested.
 
-We should combine s_maxbytes and unsigned_offsets() at file open time
-into f_maxbytes and check that not just at lseek but in
-rw_verify_area.
+One case is left open. A printk() inside machine_crash_shutdown()
+now also reaches netconsole. On x86 that only happens on errors, but
+on a TDX guest tdx_kexec_finish() can pr_err() after it has unmapped
+the shared memory a virtio-net netconsole uses. Stopping the printk()
+flush once __crash_kexec() has flushed would close it, but would also
+drop "Starting crashdump kernel..." and "Bye!" from netconsole on
+arm64.
 
-And then things like proc_bus_pci could set it's size limit in one single place.
+[1] https://lore.kernel.org/all/20260915100140.3631650-1-ryan.roberts@arm.com/
+[2] https://lore.kernel.org/all/auNaD8LELWok3LOF@pathway/
+[3] https://lore.kernel.org/all/auhl3cdwrHt4Vw7U@pathway/
 
-Hmm?
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Breno Leitao (2):
+      printk: nbcon: Flush unsafe consoles from printk() in panic
+      crash: Flush unsafe consoles before machine_crash_shutdown()
 
-                   Linus
+ include/linux/console.h |  7 ++++---
+ include/linux/printk.h  |  5 +++++
+ kernel/crash_core.c     |  1 +
+ kernel/printk/nbcon.c   | 38 ++++++++++++++++++++++++++++++++------
+ 4 files changed, 42 insertions(+), 9 deletions(-)
+---
+base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
+change-id: 20261030-panic_unsafe_flush-62939c2c28e7
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
