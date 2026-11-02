@@ -1,84 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793660662;
-	b=IQ3MvO+QRYenluSF5NBSJ5qC1frrE0VO3Ang1POkdfZqueLiX3nVA0a56gwxBM+hAjOs
-	 awhUCG+yyhluHayZo8g04u1KZOtSWtp9IeiTygpjQsccvVfUxKMk9xYZTUiCcTaYK1YSi
-	 ypXX6RVlj3P0zcxAROifSgrZ3Tm/kI8ehCQ1h0i342AEwkVOD/2eX6HUgZ0PhO+Xit7XQ
-	 fBJAGzec5NFrlEIQuDGunS2t6pIguNut0RWAVE/53uqidskMH9UtpzpJHBGgfBdeA2rvg
-	 G8+0xN7zl2qQjmQMoNJVCUO1KgKl0GZCZVlXXWCMOkUycZ0C6aeQabIKRn32r5wFjuw==
+	t=1793660689;
+	b=a63qOprW4cVmeHN9R6ZGXLOqdV3Q/Ml/Ub367zr7AP4Zv54G3REJI157mdqEvV/aSvX6
+	 rEgxUiEc5TUkzC10RSA1zoe+2ESGacYHlul0f6iliXEsTk1shG4RVC1Hgi5Jke5w94yN9
+	 F1czwY4N9qlidDV0xhEyTKw2AVhLP2LysTCpXqEBwjMrI0VoMjxN0OkYj3vG4uIYq7YE7
+	 Sv4OPckPNqlJDL8stwZeTc8GvuVEXXUibvObSsq/vLxF761Qmv/sZBW4Wfg8VsfFmOLHF
+	 Q252gKCj+637BFeFchjvME6f4DD3KpYDzog+TF3FQJzBuQ+isgQoZAwsAsXYTcTwa/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793660662;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=AnOl++XGrdWHG5T6LBt29eHxVsH0BxA9ok8+byYHbrY=;
-	b=eNnqPYZf12bfqKzzKq/9Y8jj6zNBPw+fDg0Q+Bf48Lps0Q3AAEy+bw9e+TZPYXKf6imL
-	 D0IYIWPyeXzjuKAzksmITF6GzhU+RHYbOf/etE7MVjnTfgXDuZWr0uwDPdlA+RMmEMPas
-	 PtrnIriLsjrv/kqash2ikQg7qRqIEyw03iOZIH/yI/u1ZAIf5Ie19dpfKcdTx7gbWG0mK
-	 XdG4DELLzLzfF+XHy391RraszRkvodnVdD7bKpAEBVOHRdccVXe25r6h+Coh3mlxTB68h
-	 0bmTC6LGodnrXHEaGoEDCA5uRD6+32aP6rMZFnZA50FqD30gAcnCN/ESpM1wlIhbcAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793660689;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=qdpAw2CeVyl2O4/SsZKsGMa/ZVARBuLoVGSK/7j1CNs=;
+	b=MZDDhcq5U10AQaRYYbXS5PGFkiem4ewVd1glH6Rc8fg8wWG2ne8+yTwywso3pb4OVhOo
+	 yVE2Z+EO92qBgc/iA1lPGK6+tpOwCnyShEiNjiu+SprmTB/k7HTyMttTTC+ifvRm2h4Z0
+	 aNNzw1iJUJgoD0SEmQevyEXQuBkERRB0FuJzaPn9tIySpX8HH6tJOlSfV5g+xEzAv6rTy
+	 jwZbpBIsUJ6yhwmdxGirMdnJPt3z0tjhLKUsmur9VKli8O15aG2vP1uUZwXdZBGeE0dQc
+	 NwN5ChI/kaMo8azZesNMkSycAK5/hORIMzn4ACKCpaCgIfafNCX3YXwWBhCJAtUb3TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=fCZI+g4Y;
-	arc=none smtp.remote-ip=44.246.1.125
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hah3TSoG;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78180606A326;
-	Mon,  2 Nov 2026 23:04:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78180606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE24606A33C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:04:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE24606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=fCZI+g4Y
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hah3TSoG
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso4273723eec.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 15:04:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793660662; x=1825196662;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=AnOl++XGrdWHG5T6LBt29eHxVsH0BxA9ok8+byYHbrY=;
-  b=fCZI+g4Ycq7tHAUqgzPFkT1p8XbWaO5qEOie3BBnTM9B6jLV3xv+8Z6a
-   AbgShyIygtsIdqvzbwRH0whj6XHMH/d7od14Q6g+lvtZg4i7pWhw27CbJ
-   +tBvpWnlfeqYjzZ+FCQCssFP/djdTbrZwhieQxmzhoKVoWZ2FXAqOY5CN
-   JbYEkqRgzFIZFk7e8j6wQCyooTjmqOzEroCgfoVcJ/VuAkZ6Eh2pKwOJo
-   gUJSSOmjOEVvJNQ1lhnCMkZyjd3C0KRIiHMzRbX8F2rfx9yz+CjLLbEyZ
-   1FXRLV1/oSmM0cMGvf5z5hMyUjaiNZi/48rnjC8wZBeHTT39MtuR3Wy4Z
-   A==;
-X-CSE-ConnectionGUID: /xd83QwYRWGrNFOnUFiD+w==
-X-CSE-MsgGUID: tVifs0t9RHO222qg8TJ2eg==
-X-IronPort-AV: E=Sophos;i="6.27,192,1787011200"; 
-   d="scan'208";a="32925610"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 23:04:22 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:1680]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.18.155:2525] with esmtp (Farcaster)
- id c87944cf-4a11-4645-8027-9de34d9693a1; Mon, 2 Nov 2026 23:04:21 +0000 (UTC)
-X-Farcaster-Flow-ID: c87944cf-4a11-4645-8027-9de34d9693a1
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 2 Nov 2026 23:04:21 +0000
-Received: from dev-dsk-patrzhan-2a-52a3f46b.us-west-2.amazon.com
- (172.22.91.11) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Mon, 2 Nov 2026
- 23:04:21 +0000
-From: Patrick Zhang <patrzhan@amazon.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
-	<mailhol@kernel.org>, <linux-can@vger.kernel.org>
-CC: Pavel Pisa <pisa@cmp.felk.cvut.cz>, Ondrej Ille <ondrej.ille@gmail.com>,
-	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, Pavel Pisa <pisa@fel.cvut.cz>
-Subject: [PATCH v3 1/2] can: ctucanfd: enable NAPI before starting the controller
-Date: Mon, 2 Nov 2026 23:03:38 +0000
-Message-ID: <20261102230339.1260288-2-patrzhan@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261102230339.1260288-1-patrzhan@amazon.com>
-References: <20261102230339.1260288-1-patrzhan@amazon.com>
+        d=google.com; s=20260707; t=1793660688; x=1794265488; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qdpAw2CeVyl2O4/SsZKsGMa/ZVARBuLoVGSK/7j1CNs=;
+        b=hah3TSoGUiSjnJ9CjCJ0hl31I4MkPtW5OjjUoE0rfgwTX8MmuuVLCwXkqDjKeSLV2o
+         AcfUqTPlyBGVeB4pvirfmOt8VpkKRarpjE3aSCD+w23EEjCNL8r02oMSELAnax0wVtHq
+         3OGKFddD5fCW4TCLPpU5SyijQD+7E6XaRkVJBA2tAfQo6I4Xz54UD4GOzBddKwLHNxfm
+         kfS/DPvarpF/CztXwG7ze0dVXR1hgBhMHqxjJhD2pbCUi5KyNHdUzgZSJHxZzxT9c9tf
+         n3LM0XFiplDKDKO7OoTmrHStiYcgSLSW5wDErJ3IBLkTRjDrFmd/sJnN/shK40lItCwT
+         POYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793660688; x=1794265488;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qdpAw2CeVyl2O4/SsZKsGMa/ZVARBuLoVGSK/7j1CNs=;
+        b=wf41qKTk1XTnjXNGyH1P8kVoEagqshWqe478O8mGfOJOwwcH0cBKfXwG5YueDPbvE5
+         MW5Gsvq/6WNeO8+fc/r88XG51W7j8Lk8cq6eLjJST59vMI8BG3zYyXY39pDxPwJ/SGP+
+         K0byaKQ6YsBUJXNfAhEMS8FHOhY9mbqXh37S/GfpIGKHoICNunJ7mLT6Z/A6rS9CTgwj
+         6ME6cooDPIgiZ+hkCjx9l+VeNZS70orofzw1rg4jWJJKVQODAhnzHyutS9p5abXFdksp
+         HtHMHEMc0Vs0I17a4/h3grkZ4M1c7AWU2+LQjzHbeamuVhgUFCuzyqLBOxUlvdjms9dy
+         pZPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCQcwH9X/Bff3sOKtcHkJqZmViS6jDjyh4n97svqNWy7qJTECqknxri1Nppo1g0r574j73Ztk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WKUBeesMLwcxV7Gtj/etS0s40GSubikL2G9L6XBLr0RVSZZ2o
+	Ii9aTfKdBO3KeA1MsXmQq0PrZz3UUt6AiA0IV2P72yujrcsxv5zsDNxaL9vV55aDoA4iY50/tWl
+	iS0J/ZXEjvOcnq3rbeMHhogQr/w==
+X-Received: from dyki13.prod.google.com ([2002:a05:7300:7c0d:b0:369:f67f:7a43])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:693c:41dc:10b0:366:9f06:3c4c with SMTP id 5a478bee46e88-36a423f8794mr17637350eec.32.1793660687421;
+ Mon, 02 Nov 2026 15:04:47 -0800 (PST)
+Date: Mon,  2 Nov 2026 23:04:43 +0000
+In-Reply-To: <20261102230445.3993629-1-almasrymina@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,87 +78,100 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Mime-Version: 1.0
+References: <20261102230445.3993629-1-almasrymina@google.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261102230445.3993629-2-almasrymina@google.com>
+Subject: [PATCH v3 1/3] vfio/pci: pass FAULT_FLAG_WRITE to vmf_insert_pfn_pmd/pud()
+From: Mina Almasry <almasrymina@google.com>
+To: Peter Xu <peterx@redhat.com>, Alex Williamson <alex@shazbot.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Mina Almasry <almasrymina@google.com>, David Matlack <dmatlack@google.com>, 
+	Shuah Khan <shuah@kernel.org>, Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Raghavendra Rao Ananta <rananta@google.com>, Vipin Sharma <vipinsh@google.com>, Alex Mastro <amastro@fb.com>, 
+	stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-ctucan_open() starts the controller and unmasks RBNEI in
-ctucan_chip_start(), prints "ctu_can_fd device registered", and only
-then calls napi_enable(). A frame that arrives in that window raises
-RBNEI. ctucan_interrupt() masks RBNEI and calls napi_schedule(). NAPI is
-still disabled, so napi_schedule_prep() finds NAPI_STATE_SCHED set and
-the schedule is dropped. napi_enable() then clears SCHED without
-scheduling anything. Only ctucan_rx_poll() unmasks RBNEI again, and it
-never runs. The interface receives nothing until the next close.
-Transmit still works. The RX FIFO fills up and the core sets DOR, but
-the overrun is only accounted in ctucan_rx_poll(), so rx_errors and
-rx_over_errors stay at zero and nothing is logged. Every re-open (ip
-link down/up, a driver rebind) runs the same race again.
+vfio_pci_vmf_insert_pfn() is the only caller of vmf_insert_pfn_pmd() and
+vmf_insert_pfn_pud() in the kernel that hardcodes write=false instead of
+passing vmf->flags & FAULT_FLAG_WRITE (unlike drm, panthor, and mshv).
 
-The netdev_info() in the window makes it much wider on a slow console.
-This can be reproduced by sending continuous traffic with cangen from
-another node and repeating "ip link set down/up" on the test device.
+On x86_64, normal MAP_SHARED | PROT_WRITE VFIO BAR mappings usually mask
+this bug because vma->vm_page_prot already has _PAGE_RW set. However,
+when vma->vm_page_prot starts read-only, insert_pmd() and insert_pud()
+with write=false install a read-only huge entry without calling
+pmd_mkdirty()/maybe_pmd_mkwrite() (and similarly for PUD). Subsequent
+write-protection faults enter wp_huge_pmd() or wp_huge_pud(), which call
+vma->vm_ops->huge_fault() to upgrade the entry in place. Because
+vfio_pci_vmf_insert_pfn() passes write=false, insert_pmd() and
+insert_pud() see !pmd_none(*pmd) with !write, do nothing, and return
+VM_FAULT_NOPAGE, causing an unrecoverable infinite write page-fault loop
+and host CPU soft lockup on the next userspace or KVM guest MMIO store.
 
-Enable NAPI before the controller starts, so that an early RX interrupt
-can schedule the poll. NAPI can be enabled while the controller is in
-reset, because nothing schedules it until an interrupt arrives. If
-ctucan_chip_start() fails, disable NAPI again. Otherwise the next open
-would call napi_enable() on an already enabled instance and trip the
-BUG_ON() in napi_enable_locked().
+In practice, vma->vm_page_prot is read-only on a writable MAP_SHARED BAR
+mapping in two situations:
 
-Tested on QEMU with the ctucan_pci device.
+1. Userspace soft-dirty tracking (CONFIG_MEM_SOFT_DIRTY) when a process
+   such as CRIU (during pre-dump/checkpoint), a VMM live-migration loop,
+   a memory profiler, or an unprivileged process holding a VFIO device
+   fd writes "4" (CLEAR_REFS_SOFT_DIRTY) to /proc/<pid>/clear_refs. That
+   clears VM_SOFTDIRTY on all VMAs (including VM_PFNMAP) and calls
+   vma_set_page_prot(), stripping _PAGE_RW from vma->vm_page_prot for
+   subsequent huge faults.
 
-Fixes: 2dcb8e8782d8 ("can: ctucanfd: add support for CTU CAN FD open-source IP core - bus independent part.")
+2. Architectures where shared writable mappings start read-only for
+   software dirty tracking, such as arm64 without hardware DBM
+   (CONFIG_ARM64_HW_AFDBM off or FEAT_HAFDBS absent), where _PAGE_SHARED
+   sets PTE_RDONLY | PTE_WRITE and pgprot_noncached() preserves
+   PTE_RDONLY on MT_DEVICE_nGnRnE mappings until pmd_mkdirty() clears
+   it on a write fault.
+
+This bug was found by code inspection while auditing huge_fault handlers
+and reproduced with a VFIO PCI selftest on a 2 MiB-aligned BAR mapping
+after writing "4" to /proc/self/clear_refs.
+
+Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
+vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
+dirty and writable.
+
+Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Patrick Zhang <patrzhan@amazon.com>
-Acked-by: Pavel Pisa <pisa@fel.cvut.cz>
-Tested-by: Pavel Pisa <pisa@fel.cvut.cz>
+Cc: Ankit Agrawal <ankita@nvidia.com>
+Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Cc: David Matlack <dmatlack@google.com>
+Signed-off-by: Mina Almasry <almasrymina@google.com>
 ---
+ drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Notes:
-    v3:
-    - No changes
-    - v2: https://lore.kernel.org/r/20261030233330.3483988-2-patrzhan@amazon.com
-    
-    v2:
-    - Add Acked-by and Tested-by from Pavel
-    - v1: https://lore.kernel.org/r/20261021205924.2538511-2-patrzhan@amazon.com
-
- drivers/net/can/ctucanfd/ctucanfd_base.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/ctucanfd/ctucanfd_base.c b/drivers/net/can/ctucanfd/ctucanfd_base.c
-index 07d4aa43c..82bf6c645 100644
---- a/drivers/net/can/ctucanfd/ctucanfd_base.c
-+++ b/drivers/net/can/ctucanfd/ctucanfd_base.c
-@@ -1231,6 +1231,10 @@ static int ctucan_open(struct net_device *ndev)
- 		goto err_irq;
- 	}
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index fcbb2da860e2..204d959086e9 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 				   unsigned long pfn,
+ 				   unsigned int order)
+ {
++	bool write = vmf->flags & FAULT_FLAG_WRITE;
++
+ 	lockdep_assert_held_read(&vdev->memory_lock);
  
-+	/* Keep before ctucan_chip_start(): the ISR masks RBNEI and only the
-+	 * poll unmasks it.
-+	 */
-+	napi_enable(&priv->napi);
- 	ret = ctucan_chip_start(ndev);
- 	if (ret < 0) {
- 		netdev_err(ndev, "ctucan_chip_start failed!\n");
-@@ -1238,12 +1242,12 @@ static int ctucan_open(struct net_device *ndev)
- 	}
+ 	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
+@@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+ 		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
  
- 	netdev_info(ndev, "ctu_can_fd device registered\n");
--	napi_enable(&priv->napi);
- 	netif_start_queue(ndev);
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
+-		return vmf_insert_pfn_pmd(vmf, pfn, false);
++		return vmf_insert_pfn_pmd(vmf, pfn, write);
  
- 	return 0;
+ 	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
+-		return vmf_insert_pfn_pud(vmf, pfn, false);
++		return vmf_insert_pfn_pud(vmf, pfn, write);
  
- err_chip_start:
-+	napi_disable(&priv->napi);
- 	free_irq(ndev->irq, ndev);
- err_irq:
- 	close_candev(ndev);
+ 	return VM_FAULT_FALLBACK;
+ }
 -- 
-2.50.1
+2.56.0.385.gac671c819a-goog
 
