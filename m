@@ -1,48 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793597628;
-	b=MwldtqfbfuS+yU5ZEqWMZe04/Z0c2Kr+f87xxa3d8rRhRUQjQrKQTgw6ye0gg4W7lx7I
-	 r/yU0uRqYaCDXuobstGUGmvCVxSUrwKEelXcPMXIGMPSrxAooYbbxevcUtrV8fRZe1DLQ
-	 aGBlLFtY6uWRJvTo9ssi2u6+fVVuI5eu6jbmMveuVvW5J+c1XZHjTISGAUJCTTwH31RAi
-	 quc450ysdLUdPL3oxOSwwDn06qdYAtILnUTuhCEKawB1bD5k50Yi6oQIp4bpGraC8n9uB
-	 oeYFyN+S/i8gMbzVJZZm3KL+WZar088Uw3HtQM68W4sskUWgRqVInhuTrfi9vUjdlOA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793597628;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=KZrr7dxDjC4+3eo6g2n9yj+6WYUVhDU5NWrI/qmnZ0Q=;
-	b=rqkeoEAbD6K9n+9ob05007cnfpv/EhCwmv8bBfLnsS/6cIWPGd7lG+57f9+/s3sga3Iy
-	 sv2lT92Nmbzgh24TfjcJreCDKJtK8RWfXvowL9FmBFX6h7jdV2aUV5gfC241cvHPj1JaK
-	 zLThj80k6Wg1nzq1+oTtvT6NriC6GCDYbRuV+vE6JzNSt8OeeWFQwZz97j9xWdx03pcZG
-	 VRUqBDTJKb2UX+SpMPC51Ue87Q4eRRoLXDRc9+84vW7SlXJaE7DBJM6TKYAaN4+4sXZ+7
-	 XT5+cMIw7m2D0tx302qUY9791kHuMLln8W8WraZ3upoWjklViOka6WT3reG19gy12qg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mnTVVdsQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793597718;
+	b=Q2Ae8LNWAgAQ0ZMrh6aeRKDaKscS6R9pHqLnyHQT128PZ2vmYg6pFJ9CzfoKxWqMY3Ei
+	 rVChVBQzRxZPgfGaXJuv5wAf9W6f1l7gFa0qqzvaUQMZ7IQhxPHJj/W2hnqqt2NbLZMFr
+	 /L5vQEgSDL8VPPAYqKyYBPhWRZon47iQnRCfc4povF7rsX781Ja9SLMn0RpLZXrLmsrql
+	 dkQC/Zi1dPso5J/VeGf7nt83fkSaz/gm+BvonJJB0ZH69xSi0JjefRHBideIsCXfHrjbt
+	 zTzQMhbrec+96aGTGU+qQ3duRXGxolXI9pshcThMvAp5mqSjUDzyLIFzI0edG/Ff1ng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793597718;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
+	b=WBXYkspCqix13+JAIZP3uimwRT9L2uPdu8cHTpURturkIvVhpo+RtzDQvxO6KDyceVnU
+	 V+QGS2fZPsARbif4WkDvaX/+LwtxZdTpvEhvKz0+9kh6fqdSACwOHZiMCv8iuVyyYa891
+	 5bLMU+IZAL5LaV1SqweQyDURfAdgI/4wKAlxTwpSQzBTOpBmy/PlohvYIGUGyQZFJNt69
+	 79vOmpfs2ORu8AZEMArtXJpl2tXMIwGB+V+yYGpBJRfUxaGc1dSPWsgurHT38KTIpvVIm
+	 2PtDtJgg72i6JwQGG9GJLH2SkPEs48vQGyrsdO6L/DpmrOtU8XFkSCvsqFj0U6SkOdA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fmdyJ754;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35B71606A324;
-	Mon,  2 Nov 2026 05:33:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78ECA606A324
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 05:35:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78ECA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=mnTVVdsQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B161A1F000C1;
-	Mon,  2 Nov 2026 05:33:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fmdyJ754
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-194d0c31715so5158c88.0
+        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 21:35:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793597717; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BdD5a422B4uQymo2b1/f2/opsSSXMzrvKN49T8/+7hiZlR83FdXqA1eKc3afzJDOXX
+         s8K3PDiWAgTsEKRI+w+ITREyZpBq7r6BUft+VrYY9tR2dKo8qfS4j8QESPo3qcSTEcio
+         4dhoCJtEmzfX2UrigbBO6uhqxbMtuG7jI5Mp4rBzvdU87xgbzgD1ejMhjWPtA7IRuGOm
+         p4zvuxTAYJC01FAxuPMRui3/ypuse5zaFKbJPwtmHwx6Tzxd4O5Z3vibmDJt2ngW3sax
+         sdi2fT6PxXB/zGGDm8Tm9tjQPpID/JYl4I46ee/6/J6vMHKiB1Wh/zDHedR8oFxVvBPD
+         ymNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
+        fh=SaqKmYOsBYP0jl5aT73UE8o6O+zWvFvPOp5cSSlKPgQ=;
+        b=kPoDNtLhgAhV7Kyg/sHoLfF0zlHJIRyK25HcT5qfg2IkMCCpuvqb8LpwZ4VJkwrUAA
+         UNDOiphLs725prG7wBQ2BKaVE6vAtF9jPfYM/rBXYb+u0RCT9oGxlFfBJHtdPqBDraia
+         IOhPiqkH3hoE20DZ43y7KnLrFE9xM5DVurOMT1p5w6WNF2uo/s63zkiUOZPbmbXl+4rd
+         ochZm1szzvQf7kX/z5By+ode/wHcz0RASbSOtE501CTqyoOysUkGJceZ1t4mBp/LWSbz
+         PkEYqViWXiC5/DPnLEm1/DnHMcsT0BcvwKVyF5O5t2AVPNu20m/od8Cac8zM3hWKkkV/
+         qXyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793597627;
-	bh=KZrr7dxDjC4+3eo6g2n9yj+6WYUVhDU5NWrI/qmnZ0Q=;
-	h=Date:To:From:Subject;
-	b=mnTVVdsQb1aXjUiUpJjbbaC3SpIyva+lY085Awc+6EKOjAiFHR79svuynYAOr782K
-	 zfsCZtRVj7jbUunvn/VPc0d5D2iCNkNJWHGReNG3qF+AXZDIT2dHTQc0GyVdddq3bX
-	 3rF/pX7vHWAnndfI1fYCyYC7WNOuJR4Bk4A5c04o=
-Date: Sun, 01 Nov 2026 21:33:47 -0800
-To: mm-commits@vger.kernel.org,tim.c.chen@linux.intel.com,
-	stable@vger.kernel.org,hughd@google.com,david@kernel.org,
-	baolin.wang@linux.alibaba.com,dennylin0707@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + shmem-clamp-negative-used-block-samples-in-statfs.patch added to mm-nonmm-unstable branch
-Message-Id: <20261102053347.B161A1F000C1@smtp.kernel.org>
+        d=google.com; s=20260707; t=1793597717; x=1794202517; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
+        b=fmdyJ754kn8kQb08UapFFp7Y4BX2Eh1Y3Jgny5fZicf5JJJLvOzGqt9ZbZzp+NTXli
+         xTayNRuW5WBMZTqtt4F1c32BOKZszQAUNojSaopbnCh3rBO12wsZk+4ZbqreGwE+n78t
+         89g5lFsfXES1AYwvPdjHGZsMHkfu/b0BaWAvd3HZgJDs1xohXiI7jus3VWwhbMwtXeIx
+         dFjDG4Tww9e5zkVUcSjfx3UI8r1qaKM7zk4HMWYLWVlN6omL4i+p7DlEDZg6VcMYuNs9
+         eO6ARqXdNGJ9JvSw0OjJP64iSBbIPlq/Iwv0VwO1vdxvjMBWU/3wiSIpryYCyAEJJ9Px
+         7GZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793597717; x=1794202517;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W+hC4F4hAwm9joqKZ+fH9u/y7V0gzk8Wl/nmjTnVbjo=;
+        b=oS4xoa5k1hRbkGC8Sk6XRugIgEeQf/wcLxDrSlqYXcQA9z3bKL+zU7oqMFlyUXOrbq
+         7RIYPGc/5TjIVqXHOmrhW4gYTcRGivEqH5WYfOOEPFKoma0DaV/hX2BQJD0HfadDlhpn
+         YwIFdQ3dx9Az136oCVdXnHr2SnFxQjbbgiHOhG6cLrSPoDkBi8foX0lNZerdDLj13IW8
+         x9msHOB5qAfqIskglXuhxxirOva/1qvJFbedqecxU3/2gFdMJNRpJ3EF36lxBjDJekDc
+         bHAuXrFvMWixWmc6YsU1FVsazGeftu4gt1cOOsswkdCu94mHfVwbvjr7qCBIlWPzQXlK
+         GJSw==
+X-Forwarded-Encrypted: i=1; AKwUvByTa2AdIzeAjkTtkE2f36UTxLj+8sygfbkDSiXq+y8K+SQilsKII6TeY7uRrfCOsw+mnERnfec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+eogFLxqA7DCrWo2daHR0/bfcok2d5M/UFvAulMXQulTDZX89
+	bWaO97MuDPE06oZYCHylyrL/GMMhixPEIrJY9LcyOqHhbeEh9ZnYtoq/bu9z8+U3yoqvIDiDFv1
+	XEbi4KzI0AK8iiUyzjyWWoY51Q+ABGLWWNo94Epfc
+X-Gm-Gg: AYBFou3W/dNsIwdVs5j8ZwRHoub09euqdTIdE9VhStAY+fLCThGpr//OFLKJtmZb/Ho
+	xDjgjxT9rY8tD1rFvpyOCxSl/3TaGirUWqN2N4Knu3/aOScsPdKP04SJulN/GagrBPSwd4UO6JT
+	fSI2ptx7U/t5jGCGsmwoi3iV68w9kuxEF/YP1r2HC8t57P0vLy0qOf/Jn8s6NNRvGYggYSmtn8r
+	VqtN8sCPtnsWtOTsvFIk5dFJGCY2d5osiCNTiUpqYb2NupK7lXOwI6DCYfDBuNdcVZBtRIMud44
+	iWyfU29WCPvwtt1Sjfo8Mo4fe6LKWz46Q70YK9Rmnl76qceNNp4GPT+eBvfzjNlX7ZqjUnmdZ4k
+	w5bJ104sdoc7UCyy6GCl3yJqlDfPRgrkXV/KzJSBf6+fX1lYcoxPZTA4KU0mBfFuOcs7KGYo=
+X-Received: by 2002:a05:7022:7f0a:b0:149:8916:defc with SMTP id
+ a92af1059eb24-1a9546390a4mr1658978c88.0.1793597716672; Sun, 01 Nov 2026
+ 21:35:16 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,82 +103,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261101075145.698399-1-sgzhang@google.com> <audwphXNeZhVItS0@google.com>
+In-Reply-To: <audwphXNeZhVItS0@google.com>
+From: Ray Zhang <sgzhang@google.com>
+Date: Sun, 1 Nov 2026 21:35:05 -0800
+X-Gm-Features: AclHuK9nicuZoXvOoxzdD_K3_bDawbdxZQ3_9KfsA-zXkExzJY5UTfRe7i8Lwvw
+Message-ID: <CAPqVEODgo=mr+3viog+bY1XOKHLcrEVhs4CtZ-SiSYT4Hh+gjg@mail.gmail.com>
+Subject: Re: [PATCH net] net: count last skb of each sk_backlog pass in __release_sock()
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	David Decotigny <decot@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, Nov 1, 2026 at 9:15=E2=80=AFAM Kuniyuki Iwashima <kuniyu@google.com=
+> wrote:
+>
+> On Sun, 01 Nov 2026 00:51:45 -0700, Ray Zhang wrote:
+> > Running 500 concurrent TCPv6 streams (neper "tcp_stream -6 -T 1 -F 500"=
+)
+> > on a 2-core Cortex-A53 (CONFIG_PREEMPT_NONE=3Dy, HZ=3D1000, LATENCY_WAR=
+N)
+>
+> I guess you tested it on 6.18, but note that CONFIG_PREEMPT_NONE
+> is no longer selectable on arm64 since 7dadeaa6e851.
 
-The patch titled
-     Subject: shmem: clamp negative used-block samples in statfs
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     shmem-clamp-negative-used-block-samples-in-statfs.patch
+Right, we hit and tested this on 6.18 -- thanks for pointing out
+7dadeaa6e851 and for the review!
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/shmem-clamp-negative-used-block-samples-in-statfs.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Hungyu Lin <dennylin0707@gmail.com>
-Subject: shmem: clamp negative used-block samples in statfs
-Date: Wed, 28 Oct 2026 05:18:26 +0000
-
-percpu_counter_sum() holds the counter lock while scanning the per-CPU
-values, but local updates can still proceed. Concurrent allocation and
-freeing on different CPUs can therefore produce a negative sample even
-though the number of used tmpfs blocks cannot be negative.
-
-shmem_statfs() subtracts this sample from max_blocks, reporting more free
-blocks than the filesystem's total. With a one-page file being written
-and truncated on separate CPUs, GNU df reports negative used space, for
-example 67108864 total bytes, -28672 used and 67137536 available.
-
-Use percpu_counter_sum_positive() to clamp a negative sample to zero.
-This keeps the existing best-effort accounting in statfs and does not
-change allocation or limit enforcement.
-
-Link: https://lore.kernel.org/20261028051826.23058-1-dennylin0707@gmail.com
-Fixes: 7e496299d4d2 ("tmpfs: make tmpfs scalable with percpu_counter for used blocks")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: <stable@vger.kernel.org>
----
-
- mm/shmem.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/mm/shmem.c~shmem-clamp-negative-used-block-samples-in-statfs
-+++ a/mm/shmem.c
-@@ -4018,7 +4018,7 @@ static int shmem_statfs(struct dentry *d
- 		buf->f_blocks = sbinfo->max_blocks;
- 		buf->f_bavail =
- 		buf->f_bfree  = sbinfo->max_blocks -
--				percpu_counter_sum(&sbinfo->used_blocks);
-+				percpu_counter_sum_positive(&sbinfo->used_blocks);
- 	}
- 	if (sbinfo->max_inodes) {
- 		buf->f_files = sbinfo->max_inodes;
-_
-
-Patches currently in -mm which might be from dennylin0707@gmail.com are
-
-mm-page-writeback-avoid-32-bit-overflow-in-dirty-threshold-shares.patch
-mm-migrate-untag-addresses-when-querying-page-nodes.patch
-fat-fix-parent-link-count-when-replacing-a-sibling-directory.patch
-delayacct-preserve-delay-extrema-when-aggregating-taskstats.patch
-shmem-clamp-negative-used-block-samples-in-statfs.patch
-
+On mainline, cond_resched() in __release_sock() still applies to
+!ARCH_HAS_PREEMPT_LAZY configs (e.g. CONFIG_PREEMPT_VOLUNTARY on
+32-bit arm/mips/sparc, or CONFIG_PREEMPT_NONE with ARCH_NO_PREEMPT),
+and landing it in net lets 6.18.y stable backport it cleanly.
