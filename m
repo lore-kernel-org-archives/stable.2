@@ -1,57 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633001;
-	b=i+WeI3T1UXgAn6ROnhj70wWoN8vRTazt1tbSenbanpSSjgy58YqCNowXbK7vyXsCejKs
-	 Y1EbGFiZ+9r/rZhzcI47CbU7Ith6kyG+PufHemNbgGi6jmFwkr6RiIgc5swdb53TX8v8n
-	 y6yT3RtFhxqk9lpfvw4Qm6ivXM8omWwgoKhL/dVu+Rnz/v+tqOBTOZQgVE8Ngy8P+HyIk
-	 wjaw6BbOMrlsFwwPinel73q2Cgxz4/usVoDNUdqr7PZxcPRA2nLwY2aVVKkpmMWVSv1OU
-	 d4aZnR++ircd9jvr6Xg8radLlDL2Nd8AbrT74u54bzPQS2ifcHolQi06lV+JsB+PzRA==
+	t=1793633262;
+	b=pexiqSVayHGwPaG6bqPrvydIp0Oaj2+vB5Of7YCZlvjic1qRO6TnX032RwjNgOLcwWQx
+	 STuQEdz/cpjjOWAJ0B2Adzfjg4dpMcZM+xL3pLHMzAOyyYEbbju14omUTdtoSIe2LqsNo
+	 M8dUeNRZnM9Fkr0qfUIXM6s8zr/QQGL4IpCVVtvcQEgcnSldJukIvYcXlI0J920YQ+7G6
+	 4yGQRaXtWo+H+KsZrEli8MvNeIf7oJ8KGdyxWKNto1qGIg7dY/vrGsXMNQQ0gCwv0NBi+
+	 bCMQa5gdmpKz+oG+40axAaqNo705Dx0D9xFe6mKOMzIRIgoqX80lQVZL6v44Tdt4qSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633001;
-	h=DMARC-Filter:DKIM-Signature:Content-Type:To:From:Subject:Message-Id:
-	 Mime-Version:X-Original-From:X-Lms-Return-Path:X-B4-Tracking:Cc:Date:
-	 Received:Content-Transfer-Encoding:X-Mailer:X-Change-Id;
-	bh=guPZvxLd6vY90xPInQ08JAkLKvg/HCQkXV27YDibAYk=;
-	b=ZbB3qVKryPsJq3mgnkrPYiZccrYQk9eDR2Ctt/Nlclb/Z1g4tc1avRMpbNZjK/kEe7HC
-	 QtTPLmf8fCzXwnAza1ozgrmzJj+4y72EZKJwKdtcNYDXwbSiZVxMpUmiyGb69JlcUQZ/1
-	 8jxPUwR/e+A3Apo8wvoPP+XDZKoEAihw3SJHpdfr3+51euaWk63bZjWiKksDyNel1Zp+l
-	 gV6fM5TLhzIeFzoFxkzNYmcf29X/06mz0+uovPaDH2Ypa/X9iDZedTI70gBjrA/SFQgeL
-	 1LWx4lRehjWHhOIYIKP+gNxKQ9nx7ADjB5EuJBVLchayUXEbrEVuf1TKuSm7yid3cvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633262;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=701+TK7BupjY3H7pv04Jm3iJ3F83deu5Zm1R1KEPq/4=;
+	b=EkFUvDXAPQRe+I8K73EmQkDRpzUbOgPeDPsKSU6vRBhSWeyOM30NhRCaAa/CqdR0pH4u
+	 M2aDSAB4X6ifpT4hVSnFUc72dAUutsMrWSGUclRmkrFcxBrFaskph54ATKZA3cU3aHxj7
+	 MgZBaBA8I3zoqLJKU8jvXcCyP9E0Z7VYeuaZM9ZJiMSr0kkS9kKFBTheBRM6YZIatEypY
+	 77XPtY/4E12xJdwoafvWkjtKiyEHDrdbwwvoWi9O2MNlIyDsp79LyDa3KY/iJoeTJuz3d
+	 XYDU9liD0v14azCb+l5BQSTIhLyrHM4vtiTAnGa5TAaWOh98mMyIUnqwdnlNEay3tKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=jIBlJPg6;
-	arc=none smtp.remote-ip=71.18.227.1
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=A3h8FDyu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E594760A382C
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E594760A382C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F61B6083620
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=jIBlJPg6
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793632994; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=guPZvxLd6vY90xPInQ08JAkLKvg/HCQkXV27YDibAYk=;
- b=jIBlJPg68+S19w6K78CKfhTx1Bc6Oh3IhTAOVAUM6UgTTsjhcHe8jaP24ir3SvriymBxZe
- zsAA2PKmgUsjiTFd/EPJVWru5uAVDa1mZrDj8GuTU6rdkP25V8ycfIVsle1YwBV/AxPL2b
- mSt8AyGqulhhZHNlqDvMQ7n9fhy9qEawGiK1a1vdD022ZBGA0Qdq0Q4mvz/OCefihPZGHi
- 7QyFAOyGe5lw+1Cx1D3E8NJb3VkNtQV10eDPkoMjNofBadkljpRS0GBtAC+x0Bffz2NFx1
- Zo5lzG1Gw/Jm3kbc0SSF9w4eGwTzgkyFgXGgjfX7wT0AUAzg9MVMroObPFCB+w==
-Content-Type: text/plain; charset=UTF-8
-To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
-	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>, 
-	=?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>, 
-	"Paul Dino Jones" <paul@spacefreak18.xyz>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH v2] HID: pidff: bound the unit exponent rescaling loop
-Message-Id: <20261102-b4-pidff-rescale-exponent-v2-1-a75bcca65fd0@cherr.cc>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=A3h8FDyu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89ACD1F00A1B;
+	Mon,  2 Nov 2026 15:27:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793633261;
+	bh=701+TK7BupjY3H7pv04Jm3iJ3F83deu5Zm1R1KEPq/4=;
+	h=Subject:To:Cc:From:Date;
+	b=A3h8FDyuBkd9f+GB7RKpZqyKsC8j1OlnJsi37l1y/dQhyoGQ5Jw88U3ZDQXhp7jK5
+	 lQJ2JJYW31wkSc0ixj8a9XmLXHFibjom3qTdnCNdHanQRnVR0SAhe7w5kI0kxk97K4
+	 SZo6C8Bv5z9xmGdV8E3KzHQ/KjIaPmz/F9sAsvHI=
+Subject: FAILED: patch "[PATCH] ksmbd: serialize directory emptiness checks with readdir" failed to apply to 6.18-stable tree
+To: d3bugee@gmail.com,linkinjeon@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Mon, 02 Nov 2026 16:27:39 +0100
+Message-ID: <2026110239-facial-handiness-1e99@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,97 +50,124 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Lms-Return-Path: <lba+26ae8aae0+3d8e8a+vger.kernel.org+me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIANuq6GoC/yXMQQrCMBBG4auUWTvQDLUUryIu2uSPjkgaMq0US u9u1OW3eG8nQ1EYXZqdCt5qOqcKOTXkH2O6gzVUk7TSu1YGnjrOGmLkAvPjC4wtzwlpYRfOvoO 4AX2g2ueCqNvvfb39bev0hF++QzqOD8/8BhF9AAAA
-Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Date: Mon, 02 Nov 2026 23:23:08 +0800
-Received: from [127.0.1.1] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 23:23:12 +0800
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: b4 0.16.0
-X-Change-Id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-pidff_rescale_time() walks the device-provided unit exponent one step
-at a time, allowing extreme values to cause billions of iterations
-while ff->mutex is held. In a UHID test with an INT_MIN exponent,
-EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
 
-Stop rescaling once scaled_time becomes zero, since further
-multiplication or division by 10 cannot change the result. The u32
-value becomes zero within 32 multiplications by 10, and the u16
-input within 5 divisions. This bounds the loops while preserving
-their results for all exponents, including wraparound.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Also warn during initialization if the duration field's unit exponent
-is outside the range -8 to 0. This helps identify unusual device
-descriptors without logging on every effect upload or changing the
-rescaling result.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field units"=
-)
-Reviewed-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 7220980b2423d06a0604516129bfa4cec8a697ae
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110239-facial-handiness-1e99@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 7220980b2423d06a0604516129bfa4cec8a697ae Mon Sep 17 00:00:00 2001
+From: Yongjun Gwon <d3bugee@gmail.com>
+Date: Fri, 23 Oct 2026 02:38:32 +0900
+Subject: [PATCH] ksmbd: serialize directory emptiness checks with readdir
+
+SMB2 QUERY_DIRECTORY holds fp->readdir_lock while it calls iterate_dir()
+on fp->filp. An SMB2 SET_INFO request with FILE_DISPOSITION_INFORMATION
+can resolve the same FileId and call ksmbd_vfs_empty_dir() on the same
+filp without that lock.
+
+iterate_dir()'s inode read lock permits concurrent readers and does not
+serialize per-file iterator state. ext4 stores its dx readdir cursor and
+fname RB tree in file->private_data. Concurrent reset or refill can
+therefore free a fname node while the other worker still traverses it or
+retains its RB-tree link, resulting in use-after-free accesses.
+
+An authenticated SMB client with list and delete rights on a directory in
+a writable KSMBD share backed by ext4 can trigger this when the directory
+takes the dx readdir path. The client overlaps an SMB2 QUERY_DIRECTORY
+request with an SMB2 SET_INFO request carrying FILE_DISPOSITION_INFORMATION
+on one live FileId.
+
+In one x86_64 SMP KASAN multi-shot guest using ksmbd-for-next at
+171df27077fb, the unmodified kernel reported a cross-worker use-after-free
+before a panic. The first report's access and free stacks show the two
+request paths directly (trimmed):
+
+  BUG: KASAN: slab-use-after-free in ext4_htree_store_dirent+0x488/0x550
+  Read of size 8 by task kworker/2:0/29
+  Workqueue: ksmbd-io handle_ksmbd_work
+  Call Trace:
+   ext4_htree_store_dirent+0x488/0x550
+   htree_dirblock_to_tree+0x535/0x990
+   ext4_htree_fill_tree+0x319/0xba0
+   ext4_readdir+0x175a/0x2f40
+   iterate_dir+0x1b6/0x630
+   smb2_query_dir+0x1003/0x1cc0
+
+  Freed by task 279:
+   free_rb_tree_fname+0x67/0xc0
+   ext4_readdir+0x13a9/0x2f40
+   iterate_dir+0x1b6/0x630
+   ksmbd_vfs_empty_dir+0xa2/0x100
+   smb2_set_info+0x2ffa/0x45d0
+
+Take fp->readdir_lock across the entire emptiness check. This places both
+iterators over that handle's filp in the same lock domain while
+preserving the disposition status handling. The exact code change
+completed a warning-free x86_64 KASAN bzImage build. Tracing three request
+pairs showed that the two iterate_dir() calls no longer overlapped and the
+expected statuses were preserved. A further 1,600 reproducer iterations
+completed with expected statuses and no KASAN report, Oops, or panic.
+
+The reproducer and complete guest configuration are available privately
+to maintainers on request.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-v1: https://lore.kernel.org/r/20261029-b4-pidff-rescale-exponent-v1-1-3ba54=
-accf767@cherr.cc
+Assisted-by: LLM
+Signed-off-by: Yongjun Gwon <d3bugee@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-Changes in v2:
-- Following Tomasz's suggestion, warn during initialization when
-  the duration field's unit exponent is outside -8..0.
-- Add Tomasz's Reviewed-by.
----
- drivers/hid/usbhid/hid-pidff.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.=
-c
-index 22951b7ecd17..4540f49fe6e3 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_fiel=
-d *field)
- 	int exponent =3D field->unit_exponent;
-=20
- 	pr_debug("time field exponent: %d\n", exponent);
--	for (; exponent < FF_TIME_EXPONENT; exponent++)
-+	for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
- 		scaled_time *=3D 10;
--	for (; exponent > FF_TIME_EXPONENT; exponent--)
-+	for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
- 		scaled_time /=3D 10;
-=20
- 	pr_debug("time calculated from %d to %d\n", time, scaled_time);
-@@ -1428,11 +1428,19 @@ static int pidff_find_effects(struct pidff_device *=
-pidff,
-  */
- static int pidff_init_fields(struct pidff_device *pidff, struct input_dev =
-*dev)
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index da82d80c222a..f5fe3cf8ba32 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8918,6 +8918,7 @@ static int set_file_disposition_info(struct ksmbd_work *work,
+ 				     struct smb2_file_disposition_info *file_info)
  {
-+	int exp;
-+
- 	if (PIDFF_FIND_FIELDS(set_effect, PID_SET_EFFECT, 1)) {
- 		hid_err(pidff->hid, "unknown set_effect report layout\n");
- 		return -ENODEV;
- 	}
-=20
-+	exp =3D pidff->set_effect[PID_DURATION].field->unit_exponent;
-+	if (exp < -8 || exp > 0)
-+		hid_warn(pidff->hid,
-+			 "duration field has unusual time unit exponent %d\n",
-+			 exp);
-+
- 	PIDFF_FIND_FIELDS(block_load, PID_BLOCK_LOAD, 0);
- 	if (!pidff->block_load[PID_EFFECT_BLOCK_INDEX].value) {
- 		hid_err(pidff->hid, "unknown pid_block_load report layout\n");
+ 	struct inode *inode;
++	int err;
+ 
+ 	if (!(fp->daccess & FILE_DELETE_LE)) {
+ 		pr_err("no right to delete : 0x%x\n", fp->daccess);
+@@ -8932,9 +8933,13 @@ static int set_file_disposition_info(struct ksmbd_work *work,
+ 		if (ksmbd_has_stream_without_delete_share(fp))
+ 			return -ESHARE;
+ 
+-		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp) &&
+-		    ksmbd_vfs_empty_dir(fp) == -ENOTEMPTY)
+-			return -EBUSY;
++		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp)) {
++			mutex_lock(&fp->readdir_lock);
++			err = ksmbd_vfs_empty_dir(fp);
++			mutex_unlock(&fp->readdir_lock);
++			if (err == -ENOTEMPTY)
++				return -EBUSY;
++		}
+ 		smb_break_all_levII_oplock_for_delete(work, fp);
+ 		ksmbd_fd_set_delete_pending(fp);
+ 	} else {
 
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
-
-Best regards,
--- =20
-Shengzhuo Wei <me@cherr.cc>
