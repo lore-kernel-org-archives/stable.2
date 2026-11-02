@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617740;
-	b=IfzlEHB2otUrb+k7o0qvdw7koT6rWQmqUz6+dJWCiPHNLU0WK8I8hYIE/bKPXpkaJunY
-	 DKTkxEo2TnyGU3/V61MoGeoCKiCV9zUbSBaChZmgqiK1movxbjqM2mdFEU70dN1HwW1Xd
-	 UKs+BseU2DcO1xrURbHbwM5FZOmz3r7lShI/xKCB9fSgse3KPeRcfxXd3GwC2u7q+DAAQ
-	 ecxlOdYBbdZDob8rhVgrp0EjkNmLWZHthI2c6MlO9ISBd3fDNYQPwjtZYlgUSMhA5UBGp
-	 m8hHCzJ+iuoCtgdyBdQC/euCK/ccf88N54sziYXfrXOreLUgqikyZJHYPa8WIx1L7Gg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617740;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=kogwx6wOFEx8wkc1OUmn08NcuZSkF+8EZ7OoR4vifO8=;
-	b=i1qlzRzRVEfstDz9GTT2nKMAjEvpYflvif1DFe19Cm3AaniV/uNz2oXMcCNwweSVntQL
-	 9g4k7YbNVhwgCHbmuN6UWYp8l+A9+Jt01fe2pQOWchdYKrjmwIFZap1s5Pz0BWvmn6H6z
-	 rlP2MK5svKIqieX8LOi8Do55uAfXjewtbxRqZ5QTMxsZuj9zwPWKkVrvYGVNhP4bXtk5e
-	 YMp+gTQe4X5+2UV5Psm7qFUHyes4QiDNYa2I2vjRQRPgq6Q7pqovIFhmHSTURAh6BEYSc
-	 9g4BstOYstKmXKTHPBu1e/7X2PscfI48qIzZ9ciGLEgdnxebneFwzFOVPNmhNNZY12w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qt+nxT25;
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793617772;
+	b=PsHYFraA8K3JmC7YItnpm9+AzsBweBOnP82XVY8+N0Xdb3UJFpElpaJXII64Q6aoNWAU
+	 gb4zHAhfh4f0B1nH9jc/r8BD9gbPGrawjteQ82kXaUNc2yhJRidwW2Y457ybpLR/XpzGp
+	 dmz2Xu3jggJ8ANVzEPIjSVnqVpuQEXD80U2+vOhS3bwVofmPCf2eWUQPbHWtCKHIus2Ys
+	 ODrmsjG4XPgw/tYLxxN13yC13zB51C3c42EwnU+34SXBb/MZP8dnpzBuziAZn8a3DIFnH
+	 sr0pKMHlhUqRmONclEoseVZ9uNL+3CF7iZs9sirN8T/KPGls+LD1JmmAbhZ43NPogXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617772;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
+	b=2UlS7Gm8SZXJDm7VrrTlfg8ebiA/HS8obFdxZ5KJgYGzMCNrvOdcBzT4wp0t5V+xzSre
+	 3fJCnMcSYWy5LC6WSaitf7Q4KhutaoLXli9eOBhAi/BrcBAADWmogo6dQ1qDr6GQa2fsG
+	 pyYXj1gAtxRCWpkdBzSSRDkKQP3xPd8TN2Dnc6voCLkh9k/V6oodJp3w2gaflQkXhRjEi
+	 bavcc6T7ERMJF/SB1yYawrBxzWO5eTamg+VciTfWcn8GD1CE/dnjSO61Ab/1iRndwP7Kj
+	 Jug2Hz1D4JerQCm9GFBHOrc5w3kr8ulUkKBRu8dkrpusg5zmOOn1039N15GkwiFFw6A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D5omtltr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.20
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011020.outbound.protection.outlook.com [40.93.194.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21519606A329
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 11:08:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21519606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0020E606A333;
+	Mon,  2 Nov 2026 11:09:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0020E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qt+nxT25
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso4172981a12.2
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 03:08:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793617738; x=1794222538; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kogwx6wOFEx8wkc1OUmn08NcuZSkF+8EZ7OoR4vifO8=;
-        b=Qt+nxT25+VUAwTzK2Y6d+fGiF0wLVF4G5iT0KoZbkMTm8wWqK/cXR7WGG4duUq7GLQ
-         mOuEIfwFM5tjyVyxaMYUH2bRafUMo1DrjeOnIgV/SgJIuLJONqvoYS7mABTuyXKiFS47
-         qv+rKih8XH2HHt5tTdMlVpLQ2PwtQqCf0+iw/WtqpQ5YMtnHCDbVlKTrw2GwybvJ/wfg
-         tRauBMFLsYPpeyUeJno5oTZkYlfghF8oQlGejTMTWDycQTxPLLmqCC1UXlPbPezIV0HU
-         1r9Q+7NkMm581zL47MbiZ5Y9KUBM5clPeREm3nf9vfUP+BPAO6ImMAdK+7tcmXDvvyKl
-         y+vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793617738; x=1794222538;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kogwx6wOFEx8wkc1OUmn08NcuZSkF+8EZ7OoR4vifO8=;
-        b=HMO0GuVOXPM1tRDJCJwAaqaBfVnJ9/+LRQhRdtU2fqvdfTlqEYyLP+yMYz97+CC22u
-         089znWttv7tg85u6tgHbMFAv8pZmbdnwwQelJmUPQk1cYcY2MXwI6qLWYpSO8F+lFmvs
-         fo3SyWYhhVbkiqKAm80werKK5dX9ev99fHk+vo0SqtxylEaTSOe4bnQBlWnVx6A0kdTu
-         lMThdarh5QZ6d/IlO8plDDrzTPn5hIBfYp84DHcuEu8HRPuau7j8E8O+fvxt0hR17Z2h
-         3jpy2eTMPI0xsXynEjoQAoTMcH0tUpBDyVYUhPNc+0RtXdft6WfOYuix2cUvyaol2mGq
-         pC8A==
-X-Forwarded-Encrypted: i=1; AKwUvBzQNrluQOGksZTbSz7dIJqWb5AT1HDerb7KrruZGm74ML9CBa0gArb9dwGzRbkPd0k2Q+n9g28=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FEynIvhXoC8j/DLStpi/7UfbRbdxY0Y8uvQ4v2TQrqfkOery+
-	/Hk1FFY4MWA3Eh5DIo4JIEqX/s9X+Gdof3D8AuvDIDo17Sb3ynPHpTSe
-X-Gm-Gg: AYBFou3sdQ8MIEuLCnTMXg7XTs/HlNErE2CRaZ73GbXbbOL0Sty+sDAgHZwFgHbEe2t
-	ro7E9x6KcUpjKJTLIo0eQDkJHFkaqaLTsv2HLZMKdwwh1A1vtWmamnv/kOFKMGe7KVdPz/LszwD
-	kUHCLpTJqUrwYvlZOV6pb7wUIKSfXiUBjsADB5IpFHK8MJebd2Ai1/YSKmeP/hLvltlSfDeNO1Z
-	tBOTrs7PqszuUBf43L90oybb1NMLusvhwXJdPzwv+2gX3WzSWNbRiQcZIQLuf+LLHmP9twAcWEW
-	OzcKcrWKWY3qP6wJJwwZTNgCV0QVoFwXZ+oSCO7kwMeUvduWvY6UuqIti7OGQT2XMlgOz9I60Sm
-	FxIRa4zhpIMd6MrB0/6HC5O8z6QMp3bNm4gRyk1FFFUgB6ty5aznBhiJO21LiHYBQtrzQxO+bRr
-	zWXa/MEAw//f3xN1+LaGOlqlrw1TQc6p4F0fBys2aAmbQ7hFS7FRs75IpGYCaGOyy7qu8mEUHQE
-	HXZV+5Zw7LY/ll8RQ0TJg3J4wa+cso01MhrvH81MZ5ejehw0v7ynghBXrptLApWWMvWCk5C2AD6
-	AYx1FS8TZ8bqniZkBVdJJNmv99spAtQghxpdoRtnAJd/crsxwI1vyIeGMlBpaXrA21H10BuCD6Y
-	svbdMCU5evZkBxHyPaPo+Qz5PGhimTs8v/PsTbdcSGqt1kqK5niH/wU72eKVnJD2xJpTITaEXLf
-	E/HelOds5peQVcA0CqGg4nUmHVu9VDAoXRT0VUBfskze8X2lx4alD0ppxj2T32xMU=
-X-Received: by 2002:a17:907:7fa5:b0:c40:eb1a:4c8b with SMTP id a640c23a62f3a-c4ca7a6d245mr730198166b.29.1793617738242;
-        Mon, 02 Nov 2026 03:08:58 -0800 (PST)
-Received: from [192.168.100.100] (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe93db0sm364494766b.66.2026.11.02.03.08.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 03:08:57 -0800 (PST)
-Message-ID: <a8fb3606-017b-464e-a09f-1f1ddf3bc45e@gmail.com>
-Date: Mon, 2 Nov 2026 12:08:57 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D5omtltr
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BYYhPtJUv+uso7b5qgoQij7BDxcU7xCCb8vC+Lq4Rk5+aZUy8x/H4iBoqOcgdd9/kAfZ3WPjdnuhbA0AmHUUu/8A+4HRNZLXZOFLIYwDP89ue/aODsRQnJwPO3XDw4gqrbGMnvTWvmiEi93GnE8Om6nY7KnwtvOpkCb9dGp4D19wHmC6cyhyxt9WiGrNUC14qrjqm2ejiO34xpjXDqVszgLHxe1TCRJmPZre5iIPtzk0VV/GLVcF5M7YSAcufXv9J56GwVMhTKRZm67EfonU2eA8pkdh2WSW2h/uOSHeAwgu3WqEjyJK8eHd9SXzv0Xw15fOmLyb9OyrZvzdZ7SE8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
+ b=ctv7suudopkDIdZyFA3mF+CwY9jGY+4NIIQyNB9vz0YZ62355iHkzNJcSL3/KdKuDaxf0s7k5FtKCfCpVK2x+j2pERfa19xPDBj13IYJyBxBHPw7171LvxzpiaLRofF61da2cMYf1CyOS/WKaRxVGFk3cfF+BdEloMWpw5zT+L33AxtJKbFHEnxBVfiMixUHkek9uWYO3crqfvYdzGsz7sCH8j+xpUag0XcMC6BkxhPw4l0vy7PYKoyuGS+IBOSvqaj4vuqykymOxIQPZ00qC34t6gw0WBgMv70MZlfqNAM2vpMph7oWgp85wQ//RgZFWVZz9qriaeRBWdz98No69Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eEksHASZhmi2ifPCrIXC7jHISd0yGjpCfJlRidielrI=;
+ b=D5omtltrsTJJTMKAfI1g9+f68zecFcHHAQUKu/1iwVvvNsmfiI5CausIxOqgws78jkCNJ9u9muMAIkZMT3RCPR8aK5w9euknb7TvztnxCmpLkWJ5+ea7qCwEkbQhnDjXuDjblu5EiyVBcKqNVlMQQXXo+tY2x8MZimEbtrZD1BM=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB8114.namprd12.prod.outlook.com (2603:10b6:a03:4e8::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 2 Nov
+ 2026 11:09:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 11:09:28 +0000
+Message-ID: <a10ab532-1e9e-4a85-a79e-b712868889c8@amd.com>
+Date: Mon, 2 Nov 2026 12:09:23 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: system_heap: Reject private mappings in
+ system_heap_mmap()
+To: "T.J. Mercier" <tjmercier@google.com>,
+ Chris Wiseman <chriswiseman@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: John Stultz <jstultz@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, Philipp Stanner <phasta@kernel.org>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+ <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0174.namprd13.prod.outlook.com
+ (2603:10b6:208:2bd::29) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,102 +104,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] blk-mq: fix out-of-bounds read in blk_mq_free_rqs
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org
-Cc: Nilay Shroff <nilay@linux.ibm.com>, Hannes Reinecke <hare@suse.de>,
- Ming Lei <ming.lei@redhat.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, syzkaller-bugs@googlegroups.com,
- syzbot@lists.linux.dev, syzbot+e90526cab23b9efcd03c@syzkaller.appspotmail.com
-References: <20261014170538.1089448-1-krystianmkaniewski@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20261014170538.1089448-1-krystianmkaniewski@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB8114:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9d1ccca-abca-40b9-ecc3-08df38d1c33e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|261026140227099003|18002099003|22082099003|10067099003|261028144727099003|4143699003|11063799006|261022105027099003|261021121427099003|56012099006|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	nQ5gj8CMbyqcuFZsPeA7BJpFlDQQWKwCMyXyjfossXXldHWUwNYYPoBww90TnwiVvoJ4ZNB0jE3vuVZwOjCHpdB7QiMhWD2/LPSWwd4Na5sK7PkPHFXBVaLQqB56KEbkwUesz1GjfIdlSHoKQgwaOf9saRym0qCkxQQYMltlMzdX2Hnu03mlpf7pww2h3lmX1zZnFKtl3mUfzvOz5NaxbfW6whfpyae5xRx08paBTtrJwKKoVihuqB9acqzsz+r9JZoVXpY35OumDS8rdaUOT5rw5ymWElH8NroXHqOYXOn0j53IryfS8NRuDfyMSlI3Jj7fflYf1C+ZhPopJY6dYtL7QPa2yOmsAobN4DEqeLHBXNyHaYSf/zR1W/U7lcsgUWOv5tDkCECRWnrwEcrTKKYHt9wXGRegNEJVAsiS+0q2yjVRQI0cP6olmMaPxeuIVVdTnO5wlEimdgGLDz1mvtv7GECc7xod4LH3/n8CISulH7J3bTwC8daDSq1oMOJFQD+SqMBZEF5lQr54v9SglrpYrYJUqbZNC6nTOI2hAcb9QL2mUNXrolGFu1Cl8SoUSPzxc1efdBL6jCeNxgzVoSF8eKqgXFRVReZ4EZwlpFwCFmXsWbismvfQXHSMY2OQ+c9QiR4Goi2RRiAe2xylYkgD5xUJ+IKIsA8pFWnLnvo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(261026140227099003)(18002099003)(22082099003)(10067099003)(261028144727099003)(4143699003)(11063799006)(261022105027099003)(261021121427099003)(56012099006)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UjZ3V0xvOWw0YTZwYnZzOVNZRzRieXlWM1VaMWh0eDZtVEpzOWRvcks2akVU?=
+ =?utf-8?B?UnlZVVd4MThXVHBPRnhvNzA4RldEV21tbHBqTFB6NkJPRXYyVDJENzhtTkhG?=
+ =?utf-8?B?Qjd5NEZybmVWNkNMbXZZNmJIT3ZZVjRTYktaRk9ub3RkN0t0S0dCYmY0RVA5?=
+ =?utf-8?B?KzJ3Z05rTU5HNEVBZFdkS2NsdXU1ak9NZ2ZSeEkxOWY3WHQ2MFVEcUlWYlYr?=
+ =?utf-8?B?alkzdFpyUGZoVTFDbVNOS3NXb000U1hFVHJ2V1AxeDdoa0U4bFAyOUZRbHVC?=
+ =?utf-8?B?R2ZXZGhTQ0RDVlBtY2NYNEduVW9xYjZwWXZycGtxTis2ZzFheVJSNVd5K1F0?=
+ =?utf-8?B?dXM1UWppelpYME9FQnF1WTA4MTlhd0dtSDlZUTY3S0pvZXNPNXh0UEY3N1dP?=
+ =?utf-8?B?dlZJQXBBUWc2Y2lya2ZMYWVtbFhQelk2blZwYTJ2VkJUc0tITFN6elRjSlg0?=
+ =?utf-8?B?NHN0UnllRTJYNmZCelljMTgxNThwRnQrUlpvUlUyTVVUK2VELzRLOStpRFFL?=
+ =?utf-8?B?Z0NvQVJYZ2pQNG8rYnhOcUJ3c0VJR2RRRmFGMTBJcksrYTYvVGQvT3FkUGUy?=
+ =?utf-8?B?a0JsMmE4MWt6MW0xUjlNVWg5OENBTjREY2N0Ykd1N3doSENLUWZTdU1KeHV1?=
+ =?utf-8?B?K21BWVF0QnJIMVUxWjltWnJ3UVdYbDZNbzQ5aklmbHI4dVUwbDN5WU43eEdn?=
+ =?utf-8?B?VmVLOXk3ME5mQ2RXbTJUNlVPazEwRVM5bW4vTGEvSjhYeVpEWFNBcXlLT3BV?=
+ =?utf-8?B?WnBKWm9pbkw2ZStKcHJWZlF3Wk5lNDg5MWpoazhqdHVxQ3lLcXZFN2tVaC9R?=
+ =?utf-8?B?NnptRUZXTGNkdFVWOEwrV0RtbXRqbnBYVDhXLzJtRlpWNWVYc1pKRVYxUXVj?=
+ =?utf-8?B?UTBzdkJOckFvS1pQNENwWWtGc1RTYXh3QU8vblFsWFY3eGRRYXluSmV6WWdh?=
+ =?utf-8?B?aUZhZUpodnE0MnJ3d2F2UDlzYXNYaWd1eEtlQ3QvL1FqV3VxS3k5QVd6MWd2?=
+ =?utf-8?B?ZS9jeUNkMHZIa3BRdEFieHE4elhESW9ZNm9ZWVFCSGxGelJwelY4WExMdjlq?=
+ =?utf-8?B?OC9zejk0R1hLRXFNRmNsT3JRWSttZFJtOWVtT0VzREw1OS9RaU5BM25Bd2do?=
+ =?utf-8?B?ck1JVEhUL3d1aitQUjU1T05RTXkvaVFaSjhzR2pNanhxZDhRamhLOE9NbmxC?=
+ =?utf-8?B?b3NCVks4Z2haTjhMbDQ5TG4rbWJUQmpWTUhOdmttckI1MDRUbTNQTUhVV1Y3?=
+ =?utf-8?B?WTV4WGJ0bjVqanhpbEZXdTZHS1ByT1Fnc0c2Qk1ZOWYzM2p2Njhwem5qbFRP?=
+ =?utf-8?B?blNUQjh6TjAzOUNWOG5BaTU1TDNYU2dGOGxYTmVIbDRlMEt5M0x4S3RFTEc2?=
+ =?utf-8?B?eU1TeEI0ODliN0g0eW4ydmdub0lIYkZrMkROZ2ZNYXZFcWw0azBNc2FHWWlS?=
+ =?utf-8?B?ckxxSlo0MnZaa05qdWVaZHk1MEM3YjJDcm1sMldUUHZlZjA1K2tlNlBWN0Q2?=
+ =?utf-8?B?QkJiSHA4VkVrWms5VzlOR0Q0QklZNk4zYnArK09oalBNNGxXVGRrNjIyZ1dx?=
+ =?utf-8?B?L0hUbHpWaTJyK3IwTmw0dlExQzliVytVbXdEalJ6UDJFbkdWMXBsS1M2aTlP?=
+ =?utf-8?B?NFJIYXhQR0EvMUxGKzB3WkFMRlkyakdndTdTdTdZdXNJQ2hjSk5KMC90QWtK?=
+ =?utf-8?B?TlJRWTdWUSt0ZnZmZjlhYmorS3hFbHBCKzdhMmsvTVRxQ3B4TEYvd2dHb3pE?=
+ =?utf-8?B?b2Q4c0hQRkJ0NHdXVVJtck5SK1NGY1QySHdVYnRYYVI2enFlU3hnWTRIazVh?=
+ =?utf-8?B?SFV2b1p5WGZCSC9DQTEydDJncDRjWkFDcGhmWlNXVVBTS0hSdk1ta28vdita?=
+ =?utf-8?B?dEtpY3hGdTNWYnI3c0VEQVZQMTdJYTN4MVBBODlLWmVFcE80QUJlblpZc01D?=
+ =?utf-8?B?UW1kM05XR1BTRVArVzVjSXVvanMvanhPRWk3MTB1ZjEzejVxcHlqMWQ1a2Ft?=
+ =?utf-8?B?Ny80SDYxQm5vam9PWEZIeXlQV3NvUlFBaFFmNWRnb2tQTFIxTTQrWVZPejZV?=
+ =?utf-8?B?SWt4YjhXa2tkbUYzUTFTY0lDZWlSMkZ0RFd0NmRIZjhOQXlLZHNwVjJySUtT?=
+ =?utf-8?B?UGovQmRGbkFBamFMQkFHWHd0TC9jVkJwUXFIU3hyS1RPLzdjMmx5UStjb042?=
+ =?utf-8?B?K3Q2SXdOZ0d5NWt3K05rUkJkSG5wUnBzcWFEc1c3S2pQSWZ2c1lnNzRCd0Jp?=
+ =?utf-8?B?aVgzT1pzR21ZbFFsWDhOQnN3Rm0zUWZzUzl3TStXS0dnT3pqVWtiK2d4L3h5?=
+ =?utf-8?Q?uXQadAi9pK4ahCKmko?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9d1ccca-abca-40b9-ecc3-08df38d1c33e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 11:09:28.6895
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Oi0Bze0c6AmLcopswZfABFM0+jGj/Hjpg1dKglO/kfihHyYVaDKWh+vhsODL5aOr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8114
 
-On 10/14/26 19:05, Krystian Kaniewski wrote:
-> A KASAN slab-out-of-bounds read can occur in blk_mq_free_rqs() when there
-> is a mismatch between the number of hardware queues allocated for the IO
-> scheduler (et->nr_hw_queues) and the number of hardware queues in the block
-> tag set (set->nr_hw_queues).
+On 10/31/26 02:44, T.J. Mercier wrote:
+> On Fri, Oct 30, 2026 at 1:44 PM Chris Wiseman <chriswiseman@google.com> wrote:
+>>
+>> When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
+>> use sgtables instead of pagelists") stopped using heap_helpers.c and
+>> added a custom system_heap_mmap(), the check rejecting private mappings
+>> was dropped.
+>>
+>> Other exporters and buffer allocators reject private or copy-on-write
+>> mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
+>> check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
+>> and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
+>>
+>> However, system_heap_mmap() omits this check and calls remap_pfn_range()
+>> even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
+>> subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
+>> fault into do_wp_page() -> wp_page_copy(), silently allocating private
+>> anonymous copy-on-write pages whose writes never reach the underlying
+>> system heap buffer pages.
+>>
+>> Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
+>> cma_heap_mmap() and mmap_udmabuf().
+>>
+>> Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use sgtables instead of pagelists")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 > 
-> This mismatch can happen if blk_mq_update_nr_hw_queues() fails halfway
-> through (e.g., due to memory pressure during
-> blk_mq_prealloc_tag_set_tags()). In this error path, the elevator is
-> restored with a larger number of hardware queues than the block tag set
-> actually has.
+> Reviewed-by: T.J. Mercier <tjmercier@google.com>
 > 
-> When the elevator is later freed, blk_mq_free_sched_tags() iterates up to
-> the new et->nr_hw_queues and calls blk_mq_free_rqs(). In blk_mq_free_rqs(),
-> it attempts to access set->tags[hctx_idx] to get the driver tags. Because
-> set->nr_hw_queues was not updated due to the earlier failure, set->tags
-> still has the old (smaller) size, leading to an out-of-bounds read.
-> 
-> BUG: KASAN: slab-out-of-bounds in blk_mq_free_rqs+0xde/0x680
-> Read of size 8 at addr ffff88818d67fc28 by task syz-executor117/5839
-> Call Trace:
->  blk_mq_free_rqs+0xde/0x680
->  blk_mq_free_map_and_rqs+0x40/0xf0
->  blk_mq_free_sched_tags
->  blk_mq_free_sched_res+0xeb/0x280
->  elevator_change_done+0x1d2/0x5c0
->  elevator_change+0x34f/0x480
->  elv_iosched_store+0x504/0x630
->  queue_attr_store+0x207/0x2b0
-> 
-> To fix this, explicitly check if hctx_idx < set->nr_hw_queues before
-> accessing set->tags[hctx_idx]. If hctx_idx >= set->nr_hw_queues, the
-> hardware queue doesn't exist in the tag set, meaning there are no driver
-> tags to clear mappings from. In this case, safely set drv_tags to NULL. The
-> subsequent call to blk_mq_clear_rq_mapping() already handles a NULL
-> drv_tags pointer and will safely return.
-> 
-> Fixes: 04225d13aef1 ("block: fix potential deadlock while running nr_hw_queue update")
-> Assisted-by: Gemini:gemini-3.5-flash Gemini:gemini-3.1-pro-preview syzbot
-> Reported-by: syzbot+e90526cab23b9efcd03c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e90526cab23b9efcd03c
-> Link: https://syzkaller.appspot.com/ai_job?id=827b5760-86a0-4f44-9c69-430b572eac12
-> Reviewed-by: Nilay Shorff <nilay@linux.ibm.com>
-> Cc: stable@vger.kernel.org # 6.17+
-> Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-> ---
-> Changes since v1:
-> - Drop the additional blk_mq_alloc_rqs() claim, as that path is bounded by
->   set->nr_hw_queues.
-> - Add Nilay's Reviewed-by tag.
-> - Rebase onto current mainline and refresh the recipient list.
-> 
-> v1: https://lore.kernel.org/all/c92b0c7e-17fb-44c8-99d9-59d45004d05a@mail.kernel.org/
-> 
->  block/blk-mq.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index 025a799f35b92..259a5705efb79 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -3484,8 +3484,10 @@ void blk_mq_free_rqs(struct blk_mq_tag_set *set, struct blk_mq_tags *tags,
->  
->  	if (blk_mq_is_shared_tags(set->flags))
->  		drv_tags = set->shared_tags;
-> -	else
-> +	else if (hctx_idx < set->nr_hw_queues)
->  		drv_tags = set->tags[hctx_idx];
-> +	else
-> +		drv_tags = NULL;
->  
->  	if (tags->static_rqs && set->ops->exit_request) {
->  		int i;
-> 
-> base-commit: 0fcb05b72344f40806cbe810de8872f1698bf053
-Hi Jens,
+> I wonder if we should have this in dma_buf_mmap_internal() though. Any
+> thoughts Sumit or Christian?
 
-A gentle ping on this fix. The patch has Nilay's Reviewed-by, and
-syzbot CI tested v2 without finding any issues.
+I do remember that this was once already discussed with Simona and a couple of others, but I don't remember what the outcome was.
 
-Please let me know if any changes are needed.
+On the other hand I can't think of a reason why anybody would want a private mapping with DMA-buf copy on write clearly won't work. Maybe for backward compatibility with broken userspace, not for a real use case.
 
-Thanks,
--- 
-Krystian Kaniewski
+I would say let's push this patch to drm-misc-fixes and apply another patch to drm-misc-next to enforce this for all DMA-bufs and see if anybody complains that this breaks userspace.
+
+Should I push it to drm-misc-fixes or want somebody else take that?
+
+Regards,
+Christian.
