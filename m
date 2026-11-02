@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634829;
-	b=UGqG84vGK6GvBUj+RCqBfEQwBJC1ilqb4aJ3h4RGjzXWp49/XIBeF3/kTLD/ad77nekP
-	 df74Gnt9pgDylpaQH5e0MNnavX97tc7JR6OxvDSd48P0lywMCwrK/stZBLrFgSGSiLzNv
-	 XPPYav3RGC2c8RXTbaOywG2kOdnbDbQxIMZ9QfJgGXlNm2J+Ex6Lxs/WoMyzTtWVDelIa
-	 5pd+g4v4jdmwol0kFMZYyPEX9t44SZ2aucYcy6s/XXNIAL/KKEeOXSa5GcJL7INNZMHww
-	 6SIkjahZRro6nQ5BMpB2x99y2xDJyx9k2iJbgPBpbD88mWx98vBB1uOtYNe4IOymEoQ==
+	t=1793634836;
+	b=UcFtIANbcq/jNjTdMLLcImixTIHkeckh6JfZjIkivRphWS+4kUQ/Nz81kwxuliYwEXzT
+	 g+zVPwAc9Trf/aO42bV4MTn0p0jYX1KRKnk07Dg5LKX2dbyLvZRNmnP9YWdEoXQivsMSg
+	 r6VKKSUnhaRo6g+we39egL/hL4ooo0a7y6u6JnqqlQgu3lwh+fiDDd8yDA7AJe8yGdRIX
+	 wP8ed1CBRO+m7PX29Q+Nv1lSXOFX0raqk1EuUisIzZGL7293u9VfRxewJqE1p/Keueomw
+	 wzDfwNeMhoF7lCJsOUGl9Y1gckf/kK2k23QALZg88P2OCAE4q6zGkNuDe7kg4hY51Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634829;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YUOMvaywSnfPxZ52C8XL24limR9Py8D4CfmjHsLDiqQ=;
-	b=uYB8GLHtwnkulmmSpjAHP8sFU3NDFyLhbuiwIeOMI/Lmq1cPZxb/2W7REjiQIpNvsjMd
-	 kEw1WEvUwqSsRlrRVtspmrMPNdoQEqf2+Dyk1OT7u21hFguRtURfPCvOl16CJDcdyAEY+
-	 zYpdWXUykpdIAaqvUuCqd5k0eRkIecOJua02T2m3Ucangd89fksHBU3GEf91T5sd86GZi
-	 LpSaO9TbkCTndgHZo26yFCsu+RLBvmAYgJ4K9nWp8h/cbfHC7qiGKNp+lvN6uZpp8Zv1x
-	 1a8WMlw+So5RrsJQMx+2sqpovtBWWcMTcIujFC1DZ3khxr/nRKK0GDKqMphJ5DBmeDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634836;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=772ZW7xwS5Lb6OoXbHUKU95CKNMFhT7w/NVTOJdJ/Iw=;
+	b=UitXCEU4IVoAtoTqtslCSZJlfELyUuZlFuQflLq9hDYzx7d60ST7eDV9Mxs6q4cenIz9
+	 qe69QTCm2dSiiTgqWlhbfY1PF6PerHCvAIdtuLuNsOigZYNQGyQ/r5dDh1t7WA3c7bAB9
+	 k/lOZuG/Xsee0PLSftsuEz6YkZjPQVJsptC1y63N+GRce63GnN7SblXi4DnJ+2HJjDEHU
+	 KZQ06yWy9Q13+CESh+WjydInZVbaeoZt5C0sXMZ/XCW6KWIGzdRB8+Jq4D0w8UJLG1yMq
+	 oltzZItACOOjX1t+7I7NOarzgH1+C0U9dYLQ1nbqC53pHykTisHRUVmnSQJNzXdRnCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TMMEAWi8;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kWw/Ia+Q";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5654C60B4254
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:53:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5654C60B4254
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C931A607B44E
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:53:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TMMEAWi8
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so32614605e9.2
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:53:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793634828; x=1794239628; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YUOMvaywSnfPxZ52C8XL24limR9Py8D4CfmjHsLDiqQ=;
-        b=TMMEAWi8OpwvmknuaspJNf3sj1bU7MxlY242AWQesYlBZ/usL9Bywm5GHfkWtMROp5
-         ipLMX38R/AKcGuj0K2WC4C16+/gQ1c+Z+MfJMmMoDP6lwF83DKvqMZj8oGVukOHXAb9T
-         LkKj8P89txbMlyStiITy99kS2mDCIPnMsQpmvVmMbRMrObp5iYbiqXiSk4ynU9cnbQ7W
-         mliwaabz80QqnFNlleAzFQiU5h0QgFTVucVWFHh7DMhecGwrj37bSeXcV+S8oJ9Y8h2E
-         lLdrW/bvnvS6QskO7aL1mGOC31H3S+szj6rcqAnu/SR4MdWddbADxqgne0SGVmpKV+sw
-         vfPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793634828; x=1794239628;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YUOMvaywSnfPxZ52C8XL24limR9Py8D4CfmjHsLDiqQ=;
-        b=INoQq63h3QLeILFySq7PKvmK6a0IZ5UJ7RXBYhD6FS8D1nctQEsQEleROSm0gl3OZf
-         N1iDXvj68QczsbCnoARoIj4TalDRzHE8TpQ010vHKsoCP+qRAZ1B6i3PqmuEDlu2P2YB
-         XnXlF132kK8ONz74nbgisH8Be4EQBVPIMMprJgq0rpxSQ2PMudMa60hplDMHI4Rmj6L6
-         2HXCpuadXhi26akXJnNmzBKdPH6XTlZKofy2JHSrHPV44TiDm+lu5IIrRXXuk6WlvZA5
-         cNnDTVcZY0Y5Bp6O5DbeKTSLwykQ+4jkcVb7mshhYCxOtFnqOaGEP9Poex+6fBil1BIn
-         T2ZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxy0RAIqos/u2cd6Vouf1eRWb8VN468SbjC3wQwrmlJODEf55oFWPpnYXSzSipR6zszpVnKAC8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyI1TKdx3wbj5X/c038H4oDY4ww63jmJlidWX9/VeGPEhrHAXZ
-	GTP29vdWOUFdW6AC8eMZg1T5PdESBwHV7t5CncjXVLWYCSLgetFLeXQ=
-X-Gm-Gg: AYBFou2+/6rensT8CQShIaDhILTTpzEpnA1ib/smYVgPQ9aX1yjPfs0pB/bgrq6Siz7
-	UrA3p4YoNzTxbkDVhfjOUF4nH56JHixl4v/np+YBSpGhqRmy/fUDVq+lkuYrPsIn24jBDoLMhfN
-	9KLnpdw8K1aMAPncX5mQAShSveXo0tb/IO64vcczkePhzLI2CL+1/5cvryzVg8EcAe7BAxlZaR9
-	LHsL/9NfBXF+HW1bDkDClEq6EX9Y6w5cGoxmhqG7ZBiY75wt57TfcN0SfyDNkguePqytslQ+SFi
-	7Jc1FhH5QPPn6pt486R6NoAdDOwfd23wC95wSsYJ//fay9DWJtIFzP5bJ+KUrOwWCEX0G3v7Kgs
-	S21gucSjEFUj3W5JJe7k7O2Zzb80KVYkeEVlgVq+ZD6ikIgZp3OHv5bIv6APRlBP6zjaUdfthoR
-	BGWHbnB43HCZzN/sFT7xjEU5WXa2sHEMtDwE3uLsUIjSQd/hcwVS9hCfOWl6w5n/BnRPdZTuxb+
-	PZcZTDj43JboNqrRbaMj3B4JmF4Ri3IbsUYmxY8IDZjF2VyYaMUy02ZFvZKcCwFADFh0bxJ7ddb
-	cTb473WzP/c=
-X-Received: by 2002:a05:600c:19d2:b0:4a6:4d6b:a840 with SMTP id 5b1f17b1804b1-4ac1932a12fmr235060725e9.31.1793634827520;
-        Mon, 02 Nov 2026 07:53:47 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm234689275e9.4.2026.11.02.07.53.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:53:46 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: robin@protonic.nl,
-	o.rempel@pengutronix.de,
-	socketcan@hartkopp.net,
-	mkl@pengutronix.de
-Cc: kernel@pengutronix.de,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH net] can: j1939: fix skb refcount underflow in session teardown paths
-Date: Mon,  2 Nov 2026 15:53:45 +0000
-Message-ID: <20261102155345.1267524-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWw/Ia+Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70A31F00A24
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:53:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793634835;
+	bh=772ZW7xwS5Lb6OoXbHUKU95CKNMFhT7w/NVTOJdJ/Iw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kWw/Ia+QjBzhXnj5i8zWqJ7FJZCWcXqxeK6lp99YwbsXoRBZdVxV7Lm4RD9rVDjzI
+	 YjDIEsgSi/dTSk7E18MHQk+ZXh8i6K59ZfzW8dNCSv8lVh0pqGPuWu1QsN6THQGdY/
+	 FmM/xkCazevo7gxf4zKL1npDrSnNfypDsUytbOZt0ikdOHJJrVw0K6qdDdjJkt3i1y
+	 9DEoIQo7Zg+FZdKHs22Tbmv+0MSWNGnzVFnXNyEF+wHOpAmo5rS3i38Zfj+E5ZZ0ME
+	 EyTiRoTtAItHBuqrc4/FYw8hBLpkAPstO+gE8Ywe+n5XCmNLfTOzXv7m5FPe45+aF7
+	 obbnVv88a8muQ==
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6fe4372c5f3so2174213eaf.3
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:53:55 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxk4pGxxnsILAPjJqadwrfb0iXN8xVwDdnkC9z8dKrTkA0ryfY6oLzDTmLyKuGR35mHA9NCtUg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJT6N1l8dyZ2Edk2N2BAKJayOZwrgT115uXyb7DR/OIQAoZA5xV
+	j5HTLDSRNSqj9qUQrGNoBxJXiVyujAEdPH3dofWLAYnnY3QOzwgLybgUA0QbV62ex1GZpVO4VeM
+	Tz2gspUpNZey+bmoAPNY4hyHUTc0VNTE=
+X-Received: by 2002:a05:6820:f033:b0:712:c751:22e4 with SMTP id
+ 006d021491bc7-714f29918demr6803097eaf.35.1793634834935; Mon, 02 Nov 2026
+ 07:53:54 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,54 +59,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030081225.2575462-1-edumazet@kernel.org> <24feda7d-ae49-45af-9596-2cc5f149f28e@redhat.com>
+In-Reply-To: <24feda7d-ae49-45af-9596-2cc5f149f28e@redhat.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Mon, 2 Nov 2026 16:53:44 +0100
+X-Gmail-Original-Message-ID: <CAL4Wiio-LDx1Z4uWwmUmTP-Xs+Gt=gaM_9T054ZSdY=t3afQJw@mail.gmail.com>
+X-Gm-Features: AclHuK_-XE5Vpi_c17l84qWtsRUvWrKeAkHo-16LCcc1h6-7Xgfi8MPFo7166qQ
+Message-ID: <CAL4Wiio-LDx1Z4uWwmUmTP-Xs+Gt=gaM_9T054ZSdY=t3afQJw@mail.gmail.com>
+Subject: Re: [PATCH v2 net] inet: frags: limit the truesize of a reassembly queue
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+	netdev@vger.kernel.org, stable@vger.kernel.org, 
+	Kyle Zeng <kylebot@openai.com>, Florian Westphal <fw@strlen.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-j1939_session_destroy() and j1939_session_skb_drop_old() both call
-skb_unref() followed by kfree_skb() on session-queued skbs. Since
-kfree_skb() already handles the refcount decrement internally via
-skb_unref(), the preceding explicit skb_unref() causes a double
-decrement, triggering a refcount underflow warning on every session
-teardown.
+Le lun. 2 nov. 2026 =C3=A0 16:04, Paolo Abeni <pabeni@redhat.com> a =C3=A9c=
+rit :
+>
+> On 10/30/26 09:12, Eric Dumazet wrote:
+> > The truesize of fragments in a reassembly queue is only bounded by
+> > the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+> >
+> > inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+> > If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+> > adjustment of the socket owning the reassembled skb can cancel its own
+> > reference, leading to a use-after-free of this socket.
+> >
+> > This can be triggered from an unprivileged user/network namespace,
+> > raising ipfrag_high_thresh and using padded TUN packets, which keep
+> > a large truesize after being trimmed by ip_rcv_core().
+>
+> Clasiko infers a similar scenario is still reachable using multiple
+> concurrent frag queues:
+>
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030081225.257546=
+2-1-edumazet@kernel.org
+>
+> I'm unsure if that should be dealt with separately?!?
 
-The extra skb_get() reference taken in j1939_session_skb_queue() needs
-exactly one corresponding release. kfree_skb() provides that single
-release by decrementing the refcount and freeing the skb when it reaches
-zero. Remove the redundant skb_unref() calls in both teardown paths.
+Sashiko is right that this is still reachable, but it's a pre-existing
+issue and the consequence differs:
+the charge per reassembly is now positive and below INT_MAX/2, so
+__refcount_add() saturates (WARN + leaked socket)
+instead of wrapping, and the UAF is gone.
 
-Fixes: 8c21c54a53ab ("can: j1939: j1939_session_destroy(): fix memory leak of skbs")
-Fixes: 2030043e616c ("can: j1939: fix Use-after-Free, hold skb ref while in use")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- net/can/j1939/transport.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+I'd like to keep v2 as the minimal stable fix and send a separate
+patch bounding the sk_wmem_alloc
+charge in inet_frag_reasm_prepare() against the socket's sndbuf.
 
-diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
-index 8fcfd13e5e6f8..3173936bd6f6e 100644
---- a/net/can/j1939/transport.c
-+++ b/net/can/j1939/transport.c
-@@ -277,11 +277,8 @@ static void j1939_session_destroy(struct j1939_session *session)
- 	WARN_ON_ONCE(!list_empty(&session->sk_session_queue_entry));
- 	WARN_ON_ONCE(!list_empty(&session->active_session_list_entry));
- 
--	while ((skb = skb_dequeue(&session->skb_queue)) != NULL) {
--		/* drop ref taken in j1939_session_skb_queue() */
--		skb_unref(skb);
-+	while ((skb = skb_dequeue(&session->skb_queue)) != NULL)
- 		kfree_skb(skb);
--	}
- 	__j1939_session_drop(session);
- 	netdev_put(session->priv->ndev, &session->priv_dev_tracker);
- 	j1939_priv_put(session->priv);
-@@ -342,8 +339,6 @@ static void j1939_session_skb_drop_old(struct j1939_session *session)
- 
- 	if ((do_skcb->offset + do_skb->len) < offset_start) {
- 		__skb_unlink(do_skb, &session->skb_queue);
--		/* drop ref taken in j1939_session_skb_queue() */
--		skb_unref(do_skb);
- 		spin_unlock_irqrestore(&session->skb_queue.lock, flags);
- 
- 		kfree_skb(do_skb);
--- 
-2.47.3
-
+Thanks.
