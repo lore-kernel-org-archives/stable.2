@@ -1,47 +1,43 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633321;
-	b=tN4NIfyLMdQYuU5Vg+szqEpvEHe0mtTe6k64VNtvcmwLiAsoM02AS9lTXldeXgBmUNBd
-	 LDnhCNHgCWCvYnKDs69kTAxgvj5Z+NRga3x14YH0T0u/5Rc/ognbEGU3wVHJxJOoGphPt
-	 EXjAqVJ7FWfdyVP/MzZ7zQeXAo4JWwSF0kvZ6XTDS73lB6TfwoFlHg3o/UCyONzrFhqlm
-	 VtUV7Y/C9NcWV8VgK1tlsLBUFiLmj29UzF2IQ0CcoiX+C6Q+mX8zTx0r4qNgHrbc6OwIz
-	 l0BSSKQzAvhJuNDxqs5QzT0rcMA75o4TWe9WW+kKLJp//86bgKBEOnyvcH8i/c60+Bw==
+	t=1793633364;
+	b=wY0/zJ01wlqy5qmDAMPYKHgeKnUUmmafYub6Rf/2k1meTOvtnm2jSbzvyO0ejXxKeA2s
+	 hs/s++ufq8Tgaedkk+osVg/ijHLpAtzdxIBiqol7mPgLIWgcePumN6RzaTfIHL+W9EhMN
+	 GcTtRUG0U3C1+np31orLDpkGB/gxtq5aE0sSQrGB2e86xD7q4ieA7wXp4Ho8tXJk3/FCq
+	 IiQkkVZHGxj+c0wqE8xdX+ZSANjgrJ1Zd317al8DordE7MHo0oFI5IvRBUHGSo/PxSFKe
+	 5qCcfxux8YGsyIVq/vf31DrQal3HEs6qAnUJDtXnQmeKAAOCpxNMAin7+6CfsWUHZLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633321;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ahbgjpbhm4zvSCQqbD6ExmvLoW8qVmDSPy7wH51wCCo=;
-	b=oYRneA/ERXPX40jH0aFFvLVImXjy7fHynlmkZofHTlJRhM5mpr0oEiBDZoorQA3MDqw/
-	 a8xvI8on9tJoJK3z86GumI2xbibHOuNNKePxMUm7XTcYofgNbWa6xddsLTasHWp/IInZF
-	 VWng215mOiURRiO5H7KWNl20Cek/yfBprfbDxKGC0d9zZkSgFEZE9R7MZCkF2kQUrGtpc
-	 S2+bh+VynvXDb1qnrD/MQ+AWKzdjqVmZS5k/zi+UUPMltjMcksGhEfOil51GQWMQ+Lz8+
-	 AWwHBNNxRbDkS61EgDd/3bq5CyHWqQcbPcOFYRlZeWHj+s+yjgxHEx2mosUty7tWE+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633364;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=bnCyI5uGFtn9RHe75cGgPIK8StUpPFt5c7ZKI1cHgPk=;
+	b=Hy1bi90AR8YSHobKlnFgAVvoGGnmTMDxKEJ3N1XWahmRoIPBqHHQPjls5iX7Foaw1Ic3
+	 ZiI9r1MjL7Z1lFgbSkcon2HeFp4AQOUIQuWbTKWdt5FbZwZ1juQhqKmVyBVuMxhDSQNUe
+	 j5qVhbx9PeTGXvtFFuDFtdNIkGt6v4mV2E/FyXIi70Wvhnt3/pCyGnMPfIyV80WZuJCPf
+	 FTzDbr7X01/jU9FkzDKLJe4pWfB0WuSLPJ3nIDxL/MhIHqoe4TtZhcpzgMG3BChmOSc5b
+	 VJRgfYT27ZzcHh/gCvqQT1ixQNWCXQrW9ZSzk8kjiEzD5SHmiCp6wutMRic4xFJ9KKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YGNZiZlI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADC960716C1
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YGNZiZlI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614A91F00A20;
-	Mon,  2 Nov 2026 15:28:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793633320;
-	bh=ahbgjpbhm4zvSCQqbD6ExmvLoW8qVmDSPy7wH51wCCo=;
-	h=Subject:To:Cc:From:Date;
-	b=YGNZiZlITwMjLDpVYvncx8wrvOp535m+gatFQIThEJMYUK0OXB4/+3fxyvrNyJ74C
-	 KHt8WOuLvXhMSeUKvabP8KK7QHT0x1FvfdSLheGZAkV215KR6Eu3Zs4MoZyiQsSEqK
-	 3o+yN7CdWTOZVyDunU7T9+a15Ve/DRZQ+9lRRxAw=
-Subject: FAILED: patch "[PATCH] media: usbtv: fix null-pointer dereference on disconnect" failed to apply to 5.10-stable tree
-To: nogikh@google.com,hverkuil+cisco@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Nov 2026 16:28:32 +0100
-Message-ID: <2026110231-enroll-brewery-d028@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAC29606AB8B;
+	Mon,  2 Nov 2026 15:29:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502EF1F00A16;
+	Mon,  2 Nov 2026 15:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793633363;
+	bh=bnCyI5uGFtn9RHe75cGgPIK8StUpPFt5c7ZKI1cHgPk=;
+	h=Date:To:From:Subject;
+	b=D81NOHqrDVGMSE0LVhQvFoY4UTCqN0h2r+X8dSNJmmUFoAefqhYasbCuU1sZFjNFf
+	 wO5qouFc9R9F4N9xKsAZ+kt9aIjt10lbP6H7PNIbX8uGso5seW4FlUZTr1TE3Y6bp1
+	 u5dqBsGKdFWgjZ187ntZoFWMRmy0MgKfgoK1XH68=
+Date: Mon, 02 Nov 2026 07:29:20 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,david@kernel.org,
+	baoquan.he@linux.dev,urezki@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [to-be-updated] mm-vmalloc-bail-out-if-in-softirq-context.patch removed from -mm tree
+Message-Id: <20261102152923.502EF1F00A16@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,116 +46,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+The quilt patch titled
+     Subject: mm/vmalloc: bail out if in softirq context
+has been removed from the -mm tree.  Its filename was
+     mm-vmalloc-bail-out-if-in-softirq-context.patch
 
-To reproduce the conflict and resubmit, you may use the following commands:
+This patch was dropped because an updated version will be issued
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x cb705f75d03e946a4514488beb9e3bac9bcdb2e6
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110231-enroll-brewery-d028@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+------------------------------------------------------
+From: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
+Subject: mm/vmalloc: bail out if in softirq context
+Date: Mon, 26 Oct 2026 11:25:03 +0100
 
-Possible dependencies:
+vmalloc() is not allowed to be invoked from the NMI, hard-irq and softirq
+contexts because doing so may deadlock on internal locks.
 
+Commit 04aa71da5f35 ("mm/vmalloc: do not trigger BUG() on BH disabled
+context") replaced the deprecated in_interrupt() macro with explicit
+in_nmi() and in_hardirq() checks, but unintentionally dropped the softirq
+context check.
 
+Example:
 
-thanks,
+<snip>
+vzalloc() in a task
+ spin_lock(&vn->busy.lock)
+  <------ Hard irq
+   irq_exit()
+    process softirq on the same CPU
+     vmalloc()
+      spin_lock(&vn->busy.lock)
+       spins forever
+<snip>
 
-greg k-h
+Restore the check by checking the caller's context with the
+in_serving_softirq() helper.  Note that, it is still allowed to invoke
+vmalloc() with disabled bottom halves.
 
------------------- original commit in Linus's tree ------------------
+Replace BUG_ON() with WARN_ON_ONCE() for in_nmi() and
+in_hardirq() case.
 
-From cb705f75d03e946a4514488beb9e3bac9bcdb2e6 Mon Sep 17 00:00:00 2001
-From: Aleksandr Nogikh <nogikh@google.com>
-Date: Mon, 17 Aug 2026 14:09:49 +0000
-Subject: [PATCH] media: usbtv: fix null-pointer dereference on disconnect
+Link: https://lore.kernel.org/20261026102503.30860-1-urezki@gmail.com
+Fixes: 04aa71da5f35 ("mm/vmalloc: do not trigger BUG() on BH disabled context")
+Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: <stable@vger.kernel.org>
+---
 
-A null-pointer dereference can occur in usb_make_path() when called from
-usbtv_querycap() (and other ioctl handlers) during device disconnection.
+ mm/vmalloc.c |    8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-Oops: general protection fault, probably for non-canonical address
-0xdffffc000000000a: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
-RIP: 0010:usb_make_path include/linux/usb.h:985 [inline]
-RIP: 0010:usbtv_querycap+0x9c/0x100
-drivers/media/usb/usbtv/usbtv-video.c:612
-...
-Call Trace:
- <TASK>
- v4l_querycap+0x236/0x470 drivers/media/v4l2-core/v4l2-ioctl.c:1106
- __video_do_ioctl+0x8af/0xc70 drivers/media/v4l2-core/v4l2-ioctl.c:3133
- video_usercopy+0x860/0x1430 drivers/media/v4l2-core/v4l2-ioctl.c:3475
- v4l2_ioctl+0x18d/0x1e0 drivers/media/v4l2-core/v4l2-dev.c:366
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
-
-This happens due to a race condition between the USB device disconnect
-routine (usbtv_disconnect()) and V4L2 ioctls. When the device is
-disconnected, usbtv_disconnect() sets usbtv->udev = NULL without holding
-the usbtv->v4l2_lock mutex. Concurrently, an ioctl handler like
-usbtv_querycap() can be executing under the v4l2_lock and attempt to use
-usbtv->udev, leading to a crash.
-
-To fix this, move the usbtv->udev = NULL assignment into usbtv_video_free()
-and protect it with mutex_lock(&usbtv->v4l2_lock). This ensures that no
-non-queue ioctl handler can run concurrently with the pointer being
-nullified. If an ioctl is already running, the mutex will block the
-disconnect path until the ioctl finishes. If an ioctl is blocked waiting
-for the lock, it will acquire it after the disconnect routine releases it,
-but will then check video_is_registered() (which was cleared by
-vb2_video_unregister_device()) and safely return -ENODEV.
-
-Acquiring v4l2_lock after vb2_video_unregister_device() avoids
-reintroducing a historical deadlock issue, and usbtv_audio_free() remains
-safe as it is called before usbtv_video_free().
-
-Fixes: 65e6a2773d65 ("media: usbtv: Remove useless locks in usbtv_video_free()")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=37a57a84893052ab6071
-Link: https://syzkaller.appspot.com/ai_job?id=5abbe65a-5853-4bc2-9135-5c75f88d51ed
-Signed-off-by: Aleksandr Nogikh <nogikh@google.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-
-diff --git a/drivers/media/usb/usbtv/usbtv-core.c b/drivers/media/usb/usbtv/usbtv-core.c
-index 4f10f6613bc4..89c3424e7685 100644
---- a/drivers/media/usb/usbtv/usbtv-core.c
-+++ b/drivers/media/usb/usbtv/usbtv-core.c
-@@ -139,8 +139,6 @@ static void usbtv_disconnect(struct usb_interface *intf)
- 	usbtv_audio_free(usbtv);
- 	usbtv_video_free(usbtv);
+--- a/mm/vmalloc.c~mm-vmalloc-bail-out-if-in-softirq-context
++++ a/mm/vmalloc.c
+@@ -3258,7 +3258,13 @@ struct vm_struct *__get_vm_area_node(uns
+ 	struct vm_struct *area;
+ 	unsigned long requested_size = size;
  
--	usbtv->udev = NULL;
--
- 	/* the usbtv structure will be deallocated when v4l2 will be
- 	   done using it */
- 	v4l2_device_put(&usbtv->v4l2_dev);
-diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
-index 92bc7a2509c3..2a91af8d1e30 100644
---- a/drivers/media/usb/usbtv/usbtv-video.c
-+++ b/drivers/media/usb/usbtv/usbtv-video.c
-@@ -966,5 +966,9 @@ void usbtv_video_free(struct usbtv *usbtv)
- 	vb2_video_unregister_device(&usbtv->vdev);
- 	v4l2_device_disconnect(&usbtv->v4l2_dev);
- 
-+	mutex_lock(&usbtv->v4l2_lock);
-+	usbtv->udev = NULL;
-+	mutex_unlock(&usbtv->v4l2_lock);
+-	BUG_ON(in_nmi() || in_hardirq());
++	/* IRQ re-entrancy -> irq_exit() -> process softirq. */
++	if (in_serving_softirq())
++		return NULL;
 +
- 	v4l2_device_put(&usbtv->v4l2_dev);
- }
++	if (WARN_ON_ONCE(in_nmi() || in_hardirq()))
++		return NULL;
++
+ 	size = ALIGN(size, 1ul << shift);
+ 	if (unlikely(!size))
+ 		return NULL;
+_
+
+Patches currently in -mm which might be from urezki@gmail.com are
+
+mm-vmalloc-use-dedicated-unbound-workqueues-for-vmap-drain.patch
 
