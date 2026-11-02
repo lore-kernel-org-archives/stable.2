@@ -1,59 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793644695;
-	b=MPD0HaGAu2nlAJQ/kBwOk0ODdBQFm5Nx+EQ0Ir9ubxXfEnTsChKQFNUToBNcWAcxjReJ
-	 GCmSfQZ3h2St8mevshCw/8DzhcPVLSdGpwlWFZDPg1JFk3Jg8g1xdX1hpbszdW2IEx8W2
-	 Ws0b2GhSoUkUDUWRWuqlUh3v4WLtLzRcmeR3XpUO3DcI73kudfw9avHBQP1/CZlgZUqzn
-	 3K+Sh61RLBJ0x74Dxgl7b2YZO/m5BewIAmvWGpfNKX2/w8PrCGonuE4q8FBkDmwAbGVIM
-	 b3RCj8h80Wo5PjE2JM6ofjtYJRFYK7w8VQGdeughjNXwtRh+m8qbwnFv4aXd+vylLXA==
+	t=1793645422;
+	b=f4cFPpTqWVga1qpBNN5rVH7iPf4O64iBUGLcy9zG8twkS1SAh2wDtu6nmxoIhaajBr5v
+	 JFmgIjQ0M+anjkTqNol5E42KSNiRvMS6q0dbaREjPgeGoLuJRQga5k1DoCXos2+PWXjZZ
+	 EZ2kwUXdzBE++8Egmmwq6buRi5ijtJoTMdxhLwExGbsyF1Gl+JfnIPKpSSx8/74My0xy7
+	 w6qbwsK9EwKe/JH8Uof3oTHA+f9/rNNzx4VhSQ7rNYuJRbLGCdWBXIMS0sUhkxse4Qzf0
+	 XI94g9CPkzQGxn4FAkZN00THy6n3wIc7Ae3KG5T6fOPMfnXHL5yorUBtBVxBF4/BVIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793644695;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 Reply-To:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=CvKjhSbJQ64yej8CMcvSWHlywJ3U5WGeaWL/y+D+TmE=;
-	b=TED6hvqbRgKLjWIVfMPk+xYpyUx9aWjCSiTEbIxJAwVbG9sPcAMfgaDlVDaXNzPh2IgR
-	 8zvNCpWn3xQjaQOTuaDJ7BZPiSrdJyafhBZYWPmsP2vHIvzlGBLIKjPwnbviwYvS1csUW
-	 8ghZQAViqzb3QdYrU27fT4GZ4v218xxOjXfsGKMLgWNR54maPAnL0X3v6gFspNZbKmXjb
-	 AlkPVSFmniz5bYEW/CBxLkGksRpBguarl2c20GIf76fV378ArprIWPQfB1xJ/iFM51Kzp
-	 ebT0jCiVmBwes72J0igB0TJHIGa+dH6/aNJwO+nWXDpXQCCscieQAMA8fnEwGcjME5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645422;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1+PqdBY+Kn+vTVD8wBIeE/Wp76LdlfMZhSQGe7/rnXI=;
+	b=4CuYB4bn9CjRgRhXtiyT0XUUHPMcwNcKOp4UaLzP+GeKWJEEHiP30KytMW+rOtNUHpO/
+	 jLG1eimzyizJwjhG5IA0FzgWwv+q3ouy8BFwfbCNt8kiSszruMbCK4GN81tmb8Om7X6rL
+	 XunnCx3C4mp7tTcKxItm4hq6AvAOiO0zs5s/8ZRHYbXjMWO6XpzRNrnfxgkL54/XKzx+X
+	 oEyCpyoVPYExPl2NxF5LNSnXnpdg7D/ncElP4UyN1YzyApadonq+65oC76eWovLZ1fU63
+	 9G4oKWYS8is6jOR/TIQrFQpSvl0ild3EKJCDDigVqkvMZGh2Mpab5vlYjx6a59YCBMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNFFt+gG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=smartx.com;
+	spf=pass smtp.mailfrom=smartx.com;
+	dkim=pass header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=p2+Piy3s;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6251C606A324;
-	Mon,  2 Nov 2026 18:38:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35F61606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 18:50:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35F61606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smartx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smartx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNFFt+gG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3AA1F00A16;
-	Mon,  2 Nov 2026 18:38:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793644694;
-	bh=CvKjhSbJQ64yej8CMcvSWHlywJ3U5WGeaWL/y+D+TmE=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=gNFFt+gGp1PdCFm2zN7wLPMeJh8eWhbYcmz0DA4ESe0Ejn6RWJXcXRwUqNHIugyfL
-	 aOF/c92f3lq+deLdHuD+n91tEpZSseiPV6kENrQO6Mg+u0NMVm3c6S0Wbgm6VpuwvS
-	 V4L+KjUd9yEVNM/Byh6VC47LNV1KmEOx/lLeyNWqIN7cffrxx/Zbtv/CvPTfbvGxxX
-	 h6/okYy/ejX7pf7m3UKXJU+aKmh+a23tfQEiN1WuEClseE9/SkyTt3jcfQsWL38dN9
-	 Bd/FUPkymq5dGRNDwt94Q3pxgGOQqV6rzCd/TsCd8/QpgvTta5MgsUH3FdLwBoCp6U
-	 sLMUnC29XjXYw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 76756CE0B0B; Mon,  2 Nov 2026 10:38:14 -0800 (PST)
-Date: Mon, 2 Nov 2026 10:38:14 -0800
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Marco Elver <elver@google.com>
-Cc: Alexander Potapenko <glider@google.com>,
-	Boqun Feng <boqun.feng@gmail.com>, kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Kees Cook <kees@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] kcsan: Reset per-task KCSAN state on fork
-Message-ID: <10162189-3057-4c84-8a23-056ad33d401e@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261030145655.439579-1-elver@google.com>
- <b32fabb0-a9ee-4a9f-acd6-3511548a7f65@paulmck-laptop>
+	dkim=pass (2048-bit key, unprotected) header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=p2+Piy3s
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3535a54bed9so5037639eec.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:50:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=smartx-com.20260707.gappssmtp.com; s=20260707; t=1793645419; x=1794250219; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1+PqdBY+Kn+vTVD8wBIeE/Wp76LdlfMZhSQGe7/rnXI=;
+        b=p2+Piy3sAooPGQJVbNsD99Y816ezaXqpod5YbnBem2fq6wIOuOW3ZsHW+jNTagbfZK
+         JPLSW1xihm9pdnsrcrPQWoNmVok3fvK+cX27K8SeproOZJKxvtn2pObWdkr/aTJavyHc
+         fYp5snY7hjz+rKceH+kTDA+BRVTkaashLjqQVUQSU5IdrcxIGeuJC21uSYb1kbYJnU1r
+         Yi829yFsVjhlbCPauZzn4kXivWq5mfqJziwL7B1TuF3sW0ubsYV1bgkSVy3Os7vDgGhJ
+         xX8OPMnDDNxuS5ieQVzgpNHuiFHFXu9XCasJ3nyqMX8VVzG2z2EjYhDpmY6i7ba8Jo0H
+         ZcjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793645419; x=1794250219;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1+PqdBY+Kn+vTVD8wBIeE/Wp76LdlfMZhSQGe7/rnXI=;
+        b=XG/ma3Z5BXfO75pUCfEmMkENYCBLe1m1/7/0DxRIIF2CSPC7rwB74WJd/N4fWY34GP
+         ZsoWO53nUWVF8OwSvL3Fygs4EagZWwliJODgX1cm+j0hUS1+knQrB60cb9FDsRMIsa5K
+         RypVxdwmrugMjQc6LPisWU8kUEqLWV9F8wWSNZh3YaSQ4KLIVeKD060DgXvOIgylkX51
+         NkL6fTtr/xrruUZLgbU+WcctmOix0x9VE9HZQbuhJxY37OBSlO8+kulgwz/O1QPx7YWn
+         AwopOGwHMwLFFUUqHhNQRuT35LsV3W9h9+WUW4jZrYZ9KVkgrQkOsUHwNpzxr+Uu4llA
+         sMrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwayaIRxFhsL5qXDWjR0aajWXZ8q1ZeZYudKgBCA56wjIpLTsDkIxTF5gUObj+Wq82m6W6Q9DI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BdYtE9HdVEsf2sggFvp3ZCRt1jArU7YkwrywgmjPJ9yxjdaLD
+	tp9qiWTRBuXpvU/3NFXZRd2A68fgEh4G2amhwVumUzvAStA7ue6nV82OiiU5Abo/1vJ0joOybsJ
+	G9O0cRpVA4hakjxfVPbDaLqk0A8/wLboBHGAupVHn8rIEVWpatpc=
+X-Gm-Gg: AYBFou1xbsHoiXvUz3T1YbKvNz0X5oQYGs0/OVX4BfYEu2P0alShZuTT//YNg4ynbFT
+	3/xKpUxwrqe+pEbmawNi39y8SCxYqtXv82KQ96P0IaMH7u20PjNEpmaAqGguE5OjP7756LzNim0
+	ROtM2k/6C+f1YunoPfVlhV/Q1ri+kMhFEcr9gbUBvmJJzpBIkOpXRIaMqa9ufy2s2Rwb++ipt6G
+	bqpOP8lvI9ZPyiM/YSnHqq2YvsL7e+JymFdatqzqlhPGsNNx2u1ZsPUX1p8+zF6tTQKIAypqV2+
+	nAbamiXiOVNFTv21wjNd+tB3UOQoJTLsJUXuQzn27enj0PeDr1g+yKIFxKP905iI/8xxr++qGUt
+	Mt32b39e0OG1j7nE2EgGKcVPI88nxgyRrZE/EXRmLfT1BihUm21s6MBzkrju8sv4/nA/Rs+iRGl
+	h6/ko/CxEtRbN+w+OFEkelVhGsldPIpouEqfNKbqtC4OjE3LiFPz0cXhdS4hHgzl/AU+TEE+DeG
+	zM7/QVFKDaS8G7phm8YRdPa9Tw51zfcbGlkOo4jela3BndVEigJB1U4JkB2iMqqStvkFNi9IPM4
+	Wde8YBnIEQx3HsSpspA14Ysti2Q/VPlc0m257BLWfQ==
+X-Received: by 2002:a05:693c:41d9:20b0:368:4acb:f8a with SMTP id 5a478bee46e88-36a4242f5fdmr16518897eec.17.1793645418844;
+        Mon, 02 Nov 2026 10:50:18 -0800 (PST)
+Received: from localhost.localdomain ([174.136.204.24])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429000f8sm39651738eec.13.2026.11.02.10.50.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 10:50:18 -0800 (PST)
+From: Wang Zhan <wang.zhan@smartx.com>
+To: netdev@vger.kernel.org,
+	Eric Dumazet <edumazet@kernel.org>
+Cc: Wang Zhan <wang.zhan@smartx.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	stable@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>,
+	Florian Westphal <fw@strlen.de>
+Subject: Re: [PATCH v2 net] inet: frags: limit the truesize of a reassembly queue
+Date: Tue,  3 Nov 2026 02:50:00 +0800
+Message-ID: <20261102185000.2384364-1-wang.zhan@smartx.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261030081225.2575462-1-edumazet@kernel.org>
+References: <20261030081225.2575462-1-edumazet@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,145 +107,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b32fabb0-a9ee-4a9f-acd6-3511548a7f65@paulmck-laptop>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 09:37:41AM -0700, Paul E. McKenney wrote:
-> On Fri, Oct 30, 2026 at 02:56:19PM +0000, Marco Elver wrote:
-> > arch_dup_task_struct() copies the parent's task_struct verbatim, which
-> > includes kcsan_ctx and kcsan_stack_depth; nothing reinitializes them for
-> > the child.
-> > 
-> > With CONFIG_KCSAN_WEAK_MEMORY this leaks a live reorder_access: an
-> > access whose simulated reordering is only valid until the parent returns
-> > from the frame that performed it (tracked via kcsan_stack_depth and
-> > cleared by __tsan_func_exit()). The child inherits both the entry and
-> > the parent's stack depth, but never returns through the parent's frames,
-> > so the entry is never invalidated and is replayed on every subsequent
-> > check_access() of the child.
-> > 
-> > The most direct way to hit this is the copy itself: __tsan_memcpy()
-> > runs check_access() on the destination before copying. If that access is
-> > selected for a watchpoint, set_reorder_access() records it (ptr = the
-> > child's task_struct, ip in arch_dup_task_struct()) in the parent's ctx,
-> > and the memcpy then copies that entry into the child. For an idle task
-> > created by fork_idle(), the stale access covers thread_info.flags, which
-> > other CPUs frequently access, resulting in false positive reports and:
-> > 
-> >   WARNING: kernel/kcsan/report.c:344 at sanitize_stack_entries+0x120/0x12c
-> >   Cannot find frame for arch_dup_task_struct+0x40/0x154 in stack trace
-> >   ...
-> >   Call trace:
-> >    sanitize_stack_entries+0x120/0x12c (P)
-> >    print_report+0x84/0x488
-> >    kcsan_report_known_origin+0x14c/0x1ec
-> >    kcsan_setup_watchpoint+0x578/0x864
-> >    __kcsan_check_access+0x1ec/0x1f8
-> >    do_raw_spin_lock+0xa4/0x1c4
-> >    _raw_spin_lock+0x70/0x88
-> >    rcutree_report_cpu_starting+0x1ac/0x4b8
-> >    secondary_start_kernel+0xe8/0x28c
-> >    __secondary_switched+0xc0/0xc4
-> > 
-> > Reset the child's KCSAN state in dup_task_struct() after the copy,
-> > alongside the existing kcov/kmsan initializers.
-> > 
-> > Reported-by: Paul E. McKenney <paulmck@kernel.org>
-> > Link: https://lore.kernel.org/all/97f6213a-1dec-494e-96d1-abe546bce993@paulmck-laptop/
-> > Fixes: 69562e4983d9 ("kcsan: Add core support for a subset of weak memory modeling")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Marco Elver <elver@google.com>
-> 
-> Thank you, Marco!  I will be testing this over the weekend.
+On Fri, 30 Oct 2026 09:12:25 +0100 Eric Dumazet wrote:
+> The truesize of fragments in a reassembly queue is only bounded by
+> the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+>
+> inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+> If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+> adjustment of the socket owning the reassembled skb can cancel its own
+> reference, leading to a use-after-free of this socket.
+>
+> This can be triggered from an unprivileged user/network namespace,
+> raising ipfrag_high_thresh and using padded TUN packets, which keep
+> a large truesize after being trimmed by ip_rcv_core().
 
-And the testing went well:
+Another data point: the described trigger also requires ip_defrag() to run
+before skb_orphan(), e.g. via nf_ct_bridge_pre().  In plain TUN local
+delivery, ip_rcv_core() orphans the skb first, so inet_frag_reasm_finish()
+sees sk == NULL.
 
-Tested-by: Paul E. McKenney <paulmck@kernel.org>
+> Track the sum of the truesize of fragments in each queue, and refuse
+> a fragment that would make it bigger than INT_MAX / 2. Callers kill
+> the queue on this error. This bound is far above the needs of
+> legitimate traffic.
+>
+> Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Cc: Florian Westphal <fw@strlen.de>
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
 
-							Thanx, Paul
+Tested on QEMU TCG x86_64:
+Padded fragments traversed tun_get_user() and nf_ct_bridge_pre().
 
-> > ---
-> >  include/linux/kcsan.h | 10 ++++++++++
-> >  kernel/fork.c         |  2 ++
-> >  kernel/kcsan/core.c   | 13 +++++++++++++
-> >  3 files changed, 25 insertions(+)
-> > 
-> > diff --git a/include/linux/kcsan.h b/include/linux/kcsan.h
-> > index c07c71f5ba4f..c7e9d15dd7bd 100644
-> > --- a/include/linux/kcsan.h
-> > +++ b/include/linux/kcsan.h
-> > @@ -13,6 +13,8 @@
-> >  #include <linux/kcsan-checks.h>
-> >  #include <linux/types.h>
-> >  
-> > +struct task_struct;
-> > +
-> >  #ifdef CONFIG_KCSAN
-> >  
-> >  /*
-> > @@ -66,9 +68,17 @@ struct kcsan_ctx {
-> >   */
-> >  void kcsan_init(void);
-> >  
-> > +/**
-> > + * kcsan_task_init - initialize KCSAN state of a new task
-> > + *
-> > + * @task: task to initialize; must have been copied from its parent already.
-> > + */
-> > +void kcsan_task_init(struct task_struct *task);
-> > +
-> >  #else /* CONFIG_KCSAN */
-> >  
-> >  static inline void kcsan_init(void)			{ }
-> > +static inline void kcsan_task_init(struct task_struct *task) { }
-> >  
-> >  #endif /* CONFIG_KCSAN */
-> >  
-> > diff --git a/kernel/fork.c b/kernel/fork.c
-> > index 5ef413368912..62a096ca8dce 100644
-> > --- a/kernel/fork.c
-> > +++ b/kernel/fork.c
-> > @@ -93,6 +93,7 @@
-> >  #include <linux/compiler.h>
-> >  #include <linux/sysctl.h>
-> >  #include <linux/kcov.h>
-> > +#include <linux/kcsan.h>
-> >  #include <linux/livepatch.h>
-> >  #include <linux/thread_info.h>
-> >  #include <linux/kstack_erase.h>
-> > @@ -986,6 +987,7 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
-> >  
-> >  	kcov_task_init(tsk);
-> >  	kmsan_task_create(tsk);
-> > +	kcsan_task_init(tsk);
-> >  	kmap_local_fork(tsk);
-> >  
-> >  #ifdef CONFIG_FAULT_INJECTION
-> > diff --git a/kernel/kcsan/core.c b/kernel/kcsan/core.c
-> > index a3aa5e5b039d..26755add7cdb 100644
-> > --- a/kernel/kcsan/core.c
-> > +++ b/kernel/kcsan/core.c
-> > @@ -828,6 +828,19 @@ void __init kcsan_init(void)
-> >  	}
-> >  }
-> >  
-> > +void kcsan_task_init(struct task_struct *task)
-> > +{
-> > +	/*
-> > +	 * dup_task_struct() copies the parent's kcsan_ctx, including a
-> > +	 * reorder_access that is still live in the parent's frame.
-> > +	 */
-> > +	memset(&task->kcsan_ctx, 0, sizeof(task->kcsan_ctx));
-> > +	task->kcsan_ctx.scoped_accesses = (struct list_head){ LIST_POISON1, NULL };
-> > +#ifdef CONFIG_KCSAN_WEAK_MEMORY
-> > +	task->kcsan_stack_depth = 0;
-> > +#endif
-> > +}
-> > +
-> >  /* === Exported interface =================================================== */
-> >  
-> >  void kcsan_disable_current(void)
-> > -- 
-> > 2.56.0.317.g454f8302e1-goog
-> > 
+Before this patch:
+
+  [   62.400852] ------------[ cut here ]------------
+  [   62.401690] refcount_t: saturated; leaking memory.
+  [   62.402231] WARNING: lib/refcount.c:22 at refcount_warn_saturate+0x74/0xe0, CPU#0: init/1
+  ...
+  [   62.416741] Call Trace:
+  [   62.417754]  inet_frag_reasm_finish+0x734/0x8c0
+  [   62.419460]  ip_defrag+0x149c/0x25d0
+  [   62.420502]  nf_ct_bridge_pre+0x95c/0x12a0
+  [   62.423684]  br_handle_frame+0x6d9/0xf10
+  [   62.425568]  __netif_receive_skb_core.constprop.0+0x576/0x2bd0
+  ...
+  [   62.430759]  netif_receive_skb+0x7b/0x3c0
+  [   62.431822]  tun_get_user+0x1a1e/0x3a90
+  [   62.435183]  tun_chr_write_iter+0x138/0x260
+  ...
+  [   62.455272] ------------[ cut here ]------------
+  [   62.455348] refcount_t: underflow; use-after-free.
+  [   62.455376] WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x9a/0xe0, CPU#0: init/1
+
+After this patch, inet_frag_queue_insert() returns IPFRAG_TOOBIG:
+
+  # tracer: nop
+  #
+  # entries-in-buffer/entries-written: 8193/8193   #P:1
+  ...
+            init-1 [000] b..1. 44.803126: frag_ret: (ip_defrag <- inet_frag_queue_insert) ret=4
+            init-1 [000] b..1. 44.804161: <stack trace>
+   ...
+   => ip_defrag
+   => nf_ct_bridge_pre
+   => br_handle_frame
+   => __netif_receive_skb_core.constprop.0
+   => __netif_receive_skb_one_core
+   => netif_receive_skb
+   => tun_get_user
+   => tun_chr_write_iter
+
+No refcount warning was observed with v2.
+
+Tested-by: Wang Zhan <wang.zhan@smartx.com>
