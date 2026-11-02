@@ -1,103 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.34
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793630076;
-	b=EsXoS7oHYWwjwmeuKnHgVbrBOzjsRwRtCSJAI8o476kfOe5bZIQzp+qk5fxzNnmLUHBY
-	 oZBMcyTD095pTnmYyCjAu6PwlIilzYASwj9rhZkHI4yOhU8O3yPqzdYt5UOhfMKXyHq7n
-	 mhc7cvMipKQEiLODmJFPGA++NcEDgWl5KaDXabPxb9Kzn+y5It1dhUh6Gl0m57xVHEEkT
-	 tWpIW1Wp8ViSF9AhYlnVYR67hK+2ild2S1g9M/nw4INKIrGCU+7eDffuM1eQScs+Fx6ob
-	 wrlUQYnMMCvpX1rBtlaYz3TQcHQWhqVxBPdzHSZj3iWfv6QfFsRDrcQSebNGU09H58Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630076;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=lbskhWKo7SJ+/nWE+q8G4ds/sA/PEX5/Gei4+WgGXE4=;
-	b=AHycH1GurB2e+uE9ntyjgy8+j3W3R+XecvwygTB+J/gbu4xb32H0go7scwactlR2ZEEi
-	 XACrY1M9AflpEzGgnCGCkzWHntSleyhLzjDSrpD5WZvJxbCuipfuy7qH1aO4EeYoup4to
-	 Uc/bt0HOdT1iV8De4s+tM5GvrM5mApQIdZyJecp7fhwUSgDFSOzR/o2Luxj+qCFzrSb/Y
-	 AwnSrWUU6OCu0G/R3ekbsLgPDoTY7eLkgyI0ZMlIEKe8leOHTar5Kr2qBZ3kUj7onp46b
-	 H59E+gVS2suL/YF9TTWGb34eRCsO/IWdGoKzMe2B/rLtHLKMawTlfmIT89ikPPL9F2w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SkXKPFJz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.34
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010034.outbound.protection.outlook.com [52.101.193.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1159D606B0ED;
-	Mon,  2 Nov 2026 14:34:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1159D606B0ED
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=SkXKPFJz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M6QDKdT9RigvT+gkuCTs0PFMxc7WmSJQHau+O0U/ABf8eG5H7N6g73ROAygUduNDNtOJJQT8KeX/JeMfJz9bsATRdLpDUHxm7IoNAaL1vb7ciaO0fQAZNhMmFLah6cSzJb0pBuuo5CE03lVuAKnYHpzHiVVTG+WfZAhrIys4TwJ7xiMOYj+vmfTzw5SbfUPRZkYMob8+7/cdna+3cNli+nea3drVa4KRH3c0hzkZ5e8Csov9zrtFSHFa9V6XQaG3UwLmkbkfZIXQwsq56lNmb0+EBA/32Vv2s0RbdyCVQq5GMiicb5Aiiv/mQ6l0/jKKc2jbtd8oOJIXQtZtMLvpWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lbskhWKo7SJ+/nWE+q8G4ds/sA/PEX5/Gei4+WgGXE4=;
- b=JSr2etTxfCTpzviRc1yK3e6xHBLvJtAk9k1a1a7asAtUNyVGmkRD2oC7kEApBLr8OuGzzfK7bZ0j4MOup1OWu5hcN6gpEKQREWDfSZXVdWfabRUShvv5AerrqBrag8WFwHoSwJPSoRB3CHX6OyaXUmnjQMGBdyL21JJ2xEMTbX3HLUqbdahAObNIugZH9UjaqfOCf41EwbhMFOy/MOP+zDyLC3fzmF/A+ZH3PUqT9H4mWGlezy12z2dydoivFSR38uPJiLaEETIRSmM7auBUFkC5/yJRPYvoXCmvdgqlyMr8pffiAbG6owjmetQnedbDou2clYf2VRoO+17VM2XB+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lbskhWKo7SJ+/nWE+q8G4ds/sA/PEX5/Gei4+WgGXE4=;
- b=SkXKPFJzgaxsi4gJ7nVdLcfxBestR0G0vVZs9GIn5NXGt301uewjIvMBcz/yWtG0GGEHPuFJ5xS3cCWaEO+R2RblVxSHa875hY3Ariy9Ub5gj52meLXKCK2zNS1QOXR4Tqe7C6Cu9Lqg2vqX3vdguUkdzJuIKg961voY+Ab4JAHSeh7tAEKcF0alR33EdWLzxX7eK6MXKVEfMy+CYD2FBYruuUVsOXTwHFQ0kRPH41QdD0MbBUYKWGcQGlAK+K6KIPtifuo28qEoiAmV55duscGTTxM+Vz+ZGvib5xu2WYrr8VynO5wkycLpWn/hPzkKO0HFvOJJcAxCBuz3NwhWtg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by CH3PR12MB8993.namprd12.prod.outlook.com (2603:10b6:610:17b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 14:34:13 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 14:34:11 +0000
-Message-ID: <6051255d-96cd-41eb-878b-a4e2e6ccdd7d@nvidia.com>
-Date: Mon, 2 Nov 2026 14:34:04 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com, linux-tegra@vger.kernel.org, stable@vger.kernel.org
-References: <20261029073135.159947193@linuxfoundation.org>
- <b85e0697-d669-4b14-859f-52ee295264e4@rnnvmail201.nvidia.com>
- <80816b31-948c-45a8-9f98-4cc55f5bd530@nvidia.com>
- <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
- <2026110101-carnivore-harsh-fe38@gregkh>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <2026110101-carnivore-harsh-fe38@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM8P251CA0009.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:21b::14) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793630067;
+	b=zZSv5UiEGeb1CkBpo/r7iL8LvHvoLMsNRMUiW/XzXusOrEntVQkRIEG5DOeyCZQ1L3cx
+	 NFg4FvDDju4IzZNXyhqEuTLhNMv3JxFZUZpgjk/awRcg0KB8m+C9dwg+BNQzgEaze/Bw0
+	 HLrzmya1HUnGMPTEFCH3W5yrFh/3xSOF64CXGaZfk5SExFSnwl+GQOz1/AGl3u1GgvhLb
+	 Zvbo7AmUkfGUAgJR1C2AxD5DwUK1QESWE1pmGSWaLaWfiNW/noC6UUXQz9PYu4VSx1gGq
+	 65doPEfYdij2eeyYfmszbFYiGuvq0PaHtOReIg6LaPvZ3EQ/rZ7dPfBCXwbgqnNNztg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630067;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=t2yJp9KJBtieLRaAUWCyHBOm25XmWK3DPcZY4ncy7dI=;
+	b=yw1A5T/CppGR9NFsjrTuePDeJU9rkSKMl1Pdsti3ON2Q+SS5ueZxS84W2e8lAPTgCfQk
+	 M12i2I94S0sr5ZSm/fDYqCMq4sSFAIc0iSdF3Qw4vp0nyw+UnwkcISnl+Ac7SSRaINjWy
+	 AGrMbA1gnBYeZ8v0f0DJO5+Fq0cao6auUXFt5sVLAaOniHIMiVVcBsYgOUJR07xecRHj8
+	 kcTj3lyxRByBPZzjmF0hCzX5pVtMAv7/85XUnwr2ghzV3FkN+6hSjozCJsvTVER8OGbqH
+	 xJ3acQnBrPid4Q2eLMCWuA/7b1Y67zGPgwDQH1xsos5bCqjjeG9cTGi5bzRe50ILL2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2A266606B0FE;
+	Mon,  2 Nov 2026 14:34:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A266606B0FE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=t2yJp9KJBtieLRaAUWCyHBOm25XmWK3DPc
+	ZY4ncy7dI=; b=kgnbyooCI7G9l7/YrnVEznB02NsJFa3oLBs0AZV+uyqOxg7JEZ
+	UzCMPnoGLWgnh5YK18nawp4ldGIM06hTkJp6kX0huVUTTCtNMDyF132qu5nKdEt4
+	UZ/ydH5QaObQbvPiJi6wNepUKnhCBb8esBf0L2JtCAfn6hdYb11Zf4U/U=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDm6v1nn+hqhrQZAQ--.25523S2;
+	Mon, 02 Nov 2026 22:34:16 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3] media: dvb-core: skip disable_source handler for a released entity
+Date: Mon,  2 Nov 2026 22:34:15 +0800
+Message-Id: <20261102143415.26942-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
+References: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,161 +62,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|CH3PR12MB8993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 665311ab-f091-4021-fdba-08df38ee5c71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|366016|376014|23010399003|10070799003|18002099003|22082099003|56012099006|10067099003|261009223027099003|261022105027099003|4143699003|11063799006|261028144727099003|261026140227099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	pw4Ngjy5iaecyhbqSpXmCF4enFjzXHwrFDhvETFdAEuO3WtGrFepiEPGeBGv4KQZ3X6cHToEl2lu/AHuQhIBmBGyqg3cVz5EQ9ddI26QWuWg6nhVX2AR8Ay+/F4y95pK5WjwM2mSMG7oDMf3YEqKMNIwQoXvklqR0/Dwxmck4/8uXjyI7+/gDdB7TFXVAathEIuFMX06QZypiW0CA81uSWojZ327JTWlnILMfGCjwJTO8qnJ5Xen2Bs3CudXDkEkmcA7UFotbaU+FG3IRKWSx8LOuqxjxTa7bmKx6yVA8/rBXRCMqlD90trrCDzPyf1MVDeHi4Xs6eZIT/jqbsw6hgYd7WepPJeYCeElvocJATwex5ElQ10oaX6C3isIn9mkGZ/rnTSDULdWj+JT3/y2VF70+O5G1Bl8DJy3iiLBduUTkXv8353Ao47XD1B4Qu/7UKPvISZMEO3ct/LADDV2bBwAx/LL4ltIMNYIfUo4VvOHEz4zeoejDZKkb1CGF1nu3agmiHWM5Qk9Yf6KuEUC6rzEwvBx3UkKxPaREZt+JJkYrH6v10zECVnC+c/OyZtY7FseCvcH0iL275obzhaWxW2YrEEcyy7l80S0JwW3Knx7CJVSWnszrNMQHR5b/SJDQtmOXTfspeCYHWc16yQokqMKrq5aovu5aZoMl6IH1Bo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(376014)(23010399003)(10070799003)(18002099003)(22082099003)(56012099006)(10067099003)(261009223027099003)(261022105027099003)(4143699003)(11063799006)(261028144727099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YXI1eEdPYVpFOEpQQzNSSXJDTm9uaVI1Y0lySEt3VEh6RlExK0dxTytlVmxU?=
- =?utf-8?B?MDlkVmxtWjZpOUM3ZVQ2Vnk4bkwrRkdDVXRCa3pzMk1XQUw0cDdqbjQ3UHpJ?=
- =?utf-8?B?dGhMT2s3cmN1WlZPbFVBQW1hdHBnZ3hEaVB0R0F6Q3hRK21iTmxpZ3dnaXkz?=
- =?utf-8?B?OXdObnlaL3lrZVdvem1mK0V2Zk4wdWdVdHhBdEtMSDFDTVcyVXd3anpPb2JG?=
- =?utf-8?B?UlNHQ3VaRUZVcStSUTFoVEhyWVYwQUx4ZzFReThrYmd4elRJR2pUZTdNSWFT?=
- =?utf-8?B?NUQyQkJxeFpQWmRONnJVT0xwSG5ldk1pMndDNFV4ODAvZlE2a2cwR3FJc0Vy?=
- =?utf-8?B?UDExWmwveHpIdTMrS0Y2aGtzSm1QV1BsUG4xdVhYbVhnejh4SUt4Rmdkb0Iy?=
- =?utf-8?B?M1luTGJvb3Y5SUNsQXRraHlMM3B6bWZrNmw1VmFxUWs0SWNNbnZRWVIvV3RN?=
- =?utf-8?B?ZERkQzRyU2p2NkV2ckVxSmpoZm1zazh5bkhLNnl5aTBzbjA4Z2dMb3NxZEM0?=
- =?utf-8?B?SkJsc01yS1ZrU3BzT2lyT1Z4VWYwNC93RC9KZDYwbkFKQngrTUxQeUlBQVhM?=
- =?utf-8?B?VmZLS3gyMkQxZ3RMUjl6TlI3L2Z2RVR0SGxMSWQ0TUp6RGttREQxRTZybFBK?=
- =?utf-8?B?OFVCUGkyd2FsdjM2cFRldU1WcG1oZ0FzMExjYXFvOThxTDQyajIyd2J3YW5q?=
- =?utf-8?B?R0NCaTIvNUJQVFlTSjdSbVBjeHNNREF6M1dqN2Z3NnhLTG5NcTlZUnFpTWNT?=
- =?utf-8?B?RkFieU02U0lnVkRWcS9YLzRkMlA3WkhaMStGYk1hYWZQR1VZYlNJWEp3V2do?=
- =?utf-8?B?b3F1K1VRd0s1QjhUNCt3aDZsYlBCaVVVYzFVYzE4MFpXR3NiUzFSbWFocksr?=
- =?utf-8?B?c2lPOHgrMU9lSGQrc3BtRmRHQnQ3YUd4UmQ2OXN5OGlxK2dqMlN5K05iR0Vp?=
- =?utf-8?B?bHAxdm84bFdkd0lnL3FPS2ZEZmRwelI4VU1aLzNuUnIvR2svWGtmVEJMSlBa?=
- =?utf-8?B?dU50RlBPUU4zeVFaNWtodWlGMEJ0ekxqNHhoeW1JamtZQmt1M0lMVWZyQkJn?=
- =?utf-8?B?T0E1SnltSFRyVWRiS3BUSGlJL3hiTkhkaDQ2UVJsYnpYY0RSeDRJVTJwYlEx?=
- =?utf-8?B?UC9UNlZVdEY4REtsN1gyWjdNOWZ1eUM2WHFkVStGbmZseExqQVhVOWlXd1pw?=
- =?utf-8?B?Tlk2M25OcndWQkRnUThLejV1OHNhYTVqcjMvMmJoeWxya0wyZjZnYlFOOURE?=
- =?utf-8?B?ajZCcC96Mis3d2JkdzlRL3N6TFJldXRNaFlVN3JtVEIvbWZ3SHBiZ3BqcVB2?=
- =?utf-8?B?N2RsdDA1aUMvNzhsNDJncWEyRkFEVTFYOVBpemRmUDVodXVjZkloWkxxd2tH?=
- =?utf-8?B?WENCTExuVU9UUlgvUllONlBuRlJjejlTZ3ZWRFFGMWFoNlBBRitHQWMzWDJj?=
- =?utf-8?B?emIxL0x1Q21uN2R0WHFrUEE1ZW1nTGxKQ0M3ZXVMb0NCWDN5SWpzNmx0Q2lI?=
- =?utf-8?B?K2tNa3JIMFhIUURmZXdJY1FjbzlFKzNyQ0x3QUk4cVFrVDRWQ1RCYjcwWG5Y?=
- =?utf-8?B?YmwwMlFPQjhQTlI4TlRPK3VZZDZSbFYyWDNNb1dVbU1rM1ZIeGthWVNPNnBY?=
- =?utf-8?B?UDFIaXBENGVTUFFvS3JWVlczdUVRbmllMDZFRHFVbE5KR3I1WER1WndRMlZ5?=
- =?utf-8?B?amI1eitoUURJVVAzL3g5ZkFqZzdxclFCUmZOd0FIcTJjNktvUU40TE1pWStW?=
- =?utf-8?B?ZjF2M2FhUlpsREN2bHNQeWtndnNYY3REbW5oRTU3Y1QzdzhEbXozRW4ySE9W?=
- =?utf-8?B?L1IwR0hlb3JERE1QTWNzekFXaVgxRVd3dnNicVRqbXpyMHdEd2dGWXh5Y2g2?=
- =?utf-8?B?OXlDak92RXROZjRXVnFvQzVJaVUyN3g0TzhOaUMrWEs0d2MxaVVqQzB5ckpK?=
- =?utf-8?B?N1kwc0tvbFlqbUtjMVhDamhoaVBPcllNUWZ5bk9pNjRNUHM1T2dBU09BV1FY?=
- =?utf-8?B?bDJhRlVXclV5amRuSENWUFJ4SW9GeThVbnFuMkUrNTdHd0hXU3RQMm83dGZX?=
- =?utf-8?B?V0Y4UEdkMENSeE9pcUYvWTUxR0o1cEtjMCs4N0p3elVYUjdHeWNZZExCNDF6?=
- =?utf-8?B?SDRWL1h0WSt0WEdwUXNCczY4cStTdmEwTTB5djdZcjZCeU4vaDN2U0Yvd3ls?=
- =?utf-8?B?NWtZWXlFZkxSQlJDUDlmQ1k3Y2NTaStSWVFVd2FQZ1NscFRhVERHWlNyZ0F6?=
- =?utf-8?B?a1BrcXlmanBYUC81SlgxZFAwNWRudFRBYjdqQzlXZXQremxBWEl1c2RXVGhS?=
- =?utf-8?B?cXhVblRhZnpxZFVQQkEzWjZtTGpodlo5ZEV4UWMyWWZZM2duNE1UMzVtVGd5?=
- =?utf-8?Q?MJiJFpNoXxFm2B4rFbAnj1MZC7RnspswxPd+Ud3zAU1Xq?=
-X-MS-Exchange-AntiSpam-MessageData-1: H1Ncx93+sOu5bw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 665311ab-f091-4021-fdba-08df38ee5c71
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:34:11.8183
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7V2zC7Qil0ceEN1Dgkd7eDRB2aJfveQBid77YWm+CwwulfZyb0Ey/Eyap1niTrkjR6FpZxp8LacVmcRkivOMow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8993
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkDm6v1nn+hqhrQZAQ--.25523S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKFyDZFyrtF47Xw1kKw4kWFg_yoWxGFy8pa
+	93tayYgrWjgr4UZr4jya17XF98ZwsYyay5CF9xX39Fgr4rXr9aqrySy34DWF17Crs7Aa12
+	qw1YqrW8u3yrWw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xryl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUgUDXUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdTIMQAAs7
 
+dvb_remove_device() frees the media entity of a dvb_device through
+dvb_media_device_free() and sets dvbdev->entity to NULL.  The media
+device of the adapter can still be registered at that point: au0828,
+for example, only clears mdev->disable_source in au0828_usb_release(),
+which runs after au0828_dvb_unregister() has unregistered the frontend
+device.
 
-On 01/11/2026 13:22, Greg Kroah-Hartman wrote:
-> On Sat, Oct 31, 2026 at 02:41:43PM +0000, Jon Hunter wrote:
->> Hi Greg,
->>
->> On 31/10/2026 09:26, Jon Hunter wrote:
->>
->> ...
->>
->>> On 31/10/2026 09:24, Jon Hunter wrote:
->>>> On Thu, 29 Oct 2026 08:33:04 +0100, Greg Kroah-Hartman wrote:
->>>>> This is the start of the stable review cycle for the 6.1.191 release.
->>>>> There are 1879 patches in this series, all will be posted as a response
->>>>> to this one.  If anyone has any issues with these being applied, please
->>>>> let me know.
->>>>>
->>>>> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
->>>>> Anything received after that time might be too late.
->>>>>
->>>>> The whole patch series can be found in one patch at:
->>>>> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
->>>>> or in the git tree and branch at:
->>>>> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
->>>>> and the diffstat can be found below.
->>>>>
->>>>> thanks,
->>>>>
->>>>> greg k-h
->>>>
->>>> Failures detected for Tegra ...
->>>>
->>>> Test results for stable-v6.1:
->>>>     builds:	9 pass, 0 fail
->>>>     boots:	28 pass, 4 fail
->>>>     tests:	83 pass, 7 fail
->>>>
->>>> Linux version:	6.1.191-rc2-g3b00df762ebc
->>>> Boards tested:	tegra20-ventana
->>>>                 tegra30-cardhu-a04
->>>>                 tegra124-jetson-tk1
->>>>                 tegra210-p2371-2180
->>>>                 tegra210-p3450-0000
->>>>                 tegra186-p2771-0000
->>>>                 tegra186-p3509-0000+p3636-0001
->>>>                 tegra194-p2972-0000
->>>>                 tegra194-p3509-0000+p3668-0000
->>>>
->>>> Boot failures:	tegra186-p2771-0000, tegra186-p3509-0000+p3636-0001,
->>>>                 tegra194-p2972-0000, tegra194-p3509-0000+p3668-0000
->>>>
->>>> Test failures:	tegra124-jetson-tk1: pm-system-suspend.sh
->>>>                 tegra20-ventana: pm-system-suspend.sh
->>>>                 tegra30-cardhu-a04: pm-system-suspend.sh
->>> I am looking into the above boot and suspend issues and will let you
->>> know what I find.
->>
->> Bisecting is pointing to the below commit and reverting it fixes
->> the above issues ...
->>
->> # first bad commit: [26c5e136ba4e94ad708333c9bd34039a1de397b0] net: stmmac: protect updates of 64-bit statistics counters
-> 
-> Thanks, I've reverted that one now.
+A file descriptor that survives the disconnect then reaches
+dvb_frontend_release() with dvbdev->entity already NULL and calls
 
-Thanks. It turns out that there are two issue here; one causing the
-above boot failures and one causing the above suspend failures. I had
-thought it was the same issue but now I see that suspend is still failing.
+	fe->dvb->mdev->disable_source(dvbdev->entity);
 
-To fix the suspend issue I also needed to revert ...
+au0828_disable_source() dereferences that argument unconditionally:
 
- commit 3d64d18bdd1b2a6bd4af1176a596736b233606be
- Author: Rob Clark <robdclark@chromium.org>
- Date:   Mon Aug 7 10:11:40 2023 -0700
+	struct media_device *mdev = entity->graph_obj.mdev;
 
-     interconnect: Fix locking for runpm vs reclaim
+which faults:
 
-The above commit is dependent upon the following and so I had to revert
-the following too ...
+	general protection fault: 0000 [#1] SMP KASAN
+	KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+	RIP: au0828_disable_source+0x27/0xb70 au0828-core.c:445
+	Call Trace:
+	 dvb_frontend_release+0x2eb/0x500 dvb_frontend.c:2946
 
- commit da051a8d3d67bb039a26bac02f439c316ac0151a
- Author: Mike Tipton <quic_mdtipton@quicinc.com>
- Date:   Tue Mar 5 14:56:52 2024 -0800
+The error path of __dvb_frontend_open() has the same call.
 
-     interconnect: Don't access req_list while it's being manipulated
+Skip the handler when dvbdev->entity is gone.  For that check to be
+sufficient, clear dvbdev->entity in dvb_media_device_free() before the
+entity is unregistered and freed: both frontend paths read the pointer
+while holding mdev->graph_mutex, and media_device_unregister_entity()
+takes the same lock, so a reader either still sees a registered entity,
+for which unregister waits, or sees NULL.  Clearing the pointer after
+the unregister would leave a window in which the entity is read after
+it was already freed.
 
-So to fix all issues, I needed to revert 3 commits in total (commit
-26c5e136ba4e94ad708333c9bd34039a1de397b0 plus the above 2 commits).
+Read the pointer only once, into a local variable, while the lock is
+held.  dvb_media_device_free() stores NULL before taking graph_mutex,
+so re-reading the field to pass it as the argument could still observe
+NULL and hand it to the handler.  That store is not serialised with the
+locked readers either, so publish the pointer with WRITE_ONCE() and
+read it with READ_ONCE().
 
-Jon
+Stopping the pipeline the handler started is not done here.  Only the
+driver knows how to release the link it owns, and dvb_media_device_free()
+runs for every dvb_device, including the demux, dvr and ca entities that
+never own a media link; calling the handler for those would deactivate a
+link owned by another entity.  The au0828 driver stops the pipeline and
+clears its saved link in au0828_usb_disconnect(), before the frontend
+entity is unregistered, in a separate patch.
 
+Fixes: 68ff5767ddc4 ("[media] media: dvb-frontend invoke enable/disable_source handlers")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+Changes in v3:
+- Publish dvbdev->entity with WRITE_ONCE() and read it with READ_ONCE()
+  at both frontend call sites, so the clear in dvb_media_device_free()
+  is not a plain data race with the readers that hold graph_mutex.
+- State why the active pipeline is torn down by the driver rather than
+  in dvb-core.  The matching au0828 change is attached to this mail.
+
+Link: https://lore.kernel.org/r/20261102142508.24277-1-25031212351@stu.xidian.edu.cn
+
+Changes in v2:
+- Read dvbdev->entity once into a local variable under graph_mutex at both
+  call sites.  dvb_media_device_free() clears the pointer without holding
+  that lock, so re-reading the field for the call argument could still pass
+  NULL to the handler.
+---
+ drivers/media/dvb-core/dvb_frontend.c | 14 ++++++++++----
+ drivers/media/dvb-core/dvbdev.c       | 16 +++++++++++++---
+ 2 files changed, 23 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..bcee88e16576 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2826,9 +2826,12 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+ #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+ 	mutex_lock(&fe->dvb->mdev_lock);
+ 	if (fe->dvb->mdev) {
++		struct media_entity *entity;
++
+ 		mutex_lock(&fe->dvb->mdev->graph_mutex);
+-		if (fe->dvb->mdev->disable_source)
+-			fe->dvb->mdev->disable_source(dvbdev->entity);
++		entity = READ_ONCE(dvbdev->entity);
++		if (entity && fe->dvb->mdev->disable_source)
++			fe->dvb->mdev->disable_source(entity);
+ 		mutex_unlock(&fe->dvb->mdev->graph_mutex);
+ 	}
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+@@ -2941,9 +2944,12 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+ 		mutex_lock(&fe->dvb->mdev_lock);
+ 		if (fe->dvb->mdev) {
++			struct media_entity *entity;
++
+ 			mutex_lock(&fe->dvb->mdev->graph_mutex);
+-			if (fe->dvb->mdev->disable_source)
+-				fe->dvb->mdev->disable_source(dvbdev->entity);
++			entity = READ_ONCE(dvbdev->entity);
++			if (entity && fe->dvb->mdev->disable_source)
++				fe->dvb->mdev->disable_source(entity);
+ 			mutex_unlock(&fe->dvb->mdev->graph_mutex);
+ 		}
+ 		mutex_unlock(&fe->dvb->mdev_lock);
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..bb6369c3abde 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -208,10 +208,20 @@ static void dvb_media_device_free(struct dvb_device *dvbdev)
+ {
+ #if defined(CONFIG_MEDIA_CONTROLLER_DVB)
+ 	if (dvbdev->entity) {
+-		media_device_unregister_entity(dvbdev->entity);
+-		kfree(dvbdev->entity);
++		struct media_entity *entity = dvbdev->entity;
++
++		/*
++		 * Clear the pointer before the entity is unregistered and
++		 * freed.  The frontend release and open paths read it under
++		 * mdev->graph_mutex and pass it to the disable_source
++		 * handler, so a stale entity must not stay reachable.  Publish
++		 * it with WRITE_ONCE() because the store is not serialised by
++		 * that lock.
++		 */
++		WRITE_ONCE(dvbdev->entity, NULL);
++		media_device_unregister_entity(entity);
++		kfree(entity);
+ 		kfree(dvbdev->pads);
+-		dvbdev->entity = NULL;
+ 		dvbdev->pads = NULL;
+ 	}
+ 
 -- 
-nvpublic
+2.34.1
 
