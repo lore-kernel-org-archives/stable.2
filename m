@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=174.142.148.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793587017;
-	b=X4WNQCOtb+DytTt7ltaKdkjX+uQMq5H9hbq2kgQGBZ3gy1NmeO97c55ho2av9br1+4BK
-	 x/1/SfP070ccrpBmnB3cwgya+pXcez6601obpLmv5IeKg6nFBYhmzSCV8xscS/W5TBaiU
-	 Zu7h2NzwBhZTtjK0xf8HWtll8IDspHAGaLA6JfJoIWn2Is8FMRkO90ZJuSFal3el3j0a3
-	 QWuAlxcqlE9uDDLQh3b5NCjp49RoyVY5D4+UH3b4WKbOJaHlvsJbm/UfsS0nckBCl+ZEz
-	 QmZiWV4ZFOmrnJHLNg+pO2TD9OOzM5yHQLtz8V4M1D9ljT9YM8fShJd4gYRtjAyNdlw==
+	t=1793587061;
+	b=0rLZBEjZM7zanGqfEkLbxHBI7GubEr/EvBth3NvAw07/HioDYFCwmizOgs3CwbREUyL4
+	 b7DMNuYATmxmPYpsfF4Jd05gOVN17fMksQ0oBx5jNF9u7pjyFpZklHK/N/NFdaZqz8j42
+	 fthftlainehij9UaZGf8Gvrodu6PyWm7RjZGDp/LUmld2zw+ANVIED1BLaMbbBdnViCtW
+	 lnxoSinL3xZdfZgtgvK0+TLtnOC4/mMl+pxT3huhnNwuVqivJX2aWVI91Fn6EvWeGBpHc
+	 S1xOaxHr5tBXte2z7YLlDX5AF22ZqqGIeaNM2cKEO2lvcIHVRhp7tcFeaiqlkLsrXpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793587017;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qe3yX42ERgMuY66a5xyz0Wt6sGlKrpiqgPCE7n4UY4U=;
-	b=R8fOFtmkutcE/lK1MRJDQ7IeyWWZHS+W0cIr6z2njMaBMLHFdiN6+SeDQdL9WolNTaP8
-	 WYq/QIvnsrAz+KzAJWbbybNm/rRHSmoaN1tth8k6/J87/aG/1ya1cmQpzoTRPsrf2y2Hv
-	 tA+B8lWohA2eSc3PdANSjIChoNlfYN78o48L1bdc7bbb1x9UydunIGq9k8xIKQd0bnoyC
-	 X4f60UVPwdj6ViI8cyKqx/R8yQHCcMFwMjPW99dKL1EQiZBLuxnzPK33b/eWdcmrNjo66
-	 G+vG+9ddzOKidFgewR5ln2A/NhmSs0xvRKzZAWSkOjP54XngTSjgDEZ+9M2Gx4w9SQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793587061;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=yKtn0THsh/EqjwUTNUjdpUBT5vowFP8psRWqGxPIf/Q=;
+	b=behDgNXJC0DrHKC88UBqEO1PXzCS8GJ7nzkn7q9+74UksB0x4sibotX+57ibxmfu4b0Z
+	 0Gy7EmbSgu+MUhoTTwU0ejzE4TxS92jrm7kF6TyUpe2wNcH9m4gZkivftIEmGocNFEvbh
+	 aYsk1G+AJHHyEkGDT1UHTrFkKZugzbKsCM+iPLMWNJirpvwQ9XyvBPfz2+7dJSMnhkXzn
+	 T2vj73kEMRpLkMdeZgZPoK0cEWnDtsn8L+/C25uE8wmpG3xmK7dN3IoQkYn419I6O6CUt
+	 n7EVZHUNEZGTJ5gr+tz6kKhNmBaCP/gOHhiC6xektwWJHHKvXxK8ucVJQ/sRSYkWgQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n42sqdy5;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE37606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 02:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EE37606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n42sqdy5
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-89d6bd67045so1153410b3a.0
-        for <stable@vger.kernel.org>; Sun, 01 Nov 2026 18:36:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793587017; x=1794191817; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qe3yX42ERgMuY66a5xyz0Wt6sGlKrpiqgPCE7n4UY4U=;
-        b=n42sqdy5eMQVeWPpn7Lfz0ahp8g/I3FH4BtP5jKpMiI9/EP7uecT495p0eMLWxd4Eq
-         UIXLOMeL1UlswHvAIVlGq2Mh01d/DF7MeUfAJbJAeQnnJDECJtpR9IRepBKrDkzOsUsj
-         XxX3srNOEDn1f+UQ3QAZYIidZuvK+Sg/dA6DGa7no7zcPIzS2gD/oGFVR7gUSuPIQH0X
-         YpBeWOYoBHcHABX00pRiUFF9u6poHkUW2XNpRTuyUm8hMZgzs/e0f2QF3iLZhQsYuUh/
-         jLfkXIUAmHcToND7VI+SROXbt1sAm/At+uYa4IiaLAQYZlWx5g31XyOLc1NbBrinuNBJ
-         RH3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793587017; x=1794191817;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qe3yX42ERgMuY66a5xyz0Wt6sGlKrpiqgPCE7n4UY4U=;
-        b=w2EDGiEW4VTAH2XzJZukPUVNN3OxLSYDl5suvCrpkH7huqozXaUQrIb367wN9tbHmw
-         GiJVNDhuXJ5At0XSM37FrHsJWiywSou+DjkJhflzUpSgIPWuyD4YjP854bsTVPOWWi1Y
-         5UCLuBihuL+oaMTzA+TZv9/oa8Tj+iko8O2HAFyzUfaGqs+lezyaoRTaCViPYmi0pj4W
-         my5vzUL7HAgt4RdZ/l6vIwUvZifA2WWDaxHxIBPDA7JgdSzTxjjUAZCDiWaAhAJzanFJ
-         mK6toTrQrRUuD86qlebLVau6CK8w9g7O2iNETXr8KreVKoRSjGggxMVlfa2zjHjBSlky
-         YcWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxJCrQTMewLAc29aOautKHd82cECpLwaSXkkpnlY/c8faTzi0fB0/aRkFQQwYeG8myyVhn/G6o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mMdnWA0qB8ZF1pgwnI4Wk/1+XmMg2Q7VgEx0KRoDC7xitNe6w
-	3OeA2ZlvMn8IpuflTEPBbaK7Zj6Fnn52I2YKg9QAX8aSDISan9X6cRA2
-X-Gm-Gg: AYBFou35p8HDBw69F7pCM81Lqsb8KggNeXB1kQh8dDbe7lpS+Aw03PGXH5ZXfCAz3qQ
-	jW3MXZziMfx4n8VoDrWpBPn/Nlb+LnfeOZObm+kHSXpPFLpE7cLmO0J7WTJ7AUspw4uA1u+HLpL
-	Mm2BsbX/he/V3dbE+ECDS6KAtOTGsueEd9gQfFEMqcrrm24RWv00YJBT33vqX7MUws09JicnYul
-	2zCrJ8D+WW8i6ivXM+CF5YlBlABZ3pUhJLgdoPDuu69K4LsqfkvYqvtNKzyJEqcWOThBGhOzpFx
-	iw8fz5OC2SKi8J7kp/pRxsZYJrDZjDAi1w+DsRI3SXbkRcYMOwnKwQWL4uxFij5dJ1mnTyqu/bq
-	TdvFFix1llm+dQp9xmIOu8a0kwZfyA/MkC6wzKG/tUkiWVATMnCf6An5UnfBBSVNQP4Vwz0WkML
-	rC9g/Lju8gtspPyPEWBWT6a3iVBQSJcQu1eElnGdA/5VOb5vVZuWxUOytm7ZxtdEwHKaPQPkr0P
-	5ub+qLxWc4LZMj6cvSuz6k5ZDzIt/LnGMRluJOPX8LMqfRCcPLpXxEK8idByWOmUIZ27mR5ej8E
-	Xc81eOCy3mnX3jvP7YMcmYFXjCvbRVpaLlesRzjg1S6K4Q==
-X-Received: by 2002:a05:6a00:2e1c:b0:8a0:2d72:17c3 with SMTP id d2e1a72fcca58-8a9be681283mr5322129b3a.15.1793587016620;
-        Sun, 01 Nov 2026 18:36:56 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8addc705868sm167812b3a.35.2026.11.01.18.36.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 18:36:56 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: jaegeuk@kernel.org,
-	chao@kernel.org
-Cc: lihongbo22@huawei.com,
-	sandeen@redhat.com,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com,
-	syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] f2fs: free the quota file name that remount drops
-Date: Mon,  2 Nov 2026 10:36:47 +0800
-Message-ID: <20261102023647.1084979-2-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102023647.1084979-1-zhanxusheng1024@gmail.com>
-References: <20261102023647.1084979-1-zhanxusheng1024@gmail.com>
+	dmarc=none header.from=umail.furryterror.org;
+	spf=pass smtp.mailfrom=drax.hungrycats.org;
+	arc=none smtp.remote-ip=174.142.148.226
+Received: from drax.kayaks.hungrycats.org (drax.kayaks.hungrycats.org [174.142.148.226])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25FC5606A324;
+	Mon,  2 Nov 2026 02:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25FC5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=umail.furryterror.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=drax.hungrycats.org
+Received: by drax.kayaks.hungrycats.org (Postfix, from userid 1002)
+	id 1F4CB1C91D64; Sun, 01 Nov 2026 21:37:33 -0500 (EST)
+Date: Sun, 1 Nov 2026 21:37:33 -0500
+From: Zygo Blaxell <ce3g8jdj@umail.furryterror.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+	Naohiro Aota <naohiro.aota@wdc.com>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>,
+	Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] btrfs: don't drop the error of the last split bio
+Message-ID: <auf3bY9j9y6Fsuho@hungrycats.org>
+References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
+ <20261030-b4-btrfs-data-integrity-v1-1-f4d4196731e6@toxicpanda.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,54 +51,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-1-f4d4196731e6@toxicpanda.com>
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On Fri, Oct 30, 2026 at 02:38:07PM +0000, Josef Bacik wrote:
+> When a btrfs_bio had to be split, btrfs_bio_end_io() saves the first error
+> of any of its parts in the status field of the original btrfs_bio. The
+> part that completes last is supposed to load it into bi_status of the
+> original bio before calling the end_io handler, but that is only done if
+> that last part was successful:
+>=20
+> 	if (atomic_dec_and_test(&bbio->pending_ios)) {
+> 		/* Load split bio's error which might be set above. */
+> 		if (status =3D=3D BLK_STS_OK)
+> 			bbio->bio.bi_status =3D READ_ONCE(bbio->status);
+>=20
+> If the last part failed, the assumption is that bi_status was set at the
+> top of the function. That is true if the last part is what is left of the
+> original bio. If it is a split bio, the assignment was done to the split
+> bio, which was freed right after. If the original bio has completed before
+> without an error, its bi_status is BLK_STS_OK and stays like that:
+>=20
+>   original bio (tail)                 split bio (head)
+>=20
+>   btrfs_bio_end_io(orig, OK)
+>     orig->bio.bi_status =3D OK
+>     pending_ios 2 -> 1
+>                                       btrfs_bio_end_io(split, IOERR)
+>                                         split->bio.bi_status =3D IOERR
+>                                         bio_put(split)
+>                                         cmpxchg(&orig->status, OK, IOERR)
+>                                         pending_ios 1 -> 0
+>                                         orig->end_io(), bi_status is OK
+>=20
+> The end_io handler covers the whole range, so for a buffered read all the
+> folios are marked uptodate, including the ones that were never filled, and
+> read(2) returns their content instead of -EIO. For a write the ordered
+> extent is completed as if all the data had reached the device.
+>=20
+> This can be reproduced with raid0 data on two devices, one of them slower
+> than the other and with a bad block, by reading a file whose last stripe
+> is on the fast device.
 
-Remounting with an empty journalled quota option such as "usrjquota="
-clears the name, but f2fs_apply_quota_options() overwrites the old
-string without freeing it, so every such remount leaks it.
+I've been running an identical patch because the same bug causes
+undetected data corruption on raid56.
 
-Free it after a grace period, as f2fs_show_options() may still be
-reading it.
+A read that fails csum verification completes only after read repair has
+tried every mirror.  This takes far longer than the healthy splits of the
+same bio, so the failing split completes last almost every time.
 
-Fixes: ff11d8701b77 ("f2fs: fix to allow removing qf_name")
-Reported-by: syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6c000dea1a93b4f5905c
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
----
-v2: Corrected the Fixes tag (Chao), added Chao's Reviewed-by.
+On a degraded raid56 read, the result is corruption that is not reported
+to userspace.  raid56 reads are split at stripe boundaries, so any read
+that crosses a boundary can return a sector that failed its csum check
+to userspace as zeros, with no error.  The csum failure is logged in
+dmesg because the device stats are updated (so the corruption is not
+strictly silent), but the read succeeds.  A 4K read of the same sector
+is not split, and correctly returns EIO.
 
- fs/f2fs/super.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+The data in that sector is unrecoverable either way.  The change only
+affects what userspace is told when it reads the data, i.e. EIO instead
+of a read that returns junk while claiming success.
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 510df7998c18..d86ab25fbcc5 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -1646,7 +1646,7 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
- 	struct f2fs_fs_context *ctx = fc->fs_private;
- 	struct f2fs_sb_info *sbi = F2FS_SB(sb);
- 	bool quota_feature = f2fs_sb_has_quota_ino(sbi);
--	char *qname;
-+	char *qname, *old;
- 	int i;
- 
- 	if (quota_feature)
-@@ -1662,7 +1662,10 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
- 					GFP_KERNEL | __GFP_NOFAIL);
- 			set_opt(sbi, QUOTA);
- 		}
--		F2FS_OPTION(sbi).s_qf_names[i] = qname;
-+		old = F2FS_OPTION(sbi).s_qf_names[i];
-+		/* Pairs with READ_ONCE() in f2fs_show_quota_options() */
-+		smp_store_release(&F2FS_OPTION(sbi).s_qf_names[i], qname);
-+		kfree_rcu_mightsleep(old);
- 	}
- 
- 	if (ctx->spec_mask & F2FS_SPEC_jqfmt)
--- 
-2.43.0
+Reproducer: on a raid5 filesystem, corrupt one stripe row's parity,
+leaving the data intact, then withhold one data member of that row and
+mount degraded.  Reconstructing the missing column then yields wrong
+bytes for that column.  Every other column still works.  Reads of 64K or
+more over that range return zeros and succeed, while 4K reads return EIO.
 
+Tested-by: Zygo Blaxell <ce3g8jdj@umail.furryterror.org>
+
+> The saved status has the first error of all the parts, or BLK_STS_OK if
+> there was none, so always use it.
+>=20
+> Fixes: d48e1dea3931 ("btrfs: fix error propagation of split bios")
+> CC: stable@vger.kernel.org # 6.12+
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>  fs/btrfs/bio.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+> index 2c6234f6182f..fc0b021cdefb 100644
+> --- a/fs/btrfs/bio.c
+> +++ b/fs/btrfs/bio.c
+> @@ -127,9 +127,12 @@ void btrfs_bio_end_io(struct btrfs_bio *bbio, blk_st=
+atus_t status)
+>  		cmpxchg(&bbio->status, BLK_STS_OK, status);
+> =20
+>  	if (atomic_dec_and_test(&bbio->pending_ios)) {
+> -		/* Load split bio's error which might be set above. */
+> -		if (status =3D=3D BLK_STS_OK)
+> -			bbio->bio.bi_status =3D READ_ONCE(bbio->status);
+> +		/*
+> +		 * Load the first error, if any. It may come from a split bio,
+> +		 * including the one we were called for, in which case nothing
+> +		 * stored it in the original bio yet.
+> +		 */
+> +		bbio->bio.bi_status =3D READ_ONCE(bbio->status);
+> =20
+>  		if (bbio_has_ordered_extent(bbio)) {
+>  			struct btrfs_ordered_extent *ordered =3D bbio->ordered;
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
