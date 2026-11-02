@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609861;
-	b=pefHgv6KycbVQlwMonz9QCndn2TI5D34frXjnPt53abZEqr3oElpq2Bbxsz2Ts8LRZGh
-	 3LLAigW4mYzmW8REgFkEGAHZEI5QwADnaoiUIrL9cAbklPCBD3r92KE3TS+YPCbWY5F5e
-	 r9WUQ6uHOasQ+Ae4x8uRbZESETemPvgvSljjZO+p2MKarZxnLm4QEpwZLU5WmUswWo62a
-	 0JOfnk5JKg3K7npN1NCYJmTnVHMjhY0FPj982eYb57N1lWl5GoCx8Yq4ttbmiPYrelKlR
-	 sbOa+ZF1zdWfiYr5XyCoq/saH8BqI5bnclr3t8A4HN1/7pHN3nh0CVhp44tS9oLFqfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609861;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f1pPTgJrxY=;
-	b=mAB3q7JdigGG2rPc20SgjVmTI1r7ZLN+KyLkkMroTAU5U3/6DzoWyAH//IZOVsDciT/A
-	 6IlRLN3HPBAxolOOZHA7siaJOW4wUJwWSxrRqouOB+E7ewQD/f/74RuwNvjxWlm2mAXr0
-	 wMY8AlzPBXlt3NXCyQyJEAd+RfKphAokUENC9ELVu+39qEctP66rQ7LmJNZhue5pHsKzS
-	 aO9lxHI+q0WbhR44XUFUI2F/TXeNcIeroDhoifdYtHiNTKvFg0gF4s9gxOeluVBE9xZJO
-	 alN5YJ6RsBt7Nj+MjMvfViewGDOg7y1b9Dc3WY+iCE3zaDezM4KR9VrVNmkkD5K0J/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED0D1606A33D;
-	Mon,  2 Nov 2026 08:57:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED0D1606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f
-	1pPTgJrxY=; b=2iK4pYuaYJy+wMyeo3b39vJoZY4ccIjt68b84fl+BlGRa7+GB8
-	+/NtxI8CoW0hA6fi0Idesc//54YIztTpoeGgG3E6SuPMwQRa4CItm+GVOT0wRd9/
-	JP8b3SVsPCgioTF+TysiCt75pY1zmoEQRtkkbP9Vx6MlA5LKLeLLCDOoM=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2Of90UOhqVtIYAQ--.48924S2;
-	Mon, 02 Nov 2026 16:57:25 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Helge Deller <deller@gmx.de>,
-	Steve Glendinning <steve.glendinning@shawell.net>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] fbdev: smscufx: keep the usb_device alive while ufx_data is in use
-Date: Mon,  2 Nov 2026 16:57:24 +0800
-Message-Id: <20261102085724.13456-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
-References: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793610225;
+	b=WSc4u8NRKRJPB9tFiD8uXVCRGlwe9j7gh6T0Jh7DDTf8xEkNkhnfcibzNklMAY1TuF2C
+	 7BxAx8/OtaZ2rWVs1J5zhQzgbAUePRnzvAkplo/wfIfDGk5Ad0o+VAhpPK3pZ/gVClSJL
+	 /fiLjk1e/PS1uODL2pJWOgfby4t+48HvQ7WAyTD01UeO4VWHEUiYyl9Xsnc7VzbW69PG+
+	 Qz/YyevNYRPdZ7RtKrTPbQzgvLPL84eOIy9i0r/IWxrGlE13soVRWkOBWSc9uRAqXO/Ab
+	 7emVA2bKyAD3QZ45lY2OsSRC7IdZCF+CMZ2SIBSK56SpmIUEV9SPFJDl9P0ALtJerpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610225;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CIQUc8TV2VSKWd6WDRwUyM4Y6Sb8hDxkW9XfW/fg2to=;
+	b=uLApAFdTvoHrnMZgzNzk64HiVMZXnX0O/g4KJItJ5LXLeGfkp/vjHgh/dnTJl4IrGK19
+	 fap5QbXsHwhAO15JLBKIKnjddF0gIy8g3DwZI80JZNJqdFhrcjF6GodyJusArXo2JsGT/
+	 aciKm481xc4dZfdb8MqlVcKGX1k3ZCl6UgyZNb2OmUU8ZigKnYn+/x3Enff/6/Y/RGuAp
+	 /6+cKap7tmdcs5PzGJlgmyYOwQgmrv9E9LMmDEtfxNe6fViUPqPayPtRto+LsLPY2O+xc
+	 DJ5vY5rKYrYy//d6Xuk/g+9nFgNKDmX/DLVZkuarAD8Nx9D4S5joZoKfiuGbX6s+jTg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CVnZomWx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.32
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011032.outbound.protection.outlook.com [52.101.52.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F316606A324;
+	Mon,  2 Nov 2026 09:03:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F316606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CVnZomWx
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j6RfAFdXMaDeN2Wxouoifti0kgPSTo9gzYsBnHVEUnh9Jxg4nBvSWVBbCn3L/NNbdIbyYWczWf/MBZGKxUEh+nFt0rl+K0WqfQZa3b0zqm9DhTe9s9P0DPKycIdElVolfho8a+Tu6lEN6nQQx9i8r/efp32yzfH59Q0RNpai4LuexLU0QKKsge6hAzFq/2gCDuSqReSuZxbRospTx6ne/6Bu7eiVuJKwki5uYpq3teXR8zLy7Nq3WQF+NqNYbAQBC7hd8SPHd0x3IL9tInntvVEdcvQhRYYJ7Ta7xzeBhQm8eiFKUbV54uUIoUOFTBShoV6FZeiWF74VawuyLNPUcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CIQUc8TV2VSKWd6WDRwUyM4Y6Sb8hDxkW9XfW/fg2to=;
+ b=PX3Huatx+Ux1XZ5oRjJTy49wjyoIlgVJjcG3xnIeNmyUVWZF8Q5kZ3nA/muwp+KS88CxG5WZmZW9lxlsX/3ePMf2C7zFqT1Mt1S4b/MwDJ1mYXbNoSSMQRa2hFqH27LsPmVvfK6xPc/Wybt0JhOL8YoWD0yZUOIEiRo+ioTzuWzIoR3MlQH6f2X3hpWhnJtZBiAgw5E2Ubfjj9ds+dFFUmTU5B3I6FYTFojoaPkvwPct6xg2m9aVg2t6Dio3H77yB7j3gJMve58qzyINd66s7yDsLTiPmrBFHhsfqQK0UHD/AlStvKqJQ5G4cuz0v70x1NCsC2XiveN9EBkUNxayTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CIQUc8TV2VSKWd6WDRwUyM4Y6Sb8hDxkW9XfW/fg2to=;
+ b=CVnZomWx/fgKtjKAKqF/KDfnotzRR3ZNEXc3ugbqiuvS7Dcwd6Q2tPMeTdEulISTnjVy0+Tb8Ke56jiVP7IcKZ9MKIlY2sKaALvjhDUEeyahKN8tRcA6D2o40Wr8c5k7ryxgSnU0RA378Tf3sDk5rxYSpD5J5MxMhTcyB4swsn5WR2ap6pKUXHR8fzlnh/au/3ncC0L/39xU4S5n+KgwWHr4VxdjxisgDbFtlsd5f05jtgvffZ2V+tsu+2XHlSDHprJ69BUUQKhQsXvlEkGoAg+Vb0i9FFBUVx7Qnw7avckVxk/lxX8kS96c8FBLqNBc6fmoWaV6uLdaVZdwjGZYCQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by DM6PR12MB4403.namprd12.prod.outlook.com (2603:10b6:5:2ab::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 09:03:41 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Mon, 2 Nov 2026
+ 09:03:41 +0000
+Date: Mon, 2 Nov 2026 11:03:32 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+	netdev@vger.kernel.org, stable@vger.kernel.org,
+	Kyle Zeng <kylebot@openai.com>, Florian Westphal <fw@strlen.de>
+Subject: Re: [PATCH v2 net] inet: frags: limit the truesize of a reassembly
+ queue
+Message-ID: <20261102090332.GA807674@shredder>
+References: <20261030081225.2575462-1-edumazet@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030081225.2575462-1-edumazet@kernel.org>
+X-ClientProxiedBy: TL2P290CA0018.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:3::17) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,103 +99,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkD2Of90UOhqVtIYAQ--.48924S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGrW5uFWDuFyfWr1kWFyDWrg_yoW5ur18pF
-	W5Cay5GrWkJr4Y9a9rGr48uFyFqw13Aa4UCr9Fkr15uFn8C3y3JryqyryIg3Z3JFWkAw47
-	Aa45X3yj9a9ru3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17Mc
-	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU5_Ks5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdSL8QABs5
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DM6PR12MB4403:EE_
+X-MS-Office365-Filtering-Correlation-Id: e45417e1-6e2b-48ee-5cba-08df38c030bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|261021121427099003|261022075727099003|261026121527099003|261022105027099003|261026140227099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	iUkbshZm86u5fMXbJjzoOn8zShqgjOm1TljlKfPNSBl70iJCbMDsBPN38TalzYrQUM1Ism5SsfrWBNWtabVYgpMfcZtbklkEcVXEgim5P/ULy+DGf2tlVaa7q7t5u+2nBqD/5dqtnJ3PJToGJm6yChGDxDQtdspl/B0+kf61s9+DyEcGM68wSFsQHnzP6hxoFgWECJyx9IbJ7c0IqDHLs98hDszHhQRNPRLN8ftnrHkzCG0f7wG2cgZ2s5+qltZIxkLM+Pl6lbzYbLBsx3PBFwna8jzUunlY4I1adTfKRPTtJ7dAVuEVGk9Xhc78kiyxhW41D0j5GJELfBdavJ38Kf3nEKLycrQPYqoGfq5usTRL2yyIwDFuoR4lkKHR6fSAL8L23JVau0gV0WDoIA0Y88aCDRZKMnyWbsspIQZgkk9oMC7q0RfzGZaZN+SjjUrylKR3Qj7I0Jdh3QIyFf2dHCweTpdvpfO6R0bVCJcjeyh6oQ02NFXpzmzB7rgT5vigPKk5OKTLPV4kokWqmNumzagSHYXQtOoG3zO1fuD1a5tDXK6YXJpzAbSk2gqen5DMO6A56S1Tbqd/FCuOHm/C4GmwOZiq/9kWFBr8pybA24yEhq2HSygQzO25CBlr5wB7pnw33qeHxTvzoxdrt9EWX8ILwXmWQc7nnKgGAiHVV4o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261021121427099003)(261022075727099003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?lnSgFvZ+lCvfMkhhuFiRdT6L2f1A8jOagu/MFFPtaR5pNCEE2t2787tPpZ9q?=
+ =?us-ascii?Q?OEUJNTrH2UsfcjAvFVdR/NiJX4Zx+E+GMWN6kC1h6+DokEJ/6ne8qp8ij2fb?=
+ =?us-ascii?Q?6fWW0CEyIqIWYDGe5N4RZKsw/AvN2wGmYV5vEX8frGA5FW44cDZXxfANtYhz?=
+ =?us-ascii?Q?bYjMfdI5k3JS4ZReNY6HBwi572PqPlM3RbR5/NpqI98nWI2VqX96ug4ufpMu?=
+ =?us-ascii?Q?MYdjc2g+9jnIFuPgwwhLKd/cXQZg1n0H743GPSYRHWwSVRjgMO8LrZnSJxH/?=
+ =?us-ascii?Q?HRX8GRafMOf0k8KeU/6VjNYNhg8fCSRo1Hx1IDI2goUyuIh+ZXe5cIfC7mqP?=
+ =?us-ascii?Q?cghQURX8QImpsUkuFbiuc+/SpI5wTSpDqSxEPAnk6xELxSdZQpOdOkNTGZ31?=
+ =?us-ascii?Q?t9YekGuQVDTowOyuDzy3K5TCDQ+VvT3abBzQyjCg8/ERXYAK4PHqosG07Kzu?=
+ =?us-ascii?Q?WWdsy0hpDJ15y2s0nbNkX08DNWZYGCagc83llVdhoWQ8hWdO30ctk2B6WuWb?=
+ =?us-ascii?Q?jsngipcQzqenVPbjMIn/PeNxILc8VCtiLcon9r2uY6Mwy2RVIeK2+u2M2FZd?=
+ =?us-ascii?Q?eUVsmifwMC6JRW0x4qywdVWYlI/ReJh5Njbnv+pHKjSc7oe3jXSuLwvLp5cK?=
+ =?us-ascii?Q?8ZrAVfPtHRwoTEwePei9LgG0MGMzVPAZhj7cJDzaYXHRgU4T0468HoPExy0j?=
+ =?us-ascii?Q?3GH/VcT0VAx+Aj1zTjxyYcV48JCMJ6Ed2x7uatlzrYxHnsaw/FXXBGAJVTmm?=
+ =?us-ascii?Q?Zud8Zud31oI9IElE85a+Pfl+RKAwzoxeHYBDqxi6ncZBaNnqKLytXgZHzih6?=
+ =?us-ascii?Q?/N9bRCxQHeoceZsGbF+iIMe9ugCv86jtE4I+EBI/LH2rbJxZkbux7l2veMSY?=
+ =?us-ascii?Q?bGtvGthwRxAjZl47i5wbYx6D8iehUiNbum3JwZfPWftB/WhfzJW02FTnXJfD?=
+ =?us-ascii?Q?DZ0ntiIz4azMg3QaPggbvwS1MAgQQZ3vMGzAuZrFjfOInpumUcZTTQJQi9pY?=
+ =?us-ascii?Q?7NpTxpp65pZKO2ox0DrS5US9DLzsj+0rU7nBh91QEXg7j/qKMjUGArJRd9tt?=
+ =?us-ascii?Q?ESJeTQNbbMkuhKpGIEnsoi+KP2+Ql9Unyd3/VM5oIs/f/ZuBGAKxgVEgrD99?=
+ =?us-ascii?Q?wuy9TTTIIZTR0N9YNyHZ5idlW/5xZewdaQM4K5Act1kVl7wnRPQ8gcwrPnNN?=
+ =?us-ascii?Q?ktIov9+IKv9ZAtpLJE6zWhNMIi0Y9eMSlLj1eGlPAX7tT/gdPxhkls+nTITA?=
+ =?us-ascii?Q?vPxvWhGKcK1+aRrd+zjreKWREkO93JOAvySrajKZz5mO/3nDc004DtWhTjeZ?=
+ =?us-ascii?Q?Z1vE+gxD1ho+C85+YSTtL6GPgDUAmkkOkIl02u5fpFzuklfjE5oGxU/Hxvw1?=
+ =?us-ascii?Q?WybwPqCPGg8LFW1dtC6UvJ5O4Bgue479xLZuudAiBjDCZSBh/vmndq/f37UC?=
+ =?us-ascii?Q?Jsr3pVUyu74At19lDvixEp8rvJ8i+8XPJWLuBiuHlaw0Er3iWReA8XHl3PAj?=
+ =?us-ascii?Q?G61ZpFXzrmD4rctF8Pg2y0pO/nD9t7uxriLJVi/S2EnrJX9rlTM373MB6enS?=
+ =?us-ascii?Q?pinnOSTEi7r/rt+pVbXRMKVSRddTGwoBNKVyuYc97XpFai+IuOyxH4Jx/OHS?=
+ =?us-ascii?Q?j2Mjxqj8GUymd5EwCEdRfwlH212fcFfS6pb36euaqHkOUXbCj5TjBqvh0YU7?=
+ =?us-ascii?Q?z3YrzSYF4fAVG2gsvfEr4L9eDaVoWFyEckSmHScp6OgwB5Gy?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e45417e1-6e2b-48ee-5cba-08df38c030bc
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 09:03:41.3319
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AlmkV9Wmt9g3WjltCnzE+H7r1BKSKAFH/vY4OOMZERaEUIn3BN3kz63XWZdd0DzpS67UwBtz5knMDcD2lmUZxA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4403
 
-ufx_usb_probe() stores the usb_device pointer in dev->udev without
-taking a reference, and ufx_usb_disconnect() does not wait for in-flight
-control transfers.  A mode set or blank request that runs while the
-device is being unplugged - through ufx_ops_set_par() or ufx_ops_blank()
-on an open /dev/fbN file - keeps issuing synchronous control messages for
-the whole ufx_set_vid_mode() sequence, including two msleep(1) delays in
-ufx_config_pix_clk().  Once the disconnect callback returns, the USB core
-may release the usb_device, and the next ufx_reg_write()/ufx_reg_read()
-dereferences dev->udev through __create_pipe():
+On Fri, Oct 30, 2026 at 09:12:25AM +0100, Eric Dumazet wrote:
+> The truesize of fragments in a reassembly queue is only bounded by
+> the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+> 
+> inet_frag_reasm_finish() sums the truesize of all fragments in an int.
+> If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
+> adjustment of the socket owning the reassembled skb can cancel its own
+> reference, leading to a use-after-free of this socket.
+> 
+> This can be triggered from an unprivileged user/network namespace,
+> raising ipfrag_high_thresh and using padded TUN packets, which keep
+> a large truesize after being trimmed by ip_rcv_core().
+> 
+> Track the sum of the truesize of fragments in each queue, and refuse
+> a fragment that would make it bigger than INT_MAX / 2. Callers kill
+> the queue on this error. This bound is far above the needs of
+> legitimate traffic.
+> 
+> Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kyle Zeng <kylebot@openai.com>
+> Cc: Florian Westphal <fw@strlen.de>
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
 
-  general protection fault, probably for non-canonical address
-  0xdffffc0000000006: 0000 [#1] SMP
-  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
-  RIP: __create_pipe include/linux/usb.h:2031
-  Call Trace:
-   ufx_set_vid_mode
-   ufx_ops_set_par
-   fb_set_var
-   fb_set_var_from_user
-   store_rotate
-
-Take a reference to the usb_device in ufx_usb_probe() and drop it in
-ufx_free(), so dev->udev and dev->gdev stay valid until the last
-ufx_data user is gone.  The control transfers then fail with -ENODEV
-instead of dereferencing freed memory.
-
-Also return early from ufx_set_vid_mode() while the device is inactive,
-matching the other transmit paths.  That check alone is not enough,
-because it is not serialized against ufx_usb_disconnect() and the
-transfer sequence continues after it; it only avoids a long series of
-failing transfers.
-
-Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
-Cc: stable@vger.kernel.org
----
-Changes in v2:
- - Hold a reference to the usb_device and drop it in ufx_free() so
-   dev->udev stays valid for the whole transfer sequence; the
-   usb_active check alone only covers the entry (review feedback).
- drivers/video/fbdev/smscufx.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
-index 5704f60e1741..eac303adb69a 100644
---- a/drivers/video/fbdev/smscufx.c
-+++ b/drivers/video/fbdev/smscufx.c
-@@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, struct fb_var_screeninfo *var)
- 	u32 temp;
- 	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync_end;
- 	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync_end;
-+	int status;
-+
-+	if (!atomic_read(&dev->usb_active))
-+		return -ENODEV;
- 
--	int status = ufx_reg_write(dev, 0x8028, 0);
-+	status = ufx_reg_write(dev, 0x8028, 0);
- 	check_warn_return(status, "ufx_set_vid_mode error disabling RGB pad");
- 
- 	status = ufx_reg_write(dev, 0x8024, 0);
-@@ -1064,6 +1068,7 @@ static void ufx_free(struct kref *kref)
- {
- 	struct ufx_data *dev = container_of(kref, struct ufx_data, kref);
- 
-+	usb_put_dev(dev->udev);
- 	kfree(dev);
- }
- 
-@@ -1606,6 +1611,8 @@ static int ufx_usb_probe(struct usb_interface *interface,
- 
- 	dev->udev = usbdev;
- 	dev->gdev = &usbdev->dev; /* our generic struct device * */
-+	/* keep the device alive until the last ufx_data user is gone */
-+	usb_get_dev(usbdev);
- 	usb_set_intfdata(interface, dev);
- 
- 	dev_dbg(dev->gdev, "%s %s - serial #%s\n",
--- 
-2.34.1
-
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
