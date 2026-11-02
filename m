@@ -1,74 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641299;
-	b=xEHV0cPVRH8N8V/U2lK35M5ejO6mb0XpeIGlkkzb5M88MBsFdllBtRCQ3e3v5zzK2M96
-	 M/40SUMhE3wJ92+NplEWltMf51vBKx/iE/X9QZoUk4H6gaROjYq44LPCzMDnrtX07COqo
-	 G7LxCCG48kOLSLhwXFCL2zBpPXx1i1pAmw3ugab8KVaU9OM9bCjEcMSGH+IbHqknA3GVC
-	 FtzhQ7PWI6S77rBmfbMl4+2KC6C7QHAphfo/ArUSUppuY5HEWJVwkBU8DSc1BGgfLHjID
-	 z95VXoNMQJgh9oF2LofDg9058k8WW4nQPZ1dRBM+S80ndD0k7iPFqI8Ey9HJ0+u17mw==
+	t=1793641526;
+	b=tI8076HvYmehnqXGIZXxtsYH+46rtTWMA3ZRDoc8hikFYJoaxYYOjGejsTFws0t/aIET
+	 H+Lcg4gmTvXMyrFff+0VDfkVsXwKdr0Q5ECGGe6FibOv73c26VGU+Hpr2KgF1b8IKFRqS
+	 a7ViSavfuM9rR+RoMOTHZfvWvKrVT345xYs7ThJfY9Yuyx2Xz8ndpstWm11HUT1rk6c9s
+	 RoKMiqhSLQ6IH+BFEQAwCu4x4l4AnZkHaCfJE1bbBnKhhIwiia1uKEfm66Ip/IhZ3cRkb
+	 glhFRK5/wTnGo7pFriyUM09eA8oJHqA8Cu/uPzihO7hs1PlIxcAtjS4wY6ugK/A1a3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641299;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=8QRJSjFRhFjsEIrLMUF/Qbq9FSRASB71Ae5rA38ygI4=;
-	b=xCnq+3lEsYAsilPPGgaX/0J2HxYZS939G2+1mQ+u8dyaMe4rc2ksMvy8LTxtIsEC0xps
-	 h51Sn0Xc5XWXk27jm+SyMurQJ1i4neAT3RWHAi8skeG/2fCzvu5pNZKff3prqr4LX2NCu
-	 vbR+Z6p4pUbWYbphNoeg/Q9r7LConPUcy2xc0c03YIk3cxk+4Qn5g1vDNWZdL3SNnT5lp
-	 ECyHLm+glhVi1l1mAv1Hu+c6C6oDzp1P377WaHFHOzNCPWJOIWoZaxSYTPIKKGMRi7x4I
-	 bUbCYrL13/lTuj4V+gUceeOwKYbN2loPwOVnWUPjKCFcHNZTaAkdZzY6cR8Xibvc7PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641526;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=druvbJvBN6ko55G4pQr8mGOqphalakbTk9dYFbwjgLM=;
+	b=Xcif2HcyT9rQpOj37rqaJECgJU7uia/NZL2ZzN4KdkKZVY9ByT1Qbw9dh8CyheGaL2dL
+	 89f55vV7HRSm51LXWFw7Ugmg6xcyon2A3JtPk/75MoNT9RiJEgKpdWtIRfTIKQtCP0OmS
+	 CTbUDGOsRaf5Xlp8ru3UfW2TDp3G4koWeSggqQVMqnBh4TaOfMmbRKYO+pJ7SA/2yk9YV
+	 h8w2M+z4ajnUL8NCyBGWdmkR+0sh8geRJ4m5e7rdyb2gHliBHWzRenGvF4sWOoVFIaK2+
+	 wgRCn22ldksXt5QsVQiwu+OAMUWX11XUJl6PqD8cU+8yylCs1FAMG77KhoJtXQeQZhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OkOleMPV;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yd6lo9yE;
+	arc=none smtp.remote-ip=74.125.229.9
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704A660716CF
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 17:41:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 704A660716CF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2210060850A4
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 17:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2210060850A4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OkOleMPV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641298;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8QRJSjFRhFjsEIrLMUF/Qbq9FSRASB71Ae5rA38ygI4=;
-	b=OkOleMPVyjo9h2PYYcKB5TtjFQFWdFkzZ+a6b/WMjTkfDo3EiqXaZQwHVtIUn3ktAvdO78
-	u6VYUjQq2E3Uo7PGjHuM7yLdDeAzMZXcWZah9IksiHMFuqzmGtnY1C6Xm60Ee4H9iv3Kls
-	nxR5GX5+yUxyVuPPRrwXaQIVY8Fmfl4=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-30-84tavbVfN-2gsjiu0x5Y8w-1; Mon,
- 02 Nov 2026 12:41:33 -0500
-X-MC-Unique: 84tavbVfN-2gsjiu0x5Y8w-1
-X-Mimecast-MFC-AGG-ID: 84tavbVfN-2gsjiu0x5Y8w_1793641292
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 700C219560AB;
-	Mon,  2 Nov 2026 17:41:32 +0000 (UTC)
-Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E8DF030000E3;
-	Mon,  2 Nov 2026 17:41:31 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 02/45] KVM: x86/hyperv: do not overwrite hc->ingpa for SIGNAL_EVENT hypercall
-Date: Mon,  2 Nov 2026 12:40:46 -0500
-Message-ID: <20261102174130.8779-3-pbonzini@redhat.com>
-In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
-References: <20261102174130.8779-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yd6lo9yE
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-35eaf84cc66so3201702eec.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 09:45:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793641520; x=1794246320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=druvbJvBN6ko55G4pQr8mGOqphalakbTk9dYFbwjgLM=;
+        b=yd6lo9yEWuJUMl/+aP8HN/dtgpx5uQ8WW6Bc1IV4WBj+cefC1XxQftpQqCPoWVqBDz
+         N40TxHXTAY62ONZLRupG5OGeYB7sO/8Qq3f9wLtCjEvtG3zxXfn9tp2mbxlhCvFOTMmH
+         AB+9B4D0Np9BS9YcpbJRVHjoxQYEowFcXJq0iwKxynkx+wxRvDMcEFTptyrCgQi93mVO
+         2ZvLeoJN8VVVlIektlJfwSKxSimSqLRmcqO3FFDxX2BthAmXUMTXB84JSStR+RDRVInd
+         TdLhPiGDPK9zH/bTfgb8W2f0IpIyrrFUVygHAf7hETB+4t+d2bt1R4kM/ZTGJuFvvXB6
+         kFYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793641520; x=1794246320;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=druvbJvBN6ko55G4pQr8mGOqphalakbTk9dYFbwjgLM=;
+        b=bBTPnw8OpH3PqdkdXyXEyCGzMT/xVr+yB8G7f7HOIpvlXxrl1HclzyEeAvfgEKDpg4
+         IFybxgtMo76sKWioptgybaPGh9I2ww/hiiurWISj21KfOtXtSN/5j6rdAka0KNePEmzk
+         VflNYwmo83mfZXFHp+Y3Db1YNlbiqwpEqdPYJhKWqf2xaiZ6VBU1gPK2SS26scS796pP
+         J30yJzYF+yRNwyYiCMNpFVdlK5OFQZGR4jpQMVWa8J9qdgwsfzlfxZCiTA8/vUBbE+ie
+         lAz1ZY8Si+2R8fm/sVNBGeST2GJws8Hyp/kFVdG5NeUJ3CMsqYcHuedkkzDL5Xhz9Vap
+         hmhg==
+X-Forwarded-Encrypted: i=1; AKwUvBws4LT96DHF2JSjOb6Eq5TFYDrEnytVAI7Zg5YeOTXjdGkqzRxXagmAdsQSqvh/k29ym6q/asA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJT9OC7RxXNYpzEVDN9YvDePWTUKKxlnpgxVjPmfcOc6fDdSO/F
+	bxO9hPR1L53MGY5xNVLfQhQHQ1uiGWr0PEWB48MHnbMc+yVdSFf3mOzv
+X-Gm-Gg: AYBFou1oA8JWdiJwle7E/2wn5XCxYiMmuNe25+dTmryxDfoV87rqzo4TJQUlQyRxx02
+	mji99MF9f0DugdBasuoZQKw8droClJETqOwC8eo9XX7EPpo0I/LtAQ4G8NCbQ1XvW8dDM+dOjwK
+	smQcetGiOnO9Z9fI6WWm/vAiujg7CIkEQ1N8HwFwwmHWz7+kLu8NIOiVEIs+ebJvYAHsCEzmD5V
+	2M5PYittiUafW7vQQs01EwvpnRw33Wl6EW36BadefWUbS71Sh+MPHS4MiFOvjSzk+QVzjnhkKLl
+	MZ/MoTBv0HVCp+0kc+g3ooXWradgV/uK7j6URKNBw6qYHjQxE6NiyeP0OH6Y8wyKPGbD+xJp2zz
+	da3mQMN8meUTmsZMcB68lxkMjCB6ifDphDmJz6w4md3ENPXKgRpfXcxRbRfeKjUzo1ilrvT4nH8
+	nXS8rOIJQxLnY0ClxZtrBnrupIo+NXk2+a0l2jYyJFBzw4hYrFl0bIw9OAzvi5AuDrEMLgiklyv
+	7shhYwy1SDfKt0BxP1VmY7B0ZvsgfSyDSGtFNyN2yXtYui3hhEE944A/72JXxquRolxyhObBrRJ
+	y/49nxOSs7ABYbA5EXtZwhDWjE4=
+X-Received: by 2002:a05:693c:6316:b0:36a:7bb7:4609 with SMTP id 5a478bee46e88-36a7bb74690mr123492eec.34.1793641520162;
+        Mon, 02 Nov 2026 09:45:20 -0800 (PST)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm53290803eec.16.2026.11.02.09.45.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 09:45:19 -0800 (PST)
+From: Coia Prant <coiaprant@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Frank Wunderlich <frank-w@public-files.de>,
+	Peter Geis <pgwipeout@gmail.com>,
+	Junhao Xie <bigfoot@classfun.cn>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 5/6] arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
+Date: Tue,  3 Nov 2026 01:44:49 +0800
+Message-ID: <20261102174450.3000397-6-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102174450.3000397-1-coiaprant@gmail.com>
+References: <20261102174450.3000397-1-coiaprant@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,78 +108,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-When a guest makes a HVCALL_SIGNAL_EVENT hypercall that is not fast
-(i.e. has arguments in memory), kvm_hvcall_signal_event() reads the
-connection ID and overwrites hc->ingpa.
+When the Ariaboard Photonicat runs on battery, the USB port has no power
+output and attached devices are not detected. With the external supply
+connected, the same port works fine.
 
-If the connection ID that is valid in userspace but not registered in the
-kernel conn_to_evt, KVM exits to userspace; however, hc->param still
-signals that the hypercall was not fast, and userspace will then treat
-the connection ID as an address.
+Per the schematic, the 5V_OUT rail that feeds the USB load switch (U12,
+enabled by USB_HOST_PWREN_H) is the OR-ed combination of two sources:
+- VCCIN_5V (external DC input), OR-ed via D16.
+- 5V_BOOST from the VBAT boost converter (U16, enabled by BOOST_EN /
+  GPIO4_D2), OR-ed via D5002.
 
+The 5V_OUT rail has no enable pin of its own. Since the regulator
+framework can only model a single power supply dependency per
+fixed-regulator, add a regulator_5v_boost node for the VBAT boost
+converter, and a regulator_5v_out node to represent the OR-ed 5V_OUT
+rail. Bind the vin-supply of regulator_5v_out to regulator_5v_boost to
+ensure VBAT is boosted when the system runs on battery. When VCCIN_5V
+is present, D16 takes over.
+
+The USB load switch (vcc5v0_usb30_otg0) is then supplied by
+regulator_5v_out. This restores USB host functionality on battery
+power, matching the vendor firmware behaviour.
+
+Link: https://github.com/immortalwrt/immortalwrt/issues/1534
+Link: https://github.com/photonicat/photonicat-hardware/blob/main/Photonicat_rk3568_sch_20221116.pdf (Page 15,18)
+Fixes: ba124e06ce7b ("arm64: dts: rockchip: add dts for Ariaboard Photonicat RK3568")
 Cc: stable@vger.kernel.org
-Fixes: bd38b32053eb ("KVM: hyper-v: Collect hypercall params into struct")
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://patch.msgid.link/20260918135030.171564-2-pbonzini@redhat.com
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
- arch/x86/kvm/hyperv.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ .../boot/dts/rockchip/rk3568-photonicat.dts   | 49 ++++++++++++++++++-
+ 1 file changed, 48 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 5d2e3617c952..798baa9eaafb 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2437,19 +2437,22 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
- {
- 	struct kvm_hv *hv = to_kvm_hv(vcpu->kvm);
- 	struct eventfd_ctx *eventfd;
-+	u64 conn_id;
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+index 7e0a2ab829209..290e3ee97c709 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+@@ -59,6 +59,47 @@ hdmi_con_in: endpoint {
+ 		};
+ 	};
  
- 	if (unlikely(!hc->fast)) {
- 		int ret;
- 		gpa_t gpa = hc->ingpa;
++	regulator_5v_boost: regulator-5v-boost {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpio = <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&boost_en>;
++		regulator-name = "5v_boost";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		vin-supply = <&vbat>;
++	};
++
++	/*
++	 * 5V_OUT is the OR-ed combination of the VBAT boost (via D5002)
++	 * and VCCIN_5V (via D16).
++	 * It has no enable pin of its own.
++	 * Model it as a fixed regulator depending on the boost converter,
++	 * so that VBAT is boosted when running on battery.
++	 *
++	 * 5V_OUT supplies:
++	 * - VCC5V0_USB30_OTG0 (USB VBUS via U12 load switch)
++	 * - VCC5V_HDMI (HDMI 5V via D5000)
++	 * - J53 expansion header (Pin 1)
++	 */
++	regulator_5v_out: regulator-5v-out {
++		compatible = "regulator-fixed";
++		regulator-name = "5v_out";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		vin-supply = <&regulator_5v_boost>;
++	};
++
++	vbat: regulator-vbat {
++		compatible = "regulator-fixed";
++		regulator-name = "vbat";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
+ 	vcc_1v8: regulator-vcc-1v8 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc_1v8";
+@@ -148,7 +189,7 @@ vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
+ 		regulator-name = "vcc5v0_usb30_otg0";
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+-		vin-supply = <&vccin_5v>;
++		vin-supply = <&regulator_5v_out>;
+ 	};
  
--		if ((gpa & (__alignof__(hc->ingpa) - 1)) ||
--		    offset_in_page(gpa) + sizeof(hc->ingpa) > PAGE_SIZE)
-+		if ((gpa & (__alignof__(conn_id) - 1)) ||
-+		    offset_in_page(gpa) + sizeof(conn_id) > PAGE_SIZE)
- 			return HV_STATUS_INVALID_ALIGNMENT;
+ 	vccin_5v: regulator-vccin-5v {
+@@ -446,6 +487,12 @@ pcie_pwren_h: pcie-pwren-h {
+ 		};
+ 	};
  
- 		ret = kvm_vcpu_read_guest(vcpu, gpa,
--					  &hc->ingpa, sizeof(hc->ingpa));
-+					  &conn_id, sizeof(conn_id));
- 		if (ret < 0)
- 			return HV_STATUS_INVALID_ALIGNMENT;
-+	} else {
-+		conn_id = hc->ingpa;
- 	}
- 
- 	/*
-@@ -2457,15 +2460,15 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
- 	 * have no use for it, and in all known usecases it is zero, so just
- 	 * report lookup failure if it isn't.
- 	 */
--	if (hc->ingpa & 0xffff00000000ULL)
-+	if (conn_id & 0xffff00000000ULL)
- 		return HV_STATUS_INVALID_PORT_ID;
- 	/* remaining bits are reserved-zero */
--	if (hc->ingpa & ~KVM_HYPERV_CONN_ID_MASK)
-+	if (conn_id & ~KVM_HYPERV_CONN_ID_MASK)
- 		return HV_STATUS_INVALID_HYPERCALL_INPUT;
- 
- 	/* the eventfd is protected by vcpu->kvm->srcu, but conn_to_evt isn't */
- 	rcu_read_lock();
--	eventfd = idr_find(&hv->conn_to_evt, hc->ingpa);
-+	eventfd = idr_find(&hv->conn_to_evt, conn_id);
- 	rcu_read_unlock();
- 	if (!eventfd)
- 		return HV_STATUS_INVALID_PORT_ID;
++	power {
++		boost_en: boost-en {
++			rockchip,pins = <4 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	sdmmc0 {
+ 		sdmmc0_pwren: sdmmc0-pwren {
+ 			rockchip,pins = <0 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
 -- 
-2.52.0
-
+2.47.3
 
