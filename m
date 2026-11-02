@@ -1,47 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793584606;
-	b=llXqfNvpMUBIJJjHHu2rQjlo23dH6d5uniZk097RPAeBkFKOhyd0sGyPLNCOz2WbKMN/
-	 jJqTv0csfb3EntRafb7uJ/5mijDEtMz9nzVwAjuxTbQpCC9M1nE7Fbts+dojxgQH6ewF2
-	 G3NreSW9AxsIexlWLYHJJp+G1RId3szKCywUeYVu8Q03uxtR0rTZTaiApzwuKIdrTtehA
-	 q4jrIBfBky9Qbok4thF8cm235W2U6Pgmvc4N7qmB/QemksWduE7Eghxx/JiDNG5yndJ6s
-	 fYNuZ/mDP7BZOT8NP/g/1wjvZ5IXHzpMitef3xDZs77OGexnqDSrpILDd+2s9j9IvtA==
+	t=1793584671;
+	b=YQDCDO0JZDbuSDXYvQzea0pzPTR1kiId0bWLWsSwu8pkieGM5Wh0YZNuWyUN84kVIJuB
+	 Pyx8H9HlgrjALC2nofl6FvAAsQ3wH+/O6fhge/FFX8LpA3PLwB/Jr1r5qa/DmfcgdCJTy
+	 QiOWG3NcmSaYadIaO6iNq5zU6XVHMuQaHfNs8rRrVttw8V09d7BUe2stEz40qHmbf8Qm+
+	 U7WXWUiwDliCwy4U5nToRVr4qGHv5nJHExl86+6qpd3EwzJS5KSVJGmw7wau9cha6FbJC
+	 mgDrfLBhge/4ZigwX2lyiDRCOWoBs/yOyq5qCATVkwpRj3tMoLq3oEd6H+I04F7jVjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793584606;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0ZsByk/ZJvDZM0D6OTRlx2ROiNL3TXd4513hn09OUlE=;
-	b=exUO6k9hbnxUKlprv7rNQaeJz9XNysU/NYKsHs3aC3CvO6qg3FCsBXvuoLtqtFe/AJx0
-	 WoFv2GQePjBjhm6FhJGaITizZVteRQIL6P2MPkUGvHAotdG2FXHGb65M67dWz0ptPxQGY
-	 AvLE6NuYft/bNXa8ZTidA641ejhYQ0IktKcSWz1S1iiFF6OnGy1wRGhcApGSvgqvItnqQ
-	 7mxQw1USuj6Bsigdki15z2ffz8qDQ/fCtHwu8ecU9bPpX4BkBtHxvMfa3vxzrVjkZGNhH
-	 insBQKA7+mu/vNAEx6Xh7ZcXfWgrIlw8nmExz06LuOZQVPUv0tmC3INLY4KnCLq71Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793584671;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=TvpTzi8L0ZRWR0mVAbSBCUuTyz3j9j00g6UtTPOySZE=;
+	b=0lOpBhM624rFG5oBa3F12Y9OphOoc8xn5ADCYs9P+kqsr99JqCkloB0ivh0Zhh+qRWpu
+	 HgJ1H3SZ717uGGCc5sP6wvoDZILvKCsrEUHCxkgPVzURhxiZPYOG8i5xAmj5mlT8cVUX/
+	 mcLXKOudAxGVvNeO2s47Ba7PAuS+BH9gRauhNg986vOo05T+XKAdAHMVxaou1/VsI29SJ
+	 g5tYngM1dwha4VXzQO+QMeKoSsC6gIKyd8IRgJEMYRio8068FcDg1S+YY8zlX+CZKS5mc
+	 99yFnr7K2GIKnrqNp4R5NBqqA25e+4a/UbVs1o3S1kAcAJPVPaVGbOSxdE29FLR8qZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3fv1KoO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=XiufxJuD;
+	arc=none smtp.remote-ip=203.205.221.231
+Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8A3606A324;
-	Mon,  2 Nov 2026 01:56:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51755606A324;
+	Mon,  2 Nov 2026 01:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51755606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3fv1KoO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B0B1F000C1;
-	Mon,  2 Nov 2026 01:56:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793584605;
-	bh=0ZsByk/ZJvDZM0D6OTRlx2ROiNL3TXd4513hn09OUlE=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=B3fv1KoOC5Oy3t6N1R6tSXDEqk0yIOuoGCfOg6mtvRQF4/w2KZulY7lXYGB4eykbN
-	 lFUcP9ORWfhzd4EpAUxmwfvZEZoUC9n/yxdFjofD8c1S6YAKfvN1UJqyev+Mzas9HV
-	 GD9Lfh+X13BKrGjsEfAOWSSX+vPwEeinm4hHoOrSn30XzAiV4kY3Prrz68muzSfDQA
-	 bJVZOu9/Eq9ZJv3wVyqXdzh2vvdaJp5T35bn6IpKoJ0BNyFxQOnH1aLfGz0ZCxAIMx
-	 uUyikVSa+NcNci18d6ILj9MPZVddynvoNOIQnLi57wwe6y2FpsGhfsrZPCyFBg3Zzp
-	 nVbgiMoAV8rFA==
-Message-ID: <a096053d-3f01-42aa-a933-50145abb874d@kernel.org>
-Date: Mon, 2 Nov 2026 09:56:41 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=XiufxJuD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793584660;
+	bh=TvpTzi8L0ZRWR0mVAbSBCUuTyz3j9j00g6UtTPOySZE=;
+	h=From:To:Cc:Subject:Date;
+	b=XiufxJuD9RBVMxXzCuURboolbfjU2kmL84RSMEVL/ZZKV8smy+0M0FCTrt9GgbGEG
+	 phUMPES+WYSQNLSOszyB8lGYxbTByoLlJFpCTAiqGRXm2Bz4InDDO5cC4XC1ILumip
+	 ALABIKprKcJyqYg4wxT6xLbMp7lwIUxQMAaI5HVE=
+Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id E6531245; Mon, 02 Nov 2026 09:57:37 +0800
+X-QQ-mid: xmsmtpt1793584657ta2b66kj9
+Message-ID: <tencent_0A4B784EEB3D358B09B43AA2B2F13AE44505@qq.com>
+X-QQ-XMAILINFO: N8xf3Kn/xs1HBUfGmattMNB7+yKUBgyS6w9hE05dNpGZAJ7OXBN53xrj/d7j8m
+	 kAtrXYjFbxUYmmy4ZfV3o5Bi5Pf4jXZ8tdxbeoSbqvqFgg5mqQrWD1wkQbkxfEUU0HnS947jrrFS
+	 Oi1NCkyWyFQnMYW6/9wfAxeA7lJHCwcv0wdpOxTflzDyVzhGyxRYZCxzOGaiKJT69BbXaoL+UEzH
+	 IBTU8f4AI795r7ec7eIKB2yh8eXc+jgSvd7ropAWfho2zo0EMYBNMgUo1Rhl/acsRj8VTqcMPnOI
+	 T0DQPeb9ZU4BMBXigfVLvVAwaqNM0eqzwPWmVueAnQXV8KTRfXsB/w22xFKrYYlXhNqOKRdw/LLW
+	 xSIlYMmKt+8vjUAFn6kdBdpKXvK/hVU5+r6OCnwrifggZOB+AayXO947KRTPjF4pUgeazjve15jd
+	 7aB8fqp61dC39dAUx5xdBznQIXvFOadB1XNqRbxLNR6wVsLdR7fFy+D7OGD+0mEzHQykxVTOEzlK
+	 dUUjmdAUhJ/03ireIY2K1fsSjhICoMFb97UWhaI/EFEmvHKXoKsLs+8xZ6bPNW+qIMAo4PBnMnRW
+	 uwNS2Cu7HATj6Ce0MKW1JwRLxLauw/2SlRQp5bsOptoPWo0h/qyVIQDHlg3m1iCoOA4klNbNkp8/
+	 BOLLyog9IWXyNZC4LsxHMHqtOTjd+Xw06Y6CY2tqogXoyF49rV+Ch/CXmeSvd50M9rnUtw3Nzfmz
+	 hWgIk0e0C1iWJ+0nH5tBCQpyvUWbTcYEM3LuwQE8cuueVh9/KzSGhvlETtHyeZxOTcky03HC+B+J
+	 0WdmGGCsn0u1Scc2g/jd5CtKm1Y/CneVb9RtmwTQZDuqNPFOpdk1XxqYN2poY69rogrZeorKNJ+y
+	 vV+PKZjYRh7jo28m+ZDRFM3R6o5bEpJlbdAXrc6ho6fiH+Ti2eA8H1QgBKnTPZf3qlfHfQFin/g9
+	 wEYe7zh7ISYxpdc9jxAs6W8GGgULEtVX3C7HfyjhBGSoDtkn0CohE205XEMe5ehkAAI346AjpadG
+	 +Pu+KO/aYPGzz3n7z+UX18BVEKkQKFn1Inljf511zzzpksorgFIyYj4MN32XaWGgxvMYniZQ==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: bo cao <treebacker@foxmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	dsahern@kernel.org,
+	edumazet@kernel.org,
+	idosch@nvidia.com,
+	horms@kernel.org,
+	willemdebruijn.kernel@gmail.com,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v4] ipv6: fix dead half of the MTU guard in __ip6_append_data()
+Date: Mon,  2 Nov 2026 09:57:36 +0800
+X-OQ-MSGID: <20261102015736.64157-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,74 +85,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, lihongbo22@huawei.com, sandeen@redhat.com,
- linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- zhanxusheng@xiaomi.com,
- syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] f2fs: free the quota file name that remount drops
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, jaegeuk@kernel.org
-References: <20261030072423.197883-1-zhanxusheng1024@gmail.com>
- <20261030072423.197883-2-zhanxusheng1024@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261030072423.197883-2-zhanxusheng1024@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/30/26 15:24, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> Remounting with an empty journalled quota option such as "usrjquota="
-> clears the name, but f2fs_apply_quota_options() overwrites the old
-> string without freeing it, so every such remount leaks it.
-> 
-> Free it after a grace period, as f2fs_show_options() may still be
-> reading it.
-> 
-> Fixes: d18535132523 ("f2fs: separate the options parsing and options checking")
+The second half of the MTU guard in __ip6_append_data() has been dead
+code since the initial git import:
 
-BTW, shouldn't it be:
+	if (mtu <= fragheaderlen ||
+	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
+		goto emsgsize;
 
-Fixes: ff11d8701b77 ("f2fs: fix to allow removing qf_name")
+(x & ~7) is unsigned and >= 0, and fragheaderlen is at least
+sizeof(struct ipv6hdr) = 40 > sizeof(struct frag_hdr) = 8, so the
+second condition can never be true.
 
-Thanks,
+For mtu - fragheaderlen in [1,7], (x & ~7) == 0, so
 
-> Reported-by: syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=6c000dea1a93b4f5905c
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
-> Tested in QEMU with KASAN and kmemleak, remounting with "usrjquota="
-> and "usrjquota=f2fs" in a loop while reading /proc/mounts: nothing is
-> reported.  A plain kfree() here trips KASAN in f2fs_show_options().
-> 
->   fs/f2fs/super.c | 7 +++++--
->   1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index 510df7998c18..d86ab25fbcc5 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -1646,7 +1646,7 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
->   	struct f2fs_fs_context *ctx = fc->fs_private;
->   	struct f2fs_sb_info *sbi = F2FS_SB(sb);
->   	bool quota_feature = f2fs_sb_has_quota_ino(sbi);
-> -	char *qname;
-> +	char *qname, *old;
->   	int i;
->   
->   	if (quota_feature)
-> @@ -1662,7 +1662,10 @@ static void f2fs_apply_quota_options(struct fs_context *fc,
->   					GFP_KERNEL | __GFP_NOFAIL);
->   			set_opt(sbi, QUOTA);
->   		}
-> -		F2FS_OPTION(sbi).s_qf_names[i] = qname;
-> +		old = F2FS_OPTION(sbi).s_qf_names[i];
-> +		/* Pairs with READ_ONCE() in f2fs_show_quota_options() */
-> +		smp_store_release(&F2FS_OPTION(sbi).s_qf_names[i], qname);
-> +		kfree_rcu_mightsleep(old);
->   	}
->   
->   	if (ctx->spec_mask & F2FS_SPEC_jqfmt)
+	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen - 8
+
+underflows below fragheaderlen.  Every later bound computed as
+maxfraglen - fragheaderlen then wraps to 0xfffffff8, in particular the
+datalen clamp inside the fragment loop, which never fires and lets
+fraglen = datalen + fragheaderlen escape the MTU constraint.
+
+With MSG_MORE on an egress device without NETIF_F_SG, alloclen = mtu
+while skb_put() is called with the unclamped fraglen, so a single
+sendmsg() on a raw IPv6 socket with a 1240-byte HOPOPTS cmsg and
+IPV6_MTU = fragheaderlen + 1 triggers:
+
+  skbuff: skb_over_panic: len:61280 put:61280 ...
+  kernel BUG at net/core/skbuff.c
+  skb_put __ip6_append_data ip6_append_data rawv6_sendmsg
+
+The same re-lowering exists with a transport-mode xfrm bundle: ESP/AH
+bytes counted in rt->dst.header_len are not part of fragheaderlen
+(ESP lacks XFRM_TYPE_NON_FRAGMENT), and ip6_append_data_mtu()
+subtracts dst.header_len from mtu for the first fragment, so after
+the entry guard passes, the recomputed maxfraglen can be pushed below
+fragheaderlen the same way.
+
+Remove the dead expression and, when the datagram actually has to be
+fragmented, require room for at least one 8-octet payload block after
+the fragment header, matching the minimum ip6_fragment() already
+enforces once skb->len > mtu.  The check is placed after the dontfrag
+and maxnonfragsize handling so that unfragmented datagrams that fit
+within mtu, and the dontfrag PMTU notification path, keep their
+current behaviour.
+
+reserved_headerlen accounts for the first fragment's xfrm header
+space regardless of whether this append is the first one on the cork:
+a subsequent append that pushes an initially unfragmented datagram
+past mtu still fragments, and ip6_append_data_mtu() subtracts
+dst.header_len from mtu for the first fragment.  The check runs
+before any zerocopy uarg is allocated, so the emsgsize path needs no
+cleanup.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Link: https://lore.kernel.org/netdev/willemdebruijn.kernel.22a3131380a8c@gmail.com/
+Signed-off-by: bo cao <treebacker@foxmail.com>
+---
+Changes in v2: move the check into ip6_append_data_mtu() (review of v1).
+Changes in v3: collapse the fix into a single entry check, leaving
+ip6_append_data_mtu() unchanged (review of v2).
+Changes in v4: gate the check on fragmentation actually being needed
+and place it after the dontfrag / maxnonfragsize handling, so valid
+unfragmented datagrams and the dontfrag PMTU notification path are not
+affected; include dst.header_len in reserved_headerlen regardless of
+!skb, so a subsequent corked append that fragments still accounts for
+the first fragment's xfrm header space (review of v3).
+---
+ net/ipv6/ip6_output.c | 28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
+
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 25fe0ba98b1a..4353b154f216 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -1477,7 +1477,7 @@ static int __ip6_append_data(struct sock *sk,
+ 	bool paged, hold_tskey = false, extra_uref = false;
+ 	struct ipv6_txoptions *opt = v6_cork->opt;
+ 	int csummode = CHECKSUM_NONE;
+-	unsigned int maxnonfragsize, headersize;
++	unsigned int maxnonfragsize, headersize, reserved_headerlen;
+ 	unsigned int wmem_alloc_delta = 0;
+ 
+ 	skb = skb_peek_tail(queue);
+@@ -1499,8 +1499,7 @@ static int __ip6_append_data(struct sock *sk,
+ 		     (opt ? opt->opt_flen + opt->opt_nflen : 0) +
+ 		     rt->rt6i_nfheader_len;
+ 
+-	if (mtu <= fragheaderlen ||
+-	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
++	if (mtu <= fragheaderlen)
+ 		goto emsgsize;
+ 
+ 	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen -
+@@ -1533,6 +1532,29 @@ static int __ip6_append_data(struct sock *sk,
+ 		return -EMSGSIZE;
+ 	}
+ 
++	/*
++	 * If the datagram has to be fragmented, each non-final fragment
++	 * must leave room for at least 8 bytes of payload after the
++	 * fragment header, matching the minimum ip6_fragment() enforces
++	 * once skb->len > mtu.  This rejects the MTUs that make maxfraglen
++	 * underflow below fragheaderlen and defeat the datalen clamp,
++	 * which leads to skb_over_panic() from skb_put().
++	 *
++	 * reserved_headerlen accounts for the first fragment's xfrm header
++	 * space (with a transport-mode xfrm bundle, ESP/AH bytes counted
++	 * in dst.header_len are not part of fragheaderlen), regardless of
++	 * whether this append is the first one on the cork: a subsequent
++	 * append that pushes an initially unfragmented datagram past mtu
++	 * still fragments, and ip6_append_data_mtu() subtracts
++	 * dst.header_len from mtu for the first fragment.
++	 */
++	reserved_headerlen = fragheaderlen;
++	if (!(rt->dst.flags & DST_XFRM_TUNNEL))
++		reserved_headerlen += rt->dst.header_len;
++	if (reserved_headerlen + cork->length + length > mtu &&
++	    mtu < reserved_headerlen + sizeof(struct frag_hdr) + 8)
++		goto emsgsize;
++
+ 	/* CHECKSUM_PARTIAL only with no extension headers and when
+ 	 * we are not going to fragment
+ 	 */
+-- 
+2.39.5 (Apple Git-154)
 
