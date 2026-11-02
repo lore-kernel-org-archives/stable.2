@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630462;
-	b=w5cDQmcEs+Tyna2Cp6vA2P/pKDRK/7C2mlijFpxhKII3ssWhHl6VC6SYl/AYr0rebuMM
-	 hmCVJXhUmm2nd4wgMZhwsaW9RJlTNLjEYtxyUqYDviIWpqyDMor69HdR8rCbN+mlSho8u
-	 QCqjU/PqIJEvpTsoEuuuI9w1bzHpAgKDi5AQ2k8N80J8ovZ/POaFJmsGMksIVhPaN/v85
-	 bz7E0cZxNM+Op43XuyQbaDVyQ3FY7Ry2+P3ITLn8mvd0WZiXyYBIU0UC3e3S+VPCPOc6L
-	 SViyXJztpOoRIngH7p+HdML4RGcQM03Ej0Vq6jttEllzKzZ6IoHjcoblbO9z/VTNikQ==
+	t=1793630474;
+	b=ikjCLBrhwjBVUT7U5Xikw1gopAJondWQMvIOqfw3TmJ7Ng+BdAwUipIejsbBXmZhVysH
+	 g2rTbSUh/aVFpREvjT0OsM+v/hoqrCqQeyqFqVI3B4iqbJvHENlCu8xbylDt65Z+sbmHr
+	 1pdJvmBEudMFjMHPzd23GvB5kgCjSNry+hi2VSOSF6S37Q5hcC5vki9pr+f6BYEygqvp3
+	 +aTTMxasxESjxsMw39DgOV6xsb2ay+c9FoKLj3Va3XcTJ0fE1UBB+xHZ+eUt3KvcalIdK
+	 7ewmOX7/ybCf3R0x34d3ABMbg5sn7vlNgK4EJMpsmhHiFc+Ua4+jA0UPrw2PYiEvpqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630462;
-	h=DMARC-Filter:DKIM-Signature:X-Original-From:To:References:Received:
-	 X-Lms-Return-Path:From:Subject:Mime-Version:Content-Type:Cc:Date:
-	 Message-Id:In-Reply-To:Content-Disposition:Content-Transfer-Encoding;
-	bh=hBYpVLk0Gj2yhc6ZR1gYRn6W0WDnpenBHlPBQXVZPZo=;
-	b=VkRWv+9Q/5HGtrBpuqgOXKFApHFlwb0zkXxcU4XZ9e3vlqxjYa8tsEEvebfLtwD7nu+F
-	 T4ZM9ljq20ddm7idm0fpeOwfy31Q5FA6X+jgm5sS/y+EIaIOCtMxNqpTT5LWMCU3GZBPY
-	 gu6oUR5sSOuS9C6eHVERk3ckRGtFPITBdoGtOLjThls1wsfJNsGFJxqih6iYDdyrqGUCC
-	 yXcNQO4M0+4Y9tbui2rHDsT5atCuvxDiJkR8Z/51UsO6BYXbP4BQtffn9y61HH6qKnKdk
-	 QmUYBml50kuUtEjN8euodYR0eB3PekiGUVmhHYriUJHIHQ06WuyV1cstHDckqPYrJxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630474;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=OMjVTvjZtZrTjrcI72ExCzD1i9afB7DwzHLxEXPZD7Y=;
+	b=QAagfSfraZYCEWKYZoj7u18gvF+xVL0V9/XxN5HTb6ZU3XKXclP9VH4SNNrwOqMzBKa+
+	 DRYSv7dtCh6H6VlEvbbdaGzExo53YYKKGvGBi/zx94DsuUj9C7KIqVHah8OUn1Kb+FDC8
+	 U9igneJDol81Z8fYH2au+BwZy/bwcCnQgp5ne4ccYY87pUYBX38WP7I8sJys5IrYlZC/S
+	 lswLfFcvpIpFqiH/8qxntTabuu3jR1DnZhtSX8DWwyDHjVxlPRUxOa3T90LLIyppyNiHX
+	 FFdiUa3ErmSZG7ukOKwm5rYbfLFwwiww4XEYOJFqdxNhttcnqNNj1K0k4Yn7WuKj/Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=GJzEnvy8;
-	arc=none smtp.remote-ip=71.18.227.1
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=strlen.de;
+	spf=pass smtp.mailfrom=strlen.de;
+	arc=none smtp.remote-ip=91.216.245.30
+Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD56606A59A
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 14:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BD56606A59A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=GJzEnvy8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793630453; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=hBYpVLk0Gj2yhc6ZR1gYRn6W0WDnpenBHlPBQXVZPZo=;
- b=GJzEnvy84RRKaN5aDA1cjZq/FP2gALazbs9k16zIXACzHliF7DQkbBZiBa4iNFO9K/Q0//
- pFhZKLcJnxX7vRJeJWD3VLrSJATnmwuIZ1uW+v1Mzh4AeJpjPRmHJ1ojPJsT7EDpcfiJ3X
- werdSyZZ/ETplnqcAT1v/yCTYSF5CzL6FKTl0C87VTifXgf6efEhqPq4jfLnBOHshVYnfX
- JHeB7odxBBJhK9dbKnKUlFKLy2AUicjTwToAhB65LZTRQhcmVA5Icyyea4ZoL0Y0Xvb09c
- EXFKyWEMbzzB1d9mpfpcsXKUoB5jsRl+ve7RP3FSzSUuvBal0P7Zzt1s+yxFXg==
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-References: <20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc> <bbd1ec87a9fff50b189f74cbd21e1d5bddf41136.camel@gmail.com>
-Received: from kernel ([111.40.58.226]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 22:40:51 +0800
-X-Lms-Return-Path: <lba+26ae8a0f3+bb3eb8+vger.kernel.org+me@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Subject: Re: [PATCH] HID: pidff: bound the unit exponent rescaling loop
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE80607BDEE;
+	Mon,  2 Nov 2026 14:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFE80607BDEE
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
+Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
+	id B65DD60342; Mon, 02 Nov 2026 15:41:04 +0100 (CET)
+Date: Mon, 2 Nov 2026 15:41:03 +0100
+From: Florian Westphal <fw@strlen.de>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org, ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org,
+	kexec@lists.infradead.org, linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org, linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org, samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org, linux-debuggers@vger.kernel.org,
+	Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH RFC 03/38] netfilter: xt_recent: don't remove the proc
+ entries under a spinlock
+Message-ID: <auig_zhd3L0HEis3@strlen.de>
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
+ <20261102-work-procfs-bugfixes-v1-3-59422ed3e465@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,43 +80,19 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Cc: "Shengzhuo Wei" <me@cherr.cc>, "Oleg Makarenko" <oleg@makarenk.ooo>, 
-	"Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>, 
-	=?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>, 
-	"Paul Dino Jones" <paul@spacefreak18.xyz>, <linux-input@vger.kernel.org>, 
-	<linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-Date: Mon, 2 Nov 2026 22:40:48 +0800
-Message-Id: <auig8ARnvkEoAagA@kernel>
-In-Reply-To: <bbd1ec87a9fff50b189f74cbd21e1d5bddf41136.camel@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-3-59422ed3e465@kernel.org>
 
-Hi Tomasz,
+Christian Brauner <brauner@kernel.org> wrote:
+> recent_proc_net_exit() removes the proc entries of all tables with
+> recent_lock held. remove_proc_entry() waits until nobody calls into the
+> entry anymore, and reading one of them takes recent_lock in
+> recent_seq_start() while procfs has the entry pinned. So when a reader
+> gets there while the network namespace goes away, the exit path sleeps
+> with a spinlock held and bh disabled, waiting for a reader that spins
+> on that very lock:
 
-Thanks for testing and reviewing the patch.
-
-> Should we maybe add a warning to the driver that the time exponent might
-> be out of a sane range? Sane range being, say, 10 to 0? This of course
-> would have to happen during init stage not to spam dmesg.
-
-For the initialization-time warning, would -8 to 0 be a reasonable
-exponent range?
-
-- -8 is the lowest exponent in the commonly used signed 4-bit HID
-  encoding.
-- 0 allows a time unit of one second.
-- Positive exponents 1 through 7 would give time units of ten seconds
-  or more, which seem unusually coarse for force-feedback effects.
-
-This would only be a warning threshold: the driver would still accept
-the device and leave the rescaling behavior unchanged.
-
-Does that match what you had in mind, or would you prefer a different
-range?
-
-Thanks,
-Shengzhuo
+Yes, but note that this change is already part of a pending nf -> net
+merge request.
