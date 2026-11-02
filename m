@@ -1,60 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793642548;
-	b=nk6HOi3Xhxxm1r1ujtxCw8JfgwmTt9DxrZrj5mEm93XXQsVT82ranvy9aIVjZ/f6bWd0
-	 oBgPkV/JAdpCbMAtTwEEiYWfaCvgX/HVjJggHbQ5iTJD7TktAxTXRmrLfeoa2bSzzdJuZ
-	 roTLQiRqq9E1iWoSVzw9f+Jtz46OpL6rbTfmEQUsGPbqJDhpFYlbTFzHTj39pA4Ia4wnH
-	 +y7J3vLVuoazibCUOv9sKUATksLMxdQNnmFbEof80mzmG9St0nbY2kwu1jZwags9VB2Yt
-	 qkQ3MJKKY5/B6ott08h3q58O04rA2gP34UQJJFuNLwdrxD4ClTEYWzfU0bid0Acz7Dg==
+	t=1793642661;
+	b=gWYp+7osAN+bvNhG71t/op97aiYrRAvqy9t4RnW2at67v4B6/IwAVqNjeDvv51hA8YHr
+	 Eu84cq3EBmZAFEIVo3LH1XmwR4WQdMLXNT5JnqqZtF+QTzdbZJ4+clQjSPgxCxWxjMyBu
+	 hpB8i/+Y5PX7M4Ywi189KWjJvhW56l1s5tq1PC3wNN9IClwkgsZczaIuAcgW8Btj6to1z
+	 7yNuWfyI9Dp1i8kmrNkMxvYl6z50ybfWx+vnRDtKxlpg1o5oVT6ilvVYipiBV+LF8tCt+
+	 TgTb6VFmySX0A+PH8uDV7LP1UAG+ThcSlyp/HWEaR8l9fZEdac+hHG/A2bk3PUwGSQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793642548;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Mo9e6zZ7DM0/oaEehTSm0CvIfdfjeAIAz6cCjHE3fzY=;
-	b=Gi3GRMq4UX5dZ/Ggat8HN/Hj2TwwpPe93XCvhkM/M45urf2y87+ga+kNjkMPJovYIBAq
-	 IrpULRXZToI6VkoMbeZrtaMk4YjjaTNlPt2srWJcSf7ody/w3I+KmKQd2L35w6xcxUeN4
-	 cZg78MBjPsi055iwIHxLhVXeYBKuVc4tLVAU8nFFwUvMQGK91MiHMWATc6ebmVbP1k7+b
-	 eVpZ3lq8t6cZy3GC7PuEzGA2oxRAtXYx2BBt1+8n9yPsJvsB3kWlNYZndtSsQ1gRzbcfn
-	 zYgZyMUgGKeBY3h5IB93fukOUDscTq5WN/LD16QmzV6X//3o/2TnWMo5F1994D7WLzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793642661;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
+	b=k67Uqur/7Db1kM4dLrD+oC+F20ACbtFJ66369bOMoybLFPTA+XpYhx2F5uYPbqJXvMgE
+	 gnpjuQUPtGwjBEtmu9FMznFmE6yKVhsl7KQtnBNICrpG1BvtBw4Stoz+dZ+7nE0wnPATD
+	 XYpFuKwZssNk2Ocj6si2ch0Li+AixIvKzIlRbkZflfjyNFXcBj0wMESx+OGNE7I13p5KD
+	 UaWzI9h37QAfI3vXUdWDRhW3rCFDdtnNwvCRbNEByCBHujOeUJinupHUoumfquF+Q81gu
+	 ElJJ+ugzmQzz3xXSELtfXdoXbkHuei8YiNYI6kFIUpcOeYVI+wI2TfzPcKfj/S7x9yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQCVDwlk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OORRqZXu;
+	arc=none smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FCD606A324;
-	Mon,  2 Nov 2026 18:02:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20932606A595
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 18:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20932606A595
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQCVDwlk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58E41F00A16;
-	Mon,  2 Nov 2026 18:02:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793642547;
-	bh=Mo9e6zZ7DM0/oaEehTSm0CvIfdfjeAIAz6cCjHE3fzY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bQCVDwlk9TKmXmdDLqAtHKQyLbbnjuD4fRKkqkROq9eHHK4+xGX25nw2EkZqiZ/ii
-	 OmVdRGpNCeHDtTruH79ewwnzF/3ZYYU6Oei7XXhUY4eRO6tWwLPiohQGhjDT5d5OVU
-	 KZC8WaEYhjB0O+OD96hauUxIxdF82EQJ9qhDXQWW2tlsXIeI55XHZ4nqsYsHFx3oNm
-	 Qp8lziR+uP/HIMH+PBxDIIzZkDUW53CmCLET8PjrhYyZVG3s1oPkqbDxPP9VqaOkiw
-	 DRDkZ4f9gTFhj6T/dqV7gxv/4UJ8QuoIA4XNodV0t7J4AXUWx/ZtETwcLTnkjMigYp
-	 TJJrEhDHoTskQ==
-Subject:
- Re: [PATCH net v4 2/2] selftests: net: add TLS 1.2 hardware offload tests
-From: netdev-bot+sashiko@kernel.org
-To: rjethwani@purestorage.com
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, john.fastabend@gmail.com,
- kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, horms@kernel.org, ilyal@mellanox.com, borisp@mellanox.com,
- aviadye@mellanox.com, linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 18:02:26 +0000
-Message-ID: <179364254636.3131.4069372250703759332@kernel.org>
-In-Reply-To: <20261029172302.2944955-2-rjethwani@purestorage.com>
-References: <20261029172302.2944955-2-rjethwani@purestorage.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=OORRqZXu
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bcb440d1cbso2154454e87.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:04:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793642658; x=1794247458; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
+        b=OORRqZXu5svxsOkxP9nvh3W+PSYogrqOej3+5tGXfkVuzUkf2X8/W+m3oNpBLcCZfe
+         SVjygfmGaUx0KLZac6oM41ZS2kLSSwldlLr1kcXsC2ZmsDPhqGc6IMeHwX7XaZlR95yn
+         dyEjwn/f15euAVXzslwr9aSuUnHQwPwO5ARNU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793642658; x=1794247458;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/vXXDZI2TLqXD/tqTZGHj/cF0YcMq0fXP1TpWYkM2ME=;
+        b=sCaNiSKQtmIBY3j/8zOVhiV8P7gJV9Jvtv1nL7DlA1uq45NNeKfFUfSR92Q+1y7vzq
+         jii2ENRSpA5knsDt4UStf2X8cwyN5fffJMBeykxQkt5qRtgDBCQD0mZ/ZZfjtuakOKd8
+         KqBVk05Q4aBfWpD/zzBRVROYT+3wRUDXqtkFpO5V+rTwvkwuG5BZMW1tEfdQ11Dz+3VM
+         jpdzyNDGsuHjoOFcAi7abDvwotmEvSo/7g7rS5XJn+1leLxRPSdVoqy/4TEeZQvcaBgK
+         y8A+w2eJ2cByJE49f/5vPRYlx032hch7OUNpN/hRANS4Lan1K35nMf3ZlU4Th4Jvlxff
+         SobQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpJBLSzE3AT6Kp+j0ajxmgsMo3oNabXxv+yOaezuJ8fUBIKGKcPNSVduLuGu0Cu+EJU7yP4EM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+08ISOCwBztdJErahW1JmVzNKlj+5TBibm2IEZtobETzb47WjL
+	QBw7ovW+afHks1EBIPHngK/sg+qtNKbWYTlYLdrWg5LQqAoyUAdMuo2JO/lAZ1N48eQKHjEL9CO
+	O11+H9o+SNg==
+X-Gm-Gg: AYBFou3ty6KM8S5rJO+W1CRc75mRkitzYF2GRpoZBXFpqcSpR5NfksUTCIiYE8TaDJv
+	zodG2iN/gv/qU+yNL/40MdJhW0UsEEL9Fpax29j7vMa8VHfPlAYEWR01DjTShMKvb4ghEYw14cd
+	Od4TKR4I7tkKjKgWRBXhzDRGmJ7flatt+SOPVrKI1THhyCgB69qBPW72kSxyvUfKEoa3v7l2dOq
+	DLinenPApu7iHa3FSg3yooa0dRUDSYUvZlhbPGCDl/bhg7dvnEHPswNG2sMvRbtCXElS7uG5SuQ
+	hgl28J5R7QNev3yQ5DhDX58TFWIx3ULYfpGEX1dMKxxlYarBQImcsFLP5pJ0oo+gjZ+DqIH28NC
+	I+Du1bm5i0TctJyTHlx6K5wR/Qw7RtCOj83nsQ5T/QFO4+TsdFO/7fgNIZvF4ngzVoLHIjzVYpd
+	PEhZgH0PwcQxZ1ny1aR7ivc5hXpLq6R00EfXyX02Pdrzf8dCzX8soAD5rtozOJ2CZK1t0FLDab6
+	VCPI2Wi9pWwusTR0H1jQU+AfumXZDziQTFtNMfSXRX9WFtUdJBs8/P/YW9L1n07d/raXxyV9523
+	7pK/IY+wdK4Gnn4G+jn3LRnaPEm4ng2FCUKvTayQqfjnKb1glIHud9OBrVsRN7vFblzdaHTwpM7
+	aVA==
+X-Received: by 2002:a05:6512:6d2:b0:5bf:d70f:2d99 with SMTP id 2adb3069b0e04-5bfd9564f92mr3140066e87.7.1793642658098;
+        Mon, 02 Nov 2026 10:04:18 -0800 (PST)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com. [209.85.167.48])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe097435asm1746530e87.53.2026.11.02.10.04.17
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 10:04:17 -0800 (PST)
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso4761993e87.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:04:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwYMY1rJjErRxeyQPX70jhQSxfLpT3YiB/8xWmY+eRGqKhLyHHvj9NcjfUllEbss6foxvyj+Sg=@vger.kernel.org
+X-Received: by 2002:a17:907:d94:b0:c2d:c80e:8366 with SMTP id
+ a640c23a62f3a-c4ca7426f6emr874452266b.0.1793642348398; Mon, 02 Nov 2026
+ 09:59:08 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,182 +94,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org> <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
+In-Reply-To: <20261102-work-procfs-bugfixes-v1-1-59422ed3e465@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 2 Nov 2026 09:58:51 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
+X-Gm-Features: AclHuK_qZTBVsLQIdymgRHScSFenC6XsGggUDmcuOugjrSTbuVkeASUmC_hYPZo
+Message-ID: <CAHk-=wiSA7-mqmAjTQDaU7UjUyWt0TxYwXHafL8ZAPudy+B_uQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 01/38] PCI/proc: don't truncate the position of config
+ space accesses
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, 
+	Josef Bacik <josef@toxicpanda.com>, Chris Mason <mason@kernel.org>, 
+	Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+	Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, Greg Kroah-Hartman <gregkh@suse.de>, 
+	Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Jan Kara <jack@suse.com>, linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
+	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, 
+	kexec@lists.infradead.org, linux-pci@vger.kernel.org, 
+	linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
+	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-mm@kvack.org, 
+	linux-sh@vger.kernel.org, linux-usb@vger.kernel.org, 
+	samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-atm-general@lists.sourceforge.net, 
+	Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+	linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Mon, 2 Nov 2026 at 06:22, Christian Brauner <brauner@kernel.org> wrote:
+>
+> proc_bus_pci_write() truncates the file position to an int. A pwrite()
+> at an offset like 0xfffff000 turns it negative [..]
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+I think this would actually be better with rw_verify_area() just
+checking a per-file maxbytes.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+We already have that logic for lseek and friends - using that fairly
+hacky combination of s_maxbytes and !unsigned_offsets().
 
-- [Medium] The tls12_aes256 variant of test_tls_offload
-  (tls_hw_offload.py:280) requires HW offload in every DUT direction…
-- [Low] Two comments say both helpers' stdout pipes are only drained
-  after the helper exits: run_tls_test() in tls_hw_offload.py ("Both…
-- [Low] When 'Rx' is in tls_hw_directions, check_hw_crypto() asserts that
-  rx_tls_decrypted_packets grew by at least 1, but nothing makes the…
+We should combine s_maxbytes and unsigned_offsets() at file open time
+into f_maxbytes and check that not just at lseek but in
+rw_verify_area.
 
---
+And then things like proc_bus_pci could set it's size limit in one single place.
 
-selftests: net: add TLS 1.2 hardware offload tests
+Hmm?
 
-This adds a two-node kTLS hardware offload selftest. A C helper installs
-fixed AES-GCM keys on both ends; the DUT runs the client and the peer
-echoes the data back. The test checks the TLS MIB counters and the NIC's
-ethtool -S TLS counters to confirm HW offload was used in each enabled
-DUT direction, and it adds handshake and alert record-type regression
-cases.
-
-> diff --git a/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py b/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py
-> new file mode 100755
-> index 0000000000000..78fa764a6ef3f
-> --- /dev/null
-> +++ b/tools/testing/selftests/drivers/net/hw/tls_hw_offload.py
-> @@ -0,0 +1,321 @@
-
-[ ... ]
-
-> +def check_hw_crypto(cfg, nic_before, nic_after, hw_directions):
-> +    """Check DUT NIC offload-path packet counts and initial key installs."""
-> +    for direction in hw_directions:
-> +        names = HW_NIC_COUNTERS[direction]
-> +
-> +        key = names['crypto']
-> +        if key in nic_after:
-> +            got = stat_diff(nic_before, nic_after, key)
-> +            ksft_ge(got, 1,
-> +                    comment=f"DUT {direction}: NIC reported no TLS "
-> +                            f"offload packets ({key}={got})")
-
-[Severity: Low]
-When Rx is in hw_directions, can rx_tls_decrypted_packets stay at 0 after
-a short run, even with working hardware?
-
-Nothing waits for the device RX context to become active before the
-peer's echoes arrive. On mlx5, mlx5e_ktls_add_rx() bumps rx_tls_ctx
-synchronously and returns after post_rx_param_wqes(). The steering rule
-that sends the flow to the TLS TIR is installed later, from a workqueue:
-
-mlx5e_ktls_handle_ctx_completion()
-  queue_work(rule->priv->tls->rx_wq, &rule->work)
-    accel_rule_handle_work()
-      mlx5e_accel_fs_add_sk()
-
-Until that rule is in place, records are decrypted in SW. TlsRxDevice
-still grows, but mlx5e_ktls_handle_rx_skb() only bumps the counter on
-the HW-decrypted path:
-
-	case CQE_TLS_OFFLOAD_DECRYPTED:
-		skb->decrypted = 1;
-		stats->tls_decrypted_packets++;
-
-If the rule lands mid-stream, a resync is also needed before HW
-decryption starts.
-
-client_connect_tls() starts sending as soon as TLS_RX is installed, and
-cfg.wait_hw_stats_settle() only runs after the traffic has finished.
-Could the small_buf variant (100 round trips of 512 bytes) finish
-entirely inside that window and report a false failure?
-
-This depends on firmware command and workqueue latency, and the commit
-message reports passing runs on ConnectX-6 Dx, so it may only show up as
-an occasional flake.
-
-[ ... ]
-
-> +    # Both helpers run with their stdout captured in a pipe that is only
-> +    # drained once they exit, so the helper keeps its per-connection output
-> +    # small (see the note on verbose in tls_hw_offload.c); do not pass -V.
-
-[Severity: Low]
-Is this comment accurate for the local client?
-
-Only the remote server is started with bkg(), so its ssh pipe is not
-read until bkg.__exit__() calls process().
-
-The client runs in the foreground via cmd(client_cmd). In the non-background
-case cmd.__init__() calls self.process() right away. _process_terminate()
-then uses self.proc.communicate(timeout=timeout), which drains stdout and
-stderr while it waits for the child to exit.
-
-The comment on verbose in tls_hw_offload.c makes the same claim:
-
-  /* Per-iteration progress output (-V). Off by default: the
-   * harness captures stdout in a pipe that is not drained until the helper
-   * exits, ...
-
-The -V restriction still makes sense for the server. Should both comments
-say that only the background server's pipe goes undrained?
-
-> +    #
-> +    # Both helpers exit on their own within HELPER_TIMEOUT_S (see
-> +    # tls_hw_offload.c), so nothing outlives the variant even on failure.
-> +    with bkg(server_cmd, host=cfg.remote, exit_wait=True):
-> +        wait_port_listen(port, host=cfg.remote)
-> +        cmd(client_cmd)
-
-[ ... ]
-
-> +@ksft_variants([
-> +    KsftNamedVariant("tls12_aes128", "128", "1.2", "4"),
-> +    KsftNamedVariant("tls12_aes256", "256", "1.2", "4"),
-
-[Severity: Medium]
-Can the tls12_aes256 variant fail on hardware and a kernel that are both
-working correctly?
-
-check_tls_support() only looks for "tls-hw-tx-offload: on" and
-"tls-hw-rx-offload: on" in ethtool -k. Those flags don't say which
-ciphers the device accepts, and several in-tree drivers only handle
-AES-GCM-128:
-
-  nfp: nfp_net_cipher_supported() returns false for anything except
-  TLS_CIPHER_AES_GCM_128, so nfp_net_tls_add() returns -EOPNOTSUPP
-
-  chcr: chcr_ktls_save_keys() only handles TLS_CIPHER_AES_GCM_128
-
-  funeth: fun_ktls_add() returns -EOPNOTSUPP for anything except 128
-
-  mlx5: mlx5e_ktls_type_check() checks a separate firmware capability
-  for 256:
-
-	case TLS_CIPHER_AES_GCM_256:
-		if (crypto_info->version == TLS_1_2_VERSION)
-			return MLX5_CAP_TLS(mdev,  tls_1_2_aes_gcm_256);
-
-When the driver declines, do_tls_setsockopt_conf() falls back to SW
-without reporting an error:
-
-net/tls/tls_main.c:do_tls_setsockopt_conf() {
-    ...
-		rc = tls_set_device_offload(sk);
-		conf = TLS_HW;
-		if (!rc) {
-			TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSTXDEVICE);
-			TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSCURRTXDEVICE);
-		} else {
-			rc = tls_set_sw_offload(sk, 1,
-						update ? crypto_info : NULL);
-    ...
-				TLS_INC_STATS(sock_net(sk), LINUX_MIB_TLSTXSW);
-    ...
-}
-
-check_path() then requires ksft_ge(dev, 1) for that direction and fails
-with "DUT Tx: HW offload not engaged (Device=0, Sw=1)".
-
-Would it make sense to skip this variant when the DUT falls back to SW
-for this cipher, rather than reporting a failure?
-
-> +    KsftNamedVariant("tls12_aes128_ip6", "128", "1.2", "6"),
-> +])
-> +def test_tls_offload(cfg, cipher, tls_version, ipver):
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029172302.2944955-1-rjethwani%40purestorage.com
+                   Linus
