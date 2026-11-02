@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636571;
-	b=IL6ns5EWUL48S8tpHer/KHaxE7PjONKfTNTVwDZskZ+ZDX+ArJtpgXmLyfjQ0MV2bwZ7
-	 kQOUxDJaxgP2sAJYryKD8oJIoCq9I8I8KFIgUt0hCQpASlM2mEwZWYgVr8BjHi2RouiAR
-	 RZBQUmBekbFvMUXQ+rdue/dtQd1xKnk9bVddn//1BNdy9+tdcK0INe/m6bEfgk3SmWZJF
-	 wcPCF433AyQYWBKYwbc4dSxTL1rTFPUuV9EzbNTNlcLj6ygvo5S/rfAQGXqVlKWpCPxs8
-	 oS5bwGI+J9ez0jQOEfvYbWALXEurt6WwQSUAklfgCN8avUlI9z86jTLM9OSz+XlNkcw==
+	t=1793636869;
+	b=YQnl5EwDpcdV0QteMtK9CLUBWaqQNsOl/yJMHbFuUkVtV3KsddJRN5HdplLNu6C4LU0M
+	 l4q1VPKKV9GFJtsKXpi8TynZDm0I3F8a8SFBb2KR+dLuUXclHMPn1vqyJkXWl15eweQoi
+	 OUzuJjr53tgjcHrjSeAV0z1M34+mVfp55ayU/bPANuARdfWEtYoy1bOyBYBUT7NNSkY1+
+	 alRPJy3HOXoHvER08KZUIV99FHAHIZlwkQvlvg4jmuok9OUBlhhaFgbMYsJfSRFXDAJFr
+	 Jwp5To23fOG39xVFL2oXWgsVhJwhTbo8sFuXiOkuglrBABOykXAEnrI7ooTqSbb63SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636571;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=27Tb0qhQlQalXZDEt6xbp3JoRCL6Z2oxUYWSYn9VaaU=;
-	b=Th3vgycEZLWIUHIFPSd4+x6b0OI1TXAAEEeYHkzdI0AiEQWdT8wzCSdUiUom83OvksFf
-	 JTQ3wy5+2sfoo+1RNXOQc5bkTnwVSTzyQ0+aUNLpcjOjPyEEZ80TRoF68W1JVBf9Dvwqs
-	 ibX/ETUezusttzwBmI7cbQLKCrNKEy6D0qUTRjhg9wDrog/aNQtWvXzpnkJ54N+hgP57K
-	 z4YMTVGmMPIBKnecB7G67JmvFTbIxviClufizsgKul2Q4QtSFctq2XvSUe8KYaAdFH5ny
-	 lG/Rpw1QOg4eGJR929+XdkrXkaX1P2+04rPh0BIqOxA0VbQLTr09tD5i0Y+sll3RCNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636869;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wHdtFy4kp/ZwM1BqNPeMTtm2ddmGgb+Bt7+4Qa7+AJg=;
+	b=fJT7+Q13JYXHp+ghDLsh+bwYFjUSfGAgsqW4ro1ec152uKAUvg0U55LbXXZoyW4l3nb9
+	 /u4kQPSQxbwtsmg3+bPnNhgjAKLIeS7Lwj4IZPutFRlpy/icoGQkCIS+Auy9g6GShPYXj
+	 SIrAT6FazVP6CFZTRtuRc7mmv8RYvnkgh+NdHnIJVrU8VRGXUlTdkueny0H2I0RjHB7RE
+	 CHCy6R4lUU4pOuah18n/dB8+T04oVxK+96BkPnHSjlturrMyUrwp2qqLAGWcScDlYyYku
+	 n/KCMfmTZzEr1GCyoi6tg8To3jsfgbL03TdX/1tLppOpYuFQXVw71Jz6tMlcmLTombA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=SSoTtWg4;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQiClhc3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0A7606ABA1;
-	Mon,  2 Nov 2026 16:22:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E0A7606ABA1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D65609EE4F
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:27:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=SSoTtWg4
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net AD23440430
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1793636570; bh=27Tb0qhQlQalXZDEt6xbp3JoRCL6Z2oxUYWSYn9VaaU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=SSoTtWg4Pr2yMa+pV4NRa1ThzhgcN6lsRz8xgPloudzV8wOS1OdcaN8MKVa8Fj/w7
-	 j0tAJzNdWOtZru6fuPgUDin0z1cFRW524vOBkrZ3zREZnleLWFWn7BQt+LEj57Bcny
-	 Q6IscgK00I8i0B7HJYn2UDjq6tpuySNreiiojkTk1hcxb7PiCxoNAS7E2/KuAC1QZ4
-	 TUIY9L1r6DLdKbGjfGvtpBrrX8jDcPm2Jl6bMofk86aRktFSLtwdMvJYH3RygEd/Oa
-	 o1hEDwJ8QZDRO1Hp6EEV6LIOfokecNjznNrbLrghI9X4fqbqkzHKGfTkZguFHEJ/a3
-	 SRGUdXEHwMWvg==
-Received: from localhost (mdns.lwn.net [45.79.72.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id AD23440430;
-	Mon,  2 Nov 2026 16:22:50 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Sasha Levin <sashal@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, workflows@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Bradley Morgan
- <brads@mainlining.org>, SJ Park <sj@kernel.org>, Kees Cook
- <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v4] docs: stable-kernel-rules: drop rules the stable
- trees do not apply
-In-Reply-To: <20261020142537.3533510-1-sashal@kernel.org>
-References: <20261020142537.3533510-1-sashal@kernel.org>
-Date: Mon, 02 Nov 2026 09:22:49 -0700
-Message-ID: <87h5hzciee.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQiClhc3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C42C1F00A2B
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:27:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793636869;
+	bh=wHdtFy4kp/ZwM1BqNPeMTtm2ddmGgb+Bt7+4Qa7+AJg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eQiClhc3f5SHGtIVBHZ4EBE4/N9ECAPQxqSFBKGKsk6A1gBkKKB3KVGS0zXArEqj5
+	 WpifqFDNH2UNvXK40cNTsrOWSd/R3DPD6Jnr4lG86r5H+DNoUJXe+Y6Mx1q9yOv2Kn
+	 4nFfaOpl5WlxYJBr/89t0ER2Hb18dh3cvl7yGV++MVX+Ur5DIXLhxT8TtA1hW/KTLh
+	 W6b4w67lWb9blRbQ2gMz5Dm3cLpj04e4GGhj5mj8s6BmUz1XCV6uebtA9and2GBqHf
+	 ytbS1BUUqIGz9dRWFn+EKbShfLUTohazZrL9uw6fuWQke1FBaifS0IAzLpJzc0hXFk
+	 Y9JW9pdpphhpg==
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5eabf7d5bbeso2602649e0c.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 08:27:49 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBw2U3P6GjPH1Vab4zi2FYgAu3g4b4lI9EcJSuTJ6zCDp/74sM6RvrrMSt6y4d5B6XMUX36Tf0A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HGnntFrFYEuc3o2YLfH8VMCmyQqgsSmk+hUWlk4odT7vYfm12
+	4iTbRDKgvMfJXXETFn0D34mgbRwrl5MO3/4lqjhJbDbcndk+/jVwEEDNaRqHDgwNj2+4mmtxROO
+	anHIGEPAKSwNyBoBXw8pbtMW0RDRAR8o=
+X-Received: by 2002:a05:6102:8092:b0:7cc:56a:58d3 with SMTP id
+ ada2fe7eead31-7d07279cd1amr4474738137.31.1793636868341; Mon, 02 Nov 2026
+ 08:27:48 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,27 +59,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
+ <20261030-b4-btrfs-data-integrity-v1-4-f4d4196731e6@toxicpanda.com>
+In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-4-f4d4196731e6@toxicpanda.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Mon, 2 Nov 2026 16:27:11 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H5e4abXv+RCsy09Sb824yqNsrxMkn6PPt49aN9ZyZTj2w@mail.gmail.com>
+X-Gm-Features: AclHuK9TcHojbk1WRwyX4MQgObBjTqCYoP4bFkRVWUT4s-4JmwoAESI9qBfcvLM
+Message-ID: <CAL3q7H5e4abXv+RCsy09Sb824yqNsrxMkn6PPt49aN9ZyZTj2w@mail.gmail.com>
+Subject: Re: [PATCH 4/5] btrfs: don't report success for a skipped log sync
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
+	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Sasha Levin <sashal@kernel.org> writes:
-
-> The stable trees do not apply the 100 line limit or the exclusion of
-> theoretical issues, and they require a fix to be correct and tested
-> rather than obviously correct. Drop those rules.
+On Fri, Oct 30, 2026 at 2:39=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
+wrote:
 >
+> When a commit of the log root tree gives up, because the transaction
+> needs a full commit or writing the log failed, btrfs_sync_log() still
+> advances log_transid_committed and hands the result to the contexts on
+> the list. Unlike a successful commit it does not advance log_transid, so
+> the log transaction it just retired is still the one new syncs join.
+>
+> A sync that gets to the log root tree after that adds its context to
+> the emptied list, sees log_transid_committed >=3D its log_transid and
+> returns its log_ret, which is still 0:
+>
+>   fsync A (subvol 1)           rename       fsync B (subvol 2)
+>
+>                                             btrfs_need_log_full_commit()
+>                                               -> false
+>                                btrfs_set_log_full_commit()
+>   btrfs_need_log_full_commit()
+>     -> true
+>   btrfs_remove_all_log_ctxs()
+>   log_transid_committed =3D N
+>   log_transid stays N
+>                                             log_transid =3D N, log_ret =
+=3D 0
+>                                             log_transid_committed >=3D N
+>                                             return 0
+>
+> btrfs_sync_file() then ends the transaction without committing it, and a
+> crash before A's transaction commit loses what B was told is durable.
+> This was reproduced with delays added to btrfs_sync_log().
+>
+> Fix by advancing log_transid when a commit of the log root tree gives
+> up, so a later sync joins the next log transaction and either commits it
+> or gives up itself. The check for an already committed log transaction
+> can then no longer be true, so assert that it isn't, and still force a
+> full commit if it is.
+>
+> Fixes: d1433debe7f4 ("Btrfs: just wait or commit our own log sub-transact=
+ion")
+> CC: stable@vger.kernel.org
 > Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Acked-by: SJ Park <sj@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 > ---
-> v4:
->  - Split out of the agents skills series, where this was patch 3/7 of v3:
->    https://lore.kernel.org/r/20261016152828.3765695-4-sashal@kernel.org
->  - No other changes.
+>  fs/btrfs/tree-log.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
 >
->  Documentation/process/stable-kernel-rules.rst | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
+> diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
+> index 1d9dfb63fc5a..b542b1d97989 100644
+> --- a/fs/btrfs/tree-log.c
+> +++ b/fs/btrfs/tree-log.c
+> @@ -3437,11 +3437,20 @@ int btrfs_sync_log(struct btrfs_trans_handle *tra=
+ns,
+>                 goto out;
+>         }
+>
+> -       if (log_root_tree->log_transid_committed >=3D root_log_ctx.log_tr=
+ansid) {
+> +       /*
+> +        * A commit of the log root tree moves log_transid on even when i=
+t
+> +        * gives up, so the log transaction we just joined can't be done.
+> +        */
+> +       if (unlikely(log_root_tree->log_transid_committed >=3D
+> +                    root_log_ctx.log_transid)) {
+> +               ASSERT(0, "log_transid_committed=3D%d log_transid=3D%d",
+> +                      log_root_tree->log_transid_committed,
+> +                      root_log_ctx.log_transid);
 
-Applied, thanks.
+Can we please stop using ASSERT() where we pass a false value and have
+code to handle the unexpected case?
+Some distros like SUSE ones enable assertions by default, so this is
+effectively the same as BUG_ON().
 
-jon
+As we have code to deal with this and avoid a crash, just use
+WARN_ON() in the if statements expression with btrfs_warn(), or the
+DEBUG_WARN() macro we have.
+Both will trigger a stack trace and make fstests report it if we ever
+hit it, while avoiding the unnecessary crash from the BUG() call done
+by ASSERT().
+
+Otherwise, it looks good.
+With that change:
+
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+
+Thanks.
+
+
+
+>                 blk_finish_plug(&plug);
+>                 list_del_init(&root_log_ctx.list);
+> +               btrfs_wait_tree_log_extents(log, mark);
+>                 mutex_unlock(&log_root_tree->log_mutex);
+> -               ret =3D root_log_ctx.log_ret;
+> +               ret =3D BTRFS_LOG_FORCE_COMMIT;
+>                 trace_btrfs_sync_log_exit(trans, root, ctx, ret);
+>                 goto out;
+>         }
+> @@ -3575,6 +3584,13 @@ int btrfs_sync_log(struct btrfs_trans_handle *tran=
+s,
+>         mutex_lock(&log_root_tree->log_mutex);
+>         btrfs_remove_all_log_ctxs(log_root_tree, index2, ret);
+>
+> +       /*
+> +        * If the commit gave up, log_transid still names the log transac=
+tion
+> +        * we are retiring. Move it on, so that nobody joins a log transa=
+ction
+> +        * whose result has already been handed out.
+> +        */
+> +       if (log_root_tree->log_transid =3D=3D root_log_ctx.log_transid)
+> +               log_root_tree->log_transid++;
+>         log_root_tree->log_transid_committed++;
+>         log_root_tree->log_commit[index2] =3D false;
+>         mutex_unlock(&log_root_tree->log_mutex);
+>
+> --
+> 2.55.0
+>
+>
