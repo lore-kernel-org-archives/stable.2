@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643383;
-	b=gfNUEbOzauvwWzU5I8sCEqXcTR7BmcvxV2q+q1EjHjJa3OXv4WUjjUv0lywjFcPHWgya
-	 dEhCaTYEeUqdGrylu/w2CXG+vgDOSd0Sta07k+m6QPi4729Zv+PM+xvHA4p+vI4GWOfcw
-	 88W0x00RpSxC2ob6ncIJUm8swVCd6xNv/IWf5k+GR7PjdATDVXeZDfCnsTyfUxA7xewPF
-	 J+wyMwRiOFKN5CxBZRWnzuHIVLN0LOwJfGmsV04FuigxFBrpeJx9N9f3sl5mWJv+rn+Kt
-	 nRro2exnoXlrJVrx/i6tRfMoJ2BtPScUDCYzraq/XUY1XWEacupagL/A0KFddmWUJTw==
+	t=1793643511;
+	b=mmX8v9Pc/Yw6le4JXl6ccsZeipUBGt1kdNPQvazKw9Bn0Lkxa71ZU9UvBRw45+jmvVtv
+	 v8/Ia8jHVcyngrajBB+gra/owYYmTvGcWH6eZcbKZxNssmdGe/GHEfrVC6EGC6jx8n3iv
+	 fvh543EBb1sK0ENbZ3q9V9xSzcdqmZ7pEuw+k1lVURm0vHhUgR4KcE3zEa7P8U6O/4M8+
+	 3L3dtGBbd8PuccT2mOyk+6DxrBYURRt0w03VXEk1mqvDOjAZTGfwg18oQTSKB32Wd3U+O
+	 XzbIcgIS47be5xqfFIxmntPhQ1fCQ2AeHV2yzvExX6mZv2wuSZDPmGWq/gVXrGkw5iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643383;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=N9NuhjaQA7Vgqi9vuUF5hnhnomZtdYB10OuLNrlq1Uk=;
-	b=mPOllSFfnOqrw6pK5TAUUni7KHiiDtVHPaGJcGANi3HvOyTQVwedrefH3eFTb8OamwHq
-	 wgoc/uDzM527U9xtPRnUyOcY1EgAohQH++ZrwkoVjV0oOkDT3DPv1xbb5qBJ3rXf4LPuo
-	 j42+RjcC7zXRo9jxUA/ZbnIDqZ8zTFuQ700xWYEjhBZJl5d5MM2Yy7h5qTH+zJNxWfrKu
-	 PBbyLR1VuTrdjc9U8jtIDVYlmrrtAUrmgrtxSK9ER1WHGBbXFposBZPPmYd08sxtHqWVZ
-	 ry3hogL8NUX//tMzxCg+/VljT6huf9VWvebgHVc4m7s9fuZRX2fe0F65v79ITk1gFGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643511;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NHRs95xsQgjnwOuFrugRmWxAc9XLLQLwb+OYmfFck/4=;
+	b=p2wQo0kdaGUj8Vw77FxlyWBfjDuXliuCgd0FjbsGO7eUrKvKC9Xds9+jjkhiyn7R9Ze2
+	 fZoGKtYykxCvy6AcbUB+yar1pb5gUAbwJb5w+XIVAIuTEatZ01DzhiGSkY98LjZApK+Ju
+	 zKek/g6pyBtD6SQPLIHklVtM97zeeISk0TgVND0lRy5/9k3JxR2aYF6VooSqVmffKXave
+	 c1iqvrCjqyepsV4L1pI3qtCwAdkDKoA5QizExbnzji1qzCspEt6lxFX8oKvyXQmJaqvyi
+	 P8HMaCH6XlI1LiORqe8OW9XfZ1f5wTWxiH7WoGvguPU4yN653hqWRkGFhR6tSDS7xSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=GlNQxF9v;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BNcbP4a3;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E7D606A32F;
-	Mon,  2 Nov 2026 18:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E7D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153EE606A329
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 18:18:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 153EE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=GlNQxF9v
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=N9NuhjaQA7Vgqi9vuUF5hnhnomZtdYB10OuLNrlq1Uk=; b=GlNQxF9vnGO72iy0e/u3Z4fqcP
-	vbrtx+IQNP47Q7ekSD4Q+4YwCwpgf0zxAUt84kH+4Bp/LgSxW2ms9XXIRmFxW5tRe/nKYVozbm9MQ
-	i4f0mM3MzDEoARJrsSGMpcTWMK/WN+8ZUuyuLw65izKLZ+l7NC4xf6PJF46N68GsJ+ucIE6r8Zv1v
-	773B5Rju0OEzoqvkXFv5HNGTjWeLV3iueI7xfpkqNt18AOaPaHYEJBK87tO8eQtcqbXwbqvqt1xo8
-	62pwNF8TdvnWULCECQlQo4681Wg7RXiuHxdUYDJSj+BCH2alXd8GjGUtqkVh1hCnDnzelsCG1t/rC
-	Ar0rmJwg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xNwZw-006L5B-2B;
-	Mon, 02 Nov 2026 18:16:20 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Mon, 02 Nov 2026 10:14:55 -0800
-Subject: [PATCH 2/2] crash: Flush unsafe consoles before
- machine_crash_shutdown()
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BNcbP4a3
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48dfaa3fa12so2570175f8f.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 10:18:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793643509; x=1794248309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NHRs95xsQgjnwOuFrugRmWxAc9XLLQLwb+OYmfFck/4=;
+        b=BNcbP4a3nURPwGReohMJlcBk7a+a/QqJYDJigkMRVyIu0fGjRRoEhJMwq/Id8ORSVy
+         cuB198sVread6+W+jQ5TzCWxhFtJyV+DI50GNK2tk2WzojkKwvynA2v+0Kby0Py3Hl7S
+         OXq1ci1nHxaX+emvJAan4BUEQOxPMv8xlLxdiT7dJRJ/awtbLOlGWv+i28diy5ePqwUn
+         pGPdpeiJkkLof9X+5xiIZR8LndVMPlD9VFWDVh/iC7cMWuSKWqtk2usG86ld7PrXMLkY
+         24CvM2zC3D4PvnYVmvaznI2ziS+kR8vehsO6akIBvV3pWM6OnY6bcYZErkjDgkZ5wRDN
+         wl6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793643509; x=1794248309;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NHRs95xsQgjnwOuFrugRmWxAc9XLLQLwb+OYmfFck/4=;
+        b=W78PoOOZPieVEWNOADm5waDA8VZKML0QQ85M8gLRhdG0dY06HSRFCwmACtXmA7rawr
+         j+29g0f3CQSZo83XE/QX0LZdlmtEMBCZ8a5xIjYAPndMrEAfl95T2cjmDrjAB+tOwDUR
+         ibrDxwhioUxYZykiu7aLJfsAuVNZesyK7SRXJ67qBQilZg16LF4weXgFWCAaS0nsujBe
+         nXraCw2ICK5H3742IiShOMqliNgLFEgLLvJFr//ZydLPCjAa4X1sdjQQ368d/7nPEmeC
+         5I2Bwh0f4GFRBC4liU73S3ciF6LvHtLO665yRMAK0iBRsNZk+E+oPq44ytXUbdN3jBEG
+         Y/LQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy11QWKUjoprBNffelCodm8SiWLtb6lN3aE7q5N9w+e2OtmS/fx6S3enKpj/QhQMvp8VyJTdPk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8An4vMr3TIunFnZdHZRq1+/54hRdR00xTQftb/ALlQFC8x6MFt
+	eP5kQnQd/YrnDYSO4nzRUjY5rn0Jy+M1FY+3vxdafJEyqSMJJ8e7gLU=
+X-Gm-Gg: AYBFou0ljHd3SACpNVwAUBEDULhBbjdYWg1qrY+05lxEsPehEOs4J/5ndWk4UHmeGMK
+	AwlKW2Rucue1f+pOfNNPr+20EWWfwighxL5ZER3fE+1Pg+YAxnEZdN4YCW/FT++E4N2lFm6NoaH
+	r0Ohgtg40dntFK/O9L+AG74UFNlcXhHohqS2ZFR0GCmEYXq5WtWVSYG02B7AfMSigPkr/zXK0j8
+	8+rJ65jbet1kB8Xr1J6tdpRU+r0bMyzwkbNNxwetLUTezhJnxTOi5U31CbDe+Zp8YzkQmmKWBRt
+	jQyXBv/mKB+1G8crSS7Lo9m0CN4Rf4TzbmisHOLco3uwSWqp89gBVa1EX60DSmwZej7v/2rwXFw
+	DWmaUZElSW817JYkaLqmjccOCJZvkCF2lW6yYvNi9VDvSrX7BfJ259HzoIy+gIsYTllzRcOD5tU
+	kPuZ3w6fhjUHvqBBL32DSz1qCirpvjUXF+WtRy5G/SqMk1lE5hxT5jlzIs88hYQKUidiI7GlWO7
+	2hVYnX/8c62skgrd1QBotlQ2fKQ0v4V/xfGMpZ0jnPXc1yy3PTOmdCtgCAq+SyxJKPKcJJlzO9H
+	iTZdbGT7V08=
+X-Received: by 2002:a5d:5e8c:0:b0:48e:5c9b:f12c with SMTP id ffacd0b85a97d-48e6e2d4c32mr27465476f8f.16.1793643509167;
+        Mon, 02 Nov 2026 10:18:29 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71baa1b3sm20326986f8f.56.2026.11.02.10.18.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 10:18:28 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Azael Avalos <coproscefalo@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] platform/x86: toshiba_acpi: validate ACPI object type in tci_raw()
+Date: Mon,  2 Nov 2026 18:18:27 +0000
+Message-ID: <20261102181827.1989460-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,124 +99,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-panic_unsafe_flush-v1-2-12d1e22fd6d8@debian.org>
-References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
-In-Reply-To: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
-To: Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
- Kiryl Shutsemau <kas@kernel.org>
-Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev, 
- gustavold@gmail.com, samuelcrossley@gmail.com, ryan.roberts@arm.com, 
- brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3383; i=leitao@debian.org;
- h=from:subject:message-id; bh=PEgly2nrOBmRoGLBh6KuvNEk+JIGyOZAWyTxUecxtSw=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6NNmYufl7gexU6p5spkNYWtTqVKfxp+Yp8u8m
- 2Oguq+XeEaJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaujTZgAKCRA1o5Of/Hh3
- bSYeD/9QPzjWlYPyyVDAjK34PGG/Dwh/KXs5/3uOZJ32mclG0SviP0VyFxG5yZ+s4AZhS5Tpds4
- qhwD5sDfpNZ8cEtvaVlRhDUlcJe06WaEuL+kCvpRgsLt2H72Xa7ifvNtgK+4wMNrAE0kXvrJnO6
- d5YLL2aN8e+cvJuMZSQyuxmxa7WHP0pVbRglbt3KSXzML+nurXly5ZG5bPfu7EEKDVvJEdEs0me
- p6+8ots+kays3Fbzc6GuvhdraFvHMHA5nEl9SRyJKkhjNJ3K1/GEb10wSshSxCTOvMmjgZqeyA0
- /FIrscVfgbpOxcIHZJpDZi8/SASaRdnu7AiEvWO1nQtqZB+44VdLhAfkFBfwo5rbWkUUd4Z4UYl
- GWdbaodkBRt9mAhlEdSD4uVJjCh4iVFuV7uKx3M4i5ructCUXKG5q695aUX7co75IAKQIbjbNVD
- OkoJS7RysibKLyrJYhkVOkXBzprmjMUGNsgF5m1rJTm1Egd2dy1xT7AfXsM21Id7C3Vv+ihbgL6
- nAFjAH+cosoeNuI6AAmWgLBR5x/7+a2LKjTez/oe5bsECGGq3LszR2hoxxZ7wgQT4ajs6SfsXM6
- KVXfR38ir5r+wCrwbdfK6cU72KkgdEnXDXIgP5qCwYIYheSRqehUykS2whzA1/wgInksyOukkFN
- Me/Pbo2M3MWfujg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
 
-On x86, an oops that goes to kdump never reaches netconsole. oops_end()
-calls crash_kexec() after the oops is printed, before this CPU becomes
-the panic CPU, so printk() skips the unsafe consoles for the whole
-report. Unless something fails, nothing else is printed on the panic CPU
-before machine_kexec().
+tci_raw() calls acpi_evaluate_object() and uses the returned buffer as
+an ACPI_TYPE_PACKAGE without checking its type field. If the ACPI method
+returns a different object type, accessing package.count and
+package.elements interprets whatever data the union holds as a package
+descriptor.
 
-Add nbcon_atomic_unsafe_only_flush(), which flushes only the
-CON_NBCON_ATOMIC_UNSAFE consoles and allows unsafe takeovers on them.
-Call it in __crash_kexec() before machine_crash_shutdown() tears down
-what they may need, such as the shared memory of a TDX guest. As with
-the legacy console, the other CPUs are still running at that point,
-unless crash_kexec_post_notifiers is set.
+Add a type check before accessing the package fields. Return AE_TYPE
+when the result is not a package, when the package has more elements
+than TCI_WORDS, or when any element is not an ACPI_TYPE_INTEGER.
 
-When kdump comes from panic(), printk() has already flushed the unsafe
-consoles and the call finds nothing pending.
-
-Fixes: 187de7c212e5 ("printk: nbcon: Allow unsafe write_atomic() for panic")
-Suggested-by: John Ogness <john.ogness@linutronix.de>
-Suggested-by: Petr Mladek <pmladek@suse.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
- include/linux/printk.h |  5 +++++
- kernel/crash_core.c    |  1 +
- kernel/printk/nbcon.c  | 14 ++++++++++++++
- 3 files changed, 20 insertions(+)
+ drivers/platform/x86/toshiba_acpi.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/printk.h b/include/linux/printk.h
-index f594c1266bfd41..95da3904c0d30e 100644
---- a/include/linux/printk.h
-+++ b/include/linux/printk.h
-@@ -208,6 +208,7 @@ void printk_legacy_allow_panic_sync(void);
- extern bool nbcon_device_try_acquire(struct console *con);
- extern void nbcon_device_release(struct console *con);
- void nbcon_atomic_flush_unsafe(void);
-+void nbcon_atomic_unsafe_only_flush(void);
- bool pr_flush(int timeout_ms, bool reset_on_progress);
- #else
- static inline __printf(1, 0)
-@@ -322,6 +323,10 @@ static inline void nbcon_atomic_flush_unsafe(void)
- {
- }
+diff --git a/drivers/platform/x86/toshiba_acpi.c b/drivers/platform/x86/toshiba_acpi.c
+index a0b8060836d01..4ccc8f51c3a5b 100644
+--- a/drivers/platform/x86/toshiba_acpi.c
++++ b/drivers/platform/x86/toshiba_acpi.c
+@@ -342,9 +342,20 @@ static acpi_status tci_raw(struct toshiba_acpi_dev *dev,
+ 	status = acpi_evaluate_object(dev->acpi_dev->handle,
+ 				      (char *)dev->method_hci, &params,
+ 				      &results);
+-	if ((status == AE_OK) && (out_objs->package.count <= TCI_WORDS)) {
+-		for (i = 0; i < out_objs->package.count; ++i)
+-			out[i] = out_objs->package.elements[i].integer.value;
++	if (status == AE_OK) {
++		if (out_objs->type == ACPI_TYPE_PACKAGE &&
++		    out_objs->package.count <= TCI_WORDS) {
++			for (i = 0; i < out_objs->package.count; ++i) {
++				if (out_objs->package.elements[i].type !=
++				    ACPI_TYPE_INTEGER) {
++					status = AE_TYPE;
++					break;
++				}
++				out[i] = out_objs->package.elements[i].integer.value;
++			}
++		} else {
++			status = AE_TYPE;
++		}
+ 	}
  
-+static inline void nbcon_atomic_unsafe_only_flush(void)
-+{
-+}
-+
- static inline bool pr_flush(int timeout_ms, bool reset_on_progress)
- {
- 	return true;
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index d0bd2d0cf8990b..6580eaa86685a9 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -140,6 +140,7 @@ void __noclone __crash_kexec(struct pt_regs *regs)
- 
- 			crash_setup_regs(&fixed_regs, regs);
- 			crash_save_vmcoreinfo();
-+			nbcon_atomic_unsafe_only_flush();
- 			machine_crash_shutdown(&fixed_regs);
- 			crash_cma_clear_pending_dma();
- 			machine_kexec(kexec_crash_image);
-diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-index 19fa9f79cac3cb..c22175a33ce17e 100644
---- a/kernel/printk/nbcon.c
-+++ b/kernel/printk/nbcon.c
-@@ -1717,6 +1717,20 @@ void nbcon_atomic_flush_unsafe(void)
- 	panic_nbcon_allow_unsafe_takeover = false;
- }
- 
-+/**
-+ * nbcon_atomic_unsafe_only_flush - Flush only the CON_NBCON_ATOMIC_UNSAFE
-+ *	consoles, allowing unsafe hostile takeovers
-+ *
-+ * Like nbcon_atomic_flush_unsafe(), but consoles with a safe write_atomic()
-+ * are left alone. Only effective on the panic CPU.
-+ */
-+void nbcon_atomic_unsafe_only_flush(void)
-+{
-+	panic_nbcon_allow_unsafe_takeover = true;
-+	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), true);
-+	panic_nbcon_allow_unsafe_takeover = false;
-+}
-+
- /**
-  * nbcon_cpu_emergency_enter - Enter an emergency section where printk()
-  *				messages for that CPU are flushed directly
-
+ 	return status;
 -- 
-2.53.0-Meta
+2.47.3
 
