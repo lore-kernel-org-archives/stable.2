@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638108;
-	b=D6IwX8ohV7Ye35ScCntVwo6ngK7iWayYP9HzmHzjVaNKMzqteBzWHiZ6G8L5JWZP0daB
-	 d1tNJT50b5rT18QVz46bqm+tTe7Kn334xq1rHlHHXhCytHy+5S50ajXvI9xrid9Z4cIqf
-	 AA3fnUz+Q5oKQ/3nmrneYjSwJCYwEJSrGYkhPdlY6PJWheq2aYuIxkBG6uOYTJMrTEq17
-	 f2wbAc+YlYVb3ph0zbsvT4DRWsNB0nfYoDxveopC4DVXincNwyWl71EfKe3Kcvn5Hanbg
-	 0CypiXFiuaDfD8AjonyttGiCtQIqFzFS0hAJvSu0RAkTTnSCPAd8kIlS6zT2TSBktLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638108;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
-	b=lFayFnusgXt2ym0s4hHZ2jK593/6gJuAi12WbUduS9JSrGwwF/rDdEsvBwOv0neGZzSh
-	 kWAJWihOofxlZVCGTBJyLT7XTOt6Ot2FGSTuMOZU2ZcFpf2OQ9HAuxKxF3I4H3SCFhxRe
-	 /g00ERvG9UOT/4yEr0e4jLdZmP+74as/pSi3hphoY8SCaNYXqjkz1tw2IUfRdTt4MGopW
-	 tQi9lnCG8SFp4lSi2yBRTENLm33lm8EB2RZSlcUBfkU/anvZOVnOszn1jDsGS6buBsOQG
-	 RoI3kAdJJObsRr6O9A62noHo1Qo+SGm7vNnoB9COljLlvMsbu2vH7GWjektssw4Xvsw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=02nQqflh;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GwcSGu1H;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MNBhQREX;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aUbDg4gK;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793638135;
+	b=h25n9Gz4fLF8VxuMtxhlyTF+BnwbpkcIeaTHkdS3A/89o5IS3cXfrEhR9p5zpeRB0ifv
+	 QtJjMkaEoxhV71W2OfmJ6tWRPrnHraFXSfIJUsH/VZ9Tp05PKZKfr3sgCA89b4y1sZrJ5
+	 G/nW/VYh0W/p5wuOGE2mietTg5sP3UH1W7te7uK2kaICGecYjFpz34XwBb4r+6/SPE/on
+	 WB6VrdotEuKHnb6MFYOKtmvj8Mr3K7qLnSPMZ0jxZwREd+pT5HoRZ9ctJC71n5lVpyj1I
+	 AHqtPZSemVW90ZtFq/ZAIZQ65R4/LUYQsD0gspzXYz++24LXcldahQdWkRFjm+OFhgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638135;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+fC3Z0+jU7ZdURktJbbHEBtzUTZEk3jonbQqoN1ZuZ0=;
+	b=h7/TgJma1i7yQTSiMceYs1JfCkGDmJ/GFywyJ3zWfzC5eVgwcEYujNEug7W6sk5T6mOT
+	 TCLJDlja2karSCZ4+BtNwxC46Q3cLvO29j7FOFSbkvffg/y64v27E2Qo52qs92s/H7s/5
+	 eH0zYUmRjaD7MZBl4EDcbn6C3bS1ih3f8P4q4ybJdSPBdkiXjNzekhGr6jmE0Lb3iuaJd
+	 qY5Ed3OP/bU7RBDKBVNf8u8qO0CXKjF+eVyfiX6MhGUVv7XYLnMJ7VMwG+16/QTRojzgb
+	 8lohR6A93rOEv8/2U1RD+LmW2SxHy/DTvcIOHS0GBU5dHhEuM+Lm0v8kxHX5F3Su9Mw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wVgiw6n9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.38
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013038.outbound.protection.outlook.com [40.107.201.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52FA606B1F6
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 16:48:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B52FA606B1F6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9052A606B1F6;
+	Mon,  2 Nov 2026 16:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9052A606B1F6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=02nQqflh;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GwcSGu1H;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=MNBhQREX;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aUbDg4gK
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8F4292202B;
-	Mon,  2 Nov 2026 16:48:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793638105; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
-	b=02nQqflhIL2tyzXPE/ieje49qERwo8sAiJEG7oWVVufg+aPKvRN7n3OEnWvbv/B4IUIWiC
-	geLX8hSyJ+4kek5OGMYddofr6Tao5xtPwQHkb34Mx5EAjtFosqg15y8J+VSCG7utl7zfxw
-	z28GC8aMNd0nXINQbWC8rw1Ezn2XgpY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793638105;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
-	b=GwcSGu1HEwIpPPFDsRXsrj8mvXbodhyh+sq92ZFFGcgBdBS0FB3R0JNk1GPffir7OziXta
-	HOq+1FXczPwgJzBw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793638104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
-	b=MNBhQREXmZ9dH0LOn4imoP2vAQDtZhcnQsL0hbHwZYyeyU9wr6PFT82Jemb/Mn6C/RVQLK
-	Cazah5smMSv29m8TOFXxzJBNKoxrW/wfnARz8RmIj4qPlvWxJcvqN4I2ddnqiRZdeJl3mA
-	2tYA6GY4DRMeWrePyOBkfXTro52T9No=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793638104;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=s2SsEbFBgJaO9Jkmo+11Kl5ydWU1vOHQ5eCoJdpnSFM=;
-	b=aUbDg4gKIKZz/M1a3wNTXwMuN9r418R+iAPP1r8WycjozWF12slYyTh4F287xbO19aqLnz
-	/4HT3KlurFDdnnCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2EF75134B8;
-	Mon,  2 Nov 2026 16:48:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id R+UfN9e+6GquTgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Mon, 02 Nov 2026 16:48:24 +0000
-Message-ID: <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
-Date: Mon, 2 Nov 2026 17:48:23 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wVgiw6n9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q6eZGoLXIPK/sZ91YxJLdiSvju4Oa0nWKmc2UYmkZPLMoQZB6D9yQkI6WOoRO+Jba047pQlu0feqcsRfG95qu0FClX38C60mju3BEz6j0Vv4gk3hr0yloPNuXM/km/bMw2Ippx9/3tmisfr+O7sXwgQJFu498fQ96AHvYmXw/Z2AVlzhDXx+8Rg9DmBbvvLIKVaPgam0cB76sExexLAJMxBQlcLmGhUPNSH1ugDJHJzqe95kNiH9Wrz3ZtLP5in6kaZV0isKbpYnmJv9n09CM+RiaYqggg0DoBhJPjeMDW52HdUhgLXb4HcRaKtO1zXvBJvBSJe0YFRse78uIXFVGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+fC3Z0+jU7ZdURktJbbHEBtzUTZEk3jonbQqoN1ZuZ0=;
+ b=LqWh96LvIs3AjCh4JmxssPgNZchn3sdbz4QhHeNwpEsVFp1Kv2lZR11pEGJRS0PKXsaJBWvwEMz5PxNzIBzYV1hKbcM6ivFMiiJZ9gnWVANGGJixvVMSDuadIj25JH820Z/VrKXoW1jc3+F2apMdrP8Ix/Te1cRyiYFqNob1N/8cX111Ac/VctftkSmZfufDR1hP1Rd0RdV2y+JK8ENvuJnbfawZKRZMnPrldURPwFIMsf9alM00TTq4j3hQkNQc4y2hpeAW5hLDGymrgW9N+ZbkwcEVBcXa2pRoO2sd89lgJdwJvCqFUjFFCYtBIiZ8O8/RBh0kH8m27/KwjlelzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+fC3Z0+jU7ZdURktJbbHEBtzUTZEk3jonbQqoN1ZuZ0=;
+ b=wVgiw6n92LIzK5iYX8Egkl+oGef8wChqmoi/YrvliM5j2If3Xp3hOnK75oUpOJoGxLscUqmcXjU4HVJ3d5awsEFWTASsh4dJMRk/qYGSVfp49BYDZHToODj+5FT7ea+ejkJBem991gpGVctcNhWPu18LpL7qOkIzH2chzU7l/V8=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by SJ2PR12MB8649.namprd12.prod.outlook.com (2603:10b6:a03:53c::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 16:48:49 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 16:48:48 +0000
+Message-ID: <f4c1a296-5cd9-4917-9a21-db39146e8751@amd.com>
+Date: Mon, 2 Nov 2026 22:18:40 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] iommu/amd: remove obsolete domain pointer warning on
+ release
+To: Kevin Mitchell <kevmitch@arista.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Nicolin Chen <nicolinc@nvidia.com>
+Cc: stable@vger.kernel.org, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joerg.roedel@amd.com>,
+ "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261013222402.673852-2-kevmitch@arista.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20261013222402.673852-2-kevmitch@arista.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0358.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:219::17) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,215 +102,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
- deadlock
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, javierm@redhat.com, louis.chauvet@bootlin.com,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- stable@vger.kernel.org
-References: <20261102143919.1672293-1-tzimmermann@suse.de>
- <auioL8zR9O5u4TCF@intel.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <auioL8zR9O5u4TCF@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-13.29 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	URIBL_BLOCKED(0.00)[suse.com:url,intel.com:email,suse.de:email,ffwll.ch:email,bootlin.com:email,bootlin.com:url,imap1.dmz-prg2.suse.org:helo];
-	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,bootlin.com,lists.freedesktop.org,lists.linux.dev,vger.kernel.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,lists.freedesktop.org:email,intel.com:email,ffwll.ch:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,bootlin.com:email,bootlin.com:url]
-X-Spam-Score: -13.29
-
-Hi
-
-Am 02.11.26 um 16:11 schrieb Ville Syrjälä:
-> On Mon, Nov 02, 2026 at 03:38:52PM +0100, Thomas Zimmermann wrote:
->> Return -EDEADLK when trying to cancel a running hrtimer as part of
->> enable_vblank(). Reacquire vblank_time_lock and try again.
->>
->> The vblank helper drm_vblank_disable_and_save() and the vblank IRQ
->> handler hold the spin lock vblank_time_lock at some point. This
->> can result in a deadlock if vblank timer's disable code in
->> drm_crtc_vblank_cancel_timer() calls hrtimer_cancel() directly: the
->> helper wais for the timer function to complete and the timer function
->> waits for the helper to release vblank.time_lock.
->>
->> drm_crtc_vblank_cancel_timer() works around this problem by calling
->> hrtimer_try_to_cancel() instead. For re-enabling the vblank timer,
->> drm_crtc_vblank_start_timer() must wait for the vblank timer to stop.
->> It runs into the same deadlock problem while waiting for the timer
->> function to complete.
->>
->> The solution to this problem is to release and reacquire the spin
->> lock vblank_time_lock if hrtimer_try_to_cancel() signals a running
->> timer function. Releasing the lock allows for the timer function to
->> make progress.
->>
->> Signal the possible deadlock with -EDEADLK and perform the necessary
->> steps. No other driver uses -EDEADLK in their enable_vblank, so the
->> change should not interfere.
->>
->> Tested with bochs on qemu.
->>
->> Closes: https://lore.kernel.org/dri-devel/20260914111129.300691F00898@smtp.kernel.org/
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Fixes: 74afeb812850 ("drm/vblank: Add vblank timer")
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
->> Cc: Javier Martinez Canillas <javierm@redhat.com>
->> Cc: David Airlie <airlied@gmail.com>
->> Cc: Simona Vetter <simona@ffwll.ch>
->> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> Cc: Maxime Ripard <mripard@kernel.org>
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: <stable@vger.kernel.org> # v6.19+
->> ---
->> I also tried to move hrtimer_cancel() out of the critical section. The
->> result was fairly fragile. So returning an error and re-acquiring the
->> lock was the easier solution.
->> ---
->>   drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++------
->>   1 file changed, 15 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
->> index 5162250e8813..135efde86298 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -1182,10 +1182,12 @@ static int __enable_vblank(struct drm_device *dev, unsigned int pipe)
->>   static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->>   {
->>   	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
->> -	int ret = 0;
->> +	int ret;
->>   
->>   	assert_spin_locked(&dev->vbl_lock);
->>   
->> +retry:
->> +	ret = 0;
->>   	spin_lock(&dev->vblank_time_lock);
->>   
->>   	if (!vblank->enabled) {
->> @@ -1199,7 +1201,11 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->>   		ret = __enable_vblank(dev, pipe);
->>   		drm_dbg_core(dev, "enabling vblank on crtc %u, ret: %d\n",
->>   			     pipe, ret);
->> -		if (ret) {
->> +		if (ret == -EDEADLK) {
->> +			spin_unlock(&dev->vblank_time_lock);
->> +			cpu_relax();
->> +			goto retry;
->> +		} else if (ret) {
->>   			atomic_dec(&vblank->refcount);
->>   		} else {
->>   			drm_update_vblank_count(dev, pipe, 0);
->> @@ -2232,11 +2238,14 @@ int drm_crtc_vblank_start_timer(struct drm_crtc *crtc)
->>   			      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
->>   	} else {
->>   		/*
->> -		 * Timer should not be active. If it is, wait for the
->> -		 * previous cancel operations to finish.
->> +		 * Timer should not be running. If it is, signal cancellation
->> +		 * again and restart to release locks.
->>   		 */
->> -		while (hrtimer_active(&vtimer->timer))
->> -			hrtimer_try_to_cancel(&vtimer->timer);
-> Why do you even have to cancel the timer here? Just let it run?
-
-We ran hrtimer_try_to_cancel() in drm_crtc_vblank_cancel_timer() to 
-remove the vblank timer. When we later come here, we need to know if the 
-timer has meanwhile been fully canceled. Hence we need at least one call 
-to hrtimer_try_to_cancel() even if the timer is in some bogus state 
-where it should not be active. The loop here was nonsense and could 
-deadlock. In the new code, we still need that call to 
-hrtimer_try_to_cancel() to detect the possible deadlock.
-
-I'm not confident that we can set up the hrtimer with new values while 
-it is in this half-canceled state, can we?
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|SJ2PR12MB8649:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9eb30339-463d-4f0d-9756-08df39012ac2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|6133799003|10067099003|18002099003|22082099003|261102123227099003|56012099006|261026121527099003|11063799006|261022105027099003|261022075727099003|261026140227099003|261009223027099003|261028144727099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	le0903h1UHdSjdvIzp0WWClJUIZJDkebu5eS3lIdJL/njaQCfJBPBRg1a9fs6AsFm7lqD5kvYgMDkWeptY2aAcQzjEZZa3HBYSYn3F8SuG8WlWS7wEW6sybR6AVymkQt+zEoqaEnUt1sm573a51zY5g7Slai3OZMTPhW3mDNVhxJA5l650kKeCHGiPtlHRu1fRvjh/fnmlQ4K2zNgjDA4ZWGYlbusW7UzyukEy5Db84GhFrNQTH2NbV4mOAFX/8a5/EXDn4j4kPuIYzPVM7RjmBBGdg2Vrv/6CIgQ/VyinZfMX9NeHx2wJRmFxnVesBvoWvHp/uv/AERQypioJdfY4nm2ufMFtxVnEC0WPHhS8GLyWbbI+6G/PjlQRpPvMDrJXSbCRUPRRbyeqOXIN3qQ4l0T9sze1CYOVRSRxrRQGSEmKUxLuQuQhg5vFIdV3ZTg1oBBKC4EOdfbrFFzTs4QBURFNWJEsK1SoKyxXRNQI1cPn4e/o5VMv7iRt+Gq5cbI66wBTwlmNlyK0wbAg4jTX1RKOq2cCoz3+Om+RgW0a/bjoGukaCU4/+ufju4Mt74WfOCh2GhqXmf/m72uMhQIUP8d2oJxYoELG/IdkKC0hNX3dVppAB5oIHmY0vw4P10UNdV7ZRefyFJavFajO30QEvq05Mnm0stQ+dNnnPQ1T8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(261102123227099003)(56012099006)(261026121527099003)(11063799006)(261022105027099003)(261022075727099003)(261026140227099003)(261009223027099003)(261028144727099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WnFxQ255dnNWWDFKWGVuSW9QdlkzcGlVbGh0eVF5bkVZZTVEbWI5cjVWaGd4?=
+ =?utf-8?B?ei92b0hRWDUrSmlWbUJIU2FUbXZrR0d0dTducEhZSE1CMVIwOGNDT0FuL0pW?=
+ =?utf-8?B?NEVVR1psRnM3WmlYSnZqTVFHck9kbUZCUXBGeTJzY0FSQkRXN2h5TTBVT2I0?=
+ =?utf-8?B?aklWMU9VcGFobW9MRWpCNzQ5VTRxa1N1M002MnVRNXFEcnpib2VXMTk0ZFd4?=
+ =?utf-8?B?YWJZQmVkRlBYSXkzOEZCSnJXbGtUclVFcEN3SE9ERi9OV2NOYUZ1NFg4aG1W?=
+ =?utf-8?B?SlRUWEFqdVM1d1FXVzJuNzNhMXBmVVh6aEpQaTNBc25qOE5SMFJWNDk0Q3ZH?=
+ =?utf-8?B?OGxXbDhOUUJ3bUV5Q0pkUy92ZmdmOTVPT3YvejBnL0FENVlaVW9GM0R0L0tR?=
+ =?utf-8?B?aXhGMVVKNlBucXNBSGdJaFEwYUR2bTdnOE8rcGlSYjV1SnhtdzEyRVVhV0gx?=
+ =?utf-8?B?dTRlWExsVVVsbkpNRmxyTFV1Q0k0Y1ROK2hKUUNnZzJ0TXFZdGMxTVlNL0hp?=
+ =?utf-8?B?aXpsUkhIS3h4bEZ4WjI2LzA4S2ltZTZ0SGtIWS9pLzJ0dTM0aWFNSUlCWDMy?=
+ =?utf-8?B?dVVQVDUrM2tGalBkWmJBa2RWQzJkRmFYZHJRZHNTNXdabEdlaFVoVGdJRDZB?=
+ =?utf-8?B?Yk1TS0hyaTZXZkVrekswM1N3YjlJUW1tMXBXUFd2NS90cVJtSXAyM29zUHZ4?=
+ =?utf-8?B?a3RGTWhsa1MwZjVTQWgyTXF4ajJvL056SHdSS3lRNHZxUFVKNFpJbk5VenFz?=
+ =?utf-8?B?NHFVSGMxWXlYTkxJVHhIWmtVMUMxdE5yR3lER2cxWVNlM291REpCQllVdUVD?=
+ =?utf-8?B?eVVpY256Z01TMmtYeGxHMjVGcUJOV2JiNTJmRldvNmV2UXVtSEdQWTB5bUJU?=
+ =?utf-8?B?eEMvZ0REelFONjZ4RGR1S3E3SzlqWE9xR25xa0JHU3pGYzRyQ2pjMkxPdGRt?=
+ =?utf-8?B?c1pnL0ZOSHpRK21hakhia0c5U2k5MWwvVnhGd1psbm91cnF0MXozaEpNN2kx?=
+ =?utf-8?B?cTgraHJoVVBrTy9yRUM0Zjh6V2pXd3k5b2lFbW5kd3BuVXZ5blp1ck5UM0ZR?=
+ =?utf-8?B?QXVDVDdCT0ZxZ0hFR1FQSGFucE5EeHdRcWJ6TXhZRjRmZFBFa3ZFMmxRM041?=
+ =?utf-8?B?QnR6akhpV0V3MXh6cGZ2KzF1N2Q1MDVLYXVUbHhIZG9RR25uMTJvV0RmZGZa?=
+ =?utf-8?B?alJicHBBN05paWsrKys1dzBFaW0vcVowM29GQTJqNUoxOUVLb2ZMWUxjeGxO?=
+ =?utf-8?B?dHlvRDR1RVFpNjFhbUYyODNLUHp4R1A2K3hvU0FQSm9YR1Y1SElndkFWZkJM?=
+ =?utf-8?B?N3c5RnBCRDN0dmE1R0VOV1crcHlrNnNIekhLSWxiNm9mNkRLRlpVZmhGNVp4?=
+ =?utf-8?B?Q1VNUTQ5NmhEb1F6YXNXRDE1d3NWYWJJMDBnRWt5NndnZmVJQnoreGgrMG5M?=
+ =?utf-8?B?TFlTNlZTWXFzSHpFTHplZXBpQkZhZTNnV3BuM1JIa282dWorTlVLeko2R0lh?=
+ =?utf-8?B?U0xzNHEyK1ZORzg1SmR5dXpwYWZXWE9hR2tpckFqNzVvM0dTRkV2MzVwNkVO?=
+ =?utf-8?B?UitOMkVEcWY0N0l6dTYzZFRVMFNDWUlWaCtsR2ErV2xWUVY5R2M0dzBNQUJn?=
+ =?utf-8?B?R1RJQWJ6MEFpQUNrcUtINnJweHBLdHpPZURhRjZOY05tQUpEWTdFNDQvem5n?=
+ =?utf-8?B?Z1pPMEdVMGpxQU9vVmt5b0RVSEJadGs5cVgyMTZHVlZESEE0RC83eXd4Rnp5?=
+ =?utf-8?B?OHFndFVVcXRKRGl5M252VFFCUlYxTlM4V0F1MmI3N2JRT1ovMVNBUXpkMEdS?=
+ =?utf-8?B?WkQ4QXkrMTRLZWFlczYvcXlmUjJUSnFHclRQV290VnU3RGhyNk9FWXFIdTlC?=
+ =?utf-8?B?RG5wLzRTNjJrUDlCOEM5eXNtQVlta2M0Tm9zNVpWVFE2OU9xYUF4eUF3L2Vu?=
+ =?utf-8?B?MHNVSGRvM1hnTnIzc2g0a01BTGlVL3dzZWpRNUU2S21WbnRZb0V4djdEdmU5?=
+ =?utf-8?B?VjBoRmwvdVJjYXBvWmNoQWQ2UFFZUitTTXNiUmQ4YUl0Q3ZnUnYyTFMyU0dY?=
+ =?utf-8?B?cHBUUndLZnFydDRGYVBrZDlOZVhiZUZRYUZualpReFhuL09iUU9rYTZLNzg1?=
+ =?utf-8?B?dVkxdmQrd1BkN3hNNWQwdzd6RmtaeFc0eE1SOWgzcG1ienVxSmYydG9IQnBa?=
+ =?utf-8?B?YUY0S3BsZU9WN2VSODZ2TTJteHR3UlNmOWhDNllybzdiVjVObklOWUR2UVhx?=
+ =?utf-8?B?U1F4SnVETU9XN2ZNcXUyOXlXQTU0THpLUWlVVzhaY0kzYzk5ZHdqd09IRDN0?=
+ =?utf-8?Q?BwBSj40THHuoMovhL1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9eb30339-463d-4f0d-9756-08df39012ac2
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 16:48:48.6261
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wgoBxvRx/sZ0vs4ID3kOgHs5jJEUAItADxc+zJ+4jM3DuZHuSM6A9PAMc5GTDFXB0Yf5fqRnj1Vp83eogKXCwA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8649
 
 
->
->> +		if (hrtimer_try_to_cancel(&vtimer->timer) == -1) {
->> +			scoped_guard(spinlock_irqsave, &vtimer->interval_lock)
->> +				vtimer->interval = 0;
-> Does this interval_lock serve some actual purpose? Looks like it's just
-> protecting a single variable, and there are no read-modify-writes
-> happening to it that I can see.
 
-Setting vtimer->interval to zero will signal any non-canceled timer to 
-cancel itself immediately. [1]  Either hrtimer_try_to_cancel() is 
-successful or the next run of the timer function will cacnel itself.  We 
-do this because we cannot cancel the timer directl with hrtimer_cancel() 
-due to the possible deadlock.
+On 10/14/2026 3:53 AM, Kevin Mitchell wrote:
+> [You don't often get email from kevmitch@arista.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> A warning is triggered in amd_iommu_release_device() on removal of a
+> device with an IOMMU_RESV_DIRECT region. The warning is based on the
+> false assumption that correct attachment to the release_domain will
+> always result in a NULL dev_data->domain pointer. For devices with
+> IOMMU_RESV_DIRECT (and consequently dev->iommu->require_direct), the
+> release domain is the permanent identity_domain which sets
+> itself to dev_data->domain on attach.
+> 
+> This behaviour was added in commit e94160488e65 ("iommu: Generic support
+> for RMRs during device release"). Commit c21b34762e2f ("iommu/amd: Set
+> release_domain to blocked_domain") caused it to take effect for AMD
+> IOMMU.
+> 
+> Remove the warning as it is no longer strictly an error to have a non-NULL
+> domain pointer. As this leaves amd_iommu_release_device() empty, remove it.
+> 
+> The warning was observed for a device with direct mapped region:
+> 
+> /sys/bus/pci/devices/0000:04:00.0/iommu_group/reserved_regions:
+> 
+>   0x00000000fee00000 0x00000000feefffff msi
+>   0x000000fd00000000 0x000000ffffffffff reserved
+>   0x0000fffd00000000 0x0000ffffffffffff direct
 
-[1] 
-https://elixir.bootlin.com/linux/v7.3/source/drivers/gpu/drm/drm_vblank.c#L2191
+Thanks. Queued for rc.
 
-Best regards
-Thomas
+I have a patch series that adds more things in release_device ops like disabling
+PASID/PRI etc. That will bring back this ops!
 
 
->
->> +			return -EDEADLK;
->> +		}
->>   	}
->>   
->>   	drm_calc_timestamping_constants(crtc, &crtc->mode);
->> -- 
->> 2.56.0
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+-Vasant
 
 
