@@ -1,49 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608206;
-	b=iGDkjnwjrib//dlUDOyYczkNt8bkvpUzRqQyYpa+sYbipvlrC2VqgI4qjnu0Xsk2gm6X
-	 bqQfTtWMK7GkHmDIq+D8otvYfhNfCBlftSzUz5ZIP3FX1MoCBQKvo+Ehd8IA+fH4sphxd
-	 3HS6hO5xfQ7Nkm+HN76lsJuSx8cgXO5b2Gq+iirUQMBExIGO18A8wqmRzHNGHQvZxCqzy
-	 pVTHsY43ApiEHrsPa9sjwsc1ymWyUa/EP8Fqjgkj45iAAmw3NrD9Ee/otuo2iC4Lz07cN
-	 wdyu59E8y64i6tDkSOJ2EzKFWeHxJUBYGpMQiha0f11blF1SRRiEhsPKrV55aPO3iQQ==
+	t=1793608230;
+	b=k41atQdWC74CFCbjsshr0K2POOvMqScTVLqW3WoIoy38nIFdGiRpc0ZCvbFYqxIGUpMB
+	 Yb3hSiP6PmHJBA7+Z1eDCXApOJKn7f51NNUbH/Nxq04gvrwD2EddNSzzV021vSy3cHlji
+	 ra4Di1Wt6ObhT838UbPwKkXEWg7YEbJwHAgykP2SV/xFl+UILmDbPyNv1umWvMsFo3RNM
+	 PMbcY1D2OGNnXihUwSbpUzzWM7U5TM1/jMP/Gil2qjDq48Butb5A2YAso0vYHcT3/thnY
+	 ZpSJRc/XKK7X0k34pEve/irgSHR/zoqTs/Tc2+FUqD78BM5+UbVvoC12NKElqfHD4iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608206;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=S4bdUGJ6Wq8ONmznrpPJdLbwjjINsUOdaR8Ihv8Nrkk=;
-	b=U1hGMTwUAJmN/xQdoIsN+LTMNTmVXKVLcsJd7x+4MwYsyUr/zK5SoNcjawvzsnhftShb
-	 bq75KDHmeDwrz+wlZqoyyCe3MObNM/0ufgCAoYdKaKttnKQvjv5SbCRuAlSJr62D3yvqu
-	 0y4923DoCgKDShC4LJLDeXX81Y/rim9e/oJM3zYsG8Z1rAnvVHl++jEhygXF76zhecxE1
-	 tEVn9AVtPD0jgSOvxmO9T+frDO9cfvJH9eC07tSRFppU0iRU+ygUrH4/CFz4a4Aml2ZsF
-	 WqskPpZpR2WYId2jjMnDGebLsd2RlKAcLpmvO9yYvo7VWP39aGl6yHZRuBXuKKTPhaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608230;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=QdPaChMlUp6IQ0Gocdr8F1FO5YD2Pdt9AJOtZr6iK+k=;
+	b=nx+7FMudVQQDpgJAskdEyH4vIIDRmaxezcSpI8hgdUDjsHaz3XZrlmh2ENgmLZt/puLK
+	 gNhDIJ+3d4XcJEjpmHMkBC4+gmQGwVQM9D1GZZ3xTxIFT+SoiAolkCGnO1jIZ8Ze5RDjH
+	 SE5VpfbjTTSsaPDZbSEAmUBHdyCdUGgqKBLUU7YrWvp2Zx0n1xxBlF8dyaF9fDue3nEZZ
+	 B0O5CdOMHXnaI/CvQB38jl8pwCZ37rDxLkq9ChcOyfTT/0qpjpAzeQD1BUhsj+aMsEgVT
+	 ids8XRixQ95aNESVrd4DqGr6O8rxdAMmxAdXNPaZARzSWZ6r9nKjnWrbkxqxxI5+glw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4N+X2HQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U2oFU+16;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A74606A32F;
-	Mon,  2 Nov 2026 08:30:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC6C606A324;
+	Mon,  2 Nov 2026 08:30:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4N+X2HQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FB91F000C1;
-	Mon,  2 Nov 2026 08:30:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U2oFU+16
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4C7E1F00919;
+	Mon,  2 Nov 2026 08:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608205;
-	bh=S4bdUGJ6Wq8ONmznrpPJdLbwjjINsUOdaR8Ihv8Nrkk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=f4N+X2HQ3smXcK8NPrzjcX1p5/ap3eN0zPjgQA96kZqBVk2V9aCcl84lbHhFe1KnH
-	 vALnCKpvbI73XU0Zg+5iqW8HjU6xcRyI3BykumxU+wmpCaLx/xwtWwLKBUXqXYNYuM
-	 7liUUIG8va8hgtn7kRuZ0+t36iCsuArz9SZt2C5iip0EFJE9FdaPtJR52m4r0JDH6C
-	 R8wvbBxQxhX1sLvoiS2d815fbrZg48FqgIH1Gg8ZSRWKy1+7+LjIIIjV9kW416jJ1C
-	 XMITvdqgwe/6JxYIx6G10M5YDF6m8d8uZq8d8k3KlVxNdHowIpPL7nG494EfeB8jxj
-	 ZGskUNJcffUcg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA296380821F;
-	Mon,  2 Nov 2026 08:30:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793608229;
+	bh=QdPaChMlUp6IQ0Gocdr8F1FO5YD2Pdt9AJOtZr6iK+k=;
+	h=From:To:Cc:Subject:Date;
+	b=U2oFU+16sVrzpCiLXIT4IUExffomnzmwDBQawGz6EI2p/0AzIhhXqG+U7NdJcaikm
+	 Is8MgtubVoWsCrc/KhxTLUUBH1HXJlsVSr3skIHmNqoD9BHUrzVfnje23x2/6tOrFO
+	 imCLCyNav+3/Jt/jRbkfk3AYaTJ/0fBKBL/Vo9GVDpVGlGTMNvaJpjFHQdZG5RS5VG
+	 ubzYRJbAyRyseoHdjsjf34Kzw6KlDDSiDV/lkNk7AtrpBft57QTaKbc19XM1L09Ldd
+	 bRKhGc16fn1kLjsRKasCi2khnb3Jz20NtMm6V9z6EUCabc7AdIQLOTLCyYuD9DY+0T
+	 qyFl9rOYDVWwg==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xNnQx-00000005Lpt-3Ywv;
+	Mon, 02 Nov 2026 09:30:27 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Won Chung <wonchung@google.com>
+Subject: [PATCH] driver core: fix memory leak in physical location error path
+Date: Mon,  2 Nov 2026 09:30:18 +0100
+Message-ID: <20261102083018.1275566-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,41 +66,39 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] net: atl1c: drop oversized RX frames instead of
- panicking
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179360820455.3860315.16760613731907588447.git-patchwork-notify@kernel.org>
-Date: Mon, 02 Nov 2026 08:30:04 +0000
-References: <20261027115151.17092-1-federico@rimpianto.com>
-In-Reply-To: <20261027115151.17092-1-federico@rimpianto.com>
-To: Federico Musto <federico@rimpianto.com>
-Cc: chris.snook@gmail.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+Make sure to free the physical location memory also in the unlikely
+event that creating its sysfs attributes fails during probe.
 
-This patch was applied to netdev/net.git (main)
-by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
+Fixes: 6423d2951087 ("driver core: Add sysfs support for physical location of a device")
+Closes: https://sashiko.dev/#/bug/linux-b178c32c-f23b-48fd-9463-70f321f2d91e
+Cc: stable@vger.kernel.org	# 5.19
+Cc: Won Chung <wonchung@google.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/base/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-On Tue, 27 Oct 2026 12:51:51 +0100 you wrote:
-> atl1c sizes its receive buffers from the netdev MTU plus a fixed set of L2
-> overheads, which comes to 1522 bytes at the default MTU.  A link partner
-> that sends a longer frame - in practice a MikroTik CCR2004-1G-2XS-PCIe,
-> whose RouterOS side defaults to l2mtu 1600 while the host stays at MTU 1500
-> - makes the length reported by the RX return descriptor exceed what the
-> hardware wrote, and skb_put() then either includes bytes that were never
-> received or trips skb_over_panic and takes the host down.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,v2] net: atl1c: drop oversized RX frames instead of panicking
-    https://git.kernel.org/netdev/net/c/c4ba1716853d
-
-You are awesome, thank you!
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index cbe05197d4a0..bf97b06337a1 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -3011,12 +3011,13 @@ static int device_add_attrs(struct device *dev)
+ 		error = device_add_group(dev,
+ 			&dev_attr_physical_location_group);
+ 		if (error)
+-			goto err_remove_dev_removable;
++			goto err_free_physical_location;
+ 	}
+ 
+ 	return 0;
+ 
+- err_remove_dev_removable:
++ err_free_physical_location:
++	kfree(dev->physical_location);
+ 	device_remove_file(dev, &dev_attr_removable);
+  err_remove_dev_waiting_for_supplier:
+ 	device_remove_file(dev, &dev_attr_waiting_for_supplier);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
