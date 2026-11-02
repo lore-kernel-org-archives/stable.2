@@ -1,101 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793630113;
-	b=m3WmQR2fjc6hDuhGk59qeUa+f9jl8VaoFH80KNCfQsR5i+DbSf09sMNY3jt9z8tK34Rl
-	 FQUpWmtnxo0GmfN9+8e0tByaeJgosn/dOSGFnLvV3M22r09FAIfRZMIwnYTyrw/2qUIU6
-	 OcymFvUcULDXBAThDXgBhHVDfxIJKYllwtTFbKE2prn5ADJuJzdnyWY8wXUiYDuS0TWZ+
-	 s7+TfXTNpz2ImePAqlDy87BwSUW+71MzNQft514GOnzVodQkpzTxNs1K6DAyBsQbfOwYM
-	 WNUxk3+1jhflhCi7+akN4sP0gnBQBSuHzOr70z6dud7r2V8JVVWBznRWKXgLh1gluug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630113;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rupN/sT29C4eU0vKuIj8zAM9Gi0NaOKcPrh3qaoT1Hg=;
-	b=1FMawf9JAtyt7RqTZoX0sL09G7vhFfeO/TTLFsyYsK6Brt52bN9inRhNPLpLSWBgme/0
-	 JjL1LP7+lIpxfcKf3o4g0TgX0DctVwsilWkV2cFEzC6VwH40C0cixICC8TxKfJKfvI/gm
-	 1BQbuFgIyEzVv2Yo2fSF4g3veEXyhQHzuYXlYhesA4sIAWz/Hok28vNNwYvQ8yXEYROMg
-	 KlK4khO8pYsXKSPziwUFruJU6NgWRjGkXThvcb0Fnm8F9ivjb2s79HAUbjwqkAvNfU9A2
-	 +pHdTSpv/GJqszA/sxV5kn2W8Kj1YdJb2XOsM8jin2g30L39b+AjFqGhwSlXDPJtGXA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=f8iO9D+6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.8
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010008.outbound.protection.outlook.com [40.93.198.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D396076701;
-	Mon,  2 Nov 2026 14:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D396076701
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793630111;
+	b=qgZE1TDxooPbAllpI2v0rC+GAQIsgigAYXPoVS8wBRjIyPxUDG3yS0xk2FHx2Yi55N/b
+	 TTKSv7I7agYyJB7wb/rOeyPThoY3B8kgqvobYlHaty3nPGi09cq3ZiAqftD3wsNoDnp/A
+	 0x2GJcpb77Atf5BwaArjQR3Gq/Cvhmt4WCyL1corwJ8Wa+OkpLuOOJcVJln9L69ZbOTh/
+	 qZV8pRfI8lOESU1FWZr8azHzhzSJkbzpFRQkaSnUPQpH0GOi4kF2Nm8XwcKG5fQnW5m6p
+	 Asd/WRsJkQSphNgma1m1vDHTunKsFuROYj/YCfW01Jpjjkorow/6I/2gHBBPImPCYJA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630111;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=B20QF8u4Q48oGb36zaWtEXmrrj1aPPGtEEOCiHS8DN8=;
+	b=v8lrYXE3n1OIIwQBm0qjqfO9HjXaeP9b3xYmNJqUks5a95DmL7ZdgCEloeckUqYmVJIe
+	 0hCMYO3t92mKMtRyq3l7wDNVUN79bII8xFKd8FAKVSOrNeqkNythJ1CTDva7hLaYBwhsx
+	 XkwlcS7qPvbOx3FlTv6QaF0kIgS5Kv4tqLlzWg64B8loxOVAK44RuzdEIJtvX5MwQvu1q
+	 HmZqe+/7glohDa7dH446QoE2/H7Jy+qKUBtFm2sFIOfV5gx76tnTSJBXViNZSj/4rT5aN
+	 wUSDPvfHgv5+BydT9VcTANxO5ibcGvuW5c9MFhn7hJJmku2z6+fd6f5D7MvJfur/bog==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=TPgG1vg3;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AF9C6072C77;
+	Mon,  2 Nov 2026 14:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AF9C6072C77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=f8iO9D+6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gKKb8vL8FQOqcHRhDrquBwnzwaQMYBYO7VTwjKKEJfdjfnXEs3pXfRhxvfOxdHzfiAPwqO5kiysYQ2xl+kR2NcSWdyKkC/thp4p+xQDggd7uBDdq4L/ElIUGydD7MWNS0TdxP6QJ0KoGRb6vnrit5X2mx3yElpOLz5P4DW2bHDVD6ssca7+zH6V53jOCjs+HQxXzr2D1tOLfDKrfEHNUeMfmpZ33T+gjIbkA/S5GxN11DYy4q6vmkiE/Xa/W9TGcIxSux3ElH44kcB7ol7rxRsw+aeGJvvPlRA4uy9uNrsJ81CQNLonrixwI3JKgKy8m0nqQwQJvfHmacNbPrnJS+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rupN/sT29C4eU0vKuIj8zAM9Gi0NaOKcPrh3qaoT1Hg=;
- b=hGe0zcpLz4j3KXFD4aGX9YsORS90Mga315ZIzdiz28pj9pCnpAuBCOOuq/2IeIG1pKiSPQ69qSTe+jSnKOWjrGwOX3QQRkdzxJ/Uziz+lMm4CKNZ+qKN2/twwgvEO/jJHSPSkF408XBb1LByR2rLuS6ejl76a5MnfFV6WRCz5PNdJX4acdhAeDOUD2ImysDzrCB714UyGcoZWa2j9v3Z5cx+7QAYTL9A7oJB6YbQbFNW7aHqBoRKDvvHMBm75wvh0P7cg3wAVVsFrs9Vj05VVw06DmHuRuEZzmlCQXDe9dmJOXdxIZ+uC/t3dIxmZO2JljYd8DtmHvioglTssxOuFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rupN/sT29C4eU0vKuIj8zAM9Gi0NaOKcPrh3qaoT1Hg=;
- b=f8iO9D+60O6xNth7IoMDY6lZHL1E9qDiXe6ceCurQ86Hdo5bGBXI7nBck31rlQKK2P8MUtB74YYSc9+te10bv3uWx31uZ3eAjUwJj+CnwkVXv/jCCNXXgyRtWOnSRwXtjPwfkwZnDDB4XQf/HTgm+BlwS8P7vnEUGgn5b3lcOzaq29W9i30Usxds/uFl3OBqHDDJsR5ogLN2XIftDf5z0+lJGa6tuv6gh5AI3wpEZXkyTZKzfVaaMAZr0qOUbTv5j3BeM0ONS588pwOl3TszJ3IR8zI07dYajNj+uH0WIFuOih06FKxpVGl4lV7tT0DqCHwunvFAfNK8V4T6Fuc3iQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by CH1PPFDA9B3771F.namprd12.prod.outlook.com (2603:10b6:61f:fc00::626) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.35; Mon, 2 Nov
- 2026 14:35:07 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 14:35:06 +0000
-Message-ID: <8fd15777-fc45-4293-8255-c8d3d28a8156@nvidia.com>
-Date: Mon, 2 Nov 2026 14:34:59 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
-To: Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com, linux-tegra@vger.kernel.org, stable@vger.kernel.org
-References: <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
- <2026-11-01-1-daily-reply-0001-stmmac-tegra-6-1@kernel.org>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <2026-11-01-1-daily-reply-0001-stmmac-tegra-6-1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM8P251CA0025.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:21b::30) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=TPgG1vg3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=TPgG1vg3+OpB6Wjw24FEEZXxH/LnVnhnhgG3NygekBskyR2dlUh6ST3OFq/pPpSiYGVl6bUKQKf3G
+	 JFtozWIp7lcn3SDSwDI2pUS3QuZzu/2xFI82YkphLSll4rLPwkbYZMTcifmifhnNauYrLZfSCryNaX
+	 BY2qbSZZt5cKlRpw=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ae89f9988f-2a43b;
+	Mon, 02 Nov 2026 22:35:06 +0800 (CST)
+X-RM-TRANSID:2ee86ae89f9988f-2a43b
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[112.23.104.16])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ae89f99db2-0cb7c;
+	Mon, 02 Nov 2026 22:35:06 +0800 (CST)
+X-RM-TRANSID:2ee46ae89f99db2-0cb7c
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: edumazet@kernel.org,
+	ncardwell@google.com,
+	kuniyu@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	netdev-bot+sashiko@kernel.org,
+	jiayuan.chen@linux.dev
+Subject: [PATCH net v2] tcp: fix device binding after failed IPv6 connect
+Date: Mon,  2 Nov 2026 22:34:52 +0800
+Message-ID: <20261102143352.135769-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,101 +79,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|CH1PPFDA9B3771F:EE_
-X-MS-Office365-Filtering-Correlation-Id: a10223d4-d8bd-4166-63c7-08df38ee7cda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|10070799003|23010399003|376014|366016|18002099003|261026121527099003|261009223027099003|22082099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	jw4I44JIf9Bmdm+VCaHcJ/pHb/yZ+mWJJn8zX85Lopav4Y54NdteZETTglXu6jiuqZbVM2touQCH3VmLkJIF/FMprTJHZaMIfk1bhHrMU5E6ULm9lxWI809wRHFJWRwGOw3jKM7r4OsQQi2Vaf77BYZSr1WAsWG6HFRcx7hSYtxsEnyQn+2kYoUEKkPRuNEYwGWTWoFFEGzhVPnEuN/jI+zO3+78aHYn/AfgbUEY03LcL9oPL1w2sW3CDmw8xuSK2bEZE63mLbjmKrFurID2/ziC1ugKU7cKAthehLR/wTq2w6hr/+LAJh0x/jFqA3CdOdhLKv0JxxiCOrJWOu4m8xoWabtRwD+CjnOWI03nKk7jVSl418OhlKz9AteZLmv+/RoYjBdiTS9OzShY7HjwRRLQ7CZskP1FBhjSXjhPVYPRua7vLGcAsp8xQgX6TVYqatTc64Q7RIlhPluwnmx7+GTWY8xQ60S4NmiiniWzbwILZY1yuyiOqb68IpY6wNCr0ONUAC+lU07VPJKQZmdMzEmA/vFgdBi2w5pyKtZX0w0C5adk6fSxxQS819AgBOHdZZCGJ8VIM1No/8IORWJFgkH898Uquuy6PZ5ZkiWtDRZwvIoOJqpe/jkpg7X7y9myIU8WMoBa+Ck4U7tfMW2htO7kwpp1buggk938FtSnjk0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(10070799003)(23010399003)(376014)(366016)(18002099003)(261026121527099003)(261009223027099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEc3ZXNVdWJZWGdiYnc4eTNENzRHei9mYmRkMEU1c2p3bDdraVlHOU5jWHZP?=
- =?utf-8?B?clpWMW5LY0xPaGdBS2Q0bU91T2FkMnpieit3MmVKRGZMOFpOWTBUT2o4QWdK?=
- =?utf-8?B?aHlTR1JWYlRlMnBiMURweHFWWEFXbzNNSHlad1lIVFlrV2Vzb1JWM3E3TW1Y?=
- =?utf-8?B?QU0wQXlsQ1gzVlZydFRaejR5eWlhTGdSODJUTXRYcFR6OVBMUmtwUnpYcVRH?=
- =?utf-8?B?SGF6Vmhxc2gvNEFyZ3REd28vRDhVdmJUZHNZelNWb21nSzROV0EwckFVaVVl?=
- =?utf-8?B?TTdWZmwweEFWYSs3NmJCeHVhdjMrcDZaZmpneEpCblRva0twUTJUdXMrY2FD?=
- =?utf-8?B?TDludlZJeGZxcUZFZnFabTJkelJzbFM2RlVQdVAweWtIN1AzazFQUmhhV0R2?=
- =?utf-8?B?aDZFT3NCa2JBQmczMWtvZWpwTW0yTE1saDYwa3dKZElOQmlKaTZXUEFmR29l?=
- =?utf-8?B?UnVZdFUwalZCSnZHYkF5V0pnL2NQNzJNcC9Ybm5XdGhsblFkK29KdzVXQTZm?=
- =?utf-8?B?emZBdXh5V1BSa1N2Vktyd3kwSi9KQWhRTVhNbTlyY29WYkZ0RmVxL1pQTlRh?=
- =?utf-8?B?RWhyRHp4VUNybis1aWY1eEN6RTFhbXpUTThUbjRnVEhEdnFhZWpxMkEwbzFp?=
- =?utf-8?B?ZVFlOWx0M05pbUJjYUkza3AxSGIyb0l2OTQ2N3RtN1JJckg2MS9TNnAzdndj?=
- =?utf-8?B?RHRmRVhTQ0FXYUJjNkFqNDJwd3RoeXM2c1pub004VWNscWdoVmcrWVJ2eW8v?=
- =?utf-8?B?OVlXZEU4Q0ZQaERCKzQ3aUpQWGN3aVFjTmdKdGUrQkwyMXVkSFhNdXVONkdy?=
- =?utf-8?B?aWlnSmJLNnN6MUF1RlZ6ZURYNXBiVGxiOGUvRTlwOTUrNTBST2h0RkQvS3Ni?=
- =?utf-8?B?WS9oWlcyeG4raEdqVDg3N3pQb1RRcWUveDlLR2VleTl6ditESC9sdWkwbXJY?=
- =?utf-8?B?bGd4SUpZS1FBYzBnaC9RQ0plQVNFanNydDhmN0JBQjdPdnJJL00vSWVsREdE?=
- =?utf-8?B?bUVKZW4wNE1TZWJaYUh0SlhsRmRDVWswdGNCSW5YdEJyYytkWW4yZmNDdEIv?=
- =?utf-8?B?REdPQXE0YXM5KzhtQlZDQk5STThmU3NWQ01XcEJoQXlqUEdhQysyUFZzSlRs?=
- =?utf-8?B?S0ZCRm94Vk9TTDAycmg4eVpRWW5IUDBObkFYUTVrNGc0Vkd2TFJMVjduVlBi?=
- =?utf-8?B?VS82MUdjRkZ1QTNkYmRiSXZlOEFhQXFNNFI5UUtLNjlnclN6dG9FY0ZpeTIy?=
- =?utf-8?B?blN4RFpUMDl6bm4rMStvSlJzOU9VTTFDMEl3ZVNRWU1QbExPcFI4RFgrcW1p?=
- =?utf-8?B?ZG1vY0JqNHhyWVQyNjJNUmVKVnloN016ajdSeVQvbXNsN3JCcS9RcEFGYzRM?=
- =?utf-8?B?VFZtVVVkSldVQXJmQm5GYm91eEhEYjlxTFM3QVJDNlRQWURISXlxdWZmQ0VL?=
- =?utf-8?B?emxFaVNtNXU3b2ZsMFJPNmRiMnJNSENwczJZOW81b29IcDlmMmltZis5Mjk5?=
- =?utf-8?B?SVZzTUVVaVdoVTF4RDdhUnlvWTFpb0FjWlhNQy9uUVlpKytCQkMydVcvcGRZ?=
- =?utf-8?B?K0tkcUFJcnNMMXhnQXZjdW8zbXVRSnF1U3B4UlhTU09ueTlzbVN4UE5ZU3gw?=
- =?utf-8?B?MUZaaGQwN2hSNmJ1VDk0L3hWN2Fld01QS3hWZWl6RmI4K0p6ZjMxQkZ2NlRK?=
- =?utf-8?B?Vi9JVFdqbWRFS1FsanBiaHpnMkNubzN2OGU4Sm5UVWRyNjJ5YjczTzNjUGtm?=
- =?utf-8?B?MXVpdDlnR0E4LzFTWWJkd2lXNWJwS0gyYWNOY2ZtZ3VIbjg3N0NyVWpPY3hT?=
- =?utf-8?B?bVF0TVU1VGlDam5VTmQzVTFqdDVlR09wQ1VKalAyYlBtcW43bGI2MTlJejhy?=
- =?utf-8?B?N0VidWwvSFVPM01VdmFQYnZmL3VtY0VkT0dHdG9Zekp3OThpNm5VbnJJYXVZ?=
- =?utf-8?B?ZVNPMzlaa0ZQNGV4V21DT3k0amQ5Undta1Znbm9sT1ZxQlNLVi9jZEltdkxk?=
- =?utf-8?B?bTI1U0ZrUFMxN2lCR3RLWDlHd2VqRjBpc2g5NVBacGkvQUZrQ1FhUlhJNjZ5?=
- =?utf-8?B?VmplYksxN2JGZVVUTDcwelV2eHAwN0YvYmo5eDR0L04vL01MVGhyS2tyUGVT?=
- =?utf-8?B?YmwxeHY0Rlc5cTJSOEpsdEI5ckd6RWwwYkNicnFkMmRmWGVpWXRRU016MlJ5?=
- =?utf-8?B?QkZUSm1ZM1NFdmF6Z28wZTZVTGdseHdRdTR2a0lnTTFYa3NZRUtMcE1xUG9B?=
- =?utf-8?B?OXpkdkpHQklBbmNCOFhTMU5RaDF4ZFcva0FCUlFzMUk5WFVXNHN2Z2dXdm1X?=
- =?utf-8?B?NHpNMlk2OHVBNXRTSnpsbnliNElWK2g3S3R1OGt4dFFhT1hTa1hUc0k3K01r?=
- =?utf-8?Q?40O4U+WODNlPjuA6XVQ84T6jQKN0ROX9zSBf9SDSeCyFL?=
-X-MS-Exchange-AntiSpam-MessageData-1: 5L8O6Ei/em0QLA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a10223d4-d8bd-4166-63c7-08df38ee7cda
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 14:35:06.3548
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oHX4071HiOHZSjIS6FDrC91m7pzKsi6pn+rDw8IJCC/A7akIZviGwsRFXLf2hgqT+whBzbGWQU/ZeK2N/dLl0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFDA9B3771F
+Content-Transfer-Encoding: 7bit
 
+tcp_v6_connect() sets sk_bound_dev_if from sin6_scope_id when connecting
+to a link-local address. If the route lookup fails, the failure path
+leaves that device binding in place. A retry to ::1 on the same socket
+can then fail with ENETUNREACH, although a fresh socket can connect.
 
-On 01/11/2026 14:43, Sasha Levin wrote:
->> Bisecting is pointing to the below commit and reverting it fixes
->> the above issues ...
->>
->> # first bad commit: [26c5e136ba4e94ad708333c9bd34039a1de397b0] net: stmmac: protect updates of 64-bit statistics counters
-> 
-> Thanks for bisecting. 6.1 is missing a prerequisite for that backport.
-> 
-> 38cc3c6dcc09 ("net: stmmac: protect updates of 64-bit statistics
-> counters") allocates priv->xstats.pcpu_stats in stmmac_dvr_probe().
-> 6.1 does not have 2eb85b750512 ("net: stmmac: don't clear network
-> statistics in .ndo_open()"), so the memset() of priv->xstats in
-> __stmmac_open() zeroes that pointer on every ifup, and the first DMA
-> interrupt on a dwmac4 device (Tegra186/194 EQOS) dereferences a NULL
-> percpu pointer.
-> 
-> Greg has queued a revert of the backport for 6.1, so this goes away in
-> the next 6.1 release. 38cc3c6dcc09 can come back to 6.1 later together
-> with 2eb85b750512.
-> 
-> Could you test if adding in 2eb85b750512 fixes the issue?
+Save the original binding and restore it on synchronous errors returned
+by tcp_v6_connect(). Restore it before tcp_set_state(TCP_CLOSE) and
+inet_bhash2_reset_saddr(), since the latter uses sk_bound_dev_if to
+select the l3mdev for the bind2 bucket.
 
+Only undo a binding installed from sin6_scope_id by this call, and leave
+a different binding installed by a later callback intact. Once the
+late_failure path has handled the binding, do not restore it again
+after the state callback and source-address cleanup.
 
-I confirmed that that does fix it.
+This patch does not change disconnect handling after an asynchronous
+connection failure.
 
-Thanks
-Jon
+Found during LLM-assisted review of the tcp_v6_connect() error paths;
+the same assistance was used for the fix, tests and commit message.
+Reproduced in UML by connecting to fe80::1 through a down dummy
+interface, then retrying the same socket against a listener on ::1.
 
--- 
-nvpublic
+Tested in UML with 39 targeted userspace checks covering reconnects,
+existing bindings, VRF bind-bucket cleanup and BPF sock_ops binding
+changes. All 39 checks pass with v2, including the retry reproducer.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Link: https://lore.kernel.org/netdev/062d02ca-e9e1-4f4e-ac57-0de27272a205@linux.dev/
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+Changes in v2:
+- Restore the scope binding before the TCP_CLOSE state change and
+  inet_bhash2_reset_saddr(), as Jiayuan pointed out.
+- Only restore a scope binding installed by this call, and preserve a
+  different binding installed by a callback.
+- Avoid a second restore after the late_failure cleanup.
+- Follow reverse xmas tree declaration order.
+- Clarify that this change handles synchronous connect failures.
+
+v1: https://lore.kernel.org/netdev/20261031074654.73952-1-yanxia@cmss.chinamobile.com/
+
+Testing on net cb284914e749:
+- UML: baseline 32/39, v1 35/39, v2 39/39. The tests reproduce the stale
+  binding on baseline, the bind2 warning on v1, and the BPF binding
+  regression on v1. v2 passes all checks without kernel warnings.
+  These are custom userspace tests; the kernel networking selftest
+  suite was not run.
+- x86_64, GCC 12.3.1, W=1: baseline and v2 completed vmlinux, bzImage
+  and module builds using configurations derived from allmodconfig and
+  allyesconfig. WERROR, KASAN and KCSAN were disabled; allyes also had
+  KUNIT_ALL_TESTS disabled, with the resulting dependency changes.
+  The changed object compiled without diagnostics in both configs.
+- Unmodified allmodconfig and allyesconfig failed on both baseline and
+  v2 with the same existing WERROR diagnostics in lockdep_proc.c,
+  callthunks.c, coda/upcall.c and stackinit_kunit.c. The derived allyes
+  builds have identical diagnostics. The v2 allmod build was incremental,
+  so its log does not establish full-tree warning equality.
+
+ net/ipv6/tcp_ipv6.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index e006a30360eae..5bd4bd49d2824 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -134,6 +134,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 			  int addr_len)
+ {
+ 	struct sockaddr_in6 *usin = (struct sockaddr_in6 *) uaddr;
++	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
+ 	struct inet_timewait_death_row *tcp_death_row;
+ 	struct ipv6_pinfo *np = tcp_inet6_sk(sk);
+@@ -142,6 +143,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	struct tcp_sock *tp = tcp_sk(sk);
+ 	struct net *net = sock_net(sk);
+ 	struct ipv6_txoptions *opt;
++	bool scope_id_set = false;
+ 	struct dst_entry *dst;
+ 	struct flowi6 *fl6;
+ 	int addr_type;
+@@ -198,6 +200,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 				return -EINVAL;
+ 
+ 			sk->sk_bound_dev_if = usin->sin6_scope_id;
++			scope_id_set = true;
+ 		}
+ 
+ 		/* Connect to link-local address requires an interface */
+@@ -353,9 +356,16 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	return 0;
+ 
+ late_failure:
++	if (scope_id_set &&
++	    READ_ONCE(sk->sk_bound_dev_if) == usin->sin6_scope_id)
++		WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
++	scope_id_set = false;
+ 	tcp_set_state(sk, TCP_CLOSE);
+ 	inet_bhash2_reset_saddr(sk);
+ failure:
++	if (scope_id_set &&
++	    READ_ONCE(sk->sk_bound_dev_if) == usin->sin6_scope_id)
++		WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
+ 	inet->inet_dport = 0;
+ 	sk->sk_route_caps = 0;
+ 	return err;
+
+base-commit: cb284914e749388eef402938bdb3115fe1f6d337
+
 
