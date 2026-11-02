@@ -1,79 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793655936;
-	b=BWje/BnY4hLBamxNZnKQJ8gj2qf/HSuAv4jTsECWkZ8OGCZs4vT2ucdtnNva2wHWMNkT
-	 +JOVfgT00/UKK4sTyjYFut/A6KFJvJ8S1E+Dq4sYdF+swy9S1wrlCNB0+1x/M2zVaw3qH
-	 1w/Haea/PbDACLJ0C5aUGBz+/O2/mhmcMtKfcAwPhOY63cx2/duK2a8RF2iR8B5p+L1LW
-	 aMh8vxZs+OkibbBfbDYTwPnGOHxS6X5HtDnHX5CBNpRV2+P9MOJNp61LRvVaf+KOk7vrt
-	 U+5n7LL2d9RU3Pki6mBubpMPL8wzfRN0rvdVIOv/d1liimYr9isKt50fO5uk6usKyPg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655936;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
-	b=YGTIXj8x4JFRiTjMYJwrewetYewrBEpWnaoXdkwmXpC2y3tAGMx5l+fGAj7XKkYF8tYP
-	 gvOK5YBGzSUPaOcl+F1TBsWWefzteiuPFFzNECgjt16eXbJ9Wnz8PIt1uHToevVPNpa27
-	 Qt7JkhW+PQ1ZezYi+97E3qHNquNPa0EV/4RSBodt9aq5YochuZYFYPMWy7z6LQMy31yXs
-	 cH5RQconHY5OY0urVk34fkUHuzP9MOx5s0JMQHJgCB6J/ZVNZCjNw+72iUOzpJ9BIX8K5
-	 viu+H7gwZ6CVtXoc6Sv+Abku6umNk2oqJhoTgZW+WR5DmN4oHGZg78Z9Z/N77Wmb+Hg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+uMB1pT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5272E606A339;
-	Mon,  2 Nov 2026 21:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+uMB1pT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793655936;
-	b=bbCQ5a6gnfQyeO73FMDZUMDQTkbzW8rf531Z8lKV/ysvEyAgENT9An6GBsA0a+7V1TSt
-	 R4ZdkWEVpERG2eMlSzu4sLPuycrv+ASgSEuVL4Qicng78pXlC8woHSvG7lFLu0cDpyQQe
-	 G6plbmhZXbnY4NS+R04JQ/Iq6+e1PQZj/5c8lhqXN28cOiCmey70qByK+E7pEQg5aQyq+
-	 FI4LRAI5spGbTGzcjI67/iimkLOIXHphiCGrBRCcQH5EttFmG2/2XXV+YyEpEj5ovZQtE
-	 30khjH7gPo6FmxNvsvJRCt0fKXliRNmVjhFduyWJrA460aCvrdvO3/N9xgNMfzH8v8A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793655936;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
-	b=UHQxyVM+2POHLrZKBsrDv8oQszvxLSFzlLlJbPiLwmLKWU3debmgrEQiI++5RVNMdzU1
-	 2d8PcOVTPPohk0n9oYAfkCQmVABSGGutH9fDuPzr3RjdumYxXYL9xzpPI1t7nm730ck4y
-	 FKHD+CI3vGpYI5h8X1uVJzKg0U1qS4x9onf7D0dPkUGeQK7/SGYNI+UL8kWMHmdYGekS2
-	 tyUNsbBC0DJUOwwfK99XTik5liH8zlHhctG/aw5n1gbto/zigTQ4jQI+KjmJ34kGEfEZ7
-	 3VgV8UtlSR0fZHp1UwvOSa8EjfL/Du17OCAPSosWAcuDliTzFCKRF7NKvqo+M73pudA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793655977;
+	b=YGAaiGBCQt51y/jmS5neIfN3HaAKbqVj6Yu8sBsWroiTOL18Usv3kK8Sg0bVWxfx9mGF
+	 Ki3DgcJzaOh5c6gzqwKBELkIwtkBHZgtqtbqe+Ys/14SCJiefGuNiL3hzr8D31+nnyLgx
+	 U3bDekG9lVKxmGv8H6QoBvqfnsfGwOKVfM6AzWy0YkaMKYaloHq4GnJ6hpAt8QbOVDGkv
+	 vvYkFY+wC99gRsQGppNmPNOy4Tpawe/nzyt7v8LaB/To6N22L1le0Y0YqkjCtQ3Y7F2z1
+	 AUNf1EK3gB5PPzVN22ywYzSgu+RFm9EjSjdzAL2sVAeS8FNhZCNBxLsSeIcHQLmxmBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655977;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
+	b=xyOodS/mypNYQb+ZMyK+VCLZsYZ+UESx+6NsIbKpXGEomfQFQGsAtJunqV3y5GSwP7by
+	 vpi/pPT/ohiBSWg9iltADW9fycFeqVRUhKhdb04l3fvzdEGRaZz+yy4KjhLRSMbRGBm1X
+	 ETxi0cmlLadOgSyVUc9oiAJPb3IS4NFfsX7KGiKTa3Th8Uu/mRv626CH3hptk0OQBg3i3
+	 EoUqhDzZqdmJ8yNou1EjkmOqxrRGcAu6s0wiAOLnOoa0bZQLiarnRn/1mIqwjOry1J6+v
+	 YUmqZx6FutJzB4bpUsIG/9VTzMWbM9mFVEA2STDVziNo/JGSKoTX7V/7ekNGzYgvoFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="C5OXb/sc";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bBY+q+Jb;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 917621F00A16;
-	Mon,  2 Nov 2026 21:45:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793655936;
-	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=U+uMB1pT1uG7Ud/qU+KfHr7+xEIFskl2Ihk5yp0HLeiSC+8UkNgHSuGNhfQjmMLVp
-	 kALa/QR62zs85WRLfnD1pBhPxhoxA8e3RxcmUFX70MT1Eip82pqNzUaPIJBbCsCr3e
-	 N8eRxEiZ/gckYP26yrLNsqG/aoNE1jIJfIUbdTQfOA0sJ0IqOJFvNzUVeANNhgqWaj
-	 T5+SFazwmA6k2x2HD9M61qarDrFsEowt9jMVnbTTg/SQLMwxIdSc/qjr56shzD//NO
-	 D1qV/zwZMCOA5a+z05S44X6RBKy7d++I5VmG7k5g8uFKoKhxG9Dn/2w5lDdQgOAAfU
-	 Nz7UApaKpDWhA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2081C4668F;
-	Mon,  2 Nov 2026 21:45:35 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Mon, 02 Nov 2026 16:45:35 -0500
-Subject: [PATCH] clocksource: Use the clocksource under test for the skew
- check timeout
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD58606A32C
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 21:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AD58606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=C5OXb/sc;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bBY+q+Jb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793655975;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
+	b=C5OXb/scUI6lDM32iI3IXS+geTXgkSyFEjMPbOeyx3ZfE7l2mDRp7rNdSsQSQoLG/QdkL9
+	jP/A2G1X/tn+8DMjflRHHD1D2MLLPtom8BcUnouH0UgPOWv6e5bPeunsL97cvYTRPNmpOx
+	vB0lkCxJuUvRsKkUw+MZVSZ6fkwcCZA=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-635-00abWxgHN9CmcOXlu5rSgw-1; Mon, 02 Nov 2026 16:46:14 -0500
+X-MC-Unique: 00abWxgHN9CmcOXlu5rSgw-1
+X-Mimecast-MFC-AGG-ID: 00abWxgHN9CmcOXlu5rSgw_1793655973
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48b0a199b20so2853265f8f.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 13:46:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793655973; x=1794260773; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
+        b=bBY+q+Jbl1OsCdVUPAc3TLlm2ZdLn1POJ2xcKXxLkIiOMLhO4zTl1hwKgrbW7uigE0
+         RWcL9DiLQ8STUShPfY11USg/VkHDKRamOPGCCwcRzv8Hwvd70OBGKLHtdJ9fCHRS5xy2
+         /0SOsMST8FHpmdI5w1RBs/9u7XncRx8M32gyWSelaIYH3Ep22HJLtxyVE0jq7OQwMNpv
+         ZmESJxWKu6Sd9HoWN50IQMeXDhnaRZLKxkRr35beuX1tKa5myRlLfqKIlgm5CcyaLptO
+         IiQR6ns+//XRSJ+N+vYW7tTYU/KHwBqr3pYJmEtMDJFY91/0VJfCSbMEeSXkIFH9Xq/W
+         vrDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793655973; x=1794260773;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FJPSwS1dKDAOqkSA6MWiKD6GwRfZLBYjMISnGkKuJ+c=;
+        b=eyz4wc1YSw5SF6rB31zzX/S/sWAvftWVVUbdklWhuQ8Dijs8Qvx0n4DWVv8xzU/nd2
+         GtyzoH4t47F7TsvDk79EybbF0F1S6Q0p95vmnKj6QSc1M9KhRk/vXECafPiUu8WQXPFD
+         FzMN3AJ87PLGLrq70zCK0+Q2+8/QzqOVBW0T6TdGC6DcxJQyaFvKxzxLwyASqOQC3si5
+         ZrbqunLT1jKrnQ22FwsvH2iMU6378wrnbzDc4QcFWNSwUn//zxTafBASwgEbnv1078hi
+         VeqAFDfMXH4qz8yVkNCnZ9LKfdyYv5FnmkdcW2gTr9/EHxuD3pTPNqnVTe6aR85/NQLJ
+         VVog==
+X-Forwarded-Encrypted: i=1; AKwUvBzhVAbOy0xB0x44k1u7anK5AbTEewt7EWJdHhidAwYH/xPNeS/O6sm5Nl3FHdV8QT/VBUihT/I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLemhrU/3jR/jMtBZRdG95CiL4mn8BtfavfDoTDLRkVPz6K2S3f
+	MSqhpRrgY2broQA5WHJePQD/DU60o+GFkBWu6NT3lV6UnwYGcAkyx2C/msnBdv5n7Z/PQLJTiMf
+	q0gs+Cxokox6CSZwL7AdXMzCykRAqZbwG4ZiQU5wxdXv0/IyMh3bm7WnAMA==
+X-Gm-Gg: AYBFou0vuIV61joYI84Qbgu9IHcnP7R6y0LRX8P5KyMvbjmVA2Ou/mKk1p7YMJ3X4w1
+	fu8ZdJhV3NtvldIFMDMTMcGV3OK+QT30jrYLJsv0LOEH8ZSrpFZqux0L+Oyrh16WoXW0FDVcsSY
+	p73447309HP8ztE1fHjMOyPQfCN9IsiJONZqHDI2+Mmo39Fiw/BfVnhxA9lnpxe647/BIf30hAn
+	Yo9VifhTVzC/BSZDw3L9oEmVYx7D+bXax2XeLpBw6bkcEl7AJ35Jfve/fvPwluOdb7PzdKoZsxQ
+	WDzq9Dhq9XAYO5KMCRwDOyUQ5J+mcsnGF2o69VIlZL6zx18qTDatEwQwgteabwwf0J+nu8UFyfJ
+	1Dct9jJty52YCmqSU+QiIvxl1zCVBDwDy2fKmcPjfoNIyfNCm3BbzF811m3bCGqlEj8AXpk8o/e
+	khYgT2LCQRBYiMCnEJrbhCGpjuIPKGXFsbohiMe778ld4=
+X-Received: by 2002:a05:600c:848a:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4ac17b2ce84mr286349315e9.6.1793655973270;
+        Mon, 02 Nov 2026 13:46:13 -0800 (PST)
+X-Received: by 2002:a05:600c:848a:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4ac17b2ce84mr286348985e9.6.1793655972889;
+        Mon, 02 Nov 2026 13:46:12 -0800 (PST)
+Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09ad5ff8sm207221675e9.4.2026.11.02.13.46.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 13:46:12 -0800 (PST)
+Message-ID: <07a21553-8ab1-4478-8a22-b1a13e70faba@redhat.com>
+Date: Mon, 2 Nov 2026 22:46:10 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,155 +112,192 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTvQRKroVcRFO/7RsdpIJlGh9
- O5GXX6L92YyJIXRvpkp4ammcapwq4bk0k9nsJ6qybd+41zrWW5RRoslCdhGvDjrHbFkDr7foQv
- DOmw7qvkjIej7tz4c/7YyXCH5+6Nl+QBA6AVcfAAAAA==
-X-Change-ID: 20261102-clocksource-skew-timeout-f2a9e5fb3f75
-To: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
- Srikanth Aithal <Srikanth.Aithal@amd.com>, Borislav Petkov <bp@alien8.de>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793655935; l=5072;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=BwOAXMTSmN3S5CdQQNe0kwBbbM0riuH0AkP9PTw3cow=;
- b=X4hBPBJpPywiDSpkFxm5qV4E84jNKzIKZezeqM1NLCPq+buPyTkeybhiCSVmSBIjVpkq3+QEZ
- H63xSgmVSFxASydIlKIHue6PbkZC5vf8sKSYhCeW6fgGeRE1a2zBOt+
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] net: mana: Add support to process throttled EQEs
+To: netdev-bot+sashiko@kernel.org, sahilchandna@linux.microsoft.com
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, kotaranov@microsoft.com, horms@kernel.org,
+ ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
+ mawasthi@linux.microsoft.com, leitao@debian.org,
+ linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261028084020.2051254-1-sahilchandna@linux.microsoft.com>
+ <179352349805.3131.9139142774275348324@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <179352349805.3131.9139142774275348324@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+On 11/1/26 09:58, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [High] The patch tells firmware that every EQ on the function handles
+>    throttled EQEs.
+> - [Low] The patch marks only one side of the concurrent accesses.
+> 
+> Pre-existing issues:
+> - [High] mana_gd_destroy_cq() waits for a grace period
+>    (synchronize_net()) only when mana_gd_detach_cq() returns true,…
+> 
+> --
+> 
+> net: mana: Add support to process throttled EQEs
+> 
+> This commit handles GDMA_EQE_THROTTLE events. It records up to two child
+> CQs per EQ and calls their callbacks when a throttle EQE arrives. CQ
+> teardown now detaches the CQ from its parent EQ and from cq_table[]
+> before a grace period. The patch also advertises a new capability bit and
+> adds a per-EQ throttle counter to ethtool stats.
+> 
+>> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+>> index 8c915e0087846..ab942d5bfe058 100644
+>> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
+>> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+>> @@ -757,6 +757,27 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
+>>   	gc->service_wq = NULL;
+>>   }
+>>   
+>> +static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
+>> +{
+>> +	struct gdma_context *gc = eq->gdma_dev->gdma_context;
+>> +	struct gdma_queue *cq;
+>> +	u8 i;
+>> +
+>> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
+>> +		cq = rcu_dereference(eq->eq.child_cq[i]);
+>> +
+>> +		if (!cq)
+>> +			continue;
+>> +
+>> +		if (cq->id >= READ_ONCE(gc->max_num_cqs) ||
+>> +		    !gc->cq_table || gc->cq_table[cq->id] != cq)
+>> +			continue;
+> 
+> [Severity: Low]
+> This patch marks only the write side. mana_gd_detach_cq() clears
+> gc->cq_table[id] with WRITE_ONCE(), and mana_hwc_destroy_channel() now
+> sets gc->max_num_cqs with WRITE_ONCE().
+> 
+> The readers still use plain loads. Here that means gc->cq_table and
+> gc->cq_table[cq->id]. The GDMA_EQE_COMPLETION branch of
+> mana_gd_process_eqe() also reads both fields without READ_ONCE():
+> 
+> 	if (WARN_ON_ONCE(cq_id >= gc->max_num_cqs))
+> 		break;
+> 
+> 	cq = gc->cq_table[cq_id];
+> 
+> Could KCSAN report these as data races? Should the readers use
+> READ_ONCE() to pair with the marked writers?
+> 
+> This is mostly an annotation issue. The completion-path race was already
+> there before this patch, and the loads in mana_gd_schedule_eq_cqs() only
+> compare the pointer value.
+> 
+>> +
+>> +		if (cq->cq.callback)
+>> +			cq->cq.callback(cq->cq.context, cq);
+>> +	}
+>> +}
+> 
+> [ ... ]
+> 
+>> @@ -1073,25 +1104,66 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
+>>   			      struct gdma_queue *queue)
+>>   {
+>>   	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
+>> +	struct gdma_queue *parent;
+>> +	u8 i;
+>>   
+>>   	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
+>> -	queue->cq.parent = spec->cq.parent_eq;
+>> +	parent = spec->cq.parent_eq;
+>> +	queue->cq.parent = parent;
+>>   	queue->cq.context = spec->cq.context;
+>>   	queue->cq.callback = spec->cq.callback;
+>> +
+>> +	if (!parent)
+>> +		return;
+>> +
+>> +	/* For throttled EQE store the child CQ */
+>> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
+>> +		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
+>> +			rcu_assign_pointer(parent->eq.child_cq[i], queue);
+>> +			return;
+>> +		}
+>> +	}
+>> +
+>> +	WARN_ONCE(1, "mana: EQ %u has no free child CQ slot\n", parent->id);
+>>   }
+> 
+> [Severity: High]
+> Do mana_ib CQs ever end up in child_cq[]?
+> 
+> This is the only place that writes child_cq[], and it returns early when
+> spec->cq.parent_eq is NULL. mana_ib_create_kernel_queue() uses a zeroed
+> spec:
+> 
+> drivers/infiniband/hw/mana/main.c:mana_ib_create_kernel_queue() {
+> 	struct gdma_queue_spec spec = {};
+> 	...
+> 	err = mana_gd_create_mana_wq_cq(mdev->gdma_dev, &spec, &queue->kmem);
+> 	...
+> }
+> 
+> mana_ib_gd_create_cq() then binds the RNIC CQ in hardware to an mana_ib
+> EQ:
+> 
+> 	req.eq_id = mdev->eqs[cq->comp_vector]->id;
+> 
+> mana_ib_install_cq_cb() adds it only to gc->cq_table[].
+> 
+> mana_ib_create_qp_rss() and mana_ib_create_qp_raw() attach raw and RSS
+> QP CQs to the per-vPort mana_en EQs:
+> 
+> 	eq = &mpc->eqs[cq->comp_vector % mpc->num_queues];
+> 	cq_spec.attached_eq = eq->eq->id;
+> 
+> These CQs are also registered only through mana_ib_install_cq_cb().
+> 
+> The patch also adds GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE to
+> GDMA_DRV_CAP_FLAGS1, which mana_gd_verify_vf_version() sends for the
+> whole function.
+> 
+> Suppose hardware folds one of these CQs' completions into a
+> GDMA_EQE_THROTTLE. mana_gd_schedule_eq_cqs() walks child_cq[], which is
+> empty on mdev->eqs and holds only the mana_en TX and RX CQs on mpc->eqs.
+> mana_ib_cq_handler() never runs, and nothing polls or re-arms the CQ.
+> 
+> Wouldn't that stall the RDMA CQ the same way the commit message
+> describes for TX?
+> 
+> A fixed two-entry child_cq[] also cannot represent an EQ shared by many
+> RDMA CQs on the same comp_vector.
+> 
+> The commit message says:
+> 
+>    "A mana_en EQ serves one TX CQ and one RX CQ, and the HWC EQ serves
+>    the HWC CQ."
+> 
+> Is that still true once raw QPs attach CQs to mpc->eqs?
+> 
+> If advertising the bit is what turns on throttle EQEs, this patch adds a
+> new RDMA stall. If it is not, the RDMA case stays unfixed. Could the
+> commit message cover mana_ib in either case?
+I understand from discussion on v3 that this will be handled separately,
+am I correct?
 
-watchdog_check_skew() waits for the remote CPU with interrupts disabled
-and gives up after a timeout measured with ktime_get_raw_fast_ns().
-While the clocksource is still jiffies during boot (or with
-clocksource=jiffies) that timeout can't expire, because only the boot
-CPU's tick advances jiffies and that's the CPU spinning with interrupts
-disabled.
-
-The boot then hangs when the remote CPU can't answer, eg in the
-stop_machine() of the switch away from jiffies:
-
-  CPU0                                  CPU1
-  multi_cpu_stop()                      multi_cpu_stop()
-                                          local_irq_disable()
-                                          /* waits for CPU0 */
-    <timer interrupt>
-      clocksource_watchdog()
-        /* sends CSD to CPU1 */
-        watchdog_check_skew()
-          /* waits for CPU1 forever */
-
-Nothing gets printed.  With the hard lockup detector on in a KVM guest:
-
-  [    1.554193] watchdog: CPU0: Watchdog detected hard LOCKUP on cpu 0
-  [    1.554193] CPU: 0 UID: 0 PID: 18 Comm: migration/0 Not tainted 7.3.0-17087-gd865f2677c44 #1 PREEMPT
-  [    1.554193] Stopper: multi_cpu_stop+0x0/0x310 <- __stop_cpus.constprop.0+0xdd/0x150
-  [    1.554193] RIP: 0010:watchdog_check_skew+0x12d/0x5a0
-  [    1.554193] Call Trace:
-  [    1.554193]  <IRQ>
-  [    1.554193]  clocksource_watchdog+0x761/0xc90
-  [    1.554193]  call_timer_fn+0x154/0x470
-  [    1.554193]  __run_timer_base.part.0+0x5d0/0x910
-  [    1.554193]  run_timer_softirq+0xc2/0x280
-  [    1.554193]  handle_softirqs+0x1f9/0x840
-  [    1.554193]  __irq_exit_rcu+0x157/0x210
-  [    1.554193]  irq_exit_rcu+0x9/0x20
-  [    1.554193]  sysvec_apic_timer_interrupt+0x6b/0x80
-  [    1.554193]  </IRQ>
-  [    1.554193]  <TASK>
-  [    1.554193]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
-  [    1.554193] RIP: 0010:multi_cpu_stop+0xf7/0x310
-  ...
-  [    1.554193]  cpu_stopper_thread+0x1fa/0x3f0
-  [    1.554193]  smpboot_thread_fn+0x2fb/0x8a0
-  [    1.554193]  kthread+0x300/0x3e0
-  [    1.554193]  ret_from_fork+0x4f0/0x6f0
-  [    1.554193]  ret_from_fork_asm+0x1a/0x30
-  [    1.554193]  </TASK>
-
-Measure the timeout with the clocksource under test instead, which
-keeps counting with interrupts disabled.  With the fix, the watchdog
-gives up after the timeout and the boot goes on.  A 2-vCPU guest on one
-host core hung in 4 of 150 boots without it, and it didn't hang at all
-in 400 tests with the fix applied.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 80s on a kernel booted with clocksource=jiffies.
-
-Fixes: 763aacf86f1b ("clocksource: Rewrite watchdog code completely")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Srikanth reported silent early boot hangs of large KVM guests that he
-bisected to the same commit [1].  I think it's the same bug but it was
-never confirmed.  Srikanth, would you mind giving this a try on your
-setup?
-
-[1] https://lore.kernel.org/all/e4a41d43-4d60-4132-aa2d-70e038a3e9dd@amd.com/
-
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/wdboot.c
----
- kernel/time/clocksource.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/time/clocksource.c b/kernel/time/clocksource.c
-index 58c0ca11cdc5..fdce67f7c3d1 100644
---- a/kernel/time/clocksource.c
-+++ b/kernel/time/clocksource.c
-@@ -305,11 +305,16 @@ static bool watchdog_wait_seq(struct watchdog_cpu_data *wd, u64 start, int seq)
- 		if (READ_ONCE(wd->result) != WD_SUCCESS)
- 			return false;
- 
--		/* Prevent endless loops if the other CPU does not react. */
-+		/*
-+		 * Prevent endless loops if the other CPU does not react.  The
-+		 * timeout uses the clocksource under test because the timekeeping
-+		 * clocksource can be jiffies, which doesn't advance while this CPU
-+		 * waits with interrupts disabled.
-+		 */
- 		if (cnt == 5000) {
--			u64 nsecs = ktime_get_raw_fast_ns();
-+			struct clocksource *cs = wd->cs;
- 
--			if (nsecs - start >=wd->timeout_ns) {
-+			if (cycles_to_nsec_safe(cs, start, cs->read(cs)) >= wd->timeout_ns) {
- 				watchdog_set_result(wd, WD_CPU_TIMEOUT);
- 				return false;
- 			}
-@@ -322,12 +327,13 @@ static bool watchdog_wait_seq(struct watchdog_cpu_data *wd, u64 start, int seq)
- 
- static void watchdog_check_skew(struct watchdog_cpu_data *wd, int index)
- {
--	u64 prev, now, delta, start = ktime_get_raw_fast_ns();
-+	u64 prev, now, delta, start;
- 	int local = index, remote = (index + 1) & 0x1;
- 	struct clocksource *cs = wd->cs;
- 
- 	/* Set the local timestamp so that the first iteration works correctly */
--	wd->cpu_ts[local] = cs->read(cs);
-+	start = cs->read(cs);
-+	wd->cpu_ts[local] = start;
- 
- 	/* Signal arrival */
- 	atomic_inc(&wd->seq);
-
----
-base-commit: f322d7f7ae56bce728ba03a387e35380bc4ad939
-change-id: 20261102-clocksource-skew-timeout-f2a9e5fb3f75
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+/P
 
