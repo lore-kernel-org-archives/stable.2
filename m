@@ -1,57 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793603609;
-	b=pX3cHIFtLp3/jBeGhfZfAYt3dUtIUKRkZKh7AQQCzV0IHVVtnEefDZxtejakaCLolZRc
-	 nUuZ27Z/zyxjuTW0OmMfDpfmmErCVww15Fs5ISJJ+tOLglNVqyUVEdt8fJp+QdNOFXGEs
-	 K34QNVsS301M0EG9tX3snp21TKueIOxr7vW9z0eCAcEpLn2A25FFJHm0AP/wRFEP6mqc0
-	 s1eXdUb/BH4X0FYnCKplUZatG6EbYentR9Carzr1f0c/zqqH9dW0LikxqZY8/ri/X+Ol2
-	 Zx3MH+h0T0XoTcmnAuliK1CkCcCX9r0FpQ95JXL29x/865gXT3ObG9m2pTs9gsG5M9w==
+	t=1793603663;
+	b=DOVNIAUq5T2r1yjtk3C+lMyjeFeKyOFJiy961oMIDt6DvO7SUtWXDKCt1A+Hxrjrn6cP
+	 /qJutttgxp3o5e1edYC2PSk0uJJDwu6YGGY5kBgrHL7xson8C5/CgI5D/zyGXFigrHRWF
+	 3PWArv7YJ11jdu9hKZZWfk/eJ8Rzk06nzuzeGlqzi2NggVpFhtGQGMgR5msFHLQ2bPH9i
+	 9IVzGyYaPYPGXhXx1qRnlnJPtTBz5CfRyrYmRab9lhMSzk4h8r14kmlux6OSSITIu5uhi
+	 ka7Abelj7vZI4OCuU2psEb84duzEv4VwIuF42KwLSRZ54mpLDyj7GBCQGICDIeVfVPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793603609;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KY9RYXaRnQDli/vu8vgfR6JwdPnkjzpG6Vj3ogcKevs=;
-	b=RiUGrE1wHF3iu49EBYf5B22y3H2YBSpFfchCfpkkVN0Wyi5QJxPgOjOj0UMc97mpinEJ
-	 X2wbpKhu+mxrN6VwPn7l1eQATAMzsI6gy6n/zwGklg8UrBix+/5nCVGw7QfOxIxyJY2F3
-	 OGuDhyC5yS8BvUUpg5jHLsFHuAsbs8H+jR7MJcEDeeD/4x0YbmDZutgDcztudD4+RgCsJ
-	 Ww/mhCOpu/C3Ye+s+5Emr9jLw3RWZbjTB7HpoHZYyOuPHVE/oPbIE8oUERCj897m8kz0k
-	 mvHg/7QEc2ziV1YMjxmPnrsLFVEweTP3BfmnzrGPm+oB3Hyh/FzyecSV3/oiWPtubAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793603663;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Qm2rnyse/ykhHOoe09sGuMes6K54FQWZVf+H4ljHjfM=;
+	b=fWIVBwqaYMytQ7U2CtG1rjw17GeRXTV/o1GlTsHIRb1BRIOHWTSily2oUMVDk17OhEza
+	 D7a7mOnYJ0dO75uPz00k3/SASnW69ERwBiztsGJrQATGciKe2zxUfBcbSvRpTw+HXfBCm
+	 C8bclzmNxRPkRg/6t13Dvk0Y/RgzVBhe3boE5n2tyK8PalzZ3pBUpyeO3SFF+qyAqzqEN
+	 WGu9VAVCTZDeCp5a43hfLVaCBDXKCm+s1vKP/lVXLKDiqaXrWqSiPi8z2QEE3qkRVyuwZ
+	 MzrEZiA96LGr72tsAJGzNVFaqzqI/5DZEcfuwxupiBucar8FSuUiiYVvauUsg/uNJ3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jaeyeong.cc;
-	spf=pass smtp.mailfrom=jaeyeong.cc;
-	dkim=pass header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=kcv8x00D;
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=pZZwpvVO;
+	arc=none smtp.remote-ip=115.124.30.131
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDAF606A326;
-	Mon,  2 Nov 2026 07:13:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BDAF606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=jaeyeong.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaeyeong.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 907D7606A326;
+	Mon,  2 Nov 2026 07:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 907D7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaeyeong.cc header.i=@jaeyeong.cc header.a=rsa-sha256 header.s=protonmail2 header.b=kcv8x00D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaeyeong.cc;
-	s=protonmail2; t=1793603606; x=1793862806;
-	bh=KY9RYXaRnQDli/vu8vgfR6JwdPnkjzpG6Vj3ogcKevs=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=kcv8x00Ds7p5lYgYo+m3HpAeIS4DnIfGO6h97oJ7/6JrK9yDhsTI4H9B4WObLjR2a
-	 BNpqC2DyR9bs6fHHb/qCEiASLcBauoOQ0qPa9Ce9rm/cIkDuUj5ZtTE39BU8JzxoCE
-	 wToE3YIFgM2utcrtgS3x0msE26r95fZBHFC2COMZ/RbO4eC9J/FzD+lMCaTnOy+w7G
-	 qB6tjOKm0qsUOG2QZMNYW2ENL6h5Bvj+Xkj/qi2V+iDrI18bWxSL6j44+gqK2bPzOe
-	 0LiVCJIou7YhNio+N3EhinnsqgRuRu+jbpbLvzw1IhXCtMAOH1B/H9kP/nhWg0eH1N
-	 sf+FhjdY7CP6Q==
-Date: Mon, 02 Nov 2026 07:13:18 +0000
-To: netdev@vger.kernel.org, Ioana Ciornei <ioana.ciornei@nxp.com>
-From: Jaeyeong Lee <lee@jaeyeong.cc>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Vladimir Oltean <vladimir.oltean@nxp.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH net] dpaa2-switch: fix port cleanup on probe errors
-Message-ID: <20261102071310.3004332-1-lee@jaeyeong.cc>
-Feedback-ID: 177356447:user:proton
-X-Pm-Message-ID: fb738ba593e0085010f36fbc498bff8419c12ce7
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=pZZwpvVO
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793603653; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=Qm2rnyse/ykhHOoe09sGuMes6K54FQWZVf+H4ljHjfM=;
+	b=pZZwpvVOA+uj8Hey3gxKpg914FcxtBCprAFnla7zr3dyAQUuxzoqHrpe26MhbQDCNPM8yoFXpIDWMoyD7pMs/tnTGW5+AV+MRJF7a5OSZwLpbbcuoyBfN66Z17SkJJv5tFYMy0aVFPpkwNEqiU3RWweXPl9HVpCG0EckPfQji5U=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=66;SR=0;TI=SMTPD_---0XDv-BWP_1793603647;
+Received: from 30.74.144.167(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XDv-BWP_1793603647 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 15:14:09 +0800
+Message-ID: <72c3964c-1355-4272-b61c-5767f5591f43@linux.alibaba.com>
+Date: Mon, 2 Nov 2026 15:14:06 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,96 +53,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-dpaa2_switch_probe() reuses i while probing ports, adding NAPI
-instances, registering netdevs, and unwinding failures. Consequently,
-the value reaching the port removal loop does not always represent the
-number of successfully probed ports.
-
-If IRQ setup fails, i is left equal to DPAA2_SWITCH_RX_NUM_FQS. A
-switch with one interface then causes the unwind path to access
-ports[1] out of bounds, while a switch with more than two interfaces
-leaks all ports after ports[1].
-
-If register_netdev() fails, the unregister loop consumes i down to -1.
-The following port removal loop is therefore skipped, leaking every
-port netdev and its MAC endpoint reference. The NAPI instances attached
-to port 0 also remain linked while their enclosing ethsw is freed.
-
-The issue was discovered by a static analysis tool and confirmed by
-manually tracing the probe error paths.
-
-Track successfully probed and registered ports independently. On
-post-NAPI failures, unregister only successfully registered netdevs,
-delete the NAPI instances, and then remove every successfully probed
-port.
-
-Fixes: 0b1b71370458 ("staging: dpaa2-switch: handle Rx path on control inte=
-rface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
----
- .../ethernet/freescale/dpaa2/dpaa2-switch.c    | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c b/drivers/=
-net/ethernet/freescale/dpaa2/dpaa2-switch.c
-index fe8ac5e85259..0d80706ac41f 100644
---- a/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c
-+++ b/drivers/net/ethernet/freescale/dpaa2/dpaa2-switch.c
-@@ -4086,6 +4086,8 @@ static int dpaa2_switch_probe(struct fsl_mc_device *s=
-w_dev)
- {
- =09struct device *dev =3D &sw_dev->dev;
- =09struct ethsw_core *ethsw;
-+=09int registered_ports =3D 0;
-+=09int probed_ports =3D 0;
- =09int i, err;
-=20
- =09/* Allocate switch core*/
-@@ -4148,7 +4150,8 @@ static int dpaa2_switch_probe(struct fsl_mc_device *s=
-w_dev)
- =09for (i =3D 0; i < ethsw->sw_attr.num_ifs; i++) {
- =09=09err =3D dpaa2_switch_probe_port(ethsw, i);
- =09=09if (err)
--=09=09=09goto err_free_netdev;
-+=09=09=09goto err_remove_ports;
-+=09=09probed_ports++;
- =09}
-=20
- =09/* Add a NAPI instance for each of the Rx queues. The first port's
-@@ -4178,19 +4181,22 @@ static int dpaa2_switch_probe(struct fsl_mc_device =
-*sw_dev)
- =09=09=09dev_err(dev, "register_netdev error %d\n", err);
- =09=09=09goto err_unregister_ports;
- =09=09}
-+=09=09registered_ports++;
- =09}
-=20
- =09return 0;
-=20
- err_unregister_ports:
--=09for (i--; i >=3D 0; i--)
--=09=09unregister_netdev(ethsw->ports[i]->netdev);
-+=09while (registered_ports)
-+=09=09unregister_netdev(ethsw->ports[--registered_ports]->netdev);
- =09dpaa2_switch_teardown_irqs(sw_dev);
- err_stop:
- =09dpsw_disable(ethsw->mc_io, 0, ethsw->dpsw_handle);
--err_free_netdev:
--=09for (i--; i >=3D 0; i--)
--=09=09dpaa2_switch_remove_port(ethsw, i);
-+=09for (i =3D 0; i < DPAA2_SWITCH_RX_NUM_FQS; i++)
-+=09=09netif_napi_del(&ethsw->fq[i].napi);
-+err_remove_ports:
-+=09while (probed_ports)
-+=09=09dpaa2_switch_remove_port(ethsw, --probed_ports);
- =09for (i =3D 0; i < ethsw->sw_attr.num_ifs; i++)
- =09=09mutex_destroy(&ethsw->lags[i].fdb_lock);
- =09kfree(ethsw->lags);
---=20
-2.43.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 16/47] mm/khugepaged: fix PMD table lock leak in
+ try_collapse_pte_mapped_thp()
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-16-d6437171ecc3@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261031-fixes_core-v3-16-d6437171ecc3@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
+
+On 10/31/26 5:39 PM, David Hildenbrand (Arm) wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> For a private mapping with userfaultfd, try_collapse_pte_mapped_thp()
+> takes the PMD table lock before it maps the page table for the second time.
+> If that (pte_offset_map_rw_nolock) fails, because the page table vanished
+> in the meantime due to concurrent page table reclaim, it leaves through
+> the abort label, where the PMD table lock is unlocked if it differs from
+> PTE table lock.
+> 
+> In case the PMD table lock and the PTE table lock match, which is the
+> case without CONFIG_SPLIT_PTE_PTLOCKS after pte_offset_map_rw_nolock()
+> failed, we miss to unlock the PMD table.
+> 
+> To fix it, forget the PTE table lock when we unmap+unlock the PTE table.
+> 
+> Fix generated by an LLM and sent by Josef Bacik in private.
+> 
+> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> [ david: move the ptl = NULL handling; rewrite description, drop wrong comments ]
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
