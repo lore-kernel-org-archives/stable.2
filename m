@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793629055;
-	b=LAljM0y67NnFwp3ODngIXZgwSOzdjO69FsqhFw670i2SOGb34cgao1zXU7dWVw9vaoXP
-	 Ue6uplZmACZ3aVQYKU7Rw9K7htvq+a8DXSsL9oHyEB8OiHM1VaCrqrYiQ+q2gg0yuCZ1/
-	 dOLccJTxySlPJ2lb3Y78H99DEMgIGTR5hUwySa51mcfQc1KfDmVw0rFTQLPlT3tVgO9uu
-	 7XzDCmoi8PLHU8ZU6NVpPi7W5y2IAKDlwIvK8UheGhM3By143MjWrcxkRQxgqyIBDWZkc
-	 9NpdrQ/qQjKX1X4nVRRd6H8cs4x/tJG1XgL6YwgZ9qpkegq5bHuZ3m8smgrWMQmF98w==
+	t=1793629082;
+	b=1ItWG67VLTEH1PyVW3mkJHylu9+UvHJhi5DP36OyBd7D+K4cJLKVcKBvUjlrnTdIWqCv
+	 IbHOY6MdyhkUL/4TJacLsaV+ocy8vLFuzxfSzguloPBEWv7MTh0pYXtpzRcBLLb839j7b
+	 tp9smF5OC/YnQj4XRDXOtATZWdKfxGw89bvxuB4HEekTXk7WVgnn0KoOyxhWNEYWAdyF0
+	 za4RYwnWg0WeR+Qhg2xWrBEmLgj+OnqtbMTu8DENSA6/mFBHyEP7EhWVV5+7s8HTSLFwE
+	 5inCcv0reZhvgrW/zAWyEu8TOL8C+amiz55BneINVkE6hyZw4uRFqHfn+evb9mTAW0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793629055;
-	h=DMARC-Filter:DKIM-Signature:Received:Content-Transfer-Encoding:
-	 Subject:Date:Mime-Version:X-B4-Tracking:Cc:X-Change-Id:X-Mailer:
-	 X-Lms-Return-Path:X-Original-From:Content-Type:To:From:Message-Id;
-	bh=UETLk1dQekRKIibLsMQYa9UEIKc8XT6x173PcXv7ydk=;
-	b=qUD9TApeY6RzObW0Z6w4q33eAXzDzkxg7LUeTIlaIRM0M9Txup47sviGjXB9btnVJGBL
-	 I3VDPdgJTOTCH0bUCRQMAfsBNu5eJWb/6SyreZmgrrNZhXuRdD2TuYLsJa/R87Ld4bmTN
-	 yfRPoUV28rIajD5uIeeMrc1IT5QgH/5Qnk5WChW9vn+uPpEbKdoCKTrNRitZ6A4S4tYWt
-	 W8YzZBOqOb+ASMUdbMLi6nwvybsfYKP4atYudP6IXMFZ1UC8xvo1OGxn8Ejh55LoBj0OM
-	 KKqhoYkdEoV+rFUUFQSYhdE4OldybMe0P9OZbxGwPyA/nFjng/CXVN2cv6skoIbXuvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793629082;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=0vE2MW8oPr2NcLO5kkPhYCSI7fkp6SgzAyef2r6+0G4=;
+	b=MRyTL6Kzo1NsLda3c88cL1eiHijpwDj+FgiKSv+0327iUNZVP3xLSM9S1N26L9fbwAc8
+	 xfR8Ckz5+sf3te6Z7J28FwAtR57VLwToxHzEhLdZSKjp7X+A/cDwD9rj2SMadNRM1LrC8
+	 qhAvAwnDk4t05gk7apibnrQtlGyPGjdVnryAfpcHrZKzdw5igRkj1tw+iUR8XmAv2KYRf
+	 YzM/JzVOMv5Nhl14Q3B1HEOUIMqNNzwu0Gbysg4W6LAlU6EEqOd8/SRvoBqdIPJa+gwJp
+	 Jkf6ZmieUqmrHhdTKyK1z1Tn08kD5+K5xZIfcPKGyC09u0cddGLr6g2LZeDCumFQmog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=JY0Q4JGk;
-	arc=none smtp.remote-ip=71.18.227.2
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PxLVRN95;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25093606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 14:17:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25093606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D44606B5F7;
+	Mon,  2 Nov 2026 14:18:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D44606B5F7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=JY0Q4JGk
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793629040; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=UETLk1dQekRKIibLsMQYa9UEIKc8XT6x173PcXv7ydk=;
- b=JY0Q4JGkbzEoqaB5iqiyXIOHU6WLKEi2rncgK0ZIGJ7nGHZMghZxKeE7nVBtbdfrXkOjqK
- QlR+QRx0S2zaOkj9VfN5oIhpoJ4q11o09bYiUGjseJsMbhavExaRch6aMjRF5Tx1POtdLD
- +C6ggqPkXOuTu0mAEV0kJgj+qXxULtivKXfk0vPzcapaGh0VOmMKPeg5b6T/Fhkdmt0I+3
- /Qvd8IDzsQqS1NcoUKfdkkX08xXJQsmbOSzqCTCUgKpOm+MVd/fjbHCvvSj/jb/wCvj78/
- YuFbki68SXI9EuNOJhJDgB9l3C9cJcmfxg52qeUhB3YYATUdEwrd5j3kvDwBoQ==
-Received: from [127.0.1.1] ([111.42.148.145]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 22:17:18 +0800
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH v2] HID: pidff: fix undefined shift for infinite duration
-Date: Mon, 02 Nov 2026 22:17:11 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PxLVRN95
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay07.hostedemail.com (Postfix) with ESMTP id 8963816012D;
+	Mon,  2 Nov 2026 14:17:54 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id AEB112002A;
+	Mon,  2 Nov 2026 14:17:52 +0000 (UTC)
+Date: Mon, 2 Nov 2026 09:17:51 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Jaewon Jung <jaewon8868@gmail.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH] tracing: Keep copying markers when one instance is
+ stopped
+Message-ID: <20261102091751.2ee7c4d3@gandalf.local.home>
+In-Reply-To: <20261031073549.2991066-1-jaewon8868@gmail.com>
+References: <20261031073549.2991066-1-jaewon8868@gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,65 +60,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAGab6GoC/yXMQQqDQAyF4atI1gZ0iDJ4leLCcZIaF1YmYymId +/ULj947z/BOCkbDNUJid9q+toKXF3BvEzbk1FjMbjG9W3jPAbCXaMIxiNNuazRFpWMPgpJT11 L5KG898Sin7v8GP+2I6w8518OrusLASO2RHsAAAA=
-Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-X-Change-Id: 20261028-b4-pidff-duration-shift-8df4f6451448
-X-Mailer: b4 0.16.0
-X-Lms-Return-Path: <lba+26ae89b6f+73fd85+vger.kernel.org+me@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
-	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <20261102-b4-pidff-duration-shift-v2-1-83c5f8c67484@cherr.cc>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: AEB112002A
+X-Stat-Signature: zisrbxd1p3catgtzpzq16r3ymu54ifq3
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+LOQGCiAMa+/kHer8Q/vyDiTbyEEJ4w+k=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=0vE2MW8oPr2NcLO5kkPhYCSI7fkp6SgzAyef2r6+0G4=; b=PxLVRN95U4bpQKmnGAh8I2tiSNseVUpUC2AlABDjfIPi30rhUTXFr6+glpukh0p2Z4gDSTkUl7SwsqoCAorOmmQzSNHnDRcYssXXltRTuH+QEmRWpMdkz37nz1KvDF/4b85bUTz2dW0Qnx9QPuSC8ZTuBy9m6MUgkLLPms3aJwI=
+X-HE-Tag: 1793629072-197361
+X-HE-Meta: U2FsdGVkX1/9V4bQ67ornv0sgZ2E2DvtnZJNxhCMiLeDuzXBR8vVQiE+JLgAHYljUVFoJBOTqweDrUCPau1qI3h2uZp9cvTPuOJVk3c8pkMuiyOK0LrC+vEmnzlqduUWK+4DFr/89ia6DjMed62TG5OhpbiTcxEQVUvVc5L24tIai5Q2MAYcpHSzELewvrqwnvprsf8zaFjObSng/gXLQhUlB7Z31o7cg6IwCpVTKWXBQm9dT9ET+Q/dC4f3nHiNCjXbDP9iN46O3xprz2CE7uJ+W6wGTkXyF1QRkz6PH9iLtVTz3dtOkHl+hXvkhzaK9Gd3CPseDtDKIlzgw1IJG9J+9nmlpOo472XdaDjo+GVwFEveSO4KxA==
 
-pidff_set_duration() computes the infinite duration as
-(1U << report_size) - 1, but report_size comes from the device's
-report descriptor and can be 32 or greater. This causes an undefined
-shift. A UHID test on x86-64 triggers UBSAN and programs a 32-bit
-duration field as zero instead of 0xffffffff.
+On Sat, 31 Oct 2026 16:35:45 +0900
+Jaewon Jung <jaewon8868@gmail.com> wrote:
 
-For report sizes of 32 or more, store -1 in the s32 field value to
-set all 32 bits without shifting. Keep the existing calculation for
-smaller fields.
+> When several instances enable copy_trace_marker, stopping one instance
+> can prevent the remaining buffers from receiving markers.
+> 
+> Continue copying text and raw markers even if one copy fails, and
+> return the last error after trying all buffers.
+> 
+> Fixes: 7b382efd5e8a ("tracing: Allow the top level trace_marker to write into another instances")
+> Cc: stable@vger.kernel.org
 
-Fixes: 1a575044d516 ("HID: pidff: Compute INFINITE value instead of using hardcoded 0xffff")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-Changes in v2:
-- Swap the branch order so the default operation is unguarded,
-  as suggested by Tomasz in review.
+Please remove the stable tag, this is more of an enhancement than a bug fix.
+You can keep the fixes tag though.
 
-v1: https://lore.kernel.org/r/20261028-b4-pidff-duration-shift-v1-1-65028c6b4a37@cherr.cc
----
- drivers/hid/usbhid/hid-pidff.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
+> ---
+> The current code stops at the first error without trying the remaining
+> buffers. This patch tries all buffers even if a write fails, and returns
+> the last error.
+> 
+> Returning either the first or last error cannot report all failures.
+> I chose the last error to keep the code simple. Per-buffer error
+> reporting is outside the scope of this patch.
+> 
+> Please let me know if you prefer a different error return policy.
+> 
+> Tested on x86_64 QEMU:
+> - Setup: Enable copy_trace_marker in multiple instances and set
+>   tracing_on=0 in one instance before a live buffer in the copy order.
+> - Before: No markers in live buffers after the stopped instance;
+>   write() returns an error.
+> - After: Markers in all live buffers; write() returns an error.
+> - Existing text/raw marker and instance selftests: 6 PASS.
 
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 22951b7ecd17..50906890fdad 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -394,7 +394,9 @@ static void pidff_set_duration(struct pidff_usage *usage, u16 duration)
- {
- 	/* PID defines INFINITE as the max possible value for duration field */
- 	if (pidff_is_duration_infinite(duration)) {
--		usage->value[0] = (1U << usage->field->report_size) - 1;
-+		usage->value[0] = -1;
-+		if (usage->field->report_size < 32)
-+			usage->value[0] = (1U << usage->field->report_size) - 1;
- 		return;
- 	}
- 
+Honestly, just skip the warnings of the copies and don't even bother
+returning its value.
 
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261028-b4-pidff-duration-shift-8df4f6451448
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+-- Steve
