@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631728;
-	b=yRByVH+Q5Hm8mOu7lY71BcJhdLD6ov4ANYAolcmJaW9hMtsDscrMQNGndYcsDwqZ5S8Y
-	 t5lUUsuR/yp3cHybKX2uR/j0mCaNZ97vvhPnYCzR15XlvpMw81PLTDNTcZAu9PJEqK6CZ
-	 BA9Q3ew5F5MAivoxS6kjSsK6ySfIlTzCAohWqYUSP9ipJ2VvXCFYV8gs37XLF5i1wHPIX
-	 kpWvS1O4WrmlSXKQlLvlO+TMYPxaCDRmAv7Dd027f5ZmLPQVXIUYPMwbIvaz8OIVrnH0i
-	 z4uUfrrWI/yTJ7QSO2VApRQZcQCQfaRLABHi3B3Hj9ywXCfBqlmz5uGMvdIYx5f82Zw==
+	t=1793631813;
+	b=Qao3lNCVT6jheKYXtuE1eDsrGvRjS2CLQcSmnwojMo3xTqCE+Ag5ynephxBeNSlefBf7
+	 LXd9HaqQmMqbJFcwmD21GhczTcYkUWCXtsCjHVtQpVihnZwn3z09hWSugZdV0EBectJc6
+	 dT8bcKz5O3aNUrnIwK06rgbKwxxkGc4M0o3CS75Kmn6CzjyyEUtYk+jKDVU1vnExZ3Utq
+	 bWrWje01P7J8FZ8OISqCa1Iz0MobqzICrGrbpx2XXcqknC9ZgaGia9FRgTOSzRWJhhhPw
+	 YBNDnHUtT/dg/CO0nwcEvE43MGekkRQuxrizOkgDGJjgl6Wr75Y70xSFqsb6xrkJqrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631728;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vMjwo8cmw5PTMuLBYGwQtehcqEVVHRxZCPBH9RAmfLM=;
-	b=16LlswMcXZe3abzb9wYR0vSp8b7B83Hn9W/C9cObv/v+Hlv6+q1pErC3xL3fy/QEfSFP
-	 x8ZNE0GWADwV9ooDmQbdkIal/Ta1R7VNCE/gcU60PkRlZ/tVksWWOX2D9Jr3EejSiA3Wa
-	 8Qzkl+yVnDe1qOh2k/O05W/XACClReEhAut3cC+aaCsbviFRluorVQUmZAN1xkXC/cC2x
-	 SSZ3b0Z2fGwAvYVzv7t+DpBQPFHdJXsWLZMtij3pr5MnJ+G4QzY0Uc8W97HvRFETjGRF8
-	 XBKyRrR+VNyfe/0RWudBWGe3YltIApVViBvxV4jJ32T6DYKk6yX9ipiNBMoDr+/0h+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631813;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Ty7plVzP6jvaud7DoUmeGN556MPHdfwG2xwLmx4C47U=;
+	b=VA9KW7tcPniM0dPlToIdN1NPmWWwC0Jqc48y9/P+PAOWRa+i+NU3j6WfIHjTcVqU1NfU
+	 kDJot1sQ+6RnZ1jJS8FILuTWDFtNohmPa1byLlA8LMPkD/crEA8bQ6D+/FKLsvgqKc1en
+	 H9ssw7m1yC4phJznpnswaUnhgDOVPvLhoUvBVqpy64s3ukqsD69GCxLfVKVCoBsHc84J3
+	 oERyHlK5BNIT9y6eL+B0N8EXPwckNppKdUuyXxjrHswwkPrCWB03GgcscIZDkwp7Z1jil
+	 5nLxqwDbcxJ2b6/dNQJ6VPYOPB3piWrdq6glq1642BFxcT/US/wRY60qNnKTiZ9Wq2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xwxnj0DD;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Rea0vsSj;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E1C6070C9D
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 15:02:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39E1C6070C9D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2365F6099941;
+	Mon,  2 Nov 2026 15:03:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2365F6099941
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xwxnj0DD
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-18cdcfc05ffso3524277c88.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 07:02:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793631727; x=1794236527; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vMjwo8cmw5PTMuLBYGwQtehcqEVVHRxZCPBH9RAmfLM=;
-        b=xwxnj0DD1DKAFVLGNqn/LX/iHKyCUG5RpZ06KLrANvWczMx7mNH3POOJaQTlSKKzRX
-         cZokFQKAXKVzNglOBI+mQ4XVUBXTw3W0475HWABkQPnUVW1CHwj5YTChR68ZEugPnfvV
-         VR7yyicuAN3XPeGZ8SHMJtyfpwb1LLZSI3s+OVfQd/VHWnC/0G3nYNVyrxSnGZpDVkry
-         O1qqcfiVmZjs2LNHitVY20/0RrsRk0HpKvjncr6ifd6OwHirJ4jFSDXYiULwnPsLuvUX
-         5MbjirEj6mMVPT6QVtRrDz3RXhx558Mz5K4uQlOzS1WbBAOylrFf7qch6ZcRJMh+w1G2
-         O24Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793631727; x=1794236527;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vMjwo8cmw5PTMuLBYGwQtehcqEVVHRxZCPBH9RAmfLM=;
-        b=fz12YF7e+mXDbRatarDnMKg0hggoeZeezOIVtijTxYlvJBSj2oq24/pnpsTj+tLuD2
-         Lbpx+ws2owNhM1v6TavOxJdJVB3iWWnitZQ4n6hbukZZc4plmRPFTlj8YZIasIW94Je3
-         oZPjXDfaQjeDACAWfMIivMCCDYaxtDEseXkrsHt4eOfGNnk+0Mb37u0sUYJJqYdIqhGT
-         EvLEf1eyCbsF3kuEh89DSY13EzdhbmGCgemtXPZvGVh7Eb6pr9xPX1xNXyofPRXHV72l
-         H5yxX4zkYq4jiFw2h7+QTwt9shxE24KqXOkARFdYTs7+37DLEORJRJOUGUlx4zljqJkv
-         /ELA==
-X-Forwarded-Encrypted: i=1; AKwUvBzeuAaSQnT26LuNNqhhLVlB4AuyJoPkJXaGUG33BlaMU82hbML0o38w3QiAJ0O7gmDfGKF8K5E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4ALZ8tEjwMJjY7rS498Yvr5RI5A+GtinZ8KnPzgMd+Zb3gHeF
-	afF4EZw951Pi6D/9hgok4f1EP/Dd29LFthXNX7rnYnJGOdYOQ/oBUKVA23V7xeDqBcU=
-X-Gm-Gg: AYBFou0o/9Pl99TjZRBXtq2RhdsQL3fd7plfXkLVHrNtHuTf8ZZDoqIVjiwzY8SJp4L
-	rcPWZAm2fX5EzA5JkDB58nB59CbJ9hsd+6C0E8jCLOozAkJFi5u4Dn7a8GvJMUXVXUJrbX1ecZy
-	XvrRo0QcROk2FypJ3NF9CCEs+7dirnloMoLXPV+8rhpFqQT9LyOY0WetC8nRFcnYolDCq8MvN4i
-	J8OWyL6Vt5Imv2UDwpDpFhJav12ZbWMpwmCoqVzcR1nulWCkoFYavTxC/SYFnf3o1jmBa/zJX7U
-	YFlzLL0gd2l9Nx02os0Y2QgwAESnJUDRh+vqHZcIl+tjnC1Fblu3Y+kZg7aIzyv5VYKAeMtUIyo
-	1wg9QWiUBNlFHXudnP4sm6FpB11SkogqeRez08w8prxPKa9sQljHKpbZA8E3GQ+0ngmAkaGgan9
-	QZmQ5wnF+0qe3WtnSAafFHwZc2Hmwc46ZUkVn0WKUunVa5XOWpziXJM532INp2yvqDX1dT6K5l3
-	ih/nEwYSI39QeSePTkkf5/lBWvutjo08k8Gq96CCMzGf4aVeCeLNfgvxcp1TPryy+Gpz6BMJKOg
-	DEi6Zjm2B5L5ZKDzBeaBXGMKr0gdqPVpeYHa
-X-Received: by 2002:a05:7022:92b:b0:1ab:fe29:5055 with SMTP id a92af1059eb24-1ac5bbb9041mr19879405c88.9.1793631727135;
-        Mon, 02 Nov 2026 07:02:07 -0800 (PST)
-Received: from xploitoverload ([2406:b400:f11:1bac:4040:640b:8a1:8629])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a136537sm34406419c88.18.2026.11.02.07.01.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 07:01:59 -0800 (PST)
-From: Kalpesh Solanki <skalpesh942@gmail.com>
-To: andrew@lunn.ch
-Cc: alex.aring@gmail.com,
-	stefan@datenfreihafen.org,
-	miquel.raynal@bootlin.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Kalpesh Solanki <skalpesh942@gmail.com>
-Subject: Re: [PATCH] ieee802154: nl-mac: validate device pointers before dereference
-Date: Mon,  2 Nov 2026 20:31:00 +0530
-Message-ID: <20261102150100.44615-1-skalpesh942@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Rea0vsSj
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EEAG81949776;
+	Mon, 2 Nov 2026 15:03:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Ty7plV
+	zP6jvaud7DoUmeGN556MPHdfwG2xwLmx4C47U=; b=Rea0vsSjFenbA1EeCH25jI
+	RjotegPxVJ7fmYyRT+tBg2SGwE12PleDgewJ7lgSLOEhiiZwogugwNhqDh+JAyJ1
+	NB6pDzoYsa2QRFjRcmVr73OIR98oIpqJ85cTn+YBiQvUA8FPF/cMjgMa5KS+cZE7
+	wUhNM2WY239cD5k4KXyYA1TU2uLes4fI88cHWHV8FtyvmHup9bzWO3Y3HOjm1PXQ
+	jA//bD0PYtEXMca2XGWo4RJCwhupC3QptYBGqNkfhvQI+ePS8yMtHMtSDylJnPI/
+	I8m158tFcpni4Y1DfWCkpQ656nap1diOtdQwB/09N1zQoHrKlZ0Lyx+lVSRU7w6g
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rd16r1-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 15:03:05 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2Dp5CP1004818;
+	Mon, 2 Nov 2026 15:03:05 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hntnpxj7g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 15:03:05 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2F34dr5505930
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 2 Nov 2026 15:03:04 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 81F0258059;
+	Mon,  2 Nov 2026 15:03:04 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 33BBA58043;
+	Mon,  2 Nov 2026 15:03:03 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.119.18])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  2 Nov 2026 15:03:03 +0000 (GMT)
+Message-ID: <ff1965b1cdaefa0d68b2da6050ebfddbb7b77ec1.camel@linux.ibm.com>
+Subject: Re: [PATCH] ima: initialize the real inode attributes of the iint
+ cache
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Cai Xinchen <caixinchen1@huawei.com>, roberto.sassu@huawei.com,
+        dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com,
+        paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com,
+        amir73il@gmail.com
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        lujialin4@huawei.com
+In-Reply-To: <faee04cc-fb04-4e56-bfe4-1eae5b819137@huawei.com>
+References: <20261102024703.816178-1-caixinchen1@huawei.com>
+	 <cb3ef53e2e5c6d74051528c2b9b9c0a294d6c119.camel@linux.ibm.com>
+	 <faee04cc-fb04-4e56-bfe4-1eae5b819137@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 10:03:02 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,68 +101,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: _NHq7FX3kmrwWPAwX001zhjUKwWrO8n0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1OCBTYWx0ZWRfXwOteJnMCZIb0
+ LLBiEieM+9+F2XmhoHdfr5IVHYKO9esk31p0tjvS6cnSgd60wCYUpZ33qDm+X12oowZ6iiJCIx4
+ FxY6qXUmGp5Vg2i8BFW3HOf3EnSwPEBumeJoZE7BrQF1i6CaqvgwUOrVySl7NZJ7Zo9Yb4hoHli
+ kgoJENatiywLf52N5lQYQTTby1qSmYvRT346wkp8pNPPfcXriNas/o+URBrF6vqtoBkLPqJTm7P
+ q6uNaTTknyzC8lGIegxf9smCO5rLMHM2w0vCShuWQ3DH2+wRIUSKuAadsaIvaKfdNu84cte8Y4+
+ qDemyGXPynWa7gnfUkT9mRijKQZRs9XVnsrzf03cpZKGKa33QpeCyAUz1U5k+7NwaXA4Vb/9Zms
+ OdpKlLBS8vsIwPQZE/fMSWtZij9J4NTVWCzdgc5b4X109Roly3SD++QTqf0lYyN6E8PkTD+qd3d
+ Qx5Kno25odQdbivsT3g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1OCBTYWx0ZWRfX3DQvcukzl8OB
+ Pl8NNSgM2XVOvlgSV1TCHRSGsWuQKRspVe0q/EZu6ISxPMx/x/NW2L8I9MoWdvxkhAd93RK3NI0
+ Ntb2/ex+VlE1rDeIMQ3579VypK3KIeI=
+X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6ae8a62a cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VCljQN5vTxgyfkvg7k0A:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: e6gg_4qVH1JgqX4-hhkFqccnlpj6l1Rd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020058
 
-Hi Andrew,
+On Mon, 2026-11-02 at 20:09 +0800, Cai Xinchen wrote:
+> Hi Mimi. Thanks for review.
+>=20
+> I mistakenly used integrity_inode_attrs_store. In the next version, I=20
+> will directly use
+> memset to initialize the real_inode structure.
 
-Thank you for the thoughtful feedback and for digging into the git history.
-Your point, together with the Sashiko AI review report on this patch, makes
-the architectural picture very clear.
+Sounds good.
 
-1. Analysis of Sashiko AI's findings:
-Sashiko correctly pointed out that guarding only nl-mac.c is incomplete:
-- net/ieee802154/nl-phy.c: ieee802154_del_iface() unconditionally reads
-  dev->ieee802154_ptr->wpan_phy when dev->type == ARPHRD_IEEE802154.
-- net/ieee802154/socket.c: ieee802154_get_dev(), dgram_sendmsg() calling
-  wpan_dev_hard_header(), and ieee802154_rcv() / ieee802154_dgram_deliver()
-  all unconditionally dereference dev->ieee802154_ptr.
+> I double checked b836c4d29f27. That commit also added real_ino and=20
+> real_dev to struct integrity_iinit_cache and started reading them in=20
+> process_measurement(). However, iinit_init_always() only reset=20
+> iint->version, leaving real_ino and real_dev stale. After 309e2b775da8,=
+=20
+> these three variables are encapsulated into integrity_inode_attributes.=
+=20
+> Therefore, I believe b836c4d29f27 is the appropriate Fixes tag. If I=20
+> have missed anything, please let me know.
 
-As you noted, sprinkling NULL checks across every one of these sites in the
-ieee802154 subsystem would just be papering over the real issue and hiding
-bugs rather than solving the fundamental cause.
+Okay.  In terms of backporting, clearing the field using memset() would wor=
+k,
+but still the field name changed.  So it won't apply cleanly.
 
-2. Audit of other struct net_device subsystem pointers:
-I audited the other pointers you highlighted in struct net_device:
-- ieee80211_ptr (CFG80211): cfg80211 does not rely on dev->type to infer
-  wireless_dev; it uses dev->wireless_data or wdev backpointers, and tun.c
-  does not set 802.11 types in tun_get_addr_len().
-- dsa_ptr (NET_DSA): strictly managed by DSA slave allocations (ARPHRD_ETHER).
-- tipc_ptr (TIPC): managed through explicit bearer enable/disable, not dev->type.
-- mpls_ptr / mctp_ptr: managed via rtnl/subsystem netlink ops rather than
-  arbitrary dev->type mapping.
-
-ieee802154_ptr is unique because drivers/net/tun.c explicitly recognized
-ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR in tun_get_addr_len(),
-allowing TUNSETLINK to stamp dev->type = ARPHRD_IEEE802154 onto a TUN device
-without ever initializing dev->ieee802154_ptr or wpan_dev. The entire
-ieee802154 subsystem operates on the invariant that any net_device with
-dev->type == ARPHRD_IEEE802154 is a genuine wpan device with valid
-ieee802154_ptr.
-
-3. Proposed resolution:
-Setting ieee802154_ptr to dummy ops in TUN does not make sense because TUN
-devices cannot function as 802.15.4 radios (no wpan_phy, no channels, no
-PAN ID, no MLME). Virtual 802.15.4 interfaces are already properly provided
-by mac802154_hwsim and fakelb.
-
-Therefore, the cleanest and most robust fix is to disallow setting
-ARPHRD_IEEE802154 and ARPHRD_IEEE802154_MONITOR via TUNSETLINK in
-drivers/net/tun.c (returning -EOPNOTSUPP or -EINVAL).
-
-This single change:
-- Closes the syzbot crash in nl-mac.c.
-- Closes the crashes identified by Sashiko in nl-phy.c and socket.c.
-- Preserves the invariant throughout net/ieee802154 that dev->type ==
-  ARPHRD_IEEE802154 implies a valid dev->ieee802154_ptr.
-
-Alexander, Stefan, Miquel: as IEEE 802.15.4 maintainers, could you please
-confirm if there is any legitimate use case for a TUN device claiming to be
-ARPHRD_IEEE802154?
-
-If you agree with this direction, I will withdraw this patch and submit a v2
-fixing it in drivers/net/tun.c instead.
-
-Thanks,
-Kalpesh
-
-pw-bot: cr
+Mimi
