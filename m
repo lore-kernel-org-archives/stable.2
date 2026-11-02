@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793652966;
-	b=HSDHKdArvJL8y33Pu2xuDi5Dd/u+UKmb+cd8RhOvEupdVDNe5/r61zjWKSOCW/kz3/JH
-	 SSJVFdUrILcaM8CcaM1GalZ34Xx6wViWpVD1hPala9/Ysz+gU3jlzWDqZ9ciBWs4jDOIU
-	 SLOTqATUrNzUjd85YuCDAYkMXfV/5yGlUzxCmlnUrQery9+YDU+hhMtnokPIhfaOvvD17
-	 IXbOPt3vLxycvvfLOsL1cwDrrIZZzPkhu9iLyekkE/bdHwIY6grAeGcAtHj3oSeJHL12G
-	 HuO6tfQbNvR0QAicnbCqbsG0Gye8EjGx3hOvMFQBwj9gQjYhJLYxEEPy+2S8DPbw4kw==
+	t=1793652997;
+	b=wp6FOqHQKVEMKu29nzD+DrpKFCBoBFRdDi960ovw+CnFrQc3HezKd6D/d0jGVKpbRN72
+	 PGZ1ws/7K8nh8vD6hWMKQmd/EdZsBrKxNSDNGJozr+gBB5uNKAP2HWgrd8rSljahrqEBG
+	 AbpjvOQcsyG2wjQWgfPLG105WFm6FtZM4b5voUIV/akT5s/e8Fmarl18ir6MOYBuyr7uc
+	 Mx6fh3XSpg/sufjM+zzMMA7RIWdFqhySapof4oFJagtsDbYt+WrNcpmpltv8PY5w/EwpR
+	 q87/WIwgnn7l273+kRicId3VYoDJ04qYAscMYcSjvEKHEbe+qZ5Gjn0eNaV5k43rnHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793652966;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=34/enFLIcr3bLKmEVfWgIj1ncOTd12aTSiQazCvWsF0=;
-	b=gvht1lXIoAv5SvRwKILY3p+UCVK7UBIwj6XpuRUUmHDBE2I2s3jvdXAsx6HtQ4lNKrKj
-	 Y61hHIslP7nGlHTF5khlPdR/+aRDJbMKP249vrRTG0aTuU6IFBc3184RN+SdbZY543xG9
-	 yyfmkcngWN2FC2VbBoXsiKBqikXSE+DCpjiRi7VllgLx6mpUS3rwGJtYxus4ncqO1RxL7
-	 kXOFg6VSZK5f/E9bB8o3NTXvpXk1zVAzAaAMc815TvXs4cGYGoe9Y6UTy2wZLrWecCBPX
-	 k4XMsYjbGvRlSNjxz5EIIZvinrVKzzUudtRdSFp45RFioh/WzGWIdQ8zlFDrVNkAhCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793652997;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=U7PL/ELynblTPSN7E0maqje4+B8IuleoH96ZSCfJFP0=;
+	b=EOPUiswpnJwlci7yZw49ciR1hEpmlPk/xHL6NecT4EWTBf8CFXBCs7WT/vFvHyIXwPXJ
+	 EocetB2YBQ+5AwrZ45qsBY7UjoFwySMaLmc/QijjyDydU/F/jdr4umEA7g52vPryFE/rm
+	 7mcKKHPf2HttcZ9qOi9iGIyBAKOfKE9T0SCKB3fl/ltZvIQG6jrkbHZqhQt4wkdmpWMoB
+	 M+z1TuixATuE3JRE/pAOWt6vC1it8cP61JfMTzmZ/MqEiAd6soxk8rjE7ZKagnjkz05qr
+	 Xmzse8C2Qc5WtVZNS4QploCC3n7OYGz2A3RsRYhfRsgl1gZgEN8nR/vlTLa2xrCs8ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
-	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
-	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=MaIexn6l;
-	arc=none smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkTRsJcW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DD3606A326
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 20:56:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60DD3606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB072606A32E;
+	Mon,  2 Nov 2026 20:56:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=MaIexn6l
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e9eb579c0eso18162965ad.3
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 12:56:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=is.s.u-tokyo.ac.jp; s=google; t=1793652960; x=1794257760; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=34/enFLIcr3bLKmEVfWgIj1ncOTd12aTSiQazCvWsF0=;
-        b=MaIexn6l8jhOzO+C90T9YJ1ByGapZzhiobmeq6evgOOlpQ9xt5CKe3eYl4+l3wIf5H
-         WzRd2NhiXSlXSCeMtq4vJaOqMeYxPkO0l/AbAUaFdCZ8Q6uqxX3h8Vz74USgbEVAQSLW
-         JcB03b9pO+bQrTHJsJVZMjRlD6kGqs9CxeeYEh0/PwVZKZcW4+rHraYtbiE3JV4mKIAM
-         jmxqsQChHeLOXTx6qrLrxK5TgysursRrBNWQu0LifOaTu1mSFaeZW9CVxJFTPubh/VsO
-         dKqAiuhiRKcn50ZDObKLL94mfMVujWbaQRwnz8nS2wutTZfENqkm6gz38RcBa4Bte7Ep
-         WNug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793652960; x=1794257760;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=34/enFLIcr3bLKmEVfWgIj1ncOTd12aTSiQazCvWsF0=;
-        b=XnatQfMHVuh6Vb2VTYshHP4GN83DodYqOeAX6rbBsxL4dS3kC9goJOXufNt0nHV9g6
-         pQnFNXL4hem9LyAHQaBNMNj+18++VcErbr6nQ66cSAVxPIRaPLdg88cOVsGPItrdWmX2
-         S5jVGW/4HYsZB6ski8lwW8qSNIXexZDqb2Q2u6FSEmZkqTERwi57m+UaFK6mPvO16SMg
-         QTPumFPs0XAV4GiV0Hwv3rpXJvEjwe1/06B70tQRWkbyJxRQEamk+WuUMqu0+2hFHMoP
-         DqraMMs4/L1OfQmhUTS+kDVIjJliVyvF8AdHxrglED0WZze4v1zuRqYEYDktVNAwLeCA
-         wcXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLIcaL/cfJi0H5ATQiyc68Ae3tVTRKljCZsRmo1gfKuSa+EK8hvO7MCu83/aKUSAJ/21LBZyM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+U0w4sIk4weeBupwqlOMjSFzkMv7rOyP8X5Slnruz4XNcPjp+a
-	V3KVPdFoO5WvFX1oS3B2wh9kFDbFNuZvbP/6WY3PLrfO0gOwFxRC/ZiaA5zlJJIGDg==
-X-Gm-Gg: AYBFou3GiF4I9lzoGjZx/njG+vhaC0bPQN2ESLsIzqo0JJN76ljJCzIO0PMRpE8zI0i
-	zqyKt18aCJZ4i9E5lxWmJI4gaXVCZWSbIBb/9UfbobooDlUiapPZ4LOiwH71RkTXVWv583r0Qq1
-	UdrolU+afXDDD2GF6qoT6iqwWws+4b2XviQBBY09JeAn5CQCFuHiG919W4E9jdFaEK0t/cbTh4F
-	b4IhD6n0zFnXiuDQySQH/atoe68eEDdSnvLGL0W++ksjbQvfAcWt5VQ87B2BlNkw9V2MqydWK5K
-	PJHPVH6S+1gv6nd89v6dCHkVPuEA7YY7So4i/WUs4JKRISOW4xcCrTiY40VnpHV00BXbUkDGoIV
-	ok58NDY3JFmC0YRaUPvq/Jira0hROrI+jSp3/oEFe6JCZpyjFIENPlQzU39soYBETd6RR9fjxXA
-	5ieml5THQVlwqZCAhlsxvEhSKsJ/L455hCEjfVW6bihbcxNV4RGf++kOFGxdRkZaSIUId+HYTIv
-	w7ZQPBjXcT4BbQ8jPG2nVAY5OH4W8S8vzE9OvClSG3DqoWfwja3xWojqPZX9AP2tPhAv4h9YKcJ
-	Xqv3pWIa7Hd51z93h5PKtlp/ElfktqIsyAttNA==
-X-Received: by 2002:a17:903:4b0f:b0:2e9:6645:e99f with SMTP id d9443c01a7336-2eb3642fdc1mr89382025ad.21.1793652959534;
-        Mon, 02 Nov 2026 12:55:59 -0800 (PST)
-Received: from wang0.localdomain ([133.11.33.33])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3922fc14sm32364015ad.26.2026.11.02.12.55.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 12:55:59 -0800 (PST)
-From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	netdev@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] virtio_net: reject stats replies for queues outside the request
-Date: Tue,  3 Nov 2026 05:55:50 +0900
-Message-ID: <20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkTRsJcW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47051F00A16;
+	Mon,  2 Nov 2026 20:56:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793652996;
+	bh=U7PL/ELynblTPSN7E0maqje4+B8IuleoH96ZSCfJFP0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OkTRsJcWAPItMCde2Az5q5SqR8JIH+oRIbWXxJqFWjQIz1G5ymjliItl5VE3Ly+3C
+	 mc+YBWallvM03rNSguO1ZrL6ZKAbyTLeAI42QWCSogJwDdMadQZ8A1sXnwzVSQSXA2
+	 V3QDSg1oSuYaI8sPCYPUcotefVWaK7wICJ5CsMa2XuPNKBIgrEf6fBESr2d5iddozP
+	 52BFNRr/IPDcZpN+DoZUb3EP+UiM3wyBTm+Sfch4T30IePqrnaVlMF1w1UeddoJVZz
+	 dWx35D7SDv8+7ms7CEdhjTVZWSDXKcre4wV+DVpPOigh6I2mt06nBO1e4cwyn5isBy
+	 UT0QcGd5LelPA==
+Subject: Re: [PATCH net v4] kcm: reject attaching sockets with a ULP, and TLS
+ on KCM sockets
+From: netdev-bot+sashiko@kernel.org
+To: rjethwani@purestorage.com
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, jiayuan.chen@linux.dev,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, hare@suse.de, sagi@grimberg.me,
+ linux-kernel@vger.kernel.org
+Date: Mon, 02 Nov 2026 20:56:35 +0000
+Message-ID: <179365299523.3131.8216141407474781893@kernel.org>
+In-Reply-To: <20261029203428.3057054-1-rjethwani@purestorage.com>
+References: <20261029203428.3057054-1-rjethwani@purestorage.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,106 +64,224 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-__virtnet_get_hw_stats() passes the vq_index of each record in the
-device's statistics reply to virtnet_fill_stats() without checking it,
-so the device decides where the driver writes the counters.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-For ethtool -S, virtnet_fill_stats() uses vq_index as an offset into the
-output array, which the ethtool core sized for curr_queue_pairs. A
-record with the vq_index of a higher queue can make the driver write
-past the end of the array.
+Critical: 1 · High: 1 · Medium: 1 · Low: 0
 
-For the per-queue netlink stats, the queue type also comes from
-vq_index. A receive record in reply to a request for a transmit queue
-makes the driver fill the struct netdev_queue_stats_tx on the stack as
-if it were a struct netdev_queue_stats_rx. If the device offers
-VIRTIO_NET_STATS_TYPE_RX_SPEED, this writes one counter to the eight
-bytes after the tx struct.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fix this by rejecting the reply when the vq_index of a record lies
-outside the range of queues the request asked about. The control vq is
-checked apart from that range, since the vqs of the queue pairs beyond
-curr_queue_pairs lie between that range and the control vq.
+- [Critical] Type confusion and slab out-of-bounds write in
+  kcm_attach()/kcm_unattach() with a raw socket created by…
+- [High] Check-then-use race in do_tcp_getsockopt(TCP_ULP), newly
+  reachable because kcm_unattach() clears icsk_ulp_ops on a live socket…
+- [Medium] Module-lifetime race on kcm_ulp_ops.
 
-Claude Opus 5.5 was used to audit the driver and draft this patch. To
-reproduce, the virtio-net device in QEMU, which has one queue pair, was
-modified to answer an ethtool -S request with a record for a nonexistent
-receive queue. On an unmodified kernel, KASAN reports a write past the
-ethtool -S output array:
+--
 
-  BUG: KASAN: vmalloc-out-of-bounds in virtnet_fill_stats+0xab1/0xec0
-  Write of size 8 at addr ffffc90000066140 by task ethtool_stats/159
-  Call Trace:
-   virtnet_fill_stats+0xab1/0xec0
-   virtnet_get_hw_stats+0x5d6/0x7c0
-   virtnet_get_ethtool_stats+0x11b/0x920
-   ethtool_get_stats+0x150/0x1f0
-   dev_ethtool+0xaaa/0x1be0
-  The buggy address belongs to a 1-page vmalloc region starting at 0xffffc90000066000 allocated at ethtool_get_stats+0x120/0x1f0
+kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
 
-With this patch, the driver rejects the same reply with "Failed to get
-hw stats.". When ethtool -L leaves queue pairs unused, the driver also
-rejects a record for the first unused receive queue, while a well-formed
-reply fills the statistics as before, those of the control vq included.
-The drivers/net/stats.py selftest passes on a device that reports
-receive and transmit statistics.
+This patch makes kcm_attach() refuse lower sockets that already have a
+ULP. It then installs a dummy, unregistered "kcm" tcp_ulp_ops in
+icsk_ulp_ops so that tcp_set_ulp() refuses kTLS, or any other ULP, on an
+attached socket. kcm_unattach() clears icsk_ulp_ops again.
 
-Fixes: 941168f8b40e ("virtio_net: support device stats")
-Fixes: d888f04c09bb ("virtio-net: support queue stat")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
----
-v2:
-- Add a comment and a sentence on why the control vq is checked apart
-  from the range of the other queues.
-- Add the KASAN report and a test with unused queue pairs.
-v1: https://lore.kernel.org/all/20261022182710.2055771-1-karin0.zst@gmail.com/
+Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55@linux.dev/
 
- drivers/net/virtio_net.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+> diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
+> index a7f94d42036fb..e0d6536306f42 100644
+> --- a/net/kcm/kcmsock.c
+> +++ b/net/kcm/kcmsock.c
+> @@ -30,11 +30,19 @@
 
-diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
-index dd2c41ef6fbe7..db56f984bb86a 100644
---- a/drivers/net/virtio_net.c
-+++ b/drivers/net/virtio_net.c
-@@ -4973,7 +4973,8 @@ static void virtnet_fill_stats(struct virtnet_info *vi, u32 qid,
- static int __virtnet_get_hw_stats(struct virtnet_info *vi,
- 				  struct virtnet_stats_ctx *ctx,
- 				  struct virtio_net_ctrl_queue_stats *req,
--				  int req_size, void *reply, int res_size)
-+				  int req_size, void *reply, int res_size,
-+				  int first_vq, int last_vq, bool enable_cvq)
- {
- 	struct virtio_net_stats_reply_hdr *hdr;
- 	struct scatterlist sgs_in, sgs_out;
-@@ -4994,6 +4995,13 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
- 	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
- 		hdr = p;
- 		qid = le16_to_cpu(hdr->vq_index);
-+		/* The vqs of the queue pairs beyond curr_queue_pairs lie
-+		 * between last_vq and the control vq.
-+		 */
-+		if ((qid < first_vq || qid > last_vq) &&
-+		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
-+			return -EINVAL;
-+
- 		virtnet_fill_stats(vi, qid, ctx, p, false, hdr->type);
- 	}
- 
-@@ -5073,7 +5081,8 @@ static int virtnet_get_hw_stats(struct virtnet_info *vi,
- 	if (enable_cvq)
- 		virtnet_make_stat_req(vi, ctx, req, vi->max_queue_pairs * 2, &j);
- 
--	ok = __virtnet_get_hw_stats(vi, ctx, req, sizeof(*req) * j, reply, res_size);
-+	ok = __virtnet_get_hw_stats(vi, ctx, req, sizeof(*req) * j, reply, res_size,
-+				    first_vq, last_vq, enable_cvq);
- 
- 	kfree(req);
- 	kfree(reply);
+[ ... ]
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+>  unsigned int kcm_net_id;
+>  
+> +/* Not registered, so TCP_ULP can't select it. It only holds
+> + * icsk_ulp_ops so tcp_set_ulp() refuses other ULPs like kTLS.
+> + */
+> +static const struct tcp_ulp_ops kcm_ulp_ops = {
+> +	.name = "kcm",
+> +};
+
+[Severity: Medium]
+What keeps kcm_ulp_ops alive for readers that access icsk_ulp_ops without
+a lock?
+
+For registered ULPs, __tcp_ulp_find_autoload() pins the owning module.
+That reference is held until tcp_cleanup_ulp() runs at socket destroy, so
+a reader that holds only a socket reference can safely dereference the
+ops.
+
+Here the ops are static data in the kcm module. There is no .owner and no
+module reference is taken. The pointer is also cleared at unattach time,
+not at destroy.
+
+Readers such as tcp_diag_get_aux() and do_tcp_getsockopt(TCP_ULP) load
+the pointer without RCU or the socket lock:
+
+net/ipv4/tcp_diag.c:tcp_diag_get_aux() {
+    ...
+	ulp_ops = icsk->icsk_ulp_ops;
+	if (ulp_ops) {
+		err = tcp_diag_put_ulp(skb, sk, ulp_ops, net_admin);
+    ...
+}
+
+Could this sequence read freed module memory?
+
+reader                                  other task
+loads &kcm_ulp_ops
+                                        kcm_unattach()
+                                        closes all KCM sockets
+                                        rmmod kcm
+dereferences ulp_ops->name / ->get_info
+
+The getsockopt path can also sleep in copy_to_sockptr() while it is
+copying from ->name. The synchronize_rcu() in free_module() would not
+cover that window.
+
+> @@ -1272,6 +1280,14 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+>  		goto out;
+>  	}
+>  
+> +	/* KCM takes over read_sock() and the socket callbacks like a ULP
+> +	 * does, the two can't stack.
+> +	 */
+> +	if (inet_csk_has_ulp(csk)) {
+> +		err = -EOPNOTSUPP;
+> +		goto out;
+> +	}
+> +
+
+[ ... ]
+
+> @@ -1305,6 +1321,7 @@ static int kcm_attach(struct socket *sock, struct socket *csock,
+>  	psock->save_write_space = csk->sk_write_space;
+>  	psock->save_state_change = csk->sk_state_change;
+>  	csk->sk_user_data = psock;
+> +	inet_csk(csk)->icsk_ulp_ops = &kcm_ulp_ops;
+
+[Severity: Critical]
+Is csk guaranteed to be an inet_connection_sock at this point?
+
+The existing checks at the top of kcm_attach() only look at the family,
+the protocol and the state:
+
+	if ((csk->sk_family != AF_INET && csk->sk_family != AF_INET6) ||
+	    csk->sk_protocol != IPPROTO_TCP) {
+
+A socket created with socket(AF_INET, SOCK_RAW, IPPROTO_TCP) passes this
+check. inet_create() keeps sk_protocol = IPPROTO_TCP but leaves IS_ICSK
+clear, because the raw protosw entry lacks INET_PROTOSW_ICSK.
+
+Calling connect() on that socket goes through __ip4_datagram_connect(),
+which sets sk_state = TCP_ESTABLISHED. So the socket also passes the
+LISTEN/CLOSE check.
+
+The new inet_csk_has_ulp() check then returns false, because it tests
+IS_ICSK first:
+
+	return inet_test_bit(IS_ICSK, sk) && !!inet_csk(sk)->icsk_ulp_ops;
+
+strp_init() does not require read_sock either. As a result, this store
+runs on an object that was allocated as struct raw_sock (or raw6_sock).
+
+Does this write past the end of the raw_sock into the next slab object?
+
+On x86_64, icsk_ulp_ops seems to be about sizeof(struct inet_sock) + 208
+bytes into the object. struct raw_sock ends no more than
+sizeof(struct inet_sock) + 192 bytes in. For raw6_sock, the store would
+land in drop_counters padding or in the embedded ipv6_pinfo.
+
+kcm_unattach() later stores NULL at the same offset:
+
+	inet_csk(csk)->icsk_ulp_ops = NULL;
+
+The path needs CAP_NET_RAW, which an unprivileged user namespace provides.
+It also needs an AF_KCM socket and a socket filter BPF program:
+
+socket(AF_INET, SOCK_RAW, IPPROTO_TCP)
+connect()
+ioctl(kcmfd, SIOCKCMATTACH)
+  kcm_attach_ioctl()
+    kcm_attach()
+      inet_csk(csk)->icsk_ulp_ops = &kcm_ulp_ops;
+
+Before this patch, the same attach did not corrupt any memory, because
+strp_read_sock() just failed when read_sock was missing.
+
+Should kcm_attach() also check sk_type == SOCK_STREAM, or the IS_ICSK bit,
+before it touches inet_csk(csk)?
+
+>  	WRITE_ONCE(csk->sk_data_ready, psock_data_ready);
+>  	WRITE_ONCE(csk->sk_write_space, psock_write_space);
+>  	csk->sk_state_change = psock_state_change;
+
+[ ... ]
+
+> @@ -1382,6 +1399,7 @@ static void kcm_unattach(struct kcm_psock *psock)
+>  	 */
+>  	write_lock_bh(&csk->sk_callback_lock);
+>  	csk->sk_user_data = NULL;
+> +	inet_csk(csk)->icsk_ulp_ops = NULL;
+
+[Severity: High]
+Can this race with getsockopt(TCP_ULP) on the same TCP socket?
+
+Before this patch, icsk_ulp_ops on a socket reachable from userspace only
+changed from NULL to non-NULL, and it was cleared only at destroy. Now it
+returns to NULL on a live socket. Userspace still holds its TCP fd after
+SIOCKCMATTACH.
+
+do_tcp_getsockopt() reads the pointer twice without the socket lock. In
+between, it does a user copy that can fault and sleep:
+
+net/ipv4/tcp.c:do_tcp_getsockopt() {
+    ...
+	case TCP_ULP:
+		...
+		if (!icsk->icsk_ulp_ops) {
+			...
+			return 0;
+		}
+		if (copy_to_sockptr(optlen, &len, sizeof(int)))
+			return -EFAULT;
+		if (copy_to_sockptr(optval, icsk->icsk_ulp_ops->name, len))
+			return -EFAULT;
+    ...
+}
+
+Suppose thread A is in getsockopt(tcpfd, SOL_TCP, TCP_ULP) while thread B
+runs ioctl(kcmfd, SIOCKCMUNATTACH) or closes the mux:
+
+thread A                                thread B
+do_tcp_getsockopt()
+  icsk->icsk_ulp_ops != NULL
+  copy_to_sockptr(optlen, ...)
+                                        kcm_unattach()
+                                          icsk_ulp_ops = NULL
+  copy_to_sockptr(optval,
+      icsk->icsk_ulp_ops->name, len)
+
+The second read sees NULL, and the copy reads from
+offsetof(struct tcp_ulp_ops, name).
+
+On arm64, the source-side loads in copy_to_user have no extable entry.
+Would that oops? KASAN would also report a null-ptr-deref here.
+
+Attach and unattach can be repeated on the same socket. Neither store
+uses WRITE_ONCE().
+
+>  	WRITE_ONCE(csk->sk_data_ready, psock->save_data_ready);
+>  	WRITE_ONCE(csk->sk_write_space, psock->save_write_space);
+>  	csk->sk_state_change = psock->save_state_change;
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029203428.3057054-1-rjethwani%40purestorage.com
