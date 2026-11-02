@@ -1,95 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793610225;
-	b=WSc4u8NRKRJPB9tFiD8uXVCRGlwe9j7gh6T0Jh7DDTf8xEkNkhnfcibzNklMAY1TuF2C
-	 7BxAx8/OtaZ2rWVs1J5zhQzgbAUePRnzvAkplo/wfIfDGk5Ad0o+VAhpPK3pZ/gVClSJL
-	 /fiLjk1e/PS1uODL2pJWOgfby4t+48HvQ7WAyTD01UeO4VWHEUiYyl9Xsnc7VzbW69PG+
-	 Qz/YyevNYRPdZ7RtKrTPbQzgvLPL84eOIy9i0r/IWxrGlE13soVRWkOBWSc9uRAqXO/Ab
-	 7emVA2bKyAD3QZ45lY2OsSRC7IdZCF+CMZ2SIBSK56SpmIUEV9SPFJDl9P0ALtJerpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610225;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=CIQUc8TV2VSKWd6WDRwUyM4Y6Sb8hDxkW9XfW/fg2to=;
-	b=uLApAFdTvoHrnMZgzNzk64HiVMZXnX0O/g4KJItJ5LXLeGfkp/vjHgh/dnTJl4IrGK19
-	 fap5QbXsHwhAO15JLBKIKnjddF0gIy8g3DwZI80JZNJqdFhrcjF6GodyJusArXo2JsGT/
-	 aciKm481xc4dZfdb8MqlVcKGX1k3ZCl6UgyZNb2OmUU8ZigKnYn+/x3Enff/6/Y/RGuAp
-	 /6+cKap7tmdcs5PzGJlgmyYOwQgmrv9E9LMmDEtfxNe6fViUPqPayPtRto+LsLPY2O+xc
-	 DJ5vY5rKYrYy//d6Xuk/g+9nFgNKDmX/DLVZkuarAD8Nx9D4S5joZoKfiuGbX6s+jTg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CVnZomWx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.32
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011032.outbound.protection.outlook.com [52.101.52.32])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793610237;
+	b=X1wMVIyFF5YWmBN8KP+Bsvy6dmiRYj8oAppLP0ew4m7ooqFGm1fsJwIa5qboBgTtHHkg
+	 44sI1ubFbzjnwUh6ix2nlDBPYcCkoE7Tl4FoQa5M3w0F/dHjf3n6sVdrEY+FLF7Q1htHw
+	 uP5YWPTFVJY4xcomajmwMdK+wDjoH1zLXHpeLlFRmgngYOug+2SwKnyfJwZ1PEtymJztG
+	 Qw3DzGfewak+0f3i3DeeyCR0XnrSLZDvzlTFeZ/lycpUvL/ehNzBkS3yz555fnvamhWf1
+	 2Uf1w4Lrg+HRu6Q+laBHvkIOX1dl2T+vVJcugef9gEMviGIKaExznFreJEoT4yZ1g+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610237;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=m1zvCruayUhHboin3zC+yeWKCtDoDEDlkJlz+MHWjfE=;
+	b=tUkxaUh8F/R4VD92YlViPMnnrCf0m8oh4cvnqceAcEyKvZ0kcbklC2TBWYagkuy3orX0
+	 LVhBh5e606jXoL3FkTxXLYQDcxvVxZZIsqmU9RLeQkKEuVtLBjSUr7OTA6bIqdgqrRG5v
+	 WSuyEqeTjiho6Ns0U2gTG82wGmnQQQy3QW2/teYCggpJcBSs1fyAm47QdzJ7aUjwyCfZ+
+	 3ijelo/QlUFH4k50IkcjMga7KOcQYlhxpsrFwIEXNp9nNwzVItIf8yjrnwlXieGp/NJ5a
+	 6qnFbuQ7YdIX9TJQVVsQYorc3YD4RPBisfL/XRBI+Z1rJL3GU0sT3qTMLSHfW1fKhLQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=P2qMmQj5;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F316606A324;
-	Mon,  2 Nov 2026 09:03:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F316606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9FE606A324;
+	Mon,  2 Nov 2026 09:03:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC9FE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=CVnZomWx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j6RfAFdXMaDeN2Wxouoifti0kgPSTo9gzYsBnHVEUnh9Jxg4nBvSWVBbCn3L/NNbdIbyYWczWf/MBZGKxUEh+nFt0rl+K0WqfQZa3b0zqm9DhTe9s9P0DPKycIdElVolfho8a+Tu6lEN6nQQx9i8r/efp32yzfH59Q0RNpai4LuexLU0QKKsge6hAzFq/2gCDuSqReSuZxbRospTx6ne/6Bu7eiVuJKwki5uYpq3teXR8zLy7Nq3WQF+NqNYbAQBC7hd8SPHd0x3IL9tInntvVEdcvQhRYYJ7Ta7xzeBhQm8eiFKUbV54uUIoUOFTBShoV6FZeiWF74VawuyLNPUcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CIQUc8TV2VSKWd6WDRwUyM4Y6Sb8hDxkW9XfW/fg2to=;
- b=PX3Huatx+Ux1XZ5oRjJTy49wjyoIlgVJjcG3xnIeNmyUVWZF8Q5kZ3nA/muwp+KS88CxG5WZmZW9lxlsX/3ePMf2C7zFqT1Mt1S4b/MwDJ1mYXbNoSSMQRa2hFqH27LsPmVvfK6xPc/Wybt0JhOL8YoWD0yZUOIEiRo+ioTzuWzIoR3MlQH6f2X3hpWhnJtZBiAgw5E2Ubfjj9ds+dFFUmTU5B3I6FYTFojoaPkvwPct6xg2m9aVg2t6Dio3H77yB7j3gJMve58qzyINd66s7yDsLTiPmrBFHhsfqQK0UHD/AlStvKqJQ5G4cuz0v70x1NCsC2XiveN9EBkUNxayTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CIQUc8TV2VSKWd6WDRwUyM4Y6Sb8hDxkW9XfW/fg2to=;
- b=CVnZomWx/fgKtjKAKqF/KDfnotzRR3ZNEXc3ugbqiuvS7Dcwd6Q2tPMeTdEulISTnjVy0+Tb8Ke56jiVP7IcKZ9MKIlY2sKaALvjhDUEeyahKN8tRcA6D2o40Wr8c5k7ryxgSnU0RA378Tf3sDk5rxYSpD5J5MxMhTcyB4swsn5WR2ap6pKUXHR8fzlnh/au/3ncC0L/39xU4S5n+KgwWHr4VxdjxisgDbFtlsd5f05jtgvffZ2V+tsu+2XHlSDHprJ69BUUQKhQsXvlEkGoAg+Vb0i9FFBUVx7Qnw7avckVxk/lxX8kS96c8FBLqNBc6fmoWaV6uLdaVZdwjGZYCQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by DM6PR12MB4403.namprd12.prod.outlook.com (2603:10b6:5:2ab::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 09:03:41 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Mon, 2 Nov 2026
- 09:03:41 +0000
-Date: Mon, 2 Nov 2026 11:03:32 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
-	netdev@vger.kernel.org, stable@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>, Florian Westphal <fw@strlen.de>
-Subject: Re: [PATCH v2 net] inet: frags: limit the truesize of a reassembly
- queue
-Message-ID: <20261102090332.GA807674@shredder>
-References: <20261030081225.2575462-1-edumazet@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030081225.2575462-1-edumazet@kernel.org>
-X-ClientProxiedBy: TL2P290CA0018.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::17) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=P2qMmQj5
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A24E9DQ1880646;
+	Mon, 2 Nov 2026 09:03:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=m1zvCruayUhHboin3zC+yeWKCtDoDE
+	DlkJlz+MHWjfE=; b=P2qMmQj5Mqym9+ZivkqWoVAfzTUqqO7waB32STjEB5nQuj
+	oPVSJIjT6InF6xqTvyxXix1NJ8/Ld5FU86dRQb04mz+6jdegN9qmMK1azFegA+Pg
+	37DjczyG7MyVSFsw/M0Izy+bj9oM4wYYns+Rn5p4CMEV0U7pl940wRS2k5vxzKZO
+	d+9upI+EE5ME5moOYPEA7C2ZFK4eczk2FlSnzgT135xWdL8Ew0ZtdOxd/TCl5XQ7
+	GyDw8WwwDlYx0bBGm9z0oX9Ek5NvfXZnw1LYdwAAtduC/H5/QOr6T8HU7mNEOPBB
+	wkq44hgGivsDQSAPtMHzsHul2Z6De4dWBHlxk2gw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn826fksk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 09:03:38 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A28El823364311;
+	Mon, 2 Nov 2026 09:03:37 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hnvvfmvr9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 02 Nov 2026 09:03:37 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A293XgB29753720
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 2 Nov 2026 09:03:33 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A9ADF20040;
+	Mon,  2 Nov 2026 09:03:33 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 88C0920043;
+	Mon,  2 Nov 2026 09:03:30 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.25.78])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  2 Nov 2026 09:03:30 +0000 (GMT)
+Date: Mon, 2 Nov 2026 14:33:27 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, sshegde@linux.ibm.com, nnmlinux@linux.ibm.com,
+        amachhiw@linux.ibm.com, harshpb@linux.ibm.com,
+        linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+Subject: Re: [PATCH v4] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
+ by LPCR_MER bit
+Message-ID: <auhH-WvGCCyH3bpT@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+References: <20261005084534.1588611-1-gautam@linux.ibm.com>
+ <4ie3w72g.ritesh.list@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,82 +96,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DM6PR12MB4403:EE_
-X-MS-Office365-Filtering-Correlation-Id: e45417e1-6e2b-48ee-5cba-08df38c030bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|261021121427099003|261022075727099003|261026121527099003|261022105027099003|261026140227099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	iUkbshZm86u5fMXbJjzoOn8zShqgjOm1TljlKfPNSBl70iJCbMDsBPN38TalzYrQUM1Ism5SsfrWBNWtabVYgpMfcZtbklkEcVXEgim5P/ULy+DGf2tlVaa7q7t5u+2nBqD/5dqtnJ3PJToGJm6yChGDxDQtdspl/B0+kf61s9+DyEcGM68wSFsQHnzP6hxoFgWECJyx9IbJ7c0IqDHLs98hDszHhQRNPRLN8ftnrHkzCG0f7wG2cgZ2s5+qltZIxkLM+Pl6lbzYbLBsx3PBFwna8jzUunlY4I1adTfKRPTtJ7dAVuEVGk9Xhc78kiyxhW41D0j5GJELfBdavJ38Kf3nEKLycrQPYqoGfq5usTRL2yyIwDFuoR4lkKHR6fSAL8L23JVau0gV0WDoIA0Y88aCDRZKMnyWbsspIQZgkk9oMC7q0RfzGZaZN+SjjUrylKR3Qj7I0Jdh3QIyFf2dHCweTpdvpfO6R0bVCJcjeyh6oQ02NFXpzmzB7rgT5vigPKk5OKTLPV4kokWqmNumzagSHYXQtOoG3zO1fuD1a5tDXK6YXJpzAbSk2gqen5DMO6A56S1Tbqd/FCuOHm/C4GmwOZiq/9kWFBr8pybA24yEhq2HSygQzO25CBlr5wB7pnw33qeHxTvzoxdrt9EWX8ILwXmWQc7nnKgGAiHVV4o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261021121427099003)(261022075727099003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?lnSgFvZ+lCvfMkhhuFiRdT6L2f1A8jOagu/MFFPtaR5pNCEE2t2787tPpZ9q?=
- =?us-ascii?Q?OEUJNTrH2UsfcjAvFVdR/NiJX4Zx+E+GMWN6kC1h6+DokEJ/6ne8qp8ij2fb?=
- =?us-ascii?Q?6fWW0CEyIqIWYDGe5N4RZKsw/AvN2wGmYV5vEX8frGA5FW44cDZXxfANtYhz?=
- =?us-ascii?Q?bYjMfdI5k3JS4ZReNY6HBwi572PqPlM3RbR5/NpqI98nWI2VqX96ug4ufpMu?=
- =?us-ascii?Q?MYdjc2g+9jnIFuPgwwhLKd/cXQZg1n0H743GPSYRHWwSVRjgMO8LrZnSJxH/?=
- =?us-ascii?Q?HRX8GRafMOf0k8KeU/6VjNYNhg8fCSRo1Hx1IDI2goUyuIh+ZXe5cIfC7mqP?=
- =?us-ascii?Q?cghQURX8QImpsUkuFbiuc+/SpI5wTSpDqSxEPAnk6xELxSdZQpOdOkNTGZ31?=
- =?us-ascii?Q?t9YekGuQVDTowOyuDzy3K5TCDQ+VvT3abBzQyjCg8/ERXYAK4PHqosG07Kzu?=
- =?us-ascii?Q?WWdsy0hpDJ15y2s0nbNkX08DNWZYGCagc83llVdhoWQ8hWdO30ctk2B6WuWb?=
- =?us-ascii?Q?jsngipcQzqenVPbjMIn/PeNxILc8VCtiLcon9r2uY6Mwy2RVIeK2+u2M2FZd?=
- =?us-ascii?Q?eUVsmifwMC6JRW0x4qywdVWYlI/ReJh5Njbnv+pHKjSc7oe3jXSuLwvLp5cK?=
- =?us-ascii?Q?8ZrAVfPtHRwoTEwePei9LgG0MGMzVPAZhj7cJDzaYXHRgU4T0468HoPExy0j?=
- =?us-ascii?Q?3GH/VcT0VAx+Aj1zTjxyYcV48JCMJ6Ed2x7uatlzrYxHnsaw/FXXBGAJVTmm?=
- =?us-ascii?Q?Zud8Zud31oI9IElE85a+Pfl+RKAwzoxeHYBDqxi6ncZBaNnqKLytXgZHzih6?=
- =?us-ascii?Q?/N9bRCxQHeoceZsGbF+iIMe9ugCv86jtE4I+EBI/LH2rbJxZkbux7l2veMSY?=
- =?us-ascii?Q?bGtvGthwRxAjZl47i5wbYx6D8iehUiNbum3JwZfPWftB/WhfzJW02FTnXJfD?=
- =?us-ascii?Q?DZ0ntiIz4azMg3QaPggbvwS1MAgQQZ3vMGzAuZrFjfOInpumUcZTTQJQi9pY?=
- =?us-ascii?Q?7NpTxpp65pZKO2ox0DrS5US9DLzsj+0rU7nBh91QEXg7j/qKMjUGArJRd9tt?=
- =?us-ascii?Q?ESJeTQNbbMkuhKpGIEnsoi+KP2+Ql9Unyd3/VM5oIs/f/ZuBGAKxgVEgrD99?=
- =?us-ascii?Q?wuy9TTTIIZTR0N9YNyHZ5idlW/5xZewdaQM4K5Act1kVl7wnRPQ8gcwrPnNN?=
- =?us-ascii?Q?ktIov9+IKv9ZAtpLJE6zWhNMIi0Y9eMSlLj1eGlPAX7tT/gdPxhkls+nTITA?=
- =?us-ascii?Q?vPxvWhGKcK1+aRrd+zjreKWREkO93JOAvySrajKZz5mO/3nDc004DtWhTjeZ?=
- =?us-ascii?Q?Z1vE+gxD1ho+C85+YSTtL6GPgDUAmkkOkIl02u5fpFzuklfjE5oGxU/Hxvw1?=
- =?us-ascii?Q?WybwPqCPGg8LFW1dtC6UvJ5O4Bgue479xLZuudAiBjDCZSBh/vmndq/f37UC?=
- =?us-ascii?Q?Jsr3pVUyu74At19lDvixEp8rvJ8i+8XPJWLuBiuHlaw0Er3iWReA8XHl3PAj?=
- =?us-ascii?Q?G61ZpFXzrmD4rctF8Pg2y0pO/nD9t7uxriLJVi/S2EnrJX9rlTM373MB6enS?=
- =?us-ascii?Q?pinnOSTEi7r/rt+pVbXRMKVSRddTGwoBNKVyuYc97XpFai+IuOyxH4Jx/OHS?=
- =?us-ascii?Q?j2Mjxqj8GUymd5EwCEdRfwlH212fcFfS6pb36euaqHkOUXbCj5TjBqvh0YU7?=
- =?us-ascii?Q?z3YrzSYF4fAVG2gsvfEr4L9eDaVoWFyEckSmHScp6OgwB5Gy?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e45417e1-6e2b-48ee-5cba-08df38c030bc
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 09:03:41.3319
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AlmkV9Wmt9g3WjltCnzE+H7r1BKSKAFH/vY4OOMZERaEUIn3BN3kz63XWZdd0DzpS67UwBtz5knMDcD2lmUZxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4403
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4ie3w72g.ritesh.list@gmail.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 0XLex7mZ7na53NJdxB24aY6HhzAUWF-d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzNCBTYWx0ZWRfXzOzK/Dv8md67
+ HOrl+VHRLB/K0FFNPeWiuDrA8ViFEdVY7/wOYgXe3IMoxq9AF6kNk8ZxRjF41gKUGF7a84WI7U9
+ ivQX+vUqrj6Z/NlQh8L7w/DHO685b23nofohdrJVudHqTIQzskFmhn1aTVYhPZElN2A6RvGesij
+ 8yUzSh0bOuyUa40S8Zz05ZS0O5thwFAElN4Q48T3fr3Y0zt6XXCktGLmapyUL3PX0OBlxSks+Ks
+ NcYpVIzCmGg4VQiulxUxkEW2j/3B3Ekjy5AvCoz9TeQ0KGvEIr27T2/WMiEvUgsKLXUQWRdk3H/
+ u1Uvf5xrUYUzZjw8iGjm3/TMC7dh/iwDsazH8MNGQLaT/Pv2SF+jc1yJYwhK70+4QSlrcFkBXL6
+ QK+0tfbOe1s/maclj6bvaGNM5gQUIPVMDIDHjUdvnIom4quVXwa0uxKYvuJzVrpymdicnkFCPEr
+ 9tWYxFdiLl+v97U4eNw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzNCBTYWx0ZWRfXzIokJFQevH8F
+ ucgQW+IpH5BUC2ImAmukgOEDyeqTp2INlrS0oTRv+cIBKglF8ifrWAM5sAE0r6E5NGZnEqehuoV
+ 2UPqNPY/XDnioE2jeqUm/TYUnhWJ//o=
+X-Proofpoint-GUID: BVQJacYERLayZ0Ufz2Rlq9C92b8wglK4
+X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6ae851ea cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=yKAn6K1XAAAA:8 a=VnNF1IyMAAAA:8 a=_AprYWD3AAAA:8 a=g82gFZNCn_a7IaLBBk8A:9
+ a=CjuIK1q_8ugA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020034
 
-On Fri, Oct 30, 2026 at 09:12:25AM +0100, Eric Dumazet wrote:
-> The truesize of fragments in a reassembly queue is only bounded by
-> the per netns ipfrag_high_thresh sysctl, which has no upper limit.
+On Fri, Oct 30, 2026 at 08:48:15PM +0530, Ritesh Harjani wrote:
+> Gautam Menghani <gautam@linux.ibm.com> writes:
 > 
-> inet_frag_reasm_finish() sums the truesize of all fragments in an int.
-> If this sum reaches 2^32, it wraps, and the final sk_wmem_alloc
-> adjustment of the socket owning the reassembled skb can cancel its own
-> reference, leading to a use-after-free of this socket.
+> > A huge number of spurious interrupts can be seen immediately after a KVM
+> > on PowerNV guest boots up in XIVE mode.
+> >
+> > $ cat /proc/interrupts  | grep SPU
+> > SPU:     223705     192439     273526     147623   Spurious interrupts
+> >
+> > This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+> > Handle pending exceptions on guest entry with MSR_EE"). The root cause
+> > is that once LPCR_MER bit is set, it is supposed to be reset by
+> > software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+> > not exit back to the host until the decrementer expires or there is an
+> > hcall, etc. This is because KVM on PowerNV guests have support for
+> > native XIVE, so they are not dependent on host for interrupt emulation.
+> > Due to this behaviour, a huge number of spurious interrupts are seen
+> > since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+> > vCPU exits to the host.
+> >
+> > Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
+> > available (currently in case of KVM on PowerNV only), as the XIVE hardware
+> > can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
+> > functionality is not required. This reduces the number of spurious
+> > interrupts drastically.
+> >
 > 
-> This can be triggered from an unprivileged user/network namespace,
-> raising ipfrag_high_thresh and using padded TUN packets, which keep
-> a large truesize after being trimmed by ip_rcv_core().
+> Make sense. 
 > 
-> Track the sum of the truesize of fragments in each queue, and refuse
-> a fragment that would make it bigger than INT_MAX / 2. Callers kill
-> the queue on this error. This bound is far above the needs of
-> legitimate traffic.
+> > Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+> > Cc: stable@vger.kernel.org # 6.8+
+> > Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+> > Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+> > Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
 > 
-> Fixes: 18685451fc4e ("inet: inet_defrag: prevent sk release while still in use")
-> Cc: stable@vger.kernel.org
-> Reported-by: Kyle Zeng <kylebot@openai.com>
-> Cc: Florian Westphal <fw@strlen.de>
-> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+> 
+> > ---
+> > v4:
+> > 1. If interrupt mode is changed to XICS during guest reboot, MER should
+> > be used. (Amit)
+> >
+> > v3:
+> > 1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
+> >
+> > v2:
+> > 1. Handle the case where xive_interrupt_pending() is true and also the
+> > external exception bit is set. (Narayana)
+> >
+> >  arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
+> >  arch/powerpc/kvm/book3s_hv.c       | 2 +-
+> >  2 files changed, 8 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+> > index 169ea6a7fbad..9178406dc365 100644
+> > --- a/arch/powerpc/include/asm/kvm_ppc.h
+> > +++ b/arch/powerpc/include/asm/kvm_ppc.h
+> > @@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+> >  	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
+> >  }
+> >  
+> > +static inline bool kvmppc_xive_native_enabled(struct kvm_vcpu *vcpu)
+> > +{
+> > +	return kvmppc_xive_enabled(vcpu) && vcpu->kvm->arch.xive_devices.native;
+> 
+> I was checking the code and I am not sure whether we need to also check
+> for "vcpu->kvm->arch.xive_devices.native"?
+> 
+> Can you explain why do we need to check for xive_devices.native pointer
+> to be non-NULL? Because if we don't need this then it simplifies the
+> code as we can directly use kvmppc_xive_enabled(vcpu) helper.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Yes you are right. I wrongly assumed that kvmppc_xive_enabled() returns
+true when kernel-irqchip=off. I was printing the logs for
+vcpu->arch.irq_type for every scenario and I guess I must have looked at
+the wrong logs when I wrote this solution. Will send a v5.
+
+Thanks.
