@@ -1,74 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613675;
-	b=smKOJ4p74TaHPJuAmS1SJT5qFOSXaeFDJ5QbNGeDHNbHsyzOSlBayME4HpQ8FUI6PkMb
-	 kctpOIw2VT0KFwU8p7fGYoBHcosoSau3ywGsjCIXUArcuN7CKHJZHH+TQxIORO2HmknCs
-	 hcJyU/zZOii0UFGn9T6k9aB6UJ9W3SF0whJ9yMNyKiJJg9qA8GZ6HoIEfGbCH2hLldV2E
-	 vpORzGhTt4doYJchButkCwUtkaybrxlk4PFmFw0643vY7hL43X1r0ZXqWUnUZkRvylcG3
-	 ox/jxa3NwaYnYo8v4fPoUvhdJPIrvIy8J2yifcv1WeOnjxFrEnBhxiNl4cYp3TwT5CQ==
+	t=1793613677;
+	b=ok/Nn9MvOCAJGseLzs1WDMrBB+HJSkvl0kfsGLmrIUbWgxLEMaZ3/IZKSFQMwKUlGE1H
+	 8ZL1f2hakKORhXn7Xsh6u1czVLUIpO5fQlcRM+/7iZD3YSGwVq7ABu+Yk0wQQ/8Ka89Nq
+	 V1OAZGIo2mP9l6jr3niMdBR3Fler9ymdhgXMtXHVUSL38jJ5q53cHt8YgYNi61DWJAyZz
+	 VwbX1Lhkuq8fJ/wY/EA8ndcsv++7khEtpFhdpg1E3/wfKhFUr7NQdBYll3/NY+5mYqnzs
+	 /DP5dqxpveuGTPQwF9nEDtsni8DSPgv9Z0zN/BDYfVTsPF5whH+HJrt+BXleiIoK43Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613677;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Organization:Content-Transfer-Encoding;
-	bh=y6t9DKjoxmVJ/yUpUxNzjW3BEE2jjsr4Z9f9pVj1FHQ=;
-	b=v3W7j+BHSqvQsCL9qvnVTebPRFrkdCzwZ4ORgX4NYyxGXN3+2LHeJuxUMBg7UTio8L0a
-	 UR6nKoExjJFyL/2vH1B5z79Y90ugQPMEx3lc9wX2S0rvD1W0Z3u/sFxXpg4BeXDubX0PM
-	 PpY40GGH/xu49DXa4oxvlQFhzgnPHepkaqZE+VBJSE2DivweUrbI8cFuoo6or/V+MmATi
-	 CjS6IbOCfVEtKjh9hi5CflKCSDhKC8hbE5Mbhk0CnE990/VH9GL+FIQqPGvgEE5ykYfBV
-	 UPVDjbPkMKE8+Mh+kn/x1PrUVxZH2WIoyUufjN4kDuLOzWWGGHfraoMSStmA+rARt8g==
+	bh=cByQzO6Os6u3LxtIcpZF+DRtcySvIenu7npD2SYFMWM=;
+	b=iV0Lb7FIBI2rakM/oARV4zTRRkUuJmnthLCDIRkh9wiJenCMu92WX9C22wqISOxSKngf
+	 rrv6pLDiGNTqPUCLxURcnoDlVvZQlK7mIpo2oO8nsLvRXAu49HJ0NXdtV915KDoT3KPci
+	 TFbFcXOz76W+pquSugSDYU1JGNaPoq7dZNvtb5S/7RuN6kqa9VdCV48FavIozxLVFLH7T
+	 ZFdeOtyVHJ3k0vfYo4Z5HaG2uvj+EWCfPxh7fJVz7UtaKkRk/Afkz8tpgesJgNxKso9+d
+	 ujtJOmTKUdUnExncuAnIefnLuabpcaM3xK0ove6hSLkbQfMIatbNBJGwBgKlD6RB09A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="HTSZnxa/";
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LJqQmDqA;
 	arc=none smtp.remote-ip=192.198.163.10
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A127606A327
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:01:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A127606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB03606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 10:01:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AB03606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HTSZnxa/
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LJqQmDqA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793613675; x=1825149675;
+  t=1793613677; x=1825149677;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=9ceAY1VV30ShnVeuRaMeV2/Ycz5KJfv1lgnbnTg4kO4=;
-  b=HTSZnxa/3KwJuu9u7KDMWgGyxOfAtr283cDkeisCWGka2Ku+m3nXfbi6
-   7r8s3N/E9JVUKM9Ey+BKJJk4olj/0Ss3KUYnsXhVe0//s1Tibh53UXMnD
-   cSfMkLSNVutZ1VJ0yNHVy9xgl03jtn7mRXnqHsqmdO7xLKooor6xNkn+u
-   y+eo0YhE4DAJ3gmmc/Stoy+Qv7uddRRX9AUCEHsgq1pyK1U21j0zfn4tn
-   qoZ/sIXs8hIYgMFJt0SelWc7JcNc9cCfk2KdG0rvbjdvD1qlVBf5ERjIA
-   UzA+Y7OA7HMtCYeytHGN4YDdIZQWtosiSJOlH6fi5/psTiebdLuUBfbpg
+  bh=CJjIgQwllb/VJ7iOirq+DE/kFnmktrx1yDQeBxDtEvs=;
+  b=LJqQmDqAXxXV8KQuKTHPK5BzZmdDY8bB+oJV37TgaI14exxT4a2ibIig
+   uzEijBMQKdoRWMYtdEKurGkfuIhYmfso+Lqn+MkAGf75z9oLnwHD5qvsF
+   613FTCeEcBJ/ZawtqUTyEl2m/4sLofsieMoW7bD+b7CV282HnR3cd8W6p
+   WGNMvnFjpFiBkpxHFhRK50uqChodIbFg+37F8YwaSUmYV1oWQbE9lRedT
+   mQ6RKzX+jBr81RNo0mS1dYcC5E5Yiu131hdDJipLjt6JYVpJPnkR7I+r4
+   dRPxR0kbMGBeB8EgbUbuhVG3D8rrnUE9jZzYLKur3ofCUiEW6UZsU14h6
    Q==;
-X-CSE-ConnectionGUID: txyYcy7TR06A0xP//Mq/jA==
-X-CSE-MsgGUID: K02Z3Y4tTPKxui9Zpg3lCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2204604"
+X-CSE-ConnectionGUID: OHf2WtfNQoSSU+8oHwD/Aw==
+X-CSE-MsgGUID: Lc8tVK2mT1G+fdABdKa0Xg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2204616"
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2204604"
+   d="scan'208";a="2204616"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:01:15 -0800
-X-CSE-ConnectionGUID: uu94D5AERiKGUUldERdgYQ==
-X-CSE-MsgGUID: fKHlAxCfStms2W3lx7S53A==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:01:17 -0800
+X-CSE-ConnectionGUID: Q72+RnhtQHyKwm+XWpQuLA==
+X-CSE-MsgGUID: 6IcwmTSdQs6a8gc1kDvUXg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="6068346"
+   d="scan'208";a="6068367"
 Received: from bradocaj-mobl.ger.corp.intel.com (HELO jhogande-mobl3.intel.com) ([10.245.246.122])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:01:13 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 02:01:14 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 3/4] drm/i915/psr: Clear CFF state on flip flush
-Date: Mon,  2 Nov 2026 12:00:50 +0200
-Message-ID: <20261102100051.272137-4-jouni.hogander@intel.com>
+Subject: [PATCH v2 4/4] drm/i915/display: Flush the fbdev frontbuffer
+Date: Mon,  2 Nov 2026 12:00:51 +0200
+Message-ID: <20261102100051.272137-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261102100051.272137-1-jouni.hogander@intel.com>
 References: <20261102100051.272137-1-jouni.hogander@intel.com>
@@ -85,74 +86,73 @@ Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 
-An ORIGIN_FLIP flush can clear the last busy frontbuffer bits without
-running _psr_flush_handle(), leaving the CFF state flag set.
+fbdev invalidates on set_par, blank, pan_display and restore, but never
+flushes. On i915, unrelated rendering may clear the bits; Xe has no
+ORIGIN_CS invalidation, so PSR and FBC can remain disabled indefinitely.
 
-Clear CFF state when no frontbuffer bits remain busy, and queue PSR
-work only when inactive and not paused.
+Flush after these operations; they are already complete.
 
-Fixes: 805f04d42a6b ("drm/i915/display/psr: Use continuos full frame to handle frontbuffer invalidations")
-Cc: <stable@vger.kernel.org> # v5.19+
+Fixes: 44e694958b95 ("drm/xe/display: Implement display support")
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: <stable@vger.kernel.org> # v6.8+
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 29 ++++++++++++------------
- 1 file changed, 15 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index be1edd9099fb3..bd16563603249 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3798,12 +3798,6 @@ static void _psr_flush_handle(struct intel_dp *intel_dp)
- 		intel_psr_exit(intel_dp);
- 	} else if (intel_dp->psr.psr2_sel_fetch_enabled) {
- 		/* Selective fetch prior LNL */
--		if (intel_dp->psr.psr2_sel_fetch_cff_enabled) {
--			/* can we turn CFF off? */
--			if (intel_dp->psr.busy_frontbuffer_bits == 0)
--				intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
--		}
--
- 		/*
- 		 * Still keep cff bit enabled as we don't have proper SU
- 		 * configuration in case update is sent for any reason after
-@@ -3859,13 +3853,8 @@ void intel_psr_flush(struct intel_display *display,
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 219ee17de3f68..c09246a9865cd 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -75,9 +75,10 @@ static struct intel_frontbuffer *to_frontbuffer(struct intel_fbdev *ifbdev)
+ 	return ifbdev->fb->frontbuffer;
+ }
  
- 		intel_dp->psr.busy_frontbuffer_bits &= ~pipe_frontbuffer_bits;
+-static void intel_fbdev_invalidate(struct intel_fbdev *ifbdev)
++/* The console operation has already completed, hence flush not invalidate. */
++static void intel_fbdev_flush(struct intel_fbdev *ifbdev)
+ {
+-	intel_frontbuffer_invalidate(to_frontbuffer(ifbdev), ORIGIN_CPU);
++	intel_frontbuffer_flush(to_frontbuffer(ifbdev), ORIGIN_CPU);
+ }
  
--		/*
--		 * If the PSR is paused by an explicit intel_psr_paused() call,
--		 * we have to ensure that the PSR is not activated until
--		 * intel_psr_resume() is called.
--		 */
- 		if (intel_dp->psr.pause_counter)
--			goto unlock;
-+			goto rearm;
+ FB_GEN_DEFAULT_DEFERRED_IOMEM_OPS(intel_fbdev,
+@@ -91,7 +92,7 @@ static int intel_fbdev_set_par(struct fb_info *info)
  
- 		if (origin == ORIGIN_FLIP || origin == ORIGIN_CURSOR_UPDATE)
- 			psr2_dc3co_flush_locked(intel_dp, frontbuffer_bits);
-@@ -3877,8 +3866,20 @@ void intel_psr_flush(struct intel_display *display,
- 		_psr_flush_handle(intel_dp);
+ 	ret = drm_fb_helper_set_par(info);
+ 	if (ret == 0)
+-		intel_fbdev_invalidate(ifbdev);
++		intel_fbdev_flush(ifbdev);
  
- rearm:
--		if (!intel_dp->psr.active && !intel_dp->psr.busy_frontbuffer_bits)
--			queue_work(display->wq.unordered, &intel_dp->psr.work);
-+		if (!intel_dp->psr.busy_frontbuffer_bits) {
-+			if (intel_dp->psr.psr2_sel_fetch_cff_enabled)
-+				intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
-+
-+			/*
-+			 * If the PSR is paused by an explicit
-+			 * intel_psr_paused() call, we have to ensure that the
-+			 * PSR is not activated until intel_psr_resume() is
-+			 * called.
-+			 */
-+			if (!intel_dp->psr.active && !intel_dp->psr.pause_counter)
-+				queue_work(display->wq.unordered, &intel_dp->psr.work);
-+		}
-+
- unlock:
- 		mutex_unlock(&intel_dp->psr.lock);
- 	}
+ 	return ret;
+ }
+@@ -103,7 +104,7 @@ static int intel_fbdev_blank(int blank, struct fb_info *info)
+ 
+ 	ret = drm_fb_helper_blank(blank, info);
+ 	if (ret == 0)
+-		intel_fbdev_invalidate(ifbdev);
++		intel_fbdev_flush(ifbdev);
+ 
+ 	return ret;
+ }
+@@ -116,7 +117,7 @@ static int intel_fbdev_pan_display(struct fb_var_screeninfo *var,
+ 
+ 	ret = drm_fb_helper_pan_display(var, info);
+ 	if (ret == 0)
+-		intel_fbdev_invalidate(ifbdev);
++		intel_fbdev_flush(ifbdev);
+ 
+ 	return ret;
+ }
+@@ -180,7 +181,7 @@ static void intelfb_restore(struct drm_fb_helper *fb_helper)
+ {
+ 	struct intel_fbdev *ifbdev = to_intel_fbdev(fb_helper);
+ 
+-	intel_fbdev_invalidate(ifbdev);
++	intel_fbdev_flush(ifbdev);
+ }
+ 
+ static void intelfb_set_suspend(struct drm_fb_helper *fb_helper, bool suspend)
 -- 
 2.53.0
 
