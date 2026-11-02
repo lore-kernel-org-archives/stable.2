@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793659190;
-	b=E7wC5Fg/RJS4xq5qLRf97yIZZMs1TJskAyYoUWc0UzpNrDvNVta9Y02OQgxtogJbj5iw
-	 31PRBw0zL5/mJdm3DescXZkDIfUbhNVgE4cae2X33nNE9+bDaAvYkwHUY5byQbBZ5oLLo
-	 +P3HWVLXF2THCJqHwsr8xhAuP2uTdlQRbffaF+1d5dCRFvOBElfpeTzxNHamFGr4BjS/P
-	 37+RAtlRzU0ukKh8F/nz58lm0QL1DQ5xvhfiUYEL8uLEp+z3E4n0IosxaE1rbaohb6f3a
-	 TnzZi0zNKJRi9c+a+Vmj6COZ6VVz/epu6JaPY6KgCq3Dgp3sF5GIZ0xoMtnNcrT4YlA==
+	t=1793660458;
+	b=yVBqXjM4a9sSd06JHJBvxnihHI9qM+gSFDBgzKxI5cLsD9whY/QyAODn5ORl/iGJ6C4k
+	 64z+FHii9d7147BZCSBcGRwR9Cm6hFNH7MTyuscWY4pTzzLHQhFMUzFLvBjhWVZf6IL+E
+	 gKGH+2hK4E69OEIEdCk8S4tHTS+ZWWzHxeOaoverggcqZvRcC7MYZSKDbXNzB9dCY4kAM
+	 zAhQJ3kR/LBsvay03Ephd9Ss3Y3+AjjceC4OwEgRPI0xvO8P3GoIoGLXhUYml5NMB1joD
+	 l7uzUxi2vXN+9xtRfQHMV32eOY1cPQnPDmAjJRklM2V9DoqQBA7SmcTjYMMPjyaI1CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793659190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793660458;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=U5TiAoAd5cVqE1NQgjUPAZnz47J4i+jszOLVy5sh2PU=;
-	b=EEKD0w0dFTSy8b2vtWRdEsmxemc6sL4g9N8P4rq7ukIHIxmRtq8kTAZmiA8QmR5SUTwQ
-	 HuiiGC7yCi58pS5577+maI+3IlDIlGGdwZ411HDlNQb5lfDI6EwUW1cj0Wm43fqpogQMn
-	 IBw1fGXeyUj+Z2mr30xgUriVUXGF+jrU+05eJcFrw2vkNDwVhX2JRNaTk1IkuRBscUDee
-	 A53rBZmKiP+NNJMv82Cu9FerLstxTqm9wvD+bwfoqj5um30DQg+EIleAV6YjKnxoP3WbW
-	 2L5hoGDDhHf611k7abVjGyJxY/E/Fw1vfXsMKfx/BGVD1tXAuPtK3v7xu88VBulmhuQ==
+	bh=v9FoiQ0Bda4AOHHLTuZWnGDukyDMUCFy7/0BGVhTX3c=;
+	b=eO6iJk+JremMOFASMaoCK9XYAleAiwnIvWt5OCNlK9evPGBGpgl8EJJ6mNz+xGLFpNgr
+	 LDSgRm1Ui7t0tg2nylIGUU9o2irCuP3Qgqiif+nYnDW0jCPLU8h2KNpe2FHYvcE0Or1xw
+	 hq9ychv4/MmUEAAvqHRCQjn68PQ+rVF8sTE4rDtVadqtMz0jgDKTRJk8Ut1xs+OdNkppV
+	 bTgULEHly2b+XPtPgsn9pUEX8dc6CTliLIpLAV7SuriT2aGqfNbVvgAnuTb6snQWx/+Kp
+	 guA2yCvHiE0gYHoUowy8vM5pvdaWK46Pd2wvMwe2lhP/WOz2ndpVhKiGkpcbOLMFUig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxjRnBXo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5qqVcRR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2582E606A324
-	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 22:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280A3606A326
+	for <stable@vger.kernel.org>; Mon,  2 Nov 2026 23:00:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KxjRnBXo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4654F1F00A16;
-	Mon,  2 Nov 2026 22:39:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y5qqVcRR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290E21F00A16;
+	Mon,  2 Nov 2026 23:00:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793659189;
-	bh=U5TiAoAd5cVqE1NQgjUPAZnz47J4i+jszOLVy5sh2PU=;
+	s=k20260515; t=1793660457;
+	bh=v9FoiQ0Bda4AOHHLTuZWnGDukyDMUCFy7/0BGVhTX3c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KxjRnBXoKhqbxq588220rRja5LibgOmEjpjFF907rJ3OL5NQRQhhVXwV5ZCfVgh5F
-	 xTrd3prAKYNBZ52Lhi0m3xgAAMNRm4F141Tgxwfh/6SA/1NR45e6Tn/cv3pR0cYDvj
-	 NWsljWNiY+BrkDqwfeSBFoWsbdc4UtFnEvOvN4ogmGDGVL1xpS1bts+I0dwmE6loaA
-	 sh6LGpPiDIc2BFAR1OOawX4xG4Y4BnE5Q1XfmGtZ7LD6AwywSUgzAjlHfI7MCte2s0
-	 RCKOVgi7k3lkqH492eWX5q1J/fopR9xzXEzvHaaVKzGFyJjhf8wDmqRrlqu5NzatiD
-	 1UUQVb6OXdh7Q==
+	b=Y5qqVcRRMvYLXBarndxslkTMxmRbLi0ynatcrY+C3eel70HvT7i/jM5vijtb8wH6z
+	 +MqNP41mN+L+IrgEjzH3Z1HBZVN1AIlAp1/W/0GyDtSndh/pwkclBqBtQddLPcPyX3
+	 0ZGka5EA5HlJqDmmFseFhDOdYgNpJGPap5RVstueW1+0MP2GaOAFk6Hr2QD1Yl2Ae9
+	 ZVV1tZAZ/17XEUI1LxMaIIknS7PpYyfJHdRH7DjEDkrcC+qYYhd4EUG+q5OgcQePtS
+	 oUvcUMBJENFLo4StuSPBlliWGp0oHQH6EHGYDl6n81Hc7KV8gpBEHsjZt8ZTEZ0Q1Y
+	 EbFpP2FTtblBA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yongjun Gwon <d3bugee@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
+Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ksmbd: serialize directory emptiness checks with readdir
-Date: Mon,  2 Nov 2026 17:39:47 -0500
-Message-ID: <20261102223759.2132920-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] smb: client: fix early procfs exposure race
+Date: Mon,  2 Nov 2026 18:00:55 -0500
+Message-ID: <20261102223800.2124716-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110241-arrest-granny-ae4b@gregkh>
-References: <2026110241-arrest-granny-ae4b@gregkh>
+In-Reply-To: <2026110227-triumph-worry-bc74@gregkh>
+References: <2026110227-triumph-worry-bc74@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,101 +61,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yongjun Gwon <d3bugee@gmail.com>
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-[ Upstream commit 7220980b2423d06a0604516129bfa4cec8a697ae ]
+[ Upstream commit 7b1afb631395c958993cda4631002258ef4151ea ]
 
-SMB2 QUERY_DIRECTORY holds fp->readdir_lock while it calls iterate_dir()
-on fp->filp. An SMB2 SET_INFO request with FILE_DISPOSITION_INFORMATION
-can resolve the same FileId and call ksmbd_vfs_empty_dir() on the same
-filp without that lock.
+Currently, init_cifs() calls cifs_proc_init() near the beginning of
+the function, before INIT_LIST_HEAD, leading to a momentarily
+uninitialized, but exposed, procfs. If a userspace process reads this
+empty procfs, iterating over a zeroed list_head leads to a NULL
+pointer dereference and a kernel oops/panic.
 
-iterate_dir()'s inode read lock permits concurrent readers and does not
-serialize per-file iterator state. ext4 stores its dx readdir cursor and
-fname RB tree in file->private_data. Concurrent reset or refill can
-therefore free a fname node while the other worker still traverses it or
-retains its RB-tree link, resulting in use-after-free accesses.
+For example, if a delay is added between cifs_proc_init() and
+INIT_LIST_HEAD, and a userspace process is polling
+/proc/fs/cifs/DebugData, the following oops occurs:
 
-An authenticated SMB client with list and delete rights on a directory in
-a writable KSMBD share backed by ext4 can trigger this when the directory
-takes the dx readdir path. The client overlaps an SMB2 QUERY_DIRECTORY
-request with an SMB2 SET_INFO request carrying FILE_DISPOSITION_INFORMATION
-on one live FileId.
+BUG: kernel NULL pointer dereference, address: 0000000000000608
+Oops: Oops: 0000 [#1] SMP PTI
+CPU: 0 UID: 0 PID: 3477 Comm: cat Not tainted
+7.3.0-02212-g4df4d2a577db-dirty #6 PREEMPT(lazy)
+RIP: 0010:cifs_debug_data_proc_show+0x103/0xd80 [cifs]
+Call Trace:
+<TASK>
+ ? seq_read_iter+0x86/0x400
+ ? seq_read_iter+0x86/0x400
+ seq_read_iter+0x183/0x400
+ proc_reg_read_iter+0x62/0x90
+ copy_splice_read+0x215/0x310
+ splice_file_to_pipe+0xec/0x1c0
+ do_splice+0x4b8/0x780
+ __se_sys_splice+0x18f/0x250
+ do_syscall_64+0x109/0x330
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+</TASK>
 
-In one x86_64 SMP KASAN multi-shot guest using ksmbd-for-next at
-171df27077fb, the unmodified kernel reported a cross-worker use-after-free
-before a panic. The first report's access and free stacks show the two
-request paths directly (trimmed):
+Fix this by moving cifs_proc_init() down in init_cifs(), ensuring it runs
+only after all internal lists, locks, counters, and workqueues are fully
+ready, but before registering the filesystem. Update the error cleanup
+ladder and exit_cifs() to maintain proper LIFO order.
 
-  BUG: KASAN: slab-use-after-free in ext4_htree_store_dirent+0x488/0x550
-  Read of size 8 by task kworker/2:0/29
-  Workqueue: ksmbd-io handle_ksmbd_work
-  Call Trace:
-   ext4_htree_store_dirent+0x488/0x550
-   htree_dirblock_to_tree+0x535/0x990
-   ext4_htree_fill_tree+0x319/0xba0
-   ext4_readdir+0x175a/0x2f40
-   iterate_dir+0x1b6/0x630
-   smb2_query_dir+0x1003/0x1cc0
-
-  Freed by task 279:
-   free_rb_tree_fname+0x67/0xc0
-   ext4_readdir+0x13a9/0x2f40
-   iterate_dir+0x1b6/0x630
-   ksmbd_vfs_empty_dir+0xa2/0x100
-   smb2_set_info+0x2ffa/0x45d0
-
-Take fp->readdir_lock across the entire emptiness check. This places both
-iterators over that handle's filp in the same lock domain while
-preserving the disposition status handling. The exact code change
-completed a warning-free x86_64 KASAN bzImage build. Tracing three request
-pairs showed that the two iterate_dir() calls no longer overlapped and the
-expected statuses were preserved. A further 1,600 reproducer iterations
-completed with expected statuses and no KASAN report, Oops, or panic.
-
-The reproducer and complete guest configuration are available privately
-to maintainers on request.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yongjun Gwon <d3bugee@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: adapted to the existing directory check without the ksmbd_stream_fd() guard ]
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Adjusted context for absent maperror initialization calls and a workqueue declaration without WQ_PERCPU. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smb2pdu.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ fs/smb/client/cifsfs.c | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 51436cc50c790..7ff5b9b3f243a 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -6574,6 +6574,7 @@ static int set_file_disposition_info(struct ksmbd_work *work,
- 				     struct smb2_file_disposition_info *file_info)
+diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+index 65bf11f606ed4..cfe950e3fb9cf 100644
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -1916,7 +1916,6 @@ static int __init
+ init_cifs(void)
  {
- 	struct inode *inode;
-+	int err;
+ 	int rc = 0;
+-	cifs_proc_init();
+ 	INIT_LIST_HEAD(&cifs_tcp_ses_list);
+ /*
+  *  Initialize Global counters
+@@ -1965,10 +1964,8 @@ init_cifs(void)
+ 	}
  
- 	if (!(fp->daccess & FILE_DELETE_LE)) {
- 		pr_err("no right to delete : 0x%x\n", fp->daccess);
-@@ -6582,9 +6583,13 @@ static int set_file_disposition_info(struct ksmbd_work *work,
+ 	cifsiod_wq = alloc_workqueue("cifsiod", WQ_FREEZABLE|WQ_MEM_RECLAIM, 0);
+-	if (!cifsiod_wq) {
+-		rc = -ENOMEM;
+-		goto out_clean_proc;
+-	}
++	if (!cifsiod_wq)
++		return -ENOMEM;
  
- 	inode = file_inode(fp->filp);
- 	if (file_info->DeletePending) {
--		if (S_ISDIR(inode->i_mode) &&
--		    ksmbd_vfs_empty_dir(fp) == -ENOTEMPTY)
--			return -EBUSY;
-+		if (S_ISDIR(inode->i_mode)) {
-+			mutex_lock(&fp->readdir_lock);
-+			err = ksmbd_vfs_empty_dir(fp);
-+			mutex_unlock(&fp->readdir_lock);
-+			if (err == -ENOTEMPTY)
-+				return -EBUSY;
-+		}
- 		smb_break_all_levII_oplock(work, fp, 0);
- 		ksmbd_set_inode_pending_delete(fp);
- 	} else {
+ 	/*
+ 	 * Consider in future setting limit!=0 maybe to min(num_of_cores - 1, 3)
+@@ -2055,19 +2052,22 @@ init_cifs(void)
+ 	if (rc)
+ 		goto out_cifs_swn_init;
+ 
++	cifs_proc_init();
++
+ 	rc = register_filesystem(&cifs_fs_type);
+ 	if (rc)
+-		goto out_init_cifs_idmap;
++		goto out_clean_proc;
+ 
+ 	rc = register_filesystem(&smb3_fs_type);
+ 	if (rc) {
+ 		unregister_filesystem(&cifs_fs_type);
+-		goto out_init_cifs_idmap;
++		goto out_clean_proc;
+ 	}
+ 
+ 	return 0;
+ 
+-out_init_cifs_idmap:
++out_clean_proc:
++	cifs_proc_clean();
+ 	exit_cifs_idmap();
+ out_cifs_swn_init:
+ #ifdef CONFIG_CIFS_SWN_UPCALL
+@@ -2103,8 +2103,6 @@ init_cifs(void)
+ 	destroy_workqueue(decrypt_wq);
+ out_destroy_cifsiod_wq:
+ 	destroy_workqueue(cifsiod_wq);
+-out_clean_proc:
+-	cifs_proc_clean();
+ 	return rc;
+ }
+ 
+@@ -2114,6 +2112,7 @@ exit_cifs(void)
+ 	cifs_dbg(NOISY, "exit_smb3\n");
+ 	unregister_filesystem(&cifs_fs_type);
+ 	unregister_filesystem(&smb3_fs_type);
++	cifs_proc_clean();
+ 	cifs_release_automount_timer();
+ 	exit_cifs_idmap();
+ #ifdef CONFIG_CIFS_SWN_UPCALL
+@@ -2136,7 +2135,6 @@ exit_cifs(void)
+ 	destroy_workqueue(serverclose_wq);
+ 	destroy_workqueue(cfid_put_wq);
+ 	destroy_workqueue(cifsiod_wq);
+-	cifs_proc_clean();
+ }
+ 
+ MODULE_AUTHOR("Steve French");
 -- 
 2.53.0
 
