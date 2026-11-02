@@ -1,67 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793617194;
-	b=N1KtsczOsnAWS9c0VOwYepu++MxI//xMS4cAUGsArmIq4Ywv+arK8lQ6n19ODV7i9n67
-	 C6VXc164IeLV62DogLpGzSWtmAz8w+rRfJs7ere49jvh8sPTee3XSUKw41Z45j4BejWCu
-	 xqahucQelTB+OCy3e/XrB8b2zpXgfA36AlhiJ3tqbWS+CxwvialHpXZVviULuagA9KF4I
-	 9T5Cy/ZtjSyBYdhy1cyDv0Zt3ZXq73o67RnS/EDdFPTfItLJOhjZAPSwH+40WO3cuQ1TC
-	 DEEbzZXD2hEpaLLMSZ+bRsj+HLuXraiksAqNvI1xMkQRpIch+7e2KVDln5zfNl6rlRw==
+	t=1793617495;
+	b=AWI8toVC/zGW6jYY09VE6pqb/n/ghFehlqbJ4Yb8af1ZKrw5X7rN3wUy/AdcxMGzSe5w
+	 GOs+p+QvB6X5AWxZMBMADOzgGNBW5IFImZOm1lop4YR5s/qsjByMD0oO5Kgu08FTytn3M
+	 5eERwV3dnzOhNm3Fl95j+SgdletXUNXHfr/InXIIYEgPJz9rbRtKrOxQUFWeIjvajJ1eM
+	 FHmGxcy9gtGDc2aXdJ0WG/V3lM0Bldyn72RtQZ10pJvdzzub29Q8hv+/p4ipVWQMmynJW
+	 Er1GnonctgvsvHMY9iHVOCz8ou3ROw2hB7Y1lDMB7hiHKU5SiiZqKfyj9TPT3qPodCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793617194;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=P64qZPZO4GlROidlqy/ZC4Xy8dd8ETSuahrkhJLhu0dtriQ8RLww70R86FjxiLMO1CyD
-	 n0UbDIQj/6gel9Wa17rb9v3SAN0TDT83/LKlEzIZ5OjN7eEbyfd0hR3YQmmjpj6ukzKqo
-	 rrHYlh3tFKn2p3s7xSErYrSwqtEkGIgtjynfYVdSdbpfKW+APv+7SEt8tRsQshmdmJcDD
-	 84Pp+dCIdLh6d4nNO4CUNIugVKRacYJ2gMItBiLO8/i7fpkyl007+bTbRGz2SQewIv1cK
-	 3WzF07p0Vj6yJ0ToXK0uwoqFW4KEaYz5NDkQMJAi5EYdDzFnb+04ULKZZn74pGXLINQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793617495;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=LPqRgZNT+y88TLNdOciC5FJkUfHSTZkGVyZOZAHnn58=;
+	b=ofvDoaYewUK3ve0KzJUiQcvIcb7LE0ihOpSZqADp2XfDUPlGeCsdvl8ZR1qc6MwfIQHJ
+	 oSbrHKl1RoOn640tNf7+6OW6YbI2z8wNza6dhJ+k+6Zn4GnpydEP76jZG8l3MIaX5rd8r
+	 aWzvym6FffFWXjHz+n6vW0O4/59psj625nfUyLQFPKhZcFGAQHlmK6KO1vHp/1pi+oUEF
+	 HsLfr9JDgB/v4AenznJf9R8eJFdzZ5upg95sdn9Q+F8rHXoUIkYeYAECVhvIAGtPBKh9v
+	 KuPwvjSwHxpQv4UTf9mXlOcxiYloR9Q1ItThXb0g0pCc11a9jANWn/uDjuHu6BXaWCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0+PfY5e;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC96606A324;
-	Mon,  2 Nov 2026 10:59:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d0+PfY5e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD40B1F00A16;
-	Mon,  2 Nov 2026 10:59:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793617194;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d0+PfY5eawxP1NMJaYynJyFmaaYSxb86YjOeWj2GGfa+QApM35uqCO+JlcOjWBzJ/
-	 bdQ3Pfpa6nPGuBpOtsn6pZsYfDYcmqt7RirA3ArGxYgPap2nqx3riOXt87LcTyr7Ko
-	 9hBwIdTb2FqCNHMGCTCPWtDVM85zXKO6ilW00F6ZokwBa+FJFkdOf7lHu6CjUB3rwh
-	 rt+MRkQGgSUxVaQTYimJH5G5Q14p4CocYkjIGMnw6yfMx2gGl8CMIfB9/ThSda37E8
-	 e29eu3zJKwfDDVn+K7dhmiGfbSRfNCq4EFvgqHJX3zXv8xyt/WNgNmMhnLF0XkMfVh
-	 UTpsY9wRl0GgA==
-From: netdev-bot+sinfo@kernel.org
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>,
- "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>,
- Daniel Borkmann <daniel@iogearbox.net>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH net] tcp: free saved_syn after an RCU grace period
-Date: Mon, 02 Nov 2026 10:59:53 +0000
-Message-ID: <179361719331.3286.3030968278177933592@kernel.org>
-In-Reply-To: =?utf-8?q?=3C34f32e63b803f9f7faf0b0a5754219e48a986136=2E1793616?=
- =?utf-8?q?950=2Egit=2Ex-professor=40outlook=2Ecom=3E?=
-References: =?utf-8?q?=3C34f32e63b803f9f7faf0b0a5754219e48a986136=2E17936169?=
- =?utf-8?q?50=2Egit=2Ex-professor=40outlook=2Ecom=3E?=
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 61E78606A324;
+	Mon,  2 Nov 2026 11:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E78606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=LPqRgZNT+y
+	88TLNdOciC5FJkUfHSTZkGVyZOZAHnn58=; b=dRp98pJAaGbULIe3PI5UDxyptn
+	SPjE5tvvIPx0zuJHlRMHIXVFQwvWqCEHJ8VlQdoMCeWZ+xlSOHMfdKu03h8vt+b7
+	UReQDvDA+aFQekdMuOb9DKuXroiKWg/naCmqybopUMmm/4y4fGRnVyIAvZtZWb15
+	HsUupZK7XfjGK99EI=
+Received: from user-virtual-machine.localdomain (unknown [223.160.172.231])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBWdftIbuhqkngZAQ--.18698S2;
+	Mon, 02 Nov 2026 19:04:41 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] Bluetooth: btusb: fix use-after-free in force_poll_sync
+Date: Mon,  2 Nov 2026 19:04:40 +0800
+Message-Id: <20261102110440.2589-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,21 +58,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkBWdftIbuhqkngZAQ--.18698S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFyDCry5AFy5CrWxWFyUJrb_yoW5Jr43pF
+	WDCa4YkrWDJr4DCrn8Aa1xAFyFvws7Xa4UC3429w15ur9Ig348AFyxtrWYgr9rurWUAw12
+	yFn8Gr9I9Fy5CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gw4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUxUDJDUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rnWEKhAgAAs5
 
-Hi!
+The force_poll_sync debugfs file uses the driver's struct btusb_data as
+its private data. The file is created under hdev->debugfs and is removed
+only when the HCI device is released, while btusb_disconnect() frees
+btusb_data unconditionally. The HCI device can outlive the driver data,
+for example when an HCI socket still references it, so reading or
+writing the already opened file then dereferences freed memory:
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+  BUG: KASAN: slab-use-after-free in force_poll_sync_read+0x129/0x140
+  Read of size 1 at addr ffff88800cfb7038
+  ...
+  Freed by task ...:
+   kfree
+   btusb_disconnect
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Remove the debugfs file before the private data is freed.
+debugfs_remove() waits for callers that are already inside the file
+operations, and any later access fails with -EIO instead of reaching the
+driver, so btusb_data can no longer be dereferenced after it is gone.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Fixes: 800fe5ec302e ("Bluetooth: btusb: Add support for queuing during polling interval")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/bluetooth/btusb.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index dc7191bf4234..d928580512fa 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -1066,6 +1066,8 @@ struct btusb_data {
+ 	int (*disconnect)(struct hci_dev *hdev);
+ 
+ 	int oob_wake_irq;   /* irq for out-of-band wake-on-bt */
++
++	struct dentry *force_poll_sync_dentry;
+ };
+ 
+ static void btusb_reset(struct hci_dev *hdev)
+@@ -4560,8 +4562,9 @@ static int btusb_probe(struct usb_interface *intf,
+ 
+ 	usb_set_intfdata(intf, data);
+ 
+-	debugfs_create_file("force_poll_sync", 0644, hdev->debugfs, data,
+-			    &force_poll_sync_fops);
++	data->force_poll_sync_dentry =
++		debugfs_create_file("force_poll_sync", 0644, hdev->debugfs,
++				    data, &force_poll_sync_fops);
+ 
+ 	return 0;
+ 
+@@ -4602,6 +4605,9 @@ static void btusb_disconnect(struct usb_interface *intf)
+ 	if (!data)
+ 		return;
+ 
++	debugfs_remove(data->force_poll_sync_dentry);
++	data->force_poll_sync_dentry = NULL;
++
+ 	hdev = data->hdev;
+ 	usb_set_intfdata(data->intf, NULL);
+ 
+-- 
+2.34.1
+
