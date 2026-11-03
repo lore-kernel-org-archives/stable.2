@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699182;
-	b=Uwp+aDrLkx4I1ctCEw1ubEEbwmXgtC0SPFmCOcabIEf0Rqaq7RX4oz6grLbraujruLQ4
-	 RkYhKMSWN2K0XgwYKxrtTJCDcX0zDwCWJwFRVzn905LQNBjy6j5+FAKhKp/sdJNpRVA97
-	 9rjN35++jPk/P15S+pY1WWcn4OB4uzjLcV6+PSiCq7Je27Eqnd4bRWZRSlQ6GSIXLD3Kp
-	 T4xOkcwrOSsHsYVcjDxybeVS0Hb1EVFD2P3ozi4pvKPuH6Zp9pJ65k3Pu+uZ0w52QjcOp
-	 1L+bUbHPiA88cs9diudgA2r40GPvkb2VuI1ZLnFWJeljlHRN1bIMBspo2PtbFAKht+w==
+	t=1793699183;
+	b=Z4+gZNt1G8xmXVNf9TDD0xaLnMxqjfZqOYajkZ7rSFZROglCO+OiDRi7fcEZ4VCo+/dg
+	 Yh1iCtnVawX68xO1z8VpP/L60ZOWKSKzGvK0W9VvXeP7pTb9WyvWyOB7KWnC1HvKoA7q4
+	 BddHUXqCt3WyX5HE/1LQfvIeE5VQS3s4OThxzDN0AFNKs5Qu3NzfqjziNF5RbotAnV2sA
+	 Bzu2Cy1TXHz4QHwfK9NySNOFjz4HVSL3MYIoGNnTwjFzH8n9iXcJLQ980TjkzOQCCXkVe
+	 C/IXA7+XY+4Sd4M0H7RtTmFfoHNYQGlv7qJSgoTLVX3c/cawCPwf9CVudq0gvi0AkGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699182;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699183;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=iPLD0jyLLDXscwsU39MJP+tXiWc4BE5SrvrcgADe+wc=;
-	b=LaKsItKYmzJCVaGAmpAyke+D2q3Zl3V4h9bLFlMSr6BawEI+3mqKH3sIEnjTxBEMKTba
-	 FayzM3gEx34wFRBcakBWoyv0O+rzk3q8aYh669vjXbl/Lh/eRVyHtQxnr0Llj2zbndMO4
-	 ovK9m8GAOKsJThaCTHBj195U0Kvfjk7bp4361KoMIPmA1o9Fan2Xcqb6oBGSWdITd07f9
-	 A11wBzazjyaYzSkRydxh24kwztynoT3d8YU/QwqqlBjdMCFi9v+77wMMJtqZ6EQ++Imi/
-	 yu0TtTD2XDepOCzD8cpKMmruGfqt0FWPBsltHMbO7P4TTi7wEwS9HF8MlTZqSl6q3gw==
+	bh=5ORrJQp6XZsJHZ9OkOSFRHemmd9KzRteKUY04Ks5P+M=;
+	b=pg9nb8DV9inAyQcWEDhL1i9Rs6HZ0Brlo9fWzRDRfcCzd52D2XaXxd7PiBJMA0hFnpSR
+	 IoNVXCmIv8Y7IkePxqBxVUxibCmdtR2ibG9zO1/+5o8ijP7l3A4laPwFn+hQ5vWjmoYFu
+	 YtoaTxPPn0O/q673C6I+QYYSg2oizU7avVH5DVafs2YlBRaxApYBQLmJUo7KoJh7Gcfek
+	 mZNyBjcvNKyWTTxWMi6NI3wksHXDnUFpS5bPnQNUv7442R9xfQ85EbCUIoozUCHyg+TRr
+	 5Jj9/cCzTG1D51qVgilkiiVyof2wPUtZDIj7GQD9uTELhlhxLzlXqckfasMCrQDFP3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,24 +25,26 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B31D6082BFC;
-	Tue,  3 Nov 2026 09:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B31D6082BFC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB2B6083615;
+	Tue,  3 Nov 2026 09:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FB2B6083615
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wJForelqNE87AA--.2243S2;
-	Tue, 03 Nov 2026 17:46:16 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAAnN5hnrelqMU87AA--.48652S2;
+	Tue, 03 Nov 2026 17:46:15 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Thomas Richard <thomas.richard@bootlin.com>,
-	Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] mfd: cgbc: release the platform device if driver registration fails
-Date: Tue,  3 Nov 2026 09:46:25 +0000
-Message-Id: <20261103094625.1289569-1-vulab@iscas.ac.cn>
+Subject: [PATCH] memory: atmel-ebi: release the SMC clock on probe failure
+Date: Tue,  3 Nov 2026 09:46:24 +0000
+Message-Id: <20261103094624.1289547-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,57 +56,110 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wJForelqNE87AA--.2243S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtFyDGF1UKFWkuFWUZFyfCrg_yoWkZFb_Wa
-	40vr9rZr18GFs2gF12yF1xZryIvFnYgrs3JF1xtFWagrW3XF1xXw15Zr43C3WUCr4rZF98
-	JrWDCFyS9343CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
-	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU1
-	YsjUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpnOFPEgAAst
+X-CM-TRANSID:rQCowAAnN5hnrelqMU87AA--.48652S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXr4xXry7Gr45Ww1UJFy5urg_yoW5GryrpF
+	43XFW8Kr48WF1xKanrtF4DZ3WYk3yxtayxCayxCw1v93W5tr98XFyrAFyIqFn5GFWkG3W3
+	Xa1DJFW8ur4UZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUw_
+	-PUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMAA2rpnIBROgAAst
 
-cgbc_init() registers the "cgbc" platform device before registering
-the platform driver.  If platform_driver_register() fails, module
-initialisation fails and cgbc_exit() is never called, so the platform
-device stays registered and its memory and resources are leaked.
+of_clk_get() returns a consumer reference and clk_prepare_enable()
+enables the SMC clock, but the probe error paths after that point
+return without dropping either.  If the regmap lookup, the
+address/size-cells parsing, disabling a child device or
+of_platform_populate() fails, the clock stays enabled and its
+reference is leaked.
 
-Unregister the platform device before returning the error.
+Unwind both on these error paths.  A successful probe still keeps the
+clock enabled for the lifetime of the controller, as before.
 
-Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
+Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/mfd/cgbc-core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/memory/atmel-ebi.c | 27 ++++++++++++++++++++-------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
-index 2becaf797646..e9c754c97bdf 100644
---- a/drivers/mfd/cgbc-core.c
-+++ b/drivers/mfd/cgbc-core.c
-@@ -411,7 +411,11 @@ static int __init cgbc_init(void)
- 	if (IS_ERR(cgbc_pdev))
- 		return PTR_ERR(cgbc_pdev);
+diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
+index 1e8e8aba2542..f412e53f4199 100644
+--- a/drivers/memory/atmel-ebi.c
++++ b/drivers/memory/atmel-ebi.c
+@@ -562,7 +562,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 	}
+ 	ret = clk_prepare_enable(ebi->smc.clk);
+ 	if (ret)
+-		return ret;
++		goto err_clk_put;
  
--	return platform_driver_register(&cgbc_driver);
-+	ret = platform_driver_register(&cgbc_driver);
+ 	/*
+ 	 * The sama5d3 does not provide an EBICSA register and thus does need
+@@ -572,14 +572,16 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 		ebi->regmap =
+ 			syscon_regmap_lookup_by_phandle(np,
+ 							ebi->caps->regmap_name);
+-		if (IS_ERR(ebi->regmap))
+-			return PTR_ERR(ebi->regmap);
++		if (IS_ERR(ebi->regmap)) {
++			ret = PTR_ERR(ebi->regmap);
++			goto err_clk_disable;
++		}
+ 	}
+ 
+ 	ret = of_property_read_u32(np, "#address-cells", &val);
+ 	if (ret) {
+ 		dev_err(dev, "missing #address-cells property\n");
+-		return ret;
++		goto err_clk_disable;
+ 	}
+ 
+ 	reg_cells = val;
+@@ -587,7 +589,7 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 	ret = of_property_read_u32(np, "#size-cells", &val);
+ 	if (ret) {
+ 		dev_err(dev, "missing #address-cells property\n");
+-		return ret;
++		goto err_clk_disable;
+ 	}
+ 
+ 	reg_cells += val;
+@@ -603,11 +605,22 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 
+ 			ret = atmel_ebi_dev_disable(ebi, child);
+ 			if (ret)
+-				return ret;
++				goto err_clk_disable;
+ 		}
+ 	}
+ 
+-	return of_platform_populate(np, NULL, NULL, dev);
++	ret = of_platform_populate(np, NULL, NULL, dev);
 +	if (ret)
-+		platform_device_unregister(cgbc_pdev);
++		goto err_clk_disable;
++
++	return 0;
++
++err_clk_disable:
++	clk_disable_unprepare(ebi->smc.clk);
++err_clk_put:
++	clk_put(ebi->smc.clk);
 +
 +	return ret;
  }
  
- static void __exit cgbc_exit(void)
+ static __maybe_unused int atmel_ebi_resume(struct device *dev)
 -- 
 2.34.1
 
