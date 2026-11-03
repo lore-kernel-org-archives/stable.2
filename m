@@ -1,123 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706401;
-	b=Pq8DKi3T4ZQGtiONufIUX1NV8njFjqpDrd7+xMsaxmx2q+Bw3RetrKlRYPoI/d0yUQl0
-	 HpzlAGn+6bWAsbJeIpy8s1IVKOG40cr5uS99k+f1IblzF2K9+pKmDY4HXrmcARc8p1ZZl
-	 ISGjG46szqugng88mzcXqzmF5ZM8EyFlReT7Z7gydjWIMkuWWshfzGhInz6qE1L1ABR9H
-	 gh/0RNUVRrFksQRzOHXaWvqyBPBxFCknM+WEic22RuGWm5We7TTDVSwkEql2s99tUwy5f
-	 vUt5fifsbNETkIk/8hexZ+jTRIv+mmo6Hky/7ZXIM6zXvi/9uJw77IwJO8AQAzigoyg==
+	t=1793706472;
+	b=3c+LO1YN2PUnAZ36uzBB511L/JUU35ag2OzKIT8i/E8Po3a7CydUPANH5caJB79tkMxj
+	 XL23s76JRLT3LfY99/+0fMGKFHxjKPAwz+bKcGCq/PAKYUZIef1Ks0Qr2HLX0ZhWFPD2O
+	 ej40xvJlebkK5LD5urT2qjSYL9IRyG6KNO77nZSZKV172P10lOtJ4rr3MES9SfrVu6wm3
+	 DbCrbVowy/WUqdl5G/briP8HOPYDlo2JSsMWlCKXmnF+VgtHvm5GaDL4wPpnDQ6mJF6sJ
+	 kT7PILrNA+fGBZUaKVQUp5J0EmpG/iAMUcnv5WpmSVSCxxbU5NWhkCD9DJOZ26Ad6aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706401;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706472;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=1h7SuxIdXP1BrmLiSW0TA0Y4x+A0dQHqIxOY0fZWzgw=;
-	b=fZaTWVOn4o+9nYOfEBYxSm/Q9Wb9osYd1U5Ygqhx3URarR8615BQiUR4WeC1i7loq9db
-	 jnQyJ0DkxqEG5RRCLikSvsjCoe5/yC8jqboVlS4QuUHL8KdHC02U6c/kEBh89sRDwq4Jx
-	 urqhLkacU3sF8xsf09nvHtTdNeELQ4ZOL0W/eOihPKQOnYd+nXTzxWgDxu5W/E+M/IwOj
-	 OGsSol6BYIHEEkqt7wgxYfAj9h81q3Dy1scbdvEg2YQ6DUt9OiDWAUFgh9IL5cC29Ck9m
-	 POVq51mdmk1QQLPmAH1CSLalMsm2wNo8RoOn+qrqU523cRyMzqUKpYlcO47gMOJANZA==
+	bh=dYjrImbKjvTgduATVWv6BpAbZVCe/ugP8SgqQZOZVmk=;
+	b=y9qZ0+/W1f5T3KYoC+GxbyLq8hBAa6/jAmhaexJzybb6B/LfxUiOO0GXBuuyKgaAw74I
+	 AFBHk/fsBHmABmLoyBEBnrOWnzIwczfMMsvAgLGHKQBaOzdhZlZJeY9gFbMj3RXgDloIP
+	 JFRyYjmiH1h0tpGvIhSqolxIiWI3czsyT93X0x8rQ/loVZmQ9Hnxo7tLdO5c0v+vl54RA
+	 Qts17m1wlxE4yfjNHb9JH0kaPdknez18rCALwhhsa7SNfaXk7NT6e3UhgeohIq01dh9c9
+	 KY378dsgZCQa+8ehLwj3n5jNGYJFMTeHZYqez+/pBupP+i9F0Ephm99c8ghRTFCVwYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.223
-Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b="L0/vJzZ4";
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=pZLy0L9d;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF77A606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF77A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1h7SuxIdXP1BrmLiSW0TA0Y4x+A0dQHqIxOY0fZWzgw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793706391; v=1; x=1794311191;
- b=M5WQx64W3OrKv3IrbfaaaUU8t9LBurF+lIi1NsZf+TH86Tb8kzcQtOfRinqCLkp6vbJeJkjn
- Wdwp+SEY7bV+SCApfixGc5g2PSWIhjsr5o8DnWz2b+eULeX3U8KrowNWRCDh9p9CW2PdjVmXutk
- fgWn2GKcQL5AnmV3qr19TWzU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4c5c651460189e35;
-	Tue, 03 Nov 2026 11:46:31 +0000
-X-Mizu-Trace-ID: 4c5c651460189e35
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com
-Subject: Re: [PATCH v3 41/47] mm/ksm: check large swap-cache folios before mapping them
-Date: Tue,  3 Nov 2026 19:46:26 +0800
-Message-ID: <20261103114626.15764-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-41-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-41-d6437171ecc3@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8409606D802;
+	Tue,  3 Nov 2026 11:47:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8409606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=L0/vJzZ4;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=pZLy0L9d
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793706468; bh=dYjrImbKjvTgduATVWv6BpA
+	bZVCe/ugP8SgqQZOZVmk=; b=L0/vJzZ4PDtJUHg/9NqgCyT0SCD06oYuI6ze0WnUX2pIj/7J4F
+	ZbWF/ZVJW1netL6/+CyF7HHGjNbR10UKgZxVd57fwVGpyfBaeUibpZiUUZvUYglKsZAqD7/Ovu7
+	AOyLeaPlb6rm0glrzY/ROrF5LqKP58CRb/BnKyD/IlBtlJARmOmtDDkQVi5tQkRI/In+McyHa/o
+	05zYhdfjwzXRs0IrtfIgfoYAGfA2Gq0mCOxmmwpIeNZTIZzz1GQAgAMgZgMfjGomNWeJ4krK6qr
+	oLVLZC1JK7b6CxJi4fx9S8JUfNGoD8Usn9LPYHaaQNirxNqxU+QnRJh3AMHzNP6IuPA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793706468; bh=dYjrImbKjvTgduATVWv6BpA
+	bZVCe/ugP8SgqQZOZVmk=; b=pZLy0L9dPusggIsjur5QpHR6mAHsN/+75f0GGHYOixwM7qv5W1
+	9xBFzkcLjYgY7EZNH0amXuLEKQMJf+DPKrBg==;
+Date: Tue, 03 Nov 2026 11:47:50 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: elb12345@hotmail.co.uk
+CC: eperezma@redhat.com, jasowangio@gmail.com, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mst@redhat.com, netdev@vger.kernel.org,
+ peterz@infradead.org, shakeel.butt@linux.dev, stable@vger.kernel.org,
+ virtualization@lists.linux.dev, vschneid@redhat.com, ziqianlu@bytedance.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2=5D_vhost=3A_Run_TIF=5FNOTIF?=
+ =?US-ASCII?Q?Y=5FRESUME_work_in_the_vhost=5Ftask_loop?=
+In-Reply-To: <AS8P251MB0001F1EACBED6E7A2AFA8A96C8692@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Message-ID: <8DACE49B-4588-4419-BB47-4C35F7600AE2@mainlining.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,34 +66,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
+On 3 November 2026 10:54:40 GMT, Aamir Ahmed <elb12345@hotmail.co.uk>
+wrote:
+>Since commit e1fad12dcb66 ("sched/fair: Switch to task based throttle
+>model"), a throttled task is only dequeued when TWA_RESUME task_work
+>runs on its way back to user mode.
+>
+>vhost workers never return to user mode, and vhost_task_fn() only runs
+>task_work via get_signal() when a signal is pending. A busy vhost worker
+>therefore ignores its cgroup's cpu.max, while its runtime is still
+>charged to the group, throttling the group's other tasks (typically the
+>VM's vCPUs) harder.
+>
+>This also fixes memory.high and block cgroup throttling for vhost
+>workers, which are handled in resume_user_mode_work() as well.
+>
+>Run pending notify-resume work at the top of the worker loop, as io-wq
+>does in io_run_task_work(). Commit 12013e3d4695 ("KVM: powerpc: Use
+>generic xfer to guest work function") fixed the same problem for KVM.
+>
+>Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
+>Cc: stable@vger.kernel.org # 6.18+
+>Reviewed-by: Shakeel Butt <shakeel.butt@linux.dev>
+>Tested-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-On Sat, Oct 31, 2026 at 10:40:10AM +0100, David Hildenbrand (Arm) wrote:
->From: Chris Mason <mason@kernel.org>
->
->KSM folios are always small, but their shared swap slots can be read
->back as part of a large folio in the swap cache. ksm_might_need_to_copy()
->skips large folios, so another process can map a page with an incompatible
->anon_vma or page index. Reverse mapping then cannot find the new
->mapping, preventing migration or reclaim.
->
->Apply the same compatibility checks to large folios as to small ones.
->Pass the page corresponding to the swap entry and copy only that page
->when necessary. In do_swap_page()'s copy path, decrement only that slot's
->swap count, because the source swap-cache folio can now be large.
->
->Fix generated by an LLM and sent by Chris Mason in private.
->
->Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_SYNCHRONOUS_IO")
->Cc: stable@vger.kernel.org
->Signed-off-by: Chris Mason <mason@kernel.org>
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+>Assisted-by: LLM
+>Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 >---
+>v2:
+>- Also describe the memory.high and block cgroup throttling fixes
+>  (Shakeel)
+>- Add Shakeel's Reviewed-by and Tested-by
+>- Update the code comment to match
+>- v1: https://lore.kernel.org/AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+>
+>Tested on x86_64 with a vhost_task-based reproducer: in a 0.2-CPU cgroup
+>a busy worker drops from 100% to 19% of a CPU. Reproducer available on
+>request.
+>
+> kernel/vhost_task.c | 9 +++++++++
+> 1 file changed, 9 insertions(+)
+>
+>diff --git a/kernel/vhost_task.c b/kernel/vhost_task.c
+>index 3717885a599..f63ac005214 100644
+>--- a/kernel/vhost_task.c
+>+++ b/kernel/vhost_task.c
+>@@ -6,6 +6,7 @@
+> #include <linux/completion.h>
+> #include <linux/sched/task.h>
+> #include <linux/sched/vhost_task.h>
+>+#include <linux/resume_user_mode.h>
+> #include <linux/sched/signal.h>
+> 
+> enum vhost_task_flags {
+>@@ -31,6 +32,14 @@ static int vhost_task_fn(void *data)
+> 	for (;;) {
+> 		bool did_work;
+> 
+>+		/*
+>+		 * We never return to user mode, so TWA_RESUME task_work and
+>+		 * memory.high/blkcg throttling would otherwise never run. Run
+>+		 * them here, where no locks are held, like io-wq workers do.
+>+		 */
+>+		if (test_thread_flag(TIF_NOTIFY_RESUME))
+>+			resume_user_mode_work(NULL);
+>+
+> 		if (signal_pending(current)) {
+> 			struct ksignal ksig;
+> 
+>
+>base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+>
 
-LGTM1
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+--- Thanks!
