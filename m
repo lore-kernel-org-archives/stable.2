@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701545;
-	b=AaG/DIf+A3062pMSszZxRr4t3YPfAlUbfRFdxxGVmU4b3dLKrZAwlK54jCFmqgxq5Ek4
-	 kQulmhlQHYuSEDrUnSpAMgNouYg78YHpKN/69dh1pJVvM5FHvIMWhDfkDY7p3inIzFXCo
-	 hoy7hV684SfIRn5hm5px3qfYgDFdC3Dk2gQ59gED6e2KpdFXSlnBGdFn9sqgkujIxQ0uy
-	 dYzox8mn4efPDvDjuqMrq2CY+yfNAZpRl9u3dxFZkKnPkT76Aoz+rIyzDTrdMG23k61wu
-	 nJWMTqeVhGxvJKMfa2jELJA0ECQG9wMIhAkLWfaiodP6REsIgrVTTR2Az4onXXStE2A==
+	t=1793701551;
+	b=gCUdXNH8wcQEAX9nYHmKZpGXVbP9V6ZrRvQAP7jtZNQql3LhbnCFrom1UP4gmJWYdCwK
+	 REAJUZQDo8XSkfjj+6T3uI9cfbJ0UtJ2XaOxU6VCIespBb5PjUUhySQ2bbNtbsdneynzg
+	 jzEzKe2xL3AlpLi2zCM3HmZiNUJKOa55L79RsbuT3xEL8aIyPjTcv0gcOZsMpK66TyHMa
+	 ArUUptzY2S4nF3W20qA44P4omoX1l7w9eEZ8pDl+cul7lZqW5KpkG5cs+9f7u0FHjtpiZ
+	 AorlEpP2qUH6E79LYoMYduTBwkCqHNgw0x9Gjqnk9qmIH2oq26FIwTVNIZj/4tvhKMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701545;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701551;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u2LnnysjiNlnAErgAFylACAxMV+BLUH6+e8OJM6PuFw=;
-	b=maPAfc8cvjVFWUAQJ0zjcbfzvcY1qJpHGqSwN32EjWauHFDCnJH4uHh6EJY6NzTFJNv2
-	 s+p/v1Ak1aNT+6LqVg7iCGE94AVPbpIcBfKunC+1Oavj9vnbK/dT6wSpYGyx0O2ikAA7H
-	 jSCi6ACPIZJ8sVvvJvKnmyX/sVSFywb6kR1JdwmowxFp0D8KxnvJkU2rMqMLxjZAojRtS
-	 QQek9XAExv7a7u4C0m49iWPKiJNhLl3vv/RLbOd3Tad4esITxOPyZEdivx67Wp5QNZ1DG
-	 9SyaXDkFKQFnuMHs1FV4ZwM3fc2wmFGqeLZpkxrum0dFhs/TigEu7wfCGbVBjgPTaIQ==
+	bh=ZiDCgXI7NCcafNDZdpmexImXqmfoIhQjo1qsG0Dzdno=;
+	b=RBomrJL2yOqQBxQjwUwrR6JMqLdxiunURTXwktFZFjT4pXezPVA+QXOGRrs5ea3AMVPj
+	 sJx2CnUlUZ98DA/fqOQcvbmH7OjacnjU6w945JMpSm0EMAk3Om/K2lUtKCMAF4tPVBPR4
+	 13G+IiOAxTo2OhvhBMEKcjKrRtIhe30VHyFLB8ZLlkgGiSj7CoJgveAtqcuge8oP2Cevu
+	 66wfmzZ242tdvBP8JjksAhYhDBMgm7vcTqLf3ZGdOSStb+IxMqg4OazJN7gupPZDGEvOP
+	 jMRITfJEBVJCqY5yOuHy3p264dRKabAqcS6oQ/UXznpbdnxwo1879KeXqN81yCcAAdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSx5z+Eg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2ys5KTF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF1D606BFAF;
-	Tue,  3 Nov 2026 10:25:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044F7606BFBE;
+	Tue,  3 Nov 2026 10:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NSx5z+Eg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047651F00919;
-	Tue,  3 Nov 2026 10:25:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2ys5KTF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B7C1F00919;
+	Tue,  3 Nov 2026 10:25:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701544;
-	bh=u2LnnysjiNlnAErgAFylACAxMV+BLUH6+e8OJM6PuFw=;
+	s=k20260515; t=1793701550;
+	bh=ZiDCgXI7NCcafNDZdpmexImXqmfoIhQjo1qsG0Dzdno=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NSx5z+EgmJ/vqZbdQdsVGn57b8f6BhRgX4zf7ZogXfqYI/ouOgdCh3Jk/J06tb6wz
-	 lihMw8dP784rFojOlkRlOi3BeCiwQzV+X2B/qZ3HX3wEYwCJrD5xVbvb6/9Jo0rL3v
-	 x4hyIa73hXQE2Vbo2pFmEUrCFIcDuzAqg4kFcfHJR5hs5NkgQsS4lvp5JL++ECEnHl
-	 xLZDjCdkRWXbowhxVnRBMjJm3LbBS8DhZZYPDWK+XyxuUyNNdAU1pfzC8HG83wa3Cp
-	 n1kmcIchka8DV/BjwQnbK2sZhmPa3Ci3eAdIh4dvfZBJHxlagLe8rPf8M+l71EFyvD
-	 bMys7mWMgqzrQ==
-Date: Tue, 3 Nov 2026 11:25:41 +0100
+	b=P2ys5KTFDKlK2yz+di5tTpouQWufDnbAzeDL0y73Y8bo6Vq/QZlfXVuupyaysdggh
+	 4NayCQ7NJSPvtrGE04mH2FlToF+upZ6TKd0EYS4gPYHNeEcks0CnlApEVMxsul4Rbg
+	 MyBoPta3v3IxvYCLUszqczCpOkDqkLjuGVoXY0smnWu+KUuus377BrZJSSYQWLVRfI
+	 nogofXJZsSsdRPuy8tdiDjE7AK1b4slU4ScVK36NghcZ2kTbrfcr8hO7SKkz+NpkD+
+	 YQ2cWGlUXcxM96zNAbTnkw+6eAXNyr2hW2vq9Lw0pblA49db0ND0CCHAEZa/AXzP2g
+	 APRHTINuxC2mA==
+Date: Tue, 3 Nov 2026 11:25:48 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>, Tony Nguyen <anthony.l.nguyen@intel.com>, 
-	Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	linux-kernel@vger.kernel.org, intel-wired-lan@lists.osuosl.org
-Subject: Re: [PATCH] net: ixgbevf: drop the SA reference if secpath_set()
- fails
-Message-ID: <20261103-esoteric-hyena-of-penetration-223ea3@quoll>
-References: <20261103100534.1310071-1-vulab@iscas.ac.cn>
+Cc: Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Woojung Huh <woojung.huh@microchip.com>, 
+	Vladimir Oltean <olteanv@gmail.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	UNGLinuxDriver@microchip.com
+Subject: Re: [PATCH] net: dsa: microchip: drop the parent MDIO bus reference
+Message-ID: <20261103-fierce-handsome-bullfinch-df2e70@quoll>
+References: <20261103100531.1309946-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,26 +61,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100534.1310071-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100531.1309946-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:34 +0000, Wentao Liang wrote:
-> ixgbevf_ipsec_rx() takes a reference on the xfrm_state returned by
-> ixgbevf_ipsec_find_rx_state(). On success that reference is handed over
-> to the skb's security path, which releases it when the skb is freed.
-> When secpath_set() cannot allocate the extension it returns NULL, but
-> the function returns without releasing the xfrm_state, so the SA
-> reference is leaked.
+On Tue, 03 Nov 2026 10:05:31 +0000, Wentao Liang wrote:
+> ksz_mdio_register() obtains the parent MDIO bus with of_mdio_find_bus(),
+> which takes a reference on the embedded struct device, and stores it in
+> dev->parent_mdio_bus for the side MDIO accessors.  Nothing ever drops
+> that reference, so it is leaked on the probe error paths and when the
+> switch device is torn down.
 > 
-> Put the reference before bailing out.
+> Register a devres action to put the device when the DSA switch device
+> is released.  The child MDIO bus is unregistered before the action
+> runs, so the parent bus stays valid for the whole lifetime of the
+> switch.
 > 
-> Fixes: 0062e7cc955e ("ixgbevf: add VF IPsec offload code")
+> Fixes: 9afaf0eec2ab ("net: dsa: microchip: Refactor MDIO handling for side MDIO access")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/intel/ixgbevf/ipsec.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/net/dsa/microchip/ksz_common.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
 > 
 
 
