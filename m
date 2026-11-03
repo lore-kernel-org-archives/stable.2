@@ -1,123 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717817;
-	b=Lh0J80jb6fv0BGz2ERC38f8gmViuOE5QwcYAPSM4Dxs92ehrH6hq6kkAVA9W8litiSaA
-	 ERiJC7y7zhxD7AyQiNhV5OCPPcfWup4JxhfvD62qL/MRWhog+LX93P1g1+kpPKhtuRSJX
-	 WW+jovnTqrO6vGBzfdGafA5ZDkh/sLqv3QFUAWxDFQxk7Si57a+a9JKJSpuWhyTQN34ZN
-	 /Mo9a3c81OJdAp9v3pg8Gi18bcbBmNq5Hx9526DPkrLMTDjcQ7ds5Brz/xeLsYuhio3FN
-	 Xh5WF4iTJVT7Q0N4a5q0KTcr7BjuRlCzFgHz7QmEn4EACSNeWg06xgQIsfb+9MrUE0g==
+	t=1793717855;
+	b=llKtmKpC818N1SNDKOtD6Q6An1A5Nkxumwd231wuX2KYQMH31a+iOjLZ2+8iDegKPPdi
+	 rbkSifY4g1pT3EdMDLaMEAz57hWp7RyccagNjg3ruHwkTwLRU64G/iJ5E75kiePyVb6GI
+	 zaf4kLExmOvb1EDFg3Rt1wwa2XtFFbiDhweHbWKyiIZzblZ8xf9B2+oQ/T2sAfs9YjypB
+	 OkfPmaAH0ULEAlFmHlkAkd38sLIIL6i1vXVrwpSVNX9ap0toBCA0vJMkt04+IYy5lX+Av
+	 liPzujExj5fSGhIwTh1RWuf74cR0eyEXBbCeJEprkWxlKoFlPfQN+cTrHkfs1Z36CvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717817;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=cdBo9mVe0UeY3t/BczjJXPDQTXUl1mfOL/99tQu6pQQ=;
-	b=i2h8YUvnb8+7YMxGq/9vU0dA7g7tPAFKtJspzBnvf7FWGiCwfBpp3W6pkVepLex1rkeG
-	 oan6evlWnN/VvfM1YJPL9F8PZGUbsO9H96C0GVFoNrmG0C3HdWNSVaTBo2uKMyehipp+B
-	 BZltxpEzDe2CRQpWMyAtq5EFr/zUMvAebupsgDXuYVSKGX1wgNK8x3z8MBtnYjI9wt7U/
-	 EKk9kD4bG+h6dEYElHhAOaukdfG76GqsnJ4uJuMXrOAwIQDhDsi7Bm4zkzrXraImr+4jR
-	 6d628HnckQxWLxUHlJA/BXEvLGZm7/yM66tVMKgbvYoYU7D9dbOr8tgLk7Zam8mRzFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717855;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=wVPZHBHmTVqQc0Jh1TfnVqktWkBiefvtfViUxrs9XWI=;
+	b=JPruHMCJy4RQ/8NfVnNcL9ttx+6Q4CS9mjsHTUwK90sc+wfwxrkDta3T2VurloekRSHb
+	 VtxB5HvO2rAk+GbMO69RytMG7GweNXqdGIVoW205Ko9AUrxNYa3LvKKgffK4gQRroGUDl
+	 dpNY+iDPA83z64zaMqubGzSIoe+KgAXYRsRyq4TdaqoS1WM4AqrWMrQ8cb2LzPP2aPqLn
+	 ncFJ0MuIdqkePGNE6zJNDtrIz2j7H+pOMTKn6eMK5NTGY8XpD9izy7ROUrGpU+4xcfFtO
+	 OVJUwJRjZq1UwXM7LNdjPKN+cgNm1W92ro8jX4B/d4VtGz2TJRRb3YwHOMd8cYjvZFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cvtsa2e7;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Kcf6YYfN;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFpNS6bE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4409E606B277
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:56:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4409E606B277
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11971606A789;
+	Tue,  3 Nov 2026 14:57:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cvtsa2e7;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Kcf6YYfN
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3E9vwY3657431
-	for <stable@vger.kernel.org>; Tue, 3 Nov 2026 14:56:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=cdBo9mVe0Ue
-	Y3t/BczjJXPDQTXUl1mfOL/99tQu6pQQ=; b=Cvtsa2e7SLPYu3QBTjbc3HQbPxV
-	dYvVAErcU7W2buw05fHOtgtWEecIWH8GwPOQGWzUTNWvvltLrK9QLRtRdyP0G8Ts
-	CyZnuFDNFLlc1KbQAx5HPY1QbTolKdRPxFIPwbTgmVK1ImmDKMTqLjhJXQwenpyi
-	1RWrsBzQAyAQWWYGFzGTpgSXs2HEG1BoBtNF6ak/Q50lHa64fLmCuWBrZaUo8s2O
-	igZeV8DVrR8aeJbVZ5xOMdo5Tm3umrEX3X4tnOZWKQung921HcefeKqyGRJDvq6x
-	S++JkPjnNIOTJF+C2QgJRk8dRul9+brpox+9++m2MaHzMF29ufoY3VP1NDw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq94ct966-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 03 Nov 2026 14:56:55 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-944138ed63fso678050585a.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:56:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793717815; x=1794322615; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cdBo9mVe0UeY3t/BczjJXPDQTXUl1mfOL/99tQu6pQQ=;
-        b=Kcf6YYfNmHU3Dpf4x3hL50KAk2+6nCQucd4Qq2iXlw1Q5pxQYX8hEDpoV2YmkHv7wm
-         b3gM7IQOqopCs+wNPto3XezbL9/1vkRkyIXAlLuW/RpqRN7ZNg7n6//mf3i4AAOYL1lz
-         73XsYMPGGQvw8aJbpa/ippYXL11LLdn222BnVEa5A9yTkPEitV3WZrUCoAevHPPmJRq3
-         fN/SkOw4OQMFhHzKkY2EFGsuVYzMnLXX4gGk3mKqTpvTEBCLa7lSGbyClp8re7yud3ZX
-         yXrHev3zoXo37XAatSwWPSIlJ/HRxTFO2n2gn9E8VrmHd/w181RMcwUjhAHkP9/atQme
-         67nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717815; x=1794322615;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cdBo9mVe0UeY3t/BczjJXPDQTXUl1mfOL/99tQu6pQQ=;
-        b=WS626P72B4a/6FP2evTP01z6QpIf+U34w94pvKMkmmcqtQJKUsYuOdcVGnFhAuGUxq
-         FLZ4FwstyOmEpy0t76uiyFcXXdgnPE75Y5uLM7dL1BrI7RLGLk59+J1v20pL/BJNqbND
-         IsGRwvpx2xwlgr3JYDBPR99cgXgytCaPQ33Dgn5ill9zHpWXz04ieZvCpucamAacHgWU
-         3PSqnEmoxqEeppCjcA77oEExLJrWJrLHOOXExRf/UR0Q4DY2OK8gIqkJyolzbdvRKlV4
-         LOu0YQS3Rpyx998P7F5yTpuWlME4x5iYYsLr8F6fa6+h8uPIPeVQnh326VelTbqSqQYZ
-         s+yw==
-X-Forwarded-Encrypted: i=1; AKwUvBxk3KvQ7uE1xPeSaitmOZkWKt5AII1x4vS3+WwL8ze8aNeC4+3rcfL27ql+ts76i73zD8uii9s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8RslY3Z0slfEd8YbNJhJ/vljBfRmNzljMHQD54ecwaD9v/Agk+
-	1hPO88qYLpjBMMVaQT72JMg4+C+qdHNTw9gozMGZy+2KWs5bFdqoKcVGdmH/ZOUn11K5qE/byk+
-	hky2fxyCiFi9v7IN2zXK/sODk2B/yvG4fKcVUF+acrKv34cNFLJ77KB/HKFg=
-X-Gm-Gg: AYBFou1JiC5LPtRjEKj8XmHKX/Ydbdh6oxcTebLvUeBvaqOoWfLnuLJ9Mi/n6p7F7JI
-	0teRIqBDx4eg0nVEJJ64qk/XbGwHFC9Lc6pDiz8kPOQjMU3GJwUaumqSahviJhlhRwmdwqtb3gh
-	Wn3hHBKyoqq5v1ipyc2i0kLA3vVqg5o43Ny2q6yA1NoCCq9edq1AhGtYURQLcnjacUHYecIPN7j
-	UOWowpd19KKuuAudproFYbuOTp9EFGeGybm3K/NFwVSE3Jox59LTfIcXzRb6n2g0nlF6Hi8c8jr
-	bWKrZU53fS9J9VkOp4ap8T7Iv2C72eqd97HNedpfA3XZzffKylpuUiizmwRSlUFULvqbzj6yqKj
-	+XZpj8ODsbSwsAbRoiihj/o6tUYXSYFxi8atDqL1x0FrGFuGaeFg8vsg6g2ES8A==
-X-Received: by 2002:a05:620a:28c6:b0:93b:d7a2:83cc with SMTP id af79cd13be357-944217b273emr2032089985a.59.1793717814555;
-        Tue, 03 Nov 2026 06:56:54 -0800 (PST)
-X-Received: by 2002:a05:620a:28c6:b0:93b:d7a2:83cc with SMTP id af79cd13be357-944217b273emr2032085485a.59.1793717813763;
-        Tue, 03 Nov 2026 06:56:53 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cebdbsm69772645e9.3.2026.11.03.06.56.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:56:52 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Andy Gross <andy.gross@linaro.org>,
-        Mark Brown <broonie@kernel.org>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v3 2/3] soc: qcom: apr: Fix theoretical use-after-free of GPR port on concurrent RX callback
-Date: Tue,  3 Nov 2026 15:56:37 +0100
-Message-ID: <20261103145635.309032-5-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iFpNS6bE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F7AB1F000C1;
+	Tue,  3 Nov 2026 14:57:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793717854;
+	bh=wVPZHBHmTVqQc0Jh1TfnVqktWkBiefvtfViUxrs9XWI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iFpNS6bEHhR8ebqCRAZfPuhOs7jQqMJg1MsO+wzz4LEUgwINXXdloo6S46CgitXEI
+	 zYonEJHRlcZqRY6aThjvqxXrj3AX8jxOjgqX3bObrW9ObuduRggGNRmmO9KFYohsRl
+	 MIc91meGUPijHpP/YqjnmEV5W7/FlzDSESbVcNFR5w4BzlHrg91Jk7W4tW4k5/eUZN
+	 /NlyXJ+CwNd8BQ7ts0WIZmAItdKpGa82Z1OBMYyBw/7+EnfNYi+M8USFOpg3o+Y8+e
+	 GE4/1hwkFqy6zr1LqI2w09Vg4hF6CilTyMvRd+OfcFrWHuSd23gfU6WTwlpTKwwRKN
+	 sdsCQNQa0h1sA==
+Message-ID: <489b668a-033c-4161-93e8-15d6b9b28b51@kernel.org>
+Date: Tue, 3 Nov 2026 15:57:24 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,103 +51,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1860; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=yYdJk4Nh9bjDwkQjTd65xJ0ln1AEvLle7aeRhOxiKVw=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq6fYk5xDs2v2v0S9Vc3AsS28hCTTJTKLOCbDOv
- UvAu8QeIc2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaun2JAAKCRDBN2bmhouD
- 1yLBD/9KqSkTnbvxsy41ZgeFzvUE7qXMix8YA+sVroMx3uU3IxnwPb8FCR09jU5/VpIzpM00Ieb
- R3l5BbF1ZMbypg6Xnbto0676ToHptuwYwsEKO0qgWC5wWWMEt+yCiFqBdqgbyuobMjw8KAGHysl
- WIbi2tggZ5+D2trvF1GvkROhSakpDDFb6vfwdGm3Uwk22ksH1oi8ebcw0rdHSfd26badi5xUl2r
- vSNBCBHQcZOGlTLuh0GIsLkv3RzfSgtJg7XePs3tyyA1uEpOIgjYD99UJIPUHpYDg2qVGec9q9T
- oM8lP/a6wmPYihu0dEMEaek32JEaIySPhKI1l+qoD3xb+vH2/rJIaKPX2jg2w6aj/UoNis7Eq9M
- UeohLPQOEMR21IJsE8AmLwcuMcO4rRbzN711mFLMy5JOeB8QXd8/i8KWsqYZGni14jOL/nNqmZE
- GKRrMnSdf6+9o4Q7s1lcZwq1A0e3QYLQKNLXnvNX0SLUXMWUApZNcTINfRzb4Z092YPwa199jAk
- tpUQCZBVv93Bqtjs+kO5nFkljDHkgGKzFI5uKaUN7IgcEFu9BD1Am+Jh8Coxz2vo0a1Myg0K9aT
- hQf3eh+AK2/IuYkbPli1ErCeoqtjcrTiLZph1grcVNOYEwQ3gbZDEu9fKnoJNKjzNaNE09m/O/A 1ZY4o1IfB02zcCA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=O+KsLx9W c=1 sm=1 tr=0 ts=6ae9f637 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bqjVDHCIK6rrShMHOGoA:9
- a=PEH46H7Ffwr30OY-TuGO:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: 6BaxHgFhZ8rwEE4uYmlzjcL6iKTNYNUH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX7hTGTgFpRiPo
- pyLJaUUwXawQIWk/sYbwwpmTLlkoK6ImgL+OkDP04tkRosZ33hcYF2qlhqyNG9b1mT3BgZ+jD41
- gbvbxX/c/7GEqpDn5dszwfGOLk/EqVAG9EPHQSXmeqXXu54qy/CuFTxG7ZPwS9hfhaWqm1VHjS6
- bL5A7rOM5sh5s7gig+gOz3EXSbktZUBviBUHrA3GlqF0azMOe2CbnW7V7/znUvhI16cwVflyzuK
- CoF70aHdfLv64orteT6mC9LJsVz1Y8oFhg27cj2YaMgA3OQxSVMohkZxqUx5zY0IRgxsT7ZV6d+
- RosK6tPMtivofHAyY+NthYorBjt3nkJknXxKZA8zENFYpZh/aFx+2eXtZpxhjNqndnkOwXYisAy
- LTN6xp4zRa+eJHMrPY51+mddmHJnxjz+WqZmdIi99krrpnBNBUkif6bJXKo/pM9J0MkzUyJzvDA
- pLwVkTD+qQWax9rRmug==
-X-Proofpoint-GUID: 6BaxHgFhZ8rwEE4uYmlzjcL6iKTNYNUH
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX1yK8H2lSzNFE
- 3Po/GP+v8Lc1iKkbSnY6GbXbdmh7Eo1Lqx8IRSE8GbcDk6g5Z7/HdeDVsj/zJbAZmrdd9EyI5Nl
- 69UI8DKOXhVOIwo0QizQHL88c6lP+HU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611030059
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/12] mm/page_alloc: keep the pagesets of an empty
+ zone
+To: Zi Yan <ziy@nvidia.com>, "Gregory Price (Meta)" <gourry@gourry.net>,
+ linux-mm@kvack.org
+Cc: linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel-team@meta.com, akpm@linux-foundation.org, david@kernel.org,
+ ljs@kernel.org, liam@infradead.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, kasong@tencent.com, qi.zheng@linux.dev,
+ shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
+ yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
+ baolin.wang@linux.alibaba.com, rientjes@google.com, rostedt@goodmis.org,
+ mhiramat@kernel.org, mathieu.desnoyers@efficios.com, muchun.song@linux.dev,
+ osalvador@suse.de, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+ ying.huang@linux.alibaba.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, nathan@kernel.org,
+ ndesaulniers@google.com, morbo@google.com, justinstitt@google.com,
+ Bessel.Wang@huawei.com, jiang.liu@huawei.com, mgorman@techsingularity.net,
+ anshuman.khandual@arm.com, Josef Bacik <josef@toxicpanda.com>,
+ stable@vger.kernel.org
+References: <20261101021340.2251928-1-gourry@gourry.net>
+ <20261101021340.2251928-3-gourry@gourry.net>
+ <DMK59DO8M3AP.3OTG2YR62D9WO@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <DMK59DO8M3AP.3OTG2YR62D9WO@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-gpr_do_rx_callback(), executed from the RX workqueue, looks up the
-destination port in the IDR under svcs_lock, but then drops the lock to
-call port's callback.
+On 11/1/26 21:07, Zi Yan wrote:
+> On Sat Oct 31, 2026 at 10:13 PM EDT, Gregory Price (Meta) wrote:
+>> From: Josef Bacik <josef@toxicpanda.com>
+>>
+>> When the last memory of a zone goes offline, zone_pcp_reset() frees
+>> zone->per_cpu_pageset and zone->per_cpu_zonestats. Nothing waits for those
+>> who found the zone populated and still use the two pointers. They take
+>> neither the memory hotplug lock nor any other lock which offline_pages()
+>> holds, and some of them can sleep:
+>>
+>>   CPU0 vmstat_update()                CPU1 offline_pages()
+>>   refresh_cpu_vm_stats()
+>>     for_each_populated_zone(zone)
+>>       pcp = zone->per_cpu_pageset
+>>       cond_resched()
+>>                                       adjust_present_page_count()
+>>                                       zone_pcp_reset(zone)
+>>                                         free_percpu(zone->per_cpu_pageset)
+>>       decay_pcp_high(zone, pcp)
+>>       __this_cpu_write(pcp->expire, 0)
+>>
+>> The same goes for drain_all_pages(NULL), which takes pcp->lock, for
+>> zone_pcp_update(), show_free_areas() and the readers and writers of the
+>> zonestats. If the per-cpu memory has got a new owner in the meantime, it
+>> is corrupted.
+>>
+>> The pagesets are only freed because setup_zone_pageset() would otherwise
+>> leak them when the zone gets memory again. Keep them instead and let
+>> setup_zone_pageset() and zone_pcp_init() use them again, like it is done
+>> with pgdat->per_cpu_nodestats. Their lists are empty, and their limits
+>> have been calculated for a zone without memory by the
+>> init_per_zone_wmark_min() of offline_pages(), which is what
+>> setup_zone_pageset() would come up with as well.
+>>
+>> Fixes: 340175b7d14d ("mm/hotplug: free zone->pageset when a zone becomes empty")
+>> Cc: <stable@vger.kernel.org>
+>> Assisted-by: LLM
+>> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+>> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+>> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+>> ---
+>>  mm/page_alloc.c | 20 ++++++++++++++------
+>>  1 file changed, 14 insertions(+), 6 deletions(-)
+> 
+> LGTM. Just a nit below:
+> 
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> 
+>>
+>> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+>> index f1048168c90c..1850a41f24f7 100644
+>> --- a/mm/page_alloc.c
+>> +++ b/mm/page_alloc.c
+>> @@ -6308,6 +6308,10 @@ void __meminit setup_zone_pageset(struct zone *zone)
+>>  {
+>>  	int cpu;
+>>  
+>> +	/* The zone has been populated before, see zone_pcp_reset(). */
+>> +	if (zone->per_cpu_pageset != &boot_pageset)
+>> +		return;
+>> +
+>>  	/* Size may be 0 on !SMP && !NUMA */
+>>  	if (sizeof(struct per_cpu_zonestat) > 0)
+>>  		zone->per_cpu_zonestats = alloc_percpu(struct per_cpu_zonestat);
+>> @@ -6400,6 +6404,10 @@ void __init setup_per_cpu_pageset(void)
+>>  
+>>  __meminit void zone_pcp_init(struct zone *zone)
+>>  {
+>> +	/* A node which is added again, see zone_pcp_reset(). */
+> 
+> it might be better to explain zone->per_cpu_pageset can only be NULL at
+> boot time and it needs an initialization.
 
-Concurrently closing a graph calls gpr_free_port(), which frees the port
-after removing it from IDR, thus a theoretical scenario (not reproduced)
-is possible:
+Hmm.
 
-  CPU0 (RX worker)                  CPU1 (teardown)
-  ----------------                  ---------------
-  gpr_do_rx_callback()
-    lock(svcs_lock)
-    svc = idr_find()
-    unlock(svcs_lock)
-                                    q6apm_graph_close()
-                                      gpr_free_port()
-                                        idr_remove()
-                                        kfree(port)
-                                      kfree(graph)
-    svc->callback(..., svc->priv)   <- use-after-free
+>> +	if (zone->per_cpu_pageset && zone->per_cpu_pageset != &boot_pageset)
+>> +		return;
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-1ebe255f-a874-46dc-b7cc-455e7bce402f
-Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Shouldn't then the check be just:
 
----
+if (zone->per_cpu_pageset)
+	return;
 
-Changes in v3:
-1. New patch
----
- drivers/soc/qcom/apr.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+Because if it's == &boot_pageset, we are just setting the same values that
+area already there?
 
-diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
-index e303562526d4..80056bd0686b 100644
---- a/drivers/soc/qcom/apr.c
-+++ b/drivers/soc/qcom/apr.c
-@@ -83,6 +83,13 @@ void gpr_free_port(gpr_port_t *port)
- 	idr_remove(&gpr->svcs_idr, port->id);
- 	spin_unlock_irqrestore(&gpr->svcs_lock, flags);
- 
-+	/*
-+	 * The port is no longer discoverable, but RX worker might have already
-+	 * looked it up and be calling its callback, so wait for
-+	 * gpr_do_rx_callback() to finish.
-+	 */
-+	flush_workqueue(gpr->rxwq);
-+
- 	kfree(port);
- }
- EXPORT_SYMBOL_GPL(gpr_free_port);
--- 
-2.53.0
+>>  	/*
+>>  	 * per cpu subsystem is not up at this point. The following code
+>>  	 * relies on the ability of the linker to provide the
+> 
+> 
 
