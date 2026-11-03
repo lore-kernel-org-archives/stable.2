@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793675984;
-	b=xk2pP4MZ724xHibq35fCBQ1eE7lCLJeQngefoRViNSuuNYzuarqzpEGXdpnq6mdUw0zj
-	 IuUeIKgZK18LVvm5/6WXtx7yAzTZUXf+LfW6O1t4glpreuonNSizL0bTTTMaocXHFL7ja
-	 /JRwb/61p8CMiIVCkxPlKfRjeyy5Rdw7Ae3jLzpkOagHF5tDq8kFM/le2wcvJycIXPLwb
-	 lmojIMnDkUVv6w1kI/X0+xFrOk8Q+0wrnpDgaRke+d3v+pWj3K8ZQr8oaIBq7IyEdtoSz
-	 gxlA+t5gsH6615tNk2UqmTRG+2cNVRxq/dr3ZrTGLnT1z7o+19BBbMaLmYZG3ALDDuA==
+	t=1793675990;
+	b=vy0AjKRDCTnUnRQaoIGilwzBUIuiYadE63Nd+2PvyimUZ5VPAyYymL9eT2Tisx7vVNb4
+	 0N5hhSVCiTxhHI3J/sp3eQQFNZ0FYOOWnTTqBO9bAPa4BDU4ieAZyYXH01A6SaRKUGFPJ
+	 1/oIISJH3ub7TOydVdt1wguyRu0ycsUnS5T/HPvkc0r+twyrrmbAbW7laixoirkvrKQnw
+	 8/PWRX04TDS+RJtsL3qu+fJZP+89/KErm1rrdgSlI6LYDQTKH7LW+G6fvUIZlAeRxNmrK
+	 B8wnxEdKkiGgx50s1/epsRpPv/3c/jGzNxMw/DpNAyxtgDzKPqiDgu/lALihhrO+KwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675984;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675990;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Ywp5NE9yxCdi1Iyv8sB11W5ldI0d791KIpvI+oLKTKw=;
-	b=pAen3Qeapfx8HIAqX5COE4vYNlmZyMy9Qyx3TyCsjp7YplIki6q4Jd0VM5414ouyeRw1
-	 bKuEs6QdWR5yFm7Uv8wemdR82xjD4QPNJ11oY3tJZNM7SA8d3dP4d2OldUpaharmJsPSt
-	 wjzbGdME7phqa678ZxB45ler3Gsl2YUjJa32+09gAA04k10d8YIgz52ziqesz3by5+AhC
-	 v4oqf037PAClVAZFDBP9rtBD+IXLCyPypw2HYSjyw4WRQ3RtBXVPWTAhj3+fMk//XM66Q
-	 IjhLFWt8usZ77dvK5e3yXtEGiw8h++PMcIOlFEWkdvgSsBhMilD3DwNTs1WVVlIVriQ==
+	bh=B9Ech+fsg+hlX8YEu83qJWfUQXYamGpxjlYwLlrPOIQ=;
+	b=P3v9XJFybENHj4ZOlKURMSE3X5ZL9dZjLk/ytuYMyG5NptVVmYkYIhrfWJ2kQffOSre9
+	 gBbu/SaKfg8pmMW+m2lHAAb7UFTwLqws3fr5/hEM8+cXyynhyL9lcQNEcOoqI/gxYwWX2
+	 WvOzVaN+7Sdk3S3i9COb1aP9+GeAPAyQ2JhAAU7CpHaPVXN2gfPLBNta+aa4V7NWvZrOR
+	 xIue/bFjC9u7tFmGHlUxLlXWrdRc/klU9yIfFldrMyAfH3NS9diccPRMUZ4J9h3QTdXRp
+	 cBbm0idCKaFd934Y9rzEXCR/D8nXsxfDNUeqnTrXEhwdCMnYrYtGtKKWbBp1t4a8FoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=l6G1qBcD;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="j/mMxU3c";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A09E606A338;
-	Tue,  3 Nov 2026 03:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486F2606A335;
+	Tue,  3 Nov 2026 03:19:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=l6G1qBcD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C8B1F0093A;
-	Tue,  3 Nov 2026 03:19:44 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=j/mMxU3c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D96AB1F00A16;
+	Tue,  3 Nov 2026 03:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793675984;
-	bh=Ywp5NE9yxCdi1Iyv8sB11W5ldI0d791KIpvI+oLKTKw=;
+	d=linux-foundation.org; s=korg; t=1793675990;
+	bh=B9Ech+fsg+hlX8YEu83qJWfUQXYamGpxjlYwLlrPOIQ=;
 	h=Date:To:From:Subject;
-	b=l6G1qBcDL9baFAV7/ehLM3aRa53W8ccyYN2LBxQFKzsl0MkI2saOJLAvA/+aBJ2JU
-	 JIwbV0cL2Vk+/IJsFz06jMkG/RIjutkM3wbtqlPpnR6L3bbWuSoMTagF1NKSaGfY5J
-	 nD1+ikH2OTCvPGV4MCQPTfKOFjAmPep8xAdozX4M=
-Date: Mon, 02 Nov 2026 19:19:43 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,pfalcato@suse.de,
-	hirofumi@mail.parknet.co.jp,matheus.aalmeida@inf.ufrgs.br,
-	akpm@linux-foundation.org
+	b=j/mMxU3cr0rJWJvvdroqIEX24uNudjK/RtSSZURjKMmFk3LMeZVqMZTUyMcWHwGqE
+	 wrCn/W8br3mC6Q8FYmR2NSVCCIt8u/C3w4AOpJuao19ldc/C59wzPEo5Qw/OpRQvTq
+	 gcPQMiUHQwbjmAMvPeEhj5Tak8rAFdbRBlVaaTtM=
+Date: Mon, 02 Nov 2026 19:19:49 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,
+	rioo.tsukatsukii@gmail.com,pmladek@suse.com,brads@mainlining.org,
+	nickolai@csail.mit.edu,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-hotfixes-stable] fat-hold-truncate_lock-in-fat_write_failed.patch removed from -mm tree
-Message-Id: <20261103031944.25C8B1F0093A@smtp.kernel.org>
+Subject: [merged mm-nonmm-hotfixes-stable] panic-zero-the-dynamically-allocated-taint-buffer.patch removed from -mm tree
+Message-Id: <20261103031949.D96AB1F00A16@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,68 +53,70 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: fat: hold truncate_lock in fat_write_failed()
+     Subject: panic: zero the dynamically allocated taint buffer
 has been removed from the -mm tree.  Its filename was
-     fat-hold-truncate_lock-in-fat_write_failed.patch
+     panic-zero-the-dynamically-allocated-taint-buffer.patch
 
 This patch was dropped because it was merged into the mm-nonmm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: fat: hold truncate_lock in fat_write_failed()
-Date: Wed, 21 Oct 2026 13:21:04 -0300
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Subject: panic: zero the dynamically allocated taint buffer
+Date: Fri, 23 Oct 2026 22:01:52 -0400
 
-The current fat_write_failed() implementation calls into
-fat_truncate_blocks() without holding truncate_lock.
+A %s read of print_tainted()'s string can run past the end of the taint
+buffer while another CPU rebuilds a longer string in it, reading slab
+memory out of bounds into the kernel log (a KASAN slab-out-of-bounds
+report at taint_buf + size).  A warning or an unhandled-signal dump on
+another CPU reaches print_tainted() through dump_stack_print_info().
 
-A failed or short extending write racing with FIBMAP can spuriously make a
-FAT filesystem read-only.  FIBMAP bounds its lookup by i_blocks, so it can
-walk allocated clusters beyond i_size while fat_write_failed() is removing
-them.  If the chain is shortened during the walk, the mapper can report a
-bogus "request beyond EOF" error, triggering the default read-only error
-policy.  Hold truncate_lock for write around the block cleanup to
-serialize it with _fat_bmap().
+alloc_taint_buf() sizes the buffer for the longest taint string and
+allocates it with kmalloc(), so the bytes past that string are never
+written and the object holds no permanent NUL terminator. 
+_print_tainted() rebuilds the string in place without locking and writes
+the terminator last, so a reader that overtakes a writer extending the
+string past the previous high-water mark finds no terminator inside the
+object and walks off its end.  print_tainted()'s kernel-doc promises the
+string is "always NULL terminated", a guarantee the previous zero-filled
+static buffer kept.
 
-For comparison, fat_setattr() correctly holds truncate_lock during
-truncation:
+Allocate the buffer with kzalloc() so its trailing bytes stay NUL and
+every reader stops inside the object.
 
-	down_write(&MSDOS_I(inode)->truncate_lock);
-	truncate_setsize(inode, attr->ia_size);
-	fat_truncate_blocks(inode, attr->ia_size);
-	up_write(&MSDOS_I(inode)->truncate_lock);
+Reproduced on QEMU riscv64 under KASAN by growing the taint set while
+processes took unhandled-signal dumps on several CPUs: the unpatched
+kernel reports a slab-out-of-bounds read at taint_buf + size, the patched
+one is clean.
 
-Make it so ->truncate_lock is held exclusive while truncating.
-
-Link: https://lore.kernel.org/20261021162105.62525-1-matheus.aalmeida@inf.ufrgs.br
-Fixes: 16fab2015099 ("fat: permit to return phy block number by fibmap in fallocated region")
-Fixes: 459f6ed3b8c7 ("fat: convert to use the new truncate convention.")
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Link: https://lore.kernel.org/20261024020153.830459-1-nickolai@csail.mit.edu
+Fixes: a9dff0d0d11c ("kernel/panic: allocate taint string buffer dynamically")
+Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Cc: Rio <rioo.tsukatsukii@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/fat/inode.c |    2 ++
- 1 file changed, 2 insertions(+)
+ kernel/panic.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/fs/fat/inode.c~fat-hold-truncate_lock-in-fat_write_failed
-+++ a/fs/fat/inode.c
-@@ -217,7 +217,9 @@ static void fat_write_failed(struct addr
+--- a/kernel/panic.c~panic-zero-the-dynamically-allocated-taint-buffer
++++ a/kernel/panic.c
+@@ -884,7 +884,7 @@ static __init int alloc_taint_buf(void)
  
- 	if (to > inode->i_size) {
- 		truncate_pagecache(inode, inode->i_size);
-+		down_write(&MSDOS_I(inode)->truncate_lock);
- 		fat_truncate_blocks(inode, inode->i_size);
-+		up_write(&MSDOS_I(inode)->truncate_lock);
- 	}
- }
+ 	size += 1; /* For NULL terminator */
  
+-	buf = kmalloc(size, GFP_KERNEL);
++	buf = kzalloc(size, GFP_KERNEL);
+ 
+ 	if (!buf) {
+ 		panic("Failed to allocate taint string buffer");
 _
 
-Patches currently in -mm which might be from matheus.aalmeida@inf.ufrgs.br are
+Patches currently in -mm which might be from nickolai@csail.mit.edu are
 
-fat-batch-synchronous-mirror-writes.patch
-fat-improve-fat_sync_bhs-write-submission.patch
+xarray-clear-the-new-heads-parent-before-freeing-the-old-head.patch
+lib-plist-add-a-plist_test-case-for-plist_requeue-on-the-last-priority-bucket.patch
 
