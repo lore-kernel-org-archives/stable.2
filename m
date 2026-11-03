@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701725;
-	b=hPvBOx2pVaqPOCOVp5bpgGgIW+a0filjPiyK0QBhnuddVYAV1opv2Ta7ryPHdlFNmaQ3
-	 ZFuoPmVhT7k1dZ/CDPe1WSL1MB9y2z8nfXFLIFuvAy85ggT/LASPoiiK696JZqz6th6g4
-	 vvgmk4s9FX3RjEIbh/xcqchl7h2D1S0Rf+mUCCtO7UJZk3SuJ3IePPWkiugJmLq9zEm6E
-	 kJmgOJjSdfGAasDPVMkEpiRO4OlnC5ADwadtC5ZhXsGPxkTvEg3vj4XifJXH42z4I/7Nz
-	 PsX3AibcnKKro8vzGV95O7qAll0ffi9btj0lHMyknZ56lKN4HC0uVsD610Uxc4iFkVw==
+	t=1793701730;
+	b=vX6FPGdhuRxhA/wJkFhq85YdE64jPHZNWjJ5q6vcQ9gHNr/I22StZPRR8daCsiQyZGxa
+	 iHd3kn6cTgPSUq6gCDLy5FGg2oDhpOu249MrFOJCwCMlTRArNJn+WPbnp2u7mcdyV5DHG
+	 lg8kAVNdptEikmFVWoTpaixKUKQhMnBhgZVWFF4vtSY2wZOaI4r4x/ypPG2dzQmo09Y+c
+	 OHf8utZrOJ/87qDzCKLx6gP57lDsc2T0U+5xiOpgLIg0hTJpwE4Onbg+AWhUIrM9SRnRK
+	 4MzlxQPFtLTyH3BPKjp7ZEXjrifUItx4doBO+7Y5JGOw/ivfd5/583m+LjJZyMNVMSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701725;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701730;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=TmwjRRGkhnVnWcZ/zamrvsicPht4ljwppqlZ4OCe+QM=;
-	b=lezAXHEwd9fiAuVHzKZh9lRSXDuH8dg5Y5/3p3I9HAmEM1ohamNfx6QJtJt2Y1scUbES
-	 FgobJ38MOlcnMsaxIX4lvAkGN2L9mmp8ypbx/E/329jd+vGOewVV2C+B4Axl30SIxiC+y
-	 fRX2tRGjhgnMHlc+ndbmCK4wSbp59bt3WULZvjz7I0nGbDk7llhqTmMFJGHTwloLDqZxt
-	 ZBO3vDmmgLbmkENonnbKtNd8NLF6gHMHlyRfwVYMSRHtxQPBXrzryd5fgzrflA2dyhjDG
-	 he0IJqw6argoMH9mlsDJiYb/Ba3AmSq+yiPTqLgT3v4FMLwqKySlAIwUT5PVYN4LMtQ==
+	bh=J/CHTWTxLznWvODPQ4Afo29zCdiwl4//kWg7/xkmshI=;
+	b=mb5mP8OXchwkXKGYvtvz1DmyXeXEbTSLw7I1eMaFXhkLrcrmZRjTJS8jVi9ftr9+Qfnv
+	 /vfzEMtkEp7JLE0KC75unTrAXsKkog0upgNasNoZEZm1V8NA8Ru8Yz2Vi8/ScSxYooOBk
+	 kgWp8xmivrGFvTsEs2RIaN3zuviqLFB3ll9j3K8M0bDgG4UTHc7YkHEOXhH+S2rgV7WKH
+	 xHDuV66MhNuRtd+TO082og5OoOx//Zss+BNLY10Q38t96jg595gyhY6UFQPHOM6TeenHd
+	 Vxg4hfDh5K0DqrH2z0RGdZk6VYgqE4sApbbqzBQLoMHkXkx4c55UnPCYyaWsHLiK4EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,24 +25,29 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCB7606A828;
-	Tue,  3 Nov 2026 10:28:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BCB7606A828
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2293607153E;
+	Tue,  3 Nov 2026 10:28:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2293607153E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABHWJlZt+lqZ6k7AA--.3118S2;
-	Tue, 03 Nov 2026 18:28:41 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowACHk5Rat+lqb6k7AA--.6253S2;
+	Tue, 03 Nov 2026 18:28:42 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+To: Ido Schimmel <idosch@nvidia.com>,
+	Petr Machata <petrm@nvidia.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: cec: extron: release the v4l2 device on disconnect
+Subject: [PATCH] mlxsw: core_hwmon: unregister the hwmon device on event ops failure
 Date: Tue,  3 Nov 2026 10:28:50 +0000
-Message-Id: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+Message-Id: <20261103102850.1340455-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,54 +59,55 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABHWJlZt+lqZ6k7AA--.3118S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ur45uFy3Aw1fCF4kKryrXrb_yoW8GFWkpF
-	Z5Ka4DKryFkrs0gw4kta1kXF15Zrs7XrW8ury3Wa1vkrZ8JF1xGFWvy34qga1UAFWkXF98
-	J3Z8tFWxWFs5CFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowACHk5Rat+lqb6k7AA--.6253S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar4fZw1kJFW7Zr47Xw15XFb_yoW8Gw17pr
+	WrGa909ryIgr4jvw48XaykXFy5GayIgayfuFyrAFWfJF18GrW09F90qF1akF1UGrWUGF13
+	try8Zw1UuFZ8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
 	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
 	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4U
-	JwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUFzVbDU
-	UUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIByAwAAs2
+	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCT
+	nIWIevJa73UjIFyTuYvjfU7nmRUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgkAA2rpnIRz0wAAs3
 
-extron_connect() registers a v4l2 device, which takes a reference on
-the underlying serio device. extron_disconnect() never unregisters it,
-so the reference is never dropped. The extron structure allocated in
-extron_connect() is not freed either.
+If mlxsw_linecards_event_ops_register() fails, the error path calls
+hwmon_device_unregister() with line_cards[0].hwmon_dev, but that field
+is assigned only after the registration succeeds and is therefore
+still NULL. The hwmon device returned by
+hwmon_device_register_with_groups() is never unregistered, and the
+error path dereferences a NULL device.
 
-Unregister the v4l2 device and free the structure at the end of
-extron_disconnect(), mirroring the error path in extron_connect().
+Unregister the hwmon_dev local variable instead.
 
-Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+Fixes: 99a03b3193f6 ("mlxsw: core_hwmon: Add interfaces for line card initialization and de-initialization")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-index 1f8ed7ff31e5..724709606a0b 100644
---- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-+++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-@@ -1403,6 +1403,8 @@ static void extron_disconnect(struct serio *serio)
- 	extron->serio = NULL;
- 	serio_set_drvdata(serio, NULL);
- 	serio_close(serio);
-+	v4l2_device_unregister(&extron->v4l2_dev);
-+	kfree(extron);
- }
+diff --git a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
+index a5e7aee730d6..16644f367df6 100644
+--- a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
++++ b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
+@@ -920,7 +920,7 @@ int mlxsw_hwmon_init(struct mlxsw_core *mlxsw_core,
+ 	return 0;
  
- static int extron_setup(struct extron *extron)
+ err_linecards_event_ops_register:
+-	hwmon_device_unregister(mlxsw_hwmon->line_cards[0].hwmon_dev);
++	hwmon_device_unregister(hwmon_dev);
+ err_hwmon_register:
+ err_temp_gearbox_init:
+ err_temp_module_init:
 -- 
 2.34.1
 
