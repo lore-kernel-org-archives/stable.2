@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706585;
-	b=XxTCCnlVxjsqPW+6DUUn5ewR1v4Ywi1YxLen4CqZ6UexKJIvg4YM73CcPem5ecivtrWb
-	 qzqkLdrLRkWzhyFqxvJJx66PBqXJDOyeGzX1bzUtoPqoTIUfuDclvpssDgLRKL2FlEtg2
-	 KaNc2SMIEfO7UnojGo+Ayd+QkjjcM/KsgymFpwKKb1+fcgHYbaTh1L//qEVEqqi8lsIEs
-	 1fhVA4PKJB7G1eKbMAhhi3Sba+xFqkSFTdseSnAw6ouaae5KFpdczp71CC54Qyf+duyi4
-	 iwo6DRue7V2+IvwgszHg8d+4vX/kwv2LNZjmr84hYjhV7lZgJCItyPvd6AVK75MQ0ZQ==
+	t=1793706609;
+	b=pNo8syGZ1Og/rTn4DuppeQxUFCxS8NbYgXuBryJkjb4gCqUb0wLcqMF+RQH6fdZGN+az
+	 AMPhKPAKVvvsoSc0wUvf+4sMnZXk1rYfK9B/ZsojOZdw63uiYZJLmzWiKkKf/9amsiXqN
+	 uEROQEPUBomoX9AA3dN0LCOv/0VQ0+zU0/xG64wwpWvF3JkvBASf0ltbPzNuSIi5+MMWM
+	 0LOAJ8QKh2bLUtSS+DK9VR6Vh39ZQ14/3zP/8Xx8pf59nSVtLgj6AxKAcjZvLURfgSfd5
+	 LSrw3wN1maXQEtg8s4JxBZrloBupEI30RCad/rIVnML1wZtzliVCdDTNF/Wzb8ypG2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706585;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=Q+oLP1OEwtePBrYrElNROHr+q71h1tBToe+zpCw5khE=;
-	b=40IYu8Lbenop6eh4Rih+QWReGxzePJo7qj0IcFzggn+s1M/59xDxOIE/ZdBiBFlb7WGp
-	 tcMn+kHTL8ys2zx1BMlTnWAdXltBbpplbh3akCuJthvXkDRkJLdCrrrTKkvuk7+v+GTPP
-	 bIuCJXzQrd9eq4lNUdCZ0Uz3Kya9A1zio+etGR6fGUOunn8o4tjN6HdH+i6Kio0ikqOAH
-	 ReCFWfr/HqBSfG9rWU+7K5PJOYO/m96/Jd2cNeA2njGAaIYuFfbuCYZWZ4+16cYfB8dxz
-	 srXssEFXJv5qxCKd4z4KxbKzNmLL1ijxj/fy794/A6rtn5Y+opNx6JYNtiK64uCxCyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706609;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=21vYI0bQVUl3hCiSLmuD6Wo76ikPKRN+C6h2vCMSb/E=;
+	b=VRtUxdGx8WKgu1Dy4chhC3aOcfeXKrG8KxBJRNZGRuV3YCDG3K+XadMGIv/O56QfOWCh
+	 Xhsd9tdJw/Ix0N50l/p3oi+Il+fHWUzJMUJzpUcsMjWbSl6l2xqPxTf1Ew53kF2NdaRF8
+	 LfWhBq5/7LY3Mq8jFEIx8iyiM5hsIgneeYwtk4B42m2PqoM3K1yEI72rPotFUmHAXL9bN
+	 tqmemiZxauhG+7iam3nhhSc6TAFCJ6b7nr51JjNhh8/XONeG2Ie/bC8envpUb2LieHWji
+	 /fCBhPLPFaEjzZYH4ZI3/5BOX8LtoZ7iiKDMOHS7TxO65bdUn9DwGVbcOiB18Rf3SZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JzD9qNM6;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTzqHn6U;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E429606A339
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:49:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E429606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20CB606A32F;
+	Tue,  3 Nov 2026 11:50:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JzD9qNM6
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so6079835e9.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 03:49:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793706584; x=1794311384; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Q+oLP1OEwtePBrYrElNROHr+q71h1tBToe+zpCw5khE=;
-        b=JzD9qNM6RpV88GkWHfULKtjSaEAQMrQye1soENW8DfoGD/ljSXfdE+3T7Qirz9b3sZ
-         THlInnnrRlzmj+QQwIB0GeazDvKZj5BW35v48UBhOPOWG6UU4JdUPJrQkdcgdRobSGYG
-         uBkUTDIbO04E53//4sDn0A4j50vyjIh9wJp91vbXL+hMWZlKD5gJ3Ql7R+htoS5sR/A6
-         FW8X78VcsQ8F810onSoLA5GMzFpmBKK0bYYKM16MeIVofoWVa6cHaHfGPt0uU15USrGY
-         2U61wKKrNfOFHMGquDGSF0wTiY5/Ulh8ZnLojQu3rUCEIBObGkxptcULHGYIyS4szKpe
-         8ndg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793706584; x=1794311384;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q+oLP1OEwtePBrYrElNROHr+q71h1tBToe+zpCw5khE=;
-        b=dlC8isFhYQIdW2qf5qcX73jCEs5xsCpt4nqK4XQvW857Tf/Zky+nRcsCouOSFmfWzH
-         V24mr2HNJ+bjHuS9F7ETcof406H7VyVsRZHtAAl3cPWsGNt4psZ0sv21S4hW0EqoNN4x
-         P84O5OrdTV0s9IBo9IGHXcaQvnlVf9hztk+Q5XkVtBPnXz5IC2uTfsILb15QYD7d2cXV
-         AkKFV9rMnafn59JFDZ4nOIqu8PKIIdzQxiz9inYXjjWOVcjmFOIbWe9MUc3+ol0MUnea
-         KcLPAryinwX0z5g2pzzctwMJasvzY0lf13gsR9r6NF5RumR9hH+8I801upNJ2GZXU5jm
-         xeag==
-X-Forwarded-Encrypted: i=1; AKwUvBzEz4d1dS083rv5i4xugBQZd/1Sve4FFxwMDUiU5ds4KY49DCFEybENyc6vTBGTTqaVe8zSy24=@vger.kernel.org
-X-Gm-Message-State: APuU4Z83B3D0OWuv7rAgZySBrgBmxtwJc7BdG/Vrxmp2B1t8KgSFaP/z
-	XnQILP7TzBlpi5FL5atdVdqAVhzkgutQJzdsLoaTkcABIVq2LO5nhqSZ
-X-Gm-Gg: AYBFou2zghLitBqZLY2WnAXSptFKmHbjXWfEVtt7Vs9U6YBI6jLGQnoU/W29J/bgTia
-	JRiqOvmJsklWFYOcQKGVIsQhY/RnKkGbUNj4lQtnOnCevyQfaqNWBIytFRRQw/o3vQWJ1VKuCsz
-	1ygnfzZjmZpVXOZWQY/TUtfwV8O7Ox18gtIFdkjQH8JAqZ3xUXx9ukh4Kktvl1X1x4v7jJVAgTi
-	4komS7MhiYg1806tOC0YA37tqf10D15qgFwvgXBXNPPZO8ARMVrNtbYafLhE70twntmzsdy04En
-	rihReaEKvw7zKfPVpEBFW6uKP5HVZC2HN/Ad9HMkCaDDl4la4nUTaUAoG53zgmgv90Lzr8YINNT
-	jf01HUmsP7Xx9ZUwzrv7VCswNsI8aIC6sphK3NA+25nznmrLsMiQa6bLzXU631tqdLEH3V+Kp4k
-	2+xOvPu9JGCvEo9S8RHkcwin8rAjA/NoIb0aXjJyaxQ/mPGzPZmayWXjiMCkr/Ejf44Co9JL2sm
-	pRj9nEIQqWHRVS4wrvAWUya80GLGGjpm+Y+BM3BUsA0CG8UIjjJl4AaRiqEF65E+y7ucGRGXksq
-	ktt9q8xGOeWXggZP7Xg4VmGqh0q6nvc8YEbQqmu0Xir20ooCa21vXLx4BmJln6nwQZp1Z+wpMyR
-	iYd4zavY+
-X-Received: by 2002:a05:600c:1387:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4ac1793e81cmr309764195e9.13.1793706583552;
-        Tue, 03 Nov 2026 03:49:43 -0800 (PST)
-Received: from [192.168.1.86] (240.red-79-154-229.dynamicip.rima-tde.net. [79.154.229.240])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm446345565e9.1.2026.11.03.03.49.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:49:43 -0800 (PST)
-Message-ID: <be6a9d3074290c030a6dcf9211a02fe690fb5696.camel@gmail.com>
-Subject: Re: [PATCH v3] drm/amdgpu: Only enable HDMI audio if display
- supports it
-From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
-To: Panpan Ren <renpanpan@kylinos.cn>, alexander.deucher@amd.com, 
-	christian.koenig@amd.com, simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, tzimmermann@suse.de, 
-	lijo.lazar@amd.com
-Date: Tue, 03 Nov 2026 12:49:42 +0100
-In-Reply-To: <20261103061147.25827-1-renpanpan@kylinos.cn>
-References: <20261103061147.25827-1-renpanpan@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTzqHn6U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF13B1F00A1E;
+	Tue,  3 Nov 2026 11:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793706608;
+	bh=21vYI0bQVUl3hCiSLmuD6Wo76ikPKRN+C6h2vCMSb/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NTzqHn6UV0XlvZnKXNpull1pI9vC844ALQF1QB7ewEHwqFQiUxyCsX1vR+MKE0t3r
+	 y935niEs67SECOk8icBrppwNaHDapOCSo4lYsI9LV+Jh3Jjn1Fwlw5SFMDjEPHbzYp
+	 fallXfTmScstELEyPZU/q8ctAZXnUDFYs9sHj8qV+GqrKukjw+ot07vYiWCmgQ0bde
+	 /zKZbJeHE3MHwOiOqL7ug13nzBn6nMhZdERc3wzWDlDmpxqSjOakD4fg1zI7oqzmYQ
+	 1DNre6XTfOXizmQ9gtggy3llNS+vRrnNSB9eSeoUwNO/nU0cXwmqZ45F445dV1Ead6
+	 28Saxt+cZEROA==
+Date: Tue, 3 Nov 2026 11:50:03 +0000
+From: Will Deacon <will@kernel.org>
+To: Wei Wang <wvw@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	wei.vince.wang@gmail.com
+Subject: Re: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU
+ suspend
+Message-ID: <aunKa8uBZJTCzVjd@willie-the-truck>
+References: <20261102234813.1069156-1-wvw@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,164 +62,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102234813.1069156-1-wvw@google.com>
 
-On Tue, 2026-11-03 at 14:11 +0800, Panpan Ren wrote:
-> From: renpanpan <renpanpan@kylinos.cn>
->=20
-> The amdgpu legacy DCE audio path (dce_v6/v8/v10) unconditionally
-> calls
-> audio_enable(pin, true) at the end of afmt_setmode(), regardless of
-> whether the connected display advertises audio support in its EDID.
->=20
-> This causes a phantom HDMI audio output to appear for displays that
-> have no audio capability (no basic audio bit, no Audio Data Block in
-> EDID), because the GPU sets the AUDIO_ENABLED register bit, which
-> drives the HDA codec's ELDV pin sense, making the codec report the
-> jack as audio-available.
->=20
-> The radeon, nouveau, and dw-hdmi drivers all gate audio enablement on
-> the display's audio capability. Apply the same check to amdgpu's DCE
-> afmt_setmode functions, while still respecting the
-> AMDGPU_AUDIO_ENABLE
-> override for users who explicitly force audio on.
->=20
-> Fixes: e2cdf640cbb5 ("drm/amdgpu: add display controller
-> implementation for si v10")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: renpanpan <renpanpan@kylinos.cn>
+On Mon, Nov 02, 2026 at 11:48:13PM +0000, Wei Wang wrote:
+> On systems with FEAT_SME, TPIDR2_EL0 is part of userspace thread state:
+> the AAPCS64 SME ABI uses it as the ZA lazy-save pointer, and the kernel
+> context-switches it eagerly in tls_thread_switch(). While a task is
+> running, the live register is the only copy of its value.
+> 
+> The architecture defines TPIDR2_EL0 as UNKNOWN after a warm reset, so
+> a CPU power-down through PSCI CPU_SUSPEND or SYSTEM_SUSPEND can lose it.
+> cpu_do_suspend() and cpu_do_resume() already preserve TPIDR_EL0 and
+> TPIDRRO_EL0, but not TPIDR2_EL0.
+> 
+> For CPU idle this is harmless: current is the idle task, and the next
+> context switch reloads TPIDR2_EL0 from next->thread.tpidr2_el0. For
+> suspend-to-RAM and hibernation, however, cpu_suspend() runs in the
+> context of the userspace task that wrote /sys/power/state, and that
+> task returns to EL0 with an UNKNOWN TPIDR2_EL0. On hardware where the
+> reset value is non-zero, the next SME ABI lazy-save check in that
+> thread faults. For example, bionic's fork() -> clone() ->
+> __arm_za_disable() -> __arm_tpidr2_save() loads from the garbage
+> pointer:
+> 
+>   # echo mem > /sys/power/state; true
+>   signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0xa3bad11bcaf72e93
+>       x16 a3bad11bcaf72e89
+>   #00 pc ... libc.so (__arm_tpidr2_save+24)
+>   #01 pc ... libc.so (__arm_za_disable+32)
+>   #02 pc ... libc.so (clone+480)
+>   #03 pc ... libc.so (fork+60)
+> 
+> Having firmware zero TPIDR2_EL0 on warm reset avoids the crash. It is
+> not enough on its own, though: a thread that enters the kernel with a
+> lazy save pending (TPIDR2_EL0 pointing at a valid TPIDR2 block) would
+> see TPIDR2_EL0 == 0 on return. It would then wrongly conclude that ZA
+> had been committed and restore stale data from its save buffer. The
+> kernel owns this state and must preserve it.
 
-Makes sense, thank you!
+There's a lot of unnecessary (AI-generated?) detail in here. Please can
+you trim this down a bit? I don't think we care about the firmware part,
+the stuff about idle or the bionic crash. The bottom line is that we're
+not saving/restoring a live EL0 register across suspend/resume.
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-
-
+> Save TPIDR2_EL0 in cpu_do_suspend() and restore it in cpu_do_resume()
+> when SME is present. Placing this in proc.S covers both cpu_suspend()
+> and hibernation. The new slot uses ctx_regs[14]; sp moves into what was
+> previously tail padding, so sizeof(struct cpu_suspend_ctx) stays 128
+> bytes. sp is only accessed through the CPU_CTX_SP asm-offset.
+> 
+> Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
+> Signed-off-by: Wei Wang <wvw@google.com>
 > ---
-> Changes in v3:
-> - Also gate the initial audio_enable(pin, false) to avoid touching a
-> =C2=A0 potentially shared audio pin when the display has no audio support
->=20
-> Changes in v2:
-> - Respect AMDGPU_AUDIO_ENABLE override for users who force audio on
-> - Add Fixes tag and Cc: stable@vger.kernel.org=C2=A0for stable backport
->=20
-> =C2=A0drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 12 ++++++++----
-> =C2=A0drivers/gpu/drm/amd/amdgpu/dce_v6_0.c=C2=A0 | 12 ++++++++----
-> =C2=A0drivers/gpu/drm/amd/amdgpu/dce_v8_0.c=C2=A0 | 12 ++++++++----
-> =C2=A03 files changed, 24 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> index f2977fe6d824..a8f5eb2394c6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -1555,9 +1555,11 @@ static void dce_v10_0_afmt_setmode(struct
-> drm_encoder *encoder,
-> =C2=A0		bpc =3D amdgpu_crtc->bpc;
-> =C2=A0	}
-> =C2=A0
-> -	/* disable audio prior to setting up hw */
-> +	/* disable audio prior to setting up hw, unless the display
-> has no audio */
-> =C2=A0	dig->afmt->pin =3D dce_v10_0_audio_get_pin(adev);
-> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
-> +	if (connector->display_info.has_audio ||
-> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
-> AMDGPU_AUDIO_ENABLE)
-> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, false);
-> =C2=A0
-> =C2=A0	dce_v10_0_audio_set_dto(encoder, mode->clock);
-> =C2=A0
-> @@ -1705,8 +1707,10 @@ static void dce_v10_0_afmt_setmode(struct
-> drm_encoder *encoder,
-> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL2 + dig->afmt->offset,
-> 0x00000001);
-> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL3 + dig->afmt->offset,
-> 0x00000001);
-> =C2=A0
-> -	/* enable audio after to setting up hw */
-> -	dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it or is forced
-> on */
-> +	if (connector->display_info.has_audio ||
-> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
-> AMDGPU_AUDIO_ENABLE)
-> +		dce_v10_0_audio_enable(adev, dig->afmt->pin, true);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void dce_v10_0_afmt_enable(struct drm_encoder *encoder, bool
-> enable)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> index c68de0fe1d7d..3cd9f1bb3a70 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -1724,8 +1724,10 @@ static void dce_v6_0_afmt_setmode(struct
-> drm_encoder *encoder,
-> =C2=A0		bpc =3D amdgpu_crtc->bpc;
-> =C2=A0	}
-> =C2=A0
-> -	/* disable audio before setting up hw */
-> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, false);
-> +	/* disable audio before setting up hw, unless the display
-> has no audio */
-> +	if (connector->display_info.has_audio ||
-> +	=C2=A0=C2=A0=C2=A0 amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_ENABLE)
-> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, false);
-> =C2=A0
-> =C2=A0	dce_v6_0_audio_set_mute(encoder, true);
-> =C2=A0	dce_v6_0_audio_write_speaker_allocation(encoder);
-> @@ -1748,8 +1750,10 @@ static void dce_v6_0_afmt_setmode(struct
-> drm_encoder *encoder,
-> =C2=A0		dce_v6_0_audio_dp_enable(encoder, 1);
-> =C2=A0	}
-> =C2=A0
-> -	/* enable audio after setting up hw */
-> -	dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it or is forced
-> on */
-> +	if (connector->display_info.has_audio ||
-> +	=C2=A0=C2=A0=C2=A0 amdgpu_connector->audio =3D=3D AMDGPU_AUDIO_ENABLE)
-> +		dce_v6_0_audio_enable(adev, dig->afmt->pin, true);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void dce_v6_0_afmt_enable(struct drm_encoder *encoder, bool
-> enable)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> index c3906270f25e..eb1fcf0b39cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -1523,9 +1523,11 @@ static void dce_v8_0_afmt_setmode(struct
-> drm_encoder *encoder,
-> =C2=A0		bpc =3D amdgpu_crtc->bpc;
-> =C2=A0	}
-> =C2=A0
-> -	/* disable audio prior to setting up hw */
-> +	/* disable audio prior to setting up hw, unless the display
-> has no audio */
-> =C2=A0	dig->afmt->pin =3D dce_v8_0_audio_get_pin(adev);
-> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, false);
-> +	if (connector->display_info.has_audio ||
-> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
-> AMDGPU_AUDIO_ENABLE)
-> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, false);
-> =C2=A0
-> =C2=A0	dce_v8_0_audio_set_dto(encoder, mode->clock);
-> =C2=A0
-> @@ -1653,8 +1655,10 @@ static void dce_v8_0_afmt_setmode(struct
-> drm_encoder *encoder,
-> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL2 + offset, 0x00000001);
-> =C2=A0	WREG32(mmAFMT_RAMP_CONTROL3 + offset, 0x00000001);
-> =C2=A0
-> -	/* enable audio after setting up hw */
-> -	dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-> +	/* Only enable audio if the display supports it or is forced
-> on */
-> +	if (connector->display_info.has_audio ||
-> +	=C2=A0=C2=A0=C2=A0 to_amdgpu_connector(connector)->audio =3D=3D
-> AMDGPU_AUDIO_ENABLE)
-> +		dce_v8_0_audio_enable(adev, dig->afmt->pin, true);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void dce_v8_0_afmt_enable(struct drm_encoder *encoder, bool
-> enable)
+>  arch/arm64/include/asm/suspend.h | 2 +-
+>  arch/arm64/mm/proc.S             | 8 ++++++++
+>  2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
+> index eb60c9735553..2cc5fb405769 100644
+> --- a/arch/arm64/include/asm/suspend.h
+> +++ b/arch/arm64/include/asm/suspend.h
+> @@ -2,7 +2,7 @@
+>  #ifndef __ASM_SUSPEND_H
+>  #define __ASM_SUSPEND_H
+>  
+> -#define NR_CTX_REGS 14
+> +#define NR_CTX_REGS 15
+>  #define NR_CALLEE_SAVED_REGS 12
+>  
+>  /*
+> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+> index 7afbece885a3..c7b7fa6491c3 100644
+> --- a/arch/arm64/mm/proc.S
+> +++ b/arch/arm64/mm/proc.S
+> @@ -103,6 +103,10 @@ SYM_FUNC_START(cpu_do_suspend)
+>  alternative_if ARM64_HAS_TCR2
+>  	mrs	x2, REG_TCR2_EL1
+>  	str	x2, [x0, #104]
+> +alternative_else_nop_endif
+> +alternative_if ARM64_SME
+> +	mrs_s	x2, SYS_TPIDR2_EL0
+> +	str	x2, [x0, #112]
+>  alternative_else_nop_endif
+>  	ret
+>  SYM_FUNC_END(cpu_do_suspend)
+> @@ -142,6 +146,10 @@ alternative_if ARM64_HAS_TCR2
+>  	ldr	x2, [x0, #104]
+>  	msr	REG_TCR2_EL1, x2
+>  alternative_else_nop_endif
+> +alternative_if ARM64_SME
+> +	ldr	x2, [x0, #112]
+> +	msr_s	SYS_TPIDR2_EL0, x2
+> +alternative_else_nop_endif
+
+nit: We use msr and REG_* for TCR2, so it would be more consistent to do
+the same for TPIDR2_EL0 if the assembler is happy with it.
+
+Otherwise, looks ok to me:
+
+Acked-by: Will Deacon <will@kernel.org>
+
+Will
