@@ -1,67 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793671594;
-	b=3ZU74XmDi/OSslSmZDeoD1TQ6XCgEiVo96lgbzzO2jjke3eQF+rkTyQjZQ8JIOVPqB9r
-	 a79vTpI85Kw5U87NqiMppRGolhm2PnWure+GXmZirEpTrvpXZEEbUC09WEPHqqw28UmwE
-	 2puVVF+ihsWh3cJjUTRN6C4+b7Z1YfFCmzeHVZoBZVhjT5PG5LpRtoAkCfQe+fM1JkIBj
-	 76GSQzJxmlONSdfnDyIkh4EswzJ41Ht4PYbSwuCzczoGx7vb8KMUw+QNYO/2tlm3CRaR2
-	 OF54dOu6dqORsrHf7VAVYVWgSSQc6oq+oQNWFAAzrlWsthIWcu2DvbSG3Beo6+bPNfQ==
+	t=1793671667;
+	b=v0q2KL0Z1VVXxV8Bfh102Rlkir9a9aVoAkILdlA05za7Lrqf46bH8pIiHZQmtaMAUxI+
+	 lFoKAENo7vAVn+axCcGIwYvi1ktB1u9Lp/RAdG1B1GhOgzPnO9zfRE1VAZDVR6Ctx0nIy
+	 LbZYF0vHkt+MbaXz2MUygUpaN2sWSyiIFKUhIJw5zibaV2rXnDJ3pTE2gZDgU7Hf7u6Ra
+	 N1KoJriqMIaTk07oa/NKehbw8+cerTHcUs2HApFX1vY2jVP2/itptBekXjlub3YnTzWlg
+	 edUT0Tlp7hWQP92Ne+L2/Lt7eRjRPIE6lYRuD18jG6HR/tUwXiVOxQ6vmGxmyqycmqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793671594;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
-	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=v4u4F2x/nKEXI6K51t5Y4udoO7BBBbN73aqid42YOZ0=;
-	b=0PRL6rvCOAqrL7+RDJmIxZtxeU6UqQFxAnxC/CVbW1NiiSgXYPdM2dIkrzu9Z5l1BMJ+
-	 FZhVab0Jdjp3Ir2gWW21Tmj0SS83gCQ83UI4rZ560nz5kzw5tkroYNCQfcEhTLVRuBb/H
-	 Emg3KFyUmgqAaiFAWrVQ3nVOOjTVKvSm1HZzk3IzjrkqwlPmJvr4KNyx1QfhWAaL4b4Lt
-	 W1d53o/sMC4uYPMEgtZdjuRKpRxrXjgO0e4uURdpVHafMXG8iGAAaKCIRICmK6NEOuJaY
-	 lb64RRHILwugzxGY5sJRk0jS9Ie8ZWP0H3eOwQxrC0nXAvzVrzD/oHLnsKetcVynuxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793671667;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UZFi2mAWq4lB8sfvhCBMvmbDAWZypjFWJ5S9ABz2IMQ=;
+	b=GeSc1BWm3ZXhS82ODvwP2Kj8/B7VboSEAOmwixQlfb4MBta3y7EHiMIXwIDLGj3hwotq
+	 aUYDMfxGu0LoAXi/PIvZmBAK/IfZLjM/lYNrb4uRNpf7RsvzTGdw2ib/fVRzTEe/nzttn
+	 PyG76wBt4ZkCalHHcMcw4NBHiue4tANH9YogwErQTYJhC75382mF024IbrSx3rkRLTvyY
+	 deQE58LsPhwhKzUjTnWZ12tQJvdZHlb28H/DLEk2gtOvZ+fSZ+lXI5NIDuvFa99Pgh3aE
+	 WUOGe8c4HlO0k3UpSnKHEPInQ1bxckFYPm/OSnOGoiVgHPWwwZd6nPeC2jSytXSofcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gNV88AdX;
-	arc=none smtp.remote-ip=113.46.200.220
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=PLDr99jG;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE76606D820;
-	Tue,  3 Nov 2026 02:06:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EE76606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C139B606A32C;
+	Tue,  3 Nov 2026 02:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C139B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=gNV88AdX
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=v4u4F2x/nKEXI6K51t5Y4udoO7BBBbN73aqid42YOZ0=;
-	b=gNV88AdXjFtCeALe7w+67uOqRnkXP0NvgdmDlFeVL0HFWsUtuSinEHD74eDZucPNHZhrkvcaM
-	TRCRsnQvW1kZBAPJf9ko6PpN1Ar4KreivOQg37LzxesmUP+wEfyNmwZnID/e5U00oQzS7uarW9L
-	+/BEAf0Uokr0K0Kp4jSR/+I=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jJX4D3Rshz12LdL;
-	Tue,  3 Nov 2026 10:06:20 +0800 (CST)
-Received: from whupemo200011.china.huawei.com (unknown [7.152.185.179])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6472D40561;
-	Tue,  3 Nov 2026 10:06:20 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- whupemo200011.china.huawei.com (7.152.185.179) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 3 Nov 2026 10:06:19 +0800
-Subject: Re: [PATCH 0/5] ubifs: harden validation of on-disk inode and node
- metadata
-To: <shao.mingyin@zte.com.cn>, <richard@nod.at>,
-	<linux-mtd@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <49cebc00-3827-e24c-3e0c-74ea6ca8c7e4@huawei.com>
-Date: Tue, 3 Nov 2026 10:06:18 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=PLDr99jG
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=UZFi2mAWq4lB8sfvhCBMvmbDAWZypjFWJ5S9ABz2IMQ=; b=PLDr99jGAHpZOPhy+SMGmYcYQc
+	9qGVEjN70Wa7zfgxRDMiqCJLtSwU2mGacYQG7JTRIKjtooQhX1+kxk71XIgshMOnbNrIMmlSI8UBS
+	xE2Sgj1RgcQ77yAZZ+2wLc1YrtzB8zcjyC3CJ0G5ddTBML2n9d1eIiHj4HYWXybdPO4R2SwlQ3zqT
+	28gyvsUtpir+7LPw/+aYSd+nSeSz6u36d2RzRw9nVBMfhI2c2ytYodwG7vkYkBdhdL5bUh7jA9TU5
+	CV0BiovbsHohoYKYdthwMNDblTVBpTwuUZDkVpNwqMZXSgWZAIYfKHquY/Pz2K1Xu/x2wtMwp6HBY
+	07WMVa9w==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xO3w9-00000000qwc-3pSM;
+	Tue, 03 Nov 2026 02:07:46 +0000
+From: "Liam R. Howlett (Google)" <liam@infradead.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>,
+	"Liam R. Howlett (Google)" <liam@infradead.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 3/3] maple_tree: Update internal warning and bug_on code
+Date: Mon,  2 Nov 2026 21:07:24 -0500
+Message-ID: <20261103020724.2614498-4-liam@infradead.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103020724.2614498-1-liam@infradead.org>
+References: <20261103020724.2614498-1-liam@infradead.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,80 +73,231 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261102214531231UAVA89ay_BDVcwFmrv8cq@zte.com.cn>
-Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemo200011.china.huawei.com (7.152.185.179)
 
-在 2026/11/2 21:45, shao.mingyin@zte.com.cn 写道:
-> This series tightens the checks ubifs performs on the metadata it reads
-> from flash.  All five patches are about size and accounting fields that
-> are taken from the image and later used without a range check; an image
-> whose CRCs and node tags are intact can therefore drive the code into
-> state it never expects.
-> 
-> Patch 1 rejects inodes whose size does not fit the signed loff_t the size
-> is stored in.  A 64-bit value with the top bit set becomes negative and
-> passes the max_inode_sz check, and the read paths then do size arithmetic
-> with it, for example (i_size + UBIFS_BLOCK_SIZE - 1) >> UBIFS_BLOCK_SHIFT
-> in do_readpage() and (i_size - 1) >> PAGE_SHIFT in populate_page().
-> 
-> Patch 2 rejects xattr inodes whose i_size does not match data_len.  ubifs
-> keeps the two equal for attribute inodes, and ubifs_xattr_get() and
-> remove_xattr() assert on the invariant; with assert=read-only or
-> assert=panic a plain getxattr() or removexattr() turns the file system
-> read-only or panics the kernel.
-> 
-> Patch 3 checks the lower bound of the master node's highest_inum.  Today
-> only the upper bound is validated, so a value below UBIFS_FIRST_INO is
-> accepted and ubifs_new_inode() allocates numbers from the range reserved
-> for special inodes.  With highest_inum == 0 the first new inode gets
-> number 1, which is UBIFS_ROOT_INO and already in use, and the index ends
-> up with two inodes sharing a number.
-> 
-> Patch 4 validates inode and data node sizes during replay.  replay_bud()
-> trusts them, and ubifs_recover_size() may then extend an inode to a bogus
-> size.  The normal read paths already reject such nodes, and truncation
-> nodes are checked in replay_bud() as well; do the same here.  The data
-> node end offset is also computed in 64 bits so that a large block number
-> cannot wrap.
-> 
-> Patch 5 refuses xattr accounting that cannot be decremented.  On an image
-> whose counters are already zero or smaller than the entry being removed,
-> the unsigned counters wrap and ubifs_jnl_delete_xattr() writes the bogus
-> values back to flash; the next mount then rejects the inode because
-> xattr_names + xattr_cnt exceeds XATTR_LIST_MAX, so a single removexattr()
-> makes the image unmountable.
-> 
-> To keep the severity claims honest: mounting such an image needs
-> CAP_SYS_ADMIN in the mounting namespace (or access to the flash), so none
-> of these is a non-root attack.  Patch 2 only turns into read-only or panic
-> with the assert= option; the default action is to report.  Patch 5 is the
-> one with a persistent effect.  Patches 1-3 are mount-time validation,
-> patch 4 is in replay, patch 5 is runtime accounting.
-> 
-> The patches are independent, have no inter-patch dependencies and can be
-> applied in any order or as a subset.  All five carry Fixes: and
-> Cc: stable.
-> 
-> Testing: each patch applies to next-20261030, passes checkpatch.pl
-> --strict with 0 errors/0 warnings/0 checks, and fs/ubifs/ builds with
-> CONFIG_UBIFS_FS_AUTHENTICATION, CONFIG_UBIFS_FS_XATTR and
-> CONFIG_UBIFS_FS_SECURITY enabled and W=1 without new warnings.  I did not
-> mount crafted images: this machine has no mkfs.ubifs/ubi tools and no
-> mtdram or nandsim setup.  I can put together an image for any of the five
-> if a runtime check would help the review.
-> 
-Hi,
- From my perspective, I'm not really interested in the problem scenarios 
-triggered by malicious fs image, let Richard decide whether to merge it.
-This series does not seem to introduce any issues, there are two small 
-nits in patch 2&3.
+When CONFIG_DEBUG_MAPLE_TREE is set, call WARN_ON() once per site after
+the custom information is dumped about the tree.  Without using the
+kernel's WARN_ON calls, syzbot will not catch issues detected by this
+code.  The BUG_ON variants now stop instead of dumping and continuing.
 
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-> .
-> 
+Update the non-debug code to call WARN_ON_ONCE() as well.
+
+The userspace tests asserted on dump_stack() but only print on
+WARN_ON(), so make WARN() fatal in maple-shared.h and have the maple
+test exit with the result of maple_tree_seed().
+
+Cc: <stable@vger.kernel.org>
+Reported-by: Lorenzo Stoakes <ljs@kernel.org>
+Fixes: f0a1f866aba1 ("maple_tree: add debug BUG_ON and WARN_ON variants")
+Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+---
+ include/linux/maple_tree.h          | 48 ++++++++++++++---------------
+ tools/testing/radix-tree/maple.c    | 13 +++++---
+ tools/testing/shared/maple-shared.h | 33 ++++++++++++++++++++
+ 3 files changed, 66 insertions(+), 28 deletions(-)
+
+diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
+index e30e57f5f3df9..3a9751c6689fc 100644
+--- a/include/linux/maple_tree.h
++++ b/include/linux/maple_tree.h
+@@ -680,7 +680,7 @@ void mt_cache_shrink(void);
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
++		BUG_ON(1);						\
+ 	} else {							\
+ 		atomic_inc(&maple_tree_tests_passed);			\
+ 	}								\
+@@ -696,7 +696,7 @@ void mt_cache_shrink(void);
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
++		BUG_ON(1);						\
+ 	} else {							\
+ 		atomic_inc(&maple_tree_tests_passed);			\
+ 	}								\
+@@ -713,7 +713,7 @@ void mt_cache_shrink(void);
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
++		BUG_ON(1);						\
+ 	} else {							\
+ 		atomic_inc(&maple_tree_tests_passed);			\
+ 	}								\
+@@ -722,16 +722,16 @@ void mt_cache_shrink(void);
+ #define MT_WARN_ON(__tree, __x)  ({					\
+ 	int ret = !!(__x);						\
+ 	atomic_inc(&maple_tree_tests_run);				\
+-	if (ret) {							\
+-		pr_info("WARN at %s:%d (%u)\n",				\
+-		__func__, __LINE__, __x);				\
++	if (!ret) {							\
++		atomic_inc(&maple_tree_tests_passed);			\
++	} else if (__ONCE_LITE_IF(ret)) {				\
++		pr_info("WARN at %s:%d\n",				\
++		__func__, __LINE__);					\
+ 		mt_dump(__tree, mt_dump_hex);				\
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
+-	} else {							\
+-		atomic_inc(&maple_tree_tests_passed);			\
++		WARN_ON(1);						\
+ 	}								\
+ 	unlikely(ret);							\
+ })
+@@ -739,17 +739,17 @@ void mt_cache_shrink(void);
+ #define MAS_WARN_ON(__mas, __x) ({					\
+ 	int ret = !!(__x);						\
+ 	atomic_inc(&maple_tree_tests_run);				\
+-	if (ret) {							\
+-		pr_info("WARN at %s:%d (%u)\n",				\
+-		__func__, __LINE__, __x);				\
++	if (!ret) {							\
++		atomic_inc(&maple_tree_tests_passed);			\
++	} else if (__ONCE_LITE_IF(ret)) {				\
++		pr_info("WARN at %s:%d\n",				\
++		__func__, __LINE__);					\
+ 		mas_dump(__mas);					\
+ 		mt_dump((__mas)->tree, mt_dump_hex);			\
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
+-	} else {							\
+-		atomic_inc(&maple_tree_tests_passed);			\
++		WARN_ON(1);						\
+ 	}								\
+ 	unlikely(ret);							\
+ })
+@@ -757,18 +757,18 @@ void mt_cache_shrink(void);
+ #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
+ 	int ret = !!(__x);						\
+ 	atomic_inc(&maple_tree_tests_run);				\
+-	if (ret) {							\
+-		pr_info("WARN at %s:%d (%u)\n",				\
+-		__func__, __LINE__, __x);				\
++	if (!ret) {							\
++		atomic_inc(&maple_tree_tests_passed);			\
++	} else if (__ONCE_LITE_IF(ret)) {				\
++		pr_info("WARN at %s:%d\n",				\
++		__func__, __LINE__);					\
+ 		mas_wr_dump(__wrmas);					\
+ 		mas_dump((__wrmas)->mas);				\
+ 		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
+ 		pr_info("Pass: %u Run:%u\n",				\
+ 			atomic_read(&maple_tree_tests_passed),		\
+ 			atomic_read(&maple_tree_tests_run));		\
+-		dump_stack();						\
+-	} else {							\
+-		atomic_inc(&maple_tree_tests_passed);			\
++		WARN_ON(1);						\
+ 	}								\
+ 	unlikely(ret);							\
+ })
+@@ -776,9 +776,9 @@ void mt_cache_shrink(void);
+ #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
+ #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
+ #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
+-#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
+-#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
+-#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
++#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
++#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
++#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
+ #endif /* CONFIG_DEBUG_MAPLE_TREE */
+ 
+ /**
+diff --git a/tools/testing/radix-tree/maple.c b/tools/testing/radix-tree/maple.c
+index bfe4b8626c429..846c67e20e82a 100644
+--- a/tools/testing/radix-tree/maple.c
++++ b/tools/testing/radix-tree/maple.c
+@@ -36502,22 +36502,27 @@ static void regression_tests(void)
+ 	test_spanning_store_regression();
+ }
+ 
+-void maple_tree_tests(void)
++int maple_tree_tests(void)
+ {
++	int ret;
++
+ #if !defined(BENCH)
+ 	regression_tests();
+ 	farmer_tests();
+ #endif
+-	maple_tree_seed();
++	ret = maple_tree_seed();
+ 	maple_tree_harvest();
++	return ret;
+ }
+ 
+ int __weak main(void)
+ {
++	int ret;
++
+ 	maple_tree_init();
+-	maple_tree_tests();
++	ret = maple_tree_tests();
+ 	rcu_barrier();
+ 	if (nr_allocated)
+ 		printf("nr_allocated = %d\n", nr_allocated);
+-	return 0;
++	return ret ? EXIT_FAILURE : EXIT_SUCCESS;
+ }
+diff --git a/tools/testing/shared/maple-shared.h b/tools/testing/shared/maple-shared.h
+index 2a1e9a8594a28..5f827709773a0 100644
+--- a/tools/testing/shared/maple-shared.h
++++ b/tools/testing/shared/maple-shared.h
+@@ -8,6 +8,7 @@
+ #include "shared.h"
+ #include <stdlib.h>
+ #include <time.h>
++#include <assert.h>
+ #include "linux/init.h"
+ 
+ void maple_rcu_cb(struct rcu_head *head);
+@@ -20,5 +21,37 @@ do {                                            \
+     call_rcu(&((_p_struct)->_memb), rcu_cb);    \
+ } while(0);
+ 
++/* Make WARN() fatal */
++#undef WARN
++#undef WARN_ON
++#undef WARN_ONCE
++#undef WARN_ON_ONCE
++#define WARN(condition, format...) ({				\
++	int __ret_warn_on = !!(condition);			\
++	if (unlikely(__ret_warn_on)) {				\
++		__WARN_printf(format);				\
++		assert(0);					\
++	}							\
++	unlikely(__ret_warn_on);				\
++})
++#define WARN_ON(condition)					\
++	WARN(condition, "assertion failed at %s:%d\n", __FILE__, __LINE__)
++#define WARN_ONCE(condition, format...)	WARN(condition, format)
++#define WARN_ON_ONCE(condition)		WARN_ON(condition)
++
++/* Once state for the debug macros */
++#ifndef __ONCE_LITE_IF
++#define __ONCE_LITE_IF(condition)				\
++	({							\
++		static bool __already_done;			\
++		bool __ret_once = false;			\
++								\
++		if ((condition) && !__already_done) {		\
++			__already_done = true;			\
++			__ret_once = true;			\
++		}						\
++		__ret_once;					\
++	})
++#endif
+ 
+ #endif /* __MAPLE_SHARED_H__ */
+-- 
+2.47.3
 
