@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689893;
-	b=nRQsE9gn5DDZ02mWoDP2hpXBqJ1EIeeSpgYDVZmOAP38rnDCTLu/ib2BZwexF30SRoNb
-	 hBe5EkmkBA3qE63RKJ0RV447emIrj8/obd6sL3jqL5GmE4c+oAhd/ITN78hh86eeT+MGx
-	 kfqkylA4f01mcG/cgnbbENG66vXk26UZ8gDp++vh+Ns6leuMEtGMdvSXQRF4vzS4f4Dl2
-	 nseRz66Bdb4xnNdTzew61X5zWVVIBAOkpwMiJ/EocJLUhxTZ1dAMW05pK7t6s44g8/3md
-	 ieNsSTIWhDo+Uy1RGgehl/QEtBhowd6VNvETCqt6T/vxAv8+RZw7mFLWTsXsgwKuCQQ==
+	t=1793689908;
+	b=CAkgt59j0iMsHHx+nzO1ZXoJi1yKb+SMzHxiYyFQu4ZHktZbLblS0pf6wC9g2KIq1QOV
+	 A/qufiLEfLMe4tOWCg3bMaVoMECWHfzZ+nmWekIE8WV1b92zYcH0OQWO9npgSFqVFn0jA
+	 5VrrHOs7BUpW80K0bEBThQZRrVxOJ+qJ3dzA2cB5nmILXbYxJN2okB2DYjl8PYbdT9dvT
+	 arBcO3mKwwMKKuOFK0n17HtKODb+sjFsMUJGM9p0fiKo0TaeLUrJr7hzF6JfdiCaUvOl0
+	 NPRlK9d608A3fSpPZDcBJXdKh91XSPSIupZTUwvjxa+WO2fTTYbhi88+ho/kiPAUS/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689908;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=swiNWtUuNwKuw4eXj5wAu+E/uLXSlCdJjugmRW9mnBw=;
-	b=sW0GIe5MyhjA9XERJJQtSTVQt5Z4dSsDqkiRIah0z5Kr+luWgFpUK918uaW9ay4ZVue2
-	 jGLJexZwlaeRTPNBxsRBH1778wXOYGcU9fbcn4lfECRa+bQZDRU6Ns60uW88LU9vOrC+b
-	 1K0EK7uTCg0/bGEt9mrbX4Ny82kwdyHKebjLx0iWn/WY85QGkXVEBV04HBqueDNeIhi/y
-	 tzgH+CkL2i6X3RBAFr3i2Bmd/uKfD4WMzCt4ww/DViUw5ZWw3hIkOnTrE12wKoN6lherR
-	 6rvpMqPZ4bZ31RE/vhPfMGl6wA0Ja8YuS3NHQ9HZxZ01zKk3ULpNZGUoGpuPOYzBpmg==
+	bh=EVrczeRgLGIyAiqqKsv36NQcAzgaN3tabH77BDNWG9k=;
+	b=jj227UpgDN8fXeWS+sw3xYuUBv5fru9qr5/qpncCvHylTie2OesNg2tlFpHcSYs+V7Fo
+	 BA0j4kJ6kvbbOgDnjvyrRJhFFS2hPoVa1apouKYzCkODw/fZ2nRexzQGAUl+9rH+qLbvA
+	 Wm1QVQNMOCSA+QhloT0jFdTgHMv10w8QxJlwLzD2bgx+08G6LcNaBtvZCYTEvSKqhc7V2
+	 ttHTr+Fm03Cy3/dLX3H81AUfYZOeq3OS2iOPc9U6xY/ehtKD7dk/5uwvBIZR5ZHPiGmop
+	 HD8cWtMZFMqSDRg9/3PtGgfwzIcyNpPN4YPDPXCuDE9VnFC8UAwU8c+HPGykbiqs5PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrczeBWQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klVGqGnr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F04606A324;
-	Tue,  3 Nov 2026 07:11:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECB3606A329;
+	Tue,  3 Nov 2026 07:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrczeBWQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23671F00A16;
-	Tue,  3 Nov 2026 07:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klVGqGnr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153F51F000C1;
+	Tue,  3 Nov 2026 07:11:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793689892;
-	bh=swiNWtUuNwKuw4eXj5wAu+E/uLXSlCdJjugmRW9mnBw=;
+	s=k20260515; t=1793689907;
+	bh=EVrczeRgLGIyAiqqKsv36NQcAzgaN3tabH77BDNWG9k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XrczeBWQsfx3fQ6PrT05hXV1RI1YDiFOlZ9y5ZWhJE7agsz8daWM+k7RKiX+pNWKu
-	 UcZQ3OQfMw0XY6Pl6+0pP5GVGewN+QZVqVHxlCnr8oPbNVyU3NlP7iiCPdsOpPxGaF
-	 J4ni9IXsgp6lhOsLm5MtTdSCCOOPeAz6NcERPioO40hhrIALZYolsI4mGQdz4xZrjy
-	 +2nkUmQywAYAWc3IAJaBbFnjXGnY4oz3vEQtbh0gDBKbtxbiUQQvMhPdsIzShH1BFE
-	 nXL3sEKyl07Erlx2h3SlzACoQnxvBSdlcyp+nYmzJzV1/cpZuC7a3eE0YRYmouC4zi
-	 5wEJaPwrtafVA==
-Message-ID: <8f39d96f-127d-4e3d-bd8c-150d8c00b9c9@kernel.org>
-Date: Tue, 3 Nov 2026 08:11:26 +0100
+	b=klVGqGnrXsB92n76wIBJWz73TitbzaEhkLDxaEzx/E/R3aBlLbP0x+/GXBSaaIkbR
+	 /g0k7W1fpr7Ykm4+RG+6fh87a7Stqf+Bv5O9KRm8lJ9bNacPs1sSqW+KW7iNZIQWF7
+	 zqewmS/CUHIikE+E3v3pBDDNNewfrwpDliOpkl+ppZFl4RewYhwOoZhAe15N9QXRVy
+	 1AYgcH4rkrqHeKnyzmEHLcg45EUkps7uvIE6j/r7jGSmQY0q0VBUm1X/rB062llxs/
+	 t0DD0izmsqYAuSQqpRbiSj+QsqD3Jn4/nUUjXAMx1n+tVE5/mNsZy8NC0WisDlK/TD
+	 7DeNHJ+sxXcQA==
+Message-ID: <27d6184e-2eca-4b1e-ae4d-0cbe2a9a2547@kernel.org>
+Date: Tue, 3 Nov 2026 08:11:41 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,15 +52,13 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: lt9611: Put DSI nodes if device tree parsing
- fails
-To: Wentao Liang <vulab@iscas.ac.cn>, andrzej.hajda@intel.com,
- neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103064759.1059044-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/bridge: ti-sn65dsi86: Put the host node if DSI
+ attachment fails
+To: Wentao Liang <vulab@iscas.ac.cn>, dianders@chromium.org,
+ andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261103065106.1063659-1-vulab@iscas.ac.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -106,27 +104,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103064759.1059044-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103065106.1063659-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 07:47, Wentao Liang wrote:
-> lt9611_parse_dt() obtains references to the remote DSI nodes before
-> looking up the downstream bridge. If that lookup fails, for example
-> with -EPROBE_DEFER, lt9611_probe() returns without releasing the DSI
-> node references.
+On 03/11/2026 07:51, Wentao Liang wrote:
+> ti_sn_bridge_parse_dsi_host() takes a reference to the remote DSI host
+> node. If ti_sn_attach_host() fails, ti_sn_bridge_probe() removes the
+> bridge but leaves the node reference held. The remove callback is not
+> called after failed probe, so a deferred probe can leak another reference
+> on each attempt.
 > 
-> Use the existing err_of_put cleanup path when parsing fails. Both node
-> pointers are zero-initialized, so this also handles a missing DSI node.
+> Drop the host node reference in the existing attachment failure path.
 > 
-> Fixes: 23278bf54afe ("drm/bridge: Introduce LT9611 DSI to HDMI bridge")
+> Fixes: c3b75d4734cb ("drm/bridge: sn65dsi86: Register and attach our DSI device at probe")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+
+Not even bothering to run checkpatch.
+
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
 Another fake identity of "vulab" doing exactly the same as other cases,
 repeating same mistake of running unsupervised crappy bot even though
 was asked multiple times to fix that.
+
 
 Best regards,
 Krzysztof
