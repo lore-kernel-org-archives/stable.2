@@ -1,61 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700630;
-	b=Dm32sfWSTKP3EsP/dTx182i54iOEchXxvcX1l7D8SocUq+BXJJz6aWz5Fe8JeCCN3gTF
-	 HNR93v/k0n3oPAZVhv4v/sFsnYPnoa63DuY8X8hc+4fpLK+NHGAWTYqx8Nmn9W48EEVmm
-	 hVURdemA1mhi8bI444HrD7rh0HaGQe+aNVJN792XXr9+1dLqZdDY6y57BteFere/yoedx
-	 cEZTjzR56q8cPzRkiksyNiiiIiHg/Il3ZkW8usuxAV9I7kGlrLrx7ZCWCiS5hNHCqxMZm
-	 TNAjXJ/bi1AuSCRvA61YiNzNZVxaW+MrjlOlE41frRb2GfzRot1FKPHVIF7K/y/05tg==
+	t=1793700635;
+	b=g2a03mRPrAyYClCSxJYR1cct7lHMIbx4kLjNut5YPAxgt+fnEVHYiBj7TrFx3CnXrcKq
+	 NKGZGfAuxNR94+0gpWwj9TFZVJlqJUwT2jeZeF9LBcSwYDq0qAtbmRgB3rS1exhd8Jave
+	 Tj/hHF2wpY4lVqa3kzg7hIzUJ9IsJ3chXBfrdiEjlqU/QZbT35qQQtTMN8tgl/Ltivg/X
+	 GRJWokVbsCPrtQ0i4Ulw/XMKTeA7gQWALHhbZTcHAh5R8c/1mumIR4+5oFq6JS7ABy8qh
+	 LWMR9ba4tM/mY+wZEPmHVGahWiB25vsJ90iFZ1ZFJOWLbSyTs4OOIdw5wnBC+JKMmmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700630;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=zJUyjmQmBKyrXLXLxmgjcJJvM2eAHnqoUJZ1x8ZpfS4/mzynnvICK27LL9B1/6Zh8kGU
-	 jQSN0bTd/fl86YRBUUJ8wqpPVBEKEfE1oETkEFWxusB5vyJ0WriL7S4WuB30MUDW0xR2s
-	 I/5vZOgyu52nq5KCwXuSUU7qU9B6x9Q+gQkPUHwu0xJsdcWWsPGV9Eab0ggc+M6XVC2XL
-	 c6kkdgFckyY3o6cBiCL1YPlwQCWTNpREKImLWbLX5MOfaph1Z9EiAPZNH4q00e9JXnkU/
-	 8DI+AqnRi9X+eXZhlIyS+GhO3xBPHe8I1hP6+LoTStH9vb9cQF0SRyC51yDhtQAddVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700635;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=n/a95moMhTo2V1bhlqxFOojiRsUuFnaNeAtgD+c7R2g=;
+	b=uL035YyY8IPnjDoaK4I3QZkl/UfqWTlEHuoDzoEHZ/UfWcqMMzU/SKfd4oEnZ5QjKBxs
+	 MPdx8gKmh++bcXw4onc1bfj3zWJUNu37oW0WPuaPuicTydmpBzEtWq9tpjZymhlpIuOhT
+	 k5Yx4wAqie2fvD3XxBxuGmdr7LdTFcPortooWJ+2pvsdPnWqbQbAx98ja2TIaJ+FtMsoa
+	 S3kbLXjGX4Br3aM1AuIjneu7ekXpPt9jCKz35o1rTa0HUOe24gpx8BVcm5NI1U+w1ZxPn
+	 pDU7ewAIEhlehGJFm5pwPO25bdPVE2wl7Vu/+8kdjMOi5uq3rhTG/4YdT5bZHFMmwvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QP+RRhC/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yu2rMxZZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D36606B122;
-	Tue,  3 Nov 2026 10:10:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A90606B12B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:10:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QP+RRhC/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1781F00A18;
-	Tue,  3 Nov 2026 10:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793700629;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QP+RRhC/W4UZqSY4PiK1IEXOdqtTx70G+GFGuip7b+PtltMIYimWqcBOhH7eoqSzP
-	 JyGGvo7wDHmPdewJTbZDT6WDb/aNNv7PvqxOKCaKKnkpWjKrVQK2FhK3WC13gPvrNH
-	 Nf0QtCAFwwxX5GtKhUqSI4WgDLOO7WhgOTQUXJav94UtbKlEw71X92miXGRPfilsMM
-	 YtjFLqwjGjnq91s224Edw6I1FN0N/C/914u8dxl8uokkspw24lMPPWKcFoWj5AbyDo
-	 Kychd6JKF+YoGZBqLbHLQiZjlW/8yBjiEeXQcJBQ/48a8FpeS5W74Iol3ezkvp5MrE
-	 Dlu4+KHKpBI8g==
-From: netdev-bot+sinfo@kernel.org
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Marcin Wojtas <marcin.s.wojtas@gmail.com>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: mvpp2: free pending TX timestamp skbs when the port
- is stopped
-Date: Tue, 03 Nov 2026 10:10:28 +0000
-Message-ID: <179370062811.488859.14852630470087836565@kernel.org>
-In-Reply-To: <20261103100535.1310088-1-vulab@iscas.ac.cn>
-References: <20261103100535.1310088-1-vulab@iscas.ac.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yu2rMxZZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59911F00919;
+	Tue,  3 Nov 2026 10:10:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793700635;
+	bh=n/a95moMhTo2V1bhlqxFOojiRsUuFnaNeAtgD+c7R2g=;
+	h=Subject:To:Cc:From:Date;
+	b=yu2rMxZZCYJdFw+f7Oe7SL5umMwjPOzSMC5o6YVVDSZgdUowDcajL3xZYJoJkePTM
+	 0+eYLGwJA/pg5M9A5Z2ixY+QpPaH6RNnnlSAynt+9Tg4Hu2ErJT+L+2oezt2963u3C
+	 TqRcdjK5iNrEOlUJovqw4R7d9h/pLcJHMcXOvRC4=
+Subject: FAILED: patch "[PATCH] net/sched: sch_teql: fix use-after-free on lower qdisc drop" failed to apply to 5.10-stable tree
+To: owen@verialabs.com,horms@kernel.org,jhs@mojatatu.com,pabeni@redhat.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 03 Nov 2026 11:10:25 +0100
+Message-ID: <2026110325-gauging-cupcake-40eb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,29 +51,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hi!
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+To reproduce the conflict and resubmit, you may use the following commands:
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 782d6bb8f9b8e9d8591181662222bf74cd3ecf79
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110325-gauging-cupcake-40eb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
+Possible dependencies:
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 782d6bb8f9b8e9d8591181662222bf74cd3ecf79 Mon Sep 17 00:00:00 2001
+From: owen kwan <owen@verialabs.com>
+Date: Sat, 24 Oct 2026 10:34:15 -0400
+Subject: [PATCH] net/sched: sch_teql: fix use-after-free on lower qdisc drop
+
+The issue: teql_master_xmit() tests the slave's ndo_start_xmit() return
+value against NETDEV_TX_OK alone. A slave that consumes the skb but
+returns an error code (rc < NET_XMIT_MASK, e.g. NET_XMIT_DROP) is treated
+as if the skb were still owned, so the loop restores skb->dev and calls
+__skb_pull() on it. A VLAN slave returns the result of dev_queue_xmit()
+from its ndo_start_xmit() (propagated since cbbef5e18307), and when the
+lower qdisc drops the packet that value is NET_XMIT_DROP after the skb
+has been freed, giving a use-after-free in teql_master_xmit().
+
+The Fix: test for consumption with dev_xmit_complete(), which accepts
+NETDEV_TX_OK and every rc < NET_XMIT_MASK, matching other callers that
+need to distinguish consumed results from busy. Only NETDEV_TX_OK keeps
+the packet counted in tx_packets/tx_bytes and advances the slave; a
+consumed result that is neither a success nor NET_XMIT_CN ends the
+attempt and is charged to tx_dropped, so lower-qdisc drops are no longer
+reported as good transmits. NET_XMIT_CN is counted like success because
+it can accompany acceptance of the current packet: pfifo_head_drop drops
+the old head, enqueues the current skb and returns NET_XMIT_CN.
+
+Conditions to recreate the bug:
+With CONFIG_NET_SCH_TEQL,
+CONFIG_VLAN_8021Q and CONFIG_DUMMY enabled, add lkrdummy0 (dummy) and
+lkrvlan0 (VLAN id 37 on lkrdummy0); set a pfifo limit 0 root on lkrdummy0
+and a teql0 root on lkrvlan0; bring teql0 up with an address and send one
+UDP packet to it. The VLAN xmit returns NET_XMIT_DROP from the lower
+qdisc while holding a freed skb.
+
+Fixes: 572a9d7b6fc7 ("net: allow to propagate errors through ->ndo_hard_start_xmit()")
+Link: https://lore.kernel.org/netdev/179248763469.3135.1739559328868319628@kernel.org/
+Link: https://lore.kernel.org/netdev/20261023162821.GN708417@horms.kernel.org/
+Cc: stable@vger.kernel.org
+Signed-off-by: owen kwan <owen@verialabs.com>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/QDISC-Y0BY.v2.r0.20261024060625-2@mojatatu.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+index 6764f0dd38df..70c948a26f80 100644
+--- a/net/sched/sch_teql.c
++++ b/net/sched/sch_teql.c
+@@ -360,12 +360,18 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		case 0:
+ 			if (__netif_tx_trylock(slave_txq)) {
+ 				unsigned int length = qdisc_pkt_len(skb);
++				int rc = NETDEV_TX_BUSY;
+ 
+ 				skb->dev = slave;
+-				if (!netif_xmit_frozen_or_stopped(slave_txq) &&
+-				    netdev_start_xmit(skb, slave, slave_txq, false) ==
+-				    NETDEV_TX_OK) {
+-					__netif_tx_unlock(slave_txq);
++				if (!netif_xmit_frozen_or_stopped(slave_txq))
++					rc = netdev_start_xmit(skb, slave, slave_txq, false);
++				__netif_tx_unlock(slave_txq);
++				if (dev_xmit_complete(rc)) {
++					if (rc != NETDEV_TX_OK && rc != NET_XMIT_CN) {
++						master->tx_dropped++;
++						rcu_read_unlock();
++						return NETDEV_TX_OK;
++					}
+ 					raw_spin_lock_irqsave(&master->slaves_lock, flags);
+ 					if (rcu_dereference_protected(master->slaves,
+ 								      lockdep_is_held(&master->slaves_lock)) == q)
+@@ -379,7 +385,6 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
+ 					rcu_read_unlock();
+ 					return NETDEV_TX_OK;
+ 				}
+-				__netif_tx_unlock(slave_txq);
+ 			}
+ 			if (netif_xmit_stopped(netdev_get_tx_queue(dev, 0)))
+ 				busy = 1;
+
