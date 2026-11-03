@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701390;
-	b=r8/HS9vxkhIN1MypvJa1wXnBaeYa0E2qO0zU+k98atYgisA4AHMemGBBqcoMQeHnuwnH
-	 HbJxIp1peJ85kPYTaB6KcajwGbt9uH+tUjLc4e5o4bhksjfnlmIKCl7WEYA5dhVYUVRGQ
-	 m0d/MwdH9rDCkPchH0xcNWhhZoo/AygIvyjkyEJEC3Ps9Hl1Ui0t8XvEc+bHJGRavOtjm
-	 pRFRK4FC2Ng39luinvw6muG08SkpEfp6o7brSDwcmLxP7h3o8cy0YFOXtksgJeQ9YS9yN
-	 f8YaxQhcJvr9vlECf6UUCX27Q1NMuG98LwSuE/fFKNVGpG4dDHX0sP5V3zh/pQtzDqA==
+	t=1793701541;
+	b=DoiAE0s/32vWgNynkEWI2oLQVvOZ1Lw46VIOGdJlsnDnJhrokPZhz+qGPbH1dAJZMDb3
+	 7KutFZin1RhgvRfU11e1gAL98YLLNWef/LOfge97Ka8gjU3Az2r1d/FV78DEdEhuK4Ufp
+	 gEQiIEbtWFMxWGT9MlQMhaYqXCKyBFWAGItaXQhWNEki7Pwi8QCup7hiZ2hHeWs5fqfqy
+	 /6A/Jm1t/kZNjDvbCeRJ94I+nl5TfG0t5guOEKeALwiQnJ/5Q7bclGGytjAjsCxshUXGD
+	 yefeYiO6NIoAAjiKfPEfMirajYLEphYy5t4/sBWmeSkAVYKKJxxKFL2UgmOrQBqCG7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701390;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=UYmSENSjXIqHkTii+FsN+sTED4hZ7gPUeMWF2Y6fbXw=;
-	b=Xdy+ll4FZREPphEHvUFxulgf2vkxs2ZpCpfPO6wqeneATPHGDWbxxCSgAMKnkpQ4ihCr
-	 mXSWNcE7iFMs0AuTeL4FTVWC8JKLaKj2MDyuiGTuH2nNXGYPDze3VBfy/GD3vnrW7m9fl
-	 +DNlRHjexyRoSXCPhWDuxs7mUaXq0smPWqn9HbeSJM5ZdWndwMB4BpoMAkNY08ZMt4l1w
-	 hHnUvXuw12NNuiIzzZAIRpdRoMrZ4kUZ8cq5Dvar7ozrv9JvCd0MpJjkc/ARyvkGqbm2w
-	 +aBEisaK+trlnMriVbkkZJbv0a+zxvZmUyPHasa13LI0Yy8Rn170/AaiobXiampmUPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701541;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=s09cCW/s1X0J7CJ+rjy7aM1fbbviBPnk1bCW+56V/Ro=;
+	b=D70YVG06huTdqTwr5si5bQdJ1fM/KFGB+fWRTA9bBkHsvZ6AsWkrkxkVm+bM2JgR+luv
+	 S3ANumf2U8mDEvwV/B+fQozrDOtwBZf0TVZP3M5rA2rbwi5ibqQnsxmvhjMSNBdtx7iul
+	 q4ivBt+XmET/dIkivXHPBeDQJ+Dwb/2hZ6YaWSEIal9AxXBl8A/QHrNIAepBCSwuXknT+
+	 JnOWgYs8OCfj0nG4K1KpCyRsCmtJdNij5Z51pquH5J/B1Xnb58k9MHA1q4565mk2qI4rH
+	 jUMn5xWG+reOwAU637MjqtQq1o/5WjMuLNkzwvJEo1UsBScFjnbNjPuY/w2+z2uQewA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ISfpL6R+;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfSdkhnV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4760360850B1;
-	Tue,  3 Nov 2026 10:23:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4760360850B1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F21C606A335;
+	Tue,  3 Nov 2026 10:25:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ISfpL6R+
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 920C14E413E2;
-	Tue,  3 Nov 2026 10:23:06 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 644036046C;
-	Tue,  3 Nov 2026 10:23:06 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C0278103290E8;
-	Tue,  3 Nov 2026 11:22:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793701384; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=UYmSENSjXIqHkTii+FsN+sTED4hZ7gPUeMWF2Y6fbXw=;
-	b=ISfpL6R+E6N4N6aVzNXRYGzz2AA/3NYgZ9IrB12pd7ROCn+nSHGcmS2yQNbfBvaYJjXkM6
-	4E4KuHlXKDhwqeG+Nzs8Ivp/8+NWnGtQwJ3jMOCi/4ZDuMIB5MnPEvGMAa6XA031YwN6r2
-	CnWe135b3ER1vbuKyGeGzb8nZ2aRyBHDoCyvGk6cVnYrAYRicyVq6gqgDji2+E1GLJuIyE
-	ag7hb33JKof9rpoyT7gWmTcyzsfcLwYQkBEQTXTE7/9Xh7aBO+WC87J52sxT/v57kkSL7b
-	tmfCho/klrGMJ+J7LQIhPGgriqMadPed5B+omHTyOI6GwopizI0OUF59FGh3iw==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 03 Nov 2026 11:21:38 +0100
-Subject: [PATCH 5.10.y] gpio: dwapb: mask/unmask IRQ when disable/enale it
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfSdkhnV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16C01F00A02;
+	Tue,  3 Nov 2026 10:25:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793701540;
+	bh=s09cCW/s1X0J7CJ+rjy7aM1fbbviBPnk1bCW+56V/Ro=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bfSdkhnVwkhceDHXC74zgzm/aZWlTICgn7pULQ8atfWCJaY0TqWDu9Zr3PwnVGB+O
+	 2qmpPlQ8tAfl9Ig3ipx9Wr9aoOuwfn7cUuRrJfMafRJIol0Gyj2JZCCTksqR5SKDOa
+	 5RAAHDmm11w9t7Sq1v7+L7+pl/hxv450c2Nc3C00GK+BnfvLNAvphy42l+fvYyPdEt
+	 /uHcwef9giEu6vXag0J9U1rOgWxhYM+IgK/JFUFx6tLfNbkV5HuoA/+EyIEBHw9yB+
+	 8ffmej69zT+RdQEDCBUIZWm6+22Oxleg6nrMMWtytYWQ7EQadbEYFoxlsBbFPK8fNt
+	 XgC8+ZRmbGG6g==
+Date: Tue, 3 Nov 2026 11:25:36 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, stable@vger.kernel.org, 
+	Marcin Wojtas <marcin.s.wojtas@gmail.com>, Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: Re: [PATCH] net: mvpp2: free pending TX timestamp skbs when the port
+ is stopped
+Message-ID: <20261103-poised-ambrosial-trogon-17f02f@quoll>
+References: <20261103100535.1310088-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,117 +60,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-dwapb-fix-v1-1-c93ef2f20695@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMTQ6DIBQGr2K+dTGgARKvYroAfNbnQg1of2K8u
- 2iXM5nMjkSRKaEpdkR6c+J5yqAeBcLgphcJ7jKjkpVRStai+7jFi56/wnltrdHa9iYg90ukrO9
- XC10qWf7w/Pu0+ZHCeo1wHCcO/xKydQAAAA==
-X-Change-ID: 20261103-dwapb-fix-ab5776557f6c
-To: stable@vger.kernel.org, Hoan Tran <hoan@os.amperecomputing.com>, 
- Serge Semin <fancer.lancer@gmail.com>, 
- Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Alan Tull <atull@altera.com>, Jamie Iles <jamie@jamieiles.com>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ralph Siemsen <ralph.siemsen@linaro.org>, 
- xiongxin <xiongxin@kylinos.cn>, stable@kernel.org, 
- Riwen Lu <luriwen@kylinos.cn>, Andy Shevchenko <andy@kernel.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793701321; l=3286;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=raXdsmUXhUMXLoQv/+U2gS57CUX95PJSVR9MJSEhvXE=;
- b=n0J1NxaeWywnesRrmu6cgGjMdeym+G8ooueSX1IC1ePo9To5tg4tXa4WeBSEUhrdNiTz8Kznv
- uaWvKvCUNwgAB2zYIJ/sOtAFrXCyErtY/9iSsk+5e2BLAeZRdnzVki+
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103100535.1310088-1-vulab@iscas.ac.cn>
 
-From: xiongxin <xiongxin@kylinos.cn>
 
-commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
+On Tue, 03 Nov 2026 10:05:35 +0000, Wentao Liang wrote:
+> mvpp2_tx_hw_tstamp() takes an extra reference on skbs that need a TX
+> timestamp and stores them in port->tx_hwtstamp_queue[]. The reference is
+> dropped by mvpp2_isr_handle_ptp_queue() when the hardware reports the
+> timestamp. Nothing drains the queues when the port is stopped, so skbs
+> still waiting for a timestamp keep their reference until their queue
+> slot is reused, and are leaked for good when the port is removed.
+> 
+> Free the queued skbs in mvpp2_stop(), after the interrupts have been
+> released.
+> 
+> Fixes: f5015a594c50 ("net: mvpp2: ptp: add support for transmit timestamping")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c | 17 +++++++++++++++++
+>  1 file changed, 17 insertions(+)
+> 
 
-In the hardware implementation of the I2C HID driver based on DesignWare
-GPIO IRQ chip, when the user continues to use the I2C HID device in the
-suspend process, the I2C HID interrupt will be masked after the resume
-process is finished.
 
-This is because the disable_irq()/enable_irq() of the DesignWare GPIO
-driver does not synchronize the IRQ mask register state. In normal use
-of the I2C HID procedure, the GPIO IRQ irq_mask()/irq_unmask() functions
-are called in pairs. In case of an exception, i2c_hid_core_suspend()
-calls disable_irq() to disable the GPIO IRQ. With low probability, this
-causes irq_unmask() to not be called, which causes the GPIO IRQ to be
-masked and not unmasked in enable_irq(), raising an exception.
 
-Add synchronization to the masked register state in the
-dwapb_irq_enable()/dwapb_irq_disable() function. mask the GPIO IRQ
-before disabling it. After enabling the GPIO IRQ, unmask the IRQ.
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
 
-Fixes: 7779b3455697 ("gpio: add a driver for the Synopsys DesignWare APB GPIO block")
-Cc: stable@kernel.org
-Co-developed-by: Riwen Lu <luriwen@kylinos.cn>
-Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
-Signed-off-by: xiongxin <xiongxin@kylinos.cn>
-Acked-by: Serge Semin <fancer.lancer@gmail.com>
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- drivers/gpio/gpio-dwapb.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
 
-diff --git a/drivers/gpio/gpio-dwapb.c b/drivers/gpio/gpio-dwapb.c
-index d6240ae0f87ca..c2c9b42a60865 100644
---- a/drivers/gpio/gpio-dwapb.c
-+++ b/drivers/gpio/gpio-dwapb.c
-@@ -282,13 +282,15 @@ static void dwapb_irq_enable(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
- 	unsigned long flags;
- 	u32 val;
- 
- 	spin_lock_irqsave(&gc->bgpio_lock, flags);
--	val = dwapb_read(gpio, GPIO_INTEN);
--	val |= BIT(irqd_to_hwirq(d));
-+	val = dwapb_read(gpio, GPIO_INTEN) | BIT(hwirq)
- 	dwapb_write(gpio, GPIO_INTEN, val);
-+	val = dwapb_read(gpio, GPIO_INTMASK) & ~BIT(hwirq);
-+	dwapb_write(gpio, GPIO_INTMASK, val);
- 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
- }
- 
-@@ -296,12 +298,14 @@ static void dwapb_irq_disable(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
- 	unsigned long flags;
- 	u32 val;
- 
- 	spin_lock_irqsave(&gc->bgpio_lock, flags);
--	val = dwapb_read(gpio, GPIO_INTEN);
--	val &= ~BIT(irqd_to_hwirq(d));
-+	val = dwapb_read(gpio, GPIO_INTMASK) | BIT(hwirq);
-+	dwapb_write(gpio, GPIO_INTMASK, val);
-+	val = dwapb_read(gpio, GPIO_INTEN) & ~BIT(hwirq);
- 	dwapb_write(gpio, GPIO_INTEN, val);
- 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
- }
+3. Your bot does not even bother running checkpatch, right?
 
----
-base-commit: f23b568f7597f98a241454018a34361ce2523c05
-change-id: 20261103-dwapb-fix-ab5776557f6c
+4. Nothing of this was reproduced nor tested.
+
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
 
 Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+Krzysztof
+
+
+
 
