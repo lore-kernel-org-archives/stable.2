@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716821;
-	b=SQlQbinYEiRGXNZTIthPKxJFpaKrZ2QjIsxbP4hdUTKWVZEHuJeO2NjxfiQZPjcP+0s7
-	 dFTelI3/DlbU5YjwliJuv+50If4xHe5qynAoeeh2LaSVyxciWiCZGPaR6OFiz0NC9eGM7
-	 hm6zKo7rP2SkCaEkOMMrE20MjDHnF7IXWfOuD523QZWSwTKjsFQMbvRxVgSYl8uUmetdd
-	 s8M/UF7yeKgUzarRVxZFwXCDf7Jq7/AY0RxmrZ7dkQbUx658s9GytxvdIusbR1E2yzAwP
-	 HZPel5x7vNidUySVKoeO9UdmC5rXX/xCA3WGTv9vrjGjD2aV5LxViUB24DBXhUIOjWA==
+	t=1793716841;
+	b=YnI9uxyd9UcNWythz8W27SJd5D/fxjQf2YJXw2HchQ9wu3BHZA9qhYhNqLfERqfP3caX
+	 SI+QASsX0vZQzQeZfkNAQhEzVQpa5SYL63UicIoanxQx2h6P6Da+gDLfVeUOfBnMWWi2y
+	 y1zzLdVaemVlvH+jk7wyfCgXQhCwoI50ajvdxGHqfLLTw/pDCBGvQbOL+5C1lu01FIbX0
+	 qSIU0WvNlQgTjrSnq9Lh+W7x1sAvi8jgduajc2dKU+kDy/RrsvcmzTZ2m3hgN8omgmr4Y
+	 LvCnxxFV0Q4ylOUfmqNyfs2ZPHazbKQyP1Z0ZZsa0E6m9YltX7DgsxZZJ5Q2HGKOoOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716821;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=71SHQM+JBAqWOZSxiB0ywBj+k1TZQiMc0kbJjW0dEBE=;
-	b=hPGrkWFgdwcc4Re0BQD4AP/kDc8xT/y8vB4/7Os1mk2QEIWOpa8ADA90U6f8XdnI4GkG
-	 9vkp4svJz1zcSUr8kkyLt8xJMCd6h/ayPJ2z1e6TudZsZD36MuzWrAjKJpKdy0s98YRU/
-	 iwy8svMB9yr+jaFiXMcDKBerdJMD0visHlYERxpq/4KSLuuP19axEatyUH7aYAJRG8kjt
-	 oxvPdKVDE4sY6yHkzXJSFc4ll8MhBT/EXMfE46Oi0j1nkZnLrqLzEydgFvvrPyQLdGECN
-	 gc4bijP2lHE0owHJGp3QtIAIUQDxiudSHw14NI4cEDkKISvtC2fxZeshkzcfliFd5Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716841;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=JxbLReXRYAO/z/ArZsF713bkrdZeZOBvZZAxqH4ZM+I=;
+	b=UclfrjIJRM/l0ppVzSwPzmW44zy72Tuh7CRibU2N2qgUk3vTFyvJ+IT7mHHtjIiEbWLy
+	 vXIVwaFMZtfQsMv1GZ2uBWDhMkA46p0EUb6vxdH3u3yXQ+TX4ux4TO01kFxPfYqx+K9HW
+	 1C9FU67Z9vBrqeHBVCQU/hifhKX2N9VdpDqbbPHHCa5A/lTQLUiwMlFotGlp7u81/9QoP
+	 /DJCjXo8ORAbLcBKI+AI9MF5l8qVG7GQZvzgCJ9DsKrVOE20GW5PPkkQFiQFwHla3r530
+	 ZAMXTQ7Fpk5gnWAQm38yrUMq74tO/K1kHGbL/jZjA1elKA6Rc4nsqsdKFs4Wad94Nng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LcCqzwTz;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b="SW/dGP6M";
+	arc=none smtp.remote-ip=212.227.17.11
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBDE1606D802
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:40:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBDE1606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827D4606EE80;
+	Tue,  3 Nov 2026 14:40:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 827D4606EE80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LcCqzwTz
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e8fe8e343fso28540775ad.2
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:40:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793716820; x=1794321620; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=71SHQM+JBAqWOZSxiB0ywBj+k1TZQiMc0kbJjW0dEBE=;
-        b=LcCqzwTz/1nC1P2gl8UvDIGdEOpBDVyofXQ6G76dY7JcuDUhvtGrKpsm6EC4ZSTzbV
-         OCRFT21vWE5ODkpMuUsfPG3NWbmHglT4KUFDfgaTAt63ZnFYHFeh9EIf95PGeRytnymr
-         G2aSUv6zHiYmL8ftc+ggTP26etrF42Qizko+MwXSjqpOfEpdJwIXUG1ez2vTcYtewNLE
-         WJhSIgowsOaOMiY6yVCaQXqf3pNDhWpv28ncmhinn4I1q34RQ67LeqHAkuAGQr9BWiBF
-         LGv1HLQ0lXOmGVIXQIEXtS2Ia/ESuHQpwZNLeoGzbwxqZSJSQ9/yNHzngJP9y0HLItEb
-         Hp9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793716820; x=1794321620;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=71SHQM+JBAqWOZSxiB0ywBj+k1TZQiMc0kbJjW0dEBE=;
-        b=KQbetScTJ4fKkc20AW4/NcyXEhE0r+dut1gDKOWiEmvOnaewrTZwf1hwlrIh9lwPPh
-         HpZPci8wyofKSL7u5SGAMUf41MiYK/Nu+VfhRQGE2IlAW9dPldw/TT7RwEWldXevoF3J
-         3aDmlgRX6irLKye+x1fwodxw9LDhjf/QKtvLHyMlBLKIA/+8AX8mJZHz/RskAJ4o2sO+
-         c2HJKjXm0ukbhPRmKjGOe+wIcozELRWy7Qaqohu0+dY4keecGRec03vErHzV4NkTqpJN
-         2lyKYOMn70GGBBLgpYLxkl+vAnFbsZnm1aAJDXJrP3DBdGbCAmY4vQW/JXPxqSX97YqH
-         LRng==
-X-Forwarded-Encrypted: i=1; AKwUvByDwMwnzenzYWwv1JZJxmiyHQBDxmdIJN1xj7iOrXiEIJnBIR1/bV6FqXpmTZ7FXM/jvN8G0CQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8izvHNgsQ0K8pVdIJdYt8RnhpJax81Omu1Z2fPjHTZSpiVTIl+
-	ZWebaVdwRX4U833dz39XzF4xrnVqTY5D9gAIqMsumWPIrQzQSmbeFv/V
-X-Gm-Gg: AYBFou3Zjvwkz54UUjY08QwI2+KYxyNjc2ZmxTg23NRqth4UxG1MrG536k2yclbJMho
-	aiU6ondqf4n1hGtowIbqn8C1o6cJmsGa/4kdvtli7wgDxVz3Rx1PhDxv7pfx3bOTOvuEEeZWxtL
-	P014kRuba+Olrb7ZCU8nedF3Fi5+Lx/fqP40cX+UHU/+CHI9CN8aIAj3WG+389v2hc6FnCn+Jlc
-	Ql97UJrj35eEp/hTMbDekzyfRsJ/9TmCT34XzBVqfWgZKdMhWjSeRxt+rsiivW9ITnPfmS77cPq
-	L5bOl8Yl7IJbV3sisD4qVKpc2PhvKMDtm5164OJAS+V/00ktjqMNMKI+LXh+jiWGO/Yq01mF1oq
-	TB7ZIIatbrL1oVjxpEBYbhx3I25ECwhGiPQL4DqvRh5dL/ExkpiqoHcpblPXu86ka7mLGwm7uS7
-	AE93Py7aBAvGZ6mn0ubKxx261iuTZ65BMecxktH9vNIa0GfL42V+7QwvtF/3RgOF6/W6bJ7yAVn
-	as6gr8vo4BGF/b/lS1EmG11SCmwlH6/kiIlmeUQ0tqGSFgbeIHxnP2fDBro89gy3BFajImaqYzj
-	uVEKXO4q0kyjtU9uOiM0WKfiX31hRguu6fSTnbZBUyKgeWh9Uv4mpOJoGl5xcUna0qBVwB5Hc8/
-	1FMyoIze6vos=
-X-Received: by 2002:a17:902:f688:b0:2ec:ed9d:bfbf with SMTP id d9443c01a7336-2eced9dbffdmr20393835ad.57.1793716820092;
-        Tue, 03 Nov 2026 06:40:20 -0800 (PST)
-Received: from localhost.localdomain ([2400:d802:dd7:8000:314f:4575:be3:a064])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39052edasm42898465ad.4.2026.11.03.06.40.16
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 06:40:19 -0800 (PST)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com
-Cc: mhklinux@outlook.com,
-	stephen@networkplumber.org,
-	linmq006@gmail.com,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] Drivers: hv: vmbus: Do not remove the channel when device registration fails
-Date: Tue,  3 Nov 2026 22:40:06 +0800
-Message-ID: <20261103144006.69857-3-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261103144006.69857-1-izaiahsun@gmail.com>
-References: <20261103144006.69857-1-izaiahsun@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=SW/dGP6M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1793716834; x=1794321634; i=markus.elfring@web.de;
+	bh=JxbLReXRYAO/z/ArZsF713bkrdZeZOBvZZAxqH4ZM+I=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=SW/dGP6MHqKHgoqlUvAkofUIfRr28KPSIQMTLBL/g8rFXW6SCGuRqGjqUI07iwnq
+	 PjipVrkFMVUkccI6ZWovRo9LgGdbNiAdMaYUeKxbqGA+a1eHewYxPMHJ51KyvZ0X4
+	 0sIMp28ZEKHobE8J26mdUVdVTTA5L6IvHC+DC7wdnTvU7lzfJv3+jMwsOXG0DB8zl
+	 Xm6O4dl5wtsOlkFFrpeZkMk4JEvylICzhqJcxPbYn6vhWHjphvOTKS5qvpdT158bO
+	 K9TuAKE28B6JO/RHMBKc8vM8NXFfpgl2LDfbSc39TMnzbXFR/9t+TKDa1vaShaXUF
+	 nmr7ivl2pqayb3z5jg==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MRW2R-1xBnTr3GoH-00N6Q2; Tue, 03
+ Nov 2026 15:40:34 +0100
+Message-ID: <3a510baa-b919-4d35-a6b6-db19f9ddaa3b@web.de>
+Date: Tue, 3 Nov 2026 15:40:27 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,218 +63,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: xfs: fix temporary cursor leak in btree shift corruption paths
+To: Jianyun Gao <jianyungao89@gmail.com>, linux-xfs@vger.kernel.org
+Cc: Carlos Maiolino <cem@kernel.org>, stable@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ "Darrick J. Wong" <djwong@kernel.org>, David Chinner <david@fromorbit.com>,
+ Kefeng Wang <wangkefeng.wang@huawei.com>, Viktor Malik <vmalik@redhat.com>,
+ Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>
+References: <20261102150146.19777-1-jianyungao89@gmail.com>
+ <717984c9-a0c2-43d8-a801-d36c18c7040d@web.de>
+ <CAHP3+4BfTma1tQLbGLzy3aAzx05eR0QKOfmL0V-X5vEeOWtAEg@mail.gmail.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <CAHP3+4BfTma1tQLbGLzy3aAzx05eR0QKOfmL0V-X5vEeOWtAEg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:peTfrVFNz9TXEqiYpHJiDTEwRh9oW8+gjPONuPDJO2agSzvjWJl
+ 5cqJP2wKUGJh33afUFPz8oxNL5LFumZj3WDP3Njhf8CDkqAvTHUL6rrPeqSLmALrWvDSO1u
+ mOPHoBHPSCxeza11oDkEhtcwl6Ffuw2aZPhWiWhkIzIsawndAVtwL97aV+WkPHC5G28vTx4
+ sh0BHgqPN57XzB65wUDIw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Ge0Rg/SSOs0=;pdSABZlrHPuB+GyqLrXcb/OwxFH
+ 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
 
-When vmbus_device_register() fails, it drops the device it was setting
-up, and the device's release, vmbus_device_release(), calls
-hv_process_channel_removal() on the channel. That function is for
-channels the host has rescinded and starts with
-BUG_ON(!channel->rescind), so the kernel stops there. Without the
-BUG_ON, it would unmap and release the relid, unlink the channel and
-free it, and then the error path of vmbus_add_channel_work() would do
-all of that again.
+> Thanks for the review and the suggestion. I agree that centralizing
+> the error handling paths in these functions would improve readability.
 
-When device_register() fails, clear the device's channel pointer before
-dropping the device, and only remove the channel in
-vmbus_device_release() if there is one: vmbus_add_channel_work() cleans
-it up, after clearing the channel's pointer to the freed device. A
-concurrent driver_attach() can still match the device while it is being
-removed, so make vmbus_match() skip a device without a channel, and
-look at the channel under rcu_read_lock(), as it is freed with
-kfree_rcu().
+Further adjustment possibilities might be evolving.
 
-The later failures, creating the channels directory or the primary
-channel's kobject, come after device_register() may have bound a driver,
-and a driver can hold on to the channel past its remove callback unless
-the channel was rescinded (hv_sock's connection, or the sub-channels it
-opened). So do not unregister the device for them: its channel is then
-just missing from sysfs, as it is while the device is being set up. A
-sub-channel of a device without a channels directory is left out of
-sysfs too. This also applies to a sub-channel offered while its device
-is still being registered, before the directory is created, which was
-added to the top of /sys until now.
 
-Fixes: c2e5df616e1a ("vmbus: add per-channel sysfs info")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
----
+> However, to keep this patch focused strictly on the cursor leak fix
+> (as per the 'one patch, one thing' principle), I would prefer to
+> submit the code clean-up as a separate follow-up patch if that's
+> acceptable.
 
-Notes:
-    The bug was found with kbound, a research static analysis prototype.
-    The patch, the changelog and the test setup were written with the help
-    of an AI coding assistant (Claude); I have reviewed them and tested them
-    as described in the cover letter.
-    
-    Changes in v3: vmbus_match() reads the channel under rcu_read_lock(),
-    the channel no longer points to the freed device, and a sub-channel of
-    a device without a channels directory is left out of sysfs instead of
-    being refused (Sashiko review of v2).
-    
-    Changes in v2: vmbus_match() skips a device without a channel, and the
-    failures after device_register() keep the device instead of
-    unregistering it (Sashiko review of v1).
+This can be the case.
+Related constraints can eventually be reconsidered also for clean-up patches
+in combination with growing number for fixes.
 
- drivers/hv/channel_mgmt.c |  7 ++--
- drivers/hv/vmbus_drv.c    | 72 ++++++++++++++++++++++++---------------
- 2 files changed, 49 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
-index cb1d8d76928f..1fa232e86fce 100644
---- a/drivers/hv/channel_mgmt.c
-+++ b/drivers/hv/channel_mgmt.c
-@@ -554,15 +554,16 @@ static void vmbus_add_channel_work(struct work_struct *work)
- 	 * method.
- 	 *
- 	 * If vmbus_device_register() fails, the 'device_obj' is freed in
--	 * vmbus_device_release() as called by device_unregister() in the
--	 * error path of vmbus_device_register(). In the outside error
--	 * path, there's no need to free it.
-+	 * vmbus_device_release() as called by put_device() in the error
-+	 * path of vmbus_device_register(). In the outside error path,
-+	 * there's no need to free it, but the channel must not point to it.
- 	 */
- 	ret = vmbus_device_register(newchannel->device_obj);
- 
- 	if (ret != 0) {
- 		pr_err("unable to add child device object (relid %d)\n",
- 			newchannel->offermsg.child_relid);
-+		newchannel->device_obj = NULL;
- 		goto err_deq_chan;
- 	}
- 
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index fc0f16f51266..b41ce24e200c 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -840,9 +840,24 @@ static int vmbus_match(struct device *device, const struct device_driver *driver
- {
- 	const struct hv_driver *drv = drv_to_hv_drv(driver);
- 	struct hv_device *hv_dev = device_to_hv_device(device);
-+	struct vmbus_channel *channel;
-+	bool hvsock = false;
-+
-+	/*
-+	 * No channel if vmbus_device_register() failed. The channel is then
-+	 * freed after an RCU grace period.
-+	 */
-+	rcu_read_lock();
-+	channel = READ_ONCE(hv_dev->channel);
-+	if (channel)
-+		hvsock = is_hvsock_channel(channel);
-+	rcu_read_unlock();
-+
-+	if (!channel)
-+		return 0;
- 
- 	/* The hv_sock driver handles all hv_sock offers. */
--	if (is_hvsock_channel(hv_dev->channel))
-+	if (hvsock)
- 		return drv->hvsock;
- 
- 	if (hv_vmbus_get_id(drv, hv_dev))
-@@ -979,9 +994,15 @@ static void vmbus_device_release(struct device *device)
- 
- 	hv_debug_rm_dev_dir(hv_dev);
- 
--	mutex_lock(&vmbus_connection.channel_mutex);
--	hv_process_channel_removal(channel);
--	mutex_unlock(&vmbus_connection.channel_mutex);
-+	/*
-+	 * No channel if vmbus_device_register() failed: the channel was not
-+	 * rescinded, and vmbus_add_channel_work() cleans it up.
-+	 */
-+	if (channel) {
-+		mutex_lock(&vmbus_connection.channel_mutex);
-+		hv_process_channel_removal(channel);
-+		mutex_unlock(&vmbus_connection.channel_mutex);
-+	}
- 	kfree(hv_dev);
- }
- 
-@@ -2099,15 +2120,24 @@ void vmbus_init_channel_kobj(struct vmbus_channel *channel)
- int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
- {
- 	const struct device *device = &dev->device;
-+	struct kset *kset = READ_ONCE(dev->channels_kset);
- 	struct kobject *kobj = &channel->kobj;
- 	u32 relid = channel->offermsg.child_relid;
- 	int ret;
- 
-+	/*
-+	 * The device has no channels directory if creating it failed, or not
-+	 * yet while vmbus_device_register() is still running: leave the
-+	 * channel out of sysfs.
-+	 */
-+	if (!kset)
-+		return 0;
-+
- 	/*
- 	 * On failure the kobject keeps its reference: the callers' error
- 	 * paths drop it in free_channel(), which also frees the channel.
- 	 */
--	kobj->kset = dev->channels_kset;
-+	kobj->kset = kset;
- 	ret = kobject_add(kobj, NULL, "%u", relid);
- 	if (ret)
- 		return ret;
-@@ -2116,8 +2146,9 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
- 
- 	if (ret) {
- 		/*
--		 * The calling functions' error handling paths will cleanup the
--		 * empty channel directory.
-+		 * The empty channel directory goes away with the kobject: in
-+		 * the error path of vmbus_add_channel_work() for a sub-channel,
-+		 * and when its device is removed for a primary channel.
- 		 */
- 		dev_err(device, "Unable to set up channel sysfs files\n");
- 		return ret;
-@@ -2189,6 +2220,7 @@ int vmbus_device_register(struct hv_device *child_device_obj)
- 	ret = device_register(&child_device_obj->device);
- 	if (ret) {
- 		pr_err("Unable to register child device\n");
-+		WRITE_ONCE(child_device_obj->channel, NULL);
- 		put_device(&child_device_obj->device);
- 		return ret;
- 	}
-@@ -2205,31 +2237,17 @@ int vmbus_device_register(struct hv_device *child_device_obj)
- 	 * here. The race can't result in a kernel failure, but the user space
- 	 * program may get an error in accessing "channels" or its
- 	 * subdirectories. See also comments with vmbus_add_dynid() about a
--	 * related race condition.
-+	 * related race condition. For the same reason, the device stays
-+	 * registered if its channel cannot be shown in sysfs.
- 	 */
--	child_device_obj->channels_kset = kset_create_and_add("channels",
--							      NULL, kobj);
--	if (!child_device_obj->channels_kset) {
--		ret = -ENOMEM;
--		goto err_dev_unregister;
--	}
--
--	ret = vmbus_add_channel_kobj(child_device_obj,
--				     child_device_obj->channel);
--	if (ret) {
-+	WRITE_ONCE(child_device_obj->channels_kset,
-+		   kset_create_and_add("channels", NULL, kobj));
-+	if (!child_device_obj->channels_kset ||
-+	    vmbus_add_channel_kobj(child_device_obj, child_device_obj->channel))
- 		pr_err("Unable to register primary channel\n");
--		goto err_kset_unregister;
--	}
- 	hv_debug_add_dev_dir(child_device_obj);
- 
- 	return 0;
--
--err_kset_unregister:
--	kset_unregister(child_device_obj->channels_kset);
--
--err_dev_unregister:
--	device_unregister(&child_device_obj->device);
--	return ret;
- }
- 
- /*
--- 
-2.53.0
+>             I will review the affected functions and see if there are
+> any obvious style issues worth addressing.
 
+Would you find another clarification approach helpful?
+
+[RFC] Replacing special goto statements by direct returns?
+https://lore.kernel.org/kernel-janitors/52418f50-b3ff-461d-8e66-c10f70e35b2a@web.de/
+
+Regards,
+Markus
