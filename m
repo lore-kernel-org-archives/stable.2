@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704248;
-	b=zEBK7AO0vyxZo1s7Wsl92lOja9WFr7AuScEc9DLmTKyMINcAJfV1ibvvN1R/rAOC4tPK
-	 CM8gq5DiHQfrVii2rEa7dxQkb1U2I/9mpWvnEdkS13qsH80VfV3hRfJHo6ZXJUQ0XBKye
-	 ShCmoZ/2FidK2YI02k7yWm3zGH5HlddrFA6yKOdfeHcHX8yZOwUo1H6WGS+sG3v5OK1Bf
-	 oe1sANUIaZfX+35PIKAzSgrRsRHZxJf5vV42OEVL5cljc55Uts7yXWNw7cj8AJmpk5iuG
-	 LWNrqTw3CpCf2lmtJzdOnhAu7cxPGky5TJc5OK9IkcmBis+jegXds+nDnE5XjT9VFqg==
+	t=1793704240;
+	b=f6SWmIquBIQdfE8ITGe6mIAxVqcMzXENlUkKEIH8eGY4W94+bEX7X/ZVtG33gMwsSDWt
+	 gcdqGxOrzBdIesoauEBPL3XOvGN7NZtderOkL02GN1eFgnV45/UOw96J0hvt5hZ45RlX5
+	 c+L9INXM7X4H+f+06INpH8ra37K3yCZjfjSSSmIxKEVNcBiY30MKzktqQcW9vxZVDVAwD
+	 4LeKKLyWDyAPjd/I+UkC+B9gZPEwLZxNHcqKSXGo/XbgC94w1fz83KWrNUC85u3tanF6k
+	 k6XTpgs+kLvHxrr6dPEsGJ+SvTFPAC5OZ3kZZxe8te75dYskzUueP2XeRpIFXZYy25A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704248;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704240;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
-	b=jGWlxDkzFrB3GEF8ici3U9YsTrixOSU8IGt7JupE4Dwa3ze/HnCqebiBuHqQpB/d3Zxa
-	 LJdtpo2wYthcESLCkz33DcydH5KJTNrSQwC7BBwej1uEaXkty+VUytOqm6gGcrigktmEv
-	 C6r/mAnGKz8pe9hkuAJZVQbhqwrdZuduwqKUSIMCUajR7MR7eoJpZSu3fe9NblWILkRbe
-	 od2Dd5KCk6acMeZKM6WlnWrS4nrM9ativNYlQzBfiUDcNRLBQS50jnCHT8gHnnWSbYB7f
-	 sctz8+1avCgmyvxgXrgkbrT7IxrO+Au8MjPmg2PXpZdiA3ut42HMkkPB8mLrPTOTfqQ==
+	bh=mEwIOTgOFQ/xOnsi+5g5rx2vlC8yYz8+GdpWkMmVPrc=;
+	b=M5aGdTaqZhRw9zakye1kEDaEsl4OGPkRz4+pQIQ/pQOtpkNutv67o/ipV7fogid4wNjs
+	 EfmFqpTqIu1Gigcd0p24wq6zxy1VBLohzdzDxGE8QkUz6xCaH5hfY+7KVSx9oXn5WIyZ/
+	 +neM+6ugFUPu5URmA2ampF/Co9I+qQqj7+0PnLdBiOarDl8ovtDCPpwuCwGN0j1q63srU
+	 uH5bvANK1ox6vwUgBBPMDP0wUU8beRazR97v8n7vYtdfnyEw2C5Zh1yqRx3DaRdPErGjy
+	 2UdblqfBS6lIQf8GIT706FTUW2xNbOBUwJ/jGBCyUcgf/9ZBPm4wWECgYXf2VLcwFQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEcBbzLs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4C60850A3;
-	Tue,  3 Nov 2026 11:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED9D606C5A8;
+	Tue,  3 Nov 2026 11:10:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67611F000C1;
-	Tue,  3 Nov 2026 11:10:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEcBbzLs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AC531F00A16;
+	Tue,  3 Nov 2026 11:10:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704248;
-	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
+	s=k20260515; t=1793704239;
+	bh=mEwIOTgOFQ/xOnsi+5g5rx2vlC8yYz8+GdpWkMmVPrc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eLc0Xf4gELp9GPTXowoGCu175no2Mh1097F+4J0/CdZghDIzoUUbyP2Cw8Yt8uLOz
-	 xWFp9vo6l/GqUWFY+8dSawSD6ycyL/8c529cqSEHDhxDhU5rWMiUkLZImTICoJx41c
-	 Rm8tZfOC0mbOjQzhDxtRqx6xhBww2TE3C/oEf9XWS8unxFOFkl32G6Z7inzfacjbs7
-	 aE3E5Nf0XFcyNAOfT0Pu8ZI9UkG2hhnZiH6MGaSgyzjc4XwUliXcAx3WdbRzp/2iW4
-	 sp7xmxMRVvbPuVd6BuWT52mRRl4NDlESKgzZzNHrW6lIqyd25NSyB6jV6+G0fVcK1L
-	 7tbpzSBRbQLdQ==
-Date: Tue, 3 Nov 2026 12:10:45 +0100
+	b=WEcBbzLs1K5aUIsYHMJ2XMLN+Pda6ra/ttPYxWjgMByjya3S/NJC9neOKsIokWrtn
+	 7+mBFfW9Id1CwxEHDIWKWkKD25SiBpUgwHHEEHoIbKBOiTB+iIEDCXU2KEk2Obo61v
+	 J65p5zfpHdRzqnpPrnAdgJx9iyG3OSbI1KqPOAXVV5ZjxfWFLRhi4cgMKT78mo0TwZ
+	 Ifb3T9M0FYOcpoxx8Swh3BNtxQieQHNNfwJB8pgeF1F6Fl8jLqPlxejJgDrs9fEnsg
+	 1rqsNYOupVnG4N3FlN2zxKQQ2zfQlf8FVe2/CiJzpHX9q7EKjEyJRB15ka9JBbvjhe
+	 ZM3Hopxr7XdZQ==
+Date: Tue, 3 Nov 2026 12:10:37 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] of: unittest: fix node leak in
- of_dma_get_max_cpu_address test
-Message-ID: <20261103-premium-brainy-chachalaca-a3b6ac@quoll>
-References: <20261103104234.1373570-1-vulab@iscas.ac.cn>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, stable@vger.kernel.org, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: keystone: drop host bridge reference in
+ ks_pcie_quirk()
+Message-ID: <20261103-natural-buzzard-of-ampleness-aaba0f@quoll>
+References: <20261103104239.1373754-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,24 +61,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104234.1373570-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104239.1373754-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:34 +0000, Wentao Liang wrote:
-> of_find_node_by_path() returns a device_node with its reference count
-> incremented. of_unittest_dma_get_max_cpu_address() passes the node to
-> of_dma_get_max_cpu_address(), which does not consume the reference, and
-> then returns without dropping it.
+On Tue, 03 Nov 2026 10:42:39 +0000, Wentao Liang wrote:
+> pci_get_host_bridge_device() takes a kobject reference on the host
+> bridge device.  ks_pcie_quirk() returns without releasing it on every
+> path after the lookup, including the AM654 PG1.0 path that only limits
+> the MRRS, so the reference is leaked once for each enabled downstream
+> device below an AM654 root complex.
 > 
-> Release the reference after the check.
+> Move the AM654 handling out of the enclosing conditional and release
+> the reference through a single cleanup label.
 > 
-> Fixes: 07d13a1d6120 ("of: unittest: Add test for of_dma_get_max_cpu_address()")
+> Fixes: 86f271f22bbb ("PCI: keystone: Add workaround for Errata #i2037 (AM65x SR 1.0)")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/of/unittest.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/pci/controller/dwc/pci-keystone.c | 45 +++++++++++++----------
+>  1 file changed, 26 insertions(+), 19 deletions(-)
 > 
 
 Multiple things here:
