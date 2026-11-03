@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793685573;
-	b=1fwt9zK1x7BEoUzwuRcjNQB1evznL9hs5wuMiYlnMwgolcJYPW2lVSI3kn/zmFHw5xzW
-	 e6aDCTVRMwtEB4cIj7adCA8l0GIXjxl7moWSrntGhnbBUb4InbZBT8PsjSKzowA8tMDtx
-	 OEKTTL+1fMLqJNzKkyXhJ56Cexxho81s1C6edF937o6ZJe8bUyFAUiNg6OckJ5pveHp9W
-	 9jXgzdRtGjzV/dNspRPaQ0M355gDMg0WgCQDE0SOUuSexnRp8btH14fJbcr8Zy4bBVxCi
-	 yIPM8w6ngHo7KHQ1LeOXTPk3NtPPsimiOPLsOO31fwrRhVxK+cDAjUn2nS/WszSs9UQ==
+	t=1793686233;
+	b=Y9EjchQ0Hv9LqxfV7Wu/pk2yPedbYHLM0TNkm+/Dr6WiZad0Bgg/uTLr/hUVE0mjDo2V
+	 yffTIkNuruO+xlVdGO1MMsk53vBccXCzktRKwZWpeMDVCkSoox7wIwKTIwpDI3EIMsLfL
+	 2fQuFlp4vZioWyrEQskUz2InIFFlE5kHkdpPP4lt+JEvVFRQPL8y3uq3dPcwA6eF87o2x
+	 p9XwDZXv5eo2Zh18R9AmMrCBb1jucHyzz57SkaTdyoLTVWsYlWFLvUutMRoAGh6wKo4gc
+	 L/5f1WUKiDU2dvpEsdZb37q2+BBDPS+9wSs8+U0KHQ5opXcacIocJI8TSASrd2FcYAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793685573;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F2+4Yzh+dcpVAnl+hKWRshMrg70cWm8d6zxfSczxXVA=;
-	b=iCw8t5dOSxCieo55DbVUFeEv3RRbPrs7Rr7HzkzBPu79Mm24xZxLCGe0F6CYN1qy88YX
-	 bHf8nbL4cbyRJdlalqhreeKI4TFV6TjYnkSfBhUanKfaHcZ0PktESItaOAh0j3Vmcks1K
-	 2O+i8iFayVoAosxDe2F03inWUYFEtqbB4bpQ1fl81F7PXm1SYPkmSXzLRKeHv+2pzo5by
-	 +vC0IyghwYadanDfFYjrJl15nt+xUCQRa6FAF22Zfv3wfxSpGDZ7kC7htSG97sSzRsvAs
-	 aQVpZTYWXiD0ygrANAofzP3u5KB2HaOM5dYITRxJU0FMbZiqr0YDY0ieZCb9sMK5FmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686233;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
+	b=Qvm23quqRRtrJ0UPUjsVOo3AYJPrtsBH3r8w4igNTnI1pZQUWIRFvGKUG2KMPXg55TA/
+	 g8fTSwyXUbXpSKmrkXJ6tRncqanmJ162yipQedzLh/s23BPY+/d34HFGVeiltJT9S6aI8
+	 Jg+FytAdGXuDe8o8Mi41o/eQNymACHx1lag9Usu5S+QWvwDrTui5nhQJ8hOQ5ST4iSF2p
+	 JNmxMJwSdIpFnGDYxFnYjONsY2jin7DnBolw5/FCQz79r7blujfvQPzMWoSmND/RMrcup
+	 lUdSiI/TY0FoNTJGBxwryf0iBCPajMLkDzhOvcfbZePMvrKkujhQgfoZCcSMjmBbbIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=WZmjbhOi;
-	arc=none smtp.remote-ip=115.124.30.101
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LzSRVlfL;
+	arc=none smtp.remote-ip=209.85.160.178
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7602B606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 05:59:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7602B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE46606A32E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 06:10:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CE46606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=WZmjbhOi
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793685564; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=F2+4Yzh+dcpVAnl+hKWRshMrg70cWm8d6zxfSczxXVA=;
-	b=WZmjbhOinEbx8r5AgQYh29k4fjLNkVKk1cqbbRajMhDkLqu56YAWr5BWm0p3nQ5mHhD4Knted/RNrl0StJKhakBn0eRy1yllCuQ2R709wjhCaHnBvj08sTnKR1laykcVe0Ky66GLeSVDUxeWGhTGwat29gazaNadSMpWl8Zp7sc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=3;SR=0;TI=SMTPD_---0XE1iRn7_1793685563;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE1iRn7_1793685563 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 13:59:23 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org
-Subject: [PATCH 6.6.y] smb: client: base punch-hole EOF decision on server_eof
-Date: Tue,  3 Nov 2026 13:59:23 +0800
-Message-Id: <20261103055923.2003159-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LzSRVlfL
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-535179e995bso45567081cf.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 22:10:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1793686231; x=1794291031; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
+        b=LzSRVlfLP02uU5/OGyMmh7EMgSSCvlUlAHpyAIrdp6PgekhyJ4SLqtwBm+Tu7XWkXq
+         Wn/9PEqz1enAH5uBbk+LjvkM9YMRSgdOkh7N1G+ktJIYVP3bC6yG65ntwZe9R7SPCN2V
+         8phR+NPCSn5LVpqxONSOL19z4PUzXeRcvj4CgJ56gE/f6cpELDOaX3ehKBw3IYRzLyZz
+         Xl9CF1Gj1vF49f0kEadKzr93Rv7KMGqbZy1ZrnAeuPk5ieXkdIVcYV9h/03zJnrz1K8D
+         RxUorEqH/VjbK7TA23miHWIeN9ZEvZCtgWuU59J3HeE4httG8GAZ9INTfyxOAxZKH96m
+         nn4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793686231; x=1794291031;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
+        b=n312HlhMPnEOFHz4eqOB1j+xPdgKwnzMDv9SwafQA7Nuz8dJzQorrnt3c0BMZco42f
+         JAPLsqs3LtLeehDIyimJ7c6X1Ih2mjlcVwQmDDLiVpt7UoUmHUI3Ol782qbNmic4vISu
+         JdxLbR8zDcD/RuOLAHWSmV7WXcNll+D/A/exrrdaw34tp9t/z9qMSJ1RV1DQGuOxfSav
+         u8rgmKr5cWNrQJTcC8YoccN+lJWOUq+OietYwyMLSOUgPCCf8CjSjoFy5B1Rd+89r4jo
+         q0OAlLT8TCwV1J69qjUR6IGDl0dml3bX7tat+E482cOEYauHuDY3AmxZT3/5aOxDtROo
+         VlNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxApAOIgosMrRVZ5/GuifFMHb0qURaqMgFeNkItx0WwuHJX9RyRKokyE01rdCBJ8unEQmUmTk4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9514eRrp+3cb/WR5ChfbO3oPuKAmnzXEKS9YdiUVV3nCq/bEnZ
+	Tc/fIbi5d92amBVtK2PwpGJAvanRJUUqet/pFbZn9LDvLY0UNsIF2G7qwY9IEhS8Nw==
+X-Gm-Gg: AYBFou2P+WcScJlvfdBc74aWaVCFhMfTFJ6lwndoETuPMs1r/JkXssuMwjeyoscWehz
+	8gwNkKPXN39fyYcPJVceTN41QG+Eaq0i/4KrUjMKNBvITazuRWEdogHsI8I19i+X7fFUy6LIKM9
+	l73NYHBqM/ijx9CSEMtp+GiVS4mP2nY/JoCIWcXb8mO27IqGZf+ZfUys6vJW+fMxiV6Ys5U+BIq
+	EopIQRYc7b1/BhG/U5ZXM75ebbyOnxZJf9lFPt/u/+QlAVuxmcTNuHjTh7fe3EqAKATRJ3MywIJ
+	+ab2fo2PQiw3VJfYgnSagDgqZnmc6aF8Fts7yhV87DeZu/o/Wy8yp2Lc4+6pmJ6E2anEh+dFMc2
+	oijShq77zl9k1ywOGOOpjwwO92mM8L5kjcxmilsD/aXrDL0akgTWVFO10b1cOjBBbx7aEvHCv1w
+	cca4+HW/c4Njpo65yjCbvwXTMvJAfNUtbWtTii+EHwfEau7xjv348hnUDCEzMQi3lULINuDgj0M
+	bGuQ3i+D5AnJPA78N9J4jR9CyQp7abhzwH2nP5r/hevmOpEW8y+g9pcRvM26R2a/8RtX/OM9FfE
+	IMnkDwCLre4tZmhDylQvS5gbaQZqGv9P3+4cT7xIYQ==
+X-Received: by 2002:a05:622a:1f90:b0:536:6378:c804 with SMTP id d75a77b69052e-542b83f7efamr173986521cf.73.1793686231189;
+        Mon, 02 Nov 2026 22:10:31 -0800 (PST)
+Received: from localhost.localdomain ([2600:1011:b1ae:f075:aa26:e161:414d:7ec7])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807d8fasm109173076d6.41.2026.11.02.22.10.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 22:10:30 -0800 (PST)
+From: Siddharth Mishra <smish149@asu.edu>
+To: dsterba@suse.com
+Cc: wqu@suse.com,
+	boris@bur.io,
+	mason@kernel.org,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Mishra <smish149@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] btrfs: tree-checker: validate qgroup status item
+Date: Mon,  2 Nov 2026 23:10:20 -0700
+Message-ID: <20261103061021.2213691-2-smish149@asu.edu>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261103061021.2213691-1-smish149@asu.edu>
+References: <20261103061021.2213691-1-smish149@asu.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,113 +104,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-smb3_punch_hole() decides whether to move the server EOF marker by
-comparing against netfs_inode(inode)->remote_i_size.  Nothing on this
-base keeps that field up to date: netfs_inode_init() has no caller under
-fs/smb/, so remote_i_size is never even initialized, and the only writes
-to it are netfs_resize_file() from the clone and copy_file_range paths
-and this function itself.  The writeback path tracks the server size in
-cifsi->server_eof through cifs_update_eof() instead, and
-cifs_fattr_to_inode() refreshes only server_eof as well.
+[BUG]
+An image can have a status item with SIMPLE_MODE and a super block
+without the SIMPLE_QUOTA bit.  On a kernel with CONFIG_BTRFS_ASSERT=y,
+the mount of this image causes a BUG :
 
-Reading remote_i_size therefore compares the punch against whatever the
-slab object last held.  With it at zero, punching the first 4k of a clean
-8k file passes "end > remote_i_size && i_size > remote_i_size", issues
-SMB2_set_eof(4096) and truncates the server file in half, with nothing
-dirty left to write the tail back.
+  assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
+  in fs/btrfs/qgroup.c:411
+  kernel BUG at fs/btrfs/qgroup.c:411!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:btrfs_read_qgroup_config.cold (fs/btrfs/qgroup.c:411)
+  Call Trace:
+   open_ctree (fs/btrfs/disk-io.c:3789)
+   btrfs_get_tree.cold (fs/btrfs/super.c:2133)
+   vfs_get_tree (fs/super.c:1943)
+   fc_mount (fs/namespace.c:1282)
+   path_mount (fs/namespace.c:4337)
+   __x64_sys_mount (fs/namespace.c:4542)
 
-The flush added by commit 216e46958605 ("smb/client: flush dirty data
-before punching a hole") makes a second variant reachable.  It writes
-out and cleans any page straddling the end of the punched range,
-including the valid data in it beyond the hole, and advances server_eof
-but not remote_i_size.  When the punch end lies beyond that stale value,
-SMB2_set_eof() shrinks the server to the end of the hole and discards
-what the flush just wrote out.  The page is clean, so a later fsync or
-close will not write it again and the data is silently lost.
+Without CONFIG_BTRFS_ASSERT, the mount is successful in simple quota
+mode.  The first data write then adds an owner ref.  The write-time
+tree-checker sees the owner ref without the SIMPLE_QUOTA bit and gives
+a WARN_ON() (tree-checker.c:1782).
 
-Base the decision on CIFS_I(inode)->server_eof and keep both size fields
-in sync when the marker moves, so the server is never shrunk below data
-that has already been written out.  Take inode->i_lock for the read and
-the update, as server_eof is documented to require, and only ever
-advance it, matching cifs_update_eof(): background writeback of folios
-outside the punched range is excluded by neither i_rwsem nor the
-invalidate lock, and can publish a larger EOF while SMB2_set_eof() is in
-flight.
+[CAUSE]
+The super block does not have the SIMPLE_QUOTA bit, but the status item
+has SIMPLE_MODE :
 
-Mainline does not need this change.  cifs_alloc_inode() zeroes
-_remote_i_size there, cifs_fattr_to_inode() refreshes it, and the
-writeback path advances it through netfs_resize_file(), so the value
-cannot be stale after the flush.
+  incompat_flags  0x361
+                  ( MIXED_BACKREF |
+                    BIG_METADATA |
+                    EXTENDED_IREF |
+                    SKINNY_METADATA |
+                    NO_HOLES )
 
-Fixes: 288d398df80c ("cifs: Fix FALLOC_FL_PUNCH_HOLE support")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+  item 0 key (0 QGROUP_STATUS 0) itemoff 16243 itemsize 40
+          version 1 generation 12 flags ON|SIMPLE_MODE scan 0
+                                           ^^^^^^^^^^^
+
+The tree-checker does not examine the status item.
+btrfs_read_qgroup_config() reads the flags of the status item.  For
+SIMPLE_MODE, it calls qgroup_read_enable_gen().  This function ASSERT()s
+that the SIMPLE_QUOTA bit is set and that the item contains enable_gen.
+Since commit f2363e6fcc79, the kernel does not write SIMPLE_MODE without
+the SIMPLE_QUOTA bit.  Thus only a damaged or crafted image has this
+state.
+
+[FIX]
+Add a tree-checker rule for the status item :
+- The item must contain the four members of all versions : version,
+  generation, flags and rescan.
+- With SIMPLE_MODE, the super block must have the SIMPLE_QUOTA bit, and
+  the item must also contain enable_gen.
+If a rule fails, the tree-checker rejects the leaf with -EUCLEAN.  Then
+btrfs_read_roots() cannot read the quota root.  It ignores the error, as
+before, and btrfs mounts the filesystem without quotas.
+
+Cc: stable@vger.kernel.org # 6.7+
+Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 ---
- fs/smb/client/smb2ops.c | 39 ++++++++++++++++++++++++++++++---------
- 1 file changed, 30 insertions(+), 9 deletions(-)
+ fs/btrfs/tree-checker.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 21a2b265ae7c4..2826a60f0d8ab 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3346,7 +3346,7 @@ static long smb3_punch_hole(struct file *file, struct cifs_tcon *tcon,
- 	struct inode *inode = file_inode(file);
- 	struct cifsFileInfo *cfile = file->private_data;
- 	struct file_zero_data_information fsctl_buf;
--	unsigned long long end = offset + len, i_size, remote_i_size;
-+	unsigned long long end = offset + len, i_size, server_eof;
- 	long rc;
- 	unsigned int xid;
- 	__u8 set_sparse = 1;
-@@ -3392,20 +3392,41 @@ static long smb3_punch_hole(struct file *file, struct cifs_tcon *tcon,
- 	if (rc)
- 		goto unlock;
+diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+index 61ea8f42c..bb86c30a2 100644
+--- a/fs/btrfs/tree-checker.c
++++ b/fs/btrfs/tree-checker.c
+@@ -2083,6 +2083,36 @@ static int check_raid_stripe_extent(const struct extent_buffer *leaf,
+ 	return 0;
+ }
  
--	/* If there's dirty data in the buffer that would extend the EOF if it
--	 * were written, then we need to move the EOF marker over to the lower
--	 * of the high end of the hole and the proposed EOF.  The problem is
--	 * that we locally hole-punch the tail of the dirty data, the proposed
--	 * EOF update will end up in the wrong place.
-+	/*
-+	 * If the tail of the file beyond the hole has not been written out
-+	 * yet, the server EOF marker is still below both the end of the hole
-+	 * and i_size.  Move it up to the lower of the two: when that is
-+	 * i_size the file is already at its final size, otherwise the
-+	 * remaining dirty tail is written later and extends it the rest of
-+	 * the way.
-+	 *
-+	 * Decide on server_eof rather than the netfs remote_i_size, which
-+	 * nothing here keeps up to date: the flush above advances only
-+	 * server_eof, through cifs_update_eof(), so comparing against
-+	 * remote_i_size would shrink the server below data that was just
-+	 * written out.
- 	 */
-+	spin_lock(&inode->i_lock);
- 	i_size = i_size_read(inode);
--	remote_i_size = netfs_inode(inode)->remote_i_size;
--	if (end > remote_i_size && i_size > remote_i_size) {
-+	server_eof = CIFS_I(inode)->server_eof;
-+	spin_unlock(&inode->i_lock);
++static int check_qgroup_status_item(const struct extent_buffer *leaf, int slot)
++{
++	const u32 item_size = btrfs_item_size(leaf, slot);
++	const u32 min_size = offsetof(struct btrfs_qgroup_status_item, enable_gen);
++	struct btrfs_qgroup_status_item *ptr;
 +
-+	if (end > server_eof && i_size > server_eof) {
- 		unsigned long long extend_to = umin(end, i_size);
- 		rc = SMB2_set_eof(xid, tcon, cfile->fid.persistent_fid,
- 				  cfile->fid.volatile_fid, cfile->pid, extend_to);
--		if (rc >= 0)
-+		if (rc >= 0) {
-+			/*
-+			 * Writeback of folios outside the punched range may have
-+			 * published a larger EOF while the request was in flight,
-+			 * so only ever advance, as cifs_update_eof() does.
-+			 */
-+			spin_lock(&inode->i_lock);
-+			if (extend_to > CIFS_I(inode)->server_eof)
-+				CIFS_I(inode)->server_eof = extend_to;
- 			netfs_inode(inode)->remote_i_size = extend_to;
-+			spin_unlock(&inode->i_lock);
-+		}
- 	}
- 
- unlock:
++	if (unlikely(item_size < min_size)) {
++		generic_err(leaf, slot,
++		"invalid qgroup status item size, have %u expect at least %u",
++			    item_size, min_size);
++		return -EUCLEAN;
++	}
++	ptr = btrfs_item_ptr(leaf, slot, struct btrfs_qgroup_status_item);
++	if (!(btrfs_qgroup_status_flags(leaf, ptr) & BTRFS_QGROUP_STATUS_FLAG_SIMPLE_MODE))
++		return 0;
++
++	if (unlikely(!btrfs_fs_incompat(leaf->fs_info, SIMPLE_QUOTA))) {
++		generic_err(leaf, slot,
++	"qgroup status item has SIMPLE_MODE but SIMPLE_QUOTA incompat bit unset");
++		return -EUCLEAN;
++	}
++	if (unlikely(item_size < sizeof(*ptr))) {
++		generic_err(leaf, slot,
++	"invalid qgroup status item size for simple quota, have %u expect at least %zu",
++			    item_size, sizeof(*ptr));
++		return -EUCLEAN;
++	}
++	return 0;
++}
++
+ static int check_remap_key(const struct extent_buffer *leaf,
+ 			   const struct btrfs_key *key, int slot)
+ {
+@@ -2475,6 +2505,9 @@ static enum btrfs_tree_block_status check_leaf_item(struct extent_buffer *leaf,
+ 	case BTRFS_FREE_SPACE_BITMAP_KEY:
+ 		ret = check_free_space_bitmap(leaf, key, slot, prev_key);
+ 		break;
++	case BTRFS_QGROUP_STATUS_KEY:
++		ret = check_qgroup_status_item(leaf, slot);
++		break;
+ 	case BTRFS_IDENTITY_REMAP_KEY:
+ 	case BTRFS_REMAP_KEY:
+ 	case BTRFS_REMAP_BACKREF_KEY:
 -- 
-2.39.3
+2.54.0
 
