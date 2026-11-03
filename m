@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700949;
-	b=HUH+izy/N9mBdksL1lCa0r7XnmB5iYFXnRSd4RUOSG5J/k54oOezigCfcq1hi+DtmrCQ
-	 BhxVBEQeSGRVuggIIdUYWRPoGdtXs/UcRzAT/h8YYWpE9EYsF7CgegDHtV0Ete7l2datk
-	 4vhW+7p3KGJ2aANqxtTjRDJmobMwFsCnyDA0ouCnWeh3TqWR3HLjwQ6Yhnk3Xo6Pa54g3
-	 VFiwwJNOyz18bMf7b15LoZyvzwKYzTZOGfqRYzEusQWgyGLkxSX6jOLwl2rz5DEaJ+nfA
-	 X3LadeK53drDQI3s1++EysMe0KG07rnsgma4EhSoPgnFLpSf/cB2hocpVnzL+Gg+09A==
+	t=1793700967;
+	b=If7l6rG7sHZHTmuo31Dy3PgIazRXHm4jdkLjIuMIbwPbKqUcEI+9SoQoNl8gJf/7JSW5
+	 /GwGreZw4/ck2DF0ILZN7eiMjFMABrEB1tFZB+TWHwAbPLMId8XKNXiqYCyS1yxnfUrwV
+	 lZACCJYZMb5OnlcCxiOTe0TXaCnxrNV6s1/KdrkSyg8vCfytZ/lvNaSB7315Nh9aC0ZAm
+	 s21qCwFGk8TsiYR8IctaUAfiKgwQUYbq+PX108lp50ayOJhKz5KqZwLS77M2bgvZJ3Qgx
+	 5oE9wPBmQc0RBZEQsg9osAYrs4o9rqhOEj0cIIWOptkcjc640qWntDQsgzyJkhNMJKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700967;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ll8bk4nlcuShurPWZD7LgAUI2WAWF2/vV6yd7SnPDLY=;
-	b=22gjA3nKQ9Gx4+PFI1ILuYX1E1XfCQutePk0Hsz/fUq9lIOcQAMHluiW9VeUZRUBwgk1
-	 OpNPDvywxliuV6KkDI8fRuS3JncSyvcUvnyplrXxXOp92VmeoJuB7HB9U08xAWbRvuBOD
-	 JYTep2rgLRFfzA081Qq6z8+6QuyQkqu9mSdGmd9Da0rUN7N8qLBdPZRI23T+c2WQ0eNfu
-	 FY6pLKMA8G7oP8tbNYi4oHclAvGOg4zzIlg9UasQolUxvlhSanu3Nx0TmkQiua3oLreXk
-	 9cNNYVk+C3PrbUzTmdrYtxjPfXmapBhf5pbZ80sKk0jn2pGRNM6X9w4Au2bknQz8hzQ==
+	bh=lM/zvcR3+rcjBZ1Ne9UIEH/Tks5BLX3uRMNXCRbrWCw=;
+	b=I3MIEGVbmMC6LOpD3bflJ5yiRx35oAZjBxQfDCFimiZuo1LUsv9LhZ64CzVPAucoE9L3
+	 CrUvM3o05YRv+OupAhe73cZLJUGrv4X1k8E/709Qw13EEgqB1KTjaAKG1KaNvgNl20Uo3
+	 nVdxiLU8VBWsJilWhpsPhg9psmRAodXxVfe6AD/xrwnabR9TJf4QYjT6UESWRUJ/hm31G
+	 +rf4caqMDzkB0Kg5Rgrrffi+n6qVzaWRUGxgOYcLau2DXzzNlvlgHehIEHf1//w/5dieB
+	 jLTlKLKfOIkt3oNZXIQMSysXQd+mnNqZK0IyruQGFOjfkuaSD88g1shGGN7k1Fzji1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Ng5fZxC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fzu9rtux;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D2A606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB76606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Ng5fZxC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5B01F00A16;
-	Tue,  3 Nov 2026 10:15:48 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fzu9rtux
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B7B1F000C1;
+	Tue,  3 Nov 2026 10:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700949;
-	bh=ll8bk4nlcuShurPWZD7LgAUI2WAWF2/vV6yd7SnPDLY=;
+	s=korg; t=1793700967;
+	bh=lM/zvcR3+rcjBZ1Ne9UIEH/Tks5BLX3uRMNXCRbrWCw=;
 	h=Subject:To:Cc:From:Date;
-	b=0Ng5fZxCZgGgo3A8oYZgwoWnnQDsCbg8GQAdQINYrFFD+wLeKxL1kdpZZA2Nb3fN+
-	 RnaqzgW7LQl2v9/pUDKbMeQhrgNAzVGjCKHeGAdebKRkmPUCc69wChqD6P87Xqr7Ul
-	 y9RB1iGxtyBuCMG3c1GJ/UF1/iikm7A+kr/rK/Jk=
-Subject: FAILED: patch "[PATCH] ksmbd: deny access for an empty DACL instead of granting the" failed to apply to 5.15-stable tree
-To: elb12345@hotmail.co.uk,linkinjeon@kernel.org
+	b=Fzu9rtuxRJa30RSTbtCVjAMdXTPYPFk6HGN3TmsKb8uYgAfFCV1c/7ydr47y3SpZH
+	 eMVFjQYvsEaW48YOfJ+wssbC9VK3DKmvfjzE8BezUY0q6z9g/UMRsTRV/VXAxL3f2h
+	 cOYgKKAXo3t+gqp7MlfAQ9y1seO1ObrSDttDaWYs=
+Subject: FAILED: patch "[PATCH] ksmbd: fix extended session security negotiation for raw" failed to apply to 5.15-stable tree
+To: linkinjeon@kernel.org,tealaforgia+alias@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:15:41 +0100
-Message-ID: <2026110341-humility-impale-9ed2@gregkh>
+Date: Tue, 03 Nov 2026 11:16:05 +0100
+Message-ID: <2026110305-blimp-nape-e4b2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x de0cffef897c1c232ed973f89928cd6c93d0b1e3
+git cherry-pick -x 6868f857514bbfd2ed10b9b566664dc4a8ca039d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110341-humility-impale-9ed2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110305-blimp-nape-e4b2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,96 +79,44 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From de0cffef897c1c232ed973f89928cd6c93d0b1e3 Mon Sep 17 00:00:00 2001
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-Date: Wed, 16 Sep 2026 11:49:27 +0100
-Subject: [PATCH] ksmbd: deny access for an empty DACL instead of granting the
- request
+From 6868f857514bbfd2ed10b9b566664dc4a8ca039d Mon Sep 17 00:00:00 2001
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sun, 4 Oct 2026 09:42:27 +0900
+Subject: [PATCH] ksmbd: fix extended session security negotiation for raw
+ NTLMSSP
 
-smb_check_perm_dacl() returns the access mask it computes to the SMB2
-CREATE handler, which uses it as the granted access for the open. For a
-security descriptor whose DACL is present but contains no ACEs, the
-function is supposed to deny access: an empty (non-NULL) DACL grants no
-access to anyone except the object owner's implicit READ_CONTROL and
-WRITE_DAC (MS-DTYP 2.4.5).
+ksmbd_build_ntlmssp_challenge_blob() only advertises extended session
+security when conn->use_spnego is true. As a result, raw NTLMSSP
+negotiation drops NTLMSSP_NEGOTIATE_EXTENDED_SEC from the challenge even
+when the client requested it.
 
-The empty-DACL branch only denies when both
+A Windows capture shows an initial SPNEGO authentication succeeding,
+followed by a raw NTLMSSP negotiation on the same TCP connection. The raw
+challenge omits extended session security, and the client does not send
+an AUTHENTICATE message. The unfinished session then occupies the pending
+session slot, causing subsequent SESSION_SETUP requests to fail with
+STATUS_INSUFFICIENT_RESOURCES.
 
-  - the DACL has no trailing bytes (pdacl_size == sizeof(struct smb_acl)),
-    and
-  - the request contains bits beyond READ_CONTROL / WRITE_DAC.
-
-In every other case it takes the shared "goto err_out" with rc still 0,
-which returns success without modifying *pdaccess, so the caller grants
-the full requested access. Three problems follow:
-
-  - The READ_CONTROL / WRITE_DAC carve-out models the owner's implicit
-    rights, but the check runs before is_owner is computed, so those
-    rights are handed to *every* caller, not just the owner. For
-    READ_CONTROL the SMB2 CREATE path does not fall back to
-    inode_permission(), so any user can read the security descriptor of
-    an object whose empty DACL is meant to deny them.
-
-  - A request of exactly READ_CONTROL and/or WRITE_DAC is granted to any
-    caller. WRITE_DAC lets the handle rewrite the DACL.
-
-  - A DACL that declares zero ACEs but carries trailing bytes
-    (pdacl_size > sizeof(struct smb_acl)) skips the deny entirely and is
-    granted whatever was requested.
-
-On shares where the NT ACL is the authoritative access control -- e.g.
-"force user" shares, where every client maps to one POSIX identity so
-POSIX cannot distinguish users -- this is an access-control bypass.
-
-Compute is_owner before the empty-DACL branch and deny access from an
-empty DACL unless the caller is the owner requesting no more than
-READ_CONTROL / WRITE_DAC.
+Set NTLMSSP_NEGOTIATE_EXTENDED_SEC whenever the client requests it,
+independently of the SPNEGO wrapper, as required by [MS-NLMP].
 
 Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Reported-by: Tea La Forgia <tealaforgia+alias@gmail.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index c959699ace56..664f01263611 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1502,21 +1502,27 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
- 		goto err_out;
+diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
+index 1b24eb3f3998..88953315b160 100644
+--- a/fs/smb/server/auth.c
++++ b/fs/smb/server/auth.c
+@@ -336,8 +336,7 @@ ksmbd_build_ntlmssp_challenge_blob(struct challenge_message *chgblob,
+ 	if (cflags & NTLMSSP_REQUEST_TARGET)
+ 		flags |= NTLMSSP_REQUEST_TARGET;
  
--	if (!pdacl->num_aces) {
--		if (!(pdacl_size - sizeof(struct smb_acl)) &&
--		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
--			rc = -EACCES;
--			goto err_out;
--		}
--		goto err_out;
--	}
--
- 	if (!uid)
- 		sid_type = SIDUNIX_USER;
- 	id_to_sid(uid, sid_type, &sid);
- 	vfsuid = i_uid_into_vfsuid(idmap, d_inode(path->dentry));
- 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
+-	if (conn->use_spnego &&
+-	    (cflags & NTLMSSP_NEGOTIATE_EXTENDED_SEC))
++	if (cflags & NTLMSSP_NEGOTIATE_EXTENDED_SEC)
+ 		flags |= NTLMSSP_NEGOTIATE_EXTENDED_SEC;
  
-+	if (!pdacl->num_aces) {
-+		/*
-+		 * An empty (present, zero-ACE) DACL grants no access to
-+		 * anyone except the object owner's implicit READ_CONTROL
-+		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
-+		 * deny the owner any access beyond those two bits, and do
-+		 * not let trailing bytes after a zero-ACE DACL become an
-+		 * implicit grant.
-+		 */
-+		if (!is_owner ||
-+		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
-+			rc = -EACCES;
-+		goto err_out;
-+	}
-+
- 	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
- 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 		aces_size = pdacl_size - sizeof(struct smb_acl);
+ 	if (cflags & NTLMSSP_NEGOTIATE_KEY_XCH)
 
