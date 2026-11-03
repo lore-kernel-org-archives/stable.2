@@ -1,127 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717670;
-	b=kGBYzH4O0NYkX6nO2CC9KNJxutLamY4AwTmvao0LAX9oOR0dCDnQfdVjaAJ7rECo9JMI
-	 QnmvGDKXuUn2KmschSJ+EPXsCDAJTMDtiQ5ayyxYgJX1iaJb08vawgWYOcC67+hukg/SW
-	 afE2cdX/CldQeHyTQcTd0ONqX9zkA1F9R/qU9Tv86blSYOO4gAB2FDUzxe4SX4QlmWwvu
-	 AYmpMoWXFhqTdGnYsSagNsjCEDP5OlXCaKhZXHdFvPF20ZufZZgq69LAgd6plkdkCx492
-	 tFoz+tW6a+mukUIUJrxwSBk5ABfwVqza2JeSnsIsWbCB6DFYbovilijtvfd5ezFe4sw==
+	t=1793717698;
+	b=KtmsL+2ReNqu8LiYcdiNx8RWRlyBWgpFrKgBR7arSdXvNd0++UGhBxXECtXnzCVxHi8Z
+	 8F/wS+qy+EVHUAF0WXJwMmbnWkga7a4Jze14fHJYRGGbjpZBuMxkLRxHfgyyZacdAQKcG
+	 9CTmhNQEXl+LWMaUgrYKp/kkvkBGHq8Pgrjh0KqxSovui9rH232CQWIrrRsYQKoLxFUwY
+	 p4UqYKdy0LKj+qPGCwdiHXN+b45tIZ9ohTPXIjAyb63NoSKJhrhlpGn6QqZD10bIGgEk+
+	 ZJ+t/lVrgGzCesSMprlcP5VD2XdXkqBKCq43P6M99NwPUAcFOqbf75qaYNWBVwphm1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717670;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=;
-	b=XTYYkhuF5WjNReTETykhkuiCN8ja212wseayFzzZvLw9LbQPEehmtXuhyekWSBc48gyo
-	 yl5BNuEccpfhpbfrbUw4XJpKXOkq5e0jWLXhP0R6I+hPPj6W9x7GGhEY898/OY8HAbyjH
-	 Vq82oFB7nsLvYe6vv8AuTd1su7tOXM4zUXOd2H1knFfGyjRoFVOB6Up/xP9wZdaGcyct1
-	 fXUhuLBaiLB9Samr2c3zaqzY85ef5A4n8p0h2kI8LIY6rk4QXGyYBDV4rPE0IVsTBaI2C
-	 t2RRXTtcYZ5jTEv07QGMmaPtg2eMbbiZwpHxmYFaferFNutSngk/aRWZTWHkoC4fw3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717698;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CAccl21Ta2xKfCvErWmXwQUaoiGO2p8CkPuu5f18Boc=;
+	b=3315f423v+oStuDQanNLtcgh/AtXRhCL513TqLHCfVm3kscfkAXePCH5Z8xeAakVC1rb
+	 ncnoJjBIp3mlBTdMg5SiAbhq2bviVLHMs3OxLIIA0g0pt+SruwRaTPsGuU259+xPKgsMo
+	 A5+WuE5ApzkEkCYB8UfTQW5QFLZUtXJRfRHEQOnE8HJXf5lGqYVEQqIscrSwoMewi/jeO
+	 yD+riPjTuChu4y2QUHZom0ZtloGb8tL/ZEZ4Kl9F6uV2NP05TY7C4jaQUm9KnzSw0HojY
+	 tR+C5WXkzlwev50fvs9s54vUShcBqxMMkT8O5mnZpoBr4YkKQD5mYhWsbsCuIT/iz0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SVdLAeud;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0lJqVcia;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cGZYm3UA;
+	arc=none smtp.remote-ip=74.125.227.135
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6897606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:54:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6897606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2E3606D822
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:54:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA2E3606D822
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SVdLAeud;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0lJqVcia
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 2EA851D00245
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:54:29 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 03 Nov 2026 09:54:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1793717667; x=
-	1793804067; bh=SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=; b=S
-	VdLAeud+q/wInsQDqqsUAcWLzXyBiSNh5a7e92keQ44lw5NLJ7wUkFjTEE9BMkSZ
-	Yf8D41EFJWwKDFln5xHCPH8TrFN135d2ipSP8e8vB1an9tffaoqYQQTuJZYp0kRD
-	6bWsxrcyJ6TFpNzOwOWYeNAGO7q3LSlazVCxr06VQp2eyu4bVpz4aAAOYFvClZzS
-	aGhoko7+N4iuVkdZsMI3kRNRRpKPmdATNlHEt+dgEabQ5By7ozi+8JM0UKte+vOB
-	3ZjjlnBYaj6ZuF/2ekrwxCjHO83NPlV1UEs7RXATrq6mfCnHNXKx7/vw0qjGbBsl
-	DvCnlzkOZk2ywrseMig8A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1793717667; x=1793804067; bh=S
-	Sy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=; b=0lJqVciaBelVs7ke0
-	6+v6J9dz4F89dFPPZZdPpjRWjF3IybbvsfgrJGUkA/fLHjjeRnFPnP7ni/ThHnBY
-	8c/U4yDyt6Q4UU8pisKsUmwD2EOK/HApw267UvC0e7CPFEIqNYwp64gHh7Dvn5Fm
-	s2IpXFjKREzmE7OO4FX9RkyXJGKhrmMZkJ+QBVzv9lF0y00cDdZjBrw8gcME8iBl
-	a80OowZ3bvBaRsfQGM/5oWRQq2zHfYvaeBeZuCQ7VejnliX0MXNV69D8etJoZpHE
-	1myfDklidEsgibXZs6iLpkk0wf5zY8bio8AosG/P8bDIxAeSGDSaHx5V2iSxZ6/J
-	EHFJA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793717667; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:jKFr01eQCGP6PqVtFwiPurgTGFFZAx2FbsXfMToI+0C39o5
-	ZDlRIpzzUVzV7EWEndYZs9sGBcTr0+CbaDqGAEppuNA2tckJbpbHDLf7LA9XfFZq
-	D4p4wLbkJj/fJsEu8XMfcaa1qZNgJBMtufu9W/xFN/SvEsHk/V1uIEkTOqKt7w6U
-	vxINePm3aMvCrvX1G14JDbZzW8iMlKoGySd0kAVLqyWm8lYt2bvU6y27YetwV1B9
-	eRxrh8ZSW2hA3Yxa4gS8LhRfeTmlmpGCZd/uQ0YxhMSizDhSygIi0upy+JH589jh
-	/CwaRVbcTDqT55Wht7s3LPTHskBohuXidcfl1RQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:nrSmHOa7lzwzvlWV06WJub79sz1mZ8uA5wp6BHlMjkE=:SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=;
-X-ME-Sender: <xms:o_XpaqdOfVyoLXOnfElKaFgLUsoQXWsSzJcwqm93JTpB-otlk_kOyw>
-    <xme:o_Xpav6_nr3RZj7wTvjoHdFb1sJ_QVYQJASJ1Em-AcTOO0EI-au0SQx7GSerkAkvJ
-    cMoABsvjafbFX_EMK3MsM23qwRyhTlX-pMlK9zVJp5nHQMBMUyn_Q>
-X-ME-Received: <xmr:o_Xpan_0ss_kovDi0BvUuiOaqv3jxrluIReCu3xVTwhYVgn4Z2k3SkhMpOw-BImS>
-X-ME-Proxy-Cause: dmFkZTGjXhpuZ3h++4iNHGnZA4O5fFr/0uT7x86idCLG/85j2p6KL36wtfebS2Xc5ySmMb
-    19LyPhGS6OyebFzppJp2KmpbHGC8rDleAGkASg7sqAe3aN9+mXEF/RANIiDiGeZiiz5vSg
-    QaQQxkmNYPyqhE7t/dRGK1DIZJnPTA5+DTFcEy3voNmv7J3vrQKHJ4X1njDSf3VeGI8Kvi
-    WrcSw+sAfhXlnaaRm0rwp98DRNapQREmuriDR8a07ThQzH16K95qZ7HXZOE+pmsovyYEXZ
-    KFd8sgybNTIaqJljeRBDW85nJFvQZBI6ImoZg+ZPslYLvF59KYNzawhueTcsYkfkE6n8Fo
-    KyZO/FVyQ16YpnEspjeLs9n/2f1Khd0VwuDKW0i5Kn8un7EhJpkCA8XYazhMptGvQCA3MT
-    0gOlwgK6rXjB1zgAubM32ttv8Wmxsumy1aaU/j+sxJ/MLIM7JihRzmL9AQ7Iw0S/BemfQs
-    dqk0znlxQ1FFRugC1laY9pxnrGjNUy+jZttceg9MyNHuX7F+LW5bkN9maRGOxgIF1s7yEU
-    zwevLB7jWBLqZZOzltzZWf7QS75GQCjyvKzKtR29ULEmkYFdON2jxbjr1xjsvWCVdGEEnv
-    GVUrJcYhqVKuwQNIMc1jawlQgO2He2Ja0jjvp60lWSR5CJuL6cPmTtV01etg
-X-ME-Proxy: <xmx:o_XpahEMDholwENdSP6RCIg2FO5YNVciORN4cCVogcfR1g5I60k4UA>
-    <xmx:o_XpasXggG1M37XzX6W2Le0eKb3lXbT3o0-4tX1qiZm11PrWEbSrbQ>
-    <xmx:o_Xpat8aLQk2zNq-BMFlfyk9Grq6oasJPxKTxJsPMsyN3yilUO05OQ>
-    <xmx:o_Xpap7bXlhqA2wjoSbQtOq4JUTWRXH8C4OkyMTo4KgCBk8QMpHxkQ>
-    <xmx:o_XpavuJUMxy97ufdDwFQokWaPUxjQEk7nQSRozQFqzlMfzb0IjKWyo4>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 09:54:26 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cGZYm3UA
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-3ac63aee1ecso1194998a91.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:54:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793717697; x=1794322497; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CAccl21Ta2xKfCvErWmXwQUaoiGO2p8CkPuu5f18Boc=;
+        b=cGZYm3UAYTYHGi7MmhOTUyo7jEpJXrjWzTcmNeYCa8209WrAgS27vxUMTaZ88QM9gg
+         J8snYVgRixOJsTkFQ4vno+yBbCMM1/ELfSy1YOnR2qZ8B+rOk30XTLqZYnyzWL4oUbNQ
+         mfQUPI3I507wi4G3DYeK3TSNw6rD9YHM/G4Zsu5hwa90aMJjmfe8KHxddYQ2kepvM7bg
+         e1mv/gh57+WAAnqtoYoveCwh16chExgRVL7mvEqtI/3TZ/Ks5g5oH8UNAMAc9CYYJ6AS
+         Wcz4GBhWQQGuNXEn3IdjtEMw8ZOsaJx0Cpdy0OUSYRPacvmrCNX13p5iIi83zMbcivm7
+         pieg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793717697; x=1794322497;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CAccl21Ta2xKfCvErWmXwQUaoiGO2p8CkPuu5f18Boc=;
+        b=iQAHqQcaxR7VXj1ywpxo2umnZ8UVt4sciB6R6UiBu2N1chJJxH/BRSN+vnXhifDcWN
+         VNHJ1rGEPzSruD1JjXH5niG/2aQDnnEX1evySVxTpTrhMvic9QvPgOeB4eTbbCDb6FDY
+         d4Rs4uK5v5nTK+MHQHcbP4z6+LqHTfKNnh8DUlH2PlpP/DwPQEOz6gPZ0gxAFkC6lDIx
+         8sGgofjR+WWN1maxtr3VSHYvenJfwIZONsC9qQmdNIGnWEp6vrTwvKTCdq4XgkezkKap
+         jKfZe2UjLhsPjN3a4W8gBPX7znTDMbOJ2HLK89VZzSUZd41CNDHvG+Iz7/ajaVMv1ftR
+         DGuw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDji+Yxd/T7XBdLx1ipQt0BVhlmgvPRTyc6x0NEboFvY1MTa9k/NDI+K1+j7u3xvM2So5F1kc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UMsQcLAS9F2g2eHTgxnlnY1JHYu2MNmUm7J4vKgT4HT8HQepD
+	jMw7tXnOSw1evPvOzf7X9ec3cTiZjbgeCmza4y37PxhBxucZtLPfzrhV
+X-Gm-Gg: AYBFou0oUYo3GzR3xFzmAJOR4egzFIzPHKGUt1GdcOWD2kxC4G4qeA67kehpExGHh/a
+	QLSfe0OAhfBwI4tbIH1nz1SC+JByG2DoUR87fx6b1HquvKboci73ehczVpN7Cnik4WgSGpN9bVI
+	GC6XwionRHeNR7i8FyGe2Lunp2Pyr7uYvvedH/rJJGwQ0pbgvKhMxs1TOUzKae7SsJYBVJtX0fi
+	rvxtmqHjfOt0nl9nc9vVf+p7MoTUvaBahonpJ3d6qAgQGYqVyrmqGVVMO+GLJ11ysGvq41li7Iu
+	y+62QW5/dI0gJ5+DGuoFnchHmgsHJ+w5XQ56jJNwKn+H0RSq98hXDn6zuU4ZTynmnVJLgRJ6Tr0
+	y2p0XBIpQZTjSDERBkJ+NxJ8j1K/TqdM520idmlFfsR6GXeEpEusY0T2i9uYwp+Pth59pKQdfrz
+	dImRgeOzBHyoP3gj8HTcupgGNHij85I1Bfmz3HIGBLt4iLtxJ188dYUs+Lhv5Gt8aaYngHL1z5A
+	qUY1JWZj1H8Ou//AuW4l9yQpXU2WXAxE4I82Ll5lOSQ7rfavAZvAsMrr9LbgXBoD/cdN57my06b
+	+8u4/4wTvBfYETGSzstXBdO70gautTeq0JA+eMnfZ6XQ3pdIzjeeGSkZXigv9avM128OzN9LU9g
+	Lv82VI42XsSeQiyga4+LKAEe+mpwdI5rm+XtU20i/8Ib2buXXp8Hma9q5id5sXg==
+X-Received: by 2002:a17:90b:1d05:b0:3ac:80dc:f40b with SMTP id 98e67ed59e1d1-3ae897f55cfmr9602071a91.33.1793717696954;
+        Tue, 03 Nov 2026 06:54:56 -0800 (PST)
+Received: from localhost (ec2-95-40-37-200.ap-east-1.compute.amazonaws.com. [95.40.37.200])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9b0ec5sm4753310a91.16.2026.11.03.06.54.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:54:56 -0800 (PST)
+From: jianyungao89@gmail.com
+To: linux-kernel@vger.kernel.org
+Cc: Jianyun Gao <jianyungao89@gmail.com>,
 	stable@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>
-Subject: Re: [PATCH v2] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow
-Date: Tue,  3 Nov 2026 08:54:19 -0600
-Message-ID: <20261103145419.10809-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
-References: <20261102200353.884509-1-icb@fastmail.org> <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
+	Carlos Maiolino <cem@kernel.org>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Dave Chinner <dgc@kernel.org>,
+	Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>,
+	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>,
+	linux-xfs@vger.kernel.org (open list:XFS FILESYSTEM)
+Subject: [PATCH] xfs: fix misplaced unlikely() parenthesis in xfs_iformat_btree
+Date: Tue,  3 Nov 2026 22:54:47 +0800
+Message-Id: <20261103145451.23755-1-jianyungao89@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -133,17 +104,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Namjae,
+From: Jianyun Gao <jianyungao89@gmail.com>
 
-You're right. For MAXIMUM_ALLOWED, v2 skips deny ACEs for the caller's
-groups along with their allow ACEs. An owner named only by an OWNER
-RIGHTS ACE then gets the rights of that ACE, write included, even when
-a deny ACE for one of its groups comes first. A probe confirms your
-example.
+The two corruption checks (level == 0 || level > XFS_BM_MAXLEVELS) were
+added to xfs_iformat_btree, but the closing parenthesis of unlikely() was
+left after the previous condition, leaving the new level checks outside
+the unlikely() annotation.  Although the boolean result is unaffected
+(all conditions are OR'd), the misplaced paren loses the unlikely() hint
+for the level checks and indicates the code was not written as intended.
 
-I'll send a v3 that processes those deny ACEs when this patch decides
-the MAXIMUM_ALLOWED answer. Where the existing lookup decides, group
-ACEs stay ignored for every request, as before this patch.
+Move the closing parenthesis to the end of the condition list and
+update the comment to describe the level check.
 
-Thanks,
-Ian
+Fixes: b3bf607d5852 ("xfs: check for obviously bad level values in the bmbt root")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
+---
+ fs/xfs/libxfs/xfs_inode_fork.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/fs/xfs/libxfs/xfs_inode_fork.c b/fs/xfs/libxfs/xfs_inode_fork.c
+index 486fe7ab8b61..48e1c83329ed 100644
+--- a/fs/xfs/libxfs/xfs_inode_fork.c
++++ b/fs/xfs/libxfs/xfs_inode_fork.c
+@@ -195,15 +195,16 @@ xfs_iformat_btree(
+ 	 * blow out if -- fork has less extents than can fit in
+ 	 * fork (fork shouldn't be a btree format), root btree
+ 	 * block has more records than can fit into the fork,
+-	 * or the number of extents is greater than the number of
+-	 * blocks.
++	 * the number of extents is greater than the number of
++	 * blocks, or the btree level is zero or exceeds the
++	 * maximum allowed depth.
+ 	 */
+ 	if (unlikely(ifp->if_nextents <= XFS_IFORK_MAXEXT(ip, whichfork) ||
+ 		     nrecs == 0 ||
+ 		     xfs_bmdr_space_calc(nrecs) >
+ 					XFS_DFORK_SIZE(dip, mp, whichfork) ||
+-		     ifp->if_nextents > ip->i_nblocks) ||
+-		     level == 0 || level > XFS_BM_MAXLEVELS(mp, whichfork)) {
++		     ifp->if_nextents > ip->i_nblocks ||
++		     level == 0 || level > XFS_BM_MAXLEVELS(mp, whichfork))) {
+ 		xfs_warn(mp, "corrupt inode %llu (btree).",
+ 					(unsigned long long)I_INO(ip));
+ 		xfs_inode_verifier_error(ip, -EFSCORRUPTED,
+-- 
+2.34.1
+
