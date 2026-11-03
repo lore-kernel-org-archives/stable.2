@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701135;
-	b=mQkMHNeCWrLRoWuOGX+QwoL5dUczcDdYzIQCzqZp/tPEhS5NWqn+73lTrFIOAlvRSqn1
-	 ZTART2mOzayVenmR7Nhm6MKnoFiE8MOkzWzDs6ZkDenPMZBAyXuqg2RNu9OJrBrW5J9y3
-	 libZYtGU9s9gEBjTV5MlE5s3BbIqntS9AXZ5y1JaSZJCKYzA+MXGwRkL8xEA1NhoK210T
-	 cG/0Zqxtx6LTqwAghUBzdYcK1SPW8AgvNoDcTxVu8nfLZU9BZNCt844T3Pb9fQSczHrb/
-	 OxkTiyFak6xbhtTT2i4MSjoJJZD8z2f0+j0cq2BpPvziE9rPzXy78d4SVMMCGWUiPKg==
+	t=1793701137;
+	b=LPBitKl6cFd7jBUStpWnS/UyP9/46RzJPgcQ1jOPzwVQKtbB0Jni/fZzRxVdy1vIp5tZ
+	 muEuJcc2DGH5ujE+PN/u6awlsOGEgedsLW3AB0dcz8Txvt5iOMcVqe2RRQ+pDXMO5Yglo
+	 B+oYdari77HS7JxpyU0ISg6VgfzdvXK8A3mUF+cvS+vUQKJHGiCob/JGNePgg7R8qNE8e
+	 RuMrHIbIuEZoFaEtYT1ZHj3he5YY0DLMm4MqLeMeA3VR68qKIUzYS3XQpxvrSlatFjECE
+	 Hnlv61jufks/djh+4zz+0+MLiM5/3RGrFqo6Motuhn9VaHM6AibHYlnJPjqH1cPNWwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701137;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AmhtfT2cw6klcxweVyh5MSW3meA3NirDk4xPYJ6ck2A=;
-	b=F3OKI5koYBoTncMB55THctzRugSw8WfrCU+j0FVsVdpXEg+s0IKZSg6mbiK0dzIeLYbz
-	 8K1tn3QfyXwEPgtVrMFKH6uJ3HvYjwQyz9CTF+JufUTjnSh+pTE0ThAnJjbibxjuLc5ab
-	 itfoLrR9Ummmpk1KjQz47YI/tjFsoQjkgs3w6oWIy7tKHYAjM+NXK9P6pX1HOaqmStnLJ
-	 b4hsKWkSxfnxaIK7nLpcre83ZOZm4oKKlo10ge9J6c0KtmNscxPr9bYM2slUKNFBgPTpC
-	 zanVRncDgY8baNeTEyUkXsLTxm8LNpBATrqt7dpOwLkaetRmG+GSg3TVeSlC2l1qNgQ==
+	bh=nombTKGiTM3Sd4+m/QVdPuwDI08TZZvQWhx6qPvzGpY=;
+	b=idfJJa9r7urBXJ54kcYQDg1V4uYqMoLJ5HIvtHL6W5A0J7U22/zxU2exR4CzIh3eLIxA
+	 Zq1imwwhN50gGpeblgBI3ntbYsK7HYPfhHm2OPT0onqHmRJLx2+j8WaS2zbeqQivV08AR
+	 AxToIgfia6HSfd3rl2i2MEkf6Fs/FyC86ATKGhfHwY1mGnGzgJNUU6iFff+jy5zQTGYAP
+	 f1uuUoQhNPbaTSUjyO+HgIOwrXhxlADPhj4QaF++ZMSEn0YmA26LstjmpTNTxTWQ0WaUD
+	 ErJ+GHIsKeEUxSjj43sL9KXAQ32wlrmcFgwwa6rnEbYOJL0TxhhHCERMHQrlfzJCBOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EHauTMez;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hCcLNIUa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEBE608508E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:18:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7023E606A815
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EHauTMez
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25EBA1F000C1;
-	Tue,  3 Nov 2026 10:18:55 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hCcLNIUa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FC81F00919;
+	Tue,  3 Nov 2026 10:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701135;
-	bh=AmhtfT2cw6klcxweVyh5MSW3meA3NirDk4xPYJ6ck2A=;
+	s=korg; t=1793701137;
+	bh=nombTKGiTM3Sd4+m/QVdPuwDI08TZZvQWhx6qPvzGpY=;
 	h=Subject:To:Cc:From:Date;
-	b=EHauTMezlrVYnI3D8DXmcnPw4k+tKLf/7ijx/nthfPaDvyRCQigCIg+G+kXOoMtVv
-	 mtCKCJpUZ3H55XNNi9HiSKrwXSse9sr2Q7Cr5PsAgHWPOUt8viYRht4po5M7fP9Xky
-	 E/q8Bfb9tiguXWGcQbjpHmgFycMUAwaAYIbyhjbY=
-Subject: FAILED: patch "[PATCH] ksmbd: prevent stale data from being written by SMB2 WRITE" failed to apply to 6.12-stable tree
+	b=hCcLNIUak+5GPRGLAPnEpXH/FQxobtOPuvTG3CkIONQWh3U2Km4ORRaQPbjuvXOyC
+	 yo2p1KfbV3GKhsnltGmR87u1lySFlMuukKQge+DDwa4ahhgIv9PzU9a/ciG8cChngA
+	 q5s1HldanJACO4jBrQlCMHTUd4yNCsysrsPDVoWc=
+Subject: FAILED: patch "[PATCH] ksmbd: prevent stale data from being written by SMB2 WRITE" failed to apply to 6.1-stable tree
 To: linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:18:51 +0100
-Message-ID: <2026110350-activist-riot-545a@gregkh>
+Date: Tue, 03 Nov 2026 11:18:52 +0100
+Message-ID: <2026110352-entering-splice-bcab@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x bc0e0f5ac1d7b044d403f859406b4b66d4b1ce9b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110350-activist-riot-545a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110352-entering-splice-bcab@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
