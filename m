@@ -1,55 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717393;
-	b=i3bldPxcPlJmSnJ0pTs9rvCTq6+VKuKWRInhxs00ch9FuIYP/7DlNDB1raWSYNc9fa6R
-	 B6kS7FIX2ajP7slhwGRvouY80AM8KvNlZ4/zqFx0riyD1jvPeKKjh6XaOoOrgoxJ81Hit
-	 0PbpxrREMkJ2Q2aqkdvgaVNSBtpgPjCa9i2n0MOCH9MOYjq1Fs+qATWiM40QIR3AvQZjd
-	 c9QHXurmY9DzJle9n6BDzdI/ZPscqdu//xBJtaPn6AK0zlEdTpiWD+aZlF69oGwZwW5Gl
-	 vTzMQZRbrVH8bg4q0wNhHUkQCqxi0dE6cAzx4hW0/jl0g8YFuElnrsJ4om43jaxd64g==
+	t=1793717530;
+	b=nzhOi5U5bWleWERa7sd/4n7aaF5Fc1iLnyT1MmYTazDwJ5x+g8D88q0I9PcNPJDI0O/g
+	 +ajzXK0gtwsptZqebsOAp4zxp7qRl2Q0wu6ekQJy9o97yT8/xXlR0GDothxHky67kVJgt
+	 6ZrN+/k8yUaNK49hB2RGK4i600v3fveQ3Ft0dfDGWVTn5gpQDuuHDIcbhBEm//ma3ZJgU
+	 5WdD6J5tNiaAbO0tQQ3CDfRaXK2mZiSBVHigy65YpiA974oSWBLRcVEJ3LnnwVrZOyTy6
+	 mEdX4pMQDnotwQCRlTA1JRb3OW4lfVcNYjnjIA7Zat0Zr5/1q/RhjNydBADke5q6m2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717393;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=27qD6Pz/Glh9kkpJIUr3/I4AZLpTM9yA9jtQ1ZwO82Y=;
-	b=AQVqicBi2j2/5KlhX9gNyWRdwR8gF9DjvvEuhn25H/uGedoTRq9cAq/SEAf+1HgmS6Qf
-	 0iksGf20omo3Gt2Je40knIL6mtJXxOOE/wcBA8xaNMNwi7hLemyV7cp+Hs9CN9vhMWj/n
-	 p5iu7UONfXGMtIvJefv6DXFSXdbjulV10tJ4ULs2sl2odcpjBTQf3qGPTEv61lNfvWfO3
-	 kKFwYxs0VCyTRXPH0roE8rcYSZw7YvHaBkul4IMEo8yQWTBzUKEth5mAy8rLrIgiESCW4
-	 +MH4Dgmn2IK+X2ih4hvQwhOvnzlbUOqwNCrzziw+efCv0XAZTkGl3Y/28lzLZesRrLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717530;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LMyRWZC45eOWdRYTp9S1dshzyIL9S0ThqB/6dV7aMIQ=;
+	b=RnwysnXosaW7eMnsD+P1LgQLp60zrlHbxWNZdyjaISxKl+A6G8k9FKPoXasquZutSxGK
+	 pLJOvE/FA5/uIUuH+AlTd2s7+dJtbNx3niQpbqq3ib71HOEujhjfh936Sv2WXxsVgICx6
+	 l9DhcIHMAyQde4jOMcvJO36C7fk/2RVkkF/3UN2FMP1st4LdJTtLCkh6VD95i+M2bwAcu
+	 1ey4b1JIh0QhPb8Iy1xUsrLvplUj9ymRvr/htlG5kcdrvzxCk/PAOjz8FTdhX5yvwtyAC
+	 qr7rlMGhAG1IEg5PeKgdBYSG78j6XytIj9/ljZgZkjgrWLuXxCMCb0tNmt6Nu8EYh7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIGpP7aR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBQ8RpLn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626E3606D83D
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:49:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E9D606A789;
+	Tue,  3 Nov 2026 14:52:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIGpP7aR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40F711F00A1B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:49:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBQ8RpLn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88EC91F000C1;
+	Tue,  3 Nov 2026 14:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717393;
-	bh=27qD6Pz/Glh9kkpJIUr3/I4AZLpTM9yA9jtQ1ZwO82Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kIGpP7aR1scUpNqCFWVyvqhbrG/s9k0ZdkJR1J8ckr4werPo8N7S+1tPRuPNdQFUD
-	 S2mnA5AqFPe1HAd+zP2JYrtXwIUwCn9gjRuBBVMJJDvA4Gzox/Mww6czHdYdFh1hCd
-	 XLHRgRYM993qy1/tGMyVR3tvKgGZ6DNU5nXVziqSkJF0SWCUdrFtl0r2nGu6rnGQH7
-	 Ir6Wdei4nXB8Ce9rCSQjcQTaO5UUFWOWkAOheJ9QFY2fULmkdYYj2zTmRVoIoPIKeu
-	 tcKp5zfJAUZoqF6kKbNWNHONOU06KmjLwsJTd5xXnfzATKI3WDldEJzkaCFYuE3iUn
-	 NwrQP67uMQPuw==
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4f488ba6e90so1574085b6e.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:49:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBz/feNRmEHIG92LvoJJYEfMhuJ0T/UFHP2W3qwkBURqRMvIywli8DNKng90EVx+dmCY14GGU4Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/oNYSf5z6WRUn1T30rOukVRARJQQBAOwrcPbaL4DV7m2kWllp
-	rR9xY+oJc+U8GXcfDj9A2KDeBupw5E9OuPzHxpvdMMQ684OTWFb5mNKQK53jabcATiEd+CBVIoC
-	xwzMTFqMAy1eDNrXi1bjNJNqRV6b4ZqM=
-X-Received: by 2002:a05:6808:11c7:b0:539:dfe8:9960 with SMTP id
- 5614622812f47-5640de0f2bamr8850934b6e.56.1793717392538; Tue, 03 Nov 2026
- 06:49:52 -0800 (PST)
+	s=k20260515; t=1793717530;
+	bh=LMyRWZC45eOWdRYTp9S1dshzyIL9S0ThqB/6dV7aMIQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iBQ8RpLn+4J4/cEkXnFrVxpDoGHc63Kad8Kk1J4mNTWElKzbolQi90qtwjU2mDFvH
+	 TqZWzYOq7/o3yWt5k1JYSeBfBHVQeEyKJPJmZRsFg2BCUkEjg9Nq80BtbaR01oj9Zt
+	 0FLB0oAr4GBp0n6ha4+zy8Zj5/t6io1gBlDQkEzdIV0rPDq1Y3dBPiDD3Fu7y42Rv1
+	 RmxW1EC5vFHOz9ZcAlgjUCSO3H6zRu1TfZ7OGY8aqOTFJ6tIsxxDkwmKd2jd+3gBbn
+	 ZJg6QL7pthOcPFaQcraSrE2E6RD4FLpO2qsue8R1r9IZ6ttI10Q4VDVen/+vcWq9y1
+	 bjAEa5FSDSt6Q==
+From: Sasha Levin <sashal@kernel.org>
+To: Theodore Ts'o <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Yongjian Sun <sunyongjian1@huawei.com>,
+	Jan Kara <jack@suse.cz>
+Cc: Sasha Levin <sashal@kernel.org>,
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	Tom Bereknyei <tomberek@gmail.com>,
+	Elliot Berman <elliotjb@elliotjb.com>
+Subject: Re: [PATCH 6.1.y 0/2] Fix NULL folio dereferences from IS_ERR() checks in 6.1.191
+Date: Tue,  3 Nov 2026 09:51:49 -0500
+Message-ID: <2026-11-03-1-daily-reply-0001-re-ext4-ntfs3-null-folio@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
+References: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,53 +71,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029214219.1035176-1-imv4bel@gmail.com> <20261029214219.1035176-3-imv4bel@gmail.com>
-In-Reply-To: <20261029214219.1035176-3-imv4bel@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Tue, 3 Nov 2026 15:49:40 +0100
-X-Gmail-Original-Message-ID: <CAL4WiioDoAT-50wStYDOy0b7f972QivB=Zk_7TCDrVPfOY665A@mail.gmail.com>
-X-Gm-Features: AclHuK8zhh9M8Ej8AYQXAAw1VHdM8fimcEAeuD8qgg1yWG-Nxe-lIMO_Y4uRs9Y
-Message-ID: <CAL4WiioDoAT-50wStYDOy0b7f972QivB=Zk_7TCDrVPfOY665A@mail.gmail.com>
-Subject: Re: [PATCH net v5 2/2] net: restore refcount ordering for lockless
- socket access
-To: Hyunwoo Kim <imv4bel@gmail.com>
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, martin.lau@linux.dev, 
-	john.fastabend@gmail.com, weiwan@google.com, sd@queasysnail.net, 
-	jiayuan.chen@linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Le jeu. 29 oct. 2026 =C3=A0 22:42, Hyunwoo Kim <imv4bel@gmail.com> a =C3=A9=
-crit :
->
-> Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementation=
-s
-> of refcount_t"), default builds implemented refcount_inc_not_zero() using
-> atomic_add_unless(), which provided full memory ordering on success. The
-> commit removed that ordering on weakly ordered architectures, allowing
-> accesses after a successful reference acquisition to be reordered before
-> it.
->
-> Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
-> lookups and in inet_twsk_purge(), where the socket is validated again
-> after taking a reference.
->
-> bpf_sk_assign() can receive a socket pointer obtained through BTF
-> without a reference. Use acquire ordering when it takes its own reference
-> for a refcounted socket.
->
-> Use refcount_set_release() when setting refcounts in the SYN cookie,
-> TCP Fast Open, request migration, and TIME_WAIT paths. Keep the existing
-> TIME_WAIT smp_wmb(), which separately orders the refcount store before
-> ehash publication.
->
-> Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of re=
-fcount_t")
-> Fixes: 27e5203bd9c5 ("bpf: Change bpf_sk_assign to accept ARG_PTR_TO_BTF_=
-ID_SOCK_COMMON")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-> ---
+> We hit a kernel oops in 6.1.191 in ext4_mb_regular_allocator(), When
+> ext4's s_buddy_cache pages are evicted, the next block allocation
+> dereferences a NULL folio.
 
-Lack of links to prior versions is rather annoying.
+Queued the series for 6.1, thanks.
+
+-- 
+Thanks,
+Sasha
