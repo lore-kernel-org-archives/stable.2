@@ -1,47 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701338;
-	b=uXXQAWRRsKRnMCCFgQNaIgJdA+i/UowLx3TE9GpPgUDyvS5dC8yvJlppINPXxsOZVMsp
-	 2wyND8vjmAwKKy4I0Q08mclrE5+fPvN87TRtz37/1eCf2U2Gvm7yNS3k3ab3wP9++6N7G
-	 ZhFSyAF2ExYiKAwd3b2Nmq4gcrshhqJMTVXNPqJGoX7TUtUhCNYvQ87mV7UZOurTlrnwX
-	 1mB3V0/2ae5Bo6tSv4hE7iw0GpWIbRvW7BaSuvm2yh8Thw8IfqzeTjz/w9pEUXkp/6thb
-	 cM+XVwPbhSHLmkcmSxdIy4zW+jxnlXida2eWNP6fd76z0Yg4nXPkMHUd0momIDi8v/A==
+	t=1793701390;
+	b=r8/HS9vxkhIN1MypvJa1wXnBaeYa0E2qO0zU+k98atYgisA4AHMemGBBqcoMQeHnuwnH
+	 HbJxIp1peJ85kPYTaB6KcajwGbt9uH+tUjLc4e5o4bhksjfnlmIKCl7WEYA5dhVYUVRGQ
+	 m0d/MwdH9rDCkPchH0xcNWhhZoo/AygIvyjkyEJEC3Ps9Hl1Ui0t8XvEc+bHJGRavOtjm
+	 pRFRK4FC2Ng39luinvw6muG08SkpEfp6o7brSDwcmLxP7h3o8cy0YFOXtksgJeQ9YS9yN
+	 f8YaxQhcJvr9vlECf6UUCX27Q1NMuG98LwSuE/fFKNVGpG4dDHX0sP5V3zh/pQtzDqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701338;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7pCqcW2i5PHJJDb+ppm91GaUZ6P1om9EvlC6NKjvzFI=;
-	b=S6pkEreqQLxDPZedvI9Um3WXq/gthLMgi9iyBBWbJv3B8+WtQ8fNFGaJrAkRKIhWmyTc
-	 yzp9VajHH9sAWdz+F1M7oCymrhmLr42V3Ms0ItrChEWuD3IitrvxqMidp/09XnzRWGgb9
-	 kGE+iRBavqoZ2SYq5aH4T9eeGWoHoFm1tZ7L0cG3gA0KEfjNCHm/WGpTsCzyo3NmrEj3L
-	 REBShFNo2e9asO8TPOPSfQO0+z6dtFgmb1Hbm1YvAKuBvY6Xt6E/uU7pGn+hHVBl+XHbc
-	 dkuK69t4KLuHtbGW1CDh8PYsi+zCpQpmx8nduE4+X9ZFKbbllDiIJjWI0gBAQ8QJQ1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701390;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=UYmSENSjXIqHkTii+FsN+sTED4hZ7gPUeMWF2Y6fbXw=;
+	b=Xdy+ll4FZREPphEHvUFxulgf2vkxs2ZpCpfPO6wqeneATPHGDWbxxCSgAMKnkpQ4ihCr
+	 mXSWNcE7iFMs0AuTeL4FTVWC8JKLaKj2MDyuiGTuH2nNXGYPDze3VBfy/GD3vnrW7m9fl
+	 +DNlRHjexyRoSXCPhWDuxs7mUaXq0smPWqn9HbeSJM5ZdWndwMB4BpoMAkNY08ZMt4l1w
+	 hHnUvXuw12NNuiIzzZAIRpdRoMrZ4kUZ8cq5Dvar7ozrv9JvCd0MpJjkc/ARyvkGqbm2w
+	 +aBEisaK+trlnMriVbkkZJbv0a+zxvZmUyPHasa13LI0Yy8Rn170/AaiobXiampmUPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TIH5u6f9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ISfpL6R+;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12ED606EEAE
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4760360850B1;
+	Tue,  3 Nov 2026 10:23:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4760360850B1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TIH5u6f9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3481F00919;
-	Tue,  3 Nov 2026 10:22:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701337;
-	bh=7pCqcW2i5PHJJDb+ppm91GaUZ6P1om9EvlC6NKjvzFI=;
-	h=Subject:To:Cc:From:Date;
-	b=TIH5u6f9OMJYotd/rf+XEiMee+umIc/K20fs5+rlsTYqJAElVZpYkIYPchK7RgYN8
-	 rUSKv2jjiH9rByBxP5iuT86kGA4WOTT0yrYjUISa52bJ4bwbudWGh+mBK6Tj0nXxEO
-	 fyuhaEzrNaJBll8T0mSuHYv3PBbJrUP5Wtlg1QJ0=
-Subject: FAILED: patch "[PATCH] ksmbd: use the existing xattr name for a named stream" failed to apply to 5.15-stable tree
-To: charsyam@gmail.com,linkinjeon@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:22:02 +0100
-Message-ID: <2026110301-sprinkled-bony-d68c@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ISfpL6R+
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 920C14E413E2;
+	Tue,  3 Nov 2026 10:23:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 644036046C;
+	Tue,  3 Nov 2026 10:23:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C0278103290E8;
+	Tue,  3 Nov 2026 11:22:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793701384; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=UYmSENSjXIqHkTii+FsN+sTED4hZ7gPUeMWF2Y6fbXw=;
+	b=ISfpL6R+E6N4N6aVzNXRYGzz2AA/3NYgZ9IrB12pd7ROCn+nSHGcmS2yQNbfBvaYJjXkM6
+	4E4KuHlXKDhwqeG+Nzs8Ivp/8+NWnGtQwJ3jMOCi/4ZDuMIB5MnPEvGMAa6XA031YwN6r2
+	CnWe135b3ER1vbuKyGeGzb8nZ2aRyBHDoCyvGk6cVnYrAYRicyVq6gqgDji2+E1GLJuIyE
+	ag7hb33JKof9rpoyT7gWmTcyzsfcLwYQkBEQTXTE7/9Xh7aBO+WC87J52sxT/v57kkSL7b
+	tmfCho/klrGMJ+J7LQIhPGgriqMadPed5B+omHTyOI6GwopizI0OUF59FGh3iw==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Tue, 03 Nov 2026 11:21:38 +0100
+Subject: [PATCH 5.10.y] gpio: dwapb: mask/unmask IRQ when disable/enale it
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,152 +62,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-dwapb-fix-v1-1-c93ef2f20695@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMTQ6DIBQGr2K+dTGgARKvYroAfNbnQg1of2K8u
+ 2iXM5nMjkSRKaEpdkR6c+J5yqAeBcLgphcJ7jKjkpVRStai+7jFi56/wnltrdHa9iYg90ukrO9
+ XC10qWf7w/Pu0+ZHCeo1wHCcO/xKydQAAAA==
+X-Change-ID: 20261103-dwapb-fix-ab5776557f6c
+To: stable@vger.kernel.org, Hoan Tran <hoan@os.amperecomputing.com>, 
+ Serge Semin <fancer.lancer@gmail.com>, 
+ Linus Walleij <linus.walleij@linaro.org>, 
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Alan Tull <atull@altera.com>, Jamie Iles <jamie@jamieiles.com>
+Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ralph Siemsen <ralph.siemsen@linaro.org>, 
+ xiongxin <xiongxin@kylinos.cn>, stable@kernel.org, 
+ Riwen Lu <luriwen@kylinos.cn>, Andy Shevchenko <andy@kernel.org>, 
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793701321; l=3286;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=raXdsmUXhUMXLoQv/+U2gS57CUX95PJSVR9MJSEhvXE=;
+ b=n0J1NxaeWywnesRrmu6cgGjMdeym+G8ooueSX1IC1ePo9To5tg4tXa4WeBSEUhrdNiTz8Kznv
+ uaWvKvCUNwgAB2zYIJ/sOtAFrXCyErtY/9iSsk+5e2BLAeZRdnzVki+
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
+From: xiongxin <xiongxin@kylinos.cn>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+In the hardware implementation of the I2C HID driver based on DesignWare
+GPIO IRQ chip, when the user continues to use the I2C HID device in the
+suspend process, the I2C HID interrupt will be masked after the resume
+process is finished.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x a7d1d52748e0fe4d06fdb871fc9899904fbba93f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110301-sprinkled-bony-d68c@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+This is because the disable_irq()/enable_irq() of the DesignWare GPIO
+driver does not synchronize the IRQ mask register state. In normal use
+of the I2C HID procedure, the GPIO IRQ irq_mask()/irq_unmask() functions
+are called in pairs. In case of an exception, i2c_hid_core_suspend()
+calls disable_irq() to disable the GPIO IRQ. With low probability, this
+causes irq_unmask() to not be called, which causes the GPIO IRQ to be
+masked and not unmasked in enable_irq(), raising an exception.
 
-Possible dependencies:
+Add synchronization to the masked register state in the
+dwapb_irq_enable()/dwapb_irq_disable() function. mask the GPIO IRQ
+before disabling it. After enabling the GPIO IRQ, unmask the IRQ.
 
+Fixes: 7779b3455697 ("gpio: add a driver for the Synopsys DesignWare APB GPIO block")
+Cc: stable@kernel.org
+Co-developed-by: Riwen Lu <luriwen@kylinos.cn>
+Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
+Signed-off-by: xiongxin <xiongxin@kylinos.cn>
+Acked-by: Serge Semin <fancer.lancer@gmail.com>
+Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+---
+ drivers/gpio/gpio-dwapb.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a7d1d52748e0fe4d06fdb871fc9899904fbba93f Mon Sep 17 00:00:00 2001
-From: DaeMyung Kang <charsyam@gmail.com>
-Date: Fri, 9 Oct 2026 00:25:36 +0900
-Subject: [PATCH] ksmbd: use the existing xattr name for a named stream
-
-SMB stream names are case-insensitive, but ksmbd stores each named
-stream in an xattr whose name is case-sensitive. Opening an existing
-stream finds its xattr with a case-insensitive match, yet the handle
-keeps the name as the client spelled it, and every later operation that
-needs an exact name uses that spelling:
-
- - a WRITE or an end-of-file change creates a second xattr, so a stream
-   created as "Foo" and written through "foo" ends up stored twice, and
-   which value a later lookup returns depends on xattr list order;
- - delete-on-close and delete-pending removal can fail with -ENODATA,
-   or remove only a case-variant copy and leave the original;
- - the share mode check compares stream names with strcmp(), so two
-   opens of the same stream that differ only in case do not conflict.
-
-Have ksmbd_vfs_casexattr_len() copy the matching xattr's name into the
-handle when the stream is opened, so later operations use the name
-already on disk. The match must have the same length as the name it
-replaces; the stream lookup passes a length that includes the
-terminating NUL, which already guarantees that, and the check makes the
-copy safe for any caller. A stream that does not exist yet keeps the
-client's spelling, as before.
-
-smb2_rename() compares and looks up fp->stream.name case-insensitively,
-so it behaves the same with either spelling.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 0154c0deaf8b..79b0a9aee860 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3341,7 +3341,7 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
- 						     path->dentry,
- 						     attr_name,
- 						     XATTR_USER_PREFIX_LEN +
--						     eabuf->EaNameLength);
-+						     eabuf->EaNameLength, NULL);
+diff --git a/drivers/gpio/gpio-dwapb.c b/drivers/gpio/gpio-dwapb.c
+index d6240ae0f87ca..c2c9b42a60865 100644
+--- a/drivers/gpio/gpio-dwapb.c
++++ b/drivers/gpio/gpio-dwapb.c
+@@ -282,13 +282,15 @@ static void dwapb_irq_enable(struct irq_data *d)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
+ 	unsigned long flags;
+ 	u32 val;
  
- 			/* delete the EA only when it exits */
- 			if (rc > 0) {
-@@ -3413,11 +3413,11 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 	fp->stream.name = xattr_stream_name;
- 	fp->stream.size = xattr_stream_size;
- 
--	/* Check if there is stream prefix in xattr space */
-+	/* Keep the existing xattr's case for subsequent writes and removal. */
- 	rc = ksmbd_vfs_casexattr_len(idmap,
- 				     path->dentry,
- 				     xattr_stream_name,
--				     xattr_stream_size);
-+				     xattr_stream_size, xattr_stream_name);
- 	if (rc >= 0)
- 		return 0;
- 
-@@ -3469,7 +3469,7 @@ static loff_t ksmbd_stream_eof(struct ksmbd_file *fp)
- 	ssize_t slen = ksmbd_vfs_casexattr_len(file_mnt_idmap(fp->filp),
- 					       fp->filp->f_path.dentry,
- 					       fp->stream.name,
--					       fp->stream.size);
-+					       fp->stream.size, NULL);
- 	return slen < 0 ? 0 : (loff_t)slen;
+ 	spin_lock_irqsave(&gc->bgpio_lock, flags);
+-	val = dwapb_read(gpio, GPIO_INTEN);
+-	val |= BIT(irqd_to_hwirq(d));
++	val = dwapb_read(gpio, GPIO_INTEN) | BIT(hwirq)
+ 	dwapb_write(gpio, GPIO_INTEN, val);
++	val = dwapb_read(gpio, GPIO_INTMASK) & ~BIT(hwirq);
++	dwapb_write(gpio, GPIO_INTMASK, val);
+ 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
  }
  
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 02ee73d8d631..eb0212e9a5f4 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1956,7 +1956,7 @@ int ksmbd_vfs_fill_dentry_attrs(struct ksmbd_work *work,
- 
- ssize_t ksmbd_vfs_casexattr_len(const struct mnt_idmap *idmap,
- 				struct dentry *dentry, char *attr_name,
--				int attr_name_len)
-+				int attr_name_len, char *actual_name)
+@@ -296,12 +298,14 @@ static void dwapb_irq_disable(struct irq_data *d)
  {
- 	char *name, *xattr_list = NULL;
- 	ssize_t value_len = -ENOENT, xattr_list_len;
-@@ -1970,8 +1970,13 @@ ssize_t ksmbd_vfs_casexattr_len(const struct mnt_idmap *idmap,
- 		ksmbd_debug(VFS, "%s, len %zd\n", name, strlen(name));
- 		if (strncasecmp(attr_name, name, attr_name_len))
- 			continue;
-+		if (actual_name && strlen(name) + 1 != attr_name_len)
-+			continue;
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
++	irq_hw_number_t hwirq = irqd_to_hwirq(d);
+ 	unsigned long flags;
+ 	u32 val;
  
- 		value_len = ksmbd_vfs_xattr_len(idmap, dentry, name);
-+		/* The caller provides attr_name_len bytes for the actual name. */
-+		if (value_len >= 0 && actual_name)
-+			memcpy(actual_name, name, attr_name_len);
- 		break;
- 	}
- 
-@@ -2126,7 +2131,7 @@ int ksmbd_vfs_copy_file_ranges(struct ksmbd_work *work,
- 		src_file_size = ksmbd_vfs_casexattr_len(
- 				file_mnt_idmap(src_fp->filp),
- 				src_fp->filp->f_path.dentry,
--				src_fp->stream.name, src_fp->stream.size);
-+				src_fp->stream.name, src_fp->stream.size, NULL);
- 		revert_creds(saved_cred);
- 		if (src_file_size < 0)
- 			return src_file_size;
-diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 7e545d13a3ff..21b0d29a3db0 100644
---- a/fs/smb/server/vfs.h
-+++ b/fs/smb/server/vfs.h
-@@ -116,7 +116,7 @@ ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
- 			       int attr_name_len, char **attr_value);
- ssize_t ksmbd_vfs_casexattr_len(const struct mnt_idmap *idmap,
- 				struct dentry *dentry, char *attr_name,
--				int attr_name_len);
-+				int attr_name_len, char *actual_name);
- int ksmbd_vfs_setxattr(const struct mnt_idmap *idmap,
- 		       const struct path *path, const char *attr_name,
- 		       void *attr_value, size_t attr_size, int flags,
+ 	spin_lock_irqsave(&gc->bgpio_lock, flags);
+-	val = dwapb_read(gpio, GPIO_INTEN);
+-	val &= ~BIT(irqd_to_hwirq(d));
++	val = dwapb_read(gpio, GPIO_INTMASK) | BIT(hwirq);
++	dwapb_write(gpio, GPIO_INTMASK, val);
++	val = dwapb_read(gpio, GPIO_INTEN) & ~BIT(hwirq);
+ 	dwapb_write(gpio, GPIO_INTEN, val);
+ 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
+ }
+
+---
+base-commit: f23b568f7597f98a241454018a34361ce2523c05
+change-id: 20261103-dwapb-fix-ab5776557f6c
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
