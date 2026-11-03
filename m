@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741466;
-	b=gcWQBz+ihplGz/L00C8Vb1aQwVyTReVJWXMuz0L4DNBLwPWmw6bVLk8xY/IxeqjuiBPZ
-	 +37vgq3Y69bkEtjLaO6SfRRwwWXU3GoY/F8CzvMPStszweowvP1QNJXfnBpTY87jHlmC2
-	 0TqnODbo603qCCeIllFUKHa3K3lHwJzqcfeUEdaGf18r9egSvk0v2GcLdAJrDz1W7+97p
-	 kUmns4YtlyrcXgggTX7cVMMaaY1IzhbIHH+Dd5sQN535+B7AYv7FxH0DXXyZ3uyzwUUDO
-	 TUuT+YLzTI0TiAp9wxXO32Y/WDI6H7gG1uzgN1psgGcS82SLl/lmyspigM1qZSKDP0w==
+	t=1793741459;
+	b=Z09969rYUo9mOiTAeoBxiHqyt0hfk5UtgC4UyB8/LV55JXhPJL99Eils/mLh+qYctmKr
+	 aj2e/heC/5M6d6ms4rHyUw8dNjzbFn6u2soh/l3VwX4y/tHsWpoUoeqIE28MpMuoAI2j9
+	 J7bA4rt7+uuCkaxpD5nqmQj8c8m3WirqSZqVuQyT6xQRZPFj7YpA4TuyX4uDn/rHkLyx8
+	 fXV8cS8BzHSyiXFv3IejX2D40FwnA0L1TqEKaXyD79cqfmbAa323JmFet0CW9xJSphB+Y
+	 86z9SeJahffDuIPZftjVzgYHz2VURkaAnlWFfHPBGPKIQ/sBRH0VAwYPFzYoU/VNKOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741459;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3/oOsHewxoaJAaDJ/rO1u+yX1SuMv/P/AudEIBEMG7w=;
-	b=JVbd4cSpfSCYdHmLngU15azdgdIbE+Lfqos/8azEAKJ8ZAMvyhilN/4yMmGR4hdG1dqY
-	 M8xMwtDM5t0FY+tD6zluUahhdgahV4MD4IhOht2FTHKt/m8tfUqlFCx0UnkrGDKbvAiqY
-	 0HKMA1qr4yqWGlcy/E9b/sMPnDNTs4ASjeLCOrAcU5kS3Zojq6e6Uxs5p2LJjS/Yo07so
-	 SbSjuiZ/WqBEAG2b/9ey3JqM5nQCMIHdFjHLO+5h15rHgaRmSGUEu/j7pjad2WOY9K6qj
-	 iwdTIGdNsplyNRDy2bGEKupQNi+lz1Tg2JD78KXALHtFDzD/OSvFExwiXHfT7yAXiDw==
+	bh=2iPUQpArd++dAugymdCYR9QxCbrAkyiSI3kkgK73EZ4=;
+	b=T0BmkwVVArQruOJkQT07KbeonzjYBvUeVaZu3RPYrZgPre67UDtlhFIN/SAPZTOSPG75
+	 8HM4G18cn7zNRws2Kf364QvC4s5r/Cswxxgz1phMM4Q0iF2ni8xTBbx/QzVWTs/jZsQ16
+	 MAZzX5KJOzBMb7apEflUC/ijNlkrql5HNB9RHK2P/DmChNnhGSjxISf/nBvIFjgLOyQlO
+	 yDEsr2iYq9C6/d5EelMx6/7IUwFbl2DrPOSZqLX7SNKltDbByZCoAVQfZtSYdmRME9blv
+	 L8ymQl0L7jsTYh282o5TWGCa/wivn5rXIscJtTq+Q30+m8lgNvHld90YtRCly3xN+Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMWVqxa1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E/4FEwyR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C1C606A31B;
-	Tue,  3 Nov 2026 21:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749B1606A335;
+	Tue,  3 Nov 2026 21:30:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FMWVqxa1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5025F1F0093A;
-	Tue,  3 Nov 2026 21:31:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E/4FEwyR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8076D1F000C1;
+	Tue,  3 Nov 2026 21:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741466;
-	bh=3/oOsHewxoaJAaDJ/rO1u+yX1SuMv/P/AudEIBEMG7w=;
+	s=k20260515; t=1793741459;
+	bh=2iPUQpArd++dAugymdCYR9QxCbrAkyiSI3kkgK73EZ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FMWVqxa1FNxP1228G32bTLVARYQ3QmprHch71ewzUY/3cokfxHRbiLY8bJdd7QIY6
-	 9b/IJJINomPPHFXkkbRjzQzlMnWaXqmIX+D0uM2IC+ik7B1EtxY/6c1gwP2PLupO2w
-	 WRcQ2O0Lir3/wtmX7pB8ql3mia8EWlLhDi0UU0U0jUGC69f7a9Kmpx7tvNdDykFhd1
-	 zg2VtXHVIuY9Aql8rftE6fdeCdhIyA28K6ntxQOvOcCI9pRn5/aTK7I8YRNkIRcLGN
-	 mXIoqqqbzvuyYRXz3W5+3ANaY/QYRVxDF1ODKuPaEq+0KsSOk5xU9YWMikFRVHt0B3
-	 KgWBzfYAUBKUA==
+	b=E/4FEwyROxGxiyBu8w0XrcG89uXdv+/puOwytwSgG8SZb7kIc53yF8d4xNVamS/u1
+	 ewWSmhdeOv4jBvaeLyt/fxk5VmVBG4yfnAyG7vF9yOWiqIXAgWSnXDLx198oNe2hZ2
+	 VD4biYvQK+Fsv2ltDmRW0FedH+/nTCP+UixjiBrb5qRbp89Bu6C9gWQTu9A6FaVAia
+	 /EPcaDCg3UM7Z6R2ep/280347rxn9C63ZTy8Y2rwIX8aFQIfy2epofN8WOjCJYRZk3
+	 +NSi6afi/H7sN3YeGMEUfVGlphztpgM6FWSLj4hdjM42qdfeMDJxnNyZ1uHiAQFPsp
+	 m0T791mx9lLew==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Sean Wang <sean.wang@kernel.org>,
+	James Tai <james.tai@realtek.com>,
+	Yu-Chun Lin <eleanor.lin@realtek.com>,
+	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.com>,
 	Linus Walleij <linusw@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hao Chang <ot_chhao.chang@mediatek.com>,
-	Qingliang Li <qingliang.li@mediatek.com>,
-	linux-mediatek@lists.infradead.org,
+	Tzuyi Chang <tychang@realtek.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org,
 	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
+	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] pinctrl: mediatek: Clean up partially initialised hw->eint on error
-Date: Tue,  3 Nov 2026 21:29:13 +0000
-Message-ID: <20261103213002.1673560-9-lee@kernel.org>
+Subject: [PATCH 07/10] pinctrl: realtek: Initialise omitted offset fields to NA in config macros
+Date: Tue,  3 Nov 2026 21:29:12 +0000
+Message-ID: <20261103213002.1673560-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103213002.1673560-1-lee@kernel.org>
 References: <20261103213002.1673560-1-lee@kernel.org>
@@ -69,51 +68,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In mtk_build_eint(), if of_property_count_strings() fails or
-hw->eint->nbase is non-positive, the function returns -EINVAL directly
-after allocating hw->eint without jumping to err_free_base.  Because
-callers such as mtk_paris_pinctrl_probe() and mtk_moore_pinctrl_probe()
-log a warning and continue probing when mtk_build_eint() fails, leaving
-hw->eint non-NULL with hw->eint->hw unset causes subsequent GPIO or
-suspend/resume callbacks to dereference a NULL pointer inside
-mtk_eint_do_suspend() or mtk_gpio_to_irq().
+The Realtek pinctrl driver uses NA (0xffffffff) as the sentinel for
+unsupported pin configuration features.  However, RTK_PIN_CONFIG omits
+input_volt_offset, slew_rate_offset, and hvil_offset, and
+RTK_PIN_CONFIG_V2 omits slew_rate_offset and hvil_offset.  Because C99
+designated initialisers zero-initialise omitted members, those fields
+default to 0 instead of NA, causing rtd_pconf_parse_conf() to treat
+unsupported features as valid at bit offset base_bit + 0 and corrupt
+adjacent register bits.
 
-Jump to err_free_base on both error paths so hw->eint is freed and
-reset to NULL.
+Explicitly initialise the omitted offset fields to NA in RTK_PIN_CONFIG
+and RTK_PIN_CONFIG_V2.
 
-Fixes: 3ef9f710efcb ("pinctrl: mediatek: Add EINT support for multiple addresses")
-Closes: https://sashiko.dev/#/bug/linux-0689c07e-ef74-4bc2-b5de-bd2f361124bd
+Fixes: dcc9334435b0 ("pinctrl: realtek: add support for slew rate, input voltage and high VIL")
+Fixes: e309dbd523b8 ("pinctrl: realtek: add rtd1625 pinctrl driver")
+Closes: https://sashiko.dev/#/bug/linux-fbd0bf54-6dba-4652-9418-270b11fb6d8b
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/pinctrl/realtek/pinctrl-rtd.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-index faa6dbf0f635..aa15c9e047d8 100644
---- a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-@@ -382,12 +382,16 @@ int mtk_build_eint(struct mtk_pinctrl *hw, struct platform_device *pdev)
- 		return -ENOMEM;
+diff --git a/drivers/pinctrl/realtek/pinctrl-rtd.h b/drivers/pinctrl/realtek/pinctrl-rtd.h
+index 77c30ea76443..86db54ea3ce8 100644
+--- a/drivers/pinctrl/realtek/pinctrl-rtd.h
++++ b/drivers/pinctrl/realtek/pinctrl-rtd.h
+@@ -96,6 +96,9 @@ struct rtd_pin_reg_list {
+ 		.smt_offset = _smt_off, \
+ 		.power_offset = _pow_off, \
+ 		.curr_type = _curr_type, \
++		.input_volt_offset = NA, \
++		.slew_rate_offset = NA, \
++		.hvil_offset = NA, \
+ 	}
  
- 	count_reg_names = of_property_count_strings(np, "reg-names");
--	if (count_reg_names < 0)
--		return -EINVAL;
-+	if (count_reg_names < 0) {
-+		ret = -EINVAL;
-+		goto err_free_base;
-+	}
+ #define RTK_PIN_CONFIG_V2(_name, _reg_off, _base_bit, _pud_en_off, \
+@@ -112,6 +115,8 @@ struct rtd_pin_reg_list {
+ 		.power_offset = _pow_off, \
+ 		.input_volt_offset = _input_volt_off, \
+ 		.curr_type = _curr_type, \
++		.slew_rate_offset = NA, \
++		.hvil_offset = NA, \
+ 	}
  
- 	hw->eint->nbase = count_reg_names - (int)hw->soc->nbase_names;
--	if (hw->eint->nbase <= 0)
--		return -EINVAL;
-+	if (hw->eint->nbase <= 0) {
-+		ret = -EINVAL;
-+		goto err_free_base;
-+	}
- 
- 	hw->eint->base = devm_kmalloc_array(&pdev->dev, hw->eint->nbase,
- 					    sizeof(*hw->eint->base), GFP_KERNEL | __GFP_ZERO);
+ #define RTK_PIN_CONFIG_I2C(_name, _reg_off, _base_bit, _pud_en_off, \
 -- 
 2.56.0.385.gac671c819a-goog
 
