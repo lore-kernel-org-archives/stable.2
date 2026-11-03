@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713414;
-	b=uF0VV8kNAHq/M9fMgSN8P6UMPk1pQkg2rGLd6SgqovNau403F6wqODNLZy2RD/8mKJdf
-	 Z0gAQp5P7xM1zay4g3oj+KmX+cGKsFm3swCnJAejqyCJQlFFjSMhTGRPb4raRol0wHiVQ
-	 hGmIO9hB/z+bgMaFB6iPAOxF3K3Tcjs+aPXAHamw13I3nrqfJtEfTBNUy5J2Z0tjIO6F9
-	 7bI9Mt8wWwzfZDoTNr/kq9UQWvFuHKFy5+tbgdvAe0BrPLXQJpzQl9wz85py8WQpuZxlJ
-	 QSQsLesCSQdhqadJrWlKjv6j5VdANpZzt+5j2wh2xtqqXCizGx/XjwGkX/XOvxncvFw==
+	t=1793713418;
+	b=fsLFnKiB9X3aycNpy90tUb+KeMV2nqk1H3UFxcDXvwl5iuMTPAdafSAHO+k0GBOw5F0g
+	 S9gWrhJ8eGemPbmtx+3/SMTKzgBbulnWWZXiYLMdp8UxPSbrjPBYKQ7VKAJcwlM20QC1b
+	 8QIvf5QJFfsPbicDSrdE9Vavmgf1An0YOLnJaXFG3T+tO576BfUhjlf6oUx3/vwtYXdJw
+	 0/1l0ng8rtY5MQlvpXv6gR+Z+UpdsD2tb0AEFUZFU42lyCibAcbRgj+7JlH2wvEanrh0i
+	 IhMPkBjPIwS4aEJc1pWEslOAHPqGsLwEjZTSW7W9V+tRBJZlZVChfb3YGaMZbe8pvPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713418;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yZfIsC58hDG5nePhG/0L8WYWzy8KpUJsSEBr8PzIokQ=;
-	b=Hs8E1g+E+omyuUwqxb1si0L4QbjhnpJ1HkJQ/WMJA6zH4nG/8pwvi7b7Le6lMa4OGJWw
-	 H/MVNGY8zrGkH6VILji6ztwNG44LInbiKJCmWvKk87EKJwNLpsTveBwKGRoMlNFSt9Hxi
-	 5jt+MMyd06EXBfBLSWMom4MlvZbbVlOBrzl1zplDP6Hhir872psfSBPrM0Ph1PiTd8Sag
-	 EwB0C4WW6L4/QBv2PrPvGtwfxGrorC17gQ5Cjtu9k5qfze9yKuOaXS8Z1oQjknB6EExR5
-	 S+3qB2AIObCFxWzImLRF+jIGnCVqJo7Ews1kM6qBtq34pOZgjq9i53DXC1hTB5aPEBQ==
+	bh=ufthVBairYXWjpoz2GaeT0Ly5AV0s44I/BDzrNAHdLU=;
+	b=H6+MdbKT2/jI7di0C3LF26VfFs703SRkJjCLyXgsez6lq6PGacJOV0Uzr7KC/AGDsuxF
+	 m3RySptTtrYABDVEalHAXxSLakzQrQ2tMwdv1fVD1th+6SIC4ZwAWXEiV5fI5Imeex2xQ
+	 0PMVwdB90fEet+vQYlcqT2xSIGlrN5kHbPLJvM8E8u8K0CAw7EXco/RgyQoZ5I8oKShgM
+	 SorFC6h81yAXfrlpwXCpOTHPHGMdCQX48MVSnAs8nAqIRNRc/DcqmoH9ufhDrissmdTmy
+	 RngBI+yaoxwKeRnMG0NWutneC7paIplwgkOX5KxZ8GGFHzuI6IBtyDzlSk6gRFYLTZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NjZh6GFg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2Hhc0Ob;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E912606D804
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:43:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74D6606A326
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:43:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NjZh6GFg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10B8E1F00919;
-	Tue,  3 Nov 2026 13:43:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2Hhc0Ob
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9E831F000C1;
+	Tue,  3 Nov 2026 13:43:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793713413;
-	bh=yZfIsC58hDG5nePhG/0L8WYWzy8KpUJsSEBr8PzIokQ=;
+	s=k20260515; t=1793713417;
+	bh=ufthVBairYXWjpoz2GaeT0Ly5AV0s44I/BDzrNAHdLU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NjZh6GFgycLrO/rAyaJdt1Mc29mCSnWBp5SBQBpo0HVvabDeYK6kg5TnFi1pRmoM6
-	 64JLyYeS9rB41IfmME3z06xgj04KIJ5AZ4GOjfD3CU6GZi/ybEP89hN00ZmpimGftx
-	 ZOHtr/Ow3tFxA7uttWqMWExE2LPD6aBUb2R72T/kQ/SP97UGnm+J3sdyNCHwkpez4h
-	 qvWhUxBuA0vH4m+RrcmjwMC+aoNd7We8VmvCZKZbH4dhG2snGknWSFimY0BSfYptmR
-	 2xBEab47xWzhp43uLaiFVMW8KuLJlSGWLZuMjGGG2tZ5avJIXPFph5xSmAGwBs2b5K
-	 MGkUiDBe+FVDg==
+	b=Z2Hhc0ObXQrWQqGGvJMi3rbEyhqTx3MAM5cK5Fqh6ubBv+4Ey6ewUi95GeoSz6+Y1
+	 aoyVXhia3F7GT9ljL0sSsdImexDZV8abqsyiMZxaZq2MOFQEbX2TNS9WCxQSvDeyZZ
+	 fHmNT4KRF0tdeo0zofqlPo1udEStnTSDsYVCDL2tEIzwdA5vDJJ39znOyXOx0id4sf
+	 cxv51MvTnvDrObBUnoCcvMOKDO6GspEkKzweeCO4bLl460FozwqQz6XPJshEhYkBTY
+	 2qs4e6TkAJbME7ng2NBJIB3zuclkV4IlrX4O6nC6+vWg1INc7eLHejPWKIC2JH34ML
+	 yuDeAGWbDQ36w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: owen kwan <owen@verialabs.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Johan Hovold <johan@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net/sched: sch_teql: fix use-after-free on lower qdisc drop
-Date: Tue,  3 Nov 2026 08:43:31 -0500
-Message-ID: <20261103134300.3967501-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] driver core: fix parent lock use-after-free on USB disconnect
+Date: Tue,  3 Nov 2026 08:43:35 -0500
+Message-ID: <20261103134303.3980322-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110324-gown-kettle-7dce@gregkh>
-References: <2026110324-gown-kettle-7dce@gregkh>
+In-Reply-To: <2026110358-trustless-overplay-52cd@gregkh>
+References: <2026110358-trustless-overplay-52cd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,85 +62,181 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: owen kwan <owen@verialabs.com>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit 782d6bb8f9b8e9d8591181662222bf74cd3ecf79 ]
+[ Upstream commit 0f554506a3fc6a21e714adf38cc3eb0ffe1bb452 ]
 
-The issue: teql_master_xmit() tests the slave's ndo_start_xmit() return
-value against NETDEV_TX_OK alone. A slave that consumes the skb but
-returns an error code (rc < NET_XMIT_MASK, e.g. NET_XMIT_DROP) is treated
-as if the skb were still owned, so the loop restores skb->dev and calls
-__skb_pull() on it. A VLAN slave returns the result of dev_queue_xmit()
-from its ndo_start_xmit() (propagated since cbbef5e18307), and when the
-lower qdisc drops the packet that value is NET_XMIT_DROP after the skb
-has been freed, giving a use-after-free in teql_master_xmit().
+USB interfaces should be probed with their parent USB device lock held
+and the USB bus therefore sets the need_parent_lock bus flag so that
+driver core takes the parent lock when needed.
 
-The Fix: test for consumption with dev_xmit_complete(), which accepts
-NETDEV_TX_OK and every rc < NET_XMIT_MASK, matching other callers that
-need to distinguish consumed results from busy. Only NETDEV_TX_OK keeps
-the packet counted in tx_packets/tx_bytes and advances the slave; a
-consumed result that is neither a success nor NET_XMIT_CN ends the
-attempt and is charged to tx_dropped, so lower-qdisc drops are no longer
-reported as good transmits. NET_XMIT_CN is counted like success because
-it can accompany acceptance of the current packet: pfifo_head_drop drops
-the old head, enqueues the current skb and returns NET_XMIT_CN.
+Driver core is only guaranteed to hold a reference to the parent device
+during initial probe however and nothing prevents the device and its
+parent from being deregistered and the parent potentially freed, for
+example, while iterating over devices in driver_attach() or
+bus_rescan_devices_helper().
 
-Conditions to recreate the bug:
-With CONFIG_NET_SCH_TEQL,
-CONFIG_VLAN_8021Q and CONFIG_DUMMY enabled, add lkrdummy0 (dummy) and
-lkrvlan0 (VLAN id 37 on lkrdummy0); set a pfifo limit 0 root on lkrdummy0
-and a teql0 root on lkrvlan0; bring teql0 up with an address and send one
-UDP packet to it. The VLAN xmit returns NET_XMIT_DROP from the lower
-qdisc while holding a freed skb.
+Since commit 524134d42231 ("USB: don't cancel queued resets when
+unbinding drivers") USB interfaces hold a reference to their parent USB
+device, but a parent hub may still go away while probing a USB device
+(e.g. via the drivers_probe sysfs interface). This can lead to a
+use-after-free when taking the parent device lock before checking the
+device->p->dead flag of the device being probed.
 
-Fixes: 572a9d7b6fc7 ("net: allow to propagate errors through ->ndo_hard_start_xmit()")
-Link: https://lore.kernel.org/netdev/179248763469.3135.1739559328868319628@kernel.org/
-Link: https://lore.kernel.org/netdev/20261023162821.GN708417@horms.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: owen kwan <owen@verialabs.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/QDISC-Y0BY.v2.r0.20261024060625-2@mojatatu.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: Omitted rcu_read_unlock() because teql_master_xmit() has no corresponding RCU read lock. ]
+As only USB interfaces actually need the parent lock, make the
+need_parent_lock feature even more fine grained by making it a device
+type rather than bus feature. By requiring that any users also make sure
+that their devices hold a reference to their parents (like USB does),
+driver core can lock a device and its parent without first checking if
+the device has been deregistered.
+
+Note that this will also increase parallelism when using asynchronous
+probe as USB devices connected to the same hub can now be probed in
+parallel.
+
+Fixes: bf74ad5bc417 ("[PATCH] Hold the device's parent's lock during probe and remove")
+Cc: stable@vger.kernel.org	# 2.6.16: 524134d42231: USB: don't cancel queued resets when unbinding drivers
+Cc: stable@vger.kernel.org	# 2.6.16
+Cc: Alan Stern <stern@rowland.harvard.edu>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20261014133109.1392265-2-johan@kernel.org
+[ Fix mention of bus vs. device type in __device_driver_{un}lock().
+  - Danilo ]
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+[ sashal: adjusted struct bus_type context around need_parent_lock to preserve existing fields ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/sch_teql.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/base/bus.c         | 4 ++--
+ drivers/base/dd.c          | 8 ++++----
+ drivers/usb/core/driver.c  | 1 -
+ drivers/usb/core/message.c | 1 +
+ include/linux/device.h     | 5 +++++
+ include/linux/device/bus.h | 3 ---
+ 6 files changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-index 00ac4386627c7..9057d4f2ee5c6 100644
---- a/net/sched/sch_teql.c
-+++ b/net/sched/sch_teql.c
-@@ -311,19 +311,23 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 		case 0:
- 			if (__netif_tx_trylock(slave_txq)) {
- 				unsigned int length = qdisc_pkt_len(skb);
-+				int rc = NETDEV_TX_BUSY;
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index 941532ddfdc68..b2d4c08848a8c 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -689,10 +689,10 @@ static int __must_check bus_rescan_devices_helper(struct device *dev,
+ 	int ret = 0;
  
- 				skb->dev = slave;
--				if (!netif_xmit_frozen_or_stopped(slave_txq) &&
--				    netdev_start_xmit(skb, slave, slave_txq, false) ==
--				    NETDEV_TX_OK) {
--					__netif_tx_unlock(slave_txq);
-+				if (!netif_xmit_frozen_or_stopped(slave_txq))
-+					rc = netdev_start_xmit(skb, slave, slave_txq, false);
-+				__netif_tx_unlock(slave_txq);
-+				if (dev_xmit_complete(rc)) {
-+					if (rc != NETDEV_TX_OK && rc != NET_XMIT_CN) {
-+						master->tx_dropped++;
-+						return NETDEV_TX_OK;
-+					}
- 					master->slaves = NEXT_SLAVE(q);
- 					netif_wake_queue(dev);
- 					master->tx_packets++;
- 					master->tx_bytes += length;
- 					return NETDEV_TX_OK;
- 				}
--				__netif_tx_unlock(slave_txq);
- 			}
- 			if (netif_xmit_stopped(netdev_get_tx_queue(dev, 0)))
- 				busy = 1;
+ 	if (!dev->driver) {
+-		if (dev->parent && dev->bus->need_parent_lock)
++		if (dev->type && dev->type->need_parent_lock)
+ 			device_lock(dev->parent);
+ 		ret = device_attach(dev);
+-		if (dev->parent && dev->bus->need_parent_lock)
++		if (dev->type && dev->type->need_parent_lock)
+ 			device_unlock(dev->parent);
+ 	}
+ 	return ret < 0 ? ret : 0;
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index 16f9d895ee24e..71653ce21efab 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -1086,7 +1086,7 @@ void device_initial_probe(struct device *dev)
+ /*
+  * __device_driver_lock - acquire locks needed to manipulate dev->drv
+  * @dev: Device we will update driver info for
+- * @parent: Parent device. Needed if the bus requires parent lock
++ * @parent: Parent device. Needed if the device type requires parent lock
+  *
+  * This function will take the required locks for manipulating dev->drv.
+  * Normally this will just be the @dev lock, but when called for a USB
+@@ -1094,7 +1094,7 @@ void device_initial_probe(struct device *dev)
+  */
+ static void __device_driver_lock(struct device *dev, struct device *parent)
+ {
+-	if (parent && dev->bus->need_parent_lock)
++	if (dev->type && dev->type->need_parent_lock && parent)
+ 		device_lock(parent);
+ 	device_lock(dev);
+ }
+@@ -1102,7 +1102,7 @@ static void __device_driver_lock(struct device *dev, struct device *parent)
+ /*
+  * __device_driver_unlock - release locks needed to manipulate dev->drv
+  * @dev: Device we will update driver info for
+- * @parent: Parent device. Needed if the bus requires parent lock
++ * @parent: Parent device. Needed if the device type requires parent lock
+  *
+  * This function will release the required locks for manipulating dev->drv.
+  * Normally this will just be the @dev lock, but when called for a
+@@ -1111,7 +1111,7 @@ static void __device_driver_lock(struct device *dev, struct device *parent)
+ static void __device_driver_unlock(struct device *dev, struct device *parent)
+ {
+ 	device_unlock(dev);
+-	if (parent && dev->bus->need_parent_lock)
++	if (dev->type && dev->type->need_parent_lock && parent)
+ 		device_unlock(parent);
+ }
+ 
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index 145ebfb1325af..f911e362b1811 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -2031,5 +2031,4 @@ struct bus_type usb_bus_type = {
+ 	.name =		"usb",
+ 	.match =	usb_device_match,
+ 	.uevent =	usb_uevent,
+-	.need_parent_lock =	true,
+ };
+diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
+index 58046946411f1..037f90089eda4 100644
+--- a/drivers/usb/core/message.c
++++ b/drivers/usb/core/message.c
+@@ -1915,6 +1915,7 @@ struct device_type usb_if_device_type = {
+ 	.name =		"usb_interface",
+ 	.release =	usb_release_interface,
+ 	.uevent =	usb_if_uevent,
++	.need_parent_lock =	true,
+ };
+ 
+ static struct usb_interface_assoc_descriptor *find_iad(struct usb_device *dev,
+diff --git a/include/linux/device.h b/include/linux/device.h
+index 0e83be1bccc44..b35162a3ab8b3 100644
+--- a/include/linux/device.h
++++ b/include/linux/device.h
+@@ -85,6 +85,10 @@ int subsys_virtual_register(struct bus_type *subsys,
+  * information, equivalent to the kobj_type of a kobject.
+  * If "name" is specified, the uevent will contain it in
+  * the DEVTYPE variable.
++ *
++ * @need_parent_lock:	When probing or removing a device of this type,
++ *			driver core should lock the device's parent. Note that
++ *			the device must hold a reference to its parent.
+  */
+ struct device_type {
+ 	const char *name;
+@@ -95,6 +99,7 @@ struct device_type {
+ 	void (*release)(struct device *dev);
+ 
+ 	const struct dev_pm_ops *pm;
++	bool need_parent_lock;
+ };
+ 
+ /* interface for exporting device attributes */
+diff --git a/include/linux/device/bus.h b/include/linux/device/bus.h
+index d8b29ccd07e56..05667a8e340ad 100644
+--- a/include/linux/device/bus.h
++++ b/include/linux/device/bus.h
+@@ -69,8 +69,6 @@ struct fwnode_handle;
+  * @p:		The private data of the driver core, only the driver core can
+  *		touch this.
+  * @lock_key:	Lock class key for use by the lock validator
+- * @need_parent_lock:	When probing or removing a device on this bus, the
+- *			device core should lock the device's parent.
+  *
+  * A bus is a channel between the processor and one or more devices. For the
+  * purposes of the device model, all devices are connected via a bus, even if
+@@ -114,7 +112,6 @@ struct bus_type {
+ 	struct subsys_private *p;
+ 	struct lock_class_key lock_key;
+ 
+-	bool need_parent_lock;
+ };
+ 
+ extern int __must_check bus_register(struct bus_type *bus);
 -- 
 2.53.0
 
