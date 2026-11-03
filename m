@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701300;
-	b=0Udf4o6+quBI53EQEBTmCsLUBV3rvu6rRU+jGgZqVeUmJPuLLz6yBAG/6X2f7QR+t1vs
-	 dZO/NWRTYBYQWaNK1hFRBiBgxtXN2uRFyUfuV7Beyc2YcPDQZBLF2kw9BqeuAXoi4vz1c
-	 rfNXpojc7AXoC37yJ5+J/piPYmYDvSXpPEQXsuEOySRVOibCsEemBGQAkBKg0tGUhOWoT
-	 PC+PsHiBH6JdTcwmNqkpGfOD4aL6tjS+DXwJaJRMpr4JzCY+CPH/ja0tLnmbHk4ntcApP
-	 NLogB5R1uca5QU3w2dLBDJAnSVsCbmSg8+PYWyBWtqL1rGaE816Z3teZvIB6okBQwmA==
+	t=1793701301;
+	b=iCmledR+UDnZ0nhuld5u+GiiuCVZ3YPWiHVa966Ji9sI6L1smhXIDfxbLGncfTY4CU+N
+	 7MLgT28uNLED0iwYNvyV7zvQA/taSoxVUiAmLxflA17tLIwzlOK/1eGfTNZRBWCo89NRr
+	 3LLfwDeOB1JUQon1NZUOzUaqEWt0oyaXctdsc3grjZI/wLISeL4PbqchAZMIm2qA2th2L
+	 WLuMIAplO7J8jyFjJWJAUmAeNowcNItKYf5pY1sBrCRNdWhf+FAyA+ee/VqihaR6QyAmE
+	 9QTqZKqPaTrja6NQPi13/OphdV0uMP0WLizkvZ8Qr5M6GAgd2qrGSMTEiL4Te0MHW4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701300;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IxwV7BaDAh0PKHUiQSvHOoHfpqF6fKrc36v0FfdZPlc=;
-	b=wWv35RUXAgNNqj45VPw5+5qrNzJbZo7ATQMhtoceNapp82XNGmwqtz/FUaCRtqtjvNXU
-	 YQYjonhW6Lnq/8HqnpY6YcuKWqjUCyCtJcLGDaoJKtOYkKhpi/Igilz9ZyDNjAQAwSd2/
-	 By+Avw1bV8qSmaMAKl/HkGD6j6qhUIuQFWNlgxcsgF0zKnbsiePxJc1nS8LhrREeK07kq
-	 J5SQXMyXIzoSuMA8KQIHAarHUovAxWi2HH9Is6j6nEeuHQPtg4Nt3MgCcg4fCmqHOgWW7
-	 wwgSXqdkD6oegsQX1+jpe/WnKEeoZoxjLWymV2mXq6uK0BiYoeeIJP+EjFfQP+FqcjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701301;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=S5he5q7MjF9c5T8hA//T+bmi6stTqMHL9VXH/td4Bfg=;
+	b=njq4SQtdWRqIPAVC38IGUN6IE3DnNEBn4fPl62n4yMRSYJ0t5TPETSgVemi7SDxO+Ovl
+	 03G1p8r14qDivzaxE39l9d7FypRoJTOKSPR/eE9vWOAjpWZtlna6P/6HOSsu1BpBjyTg1
+	 DlZMz+HtaOVAmUOQfVVRJ0WwEQ5mSht2J2fYExS6jh3CKqblVc8HyCY8Sn+74/BqdnIT4
+	 vPPfVbjGwWB5vFBOZmwlr5QwuzoBL6HBcBsc/KB6WwH1cP7OLITZgxyLLIYCzsDt/iOqs
+	 xMjBOoB6CIytWTOzWjWIImipMuUGZSHvWdBpipdIQjbvtu5vkGmsyxzsxOUPaSj7Scw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yi5NXOaQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2CcVi1M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65ECA606B10E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D537606B10E;
+	Tue,  3 Nov 2026 10:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yi5NXOaQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08151F00A15;
-	Tue,  3 Nov 2026 10:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701300;
-	bh=IxwV7BaDAh0PKHUiQSvHOoHfpqF6fKrc36v0FfdZPlc=;
-	h=Subject:To:Cc:From:Date;
-	b=yi5NXOaQekWOV4M3UTb24jfwmMqDAvc0smAYTiYbN52OapO0dI+kCqk8nRlcY3Pt5
-	 77fJp4IB0KWm/KdcBlHmDrIe2ceXSTVxPVcumUQyj2JLevcuaKBOVx7IEYxNoLPuAB
-	 ZhfC7WppwF4JjRtfkJI4ICYqqRDHa/rAVIic0N58=
-Subject: FAILED: patch "[PATCH] ksmbd: fix named stream write and EOF handling" failed to apply to 6.12-stable tree
-To: charsyam@gmail.com,linkinjeon@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:32 +0100
-Message-ID: <2026110332-browsing-plentiful-ef07@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2CcVi1M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6670F1F00A02;
+	Tue,  3 Nov 2026 10:21:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793701301;
+	bh=S5he5q7MjF9c5T8hA//T+bmi6stTqMHL9VXH/td4Bfg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Y2CcVi1MSlIwyvTc3aBX66wqFCzvjRb9x3ymZooPal6blsTfZOpGGQVYHiqnitX7V
+	 j/Sj6XOHIDIy+4+D7KIvh2+pW1FNQyBT/zGCAj/P5Xu0L1DgIX4hKLRQkmytsrdoMF
+	 K6Gt9FClhTVe4p6EPqYnwtwZFv4BjOH/7o8TjZUp4mCdKC1jCO1vagOwha82/rsVHV
+	 yWbqYwaYmSxml84uWAw+o94naLlwzJGMv8zzYzagmfRVRCt04b8lt1+SG2AMxO/W2f
+	 DGWO0qwMyoCx57NVLBbKoLRq3frFlLCQhNhYmFMDu4T95G1y7CuODKrmJD5YaPtBB4
+	 EpBKuJE3rT8fw==
+Subject:
+ Re: [PATCH net v2] net/packet: account user-triggered allocations to memcg
+From: netdev-bot+sashiko@kernel.org
+To: ahmadag1001@gmail.com
+Cc: willemdebruijn.kernel@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 03 Nov 2026 10:21:39 +0000
+Message-ID: <179370129992.488856.770584041201834715@kernel.org>
+In-Reply-To: <20261030100504.23498-1-ahmadag1001@gmail.com>
+References: <20261030100504.23498-1-ahmadag1001@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,212 +63,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-To reproduce the conflict and resubmit, you may use the following commands:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 02165c8d402392278a5cd2cf97645ed73a7ad4a1
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110332-browsing-plentiful-ef07@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+- [Medium] The patch says it charges the per-socket memory a packet
+  socket allocates for its user.
 
-Possible dependencies:
+--
 
+net/packet: account user-triggered allocations to memcg
 
+This patch changes the allocations a packet socket makes for its user to
+GFP_KERNEL_ACCOUNT, so the caller's memory cgroup is charged for them.
+These are the ring blocks and block arrays, the fanout groups and rollover
+state, the mclist entries and the per-CPU pending counter. The vmalloc
+fallback for ring blocks becomes __vmalloc() with __GFP_ZERO.
 
-thanks,
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 823e0911c910f..06386db4c8e8c 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+> @@ -1233,7 +1233,8 @@ static int packet_alloc_pending(struct packet_sock *po)
+>  {
+>  	po->rx_ring.pending_refcnt = NULL;
+>  
+> -	po->tx_ring.pending_refcnt = alloc_percpu(unsigned int);
+> +	po->tx_ring.pending_refcnt = alloc_percpu_gfp(unsigned int,
+> +						      GFP_KERNEL_ACCOUNT);
+>  	if (unlikely(po->tx_ring.pending_refcnt == NULL))
+>  		return -ENOBUFS;
+>  
 
-greg k-h
+[Severity: Medium]
 
------------------- original commit in Linus's tree ------------------
+The pending counter on the socket() path is now charged. Is struct
+packet_sock, allocated on the same path, still left uncharged?
 
-From 02165c8d402392278a5cd2cf97645ed73a7ad4a1 Mon Sep 17 00:00:00 2001
-From: DaeMyung Kang <charsyam@gmail.com>
-Date: Wed, 7 Oct 2026 22:13:51 +0900
-Subject: [PATCH] ksmbd: fix named stream write and EOF handling
+The commit message says:
 
-An SMB WRITE to an existing named stream can silently discard data after
-its written range. ksmbd stores streams as xattr values, but the write
-path passes offset + count as the length of the replacement xattr even
-when the old stream is longer. Writing 26 bytes at offset 0 to a 60-byte
-stream reports 26 bytes written while discarding the remaining 34 bytes.
+    struct packet_sock itself comes from sk_alloc(), and the
+    netdev_hw_addr entries that PACKET_MR_MULTICAST and PACKET_MR_UNICAST
+    add through dev_mc_add() and dev_uc_add() live in net/core; neither
+    is changed here.
 
-Keep the existing xattr length when an in-place write ends before EOF.
-Reject writes that cross XATTR_SIZE_MAX rather than storing only the
-portion that fits while reporting the full requested count.
+The v2 note also says the patch covers "every user-triggered allocation in
+net/packet".
 
-Commit 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
-intentionally skipped ordinary inode truncation for stream handles: an
-EOF SetInfo on an ADS had truncated the base file. That fixed the base
-file corruption but left stream EOF changes reporting success without
-resizing the stream. Handle these requests by resizing only the stream
-xattr; the base file size remains untouched. Zero-fill stream extensions.
-This is needed alongside the write fix: a short write's accidental
-truncation previously masked an ignored explicit EOF change. The stream
-resize helper returns xattr errors directly rather than using the
-base-file truncate path's EBADF conversion.
+>From the code, af_packet itself seems to cause the missing charge, not
+net/core. packet_init() registers the proto without a slab:
 
-Fixes: f44158485826 ("cifsd: add file operations")
-Fixes: 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
-Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+net/packet/af_packet.c:packet_init() {
+    ...
+	rc = proto_register(&packet_proto, 0);
+    ...
+}
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index a400f9912896..0fb146b612f0 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -8578,6 +8578,8 @@ static int set_end_of_file_info(struct ksmbd_work *work, struct ksmbd_file *fp,
- 
- 	newsize = le64_to_cpu(file_eof_info->EndOfFile);
- 	inode = file_inode(fp->filp);
-+	if (ksmbd_stream_fd(fp))
-+		return ksmbd_vfs_stream_truncate(fp, newsize);
- 
- 	/*
- 	 * If FILE_END_OF_FILE_INFORMATION of set_info_file is called
-@@ -8586,8 +8588,7 @@ static int set_end_of_file_info(struct ksmbd_work *work, struct ksmbd_file *fp,
- 	 * truncate of some filesystem like FAT32 fill zero data in
- 	 * truncated range.
- 	 */
--	if (inode->i_sb->s_magic != MSDOS_SUPER_MAGIC &&
--	    ksmbd_stream_fd(fp) == false) {
-+	if (inode->i_sb->s_magic != MSDOS_SUPER_MAGIC) {
- 		ksmbd_debug(SMB, "truncated to newsize %lld\n", newsize);
- 		rc = ksmbd_vfs_truncate(work, fp, newsize);
- 		if (rc) {
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 2e2c554bc2c1..8bb93196acb9 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -388,23 +388,21 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 	const struct cred *saved_cred;
- 	char *stream_buf = NULL, *wbuf;
- 	const struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
--	size_t size;
-+	size_t size, write_end;
- 	ssize_t v_len;
- 	int err = 0;
- 
- 	ksmbd_debug(VFS, "write stream data pos : %llu, count : %zd\n",
- 		    *pos, count);
- 
--	if (*pos >= XATTR_SIZE_MAX) {
-+	if (*pos < 0 || *pos >= XATTR_SIZE_MAX) {
- 		pr_err("stream write position %lld is out of bounds\n",	*pos);
- 		return -EINVAL;
- 	}
- 
--	size = *pos + count;
--	if (size > XATTR_SIZE_MAX) {
--		size = XATTR_SIZE_MAX;
--		count = XATTR_SIZE_MAX - *pos;
--	}
-+	if (count > XATTR_SIZE_MAX - *pos)
-+		return -EFBIG;
-+	write_end = *pos + count;
- 
- 	saved_cred = override_creds(fp->filp->f_cred);
- 	v_len = ksmbd_vfs_getcasexattr(idmap,
-@@ -417,6 +415,8 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 		err = v_len;
- 		goto out_revert;
- 	}
-+	/* Preserve the tail of an existing stream on an in-place write. */
-+	size = max_t(size_t, v_len, write_end);
- 
- 	if (v_len < size) {
- 		wbuf = kvzalloc(size, KSMBD_DEFAULT_GFP);
-@@ -445,13 +445,69 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 	if (err < 0)
- 		goto out;
- 	else
--		fp->stream.pos = size;
-+		fp->stream.pos = write_end;
- 	err = 0;
- out:
- 	kvfree(stream_buf);
- 	return err;
- }
- 
-+/**
-+ * ksmbd_vfs_stream_truncate() - change the length of a named stream
-+ * @fp:		stream file handle
-+ * @newsize:	new stream length
-+ *
-+ * Resize the stream xattr without changing the base inode size.
-+ *
-+ * Return: 0 on success, otherwise a negative error code
-+ */
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize)
-+{
-+	const struct cred *saved_cred;
-+	const struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
-+	char *stream_buf = NULL, *new_buf = NULL;
-+	ssize_t v_len;
-+	int err;
-+
-+	if (newsize < 0)
-+		return -EINVAL;
-+	if (newsize > XATTR_SIZE_MAX)
-+		return -EFBIG;
-+
-+	saved_cred = override_creds(fp->filp->f_cred);
-+	v_len = ksmbd_vfs_getcasexattr(idmap, fp->filp->f_path.dentry,
-+				       fp->stream.name, fp->stream.size,
-+				       &stream_buf);
-+	if (v_len < 0) {
-+		err = v_len;
-+		goto out;
-+	}
-+	if (v_len == newsize) {
-+		err = 0;
-+		goto out;
-+	}
-+
-+	new_buf = stream_buf;
-+	if (newsize > v_len) {
-+		new_buf = kvzalloc(newsize, KSMBD_DEFAULT_GFP);
-+		if (!new_buf) {
-+			err = -ENOMEM;
-+			goto out;
-+		}
-+		if (v_len)
-+			memcpy(new_buf, stream_buf, v_len);
-+	}
-+
-+	err = ksmbd_vfs_setxattr(idmap, &fp->filp->f_path, fp->stream.name,
-+				 new_buf, newsize, 0, true);
-+	if (new_buf != stream_buf)
-+		kvfree(new_buf);
-+out:
-+	kvfree(stream_buf);
-+	revert_creds(saved_cred);
-+	return err;
-+}
-+
- /**
-  * ksmbd_vfs_write() - vfs helper for smb file write
-  * @work:	work
-diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 216c76291fc1..7e545d13a3ff 100644
---- a/fs/smb/server/vfs.h
-+++ b/fs/smb/server/vfs.h
-@@ -83,6 +83,7 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- int ksmbd_vfs_write(struct ksmbd_work *work, struct ksmbd_file *fp,
- 		    char *buf, size_t count, loff_t *pos, bool sync,
- 		    ssize_t *written);
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize);
- int ksmbd_vfs_fsync(struct ksmbd_work *work, u64 fid, u64 p_id);
- int ksmbd_vfs_remove_file(struct ksmbd_work *work, const struct path *path);
- int ksmbd_vfs_link(struct ksmbd_work *work,
+So proto_register() never creates the SLAB_ACCOUNT kmem_cache for
+packet_proto. packet_create() then passes plain GFP_KERNEL:
 
+	sk = sk_alloc(net, PF_PACKET, GFP_KERNEL, &packet_proto, kern);
+
+Because prot->slab is NULL, sk_prot_alloc() falls back to a plain kmalloc
+with those flags:
+
+net/core/sock.c:sk_prot_alloc() {
+    ...
+	} else
+		sk = kmalloc(prot->obj_size, priority);
+    ...
+}
+
+mem_cgroup_sk_alloc() runs afterwards. It only sets sk->sk_memcg and does
+not charge the object itself.
+
+packet_sock holds a struct sock, two packet_ring_buffer structs and a
+cacheline-aligned prot_hook. That probably makes it the largest
+per-socket allocation here.
+
+A user with CAP_NET_RAW in its own user namespace can create one per fd.
+The total is limited only by RLIMIT_NOFILE and process limits, not by
+memory.max.
+
+Would either proto_register(&packet_proto, 1) or GFP_KERNEL_ACCOUNT in the
+sk_alloc() call in packet_create() close this gap? If packet_sock is left
+out on purpose, could the commit message give the actual reason instead of
+pointing to sk_alloc()?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030100504.23498-1-ahmadag1001%40gmail.com
