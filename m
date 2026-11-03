@@ -1,50 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672152;
-	b=mmT3HyJT6AVWHEJllWfUOMD6KY+UF5erjqsTbqM2IHEW/FZIlwAINnaqPSD/20r9lZlc
-	 cVrZLK9etHbzJLkjDGP1OPtjcDk75afg+fBrbzf//6OQRfuQ7aUux2dctrG3OXgaR4mIp
-	 UTG8YdEl2ejRR6vQVsrMQOaUAsPiQzjOxmlOhKSt3PTRV7opxJyGL+nmku9H/969OZaWg
-	 jBisIyE4PMrbRis/wU7UYKALl4FhQfqKkdWA1ta7OSU4YaytOc3hqMCXml0qMTxXjhwo3
-	 VsIvjegBdl1n/nYv2DAdBcw6EUvcWrMviRmAeFqCVd/XAuOXozNiy4E7SgiQ825sChQ==
+	t=1793672222;
+	b=4skixsJZqaq1qQNFmYxq8Td+0O/QnF/pnzzwIPuUC8rdUSXuDyWAH54T8UQoexv3eRF+
+	 3esTLkEiTkCspQY7qhts/1A4+rGxDO3rm87hKtLtLUrVCKchLc8jm85v6I+WuVqJt8MrB
+	 o5TI3TZ9SVmieLk+HIPSZy8xGjcttKF/42e99LYfLoQ39ywV+32kB7VPcPphInGlZc5tZ
+	 NZe/eXF/aK9V86ieL8IBgadyOheZEOl13QofNg4S+EkV+AhqFsQKLrLX1oWD3WIgTo5C/
+	 /6b1zBsBq8Sw8gWnHe//qBR4yIxJl8EUr82SXsTDaKDKdSOZK8xyU3hZmyF/a/GLblA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672152;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=85c5A3bVeRUEk7B7/vApIiex7w0vaay+mVl2RbO8M4I=;
-	b=qB6/X/jTfZP40QS8OBEzXL2c/vHxa2071fTRZtdzxqeGNy3JqSrQg44k0uJ2xjs8Doqf
-	 q9P0IDdvRXem136cOBosRxTT+k62TKLZK6ByJpFG89dm335+OSVPaxJZRuY5UNu22AXAs
-	 c5SPKHeVdyZN6l9eJ6uMUQhF2slOVLV0vdjrQgh8NkCHbp5qP/yVlDH+EHN+PDfpJ0f6b
-	 EdrS80/f1DD/YfR5kckElBs6nW6lZSmwXLkrv+uvdASjUNIckCH1ZTqyTqUp8MRgWQwFt
-	 fdWWFWdIq94/vWd68aTttgWc8RKQqpLvKNqekB2tsGJhNr3hRwaclLL+LemTfnvB0Pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672222;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=IOGgt4lAkAMwt4N6sT0llhti/KNul9J7tc5dogJ2lwc=;
+	b=YCxgvVZBlcLmPgvoYHGaAqs/j3YTk7NQu+R39tAc3cek3XE/6LpbLBI/5TKLkr1bikx5
+	 E/6+2pxNC3aKwocSlMwFai9KYTinvGFyDx2XTP516bSwWgaEIMIiQQbdX7VzXfwImh5LD
+	 ORH+NkjqtMa4kLcpFO4++bnnZ0wIWg2lGJecbWzfIUc+Mg2FZ4EKUpb8vt9vn9A4s+X2f
+	 SRPd7LJ/smDJE3wmfnzOCvif8VtO+hVpfnCdmutYx0wlN0JSTF7O6XZRxitCP+F1s/0vJ
+	 GCKKYz42/Gpiye5MgaerJ9GcZZUKwM/xshxikz9vQuWqyAOQLhdHepsektn0sr2ItfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uJB8K+Cx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xFeGi6oK;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B7B606A32C;
-	Tue,  3 Nov 2026 02:15:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8F1606A329
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 02:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D8F1606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uJB8K+Cx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21BF91F0093A;
-	Tue,  3 Nov 2026 02:15:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xFeGi6oK
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a05f2d5cd3so1553289b3a.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 18:17:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672152;
-	bh=85c5A3bVeRUEk7B7/vApIiex7w0vaay+mVl2RbO8M4I=;
-	h=Date:To:From:Subject;
-	b=uJB8K+CxClEGidH2W6ABYWSM8yAQ8MhxXml0pKnNhBzh79H/IGVAouFCOoVuSTk69
-	 1MmuyWJY6UJw2cDQKZ16q8+MGjhrIZQz2Bfmli1EnrHJynqT5V1i5j+2togR3XuqZs
-	 LMohCyATZtGJKOktIkmLqygtAp7YadlH3QrXFxnw=
-Date: Mon, 02 Nov 2026 18:15:51 -0800
-To: mm-commits@vger.kernel.org,willy@infradead.org,vbabka@kernel.org,
-	surenb@google.com,stable@vger.kernel.org,skhan@linuxfoundation.org,
-	rppt@kernel.org,rdunlap@infradead.org,peterz@infradead.org,osalvador@suse.de,
-	muchun.song@linux.dev,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,
-	fvdl@google.com,david@kernel.org,corbet@lwn.net,kas@kernel.org,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-hugetlb_vmemmap-map-the-shared-tail-page-writable.patch removed from -mm tree
-Message-Id: <20261103021552.21BF91F0093A@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1793672221; x=1794277021; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IOGgt4lAkAMwt4N6sT0llhti/KNul9J7tc5dogJ2lwc=;
+        b=xFeGi6oKTGL99bE6SUlm0Mom52pPJKiBe5UZEoYi7l9ccEdN2Bz6NpeweBzDsGuWsA
+         SZOmR5SwuDI5YXvjLMiHEZszX7RJ9i3D6Gumrg6kkHP3aNH1oLtxI6nw6dOkY6q2Tn0G
+         oRhB7RrweZcmspQuF6ZWJmXlAjGru4eUEWXSfutDspaqzyWdsg7YwKu0UJYECUeyixYm
+         3ZyF78/chjzNXBaSnLpa8hM+u9tyA3m6zEB4CCHnwkUlGjBpcwIQx1znQB7Gkfu6ICrF
+         BUY7NwMTOg/viqnq93m2jXCqCYiUGlt2kYDVC3PK3hOnLp4kp5CnzZ06NYzX/kZdir+B
+         dSXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793672221; x=1794277021;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IOGgt4lAkAMwt4N6sT0llhti/KNul9J7tc5dogJ2lwc=;
+        b=XtS2CcaovLQEMrj27ECuLEq+MShkkrFXAISFjYhJwvmqJGSWoop14NMqtpavEcpwzr
+         Ji2xdu+9aEouUwSDcmZNFU/YiI/6y0w8kdxEgW+wQM1l3KYtpWkMPEJk1Kj7U/G//MhJ
+         HSuk9n5HRUG7OwrO3YU3vzDZ/+sAEPck/87PjKiiPVjtORO2Myo4VmXatC8OgGGED4D3
+         GFNU5Hnwr+U/ynoUuI/tL13iJHLGNgNO92hxTYaDFEn024hEEUKgsCrUiKD42HuYVgJD
+         VFZA6q1hFPYa2jOoA12PZFBH4AHwIQlYfzU6CCMOJncz3kG4DDzuFgoRnhL35wIDBhO2
+         EOhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdeQCFnDcdHQPW2rObrmkaJOVw9XcGhjwhCkKNW4J+hkLylyAALvDS5o7StJAPanMdEXjRCsc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8b2kBqES0l8VqrB8UPoiUMA7V3WQOKivloJOsp1FEVYdmM/1T9
+	bSAldFc6K5PKHuKCvtP9ap73gu9VuYOoJw54DfqrFaEVny7PcbpGVM57
+X-Gm-Gg: AYBFou2rVsCpbmL8UGwYbvUtDuLFu/2PHDaQA4liWIYA11Vr9zF/kTLrD6+Ia/Pjcgz
+	OnfPjmr72L0FJVoK8lZBgK32Wm2GfF0PXY/yIMxdT9j+DlX1ZkLDqGjNP9HlVxMrbM7yn5Y26n+
+	TzSpx1mFmoXDNcXCOghbcbnZBit+RQ6bvNeIlhq2UPTbVCZn5EySQKpzHjH6yF6tWDFJ5WNqVlD
+	bvC2M9CpIhooLDTpfm30h4J6yhzt/TROUMI5vd405c4Vgb84CKx0bIZ7LIf+HED6kxTvUH1tfsL
+	akmgCX2Ex/iPNNqxCkoQYZAlOxjadqBKYfbkSUj/z7k53PTTxaptdh8cDZare+dnFEOMgL0siKN
+	o/9TbbIWDbQuRx664Q4FKAtfNuP7JYh3cmncEkaKCfukaORNW97MiorumA9c3kWJaj1/sLYfQNA
+	ixR/sN9CeCpBhtBm+KU7+7ywh2YfXkbTYlu/wH0WrKqvW3mc53/XulltG7RL8DWFF2h0CKE0cp0
+	u5mrJM/ahstKlXebhADrqpq6egNiDjp+SiWR3Kc034vOW2+qwZX5lF/1m6gqKEuLtQbaerG4ZRM
+	BWpFAp4pHQamfYG0xwU5bVLqiarN7mMSe7d11PpyWB8=
+X-Received: by 2002:a05:6a21:3b49:b0:3e1:d379:f3b3 with SMTP id adf61e73a8af0-3e928fe8569mr7948733637.77.1793672220726;
+        Mon, 02 Nov 2026 18:17:00 -0800 (PST)
+Received: from iZj6c0kydq3fvfrtx5kta5Z ([47.86.51.122])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb36448182sm490457a12.6.2026.11.02.18.16.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 18:17:00 -0800 (PST)
+From: Challvy Tee <challvy.tee@gmail.com>
+To: x86@kernel.org,
+	linux-coco@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org,
+	kas@kernel.org,
+	dave.hansen@linux.intel.com,
+	rick.p.edgecombe@intel.com,
+	vishal.l.verma@intel.com,
+	kai.huang@intel.com,
+	seanjc@google.com
+Subject: [PATCH v5] x86/virt/tdx: Gate TDH.SYS.DISABLE on X86_FEATURE_TDX_HOST_PLATFORM
+Date: Tue,  3 Nov 2026 10:16:50 +0800
+Message-ID: <20261103021650.924302-1-challvy.tee@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <09c311c6aae214c04a9a55ff6456d7abfe82c319.camel@intel.com>
+References: <09c311c6aae214c04a9a55ff6456d7abfe82c319.camel@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,132 +105,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Commit 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and
+kdump") made native_machine_crash_shutdown() call tdx_sys_disable(),
+whose only gate is compile time (CONFIG_INTEL_TDX_HOST).  A kernel that
+never initialized the TDX module therefore still issues
+TDH.SYS.DISABLE.
 
-The quilt patch titled
-     Subject: mm/hugetlb_vmemmap: map the shared tail page writable
-has been removed from the -mm tree.  Its filename was
-     mm-hugetlb_vmemmap-map-the-shared-tail-page-writable.patch
+In VMX non-root operation on a SEAM-capable host, SEAMCALL causes a VM
+exit instead of a native #UD.  KVM injects #UD only since
+commit 9d7dfb95da2c ("KVM: VMX: Inject #UD if guest tries to execute
+SEAMCALL or TDCALL"), first released in v6.18.  On an older host the
+VMM gets KVM_EXIT_INTERNAL_ERROR and the vCPU never resumes, so
+machine_kexec() is never reached and no vmcore is written.  Kdump is
+thus broken only in guests on SEAM-capable hosts whose hypervisor does
+not handle the exit; plain kexec is unaffected because tdx_shutdown()
+only runs as a syscore op, registered after init_tdx_module() succeeds.
 
-This patch was dropped because it was merged into the mm-hotfixes-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Gate the SEAMCALL on X86_FEATURE_TDX_HOST_PLATFORM before issuing it,
+the way paddr_is_tdx_private() already guards its own SEAMCALL in this
+file.  Without that feature the module is never initialized, so there
+is nothing to disable; on a TDX host the gate is a no-op.
 
-------------------------------------------------------
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: mm/hugetlb_vmemmap: map the shared tail page writable
-Date: Wed, 28 Oct 2026 13:26:21 +0000
+It also decouples kdump from the host KVM version -- a guest cannot
+require its host to inject the #UD.
 
-page_ref_add_unless_zero() reads the refcount and then updates it with a
-cmpxchg.  A lockless get, such as a page cache lookup or a PFN scanner,
-can read a non-zero refcount from a page that is then freed and reused as
-a hugetlb tail page.  If HVO remaps its struct page to the shared tail
-page in between, the cmpxchg writes to read-only vmemmap:
-
-    CPU0 (lockless get)               CPU1
-    c = atomic_read(&page->_refcount)
-                                      page freed
-                                      page allocated as a hugetlb tail
-                                      HVO remaps the struct page RO
-    try_cmpxchg(&page->_refcount, &c, c + 1)
-      -> write fault on read-only vmemmap
-
-The refcount is zero by then and the compare fails, but a compare-and-swap
-instruction needs write access whether or not it succeeds.  The kernel
-oopses when hugetlb pages are allocated at runtime with HVO enabled while
-a lockless get races with it.
-
-Commit bd225530a4c7 ("mm/hugetlb_vmemmap: fix race with speculative PFN
-walkers") closed the window with RCU on both sides.  The RCU was removed
-together with fake heads, on the wrong belief that it was only needed for
-them.
-
-Map the shared tail page writable instead of restoring the RCU.  Every
-struct page on it is a tail with a zero refcount, so a late cmpxchg
-fails and leaves the page unchanged.  RCU would put rcu_read_lock()
-back around every get and synchronize_rcu() back into hugetlb
-allocation and freeing.
-
-The cost is the protection against stray writes to tail struct pages.  The
-shared page is shared by all hugetlb folios of the same order in the zone,
-so such a write now corrupts all of them instead of oopsing.
-
-Bootmem folios optimized when the memmap is set up keep their tails
-read-only.  Nothing does a lockless get on them before hugetlb takes them
-over.
-
-Link: https://lore.kernel.org/20261028132623.2560146-1-kirill@shutemov.name
-Fixes: 32c440d67e6c ("mm: drop fake head checks")
-Fixes: 01b1d0ffb6f7 ("hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-Closes: https://lore.kernel.org/r/ebc7bde1-f52e-4da8-b16f-822d6c0a4d74@kernel.org
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Frank van der Linden <fvdl@google.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: <stable@vger.kernel.org>
+Fixes: 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and kdump")
+Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Reviewed-by: Vishal Verma <vishal.l.verma@intel.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Challvy Tee <challvy.tee@gmail.com>
 ---
+v4 -> v5:
+ - Update the subject to name the X86_FEATURE_TDX_HOST_PLATFORM check,
+   as requested in review.  No code change.
+ - Add the Reviewed-by tags collected on v4.
 
- Documentation/mm/vmemmap_dedup.rst |   15 +++++++++++++--
- mm/hugetlb_vmemmap.c               |    8 +++++---
- 2 files changed, 18 insertions(+), 5 deletions(-)
+The reproduction data and the host-side KVM log are unchanged from v4:
+https://lore.kernel.org/all/20261102073244.919864-1-challvy.tee@gmail.com/
 
---- a/Documentation/mm/vmemmap_dedup.rst~mm-hugetlb_vmemmap-map-the-shared-tail-page-writable
-+++ a/Documentation/mm/vmemmap_dedup.rst
-@@ -130,8 +130,19 @@ pages of ``struct page`` (page 1 to page
- The optimization is only applied when the size of the struct page is a power
- of 2. In this case, all tail pages of the same order are identical. See
- compound_head(). This allows us to remap the tail pages of the vmemmap to a
--shared, read-only page. The head page is also remapped to a new page. This
--allows the original vmemmap pages to be freed.
-+shared page. The head page is also remapped to a new page. This allows the
-+original vmemmap pages to be freed.
+ arch/x86/virt/vmx/tdx/tdx.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
+index 96ced0494b68..9b01131f7b7b 100644
+--- a/arch/x86/virt/vmx/tdx/tdx.c
++++ b/arch/x86/virt/vmx/tdx/tdx.c
+@@ -2321,6 +2321,9 @@ void tdx_sys_disable(void)
+ 	struct tdx_module_args args = {};
+ 	u64 ret;
+ 
++	if (!boot_cpu_has(X86_FEATURE_TDX_HOST_PLATFORM))
++		return;
 +
-+The shared page is mapped writable. A lockless get of a page reference can
-+read a non-zero refcount before the remap and attempt its atomic update
-+after it. The refcount of a tail page is zero, so the update fails without
-+changing the page. Nothing else may write to the shared page: it is shared
-+by all HugeTLB pages of the same size in the zone, and a stray write would
-+corrupt all of them.
-+
-+HugeTLB pages whose vmemmap is optimized when the memmap is first set up at
-+boot keep a read-only mapping of the shared page. Nothing can do a lockless
-+get on them before they are handed to HugeTLB.
- 
- Here is how things look after remapping::
- 
---- a/mm/hugetlb_vmemmap.c~mm-hugetlb_vmemmap-map-the-shared-tail-page-writable
-+++ a/mm/hugetlb_vmemmap.c
-@@ -222,10 +222,12 @@ static void vmemmap_remap_pte(pte_t *pte
- 		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
- 
- 		/*
--		 * Remap the tail pages as read-only to catch illegal write
--		 * operation to the tail pages.
-+		 * Map the shared tail page writable. A lockless get that read
-+		 * a non-zero refcount before the remap can still do its
-+		 * cmpxchg after it. The refcount is zero, so the cmpxchg
-+		 * fails and leaves the page unchanged.
- 		 */
--		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL_RO);
-+		entry = mk_pte(walk->vmemmap_tail, PAGE_KERNEL);
- 	}
- 
- 	list_add(&page->lru, walk->vmemmap_pages);
-_
-
-Patches currently in -mm which might be from kas@kernel.org are
-
-mm-vma-read-anon_vma-carefully-in-validate_mm-fix.patch
+ 	/*
+ 	 * Don't loop forever.
+ 	 *
+-- 
+2.52.0
 
