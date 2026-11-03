@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741890;
-	b=QHqk2CBOfx+/ZR/rnO14xp/6gtpmBgkoM68toH0UnRaMorc9V3PeHZzvj1Tj5DOKT5B4
-	 mQcEy24HgO4VAEFCACNfWLezSZI51Sc1rWZ7vdbvxHrFczmffFgGDIagF1hm5OKX2vvvi
-	 F0c6usuvikrUoI+cz/K10sBeyLiZpId1WeHc2LTCWsMsfBj9phcOcgqoSXDrk2ph1dl3d
-	 5HK5cLYKP/GreP9O6SHLVxQYRUpLx4Dg3gpAZtJ/bh33C1vRlziS0bpw0V1gGk3wdJo/m
-	 wDL3/BXUIelz7WmHVE1C+kfwre9bqHyWmVq3wQf3O6ycn8DbkLvicvMVi7XwTnS8Ogw==
+	t=1793742007;
+	b=FDTGDBlnnjnQTvwQL01bEBcCjK665UbZ+I1V+X+a82Ve8PVUwWVJiLo4EsL2+gh7LnQ8
+	 eRrb+2s6kRsppIBBFXmfcKiLcfnApVFhlIIwMcVRV+6hJ2j6+l34m7nigexiEZvNLLF9d
+	 AbBeQvluHMPvffNW16im+m/LOq94yO1yVx9iG3upk+CKegCudUSUvQO6ULnYQzNsVccHP
+	 0sbj8aSWZK76mBRXC3UcrhqwUJVkM40AJjfS/S5cfGafIg7E8egWwD27PqN/xmhlsys+F
+	 Ji9zn5UgO1xtLRPW215QQ5KBpqGa3k2gBe4+/LGSVB/5qmj2PkxWqqiu/xn9GANJJ5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741890;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oYIJsebjShjBXy6Kx5XS26nofQrnq/P970yM8c0wOsA=;
-	b=RdAWl8Wdt10banhxVTdcoCwRiy2afG7Hs6rMZ7MrmozVH1EIEWEWtrMR1MvsoweKxUXv
-	 t+h25UmrfyE67QNg9T6dffyPA6VYStLfNqg3ffThMYHC7tkevBblbyktUvH694QfLwILO
-	 RvapgVUr8/KZbS0G127xEWibHquNCrR9GHDwjQZIKGoJujGWKGcqGnPuvmpKXkAfFfpVe
-	 o71bRS2JMTyrgpBbsNdodAWfsMrjhCKVl6HI5L9C1baQjyHE+OZTmIRYSjd5fBTRsR+9c
-	 Yg3Ss3EbM9n2jkaLYB9P4j31WMHH9eeA0XgBvCJBwWVUkbbdUY/yetlPUBOcNa4nNeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793742007;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=SM699TxzXYhrN8+H01lC8wYwldlVkdKMwpFwy0ByGq0=;
+	b=s0cYsJE8+yQkmKjuD9RWOVis2mvv4kfMGI6mPmkQJYE02DhVfmyr6W1FzVNkg5G6JJkc
+	 MfhUwlFO0ESl3lFb526o/D0qE2MPWRsbMlVY/lTW0Sve/tcjgxE9VFN1xS3GG61/GIifq
+	 U3hDNHrYzg1kEgkZEAD3trxPJfSufynhAljIBH52EIGexuJqKl/xjxbqHzr0cJL66AAnp
+	 zhZM1hXpd71QA6791lNDR+jQHuKp6WITN0SF9vvLmSY7HtVImOCPdyQojMilKobaXPl88
+	 OBlgo0UDjggFq78aYr/DBBTDMcYr2wyZgUhZ+liITe7z136Ve47g44q8GBirO3MUxFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQTNaa1O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UE9Rui18;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E010606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 21:38:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE5B606A329;
+	Tue,  3 Nov 2026 21:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQTNaa1O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396381F00A1A;
-	Tue,  3 Nov 2026 21:38:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UE9Rui18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDE71F00A02;
+	Tue,  3 Nov 2026 21:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741889;
-	bh=oYIJsebjShjBXy6Kx5XS26nofQrnq/P970yM8c0wOsA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jQTNaa1Oovfu+lZf1I5Gu3fVFGB3X5C5nWqVcgfIQBP+hbg1ikQyYdKfUB9iom1QB
-	 WfSxN3Rp/aaEzGpt3W9PHVYtEbNHvd896JkETq1wk03Zp05kx9ep7XypYEdm+Yng5x
-	 J06OVsg0/fZTnpaF023wVXrIXggn41LJRdl1ANdaNJcFRrqgQj2NLFDLay6d2AiS6x
-	 TKHqK7tSzud5ZYRXhrDQ3wW5aiy7d7veVZxmzzvDAqHAPzJwapyoGfZsg9v8lZ9Xam
-	 AuJ2GqdSpuGVkoDmYHnv7QkRVNVY3YBr71ILF0jE9/W3nYCYJxvlKEnsiGOhi7aFiI
-	 /OFpdUIuKTATw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ksmbd: fix out-of-bounds read when padding the final compound response
-Date: Tue,  3 Nov 2026 16:38:08 -0500
-Message-ID: <20261103213707.1423702-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110341-map-tattered-4d64@gregkh>
-References: <2026110341-map-tattered-4d64@gregkh>
+	s=k20260515; t=1793742006;
+	bh=SM699TxzXYhrN8+H01lC8wYwldlVkdKMwpFwy0ByGq0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=UE9Rui18aXObGzDuJhoCx6vrH5rlRlj9PjwGNkVht1rf5/L/NeuMrTYivx8PPO7m0
+	 96sNLxoNJmQRpE8+9eMEi9nHu/zNA/0S0+J+wCD5CKpRJ9P1DcA/jRHxMgL7zBXeVG
+	 6Xit0uz4/m8o76z0DPVdBvrBpItMBBOwz5MRV682M+r8d5738b68OOS7Dimqzt8Sid
+	 Swp3iiI9AOS2noLc4otWWZgi2loyuwQqfAa+ao9xvb/LDEE6ArfdxZr/O3To8uPooP
+	 iN1VWwTPvHpDZVrwpab2oycJhXTJ84j4ZADdoE7GTaSY+yZ5qoFNDSVGoktobK5aTb
+	 4SM3qOHelMvEw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0314B391B0A1;
+	Tue,  3 Nov 2026 21:40:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,73 +54,48 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v6] net/sched: clamp skb->queue_mapping before
+ indexing
+ the tx queue
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179374200480.1894115.5049965810872091350.git-patchwork-notify@kernel.org>
+Date: Tue, 03 Nov 2026 21:40:04 +0000
+References: <QDISC-MD1X.v6.r0.20261029162633-1@mojatatu.com>
+In-Reply-To: <QDISC-MD1X.v6.r0.20261029162633-1@mojatatu.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ vinicius.gomes@intel.com, horms@kernel.org, hawk@kernel.org,
+ daniel@iogearbox.net, sashiko-bot@kernel.org, bpf@vger.kernel.org,
+ stable@vger.kernel.org
 
-From: Ian Bridges <icb@fastmail.org>
+Hello:
 
-[ Upstream commit 714f27729121d59f103ca4dad7b0c2d1c125cd71 ]
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Compound response handling pads the last response of a compound to an
-8-byte boundary by growing the final iov and the RFC1002 length.
-smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
-fill the response buffer to within 7 bytes of its end, for example a
-QUERY_INFO whose output is bounded only by the space left. The padding
-can then run past the allocation, and ksmbd_tcp_writev() reads those
-bytes when it sends the response.
+On Thu, 29 Oct 2026 16:36:31 -0400 you wrote:
+> This issue was caught by Sashiko (nipa). A producer-side path cap is
+> already merged (ea4d4b5dddb5); this patch adds the matching consumer-side
+> caps.
+> 
+> The issue:
+> The tx queue is picked and capped in netdev_core_pick_tx() before the
+> __dev_xmit_skb() qdisc enqueue path. A tc BPF program running inside an
+> egress qdisc (not clsact) can then change __sk_buff->queue_mapping; that
+> store is never re-checked. bpf_convert_ctx_access() bounds it only by
+> NO_QUEUE_MAPPING, not by the device's queue count.
+> 
+> [...]
 
-  BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
-  Call Trace:
-   _copy_from_iter+0x744/0x10e0
-   tcp_sendmsg_locked+0x2290/0x3f80
-   ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
+Here is the summary with links:
+  - [net,v6] net/sched: clamp skb->queue_mapping before indexing the tx queue
+    https://git.kernel.org/netdev/net/c/f19f2b308beb
 
-Allocate room for the padding when the request is a compound, as
-smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
-unchanged, so commands still fill only up to it, and kvzalloc() zeroes
-the padding.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: adjusted context for direct work->conn->vals access instead of a local vals variable ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/smb2pdu.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5f752434be3cf..9a98c306f68a3 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -538,7 +538,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
- 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
- 	size_t large_sz = small_sz + work->conn->vals->max_trans_size;
--	size_t sz = small_sz;
-+	size_t sz = small_sz, pad_sz = 0;
- 	int cmd = le16_to_cpu(hdr->Command);
- 
- 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
-@@ -560,10 +560,17 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	}
- 
- 	/* allocate large response buf for chained commands */
--	if (le32_to_cpu(hdr->NextCommand) > 0)
-+	if (le32_to_cpu(hdr->NextCommand) > 0) {
- 		sz = large_sz;
-+		/*
-+		 * is_chained_smb2_message() pads the last response of a
-+		 * compound to 8 bytes, which can take it past response_sz.
-+		 * Leave room for the padding. kvzalloc() zeroes it.
-+		 */
-+		pad_sz = ALIGN(sz - sizeof(__be32), 8) - (sz - sizeof(__be32));
-+	}
- 
--	work->response_buf = kvzalloc(sz, KSMBD_DEFAULT_GFP);
-+	work->response_buf = kvzalloc(sz + pad_sz, KSMBD_DEFAULT_GFP);
- 	if (!work->response_buf)
- 		return -ENOMEM;
- 
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
