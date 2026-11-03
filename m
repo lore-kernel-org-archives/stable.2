@@ -1,74 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738203;
-	b=bYszMKYntcdsZT5L7L98ENgjvyfyENv3/JwCuYyBeG4hPOjjSRAjMrXZx/aZjXXX2Heo
-	 8C1gkbcRT2Zq6dzEiZtQyWEhoFecO8g63cti1mENkh5gVa5J80mGxIq0SszQExtamZ0le
-	 VzK7Y+izUxs9loJRRmga3tKrro6PMW6qEcedrr5/5KCNTP0VZxXO0taIoXlxNNiDQzL8T
-	 N/K84TC/VI/qVOFJipYwKD6CYwX6QelldCeMYnDP5o7zEcq7GMAe8czt+1IDbV5rxMrKk
-	 47ySTODwxCTCfh5DkOgEUiqBD6kGpdVW6dRy747rCxW2aYiy9jBOXE5h+CvZSN2r5qg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738203;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
-	b=HExciybylwjYyu94G3mem7f8XJZr0nFS+eN69+77Hw5Oynts02F+Hdd2qEN60GiOYNp9
-	 GLowioUGLik/yP+4vJZuu0jLlljrTAG/qQZ+BE7m/vCJmWDaaUEpIvR1ofEifsaoCNoR+
-	 sy+6roKVM94Vp3C5Nd8F+79DDr17xNdLNmwqrp2JF3GyKLNUtgpx636OgkJtmORNFwJLh
-	 wB0GBARKC5mANvc97flGKvCeT9Mp9KT/o0F+LCcLtcA8VWYTejetY4KE0Z0qvbQURyFq2
-	 vwekF4TI2Smc6+XH/TB5FCVsaivHbfKY7GHw9jQTtAtQSod3HvreIKwYkDN4HPdJFpQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HxYLUwvD;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=H6K4GAAd;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793738599;
+	b=nqMixgg1msU3x6kvqzW9O+Yg+P/hCmOD3/P1K9mG7LmKX8j9S3yWS/sl4oQY1XIqZvz7
+	 lbJraUgSSajYpb8/gEzPVwiWhY9wDlTJhIBCa5q5PpzvYquSLGEYuxrFpNpJkPeNiGm3j
+	 +PPFi9ErY3Hn+OgQP+xyjC+1K+4jnLpCFpR/IKPSkumZirSWliefqcmrWbVRUFV93rTgK
+	 NSealt1LiIn0MF24XSJUGbSvsCe1LXo+HEQ577U+YGzqwTEGSoahEjfM1i56/emaF1WAb
+	 AxsYKOrPYz5Wbu2b0NHyK4RYDoTGhW4Ucsd7JCr+UXO7sOIas/LjSDqN3F14M0dsXeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738599;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
+	b=hUeU1lCgNS/+qgaNTSOY8pPXdnB+Ou+o3w//DTgn2zlBUp75pZRrREIl29T0D81zQpoC
+	 k8Q0WFIZMEEX0M6xdWpPTHby8DMPyqJ0rGn1DXi4Zl2PUonoYG4rFZG8y/HUIRaIkgxM6
+	 M0KxNoaH/SzccmUOFVFKFzuTGAknYg57TvKq1q2xeGLIn7bzys7775QX9VxH4J7/DupeQ
+	 9pXQ4Fyo5QrQHA4l42LRhJlVEYTewF5CDTMWklsaf+t31PJumsfvbY1tjp8QMstVCFiEE
+	 h+h2+niOfhbBLWslu5aUMU2jtAfiOxQlB97LENc7NLPwAh3yqgxd/I37+O34IsYc7Fw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=MVIJWxsa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B331606A31B;
-	Tue,  3 Nov 2026 20:36:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B331606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C5A606A324;
+	Tue,  3 Nov 2026 20:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C5A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=HxYLUwvD;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=H6K4GAAd
-Date: Tue, 03 Nov 2026 20:36:38 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793738200;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=MVIJWxsa
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B797420177D;
+	Tue, 03 Nov 2026 21:43:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793738592;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
-	b=HxYLUwvDWn+v+ihJGXGyPwrpD9IHW8nsrQ1jy7H/kAO1iT//ghfa4tYN7W71NZwOGdo4k4
-	ZnNJkvekl0MrwcJ/8grusbeOvETFZsspZWU6zhvyVfmTvkUq4kURmd0A41Bn2fNoc/643C
-	AXK+CZXgfPJZG+ix1f0VPgEqrGS93hcixFkjl2JBXPTZP36ZCegKFlq6SApADehOF4ImqV
-	5oYBXPAl9T/nbhNe4pZin4DbWTpyMQ4LTjEUGYhIP3kB0teY7XeJ247QUFUH17qK+6XDM0
-	7/x6inbwtgGeWEypEwcpfulXpABlwv8eRnD82/ONpkMTnCoVpQdtwKN2BMgB2w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793738200;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
+	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
+	b=MVIJWxsa1bi2Ob3AKNd2d+FotlGCMvU/6u0cZQ10I31ek3tmVq6/ZQUBukx4fhnkKNKJ0C
+	tMSboYAeeWBXwLsIvUPil9SALxC2WvotRM9yA5vcYFHxA38+Ehxge/XJ9LsL/o1ekmBOyg
+	QHVxPfzjF+pa9SUle2OvOntM9PHG8iH2KMM2s22a/AW3deyivGRONdviC0jEOVWbpOPPKQ
+	DJe5vO+Unv8LTr/Gb6xLczk/ZXQKN9qsQZeXQIJ8QsgqLsU+GB6qBdrNzyjrRor/0rE22N
+	VbE1oKZwt4RA6H7+Q2a23VUj8jsIP+kivd88zLJ/BCfI7MI18qn8Lq9UksD4cw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793738592;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=H6euy1JPMcTX2hy9GI94GZuSFSw81ZMn0tXNEvb00oQ=;
-	b=H6K4GAAdHRL9B/JCxSlad7RkpphfzejlbFUWspDgsuP3iPL/u2Pr5hyLsZXKCgsf3hXPmu
-	GswTTs4PFjv14VCQ==
-From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/entry: Fix ptrace regression
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <87ecd4xwlr.ffs@fw13>
-References: <87ecd4xwlr.ffs@fw13>
+	bh=eALao68/H5C/VsMyz1IjAZA3Cs8TeVJx3ISpy1cycgI=;
+	b=Wp+H24N8Ber+M6gB9y2u1MZQqMjjEFUam1bJz6P+MVPgwFCQpD2rOeWDRrEyhrqjAdYw3L
+	xiGPKJAd+aDupN788Vb5EM2z5+7BVEGrpJl07k8eUojCIQUjSLkAxFJZFswR+Gtcwv6jC+
+	Yir3ED1xQ/4vm7Pd5yb02cIRrQunjhhx9002Jc7raLEjJ98ggOsi2ME8rdOliFhAlJ+LtZ
+	nM2+ykkcd8+npCUAdvudwZ6CjcLYHAKCqZdWb6BQAeQvmVbS/MujO1KE8b3MVXtShEaL6n
+	vXP18sDzOd6rlOrAEBaEPgLL0d12eRXTw7VK4ay4U4AolrZiW0yrEYSB8JOZdg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793738592; a=rsa-sha256;
+	cv=none;
+	b=XFm7S9fGYmXzNilIlShxFbVcogpqU6TzT6U+zfpOkoX0gjNaoWKGUs5f0rE6TTTYQncZvY
+	sVLAHTw1cI9AtTCFJ1v7Y+l/KhwlLlvPwtUmeDKAF3vO8fDyFuWiDGsIsjIPjvJZ/95m4i
+	ZjNvB4w+cy+NzZwE7B/Or8PmtnBBdJrTHR0Ro6wtHodgqullMXmbs1pVDhZeMgZB0+nZ8G
+	5LEagwOyM5tJOAK85TgUtQbx+HdZvbd/iRst1s3U1M/zAlsmCqgqwahKpZ2UGIr1s6W5ms
+	tmmvuN4RARba6xgsiqOv+G9/bGDtxV7sCD9CxHlbMY1legsQEaPzLZCORa1VVw==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xOLLc-002V8J-1y;
+	Tue, 03 Nov 2026 21:43:12 +0100
+Received: from blackshift.org (unknown [IPv6:2a00:20:73c1:227f:2cd5:5d72:938f:f03c])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 46F7F5DDEB9;
+	Tue, 03 Nov 2026 20:43:11 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Kaixuan Li <kaixuanli0131@gmail.com>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Quchaosheng <quchaosheng000406@163.com>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net 02/15] can: isotp: check the frame type, not just the length
+Date: Tue,  3 Nov 2026 21:30:23 +0100
+Message-ID: <20261103204305.3211144-3-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261103204305.3211144-1-mkl@pengutronix.de>
+References: <20261103204305.3211144-1-mkl@pengutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,114 +110,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179373819852.1009794.4642891487121637825.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+From: Kaixuan Li <kaixuanli0131@gmail.com>
 
-Commit-ID:     b697faab2c92653ee13bd950c8de13551a78971d
-Gitweb:        https://git.kernel.org/tip/b697faab2c92653ee13bd950c8de13551a7=
-8971d
-Author:        Thomas Gleixner <tglx@kernel.org>
-AuthorDate:    Sun, 01 Nov 2026 18:58:08 +01:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Tue, 03 Nov 2026 21:29:35 +01:00
+isotp_rcv() separates Classic CAN from CAN FD by skb->len alone:
 
-x86/entry: Fix ptrace regression
+	if (skb->len != so->ll.mtu)
+		return;
 
-The recent rework of the syscall entry code missed the historical detail of
-the abuse of syscall number -1L to abort a syscall and keep modifications
-by tracers to the return value, while a rewrite of the syscall number to an
-invalid value undoes eventual tracer modification to the return value and
-overwrite it with -ENOSYS.
+	cf = (struct canfd_frame *)skb->data;
 
-Restore the original behaviour.
+A CAN XL frame with cxl->len 4 is CAN_MTU bytes, so it passes, and is then
+read as a canfd_frame whose len comes out of canxl_frame.flags: at least
+0x80.
 
-Fixes: 1b1f3b3e1b39 ("x86/entry: Get rid of the sys_ni_syscall() indirection")
-Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Of the paths that follow, only the flow control one uses that length
+without bounding it first, so check_pad() walks to 255 over a 16-byte
+frame and the caller reports EBADMSG on an unrelated socket.
+
+bcm_rx_handler(), j1939_can_recv(), can_can_gw_rcv() and raw_rcv() check
+the frame type here, and can_dropped_invalid_skb() switches on
+skb->protocol on the transmit side. isotp_rcv() is the gap.
+
+Fixes: fb08cba12b52 ("can: canxl: update CAN infrastructure for CAN XL frames")
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Acked-by: Oliver Hartkopp <socketcan@hartkopp.net>
+Reviewed-by: Quchaosheng <quchaosheng000406@163.com>
+Link: https://patch.msgid.link/20260920035626.2581040-1-kaixuanli0131@gmail.com
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87ecd4xwlr.ffs@fw13
-Closes: https://lore.kernel.org/all/20261022142425.3Wx-RrU5@linutronix.de
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- arch/x86/entry/syscall_32.c |  4 ++++
- arch/x86/entry/syscall_64.c | 26 ++++++++++++++++++++++----
- 2 files changed, 26 insertions(+), 4 deletions(-)
+ net/can/isotp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/x86/entry/syscall_32.c b/arch/x86/entry/syscall_32.c
-index a59509b..ca97fa3 100644
---- a/arch/x86/entry/syscall_32.c
-+++ b/arch/x86/entry/syscall_32.c
-@@ -77,6 +77,10 @@ static __always_inline void do_syscall_32_irqs_on(struct p=
-t_regs *regs, unsigned
- 	if (likely(nr < IA32_NR_syscalls)) {
- 		nr =3D array_index_nospec(nr, IA32_NR_syscalls);
- 		regs->ax =3D ia32_sys_call(regs, (unsigned int)nr);
-+	} else {
-+		/* See comment in do_syscall_64() */
-+		if (nr !=3D -1UL)
-+			regs->ax =3D -ENOSYS;
- 	}
- }
-=20
-diff --git a/arch/x86/entry/syscall_64.c b/arch/x86/entry/syscall_64.c
-index 966d3d1..bb95ad0 100644
---- a/arch/x86/entry/syscall_64.c
-+++ b/arch/x86/entry/syscall_64.c
-@@ -64,15 +64,20 @@ static __always_inline bool do_syscall_x64(struct pt_regs=
- *regs, unsigned long n
- 	return false;
- }
-=20
--static __always_inline void do_syscall_x32(struct pt_regs *regs, unsigned lo=
-ng nr)
-+static __always_inline bool do_syscall_x32(struct pt_regs *regs, unsigned lo=
-ng nr)
- {
-+	if (!IS_ENABLED(CONFIG_X86_X32_ABI))
-+		return false;
+diff --git a/net/can/isotp.c b/net/can/isotp.c
+index f5dc9d04bd68..d3e43ab48425 100644
+--- a/net/can/isotp.c
++++ b/net/can/isotp.c
+@@ -755,6 +755,14 @@ static void isotp_rcv(struct sk_buff *skb, void *data)
+ 	if (skb->len != so->ll.mtu)
+ 		return;
+ 
++	/* check for correct CAN CC/FD frame content */
++	if (so->ll.mtu == CAN_MTU) {
++		if (!can_is_can_skb(skb))
++			return;
++	} else if (!can_is_canfd_skb(skb)) {
++		return;
++	}
 +
- 	/* Adjust the starting offset of the table */
- 	nr -=3D __X32_SYSCALL_BIT;
-=20
--	if (IS_ENABLED(CONFIG_X86_X32_ABI) && likely(nr < X32_NR_syscalls)) {
-+	if (likely(nr < X32_NR_syscalls)) {
- 		nr =3D array_index_nospec(nr, X32_NR_syscalls);
- 		regs->ax =3D x32_sys_call(regs, (unsigned int)nr);
-+		return true;
- 	}
-+	return false;
- }
-=20
- /* Returns true to return using SYSRET, or false to use IRET */
-@@ -81,8 +86,21 @@ __visible noinstr bool do_syscall_64(struct pt_regs *regs,=
- long nr)
- 	if (likely(syscall_enter_from_user_mode_randomize_stack(regs, &nr))) {
- 		instrumentation_begin();
-=20
--		if (!do_syscall_x64(regs, nr))
--			do_syscall_x32(regs, nr);
-+		if (unlikely(!do_syscall_x64(regs, nr))) {
-+			/*
-+			 * The special treatment of syscall number -1 is a
-+			 * historical bogosity as the original code used -1 to
-+			 * indicate syscall abort, which is not distinguishable
-+			 * from a syscall which is invoked with syscall number
-+			 * -1. The historic behavior is to keep the return value
-+			 * in regs->ax unmodified in that case, which means it's
-+			 * either the preset value -ENOSYS or a value which was
-+			 * written by a tracer. If the syscall number is invalid
-+			 * but not -1 then overwrite any tracer modification.
-+			 */
-+			if (!do_syscall_x32(regs, nr) && nr !=3D -1L)
-+				regs->ax =3D -ENOSYS;
-+		}
-=20
- 		instrumentation_end();
- 	}
+ 	cf = (struct canfd_frame *)skb->data;
+ 
+ 	/* if enabled: check reception of my configured extended address */
+-- 
+2.53.0
+
