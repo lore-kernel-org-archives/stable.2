@@ -1,109 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793674461;
-	b=GRyuZAYyQhdmm4BFD3iJMHfpQMdcUTWYAAqCL8kAy+a/1FBasnyuwo3jyEl4q6bxFDoQ
-	 9HQ/eHlu4cvNDhyaUoWWM45LsdYTTewJDYC/ZnmyFkTKJcvixo25PbAy8kcu0tGHe0l9T
-	 nHFZl2AM/s8o/LW4Cgb8fjtHN7/VMy2N2HPCVCWAqiHgSLvYJoviCOw3lcUzW/rJLylJ4
-	 Idak3sJmti2e5gs+yMB7Gs1hV+fDycL7mimZLXdxLSXqfZzOTo194bdPXGCS5/7f6SRb7
-	 05zRZ8gFT/SngYFzBRubfvRQHaISEZ8IXMH4S3kd8oXDkwk5Br59rtzW5ZYH09V9dcw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674461;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2BkKPsxBZLwkkoHHcJ4YPviW5JNVNLlhaR1jgDKQ7aQ=;
-	b=xBO6qACovZ227ndSTTCjMpmv1+ZqRW8OqEcm0Sy6vIxnHJsA+AGSmjEYLzb2Xqfid9EW
-	 OkJoYj7XoiVyGjgTaxtW1lpe4qNosODBNXYWMeQaFEF0wQqMHYWYCSgM76yoohrEp2EYi
-	 l9WzCMsGAh+nZSPhn81ITIjftD/In4cOlapRSDKqGasy1KycH6F8gSHJ+5zwAbsgt9E/1
-	 bDpHMY4dUAFjQmBMl1FVXLKwiW5YFfquWeNRK0WyT8QmgmtoWjBaYtlxuzRRrknVQrfR3
-	 /iCrjOqIl4/M9nmBRAVKOxuxRZAv21d7ZpwuVGwnh5hytc6obLUgk7AumY3128zxbnQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IwSt+z27;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.26
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010026.outbound.protection.outlook.com [40.93.198.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793674493;
+	b=pshxYCi9E27DqMvN0fgdWm1ZPTZ6mGGo1UbevJnUCpMyGq7p0wau3AcTdORyRqqqaxoI
+	 44aIwMI2kmFqegO/smzp+ieyLgc9DS707HQWT/WN9oJcQcVdL+NCoURzVxMI6o+VuSeaI
+	 nTTfjEZ87EEg+TOnKWcsAUZ+fBJxwYUWdQMJDkPpNtV7yMKS5LYnYjRNPLQrrfRMxjb0m
+	 SwlEe4BCL1rDpHXKa0cxvGp4WwJ6gvxTDvHqVKmQ+v4wsrVYtSQbpQUyYqxl3zphS1kll
+	 CXBi6nTquQdLj7K82xXtP3Hsna6vPkoosIUD44PMKEIevDvh06EZdHt3ezgNaARm+Jw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674493;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qjmg1SjTs3atT2nn9WnBytEIpIW9LchwdehIjStPp4Y=;
+	b=N4apCWpM09mQgb6M08yDaI0NZ8+2Jpu9XL7Tc6B52P6QhWGDnAFgmfWYyVutvIDb0jkg
+	 E3sd18+NDq3699M6GIH58xs6u/Twdh9bGaU6UxT8NMkAq1Wzaew1z2K8DbueBkJIeR762
+	 BGlAtWAgaw43VhG/I+9CYPHnOhwFZjEXL85dBhGWsc+NwMq1nGl2IrahZMa7TnaTLy1nW
+	 oyK3Z8vrrgTDbChog9TVqivlmG5TuL4tEEuMThqMK0Z14eMwqTVhdCU7MOBPIvUyeVNb9
+	 3gnD6bpPhAlTylUgOGfbGrsviJZJzIxU/V+yKcsDOlRLVgRHNYRKGz7n36iW9dnjXJA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dtntFBIf;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157BA606A324;
-	Tue,  3 Nov 2026 02:54:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 157BA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F0A606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 02:54:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61F0A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=IwSt+z27
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bAxVSUl2NC1uoHHrVQ/jx5/L18YpX72Y9oEH8ZKz28wH9Cc8iZKlKP/Oxiu4YmKNuRWqE0uw0WsqT4JWZ6hfx4kIRBWBRHoQn047cHI8YcJ308jXjADA0yTzcEeWP5jf+57y07Z+Mc2+9j0jEKoLskN1UkwEBQjC7rXRGZCkIqxEOPCvO0RyLp+9FWlsDwYssvO46HkMIN3iDYsN6dPEKkPf+zsWV2VLOoQXwu/Mo03SpifUXK2mgvZfjgW/M4y8Okf5mN6huZh0NvLg5WPtyaxl6BiHQRHTIQNqz8JP8Wp+GZkKb+3jXhZahTp3e40um3rMRJV46p86Ohx4rC9kBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2BkKPsxBZLwkkoHHcJ4YPviW5JNVNLlhaR1jgDKQ7aQ=;
- b=eCDbRRvsKK3kWtM+ckJ+4A2geZmzkXhNRPT+t4lmeF2lP5eWPyF0rrOEr5POh1wnxCfN60ydsvJx/4Hpm/8rRSlmJg/AWnarcOWrf+2EKgfIRX4WDJMzCqta1Zy18fVzJhBdQT7jnLUxio9Uj7qNmFta6M39NhhIQlCnCILydwbHU7FtwhMgKJ6X1wdpRUvX+Jwu/bCEKy5iBvBi6SVTNiJ1pBAqBvIG/6h471+jxaAPjUmkOWzgayWePYZIkaOUrnlU4zz2ZJTw5l5kPqPiLIjfJb/Wcn4TXMrmY3xQR+8cG9O0PXP0vV2xT9SiR0+Gw3ReRE+t/RS6cubu4bLkew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2BkKPsxBZLwkkoHHcJ4YPviW5JNVNLlhaR1jgDKQ7aQ=;
- b=IwSt+z27LPiAroTfPQuDsYJkwjip7M6OVEhsondvJEA2LdcZSW5Gk1+rtdiswfNGcSmfhowkyh4EwhxKn5oQ4eVCeCwm6X8sD+r3uTMTezNg2OW4wf3vRAWjEXuObUPDoxacsaMdF7SSUWbZ/wT6EFELG3SxwsPFpiOzOgw6otgVRpC0e7LONSklMFtoccWJiRLqI/I4wY9nQ0juvtpuxhetXgWd5GJzaGCyLO/aYslwMwbZr4i+8QTKOFKfdOQPGWoEZrER033siPxJ1PewUADgnfaeew9DLMls0jvp1v0uwpZc7IquvgW9qy2jCdWK8xNuNr41m+s+gc3fxYssWQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by IA0PR12MB7531.namprd12.prod.outlook.com (2603:10b6:208:43f::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 02:54:16 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 02:54:16 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 21:54:13 -0500
-Message-Id: <DML8J0KXM6R5.1QH88IJGA8EU5@nvidia.com>
-Subject: Re: [PATCH v5 05/12] mm/mmzone: read the zoneref slot once in
- zonelist_zone()
-Cc: <linux-trace-kernel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <kernel-team@meta.com>, <akpm@linux-foundation.org>, <david@kernel.org>,
- <ljs@kernel.org>, <liam@infradead.org>, <vbabka@kernel.org>,
- <rppt@kernel.org>, <surenb@google.com>, <mhocko@suse.com>,
- <kasong@tencent.com>, <qi.zheng@linux.dev>, <shakeel.butt@linux.dev>,
- <baohua@kernel.org>, <axelrasmussen@google.com>, <yuanchu@google.com>,
- <weixugc@google.com>, <baoquan.he@linux.dev>,
- <baolin.wang@linux.alibaba.com>, <rientjes@google.com>,
- <rostedt@goodmis.org>, <mhiramat@kernel.org>,
- <mathieu.desnoyers@efficios.com>, <muchun.song@linux.dev>,
- <osalvador@suse.de>, <joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>,
- <ying.huang@linux.alibaba.com>, <brendan.jackman@linux.dev>,
- <hannes@cmpxchg.org>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
- <nathan@kernel.org>, <ndesaulniers@google.com>, <morbo@google.com>,
- <justinstitt@google.com>, <Bessel.Wang@huawei.com>, <jiang.liu@huawei.com>,
- <mgorman@techsingularity.net>, <anshuman.khandual@arm.com>,
- <stable@vger.kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>, <linux-mm@kvack.org>
-From: "Zi Yan" <ziy@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <20261101021340.2251928-1-gourry@gourry.net>
- <20261101021340.2251928-6-gourry@gourry.net>
-In-Reply-To: <20261101021340.2251928-6-gourry@gourry.net>
-X-ClientProxiedBy: YQBPR0101CA0277.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:68::14) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dtntFBIf
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so3687426c88.1
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 18:54:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793674492; x=1794279292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qjmg1SjTs3atT2nn9WnBytEIpIW9LchwdehIjStPp4Y=;
+        b=dtntFBIf+tvdIzW2rQriPPXnejCyrXyTE40uuzXpf0MErWx+C5J2xWWCI5kBNtwFt8
+         6wAom3dDcPOLDG5jfdAlCp/1c0kv5RbrIvpDtMXFlzjEf2niDYxT5uiGgpA/MLZaPuIV
+         4ySvi6uNzQGHEV2xi0ed2ahn9f3vUYSZ7ViIs3TDKBQM5XasEVbWcQIY/ZUFsDgrYmJn
+         oYw/NO20JgDPK3B5M27f5ZLNiS21Ui3qwS68OENF0vhyOazEo/Do/kSO18J6PFhHVrzT
+         UMbawFaqlExBCydfH1uPsIWGO2ycR3OVLl1kA9wGf1t73e7EFSxyRdD+P53zTdtnrf2E
+         taAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793674492; x=1794279292;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qjmg1SjTs3atT2nn9WnBytEIpIW9LchwdehIjStPp4Y=;
+        b=dEyF/nvgeaZg6Ufs2xy5a80TLiBp3tlQ1uJSS0ib5B086JMUMMhAVCk5c/78i9oRXu
+         AzusLSs2cx62hjnr5RJC6DzmA2XQEM1/reGTuxg0L/I6wbIbeZ+mjbQRgcAn/ZkjrnIm
+         8TkH08iMOzdbmE6bysg8JU1xljk3Gfs9wrEvgGIriYA0tRb8SluhByhtjLmmxyl2eYKN
+         3nC8Aap8Ghqz0N+BWPXbITyPwvqhHxI3+ucZsKQBm4LzwMRgI5AlUaaZas30F6kCuAU3
+         Kx+V1DSxCSXVXeSRrFAgKvMHxDrC22kTwY0zD0ZNYfFnfS9EX3QkMxcc60gFiNn2TGUP
+         DYmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz3n5D9j/Pis/pGeYDgAzKmf/MdJM+f7niuoNoxqDs6EWlDJfEd9t5m4o+FFKUOgY+iA0TLKK4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5A7Q4cpxgLc+KmtP5LVvXSPDOpqaCYIF9yhJe070h/0D3ZlND
+	5hZaXifNeZ3ENWE+bf8rQlKT/DHZDGdIG3QBhcdw4ESQNpSJ29UlDQdlAHOk/g==
+X-Gm-Gg: AYBFou0bW7H9AVA20M74o6fMAyddkvRiCBU2gkDnTU299m8Uaujv9+kwky97mgf3wnJ
+	G7dylCVgeCrMZsZd09Mev8Y/R6c0eblLsPpwENRnIAYutYpQGYbM6RmReNqJaVcu1GNZFiwBEAj
+	L9mMq+ruv/IAM5hz8PQMejFF+QUcS/45GsHXbRFPGcVYH1BFLPiEuLqEtQ8g7ywZSPgZgTuY0lI
+	BoR/eD8WsWaso2vJnWKnXKDCNNPxMWYgdutCzB5lT8GEqWkZT3EkwBg5wpSw6lwiMAYLj1kSOKp
+	IdGNS1SCXVpPZWv/Fm3m3KQNEGA44NJPCPgPnjsAOFCFDoiVap5cEWQRs2Zs1/9XW8mylaTHvJN
+	MWe6T6dEelAL3843x5oDwr9X7e47fon0AqtP42egbhGAWuAiD/pvRPwA0LUeqK2Y939NQp9HXgA
+	KB3ZzHqNP1MteDBk1hZs/pFwjvWXcPcwg9TEXCWMBf1Hym3XIo+VOTtWNMe2IHNXdAb6ucYrHp6
+	70q/eNBlZ0bjIsse+K08f8dd5M6uEIJU7/M80FRjAXqA0rUx41CIbo60k/VAiN3W7/n35SVb2oP
+	s7+XqiP03e/qL/3RSPLv7ceayOcuiIyNOg==
+X-Received: by 2002:a05:7022:5f02:b0:19a:51da:f54f with SMTP id a92af1059eb24-1ac5d88c584mr16916727c88.14.1793674492234;
+        Mon, 02 Nov 2026 18:54:52 -0800 (PST)
+Received: from pve-server.rlab ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854da78sm49882356c88.6.2026.11.02.18.54.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 18:54:51 -0800 (PST)
+From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	linux-kernel@vger.kernel.org,
+	chleroy@kernel.org,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	stable@vger.kernel.org,
+	Josef Schlehofer <pepe.schlehofer@gmail.com>
+Subject: [PATCH] powerpc/code-patching: Flush the patch area TLB entry locally
+Date: Tue,  3 Nov 2026 08:24:43 +0530
+Message-Id: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -113,96 +102,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|IA0PR12MB7531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 016ca277-4996-48e2-d73a-08df3955bfbf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|22082099003|18002099003|56012099006|261102123227099003|10067099003|261022105027099003|261021121427099003|261021123027099003|4143699003|11063799006|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	trLg0gRUHWjWjPyyhYdqnLxJTs9AaP7kIB5XuhPWxKuJUTX5rWVR0o5D0vMvr3FbGxp3EUm4MB/jfiIBnsnV9Cs6odPmXL7DEIzAfohCuxixGKR6GBJj9ncOwDy6t5ufsUJQ6HK6w0ZLi/KbzC37o7sS5QunW8/Mpq6fjkxghK21EZ5tDFBGIxgb5vV3a4Bo6b2wfywlW9rsm6e1ZHGLxgF/Fpk5JhCF3e6W7MIIj3lVn2U+eyFbkpiSILd/Voscr8c5Br3jmtKz/Ed3O0DVy4NzX2Uf/XfMKt/A0vQhQA545VazFbK1+g38HEdf3ci25drsBl17Ux3nBBKvwVUyB3lzhavNIuLOnDMbjNPbsgQWVQlS1lHL4acJKLXRRW1APSsFip0xzjQOwvu02VAMSHC57MkMBmv2Kyp9CDIJWHucFoEre1FGJT9Gw/zFI/IqkZwvQ6SvRdGpCsdnCmWrJMKI6t5wvc9RiU29REA49yzULTv9gfN9WOuQo4ngJ6OpeIv5bvKqJgPCUo4AXe6HVNTWZbJmglAxtQDcW9i/V+yAhW3P73HXCKUOpobqwjN53Rcb3fkqsHYcd7F8Ma/MoFYXOrxFnpJYxZ2sF5lfqTE27qy+tC/irplmeXZwhBN/mDepzYUd5T3H7uDHRVA4JRguSCXV+MKJ2/x61dFBp6w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(261102123227099003)(10067099003)(261022105027099003)(261021121427099003)(261021123027099003)(4143699003)(11063799006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUZScHZ4UUVmQmxWNlBPRTZraGVtdXo0bEFMRzRBamMyNE1tNUtDd25FTEdH?=
- =?utf-8?B?MXlYbXhqRnd1cm5JNU9wekE2bUdLVjI1SDFlTlZjcmpxRVRNR1RYY0RDR3hQ?=
- =?utf-8?B?RkNmSjFVS0E0RVNoZndwNlBOVGpzVHdyN0pEYTk2V1JZOEowRmdqZXAzaGhO?=
- =?utf-8?B?U2RXRE51aWJEWlByakFQdTFyT3l4Q2REU0JURUJDRUZ0NDQwRS9kSzRUNW9T?=
- =?utf-8?B?a0ExUXJWbjFlZnFaYSs1dkhENjQ2MTFYWmJEdjZITHJVWklTVURZNjJ6MWhU?=
- =?utf-8?B?dFRoZWthZWdCUEg4OUpZd1pZVUYwL0ZlMS85LytjMEFIZWd6NFdQSlU4VXpa?=
- =?utf-8?B?OXhXYnY3Qm5iTDBsOGhsdTluekxTR0EzZFYya2tlU2dvcHBBNitYN1owdDMv?=
- =?utf-8?B?NnIzWnNZN2pMVjh6akxsdDRzNFVQeS80aEJtbHpYeWZCTnNMeDR5d0VHN2pG?=
- =?utf-8?B?UTFKRDhUMWF3TWtHVDB1cnNvRmhZZG9WWVM4bTN4Sm12VVdqN3A3ellSSjRz?=
- =?utf-8?B?bWY0WGxxa2w5bmJuK05kdnlDUWE2bkVNQ1grazRpQVlMRW1ONDJtbVdGYVUv?=
- =?utf-8?B?aE5rS3VncTYrT1lObUg1NlI0M1ZtcHByaXpiYmt6ajlhUmpYSnEyenVIaFdj?=
- =?utf-8?B?V3NZaExnWk9GdFhWZTRGUVlsYUpINEEwR05HZjV3aERNb2F5VVNGYWtLZmN5?=
- =?utf-8?B?VitsdUpJbTNxWlV4ei8wYzhjMGtMdExPSU80NXV1TE1OZzlQYW10aFQ2Ymgz?=
- =?utf-8?B?NXl3MWlYYnczUUlyK1F1VE1LdEkyQnFzdnZXb3I4LzZsS3h6REdiM2xQK3VR?=
- =?utf-8?B?UGpISEZxNXd0MHJuMityTDkrekZRNmN0VnZiMmkrOWJZZU5pMTRjdEpUNys0?=
- =?utf-8?B?OGxvTVE0RHM3azlDTUVsOXRFRWZRZ3hWc3IvdktSVHR1aEFlRit4V3RNbDUr?=
- =?utf-8?B?eFl0OCtpdnlTbnRJYURjdTFkWUh0bnVldS9adlBKSmRKQTE4SjYra2JtMll2?=
- =?utf-8?B?ZGpWM2RNbUtReGVkWlQ1R0NNNFExa2pPUGJQcks0ZkMrNUc3a3VRNmYveXlO?=
- =?utf-8?B?a0Q1d1RiZGU5UXY3dFk5MmdaeTlNQVVxM2xrT2QyWFdnYVhBYmQ4VmNsT1lK?=
- =?utf-8?B?Vy92N0w4d1hXdTZTNmxYemoyVGloR1dGUG8wdzFuWWhsY0Rack1lRS9qZVNl?=
- =?utf-8?B?a3VyU2orWjllNnphYlhpWC9IZGZVeDM5eHR5YTVEdVk1SnV0djM5dkNwbzZ3?=
- =?utf-8?B?eThOSEtmcENxU2RvV2lMNFFHMC9TSXRKWEZNdlN6MW1lR0pMYXlqT0graU5J?=
- =?utf-8?B?dlpyNHNhZEM3UFdJRUVOOHhiUXRiQkxNNldQSGJTdTVXYU5aVm1uL29JTloz?=
- =?utf-8?B?NW9KQzBEcVZVSWR2T0NEeG9VV3pSSENFWld3eGFTOHhHYWdkVjEyaVFPc21T?=
- =?utf-8?B?dHg5K1hjaTRRMHRMSlE0L3M5ZzQ1MU4ybkZacmM4dHJqRlcyNThnR0owMy9j?=
- =?utf-8?B?ODZPOGhKZW5jWTBjcmJUeEpDWFovQzJaN2szaG15c3lvMGk0bHVPdXdHeHAx?=
- =?utf-8?B?WlRZRTM4NklOYi94UGcxYUZyOEhzTmEwQXhMMm11M0pmSzE0Wk1GMmlpOHRN?=
- =?utf-8?B?TmpZeVJEUm9PZTVnYnMzSGtXVlNGZ3A2Y3dPVVMrMDFMR1RjQ3g1Z3QwODRx?=
- =?utf-8?B?VWtUUHNrNGN6ZXNsQ2ZjaDVlN1lDM1E1VWtRbCtPSkdlNFRnb3BrL3NmSVB1?=
- =?utf-8?B?WXBxZWNRZG9NNGl6alJoNGc2VE1CU2lKeWEweVE1anU3ZDNaWDlSZ3doN3h4?=
- =?utf-8?B?QS9BbGlsOUl0dzhQWE5qMERwOTJxRU0yZkVRUzRQVExlR01STEszMGRnZDdY?=
- =?utf-8?B?ejA1TG1McVkzRExETVNDNGdWcnV2SysvUWdxR1BpQmw1YkRxcVB0R01SMXJz?=
- =?utf-8?B?dTkzcklNcmhpY0R1Z0ZhaWl3UVFSc1BqMExJeFJGc055V1haQXJVaE4xVEM1?=
- =?utf-8?B?d0N1WVc0eFpvaTM2dzBHdjlMQ0t3aFNCU0pONnNyS0ZLZWxZcWFFM3dNVE1v?=
- =?utf-8?B?WmN2NmV0TjJKcGJ0L3RNS1hmZUNEbkZSVjJkdnNPOU1jSGpTMmNMRGhwTVJ6?=
- =?utf-8?B?RDRKK0Q3cVRFaEJZUUd5c1dCZWpWS200V2Q3c0FwMFhFaFJRV1A5dTRjZ2xk?=
- =?utf-8?B?VG1haGdoNFpOc01PdzMxQ3JBbjl5cUdJV2p0QkJoNFUxUk0wZ1ltYWVvVFlG?=
- =?utf-8?B?anJxeG44Z1NZNDlscGxBV3RRYkRhcDNCOWQwcEJVL0hzczN3VDNJQUFrUDlB?=
- =?utf-8?Q?0DQtjrxfhVhGY6zODP?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 016ca277-4996-48e2-d73a-08df3955bfbf
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 02:54:16.3245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 20SvAPjdF5M2AqeYGVyu5VXSAW1ZU7/wDMrHa1caVgLo8F30HD09S+MFEl/i3WAn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7531
+Content-Transfer-Encoding: 8bit
 
-On Sat Oct 31, 2026 at 10:13 PM EDT, Gregory Price (Meta) wrote:
-> Memory hotplug rebuilds zonelists in place while allocations walk them,
-> so a zoneref slot can change between two loads of it.
->
-> zonelist_zone() loads the slot with a plain access.  The compiler may
-> load it again later instead of keeping the zone it already read, so a
-> caller can check one zone and then use another, or the NULL terminator.
->
-> Use READ_ONCE().  Callers that take a zone from a slot and keep using
-> it, such as get_page_from_freelist() with ac->preferred_zoneref, need
-> that single load.
->
-> Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_=
-zonelists")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  include/linux/mmzone.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
+patching functions like patch_mem() and patch_instructions(), maps the
+target page at the per-cpu text_poke_area, write it, clear the PTE and
+then flushes the tlb using flush_tlb_kernel_range(), with interrupts
+disabled. flush_tlb_kernel_range() on SMP nohash (e500) does an IPI
+based TLB invalidation i.e -
 
-LGTM.
+	smp_call_function(do_flush_tlb_mm_ipi, NULL, 1);
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+...which will wait for other CPUs but with interrupts off. This can be
+caught by lockdep with the following warning:
 
---=20
-Best Regards,
-Yan, Zi
+  WARNING: kernel/smp.c:917 at smp_call_function_many_cond+0x430/0x818, CPU#1: swapper/0/1
+  CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1-leds-v4 #1 PREEMPT
+  Hardware name: Turris 1.1 e500v2 0x80211051 Freescale P2020
+  Call Trace:
+  [c1915bc0] [c001be04] flush_tlb_kernel_range+0x2c/0x74
+  [c1915bd0] [c001ce2c] patch_instructions+0x1b0/0x318
+  [c1915c20] [c003113c] bpf_arch_text_copy+0x5c/0xb4
+  [c1915c40] [c01c3398] bpf_jit_binary_pack_finalize+0x28/0x8c
+  [c1915c60] [c0031770] bpf_int_jit_compile+0x5dc/0x758
+  ...
+  [c1915dd0] [c102e114] ptp_classifier_init+0x30/0x4c
+  [c1915df0] [c102d3a8] sock_init+0xc8/0xe4
+  ...
+  hardirqs last disabled at (3076): [<c001ceb4>] patch_instructions+0x238/0x318
+
+Josef confirmed that this was causing a hang (deadlock):
+    I think this is why the CZ.NIC Turris 1.1 hangs early in boot with
+    CONFIG_JUMP_LABEL=y. On 6.18.44 it hung in 19 of 19 boots and booted
+    fine 9 of 9 times with jump labels off. The hang comes while static
+    keys are patched and modules are loaded, nothing is printed and the
+    watchdog resets the board. OpenWrt keeps jump labels off on these
+    boards for now.
+
+...which is possible if both cpus are doing similar operations with interrupts
+off and doing TLB invalidation using IPI.
+
+Broadcast TLB invalidation is not needed here since text_poke_area is
+a per-cpu area. It is mapped and unmapped with interrupts disabled by
+it's own cpu. The only reason I think, if we would need a broadcast tlb
+invalidate is, when we want to prevent a stray or malicious write to
+this cpu text_poke_area by another CPU. This generally gets solved with
+temporary-mm path like how Radix and even x86 implements. However, booke
+doesn't implement that, so for now let's ensure we use local tlb
+flushing for correctness.
+
+Fixes: 49e3d8ea6248 ("powerpc/fsl_booke: Enable STRICT_KERNEL_RWX")
+Cc: stable@vger.kernel.org
+Reported-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Closes: https://lore.kernel.org/all/20261026195644.16384-1-pepe.schlehofer@gmail.com/
+Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+---
+ arch/powerpc/lib/code-patching.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/arch/powerpc/lib/code-patching.c b/arch/powerpc/lib/code-patching.c
+index 44ff9f684bef..6351342fa5c3 100644
+--- a/arch/powerpc/lib/code-patching.c
++++ b/arch/powerpc/lib/code-patching.c
+@@ -276,6 +276,23 @@ static int __do_patch_mem_mm(void *addr, unsigned long val, bool is_dword)
+ 	return err;
+ }
+
++/*
++ * The patch area is per-CPU and only used by its own CPU, with IRQs
++ * disabled, so only the local TLB can hold an entry for it.
++ *
++ * On nohash SMP, flush_tlb_kernel_range() IPIs the other CPUs and waits, which
++ * must not be done with IRQs disabled (see smp_call_function_many_cond()), so
++ * flush just the local kernel (PID 0) entry.
++ * Book3S keeps flush_tlb_kernel_range() which doesn't IPI here.
++ */
++static void flush_patch_area(unsigned long addr)
++{
++	if (IS_ENABLED(CONFIG_PPC_BOOK3S))
++		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
++	else
++		local_flush_tlb_page(NULL, addr);
++}
++
+ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+ {
+ 	int err;
+@@ -296,7 +313,7 @@ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
+ 	err = __patch_mem(addr, val, patch_addr, is_dword);
+
+ 	pte_clear(&init_mm, text_poke_addr, pte);
+-	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
++	flush_patch_area(text_poke_addr);
+
+ 	return err;
+ }
+@@ -488,7 +505,7 @@ static int __do_patch_instructions(u32 *addr, u32 *code, size_t len, bool repeat
+ 	err = __patch_instructions(patch_addr, code, len, repeat_instr);
+
+ 	pte_clear(&init_mm, text_poke_addr, pte);
+-	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
++	flush_patch_area(text_poke_addr);
+
+ 	return err;
+ }
+--
+2.39.5
 
