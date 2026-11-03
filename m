@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701611;
-	b=XZbetodK2JkyX3+g8S8gQXk8VKhBtyL6CszgGwRyxPuF9gwSMsIEnr+CLCWpgboC8hDC
-	 YYG5ShIoe1d9sWTiMe/GoX1SkxeMepZ8GS/goYT43ptcRwwJQou3gegr93DIG1YW2AtZn
-	 W49mKVHZHvZdoC8FE+o7aiNIUSv5ZKMXlU/X+3zwrhzTA3SXI3YnnPipn/qBAWT0Exi34
-	 t3dxCYIX6gtnsNgsL8su07P+5QtvLzpykc4f+HO+lrEOyzyvbZkoU/5QCVUR8D9qP8KoL
-	 Eb2PSkQwaM2hoee6UHXfTyMbZBzhnIsKItbKcq3HQYvUP0LhH454HyOqFNGYOhyZvgA==
+	t=1793701608;
+	b=rkWRM3FJkdz3Dh/TuNKzmNmd7GyGXWYhQ2bn/GcX+Kug14tEdQdmNDrb2jaXjTuhKwPv
+	 U2eDOBOAyPPK7JvKmG5EZPTBkZfxR1F00QNvKvVSHjdRxDNDJrEFEhLqIKkl+UhcZtHkm
+	 cGI+e1XimuzyjMd6xN8e4P4DKOSmcTv+Z68xjXsWR7iaxp86kjwqq4LbgH4pPUGyStUjc
+	 0SJrPd7G3kF+XyuRDpzsRlK8IhMtNq1YAFO14n3QzXdcOD/Ikt6flzhb1FoNY+XXNljlq
+	 7N5x2n1SXcNsjFBQ3085fEAIbWiTXam0h2WDrf8l+pohYi2JjSFz6Yf9LSQ5+bzxnQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701608;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
-	b=D1rRtjTg/QG/kZMlW9d3ygUfNvOA55wX1HXftx9JxV+wRSES2EaIhFE3sjVP2BD+Pnlj
-	 7HP/grgbOJ9Bo8YPzNfrX2MJal9aWgvCzGtwcESVLUp17FWsd+ysAeuEQYrjSOzOSuW5S
-	 AyjqnvBYed4O77+nPVtGuOPYBQWut5E46LwmJTWOSzAi6PhMKnwUQajg60AFYKtNoQT6C
-	 uFRf3VWUMPMp6Bem3uJPusXpi1rY7UQ77z6TN3TpGwXeFSLtiWaF0GE7GPAyI2pF10PH+
-	 LwApG9Xy9N0Kabh5CuWzuXsEuNqkkxSu5gTK6RXQJJhPu1RB0IswVwYOOHL5hQxlVuA==
+	bh=mh8rt69uVGWEk6uWexYeiT3eBD3jutwzkgfGqG2cZjk=;
+	b=Uve3VkuT/vFJa91ZbTnOF7QViVs8T/Uo9nGYP/Ki/8awCCuNsrPgRixl81ZhFzKKeF4K
+	 WV7t3RiLGDT+44NTfDYEqTxjmgwjumboM8HP2axGnAScJCdSlb/Xyji4a9K9xFW4lODCf
+	 zzbT1LkEl+h9tkqKLhyXCXkPl29SU2hdnvUj3tUH2bjJsvQyxfjdUjq1XS1L9Hjw3y+ty
+	 nDKNU46opjt2Xk/QNW8PaTYfecxyO4i8m4s0JWJftaYc1vvI0NtCJgffucy4/3BEquJIb
+	 yVa5/6RQXhjFTtd0mO0tbDev9HPqRkN2gvfC/8tP93YA6OHk1er7XRXpadRUV4nJJkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gj7/7uaW";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzT1jeAs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F4C606FAC1;
-	Tue,  3 Nov 2026 10:26:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBA660711C9;
+	Tue,  3 Nov 2026 10:26:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gj7/7uaW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8941F000C1;
-	Tue,  3 Nov 2026 10:26:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzT1jeAs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7F61F000C1;
+	Tue,  3 Nov 2026 10:26:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701610;
-	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
+	s=k20260515; t=1793701607;
+	bh=mh8rt69uVGWEk6uWexYeiT3eBD3jutwzkgfGqG2cZjk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gj7/7uaWPD8l6WCj0nkt/dxqvS9SCyLl9TTQbG6hPZEVvTZ5+7uEmWYcgQJ5VNW61
-	 SFuhU2qByE2lKcYuC9ggyHv94fyQv1Id3fNfwGTC5pJIHDQ4kAWNm1hq+YRueNuW18
-	 o62P3bhO4pwqnKEaIO1omu8NR6FFii2r1WSUKURfTr4FEE+IVgiXjkkGoOXQ+daLxZ
-	 lmMZ9M96hfu5PwTjnR2zxMcf47/LpDluWegzpGbV3fcPARsJmh51jtuBIzYjW8/Z6l
-	 1KKvF5Hw5S0frWh36GQhe7TKp9GY8ihe3Vf4QZlh3eGV8gwn7DqTjJSxH8kvKmgOdx
-	 ZnI/XJh5NZ6Ag==
-Date: Tue, 3 Nov 2026 11:26:48 +0100
+	b=UzT1jeAsUM7d5M2D7w1HsM2VkaMnz8fOp/0fKEJlQj82DnbVW3NNj7B+QklIUIOTj
+	 bKwThRxnXyQL2BKaSXqeWJPhFIAYmCaAnYzEVEgXChQDLcOhkSgfA3cKakAdhpl6WP
+	 bvRfUtfGsnu2l6FhGr6gE78CxQH/xqofEJqlS1xhI7wNkzatTVUvzl2f9KUDKBQXj8
+	 7ug5wa5kyr9ONeSENr0kbKcHluQ5H5SzIzL2Pz4Qk6uQN2fIlhmsf0RdPbInrRmItH
+	 QrmgfyZC0ox4Ksv+oicTaaV8zMmkFozKNKBFV+kR0qRMy2592fLsgKUqj2h2kHzsar
+	 OlZuUuIm+C9nw==
+Date: Tue, 3 Nov 2026 11:26:45 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, Devarsh Thakkar <devarsht@ti.com>, 
-	linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: imagination: Release m2m device on probe failure
-Message-ID: <20261103-tiny-centipede-of-fragrance-a21f0f@quoll>
-References: <20261103094617.1289402-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
+Subject: Re: [PATCH] media: cx231xx: free the rc device if IR client creation
+ fails
+Message-ID: <20261103-meerkat-of-unmatched-unity-fb507a@quoll>
+References: <20261103094623.1289509-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,28 +59,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094617.1289402-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094623.1289509-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:17 +0000, Wentao Liang wrote:
-> e5010_probe() initializes the mem2mem device after registering the v4l2
-> device. When mapping the "core" or "mmu" register region, requesting the
-> IRQ or getting the clock fails, the error path jumps to the
-> fail_after_v4l2_register label, which only unregisters the v4l2 device.
-> The v4l2_m2m_dev allocated by v4l2_m2m_init() is not released, so it
-> leaks on these probe failures.
+On Tue, 03 Nov 2026 09:46:23 +0000, Wentao Liang wrote:
+> cx231xx_ir_init() allocates an rc device and hands it to the
+> ir-kbd-i2c driver through the I2C board info.  It then ignores the
+> return value of i2c_new_client_device().
 > 
-> Release the m2m device from that label as well, so that every error path
-> taken after v4l2_m2m_init() succeeds frees it. v4l2_m2m_release() accepts
-> a NULL pointer, so the v4l2_m2m_init() failure path is unaffected.
+> If the client cannot be created, ir-kbd-i2c is never probed and its
+> remove callback, which owns and frees the rc device, never runs.  The
+> allocation is therefore leaked.  In addition, the error pointer is left
+> in dev->ir_i2c_client, which cx231xx_ir_exit() later passes to
+> i2c_unregister_device().
 > 
-> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Check for an error pointer, free the rc device, clear the client pointer
+> and return the error.
+> 
+> Fixes: 141bb0dc2d0a ("[media] cx231xx: Fix i2c support at cx231xx-input")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/platform/imagination/e5010-jpeg-enc.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  drivers/media/usb/cx231xx/cx231xx-input.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
 > 
 
 
