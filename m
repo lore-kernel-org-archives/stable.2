@@ -1,68 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721036;
-	b=oxloFe9ufZaAfA2JkJTuwUaWCrb4jonzMOBP9UBtNF08ZzcH6lVDR9aEJZFGiNsjNHty
-	 1pn0eUJ1030mH2HH/l8o3AIrpqmq4KmjuxV91DJDKu+GSsdM8wry7cuRi2m1nLizFIt4n
-	 XThWp38wcBqngdPGS7VHVt8GCmt+O/yDwEC0JqSD+LLW8v02+yVWZLEpWzWp86FqGtPmQ
-	 X7fptB+SKOIWA1iCIrbtI3bOr8VVPt9AxAs0Oicjih/1U2Ri2aFYEAa+hncMIaqW19GtL
-	 ibA9ESuNtHv+ky6SXzDD4TeYPOmr6WqDz9MJrWRarNGT1x9ppVxg9qGkHZQAHZEoXGg==
+	t=1793721337;
+	b=fF8a31zooUNLkufEWHdY4xkzbIF9dON5THu3nPZLNunAJtw66F1PFcrkicRytgZe0kst
+	 X2vP051hcL0hNpHpL8brrI8vO8/Fl1hwMqkBkW24RJgjMkRTfcloLJgNzLy5tnz2sxSDR
+	 mpOGbGXX4ja9FIIoxOkl5R1tqsyEEwryFMSFlFLRt5UPxeO4p/QXQs0RWoWH7w9L6m2kY
+	 jAqkwz5lbtzQlFXWlAEavjNW3iKQ0SBZ0zJoc225aa3cY0kntxJFBOInMpoDj/+6KXU3l
+	 HNHx1e2qBQ9rzejo2VYQ3WPLM88V8JuQ5PAmdu6zX1PuHL998CwmX8CzxcyqE3952FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721036;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
-	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
-	bh=jUuh6/lKK6xw8cS+kh/8Cmw6Ho/ruTgSGsuvxXQIYO8=;
-	b=I4kbXnMQsgS+7Ovx5T1YhpHL+G3Bylpywd2QrCzvLun4ZLGLRyQ6GKftK5LD7Sh7l6dK
-	 4aL28RAShOAdpZfYq3WZswv1XUPiAiSUYWRDKPxSaeIz9mFYN0L6UAbCK+drCT63xaAVy
-	 OwvL565pv2hFf4SKsx/nh5/55W6fKD5kop4tt4Fulqu+/WKNkJ+Sb+tYuybvv6TBKrdbk
-	 t/MCbez4quJt1mZeRCn7CBfSVS0v0VnP31oiKk/kBEVfBEgaArTrtC22RM0m/vMrMoHqk
-	 lr4zPdMY+sw/Ehss5b5IfpgRCju+QrT3Gvp7r/jX7bSWwzFHXYEdT+as+ZLJvIqGjqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721337;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id;
+	bh=51SEO4048CcIGmXyjtUUic875OlVRlby5kKbf9R4uDg=;
+	b=lvwHW+euXwfPbh/brkZN85dTJcawAmhI7v9mghaQ5g2SYkXjaQvF2CdPJwAB5s5KPJUo
+	 wlhoShcTc+8GdZ+xxDcbWETym8SMaRAReoLD+cDz7NeKWzlv/EPF746s1aqGrumazR5Km
+	 GsDmfB8Od4dOfkNrGS5uTn2e7FBgDkYQheqpOMQawOpJYYGLhStLZYpChnTY/OAA3WV+1
+	 4UsuebVJhoQ/6JB5/AsprmXMzEBDbgnGQTVPKPKJwkF+kEc6Q0HDXN56qV8LyVn044x00
+	 emZSTBiQ+16DrwmvLSkfcSc/tE8g5iK9FERC389AiePW1FcVmLWKhkvXisgbdoxNaUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Y4X99kLo;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0dsoaV12;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cdSUDBKk;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0dsoaV12;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cdSUDBKk;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF14606A328
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:50:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DF14606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE17606A33E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:55:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BE17606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Y4X99kLo
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103155032euoutp02ba9b6f9493bb3e918b32151d24db8c39~kk8abNe3k2108221082euoutp02R
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:50:32 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103155032euoutp02ba9b6f9493bb3e918b32151d24db8c39~kk8abNe3k2108221082euoutp02R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793721032;
-	bh=jUuh6/lKK6xw8cS+kh/8Cmw6Ho/ruTgSGsuvxXQIYO8=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=Y4X99kLobsyhQQc72bZN6GGWortvk3vdo9DBZoftuF5RFBNpQxCmCagZOLKawFJtz
-	 a5NkKdzx18Gg2yJNSHPbW0/diNAmKTA51VJuE8JXhxB38OAy2IFJkiOtdeUDShhji1
-	 6/9umFtZBTLDWQFheFJyeWTFVTMzSm6rohN7XvN4=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862~kk8aFg2gt2502125021eucas1p1S;
-	Tue,  3 Nov 2026 15:50:32 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261103155031eusmtip2766ca655008c9ad0bf3b91d2b60bdbd5~kk8ZpZzNZ2102621026eusmtip2L;
-	Tue,  3 Nov 2026 15:50:31 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
-	<robin.murphy@arm.com>, Claire Chang <tientzu@chromium.org>, Konrad
-	Rzeszutek Wilk <konrad@kernel.org>, Giorgi Kobakhia <gkobakhi@asu.edu>,
-	Michael Kelley <mhklinux@outlook.com>, stable@vger.kernel.org
-Subject: [PATCH] dma: swiotlb: Round restricted DMA pool size down to
- IO_TLB_SEGSIZE
-Date: Tue,  3 Nov 2026 16:50:15 +0100
-Message-ID: <20261103155016.1107958-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0dsoaV12;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cdSUDBKk;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=0dsoaV12;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cdSUDBKk
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 7AECC1F7B6;
+	Tue,  3 Nov 2026 15:55:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793721335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=51SEO4048CcIGmXyjtUUic875OlVRlby5kKbf9R4uDg=;
+	b=0dsoaV12OKhjW5AgmWpY1tpVTWJhbBeCPsMWjNtD9Rl2tohlfjLPWHZj1iXZi/BNQSLdnP
+	nNacnvhx7vlbMeE0VKOM/hYbBo72rcpcMi27j6P8phVwDTtO89UJ9cvXCzsW8LsQ1ll9pL
+	K+QKIS03UlWCj2OtRZaPhwM8zeqMxEs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793721335;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=51SEO4048CcIGmXyjtUUic875OlVRlby5kKbf9R4uDg=;
+	b=cdSUDBKkR9tj23vDwxAR7fl/g820rnWzirhdNnrBvhXUb4Ep3dfUP82+TcoEgvSwpGdOHA
+	uf7vig74WADD/rCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0dsoaV12;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=cdSUDBKk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793721335; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=51SEO4048CcIGmXyjtUUic875OlVRlby5kKbf9R4uDg=;
+	b=0dsoaV12OKhjW5AgmWpY1tpVTWJhbBeCPsMWjNtD9Rl2tohlfjLPWHZj1iXZi/BNQSLdnP
+	nNacnvhx7vlbMeE0VKOM/hYbBo72rcpcMi27j6P8phVwDTtO89UJ9cvXCzsW8LsQ1ll9pL
+	K+QKIS03UlWCj2OtRZaPhwM8zeqMxEs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793721335;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=51SEO4048CcIGmXyjtUUic875OlVRlby5kKbf9R4uDg=;
+	b=cdSUDBKkR9tj23vDwxAR7fl/g820rnWzirhdNnrBvhXUb4Ep3dfUP82+TcoEgvSwpGdOHA
+	uf7vig74WADD/rCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 191D2134B8;
+	Tue,  3 Nov 2026 15:55:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FFCeLPYD6moRXAAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 03 Nov 2026 15:55:34 +0000
+Message-ID: <ec9020b5-28bb-45a5-89d7-e64e804769de@suse.de>
+Date: Tue, 3 Nov 2026 16:55:34 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,73 +108,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
+ deadlock
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
+ simona@ffwll.ch, javierm@redhat.com, louis.chauvet@bootlin.com,
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20261102143919.1672293-1-tzimmermann@suse.de>
+ <auioL8zR9O5u4TCF@intel.com> <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
+ <aujFSzHEv5pAfHPf@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <aujFSzHEv5pAfHPf@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
-X-EPHeader: CA
-X-CMS-RootMailID: 20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862
-References: <CGME20261103155032eucas1p10934ce1bc0c0e2f1fa86891fb2626862@eucas1p1.samsung.com>
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,gmail.com,ffwll.ch,redhat.com,bootlin.com,lists.freedesktop.org,lists.linux.dev,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.de:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.50
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 7AECC1F7B6
 
-All other paths creating a swiotlb pool ensure that nslabs is a multiple
-of IO_TLB_SEGSIZE, and the swiotlb code relies on that. Since commit
-0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization") a
-restricted pool can have an arbitrary size taken from the device tree.
+Hi
 
-If the pool size is not a multiple of IO_TLB_SEGSIZE, the last segment is
-partial and swiotlb_release_slots() reads mem->slots[index + nslabs],
-which is one past the end of the slots array when the freed buffer ends
-at the end of the pool:
+Am 02.11.26 um 18:15 schrieb Ville Syrjälä:
+[...]
+> But what I'm thinking is:
 
- BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
- Read of size 2
+I've ran a lengthy session to explore various solutions.
 
-Round the pool size down to a multiple of IO_TLB_SEGSIZE, wasting a bit
-of memory, and warn about it.
+> - stop with the explicit cancel entirely and just rely on the
+>    timer cancelling itself
+> - try to start the timer in vblank_enable(), and if that can somehow
+>    fail because the timer is still running it should be fine because
+>    the self cancellation should anyway have been aborted
 
-Reported-by: Giorgi Kobakhia <gkobakhi@asu.edu>
-Closes: https://lore.kernel.org/all/20261026032007.1957949-1-gkobakhi@asu.edu/
-Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
-CC: stable@vger.kernel.org
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- kernel/dma/swiotlb.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+Having an old vblank timer still running while enable_vblank sets up a 
+new one can mess up the hrtimer's internal ordering. It's full of subtle 
+bugs, according to my LLM.
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index 2c57b49ac7c0..a68f35192582 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -2007,6 +2007,19 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
- 	 */
- 	if (!mem) {
- 		struct io_tlb_pool *pool;
-+		unsigned long aligned_nslabs = ALIGN_DOWN(nslabs, IO_TLB_SEGSIZE);
-+
-+		if (aligned_nslabs != nslabs) {
-+			dev_warn(dev, "Restricted DMA pool size %zu is not a multiple of %lu, rounding down to %lu bytes\n",
-+				 (size_t)rmem->size,
-+				 (unsigned long)IO_TLB_SEGSIZE << IO_TLB_SHIFT,
-+				 aligned_nslabs << IO_TLB_SHIFT);
-+			nslabs = aligned_nslabs;
-+		}
-+		if (!nslabs) {
-+			dev_err(dev, "Restricted DMA pool is too small\n");
-+			return -EINVAL;
-+		}
- 
- 		mem = kzalloc_obj(*mem);
- 		if (!mem)
-@@ -2034,7 +2047,7 @@ static int rmem_swiotlb_device_init(struct reserved_mem *rmem,
- 
- 			mem->cc_shared = true;
- 			ret = set_memory_decrypted((unsigned long)phys_to_virt(rmem->base),
--						   rmem->size >> PAGE_SHIFT);
-+						   (nslabs << IO_TLB_SHIFT) >> PAGE_SHIFT);
- 			if (ret) {
- 				dev_err(dev, "Failed to decrypt restricted DMA pool\n");
- 				kfree(pool->areas);
+
+> - explicitly wait for the timer to have stoppped in drm_vblank_off()
+>    to make sure the wrong interval can't leak from one mode to
+>    another
+
+I'll soon send out a series implementing this idea.
+
+Best regards
+Thomas
+
+>
+
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
