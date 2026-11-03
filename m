@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793714182;
-	b=OnbQxYT11NxHoekB+4AQ7BDTHAFBlDV7HapNOLC6p1f8VXsSto3HEGS582nUQdLQPEZj
-	 3GYCY/kTwBRTk9YXfE6No7WYdBqtzOpdc7dslkusYcy5vnqU9kkIRTZ7lYGwgYXBTXvVL
-	 QkXPwZtm97wgf/5RwQGKS2sflsai1oIPlBwnEyxqYtmO7wwQtMUBafHw9OKeLQjh/PWN0
-	 NWf7oIQT1PRxEYQFrCXsGiYFGaE/bCvDgIcq5CigsseED/XnzHOpDY16UvSRSWRlwn+WT
-	 p/rrg5uW5UfD5YZ7zcJEriRgwD5gI/pj8D7H1/LAkQ/PHfZy2/y3VneH7WDo+ZOWecQ==
+	t=1793714197;
+	b=X79ObV2qnfjNq4Wsu/aXd09m+4a/5zBSLUE/SR/Q+RGJDiANn7J9DT2DcZBPXP4v/Kme
+	 IvO9cGz5Qf7RQSPkku8rSOSYufD2DXdVBqVFBetb3IYMoyNWV0baII4LpizqOpgIOyG6z
+	 aCNHGS5vL9wASKUPK5Bm2dzknPmFDUgv8s+iMFZOJlMfRWJHT8IdjYLWNimSwQFIsP8pd
+	 frSQf+Xq2iUDge2VuJ8V+ylw8yLQEghjC17O9++6FAg/EXaQsV9ewdawRzaFfGAdJPPmK
+	 Z05K4v43qxHcHn+7qbZDGxAvOV3jn68p4HVTdeAKTP71IcGilR5B6FNG2tdtRaaZpxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793714182;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=IWTHRSzeGW5fpCXVav87N82FYLK03Zsl6ESEIn+XvdQ=;
-	b=3uVXO6wKIGnG9NJh6MO27HJTow5LT7j6mS6uqtuLfF1e12B8Rxum9Qi6bzw6X2GS6EG5
-	 6OfdkpXTavBeuT+7sr5ypLt/EybOcrtVLLOP+iwEJdaDp2bhITNeXuJedejwMKCCDkNzT
-	 J225IVHXUoQ7quE3A7scrXWlqzClrnVV55sQJxsSEOT7A+zOxDcZ5rUqw9EJSJ2n2HXDf
-	 OPWJ4NcsUp1+/O5jDQuK7gzFfHI6a8XN/BH9LSpsSVTbe+OrcQUoaewU4mGaNPJBeCC9X
-	 DDBXrfltDHN8+U5FdLd0g54q8+Y1cMwxVaTOqVzFrSlYkCzGKp1oHlFiJ9G6qb5CdcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714197;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=R+Lz59YAmE39OMTr2JsinbD50rhC0BRWVoCOCQ0iRIk=;
+	b=RTNxwS9lyoOCfwlmmV9J/L5K1zl6DrsTA7+qYLOg5eP2FoaMC9BDHl2/1iAuqS98WaxF
+	 1K37ly5FW5N7q6UmvaL491Y8vJNaJO9UGNuDg8OhNAieB9aV+nI90PqmlLiFyDAJElsBR
+	 115YHlPfJpg2tcEMtHZC3VzqboxR9wr/gx0kGcovTd/XK2p6zHkd+NPV96cPSGbUfP5IZ
+	 yP7pe111LOKnjnBIMHikDMUxWgxE+ovVTYl9tc4M4j6ag5EKdakrSgHMnkxo1M7x7KR3G
+	 kypoxuHUYB/pJcw6YmKLI1xa9ArFXCj3HoWdLUZs4DLE1+6FNG6ayRiKBfIKmM1/WNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2WprqqPW;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRGVRqwi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1F1606A32D
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1F1606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41EB5606D834;
+	Tue,  3 Nov 2026 13:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2WprqqPW
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B6E564E413EA;
-	Tue,  3 Nov 2026 13:56:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 721F86046C;
-	Tue,  3 Nov 2026 13:56:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A9856103291E2;
-	Tue,  3 Nov 2026 14:56:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793714176; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=IWTHRSzeGW5fpCXVav87N82FYLK03Zsl6ESEIn+XvdQ=;
-	b=2WprqqPWwIE4yMtpFdjcdwLq29XhBfaKpiYIEBYic/gByEZ+zv06NYLU+a5QT47FTvvXw0
-	B4tzlkM4QQu8XwHRvp5uyInplg8m64tUM32MzDmXxc1a+aFV4DbT2pcUJ3v4gFAwIaOq7H
-	JzR7FzHplqg4p53/K9IZCWjljox1SwLknQErThZkivVwvstHC7JSJ2uQFPt8ly3bKLd5F4
-	sVwlQIPReYAvCji0ZfBLwqg+zMbCBjkSNf5XAPVZMUgymzjCjGXa1ly4+jnX0up9SKKRMF
-	7kI+GWt1lAdr3JBtQ6yrECS1EBVtaExy9TtMr07qQGl9JNBw4WyPJx7Kl17MgA==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRGVRqwi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2751F00919;
+	Tue,  3 Nov 2026 13:56:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793714196;
+	bh=R+Lz59YAmE39OMTr2JsinbD50rhC0BRWVoCOCQ0iRIk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PRGVRqwiv6MTZLxMLY48nxHMWgsFAcHVQqSjW+03fKfFTsD8J7XY+8asguReA4+9l
+	 snQCwXIRcT2lHftHDW+j+YdpQHpcc5srRgKCGzH6x7BSYlcdDB49Kos+3hHbpdzNHk
+	 ASQNL0hGSSQY8OOqCvRS9PE4W/Hqayx/NDf8tVmYbRwktPhqDcX3R1fu7bbqxvp0xj
+	 31mVkymrskroU2Jha52BCjuf0QoIlRgezvjuUqnDqHgkLwSsHxQpe7qjkntoITzsP/
+	 MEwiv1hroVCqQKqyz0xcFcAdk1qJYylCzNHzOedSkkEI8WnvGjfAuAD3gXRsrICO/K
+	 YxYPo/kMew9lw==
+Date: Tue, 3 Nov 2026 13:56:31 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Wei Wang <wvw@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	wei.vince.wang@gmail.com
+Subject: Re: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU
+ suspend
+Message-ID: <8f1ccb65-e4a2-450b-944c-9883ff12bc37@sirena.org.uk>
+References: <20261102234813.1069156-1-wvw@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,46 +61,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 03 Nov 2026 14:56:09 +0100
-Message-Id: <DMLMLTKB2QCE.3MTSUFWC3G8WQ@bootlin.com>
-Subject: Re: [PATCH] drm/tilcdc: Fix suspend/resume drvdata
-Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- "Julien Panis" <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>,
- "Francis, Sebin" <sebin.francis@ti.com>, <stable@vger.kernel.org>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>, "Jyri Sarha"
- <jyri.sarha@iki.fi>, "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Kory Maincent (TI.com)"
- <kory.maincent@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261103-v7-4-topic-am335lpm-tilcdc-v1-1-b7f91f9c9a05@baylibre.com>
-In-Reply-To: <20261103-v7-4-topic-am335lpm-tilcdc-v1-1-b7f91f9c9a05@baylibre.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6IYMj8soJ5dhvHDN"
+Content-Disposition: inline
+In-Reply-To: <20261102234813.1069156-1-wvw@google.com>
+X-Cookie: Small is beautiful.
 
-On Tue Nov 3, 2026 at 2:15 PM CET, Markus Schneider-Pargmann (TI) wrote:
-> drvdata contains a pointer to a struct tilcdc_drm_private and not a
-> pointer to a struct drm_device anymore.
->
-> Note that this breaks suspend/resume at the moment, it hangs on
-> acquiring a mutex.
->
-> Interpret drvdata correctly as struct tilcdc_drm_private as is done in
-> the rest of the driver.
->
-> Fixes: 3301302060da ("drm/tilcdc: Modernize driver initialization and cle=
-anup paths")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+--6IYMj8soJ5dhvHDN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+On Mon, Nov 02, 2026 at 11:48:13PM +0000, Wei Wang wrote:
+
+> On systems with FEAT_SME, TPIDR2_EL0 is part of userspace thread state:
+> the AAPCS64 SME ABI uses it as the ZA lazy-save pointer, and the kernel
+> context-switches it eagerly in tls_thread_switch(). While a task is
+> running, the live register is the only copy of its value.
+
+Thanks for catching this:
+
+Reviewed-by: Mark Brown <broonie@kernel.org>
+
+but I think we're missing some other registers, I made the same mistake
+for GCS with GCSPR_EL0 and GCSCRE0_EL1 and I'm not seeing where POR_EL0
+is handled either but possibly it's somewhere I didn't spot.  I can look
+into those incrementally once this gets applied (or if you do a v2 and
+roll them in that'd also be great!).
+
+--6IYMj8soJ5dhvHDN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrp6A8ACgkQJNaLcl1U
+h9Djkwf8CKSaRV2sUPe1CvYTnDySz0g3vSKK7JXAzIRm7/VW/CeVsU7qAR2VxvOQ
+os/IemWfB91LhdGiI+0r7iVCLjU8tgnMmj6w5Yj+KZU15W7QeRxeYYC7orlzQbgK
+Uy/pLapQrvXwIu7ZxyE9BlPAvKyqTe3uHhJVZHyl8sGZ0vTs4+5osA94wsUG+ouk
+Ab9Qa8ycZf10jI8DUDVsWpZyXn704V81m+PfUziecTQp1FRQad8pDLcPcLk1oYf2
+9Bk4ysiIbRYzVzi+5EFH2n6BTpKkw0nsUS6SZv2dxzX/dlmSb20Rd9kyId4WTWYS
+cmkbN8UklQLpeHEZFnpKhyVgOAtQcA==
+=zl37
+-----END PGP SIGNATURE-----
+
+--6IYMj8soJ5dhvHDN--
