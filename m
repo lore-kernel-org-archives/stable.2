@@ -1,47 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.203.187.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701328;
-	b=gUd8aS7N7wup8QBLqgeh1DSe3aj+QTfTDeeyyVPvgHCa8ARwXPIk1hA1W90t0oTDKc2/
-	 Qbe73iAPX2bK7FAX972ew4WeCjuKY5xSIE1IdZLzLixOet8RTAWBw04dz8qqP1bRW0NR5
-	 Ndw5exnltKWldqk7bZf5YKHWRkaPHBX80Z02/jCBjZAAg/djgoSCQqxbNk0n3JHb8Eiku
-	 o9xYUvYU5luVNeMePCUfk/SKqHGrnzWWDL+Y6STHyUTjaywpJpIA095rUjCs0xNh+cMzj
-	 /ikw9y8RUcSiuGxoV44hE3LMjWXIK9C1lYg9PvFdQAhmdVbbXKIKovE9UOmJLF1QcBw==
+	t=1793701329;
+	b=ctssuUS0/n4Xboxj20g3T3MxthbLEgJiSYLZQFcISZvHzyv4wGD/7qxNgPzQSrgkimcS
+	 tNSIiQk8MWIZ2ofFCHqmxlC4O6hOn5nf4Y5tSvhTyPuxG8fYJdvkvftJUkX3m+oDKAld3
+	 Eei4BxJTvIam4N6Q1rpxHqHI6+JKK2FVph8s+IMciq++1iE9L3bF04m7+qQxXhIHRap1F
+	 O+RYWOd9/Qga0b6q60exwYwXcfeI2jHuMYp1GAduqYYc1KC1RlIbku0kNmifUtGUcHyNR
+	 QlHjNrCaxjvPc6mwa4ZvhX6NcEm4k/BALMeY7KMww4VxxPGmZX3umUkYkxbxTtESaGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701328;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZyF5Kb1irDLjJed0lsOihMHRElVDPx4p95zEGyabKEg=;
-	b=jeL0CFcJF4h2zTv+qOagMtXI2QMfJKkJ+0fvm8OmAkJ+DCjjVH8OURrmF/KOkHliylvE
-	 SCV3FR7hWEePEwmdRBpN+VE2Tsev1jvLzmzx1gUn1aP3gsSCHSHs+rL30+oqUYbaGnq4a
-	 UODmOdu5hhmE2tDDoi0AB+qMj+8/n6z2yDURBG7vrJ1wRwcO2oVXa8GqQrm9WD0fz3eKx
-	 Gj1zPNhl5YXvzrY5luERvemLNmD/dqf1Ix0M+f0nyKPfQtYGJUgX7Y8ug6UJfGfX2S1m7
-	 VtUIXLCt8z0wCEkIx4/P+rakXoL8TStcg8mtPRz1ne8yabKqN7RGiGf5SqJfq1c11xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701329;
+	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Classification-ID;
+	bh=XBGYXyG+q5C5jiAPKuxNdMQjml1qU3QkBoOAjcwWNXQ=;
+	b=dr+Cf1mS8asXvKVPRt3jSuqnGk+UZQgbKUBpqGXoBj9Ooux6PLu1cOW/8/n6wRUpU9Vb
+	 QSV4seuhLfcY8ZMEKSzuA1xgZE6O3VvSEYsEp8KhZltDdKs3Wn9IvPNxukBSDMAxUSvlY
+	 L/EEJKiUzXhnlv9cYj2XoWOIKJ+ZxAkfVVyYvbWDIRXHlKJ4/AjT7JYpYMOJ3EdLBATZg
+	 hu9U6ceFw4bB5NY5yvidUCE/9KMFrnzrktbbjDmTaQHNKD9RD38vHV1I2FVZyeNYXevsc
+	 Ltktm3jzVQdQSoOEVsAgZsXp75cNJCBN3WCuv2t+TX0ZCvqxhTdeqPSD7tlLUVvzknw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1+R+17JU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=D6Xow631;
+	arc=none smtp.remote-ip=173.203.187.86
+Received: from smtp86.iad3a.emailsrvr.com (smtp86.iad3a.emailsrvr.com [173.203.187.86])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC22606EE96
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD40606D82F
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBD40606D82F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1+R+17JU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE511F00A02;
-	Tue,  3 Nov 2026 10:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701328;
-	bh=ZyF5Kb1irDLjJed0lsOihMHRElVDPx4p95zEGyabKEg=;
-	h=Subject:To:Cc:From:Date;
-	b=1+R+17JU3LINzMyB0w9si8CJMC7xxtnetGHuXPDS76pmwvfjkry3zzLTBFd1UDsAN
-	 CbQ6QMkE9/WF1WxABx65di/pkcgU3cEXrFaOf46XqNxyuaULfZSVMBUz0oD6+/DLS3
-	 M4g5nfLTugh/N3/hyDnk/dIG1t9K1LqAb70IV72M=
-Subject: FAILED: patch "[PATCH] ksmbd: fix use-after-free after a failed durable reconnect" failed to apply to 6.6-stable tree
-To: icb@fastmail.org,linkinjeon@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:52 +0100
-Message-ID: <2026110352-reaction-cranial-2386@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=D6Xow631
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1793701317;
+	bh=6BGIec/cDOqNiNea/OamAjX1uzgN4KXehG99Ixpwcb4=;
+	h=Date:Subject:To:From:From;
+	b=D6Xow631lGGCqpqeV+mIuHuV+IPC3l9DntGOIP54kZeLvDkodLu+gbL8jrmQBCBE5
+	 tjXf3JiUlGfGc2DZ8gsO+ReNHE7falFxpr60V1FpTD0JO5Gnz4+e3rXkpRNWdIDS9b
+	 7360G9xhmfG9eZkrXqsjZwAR38GE3OPdfEoRiwIE=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp19.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 0AF0756BA;
+	Tue,  3 Nov 2026 05:21:56 -0500 (EST)
+Message-ID: <64edfb9a-183a-4719-831e-c771c6eec559@mev.co.uk>
+Date: Tue, 3 Nov 2026 10:21:56 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,154 +54,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] comedi: comedi_bond: Track opened devices independently
+ of subdevices
+To: Wentao Liang <vulab@iscas.ac.cn>, hsweeten@visionengravers.com
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261103063301.1025860-1-vulab@iscas.ac.cn>
+Content-Language: en-GB
+From: Ian Abbott <abbotti@mev.co.uk>
+Organization: MEV Ltd.
+In-Reply-To: <20261103063301.1025860-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Classification-ID: 53a150ee-45cb-4729-9aad-4a6ced7252d4-1-1
 
+On 03/11/2026 06:33, Wentao Liang wrote:
+> bonding_detach() closes devices by walking the bonded subdevice array.
+> If a device has no digital I/O subdevices, do_dev_config() never adds it
+> to that array. Its open reference is then lost. The same happens if
+> configuration fails before the first subdevice entry for a device has
+> been added, for example when allocating that entry fails.
+> 
+> Keep the device returned by each successful comedi_open_from() in a
+> separate array indexed by the configuration option. Close those devices
+> on detach, including attach failure cleanup. This also removes the need
+> to deduplicate closes for devices with multiple bonded subdevices.
+> 
+> Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   drivers/comedi/drivers/comedi_bond.c | 17 ++++++++++++-----
+>   1 file changed, 12 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/comedi/drivers/comedi_bond.c b/drivers/comedi/drivers/comedi_bond.c
+> index a10cfbd04c72..ac8937550ce9 100644
+> --- a/drivers/comedi/drivers/comedi_bond.c
+> +++ b/drivers/comedi/drivers/comedi_bond.c
+> @@ -55,6 +55,7 @@ struct bonded_device {
+>   struct comedi_bond_private {
+>   	char name[256];
+>   	struct bonded_device **devs;
+> +	struct comedi_device *opened_devs[COMEDI_NDEVCONFOPTS];
+>   	unsigned int ndevs;
+>   	unsigned int nchans;
+>   };
+> @@ -215,6 +216,8 @@ static int do_dev_config(struct comedi_device *dev, struct comedi_devconfig *it)
+>   			return -ENODEV;
+>   		}
+>   
+> +		devpriv->opened_devs[i] = d;
+> +
+>   		/* Do DIO, as that's all we support now.. */
+>   		while ((sdev = comedi_find_subdevice_by_type(d, COMEDI_SUBD_DIO,
+>   							     sdev + 1)) > -1) {
+> @@ -312,24 +315,28 @@ static int bonding_attach(struct comedi_device *dev,
+>   static void bonding_detach(struct comedi_device *dev)
+>   {
+>   	struct comedi_bond_private *devpriv = dev->private;
+> +	unsigned int i;
+>   
+> -	if (devpriv && devpriv->devs) {
+> -		DECLARE_BITMAP(devs_closed, COMEDI_NUM_BOARD_MINORS);
+> +	if (!devpriv)
+> +		return;
+>   
+> -		memset(&devs_closed, 0, sizeof(devs_closed));
+> +	if (devpriv->devs) {
+>   		while (devpriv->ndevs--) {
+>   			struct bonded_device *bdev;
+>   
+>   			bdev = devpriv->devs[devpriv->ndevs];
+>   			if (!bdev)
+>   				continue;
+> -			if (!test_and_set_bit(bdev->minor, devs_closed))
+> -				comedi_close_from(bdev->dev, dev->minor);
+>   			kfree(bdev);
+>   		}
+>   		kfree(devpriv->devs);
+>   		devpriv->devs = NULL;
+>   	}
+> +
+> +	for (i = 0; i < ARRAY_SIZE(devpriv->opened_devs); i++) {
+> +		if (devpriv->opened_devs[i])
+> +			comedi_close_from(devpriv->opened_devs[i], dev->minor);
+> +	}
+>   }
+>   
+>   static struct comedi_driver bonding_driver = {
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+The problem with the lost open references could also be fixed without 
+adding extra storage for an array in struct comedi_bond_private by 
+calling comedi_close_from(d, dev->minor) from bonding_attach() if the 
+device opened by comedi_open_from() does not have a suitable subdevice, 
+or an error is found in the inner 'while' loop.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 248b5819591c577727930e4e255a455235fab50a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110352-reaction-cranial-2386@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 248b5819591c577727930e4e255a455235fab50a Mon Sep 17 00:00:00 2001
-From: Ian Bridges <icb@fastmail.org>
-Date: Tue, 27 Oct 2026 10:25:19 -0500
-Subject: [PATCH] ksmbd: fix use-after-free after a failed durable reconnect
-
-ksmbd_reopen_durable_fd() republishes a detached durable handle in the
-reconnecting session's file table and takes no reference for that entry.
-If smb2_open() then fails, cleanup relies on the final ksmbd_fd_put() to
-remove the volatile id.
-
-Two reconnects of the same handle can both take a lookup reference before
-either attaches it. If the one that reopens first then fails and drops
-its references first, the other request makes the final put through
-ksmbd_put_durable_fd(). That frees the handle without removing the first
-session's table entry, so tearing that session down writes to freed
-memory.
-
-  BUG: KASAN: slab-use-after-free in __close_file_table_ids+0x14d/0x740 [ksmbd]
-  Call Trace:
-   __close_file_table_ids+0x14d/0x740 [ksmbd]
-   ksmbd_destroy_file_table+0x76/0x100 [ksmbd]
-   ksmbd_session_destroy+0xf8/0x480 [ksmbd]
-   ksmbd_dispose_sessions+0x13e/0x200 [ksmbd]
-   ksmbd_conn_sessions_cleanup+0x4c3/0x6d0 [ksmbd]
-  Freed by task 1030:
-   __ksmbd_close_fd+0x97d/0x1000 [ksmbd]
-   smb2_open+0x14eb/0xd9f0 [ksmbd]
-
-Commit 3515503322f4 ("ksmbd: fix durable reconnect error path file
-lifetime") handles a final put made by the reconnecting request, but not
-one made by another holder.
-
-Remove the volatile id under the file-table lock on this error path,
-before the references are dropped, as ksmbd_close_fd() does on the
-request_open path just above. Removal then no longer depends on which
-holder makes the final put. The stale comment in the reconnect cleanup
-is updated to match. A successful reconnect is unchanged.
-
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index b306bc6e21ee..4dc91d4f1a94 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -5628,6 +5628,8 @@ int smb2_open(struct ksmbd_work *work)
- 				ksmbd_close_fd(work, fp->volatile_id);
- 				smb2_complete_request_open(work);
- 			} else {
-+				if (dh_info.reconnected && fp == dh_info.fp)
-+					ksmbd_unpublish_reopened_fd(work, fp);
- 				ksmbd_fd_put(work, fp);
- 			}
- 		}
-@@ -5641,10 +5643,9 @@ int smb2_open(struct ksmbd_work *work)
- 	if (dh_info.reconnected) {
- 		/*
- 		 * If reconnect succeeded, fp was republished in the
--		 * session file table.  On a later error, ksmbd_fd_put()
--		 * above drops the session reference; drop the durable
--		 * lookup reference through the same session-aware path so
--		 * final close removes the volatile id before freeing fp.
-+		 * session file table, and the error path above has
-+		 * already removed its volatile id.  Drop the durable
-+		 * lookup reference through the same session-aware path.
- 		 */
- 		if (rc && fp == dh_info.fp)
- 			ksmbd_fd_put(work, dh_info.fp);
-diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 4368e069fd5e..f9079c529d07 100644
---- a/fs/smb/server/vfs_cache.c
-+++ b/fs/smb/server/vfs_cache.c
-@@ -1074,6 +1074,34 @@ void ksmbd_wake_session_blocked_works(struct ksmbd_session *sess)
- 	read_unlock(&ft->lock);
- }
- 
-+/**
-+ * ksmbd_unpublish_reopened_fd() - remove a reopened durable handle from the
-+ *	session file table after its CREATE failed
-+ * @work:	smb work of the failed CREATE
-+ * @fp:		durable handle republished by ksmbd_reopen_durable_fd()
-+ *
-+ * The reopen publishes @fp in this session's table without taking a reference
-+ * for the entry, so the CREATE error path's puts need not be the last ones.
-+ * Another holder of a global-table reference, such as a concurrent reconnect
-+ * of the same handle, can drop the last one through ksmbd_put_durable_fd(),
-+ * which frees @fp without touching this table.  Remove the id here, while
-+ * the caller still holds its references.
-+ *
-+ * Every path that removes the id before the final put also clears
-+ * @fp->volatile_id under ft->lock, so a valid id is still @fp's entry.
-+ */
-+void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
-+{
-+	struct ksmbd_file_table *ft = &work->sess->file_table;
-+
-+	write_lock(&ft->lock);
-+	if (has_file_id(fp->volatile_id)) {
-+		idr_remove(ft->idr, fp->volatile_id);
-+		fp->volatile_id = KSMBD_NO_FID;
-+	}
-+	write_unlock(&ft->lock);
-+}
-+
- int ksmbd_close_fd(struct ksmbd_work *work, u64 id)
- {
- 	struct ksmbd_file	*fp;
-diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
-index c00d92fdf94a..a0239ec178d8 100644
---- a/fs/smb/server/vfs_cache.h
-+++ b/fs/smb/server/vfs_cache.h
-@@ -205,6 +205,8 @@ static inline bool ksmbd_stream_fd(struct ksmbd_file *fp)
- int ksmbd_init_file_table(struct ksmbd_file_table *ft);
- void ksmbd_destroy_file_table(struct ksmbd_session *sess);
- int ksmbd_close_fd(struct ksmbd_work *work, u64 id);
-+void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work,
-+				 struct ksmbd_file *fp);
- struct ksmbd_file *ksmbd_lookup_fd_fast(struct ksmbd_work *work, u64 id);
- struct ksmbd_file *ksmbd_lookup_foreign_fd(struct ksmbd_work *work, u64 id);
- struct ksmbd_file *ksmbd_lookup_fd_slow(struct ksmbd_work *work, u64 id,
-
+-- 
+-=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
+-=( registered in England & Wales.  Regd. number: 02862268.  )=-
+-=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
+-=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
