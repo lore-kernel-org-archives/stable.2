@@ -1,111 +1,110 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793705851;
-	b=tPWXEaLqDH+m2fHXg3XNr9b/km85IRqwiiUqROVKtXYgZzDOUwyvQnWxzo3Vl308Qafr
-	 f1FWcgF7FQrtx8q/iH9RaMZaVefvT5MyH/ssskPJ55r2r10HpRUsrYa5AXYTAAN6/ThXT
-	 3haL1ax4c1xEReg4MxKJbDx1SroRq+APaxz2Yr0DDar440sfYWUC9vH1+qYIc91YqogdU
-	 pJRzMQrpwc9jizmCjtTp/lyoI2DHQ9IWrLoBwsjVTtKO+5mZnUACZB5xVK6hKOc5Pqm2b
-	 rAJdtKEiA1LkcJnkX/cEkS18suSsIc2MnLRkOIXHq8QYyfSn3PZeXvK8Hkbn9kFYF2A==
+	t=1793705893;
+	b=ZA0AZsq5NUzi+8eejbo7jjAcucQ/9HzTWMpuejBcFdxCnwgMbHBiOs+U0QrsDsXlGqco
+	 rooJoOsJr81Su2IzhbK754oZMrvjNsTMWBYNntX0GolVhDdcvlb7cVUdyGpJyaskJ4KKd
+	 wV6raF0KwVfPwagXncn5valV46eWpR6h8FyBK2WkSan3Q9mtYbyYbm76SmpEWrh8JK4wC
+	 Jao2B4FSZYQQUN3IZr8+ld6ilr3IbwktJRsu+A0AyP8xPu5WswOomu0eZBhhvNx7S67Ig
+	 JxhCjJ/v8ZA6n4B7MZNeCrDWbEcO6+GmvdA5Jae4EiCzvgug4lH8e9MVIHLQZmwm37Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793705851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793705893;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=B8j92hybFHQnaobaSpqwDPNDEjwRDPEUTD3UMs1Ts1w=;
-	b=Cp7/SKiOcIflvWjV0ZGapUNLDux9CEJnLBtmpovE7WdovR73v6IN7HcBrUCazapYjO8v
-	 BYr4gge5OUyJc3cXD5L71f5FwtkPZuSwqZuesiTRMltOa7/iLmeyeYnSXbBL8/pqWpqnJ
-	 b4HTMI4BhOigcF9fyfqbvQjUPtkGXNt00bKwhbOyJvGk7TChPY0iO6AeJIsstg8rHFPpz
-	 oq/ozUICjjrg3pDWmfITNgKxJblO8jdnriAMfDSAhZB7wm6aeGv3r077e9zRptUDCLyRv
-	 86Lhy0c46UDHgJVfF7pqIxAHnoj74/3AvUM/8mo3M2ssKrAupupjDXLubdPLm8XRTfA==
+	bh=pCnYm9/ITbnI5evM1y8CyeToRvjgbq+ddnA4xUblF4s=;
+	b=TM4QiDt0MDkbP7bPVTLE7SM0cz54IPh7JVqd9AJVvXrjwUrJjutlvLfKTs55i18cJkgP
+	 qtdyb7kfdg8/1SVMMVWbwNJCYjLcGhY2IW045xAUYmj/bS1eicEgcUbbGbsrCyZf5S34f
+	 sS1i0SMg5ppD9g4b0taypSCiL7D3ZpC3pfSKhvFyDQOWxi3WpQqsHpq8rKjKioE58mcWq
+	 qUwvVPbMk5YbNdlzHln1YNqJ7olY1G+sOAftMl38wDqqQtW+8pxXlJyqyMc5G38KUs+E1
+	 /4BvLISo7/AtITIiyMFS1L83Xm20SKUFoPjxJdgdX9+NuovfRkFgrEoBgysoTErFBng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=suse.cz;
 	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=AdMzsJd7;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qcuNXjir;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=GPTxdliW;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BlsmKnRq;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="d7+X/pS0";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ASgtdplE;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="d7+X/pS0";
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ASgtdplE;
 	arc=none smtp.remote-ip=195.135.223.130
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45D460A2604
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:37:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B45D460A2604
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 333616085084;
+	Tue,  3 Nov 2026 11:38:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 333616085084
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=AdMzsJd7;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qcuNXjir;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=GPTxdliW;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BlsmKnRq
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=d7+X/pS0;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ASgtdplE;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=d7+X/pS0;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ASgtdplE
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A7D3F228C8;
-	Tue,  3 Nov 2026 11:37:20 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8F5C3228F4;
+	Tue,  3 Nov 2026 11:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793705841; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793705891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=B8j92hybFHQnaobaSpqwDPNDEjwRDPEUTD3UMs1Ts1w=;
-	b=AdMzsJd7BTY1vMsvqPR1dY9+mcRnzNWajy0kmkYRQEDKHdjhVio/T61M9GlgCzvLc2SjQT
-	opQiXlZcjdzrewnfzyNOSmhKe3fEJCNm2CJR2MPJSkbMYy05XreC5GmkxHsSpCfuh4RivM
-	ccx5lMgD7hdu+vND+5RtJj0V323s0RI=
+	bh=pCnYm9/ITbnI5evM1y8CyeToRvjgbq+ddnA4xUblF4s=;
+	b=d7+X/pS0CC9M+uSAVvmhRjU68AW0lbWddSwJL2mxwIdzVkHOuuMhONLRy1ZTqe2Xwjqz9a
+	As2MreadASrACnGsRvr0TP4vjdXpjcwjHCrzKf2m27LlEXVatRjxvOCyujOFsDNa+dmP+s
+	BVdfTmcGIjZfCjaVIK/JfT929mNoKVk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793705841;
+	s=susede2_ed25519; t=1793705891;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=B8j92hybFHQnaobaSpqwDPNDEjwRDPEUTD3UMs1Ts1w=;
-	b=qcuNXjirl4sgQyWfrimO9Uiw/TkfsMyjRKQ8ES5My4BDC4QsJuHJn7nVzzgJVgTAXNQtPi
-	/4yMJMyp8nzeV5Ag==
+	bh=pCnYm9/ITbnI5evM1y8CyeToRvjgbq+ddnA4xUblF4s=;
+	b=ASgtdplEe74VqtPmNh2CaiNyAur8jpniosj0dgN2wrjhFXtxd6hEtZd68jRvDNcPGL9peR
+	sf1CZbbLpIIqcGDg==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793705840; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793705891; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=B8j92hybFHQnaobaSpqwDPNDEjwRDPEUTD3UMs1Ts1w=;
-	b=GPTxdliWplSou1ClLnj2+Kfxwhbs1yPVbkxdcZkH44iyO7j/mdIVSM/Zc6IqLbo3APNR7K
-	9kJ0X/A1wcYubFjiTV9pPg//ggQvnKOTKsZMFQV4qg3sF6kFR7gGWaD87mYimrmRWXgnWI
-	sZCyM+Kc+Dx1ofGpsb3T+D006P3pHtI=
+	bh=pCnYm9/ITbnI5evM1y8CyeToRvjgbq+ddnA4xUblF4s=;
+	b=d7+X/pS0CC9M+uSAVvmhRjU68AW0lbWddSwJL2mxwIdzVkHOuuMhONLRy1ZTqe2Xwjqz9a
+	As2MreadASrACnGsRvr0TP4vjdXpjcwjHCrzKf2m27LlEXVatRjxvOCyujOFsDNa+dmP+s
+	BVdfTmcGIjZfCjaVIK/JfT929mNoKVk=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793705840;
+	s=susede2_ed25519; t=1793705891;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=B8j92hybFHQnaobaSpqwDPNDEjwRDPEUTD3UMs1Ts1w=;
-	b=BlsmKnRqvkggekSHbDTtA63/yU0kV24/p+9munsk0xIYPcfcDGJeON3oKkbosTyMbug0X3
-	/i5mu7+V43IDdNAQ==
+	bh=pCnYm9/ITbnI5evM1y8CyeToRvjgbq+ddnA4xUblF4s=;
+	b=ASgtdplEe74VqtPmNh2CaiNyAur8jpniosj0dgN2wrjhFXtxd6hEtZd68jRvDNcPGL9peR
+	sf1CZbbLpIIqcGDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72F4C134B8;
-	Tue,  3 Nov 2026 11:37:20 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E37E134B8;
+	Tue,  3 Nov 2026 11:38:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id mg2HE3DH6WqiSwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 11:37:20 +0000
+	id kVzeDKPH6Wp+TAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 11:38:11 +0000
 Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 02D42B231; Tue, 03 Nov 2026 12:37:15 +0100 (CET)
-Date: Tue, 3 Nov 2026 12:37:15 +0100
+	id E7C47B233; Tue, 03 Nov 2026 12:38:06 +0100 (CET)
+Date: Tue, 3 Nov 2026 12:38:06 +0100
 From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Jan Kara <jack@suse.cz>, 
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Hungyu Lin <dennylin0707@gmail.com>, 
 	willy@infradead.org, hughd@google.com, baolin.wang@linux.alibaba.com, 
 	akpm@linux-foundation.org, dave.hansen@linux.intel.com, linux-fsdevel@vger.kernel.org, 
 	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Subject: Re: [PATCH] shmem: do not extend i_size when no data was copied
-Message-ID: <rfvf7awrww55bg3hwq4edbz2ioorodlrb3wcmf45wcrof22cda@yduswvswhz2c>
+Message-ID: <vsuiiidzwh7x2ipjgurdygwebkib6yiisdbucjg5o5eb3wokqk@a2cjfenlo3nx>
 References: <20261025164619.89992-1-dennylin0707@gmail.com>
  <at9xXRhD2xZhszEj@thinkstation>
  <xmp7ni65vbinfj4j2baisrhp6xzro3asbepuq7xp3mvx6maptn@r4dnoj63uw4t>
  <at-XtWBQg3jv3H8Z@thinkstation>
- <CAGEkeHfq1xZf_jMw9a9cz3iunj6O3UZ4-=iW-65aN2Ss0oT3Uw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,7 +116,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CAGEkeHfq1xZf_jMw9a9cz3iunj6O3UZ4-=iW-65aN2Ss0oT3Uw@mail.gmail.com>
+In-Reply-To: <at-XtWBQg3jv3H8Z@thinkstation>
 X-Spamd-Result: default: False [-12.80 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	BAYES_HAM(-3.00)[100.00%];
@@ -126,34 +125,70 @@ X-Spamd-Result: default: False [-12.80 / 50.00];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
 	MIME_GOOD(-0.10)[text/plain];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
 	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,infradead.org,google.com,linux.alibaba.com,linux-foundation.org,linux.intel.com,vger.kernel.org,kvack.org];
 	TO_DN_SOME(0.00)[];
 	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
 X-Spam-Score: -12.80
 X-Spam-Level: 
 X-Spam-Flag: NO
 
-On Tue 03-11-26 02:34:11, Hungyu Lin wrote:
-> On Mon, Oct 26, 2026 at 06:18:39PM +0000, Kiryl Shutsemau wrote:
-> > The per-filesystem alternative is a 'copied &&' in every ->write_end.
+On Mon 26-10-26 18:18:39, Kiryl Shutsemau wrote:
+> On Mon, Oct 26, 2026 at 04:48:58PM +0100, Jan Kara wrote:
+> > On Mon 26-10-26 15:34:08, Kiryl Shutsemau wrote:
+> > > On Sun, Oct 25, 2026 at 04:46:19PM +0000, Hungyu Lin wrote:
+> > > > shmem_write_end() advances i_size to pos + copied even when copied is
+> > > > zero. A buffered write past EOF can therefore extend a tmpfs file
+> > > > without writing any data.
+> > > 
+> > > + willy, jack, fsdevel.
+> > > 
+> > > This doesn't seem to be tmpfs-specific, right? I see the same with ext4.
+> > > 
+> > > simple_write_end() and generic_write_end() check pos + copied the same
+> > > way, so filesystems that use them through generic_perform_write() are
+> > > affected too.
+> > > 
+> > > It makes me think maybe generic_perform_write() is the right place to
+> > > fix it. Hm?
+> > 
+> > Well, that would be nice. But how'd you like to do that? i_size update is
+> > the responsibility of ->write_end and we have to call ->write_end if copied
+> > == 0 so that is undoes what ->write_begin has prepared.
 > 
-> Would it make sense to keep this fix local to shmem for now?
-> I'll check the folio handling before sending v2.
+> Hm.
+> 
+> A zero-length copy only moves i_size if the write starts beyond EOF.
+> So we can bring the prefault back just for that case, before
+> ->write_begin():
+> 
+>         if (unlikely(pos > i_size_read(mapping->host)) &&
+>             fault_in_iov_iter_readable(i, bytes) == bytes) {
+>                 status = -EFAULT;
+>                 break;
+>         }
+> 
+> Overwrites and appends keep skipping the prefault. It is racy against
+> a concurrent munmap(), as it was before 665575cff098, but that is
+> userspace racing with itself.
+> 
+> The per-filesystem alternative is a 'copied &&' in every ->write_end.
+> 
+> And generic_write_end() cannot take it as is: generic_cont_expand_simple()
+> relies on a zero-length ->write_end() extending i_size. So we need some
+> replacement.
 
-The trouble is that practically any filesystem is going to have these
-issues with 0-length writes starting beyond i_size. So if we can fix it in
-generic code, it would be certainly easier in the grand scheme of things.
+Yeah, I actually like this. Good idea.
 
 								Honza
 -- 
