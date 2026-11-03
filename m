@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672222;
-	b=4skixsJZqaq1qQNFmYxq8Td+0O/QnF/pnzzwIPuUC8rdUSXuDyWAH54T8UQoexv3eRF+
-	 3esTLkEiTkCspQY7qhts/1A4+rGxDO3rm87hKtLtLUrVCKchLc8jm85v6I+WuVqJt8MrB
-	 o5TI3TZ9SVmieLk+HIPSZy8xGjcttKF/42e99LYfLoQ39ywV+32kB7VPcPphInGlZc5tZ
-	 NZe/eXF/aK9V86ieL8IBgadyOheZEOl13QofNg4S+EkV+AhqFsQKLrLX1oWD3WIgTo5C/
-	 /6b1zBsBq8Sw8gWnHe//qBR4yIxJl8EUr82SXsTDaKDKdSOZK8xyU3hZmyF/a/GLblA==
+	t=1793672239;
+	b=1WrIaJ44C+GPhyKkYUpTOTHP5bor3nD7ZPj2aJkL60pXhCYhYz9uEMdJk5zaeTuPYy/R
+	 kgNqFyDE3v6dLUNUeg+y5ni6TaRDPWYEYsQoVNDq5Wb449Z2DDJKhqBl1ALhYtjbodctP
+	 qh0GtxWde4oycR8NZ/J4EXiAzB629zWJXxlqTAqnOVzSy/HNdZ6pUmeW4KzzRSVyWvp+z
+	 zg68ztn1W1WSapS55xPKfK/A4xaoEcKJuu5qZKpHHatQp0oijsh6SSKBzIpay3EjmBoeN
+	 yUu+989Ifa2Ve7b+hCjIL3xbEV+M8tpiP8UUR3Dty+zgbP7WOr65aW+1QeoQ0Z7k0gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672222;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IOGgt4lAkAMwt4N6sT0llhti/KNul9J7tc5dogJ2lwc=;
-	b=YCxgvVZBlcLmPgvoYHGaAqs/j3YTk7NQu+R39tAc3cek3XE/6LpbLBI/5TKLkr1bikx5
-	 E/6+2pxNC3aKwocSlMwFai9KYTinvGFyDx2XTP516bSwWgaEIMIiQQbdX7VzXfwImh5LD
-	 ORH+NkjqtMa4kLcpFO4++bnnZ0wIWg2lGJecbWzfIUc+Mg2FZ4EKUpb8vt9vn9A4s+X2f
-	 SRPd7LJ/smDJE3wmfnzOCvif8VtO+hVpfnCdmutYx0wlN0JSTF7O6XZRxitCP+F1s/0vJ
-	 GCKKYz42/Gpiye5MgaerJ9GcZZUKwM/xshxikz9vQuWqyAOQLhdHepsektn0sr2ItfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672239;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=hWYM3SuLTrNZdQ9LQU3h1JDCEXg2qdJ0fduVuCQkRDg=;
+	b=xiyJDPcSlWFO/vo7vX2Vh96015mN9kgWMFHKUhsR+JiIPfh727gmgXGfUiWRaqtwRuI8
+	 k9qCeE4TUUeRvfq7QK+hzEShkIsbk/rinmnC6p4m4hV+Xvx0Ks0BTl3YptYiafRajxvBd
+	 4+hYx154+aNJ8T+1VQSLPK+MNstqALLnYZho3v2h+NWUk8Q2/Gx/9LRrXxSrpm5Tm6OJD
+	 +3Y+ytGYa0Wl5vmb52QoOXEovQpcgx/W1PbzaQm6EyGop+DS3G3Q8Xx1AFu0qN3Z1U9ig
+	 1EDm/Vlb/SOua4zbnVRnxxivGUC6/oXSwoG7wunXz0adTipDjb37JvgvuCuHmddFVKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xFeGi6oK;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=CHTJXSiy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8F1606A329
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 02:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D8F1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356CE606A324;
+	Tue,  3 Nov 2026 02:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xFeGi6oK
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a05f2d5cd3so1553289b3a.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 18:17:01 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=CHTJXSiy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E6A1F000C1;
+	Tue,  3 Nov 2026 02:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793672221; x=1794277021; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IOGgt4lAkAMwt4N6sT0llhti/KNul9J7tc5dogJ2lwc=;
-        b=xFeGi6oKTGL99bE6SUlm0Mom52pPJKiBe5UZEoYi7l9ccEdN2Bz6NpeweBzDsGuWsA
-         SZOmR5SwuDI5YXvjLMiHEZszX7RJ9i3D6Gumrg6kkHP3aNH1oLtxI6nw6dOkY6q2Tn0G
-         oRhB7RrweZcmspQuF6ZWJmXlAjGru4eUEWXSfutDspaqzyWdsg7YwKu0UJYECUeyixYm
-         3ZyF78/chjzNXBaSnLpa8hM+u9tyA3m6zEB4CCHnwkUlGjBpcwIQx1znQB7Gkfu6ICrF
-         BUY7NwMTOg/viqnq93m2jXCqCYiUGlt2kYDVC3PK3hOnLp4kp5CnzZ06NYzX/kZdir+B
-         dSXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793672221; x=1794277021;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IOGgt4lAkAMwt4N6sT0llhti/KNul9J7tc5dogJ2lwc=;
-        b=XtS2CcaovLQEMrj27ECuLEq+MShkkrFXAISFjYhJwvmqJGSWoop14NMqtpavEcpwzr
-         Ji2xdu+9aEouUwSDcmZNFU/YiI/6y0w8kdxEgW+wQM1l3KYtpWkMPEJk1Kj7U/G//MhJ
-         HSuk9n5HRUG7OwrO3YU3vzDZ/+sAEPck/87PjKiiPVjtORO2Myo4VmXatC8OgGGED4D3
-         GFNU5Hnwr+U/ynoUuI/tL13iJHLGNgNO92hxTYaDFEn024hEEUKgsCrUiKD42HuYVgJD
-         VFZA6q1hFPYa2jOoA12PZFBH4AHwIQlYfzU6CCMOJncz3kG4DDzuFgoRnhL35wIDBhO2
-         EOhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxdeQCFnDcdHQPW2rObrmkaJOVw9XcGhjwhCkKNW4J+hkLylyAALvDS5o7StJAPanMdEXjRCsc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b2kBqES0l8VqrB8UPoiUMA7V3WQOKivloJOsp1FEVYdmM/1T9
-	bSAldFc6K5PKHuKCvtP9ap73gu9VuYOoJw54DfqrFaEVny7PcbpGVM57
-X-Gm-Gg: AYBFou2rVsCpbmL8UGwYbvUtDuLFu/2PHDaQA4liWIYA11Vr9zF/kTLrD6+Ia/Pjcgz
-	OnfPjmr72L0FJVoK8lZBgK32Wm2GfF0PXY/yIMxdT9j+DlX1ZkLDqGjNP9HlVxMrbM7yn5Y26n+
-	TzSpx1mFmoXDNcXCOghbcbnZBit+RQ6bvNeIlhq2UPTbVCZn5EySQKpzHjH6yF6tWDFJ5WNqVlD
-	bvC2M9CpIhooLDTpfm30h4J6yhzt/TROUMI5vd405c4Vgb84CKx0bIZ7LIf+HED6kxTvUH1tfsL
-	akmgCX2Ex/iPNNqxCkoQYZAlOxjadqBKYfbkSUj/z7k53PTTxaptdh8cDZare+dnFEOMgL0siKN
-	o/9TbbIWDbQuRx664Q4FKAtfNuP7JYh3cmncEkaKCfukaORNW97MiorumA9c3kWJaj1/sLYfQNA
-	ixR/sN9CeCpBhtBm+KU7+7ywh2YfXkbTYlu/wH0WrKqvW3mc53/XulltG7RL8DWFF2h0CKE0cp0
-	u5mrJM/ahstKlXebhADrqpq6egNiDjp+SiWR3Kc034vOW2+qwZX5lF/1m6gqKEuLtQbaerG4ZRM
-	BWpFAp4pHQamfYG0xwU5bVLqiarN7mMSe7d11PpyWB8=
-X-Received: by 2002:a05:6a21:3b49:b0:3e1:d379:f3b3 with SMTP id adf61e73a8af0-3e928fe8569mr7948733637.77.1793672220726;
-        Mon, 02 Nov 2026 18:17:00 -0800 (PST)
-Received: from iZj6c0kydq3fvfrtx5kta5Z ([47.86.51.122])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb36448182sm490457a12.6.2026.11.02.18.16.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 18:17:00 -0800 (PST)
-From: Challvy Tee <challvy.tee@gmail.com>
-To: x86@kernel.org,
-	linux-coco@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	kas@kernel.org,
-	dave.hansen@linux.intel.com,
-	rick.p.edgecombe@intel.com,
-	vishal.l.verma@intel.com,
-	kai.huang@intel.com,
-	seanjc@google.com
-Subject: [PATCH v5] x86/virt/tdx: Gate TDH.SYS.DISABLE on X86_FEATURE_TDX_HOST_PLATFORM
-Date: Tue,  3 Nov 2026 10:16:50 +0800
-Message-ID: <20261103021650.924302-1-challvy.tee@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <09c311c6aae214c04a9a55ff6456d7abfe82c319.camel@intel.com>
-References: <09c311c6aae214c04a9a55ff6456d7abfe82c319.camel@intel.com>
+	d=linux-foundation.org; s=korg; t=1793672239;
+	bh=hWYM3SuLTrNZdQ9LQU3h1JDCEXg2qdJ0fduVuCQkRDg=;
+	h=Date:To:From:Subject;
+	b=CHTJXSiySAJZyOfgaN9lG7BZ2bqYawzz3SgqnuKZ27Fhvg2JGR+d2XtMoxJjYmyQs
+	 81BEQC1Kaid2/nYvEtiWbLgm7t8XHtlefWN6MpALkO/SMJRwOrxcGUkhkdMAvVuobj
+	 7dFRU5bdgcSLxyQohZnWqR5bbH87KDn+bZL5yw4A=
+Date: Mon, 02 Nov 2026 18:17:18 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mason@kernel.org,
+	ljs@kernel.org,andrewjballance@gmail.com,aliceryhl@google.com,
+	liam@infradead.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261103021718.F3E6A1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,66 +50,282 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Commit 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and
-kdump") made native_machine_crash_shutdown() call tdx_sys_disable(),
-whose only gate is compile time (CONFIG_INTEL_TDX_HOST).  A kernel that
-never initialized the TDX module therefore still issues
-TDH.SYS.DISABLE.
 
-In VMX non-root operation on a SEAM-capable host, SEAMCALL causes a VM
-exit instead of a native #UD.  KVM injects #UD only since
-commit 9d7dfb95da2c ("KVM: VMX: Inject #UD if guest tries to execute
-SEAMCALL or TDCALL"), first released in v6.18.  On an older host the
-VMM gets KVM_EXIT_INTERNAL_ERROR and the vCPU never resumes, so
-machine_kexec() is never reached and no vmcore is written.  Kdump is
-thus broken only in guests on SEAM-capable hosts whose hypervisor does
-not handle the exit; plain kexec is unaffected because tdx_shutdown()
-only runs as a syscore op, registered after init_tdx_module() succeeds.
+The patch titled
+     Subject: maple_tree: Fix rcu reader NULL dereference after the tree is emptied
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch
 
-Gate the SEAMCALL on X86_FEATURE_TDX_HOST_PLATFORM before issuing it,
-the way paddr_is_tdx_private() already guards its own SEAMCALL in this
-file.  Without that feature the module is never initialized, so there
-is nothing to disable; on a TDX host the gate is a no-op.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch
 
-It also decouples kdump from the host KVM version -- a guest cannot
-require its host to inject the #UD.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fixes: 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and kdump")
-Suggested-by: Kiryl Shutsemau <kas@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Reviewed-by: Vishal Verma <vishal.l.verma@intel.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Challvy Tee <challvy.tee@gmail.com>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "Liam R. Howlett (Google)" <liam@infradead.org>
+Subject: maple_tree: Fix rcu reader NULL dereference after the tree is emptied
+Date: Mon, 02 Nov 2026 21:07:22 -0500
+
+Patch series "maple_tree fixes for 7.3", v2.
+
+Two bugs found by an LLM review, and one problem Lorenzo Stoakes
+reported off list.
+
+An RCU reader that restarts after its node dies can dereference NULL if
+the tree was emptied, or holds a single entry in the root pointer.
+Patch 1 fixes it and patch 2 adds a test.
+
+With CONFIG_DEBUG_MAPLE_TREE, MT_WARN_ON() and the other WARN macros
+print the tree and call dump_stack() rather than WARN(), so syzbot never
+sees them.  Patch 3 makes them WARN once per call site, after the dump,
+and makes the BUG macros BUG() after theirs.  The userspace tests make
+WARN() fatal to keep failing as they did on dump_stack().
+
+
+This patch (of 3):
+
+RCU readers may hit a NULL dereference if the tree is emptied while the
+walker is restarted from a dead node.  Avoid the NULL dereference by
+checking for an emptied/pointer tree (0->ptr, 1-ULONG_MAX -> NULL) and
+set the maple state limits correctly.
+
+A reader of /proc/<pid>/maps racing with an munmap() of the whole
+address space can hit this.  The first implementation has the same
+problem in both directions.
+
+Initial fix was generated by LLM and sent by Chris Mason in private.
+
+Link: https://lore.kernel.org/20261103020724.2614498-1-liam@infradead.org
+Link: https://lore.kernel.org/20261103020724.2614498-2-liam@infradead.org
+Fixes: 54a611b60590 ("Maple Tree: add new data structure")
+Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Chris Mason <mason@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: Andrew Ballance <andrewjballance@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
-v4 -> v5:
- - Update the subject to name the X86_FEATURE_TDX_HOST_PLATFORM check,
-   as requested in review.  No code change.
- - Add the Reviewed-by tags collected on v4.
 
-The reproduction data and the host-side KVM log are unchanged from v4:
-https://lore.kernel.org/all/20261102073244.919864-1-challvy.tee@gmail.com/
+ lib/maple_tree.c |  112 ++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 85 insertions(+), 27 deletions(-)
 
- arch/x86/virt/vmx/tdx/tdx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/x86/virt/vmx/tdx/tdx.c b/arch/x86/virt/vmx/tdx/tdx.c
-index 96ced0494b68..9b01131f7b7b 100644
---- a/arch/x86/virt/vmx/tdx/tdx.c
-+++ b/arch/x86/virt/vmx/tdx/tdx.c
-@@ -2321,6 +2321,9 @@ void tdx_sys_disable(void)
- 	struct tdx_module_args args = {};
- 	u64 ret;
+--- a/lib/maple_tree.c~maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied
++++ a/lib/maple_tree.c
+@@ -3891,14 +3891,56 @@ retry:
+ 		goto retry;
+ }
  
-+	if (!boot_cpu_has(X86_FEATURE_TDX_HOST_PLATFORM))
-+		return;
+-static __always_inline bool mas_rewalk_if_dead(struct ma_state *mas,
+-		struct maple_node *node, const unsigned long index)
++/*
++ * mas_next_no_node() - Finish a next walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ *
++ * The arrival here is either because there is a root value or nothing.  Either
++ * way, the next entry is nothing.  So set the limits and overwrite the status.
++ *
++ * Return: NULL
++ */
++static inline void *mas_next_no_node(struct ma_state *mas)
+ {
+-	if (unlikely(ma_dead_node(node))) {
+-		mas_rewalk(mas, index);
+-		return true;
++	if (mas_is_ptr(mas))
++		mas->index = 1;
++	else
++		mas->index = 0;
 +
- 	/*
- 	 * Don't loop forever.
- 	 *
--- 
-2.52.0
++	mas->last = ULONG_MAX;
++	mas->status = ma_none;
++	return NULL;
++}
++
++/*
++ * mas_prev_no_node() - Finish a prev walk that restarted into a tree without
++ * nodes.
++ * @mas: The inactive maple state (ma_none or ma_root)
++ * @index: The start of the range the walk left
++ * @min: The lowest index to return
++ *
++ * The arrival here is either because there is a root value or nothing.  With
++ * nothing, leave the limits mas_walk() sets for an empty tree.  A root value
++ * sits at 0: stop on it as mas_prev_setup() does, unless the walk was at 0.
++ *
++ * Return: The root entry if @index and @min allow it, NULL otherwise.  A node
++ * if the root changed again since the walk; the caller restarts.
++ */
++static inline void *mas_prev_no_node(struct ma_state *mas, unsigned long index,
++		unsigned long min)
++{
++	mas->index = 0;
++	if (mas_is_none(mas)) {
++		mas->last = ULONG_MAX;
++		return NULL;
+ 	}
+-	return false;
++
++	mas->last = 0;
++	if (!index || min)
++		return NULL;
++
++	return mas_root(mas);
+ }
+ 
+ /*
+@@ -4006,14 +4048,14 @@ retry:
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (mas->min <= min) {
+ 		pivot = mas_safe_min(mas, pivots, mas->offset);
+ 
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
+ 
+ 		if (pivot <= min)
+ 			goto underflow;
+@@ -4028,10 +4070,8 @@ again:
+ 		if (mas->index <= min)
+ 			goto underflow;
+ 
+-		if (mas_prev_node(mas, min)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_prev_node(mas, min))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_underflow(mas)))
+ 			return NULL;
+@@ -4045,8 +4085,8 @@ again:
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mas_slot(mas, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (likely(entry))
+ 		return entry;
+@@ -4063,6 +4103,17 @@ again:
+ underflow:
+ 	mas->status = ma_underflow;
+ 	return NULL;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	entry = mas_prev_no_node(mas, save_point, min);
++	if (unlikely(xa_is_node(entry))) /* The root changed again */
++		goto dead;
++
++	return entry;
+ }
+ 
+ /*
+@@ -4176,8 +4227,8 @@ retry:
+ 	node = mas_mn(mas);
+ 	type = mte_node_type(mas->node);
+ 	pivots = ma_pivots(node, type);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (mas->max >= max) {
+ 		if (likely(mas->offset < mas->end))
+@@ -4185,8 +4236,8 @@ retry:
+ 		else
+ 			pivot = mas->max;
+ 
+-		if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-			goto retry;
++		if (unlikely(ma_dead_node(node)))
++			goto dead;
+ 
+ 		if (pivot >= max) { /* Was at the limit, next will extend beyond */
+ 			mas->status = ma_overflow;
+@@ -4208,10 +4259,8 @@ again:
+ 			return NULL;
+ 		}
+ 
+-		if (mas_next_node(mas, node, max)) {
+-			mas_rewalk(mas, save_point);
+-			goto retry;
+-		}
++		if (mas_next_node(mas, node, max))
++			goto dead;
+ 
+ 		if (WARN_ON_ONCE(mas_is_overflow(mas)))
+ 			return NULL;
+@@ -4226,8 +4275,8 @@ again:
+ 
+ 	slots = ma_slots(node, type);
+ 	entry = mt_slot(mas->tree, slots, mas->offset);
+-	if (unlikely(mas_rewalk_if_dead(mas, node, save_point)))
+-		goto retry;
++	if (unlikely(ma_dead_node(node)))
++		goto dead;
+ 
+ 	if (entry)
+ 		return entry;
+@@ -4244,6 +4293,13 @@ again:
+ 	}
+ 
+ 	return entry;
++
++dead:
++	mas_rewalk(mas, save_point);
++	if (likely(mas_is_active(mas)))
++		goto retry;
++
++	return mas_next_no_node(mas);
+ }
+ 
+ /*
+@@ -5450,7 +5506,9 @@ void *mas_find(struct ma_state *mas, uns
+ 	/* Retries on dead nodes handled by mas_next_slot */
+ 	entry = mas_next_slot(mas, max, false);
+ 	/* Ignore overflow */
+-	mas->status = ma_active;
++	if (mas_is_overflow(mas))
++		mas->status = ma_active;
++
+ 	return entry;
+ }
+ EXPORT_SYMBOL_GPL(mas_find);
+_
+
+Patches currently in -mm which might be from liam@infradead.org are
+
+maple_tree-fix-rcu-reader-null-dereference-after-the-tree-is-emptied.patch
+maple_tree-test-emptying-tree-while-rcu-reading.patch
+maple_tree-update-internal-warning-and-bug_on-code.patch
 
