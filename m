@@ -1,51 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.216.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793670139;
-	b=iqvVHAgiBuvAWM9ahO4z3oxAFuPU0fb63Bj/HD3PRjzfLjYKfMwPaCeITyOB/YCLc9pg
-	 +fT9nqCjXGXb9QKAfRLzLxtIcoMIzHwXLr7y9fMhcqxn2W2gki84hRQTnxgmkFR30Hf2Z
-	 so+/7S2ubYimeNmum6j2hV+fcoIcLvFDk5Oio4D0vjO0zBghmJOD1YEe8BqGmPuLmg3gf
-	 xuABkdQHmxn/xHEmPkfrOnjRXegHhLqnnxMLVkpLVZzgf3SGZnwDmOhAnwjao1Vtr5YkJ
-	 2wHe9Jd98TFNHVRv/E8RW8le/3ad0Pg4vMDiNdIAoyQMnFSdvO5fF3SzDakoeDEU8GQ==
+	t=1793670574;
+	b=g7rC3xiJHBW639ejn9tNr+xdmEiSPTnNIip5kg44dHzRh5EhIoNAuP9o34lgIzyI/CZq
+	 fymZZr8imAfSyA5e1KZG8PJpz8h9bPzbjOirhNJS5syZulV5XJlshbR+FSLeD/mcHcP1f
+	 zD+f0a+Zhy3DpH3NTNxmcxBDVdWAz3t6iOS5U+bBPQysX1htUrPixHqxi8UsfNSFz1/Ok
+	 3S4xKJqQcZZ8GcoKQsc6TurPJFdPfsCMsbqE5sZNn2+y6K+pw6wGg3pbrFuR/wVH75OwT
+	 aRqNqOAICf+4nNUlw0bgZ37OziKWG/UxMRjHYcwiixatYM3R3gCj6ohPF8mBnq/aMmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793670139;
-	h=DMARC-Filter:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Afkj5lR+dXFKMhy13iBEjjniqyBIKXdf8peXBygVbjw=;
-	b=SM4vtsOYdXB6SGz9Qj7aB8Yn3mkw1ONl+hIUBTrGbZ3UG7mNsOy74aAxAyl1SBzhvLx8
-	 xxKQ/KMdAb18bzNSOVdIJPGfHiD9qz1Szr4PvetCjogIGCxwoyT9viZxyw3d/axxykuJw
-	 iqMaatPlGx7XQlGNAkd38F9lMv925Wl+EdmhgRCPO9uSN7xcs67VFwwoGFJVoofURPTKf
-	 pyieLPDQ9TmMl0R1jeFaxv1iiYnv7gpU8rreGVrtZpdCavZFcCOh9nOJWeew5gwM0hNj8
-	 7BIo4K0iydByKyKCk/ypwijT2wBTcQCQUSze7lZOT9P7+0WA1IP4ZcSf0aG3jyzKLpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793670574;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=oqD5KjVEUEOf5ZVgC/hbD2wTa3fhBUi4PPSMQExmXq4=;
+	b=GHd3H63kRvNZ47wTvtdzRkJXgInSSgdNZY75Vn5f6vw97V1RFasH6QFA7ysnq3S5vDVR
+	 5taiHI/72K5aE7IqHgwCEDS04Z0Pm2SFPhGuJky1Gw90qOeVI0mP0BPuPe5isVLUn8Sx8
+	 iv2A+pMF5VBznT2NSfzLsL7dzaALFGNOzRCUuT5k/r9NanpURe/uNhlpZo6popG29x7rt
+	 pQCL2C9HmawaI4k3dLeLQGiuMZ5ApgHXuULzn5cndhdDlZ2P8oqxqJ4u6VC1CqLFtw1/x
+	 rgo+vXDwBs3+v+oVco0umZOXJYk5MBSbTAJJNDsu0H9tgu4PmVHyicHXkhDbqcb2nQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=findhost.org;
-	spf=pass smtp.mailfrom=findhost.org;
-	arc=none smtp.remote-ip=195.154.216.246
-Received: from hebergement-securise.com (hebergement-securise.com [195.154.216.246])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=HMnnSs23;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4318D606A329;
-	Tue,  3 Nov 2026 01:42:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4318D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=findhost.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=findhost.org
-Date: Tue, 3 Nov 2026 01:42:07 +0000
-From: Kevin Fernandez <kevin@findhost.org>
-To: Elliot Berman <elliotjb@elliotjb.com>
-Cc: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Sasha Levin <sashal@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Yongjian Sun <sunyongjian1@huawei.com>, Jan Kara <jack@suse.cz>,
-	stable@vger.kernel.org, regressions@lists.linux.dev,
-	linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ntfs3@lists.linux.dev, Tom Bereknyei <tomberek@gmail.com>
-Subject: Re: [PATCH 6.1.y 0/2] Fix NULL folio dereferences from IS_ERR()
- checks in 6.1.191
-Message-ID: <auk775zR0FCl4L0X@hebergement-securise.com>
-References: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D06B606A326;
+	Tue,  3 Nov 2026 01:49:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D06B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=HMnnSs23
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=oqD5KjVEUEOf5ZVgC/hbD2wTa3fhBUi4PPSMQExmXq4=; b=HMnnSs23htRHeD+t1FXWi56qQU
+	kPaJq1I5j/zgCvQGnhWnpQywJkuRkZqvwjGZsMKrWXHfl2qdKOx1DObFxKsDHRH1vFhhs7CgyiJ1z
+	h6tspKBuh2NCHFUFtlbdZ1NDITMe8KcbwrD8rBm3MQfa2hC3aRsM2cDf1kDW8HK6HoJaFNBZxLeI8
+	FPr8ahYhpC59zyt4ZozA+Z38N+HYlvdIaFUWJGkWVOP9XYNc1xgHtjKQFZ98Zr1lnwu3eEQnSFoPZ
+	TJmLSL/MyBwVtYi84PRuIDAxZ4T2ehO+femW09MTceV3Iztu3PxigLwucGnoDjDotL1sTmlr5JJ2g
+	Ni7SNwNg==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xO3eT-00000000p01-3FoP;
+	Tue, 03 Nov 2026 01:49:29 +0000
+Date: Mon, 2 Nov 2026 20:49:23 -0500
+From: "Liam R. Howlett (Google)" <liam@infradead.org>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, 
+	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>, 
+	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
+	stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
+ <auKshDXKQXt1kvjy@gondor.apana.org.au>
+ <auMbCuecFeRmBFSK@pc636>
+ <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+ <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
+ <auaFhOa5EBz4gJwK@gondor.apana.org.au>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,25 +79,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
+In-Reply-To: <auaFhOa5EBz4gJwK@gondor.apana.org.au>
 
-I hit the same oops on 6.1.191 on my server (x86_64, via
-ext4_release_file() -> filemap_flush()) and reproduced it in a VM with
-write/sync/drop_caches.
+On 26/11/01 08:19AM, Herbert Xu wrote:
+> On Fri, Oct 30, 2026 at 08:56:03PM -0400, Liam R. Howlett (Google) wrote:
+> >
+> > Hubert, I have another version of this patch set to send out, but this
+> > particular patch remains the same.
+> > 
+> > Are you okay with keeping it the way it is for this release?
+> > 
+> > I don't want to force your hand but I also don't want to keep a valid
+> > deadlock scenario in-tree.
+> 
+> Instead of your patch, please revert the original change that
+> added kvmalloc to rhashtable:
+> 
+> commit 93f976b5190df32793908d49165f78e67fcb66cf
+> Author: Davidlohr Bueso <dave@stgolabs.net>
+> Date:   Tue Aug 21 22:01:45 2018 -0700
+> 
+>     lib/rhashtable: simplify bucket_table_alloc()
+> 
 
-Is the series needed on 6.1.y at all? When it was dropped from
-6.1.167-rc1 for this same oops, Yongjian Sun noted that 6.1.y lacks
-060913999d7a ("mm: migrate: support poisoned recover from migrate
-folio"), which introduced the race fixed by bdc56a9c46b2:
-https://lkml.iu.edu/hypermail/linux/kernel/2603.3/05097.html
+I don't follow.  Reverting that patch gives the same functional flow as
+the patch I already sent; kzalloc() for one branch and kvzalloc() for
+the other. 
 
-If so, reverting might be simpler. The two folio conversions and three
-prep commits are only in 6.1.191 as Stable-dep-of: bdc56a9c46b2, and
-a8d83471c560 fixes one of them, so they could go with it. All seven
-revert cleanly. In a QEMU test (minimal x86_64 config, same
-reproducer): reverting a8d83471c560, a3a7d360252c, 862483175d3d and
-d34e4fd4e73f avoids the oops, while reverting a3a7d360252c alone does
-not (the oops is in the conversions); also reverting the prep commits
-1c0f0e2b9b69, e6b6cbe9f2fb and e394adafb089 leaves
-fs/ext4/mballoc.[ch] identical to v6.1.190.
+We will, however, restore the useless __GFP_NORETRY flag to one branch,
+and a broken check.
+
+-       if (gfp != GFP_KERNEL)
+-               tbl = kzalloc(size, gfp | __GFP_NOWARN | __GFP_NORETRY);
+
+gfp != GFP_KERNEL is supposed to just send GFP_ATOMIC in here, but
+instead you are sending GFP_KERNEL | __GFP_NOFAIL as well.
+gfpflags_allow_blocking() should be used here, right?
+
+The patch you are saying to revert was correct when it went in.
+
+> The newly added alloc_hooks_tag call should go after the if statement.
+
+You are saying to add it to both branches of the if statement, right?
+
+> 
+> This patch should also be split out of your series and posted to
+> linux-crypto.
+
+Sounds good.
+
+The fixes tag should still point to c6307674ed82, since that's when the
+issue became visible.
+
+Thanks,
+Liam
 
