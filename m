@@ -1,62 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717531;
-	b=OUQRd6ofthCKJhSCaqHQuvVA/b0ixRgFhZ0hA7EYFj5nFSbpMR3gmIoofMv4k2Doo87i
-	 azBmKkQ+kXN6fHeoXFN0Tq1MYHpLa34dI2sOOOD8fVYtGzs7x3LClVxKxVS2ZJkTALXXB
-	 3L4ESuDVfqTLgRIE4h20KpORvsvToJuHH9nSPRju6oGWBz4bJ2+uPJOn7kxg3PnKXnGMW
-	 1FxP/zXDgWdgcgOU9UahLV3Z4IQQMVjIIo/BDdWFdCBVw7/RhRdtilM7q6UlbIPIgZG0I
-	 0Tsgs/qWrWbGV2qnnQ50sptJsUrC6Q3lpP6Z9O/W8VZZgJN77CLXalZhzYGE4WVrTRw==
+	t=1793717534;
+	b=17khpxx0H6XvAsG36LWroCSoQ5Eo5sdSGckc+xrbQUa9IVZ9qsiuaJGyDD5PpodfEBSr
+	 fYREmgr4S2BIK0/RDEn6hPVbXPa5Ftm67ob/cNGn4fQBxF2C2TCbT8inB9cvltst8dPsK
+	 TNdZ678a2FOh7UivKVMdWGeWHPUIveT2flxeQ1QRCwnMcYfP3i3+I5L+fA+z5CwUUUZkH
+	 t/tmxNK1WNHeoi30qDq+epFRESPNhBKt2LY2FYQ2xs/6Hz1A0FWRcY9jM8m70dta0cUlv
+	 VjX/dbyQKgniVoTzSN5TJvGOUWIHqNaied8WiIyxSvQxFOj01Z2hvqod93o9pIPhxQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717531;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717534;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=b2ww1r6hO/dk9YMPcsNkTIQNyUI3YWzYtrGMrf4Qxhc=;
-	b=JyBNLsn3NGHDxNpGbk5Ru1llVbLcQpODV7dKu/DFegEv4MrsAN/gFMJYavDGBQKh3Kja
-	 bmBqn6xmuQoW+F9IZRh8LVFNeTwFtdhDAdyhp/HbyF/z/hfHEx2TgsBrZIBWDV4vHUnB4
-	 tCfE7CZXQtz4XyKfaUMqylA2f6HWijBKdfPwchyxHnlRx+YOtrJ34enZFHUl8mfQx46L7
-	 xRZWcXXRwQ/ViMvVZ5bSr/4QHbc6BiMt0MAxWfeQv39rFEKnZFAFhYwLQRehH1N8dNiFr
-	 jyOgyvZbzNsC3rXO2myRBdsiu9NneUQ2U6X0CnvCSk9Mhat8c/VD7pg3dZ7n9x8SFJg==
+	bh=DK5lkO7DDq83X1j5wa+EMjbvR9lQfhGLS95cc5EpcXo=;
+	b=xZipuBJ/1RvPH8SyenfGhCPWuJFWPEb1GhbF5P3tU7nmNZt8KYoECsVxlH/yBqMxMRT+
+	 JDuSu6t2DW3OO4bQ17ou91RseTz///hGcsawF2hBzbwvy7jnlg+JAqUJRdLTf9OhCU6ge
+	 UWfgj1Qa7F5NxLz+QKwRDr7/8f36wi0nn4n70y4RnVcIzsD4mCcEq+RHZIaBRwgyICg5/
+	 LomVfBhQgNOdlVMgRmWDPQxHpp1j0DyjfcBKQjOpNRPxEQ9E6l5iXGnReKW4JbNJkEFdS
+	 rn9Uc8t3KaOji0zz73OEUGBm+JboAXX4XfLw/z5ijtnOMPAKCIUFXIRGwK+Z/iOcfVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j59mApkJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mx8LgBXp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838A4606B24F;
-	Tue,  3 Nov 2026 14:52:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F22B606B25F;
+	Tue,  3 Nov 2026 14:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j59mApkJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5270F1F00919;
-	Tue,  3 Nov 2026 14:52:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mx8LgBXp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42BF1F00A1F;
+	Tue,  3 Nov 2026 14:52:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717531;
-	bh=b2ww1r6hO/dk9YMPcsNkTIQNyUI3YWzYtrGMrf4Qxhc=;
+	s=k20260515; t=1793717533;
+	bh=DK5lkO7DDq83X1j5wa+EMjbvR9lQfhGLS95cc5EpcXo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j59mApkJOs0Vid05mlBUGuUmMf+zbtk1HtCnqrn+ZjDiV4MFme8WvX/ec+ld9MUlj
-	 DnwYD2XnDdDB6kp3dwehJLxlYGdFGCWuNRVrh/sSS+fe3/baHQRVMPUdG556NqpAmg
-	 80/dTnFrNkE/EPYfFmevtgAVP54dnTAvG1ydyr4SgKP/lYtXsvKxofMYNYyYmokPoW
-	 a+/FXFSxh73PNJfH0GHaOtQfbKnOEQZNTKE4xHD7jzOHPEKr8OaAle5SfnrgB9zDbS
-	 XPwHuBgeTyPsAq7mP1hX/2TXEBjWqbQWKAvepgvdo/IIjg2xkKtOBLVEcDdy84V9nm
-	 kF0uq2EJf3muw==
+	b=mx8LgBXpc6FJX/oG6DckYBobLi9rJu0z8jzj1w8T0AeUET3ldU06h5xrbad0bn1jO
+	 oFebgqYxhl8mDr+mMTomaVwyBXt4mBIDLZggSio/QDka/2cXcFMM/ol/Fvb3wOu4I1
+	 QMZgA1UAhyxhiocAdH4+2luPb3fwUiG+OcOTtHFUML6zfBz3XDlL3CLMOQqzcENLcr
+	 qw0wBCAXVDXNXOHL8/4Kqh07lr5EeO/+D25IoYpbqQaXEWs9NZ1Q+eg02oREvemDHx
+	 TzJFQAB8bJvwEihfHslEGgbm5K/4TkXic7EUFRCFOecs5BT8YLHtu12HEaKOsrnq89
+	 s9lIgFcbjG/6Q==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	luiz.dentz@gmail.com,
-	luiz.von.dentz@intel.com,
-	marcel@holtmann.org,
-	johan.hedberg@gmail.com,
-	linux-bluetooth@vger.kernel.org,
-	2122295973@qq.com,
-	Andrey Misiurov <amisiurov@cloudlinux.com>
-Subject: Re: [PATCH 6.1.y] Bluetooth: ISO: drop unbalanced sock_put() in iso_conn_ready()
-Date: Tue,  3 Nov 2026 09:51:50 -0500
-Message-ID: <2026-11-03-1-daily-reply-0002-re-bluetooth-iso-sock-put@kernel.org>
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	linux-tegra@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jon Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
+Date: Tue,  3 Nov 2026 09:51:51 -0500
+Message-ID: <2026-11-03-1-daily-reply-0003-re-6-1-191-rc2-tegra-interconnect@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102123418.363320-1-amisiurov@cloudlinux.com>
-References: <20261102123418.363320-1-amisiurov@cloudlinux.com>
+In-Reply-To: <6051255d-96cd-41eb-878b-a4e2e6ccdd7d@nvidia.com>
+References: <6051255d-96cd-41eb-878b-a4e2e6ccdd7d@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,11 +81,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Commit 1702f12cf59a ("Bluetooth: ISO: fix use-after-free of listener
-> socket in iso_conn_ready"), the 6.1.y backport of upstream 560bef609fa5,
-> puts the listener when it is no longer listening.
+> To fix the suspend issue I also needed to revert ...
+>
+>  commit 3d64d18bdd1b2a6bd4af1176a596736b233606be
+>      interconnect: Fix locking for runpm vs reclaim
+>
+> The above commit is dependent upon the following and so I had to revert
+> the following too ...
 
-Queued for 6.1, thanks.
+Queued the reverts of both interconnect commits for 6.1, thanks.
 
 -- 
 Thanks,
