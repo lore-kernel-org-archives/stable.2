@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793720056;
-	b=Xcqoe5UZPsVqwNZCsUhgrJIswtrMOueZaM5VlOtw3AHZp6IjUg6/j9fzmppE03rnMed5
-	 Vvqafg9QESEiVXiK1QJikodyPTJNis0uYUkaTNl7qLSVlGsar4Vxri6OcfG2l97GI4n4x
-	 AGCYcAt4S2tAnwricQNSEeNUEvZ2Cnt1yF6sQSqQwLjSgliNCpoD9Sys/4CgM1/g9L6pa
-	 eDZ2WA1KPtCFFNHZf38txEd2gLuO1ZgnbN9uYAGwMixZYWAOdhlZqIvaNwI3sh9HIzsxY
-	 BHMt7eWeYgWzDOxjB8YPfBjeL7EXVqVcRKCsIhVTfdeUf5pStO1LIL8jWOKnQlXJyXA==
+	t=1793720197;
+	b=bJkh/tg5e8OHW/eL/XjU0iXNvjbFXHRe6bc20gRNKFWStFIprgkznzp0V1qGgFgwu8vd
+	 bQ+S28Cz2D1bFufq+wMSqSKypQ/AAH362yjJyY8yIM69Ep0ELrZIhlEgBtcsWyA50f/k/
+	 40U8ubQ7TlO1zXYdMXyHkeJd8eHliN9ylIJdsez40fhB9ARfuqT5D1+c7m6haNwmrtrBf
+	 nhY+MhoCFUgodBKhCmBMcCiylba2p0ie+rFp3tPdFu/PkeMO/b+Bw33l5ky120yq/QcI9
+	 NsVUYh3iLw3aQ4tDxgdS+exMWKYU+YNQZMXlbH394GXXoGS1uJeO+p9PSUKULVc9P1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793720056;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7cas561+VSJ9fHR+gCNDM4Q2PPKbIkxfUd4h6ZbzNXI=;
-	b=BEH2U/4qFRCHzcc8nTXghFkTYk+EhyYHbrE59PQiRldjkHOUiMrYf88cSUP4+kd0sA+i
-	 fYaxvqDW0Zwr9y5vAoO3RH1NhPOiHRbdww/XL7/kT11Yqdv4GtdRm3nn6J7TJq2yRexxM
-	 H/AmaSYWQE6o3oQ9Dzx4MPpkvNLvtlXO4S60n16QAAjNbv/ur7JDcA7Yg7Lc/u3n5UjA4
-	 W3XgT7Jxb7Fxaolt5qV1z8VHcYJCtvl76NjpHKvjHB0PN18a/nEoKPdZCqT8YbnvGQrkh
-	 Xgrf9YX6YIXXCu7PoozPdqGar/dtuF+/XDeBIEistt/35Z46pozpnSv1GhwLsjhKk7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793720197;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=Iwg1Zlh6Ve+tXDUlSQA2Op+Qd/hTm/8nQjHs3UTZzpg=;
+	b=hKVMM+apvaSLON8DgiB+2O7LbWXFite9KrvSvJ2FKfkeR8HS5Uicq0EDVfuFLx+lcGEC
+	 gyMfYQ5vVYc0DIY17QW25OFWFGG+HcuHdsKPMD2IEjKnN0815+6mk9Fo3WdZN0UKDxqwM
+	 kfb21y8R2VcLloCD8usT0fkan8myjRCjK03D51GL/PczXGHed1YrSwlZTSUcRWGfMvQoQ
+	 J1pDjeY3DOnuvadShAwgjNV7jNZzySavpRBMZVvfMBvWjZtmnqC94XYkluu0TOi/afzMr
+	 F6avlgrj/Ifv1nnEMTvIX0tPCE3xk94c8QwqiX1bbemAW8cSqBQAXAvdDNuWnkPqOEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAMh8Pjw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUVqsqMW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5069E606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:34:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FA4606A326;
+	Tue,  3 Nov 2026 15:36:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cAMh8Pjw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D61B1F000C1;
-	Tue,  3 Nov 2026 15:34:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUVqsqMW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493AC1F000C1;
+	Tue,  3 Nov 2026 15:36:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793720056;
-	bh=7cas561+VSJ9fHR+gCNDM4Q2PPKbIkxfUd4h6ZbzNXI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cAMh8PjwMpIeUVkyhACsO/9CtpAE5DUGFCmhs5V7d4pbhYzcEC+yGtuAFQBtxSf1V
-	 nYO0d3T1v9PsWe43+gN5J8duIvxweTzHBRWZ9TvqX8P8JwrmACTQK8AneOV7eutUPX
-	 wjiHClHFgZxS+cwGiMi1xGqInCCs1iyZMSoDItVJEqFjTZ+p9dY9p3KEj6zZ2CcS0X
-	 EmwlLEyng5UhcsTp294N+QmoL8Bb6Ui9EGvxCmPwAnzI2EiLEfLIsSF51qCJuDsfMV
-	 1UenF9bHfCjrIFvqHZb9bUp7bXoMWC0JbDp+FB/9T6ITdW66+YXFG1SdjK6l+UAQjr
-	 lZg+JsbTYxjjQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ksmbd: deny access for an empty DACL instead of granting the request
-Date: Tue,  3 Nov 2026 10:34:14 -0500
-Message-ID: <20261103153341.254176-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110337-headed-quirk-3494@gregkh>
-References: <2026110337-headed-quirk-3494@gregkh>
+	s=k20260515; t=1793720196;
+	bh=Iwg1Zlh6Ve+tXDUlSQA2Op+Qd/hTm/8nQjHs3UTZzpg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VUVqsqMWwtEaBtBHu8g3D4rR+IxkprPQb56eYTVLmNu4NI9VXid040ldUrjpgwKkc
+	 /661Zbwau62FdS8ErVGQKICxh1txlpOJ4Dke/obA4cW3cBNzICAHmZN3Qf7YnTVkxG
+	 0+wXbPsIDVCdnKcznqHOLrQtqzORxrRhDTDh8V1BV1HEvR7J7UOEUenGeHZd420d6N
+	 B4S1pZ3GkZV6NI+0oApZyBF3EDL63N/yZdCwiEaDTyW5uSH8qGfZt4zN55Oz6gUy+d
+	 mRuxA5bLF1Bry7DM9WEmb8gA3J/frx8mDCX5/wRAxrLm0Mj9EebuI+2MAfxcDxak02
+	 3bnP/I+9iQgag==
+Date: Tue, 3 Nov 2026 08:36:34 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Hannes Reinecke <hare@suse.de>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] nvmet-auth: reject incomplete DHCHAP messages
+Message-ID: <aun_gknBOPBjDbGu@kbusch-mbp>
+References: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,111 +59,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
+On Mon, Nov 02, 2026 at 01:24:19PM +0000, Jérémy Jean wrote:
+> Commit c9359401036e ("nvmet-auth: reject undersized AUTH_SEND
+> payloads") only ensures that AUTH_SEND has auth_type and auth_id
+> before nvmet_execute_auth_send() starts parsing the payload, but the
+> DHCHAP path reads t_id before it verifies message lengths. A two-byte
+> DHCHAP NEGOTIATE payload can therefore still trigger an OOB read that
+> KASAN reports as:
+> 
+>   BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_send
+>   Read of size 2 at addr ffff8880030d8364
+> 
+> Require the payload to cover the minimum DHCHAP message length
+> before parsing it.
 
-[ Upstream commit de0cffef897c1c232ed973f89928cd6c93d0b1e3 ]
-
-smb_check_perm_dacl() returns the access mask it computes to the SMB2
-CREATE handler, which uses it as the granted access for the open. For a
-security descriptor whose DACL is present but contains no ACEs, the
-function is supposed to deny access: an empty (non-NULL) DACL grants no
-access to anyone except the object owner's implicit READ_CONTROL and
-WRITE_DAC (MS-DTYP 2.4.5).
-
-The empty-DACL branch only denies when both
-
-  - the DACL has no trailing bytes (pdacl_size == sizeof(struct smb_acl)),
-    and
-  - the request contains bits beyond READ_CONTROL / WRITE_DAC.
-
-In every other case it takes the shared "goto err_out" with rc still 0,
-which returns success without modifying *pdaccess, so the caller grants
-the full requested access. Three problems follow:
-
-  - The READ_CONTROL / WRITE_DAC carve-out models the owner's implicit
-    rights, but the check runs before is_owner is computed, so those
-    rights are handed to *every* caller, not just the owner. For
-    READ_CONTROL the SMB2 CREATE path does not fall back to
-    inode_permission(), so any user can read the security descriptor of
-    an object whose empty DACL is meant to deny them.
-
-  - A request of exactly READ_CONTROL and/or WRITE_DAC is granted to any
-    caller. WRITE_DAC lets the handle rewrite the DACL.
-
-  - A DACL that declares zero ACEs but carries trailing bytes
-    (pdacl_size > sizeof(struct smb_acl)) skips the deny entirely and is
-    granted whatever was requested.
-
-On shares where the NT ACL is the authoritative access control -- e.g.
-"force user" shares, where every client maps to one POSIX identity so
-POSIX cannot distinguish users -- this is an access-control bypass.
-
-Compute is_owner before the empty-DACL branch and deny access from an
-empty DACL unless the caller is the owner requesting no more than
-READ_CONTROL / WRITE_DAC.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: added the missing mount-mapped UID ownership calculation for is_owner ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/smbacl.c | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 49a35974dd296..33a607e709f18 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1469,6 +1469,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
-+	bool is_owner;
-+	vfsuid_t vfsuid;
- 
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
- 	pntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
-@@ -1489,19 +1491,27 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
- 		goto err_out;
- 
-+	if (!uid)
-+		sid_type = SIDUNIX_USER;
-+	id_to_sid(uid, sid_type, &sid);
-+	vfsuid = i_uid_into_vfsuid(idmap, d_inode(path->dentry));
-+	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
-+
- 	if (!pdacl->num_aces) {
--		if (!(pdacl_size - sizeof(struct smb_acl)) &&
--		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
-+		/*
-+		 * An empty (present, zero-ACE) DACL grants no access to
-+		 * anyone except the object owner's implicit READ_CONTROL
-+		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
-+		 * deny the owner any access beyond those two bits, and do
-+		 * not let trailing bytes after a zero-ACE DACL become an
-+		 * implicit grant.
-+		 */
-+		if (!is_owner ||
-+		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
- 			rc = -EACCES;
--			goto err_out;
--		}
- 		goto err_out;
- 	}
- 
--	if (!uid)
--		sid_type = SIDUNIX_USER;
--	id_to_sid(uid, sid_type, &sid);
--
- 	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
- 		access_bits = READ_CONTROL | WRITE_DAC | FILE_READ_ATTRIBUTES |
- 			DELETE;
--- 
-2.53.0
-
+Thanks, applied to nvme-7.4.
