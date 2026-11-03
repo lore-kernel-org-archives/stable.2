@@ -1,69 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717546;
-	b=WoaJfEuKuXMAaOo2ygAgGYPYZkPwy4V/23dKQPuWGz1ykpo3jauqQTvKD5ghAkZXiOGm
-	 G6ji07Hv4Oz0D2YoN3ClZlmrnZNjoLsjzZQWstTYkTuxI52JTM+B3DxK0wJHR8PeQwGGa
-	 G8SSs2jjcc3yq5SCXmS9UAe8V6zuAhh/76CSmQmSBv9jI73RDoF0hyekTaup+2rMTVaSV
-	 dVljJCkToyb2cv6xvnwig9emzh5SnG/a5gFN+CnO0Rn5ot5n/IVDms/cSWP2OeDxdJD/r
-	 XBVyMXsK7nrrMvYlOWCmVwQ1KMi2WSkM6rfYHpH5CkizBOUQfwo9/3dXKemoluFt4oA==
+	t=1793717552;
+	b=dKCzEjCpuilufBB/S7HfjxeRJvKW/bTlOA39pFkw3k8spG9d3VAY5gzkMBGZ9ownwgrO
+	 tW0EaDZ32yx6hwRYQX7cYj0BZg2khF2JO0EK4kkSfncgS95MPD6AaYboYbIvjeIgaTTOD
+	 +p1MGh/w09wkhh8EDYVVa9VEvIsNePQKJG5AyScMASCqSkRfEvY10keovDtZRYhcv6aCG
+	 8ECZNSz/k2B7RE6nWGqmJxw8FzXzPaqYFrec065DwE38wAuREr6CPC0SbtNKU2XI05BeE
+	 b2oMeG++VEjGVKCqRyK/J+/TPronXH1l0FijvbkDP91Z9GxviUCdgbBgSH4O3+N6pgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717552;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LrjKfm75hVGdN5FWK5G1yhHfvG92/sfpaw9f0zcNrSw=;
-	b=XJuippDQ/00hbMEc9Jwu6adE2w4ZT2oMCWlp+SC9cPHoTUJkTrtiRbU1zDxEdl3e/T5G
-	 GI0Q6a7tjLnUKD23qCqR6bWK9wORJfWRCJnE9Sch8LCX0bUdD94JEOft9jmQbDJ/l14aH
-	 pNuNM1v3CG5Btp3Kr+2/EzMnkDyQELRU1Glx8tc9mgwAkB8X7mpg5Njj+ZAtDKqQy+3vf
-	 pPBKR1cj+alCxmw0F8wuNBwgjL+/j/tuxM83JlIPnDoVbV7dhdwi4zY2q3w2quDHljCLP
-	 6c3QUonA2ogMp04hfc5inp3b8XTJCn0PrGY419k6w/J8DmEH+DtKr13Jpvpkgs2pGEw==
+	bh=kAub1tPkaiW7ickeMvkeoo5WLK9wk008ZxVdUkzf0oU=;
+	b=Ad4a2M8E6l/uTCk8GZlt7sPOsPwQ4Dag0tZwRPe1841qkS3riGugassoTIbWwzB4wuGt
+	 JddT+Jq8USZjdng5/44vKUuARk9/mw5Sb5YFwb59oAEYotZ0VzXVgpWWd2ziGPi/vXiju
+	 O56FyW41j/a2zbuMOEyNtKJwDyy7rLEiHugbFhxBa6y4/xKfJHY+SiOiCbWYAOp6MlnX+
+	 i6FROQ+ojYxQ6YSVjdYSQ6kAbcHA7HhUJ27p1We12DqaftxQkVRNDKybsl51tYTCIhoSo
+	 CpYYjj7r3sAEBXiY8Ee8Pf2YA+Pcc/luX4zCyrq+gl0672EcEvGUp8yjOd3rVt0l4aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjjw7osZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5MlS8u5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FDA4606BA06;
-	Tue,  3 Nov 2026 14:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E9260A3836;
+	Tue,  3 Nov 2026 14:52:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjjw7osZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C85A1F0093A;
-	Tue,  3 Nov 2026 14:52:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5MlS8u5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB211F000C1;
+	Tue,  3 Nov 2026 14:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717546;
-	bh=LrjKfm75hVGdN5FWK5G1yhHfvG92/sfpaw9f0zcNrSw=;
+	s=k20260515; t=1793717552;
+	bh=kAub1tPkaiW7ickeMvkeoo5WLK9wk008ZxVdUkzf0oU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bjjw7osZ5hwTWIr6a6AiRpO64DK8WGlBnyg87yI+66CWpyujlHVfNsRRtVIZ2Y2n2
-	 LSDNR+qfUuI0Hoo9HgioE5F6Tn6Y7kl6M/cuyPtureD5QuVkeo0FQu0dCTibgvr4ah
-	 rQltvLEY/hQYdejUhRvlcbemc3n+OR4JtfegQRFnKDIkP8ceqnWKgOoC8Tj5uYVv9t
-	 YzRtClxaG63dwkZ+sdJ6SjGwiQ0Xa4a0QSC0Y3loa4dpRfToRZ02dbqa0Xw5KGS9pz
-	 xJBFM7kBMku6TudzDnbm8XhYEzbbuQJYiOX+fEZhYiMwJw4ecOjLT+dyiBUgGinzAf
-	 xxdltvcNv4HUg==
+	b=K5MlS8u5brJ0kGLN0lIfLSvU7p/qmEZb8ZM3VjITJFzjSUFDgle5gk+2afjP3cEAs
+	 LtLlYql5rujbS6RXni1a456Wiy/EPjW9XR2Zg8NgsswUGEll5z7NVv2jU5jFfQ2E9+
+	 GhFvw2Qsb9IBypnT49GUI9OHiSNrdYv7QasfjEuDGhbbn2fIxSLp2dZ41RYI8nO5t9
+	 UnfU2XwFNs25xI9PbDgk9AiS7lzKHBzBeOJy0xEquVZNA9CU1+/+Ahs2B3HhSgxDHq
+	 1s2BgTZc81A8NMnU4JSOAdyTFiKZxKRQweU7jSbyFimkwCxHKS1mNVNraZkfc6oPmV
+	 xkQCY5pSQkLgA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	sfrench@samba.org,
-	stfrench@microsoft.com,
-	wozizhi@huawei.com,
-	pc@manguebit.com,
-	lsahlber@redhat.com,
-	sprasad@microsoft.com,
-	tom@talpey.com,
-	glaming@microsoft.com,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	hargar@linux.microsoft.com,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Subject: Re: [PATCH 6.6.y] smb: client: fix busy dentry warning on unmount after DIO
-Date: Tue,  3 Nov 2026 09:51:59 -0500
-Message-ID: <2026-11-03-1-daily-reply-0011-re-smb-busy-dentry-dio@kernel.org>
+	seanjc@google.com,
+	pbonzini@redhat.com,
+	kvm@vger.kernel.org,
+	Bjoern Doebel <doebel@amazon.de>
+Subject: Re: [PATCH 6.18.y 0/3] Backport nested EPT violation GVA bit fix
+Date: Tue,  3 Nov 2026 09:52:04 -0500
+Message-ID: <2026-11-03-1-daily-reply-0016-re-kvm-nested-ept-gva-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102201410.55089-1-sidchintamaneni@gmail.com>
-References: <20261102201410.55089-1-sidchintamaneni@gmail.com>
+In-Reply-To: <20261030103643.573356-1-doebel@amazon.de>
+References: <20261030103643.573356-1-doebel@amazon.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,17 +65,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> commit 75f5c412fa867efa0bf9b646bffe0d912109e84a upstream.
->
-> Kernel 6.6 predates the netfs I/O request conversion and instead splits
-> I/O across three reference-counted structures that each hold a
-> cifsFileInfo reference
+> Backport of commit 96b067b59ad9 ("KVM: VMX: Synthesize nested EPT
+> violation GVA_IS_VALID/GVA_TRANSLATED bits") to 6.18.y, with its two
+> dependencies.
 
-This is a hand-written 6.6 adaptation of 75f5c412fa86 ("smb: client: fix busy
-dentry warning on unmount after DIO") rather than a cherry-pick, so I need an
-ack from a cifs maintainer (Steve French or Paulo Alcantara) on the list before
-queueing it. 6.1 also has 340cea84f691 and the same bug; please send a 6.1
-variant too.
+Queued the series for 6.18, thanks.
 
 -- 
 Thanks,
