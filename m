@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697691;
-	b=5Vorg0x90dpKdz7tWs/ZCqFn1yanwWbXmqFAHm0DnFrKK4+dolYDy6lwETfOeQQAognn
-	 MQstADcx8Ko1AWlXwWCWy1oM8SaDLKl9JgD3d6oSj75SPQHRcajRjEDalrIJJ0vOrA8oG
-	 Xjx13S+3sR0ZUNbQ/AYhW4z/SoJ72nkIpNLFxsKDDSovx8X5fqAg5QRN7/97rZDNlsCNo
-	 yjYTzBTCmPQ+lqnKnbHiGNy7G/qHINC42fx/+D/ZFa6VbFp1wDQgYyw5h7SU2MQR2en2c
-	 xbTlALPESOIg4l/y2xtBqi0KBvFBxn0LbVXJkkQ2Bsj0vlFw8yudGKt9qa6OR2FUriA==
+	t=1793697698;
+	b=cTLF1ndntfq4khWTv6fCNhGtiIrMzmdjGN6oyFg8hNaN6SIlg3rSuMsS6oj8c8LGqmNU
+	 vIauxTOB0oErV3HgXZSep8wl7ZdYaF6zvZ/LCNA7m01p3ZS+BFf+SHcqD6rvr1NGF22M+
+	 uoCtI5PIOfG2zSUl/xPVVeDfefJI3q6dwRKrsJjnTHKJaW+ku/D2wM7lXtoes+0znBUJW
+	 a98C2yTZG7uCto/2t9H3xnacMVgaXHu/YOSwz96elQRGr+x7czOwTPDJstqGqnIwPutFe
+	 vW9FATMSVWSVPQPszc2mHNJpuc2hv9ixaZHgrWi0ZhLen4RgG3nNTGKPcwYhx6qPKMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697691;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697698;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ra7fP8C7bsgcxqmhSZXP2416uNz7g2e9Zbid3mgPbE0=;
-	b=MJpMU2/s97L/nZenFmxa21Xc4O9F/gJIhsme8j535aZSjFO8cj38b+aVfxur8zGfwRWd
-	 3fD8dUea+DmlKMLv6CSnnU0QIEjdBCKpEXYBSBdH4cyikT2lDTa3xjV4ChSCv5i80RCwd
-	 ChKB7aRDG2D8oGYR9Yt8Y+BnIlSIfcCsjearKgBAoRSIYPdEaKQw+ntRAEsmcxOXcnuXd
-	 oE7SMN9zRvocLivAu7u6f+c3cv7VO1sZxnTGW6tXXTLjt++Tu6bYfHW67ax0z5tgK8Qrb
-	 VLZuWStqZgASxIXP/EpfzieH3Qv2fZFtbwbbrRJud9T9gyOToXSDChrp4ySuIrB787w==
+	bh=NP2sN5eUDGhbX35PtSoXTsLLFghlp2JmtENblnsMo08=;
+	b=K1oV0HLMDT5NL1kmJxWk9gg03Q8fpNTSB6sbjsicmoBcfulknRBVjeGWPpTl+Lv7IUXt
+	 XRffXiY0AK4UbL3QCD+tEV9uOLWXDM987I0+CSsOPNQo4mrQtlAB1OCIOdBPXFmjAutRq
+	 mdlH8myh9eOhnUgqUNxZCp2Q60OZwgVl3Pgt+KP8r3wXBphDiQ3t0bQa7ObtP2qxrZxE5
+	 T9Jezi20Kcw9gIPhgYqJys3E3XIPP4+1OQkjfmulsi3OqB4nYNn2ghKPIVo3dBPI0w18y
+	 QQlJFlknoTxMHtOB/S2d2bx3t/v5QwCGw/Hjn9HRsVuThgVx+6cusaP2rKrAVFnMm2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYZri6FI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFcNmD0M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54ED606D830;
-	Tue,  3 Nov 2026 09:21:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B3F3606EE99;
+	Tue,  3 Nov 2026 09:21:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYZri6FI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 986F31F00A15;
-	Tue,  3 Nov 2026 09:21:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WFcNmD0M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF71C1F00A18;
+	Tue,  3 Nov 2026 09:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697690;
-	bh=ra7fP8C7bsgcxqmhSZXP2416uNz7g2e9Zbid3mgPbE0=;
+	s=k20260515; t=1793697697;
+	bh=NP2sN5eUDGhbX35PtSoXTsLLFghlp2JmtENblnsMo08=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RYZri6FIRAO5xWFUVpmiFTenaZwZHFUGnDF3uE5fEhkXNvzejXmS9uu26QhondJ0s
-	 iLymzG5HpKDHpFWP3sRkfCnXDxgVk8YZRnmW1f1665XghU+HBYpGmK/6G3/1SoA91v
-	 FfhGo1fSRgovGigWnpicIEpOO5vOW8kSIx3XsHLcNM6AhGWsdpx6rxD6OHetV0BKLy
-	 0t1wDAkuox0P8uNozxhP3zaY1V6Hta3lLGD54V8Zuh0LrXCXp2ah+vdSjpFROlxCqd
-	 uOBhkp4AGKkb+uXuLfq3XaTYMyNJG/Ta3pHtgVoG9KrJHtdC7XkKGZ7pOBc38SdvmT
-	 5WpkT+clWdlIw==
-Date: Tue, 3 Nov 2026 10:21:27 +0100
+	b=WFcNmD0Mrv3w5J2CySc0bY6pNjKT28KaUljk7+PRe1+g0kIRloeyAQrYBZjfoanC3
+	 9Wn3liETYSVPh/IPrChRzdF7XkITJinwyc9E3q2d5OQPve8glFk/Dj6u5DBYEVZtcG
+	 aBv5xvy3JlcP17ZuZZflSnOiANDKDwfzdUI844SXqKEx4I/AY1c6HvvOVCwxNDkOcA
+	 nxepUWwB87/nS/wUHrNHFFoODVZz6yWxEq/hpmxbadY3MElzkNmotmtIRrhBImCmFs
+	 3hZ2RzQohztVn0OAE0KIJ77utmRrFEXiCTw6FE3CVeKyLByuxXGlX29iSVFb+sNXjW
+	 h2wqRdkpjOPEQ==
+Date: Tue, 3 Nov 2026 10:21:34 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, stable@vger.kernel.org, 
-	sakari.ailus@linux.intel.com, vladimir.zapolskiy@linaro.org, mchehab@kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov6211: Release controls after control
- creation failure
-Message-ID: <20261103-wombat-of-eminent-courage-b0d7fe@quoll>
-References: <20261103083417.1175861-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	mchehab@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: cx25821: Free controls even if the video device
+ was not registered
+Message-ID: <20261103-vehement-likable-chupacabra-2b8437@quoll>
+References: <20261103083132.1171874-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,26 +59,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103083417.1175861-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103083132.1171874-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:34:17 +0000, Wentao Liang wrote:
-> ov6211_init_controls() returns the handler error directly when a control
-> cannot be created. Controls that were successfully created earlier and
-> the handler's allocation are left behind. The probe caller powers the
-> sensor off on this error and does not free the handler.
+On Tue, 03 Nov 2026 08:31:32 +0000, Wentao Liang wrote:
+> cx25821_video_register() initializes a capture channel's control handler
+> before setting up its queue and registering its video device. A failure
+> in control creation, handler setup, queue initialization or video device
+> registration reaches fail_unreg, which includes the current channel.
 > 
-> Use the existing error_free_hdlr path for this failure, just as for the
-> subsequent firmware-property parsing and control initialization errors.
-> Save and return the original control error.
+> However, cx25821_video_unregister() only frees the handler if the video
+> device was successfully registered. The current channel's controls are
+> therefore leaked on those failures.
 > 
-> Fixes: fd7cb868e309 ("media: i2c: Add OmniVision OV6211 image sensor driver")
+> Keep video unregistration conditional, but free the control handler
+> unconditionally. v4l2_ctrl_handler_free() safely handles the zeroed
+> handlers of channels that do not have controls.
+> 
+> Fixes: f8d7ee70919d ("[media] cx25821: convert to the control framework")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/i2c/ov6211.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+>  drivers/media/pci/cx25821/cx25821-video.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 > 
 
 
