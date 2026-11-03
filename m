@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690839;
-	b=YiX+WkL+AiM4jOpUBr7sTqe76jzvciWocmNmFQrGUHN9DV2oGmO3wrJhzMxZH5WQRmsJ
-	 0fRYPA9bulxDwyUu5/47UpSHFTW+yjAasgMhLfuhWucE3b0aATgmcD2Cm+IJAXR2AST+u
-	 IWLOc9l3T9wwmP0WD3FZOf5BwmYsd9I0vrT2X09lmkGiyxOti6ij06iMqAoMketG2twAH
-	 ByDT37YlCxkL8klnlEaqX3wNaW8F5xZ/nRrGEZY93y53dTOrTe1RsAxbJTHw6j0+NzIKK
-	 AqKnGxiH08MznwN/J2NwEJXcxFnrLJWf3ySTcysjvt4RolJOPpZP5RIVhTMRziu/0ow==
+	t=1793690844;
+	b=ZqBrSq95uOmxTRNKPapPnzcbdGwuK57HMumLzdwlopjaBPKmGFksC7sf1v9sSrQp2hwW
+	 dVdeDEOkLcBK+d0DOq7+gguNY1XRcrr/nv9bxwe8TMyf8HrZ10VzJiflFsL2g8DwDffK8
+	 DZ08onCCJjTCM+8lT8ZmEjgt22l/3uYSmCO4gXxlvUs5DmGe03jvsLK82xGVGU+niahTB
+	 BqZwltg2yfPjLTg0K1pwwFPKNxuDRwhlr3/HWt5b/BpAb5zMb3mt8pNYlJexyMFsJdgiz
+	 SI/2kKRd94WTP+9lkmteQpBEo4Bj9GQS9VjcF/PGL9xzz4JqQC84Ni4RNiDSNUWrUFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690844;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=B+eNvJhfvNdmdTeUsMCHHrwmrIHwL9fR5Evuw6xT+Uc=;
-	b=ZOkjyVE1S/sy4Dm/YZwUMrBJJ3GFXIAkpsVNjwvnGUhMzL9IQTSlk3/BWgqxPV9mukhV
-	 orY1W2gEZQjXmnST6BlpucbGwjyGPmMa2YSNSI2O6GAVHQ2F9leRIOIGuZ4hBGbxwHjdJ
-	 sN0vT6W/zdOlF7KLlhtVzJTHpfiS1V+8eVyXT2Jl/Q7thWU+jbSjGBS7dxD8LcvY7aJYN
-	 J7AABgTIhmFOxugeOKH86FFeUF9ESMgRai25luLwo9bQePppYNEgqUDwFPf4i7S4s1/oq
-	 s0SQZ1p/43NsZw6K8Tuq3VbjPa00OL5ULlQtt/cpvhrLhPeKboNtQ9cEMxkMUsFjLMQ==
+	bh=xM3fZ0DeX/mIM0tXabGWnukqQCpCqfaj/WoRQI2M76A=;
+	b=b+DjH39xcPCKMnw2A96Ypx9A//8gST7/0/0IFx/uItGhbQCsmClhnUuHTJVX40A19YfA
+	 X+qTNXHs1JgHjBSHX0JBkMmLdiuZU0hI4HG6ihqxZXvcEyduNoBN/LjxQuMHA41533WIx
+	 vlEa9f13/pRBDN+HUv/VP/I8akQ37Ha/v246gurLNAW7JiFoZ/8fijnb9ttzm7Yfr2foe
+	 pmnMaE5yUwkPmsyCX6PL80nrgoKvbU6m8dIJ9f7P3CJdXqQUHqwC0ouOOndOXVXBrAT/I
+	 rkJz8WC8+UCXpUh1gbCuArHmypm8MZSSpj/+UtN1rDZFhp61byxraC27lP79mBM61CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MoHr1mwF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BHR1QXCP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91C8606A32D;
-	Tue,  3 Nov 2026 07:27:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDDA606D805;
+	Tue,  3 Nov 2026 07:27:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MoHr1mwF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4F11F000C1;
-	Tue,  3 Nov 2026 07:27:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BHR1QXCP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4011F000C1;
+	Tue,  3 Nov 2026 07:27:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690838;
-	bh=B+eNvJhfvNdmdTeUsMCHHrwmrIHwL9fR5Evuw6xT+Uc=;
+	s=k20260515; t=1793690844;
+	bh=xM3fZ0DeX/mIM0tXabGWnukqQCpCqfaj/WoRQI2M76A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MoHr1mwFRaq2TGTAMRbam63GEuqHqbo+I2LWYGT6pUYj6BuDfaV3ulaxquM+bAq77
-	 mhBDDBoifZ3lyzqH/vANyzXSIQB5sTO9UccxhwPJJIoJsezz/XsgK8tayls3V96V2y
-	 eQgQ6DtjKF/AfNjgxk74suBCwQCQxhSZ59msSmdxzU7NMO0PGVolMwsUGJXExgTPmS
-	 aNMoBC79xULgyscGBXL6zr3H09PNSZBhzK0twvGxj5GH8ektlvwra0FaK3Po+jP4Ob
-	 utcI8knwtOym8JYUaiaclegpS7Dl62copYGH8j8WoEIEAbUc/z3vfa40Bx8FyXPdKW
-	 HPGgwfeoIrrdQ==
-Date: Tue, 3 Nov 2026 08:27:16 +0100
+	b=BHR1QXCPq21cyEaTcSEtOMw/y9NQh+fLQxxtBdepNjhYEbM3Sh+rHoShJh7K5Zgh2
+	 +C85UKOPVr1aNp81RealW7rDfru9iukd0+s1S20WpyfmUd1Qzittzh+lSSQqXeMjQ8
+	 26oyxQFEW9PHYLDGzwrP6VkzmS9CNOJVoF0RS6qBqJ50k0yNIZfqbqVZva4wHzYgWx
+	 ZgmKC/rSI7yCLfhnHF3EVr3J+J0x7WEHLGsgcGijy4AslEMs5WLjY5zjiEtZyIaVIx
+	 KKUpbF78PtiM6xHgp97lvfj8T8O8y1ayCLem/7D1V2ZLk1Zs9aYZkv9L7D9C1D/zyo
+	 cM5JyqMKWLKsA==
+Date: Tue, 3 Nov 2026 08:27:21 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: hsweeten@visionengravers.com, stable@vger.kernel.org, 
-	abbotti@mev.co.uk, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] comedi: comedi_bond: Track opened devices independently
- of subdevices
-Message-ID: <20261103-stimulating-malkoha-of-popularity-a9d0e3@quoll>
-References: <20261103063301.1025860-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, zack.rusin@broadcom.com, 
+	linux-kernel@vger.kernel.org, bcm-kernel-feedback-list@broadcom.com, 
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/vmwgfx: Put the buffer object when handle creation
+ fails
+Message-ID: <20261103-violet-goldfish-of-enthusiasm-1afde0@quoll>
+References: <20261103071527.1091375-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,28 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103063301.1025860-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103071527.1091375-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 06:33:01 +0000, Wentao Liang wrote:
-> bonding_detach() closes devices by walking the bonded subdevice array.
-> If a device has no digital I/O subdevices, do_dev_config() never adds it
-> to that array. Its open reference is then lost. The same happens if
-> configuration fails before the first subdevice entry for a device has
-> been added, for example when allocating that entry fails.
+On Tue, 03 Nov 2026 07:15:27 +0000, Wentao Liang wrote:
+> vmw_gem_object_create_with_handle() leaves the allocation reference with
+> its caller, including when drm_gem_handle_create() fails. The allocation
+> ioctl currently skips dropping that reference on this error path, leaking
+> the buffer object and its backing storage.
 > 
-> Keep the device returned by each successful comedi_open_from() in a
-> separate array indexed by the configuration option. Close those devices
-> on detach, including attach failure cleanup. This also removes the need
-> to deduplicate closes for devices with multiple bonded subdevices.
+> Drop the allocation reference at the common exit when an object was
+> allocated. Keep the helper ownership rules unchanged, as its other callers
+> already release the returned object on failure.
 > 
-> Fixes: 3cf840f65ad5 ("Staging: comedi: add comedi_bond driver")
+> Fixes: 9ef8d83e8e25 ("drm/vmwgfx: Do not drop the reference to the handle too soon")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/comedi/drivers/comedi_bond.c | 17 ++++++++++++-----
->  1 file changed, 12 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 > 
 
 
