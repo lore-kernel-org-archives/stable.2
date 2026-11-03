@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700849;
-	b=VF5SRwgHV/Ky5vya/e2BKWPbirbGgVOqq6qrHAM/vvSZKzOwvwgtpPyyC+/sY9FcqSkW
-	 dNvRcZMww7I45PYglgfoxkUHoXILwbmynn+P/Nf+GFlquBVqSp5F8mmesNjrU6wbRo7dx
-	 fyuHlPCXwXFqdl8bwssBLAw5GPA2PkKLAiGI3s4HGIC2/5bgQpfh5lXdJKWfip8UqxHO4
-	 +130OtS0BBUGpka5pLAfemYJRygLrxtCe/wwNnlhFd0jNoOzBZkL9P6AUZDp6W/SNJl5Z
-	 Z2BmxgPMd/iMJNqgw4rJlr3GG5prQF4vTrWLzmhFTGiY+bqpd8oqWsdowTkJXWROWTQ==
+	t=1793700903;
+	b=s2Vw170JiPBrvw0a1S7DcB+TpQ0PyWnO+oHKqf0BAo/24THWO9ZRr0cOTIFALbHZ0YU/
+	 N/Fm5mwILd6VajaWEBwHEKiqc2WI3jc/YN5mbSn0W4V6rIeBfKzXC59zrrF3qXgpDpl6P
+	 ok5/Z+JH8GpeT2XfywX4sPzTOjBgiBLof1QSVIko+u8fqIXSMShs3CslnHOFfvBVkDzst
+	 w3wajM4Z2idxKDuhGSG9nO+mnVOB3gIMngvoVoEvH+FL1vzUgoIrc9x+wNXxVG9jEZ2U7
+	 lUgcGTs3rjh/srYGqoGK1kjBTzZl1eZ8ErP8hzVVRw3/BRPg23M34aVPO+Keu7EeCVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700849;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700903;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zgs3ez4oWdlPOKxBAU1zEZKSBi65gASkM8gU6unTdew=;
-	b=ULwo6f8m32xGunJVFRHmRIPLC0m0CI+985sud/wVv8JcYftQnNS7EqaqShnRtufvredJ
-	 mEjvV9clIEkaVkPkY6Ku0jsZzD7og8WDAItRX5ztMRcXw62XBQRFnu45KPy7uMHlw/uNk
-	 /+ykOXV2GS6vfUejJo4jBglzTBbMdVPHW9fm0SGc+xCVI7ehl5x1A8LPc79OT/Q0kju5o
-	 jiJVXcZNAOqnjnPkvG6628tfBxwdOPUz7MAPKi3RaCvAV1m6/EThe7Zzq24oOKBdk6Y0x
-	 9zZE5rJr6T/Ard2aU2ifG9ZSNvhCF9CjXUb1Q3jxkp3at//bIsIFORDrhceijxVMhMw==
+	bh=bLdPty+DTuSHqzQctslTxDVxNNMGVDfqJ4av1q8h4Fs=;
+	b=h36+k4fBQ1j85Wo2TdDgu/F3uFC7CctmLmKz/cErDDharU50MEnxg3priLsNFAn0jn5b
+	 BY9bR0+aZ9U06SObqMS6ANy8TztxRm0amiDSi1Yxv32lzJclKK/xoz1ivEZQk56SvNkFt
+	 hAsK/bS/26eeyOErJN12WocxhTK4wsAKLDFYNYS4wqy9HdwgNrNdYwN1O3VwEMPwFLEc0
+	 cbszAtcsi9rSEnRuiIpAcdUP57rsVrzGjlVAQ8vkGmwDHyvBWeuAy/5JKD3aAm7aqwV0R
+	 QevzcZYKixaFhNvnjtWxIgrYh9hLIQ3GPJXtJcTsCyPulatwM93gxHPHLgemrmFkYpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="QEplJmd/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TMXQra1z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BA7606B129
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:14:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C3E606BFBB
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:15:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QEplJmd/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8702A1F00919;
-	Tue,  3 Nov 2026 10:14:08 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TMXQra1z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE981F00A02;
+	Tue,  3 Nov 2026 10:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700848;
-	bh=zgs3ez4oWdlPOKxBAU1zEZKSBi65gASkM8gU6unTdew=;
+	s=korg; t=1793700902;
+	bh=bLdPty+DTuSHqzQctslTxDVxNNMGVDfqJ4av1q8h4Fs=;
 	h=Subject:To:Cc:From:Date;
-	b=QEplJmd/vq77pQTqkXL9iPOHdJcoAf03BPA1MAYQJSyc1Ct7lN2bd0TZn6/X6lUh6
-	 NNuqF3oTOtR20XNe93fZWAMDf2b6jpuXaaGmtBkhqM9qZuWR3FQR4mJ9uzSPoLLJ+e
-	 AitnUyyCLjP50+QlnKSpn/ArxfA/GoD21FdSLXKQ=
-Subject: FAILED: patch "[PATCH] backlight: lm3630a: Cancel delayed work before destroying" failed to apply to 5.10-stable tree
-To: mhun512@gmail.com,ae878000@gmail.com,danielt@kernel.org,lee@kernel.org
+	b=TMXQra1zfsoJYFKHXAFY6kLYuxIGK8vb3rKAAYz3w/UU9mAar7bf1+njqUwHqb2FH
+	 BcD0h/kd2zZO4EFLM6/v/GOACpYH3ld8D4YN+5OA5uC1prNgnSxa+EAK9pgS3vFNpW
+	 C948GN979dZ8fW6nHZhjOXuvIdEmf1ot4smasyXU=
+Subject: FAILED: patch "[PATCH] ksmbd: accept share config responses from ksmbd-tools before" failed to apply to 5.15-stable tree
+To: mike.michalo@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:13:59 +0100
-Message-ID: <2026110359-varsity-prefix-2813@gregkh>
+Date: Tue, 03 Nov 2026 11:15:00 +0100
+Message-ID: <2026110300-underwent-entrench-2c0e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2cf184caab8b406fdd9db126ee40d62418237456
+git cherry-pick -x 4f1ce9ffb996a524acf864316479a7806ae500c6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110359-varsity-prefix-2813@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110300-underwent-entrench-2c0e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,45 +79,93 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2cf184caab8b406fdd9db126ee40d62418237456 Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Fri, 2 Oct 2026 23:04:39 -0400
-Subject: [PATCH] backlight: lm3630a: Cancel delayed work before destroying
- workqueue
+From 4f1ce9ffb996a524acf864316479a7806ae500c6 Mon Sep 17 00:00:00 2001
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Date: Mon, 19 Oct 2026 21:11:16 +0200
+Subject: [PATCH] ksmbd: accept share config responses from ksmbd-tools before
+ 3.5.3
 
-The interrupt handler queues delayed work to read the interrupt status.
-After free_irq() stops the producer, this work can still be waiting on its
-timer. destroy_workqueue() cannot drain delayed work that has not yet been
-queued by its timer, so the timer can outlive both the workqueue and the
-devm-allocated chip containing the work.
+ksmbd-tools releases before 3.5.2 do not have the payload_sz field in
+struct ksmbd_share_config_response; the field occupies the last word of
+their reserved[] area, so the kernel always sees payload_sz == 0 from
+them.  ipc_validate_msg() and share_config_request() used to treat
+payload_sz == 0 as "legacy userspace" and skip the payload size checks.
 
-Cancel the delayed work synchronously after freeing the IRQ and before
-destroying the workqueue. This also waits for any running status read to
-finish before the chip's resources are released.
+That case was removed by
+commit f25e93768fcc ("ksmbd: prevent out-of-bounds reads in share config
+responses").
+With payload_sz == 0:
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+ - the IPC$ (pipe) response fails the final message size comparison:
+   these tools always send a one-byte payload, so msg_sz is
+   sizeof(*resp) + 1, but the expected size is now computed as
+   sizeof(*resp) + 0;
+ - every other share fails "payload_sz <= veto_list_sz".
 
-Fixes: 0c2a665a648e ("backlight: add Backlight driver for lm3630 chip")
+In addition, ksmbd-tools before 3.5.3 copy a global "veto files" setting
+into the IPC$ response, so with such a configuration IPC$ also fails the
+now unconditional "veto_list_sz > payload_sz" check, even though pipe
+shares never use a veto list.
+
+ksmbd_ipc_share_config_request() then returns NULL and every tree
+connect fails with STATUS_BAD_NETWORK_NAME, so ksmbd cannot serve any
+share when used with these ksmbd-tools releases, for example the 3.5.1
+package shipped by Ubuntu 24.04.  Login still works, which makes the
+failure look like a configuration problem:
+
+  CIFS: VFS: BAD_NETWORK_NAME: \\127.0.0.1\IPC$
+  CIFS: VFS: \\127.0.0.1 failed to connect to IPC (rc=-2)
+
+When payload_sz is zero, derive it from the size of the message actually
+received and store it back in the response, so that the checks in
+ipc_validate_msg() and the path and veto list parsing in
+share_config_request() all use the same bound.  The response is the
+kernel's own copy made by handle_response(), and msg_sz has already been
+checked to be at least sizeof(*resp), so this cannot underflow.  All
+checks added by that commit then apply unchanged, bounded by the bytes
+that really arrived, and newer ksmbd-tools that fill in payload_sz are
+unaffected.  Also skip the veto list size check for pipe shares:
+share_config_request() reads neither the path nor the veto list for
+them.
+
+Tested in QEMU with ksmbd-tools 3.5.1 and 3.5.7 and the in-kernel SMB
+client over loopback, with and without a global "veto files" setting.
+
+Fixes: f25e93768fcc ("ksmbd: prevent out-of-bounds reads in share config responses")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
-Link: https://patch.msgid.link/20261003030439.599330-1-mhun512@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/drivers/video/backlight/lm3630a_bl.c b/drivers/video/backlight/lm3630a_bl.c
-index 8f49e59ce374..8ef8163c7fef 100644
---- a/drivers/video/backlight/lm3630a_bl.c
-+++ b/drivers/video/backlight/lm3630a_bl.c
-@@ -591,6 +591,7 @@ static void lm3630a_remove(struct i2c_client *client)
+diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
+index e550aa41ad2c..f5cfc320500e 100644
+--- a/fs/smb/server/transport_ipc.c
++++ b/fs/smb/server/transport_ipc.c
+@@ -532,11 +532,25 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
+ 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
+ 			return -EINVAL;
  
- 	if (pchip->irq) {
- 		free_irq(pchip->irq, pchip);
-+		cancel_delayed_work_sync(&pchip->work);
- 		destroy_workqueue(pchip->irqthread);
- 	}
- }
++		/*
++		 * ksmbd-tools releases before 3.5.2 leave payload_sz zero.
++		 * Derive it from the size of the message actually received so
++		 * the checks below bound the payload for those releases too.
++		 */
++		if (!resp->payload_sz)
++			resp->payload_sz = entry->msg_sz -
++				sizeof(struct ksmbd_share_config_response);
++
+ 		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
+ 		    sizeof(resp->share_name))
+ 			return -EINVAL;
+ 
+-		if (resp->veto_list_sz > resp->payload_sz)
++		/*
++		 * Pipe shares carry no veto list, but ksmbd-tools before 3.5.3
++		 * copy a global "veto files" setting into the IPC$ response.
++		 */
++		if (!(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
++		    resp->veto_list_sz > resp->payload_sz)
+ 			return -EINVAL;
+ 
+ 		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
 
