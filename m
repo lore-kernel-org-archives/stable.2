@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698100;
-	b=WWFxbvEAsptycYmUjjk6zliSEIckoNbxZi4um0xdYes1ht2tILqfgdpa6kF036HHglGc
-	 MQ166ZOIcui9HyjN08o3pIEDxTf6GVe/YgklKskqAdkqqwQtahdLUxvL/8WYTg6kswJqd
-	 lGMDk0uQqKT7U1TjI5E3prMPtEX9lLZqYj6expbA+HGrdfBJgAfvHnMoBdGC17cONy6M1
-	 I4pxjmZB+j/44AzZOLMcyyUgRDo4g4ZiTd4Gp/b8jef/7LMw06gZLHhgsIzENbnl5lTSr
-	 52CpI9s4Yhkt5Pjr4F6KgOWA5jWEbLnLbDIdjDQhwRdWvYHcuV1xRReBEHACA4E2l9A==
+	t=1793698097;
+	b=JzR/sse/Fj3ltQ0OJEEKtScV0vVsmAZKiB4T4BI8R8wmRAD+gmCsEBp9ZMWhZyWtuQRz
+	 NB/MkeVyYGZP1mtOcnJicgXRq5eDEC8NIFXkukDSl6X6Ft3E0eIFitNNR2bWCmpK/gC9N
+	 xr4ZFnz2HOWZUzYjHqkU8/TkaRl56BBLtsRH/pPNpYv/yK03YsAAUMwkxDrPuwk+J31n8
+	 sLZMdnWlrkNgUskiummbsxO8s556qR/LtMcfuFofvcca0+IXUfRr2gW43DrWcJk5lBmud
+	 toAYLFICjDERXQTf9x63LO+foBQs31N6FIARVrfvnYkmF2+e8/sh92RLpAT2Loow++w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698100;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698097;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ij4pfawAIRW/R6iIROir5Bacygd6lNvKMKgQO8Yp+JI=;
-	b=gVbWIczYcZXq7lo74QzP+Hktz2wBTJ+mP2MaLxR1P7Sh5YO8pQw+Owwf1dwN16zXOIW6
-	 vFHMi/cXbWBvbRt28RSqqPaqGRiPeepFbXkXBTnaxjByv/D2J1di029N4PGxDhz0ZHTdY
-	 svGdBYQfJOWtcHj8RmkUwjdcH1lytpg5J1GLUmrgE7oZjwyID0A3Ekurl27WiothI60wj
-	 fCIFmRriCq18z8HgzNf4ZcY1qop5Bmt7vsjdPTkTxLiuHsKWrdWCsXxmV57gbBWduzCjA
-	 sQw0M0H25RtayBuWmN744VPLLSnKFCX4igL+9muW6/yxBxhIca9LmGY7fZcYgJ/Vy0A==
+	bh=kHLZywTsZAKLRgvfxdfCZJOqF7Eh2MWorebcjzuhWEU=;
+	b=1ed8CH7+52pQXtFnMCCNQTLIVrnTyXTqq9UkEAMSb5VzcCi8/mmX8NYkaxnMxZbhJTye
+	 ljaWOJjdxvtVp6vPpHgfCcrhKiVkVajcQ8+YdrzST/KRmw4n1J8dDeV+yjzcjIn9SkBxU
+	 vNzUzCEAsCLnayNmWKDE3WaIZhaoEw59W4CM4RduyzIcHl6+n5TFx9LF9CGYhtO34H+aI
+	 8AHiykShZ6vLba+UrPnZ/7Jx6Ard2NrLm05mw36iA61KmHLbV+nTGv+nOIs8YCKBxritZ
+	 B1D5m1RROrD/RdwDxjKPPQma8Jr32OgKWTEXmYFyAq/vOOGpXq7L/1HV3wX4PCBFR7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYPHNe7Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT2qId1Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B540C606A326;
-	Tue,  3 Nov 2026 09:28:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC27606A332;
+	Tue,  3 Nov 2026 09:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYPHNe7Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E1A1F0093A;
-	Tue,  3 Nov 2026 09:28:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT2qId1Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E4D1F00919;
+	Tue,  3 Nov 2026 09:28:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698099;
-	bh=ij4pfawAIRW/R6iIROir5Bacygd6lNvKMKgQO8Yp+JI=;
+	s=k20260515; t=1793698096;
+	bh=kHLZywTsZAKLRgvfxdfCZJOqF7Eh2MWorebcjzuhWEU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WYPHNe7ZvTdgRYfHSEy1NJjaWvcZ26yHXR7t3Ip8hyIA+z1hJDA5hSUxMESCv71ic
-	 RqgihqSPEfMPxw+ABjgT0UHoiHG/8G6G6+RcqqraijEdY13LinVuLaUQJjsjMUcC+m
-	 zhJb70LE+ieUwrENJXkrBTrl/4BaOWMwTsIO+syrsCATQDVBx3iFqU9seqolHGboPj
-	 ehG4Ayy6etBetGZzSwdiv2WmaGd3qIheguXyFKNnE8d5b9GGWl7kX45YHZvHKd52Bh
-	 63Tem4Ce/o/HNevQnQpVNjHmpUDRnxVQnGQ81hFMPCDivhWSE6LR6t4grHUV5zJJW8
-	 yNu2kV57ouFKw==
-Date: Tue, 3 Nov 2026 10:28:17 +0100
+	b=kT2qId1Zp9eYvDrck79F70FvBP101HDFX//4Pvj9xn3JTEnrEDayWXWHeI1D+Gdhp
+	 Bp+b9GeK0b5cB4MoKfoSHG+0DYvcfXO8+B2dwfwFjRV953OF6TYp4VlxNDjQOYreUW
+	 ufrDUKu0UxNYQm/29EmCnAgo/XBbtGA0NXz+FYICiQDftRU8RxNQU+7YXKMvcZ0A8a
+	 reAxiFNwgjsjjUV2ivevXRhIqLxxTB8e1NsjrV0wyeSOZTgrTIqYWrLVu2q90+D4Jm
+	 Tc81C9K7HqCCMb6nyk6RYK6J1ks3LuY1pfahYUNgWYZP/CqyzzZbvxDYfSxAesJr/Z
+	 ispKMN6o3Xn1A==
+Date: Tue, 3 Nov 2026 10:28:13 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, dri-devel@lists.freedesktop.org, 
-	joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, rodrigo.vivi@intel.com
-Subject: Re: [PATCH] drm/i915/selftests: Balance batch VMA pins in the
- preemption gang test
-Message-ID: <20261103-slick-wapiti-of-snow-e9dc0d@quoll>
-References: <20261103080030.1124149-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, umesh.nerlige.ramappa@intel.com, 
+	intel-gfx@lists.freedesktop.org, tursulin@ursulin.net, jani.nikula@linux.intel.com, 
+	joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915/perf: Unpin the context if reading its GuC ID
+ fails
+Message-ID: <20261103-charming-pygmy-elk-eded62@quoll>
+References: <20261103080237.1126027-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,28 +61,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103080030.1124149-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103080237.1126027-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:00:30 +0000, Wentao Liang wrote:
-> create_gang() pins each batch VMA before mapping and submitting it. The
-> mapping and request allocation error paths drop the object without
-> unpinning the VMA. Later errors drop the request references but also leave
-> the pin behind. On success, live_preempt_gang() releases the batch
-> reference after waiting for each request, again without unpinning it.
+On Tue, 03 Nov 2026 08:02:37 +0000, Wentao Liang wrote:
+> oa_get_render_ctx_id() pins the context before obtaining its hardware ID.
+> With GuC submission, gen12_get_render_context_id() can fail while
+> allocating or accessing the scratch buffer used to read that ID. The
+> error is returned without releasing the context pin.
 > 
-> Unpin on every error after a successful pin. Keep the batch pinned while
-> the gang is in use, and unpin it when the caller releases each batch.
-> This preserves the fixed addresses used by the semaphore chain while
-> balancing the pin before the final object reference is dropped.
+> i915_oa_stream_init() immediately returns this error, and its caller
+> frees the stream without invoking the stream destroy callback. There is
+> therefore no later opportunity to release the pin.
 > 
-> Fixes: 2d19a71ce68f ("drm/i915/selftests: Exercise long preemption chains")
+> Unpin and clear pinned_ctx before returning this error. Also clear the
+> pointer on the existing context-control-offset error path, so failed
+> initialization consistently leaves no pinned context in the stream.
+> 
+> Fixes: 682aa4373f15 ("drm/i915/perf: Fix OA filtering logic for GuC mode")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gt/selftest_execlists.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/i915/i915_perf.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
 
 
