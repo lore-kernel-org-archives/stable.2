@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690813;
-	b=1KThRHTpOGS1Q1bd/c0AOgmtFVNrk+1mCHDlZ7pdBYwNevf0lWa4k3G2yZJ7AlQCmGto
-	 Y8vDtbn7ew+uoLqFuw6aE3u9D3zzDJ44/yF/WRwTKDzwhtOc25vrSlV2CsIXZIUsolQ43
-	 ksdZIiC7aEUoudKVslkjaOdXxiAovpHm3UVnXdkOuaXMC1YQj+rGDAVi1QT4IBaoeELRN
-	 eaRX6/JOANpK2rZ1seiFjc8K9kYVOP/H4J0D4cVdFLzv9uwobZwkV67lb6PlUmbWW1cPB
-	 iP3RyTgVRpSAgPxw4IVGqW0c8qjVzeNsQntCSOtOU0XWH7qNDYPYgxDpOhORSk0NOkA==
+	t=1793690820;
+	b=2Wp7tR2zOd0ZQvA12SGAmWwkH3j98CZJrTQ8DRnoXuIBR3uLCbWD95VkD7C7fTJ2RLJk
+	 xFeBXy2u5AxF7Iy3QuXzAqliJFR9HdH7e2lYmPiV9vCquGLzZxXTBADXKApk2i8icdwtu
+	 AHeb+6TLbD2uIgVfd1ruYUKY+xLSnO4+Ra1Wg4sgJQ3UoBRxSHe41b6nU+M40YNFF/hcv
+	 YEeaveRoxw5PTItwzAZh/Fdt1ihidDJ77f30in4vc/TBqgcMu9mCONFkm/K/ve92fY7IS
+	 C7dBkjsiiP3Nr5nBnkJumvdLE4TSDnQCEnyyarYN2e7VN12xPBb97cQvKwOhN7Wq6DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690820;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hkQTxC/NFuAwVmMKQPX/llja7JxOh4icS3qa3sFNnfk=;
-	b=clNm2UtWCYoBynZhgwNtJH00GNsbw31RtBNXw4REUI6GhUlRljcROgPlTnskJPEHl7L5
-	 410g2L7T6z6Y7YQrl68EWxZ2jgbi2+/E2MgcMIUXvejme40KQ1/ELz3OQYVKhl7YurUie
-	 /snZ5DE+US6GW/quxqvoUN8n/8ZRERh7iujRNfV9+d1gjLc3wleavdLPj07xCwrwGrRxj
-	 3YtahyAHxluUlrWc+AkL/FGuYHBAGRwcs1khg35+AGvpE7aIHAbQwMvVSwhWT0SZsjwER
-	 +rOEx7wXJAAIe5gSgppHb+/62vHO0ZsRK5rML0Fc3Qdc2qPJBPtuQKwG1CbOh3T63gQ==
+	bh=G6WXuYVuFVaqWLX5G0w7v21yMWKT2qQz3bCPmIaySXM=;
+	b=fyOcVOR09OVrdYAP5rTbKdMHtBCHbX45R2CRLXF79Zvw+aqIWgg6tps8VvcbxFTX1D61
+	 Z0B4zpHuAJ4bsRxFKSSmKvklI6wLh0e65YIBaTTSrtWbyhwSnvM+u/XsT+DF0jOhk3Cm3
+	 Llru/8Sk9epTAGld/PH6wZB8HGaXzlOdo+/+Zz6vJwjuTBdHSIvbpNb0pF4hy23gu54oF
+	 bX2Dcj5lF9u8cx0OCvXRJWCJPzzUI1h0UqVNwv7ZwJ5qAjSnpWKIjXyg0rjMlRKvgnKuN
+	 j1kOVAFmO38nE4xtjj+43elPNnBxLAa1kUdYKTr7jpA8ZdlaGF7B8MOvlDnA6RmQNSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IGtN3pf/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI7wUr13;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3E2606A32D;
-	Tue,  3 Nov 2026 07:26:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DC6606A329;
+	Tue,  3 Nov 2026 07:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGtN3pf/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC44B1F00919;
-	Tue,  3 Nov 2026 07:26:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI7wUr13
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6B01F00A16;
+	Tue,  3 Nov 2026 07:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690812;
-	bh=hkQTxC/NFuAwVmMKQPX/llja7JxOh4icS3qa3sFNnfk=;
+	s=k20260515; t=1793690819;
+	bh=G6WXuYVuFVaqWLX5G0w7v21yMWKT2qQz3bCPmIaySXM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IGtN3pf/FUSc4/tUq2TglSKRRpn52Gyek9Lz7MTay8j766ilA4K9zx4YdCenVxN0b
-	 NRh4CKZuin3iE74oGa0DZ3g+mKoLYic12vVD6kYlqFrwqNCiJnyNGPIyDgz4W9Std2
-	 Vl7nxE3MQfpSbj7HqVRJkUZLXTqvNH4oL7zeYnoI8QYPV7uuYSdjMpc961EfJ2jYK0
-	 XrA/7IOg9dFZ6H9pa7qe6VytbdXO/aUeH1g1Q/k4Wz2tU2TAQmjuopIz6vYgY9WpsF
-	 +9r7UXsFJ3rl6vsfVLFNs3SqQYZX7/Zf7iu0Wel1j+Fmdh/h551mBmgNDc3HA2463F
-	 O+t8Mn9DlE3SQ==
-Date: Tue, 3 Nov 2026 08:26:49 +0100
+	b=FI7wUr13qUiCZjI5Cfxbb+wytm4cVV3/lKY2i+xGFDsEoJWw4xuc0SWfVMyNwCQli
+	 GfGk87l4VZqMNz1NgrcnMA+ugAdGCVibsvTbAcLcsZkgB6WR3W+HtfS1B0ko1473Df
+	 6X/x8yPB3FoSRWnPZBhcYoX+q2NEWe/ssJU/8lG8y+weFcwW9kyefWtaCqG/TK1Fz6
+	 nkpEPgBVJV2Cv/rPCwAGimB03lq1z2pQql4PKNj9YKEYZytLgkFlKTmZJ/43jri9ac
+	 wE2n2fXTCW8aYJlquNKwpx2umsCtpk8zxXTlWVXrzGTBkP/1GogeNATFEq3ypP1dh6
+	 3riqd62KwmdPg==
+Date: Tue, 3 Nov 2026 08:26:56 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/amdgpu/jpeg: Unwind late software init failures in
- v2-v4
-Message-ID: <20261103-pretty-impala-from-ganymede-aa050c@quoll>
-References: <20261103070629.1083890-1-vulab@iscas.ac.cn>
+Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, 
+	stable@vger.kernel.org, thomas.hellstrom@linux.intel.com, intel-xe@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, matthew.brost@intel.com
+Subject: Re: [PATCH] drm/xe/pm: Balance the runtime PM reference when ioctl
+ resume fails
+Message-ID: <20261103-cheetah-of-inescapable-engineering-1766dd@quoll>
+References: <20261103065810.1075142-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,32 +60,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103070629.1083890-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103065810.1075142-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 07:06:29 +0000, Wentao Liang wrote:
-> The JPEG 2.0, 3.0 and 4.0 software initialization callbacks create their
-> rings before allocating register dump storage and creating the reset
-> mask sysfs file. If either of the latter steps fails, the callbacks
-> return without releasing the initialized JPEG resources, including the
-> ring buffers and vmid_wait fence reference. The IP block's status.sw flag
-> has not been set, so the common error cleanup skips its sw_fini callback.
+On Tue, 03 Nov 2026 06:58:10 +0000, Wentao Liang wrote:
+> xe_pm_runtime_get_ioctl() uses pm_runtime_get_sync(), which increments
+> the usage counter even when resuming the device fails. Its conditional
+> runtime PM guard only runs xe_pm_runtime_put() after a successful get,
+> so failed resumes leave an extra reference behind.
 > 
-> Suspend the JPEG work and release the JPEG software resources on these
-> late failures. amdgpu_jpeg_sw_fini() also releases the register dump
-> storage if it was successfully allocated before sysfs creation failed.
+> Use pm_runtime_resume_and_get() so a failed resume releases the usage
+> counter increment before returning the error.
 > 
-> Fixes: 63d5f8db5313 ("drm/amdgpu: Enable devcoredump for JPEG2_0_0")
-> Fixes: d949e91b42f2 ("drm/amdgpu: Enable devcoredump for JPEG3_0_0")
-> Fixes: c3dddd602967 ("drm/amdgpu: Enable devcoredump for JPEG4_0_0")
+> Fixes: 23cf006beac3 ("drm/xe: Runtime PM wake on every IOCTL")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 9 ++++++++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 9 ++++++++-
->  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c | 9 ++++++++-
->  3 files changed, 24 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/xe/xe_pm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 
