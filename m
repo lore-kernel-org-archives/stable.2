@@ -1,56 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697001;
-	b=PMmkPfTxU7Ei5GW59aRoDfbzuhx5uWlUDi3AwdkBIB+x05Z7ly4H8Afe5amq2qH7IiIw
-	 7gL42OG77LLUTw1cF89igdZE+HOUcTBN4WJmzTXP1tYMFhOQ6yGMrdlCFUhcecB3PwYwv
-	 QFsySZxK4dWgwK3qve455bzwVkCVLlNGVR0reCvexO9F1zTg2EIOmucO/BfTteGONEmJF
-	 IMN3e3NMZNJc3p2G802v1Jnh2pe+cE2e4JKpELJsmOk4cobCpCX71uk3E3BtKO5Fz6luN
-	 sUchoigCyF4jhYaQoqjzRujorf4G5SxbVFlB5UmxWfJKfI+bJ8eOju4Q9aYE5CASo0g==
+	t=1793697118;
+	b=mmfVKLOuSgDy4ZLf5+VLONb+9QjgPBZW/Au8N21fE+F34F+GOBG0rmwZgZH3Yzv3JN6I
+	 tiPbAKfuX1+EZOQ2elUvvmW142mP2oRbag/wcfoLATzdHsqBRH1eCoHRMs4468njUurWc
+	 4JkT7c6eJiehdLHNZfocPxdzNcuI0bikbbbE+gxcYd8RkqE096aCmbCWPKto9dyyUtl9A
+	 W6Dcy3hPFHkfba7LIaZM4O8/l2L9g/aLo+4zkdsM7atNuiXodX/LlGL/3OtCdXwYry4XZ
+	 W4i2mDfpwgpn04LNrazZYRMCdAkgvC8K0pqk0gXsiqEylLXQ/pnUOoBVKjIcy/jTbcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697001;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=lcdSq6LeLo/FqotJnfp1rxr60x8LqCt3EpIwwOz6Ni4=;
-	b=tDOMzS+NMgcWPigdB1plyQrZz/3KwmcLLyRPN0ooxz1+DDZtDW1NuIm9yu6nC6jBJC1g
-	 O+HgVpoM6UAEuD3Gy2mI9aUmjyWIIMfV3itHbJTTgxo8R8vhPJtBEG13KLuMP9b2CjIzu
-	 7/gpW+Ju/NGxOA4/O0gmkEfCZEv7F0CUUPSeFFE0gmsa48xrSvfjxVSzg0zrDzfMW41bV
-	 xOwG+wP1tduJ09ZOaErYvND2da+YnJ3U4I4BFU9xkXm55FSX7Ho+Wqntn+C4siO6IHWcz
-	 7SP/2ylbiyOqCgCcnzliAbMlGjWkQPs/au1uNyyzjl4ZHWWH9639J9EORS72u65chcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697118;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=thwyuo3n71Onu9HUu3z0eZP8Hqsa2f8kijqEmTyQ/Bg=;
+	b=JK9IntxT8x687gndg2gT44reubyMQWq2ae+FGiJMFUBKZDyCEElDaT9vpPyHSi6cao7i
+	 wvEqe0axub1G3taFbSzIoHNLIMR/buukbaFMuSaObUmVKsrDz+sU/V12ElKANrwLoTGeE
+	 OyVUOvmj6mxFz8YlfXW8chSW1s5EoDsEjfF6Re4wDIY/4X281SZ2vRQbV0Ei0F3OkIRPD
+	 7P3IKpdInUBW63Ejsap/b6+s5X7fQ/0G6Qv675zHe9psk6KYYbb+Ybz6/rLARr6HTVI4J
+	 TzcLIO1zgvVrK44hQ8+qHlw6+jXUINy/084abd0p3HIgK7woPzIPdEro13j0YaSKeMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32230606A324;
-	Tue,  3 Nov 2026 09:09:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32230606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W3Y0p3sQ;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A215606A326
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A215606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W3Y0p3sQ
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-353804b591eso6884204eec.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 01:11:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=lcdSq6LeLo
-	/FqotJnfp1rxr60x8LqCt3EpIwwOz6Ni4=; b=xwBVNDUOYQO+80JKVBaPwgIISi
-	EnpDjG2emrflO44h3ybc/kXOMjKnrIx4JtM4eN3E1JciNQgnAPCTrPe+TAJ+Nmxl
-	FyLrxWCM3YIfFohLHcgnM+yueoJDVH9vnNTI53wn9vkwjVIALZx3OdC2W4GepzX2
-	huEdiYGN4oHzINaXY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDW2_7SpOlqD4odAQ--.50070S2;
-	Tue, 03 Nov 2026 17:09:40 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	linux-media@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1793697117; x=1794301917; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=thwyuo3n71Onu9HUu3z0eZP8Hqsa2f8kijqEmTyQ/Bg=;
+        b=W3Y0p3sQUr1ElW+VDp0X5u8rmsKzKv/8v1h0mUL4PsQVa8AX6kKKKuCsj17UOlgkyd
+         4qeIXkzRer3LaLIwWDiJNCZ6ilrUXpIRCU9YoTpgeiYU+bZNWIrNato0ArHxvJ4+53n+
+         1BiqPYQcyTXtWorostK+TGsEvBKCwEZDGIIFSUgNZ+u0UH2gc1U9brd54sTNm5bCRfwV
+         dkuQ15s8ji1AaR8U4DICRkrRHbDke7u0sOywKTxrMaUGD2pIIDGlu0UOedyDnpdf8dEE
+         dFWvDNN7Ct8i8Kgrb6NujTw7kIyj1dox7ZYUGBZNK2Wd20GZlvIJbCJtyLx0/1WQTkii
+         mPCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793697117; x=1794301917;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=thwyuo3n71Onu9HUu3z0eZP8Hqsa2f8kijqEmTyQ/Bg=;
+        b=dsbUbaVDJVj4xLe45F8bjmw477rC4sxvgsU4Hdz/ZxNiUcBwCrWACfcaZeksmUFv17
+         3iBezsJgWyqAgPTX+k5hZc7pHfDMKZyDBpv3J36xZWh46HuLbDqswYR+xqNqZEJeuELP
+         oWj8Q2JHKV3BRc6amrMC+mOJWhrUQUJ7g/5YDHYhbwoG65F5+AzVvZKA/hug6dFKKMT7
+         0RjOAdnMC/Y3eGlUiJhD00hhUORpUTlT9W85+I0mgj1IOBVJzLrFScesR5p39Mki2rAm
+         QKUM8zvF8dAjBzJd9qc1cjUgWhxGYWhIBDedYIDY9j7uQCjZqlqAcTLtricG78a0pNtt
+         8J7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwhxcvZ0x1nXzC++OzZNFgLBVkekNnGoeLZlWxgAlUiDEvyOoHfaT7MT5TVVM4cYjQsUDQvo0g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2iptSRT/6XfRSahaVGBFdRyuPZcM/+ykR+TSZDUrJ2AcuMd/+
+	N+2nJl8pFBL7HKDbWDqRx8dUAGvxYX48TJBsOCqChgqkJ4onSaevXU3M
+X-Gm-Gg: AYBFou2uOZREnVuE/n9mT3KPoOc7SGsCuEg8pKO24S56BDCyGal34qPXG45hFYl/Rye
+	K5KDBoJG7D6LvsHKjNMsqPmb7GTLiGUO00Tih68xpHxRuIG3Vev/AXmP2A/p5kPhei+1I1Prt/p
+	zh7UyWQJBOfvQNG/Fkw43cywpLlrRaVMNGLYmUyPFD77KaLoxhYGI8v4unto0i1V/duQX6/MPG6
+	JrJP7kUSooMUd9F1vTkgMpUtb9bLwV9xedQX0+U+zIByDqUErJu7pnOpFnDlkDsaCypUHAwXlGK
+	capWTxBv7DmSYL0Ptf5p0CMDtUFsK7c81MEaGMOg3lo/8FaIskMDZ61nGbKAgwqhvclShowga3j
+	LfPlMJCnO4/Mnkj7eNTbHAEr3VyRegkpsQHZhrmKI2Uqy/w/eFP3LqEISoUjYvtYjuq4rUJ/q/G
+	fD7iazkW9yOwfyLG+v/n5K4VxoWBgxa1I8G6KU+gn7vhp8udK+lb1IXSoTF3mF5Ck7DDlgHxXBN
+	gU9wSMvO4xUGfSU5qbRoB8TbRVPyu0U7M4Plx+W/KXDpP3PG4uHHabaWrH/6WhfnezKBGg2CMl7
+	bZUIOoxAmpJ0DuUcnGMBesejp53rr8ccHR4HP5vdbYlF
+X-Received: by 2002:a05:7022:7f13:b0:195:76af:b810 with SMTP id a92af1059eb24-1ac5bf91b35mr18860638c88.25.1793697117230;
+        Tue, 03 Nov 2026 01:11:57 -0800 (PST)
+Received: from localhost.localdomain ([2406:7400:51:284f:c2b6:f9ff:fe77:10a0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a504c6sm46128799eec.21.2026.11.03.01.11.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 01:11:56 -0800 (PST)
+From: Amaan Cheval <amaan.cheval@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Amaan Cheval <amaan.cheval@gmail.com>,
+	joshwash@google.com,
+	hramamurthy@google.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	bcf@google.com,
+	jordanrhee@google.com,
+	przemyslaw.kitszel@intel.com,
+	pkaligineedi@google.com,
+	maolson@google.com,
+	csully@google.com,
+	willemb@google.com,
+	yangchun@google.com,
+	npl@google.com,
+	awogbemila@google.com,
+	shailend@google.com,
+	nktgrg@google.com,
+	maxyuan@google.com,
+	bpf@vger.kernel.org,
+	john.fastabend@gmail.com,
+	hawk@kernel.org,
+	sdf@fomichev.me,
+	daniel@iogearbox.net,
+	ast@kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v3] media: gspca: don't complete buffers before streaming has started
-Date: Tue,  3 Nov 2026 17:09:38 +0800
-Message-Id: <20261103090938.22464-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org
+Subject: [PATCH net v3] gve: leave refcount headroom in the RX page bias
+Date: Tue,  3 Nov 2026 14:36:48 +0530
+Message-ID: <20261103090651.35399-1-amaan.cheval@gmail.com>
+X-Mailer: git-send-email 2.49.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,255 +122,180 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkDW2_7SpOlqD4odAQ--.50070S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF17CF43XF4kur15Kr45Jrb_yoWDGryrpF
-	Z3Gay5tayDJr1kCr4UXwn8GF13CaykJ3y7GrWSkwn3Ar4DXF90vFyFqry8Gr47GrZFvF4r
-	Jr1UJrWUuwsFqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JV
-	WxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
-	0VAGYxC7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
-	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
-	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
-	IF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
-	IxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIda
-	VFxhVjvjDU0xZFpf9x0JU6c_3UUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUGD2rop1WnCgADsT
 
-gspca enables the data transfers before it knows whether start_streaming()
-will succeed: gspca_init_transfer() sets gspca_dev->streaming before the
-URBs are submitted, so an URB that has already been submitted can complete
-and gspca_frame_add() can hand its buffer to videobuf2 while the remaining
-URBs are still being submitted.
+gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX and
+hand references to the stack by decrementing page_info->pagecnt_bias, to
+avoid an atomic op per packet. This leaves the page no headroom: while a
+fresh page's buffer sits in an skb its refcount is already INT_MAX, so a
+single get_page() from the stack wraps it negative.
 
-When one of those submissions fails, gspca_start_streaming() returns the
-buffers that are still queued to vb2 in QUEUED state, but the buffer that
-has already been completed is no longer on the driver's queue, and
-vb2_buffer_done() cannot take it back (it only accepts active buffers).
-vb2_start_streaming() then warns because the driver left a buffer on the
-done list although it failed to start:
+splice() of received TCP data into a pipe takes such a reference, and the
+onward splice into a socket then fails: skb_splice_from_iter() sees
+page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
+commit 2e910b95329c ("net: Add a function to splice pages into an
+skbuff for MSG_SPLICE_PAGES")). tee() of the pipe fails with -EFAULT via
+try_get_page(). On GQI the reuse check gve_rx_can_recycle_buffer() also
+sees page_count() < pagecnt_bias, WARNs and calls gve_schedule_reset(),
+so a task that merely pins a fresh RX page (e.g. holds spliced data in
+an undrained tee() pipe) can reset the NIC.
 
- ------------[ cut here ]------------
- WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1821 at vb2_start_streaming+0x312/0x680
- ...
- Call Trace:
-  <TASK>
-  vb2_core_streamon+0x285/0x470
-  __vb2_init_fileio+0xdc1/0x1120
-  __vb2_perform_fileio+0xa7a/0x15e0
-  vb2_fop_read+0x219/0x3e0
-  v4l2_read+0x1fc/0x320
-  vfs_read+0x1d9/0x980
-  ksys_read+0x111/0x210
- ...
- gspca_main: set alt 0 err -19
- gspca_main: usb_submit_urb alt 1 err -2
+Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias
+only has to make the per-packet atomic rare, so a small value leaves
+page_count() ample headroom below INT_MAX for the stack's references.
+Refill by adding a fixed batch and setting the bias to it, which keeps
+the rule `references = page_count() - bias` intact.
 
-This was observed on a camera whose USB configuration was changed from
-userspace while a read() was starting the stream: the endpoint is removed,
-so usb_submit_urb() fails with -ENOENT, and the driver is unbound.
+Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12) and in
+DQO-RDA mode (GCE c3-standard-8, 6.12, where DQO-RDA still uses the
+bias) with the help of relay.py -- a small splice(2) TCP proxy --
+relaying a download while the RX ring is refilled with fresh pages:
 
-Do not hand a buffer to videobuf2 before the transfers are set up.  A frame
-that completes earlier stays in the driver's queue, marked as complete, and
-is given to videobuf2 only once gspca_init_transfer() reports success.  A
-failing start_streaming() therefore always leaves the done list empty,
-while the frame is not lost either: the subdrivers that restart their
-transfer from the frame completion callback (sq930x, se401) keep working
-when the very first frame completes inside that window.  When the start
-fails, the marked buffers are still on the driver's queue and
-gspca_start_streaming() returns them in QUEUED state with the others.
+  ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
+  ./relay.py $HOST 8080 &                             # splice()s both ways
+  for i in $(seq 200); do curl -so /dev/null \
+      --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
 
-The state of the frame being received is now also reset when a lower
-alternate setting is retried, so that the packets of the retried transfer
-cannot be appended to a frame left over from the previous one.
+Most downloads failed with EIO before the fix (tee() with EFAULT) and
+all completed after it. relay.py is at the Link below.
 
-A driver side flag is needed because videobuf2 sets q->streaming before
-calling start_streaming() when VIDIOC_STREAMON comes in with fewer buffers
-queued than min_queued_buffers, and start_streaming() is then called later
-from vb2_core_qbuf(), with the first URBs possibly already completed.  The
-flag is cleared when gspca_init_transfer() starts rather than when the
-stream is stopped: gspca_suspend() does not go through gspca_stream_off(),
-and gspca_resume() calls gspca_init_transfer() directly.
+This bug was found and fixed with the help of an AI coding assistant
+(Claude Code) over an interactive session; it read the driver and
+splice/pipe code and ran the tests above.
 
-Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
+Link: https://github.com/amaanc/kernel-bias
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
+Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx path")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Reviewed-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Tested-by: Harshitha Ramamurthy <hramamurthy@google.com>
+Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
 ---
-Changes in v3:
-- Do not drop the frames that complete before the transfers are set up:
-  keep them on the driver's queue and hand them to videobuf2 once
-  gspca_init_transfer() succeeds.  Dropping them would stall the subdrivers
-  that restart their transfer from the frame completion callback (sq930x,
-  se401) when the first frame completes inside that window.
-- Clear the streaming_ready flag when gspca_init_transfer() starts instead
-  of when the stream is stopped: gspca_suspend() does not call
-  gspca_stream_off(), and gspca_resume() re-enters gspca_init_transfer()
-  with the flag still set.
-- Reset the state of the frame being received when a lower alternate
-  setting is retried.
- drivers/media/usb/gspca/gspca.c | 59 ++++++++++++++++++++++++++++++---
- drivers/media/usb/gspca/gspca.h |  2 ++
- 2 files changed, 56 insertions(+), 5 deletions(-)
+v3:
+ - Refill when the bias reaches 0 again, as in v1. DQO-QPL is not
+   supposed to support XDP at all, and it will be blocked explicitly in
+   a separate patch, so the v2 refill-at-1 change is not needed.
+ - Added Reviewed-by and Tested-by from Harshitha Ramamurthy.
+v2: https://lore.kernel.org/netdev/20261102112613.18334-1-amaan.cheval@gmail.com/
+ - Refill when the bias reaches 1 instead of 0 so the driver keeps a
+   reference of its own across every handoff. At bias 0 a consumer that
+   returns its reference synchronously, such as an AF_XDP socket in copy
+   mode on an XDP_REDIRECT from DQO-QPL, freed a page still registered in
+   the QPL.
+ - Commit message: explain the refill point, drop the build notes.
+ - Re-tested on 6.12.113 (c3-standard-8, DQO-RDA, which still uses the
+   bias on 6.12): no EIO/EFAULT from splice/tee and no NIC reset after
+   applying the patch. DQO-QPL is untested; I have no access to that
+   hardware.
+v1: https://lore.kernel.org/netdev/20261031173449.2439047-1-amaan.cheval@gmail.com/
 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..ad8a0d686da8 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -389,10 +389,12 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
- 	spin_lock_irqsave(&gspca_dev->qlock, flags);
- 	buf = list_first_entry_or_null(&gspca_dev->buf_list,
- 				       typeof(*buf), list);
-+	if (buf && packet_type == FIRST_PACKET)
-+		buf->frame_complete = false;
- 	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
+Built allmodconfig W=1, no new warnings.
+
+ drivers/net/ethernet/google/gve/gve.h                |  2 +-
+ .../net/ethernet/google/gve/gve_buffer_mgmt_dqo.c    |  4 ++--
+ drivers/net/ethernet/google/gve/gve_rx.c             |  8 ++++----
+ drivers/net/ethernet/google/gve/gve_utils.c          | 12 +++---------
+ drivers/net/ethernet/google/gve/gve_utils.h          |  8 +++++++-
+ 5 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index b7ce6e8632db..18d7edbf4b3b 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
+ 	void *page_address;
+ 	u32 page_offset; /* offset to write to in page */
+ 	unsigned int buf_size;
+-	int pagecnt_bias; /* expected pagecnt if only the driver has a ref */
++	u16 pagecnt_bias; /* expected pagecnt if only the driver has a ref */
+ 	u16 pad; /* adjustment for rx padding */
+ 	u8 can_flip; /* tracks if the networking stack is using the page */
+ };
+diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+index 6880d1531ba5..571f851d6dcd 100644
+--- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+@@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
+ 	buf_state->last_single_ref_offset = 0;
  
- 	if (packet_type == FIRST_PACKET) {
--		/* if there is no queued buffer, discard the whole frame */
-+		/* If there is no queued buffer, discard the whole frame */
- 		if (!buf) {
- 			gspca_dev->last_packet_type = DISCARD_PACKET;
- 			gspca_dev->sequence++;
-@@ -439,11 +441,10 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
- 	 * next first packet, wake up the application and advance
- 	 * in the queue */
- 	if (packet_type == LAST_PACKET) {
-+		bool ready;
-+
- 		if (gspca_dev->image_len > gspca_dev->pixfmt.sizeimage)
- 			gspca_dev->image_len = gspca_dev->pixfmt.sizeimage;
--		spin_lock_irqsave(&gspca_dev->qlock, flags);
--		list_del(&buf->list);
--		spin_unlock_irqrestore(&gspca_dev->qlock, flags);
- 		buf->vb.vb2_buf.timestamp = ktime_get_ns();
- 		vb2_set_plane_payload(&buf->vb.vb2_buf, 0,
- 				      gspca_dev->image_len);
-@@ -451,7 +452,24 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
- 		buf->vb.field = V4L2_FIELD_NONE;
- 		gspca_dbg(gspca_dev, D_FRAM, "frame complete len:%d\n",
- 			  gspca_dev->image_len);
--		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-+		/*
-+		 * The frame can complete before gspca_init_transfer() has set
-+		 * up all the transfers: the first URB can complete while the
-+		 * others are still being submitted, and a submission can then
-+		 * fail.  Videobuf2 requires that start_streaming() leaves its
-+		 * done list empty in that case, and a completed buffer cannot
-+		 * be taken back, so the frame is only released to videobuf2
-+		 * once the transfers are known to be set up.
-+		 */
-+		spin_lock_irqsave(&gspca_dev->qlock, flags);
-+		ready = gspca_dev->streaming_ready;
-+		if (ready)
-+			list_del(&buf->list);
-+		else
-+			buf->frame_complete = true;
-+		spin_unlock_irqrestore(&gspca_dev->qlock, flags);
-+		if (ready)
-+			vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
- 		gspca_dev->image = NULL;
- 		gspca_dev->image_len = 0;
- 	}
-@@ -732,6 +750,7 @@ static int create_urbs(struct gspca_dev *gspca_dev,
- static void gspca_stream_off(struct gspca_dev *gspca_dev)
- {
- 	gspca_dev->streaming = false;
-+	gspca_dev->streaming_ready = false;
- 	gspca_dev->usb_err = 0;
- 	if (gspca_dev->sd_desc->stopN)
- 		gspca_dev->sd_desc->stopN(gspca_dev);
-@@ -745,6 +764,28 @@ static void gspca_stream_off(struct gspca_dev *gspca_dev)
- 	gspca_dbg(gspca_dev, D_STREAM, "stream off OK\n");
+ 	/* The page already has 1 ref. */
+-	page_ref_add(buf_state->page_info.page, INT_MAX - 1);
+-	buf_state->page_info.pagecnt_bias = INT_MAX;
++	page_ref_add(buf_state->page_info.page, GVE_PAGECNT_BIAS - 1);
++	buf_state->page_info.pagecnt_bias = GVE_PAGECNT_BIAS;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
+index 81ea800e66e9..6533fff06155 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx.c
++++ b/drivers/net/ethernet/google/gve/gve_rx.c
+@@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
+ 	page_info->buf_size = rx->packet_buffer_size;
+ 	*slot_addr = cpu_to_be64(addr);
+ 	/* The page already has 1 ref */
+-	page_ref_add(page, INT_MAX - 1);
+-	page_info->pagecnt_bias = INT_MAX;
++	page_ref_add(page, GVE_PAGECNT_BIAS - 1);
++	page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
  }
  
-+/*
-+ * The transfers are set up: from now on the frames are handed to videobuf2
-+ * as soon as they are complete.  Release the ones that completed while the
-+ * URBs were being submitted, they could not be completed earlier because
-+ * start_streaming() could still have failed.
-+ */
-+static void gspca_flush_pending_frames(struct gspca_dev *gspca_dev)
-+{
-+	struct gspca_buffer *buf, *node;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&gspca_dev->qlock, flags);
-+	gspca_dev->streaming_ready = true;
-+	list_for_each_entry_safe(buf, node, &gspca_dev->buf_list, list) {
-+		if (!buf->frame_complete)
-+			continue;
-+		list_del(&buf->list);
-+		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-+	}
-+	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
-+}
-+
- /*
-  * start the USB transfer
-  */
-@@ -760,6 +801,7 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
- 	gspca_dev->image = NULL;
- 	gspca_dev->image_len = 0;
- 	gspca_dev->last_packet_type = DISCARD_PACKET;
-+	gspca_dev->streaming_ready = false;
+ static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *dev,
+@@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring *rx,
+ 			rx->qpl_copy_pool[j].buf_size = rx->packet_buffer_size;
  
- 	gspca_dev->usb_err = 0;
- 
-@@ -870,6 +912,10 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
- 		/* the bandwidth is not wide enough
- 		 * negotiate or try a lower alternate setting */
- retry:
-+		/* the frame of the previous transfer is lost */
-+		gspca_dev->image = NULL;
-+		gspca_dev->image_len = 0;
-+		gspca_dev->last_packet_type = DISCARD_PACKET;
- 		gspca_err(gspca_dev, "alt %d - bandwidth not wide enough, trying again\n",
- 			  alt);
- 		msleep(20);	/* wait for kill complete */
-@@ -887,6 +933,8 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
+ 			/* The page already has 1 ref. */
+-			page_ref_add(page, INT_MAX - 1);
+-			rx->qpl_copy_pool[j].pagecnt_bias = INT_MAX;
++			page_ref_add(page, GVE_PAGECNT_BIAS - 1);
++			rx->qpl_copy_pool[j].pagecnt_bias = GVE_PAGECNT_BIAS;
  		}
  	}
- out:
-+	if (ret >= 0)
-+		gspca_flush_pending_frames(gspca_dev);
- 	gspca_input_create_urb(gspca_dev);
- 	return ret;
+ 
+diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
+index caed38cd5f2b..cb6fba3122d5 100644
+--- a/drivers/net/ethernet/google/gve/gve_utils.c
++++ b/drivers/net/ethernet/google/gve/gve_utils.c
+@@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+ {
+ 	page_info->pagecnt_bias--;
+ 	if (page_info->pagecnt_bias == 0) {
+-		int pagecount = page_count(page_info->page);
+-
+-		/* If we have run out of bias - set it back up to INT_MAX
+-		 * minus the existing refs.
+-		 */
+-		page_info->pagecnt_bias = INT_MAX - pagecount;
+-
+-		/* Set pagecount back up to max. */
+-		page_ref_add(page_info->page, INT_MAX - pagecount);
++		/* Out of bias: take another batch of references. */
++		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
++		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
+ 	}
  }
-@@ -1327,6 +1375,7 @@ static void gspca_buffer_queue(struct vb2_buffer *vb)
- 	unsigned long flags;
  
- 	spin_lock_irqsave(&gspca_dev->qlock, flags);
-+	buf->frame_complete = false;
- 	list_add_tail(&buf->list, &gspca_dev->buf_list);
- 	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
- }
-diff --git a/drivers/media/usb/gspca/gspca.h b/drivers/media/usb/gspca/gspca.h
-index a6554d5e9e1a..d0475db62da5 100644
---- a/drivers/media/usb/gspca/gspca.h
-+++ b/drivers/media/usb/gspca/gspca.h
-@@ -144,6 +144,7 @@ enum gspca_packet_type {
- struct gspca_buffer {
- 	struct vb2_v4l2_buffer vb;
- 	struct list_head list;
-+	bool frame_complete;	/* frame filled in, not given to videobuf2 yet */
- };
+diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/ethernet/google/gve/gve_utils.h
+index bf2e9a0adb36..316f97607351 100644
+--- a/drivers/net/ethernet/google/gve/gve_utils.h
++++ b/drivers/net/ethernet/google/gve/gve_utils.h
+@@ -25,7 +25,13 @@ struct sk_buff *gve_rx_copy_data(struct net_device *dev, struct napi_struct *nap
+ struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
+ 			    struct gve_rx_slot_page_info *page_info, u16 len);
  
- static inline struct gspca_buffer *to_gspca_buffer(struct vb2_buffer *vb2)
-@@ -187,6 +188,7 @@ struct gspca_dev {
- 	__u8 last_packet_type;
- 	__s8 empty_packet;		/* if (-1) don't check empty packets */
- 	bool streaming;
-+	bool streaming_ready;		/* buffers can be completed */
+-/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. */
++/* Up-front references gve holds on an RX page, so handing a buffer to the
++ * stack is a pagecnt_bias decrement, not a get_page(). Keep it in a u16 so
++ * the 32-bit page refcount keeps the headroom every page needs below INT_MAX.
++ */
++#define GVE_PAGECNT_BIAS USHRT_MAX
++
++/* Decrement pagecnt_bias. Top it up by GVE_PAGECNT_BIAS if it reached zero. */
+ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
  
- 	__u8 curr_mode;			/* current camera mode */
- 	struct v4l2_pix_format pixfmt;	/* current mode parameters */
+ void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
+
+base-commit: 21f57ec673a1917547c808cfa81890485fffa03b
 -- 
-2.34.1
+2.47.3
 
