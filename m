@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724571;
-	b=16eGKkspDIwyuFxganXP/idsN1EjYhegxp0kEdnnAL5JPUM5MzGqKQ/T8078CV03Wf2g
-	 eIH0Fr8RKXbJHT0+bN+cWRITzClzuB88NOs9tsVX8/P9dsEyW1KTN1vvOItdbDO6hnsSF
-	 jcLPl02m7WT7nouaDk8rzw/Dv32+in1zp7EeJXqscSJTE3IdFSEPC6uEgrY9s4yQbZJVx
-	 WwzYH1+e5eT/D9DQ9YZPqEP67Sz5ezNyy3QUxDe4E9D6n75vig9re1jzujyW3GIroLz82
-	 KmgtPtQbP1vfWLYaNQNium9hi/CZsYDAMXcZgM47IcYeHQKT26vDaqjLxO0vFpvfhLA==
+	t=1793724572;
+	b=J2yWd0y2npfzMJP+PKGq3VLIKJaD4eYivzO826u/rPrECbsYLbsm7xkG/UyfPJJN7qKb
+	 tv2JqpjbcxG58zvfnkcaQIH+1ydsH7po+8wjJLPTPn8HaCynpHqeGpqfCduBeqDXKdXQf
+	 PtqMS9BJBlCQJpMXAKGA9zf8BHGfYIU9+lAsjrIxRhQQQY15NsRrN+5nBABz5ubBL2/ML
+	 59+loyk9NdB6pMo0LX0weU6GkSE65XEiRlfDkdt/PvTgh3qnhO13EU0eNhs0igk9YzWhQ
+	 RiDcpWEsuI61HB+nLocVCb2ZAxwgUAylSSMzlFNonONkWmmXabgpDS7Uqg3TvyHgfeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724571;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724572;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=ENJkHkCfpFwdQvw3umeRws6G85S/Qq8yf5a8h/OQL8U=;
-	b=r6WLSGZiJFl3+1IUCNJwNzCQ+l0KKu5iWzEgUjRfKxHxHz2HsuF4pYqYj/f4mgs9SScX
-	 Jh5YBGrjWDzTqz10QA4LbuduWJSNniBIIZX45eGux0yP545+YCPFmXFrmOuMLNfP3K6Ht
-	 Wp2KSvz+O4/cliF3hSZZbC0hIUU24CKmvOoDGx00bhguUwOn/V7kUcZlsdPRP5qE7xFnO
-	 UcmvCSQEe4hRm1ynhoXEGKW2OGlsvEbCM639x/asKsMzbGAgRFA4QUle4CEhvgxxzN3SE
-	 tSlShAe7wpf7HdDMk1BI6Oguwg2AbOrlfYE0CcBjow6leJF6TTOYNOTgIQNq6GUTLtQ==
+	bh=np7p/6NbTxeJslZosMV0zK5KJlcaQZxijqGp2JarPLU=;
+	b=fPDRwOOur2W1bwB8s5TeLbOiuAMnZgosYwqfjkSOL2Bp8fRNgtcGi4hApf5OFFqT1K2x
+	 YsedfXm/ffammtb3Jmkg62G49bH6Zq3h2drsYuhvIEZCcI7cGjdWKm1Y7X1jwla4GbbSx
+	 0udl3pvaDnGSUukvvbEt69CJnH5hKYTyuDp7iz+ScNllDYLSGPN+Btiiag6SiBKcqNzcH
+	 uN9poPQXcqyzxOUweFu5IZW49pVVqC1mTak4RIXJ4uc48z+idYfrSK1k0KbN5lmDM/DaG
+	 ra1J81ZJ7k1c3Fz06XrAI7u+0m0h8IpGFn7wiHWlnHvzVAxX4ZB8wHp5TTrVbj59Jdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NcSfNv4c;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o0UG9xjN;
 	arc=none smtp.remote-ip=185.246.84.56
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5688606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5688606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D957A606D818
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:49:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D957A606D818
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=NcSfNv4c
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=o0UG9xjN
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 65DF01A1436
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:49:29 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A62F21A143A;
+	Tue,  3 Nov 2026 16:49:30 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 340506046C;
-	Tue,  3 Nov 2026 16:49:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6FF1010329123;
-	Tue,  3 Nov 2026 17:49:27 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7C5F96046C;
+	Tue,  3 Nov 2026 16:49:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87D67103291A7;
+	Tue,  3 Nov 2026 17:49:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793724568; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1793724569; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=ENJkHkCfpFwdQvw3umeRws6G85S/Qq8yf5a8h/OQL8U=;
-	b=NcSfNv4cNiP0umd6rQiY6FaHSP0DxqMF7EEpB9VLEmr6kTGBIrSZ9AoedIN8oqrV27VcTi
-	CMAt4qLCh3FcXjDT6UP+JwWIj82J5+2KA1IeZ3b88GUsVguJE+JPDFGDOmS/ePqq69Ck7Q
-	91LB1BdHYRKc/4CsA8Ut42N3Kor4v1HK0PMG6CC+dJa+/5Ob8unqMZ4/ymgmxQjYaocTaB
-	a2LhIbcgOTL8ICw+ZCk+RRobpYcHAgDJsKJkVUCg+9PfE4HFnFzRRWVFB+eOimfEdAu0ey
-	5eEdcjpETgiSeFy6vzc/3uLKXfr1PLI7b5KNDrOSvZNtvWeFLf3gpgRb8LYuVg==
+	bh=np7p/6NbTxeJslZosMV0zK5KJlcaQZxijqGp2JarPLU=;
+	b=o0UG9xjNgeYBvqnjrJ/ZgHAa8ZNAl8VTBAtW3ZHiuLiXxWkPgyFX9NlzKkydGu+Ow68MOK
+	zfOYRB25MlqyM7PjhsY2DQiREcTbTdYx3tOGOJMV0AQw7HTewiRigXN7baB4Dyt/EP5ID4
+	7kEQmrt+FaYYJkeEIvdPsPPdJVUcfQtfDkPoifxcomib8v63AayFXAsSHs86QCnnH8OT5w
+	fBPsWTXi1T8Cksn3gHsWm9R48/nDWBf7luicKuBYTSQzH5OWHXmBha/I6JGkzE0tPZx/+1
+	Onabc7fZIWpJ3pguchXr/64O3552jsioBf2qPoyOlNI7wowS/8fYz5VnYkRzLA==
 From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Date: Tue, 03 Nov 2026 17:49:09 +0100
-Subject: [PATCH v5 1/9] mfd: cgbc: Fix use of negative error code as valid
- session handle
+Date: Tue, 03 Nov 2026 17:49:10 +0100
+Subject: [PATCH v5 2/9] i2c: cgbc: Use real I2C bus names
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-cgbc-i2c-storage-devices-support-v5-1-ac11f23fae51@bootlin.com>
+Message-Id: <20261103-cgbc-i2c-storage-devices-support-v5-2-ac11f23fae51@bootlin.com>
 References: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
 In-Reply-To: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
 To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
@@ -74,42 +73,46 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
  linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
  "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+ stable@vger.kernel.org
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-The cgbc_session_command() return value was directly cast to u8 and used
-as session handle without error checking. Casting a negative error to u8
-produces a valid-looking session handle. So check if return value is
-positive before to cast and use it.
+The adapter names described the expected purpose of the buses ("General
+Purpose I2C adapter", "Power Management I2C adapter") on conga-sa7 board
+rather than their actual names on the Board Controller.
+
+Rename them to the real bus names "cgbc-i2c0" and "cgbc-ddc0", matching
+the naming used by Congatec.
 
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260713-cgbc-core-fix-cgbc-remove-v1-1-79274ad62b3a%40bootlin.com?part=1
-Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
+Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
 Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 ---
- drivers/mfd/cgbc-core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/i2c/busses/i2c-cgbc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
-index 3460c50047ea..02a8c0078287 100644
---- a/drivers/mfd/cgbc-core.c
-+++ b/drivers/mfd/cgbc-core.c
-@@ -103,7 +103,12 @@ static int cgbc_session_request(struct cgbc_device_data *cgbc)
- 	if (ret)
- 		return dev_err_probe(cgbc->dev, ret, "device not found or not ready\n");
- 
--	cgbc->session = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
-+	ret = cgbc_session_command(cgbc, CGBC_SESSION_CMD_REQUEST);
-+	if (ret < 0)
-+		return dev_err_probe(cgbc->dev, ret,
-+				     "failed to start a session with the Board Controller\n");
-+
-+	cgbc->session = ret;
- 
- 	/* The Board Controller sent us a wrong session handle, we cannot communicate with it */
- 	if (cgbc->session < CGBC_SESSION_VALID_MIN || cgbc->session > CGBC_SESSION_VALID_MAX)
+diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
+index 9909c25f0b18..ac23435b731b 100644
+--- a/drivers/i2c/busses/i2c-cgbc.c
++++ b/drivers/i2c/busses/i2c-cgbc.c
+@@ -358,7 +358,7 @@ static struct i2c_algo_cgbc_data cgbc_i2c_algo_data[] = {
+ static const struct i2c_adapter cgbc_i2c_adapter[] = {
+ 	{
+ 		.owner		= THIS_MODULE,
+-		.name		= "Congatec General Purpose I2C adapter",
++		.name		= "cgbc-i2c0",
+ 		.class		= I2C_CLASS_DEPRECATED,
+ 		.algo		= &cgbc_i2c_algorithm,
+ 		.algo_data	= &cgbc_i2c_algo_data[0],
+@@ -366,7 +366,7 @@ static const struct i2c_adapter cgbc_i2c_adapter[] = {
+ 	},
+ 	{
+ 		.owner		= THIS_MODULE,
+-		.name		= "Congatec Power Management I2C adapter",
++		.name		= "cgbc-ddc0",
+ 		.class		= I2C_CLASS_DEPRECATED,
+ 		.algo		= &cgbc_i2c_algorithm,
+ 		.algo_data	= &cgbc_i2c_algo_data[1],
 
 -- 
 2.53.0
