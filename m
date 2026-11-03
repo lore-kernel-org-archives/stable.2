@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695309;
-	b=OysmsBWvj/fSNHsodVhLO/R9HHjpVeS2MV059qM6bwgLrBP16o6aWAwcTcKfYuqP5fHe
-	 LBmZe38WGtBerpK3glVLJkUHr1mz1Yc7cMghxSnDZzavc+RGIxVC6vxeq/t7QobMiKoWM
-	 PjYBKNV/COooFRN3AkbgNynHbBTywCG7ohHaPXFqsCujbhMxzE6km1EfDnvrFmONbvsAj
-	 h5waJToX3Dj+2nCgVNtiJGTaxWoGsIWmx6mE2fDtPrKIcYH8QBdtBGgRFL+1cfPKJK7Pv
-	 xhWRky+HB2tZdhEnFW7am3Xz73aYnPbXv/vgwkvVxLpQVCQQ2NW2ax8TKCHc8ByL+MA==
+	t=1793695312;
+	b=OGNzjq3k7bXpUkPThQgikoX4QmCUiC2AzUVFDiZcs1sNPEv0BMd1AsHpPqinr4lp2ke/
+	 WpI1aIDM6s0ulYFBMNNnO8yaYfjk00dnsrquuOvHi3eV4jA282iz1ecS5ugZmkP6Stq5O
+	 lLg1iEkyHef1Nfbgdpj7oIhcG23XMIb57F5w8HO4foJx6xJzzZ4oMopdpyKk/Lr7jCk3x
+	 2QhOWUUYn9/OfRq2uccWsSLYkEhNSEUEZ4M6JdtiSc5j82J0tswHgq+2mss3l8Y3aLdTc
+	 p3J+RW0hVEfcV0OfOM5IMCymbKd/7Jbka1eFv5O6Rg2pkoqJQKV6fwvl5t5d0UfnPQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695312;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ud6v5GHE6dsI1x/I4CFKihcxQnNViSFQqXvqAAgVOTA=;
-	b=0IoUujt4awvkkcAvwA1UcWiJDn2pUfNw2M3h1fCZ6bTlJa0UtgQLV9Wzsnm2MPCAuG1I
-	 cXSxx+u+w7qJTPOZ+FrUPL0pnxEyIFC8/HQ5NSBLpWaJ6tFZ4PmYciB1bxHP86jjcaHJQ
-	 f3teId1ydsmM/8Lv9fyVM4DZAw+7NOzX6wRuSNBEvyvNyph0CkOoBBbN3qXTgcJhULd/7
-	 OwPgIzkZMe3igAVz+wJBcHcCjGoOnPdpxRimL/Sv6ag6uzs3vJ3FKTcajjRvxZHCMzKVI
-	 8cJzvynI4K1PIn6hoxoqEsggSm/L2o/fsZO3H+eoc3kQCqWzCvjtfjPF7SLuuPsQTaw==
+	bh=8CIrgaXndQnqL2HM+oSlJz+sPXUA2Zb6s1i/b+BZtis=;
+	b=GTjwuPcYlNCnVxKSAblB7sC/HlY75yvybEdKn2VEhrBW7GFx91xCI7I2fDdnHGuXaQAq
+	 w0Lovmu6TrtiOTgmLjyAJjhlfj0gvruFNrAvssMkJYvyzAtt22ihIQQDepfPPTbWiQyEb
+	 x2FY0YafbyYRwLongLUzKXltUMaGbyuV8b8VHit2oEsW3Vmw1xvkDVgddQ/3tHTzTlNbx
+	 7sOSPvp2pkGgUJqM66uohPwHFRppB+vZgtsgMNqMM6+xV0PjySZESAL7N0VCqA7nqEfqB
+	 ytgYCvaY6X+25YfLm8vOYg4HGQTPLwow8fKUQ/bABl8l4oHlufQCjOszpPrlMI8tXAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=I8BBDUse;
-	arc=none smtp.remote-ip=115.124.28.196
-Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=BGzFdAnd;
+	arc=none smtp.remote-ip=115.124.28.49
+Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4450D606A944;
-	Tue,  3 Nov 2026 08:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4450D606A944
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF64606A326;
+	Tue,  3 Nov 2026 08:41:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DF64606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=I8BBDUse
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=BGzFdAnd
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793695298; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=ud6v5GHE6dsI1x/I4CFKihcxQnNViSFQqXvqAAgVOTA=;
-	b=I8BBDUseL0i+33h3JxBigIVT9460MrC0LgHh9lnVEa/v96qAHbhMuheUKhFAMs4hDx6VmH6MnfH3i/qT1aFbBRoE0NW0fSWHaoHWb1HpF+Q4ysHuDJbB8knnFMJN28ehQOWNGo/j9Jg43dLKyoclzmt1n+O5oLx95TW5oSvvmcQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.150449|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00102743-9.22839e-05-0.99888;FP=11030220451923834514|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jvUy9FF_1793695298;
-Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvUy9FF_1793695298 cluster:ay29)
+	t=1793695297; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=8CIrgaXndQnqL2HM+oSlJz+sPXUA2Zb6s1i/b+BZtis=;
+	b=BGzFdAndbaxDTxrjytVOJpP0vb4wCbyMTkialOSYhOdz3q8puqv2kgWb15vHtRVSpM3LZk+Qf9NZIUX2wVS/vAkzD8+jGg8VxapL5AvD7OsHdegLXzEqoNqVdmZGwCfpkODCacG5XgD3Ar+JqaPOdRhHjzTqf/7V22S5fImvLe0=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07682214|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00414259-0.00043581-0.995422;FP=10121813016418332378|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037033194;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jvUy9Da_1793695296;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvUy9Da_1793695296 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 16:41:38 +0800
+          Tue, 03 Nov 2026 16:41:37 +0800
 From: Guanglei Zhu <zhugl3@xiaopeng.com>
 To: dmitry.torokhov@gmail.com
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	liuc63@xiaopeng.com,
 	stable@vger.kernel.org
-Subject: [PATCH] Input: tegra-kbc - check the pin numbers from the device tree
-Date: Tue,  3 Nov 2026 16:41:34 +0800
-Message-ID: <20261103084135.426629-7-zhugl3@xiaopeng.com>
+Subject: [PATCH] Input: db9 - enlarge the Saturn multitap packet buffer
+Date: Tue,  3 Nov 2026 16:41:31 +0800
+Message-ID: <20261103084135.426629-4-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261103084135.426629-1-zhugl3@xiaopeng.com>
 References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
@@ -65,59 +65,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The row and column pin lists are read straight from the device tree
-and used to index the fixed pin configuration array:
+The Saturn multitap path fills the packet buffer block by block:
 
-	num_rows = of_property_read_variable_u32_array(np, "nvidia,kbc-row-pins",
-				rows_cfg, 1, KBC_MAX_GPIO);
-	...
-	for (i = 0; i < num_rows; i++) {
-		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
-		kbc->pin_cfg[rows_cfg[i]].num = i;
+	for (i = 0; i < 60; i += 10) {
+		data[i] = db9_saturn_read_analog(port, type, powered);
+		if (data[i] != 0xff)
+			/* read each pad */
+			for (j = 0; j < (data[i] & 0x0f); j++)
+				data[i + j + 1] = db9_saturn_read_analog(port, type, powered);
 	}
 
-The helper only limits how many entries it reads, not what they
-contain, and the pin_cfg array holds KBC_MAX_GPIO entries, so a pin
-number from the device tree indexes past the array into the rest
-of the driver data. The later configuration check validates the
-row and column counts stored this way, not the index itself, so it
-cannot undo the write.
+Each block is ten bytes apart, and the low nibble of the block
+header - taken from the device - allows up to fifteen more bytes,
+so the last block can write up to data[65]. The buffer, however,
+is sixty bytes, and the six bytes past it belong to the rest of
+the stack frame.
 
-Reject pin numbers the array does not have.
+Give the buffer the size the protocol layout actually requires.
 
-Fixes: 88390243a993 ("Input: tegra-kbc - add support for rows/columns configuration from dt")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 ---
- drivers/input/keyboard/tegra-kbc.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/input/joystick/db9.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/input/keyboard/tegra-kbc.c b/drivers/input/keyboard/tegra-kbc.c
-index e6177f2bdf8d..f086ccf1a075 100644
---- a/drivers/input/keyboard/tegra-kbc.c
-+++ b/drivers/input/keyboard/tegra-kbc.c
-@@ -522,6 +522,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
- 	}
+diff --git a/drivers/input/joystick/db9.c b/drivers/input/joystick/db9.c
+index e5d9b71aab99..73d1e7a296bb 100644
+--- a/drivers/input/joystick/db9.c
++++ b/drivers/input/joystick/db9.c
+@@ -253,7 +253,8 @@ static unsigned char db9_saturn_read_packet(struct parport *port, unsigned char
+ /*
+  * db9_saturn_report() analyzes packet and reports.
+  */
+-static int db9_saturn_report(unsigned char id, unsigned char data[60], struct input_dev *devs[], int n, int max_pads)
++static int db9_saturn_report(unsigned char id, unsigned char data[66],
++			      struct input_dev *devs[], int n, int max_pads)
+ {
+ 	struct input_dev *dev;
+ 	int tmp, i, j;
+@@ -321,7 +322,7 @@ static int db9_saturn_report(unsigned char id, unsigned char data[60], struct in
  
- 	for (i = 0; i < num_rows; i++) {
-+		if (rows_cfg[i] >= KBC_MAX_GPIO) {
-+			dev_err(kbc->dev, "invalid row pin %u\n", rows_cfg[i]);
-+			return -EINVAL;
-+		}
- 		kbc->pin_cfg[rows_cfg[i]].type = PIN_CFG_ROW;
- 		kbc->pin_cfg[rows_cfg[i]].num = i;
- 	}
-@@ -538,6 +542,10 @@ static int tegra_kbc_parse_dt(struct tegra_kbc *kbc)
- 	}
+ static int db9_saturn(int mode, struct parport *port, struct input_dev *devs[])
+ {
+-	unsigned char id, data[60];
++	unsigned char id, data[66];
+ 	int type, n, max_pads;
+ 	int tmp, i;
  
- 	for (i = 0; i < num_cols; i++) {
-+		if (cols_cfg[i] >= KBC_MAX_GPIO) {
-+			dev_err(kbc->dev, "invalid col pin %u\n", cols_cfg[i]);
-+			return -EINVAL;
-+		}
- 		kbc->pin_cfg[cols_cfg[i]].type = PIN_CFG_COL;
- 		kbc->pin_cfg[cols_cfg[i]].num = i;
- 	}
 -- 
 2.50.1
 
