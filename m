@@ -1,107 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793721456;
-	b=4j2VTP7efNRQqtimatXhBIp5IqRg8SQYQAj55p0UezehDbQHtTXpwAx/xFyJ0PPjbBTZ
-	 89+8sMXGUh7/Z55nvjbFFut7dOlpuBpN94dM/glm9uwf9zm1rvgVujGELFRk+WiNtOdfs
-	 NZJLMQR73MX/YmVrfE+QY8POJSB3KILjON1QVMjLf6VF29/V6EEBp8xBkQFupErGY/0gD
-	 7QxSmde6GrDXIVYbIDlKl+VF4yfY8Lg941U9LQe3h7qllvPAC+hApNzoNcbjj9LoYwMrO
-	 bCJ29mrelYIOIqM7HvCtFaIwKK8tL5FvhUjf427KpsE9ZJpdHPXSJWllB916//iotnQ==
+	t=1793721680;
+	b=wt2zN6t73XVNJU2wyaBOqoL59/0AcDRPw8Tu4osO98F2H1pylVlSO92nGE54ErujhRd3
+	 kBMHoY7YRLSMFRVAUbgv33gpJoHBKfdlBkaVhzeI6Z/gTwBltjXANCgccRz6wXx/SYggZ
+	 bAuM7dFdEhKVUdtBICbNUGwWexBnzZ0Yprj8a1Sz3ZRfDobwB+TWp8+ikvt4Ow5CiTUh0
+	 bL4BiUcnMg43RF+lcb13dD/vEgxKPJw1L8d1Rg/CiW/Vi5QnVvS/M05/IjfjPl59Ep/wz
+	 kudHmkXTXlY5mWvyq+oN4h/jhgOOsLaLaBzMitMATh0LMUzVRYoZdMFD5G0/ClGWX4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793721456;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=3TQHW+G37rNifSwPn5OcXaV1kVqaTQJJTD1CKDTBVFc=;
-	b=dwpSHns1FkTvkv8UcLJEKoUGYOP85ctgPh8v7UzbExOpf8ZijefvTZEs+FpQZjf9QNa7
-	 /JWNcyYa0f7mVTDpKfh6tWD3iohQYvImIcrs4/oeyHpIGZRoiAUdA1e3FncXxPNL8YWgy
-	 KbJ3jgzuxwV2V5N6sMiU7kNOd+nkkOWKn9n55p2aFdnVjAeIOMZahUzq+3S+aO2KtvbUK
-	 Zok2tzGlNIxQJ/SxIZfFzaw7TVf0yRxGgL5ZY1PYhClfFxW/JVQaz3sYTpD7EJ2dDjMHX
-	 VRTpIbCeaSCwJH2HVcgd7jEiJmKu9/dVBezYf4LBIDRBWZ4v8A3Qe0kpTeTNGP/GDjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721680;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=o2IFbUEs3XJWUVAyVa+Z8fFrJArAYqvaopmw5yj/aIw=;
+	b=E5lHZrC+MZcRNT2qnr8itt6/ArmplDeflsKs5CoFII38Rn8LOmlQ6O6nsS/Ao4YebVR4
+	 5RNUQcttCcD9HF/3wBfPW5F8R9CkZJyxlDXfECfRIMk9PetehSCw4aZ8wirQAjeUezLax
+	 /jmXgJn8xz0/bhUIWNIlLQaCOwDKPnQQ+eyQAJNAEaaJW9BCgXH1p/9ivHG0yzpzn2eSt
+	 8tf/5wCRUiMjyXmRUjkrquCDe1GOvbyA5phFgkhczgrKNCEMAgsDRugdtsgJq0TE/Whfb
+	 x23PEHSLIoI6iSpF7aDJ7/6YRVcxZqQJ42f9AcvUpG/lj85Sc3CoFq8JMzO745d5pJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PaAduEyD;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6605606D815;
-	Tue,  3 Nov 2026 15:57:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6605606D815
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PaAduEyD
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 5D4EE1A1435;
-	Tue,  3 Nov 2026 15:57:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0FF276046C;
-	Tue,  3 Nov 2026 15:57:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BA751103291D1;
-	Tue,  3 Nov 2026 16:57:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793721446; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=3TQHW+G37rNifSwPn5OcXaV1kVqaTQJJTD1CKDTBVFc=;
-	b=PaAduEyDCKiozaMAq/dbarxqcBkANWIC2aB0HsWP1OIlitinSXRwJmd080PETJ66W+Xbhc
-	kvnXVLvOXfVJOZeOXqxVw6Q2+WuYd7Hr0fzZLJGr5r5Sj7I2sSMsZqkHgrs8RMMIddsjDA
-	Rae4XdC4ktEAtghXFnEwmNBBydfeRB2NqlHUrx3WFyMz5C0kDMXjVY9uGSfdNVU3PiwvXL
-	VMFDw2VPbXETySxkUZj5enP2Nj9JGIQD/eQKB1w3DaF3WInUZ0jctPN1Q4PYSdFQwxwMdg
-	gqw8dqlyAH6QlkMWbykPe9PQzMdjbJyBwH3BQmPslQUW0cKOqtOevFEION4HAQ==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>,
-	Richard Cheng <icheng@nvidia.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Lizhi Hou <lizhi.hou@amd.com>
-Cc: driver-core@lists.linux.dev,
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1E14606A335;
+	Tue,  3 Nov 2026 16:01:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1E14606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=o2IFbUEs3XJWUVAyVa+Z8fFrJArAYqvaop
+	mw5yj/aIw=; b=VEs7IUN9cJ7+6FSHhh2IGdTt2lfgrQeNyqWzBoJmp3GC1gnRa4
+	WpZLc9Pb8gzDwpVt4336TczpDYCF6IWMaWRYMaozFenQUMYIapuMNK4Zg0KF48Qz
+	NyZ03D+pkdlWWMeVvlR8d4oyodW0sdJqK1uPk/UC8b6MF1CAuFBdNrC1w=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.43])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWHgQ9BepqkKEfAQ--.30199S2;
+	Wed, 04 Nov 2026 00:01:03 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mathias Nyman <mathias.nyman@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-gpio@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v14 09/10] PCI: of: Remove fwnode_dev_initialized() call for a PCI root bridge node
-Date: Tue,  3 Nov 2026 16:55:15 +0100
-Message-ID: <20261103155540.365294-10-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103155540.365294-1-herve.codina@bootlin.com>
-References: <20261103155540.365294-1-herve.codina@bootlin.com>
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v3] usb: xhci: Fix use-after-free race in xhci_stop_device()
+Date: Wed,  4 Nov 2026 00:01:00 +0800
+Message-Id: <20261103160100.23190-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <3ca5cced-f429-42d9-9bbb-f5111acd9665@linux.intel.com>
+References: <3ca5cced-f429-42d9-9bbb-f5111acd9665@linux.intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,60 +62,149 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-CM-TRANSID:BLQMCkDWHgQ9BepqkKEfAQ--.30199S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gr15XFWDZrW7WrWkKFWUCFg_yoW7Xr1xpF
+	43Ja4YkrZrKr12gFn8KrW8XF1rXwsrZ398GryIk348urs8J34rKFy0yrWqkrn3WF97Ar17
+	tFn8GFWrua15GF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvSb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Jr0_Gr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43
+	ZEXa7IU8yq2tUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUGD2rop1Xv3wABsM
 
-During the instantiation of devices described by a device-tree overlay
-applied on a PCI device, devlink displays the following kind of debug
-messages instead of creating the expected links:
-   'Not linking xxxx - might never become dev'
+A KASAN slab-use-after-free read was observed in xhci_stop_device():
 
-Without those expected links, the device removal order cannot be
-correct.
+  BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
+  drivers/usb/host/xhci-hub.c:479
+  Read of size 8 at addr ffff88804e85d2f0
 
-Those debug traces are printed by fw_devlink_create_devlink(). In our
-use case, they are all printed because the supplier of the link has at
-least one of its ancestor with its fwnode flag FWNODE_FLAG_INITIALIZED
-set.
+  Freed by task 585700:
+   kfree+0xf8/0x390 mm/slub.c:6566
+   xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
+   xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
+   usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
+   ...
+   usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
 
-The culprit ancestor is the PCI root bridge.
+  Allocated by task 572283:
+   xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
+   xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
+   usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
+   hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
 
-The fwnode related to the PCI root bridge is created dynamically by the
-of_pci_make_host_bridge_node() function. During this creation
-fwnode_dev_initialized() is called which set the FWNODE_FLAG_INITIALIZED
-flag.
+xhci_stop_device() reads xhci->devs[slot_id] without xhci->lock and
+keeps using the pointer across xhci_alloc_command(GFP_NOIO), which may
+sleep.  All callers (the port suspend and bus suspend paths in
+xhci_hub_control() and xhci_bus_suspend()) drop xhci->lock before
+calling it, so a concurrent usb_disconnect() -> xhci_free_dev() can
+clear xhci->devs[slot_id] and free virt_dev under xhci->lock in that
+window.  The endpoint loop then dereferences the freed virt_dev.
 
-Calling fwnode_dev_initialized() tells devlink that the device related
-to this node is handled out of the driver core. This is not correct in
-our case. Indeed the device related to this firmware node is handled
-using driver core mechanisms and is fully compliant devlink
-expectations.
+commit 88716a93766b ("usb: xhci: Fix panic if disconnect") added a
+NULL check for this case, but that only helps when the device was
+already freed before the check; it does not close the window.
 
-Simply remove the fwnode_dev_initialized() call. With that done, the
-devlink debug messages are no more displayed and links that were missing
-are correctly created.
+Look up xhci->devs[slot_id] only after taking xhci->lock, and bail out
+if it is NULL or if the device is already being torn down.  The
+tracepoint reloads virt_dev->udev, so it moves under the lock and only
+runs while the device is still attached.
 
-Fixes: 1f340724419e ("PCI: of: Create device tree PCI host bridge node")
+xhci_free_dev() clears virt_dev->udev without xhci->lock, and only
+later detaches the device from xhci->devs[] in xhci_free_virt_device(),
+also under the lock.  Take xhci->lock when clearing ->udev so that
+xhci_stop_device() can rely on it while holding the same lock.
+xhci_free_virt_device() clears xhci->devs[slot_id] and frees the device
+under xhci->lock, so a device found there while holding the lock stays
+alive until xhci_stop_device() drops the lock, after which virt_dev is
+not used anymore.
+
+Fixes: be88fe4f4dda93e3 ("USB: xHCI: port power management implementation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Richard Cheng <icheng@nvidia.com>
-Tested-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/pci/of.c | 1 -
- 1 file changed, 1 deletion(-)
+Hi Mathias,
 
-diff --git a/drivers/pci/of.c b/drivers/pci/of.c
-index 8914bfa25dc1..0a5797652e18 100644
---- a/drivers/pci/of.c
-+++ b/drivers/pci/of.c
-@@ -894,7 +894,6 @@ void of_pci_make_host_bridge_node(struct pci_host_bridge *bridge)
- 	 */
- 	of_node_set_flag(np, OF_POPULATED);
- 	fw_devlink_set_device(&np->fwnode, &bridge->dev);
--	fwnode_dev_initialized(&np->fwnode, true);
+Thanks for the review.  Both points are addressed:
+
+Changes since v2:
+ - Moved the xhci->devs[slot_id] lookup inside xhci->lock and dropped
+   the separate pointer comparison, so the unlocked read before the
+   lock is gone.
+ - Dropped the explanatory comment.
+
+I kept virt_dev->udev as the marker for "teardown already started"
+instead of adding a disable_slot_pending flag.  It is now written
+under xhci->lock, so reading it there is enough to tell
+xhci_stop_device() not to queue stop endpoint commands, and it keeps
+the change small.
+
+The xhci_disable_and_free_slot() race is left for a separate patch.
+
+ drivers/usb/host/xhci-hub.c | 14 +++++++++-----
+ drivers/usb/host/xhci.c     |  3 +++
+ 2 files changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
+index b0264bd8577a..9a3437248e04 100644
+--- a/drivers/usb/host/xhci-hub.c
++++ b/drivers/usb/host/xhci-hub.c
+@@ -463,17 +463,21 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
+ 	int i;
  
- 	ret = of_changeset_apply(cset);
- 	if (ret)
+ 	ret = 0;
+-	virt_dev = xhci->devs[slot_id];
+-	if (!virt_dev)
+-		return -ENODEV;
+-
+-	trace_xhci_stop_device(virt_dev);
+ 
+ 	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
+ 	if (!cmd)
+ 		return -ENOMEM;
+ 
+ 	spin_lock_irqsave(&xhci->lock, flags);
++	virt_dev = xhci->devs[slot_id];
++	if (!virt_dev || !virt_dev->udev) {
++		spin_unlock_irqrestore(&xhci->lock, flags);
++		xhci_free_command(xhci, cmd);
++		return -ENODEV;
++	}
++
++	trace_xhci_stop_device(virt_dev);
++
+ 	for (i = LAST_EP_INDEX; i > 0; i--) {
+ 		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
+ 			struct xhci_ep_ctx *ep_ctx;
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 5c759ad28199..9e375eb48f38 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -4128,9 +4128,12 @@ static void xhci_free_dev(struct usb_hcd *hcd, struct usb_device *udev)
+ 	trace_xhci_free_dev(slot_ctx);
+ 
+ 	/* Stop any wayward timer functions (which may grab the lock) */
++	spin_lock_irqsave(&xhci->lock, flags);
+ 	for (i = 0; i < 31; i++)
+ 		virt_dev->eps[i].ep_state &= ~EP_STOP_CMD_PENDING;
+ 	virt_dev->udev = NULL;
++	spin_unlock_irqrestore(&xhci->lock, flags);
++
+ 	xhci_disable_slot(xhci, udev->slot_id);
+ 
+ 	spin_lock_irqsave(&xhci->lock, flags);
 -- 
-2.56.0
+2.34.1
 
