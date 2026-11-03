@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701178;
-	b=mpHeAelIdOGPNLm3ALmGdllgnu+9c6QpwWhJWleJZxARlxNCTlzJUMyogH509CqkE764
-	 NhnuEUVcYClbGK0doaDxDhA73yQ6YCAP5SgMvoHuCFn79dZE6JVhVBKzUca7h8U91VGml
-	 IXR04THH0O6C058voXp5WLwH+WIha/FBvLHMbaq5iMic8doz6GGtKvQ8HN658i1sXGtDg
-	 nwK+MV4/JbxZwRJC/EhNrwdqYlXUQ+ykqI4rQveyvOwLpbtE54WQ6nAOOVmjFQ8+ZQP4A
-	 JX+5TTSLD4iJEnDf7rnZ9VhcRtTO/Nm3vKF5Gp643Uls7vQss4OMPocyZILicKk2n6w==
+	t=1793701221;
+	b=eZY4EzImsKefxe02dADXu7Dm1WWL+Oe2RVh0SaCwygRs6m0x23OUjSVLCreAHwuhuVAD
+	 92MF/OYDqmfcFkbsjj0W41ykq31oLAzh3FoAcGUduU4NN4gHsPMWzkxWUrGt40j7qgRvc
+	 Q9FFY0E/3qGsEM32oJ98yqKDZSU6xPsu7Hsry6+7bem83VL2zH3+6RYiBwh6lFSLPP88U
+	 7pH7GAOb2LI573qnW0TxZvY9LFSeeVZhjacK9g7iRySWIMwOx89FHnyLXzXo2pcaG0JVR
+	 KQ3YhI5qbxDRSEuhx4yC6xaCldv7zldz9pZBS408u7lk/suIJ1AUGGlrT0NXxFExuMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701178;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701221;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=30mNKg6hG//01rt1BhZJPq4znfkO+wlDmj5IjBjJAYI=;
-	b=ZQoK8dfx0g365DFMz1kVcm0CE2UizhJoidyd77PgA5lYO9EPsuzkjg9U+zIC8oPUq2/o
-	 MAWM8RK/cqzVOo61auDTOBauep0CeD1izv8yrmth0NJtDeJFXSpKD3KQQNOOFD0TlCY29
-	 QKjeVZC10cLKVjaYQxdS3PhRdCBCQ3GDoH5tABeXI1n1jUUxMmtCLbx33z//Yb66zRQco
-	 epLRf0B0y3j4ZXWQMGpPaaq6FXZwMjsY18G0uiaMED9dcT5IYFMKG1zILKvKJAmywVoy3
-	 ZXB9+iMqxsmF9+W8rzG3V0D3aTrHjASJ/UTZ5Ed/cEo9+GsUjXUvcMkna6CaTtSA6jw==
+	bh=uLEND9KUb4XGJChcqLcjvq5YDMuPfIEbWaHUotOysFk=;
+	b=IqK+/04A7cJgZ8Zj9fLZJaIybWiZWt4F3W644C0t38eIRwt6iNNPD3ZaQAXvZ0zlTkj6
+	 MeJ1lX77uDxSB8P9OZhLCzf12t4GeFbutI0UXs1Of5O0KO5AliQtR77OoVy4C9Kk3vCF8
+	 ajWuDIEioZKzJr0UqW67y/B426afPgR6yTfL34wunBCmOB9daeMxX2zhVPK9v0mIidQ4X
+	 yO5z3nfMZ9kLd7Evt7lCvFeDC+fHeniD3Huy6eSZ4afPEUhuW39mjjyCJReFQa0k7HW4R
+	 4sCFdREyU1M9FNWHfhbu8gglufWA78yHoUvtqlQ4ctN32MmPYpecOAGNKG6lUetWFHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=duRlGN2w;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N9RPbKdw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BEA606A813
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:19:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D737F606A80B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:20:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=duRlGN2w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383F81F0093A;
-	Tue,  3 Nov 2026 10:19:37 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N9RPbKdw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7602E1F00919;
+	Tue,  3 Nov 2026 10:20:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701177;
-	bh=30mNKg6hG//01rt1BhZJPq4znfkO+wlDmj5IjBjJAYI=;
+	s=korg; t=1793701220;
+	bh=uLEND9KUb4XGJChcqLcjvq5YDMuPfIEbWaHUotOysFk=;
 	h=Subject:To:Cc:From:Date;
-	b=duRlGN2w07C4EdY2dh1KtxUDYSNhd6F8EK3qTKzFyQZ1NdUbyBqfKEynzSNzFspT1
-	 2KdS/DlqId5CKycyZhZX+VA7q46rquUzV3j7hgaD0xFumvEUe511s5Dr5zo7PkRJxG
-	 EsBRIZbzeoXt1uJlRqylVOER/AK14FLhiWr6VtvI=
-Subject: FAILED: patch "[PATCH] ksmbd: return end of file for reads past a named stream's" failed to apply to 5.15-stable tree
-To: charsyam@gmail.com,linkinjeon@kernel.org
+	b=N9RPbKdwcomQUm8FzVb/ogdRKbxDnKBxYxatudHG/zxlDE1RnRjMV3BbcRb4SAS82
+	 xRnuacYU866jsHyU6Th4MzlEoGi+7VweKo2SANxXd0H1hP/Yp0IS1EdLCYyGyVADM1
+	 c5UXfXB2Y/AvtiX9ylJqxWzL7YHBWqIRr4+ZwNrA=
+Subject: FAILED: patch "[PATCH] ksmbd: validate security descriptor offsets before pointer" failed to apply to 6.1-stable tree
+To: linkinjeon@kernel.org,ratnaker.gautam@kuleuven.be
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:19:35 +0100
-Message-ID: <2026110335-embattled-grievance-334f@gregkh>
+Date: Tue, 03 Nov 2026 11:20:19 +0100
+Message-ID: <2026110319-default-yelp-9aa0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 626611dc22a3b63b3264a7a797d9dbc530234fcd
+git cherry-pick -x 3474e1a304fbf9f7c996b24adcd519e031227a90
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110335-embattled-grievance-334f@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110319-default-yelp-9aa0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,42 +79,95 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 626611dc22a3b63b3264a7a797d9dbc530234fcd Mon Sep 17 00:00:00 2001
-From: DaeMyung Kang <charsyam@gmail.com>
-Date: Fri, 9 Oct 2026 00:25:35 +0900
-Subject: [PATCH] ksmbd: return end of file for reads past a named stream's
- data
+From 3474e1a304fbf9f7c996b24adcd519e031227a90 Mon Sep 17 00:00:00 2001
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 17 Oct 2026 09:44:48 +0900
+Subject: [PATCH] ksmbd: validate security descriptor offsets before pointer
+ arithmetic
 
-A READ on a non-empty named stream at or beyond its end fails with
-STATUS_INVALID_PARAMETER. ksmbd_vfs_stream_read() returns -EINVAL when
-the offset is not below the stream length, and smb2_read() maps -EINVAL
-to that status.
+parse_sec_desc() constructs SID and DACL pointers by adding untrusted
+32-bit offsets to the security descriptor before checking their bounds.
+The existing checks reject offsets into the descriptor header, but do
+not reject offsets beyond the descriptor's length.
 
-smb2_read() already turns a zero-byte read into STATUS_END_OF_FILE, the
-status a regular file returns at its end, and an empty stream already
-takes that path. Return 0 instead of -EINVAL so that non-empty streams
-do the same. Clients that read a stream until end of file otherwise get
-an error once they have read all of its data.
+On a 32-bit kernel, a large offset can wrap the pointer before the
+descriptor. The end-only checks in parse_sid() and parse_dacl() can then
+accept it, allowing an authenticated SMB2 SET_INFO request to access
+memory outside the security descriptor and fault the kernel.
 
-The buffered copychunk path converts a zero-byte source read to -EIO,
-as it does for a regular file that shrinks during copying.
+Check each nonzero offset against acl_len before constructing its
+pointer. Initialize the optional owner and group SID pointers to NULL
+so an omitted SID remains absent when parsing the DACL.
 
-Fixes: 2ae1a6cc4302 ("cifsd: fix potential read overflow in ksmbd_vfs_stream_read()")
+Fixes: 0626e6641f6b ("cifsd: add server handler for central processing and tranport layers")
 Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index a6230ed64e11..02ee73d8d631 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -270,7 +270,7 @@ static int ksmbd_vfs_stream_read(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 		return (int)v_len;
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 96428df33b43..f3b1efd8e85a 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -900,7 +900,7 @@ int parse_sec_desc(const struct mnt_idmap *idmap, struct smb_ntsd *pntsd,
+ 		   int acl_len, struct smb_fattr *fattr)
+ {
+ 	int rc = 0;
+-	struct smb_sid *owner_sid_ptr, *group_sid_ptr;
++	struct smb_sid *owner_sid_ptr = NULL, *group_sid_ptr = NULL;
+ 	struct smb_acl *dacl_ptr; /* no need for SACL ptr */
+ 	char *end_of_acl = ((char *)pntsd) + acl_len;
+ 	__u32 dacloffset;
+@@ -912,12 +912,7 @@ int parse_sec_desc(const struct mnt_idmap *idmap, struct smb_ntsd *pntsd,
+ 	if (acl_len < sizeof(struct smb_ntsd))
+ 		return -EINVAL;
  
- 	if (v_len <= *pos) {
--		count = -EINVAL;
-+		count = 0;
- 		goto free_buf;
+-	owner_sid_ptr = (struct smb_sid *)((char *)pntsd +
+-			le32_to_cpu(pntsd->osidoffset));
+-	group_sid_ptr = (struct smb_sid *)((char *)pntsd +
+-			le32_to_cpu(pntsd->gsidoffset));
+ 	dacloffset = le32_to_cpu(pntsd->dacloffset);
+-	dacl_ptr = (struct smb_acl *)((char *)pntsd + dacloffset);
+ 	ksmbd_debug(SMB,
+ 		    "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dacloffset 0x%x\n",
+ 		    pntsd->revision, pntsd->type, le32_to_cpu(pntsd->osidoffset),
+@@ -933,9 +928,12 @@ int parse_sec_desc(const struct mnt_idmap *idmap, struct smb_ntsd *pntsd,
+ 	pntsd->type = cpu_to_le16(DACL_PRESENT);
+ 
+ 	if (pntsd->osidoffset) {
+-		if (le32_to_cpu(pntsd->osidoffset) < sizeof(struct smb_ntsd))
++		if (le32_to_cpu(pntsd->osidoffset) < sizeof(struct smb_ntsd) ||
++		    le32_to_cpu(pntsd->osidoffset) >= acl_len)
+ 			return -EINVAL;
+ 
++		owner_sid_ptr = (struct smb_sid *)((char *)pntsd +
++				le32_to_cpu(pntsd->osidoffset));
+ 		rc = parse_sid(owner_sid_ptr, end_of_acl);
+ 		if (rc) {
+ 			pr_err("%s: Error %d parsing Owner SID\n", __func__, rc);
+@@ -951,9 +949,12 @@ int parse_sec_desc(const struct mnt_idmap *idmap, struct smb_ntsd *pntsd,
  	}
  
+ 	if (pntsd->gsidoffset) {
+-		if (le32_to_cpu(pntsd->gsidoffset) < sizeof(struct smb_ntsd))
++		if (le32_to_cpu(pntsd->gsidoffset) < sizeof(struct smb_ntsd) ||
++		    le32_to_cpu(pntsd->gsidoffset) >= acl_len)
+ 			return -EINVAL;
+ 
++		group_sid_ptr = (struct smb_sid *)((char *)pntsd +
++				le32_to_cpu(pntsd->gsidoffset));
+ 		rc = parse_sid(group_sid_ptr, end_of_acl);
+ 		if (rc) {
+ 			pr_err("%s: Error %d mapping Owner SID to gid\n",
+@@ -975,9 +976,10 @@ int parse_sec_desc(const struct mnt_idmap *idmap, struct smb_ntsd *pntsd,
+ 		pntsd->type |= cpu_to_le16(DACL_PROTECTED);
+ 
+ 	if (dacloffset) {
+-		if (dacloffset < sizeof(struct smb_ntsd))
++		if (dacloffset < sizeof(struct smb_ntsd) || dacloffset >= acl_len)
+ 			return -EINVAL;
+ 
++		dacl_ptr = (struct smb_acl *)((char *)pntsd + dacloffset);
+ 		rc = parse_dacl(idmap, dacl_ptr, end_of_acl,
+ 				owner_sid_ptr, group_sid_ptr, fattr);
+ 		if (rc)
 
