@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700804;
-	b=BtJ5KY+c5+EtmkCyvxpZGrxxeMRHI4Uj9+6jG/ODt5bawty+I6ciwMND5vsgjsAs+Ngf
-	 Kz+11hcWKTjWC5EzLsQQt1kQB37PQKp1ForVWOuuOdrGEqLkpgpWKbr2GMMXT++5ZyC2w
-	 uQwQtJZWsX3V2s+/AX99p4/PlsIvsvBJSX8S/3tdjLc2kwt70qF72ca5xTkzNCH3OtI4j
-	 xcZpsAt2J+57o+Xz+nml/G2B6nIo+/ewpOfKkslCw6E5TwZ1wyn+G5am0p/1kq/XjlPgf
-	 PCnGTZNJhCimPA6UnG7YpmEy1tYMFNBXf0AnFDoBbJqGTBHcr6qdCgNlLWJOZ1kafhQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700804;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=358uIloGm7zgYRtMvfk0Vij4L17caruorv0tNFzQZtA=;
-	b=RXn1pkRUyomwGsl1qrV9E/aGrxhQj/UAVjAbGUjquerSJ1Z3Gk6JqBV31j8XpsDS+kYs
-	 vXTiO9MNjCyXluoo7B8+mDVO+T81smmsrcWkTy7ivipsLh0Xa7hBz+mYh8R2KV1wxulK8
-	 9eWQ0YDHObmuXjTWMIItjqKa1+HK4ihIgANp1i3IXVZc/xuWx9a+PsfkO4o8hu6jZvwAz
-	 wZ8mGeh00YqPeCeMtpzBmVVsBdlNBNl0b3rlfiJNVcIPf1uCa+P4s3VHVRBQiyWTryjig
-	 7cLjeA7n6lAzDBjBalKISkyWggcHk3FjP10QxPDnrKv2w2d9QoCKDFjtTS9+BfZALeQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XQoquMa4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793700813;
+	b=z7/5n17HceNAGwRQov28EAC37KLArtraf7l5pNocJXLStE6iF0hn/8nI0T5QSlgjrs1m
+	 8iwC9JZf6zq461FLZ0LexR0eZTVl0b38xUVoAvX6xObePF9RUYMmbRNdjnJfMZfKIJJxV
+	 nUT8w8bSJmHiz300i2mMi2jeoWKzGz9E9ts/UZjjxRpRttH2fbBWszNmiDxDXGvarE8iu
+	 S96h2UvI8UDy3rYbK8InXPAoV+n/w3WZo+N34lNCX9mYkTU/hKvBeJrMWCiYRtcaDglx2
+	 s256ErkJQI/kCUqYYo3taS1AZyaaADj+6IGBryfH6NzCF6aIv8Q5UnEj2UoISK2pv9g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700813;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ay5QBVTupXpoCiXn6UZZm9RK4cKeTVdq6BJnnY3kAgU=;
+	b=3gaw9pV9akTGczwxUOfx864g+wJ3msc3UHYiCJCfyF3o4Pg/WamdHqgKcm+D0XVlOelK
+	 rS2wY9QKC/xekI5j+6V5u4HjlD5FITkgsvlubIU/un1wDPDhrTGN+se0Ju8kV9zQgMIeh
+	 18l/yYffKsDv1I2we5TOk7oRsIe1AdTMJ/VjC5Y9ZsmhdFM08ZlZ5xAmhieInzPg324Al
+	 OTJ+4RqE11KfbTvhssKq+AhfkfOgbfQrVisZ8OUuFZvvBvESrclaxDI5b8O0cI88hmBop
+	 p2F+k+d5ZCwFnT0hwhhSoshI0NmgKpNy7+QMkqh6Ss+5VPwDHnMSBVX4iNTlw8SG1OQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hotmail.co.uk;
+	spf=pass smtp.mailfrom=hotmail.co.uk;
+	dkim=pass header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.a=rsa-sha256 header.s=selector1 header.b=glH2tIi9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.33.32
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011032.outbound.protection.outlook.com [52.103.33.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9076083627
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:13:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF16606B116;
+	Tue,  3 Nov 2026 10:13:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF16606B116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XQoquMa4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6ED91F000C1;
-	Tue,  3 Nov 2026 10:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700804;
-	bh=358uIloGm7zgYRtMvfk0Vij4L17caruorv0tNFzQZtA=;
-	h=Subject:To:Cc:From:Date;
-	b=XQoquMa4Utl7pC/zEKP2sCxF23BnrYmmDAwFDxVomL0Yo/ttelSjEilGnivEqbrJK
-	 EPm80tmmVRIFK1RbQsgoDX+lb7w4nJGq/M8vwiPWyr12+FXWQ6sxtbKjZYLszKPb23
-	 TC1hsOOzIcJqMXhhaOszhctppq/ShRIynYyNKLiM=
-Subject: FAILED: patch "[PATCH] driver core: take parent lock in async device attach" failed to apply to 5.10-stable tree
-To: mario.peter@leica-geosystems.com,dakr@kernel.org,dmitry.torokhov@gmail.com,johan@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:13:19 +0100
-Message-ID: <2026110318-snide-showroom-1bf9@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.a=rsa-sha256 header.s=selector1 header.b=glH2tIi9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sxTbdgbazeHGPY7ZrxWOM9N+acZn9iboEARjARhScxwroki2OziAied7/4vfLncTA2pblK/W7XFjxuyHLJZGAH/b5p1x7nctDXogazEtxoKo3BFdEMj/FAWjLd8jSDuNspHU7I/wZE38JiJTU9JEYd6/OmYjOq9iHIRvUVI/6MySHL0Cuu9MVjM4apLwlTN+eRYUP9x/D9Ho+69IHtDBvdqyyA8oeCNyuUok3+PTjieeiQQypDwqI9EuCarLmT9oSkYHjbsSZIuaNzmufalUF/UjWE/jXEa+YnsGlMQfQn1ZQKhE4RTZu/Zyaf/7KhpNln0EKjbRwS03CVbE1BgnBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ay5QBVTupXpoCiXn6UZZm9RK4cKeTVdq6BJnnY3kAgU=;
+ b=HmU4afQu5m2NaNR2/YSFeTQ8ZJOiB6v+aLL0tr0m5JBoL2LImmSVpowKxQ9xEm005KnmiqRj/uk5VkoDMMF+RofyeN1g8nUOPX5SMw0q2Ppd0pjICewyxaDWBZ10dA0jXq78Qpy/UeiGOQEZ0bLxb06O4yF+aOkWl0+T621NFcbXxIGKcFydP4Wfitr/JvOMFLlHX4A8ObXwOazCrWedFnkRo0SAjkfc4tot0NIrXTpIpVxPh6PXF/3Zi8Dx/+a7ELdlrpLy64WuWNMXVZp/ZWDE7UrKJfoI2j4O0WDhpUGfwNsnAfk/iG/lTeE8FuDm7HMKap0e2Ht7nKhQxo5Fqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ay5QBVTupXpoCiXn6UZZm9RK4cKeTVdq6BJnnY3kAgU=;
+ b=glH2tIi9r0lKu4pk9qhmTXCMj5OTMHABB6QMYh/wo57oY/J+b/B+xRv8NiiwIomrkdiIDX6Uuil7pPVpbFCNlV5ewkUTd+pt4/4cQrgA1iq8CFumMexzq2WutRi1YtV7yOOUY6ZUnUjE2lETXAQnjNHjQEZg4cpPS4nqjiV12e1xRnxv1l2AS5hr0F53OXlquiz1Xe0CC9EQOW2PBCasyo16/88wzCs2v31vkeXeQnFp7oaTZe1xOd9p7gQiwvCxyBj+kx2HFpNCWh5AqpkQkHzBSsPU/lWUDWIbImIY9hAl/5oi9cU9+yFi4m/3M383opqSwFvZg9VJ1XqzuN0Cyw==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by DB9P251MB0077.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:2c9::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 10:13:30 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 10:13:30 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Aaron Lu <ziqianlu@bytedance.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	kvm@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] vhost: Run TIF_NOTIFY_RESUME work in the vhost_task loop
+Date: Tue,  3 Nov 2026 10:13:28 +0000
+Message-ID:
+ <AS8P251MB000115355C9F818CBDE48A79C8692@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261102170928-mutt-send-email-mst@kernel.org>
+References: <AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM> <20261102170928-mutt-send-email-mst@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0103.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c3::6) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20261103101328.22586-1-elb12345@hotmail.co.uk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,241 +105,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|DB9P251MB0077:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39183dba-877d-4eeb-ce1b-08df39931bbc
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|6090799003|15080799012|5072599009|25031999004|37011999003|51005399006|55001999006|24021099003|8060799015|19110799012|25010399006|260925184616899003|4140399003|26104999009|440099028|3412199025|40105399003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bFlrM08vQVdqZUJXUWtheVJIdW1qTHRpTEsyMEpKTTVuSFJjTFZOWnk2OE9o?=
+ =?utf-8?B?ZXFhcmkyR2ZUcjZMMEFua2VHQmgwZG5PczZRVGl6SzlZSGNMQW9WbXFjb1BC?=
+ =?utf-8?B?UDl3aHdTSmxFbDhBWlltZEd5ZnVaWWpqZzhuVmJwTWU3Y0NnS2ZWK3JQQ2F3?=
+ =?utf-8?B?RHQwVkt1L0Z5YVBXL2hDb3hwUlpicE9laWs4eDJubVBrcVRXQUZJdEszV3F0?=
+ =?utf-8?B?WWtTNFdDUzNjWXg2S3ozeTBZU3Y4Nm5xQnVxdmNrNys1dEZ1RmJsRHpJNnV1?=
+ =?utf-8?B?RVZXaldRcEpPQkpVcjdoa0h4bjlqUUlCcWZibXI4a0hjV3NuQ1pjWE9LajEy?=
+ =?utf-8?B?MUVoOS8wdVgreDluSVpBS09wMzYyWHhHaHhLRGlEcWRkYVZoN1dHKzdFYUlX?=
+ =?utf-8?B?MGVnb3gvZEh6UG1RVU5aa3RJQnpBd0tDRUtsUEpvRitqdWtOUXhhNUs4Q1B2?=
+ =?utf-8?B?UlVZVXlKSU85QVNDVDdMTUFJb25jd1UrQ2tPRisxNmtlWkVsQlBnK20yalNw?=
+ =?utf-8?B?OThWcld1dEptQ3Z0ZWZ2d2dHZTBJb3U0L2lPSFBRYVdwOVhYTGZiNVI4REZ0?=
+ =?utf-8?B?MllLakwzNHRCMFVtaVJJeUVKdjN5eDFycXVjUHE5Y0lQZ29ISVB0MXdRODlh?=
+ =?utf-8?B?YmtpMEg0eG4vTFBLNDk5K0h6bjViMWFCbkVXeWgycENHM280K1BjYlFmamZI?=
+ =?utf-8?B?TEZ3ejRMcDZLdUNGMnFPUm1KeC8vSE5zNU9scG5PU1EwbTdUZUhNTmZnWjN1?=
+ =?utf-8?B?VFpINjdTK3NmOEJHNUVOSldQTmFmOUgzeWFKbWxZbHZoWVgrdkNhNlpvcnVv?=
+ =?utf-8?B?ZUlOTFhJOTNTMnhCMFNmSnJteU4zcDFNdURidGp6ZjhoSkNabFM3Rmp1ODBM?=
+ =?utf-8?B?eFNXVCt6cGh4VzJUWXM0elhEMGdyc2FNN2JEQUgxSHRDdFdiSnBMdkxBaHc1?=
+ =?utf-8?B?RFdQL3F6dXQ5VVNkZmN5aU9xMFNSb1lwYS95Sm5vdHowbDQyVFRLbXRoS2lB?=
+ =?utf-8?B?Ukd3SHJJdXlWT1NWZk1OSlZLWWVTS3orbTdoS2I5N0dsbHMxaG4xb1VrK1ND?=
+ =?utf-8?B?UGhYUEpxN204VlFlczMxWWJzSnlXbnptd0VWdmlZTnpWYklvczFjZy9UUGdW?=
+ =?utf-8?B?UDlxWjlUd2E0RWZLS0cxTlNNeStZMVV5K2t2OEFGK291Q3NBcDBvVlpKN3BR?=
+ =?utf-8?B?eEd6bUplMzFxRjA5Skw1U2kwOGlQQlhKZkFGWE1LWm5ONGNJL0NFM0xRZWRO?=
+ =?utf-8?B?c2FWR3c4ZDZsZHdrbWwvWG56UkMwMjBJVGVNdXNweU9aZnRQOVJvcGU5dmtq?=
+ =?utf-8?B?SEJ3ZTVjb0UxbUFwSVlUb2l3RTNFaFp4cVNIZ0F3dkE3RmNwai9KbFA1eXU4?=
+ =?utf-8?B?Z1lXS3p4SUdQdExwak1FQnBrQk1MTHFWakNGTmpCeXlmdmlBY1dlSDJaYi9l?=
+ =?utf-8?Q?EMJ4issR?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N0NEYzVheFlDeVlMbm95ZjRRekd1MnBGRUNsQjhzNkt2Uk10cGtIaW5MaWt1?=
+ =?utf-8?B?SGR1S2t1QnpHWENtUUNvZ3g5M1JOTjgzNWgrRUZDU0F3ZnVJL1RjbUdLOG12?=
+ =?utf-8?B?anJZcW1vY21WU0xSRnVqMkRGcGo2cTZxcDZYeG1KSTVzZnk4QkM1d2ozTStP?=
+ =?utf-8?B?RmlhbUVycUx2OVJKcTF6cGxsTFg4aWVUTG9mVU1pK3FDa295YXkvdDZEbzZ6?=
+ =?utf-8?B?Q2MyMldNeWRVd0dqT0xBQnBURkMwVmJuNHJtaTNrTmc0ZUtsa2plMFFjeGVr?=
+ =?utf-8?B?RnYydG11SkxZczZGNkJTK1k5NzhtY29yK2sybDhuZnR1MlhjbTZxSmszTFNo?=
+ =?utf-8?B?VHlwZ1I3Sll6RGRDamFsc1RuWmQ2SURvM01rTXlheStIQVBIVVFqK0d6Sjd2?=
+ =?utf-8?B?alFSSC9ER0RtZjZPTm81ZFRPekt5dkc0VVM1Q01TVHhTeXkzQnAwbUNPb1pD?=
+ =?utf-8?B?S016dnF1WTdVZVcwS2FoZ3NsOXA0RnVoOGVXb096MXdnRGRUY3hDZ3Z0akhy?=
+ =?utf-8?B?QldJSkpvMkZPRWNRWmxRbStwRlRHQzRrLy9nV1RNbHIybklOaHNHVFc5bGRL?=
+ =?utf-8?B?Rko2QUlUMDBQVUhOY0IzNzRLYTlndzFYaE0vdk1HVWdGQXpiTXZMTVhrdnpV?=
+ =?utf-8?B?VGRUTzVHZVViSVd3RjFVZVRGTzBZcDlrU2hsSmp5a1JvOFhWaGZHeXhVT1Fl?=
+ =?utf-8?B?bmVXNy9vc21JcmNqbFAzb2krYXFUNzhoNlJmbzRraFl4YzZEdWdXMUF1UEtB?=
+ =?utf-8?B?aUV5YjBOL1BqVlRjQi8wdVQ1ak9keGZnZUxWdndtQjdPZTZEV3BqK1VEeXNL?=
+ =?utf-8?B?RHJnc24yK0FzTHJNQXA5b1V6VnFiV2kzSE4vSHdiREZEN2s5ZmNIOGRlRlla?=
+ =?utf-8?B?TWFJR254VlFrb3RJclNjbEVaOXZsRm8wdEJ3dmt0RmZwVDJHWVJrYUQ2cHJi?=
+ =?utf-8?B?QjFQM010b25MaVZEeERMTzUxMzI5Z2xRd1BnTXh0bENwcnE1R2t3ekIrbVlU?=
+ =?utf-8?B?MDd5bHU3OVhQbXh1bjNVKzJ4cjFPOXBjZmRqcGdVMVdiaXQ2WlZvUEF5eHRQ?=
+ =?utf-8?B?USszZUVtSDZKek9XWGR0bFBlVit6d0FvdkhmeTBucE1ES1JVNlJBeDA3eml2?=
+ =?utf-8?B?QXZNZjBRVEJVOWdBM3hOTDM0NGlVNVJYclBOMlJHTWtCS1c0MHRNR1JOclhr?=
+ =?utf-8?B?MHByRFhkMEVRQ0RKUlpUT2hUOVdtN2dnNHk1VkU4RktLZnBQek9mbUFGSmNE?=
+ =?utf-8?B?d0tudmNZTEZlRFl5SWdSRzlEMlpMK1JRcGdDYjk3YjNUSk52VGp0OEdLL24y?=
+ =?utf-8?B?SnBTaVlzcWxLYmZsRTM5Mi9IbTBDM1cyZWpDamZ3L3VjL1RtbkdadTNtRE9K?=
+ =?utf-8?B?RitKTnJpZmhqdmR2bmJCN2NPWm9IMVpaalVGc0ppQjNLNjl3dDh3dnY1NHM5?=
+ =?utf-8?B?OVh2SVBOM0dYQXhnMktjZDlheTBHSm14Uld2dzNXcUFQRTRpQWpQSGxTUVNR?=
+ =?utf-8?B?WkdOWnYzOW5kbXljTzRrS2xKaVZMQmUveTZ5c25iRlhqTDh6ZVVwNjIzVWtQ?=
+ =?utf-8?B?NHJEZHNJTHZQY3N3eHVpWmlINGJPT1NSZkg1RCtCZ0lpN2ROaHRpL3E2QWNG?=
+ =?utf-8?B?UUNLMkUzNzhFQ1AzWjJ5N2QzamgwdVplZCttTlJvSUh5d3dpWUVvcGw2MUR0?=
+ =?utf-8?B?RG1vTVBmRUVkSnJhdzRXKzV2Rk8wRWVIbUV2NjJnYmZlUFRnTy92MENUZGV0?=
+ =?utf-8?B?K2RaN3huT0I2R3dvaDZhZTA1SGJ3OVhsYTlSYmx4bnVJL3VVSDdWeUcrMkJB?=
+ =?utf-8?B?THhLdStTRkNjdng5OHpqcHFRcHIwamJPRWgvQjVCSk5kOHpKSTNaeC9HVTFO?=
+ =?utf-8?B?S29lczZuUGpKT3NwT1U0OXNqYmNmd1hrQ1NKb0FwaHV6L0kvMjQzZndTUHZI?=
+ =?utf-8?Q?uXijVxcORt16KROka5B7WB3D9beC6CzJ?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39183dba-877d-4eeb-ce1b-08df39931bbc
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:13:30.4422
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P251MB0077
 
+On Mon, Nov 02, 2026 at 05:09:42PM -0500, Michael S. Tsirkin wrote:
+> Could you pls respond to Sashiko's review?
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+On review, Sashiko's points don't seem to hold:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+1. throttle_cfs_rq_work() runs from task_work_run(), which calls
+   cond_resched() after each work item:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 187a62f99da29b1a55602b0d401a783d8dc86161
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110318-snide-showroom-1bf9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+        do {
+                next = work->next;
+                work->func(work);
+                work = next;
+                cond_resched();
+        } while (work);
 
-Possible dependencies:
+   throttle_cfs_rq_work() has already called resched_curr(), so with
+   preempt=none/voluntary the worker is switched out at that
+   cond_resched(). With preempt=full/lazy it is switched out earlier,
+   at the rq unlock. Either way this happens inside
+   resume_user_mode_work(), before vtsk->fn(), with no locks held.
+   Traced on 6.18 with preempt=none: each throttle switch-out was in
+   __cond_resched() called from task_work_run().
 
+2. Depends on fn() running while throttled, which per 1 doesn't
+   happen.
 
+3. Re-armed throttle work is queued at pick time and run by
+   task_work_run() before it returns. Anything armed later is handled
+   at the next loop top, which is normal deferred throttling.
 
-thanks,
+Will raise a v2 now with Shakeel's previous points.
 
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 187a62f99da29b1a55602b0d401a783d8dc86161 Mon Sep 17 00:00:00 2001
-From: Mario Peter <mario.peter@leica-geosystems.com>
-Date: Wed, 14 Oct 2026 15:31:09 +0200
-Subject: [PATCH] driver core: take parent lock in async device attach
-
-For device types with need_parent_lock set (only USB interfaces),
-probe() must run with the parent device locked. A synchronous attach
-after device_add() gets this from the caller, e.g.
-usb_set_configuration() holds the udev lock while adding interfaces.
-__device_attach_async_helper() runs the probe from an async worker
-instead, where that lock isn't held, and only takes device_lock(dev).
-
-With async probing enabled for the hub driver (e.g. driver_async_probe=*
-or driver_async_probe=hub), this races when a multi-TT hub is
-configured. For multi-TT hubs, hub_probe() calls
-usb_set_interface(hdev, 0, 1) to select the TT-per-port altsetting, and
-usb_set_interface() creates the endpoint devices of the interface a
-second time:
-
-  usb_set_configuration()           async worker
-    [udev locked]
-    device_add(intf)
-      queues the probe  ----------> __device_attach_async_helper()
-                                      [intf locked, udev not locked]
-                                      hub_probe()
-                                        usb_set_interface(hdev, 0, 1)
-    create_intf_ep_devs(intf)             create_intf_ep_devs(intf)
-
-create_intf_ep_devs() checks and sets intf->ep_devs_created without a
-lock of its own. If usb_set_configuration() has created ep_81 but not
-yet set the flag, usb_set_interface() skips removing the endpoint
-devices of the old altsetting and creates ep_81 again. With a
-synchronous probe, hub_probe() runs inside device_add() with the udev
-lock held, and usb_set_configuration() then finds ep_devs_created
-already set.
-
-Single-TT hubs don't call usb_set_interface() from hub_probe() and
-don't show this warning, but their probe runs without the udev lock as
-well.
-
-On an i.MX8MM board with an onboard USB2514 hub this hit 11 of 100
-boots:
-
-  sysfs: cannot create duplicate filename '.../1-1/1-1:1.0/ep_81'
-  Call trace:
-   sysfs_warn_dup
-   usb_create_ep_devs
-   create_intf_ep_devs
-   usb_set_interface
-   hub_probe
-   usb_probe_interface
-   really_probe
-   __device_attach_async_helper
-   async_run_entry_fn
-
-It also shows on v7.3-rc6 in QEMU, with dummy_hcd and a raw-gadget
-program emulating a multi-TT hub: re-authorizing the hub in a loop,
-while a SCHED_FIFO task preempts the writing task at random points for
-3 ms, hit the warning in 29 of 6000 iterations.
-
-Take the parent lock in __device_attach_async_helper() as well, like
-__driver_attach_async_helper() does, and move
-__device_driver_lock/unlock() up for that. With this the warning was
-gone in 300 boots on the board and in 6000 iterations in QEMU.
-
-Fixes: 765230b5f084 ("driver-core: add asynchronous probing support for drivers")
-Signed-off-by: Mario Peter <mario.peter@leica-geosystems.com>
-Cc: stable@vger.kernel.org	# 4.2
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-[ johan: switch to async_schedule_dev_nocall() to avoid deadlock if
-         async_schedule_dev() runs synchronously when parent lock is
-	 held ]
-Signed-off-by: Johan Hovold <johan@kernel.org>
-Link: https://patch.msgid.link/20261014133109.1392265-4-johan@kernel.org
-[ Fold the nested conditions into a single if statement; correct commit
-  message to mention "device types" rather than "buses" for
-  "need_parent_lock". - Danilo ]
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-
-diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-index 04e9977ed743..52123251965d 100644
---- a/drivers/base/dd.c
-+++ b/drivers/base/dd.c
-@@ -1030,6 +1030,38 @@ static int __device_attach_driver(struct device_driver *drv, void *_data)
- 	return ret == 0;
- }
- 
-+/*
-+ * __device_driver_lock - acquire locks needed to manipulate dev->drv
-+ * @dev: Device we will update driver info for
-+ * @parent: Parent device. Needed if the device type requires parent lock
-+ *
-+ * This function will take the required locks for manipulating dev->drv.
-+ * Normally this will just be the @dev lock, but when called for a USB
-+ * interface, @parent lock will be held as well.
-+ */
-+static void __device_driver_lock(struct device *dev, struct device *parent)
-+{
-+	if (dev->type && dev->type->need_parent_lock && parent)
-+		device_lock(parent);
-+	device_lock(dev);
-+}
-+
-+/*
-+ * __device_driver_unlock - release locks needed to manipulate dev->drv
-+ * @dev: Device we will update driver info for
-+ * @parent: Parent device. Needed if the device type requires parent lock
-+ *
-+ * This function will release the required locks for manipulating dev->drv.
-+ * Normally this will just be the @dev lock, but when called for a
-+ * USB interface, @parent lock will be released as well.
-+ */
-+static void __device_driver_unlock(struct device *dev, struct device *parent)
-+{
-+	device_unlock(dev);
-+	if (dev->type && dev->type->need_parent_lock && parent)
-+		device_unlock(parent);
-+}
-+
- static void __device_attach_async_helper(void *_dev, async_cookie_t cookie)
- {
- 	struct device *dev = _dev;
-@@ -1039,7 +1071,7 @@ static void __device_attach_async_helper(void *_dev, async_cookie_t cookie)
- 		.want_async	= true,
- 	};
- 
--	device_lock(dev);
-+	__device_driver_lock(dev, dev->parent);
- 
- 	/*
- 	 * Check if device has already been removed or claimed. This may
-@@ -1061,7 +1093,7 @@ static void __device_attach_async_helper(void *_dev, async_cookie_t cookie)
- 	if (dev->parent)
- 		pm_runtime_put(dev->parent);
- out_unlock:
--	device_unlock(dev);
-+	__device_driver_unlock(dev, dev->parent);
- 
- 	put_device(dev);
- }
-@@ -1118,8 +1150,11 @@ static int __device_attach(struct device *dev, bool allow_async)
- 	}
- out_unlock:
- 	device_unlock(dev);
--	if (async)
--		async_schedule_dev(__device_attach_async_helper, dev);
-+	if (async && !async_schedule_dev_nocall(__device_attach_async_helper, dev)) {
-+		put_device(dev);
-+		ret = 2;	/* retry synchronously */
-+	}
-+
- 	return ret;
- }
- 
-@@ -1146,48 +1181,20 @@ EXPORT_SYMBOL_GPL(device_attach);
- void device_initial_probe(struct device *dev)
- {
- 	struct subsys_private *sp = bus_to_subsys(dev->bus);
-+	int ret;
- 
- 	if (!sp)
- 		return;
- 
--	if (sp->drivers_autoprobe)
--		__device_attach(dev, true);
-+	if (sp->drivers_autoprobe) {
-+		ret = __device_attach(dev, true);
-+		if (ret == 2)
-+			__device_attach(dev, false);
-+	}
- 
- 	subsys_put(sp);
- }
- 
--/*
-- * __device_driver_lock - acquire locks needed to manipulate dev->drv
-- * @dev: Device we will update driver info for
-- * @parent: Parent device. Needed if the device type requires parent lock
-- *
-- * This function will take the required locks for manipulating dev->drv.
-- * Normally this will just be the @dev lock, but when called for a USB
-- * interface, @parent lock will be held as well.
-- */
--static void __device_driver_lock(struct device *dev, struct device *parent)
--{
--	if (dev->type && dev->type->need_parent_lock && parent)
--		device_lock(parent);
--	device_lock(dev);
--}
--
--/*
-- * __device_driver_unlock - release locks needed to manipulate dev->drv
-- * @dev: Device we will update driver info for
-- * @parent: Parent device. Needed if the device type requires parent lock
-- *
-- * This function will release the required locks for manipulating dev->drv.
-- * Normally this will just be the @dev lock, but when called for a
-- * USB interface, @parent lock will be released as well.
-- */
--static void __device_driver_unlock(struct device *dev, struct device *parent)
--{
--	device_unlock(dev);
--	if (dev->type && dev->type->need_parent_lock && parent)
--		device_unlock(parent);
--}
--
- /**
-  * device_driver_attach - attach a specific driver to a specific device
-  * @drv: Driver to attach
-
+Kind Regards
+Aamir
