@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741841;
-	b=OwtEIilh71LaavrgR+H1ZuxbME+YhucuDx20Eu6CEQdSqyAytoS35PTK4trieEUeJa5K
-	 mct7t9nwnNXSzsuJkg4KhDtkMLmR34nOvBJ51/fr/E1flp5jpgsBxl8eBnLO2EWRfEmBv
-	 KP+Ny7IRdJyXnChERtsRurzeVzO45zJwfxEUVAeKXmnODjqO5ugV15zLk2OsLh0r0olUl
-	 82XE6ofKooEue/VSxNOGBfN0dvWyabKykNuRJhk3m2OvuKogcwP1XQfWdtdwDm9bsf0r5
-	 y7SQvi4p7hAi1IOTKZwEnU2d5/54093YDfckVS6S/v42tDfAe14ga+b+8mEOBsEGb4w==
+	t=1793741842;
+	b=n6bEY3IIhl0+mT6ovU7injcAAJnH47hk2iqiAwyp4zZGs9H2KIgSWztmOV1JlS87gs3Z
+	 4lBJXWY5XLLMAeHqxi3+5rIz0qIBpZxnZewS868WFcKLbwZ8hUZYAa3lLE0usYkpMNauW
+	 /kleEtgg8ilsB6GdOkfTC05jKXI4YvQ/OVtDtCWOpWJl9CUlDEGLcWp8dcczOglP3FJxX
+	 K3GT/h0r0MEyv/CWlwxY7zs/J92Am1Wgfw9ekPLIgr11cSzt4dYwP8psKHrRiRu3EZMZ3
+	 5ifYnFRrOF3LyTNu3HOuItTF/CAdkNWH57uhurVQv1ZQbYh5E5qPSKFYxYgcb0AFg6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741842;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KhS9Rk8W9UfItNW5IBv4dKTP1qe+Es3bg5S2d53y16k=;
-	b=C5xD3OqoqGXuUG2xd7GwBlYtnol08yJjUDjFbpYzHDjivD6jsSj2yb/uE7Np1rAz0qrc
-	 HSdCY63GJH/q+fIKsNEwqf8neyr6iX9NaKFkyzjSDkhXeIGvpIhUZPDfbYs54DatlJEOM
-	 1thuFAJUJ+1FqiLUJTNbe6rjxAh4nD21vtFYgT8VpTl7rEZSXZgeA2VEbDzLaHLTOwnuJ
-	 clmb92c9nR0gfDXUB3mt5yGzbkEeW+XMPAYIiLq+xaaCIpmAHMmjsWG1I2TacOzQTp+Gm
-	 yU4UQHoGbi63tRSdL6iOQAnTApfRUt0rMeMpAmDjBSywi8rvBAsyXUjZmM1wPP/zDFQ==
+	bh=s/uovxnrKNjIxAb9rFbbKy5P6MfxaLM0Z5yn1jO2hLU=;
+	b=Fivd+bo7Nk+PKMa9/Pv5EmNr2PQCSJKHNjJwFoLjfEYK/o3nsvmMjEgjGtAut2gOVDO9
+	 GOzjAOlw2xHD59dvOQeBqE3t8LTgXWkm7f1m+xEaZNrQzxI7NzsUhMSPsU3yviTlMEosC
+	 1zRgJ9ynk0OqyFi655+YrOE4D+6zvpZ20OVfPwHkdcKQWYywdKv5S9VqXqzS3Rx/0X2Ci
+	 0kRIVizqMEzlXIbCaEKAIdjYupI3fhQW5sE3wYmZZscdeoRNWqz++8kbrafn1nsPSZ1Kn
+	 GFrY6Z+5hEAxaVS0uuV7LrWM8haGK6uCuac1VEBWf+2TJgFRc/iHcF3qRJ525jp+lsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PS71fPij;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STiZCAb5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D766D606A31B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 21:37:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC491606A329
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 21:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PS71fPij
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F21B01F000C1;
-	Tue,  3 Nov 2026 21:37:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STiZCAb5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B990F1F00A02;
+	Tue,  3 Nov 2026 21:37:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741840;
-	bh=KhS9Rk8W9UfItNW5IBv4dKTP1qe+Es3bg5S2d53y16k=;
+	s=k20260515; t=1793741841;
+	bh=s/uovxnrKNjIxAb9rFbbKy5P6MfxaLM0Z5yn1jO2hLU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PS71fPijPY0WahyEbn4tIyrgCTX8sm9I/amOldVTUcO69o9TpxtkBLEFShZAynD+z
-	 TfMpVfG5pbLYgTn7AkVI6Dt2uLoMoJO4uM/vX/ht1Y4J3WISBSATvRNyhP07DwJVKF
-	 UtgoOy2BJySX5kwMdELJxkt8FSNj1uYDLV+P51FXZtWTffO1+kyH91zEjJ+LnKXarK
-	 0p/Dys7cLL+PWpzopsSVX3UhLDb2QdMXJ7m3GByp2vM0iqz41ncXZE5bkqxSAf3aJ6
-	 lY1+cFGVQqFmUwOPr0BYZgvlLepmrQevZIoLTYSg8qFYlgYR4kECO1jcpHHDlC4tec
-	 vXddz0q+trwEg==
+	b=STiZCAb5fG9FRHZr7lJ4mWThUv/iUfSXr47TSLUqbOLXUHxgjlm9kgggEGSoso+e3
+	 P2OFxxIARrrjYwIwI9TY5eCb0cVHrBogk0Fjy5XpmAo22v6xVQKvD50J0BybA9+DXM
+	 tKHQbvaOXS+niWU5r2ZJZWW2Iclik4n3SrtPfBgbHy1E+63NM/bIEtmEGh7rrItWsj
+	 mEW8jZ1irQMem4Di5pRP1GQe2zXFvVBc5hA716YzINZaq5FyMGX0Fiu4O+BEmqGCZd
+	 T0tOMGD3ixK8GbqfJkY+EOAzF47ggNKHzYE1AaIp50LaQhJddKUxanAPx3SoUntknB
+	 HBXtrUgcP+R/w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Pan Guihua <pan.guihua@datatom.com>,
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y 1/2] ksmbd: rebind completed CREATE replays without draining the old channel
-Date: Tue,  3 Nov 2026 16:37:17 -0500
-Message-ID: <20261103194811.643610-1-sashal@kernel.org>
+Subject: [PATCH 7.3.y 2/2] ksmbd: fix use-after-free after a failed durable reconnect
+Date: Tue,  3 Nov 2026 16:37:18 -0500
+Message-ID: <20261103194811.643610-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110349-saggy-wimp-82b3@gregkh>
+In-Reply-To: <20261103194811.643610-1-sashal@kernel.org>
 References: <2026110349-saggy-wimp-82b3@gregkh>
+ <20261103194811.643610-1-sashal@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,366 +62,133 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Ian Bridges <icb@fastmail.org>
 
-[ Upstream commit 864bbcd5dc5e70d639a3011eae81a872b69ff402 ]
+[ Upstream commit 248b5819591c577727930e4e255a455235fab50a ]
 
-A completed DurableHandleReqV2 CREATE can be replayed through another
-channel while its original channel is exiting. The existing replay path
-returns the open but leaves its connection and oplock references pointing
-at the old channel. Its open count also stays on that channel, and a
-later CLOSE through the surviving channel decrements the wrong counter.
+ksmbd_reopen_durable_fd() republishes a detached durable handle in the
+reconnecting session's file table and takes no reference for that entry.
+If smb2_open() then fails, cleanup relies on the final ksmbd_fd_put() to
+remove the volatile id.
 
-After checking the owner, lease key and persistent flag, verify that an
-active open is still published in the requesting session's file table.
-Do this even when no oplock was granted, and before processing a consumed
-replay. Do not read a borrowed opinfo session pointer for this check.
+Two reconnects of the same handle can both take a lookup reference before
+either attaches it. If the one that reopens first then fails and drops
+its references first, the other request makes the final put through
+ksmbd_put_durable_fd(). That frees the handle without removing the first
+session's table entry, so tearing that session down writes to freed
+memory.
 
-Keep a healthy original binding. If the original channel is exiting or
-releasing, move the open and its own oplock references to the requesting
-channel. Serialize this with CLOSE using the session file-table lock,
-and with detach, reconnect and notification snapshots using m_lock.
-The earlier lock index and lease-table changes make their lifetimes
-independent of this connection change. No old-channel r_count wait is
-needed, including when an unrelated request remains active there.
+  BUG: KASAN: slab-use-after-free in __close_file_table_ids+0x14d/0x740 [ksmbd]
+  Call Trace:
+   __close_file_table_ids+0x14d/0x740 [ksmbd]
+   ksmbd_destroy_file_table+0x76/0x100 [ksmbd]
+   ksmbd_session_destroy+0xf8/0x480 [ksmbd]
+   ksmbd_dispose_sessions+0x13e/0x200 [ksmbd]
+   ksmbd_conn_sessions_cleanup+0x4c3/0x6d0 [ksmbd]
+  Freed by task 1030:
+   __ksmbd_close_fd+0x97d/0x1000 [ksmbd]
+   smb2_open+0x14eb/0xd9f0 [ksmbd]
 
-Account final close against fp->conn in one place, balance durable detach
-and reconnect, and transfer the count with a replay binding change. A
-final global lookup put may run after CLOSE has removed the volatile id;
-unlink the open from the inode list on that final close as well.
+Commit 3515503322f4 ("ksmbd: fix durable reconnect error path file
+lifetime") handles a final put made by the reconnecting request, but not
+one made by another holder.
 
-A live completed CREATE replay may follow a break that lowered the
-durable open's batch oplock. Apply the batch eligibility check only to
-detached reconnects, while retaining the owner, lease key and persistent
-flag checks for active replays.
+Remove the volatile id under the file-table lock on this error path,
+before the references are dropped, as ksmbd_close_fd() does on the
+request_open path just above. Removal then no longer depends on which
+holder makes the final put. The stale comment in the reconnect cleanup
+is updated to match. A successful reconnect is unchanged.
 
-Fixes: bb8bf7eb13b5 ("ksmbd: add SMB3 request replay support")
-Reported-by: Pan Guihua <pan.guihua@datatom.com>
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-Retain the file lifetime and connection accounting groundwork needed by
-failed durable reconnect cleanup. Always unlink the open from the inode
-list on final close, including when a global lookup owns the last put.
-Charge that close to the bound connection and balance the count across
-durable detach, reconnect and reconnect failure.
-
-Serialize detach and reconnect with the inode lock, reject reopening a
-closed handle, and detach only the oplock belonging to that open. Preserve
-the existing byte-range lock connection lists and their reference transfers.
-Active CREATE replay rebinding is omitted because the independent lock
-indexing it requires is absent; no new helper is introduced.
-
-Prepare CREATE error cleanup to distinguish an open retained by the request
-from one that has not acquired that reference. Close and complete a retained
-request open explicitly, while preserving the existing put for the other
-case. This supplies the cleanup branch required by the durable reconnect
-unpublication fix without the unrelated tree-disconnect changes.
-
-Assisted-by: LLM
-Stable-dep-of: 248b5819591c ("ksmbd: fix use-after-free after a failed durable reconnect")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Depends on <20261103170318.645584-1-sashal@kernel.org>
-
- fs/smb/server/smb2pdu.c   |  10 +++-
- fs/smb/server/vfs_cache.c | 101 +++++++++++++-------------------------
- 2 files changed, 41 insertions(+), 70 deletions(-)
+ fs/smb/server/smb2pdu.c   |  9 +++++----
+ fs/smb/server/vfs_cache.c | 28 ++++++++++++++++++++++++++++
+ fs/smb/server/vfs_cache.h |  2 ++
+ 3 files changed, 35 insertions(+), 4 deletions(-)
 
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index b3743e17aa3c1..671adf1560c40 100644
+index 671adf1560c40..ce1432a3ab561 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -5487,8 +5487,14 @@ int smb2_open(struct ksmbd_work *work)
- 		if (!rsp->hdr.Status)
- 			rsp->hdr.Status = STATUS_UNEXPECTED_IO_ERROR;
- 
--		if (fp && !dh_info.replay)
--			ksmbd_fd_put(work, fp);
-+		if (fp && !dh_info.replay) {
-+			if (work->request_open == fp) {
-+				ksmbd_close_fd(work, fp->volatile_id);
-+				smb2_complete_request_open(work);
-+			} else {
-+				ksmbd_fd_put(work, fp);
-+			}
-+		}
- 		smb2_set_err_rsp(work);
- 		ksmbd_debug(SMB, "Error response: %x\n", rsp->hdr.Status);
- 	}
+@@ -5492,6 +5492,8 @@ int smb2_open(struct ksmbd_work *work)
+ 				ksmbd_close_fd(work, fp->volatile_id);
+ 				smb2_complete_request_open(work);
+ 			} else {
++				if (dh_info.reconnected && fp == dh_info.fp)
++					ksmbd_unpublish_reopened_fd(work, fp);
+ 				ksmbd_fd_put(work, fp);
+ 			}
+ 		}
+@@ -5505,10 +5507,9 @@ int smb2_open(struct ksmbd_work *work)
+ 	if (dh_info.reconnected) {
+ 		/*
+ 		 * If reconnect succeeded, fp was republished in the
+-		 * session file table.  On a later error, ksmbd_fd_put()
+-		 * above drops the session reference; drop the durable
+-		 * lookup reference through the same session-aware path so
+-		 * final close removes the volatile id before freeing fp.
++		 * session file table, and the error path above has
++		 * already removed its volatile id.  Drop the durable
++		 * lookup reference through the same session-aware path.
+ 		 */
+ 		if (rc && fp == dh_info.fp)
+ 			ksmbd_fd_put(work, dh_info.fp);
 diff --git a/fs/smb/server/vfs_cache.c b/fs/smb/server/vfs_cache.c
-index 5f1442c103d81..119235ec83f7f 100644
+index 119235ec83f7f..1efa9f8145601 100644
 --- a/fs/smb/server/vfs_cache.c
 +++ b/fs/smb/server/vfs_cache.c
-@@ -605,7 +605,7 @@ static void __ksmbd_remove_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp
- 	list_del_init(&fp->node);
- 	up_write(&fp->f_ci->m_lock);
+@@ -851,6 +851,34 @@ void ksmbd_wake_session_blocked_works(struct ksmbd_session *sess)
+ 	read_unlock(&ft->lock);
+ }
  
--	if (!has_file_id(fp->volatile_id))
-+	if (!ft || !has_file_id(fp->volatile_id))
- 		return;
- 
- 	write_lock(&ft->lock);
-@@ -621,8 +621,7 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 
- 	fd_limit_close();
- 	ksmbd_remove_durable_fd(fp);
--	if (ft)
--		__ksmbd_remove_fd(ft, fp);
-+	__ksmbd_remove_fd(ft, fp);
- 
- 	close_id_del_oplock(fp);
- 	filp = fp->filp;
-@@ -705,6 +704,7 @@ static void __ksmbd_close_fd(struct ksmbd_file_table *ft, struct ksmbd_file *fp)
- 	 * in which case there is nothing to drop here.
- 	 */
- 	if (fp->conn) {
-+		atomic_dec(&fp->conn->stats.open_files_count);
- 		ksmbd_conn_put(fp->conn);
- 		fp->conn = NULL;
- 	}
-@@ -822,22 +822,7 @@ static struct ksmbd_file *__ksmbd_lookup_fd(struct ksmbd_file_table *ft,
- 
- static void __put_fd_final(struct ksmbd_work *work, struct ksmbd_file *fp)
++/**
++ * ksmbd_unpublish_reopened_fd() - remove a reopened durable handle from the
++ *	session file table after its CREATE failed
++ * @work:	smb work of the failed CREATE
++ * @fp:		durable handle republished by ksmbd_reopen_durable_fd()
++ *
++ * The reopen publishes @fp in this session's table without taking a reference
++ * for the entry, so the CREATE error path's puts need not be the last ones.
++ * Another holder of a global-table reference, such as a concurrent reconnect
++ * of the same handle, can drop the last one through ksmbd_put_durable_fd(),
++ * which frees @fp without touching this table.  Remove the id here, while
++ * the caller still holds its references.
++ *
++ * Every path that removes the id before the final put also clears
++ * @fp->volatile_id under ft->lock, so a valid id is still @fp's entry.
++ */
++void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
++{
++	struct ksmbd_file_table *ft = &work->sess->file_table;
++
++	write_lock(&ft->lock);
++	if (has_file_id(fp->volatile_id)) {
++		idr_remove(ft->idr, fp->volatile_id);
++		fp->volatile_id = KSMBD_NO_FID;
++	}
++	write_unlock(&ft->lock);
++}
++
+ int ksmbd_close_fd(struct ksmbd_work *work, u64 id)
  {
--	/*
--	 * Detached durable fp -- session_fd_check() cleared fp->conn at
--	 * preserve, so this fp is no longer tracked by any conn's
--	 * stats.open_files_count.  This happens when
--	 * ksmbd_scavenger_dispose_dh() hands the final close off to an
--	 * m_fp_list walker (e.g. ksmbd_lookup_fd_inode()) whose work->conn
--	 * is unrelated to the conn that originally opened the handle; close
--	 * via the NULL-ft path so we do not underflow that unrelated
--	 * counter.
--	 */
--	if (!fp->conn) {
--		__ksmbd_close_fd(NULL, fp);
--		return;
--	}
--	__ksmbd_close_fd(&work->sess->file_table, fp);
--	atomic_dec(&work->conn->stats.open_files_count);
-+	__ksmbd_close_fd(fp->conn ? &work->sess->file_table : NULL, fp);
- }
- 
- static void set_close_state_blocked_works(struct ksmbd_file *fp)
-@@ -1117,11 +1102,8 @@ int ksmbd_close_fd_app_instance_id(struct ksmbd_work *work,
- 	up_write(&fp->f_ci->m_lock);
- 
- 	*closed = true;
--	if (atomic_sub_and_test(n_to_drop, &fp->refcount)) {
--		if (fp->conn)
--			atomic_dec(&fp->conn->stats.open_files_count);
-+	if (atomic_sub_and_test(n_to_drop, &fp->refcount))
- 		__ksmbd_close_fd(NULL, fp);
--	}
- 	return 0;
- 
- out:
-@@ -1412,7 +1394,7 @@ static int ksmbd_mark_fp_closed(struct ksmbd_file *fp)
- 	return 1;
- }
- 
--static int
-+static void
- __close_file_table_ids(struct ksmbd_session *sess,
- 		       struct ksmbd_tree_connect *tcon,
- 		       bool (*skip)(struct ksmbd_tree_connect *tcon,
-@@ -1423,7 +1405,6 @@ __close_file_table_ids(struct ksmbd_session *sess,
- 	struct ksmbd_file_table *ft = &sess->file_table;
- 	struct ksmbd_file *fp;
- 	unsigned int id = 0;
--	int num = 0;
- 
- 	while (1) {
- 		int n_to_drop;
-@@ -1507,10 +1488,8 @@ __close_file_table_ids(struct ksmbd_session *sess,
- 		}
- 
- 		/*
--		 * fp->volatile_id is already cleared to prevent stale idr
--		 * removal from a deferred final close.  Remove fp from
--		 * m_fp_list here because __ksmbd_remove_fd() will skip the
--		 * list unlink when volatile_id is KSMBD_NO_FID.
-+		 * Stop inode walkers from finding the open after close is committed.
-+		 * Final close also unlinks fp if a global lookup owns the last put.
- 		 */
- 		down_write(&fp->f_ci->m_lock);
- 		list_del_init(&fp->node);
-@@ -1529,22 +1508,13 @@ __close_file_table_ids(struct ksmbd_session *sess,
- 		 *     the original reference until ksmbd_update_fstate()
- 		 *     observes the cleared volatile id.
- 		 *
--		 * If we end up as the final putter, finalize fp and
--		 * account the open_files_count decrement via the caller's
--		 * atomic_sub(num, ...).  Otherwise the remaining user's
--		 * ksmbd_fd_put() reaches __put_fd_final(), which does its
--		 * own atomic_dec(&open_files_count), so we must not count
--		 * this fp here -- doing so would double-decrement the
--		 * connection-wide counter.
-+		 * The final close accounts the open against fp->conn,
-+		 * including when an in-flight user drops the last reference.
- 		 */
--		if (atomic_sub_and_test(n_to_drop, &fp->refcount)) {
-+		if (atomic_sub_and_test(n_to_drop, &fp->refcount))
- 			__ksmbd_close_fd(NULL, fp);
--			num++;
--		}
- 		id++;
- 	}
--
--	return num;
- }
- 
- static inline bool is_reconnectable(struct ksmbd_file *fp)
-@@ -1833,20 +1803,18 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
- 	 * / ksmbd_reopen_durable_fd()), so conn stays valid for the whole
- 	 * body of this function regardless of any op->conn puts below.
- 	 */
--	conn = fp->conn;
- 	ci = fp->f_ci;
- 	down_write(&ci->m_lock);
-+	conn = fp->conn;
- 	list_for_each_entry_rcu(op, &ci->m_op_list, op_entry,
- 				lockdep_is_held(&ci->m_lock)) {
--		if (op->conn != conn)
-+		if (op->o_fp != fp)
- 			continue;
- 		ksmbd_conn_put(op->conn);
- 		op->conn = NULL;
- 		op->sess = NULL;
- 		op->session_id = 0;
- 	}
--	up_write(&ci->m_lock);
--
- 	list_for_each_entry_safe(smb_lock, tmp_lock, &fp->lock_list, flist) {
- 		struct ksmbd_conn *lock_conn = smb_lock->conn;
- 
-@@ -1859,15 +1827,17 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
- 		ksmbd_conn_put(lock_conn);
- 	}
- 
--	spin_lock(&fp->f_lock);
-+	write_lock(&global_ft.lock);
- 	fp->conn = NULL;
- 	fp->tcon = NULL;
- 	fp->volatile_id = KSMBD_NO_FID;
--	spin_unlock(&fp->f_lock);
- 
- 	if (fp->durable_timeout)
- 		fp->durable_scavenger_timeout =
- 			jiffies_to_msecs(jiffies) + fp->durable_timeout;
-+	atomic_dec(&conn->stats.open_files_count);
-+	write_unlock(&global_ft.lock);
-+	up_write(&ci->m_lock);
- 
- 	/* Drop fp's own reference on conn. */
- 	ksmbd_conn_put(conn);
-@@ -1876,22 +1846,12 @@ static bool session_fd_check(struct ksmbd_tree_connect *tcon,
- 
- void ksmbd_close_tree_conn_fds(struct ksmbd_work *work)
- {
--	int num = __close_file_table_ids(work->sess,
--					 work->tcon,
--					 tree_conn_fd_check,
--					 false);
--
--	atomic_sub(num, &work->conn->stats.open_files_count);
-+	__close_file_table_ids(work->sess, work->tcon, tree_conn_fd_check, false);
- }
- 
- void ksmbd_close_session_fds(struct ksmbd_work *work)
- {
--	int num = __close_file_table_ids(work->sess,
--					 work->tcon,
--					 session_fd_check,
--					 true);
--
--	atomic_sub(num, &work->conn->stats.open_files_count);
-+	__close_file_table_ids(work->sess, work->tcon, session_fd_check, true);
- }
- 
- int ksmbd_init_global_file_table(void)
-@@ -1955,24 +1915,27 @@ int ksmbd_validate_name_reconnect(struct ksmbd_share_config *share,
- 
- int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- {
--	struct ksmbd_inode *ci;
-+	struct ksmbd_inode *ci = fp->f_ci;
- 	struct oplock_info *op;
- 	struct ksmbd_conn *conn = work->conn;
- 	struct ksmbd_share_config *old_share;
- 	struct ksmbd_lock *smb_lock;
- 	unsigned int old_f_state;
-+	int ret = -EBADF;
- 
-+	down_write(&ci->m_lock);
- 	write_lock(&global_ft.lock);
--	if ((!fp->is_durable && !fp->is_persistent) || fp->conn || fp->tcon) {
-+	if ((!fp->is_durable && !fp->is_persistent) || fp->conn || fp->tcon ||
-+	    fp->f_state != FP_INITED) {
- 		write_unlock(&global_ft.lock);
- 		pr_err("Invalid durable fd [%p:%p]\n", fp->conn, fp->tcon);
--		return -EBADF;
-+		goto out;
- 	}
- 
- 	if (has_file_id(fp->volatile_id)) {
- 		write_unlock(&global_ft.lock);
- 		pr_err("Still in use durable fd: %llu\n", fp->volatile_id);
--		return -EBADF;
-+		goto out;
- 	}
- 
- 	/*
-@@ -1992,6 +1955,7 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	fp->conn = ksmbd_conn_get(conn);
- 	fp->tcon = work->tcon;
- 	spin_unlock(&fp->f_lock);
-+	atomic_inc(&conn->stats.open_files_count);
- 	write_unlock(&global_ft.lock);
- 
- 	__open_id(&work->sess->file_table, fp, OPEN_ID_TYPE_VOLATILE_ID);
-@@ -2003,10 +1967,11 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 		fp->share_conf = old_share;
- 		fp->f_state = old_f_state;
- 		spin_unlock(&fp->f_lock);
-+		atomic_dec(&conn->stats.open_files_count);
- 		write_unlock(&global_ft.lock);
- 		ksmbd_conn_put(conn);
- 		ksmbd_share_config_put(work->tcon->share_conf);
--		return -EBADF;
-+		goto out;
- 	}
- 
- 	list_for_each_entry(smb_lock, &fp->lock_list, flist) {
-@@ -2016,8 +1981,6 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 		spin_unlock(&conn->llist_lock);
- 	}
- 
--	ci = fp->f_ci;
--	down_write(&ci->m_lock);
- 	list_for_each_entry_rcu(op, &ci->m_op_list, op_entry,
- 				lockdep_is_held(&ci->m_lock)) {
- 		if (op->conn || op->o_fp != fp)
-@@ -2026,7 +1989,6 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 		op->sess = work->sess;
- 		op->session_id = work->sess->id;
- 	}
--	up_write(&ci->m_lock);
- 
- 	spin_lock(&fp->f_lock);
- 	fp->owner.uid = fp->owner.gid = 0;
-@@ -2035,7 +1997,10 @@ int ksmbd_reopen_durable_fd(struct ksmbd_work *work, struct ksmbd_file *fp)
- 	spin_unlock(&fp->f_lock);
- 	ksmbd_share_config_put(old_share);
- 
--	return 0;
-+	ret = 0;
-+out:
-+	up_write(&ci->m_lock);
-+	return ret;
- }
- 
- int ksmbd_init_file_table(struct ksmbd_file_table *ft)
+ 	struct ksmbd_file	*fp;
+diff --git a/fs/smb/server/vfs_cache.h b/fs/smb/server/vfs_cache.h
+index 61238bc4de26e..84ca73f483143 100644
+--- a/fs/smb/server/vfs_cache.h
++++ b/fs/smb/server/vfs_cache.h
+@@ -198,6 +198,8 @@ static inline bool ksmbd_stream_fd(struct ksmbd_file *fp)
+ int ksmbd_init_file_table(struct ksmbd_file_table *ft);
+ void ksmbd_destroy_file_table(struct ksmbd_session *sess);
+ int ksmbd_close_fd(struct ksmbd_work *work, u64 id);
++void ksmbd_unpublish_reopened_fd(struct ksmbd_work *work,
++				 struct ksmbd_file *fp);
+ struct ksmbd_file *ksmbd_lookup_fd_fast(struct ksmbd_work *work, u64 id);
+ struct ksmbd_file *ksmbd_lookup_foreign_fd(struct ksmbd_work *work, u64 id);
+ struct ksmbd_file *ksmbd_lookup_fd_slow(struct ksmbd_work *work, u64 id,
 -- 
 2.53.0
 
