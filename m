@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697687;
-	b=tZa0uS3JmJ90bVtmiEKfHhSYsJXsPR9KWFptRS+Shn+7nEAUm1uhIyhLtkWYgdQ6I7Ry
-	 oWUP1FoT6zksPjHQWjXfGjNQOhrIUk6zCRh7ynkzkZJyC0Xkd1BassUCPabGjcOPYlFl1
-	 p96Byscp25WB/+/WBs2nrgLJObVMw7LrIMdiobn9uUF3cGXxnupyH1HAf22ok4kxzpa7m
-	 BwoYMRaberZrCB/BM2fFnM3mvGmR0HjIMFbzxnDNnfQXhDjm2HuthVRnuHSchAYj1/Dr0
-	 LjPu8GJEC2R1yaqTzzHS1KIluxIDDPXGK41rV+PZZH98byek13P+x3wuYvzgqV5yFIA==
+	t=1793697691;
+	b=5Vorg0x90dpKdz7tWs/ZCqFn1yanwWbXmqFAHm0DnFrKK4+dolYDy6lwETfOeQQAognn
+	 MQstADcx8Ko1AWlXwWCWy1oM8SaDLKl9JgD3d6oSj75SPQHRcajRjEDalrIJJ0vOrA8oG
+	 Xjx13S+3sR0ZUNbQ/AYhW4z/SoJ72nkIpNLFxsKDDSovx8X5fqAg5QRN7/97rZDNlsCNo
+	 yjYTzBTCmPQ+lqnKnbHiGNy7G/qHINC42fx/+D/ZFa6VbFp1wDQgYyw5h7SU2MQR2en2c
+	 xbTlALPESOIg4l/y2xtBqi0KBvFBxn0LbVXJkkQ2Bsj0vlFw8yudGKt9qa6OR2FUriA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697687;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697691;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8gvrtFNaPF85MZnIqWG775YGSTQ1q4Yj1NpyoCXwkzo=;
-	b=wZI6ywSMqWkCqXs0O71BitGyj99HMoeP7OoCQUyLEgsE7dcZFPwoFMS0TSfEpqYGfRTB
-	 7WqnYtJfVyxBBDNzmvmcwPEc+yBemBThbx0KBme/hhaB34OFKKx/qkDVnCMMbeD5UFDgU
-	 mHdtdLOZnud1kQF3+AimOb7Nu6plzAAJRaDnifLb09OTQbUkTBfl3rvoTgvMXuNKOC6pm
-	 q10IKzONDAb3/2wUpu3hQcTSrPrRwE9p9K4nYFewfvXS6R9dxkS1x5dq+M3qveAdrNBOZ
-	 rPbGl2KWOEkjBcK9RKJuwEqgUvDYUio8v7ytz1mTyiMccwRrel8uVfq/sGDxC7pjILQ==
+	bh=ra7fP8C7bsgcxqmhSZXP2416uNz7g2e9Zbid3mgPbE0=;
+	b=MJpMU2/s97L/nZenFmxa21Xc4O9F/gJIhsme8j535aZSjFO8cj38b+aVfxur8zGfwRWd
+	 3fD8dUea+DmlKMLv6CSnnU0QIEjdBCKpEXYBSBdH4cyikT2lDTa3xjV4ChSCv5i80RCwd
+	 ChKB7aRDG2D8oGYR9Yt8Y+BnIlSIfcCsjearKgBAoRSIYPdEaKQw+ntRAEsmcxOXcnuXd
+	 oE7SMN9zRvocLivAu7u6f+c3cv7VO1sZxnTGW6tXXTLjt++Tu6bYfHW67ax0z5tgK8Qrb
+	 VLZuWStqZgASxIXP/EpfzieH3Qv2fZFtbwbbrRJud9T9gyOToXSDChrp4ySuIrB787w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvkWm0DS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYZri6FI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D3C606D802;
-	Tue,  3 Nov 2026 09:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D54ED606D830;
+	Tue,  3 Nov 2026 09:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dvkWm0DS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D670C1F00A16;
-	Tue,  3 Nov 2026 09:21:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYZri6FI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 986F31F00A15;
+	Tue,  3 Nov 2026 09:21:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697687;
-	bh=8gvrtFNaPF85MZnIqWG775YGSTQ1q4Yj1NpyoCXwkzo=;
+	s=k20260515; t=1793697690;
+	bh=ra7fP8C7bsgcxqmhSZXP2416uNz7g2e9Zbid3mgPbE0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dvkWm0DSi6XmsJWdmyTJtm+nVGXM0H78lqGG2zM3ZREVdxtR72ptzmW5hja5TBBpg
-	 acaXrR+fECf4WjuTaqgZMX0Jm7ll39uDgtqdqQE4zXms4Nltc2XbGygFuG72yMgWVC
-	 dD6w5h5wqhEtv/r9w7tHj93PqIkr7JzncW5srFKmSqrnpNLDz5WWpVKfEdW386REGj
-	 G5feJqXR+oZyfTEy0yL7stNh7MBSJF7T0TFubl7keW8Do/pDOvyUqOLFnk9ufAVGcR
-	 KGylFueE8W4tDwAW/xnNy+SvbHuxZh/fm6N1reApBXGIc7ZZMSpTI+PY+G2AS2anAE
-	 mx6Kds5LXs9QQ==
-Date: Tue, 3 Nov 2026 10:21:23 +0100
+	b=RYZri6FIRAO5xWFUVpmiFTenaZwZHFUGnDF3uE5fEhkXNvzejXmS9uu26QhondJ0s
+	 iLymzG5HpKDHpFWP3sRkfCnXDxgVk8YZRnmW1f1665XghU+HBYpGmK/6G3/1SoA91v
+	 FfhGo1fSRgovGigWnpicIEpOO5vOW8kSIx3XsHLcNM6AhGWsdpx6rxD6OHetV0BKLy
+	 0t1wDAkuox0P8uNozxhP3zaY1V6Hta3lLGD54V8Zuh0LrXCXp2ah+vdSjpFROlxCqd
+	 uOBhkp4AGKkb+uXuLfq3XaTYMyNJG/Ta3pHtgVoG9KrJHtdC7XkKGZ7pOBc38SdvmT
+	 5WpkT+clWdlIw==
+Date: Tue, 3 Nov 2026 10:21:27 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, tiffany.lin@mediatek.com, andrew-ct.chen@mediatek.com, 
-	yunfei.dong@mediatek.com, stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+Cc: linux-media@vger.kernel.org, stable@vger.kernel.org, 
+	sakari.ailus@linux.intel.com, vladimir.zapolskiy@linaro.org, mchehab@kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: mediatek: vcodec: Free encoder controls when
- setup fails
-Message-ID: <20261103-authentic-manipulative-shrew-ea455b@quoll>
-References: <20261103083533.1176842-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] media: i2c: ov6211: Release controls after control
+ creation failure
+Message-ID: <20261103-wombat-of-eminent-courage-b0d7fe@quoll>
+References: <20261103083417.1175861-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,25 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103083533.1176842-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103083417.1175861-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:35:33 +0000, Wentao Liang wrote:
-> mtk_vcodec_enc_ctrls_setup() can fail after creating some controls. On
-> that error, fops_vcodec_open() jumps past the control handler cleanup and
-> frees the context, leaking the handler's controls and allocation.
+On Tue, 03 Nov 2026 08:34:17 +0000, Wentao Liang wrote:
+> ov6211_init_controls() returns the handler error directly when a control
+> cannot be created. Controls that were successfully created earlier and
+> the handler's allocation are left behind. The probe caller powers the
+> sensor off on this error and does not free the handler.
 > 
-> Use the same control handler cleanup as the later m2m context creation
-> failure, and remove the now-unused label. No m2m context is released on
-> this path because its initialization has not been attempted yet.
+> Use the existing error_free_hdlr path for this failure, just as for the
+> subsequent firmware-property parsing and control initialization errors.
+> Save and return the original control error.
 > 
-> Fixes: 4e855a6efa54 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Encoder Driver")
+> Fixes: fd7cb868e309 ("media: i2c: Add OmniVision OV6211 image sensor driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  .../platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c      | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>  drivers/media/i2c/ov6211.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
 
 
