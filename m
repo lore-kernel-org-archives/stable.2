@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725009;
-	b=RwOtw9lZgnPVSqsJgUw6Ob+rrj9OZUaV7OshVB2PZN0z1l+E1Synfk+qZu4xGp0d4+Ex
-	 Mtw44001FlU13JW3j4VDWnq97u407bmw6UR654vY3cjOCkHFO9b0BRs5EqiMN75HK7/GT
-	 xJ2MC0xQJdzveyVRjtpwoSJ02RFRrx7QaUDwZAIeppo3g1LdM6dHgktG5VXStf5azs/V2
-	 59jIoAY7q4T2JPz10WYJofGY38Pl9W+22pBn5/8C+RDeMWiNshdtMc60IQ3lAU9W4hs/c
-	 593hRjE2jyNrBn3dw2LQo2kgIp/LD8PXlQxPYe+HZwisfH4VK5PpG2QDe/NgQk/2flg==
+	t=1793725069;
+	b=REuCojn8cypHnwZctmJGZ36LbbAYG73bOmaQkknDAcyW2ybyPM1UAmqKCAI5qBx2Yd3M
+	 iJ8W3U9sP6314vK0aJpOBoPu2lnnNsiI6L+ZrDs3kd9pPf3IKZa5rbCoMGanrfuWFlTg4
+	 rxQqrMjpiDfKAHTG/Dp7+DDdzP/YjwuHhPnjj5XAMwbNSfO4WurXBFeSZrxTK/m7yFQd1
+	 U36anTqyAnlemQaedRgSliVTHaPntjgx96XrhKa93mYCtdsKVqslGkIjSIbAgq56CYaqs
+	 fpQp2bOcBYgL8O9pDKyHTcmOPd3cFUvN8R+I+IpZdUU9N/q8aFXO/TJz+Ix1bEeHwiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725009;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=u00v9p+RUdxqIPRxo9/1l1Zn1bcxXIjHtPQI/MyY3yY=;
-	b=3p7nZO73uvE6f+GLgH5DLBUMOTz1Zsd5R/LvfQ4JkMxWkLWJlvD+yb5VNkBw/h+Js4Nq
-	 pPNWog0XK7vcgUzHtCMqEL5+v4vaWTOziU4Wq1voPwJ4Nf/0WiTPhDmiUwhwv+5FYRSzg
-	 7TvgXH2Z/fvusB3Y21s7dESGEDuVAdvOoa2ekEtRZ7ke9oWIWAS2sQP2E/depY77UzzvT
-	 COpZx1kO2MrPk14M7cmpBFuS4EBQvN5oJ7fFX0QQd37xHfdCycR5/d+Re3G0zPKohQVK7
-	 vcHxX769s1gsvqnx9+5rXlJTFNSnEUMCTEqj/TzZc6eVUQiR4Zn+oaD2Y/rjuSNQvUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725069;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=D1eUcm2mQCgyZbZQgs0SosU0DN1k8OOWQBjXBd56BQc=;
+	b=0HAZo/QDIm+usO5LY7Vbmw5Ww82bPmGkj5QKlGLdnWW0tEuMcE18ie8egXOXE2VcU846
+	 2E9CpZQGixCm/yfsy/u5d392nzcF9fkDlldy5zoKTGRkn6IKx9em6jjlAGrl15SaiqybS
+	 r5HDnp8TlXXJqmrHti8Rd2POp5vb8NXs5bw2veXnyOCzyEbJpTiGu5hegrFB8ON4pYIq+
+	 /2s2ivEX7jufIsYgLEx5YzI7/eIi67hJMN3lxspG7i14A6ujEhFIjtlyE6nhaIh7mfmCs
+	 uBWGAkBdy64IgllH6S9D+vV8JdybQe0+w4dXh9hDeS11V1dMVa6UlwN2usYwI8gpbMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaGj5T09;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3Qc6jsH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1430B606A328
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327A1606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:57:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TaGj5T09
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE85C1F00A16
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:56:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3Qc6jsH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83AAD1F000C1;
+	Tue,  3 Nov 2026 16:57:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793725008;
-	bh=u00v9p+RUdxqIPRxo9/1l1Zn1bcxXIjHtPQI/MyY3yY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TaGj5T09XEEWEnyjikMKxMV1836N9QpBHuKWrweBYQpN3iKprg6L4fcTCpIdOXpYq
-	 0mvicIGADIBHtz40mVAwdl+7pTgAyPL6EZlogJJGjUsXt8m7TBAxsqV8Hw2iDRBAR7
-	 /LrJJAVttrwClFBLNedpfFGSeIjwzIVuNNZeKC0o8yWzT2324w44hz9URT22L/K52v
-	 u4h59cBWjMIDX75dxvNGTqb53+7u5yjdxkn1V3O78APlGPEamdY2V/neW9jXTZVeBr
-	 v9BmLRWBpY2eQ4FhBm62LBrAEWPMwaGMNODv5qgUCer1qD3FQtdxdMuFlLFrosT2Ul
-	 RQ+ci67HBOEJA==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be4c78e8caso4487313e87.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 08:56:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx4nQ+BtLsmPi/iW13CIzwDIxexAt/MvUihKcSMOUM4H76rJxy8ZlsO+iFRANmUU9yfdE35TZU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8puQoPfpyUJMAQFTa4XB6qeQ5mFpH5DPVZwzhV4N+uW4Dp6R20
-	H7JDBqRczzZE48FxHWk/DxONeh4nkkJVWg4V8pc8hLVahDW/0hjnjghSkoTLvGO5Xnu6si2CcW+
-	hylG9m5Q9Xa+m7uZ60va8yziQHXMcewE=
-X-Received: by 2002:a05:6512:10c2:b0:5be:4340:d588 with SMTP id
- 2adb3069b0e04-5bfd9566e55mr4813488e87.31.1793725007020; Tue, 03 Nov 2026
- 08:56:47 -0800 (PST)
+	s=k20260515; t=1793725069;
+	bh=D1eUcm2mQCgyZbZQgs0SosU0DN1k8OOWQBjXBd56BQc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O3Qc6jsH4ZSI4wv+0+rvtNTWHXxg2YhKUWMrZKhdN/hwCuHYZ6FhCNAlpKma/wPdC
+	 IFnVehF60j9Ksle2yOvFYudKe4i51S9HbHygvr7cdkDAzwq3mH1CHRApdxDlcgRIAw
+	 T0lIOJHPAFXBL17xtZ+sMcLAKRGBfH/IG5yiZiwaxhqL9NTw2v5dy56FPX4/1TRZuM
+	 6rpGyOz/YP9fT26qzrr2lGIEHGynFhKiHv8VucMbOwop7LGoFRIP2QWpKHczvcZcZA
+	 M7nmcXVbc8xzsyunctfo1huIachhnIDeuiYaAo1exb45Lr++Oe7OiTdImszVYIa/r/
+	 InOLYG1syFPSw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] ksmbd: fix SMB2 CREATE response buffer overflow
+Date: Tue,  3 Nov 2026 11:57:46 -0500
+Message-ID: <20261103165719.643173-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110339-undesired-vagabond-3610@gregkh>
+References: <2026110339-undesired-vagabond-3610@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,86 +60,161 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029035253.2333852-1-yaojiale02@163.com> <20261029035253.2333852-2-yaojiale02@163.com>
- <aunzRO9rxFUlC0Ym@red-moon>
-In-Reply-To: <aunzRO9rxFUlC0Ym@red-moon>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Tue, 3 Nov 2026 17:56:34 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jtab00kmvS_1RoQHr=PKV3hj=AEP5hS_B-udj5KrQjsg@mail.gmail.com>
-X-Gm-Features: AclHuK9IaHYinCfEPEj9175Cpk8zU69uV-UMGla90QOFlwHtZeWz8-rFk4SmMeg
-Message-ID: <CAJZ5v0jtab00kmvS_1RoQHr=PKV3hj=AEP5hS_B-udj5KrQjsg@mail.gmail.com>
-Subject: Re: [PATCH v2 01/20] ACPI: irqchip: validate MADT entry bounds before probing
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Jiale Yao <yaojiale02@163.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Marc Zyngier <Marc.Zyngier@arm.com>, 
-	Hanjun Guo <guohanjun@huawei.com>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 3, 2026 at 3:44=E2=80=AFPM Lorenzo Pieralisi <lpieralisi@kernel=
-.org> wrote:
->
-> On Thu, Oct 29, 2026 at 11:52:32AM +0800, Jiale Yao wrote:
-> > IRQ chip probing invokes validation and probe callbacks after the commo=
-n
-> > table walker has only established that a generic subtable header is
-> > readable. A malformed length can leave callback field accesses outside
-> > the MADT.
-> >
-> > Validate the generic header length and ensure the complete declared
-> > entry is contained in the table before invoking IRQ chip callbacks.
-> >
-> > Fixes: e647b532275b ("ACPI: Add early device probing infrastructure")
-> > Cc: stable@vger.kernel.org
->
-> I don't think this patch fixes anything (actually you don't know, it
-> might break kernels that are currently booting).
->
-> Remove the stable tag (on the whole series, though others might have a
-> different opinion). If this gets merged, goes to stable and then
-> we discover it triggers a regression (on existing platforms whose
-> ACPI tables are broken but the system is working) it would be very
-> annoying.
->
-> > Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> > ---
-> >  drivers/acpi/scan.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
-> > diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> > index 0b17a7e51956..10e8d736f44b 100644
-> > --- a/drivers/acpi/scan.c
-> > +++ b/drivers/acpi/scan.c
-> > @@ -2896,6 +2896,13 @@ static DEFINE_MUTEX(acpi_probe_mutex);
-> >  static int __init acpi_match_madt(union acpi_subtable_headers *header,
-> >                                 const unsigned long end)
-> >  {
-> > +     unsigned long start =3D (unsigned long)header;
-> > +
-> > +     if (start >=3D end || end - start < sizeof(header->common) ||
-> > +         header->common.length < sizeof(header->common) ||
-> > +         header->common.length > end - start)
-> > +             return -EINVAL;
->
-> This is a check that AFAICS could be done in acpi_parse_entries_array() o=
-nce
-> for all (where you also know header->common is what you need checking, bt=
-w).
->
-> Actually, what's missing there to avoid peppering the kernel with
-> BAD_MADT_ENTRY checks is the entry size (that we could add with a LUT).
->
-> The downsize is that by centralizing it, if anything breaks (which is
-> possible) we have to revert it and therefore remove the check for all
-> consumers.
->
-> I don't know. Rafael, all, thoughts on this ?
+From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-I have concerns similar to yours: It may break systems that currently boot.
+[ Upstream commit 713c31a3a225b6239a37ac7fbfb394567f8b3519 ]
 
-That said, I can imagine a hostile host trying to crash a CoCo guest
-by exploiting this missing check.
+smb2_allocate_rsp_buf() uses the MAX_CIFS_SMALL_BUFFER_SIZE
+(448-byte) buffer for a single SMB2_CREATE response. That buffer also
+holds a 4-byte length field, which only leaves 444 bytes for the SMB2
+body.
 
-It might be better to try to use the actual length instead of
-header->common.length if the latter is too large though.
+The AAPL response made this buffer too small. After 8f1b796ff113, a
+request with AAPL response contexts may need at least 456 bytes. In
+the 456-byte case, create_aapl_rsp_buf() is appended last, clears 128
+bytes, and writes 12 bytes past the allocation.
+
+KASAN reports:
+
+    BUG: KASAN: slab-out-of-bounds in create_aapl_rsp_buf+0x31/0x6e0
+    Write of size 128 at addr ffff88800370954c by task kworker/0:0/9
+    ...
+    create_aapl_rsp_buf+0x31/0x6e0
+    smb2_open+0x58f9/0xef10
+    ...
+    smb2_allocate_rsp_buf+0x19d/0x370
+    ...
+    The buggy address is located 332 bytes inside of
+     allocated 448-byte region [ffff888003709400, ffff8880037095c0)
+
+Reserve enough space for any fixed CREATE response KSMBD can build.
+Store the required allocation size in the per-dialect values table.
+This keeps the small buffer for other commands and avoids using the max
+transaction buffer for every CREATE.
+
+Fixes: 8f1b796ff113 ("ksmbd: add AAPL kAAPL_SERVER_QUERY create context support")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Stable-dep-of: 714f27729121 ("ksmbd: fix out-of-bounds read when padding the final compound response")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/common/smbglob.h |  1 +
+ fs/smb/server/smb2ops.c | 33 +++++++++++++++++++++++++++++++++
+ fs/smb/server/smb2pdu.c |  6 +++++-
+ 3 files changed, 39 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/common/smbglob.h b/fs/smb/common/smbglob.h
+index d9c7e6e7af295..fdf8408880620 100644
+--- a/fs/smb/common/smbglob.h
++++ b/fs/smb/common/smbglob.h
+@@ -40,6 +40,7 @@ struct smb_version_values {
+ 	size_t		create_disk_id_size;
+ 	size_t		create_posix_size;
+ 	size_t		create_aapl_size;
++	size_t		create_rsp_size;
+ };
+ 
+ static inline unsigned int get_rfc1002_len(void *buf)
+diff --git a/fs/smb/server/smb2ops.c b/fs/smb/server/smb2ops.c
+index 4578291fb1722..747276b171bd1 100644
+--- a/fs/smb/server/smb2ops.c
++++ b/fs/smb/server/smb2ops.c
+@@ -13,6 +13,35 @@
+ #include "server.h"
+ #include "stats.h"
+ 
++/*
++ * work->response_sz includes the RFC1002 length field while smb_get_msg()
++ * skips over it. Durable v1 and v2 response contexts are mutually exclusive,
++ * and POSIX CREATE contexts are only negotiated for SMB3.1.1.
++ */
++#define SMB2_CREATE_RSP_SIZE(lease_size, durable_size)			\
++	(sizeof(__be32) + offsetof(struct smb2_create_rsp, Buffer) +	\
++	 (lease_size) + (durable_size) +				\
++	 sizeof(struct create_mxac_rsp) +				\
++	 sizeof(struct create_disk_id_rsp) +				\
++	 AAPL_RSP_MAX_SIZE)
++
++#define SMB21_CREATE_RSP_SIZE						\
++	SMB2_CREATE_RSP_SIZE(sizeof(struct create_lease),		\
++			     sizeof(struct create_durable_rsp))
++
++#define SMB3_CREATE_DURABLE_RSP_SIZE					\
++	((sizeof(struct create_durable_rsp) >				\
++	  sizeof(struct create_durable_rsp_v2)) ?			\
++	 sizeof(struct create_durable_rsp) :				\
++	 sizeof(struct create_durable_rsp_v2))
++
++#define SMB3_CREATE_RSP_SIZE						\
++	SMB2_CREATE_RSP_SIZE(sizeof(struct create_lease_v2),		\
++			     SMB3_CREATE_DURABLE_RSP_SIZE)
++
++#define SMB311_CREATE_RSP_SIZE						\
++	(SMB3_CREATE_RSP_SIZE + sizeof(struct create_posix_rsp))
++
+ static struct smb_version_values smb21_server_values = {
+ 	.version_string = SMB21_VERSION_STRING,
+ 	.protocol_id = SMB21_PROT_ID,
+@@ -38,6 +67,7 @@ static struct smb_version_values smb21_server_values = {
+ 	.create_disk_id_size = sizeof(struct create_disk_id_rsp),
+ 	.create_posix_size = sizeof(struct create_posix_rsp),
+ 	.create_aapl_size = AAPL_RSP_MAX_SIZE,
++	.create_rsp_size = SMB21_CREATE_RSP_SIZE,
+ };
+ 
+ static struct smb_version_values smb30_server_values = {
+@@ -66,6 +96,7 @@ static struct smb_version_values smb30_server_values = {
+ 	.create_disk_id_size = sizeof(struct create_disk_id_rsp),
+ 	.create_posix_size = sizeof(struct create_posix_rsp),
+ 	.create_aapl_size = AAPL_RSP_MAX_SIZE,
++	.create_rsp_size = SMB3_CREATE_RSP_SIZE,
+ };
+ 
+ static struct smb_version_values smb302_server_values = {
+@@ -94,6 +125,7 @@ static struct smb_version_values smb302_server_values = {
+ 	.create_disk_id_size = sizeof(struct create_disk_id_rsp),
+ 	.create_posix_size = sizeof(struct create_posix_rsp),
+ 	.create_aapl_size = AAPL_RSP_MAX_SIZE,
++	.create_rsp_size = SMB3_CREATE_RSP_SIZE,
+ };
+ 
+ static struct smb_version_values smb311_server_values = {
+@@ -122,6 +154,7 @@ static struct smb_version_values smb311_server_values = {
+ 	.create_disk_id_size = sizeof(struct create_disk_id_rsp),
+ 	.create_posix_size = sizeof(struct create_posix_rsp),
+ 	.create_aapl_size = AAPL_RSP_MAX_SIZE,
++	.create_rsp_size = SMB311_CREATE_RSP_SIZE,
+ };
+ 
+ static struct smb_version_ops smb2_0_server_ops = {
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b3743e17aa3c1..e5bbd003e3599 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -873,14 +873,18 @@ static void smb2_update_lock_sequence(struct ksmbd_work *work,
+ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ {
+ 	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
++	struct smb_version_values *vals = work->conn->vals;
+ 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
+-	size_t large_sz = small_sz + work->conn->vals->max_trans_size;
++	size_t large_sz = small_sz + vals->max_trans_size;
+ 	size_t sz = small_sz;
+ 	int cmd = le16_to_cpu(hdr->Command);
+ 
+ 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
+ 		sz = large_sz;
+ 
++	if (cmd == SMB2_CREATE_HE)
++		sz = max_t(size_t, sz, vals->create_rsp_size);
++
+ 	if (cmd == SMB2_QUERY_INFO_HE) {
+ 		struct smb2_query_info_req *req;
+ 
+-- 
+2.53.0
+
