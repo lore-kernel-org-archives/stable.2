@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704210;
-	b=vVbTtiaJk1S/sCC12KOytLF9ixJsABWB0JkvMhJfJgOSSKQO3cpftlCpz+9ZHJPTMJLC
-	 agvyHpBYVR8pfop+UlatC+1LO0KZv5Nn6VhLufEtibk0u0zp8nWjrPYCZbQ2bW0KpfAjp
-	 x6J1rqkVXCEugn6wAdmLX7v54QS64XIvfI0t5EOHUiH8rZGVOLCBWgoPn/BX21TN8Fd8Z
-	 7wx2y1l6Iz3SAK4ORHBGqPdXoBt4kPSts9jq2tEZFzCVi8tmZfGOhHKpd9gD+2JJB8fCa
-	 /Ss9DQoNFj6FGcap8tXZA3/bL3eiwV6RMH/oEN8SRRavGTaJZOuHBjadUDpyyRg186Q==
+	t=1793704225;
+	b=S5L7fRFw0e0Y1tDJ0RL5elg5sO7ttuJtakusDOJyUlQqRIO0XWBk/Olqb00jdyjyq1IA
+	 tl09C69P6zdi4kcG+HA11CH6+OfA5CRcbGkVaruxLsLkFut+diiftGYpEWLdbvyLLis0z
+	 Ejg/33VizfYYAcrZD/BzSu8Syk2wEqVCMrpSqDed56M/G57fRRljh1yI56q0tH0VoBiSd
+	 VH//9FkGgiRGcI1jxkzitS7H83EPtn3d9kFgR6BCo4hkf3sJvGzh0HDMv4bn3ax6LHZEE
+	 ho2iqPevQcpLvPWvboYbYO2ti2QuyU5hb2kSpwYhqy0sth2ZDTNL3nU9tU06K1SWQFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704225;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=M351HoN9QnzW4bajTJUrOSxIeJFA3W05dDUYpXeLH3c=;
-	b=0+GDFKnFZ5joyjrfU+lWCel05P62B01zkPEAZESGntlQGZ63A3WM5nPhVvVhVyMop3oO
-	 JwbasK/ZJcbEppL/jddQJTyK9vnhFiTJbNeBfcTNU0E8n9oBqM6Ija0+gyt//H8HWm6Co
-	 aabHUE1nPCvJANvI7Q+YC1qAM6BZyOV48eFlyqJ1BFcXj9/ZLAl7n/ou3YFO1fd0TlHPk
-	 aPzc9oSdqzmf6boRL2Y39ZsYq+uUs9wrgU/Jt9wjB/tpxdQqgdHqoVLG9JDtVYR/MlyxV
-	 fn0CUqwWz+A35QCapyj90tXg2px8WAYSVVUcltRozMzwZRDKDwyEUGFWwnhNs+F9p4w==
+	bh=/W2mjbTmgpq1pqBSl49B/N5yASScZpRogYzJGRRzFXs=;
+	b=49dOstsocsoT1ZfjEKdykMF9JYxnhAWXRdJ/0Fe8wsjPM1o8+ruIq1endH+Qf3xuy9rn
+	 STz+AjsXpN/g9iQfQDYC2S050bmKHP0TQyprAr7legkdMND3PAYloizrBuGaA/MCXgAdy
+	 QyDC4fI2ePE7q5vqp4IgM1tCyleengHQNNDZkgkDAzbl3FwgoQCGbDeDxHkCMsK6wljnk
+	 4ddPWV5nzIWZyodJXajg/lA4bgImMoXSp70tmGODNGubLMKg18ujCKGxiqDI99P7qLUjO
+	 0i1Fu35JzB5VjRfBTwLLtzxVthvInO5O0z6ZUkNZv5sK430m3vJR1yLFTviYLQ7jizA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqHxQZEb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chPTcyEu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0616606BF86;
-	Tue,  3 Nov 2026 11:10:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FF3606C573;
+	Tue,  3 Nov 2026 11:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqHxQZEb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A538F1F00A17;
-	Tue,  3 Nov 2026 11:10:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chPTcyEu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344011F000C1;
+	Tue,  3 Nov 2026 11:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704209;
-	bh=M351HoN9QnzW4bajTJUrOSxIeJFA3W05dDUYpXeLH3c=;
+	s=k20260515; t=1793704224;
+	bh=/W2mjbTmgpq1pqBSl49B/N5yASScZpRogYzJGRRzFXs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JqHxQZEbjqIPWdvJn3/s8FzkAMJ3m7hfBmzygiVTmR7MngOYVd4fwl45ATYkbt9yZ
-	 Kx6kVV/jvmvI/Oq14BHn2zGSJuUn1eQYDhJDdkeXtFKrrd085LSeZlpEEKuamnrab4
-	 flrrkqyWYxbzI5s+kam2gkU5K7LxUOlKvISq3KbPbjhcPzrVp6BgjCa86T6puu5jFT
-	 NZJ6lI4YZD6Asv8g2O0GbkWm1dZgDd6aK5SsCpgmc6nr61YuqFUah5z7rA4DPUZMiq
-	 7lYIl8HIUfuiS/vcE84+KEsC4RRQQmQI5bDjIbXgrGkosdXqNLQHY6zHhdDO/IVIdM
-	 iDZyYe8MSA4QQ==
-Date: Tue, 3 Nov 2026 12:10:06 +0100
+	b=chPTcyEu3+6/DSswsWsAKE3hFccxSLecUPqONvn2808hJLH2u9pAFZDufqnPJqcRm
+	 2hTmwuqSPEHqO9LT5G6bbCKKJVixQIQd+2rephmmTvsZXJokl1bIy6nSFv75ODy1Mp
+	 gMrs9tbcm2WRe2e5tI7F0ped9GCj1PxSEaGbJN+PU9/UI9UrcKPDhGt+928fONZuLf
+	 A+bX2wFpEf7Dm1bTv01iVW685qctvFwn00OIrHe6nPpLQeV8HMbc4ovZlNNgg/3b6R
+	 zUJpUi2FU66L8L5rDQSpVLkqqPTLrG+wUU5FF+xGQl+7mCJ8m3yQPCuEksYTALFdZL
+	 P3Hxm0F8QdNCA==
+Date: Tue, 3 Nov 2026 12:10:22 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Vadim Pasternak <vadimp@nvidia.com>, Hans de Goede <hansg@kernel.org>, 
-	stable@vger.kernel.org, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH] platform: mellanox: unregister the fan device on probe
- failure
-Message-ID: <20261103-ancient-excellent-mongoose-3ed148@quoll>
-References: <20261103105545.1394576-1-vulab@iscas.ac.cn>
+Cc: Vinod Koul <vkoul@kernel.org>, Shan-Chun Hung <schung@nuvoton.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	linux-phy@lists.infradead.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jacky Huang <ychuang3@nuvoton.com>, Manivannan Sadhasivam <mani@kernel.org>
+Subject: Re: [PATCH] phy: nuvoton: fix USB PHY clock reference leak
+Message-ID: <20261103-tall-elite-otter-d99ba5@quoll>
+References: <20261103104242.1373863-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,25 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103105545.1394576-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104242.1373863-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:55:45 +0000, Wentao Liang wrote:
-> mlxplat_platdevs_init() registers the mlxreg-fan platform device before
-> the watchdog and DPU devices, but the error paths for those later
-> registrations never unregister it: the cleanup chain below
-> fail_platform_wd_register drops the watchdog, io, LED and hotplug
-> devices, but not the fan.
+On Tue, 03 Nov 2026 10:42:42 +0000, Wentao Liang wrote:
+> ma35_usb_phy_probe() acquires the PHY clock with of_clk_get(), which
+> takes a reference that must be released with clk_put().  The probe
+> error paths after that call return without releasing the reference,
+> and the driver has neither a .remove callback nor a devres-managed
+> clock, so the reference is also leaked when the device is unbound.
 > 
-> Unregister the fan device on those failure paths.
+> Acquire the clock with devm_clk_get() so that it is released
+> automatically on probe failure and on device removal.
 > 
-> Fixes: 158cd8320776 ("platform: mellanox: Split logic in init and exit flow")
+> Fixes: b48baf69db97 ("phy: nuvoton: add new driver for the Nuvoton MA35 SoC USB 2.0 PHY")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/platform/mellanox/mlx-platform.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/phy/nuvoton/phy-ma35d1-usb2.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 
 Multiple things here:
