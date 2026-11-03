@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717941;
-	b=Egv7YYJZr4VDCXdgC6H5TeDvttz1h98a2YMLEgBjeaZzkQR9eLM7fLLNyLbr1Vp3n/mw
-	 4LKheGEUC36un7iR64Jbg9tKofuiCsLKGmW0hf4dDvGFHHKyg8PhMHzUVTEol8m2X1vRv
-	 C+u4gW4p0BKJGyUP3M3dsvJAx0YdSPzUR2P9lGfVUEUXv7E5UwpuhjxIhGeBNudi20TtZ
-	 C+Bfktyg12ZL5KKPmpsmj08QeGednZWySpZYmRnaspfJg4OGi3Fb1jOo/oNvznFRYIADY
-	 LUR7eKURwiP6IJr73PYgxoWMmD2rggehqpTuhrbPkNkNBDLEuS5ksZfWg8Qa1t/xNmA==
+	t=1793717947;
+	b=Gy6iHZzlYWJ79SzzmiYkXy6VANEOsoJ6xz+Emn5m3VyfqIEuKwtigzqcwC/mkrK0QioK
+	 H75RjVfcZQmWB/W5tL5OrHK51u5meUtzSpuvZ2gfSS2zn1OK//qRTfbnj3pn5l3uQ4m9M
+	 LcyKugbkXM0gq6D4hRcuLT84B/v4CA9NAzax12bWvhe25BSYmsYrJNF/eFByzVt+L1nX7
+	 MqqZwA7Fy9dPEEgmdvyiiH6jJOaa3YqEk+9PbK1ALjJurh3zBUZbDbNAITRUMBbUkt1FP
+	 MEdjVJdt9xHns2+OiO8hHhPkyyi/3MTz52PbHRmRQo2fTwGp+OVGAPn5ChpXZ50Xcqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717941;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717947;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=biHQPh0o+AiSCsLyfeS4hnYw1Z0H3pXw2ddQU2f0nEU=;
-	b=C1NcyqXiXpkhxTbNTbB3blZC4ZKdSfX/LCM6JE+6YIDOQbXcDjVQetNCs26w+7bRkiwG
-	 mA/E6ormInbg9ptXzwU6kMwtQscc2w4vFFbw42oGieyiHHC+kDqEP4KiBG5FSny8NGqD2
-	 MhFWfMMJWPwNA20yfr8SCBeoVQbZb0fLKjWXQa1PHwm1LSA5URkesQSYg/rjKYXuIKdJ5
-	 ny7nowO8L1ZhK7DG21SBagtecvpYWQ0kkBgPzZod95c9kOcdrbgS1H1nL3Hgq0h0BsoJj
-	 zI3j7buovEo8W0Q2xeP4J84lhff/SvK76nZ+rFXAVaL/AfNFyi7Nq6r6E9HltEKz74w==
+	bh=CE4CYyvf2CZ5fmLifR82GF8XhbsCXKVvE7qvmtdKOzE=;
+	b=h8fiCKvm8QoaW+oxLlfGlG8mXlHGtIst9eL+Lt40C106cu5yqdsNjh4zsVNL7GUOWgLb
+	 KHhEd727JBQQHfWwUUYKXyhtnHCsMbxtEi4Tn78yrnAje3BZfbjiX8AH0aQeCr8ELr0G4
+	 iJnQ5AdZHW3F/g91mp0z4rJ5STl7Sk3NzWoWjqbaVGQMPY+diGlSNM6lyDgy+KhYa4z0K
+	 Mj0WMnPGILUPYl7CZUq5CWFuBHbJtryIQw7vhVGv4UI2As5HNuMRJihvwl2rzURsVFiRq
+	 AP6YItCoFQOWE2hT0Z7wO6o/oqxPxrjXMtWihKorgzT4xbJZnigAwfFVn+nMVd88XbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CzML/aMk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2vmH3AM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20673606C829
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:59:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C19606D825
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzML/aMk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 006071F000C1;
-	Tue,  3 Nov 2026 14:58:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H2vmH3AM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26231F000C1;
+	Tue,  3 Nov 2026 14:59:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717940;
-	bh=biHQPh0o+AiSCsLyfeS4hnYw1Z0H3pXw2ddQU2f0nEU=;
+	s=k20260515; t=1793717947;
+	bh=CE4CYyvf2CZ5fmLifR82GF8XhbsCXKVvE7qvmtdKOzE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CzML/aMkQVM6pIfPELieMXoh/xH7uUTao9r/ObUpS463iFpGGjDY8sYeQtJHvOXLn
-	 cXcwubPdsRjX7D4UXnGTQnzFf+fGYdIUlNJCmRYLvGHIAHd2SMhHYSAleWvVv2m/wU
-	 ZT03h8FMtcYiqoSwiqy6GzkWvsrzLfi0hVbMnQPbPEaOqjUf7jtuSGfYPptuidAv/h
-	 RGeOCcqZ5nfRPkp1rbS/6bjlXyMODyZcXBZS/iAJ3AugoDilhPrQDZjQhz+7zk3scB
-	 sQ85uXFgU1kGQIMouf+hzINgC7HWMG3CImt3Gn09ocPuZZLm++6mx60QPpbo5vUMN+
-	 X0Z3PSHwd9fdQ==
+	b=H2vmH3AMnKpofXWDCsuj1oOLy29fgXuWJM/vxD4TAMvKSaSx1iylLYQkqihMj3pbN
+	 dQOv26jX9gEbozQZlBHalb9ts7pbTqHaSNUKTXC/8JEmLRXhzsreffT2JMyTQsr/Sc
+	 KAkmTRVmSVgdAY2fmMDQDgKSTebUa10P1dJKbz4tM9KrtilcL+1dEIo+07t6W5sRKl
+	 GJjDJzDExR5NRE6syMwo7/SmrXJebaRrsRTZ2Trr/Zr+gHdAMKS59f1/oEkvYhHoOd
+	 YBcEijve/fWKGSYYMdIU59WkGK6hOE74TbwxNVgApZ4SF2hhh96Van+tGZvqGOfZpU
+	 1FLe8HGC2IZsw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yuhang Zheng <z1652074432@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Yucheng Lu <kanolyc@gmail.com>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Vincent Liu <vincent.liu@nutanix.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] net/sched: cls_flower: avoid stale mask references after delete
-Date: Tue,  3 Nov 2026 09:58:58 -0500
-Message-ID: <20261103145823.4110887-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] driver core: Check drivers_autoprobe for all added devices
+Date: Tue,  3 Nov 2026 09:59:04 -0500
+Message-ID: <20261103145825.4109075-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110337-dynasty-fanciness-0b19@gregkh>
-References: <2026110337-dynasty-fanciness-0b19@gregkh>
+In-Reply-To: <2026110313-outburst-clinking-4199@gregkh>
+References: <2026110313-outburst-clinking-4199@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,211 +61,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yuhang Zheng <z1652074432@gmail.com>
+From: Vincent Liu <vincent.liu@nutanix.com>
 
-[ Upstream commit 58f7989da6e715ce834ac861b7ba6ae9f9bdb098 ]
+[ Upstream commit ea34511aaf755349999a1067b2984a541bee1492 ]
 
-Flower releases a mask reference when a filter is removed from the
-classifier. The filter object can remain alive while dump, walk, or
-hardware reoffload paths hold a reference to it. Those paths can then
-dereference f->mask after the mask has already been released.
+When a device is hot-plugged, the drivers_autoprobe sysfs attribute is
+not checked (at least for PCI devices). This means that
+drivers_autoprobe is not working as intended, e.g. hot-plugged PCI
+devices will still be autoprobed and bound to drivers even with
+drivers_autoprobe disabled.
 
-Keep the mask reference until the filter reference count reaches zero.
-Release the mask synchronously from the final __fl_put() while the caller
-still holds the tcf_proto reference, and leave the existing RCU work to
-free the mask. This keeps the mask available to every reader that still
-holds the filter.
+The problem likely started when device_add() was removed from
+pci_bus_add_device() in commit 4f535093cf8f ("PCI: Put pci_dev in device
+tree as early as possible") which means that the check for
+drivers_autoprobe which used to happen in bus_probe_device() is no
+longer present (previously bus_add_device() calls bus_probe_device()).
+Conveniently, in commit 91703041697c ("PCI: Allow built-in drivers to
+use async initial probing") device_attach() was replaced with
+device_initial_probe() which faciliates this change to push the check
+for drivers_autoprobe into device_initial_probe().
 
-The filter is still removed from the classifier indexes immediately.
-Therefore, a deleted filter can temporarily retain an otherwise empty
-mask; fl_delete() uses the handle IDR, rather than the mask list, to
-determine whether the classifier has become empty.
+Make sure all devices check drivers_autoprobe by pushing the
+drivers_autoprobe check into device_initial_probe(). This will only
+affect devices on the PCI bus for now as device_initial_probe() is only
+called by pci_bus_add_device() and bus_probe_device(), but
+bus_probe_device() already checks for autoprobe, so callers of
+bus_probe_device() should not observe changes on autoprobing.
+Note also that pushing this check into device_initial_probe() rather
+than device_attach() makes it only affect automatic probing of
+drivers (e.g. when a device is hot-plugged), userspace can still choose
+to manually bind a driver by writing to drivers_probe sysfs attribute,
+even with autoprobe disabled.
 
-Failed mask assignment can leave fnew->mask as an error or borrowed
-pointer without an owned mask reference. Clear it before the common
-failure path so the final put cannot release an unowned reference.
+Any future callers of device_initial_probe() will respect the
+drivers_autoprobe sysfs attribute, which is the intended purpose of
+drivers_autoprobe.
 
-This fix does not add fields, snapshots, or per-filter memory.
+Signed-off-by: Vincent Liu <vincent.liu@nutanix.com>
+Link: https://patch.msgid.link/20251022120740.2476482-1-vincent.liu@nutanix.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Fixes: 92149190067d ("net: sched: flower: set unlocked flag for flower proto ops")
-Cc: stable@vger.kernel.org
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Tested-by: Yucheng Lu <kanolyc@gmail.com>
-Signed-off-by: Yuhang Zheng <z1652074432@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Link: https://patch.msgid.link/20261012010720.2248662-2-n05ec@lzu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: Changed jumps to unbind_filter to use the existing errout cleanup label. ]
+Adapt the bus-side change to __bus_probe_device(), which is shared by
+the normal and deferred probe entry points. Preserve the deferred probe
+wrapper and its parent locking.
+
+Retain this change to provide the device_initial_probe() layout needed
+by the asynchronous attach parent-lock fix. PCI still calls
+device_attach() directly, so this change does not alter PCI probing.
+
+Stable-dep-of: 187a62f99da2 ("driver core: take parent lock in async device attach")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sched/cls_flower.c | 49 ++++++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 21 deletions(-)
+ drivers/base/bus.c |  3 +--
+ drivers/base/dd.c  | 10 +++++++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-index d4fa6fe2560f3..b44a3a2d724fb 100644
---- a/net/sched/cls_flower.c
-+++ b/net/sched/cls_flower.c
-@@ -504,15 +504,22 @@ static void fl_hw_update_stats(struct tcf_proto *tp, struct cls_fl_filter *f,
- 			      cls_flower.stats.used_hw_stats_valid);
- }
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index e0afc8e371438..36383037f2dd2 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -570,8 +570,7 @@ static void __bus_probe_device(struct device *dev)
+ 	if (!sp)
+ 		return;
  
--static void __fl_put(struct cls_fl_filter *f)
-+static bool __fl_put(struct tcf_proto *tp, struct cls_fl_filter *f)
+-	if (sp->drivers_autoprobe)
+-		device_initial_probe(dev);
++	device_initial_probe(dev);
+ 
+ 	mutex_lock(&sp->mutex);
+ 	list_for_each_entry(sif, &sp->interfaces, node)
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index 9d1e231d41f53..57aa8d8b00428 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -1155,7 +1155,15 @@ EXPORT_SYMBOL_GPL(device_attach);
+ 
+ void device_initial_probe(struct device *dev)
  {
-+	bool last = false;
+-	__device_attach(dev, true);
++	struct subsys_private *sp = bus_to_subsys(dev->bus);
 +
- 	if (!refcount_dec_and_test(&f->refcnt))
--		return;
-+		return false;
++	if (!sp)
++		return;
 +
-+	if (f->mask)
-+		last = fl_mask_put(fl_head_dereference(tp), f->mask);
- 
- 	if (tcf_exts_get_net(&f->exts))
- 		tcf_queue_work(&f->rwork, fl_destroy_filter_work);
- 	else
- 		__fl_destroy_filter(f);
++	if (sp->drivers_autoprobe)
++		__device_attach(dev, true);
 +
-+	return last;
++	subsys_put(sp);
  }
  
- static struct cls_fl_filter *__fl_get(struct cls_fl_head *head, u32 handle)
-@@ -549,11 +556,10 @@ static int __fl_delete(struct tcf_proto *tp, struct cls_fl_filter *f,
- 	list_del_rcu(&f->list);
- 	spin_unlock(&tp->lock);
- 
--	*last = fl_mask_put(head, f->mask);
- 	if (!tc_skip_hw(f->flags))
- 		fl_hw_destroy_filter(tp, f, rtnl_held, extack);
- 	tcf_unbind_filter(tp, &f->res);
--	__fl_put(f);
-+	*last = __fl_put(tp, f);
- 
- 	return 0;
- }
-@@ -594,7 +600,7 @@ static void fl_put(struct tcf_proto *tp, void *arg)
- {
- 	struct cls_fl_filter *f = arg;
- 
--	__fl_put(f);
-+	__fl_put(tp, f);
- }
- 
- static void *fl_get(struct tcf_proto *tp, u32 handle)
-@@ -2063,12 +2069,14 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		goto errout;
- 
- 	err = fl_check_assign_mask(head, fnew, fold, mask);
--	if (err)
-+	if (err) {
-+		fnew->mask = NULL;
- 		goto errout;
-+	}
- 
- 	err = fl_ht_insert_unique(fnew, fold, &in_ht);
- 	if (err)
--		goto errout_mask;
-+		goto errout;
- 
- 	if (!tc_skip_hw(fnew->flags)) {
- 		err = fl_hw_replace_filter(tp, fnew, rtnl_held, extack);
-@@ -2120,7 +2128,6 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 
- 		spin_unlock(&tp->lock);
- 
--		fl_mask_put(head, fold->mask);
- 		if (!tc_skip_hw(fold->flags))
- 			fl_hw_destroy_filter(tp, fold, rtnl_held, NULL);
- 		tcf_unbind_filter(tp, &fold->res);
-@@ -2128,7 +2135,7 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		 * after this.
- 		 */
- 		refcount_dec(&fold->refcnt);
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	} else {
- 		if (handle) {
- 			/* user specifies a handle and it doesn't exist */
-@@ -2173,17 +2180,15 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 	if (in_ht)
- 		rhashtable_remove_fast(&fnew->mask->ht, &fnew->ht_node,
- 				       fnew->mask->filter_ht_params);
--errout_mask:
--	fl_mask_put(head, fnew->mask);
- errout:
--	__fl_put(fnew);
-+	__fl_put(tp, fnew);
- errout_tb:
- 	kfree(tb);
- errout_mask_alloc:
- 	tcf_queue_work(&mask->rwork, fl_uninit_mask_free_work);
- errout_fold:
- 	if (fold)
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	return err;
- }
- 
-@@ -2196,8 +2201,10 @@ static int fl_delete(struct tcf_proto *tp, void *arg, bool *last,
- 	int err = 0;
- 
- 	err = __fl_delete(tp, f, &last_on_mask, rtnl_held, extack);
--	*last = list_empty(&head->masks);
--	__fl_put(f);
-+	spin_lock(&tp->lock);
-+	*last = idr_is_empty(&head->handle_idr);
-+	spin_unlock(&tp->lock);
-+	__fl_put(tp, f);
- 
- 	return err;
- }
-@@ -2219,12 +2226,12 @@ static void fl_walk(struct tcf_proto *tp, struct tcf_walker *arg,
- 		rcu_read_unlock();
- 
- 		if (arg->fn(tp, f, arg) < 0) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			arg->stop = 1;
- 			rcu_read_lock();
- 			break;
- 		}
--		__fl_put(f);
-+		__fl_put(tp, f);
- 		arg->count++;
- 		rcu_read_lock();
- 	}
-@@ -2275,7 +2282,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		cls_flower.rule =
- 			flow_rule_alloc(tcf_exts_num_actions(&f->exts));
- 		if (!cls_flower.rule) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return -ENOMEM;
- 		}
- 
-@@ -2293,7 +2300,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 			kfree(cls_flower.rule);
- 			if (tc_skip_sw(f->flags)) {
- 				NL_SET_ERR_MSG_MOD(extack, "Failed to setup flow action");
--				__fl_put(f);
-+				__fl_put(tp, f);
- 				return err;
- 			}
- 			goto next_flow;
-@@ -2309,11 +2316,11 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		kfree(cls_flower.rule);
- 
- 		if (err) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return err;
- 		}
- next_flow:
--		__fl_put(f);
-+		__fl_put(tp, f);
- 	}
- 
- 	return 0;
+ /*
 -- 
 2.53.0
 
