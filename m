@@ -1,71 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793746744;
-	b=BD6cpIbfIheFvhqOZKG7ETjXMNAnbv/AuC7dfIgZQFXgoAcyVg+kOGeLEpyq8I81SyPE
-	 sZj3XcPCX6mcjzDPxZIqQn+pvXMqv2A6mr6RMTMwJc3CblSiWxJ3jMe3F8lY/TezreyGY
-	 KXqzKUX37h24+WYU8z2xXgEUm6TAlcEbSGNHQJaGRcAJAFr/9ySxD0sCeSSZP3CQNFCPm
-	 uSHQG0rlFf85uwkKMtk54yyYxjG0QCAKhP9f2mkT9D6Rs3/G+qLw2tDWoCWrZ7cPdVK7G
-	 XmqHKXlnPg37b1N4+FZjDtS1ISU8fAh4CKKbTSp2ET0Aesigui9WZFH3jOJMbjv5IyA==
+	t=1793746823;
+	b=rMcKCaWMRaYggdp+YoYfRWP0Vl7CaJbcR4OIK3YoH1iBaUK9vH8/rhQYQjjkQYchHgQs
+	 YbVHoJ0yyDCTJ5LRaXaI8DWLmyicoMLrySTqNRJctsy3YSVKhuj5QArDAAF/P2qDvxBiv
+	 9GslmYVC+HQmEbOlP83xZbntTAIudK7PUszs93wxtPQZXnH/tpGuJulSIfpyMHI9K4HEe
+	 AjVcpfMi4mz9KTPVec1rjyzn/Nay8Bcng6uFzlsw/ZuzF5q5rbys1DtwXhuSVOhPoAvL5
+	 V2wxUjwWpIipNdIgs4A9k8pUhamOzWi9js6vZmI0lD2TBvBqBCkOTSkZ0xmOumG2liQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793746744;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793746823;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=m9IHns2sJler0sRl0SMABwEqI4WuJowFqb5T7/GRZqw=;
-	b=BC8gstiQVFTVEG8Be9TYRPRLd1SQz+PI4QYOB7t6rnbSpkb4B9ewOW7jVvqoyAjBsxf5
-	 TBSSfUaa7mpXw27W/7ZJdiq+it7rc+j5hJe506KkWH0NEmfMJ1VryJykvXl1u3cE1p+1p
-	 /AvJHI1TMIYvqY4DVWNddoAoV7WL8hpqIl0VAlYnt9h+6BdoJuGaFsGI7uX7lsEHn/+C/
-	 zCKkL3K40M3y+TYZLxwXlVetxpg9m2BlzWMF9Ru2BgH+Rsqna/e9OukhArj7Na95Rc7Dc
-	 LDcHxQSKHMScH5Ez38VuPXCIsel5QbNGPgfPoI9bve3mkSlhQ/8N4KFOLzVIoXvzK1w==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1faRywtJCP+JRJGU9PHed7i5GyJR6frSTS25rp7+G2A=;
+	b=BbmiTVm4Cyl5QsE6GHeVaVgHaZlA7/14hQIUof9YxS6I0XkGBXJlFqqLeQaDjxJ87+8K
+	 BuZhnQujrM+/e5WsU5Qs1H6qoaWfMjfQHOfvZ1Cvcg+E+dJZmdmPCZJ+z4WkRQ/CAdUF1
+	 MLOuCiTvLpzMkP2XyiLBwHPCSviELL86JrvDFbNFYMHpHCbHAfMK53hQdI0Y82nGIyJdW
+	 Isj0emQznRb6GpxD1B0rUfIx6O1EzO5wIl939+qwlZnex4rQU2qetu791sMXPthbsjKyS
+	 UlxYHoHp5PqOqQF59RIcdbYEJQVls4NO/ppdRRWcJ+9TdxYMfTgRDVcM0KQxWa7Z71Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=UeLfs9P1;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=M5ELbzKU;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4593B606A32C;
-	Tue,  3 Nov 2026 22:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4593B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93780606A326;
+	Tue,  3 Nov 2026 23:00:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93780606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=UeLfs9P1
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=M5ELbzKU
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=m9IHns2sJler0sRl0SMABwEqI4WuJowFqb5T7/GRZqw=; b=UeLfs9P1+XRw84mN/W8JVWSlL7
-	s2fd89qaex/xrlsIZHC+JgcldMOAynMJqWvFPYaOvcESGxpC1gIhtk6bfWrh2l66J54gU5KAbXrJY
-	28f/eSwcO6IepOVDf6Ki+7kXkbLAW4seqKtKK7lIOBHHRc8dMfsTywODw8zJg25h9R5CkBZyRCb8o
-	Hy4RqUu8TKHLVYTRlgr6CYy/Nxq4GCJ3cns3drcvJTcXxkx95FAL9AUW+XkHA7BIowBPnM/rBlfde
-	4X3gVgsFFQwpZ8Ce+ve7BI0JYmbV8BD99EzUYljtCKSIAergeeifjNGeIwm88/tatEhMtgbOc3sjE
-	3nfvu38w==;
-Received: from [151.115.150.205] (port=38596 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xONT6-0000000Fyyx-0AUw;
-	Tue, 03 Nov 2026 23:59:02 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=1faRywtJCP+JRJGU9PHed7i5GyJR6frSTS25rp7+G2A=; b=M5ELbzKUJt1vAx87YA0AIZWyXp
+	d/H736dOBGcbHV76UI5rNrwaM9zQy9GOOLxwm59soFQYYgUmCyBhJ5KBLDMpWxcpumBn3B1i8a6Go
+	F+eBOVCV30E0iuqb07E8NTgVBHSuoatYSLEKlHbJ5rmKchFauvbWPMlf2AVnkb8yq5ANyDdeD9D5z
+	jttrDMeffoefNvA9h8ouww3e5FK8GTyc8CekiHnxgogr4nTf1o6NGjLGHLAwdRH65ITiKP4mUZ14z
+	mOdmYGdEKJ/6fjO4PczMMDlhN+cd+KZycubI+2uxGhT3cnRnGSSKlUAz9LqwNQK9o0REZL6k0hih2
+	nKzgRC8A==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xONUJ-00000000kM9-3Miu;
+	Tue, 03 Nov 2026 20:00:20 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org,
+	netfs@lists.linux.dev,
+	David Howells <dhowells@redhat.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 1/2] xfrm: fix IPv6 first-fragment protocol decode
-Date: Tue,  3 Nov 2026 22:58:41 +0000
-Message-ID: <20261103225842.3204446-3-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103225842.3204446-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261103225842.3204446-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH v3 01/16] smb: client: don't write back through O_DIRECT handles
+Date: Tue,  3 Nov 2026 20:00:05 -0300
+Message-ID: <20261103230020.1617748-2-pc@manguebit.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103230020.1617748-1-pc@manguebit.org>
+References: <20261103230020.1617748-1-pc@manguebit.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,101 +72,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Commit 7a0207094f1b ("xfrm: policy: replace session decode with flow
-dissector") replaced XFRM session decoding with the flow dissector.
-While the old IPv6 decoder kept walking past an IPv6 Fragment
-extension header, the flow dissector stops unless the caller sets
-FLOW_DISSECTOR_F_PARSE_1ST_FRAG. For an atomic fragment followed by
-extension headers, inbound policy lookup can therefore see the header
-after Fragment instead of the actual upper-layer protocol and miss
-protocol selectors.
+Writeback uses the first writable handle of the inode, which may have
+been opened with O_DIRECT.  Such handles are opened with
+FILE_NO_INTERMEDIATE_BUFFERING, for which Windows rejects any unaligned
+I/O with STATUS_INVALID_PARAMETER.  Writeback of partly dirty pages and
+of the unaligned tail of a file through one of them fails, so netfs ends
+it with the folios clean and the data never reaches the server.
 
-Make the dissector continue through first IPv6 fragments. Keep the port,
-ICMPv6 and GRE selector fields zero for all fragments, as the old decoder
-did. This also keeps the result the same when a BPF flow dissector fills
-ports for a first fragment.
+xfstests generic/051, where fsstress mixes both kinds of opens, loses
+about 1% of its writes this way:
 
-Fixes: 7a0207094f1b ("xfrm: policy: replace session decode with flow dissector")
+  smb3_write_err: ... offset=0xde90d7 len=0xbd0b rc=-22
+
+All the rejected writes in a network capture were unaligned writes on a
+no-buffering handle; none of the aligned ones, and none of the unaligned
+ones on regular handles, were.
+
+Prefer a handle that was not opened with O_DIRECT, and use one that was
+only if there is no other.
+
+Fixes: 1013e760d10e ("SMB3: Don't ignore O_SYNC/O_DSYNC and O_DIRECT flags")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- net/xfrm/xfrm_policy.c | 35 ++++++++++++++++++++++-------------
- 1 file changed, 22 insertions(+), 13 deletions(-)
+ fs/smb/client/cifsglob.h |  1 +
+ fs/smb/client/file.c     | 15 ++++++++++++---
+ 2 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 9ea60c7717ff8..bda5100c9fdbf 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -3480,23 +3480,29 @@ decode_session6(const struct xfrm_flow_keys *flkeys, struct flowi *fl, bool reve
- 	if (reverse) {
- 		fl6->saddr = flkeys->addrs.ipv6.dst;
- 		fl6->daddr = flkeys->addrs.ipv6.src;
--		fl6->fl6_sport = flkeys->ports.dst;
--		fl6->fl6_dport = flkeys->ports.src;
- 	} else {
- 		fl6->saddr = flkeys->addrs.ipv6.src;
- 		fl6->daddr = flkeys->addrs.ipv6.dst;
--		fl6->fl6_sport = flkeys->ports.src;
--		fl6->fl6_dport = flkeys->ports.dst;
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index d3ca688b6aba..dbf980fcf05b 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1891,6 +1891,7 @@ enum cifs_find_flags {
+ 	FIND_WITH_DELETE	= (1U << 1),
+ 	FIND_NO_PENDING_DELETE	= (1U << 2),
+ 	FIND_OPEN_FLAGS		= (1U << 3),
++	FIND_NO_DIRECT		= (1U << 4),
+ };
+ 
+ #define   MID_FREE 0
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 0767eb5f4687..aa2d09dac44c 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -255,9 +255,15 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
+ 	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
+ 	int ret;
+ 
+-	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY, &req->cfile);
++	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_NO_DIRECT,
++				     &req->cfile);
+ 	if (ret) {
+-		cifs_dbg(VFS, "No writable handle in writepages ret=%d\n", ret);
++		ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY,
++					     &req->cfile);
++	}
++	if (ret) {
++		cifs_dbg(VFS, "%s: couldn't find writable handle: %d\n",
++			 __func__, ret);
+ 		return;
  	}
  
--	switch (flkeys->basic.ip_proto) {
--	case IPPROTO_GRE:
--		fl6->fl6_gre_key = flkeys->gre.keyid;
--		break;
--	case IPPROTO_ICMPV6:
--		fl6->fl6_icmp_type = flkeys->icmp.type;
--		fl6->fl6_icmp_code = flkeys->icmp.code;
--		break;
-+	if (!(flkeys->control.flags & FLOW_DIS_IS_FRAGMENT)) {
-+		if (reverse) {
-+			fl6->fl6_sport = flkeys->ports.dst;
-+			fl6->fl6_dport = flkeys->ports.src;
-+		} else {
-+			fl6->fl6_sport = flkeys->ports.src;
-+			fl6->fl6_dport = flkeys->ports.dst;
-+		}
-+
-+		switch (flkeys->basic.ip_proto) {
-+		case IPPROTO_GRE:
-+			fl6->fl6_gre_key = flkeys->gre.keyid;
-+			break;
-+		case IPPROTO_ICMPV6:
-+			fl6->fl6_icmp_type = flkeys->icmp.type;
-+			fl6->fl6_icmp_code = flkeys->icmp.code;
-+			break;
-+		}
+@@ -2722,7 +2728,7 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
  	}
  
- 	fl6->flowi6_proto = flkeys->basic.ip_proto;
-@@ -3507,10 +3513,13 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
- 			  unsigned int family, int reverse)
- {
- 	struct xfrm_flow_keys flkeys;
-+	unsigned int flags = FLOW_DISSECTOR_F_STOP_AT_ENCAP;
+ 	if (test_bit(CIFS_INO_TMPFILE, &cifs_inode->flags))
+-		find_flags = FIND_ANY;
++		find_flags &= FIND_NO_DIRECT;
  
- 	memset(&flkeys, 0, sizeof(flkeys));
-+	if (family == AF_INET6)
-+		flags |= FLOW_DISSECTOR_F_PARSE_1ST_FRAG;
- 	__skb_flow_dissect(net, skb, &xfrm_session_dissector, &flkeys,
--			   NULL, 0, 0, 0, FLOW_DISSECTOR_F_STOP_AT_ENCAP);
-+			   NULL, 0, 0, 0, flags);
+ 	cifs_sb = CIFS_SB(cifs_inode);
  
- 	switch (family) {
- 	case AF_INET:
+@@ -2752,6 +2758,9 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 		    !open_flags_match(cifs_inode, open_flags,
+ 				      open_file->f_flags))
+ 			continue;
++		if ((find_flags & FIND_NO_DIRECT) &&
++		    (open_file->f_flags & O_DIRECT))
++			continue;
+ 		if (OPEN_FMODE(open_file->f_flags) & FMODE_WRITE) {
+ 			if (!open_file->invalidHandle) {
+ 				/* found a good writable file */
 -- 
-2.47.3
+2.56.0
 
