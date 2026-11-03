@@ -1,98 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692063;
-	b=igbmkYz1baw3X4nwgC2SqUQtxSNnrRC8TjS7LZd2qSri8U7iePrmrd2bc3BESWZyeP37
-	 dZO1hBc6UbI1bZsHF51iIAFNJyRq4zI9lcknavDJ/ATvisF8NKtA/hpjdTlp8TX1GybEX
-	 2rn1KNdP+6vxuGfDRmrO0tI6ZjeggWl2aWFkWHXTgmR2N31NSOgGMT5c/xm92at5rp4WH
-	 4X5TfyFI7gYBlHe5YeT/mUx0X31oJEcieGoROhKi24I635Y5YotCeRy7cdmUH5ZXWwOgK
-	 qP/+cMHKh2lt1o+E/Su8T4FrlHD2w4mUAJ3rW23uMhMhm9qYV21fNmd2kdfQmx0fxJQ==
+	t=1793692068;
+	b=poAc9hMiWG9SMe8pmv5/tBibw4oT5grh0Jatr7nNc/fUQELUZmH5uDVMsyrnhA7dn1Pr
+	 S/Vg484hCYN36BCP8jMK8d2RRE/HrFPMb940Dd6WsCJrDAVsS3po3k6xHeVpDske9II5T
+	 oc6XcB7ji7ETYIFpCAHQCJu3aYSdpWoGexjQsdIte0iSd4uO+L3GGbQZvN8v8nuPbs0Vj
+	 jU/9J6+vCO3i4uah2eAGzrczrj915eZ1hyJvYpCUSgzXWaWCbaVnga5/6S2dRU9eAnZza
+	 Trw+oIerPbManxIrPRiDdXVww2moiUwo73xiT1LBlAYjpHu+fUDDO1ov/S/AT6y+7CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692063;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=SiS3bHGXKer+FG4HYVMft9Z05AkVrzfkAsqiHFppr9E=;
-	b=yXg2lId2ox5VGiArO2fYaTsucA00ZKVzJnAzutLeLSBBX9+B2wkwz2x6NtK97FaDf2Gx
-	 s0ivIg18fHQb1O87YElXtI7o2mgBnmqQan4FyBjGmiRIlKv6RW5HKxgsL/8DiWSC6NfuT
-	 fQG1tX9URZTE3Ci9s91b1HREKgX1Bod/caFA7IFeDY35y2OYIEVztNwZFTq5RdoGwBhmW
-	 mNqlAcUikVPxVEeIcwg8bAAF16xtl2xUcRtEjMjyLQHz/K34iVa3QfzlB5OUlkDzi09vt
-	 eUpMoky5mkZp8lXrGxRzhCpYjSqQEhyOCamKS4E0Sl6r347q4Qqa+5hjYtXfRN27M3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692068;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ywb3iIVgvCE4CPowLXS8mRRRlJiLr6YNngOnRe7C5DY=;
+	b=mckeIuy40N7HrS7B9GiAk6gR0FosDVkuE5fdbReYxfN5ufKFy6qBsoKUgDjCcg+5s0D0
+	 9ZVQaRsWzZmzaXTVjDWabG3amdjqrU1/2Jhg5SE6vMpkVSMyaw5ofTWSLyTnYckwuXsWV
+	 IMmnbUyJgvo7TaCdKwuhnhsC/jikuZVdRbib0yZlfCip7OIm93YXs2J/g2I5uMq+8s5/3
+	 Dv+Y6Ivm7vHp9tmfvdMlAlmeiDkG65RAUjjeaA6lXVGu8uFIeNnIBt7cj7FCda9VcOFqF
+	 1h0/VZkWBoFbWTShZktStXvWf34ADW8svIxjyu2pLHoaIRohTyOF69FPXr26ArgdLSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uLflxTNm;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=N0oJYIFC;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B9D606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 07:47:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B9D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E049C606A329;
+	Tue,  3 Nov 2026 07:47:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E049C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uLflxTNm
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so2833534a91.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 23:47:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793692062; x=1794296862; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SiS3bHGXKer+FG4HYVMft9Z05AkVrzfkAsqiHFppr9E=;
-        b=uLflxTNmDCQjk0mxG+MJu8qA+DDnGZnWlIxaijNp1Ja4P9LOWNENStOXpv3DEJKUzW
-         VoenYY3KC67voxwUJq/os5zvaoGwyV0Zkrn5YeJiD48joUBIdGXUB8rv//0bxINqGZI/
-         9uVB6MCAnCDAZLxSdT0fOSPMN0Qre4NAKgSY9dfQIlKj+7AqzGOeSk2qDNKRmbFVCK4L
-         25JSy/ks3M7cqLAp43cwiUg6YFr7fRodlMV5Vlrx+NiReAPLE/CN3Lg9dtGnB6A9Os/N
-         vj2dcAE23s18ZUZh4NeeldJoavcJK25ffmu2Gzz+A0riO1OJVmsNXNqRtqFVNuDRxh1+
-         Fphw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793692062; x=1794296862;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SiS3bHGXKer+FG4HYVMft9Z05AkVrzfkAsqiHFppr9E=;
-        b=qUJAcglQq3q8pkEDfktalZOBpRD/hflJMQg7xpP1m0M3kHreiCZqEHcKIgxLko4FGr
-         nQu3VYH9TUc5/0wVUZdMmpGdoDyh1xPZY2G56EsDnEBvcotnpzNGZ5uPBkR24Cw/+CL7
-         ztY/2CAvlKZ2w3rhJsrqwCzkOlpvalLx/bnQ6EnxRPA6UBNyG9Mfdpa+hpZY3hPNPwia
-         Tf4A82OZ1UTZ/zQ66Bb286kF6A3YeOcqTO5ZWVS6ma/GiD3frRnl7RhOXmSZ0AV38t55
-         V2ZVJxHkEIuLOCHjf/zAWclwE/7nBRhUzhM8/TBNBUOYKviK35YTXKlI1l1VD4rl2oQo
-         9sIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMASSYx4sv9GLc0wb9Wo9F33mq75dw+JMDqdK9Q6MRJuEIKVGskC7XQR3zytq3oO2hCoXoVGI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZR2EAaaPvXJjPS3vx1tUv6S53yWDMOs366qw/mRUCyLR3auHs
-	YtLwmCCt5BeceFiSSION6buQiY43CXsEM7iq4rFO2/yzh2Ezk3NsEFjN
-X-Gm-Gg: AYBFou20Os5VNRcdzSneAAV3AgcLds+/SRakwsEqs/Z3Z0Yub2wLPaPKVQukOtYw0ed
-	zIyAA5dqbYtgr2OGxUncasnzj+6TCdy2QWCxMqEpEngXvlZD0TQcyWGmTEgUNwuRqUNhiU/kK7c
-	bWx+mlYO5U4uZNFdWnR/oW04SZe9Bv+eFCBYZ3CyQhhXUx7C1fkw/saIqqC/0Iw6BPbe/D6srL2
-	7b0txEp5uDDuYuGHEf0dcguzOTv4e9Xqt25yWzUqhU6wnc/QzFbJBoEdRyQVM+LHvCSmoO2KSXf
-	mChnRAWuDvrO67aMeFDb+6eSWZGixYU5so5eSBeQUU2Hh8qyNAx0KsJXrc9PzecjLtwSZW+siur
-	6A6fHBosamH3Zl0aplDLdwbrOIx6xGYWtZO2GwLV0YW/QC3DyAnHT/jTu87OY8D6NNF1TR+6F2P
-	L/wGxWL260ajKyqnFcn/G/JM3W/muWNENI/TnaV/bh+49l1a66rWR1BkRpQNzt5vfo/F56zFeFr
-	UHUv8Vx/bsCxwt7mybtdw9HEL6WJ0BS+LzmeHANpTcGFtgskhmj108A6NPrBtxCLM3++6gokcMv
-	243TFWXynYpEF7WZa1LpCKF28B2pHs0edD7J271enUUw+/U=
-X-Received: by 2002:a17:90b:2882:b0:3ac:8897:7b9d with SMTP id 98e67ed59e1d1-3ae89574cd6mr10822931a91.1.1793692061739;
-        Mon, 02 Nov 2026 23:47:41 -0800 (PST)
-Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb364a04b8sm874530a12.21.2026.11.02.23.47.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 23:47:41 -0800 (PST)
-Date: Tue, 3 Nov 2026 16:47:36 +0900
-From: Hyunwoo Kim <imv4bel@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
-	davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, martin.lau@linux.dev, john.fastabend@gmail.com,
-	weiwan@google.com, sd@queasysnail.net, jiayuan.chen@linux.dev,
-	netdev@vger.kernel.org, stable@vger.kernel.org, imv4bel@gmail.com
-Subject: Re: [PATCH net v5 2/2] net: restore refcount ordering for lockless
- socket access
-Message-ID: <aumRmClW0OQ3iJzz@v4bel>
-References: <20261029214219.1035176-3-imv4bel@gmail.com>
- <179365718192.3131.3817815695107204474@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=N0oJYIFC
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31iM5X3334071;
+	Tue, 3 Nov 2026 07:47:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ywb3iI
+	VgvCE4CPowLXS8mRRRlJiLr6YNngOnRe7C5DY=; b=N0oJYIFCSF8JpG1TsU804t
+	ClzV07I54bK9Etsw/oOwRLgWA/kCWU8dZNMO0oVFgGcM3c/+hxaFw5bX1ugj+GTy
+	xqU0bO4Ulzb89//+MJKVGSmiKZlaoECLc9g6enkLla4Awq4DJ4NZZNPg3sb0fJuZ
+	ODT8C5F0AkXOPPE4g5AIec0vIHRVdGIM03XE4merk5mQoIZFDqA6Tm42h2e5Agg4
+	YvELgISEevrkok/j/OVgAdwxt+y5ddY7C006J6LVVHbKklB2+l/VdWntJoAdiwzJ
+	ANg9dabUb1Sbu3y/vxlY12vAnOI7V1K0GsjmkmvqR4lXfXV0F8UNWfX0PUFL7DFQ
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rd4bp6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 07:47:25 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37dFQN1799421;
+	Tue, 3 Nov 2026 07:47:25 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hntnq1gf6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 07:47:24 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A37lLfG9961942
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Nov 2026 07:47:21 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3EFC520043;
+	Tue,  3 Nov 2026 07:47:21 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1AB3A20040;
+	Tue,  3 Nov 2026 07:47:19 +0000 (GMT)
+Received: from [9.123.5.65] (unknown [9.123.5.65])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  3 Nov 2026 07:47:18 +0000 (GMT)
+Message-ID: <95e84bb2-ce01-4876-b124-1c756df69b10@linux.ibm.com>
+Date: Tue, 3 Nov 2026 13:17:18 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,162 +85,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179365718192.3131.3817815695107204474@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
+ by LPCR_MER bit
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com,
+        npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org,
+        sshegde@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+References: <20261102091700.253381-1-gautam@linux.ibm.com>
+ <y0bb5vxv.ritesh.list@gmail.com>
+Content-Language: en-US
+From: Narayana Murty N <nnmlinux@linux.ibm.com>
+In-Reply-To: <y0bb5vxv.ritesh.list@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: Li_tZ5OxQz3SydmraBcipiYPYhGns1Xg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzMCBTYWx0ZWRfX3t7VggVcsU7q
+ GkneIvyfvRzxZJ/C4ovNf2L+F6HNKQqqoY19zEba6TpX3IcHMeaXGY5oG5+70Yk8/2l7Ynd911G
+ ZKKN84vKSFqWGQzWw/sVBiRFnFvqhEp+d27R0Bzs10L0K3FkbAInr8oH4Mw4Gm0fZYIqz/VQU4e
+ AttKoSb1e88j/9/XXr+S4jZo9WXAYPoUU/RG6P4f2p1GyowyLoKvrFheTxFe8FsDfrxD8/c4dD+
+ wJsUO6EGa2+SCiLPrnRQCRkX8AHlxEAPMN0BU3dOmgz4MeQDBDbrp7yorQCDahP+0OGPydTXLkG
+ LuKQx6pF6PmunaLBdrpz0rvIFWyONeprRA5CdI5v5bBYRjBBhVXOodUp9MLgPjAbNI5LWliVQna
+ SueU3eJ254WWRheG0ybHH69CoBdrgvkH6JuHF2bmW2ahUSssx46WgxMaX5eG0v46XqrK/Mq4/WJ
+ b+Kvid5MUUS+v/GEP2w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzMCBTYWx0ZWRfXzg95JroL+ZG1
+ udCWWSx6aEF5ii4tAe+STrDeSRSx77LdU7zvfiJxId4J/WubPj9HsK97hArKJMp87PoSy20livM
+ 5cpkMF7t55ldbUztl02rkk5ZBIskv+w=
+X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6ae9918e cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=yKAn6K1XAAAA:8 a=VnNF1IyMAAAA:8 a=_AprYWD3AAAA:8 a=pGLkceISAAAA:8
+ a=7Tt6I7ke2-PkhW0PcloA:9 a=QEXdDO2ut3YA:10 a=6M1ixcW_PCWoKiWyFx5v:22
+ a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-ORIG-GUID: jvdTlFSGtb2PleFbR40VWW8gx4DzFdKl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030030
 
-On Mon, Nov 02, 2026 at 10:06:21PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 2 · Medium: 0 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The bpf_sk_assign() change in net/core/filter.c does not fix the
->   problem that its Fixes: 27e5203bd9c5 tag points at.
-> - [High] The patch is titled "restore refcount ordering for lockless
->   socket access" and converts lockless lookups "where the socket is…
-> 
-> --
-> 
-> net: restore refcount ordering for lockless socket access
-> 
-> This patch switches the IPv4/IPv6 established lookups, inet_twsk_purge()
-> and bpf_sk_assign() to refcount_inc_not_zero_acquire(). It also uses
-> refcount_set_release() when setting refcounts in the SYN cookie, TCP Fast
-> Open, request migration and TIME_WAIT paths.
-> 
-> > diff --git a/net/core/filter.c b/net/core/filter.c
-> > index 09c60a58c82ab..d832d3332c6f9 100644
-> > --- a/net/core/filter.c
-> > +++ b/net/core/filter.c
-> > @@ -8022,7 +8022,7 @@ BPF_CALL_3(bpf_sk_assign, struct sk_buff *, skb, struct sock *, sk, u64, flags)
-> >  	if (sk_unhashed(sk))
-> >  		return -EOPNOTSUPP;
-> >  	if (sk_is_refcounted(sk) &&
-> > -	    unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-> > +	    unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
-> >  		return -ENOENT;
-> >  
-> >  	skb_orphan(skb);
-> 
-> [Severity: High]
-> Does acquire ordering here fix the unreferenced BTF pointer case that the
-> Fixes: 27e5203bd9c5 tag refers to?
-> 
-> Acquire only orders the accesses that come after the increment. In
-> bpf_sk_assign(), every check on the socket runs before it:
-> 
->     if (unlikely(dev_net(skb->dev) != sock_net(sk)))
->         return -ENETUNREACH;
->     if (sk_unhashed(sk))
->         return -EOPNOTSUPP;
->     if (sk_is_refcounted(sk) &&
->         unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
->         return -ENOENT;
-> 
->     skb_orphan(skb);
->     skb->sk = sk;
->     skb->destructor = sock_pfree;
-> 
-> After the increment there are only stores. Nothing is checked again.
-> 
-> The verifier's btf_id_sock_common_types accepts plain, untrusted
-> PTR_TO_BTF_ID. tcp_prot and tcpv6_prot use SLAB_TYPESAFE_BY_RCU, and
-> sk_destruct() frees sockets without SOCK_RCU_FREE right away through
-> __sk_destruct().
-> 
-> Given that, can this sequence happen?
-> 
->   - socket A passes the netns, hashed and sk_is_refcounted() checks
->   - A is freed and its slot is reused as socket B (maybe in another
->     netns, or not hashed yet), and B's refcount is set
->   - refcount_inc_not_zero_acquire() succeeds on B
->   - B is attached to the skb without being checked
-> 
-> inet_steal_sock()/skb_steal_sock() then deliver to the prefetched socket
-> without checking the netns. That would get around the -ENETUNREACH check.
-> 
-> sock_pfree() and skb_steal_sock() also call sk_is_refcounted() again
-> later. If the reused object's result differs, could the reference taken
-> here leak?
-> 
-> This race doesn't depend on memory ordering, and it existed even when the
-> increment was fully ordered. The established lookups changed by this
-> patch re-check with inet_match()/inet6_match() and
-> hlist_nulls_unhashed_lockless() after the increment, then call
-> sock_gen_put() and retry. bpf_sk_assign() has no such step.
-> 
-> Would it work better to redo the netns, hashed and refcounted checks after
-> taking the reference and call sock_gen_put() on a mismatch? Rejecting
-> unreferenced pointers here would be another option.
+Hi Gautam,
 
-This is beyond the ordering fix and would complicate the patch. I'll 
-address it in a follow-up patch.
+Thanks for the update.
 
+On 02/11/26 4:42 PM, Ritesh Harjani (IBM) wrote:
+> Gautam Menghani <gautam@linux.ibm.com> writes:
 > 
-> > diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-> > index b0239d203f045..860145d810ed4 100644
-> > --- a/net/ipv4/inet_hashtables.c
-> > +++ b/net/ipv4/inet_hashtables.c
-> > @@ -550,7 +550,7 @@ struct sock *__inet_lookup_established(const struct net *net,
-> >  		if (sk->sk_hash != hash)
-> >  			continue;
-> >  		if (likely(inet_match(net, sk, acookie, ports, dif, sdif))) {
-> > -			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
-> > +			if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
-> >  				goto out;
-> >  			if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
-> >  				     !inet_match(net, sk, acookie, ports, dif,
+>> A huge number of spurious interrupts can be seen immediately after a KVM
+>> on PowerNV guest boots up in XIVE mode.
+>>
+>> $ cat /proc/interrupts  | grep SPU
+>> SPU:     223705     192439     273526     147623   Spurious interrupts
+>>
+>> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+>> Handle pending exceptions on guest entry with MSR_EE"). The root cause
+>> is that once LPCR_MER bit is set, it is supposed to be reset by
+>> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+>> not exit back to the host until the decrementer expires or there is an
+>> hcall, etc. This is because KVM on PowerNV guests have support for
+>> native XIVE, so they are not dependent on host for interrupt emulation.
+>> Due to this behaviour, a huge number of spurious interrupts are seen
+>> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+>> vCPU exits to the host.
+>>
+>> Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
+>> available (currently in case of KVM on PowerNV only), as the XIVE hardware
+>> can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
+>> functionality is not required. This reduces the number of spurious
+>> interrupts drastically.
+>>
+>> Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+>> Cc: stable@vger.kernel.org # 6.8+
+>> Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+>> Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+>> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+>> ---
+>> v5:
+>> 1. Drop the redundant check for the presence of the native XIVE
+>> device. (Ritesh)
+>>
 > 
-> [Severity: High]
-> The commit message says the change targets lookups "where the socket is
-> validated again after taking a reference". Should the MPTCP token lookups
-> be converted too? They follow the same pattern but still use plain
-> refcount_inc_not_zero():
+> Thanks Gautam for confirming that.
 > 
-> net/mptcp/token.c:mptcp_token_get_sock() {
->     ...
-> 		if (!refcount_inc_not_zero(&sk->sk_refcnt))
-> 			goto not_found;
+> The patch looks good to me. Feel free to add:
+> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Using kvmppc_xive_enabled(vcpu) looks sufficient here since
+KVMPPC_IRQ_XIVE specifically represents XIVE native exploitation mode.
+It also preserves the required behaviour when switching back to XICS and
+when the in-kernel irqchip is not being used.
+
+The earlier case where both BOOK3S_IRQPRIO_EXTERNAL and
+xive_interrupt_pending() are set also remains handled by the outer
+condition.
+
+Reviewed-by: Narayana Murty N nnmlinux@linux.ibm.com
 > 
-> 		if (READ_ONCE(msk->token) != token ||
-> 		    !net_eq(sock_net(sk), net)) {
-> 			sock_put(sk);
-> 			goto again;
-> 		}
->     ...
-> }
-> 
-> mptcp_token_iter_next() does the same thing: it increments and then checks
-> net_eq() again.
-> 
-> mptcp_prot uses SLAB_TYPESAFE_BY_RCU, and mptcp_sk_clone_init() clears
-> SOCK_RCU_FREE on established msks:
-> 
->     sock_reset_flag(nsk, SOCK_RCU_FREE);
-> 
-> So an msk can be freed and its slot reused while an RCU reader still holds
-> the address.
-> 
-> On weakly ordered CPUs, can the token and sk_net loads in the re-check run
-> before the increment? If so, they could see the old object's values, and
-> the lookup would return a referenced msk for a different connection or
-> netns.
-> 
-> Callers include the userspace PM netlink operations that look up by
-> token, MP_JOIN handling in subflow.c and syncookies.c, and the diag and PM
-> iterators. HMAC validation would probably reject most of the MP_JOIN
-> cases.
-> 
-> mptcp_subflow_reqsk_clone() already uses refcount_inc_not_zero_acquire()
-> on the same msk objects.
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029214219.1035176-1-imv4bel%40gmail.com
+
