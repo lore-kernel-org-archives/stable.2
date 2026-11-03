@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741473;
-	b=hVB8mTVXhotPJWlg8n83se9tg4g0e/1Bl5TH5MOHoEgx6wvISABXdapxKE9mch2uGczG
-	 bIvq7b7jSn1qS9tGgtPZtxT1xE2oUaDUv2GnrEBMYujXEbJWvYC9wFqPINojKgUrrrLLB
-	 KIXO+gwb9WGoeUZTdKdMEDbf4iHVx+oiyWG1oWmmjK4ldGpTySfxd55EGK5QSjAdxgh+T
-	 Gg2FLot+Y3WC4dSoioXSn76uN+9zUvCTHtF+vMzHSKU+/QiJ2AQi+XO7eTLHxDN0lLRdJ
-	 dEXcGzRf8p0upHtFrXS2bwC6MgHsN/hmJ661dcWCu6AVrLMnswBO/RbEPuMq4YyrCsA==
+	t=1793741480;
+	b=ohTkNndnJRQ47ZjJYFra5CUi8qoUKGOxGc7+WZcnS/YVyPKwcJPGtgCGKUorTTrrMkAQ
+	 /hhMW8ajzp3qEJZ0La9CkHFaV8mENQgOp6RzFF7bL76gnVok1xJm90BabRv+4P5T6VTha
+	 ODyoJUVVrTrgbDRpHsz0QEAYyV5NNTrohtrCUfOShGtP3ayG882mqonfS9OPMasaiLdUf
+	 Fyu+4GyjL3OQdl9W7QSZqfH9UP+yHbGn1MvnMPkkrgo3lPlN18QaVpDjegwXk0hL2UfDm
+	 hrMxypRFV+k91rk4SD7jg1UdmLMrN0N85PgG9aRPvCbvqXYWqulKnoEvIekCtREgCrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741480;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=f0ma+jHzcciETFu2F4xi1pN1CPcSp4hOEtFv0IsiDV4=;
-	b=Zi40DGrs6JwS4dJ3MnXo1EQEP6UbNoWfXDDMx5ksjujXGUs+2awCXTJkq8xkgxDsBzfg
-	 SAluOd6c6JasnPuqoLxPTvMmQ7pBIagA45YoDUvKQhQcv8tu5EmxpkoV6ktLkCqvhJyaz
-	 1EIL4ATsw/qH0hBB2Y5ssGD4ye5bAwHHtjZWr1mScj1tLK9XsQdIoeGrm1cIW9GHrXPbD
-	 DMi4S4f2TBnXlOriTmLyfU7rMWzB1+Jn+/4oT5VNOITG5+AX8NFPvCWd7f+oyKSwyjbQJ
-	 52QvUQZkWH4ZKE9CPFnrsZh+NbbDq6wHC4VQWuoYhV9mxuE5YO7UH9caGFnCCszLriA==
+	bh=gZ+IfvaF5tbCPxuo34K4rqwnsNUTstyEef0/kpMSmY8=;
+	b=WUy5c04t8sD/LckLAirNo9MclEogccepLkm1xA9LIR1waLJUkzegFLgpXA+BT5XSo8G5
+	 DcVTkqrasR6nCvtPhXP33pJc8vpsyOUGdGQJgQ7nN1qkN+vS7RrqC4nndp+Egcc4t3LUf
+	 gBrIJOlPlcRyYOIv/URHL55QI4ZAnSiQqLAzYtJim7CzZssNbegI5X1poGg4rsRUiSCfY
+	 2GG8tab3UWq1p35aYMYhLpksSglG9ZbNJiyATl4aJSfpaeWOGg2NVPw/LqJ2JltjHMMjd
+	 01evqdALk+xoO3B22xGq6t9Ms2nnH2o3ZAkJVP9gEc/D9lS28AgCDVZr4OsTW1zwL6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fr4Psa/B";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhAiVRSu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848BE606A326;
-	Tue,  3 Nov 2026 21:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4514D606A326;
+	Tue,  3 Nov 2026 21:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fr4Psa/B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EDC21F0093A;
-	Tue,  3 Nov 2026 21:31:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhAiVRSu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6022B1F00A16;
+	Tue,  3 Nov 2026 21:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741473;
-	bh=f0ma+jHzcciETFu2F4xi1pN1CPcSp4hOEtFv0IsiDV4=;
+	s=k20260515; t=1793741480;
+	bh=gZ+IfvaF5tbCPxuo34K4rqwnsNUTstyEef0/kpMSmY8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fr4Psa/B2JpwdpKsWn4kacWBVEmwIR9mGxLeXDKCcfoVujwzps+XBrF7qnJ6LEgK0
-	 MUlkzd2LzQQ4VFcrTG6mkfOzNG7xuXexVUuwVuy5u8BjhjrfmfSX9VHLla+lI0LzOX
-	 7Nq38h4yFwiT81Dsn5HqCqCHTEKV4bp9spFUQs7cX6led9HyS2W+JOkMYsE7Zzhbfr
-	 Sa9Hz++1mamyR38F1EZhg1J1ec1D5YZKWEkQ3pPFoCy4zwSoEIE5aUxnKUHwF/o8Gy
-	 /2MsmpHL4PntxfTSP2F0TeFLF+JwKGaewegHhohmNespDtKihaIHqoktlGwdRgm0z8
-	 rF6+O3CnKG/dA==
+	b=WhAiVRSu9jzcd65HdbyoWO7rT1rJCeYt6TUzTSc7DoKfgzZyucaH1BPISvdtDaTGk
+	 fCKzVmCq8pAI5ulbBOXkCpUeP4tbTIQjPgIA/oeiXWc7M0n1OlWhOVq1VYHsvgA/9N
+	 mGj4T/zo9jmcg60SN66wdthdKNMTpUxNbcWSr3SHcAhY5JZYUgJ/2xai2dIN+xSSAu
+	 WaPSHAy+eqifAbI08C7qQQIbc8fAJW7l2rzJVM6awOYLfArul+DIOaHXwcTVbd5FEk
+	 xhbBgjnKrERb0oDvMRAP3+fRxvtsRiaWRzLVnoMBd8yM7Fa2G17WUHIZGMd6T4AJM6
+	 5MSXSMrbP/TQA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Sean Wang <sean.wang@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	"Ryder.Lee" <ryder.lee@mediatek.com>,
-	linux-mediatek@lists.infradead.org,
+	Ajay Kishore <akisho@codeaurora.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
 	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
+	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] pinctrl: mediatek: Prevent divide-by-zero for pins with fixed drive strength
-Date: Tue,  3 Nov 2026 21:29:14 +0000
-Message-ID: <20261103213002.1673560-10-lee@kernel.org>
+Subject: [PATCH 10/10] pinctrl: qcom: Check qcom_scm_io_readl() return value in msm_gpio_irq_set_type()
+Date: Tue,  3 Nov 2026 21:29:15 +0000
+Message-ID: <20261103213002.1673560-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103213002.1673560-1-lee@kernel.org>
 References: <20261103213002.1673560-1-lee@kernel.org>
@@ -68,69 +67,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mtk_drive[] only defines entries for DRV_GRP0 (1) through DRV_GRP4 (5),
-leaving mtk_drive[DRV_FIXED] (0) zero-initialised with min = 0, max = 0,
-step = 0, and scal = 0.  If mtk_pinconf_drive_set() or
-mtk_pinconf_drive_set_rev1() is called with arg = 0 on a pin with
-drv_n == DRV_FIXED, the range check (0 >= 0 && 0 <= 0) succeeds and
-!(arg % tb->step) divides by zero.  Similarly, mtk_pinconf_drive_get()
-and mtk_pinconf_drive_get_rev1() divide by tb->scal (0) if the pin has
-drive register fields defined.
+In msm_gpio_irq_set_type(), when pctrl->intr_target_use_scm is set, the
+return value of qcom_scm_io_readl(addr, &val) is ignored.  If the SCM read
+fails, val remains uninitialised and its stack contents are modified and
+written back to the hardware register via qcom_scm_io_writel().
 
-Return -ENOTSUPP immediately when desc->drv_n == DRV_FIXED.
+Check the return value of qcom_scm_io_readl() before modifying and writing
+back val.
 
-Fixes: c28321979ba8 ("pinctrl: mediatek: add driving strength related support to pinctrl-mtk-common-v2.c")
-Closes: https://sashiko.dev/#/bug/linux-d3852d37-6806-4c41-a493-f249dd59d0c6
+Fixes: 13bec8d49bdf ("pinctrl: qcom: use scm_call to route GPIO irq to Apps")
+Closes: https://sashiko.dev/#/bug/linux-a5545ffd-48cc-4856-94cc-4b2dd7968f50
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/pinctrl/qcom/pinctrl-msm.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-index aa15c9e047d8..1243862983b9 100644
---- a/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-mtk-common-v2.c
-@@ -1040,6 +1040,9 @@ int mtk_pinconf_drive_set(struct mtk_pinctrl *hw,
- 	const struct mtk_drive_desc *tb;
- 	int err = -ENOTSUPP;
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
+index 27f06bbc113c..1b46735fc4bc 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.c
++++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+@@ -1105,11 +1105,13 @@ static int msm_gpio_irq_set_type(struct irq_data *d, unsigned int type)
+ 		u32 addr = pctrl->phys_base[0] + reg;
+ 		int ret;
  
-+	if (desc->drv_n == DRV_FIXED)
-+		return -ENOTSUPP;
-+
- 	tb = &mtk_drive[desc->drv_n];
- 	/* 4mA when (e8, e4) = (0, 0)
- 	 * 8mA when (e8, e4) = (0, 1)
-@@ -1069,6 +1072,9 @@ int mtk_pinconf_drive_get(struct mtk_pinctrl *hw,
- 	const struct mtk_drive_desc *tb;
- 	int err, val1, val2;
+-		qcom_scm_io_readl(addr, &val);
+-		val &= ~(intr_target_mask << g->intr_target_bit);
+-		val |= g->intr_target_kpss_val << g->intr_target_bit;
++		ret = qcom_scm_io_readl(addr, &val);
++		if (!ret) {
++			val &= ~(intr_target_mask << g->intr_target_bit);
++			val |= g->intr_target_kpss_val << g->intr_target_bit;
  
-+	if (desc->drv_n == DRV_FIXED)
-+		return -ENOTSUPP;
-+
- 	tb = &mtk_drive[desc->drv_n];
- 
- 	err = mtk_hw_get_value(hw, desc, PINCTRL_PIN_REG_E4, &val1);
-@@ -1095,6 +1101,9 @@ int mtk_pinconf_drive_set_rev1(struct mtk_pinctrl *hw,
- 	const struct mtk_drive_desc *tb;
- 	int err = -ENOTSUPP;
- 
-+	if (desc->drv_n == DRV_FIXED)
-+		return -ENOTSUPP;
-+
- 	tb = &mtk_drive[desc->drv_n];
- 
- 	if ((arg >= tb->min && arg <= tb->max) && !(arg % tb->step)) {
-@@ -1116,6 +1125,9 @@ int mtk_pinconf_drive_get_rev1(struct mtk_pinctrl *hw,
- 	const struct mtk_drive_desc *tb;
- 	int err, val1;
- 
-+	if (desc->drv_n == DRV_FIXED)
-+		return -ENOTSUPP;
-+
- 	tb = &mtk_drive[desc->drv_n];
- 
- 	err = mtk_hw_get_value(hw, desc, PINCTRL_PIN_REG_DRV, &val1);
+-		ret = qcom_scm_io_writel(addr, val);
++			ret = qcom_scm_io_writel(addr, val);
++		}
+ 		if (ret)
+ 			dev_err(pctrl->dev,
+ 				"Failed routing %lu interrupt to Apps proc",
 -- 
 2.56.0.385.gac671c819a-goog
 
