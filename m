@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672124;
-	b=sLmGnEDYdQcoJY/55INCCre+1E+63xbX5BNRQ6v7/StaSXzcTIAOazhjRkqQO3iRue75
-	 mWYX313w9oLAObg3M1UuZM6oeSsYMDSYjAWK1vvcHudXVkv02UOHxDludeIUEwopR6+Pg
-	 8BpjiSCuAM01GitXSJPi4aYjfNSHPFir7J5CjCJefT57l6mt4jyoH8MCUS5rLD9AfIqBw
-	 2OzFiRNdWD8v/Z3xJZYlQhnRl2IJ+4Srl0jJkSkbzHkZFyVz8PTrs97sZ3Micl/TTyPtt
-	 9PVljkEHZ7nQ5jGVU4dTFwHlXie8AP1ylklvYR2gUVPnyTyb0rZebrvXvrXlTwSxHog==
+	t=1793672121;
+	b=YeaFoxq0khjcU/XABDPQ3758rkHmBZW0Z/vOv0bOjLHfPyeAIlvvCotGWhXIt9t8ILmv
+	 D/m7V4Gfhw8Ip3xDV2YMLtI361BNHKzYSdNHGKC7Bgj6L02fvbjem5GruFMZyAlnDaNxT
+	 701AEdVdYp5OZm7HqjN0op25rjFiox4WrKL70nVSnkX+ENCRZsQtpEaS9+mzqvAAt93sN
+	 z0hPILsVgUBn6W++GpCdq1pxIhaXFv53GKotUWvFVHKOLQ4nPsnVeGh0lKsjXpnDSZ1cZ
+	 kRVqZwUkzIC3vQqPfSTjP1kOeJKxIiNZLb6DA9lNrZ7EMHis3wl762sqQsIz7FOyofA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672121;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=neVt8XK40l5Spl2SLbYgOLOq4vMo7oZBDGOXGzyxpzA=;
-	b=LDn+D0EtEPVq7jY0+n6F+7ZHF5F+ma+X2VvFK2nw1viLR8KvQCOORJC6ZAK1cvWbHzbH
-	 hIRL67IhuKy2U1usZesqyDePQVRA2z+lwZu+GsOfnPSrQCcgFHH7kv2pU/Wtj13dP5iLF
-	 yK5qMz37dhb7qHiAJwlnCfAK01y0ITFsd4iPNRa8l407KC6ppwfHMr7TMfuQDlZ6Vfj5I
-	 huiQlq6oW1BWyIPBDNk4xWgQUseud1+eJRUm26oP3k7dJQA/1w6N9iVkQySwl2j5QRZ+u
-	 GCbpUFXXt1OGpBNivt1/nRLGL+gYrpp2ePDYrg+3LpGdbKAcB9bnvIFerPsL59t8Dkw==
+	bh=e85SSk/nwENLnkdPbvygMUXH2VcwgSauiuUzENsl+cs=;
+	b=lEIbGYpo2rHNCThyUQOBExQ7npvue5NM/NEnCxhNednSF9/FPhTXCdUtee17ndaeLoHR
+	 8mHw0n+qpj1HDpVdXhIdeuXdOqbfHi+L0BHc1WBd92NNmKgNC5IqCgHz7IiYbpEwGVr2U
+	 MwW8IQmkudZZ/wzA0GLTIU0yxJrvaIVm8eFxpNT0lAsPqhtNQpqbbaiqK0AcBjDyY8H23
+	 9/XR85YeVPK0XCyca0VKQwEKYsLFKdukzYffpX8qF+b0Kx+aht27T044X/2/pehg13KNz
+	 XaEPPTSfTMQxXKSK8QXXEA30jcOPWtHHRjTfp4WgPn2tn/d31o+xZjuPbu9BOkqwidQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=n1zphTnq;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nYMc8wq4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B66606D803;
-	Tue,  3 Nov 2026 02:15:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C947C606A330;
+	Tue,  3 Nov 2026 02:15:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=n1zphTnq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44BF71F00A1C;
-	Tue,  3 Nov 2026 02:15:24 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nYMc8wq4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651531F000C1;
+	Tue,  3 Nov 2026 02:15:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672124;
-	bh=neVt8XK40l5Spl2SLbYgOLOq4vMo7oZBDGOXGzyxpzA=;
+	d=linux-foundation.org; s=korg; t=1793672120;
+	bh=e85SSk/nwENLnkdPbvygMUXH2VcwgSauiuUzENsl+cs=;
 	h=Date:To:From:Subject;
-	b=n1zphTnq/6bO96Fy9uHpCnKgW947XM1eYmhG5HyIwm7C3YnqONVHqJpfsvFWPvd68
-	 COVmuZYuN9857y3TvGTCOW81Vcznw/clmqc4v364rDjC4iDmMiGxNXAzdoCcwfX0tm
-	 2yRN8aQC8WzJtY4ywv49lIXrtcrRM1dC5IOF0SSE=
-Date: Mon, 02 Nov 2026 18:15:23 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,
-	surenb@google.com,stable@vger.kernel.org,mhocko@suse.com,hannes@cmpxchg.org,
-	flyinrm@gmail.com,brendan.jackman@linux.dev,gourry@gourry.net,
+	b=nYMc8wq4+TFqJUsmaBka3gj599HqjwKUv5hEv8Bbc/L0FazRgp6RJUJvKfp69MDfs
+	 6uH1KhONZBmlXVGVRETg+y8zLWyaCJozAkU/6Vy0N4Clra13HLkrjem67cmc0Ei8ke
+	 VwndWtQERCIUv3/wvibXAtjnzTaaoNP/hbIqvTQo=
+Date: Mon, 02 Nov 2026 18:15:20 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
+	stable@vger.kernel.org,rppt@kernel.org,qi.zheng@linux.dev,pfalcato@suse.de,
+	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jack@suse.cz,
+	david@kernel.org,ayushr@modal.com,baolin.wang@linux.alibaba.com,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-page_alloc-let-the-highest-memory-node-recover-from-hopeless-state.patch removed from -mm tree
-Message-Id: <20261103021524.44BF71F00A1C@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-memory-fix-truncation-removing-mapped-folios.patch removed from -mm tree
+Message-Id: <20261103021520.651531F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,79 +55,201 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/page_alloc: let the highest memory node recover from hopeless state
+     Subject: mm: memory: fix truncation removing mapped folios
 has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-let-the-highest-memory-node-recover-from-hopeless-state.patch
+     mm-memory-fix-truncation-removing-mapped-folios.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-Subject: mm/page_alloc: let the highest memory node recover from hopeless state
-Date: Mon, 19 Oct 2026 14:48:50 -0400
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+Subject: mm: memory: fix truncation removing mapped folios
+Date: Wed, 28 Oct 2026 08:52:57 +0800
 
-free_frozen_page_commit() clears a hopeless node's kswapd failures once
-its zone recovers above the high watermark, but only if another memory
-node exists for allocations to fall back to.
+Ayush reported an issue that shmem/tmpfs folios are still mapped when
+truncating them on production:
+"
+BUG: Bad page cache in process ...  pfn:...
+page dumped because: still mapped when deleted
+"
 
-The test `next_memory_node(nid) < MAX_NUMNODES` finds only memory nodes
-with a higher id.  The highest-numbered memory node therefore never
-recovers on this path, and its kswapd stays disabled until reclaim on that
-node makes progress and balances it, or demotion is re-enabled.
+I reproduced the issue with Ayush's reproducer [1] with the latest
+mm-unstable branch, and I got the following crash info.  From the dump
+message, we can see that truncate_inode_folio() is really trying to remove
+mapped folios, which is incorrect.
 
-In many cases, direct reclaim many never fully run against a lower node
-(CXL/kmem), and that means its kswapd can end up full disabled in rare
-situations.
+"
+[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
+index:0x3880 pfn:0x191647
+[  189.171995] memcg:ffff0000cc073d40
+[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
+[  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
+workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
+.......
+[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
+[  189.172026] ------------[ cut here ]------------
+[  189.172027] kernel BUG at mm/filemap.c:155!
+[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
+.......
+[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
+7.3.0-rc4+ #277 PREEMPT(lazy)
+.......
+[  189.183986] Call trace:
+[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
+[  189.184391]  __filemap_remove_folio+0x34/0x160
+[  189.184633]  filemap_remove_folio+0x4c/0xb0
+[  189.184859]  truncate_inode_folio+0x34/0x58
+[  189.185087]  shmem_undo_range+0x220/0x658
+[  189.185308]  shmem_fallocate+0x2f0/0x470
+[  189.185527]  vfs_fallocate+0x128/0x328
+......
+[  189.187078]  el0t_64_sync+0x184/0x188
+"
 
-To reproduce, fill the highest memory node with bound, non-THP anonymous
-memory and no swap until kswapd gives up, then free it: /proc/zoneinfo
-keeps showing node_unreclaimable 1 for that node.  A lower node recovers.
+After analysis, I believe the race exists between truncation and
+MADV_DONTNEED, and shmem's ->map_pages() merely makes the issue easier to
+reproduce.  Since MADV_DONTNEED synchronously releases the pagetable page
+before calling tlb_flush_rmaps(), this could cause another thread's
+truncation to skip zap_pte_range() (due to pmd is none) but still observe
+the folio's mapcount as non-zero.  A possible race scenario is as follows:
 
-Count the memory nodes instead.  Adding first_memory_node != nid to the
-existing test would also work, but a count says directly what the check
-means: some other memory node exists.
+CPU 0                           CPU 1
+shmem_fallocate                 madvise_dontneed_single_vma
+  unmap_mapping_range            .......
+  ......
+  (filemap_map_pages() remap folios)
+				  zap_pte_range
+  truncate_inode_folio		    zap_empty_pte_table(pmd clear)
+    unmap_mapping_folio
+    ......
+      zap_pmd_range (saw pmd none, skip)
 
-Link: https://lore.kernel.org/20261019184850.3427905-1-gourry@gourry.net
-Fixes: e7a5f249e6db ("mm: re-enable kswapd when memory pressure subsides or demotion is toggled")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+  filemap_remove_folio
+    BUG_ON(folio_mapped)
+                                    tlb_flush_rmaps(remove rmaps)
+
+To fix this issue, we should move the pmd clear operation (via
+zap_empty_pte_table()) to after tlb_flush_rmaps() and use
+sync_with_folio_pmd_zap() to sync with concurrent zapping, so that when we
+find a pmd_none() while unmapping a folio without holding the PTL, the
+folio's mappings are guaranteed to have been removed via
+tlb_flush_rmaps().
+
+Meanwhile move the second pmd_none() check to where it belongs: if
+splitting zapped the PMD.
+
+Link: https://lore.kernel.org/14ebbd556cc4941f0ebc43da59fa6a2fdca25dc8.1793148609.git.baolin.wang@linux.alibaba.com
+Link: https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/ [1]
+Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reported-by: Ayush Ranjan <ayushr@modal.com>
+Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
 Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Michal Hocko <mhocko@suse.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Chanwon Park <flyinrm@gmail.com>
+Cc: Jan Kara <jack@suse.cz>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/page_alloc.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/internal.h |   10 ++++++----
+ mm/memory.c   |   35 ++++++++++++++++++++---------------
+ 2 files changed, 26 insertions(+), 19 deletions(-)
 
---- a/mm/page_alloc.c~mm-page_alloc-let-the-highest-memory-node-recover-from-hopeless-state
-+++ a/mm/page_alloc.c
-@@ -2929,7 +2929,7 @@ static bool free_frozen_page_commit(stru
- 		 * kswapd work again by resetting kswapd_failures.
- 		 */
- 		if (kswapd_test_hopeless(pgdat) &&
--		    next_memory_node(pgdat->node_id) < MAX_NUMNODES)
-+		    num_node_state(N_MEMORY) > 1)
- 			kswapd_clear_hopeless(pgdat, KSWAPD_CLEAR_HOPELESS_PCP);
- 	}
- 	return ret;
+--- a/mm/internal.h~mm-memory-fix-truncation-removing-mapped-folios
++++ a/mm/internal.h
+@@ -589,14 +589,16 @@ void free_pgtables(struct mmu_gather *tl
+ void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+ 
+ /**
+- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
++ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
+  * @mm: The mm_struct.
+  * @pmdp: Pointer to the pmd that was found to be pmd_none().
+  *
+  * When we find a pmd_none() while unmapping a folio without holding the PTL,
+- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
+- * indicate that it's unmapped. Skipping the PMD without synchronization could
+- * make folio unmapping code assume that unmapping failed.
++ * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
++ * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
++ * for the table have been removed, but nothing orders the pmd_none() read
++ * against later mapcount reads. Skipping the PMD without synchronization
++ * could make folio unmapping code assume that unmapping failed.
+  *
+  * Wait for concurrent zapping to complete by grabbing the PTL.
+  */
+--- a/mm/memory.c~mm-memory-fix-truncation-removing-mapped-folios
++++ a/mm/memory.c
+@@ -2036,6 +2036,15 @@ retry:
+ 		}
+ 	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+ 
++	add_mm_rss_vec(mm, rss);
++	lazy_mmu_mode_disable();
++
++	/* Do the actual TLB flush before dropping ptl */
++	if (force_flush) {
++		tlb_flush_mmu_tlbonly(tlb);
++		tlb_flush_rmaps(tlb, vma);
++	}
++
+ 	/*
+ 	 * Fast path: try to hold the pmd lock and unmap the PTE page.
+ 	 *
+@@ -2043,18 +2052,12 @@ retry:
+ 	 * to hold the pmd lock failed, then we need to recheck all pte entries
+ 	 * to ensure they are still none, thereby preventing the pte entries
+ 	 * from being repopulated by another thread.
++	 *
++	 * Clear the PMD after the rmaps for the table have been removed, in case
++	 * an incorrect mapcount is observed after unmapping the folio.
+ 	 */
+ 	if (can_reclaim_pt && direct_reclaim && addr == end)
+ 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
+-
+-	add_mm_rss_vec(mm, rss);
+-	lazy_mmu_mode_disable();
+-
+-	/* Do the actual TLB flush before dropping ptl */
+-	if (force_flush) {
+-		tlb_flush_mmu_tlbonly(tlb);
+-		tlb_flush_rmaps(tlb, vma);
+-	}
+ 	pte_unmap_unlock(start_pte, ptl);
+ 
+ 	/*
+@@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_rang
+ 				addr = next;
+ 				continue;
+ 			}
++			/* We already synchronized with concurrent zapping. */
++			if (pmd_none(*pmd)) {
++				addr = next;
++				continue;
++			}
+ 			/* fall through */
+-		} else if (details && details->single_folio &&
+-			   folio_test_pmd_mappable(details->single_folio) &&
+-			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
+-			sync_with_folio_pmd_zap(tlb->mm, pmd);
+-		}
+-		if (pmd_none(*pmd)) {
++		} else if (pmd_none(*pmd)) {
++			if (details && details->single_folio)
++				sync_with_folio_pmd_zap(tlb->mm, pmd);
+ 			addr = next;
+ 			continue;
+ 		}
 _
 
-Patches currently in -mm which might be from gourry@gourry.net are
+Patches currently in -mm which might be from baolin.wang@linux.alibaba.com are
 
-mm-mempolicy-recompute-automatic-interleave-weights-on-memory-hotplug.patch
-mm-memory-tiers-reset-demotion-targets-of-nodes-without-memory.patch
-mm-mempolicy-convert-mempolicy-refcnt-to-refcount_t.patch
-selftests-mm-add-madv_cold-and-madv_pageout-contract-tests.patch
-selftests-mm-check-madv_cold-and-madv_pageout-range-handling.patch
-selftests-mm-check-that-madv_cold-and-madv_pageout-reject-hugetlb.patch
-selftests-mm-check-that-madv_cold-and-madv_pageout-preserve-shared-memory.patch
-selftests-mm-check-madv_cold-and-madv_pageout-on-partly-advised-thps.patch
-selftests-mm-check-madv_pageout-file-permissions.patch
-selftests-mm-check-that-unauthorized-madv_pageout-skips-large-file-folios.patch
 
