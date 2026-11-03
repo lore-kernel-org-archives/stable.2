@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723978;
-	b=zww6llB5VSY/uSiHOLZgNzn5seGNzCLMZrzcQ1E7Xgb0ZDkFdq4fCqUMWwv4IRTl3lp/
-	 T6RGVlPYUFnZvEaWdxmwMrnG6imMuFbkfyJ76kCGVspp7nqP2MpLg9IBjPtPJaaNjLaWq
-	 SQVqOJIPpDrXWXVdd03y1qKtNP/LQ48qXlWwWG/stZBizWcuzzc66yGueJfZNdjsu+VES
-	 EzTBMWOhu3YBnP+Gv8inmpx6tXQTq5ETTrDtkhkfvaf57/SWe7pf6/TiiasoH/T/z56Fe
-	 lZJPhmbYeV2b+VeluI5Sm3WuZDq8LMDwX4qmNp446pHpSIkJZCJmUVlaNHHRC+Rw7Bg==
+	t=1793723980;
+	b=IJ1+TaCi1hF+hvsQOcwfgi3RW3TQC7fxSWsm7w0zyX4Yzg/BhxMB5M6emWEXWdmswHzs
+	 /mPAFQ4PkFLULG4BawaLHEskhnhYaJnf10chYJUeQtU0I6vba8Bx0bEsl7pDALXTFEogr
+	 j/FxpXzMngA3akPOBw+Mm6sdc++aqGLKfyoB5XAJ9lmA5R9EuZGsSVWASHEzHmUkmR7Vi
+	 o2QfvUGTVfLJYJtp533Oa0WAWb5PaxoAkUDxcidjbjml07UztPdlLGeQPQNCzOenmpkZP
+	 KKaR+mDMVeE5viWDoMNesYWeAt53FM3tX1NyjpvSr64S/3Q37E3J4W3heU0UpUSACpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723978;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723980;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=91QgwEfxl8W1kdK4arIilG24I1a6A7OWOfpadQ42GFw=;
-	b=UDncc8yRssnRgVizlUrmKRcA3TFgPpNRI9EwNR49OJNlLX3rnMuGQYa8io2gRS+mKsT1
-	 AH0R67p6cjBhXRqjPKDZRDUQiIJnBvAKf7vAAxoTEiebADqFyt2pWANtkgL0Fa8mB6AN7
-	 JssnwGKj36R4lPuiLkNT7NwjUCwwpbiK0rjMLHzEz11nGN9nKUtALq9E7llJK1R+a2hJf
-	 cxHXYOgyBZb0G7ngrsezYJOgnwcYmhsZTrCOFEZfj7g2Oc4wl/MnWoaUKhihAXm/FNoY7
-	 cpNIarpj3rkEPZ0e3WP+8PRzAyefKoqz8wEM38jmpCL0fmlBaIREId95bcXwczyRjww==
+	bh=twVdNlp2Xp2s3R4jnt9dwl/S/l2rHvkyAgM192PTLz0=;
+	b=vYlZ3vmTishid7jG8rO/hPzEIQxmUqHpNH+VCGbaeMPh0O0+tGw8wlCq2zgMnzsFDkPu
+	 au3k2liHH40d/mLbCjXVHKFRIUc/4Eh2gFR6PLPUCzvOxLO7BY2UFIAqBxjBUApAfbcYJ
+	 Zb1cCRX3rOfsXZbh3RwFGbvpai0Vt/mmCXPwhlEZV1ZTFlnQvkMUfCC1Q8BKcDDjd2Okq
+	 Tbq4FUW23+Fqo5nxFz7oyDE8CuKJ81lPGp0xE/laNLIEtKITYKK9GCfSiouo3YbGeMa8+
+	 fLEcCZ7OkUwV2Zw+QWVUaSQgtdsid8Lb4PhcB4OgyA44UgYYqjd6dWFjv4Oq5+tZOVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f2OeKI/m";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D68T2+j6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F20E60A6F47
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:39:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456C3606EEB7
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:39:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2OeKI/m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BE031F0093A;
-	Tue,  3 Nov 2026 16:39:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D68T2+j6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2C4D1F0093A;
+	Tue,  3 Nov 2026 16:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723978;
-	bh=91QgwEfxl8W1kdK4arIilG24I1a6A7OWOfpadQ42GFw=;
+	s=k20260515; t=1793723980;
+	bh=twVdNlp2Xp2s3R4jnt9dwl/S/l2rHvkyAgM192PTLz0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f2OeKI/m4nggdcp50FvYvUnqeH5S+COAMRn5+bQ2Kop3fxVOf9K7Ee8cfcXHbx8P2
-	 k6wYspqC8zed+tTkdqI4BbrnWd+/WfkCDQuWpCa4NNNkQqOlbWH+SMelLqpwNCGor0
-	 HFN0F/XeTb8NnkEKDmxNGIZ6ftw5XcNW7IjoN3ItIsImn37IbAk2PsqRHvolxJQwxy
-	 D3ZH/XBmr7u2tCU8dWEVH0JtMMCYeUVMoVyjwJcpyK7U7Bt2cJlqSunDSysxLBHvXX
-	 eRxTQ0z6kFICvGTXvYpXBcUPHjW0cNIETa1N7yCtDGkFpmaK15dvTZFWOd7qPbLNVR
-	 EVcFEjQqqGavA==
+	b=D68T2+j6x7LsphekoktZGMyA3+W33dQFYnkPNfg7ZKRXLzZi9zJoIduvcDpV5JaDZ
+	 fdh9g/985YqVIdHWGJ4zshumHD//ZVC94E0Qbk48XjzmYpTp8RQ6wfMPCPSKSgtq6R
+	 GwXK0/Z1iUG2ALkB4jZCA5zDBDX9aTy/pcbyzsje8ottSCLVTX45WjOBZvCjNFjBWt
+	 /YceDPiYKhyZKUWvTla6N/rmtk1KMcV+JMTQiHCtJ/TG9eL/xUKG+1M38tSO91mlDF
+	 TWM8FjxudqoNzMKhlDMlp8X5wgq+u2dsToBYRWWKiB6rrMZG61WOVoKW57GlHqI+9/
+	 nxAUh22X0FBcw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
+Cc: Jan Koester <j.koester@act-marketing.de>,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ksmbd: fix session reference leak on compounded SESSION_SETUP
-Date: Tue,  3 Nov 2026 11:39:36 -0500
-Message-ID: <20261103163910.472406-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: ignore network devices of other namespaces
+Date: Tue,  3 Nov 2026 11:39:38 -0500
+Message-ID: <20261103163910.284897-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110318-mountain-transpire-6844@gregkh>
-References: <2026110318-mountain-transpire-6844@gregkh>
+In-Reply-To: <2026110346-accuracy-product-ad13@gregkh>
+References: <2026110346-accuracy-product-ad13@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,78 +61,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ian Bridges <icb@fastmail.org>
+From: Jan Koester <j.koester@act-marketing.de>
 
-[ Upstream commit 03bd8f5279e490e15e0c0f0fa388ffbd2fbacd65 ]
+[ Upstream commit 1f5ce2b8b9164b3fcb93a18fe1e7b451c2fc6eea ]
 
-A compound request can place SESSION_SETUP after another command. That
-earlier command leaves a reference to its session in work->sess.
-smb2_sess_setup() then overwrites work->sess with the session it looks up
-or creates, and the dispatcher later puts work->sess only once. The
-inherited reference is never dropped. That leaks the session, together
-with its setup connection and socket, and every repeat of the compound
-leaks another.
+With no interface list configured, ksmbd binds every interface that
+comes up. ksmbd_netdev_event() does not look at the device's namespace,
+and create_socket() opens the listener in the namespace of the task
+raising NETDEV_UP. A container with its own address on a bridge brings
+up its interface and finds port 445 in its namespace already taken by
+ksmbd, so an SMB server running inside the container fails with
+"Address already in use".
 
-  unreferenced object (size 512):
-    __kmalloc_cache_noprof+0x32c/0x3a0
-    ksmbd_smb2_session_create+0xf6/0x9c0 [ksmbd]
-    smb2_sess_setup+0xda4/0x6280 [ksmbd]
-    handle_ksmbd_work+0x88c/0x1cb0 [ksmbd]
+Interfaces are also matched by name only, so a container's eth0 going
+down would stop the listener on the host's eth0.
 
-Save the inherited session on entry. After the request has been
-processed, release it once, but only when smb2_sess_setup() has replaced
-work->sess with its own session or cleared it. Do this after
-ksmbd_conn_unlock() so the put does not run under srv_mutex. An error path
-may instead leave the inherited session in work->sess. Keep it there, so
-the dispatcher still puts it and the error response is still signed or
-encrypted with it as before.
+Only handle netdev events for devices in init_net.
 
-Fixes: 7aa8804c0b67 ("ksmbd: fix user-after-free from session log off")
+Fixes: 0626e6641f6b ("cifsd: add server handler for central processing and tranport layers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Jan Koester <j.koester@act-marketing.de>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: omitted the installed flag update for the absent early work->sess assignment ]
+[ sashal: Adapted the patch to the older ksmbd implementation location. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smb2pdu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ fs/ksmbd/transport_tcp.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5f752434be3cf..ef851d5c605b4 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -1707,6 +1707,8 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 	struct smb2_sess_setup_req *req;
- 	struct smb2_sess_setup_rsp *rsp;
- 	struct ksmbd_session *sess;
-+	struct ksmbd_session *prev_sess = work->sess;
-+	bool installed = false;
- 	struct negotiate_message *negblob;
- 	unsigned int negblob_len, negblob_off;
- 	int rc = 0;
-@@ -1844,6 +1846,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 		conn->binding = false;
- 	}
- 	work->sess = sess;
-+	installed = true;
+diff --git a/fs/ksmbd/transport_tcp.c b/fs/ksmbd/transport_tcp.c
+index c0a038666ec34..ac34fc15b0c13 100644
+--- a/fs/ksmbd/transport_tcp.c
++++ b/fs/ksmbd/transport_tcp.c
+@@ -514,6 +514,15 @@ static int ksmbd_netdev_event(struct notifier_block *nb, unsigned long event,
+ 	struct interface *iface;
+ 	int ret, found = 0;
  
- 	negblob_off = le16_to_cpu(req->SecurityBufferOffset);
- 	negblob_len = le16_to_cpu(req->SecurityBufferLength);
-@@ -1997,6 +2000,14 @@ int smb2_sess_setup(struct ksmbd_work *work)
- 	}
- 
- 	ksmbd_conn_unlock(conn);
-+
 +	/*
-+	 * Later in a compound, work->sess holds the reference that an
-+	 * earlier command took. Drop it once this request has installed
-+	 * its own session there or cleared it.
++	 * ksmbd serves the initial namespace only. create_socket() listens in
++	 * the namespace of the task raising the event, so a container bringing
++	 * up its own interface would get a listener on its port 445, and the
++	 * name-only interface lookup would let its interfaces stop ours.
 +	 */
-+	if (prev_sess && (installed || !work->sess))
-+		ksmbd_user_session_put(prev_sess);
- 	return rc;
- }
- 
++	if (!net_eq(dev_net(netdev), &init_net))
++		return NOTIFY_DONE;
++
+ 	switch (event) {
+ 	case NETDEV_UP:
+ 		if (netif_is_bridge_port(netdev))
 -- 
 2.53.0
 
