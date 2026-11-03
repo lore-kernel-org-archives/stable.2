@@ -1,58 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704090;
-	b=MLFoBE2/BgCHfa+FOcv6YIl3v6tCUkkK0IAzwwyGUU1GE0r9kzdiIdP4VjMirWIqs0uG
-	 V4YKXn0Lz/zJFOnTSekv8Hj0JFMtfeQvOhqhbdHVmuJq6OvB5Kb/XLLq5bGg1P8ohEPTH
-	 nJIV+Dn/DxA2FhZB/UjSyEFR6egq3z0dWOp4KdQU0XP2zfYbkM2QTlcThI4WY0H80R+KX
-	 4hM3ZalSm5oYsI70FpYAVQnDBW/WV8tTcT8Bw8XPHjuSc9pMGTeowvTxiQITxfCyvdNJG
-	 oAptj9bxn9X2RU6K/ojyaFaUbfnn5mqLRoo586EHT2mqw1WqUnopTt4cU24BbjMGRfw==
+	t=1793704194;
+	b=lQmBiW3vU41XlhkCMvY46fkklwA4uTTasIskMGLU6elsfd+QVj/Hq3mUAV/SBR017Gyg
+	 B1yKxetukh2KTHKtG0YXcnOXS1XA6254T9h1scSKCdefby1QBylDTwsyAaU04/yP+L198
+	 RZ1OBr1H9vkmPEYy3y2dTS6SPjKZGE92bub3NAP6Qp1IZ1JBPOAmoUuk1zUJN8TYgtLf2
+	 FXoLR4jwYZ5xCVRyC+PXNNpOWoMXCTZnE2/4igJyQKQdOuNJJ9FdWK9wIaFbWZlZoJBR1
+	 /RbX2w2Om9i5iYtrt5oc4qbEX/Lnd9KbuYMnkmBKoiOgy5Ukj4kLzf4lvVIsdyAH/qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704090;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ezxKqPDG6zEQ77ixrycuzPTXy5tSjoq5DZ4sHQT5GiQ=;
-	b=K9MbPQ9SAGzgVyUT3Z4p6ylLLKo+6lLa3gPsYrpj6tYMt9jzdUIj7RywtexOBEr6OKWO
-	 aucWEE7Dx8O42HwhW6Nnc3qtmnp5hg20qiqMzxr6I8y9sMt+4e21aqnErmCY5VkSfnM4d
-	 ypZ5enMwb4kKXVb+hpo3WvLa1J3z2Q62GyLyAUq4Xk5D2/4M/TvSrzmoxYM1Q6UlvHLDD
-	 NQG1r6n2g4VTLI0cvzq8tKbMb8uawBkMPOjt62JtufDR+o6U2X11OEjhPAsceBiXQ0la3
-	 rj+u+5PVYWEYTwqA+qVc+gJe2rtX4UJVbHet/G3Nhi7Czutq28p6b4Esu44eiKjqxBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704194;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LTHXXlDvE713od3uIOfQGQRnvGRs7eiBzcZTb3Nu4MM=;
+	b=cyXcoeQu0PzalkNZQHJkw2R9Q98GiYZeOcuQ30vvU2iJY9l0HRhEsHLX28l3unGLxWAf
+	 nNiGbMeCzqpFAGgScMLU1fnM+n9kNmH4sozrbODcSJAdvE3hylvET/uKMvQPtaOlOdTNQ
+	 asRI1cE5c/fV7ed2xovIR8kUd/Eae6OWms/yi0jrW0IZHFiCggNHpQwmkQj22mQ+brmvk
+	 HdJ2DW7Lj7ctLWWldCkZZR9COLJrNPAQ4WslqeGdNPBt5COcFeMcxXMZJzvrQO5w+GQjC
+	 t0AR7vb97Tqc1lxb2ZKQU55OsVy6yqb14g78fEFBLfv4ejuluPk53A6ziHa8QSV6Xrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=KXTRFL6G;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQ8NJxvd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8623606A326;
-	Tue,  3 Nov 2026 11:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8623606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68391606B126;
+	Tue,  3 Nov 2026 11:09:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=KXTRFL6G
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793704084; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=ezxKqPDG6zEQ77ixrycuzPTXy5tSjoq5DZ4sHQT5GiQ=;
-	b=KXTRFL6GyXRKBM4cBDV0x36BbMMLrwLFsSupaBWFR9b6zfavvXqVY/Rr0Fong4o3La1dM8VH07g+P+55kcCwmkhkGvZU36zkE3S+aT1TRzOsBNuNY5fX6kqMHzgs+7Au7x+ILRgWRqTcCllygi3pX6U1+GtUNx0QoRXIEi1iEok=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XE2a2PR_1793704083;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE2a2PR_1793704083 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 19:08:04 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: Steve French <stfrench@microsoft.com>,
-	stable@vger.kernel.org,
-	linux-cifs@vger.kernel.org
-Subject: [PATCH 6.6.y] ksmbd: fix breaking_cnt leak on early return in oplock_break()
-Date: Tue,  3 Nov 2026 19:08:03 +0800
-Message-Id: <20261103110803.2517085-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQ8NJxvd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D6491F000C1;
+	Tue,  3 Nov 2026 11:09:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793704194;
+	bh=LTHXXlDvE713od3uIOfQGQRnvGRs7eiBzcZTb3Nu4MM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bQ8NJxvdYbrmLsWPkMTMUq4/uW0EkYr9rXiXTSFD/B8lHEtAOf+wnbAKmG1GWt8Cf
+	 +Nm96tuyHs67iCgx9MT63+krq9GM65Iu31bM1isrSWNT0PnXyQZhtMCO5+V/LkTEGR
+	 h8GvUzh5uKiE276W5306FwhojrZX1uIdSjQcSpOGiGeVIoenbseoadSnsBnVI8dL+S
+	 f6F/h5k/Jm+NmRmrak2vfKYmDGv1O42V5HkPqj3ndi6wRQ+9Qwkbr7IElCP06uhQqp
+	 td/5Kv05yxF3jXwAq6DpuR3OfKnvqSY9rUJyC00iSWIlLruyVDmsNluk/JUbkFuGo4
+	 6yD8IRaMLHEZw==
+Date: Tue, 3 Nov 2026 12:09:51 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>
+Subject: Re: [PATCH] of: unittest: fix node leak in phandle remapping test
+Message-ID: <20261103-light-vigilant-quail-e2b3dc@quoll>
+References: <20261103104235.1373591-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,60 +57,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103104235.1373591-1-vulab@iscas.ac.cn>
 
-For leases, oplock_break() increments breaking_cnt before calling
-oplock_break_pending(), and returns early when the pending check
-reports nothing to break: the level is already at or below the
-requested level and, for a lease, the state is not HANDLE|READ
-caching.  Neither early return decrements the counter, and
-wait_lease_breaking(), the only place that force-clears it, sits
-below those returns, so breaking_cnt stays elevated for the life of
-the open.
 
-A stuck breaking_cnt makes same_client_has_lease() skip lease
-upgrades forever, and every subsequent same-client CREATE on that
-lease is answered with SMB2_LEASE_FLAG_BREAK_IN_PROGRESS, so the
-client never resumes caching.
+On Tue, 03 Nov 2026 10:42:35 +0000, Wentao Liang wrote:
+> of_unittest_parse_phandle_with_args_map() obtains a reference on the
+> consumer node with of_find_node_by_path() and never releases it, not
+> even on the normal exit path. The error path taken when one of the
+> provider lookups fails also leaks the provider references acquired by
+> the preceding iterations.
+> 
+> Drop both sets of references.
+> 
+> Fixes: 357aa4b61c82 ("of: unittest: Add phandle remapping test")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/of/unittest.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
 
-The ordering dates back to the original SMB3 server code, but the
-early return became routinely reachable for leases already broken to
-NONE when smb_break_all_levII_oplock() stopped filtering out
-non-level-II leases in 17699905a381, "ksmbd: fix lease break and ack
-state handling".
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
 
-Move the increment below the pending check so the early returns
-cannot strand the counter.  This is the minimal equivalent of the
-reorder that mainline made in b0148dc5625d, "ksmbd: serialize oplock
-close with pending break ownership".
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/smb/server/oplock.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+3. Your bot does not even bother running checkpatch, right?
 
-diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
-index 6f595756c41fd..ed50dafd70050 100644
---- a/fs/smb/server/oplock.c
-+++ b/fs/smb/server/oplock.c
-@@ -903,10 +903,15 @@ static int oplock_break(struct oplock_info *brk_opinfo, int req_op_level,
- 	if (brk_opinfo->is_lease) {
- 		struct lease *lease = brk_opinfo->o_lease;
- 
--		atomic_inc(&brk_opinfo->breaking_cnt);
- 		err = oplock_break_pending(brk_opinfo, req_op_level);
- 		if (err)
- 			return err < 0 ? err : 0;
-+		/*
-+		 * Increment breaking_cnt only after the pending check
-+		 * above: its early returns would otherwise strand the
-+		 * counter, as wait_lease_breaking() is never reached.
-+		 */
-+		atomic_inc(&brk_opinfo->breaking_cnt);
- 
- 		if (brk_opinfo->open_trunc) {
- 			/*
--- 
-2.39.3
+4. Nothing of this was reproduced nor tested.
+
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
+
+Best regards,
+Krzysztof
+
+
+
 
