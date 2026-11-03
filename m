@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701221;
-	b=eZY4EzImsKefxe02dADXu7Dm1WWL+Oe2RVh0SaCwygRs6m0x23OUjSVLCreAHwuhuVAD
-	 92MF/OYDqmfcFkbsjj0W41ykq31oLAzh3FoAcGUduU4NN4gHsPMWzkxWUrGt40j7qgRvc
-	 Q9FFY0E/3qGsEM32oJ98yqKDZSU6xPsu7Hsry6+7bem83VL2zH3+6RYiBwh6lFSLPP88U
-	 7pH7GAOb2LI573qnW0TxZvY9LFSeeVZhjacK9g7iRySWIMwOx89FHnyLXzXo2pcaG0JVR
-	 KQ3YhI5qbxDRSEuhx4yC6xaCldv7zldz9pZBS408u7lk/suIJ1AUGGlrT0NXxFExuMA==
+	t=1793701230;
+	b=mXR4HLt/+8g2e6gI72ztviorISWkvpxP1VQNiOd7N5xWHwXJQ2m5y41XGGNBnzG9Dmci
+	 wbRJzO5mRkiZd5SEksGcnu2h0BH6QYoD+mCFr0bQs0qOca6Ct///YPHH2YBnSaeXV5vbA
+	 OrKElwdGn0tHDA6mHGsuiAE0ofTqKfzbATlT94q1SX/zM8fw85IUVdInhac1q3NJbxBMI
+	 wG1qVXV2BPuu1EME4zH3m+OY3Uv1E8UUkSGQLWZMYtNI0JmFq4H74O/LfJSEg1XxCf92X
+	 aroz9imcPxONUbL4LQx5mHxOBt5NafCcZpEqSTslD7lw1Zvb18hIOEI+wL9n2Pjc+TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701230;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uLEND9KUb4XGJChcqLcjvq5YDMuPfIEbWaHUotOysFk=;
-	b=IqK+/04A7cJgZ8Zj9fLZJaIybWiZWt4F3W644C0t38eIRwt6iNNPD3ZaQAXvZ0zlTkj6
-	 MeJ1lX77uDxSB8P9OZhLCzf12t4GeFbutI0UXs1Of5O0KO5AliQtR77OoVy4C9Kk3vCF8
-	 ajWuDIEioZKzJr0UqW67y/B426afPgR6yTfL34wunBCmOB9daeMxX2zhVPK9v0mIidQ4X
-	 yO5z3nfMZ9kLd7Evt7lCvFeDC+fHeniD3Huy6eSZ4afPEUhuW39mjjyCJReFQa0k7HW4R
-	 4sCFdREyU1M9FNWHfhbu8gglufWA78yHoUvtqlQ4ctN32MmPYpecOAGNKG6lUetWFHA==
+	bh=2EJXCi/VgyF8v15fNbxqBC+vrmADEe8DYdYs8VcIOrk=;
+	b=nf0+9CwnXt8KfGhs5T4q7k1VC/pV6tYB0/qMBXoD22rY82GW+Zmu7M9Su2rOTsT99bPP
+	 l3l4UMkrRISBI7uVMu4+NodbE1DYhHO2QOD6n7kdWGVpXlHN+Fj8CZUdLg04VHLwSN9ym
+	 y6K4hRN1NpGKMp83Cxas12MdTmgXz3p4ztLllc+WFR+Ym1n8QkiD+S6cRg1cLxxJaoQsx
+	 xB84NTkXrU88MbH8mr8gdltAMFY6T/LkguRhHDTBX71VBmoIIDqZG3FSBQVTz6xAKzS2m
+	 Q8IjpRlzt+1u4xhIafEWbOsZg8b43reIjA5RG/HHN95KbrVb5FiUhhdAMEoQvs6erOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N9RPbKdw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U5tcOg9Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D737F606A80B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:20:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E100606BFBF
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:20:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=N9RPbKdw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7602E1F00919;
-	Tue,  3 Nov 2026 10:20:20 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U5tcOg9Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3659F1F00A1A;
+	Tue,  3 Nov 2026 10:20:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701220;
-	bh=uLEND9KUb4XGJChcqLcjvq5YDMuPfIEbWaHUotOysFk=;
+	s=korg; t=1793701229;
+	bh=2EJXCi/VgyF8v15fNbxqBC+vrmADEe8DYdYs8VcIOrk=;
 	h=Subject:To:Cc:From:Date;
-	b=N9RPbKdwcomQUm8FzVb/ogdRKbxDnKBxYxatudHG/zxlDE1RnRjMV3BbcRb4SAS82
-	 xRnuacYU866jsHyU6Th4MzlEoGi+7VweKo2SANxXd0H1hP/Yp0IS1EdLCYyGyVADM1
-	 c5UXfXB2Y/AvtiX9ylJqxWzL7YHBWqIRr4+ZwNrA=
-Subject: FAILED: patch "[PATCH] ksmbd: validate security descriptor offsets before pointer" failed to apply to 6.1-stable tree
+	b=U5tcOg9QHVll3EXwzCit0oM1H6EjsBde8XL+pkUEP+ORHrWAGX7FSxAKo6/8wdcBu
+	 UfX19Ebipja9ntnVxQ+YP/m8fhZgx04U7WhMr88kpCwRbMZalrlvc2seBROW9xQ43W
+	 +q25khIIB6c1dFemkjQz8C465iKCVJlbqUoEYm7E=
+Subject: FAILED: patch "[PATCH] ksmbd: validate security descriptor offsets before pointer" failed to apply to 5.15-stable tree
 To: linkinjeon@kernel.org,ratnaker.gautam@kuleuven.be
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 03 Nov 2026 11:20:19 +0100
-Message-ID: <2026110319-default-yelp-9aa0@gregkh>
+Message-ID: <2026110319-apple-willow-5e9e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 3474e1a304fbf9f7c996b24adcd519e031227a90
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110319-default-yelp-9aa0@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110319-apple-willow-5e9e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
