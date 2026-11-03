@@ -1,47 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691200;
-	b=bLuNw/uPjHAos3tGA8O75bz6iw1PoCjqfgzgEui6TFztDEij0ufJvNht/gpJ+j5KKhU2
-	 uLKRNTmMwtt6ubzOkK+K4pX/9u8uT/jj2rehYVl/RRg3Dq52Q93ze1io4jDPswRe7RCHo
-	 Z42H30lzh5e5u7cv6gttFwRxX1KnKADmEfjYj+TVLrFszN0EnGMiljqeDZd/Zlb8ViKzL
-	 EY9n2jtK5MS+dRAT6DApMMnxlc5b5tJlKih14WjGPjGjLseyIsuc2wYY6LVnPWKy9HrDW
-	 kZo5S+4PwSvaokNeHd9J512lUcV7O7AcSXQbbsTbvhbWwOXjvf3Cim6E2j0fGafUKhA==
+	t=1793691329;
+	b=DeFxObznr4O7YlSh8jjY83DUxcJU/UJExuoNlT7auX8umxfGW5yCHaFo/dHpkPCKRP50
+	 zYDDwQlDEsqaltCKDOUrwdVucz8p4nxf1sxpzGYYeA5nZl2SJgAJMr2wsZzvEHTFuAQKx
+	 xp9oYWBx6wjanKycsKFWYC0a/2cQeY88DNaZjOD9GzQEMTawm61dQP4e6xUUEl7SK2jLg
+	 TBnY7iu+355OysEiTYNZivPtm0EQ2Uy0Ywv+okJX6F2VAY0l4UVuSk9HGiZHPBSrS98FL
+	 JYe8aurjV/OmlZ1WmX24STCWULXGW+DKgvc5vDpOZeaZuEH6lcNadM7OhSOrrJXGlyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691200;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Oa8y5a8fdB3n8SvDHO+NQ5moFBEj62kNByaWKZDpVOs=;
-	b=W+e5FODpZZe7b2YnuuFVXbP0iGg/cDppLtWyxWD5asVIMmqi1T+ppx+2cMS20HVtzgZ1
-	 cbRpwkxvcGzjADbQDBBKOPphS6MbUcDOTJHzBbQsRw76hVKmA8ktumhsuTrYmiixrbnO+
-	 Lr1dwHF8y2BiVWo18YvqHiGVd5dSUXgEY0gzMc3mmFsnfa1/2v1dvK2nbeA2OQ4lLAdsM
-	 zIuUSGIRVpOqZoDjUbuyFu8mfBeCGAFOnGkKrSIp4IWilYWBe5W15qDOFPoRJKjJwXlK1
-	 D4rzBot3y6KQ8kW+nXaWAm/v871Xf617hzSVbfAOgB4vWzDU6wawZe6vdIS/NE2D3Aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691329;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Spam-Level:
+	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
+	b=iRt0svN26NrO696QlnktXCQZqZfIczBq/t1MQQq02FCLrt2CxBay7JGk5kdVMxZz8T0q
+	 00VQ1CgspWs06lSCoWDPTvsKBgmNVFtBehPN68TfD41u2x34NNTp2zKeUGm7DKZQFD65z
+	 0uq9coKNpPZfxQ5I/qxR6Eex+iIznmKBVYrg/oIJzE1d1yBJtCLn/KOTrZa5VoXY1P8A3
+	 UGHqEMjLzm2cANw6ELh1dc1uEL+KjRsU8ECf9fRG4AvdtKPw6zA2QlXAAXNVy4Y8v76MW
+	 clA9398p6Oqw4XdolYvosKF06uma3vEV854342c62nLkxRVDrM94pPGOYjPETBaEgIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrhGEKA+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A22606A329;
-	Tue,  3 Nov 2026 07:33:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA5F606A324;
+	Tue,  3 Nov 2026 07:35:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDA5F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrhGEKA+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73ABC1F00A17;
-	Tue,  3 Nov 2026 07:33:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793691199;
-	bh=Oa8y5a8fdB3n8SvDHO+NQ5moFBEj62kNByaWKZDpVOs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YrhGEKA+PeuuW/jRrCPDbubJ+8MeiOB7ohkDvdn7B1hNwFrYwqw5e3Qb5ZWGhLrwJ
-	 kfg6oclT46j62LrUrac0EafiAZ3+KI2zgxLX5rzfs29w8ZhNe31bRrAEPomMsmjjBa
-	 lKUJd1HyqFQwUmT5p3kfctFU2ScH+pGwppSgx39XmmP6D/0uRAotq1b5O+LOfmGom1
-	 npjQBjmNXeU5ErsRhK7ZIzZGG4Ba6sTrnVQmthz8YmAFn5hZtEAQhOl8e7HBB1jep1
-	 vvxmOJxSyeRo0cZERgguHtmnpI1bqtkUqgEHza0pOmtVnQWvdgMcM23IuK2WJnCdcJ
-	 Ge9DkpaqeAdvQ==
-Message-ID: <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org>
-Date: Tue, 3 Nov 2026 08:33:13 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=zSxcL1io;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=UTQ9roF2
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 01CDF21FC7;
+	Tue,  3 Nov 2026 07:35:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793691327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
+	b=zSxcL1iojpUe5ZdrCvindIxiwo/ggMbXdgrcbF+2k/LAwGM8B5guAJFzxbgFBvVUsK9OkT
+	pqg5MtjCwVB2LJpACi+phHN7vbCBpJII8HZ87xlUXeS6UIs+G1hhbNMBy4QQLfNPDO72sg
+	PSk5glhRTYob+yO+BGrG/6m+BdERxtk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793691327;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
+	b=UTQ9roF2y2PxQUzcLRcfNIJ46shaQXncRJkXD6xBaEMB9mKI0Md0WAB9ZlSEf5e02WQfMP
+	Daj8jnVUlpAkDKCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=zSxcL1io;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=UTQ9roF2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793691327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
+	b=zSxcL1iojpUe5ZdrCvindIxiwo/ggMbXdgrcbF+2k/LAwGM8B5guAJFzxbgFBvVUsK9OkT
+	pqg5MtjCwVB2LJpACi+phHN7vbCBpJII8HZ87xlUXeS6UIs+G1hhbNMBy4QQLfNPDO72sg
+	PSk5glhRTYob+yO+BGrG/6m+BdERxtk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793691327;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uVfbMmvBz7pvBTdrjpzcHYT3zLJmw9EbDDH1lVuVOEg=;
+	b=UTQ9roF2y2PxQUzcLRcfNIJ46shaQXncRJkXD6xBaEMB9mKI0Md0WAB9ZlSEf5e02WQfMP
+	Daj8jnVUlpAkDKCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9AA3D134B8;
+	Tue,  3 Nov 2026 07:35:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2WcBHr6O6WoaUQAAD6G6ig
+	(envelope-from <hare@suse.de>); Tue, 03 Nov 2026 07:35:26 +0000
+Message-ID: <311b1a91-24b0-4864-91c1-6801ca558e2b@suse.de>
+Date: Tue, 3 Nov 2026 08:35:26 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,141 +109,99 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/code-patching: Flush the patch area TLB entry
- locally
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Hari Bathini <hbathini@linux.ibm.com>, stable@vger.kernel.org,
- Josef Schlehofer <pepe.schlehofer@gmail.com>
-References: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com>
+Subject: Re: [PATCH v2] nvmet-auth: reject incomplete DHCHAP messages
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20261102132419.2306396-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 01CDF21FC7
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.50 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -13.50
 
-
-
-Le 03/11/2026 à 03:54, Ritesh Harjani (IBM) a écrit :
-> patching functions like patch_mem() and patch_instructions(), maps the
-> target page at the per-cpu text_poke_area, write it, clear the PTE and
-> then flushes the tlb using flush_tlb_kernel_range(), with interrupts
-> disabled. flush_tlb_kernel_range() on SMP nohash (e500) does an IPI
-> based TLB invalidation i.e -
+On 11/2/26 2:24 PM, Jérémy Jean wrote:
+> Commit c9359401036e ("nvmet-auth: reject undersized AUTH_SEND
+> payloads") only ensures that AUTH_SEND has auth_type and auth_id
+> before nvmet_execute_auth_send() starts parsing the payload, but the
+> DHCHAP path reads t_id before it verifies message lengths. A two-byte
+> DHCHAP NEGOTIATE payload can therefore still trigger an OOB read that
+> KASAN reports as:
 > 
-> 	smp_call_function(do_flush_tlb_mm_ipi, NULL, 1);
+>    BUG: KASAN: slab-out-of-bounds in nvmet_execute_auth_send
+>    Read of size 2 at addr ffff8880030d8364
 > 
-> ...which will wait for other CPUs but with interrupts off. This can be
-> caught by lockdep with the following warning:
+> Require the payload to cover the minimum DHCHAP message length
+> before parsing it.
 > 
->    WARNING: kernel/smp.c:917 at smp_call_function_many_cond+0x430/0x818, CPU#1: swapper/0/1
->    CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1-leds-v4 #1 PREEMPT
->    Hardware name: Turris 1.1 e500v2 0x80211051 Freescale P2020
->    Call Trace:
->    [c1915bc0] [c001be04] flush_tlb_kernel_range+0x2c/0x74
->    [c1915bd0] [c001ce2c] patch_instructions+0x1b0/0x318
->    [c1915c20] [c003113c] bpf_arch_text_copy+0x5c/0xb4
->    [c1915c40] [c01c3398] bpf_jit_binary_pack_finalize+0x28/0x8c
->    [c1915c60] [c0031770] bpf_int_jit_compile+0x5dc/0x758
->    ...
->    [c1915dd0] [c102e114] ptp_classifier_init+0x30/0x4c
->    [c1915df0] [c102d3a8] sock_init+0xc8/0xe4
->    ...
->    hardirqs last disabled at (3076): [<c001ceb4>] patch_instructions+0x238/0x318
-> 
-> Josef confirmed that this was causing a hang (deadlock):
->      I think this is why the CZ.NIC Turris 1.1 hangs early in boot with
->      CONFIG_JUMP_LABEL=y. On 6.18.44 it hung in 19 of 19 boots and booted
->      fine 9 of 9 times with jump labels off. The hang comes while static
->      keys are patched and modules are loaded, nothing is printed and the
->      watchdog resets the board. OpenWrt keeps jump labels off on these
->      boards for now.
-> 
-> ...which is possible if both cpus are doing similar operations with interrupts
-> off and doing TLB invalidation using IPI.
-> 
-> Broadcast TLB invalidation is not needed here since text_poke_area is
-> a per-cpu area. It is mapped and unmapped with interrupts disabled by
-> it's own cpu. The only reason I think, if we would need a broadcast tlb
-> invalidate is, when we want to prevent a stray or malicious write to
-> this cpu text_poke_area by another CPU. This generally gets solved with
-> temporary-mm path like how Radix and even x86 implements. However, booke
-> doesn't implement that, so for now let's ensure we use local tlb
-> flushing for correctness.
-
-This problem was already discussed one year ago, see 
-https://lore.kernel.org/all/PA3P192MB2865C07D634E3B775D003C7F8CD7A@PA3P192MB2865.EURP192.PROD.OUTLOOK.COM/
-
-See response from Arnd, a stop_machine() should be done for completeness.
-
-
-> 
-> Fixes: 49e3d8ea6248 ("powerpc/fsl_booke: Enable STRICT_KERNEL_RWX")
+> Fixes: c9359401036e ("nvmet-auth: reject undersized AUTH_SEND payloads")
 > Cc: stable@vger.kernel.org
-> Reported-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> Closes: https://lore.kernel.org/all/20261026195644.16384-1-pepe.schlehofer@gmail.com/
-> Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
-> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 > ---
->   arch/powerpc/lib/code-patching.c | 21 +++++++++++++++++++--
->   1 file changed, 19 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/powerpc/lib/code-patching.c b/arch/powerpc/lib/code-patching.c
-> index 44ff9f684bef..6351342fa5c3 100644
-> --- a/arch/powerpc/lib/code-patching.c
-> +++ b/arch/powerpc/lib/code-patching.c
-> @@ -276,6 +276,23 @@ static int __do_patch_mem_mm(void *addr, unsigned long val, bool is_dword)
->   	return err;
->   }
+> Changes in v2:
+> - Check the minimum DHCHAP message length.
 > 
-> +/*
-> + * The patch area is per-CPU and only used by its own CPU, with IRQs
-> + * disabled, so only the local TLB can hold an entry for it.
-> + *
-> + * On nohash SMP, flush_tlb_kernel_range() IPIs the other CPUs and waits, which
-> + * must not be done with IRQs disabled (see smp_call_function_many_cond()), so
-> + * flush just the local kernel (PID 0) entry.
-> + * Book3S keeps flush_tlb_kernel_range() which doesn't IPI here.
-> + */
-> +static void flush_patch_area(unsigned long addr)
-> +{
-> +	if (IS_ENABLED(CONFIG_PPC_BOOK3S))
-
-CONFIG_PPC_BOOK3S not consistant with commit message. Are you adressing 
-a problem on e500 only ? on all not book3s ? What about book3s/32 ? What 
-about 8xx ? Even for book3s/64, is it correct at all when 
-mm_patch_enabled() returns false ?
-
-> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
-> +	else
-> +		local_flush_tlb_page(NULL, addr);
-> +}
-> +
->   static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
->   {
->   	int err;
-> @@ -296,7 +313,7 @@ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
->   	err = __patch_mem(addr, val, patch_addr, is_dword);
+> v1 (2026-08-11 18:03:35 +0000): https://lore.kernel.org/all/20260811180335.4161138-2-Jeremy.Jean@oss.cyber.gouv.fr/
 > 
->   	pte_clear(&init_mm, text_poke_addr, pte);
-> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
-> +	flush_patch_area(text_poke_addr);
+>   drivers/nvme/target/fabrics-cmd-auth.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->   	return err;
->   }
-> @@ -488,7 +505,7 @@ static int __do_patch_instructions(u32 *addr, u32 *code, size_t len, bool repeat
->   	err = __patch_instructions(patch_addr, code, len, repeat_instr);
-> 
->   	pte_clear(&init_mm, text_poke_addr, pte);
-> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
-> +	flush_patch_area(text_poke_addr);
-> 
->   	return err;
->   }
-> --
-> 2.39.5
+> diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+> index 70136f6c22e8..a15f21fc41e4 100644
+> --- a/drivers/nvme/target/fabrics-cmd-auth.c
+> +++ b/drivers/nvme/target/fabrics-cmd-auth.c
+> @@ -301,7 +301,7 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+>   		nvmet_check_transfer_len(req, tl);
+>   		return;
+>   	}
+> -	if (tl < offsetof(struct nvmf_auth_dhchap_success2_data, rsvd1)) {
+> +	if (tl < sizeof(struct nvmf_auth_dhchap_failure_data)) {
+>   		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+>   		req->error_loc =
+>   			offsetof(struct nvmf_auth_send_command, tl);
 > 
 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+
+Cheers,
+
+Hannes
+-- 
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
+HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
