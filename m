@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793722706;
-	b=RCiZlCDPZivYgLvD/n1/rmdFcXjkXv3SMrfgN00dEjnY9wGM6G2HuPa3GFvxwzbl0PjS
-	 TAmWhxZvppng2kVZDrZgyMIlUBCluQcka9A2zAZwwLJ28u9neIsJMZpV07uzTnL1iv9RY
-	 9iCNE2R0EWe60NckLrCAcEOEX3ac3iYHdLl+HduijXerhDt8h1jKJ24dYVqJNO1aUNC8W
-	 7aAEZpO4Nmk4jOwkUj3CelRj8KYtT0sBzw2eLX9bY7G5ob3x2etd55nl1xb7NgDMnISEA
-	 5u1xKVsEeyuDuQN/a1rsncnNkWVxpvdBzfDTw/OdHVuHEdTjtD8dqgbNrIl4ttE8TYA==
+	b=cGP3fujxTVf49BrzmN+4mZHE4yzoMavEbuyBfIay1tk9/JnzqTu0+rkiJ9iT8KFywhi/
+	 LE7qKWM3vavZatsuZg7u2MiM50xJ1pG46sirIWwfbejOdgJV0EcKzFCG61sAJKKILtXx/
+	 Cn5J2DD1Q9tlliszqXditEGpfmiwWxRln9WepnYDZcPqHX6N9L4PSHds/JWro+5O4D0H/
+	 XYlSxuA87RQ814IMmwv3BYOSQPiwYsEV8X1SQg7vaLY7Kh/L40fUf/xpeXtpozTbNwg/I
+	 Kk+Rg6MkWmT6m99B3T/3yue4Nw3SsTg/WY3hfXM0ldZZnBbN2OzgqnAV6eOrikLn+Fw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793722706;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=Vo6hoMiBPUDbh+fzkkc+CS2eJkSiAj1jtuZ3hhzrg8k=;
-	b=pkGajckenPcVYqPOipEKwX1IgM0iyBsSUED/rNmX1GmCsqWcUxc8kFZuEiVpIf4Oj9xv
-	 wZH00B0/GPN5hviSEiWBfJDCtwX3OTZWAMH6MQSl8kdkqlffyMM19K5fBnMhcpw9Wfyn0
-	 tPJAyigGwfW9jpKvgzoDw9oxWn+wTrjtUVgk1AGv/d66KSSXKBrW/VOv4YHvLpNmUliOL
-	 kqsBGXL/RXwYfQkdbePZEAJMvxSOjECqRgSTIZBtpwtxQdsHcxUi8CU5v+LIGQCizVWnf
-	 hjN1jLwoie6LmkHh7vsllNjjB/hFkyNsp8iRZGMYq+zPzsYlFs208GnbWGhvWXHlNYw==
+	bh=TIlg5+Jr+rE39YU9MasG/yuhvLUgY4s1vPHwCpCoHYw=;
+	b=t2H+f3R3rlHWiuqlgm6Tu1aU/WfIWsKkuFoeViW3+XB/g4AZNNqz9mRHlibQ+pK63G6J
+	 U7IpOD1tbst2c/+Pc1gMva1KDnI2fDK4D0hw1z7pe7wanpz+440BKlrftGoX0gB877byD
+	 /7mHC8ZaKqgyqNTw7QNNrhlXeu5q0Bmgo0cbl9cgicYFYt/Kgje/QQG4LoMhCBeKkgvHa
+	 sOcqpx9AiycveyJk/Uixy96X0WILjMz9CihTkQjkzvkWenutRDSqJlNnpJvFRzjgi8zMH
+	 Ynop+qlfu6PJGK01D7KuP/uZolw7RiW+hiVb1i6JORnKVCEREgOfH4fhYy/Qh1N+pHA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FPcZhUkb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I666OMCZ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BCF606D811;
-	Tue,  3 Nov 2026 16:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05115606D819;
+	Tue,  3 Nov 2026 16:18:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FPcZhUkb
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I666OMCZ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793722705;
-	b=Lmcy/TpioDivGcJTAluG6jdSpd8CMjoF5VP5UW4N4hPnGO99GgjE0dmIZnbL/obEOSsu
-	 LNtfzHvhPRufdGwXcNijXLtmkknr3dYFYuoBBAF1ra6lpVJStn/6SBaY1yxFQDOWHE3M9
-	 bj7NpX//4n6zaTy6AvUo96JLwEM5giCLhbDv21sK1d2S220/Q0tUkbrAXCWvhbYiUvBJU
-	 8ewHO3vdGTH3+p+vbtT4dfg1nr4a3m0aWxs8TLeNUrygc2KgteFZNX3gssjKGgUA6QliN
-	 trUJM+y6pPu8bS+rUGhcArqz2ziScejKKerL+sxPI9M2DMoowLX+3nKyGQg1s5XjNqw==
+	b=sZbthj0I6I9c5Yi52Mwu/N+vrazO8TwK74TZBIb61+UZ8oZtkPfpxCtqBHX/ehWgA3BO
+	 QUei4g/tpJ7tHO2+i6MIrKBVc2/aXoXjY2dXyhtV28W0V09ie0ASHrC8Wr9D0mcQgMt6G
+	 Vvy7s6wKXw4zt8JFwdFKugAHeow2yJdcIkg9R0r8uyn2vRREzk94E3BxnByRMZ3LgMnHT
+	 1lJ+IAaQ/LjRqg1RT0QXP7JyhMS+sucTf4WTykqTUJUaK7Uv6lpJ8/YwyNMLZmbLJ2Yu7
+	 IoASEX9V1B5wi2hOd78Q2uCO2Fmz/mPdjjO/lw3JgLg6OjwpRoE02CjdIMhRjkP4GTw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793722705;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=Vo6hoMiBPUDbh+fzkkc+CS2eJkSiAj1jtuZ3hhzrg8k=;
-	b=Pvd2xxEqBdtmTjwvKRmYlJZDrqUc8pCeIOaDiJxJs5YUHtz+nHT01z0DVnv/CKd8d6Mi
-	 RTZfQIsPPHxae9FLl7RsWuVmYET37Fz5/YvLU1zhX2/Yb5/lacZKHsdadejiW3XmrNjBr
-	 Vm5DSLGBgy7cSOw+MSPIOSMRmT1ll9Mov/rfyu0jGt2N9yh86czUxtFZTEpbHuDTGFNzn
-	 yYREplaM6tcoPK8S41BObKnksRIGy3L3QNB/FxW8RrUdaTBLIQ3B9WjNVWgj7dEyPxdGB
-	 07dyplCWg97MShRhizTN0q31pyQrp53wwMjEvjLUlrZwbq/dT7yQxTMi+wPvxpiBvQg==
+	bh=TIlg5+Jr+rE39YU9MasG/yuhvLUgY4s1vPHwCpCoHYw=;
+	b=JSFlhq59ychgGHrcfXqcE3kVdS3iVtKRp4PWR7oO6QMyKf5EIUxqgQ6Tb+krhp0iTcWL
+	 Ljqmd54C9KDOJB3SLDV3m6kkrTTNaDfHE7snTaGcHfEtTGA3PK+fyGiQlRh3IzV9UeDEq
+	 1XYJMzn4pudf+J6P0ZbQTnENIWlwWagz4GYvNtWyu0QWVPAgHsW5Lzm8nv/vEb42/cgFA
+	 pVu+sQVXYe62ItxM6kELnn3ltCoyb03Nz9YrHM1hhj3cN6N8Lh6TAEJJZlxDLrk7WUinC
+	 sRtkflGBk82ZZD5yP8oez3kR71aYHejnLTnA+q+CE6w6MH2gEHS++gqmPMkhqTZPQ/A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id F1C721F0093A;
+	by smtp.kernel.org (Postfix) with ESMTPS id F1B391F00919;
 	Tue,  3 Nov 2026 16:18:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793722705;
-	bh=Vo6hoMiBPUDbh+fzkkc+CS2eJkSiAj1jtuZ3hhzrg8k=;
+	bh=TIlg5+Jr+rE39YU9MasG/yuhvLUgY4s1vPHwCpCoHYw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FPcZhUkbFbEluHYKs2Lmn3vZp8MZPqhq73850b++JU7cQ0v38opb9i7ECAFMC+QM7
-	 q3DM8Ha39WEMS9hlX9BDFJqlVmTvJuYaq6CeXwvMr2qlVRUCasC2NEe70e4T0/F9tv
-	 s69bM16ZLpOvMSfLJcc/nV4KjdMEP0PRA8LJMn2GhU7QP3ZmsmTfiV4unQhpQfI6A2
-	 x5/ptwHXCSlHWzkQwEMZy82XPfEnEAb7UGqx320s0r0Boh4YxnCBnATE7YUXESnCg0
-	 R+3KF4O55nGbeosM8aZwKxDHFCbQ/gNpShGRUk5Y5jIKdhcpDRG3QTmTR8vfI0FyYz
-	 iei3IJnz7qH/A==
+	b=I666OMCZwN2Zl5HxaGVFOwcRY7UqL9cjjD4lBglUgCN3rjmbzeVfbtjUieDusr5Au
+	 oaHxUonpjkvqh+oX9i4bZaq7Jvde1WbYQP3mKhx/rBkR7KxRsCVi9E6d9wipbPf9ZO
+	 uZ7tMfz3ewZVRyOu6p3csy/v+/mYP/Alton0tAD97DcEZLBWoylrC1VqOh14n4BkXL
+	 k19y9QOqWvrDSxdP+vzQE3bxyZ3UUva97OOWhdohE4DAg8I3sG//r+5pENGK23e+gD
+	 1cKODou14+chmkI2WK0QsCFkUPADFqwgqXR/RS3SxrGVQWTZcraXJIOUi7xkZcIUEQ
+	 qthkP5NIp8ESQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 69F9646A0F;
+	by lkml.kernel.org (Postfix) with ESMTP id 5CA5146A0B;
 	Tue,  3 Nov 2026 16:18:23 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Wed, 04 Nov 2026 00:18:15 +0800
-Subject: [PATCH v2 2/4] mm, swap: fix large swap-in across swap file
- extents
+Date: Wed, 04 Nov 2026 00:18:14 +0800
+Subject: [PATCH v2 1/4] mm/zswap: drop the stale zswap entry of a zero
+ folio
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,7 +85,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-swap-fixes-v2-2-204be064be5b@tencent.com>
+Message-Id: <20261104-swap-fixes-v2-1-204be064be5b@tencent.com>
 References: <20261104-swap-fixes-v2-0-204be064be5b@tencent.com>
 In-Reply-To: <20261104-swap-fixes-v2-0-204be064be5b@tencent.com>
 To: linux-mm@kvack.org
@@ -101,14 +101,14 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
  Chuanhua Han <hanchuanhua@oppo.com>, Mani Tofigh <mt4022@columbia.edu>, 
  NeilBrown <neil@brown.name>, Christoph Hellwig <hch@lst.de>, 
- linux-kernel@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+ linux-kernel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793722701; l=4359;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793722701; l=2902;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=GjI89eGPjvzC9qvQaI4jjtxoYQv3OiREh4hio0wcSS0=;
- b=pXMFrpHnqc8Y7bcU7BrglXc0aXr6LGVBrXIlirVMe0LoXG5Xvq83pvj4Gryb44+ssrMYimEuw
- 2ZjnLz71vp5CAsZXIzCj4CF+hwVkkwagCFtNgAhzHznxu6VlSGuavgk
+ bh=5JIfvqgJZSkDLS+9X8sNXJzSR9p+F+l9mzgjMoyRQf0=;
+ b=nnIkmk/QGTpjHCzmkNn8ZZTzaxluVqlOIuUU6+PAEz3ckDifiSnny/fyr9FzDbFlimey9SHP+
+ EbB2jPyII0rACVUq8xQ3eS4VRNg/1DDZ3CFhSZzZONMVtqLoOMRKBgI
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -116,108 +116,77 @@ X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
 X-Original-From: Kairui Song <kasong@tencent.com>
 Reply-To: kasong@tencent.com
 
-From: Chris Mason <mason@kernel.org>
+From: Josef Bacik <josef@toxicpanda.com>
 
-A page fault can give an unprivileged process blocks of other users'
-files instead of its own swapped-out data. This affects systems with a
-swap file on a synchronous block device, such as brd or zram. For an
-anonymous mapping it also takes a huge page size below the PMD size
-(mTHP), such as 64 KiB, that is enabled for anonymous memory.
+A folio can stay in the swap cache after zswap_store() has stored it,
+when a swapin fault gets a reference on it before reclaim can remove it.
+do_swap_page() maps an exclusive folio writable and, for a read fault,
+keeps it in the swap cache, so it can be modified and swapped out again
+to the same slot. zswap_store() handles this, it replaces the old entry,
+or drops it if the store fails or zswap got disabled, "otherwise,
+writeback could overwrite the new data in the swapfile".
 
-A swap area is divided into slots of one page each. A swap file is a
-regular file, so adjacent swap slots can lie in two extents, far apart
-on disk. A folio is read from swap with a single bio that starts at the
-sector of the folio's first slot. So all slots of a large folio must be
-contiguous on disk.
+swap_writeout() does not get as far as zswap_store() if the folio is
+zero-filled now. It only sets the zero flag of the slot, and the zswap
+entry with the previous contents stays in the tree and on the LRU:
 
-The swap allocator knows this: it only hands out a run of slots for a
-large folio if the swap area is a block device (SWP_BLKDEV).
+  reclaim            fault              zswap shrinker
+  zswap_store(D1)
+                     swap cache hit,
+                     map, write zeroes
+  swap_writeout()
+    zero flag set
+  folio reclaimed
+                                        zswap_writeback_entry()
+                                          swap_cache_alloc_folio()
+                                          decompress D1, uptodate
+                     swap cache hit:
+                     maps D1
 
-The swap-in path does not. On a synchronous device (SWP_SYNCHRONOUS_IO),
-one that always completes I/O in the submitter's context, do_swap_page()
-can read several swapped-out pages as one large folio (a large swap-in).
-thp_swapin_suitable_orders() makes that decision, and looks only at the
-swap offsets (the slot numbers) in the page table.
+Swapin looks at the zero flag first, but only when it has to read the
+folio. The folio that zswap writeback leaves in the swap cache is up to
+date as far as anybody can tell, so the process gets its old data back
+instead of the zeroes it has written, until that folio is reclaimed.
 
-Pages that were swapped out one at a time can end up in consecutive,
-aligned slots, and are then read as one large folio. If the extent of
-the first slot ends inside that folio, the rest of the folio is filled
-from the blocks that follow the extent on disk. These blocks can belong
-to other files.
+Invalidate the zswap entries in the zero-filled case as well. The folio
+is locked and in the swap cache, which keeps zswap writeback away.
 
-Reproduced with a fragmented swap file on brd and 64 KiB folios enabled.
-After single pages were swapped out, a fault returned blocks of a
-root-owned file with mode 0600.
-
-Fix this by allowing a large swap-in only when SWP_BLKDEV is set.
-
-Known gaps:
-- A swap file on zram, brd, pmem or btt is now read one page at a time,
-  even where its slots lie in one extent. Its swpin counters in
-  /sys/kernel/mm/transparent_hugepage/hugepages-*/stats stay at 0.
-- There could be devices with SWP_SYNCHRONOUS_IO but not
-  SWP_BLKDEV, so the new check would have to let that device pass.
-
-Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io devices")
+Fixes: 0ca0c24e3211 ("mm: store zero pages to be swapped out in a bitmap")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[kasong@tencent.com: simplify the note about the unmerged xswap patch]
+[kasong@tencent.com: fix zswap_invalidate() arguments]
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
 Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/memory.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ mm/page_io.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index b65b56fe9714..944f57153c89 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4863,7 +4863,8 @@ static inline unsigned long thp_swap_suitable_orders(pgoff_t swp_offset,
- 	return orders;
- }
- 
--static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-+static unsigned long thp_swapin_suitable_orders(struct swap_info_struct *si,
-+						struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
- 	unsigned long orders;
-@@ -4888,6 +4889,14 @@ static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
- 	if (!zswap_never_enabled())
- 		return 0;
- 
-+	/*
-+	 * Neighbouring slots of a swap file can lie in two extents, and a folio
-+	 * is read with one bio. The flag is set in swapon() and stays, so the
-+	 * race is benign.
-+	 */
-+	if (!data_race(si->flags & SWP_BLKDEV))
-+		return 0;
+diff --git a/mm/page_io.c b/mm/page_io.c
+index c6824fcd483e..65681eed9c80 100644
+--- a/mm/page_io.c
++++ b/mm/page_io.c
+@@ -224,7 +224,17 @@ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
+ 	 * acquired internally by swap_zeromap_folio_set/clear.
+ 	 */
+ 	if (is_folio_zero_filled(folio)) {
++		swp_entry_t entry = folio->swap;
 +
- 	entry = softleaf_from_pte(vmf->orig_pte);
- 	/*
- 	 * Get a list of all the (large) orders below PMD_ORDER that are enabled
-@@ -4924,7 +4933,8 @@ static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
- 	return orders;
- }
- #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
--static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-+static unsigned long thp_swapin_suitable_orders(struct swap_info_struct *si,
-+						struct vm_fault *vmf)
- {
- 	return 0;
- }
-@@ -5070,7 +5080,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
- 		/* Swapin bypasses readahead for SWP_SYNCHRONOUS_IO devices */
- 		if (data_race(si->flags & SWP_SYNCHRONOUS_IO))
- 			folio = swapin_sync(entry, GFP_HIGHUSER_MOVABLE,
--					    thp_swapin_suitable_orders(vmf) | BIT(0),
-+					    thp_swapin_suitable_orders(si, vmf) | BIT(0),
- 					    vmf, NULL, 0);
- 		else
- 			folio = swapin_readahead(entry, GFP_HIGHUSER_MOVABLE, vmf);
+ 		swap_zeromap_folio_set(folio);
++
++		/*
++		 * The folio may have been stored in zswap before and dirtied
++		 * again while it stayed in the swap cache. Drop the old copy,
++		 * or zswap writeback would bring it back into the swap cache.
++		 */
++		zswap_invalidate(swp_type(entry), swp_offset(entry),
++				 folio_nr_pages(folio));
+ 		goto out_unlock;
+ 	}
+ 
 
 -- 
 2.56.0
