@@ -1,50 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694855;
-	b=RxIxJ3F/n1L+v2JOKc5dMGo/go0WBu3E7Mys8eCRml7cYvcS2xhwvAMhRz2o9gRvkmsy
-	 b/0Wac5vWiHPzulP9TikKMKGy0C9L0aKRghRr+YlRhdut8F3rQpbP84dFjiJWpQCwsNlA
-	 mz9kNkUbnuKT148oMAsJriGY3yOpFNWHuw1aAa80F8u0/kZEUDk/tS3ywiPC//NG4dtAJ
-	 pbizkZ5L0pzvQNQvz17XvTmzpVdJ+kp4/bMbZsm4SAvIlF67i+OMuTnnMo9EvJBSda1JY
-	 5cPjXcm66wZaG/zYxEer3zsSOJFEUsZKWWMbgCZD2oBqC3MvcS+AO/Gc1XnJr2kGmzA==
+	t=1793694884;
+	b=hVwTQJ+ht1Hu0t4d+L6PPJ79TZZVDImVVIQuUMDz/lV5cvhNU7PNFyxooKef++6AU0wf
+	 TltFAde/owImSgPpjXxEBM5pZrm+zI1KYvBIvn7c8YxuslRODHSCOut0/sFWXuqSHsSmM
+	 tI06uZSvN9OT0JD8SMJ2/VZTboyJZOttpRNH7f1YzBkmWgXm+97VKCl2dj/u/6bbA02Wj
+	 YE5UjSGFzz8FqmEDkvGBs3Hsc3X5FtC3DD2E5rizvleLQiCzoPMB8El+xI9Qp/1MV1AYJ
+	 +zIW7iIB2q4A/42GnQk8ORQ8nyjvF7ixkJHkKAM4RrJ8ZqccCEeqmvdECD7SReY/dbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694855;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=EP/+BovutAzWRTMRDAWAE1I1KxLZSvrN0LvXnXQbAPk=;
-	b=MceW22+pzRzC3sFCjB1D3b6XRndbknwri5xpXLTOUgQnku31Ph7LfbuPbBXlHRPhBAyB
-	 3W+OYmcCuRNwSbt3gSzdFXIRQEp248oPfb2KMh4rWu8DIyGOTLBTl15tYYmPjlCkOCOXi
-	 +SIChJdgEfT/gjMjgJRlg6/ovN56g90LhieXfS+LDc6kGIX+re8983hqNQBRpXCgwKy9t
-	 g9NcD5aUGp7s97G70pZm1RRVcgSR8ACp9Eq1HtTxxRlOKp+KnCPy4elYj+ust4esYvJfQ
-	 wSfu74Tvm3SmftHVhxW+55fkm0dWffis67bg1O1YHb6jit8Lm/od0XGJQ/EwggdGfbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694884;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
+	b=mFSZAWyrHiqA87w/xcY1DRLZAidDPfvE+plordBof8uzniSppLF3pvUMj+FFBrFK99Od
+	 OA0al8zq6T4ZuI3umXHtCqFDqbgN5YOL4ZCjRwTH7QYvTLQyxzFyJ662e1OF+rc7xXQRy
+	 8GBPyArCPPvh2XYnoYQQmaxcmFk1llwRyo54HZ5QgZQ/ZewqIdC/0JvwDxX3v5v++klxg
+	 wa+EEZImX5DcQYfWMSYOWrB6lmIb7Wef1WxCsv/NP+CvyWrNOS4Nz8neEBb1BUl/Hf3v/
+	 n7tFdb5rmu5tKtGOSlInOWHnlYY012mQZmbF7n0+zIztIK1V7CfldEVg5F/XXTa6z/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr;
+	arc=none smtp.remote-ip=220.197.31.8
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358C9606A33D;
-	Tue,  3 Nov 2026 08:34:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 358C9606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADn9ZaAnOlqNH86AA--.1378S2;
-	Tue, 03 Nov 2026 16:34:08 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: vladimir.zapolskiy@linaro.org,
-	sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: ov6211: Release controls after control creation failure
-Date: Tue,  3 Nov 2026 08:34:17 +0000
-Message-Id: <20261103083417.1175861-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE9B606A33D;
+	Tue,  3 Nov 2026 08:34:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE9B606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
+	b=ULPGn0trtEIuH1ItAI7Al8o1iBVxxYZzSH443PnwE1q6MvYpni6ltJNWr5vIlS
+	QclktdtFucemnvzVKMX+B0v3bxl12PIjvF93iSlaT1+K2lRZbrNdE2gROIZJrNiM
+	Ex16D8oszTa2SFOsEnzJZy8I3+dWrOWUsYqlcqcYBLcPc=
+Message-ID: <d02b00db-d916-412b-ad6c-21959c63c43a@126.com>
+Date: Tue, 3 Nov 2026 16:33:57 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,60 +51,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn9ZaAnOlqNH86AA--.1378S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cry8WFyrJFW7Ary7uw4Durg_yoW8GryfpF
-	sxWasrAryUJF42g3WDAF1jk3WakayfKFWDGFZFqw1fZrnaqa4DtrWfKa13uFs7Gr4Iv3W2
-	qrsYqFy8GF1UCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
-	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
-	DUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQAA2rpWwr9twAAsT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] l2tp: fix use-after-free in l2tp_udp_encap_recv()
+To: netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, gnault@redhat.com, kuniyu@google.com,
+ michael.bommarito@gmail.com, alice.kernel@fastmail.im,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn,
+ stable@vger.kernel.org
+References: <20261027063657.1359170-1-xiaolinkui@126.com>
+ <179340002340.3131.5823454250644987437@kernel.org>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <179340002340.3131.5823454250644987437@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3n7Z1nOlqrY+CCg--.63128S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZrWUGryrWFWrJrW8GF17KFg_yoW5GrW3pF
+	yxWF4DJr1vqrs7Zw4qy3WUXr1fGa1SkayrJa48CFy3Zws0g3ZaqrW2ya1Yvay3ur1vk3yj
+	ya10g3y8Jr4vkFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UajgsUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBdZMGrpnHfAngAA3g
 
-ov6211_init_controls() returns the handler error directly when a control
-cannot be created. Controls that were successfully created earlier and
-the handler's allocation are left behind. The probe caller powers the
-sensor off on this error and does not free the handler.
 
-Use the existing error_free_hdlr path for this failure, just as for the
-subsequent firmware-property parsing and control initialization errors.
-Save and return the original control error.
 
-Fixes: fd7cb868e309 ("media: i2c: Add OmniVision OV6211 image sensor driver")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/media/i2c/ov6211.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+On 2026/10/31 06:40, netdev-bot+sashiko@kernel.org wrote:
+ > - [Medium] The commit message describes a use-after-free that no code
+ >   path in the current tree can trigger.
+ >
+ > Can the backlog path described here actually be reached?
 
-diff --git a/drivers/media/i2c/ov6211.c b/drivers/media/i2c/ov6211.c
-index 2ad31b2c5249..d82aacc7dcfb 100644
---- a/drivers/media/i2c/ov6211.c
-+++ b/drivers/media/i2c/ov6211.c
-@@ -360,8 +360,10 @@ static int ov6211_init_controls(struct ov6211 *ov6211)
- 				     ARRAY_SIZE(ov6211_test_pattern_menu) - 1,
- 				     0, 0, ov6211_test_pattern_menu);
- 
--	if (ctrl_hdlr->error)
--		return ctrl_hdlr->error;
-+	if (ctrl_hdlr->error) {
-+		ret = ctrl_hdlr->error;
-+		goto error_free_hdlr;
-+	}
- 
- 	ret = v4l2_fwnode_device_parse(ov6211->dev, &props);
- 	if (ret)
--- 
-2.34.1
+Agreed -- it cannot.  pppol2tp_backlog_recv() is the only
+sk_backlog_rcv callback that calls l2tp_udp_encap_recv(), and nothing
+ever queues skbs on a PPPoL2TP socket's backlog: sk_add_backlog() is
+only reached from __sk_receive_skb(), tcp, sctp, tipc and x25, and the
+__sk_receive_skb() callers (pppoe, pptp, l2tp_ip, l2tp_ip6, phonet and
+vmci) all target their own socket families, never a PF_PPPOX /
+PX_PROTO_OL2TP socket.  pppol2tp_recv() delivers payload with
+sock_queue_rcv_skb(), which does not use the backlog either.
+
+ > The live entry point is the UDP encap hook set up in
+ > l2tp_tunnel_register():
+ >
+ > 	.encap_rcv = l2tp_udp_encap_recv,
+
+Right.  That hook is only called from udp_queue_rcv_one_skb() and
+udpv6_queue_rcv_one_skb(), under the rcu_read_lock() taken in
+ip_local_deliver_finish() and ip6_input(), so the receive path always
+holds an RCU read-side reference.  Combined with the kfree_rcu() in
+l2tp_tunnel_free(), the tunnel memory cannot go away while it is being
+dereferenced, and a strict grace period still cannot end inside a
+read-side section, so CONFIG_RCU_STRICT_GRACE_PERIOD cannot expose it
+either.  The description of __release_sock() in my commit message was
+accurate in itself, but the path is unreachable, so presenting this as
+a reachable use-after-free was wrong.
+
+ > The reordering itself looks correct as hardening. Would it be more
+ > accurate to describe it that way, and to drop or justify the
+ > Cc: stable tag, rather than present it as a reachable use-after-free?
+
+Agreed.  I will respin with the reorder described as hardening: it
+removes the dependency on every caller of l2tp_udp_encap_recv()
+holding an RCU read-side reference, which holds today but is fragile.
+The subject changes accordingly and I drop the backport tags, since
+there is no reachable bug to backport.
+
+ > Also, pppol2tp_backlog_recv() appears to be unreachable, and it passes a
+ > PPPoX sk to a function that expects a UDP tunnel socket. Could it be
+ > removed as part of a respin?
+
+Agreed that it is dead code.  Since it is a cleanup rather than a fix,
+I would rather not mix it into this series.  Its removal is already
+covered by Qingfang Deng's in-flight net-next series ("l2tp: ppp:
+remove unused backlog callback"), so I will leave it to that thread
+instead of posting a duplicate.
+
+pw-bot: cr
 
