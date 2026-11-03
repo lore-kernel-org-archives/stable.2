@@ -1,90 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=81.169.146.166
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793743281;
-	b=n2S9bZB3Db6iknQUFemddnyQuSvURvmQJLuKV7yGeENYyqsQ+z5Y5zC5Pw51gfxKlsOZ
-	 tcNBIDnN8hNgP43o4aPhT0abDxEC7HHkG46p4EfFBhjMAvuQYj30FvhSLiSRQEtYNw68+
-	 q8yymXcQxJ+q1vV8fY4gNOdryVs7OdEJWYtnoTeiNVhK+hyrEiv2mM/P7DCUjGADObSnB
-	 Mwho2RVwtM2duvk7GnZg/VdwIBeIdof0w1p2BDcnaMS59h4AtDtiddkic5RyJSVKpRMvT
-	 UxzamiTCMdabh8a3Xc89zIGaQ22X+BsD0jeOzOHl9RB29e1Nvdvjn8cPrU9/EWIDc2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743281;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=0K7c2SWrjNpVZZvIFiWuTHz1VbqNfiLeX75RpOaIbCI=;
-	b=jO0wYQ8YgVkz1zm1qPZ+ctz0MvGoSzDbjj63TtoPbn5zG+qvDLj34a7ana+wYnbPC1h+
-	 +j7hCpEHYtR18/xoQWTE34eXuNAvXzpYPYOoWPXk3GCzIs2pmHLdMd5RxgeyPaCwqY5XS
-	 anSwpf+mzG/6e+BLtYsCqGs/Pxqltdg6m6/nop//WAZDo9E/Z/rqTmFNCF8nwDmjMte5d
-	 AE0hOUfOSB0C31GOktaX58g22QQrANFDOnpRrWdSMU9TlDeEYYBa1+FmwXRlYeiNRFz5p
-	 /dIwB/4bSdWTNzi3/M8VK9b3PVzrUo4OVYBbTFGYwR7h5ws6EbQuLScn+zplRzsNzBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goldelico.com;
-	spf=pass smtp.mailfrom=goldelico.com;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o3wlplCz;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=GkLBUkVI;
-	arc=fail smtp.remote-ip=81.169.146.166
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793743488;
+	b=sF1GPlhJ2pvGWWm3KUSRM4DeDb9s2HuhpElZIslB9hLZr/Ox5vENQHi4+I3nacn6vMX9
+	 Ie2Fs0JuEqExIw02lfLHg9J+yIz8pv7V8RyscpDjH8IlSiJlajZiTzp2pZYTSUtYHazyF
+	 8lFjG/T2G4xzeNK8O9NNLFSgtPdtOszRqwZ4UvGCUfHTmkK94PuMRXcyKUutqb66/hvM/
+	 6B2vzCs0oCO6t+CDJlQLAAMjnfol7Bjie4SGcnUTWiiNtb100ZYx7z+uig/qg484qofcy
+	 7pRdNYFhQFPD5E7iPAPYDuPHrHcM2G37mpfn0xWgho+36mmnV1lKsSgYpO5bWbgyB4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743488;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=MGthJCIPcjjSto+999lEi5wAg/18qV7BwoKfxaLdcHk=;
+	b=XkRxpBviKV42pP54iyYRQRzEexSy3lClCPSuofMWwSZbiYZKQECLxUechqrJjo6xGwhM
+	 NtplJiYhlDfmF4NGmHOaJwQ+eRYNptxOKos9Ez9OIUj9xYccwkzeasMCJG1UNjm0E+hwO
+	 leyroV3GMX/+yNCWrVFdqUzkMudJH0J+rbrgSsEpBZO60Jznpklal+wLL4xaFhfG2haPG
+	 HvacemvStKP1TqFOYysd/PX1dV31MtRMZ17W52Z3pWvA3uEPEqt/GrsW7RCf+8uUcMMuD
+	 HWJg84M+Oekcdt+dbWAsQlWqUhY/gVtQ2fJfJp2l7XYq9KNDNIYQ6azoO6RpLmy/Nkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIXnqEG8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9665F606A324;
-	Tue,  3 Nov 2026 22:01:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9665F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF05606D803
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o3wlplCz;
-	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=GkLBUkVI
-ARC-Seal: i=1; a=rsa-sha256; t=1793743269; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=cWJ2X1qUnVoIwy6mXG9UWOLlxSh0nvpjMjuOCrk3ksf6AuVgFL5vbA0aZLBW8Q5wXH
-    bsozsdKJKiqbb73lsMRXc3QG0kUvSfvXSmgoycCUJBpgbOjwXi3LYNWnfR6V0fZ0Pu7m
-    U433+40dSr03Zves4GyDScFffOTuSQQVPM/Ck5Z2NRWDskzxQGFsi7DqjExmLMZA/F2/
-    weaZrlv19cvy+kNkOWnpE2x1bAqkX8q/JBdYgfrnycZJrvYBxL7KKlVEPOzAWTeVLd2b
-    5mJhVTZlwuA2F9gB34XGRVUFIoc9B7RxkBmb9zhcTGPmxhntGE0WHIQtRUvaOzAE8jAn
-    caAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793743269;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=0K7c2SWrjNpVZZvIFiWuTHz1VbqNfiLeX75RpOaIbCI=;
-    b=BMDdVZY9Zlrjf96EBNMvg4iwsnepjre9ZYxhotJFq1Wg4ZPBHPS0I4cbdi1diiI+qL
-    +vab4aNozaz9W221SshUw5nlQGIAHy9oNBv0pOXZg8NSp80DHSL/1FfZfCHnVt89xN5w
-    /qbTTTrXWNOk9cajPvkjwkw+4l+b+ykkKB9yBNi+zuOX8TSjzHnfdn5TXnXDe8raDNVI
-    k2hRt1X5Wybl3eg7nDRXT49ZbHk0UGc+HtfAWymI2VfBRWWROxhJgmJc553emxQTwaFB
-    efz9TZQlGg1VATAJZOhkhOMALasHjwU/EGgIAzHlAolK5SA1SX02CKhh1hn1ALh/s0Qn
-    M0jA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793743269;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=0K7c2SWrjNpVZZvIFiWuTHz1VbqNfiLeX75RpOaIbCI=;
-    b=o3wlplCzsr3nVISrQ9rcWITxX5WFf5e1Oy6I6gUj2+mQ460cB8Cpe4OuJLC2fhiiZb
-    xqzHEZg3tQ2JdC9lbmMjM0Y9FzbEBKQKrxXXJhtJ/Ii4dvP4pRt+tJqA2+hvYVulYTCm
-    ifcM5zFyTiW3KqRTCoIVoySa4dRqUF7OFsmoalgD4RzNs68A9t7YlQLL7OZ5HdVNvR4+
-    rtF3nEVos90CwjaUiiioX7Mqt9ERuQxMgl0bY2tl3HPHEupMlGxp32HbNPlYLJVDZWyR
-    oeJq9MDlGZ1YN2qIn9rFQrELpsU+8UWqepnCwzEZWpdMr0MsI1M1ydWyRf9axaekv84l
-    ZRoQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793743269;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=0K7c2SWrjNpVZZvIFiWuTHz1VbqNfiLeX75RpOaIbCI=;
-    b=GkLBUkVIBTJr9bqdozfb/DPt0TFnd9rutfAq262NF8d4s5mUxgE3PGWtbrlSORajJd
-    RV5BaNa8sYv14PuZF7DA==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTippensiNHh5GQdF5Gj7a+zmR6WbRdXRV8k3u"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id Qb56a22A3M18bYE
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Tue, 3 Nov 2026 23:01:08 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZIXnqEG8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BC3B1F000C1;
+	Tue,  3 Nov 2026 22:04:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793743487;
+	bh=MGthJCIPcjjSto+999lEi5wAg/18qV7BwoKfxaLdcHk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZIXnqEG8hL/C/PZXH+ibndXCC9cS/kFVaIkuESqDDxg7NpsliMzQ3nLpwVKtfcVed
+	 0ytWA8Ep0xUZptkPew9JQIp90VwTW28pmp34cjE1DvZD+LuK3BR6p0tajq3lwdO+Z3
+	 m++yoiQ5W4A1u87OKyWRlDNI7QM3JYISa30O1Ce0WYdT7RjreLpYkB+maVRSSuyt2Y
+	 kX7M4KFNPetoKRjN7ZJuB7b/NTeZ/m2104QM0IleFGVBRRSgtdxkXLB2FhcztoBrwC
+	 j/xPjv5FzxvG/MOeAqZK3+K2/JLkHn7YUDN12w+TD4Cej5wQbLjPodmVTnwS/CC5po
+	 wi4uzX7dyQyxg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: DaeMyung Kang <charsyam@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y] ksmbd: fix named stream write and EOF handling
+Date: Tue,  3 Nov 2026 17:04:45 -0500
+Message-ID: <20261103215952.1549221-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110332-browsing-plentiful-ef07@gregkh>
+References: <2026110332-browsing-plentiful-ef07@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,74 +58,185 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.3\))
-Subject: Re: [PATCH 03/10] pinctrl: ingenic: Fix element type of
- x1600_sfc_funcs array
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261103213002.1673560-4-lee@kernel.org>
-Date: Tue, 3 Nov 2026 23:00:56 +0100
-Cc: Paul Cercueil <paul@crapouillou.net>,
- Linus Walleij <linusw@kernel.org>,
- Paul Boddie <paul@boddie.org.uk>,
- zhouyanjie@wanyeetech.com,
- Andreas Kemnade <andreas@kemnade.info>,
- linux-mips@vger.kernel.org,
- linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <2BA2B26F-C0A2-4E25-A612-D9DA513D6217@goldelico.com>
-References: <20261103213002.1673560-1-lee@kernel.org>
- <20261103213002.1673560-4-lee@kernel.org>
-To: Lee Jones <lee@kernel.org>
-X-Mailer: Apple Mail (2.3864.700.51.1.3)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: DaeMyung Kang <charsyam@gmail.com>
 
-> Am 03.11.2026 um 22:29 schrieb Lee Jones <lee@kernel.org>:
->=20
-> ingenic_pinmux_set_mux() treats grp->data as a u8 array of per-pin mux
-> modes (u8 *pin_modes =3D grp->data), and every other *_funcs array in =
-the
-> Ingenic pinctrl driver is declared as u8[].  Because x1600_sfc_funcs[]
-> was declared as int[], indexing pin_modes[0..6] reads the first seven
-> bytes of the int array (0, 0, 0, 0, 0, 0, 0) instead of reading mode 2
-> for the seventh pin.
->=20
-> Change the element type of x1600_sfc_funcs[] from int to u8.
->=20
-> Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
-> Closes: =
-https://sashiko.dev/#/bug/linux-5dccd0ae-9450-440a-87d0-44cc86d1af45
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
-> drivers/pinctrl/pinctrl-ingenic.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
-b/drivers/pinctrl/pinctrl-ingenic.c
-> index 1aa6a6dc1209..5c06208b8854 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -2456,7 +2456,7 @@ static int x1600_mac_pins[] =3D {
-> 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x3a, 0x3b, 0x3c,
-> };
->=20
-> -static int x1600_sfc_funcs[] =3D { 0, 0, 0, 0, 0, 0, 2, };
-> +static u8 x1600_sfc_funcs[] =3D { 0, 0, 0, 0, 0, 0, 2, };
+[ Upstream commit 02165c8d402392278a5cd2cf97645ed73a7ad4a1 ]
 
-Yes, that appears to be the correct fix. All other =
-INGENIC_PIN_GROUP_FUNCS()
-use u8 arrays.
+An SMB WRITE to an existing named stream can silently discard data after
+its written range. ksmbd stores streams as xattr values, but the write
+path passes offset + count as the length of the replacement xattr even
+when the old stream is longer. Writing 26 bytes at offset 0 to a 60-byte
+stream reports 26 bytes written while discarding the remaining 34 bytes.
 
-I can not test as our x1600 board does not use the SFC interface.
+Keep the existing xattr length when an in-place write ends before EOF.
+Reject writes that cross XATTR_SIZE_MAX rather than storing only the
+portion that fits while reporting the full requested count.
 
->=20
-> static const struct group_desc x1600_groups[] =3D {
-> INGENIC_PIN_GROUP("uart0-data", x1600_uart0_data, 0),
-> --=20
-> 2.56.0.385.gac671c819a-goog
+Commit 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
+intentionally skipped ordinary inode truncation for stream handles: an
+EOF SetInfo on an ADS had truncated the base file. That fixed the base
+file corruption but left stream EOF changes reporting success without
+resizing the stream. Handle these requests by resizing only the stream
+xattr; the base file size remains untouched. Zero-fill stream extensions.
+This is needed alongside the write fix: a short write's accidental
+truncation previously masked an ignored explicit EOF change. The stream
+resize helper returns xattr errors directly rather than using the
+base-file truncate path's EBADF conversion.
 
-Reviewed-by: H. Nikolaus Schaller <hns@goldelico.com>
+Fixes: f44158485826 ("cifsd: add file operations")
+Fixes: 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
+Cc: stable@vger.kernel.org
+Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: adapted fp->stream.pos updates to fp->filp->f_pos because the separate stream position field is absent ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/smb2pdu.c |  2 ++
+ fs/smb/server/vfs.c     | 72 ++++++++++++++++++++++++++++++++++++-----
+ fs/smb/server/vfs.h     |  1 +
+ 3 files changed, 67 insertions(+), 8 deletions(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 5f752434be3cf..0ebf9644e5367 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -6525,6 +6525,8 @@ static int set_end_of_file_info(struct ksmbd_work *work, struct ksmbd_file *fp,
+ 
+ 	newsize = le64_to_cpu(file_eof_info->EndOfFile);
+ 	inode = file_inode(fp->filp);
++	if (ksmbd_stream_fd(fp))
++		return ksmbd_vfs_stream_truncate(fp, newsize);
+ 
+ 	/*
+ 	 * If FILE_END_OF_FILE_INFORMATION of set_info_file is called
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 2ec2c90aa7248..9e1cc0d1638a4 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -416,23 +416,21 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
+ 	const struct cred *saved_cred;
+ 	char *stream_buf = NULL, *wbuf;
+ 	struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
+-	size_t size;
++	size_t size, write_end;
+ 	ssize_t v_len;
+ 	int err = 0;
+ 
+ 	ksmbd_debug(VFS, "write stream data pos : %llu, count : %zd\n",
+ 		    *pos, count);
+ 
+-	if (*pos >= XATTR_SIZE_MAX) {
++	if (*pos < 0 || *pos >= XATTR_SIZE_MAX) {
+ 		pr_err("stream write position %lld is out of bounds\n",	*pos);
+ 		return -EINVAL;
+ 	}
+ 
+-	size = *pos + count;
+-	if (size > XATTR_SIZE_MAX) {
+-		size = XATTR_SIZE_MAX;
+-		count = XATTR_SIZE_MAX - *pos;
+-	}
++	if (count > XATTR_SIZE_MAX - *pos)
++		return -EFBIG;
++	write_end = *pos + count;
+ 
+ 	saved_cred = override_creds(fp->filp->f_cred);
+ 	v_len = ksmbd_vfs_getcasexattr(idmap,
+@@ -445,6 +443,8 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
+ 		err = v_len;
+ 		goto out_revert;
+ 	}
++	/* Preserve the tail of an existing stream on an in-place write. */
++	size = max_t(size_t, v_len, write_end);
+ 
+ 	if (v_len < size) {
+ 		wbuf = kvzalloc(size, KSMBD_DEFAULT_GFP);
+@@ -473,13 +473,69 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
+ 	if (err < 0)
+ 		goto out;
+ 
+-	fp->filp->f_pos = *pos;
++	fp->filp->f_pos = write_end;
+ 	err = 0;
+ out:
+ 	kvfree(stream_buf);
+ 	return err;
+ }
+ 
++/**
++ * ksmbd_vfs_stream_truncate() - change the length of a named stream
++ * @fp:		stream file handle
++ * @newsize:	new stream length
++ *
++ * Resize the stream xattr without changing the base inode size.
++ *
++ * Return: 0 on success, otherwise a negative error code
++ */
++int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize)
++{
++	const struct cred *saved_cred;
++	struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
++	char *stream_buf = NULL, *new_buf = NULL;
++	ssize_t v_len;
++	int err;
++
++	if (newsize < 0)
++		return -EINVAL;
++	if (newsize > XATTR_SIZE_MAX)
++		return -EFBIG;
++
++	saved_cred = override_creds(fp->filp->f_cred);
++	v_len = ksmbd_vfs_getcasexattr(idmap, fp->filp->f_path.dentry,
++				       fp->stream.name, fp->stream.size,
++				       &stream_buf);
++	if (v_len < 0) {
++		err = v_len;
++		goto out;
++	}
++	if (v_len == newsize) {
++		err = 0;
++		goto out;
++	}
++
++	new_buf = stream_buf;
++	if (newsize > v_len) {
++		new_buf = kvzalloc(newsize, KSMBD_DEFAULT_GFP);
++		if (!new_buf) {
++			err = -ENOMEM;
++			goto out;
++		}
++		if (v_len)
++			memcpy(new_buf, stream_buf, v_len);
++	}
++
++	err = ksmbd_vfs_setxattr(idmap, &fp->filp->f_path, fp->stream.name,
++				 new_buf, newsize, 0, true);
++	if (new_buf != stream_buf)
++		kvfree(new_buf);
++out:
++	kvfree(stream_buf);
++	revert_creds(saved_cred);
++	return err;
++}
++
+ /**
+  * ksmbd_vfs_write() - vfs helper for smb file write
+  * @work:	work
+diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
+index 06903024a2d88..526c0541ec691 100644
+--- a/fs/smb/server/vfs.h
++++ b/fs/smb/server/vfs.h
+@@ -82,6 +82,7 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
+ int ksmbd_vfs_write(struct ksmbd_work *work, struct ksmbd_file *fp,
+ 		    char *buf, size_t count, loff_t *pos, bool sync,
+ 		    ssize_t *written);
++int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize);
+ int ksmbd_vfs_fsync(struct ksmbd_work *work, u64 fid, u64 p_id);
+ int ksmbd_vfs_remove_file(struct ksmbd_work *work, const struct path *path);
+ int ksmbd_vfs_link(struct ksmbd_work *work,
+-- 
+2.53.0
 
