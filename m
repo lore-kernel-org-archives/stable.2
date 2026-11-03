@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704237;
-	b=kqn58yZq7ZJeSTTaZhNARdXVLWyKhbg+R8ruNg2O14ajHnkx3Cuq2aukEJTr+iGBwUmC
-	 MIYS3OAb+Mr8h4I5N8v32DbUYGBKfNvVY/SS9Ak19BsiwWNzQNaiCCEEXCDlk0Ujc3R8l
-	 wnnUd9RkCeNHGRgZnk4RCrcmh1W2aOEaBXhoN96zILaQeM9+xTIxuWJcN3oQ7GF9nridK
-	 0HXAXU3Ry4DGg+5ONHwDg/CxpzFRv6x2HkF0FoKROBzDUDt7eY1bd6bbfrz3yYEYaiCE3
-	 76s/4BoBJG9XRE/b0krshh07m/ilTmeaVcSnfTi9xitYzDaCs0YDQ3eFq7Kf6bqoutQ==
+	t=1793704242;
+	b=iDN4JC6+wGv0P1o9laMNmgZTZt0SVNAUSMy2c/9KI/ytbJs34bRMipbbwTyy6qigfd8Y
+	 MyNtuzxCzJERb0uIjJWyVKx5rJQCPUT2NT9okifuZg/IkqNro7H3Xnm365GXAX62x1cY5
+	 OhkBKlof1hFhgMfNx53LF31l3gsCVMbXjJKkgFWIivvi9ui1Oh4OSkbeI7Dw2AZrvNmJU
+	 N6C3OS9F+Ih0G7mHwMvSDU6u5g41p3aEhgyzXzTFtv9lv2I9NIGrXVmqj+pYp7Hm1ROaH
+	 GxUn2OClSk93oT5Q2QswRFLoKVoGEqsb6qkQ8rCsubLXQHX8y1Bv1vKiJvIJHJuu2fQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704237;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704242;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LhexjFgLMi9KDZ2tlynj0L4TbfElzEQbR/cNygIzCDU=;
-	b=RH5da3M9Fm5FzE0OzyVlVz43eafQPLsHouELLuehGhJdFNiVf/Tu4gImabf1RKux9n/U
-	 6QXadfJ+LT9b0EhZQZ5/1GbuZjXouwSzg9wsDNJ+7Q1BeYuVFI5YNr1TOZD1tyLneui+8
-	 XDOU4Q/7xyxo1Adlc2zRy8Wo23FYeqzI45Fir4tSkXUwDicbw44pgJwNJ1voUbHEtbMDg
-	 OUD6uRr6pzhLSAFs0vSWMn/03Mw7AwrQno+qrIdz/QaLiUrFDMK0Yn8preNdsddmnXqec
-	 wn6DsMe1tEavlRvtRjKoodziKqhjtSIKqdher8J+8JWYhSei2VmqgXZA/GRizEfDHNg==
+	bh=LbX5Q7p4xQHFkAnxvv4GcKsc3X8LYGY6+OaH92+Mxgg=;
+	b=gIOEoJG6M51EF48tchk+aHraPRrP4SzZMZhScG4WRtFpRWcswfqguQPdUz0vxJ740Bh3
+	 9QvH0Iq7ejvFM0HpQtJqfkrszQC2Hw3qv9xHHVLg6QAIAdbFCwdp893mqZehyh5UOU58t
+	 +P1t9kLmpAXaWKT+ZrJWEDNqQGrL3qwCh635jKwb4DjQcIIIEMY0eE2rUsAg+rmJU1jb2
+	 QU/jMwU27qPcDYLlT2bYmAAFgDRhe/JU7QupcOdPhJ2CBZD3qRJwpzG46wZJPHZfvTfw4
+	 i50MH+QWsQ3yKitupUPnFr4jK/ahtJztRocJPEXv0EYv1ypnZt+Rv20sQDUA1TfuAZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwnmJNQr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iaSCruUJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E87A606EE85;
-	Tue,  3 Nov 2026 11:10:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CB9606EE9B;
+	Tue,  3 Nov 2026 11:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AwnmJNQr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147E41F000C1;
-	Tue,  3 Nov 2026 11:10:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iaSCruUJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DBF1F000C1;
+	Tue,  3 Nov 2026 11:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704236;
-	bh=LhexjFgLMi9KDZ2tlynj0L4TbfElzEQbR/cNygIzCDU=;
+	s=k20260515; t=1793704242;
+	bh=LbX5Q7p4xQHFkAnxvv4GcKsc3X8LYGY6+OaH92+Mxgg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AwnmJNQrxme/znXukONSzsqJs9HU7t4sX41bCrep/ULdgHchxh5gJs76akf8DKCwN
-	 h9aMG+dQiVJXpZJ2yxFikPwpOI5mo5AAtkJxVUNbOkWcPgZPjIj/eq5VfiXoYsKy0T
-	 guQKC3ZESSJHC4V/pYBfw67sNmv6DXOoro6tEE+SqnnTyng4UEr5APZIxgkL0legoc
-	 SB7G+BijfLAp0Z5SN8gAIKgHm4XqFKNEVnjGQumEGElh5/CDP3YdAR+TsEb0rEvskz
-	 Kf7MiuC2aEPybCG8UUM+m/O92c+CuGoQDBnIxSWvGtO3Dv5Vr+J8plviTLDmdsOqLk
-	 0dTM2iPcnDjtw==
-Date: Tue, 3 Nov 2026 12:10:34 +0100
+	b=iaSCruUJv3kdb7l48HlV/ZPCcpEN9U74E07lrc4MkMn2Ex9UaC9XanM/TeR2DN1rq
+	 hzilA5yK6jLeyWsbCqC3vjokTV/2d9rMV9KgkkXQHZ60CdmDdUWTbhd44O056GhHXn
+	 EgPJxCCg5n5JLg6F89ATgtvQwmdm2SJyMGo+veJPK2T9zFcUUthKCAnIceBEmRidOJ
+	 BJ1tGJaUzeGE1hQR5Na+zKNMmUr3PhF9VQmqXkjrtB73UFEl2H73zTAHkUNEZkgo0Q
+	 wSY5QBK+DxTzsEAQ7rSIQEV3pxPxwEkz8K4CK2G9CkE11S9it7dR7nZTHDcV5UdCOO
+	 JDzrml6d/OdFQ==
+Date: Tue, 3 Nov 2026 12:10:40 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>
-Subject: Re: [PATCH] nvmem: u-boot-env: release the MTD device reference
-Message-ID: <20261103-vigorous-antique-fulmar-f2b435@quoll>
-References: <20261103104238.1373700-1-vulab@iscas.ac.cn>
+Cc: Saravana Kannan <saravanak@kernel.org>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] of: unittest: fix node reference leak in
+ of_unittest_match_node()
+Message-ID: <20261103-tall-silent-skunk-9e4e0f@quoll>
+References: <20261103104237.1373649-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,29 +59,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104238.1373700-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104237.1373649-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:38 +0000, Wentao Liang wrote:
-> u_boot_env_probe() obtains the MTD device backing the environment with
-> of_get_mtd_device_by_node(), which takes a reference on the MTD device
-> and pins its owner module.  The reference is kept in priv->mtd for the
-> lifetime of the driver, but it is never dropped: there is no remove
-> callback and no devres action, so unbinding the driver or unloading the
-> module leaves the MTD device permanently referenced.  The reference is
-> also leaked when devm_nvmem_register() or u_boot_env_parse() fails
-> after the lookup.
+On Tue, 03 Nov 2026 10:42:37 +0000, Wentao Liang wrote:
+> of_find_node_by_path() returns a device_node with its reference count
+> incremented. of_unittest_match_node() never releases that reference:
+> failed matches continue to the next iteration, and the reference taken
+> for the last test case is still held when the function returns.
 > 
-> Register a devres action that calls put_mtd_device() so the reference is
-> dropped when the device goes away, including the probe failure paths.
+> Drop the reference on all three paths.
 > 
-> Fixes: d5542923f200 ("nvmem: add driver handling U-Boot environment variables")
+> Fixes: 1f42e5dd5065 ("of: Add self test for of_match_node()")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/nvmem/u-boot-env.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+>  drivers/of/unittest.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
 
 Multiple things here:
