@@ -1,59 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730623;
-	b=yS9tfj1AzqcVUh9a3KGPkxhRsO50No2P6RQsLb4/ZzQZEx360A4gorTA5d9Q43w7TT7U
-	 6nR7sEJpIjH4/0nG9p/gzpySu9VCow3ww171+TGU4FE3+zKfX1wx4UIj4M3lkXREANx6q
-	 wNeXhNZro6Bdht3/Ql8v9eRFXcT/TJnjA/+LTc/PCqGoXMHPo7R4BXVWrxfh+2nAoLzpq
-	 Au1d0veaGsyie8wFbFE5YBQVBQXrqcY7gGODg75uSrvAlTysPRtI5az4Wdveij4Tmi2tg
-	 JXd7GozylcjFPjgA+jam0vVJkXsrxSMs9AOkuZTLsA5DeAiJqMvS3MtXb/IWKejpiMQ==
+	t=1793730719;
+	b=Pmlh8jV5ehevPK1AZcOOGni685h19rq+kSk5iacYLHRBs0rAo1jhnZiLFOF6mx9eBLv+
+	 G4qNlRXii5GtHAq5cXaPWM/WE5LJn7hCA4RtX22ocZ1XyxvPqU1VOFKrIkOgwlGRsKom2
+	 4xoHefo3NwqQPSCjHgVoRe1zK/ASnR5YPXuY6OKnh9D3dafKLc/1E1eqzNx97uTQqG4sk
+	 BTy7HzRXK/uieXReIFpd/MDK8aqz5L3IuyyQQ6kBrys2UhORNISSG5xwkVtd70q4y1/Uo
+	 NY/mFd1lr84SNAk23acONHS6vKOnboqwERBLvuJws7odP/uAJcvYTsK4tKWmnWpz6vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730623;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=o/fdt424hIU68uAYJONXv1npbcycyDxRVgKexRLZ6GQ=;
-	b=GCvyBYoanW0ILMz9lbIP+CP1E4mFBz81FYw7e093A2kfLeJNGFs0blrnJEJhq7yt50u4
-	 nKgaKvM3P7tlDKrm0uDBRyKwJTYRnFBTJR/LcNexAkL8JSv47m+rA0cEiOqM0Kb0wGP3L
-	 CFfuiQwEoDGIxDR1+pYsSx4th3UJL2dpJvefGtl/3fCFBdf9gRGXFq7YySbgxe4JAu7Pt
-	 IbfoiKA4BlzRtaSaBuvscymioA2xK4ENNlQI2RxrryHBeRwuFRRJqE7V6upPdK9CDMrMn
-	 1n+cq+12uE6uTCMcO+BEizo8TBSxseEhdo4OmhRaBm8tHPEIBwdCmnuJDW8kDjPnmpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730719;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=YL7pUVyNm44/Ihd2CJn9w6SXbjo2vEV8c+XqARMDpew=;
+	b=y2fakBrzrqNTxqAxDCwSRlWapvpfAopttlR6i2U7mrX5QgYULfrlMzoR6bs21RFvLVL0
+	 s8ABe8Tf1JFYbyoRx1I2Xsyljw9IWyI1Op5EwGfQYluqJ5OBhtZ0BU1WliOn2sgGxoWeN
+	 8WNTlc/7blkJ46Yurc+jiHcKoAxLXXAPBMWBBkooUlCs1Rtw62BftZAi2+rfYX7jxE69P
+	 ED+FEfHdJoSDlTAQSYNsQPnp7zdz7ajLL/am4GRrl3nkWBM/B/fnCwTXOrnWhMygiJh7P
+	 K5TVdao0CqchGmlgaRflp5HYc5pSzzePojsJf9NPGGIoIaRKBLy91nJzXURPrceItGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kz4K6JZL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4aik7Uv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016CB606A328;
-	Tue,  3 Nov 2026 18:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A5B606A326;
+	Tue,  3 Nov 2026 18:31:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kz4K6JZL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A43BB1F000C1;
-	Tue,  3 Nov 2026 18:30:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4aik7Uv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA3A1F000C1;
+	Tue,  3 Nov 2026 18:31:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793730622;
-	bh=o/fdt424hIU68uAYJONXv1npbcycyDxRVgKexRLZ6GQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kz4K6JZLVW9TKnN76d6D3OuUrgzUrK9/fEb1e0p3TxSKIHbz9YDtGtsOu4Ksf/ZpK
-	 kD9MIMNtYaY78h8abOFdpaEUU0XC9wQdOyjbmJutHgEb/Cza2BNZeUzCVbvAG1jSPB
-	 I5wQlgz3ORyE2naRjKjRA34AgZhiIFksIHnmvxbho49MKRY1F82rzjl7YuNhxLte71
-	 MIxtjfCMlYruQm+S8tJB6aMPvuWiiZE3vZ4n7B0/c4UBlqcFcfiJAMl8tEdWFZ98Wf
-	 0oFJC2ltiQ7mPt5M+4d57iM9NA4ZC43W3kP92E0Cyo8yF5Y5AedKjVl3n0qAxdRPP0
-	 ODC4LrgGrXN7g==
-From: Mike Rapoport <rppt@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	kexec@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] liveupdate: check for duplicate session before growing block set
-Date: Tue,  3 Nov 2026 20:30:15 +0200
-Message-ID: <179373060810.1731986.15227244276856998447.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103153928.716753-1-christian.aurichzm@gmail.com>
-References: <20261103153928.716753-1-christian.aurichzm@gmail.com>
+	s=k20260515; t=1793730718;
+	bh=YL7pUVyNm44/Ihd2CJn9w6SXbjo2vEV8c+XqARMDpew=;
+	h=From:Subject:Date:To:Cc;
+	b=A4aik7UvTF+WBnIEzANiOSGgFaXLqjJm80sWxnLlbMh4FnIt0x8C5uRcgdMKlvJKS
+	 +3D7SA68QXXmbdnQaybnbvcwtnvQ6BcikEn1lAWCt09If373L+S9PQ2j2CQfnzcLBj
+	 3TxbEz81yFpdP+/UQA/mV+0sIGjX59VF4A71jqjZ80YpmimmDR+JzxiYxlhhQtBinP
+	 DDyhfldjwHvV4Vu2cHjzNbl4Ej+UVYy5cL5ZS6SnV1RxtorKYeF8YdVGpULGZGQJLR
+	 SLgrMbLoZKZLBvL9Wx8bqpbZ8GrvpUYxSvk7m85OmBC/j93QJ1U58pQv7Kz574M4+w
+	 4xQtd7t8JUjaQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 0/2] mm/memfd: handle GUP references reliably when
+ write-sealing
+Date: Tue, 03 Nov 2026 19:31:43 +0100
+Message-Id: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,29 +55,72 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI8o6moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMj3bTMitTi+OT8otR4I11jy1RTy8S0lERLQ0sloJaColSwPFBHdCy
+ EX1yalJWaXAIyQ6m2FgAYc4tScAAAAA==
+X-Change-ID: 20261102-fixes_core_2-39e59afda919
+To: Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Rheinsberg <david@readahead.eu>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1358; i=david@kernel.org;
+ h=from:subject:message-id; bh=7nmu6fRF1UbgSM50uuDb6xwGPEFwgJ+ETyCbNbuUspQ=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJeaUzXmx9/Xi7wYJ3EfcPQuq+aeyNMehVU1wQ9/ezl4
+ OJpfTuwo5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgImcDmD4n/DbZVlKGAOfCcdW
+ z/fTtX+v0ayb//LJfp1ovtSTEz9st2NkeMW5bKX8AS2Ps6ubhFk6jXu7SpUvzNcR1Dz+6fJ00/p
+ +dgA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Mike Rapoport (Microsoft) <rppt@kernel.org>
+I spent way too much time on this, looking for better options. I think
+patch #1 fixes the most immediate issues but something like patch #2 is
+needed.
 
-On Tue, 03 Nov 2026 12:39:28 -0300, Christian Aurich Zanettini Martins wrote:
-> luo_session_insert() grows the outgoing block set before checking for a
-> duplicate session name. On -EEXIST the new block stays in the set.
-> 
-> If the session count is an exact multiple of the per-block capacity (51
-> with 4K pages), that block stays empty. It is serialized with count 0,
-> which kho_block_set_restore() rejects in the next kernel:
-> 
-> [...]
+Long story short: someone can trigger a race such that we don't detect
+GUP references when write-sealing, allowing to modify content later.
 
-Applied to next branch of liveupdate/linux.git tree, thanks!
+Patch #1 handles pins reliably for folios with a pincount. Patch #2
+handles the remaining references, but can reject write-sealing with
+populated file mappings. vm.memfd_write_seal_mapped allows restoring the
+legacy behavior if needed.
 
-[1/1] liveupdate: check for duplicate session before growing block set
-      commit: 7d4282ec2d3bfd5e7959bbd2663936a29c45f609
+All alternatives to patch #2 I tried ended up too complicated and nasty
+in corner cases. We should never have allowed write-sealing with
+existing file mappings.
 
-tree: https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux
-branch: next
+Plenty of details in patch #2.
+
+Did some testing on x86-64 without any surprises.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+David Hildenbrand (Arm) (2):
+      mm/memfd: handle GUP pins more reliably when write-sealing
+      mm/memfd: handle GUP references reliably when write-sealing
+
+ Documentation/admin-guide/sysctl/vm.rst | 21 +++++++++++++++
+ mm/memfd.c                              | 45 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 65 insertions(+), 1 deletion(-)
+
+---
+
+base-commit: 462595652740dc45f2392dc59d9609e509ee60af
+
+change-id: 20261102-fixes_core_2-39e59afda919
 
 --
-Sincerely yours,
-Mike.
+
+Cheers,
+
+David
 
