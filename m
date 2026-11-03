@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702470;
-	b=rS1LIym2PYJr+3ix/bwX1yWjDpi83WJURq0EIkxkgmemLtJ8aCTJliZJMhJVU14VdjkB
-	 cl+Pt3oAjtKFJczgrQGdN3UlPrViz7bRLDpWwnGfrxE+9/otaT1gLGN2koIFIdIXrbxmR
-	 5XpDUOAkw2+swkIk8y5yuU2En2FvmUEiD+3Uu9gy/GgnbgTjsnRqZgGltGYdKs8qcqlGl
-	 akceKFykSMuAo2WsFm1OvY7aOo0dZO6ywRyNpYzUMlkJ51Gt+mVsXCSFqbE+gO4qeK8AK
-	 uGmcS0gJusNfWFz5ftas4mcGYAFo/lPsI9CCMpWxS+3SdlLTvE5rlQ9jZbZQNOu+sfA==
+	t=1793702462;
+	b=ws+WCvtQFF4LeO1tgXAu8M/GfMZ3kCfvkXWYK2qiBdIRSYsRvySLKOWlJ6kj3ZQ3Aqpr
+	 V8unOL1rzbAj/Xtxd+3Lg95tYXVzU1ucIVBOG9F5RfvDMgjlCOlPgLrhQlxEYQ91Ctm3o
+	 hebfVbQ+6ne4CO7Ohyv6I/QkVd/jUpw551S9+y0qWR9AQW2wmaEnsf4zDr8ob99qVgyyn
+	 74inJe1Fs1PCo6ktaVkJMF+NjWrbS2ZtSIXympAa1DQ4tAGsSS8iveG/bMyJgDkvAiawR
+	 bTHXPnk4pNcP2NIQhQr1i7QDinhj+jlYyYuSaWkufKrRd7Z3B+mOd1w50N2rgHCA1LQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702470;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702462;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2ZChROafYGqElVUd4oASxYtU7K3gh3Nswh9EtnpMFEw=;
-	b=M77NK3c2CNjLVX8UELcI95bR62qiHOj4OiLWX1ot8zd7hkzeILFVmoceCnE0CD8oMlLK
-	 ooG9oBroEiBRrPAxXqF2UFK7dIRMuYtYTH8TATKwG2lCAmOhyVfQcVS66gzhLgjh+OMe8
-	 9GKUJYO0/NfLlLwlAMXZVwB/4NcybjOVqeilj5ZmGXXHKLkj4s/emKokWeosBzGhlHdoR
-	 GiU/Hiwrzfvjcudz0QTLrW/0LzdPGEeqUPA0s7mZ/ZFFo4TbgjVAkkPcEcbjt+jTtGS2s
-	 jJBkmg6/LdXfD/YYUI+n7w85QuEgwkTZANJQ4331UXLqI0MRLqVOVGNHm5dne5morwg==
+	bh=tjIG230mhGv1oCH45nA8ShTRVOkOe3IxxB2JzFrwQeo=;
+	b=b/0HK5kOKJkEbMr4mcWGMwVZKiHlcZliJs0SeqfROMhjt93Xcd794896QhEY0hCmz13T
+	 gfKPjTOaTns3AthghAtw5f2P79yZ0CQgdel4myZDaq8VcwpJjphHyhpO7E6cT4aamVMKb
+	 HeHuZk4SG/rmoFZgwkDaPGpQfNLSaG98wUpM1uOAUaJB+88pIOVByUUXL47YZNOGjVQN1
+	 KvXLtKPuMtyeE6lMhVXmav5aZx3SKDvd3/h9U9nxAzQIVbdukj/N5L5+Go0VtPdDElo6U
+	 j32xI+yZDuhlo8WDJcLdbTCwezc70Xs0Kgqc4lAIOaL5+1O2OwnmJM4YbJhRJRKWnRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNi7+NKi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhFvSqJo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965E16082BF4;
-	Tue,  3 Nov 2026 10:41:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC266078F0E;
+	Tue,  3 Nov 2026 10:41:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNi7+NKi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F371F00919;
-	Tue,  3 Nov 2026 10:41:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhFvSqJo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828C21F00A15;
+	Tue,  3 Nov 2026 10:41:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702470;
-	bh=2ZChROafYGqElVUd4oASxYtU7K3gh3Nswh9EtnpMFEw=;
+	s=k20260515; t=1793702462;
+	bh=tjIG230mhGv1oCH45nA8ShTRVOkOe3IxxB2JzFrwQeo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DNi7+NKi5mqwTRs7wbCDFlBB32pwn0Zp8J2ZkOcIMYJi4eFXeiLDwB/1ze8ZMMfsc
-	 Ky/qOhent2cDlgDpDPq+E5PVY5FhIXibKfYrhBOwa0Kgmf1ZO/WeQ4X5KVoSEhjpnQ
-	 RsiGQ/Nmrop0L/X3n06UuKP5TP0EnJAWdZ2sIPRjhBt9mUjZOuERbbzoVa9vxA7SWP
-	 aXLiK6X24wEcQ1dtfzFGY3hDsm4OaPVyE53Q1MSdAhlEU1SJxwRBW0hDFdxFZdNIPP
-	 nZGom5Rrz1a2gg3VfBTr3aG8gJtz6o4kQtxOvB9HZiozu76zNzTRbtQFQno2zov5Jb
-	 NZo8DZmTdrYsg==
-Date: Tue, 3 Nov 2026 11:41:07 +0100
+	b=GhFvSqJor3zOKimRSRifG6qVMYl3H/N/moXCK3AGl52EVOA50Ni64eryNgzoI5SI7
+	 +gjx07PNY34O5Ks1MxVPzJsuO/31hpVg7rL38hr6Nz4dZRJDn5up5HOPadh7chB6HR
+	 Y5ruw8/vD1fGodVNsBNcGZs/D2OSrbOQ/nOA+3ssFkXFBdGpcFej7WLbGHjfxqcrwy
+	 ZdvDzb575i0KtEdohhhyjkcT9bLnyeL55/BpSQK1Yz6+qwS2EIVWtqu6/zyxBRi9ui
+	 LTC3qpLc1L44jOc8XiYUmHN8NMQf79edFnhL10OSiabXSEzq+J16g1C9s02XdoUUoZ
+	 MnRAWhOuHN5mQ==
+Date: Tue, 3 Nov 2026 11:40:59 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>
-Subject: Re: [PATCH] media: cec: extron: release the v4l2 device on disconnect
-Message-ID: <20261103-screeching-llama-of-action-dbde2b@quoll>
-References: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	wcn36xx@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: Re: [PATCH] wifi: wcn36xx: drop the SMSM state references on probe
+ error
+Message-ID: <20261103-nostalgic-clever-boobook-3c8dbb@quoll>
+References: <20261103102902.1340936-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,25 +60,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102902.1340936-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:50 +0000, Wentao Liang wrote:
-> extron_connect() registers a v4l2 device, which takes a reference on
-> the underlying serio device. extron_disconnect() never unregisters it,
-> so the reference is never dropped. The extron structure allocated in
-> extron_connect() is not freed either.
+On Tue, 03 Nov 2026 10:29:02 +0000, Wentao Liang wrote:
+> wcn36xx_platform_get_resources() acquires two SMSM state handles with
+> qcom_smem_state_get(). Each successful call returns a reference that the
+> caller has to release with qcom_smem_state_put(), which is only done by
+> wcn36xx_remove() for a device that probed successfully.
 > 
-> Unregister the v4l2 device and free the structure at the end of
-> extron_disconnect(), mirroring the error path in extron_connect().
+> Several error paths in between return without dropping the references
+> already taken: failing to get the "tx-rings-empty" handle leaks the
+> "tx-enable" one, and failing to look up the qcom,mmio phandle or to map
+> one of the mmio regions leaks both of them. A probe that fails after the
+> first successful acquisition therefore leaks the SMSM state references
+> for good.
 > 
-> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+> Make these paths unwind through the existing label chain and put the
+> handles there.
+> 
+> Fixes: f303a9311065 ("wcn36xx: Transition driver to SMD client")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/net/wireless/ath/wcn36xx/main.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
 
 
