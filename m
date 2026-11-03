@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793675989;
-	b=XP3z9Lz9fOJb2ouyATlO01a/Ikf/VaaV7qk80V2gTDWK/fG9iCYgBfeMzu9fPPY6xj6F
-	 vhYlqIeW5ngupBxQEohE6tZitAleY+LbyZqPtmACseT/RDfi+TA+3yea27zqR7HGCEkC0
-	 nvqE3vdCLuD/s+O84R9Bn2R0C4/3wWkR4SPqfLG8Jdi/mtaJ/9bYUnvqulgYf5HarRCXL
-	 xgwYs6pb2VWDXGuf9BEIaAQa37ZzFQ6d7AIale/9IEZF3fLU2ZVYLrRNga641FofXpM1H
-	 KVT2eYGJZGUDsUZjF1hTsV5e+0z1kjzPGrtFdr9TgKgJxIT4Of412OjReK7O4Kh1dxg==
+	t=1793675991;
+	b=T+j/v5iCEy9WlZE7VZrfani1NpSXeUXrUGXMwhuQ99+bOKzVSIiGZ3gZ7I7udeqZ9YV1
+	 Mq/SsttofIIS/UnSJVimBFcOmbleqDtIPGI7gpGoX3K7K6WFzmWF5HiddcVOImvpa7uDU
+	 AERxCTvtnYa6PlSR4SbwiimY4FPGhVi4avvNPPu7vq3/f7rCpyq6EuEuj2dThESbLqQN2
+	 Ue2tCViuv1HeWSUtatooSspeSQV05zXhEHWKzHbN2fLbYgjVmoyPW5DN5iSPk1W4vuFFo
+	 AalDLZ0TchfllyJDWOGsz5wa/uxvexohcn3ybWR+fh1uFCoMnZdwjXNTWDAgoXKv9nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675991;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=mmgjyTzDT/nPmZhFsjLSVjTEy7UpM2Hvve127ffzSOY=;
-	b=kiW8hyJbHiTNj4KfzAyqjkhYfWv3hopuiQdgWog5kbQ2h0rXrMtiblWGMqH7e6OjPxn1
-	 c3Mrc8bVoIUAnLF4dl5mSsuCpvg0Vtr7cqLLWk0Hb5lDKbiY4Y12aVPLl8Yt/RytJmTmX
-	 ifEGE66avCtVaSl/NTxGR4/EVC9YZdvVK01XYlyBP/NdAkHuq6rA7xEecHAjAq+Q78M8z
-	 EAKRA3aRhJvWSPGRPdDAM2PWTgseEmJY1AnPCyNdxT1Z1jdj/QrSJnJAZGXWuepi0HbTA
-	 7n5eye6EWROlLTppZqZV8BrQl2QirSY/eMHfE6LYu9rdNUus6gfdTC3H+FAbgbN5t6Q==
+	bh=M02Qbn71HPoIPw59tT4uaXcsJ8tHvDKn6ecBkz60lco=;
+	b=EQYwfGxM+FVbh7wKuKVE/7oPjLRtbv+p8TAHg2peHxDk3vUfKuGoClDGxB4lBAn+f7bk
+	 +0iNjcgpqHR2etPCVcDgzU9jJCGR6F1SVCYtWsPaykf3nPYoqlT4MeVsjU7Q+wbqkz/67
+	 99ti5JE43OIjBcoSr/lgR1fdRFt+4pwc0AtwZVk0br7RiYE6l1FNcPRUF1SDrhxqBlrtP
+	 nTGqBZPC5wizzmxDcv5rj6yF2aR3imSdyB919iLQHUs3JMJB8aasEAtmFI/fj8izwtSFK
+	 gJZV62muI5vwoxWFaCO3V9bzjIw8hWc0UiNab3iY4tsCQfAoVWKuq4QDxQaCECz2j2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jI+UJZs3;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0Y+DlLPf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F02606A326;
-	Tue,  3 Nov 2026 03:19:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8B6606A33F;
+	Tue,  3 Nov 2026 03:19:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jI+UJZs3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C6B1F000C1;
-	Tue,  3 Nov 2026 03:19:48 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=0Y+DlLPf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073F31F00A02;
+	Tue,  3 Nov 2026 03:19:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793675988;
-	bh=mmgjyTzDT/nPmZhFsjLSVjTEy7UpM2Hvve127ffzSOY=;
+	d=linux-foundation.org; s=korg; t=1793675991;
+	bh=M02Qbn71HPoIPw59tT4uaXcsJ8tHvDKn6ecBkz60lco=;
 	h=Date:To:From:Subject;
-	b=jI+UJZs3iV9lkuB1VLYSDHoO9ZxdsELCy8Xslv01X0iaePl8kqG4u57hX7J3r5zb0
-	 vR3Lql8YbH4OZOxDVZeClOBUCMiQVz86RZ3vZX5DZuqog/DGhFoag2pXeyPZFTvZ6Z
-	 xy3h+LPN8yyi/F7qu+DsIisibDl3Tg99Fa8DyY0c=
-Date: Mon, 02 Nov 2026 19:19:48 -0800
+	b=0Y+DlLPfHjLrnn+BE2mr1AXwAfM6DoNjgWgtM96pVoL8b6qjUEaR8DgTv/o0l92JF
+	 555U0bFWJKny1KZSl5F+a1UGUdmtVSKH2GB64q2U7BbVqFB4K6/v38lg+8r39XQgMk
+	 8mZMCNY4n1+DBo3m/fLUY1iudkTzw0YaahzcVAT8=
+Date: Mon, 02 Nov 2026 19:19:50 -0800
 To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
 	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
 	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-hotfixes-stable] ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch removed from -mm tree
-Message-Id: <20261103031948.B6C6B1F000C1@smtp.kernel.org>
+Subject: [merged mm-nonmm-hotfixes-stable] ocfs2-dlm-serialize-migration-mle-cleanup-on-failure.patch removed from -mm tree
+Message-Id: <20261103031951.073F31F00A02@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,69 +54,125 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: ocfs2: keep locking_state within the cluster connection lifetime
+     Subject: ocfs2/dlm: serialize migration MLE cleanup on failure
 has been removed from the -mm tree.  Its filename was
-     ocfs2-keep-locking_state-within-the-cluster-connection-lifetime.patch
+     ocfs2-dlm-serialize-migration-mle-cleanup-on-failure.patch
 
 This patch was dropped because it was merged into the mm-nonmm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
 From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: keep locking_state within the cluster connection lifetime
-Date: Tue, 27 Oct 2026 12:31:44 +0800
+Subject: ocfs2/dlm: serialize migration MLE cleanup on failure
+Date: Tue, 27 Oct 2026 18:14:49 +0800
 
-The locking_state reader calls ocfs2_dlm_lvb() through the selected
-cluster stack.  Its debug-object reference keeps the tracking list alive,
-but does not keep that stack selected without a cluster connection.
+A migration MLE has a base reference for the mastering answer and an
+in-use reference held by dlm_migrate_lockres(). The finishing assertion
+consumes the base reference, but migration failure drops it again
+without checking whether the assertion already consumed it.
 
-DLM initialization publishes the file before establishing its connection,
-and DLM shutdown drops the connection while the file still exists.  Both
-the mount error unwind in ocfs2_mount_volume() and ocfs2_dismount_volume()
-remove the debugfs subtree only after ocfs2_dlm_shutdown() has returned. 
-Whenever the disconnect releases the last stack reference, which is the
-case for a failed mount and for any unmount without a pending hangup, a
-concurrent reader dereferences a NULL active_stack:
+The target queues its migration worker before it acknowledges the
+ALL_DONE packet, so its finishing assertion can be handled while the
+sender still waits for the status. If the connection fails before the
+status arrives, dlm_send_one_lockres() returns an error for a migration
+that the target has already completed:
 
-  Mount error unwind                  Debugfs reader
-  ------------------                  --------------
-  ocfs2_mount_volume(): out_dlm
-    ocfs2_dlm_shutdown()
-      disconnect last cluster
-        clear active_stack
-                                      read locking_state
-                                        ocfs2_dlm_seq_show()
-                                          ocfs2_dlm_lvb()
-                                            dereference active_stack
-  fill_super(): out_debugfs
-    remove debugfs subtree
+  Old-master sender                  Finishing assertion
+  -----------------                  -------------------
+  publish MLE; take in-use reference
+  send ALL_DONE; wait for status
+                                     take lookup reference
+                                     unlink MLE
+                                     put lookup and base references
+  send returns a connection error
+  put base reference again; free MLE
+  put in-use reference; access freed MLE
 
-Publish the debug files only after the connection and the mount lock
-resources are initialized, so a failed DLM initialization has no debug
-reference to drop.  Remove them again in the common DLM shutdown helper
-before the connection is dropped: debugfs removal waits for readers that
-are inside the file operations, and the parent directory is still present
-at that point in every caller.  This covers the mount error unwind, the
-ocfs2_fill_super() failures after a successful mount that dismount with
-mnt_err set, and unmounts whose disconnect releases the stack directly.
+dlm_assert_master_handler() holds dlm->spinlock from the MLE lookup to
+the final puts, and it takes dlm->master_lock around the unlink and the
+puts. Decide under the same locks: if the MLE is already unhashed, the
+assertion consumed the base reference, so drop only the sender's in-use
+reference. Otherwise unlink it before consuming the base reference so a
+later assertion no longer finds it.
 
-Only the relevant frames of the report are kept:
+An assertion that got there first has also made the target the owner
+and cleared DLM_LOCK_RES_MIGRATING. Treating the attempt as failed at
+that point would leave the lockres owned by the target while this node
+still holds the other nodes' locks and refmap bits, so it could neither
+be purged nor migrated again. Finish our side as a completed migration
+does instead: drop those locks under res->spinlock if the target still
+owns the lockres, and recalculate its usage.
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-RIP: 0010:ocfs2_dlm_lvb+0x38/0xf0
+Use the same cleanup for the pre-send failure, the send failure and the
+target-death failure paths. The sender's in-use reference keeps the MLE
+alive until its final put outside the nested locks. Successful
+migration retains its existing in-use-only put.
+
+A target that has died cannot assert after the sender has seen its
+death. The o2net node-down callback runs before the DLM one; it
+disconnects the node and flushes the workqueue that runs the message
+handlers, so an assertion already received has been handled by the time
+the DLM removes the node from the domain map. A node that leaves the
+domain cleanly sends its exit message only after its assertions have
+been answered.
+
+Two windows of the hand-over itself are left as they are: the handler
+switches the owner and the sender drops the other nodes' locks moments
+later, and an assertion from a live target that arrives after the
+sender has given up still meets the owner check in the handler. Waiting
+for the target before giving up would only stretch the first window
+into the time in which recovery of the target can observe it.
+
+KASAN report, only the relevant frames are kept:
+
+BUG: KASAN: slab-use-after-free in dlm_put_mle_inuse+0xce/0xe0
+Read of size 8 at addr ffff8881190e3c20 by task umount/593
+
 Call Trace:
  <TASK>
- ocfs2_dlm_seq_show+0x36a/0xb70
- seq_read_iter+0x480/0x1110
- seq_read+0x362/0x5a0
- full_proxy_read+0x11f/0x180
- vfs_read+0x1a0/0xc20
- ksys_read+0x111/0x200
+ dlm_put_mle_inuse+0xce/0xe0
+ dlm_migrate_lockres+0x16af/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+ generic_shutdown_super+0x15f/0x490
+ kill_block_super+0x40/0xa0
+ deactivate_locked_super+0xae/0x120
+ deactivate_super+0xa2/0xc0
+ cleanup_mnt+0x217/0x450
+ task_work_run+0x144/0x230
  </TASK>
 
-Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0011-v7-61e3ef8b1ad44ac2e817@gmail.com
-Fixes: 286eaa95c5c5 ("ocfs2: Break out stackglue into modules.")
+Allocated by task 593:
+ kmem_cache_alloc_noprof+0x20b/0x5c0
+ dlm_migrate_lockres+0x20e/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+ ocfs2_dismount_volume+0x696/0x940
+
+Freed by task 593:
+ kmem_cache_free+0x242/0x580
+ __dlm_put_mle+0x4b2/0x660
+ dlm_migrate_lockres+0x1690/0x20d0
+ dlm_empty_lockres+0x60a/0xbd0
+ dlm_unregister_domain+0x53b/0x11d0
+ o2cb_cluster_disconnect+0xa5/0x110
+ ocfs2_cluster_disconnect+0x73/0xc0
+ ocfs2_dlm_shutdown+0x311/0x440
+
+The buggy address belongs to the object at ffff8881190e3c00
+ which belongs to the cache o2dlm_mle of size 480
+The buggy address is located 32 bytes inside of
+ freed 480-byte region [ffff8881190e3c00, ffff8881190e3de0)
+
+Link: https://lore.kernel.org/pm-ocfs2-objects-candidate-0038-v9-659f247ea980d5f3fbeb@gmail.com
+Fixes: 6714d8e86bf4 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
 Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
@@ -129,61 +185,109 @@ Cc: <jjzuming@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/ocfs2/dlmglue.c |   18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ fs/ocfs2/dlm/dlmmaster.c |   70 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 61 insertions(+), 9 deletions(-)
 
---- a/fs/ocfs2/dlmglue.c~ocfs2-keep-locking_state-within-the-cluster-connection-lifetime
-+++ a/fs/ocfs2/dlmglue.c
-@@ -3356,6 +3356,14 @@ static void ocfs2_dlm_shutdown_debug(str
+--- a/fs/ocfs2/dlm/dlmmaster.c~ocfs2-dlm-serialize-migration-mle-cleanup-on-failure
++++ a/fs/ocfs2/dlm/dlmmaster.c
+@@ -2525,6 +2525,52 @@ static int dlm_is_lockres_migratable(str
+  */
+ 
+ 
++/*
++ * Drop the sender's references on a migration MLE after the attempt has
++ * failed. The finishing assert from the target may already have unlinked
++ * the MLE and consumed its base reference; decide under the locks the
++ * assert handler holds, and only drop the base reference while the MLE is
++ * still hashed. Returns true when the assert got there first: the target
++ * has become the master, so the caller must complete the migration.
++ */
++static bool dlm_put_migration_mle(struct dlm_ctxt *dlm,
++				  struct dlm_master_list_entry *mle)
++{
++	bool asserted;
++
++	spin_lock(&dlm->spinlock);
++	spin_lock(&dlm->master_lock);
++	__dlm_mle_detach_hb_events(dlm, mle);
++	asserted = hlist_unhashed(&mle->master_hash_node);
++	if (!asserted) {
++		__dlm_unlink_mle(dlm, mle);
++		__dlm_put_mle(mle);
++	}
++	spin_unlock(&dlm->master_lock);
++	spin_unlock(&dlm->spinlock);
++
++	dlm_put_mle_inuse(mle);
++	return asserted;
++}
++
++/*
++ * The finishing assert got there first: it switched the owner to the
++ * target and cleared DLM_LOCK_RES_MIGRATING. Drop the other nodes' locks
++ * as a completed migration does, unless recovery has taken the lockres
++ * over since, and let the usage be recalculated.
++ */
++static void dlm_migrate_lockres_asserted(struct dlm_ctxt *dlm,
++					 struct dlm_lock_resource *res,
++					 u8 target)
++{
++	spin_lock(&res->spinlock);
++	if (res->owner == target)
++		dlm_remove_nonlocal_locks(dlm, res);
++	spin_unlock(&res->spinlock);
++
++	dlm_lockres_calc_usage(dlm, res);
++}
++
+ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
+ 			       struct dlm_lock_resource *res, u8 target)
  {
- 	struct ocfs2_dlm_debug *dlm_debug = osb->osb_dlm_debug;
+@@ -2609,9 +2655,10 @@ fail:
  
-+	/*
-+	 * Drain the readers before the cluster stack goes away: the
-+	 * locking_state reader resolves ocfs2_dlm_lvb() through the
-+	 * stack. Every caller removes the parent directory later.
-+	 */
-+	debugfs_lookup_and_remove("locking_state", osb->osb_debug_root);
-+	debugfs_lookup_and_remove("locking_filter", osb->osb_debug_root);
-+
- 	if (dlm_debug)
- 		ocfs2_put_dlm_debug(dlm_debug);
- }
-@@ -3370,8 +3378,6 @@ int ocfs2_dlm_init(struct ocfs2_super *o
- 		goto local;
- 	}
- 
--	ocfs2_dlm_init_debug(osb);
--
- 	/* launch downconvert thread */
- 	osb->dc_task = kthread_run(ocfs2_downconvert_thread, osb, "ocfs2dc-%s",
- 			osb->uuid_str);
-@@ -3411,9 +3417,10 @@ local:
- 	ocfs2_orphan_scan_lock_res_init(&osb->osb_orphan_scan.os_lockres, osb);
- 
- 	osb->cconn = conn;
-+	if (conn)
-+		ocfs2_dlm_init_debug(osb);
- bail:
- 	if (status < 0) {
--		ocfs2_dlm_shutdown_debug(osb);
- 		if (osb->dc_task)
- 			kthread_stop(osb->dc_task);
- 	}
-@@ -3443,10 +3450,11 @@ void ocfs2_dlm_shutdown(struct ocfs2_sup
- 	ocfs2_lock_res_free(&osb->osb_orphan_scan.os_lockres);
- 
- 	if (osb->cconn) {
-+		/* The disconnect below may release the selected stack. */
-+		ocfs2_dlm_shutdown_debug(osb);
-+
- 		ocfs2_cluster_disconnect(osb->cconn, hangup_pending);
- 		osb->cconn = NULL;
--
--		ocfs2_dlm_shutdown_debug(osb);
- 	}
- }
- 
+ 	if (ret < 0) {
+ 		if (mle_added) {
+-			dlm_mle_detach_hb_events(dlm, mle);
+-			dlm_put_mle(mle);
+-			dlm_put_mle_inuse(mle);
++			if (dlm_put_migration_mle(dlm, mle)) {
++				dlm_migrate_lockres_asserted(dlm, res, target);
++				ret = 0;
++			}
+ 		} else if (mle) {
+ 			kmem_cache_free(dlm_mle_cache, mle);
+ 			mle = NULL;
+@@ -2640,9 +2687,11 @@ fail:
+ 		mlog(0, "migration to node %u failed with %d\n",
+ 		     target, ret);
+ 		/* migration failed, detach and clean up mle */
+-		dlm_mle_detach_hb_events(dlm, mle);
+-		dlm_put_mle(mle);
+-		dlm_put_mle_inuse(mle);
++		if (dlm_put_migration_mle(dlm, mle)) {
++			dlm_migrate_lockres_asserted(dlm, res, target);
++			ret = 0;
++			goto leave;
++		}
+ 		spin_lock(&res->spinlock);
+ 		res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 		wake = 1;
+@@ -2686,9 +2735,12 @@ fail:
+ 				     res->lockname.name, target);
+ 				ret = -EINVAL;
+ 				/* migration failed, detach and clean up mle */
+-				dlm_mle_detach_hb_events(dlm, mle);
+-				dlm_put_mle(mle);
+-				dlm_put_mle_inuse(mle);
++				if (dlm_put_migration_mle(dlm, mle)) {
++					dlm_migrate_lockres_asserted(dlm, res,
++								     target);
++					ret = 0;
++					goto leave;
++				}
+ 				spin_lock(&res->spinlock);
+ 				res->state &= ~DLM_LOCK_RES_MIGRATING;
+ 				wake = 1;
 _
 
 Patches currently in -mm which might be from zzzccc427@gmail.com are
