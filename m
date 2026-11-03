@@ -1,71 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728795;
-	b=vozMo4IeR7YoJcLlpAR4jpetRxlLoY8+rX2quNwEmIAvlUtRtzYnsLfQznZvpp6JGqcp
-	 IOtH1Gsj+SFLMlOlkwftsdYPoJ/qr2akapLrVitCvItWoQJdDtkLfbKGGdseYAIHD0LDE
-	 Nu89cNNe77HnIVfk5c9nmdDqaJSOVd4V7iVAeON/5ppoq4GHxvVW59wWfhpuyG1Xs4wXt
-	 TqdIlLpCrJc04WIBLTT+kZMsd6oR8dWNPzcuNbpmDLhzt0VqlkTDBO8makSubaKto2F1I
-	 j3F0wnERExwOhNTuZu9wQgHem94pR5MTLEGyXFLjHZm173WZaew6MaBuJecyrUajySw==
+	t=1793728868;
+	b=M9Cc6GeHyWwgN6k1U1CHzilLwUk80iHKxkqOW2/CnUBAWganpVkIiJxfNL61AG3ImZwr
+	 JMF4mzBd0fHtUq/+GE1T+Va9IekUy7PkYZlqaMqlLuu0I7PpbPIXTQp0IeLUt0pAE86Jf
+	 6CeJ32xW6ajpK/45vz/b6SfSMlYGdLweMG4M0PyaF1EFAou8oSO7CiCEs6dGR3p2YoOC1
+	 tImO6UTXHqrIrtJvRESLqi4HEY6H1pUGLiFMRzkfVu+dh54szO7ikeab3ShP4FU3P3dMu
+	 1Ky+lB46GSRzkXzrx4N/PRyoOkF7WoY5gyup/asLT2O0su+AVnZ1MnhWyUzVGX9fcfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728795;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=FPwct+1U9T6oyA5Ruuz5LB/HvShMdpdhhsQD4HMVAhg=;
-	b=GFohJ6WWzrguHg3S1gVXMfi3ZpA65uqJlfyi9wQlN9v5JzZ69BJrU1Ml9hd+SW4f63Do
-	 O9lJ0AVdZ5mdkdaZyK296UuXOFflEHu+PrljscNpEnIWi2rbXZfRV8hnB8GOWTmhsNNOZ
-	 SfZX0FepGak95MKokrj8KEob70gF3EEtrrgKeOZV78acWCvgVht6yoalAS3ayEu5RMiLz
-	 2llba5vJ9aLK6XyVsajH+q1lwoo1nvl+CmHrJkWbRpQyOurQlDGcCywYd5PASQkMkNfiW
-	 opJisT7GfVRAW7Z0OugxDEdrUF7iMTzR7puNYKuy0/9cp4Vx/MhZ59j15l3gaxQfKWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728868;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=LihcftIqtHPBx/BrYp2PBuP9LehJ9ydf5sfAZouf5C0=;
+	b=PfacG04jBFnvYWx99BvkuyRPJuZFGrWp4lmq0YIkcMuciJ7mVic8Dd7GFEuSRn6KvRih
+	 HaShx7vC4d+Hya9fOMuvNK0fKI6+bToC9WDCmSeYHb26x739cMIqF5mACa3Pyq3avMHLJ
+	 JoR126BslcDmZAnjvRWOuuv620VNkh7nYe3xJA8QfNmLnlsF2Ogc/BeDYfSRYRKveY1hO
+	 M7WTZ6xMzsbcGtWrA23NxL2oA8o2RUw6icogbpHzIPSjZEx/eyClP+IAY3gI2IYabB4mA
+	 bzEDwIQulkFghzB3iqCPp4PyiOrEBKzNhNPjMZyHtch0Cbytcd7akHvVGlMPlaxmtRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--wvw.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oKWTE9wx;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FU2td6Ru;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7154606D803
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 17:59:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7154606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wvw.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF3C606A31B;
+	Tue,  3 Nov 2026 18:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF3C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oKWTE9wx
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae7faf4ff7so5873333a91.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 09:59:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793728794; x=1794333594; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FPwct+1U9T6oyA5Ruuz5LB/HvShMdpdhhsQD4HMVAhg=;
-        b=oKWTE9wxvvkr6zCRmGOi7MD8BifRNWWeKWlQl288hGhFeyWHixUsNw7NTaikjfsx+E
-         fl/68xwPzPUk2e/UEBmVVs41KowLq0QtKlvhIc47QqPmeD0M1otau9oULB6BOFOgWXIu
-         5aVDEyLHY+EYQ0QJKkPWr1Ja0np0kBEm1xdQKdlv295PWhkpy4fDI/snUTgmU7qN0epA
-         4wbVCoPw/xuYj/dhulM1DJVJxN3lD3yr16y0rwkMyt+0EaHFjkF5fr1M91lTR+AHIsda
-         xaTQtNbiTAHCX4YmdvieCD8sC52zOSmqojGRDrTuu6Z4YmnDC4wgjuZ9AUqzWcUPF740
-         OhgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793728794; x=1794333594;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FPwct+1U9T6oyA5Ruuz5LB/HvShMdpdhhsQD4HMVAhg=;
-        b=T+BkybsIBBVcxLh/ngzeU/Tiky/+UFtWzGU4imLaM+risSkgTbbV/+IIp/uWn6fIgB
-         jqyh6JWfc4ZMizP6kaAoJCGGDs6nBDxEdTr1+qBV1cUxCT7Hmg02SZk9gS+sMlbWzhHC
-         qQ474MhfPqSc20zXNSZwX8jfcRbeeSST7NNqliTYM3p/h8BQCup3PShS924gK/mcXFY/
-         ZlzImWotwSBke7piyXm3UorhCUNOwozqavLJez0OgIoulSm58/Znp19b5Ep9WKd1hZs0
-         5gFWI3qdC557dZAOj/xKDf0VIVdUqMpO0gDqW2UuhuBvNBvhwQBPdFZvssyJn5fQickt
-         921g==
-X-Forwarded-Encrypted: i=1; AKwUvBxfvvFpNcpDcXOIoJZnCCm3iD/BDzZIxty0gM5W7ImenHO730bByWIlu9rZ6XaszkpFNPxHjhU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91Ju8xJlfEjs1EQpZxvAv3c2hcFCNAJ89ub9cZEc398gx6L3U2
-	2PPFQv4X+00YU44djkdtZ6nn262BOVbeZRCIWY6eZOhzlDllROwFFbOjTTh+4crvok2QXg==
-X-Received: from pggs9.prod.google.com ([2002:a63:dc09:0:b0:ccb:62e:3f01])
- (user=wvw job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b0d:b0:3ac:9e5e:d1a9
- with SMTP id 98e67ed59e1d1-3ae897ec5b1mr11095151a91.20.1793728793847; Tue, 03
- Nov 2026 09:59:53 -0800 (PST)
-Date: Tue,  3 Nov 2026 17:59:41 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FU2td6Ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793728867; x=1825264867;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZEu3T8PKR06aXeT5T9tiffD3wPOcQDLY2cPsllGkJb8=;
+  b=FU2td6RuGbqAdYnvgUZtkmeutBvX9bpcs2/0aFbtMXWudPqrDxt6j0B6
+   Iv6Q3DqoHgccS1ecdcOUsVDY0FhSQ7Y+IbJoxhvdn1iZaTA6tsAUp6P2+
+   JbmAU9coLwBzF6Hss5XRxskV2cQhMcQNza6Jml1zjvPSGngIe7dchG/na
+   EBvdZb/RjvLyanEVdHQIS8VhJIW6CsMpS7sbKDXChMvgIQwbt//UPasnX
+   ixk+waBGEyKaq2jaNQd0Ajg9oo7rTnYu6BAoxpld/QdYrECVW05+tfdmU
+   kb2VPA9wI7WyxnRUxhavBzyqA8IIIFWebKcw8u4txwEKJb8BAs600zx/x
+   g==;
+X-CSE-ConnectionGUID: BrLltAQpTYS94N2wauE2vw==
+X-CSE-MsgGUID: GtqkIw9xTG6SJvmUT5mRfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2494043"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2494043"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:01:07 -0800
+X-CSE-ConnectionGUID: QBmGdKfMTHyif7+/Dou+uA==
+X-CSE-MsgGUID: r8oFF1v1SbyfMQy59H8d2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="8271042"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:01:05 -0800
+Date: Tue, 3 Nov 2026 20:01:02 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] iio: trigger: fix use-after-free in
+ current_trigger_store() on concurrent writers
+Message-ID: <auohXrCmejLW20Ta@ashevche-desk.local>
+References: <20261026100246.68005-1-yuz08559@gmail.com>
+ <20261102034532.33246-1-yuz08559@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,82 +82,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261103175941.1349818-1-wvw@google.com>
-Subject: [PATCH v2] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
-From: Wei Wang <wvw@google.com>
-To: catalin.marinas@arm.com, will@kernel.org
-Cc: broonie@kernel.org, mark.rutland@arm.com, rafael@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, wei.vince.wang@gmail.com, 
-	stable@vger.kernel.org, Wei Wang <wvw@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102034532.33246-1-yuz08559@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-TPIDR2_EL0 is a live EL0 register on systems with SME, but
-cpu_do_suspend()/cpu_do_resume() don't preserve it. Its value is
-UNKNOWN after a warm reset, so the task that initiates suspend can
-return to userspace with a corrupted TPIDR2_EL0.
+On Mon, Nov 02, 2026 at 01:45:32PM +1000, Yu Zhang wrote:
+> current_trigger_store() holds iio_dev_opaque->mlock only around the
+> INDIO_BUFFER_TRIGGERED / trig_readonly checks and then drops it. The rest
+> runs unlocked: it reads the current trigger into oldtrig, acquires the new
+> one by name, stores it into indio_dev->trig, and drops the old trigger's
+> reference with iio_trigger_put().
+> 
+> sysfs does not serialize writes to the same attribute issued through
+> different open file descriptors (each open has its own kernfs_open_file),
+> so two threads can run current_trigger_store() on the same
+> .../trigger/current_trigger concurrently. Both read the same oldtrig, both
+> overwrite indio_dev->trig, and both call iio_trigger_put(oldtrig). The
+> extra put drops the trigger's refcount to zero while it is still in use,
+> frees it, and a concurrent writer then dereferences the freed trigger.
+> 
+> With two sets of writers hammering current_trigger between two software
+> triggers on an iio_dummy device, KASAN reports:
+> 
+>   refcount_t: addition on 0; use-after-free.
+>   WARNING: CPU: 3 PID: 3467 at refcount_warn_saturate+0xbb/0xe0
+>    kobject_get+0xf6/0x100
+>    current_trigger_store+0x15c/0x4b0
+>   ...
+>   BUG: KASAN: slab-use-after-free in current_trigger_store+0x168/0x4b0
+>   Freed by task 3468:
+>    kobject_put+0x125/0x220
+>    current_trigger_store+0x2cc/0x4b0
+>   Allocated by task 3454:
+>    __iio_trigger_alloc+0xc7/0x100
+>   ...
+>   Oops: general protection fault
+>    __module_get+0x27/0xd0
+>    current_trigger_store+0x192/0x4b0
+> 
+> Hold mlock across the whole operation so that reading oldtrig, swapping
+> indio_dev->trig and dropping the reference are atomic with respect to
+> other writers (and to buffer enable, which the -EBUSY check guards).
+> Acquiring the new trigger with iio_trigger_acquire_by_name() under mlock
+> is safe: it only takes iio_trigger_list_lock, and the buffer path already
+> calls iio_trigger_{attach,detach}_poll_func() with mlock held.
+> 
+> The trigger swap itself keeps its goto based cleanup of the newly
+> acquired trigger, so move it into a helper and take mlock with guard()
+> in current_trigger_store() around the mode checks and the helper call,
+> rather than mixing guard() and goto in one function.
 
-Save and restore it alongside TPIDR_EL0 and TPIDRRO_EL0. The new slot
-fits in existing padding, so sizeof(struct cpu_suspend_ctx) is
-unchanged.
+...
 
-Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
-Cc: stable@vger.kernel.org
-Acked-by: Will Deacon <will@kernel.org>
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Wei Wang <wvw@google.com>
----
-v2:
- - Trim commit message (Will)
- - Keep mrs_s/msr_s as TPIDR2_EL0 isn't in tools/sysreg yet (Catalin)
- - Collect Acked-by/Reviewed-by tags
-v1: https://lore.kernel.org/r/20261102234813.1069156-1-wvw@google.com
+> +static ssize_t current_trigger_store(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     const char *buf, size_t len)
+> +{
+> +	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+> +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
+> +
+> +	guard(mutex)(&iio_dev_opaque->mlock);
+> +
+> +	if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
+> +		return -EBUSY;
 
- arch/arm64/include/asm/suspend.h | 2 +-
- arch/arm64/mm/proc.S             | 8 ++++++++
- 2 files changed, 9 insertions(+), 1 deletion(-)
++ Blank line.
 
-diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
-index eb60c9735553..2cc5fb405769 100644
---- a/arch/arm64/include/asm/suspend.h
-+++ b/arch/arm64/include/asm/suspend.h
-@@ -2,7 +2,7 @@
- #ifndef __ASM_SUSPEND_H
- #define __ASM_SUSPEND_H
- 
--#define NR_CTX_REGS 14
-+#define NR_CTX_REGS 15
- #define NR_CALLEE_SAVED_REGS 12
- 
- /*
-diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-index 7afbece885a3..c7b7fa6491c3 100644
---- a/arch/arm64/mm/proc.S
-+++ b/arch/arm64/mm/proc.S
-@@ -103,6 +103,10 @@ SYM_FUNC_START(cpu_do_suspend)
- alternative_if ARM64_HAS_TCR2
- 	mrs	x2, REG_TCR2_EL1
- 	str	x2, [x0, #104]
-+alternative_else_nop_endif
-+alternative_if ARM64_SME
-+	mrs_s	x2, SYS_TPIDR2_EL0
-+	str	x2, [x0, #112]
- alternative_else_nop_endif
- 	ret
- SYM_FUNC_END(cpu_do_suspend)
-@@ -142,6 +146,10 @@ alternative_if ARM64_HAS_TCR2
- 	ldr	x2, [x0, #104]
- 	msr	REG_TCR2_EL1, x2
- alternative_else_nop_endif
-+alternative_if ARM64_SME
-+	ldr	x2, [x0, #112]
-+	msr_s	SYS_TPIDR2_EL0, x2
-+alternative_else_nop_endif
- 
- 	msr	sctlr_el1, x12
- 	set_this_cpu_offset x13
+> +	if (iio_dev_opaque->trig_readonly)
+> +		return -EPERM;
+> +
+> +	return iio_trigger_set_current(indio_dev, buf, len);
+> +}
+
+> +
+
+Drop this blank line.
+
+>  static DEVICE_ATTR_RW(current_trigger);
+
 -- 
-2.56.0.385.gac671c819a-goog
+With Best Regards,
+Andy Shevchenko
+
 
