@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722619;
-	b=c/a7sbYSwuSIQ/S8LKEh8KjRNBfEVlybQF/GbFPLyCDU5qjqaA+eBwUvuzECk5XOFvuC
-	 KuHN74983dR1PkSc+Iz3aitXNx+EhrMAHAR7drtb8bw7AJDUPnPCZPOKt+Q5woCGc00If
-	 M135dSxdYsEErGMBXBK6bZu6xcE/kY9x3XzES7uAbfotXskyw14KJmEK507qM+9jOOBzh
-	 l5URbAOb9WBiELXoooNMX3b6uCzwOZsZgTI9A+B9ACmpgTo1HpWImBRJ5pud5mIefp9mB
-	 8HR8v1RhTt6cgRt4CPTVhnW3le7iVm1SAZJ8zbXSYPF9Y2KNAojUAxUc6s/8c8X6I1Q==
+	t=1793722622;
+	b=5R5SvtEnHWwCgLq//Czr3qQ9NJtaPIkirWcz2aFFlrC4BDiDBZrmSOYHw09CpocBfqS/
+	 tk0iHlxdeKsnHEXr4EMkC7z9bmSgYIbD6teMQaNVW3t4LJZKNO71Kc/xD1LPf6q3BAeb6
+	 5yeFpXGK4XOyJHLittK+K/ANvXCSA2XXnWGnBhK8UiZVe5j2zvtrxJgMnifCn0GQuU1TM
+	 kz+0VikTD1Rr91JX8rLB7bg0P1PumwIsY1bEHsWHbWIR+ILfQ67MOzKxbupksskY898RF
+	 aiCEKJe6O8YiyBXwmB8gWLIdUZgkVsjKK6x1FLIrLUbh+kD55I7U2U/HB0vqEyT8MCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722619;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722622;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=whRKP2FIGGX9uO7u5NRY0O5dJxVmBW+dlYUy2EeY3q8=;
-	b=LyWXXQdh34u58mGcf+j/bgCfsz/5Nuvqv/oH/yS9yXSx1mdBVA3An1pQUm3/0xAY0aCU
-	 VlU6UFWs34pcCPornYfIis8nWUpClt8Cy5Ku0tq7C5BibrrTRLXVxNQHZuCmD7y8rmud1
-	 0dMoBQzoazTjvWRQ3IFQHEZKTCwFF3OPGhfd0IFojCem1IQkTG13ULpmDhsaD2Xk0u0dJ
-	 x5ZxzoWPAvLZlu5Tos3sxi2oqqGi271F2HPuLu34oLPs7hCvGMKQbC4WmYEu3fiIMymKK
-	 T0yiKgVk6yFCjFIA3apic5eXqzuyD/a93tuZ//0+5mLaiErmatgknXZjkAEZDcWGv6g==
+	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
+	b=ZupuNmgmdCogDsOrCbhGLAQxWsUau8gjfbA79QTitj3lzPLm8osHyJZbi4fnWe9+Ljfn
+	 /K6QCr9p/+GDbnqYd/Gh+5KZFEJskjnI6AuhSJROb9hXSDgud2HQ6LgELi3yrDpZsDnc5
+	 4Sse8QlE04PxZNJ5vqax02Np9qTI0xyCS/SDqTGOZ7eOulDaX6Q8qjgBK6kC0cmxU1UjO
+	 00NlxW2ZZ1GRo5Cd83JcZHVSeJtKCTuXuIDYpxvntoRmMNJTyunVVgijBkqaLS1JSd1Fs
+	 AkOJWgaEDjHUEYOAtGhuIrl8TCCwRO2+3IQPgIHWwnX3G9zPyKxtaFFF1UZSUbGAVkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMQWjn2H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmV43mOz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06625606A336;
-	Tue,  3 Nov 2026 16:16:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B76606EE87;
+	Tue,  3 Nov 2026 16:17:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMQWjn2H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 898111F000C1;
-	Tue,  3 Nov 2026 16:16:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmV43mOz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FBE21F0093A;
+	Tue,  3 Nov 2026 16:16:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793722617;
-	bh=whRKP2FIGGX9uO7u5NRY0O5dJxVmBW+dlYUy2EeY3q8=;
+	s=k20260515; t=1793722621;
+	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=eMQWjn2HbyxpTB7teUSNvegEuUtHnNd+JtCXX81m2/Ivw32z4Hya1W4geoX9WP+5S
-	 Zga728/RneF5FODP6/UVGz78KzTily9N+wqwZWE6YI0IAqFVPAXL+HJg5DNahQMwBp
-	 JY3hYQ4Q0NPAGYzi44qYRtbnqVsdKNXLkR3ane9RVlY7CZq65xKxkraiZqV+ToYjey
-	 b5e6owRmFxG4+RmiAno4IMIGpdn9ZxOlTtxXkrC+oWDrRmHddZVw43lk7dsJOvVZPv
-	 2C+qK4SITdRHhtjeZw/pEWRh7fxEP+fBv0S1FojyIJvZ9Vb/D8MZ2mTaNxc6C9E25p
-	 DM2EIV3YMNibQ==
+	b=HmV43mOzSIYW7Fqzzpqz0hvDqDm1I7mTGmAhF+mOU6G/sV9c35CEfISlK2ItOEFZd
+	 WOMktGf0v3XfLMGqV9cgWx97bu0HWn/qgbMbte2d+vi8wEeNrJpwLGYcvhmZZI3ZOf
+	 jMBZ4kISM5YzUrGPkNb8ATGwQ4Y/BDN8by9X0l+NL6XwH/rxYd3YJKsY1TVMQbAccK
+	 lgHYRTnm19YRWIRjT7g1F2nGjhvitI2NyfFXS4ZC1gehsPXJ+bC06xyR38sfKIwXNt
+	 GGZCRMa1i3FpZf9/ReFYE5Q8HrpJZ86OC/kxgaeyyDM7S+iYlmOUlkOrrqAC0TogcJ
+	 5ZTISNxEJEpPg==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Tue, 03 Nov 2026 17:16:47 +0100
-Subject: [PATCH v2 1/5] mm/page_alloc: clear ->private of deferred free
- pages
+Date: Tue, 03 Nov 2026 17:16:48 +0100
+Subject: [PATCH v2 2/5] mm: page_frag: refill the cache for large fragments
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-pgalloc-ai-hotfixes-v2-1-e0d2890ab74f@kernel.org>
+Message-Id: <20261103-pgalloc-ai-hotfixes-v2-2-e0d2890ab74f@kernel.org>
 References: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
 In-Reply-To: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
 To: Johannes Weiner <hannes@cmpxchg.org>, 
@@ -71,56 +70,71 @@ X-Mailer: b4 0.16.0
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-free_pages_nolock() and free_frozen_pages_nolock() put the page on
-zone->trylock_free_pages if they get neither the pcp lock nor zone->lock.
-add_page_to_zone_llist() keeps the order of the page in page->private.
-The next free_one_page() which does get zone->lock passes these pages to
-split_large_buddy() with ->private still set.
+A fragment which is larger than PAGE_SIZE can only be served from the
+32K page of a page_frag_cache. If memory is low and the cache had to fall
+back to a single page, __page_frag_alloc_align() returns NULL and keeps
+that page.
 
-__free_one_page() writes ->private of the head of the resulting free page
-only. If the deferred page is merged with its lower buddy, it becomes a
-tail of that free page and keeps the order in ->private.
+Since the offset counts up, this check comes first and is made whenever
+the fragment does not fit behind nc->offset, no matter how big the page
+of the cache is. So the cache is never refilled on behalf of a large
+fragment: with fragsz = 10000 the first three allocations succeed, the
+fourth one and all the following ones fail although memory is plentiful.
+nc->offset does not move either, so this lasts until smaller fragments
+have used up the rest of the page, which never happens if the cache has
+no other user.
 
-All other free pages which are not the head of a buddy have a ->private
-of zero, and since commit 819bfbd47e49 ("mm/page_alloc: remove
-set_page_private() in prep_compound_tail()") the allocator relies on it.
-When the stale page is allocated again as a tail of a larger page:
+The nfp driver allocates its receive buffers with napi_alloc_frag() and
+netdev_alloc_frag(). They are larger than a page with a jumbo MTU.
 
- - prep_compound_tail() hits VM_WARN_ON_ONCE(tail->private);
- - with the page checks enabled, __free_pages_prepare() reports
-   "BUG: Bad page state", "nonzero private", and leaks the whole page;
- - without them the value is seen by whoever uses that page next, e.g. as
-   folio->private of a folio which is split off a large folio.
+Only give up if the fragment does not fit into the page at all, which is
+what the comment describes. The fourth allocation in the scenario above
+with a 32k page will thus now proceed to refill the cache.
 
-Only pages of an order above zero are affected. Those can be freed
-through _nolock() by the stack depot (order 2) and by SLUB (a new slab
-which cannot be added to the partial list by kmalloc_nolock()).
-
-Clear ->private when the page is taken off the list.
-
-Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
+Fixes: 8218f62c9c9b ("mm: page_frag: use initial zero offset for page_frag_alloc_align()")
 Cc: <stable@vger.kernel.org>
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+[vbabka@kernel.org: make the comment more obvious]
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- mm/page_alloc.c | 2 ++
- 1 file changed, 2 insertions(+)
+ mm/page_frag_cache.c | 21 +++++++++++++--------
+ 1 file changed, 13 insertions(+), 8 deletions(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 55bd558306f5..41fd80c0c762 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -1562,6 +1562,8 @@ static void free_one_page(struct zone *zone, struct page *page,
- 		llist_for_each_entry_safe(p, tmp, llnode, pcp_llist) {
- 			unsigned int p_order = p->private;
- 
-+			/* It may end up as a tail of the merged free page. */
-+			p->private = 0;
- 			split_large_buddy(zone, p, page_to_pfn(p), p_order, fpi_flags);
- 			__count_vm_events(PGFREE, 1 << p_order);
+diff --git a/mm/page_frag_cache.c b/mm/page_frag_cache.c
+index e63efe78b7d4..8914437ddc51 100644
+--- a/mm/page_frag_cache.c
++++ b/mm/page_frag_cache.c
+@@ -119,15 +119,20 @@ void *__page_frag_alloc_align(struct page_frag_cache *nc,
+ 	size = PAGE_SIZE << encoded_page_decode_order(encoded_page);
+ 	offset = __ALIGN_KERNEL_MASK(nc->offset, ~align_mask);
+ 	if (unlikely(offset + fragsz > size)) {
+-		if (unlikely(fragsz > PAGE_SIZE)) {
++		if (unlikely(fragsz > size)) {
+ 			/*
+-			 * The caller is trying to allocate a fragment
+-			 * with fragsz > PAGE_SIZE but the cache isn't big
+-			 * enough to satisfy the request, this may
+-			 * happen in low memory conditions.
+-			 * We don't release the cache page because
+-			 * it could make memory pressure worse
+-			 * so we simply return NULL here.
++			 * The caller is trying to allocate a fragment that's
++			 * larger than the whole cache page.
++			 *
++			 * Either fragsz is larger than PAGE_FRAG_CACHE_MAX_SIZE
++			 * so this cannot ever succeed.
++			 *
++			 * Or the refill has fallen back to order-0 due to a low
++			 * memory condition. Then we don't want to release the
++			 * cache page to attempt a new large-size refill because
++			 * it could make memory pressure worse.
++			 *
++			 * So in both cases we simply return NULL here.
+ 			 */
+ 			return NULL;
  		}
 
 -- 
