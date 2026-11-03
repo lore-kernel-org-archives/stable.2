@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732803;
-	b=jbkQOWwVlrnRV1S4oA4/h20Npp+jC/B0Wi60h7+t0SvyfsYVBeSz1bpRuY15PC058TrS
-	 F4G9rtGKyvyHSYz06ukdqjl41lEDElxjtaUDmG9CJlZ8QsSqTXmNPIqCqHB6HLaWKy86M
-	 hz2uAtOdxwi0M1VMRGSwv/a8i2/T1pZZ6txBms7pMGD070KudN+CtZT7n/a+EXYP7Jf2T
-	 rxUGY2b7v+hHMJmz79KSsZQjzLNc7FmIAwYpmfw5i3jIFI+P0RU9jls+9AnkSR00rsB0Y
-	 SUQl39jt3EFlC1wYMaywrdz6KEu0bZCDve8PIi6ueN0RDsLaD2b3T2x7EPx4JrTBmSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732803;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.202
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793732835;
+	b=MV7fwmv3PdjSv3U/r/zrH0eUnKGDQY5Y92CCSgqAA5X91tPBO0/4Sn58lusNLMCUhY/W
+	 s2qY8SnZnu4GGtDrA5X+Hn8KxBEVm3Argzo9vomJSLLeDKR0FnFPGiuYN2Zx4hQ3u52lf
+	 pVNmAzw0bqWzkZyCRnxrDOAp/RE264mEoKQRpcLMqVQhOY5PIy5RxYN/nwe2cajW8Mc9Q
+	 j7iG+7Dmg/1hUxOQhPV2gO7CwCdmpRrjgTb8FCIsouc4NMtzXU8rH8YW/gbinbulmMcSA
+	 kYhzK4Hm7Kss2wGOPOVl5mexWN91rk/c0dzCDKr5RccKy5n42IWLJdL2f3s4kN9K8Ow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732835;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xnhb546EvTjBiof0WQT3D0GzQYbD7f9E7QPwpqthPc0=;
-	b=ouFOE9e9CLs1t7Robql936EISR6eE9UOGx27xBYaqIvE7QqgHd/Qr78+jnSPEFUZbV6W
-	 +Bo7Y5Av+UeE8iSWkavjbS/90tx9w0uMp5Oov6QDwIEjlvZ0D8uR7Dq6AMRSK+B4yFoYC
-	 AYlo5N7mZEl2w36DS1JTyFuD68JPkK0Q1Yra2GBCg0h8dGYjz+G1+LWtx/4QBdsOfxZcD
-	 L3gs1H8p0Kz5PEVWvJCxspHHEYVpbS7IyxEX00m0WkhawPL+wAUwlYNakaczYUpwLobAu
-	 2AbRa39ECkpaxy9mLommgmzGeTtj54aM10OI4/jyK5Vzr5HFdXEtT/1xPMjJI/YHhzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+	b=L4rR3yt9trHw+M7RQp96MsIcJpspYh47LESf0GVCXisUJoKCkRGJY6lLT0tZV38yu5MO
+	 eh7R+hrm7YkbL9Xnk2sGNKt9GxBBRFNUpnxQhnEM4g/aFhobPP9XVVjdJ7VHXD7xlyo8U
+	 wwNkzCeKXqTvsh25T3fkCEiSNdqAKuVJwkYDEfjTLDelIKYlUZc+rZTGgiRrhHoxTil99
+	 mOLsuonuK2c5MGTr0Aej6WCRweX3SmgOB3EnbFj6keHPhtY2npwxzFPMrKye73ctH3a+T
+	 YgNwrSaHLaFoK60pquzrD5kDVJUqhY+nsC/P3TMtEs9QFv2oPMafy87Ll/8+FzhMe9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFcWmSzn;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cFPmZ9oB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.202
+Received: from mail-oi2-f10.google.com (mail-oi2-f10.google.com [74.125.231.202])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B51606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:06:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04B51606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98B2606A32C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:07:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C98B2606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFcWmSzn
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535a54bed9so6748079eec.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:06:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cFPmZ9oB
+Received: by mail-oi2-f10.google.com with SMTP id 5614622812f47-5179f3beaedso325316b6e.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:07:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793732834; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HZ044qiGsK/hj2Gdqab71WC3EsOLoTNaGoFjFvpY6d3NfFB0SQ2lHsG5rdatIenXNI
+         LHSqsG0qIxnlBdBsUDpsXbFVodoFrNBEamzqGU+NWWhyp3qm7YPP0BJ+Ul2sGMmCLPl/
+         hE9vcOhd80KIDxyoPX+GYzIEeE2HewpTD+MjHYmH3vLWil85jFPEz4bUCfwbrkBmwJ23
+         Mk4+69akP06HPPxUT94PKi8PZNgDIe5Kia+P+FSC2U1tvzCJkzgqOanF9PQ/j9bgUAnF
+         n3T3o1no8KjgvzP3yygKVEacA2zbNjz3xUyAhlCBpqlieBDkAzt1aCk5E86cyRglc4eT
+         ++Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+        fh=PwGNetWOHpVLyPwob1VuG2ysmBgq7hGCGTL9ZasJJic=;
+        b=bv1TG5LaRaGuQZTmWWcKXvoQTSAq+9TQmt50JanG0GXpzOOAMU/6xZE4KC+yxj2jps
+         /lbXZOn6wQVUxnQu/aKw70v4gFlUor4+zNRbHKVBJQCJJFGIqad7VGR8ZWUmiHvWkdzO
+         NlNznQCeX/5iXRCljWZ16sDy0rDBES5mLs1Pdx9N476sCD6TKSPJpyX6RIGGs/18RGIl
+         CONmkzaTnqUtmJCHWgzEnfIQ3Lm1btUEJV3C3ag4oRaSHWQcFDcvxKlwFptIwrMm3GDe
+         O2LgafK9q+3h/rr48r7Wa3QR9pLMPPS8H2AifuQZmPc4wku76UpdHFsmGNORqEsFb6/Y
+         xXgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793732802; x=1794337602; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xnhb546EvTjBiof0WQT3D0GzQYbD7f9E7QPwpqthPc0=;
-        b=IFcWmSznmlF1houPj1jWOUK4c8slHpSDEh02G7flWSjdRLzgeAssjng+o6yu4rRlOQ
-         viAxaYbNIxL7nC+iioJi4n5rsFC9arOeCnD3EBkml86bzqhDwg8h3n0phu1V3MACjGIe
-         QwySPA+/1tAej1B1FqBzqSzH+J/wDXydeqfAv54Rcs8HPHi0jLVHCGS2mwtjj19DRvc8
-         gswOczoxpXtnCS7LNhZzdJOwtHw4cN196oykGNYhGg+M8rF5v3dfTKhFp9dh34xEEfEg
-         BJ0ZO3cFpkwXRce9scokAXW1z4N+o3JF83JngnLbVZpt7vLmp5+wPMAih975KUImu/ah
-         ckyA==
+        d=gmail.com; s=20260707; t=1793732834; x=1794337634; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+        b=cFPmZ9oBtx6sPRiaoSpMhTsu/UgMBSoUg22SmPUWKZtTiPqs6CrMsI/VE/th70956B
+         MVR8J6qRtAb/eVlxAs/9TsKwx2vnJ0sn66lNOYbIGzCABHlV9KKjng1KBw+OVpYu/3kx
+         40eO71sWgNJSamIiN9eY5SbzLnTaU4WxNvhggS1NPAD2r0+anEsUsOi1dPiOpMJ/QqbH
+         Sdb3LxWrv/zmiWA6L7yfVza5hciJIhXQIHdZqNVu9TCMKknagCQf8HD9A/04gnoO1O9T
+         BgRYpijIJydDETK6pBBNJrJD5R1TOX8EvtdDdCewmhiLmn6ktMfYAo+LuB5MJHfGzc6L
+         7R3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793732802; x=1794337602;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xnhb546EvTjBiof0WQT3D0GzQYbD7f9E7QPwpqthPc0=;
-        b=okzGtlRKYc9z8kUpFWX2g1bIxJPGEksYAA3iao2JYL7hSJfhz60ik+8w5L4IGj97Eg
-         0uNe9AM0TqWwELCSJBuUbVWBHzD7nTbfp3V9dbuzh+SMXhwfSN+HUt0FEWzXSvcRdmR9
-         xCJ083yDRKGvX0PpjmkzTrLBxdvvo6xpjHfUuQacdRdmGfK5xm35N/hzbp/4MYNJmPX1
-         Axhiwf3chiT7XFK70nTiBt/AT3jexI/13nPqVCZbIPQPVUozUSyvFRBDEUODY3fi4LtV
-         GMeDavW2TOK6n2m9sDGHB2fPGbaMiN8mNbl6BJSowK0QVx8gJW4FUvmUOJxhRJXrAwPz
-         DZFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Lw3p7d0j+b8wyqqgcTaLIGOW6UUP4dyey/DvH+FqAJ1ObUDhiJB6r2FYoTHXAAYISWSeAUY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8U4vYXv8XhYxMBCwTQau/NThu2yhUMC1d2SEZodjRAx091oB9k
-	ke1Nds24e6tbhL+7HheD3gtQec+ByRTa/YBzc/notpHiea8Jx2w2TRvw
-X-Gm-Gg: AYBFou0F/DhK2/E137wKJWP2UUWQ8SARgBKrH9e0O5/YuzvwMdJZhc8wAEgITyKTcOD
-	4lVINbhkNd89DO3WZEr2bibvPeGrcdhrtjtGmbTJEdSljPtZWIggDd4x51wgdNPZp+FlsG0tT+L
-	vi6a+X/fXCYqIqIqjbUHD824XJ15trKERUUJq5e05DiOHZ6PqDgy1HayTHZg/nh/heV+y/i//yS
-	qTFtxHe0mAaVRNwa42ETGmhI8zL6jRwR4uZcAmqFGSYJ1htDYttX1PYWN/Q0Qb9db4mjtkYGlxp
-	CTnpi1IWezDhBJsruLUHG/n2dLN4js+rJZGjn97e3ZNKisvqVdA/0hpn8zexCznsQljCGSdjeeI
-	KCKCNuuNZFWeHVQRdcGVmv1uoHVABz1tZnV6kTn65CIvbMayhm3utYb6UpnhmG6oqzKny0Yf3gE
-	TlGxHtPhSSCtN5C+bOQecZq/MRPWDF6+oTUa35a25Sppk+wROepFXscGBFDqKnZxzKGfHHYCEup
-	lHmr9SdBEbfn3/cTcK9ITSsL2a09aFxZrT5kqcF7IFnhAAwOB+w4JkNs2jx8Ts2g/tynPRULG1U
-	IL6xfr9iSP/QEgz6pbxwHmridsRXF4rVaqS5BU5vQBK9PG9lmBgrfuvx
-X-Received: by 2002:a05:693c:20c2:10b0:369:f9b6:f486 with SMTP id 5a478bee46e88-36a4260db8cmr22262699eec.41.1793732802065;
-        Tue, 03 Nov 2026 11:06:42 -0800 (PST)
-Received: from bridge.. (deps54-26.deps.ufsc.br. [150.162.54.26])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d3754sm175927eec.14.2026.11.03.11.06.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:06:41 -0800 (PST)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: Daniel Thompson <danielt@kernel.org>,
-	Douglas Anderson <dianders@chromium.org>
-Cc: Jason Wessel <jason.wessel@windriver.com>,
-	kgdb-bugreport@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] kgdb: Fix buffer overflow in the qfThreadInfo packet handler
-Date: Tue,  3 Nov 2026 16:06:22 -0300
-Message-ID: <20261103190622.925741-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793732834; x=1794337634;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0+u/BWUffFdCK5nAB/ga6GWLedobIPyeWluDDSR1ayw=;
+        b=1iIq+4RH4uk/LPisACgOTf2hpzCQe7oSFNPqaeqHsRVv68ALBu08p12WuEAZCKoqIC
+         XpHS6/miZi1va8RK1rTy3IvxWVg2pvwWGWk5leKsKj0RN8m70Y7Jt37M+rGblj6HhUy6
+         SlXrvK8GBY2Elvr5tD0FYU3NivZDk96L73eJW/jzZaW6FlaPVwGxdYnFpZ/C6qkuXQ8S
+         5EsfL5GkEFw5zAGyDHJqCHzxB89ZPZ6iTfaowhaYQAUdf4O+dBSf1/hMflvlk7qqJswP
+         q0bQtXyUrkHtyibKfX3b2SkKXHl/I+tC5BcxrTzuVr2rRGT6l5KjCGdM69vYoWRzae+y
+         0fZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwP6C3b1ol9NUCX+AXO+SiL3a1Sntn9M71Fs7Dmz/ixd+Sx7FXm/EoypX58pSM3aHn6RhPml5o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MoEjm6CFGes2LkLuSTQmbXoTlb93cYqceLsTrEcmO7Wrq26lx
+	rwGPW/1Mck5GUkX/3r9cSv/c7O7ObfYcxink2croLtZyXZEh7Qn5VvhQez/2PFHoiLU8ZM6tg/q
+	ZZ215L0X+ox3UwJzS1F580i01TI2a7Csqj8tBiabcAtti
+X-Gm-Gg: AYBFou0bertNOiyHyorY6M6kOkcHMG0oclXLWl5BtaJcleF/u30MWy8B1reaTGtg21U
+	eCXzzpc8Vu2L3kP/i7p7d5naJdQ3+ZcbTkCXi/wJ3vpawsxe9uayMl8tz69gRYnt0eFezClsH7s
+	aPE+yX1SxIZIBvKF0TzqkUlOtcjiUvDhGU0+KABZKdcz1hSeAp+jvrKL0/sc9umC0fFnqZDL0DM
+	uWeTNCR6ZtWP06ZwsTtX+uSSoHvH/SYE+sEqlUmVK93g6DFs0SuKZcQakKmqdQoGxDM7GMkwmNe
+	uWX+6i7mVcuy/6r7HWOMrJ0cky34GeYuA/SdRcs+FPwI9LcoQDljgWFgGdBFkiLkoe1WqvbcDXy
+	8OO9a7oMUQk5cwtG+IYuBEDwLOsNY8vwaFmjG+RWZDFT2OH5BSe/mf81Yu82o9Wg1PPURQAB/uB
+	2HDaptiWDc1GH3aw==
+X-Received: by 2002:a05:6808:17a3:b0:55c:928:69d7 with SMTP id
+ 5614622812f47-5640e0a4dd6mr8734775b6e.67.1793732833765; Tue, 03 Nov 2026
+ 11:07:13 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,71 +104,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261103072234.55611-1-dennylin0707@gmail.com> <aunPPm1d3G6yVCLC@thinkstation>
+In-Reply-To: <aunPPm1d3G6yVCLC@thinkstation>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Tue, 3 Nov 2026 11:07:02 -0800
+X-Gm-Features: AclHuK_s_h176gaiDao9usKlX4K0x8D5lo_mqJC-t5QWJ8dGUnHlKYyTf7Wz6B8
+Message-ID: <CAGEkeHcANE5wkbQHkOZ0E0NsJJ-_JaD45yidU8XJatw56tqaGQ@mail.gmail.com>
+Subject: Re: [PATCH] buffer: avoid extending i_size after failed writes
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: brauner@kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+	willy@infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-gdb_cmd_query() answers qfThreadInfo with a thread ID and a comma for
-every online CPU, 9 bytes each, followed by the first page of tasks.
-Only the tasks are paged, KGDB_MAX_THREAD_QUERY at a time, so the CPU
-entries overrun remcom_out_buffer[BUFMAX] once there are enough CPUs.
-On x86, where BUFMAX is 1024, a typical boot hits this from 109 online
-CPUs (222 on arm64 and riscv), and GDB sends qfThreadInfo as soon as it
-connects:
+> Do you want to give it a try instead? Or want me to submit a proper patch?
 
-  BUG: KASAN: global-out-of-bounds in pack_threadid+0x2a8/0x2e0
-  Write of size 1 at addr ffffffff86eecc20 by task swapper/0/1
-  ...
-  The buggy address belongs to the variable:
-   remcom_out_buffer+0x400/0x420
+Thanks for the suggestion. I'll try your approach in
+generic_perform_write() and send a patch after testing.
 
-Page the CPU entries together with the tasks, so no reply holds more
-than KGDB_MAX_THREAD_QUERY threads. The CPUs still come first, which
-scripts/gdb relies on to detect KGDB.
-
-Fixes: 25fc99991383 ("kgdb: fix gdb serial thread queries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
----
-
-Notes:
-    Tested in QEMU with KASAN and GDB 15.1. Unpatched, connecting GDB to
-    a 109-CPU guest gives the report above; patched, 109, 128 and 255 CPUs
-    return the full thread list with no report.
-    
-    Based on v7.4-rc1.
-
- kernel/debug/gdbstub.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
-index fc6a7a8c1f6e..02f27e70993c 100644
---- a/kernel/debug/gdbstub.c
-+++ b/kernel/debug/gdbstub.c
-@@ -752,15 +752,20 @@ static void gdb_cmd_query(struct kgdb_state *ks)
- 		i = 0;
- 		remcom_out_buffer[0] = 'm';
- 		ptr = remcom_out_buffer + 1;
--		if (remcom_in_buffer[1] == 'f') {
--			/* Each cpu is a shadow thread */
--			for_each_online_cpu(cpu) {
--				ks->thr_query = 0;
-+		if (remcom_in_buffer[1] == 'f')
-+			ks->thr_query = 0;
-+
-+		/* Each cpu is a shadow thread */
-+		for_each_online_cpu(cpu) {
-+			if (i >= ks->thr_query && !finished) {
- 				int_to_threadref(thref, -cpu - 2);
- 				ptr = pack_threadid(ptr, thref);
- 				*(ptr++) = ',';
--				i++;
-+				ks->thr_query++;
-+				if (ks->thr_query % KGDB_MAX_THREAD_QUERY == 0)
-+					finished = 1;
- 			}
-+			i++;
- 		}
- 
- 		for_each_process_thread(g, p) {
--- 
-2.43.0
-
+Thanks,
+Hungyu
