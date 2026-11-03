@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701297;
-	b=xEOq0RjmpiupQ7tHnnVsvpWNAmeDKcQEHC6W/k/k/0XOqab9UfpiPFx4zhdJMn3VMS+r
-	 uvDCSaRQbquKqDC6l1pMc9PG0SV9DH+gqhOCRVPJ1033amuNAA5rYrruLwNOKlcUNif2o
-	 NjJKpnIrf0VUsrqGVvi4ZpCqvCfiW7s9ZWIxtOiPpPg5z59Qrft7iYiTVh94PezHk06s1
-	 eno1PStg7kUX7B1MFNAIUZD/WOkf4sNjZOvFuv8xh3LjzIQOXtwbwKuKgW6E6ZwByvxUb
-	 nqTdugSH0Eg/ize1bRPyJx4/2Zz/sKtTg35FUrDJcuabollu70opNbNrkWS3u5WFqYA==
+	t=1793701299;
+	b=qCX+A/jdKs6UzRT/3+pIMlpZN6lAoVmzW8nnilbAfvkPB5IED6hcuZ1kgtClIcLNfSPu
+	 NfOzQEwR4+NV1XviojzfwdBbOhfXxbl8WsMfP2X6s3K6M9R1ryS3A4Ol4+KlcgLYHdNsS
+	 1c9hx9PFiw6z2YbcB06NnGpktsBXAlSHmnKpXzUc4ozVTHYhm+vPyXV3G8bj5Kwk9N5jq
+	 pNX6VaE250ZU+84Tpt6fKodCXmLSHGgeZpmaO6wJTrEcrhymVMJDmpenKiojHXWqPblQ4
+	 9htvOxTxegmSTT9onhs8jcQ8Z2jKHSnfHH6B95w0CU3FGVTmcIeUf21e3P8LqFcenxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701297;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701299;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0PoabQsPWBYMTpHaoXBqagNlCFqrEBv4uXhBogkRGd4=;
-	b=FKhc8QbnaGnUh0ZT1OgSi+W0zGCamRmZfUz1UoVnXjS52KkQuDm5c7AtCmcwI+JHk00f
-	 O993ht6hoAIuo3OiSRM4K3ijPPPVR3qMhiswPSGUhj2Hs88xLmvfo4UxjXKMtMsAAh5kI
-	 1W11f6Zpy5b4qD/PLIx7aaN8aA0ugKlRH/AOBdJRmV62oL+Q+hADfeP+skTZNVyhllVvr
-	 vOo3BhmQpVdUtwbvut+jNCZ/+bfWsZDeAem8XiOFGzQ2DPH77jw0uU79cv+oSaOk9u7sD
-	 SfGAbfN5qkBrbdngc3S/4KGz+h5BaTcvGd/IxBdvRVbDyZa6eNty2ZvjGUHXUb5L6Rg==
+	bh=/2tJKvJGaUn4+qI3x9n3CWgwgCNAgXr54zNrzK67p44=;
+	b=1lnV2K68YEZ75AoAgqMHoRhtl31eFkg9GToBjxx98Xo6c7mcbASzlD8GsEQYL7gkZjAh
+	 JX7YJldh/yxJNl3fnBifPrp/mRG6eAID+mp5mbsDCMCFfU1ydK0Q88EvzLup/XL9Q5as0
+	 ArRHPupbkVFxRrPSsnhAEyDaThShQG81VTI08d7uhjrMLJo3VUW4e1eFXtLT+zq6bh+dk
+	 zu2Q68ODHzsFzXV/Mxnz6r/2btXkZQWsGvEHc0e5ycpjeQDOi8p6IQyVEQHY5LaP1RXBg
+	 pXAka69bYvojnCwrCsQtMpsOqoATem/AIzZ+jYs52DKGdjXMcXWRJf9NQJnQ0bKejDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zxzYhRWt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jdkfQsk4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438C5606B10E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131AF606B10E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zxzYhRWt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87AD1F000C1;
-	Tue,  3 Nov 2026 10:21:36 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jdkfQsk4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EDEA1F0093A;
+	Tue,  3 Nov 2026 10:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701297;
-	bh=0PoabQsPWBYMTpHaoXBqagNlCFqrEBv4uXhBogkRGd4=;
+	s=korg; t=1793701298;
+	bh=/2tJKvJGaUn4+qI3x9n3CWgwgCNAgXr54zNrzK67p44=;
 	h=Subject:To:Cc:From:Date;
-	b=zxzYhRWtk5osCFI8OHuy17fT2zQPogZ6ULDuVC2GNGlBAXJsQSKvP1s+X/Qd4qQ0q
-	 1M9ejM5X1HiKTuBiMzfgdNX3Ddv+epT/kVQaamtBcj/GUCtBmp/Sc9pAXBiZVFjZfo
-	 DKVDJNPbcnGXIPS2WWyM+G5pOhLKCkUCuoKoOpuI=
-Subject: FAILED: patch "[PATCH] ksmbd: fix named stream write and EOF handling" failed to apply to 7.3-stable tree
+	b=jdkfQsk4LKtaCmdslomo6OJWpxt2V3rFU0PPMO+9VVSocsppjDJHQGtS2nrj4ZdOC
+	 yh9SxXzD7v8Y7r5VoLheINkKQElA/12Uq/NtgmZD7eXNmDgwrfj7AZvJwz2hGRWUoc
+	 3WQ6q4TnPqFa7yrktQEFyTZ7WuYbstFJmh5+pJ7c=
+Subject: FAILED: patch "[PATCH] ksmbd: fix named stream write and EOF handling" failed to apply to 6.18-stable tree
 To: charsyam@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:30 +0100
-Message-ID: <2026110330-handbook-dreadlock-76b4@gregkh>
+Date: Tue, 03 Nov 2026 11:21:31 +0100
+Message-ID: <2026110331-trimmer-sizzle-dc5f@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 02165c8d402392278a5cd2cf97645ed73a7ad4a1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110330-handbook-dreadlock-76b4@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110331-trimmer-sizzle-dc5f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
