@@ -1,68 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728988;
-	b=3wUbZruBWbyls3kNpEpjwqj6gngXUpvXF7w4PWtWwnPPGiUnT2fyNE1anlrVBGatNZ9j
-	 pVw3uFln2iNchTNFmLx64gVRYxcXbA5a62aRbAFJ6faBZLzL7zh+sobkkO9Hydt+5kdDP
-	 p6tkoRMxsqhln4+Dqlp5h8XfbtkIVcdjHDwIG/VIk+BW1GMYi4v2ndKtzoZJlYfbZxKy+
-	 829Qzx2QqRnr4dAVWsponpRI5RlbVFbNx5ZdcAw9qIPt11uGfir9lSixgnw0GGlq8ltyA
-	 6+VcQw2UClbxOsaEwfJUszuT5GRKl2tDNVJhpWBvGZdJPPOwb4pjuPe8wKXp7eCecQg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728988;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jFMf1wxTtLf60s2qp83Ze0U5b1PJQqWbw+oYggIRdk4=;
-	b=vpg+6t0aAb/FuQOrAzfZN8js1glhcQosKnHQVt+OeoYvlK+caVc1DyAmlFd7gpx3AU5Q
-	 9nNw7/svvI7DFENg2kRF77yURTbggKzfVyIQmNS1NQ98s01HduXaRBAXYh4cF6OFzvvFF
-	 p6xcqxc8Udjy8D/0qnN0wfQiVBuhj5ylNFhdnQBpj4bs4FX1Gci8eDmSbEgdYODpAYCqW
-	 RJMyOIltcX+vr+v4slwmybgL5xs8myzz/fnWdtbkbTymRzc3+bSWyEP5EzsQiKb2OibTB
-	 V7wb4kajfOKFPAjtE8NV95Ts7yELaLX+EOFnoRKP/zU4ivmjmBmvXKPG43bPLYfE6bQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manguebit.org;
-	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=snKvuMiI;
-	arc=none smtp.remote-ip=143.255.12.172
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793729362;
+	b=0o2up9vWaFmMbs72rIytnMJQWoSuD0VgNQM0cMVtsU1qsIubXDCLEQ7Qst08Lilj4ACQ
+	 ffdD+BhOLo4t+zfVa28xCc6zZdwGvwjdEUvC+G8XapvUZJcvRe1/+d4siFuGdsO9hTiQl
+	 0DYQiO89Pw1CpSeuEj4lEku3Z8NqMPaw1+4+OGEheVaUyaw7MK2xi79iVxSBHbeXfbFt/
+	 MfWc4lRsR5yoYPeerEWydlMHZLTLt3rW+pBvErWgFPSMtjsbLw1bibwad99GNbd3idDwK
+	 xyagF/gzB0wg01UY2kHB4Ntzh/eRXMMHNk1sMAY9ycxqC2wYxbWaXqFUSBroe1j/CoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729362;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
+	b=oGXsOL+ccmk9JUpwGxkvOJzirj5kBpaZG/9sgIgLzrWZevZ6emzFuVMsL1zSWZ7XKLcy
+	 bEylENU7rXXXA3yXnTtziZWfNftbfON6pbIe+dqQRDXI2YFXuzkuXTVunHxQtk9jOoSgl
+	 cyDSVCTE/nOahERD2z158VDn8OQ5JyjpWK1KAB9nWLsoR+hpc9eZXaFqUqk2DFZzz5y0Q
+	 PyfBQ4j8wRjTd6PZCrawQZ2ZSoIiWvJ3wo8VAxQQ0XAkSaT69ffVDco6bJ7IHr7FQvANO
+	 hWpFDUZKDGNoCBW/SRC8tKd+mm4FKPm88iyPI/6CIS9qrpBeatPh3FYiy9knJkU5Dqg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqOS5RlT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CA1606A33C;
-	Tue,  3 Nov 2026 18:03:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56CA1606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6C4606A329;
+	Tue,  3 Nov 2026 18:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=snKvuMiI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
-	Content-ID:Content-Description;
-	bh=jFMf1wxTtLf60s2qp83Ze0U5b1PJQqWbw+oYggIRdk4=; b=snKvuMiIrcOWQKjprqDVsNOLI6
-	OT1QkB5TefLWTQyukQ/l6KmX9rSx6qIAGhjIqDrk7oRVBCoA28QlkWu3ZXjFCEhfOYrW2DEvCLY/G
-	E3qMFy9y+jd12vF8xR3cKfliizyQl2LtlrvBJApXxep8IeplhDtE3gZjvxQrxr+R5EZBJ2ttubLlX
-	deIbsgLH98lAmYrJ725qer9T4tABsGYPgc/te3jLcn5G8FgTm4NXZ5Tp7CfiVfVUavKn26HGt2+j/
-	S8aJ7XEKhIsci5Tnlq9Ty8hdkOxg/AJ+Xda8TEf8xya8kJZXJkrHYrNBH2+ujf7CEfBgQmD8/9/I0
-	ivdOpBfQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xOIqY-00000000ivd-3tAj;
-	Tue, 03 Nov 2026 15:03:00 -0300
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org,
-	netfs@lists.linux.dev,
-	David Howells <dhowells@redhat.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Christian Brauner <brauner@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 12/16] smb: client: retry writes that couldn't be issued due to a reconnect
-Date: Tue,  3 Nov 2026 15:02:51 -0300
-Message-ID: <20261103180255.1482516-13-pc@manguebit.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103180255.1482516-1-pc@manguebit.org>
-References: <20261103180255.1482516-1-pc@manguebit.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqOS5RlT
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793729362;
+	b=DiRQx7WCtdPKlSimEi/lCSfRptMxGVd2XpoEokkLCLWJB9fNHodEH8gqWj2DY7uflLbg
+	 CtAN5YrFYVlCcrEAbvctlor4AbNwPizNxccaWqyu4HKxVrccwI1fv/4Q/bcDwxsMnlBcf
+	 Um3AWlckP3VovhBXmdQnKNyXBUE7JNf4LvtGZjTR1HNjDXvbH76FfeX5WvK4iw0V4fpvX
+	 NIWqV4xFQWNAZyw/drxzQ16rWZ1CuWoFY/iFks7r8d11fpkQmQ698zb8un8UuYJ0AqL2T
+	 e4uX1GFitGDYMhdzbI/XDivkjj4cc7LNhnklZq60ptM3gHAeT5kLdakrZ6KOm5CTnkg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793729362;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
+	b=zort7V+wikGI0O4vBys+Kt2uaapHHR/Fr5+2P1q3VkrEXprtGeobeiEa0ef7bNgrkQsz
+	 SsfG4IKbU5smlEMw9xCAkvUFVHQXNmWw2OwUXwFvEZ7hSE63pv/Tf9no7eJdnOjLflAxw
+	 OM1Z2F5Rl9YfLG3HGwWyz/wG+kyDKPzgwKrVXmAWLoeMSan5i8b/GgGbH3/b6tIgVTqFj
+	 nA5IqPyZ3YVXzG5nkRHvqwJnlkItsQXG9dEB1ays2omTtmiDw6uq7FW9XfNIYlzG2ht+s
+	 aCDZFfDE3ixUO23xHnJ5LM5Ayg3a+zLWvmRYV3xP5kj7QmsFk3gw5+cCslIdn5Yh04g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5EDCE1F000C1;
+	Tue,  3 Nov 2026 18:09:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793729361;
+	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=fqOS5RlTgteUHXEnSu+JKU5LlW4VRu+a++526Ulfj8C0WvDXfmftzrNjxFZTL+VKg
+	 0MmExkUVcnEubTEP5KTZsATcPeB4yc9zACPHMltoFFMFesgTrkc76be7/sYbL8NG4Y
+	 bMXBCp38DpIQzpLNT0SQyEl94tvh5rsV/i9dp0w2R7f0VMgasnODd4BiXIoXW+osrU
+	 UT1gq81cckzzL+d4BKEtiNmjpi6p+Xb2tNavpaA8uK+zEJ1BQk23RDoFZcbKBOXIuX
+	 rmeocVStjRRR3nQvwWL3zaxUtoFMtXxxP9Jx/ngFw9jl5qySrfbF8ZnIl55bsBkslz
+	 xx9iZO36uHAgA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B0FA346A69;
+	Tue,  3 Nov 2026 18:09:20 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Tue, 03 Nov 2026 13:09:20 -0500
+Subject: [PATCH] cgroup/freezer: walk exiting tasks in the v1 freezer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,43 +82,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-cgroup-freezer-exiting-v1-1-00d43b443747@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxG4atUnrHkBFQkroIYwPwJZkgrp0UVV
+ e9OgPEb3lupwg2VTt1KjpdVG0pD2HWkj2vJYLs3U5TYhyCRNfswj5wceMMZi01WMusx9YKD7qM
+ ItXh0JFt+4/Pl7zrfntDpe6Nt+wAsaXPhegAAAA==
+X-Change-ID: 20261102-cgroup-freezer-exiting-c7f60e4c3200
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
+ stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729360; l=3795;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=KM/MnDxFBAC+sHs8ZYIfu9PpFh912v0OKBTiwLZBXTs=;
+ b=1kmrrNgSRj3B7olIMU2INLso9M0fRHp0YmplSCHp+8t7YB5hBjT1nV0u0MqY2E+m8lzO1Cm9Y
+ Z75ryOfyQFtCv4tOtkiqG9jzOFrSmMPf2JNi7dBlcze4KBym1pfyMJ4
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-__cifs_issue_write() fails a subrequest with -EAGAIN when its handle got
-invalidated or its credits belong to a session from before a reconnect,
-both before sending anything.  netfs used to retry any -EAGAIN by itself,
-but now only retries subrequests marked for it, so these writes fail and
-their folios end writeback clean, losing the data.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Mark them for retry instead.  The retry gets the handle reopened and
-fresh credits in cifs_prepare_write().
+An exiting task can stay frozen after its v1 freezer cgroup is thawed.
+Since commit a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
+the css task walk hides an exiting task once its process has no live
+threads left.  That count drops when another thread of the process
+exits, which can happen between the freeze and the thaw walk.  A pid
+namespace init hits this easily since it waits freezably in
+zap_pid_ns_processes() after commit 81933038f5e2 ("pid_namespace: make
+zap_pid_ns_processes() freezable"):
 
-Fixes: 82e8885bd763 ("netfs: when subreq is marked for retry, do not check if it faced an error")
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+  Task A (pid ns init)      Task B (A's thread)      Task C
+                            do_exit()
+                              exit_signals()
+  do_exit()
+    zap_pid_ns_processes()
+                                                     write FROZEN
+                                                       /* A frozen */
+                              /* live count 0 */
+                                                     write THAWED
+                                                       /* A skipped */
+
+A then stays frozen even after SIGKILL:
+
+  [   10.775155] task:fz-init         state:D stack:28152 pid:65    tgid:65    ppid:1      task_flags:0xc0004c flags:0x00080000
+  [   10.775176] Call Trace:
+  [   10.775180]  <TASK>
+  [   10.775188]  __schedule+0x10f1/0x4760
+  [   10.775252]  schedule+0xd7/0x2c0
+  [   10.775265]  zap_pid_ns_processes+0x2c7/0x5f0
+  [   10.775346]  do_exit+0x1bf4/0x2560
+  [   10.775403]  __x64_sys_exit+0x3d/0x50
+  [   10.775414]  x64_sys_call+0x156c/0x1570
+  [   10.775425]  do_syscall_64+0xfb/0x590
+  [   10.775450]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  [   10.775529]  </TASK>
+
+Use CSS_TASK_ITER_WITH_DEAD in the three v1 freezer walks so they all
+see the same tasks, as commit 60f21a264930 ("cgroup, sched_ext: Include
+exiting tasks in cgroup iter") did for sched_ext.  With the fix, A is
+thawed and exits.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 10s.
+
+Fixes: a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
 Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
- fs/smb/client/file.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/freezev1.c
+---
+ kernel/cgroup/legacy_freezer.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index db560d4263f7..f1d6827205f6 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -214,10 +214,12 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
- 	return;
+diff --git a/kernel/cgroup/legacy_freezer.c b/kernel/cgroup/legacy_freezer.c
+index 8545e0d1ba3d..bd11047f2311 100644
+--- a/kernel/cgroup/legacy_freezer.c
++++ b/kernel/cgroup/legacy_freezer.c
+@@ -265,7 +265,7 @@ static void update_if_frozen(struct cgroup_subsys_state *css)
+ 	rcu_read_unlock();
  
- fail:
--	if (rc == -EAGAIN)
-+	if (rc == -EAGAIN) {
- 		trace_netfs_sreq(subreq, netfs_sreq_trace_retry);
--	else
-+		__set_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
-+	} else {
- 		trace_netfs_sreq(subreq, netfs_sreq_trace_fail);
-+	}
- 	add_credits_and_wake_if(wdata->server, &wdata->credits, 0);
- 	cifs_write_subrequest_terminated(wdata, rc);
- 	goto out;
--- 
-2.56.0
+ 	/* are all tasks frozen? */
+-	css_task_iter_start(css, 0, &it);
++	css_task_iter_start(css, CSS_TASK_ITER_WITH_DEAD, &it);
+ 
+ 	while ((task = css_task_iter_next(&it))) {
+ 		if (freezing(task) && !frozen(task))
+@@ -309,7 +309,7 @@ static void freeze_cgroup(struct freezer *freezer)
+ 	struct css_task_iter it;
+ 	struct task_struct *task;
+ 
+-	css_task_iter_start(&freezer->css, 0, &it);
++	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
+ 	while ((task = css_task_iter_next(&it)))
+ 		freeze_task(task);
+ 	css_task_iter_end(&it);
+@@ -320,7 +320,7 @@ static void unfreeze_cgroup(struct freezer *freezer)
+ 	struct css_task_iter it;
+ 	struct task_struct *task;
+ 
+-	css_task_iter_start(&freezer->css, 0, &it);
++	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
+ 	while ((task = css_task_iter_next(&it)))
+ 		__thaw_task(task);
+ 	css_task_iter_end(&it);
+
+---
+base-commit: fffbdad76a57eed26cff1be19f4cbb407f0b6e7c
+change-id: 20261102-cgroup-freezer-exiting-c7f60e4c3200
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
 
