@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690816;
-	b=ymjat0USP5tLq9zKqpw6+BK8G769p08pKCqGTgLZx2N+hMhAdL/8fPsXEKGWKcWZx+/x
-	 AOJmhnCr/G4Ft+fBFf4KznpCH66fBPwAMhG8dihlFBDV5On5vVQm26y+i5Y6tfYLhg0iK
-	 XNbbp0hHRFmD5sg08/83uWTDjmzRNXaNuPxgpus+150KrE1idnVUnq1/oWFfj56lM3Y/i
-	 3Qcd6ayYMpSPvQGW5wlp10Gn0H9lOp10ikqwV2cnba5njYrTv10Vf7cc4BtUuyw5RsD6Z
-	 db1wep96UKFet8hXA4XnhkcvjD+HrcOQa1LRNK2XyD3Q2HGja8lvpKF3ma2vcUb8J3Q==
+	t=1793690809;
+	b=xkOir3QU3pp9AK1YBiiJguXH2RV38VlJL0wmTJneOj2ZlBf2OZ5pJjTqTRA5/snCyyRa
+	 Zfl2z1R7fYOICGIa982imD0wU1/5Mw4upLD89gJ0UtYP3E/r4JGGFJ8zkqSsR6AKkjlxF
+	 7zIk7acnVullMCI0MJeYZ3NQrbG05IufXoOg4RTbVTsYK4dFcOFxoY6YUCOrHF7pYwEsE
+	 Sg44EsHIgduEybFjgSJghjDa+/UhcnRMcfeV9VQIe62qNdGFesUQtYoxS9uSOvHg/cVUA
+	 4RjMMQNpdtYlpH6q/wp4NZ28+gaXLLEDoR2KQpYLNj0R8EKnYwqVk7QLC/KIgWX0Qfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690816;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690809;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1W+dLatY9nnSDyIP/7UDjOZciumv9YU0Js0RJ5PhO4s=;
-	b=ppXvI56MQLhyBpIxIzu5IuPLwWTqoIoqOx9SU9NGbR3RwAWaQsYRP6m7QrUSnkE8SGF3
-	 VRu5fHzRnEd62Qz4vFM8lIYoG9ysH47TQhJaMsLZ/Vxiuoonfv9hwxHYnvAP39Rn8m0bS
-	 IiC+IWYRoJzWyVkvdG7YJ9Ukpbdg4pp7fJ/0SBXoMqPhEnSv4C7kVTJmqbDl9kN4Tr1Tv
-	 oiUoPqyQ5hhmG0CTPm9LyxX9jpONFevuAhs3eeRtO8W6qExsCHYcDySZrdQhC7zHZwYtP
-	 ZsgzPtvxs5Ii1nQtp2gcYsd9E4FuKaMklvkcSnRTzLRFnD/vBGot4HhoJ8L0RWI1FEQ==
+	bh=cWD6HISfk/RSMSoaxgmdaTD1BK2I+6ChmJkCmkdV6rY=;
+	b=TW+Ww7uv9qw38pScpP81mHEk9Ww1bZ4jSe9K670UqznTBbODYqwtsuwIaa8jf3faW0tM
+	 c7x8gqNOSA+vKe5dpZaV0A1jeeF/yOhD9SANTU09DzjjGwgQs6U0KHk5TUZd/SnK69OQ7
+	 EZ3+amZmIvu0gv7tjkB4/DKUwu3HgkMxEdpoCIvf2w+ODgnGr98D41PnDLx/V81njo3WQ
+	 xy+yhKJ6kLHw+mynTGAR1NzKehGwTV+Zn4q17IFzTORcm0oaW67GDk8BqynYgnIbyq5Qo
+	 1rHFPWv1Xm6/DGMRE1uiMCblRYFNEV104R1Y4AiVeiklDtF0KOBAHtNLAMJVTn4zTVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0v84Ky3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g89jAtiK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F58606A337;
-	Tue,  3 Nov 2026 07:26:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C490A606A329;
+	Tue,  3 Nov 2026 07:26:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b0v84Ky3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400BB1F00A16;
-	Tue,  3 Nov 2026 07:26:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g89jAtiK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B2E1F000C1;
+	Tue,  3 Nov 2026 07:26:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690816;
-	bh=1W+dLatY9nnSDyIP/7UDjOZciumv9YU0Js0RJ5PhO4s=;
+	s=k20260515; t=1793690808;
+	bh=cWD6HISfk/RSMSoaxgmdaTD1BK2I+6ChmJkCmkdV6rY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b0v84Ky3dU/Duc4o23FRWcU5iuPmoE2POmJhnPd7BAea3aNMxLwvz5rXBkmS8Nt/n
-	 +IyIiw3aa+YmlBx1hOP02leHB9bhbAERAhf75pBpHrFLAuLmfGUXBHEFQJPmpuzczZ
-	 ZymLKjUKF2VA9fUcL97G2zPUbW0Y+1cabTzb0x8a1ZD288i4/u5JfuF6uGgUAnn3Xb
-	 u/uD0w4ECgP0ZyNo8pQOYlaG3VSeruzMccIdsdY2KZM48zehBhvjg5x1KDUbAWr3tQ
-	 XrAA0MFc1zWm4wTimoEZt84qhXlkg2/9Xa9RDqoRZzBm07tDbAIq7u/7MlGPPNSMCG
-	 GqqA4+qhdTW1A==
-Date: Tue, 3 Nov 2026 08:26:53 +0100
+	b=g89jAtiKsZgG6WB+kazVgGXBuA6Ack/7yxaBEURfyryEQ849WGH4SYN1Z0dnf/oFM
+	 Emd4a5Hlk+d+ZBdPQF4QOlYS7wtU0xVFkI6xe+4BmgCz8XhEnIHWGbWk8OKD3huiD+
+	 e9OOUZnxeTwVOitvsc76slPRu9Q2N5nnf4LlYb7UhFKmdl/2Ce2mOZxWJ5mRyns3Bj
+	 l/2B+STwAOOkVbEmettxU2+JOXoi76dOxaNUDLBjsXSlrkQD33bg+OVsezEuk2ufHt
+	 ZrfsIlBlY7Vw7Rvlt5pav7ltQ+1bAzw00m442+s0XlS7idzkc06mIQB94L79Obp2PE
+	 BS+KJACKF1huw==
+Date: Tue, 3 Nov 2026 08:26:45 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, dakr@kernel.org, linux-kernel@vger.kernel.org, 
-	nouveau@lists.freedesktop.org, lyude@redhat.com, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/nouveau: Remove the audio device link on component
- unbind
-Message-ID: <20261103-hungry-fearless-hummingbird-dc7d80@quoll>
-References: <20261103070331.1079868-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, alexander.shishkin@linux.intel.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] intel_th: Balance the runtime PM reference on driver
+ removal
+Message-ID: <20261103-mystic-eager-beagle-9f9c7f@quoll>
+References: <20261103070904.1085387-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,26 +59,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103070331.1079868-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103070904.1085387-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 07:03:31 +0000, Wentao Liang wrote:
-> nv50_audio_component_bind() creates a stateless device link from the HDA
-> device to the GPU. Component unbind clears the audio component pointers
-> but never removes that link. Stateless links are reference counted and
-> must be explicitly released by their caller, so repeated component binds
-> retain a link reference on every cycle.
+On Tue, 03 Nov 2026 07:09:04 +0000, Wentao Liang wrote:
+> intel_th_remove() resumes the device with pm_runtime_get_sync() before
+> calling the driver's remove callback, but never drops that usage counter
+> increment. Disabling and re-enabling runtime PM does not reset the usage
+> counter, nor does the driver core's subsequent pm_runtime_reinit().
+> Repeated unbind and bind cycles therefore retain an extra reference each
+> time and can prevent the device and its parent from suspending.
 > 
-> Remove the link after disconnecting the audio component in unbind. This
-> also covers a later failure of the HDA component master's bind callback.
+> Drop the removal reference with pm_runtime_put_noidle() while runtime PM
+> is disabled, before restoring the existing active state.
 > 
-> Fixes: 742db30c4ee6 ("drm/nouveau: Add HD-audio component notifier support")
+> Fixes: 142dfeb20209 ("intel_th: Add runtime power management handling")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/nouveau/dispnv50/disp.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/hwtracing/intel_th/core.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
