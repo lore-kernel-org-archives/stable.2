@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793711586;
-	b=uMB5STl7hSQDShjT+d6DZAMx0IXmpJTq161O9aBtcEvcUtIgAWGnBtOJfaQXBwM28VEI
-	 xoA3ZZNsEgSuR+DhB58hlCItz9F3qYkjZzBdOePLMBl6j+n+cFpjVdSiiCIreg5YIIW6p
-	 Q7xBmPTfQiyDmuLWdimsrQTPwO9T7TB6jF3iXl2Y77OAOqV6mhbXt9rYWGI7374tMXUiv
-	 b0jdIe1UfzXv7h+Lust+B2xIS4zLiy2O6DG1Wx+JcYmrspoyPeYtKVSj0Bq/6oPkNqBdj
-	 fpu910vTbIilyOvvEtL8goxEJLV4R7LvcbHX5EuvqIlw4hPywVk/oMDRYZt6T9fx5PA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711586;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793711692;
+	b=moDECWDqwXV/G25e8TzckQDBDInpTa5jHTjKKGtSe9UHqhXwg6uOiBrjJLQhKci6HjCu
+	 e5GNa9I1CitQvS483gh6XcpWrYYft4OPwYw9Li0b2dqCFk3WrokM7UecoM0pgVh6crBAQ
+	 BgJbOxduDwUDyBw24Cs0RHPVKczkl77aTeJgl+uM0a1cNSfUuocoltvo0AP7rRgcs3sU6
+	 jpoSUDj5Cx5ZeQ//m+hZJz5V7L52BavIh2pwjnoS52rddXalR0TpMoAuKqWjg2YEuHFl8
+	 SOOZm1w1mNYVE+almUN5+4XDfFT9Gh2EtwiER9ehL5O4EMXyT9NGGe+o76mLHU4B4vA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711692;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
-	b=ydHq1JEQiujI0Z61t77h4xBtJkvONc2CLr0z5mAKBfjmV33whgy7ey029KcchjfMebA9
-	 JnkcABRIaHKa0pwBoYXIcTJjThLCm4i8p4H/Imrqwziu/T9vL4AsKPxqlGFnNDNl7R5ne
-	 TBDRwhQ7C35l34/7FDNC14HNpwF49hmLTVovQciWlEgxApUKSPLTzPCHpkKRXTTTanM0a
-	 EAw6k1QkrtJID5NgFq6drgwIZWzGohFnTn9UNLxEKNFF3Dfvg9r6dzKiX8xIsz4ggA1MC
-	 Fff/2Cuy92EtDgk0bGiD18lg3qZgRbvzYQuxaoVAMplKgwtbxV87ZbCkVGjRM9hbK0Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=W+TZGI5v;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
+	b=zIwgGemPmOrZfbh3xkC+/rGdQStBL4VDnEiEdXWpIlgaKS+U+Y60fhXIQbhSzR8J7hdJ
+	 +dGRx0AvYMpvg2AqmhDmF8JXdGUrnoKFlYxGL1MYQ8FLDDYAIxHkhqoH0q0PWNcocxlQt
+	 4crvjK6fGQgUhJeLbEnB4VpVAtAbsQERzTkZBVhZbZLegJDStwOcocypyc6hpEZStnHKr
+	 vxbxUldFpYydQiuQi4DzOmoSVvGmgQSC888LpXhm7MpD5FJ7ilWccoi7Pu/uvMfmvtxXs
+	 0wF4l/wkjZfaOLZnlinYvg3PA19WUeiFyijJCF43PFDjnJ0vSvYfPH0PP71ZEj/8zyQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viVoHylw;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE8E606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE8E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95204606A331
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:14:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95204606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=W+TZGI5v
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-533861a59b8so61758701cf.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 05:13:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793711584; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UxRY46x23zzhSkdxqpM8HZm6rhOzBbcS09JaPRBAYh1u3HYpU3ySmtnlAvd7Vq315Z
-         37Zp4twRIGya3vX8ixReHU9PNKqEnB/Gr5Bk2NhxOiUaR6bp0Z2wfXSbrl1gJ4Xr3a4o
-         S3tEHOQshFamIe2R6DlxHYyvM/89sYYHewHr9RXP9VlZw/qT8BZOyca8a+Xx37zb3H9n
-         sf1OOGtFyRtjvZJYtINHLRdTPnf7F1LoFAqPzC01Zd6tiJy/buu0i+wvUxTAnMqmVMJA
-         YiNOcAMRrwXh4EfflRe1dBl1D9Js3RZUi33ptO4JLJypdj77JMcnz5Rwm+vZ1aIpM9h9
-         bLhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
-        fh=Na8nqHzEDvAf9Nyl4AQyOMDLNz2RrxPIs7Eus5cAZqI=;
-        b=bDP8jjSJPSRwUHxi6cs1D1TgkT+s6n2bh4P0xqtPYwsEhYXSt2laPOtMsad3yZALtG
-         F/vAJrb1ah27qqvWPhZa+YS3xi59Xxjhcyel1aQhCcJjxh2AfFVbTiEejrtAMV1ZaMU7
-         ZGxkp/SiPkqPpDH+iiOsJvqiy21yLmH6BmyKKByIXLVQyB4wSZJMxyzgsgcitVc04Zfj
-         Fp2bn4oGuIkW2QK4ZcaHi+T9o+OOkyV3jdL9YY4UaqNSuGZApJ27/lO5d74F1wHuPkM0
-         wgX4xME8XQTKTYF4rrKOcTFrVNIWgDvxYd/V5Y3l+jPN7myNYufa6ti6GqLt/8PXEvfN
-         BDNA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=viVoHylw
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so7738387eec.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 05:14:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793711584; x=1794316384; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
-        b=W+TZGI5vLZXS0ByWo7DtIogkI6pO7pSJS/mY2Op4FSwOnPnLqmEGO+y6kOFNySoVff
-         6hzsskAUEV6VDlUWfR9bYxw8QZM8cCzHsT6sxhQLK3GtsHrT27uc9P8PNgWo3nRz9Rli
-         HIWb83bZK0sNcMTKdLCrQPGxcHWj1Pu2RhR4sUN5Euqvc4Vd7p5l2lyAaqch0aCoonU0
-         L1eDkE4A2mvK3YBkVnKVeHMNo2LYu6yeSydKtS2NuDXkOlQ6vxusVvHbVq2S50rmMYJc
-         GP27XI1ctLPE51XTb9JsiHKBcofQ3pZ1yk6wDAB+gWti3tIfEFGO5kH2zkgNeehKBaq9
-         Ssyw==
+        d=gmail.com; s=20260707; t=1793711691; x=1794316491; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
+        b=viVoHylw3O2xFHrqITHTuVW143bD5XvorRJEgsNje3zvK778fq/JxiCAd0hYnQSmqK
+         cR9EDjemET3qN4azii+Cuk4YhfXECn+TXjGbPug1c2iObS7GKW6p8sHPMs8m+zcp/4wx
+         ndrdxflaa266irios+ucQKW4NSEhRJIaQ0dM/RDT+UjjziuDK8iNygd4SouqNNSki3Du
+         hwM5Z/OzPrRyG6JxKvq0qgUgESFKehUTkliaA4Kc8taBqCu4ttdXPKVA1KQ7P7nB5/hG
+         MYsNmBviZ9Jzzz6BBsPxlVs355pApxDzgadbKPJPWbKkve6pteZPTIQe6k8mBOyVmPuH
+         9y0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793711584; x=1794316384;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
-        b=r7OAQPj0jsgqeALKhNa54Brs5jGxYBgiT4VYwmuIqdEyQQ/DGiRaw2X06XtiQSejJK
-         kLwebRrgIAbH0DMBJBE1FViszB2ekzmlhAmMBktE2Og+m3EmXRmGwN5Yl+pm7LfIZJ5F
-         SwDdMHeMcy8CJqxhyIvpyUdFPkV7cz4QNJ2WPmZZTGpEdYZq0cUfml1WOYPMb5oX7q6i
-         L/9Uxd9qCqz0skG1LwU+C7TewY7o8QP0NCyKI4WJPeeQMtmC7JTBkZazR7etLJPMRl7e
-         uDYV3kO1ZSylCKDxCv22/lkpbqMvcwpXEMiZSSLGGhXOICrA5NScWjJVOrAx9R8zZVqm
-         ViAg==
-X-Forwarded-Encrypted: i=1; AKwUvBx13rSA/aQEzbfsG4uZrawNT1G8jiYEf05PfN0Su95UEeGKJ+UKLVOw9cn1h1h21ZIvgGnt2hc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Qgznu7VzfykfrBV4w18bk8cT3LTGM4L8WfVQacrzTxRaam9bU
-	UTOF6pHX+22A1URNDnUFoiRg47e/WPv8j4Qat4SP+EZhfIGY1dWtYK3hjBxJ2nYTPXQH4k9Zab4
-	hMcVV4XEnUtePr8GPuQxGmW4fLiw/7PbFPPy3dL+6uA==
-X-Gm-Gg: AYBFou3wOrdGBLBuNLqpdLUULQBF25AnoYf/nmC85/z4UquXH/+d7yo0OycjpHYu/dT
-	vQ6c4PbkkF2X2md1qAOY4o6HDVQUzsWCSpJD6SPolrRcRbJW/JcJWBcwK1Ymr1m6vIUT7AeiYNY
-	sgE9+0pB3yasuFd8yCKCm3T+tDYD3yol6HOi/3n0fNf72VEYF76rs8WcqFTfgBJJyx+H3KSc/HE
-	WhZBu8XQxdMTmTepgdRw6RqQaNH4uAv3Zl8fmmcDrfQ3YoBVsMzGje0t+PAcWN6RokQ4Ywdw+Fy
-	hvwBGfcHBz9M1mkzcn0fLXejCTy3zpczcLQveibCyfTYN41jLRrOIbBcF7NIdwoXjCcAXCI1C0Y
-	WnQBaHwYcIOqVmwSdaE9+Bs+4JiSOwZXJ/vOQ5TJ5B5dnK/Jowv/I872m6wX1i5NpbdgOT4uhrM
-	Q3FbxVIILzSCG6weRNZU1Zx+NDgLV0+XClj8d0bnayHC3q8Fp346TVyA==
-X-Received: by 2002:a05:622a:5a07:b0:536:6902:db00 with SMTP id
- d75a77b69052e-542b85e857bmr221971131cf.68.1793711584049; Tue, 03 Nov 2026
- 05:13:04 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793711691; x=1794316491;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/DdO+c8hhRiuk32rYy7zj2DQMaJ9+qPKp2MrlWUvMn4=;
+        b=JJ6qJb4kjPN1zlv8flZKWJMDBxQlVQbU9rbM6/VMmDrfTkvVGX13oT0Z0ftjUYCJK9
+         IEJe239kLdl8QUYzz/OYg+ywrf40NJUKohgbPUAoFeKpmFEfTxksaxE0l9vtLV4DdLCN
+         O9OE18M2MgcM9i34r8NUpGm/zI2tD0oI3ZCk1Wg7ilWvkauDJD0de8TjxGUCzVIjOnGH
+         lA4fNw+eMSGW/5fmZMXjWmA0cui2tRlKCbaptVUG+Pc+z58IFnwT73RgHurEX4Kmiy1C
+         3m0JKlY7aGA0C+tjaXXXFnO7kHtrHO2bIl3NOfrdF8qQjVGQ4mvymKxRp7fjlNA1rArH
+         oRdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwSOZi5IDSxh+8RzhW6GnLM2hjtNLtJETu9gFY11QjfrW5+XXDa3R3Rm7J5Xb6QDTrwO+xiPO8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4P4vXW/aO673oDdBON94kXJBooUUA8r9Zh9xOUUkSmkVr4Edb
+	UpkE45W7tejD5V55ebKYvZZsya/s/PIrponpMvaiQmlLpjG//btT0hAS
+X-Gm-Gg: AYBFou0JZi1KjaHVYy44kT5wA0WpSuhVxfnvBbJE4RvYqzNtzZfAiMGRWrnA4tIRPrU
+	a7qdEhT31cIxXAbJpRrSfWrTahLwmWDGKDk1Aal6GkOvDukcjUxapRZJ8i/kg5YfzMq01oqKn72
+	qg13Am2PkKwtrSq5POdZQPamblONdcW5uhViXkmq3LK8K6MDyeCUcQS5tRdcDkOfWovTejv+rGw
+	usSNw5UiFCSg18I08A5+Z8NVMWznHfcL03z6VqdnxmERYEEQTm94T54fdk+jgAWP/h52Cd8UIbD
+	3DaKVC/OLxxlHeRrrcPCCJ0ACkjsbW7jTge9YNWyQcaRSS65c5cM29Cy0zmjToZcM6ashVb1x3y
+	PmhH6mDDBxhxWbfNOLyPEXsRnGeVbP46VjcrTIvzWUamaS37huZh02OTqOE6wiQjyQBKqOU5Zdq
+	FwK+Qp0rAhrdoC5e7TK05cbL55YLsONXGCgYdZ6wH5Mr3o1AiD3qC0tJovFZK9mM6IcQIsK0lds
+	zT5APFPJW3Nok8c4StUzewu2dT8yWoA4fV2KsygDOD6LAEhuh/UqKVDEk/ejZPQq+3Gvni+NrIF
+	lqUEJPN5q8BdGnrANTXzoT8hwMF3iU9cGgaJp7TTYW027vJGnjuLm29eoenxx8nHKQ==
+X-Received: by 2002:a05:7301:db8a:b0:36a:279:c93f with SMTP id 5a478bee46e88-36a423fda77mr19551196eec.33.1793711690526;
+        Tue, 03 Nov 2026 05:14:50 -0800 (PST)
+Received: from arpith-debian ([2402:3a80:40d:48cf:34b0:c816:2853:c60c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a61a0csm55335792eec.22.2026.11.03.05.14.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:14:48 -0800 (PST)
+From: Arpith Alexander <arpith99@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Weibin Liu <liuwb@xiaopeng.com>,
+	linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arpith Alexander <arpith99@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] spi: ljca: Don't require data in write replies
+Date: Tue,  3 Nov 2026 18:44:35 +0530
+Message-ID: <20261103131435.21838-1-arpith99@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,106 +99,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028112154.855185-1-antoine.pichot@gmail.com>
- <20261028112154.855185-2-antoine.pichot@gmail.com> <CAPY8ntArdj338V8bcSxrmwKQecy-pAcCXMbkWy=qLckX=hawNQ@mail.gmail.com>
- <20261030142624.2235132-1-antoine.pichot@gmail.com>
-In-Reply-To: <20261030142624.2235132-1-antoine.pichot@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 3 Nov 2026 13:12:46 +0000
-X-Gm-Features: AclHuK_U5ble2WiVXLRC50tmd_2p41MtkynfG8ykA1QxyOsNrA5P6PF3v1U1_cE
-Message-ID: <CAPY8ntCtf5ksaZdbuRYxTt5xaKvRcMHH2H_Z3fZxBG_c1m-2tg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for
- the 319.2 MHz link
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
-	mchehab@kernel.org, hansg@kernel.org, andriy.shevchenko@linux.intel.com, 
-	dan.scally@ideasonboard.com, djrscally@gmail.com, dmanresa@gmail.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Antoine
+Commit 0fe4573c822c ("spi: ljca: validate the response length before
+copying the data") made ljca_spi_read_write() reject any response whose
+payload, as announced by r_packet->len, is not contained in the data
+received.
 
-On Fri, 30 Oct 2026 at 14:26, Antoine Pichot <antoine.pichot@gmail.com> wrote:
->
-> Hi Dave,
->
-> On Thu, Oct 29, 2026 at 07:06:31PM +0000, Dave Stevenson wrote:
-> > I have a 24MHz module and had tested with it, which you'd acknowledged
-> > in the previous sentence.
->
-> You are right, sorry. v3 replaces that sentence: the 24 MHz tables are
-> left to a separate change, with your measurement cited.
->
-> > I've pushed where I am to
-> > https://github.com/6by9/linux/tree/rpi-7.3.y-ov7251. Patch "media:
-> > ov7251: Add support for a 400MHz link freq" fixes up all the 24MHz PLL
-> > settings. I've also done the conversion to use the V4L2 CCI library.
->
-> Thanks. For v3 I am taking your "Move the common registers into the
-> global init table" as patch 7, under your authorship, in place of my
-> strobe-register patch: the strobe registers now sit in
-> ov7251_global_init_setting, which answers your question on 5/7 of v1.
+That is right for reads, but the adapter acknowledges a write with only
+the packet header: r_packet->len holds the number of bytes written and
+no payload follows. The reply is 2 bytes long, so
+"ret < sizeof(*r_packet) + r_packet->len" is true and every write fails
+with -EIO.
 
-All good with me.
+Where the Intel Visual Sensing Controller (IVSC) is connected through
+the LJCA, as on the Dell XPS 13 9340, its initialisation fails and the
+camera behind it is lost:
 
-> The move has two side effects on the bus, both in the commit message:
->
-> - The common registers are written at power-on instead of at every
->   stream start, so a restart within the runtime PM autosuspend delay
->   skips them. The datasheet allows it (table 2-8: software standby
->   keeps the register values).
-> - Register 0x3820 holds 0x40 while the sensor streams, where it held
->   0x00 before. The flip control writes back the value probe cached,
->   and probe now caches it after the init table has written 0x40, not
->   right after the reset when it read 0x00. I poked the old value in
->   during a lit stream: brightness, picture, orientation and frame
->   rate did not change.
->
-> Tested on the Book 2 against v2: the clock, timing, PLL, flip and
-> strobe registers read back while streaming at 30, 60 and 90 fps are
-> identical apart from 0x3820. On a sensor kept powered, a restart and
-> mode switches from 30 to 90, to 60 and back to 30 fps give a correct
-> first frame every time, at 90.45, 60.15 and 30.0 fps.
+  spi_ljca usb_ljca.ljca-spi.0: transfer failed len: 256
+  vsc-tp spi-INTC10D0:00: SPI transfer failed: -5
+  intel_vsc intel_vsc: error -ENODEV: init hw failed
 
-That all sounds good.
-I hadn't noticed that the common registers were written from power on,
-so thanks for checking it. It's generally when there are multiple
-resolutions supported that using the reset at the start of the common
-registers is of most use.
+Only require the payload to be present when there is a receive buffer
+to copy it into. Write acks are still checked for a non-zero length that
+does not exceed the request.
 
-> The rest of your branch (400 MHz, CCI, HBLANK and MIN_HTS, the
-> optional enable GPIO, the gain rename, the VBLANK minimum) I leave to
-> you as you offered, to keep v3 to the fixes and the IR camera. I can
-> test them on the Book 2 (19.2 MHz, 319.2 MHz link) when you post them.
+Fixes: 0fe4573c822c ("spi: ljca: validate the response length before copying the data")
+Cc: stable@vger.kernel.org # 6.8+
+Signed-off-by: Arpith Alexander <arpith99@gmail.com>
+---
+Tested on a Dell XPS 13 9340: with this applied the IVSC initialises
+again and the camera works.
 
-That's fine with me. I'll leave doing any further work until your
-patches land, as the CCI change is tiresome to handle conflicts with.
+0fe4573c822c is tagged for stable but has not been backported yet, so
+it would be good to get this in before it is.
 
-> Two things for that:
->
-> - A data point for the VBLANK minimum. A sweep on the Book 2 in the
->   30 fps mode (exposure 400, gain 16, 20 frames per value) gives
->   normal frames down to 41, white frames from 40 to 26 and frames
->   rolled sideways from 25 to 16, both without CSI-2 errors, CRC
->   errors from 13 and a stalled receiver at 10. The same boundary as
->   on your Pi.
+ drivers/spi/spi-ljca.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Great. I was expecting it to be down to timing within the pixel array
-rather than the MIPI configuration, and too few blanking lines results
-in things going awry. I'm happy to hear that it does the same for you.
+diff --git a/drivers/spi/spi-ljca.c b/drivers/spi/spi-ljca.c
+index 8fd001610f67..b1babd43adda 100644
+--- a/drivers/spi/spi-ljca.c
++++ b/drivers/spi/spi-ljca.c
+@@ -109,8 +109,9 @@ static int ljca_spi_read_write(struct ljca_spi_dev *ljca_spi, const u8 *w_data,
+ 	if (ret < sizeof(*r_packet))
+ 		return -EIO;
+ 
+-	if (!r_packet->len || ret < sizeof(*r_packet) + r_packet->len ||
+-	    r_packet->len > len)
++	/* write acks carry no payload */
++	if (!r_packet->len || r_packet->len > len ||
++	    (r_data && ret < sizeof(*r_packet) + r_packet->len))
+ 		return -EIO;
+ 
+ 	if (r_data)
 
-> - At the tip of the branch (fde519da0503, "media: ov7251: Reduce
->   OV7251_TIMING_MIN_HTS"), unless I misread it, ov7251_set_vflip()
->   writes OV7251_TIMING_FORMAT2 (0x3821) rather than 0x3820, probe
->   stores the 0x3821 read in timing_format1 rather than
->   timing_format2, and the return value of devm_cci_regmap_init_i2c()
->   is not checked. In case it helps before you post.
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.55.0
 
-Doh, too much copy/paste. Thanks for picking it up.
-That error is actually in "media: ov7251: Convert to use V4L2 CCI
-library". I've updated my local branch, but not repushed.
-
-  Dave
-
-> Thanks,
-> Antoine
