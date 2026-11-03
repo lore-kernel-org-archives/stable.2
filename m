@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703173;
-	b=fCFwDMj9v0AHuh8QGwxxaKmmSjDcrD5IRAF0xrREPUjNB9F30T8doZir7uHmj0YKeMQ9
-	 i2eXMFOarJqe6ytfujuUNP/zi8pGPpndyPxf3ckucFTT6ydvoy2mRi/YMhG0E+2u0zjR0
-	 opq+/IRXRdAEhtEdV18Y8Z/Xq6RWB68OJwEbB++wMUglrXOjQBawqK8qxZ8yGZQGoQh8D
-	 cAP01a0MLvcYV/mb3sAh+lDr0gpwIZ22KEiia9oQM7lLeWs8TvaRLmhVsSEe4cPwmuxmL
-	 RtLy+/0X0AsrdSpnen9DoPdQ6YhryceLgbAX3USdw76/op7iu981SG80wpqXfvhEjwg==
+	t=1793703236;
+	b=KbMS43HD0Eh8vOK7EWe8asCftQka9vL97gcLBp0q0EszZnsfx5fMDs2vZviyH99LJpOn
+	 CQ1CNK9P+Hen0PDGlXTFiANXBGMSse6dx0hzhsfRAMtVzqQXh8mA67exTDHYanQIAzOzW
+	 FKSJq1R3FIIMKqOP1+ztQEdqlHKKw2fe+HlecwxD+G7cQZWIo5obHIk8FcR+MdUGuQG9B
+	 qvy4frwP9dUyn0MAYtpoK9Nf9eOaJpbm3vjCDhu1xmByl2SZuWQB3gNCAsnrY/Ktk9ti7
+	 xM7fzthKv2+UA+dt2EPTnAPrwaI2aTxF16kjY4dfO5S4NIMV+MqjTtNhhLJbuLAe6Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703173;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703236;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=jEbHViCewOt//5sCydb1e1mJRYmAXTqv2DOj5G7xWSI=;
-	b=UoK0+LZWwnNSjMtZykbOI43mXEKg0UO1xOp5MrwBPU0Ahzxt2nzdCY3sfMNh/WStR7BK
-	 rARSHyzttRy2kRDcpKPup3HYOxN8ECLlBLaEa5cmZjNd75HOX2XH/ymgGNQ60O01HFn2f
-	 giIPqXFcCXEdRxxTUmlyqdMOlnpx9w4TVfWtulVHPayxKWcge4m4U/QnwdKIToJiRm+2W
-	 7a52G1JVY2klOq8aO9g4d5rS4d4MpSBIkcRkEXsIcwLCMm1nNwA2r6+yVHAsfG/FFChFS
-	 bC9W/rlmtczui7n7f+aXwpEagcm3uk9d/B+40XWOhF79HJd8D4Q7/OzuswSKb/D9r9A==
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=i+DHw1eJBnfBYMpsbId+fwdj/ffdvRjE8kTCYAnvm70=;
+	b=UWr9l3SS9hMI21iAxIic6q5rfYJbpxm0RnOvl6XhD8DpaTMr9Bag/5gJoS8kENz61Pg+
+	 BsiSK4o3hCcAldreiDrF5Z7z4xOdhAvDwdr46jhaMaFp5/JAfGIFwnO90A/nWbY8RiJTP
+	 wz636o3iK9Nk5prCdeamyGavN8TyfTEmhCTQ7hcI0HeYPdGSbRNrxfWMqFI3YUbcevZNU
+	 dXcU4cczLahPUfvKQzItDJVFXPZ/DSRXWkV9nnkkaavW6Q7GYgCmW4s7ilpk3xRb1FO5s
+	 rCdfdMg/eKM7RGz8TVtB0ewlZU+DoYZEghTIor7ZMIJTNy8aJPJT+x1MOcekTP5umlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96EFA606BA51;
-	Tue,  3 Nov 2026 10:52:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96EFA606BA51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAF0606D829;
+	Tue,  3 Nov 2026 10:53:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAAF0606D829
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJllT4YyNz58fcB;
-	Tue, 03 Nov 2026 18:52:37 +0800 (CST)
-Received: from xaxapp02.zte.com.cn ([10.88.97.241])
-	by mse-fl2.zte.com.cn with SMTP id 6A3AqW4L050708;
-	Tue, 3 Nov 2026 18:52:32 +0800 (+08)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJlmy14Xkz8Xrrc;
+	Tue, 03 Nov 2026 18:53:54 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 6A3ArbDm051787;
+	Tue, 3 Nov 2026 18:53:37 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
 Received: from mapi (xaxapp01[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Tue, 3 Nov 2026 18:52:35 +0800 (CST)
-X-Zmail-TransId: 2af96ae9bcf32a7-ada10
+	Tue, 3 Nov 2026 18:53:40 +0800 (CST)
+X-Zmail-TransId: 2af96ae9bd34b2d-af295
 X-Mailer: Zmail v1.0
-Message-ID: <20261103185235033sSfbRNdG9dGBNRQIy7br_@zte.com.cn>
-In-Reply-To: <20261103185229490gmhePBF5_11x_thf4X-Rw@zte.com.cn>
-References: 20261103185229490gmhePBF5_11x_thf4X-Rw@zte.com.cn
-Date: Tue, 3 Nov 2026 18:52:35 +0800 (CST)
+Message-ID: <20261103185340382nGk9q5f5TbPSdgcbDLAUy@zte.com.cn>
+Date: Tue, 3 Nov 2026 18:53:40 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,80 +58,49 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 From: <shao.mingyin@zte.com.cn>
-To: <martin.petersen@oracle.com>, <alim.akhtar@samsung.com>,
-        <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>
-Cc: <james.bottomley@hansenpartnership.com>, <peter.griffin@linaro.org>,
-        <beanhuo@micron.com>, <stanleyjhu@google.com>,
-        <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDEvMl0gc2NzaTogdWZzOiBjb3JlOiB1bnJlZ2lzdGVyIFJQTUIgZGV2aWNlcyBiZWZvcmUgdGhlaXIgcGFyZW50?=
+To: <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>,
+        <bmarzins@redhat.com>, <dm-devel@lists.linux.dev>
+Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBkbSBtcGF0aDogZml4IGJ1ZmZlciBvdmVyZmxvdyBpbiBwYXJzZV9od19oYW5kbGVyKCk=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6A3AqW4L050708
+X-MAIL:mse-fl2.zte.com.cn 6A3ArbDm051787
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Tue, 03 Nov 2026 18:52:37 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 03 Nov 2026 18:53:54 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AE9BCF5.000/4jJllT4YyNz58fcB
+X-Fangmail-MID-QID: 6AE9BD42.000/4jJlmy14Xkz8Xrrc
 
-ufs_rpmb_probe() registers a child device whose parent is the UFS RPMB
-device and then registers an rpmb_dev on top of it.  device_add() takes a
-reference on the parent, and rpmb_dev_unregister() is only called from
-ufs_rpmb_device_release(), i.e. when the parent's reference count drops to
-zero.  ufs_rpmb_remove() and the probe error path call
-device_unregister(&ufs_rpmb->dev) directly, which leaves the reference
-held by the rpmb_dev and the release callback never runs: the RPMB child
-stays registered while the devm-allocated ufs_rpmb is freed together with
-the host.
+parse_hw_handler() builds the hw_handler parameter string in a buffer
+sized with
 
-Unregister the rpmb_dev first, as mmc_blk_remove_rpmb_part() does, and let
-the release callback tolerate an already unregistered device.
+	len = 4;
 
-Fixes: b06b8c421485 ("scsi: ufs: core: Add OP-TEE based RPMB driver for UFS devices")
+plus one byte per argument.  Those four bytes were meant for the decimal
+form of the parameter count, three digits plus the terminating NUL.
+dm_read_arg_group() accepts up to 1024 arguments and the count written is
+'hw_argc - 1', so a count of 1000 or more needs four digits plus the NUL
+and sprintf() writes one byte past the allocation.
+
+Size the buffer from the actual string length instead.
+
+Fixes: 2bfd2e1337f0 ("[SCSI] scsi_dh: Use scsi_dh_set_params() in multipath.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-diff --git a/drivers/ufs/core/ufs-rpmb.c b/drivers/ufs/core/ufs-rpmb.c
-index 65f2d71cf073..1ed57d50c3ff 100644
---- a/drivers/ufs/core/ufs-rpmb.c
-+++ b/drivers/ufs/core/ufs-rpmb.c
-@@ -149,11 +149,19 @@ static int ufs_rpmb_route_frames(struct device *dev, u8 *req, unsigned int req_l
- 	return ret;
- }
+diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+index ae9318f5f21b..2f871a23a8cb 100644
+--- a/drivers/md/dm-mpath.c
++++ b/drivers/md/dm-mpath.c
+@@ -1085,8 +1085,9 @@ static int parse_hw_handler(struct dm_arg_set *as, struct multipath *m)
  
-+static void ufs_rpmb_unregister_device(struct ufs_rpmb_dev *ufs_rpmb)
-+{
-+	rpmb_dev_unregister(ufs_rpmb->rdev);
-+	ufs_rpmb->rdev = NULL;
-+	device_unregister(&ufs_rpmb->dev);
-+}
-+
- static void ufs_rpmb_device_release(struct device *dev)
- {
- 	struct ufs_rpmb_dev *ufs_rpmb = dev_get_drvdata(dev);
+ 	if (hw_argc > 1) {
+ 		char *p;
+-		int i, j, len = 4;
++		int i, j, len;
  
--	rpmb_dev_unregister(ufs_rpmb->rdev);
-+	if (ufs_rpmb->rdev)
-+		rpmb_dev_unregister(ufs_rpmb->rdev);
- }
- 
- /* UFS RPMB device registration */
-@@ -250,7 +258,7 @@ int ufs_rpmb_probe(struct ufs_hba *hba)
- 	kfree(cid);
- 	list_for_each_entry_safe(it, tmp, &hba->rpmbs, node) {
- 		list_del(&it->node);
--		device_unregister(&it->dev);
-+		ufs_rpmb_unregister_device(it);
- 	}
- 
- 	return ret;
-@@ -270,7 +278,7 @@ void ufs_rpmb_remove(struct ufs_hba *hba)
- 		/* Remove from list first */
- 		list_del(&ufs_rpmb->node);
- 		/* Unregister device */
--		device_unregister(&ufs_rpmb->dev);
-+		ufs_rpmb_unregister_device(ufs_rpmb);
- 	}
- 
- 	dev_info(hba->dev, "All UFS RPMB devices unregistered\n");
++		len = snprintf(NULL, 0, "%d", hw_argc - 1) + 1;
+ 		for (i = 0; i <= hw_argc - 2; i++)
+ 			len += strlen(as->argv[i]) + 1;
+ 		p = m->hw_handler_params = kzalloc(len, GFP_KERNEL);
