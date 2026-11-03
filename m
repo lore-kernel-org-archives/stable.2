@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701571;
-	b=TZBBtsA9NZRsv3Nvx5EJBnIt9RzwlAwrhkOsyihkVkflCysUIko4geIQXJSPMtovLoSC
-	 xAh+HK8OauQD3rQTThFQ4Xzrv69EtDruCnmluj6z+5GtEWYfjbKets9c54eNPO0Xgl2+w
-	 nhdvpa0u2Wcdmk0qQAbrtfbksaNwW9MwRqZy8vNwKa+c5qlndRhRT83jWXhgpjRLEL83h
-	 ZLTGYopvAyQ7rUBwtuhQlWPBzerNzv8fsjr5vaBWKU9QbaClhwuwgbQv1Ao5atrjINhMP
-	 3NQI3bm/ZyFSCc7blrrGlqs+Zh0ngCDP/ODbCfqjV/iQ9yLq6i69XyFw0Ve9EQhXtGQ==
+	t=1793701565;
+	b=vmq8FgYm/hZno44hnbevApJQLl7oE8ntuQRfESOxGw9DdDIrUclgUjyd3xT9QjcF6LNv
+	 +Xj3f5R88+3TyaDyXUjRolRSGbodo2zDi7qKzTqU3gJbnqwaqraGGL3OUK9n76zmvg+WE
+	 XvAZB7YBNVEJHJQvgqllo9OUbkQUnplaYhrx21q0WxLUknP6SxODCz76sQ0g1VQiVtQbP
+	 0fr98D/56WTOJgC8qdb8d/70iTaY1Kngp9tvdlOUB3e4UIaMOXT2PJAuTzoUfdaZ+z8k5
+	 gHO/FeIpALhECv0uOsDELK8enIRtheUFxC/V4x2S1VV38gGrNJDTVSEBoE9BP8Jen5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701571;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701565;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+tVXS2qXFnFcTdFlcoUpcMZROLwvP5rjxvPBVj72EVo=;
-	b=mQKRLpBvEc3NkURKf/gkt3F0njI3hOgSbdOwbDev3zP9HFZONmubD65d6dvZSJCwBI1I
-	 xnKHOl9rhVEGo0WodvqOyE8n07A/nMl16Aw5oDDgqcrziW1/nZ5mEBA9QLtL/KxxPIh3s
-	 zyBekJzqR5VVfpock2i4NTvyNxtVLZsGq313lHIauBsTXuO6LQ9/BZumLgfVUbym/6q4/
-	 2P4R/+EQ5Thmr7UzLfeJDITKzTraMbPHvXmmyqkpBsttKe+JtSDEnhYqcXq/FTYQfaAi8
-	 FQIiOU7+reZR9nPKUarmpVGxziC+pHaPTIFvJtuTKs3oM6ggudCSB+D8CxdAl296zfA==
+	bh=jGzIIOY4BFl8qf/2SZUl/Z8oABMX8e8gCsMY/rilcXg=;
+	b=pP8RaftnjNvHOtCyXELrvBElky70o2d6kgfovR4dsxmi1cGiD1Etq8+fxXpsqZaMkdgI
+	 B55f/7KhfdfawkLJ04tYbTUX7fUos6ZehnWJENPFuoVq+4NDCixB1UHQBBEnpr7DYWocA
+	 PscDvt2kZWYLg1E1gjVdjIsslt5y5Kil96YvQFlnlbIlItEC309RjAuYtFLacnkNFppok
+	 fsRZ5zTlhB4QmMvRKhbZhdzhk50nhf2O1V6qxrGiiF62zuNtmWU5mJCeNcSejgNO/y4xd
+	 7jSMZDg3noABirW9exvt73dArXuoz5kk4Ck9ULCW4T+iVggRe5cLn9iF2KYMZbxe6sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V96M6+aW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BS+lyWEt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5797E606B13A;
-	Tue,  3 Nov 2026 10:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF58606D81A;
+	Tue,  3 Nov 2026 10:26:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V96M6+aW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2141F00A1E;
-	Tue,  3 Nov 2026 10:26:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BS+lyWEt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33231F000C1;
+	Tue,  3 Nov 2026 10:26:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701571;
-	bh=+tVXS2qXFnFcTdFlcoUpcMZROLwvP5rjxvPBVj72EVo=;
+	s=k20260515; t=1793701564;
+	bh=jGzIIOY4BFl8qf/2SZUl/Z8oABMX8e8gCsMY/rilcXg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V96M6+aWiTTHVj6EbJcdFT+MAlD9HNzEDEOOfCOKlXGFDP6zXRe6tkbF3v7ACN0r7
-	 k+uFpQjxwLofHgDmGv3P2OtzI0xREeFM34cKMgZ9Bw4WmtgQ2Tn59o1R+Qfs82y6ih
-	 DvHAKn2o3h3XKQy9pAbxQLgPzxtvHsU9sso4ngt3/vRR9OF40hhVuSzNHm+V3Oj/C9
-	 zJmJ7+g7zjgveisL8ZhYoYuoR/alUTsef9VNo2TPK4BHDnikvnTPe9/wy+fkEA81UE
-	 PHfSc/Pvw2oSzCLx6cIM9sjCMKqY8XxUMkSzScA0hM/amQQZpmoSzVlnOzsVBxPlpF
-	 75ldcgmtL4uZQ==
-Date: Tue, 3 Nov 2026 11:26:08 +0100
+	b=BS+lyWEt7n3tadznwP0sZc4HKRay2BzPOdE0Q5AvqaoufOqIqXEoZwzRF16B11TRO
+	 wV0nVN0iKhuBh5tHsygc7PkXR2gW7dRXwIo2XC5Qx1fnu6r6WZqVTSyqADOixZuz2s
+	 ey97QkjQhig6Q1u0d9pCdFQA7mtsY+sOdyPBIH220aGNgjMb+olYPhRTcd0xol98zk
+	 CKzZQTwso+YBPDkHIEdA3wSjx7MJ50I34VerHcJPaSq058qipgnlxfDIsZkFbAPD9d
+	 T4JtkWlCqTJATfeJfgEfC/gtJRvBtqibwfErZU+PKM2+LgqlBcnbzWSruwQNyD86p9
+	 iGiIVpmjP5RXw==
+Date: Tue, 3 Nov 2026 11:26:01 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
-	Potnuri Bharat Teja <bharat@chelsio.com>, Paolo Abeni <pabeni@redhat.com>, stable@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH] net: cxgb4: do not leak a PTP skb when the Tx queue is
- busy
-Message-ID: <20261103-astute-literate-malkoha-251bce@quoll>
-References: <20261103100530.1309928-1-vulab@iscas.ac.cn>
+Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org, 
+	Tony Nguyen <anthony.l.nguyen@intel.com>, stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	intel-wired-lan@lists.osuosl.org, Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: Re: [PATCH] net: ixgbe: drop the SA reference if secpath_set() fails
+Message-ID: <20261103-arrogant-competent-jaguarundi-3c9472@quoll>
+References: <20261103100534.1310039-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,29 +61,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100530.1309928-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100534.1310039-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:30 +0000, Wentao Liang wrote:
-> cxgb4_eth_xmit() stores the PTP skb in adap->ptp_tx_skb with an extra
-> reference before the descriptor credits are checked.  When the PTP
-> queue is full the function returns NETDEV_TX_BUSY, and later failures
-> such as an unsupported FCoE offload or a failed DMA mapping jump to
-> out_free.  None of those paths transmit the packet, so no transmit
-> timestamp ever arrives and the extra reference is never released.
+On Tue, 03 Nov 2026 10:05:34 +0000, Wentao Liang wrote:
+> ixgbe_ipsec_rx() takes a reference on the xfrm_state returned by
+> ixgbe_ipsec_find_rx_state(). On success that reference is handed over
+> to the skb's security path, which releases it when the skb is freed.
+> When secpath_set() cannot allocate the extension it returns NULL, but
+> the function returns without releasing the xfrm_state, so the SA
+> reference is leaked.
 > 
-> Only take the extra reference once the packet is certain to be queued,
-> just before it is handed to the hardware.  The initial check for an
-> outstanding PTP skb is kept, and PTP transmits are serialized by
-> adap->ptp_lock, so only one PTP packet can be in flight.
+> Put the reference before bailing out.
 > 
-> Fixes: a456950445a0 ("cxgb4: time stamping interface for PTP")
+> Fixes: 92103199f10a ("ixgbe: process the Rx ipsec offload")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/chelsio/cxgb4/sge.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
+>  drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 
 
