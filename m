@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701042;
-	b=OTdmlqiodM4gLaDxDeZpBKylpHjvnOdQwTZ2pjy1V8PnJk25yvDAzZ5+5h34G6RN7Bi0
-	 3nWRzcpv8Zuiw9z405Es9Lauw5AAg2v3ukw0vZjYZpYPaUSSLJyQc/DkCQt4dTRoYyKn7
-	 9zkXwGb9bD24nWD5kJE6eBZtPPphSjVeZLuadcNLLuVaDhNmCI7cZjHRWPJKVudaW4dgx
-	 UkhnTvekgA0Fn2T/IOTzStSw6L0QSTfecXMB8RILLGz8yNS+OsUGYFNicLVe34RzgkXux
-	 0TyknPiVLXJ5wFqTYi+8pojFZb1LibTJI72uf8VOV2UTECTcQeirvdPlosqHraJOSGg==
+	t=1793701043;
+	b=QW4NrRuwEn1RR2PhStWA6ZbALVAzwRARn5lvVpW+Naemkwe8VzitLVipBOGZuBGm2mxu
+	 k24+fjdi24hBBXpSmhKnoPSUnA8DnfyyVfqXOyuwN7NKzUVvhIC+1rurpjEF7FmyjABGH
+	 s40jTTk/ynWuUD1D5BV1chQKVel2k2wjiP6ASvj86bz+YAzc059gbNOj3c+ZjFJptz1nv
+	 td+xvEoqZxQEKrzybt31VAUQ8u2eT08TvBuAOGeEIiugTJhDI1Pi2r2tGibGx721gNoNF
+	 FJ2ITfkdFqyZVCvcyuFIUY4eggTFxFmnn+CG6x8KKOWu0wPRUZQkb4WrKvyxd5X4nzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701043;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l74miQHNcmkCaiIXDmSJlrVXVTqQsc32Jhk3e+/rBS8=;
-	b=Fl+MhBEA/l2J2QZSyFWUtQbFU1Xva86SPHOnW1qGL7NaYE2mRyHcBynND36brdofgZc6
-	 zhUFFuUNZjcCOM+sRhdC8C5o4Fkq75YWNVUU9+qWeho1TabNJV3tklg7uYXZsyC07Q4LW
-	 qTzbj96e1+6UkHgf4oQgFeV8X00nGwTau5p437AC7NvAl8p29IxyyrTdgIx+Ev73gsEco
-	 /Z4xXxGRh0fT+0FZEua674Ivz3Sj4ClOYNer8KfLsdqce5p+5Su6axdsUydW6Iws2Qqdr
-	 CFD2UAWhiQjyRVyc8Es1k38M42jCXyxaeZAG73hk5ZnWSqeLSekq+H7z1xjIDer0eXA==
+	bh=zRVJDVby/XU2Xnm1lYTXCYO8BsQrPDZhCx9uVl0CQ30=;
+	b=QxzynuWOOY5LIiIjeHbqR4Lrbb1OIESc9Je0g8D6BNPMoC/mi0KdM14ERIiL6usXAYAS
+	 Crxcrl1StKE4ogTQwK5GP0dHZiqK7dgcTMSyYvHHgz6ym/YOLHyjhJaOKI42ygsQ01e2+
+	 V35+sZejhieSqk9l/wK6ywDG2OBTVXHneq1GiK5/BzrO1d8NFac/dz8lNDmf916Lq1vGA
+	 1RwCeXc8BiVE+gWAtXc2cpaa+pfmxfmdI8KjVhWJOxqv01qfE8LOtfl+C0PVhrjXnLirW
+	 1p4onAMzgCa8g+PmNiGUejXWtcjGL5Cw+ugE29h+0dL/fEHuH9XdQQM4e3OjlURbnkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vbL6dz0U;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lNUxoh35;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8F1606EE9D
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:17:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA58606EEA9
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vbL6dz0U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78AA71F000C1;
-	Tue,  3 Nov 2026 10:17:21 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lNUxoh35
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2A11F000C1;
+	Tue,  3 Nov 2026 10:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701041;
-	bh=l74miQHNcmkCaiIXDmSJlrVXVTqQsc32Jhk3e+/rBS8=;
+	s=korg; t=1793701043;
+	bh=zRVJDVby/XU2Xnm1lYTXCYO8BsQrPDZhCx9uVl0CQ30=;
 	h=Subject:To:Cc:From:Date;
-	b=vbL6dz0UlPzLogkFXhkuyrHwdPvzt1WlKOuLNPKvtxgLCYpPKcrYipTr8N54prZUS
-	 Fh3Sgi4KnFHX+WhBinGTsefEGyR6K8gf3WcLUfdVHXSQBR1oB1huZUUreyTcTjKfuy
-	 hLNulxG8/+t7Lew6LMHw8lqrtUHhz9Chrqr1vK9Y=
-Subject: FAILED: patch "[PATCH] ksmbd: fix session reference leak on compounded SESSION_SETUP" failed to apply to 6.12-stable tree
+	b=lNUxoh353iLHSUmTSJYw81h+2SfFfiGl3Lq0CPuLi+gWWvKRug2CZhGOx57TBojLz
+	 yEeCisxze7m8SLbWVND2MJCrKTXu+WfxNOf9hd4qqhfqqfyJ1w5B/T8erEp5bcVa3U
+	 afjCISrk41wJ4JMAI2PDdMxwZoaUhUbO2uy6UxuQ=
+Subject: FAILED: patch "[PATCH] ksmbd: fix session reference leak on compounded SESSION_SETUP" failed to apply to 6.6-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:17:18 +0100
-Message-ID: <2026110318-mountain-transpire-6844@gregkh>
+Date: Tue, 03 Nov 2026 11:17:19 +0100
+Message-ID: <2026110319-itinerary-very-706a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 03bd8f5279e490e15e0c0f0fa388ffbd2fbacd65
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110318-mountain-transpire-6844@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110319-itinerary-very-706a@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
