@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702549;
-	b=CVxDmGS9Ajyv8GSU19gJ0+7aA07Lj3P7/19xVaPZvL5ib3owiI20P8gRhpQjzBlFSuhs
-	 m++TdQ7iOuOTSNiUPVoif/uYi/3e7k2gnoS9HyYnZ72g4R8G4D5ijjadrnHN2D04PE1n+
-	 6sjU/2hbiiLUrnCgx9t0y4/YL3vqS1ZhZLiLFChnVlqLY84LRJPmSESbfEVijMi0erwBg
-	 l23AYjl0kK3hqvB3b0rXMs8ELzrHsoTJ7Wg0o0WWwx8XSokKugFnZ5uXRNpw5VSQQpb7k
-	 PrC5NcyRdperf5FWm3UeocV5/1NtjIBmM0G0IAhyBkue2c8ElrQx5PX3Ow+3+cIjF+g==
+	t=1793702559;
+	b=IIZnVDzMKpIOiCXjq+RL/+1F0TkdPYWG9ehuIQZ8i2eIV/Gxao3iBWnlE3fqbE7RpgFQ
+	 KCtT6o9Im9GMHkKyd4PGOylZkDQGcNH47z0ToKc8uTrNnBL0d6c02L568/IhQdWCWUajH
+	 CsuFxscDlKktGPOn0OmMA4lwSouDKCliKzYDUFZ5mudu68SozqfnznEFM5FuK2uJbN4ML
+	 C/Mnsfpcnceq/DP4rsC5F3ONryMbDvOIUE3U6+5v0sxjl+9bEW6jeb5wrXLTdGFzpFhB1
+	 e5C9hHZHccE72yGJ/CfCtRAwDykL9fIuhxIesNynkctNJW7TvAnZSDDbL/J0HoIkXmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702559;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=d7jU0eXCbkNhSLkTaZJUyYuvXfwJizUYTCCD6ZuG3PE=;
-	b=JXxUshubDpAor6uQQF31M3tKHUi2mQ5SLyPdZz6pJTaIsefMiVcTtz2sgmYZZpO7+WzA
-	 jWXgIy4U7tT95lKpBr2Pf1SMNS89yD1pZS83eqIJ6IEpyT2sCOUdnScUqBWNv1f+tyh8k
-	 r5Lp+HkSm81R4vVX3XXDOIyoYBD+JBIhRUUYTM/DzIERbKiVrcoGi+2kLc8MG6tAfvHXh
-	 CUT0+aYenAWc1afUkAhfnaWUuGa8ItExMdLkdM18zaqs8dhTV8P0GJZTjc/R3r+b4/2Vq
-	 w+TExfehltJUWSzNnRAS1SmFJhmZ7dvV62WWx/1IbO8am5cSRTDAMmzbRkcK2Q04VXQ==
+	bh=bqVilavbTh4eGvTGTY7GnYQ82UFi4+tBe3zCydD0c7M=;
+	b=ltewQHpKCpBvzs6OsIIqGLd7pWjIOF5NXOFEM/uEOOdsi40YTP4SY0t9fkrf98Z2kP4g
+	 A14uGaXUlgrLG7W4pIwpMKBECuR0L0o6k5Vc/NEcMFQaMETOTjWJI5WSEuZStL5gF2JZ4
+	 Y8ZvOnOIYOc9Ao87in7aVW+GL9VXo61vzAXZHiRRrgMqwJMn4uDnxFSlkKrXKaWu/doc4
+	 /MrBeOK5Wi5aeecUHlf+97G0ja4BOOwsWgaUb4Yn9+LrgqNAKVawMifZAqujLJrYL616G
+	 OXoUjUdp5EzQUXE36KdinmNr0dV92RwWfHD9psdsPy373vV85YgZFsXJ+dz0tsvp2MA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,24 +25,28 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0833F606EDA5;
-	Tue,  3 Nov 2026 10:42:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0833F606EDA5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8DD606BF92;
+	Tue,  3 Nov 2026 10:42:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD8DD606BF92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABXaJmRuulqZsg7AA--.2863S2;
-	Tue, 03 Nov 2026 18:42:25 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowACHkpOZuulqssg7AA--.3284S2;
+	Tue, 03 Nov 2026 18:42:33 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: devicetree@vger.kernel.org,
+To: Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: fix node leak in of_dma_get_max_cpu_address test
-Date: Tue,  3 Nov 2026 10:42:34 +0000
-Message-Id: <20261103104234.1373570-1-vulab@iscas.ac.cn>
+Subject: [PATCH] phy: nuvoton: fix USB PHY clock reference leak
+Date: Tue,  3 Nov 2026 10:42:42 +0000
+Message-Id: <20261103104242.1373863-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,52 +58,56 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABXaJmRuulqZsg7AA--.2863S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFyxXr18Zw1kXw4rKrW8Crg_yoWkJFX_WF
-	9rZr9xGrWkCF1DWw1fXr13ZFnIva4jqr4kWr1jyr9a939ayF17Jr1S9wn5Awn8Zw4avF9x
-	Kw1Du3409rnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxxFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
-	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUrv
-	38UUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggAA2rpnIR9AwADsr
+X-CM-TRANSID:rQCowACHkpOZuulqssg7AA--.3284S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47GryrAr48tFyktF4fXwb_yoW8Xr4rpF
+	WDGFyYyFyDKr40k3yDJw18u3ZYkw47trWrKrWkCas3Z3WrX3y7G3ySyry09F48trWkCw4U
+	Kw4kZa48AFW5u37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBEb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWrXVW3AwAv7VC2z280aVAFwI0_Cr1j6r
+	xdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2
+	zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43Mx
+	AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
+	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
+	xGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_
+	Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMI
+	IF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x07bOAw3UUUUU
+	=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIB7qgAAsW
 
-of_find_node_by_path() returns a device_node with its reference count
-incremented. of_unittest_dma_get_max_cpu_address() passes the node to
-of_dma_get_max_cpu_address(), which does not consume the reference, and
-then returns without dropping it.
+ma35_usb_phy_probe() acquires the PHY clock with of_clk_get(), which
+takes a reference that must be released with clk_put().  The probe
+error paths after that call return without releasing the reference,
+and the driver has neither a .remove callback nor a devres-managed
+clock, so the reference is also leaked when the device is unbound.
 
-Release the reference after the check.
+Acquire the clock with devm_clk_get() so that it is released
+automatically on probe failure and on device removal.
 
-Fixes: 07d13a1d6120 ("of: unittest: Add test for of_dma_get_max_cpu_address()")
+Fixes: b48baf69db97 ("phy: nuvoton: add new driver for the Nuvoton MA35 SoC USB 2.0 PHY")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/of/unittest.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/phy/nuvoton/phy-ma35d1-usb2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index d2f5c7ef3178..8133c954d335 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -1145,6 +1145,7 @@ static void __init of_unittest_dma_get_max_cpu_address(void)
- 	unittest(cpu_addr == 0x4fffffff,
- 		 "of_dma_get_max_cpu_address: wrong CPU addr %pad (expecting %x)\n",
- 		 &cpu_addr, 0x4fffffff);
-+	of_node_put(np);
- }
+diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+index 9a459b700ed4..c725e336e4f4 100644
+--- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
++++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
+@@ -105,7 +105,7 @@ static int ma35_usb_phy_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(p_phy->sysreg),
+ 				     "Failed to get SYS registers\n");
  
- static void __init of_unittest_dma_ranges_one(const char *path,
+-	p_phy->clk = of_clk_get(pdev->dev.of_node, 0);
++	p_phy->clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(p_phy->clk))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(p_phy->clk),
+ 				     "failed to find usb_phy clock\n");
 -- 
 2.34.1
 
