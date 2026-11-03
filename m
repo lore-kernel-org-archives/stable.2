@@ -1,89 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793738603;
-	b=Xj16T7cT/21jG7m75MpYx3lGY/NVsAunP2aET97IYEft7R7KKz4VK9lwgvXPWgJ5gk11
-	 7aVcl1yI8CiCQoKXhK0xmEgg6tAcrs/3y+OvhwceYS6yGv2FkHkaSwPvGU8NEd+ZuwuCA
-	 rruspjOUsaiCjbCMiGNuiCq/bLnkBA7rAPwqD/jIZM+5CI6KmfoEbu6mmx8CVjezfH5ej
-	 WuzZtlFExox5SH5Kah6ysDBGOd8JBJCo3jnpVaywfGZspgHs04APsLeWccQsJ3G01Wyc3
-	 1XsmZGanahVDbS+aKbFeB55TvRxeNwZzX+bKFeoJqypZIDlKpPTSOJMBIgkyeE//OtQ==
+	t=1793738607;
+	b=pWWG63j/Ig5rPEF8QZ+SFsfowzJhvwYZJ+z4/VGUlK1IcMxhS+bSGJJYkaLH8zMHma5F
+	 OUP+SmtY42VrXrXQQBe65g8DVu2Mh53StP0atRGPnp4x5d9ZdD5jorZbuWcqs+6F+FwD4
+	 a+KLUCHw4M1m4mgs6c4UuPFCcoaZQjAWyCW0DRaboPbzdqwGqTpbJcPRfSSA2vJjcqXnW
+	 YggbgtreDNqp4RTFu5RHQR8DL0zz8E7O5K6/4SqzV5oEy5jfcs98UuD8BIbPYZNnkko6k
+	 5oLInZxl1SrvNkRXuyoNKn7RbObTg3+9YW14/Tmmo9IBGCx/eN0Zovx9LAHYqv2qHKg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738607;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=U6smJJuy+jyyMVJK08Z9327BOO0Rx5IY4/y+7jO6Dm8=;
-	b=t0zBMNMwxcT0sg6ZBCj2DXACYZvmVhdjfElbtTV4sO/zAq92TLCox1/Z8bxv1IcttLmg
-	 reiQz5CE6nJA/OnT6IR0PRGnTqyNum3YLRK+kU2MZHGGSF7RCXs3M1liPje3vzWNF4wkU
-	 2ZhnAIktf41Hr9beTaOPwOpkBgWyz2JlNqO7RJP2GMMmSb7YXbt2wKJnnACrooJkOjK/K
-	 4d5LotJFcRh27I+1sAHs5/IJNB1CzGHrmlFJ0Xq6SI4+xr7gx14Oi9tOsAVKKoVqvAoyq
-	 mKbCOqFXB5fjRhyedWDawALBQFZIt6vCldO2w6j9PbEbQhEUlJ2L63q9NRTgEoP//ew==
+	bh=kkgOmWQczJgrC+0vKDZvLmUhi9s07RfRABGMkodNFJY=;
+	b=CS6ivEy0Hfkawro5KhSliBc4bIKOesBJVMWWJ05kDC2jKkrpgGh59e24XELnwfnboS/D
+	 LitumQIq30XkYZJmFiV/4Qxo5e3qNQL0B5vORV2ib/V4TmXM1d6RQO9FrARWDHlMhLm0U
+	 Z6MyJQjU7pUnDo0SBuXRshn1cj2nZ4LDPwkvQ2oF8SXRDhPOJizvWgokpdPOQSFRZ94zt
+	 eWjsTzGKWHZz+Uesl1ZZdP7M3O7MEAZm13g5hlFj52Kw0muH3g+swdv5ekTTPpKOlitYa
+	 6B0aqDCvkWcbhYBGeforg2U7NQLSS7/QfOJPOe2to5ki5qIXCqojdYmAKTO1wwV+4WQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SMbcXyYX;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SX09XM28;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED53B606A332;
-	Tue,  3 Nov 2026 20:43:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED53B606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FE4606D807;
+	Tue,  3 Nov 2026 20:43:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54FE4606D807
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SMbcXyYX
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SX09XM28
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4B4192022C1;
-	Tue, 03 Nov 2026 21:43:17 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A558B20109D;
+	Tue, 03 Nov 2026 21:43:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793738597;
+	s=20260414; t=1793738600;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=U6smJJuy+jyyMVJK08Z9327BOO0Rx5IY4/y+7jO6Dm8=;
-	b=SMbcXyYXlUSyH+nG3RyXvSqXUq1WrHBVcz6Atg3bBwChufXTWgFZ4oq5HDEOu4UNzqScEf
-	2xIO6BnPnV103JQInSZvaRsQMXOirIjmI9fNObEOnSJ5uuOWOCkVU+hTxHX2rk3uOe7NUs
-	nyQpPcCdMvll7A/nEEYBge+7AgiUQO9u8F9q7yAHzxZSkzpWu+lMB990L39uZLTuzEWJe0
-	NeGqwwmDE5oSZQ+Bc8Lu05sH/QRvux6LiW7MwHW0j1xMqy7LONuRF+jG2RWuA7GgycGQD1
-	gSiVM3LdlAeAC5BLrkeMi7/ZUXmxSjY53Mt+FCmStatFltBepei6kgtKGajwng==
+	bh=kkgOmWQczJgrC+0vKDZvLmUhi9s07RfRABGMkodNFJY=;
+	b=SX09XM28G/tueBQKlXoK+5jo2ZLJZ0XPqqSu6EwEXtB6B24H/IK1rxGPFKRzrOa6T+4ZDy
+	DM6tyF9x6G/9/JcctKspHJnSKmicuiRzICkTjN5oXomlKIsf1x12Se+dNQCcRI1Q4WA5Gw
+	MYODQn/ABSRIsj2QV2T5emUd6Ov3Usg6eW79PSbuWdxKnA99YO3JtYPJpbrY2p1M4am4TC
+	n7m1X+9PT2nFzjwoT0ANwYbMGeTeDFuxRKHdppg2IkDA5aSVRjKnyudCytP/I8tHhmq7b+
+	dq6mDTs4t5Rn/Ygy6tFYHVWjW6TBSAUxJ1ts2ray7XRKqzekZ5JmVRuQcgXIyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793738597;
+	s=20260414; t=1793738600;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=U6smJJuy+jyyMVJK08Z9327BOO0Rx5IY4/y+7jO6Dm8=;
-	b=EOIo1UuEXb49rBIxkU8UNXJ8ZV3HW+F9xpIgsLlEqIaI+kWt9A78E64ZbBIDbxm9zhYCjQ
-	y0fC6qpRHCSw2LPFkbfIUEE/K4cceehdJyKDMBsWrqX6bffl15KLmkdlxvOzs3AqXRQePH
-	hmg4dmKCjkcKoKFeoIsY0uHwJDXGIqTdM6nF+RtJs8/zxiuzifgrMj7WhWDQvV566Q2Ppn
-	8SpNPKzY2EtQhe9HU5/Ex9V7LXTy0SIJVkesC08/4XdAJyLyzQ+UMYZXYlciq6XlsbeGvk
-	eKiHwWV+qHL7p7VQ47y3bJNwy93L83wCHOyDCpkL8r5A0jY5azP0oH0WmCs8ig==
+	bh=kkgOmWQczJgrC+0vKDZvLmUhi9s07RfRABGMkodNFJY=;
+	b=aQSoJcOBcDkcUq9QNH2H149R3F5rxFB2CikF6wvdI3k/R+y0GDmwWN5u0kktusSNV1Dl/m
+	9K4+IIHg6FMc5aPJggp9sdKs/ofHFz3a0CqLCp4PfJkJBOaS5e/T/tatW/lYiYib4E0Gun
+	TdNiISasro7Ku16ftatPOrZ8t2sXeC4gKN0jEQ0l6wxXtDJjQbpAssBpTDco/VR7VmBwx/
+	aXLeO4IWCDTEOeUEEGf+PJzJnppgnezH82Cts4d1MavQPIu3lU/NegfVvuH5Ytfkr+zFc+
+	BG9YOUC0VfFkAWazxShpIE2CMFwnI7Kt10qMSajXSNnqI66DS5+zfLtE2dNqRQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793738597; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793738600; a=rsa-sha256;
 	cv=none;
-	b=YPKuFZDhJ1tWNpQw90mZHqNrAchPaUOZrci8O3u9xelSu42TY8lVGwOjM345atouF/C5ER
-	Nzzd0azMfaGp4qeKzHQIg7uaaEC4AX98Xj6XTF1ZMHMzPHrI9s2QHcVhtFAPGacYvNDh1M
-	kOQ8q5LPGTcd7tF19h5cYGwd/r9LZ7NKuyBYQuzAtxqpKEcHs4hwXG5HakFqqw0CbyN3QG
-	AziDE6H4Gzik+QCMs82LUuEwpLiW6YxWeixdBd61NwgpRZK4FZRCgxh0v3aXxSGzO18tCd
-	v4kYJNT8IwnEHpASxgJaRthrGV4y4blqdvcDWEKj+3tsmlOIVWT32dc4wT2xPw==
+	b=dVlxOEgzB4KeIlC2G1OOmkH6Ep7D/6ucCkXTbGQytG3IGrZ0dIO+7cezFfIxGPHsSRrDJr
+	sF8GEWjyBSRjWFTEIoL2wrkyoY8iDA5+E0Z0aMwQymM0ZORtetRKEGOBfyKQ6eqOzCp2kJ
+	ZVLq/YkAZCs8WgxaJlhYzBzjFw/w2rciuNBkZ2PYM6yyYiRlIWm4WbO8+TidUxUbykhuN9
+	ecXzN5MqqnL0C/xNCLapdllNmXwKyIs5shRIQS6noEHnSaRfKNl6KgICJhN3eQkQpkgTqs
+	nRYdWuEGDwTsLrph8H6TVjF+SEY2VeLOjEG/NmiTkFoz+KSZFnwX/qBfVi2WRg==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xOLLh-002V8X-0R;
-	Tue, 03 Nov 2026 21:43:17 +0100
+	id 1xOLLk-002V8j-1f;
+	Tue, 03 Nov 2026 21:43:20 +0100
 Received: from blackshift.org (unknown [IPv6:2a00:20:73c1:227f:2cd5:5d72:938f:f03c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id BF77B5DDEBD;
-	Tue, 03 Nov 2026 20:43:15 +0000 (UTC)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 56F015DDEC4;
+	Tue, 03 Nov 2026 20:43:19 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
@@ -92,11 +92,10 @@ Cc: davem@davemloft.net,
 	kernel@pengutronix.de,
 	Oliver Hartkopp <socketcan@hartkopp.net>,
 	stable@vger.kernel.org,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 06/15] can: replace ARPHRD_CAN type checks with can_get_ml_priv()
-Date: Tue,  3 Nov 2026 21:30:27 +0100
-Message-ID: <20261103204305.3211144-7-mkl@pengutronix.de>
+Subject: [PATCH net 09/15] can: raw, isotp: copy socket options outside of lock_sock()
+Date: Tue,  3 Nov 2026 21:30:30 +0100
+Message-ID: <20261103204305.3211144-10-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103204305.3211144-1-mkl@pengutronix.de>
 References: <20261103204305.3211144-1-mkl@pengutronix.de>
@@ -113,240 +112,505 @@ Content-Transfer-Encoding: 8bit
 
 From: Oliver Hartkopp <socketcan@hartkopp.net>
 
-Commit 4e096a18867a ("net: introduce CAN specific pointer in the struct
-net_device") introduced an explicit way to assign the midlayer private
-pointer (dev->ml_priv) to named users like ML_PRIV_CAN. A valid pointer
-returned by can_get_ml_priv() therefore identifies a real CAN device.
+The CAN_RAW and CAN_ISOTP specific socket options are copied from and
+to user space while holding lock_sock(). A copy that faults or stalls,
+e.g. on a userfaultfd or FUSE backed mapping, holds lock_sock() for its
+whole duration.
 
-The referenced commit only converted the j1939 and proc code to this
-check, while the other parts of the CAN subsystem still rely on
-dev->type == ARPHRD_CAN.
+raw_notify() and isotp_notify() take lock_sock() of a socket that is
+bound to the vanishing device while holding RTNL. As the CAN_RAW
+options can also be changed on a bound socket, a stalled copy can block
+RTNL on an unregistration or namespace change of the bound device.
+Before "can: protect the receive lists with a per-device lock",
+raw_setsockopt() even held RTNL itself during the copy. CAN_ISOTP only
+copies its options for unbound sockets, which isotp_notify() skips
+without taking lock_sock().
 
-The TUNSETLINK ioctl allows a down TUN/TAP device to set its hardware
-type to ARPHRD_CAN while dev->ml_priv remains NULL. Such a repurposed
-netdevice passes the ARPHRD_CAN checks.
+Keep the user space copies out of the locked sections: Check the option
+name and length and copy the option values, including the CAN_RAW_FILTER
+filters, to kernel memory before lock_sock(). raw_setsockopt_locked()
+and isotp_setsockopt_locked() get the copied values directly and drop
+their now redundant length checks and copies. As a side effect, a
+failing copy can not leave partially overwritten options behind
+anymore. In raw_getsockopt() duplicate the filters under lock_sock() and
+copy them to user space after release_sock().
 
-Commit 8aa59e355949 ("can: af_can: fix NULL pointer dereference in
-can_rx_register()") already made can_rx_register() reject such devices.
-But can_rx_unregister() still only checks dev->type and dereferences
-the NULL ml_priv when it walks the receive lists of the device.
+As the option name and length are now checked before lock_sock(), the
+order of the checks in isotp_setsockopt() and accordingly the order of
+the returned error values changes. This is in line with POSIX, which
+does not define an order in which multiple error conditions are
+detected and reported.
 
-CAN_ISOTP reaches this path: isotp_bind() ignores the return values of
-can_rx_register() and binds the socket anyway. When the socket is
-released or the device is unregistered, isotp_release() and
-isotp_notify() remove the filters that have never been registered and
-trigger the NULL pointer dereference in can_rx_unregister(). This only
-requires owning a TUN/TAP device or CAP_NET_ADMIN in an unprivileged
-user namespace.
+The generic SOL_SOCKET options in sk_setsockopt() are not affected by
+this patch.
 
-Convert the remaining ARPHRD_CAN checks in af_can, bcm, gw, isotp and
-raw to can_get_ml_priv().
-
-Fixes: 4e096a18867a ("net: introduce CAN specific pointer in the struct net_device")
-Cc: stable@vger.kernel.org
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>
+Fixes: c18ce101f2e4 ("[CAN]: Add raw protocol")
+Fixes: 1e5185c09058 ("can: raw: add locking for raw flags bitfield")
+Cc: stable@vger.kernel.org # depends on "can: protect the receive lists with a per-device lock"
 Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20261027-can-rx-lock-v12-1-eb5afc2d8b9b@hartkopp.net
+Link: https://patch.msgid.link/20261027-can-rx-lock-v12-4-eb5afc2d8b9b@hartkopp.net
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- net/can/af_can.c | 15 ++++++---------
- net/can/bcm.c    |  7 ++++---
- net/can/gw.c     |  7 ++++---
- net/can/isotp.c  |  5 +++--
- net/can/raw.c    |  4 ++--
- 5 files changed, 19 insertions(+), 19 deletions(-)
+ net/can/isotp.c | 106 +++++++++++++++------------
+ net/can/raw.c   | 186 +++++++++++++++++++++++++-----------------------
+ 2 files changed, 158 insertions(+), 134 deletions(-)
 
-diff --git a/net/can/af_can.c b/net/can/af_can.c
-index 34fe3b28d576..dc27ace43719 100644
---- a/net/can/af_can.c
-+++ b/net/can/af_can.c
-@@ -226,7 +226,7 @@ int can_send(struct sk_buff *skb, int loop)
- 		goto inval_skb;
- 	}
- 
--	if (unlikely(skb->dev->type != ARPHRD_CAN)) {
-+	if (unlikely(!can_get_ml_priv(skb->dev))) {
- 		err = -EPERM;
- 		goto inval_skb;
- 	}
-@@ -452,7 +452,7 @@ int can_rx_register(struct net *net, struct net_device *dev, canid_t can_id,
- 
- 	/* insert new receiver  (dev,canid,mask) -> (func,data) */
- 
--	if (dev && (dev->type != ARPHRD_CAN || !can_get_ml_priv(dev)))
-+	if (dev && !can_get_ml_priv(dev))
- 		return -ENODEV;
- 
- 	if (dev && !net_eq(net, dev_net(dev)))
-@@ -519,7 +519,7 @@ void can_rx_unregister(struct net *net, struct net_device *dev, canid_t can_id,
- 	struct can_rcv_lists_stats *rcv_lists_stats = net->can.rcv_lists_stats;
- 	struct can_dev_rcv_lists *dev_rcv_lists;
- 
--	if (dev && dev->type != ARPHRD_CAN)
-+	if (dev && !can_get_ml_priv(dev))
- 		return;
- 
- 	if (dev && !net_eq(net, dev_net(dev)))
-@@ -684,8 +684,7 @@ static int can_rcv(struct sk_buff *skb, struct net_device *dev,
- {
- 	struct can_skb_ext *csx = can_skb_ext_find(skb);
- 
--	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
--		     !csx || !can_is_can_skb(skb))) {
-+	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_can_skb(skb))) {
- 		pr_warn_once("PF_CAN: dropped non conform CAN skbuff: dev type %d, len %d\n",
- 			     dev->type, skb->len);
- 
-@@ -710,8 +709,7 @@ static int canfd_rcv(struct sk_buff *skb, struct net_device *dev,
- {
- 	struct can_skb_ext *csx = can_skb_ext_find(skb);
- 
--	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
--		     !csx || !can_is_canfd_skb(skb))) {
-+	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_canfd_skb(skb))) {
- 		pr_warn_once("PF_CAN: dropped non conform CAN FD skbuff: dev type %d, len %d\n",
- 			     dev->type, skb->len);
- 
-@@ -736,8 +734,7 @@ static int canxl_rcv(struct sk_buff *skb, struct net_device *dev,
- {
- 	struct can_skb_ext *csx = can_skb_ext_find(skb);
- 
--	if (unlikely(dev->type != ARPHRD_CAN || !can_get_ml_priv(dev) ||
--		     !csx || !can_is_canxl_skb(skb))) {
-+	if (unlikely(!can_get_ml_priv(dev) || !csx || !can_is_canxl_skb(skb))) {
- 		pr_warn_once("PF_CAN: dropped non conform CAN XL skbuff: dev type %d, len %d\n",
- 			     dev->type, skb->len);
- 
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index 3d637a1e0ac1..60406439a13f 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -54,6 +54,7 @@
- #include <linux/if_arp.h>
- #include <linux/skbuff.h>
- #include <linux/can.h>
-+#include <linux/can/can-ml.h>
- #include <linux/can/core.h>
- #include <linux/can/skb.h>
- #include <linux/can/bcm.h>
-@@ -1719,7 +1720,7 @@ static int bcm_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
- 				goto out_release;
- 			}
- 
--			if (dev->type != ARPHRD_CAN) {
-+			if (!can_get_ml_priv(dev)) {
- 				dev_put(dev);
- 				ret = -ENODEV;
- 				goto out_release;
-@@ -1867,7 +1868,7 @@ static int bcm_notifier(struct notifier_block *nb, unsigned long msg,
- {
- 	struct net_device *dev = netdev_notifier_info_to_dev(ptr);
- 
--	if (dev->type != ARPHRD_CAN)
-+	if (!can_get_ml_priv(dev))
- 		return NOTIFY_DONE;
- 	if (msg != NETDEV_UNREGISTER && msg != NETDEV_DOWN)
- 		return NOTIFY_DONE;
-@@ -2024,7 +2025,7 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
- 			ret = -ENODEV;
- 			goto fail;
- 		}
--		if (dev->type != ARPHRD_CAN) {
-+		if (!can_get_ml_priv(dev)) {
- 			dev_put(dev);
- 			ret = -ENODEV;
- 			goto fail;
-diff --git a/net/can/gw.c b/net/can/gw.c
-index 5793cb2420ed..54bb5bd3242a 100644
---- a/net/can/gw.c
-+++ b/net/can/gw.c
-@@ -52,6 +52,7 @@
- #include <linux/if_arp.h>
- #include <linux/skbuff.h>
- #include <linux/can.h>
-+#include <linux/can/can-ml.h>
- #include <linux/can/core.h>
- #include <linux/can/skb.h>
- #include <linux/can/gw.h>
-@@ -612,7 +613,7 @@ static int cgw_notifier(struct notifier_block *nb,
- 	struct net_device *dev = netdev_notifier_info_to_dev(ptr);
- 	struct net *net = dev_net(dev);
- 
--	if (dev->type != ARPHRD_CAN)
-+	if (!can_get_ml_priv(dev))
- 		return NOTIFY_DONE;
- 
- 	if (msg == NETDEV_UNREGISTER) {
-@@ -1163,7 +1164,7 @@ static int cgw_create_job(struct sk_buff *skb,  struct nlmsghdr *nlh,
- 	if (!gwj->src.dev)
- 		goto out;
- 
--	if (gwj->src.dev->type != ARPHRD_CAN)
-+	if (!can_get_ml_priv(gwj->src.dev))
- 		goto out;
- 
- 	gwj->dst.dev = __dev_get_by_index(net, gwj->ccgw.dst_idx);
-@@ -1171,7 +1172,7 @@ static int cgw_create_job(struct sk_buff *skb,  struct nlmsghdr *nlh,
- 	if (!gwj->dst.dev)
- 		goto out;
- 
--	if (gwj->dst.dev->type != ARPHRD_CAN)
-+	if (!can_get_ml_priv(gwj->dst.dev))
- 		goto out;
- 
- 	/* is sending the skb back to the incoming interface intended? */
 diff --git a/net/can/isotp.c b/net/can/isotp.c
-index d3e43ab48425..e4957855829e 100644
+index 1e40825b58cb..5e2de051fc5e 100644
 --- a/net/can/isotp.c
 +++ b/net/can/isotp.c
-@@ -65,6 +65,7 @@
- #include <linux/if_arp.h>
- #include <linux/skbuff.h>
- #include <linux/can.h>
-+#include <linux/can/can-ml.h>
- #include <linux/can/core.h>
- #include <linux/can/skb.h>
- #include <linux/can/isotp.h>
-@@ -1618,7 +1619,7 @@ static int isotp_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int l
- 		err = -ENODEV;
- 		goto out;
- 	}
--	if (dev->type != ARPHRD_CAN) {
-+	if (!can_get_ml_priv(dev)) {
- 		err = -ENODEV;
- 		goto out_put_dev;
- 	}
-@@ -1905,7 +1906,7 @@ static int isotp_notifier(struct notifier_block *nb, unsigned long msg,
- {
- 	struct net_device *dev = netdev_notifier_info_to_dev(ptr);
+@@ -1709,8 +1709,8 @@ static int isotp_getname(struct socket *sock, struct sockaddr *uaddr, int peer)
+ 	return ISOTP_MIN_NAMELEN;
+ }
  
--	if (dev->type != ARPHRD_CAN)
-+	if (!can_get_ml_priv(dev))
- 		return NOTIFY_DONE;
- 	if (msg != NETDEV_UNREGISTER && msg != NETDEV_DOWN)
- 		return NOTIFY_DONE;
+-static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+-			    sockptr_t optval, unsigned int optlen)
++static int isotp_setsockopt_locked(struct socket *sock, int optname,
++				   const void *val)
+ {
+ 	struct sock *sk = sock->sk;
+ 	struct isotp_sock *so = isotp_sk(sk);
+@@ -1721,11 +1721,7 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+ 
+ 	switch (optname) {
+ 	case CAN_ISOTP_OPTS:
+-		if (optlen != sizeof(struct can_isotp_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->opt, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->opt, val, sizeof(so->opt));
+ 
+ 		/* no separate rx_ext_address is given => use ext_address */
+ 		if (!(so->opt.flags & CAN_ISOTP_RX_EXT_ADDR))
+@@ -1750,55 +1746,37 @@ static int isotp_setsockopt_locked(struct socket *sock, int level, int optname,
+ 		break;
+ 
+ 	case CAN_ISOTP_RECV_FC:
+-		if (optlen != sizeof(struct can_isotp_fc_options))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->rxfc, optval, optlen))
+-			return -EFAULT;
++		memcpy(&so->rxfc, val, sizeof(so->rxfc));
+ 		break;
+ 
+ 	case CAN_ISOTP_TX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_tx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_tx_stmin = *(const u32 *)val;
+ 		break;
+ 
+ 	case CAN_ISOTP_RX_STMIN:
+-		if (optlen != sizeof(u32))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&so->force_rx_stmin, optval, optlen))
+-			return -EFAULT;
++		so->force_rx_stmin = *(const u32 *)val;
+ 		break;
+ 
+-	case CAN_ISOTP_LL_OPTS:
+-		if (optlen == sizeof(struct can_isotp_ll_options)) {
+-			struct can_isotp_ll_options ll;
++	case CAN_ISOTP_LL_OPTS: {
++		const struct can_isotp_ll_options *ll = val;
+ 
+-			if (copy_from_sockptr(&ll, optval, optlen))
+-				return -EFAULT;
+-
+-			/* check for correct ISO 11898-1 DLC data length */
+-			if (ll.tx_dl != padlen(ll.tx_dl))
+-				return -EINVAL;
+-
+-			if (ll.mtu != CAN_MTU && ll.mtu != CANFD_MTU)
+-				return -EINVAL;
+-
+-			if (ll.mtu == CAN_MTU &&
+-			    (ll.tx_dl > CAN_MAX_DLEN || ll.tx_flags != 0))
+-				return -EINVAL;
+-
+-			memcpy(&so->ll, &ll, sizeof(ll));
+-
+-			/* set ll_dl for tx path to similar place as for rx */
+-			so->tx.ll_dl = ll.tx_dl;
+-		} else {
++		/* check for correct ISO 11898-1 DLC data length */
++		if (ll->tx_dl != padlen(ll->tx_dl))
+ 			return -EINVAL;
+-		}
++
++		if (ll->mtu != CAN_MTU && ll->mtu != CANFD_MTU)
++			return -EINVAL;
++
++		if (ll->mtu == CAN_MTU &&
++		    (ll->tx_dl > CAN_MAX_DLEN || ll->tx_flags != 0))
++			return -EINVAL;
++
++		memcpy(&so->ll, ll, sizeof(*ll));
++
++		/* set ll_dl for tx path to similar place as for rx */
++		so->tx.ll_dl = ll->tx_dl;
+ 		break;
++	}
+ 
+ 	default:
+ 		ret = -ENOPROTOOPT;
+@@ -1812,13 +1790,49 @@ static int isotp_setsockopt(struct socket *sock, int level, int optname,
+ 
+ {
+ 	struct sock *sk = sock->sk;
++	union {
++		struct can_isotp_options opt;
++		struct can_isotp_fc_options rxfc;
++		struct can_isotp_ll_options ll;
++		u32 stmin;
++	} val;
++	unsigned int size;
+ 	int ret;
+ 
+ 	if (level != SOL_CAN_ISOTP)
+ 		return -EINVAL;
+ 
++	/* copy the option values from user space before lock_sock() */
++	switch (optname) {
++	case CAN_ISOTP_OPTS:
++		size = sizeof(val.opt);
++		break;
++
++	case CAN_ISOTP_RECV_FC:
++		size = sizeof(val.rxfc);
++		break;
++
++	case CAN_ISOTP_TX_STMIN:
++	case CAN_ISOTP_RX_STMIN:
++		size = sizeof(val.stmin);
++		break;
++
++	case CAN_ISOTP_LL_OPTS:
++		size = sizeof(val.ll);
++		break;
++
++	default:
++		return -ENOPROTOOPT;
++	}
++
++	if (optlen != size)
++		return -EINVAL;
++
++	if (copy_from_sockptr(&val, optval, size))
++		return -EFAULT;
++
+ 	lock_sock(sk);
+-	ret = isotp_setsockopt_locked(sock, level, optname, optval, optlen);
++	ret = isotp_setsockopt_locked(sock, optname, &val);
+ 	release_sock(sk);
+ 	return ret;
+ }
 diff --git a/net/can/raw.c b/net/can/raw.c
-index 0acd4f6c6dd6..e1d741a25be3 100644
+index d6517f71cade..0926d5686e41 100644
 --- a/net/can/raw.c
 +++ b/net/can/raw.c
-@@ -348,7 +348,7 @@ static int raw_notifier(struct notifier_block *nb, unsigned long msg,
- {
- 	struct net_device *dev = netdev_notifier_info_to_dev(ptr);
+@@ -604,63 +604,36 @@ static int raw_getname(struct socket *sock, struct sockaddr *uaddr,
+ }
  
--	if (dev->type != ARPHRD_CAN)
-+	if (!can_get_ml_priv(dev))
- 		return NOTIFY_DONE;
- 	if (msg != NETDEV_UNREGISTER && msg != NETDEV_DOWN)
- 		return NOTIFY_DONE;
-@@ -491,7 +491,7 @@ static int raw_bind(struct socket *sock, struct sockaddr_unsized *uaddr, int len
- 			err = -ENODEV;
- 			goto out;
+ static int raw_setsockopt_locked(struct socket *sock, int optname,
+-				 sockptr_t optval, unsigned int optlen)
++				 const void *val, struct can_filter *filter,
++				 int count)
+ {
+ 	struct sock *sk = sock->sk;
+ 	struct raw_sock *ro = raw_sk(sk);
+-	struct can_filter *filter = NULL;  /* dyn. alloc'ed filters */
+-	struct can_filter sfilter;         /* single filter */
+ 	struct net_device *dev = NULL;
+-	can_err_mask_t err_mask = 0;
+-	int count = 0;
++	can_err_mask_t err_mask;
+ 	int flag;
+ 	int err = 0;
+ 
+ 	switch (optname) {
+ 	case CAN_RAW_FILTER:
+-		if (optlen % sizeof(struct can_filter) != 0)
+-			return -EINVAL;
+-
+-		if (optlen > CAN_RAW_FILTER_MAX * sizeof(struct can_filter))
+-			return -EINVAL;
+-
+-		count = optlen / sizeof(struct can_filter);
+-
+-		if (count > 1) {
+-			/* filter does not fit into dfilter => alloc space */
+-			filter = memdup_sockptr(optval, optlen);
+-			if (IS_ERR(filter))
+-				return PTR_ERR(filter);
+-		} else if (count == 1) {
+-			if (copy_from_sockptr(&sfilter, optval, sizeof(sfilter)))
+-				return -EFAULT;
+-		}
+-
+-		/* The reg_state check is only a shortcut: On a concurrent
++		/* @filter has been copied by raw_setsockopt(). It is linked
++		 * to the socket on success and freed by the caller on error.
++		 *
++		 * The reg_state check is only a shortcut: On a concurrent
+ 		 * unregistration or namespace change raw_notify() waits for
+ 		 * lock_sock() and removes the filters set here.
+ 		 */
+ 		dev = ro->dev;
+ 		if (ro->bound && dev &&
+-		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED) {
+-			if (count > 1)
+-				kfree(filter);
++		    READ_ONCE(dev->reg_state) != NETREG_REGISTERED)
+ 			return -ENODEV;
+-		}
+ 
+ 		if (ro->bound) {
+ 			/* (try to) register the new filters */
+-			if (count == 1)
+-				err = raw_enable_filters(sock_net(sk), dev, sk,
+-							 &sfilter, 1);
+-			else
+-				err = raw_enable_filters(sock_net(sk), dev, sk,
+-							 filter, count);
+-			if (err) {
+-				if (count > 1)
+-					kfree(filter);
++			err = raw_enable_filters(sock_net(sk), dev, sk, filter,
++						 count);
++			if (err)
+ 				return err;
+-			}
+ 
+ 			/* remove old filter registrations */
+ 			raw_disable_filters(sock_net(sk), dev, sk, ro->filter,
+@@ -674,7 +647,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		/* link new filters to the socket */
+ 		if (count == 1) {
+ 			/* copy filter data for single filter */
+-			ro->dfilter = sfilter;
++			ro->dfilter = *filter;
+ 			filter = &ro->dfilter;
  		}
--		if (dev->type != ARPHRD_CAN) {
-+		if (!can_get_ml_priv(dev)) {
- 			err = -ENODEV;
- 			goto out_put_dev;
+ 		ro->filter = filter;
+@@ -682,13 +655,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_ERR_FILTER:
+-		if (optlen != sizeof(err_mask))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&err_mask, optval, optlen))
+-			return -EFAULT;
+-
+-		err_mask &= CAN_ERR_MASK;
++		err_mask = *(const can_err_mask_t *)val & CAN_ERR_MASK;
+ 
+ 		/* lockless shortcut, see CAN_RAW_FILTER */
+ 		dev = ro->dev;
+@@ -715,31 +682,15 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_LOOPBACK:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->loopback = !!flag;
++		ro->loopback = !!*(const int *)val;
+ 		break;
+ 
+ 	case CAN_RAW_RECV_OWN_MSGS:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->recv_own_msgs = !!flag;
++		ro->recv_own_msgs = !!*(const int *)val;
+ 		break;
+ 
+ 	case CAN_RAW_FD_FRAMES:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
++		flag = *(const int *)val;
+ 
+ 		/* Enabling CAN XL includes CAN FD */
+ 		if (ro->xl_frames && !flag)
+@@ -749,13 +700,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_XL_FRAMES:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->xl_frames = !!flag;
++		ro->xl_frames = !!*(const int *)val;
+ 
+ 		/* Enabling CAN XL includes CAN FD */
+ 		if (ro->xl_frames)
+@@ -763,11 +708,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_XL_VCID_OPTS:
+-		if (optlen != sizeof(ro->raw_vcid_opts))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&ro->raw_vcid_opts, optval, optlen))
+-			return -EFAULT;
++		memcpy(&ro->raw_vcid_opts, val, sizeof(ro->raw_vcid_opts));
+ 
+ 		/* prepare 32 bit values for handling in hot path */
+ 		ro->tx_vcid_shifted = ro->raw_vcid_opts.tx_vcid << CANXL_VCID_OFFSET;
+@@ -776,13 +717,7 @@ static int raw_setsockopt_locked(struct socket *sock, int optname,
+ 		break;
+ 
+ 	case CAN_RAW_JOIN_FILTERS:
+-		if (optlen != sizeof(flag))
+-			return -EINVAL;
+-
+-		if (copy_from_sockptr(&flag, optval, optlen))
+-			return -EFAULT;
+-
+-		ro->join_filters = !!flag;
++		ro->join_filters = !!*(const int *)val;
+ 		break;
+ 
+ 	default:
+@@ -795,17 +730,84 @@ static int raw_setsockopt(struct socket *sock, int level, int optname,
+ 			  sockptr_t optval, unsigned int optlen)
+ {
+ 	struct sock *sk = sock->sk;
++	struct can_filter *filter = NULL;  /* dyn. alloc'ed filters */
++	struct can_filter sfilter;         /* single filter */
++	union {
++		can_err_mask_t err_mask;
++		int flag;
++		struct can_raw_vcid_options vcid_opts;
++	} val;
++	unsigned int size = 0;
++	int count = 0;
+ 	int err;
+ 
+ 	if (level != SOL_CAN_RAW)
+ 		return -EINVAL;
+ 
++	/* Copy the option values from user space before lock_sock(), so a
++	 * stalled copy can not block raw_notify() waiting for lock_sock()
++	 * under RTNL.
++	 */
++	switch (optname) {
++	case CAN_RAW_FILTER:
++		if (optlen % sizeof(struct can_filter) != 0)
++			return -EINVAL;
++
++		if (optlen > CAN_RAW_FILTER_MAX * sizeof(struct can_filter))
++			return -EINVAL;
++
++		count = optlen / sizeof(struct can_filter);
++
++		if (count > 1) {
++			/* filter does not fit into dfilter => alloc space */
++			filter = memdup_sockptr(optval, optlen);
++			if (IS_ERR(filter))
++				return PTR_ERR(filter);
++		} else if (count == 1) {
++			if (copy_from_sockptr(&sfilter, optval, sizeof(sfilter)))
++				return -EFAULT;
++			filter = &sfilter;
++		}
++		break;
++
++	case CAN_RAW_ERR_FILTER:
++		size = sizeof(val.err_mask);
++		break;
++
++	case CAN_RAW_XL_VCID_OPTS:
++		size = sizeof(val.vcid_opts);
++		break;
++
++	case CAN_RAW_LOOPBACK:
++	case CAN_RAW_RECV_OWN_MSGS:
++	case CAN_RAW_FD_FRAMES:
++	case CAN_RAW_XL_FRAMES:
++	case CAN_RAW_JOIN_FILTERS:
++		size = sizeof(val.flag);
++		break;
++
++	default:
++		return -ENOPROTOOPT;
++	}
++
++	if (size) {
++		if (optlen != size)
++			return -EINVAL;
++
++		if (copy_from_sockptr(&val, optval, size))
++			return -EFAULT;
++	}
++
+ 	lock_sock(sk);
+ 
+-	err = raw_setsockopt_locked(sock, optname, optval, optlen);
++	err = raw_setsockopt_locked(sock, optname, &val, filter, count);
+ 
+ 	release_sock(sk);
+ 
++	/* on error free the filters allocated for CAN_RAW_FILTER above */
++	if (err && count > 1)
++		kfree(filter);
++
+ 	return err;
+ }
+ 
+@@ -826,6 +828,7 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
+ 
+ 	switch (optname) {
+ 	case CAN_RAW_FILTER: {
++		struct can_filter *filter = NULL;
+ 		int err = 0;
+ 
+ 		lock_sock(sk);
+@@ -840,15 +843,22 @@ static int raw_getsockopt(struct socket *sock, int level, int optname,
+ 			} else {
+ 				if (len > fsize)
+ 					len = fsize;
+-				if (copy_to_iter(ro->filter, len,
+-						 &opt->iter_out) != len)
+-					err = -EFAULT;
++				/* copy to user space after release_sock() */
++				filter = kmemdup(ro->filter, len, GFP_KERNEL);
++				if (!filter)
++					err = -ENOMEM;
+ 			}
+ 		} else {
+ 			len = 0;
  		}
+ 		release_sock(sk);
+ 
++		if (filter) {
++			if (copy_to_iter(filter, len, &opt->iter_out) != len)
++				err = -EFAULT;
++			kfree(filter);
++		}
++
+ 		if (!err)
+ 			opt->optlen = len;
+ 		return err;
 -- 
 2.53.0
 
