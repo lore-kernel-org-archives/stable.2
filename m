@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741853;
-	b=QlD3POsQIFyelqZSFcfOy58MS5mWlG+0KbtKXkzT4Vc1+PBMmEYHKz/3KeQNK65hQXlX
-	 JRSF5tQKzfG2e38vAiKaYPh7AT42UBx/2l0FljLnjQkEl6PnHnpzgZ0SVTEDG7ttPrydu
-	 uWTTQzUR56UPzpsC/Q+cdNp6Ii4YVmxlNfwWniu0K625D44E90mwZ/uM2atN6cvQV0W/C
-	 NJJbION8irSf5sA3/vIWIVP9tN/NFZwmQ4AoxhFbdnuxYLZzFS8XxOUj+ZikS5hdcTsZR
-	 x/pHQ4tEl4G7llNDQcnBrMW8CatPQ4OMSx2KfUxK41UNP3G8DSaYJF87aDYXt4UyX2w==
+	t=1793741855;
+	b=Y+0vmdw0NvGntoNQL8sOAtbpQhwfBVeCjJnhLsqSGdV1GXkjpjsfUnVjxLTncPELVG0I
+	 wt88lQvUFP12BEsgmp1VRn8rXeDELTlTGqs2axl2dhReSaONBo8Xr3PdptSt02wFNP2QG
+	 4Y7BItfjB3eWU4q+rKAg2AMC/yw1RcJtTFMFM90Be13fIkJPz+aK+657JeYDp4vNeRh6W
+	 a6Ezeuo9kLhEaDFgH89+AO6jFZOE4O5loc3ZUTdvCkk/RuTODM1WHRBQs62Qbumq+cfDn
+	 KOHcWfJdcLDI4UHOIRbAoqc0f2GV7JC5IhZlnpRvNynrF1pegUEJV1J4eG4ox/sHiFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741855;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RkDHy+t0bVXLaWUDacpDmRzamfBPlBIOF0/itQXcHbg=;
-	b=XeAx+mHs8MgqmumrjrTHZborErstVqqOxEOKSSXgr7BAV3gzWhndoLqFP7t1+GuF2ADd
-	 FuZlKHIc0/EgtZzT7Bgu4c2FHc+HK9N6qgHas7pFI2xB2doqNMNOHS1IjG7pav44GDgpe
-	 h0rgvl4LUwfLftbHEpQ5REot6sNY9WPtWhuerTXpGFnpQGJBpxq98D8ZHKMhGaSlBDAuw
-	 +VOE+LjuAmqG4/b3yKeJ9EpnMBmEW1uqbDWZJpzNDC/NCCirKfKluetYswjAUee9oVD8i
-	 2kU8UAi5SBExKW84QTTQOV14BGlue5Dw/TxdMsTlf+mPW398MLXrRFkFpS6+nflIN1A==
+	bh=JyKMTorrRQEgUYdDc2Tgy7G9i1HBpVsCja7LD/xzdNk=;
+	b=Ht0UrHiyp1nS1gLm7CJbg2h1bn3UexP/TEmqREMw9PCfdMT8fSMBSSfEKhzMwLznYPB8
+	 h4zxAGi97eoUQS0sjzEpV0IykIWeKQFWhxs0p/vRoCUQNne9keH4EAdN3niRFwavBBOa1
+	 ykWCY9QUcogHz/sBwcLcGRxv6CDWwHgsqlYv7tVkPXjkfgkYfBuoeYHAMF0CG6TFo2HCh
+	 YwVZ/79ELWhg+bbqemaqaY3DpOuMbKbFe01jQipoJyJWg/C00nzY5MzBGHFoDmQWSNdxP
+	 6Xu9J6wncNntEhijQr/7wvkKC4MuQ2tRdebVpsJPUNghEfX1A+tjvLfRkqXdjTGuq+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RN59uWLc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W9+VGhrH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8828D606A31B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 21:37:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35BC606A31B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 21:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RN59uWLc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714EF1F000C1;
-	Tue,  3 Nov 2026 21:37:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W9+VGhrH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431AB1F00919;
+	Tue,  3 Nov 2026 21:37:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741853;
-	bh=RkDHy+t0bVXLaWUDacpDmRzamfBPlBIOF0/itQXcHbg=;
+	s=k20260515; t=1793741854;
+	bh=JyKMTorrRQEgUYdDc2Tgy7G9i1HBpVsCja7LD/xzdNk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RN59uWLcS1yIX8hKlmzdGLjdapvOwSfbcBfn5SLDM7D7HQChLTRCtZy40prQVkVvd
-	 kR1mqice1DIdlBYROiRIJyVlXZrJ/5nytbqDVCZU+YDnYfu4B9d+wXPEDZi7dDTXLb
-	 pEmGRBUHg0BXiIzXlqVE+/UzmbwmdGuTovZOrIYKY3CqqDHOAlCT5ksvtp3Q6MVXBh
-	 HWwsQbT5yHKJeSaQTVn23IbfIJV5IkTBYfsHmlLc4gw0/4mCf0A7e3SmgQn2d1DheJ
-	 ZFcPcg+d7fAg0laa/svGhLw4sbO6zimq1KlIG5+BdecIgI47uJ3B6ShcDegsNOw1R6
-	 +FdRQfeVlMcfQ==
+	b=W9+VGhrH0s9Dp0jdkl+lpfcICLrNkn+S+opj626RNvQrCjnnH5bR+bldoOV876vrt
+	 h2wvCwAbvJu7Z8JQdMidEf2KcqC4R3h3nmRHN1Mpa38NpMqPoNQHCZkubN6s8QA7S6
+	 WGZNKjY9BwqTWQAx7Z/znzesYcPHQ/G9EDXjS8t1iESP4+64H4nxEi+PWATlb8NHKX
+	 e0Pljx5LDY/OiahvaKPj3F6MM+HNe/j2hTH/Ro9f3OWjNpmuObs2EygNjSJ1nqs71R
+	 MyVx/eT05zvLexh/ihAQ/7vSOlWfFW0xB0+fuGKstninrEICkkZ13puPxSIMXhAvhL
+	 L18ILvsbXY3dA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Henry Hu <huhai@kylinos.cn>,
-	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+Cc: Ian Bridges <icb@fastmail.org>,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ksmbd: fix invalid pointer dereference when get_inode_acl() fails
-Date: Tue,  3 Nov 2026 16:37:31 -0500
-Message-ID: <20261103213657.1420080-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ksmbd: fix session reference leak on compounded SESSION_SETUP
+Date: Tue,  3 Nov 2026 16:37:32 -0500
+Message-ID: <20261103213658.1422951-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110319-lumping-divided-daed@gregkh>
-References: <2026110319-lumping-divided-daed@gregkh>
+In-Reply-To: <2026110320-denture-coke-1c72@gregkh>
+References: <2026110320-denture-coke-1c72@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,119 +61,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Henry Hu <huhai@kylinos.cn>
+From: Ian Bridges <icb@fastmail.org>
 
-[ Upstream commit 19d180c7baab7126af5848ed87d5f7b5add0cef2 ]
+[ Upstream commit 03bd8f5279e490e15e0c0f0fa388ffbd2fbacd65 ]
 
-When get_inode_acl() fails, it returns an ERR_PTR(), but
-ksmbd_acls_fattr() stored that pointer in smb_fattr without
-checking for errors. Later callers then passed the error pointer
-to security descriptor helpers or posix_acl_release(), resulting
-in an invalid pointer dereference.
+A compound request can place SESSION_SETUP after another command. That
+earlier command leaves a reference to its session in work->sess.
+smb2_sess_setup() then overwrites work->sess with the session it looks up
+or creates, and the dispatcher later puts work->sess only once. The
+inherited reference is never dropped. That leaks the session, together
+with its setup connection and socket, and every repeat of the compound
+leaks another.
 
-This was reproduced on an XFS-backed share when xfs_get_acl()
-returned ERR_PTR(-ENOMEM). Querying the SMB ACL from a CIFS client
-triggered the crash:
+  unreferenced object (size 512):
+    __kmalloc_cache_noprof+0x32c/0x3a0
+    ksmbd_smb2_session_create+0xf6/0x9c0 [ksmbd]
+    smb2_sess_setup+0xda4/0x6280 [ksmbd]
+    handle_ksmbd_work+0x88c/0x1cb0 [ksmbd]
 
-  BUG: unable to handle page fault for address: fffffffffffffff8
-  RIP: smb_acl_sec_desc_scratch_len+0x58/0x90 [ksmbd]
-  Call Trace:
-   smb2_query_info+0x40d/0x17c0 [ksmbd]
-   handle_ksmbd_work+0x1ca/0x770 [ksmbd]
+Save the inherited session on entry. After the request has been
+processed, release it once, but only when smb2_sess_setup() has replaced
+work->sess with its own session or cleared it. Do this after
+ksmbd_conn_unlock() so the put does not run under srv_mutex. An error path
+may instead leave the inherited session in work->sess. Keep it there, so
+the dispatcher still puts it and the error response is still signed or
+encrypted with it as before.
 
-Fix this by checking the return values from get_inode_acl() in
-ksmbd_acls_fattr(). Treat -EOPNOTSUPP as indicating that no ACL is
-available, and propagate all other errors to the callers. Update
-smb2_open() and smb2_get_info_sec() to handle these errors.
-
+Fixes: 7aa8804c0b67 ("ksmbd: fix user-after-free from session log off")
 Cc: stable@vger.kernel.org
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Assisted-by: Codex:gpt-5.6-sol
-Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
-Signed-off-by: Henry Hu <huhai@kylinos.cn>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: kept the struct mnt_idmap parameter of ksmbd_acls_fattr() non-const ]
+[ sashal: omitted the installed flag update for the missing session-binding signature-check block ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smb2pdu.c | 42 +++++++++++++++++++++++++++++++++--------
- 1 file changed, 34 insertions(+), 8 deletions(-)
+ fs/smb/server/smb2pdu.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5f752434be3cf..a26e4715c6b4c 100644
+index 8d2f5e4e9ae3b..3e7e5e30533b6 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -2724,10 +2724,11 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
- 			    le32_to_cpu(sd_buf->ccontext.DataLength), true, false);
- }
- 
--static void ksmbd_acls_fattr(struct smb_fattr *fattr,
--			     struct mnt_idmap *idmap,
--			     struct inode *inode)
-+static int ksmbd_acls_fattr(struct smb_fattr *fattr,
-+			    struct mnt_idmap *idmap,
-+			    struct inode *inode)
- {
-+	struct posix_acl *acl;
- 	vfsuid_t vfsuid = i_uid_into_vfsuid(idmap, inode);
- 	vfsgid_t vfsgid = i_gid_into_vfsgid(idmap, inode);
- 
-@@ -2738,10 +2739,28 @@ static void ksmbd_acls_fattr(struct smb_fattr *fattr,
- 	fattr->cf_dacls = NULL;
- 
- 	if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
--		fattr->cf_acls = get_inode_acl(inode, ACL_TYPE_ACCESS);
--		if (S_ISDIR(inode->i_mode))
--			fattr->cf_dacls = get_inode_acl(inode, ACL_TYPE_DEFAULT);
-+		acl = get_inode_acl(inode, ACL_TYPE_ACCESS);
-+		if (IS_ERR(acl)) {
-+			if (acl != ERR_PTR(-EOPNOTSUPP))
-+				return PTR_ERR(acl);
-+			acl = NULL;
-+		}
-+		fattr->cf_acls = acl;
-+
-+		if (S_ISDIR(inode->i_mode)) {
-+			acl = get_inode_acl(inode, ACL_TYPE_DEFAULT);
-+			if (IS_ERR(acl)) {
-+				if (acl != ERR_PTR(-EOPNOTSUPP)) {
-+					posix_acl_release(fattr->cf_acls);
-+					return PTR_ERR(acl);
-+				}
-+				acl = NULL;
-+			}
-+			fattr->cf_dacls = acl;
-+		}
+@@ -1714,6 +1714,8 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	struct smb2_sess_setup_req *req;
+ 	struct smb2_sess_setup_rsp *rsp;
+ 	struct ksmbd_session *sess;
++	struct ksmbd_session *prev_sess = work->sess;
++	bool installed = false;
+ 	struct negotiate_message *negblob;
+ 	unsigned int negblob_len, negblob_off;
+ 	int rc = 0;
+@@ -1836,6 +1838,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 		conn->binding = false;
  	}
+ 	work->sess = sess;
++	installed = true;
+ 
+ 	negblob_off = le16_to_cpu(req->SecurityBufferOffset);
+ 	negblob_len = le16_to_cpu(req->SecurityBufferLength);
+@@ -1989,6 +1992,14 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	}
+ 
+ 	ksmbd_conn_unlock(conn);
 +
-+	return 0;
++	/*
++	 * Later in a compound, work->sess holds the reference that an
++	 * earlier command took. Drop it once this request has installed
++	 * its own session there or cleared it.
++	 */
++	if (prev_sess && (installed || !work->sess))
++		ksmbd_user_session_put(prev_sess);
+ 	return rc;
  }
  
- enum {
-@@ -3473,7 +3492,10 @@ int smb2_open(struct ksmbd_work *work)
- 					int pntsd_size;
- 					size_t scratch_len;
- 
--					ksmbd_acls_fattr(&fattr, idmap, inode);
-+					rc = ksmbd_acls_fattr(&fattr, idmap, inode);
-+					if (rc)
-+						goto err_out;
-+
- 					scratch_len = smb_acl_sec_desc_scratch_len(&fattr,
- 							NULL, 0,
- 							OWNER_SECINFO | GROUP_SECINFO |
-@@ -5928,7 +5950,11 @@ static int smb2_get_info_sec(struct ksmbd_work *work,
- 
- 	idmap = file_mnt_idmap(fp->filp);
- 	inode = file_inode(fp->filp);
--	ksmbd_acls_fattr(&fattr, idmap, inode);
-+	rc = ksmbd_acls_fattr(&fattr, idmap, inode);
-+	if (rc) {
-+		ksmbd_fd_put(work, fp);
-+		return rc;
-+	}
- 
- 	if (test_share_config_flag(work->tcon->share_conf,
- 				   KSMBD_SHARE_FLAG_ACL_XATTR))
 -- 
 2.53.0
 
