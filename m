@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701548;
-	b=kJgDyt/OfksNKfQWyTWQP3Iib2WTdmGzMclJON35Is7NDBdwhdbT4L6HdmQFrmsvDkmU
-	 6ZSxY+Hpvf3p+aPBIAWcoFdMsS6OoucQYnK/KohmniXUofND1K1WiGOzqdJgsmcvqDjnN
-	 6OuJKbNOF1qWv0mMubvYj4xx+z5Fc0V+FxP0RzJB+ZKPKUw77PS+7zmLAa7tSqMJGhWEB
-	 SwUe1ztucasy1xVbTPh9zwFFMoxufz7aj7NI0/xxk4wDhzx3vB/j9E30t8MYCbYrRAyGy
-	 ppC3YlGXSB8CtKxOiWxxqS6xherCZgrizSNhuMU7tN+p7Q8uLxDxIIAQUXJFrqUyLpw==
+	t=1793701561;
+	b=muXmTLm8jfyClY+cKFPCIpUMN6inIgePkO/LPqWgZrYZxBDZNcnUPyyhvU5jI+rVF++a
+	 18m9opIgEHoU9tls+fVrRW65WwyCq/5R/NbuDOyjiIn1Bfxaesz10YBBxTnvfvgNJ4UUq
+	 pGjCrGQPnZHboe3k4Rype07r89N49YzDtkJTLAaxGP7TeJ+oEPgRUF3WaGOCEm32EX9ss
+	 TSYWZ88Uqev+uJiIyCxl0ZYJPlyDy3NiyqM3PT/VDvsjnlg8T4uSPqFFsQqtthciYrQ+z
+	 QvcOgjucs4BFnX78K7XRjA6c8h5QU/4wptJF+e3O47klw0Td/6S/zR4V+iPv+JVpZnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701548;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701561;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eVBfRz3fVnCcRJSsVqH9DYQP76908hbJkwajsue4xn4=;
-	b=TGyuVTtCcs4MKLJiHc6bCyFmwi6Pqi3MG+vn7B5jFkyS2BAG6GZxo/7o8rl+BoJAWso/
-	 2x+ogNppWNvbUL8+2tBlIW6XfQWmXPxi3L9GggTMOQpsliBvuOgiH9UuewXm5Jn4IRIeD
-	 of7Aard0/1V0XZBrY/Na1TPkhGtVkzPTQUtdxwgkme85REg4wE776s6nnJj+J6Y3qVMo4
-	 T8keqAu3hC3HTrvU2YgIH0IWyU0GWzbbBkPblUK7SLDrtDdnh3r9E0N5fC/X0LPl8Op3b
-	 Xb+FyR/NEHqTrJRd//v/OYMRP1a86RyCh5Z8sJl7ci2s9Uhqrdw/Rxeqy7+RdWkqmVA==
+	bh=LVepNa8MBgnxzOIR4Tx+W3uy/yFi60gYxq1FZlSu/kQ=;
+	b=kMvpr9JE6wjkvB/xj+SeOP3rc46tEI2thOB3BOc8gBOZaX5k9JjHLEZiRV4Ky4vGTlpa
+	 eXMgSBflukhdzljxA9gueEdtGaeRoxSXqcLay66yJNk6cx5nq+1Q4NjbVMtRcnxRFIuQL
+	 Mp8REypgmLUrl/ZKSj70/q2gel4tmJG9msGdGgo6NOnSvc4pu+RISothjConbXbNoeHdW
+	 CNJD2mQCq/zeja243T6xTWPaZY6fdIKixEwTK+EKq5XAPmXFbLuYHhKJo30RcFFl5QWcm
+	 P9E5M0Q/Xg4lVww30eW4xBdowLeip4H00troXcL+eDWUBi4bgZg+5q7UI4xuYllIqyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOr+PLEa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YKjrBA/m";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA748606A32E;
-	Tue,  3 Nov 2026 10:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6CD606D80D;
+	Tue,  3 Nov 2026 10:26:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOr+PLEa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D37031F00919;
-	Tue,  3 Nov 2026 10:25:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YKjrBA/m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957E21F000C1;
+	Tue,  3 Nov 2026 10:26:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701547;
-	bh=eVBfRz3fVnCcRJSsVqH9DYQP76908hbJkwajsue4xn4=;
+	s=k20260515; t=1793701561;
+	bh=LVepNa8MBgnxzOIR4Tx+W3uy/yFi60gYxq1FZlSu/kQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OOr+PLEan+GgFITMCObTWVGJcHeupjMJKX6wkkhl6yq8KJYZ1qRR0p2OjbdThK05y
-	 uNQ+H6wZNWOJMQU95+3NfBEFbjuCX/+6iOzLxAE+ZHKEpG7lD4uuA+DoyBFv0caF3X
-	 FPgL/c96MRtxhPcnTObVzPthB0Yk9WVsg970YAAAXqtOL2t2cU3AyDUed1BxV9CZrH
-	 nzd11OoHLxjCiua/k0ByAFjIfqx6jMb862TCwm4VHWURWY9kRayEFHzCSGKZyKLLih
-	 /EfqsoNioud1XBmlNlvGDRPzOWWe4e6Gzam0s4WQcvjp81BV2mvk5AojwJ5oxK01sk
-	 g6dJMjTTel5wg==
-Date: Tue, 3 Nov 2026 11:25:45 +0100
+	b=YKjrBA/mej4tTGzq0T8wexaUUvNDO1PFLajq/VyjYTc8bTtvyYP5brGpAOeaT6YFX
+	 dyi3WDtz15/cPCJOfI1SBe1oS4pAHGoYDXl1Y2aMOZx1hBs2Za8+T2U8j7Vuwm8r22
+	 S4NJPmIN+VLIIM0fB3kG/9e0RUaPu8gN/8nGHK/IEMmm31fjGD4G/1R3ejXgCsDYEH
+	 WPww9c/E68B4mbK+0ocCC9SrhhY2M0JAKHW4qC/PsPOAp6uBOmdXR5y6Cqmiz0dNMc
+	 N9WYEUWtyhn4uoWTG84NsEEzZBDxYBmi2+FSeV7Gn6MLo12p4FWCq3KJyQB9Dqi1rM
+	 kfu+QknFBny6A==
+Date: Tue, 3 Nov 2026 11:25:58 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	intel-wired-lan@lists.osuosl.org, Eric Dumazet <edumazet@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, stable@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Subject: Re: [PATCH] ice: release the VF reference in the switchdev trust path
-Message-ID: <20261103-gigantic-vulture-of-support-ffffa4@quoll>
-References: <20261103100530.1309907-1-vulab@iscas.ac.cn>
+Cc: Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, Sean Anderson <sean.anderson@linux.dev>, stable@vger.kernel.org, 
+	Madalin Bucur <madalin.bucur@nxp.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>, 
+	Eric Dumazet <edumazet@kernel.org>
+Subject: Re: [PATCH] net: fman: drop the FMan device reference after port
+ probe
+Message-ID: <20261103-magnificent-happy-cuttlefish-adbaad@quoll>
+References: <20261103100532.1309969-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,24 +62,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100530.1309907-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100532.1309969-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:30 +0000, Wentao Liang wrote:
-> ice_set_vf_trust() takes a reference on the VF with ice_get_vf_by_id()
-> and then rejects the request when the PF is in switchdev mode without
-> dropping that reference.
+On Tue, 03 Nov 2026 10:05:32 +0000, Wentao Liang wrote:
+> fman_port_probe() looks up the parent FMan platform device with
+> of_find_device_by_node(), which takes a reference on the embedded
+> struct device.  The reference is released on the error paths, but not
+> after a successful probe, and the __devm_request_region() failure path
+> jumps directly to freeing the port.
 > 
-> Return through the existing out_put_vf label so the VF reference is
-> released on this path too.
+> As a result the reference is never dropped.  Put the FMan device and
+> the port node before returning success, and route the failed region
+> request through the existing cleanup labels as well.
 > 
-> Fixes: 1281b7459657 ("ice: Forbid trusted VFs in switchdev mode")
+> Fixes: 18a6c85fcc78 ("fsl/fman: Add FMan Port Support")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/intel/ice/ice_sriov.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/net/ethernet/freescale/fman/fman_port.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
 > 
 
 
