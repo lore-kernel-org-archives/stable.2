@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701313;
-	b=a5mvlRxnayZNDDaECa+TUjyziDhgpEZiSNFoRgcTVeOqNeXwG7PMm3kYxlN5Gae6VY43
-	 Idjzpmc7y/Cfb9rRR4HBVvyvlgtNRhUCGnqWub7LAdmJ/VcPXKo7dZFUQYSOMlk0shuq1
-	 F6c58zPe6oMCRODwgaTdBDkCHqimTVno6dYJOeS1kLFhPldmRZXmGOiy1L9IHRI8nYoc/
-	 9SevFu37YiXnvmouj8oKVibMmLSEoAV9/mxCxwvePtkt6NcWLRmxgxggmzGJxkpu323FP
-	 ga1jK8EEIT58DBuObW+DCPXHBsKXjwsbmMfutuRbStGAy0aS9L/JGGAehvUK2VQzcZw==
+	t=1793701315;
+	b=4NPSbZG9QIaWn2kMjzXSTN/MPXXh8cVis1JtNCp1zme6ev6/kOuFsn2SYhmg1PFvi3wr
+	 10lMi9Eqi/ls+G0HOlgwOxCDatrNOWSaG8FeuHFA1H/4Vy+Ov5USgDB3WmcdbgNE69Tkz
+	 vyydsvD2Zi1dPswqm4SeteegZjPu5hU1BrLlSQ5sU7sL5MV8o/wDqy3qic5Tm1K3d7Sw9
+	 RGZwm4RpMBi2R8UFEtLj7jsxnKQVG7Ll43guNv9xlcuLPmdRgdWFtqS6Sji1hVyo+W6wV
+	 YGG18S8XmX6zMGyjy1lL/RZCc7hPWMYr4MMCdRDhwwPARxDOgn4BlAnAe61s6QYlxFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701313;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701315;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SwAAwEZrDaSifLO4A5UWNMjnigFQ9lkQIURsbXB5DU4=;
-	b=PojXlDqN51fKh8rh3AlfJcdtMv3M+yS1SuqAnYIGmqAqsyLTlyXapoF+SIhIN4dMGcxJ
-	 kgVVbZskuY3it1pOaQMdbCExL32ilYq7ed8oB5iYNHFQsfzqMMlQefbeNxOK2QqJui1n1
-	 KlS2BZV898KgXJR/usVrsWiYyRU6sSJ0Z7gnQWOc3ywcr8RkBP2BftAy/VbBOX5j8IuA8
-	 DBkTMv8iFHquhWJoof7LOaQSTgwpi2WqFIHkxeuXgFNikR7/WN4kd7VKQ2bO9RU/QH7kh
-	 lJ91Gqm0MfzuvV4CCcV/qk8Vka54fhITyGJ3FI0W3fXmCkBULwqz8Qyhy2sLaDAHFBg==
+	bh=tZ84vGRGWFLdn7FuSP9mNBUeQIyKlXvra2VzoLheRR4=;
+	b=4NttLF+K8cMv9AdJzCUBoQV6H+3yYUw7pFnTjBQdEfMzP2SNYiA81rj2zuuH2dABg37D
+	 hJ0rrltiE90J8Z8D2RSz52qb1LHk99QX0Z/VwqzIJnxb7dLyWLhRdnjQWxDWBim9cFWho
+	 EbLv0x3yQ7g3KQ8KgfgCsm2iZhVGlj9XNQ5VJdvYM/fxgoYPXTOtY7J1j+iptdj22kh60
+	 eWzApGp92BS5b1bIuxXS1lE2D3Z4RTNaZr5/lmQEzgEIDhCVOtgQ56IirLv4E55f6HF0q
+	 eo8K08J0aaRIX+UOO30Kfgveb1Du0yqsBf6xFOuPJpCUTHAJcWEe0lOVinSP8+3jFyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pidcdND1;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Hk/Xgzze";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555F4606D81E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65EC606B11E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pidcdND1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B97861F000C1;
-	Tue,  3 Nov 2026 10:21:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Hk/Xgzze
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57FA01F00919;
+	Tue,  3 Nov 2026 10:21:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701313;
-	bh=SwAAwEZrDaSifLO4A5UWNMjnigFQ9lkQIURsbXB5DU4=;
+	s=korg; t=1793701314;
+	bh=tZ84vGRGWFLdn7FuSP9mNBUeQIyKlXvra2VzoLheRR4=;
 	h=Subject:To:Cc:From:Date;
-	b=pidcdND1ViAJCK85wplk9EVkwfoU/7vS6vZK7YspCwqTBhQpmWaXFIU+qvhsh5xae
-	 alDBBQRKmCeC8XesSnfko9MYh/mbTaU3/INbY58ed52qx6Emc+S1SHlSryMtBURP2w
-	 A/0h+i6x+OUDlLH6isPtZnXJT0b3TbjvhWFM98MM=
-Subject: FAILED: patch "[PATCH] ksmbd: fix out-of-bounds read when padding the final compound" failed to apply to 6.1-stable tree
+	b=Hk/Xgzze+kbNgasbGtFgPT68XYIf4yuPnv5jJjgmr+7Qr+MZ1pXg3tuacdjdlDYP0
+	 XMq9KbHQcYEvUQ3HJJK2ljOkvv/VG4SgDyFqm+df+xyOSt0RNlHbopLl9hRGT5a4hY
+	 GAiJIE7926zKyTacp98vCXBPcMuG3iYZrH7zpZt0=
+Subject: FAILED: patch "[PATCH] ksmbd: fix out-of-bounds read when padding the final compound" failed to apply to 5.15-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:42 +0100
-Message-ID: <2026110342-confident-smother-a9f1@gregkh>
+Date: Tue, 03 Nov 2026 11:21:43 +0100
+Message-ID: <2026110343-corporal-pang-fc06@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 714f27729121d59f103ca4dad7b0c2d1c125cd71
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110342-confident-smother-a9f1@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110343-corporal-pang-fc06@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
