@@ -1,60 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743549;
-	b=BajOmZgSJOcA8rYL4+i2WWAMAuHa+CFfcXKT5i0U6lkPi6TarlptoDf/LzEHXnXkc1GL
-	 gvM+e7gZEVVtPbWynwugfHVhkHZpqU758EFL3U7AdYHU9We3PPzPDBoNSXUBWoa18DoKK
-	 vmGEwCupndInSTfj+03XZeXYlUV6xvjwgH2Z0FC4q8k0V04RoRBbuTICXSb7p9urcG2tg
-	 Ks+at2nCKU0a/9VB7Y4X3o7Di8yxBRGP4uM5Rb7LPBiZxffoj1emn2QeXu3MPXhru1TuJ
-	 qaNJpbolxEiEH1fszfcBkIYaCTHN66BhSBxkjc1JVmLoaQBc8IY7MeLQegYhpdIYzag==
+	t=1793743596;
+	b=Saty90kFdFB7ZYCWp9xDe/D+Ho+cbvON4TG1/MZk9k5vQTe9IkPu02YNMO2nm+GbPouf
+	 II0Hwh8CixRaLg2HquMsT11xAkEeLyOK6RE64ZnC8ad0LiPAu0w8pgT3RKaN8OgRZsCgS
+	 GFuoWiD5EAaZqSQwrerR/kXY5uCDd27nMXtkAEzL+HGQdOy4AFW1cXJpbmUZh3kSIQVOb
+	 yTGZzsgURw5OF3pZwbvM4BieX4NNnhAlNjuiyXZ5waBTl5B1vJJcYMhpKyL64KNUKFM2A
+	 0nclddzpDU1qyynNBFg58ibBb+yVNnD6ES+L8WoayZD+8PgdI9uUyF34sB+N6OzKuZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743549;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=kD181ElKWpcdU35r/LJfIJf0G4FkLwTtt1uh9ho8BmM=;
-	b=uiQFm1G2EOuim5K6c9LkTeshTZPaVFRoC3Jx2RM5JT+YiRaB01qjTkDmPj7IQo9Cnwnh
-	 cS6lz5DoVmmRCi6yzmjpcldsCNZ/PgCSUXLgSGZ8R7Wze0FbOm9tVNZmYi+VmseIyGDvT
-	 mkANyiIWMjShcx2pcTMhj2/3C5ApO9/UO7W5t70oV1K2vZwiPKg+4LwWwARo4aTNBxvs7
-	 zU0Tw2oYHziA13YrlGWaHq6C1wgC45O1bbHpHj3NPWUtNqeKs3ldtu1azATqeTKssT4Tj
-	 zNE+RvW++jldpzGe2adhfB+7o334TAQDB5KyqdiyYvXS5u6T6rQ5gEEWN9yI6k6x+QQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793743596;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=ScO3ouyZ78uAS6tjXHVJd1EsD1KaADZtYK5J1+vTrG8=;
+	b=BRnF+8tU52amCSG5qNPVNINlrwiN9p6FLhcdTC4Vm/n5JB4Wnq9rNetentGTPbeHWGGL
+	 p1jRxyExa+Q1o+XCyo7vCug8DJCFYAhplLSzNHBfqidX77m7Dr+PsQpFOkAeBt9+zwaEg
+	 DkghYfxRaUTlJjFHPlWIITVlOwSTR34pG/mwmav5XEdSPEiJq1YxGIzFlQDyv91/cjY2Y
+	 Sv6zOPokmGy8yWOA3zD95qrI+34f6ZFONex2mzHsyYZRq44ef/b727/CWbUIctCIdhLYY
+	 v/qu4sH9cdeesWCf8u1XnIAk3Svvo6DOWTRPNdkLfwQWbbnexR+d0y2F/yb7PquwjcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/Ou7MxR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fuiwI82H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35ECF606A31B;
-	Tue,  3 Nov 2026 22:05:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EEAC606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/Ou7MxR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CD901F000C1;
-	Tue,  3 Nov 2026 22:05:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fuiwI82H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7CE1F00919;
+	Tue,  3 Nov 2026 22:06:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793743548;
-	bh=kD181ElKWpcdU35r/LJfIJf0G4FkLwTtt1uh9ho8BmM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=M/Ou7MxRMlQVBTGDEwSPWED4BOUWxne7Ys4JzaXe+OGEBUUV/NSy/JCzBZZsNCiyy
-	 NGzTtLNeJgYGfhE/wV7s+L9EfaCL3JWtySYEiksBgOBsyk/ka2WTyeB/LpZIdb3WFi
-	 0fkOt3S5fggi1Y9u+K6Staj9eyAIgqznSvp99XEuUF4chLZEjSMDt4siZoszQhKxn7
-	 tZrOyzGErYkqdKvPUXBJF9dvapa0xLlgAF2Y7cUs4KrUu8rM3FGTqf28oAC8i/1xIW
-	 uDJDnsHc5ggYVvHFxO9zUWLtIT5wmjYyzLLRL+Vy1bqebZbaCeS2jKqgLXaXk1wSz3
-	 W16Xm1cnBlxdg==
-Subject: Re: [PATCH net v5] kcm: reject attaching sockets with a ULP, and TLS
- on KCM sockets
-From: netdev-bot+sashiko@kernel.org
-To: rjethwani@purestorage.com
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, jiayuan.chen@linux.dev,
- syzbot@syzkaller.appspotmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, hare@suse.de,
- sagi@grimberg.me, linux-kernel@vger.kernel.org
-Date: Tue, 03 Nov 2026 22:05:47 +0000
-Message-ID: <179374354756.488856.17787079121679404910@kernel.org>
-In-Reply-To: <20261102220310.12649-1-rjethwani@purestorage.com>
-References: <20261102220310.12649-1-rjethwani@purestorage.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793743595;
+	bh=ScO3ouyZ78uAS6tjXHVJd1EsD1KaADZtYK5J1+vTrG8=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=fuiwI82Ht64U0TSWl1E5S/SG3JOC1zl/bt4xsgh2BxnTfGkWJItTMdKOUvZOAFK8v
+	 RCo+NarDw70jfZX7hMiY7ALYFZniLhlmEqFbEp/jeLIhZWO5G4UznXFY8mg6UU1keD
+	 GHd4vXgY1dNJWyPeclobasnNREvxdyLiAN8A8vAvImhwXZunoP7wmzLgpDn/wxSxCi
+	 UL5TPdHwLxLKq5EMo7ZVM2IqCHnAgzSh4T0imrMEpHLCxdq2V4wKHodMQB3iDoRgYG
+	 AAILwCJbcHldvJHAtpuulclhLmFsDSp1hmR9q3+QEL3Ebhm2UaRssjavQ5TiXRXrqc
+	 bomD4aB4lwAiQ==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id E74D9F40066;
+	Tue,  3 Nov 2026 17:06:33 -0500 (EST)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Tue, 03 Nov 2026 17:06:33 -0500
+X-ME-Sender: <xms:6VrqamBDj7kYuxjK99qDUbHvbqfopWF6yL8CDmu-23Q9Nx3ZGy6NoQ>
+    <xme:6VrqarXDlvD0rRmS3PoA3-WPp3c8dx-JKpA5zV5dPecsLbAUBGouLmIxiDZvVagpl
+    7-CkgSEdCkHZa-0tQR5P7F2fRwiqwDs60uhKfSGNxOT8vpjRuvIPRA>
+X-ME-Proxy-Cause: dmFkZTECumSA5LJ8AHw+0jTsotqmb3FtJKMZPMFcrJoKy7KhRwRpt3H5oUe/4oMN5BDOhS
+    Q0Xc8eHQOoANtJ6foCG9cRZEX6DBeU+f35gBYGynrYbZaIzdlmDtxoixKbefkxcuWlC3Rm
+    bd3Q3c6do7sySi5EdaWaqjW7GOalqnz/fctTTw5+9fUfpieBJtYmTAWg1XCKCaQDQ2jYDv
+    tJeSRDuLTCnhDjt0KL9uu8dEef88uvyioaSQYKT+zw9/0yKiDAmwOJRRFzRApsEjm2+/ES
+    ck5x5+eae1DYzCsTzdU82KdRpcsC+tZ+zPm6n0YcSfGNb+NZylVcQkDDYsznKaHNb4+bsv
+    TKIXgc3j1Cq7GdkP9xGgnpY1JHO0TEpY2ZNVT9NGeEFc8ui7yySauzRLu/9LT6UUovNSNx
+    SI/jq92hpEUyUkfuwHUouZaO0IDo2PEhvoEpZXYpvQgqQxTdO+LH8+uLYV2yVajkC1/Amf
+    rIuBzXg+ESuWqKzFTLzAuQv9VmDnri3+moSqfJVI8QwbrhgTVD49XI48Z0z6rwf8jR1F8t
+    NdC3wsnODBW7LIyavCdO3IazbavKM5RExkmyqqAdYnjb8FwRDwsOIVKHMHIITxir8fzs37
+    ATfy8g0CwX1fcSGxWpiN6HtQVNkhCDxBusZUGGakXRzAE3SWCkqjx6jqYWRA
+X-ME-Proxy: <xmx:6VrqasR8fQyJUKllhdeQ_nuDGAziZpy1UrVh9sv7dFTaxXeXu4-1GA>
+    <xmx:6VrqamK3Fk0ELhhdHnLdYIN9fnzn09Yq-l5SYflPp1K3tpX_hkReqQ>
+    <xmx:6VrqauSxgYgTgAPqY4L64sVKlV9sedaaOv9fzH4mxg7T-RwwDFbxeQ>
+    <xmx:6VrqauKqcOK2gUZqvyUlIFYlXghjyqxISITkvoZ2-bm0kVxiqqHdtw>
+    <xmx:6Vrqah9untQ-Tf4L1YsgI8pu7I2flJnyMGoDLXqh4V-DTzFhT1huUNJX>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id C4953782738; Tue,  3 Nov 2026 17:06:33 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,148 +77,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-ThreadId: AuR77pwDWaMc
+Date: Tue, 03 Nov 2026 17:06:13 -0500
+From: "Chuck Lever" <cel@kernel.org>
+To: "Li Xiasong" <lixiasong1@huawei.com>
+Cc: "Jeff Layton" <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, "Trond Myklebust" <trondmy@kernel.org>,
+ "Anna Schumaker" <anna@kernel.org>, linux-nfs@vger.kernel.org,
+ linux-rdma@vger.kernel.org, stable@vger.kernel.org, yuehaibing@huawei.com,
+ zhangchangzhong@huawei.com, weiyongjun1@huawei.com
+Message-Id: <03cf178a-bbcf-448e-88bb-84e4dd994baf@slotpi15m67>
+In-Reply-To: <20261103032758.1302493-2-lixiasong1@huawei.com>
+References: <20261103032758.1302493-1-lixiasong1@huawei.com>
+ <20261103032758.1302493-2-lixiasong1@huawei.com>
+Subject: Re: [PATCH v2 1/3] rpcrdma: Serialize notification registration with device
+ removal
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Tue, 03 Nov 2026 11:27:56 +0800, Li Xiasong wrote:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+> +	mutex_lock(&rpcrdma_device_mutex);
+> +	rd = rpcrdma_get_client_data(device);
+>  	if (!rd || test_bit(RPCRDMA_RD_F_REMOVING, &rd->rd_flags))
+> -		return -ENETUNREACH;
+> +		goto out_unlock;
+>
+>  	/*
+>  	 * Arm rn_done before xa_alloc() publishes @rn: once @rn is
+> @@ -78,11 +89,15 @@ int rpcrdma_rn_register(struct ib_device *device,
+>  	rn->rn_done = done;
+>  	if (xa_alloc(&rd->rd_xa, &rn->rn_index, rn, xa_limit_32b, GFP_KERNEL) < 0) {
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This xa_alloc() now runs with rpcrdma_device_mutex held, and the
+mutex is module-wide. Every xprtrdma connect, every svcrdma accept,
+and rpcrdma_remove_one() take it. GFP_KERNEL here can enter direct
+reclaim with the mutex held.
 
-- [Medium] The commit message understates one user-visible regression.
-- [Low] The commit message says 'rmmod kcm waits until such sockets are
-  destroyed'.
-- [Low] Documentation/networking/kcm.rst ('Attach transport sockets' /
-  'Unattach transport sockets', lines 144-190) is not updated for the…
+Before this patch, a connect worker that blocked in that wait
+could wait only on its own transport, and every other
+transport reconnected independently. With the mutex held across
+the allocation, a connect worker for transport A that is waiting in
+reclaim on an RPC over disconnected transport B blocks transport
+B's reconnect in rpcrdma_rn_register(). The same holds for an nfsd
+thread in svc_rdma_accept() on a host that also runs an NFS client.
+Device removal queues behind the same mutex.
 
---
+The mutex does not need to cover the allocation. xa_reserve() or
+xa_insert() with a slot reserved before mutex_lock(), or
+memalloc_noio_save() around the critical section, keeps the
+serialization this patch needs without holding the lock across
+reclaim.
 
-kcm: reject attaching sockets with a ULP, and TLS on KCM sockets
-
-With this commit, kcm_attach() refuses TCP sockets that already have a
-ULP, and it now refuses raw IPPROTO_TCP sockets too. Attached sockets get
-an unregistered dummy kcm_ulp_ops, so tcp_set_ulp() refuses kTLS on them
-afterwards. The marker stays until the socket is destroyed, and it pins
-the kcm module.
-
-Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55@linux.dev/
-
-> Holding a ULP also has visible side effects: getsockopt(TCP_ULP) and
-> inet_diag report "kcm" on a socket that was ever attached,
-> sk_has_decrypt_user() is true so PSP RX association is refused after the
-> attach, and adding an attached socket to a sockmap fails with -EINVAL
-> rather than -EBUSY.
-
-[Severity: Medium]
-
-Is the sockmap effect really limited to attached sockets?
-SIOCKCMUNATTACH does not remove the kcm_ulp_ops marker, because
-kcm_unattach() only clears sk_user_data:
-
-net/kcm/kcmsock.c:kcm_unattach() {
-    ...
-	write_lock_bh(&csk->sk_callback_lock);
-	csk->sk_user_data = NULL;
-	WRITE_ONCE(csk->sk_data_ready, psock->save_data_ready);
-    ...
-}
-
-sk_psock_init() checks for a ULP before it looks at sk_user_data:
-
-net/core/skmsg.c:sk_psock_init() {
-    ...
-	if (sk_is_inet(sk) && inet_csk_has_ulp(sk)) {
-		psock = ERR_PTR(-EINVAL);
-		goto out;
-	}
-    ...
-}
-
-Before this patch, this sequence succeeded:
-
-  SIOCKCMATTACH -> SIOCKCMUNATTACH -> BPF_MAP_UPDATE_ELEM on a sockmap
-
-With this patch, the map update fails with -EINVAL for the rest of the
-socket's life.
-
-Could the stable-facing paragraph that lists the user-visible changes also
-say that a socket that was ever attached can no longer be added to a
-sockmap or sockhash?
-
-> listen() after a disconnect fails with -EINVAL, as
-> the dummy has no .clone, and rmmod kcm waits until such sockets are
-> destroyed.
-
-[Severity: Low]
-
-Is "waits" accurate here? Unloading does not block on a non-zero module
-refcount:
-
-kernel/module/main.c:try_stop_module() {
-	/* If it's not unused, quit unless we're forcing. */
-	if (try_release_module_ref(mod) != 0) {
-		*forced = try_force_unload(flags);
-		if (!(*forced))
-			return -EWOULDBLOCK;
-	}
-    ...
-}
-
-The reference taken by __module_get() in kcm_attach() is only dropped by
-tcp_cleanup_ulp() when the TCP socket is destroyed. As long as any TCP
-socket that was once attached still exists, rmmod kcm fails at once with
-"Module kcm is in use". This holds even after every KCM socket is closed
-and every socket has been unattached.
-
-> diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
-> index a7f94d42036fb..1f8bcbb8b9c3b 100644
-> --- a/net/kcm/kcmsock.c
-> +++ b/net/kcm/kcmsock.c
-> @@ -30,11 +30,26 @@
-
-[ ... ]
-
-> +/* Not registered, so TCP_ULP can't select it. It only holds
-> + * icsk_ulp_ops so tcp_set_ulp() refuses other ULPs like kTLS. Like any
-> + * ULP it stays until the socket is destroyed, pinning this module, and
-> + * tcp_cleanup_ulp() releases it. Clearing it on a live socket would race
-> + * with lockless readers such as do_tcp_getsockopt() and tcp_diag.
-> + *
-> + * No .clone: children copy icsk_ulp_ops without a module reference, so
-> + * a socket that was once attached must not listen().
-> + */
-> +static const struct tcp_ulp_ops kcm_ulp_ops = {
-> +	.name = "kcm",
-> +	.owner = THIS_MODULE,
-> +};
-
-[Severity: Low]
-
-This isn't a bug, but should Documentation/networking/kcm.rst be updated
-as well? The "Attach transport sockets" section only says:
-
-  - fd: file descriptor for TCP socket being attached
-
-The "Unattach transport sockets" section says unattaching "is
-straightforward".
-
-After this patch, SIOCKCMATTACH refuses raw IPPROTO_TCP sockets and
-sockets that already have a ULP, both with -EOPNOTSUPP.
-
-The kcm marker also stays after SIOCKCMUNATTACH. For the rest of the
-socket's life:
-
-  - setting TCP_ULP fails with -EEXIST
-  - getsockopt(TCP_ULP) and inet_diag report "kcm"
-  - listen() fails with -EINVAL
-  - sockmap insertion fails with -EINVAL
-  - PSP RX association is refused
-
-[ ... ]
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261102220310.12649-1-rjethwani%40purestorage.com
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
