@@ -1,57 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712213;
-	b=2MH6aBtg5n7p9Tpb776eJSPzBZLNhzyiUGyk8EUxzY5IiWZHF/dSUO/SNWWDvslKcvgV
-	 cdYgZRhpBBGEV5ilPGiCftWNlZ0AHCZSs6vA8+pcq2nxL9nD2+KOdVTundPWZhboAdXwX
-	 M+OXsaaG2bAlrxGccJUuhyWV36Y2W6N1fM6tN94151Y+47okcnFzW+pe48PHp6A7sGxVi
-	 WLm/CI2eBcYTvHYsWgMnScXJ04P5f4fOSfgaz+HeQOy56Te6MaG8yJFwOpNXrY+L6RMs+
-	 ptIAskMveKKc7hyZTWL9X59Y7dW4M6s2SrYNZHaNY+UTSuq2Ngt9cuX6Ewx9JQl8Myg==
+	t=1793712263;
+	b=Y77QG4jYZO2zXdx0DU2IFR5fcR49Ai0k+edprvb47yvwgncz5mvGL5L8Xj2oWsTMzkGz
+	 QdaN1VvD9yRWvMh+KkIbs+W7FuFRuhn/COvUzm43X8sFXzynh/EyAkelXFGG1gOoaOFxm
+	 hZK/5faJ3PpOOoDnGfsqV/h/WEz4kq2YlDAWSGF9VWU5MvqXpH14bRF7pVcvgPvmgsrmN
+	 m7qDvFTL4wd1hFZXKYNA/0ycHRvYOMV9UWH7FrE7BihGHZspgl4KKhWs/TrLyNVNuInD5
+	 0FS9cewDuwuVWE5dT+fQAUK3/BPQiE0SvdiH0Mn0LxGMQH6fqEdlcCfe7BaRv5l7sPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712213;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kuOu0lYlBmoBcCTMmte4a+Y7DfM7+mJz3jxY/0rfu3w=;
-	b=Yi6SvOVv1RkiDtRwJokVIBQomnnnf8/Bfab9ErtXKiKICFpuDwr1wDdyD0+gXB2cfz5M
-	 Lv/O2ByoZWtBI5ZOpagLS4rTbva9ziHfPQuNTLWtIctOlgKAmKreVfeD2jFCBFKlYyjOD
-	 QEDWWfizMx3Yhzfzmn0DJQ1TjTd490BZmio65gYOkY3JbtUeEbRP7nvlc1Rox6mrWpfJ4
-	 AYj03sG6E5OueIP4Vkj36W1Fxa68opHQS5tZA8SOuZXPUpaYUKTszrxFaknF2HXnLVhot
-	 A2DblUrnLpkFGLX0vdPddDzBEP9vjrn4WWIB0m//Wzm0b1vyChMdnLE2fFchsP47pxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712263;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
+	b=nDn27iuRSBz0d/PTE1fULD1hqt/sKxl/BRrCk0v5GpN+76dkJUCMe4zawWhT2xoR+dO7
+	 5fe9EuWxW3lBRJvX5XRzngnDZr67lHIwV3KrHQF7k3jTPPvbQcqeUi4+7FbbHDJOMElfc
+	 lgNBHAmpNOjT5ALHcACa1D7WfmGWjJKlqhyN6PMpOfpKrIqtx9L3xtimNc6N5kTemCjW0
+	 BzpZfXgfdjSdCUheGaU8s9JBG3es/VdIb6XcSx1YedbJinwHqyGnasKXc9tDqhKd8hXFv
+	 7Eb2kz5VVZpZkJGvJlSZaQcC2ovgzMFGCso08LdtuTsIN76UIRp7e+rtzZLUgXjMVag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jP4JzRXf;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ftOEIgad;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68103606D807;
-	Tue,  3 Nov 2026 13:23:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68103606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD6C606A32E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:24:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD6C606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=jP4JzRXf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793712209; x=1793971409;
-	bh=kuOu0lYlBmoBcCTMmte4a+Y7DfM7+mJz3jxY/0rfu3w=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=jP4JzRXfJoykOtSxNtzWbpBDvVwOw+HxqNxVOFp0KkXQjCcUcR0DilpVRzS1IDECZ
-	 KNMFhuvU4AYAKNUPX9RuzSb7xiq3/jLX76OfYUMYLu0qbLEXVBT/9rjtTNhjnwnqXx
-	 GlD0erZHd4lee0JPGd+eTwQ93ecHt6dIvUXMIW/Roa0euYplKkBMybqni2lM4mzjDf
-	 1t97UV4tDZolBUk/iZdf5jLxnWsbwGQc3uiI75vjWW3ujwtpdaWXOvT0afl3jvUKDi
-	 IXrCa7IpWcWe6aZQ7nfvVevJRhDw+NoOnc2gPgd3lirwhes+iafmRZnRdIjK2iEqKm
-	 xFe9Fd97n89CQ==
-Date: Tue, 03 Nov 2026 13:23:24 +0000
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sinan Turunc <enscrpt@pm.me>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2] media: cx231xx: Reject audio buffers smaller than two packets
-Message-ID: <20261103132307.730-1-enscrpt@pm.me>
-Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: 128f8fbecdd7df5fe60a818bdfd7337bf6400d4a
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ftOEIgad
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214af2076so32021065e9.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 05:24:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793712261; x=1794317061; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
+        b=ftOEIgadY8W0LAJnkXXgN0QtEq3/FP+QPVbndYenNNSBW9T1qhi8kSL3zwCjBwffS/
+         a5aQGC/hg7bNcK/3BQh47VdySgCybacc032j9tUvbAGA8w9I9jN9qaMqjvIXgtVeaUpf
+         yw0zXUu3X6yc4my7Ltu54Yde+oSBvHwUIAhp7ehOavw4DQZwgrj5l9KT7Atg/SwrAZq5
+         Eah8hgcrQeFbzk6RK7x6mHX9Fk+Q6L6UNNOsGZgqN1t1HwWAGzVVuAVYd4QxBqgd5ru9
+         1WBT9BL8kLOtpOrlWljRUr/59Wc5gztLPIcSORMVove8sgs7ete+Y9jrcCFPIqhBuKrQ
+         dPQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793712261; x=1794317061;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
+        b=S7Zi4YpxDktEFbW5fvBh/zrrLt0QXG94Boq4UH1LhzETaTOr0jcduMe8iO8cJlcpls
+         L5OOiGQd8kOh2MAknz+KVtEAOtyu9oMR1O7etxAflCszDEYOOi6kVJM9CpZi05itrkg6
+         SfC9JcYrknk1emDF4dCnLpsc/cdVDJmZuS6NlrdrSC5cBfRgtUtBhvd0j5FxPBC242f0
+         jhWsLJ2UZUFC/TPTKcAaIlrBZtyUcO+3/u8hI6z9KY40amlY2XILejn/e+aPBT0gu61+
+         61IkwRztF2bln6Vk4VUruAFd+VKpaYv8LL9TkC6YG/1MYsJNHrjDPl+hz//qc9ZLZcHe
+         Kj9w==
+X-Forwarded-Encrypted: i=1; AKwUvBzkfM7394FWTyprf38a73qoBeCd9bx4AA92rH6EcA6hrHUMIdGnNY28P7ITiimgd/mX8Ynb9Ao=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/XknTIYyUhzcT2AoNY0j+XQOn/+HS5Mle4kUG5KxdUVLB2F36p
+	wLjIczm3dndC2H+F0KRrf+JenxF/PFtg2gXgK0FEDekEaBq30yr1bZ+28HM8MnCPvAM=
+X-Gm-Gg: AYBFou2Nhbc3lnafTd3j+AtrL0oul7K9FnlV3aL7Pow3y4a4qSUF9sNWlVI80pshjiq
+	R0x6CqMpdMBv81AotIsRwCucSf/5naxuiX12gtPqN121CXlYBQAN3CEf8rZNWVNJm3Qr/StBOON
+	JBCGBysdiNCQ01LGWO6at0+GkFxhXS7uN1kKcuJBIU4OGqQGvSRDQZAPxR8UCZYcw4oS2DlDCCS
+	T+oKpuYYqgnV5n1A4uSJJD/X0tpY5gMZ+eBQcjEHYbktNDt0XqQBdCZlqHGMF7/Quu0HOEIXE3N
+	ihXAjsQHH98SSr++wRs9tER/JBUsw+PZq55E4fm2ujwuwlUzTXpVssgrtaR1VCvtbB+FNQO3bzn
+	irCZTB92oBwGfv5e6RVwd1PDbJRlpnXXUHQKWSQaGTa/EV/jff+dTxXvto9xXviBRJ+ONmDtcF2
+	g3gS5qTvUoSHiwkKJuyS6sLTHfhc/Vcxgl92aOay/qGXkOr8yaI/h+fS1aeMQLHnZy/8gAsESGm
+	6/pUD4Ta7aQwV6jfp1/oWyKqbng6DgfrGPTSf2WZQBD3iKu2nko53PYa5lDNV+F9YpWdV+rF6VV
+	XnsUrJXu18xlXrIII0H7ViLd8Q==
+X-Received: by 2002:a05:600d:a:b0:4ac:aae6:6400 with SMTP id 5b1f17b1804b1-4acaae665a6mr224247265e9.13.1793712260624;
+        Tue, 03 Nov 2026 05:24:20 -0800 (PST)
+Received: from localhost ([2001:4090:a244:81d0:2c16:1c4d:8a04:e0bf])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8011csm28284449f8f.31.2026.11.03.05.24.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:24:19 -0800 (PST)
+From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Date: Tue, 03 Nov 2026 14:24:03 +0100
+Subject: [PATCH] bus: ti-sysc: Don't reserve the system timers on AM33xx
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,108 +91,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAHLg6WoC/yXMwQ6CMAwA0F8hPdtkWyMEf8V4wFK0RmBZB9EQ/
+ t2px3d5G5gkFYNTtUGSVU3nqcAfKuB7N90EtS+G4ELtHTlcGyTMc1TGbiQ6PuOIWdHexuhpcMG
+ 33PZ1A2WISQZ9/fbz5W9brg/h/C1h3z+Ok8lJfwAAAA==
+X-Change-ID: 20261030-v7-3-topic-am335lpm-ti-sysc-13f0219c9d67
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Matthias Schiffer <matthias.schiffer@tq-group.com>
+Cc: linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
+ "Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org, 
+ "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2495; i=msp@baylibre.com;
+ h=from:subject:message-id; bh=nVuwYE9m11lYdl/oeJjVyknAejqd1mpWoS0UcE2QfJg=;
+ b=owGbwMvMwCXWejAsc4KoVzDjabUkhqyXD6oj9lVMmdu1+oNC/u7HTrncbqHN86yzeVlXTFx1N
+ 7Tw8BuRjlIWBjEuBlkxRZbOxNC0//I7jyUvWrYZZg4rE8gQBi5OAZjIupeMDEsCTvq8DVS79WtF
+ ttxF1gnM3y9IG965VbyeTckmdpFD7VuG/35rWZ/e5Nkfk7Ew/fhVSy4ZlpqNq4/MfdG35aGPeBl
+ 3KR8A
+X-Developer-Key: i=msp@baylibre.com; a=openpgp;
+ fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
 
-cx231xx_audio_isocirq() and cx231xx_audio_bulkirq() split the copy into
-the ALSA ring buffer once at the buffer end and wrap hwptr_done_capture
-once, which is only correct when one packet holds at most buffer_size
-frames. The packet size is max_pkt_size from the device's alternate
-setting, while the hw constraints allow 64-byte periods with periods_min
-2, so a packet can be larger than the whole buffer.
+Commit
+    3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
+introduced handling of am33 SoC timers that are already active as
+reserved. During probe this means the clocks are enabled and a reference
+is kept.
 
-snd_cx231xx_capture_open() selects the alternate setting before
-hw_params, which sets max_pkt_size, so constrain
-SNDRV_PCM_HW_PARAM_BUFFER_BYTES there to at least twice max_pkt_size.
-Two packets, matching the line6 fix. The bound makes the copy safe, but
-it does not make every larger buffer progress: the position is reported
-once per URB of 64 packets, so a buffer that divides one URB's data
-returns to the same position at every callback. That was already the
-case before this patch and is not changed here. Keep a guard in both
-callbacks that drops an oversized packet with a ratelimited error, for
-the case that should no longer be reachable.
+On AM33xx deep sleep is entered by the PM coprocessor which
+requires the PER power domain to be idle. The system timer driver
+disables the clock during suspend but the additional reference held by
+ti-sysc leads to the PER power domain not being idle:
 
-Reproduced on 7.3-rc7 with a USB/IP device presenting a Pixelview
-Xcapture interface layout and 1024-byte packets into a 128-byte buffer:
+    pm33xx pm33xx: PM: Could not transition all powerdomains to target state
 
-  BUG: KASAN: use-after-free in cx231xx_audio_isocirq+0x2c7/0x780
-  Read of size 4294966528 at addr ffff88800e8e0400 by task vhci_rx/82
+The reserved status is only needed where the
+gpt12 system timer must be kept from idling, see commit
+    3ff340e24c9d ("bus: ti-sysc: Fix gpt12 system timer issue with reserved status")
 
-With this patch a 1024-byte buffer is refused at hw_params; a 2048-byte
-buffer is accepted and safe but barely advances (hw_ptr 14336 after 30
-s, for the reason above); a 3072-byte buffer streams for 30 s with no
-report and with the position moving inside the buffer.
+The timer configuration in the devicetree is the same on all SoCs, so
+there is no reason to reserve the timers on AM33xx.
 
-Fixes: e0d3bafd0258 ("V4L/DVB (10954): Add cx231xx USB driver")
+Return -ENODEV for the system timers on all other SoCs. Like -EBUSY it
+stops the probe but the driver core doesn't report it as failure.
+
+Fixes: 3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
 ---
-v2: constrain the buffer at open instead of clamping in the copy. v1
-clamped the frame count to buffer_size, which left the ring position
-unchanged on every oversized packet and stalled the stream, as the
-Sashiko review of the line6 patch pointed out. The bound is two
-packets, matching the line6 fix; see the message for what it does and
-does not change. The clamp is replaced by a drop guard for the case the
-constraint makes unreachable.
+ drivers/bus/ti-sysc.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
- drivers/media/usb/cx231xx/cx231xx-audio.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletions(-)
+diff --git a/drivers/bus/ti-sysc.c b/drivers/bus/ti-sysc.c
+index e118b900c9ac..922a90d4c5a3 100644
+--- a/drivers/bus/ti-sysc.c
++++ b/drivers/bus/ti-sysc.c
+@@ -48,7 +48,6 @@ enum sysc_soc {
+ 	SOC_UNKNOWN,
+ 	SOC_2420,
+ 	SOC_2430,
+-	SOC_AM33,
+ 	SOC_3430,
+ 	SOC_AM35,
+ 	SOC_3630,
+@@ -2917,7 +2916,6 @@ static void ti_sysc_idle(struct work_struct *work)
+ static const struct soc_device_attribute sysc_soc_match[] = {
+ 	SOC_FLAG("OMAP242*", SOC_2420),
+ 	SOC_FLAG("OMAP243*", SOC_2430),
+-	SOC_FLAG("AM33*", SOC_AM33),
+ 	SOC_FLAG("AM35*", SOC_AM35),
+ 	SOC_FLAG("OMAP3[45]*", SOC_3430),
+ 	SOC_FLAG("OMAP3[67]*", SOC_3630),
+@@ -3124,13 +3122,12 @@ static int sysc_check_active_timer(struct sysc *ddata)
+ 	 * A to B4 at some point.
+ 	 */
+ 	switch (sysc_soc->soc) {
+-	case SOC_AM33:
+ 	case SOC_3430:
+ 	case SOC_AM35:
+ 		error = -ENXIO;
+ 		break;
+ 	default:
+-		error = -EBUSY;
++		error = -ENODEV;
+ 	}
+ 
+ 	if ((ddata->cfg.quirks & SYSC_QUIRK_NO_RESET_ON_INIT) &&
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/=
-cx231xx/cx231xx-audio.c
-index b24ceef497e..14df45ab011 100644
---- a/drivers/media/usb/cx231xx/cx231xx-audio.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
-@@ -123,6 +123,19 @@ static void cx231xx_audio_isocirq(struct urb *urb)
- =09=09=09if (!length)
- =09=09=09=09continue;
-=20
-+=09=09=09/*
-+=09=09=09 * snd_cx231xx_capture_open() constrains the buffer to
-+=09=09=09 * hold at least two packets, so this cannot happen for
-+=09=09=09 * a conforming device. Drop the packet rather than
-+=09=09=09 * overrun the single wrap below.
-+=09=09=09 */
-+=09=09=09if (unlikely(length > runtime->buffer_size)) {
-+=09=09=09=09dev_err_ratelimited(dev->dev,
-+=09=09=09=09=09=09    "audio packet of %d frames exceeds %lu-frame buffer,=
- dropping\n",
-+=09=09=09=09=09=09    length, runtime->buffer_size);
-+=09=09=09=09continue;
-+=09=09=09}
-+
- =09=09=09oldptr =3D dev->adev.hwptr_done_capture;
- =09=09=09if (oldptr + length >=3D runtime->buffer_size) {
- =09=09=09=09unsigned int cnt;
-@@ -204,7 +217,7 @@ static void cx231xx_audio_bulkirq(struct urb *urb)
- =09=09runtime =3D substream->runtime;
- =09=09stride =3D runtime->frame_bits >> 3;
-=20
--=09=09if (1) {
-+=09=09if (urb->actual_length / stride <=3D runtime->buffer_size) {
- =09=09=09unsigned long flags;
- =09=09=09int length =3D urb->actual_length /
- =09=09=09=09     stride;
-@@ -424,6 +437,18 @@ static int snd_cx231xx_capture_open(struct snd_pcm_sub=
-stream *substream)
-=20
- =09runtime->hw =3D snd_cx231xx_hw_capture;
-=20
-+=09/*
-+=09 * The URB callbacks wrap the ring buffer once per packet and advance
-+=09 * the position by the packet, which only works when the buffer holds
-+=09 * more than one packet. max_pkt_size was set by the alternate setting
-+=09 * above, so bound the buffer by two packets here.
-+=09 */
-+=09ret =3D snd_pcm_hw_constraint_minmax(runtime,
-+=09=09=09=09=09   SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-+=09=09=09=09=09   2 * dev->adev.max_pkt_size, UINT_MAX);
-+=09if (ret < 0)
-+=09=09return ret;
-+
- =09mutex_lock(&dev->lock);
- =09/* inform hardware to start streaming */
- =09ret =3D cx231xx_capture_start(dev, 1, Audio);
---=20
-2.56.0
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261030-v7-3-topic-am335lpm-ti-sysc-13f0219c9d67
+
+Best regards,
+--  
+Markus Schneider-Pargmann (TI) <msp@baylibre.com>
 
