@@ -1,76 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739592;
-	b=i8bwhUGG1KIjAyFor3Z9G/H2I7l3TbpUbIJ+QTYAK7QX3oEjWkCtCy+DPclUWrLdrAzE
-	 pTawZ/HXb46x1+GGJUgy3jw21Z/K8ZTeqEXbhu1YlQLFz+t1jXBoaw5CeKuAgbdkmyzL1
-	 2i9+JsHUqKSqyQKChZN8F9jBzCo3AVwd3Ta79vUuycDyKSy/0xhk7slY0sEywEXuvTdFI
-	 5w7UtWhE2Zq7m8ehrMOSITrP+W3/D6nugiQ4vvx++8nqO/RSu++3pFGzfpFszGZSz8s/y
-	 BvgDW5JO8ggH7FdPDBkZ06hhhHig5qnu2P0zpFYVMpsfo8COunAcPRui9qkKc12CYLQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739592;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2lqPU1i/NYd7KL1kWuqVHp4WfF9iJW5OIp18EbwlBIc=;
-	b=WzQ6ISMpvE5QS3XpsQCsISq+OHMGt40VUUUoI38ctuzBH+jn1FanRY6F/8GeAs4VmUQz
-	 zTrjyRJVHiaGej+waoptHUCPIJUdLVFye63IQ1vgI/o6yocZDcMysc3Awa5pZ82AP7M5Q
-	 xZXZSxuao5T7Xzq364rfB4kuBSkWBiuUocHcA50Z9DRAx+uDr0uiCNxUrv5MZG5h7uFq0
-	 cBSTVdUtcDxQFnW5eOrNI+RkyfN+gFkBiY8VWtD+nLGR7bhGF3wkKoUxO4ADq71UzGfQO
-	 MQ8GjHJjcoQ7CBcR2AD/RMpjkyFAUXQBHeptU400Y3A6u6fTW65DYdZxwV/kMIGdnzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NBd+gJib;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793739651;
+	b=qwwQ9jw9m/B++lTyTL9Zg9heUb3TZNAWRTZSIy3BZGBEAzmsOk9io6ssnMX3C9m9mt0n
+	 ud/4qMKsN1w1yxeBplpuRzD8WtdMbtFdVzPSGi7s796EycY2xNtbkrYM1DovipJY0RSr5
+	 tf46jL8DBDb672Jm1LFyqJO7dYArx89q7ERq94BBgIndUYWX2HQ6haBdPSDREg4c5QhLH
+	 RwEonBi5I/xGl2ATL98Yw0Mo6W19GHNr1x8u/cMKpBwZqE+MVOfsVbRM1Qu+M2oG/TW9O
+	 AXWnJ/8Uzq4FePwOxSfSHkk1/N+Hzmi+M+U5BEUm5PVi2CXkJ8i/TgcPLgVw929Mgyg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739651;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=9oswV/x8AC97gVAw4TBoRfYdc+Ee5b9SxqFobWwGr0c=;
+	b=YYAIdtHX4riQ7EZqLkT7AhlpMKxQfzw8naaJcrOF3cXGYHsZtMACn6RNODTLL7CGnp2W
+	 j2Bnr2OeP+yzhU94dYojM0SvvenGVvcHWExDmCGCugZAKIIpGjgJ0C22NxCw4qBUskXVN
+	 41v/A+n97To0Xd1RKqDUGn+PM/hv/4lZN+o6MU7gYpn8H5SoQsUCaTyby8ZQjLLwdekZL
+	 jRKJPdMuI9GeTlpMtB9L0aUHTmY4yB5TGch0pXBI6TZbAUoL42bfHvxyzncBKfl4OWg5C
+	 ilsXOPu9RhJGoxz6T39Vd9TMsj8wanD1uP0rAz9Od5TVNfzTZkZ9eaBZvuMotIdGwaw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eVp1FVJ+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACA1606A328;
+	Tue,  3 Nov 2026 21:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eVp1FVJ+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793739650;
+	b=l+GMeip7AzakIpGW9XRgXcJmFcwzdPNQHux2TlWf03ZfaKikTYJfptquNkYLfcmRDVM5
+	 nQcQ1i+YOweDLGagMcWyj6DVy1zJ/AGzIEdX1/tL07hJ2IqS2p89JEbTq7rtMurhvFbx+
+	 Gw3ctFovcD+TYGbnHo7Nl4wGtRkgeqNByPUQ1v3aQB3sKCFPlOCwmfhP6s94nQS56ymFP
+	 wLIVj+5JJ9txX6S7QEczty5Cm4FSRQy4vfeDabLSjHQp9F7tSc2oAvmSDsxtkDS5ttrn5
+	 VDNXTJk3Y+Kcj6lKXGsRacTwTQMZT7wbLS+mMnPjDHU1Id5L4t8SZZW/qiEG+iWtdQA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793739650;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=9oswV/x8AC97gVAw4TBoRfYdc+Ee5b9SxqFobWwGr0c=;
+	b=oxR9pCeuW/GqFz1nprBHU6hF0AVP7qqUV5ciiSjbN7Ee7ErXm4we3QT9wZv2qauKE9lg
+	 J9qFZ1XATWTecy/l0V8Mh5xM/9DQDAoIS9u7tvb/z00ulzu9yfxBAlbvWj29Xb8jlBcZC
+	 MMwajCcaQ9tDA/2gM5EVeoD94RRSUlXrR4QQlqqxsbOXDvjtVxh5tY3yzxwR28D9DwI37
+	 TDFsXdZHTQSNFqweGH/1RfmRxFFReN/LzVLY15c0vwyISIPHYSbhnJuZUSOk3FjW9suIu
+	 1V0e/DyBQ28ifo5+MFoxhKw8utEK0p0rhIsHRikwmxHSeMbjH4Wwp2irt+dhEVyN0Hw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D169606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 20:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D169606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NBd+gJib
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae59682799so70302a91.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 12:59:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793739592; x=1794344392; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2lqPU1i/NYd7KL1kWuqVHp4WfF9iJW5OIp18EbwlBIc=;
-        b=NBd+gJibaoQYskPfAkbrVrOzpoeJtBC0rrW8GDF0IBN1coriGAYyV3e0AbtkVf8ZLc
-         Z2H/K+jEUURxrbtPMgHIauEZTbxBvOW5MLkHkmtPLyB1eoN82pwSBZd4WKLnGpmRQJXZ
-         iAXrOnxAf7BYMZb4sAb0d75Bt0tHEk+Bsi/cBLhmBP/Lr6+Vq5cSbjKL5rnltGpxGIFg
-         RnvMIDH61RKmoVIi9jt0zL66xhgG6RWkYWtCbWdKlkwM+9EqGTFw0qYaVCMP/KXYcYuM
-         m3azISPBoD7KwfGcXGvtfKXxNTpJoOcntsXWd+ovflAEtitTrb9Qplazlalg+tDBSQB4
-         qxXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793739592; x=1794344392;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2lqPU1i/NYd7KL1kWuqVHp4WfF9iJW5OIp18EbwlBIc=;
-        b=M+E3KBWxGhFGjVxloz+5Eq713wKM7qL1ll0qGfxWGJi1nROOEGJmwYupyn2VeCKOCf
-         VmAsJqPt8ClHXcQllv3kviIh9rwed/Afvnx3LlA7vY51dz/sDGuiBLtmxS3ZYUIUiLgY
-         zBzKhCUJoE6HxXJzfXlHtLH6BitXJP3bTAGRU4IaihH7gzVb786mUYyTyQkVXm6k+Vza
-         pUWqaqtG2K1FuGpqqpOokIgFILbmOM133wzm0WB40AVfN3DXscBjl3kHhuFm7kUQpbLG
-         b/OC1TQI6WHZFjAg4mqv6fRqq033IjbDmhfGMThJnTEC/VhxGP4/NNhqZWXCuxDvzGrn
-         /DPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkT8BLOarfh6aA9F3OA6beImyHwFIkmcOBv9O9f/uChLkPJcCeNPkUBfgP2k/aTsXDd7CxYrw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZueVKCofZSwZkTBDxrgJkwm8cd63vQVLiHE4ukyc3MPTW6wn9
-	jMKa3D2zwfEcTf0P/+fIdbI6PqqVWkcxkthre6AFemsOjdM9oC4PuGWCB0kFiGMqAFTUmyLBGEJ
-	ry9Uc/A==
-X-Received: from pjhw8.prod.google.com ([2002:a17:90a:5288:b0:3ae:c401:753])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:d887:b0:3ac:8af9:4a77
- with SMTP id 98e67ed59e1d1-3ae897c94e8mr12522138a91.10.1793739591455; Tue, 03
- Nov 2026 12:59:51 -0800 (PST)
-Date: Tue, 3 Nov 2026 12:59:50 -0800
-In-Reply-To: <CALMp9eTdY3=1BrOYgov852VeAy3+Os7bvhWogvB0YF-JQrmtig@mail.gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id EEC311F00919;
+	Tue,  3 Nov 2026 21:00:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793739650;
+	bh=9oswV/x8AC97gVAw4TBoRfYdc+Ee5b9SxqFobWwGr0c=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=eVp1FVJ+Q+U60/uo1p9l0XhIVu5tglyLz1hnR9ZRI0mlrnLn97HsE4Ryqlh0XtxOy
+	 pVNEog5k0+bMURcQJpk7zU5NWfTqre35n9jFfPuqtOo8NavQOs/cLAweXHnId5U82v
+	 NMI7lqB7mjS6Let/hQOqdO7VXyhewE/PllCjZ1sdTDCp4IJw/J7/9gpzQAddnRbejS
+	 9iY70cKRV06to/ygawjDgRJiL22aKTDjcP6lr6+CsRk1i2vly2E991Ub573xcEIF0+
+	 kV5O1DEr8wZm2ARGxo+dFPl+RF49xtOYTok4D8Iu4zP/pJ4KDaZuNtP/1rMJloF/sn
+	 IG15SFCge70wA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4AD1546B1D;
+	Tue,  3 Nov 2026 21:00:49 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Subject: [PATCH v2 0/2] mm/hugetlb: clear the hugetlb flag before leaking a
+ hwpoisoned folio
+Date: Tue, 03 Nov 2026 16:00:48 -0500
+Message-Id: <20261103-hugetlb-hwpoison-leak-v2-0-98085750c145@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,80 +83,79 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261102231428.13523-1-pbonzini@redhat.com> <20261102231428.13523-5-pbonzini@redhat.com>
- <CALMp9eT7cnBf6kSXZLWuMyG9a52QveWjzzLz3Z9E=kPuX_ahVg@mail.gmail.com>
- <aukmeb9mV8b504T6@google.com> <CALMp9eTdY3=1BrOYgov852VeAy3+Os7bvhWogvB0YF-JQrmtig@mail.gmail.com>
-Message-ID: <aupLRleTJSIDTE9M@google.com>
-Subject: Re: [PATCH 4/7] KVM: nVMX: Process each host MSR entry at most once
- when unwinding failed VM-Entry
-From: Sean Christopherson <seanjc@google.com>
-To: Jim Mattson <jmattson@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	stable@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>, 
-	Stefan Teodorescu <fane@google.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNSw6CMBRFt0I69pl++MUR+zAMaHnSp0hJS1FD2
+ LuAC3B4knPPXVhATxjYJVmYx5kCuWEDeUqYsc3QIVC7MZNc5oLLEmzscOo12NfoKLgBemweoMt
+ WpanKRSoU27ajxxu9j+61/nGI+o5m2mO7YSlMzn+O41ns3r+PWYCAojCY5ZzLTKrKuD4+NTVnb
+ COr13X9AjoMILHPAAAA
+X-Change-ID: 20261028-hugetlb-hwpoison-leak-b8d344361413
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+ Matthew Wilcox <willy@infradead.org>, Jane Chu <jane.chu@oracle.com>, 
+ Zi Yan <ziy@nvidia.com>, Kaitao Cheng <kaitao.cheng@linux.dev>, 
+ Mike Rapoport <rppt@kernel.org>, Mike Kravetz <mike.kravetz@oracle.com>, 
+ Yu Zhao <yuzhao@google.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793739649; l=1890;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=Pt9krYX8CsGOTLKtcfpUYXNuinBo/7tPW4KlvXKyiEA=;
+ b=02MqQBVkEqAHUZSGVcKHoKLwHhvp4MXoLv73o/U6clby1qlWMLDJX7szSHzPoTqqIJrGoAfBq
+ CFQP0xoTxDpAE+YMJFHC0wllKhbMVCv/tSdEtxCu8bk2Xkz7dRP9VIg
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
 
-On Tue, Nov 03, 2026, Jim Mattson wrote:
-> On Mon, Nov 2, 2026 at 4:10=E2=80=AFPM Sean Christopherson <seanjc@google=
-.com> wrote:
-> >
-> > On Mon, Nov 02, 2026, Jim Mattson wrote:
-> > > KVM needs to do better.
-> >
-> > Meh, KVM is doing pretty darn good, all things considered.  Yeah, this =
-code sucks.
-> > But I'm not convinced the alternatives suck less.  We've gotten the set=
- of missed
-> > consistency checks down to effectively zero, module the TPR mess that I=
- do test
-> > by running warn_on_missed_cc=3Dtrue.
->=20
-> I don't understand the TPR mess. The SDM says, "With the exception of
-> fields corresponding to virtualized APIC registers (defined in Section
-> 32.1.1), software may modify the virtual-APIC page referenced by the
-> current VMCS of a logical processor in VMX non-root operation. (This
-> is an exception to the general requirement given in Section 27.11.4.)"
+If memory_failure() can't save the raw error page of a hugetlb folio,
+the folio is marked raw_hwp_unreliable and leaked once it's freed.  With
+hugetlb_free_vmemmap=on it's leaked while it's still a hugetlb folio,
+and dissolving it then loops forever, e.g., when offlining its memory
+block.  Patch 2 leaks it only after the hugetlb flag is cleared, as
+without vmemmap optimization.
 
-Oh, I wasn't aware of that.  I agree, that gives us an "out" for vTPR, most=
-ly.
+Miaohe pointed out that unpoison_memory() then doesn't see a hugetlb
+folio anymore and unpoisons it.  That already happens without vmemmap
+optimization, so patch 1 fixes it on its own and goes first.
 
-> I would argue that this prohibits changes to VTPR between KVM's
-> software VM-entry checks and hardware VM-entry to VMCS02. If the
-> hardware VM-entry fails because VTPR has changed, section 27.11.4
-> gives KVM the freedom to implement whatever "unpredictable behavior"
-> we like. Yes, that probably does include loading MSR values from the
-> VM-exit MSR-load list, but why complicate things?
->=20
-> Something like returning to userspace with
-> KVM_INTERNAL_ERROR_EMULATION following a prohibited write to an active
-> VTPR seems far easier--and cleaner. What am I missing?
+Patch 2 lets a raw_hwp_unreliable folio reach the add_hugetlb_folio()
+rollback when restoring its vmemmap fails, as
+dissolve_free_hugetlb_folio() already does.  It relies on Kaitao's
+"mm/hugetlb: preserve persistent flags when returning folios to the
+pool" [1] (in mm-new) to keep the flag there.
 
-My biggest concern is that KVM could kill L1 if an L2 coerces L1 into tryin=
-g
-VMLAUNCH/VMRESUME with invalid state.  KVM simply can't *know* that an unex=
-pected
-VM-Fail was due to the vTPR wrinkle.  Even if KVM re-checked state, it's po=
-ssible
-for the vTPR to be "restored" to a good value.
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/hugeoffline.c
 
-I.e. if KVM exits to userspace with KVM_INTERNAL_ERROR_EMULATION, then ther=
-e's a
-non-zero chance of a false positive.  KVM could exit to userspace if and on=
-ly if
-it caught the guest red-handed, but then we'd still need this horrific code=
- for
-the other cases, so that seems rather pointless.
+[1] https://lore.kernel.org/all/20261102024910.31486-3-kaitao.cheng@linux.dev/
 
-warn_on_missed_cc helps, but in practice it can't detect cases for which we=
- don't
-have test coverage.  So *if* there was a bug that could be exploited by L2 =
-to DoS
-L1, odds are good warn_on_missed_cc didn't catch that hypothetical bug eith=
-er.
+Changes in v2:
+- New patch 1 so unpoison_memory() refuses the leaked folio (Miaohe).
+- Patch 2: same code, added Fixes: bd225530a4c7 and fixed the commit
+  message (offlining still retries until a signal).
+- Rebased on mm-new.
+- Link to v1: https://lore.kernel.org/all/20261028-hugetlb-hwpoison-leak-v1-1-77ce56002523@columbia.edu/
 
-Maybe with AI we can be 100% confident that KVM performs all of the VM-Fail
-consistency checks?  Again, I'm not opposed to alternative approaches, but =
-at the
-same time I don't feel a sense of urgency.
+---
+Mani Tofigh (2):
+      mm/memory-failure: don't unpoison a leaked raw_hwp_unreliable folio
+      mm/hugetlb: clear the hugetlb flag before leaking a hwpoisoned folio
+
+ mm/hugetlb.c        | 15 ++++++++-------
+ mm/memory-failure.c |  9 +++++++++
+ 2 files changed, 17 insertions(+), 7 deletions(-)
+---
+base-commit: 74d73ffcffe03804f97e9fb82301dadf75671282
+change-id: 20261028-hugetlb-hwpoison-leak-b8d344361413
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
+
