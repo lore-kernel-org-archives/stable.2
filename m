@@ -1,98 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.10
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793703864;
-	b=yJ56C7pbZgIfevECNTxuysdnJmobZ4bblLhg93WSEwA+QLvKJYLQwpq2fSrpzV9WHDjV
-	 MOy5+hBET9t0XCiS94FmVxcKLc0xM/Ds692FThiv71IcSkFBZgquRjIoziYiI8ppZB/RY
-	 coY4sTC9cnEM0DNch/TOb9GJO1FRBXFPMPnXT+Szj0vuw+Nbesb1rHnI/E2Dj4bvFOAa7
-	 A/Rd/piUG2+T7PaVICOdLhbYimulv+3x6evLFbaad0XWFg+hH9NpV+7GwrBzZoFfsv08Y
-	 WZu/HgLMBu9LVgTRehjHjjc79rskWKHhZAW/zY2BlwHBO9lLg9X4aCExR/oFyNAHQXQ==
+	t=1793703935;
+	b=FgFT75svxqjb75tCoHDsp/cd4V6z/nXPV1cFhh688pdljV1IxpLOMK4e3MNxDLMYjYR0
+	 3Ik+RDtKfDxBD5lMJbTk2HLNWl7D04O9t2BTlfI4KU6y9E87dkdc+xT12yKMfSEFXUTp7
+	 69m10v6fsx/ecRoDTpA5DYFLquFa5OJb2qD0V1yQhrcHu1Jp/+vcerORtlOUvtkL4cvvr
+	 0OT7+vrx/Ept++TUG4+XeuYUmH7kQwZwa8UNELU1A/3jjml7+eHHS6SZESg2ucXkqlgz2
+	 OVHkaEDRvVOYZ5N/DQ6S0F77wpJgfDXWy3mBKtP+iauaKAhK4ONXyUAv0Bg7GDm0flQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703864;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Ihq6fFi6/Py7vQ5miYBdO3v37BD8vmOxVL3kmQ5hPfA=;
-	b=EU+xhda1JMxK2hHpxxRYFglGql7I9iRHASww4xvjzs1tDsSH52afMJcqv9NKMSJtWHNQ
-	 5bbTZPNZPtFBXvQms7xppzYV4w8mzq36F5PSYL9E93M3Em/8bg4yPj4+CEf2DRxHb1yFk
-	 tAbY7csyEEDSvp8ZXC5UePG3MssGNHNXhrDxdsfhHm+7gd4FOvIIEiFr/izwEGHjBtI0M
-	 2FKn7qsTXixB9Dn1gMPfHFWsbTR9Wk4iCy5hnyERgZbUloQvFDqiEUduqTcSOUE+1jcZz
-	 XhgE1AWEFyXU3tmUSJhQQvP3GS+bY89J56T2rH7FvWsbvQl7BRglzrYCm8JlBHimBww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703935;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=lqyP9znsQRdwaRYsM/qRC2zMR6bDJM+e2NWUwALCoAw=;
+	b=uGmCXpMx4VSU+BiddRQq5xSsvsl+9R1Uvhee+JRK9/6coyF1lAwV1dCKy2NHWLF8l/fI
+	 BvyqVLaqR0Kp/JZJbNC6tCpIzP1TzGbvJDUDWFQAYpJtDTxQv/NbqHgEVG1lbfBKyBnUJ
+	 lbEfJjwKzsNblO+1DVk7rlURLm74x00nLqCHWGvB5lsU9ILVrjbXocVs9V196Ey1/pv7E
+	 WoD5TQlhdmhfwmk4hSqbzIyPcCBNgOSzVwNkgilcdaQxZW3+qw2Vhhrm8i+Gfs8g4GoN9
+	 3GwPVTciWC3j0IsHv7u/u4hgwIpkgx7E2rWeV6L5DOR3RMXRxACFAn3qGO/tc1hVInw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=cEIk6BUK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=gaep7FO3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.10
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010010.outbound.protection.outlook.com [52.101.84.10])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEA4606C544
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:04:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EEA4606C544
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC0DA606BF8C;
+	Tue,  3 Nov 2026 11:05:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC0DA606BF8C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=cEIk6BUK
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cdaefe02d5dso2152668a12.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 03:04:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793703863; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sn2YmHGFMpfBSxxrc230Iu/IB7F1BPUw5fGF4KLd7E83auIwyKRQ3Vyr/9CRueghWh
-         IoavxkPw2tmA08Sl1y3XDye3GscAdTv1NSGnLYTb4D69cFTPke0CDqO8MSYmuWxx1xbr
-         4u1o3xnf+1lwUTYIjYXNcXBt/kk/7yP9FnK/p5q8qxUng8bs90ETO6wbSykuemrQoymF
-         3FO3Q6eGFr553J6gLFx7OjHvYO/oE6tcytpRyOrAa/2ykrbTBSIdEhJ5kSWYVTDNEjtp
-         BhQCmBLgd8KBYM+9T67g+7hx5c67uhcGCk0BPR0FEzu1yVn3tZjcn83aU0qXMwAuoKiP
-         pK5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ihq6fFi6/Py7vQ5miYBdO3v37BD8vmOxVL3kmQ5hPfA=;
-        fh=M4EiYFk8mpNqVAfdZ4Aq7fTQLcRjohqfMqohuJ8k3Ns=;
-        b=cI2ZWDFllkmiMe6fcrLjCLrahgTQkSwS+TKt8hhoPeGCExUo2uZjbnmZLD0owE7qLy
-         nKyhQUGoE6ECV57O0wFzcCVv5IYvLOqbYYY79Q43Y3Z/V1Ry7cRDu66DquFOy83jKL8+
-         pfddHhcxJpvcNorAmADJ3eesmaI9Bvx/0dYJMbO/kcwN0VoikPstM08it2miUug8lK5G
-         DWzgpSMU1BO/g0XKIjZdE4yypyEPPFmUY8XKJvBwfypVLuwOQoFIhWTaqH5R8+AG8DkG
-         zUs3TOcHJYNt7UOGjXJmO2FLcJBGHmp+bz+DpDWMPMNT/hSDWbyDhlyF3tt3H9AT3aZk
-         MddA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793703863; x=1794308663; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ihq6fFi6/Py7vQ5miYBdO3v37BD8vmOxVL3kmQ5hPfA=;
-        b=cEIk6BUKNNrstBnq1gVT2sp/ppmTqr6iugiER4Sl8QQ1Iw95mgVDmfaEBP2WMoYaPG
-         Hr7IV54AUpbjPO/goo6B59UyzKdLt6qHE3MS/zyi9oKHGd7IumnPTnxaEiP5zkMOGTAx
-         qLOeJ18yrdFVAP+pyPqbDEM7dD4oDU9xcZP44=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793703863; x=1794308663;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ihq6fFi6/Py7vQ5miYBdO3v37BD8vmOxVL3kmQ5hPfA=;
-        b=JF+KUGVFoNhBm3gP4B9yYgfMmXujZywJumSbDZuwjhuvyCXVDuukFA2Y9Tc7eRbpxJ
-         nzY6akI8k6fUJ0bjl1neEVvFthpFoXoxxlBkC5MM98ywXxegFfLALL5oOrO+sLyxQ2iQ
-         PRr3rFkWBcpn5le8Tziiu3SX3fwggfUkE58F7moYENG8lO/TbaBjqytZdmITFvzA2IgX
-         1FS08eLu6DxO/kZxDmK02xmbRQzacRJjoofecAhaX4KZ60T/1PMVY3P9/3roX1QC/biZ
-         /lffwQNR7g0O2LK/1ej1g1ipFrAjkFdhqTfJOybKHG/DTnh7fH/TQCV/C4rpq8sQ0KZL
-         pBhA==
-X-Forwarded-Encrypted: i=1; AKwUvByNl0zWlfZa+oYWowsoJ9VC7ZirRA87P7qicTb+IfKkbNdAFrhH6a25ln6PZVTTmDdz9Yb9Qvc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OWqanMsOdaFqbQSeLQS3bQ4oEjN98QN4HQQWkIy/5CWiYo/8u
-	ym1m/uvYz2Nvah9nvl7+8YM2W0SfR5F1ZhSBJRJUm6g/m9VjpdrxyTEoQPmrlnWtWvwUFq9lL3H
-	Q63k0VWPK3JatH6cL+2mx+lNM5eK7TJH2ZvVqPSLPR7lHhxpQD1hyKQ==
-X-Gm-Gg: AYBFou3AZMldAs2hY5d9QvkbuM42JNh4W5cLmuhH/6PxitRPBXCUtuq803mFi/+22Jy
-	ljoBJE39VEr9YdRTMXliggoLTE6R9cq8O5pcY3tALZWPggGlYOrUJUlEFltLyKkm24MWko9kGZg
-	vgSA5jib1ZNUZo/BvzRmS3g4LWXKEWMoIVGAwY5CQM48E1bODc4CGxBv/CiuTDZW4Yn8ElC8fCY
-	AMcf+L3Q7oiI5MzQ4y7oQF/DlsUTnZXCSuKFoAX+FnlkfGivBP3jSHojufr7lLWlCmZgWIvATS6
-	0UGHbPZP4vDooJcLIZ04d1tYPPnnlD6fVR29FdXb0IAnRm0bowBzEttRYbYNcD350qifDuDQG3d
-	94kV9XqZLXfpImehAWbWSTDVhTNgQQW7gCBSLTLIGUKMHJsA3BuYBgyGzJwf7yAjwdyi0SIfheA
-	MQN+2HfMrYEMgSd90=
-X-Received: by 2002:a05:6a21:8809:b0:3e1:4527:6350 with SMTP id
- adf61e73a8af0-3e928e16ca9mr8996830637.64.1793703862587; Tue, 03 Nov 2026
- 03:04:22 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=gaep7FO3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jZwcSM8Y/Y6i6H5PtKjlADwCOqZ8CBa+0lfQZk59fHDl4O6ntjfOzRq+O4M5HmeaDTw/HeKhRaSk8nBbrDFYYpp9KAFZfu7mbSqMacyO6AzEYoP9S7mkPUgPE7kKYuNGHYoqZpZ4AiIwZYO/D7dtjDRNbn9hUZ526VSiAcvN5GgkgIz+h3sVVfEkmum7URoyYrywRSXje+sJeAu/J+/dAmln8YfQZKUYckwH9/JLdOfL/rsN2begaEdXu5LR7uCwkjPeNe4sUpUL4QmSUH/+u0f6WTli3LrP9la0ZzRVMIoLcXE7ZKxMO/3PFPAqGq6ee9GhvVcbqEaKUhoQzA/siQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lqyP9znsQRdwaRYsM/qRC2zMR6bDJM+e2NWUwALCoAw=;
+ b=d1b4Sr0CkWrUiytFL9bw5A60jmNV8NImIB+HPvwm0vf9Fcz/Wrlf10ZLtJ7C8VrQheey80HCupp4TTWrmHtGef/xUThneULTrbmohMf+ofjbG0RGQGYyLkKulEXZYKy1VhpLGVZMkvUWoJt99bJCYCd/V1qeAwG89fQEzrl3RkZ8sEZjAdjSpm64i7Zujm59a8LTh+Hiwa8Jx2h4EOAEokuZ9mLuFNPnwRXmBgYWdrh+BX2nqwJLLqAhmd8/Ry/kpPDNlyKjtH8lSTvW99b/bj51SRdeZK2zVMiXKLSVnS4zS70Xsb15vNnmKNTweqih3hL+AB5YJP2qLiSnOMV8FA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lqyP9znsQRdwaRYsM/qRC2zMR6bDJM+e2NWUwALCoAw=;
+ b=gaep7FO3quECL69iCTl3DUrlK14hJm0D3zz04/anrC+w22NsdZy2OIAeQVFRzOmJ5pzZQmTf6Wq7KeoKfL4FK6iKUIxrWCrVORS0wLSswKFldcwwCyAtgrL1euIHw9Yy5XmsFHzO5PpkfnZVWiQjP/d/NITWxsnZtBzmY5kPoo+N+szWdAOt+mdGDk6rd7FYL84zA3IqbkGx+YUhIo19qhLiv7ssKgBQNtdtXBHfKnIDEkeXdyR7l8jYmZqRxoEnUdUnSE9T4OgKGhk9Xw/6pH346CwEA7Gvlp5VbAmdbXa2K9ITBLo8mOeudCnYSo4Q4y8wu6N6UZwTHBbu5GKO9g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17) by GVXPR04MB10235.eurprd04.prod.outlook.com
+ (2603:10a6:150:1be::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
+ 11:05:31 +0000
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 11:05:31 +0000
+Date: Tue, 3 Nov 2026 13:05:27 +0200
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: Jaeyeong Lee <lee@jaeyeong.cc>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Vladimir Oltean <vladimir.oltean@nxp.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] dpaa2-switch: fix port cleanup on probe errors
+Message-ID: <dxi7unnmj4n2ge7qv4hucyiygobwcbm6tool37eejrhczq63b3@lycuwgvixkhw>
+References: <20261102071310.3004332-1-lee@jaeyeong.cc>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102071310.3004332-1-lee@jaeyeong.cc>
+X-ClientProxiedBy: AS9PR04CA0056.eurprd04.prod.outlook.com
+ (2603:10a6:20b:46a::24) To MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,181 +96,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <SER-NSBD.v2.r0.20261101171325-3@mojatatu.com> <179366641863.488856.17368571591466000274@kernel.org>
-In-Reply-To: <179366641863.488856.17368571591466000274@kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Tue, 3 Nov 2026 06:04:11 -0500
-X-Gm-Features: AclHuK_7WMAkLafIRWU2ORlMWzjxOnh31UgwAxu8axG1fGQl-__VNHwZVi8gZuo
-Message-ID: <CAM0EoMnaxs4h5jRGX8Fw_oXh608WdEJo_9QAFTgmTbHcgN-BgQ@mail.gmail.com>
-Subject: Re: [PATCH net v2 3/4] net/sched: sch_teql: reject qdiscs from
- another network namespace
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shawnq1@163.com, 
-	davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, jiri@resnulli.us, 
-	kuba@kernel.org, pabeni@redhat.com, victor@mojatatu.com, 
-	thomas.goff@boeing.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|GVXPR04MB10235:EE_
+X-MS-Office365-Filtering-Correlation-Id: 753f9edb-a804-482c-6855-08df399a6059
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|376014|23010399003|1800799024|366016|10067099003|18002099003|22082099003|56012099006|11063799006|261021123027099003|261028144727099003|261022105027099003|261026140227099003|261026121527099003|27256017;
+X-Microsoft-Antispam-Message-Info:
+	IrOcdAb1QPLqZumxlXy48qgHGQqQ+/GlvTZcNV0INH+fr7i52jymyejmpkmhZdARVEyLKrPtP7sQfgPqEY2mC5O7WYBUDGZLJAFjp4/JXGVh1SJCNMlFyO6id6Q8aWGBqjJjtJyfvTwDRy5b7LK4J3Uh4eGyXGrgmdZGUTskErHD/iNyjMtYEn1Mfxk70BsjkeqXlW9h2CR72UVCqrYngidzmCA8sivW/5HNt0u/5bmWYQ8mLBn8h4zfDn4iWzeAW7ZVX2x9VTJrKf84KVHEE7TMtbfwBuFZ5H1CvmyfjiuX8RexQZ3T/5A7ETdap/kVLtLC5Cayz7myYTnA43+Fl48g0qfROyRiEwStV9ixQJZvqO6VcWfvqkvGK1t3qJqXkOmNWkm6+KKCcIKYo28rexMg1U+AQ8pd7DWQT4g43YdwY066MpSPNEToJNT78ol3opm0bNXRBT9+l5mWtXzfRB+uupUGmRyYLK2f9s2r9IA007RXyU4NlTWOnQPyC/uy0MFHzJ9Dc9ZihU+5F7rskKceiAbnTZBAfJcIt8gEnIBQeEAe/NqXu/CFMPCU2YuyhYWcg0B07zl6ugH2Um68GZVsx0QeSm3Rehkd7gceEwQfI7lj4cB4oh/fQAWmxa1gZjRvZFJVjFzr4LcxkGrpWWwHWwR+ROnUMfeMgXsTi5nSnWQAKJd1Btb6ucepH++ezwxhDwtjbTfyP7ONFGf14w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(23010399003)(1800799024)(366016)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261021123027099003)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(27256017);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HPLF3suYnxDVVszewCBK9npdfxOc3mG+m/ekMn+z/leZtyxUhbdnl7atjOoi?=
+ =?us-ascii?Q?Cdt5CqXJZre4xHwnv6TRLtie4vb+c7dxFBLsQZcMCxHRG+uw91mew1rRQ4GD?=
+ =?us-ascii?Q?d4JkF8ULLr5vuKlIgCExL+6LAScE6uiUTQrEl51VClbNCOkqF5VO/gA7j/P1?=
+ =?us-ascii?Q?jxqA3yF2gxUt9q4ATkwNFYGNJII9Vqs381l0FrYIkrbNNiT0zRyhEYrxkmdK?=
+ =?us-ascii?Q?P6OA4Kan1D1CzRapTbv6kMzb4zlTyJ7AzFFj69qtzyoDWvGJ37w4s/e3lt0L?=
+ =?us-ascii?Q?02branknO5CbCPEHnN+nlCCyT/oF8hBO+SFoASYoJ8G1+0O2VS20akIMR79k?=
+ =?us-ascii?Q?6CcmcNyOM+XXCYTRI9eVripwzq6YMl1/OLthzO/ROM++uvI3VJj4wsykOllX?=
+ =?us-ascii?Q?56/EeTEXGH2OruskPRsdQo39XhjJZ+WRac42aRh81aEcOf/LMuJR9W4cqdKJ?=
+ =?us-ascii?Q?DAfp+RqhmKG/RZFE9D6JdY1tk7+coUqSS6d19QVq07MnCiVgEhzrOSASas81?=
+ =?us-ascii?Q?4fwsc4cd9PWoKtZy2SfX1Dj3efCPhMcw8P8ctnTzl4PtRC2OSvxMN7XUlqdK?=
+ =?us-ascii?Q?Z0RK+vy/cAmIkvnI8hBs1Nb22t59ISYkHM3Csyfk8esTK3pUaCzadh+CBlhg?=
+ =?us-ascii?Q?Slb9u7Q3u2um+SMtHvothXgu2g6YOxChofZAohJSshaHmfT6I9sfNmTCT4CV?=
+ =?us-ascii?Q?IphdpE0jtTY7ZAx+byUDZPun/sxuQi8nyFu7WfnQEyMxK75wuQr+sd+KQ0yy?=
+ =?us-ascii?Q?wTubKSFydD6LBg8k4CKlBUAjh4RLpB5mIOEsJ+iUJeX+h5HdO44h51WIOQGy?=
+ =?us-ascii?Q?nvcBgFwlc1V7tQ+/suuP9ObZr6L6R9xfPAtu3hiOG1c5H9kbUNCaACTBfd7c?=
+ =?us-ascii?Q?lA5FpX20+5pNQO0Fr57USDeECaoh2fAP4FeuqPo7QeSEkfY++zmzJQpaF8zr?=
+ =?us-ascii?Q?+2HSoydds6TlYfNHggJcml9Xxfs2X6fjH9y+LognyZVhjnCBduQSbtVrsAO8?=
+ =?us-ascii?Q?30TsMgq1R+8Kjt/LJgRbUASW9ClLeakiGA/IuUJ1wkQEZRP9c/xneeme04Sh?=
+ =?us-ascii?Q?2Ki7SKkFXEYMu433E39x6G5Odr21+vTDMk/Is60yU/LeAa+tjN9O1ySxun72?=
+ =?us-ascii?Q?Oe5Fae94XUIKfOkxePXKLiikuAa2pWKkZ+hAtiON+0FJuXLNZ8CeDNhs31aC?=
+ =?us-ascii?Q?OxbFYsOzo5X9ry7C8Vkg6dnzjUha+zOWXurZ1QkZngrcmsrXmPPr6zmhd67x?=
+ =?us-ascii?Q?TpSipMQVwWaUaYRr70OYIinG6bmOLh5igMBWHJ/Gu3CBpNwMMrr9gQwGH/tA?=
+ =?us-ascii?Q?fYqh9KO9dwi6TGYg7bMeYMiyhQ5iHH0Ix35R9aS/HT5J8blhxKIYCY3Vye9C?=
+ =?us-ascii?Q?fHOIkTGJMMlffKXYY2beclwruCY/cwSzQgU/ZLDuXLOAjeLUkVl7BJUHV3R6?=
+ =?us-ascii?Q?7wvLx7VoMOUJkdnE1kd1BhaZsoh69Iyg/BploN+iqZn9AcUAbAagZjml3Aqm?=
+ =?us-ascii?Q?WAddWZn8greTPhWcIZexudD6E1OGzphCdYHLEAax2OBIvndl/eJ1SuOuGuDn?=
+ =?us-ascii?Q?Isoh/ci6vR7xRSNDbUVij0t0ye8Y6YS3/Sa/un8r478hHUM+TuuzgIjyiGXG?=
+ =?us-ascii?Q?I4NoMQbUS50CqhIunWkSQCNrZgrsKtob1FY9S7gMjJw21eV3DsP1aPlxyai6?=
+ =?us-ascii?Q?1qAiE4bCPit8ZIMF0xfU22a03DLXzURZYyVvt0Eo2RuqesJTtdejoduFT54L?=
+ =?us-ascii?Q?00cAwMv04Q=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 753f9edb-a804-482c-6855-08df399a6059
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 11:05:31.4742
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n+bHVJhSO5fXabEf/P2IOR5tJ85G4rzxh1ZrlopYNxL5+GSooSdtXFtQfIPl86qMLLUmx2SgznIKYdRraUOiPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10235
 
-On Mon, Nov 2, 2026 at 7:40=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
-e:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The fix only enforces the master/slave same-netns rule once,
->   when a slave attaches.
+On Mon, Nov 02, 2026 at 07:13:18AM +0000, Jaeyeong Lee wrote:
+> dpaa2_switch_probe() reuses i while probing ports, adding NAPI
+> instances, registering netdevs, and unwinding failures. Consequently,
+> the value reaching the port removal loop does not always represent the
+> number of successfully probed ports.
+> 
+> If IRQ setup fails, i is left equal to DPAA2_SWITCH_RX_NUM_FQS. A
+> switch with one interface then causes the unwind path to access
+> ports[1] out of bounds, while a switch with more than two interfaces
+> leaks all ports after ports[1].
+> 
+> If register_netdev() fails, the unregister loop consumes i down to -1.
+> The following port removal loop is therefore skipped, leaking every
+> port netdev and its MAC endpoint reference. The NAPI instances attached
+> to port 0 also remain linked while their enclosing ethsw is freed.
+> 
+> The issue was discovered by a static analysis tool and confirmed by
+> manually tracing the probe error paths.
+> 
+> Track successfully probed and registered ports independently. On
+> post-NAPI failures, unregister only successfully registered netdevs,
+> delete the NAPI instances, and then remove every successfully probed
+> port.
+> 
+> Fixes: 0b1b71370458 ("staging: dpaa2-switch: handle Rx path on control interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jaeyeong Lee <lee@jaeyeong.cc>
 
-Nothing to do with this patch - preexisting. Captured for a followup.
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
 
-> - [Low] After this patch, tc-testing case 124e ("Try to add teql as a
->   child qdisc", tools/testing/selftests/tc-testing/tc-=E2=80=A6
-
-True - 124e is now answered by either check, so it no longer isolates
-the root-only rule. I will send v3.
-
-pw-bot: cr
-> --
->
-> net/sched: sch_teql: reject qdiscs from another network namespace
->
-> With this patch, teql_qdisc_init() rejects a teql slave qdisc whose
-> device is in a different network namespace from the teql master. It
-> returns -EOPNOTSUPP and sets an extack message. It also moves
-> skb_queue_head_init() ahead of all validation, so every constructor
-> failure path sees an initialized queue.
->
-> Link: https://lore.kernel.org/netdev/20261022144830.67948-1-shawnq1@163.c=
-om/
-> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/SER-NSBD.v1.r2.=
-20261031160050-3%40mojatatu.com
->
-> > diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-> > index 70c948a26f809..dc21cd9704a25 100644
-> > --- a/net/sched/sch_teql.c
-> > +++ b/net/sched/sch_teql.c
->
-> [ ... ]
->
-> > @@ -211,9 +213,12 @@ static int teql_qdisc_init(struct Qdisc *sch, stru=
-ct nlattr *opt,
-> >               return -EOPNOTSUPP;
-> >       }
-> >
-> > -     q->m =3D m;
-> > +     if (dev_net(dev) !=3D dev_net(m->dev)) {
-> > +             NL_SET_ERR_MSG_MOD(extack, "teql master is in a different=
- network namespace");
-> > +             return -EOPNOTSUPP;
-> > +     }
->
-> [Severity: Medium]
-> This checks the namespace only once, when the slave attaches. What keeps
-> the master and its slaves in the same namespace after that?
->
-> teql_master_setup() does not set dev->netns_immutable, and sch_teql does
-> not register a netdevice notifier. So the master can still be moved with
-> "ip link set teql0 netns X". __dev_change_net_namespace() only refuses
-> the move when netns_immutable is set, and it only shuts down the device
-> being moved:
->
-> net/core/dev.c:__dev_change_net_namespace() {
->     ...
->         if (dev->netns_immutable) {
->                 NL_SET_ERR_MSG(extack, "The interface netns is immutable"=
-);
->                 goto out;
->         }
->     ...
->         dev_shutdown(dev);
->     ...
-> }
->
-> The slave qdiscs sit on other net_devices, so teql_destroy() never runs
-> for them. m->slaves and NEXT_SLAVE() still point at devices in the old
-> namespace.
->
-> After the move, teql_master_open() takes its MTU and flags from those
-> slaves and teql_master_mtu() checks against them. teql_master_xmit()
-> also sends the master's traffic through them:
->
-> teql_master_xmit()
->     struct net_device *slave =3D qdisc_dev(q);
->     ...
->
-> Doesn't that bring back the cross-netns master/slave state this patch
-> is trying to remove?
->
-> There is also a way back into init_net. teql0 has no rtnl_link_ops, so
-> when its netns is destroyed, default_device_exit_net() moves it back to
-> init_net:
->
->         err =3D dev_change_net_namespace(dev, &init_net, fb_name);
->
-> Suppose root gives teql0 to a container netns B. The container could
-> attach a slave in B, move teql0 to another netns C that it owns, and
-> then delete C. teql0 would end up in init_net with a slave on a
-> container-controlled device in B. That looks like the case the commit
-> message describes.
->
-> The first move out of init_net needs CAP_NET_ADMIN in init_net, so this
-> patch does close the unprivileged reproducer in the commit message.
->
-> Could teql_master_setup() also set dev->netns_immutable =3D true? Another
-> option would be to detach the slaves when the master changes netns.
->
-> [Severity: Low]
-> After this change, does tc-testing case 124e ("Try to add teql as a
-> child qdisc") still test the root-only rule?
->
-> 124e requires nsPlugin, so $DUMMY is created inside a per-test netns.
-> teql0 is always in init_net. The root-only check and the new netns
-> check both return -EOPNOTSUPP. 124e only checks the exit code and an
-> empty matchJSON:
->
->         "cmdUnderTest": "$TC qdisc add dev $DUMMY parent 1:1 handle 2:1 t=
-eql0",
->         "expExitCode": "2",
->         "verifyCmd": "$TC -s -j qdisc ls dev $DUMMY parent 1:1",
->         "matchJSON": [],
->
-> If the "teql can only be used as root" check were removed or broken,
-> the netns check would still reject the command with the same exit code.
-> The test would still pass.
->
-> The v2 notes say:
->
->   The cross-netns check ran before the "teql can only be used as root"
->   check, so every case it did not catch was answered by that check, maski=
-ng
->   the assertion that tc-testing case 124e makes.  The root-parent
->   validation now runs first and the namespace check second
->
-> The new order only changes which check fires first. Either way, 124e
-> cannot tell the two checks apart.
->
-> Could 124e run in init_net instead? It could drop nsPlugin and create
-> $DUMMY in its setup, as 84a0 does. Alternatively, it could check the
-> extack message.
->
-> >
-> > -     skb_queue_head_init(&q->q);
-> > +     q->m =3D m;
-> >
-> >       raw_spin_lock_irqsave(&m->slaves_lock, flags);
-> >       first =3D rcu_dereference_protected(m->slaves, lockdep_is_held(&m=
-->slaves_lock));
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/SER-NSBD.v2.r0.20261101171325%40mojatatu.com
