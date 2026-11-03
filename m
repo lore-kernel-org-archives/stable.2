@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687764;
-	b=sbsH35MAD80PqwbBV0h+E/6P2RrSiWMJvlADyILtHTeJUrwbWgEHS+53J76uLxNrRa9v
-	 cZe5uXLjsBS31W2iswo9oKFAaYW2X+RUqFmXtIci6KEmqtbURJLYOWxUZEr7gGHP/B+/N
-	 tGMHoC8O7QtgLL3zsMOIX3RyibryN+uqAEnuINXUQv4ymHCqUdUJHGOcMbGIeVYuSZnOd
-	 e3GKQEnJwaBUSkx84ZNM3EZgG7cGa1yKZDf9Mn3J0ql715PfCGvPPWdHrwc9W6ztjO2jN
-	 7c09MxA3lAOkmdKzoP+G4+G/8+zZHeWxAagO9bLPVd6OEETfsU9UZLZMCzcuJzUoXuw==
+	t=1793687928;
+	b=InG9aZqHu8oB4zAnEerIKXfS8dznw6JAFZgIAvPdcv1+mFjt7rmroesdckZ56cC8+I69
+	 qeCxcYqwkfqCBDPtnA0drO6lvLkEt/IS3Q5p85qM8o2+8zx5afQUd5ZWuKnf1yz1JaVDQ
+	 wE7nC1i1rwvse1m+Tp1preUX5sh6KdS9oPdx+sK77Q0Wwv8IkcAwQWQ42R3KNCtzqUIuM
+	 PBE6xNVY/rQgKaBvMfWGC0ul8lfK/kvZCVrllRrC96L+d1r0Lm3uQrqNvUzptW9OjrAQ3
+	 KqoJGqJEw89XT6j+GjewcJU3lEIEMbO7kJtnhtwpovDEEF4ZMUymOc6vCod0FK+ic3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687764;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687928;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=0bnxT/GaODOLw9buJdXMz007PkKtmbGsQ3QJymSQxXg=;
-	b=Fz4ennLExkHX5fWp7rYaBj5BdXInkLjRB14FTLl+cQKp4/AFqznCPRAoMlwTAE3sHmO8
-	 uFGjbvvR3EGpeRaiwv7rDEwSO+GJBYmvjiThXESSBYxZ7PGXltx/0rt9N8G74AAgA0veW
-	 sleiwf9+Prt9doMJvfU/Sde6WUlDyDKRhHjD8mVYqj1prtRqGXu4GJHzA/sMESUzvrwHr
-	 81iLNoap4j5fMywBkivqJgKadC980viEJhGUI+IADeFTWeYA7wkPhu3nzNh/OT39Fwbfv
-	 7JgxxDQmztDCRB4qnc4npBLVfiFrvxU/YC5otHvjcOTD2p1TtlcVYKE2+cNPCZPh4iA==
+	bh=sTSdkkz2vrjceniKIFMADF9L4UGSrsp9KNEr/A42Nmc=;
+	b=4a3C5uhvPy6faFfL/siJytWaiE2PtTtsAR6OWRWTdOnypMVsqDRJg4hpp+BiN++hQyl9
+	 ZkeUwgDVKblerfBlEbYvZeGhjGkD66eY53oRzrMMEZHtvpsW+F3ddMbBWzYYpto3Imz+p
+	 dWKi9iHWDWxdt473TUM8rcJ4jqNlhXh/lEdiM17Wrz8tpY9EbH1pXmKC1yIz2oAEZOWjO
+	 I5SFeuPc7A+FEEYLLrvdX5eQ8ceb/jMjoKbI7QOtDQ7V+B7En4bpgv6At52snVKe8d+l7
+	 bZ90hCpzss7bbwanX9ZAKo84kpc8wvGLspTO3exuYE/NSfPOZRbi9FRJNaf39KUZmOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,24 +25,25 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA803606A324;
-	Tue,  3 Nov 2026 06:36:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA803606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30ED606A324;
+	Tue,  3 Nov 2026 06:38:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C30ED606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3xZbQgOlqnWs5AA--.93S2;
-	Tue, 03 Nov 2026 14:36:00 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAAHGJlxgelqZHE5AA--.148S2;
+	Tue, 03 Nov 2026 14:38:41 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: rafael@kernel.org,
-	viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org,
+To: ayush.sawal@chelsio.com,
+	herbert@gondor.apana.org.au
+Cc: davem@davemloft.net,
+	linux-crypto@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] cpufreq: mediatek: Release DVFS resources when removing the driver
-Date: Tue,  3 Nov 2026 06:36:09 +0000
-Message-Id: <20261103063609.1028187-1-vulab@iscas.ac.cn>
+Subject: [PATCH] crypto: chcr - Free fallback transforms when device assignment fails
+Date: Tue,  3 Nov 2026 06:38:50 +0000
+Message-Id: <20261103063850.1033008-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,11 +55,11 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3xZbQgOlqnWs5AA--.93S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZrWxtFy5AF17Xr43CF15urg_yoW8AF13pF
-	s8XrWYkrWrJFsrKa1xCw4UCasYy3Z7u3yYgr13Gw1Fqw13JF15Xa4UWayUArZ0krWkGr4q
-	yr1jga47uFWkAFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowAAHGJlxgelqZHE5AA--.148S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJw48WrW7Jr18KFWkJFy3twb_yoW5tr4DpF
+	4Yk3yvyrWrJFn7KayxJrs5G3s8Ga9ayay7KrWFkw1FkwnIvrWkWF9rX3yjvF15tFW8JFW5
+	Zr4vyas8Wr1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
 	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
@@ -69,56 +70,95 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7ZrWxtFy5AF17Xr43CF15urg_yoW8AF13pF
 	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
 	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
 	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjiL05
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbkhL5
 	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIAA2rpWtl8QwAAs5
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQAA2rpWtl+-AAAsC
 
-mtk_cpufreq_probe() registers the cpufreq driver and retains clocks,
-regulators, OPP tables and OPP notifiers in dvfs_info_list. There is no
-platform remove callback to undo this on device unbind or module unload.
-The devm-allocated DVFS information is freed while the list and cpufreq
-driver still refer to it, in addition to leaking the retained resources.
+The skcipher, RFC3686 and AEAD initialization callbacks allocate their
+fallback transforms before calling chcr_device_init(). If no active
+device can be assigned, chcr_device_init() returns -ENXIO and the
+fallback is leaked. The crypto core does not invoke the algorithm's
+exit callback after its initialization callback fails.
 
-Unregister the cpufreq driver before releasing the DVFS resources and
-removing their entries from the list, as in the probe failure path.
+Free the fallback transform before returning the device assignment
+error in each of these initialization callbacks.
 
-Fixes: 89b56047f6f9 ("cpufreq: mt8173: Move resources allocation into ->probe()")
+Fixes: b8fd1f4170e7 ("crypto: chcr - Add ctr mode and process large sg entries for cipher")
+Fixes: 0e93708dabc0 ("crypto: chcr - Add fallback for AEAD algos")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/cpufreq/mediatek-cpufreq.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/crypto/chelsio/chcr_algo.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/cpufreq/mediatek-cpufreq.c b/drivers/cpufreq/mediatek-cpufreq.c
-index f9b1eca176eb..5776310d96c0 100644
---- a/drivers/cpufreq/mediatek-cpufreq.c
-+++ b/drivers/cpufreq/mediatek-cpufreq.c
-@@ -677,11 +677,24 @@ static int mtk_cpufreq_probe(struct platform_device *pdev)
- 	return ret;
+diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
+index e2f2b2a6200e..fd4720fa50a9 100644
+--- a/drivers/crypto/chelsio/chcr_algo.c
++++ b/drivers/crypto/chelsio/chcr_algo.c
+@@ -1439,6 +1439,7 @@ static int chcr_init_tfm(struct crypto_skcipher *tfm)
+ 	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
+ 	struct chcr_context *ctx = crypto_skcipher_ctx(tfm);
+ 	struct ablk_ctx *ablkctx = ABLK_CTX(ctx);
++	int ret;
+ 
+ 	ablkctx->sw_cipher = crypto_alloc_skcipher(alg->base.cra_name, 0,
+ 				CRYPTO_ALG_NEED_FALLBACK);
+@@ -1450,7 +1451,11 @@ static int chcr_init_tfm(struct crypto_skcipher *tfm)
+ 	crypto_skcipher_set_reqsize(tfm, sizeof(struct chcr_skcipher_req_ctx) +
+ 					 crypto_skcipher_reqsize(ablkctx->sw_cipher));
+ 
+-	return chcr_device_init(ctx);
++	ret = chcr_device_init(ctx);
++	if (ret)
++		crypto_free_skcipher(ablkctx->sw_cipher);
++
++	return ret;
  }
  
-+static void mtk_cpufreq_remove(struct platform_device *pdev)
-+{
-+	struct mtk_cpu_dvfs_info *info, *tmp;
-+
-+	cpufreq_unregister_driver(&mtk_cpufreq_driver);
-+
-+	list_for_each_entry_safe(info, tmp, &dvfs_info_list, list_head) {
-+		mtk_cpu_dvfs_info_release(info);
-+		list_del(&info->list_head);
-+	}
-+}
-+
- static struct platform_driver mtk_cpufreq_platdrv = {
- 	.driver = {
- 		.name	= "mtk-cpufreq",
- 	},
- 	.probe		= mtk_cpufreq_probe,
-+	.remove		= mtk_cpufreq_remove,
- };
+ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
+@@ -1458,6 +1463,7 @@ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
+ 	struct skcipher_alg *alg = crypto_skcipher_alg(tfm);
+ 	struct chcr_context *ctx = crypto_skcipher_ctx(tfm);
+ 	struct ablk_ctx *ablkctx = ABLK_CTX(ctx);
++	int ret;
  
- static const struct mtk_cpufreq_platform_data mt2701_platform_data = {
+ 	/*RFC3686 initialises IV counter value to 1, rfc3686(ctr(aes))
+ 	 * cannot be used as fallback in chcr_handle_cipher_response
+@@ -1470,7 +1476,11 @@ static int chcr_rfc3686_init(struct crypto_skcipher *tfm)
+ 	}
+ 	crypto_skcipher_set_reqsize(tfm, sizeof(struct chcr_skcipher_req_ctx) +
+ 				    crypto_skcipher_reqsize(ablkctx->sw_cipher));
+-	return chcr_device_init(ctx);
++	ret = chcr_device_init(ctx);
++	if (ret)
++		crypto_free_skcipher(ablkctx->sw_cipher);
++
++	return ret;
+ }
+ 
+ 
+@@ -3164,6 +3174,7 @@ static int chcr_aead_cra_init(struct crypto_aead *tfm)
+ {
+ 	struct chcr_aead_ctx *aeadctx = AEAD_CTX(a_ctx(tfm));
+ 	struct aead_alg *alg = crypto_aead_alg(tfm);
++	int ret;
+ 
+ 	aeadctx->sw_cipher = crypto_alloc_aead(alg->base.cra_name, 0,
+ 					       CRYPTO_ALG_NEED_FALLBACK |
+@@ -3174,7 +3185,11 @@ static int chcr_aead_cra_init(struct crypto_aead *tfm)
+ 		tfm, max(sizeof(struct chcr_aead_reqctx),
+ 			 sizeof(struct aead_request) +
+ 			 crypto_aead_reqsize(aeadctx->sw_cipher)));
+-	return chcr_device_init(a_ctx(tfm));
++	ret = chcr_device_init(a_ctx(tfm));
++	if (ret)
++		crypto_free_aead(aeadctx->sw_cipher);
++
++	return ret;
+ }
+ 
+ static void chcr_aead_cra_exit(struct crypto_aead *tfm)
 -- 
 2.34.1
 
