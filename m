@@ -1,58 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793695326;
-	b=FFrvQ2wN0zs3ad+FjyLBlBNze+RAtS1zw7t/sO3SR5oB6Fw0lonT4k3/5x28FC4lrZ+1
-	 hXqDaFjlxpgICzvl7Dd93Jpg2wyFwj8L2BSQjIePXoB5nA7WIlY98B8I3hCN7pqR4oVMq
-	 W+gPKasPNlb1ZKLJ33+yG1SLFlMRoTr77kWjUL0Ye/xwxjmk4dfb/uH3XoiX4buU61iey
-	 DktdezmzHe7vn0mucunECzyt/VX0pPPErdbdVd8dZgG2feQZbxXJPrzDAcqlFxlddrMEp
-	 6LmjtVSf69In/heebjKgvAuOY/VBJ3LANdQUJu9Hn7Rcf1BU/dUweOJgAIfBkDRTvHg==
+	b=PXVOU4YlNnPYmj4NeM+bvLTqdEQm7IFWbW6C54q6QWwIFFFNxNzIXrlzTlUcuPooIvuB
+	 DeJeCvSzESRBPe3dsPzB2Yfh1zDyh2rd/mNpmn9bW7H3zh/QrISLNvPPdoy2dfEDhp6EP
+	 f/nzZXV+/gYC2li+0QA0EEz7O9DKqlA7zz8FOvzlSNKUWBx9FjMxpCJhiNXlbN9QOIxfi
+	 YzfLY40xI5MX74NJiETd1lz72lhtFkvP+HkDiTxt1uMomj2jYNQv3lutYv/L9zorui4P3
+	 8R4DJxDB4ysqvtYukr4fNENmp/MdTtXc2+NGD4jnzBYlBXG5nOTa9MFncYnPkWSTxfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793695326;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/Mmu1SJgefq+KaAvFDsItBgRjAHi+/Cf/AJ8uC5U19o=;
-	b=TPqhH+WHQc/9w73gfgBL4/Gw0kknalL4kWx+rV4KERJ1qy1WHQ3Bo4em2MmKDO7XFwIy
-	 88rjgyysa8AQmXa44AEx8Xu/cHswLyt58odxvcy7WuEO5BMwCnN/68Me2VjoqTqLUc5tg
-	 VD120fEHrI6I5qan78nDiqYTNCQpgSY/qNFZoBUwqT+kHyqw7VDsI6il0QFwkv5NzCTuU
-	 QlDmp0yNDeCJgyxnw1i7Ox8rtCTqXHGAF+9fL7TCXZhQPnxFfid1itMvPFTmQZ4oCu72s
-	 xPiZaqNCATXX1HATAWwQIRdM3WC3Ag/GgwIDM6b1pjoEFsDvOBatdQn/jvlEKZglWeQ==
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LQtgJbqMUtgTAOSiSBIZQmE3kB6GQm4rRSSxiylbZ2Y=;
+	b=HEwUVBUuW2NfOVLEKoBSav/nhmzCf2Rgd+BSp6RRVSVSaE8GtwVm/OsvPqJt2DzCJRZ5
+	 2u2NEwV+08Lck9Q3ll/w5C6jXJneFKhQXhQY12NLY1FdNC8rOc1hPaUrZaLB3lsDhTUlO
+	 VsFufgEZvD9Ncy2NVUqCHuF1ean2T5igrYbP/KZPBc7Myu0J3vuYA/Wod1ytrNIcSynfo
+	 uqEsWiTDikbgxredLeV6d1/o2uLRRhQAQ9YZ+x97YwA7Axzf/S1KJNfCFzJILuAIJKSwA
+	 hnc97NaZfNQ/q+FKmIAJLhEMkPQoGbqqF7Xdxla+SNTsnozoMxQ8GMubXaX6Ri4sYzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArRY5tYD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=goJHZ4CD;
+	arc=none smtp.remote-ip=115.124.28.170
+Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DF8606D834;
-	Tue,  3 Nov 2026 08:42:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8EE606D830;
+	Tue,  3 Nov 2026 08:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC8EE606D830
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArRY5tYD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8121F1F000C1;
-	Tue,  3 Nov 2026 08:42:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793695325;
-	bh=/Mmu1SJgefq+KaAvFDsItBgRjAHi+/Cf/AJ8uC5U19o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ArRY5tYDCFtc+xAoM77X7yHuc7rwLTxS1aG8aniTRKZtQGG442iT2gAjl2m+2dnnS
-	 G+x+3k3jdG/f9V6Ry2EC6wMt93w+qL6UAFF3n4mG2B4dCloG5G4EwLnqrfLFnbkFJu
-	 TVKZ97pmWfUobd6UGBB3rVmPxEolFi8QvwwI97bWdICu7aoijfe08s48DJ+voAL4Sr
-	 Tw0HK23tCKk2+MLHCh/kPVnPF5cV8SneXBmKrRyfbWAsj4nk316I3t0Y1VXaYkys8F
-	 wkP/2Fq9Ez76IMQS8TueH6Gfef4ET86iQJ5WDrGrumAkawpwZDe14gdg0mEl2dWHO8
-	 BA07yDEdurjig==
-Date: Tue, 3 Nov 2026 09:41:58 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.com>, 
-	Al Viro <viro@zeniv.linux.org.uk>, ecryptfs@vger.kernel.org, linux-ext4@vger.kernel.org, 
-	jfs-discussion@lists.sourceforge.net, linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, 
-	linux-mm@kvack.org, ntfs@lists.linux.dev, ocfs2-devel@lists.linux.dev, 
-	linux-btrfs@vger.kernel.org, gfs2@lists.linux.dev, linux-efi@vger.kernel.org, 
-	linux-mtd@lists.infradead.org, linux-xfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 33/34] xfs: allow remounting read-only after a shutdown
-Message-ID: <20261103-galgen-ehebruch-stehen-a967c14ce53e@brauner>
-References: <20261029-work-fs-sb_rdonly-v2-0-2f44f64f0b66@kernel.org>
- <20261029-work-fs-sb_rdonly-v2-33-2f44f64f0b66@kernel.org>
- <20261103054155.GB1559@lst.de>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=goJHZ4CD
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793695316; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=LQtgJbqMUtgTAOSiSBIZQmE3kB6GQm4rRSSxiylbZ2Y=;
+	b=goJHZ4CDH/fnhmAV2iPJaj0rxe4lydyoSDjHcYdXW6UKp+cbe32Shn6iwFaQpyNJqG0NLFRcDOTg9NBrJtrIA82t9/2ofJmu2+7n60d/Q8CRak9TrOQ0t/kN/oi8ZMYDUMzq32e087j+QjZ3uZf+DNkXhTuz/B6iCLAWDAAmgto=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08949134|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00814184-0.00866965-0.983189;FP=10179339250055005936|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jvSBmFI_1793695315;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.jvSBmFI_1793695315 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 16:41:56 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: peterhuewe@gmx.de,
+	jarkko@kernel.org
+Cc: jgg@ziepe.ca,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	liuc63@xiaopeng.com,
+	stable@vger.kernel.org
+Subject: [PATCH] tpm: eventlog: check the payload size before reading tag events
+Date: Tue,  3 Nov 2026 16:41:55 +0800
+Message-ID: <20261103084155.426783-1-zhugl3@xiaopeng.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,17 +63,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103054155.GB1559@lst.de>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 03, 2026 at 06:41:55AM +0100, Christoph Hellwig wrote:
-> Btw, if my previous reply wasn't clear:  please add the test for this
-> to xfstests where they actually get run regularly and not the kernel
-> selftests which for file systems are basically unused.
-> 
-> Bonus points for having generic tests instead of purely file system
-> specific ones.
+The EVENT_TAG branch of get_event_name() casts the event payload to
+struct tcpa_pc_event and reads from it:
 
-I can drop the tests from this series but xfstests for this will be a
-follow-up.
+	pc_event = (struct tcpa_pc_event *)event_entry;
+
+	switch (do_endian_conversion(pc_event->event_id)) {
+	...
+		for (i = 0; i < 20; i++)
+			d_len += sprintf(&data[2*i], "%02x",
+					pc_event->event_data[i]);
+
+The log iterators only verify that the event header plus the declared
+event_size stays within the log buffer; they do not require the
+payload of an EVENT_TAG entry to be large enough for the fields the
+branch reads. A truncated entry makes the branch read up to 20 bytes
+of event_data[] past the end of the entry, and, for the last entry in
+the log, past the end of the buffer itself.
+
+Skip entries whose payload cannot even hold the event id, and skip
+the 20-byte digest dump when the payload cannot hold the full
+tcpa_pc_event header plus the digest, so the branch never reads
+beyond the entry it is formatting.
+
+Fixes: 55a82ab3181b ("[PATCH] tpm: add bios measurement log")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+---
+ drivers/char/tpm/eventlog/tpm1.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/char/tpm/eventlog/tpm1.c b/drivers/char/tpm/eventlog/tpm1.c
+index 0397e3361020..f93a358a706e 100644
+--- a/drivers/char/tpm/eventlog/tpm1.c
++++ b/drivers/char/tpm/eventlog/tpm1.c
+@@ -178,6 +178,10 @@ static int get_event_name(char *dest, struct tcpa_event *event,
+ 		}
+ 		break;
+ 	case EVENT_TAG:
++		if (do_endian_conversion(event->event_size) <
++		    sizeof(pc_event->event_id))
++			break;
++
+ 		pc_event = (struct tcpa_pc_event *)event_entry;
+ 
+ 		/* ToDo Row data -> Base64 */
+@@ -203,6 +207,9 @@ static int get_event_name(char *dest, struct tcpa_event *event,
+ 			name = tcpa_pc_event_id_strings[do_endian_conversion
+ 							(pc_event->event_id)];
+ 			n_len = strlen(name);
++			if (do_endian_conversion(event->event_size) <
++			    sizeof(struct tcpa_pc_event) + 20)
++				break;
+ 			for (i = 0; i < 20; i++)
+ 				d_len += sprintf(&data[2*i], "%02x",
+ 						pc_event->event_data[i]);
+-- 
+2.50.1
+
