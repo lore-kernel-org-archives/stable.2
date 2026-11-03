@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704251;
-	b=YQoFmEKX3wtHyxnZsnDgNDDebhLplnYtEnvuaGXdWabGwiQV0BaC6iBcFgp0J9iYW0v4
-	 k9grtfUVE3d00SWE3Ptd4TR9n2BJM194SCoBLuvs32+DZjMQMw/rTr4D5fOF0O0nsrc1W
-	 uXWfICLE4Opjqy4/FQ68PoVzu5qcg80/E2HUPoKcQelGgGWQ2ZDXhycpDbf4mnE9PODtP
-	 bzLwY213VTVveig2495pyFqrOd1OWhTCE/uckeLd2ivj3hCVk5x2rL1PEn0nRC1WZzBaE
-	 aUNIBESzg3ccYZ4kqmc2DKYygYWwM/DDWehd05KaM9tud0uHPejrulvoclosloaECHQ==
+	t=1793704248;
+	b=zEBK7AO0vyxZo1s7Wsl92lOja9WFr7AuScEc9DLmTKyMINcAJfV1ibvvN1R/rAOC4tPK
+	 CM8gq5DiHQfrVii2rEa7dxQkb1U2I/9mpWvnEdkS13qsH80VfV3hRfJHo6ZXJUQ0XBKye
+	 ShCmoZ/2FidK2YI02k7yWm3zGH5HlddrFA6yKOdfeHcHX8yZOwUo1H6WGS+sG3v5OK1Bf
+	 oe1sANUIaZfX+35PIKAzSgrRsRHZxJf5vV42OEVL5cljc55Uts7yXWNw7cj8AJmpk5iuG
+	 LWNrqTw3CpCf2lmtJzdOnhAu7cxPGky5TJc5OK9IkcmBis+jegXds+nDnE5XjT9VFqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704248;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
-	b=e68/fIJle3SqJsqkLUne70GrJZ0yQw/TzdxCWIes5N1QC9UVpwIVGaPpsMyttuS4VwWg
-	 rLKCi5a61mPiahSiFjVhcgWFDstka1+n3MD3O26ElJlaKAArJpYj47KIjpRmht7+cWTgc
-	 zOSFSMZ/IW6VtYnA3W3io7unGFpEUtWjllswFBMIi3EiTT5clXdUuw3jw9WcsWKVIg/83
-	 c/hnKPfvDOMLRPZ+gfIcnWYOFtgH3vDckCHZ3hzgNmLtVHT9KxS0RE1SF3M40u1y7LfId
-	 Hy04GhYjuxVeDdWMfOK/2DkCBvyZ8SUAb2w0bPzVmsdOhfx10p1pXhk1E63Ds0uN7WQ==
+	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
+	b=jGWlxDkzFrB3GEF8ici3U9YsTrixOSU8IGt7JupE4Dwa3ze/HnCqebiBuHqQpB/d3Zxa
+	 LJdtpo2wYthcESLCkz33DcydH5KJTNrSQwC7BBwej1uEaXkty+VUytOqm6gGcrigktmEv
+	 C6r/mAnGKz8pe9hkuAJZVQbhqwrdZuduwqKUSIMCUajR7MR7eoJpZSu3fe9NblWILkRbe
+	 od2Dd5KCk6acMeZKM6WlnWrS4nrM9ativNYlQzBfiUDcNRLBQS50jnCHT8gHnnWSbYB7f
+	 sctz8+1avCgmyvxgXrgkbrT7IxrO+Au8MjPmg2PXpZdiA3ut42HMkkPB8mLrPTOTfqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8060E60A2606;
-	Tue,  3 Nov 2026 11:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4C60850A3;
+	Tue,  3 Nov 2026 11:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916191F00A15;
-	Tue,  3 Nov 2026 11:10:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLc0Xf4g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67611F000C1;
+	Tue,  3 Nov 2026 11:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704251;
-	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
+	s=k20260515; t=1793704248;
+	bh=U3a4vIXiEGtL1/PeSnTPB5g6R0EJNMxhi9bu6NnV8rE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XJ1UAi9mpNneNpGrFngBKLnAAQoITDGDRX7v4IG7AZyyyfA42cWofmwPqt48E9T0a
-	 PLFWJv1Fu0Cs/qHNcyuY/WlX0vNKRz+zKevKXBB8/nqvidQOt5fEhxt61ey9kRtpNM
-	 2SL4Q6Ie2OlnP8ByQ02yVZGsVN2w18YJ4bSSsDV+HMKrIXWAVRSN7S90a6SIYd+1qj
-	 NwOFh35Q51WmE8OnvtWaKpggB4ojxT4poaHyuP3bdr7nQVvOkJQvkhPh2pgfXZl9C6
-	 YxHUylOq3PVySM5dT05rNQPguMH/gTn/GskVIXQy96v2f0HuaiDxMYWZQg26+342Lj
-	 14i5bqImHsfYQ==
-Date: Tue, 3 Nov 2026 12:10:48 +0100
+	b=eLc0Xf4gELp9GPTXowoGCu175no2Mh1097F+4J0/CdZghDIzoUUbyP2Cw8Yt8uLOz
+	 xWFp9vo6l/GqUWFY+8dSawSD6ycyL/8c529cqSEHDhxDhU5rWMiUkLZImTICoJx41c
+	 Rm8tZfOC0mbOjQzhDxtRqx6xhBww2TE3C/oEf9XWS8unxFOFkl32G6Z7inzfacjbs7
+	 aE3E5Nf0XFcyNAOfT0Pu8ZI9UkG2hhnZiH6MGaSgyzjc4XwUliXcAx3WdbRzp/2iW4
+	 sp7xmxMRVvbPuVd6BuWT52mRRl4NDlESKgzZzNHrW6lIqyd25NSyB6jV6+G0fVcK1L
+	 7tbpzSBRbQLdQ==
+Date: Tue, 3 Nov 2026 12:10:45 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH] media: cec: extron: release the v4l2 device on disconnect
-Message-ID: <20261103-crystal-auburn-bug-b75e9e@quoll>
-References: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+Cc: devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] of: unittest: fix node leak in
+ of_dma_get_max_cpu_address test
+Message-ID: <20261103-premium-brainy-chachalaca-a3b6ac@quoll>
+References: <20261103104234.1373570-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,25 +60,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104234.1373570-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:50 +0000, Wentao Liang wrote:
-> extron_connect() registers a v4l2 device, which takes a reference on
-> the underlying serio device. extron_disconnect() never unregisters it,
-> so the reference is never dropped. The extron structure allocated in
-> extron_connect() is not freed either.
+On Tue, 03 Nov 2026 10:42:34 +0000, Wentao Liang wrote:
+> of_find_node_by_path() returns a device_node with its reference count
+> incremented. of_unittest_dma_get_max_cpu_address() passes the node to
+> of_dma_get_max_cpu_address(), which does not consume the reference, and
+> then returns without dropping it.
 > 
-> Unregister the v4l2 device and free the structure at the end of
-> extron_disconnect(), mirroring the error path in extron_connect().
+> Release the reference after the check.
 > 
-> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+> Fixes: 07d13a1d6120 ("of: unittest: Add test for of_dma_get_max_cpu_address()")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/of/unittest.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 Multiple things here:
