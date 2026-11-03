@@ -1,47 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702876;
-	b=nclot8rG/pRIdMGoV2orWQTC+KqxmTQV2i/Mrg2/0V5ULgMvBN5NcSqxA5B1vdJWT88X
-	 zilT+WYLN0U2iccoZnedcEq7WuXReF4oHHiStzb5i4WBC/tfHzn35mK1clpOfv4B1A4jV
-	 Z6ap8BQeaqQrF9i2F8h3qWTJI91I3M0EAHf3DUjOmbSE+pLE7+lUGf0pQXbW2+/jtwBTn
-	 jtul1C7SN9jbnDzpJ1F2ugXbBP7x47JqJPfEKVANlfxzbQncmKsCVIOnieF/G74kxN6vD
-	 GOIWfCOb/ay1MDgZRfyQIG4mH1qQoxd/JQ64znuT0nqbbbG7UR3bWaCr8IbrvBu+7NQ==
+	t=1793702932;
+	b=IUGSRyB7jLS0MzkV0jPJFai4fR+RhyhYvR1CngNrVPPcckkSKKeu6Cm1g3UtRbbxWi40
+	 uKXohgM8NZ+EYQMl8C5+XKJqOiRRiOY5jDeJtMuji1zKZZoE0kOjgCTWDBDzV0EjokrQZ
+	 jtEvW1TfOuGDabjb3gFirt4X1Vp1WWKz27jUvxQgUPEo6QucNHMfoCmkQ8xRNoXoBR7JG
+	 0ZhloIRuIv8yWzd4LYjujH/AjMstwZBtTLl5kOqmH9yw1C0TNxYAEU/66nJKMtqFnqEe1
+	 zChzF42/x8hjblyfj/VpMrPpJtYrNyyEoBwyTzfZ8/KyjlLNM6R2j07kIfHZPdOkArQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702876;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZMVjNwQz7HE0PKNntQGDOZ0+SFjkLEB/cWj8XAK3BWw=;
-	b=qPnHno84Li1H8UNcwkr5xuNxi2U+vXa8DiiZJ7AlJ0SITKm8ajbAYk01ChBq2NhYRzcW
-	 668MvVeXK9jII2KlxjVA9YFufLlYBeNtCRugHU6BwXf4JpzVStiesW4sG4LtxthrTMZj1
-	 WIjhT8KTdZtbOcGkKcD7CS8ud7/6IOoRq0rPFbSb2Lpl4WSvN9bUWaRYMgvUDAZhTckb3
-	 JSR3QhnGRAUPHVoW1EJWVpcfJqLDuZv06nh33VUpihqPVop5jm9MKm+PMAj6hPPH+0fGX
-	 RElnPPECn8Fin5VUrbguH6eh8cBCpVYOaL+B2isE2geVbe1dRhbyOFIObrc9V/+Si+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702932;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=50pkaCz8b4z8jaQs9WghlsSPJli4Zqrxz0vpX2mV8AQ=;
+	b=iy+rrkDxX/71/xqtsyJp35/rANs06UPrcZW2gTVPZwB8zzJyGVLajNDpnpFOAmanVLXM
+	 TtyjuYpRLLEtMDwTiXc5oyRKLD3XMApldVfNlV87e0s7MMnl3zwRWSo3m9FROj/xOh+p+
+	 EcGEOi5ZkifkCmI/6to9c2VUODK88D1B2OtD+RIyl/IgmBtWZH2uQibysDDpdjfnm282K
+	 lIpgQNqdKw3Lqdeqp8FFfixbM8XDVUOYOjTYSEBvYyzGQS4PIKg9SxrM21lnJZq6Ern6H
+	 toAprDT0RutRQzNA0wW0Nt24UsIb9J0opmMuW6SIAmMcvlmTAA88WZKFoi5Ak5HwX3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W0CA4YIJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BVv1oYgp;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72CD607378D
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594B0606A332;
+	Tue,  3 Nov 2026 10:48:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 594B0606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W0CA4YIJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554A41F00A1D;
-	Tue,  3 Nov 2026 10:47:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793702875;
-	bh=ZMVjNwQz7HE0PKNntQGDOZ0+SFjkLEB/cWj8XAK3BWw=;
-	h=Subject:To:Cc:From:Date;
-	b=W0CA4YIJ0jCflMU9lXQrrZoL28WfBpvcd4jXf45azLDnZRx0fxV8C/g7ox0us96G7
-	 o9eCzdookkVj/qdnMVwbho8KsFuAqeE7Tv6Zkc+jpNJQ6n5/x8cnsZiq3Lp8/HrxR0
-	 a4cWCAPDJM8+aiZQSVUs6SeI8J1O6mU5UKZtmhUo=
-Subject: FAILED: patch "[PATCH] ksmbd: verify transform SessionId matches the decrypted" failed to apply to 6.6-stable tree
-To: zhangdairui@gmail.com,linkinjeon@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:46:44 +0100
-Message-ID: <2026110344-unguarded-nimble-eff6@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BVv1oYgp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793702932; x=1825238932;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mv7pmrDh8sYJR4u7eLjn9aGpW2b0JTNwn14X6yW880U=;
+  b=BVv1oYgpsvTKPJfvNiLo0h+3cb85RKp9wmxX9H/yYD3d3tax1JBzb+yc
+   KtKQwGsINwDqqcAuBb3pOI4oD6HdczTyQhZMVZ8sUzD+0CDPxy0nLcV91
+   ybSnMqh+TNzf+9w5YuRew/pSMfb1eOG9fpVZiyGsRmYA/3GtHoeSBXWRR
+   pv5CUb84jTJA5vd9IK2bQUtvsqTUgMkUU2AAU4suimkS/fVx+2vJrcGnk
+   UBYEocbPnvoj1tmWJgvT3DrL5Iehr917I8tQT90wtsAYrR9odcRB6iA5Z
+   xP1yccyMNZ54++mF/xCU4J1PK9f6fy5y7lf7xvTCFJRUDel2o40cDYeDc
+   g==;
+X-CSE-ConnectionGUID: p3l42IIRTz2/W+l7URI9qQ==
+X-CSE-MsgGUID: 2zZckBp0T3GfLhwfYnPUng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2326282"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2326282"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:48:51 -0800
+X-CSE-ConnectionGUID: wSPmumnPQXWrk1dPpk4ksw==
+X-CSE-MsgGUID: 7RKJ6rh8RU24Fxi0vH6O/w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="6221460"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:48:48 -0800
+Date: Tue, 3 Nov 2026 12:48:45 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5 1/7] gpiolib: wait for pending label frees before
+ cleaning up desc_srcu
+Message-ID: <aum8DRhBqCOiEUsj@ashevche-desk.local>
+References: <20261103-gpiolib-chip-removal-v5-0-aambrozewicz@nvidia.com>
+ <20261103-gpiolib-chip-removal-v5-1-aambrozewicz@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,181 +86,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-gpiolib-chip-removal-v5-1-aambrozewicz@nvidia.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Tue, Nov 03, 2026 at 12:32:34PM +0200, Adrian Ambrozewicz wrote:
+> desc_set_label() frees the old label with call_srcu() on
+> gdev->desc_srcu, and gpiodev_release() calls synchronize_srcu() before
+> cleanup_srcu_struct(). synchronize_srcu() waits for a grace period, not
+> for queued callbacks. Once the srcu_struct uses per-CPU callback lists,
+> a label freed by gpiochip_free_hogs() can still be pending, and
+> cleanup_srcu_struct() warns:
+> 
+>   WARNING: kernel/rcu/srcutree.c:706 at cleanup_srcu_struct+0x239/0x330, CPU#0: init/1
+>   Call Trace:
+>    gpiodev_release
+>    device_release
+>    kobject_put
+>    devres_release_all
+>    device_release_driver_internal
+>    platform_device_unregister
+>    gpio_sim_device_deactivate
+> 
+> Use srcu_barrier(), which waits for them.
+> 
+> Reproduced with a hogged gpio-sim line, setting the chip live and back
+> on a 4-CPU guest with srcutree.convert_to_big=1: it warns within 60
+> cycles; with this change, 1000 cycles pass.
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+...
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> Assisted-by: LLM
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 798214e6fafcdcc29f5ba2661a473232b5e70cfb
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110344-unguarded-nimble-eff6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+This tag is obsoleted. Instead explain under '---' how AI has been used to
+generate this contribution.
 
-Possible dependencies:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 798214e6fafcdcc29f5ba2661a473232b5e70cfb Mon Sep 17 00:00:00 2001
-From: Dairui Zhang <zhangdairui@gmail.com>
-Date: Tue, 29 Sep 2026 22:30:00 +0800
-Subject: [PATCH] ksmbd: verify transform SessionId matches the decrypted
- header
-
-When an encrypted request comes in, the decryption key is picked by
-the SessionId in the transform header, but the request is then
-authorized under whatever session the decrypted inner header names.
-Nothing ever compares the two, so on a connection with more than
-one session a client can get a request decrypted with one session's
-key and run it as another session. Encrypted requests are exempt
-from signing too, so a valid AEAD tag is the only proof of session
-identity, and it is checked against the wrong session.
-
-MS-SMB2 says the server must check that the transform SessionId
-matches the one in the decrypted SMB2 header and treat a mismatch
-as a protocol error. Add that check in __handle_ksmbd_work() after
-decryption, before dispatching: the message has to be at least one
-fixed SMB2 header, the first operation must not set
-SMB2_FLAGS_RELATED_OPERATIONS and its SessionId must match the
-transform SessionId, and every following non-related operation in
-a compound chain must carry the same SessionId. NextCommand
-offsets must be 8-byte aligned and stay inside the message; the
-bounds check is done by subtraction so it cannot wrap.
-
-When the decrypted payload is a compression transform, the
-existing decompression step runs first and the decompressed SMB2
-message is checked instead, since a compression transform header
-carries no SessionId.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Reported-by: Dairui Zhang <zhangdairui@gmail.com>
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 0827c8c51006..eb2952f2debe 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -187,6 +187,16 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 
- 	if (conn->ops->is_transform_hdr &&
- 	    conn->ops->is_transform_hdr(work->request_buf)) {
-+		u64 tr_sess_id;
-+
-+		if (get_rfc1002_len(work->request_buf) <
-+		    sizeof(struct smb2_transform_hdr)) {
-+			ksmbd_conn_abort(conn);
-+			return;
-+		}
-+		tr_sess_id = le64_to_cpu(((struct smb2_transform_hdr *)
-+				smb_get_msg(work->request_buf))->SessionId);
-+
- 		rc = conn->ops->decrypt_req(work);
- 		if (rc < 0) {
- 			ksmbd_conn_abort(conn);
-@@ -215,6 +225,12 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 			ksmbd_conn_abort(conn);
- 			return;
- 		}
-+
-+		rc = ksmbd_check_transform_session(work, tr_sess_id);
-+		if (rc < 0) {
-+			ksmbd_conn_abort(conn);
-+			return;
-+		}
- 	}
- 
- 	if (conn->ops->allocate_rsp_buf(work))
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 45dce9c30b6b..0592e2539d1d 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -12256,6 +12256,60 @@ bool smb3_is_transform_hdr(void *buf)
- 	return trhdr->ProtocolId == SMB2_TRANSFORM_PROTO_NUM;
- }
- 
-+/*
-+ * The decryption key is selected by the transform SessionId, but
-+ * the request is authorized under the session named in the
-+ * decrypted SMB2 header. Per MS-SMB2 the two must match, so check
-+ * the decrypted message and its compound chain before dispatch.
-+ */
-+int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id)
-+{
-+	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
-+	size_t msg_len = get_rfc1002_len(work->request_buf);
-+	size_t off = 0;
-+	bool first = true;
-+
-+	if (msg_len < sizeof(*hdr)) {
-+		pr_err_ratelimited("Decrypted message is smaller than SMB2 header\n");
-+		return -ECONNABORTED;
-+	}
-+
-+	for (;;) {
-+		u64 sid = le64_to_cpu(hdr->SessionId);
-+		u32 next;
-+
-+		if (first) {
-+			if (hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) {
-+				pr_err_ratelimited("RELATED_OPERATIONS set on first operation\n");
-+				return -ECONNABORTED;
-+			}
-+			if (sid != tr_sess_id) {
-+				pr_err_ratelimited("SessionId mismatch between transform and inner header\n");
-+				return -ECONNABORTED;
-+			}
-+			first = false;
-+		} else if (!(hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) &&
-+			   sid != tr_sess_id) {
-+			pr_err_ratelimited("SessionId mismatch in compound chain\n");
-+			return -ECONNABORTED;
-+		}
-+
-+		next = le32_to_cpu(hdr->NextCommand);
-+		if (!next)
-+			return 0;
-+		if (next % 8) {
-+			pr_err_ratelimited("NextCommand %u is not 8-byte aligned\n", next);
-+			return -ECONNABORTED;
-+		}
-+		if (next > msg_len - off - sizeof(*hdr)) {
-+			pr_err_ratelimited("NextCommand %u is out of the message\n", next);
-+			return -ECONNABORTED;
-+		}
-+		off += next;
-+		hdr = (struct smb2_hdr *)((u8 *)smb_get_msg(work->request_buf) + off);
-+	}
-+}
-+
- int smb3_decrypt_req(struct ksmbd_work *work)
- {
- 	char *buf = work->request_buf;
-diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
-index 40d61745ef41..c90a1d4e9f11 100644
---- a/fs/smb/server/smb2pdu.h
-+++ b/fs/smb/server/smb2pdu.h
-@@ -416,6 +416,7 @@ struct channel *lookup_chann_list(struct ksmbd_session *sess,
- void smb3_preauth_hash_rsp(struct ksmbd_work *work);
- bool smb3_is_transform_hdr(void *buf);
- int smb3_decrypt_req(struct ksmbd_work *work);
-+int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id);
- int smb3_encrypt_resp(struct ksmbd_work *work);
- bool smb3_11_final_sess_setup_resp(struct ksmbd_work *work);
- int smb2_set_rsp_credits(struct ksmbd_work *work);
 
