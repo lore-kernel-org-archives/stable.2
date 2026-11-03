@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704216;
-	b=wBSaZ+Z65W6pB40gUwrNSGQ9rRag+jTWsOovbo6a0gAUcJpg+vTaDDNj7wJLnACOO16M
-	 0YrPDEcPWtMIFEC4+vMUX/0Siay0gzE/PKw9sA0Y6ASLZW+Kr3a+tVj9D6Z1BDthKvt+W
-	 BQIWvyYj1wTpgbSGapCV07DH0+bCRlir4EfpPo1Ne9WJMpJnv4MFmPz2/YyPggUl5JSl5
-	 8KUtNiZqbKRXZ4vghSSSpCrBR7Sp7POokYn6p3zno57GUmVEuPp3U0cj5muJ1jWRoRySg
-	 JFZIDl8JbEQtOJe8hnjABNt7iJsKAK0MV9Am9gjnR5ACwSQrmqgou5fiP1+yjmPsdcw==
+	t=1793704219;
+	b=M9K2r4LqlrcvTXYleY/xkUXCbgX3VRWYc/vZ99GNgERKcsd7GBovjBJ/YEOCJ421lqCO
+	 6gTuwYHhiFD3CA7/vfweotLxslwtSbvvK0n/u8uXlHyZewAHbPyEsH4k5npTu9xh5OltG
+	 FXZir4z8DoHMDAYFkhm0+CALNSn+H9sivUiN6E5K8WCc3JQUTGD/fZD0LlgOaAGgFA5uI
+	 1frL2xgxqtL6hcGtcAkWy4gAULguBG6QVHCtc5aBOOsxedaKpXQVPqQtEFlQvVVbtW8Sd
+	 1rl5ibcJyovKT1SMfnrQXdNkqMKjD9sQsvLRbaRxj+Bq6149A8Aic6y75js8SmX6F0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704219;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=X0rQYntPvjDDtupsZ2zaQsEpW0QXcX/75EIv4r8rIOg=;
-	b=f88FNabzPs73qDIAhlzAulrJe20ENzaVisyfgkAZeqGsexWvQI29oKK/VNrrX3foyFQG
-	 OK3p2Hv45K5YQ1VGdwAuK+cyG7fv4R6ECB/w9kfE5xGiKNGGbuzs+u0I4YZtZLtsBM5H1
-	 5M25Ewi8+MSG+OaM86KtbtGSrdl9Qs8SAivfIDSb/uE9Qd2n7DoFGIlvMIqHlxaQh8YFp
-	 BHMccyezBLakBLTQWV6PkL90beAEDVkJOELJW+jFE0Ro4l/HkaJW4TqHd/ecWWAuc8NF2
-	 nCc6f63gViZ2XK7i+2RCTIUVxEhvZfvWHURJQ26N7tqvzoiTTT8Hze1mmpi0TWzcd2Q==
+	bh=NcMf+ZVLmz04u/HN3Wxip9DQ9rG8PD3kxPva+jU7U8U=;
+	b=GYyW39/AK7tfsfapnt/gTZvRA2DtZUxN6KOstW6pIWFivoy4o7C5pAzTJIKmuOyIdG4s
+	 oxFODd7sFU1ZCq6NDvOS2Xu6gPzgeENOwFdEZ9uvlzU5xZZih3Zon8i6L8xK8IrQJShAm
+	 vHmwZweRUodEYH6NKZWGKJJsw3tMkYaeC5S9KLEPxM4z9xgdCT+jvfZELtewoR8aT4TIH
+	 vdEqHiOJr7rd0DXfzcXuxg52RWM+ZZp/FvKHeeLH0Rr+dmD8Tk8IZ9fVnKk98DZlL1vWH
+	 ovULAgCTPg2VHgYfykfqQlXr37vjPsPguyn6t3nLE6HmkbrMi4VpYoVNcSI+Mu/rrJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPwFJXsI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mdlyZ/Y6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3DF4606C554;
-	Tue,  3 Nov 2026 11:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99F7606C567;
+	Tue,  3 Nov 2026 11:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aPwFJXsI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70F61F00919;
-	Tue,  3 Nov 2026 11:10:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mdlyZ/Y6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B348E1F000C1;
+	Tue,  3 Nov 2026 11:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704215;
-	bh=X0rQYntPvjDDtupsZ2zaQsEpW0QXcX/75EIv4r8rIOg=;
+	s=k20260515; t=1793704218;
+	bh=NcMf+ZVLmz04u/HN3Wxip9DQ9rG8PD3kxPva+jU7U8U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aPwFJXsIBsH8GyVj2bxQIyyUi5/xoZS0EzVqlpzjf8lJBoPCxSQqUf3FNWj47VMK+
-	 qDgssfjLo5IHx0Qz0B/gpSFYKQ6aU3cuQ8g9kvjIib0JqNc/BNA6jYSl5PM847xVLU
-	 EBlt7ZKe69vot1hfnjM4Xy5CY4c2tPosPQ3DwOwcSjmD+uDr1VbqnmymqbWMXp8C30
-	 COwA9V6VvZZ9OFYFCNG1QQ+XMkSFVtl+N5foPw46/2FHUCCpnsAOoBCnK7LZqtLHjL
-	 krWJH6taUR9k/vaVHq7GaH5SBcbk9V0HRO8YgZBq/a7Kuxkdf7Ik3AF6e2KVkOSu3T
-	 Y1d6++08GleOw==
-Date: Tue, 3 Nov 2026 12:10:12 +0100
+	b=mdlyZ/Y6k0sbdKbPikMDKXgsUtOAz5HrJRPAoVFXjshi76nsuMvVkkNHl84B39eLt
+	 mylrl8mWmKM2EClq6buoqHPVskn/HH+gGTbb4zYZkydPBBaG4OhhTvpUVrSChfZPQw
+	 wc0nYOhZbdHjk5953sL3BwLrcZzaeN1Tzir+BqaLaTNmwvl3Y9FqA5jyIbdpZvU4z8
+	 cyacM2376J6s3vZMEcviRg5GpWEPOQKC93qLHBlorrwsozfkQl/m00ZSnL4rzhAxjZ
+	 dRxtNnkk/4oSqbMt4iEGK0fK9XmmAXGlgKl/iEQTZsK6oPvi2WIZzF4EMTBXD7JF6O
+	 vK+JeO3lmMKKw==
+Date: Tue, 3 Nov 2026 12:10:16 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-pm@vger.kernel.org, stable@vger.kernel.org, 
-	Sebastian Reichel <sre@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] power: reset: reboot-mode: drop the device reference on
- unregister
-Message-ID: <20261103-enormous-tidy-basilisk-c8bebb@quoll>
-References: <20261103105543.1394542-1-vulab@iscas.ac.cn>
+Cc: Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
+	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	linuxppc-dev@lists.ozlabs.org, Jakub Kicinski <kuba@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Zhao Qiang <qiang.zhao@nxp.com>
+Subject: Re: [PATCH] net: wan: fsl_ucc_hdlc: release the net device on remove
+Message-ID: <20261103-psychedelic-malamute-of-health-ce7f30@quoll>
+References: <20261103104237.1373675-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,26 +61,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103105543.1394542-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104237.1373675-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:55:43 +0000, Wentao Liang wrote:
-> reboot_mode_unregister_device() looks the device up with
-> class_find_device(), which takes a reference that the caller has to drop
-> with put_device().  The function only calls device_unregister(), which
-> drops the reference taken when the device was registered.  The lookup
-> reference therefore leaks and the struct device allocated by
-> device_create() is never freed.
+On Tue, 03 Nov 2026 10:42:37 +0000, Wentao Liang wrote:
+> ucc_hdlc_probe() allocates the net device with alloc_hdlcdev() and
+> registers it with register_hdlc_device(), but ucc_hdlc_remove() only
+> tears down the QE resources and frees the private data.  The net device
+> is never unregistered or freed, so after the platform device is removed
+> or the module is unloaded it stays registered, keeps its reference to
+> the module and is left pointing at the freed private data.
 > 
-> Drop the class_find_device() reference before unregistering, the same
-> way device_destroy() does.
+> Unregister and free the net device in ucc_hdlc_remove(), before the
+> private data is released, as fsl_qmc_hdlc does.
 > 
-> Fixes: cfaf0a90789a ("power: reset: reboot-mode: Expose sysfs for registered reboot_modes")
+> Fixes: c19b6d246a35 ("drivers/net: support hdlc function for QE-UCC")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/power/reset/reboot-mode.c | 2 ++
+>  drivers/net/wan/fsl_ucc_hdlc.c | 2 ++
 >  1 file changed, 2 insertions(+)
 > 
 
