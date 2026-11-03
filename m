@@ -1,113 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717077;
-	b=aUQS/0xNUq2BmoJ6TstOx3sucVaJAyW7UTiHf0C++Vnr14NW1K+tYEcXKDX/mv04RIsm
-	 1m/LPHjZqJ3H4g8aCSYCgYCtDbBVhAndLsChzdiyBFr5ySHZrxe6J/xBk0d2KkC8KYTdO
-	 pqEkOaXH5l5Rulkd3FxarQrL/JStmziegT45WhaexPTBJT3wSKUTvSSVitMy6RInZDjeA
-	 Da99Ug4MDsr/U0fpP1sWyV4LWA/jGp4hn5+7Is1r9Tz0PcKuD9ekctsiwLNNhzOB9OCzl
-	 OlySkEUcdvSNvwMWTG64jhzo1eS458FlgOEgDp/ysJsjIrOEC1xobsMiZQLpK5w3MKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717077;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
-	b=oRkF3QM5HZ1dFqRX+umxt5U0Ol9O2+ynd3R2xwt9ZcWuljFOjtH0b05kL3wKVP80B00q
-	 TpAsrakFBuCUorZZwArRSwU5oYmKgGEGycAmmQHfUTp4PYRf+H8ub4hgMnta1s9gFx/pR
-	 hzpE20V0ujh5xMZElC1iu9jgOeRdCHjrMZrJENQCPtvtA+/8meiFxMUmtdnpdR/7qjmCy
-	 stZzc46iBqkSKoHAnjwpich2j3upDIgqWGor80nH9uEXZVar1b8PDNy878GOXTMgzR1zR
-	 tkohAPsx6+vsQFA9DOaaqqindB43bLrDbHAyRbVllIwfqcbWpWinH83xJMcBAxwTVsw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vYWHbTwJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pjH1LFEK;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=veVd1VnK;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fu55teLJ;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793717212;
+	b=eubCkjhbVV0UjC/+b6JQtSY6wQGa3mM08EcnnvjOcnRXkRrw9TlX+VfYxk6HbXYuh5yx
+	 LfgOlRlOOkPtYawg/Izgz6h5Xvs3dqAcz2r28iG9XgrVM6z119/em8q6hDMXfcZnD6mVZ
+	 iV3V0Xyeb6Oacc3i6qVDOUY/T+l5erHO1K4qETrFQLGB5BWJIPD0CHVYOA8WofyHuoMrX
+	 ATdKzaE3hhPNEv4Pveo0RWarnEn9c7jEihJrxoRtiQJREZAe48sO+qGf5kkB3ItLb+zRj
+	 h+vHh30dWUvDnnB4Nlg57BSyXA+etEOhq3GkSEb2EUUWMTzewph5+5+bT4iQWPD5rqg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717212;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=m4ubhwdD7xWNz1fIp4dSNo/j/2+5i9zC1GJT/QlqxwA=;
+	b=iLnzRLXdxUaAd0LQ0c4v7BunTxGh1OHhV0g0C4aP+aAXXnmB6KXwSWYCdXDpYu+OYYcd
+	 rNtf6uJ0/c/NJ9ALPqk7pQ3+IPoI83gnyeQNSK/QttMS17uQ0QI9EUlJ3CoNPagsXMrlL
+	 J1PfEVzn7BEi+LbegOSR4kiNnLMucFjVeNOhdIUW+HnV3XobOr0qcHCcGlhACok0tPCzh
+	 2UdxqWP9Gjeaoy0lR4DGMfVvn7rEf9YWTLHG2dn1mW2Q6uXvAlho2eQhpI8xJeIQyej0P
+	 ggYGzd0XsjX3QMtl2VI27PfbENk49pHAkkGKe/eGkMPIiZbjlSHV9nLFeApLUVfOJgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YbwMCgGj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9ABE606A329
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:44:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9ABE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384DA606D802
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 384DA606D802
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vYWHbTwJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pjH1LFEK;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=veVd1VnK;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fu55teLJ
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 8E7D21F769;
-	Tue,  3 Nov 2026 14:44:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793717067; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
-	b=vYWHbTwJHrx+bHm+iJSZc6M+BPrBQ1uiG0X2WcWxr9Ywc3IJUIaVreUwNhEZD7ACKnfJLq
-	dOhDoBO91elMkKglnlJ90JB8x11tihfknKPFDfBdrzhJ8SYPgy8SK3k/ERgpjYhUWqNymX
-	FTy6GYatUJuYJnMDOC0rit9qJizcuWE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793717067;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
-	b=pjH1LFEKtGfIYJVjgCfyO5KqKO18HTqb9IT1qxFpuYvsJ0NO62EGJg3kGPXqiGQM0cqKPV
-	VETySZIi1J+zKLAg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=veVd1VnK;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fu55teLJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793717066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
-	b=veVd1VnKzGi9ou7E8al/Z1MNeqbcEe/7BsP67W0o6YroWdAuLP992JtUXxwvYAiAN+acfR
-	HBcWpUd5bXtRX5ZZj0Wt6jo9PYmCyitAO2imwYLjlP+J5vnQPNA2IHMMEoSleV5gz6Mu1o
-	jfGnKnJjo3PdwWSPKZxBPpC9MJUnoPM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793717066;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
-	b=fu55teLJdDMP1BP90SMNi97wx4SaHkG4InEwNntbU/TjzrUGx7Dk9TMzB+DTCdFoAbHdC3
-	xIidlfHPPx7kPJDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D76C134B8;
-	Tue,  3 Nov 2026 14:44:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Mz1DCkrz6WrwDgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 03 Nov 2026 14:44:26 +0000
-Date: Tue, 03 Nov 2026 15:44:25 +0100
-Message-ID: <871p92x9di.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Slaton Christie <slatonchristie@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
-	Richard Fitzgerald <rf@opensource.cirrus.com>,
-	Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: cs35l41: Add DSD properties for ASUS UX582Z (1043:1a8f)
-In-Reply-To: <20261030170354.7427-1-slatonchristie@gmail.com>
-References: <20261030170354.7427-1-slatonchristie@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YbwMCgGj
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4c9abc1824so656200266b.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:46:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793717211; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RGUYcuP/hkTJV7j7SX+8gI2YERAcFnQRikUBg8yc3Xws1Wuiq0+j6nZlJKNVrmp/Dt
+         gGTWFB36IFHiGxxlbkHkmNrklD7PgsoTiqBA5vU2vWbuPhF6tOP6fIaZBF6jPi2LtTzq
+         R7Ru3H2mjp6oEh1x+1CgQjrQJGJSHUAj92VWpu+aZqyw0zjEPRGZOiFlURLS7caaE8by
+         cnZ0Vy2psyTOPL/w4A36IsPIjiiV2yKOGAmRknWTTCjrhZATsrIgrcOD/B3/+ISyHt8I
+         7N771rxtoZ2eIZXZnBNP9H0GjyT4S0IVKfi+uWyeW/gRwRHn4EL8+49HGbx4lxJmPeCB
+         /L3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=m4ubhwdD7xWNz1fIp4dSNo/j/2+5i9zC1GJT/QlqxwA=;
+        fh=HPO3IJMY75Vm5OD6S4yeiFKO83fPUZt9Dvph5rUXenA=;
+        b=fLzPB9EiTYIP7KriPby6shH7shWBtC9+A9GsysexwyDw8XojSRoPTTyYSmddNlNfvC
+         pZFTbACMQe2zpnYVCT3Lgqpra2Q5QMXvR2JcZPCVKdNqWZolHb961GUh6hPzGtYa7bWg
+         VWSVAK2isnckfbo37pqIViTTcFyIfTlleY3Lz+qFl02vcRxUZ+hY28o7eil7ROp80czm
+         vVI1tabj0K7/5Sj4F2vtnltAwo91DrX8yxtfSa7EXvR5N4oB36B8NmLTucv+pu0tEjEG
+         HS8ebtp3MQEDMqcpR85cxUiboCIFbn4ibreAm/3iJFtGte72GJAOlJF57BeBC1oFtULQ
+         i9ig==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793717211; x=1794322011; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=m4ubhwdD7xWNz1fIp4dSNo/j/2+5i9zC1GJT/QlqxwA=;
+        b=YbwMCgGjapu2U4cW1LFSOzILIQ0bSem0oNun3PccpxdXy+Yp+l6dhte7Ey/vMaRasv
+         mVCO5ZvXD+lirtIbu8AZKZDQWMWGre7XuicW2XukzMqcwRpWuHLWeib913i5htOazuvi
+         zegXmhzyR9p6r9sL7PocqZX1FLzZlgRVDBjn/GvzVNnuon/fhKVuJ2MVF3sZvmpjzGvL
+         o34ur4RGVmC5fGWdgDIAHxLYGYZoMSlbD6+ptfoVla9YKX+loStLyPGsoe+0FmT/9r3l
+         2rDUfS9GmVdLWZttUWzZBfO1l2Er+tumP46uZi2ywLaQJcbLikbfrzHH8FHw7JPMWAOM
+         Vz7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793717211; x=1794322011;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m4ubhwdD7xWNz1fIp4dSNo/j/2+5i9zC1GJT/QlqxwA=;
+        b=X3e4xw9LSnMMGbnCTonYx2tnMlCYrVhG7Bz87ZEwzJnGJANf0C3SQQwp5nCJ6ZvjzN
+         sfrY48h/93vNx+9jecTywEwntXhvggbsE9mUqmEeDxPzjxu4mF3z3PI4svvFJFMieznu
+         bjZhht/j4w8KDF59F+9HVsZnEd8YBPhemHuVoWA3sarNnu9FACxYrQPqrrmwoWU/OOum
+         apxARxJ5Enr0TaT+ff2raM5+UEM6G+VRw7yJUQ/F2Q8x+wXiTiPLW6YXSaKWfbgK4Rqo
+         50igaaJDUb+AL0z338pUxyauzlqB4l3iQCooII5L+kTf1V+/DXkTROOIevBQuWpF8MdD
+         jzLA==
+X-Forwarded-Encrypted: i=1; AKwUvBz5A8KAlAPFNg49bBFbyvzQqlWi9Af2z+H36h3dlRsg7BWlRbH9yUboPbSFwYnWeXvtnvUjlBU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gek/AhS2pXgjzeiN7I2HpsEOYsgbJQAWD4wVrGOhCEw3ZqoCy
+	WJhQtjextPiMLAtP4GJB7gEONOKbGVIjULHLj1mNghVCjKOytb727vonEpPR+VTFkImk0xKH5wm
+	vczuWrwJoJE7l8HE8yfjCvmAh1xG74yg=
+X-Gm-Gg: AYBFou02vrhbCBn2M3I5XBTByJReCR3fRM7jKia6AubMBF69P2Hh/RDEVJj7su5YH7a
+	SVHNvm1f9KBBw4TPIJo8ugHOzQy5BYjsmM/4LKfQR32L+BlbzUGb8dBiDvdKUrw5oYzboSq9/os
+	uXXKDFKS2/sPjhNHQc0LEvcYjw7eaACDXzR7a78I3d9mJXcqJEMQqcQMTcl6Fb5U5HUIRoS67ZN
+	UamNI91iQ0C6pmXP9H03hJlG//2GuFXsTMQ8PEjQ/eU7tO7DLME9+VvlJQ7lccHW4jWXBUlOEfD
+	Y6t55wLRj0mi0iHhPcSgEeFbmIeteoO5kHCtP5tBaBjOyZ05DY78oJVNxGSypJx3KtYk7qdTOCc
+	KxxsoRCnB+8nz5PBbLuZ4OVhgtDZT0tgL9yb+o6WO6c5Dfb+ZXCrkI8K7TOhnHyYu0O1fPw==
+X-Received: by 2002:a17:907:1c89:b0:c46:8b51:c17c with SMTP id
+ a640c23a62f3a-c4ca7a4e4b9mr1032689066b.17.1793717210181; Tue, 03 Nov 2026
+ 06:46:50 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,83 +103,133 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 8E7D21F769
+MIME-Version: 1.0
+References: <P58Wrer--F-9@tuta.io> <20261030-welpen-anbinden-nullen-b2432cee1d10@brauner>
+ <CAOQ4uxjm=cGPnug18VuhKqiMvkWwLPNLO_TE3KxO8iLZG+veYQ@mail.gmail.com>
+ <P5Qu3co--N-9@tuta.io> <CAOQ4uxh67+vs0mr-Lxmwz9-N+F8m29WUNz+8qFLLDpOVYB7=vg@mail.gmail.com>
+ <P5WV0VL--F-9@tuta.io>
+In-Reply-To: <P5WV0VL--F-9@tuta.io>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Tue, 3 Nov 2026 15:46:38 +0100
+X-Gm-Features: AclHuK-AkbE76i1M2E19O6SFPWAt7p_ENORS0HKIxbE5f-oUtF7Cy50LrWBo2WE
+Message-ID: <CAOQ4uxjYX+A_xRBmfj40hmAcuQXwW4JPUmhJ9bx5ymSr0QoDnw@mail.gmail.com>
+Subject: Re: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from the
+ user file
+To: Edvard Conrad <edvard@tuta.io>
+Cc: Christian Brauner <brauner@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>, 
+	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 30 Oct 2026 18:03:54 +0100,
-Slaton Christie wrote:
-> 
-> The ASUS Zenbook Pro Duo 15 UX582Z with PCI SSID 1043:1a8f has two
-> CS35L41 amplifiers on SPI (CSC3551), but its BIOS provides no _DSD
-> properties for them, so the amps fail to probe and the internal
-> speakers are silent:
-> 
->   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: Failed property cirrus,dev-index: -22
->   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: error -EINVAL: Platform not supported
-> 
-> The Realtek codec quirk for this SSID already exists
-> (ALC245_FIXUP_CS35L41_SPI_2), and linux-firmware already ships the
-> tuned cs35l41-dsp1-spk-prot-10431a8f-* files. Only the property table
-> entry is missing.
-> 
-> Add an entry using the same configuration as the sibling UX582ZS
-> (1043:12af): internal boost, CS/reset/speaker-ID GPIOs at indices
-> 0/1/2, 1000nH inductor, 4500mA peak, 24uF capacitor.
-> 
-> Tested on a UX582Z running 7.3.0 (CachyOS) with the change built as a
-> DKMS module: both amps probe, load the spk-prot firmware, apply the
-> EFI calibration (R0=10611 / 10708) and the speakers play audio.
-> 
->   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: Firmware Loaded - Type: spk-prot, Gain: 17
->   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: CS35L41 Bound - SSID: 10431A8F, BST: 0, VSPK: 0, CH: L, FW EN: 1, SPKID: 0
->   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.1: CS35L41 Bound - SSID: 10431A8F, BST: 0, VSPK: 0, CH: R, FW EN: 1, SPKID: 0
-> 
-> The boost values are copied from the 1043:12af entry, not taken from
-> ASUS or Cirrus documentation; confirmation of the boost parameters by
-> Cirrus would be appreciated.
-> 
-> The diagnosis and the patch were prepared with the help of an AI
-> assistant (Claude, Anthropic), from the dmesg output above and the
-> existing 1043:12af table entry; testing was done on real hardware by
-> the submitter.
-> 
-> Cc: stable@vger.kernel.org
+On Tue, Nov 3, 2026 at 2:01=E2=80=AFPM Edvard Conrad <edvard@tuta.io> wrote=
+:
+>
+> On Mon, Nov 2, 2026 at 1:34 PM Amir Goldstein <amir73il@gmail.com> wrote:
+> > Good catch!
+> > Please test the attached v2 patch and post the new test cases.
+>
+> v2 fixes the merged directory. An impure directory still deadlocks the
+> same way: ovl_iterate_real() reads it through ovl_cache_get_impure() and
+> ovl_dir_read_impure(), which v2 leaves without the user file, so
+> ovl_dir_read() opens the upper directory with plain ovl_path_open():
+>
+>   fanotify_handle_event
+>   fsnotify
+>   fsnotify_open_perm_and_set_mode
+>   do_dentry_open
+>   vfs_open
+>   dentry_open
+>   ovl_iterate_real
+>   ovl_iterate
+>   iterate_dir
+>   __x64_sys_getdents64
+>
+> That takes an upper-only directory that a lower file was renamed into,
+> on layers that share a filesystem, so ovl_need_adjust_d_ino() sends it
+> to ovl_iterate_real(). Passing the file down the same way v2 does for
+> the merged case fixes it for me, on top of v2:
+>
+> diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+> --- a/fs/overlayfs/readdir.c
+> +++ b/fs/overlayfs/readdir.c
+> @@ -670,7 +670,7 @@ static bool ovl_fill_plain(struct dir_context *ctx, c=
+onst char *name,
+>  }
+>
+>  static int ovl_dir_read_impure(const struct path *path,  struct list_hea=
+d *list,
+> -                              struct rb_root *root)
+> +                              struct rb_root *root, const struct file *u=
+ser_file)
+>  {
+>         int err;
+>         struct path realpath;
+> @@ -678,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *pat=
+h,  struct list_head *list,
+>         struct ovl_readdir_data rdd =3D {
+>                 .ctx.actor =3D ovl_fill_plain,
+>                 .ctx.count =3D INT_MAX,
+> +               .user_file =3D user_file,
+>                 .list =3D list,
+>                 .root =3D root,
+>         };
+> @@ -714,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *pa=
+th,  struct list_head *list,
+>         return 0;
+>  }
+>
+> -static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *pat=
+h)
+> +static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+>  {
+>         int res;
+> +       const struct path *path =3D &file->f_path;
+>         struct dentry *dentry =3D path->dentry;
+>         struct inode *inode =3D d_inode(dentry);
+>         struct ovl_fs *ofs =3D OVL_FS(dentry->d_sb);
+> @@ -735,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(con=
+st struct path *path)
+>                 return ERR_PTR(-ENOMEM);
+>
+>         cache->is_refcounted =3D false;
+> -       res =3D ovl_dir_read_impure(path, &cache->entries, &cache->root);
+> +       res =3D ovl_dir_read_impure(path, &cache->entries, &cache->root, =
+file);
+>         if (res) {
+>                 ovl_cache_free(&cache->entries);
+>                 kfree(cache);
+> @@ -856,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct=
+ dir_context *ctx)
+>         dput(parent);
+>
+>         if (ovl_is_impure_dir(file)) {
+> -               rdt.cache =3D ovl_cache_get_impure(&file->f_path);
+> +               rdt.cache =3D ovl_cache_get_impure(file);
+>                 if (IS_ERR(rdt.cache))
+>                         return PTR_ERR(rdt.cache);
+>         }
+>
 
-You forgot Signed-off-by tag?  Please resubmit with it.
+Right, I was being sloppy.
+Thanks for the fixes.
+I added Co-developed-by to attribute your contributions to this fix.
 
+> Results in a VM on 6b4b543fa18, each kernel run once and with -i 2,
+> with the backing filesystem marked:
+>
+>                                 file  dir   merged dir  impure dir
+>                                             listed      listed
+>   + c3d355f427ce                PASS  FAIL  FAIL        FAIL
+>   + your v1                     PASS  PASS  FAIL        FAIL
+>   + your v2                     PASS  PASS  PASS        FAIL
+>   + v2 and the diff above       PASS  PASS  PASS        PASS
+>
+> The new cases are posted on top of the directory cases:
+>   https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
 
-thanks,
-
-Takashi
+Thanks again!
+Amir.
