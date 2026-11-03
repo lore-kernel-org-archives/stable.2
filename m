@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793720856;
-	b=z35FuPFKpEf7zh/HMRTzsZTd+JzrFGBG98Cgik7GiyTDKiaZl1xTNm8d7/6NwYobi+BS
-	 SJIpV/2Ac7FW0IyBFWNl19vQOqoLUN1iRsIcUer5EmOI3Fr670XwxC62VaduroRp4p93b
-	 795OkgtX7X1cyzRR+/ygEOMNG7DpzjOJE1MC9Z8X+SsyNxFsd6Wc6X+5muobxHufk5Nbl
-	 Se+s/l8OQVICI62dzxAQzy1cxYX/9Y3meowzJRq1ViaQ/TG2MVCSzQFDI5HBkCl6/RME2
-	 fFekzA67sa2iWxZPSUmyb+OJLyhrTic4GhsiPo4YjJ2sK0TfDh4PxIjRH4GHYUjr94Q==
+	t=1793720967;
+	b=MOCjRRjn+oJ7E7cOCJhxyVcLvjfCikK1WoEHPFKGL9khFFe9tMwAUARif2cCei9AIMP/
+	 bSyuVCqNMI1rTvAzW4a+gQhqG9WUUzTVJYJYTlgmvqVyYM97obcx9k5a6vRXDeM8JWYb5
+	 ek8fdrhfpgAjmnnSAosi3LX5+RpmH9XAMowkK1O4i9913HplkxeQofP7pd6VIuDorBllR
+	 I7Bm08eJ8LojyR8VXaBkBIIq8BQHKxPgqzAfgX9vTPiSokzJMc2aZqQATszJbH6d1PO4n
+	 ICpRfzl8ENtj6US10wfatSUGGWeXaH8KfoNmPLiL4zf0NbTBG2V+j3pogna/cTQ+WNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793720856;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gBZu26fG293hKiFGORRUpZ2tXpXZ+J1+ce8OuNiTKGY=;
-	b=rBfawnQPcP3B7Tq1yy+8gi6n/c1ks8ITTcG5orOronj17Vzu0WEtXVUOX3+g+npkvSAt
-	 6v+BRbSritmJQ99q44TfqT1LTuuqMVxCVqoiwPmanOfRA1IfjnQmO/52BSa0eK3QIECGg
-	 kDsnY/m3hG7drbtDbxvZEUKrSfToLEkD+u2jbaXiToMKmzmmgTgWiUzlLwadHI3YTOEvD
-	 rR+qCoNlKyjw84qyTlv9Ba4XDaQ7GFrUtzMdrtK9l/hy1wsObP+nV6EZ3UVOQdYWs0jfr
-	 GgDFU0u+RgCocnr4JMUUCDMmiwDqEqYzzOvQgeq0JhKOr+DaavvtkKpergRrCF/R0YA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793720967;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yBVvkEycBHDzcqtk64wG1ZxAfNP7O82hXAvWkVI1BMY=;
+	b=VLh/tkdjlj3wiK3LUpdVq4nQtkHumo/iCNNGHDGVCHGzQZIWK3rr+EQVPsUokLQ+UsgT
+	 NyjKSFFdfxniBnPAzrunkUg+LZPMBuJCgvEM5nUE6lTwykEq7gEto5v4+vz8lyhFYAbDT
+	 EvHffGjWmkjmK0U9m+/fqn0cIWMyjUN8fPx0BUqyvjpDNVRt7MMC3viLuGw3wjYHy5XU8
+	 B+h86E/PVF32W4rlnr8ogI6vvlNuNtLB+kdHq7nFeE06YP7izXDaI9NgYTf0BWTrw2dU4
+	 RnKmz0lsdOsKB7fYuXXuGVQdHtFEexIqWqhpsD3APVApFz+yM3ae7GrYcTDDPtG5cfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZWWuTtx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Flj/gEvw";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC8A606A326
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:47:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815EB606A327
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:49:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HZWWuTtx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FDAF1F000C1;
-	Tue,  3 Nov 2026 15:47:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Flj/gEvw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C901F0093A
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:49:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793720856;
-	bh=gBZu26fG293hKiFGORRUpZ2tXpXZ+J1+ce8OuNiTKGY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HZWWuTtxHIgiyOM0qzs3e5BsjrbJ2YSFW5X1BuNZiD5NvF43uNMF3lpMGEHunTaeE
-	 E8losfKgZ2roKUKIArN3FPxo6cvnzZxELIhoauKEe6kDzMl+Kygem9piwtpCl2qp4m
-	 f9dI8Y5uJwRYqrSfXmfjdAMK4pv2sGNgYvyOAPomt7ofAFh1tlAA4pM7yYOGuj6/rb
-	 rb7LAfZmSkUGbNEnV3T/MRtAv+PStDyj52n4ig6qRsiph3nNPioSPGtNtN+zBSr8WJ
-	 d5CrdDe6QNhQIYqLcptLTMXoJN/P+URwWZNs5URMwC0IKQdO802QG1L1f1hRY5Uo/0
-	 5/4r4R9yQRRfQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Yuhang Zheng <z1652074432@gmail.com>,
-	Xin Liu <bird@lzu.edu.cn>,
-	Yucheng Lu <kanolyc@gmail.com>,
-	Ren Wei <n05ec@lzu.edu.cn>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net/sched: cls_flower: avoid stale mask references after delete
-Date: Tue,  3 Nov 2026 10:47:34 -0500
-Message-ID: <20261103154704.243889-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110338-reassign-lapdog-d1ae@gregkh>
-References: <2026110338-reassign-lapdog-d1ae@gregkh>
+	s=k20260515; t=1793720967;
+	bh=yBVvkEycBHDzcqtk64wG1ZxAfNP7O82hXAvWkVI1BMY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Flj/gEvwZypjbqAT2i1vuTfp5IOXUKYT8EjKGdi7LN3DHt4HYMnZORez80eHDd1Fm
+	 HAyPvUudcDmOAEOo9lywAAV8ddmcz1jT9qfebWnZnDPgwpjEKXkNyZSxqPC9gj40zh
+	 ZdDyehkiL6JMFReGiCTUCibEwt/fMH3pCkT2frvcduMWbugKOnbYI13lA3eAjRTTeK
+	 mrMPfWC8MmjGJRisRPHKpgo6c82qjTS82+i0cs9eTro7PTaghgQBENLso0VI2RLrl9
+	 LcDuANSHauUuJNLFMTtBPMAVC+tS9P7Tugi5gVupqkrWgPaoe/KfTqtSYYLwwU4OtH
+	 o9fHOKWUt6XqQ==
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-4a76f63b243so686120fac.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 07:49:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBySguTOCy1ecvCwqkwTPZkMigQJZoZHD5WU7a12J6BfgfY7mYBbgOpmBgYpuPQejC/Qi0e3lGw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9C2+C+jzRF/wTO6LTH5JMel8BVs8RGYYbbmDHSQPVQRL9McWaI
+	fj2GHw7KOeBUJeF3gC6rjnYTV0d8/ucm1XODIgTJYo0XB8BZjCpcro2fknKoaihz4Zb9CfM/nyu
+	i/jbBafb4j/UyO81K7Rgq1RpeGJ7ootw=
+X-Received: by 2002:a05:6871:81e:b0:490:d828:a7e5 with SMTP id
+ 586e51a60fabf-4a8e0a550bcmr7291633fac.30.1793720966471; Tue, 03 Nov 2026
+ 07:49:26 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,213 +59,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+ <2026102727-data-sequel-ce41@gregkh> <42fe949f.1d67d.1a1a145bcf0.Coremail.xuhx@hust.edu.cn>
+In-Reply-To: <42fe949f.1d67d.1a1a145bcf0.Coremail.xuhx@hust.edu.cn>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 3 Nov 2026 16:49:14 +0100
+X-Gmail-Original-Message-ID: <CAL4WiiqeBmBZjmzXAqQB3rzBz_ew72euAs2uuvV2icnQ2RCc+w@mail.gmail.com>
+X-Gm-Features: AclHuK9zoFVvLkrFhmzzNCmXBvvs2C3RSpC5VfgBv-CSUvJgAvXjLkZlmpxUO7k
+Message-ID: <CAL4WiiqeBmBZjmzXAqQB3rzBz_ew72euAs2uuvV2icnQ2RCc+w@mail.gmail.com>
+Subject: Re: net: rtnetlink: rtnl_link_unregister() vs in-flight RTM_GETLINK
+ dump readers -- v7.3 lacks the synchronize_rcu() fix (Fixes: 6b57ff21a310
+ family); A/B reproduction on stock 7.3
+To: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Yuhang Zheng <z1652074432@gmail.com>
+Le mar. 3 nov. 2026 =C3=A0 12:57, =E5=BE=90=E6=99=97=E7=BF=94 <xuhx@hust.ed=
+u.cn> a =C3=A9crit :
+>
+> On v7.3, rtnl_link_unregister() removes the rtnl_link_ops from the
+> global list and immediately destroys the embedded srcu_struct and
+> frees the ops memory -- a concurrent RTM_GETLINK dump that already
+> found the ops (rtnl_link_ops_get(), rtnetlink.c:599 hand-off inside
+> an RCU read critical section at :595) but has not yet taken
+> ops->srcu will, after the free, execute __srcu_read_lock() /
+> __srcu_read_unlock() on freed memory: two reads of the destroyed
+> object (ssp->srcu_ctrp, ssp->sda) whose subsequent percpu counter
+> writes land wherever the freed percpu pointers point -- for a module
+> rtnl_link_ops, the ops (and its srcu) live in module memory, so
+> module_memfree() is the freeing side.  Upstream already fixed this
+> with a synchronize_rcu() in rtnl_link_unregister() (the patch with
+> Fixes: 6b57ff21a310; its own comment: "Wait for rtnl_link_ops_get()
+> readers that found ops but have not yet taken ops->srcu").  v7.3
+> does not contain it.  I verified both sides on a stock 7.3 KASAN
+> kernel: parking a real dump reader (driven by an ordinary
+> RTM_GETLINK + IFLA_LINKINFO dump request) exactly at the :599
+> hand-off and unregistering+freeing underneath produces three KASAN
+> slab-use-after-free reports (__srcu_read_lock+0xe, +0x25,
+> __srcu_read_unlock+0x1a; bad address =3D ops+0x10 =3D ops->srcu); and
+> rebuilding the SAME kernel with ONLY the upstream one-line fix
+> flips the outcome to zero reports, with the kfree demonstrably
+> delayed until the parked reader left its RCU section.  Natural
+> hammering did not hit (the hand-off window is ~100 ns against a
+> ~4 ms unregister -- it needs a preempted/preemptible-RCU reader),
+> which matches the fix's own reasoning; the controlled run models
+> exactly that preemption.  The purpose of this mail is to support
+> the fix's propagation: trees still carrying the unfixed
+> rtnl_link_unregister() keep a cross-CPU UAF (write) plus potential
+> freed-module execution reachable by unprivileged netlink dumps
+> racing a module unload.
+>
+>
+> The detailed description:
+>
+> * The gap (v7.3, net/core/rtnetlink.c)
+>   rtnl_dump_ifinfo() runs lockless for dumps
+>   (RTNL_FLAG_DUMP_UNLOCKED), takes rcu_read_lock() at :595, calls
+>   linkinfo_to_kind_ops() -> rtnl_link_ops_get() which returns the
+>   ops pointer at :599, and only then takes ops->srcu
+>   (srcu_read_lock) to call ops->dumpit.  rtnl_link_unregister()
+>   holds rtnl_mutex, removes the ops from the list, calls
+>   cleanup_srcu_struct(&ops->srcu) and returns to the module, whose
+>   exit then frees the module memory.  Nothing between the :599
+>   hand-off and the srcu_read_lock is waited for on the unregister
+>   side in 7.3 -- hence the fix's synchronize_rcu().
+>
+> * Evidence (stock 7.3 KASAN, QEMU; A/B on the one-line fix;
+>   reproducers attached)
+>   rtnlrace.c registers a kzalloc'd rtnl_link_ops (kind "rtnlrace"),
+>   parks a dump reader by kprobe at the exact hand-off (return
+>   address rtnl_dump_ifinfo+0x374, ENDBR-adjusted), and unregisters
+>   + kfrees from another thread (modeling module_exit ->
+>   module_memfree).  nlr (userspace) sends the IFLA_LINKINFO dump
+>   request that drives the reader path.
+>   Defect kernel (stock 7.3):
+>     park t=3D127041 (1004 ms) -> unregister+kfree at t=3D127249 (park
+>     +208 ms, reader still parked 792 ms) -> park ends t=3D128045:
+>     BUG: KASAN: slab-use-after-free in __srcu_read_lock+0xe
+>     BUG: KASAN: slab-use-after-free in __srcu_read_lock+0x25
+>     BUG: KASAN: slab-use-after-free in __srcu_read_unlock+0x1a
+>       read stack: __srcu_read_lock <- rtnl_dump_ifinfo+0x374 <-
+>         rtnl_dumpit <- netlink_dump <- rtnetlink_rcv_msg (task nlr)
+>       bad address =3D object+0x10 =3D=3D ops->srcu (matches the
+>       disassembly lea 0x10(%rbx))
+>       alloc: insmod kzalloc;  free: unregister thread kfree
+>   Fixed kernel (same sources, ONLY the upstream synchronize_rcu()
+>   added to rtnl_link_unregister()):
+>     park t=3D191305 -> park ENDS t=3D192306 -> unregister+kfree
+>     t=3D192307 -- the order literally inverts -- zero KASAN reports,
+>     dump completes with zero errors.  Same module, same parking.
+>   Natural runs (three samplings, up to ~267k dumps/reader plus
+>   6-CPU preemption spinners): zero hits; the window arithmetic
+>   (~100 ns hand-off vs ~4 ms unregister) explains it, and the
+>   controlled park models precisely the preemption the upstream
+>   fix's comment describes.
+>
 
-[ Upstream commit 58f7989da6e715ce834ac861b7ba6ae9f9bdb098 ]
+What is the point of this email ? This looks like LLM slope to me.
 
-Flower releases a mask reference when a filter is removed from the
-classifier. The filter object can remain alive while dump, walk, or
-hardware reoffload paths hold a reference to it. Those paths can then
-dereference f->mask after the mask has already been released.
+I think we have far more serious bugs to fix.
 
-Keep the mask reference until the filter reference count reaches zero.
-Release the mask synchronously from the final __fl_put() while the caller
-still holds the tcf_proto reference, and leave the existing RCU work to
-free the mask. This keeps the mask available to every reader that still
-holds the filter.
-
-The filter is still removed from the classifier indexes immediately.
-Therefore, a deleted filter can temporarily retain an otherwise empty
-mask; fl_delete() uses the handle IDR, rather than the mask list, to
-determine whether the classifier has become empty.
-
-Failed mask assignment can leave fnew->mask as an error or borrowed
-pointer without an owned mask reference. Clear it before the common
-failure path so the final put cannot release an unowned reference.
-
-This fix does not add fields, snapshots, or per-filter memory.
-
-Fixes: 92149190067d ("net: sched: flower: set unlocked flag for flower proto ops")
-Cc: stable@vger.kernel.org
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Tested-by: Yucheng Lu <kanolyc@gmail.com>
-Signed-off-by: Yuhang Zheng <z1652074432@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Link: https://patch.msgid.link/20261012010720.2248662-2-n05ec@lzu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ sashal: adapted error cleanup to use the existing errout label instead of unbind_filter ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/sched/cls_flower.c | 49 ++++++++++++++++++++++++------------------
- 1 file changed, 28 insertions(+), 21 deletions(-)
-
-diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-index 01d5903596aa0..2d6087f52340b 100644
---- a/net/sched/cls_flower.c
-+++ b/net/sched/cls_flower.c
-@@ -498,15 +498,22 @@ static void fl_hw_update_stats(struct tcf_proto *tp, struct cls_fl_filter *f,
- 			      cls_flower.stats.used_hw_stats_valid);
- }
- 
--static void __fl_put(struct cls_fl_filter *f)
-+static bool __fl_put(struct tcf_proto *tp, struct cls_fl_filter *f)
- {
-+	bool last = false;
-+
- 	if (!refcount_dec_and_test(&f->refcnt))
--		return;
-+		return false;
-+
-+	if (f->mask)
-+		last = fl_mask_put(fl_head_dereference(tp), f->mask);
- 
- 	if (tcf_exts_get_net(&f->exts))
- 		tcf_queue_work(&f->rwork, fl_destroy_filter_work);
- 	else
- 		__fl_destroy_filter(f);
-+
-+	return last;
- }
- 
- static struct cls_fl_filter *__fl_get(struct cls_fl_head *head, u32 handle)
-@@ -543,11 +550,10 @@ static int __fl_delete(struct tcf_proto *tp, struct cls_fl_filter *f,
- 	list_del_rcu(&f->list);
- 	spin_unlock(&tp->lock);
- 
--	*last = fl_mask_put(head, f->mask);
- 	if (!tc_skip_hw(f->flags))
- 		fl_hw_destroy_filter(tp, f, rtnl_held, extack);
- 	tcf_unbind_filter(tp, &f->res);
--	__fl_put(f);
-+	*last = __fl_put(tp, f);
- 
- 	return 0;
- }
-@@ -588,7 +594,7 @@ static void fl_put(struct tcf_proto *tp, void *arg)
- {
- 	struct cls_fl_filter *f = arg;
- 
--	__fl_put(f);
-+	__fl_put(tp, f);
- }
- 
- static void *fl_get(struct tcf_proto *tp, u32 handle)
-@@ -2042,12 +2048,14 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		goto errout;
- 
- 	err = fl_check_assign_mask(head, fnew, fold, mask);
--	if (err)
-+	if (err) {
-+		fnew->mask = NULL;
- 		goto errout;
-+	}
- 
- 	err = fl_ht_insert_unique(fnew, fold, &in_ht);
- 	if (err)
--		goto errout_mask;
-+		goto errout;
- 
- 	if (!tc_skip_hw(fnew->flags)) {
- 		err = fl_hw_replace_filter(tp, fnew, rtnl_held, extack);
-@@ -2099,7 +2107,6 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 
- 		spin_unlock(&tp->lock);
- 
--		fl_mask_put(head, fold->mask);
- 		if (!tc_skip_hw(fold->flags))
- 			fl_hw_destroy_filter(tp, fold, rtnl_held, NULL);
- 		tcf_unbind_filter(tp, &fold->res);
-@@ -2107,7 +2114,7 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		 * after this.
- 		 */
- 		refcount_dec(&fold->refcnt);
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	} else {
- 		if (handle) {
- 			/* user specifies a handle and it doesn't exist */
-@@ -2152,17 +2159,15 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 	if (in_ht)
- 		rhashtable_remove_fast(&fnew->mask->ht, &fnew->ht_node,
- 				       fnew->mask->filter_ht_params);
--errout_mask:
--	fl_mask_put(head, fnew->mask);
- errout:
--	__fl_put(fnew);
-+	__fl_put(tp, fnew);
- errout_tb:
- 	kfree(tb);
- errout_mask_alloc:
- 	tcf_queue_work(&mask->rwork, fl_uninit_mask_free_work);
- errout_fold:
- 	if (fold)
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	return err;
- }
- 
-@@ -2175,8 +2180,10 @@ static int fl_delete(struct tcf_proto *tp, void *arg, bool *last,
- 	int err = 0;
- 
- 	err = __fl_delete(tp, f, &last_on_mask, rtnl_held, extack);
--	*last = list_empty(&head->masks);
--	__fl_put(f);
-+	spin_lock(&tp->lock);
-+	*last = idr_is_empty(&head->handle_idr);
-+	spin_unlock(&tp->lock);
-+	__fl_put(tp, f);
- 
- 	return err;
- }
-@@ -2198,12 +2205,12 @@ static void fl_walk(struct tcf_proto *tp, struct tcf_walker *arg,
- 		rcu_read_unlock();
- 
- 		if (arg->fn(tp, f, arg) < 0) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			arg->stop = 1;
- 			rcu_read_lock();
- 			break;
- 		}
--		__fl_put(f);
-+		__fl_put(tp, f);
- 		arg->count++;
- 		rcu_read_lock();
- 	}
-@@ -2254,7 +2261,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		cls_flower.rule =
- 			flow_rule_alloc(tcf_exts_num_actions(&f->exts));
- 		if (!cls_flower.rule) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return -ENOMEM;
- 		}
- 
-@@ -2272,7 +2279,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 			kfree(cls_flower.rule);
- 			if (tc_skip_sw(f->flags)) {
- 				NL_SET_ERR_MSG_MOD(extack, "Failed to setup flow action");
--				__fl_put(f);
-+				__fl_put(tp, f);
- 				return err;
- 			}
- 			goto next_flow;
-@@ -2288,11 +2295,11 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		kfree(cls_flower.rule);
- 
- 		if (err) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return err;
- 		}
- next_flow:
--		__fl_put(f);
-+		__fl_put(tp, f);
- 	}
- 
- 	return 0;
--- 
-2.53.0
-
+3b70edea393d was tagged stable+noautosel on purpose: the race needs
+a module unload (CAP_SYS_MODULE in init_user_ns) to line up with a
+~100ns window, which your report also shows you could not hit
+without a kprobe. It is not reachable by an unprivileged user alone.
