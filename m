@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699172;
-	b=xw5ZrgpSl6H6WQv4elqaYxkwQ0PomM95qsSEzI4KMjhnUL9M6vt0V7cFR8qQ5G4C+v2I
-	 Jz2QG65HOFW5ju2rw5G4HvN2tsQl2JA/MEQ8qd6EtACXwC60kHhY2wtliHn7rNC7C1BX5
-	 pAYLxJ9EkQiHq6j7fXdRNqGoYk+RD2lB9DiZA7ev8XaWMkla2Mp3Eq/3f8iahzpsuZJ56
-	 J+6zG9I95oKK4V/AQQvZc74XM+oyCiN37V8AVYloJwRCHHI7r7Nvo2pJ5mIb9bkT8BF4g
-	 vKHpECm9CpvXZDGPtbPNPsdHfD7Zi38AFPHxsA/AzM9rNwIY1GMYnFrmGfpDYBZkk8g==
+	t=1793699177;
+	b=R+YC9h23Qzwl2MDfNsFGWcxjLwJRjDMj5E0O25psJ6zxPJ46+wj9FTH6neg/cxuEKfBW
+	 ShGpuDSRiM8c5FDvqtMo0Q60YKaEl8yNc7ZXOTlnoLvKeqtNtzFfjLw0MGDtZR39FKcYd
+	 pyLJSIj34GI7cLLqQXciMsJNQ64s/RoBu0mR8YTFWV09QYAlsS7r/7WaNENjekclGdILW
+	 aZvEl64PECwQavjf0tDiPprDdJE68W+RwHqWLwLFFBO7TirWHkscCNL3HnXQ7rTB521zq
+	 RoiyHbbqt7DCH/3Rd9uRL9ebyDU6R8Fce/dfzoX0N4MGm5bB/OAAfXki7cFe6B+kG7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699177;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=kjNW/BEZIJiWpD0QSBrblYoaP+4qh7Pt18KlmN+Uc64=;
-	b=tWryj+47IBvFRzy/nt+xTsAlicb3oGfnxr0/uhalPT3ekwv/pGyGooeBB6XVqdAjeZnm
-	 0X/PGJ78yut6JC6soUgSvhxFT7busN4/qhoe6zYqeFZESnirAZt9INTZXPyP4V1cl5R8k
-	 lRwOpGDU4Kl8k7j35Q/10cVLsMqn+qUxSTbVhIGaXaLjtPXcuu1XTtxN/5pK7WC3qbghU
-	 4ekejzQKSjoLFIZ4SUVnr7+YsfiwUYGQnbbi64yCeOXN0ToI+vALh61G/U9r1CU9oM4A+
-	 Y/GAm2J4YeBrbKUxgfNBfXbfo1jTkRInVKB5Q3DD/200PPlaVQqyjPIzv1yTaXHPd3A==
+	bh=Qu4mAgw5katdvyP9FpYsDQ+YEP4MXJRlT8noXjfaXBU=;
+	b=Jwajks3gTSKCAcoIkQQ2Y8lTU1yyQEVczaoconoOWP2U++Tpmi69uqgz7rPJvnKb4JrX
+	 KnjOxp8ZXHGp8vNpeceBdaP7sLXbfzKA7JfsEh/rbua54fZvStuqBfNBwPlw9xgQ9e5yq
+	 UvkuoRLP3/h9IjJREYVv2q1q3h0GsCWdT3dO4wEi/Qo/IXV7gPsXd5wXJ9PB9bkVRxA89
+	 GJCRK5JllBFnM/SHuiIJAsD3nq7p3bReXqQSkmVcfqbX+tlQEMXnZV/ZoFteTir5wfUBv
+	 0cRQMmXK/qsPCrFWEKdnMGg5WWrOJ0gFm3KZyVVgib8GvQQLM+8Rp8zQY2O6Iisb5AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,28 +25,23 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800CA606A333;
-	Tue,  3 Nov 2026 09:46:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 800CA606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDCD606EEAE;
+	Tue,  3 Nov 2026 09:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEDCD606EEAE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADX4JFbrelqmk47AA--.2367S2;
-	Tue, 03 Nov 2026 17:46:03 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAA3QpNmrelqIU87AA--.2670S2;
+	Tue, 03 Nov 2026 17:46:14 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Bin Liu <bin.liu@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: mtk-jpeg: Release the decoder device on job completion
-Date: Tue,  3 Nov 2026 09:46:12 +0000
-Message-Id: <20261103094612.1289250-1-vulab@iscas.ac.cn>
+Subject: [PATCH] media: cx231xx: free the rc device if IR client creation fails
+Date: Tue,  3 Nov 2026 09:46:23 +0000
+Message-Id: <20261103094623.1289509-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,75 +53,72 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADX4JFbrelqmk47AA--.2367S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF1xGF4rCr1kury5AF1kKrg_yoW8tw1Dpr
-	W5K3yjkryUGr4jqF18WF1UZFyYkrZ3JrWY9FW7X34xW39xXF1rtry09a4IqFZ2yrWI9a4D
-	Jr1jqa97CF4jyFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Y14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowAA3QpNmrelqIU87AA--.2670S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ary7WrWruFW7ZFWDtrWfuFg_yoW8ArW3p3
+	y5tFWYkFWUJr12gw47X3W3uF15Xr1fA395GrW7Jr10qFn8G3WYkas0kFy7ZwnIvFW7AF90
+	yr1jqay29w1vvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCT
-	nIWIevJa73UjIFyTuYvjfU7TmhDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgAAA2rpnIRROAAAs3
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUrv
+	38UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUAA2rpnIRRZAAAsu
 
-mtk_jpegdec_worker() resumes the component device represented by
-comp_jpeg[hw_id]->dev.  When the job completes,
-mtk_jpegdec_hw_irq_handler() drops a reference to the master device
-ctx->jpeg->dev instead of the component device.  The component's usage
-counter is never decremented, so the component and its power domain stay
-powered, while the master's usage counter is decremented without a
-matching reference.
+cx231xx_ir_init() allocates an rc device and hands it to the
+ir-kbd-i2c driver through the I2C board info.  It then ignores the
+return value of i2c_new_client_device().
 
-Release jpeg->dev, the component device that was resumed, and disable
-the clock before dropping the reference as the timeout work already
-does.
+If the client cannot be created, ir-kbd-i2c is never probed and its
+remove callback, which owns and frees the rc device, never runs.  The
+allocation is therefore leaked.  In addition, the error pointer is left
+in dev->ir_i2c_client, which cx231xx_ir_exit() later passes to
+i2c_unregister_device().
 
-Fixes: 0fa49df4222f ("media: mtk-jpegdec: support jpegdec multi-hardware")
+Check for an error pointer, free the rc device, clear the client pointer
+and return the error.
+
+Fixes: 141bb0dc2d0a ("[media] cx231xx: Fix i2c support at cx231xx-input")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/media/usb/cx231xx/cx231xx-input.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-index 32372781daf5..017c9b5401c6 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
-@@ -547,7 +547,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
- 	struct vb2_v4l2_buffer *src_buf, *dst_buf;
- 	struct mtk_jpeg_src_buf *jpeg_src_buf;
- 	enum vb2_buffer_state buf_state;
--	struct mtk_jpeg_ctx *ctx;
- 	u32 dec_irq_ret;
- 	u32 irq_status;
- 	int i;
-@@ -557,7 +556,6 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
+diff --git a/drivers/media/usb/cx231xx/cx231xx-input.c b/drivers/media/usb/cx231xx/cx231xx-input.c
+index 8149702bcf89..1236a04cb2d6 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-input.c
++++ b/drivers/media/usb/cx231xx/cx231xx-input.c
+@@ -50,6 +50,7 @@ int cx231xx_ir_init(struct cx231xx *dev)
+ {
+ 	struct i2c_board_info info;
+ 	u8 ir_i2c_bus;
++	int ret;
  
- 	cancel_delayed_work(&jpeg->job_timeout_work);
+ 	dev_dbg(dev->dev, "%s\n", __func__);
  
--	ctx = jpeg->hw_param.curr_ctx;
- 	src_buf = jpeg->hw_param.src_buffer;
- 	dst_buf = jpeg->hw_param.dst_buffer;
- 	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
-@@ -580,8 +578,8 @@ static irqreturn_t mtk_jpegdec_hw_irq_handler(int irq, void *priv)
- 	buf_state = VB2_BUF_STATE_DONE;
- 	v4l2_m2m_buf_done(src_buf, buf_state);
- 	mtk_jpegdec_put_buf(jpeg);
--	pm_runtime_put(ctx->jpeg->dev);
- 	clk_disable_unprepare(jpeg->jdec_clk.clks->clk);
-+	pm_runtime_put(jpeg->dev);
+@@ -90,6 +91,13 @@ int cx231xx_ir_init(struct cx231xx *dev)
+ 		ir_i2c_bus, info.addr);
+ 	dev->ir_i2c_client = i2c_new_client_device(
+ 		cx231xx_get_i2c_adap(dev, ir_i2c_bus), &info);
++	if (IS_ERR(dev->ir_i2c_client)) {
++		ret = PTR_ERR(dev->ir_i2c_client);
++		rc_free_device(dev->init_data.rc_dev);
++		dev->init_data.rc_dev = NULL;
++		dev->ir_i2c_client = NULL;
++		return ret;
++	}
  
- 	jpeg->hw_state = MTK_JPEG_HW_IDLE;
- 	wake_up(&master_jpeg->hw_wq);
+ 	return 0;
+ }
 -- 
 2.34.1
 
