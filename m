@@ -1,62 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.2.5.213
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716090;
-	b=ciq60UJU2LU8Mr7ChclhDOHePCCdLFSDRx7pvfqD6y7oCVWfN9PgITCr33UIWMhGxW26
-	 Gv2ZqnuWJG8F5JfgKtq9v6byexqshBVB61npKCDA1+248+iDguAEUZ+MtyGY6aGAcBeNz
-	 gVqcB7/ZSe9cu5YoJS8JBcsm/5AUajgVklqBZwEFc/DTRH8x63rwwn/hHLA9R5W1NNKjc
-	 OM86UhYCk4PHFFtg4bbkOrAt9YOzHH2OuWlaNDFpDwAgUhAbUYpvttSdNg7H1mVgGmey8
-	 TaQV34pOsBc6UzrwPCkqKieFUep/37D+Wu1Wx+ZQ1GGBD7IjDAxxnGhJsPEcEhKO/Xw==
+	t=1793716186;
+	b=h2hbHC4AA+fUm5j/Z4z/d5SN544hm4y7xAbIGazEQfRiX+8PdhK41yOpZhaotucDpq8e
+	 CdkkihXFO+NdbjTXaxRCCxk+ORO82Vq0HIM5E3q7/f6LJPA9yX1m8aaTeWZ9rJSXogk1K
+	 C6Xn51XLFl7G2AU84+0jTPpK20hsdJNUAyUTXFdh06gUZd+4Td1U/F62hXl2/Aw94HPav
+	 N3xhBueizu08x4ES0I+Inwm89C6wP9AiGCRADPCOslDvpkFC3qa3G6KWoTdL+mOXot8T5
+	 yF1k5zXzsEiF/fyyhm19k+Nsu6ZV6WFkL8aJMc48T2UTXHe1I1657jP0KT/ZC3Ih2Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716090;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ccATpapPbTgEfZ1P+cWb/MajiGhbQxL2uaUWAgOO/tE=;
-	b=iP5Te7sWZVVUXeVwbEmrs2HM/PlIhZW7vCJgRyChI3SRqT8rwZBgepCVrpFWjh6K4Rnu
-	 Grtfz95E48j6rNmV67C+lpiLypYi0CTnB02jyN06rWJtcle3qQmEK70T1x+G9XzC8TMw/
-	 cAw96Ua9S1VcLFiALFX7yqHxi0mY/DLN9jq9bmEb/7RBtnYJ3e+hn+4e9vaP2sdz4ZrdV
-	 8ejOcHwbXXYHxKO3LrZiqeTDeOlL1eNpg/cEvA2kKK5ydC+aJ3vLLvesPKIiATtWaNOoJ
-	 5+nmMaLO/K3rbJxor2etlonRTXN9WMsOITGl+40ltWTJJ8/lJuBkzv+JHCO6gNwjxNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716186;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=n/GZUP2ZsjOuhhEd/klWEvvXLu7voLybiNnp082YBt8=;
+	b=ULF6mYSHZC1cqhi956tZVUwzghYWxa/BLcgdYBWRD1OGRVb1DNGOYfsG+C9NjLZSfIbZ
+	 iSJFn/ahUpUa1dv3KCvlx09J3HPPTYODova/RraZ0woAhLtOuJEXZivkO3YCiaRiwS9CG
+	 p5AAYeKwIJ1STIo3MObismv96bowWnWdqqnoCCk+ZsllMOBaMn9cKTX8jd7dprFhy0agB
+	 A4PcVnliF7x0ZpwANxgceJxRaqYYKY1qP5Eb41WaUBMxiOEeC+eGITeK+EHmSLVzCm0tQ
+	 DqhFDALtS3QU8fC2TOwEuK/IDxYXF+hwuA/nIt2ERyUmSaLFUyzrpOWSI6AW+EevH6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=student.uni-tuebingen.de;
-	spf=pass smtp.mailfrom=student.uni-tuebingen.de;
-	dkim=pass header.d=uni-tuebingen.de header.i=@uni-tuebingen.de header.a=rsa-sha256 header.s=20211202prod header.b=Gxr2ulRr;
-	arc=none smtp.remote-ip=134.2.5.213
-Received: from mx03.uni-tuebingen.de (mx03.uni-tuebingen.de [134.2.5.213])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=lycISWbw;
+	arc=none smtp.remote-ip=115.124.28.122
+Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com [115.124.28.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BB9606A332;
-	Tue,  3 Nov 2026 14:28:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4BB9606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=student.uni-tuebingen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uni-tuebingen.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16726606A324;
+	Tue,  3 Nov 2026 14:29:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16726606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=uni-tuebingen.de header.i=@uni-tuebingen.de header.a=rsa-sha256 header.s=20211202prod header.b=Gxr2ulRr
-Received: from localhost.localdomain (u-251-c108.eap.uni-tuebingen.de [134.2.251.108])
-	by mx03.uni-tuebingen.de (Postfix) with ESMTPSA id C082D20C4D6F;
-	Tue,  3 Nov 2026 15:28:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx03.uni-tuebingen.de C082D20C4D6F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uni-tuebingen.de;
-	s=20211202prod; t=1793716086;
-	bh=ccATpapPbTgEfZ1P+cWb/MajiGhbQxL2uaUWAgOO/tE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Gxr2ulRrIHG+ICVQZeDO86O97PcxofrzVJc5+ZjEPvhevMCg9L1IHB6yvJqdHYc03
-	 803R9UaBmya+A7EHlc9lQUVK5ydUegbfon1ZXwdNctOB4nq1zXscEul1voqLZ+XQuu
-	 vnLxu8ZspaHwRosZX43c8yL6kUBSH6HvqvF4ia1UiEEQirLmaEs61b7hqOOWrt4NBY
-	 sJm+2j1ohW/lxB4aZ4LXqpV7hKcdTZ/bN+oPgW7SYWyRMOtAbiFXL9irfse95r3rOs
-	 XWlTuLzHvszblV3UCB5DAQhsdXEikY1UZmnbZ23e7PN+qHp5VtzHhqgQfcHgg87e0w
-	 dAdigP+jZEcsQ==
-From: 0z5a <dezhen.lu@student.uni-tuebingen.de>
-To: leon@kernel.org,
-	jgg@ziepe.ca
-Cc: linux-rdma@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=lycISWbw
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793716175; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=n/GZUP2ZsjOuhhEd/klWEvvXLu7voLybiNnp082YBt8=;
+	b=lycISWbw5HzTTpeAPheAB7FhQf0XGx9b+yFlGISP2Y46AoBMnFJ8sHgJ2fP+s6b2ufndj9SFDFWfDCeqUCiv+yufbWudAImvL0C/RA770TBSUO0gd2QttzkZ7wjLHWLrW61pcs4bplaJdbwuuu5Yh1gmpn4xzBgYNkrGdEtEAgQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1085895|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_social|0.0253143-0.00086085-0.973825;FP=3442595331818532187|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034138;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jvr1CsY_1793716173;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jvr1CsY_1793716173 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Tue, 03 Nov 2026 22:29:34 +0800
+From: Fang Xieyan <fangxy@xiaopeng.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	virtualization@lists.linux.dev,
+	kvm@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>,
-	stable@vger.kernel.org
-Subject: [PATCH rdma-rc] RDMA/mlx5: Fix DevX umem page size truncation for pages >= 4G
-Date: Tue,  3 Nov 2026 15:28:04 +0100
-Message-ID: <20261103142804.67210-1-dezhen.lu@student.uni-tuebingen.de>
+	stable@vger.kernel.org,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: Re: [PATCH] vhost/vringh: reject zero-length indirect descriptor tables
+Date: Tue,  3 Nov 2026 22:29:32 +0800
+Message-ID: <20261103142932.65745-1-fangxy@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261103055650-mutt-send-email-mst@kernel.org>
+References: <20261103055650-mutt-send-email-mst@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,84 +70,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
+Hi Michael,
 
-devx_umem_find_best_pgsize() computes the page size in an unsigned long
-but returns it as unsigned int, and devx_umem_reg_cmd_alloc() stores it
-in an unsigned int. When the DMA mapping of the umem is contiguous and
-aligned to 4 GiB or more, and the umem length is a multiple of that
-size, ib_umem_find_best_pgoff() selects a page size >= 2^32. Since the
-value is a power of two, the truncation turns it into 0 and the
-registration fails with -EINVAL.
+Thanks. I checked the applied v2 (60a792b97933) in your
+vhost branch and it looks good.
 
-The umem log_page_size field is 5 bits wide on top of
-MLX5_ADAPTER_PAGE_SHIFT, so the command can encode these page sizes.
+One small thing on top of it: vringh_bad() there still
+passes the raw desc->len, so the reported length reads
+wrong when the vring byte order differs from the CPU
+byte order. The October 21 posting had this right; the
+rest is fine as is.
 
-Seen on two GH200 nodes (ConnectX-7, firmware 32.38.3056 and
-32.43.1014) with a dma-buf exported from cudaMalloc memory: registering
-4 GiB or 8 GiB umems at 4 GiB-aligned offsets of the dma-buf fails with
-EINVAL every time, while 2 GiB umems at the same offsets and
-ibv_reg_dmabuf_mr() of the same ranges succeed. Restricting the user
-pgsz_bitmap to <= 2 GiB makes all of them succeed.
+Happy to send a one-line follow-up on top of your branch
+if you want it; otherwise fine to leave as is.
 
-Other large physically contiguous buffers, such as a 16 GiB hugetlb
-page on an arm64 kernel with 64K base pages, should hit the same path.
-
-Use unsigned long for the page size, as commit f0c2427412b4
-("RDMA/mlx5: Fix page_size variable overflow") already did for the MR
-paths.
-
-The bug was found by an AI coding assistant (Claude Opus 5.5, Anthropic)
-during an audit of 32-bit truncations of page sizes and offsets in
-drivers/infiniband/core and drivers/infiniband/hw/mlx5. The assistant
-also wrote the reproducer and this patch. The reproducer was run on the
-GH200 nodes described above.
-
-Fixes: 7610ab57de56 ("RDMA/mlx5: Allow larger pages in DevX umem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dezhen Lu <dezhen.lu@student.uni-tuebingen.de>
----
-
-Notes:
-    Testing notes:
-    - The failures above were reproduced with the DOCA-OFED 26.01 mlx5_ib,
-      whose devx_umem_find_best_pgsize() is identical to upstream; I do not
-      have root on these hosts, so I could not load a patched module.
-    - So I have not verified that CREATE_UMEM accepts log_page_size values
-      for pages >= 4 GiB. If it does not, capping pgsz_bitmap at 2^31 in
-      devx_umem_find_best_pgsize() is the alternative fix.
-    - Compile-tested on v7.4-rc1 (arm64 defconfig + MLX5_INFINIBAND, W=1).
-    - A standalone reproducer (dma-buf from cuMemGetHandleForAddressRange()
-      plus mlx5dv_devx_umem_reg_ex(), sweeping offsets) is available on
-      request.
-
- drivers/infiniband/hw/mlx5/devx.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/hw/mlx5/devx.c b/drivers/infiniband/hw/mlx5/devx.c
-index fc6f793dc..2277160d9 100644
---- a/drivers/infiniband/hw/mlx5/devx.c
-+++ b/drivers/infiniband/hw/mlx5/devx.c
-@@ -2294,8 +2294,8 @@ static int devx_umem_get(struct mlx5_ib_dev *dev, struct ib_ucontext *ucontext,
- 	return 0;
- }
- 
--static unsigned int devx_umem_find_best_pgsize(struct ib_umem *umem,
--					       unsigned long pgsz_bitmap)
-+static unsigned long devx_umem_find_best_pgsize(struct ib_umem *umem,
-+						unsigned long pgsz_bitmap)
- {
- 	unsigned long page_size;
- 
-@@ -2333,7 +2333,7 @@ static int devx_umem_reg_cmd_alloc(struct mlx5_ib_dev *dev,
- 				   int access)
- {
- 	unsigned long pgsz_bitmap;
--	unsigned int page_size;
-+	unsigned long page_size;
- 	__be64 *mtt;
- 	void *umem;
- 	int ret;
--- 
-2.43.0
-
+Thanks,
+Fang
