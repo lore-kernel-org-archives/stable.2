@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793734693;
-	b=borfqsK23OT02+TakKfnXv699J5Bt/FqG3cCLr/9alIHrY3fnoXEcWsHWXdCJbI8mnQ1
-	 5dOHDGLnE5zTlG/IzeI07hh4K+mokl/PkJWkEgJzcjgTWhi8PIlGHOLlkIx/CVLAIrivy
-	 9rLNIY32VvWYxmcwhHkSOzjxqIGC0c2WonZi+DO352mc/2DaUX4H3omcP9JVd+jLQOqDW
-	 vYArqqL9BzBroU2KiVD1jBf4S5GYdgMoyDqhHyDG2ErBFz4FVu1RLE7/EtTGfiGeMe8X2
-	 fFeKJd6ujxJgYG3JyzSUL2Kg9xHXgGUA8k9+ZW2TPSoLI1fmq5aDPmvzoQ/m6O9ehLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793734693;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793734842;
+	b=jY0PV3OeP/sdwPLy4iAbXK/tecuMDQ7CMyeQ/8Eb30Q+mbmBN/6S51mqanfv/AjF+UJE
+	 6j8XU8zHTFovVv3c/DhBkCMnP29fJc7vL63Lcy0DcrbhFpSZYebkh0i/GtukSR9Yqv3m6
+	 kEMjBoUqkBVf4zuSm/GmU2iMX/iwWt3KgrEGNM9vMwKmqxxVwb82sAv4dkl2zLhBRZpT4
+	 rraCW9QbbaSaRk+sCNxoVTvlp18UoKNqdWejXT48F/Cjuk40KpBOR9nlaEzFrqqgqZ99m
+	 L+41X66NJz2wPuYzc2Aue9WExzkzUIJkhmY1QPQTpsfKxpHUSeYO08nZ8L8syP50bvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793734842;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=tuTSxu3KTMYXj5m2sq/CjElD/51ek2rmveUedi9cdvQ=;
-	b=uqKqlfpiylaRR12UEeECT4kItq1mV7MjL1L4jUneA/qGndk5ze/siWytsxKw21CXqf23
-	 hYarpr9DzN00phJVeqeqmFIg/Nn8B9dbMby0LKuptMgpRNzLL3fDFglbadQyKo1MbtSMF
-	 bCHW9Il1Ujg8A/8rPlUArGNQMUoiltuIMoMKY42AiBw2xw6rMEkRR9u4gJOVHabv9rL6I
-	 HxFtsdpg0VLsImp/cJJicIdbbrLHclyvsDACgUCczjQ7UyZxFcZ1EdA5fYTioauO3c43G
-	 fbrJYMFXiYs+oF45K2hzJHDqsiYjeGc2Npso9yLcj+Sv7wZFORN55ROQesyakqp5X8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="GKRtY/xR";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QEdyje6GYOeiJ8aiWszqlJ8NcWeswSE5soiCL4nt5hE=;
+	b=B4YrDUYM0QI7Vr+ILUSYx600Y5uJlDcJqZtyIdVZBnjlwQho36LfHdarYqNJiIf7Il+R
+	 4aYJHUl8zNTCBx4G/mdvxYvD53+f/Q++DwIx5ZY0AQ0VEt855vd4CsjcUa5sgdSD2GKjo
+	 OG7HXnvgW+tmnSDIB6K3wwlwEbV4dakVf5BtXLw/FPD4/SNc7DzOvZvoe2LJVF/sNxlfX
+	 0viCaWDTxQwVtJYoKD7RbJwYhurnojDadIMqpvKxjSd0mxIpnPoyxmRDzfdqoba+pE+MJ
+	 X89PWttC1XlA/d9/R3aZWQNf+Ang6RrqfkOFNK+E/BGBoS21WtjP3fAXZxg7gonKwZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pT8oYGJF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76FC606D804
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C76FC606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF81606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:40:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AF81606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=GKRtY/xR
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so37372555e9.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:38:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pT8oYGJF
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so2067a12.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:40:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793734841; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SWbNuhvBzHQvZemkKO5U/BmNfiDOHCQB8OOyMgsDsRAmAmcwxegU/rE1/5yaDKwAE7
+         4cRi+g9TdqOvvkTFe87MbZoIk692rhanVpNjp5gx5kPbzmFRX3w0PUnLAjPPQoAZ4HtR
+         vbQFtPa7GOpQNRhvWjsgQKiJhcmqKJFu1TJumZ3yIqNku5wFXUQdKUd0QKR3W1zmuC99
+         pDJCbSvpPOEWjjzwsR3dHzMs29OrhE5W0skgd7GHoYgnKygryNWHjyqYBwY+oeAiAgVd
+         n6i7MEPIiDAyMj8d6iERGEUxI/DF35A9G7L6HQxstqopjv5PoV2tDZHX5ENoUcp/E43q
+         jJNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QEdyje6GYOeiJ8aiWszqlJ8NcWeswSE5soiCL4nt5hE=;
+        fh=+2ChdOuHiAWZOWAf+yB5uc9sUkPLDxI+q16AtI/V99g=;
+        b=fM4rrRUY1/Wzgu6MyCL3Tnzvd7/iWHly7af0/+gMLKnihekfBjRKXYaHBCR6AlqfJO
+         vW7fcvkhwsUbvWOrrdBviCRewN/VoT8YKSXLxuCeCPD3Q73+5D0nvfucik8eQQIrDf2k
+         vZOxXzngyUHrOepyFpd5CAzuj/gXaNnmUy0aM1tFrfjWQ6qoAhxAO8zYto2WvsZtaZ7Z
+         7O5Mjt6jkGzWlge7fq9UsNwO/N4bUnMSn2ZUG/iwT0rSLa65A9wT3GZpzHwVn+BqbBXE
+         w4+H2tY17b/6TQ0/OZoO0aGAG+tx/I4XQGMoim2T1wURqIE2/Awm2l4QKtn46NeQb4nQ
+         eqMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793734691; x=1794339491; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tuTSxu3KTMYXj5m2sq/CjElD/51ek2rmveUedi9cdvQ=;
-        b=GKRtY/xRqxKE0icRGOY1BmyhxrRDxuz7CSnjvN1kQlWXikkvz0R3sFAz8EPh+B8BED
-         VHYDvslWBn1s8MtghLOL4W6uzFOja+20OtOFQbOF7QwyCVzyykDJ5gnCXuYj60qiIWDO
-         HU5FW5OdZXn1Y6X1hmQc4YAx+rjaMNbVGA+01AQ7JSakygrakPRCy6P7ezF7/f/7JidB
-         P31QRfc4IITd5Dikbcf7f6t519fkGW02GVIJEDEJK8I/8i489SdL/z+fBSwSlo4aNUkB
-         a9svGfTw4Gh55GeKCCczCqgKD4PVjZGCzK4jYgVuvw8Upd85z+B8RrWCVWBxkyEbXeEy
-         185w==
+        d=google.com; s=20260707; t=1793734841; x=1794339641; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QEdyje6GYOeiJ8aiWszqlJ8NcWeswSE5soiCL4nt5hE=;
+        b=pT8oYGJFh4OylXN6LyeQXGxqmvowxZqdmP7Y3GI/F86yIdKK61uaZXbx/qqo4fe3LE
+         K+10ICcH6HQsz0hOTk4irDRXR09D76sjU72Eo7frk2aJyBkj2dTV3oxzS65+g7fbWTC8
+         wqA+FfIIFa350fcZQMunKgAVUt3C05tdFY7Jdp4RiUaQlqlzlIm8cY1WHZBTeMsmEZqE
+         S2+gCEq5vSCj9X0osfjThi+pXaT1qJgU+NoTEx3rcxFkyG/2JGCTjrDSb8aM8e2Lh3Ah
+         nu1LXgiXKkBl9s62wwdN3yiPrVRzPQZj9DxfH1T+f6cxa236+QxvMVFbUha7FIycQPcC
+         tgbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793734691; x=1794339491;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793734841; x=1794339641;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tuTSxu3KTMYXj5m2sq/CjElD/51ek2rmveUedi9cdvQ=;
-        b=D19U+ez4D9DyOFsaakdolBweQ1XRUgaRnwvJZu7KMOf2lOrQKsAqMv+5TK+VFf4Pam
-         AE1ENXgSMrNIka6QvzNC4eWICrn9PuwKddXOTTkljKg1rCk0yEgdecI9bjPxSQBhiBBZ
-         BDF9lNfAoxDQPE3q0siRisX3rDJm//ne+quicV+6tYFOaumg7pAtyo/ljk3Uxo/rPhc2
-         u8Ii9SYduvs2xz3QDUvo9czj5GlHqwWUJcsPE+vXUs9Yo66QLQKL6Bnw+dF1ALvdjYDo
-         7SaN7CYaT7yFzvhf8dfPRunigkaV+8oG7TiXzAD37U+dP2CchFlSsIm6/FHokQjYbkfQ
-         V7QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/F3c80cUSKl5PHNJY3QRZtg4n5l0aycBolvPPNgmgj9UOaSmvXvpCaMKuzY/oQYbdEHSQBMU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TJHUsCuAd7Ftsw7iv9Jp9hLrkCq0pmIT9VGm/WYPFH8WSfDRs
-	Zy6Y5n2pGX2Hl5ew/uOo1voZMUUeYfuZyv0kN74XsY9M8kz2J1OS09x8Ark9/tQIyrU=
-X-Gm-Gg: AYBFou2QXjV1zTB9ySCBAbuzhShVxiRRDq1lE0ZBhDC1VODd5xaPgK+BjjNsrvGTvJs
-	wqNkJPyC7r84lGVcCKAqZO+s147bzQOXU84Ku/297aYRP57H0szxxLHibYOuXnewMx56C8q4LHF
-	gIB+sxMFCO9NyeL+CdS9Dd7UgzxnFxaJcznZuXv/aItRE68fJJ7YW3FlzW+1YbbD0pBjbkv7/xb
-	b1nRNE1jOxhdzdsKNMccQowp9qTt82m0OMkHAkRaQsknqx0SQAQ7tTEiQgqazp6+GmBa2JUa80T
-	5Jd7w5Mz7cNpyIowCib4ZksUnBwhJ9wVJm0hTxn7AxwlgMXVG05/d52wPiCa+Ubkg9OE6lb80eJ
-	klXOUuD7RBa4Jicf75JqE2tsPeJhCnSw/AztzYLGl+0sgmgjcoz4RMtz0ZuALRjoks80PPpjkW2
-	DGSWr6uKC4BbJBqxltUTb2lx5+4ZLQ9t3hwzzxDL2kKLco0wrdQCdVKBX4dBju9p0NNg+4IVrMJ
-	AGTSAI4OiRLbonPNYA2cBVMCUzNvkJg9kFofi9dMpF3kCx1Zy+G0jkwEQLoBizYS/C3Y4ovCEZn
-	OsR/xGi04jrKBbfvMUO/jZsMRA==
-X-Received: by 2002:a05:600c:8b61:b0:4a2:1398:dd05 with SMTP id 5b1f17b1804b1-4ac17752ee4mr302304865e9.16.1793734691196;
-        Tue, 03 Nov 2026 11:38:11 -0800 (PST)
-Received: from localhost ([2001:4090:a244:81d0:2c16:1c4d:8a04:e0bf])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b413312b94sm2165015e9.3.2026.11.03.11.38.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:38:10 -0800 (PST)
-From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Tue, 03 Nov 2026 20:37:30 +0100
-Subject: [PATCH 3/4] dmaengine: ti: cppi41: Restore QMGR_MEMCTRL in resume
+        bh=QEdyje6GYOeiJ8aiWszqlJ8NcWeswSE5soiCL4nt5hE=;
+        b=k9HRpn1o+0TOLquKR5EJOnVgsnnFfgtOSgsYrEQQ3Ts7GChp6+/+MKXvOuVtBZDWLg
+         E4QoIDrjbqUEmvE5OvyKnEKOgdHXM9J5aSDyrg8K2XhsL01Zz6Wgh7vct9zM+iz7BUaX
+         3PWAFbyCiwWtku3cyA1erNlEjjNBEoM+vIz6JVH0YokgxRdwQ1ZfFJqNoFOu9rQNGZaC
+         YV4MM/mTDiwiY3u9rT/Wv8iMr/jsbQgmxSJc0JZmV1lJ8GoeP1LyKk6vW5AkpkkFudZe
+         haeGNz22G9iuPtXUyTNwBndjMAIqjIwWald6OjFyC+nhXuF5cz9BootyD2j1ALO87CYr
+         Em+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwFbsg9tQWJp935jzWQY06TM5JGi2t/4g8w02lTDbJpcu3aASVThgeVRr8/h3sq3bgMX/Hre7g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8kWbxI8eKWMzZWvM1Uwg2+ojnudTvULT9VV0S8a3/zoozLR/YV
+	Baj+8zRPthmuMRKSYa+RS2LKhKK2DMYxOD6GxzGZK/ZXNMK2JqXp4ae18uvfCo4nJGy9y8H+m08
+	SXywHL/G26xfvBbmMTuLlbhe+DZ5wJvTRsk8JegtX
+X-Gm-Gg: AYBFou1NdlV/SuDo6S5JQiGrwnGqfSSikXmr7qLor3vbJCZAHHI5JmeaIpdcGi2dlIO
+	t2TL36JCENxaYF1eRZSkaZmW19xv6i0lv5DZRMssRjEMwSArMV0tbMcMtclZmyNfW7v1mcO8uyh
+	QATe6vBOgQpl6BLXnsclC7bmwoTZZLX+WSLxM47g971GSWq1sVcumu61ILp4bFl3lJpkCZJ7HVu
+	WNp0gsD9BueAlEpqxCkj2zzAch1DA2Zv/EJQ4N6LgmehJ3iSQg/OG3qMxFJBdapBQMj+vKjcUZV
+	i0KTV8lzwb4Z1TGFtpmZlrrRqmq7z4CGTb53pq8+2V22YKzj2BORQfH/8888L2hLSbnJmGxzvh7
+	Bh0twUXMspVD7zLuHmpcqYzpAi7klumCorYLPxJ96MwNPJTnTRDUK3C66nQ==
+X-Received: by 2002:a05:6402:b15:b0:6af:b196:68bf with SMTP id
+ 4fb4d7f45d1cf-6b5560924abmr11211a12.7.1793734840182; Tue, 03 Nov 2026
+ 11:40:40 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,107 +104,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-v7-3-topic-am335lpm-cppi41-v1-3-d7213446c5f5@baylibre.com>
-References: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
-In-Reply-To: <20261103-v7-3-topic-am335lpm-cppi41-v1-0-d7213446c5f5@baylibre.com>
-To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Daniel Mack <zonque@gmail.com>
-Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
- "Francis, Sebin" <sebin.francis@ti.com>, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2614; i=msp@baylibre.com;
- h=from:subject:message-id; bh=T6rTeOj2mOVu4qd7MFS1jh/VVnFzsdhhla/rk3UZJo8=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhqxXFsKpjQ9+x5c/rYm9/bl9wn7BJ3u/L6rfcPTZ9I6rX
- 878iV27uKOUhUGMi0FWTJGlMzE07b/8zmPJi5ZthpnDygQyhIGLUwAmcu0RI8OC25+Ur8mGMu6Z
- 89M0nvPsjc+vhZttq3+zVO1bryq3ze86w//QY618XK2+0keu63f1Pvog/bkr/Idl7j/PyFLnIN4
- d6hwA
-X-Developer-Key: i=msp@baylibre.com; a=openpgp;
- fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
+References: <20261102231428.13523-1-pbonzini@redhat.com> <20261102231428.13523-5-pbonzini@redhat.com>
+ <CALMp9eT7cnBf6kSXZLWuMyG9a52QveWjzzLz3Z9E=kPuX_ahVg@mail.gmail.com> <aukmeb9mV8b504T6@google.com>
+In-Reply-To: <aukmeb9mV8b504T6@google.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Tue, 3 Nov 2026 11:40:28 -0800
+X-Gm-Features: AclHuK-z2TRsVV5-P73NQ-eqccqZjCkcB6JcQTKj-t6dr0cpB0gWLBc8vRzU84k
+Message-ID: <CALMp9eTdY3=1BrOYgov852VeAy3+Os7bvhWogvB0YF-JQrmtig@mail.gmail.com>
+Subject: Re: [PATCH 4/7] KVM: nVMX: Process each host MSR entry at most once
+ when unwinding failed VM-Entry
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	stable@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>, 
+	Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently only QMGR_MEMBASE is restored in resume, QMGR_MEMCTRL is left
-at its default values.
+On Mon, Nov 2, 2026 at 4:10=E2=80=AFPM Sean Christopherson <seanjc@google.c=
+om> wrote:
+>
+> On Mon, Nov 02, 2026, Jim Mattson wrote:
+> > KVM needs to do better.
+>
+> Meh, KVM is doing pretty darn good, all things considered.  Yeah, this co=
+de sucks.
+> But I'm not convinced the alternatives suck less.  We've gotten the set o=
+f missed
+> consistency checks down to effectively zero, module the TPR mess that I d=
+o test
+> by running warn_on_missed_cc=3Dtrue.
 
-Add a restore for QMGR_MEMCTRL. This introduces a helper function
-cppi41_memctrl() to not duplicate this calcuation in init and resume.
+I don't understand the TPR mess. The SDM says, "With the exception of
+fields corresponding to virtualized APIC registers (defined in Section
+32.1.1), software may modify the virtual-APIC page referenced by the
+current VMCS of a logical processor in VMX non-root operation. (This
+is an exception to the general requirement given in Section 27.11.4.)"
+I would argue that this prohibits changes to VTPR between KVM's
+software VM-entry checks and hardware VM-entry to VMCS02. If the
+hardware VM-entry fails because VTPR has changed, section 27.11.4
+gives KVM the freedom to implement whatever "unpredictable behavior"
+we like. Yes, that probably does include loading MSR values from the
+VM-exit MSR-load list, but why complicate things?
 
-Fixes: f97b98d6d02e ("dma: cppi41: add support for suspend and resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
----
- drivers/dma/ti/cppi41.c | 27 +++++++++++++++------------
- 1 file changed, 15 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/dma/ti/cppi41.c b/drivers/dma/ti/cppi41.c
-index f5a824418fe7..e2a089066c6d 100644
---- a/drivers/dma/ti/cppi41.c
-+++ b/drivers/dma/ti/cppi41.c
-@@ -842,13 +842,22 @@ static void deinit_cppi41(struct device *dev, struct cppi41_dd *cdd)
- 			cdd->scratch_phys);
- }
- 
-+static u32 cppi41_memctrl(int area)
-+{
-+	u32 reg;
-+
-+	reg = (area * ALLOC_DECS_NUM) << QMGR_MEMCTRL_IDX_SH;
-+	reg |= (ilog2(sizeof(struct cppi41_desc)) - 5) << QMGR_MEMCTRL_DESC_SH;
-+	reg |= ilog2(ALLOC_DECS_NUM) - 5;
-+
-+	return reg;
-+}
-+
- static int init_descs(struct device *dev, struct cppi41_dd *cdd)
- {
- 	unsigned int desc_size;
- 	unsigned int mem_decs;
- 	int i;
--	u32 reg;
--	u32 idx;
- 
- 	BUILD_BUG_ON(sizeof(struct cppi41_desc) &
- 			(sizeof(struct cppi41_desc) - 1));
-@@ -858,13 +867,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
- 	desc_size = sizeof(struct cppi41_desc);
- 	mem_decs = ALLOC_DECS_NUM * desc_size;
- 
--	idx = 0;
- 	for (i = 0; i < DESCS_AREAS; i++) {
--
--		reg = idx << QMGR_MEMCTRL_IDX_SH;
--		reg |= (ilog2(desc_size) - 5) << QMGR_MEMCTRL_DESC_SH;
--		reg |= ilog2(ALLOC_DECS_NUM) - 5;
--
- 		BUILD_BUG_ON(DESCS_AREAS != 1);
- 		cdd->cd = dma_alloc_coherent(dev, mem_decs,
- 				&cdd->descs_phys, GFP_KERNEL);
-@@ -872,9 +875,7 @@ static int init_descs(struct device *dev, struct cppi41_dd *cdd)
- 			return -ENOMEM;
- 
- 		cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
--		cppi_writel(reg, cdd->qmgr_mem + QMGR_MEMCTRL(i));
--
--		idx += ALLOC_DECS_NUM;
-+		cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
- 	}
- 	return 0;
- }
-@@ -1191,8 +1192,10 @@ static int __maybe_unused cppi41_resume(struct device *dev)
- 	if (pm_runtime_status_suspended(dev))
- 		return 0;
- 
--	for (i = 0; i < DESCS_AREAS; i++)
-+	for (i = 0; i < DESCS_AREAS; i++) {
- 		cppi_writel(cdd->descs_phys, cdd->qmgr_mem + QMGR_MEMBASE(i));
-+		cppi_writel(cppi41_memctrl(i), cdd->qmgr_mem + QMGR_MEMCTRL(i));
-+	}
- 
- 	list_for_each_entry(c, &cdd->ddev.channels, chan.device_node)
- 		if (!c->is_tx)
-
--- 
-2.55.0
-
+Something like returning to userspace with
+KVM_INTERNAL_ERROR_EMULATION following a prohibited write to an active
+VTPR seems far easier--and cleaner. What am I missing?
