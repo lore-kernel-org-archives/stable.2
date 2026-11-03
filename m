@@ -1,101 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793718093;
-	b=NIUdkW4OPZEHD+fxRnBkXP8GgLQYUjLwSXFGg2PolAMWh2HhP9axjV2PQGzrDmOwrrUY
-	 N3d1hWeRxB0kb7cMMQwTe/SKoBTetikGqaBQVhTDZno+aLcX0qpD7tTPPmGWX8mihuKfQ
-	 pc/SnIeV6XJW3Px9UKMq6JoRLp7OZNtOihO5puAVUKfEn9vCT71Ngy7fDXdHnzpWXCqgr
-	 2BillcOS264i9yrelzG+JFlq8ZmUwAnkkUh6PMuxer0PCK5fOe0fw9HgrLhoqmRbl0KtJ
-	 oUOMH19D4yur+yQmU2GCgFf/SnnzfDO34kTKngKm+sx/Q0VEZupDlq1uIQ5PGeUNuQQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718093;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=C5z4M29UxeONpK8o8OLGczvOOTRjyuOm2u6SOdS+0pI=;
-	b=XLPyQZeGdlfvHNwTUnmqVQNT73OsGY+D0pBCazYEpE9s1gzz+aA9DStHenY68lucclqV
-	 quew9+6uEoBLUQQq0/Ls+J/Cswg8xqBCqcsiSh3Ps0ccZgxY/Ix7+vsglGg/rdTkEIOWz
-	 VPO/RpUkOu5ZVjMwT5lW7tGBFtlPylrg0uKn+qCfqArzhl7ehfv8c5w3u2hvT9Hepx8jr
-	 w41wRNHTBQmk7J3KqMIChkI3mEIzFdDl9yUasrDkTIKRzwaSd/cieRD2OagKhsdm8WgL9
-	 LIM/mVU/I+GIAhHb3s5Ms1LV2bhg/aFIwNZehvCk0Go8tB6B5JtOwseyBmU7MlTUV1g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zeu/ko8D";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.47
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com [209.85.217.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793718107;
+	b=pVAbMW6a+QlEZp+RCke221oGTzyQZaGg6/8qJehFQy1tzqeBMSIkKiMU/ywObhXT5yuF
+	 M2OdpJPkwinZxEB7r4sHCA60QZMS6Zfz1sFBHIt+nRXCse43AtQOX95Tni+FGGmxSV+q9
+	 HDvwSiLBmjRSgT/22QjiYt/qWAfnSxTNpVW5q12osue+yjFb8VaORfl16MrVwHf18yd42
+	 Jieo+9WYBSAJitfYBwf1Qjr/U12+VBclqRpVLKZIv0Lj5IIAp+7xseLJpzclLm9I2DP95
+	 zY5Db1osl4KBK4fov9ID0IV22UOF+gnCRhbVLZ3OcnYNJnEvAEqUEZicglm7wuSpdOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718107;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Ugy1MPPX4rX1hKJ3Iu+kcccg2ZINH127EjdwX5suMt0=;
+	b=JriAAsjDLhd1CMkXm/2LxmchaTQ5GxkPVl+DxTldwcHxB1EXWZcLw4/lJEyHJgr+LpnY
+	 W71WzukN4YQXhb+aTMx+a4+DQPbaqs5gtHVjC+4n0uheYVCKA9aOt7nOzWsB6o4PFd4a0
+	 7OhymasEYikEyw2cOIxzP14IED76+NUm1u3eo2yuyfYjlpbW7yS5jy1UnrPc+cpy9lNWP
+	 Gw1fKNY7FYm2cx01JP7jYgTIdSgOy4O/EIlkfMb02BZWjVhXhTuYguQVKZCUv0SdtTBRj
+	 /huXE1wz3mcmmReNnJUIqnyJ7phAnOBlAkSdjK+SrTAjWHkqQA8g8FlAKYc1gNEhq3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=M728LnHB;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851C86071C07
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:01:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 851C86071C07
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C305606FCF9;
+	Tue,  3 Nov 2026 15:01:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C305606FCF9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zeu/ko8D
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7c19c6721a3so2696236137.2
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 07:01:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793718091; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WMsE3nstCrE/x/LQ/tYKmCvgZbcHlRTHK5QwvtZepQEcrRs0IiQg/w2ry9dX9aVQHY
-         BrDy4lW4XUR1MxNBryOBn9hGrGTL+GT8a5Vl/Y0aMH+ywz4RImUjuh80PZpsod/sz794
-         N2W335cPjIQEszbvVips9sJHnugtZr7pn29n3IGvIEYu2PYDPFxnHVgy7G9qxX3aDElw
-         /rO4VNv9eyDQY4o1nuwzMCeFJd6p5kFvIvz/twGgBIHNXZKlI0/XpWoT7jj5mHyxHLho
-         gDPkoqZDcgS96i9linSxw2CWuim6MxZYRGCCStDfIytayFHEzLsEunqqhShEEvmLuk3n
-         gkzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=C5z4M29UxeONpK8o8OLGczvOOTRjyuOm2u6SOdS+0pI=;
-        fh=Q4j+jOrE1IhyLGPaffweF4GvENJL3j9btXnb2VVS2pE=;
-        b=EGMFWQXykgij4pHsDWIIYFq2s3nVSq1z/e/FB7GEczxvwgMd80z4Zcd5HI6tciQnOL
-         uM6kUaFeLQECpb02NLEmLgwooJYopMEDv6jGPkMoepdO4o+KyWhGje/A3xpGrYM+i+e2
-         s55PWftc8ANLBb7GhOlCXgtj1Ng0+A2VJODPqxfTsqAw68JgFnWs4EuapLeSVaMm1JIc
-         yTD6r6SuoTUbribuCnKtMHVe4nBtlx7+TlCfBGnihxQVaPOZWPtqTqxioLUCcDMXWoKV
-         YE5iAu+IBmQrSwwTq4rKKiVd8sZu02KU+L6oobdhW0zbZqc8EQtdMTNH8X/B6C/YhBh6
-         nwwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793718091; x=1794322891; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C5z4M29UxeONpK8o8OLGczvOOTRjyuOm2u6SOdS+0pI=;
-        b=zeu/ko8DkS5rKNStf2MC93UcGfZbVP4uaoIt/BxP4yh5fKcoofKYazpLw1iRdh4Hc6
-         lBQQOPUz8KJK7M/V6FBAp3wNnNA3NWoOh++0wBPgNw8VluaRTz4fZJnr2P3NRNOWGCwX
-         3a5yjceA8ZM5Nxo6MHbYAetTo8JAgOoMwe3qhLwzrdqn8AGmIW/tm7mGrIcS9pl+52d1
-         /zdUtCr0WDE6fcdEObwzSH+S3sri0cMB4LWHUZgnsK6c6eoDhiILmJpxyatrvdc61xZY
-         oIPtrdD5JEpYDL3zhUGlUHnJ1Yf6THnbIcE96nUDMnVY3kb1wGlFuWpqqNgjfsnntGNq
-         +yOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793718091; x=1794322891;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C5z4M29UxeONpK8o8OLGczvOOTRjyuOm2u6SOdS+0pI=;
-        b=m1Xh8Qu3mFee5wpM2YsqKPVkxuCVdr3rawih1IJP2nPN+X8SsLANAQTA/x2zO7ntD8
-         NIOo26mfcFNWR+IWHUx7eqVLzptWKK5RYIY7A+cuGY3Tom6efIux0OeSwWbTvXOhcgmx
-         w82vn0hxtxIQEnEEwGTL+1Rn7TdyIhGJyvcvKhYdgGBy9O+2XlsQAfz7bHRyvsEl60iS
-         tAPRoOB185CoSam4wbm3VKtHqKnracI7TTHYUer85D9B+las2RFs17UUD6LrsT2022Yz
-         GG7wtIcdbN7vQFHq+6kow/U5UJBXCTZMGYnSka2uCgZCyRxny4wmvI16u1B3IpRiHgDA
-         1vjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZVFbXm0q2taLDr/2i2iXCOGLqZ2uozUe41kx3lQKpDoQ5E2/MBB/M3Jmpunx3/c5by3PG2Vs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tJ5f3YND2XYeqfztn6yHaqki9MuUAQD4Jwe1DmQzCvjQpBrSM
-	grmtdDggRh4c+21OPSHFhHqLOGvLcDopWXWTLmNP7K8DyLqjjMEqN3QRNHpTPsxwP4zrEFwrle6
-	cKx0xC7/QoahvOPrfHRW7awEtiVEWNM0THVQk
-X-Gm-Gg: AYBFou314KgM9xIHzGoZfpcTwtsx7NNH+mQeW1gQuMr9ZWQd+4nYj/3F6237vT8dx5+
-	IpnAjGC70v2WNn1JVLErwwu6QtQw7uyCqx1dvHATXLZB8+WF4FEI1EyHDMC4UbPzGxpHaAb0ivC
-	N5gtV8tqgf0v0cu1QOg2cbDzRqE84T1l4Di5fxaOF5IpPjenBI42RWdErVYU0Z7MAjLeqFpxfDO
-	wd9pmpx+BQShfa5yJWn0m7Ckjn2KAB7SE5HPRxIHOEpLVlFG1udFxOSnM78JBLYFzEY5n5A5HPD
-	fJCW/kUtXIRK+Tco+JrOeA/Tvoj4gXnPaQ5j+bXbzz8SaKtgwmrwN6CmXs6UzLwd0o9Dm+ch93A
-	1Z5DQD+Rd8X8dBgvknhhQu9YOWY7PHNRGiAkmwCwZB4SD9i1jb7PRj7Tp/Wy3AD/K3eDVuAreQG
-	iZ4REiIzoemylpCwNZO/dYLRfAYrlH/rhw7B1f2A==
-X-Received: by 2002:a05:6102:c13:b0:7be:25d4:7ff0 with SMTP id
- ada2fe7eead31-7d072247a9cmr4891903137.4.1793718089861; Tue, 03 Nov 2026
- 07:01:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=M728LnHB
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EELLD407376;
+	Tue, 3 Nov 2026 15:01:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=Ugy1MPPX4rX1hKJ3I
+	u+kcccg2ZINH127EjdwX5suMt0=; b=M728LnHBnnWB09/22bRj2V/w4zKsOfapB
+	FiNp8PNOVKkUcEkcLHIWLxcfayeXX3/vJQZ0DmKjhIPytuZLyH7UbswX27W03jwb
+	IZsbBe+0IhK1jODG6jTNBPyFn9tsFsO90zg1eGLrNRuvhEFhK411fHcqwSyLIv69
+	pjvLQB5MPIUQnAgNE6fLP0R5c6zhxOItxzvnH3G3y85bkK585WLmlYHZTl0p3zyB
+	p6yzFNDZ9fBMU4haf+le1WLQM0HqrFgEXCluP7GhE32BnI6ceJwKXGIwDCpJ24km
+	9cspIyClhnIB3IbdEptSW6B9stRxLwwpyyL4WFD72eCfQeaG3/orA==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn80spd7x-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 15:01:26 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EK0us1451557;
+	Tue, 3 Nov 2026 15:01:25 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hnvvfttjc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 15:01:25 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A3F1Lc530278240
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Nov 2026 15:01:21 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 319C85806F;
+	Tue,  3 Nov 2026 15:01:21 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A97E358068;
+	Tue,  3 Nov 2026 15:01:19 +0000 (GMT)
+Received: from Mac.ibm.com (unknown [9.61.243.67])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  3 Nov 2026 15:01:19 +0000 (GMT)
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        gbayer@linux.ibm.com, pasic@linux.ibm.com, alex@shazbot.org,
+        frankja@linux.ibm.com, imbrenda@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH v12 1/5] s390/pci: Hold fmb_lock when enabling or disabling PCI devices
+Date: Tue,  3 Nov 2026 10:01:10 -0500
+Message-ID: <20261103150114.68873-2-oelghoul@linux.ibm.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103150114.68873-1-oelghoul@linux.ibm.com>
+References: <20261103150114.68873-1-oelghoul@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,213 +96,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029193454.1028626-1-andrey.misyrov@gmail.com> <179365071111.3131.11060798860349203804@kernel.org>
-In-Reply-To: <179365071111.3131.11060798860349203804@kernel.org>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Tue, 3 Nov 2026 10:01:17 -0500
-X-Gm-Features: AclHuK9nfSNUyCyqoDyvo9sP8tF53Z1JcsckJk3ZwF841Id_BliZCishdgjDQdY
-Message-ID: <CADvbK_ctB+uPFZzpNF7dszEqyEQAK+GZJGtMo-tehoWUDQyeXg@mail.gmail.com>
-Subject: Re: [PATCH net v2] sctp: fix ASCONF address change on single-homed hosts
-To: netdev-bot+sashiko@kernel.org
-Cc: andrey.misyrov@gmail.com, marcelo.leitner@gmail.com, junvyyang@tencent.com, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	horms@kernel.org, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1OCBTYWx0ZWRfXxI9tfknrkXRv
+ MUTgbKcQX7p4OtS2m/iUpxQ1W5GwsGI1pQCm77Dv1zS4LTnac6UH+2pc0YKe/XhFCbLsxt5cLUR
+ 2npcFpBmmu8ECcugLphU29IS8XWf5RnOxRgFZ2K5wDhsRcRu9cb1UDzVpUZA2nPKZBeHNYjpRve
+ Qbs/rdxmHAOwjhOG5s9SGZ2Fa0+tMZmBNn9djDYy4MGNuV8qdfKeW7/+As/CeHrbAC9JPQh6rAv
+ lvLdGzfSOaw6uSWVQ+GP7AiWaUbInZyEh2AT9mAHkd470BBST6lMrhSRMEr15wWDd8Gy+iZWYaC
+ L9c6KAfj8+mBx5C5r0gKJ/M+3+9MCqv2sWxoYHW51JR1h7R15OHL3Ej7lcC7CdZMnNo+I3fM2ae
+ +MyYUH6JIRi9gRABYOg91oiwR8MHew==
+X-Proofpoint-ORIG-GUID: v8RBknZWWZ10BAYUd9Pb39XJagHQp_di
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1OCBTYWx0ZWRfX4oXLxAc5tym+
+ qK5eVXSWfQSgLlBT0jJYxiTNaeHjYkmkoXmPy9CKQrARC1lN3bHlXGRjVxnjMrFkf4oieroLt4n
+ txKrYtr7WW8BoVSyrcm6a2ZvIzWQaTU=
+X-Authority-Analysis: v=2.4 cv=FIqOVOos c=1 sm=1 tr=0 ts=6ae9f746 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=5NbLduwtq9nBFWGw9KEA:9
+X-Proofpoint-GUID: v8RBknZWWZ10BAYUd9Pb39XJagHQp_di
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ suspectscore=0 phishscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610300000 definitions=main-2611030058
 
-On Mon, Nov 2, 2026 at 3:18=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
-e:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 1 =C2=B7 High: 0 =C2=B7 Medium: 0 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Critical] sctp: NULL pointer dereference in sctp_vtag_verify() after
->   plain DEL-IP
->
-> Pre-existing issues:
-> - [Medium] This problem was not introduced by this patch, but the
->   wildcard SET_PRIMARY branch of sctp_process_asconf_param() does not=E2=
-=80=A6
->
-> --
->
-> sctp: fix ASCONF address change on single-homed hosts
->
-> This patch changes DEL-IP handling in sctp_process_asconf_param(). A plai=
-n
-> DEL-IP of the transport that located the ASCONF is no longer refused, so
-> the single-homed renumber case from RFC 5061 5.3.2 works again. The
-> wildcard DEL-IP now looks up the peer by the packet source, and
-> asconf->transport is either cleared or pointed at the surviving peer, so
-> no freed transport is left behind.
->
-> > diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-> > index d64c3ae33298f..0f9538f8040f2 100644
-> > --- a/net/sctp/sm_make_chunk.c
-> > +++ b/net/sctp/sm_make_chunk.c
-> > @@ -3153,9 +3153,12 @@ static __be16 sctp_process_asconf_param(struct s=
-ctp_association *asoc,
-> >                * packet MUST be deleted.
-> >                */
-> >               if (af->is_any(&addr)) {
-> > -                     sctp_assoc_set_primary(asoc, asconf->transport);
-> > -                     sctp_assoc_del_nonprimary_peers(asoc,
-> > -                                                     asconf->transport=
-);
-> > +                     peer =3D sctp_assoc_lookup_paddr(asoc, &asconf->s=
-ource);
-> > +                     if (!peer)
-> > +                             return SCTP_ERROR_REQ_REFUSED;
-> > +                     sctp_assoc_set_primary(asoc, peer);
-> > +                     sctp_assoc_del_nonprimary_peers(asoc, peer);
-> > +                     asconf->transport =3D peer;
-> >                       return SCTP_ERROR_NO_ERROR;
-> >               }
-> >
-> > @@ -3168,13 +3171,9 @@ static __be16 sctp_process_asconf_param(struct s=
-ctp_association *asoc,
-> >               if (!peer)
-> >                       return SCTP_ERROR_DNS_FAILED;
-> >
-> > -             /* Don't free asconf->transport; a later wildcard DEL-IP
-> > -              * parameter reuses it.
-> > -              */
-> > -             if (peer =3D=3D asconf->transport)
-> > -                     return SCTP_ERROR_REQ_REFUSED;
-> > -
-> >               sctp_assoc_rm_peer(asoc, peer);
-> > +             if (asconf->transport =3D=3D peer)
-> > +                     asconf->transport =3D NULL;
-> >               break;
-> >       case SCTP_PARAM_SET_PRIMARY:
-> >               /* ADDIP Section 4.2.4
->
-> [Severity: Critical]
-> Clearing asconf->transport here can leave a NULL transport for any
-> chunk bundled after the ASCONF in the same packet.
->
-> sctp_rcv() allocates one struct sctp_chunk per packet. sctp_inq_pop()
-> reuses queue->in_progress for every bundled chunk and does not reset
-> chunk->transport. The asconf seen here through sctp_sf_do_asconf()
-> and sctp_process_asconf() is therefore the same object that
-> sctp_assoc_bh_rcv() passes to sctp_do_sm() for the next chunk.
->
-> Once this branch sets asconf->transport to NULL, the next bundled
-> chunk reaches a handler that calls sctp_vtag_verify(). That covers
-> DATA, SACK, HEARTBEAT, a second ASCONF, or even an unknown chunk.
-> sctp_vtag_verify() does this:
->
-> include/net/sctp/sm.h:sctp_vtag_verify() {
->         if (ntohl(chunk->sctp_hdr->vtag) !=3D asoc->c.my_vtag)
->                 return 0;
->
->         chunk->transport->encap_port =3D
->                 SCTP_INPUT_CB(chunk->skb)->encap_port;
->         return 1;
-> }
->
-> The vtag matches for a legitimate peer, so this is a NULL pointer
-> dereference in softirq context. For a bundled DATA chunk,
-> sctp_assoc_bh_rcv() also stores the NULL into
-> asoc->peer.last_data_from just before that.
->
-> The trigger is the case this patch is meant to fix. The peer
-> renumbers from L to S and sends [Address Parameter L] [ADD-IP S]
-> [DEL-IP L] from S. __sctp_rcv_asconf_lookup() locates the association
-> by L, so asconf->transport is the transport for L. The ADD-IP raises
-> transport_count to 2, so D7 does not refuse the request, and the
-> plain DEL-IP now removes L. Any peer of an established association
-> can bundle another chunk after that ASCONF, so a remote peer can
-> trigger this.
->
-> Before 9b2854f86f0b this path left a freed transport in
-> asconf->transport. The patch replaces that use-after-free with a
-> NULL dereference for the same bundled chunks rather than closing it.
->
-> The v2 notes already handle the bundled DATA/SACK concern for the
-> wildcard branch by retargeting asconf->transport to the surviving
-> peer. Should the plain DEL-IP do the same? One option is the
-> transport for asconf->source when it exists, which it will after
-> ADD-IP S. Otherwise asoc->peer.primary_path could be used, since
-> sctp_assoc_rm_peer() has just updated it. Or do you prefer to make
-> the receive-path users of chunk->transport, starting with
-> sctp_vtag_verify(), tolerate NULL?
+Ensure that fmb_lock is held by pcibios_enable_device() and
+pcibios_disable_device() when calling zpci_fmb_enable_device() or
+zpci_fmb_disable_device(), respectively. Additionally, assert that the
+fmb_lock is held within the latter two functions to prevent future race
+conditions regarding new callers.
 
-Looks like ->transport can't be NULL at any point. I couldn't find anything
-in the RFCs about this, so setting it to asoc->peer.primary_path should be
-good enough.
+Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
+Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+---
+ arch/s390/pci/pci.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Thanks.
+diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+index d64c544b32b0..c055a9ad0972 100644
+--- a/arch/s390/pci/pci.c
++++ b/arch/s390/pci/pci.c
+@@ -173,6 +173,8 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+ 	unsigned long flags;
+ 	u8 cc, status;
+ 
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
+ 		return -EINVAL;
+ 
+@@ -211,6 +213,8 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+ 	struct zpci_fib fib = {0};
+ 	u8 cc, status;
+ 
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (!zdev->fmb)
+ 		return -EINVAL;
+ 
+@@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
+ 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_enable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 
+ 	return pci_enable_resources(pdev, mask);
+ }
+@@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
+ {
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_disable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 	zpci_debug_exit_device(zdev);
+ }
+ 
+-- 
+2.56.0
 
->
-> [Severity: Medium]
-> This is a pre-existing issue, and this patch did not introduce it. The v2
-> notes already put it out of scope. It does interact with the new
-> asconf->transport updates above, though.
->
-> The wildcard SET_PRIMARY branch just below says it uses the packet source=
-:
->
->         case SCTP_PARAM_SET_PRIMARY:
->                 /* ADDIP Section 4.2.4
->                  * If the address 0.0.0.0 or ::0 is provided, the receive=
-r
->                  * MAY mark the source address of the packet as its
->                  * primary.
->                  */
->                 if (af->is_any(&addr))
->                         memcpy(&addr, sctp_source(asconf), sizeof(addr));
->
-> However, sctp_source() returns the transport address whenever one is set:
->
-> net/sctp/sm_make_chunk.c:sctp_source() {
->         if (chunk->transport) {
->                 return &chunk->transport->ipaddr;
->         } else {
->                 /* Otherwise, extract it from the IP header.  */
->                 return &chunk->source;
->         }
-> }
->
-> If the ASCONF was matched by its Address Parameter in
-> __sctp_rcv_asconf_lookup(), asconf->transport is the transport for L, whi=
-le
-> asconf->source is the real packet source S.
->
-> So if [Addr L][ADD-IP S][SET-PRIMARY 0.0.0.0] is sent from S, wouldn't L
-> become primary instead of S?
->
-> The ADD-IP wildcard branch, the D8 check and the reworked DEL-IP wildcard
-> branch all use &asconf->source. That leaves "source" with two meanings
-> inside sctp_process_asconf_param().
->
-> This patch now rewrites asconf->transport partway through the chunk. As a
-> result, the wildcard SET_PRIMARY result depends on parameter order:
->
->   - after a plain DEL-IP of asconf->transport (now NULL), it picks S
->   - after a wildcard DEL-IP (retargeted to the peer for S), it picks S
->   - otherwise it still picks L
->
-> None of these orderings uses a freed transport. Where the result changes,
-> it moves toward the behaviour the comment describes.
->
-> Would it make sense to have the wildcard SET_PRIMARY branch use
-> &asconf->source directly, like the other wildcard branches, either here o=
-r
-> in a follow-up? That would make the result independent of parameter order=
-.
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261029193454.1028626-1-andrey.misyrov%40gmail.com
