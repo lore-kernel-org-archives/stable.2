@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700319;
-	b=5fb8bQH1g4WkYtsVaZCu/YWi1G0xTsuxe657NI41H28jzrgDcfFJLtnJ/supNS3+evLJ
-	 CYlJBJjHeoexmkeoFjG09w0pgiFOmIrYeX2aw+TN2a95O1RulSeGvRn0FhRhvsEsJ0bbc
-	 aNOQWilkwAtiVj5NQ/l7CENnHLxA4MHSMsPcMI33DW3NFJCUgjhpETtIeheKwzBUhBQ8G
-	 /8E+MwDnsLUDbmzvjlpnR5Umg9m0hO97f5kVm0AOhwhVDsN3jJeMH+h3zuPdSpkRbdP4z
-	 dLXCnlMYm2xgpiCbJujIH18/m9eR0xVdnpz8qLKfiW424JGCXCH0iPMlKp/4Ld95mdw==
+	t=1793700332;
+	b=hFKjrcSUjvLXQ/+lSB79+DGZANQT7a5Wh8pFi50ri8cuhvdtTXQB3yx5MLnuBrFxbxj7
+	 7vybdLYMGGpZUD0XrBerUJnXQ/qlXjxy0PihTOsiV8Io7UMTtJFqAyUcJoe6Ji+I1Nzvh
+	 RJz4Mo0EZ3kYKig8FZ1UM5HvEZuX+Uhyex/hIXepwFWcXvNOpJW4JAYKa9tSXjXjSwDG4
+	 EjRzt3MZbAPnEA0TcXfymo0cMFXsROhXgv2uoLdk+KAsuphNhJYkwXJP2nsaBPwjgjXD+
+	 ZGK6qsXK4KtmzvJIyZFrnBHeBCQrsrs6rRZ0ZJBt6qZgRSW4Uqn6E70a7ZFJfpgX0eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700332;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=ZYeZZrG9ZKN5BZOL0KcRfGjiqSQEn+PAKI/JApuA7Lo=;
-	b=nUJ0uxTAqljwmcFT8XYQ/SO88Ljv5e1sKqIEWGVBIvGwjNi9eGe/gVMDwsHAcq/BU1lg
-	 dI+jH33blpMT2rm2IpUtWHinEjI19KEjvEEh1KTMmPHYSXt+8wgpZA4dtzB9nQ/N6Hx6C
-	 2gDEbsfP0AhwZfRKBmFR87AysOJPwnyV7Pw/X93IvOTdrSKJ204IshvL8NG7OkcAH7zve
-	 WR0FrjO5unbn8LoPSlO7/Nk0edIe1DUOZCRsdQj1dSRPzSkcb6PhIAYZNxiLbRB2krXjq
-	 0OVetdeCfn+TIjSZ9fbHw2OO3LRPFH0MzLJLVypjGfJD0lgEwTF0kT5SQHbUL+MSMcg==
+	bh=sRbk87T9rxWEhDMNcgmmhJRNN8Ks9wCYvg7KwsBX3Lg=;
+	b=eRzUhZItIyD5CAnLS/rYKCEaEr3YDcE/m2Uk5CHHVO06+ML6tOv+VDitOQPeofOHwk6o
+	 nQMmu91kHaR/fChpOBc7PtukLInTffWJxgPs3I4ulD7qgyJzcqu9Lj4PT4YG5YfKaniXv
+	 qTqCOTF0P3BmUlxVVGY8r1zAvie5JcK2oB0ZVUOEY7yK9DaOSl7c0KpOUw8YJXgx5gBaK
+	 OS3u9Vt2AlBvI202RQQeHdYi0gnpBiJchgqAcBc2aflJn+4OGY/Ym9rq0MAOGEQOaMLtJ
+	 Na23wT2mC0AGFiLbpqr9lnINi1TO/Au5O/aIxtdy/LwL7+eIoBk88wCUAS+C7fbo8gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,29 +25,30 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5843606A327;
-	Tue,  3 Nov 2026 10:05:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5843606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4CC606FAE8;
+	Tue,  3 Nov 2026 10:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4CC606FAE8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADH0JHXselqA3s7AA--.6276S2;
-	Tue, 03 Nov 2026 18:05:11 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAC3wZLiselqeXs7AA--.2808S2;
+	Tue, 03 Nov 2026 18:05:22 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: linux-can@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
+To: Woojung Huh <woojung.huh@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] can: sun4i_can: Use devm_clk_get() for the CAN clock
-Date: Tue,  3 Nov 2026 10:05:20 +0000
-Message-Id: <20261103100520.1309743-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: dsa: microchip: drop the parent MDIO bus reference
+Date: Tue,  3 Nov 2026 10:05:31 +0000
+Message-Id: <20261103100531.1309946-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,61 +60,79 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH0JHXselqA3s7AA--.6276S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4UGw18KF4Duw47Zr1UKFg_yoW8Gr48pF
-	sYgFWrCrZrGF4Ygw4UJF4kZF1Yvw4Ika4xKr9Yka1Sv3Z3Ar18GFy5tFWUZFW8ZFWkGa1U
-	ur4UtF18tFs8Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowAC3wZLiselqeXs7AA--.2808S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF1UAFW7Wr1UKr4xJF43ZFb_yoW8CF4kpa
+	yDuFyYvr4UGFy7ua1kZwnrZFyYgrsayr43GrWFk392gr95GryjkFyxta47ZFW5Kw4rC342
+	vFs8tFyUCryDA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
-	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
-	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
-	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
-	MIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU8nNVPUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgAAA2rpnIRixAAAs4
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
+	IYCTnIWIevJa73UjIFyTuYvjfU7nmRUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAAA2rpnOFgVQABsF
 
-sun4ican_probe() obtains the CAN clock with of_clk_get(), but neither
-the probe error paths nor sun4ican_remove() ever call clk_put(), so the
-clock reference is leaked both when probing fails and when the driver is
-unbound.
+ksz_mdio_register() obtains the parent MDIO bus with of_mdio_find_bus(),
+which takes a reference on the embedded struct device, and stores it in
+dev->parent_mdio_bus for the side MDIO accessors.  Nothing ever drops
+that reference, so it is leaked on the probe error paths and when the
+switch device is torn down.
 
-Use devm_clk_get() so that the reference is released with the device.
+Register a devres action to put the device when the DSA switch device
+is released.  The child MDIO bus is unregistered before the action
+runs, so the parent bus stays valid for the whole lifetime of the
+switch.
 
-Fixes: 0738eff14d81 ("can: Allwinner A10/A20 CAN Controller support - Kernel module")
+Fixes: 9afaf0eec2ab ("net: dsa: microchip: Refactor MDIO handling for side MDIO access")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/can/sun4i_can.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/net/dsa/microchip/ksz_common.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/drivers/net/can/sun4i_can.c b/drivers/net/can/sun4i_can.c
-index af52285d5a4e..9f5d31063b13 100644
---- a/drivers/net/can/sun4i_can.c
-+++ b/drivers/net/can/sun4i_can.c
-@@ -819,7 +819,6 @@ static void sun4ican_remove(struct platform_device *pdev)
+diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
+index 767c8fe8e819..ddd821fa0d3e 100644
+--- a/drivers/net/dsa/microchip/ksz_common.c
++++ b/drivers/net/dsa/microchip/ksz_common.c
+@@ -2392,6 +2392,17 @@ int ksz_parse_dt_phy_config(struct ksz_device *dev, struct mii_bus *bus,
+ 	return 0;
+ }
  
- static int sun4ican_probe(struct platform_device *pdev)
- {
--	struct device_node *np = pdev->dev.of_node;
- 	struct clk *clk;
- 	struct reset_control *reset = NULL;
- 	void __iomem *addr;
-@@ -844,7 +843,7 @@ static int sun4ican_probe(struct platform_device *pdev)
++/**
++ * ksz_mdio_put_parent_bus - Drop the reference on a parent MDIO bus
++ * @data: mii_bus obtained from of_mdio_find_bus()
++ */
++static void ksz_mdio_put_parent_bus(void *data)
++{
++	struct mii_bus *bus = data;
++
++	put_device(&bus->dev);
++}
++
+ /**
+  * ksz_mdio_register - Register and configure the MDIO bus for the KSZ device.
+  * @dev: Pointer to the KSZ device structure.
+@@ -2431,6 +2442,12 @@ int ksz_mdio_register(struct ksz_device *dev)
+ 			goto put_mdio_node;
  		}
+ 
++		ret = devm_add_action_or_reset(ds->dev,
++					       ksz_mdio_put_parent_bus,
++					       parent_bus);
++		if (ret)
++			goto put_mdio_node;
++
+ 		dev->parent_mdio_bus = parent_bus;
  	}
  
--	clk = of_clk_get(np, 0);
-+	clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(clk)) {
- 		dev_err(&pdev->dev, "unable to request clock\n");
- 		err = -ENODEV;
 -- 
 2.34.1
 
