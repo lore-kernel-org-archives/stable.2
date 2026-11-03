@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704261;
-	b=jJ65WYOxRSC6ozjZHfkWMWtXaX2N6S2Nex3hJTOI2VTfGcZ/pTxIqY+VQKuhi5hohfAj
-	 8hrzuX1ksxqOtQiX60DCyRrQ83cSz3066HgAoWfY9oe2PUuiuNYWyc/11xNCyNu3yulmJ
-	 WU4X/v4A7ot+7xabEaCdjTioY+4OkxO8j9EJM+KaX4QoCPcWUXXfBYtUCPuXaAIL3wTak
-	 vG49fbWIrC3rpXfeZ9daqw9xM5ObO9l5Rkp9qm5tMP7AAsBebxI64PAcMl8owHjiT/bLg
-	 xbEVPYHhZwKRbMkknVlz1tHno27aIAyp0uWaa0VuveOWG73pItepx8vtqiuyxC/5Ypw==
+	t=1793704269;
+	b=HlU1T2EqtIhSY0Ww0367aWJ5Dih9R0JmkWHOekRpRqH/Xcl9VpVSNvACAIa2SlZ9EA8V
+	 pq0yscNZucZmDv93vkybg16sP/7yHHQnA9+dT1ClXLb6Pef+UADvduS1tUGM+z6UAUQUa
+	 BHpTh9ZRsHX13hBEvTuWE3LJWhp9pyDbe+TCL/RGRcMizC6r4Zmm+YJ36aTINLoZZSRS6
+	 v00/XGwUJILzWu4Wndf7kFsyifAzxuWMasvjoTNCAonq7vaHOL5+T64ba6p5nuGtfZOq5
+	 JaVvp9jT9uOt0DUpIVFaUJTOtSEwGMbxZq4/hDqZdnaS5lnwY/aEo+SrXk5yw70ONZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704261;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704269;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=z0OPz57SZV2MJ4n6b+XxBbFka1xgskYRthtK4/qQk+Q=;
-	b=fKyiHm8uMZL6lkUZKEDEzjGtcX6QdgWhY/NfckeL4xjSNPt96VsuLn8oL73DJsqZLwS8
-	 +fXcmEr8zRROLz4Nw8Fj89z5FXxjNf2uHbdkrHWSbh6fYOlUegE5ktinLWblUW5awaO/t
-	 Gz+22yzxXDlkVYWaqDGEFhoE5xfccyr4m+UTLQdNve2zn6zegU7PStO1cr/Sc+0/PAbIj
-	 7lQ/ank5onKybTl7NIp8iMy5Y+iFVS/fm54wNSaImkKPetbIfVgCLHlNLj04SS7fhC0nw
-	 dvoLhkBEFQ6Xw1YUaoQTHIGwryKNoC0FO0kWSNZdjlSqqtnuk5WA30gNHAGwvxW8SJQ==
+	bh=FpQlMQJewUjSCH03T+lvF2s4ZsB+JiwT2xWSf8S5qH0=;
+	b=ks1ltPOkMhzqDRl+QPqb6wzo/iSHEUa4UPgMZeWHBQ7XT5cl3OuRAzzLhi7ILlzx5DJ7
+	 /8OdMCd7dG0ZbK+sxHPVzEJD2U+OS+JfbqTJLPwTvCzsl8U1BRuza4dKoXJSETaK3wpfe
+	 N0kCRDM8g+CiRom9+hmOAm9d0lmU5NKStNOnvk3LeP6grstOAlcOOs4fri/jvvDpLCDy2
+	 I2HaQwMTXTizJnoCN7mXzhlCUk4JSuzn05oUNd5si902oi0kTm5Zd5zwFttuSGIaL+Xyd
+	 yXgG2hLw2Q2p6T31junpQV47akM+vQeKFMAq2wTWZDvnieBRR55k00GnX7shr5g+4pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TI53Nr+W;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zvv5nbwW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0991B606F7D9;
-	Tue,  3 Nov 2026 11:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E8F60A5BC3;
+	Tue,  3 Nov 2026 11:11:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TI53Nr+W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE981F000C1;
-	Tue,  3 Nov 2026 11:10:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zvv5nbwW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC181F00A02;
+	Tue,  3 Nov 2026 11:11:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704260;
-	bh=z0OPz57SZV2MJ4n6b+XxBbFka1xgskYRthtK4/qQk+Q=;
+	s=k20260515; t=1793704269;
+	bh=FpQlMQJewUjSCH03T+lvF2s4ZsB+JiwT2xWSf8S5qH0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TI53Nr+WHijMPta1Xv6mUlNk3ID7Fg/LOppo0oNDOKFrTpaHwp7nOk31bq6oCTXAG
-	 3s3c6ev5vp3PH04aHsPRbIXQV4CEu1OdvYqADgIlbcy5zmc+mnZuETUCWdMweFg/lq
-	 avTCuK2ay7VjS4cFQdIXxnzZ3fVbnnbAxWmVmOOXu8i6fqY/kWniDwsQySi5AmPJen
-	 rPXKqS+aC36unFKLfuHVjYEKH7e2KKiy/Uyb/2KJv5HoY4SUCMSwhSeID6BOiBWzaT
-	 BErOr+H20HDhgv3OCxkqIesZVbTmOP+9X2IBe8KcRcgFRPI51mzvEKxsW26SJAlpOC
-	 2H4A4xitkwD0Q==
-Date: Tue, 3 Nov 2026 12:10:58 +0100
+	b=Zvv5nbwWsLGPZp4Xywj7dxPso9Zy0Ne1ukAjQZIEgJWgEVRMqmop5Xxuj4przbrEs
+	 EW1Rgi27HGxlCMg9b9tYc1YSQIf7O6H8UxInj7eYhnqJlCSFr4eFzeld81QvcLEp1I
+	 x7WSAvomCJy3JcborHWX1g2jmGN+FnBdvzI+OxnzugZAlMcd+Wn+soMWK4H95AZNcN
+	 puFaMaLvgJwfRIzQw63jxRdfoavLXgjGG/WGkgo+y0SECuBpxtRsb+rQJqCg44Ybj5
+	 JxZ7lXUPQ1JE2VJSCB7bAiiD0aGFwEWZbHmpnyJ0mQwR7YW5o7g13DEpZDB/1VEJEH
+	 4XA3/eGRdJ0tQ==
+Date: Tue, 3 Nov 2026 12:11:06 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: wcn36xx@lists.infradead.org, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: wcn36xx: drop the SMSM state references on probe
- error
-Message-ID: <20261103-wooden-interesting-crab-d7eaeb@quoll>
-References: <20261103102902.1340936-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
+	Bryan Whitehead <bryan.whitehead@microchip.com>, "David S. Miller" <davem@davemloft.net>, 
+	linux-kernel@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, UNGLinuxDriver@microchip.com, 
+	netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: Re: [PATCH] net: lan743x: disconnect the PHY when PTP setup fails
+Message-ID: <20261103-vengeful-magnificent-sheep-ab33f8@quoll>
+References: <20261103102852.1340530-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,32 +61,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102902.1340936-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102852.1340530-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:29:02 +0000, Wentao Liang wrote:
-> wcn36xx_platform_get_resources() acquires two SMSM state handles with
-> qcom_smem_state_get(). Each successful call returns a reference that the
-> caller has to release with qcom_smem_state_put(), which is only done by
-> wcn36xx_remove() for a device that probed successfully.
+On Tue, 03 Nov 2026 10:28:52 +0000, Wentao Liang wrote:
+> lan743x_netdev_open() connects the PHY before opening PTP, but if
+> lan743x_ptp_open() fails it jumps to close_mac, which skips
+> lan743x_phylink_disconnect(). The reference taken by
+> phylink_connect_phy() is then never released, and the PHY stays
+> attached to the phylink instance.
 > 
-> Several error paths in between return without dropping the references
-> already taken: failing to get the "tx-rings-empty" handle leaks the
-> "tx-enable" one, and failing to look up the qcom,mmio phandle or to map
-> one of the mmio regions leaks both of them. A probe that fails after the
-> first successful acquisition therefore leaks the SMSM state references
-> for good.
+> Add a close_phylink label in front of the phylink disconnect, as the
+> pre-phylink conversion code did with close_phy, and use it on the
+> lan743x_ptp_open() failure path.
 > 
-> Make these paths unwind through the existing label chain and put the
-> handles there.
-> 
-> Fixes: f303a9311065 ("wcn36xx: Transition driver to SMD client")
+> Fixes: a5f199a8d8a0 ("net: lan743x: Migrate phylib to phylink")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/wireless/ath/wcn36xx/main.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+>  drivers/net/ethernet/microchip/lan743x_main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 
 Multiple things here:
