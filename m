@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716841;
-	b=YnI9uxyd9UcNWythz8W27SJd5D/fxjQf2YJXw2HchQ9wu3BHZA9qhYhNqLfERqfP3caX
-	 SI+QASsX0vZQzQeZfkNAQhEzVQpa5SYL63UicIoanxQx2h6P6Da+gDLfVeUOfBnMWWi2y
-	 y1zzLdVaemVlvH+jk7wyfCgXQhCwoI50ajvdxGHqfLLTw/pDCBGvQbOL+5C1lu01FIbX0
-	 qSIU0WvNlQgTjrSnq9Lh+W7x1sAvi8jgduajc2dKU+kDy/RrsvcmzTZ2m3hgN8omgmr4Y
-	 LvCnxxFV0Q4ylOUfmqNyfs2ZPHazbKQyP1Z0ZZsa0E6m9YltX7DgsxZZJ5Q2HGKOoOg==
+	t=1793716839;
+	b=NGIvBRLRKJhJ8yMA3SUXXZ/w4mjvFTdKyP4wBqeEB0heyXmZ5jqSCjpXCd1eXIeh8T1T
+	 vLxMT9GKOuZmzrZAn+YRguwZq/7xaeqB/RfDcxR7XPDBFx5jQieVpyxKCNM4ZYsDymM4Q
+	 uJw1v6lT12jAE/Ai1XHYc9zWWs2Fmkt/m7eSxPUqp4gSGXIwt8uRr1Keb0YzUdTQAW/FW
+	 GwtT+gh1fIKFg9tktjzbvFAMc9xuEkL2nqvo7E25n59VcGB6z3jZGV6+9EMYRLQHiQVaR
+	 N9h5jhiwrMrxhIHeD4VE2zLNyc8yzLlN8xltZ2RXmWv1ik7DzTaG82eIX23RB43x6CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716841;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=JxbLReXRYAO/z/ArZsF713bkrdZeZOBvZZAxqH4ZM+I=;
-	b=UclfrjIJRM/l0ppVzSwPzmW44zy72Tuh7CRibU2N2qgUk3vTFyvJ+IT7mHHtjIiEbWLy
-	 vXIVwaFMZtfQsMv1GZ2uBWDhMkA46p0EUb6vxdH3u3yXQ+TX4ux4TO01kFxPfYqx+K9HW
-	 1C9FU67Z9vBrqeHBVCQU/hifhKX2N9VdpDqbbPHHCa5A/lTQLUiwMlFotGlp7u81/9QoP
-	 /DJCjXo8ORAbLcBKI+AI9MF5l8qVG7GQZvzgCJ9DsKrVOE20GW5PPkkQFiQFwHla3r530
-	 ZAMXTQ7Fpk5gnWAQm38yrUMq74tO/K1kHGbL/jZjA1elKA6Rc4nsqsdKFs4Wad94Nng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716839;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=uYGorSdShMQBHQquhWX9/8c57HWBfRFBIdfPOd+oM1Y=;
+	b=Bn1mXRpLLhBlKLzbVv+sc4Jjmg9Rqckgv3vA/O40UXBCXHumhSpJXl+xEoxNgxOeft4R
+	 bIcd3EI/AuyzKdEPVZVFt+3/ZqVqPvkK3PA4BTgZuK4nnwEB4IbDLVi/KfsEyNTtaNoZi
+	 x5fI1bWDCXJG4tK0aIEpZXYWVZw+Glpyka402VA19O4f9LUvV/A2IydYZ9yXm0+haZVtQ
+	 3ms/25wt6BbvCXR8f3SluWwB99hn8C2dFOlZmvXMYXKUkfMx1oaXl6+ftuoDAylOQb0Ip
+	 3H/qgLVnIOshRih0y6FJ4zXZN4nJx+ANMCBKRgkWb2FinJZc+/O55UTW5qWk2YfZL6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=web.de;
-	spf=pass smtp.mailfrom=web.de;
-	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b="SW/dGP6M";
-	arc=none smtp.remote-ip=212.227.17.11
-Received: from mout.web.de (mout.web.de [212.227.17.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.160.70
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827D4606EE80;
-	Tue,  3 Nov 2026 14:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 827D4606EE80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=SW/dGP6M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
-	s=s29768273; t=1793716834; x=1794321634; i=markus.elfring@web.de;
-	bh=JxbLReXRYAO/z/ArZsF713bkrdZeZOBvZZAxqH4ZM+I=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=SW/dGP6MHqKHgoqlUvAkofUIfRr28KPSIQMTLBL/g8rFXW6SCGuRqGjqUI07iwnq
-	 PjipVrkFMVUkccI6ZWovRo9LgGdbNiAdMaYUeKxbqGA+a1eHewYxPMHJ51KyvZ0X4
-	 0sIMp28ZEKHobE8J26mdUVdVTTA5L6IvHC+DC7wdnTvU7lzfJv3+jMwsOXG0DB8zl
-	 Xm6O4dl5wtsOlkFFrpeZkMk4JEvylICzhqJcxPbYn6vhWHjphvOTKS5qvpdT158bO
-	 K9TuAKE28B6JO/RHMBKc8vM8NXFfpgl2LDfbSc39TMnzbXFR/9t+TKDa1vaShaXUF
-	 nmr7ivl2pqayb3z5jg==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MRW2R-1xBnTr3GoH-00N6Q2; Tue, 03
- Nov 2026 15:40:34 +0100
-Message-ID: <3a510baa-b919-4d35-a6b6-db19f9ddaa3b@web.de>
-Date: Tue, 3 Nov 2026 15:40:27 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9C4606D812
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:40:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE9C4606D812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-4566537e644so4688556fac.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:40:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793716838; x=1794321638;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uYGorSdShMQBHQquhWX9/8c57HWBfRFBIdfPOd+oM1Y=;
+        b=nFl7QSWefOV16dewBeKEC+2wzmPgx+XlN7VsLrZEgBoMXgNhzAoC5F/RX0oMMa++nd
+         RTjyEyDR+7Lffs9TbuUte+z2RffidcnR/0q4CM22Mnp9sEdge1iLlSTGXN21YbacNG9G
+         455D+LxPeA+tAc83tptUwCjyXLzuaNYDZ7o1/PfHx6ulypOClV9lWv99ai+mcr9RrCIc
+         IlUiKPEHGKkiH0LwraGDYbmOy0yHj/rOtlP7XkeOQYvUl7aP1t1X9Gbj+ZByX5KTZ4Fl
+         kSFazP+VihuzGdyO6JXt0tz9i5egXIoXFCW1TaJ0Dq/eqZpA2mLSSmEINcUVe+ckbcPp
+         KRZg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEdCVbEO/4CUwcaDmqxhlweAFJPn6+wVkJ2x56+IpHIVsfCKsFnzBu+EvfSM8wZTYm2NwsTZo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yECl89f3SOt9EBLP9eotfDzvxcJj/QDyPuWycWzfk1hjUa+D2
+	8CFPNLtznfrDeyYWDQ53BGmZjUQaUt5So/UDUnGwCdJqiMwm4WKWvksQ/gGxsAhE/nNZSSd71nc
+	lB8t4NZ9bHS2gE9EWMz/JfyjLAsOvv3OdKOTyz6vziE0bmStcGlOsycz25To=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,147 +58,173 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: xfs: fix temporary cursor leak in btree shift corruption paths
-To: Jianyun Gao <jianyungao89@gmail.com>, linux-xfs@vger.kernel.org
-Cc: Carlos Maiolino <cem@kernel.org>, stable@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- "Darrick J. Wong" <djwong@kernel.org>, David Chinner <david@fromorbit.com>,
- Kefeng Wang <wangkefeng.wang@huawei.com>, Viktor Malik <vmalik@redhat.com>,
- Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>
-References: <20261102150146.19777-1-jianyungao89@gmail.com>
- <717984c9-a0c2-43d8-a801-d36c18c7040d@web.de>
- <CAHP3+4BfTma1tQLbGLzy3aAzx05eR0QKOfmL0V-X5vEeOWtAEg@mail.gmail.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <CAHP3+4BfTma1tQLbGLzy3aAzx05eR0QKOfmL0V-X5vEeOWtAEg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:peTfrVFNz9TXEqiYpHJiDTEwRh9oW8+gjPONuPDJO2agSzvjWJl
- 5cqJP2wKUGJh33afUFPz8oxNL5LFumZj3WDP3Njhf8CDkqAvTHUL6rrPeqSLmALrWvDSO1u
- mOPHoBHPSCxeza11oDkEhtcwl6Ffuw2aZPhWiWhkIzIsawndAVtwL97aV+WkPHC5G28vTx4
- sh0BHgqPN57XzB65wUDIw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Ge0Rg/SSOs0=;pdSABZlrHPuB+GyqLrXcb/OwxFH
- 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
+X-Received: by 2002:a05:6808:c3d5:b0:4b9:a829:f016 with SMTP id
+ 5614622812f47-5640de7a768mr9396181b6e.34.1793716837868; Tue, 03 Nov 2026
+ 06:40:37 -0800 (PST)
+Date: Tue, 03 Nov 2026 06:40:37 -0800
+In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae9f265.318f3b9a.23acd0.0002.GAE@google.com>
+Subject: [syzbot ci] Re: KVM: x86: Introduce memory protection attributes
+From: syzbot ci <syzbot+ci04113eef29edb032@syzkaller.appspotmail.com>
+To: amoorthy@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	nsaenz@amazon.com, pbonzini@redhat.com, seanjc@google.com, 
+	stable@vger.kernel.org
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> Thanks for the review and the suggestion. I agree that centralizing
-> the error handling paths in these functions would improve readability.
+syzbot ci has tested the following series
 
-Further adjustment possibilities might be evolving.
+[v4] KVM: x86: Introduce memory protection attributes
+https://lore.kernel.org/all/20261102174130.8779-1-pbonzini@redhat.com
+* [PATCH 01/45] KVM: nVMX/nSVM: check unconditionally whether CR3 is valid
+* [PATCH 02/45] KVM: x86/hyperv: do not overwrite hc->ingpa for SIGNAL_EVENT hypercall
+* [PATCH 03/45] KVM: x86: apply nGPA->GPA translation to KVM_HC_CLOCK_PAIRING
+* [PATCH 04/45] KVM: x86/emulate: Check TSS busy-bit writes during task switches
+* [PATCH 05/45] KVM: loongarch: do full validity check on the gfn-to-hva cache
+* [PATCH 06/45] KVM: selftests: Test address translation for Hyper-V direct L2 hypercalls
+* [PATCH 07/45] KVM: selftests: Take into account mixed memory fault flags
+* [PATCH 08/45] selftests: kvm: drop TEST_ASSERT_SUPPORTED_ATTRIBUTES
+* [PATCH 09/45] KVM: Define and communicate KVM_EXIT_MEMORY_FAULT RWX flags to userspace
+* [PATCH 10/45] KVM: x86: Introduce memory fault on invalid hypercalls reads/writes
+* [PATCH 11/45] KVM: selftests: test hypercall memory fault exits
+* [PATCH 12/45] KVM: x86/mmu: intersect writability from __kvm_faultin_pfn with fault->map_writable
+* [PATCH 13/45] KVM: x86/mmu: Extend map_writable to a full ACC_* mask
+* [PATCH 14/45] KVM: x86/mmu: Init memslot hugepage information for non-private_mem VMs too
+* [PATCH 15/45] KVM: VMX: return error from kvm_set_cr*
+* [PATCH 16/45] KVM: adjust for presence of more than one attribute
+* [PATCH 17/45] KVM: Introduce NR/NW/NX memory attributes
+* [PATCH 18/45] KVM: Include memory protections in result of gfn->hva conversion
+* [PATCH 19/45] KVM: Introduce kvm_fetch_guest_page() and use it for x86
+* [PATCH 20/45] KVM: Take memory protections into account for memory read/write/fetch
+* [PATCH 21/45] KVM: Take memory protections into account for __kvm_vcpu_map
+* [PATCH 22/45] KVM: Encapsulate memattrs array into anonymous struct
+* [PATCH 23/45] KVM: Introduce kvm_check_gen()/kvm_memslots_check_gen()
+* [PATCH 24/45] KVM: Introduce a generation number for memory attributes
+* [PATCH 25/45] KVM: Take memory protections into account for accesses with cached gfn->hva
+* [PATCH 26/45] KVM: pfncache: Fail to refresh if it contains memory protections
+* [PATCH 27/45] KVM: x86/mmu: Do not prefetch sptes on gfns backed by memory attributes
+* [PATCH 28/45] KVM: x86/mmu: Take memory protection attributes into account during faults
+* [PATCH 29/45] KVM: x86/emulate: change return value of emulator_io_permitted to int
+* [PATCH 30/45] KVM: x86/emulate: Propagate memory faults to userspace
+* [PATCH 31/45] KVM: x86: "Handle" failed decode when skipping instructions
+* [PATCH 32/45] KVM: vmx/sgx: make return value of sgx_gva_to_gpa consistent with its callers
+* [PATCH 33/45] KVM: x86: Allow page fault fixup to return errors
+* [PATCH 34/45] KVM: x86/mmu: Adjust gva_to_gpa to allow returning an error
+* [PATCH 35/45] KVM: x86/mmu: Propagate errors from nested GPA translation
+* [PATCH 36/45] KVM: x86: Propagate memory faults through load_pdptrs()
+* [PATCH 37/45] KVM: x86/mmu: Issue memory fault exit if walk failed due to memory attribute
+* [PATCH 38/45] KVM: x86: mark VM as dead after KVM_SET_SREGS fails to load PDPTRs
+* [PATCH 39/45] KVM: VMX: mark VM dead on shadow VMCS or eVMCS access failures
+* [PATCH 40/45] KVM: let kvm_arch_post_set_memory_attributes drop mmu_lock
+* [PATCH 41/45] KVM: x86/mmu: Obsolete all roots if memattr contains gPTEs
+* [PATCH 42/45] KVM: x86: selftests: Introduce memory protection attributes test
+* [PATCH 43/45] KVM: x86: selftests: Introduce memory attributes PTE test
+* [PATCH 44/45] KVM: x86: selftests: Introduce memory attributes side-channel tests
+* [PATCH 45/45] KVM: x86: split out parts of load_pdptrs
+
+and found the following issue:
+WARNING: suspicious RCU usage in __kvm_gpc_refresh
+
+Full report is available here:
+https://ci.syzbot.org/series/beb5d6f5-3128-404c-9de5-537fb4326658
+
+***
+
+WARNING: suspicious RCU usage in __kvm_gpc_refresh
+
+tree:      kvm-next
+URL:       https://kernel.googlesource.com/pub/scm/virt/kvm/kvm/
+base:      d21eef2084a9af87ac2a783bc7c2b175ba114e4e
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/1748209f-578f-45cd-8bb4-6f6392d79a88/config
+syz repro: https://ci.syzbot.org/findings/d02cf2a1-ed84-4f69-ac5f-29b2075b5e1f/syz_repro
+
+=============================
+WARNING: suspicious RCU usage
+syzkaller #0 Not tainted
+-----------------------------
+./include/linux/kvm_host.h:2636 Suspicious memory attribute generation usage
+!
+
+other info that might help us debug this:
 
 
-> However, to keep this patch focused strictly on the cursor leak fix
-> (as per the 'one patch, one thing' principle), I would prefer to
-> submit the code clean-up as a separate follow-up patch if that's
-> acceptable.
+rcu_scheduler_active = 2, debug_locks = 1
+locks held by syz.1.189/6607: 2, last CPU#0:
+ #0: ffff8881bf19dc38 (&gpc->refresh_lock){+.+.}-{4:4}, at: class_mutex_constructor include/linux/mutex.h:253 [inline]
+ #0: ffff8881bf19dc38 (&gpc->refresh_lock){+.+.}-{4:4}, at: __kvm_gpc_activate+0x91/0x3b0 virt/kvm/pfncache.c:417
+ #1: ffff8881bf19dbb0 (&gpc->lock){....}-{3:3}, at: __kvm_gpc_refresh+0x1af/0x1830 virt/kvm/pfncache.c:272
 
-This can be the case.
-Related constraints can eventually be reconsidered also for clean-up patches
-in combination with growing number for fixes.
+stack backtrace:
+CPU: 0 UID: 0 PID: 6607 Comm: syz.1.189 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ lockdep_rcu_suspicious+0x140/0x1d0 kernel/locking/lockdep.c:6972
+ kvm_mem_attributes_generation include/linux/kvm_host.h:2634 [inline]
+ __kvm_gpc_refresh+0x1657/0x1830 virt/kvm/pfncache.c:306
+ __kvm_gpc_activate+0x289/0x3b0 virt/kvm/pfncache.c:436
+ kvm_set_msr_common+0x2dab/0x4320 arch/x86/kvm/msrs.c:-1
+ vmx_set_msr+0x15b3/0x27f0 arch/x86/kvm/vmx/vmx.c:2632
+ __kvm_set_msr+0x60c/0xab0 arch/x86/kvm/msrs.c:806
+ _kvm_set_msr arch/x86/kvm/msrs.c:812 [inline]
+ kvm_do_msr_access arch/x86/kvm/msrs.c:549 [inline]
+ kvm_set_msr_ignored_check+0x2a/0x390 arch/x86/kvm/msrs.c:818
+ nested_vmx_load_msr+0x245/0x4d0 arch/x86/kvm/vmx/nested.c:1126
+ load_vmcs12_host_state+0x10ca/0x1e20 arch/x86/kvm/vmx/nested.c:4935
+ __nested_vmx_vmexit+0x1a12/0x2c90 arch/x86/kvm/vmx/nested.c:5203
+ nested_vmx_vmexit arch/x86/kvm/vmx/nested.h:46 [inline]
+ vmx_leave_nested arch/x86/kvm/vmx/nested.c:6898 [inline]
+ nested_vmx_free_vcpu+0x8e/0xd0 arch/x86/kvm/vmx/nested.c:389
+ vmx_vcpu_free+0x109/0x3e0 arch/x86/kvm/vmx/vmx.c:7536
+ kvm_arch_vcpu_destroy+0x154/0x380 arch/x86/kvm/x86.c:9627
+ kvm_vcpu_destroy virt/kvm/kvm_main.c:477 [inline]
+ kvm_destroy_vcpus+0x123/0x380 virt/kvm/kvm_main.c:497
+ kvm_arch_destroy_vm+0xf6/0x1d0 arch/x86/kvm/x86.c:10198
+ kvm_destroy_vm virt/kvm/kvm_main.c:1314 [inline]
+ kvm_put_kvm+0x772/0xb50 virt/kvm/kvm_main.c:1351
+ kvm_vm_release+0x6b/0x80 virt/kvm/kvm_main.c:1376
+ __fput+0x40d/0xa50 fs/file_table.c:512
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fe8f039f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff5710adc8 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007fe8f0627da0 RCX: 00007fe8f039f559
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 00007fe8f0627da0 R08: 00007fe8f0626038 R09: 0000000000000000
+R10: 000000000003fd98 R11: 0000000000000246 R12: 00000000000213f0
+R13: 00007fe8f062609c R14: 000000000002118b R15: 00007fe8f0626090
+ </TASK>
 
 
->             I will review the affected functions and see if there are
-> any obvious style issues worth addressing.
+***
 
-Would you find another clarification approach helpful?
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
 
-[RFC] Replacing special goto statements by direct returns?
-https://lore.kernel.org/kernel-janitors/52418f50-b3ff-461d-8e66-c10f70e35b2a@web.de/
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
-Regards,
-Markus
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
