@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701025;
-	b=ch2fmuNUohd0RsC6ZfFryd6eY7iB1cdFExp0BCf0ZyFrE8vycitDUbM8HafUsnNQR8Uw
-	 uxzcfKv6ep7K22XDbGCJ6b4aCsQocYQ/VQKdwhSo9BuSnidvvbfX3K6rnw1m67RIGIAF/
-	 LfNMVyjaz/h8dWAgIJ8EUGrGaVSNLPaFGLb4tfXVTQnPeilawTTyw2aM9p7C9GX9qCOA9
-	 zgL8N6Bf8Fv0mQoHQJ/riHGJbJWk+iBU5fPWEEdGbfjOGzMStSOdd0m5brH+wjv2joBZr
-	 TJpHabdFtyNKy31llra9zTpeeQfAB/LsN02dMa9vIW92+dmzAvYcWZGht9++XCt1FKg==
+	t=1793701034;
+	b=irmWl9KZyI1VJMdFG0f9F+uS75vCdHE5nm+1XL1HofPEFGyppS+AuglQOeayK7a6UceO
+	 sP70HaaNOUvJkLYcJM8+ZJFmAHjWFpu0i7HjeYE9/TKN85DFNH4XumTfGlJvmLjQm3YDM
+	 lvG1sFwTfrWAZL/6YVDcJVcW4qpWwvSjej7HZTioP163iVlY+4NBQy9lUct7VG6yHy3Jx
+	 Bzi54Y9nvU6E5R3j/JP2aqWXfXJwonAj52Uuyo4CdlIKX7BmeA4AvGet76V8kzlckdpob
+	 SuzHbOJjTRxV01VtS868ELuuplgwONzjoCtGTJjnriqjnJcyUcN8UAJJcvfzcMv/Qrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701034;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sdE96IYUKW+wLkXiRF1pNaXyDUoPvrWI+JpUb7vYseU=;
-	b=hAjKnAwnh8OZDMjhnX0tJQ+b3HanuI4Q6/T+O9N0DiDvvi6buud49I1WtRx/KNyVh9mH
-	 4/zHhtlaWjuXsDHEVuPi9SJBicUOP217RDpw5uX+fbhvrlLvQdU7GsX1QpOh5kIHztPyi
-	 UhJZv81zH9Ga/h7mwVPH2yYgGB/A4sSof7TNV2BaKviQrtaY8qcNeYRPh+YKZFG1mlGJC
-	 ZF+b8gy4VNJrZzM4hj4MFpXu9E8jgz7EYkFyYFyFhL53DlLnLqAnLIHL59C5nQ7Lm8YST
-	 2MewsJLbGcM8QmFndYaMdTmOjZgIRsSaCzRZpD+zT0cO294jt7FpvgKp6ttPGjI+GHQ==
+	bh=DEZuBPSQ8mym6b0BYlcghyKhx1EV1DLss7ZzzYwQqBU=;
+	b=hpAigj8JDmiQHKX4EALfdebZTMP0m/8wUtt0D6FrUZtwr6a/TA/k9kFBn7WjR+QIJZfO
+	 zGTLrKhleJIToYHxDcM6U+cHSKuk/yt+lCd0I3sxowLBz7mlnZBsr89+F8oqQv/paw04o
+	 qlFq7ecZYUFukTwWREQN4cP269rhMdkUKMGnt7n4+aiQjNRdnyC/KCVH0GQfybVMSbJcS
+	 DHdP17rLOMEKHejZZHmSlJFu0/SpK6DIlUDvzc25WFZy5Y+kgzfUGNjW3VAtSms21hcW8
+	 AHFtNQlGcWjELkjPMwdWSZ9l3vAGzI1d6FbN82K9OS7ckcdbBxn74WW1vkKyzLFeQTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2lncoUTs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fcct7NBS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6739A606B10B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:17:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED4D606D83D
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2lncoUTs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD941F000C1;
-	Tue,  3 Nov 2026 10:17:04 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fcct7NBS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3911F00919;
+	Tue,  3 Nov 2026 10:17:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701024;
-	bh=sdE96IYUKW+wLkXiRF1pNaXyDUoPvrWI+JpUb7vYseU=;
+	s=korg; t=1793701033;
+	bh=DEZuBPSQ8mym6b0BYlcghyKhx1EV1DLss7ZzzYwQqBU=;
 	h=Subject:To:Cc:From:Date;
-	b=2lncoUTs6Cs3PPO28P60B/2GCGcSltCEGVUeIGCWqmz+KKpIgdYkAy0noxFKfNWbs
-	 0GPo1QFpl7rg5HSTcnL4tdBrzcxb0YPXhRybWO2c83gQWKe9DuxZODFpEHHukZetDw
-	 SksS+xe3vJYfnRLHn/GBWQgzlBbd2HFyW18Wjwjo=
-Subject: FAILED: patch "[PATCH] ksmbd: fix parent dentry lifetime in directory enumeration" failed to apply to 6.1-stable tree
+	b=Fcct7NBS9/yxfZANRLMue/w9kow9VxaP5j0KP5sPkLRGSitgODaOsV5Eb7y8CQ6Ha
+	 x7X1h2ItWF5eh1whx1Cf7UgFqHltJTcfjSfcUZKpFhU4NPnqiOdgnRSr9mpdmQK+u7
+	 RXYLj85aCP0UtmmKmBkhdAaxpXWO8iIHixhNAYPE=
+Subject: FAILED: patch "[PATCH] ksmbd: fix parent dentry lifetime in directory enumeration" failed to apply to 5.15-stable tree
 To: cenzhang@linux.microsoft.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:17:03 +0100
-Message-ID: <2026110303-stress-stardom-c27a@gregkh>
+Date: Tue, 03 Nov 2026 11:17:04 +0100
+Message-ID: <2026110304-turbine-equal-c720@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 171df27077fb49b4af2c53ad2cedcd0e39664fe8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110303-stress-stardom-c27a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110304-turbine-equal-c720@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
