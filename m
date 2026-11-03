@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701592;
-	b=Csmo4dfLlSZsLx2wO1b/4a3NFHSdLGuA/XaTAvtJi+9vHw7/6eiXIZleM68mVBrt+Odc
-	 i5G7ZYnp3D0wvpsJQcr8y4I9l41lcz9D/syhR1RJIQjSJEG0zSR4zBP9g18dWI9QPGWra
-	 arXICgUVkXYqSNmT068368W96Ug8N2yHfEumEsC5xyIeWBJ0qjC4Acw8l5AyEUW+sFLzH
-	 3lhTx9bvNvTUuD2rbZOyf4MhVtSr48vZcGDmIuCJ+qSPZNB04NNBslNin8PAtegcdtKml
-	 nAcjlg4pHUK41LrGWEihBk2kAXZt/1Y7ekGTErOHWiWut/OhkuFXlkSNyAMPpQ20Lzg==
+	t=1793701598;
+	b=Qj6BK8bpP6Ez6hoRDmVDOtx482mUfRXlqMoWqTiDQxiDGp0A6rV2U08SV3dJg0m/SB9M
+	 uxtdoF4XAWM7fO7h1E1dJCIdfDAHVTUE7CohX6/2ZpBsr2oC6zK/IogTC+894/vUG/1+o
+	 fB/8fdv7234qcCDlDX4AdO40JkZW29hMJl3frG8fdgb4I/R+OCBH1cmC8CXkiYZcOAJJ+
+	 dYuMruoXwKncY4NzoFmV1DSa8rWYqeshVWMeJmR1ZiofyQ79EAhzfoy4wUlZ0nxEaiE5s
+	 6ca830r8Lb657mK+qSSQdqbNaFctWc7E1FTfwn0TV3Xd0v7diALU9BM61EqfJ9qOwPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701598;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KfnI8zt/AZ8WAgoOs9mBI1mCPV8VU01+baE2vWXucIE=;
-	b=vVEnHcVCuOzPVr+9mKAcRiygc9KIawj+bT6r/d9AL48ACG91rkWo3AqiwuegwKq7eJWj
-	 8vc4MpLDBrmenLWp3GJ3EgsWBxxqfTcadAdln0XaTahYL1YarJqQHsFCcuo9wklk2rGyx
-	 KejOkmfuq2LmuEo4K1k7nfwjlygAZyj/iFf+Y4iJFo+G+145ALs11wg5/HLahROtYpv2X
-	 V/SVaHOnMwyo+I34l98DuSXzc7iC6U2DYWh9MywqKsVaPU4UUs/2dXazRKqt3vOynBTFK
-	 GUC0CteDLcexoRXeU0RRHle2FTWw+S/zGPKaYLqfs3Y1moIsIa+kJGOEeCs1WhrXYAg==
+	bh=dbDCb73RToknYSAQMi1gN5mBalvvG3P1OdHm/ktqcfs=;
+	b=TKGi5gF1y382pTmQdEoUfBdD/I1JFqxto1dKueArUC/zwY0OeObcxg2Qqzu2o2Aw2bkw
+	 6yEoENIF1HkwjAGug7gWPLg/A9b+IhUdCpDPOdNIFR4oadx0/U7EaQtr2QyUDDAZVCktk
+	 jSOoQk53/56kf6RKHRRIpEzLg+ODQ3jLSEr7zdSTY/mBij/oYoi06ITETW5PUm1ntWNjp
+	 nw0NImhcRk3BMhJ9P+p9I2IyT5mVtexZGJvh6hw240PsZf6ZTQLZyJGvT37U9CpSWjIHj
+	 fpNb/lIZSyWkaL7/bcF6PDR22Mck10pItNOxPnOblNO8z26oaq6e7P82P3HlNYtWJng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBI+l3qQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMsvWVtp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0A7606A816;
-	Tue,  3 Nov 2026 10:26:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB61606F7C4;
+	Tue,  3 Nov 2026 10:26:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBI+l3qQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1A41F000C1;
-	Tue,  3 Nov 2026 10:26:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nMsvWVtp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61921F00A02;
+	Tue,  3 Nov 2026 10:26:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701592;
-	bh=KfnI8zt/AZ8WAgoOs9mBI1mCPV8VU01+baE2vWXucIE=;
+	s=k20260515; t=1793701598;
+	bh=dbDCb73RToknYSAQMi1gN5mBalvvG3P1OdHm/ktqcfs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bBI+l3qQAwA83v2g+i3NkocwEVgIFMlMM7m4mvG339fl5uhFrGYMAwhQfu0ZMUQz4
-	 xH0tp6IXNO9CCcCTc9X/Xcbq3OdUSauTMwPEXehnbrbgzbCWaZrc6scUOefxZL+rjd
-	 yxuPTPh4QfczMjAOn78b8LUuRS8R9k0UnsQfO7vBQVrIzM+FVw+nPwfk9g6rvOx018
-	 EbhC8uRNJshBgXXCWK78Su6uVOtBTh/OmloSaZAq77wf6yE7hZKiF3GdZCdEMs0ykX
-	 KqSM5WsmlY5Wdbv2Q1vTmR4JACURvuahkC0gQbibCM6v5dIbiOi2KEMjbI32C6V0sY
-	 mG2OSQdv/hvOg==
-Date: Tue, 3 Nov 2026 11:26:29 +0100
+	b=nMsvWVtpyP+vCPLGp/KOKqkrNP8ynflaCpGgI45nZSjkrFoVuOB1BsB5lwUGQNuTo
+	 qO+zfzZOjaNTicQEl3vsPvr8NPX25C60yDZDFf0x6bAhA7+YYR0TLOV1TloH+ZcxFR
+	 0hAVQqYblZvx9F5V/fOVsOyL+IGDr9wX1bsvWgPjYRsq1F3ia7zJyVNWPgqQE1yiYH
+	 bPfSSPKjvxb+dwW66vu9JRCHyRq0IT1BrcXF5nqfOpGBXepjkTE6xbukEP+iMG8NHp
+	 0nlZdhOv5VTQY5oNGI0CSDHNUSybQxR7qStzfNznXDlUmKZOAAJ8HHsX4s1J8Bnw5+
+	 1u/rTfqZufAOg==
+Date: Tue, 3 Nov 2026 11:26:35 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Thomas Richard <thomas.richard@bootlin.com>, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Lee Jones <lee@kernel.org>
-Subject: Re: [PATCH] mfd: cgbc: release the platform device if driver
- registration fails
-Message-ID: <20261103-advanced-memorable-swift-865a45@quoll>
-References: <20261103094625.1289569-1-vulab@iscas.ac.cn>
+Cc: Michael Hennerich <michael.hennerich@analog.com>, 
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev, stable@vger.kernel.org, 
+	Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH RESEND] mfd: adp5520: Release the subdevices when the
+ client is removed
+Message-ID: <20261103-worthy-diamond-copperhead-c0340d@quoll>
+References: <20261103094644.1289853-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,24 +60,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094625.1289569-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094644.1289853-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:25 +0000, Wentao Liang wrote:
-> cgbc_init() registers the "cgbc" platform device before registering
-> the platform driver.  If platform_driver_register() fails, module
-> initialisation fails and cgbc_exit() is never called, so the platform
-> device stays registered and its memory and resources are leaked.
+On Tue, 03 Nov 2026 09:46:44 +0000, Wentao Liang wrote:
+> adp5520_probe() registers up to four platform devices (keys, GPIO, LED
+> and backlight) as children of the I2C client, but the driver no longer
+> has a remove callback.  The callback was dropped when the driver was
+> made explicitly non-modular, on the assumption that a built-in driver is
+> never removed.  That assumption does not hold when the I2C adapter the
+> client sits on goes away: the driver core still calls the driver's
+> remove callback, and without one the child platform devices are never
+> unregistered.  They stay registered, keep a reference on the I2C client
+> device and leak the memory they were allocated from.
 > 
-> Unregister the platform device before returning the error.
+> adp5520_remove_subdevs() already exists and is used by the probe error
+> path, but it is not reachable on the removal path.  Add a remove
+> callback that unregisters the subdevices and drops the interrupt, in the
+> same order as the probe error path.
 > 
-> Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
+> Fixes: 6b09274bacc7 ("mfd: adp5520: Make it explicitly non-modular")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/mfd/cgbc-core.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/mfd/adp5520.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
 > 
 
 
