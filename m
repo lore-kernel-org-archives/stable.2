@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672147;
-	b=WatryqmN7pqR2zJhKf1jn6/+p5TCZyr3BCIfGokQwZpkpcRLvzOjweKyWqQq4SmqWuKw
-	 Qn5+cZDF3MJSb6NlElBoaR3OyT2gBKWqk9uLf909/2xkcq9eK339NlZAe+kAUxNXKl3rT
-	 as93KgY96dVOlDhlNn/9XW8invfPSZKvuyrTkLlVO4YwlNtDexvJntnTSvszK06CadUwQ
-	 KsY/SF3lwXCz9TindBM8ERhLb6WSic0zYQI1UNPpPw3AsE6OdfbepR+0M95KToZ51DcGc
-	 fVy1yKIjHcwC15aDO/up0Fb9O9CWo1BFg0Ok47Dg9FUtu+MKYEt0cZ176BdFT97BD6w==
+	t=1793672154;
+	b=5lDnw53ij+uxSop1//oJ2a0RyR3S1H8ZRkSxerfMeGfm5W19cuXF3WeQ8wZDxIV8Bhvo
+	 mQZsNr1a7SV/ClsvnBI4Iwa0sItVUeUeoiEPjcQv23923t01pUxMhbpyn4+zPdceUqlSW
+	 zLHYRfz1rioGmPVDiQKdYXivkxBT2q8YX52eq6OifvC5PWzNJkX+q8mX+L3y/GoRXpg4W
+	 mxz39HDeTYteFf09w41X+g1815Mvojwv5+apmAQFAL0mmsZXocBNCdXwWeydWk9xMGxUN
+	 Eg38wgnq94y5pJU1+S5fFMpYPO2Sw2pQ35ixhGviJ21gnbHGqK1UJQBa4DtmYe76Y+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672154;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=APoOSE3eQiTpI/a8/7eMeTk/q6sS/mBd5YfCvBguydo=;
-	b=HmPJAWR3wDdwRAAGgXNR1b0+3m42uaD+D2DXgoMWQwyZ6hrZnM5Tq9G24P3CeLwXKtop
-	 fcJZVif1h/Chl8K2WlFBee7/8BMKDY7lvzdS+SW/Vg4Dpa+TcHcn0WORo9TAmmIyTl4lv
-	 J20UQoWJtLUWKi11FQnNohnKJdAzdWjFsVP4wLpyIHeMVG21clqMEm4v/bqEBbzBlAjZF
-	 OPI0CEY3ZHA3b1lfuW9LCxDxzpDcvvq3etd0klZVv59vaL0rPgGWAxzAo9p5dZF2U6JLk
-	 pAiIummi5MO9KfsJUmusVmmWSDzGiogV12lUZBGD24kljNMlj0h5GUHDbiIw/OTo/YQ==
+	bh=8zc82ypHzo61GO4HphwSBWFVY9RadgorQVLqlpKErQY=;
+	b=aCH6YDXvhnm1axVLjYPxNQ/8UoriI1sbnWLoyZeUOD66pQl85LzpkMMt+96f8lh/qnja
+	 YcWn7pIusIsYc6GguLCmqRn41w9roB4Pb3MpohR/ZrKRn8Lr+kPi7NfCc4/OfJ8qPeDe7
+	 roiDCWQ8XgcpO92JF/NLsyjR3qviXLdfnGqJtu7n4p+1nKEQVF51grrERcTjvLoLob41M
+	 UQEXjyhKrqDBz3aDhKrduepWW1nwkEZHGP1qy8RvSXKzXTp/CHivQcMmknEt/SdrR71lo
+	 ujSv4vbW4PEf+NhCuxRse8rL29538k1WLv8O180c0avdPOhywPyzNZB8Aep2bLv+WZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rL7fMwcq;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=TfVWb82H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2B3606A32E;
-	Tue,  3 Nov 2026 02:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7636A606A333;
+	Tue,  3 Nov 2026 02:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rL7fMwcq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8B81F000C1;
-	Tue,  3 Nov 2026 02:15:46 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=TfVWb82H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360061F0093A;
+	Tue,  3 Nov 2026 02:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672146;
-	bh=APoOSE3eQiTpI/a8/7eMeTk/q6sS/mBd5YfCvBguydo=;
+	d=linux-foundation.org; s=korg; t=1793672154;
+	bh=8zc82ypHzo61GO4HphwSBWFVY9RadgorQVLqlpKErQY=;
 	h=Date:To:From:Subject;
-	b=rL7fMwcqn+ckPFbur97k19MzPOh9wBs5FNbqbx1l0RgHKrT+wS7mbhvHRBlljbSTH
-	 eQ0p/CAoPKZtd2pPhD1Q8b7mn5xdAAGZNe65rLpNSVy6yNViDyr+uJ/HqWRTyBfHcd
-	 eYpjAQdh6cHj8tvej35qP2Ikz15R14xXt5hUlcPU=
-Date: Mon, 02 Nov 2026 18:15:46 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,xu.xin@linux.dev,
-	xemul@openvz.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,
-	sj@kernel.org,shli@fb.com,seanjc@google.com,samarth.colleges@gmail.com,
-	rppt@kernel.org,riel@surriel.com,peterx@redhat.com,pbonzini@redhat.com,
-	mhocko@suse.com,mgorman@techsingularity.net,med08elkadiri@gmail.com,
-	mcfadden8@llnl.gov,ljs@kernel.org,liam@infradead.org,kas@kernel.org,
-	jthoughton@google.com,jglisse@redhat.com,hughd@google.com,hannes@cmpxchg.org,
-	gokhale2@llnl.gov,dplotnikov@virtuozzo.com,dgilbert@interlog.com,
-	david@kernel.org,cracauer@cons.org,corbet@lwn.net,chengming.zhou@linux.dev,
-	bobbypowers@gmail.com,bgeffon@google.com,aarcange@redhat.com,
-	lance.yang@linux.dev,akpm@linux-foundation.org
+	b=TfVWb82H2IMiZvSnzVkT4SQlTKnIpnQY7PHvyQj0GdwWSfl/0FhN7VSH5HdsChwa7
+	 gKComxhAffPO6cAcEvt8wQu9/ukburB9UuILTsLsZeFWBwgRC1tFxokWJm5M9BIWds
+	 HVAe2ww/hp9NNFeuoqa3q54fe6OiM9yGnqQSMzCs=
+Date: Mon, 02 Nov 2026 18:15:53 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,
+	vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,mhocko@suse.com,
+	mgorman@techsingularity.net,matt@readmodwrite.com,hch@lst.de,
+	dipiets@amazon.it,dgc@kernel.org,brendan.jackman@linux.dev,
+	balbirs@nvidia.com,hannes@cmpxchg.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch removed from -mm tree
-Message-Id: <20261103021546.7D8B81F000C1@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-page_alloc-remove-alloc_non_block-from-alloc_reserves.patch removed from -mm tree
+Message-Id: <20261103021554.360061F0093A@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,151 +55,117 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/ksm: fix userfaultfd protection during merge and unmerge
+     Subject: mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
 has been removed from the -mm tree.  Its filename was
-     mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch
+     mm-page_alloc-remove-alloc_non_block-from-alloc_reserves.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Lance Yang <lance.yang@linux.dev>
-Subject: mm/ksm: fix userfaultfd protection during merge and unmerge
-Date: Mon, 26 Oct 2026 21:00:54 +0800
+From: Johannes Weiner <hannes@cmpxchg.org>
+Subject: mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
+Date: Wed, 28 Oct 2026 13:15:54 -0400
 
-KSM loses userfaultfd protection when replace_page() builds a new PTE from
-vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
-through ordinary COW instead of userfaultfd write protection handling. 
-For RWP, a merged page also becomes readable without faulting.
+1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
+non-blocking allocations accesses reserves") stopped handing out reserve
+access for ALLOC_NON_BLOCK on its own: the extra 25% below the min
+watermark is now only granted on top of ALLOC_MIN_RESERVE.  But the flag
+was left in ALLOC_RESERVES, which produces something odd:
 
-Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
-have to handle unmerging.  An existing KSM page can be protected with RWP
-before MADV_UNMERGEABLE, so unmerging already needs fixing independently
-of preserving RWP during merging.
+With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
+subtract the free highatomic pages for them.  So in the slowpath, they get
+to consume regular blocks below the min watermark by the number of free
+highatomic pages.  The highatomic reserve is capped at 1% of the zone,
+which on any decently sized machine is a multiple of the min watermark:
+GFP_NOWAIT can drain regular memory to zero.
 
-Unsharing replaces a shared page with a private one and should leave
-userfaultfd protection in place, as do_wp_page() already does for write
-protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
-can proceed to do_wp_page().
+The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
+allocations under memory pressure.  This was found in review and
+reproduced with a synthetic burst, not observed in production, but the
+sequence of events is a realistic one: On a 32G box with an anonymous
+working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
+burst drove regular free memory in the 28G Normal zone (min=60M) to 28M,
+0.8M and 0.6M in three runs.  Swapout failed to allocate its swap table,
+reclaim scanned 13M pages to reclaim 200k, page faults stalled for tens to
+hundreds of milliseconds.  The machine survives it, but not by design:
+direct reclaimers eventually fail and start unreserving highatomic blocks,
+until the allocation succeeds or the reserve is gone and the OOM killer
+runs.  That reserve exists for high-order atomic allocations; here it is
+destroyed to bail out a GFP_NOWAIT consumer that was never entitled to the
+memory.
 
-- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
-  break_ksm() then reports success with a KSM page still merged.
+Remove ALLOC_NON_BLOCK from ALLOC_RESERVES.  With that, the GFP_NOWAIT
+burst is stopped short at the min watermark.  No direct reclaim, no
+stalls, no failed allocations, and the highatomic reserve stays intact for
+the requests it exists for.
 
-- With asynchronous RWP, protection is cleared before unsharing.
+__zone_watermark_ok() is unaffected, since everything it keys on
+ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE.  Update the
+flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
+block; the reserve math belongs with ALLOC_MIN_RESERVE.
 
-Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
-FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
-private copy as well.  Unsharing can then complete with RWP still armed
-for a subsequent access.
+GFP_ATOMIC order-0 requests have a milder version of the same problem. 
+Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
+their watermark check, but rmqueue_buddy() serves them regular pages first
+and only falls back to the reserve once those are gone.  They can still
+push regular free memory to 37.5% of min minus the free highatomic pages
+before the reserve is touched.  Unlike GFP_NOWAIT they are entitled to the
+reserve, so this needs the watermark check and the freelist order reworked
+together, and is left to a separate patch.
 
-Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
-Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Link: https://lore.kernel.org/20261028171719.2043421-3-hannes@cmpxchg.org
+Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>
 Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Xu Xin <xu.xin@linux.dev>"
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
 Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jérôme Glisse <jglisse@redhat.com>
-Cc: Andrea Arcangeli <aarcange@redhat.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Bobby Powers <bobbypowers@gmail.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
-Cc: Doug Gilbert <dgilbert@interlog.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Martin Cracauer <cracauer@cons.org>
-Cc: Marty McFadden <mcfadden8@llnl.gov>
-Cc: Maya Gokhale <gokhale2@llnl.gov>
-Cc: Pavel Emelyanov <xemul@openvz.org>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Shaohua Li <shli@fb.com>
-Cc: James Houghton <jthoughton@google.com>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>
-Cc: SJ Park <sj@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
 Cc: Zi Yan <ziy@nvidia.com>
-Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/ksm.c    |    8 +++++++-
- mm/memory.c |   14 ++++++++++----
- 2 files changed, 17 insertions(+), 5 deletions(-)
+ mm/page_alloc.h |   11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
---- a/mm/ksm.c~mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge
-+++ a/mm/ksm.c
-@@ -34,6 +34,7 @@
- #include <linux/memory.h>
- #include <linux/mmu_notifier.h>
- #include <linux/swap.h>
-+#include <linux/userfaultfd_k.h>
- #include <linux/ksm.h>
- #include <linux/hashtable.h>
- #include <linux/freezer.h>
-@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_s
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
+--- a/mm/page_alloc.h~mm-page_alloc-remove-alloc_non_block-from-alloc_reserves
++++ a/mm/page_alloc.h
+@@ -32,12 +32,11 @@
+ #define ALLOC_OOM		ALLOC_NO_WATERMARKS
+ #endif
  
--	/* Preserve soft-dirty when replacing the page. */
-+	/* Preserve soft-dirty and uffd protection when replacing the page. */
- 	if (pte_soft_dirty(orig_pte))
- 		newpte = pte_mksoft_dirty(newpte);
-+	if (pte_uffd(orig_pte)) {
-+		newpte = pte_mkuffd(newpte);
-+		if (userfaultfd_rwp(vma))
-+			newpte = pte_modify(newpte, PAGE_NONE);
-+	}
+-#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
+-				       * to 25% of the min watermark or
+-				       * 62.5% if __GFP_HIGH is set.
+-				       */
++#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
+ #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
+-				       * of the min watermark.
++				       * of the min watermark, or 62.5% if
++				       * the caller cannot block either
++				       * (ALLOC_NON_BLOCK).
+ 				       */
+ #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
+ #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
+@@ -58,7 +57,7 @@
+ #define ALLOC_NO_CODETAG       0x1000
  
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
---- a/mm/memory.c~mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge
-+++ a/mm/memory.c
-@@ -4125,8 +4125,11 @@ static vm_fault_t wp_page_copy(struct vm
- 		if (unlikely(unshare)) {
- 			if (pte_soft_dirty(vmf->orig_pte))
- 				entry = pte_mksoft_dirty(entry);
--			if (pte_uffd(vmf->orig_pte))
-+			if (pte_uffd(vmf->orig_pte)) {
- 				entry = pte_mkuffd(entry);
-+				if (userfaultfd_rwp(vma))
-+					entry = pte_modify(entry, PAGE_NONE);
-+			}
- 		} else {
- 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
- 		}
-@@ -6662,9 +6665,12 @@ static vm_fault_t handle_pte_fault(struc
- 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
- 		 * NUMA hinting and must still fall through to do_numa_page().
- 		 */
--		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
--			return do_uffd_rwp(vmf);
--		return do_numa_page(vmf);
-+		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
-+			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
-+				return do_uffd_rwp(vmf);
-+		} else {
-+			return do_numa_page(vmf);
-+		}
- 	}
+ /* Flags that allow allocations below the min watermark. */
+-#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
++#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
  
- 	spin_lock(vmf->ptl);
+ /* Flags that mean GFP_ATOMIC */
+ #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
 _
 
-Patches currently in -mm which might be from lance.yang@linux.dev are
+Patches currently in -mm which might be from hannes@cmpxchg.org are
 
 
