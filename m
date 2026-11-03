@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713939;
-	b=RdD7NwWC6w8zI5pb0pmdQ02WpfztdRji2zv3HtGu8yofRupCjJdTxOxTFIvjVf9epQj9
-	 HvAxc8pDZxsDInMVIGo1S/nKe0k9PDW0N5kJFSM06DTxFXPWty7siysNrP9RVT7oGLmD+
-	 2vjDh+s9YhGGvouHqfk0vkZ3hUWOjqmV/xn6Oa9SJc67eBOfX5QUyLfXWD2f0nnBbHCgY
-	 PiCLwzUHEGIARMVPb8SZ6BAKAKnwg6+kPJiK8/wq0VJoB8YrX2RlbtQtghbC36IP8hNmV
-	 vIsfsTaCKe11KAsM7P3svC1cp1AC7lOk80MCAP5bwWxtmlXGLzTdNvu4Zjc+7KBgCxQ==
+	t=1793714012;
+	b=Gs8TtDTBaJzNGMAMKA84fGlidoJrpHokHQXqTOwwfSAEFVl3rF5quQ+GHsZ2ZkXOA+ig
+	 U92DmystzykeF4eYTslPT+kRNRkQCkhbeP98rQ7f3UTsBgng8jTyfRjdY/s2D6AgqSq6t
+	 0gbyGytubbPjnfFnQu0sKmZHGvuHwPkmpU74p2hE/0NL/L5Mh5ZgqcEVAiEqHaqUT3aiT
+	 ykkD1TCFdzi/yRI3JAFQ4N6IY0B70v7Ga3ok/t3xUdHfzabAjW7GVV0Use/Ddu1BZaO6i
+	 CH/S3pAIIkv8PJk74DtW4haL/H/Fw2NnXQ4/mJGKU+SfY1Q2LCLLt5BhcYkofaWRheg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713939;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793714012;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KVD6b1RpNaXokQ5LhwNVafR8NF3t9xBYTThbDtiEwe4=;
-	b=Xm6o/6RMQYmq0Ymor7n+X/omLmx+ZOGgdK8VHjl5mJts5LsNtJy+BUa+x6UGckel+Uz0
-	 nNmCepCLvlUALDKNHnScQitr+7/+pkX/umzoDLm/+BV+yQPm3PfW/Z1DPc1a4lM0VhYVf
-	 Yj693urqTBukFIb7doqUBCUnJ/z7dAqgcg1oVEgAa5BsYXHp0DQm7wOGRiEpkvOFZfSju
-	 +U0Jp8Q3pQ329IirN2xwQosPVmAFbAf4u0dtllToGfBn0YD1cNrf0XIoxC4TKc6aEpgUX
-	 Qik4wgQTqR4Durm1mXrR1H/7YhC3Tem4TFEjSdumHMIJbNu/0hy908FHk8/Tg5Rn9NQ==
+	bh=0NRV2l64pRg1Mv5D5yVVBj3qGuOVzrBBlErezbuptSU=;
+	b=BrkIS92WN3X/LKhWns2Z6j2mk6wyaivExvKtY119WtPMLzOpT9z7M0FoqMsIfmrGtYvB
+	 pRhYx7OlCmc8HRHpxiEZN3G1grtv7cbc4ttvHQwR8ieiOloCehFMPSaYx2oOATyUpSEAj
+	 fOuPqDwlmKQDyZ+t7cesKx/d9uoCoG1tV26a6Ye++zmoAwuHJ4GErJhTb9TSMeNtpNgXF
+	 iqyFSCFzOT20TcAw0Fu00rO4EGZG8dYVwkYH8674/w5GhYKhSi9JktxCpSowWb8Z0T1jg
+	 BepCqdb/vIfT90AFD4Gv4kfdIFvL4L9436SN7k1gJCLp+BC/r/bBqJELw4qPzKwpX3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFxPzJ1B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DstvXLVa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D41606A333
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:52:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C06606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFxPzJ1B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D77EB1F000C1;
-	Tue,  3 Nov 2026 13:52:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DstvXLVa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619241F000C1;
+	Tue,  3 Nov 2026 13:53:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793713938;
-	bh=KVD6b1RpNaXokQ5LhwNVafR8NF3t9xBYTThbDtiEwe4=;
+	s=k20260515; t=1793714011;
+	bh=0NRV2l64pRg1Mv5D5yVVBj3qGuOVzrBBlErezbuptSU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fFxPzJ1BT24RdSPgPraTkZH6xrEjJEQpdmYMacvrAa3QvtnCDs+NTBJHaO0kzn+cX
-	 H6XGiJX2KMvKIcZQCtYBq3WLGP6ioa+ZNpu//3WiMDEzvG6SeGHIq/SpZ9bw+BvF/j
-	 XIiNSvP8nXKA7mbh2fNYbDClQpOckpmnytq1XMHD9XqUbohssE/loebHcMzJdjz3Yt
-	 ww+qf+5FkdsCdS+36aAqgqVaDNqK8SPSfcA3QLWzcz+cBVG8z230G28h2qN/au4vch
-	 3THvFN+jIzG1xkbDnLBIWgLhIMWpizB0MMxCv444Mca0WzV289LXjUH6kap+88IDz9
-	 xtroVoCQ/balw==
+	b=DstvXLVa+CJZcvo300xlzR3kchGJGZIWNrTDVsmKNE5DtVZChN+519qIdKR6cPJnN
+	 tPvSLc9+QPNXFP6MBXluInLp1A0/Ts3ng0sSi2XkIwgrOcQNiLpwn4J2010xl6XcTg
+	 +Z8bAZJk+cIhwPfsqPDgbAUae1DEQam8upfwe+2nwrwluty9gnX5ueJxzceo1h5VsX
+	 Xs4sunbFFmfu0qJFphPyFDTkIs3LEIQfrjqkuFsJsOJ0R+083wFRcUoxPO4ql8/cpu
+	 K42TLdIj30ss6byS4qhe0ViMhElXGWzIAAOJk5Kv8UKq+61qF9wIBJeIsro67KOQ8z
+	 do1eM013LkaLQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	stable <stable@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] driver core: Limit the messages on a refused uevent
-Date: Tue,  3 Nov 2026 08:52:15 -0500
-Message-ID: <20261103135045.3979793-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: fix early procfs exposure race
+Date: Tue,  3 Nov 2026 08:53:30 -0500
+Message-ID: <20261103135309.3956451-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110325-yoga-strut-6a3a@gregkh>
-References: <2026110325-yoga-strut-6a3a@gregkh>
+In-Reply-To: <2026110230-whooping-appease-2920@gregkh>
+References: <2026110230-whooping-appease-2920@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,59 +61,130 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-[ Upstream commit a01c8e5b1dff1ce489e6b339139e744db36b8bb3 ]
+[ Upstream commit 7b1afb631395c958993cda4631002258ef4151ea ]
 
-A write to a "uevent" file which is no valid action makes
-kobject_synth_uevent() print a warning and uevent_store() an error every
-time.  This is generally considered a bad thing so rate limit these
-messages.
+Currently, init_cifs() calls cifs_proc_init() near the beginning of
+the function, before INIT_LIST_HEAD, leading to a momentarily
+uninitialized, but exposed, procfs. If a userspace process reads this
+empty procfs, iterating over a zeroed list_head leads to a NULL
+pointer dereference and a kernel oops/panic.
 
-Fixes: b0e37c0d8a6a ("net-sysfs: make sure objects belong to container's owner")
-Cc: stable <stable@kernel.org>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Link: https://patch.msgid.link/2026102718-conduit-glorious-a8dc@gregkh
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[ sashal: Adjusted uevent_store() context because the existing error message lacked the numeric error code. ]
+For example, if a delay is added between cifs_proc_init() and
+INIT_LIST_HEAD, and a userspace process is polling
+/proc/fs/cifs/DebugData, the following oops occurs:
+
+BUG: kernel NULL pointer dereference, address: 0000000000000608
+Oops: Oops: 0000 [#1] SMP PTI
+CPU: 0 UID: 0 PID: 3477 Comm: cat Not tainted
+7.3.0-02212-g4df4d2a577db-dirty #6 PREEMPT(lazy)
+RIP: 0010:cifs_debug_data_proc_show+0x103/0xd80 [cifs]
+Call Trace:
+<TASK>
+ ? seq_read_iter+0x86/0x400
+ ? seq_read_iter+0x86/0x400
+ seq_read_iter+0x183/0x400
+ proc_reg_read_iter+0x62/0x90
+ copy_splice_read+0x215/0x310
+ splice_file_to_pipe+0xec/0x1c0
+ do_splice+0x4b8/0x780
+ __se_sys_splice+0x18f/0x250
+ do_syscall_64+0x109/0x330
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+</TASK>
+
+Fix this by moving cifs_proc_init() down in init_cifs(), ensuring it runs
+only after all internal lists, locks, counters, and workqueues are fully
+ready, but before registering the filesystem. Update the error cleanup
+ladder and exit_cifs() to maintain proper LIFO order.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ sashal: Adjusted context to match the existing CIFS initialization and cleanup sequence. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/base/core.c  | 4 +++-
- lib/kobject_uevent.c | 6 +++---
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ fs/cifs/cifsfs.c | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index d11cf07e1441c..dda2bc47bc81a 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -2428,7 +2428,9 @@ static ssize_t uevent_store(struct device *dev, struct device_attribute *attr,
- 	rc = kobject_synth_uevent(&dev->kobj, buf, count);
+diff --git a/fs/cifs/cifsfs.c b/fs/cifs/cifsfs.c
+index 228087c90de25..e90792dd60e5d 100644
+--- a/fs/cifs/cifsfs.c
++++ b/fs/cifs/cifsfs.c
+@@ -1536,7 +1536,6 @@ static int __init
+ init_cifs(void)
+ {
+ 	int rc = 0;
+-	cifs_proc_init();
+ 	INIT_LIST_HEAD(&cifs_tcp_ses_list);
+ #ifdef CONFIG_CIFS_DNOTIFY_EXPERIMENTAL /* unused temporarily */
+ 	INIT_LIST_HEAD(&GlobalDnotifyReqList);
+@@ -1582,10 +1581,8 @@ init_cifs(void)
+ 	}
  
+ 	cifsiod_wq = alloc_workqueue("cifsiod", WQ_FREEZABLE|WQ_MEM_RECLAIM, 0);
+-	if (!cifsiod_wq) {
+-		rc = -ENOMEM;
+-		goto out_clean_proc;
+-	}
++	if (!cifsiod_wq)
++		return -ENOMEM;
+ 
+ 	/*
+ 	 * Consider in future setting limit!=0 maybe to min(num_of_cores - 1, 3)
+@@ -1646,19 +1643,22 @@ init_cifs(void)
+ 	if (rc)
+ 		goto out_register_key_type;
+ 
++	cifs_proc_init();
++
+ 	rc = register_filesystem(&cifs_fs_type);
+ 	if (rc)
+-		goto out_init_cifs_idmap;
++		goto out_clean_proc;
+ 
+ 	rc = register_filesystem(&smb3_fs_type);
  	if (rc) {
--		dev_err(dev, "uevent: failed to send synthetic uevent\n");
-+		dev_err_ratelimited(dev,
-+				    "uevent: failed to send synthetic uevent: %d\n",
-+				    rc);
- 		return rc;
+ 		unregister_filesystem(&cifs_fs_type);
+-		goto out_init_cifs_idmap;
++		goto out_clean_proc;
  	}
  
-diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-index 38716b2eb671d..99de6689ccc21 100644
---- a/lib/kobject_uevent.c
-+++ b/lib/kobject_uevent.c
-@@ -224,9 +224,9 @@ int kobject_synth_uevent(struct kobject *kobj, const char *buf, size_t count)
- out:
- 	if (r) {
- 		devpath = kobject_get_path(kobj, GFP_KERNEL);
--		pr_warn("synth uevent: %s: %s\n",
--		       devpath ?: "unknown device",
--		       msg ?: "failed to send uevent");
-+		pr_warn_ratelimited("synth uevent: %s: %s\n",
-+				    devpath ?: "unknown device",
-+				    msg ?: "failed to send uevent");
- 		kfree(devpath);
- 	}
- 	return r;
+ 	return 0;
+ 
+-out_init_cifs_idmap:
++out_clean_proc:
++	cifs_proc_clean();
+ 	exit_cifs_idmap();
+ out_register_key_type:
+ #ifdef CONFIG_CIFS_UPCALL
+@@ -1684,8 +1684,6 @@ init_cifs(void)
+ 	destroy_workqueue(decrypt_wq);
+ out_destroy_cifsiod_wq:
+ 	destroy_workqueue(cifsiod_wq);
+-out_clean_proc:
+-	cifs_proc_clean();
+ 	return rc;
+ }
+ 
+@@ -1695,6 +1693,7 @@ exit_cifs(void)
+ 	cifs_dbg(NOISY, "exit_smb3\n");
+ 	unregister_filesystem(&cifs_fs_type);
+ 	unregister_filesystem(&smb3_fs_type);
++	cifs_proc_clean();
+ 	cifs_dfs_release_automount_timer();
+ 	exit_cifs_idmap();
+ #ifdef CONFIG_CIFS_UPCALL
+@@ -1711,7 +1710,6 @@ exit_cifs(void)
+ 	destroy_workqueue(decrypt_wq);
+ 	destroy_workqueue(fileinfo_put_wq);
+ 	destroy_workqueue(cifsiod_wq);
+-	cifs_proc_clean();
+ }
+ 
+ MODULE_AUTHOR("Steve French");
 -- 
 2.53.0
 
