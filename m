@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793699182;
-	b=LwX5IggwwA5Hlr6zj7zpzbYnk7OshIkRe1KD2IAthBS+KO5jvatJ2uw7Rwqw7Btp/MLM
-	 W4OzOdHmF9nreb2EpD+A6uFep/mrB66PStbV5KwVv1pOa7x/wl1k+FKibNUGJas7iZIwj
-	 gtqcJ5VcMZBQ8dlrlNHV3UALRIJvHJOBc77SzUnfugjs98YlDHM3kJyFTuU7xffw47Rlm
-	 gDFbRzj8qUhFjv7oBI3+QRQ4Zky1Ce8dcaDwZ/W+2p8cJr5JkgZvAbZ0ApcBR5vC8hAtJ
-	 DEuVuCE4TvsxhQf+9OE5hXNyTDCh25wDir+eAcQApAqYXA+M5hRMfj19Vw2eoO6JhjA==
+	b=Uwp+aDrLkx4I1ctCEw1ubEEbwmXgtC0SPFmCOcabIEf0Rqaq7RX4oz6grLbraujruLQ4
+	 RkYhKMSWN2K0XgwYKxrtTJCDcX0zDwCWJwFRVzn905LQNBjy6j5+FAKhKp/sdJNpRVA97
+	 9rjN35++jPk/P15S+pY1WWcn4OB4uzjLcV6+PSiCq7Je27Eqnd4bRWZRSlQ6GSIXLD3Kp
+	 T4xOkcwrOSsHsYVcjDxybeVS0Hb1EVFD2P3ozi4pvKPuH6Zp9pJ65k3Pu+uZ0w52QjcOp
+	 1L+bUbHPiA88cs9diudgA2r40GPvkb2VuI1ZLnFWJeljlHRN1bIMBspo2PtbFAKht+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793699182;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=dtKsH0jS+laGioqm28BDiqTDI0Fspbluk66RTVMMyS0=;
-	b=yo7BkBed4aCeaT6lLW6jU9Z7145vOEdiQt/xiD8tJBYGYJTZRAGc7cjWDK/LWcTW94e8
-	 AEKwyEA96tXp5ZlMINWasra/IeY9SfJfc+AEsUMb5pIYFDaR7263T6AG7A53dcWw75kPK
-	 UlhdXBWNDY00I3x896Xn/UyVuufz9rctV6ZoreooxpdV/gHYmmMyNJCkiYEQzWZC2Q3P7
-	 ZwRBgg4nw0B5T+RqXrIguZ2T/tenYV4NRFneNveG1AnmYezcnf6k0vgMKBhjqb0/+hiPc
-	 z0OSyXGtltLHyjmTRso+JKNpdooJ80fRiP2gid43iyQKG66NvYrYBXMzDHjP3DK7XSg==
+	bh=iPLD0jyLLDXscwsU39MJP+tXiWc4BE5SrvrcgADe+wc=;
+	b=LaKsItKYmzJCVaGAmpAyke+D2q3Zl3V4h9bLFlMSr6BawEI+3mqKH3sIEnjTxBEMKTba
+	 FayzM3gEx34wFRBcakBWoyv0O+rzk3q8aYh669vjXbl/Lh/eRVyHtQxnr0Llj2zbndMO4
+	 ovK9m8GAOKsJThaCTHBj195U0Kvfjk7bp4361KoMIPmA1o9Fan2Xcqb6oBGSWdITd07f9
+	 A11wBzazjyaYzSkRydxh24kwztynoT3d8YU/QwqqlBjdMCFi9v+77wMMJtqZ6EQ++Imi/
+	 yu0TtTD2XDepOCzD8cpKMmruGfqt0FWPBsltHMbO7P4TTi7wEwS9HF8MlTZqSl6q3gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,24 +25,24 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22466082BF2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B31D6082BFC;
 	Tue,  3 Nov 2026 09:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C22466082BF2
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B31D6082BFC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHE5RqrelqVU87AA--.2396S2;
-	Tue, 03 Nov 2026 17:46:18 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAC3wJForelqNE87AA--.2243S2;
+	Tue, 03 Nov 2026 17:46:16 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Coly Li <colyli@fygo.io>,
-	Kent Overstreet <kent.overstreet@linux.dev>
-Cc: linux-bcache@vger.kernel.org,
+To: Thomas Richard <thomas.richard@bootlin.com>,
+	Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 4/4] bcache: Release the cache kobject when cache_alloc() fails
-Date: Tue,  3 Nov 2026 09:46:27 +0000
-Message-Id: <20261103094627.1289665-1-vulab@iscas.ac.cn>
+Subject: [PATCH] mfd: cgbc: release the platform device if driver registration fails
+Date: Tue,  3 Nov 2026 09:46:25 +0000
+Message-Id: <20261103094625.1289569-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,111 +54,57 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHE5RqrelqVU87AA--.2396S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF45uF4xCw4ftF18tw48tFb_yoW5KF18pF
-	WxKry3tF4kXw48JwsrZF1kWFyrA39aqFZ8Ca4Svw12vrn8Xr1F9F4vvw10vF1UZrykJa1a
-	qF45Ka1UWF15AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
-	JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
-	UXID7UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgQAA2rpnIRRdgAAs9
+X-CM-TRANSID:rQCowAC3wJForelqNE87AA--.2243S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtFyDGF1UKFWkuFWUZFyfCrg_yoWkZFb_Wa
+	40vr9rZr18GFs2gF12yF1xZryIvFnYgrs3JF1xtFWagrW3XF1xXw15Zr43C3WUCr4rZF98
+	JrWDCFyS9343CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
+	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU1
+	YsjUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpnOFPEgAAst
 
-cache_alloc() initializes ca->kobj with kobject_init(), which takes the
-initial reference on the kobject, and takes a reference on the bcache
-module.  The object is released later by bch_cache_release(), which also
-drops the block device, puts the super block folio, frees ca and drops
-the module reference.
+cgbc_init() registers the "cgbc" platform device before registering
+the platform driver.  If platform_driver_register() fails, module
+initialisation fails and cgbc_exit() is never called, so the platform
+device stays registered and its memory and resources are leaked.
 
-When one of the allocations in cache_alloc() fails, the function frees
-only the buffers it managed to allocate and returns an error.
-register_cache() then only calls fput() on the block device and returns,
-so the reference taken by kobject_init() is never dropped: ca is leaked
-together with the super block folio and the module reference.  The
-comment on that path still claims that ca->kobj is not initialized, but
-kobject_init() is the first thing cache_alloc() does.
+Unregister the platform device before returning the error.
 
-Put ca->kobj on that path so that bch_cache_release() runs and releases
-everything.  bch_cache_release() frees ca->buckets and ca->prio_buckets
-as well, so clear those pointers in cache_alloc() after freeing them, and
-drop the module_put() from the error path because the module reference is
-now released by bch_cache_release().  Skip the bucket page free in
-bch_cache_release() when cache_alloc() failed before allocating them.
-
-Fixes: cafe56359144 ("bcache: A block layer cache")
+Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/md/bcache/super.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/mfd/cgbc-core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-index 97d9adb0bf96..5d4975873c2e 100644
---- a/drivers/md/bcache/super.c
-+++ b/drivers/md/bcache/super.c
-@@ -2221,7 +2221,9 @@ void bch_cache_release(struct kobject *kobj)
- 		ca->set->cache = NULL;
- 	}
+diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
+index 2becaf797646..e9c754c97bdf 100644
+--- a/drivers/mfd/cgbc-core.c
++++ b/drivers/mfd/cgbc-core.c
+@@ -411,7 +411,11 @@ static int __init cgbc_init(void)
+ 	if (IS_ERR(cgbc_pdev))
+ 		return PTR_ERR(cgbc_pdev);
  
--	free_pages((unsigned long) ca->disk_buckets, ilog2(meta_bucket_pages(&ca->sb)));
-+	if (ca->disk_buckets)
-+		free_pages((unsigned long) ca->disk_buckets,
-+			   ilog2(meta_bucket_pages(&ca->sb)));
- 	kfree(ca->prio_buckets);
- 	vfree(ca->buckets);
+-	return platform_driver_register(&cgbc_driver);
++	ret = platform_driver_register(&cgbc_driver);
++	if (ret)
++		platform_device_unregister(cgbc_pdev);
++
++	return ret;
+ }
  
-@@ -2364,8 +2366,10 @@ static int cache_alloc(struct cache *ca)
- 
- err_disk_buckets_alloc:
- 	kfree(ca->prio_buckets);
-+	ca->prio_buckets = NULL;
- err_prio_buckets_alloc:
- 	vfree(ca->buckets);
-+	ca->buckets = NULL;
- err_buckets_alloc:
- 	free_heap(&ca->heap);
- err_heap_alloc:
-@@ -2380,7 +2384,10 @@ static int cache_alloc(struct cache *ca)
- 	free_fifo(&ca->free[RESERVE_BTREE]);
- err_btree_alloc:
- err_free:
--	module_put(THIS_MODULE);
-+	/*
-+	 * The module reference taken above is dropped by
-+	 * bch_cache_release() when the caller puts ca->kobj.
-+	 */
- 	if (err)
- 		pr_notice("error %pg: %s\n", ca->bdev, err);
- 	return ret;
-@@ -2408,13 +2415,12 @@ static int register_cache(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
- 			err = "cache_alloc(): unknown error";
- 		pr_notice("error %pg: %s\n", file_bdev(bdev_file), err);
- 		/*
--		 * If we failed here, it means ca->kobj is not initialized yet,
--		 * kobject_put() won't be called and there is no chance to
--		 * call fput() to bdev in bch_cache_release(). So
--		 * we explicitly call fput() on the block device here.
-+		 * cache_alloc() has already released the buffers it
-+		 * allocated, so go through out: to drop the reference
-+		 * taken by kobject_init(); bch_cache_release() then frees
-+		 * ca and drops the block device and the super block folio.
- 		 */
--		fput(bdev_file);
--		return ret;
-+		goto out;
- 	}
- 
- 	if (kobject_add(&ca->kobj, bdev_kobj(file_bdev(bdev_file)), "bcache")) {
+ static void __exit cgbc_exit(void)
 -- 
 2.34.1
 
