@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672154;
-	b=5lDnw53ij+uxSop1//oJ2a0RyR3S1H8ZRkSxerfMeGfm5W19cuXF3WeQ8wZDxIV8Bhvo
-	 mQZsNr1a7SV/ClsvnBI4Iwa0sItVUeUeoiEPjcQv23923t01pUxMhbpyn4+zPdceUqlSW
-	 zLHYRfz1rioGmPVDiQKdYXivkxBT2q8YX52eq6OifvC5PWzNJkX+q8mX+L3y/GoRXpg4W
-	 mxz39HDeTYteFf09w41X+g1815Mvojwv5+apmAQFAL0mmsZXocBNCdXwWeydWk9xMGxUN
-	 Eg38wgnq94y5pJU1+S5fFMpYPO2Sw2pQ35ixhGviJ21gnbHGqK1UJQBa4DtmYe76Y+w==
+	t=1793672156;
+	b=fOnJQp8LhN92hmvrp+0GeFGLJT9p2+MkgTJMzmPVplv9T0QBcfi3IA8S84ZPIftwU6CR
+	 MJcOPw/3NIZC8oo7lJRSu4C/RHdI4RFP30BbXm/jY1A8gYfnpv2lHSrh5eZKvthWpRCuZ
+	 1io2ZSuSPgDvP7ROt7/NKQyQkOD2j9H3AQgq5DYyfNjkkrl4cruR9/FHPcyVu8XX1eu7X
+	 kHWfYhzGFk3sOuQ5CZQbGfaPkAwLqjIyzfTG5kq3BqyNOFHmjTBaAwaTjR4eQkrdWA1an
+	 ve1qzu9EKjnnukPjccfbTIgg2Z5r6XRcnBNYJnM/LhU1RLCJy8a6ObXP7dP/auacskA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672156;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=8zc82ypHzo61GO4HphwSBWFVY9RadgorQVLqlpKErQY=;
-	b=aCH6YDXvhnm1axVLjYPxNQ/8UoriI1sbnWLoyZeUOD66pQl85LzpkMMt+96f8lh/qnja
-	 YcWn7pIusIsYc6GguLCmqRn41w9roB4Pb3MpohR/ZrKRn8Lr+kPi7NfCc4/OfJ8qPeDe7
-	 roiDCWQ8XgcpO92JF/NLsyjR3qviXLdfnGqJtu7n4p+1nKEQVF51grrERcTjvLoLob41M
-	 UQEXjyhKrqDBz3aDhKrduepWW1nwkEZHGP1qy8RvSXKzXTp/CHivQcMmknEt/SdrR71lo
-	 ujSv4vbW4PEf+NhCuxRse8rL29538k1WLv8O180c0avdPOhywPyzNZB8Aep2bLv+WZA==
+	bh=BGYyPx1YuZJJaW3M9cOvIiHYHFUtkIs96uyQ7c9gMvU=;
+	b=TXY8ltSDfbjmd+jrz1L9NJSfwqf3MmK9Cfb/RFnNMTC2DvmgRodGFxnjURUxiat0EZW4
+	 3Za0FJfwZx8jH9tnqYskd2vHJuTbVFc4fU7cU6WGTZ4qJnBPOaVUFvwCfwGmTDB9Oi8LQ
+	 xKXUN+r7tbnCvgNwO62XkFnUuaHsdtzSy/HOFzB4WZJ/nNrHoEJtmve6PcfPPIvcSB6Mi
+	 SmBLXda1WHRlnJVieA74dDrfEAGOs4YMlVMYTTKGX3FWpCudka7LKhBGj8BTDKMZpb6G9
+	 NPrkZVn9foTAu1O5zj95Hz1Z5oRcV8eef2zbAmzoA4SK1ZNSwASVY/wGMqekNnyFu6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=TfVWb82H;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gT2Ltihi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7636A606A333;
-	Tue,  3 Nov 2026 02:15:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86793606A329;
+	Tue,  3 Nov 2026 02:15:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=TfVWb82H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360061F0093A;
-	Tue,  3 Nov 2026 02:15:54 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=gT2Ltihi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51D0F1F000C1;
+	Tue,  3 Nov 2026 02:15:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672154;
-	bh=8zc82ypHzo61GO4HphwSBWFVY9RadgorQVLqlpKErQY=;
+	d=linux-foundation.org; s=korg; t=1793672156;
+	bh=BGYyPx1YuZJJaW3M9cOvIiHYHFUtkIs96uyQ7c9gMvU=;
 	h=Date:To:From:Subject;
-	b=TfVWb82H2IMiZvSnzVkT4SQlTKnIpnQY7PHvyQj0GdwWSfl/0FhN7VSH5HdsChwa7
-	 gKComxhAffPO6cAcEvt8wQu9/ukburB9UuILTsLsZeFWBwgRC1tFxokWJm5M9BIWds
-	 HVAe2ww/hp9NNFeuoqa3q54fe6OiM9yGnqQSMzCs=
-Date: Mon, 02 Nov 2026 18:15:53 -0800
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,
-	vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,mhocko@suse.com,
-	mgorman@techsingularity.net,matt@readmodwrite.com,hch@lst.de,
-	dipiets@amazon.it,dgc@kernel.org,brendan.jackman@linux.dev,
-	balbirs@nvidia.com,hannes@cmpxchg.org,akpm@linux-foundation.org
+	b=gT2LtihiLJ/u1bUj3ncZsKb9jYLhkwDJl3ltQuXRpnjGmLJ1soA/SwVo03V+hSYnh
+	 NimekzUdA2lYw/OhsvOgLnYLnkKSzA3hpyDIR5kLmLk2kCTdHu5CRtJAvFs1W9QieS
+	 Jlxyl6BeBkYM5XNdbV4MNWz8UjJ+hLkPYxTw66KI=
+Date: Mon, 02 Nov 2026 18:15:55 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
+	stable@vger.kernel.org,pankaj.gupta@amd.com,mhocko@suse.com,ljs@kernel.org,
+	liam@infradead.org,kas@kernel.org,david@kernel.org,rppt@kernel.org,
+	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-page_alloc-remove-alloc_non_block-from-alloc_reserves.patch removed from -mm tree
-Message-Id: <20261103021554.360061F0093A@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-cma-accept-memory-of-multi-range-cma-areas.patch removed from -mm tree
+Message-Id: <20261103021556.51D0F1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,117 +54,93 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
+     Subject: mm/cma: accept memory of multi-range CMA areas
 has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-remove-alloc_non_block-from-alloc_reserves.patch
+     mm-cma-accept-memory-of-multi-range-cma-areas.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Johannes Weiner <hannes@cmpxchg.org>
-Subject: mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
-Date: Wed, 28 Oct 2026 13:15:54 -0400
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Subject: mm/cma: accept memory of multi-range CMA areas
+Date: Thu, 29 Oct 2026 12:18:37 +0200
 
-1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-non-blocking allocations accesses reserves") stopped handing out reserve
-access for ALLOC_NON_BLOCK on its own: the extra 25% below the min
-watermark is now only granted on top of ALLOC_MIN_RESERVE.  But the flag
-was left in ALLOC_RESERVES, which produces something odd:
+Patch series "mm/cma: accept memory of CMA areas reserved with
+memblock_reserve()", v1.
 
-With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-subtract the free highatomic pages for them.  So in the slowpath, they get
-to consume regular blocks below the min watermark by the number of free
-highatomic pages.  The highatomic reserve is capped at 1% of the zone,
-which on any decently sized machine is a multiple of the min watermark:
-GFP_NOWAIT can drain regular memory to zero.
+Pages of allocated CMA areas are released to the buddy allocator with
+__free_pages(), which does not check for unaccepted memory.
 
-The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-allocations under memory pressure.  This was found in review and
-reproduced with a synthetic burst, not observed in production, but the
-sequence of events is a realistic one: On a 32G box with an anonymous
-working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-burst drove regular free memory in the 28G Normal zone (min=60M) to 28M,
-0.8M and 0.6M in three runs.  Swapout failed to allocate its swap table,
-reclaim scanned 13M pages to reclaim 200k, page faults stalled for tens to
-hundreds of milliseconds.  The machine survives it, but not by design:
-direct reclaimers eventually fail and start unreserving highatomic blocks,
-until the allocation succeeds or the reserve is gone and the OOM killer
-runs.  That reserve exists for high-order atomic allocations; here it is
-destroyed to bail out a GFP_NOWAIT consumer that was never entitled to the
-memory.
+This usually works because memblock accepts the memory it allocates.
 
-Remove ALLOC_NON_BLOCK from ALLOC_RESERVES.  With that, the GFP_NOWAIT
-burst is stopped short at the min watermark.  No direct reclaim, no
-stalls, no failed allocations, and the highatomic reserve stays intact for
-the requests it exists for.
+However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
+requested with cma=<size>@<base> are reserved with memblock_reserve() and
+their memory is never accepted.
 
-__zone_watermark_ok() is unaffected, since everything it keys on
-ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE.  Update the
-flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-block; the reserve math belongs with ALLOC_MIN_RESERVE.
+On TDX and SEV-SNP guests the first access to such a page is fatal.
 
-GFP_ATOMIC order-0 requests have a milder version of the same problem. 
-Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
-their watermark check, but rmqueue_buddy() serves them regular pages first
-and only falls back to the reserve once those are gone.  They can still
-push regular free memory to 37.5% of min minus the free highatomic pages
-before the reserve is touched.  Unlike GFP_NOWAIT they are entitled to the
-reserve, so this needs the watermark check and the freelist order reworked
-together, and is left to a separate patch.
+To ease the backporting, each case is addressed by a separate patch:
+- patch 1 accepts the memory of multi-range CMA areas
+- patch 2 does the same for the fixed CMA areas
 
-Link: https://lore.kernel.org/20261028171719.2043421-3-hannes@cmpxchg.org
-Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+The second patch won't apply cleanly to 6.6 and 6.12, but I believe the
+stable team LLMs will take care of that :)
+
+
+This patch (of 2):
+
+On systems with unaccepted memory, memblock allocations accept the
+allocated range, but when cma_declare_contiguous_multi() uses open coded
+allocation of multiple ranges, it reserves them with memblock_reserve()
+and they are never accepted.
+
+These pages are released to the buddy allocator by cma_activate_area()
+with __free_pages() that does not check for unaccepted memory, so the
+first access to such a page in a TDX or SEV-SNP guest is fatal.
+
+Accept the memory of each range when it is reserved.
+
+Link: https://lore.kernel.org/20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org
+Link: https://lore.kernel.org/20261029-cma-multi-v1-1-2cbced8b5cb7@kernel.org
+Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Pankaj Gupta <pankaj.gupta@amd.com>
+Tested-by: Pankaj Gupta <pankaj.gupta@amd.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Michal Hocko <mhocko@suse.com>
 Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/page_alloc.h |   11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ mm/cma.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/mm/page_alloc.h~mm-page_alloc-remove-alloc_non_block-from-alloc_reserves
-+++ a/mm/page_alloc.h
-@@ -32,12 +32,11 @@
- #define ALLOC_OOM		ALLOC_NO_WATERMARKS
- #endif
+--- a/mm/cma.c~mm-cma-accept-memory-of-multi-range-cma-areas
++++ a/mm/cma.c
+@@ -678,6 +678,8 @@ int __init cma_declare_contiguous_multi(
+ 			break;
+ 		}
  
--#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
--				       * to 25% of the min watermark or
--				       * 62.5% if __GFP_HIGH is set.
--				       */
-+#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
- #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
--				       * of the min watermark.
-+				       * of the min watermark, or 62.5% if
-+				       * the caller cannot block either
-+				       * (ALLOC_NON_BLOCK).
- 				       */
- #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
- #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-@@ -58,7 +57,7 @@
- #define ALLOC_NO_CODETAG       0x1000
- 
- /* Flags that allow allocations below the min watermark. */
--#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-+#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
- 
- /* Flags that mean GFP_ATOMIC */
- #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
++		accept_memory(mlp->base, size);
++
+ 		pr_debug("created region %d: %016llx - %016llx\n",
+ 		    nr, (u64)mlp->base, (u64)mlp->base + size);
+ 		cmrp = &cma->ranges[nr++];
 _
 
-Patches currently in -mm which might be from hannes@cmpxchg.org are
+Patches currently in -mm which might be from rppt@kernel.org are
 
+userfaultfd-clear-uffd-state-in-child-ptes-if-uffd-is-released-during-fork.patch
+mm-vma-undo-userfaultfd-unmap-preparation-when-unmapping-fails.patch
+hibernation-make-swsusp_page-helpers-static.patch
+hibernation-ensure-secretmem-pages-dont-reach-a-snapshot.patch
+hibernate-handle-potential-errors-in-hibernate_mapunmap_page.patch
+hibernation-kfence-explicitly-map-unmap-kfence-pages.patch
+hibernation-make-hibernation-unavailable-when-debug_pagealloc-is-on.patch
 
