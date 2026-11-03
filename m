@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701327;
-	b=1Z+mx/ETGIpuvN6zKHSS4o1BZElyAKYR6/vLMyIDH1JWcEYP/2PkBBkER4PR67FsIAzJ
-	 /GXmlvE9lWqBG29VDenzDtydOeyQPDLCOsX+wqvR2A65qwh9S/u9RaEp5anNW8hZvnaY0
-	 KOep7Q1mG6KtQe8AyDy1rKfW/HA+nfNHEsWJHdnYfWTF3WW3r5A/543fL1gb9MrRBMD9y
-	 DkiVKDi445kLoq3wnwKLDOPPxxGzTAFBbF9koRlg1IUnikwQ7vY3RSR7dy7cOrg8WOJkb
-	 Bndz1WA6/q2bC09/FmEQzuGCbCOAbijH3G57Axf3qhRmCij1+oWUJy7uP9ywZyQZ7IQ==
+	t=1793701328;
+	b=gUd8aS7N7wup8QBLqgeh1DSe3aj+QTfTDeeyyVPvgHCa8ARwXPIk1hA1W90t0oTDKc2/
+	 Qbe73iAPX2bK7FAX972ew4WeCjuKY5xSIE1IdZLzLixOet8RTAWBw04dz8qqP1bRW0NR5
+	 Ndw5exnltKWldqk7bZf5YKHWRkaPHBX80Z02/jCBjZAAg/djgoSCQqxbNk0n3JHb8Eiku
+	 o9xYUvYU5luVNeMePCUfk/SKqHGrnzWWDL+Y6STHyUTjaywpJpIA095rUjCs0xNh+cMzj
+	 /ikw9y8RUcSiuGxoV44hE3LMjWXIK9C1lYg9PvFdQAhmdVbbXKIKovE9UOmJLF1QcBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701327;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701328;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hWG8bIputIjaamixU4tsOTJMO4GyjJghLAI2sD27p1w=;
-	b=pl1BWeu+cUgEVw7d7rPy8+AbpmtAitMzd4D9DRpVWFtDQF0oQ8fimFUF3fcoTNdvRTnR
-	 2Pq1zDZ9sor+GkIH1eqZu205CNoLn5x2OBqGmokhnXtYZZZQehlzQogVyvOr4g3O9ycAy
-	 Gni7GyG9PFJJHlPZ7+g+XWsCvAww6h11g/7zp9iTtAq+Jwa7voNlmmtvOUq4puj16mZIK
-	 iZ3go8RwluUEZ/t6zoPWyiwsM4QFSXUmorncBlQ5F/VPsCpNn3C2acBWwcbohlA/NfJgY
-	 JOY2tP2pp5AlS1u9MPNLo9qjASIcfnvep51QVWNtK7jzeEFweeI1DtZvUAJrfRSzNwQ==
+	bh=ZyF5Kb1irDLjJed0lsOihMHRElVDPx4p95zEGyabKEg=;
+	b=jeL0CFcJF4h2zTv+qOagMtXI2QMfJKkJ+0fvm8OmAkJ+DCjjVH8OURrmF/KOkHliylvE
+	 SCV3FR7hWEePEwmdRBpN+VE2Tsev1jvLzmzx1gUn1aP3gsSCHSHs+rL30+oqUYbaGnq4a
+	 UODmOdu5hhmE2tDDoi0AB+qMj+8/n6z2yDURBG7vrJ1wRwcO2oVXa8GqQrm9WD0fz3eKx
+	 Gj1zPNhl5YXvzrY5luERvemLNmD/dqf1Ix0M+f0nyKPfQtYGJUgX7Y8ug6UJfGfX2S1m7
+	 VtUIXLCt8z0wCEkIx4/P+rakXoL8TStcg8mtPRz1ne8yabKqN7RGiGf5SqJfq1c11xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i+mwdyLw;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1+R+17JU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11158606EE96
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC22606EE96
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i+mwdyLw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B821F00A02;
-	Tue,  3 Nov 2026 10:22:06 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1+R+17JU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBE511F00A02;
+	Tue,  3 Nov 2026 10:22:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701326;
-	bh=hWG8bIputIjaamixU4tsOTJMO4GyjJghLAI2sD27p1w=;
+	s=korg; t=1793701328;
+	bh=ZyF5Kb1irDLjJed0lsOihMHRElVDPx4p95zEGyabKEg=;
 	h=Subject:To:Cc:From:Date;
-	b=i+mwdyLwxhKU91NUWTCXuyb4woFxSelf73QRyu+Dq021+pfEXY/QUaV9EKT2NyFhb
-	 9j6HdpXBWJp8rvFrm57qxNZD1GiXvUEOCRm3S1WP0jJ5+/WBGCE//HE75wIqOzVzlH
-	 jyG7cTC2p17kQ8INAQG8TV6PFlnWMU0XSwmbJlKY=
-Subject: FAILED: patch "[PATCH] ksmbd: fix use-after-free after a failed durable reconnect" failed to apply to 6.12-stable tree
+	b=1+R+17JU3LINzMyB0w9si8CJMC7xxtnetGHuXPDS76pmwvfjkry3zzLTBFd1UDsAN
+	 CbQ6QMkE9/WF1WxABx65di/pkcgU3cEXrFaOf46XqNxyuaULfZSVMBUz0oD6+/DLS3
+	 M4g5nfLTugh/N3/hyDnk/dIG1t9K1LqAb70IV72M=
+Subject: FAILED: patch "[PATCH] ksmbd: fix use-after-free after a failed durable reconnect" failed to apply to 6.6-stable tree
 To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:51 +0100
-Message-ID: <2026110351-twig-carded-02a6@gregkh>
+Date: Tue, 03 Nov 2026 11:21:52 +0100
+Message-ID: <2026110352-reaction-cranial-2386@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 248b5819591c577727930e4e255a455235fab50a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110351-twig-carded-02a6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110352-reaction-cranial-2386@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
