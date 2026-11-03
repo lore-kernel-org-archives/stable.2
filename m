@@ -1,113 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735946;
-	b=Gu6iuymdvubALRLLWxiSggY6agyTwspUktZj/eT+HutZs9ZI2yL/TPJUcqfQrKjwprGa
-	 jTRQY1e8Ji9pfawvz1WsBegPSIFG2PhRQRQqKMiSID5qi1fGkLGripZb81lj/tTcA+dUT
-	 CCnvii1r976aYt1Q/KsrLidBenGJb6T38C8dYdW4rxhCz5ijSc7+6gyxQkeNPpju+qyIN
-	 VWM83LEPoDvZf4qz9BgrCMKorcaNfXUCcI6Uw7u36R011y/1Brcm87SOuure5LUoPXm+M
-	 Yz+MSCTGha8gDazdW72t1cZRG67x5vs6WdTSfq2G8+kISTVshi+9v0D8UqDtiuzMjfg==
+	t=1793736170;
+	b=uqahLUm5tyw9Ugf7UoN3TC/M29JXHW9LbFydHKLicuRQN81DGJcmIAbkEvgOwhsq2i4P
+	 EASC+qhjy6Hk/vcDKFgVPAwjP/NjkoZne2f9ku55qlV6C8ozl8K/3do880YAkA/bO1Si8
+	 NZVnIQsjNRXezOSNJTiOBHm3y8KmAalug6PXXtHcNQ8HaObtMHrrJzhogMAmZjb4967/H
+	 zfb6Wfjv0/nCsv23arVUFGZ1vNGqbZhp0ur+9sKSRp2I0nThLduFqG0eumsr8vuUQVOe/
+	 S+/9NX6HDsE0NsQbQe17t8G7SjMfNBSr0W9NvN25jdrYFYTKhTGS/iAbcix3qasTU1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735946;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=xpOJgsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=;
-	b=aK2UJxHHIgFCPU66Ykj1qb6d6dKqStb1WZR6fBsMXYo7YuNLiYGrffj/thzKZnVuLzA2
-	 dyRUwCeAXqZos5Ar3ATSZ5NSmmkU0/DJmLayDzSnAhxH9hBEjDKzIHfI1IheDg1c22goP
-	 Tbr0umpbx6U9jorgpDmZlJpPLtoHJASc5NxMQ8STKA/12cJHHWt1+k+YfEcAEXAPLbfd9
-	 NYZDuByE7U8oUVX6g3rmjKAAAlnb9Hqowj3oZhRh4sz01/BEOoWCeV1gjRXan/nqDUIES
-	 emW2XI1t+rjSn10rMXIF7tAzZJoeYbiM9JsD5psbsCC5Loi/E9pSoeaQBPENjctVAZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736170;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+	b=laeXFgrsr4V+owFonlQly2JOUzc2eX5z7CMpgn3BNvLHY2xe/O6Ry1v8Y9NxjdnOGw9+
+	 TjrZGmjnVgYzrsMOqtyeRwl1nPrb8OjFzmqAGU6PZKHzxw2eHMFKJ64qPc3QIiZXAWvJF
+	 Hj5fIQtQz9n3Nnxdbiiet6vsGCCOfH5C+0i1SAxYV9typ1IYQz1TiWJeLnXHuu8KgEYYt
+	 GKY/Ger9V7pTD4UCN50Kdsj1NHxlIJJkqJQ1TrtGnWhG2jyi+PbWEs37zXBOKM3IrL4ST
+	 FLXeZduqDVTfxkfpATBp3fCyagg94b8xIsNnHHD0DkLWJCy56kLxKe1ubvSpFm40ohQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=FXwGhxDE;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=GaQODNnC;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91278606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:59:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91278606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C761606A32C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 20:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C761606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=FXwGhxDE;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=GaQODNnC
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3I4isX560687
-	for <stable@vger.kernel.org>; Tue, 3 Nov 2026 14:59:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=xpOJ
-	gsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=; b=FXwGhxDEyiYhfsw+MEKc
-	iO0eBRAzcshzu7iioSTg0l4c/nSPG+/zQx8xhKoqHzoxaS/xYHaWqQyNCBePASkp
-	cJlVaVT7G9ZeiWlELtAN6O245MoqLDujnT4Jcz8wscpAP9RqI783TDLEhRf4Jyj4
-	gbOQPQmMARPk7y6ytdo9OoIhnD0kTrjSAYs/uio5hAxfXmehy/LbjJFA1teyeQSw
-	88mjVAEfgt/vw905KGKiSzeLnQYg3s0X9LpfJiYDGaSBtqzY/iHCcFMePyi3VEmk
-	azNZEYGsHqT8NXwYiuZEHSrMwnTAczP3IO5Z9MY5nqKvsVVUBYfMfDhurMMbpK2B
-	gA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hqmjvgskd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 03 Nov 2026 14:59:04 -0500 (EST)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f2c0e6653so1798285a.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:59:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a8cc11ac42so31702c88.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 12:02:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793735944; x=1794340744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xpOJgsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=;
-        b=GaQODNnCTY0xX476g3KSgDPSnWSn6yB06/CS7MdbnsVgaGgZ3uGMseiDqwU4nIWj+P
-         LWEOGKTO6VVhHqmKRCtpf0EHh8DU0hqtxFC+ZOApIsAzwkSE3jkfllsPOL6BZ1sKfGRh
-         x9vIYvM2MD/oS8Tc5IwdsGHExElcWBCPqeojOtrIBkk3YrPj6dH0wmbi1tsygjeI8Zep
-         L3ooHLjUgTbzq7l7ALg7V/lv2LRbqRaUSUhM0v3zCQXCN0VYcuG3F6S5+WOQBqt0qe11
-         NGtBkaFUmaZuwHjdV+uP849NMhabki+EzDsGoMJTqWyI1CHmcHcR+bHCcPcLEyKiMWfe
-         ZJUQ==
+        d=gmail.com; s=20260707; t=1793736169; x=1794340969; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+        b=IMIi0lcwaYilC5g2AlqhKWWjrMWQI4GWC1wHHyUcDpYA1VjjA4rZg3G+gu57oNMOCZ
+         L23NEy0TVcXP4YI1f+xhLBvS8of/B9gD0ufgA4ol5QccJXY/IKAyxwxW0v1ZQYETWjiK
+         ojoSDEtrxPvKTpqjodA3bCsDUGX8abgkkPcq81ePRT2sGTN4kvqA2Ua/M4SbUQnLJU13
+         Z7rJNCZtrHSERcXqY4QGnwmQw7yD+02JcTAyDYA7N3y/yxwO8Uit/YpCSSyN1HOvd0Cg
+         Cs86vphKnq5f+5fpNxuDZKqAalCt+UDoE53lGErEjhtsm8O2ltiV1Ze7Ww8LfDV9Jfn/
+         sSfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793735944; x=1794340744;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793736169; x=1794340969;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xpOJgsJz0sB9K9v/xEpka5H4yAVwg4X0Reyl3yXA6Do=;
-        b=xIDfwntqMrmy1loxKpdjaqIgfZJzCPWTXWh5rX6CxM9R+uBdF9OMZdfp+XwyFsZ3yq
-         gO5DZj3/adhHkwZV52a+UfPinbyGQxmBiNifJImiRPnZ7P1RUaXSHiF0aXevCUrmCZk4
-         pidr1mhv89ob7XSligtfavgN8VclOAqwzBGOat2NCvdHuxzr99UVumCW3uvpebcKhxAa
-         bgDiM0KIuMKGzerO2OsDeJDUkcuXnCn/CEY/KWT6j2co0oeY7CE5IC9okXJzraUTKhm+
-         oKGBGyMFal6ckCJev0X3Tg7CwtDuSb73p75BVLt4m+MfaW2dGZUkz76KiMWEuLDmkGZq
-         fgOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJstq5nxlmVZuBny+NgIIDrLWwt5v4jCjtGkouzRQgRMvak+sJ9XOSIfpjXWdFTTvBvtG7leo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/R2jZq1Ow6No9akufw9Ojux4tqQOtVYa7kh5UzG1hCIEeitH9b
-	avjtORCmu9l3qvTobUNzYc5vf38ID7jl+POknxHuEGFu5L21F8HJmiyMLwEAnE7kMbZt/iE72yd
-	OHc01ODaBWojYIUgcuETh3deHxXSAoGBLLrofpAKIc0zib5SN6l/rQQ==
-X-Gm-Gg: AYBFou18rHSqFwuFjDe4gCE2tiiZim9CXYdF78J6+bcHMzIF60nAogcrCuF6KeEc1wS
-	y3C7fCvpPSbs1gv3P/DEuoE44ERgvv1N4JMBaVvuU9AMAWTUwlPEdCVigSSiNy9ACPj/7ky5quX
-	r3u/jXFVGznCzSC3ERwqkbBig7H8+7y/IY9zlFyNjOsoHPDxSXyQ9N+mLV7reJNgIMmLkXNLRl/
-	QQ87ockxJMe3q6dR1nNZDiM+RpYjrut968eMYYx4p2466SD1PzUu5xs0gMDN0ORWNFrzUTmXLj/
-	eeJIB3i7mWJb+P3zv4ku0cvDC0RorYSCFGbDvszzqh0Nj40uYWspKh+yGCNRcmTZ8vOhY8EF3Dw
-	NGlpODpuf7J0FEcZEyAS1eTkofHJR1VsWhAUkxb1vUoLWRQ+flRnWHyCo4SEMn3I6QaNsM1dAnH
-	53C+y3lOicxE26+6vpIeYf7uZaKiVd0t8FGYO+bRJafxbtSfuoYk9oLwXxQ7tb5pQqborLfZcsu
-	p+5WMH8LZ/89SzVeVRZqgV+Cd/poh3cqwYXRx/lPVe4MTVTLKqATtqw8xbG6huX
-X-Received: by 2002:a05:620a:2909:b0:93f:61a6:b89 with SMTP id af79cd13be357-94421588cd4mr2307140685a.7.1793735943854;
-        Tue, 03 Nov 2026 11:59:03 -0800 (PST)
-X-Received: by 2002:a05:620a:2909:b0:93f:61a6:b89 with SMTP id af79cd13be357-94421588cd4mr2307138385a.7.1793735943552;
-        Tue, 03 Nov 2026 11:59:03 -0800 (PST)
-Received: from [10.206.225.113] ([129.236.228.41])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d4799adcsm15298185a.13.2026.11.03.11.59.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 11:59:03 -0800 (PST)
-Message-ID: <a002901b-715a-4adc-bdcb-7a6fcda67711@columbia.edu>
-Date: Tue, 3 Nov 2026 14:59:02 -0500
+        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+        b=bU9kYAsH6xBM6ffSvZDGOKmxENw/j2WVhf7thLJ3+NmPZ7KarlIoDCqFs4TmC+Ucq6
+         xOR7PX/iqpVf/3IMOp0+juqk2HRXL5hzL3LMz1+as6l4FwZembnBI2jsvo7OU4c5d0kg
+         oR7irCZoPJFykX4zd//YvHC2Q29yFNMypF+Qcf+elNEjr+c/N0WODm+ibW53521WCL66
+         VFNRUwu7mOexIqEFMJaAu9IqcCVDIvcrI3BNGA8Ofnxkal+WGJJrxW3xwmJ6fVqpznIk
+         IJVc3LZodpUAidGqRE9+OW/D9lqa9DqIR9X/t2kvB1xLENWCnfzwuWuUVOEHyyiJuc39
+         P1JA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/UOxKW8XkvfnfQBcgOUl8nnFAoosMS33sBGn2Nzv80Nw0s/8YXAwLva0SILCTA0Ph4EMDNMU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9K14UgG+Q6o+ckhjINBzL1xLNctdzTlCXREw5UZvisSmOHwFVt
+	TLCTmZY7wLkIDtfjCZCp5e7GJjl5qq/8fQvnjLggqavBkJb5Rsb7RTfx
+X-Gm-Gg: AYBFou31eH3sVYAhwekbLEN5MUyzyZ5mFMdjW1913HMavv0sxNeDkYqAPvi0WKTOSdS
+	isHDH51oUf1T1d4JCtfrqMnJCFMWtie7VlHinUM6T4qEKH0V3FqXYZFbOBDpYirkO6v4H/yc797
+	v1oC2DLmLeNupmliZtyrMJ2O/nTd/l2GSXx0vJM+EMou9jQA8HLSvKaVS/0ilx5zei/9eF952jm
+	YoQzBGM+qSFeqkcBuarf4hLq6hMP5L1rVenZAfXnU7ubB58W1/yFeF9nf4VDo42xuv5/ZHEFmBO
+	IUT1nXR3IC+nPklUQzkt38tWQr3I6AAVIvX7K3+Pa0XIBYw0r3X+ocIL0RS3ByzfA44Oka7IoTg
+	EmCH/ZVY08iwhJ4wn42YHADW/6W9TcSOBtDQ8y1TByG+yq3OfOh7n2e2w0Ht+D1tM2fnMEpSo8P
+	dslGD/Qv3CPom1OAGEAu2vsTATPi3YwK8lDzk9SUd5VkiP2X4LSlRjtFSFm1vUjcZHP0pJGY2iP
+	34n6+Oa6vx1xiPBJH55qDHLKap7X6dxotBdNmenPHCxBHhR1O9/+z/ZIu/dFUxjh3YmvDRfJQla
+	YDo4QgFSXtl/dQk7ku/Kp7VIR6iluvHOvUyHpNrUcJTxnO5ZMUaU0INNltkQ5Jw8gSc=
+X-Received: by 2002:a05:7022:eb44:10b0:186:5b49:90d8 with SMTP id a92af1059eb24-1ac5782fd31mr22158852c88.4.1793736169213;
+        Tue, 03 Nov 2026 12:02:49 -0800 (PST)
+Received: from arpith-debian ([2402:3a80:449:13bc:6d9f:f092:24ee:20f6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm1395865c88.15.2026.11.03.12.02.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 12:02:42 -0800 (PST)
+From: Arpith Alexander <arpith99@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Lixu Zhang <lixu.zhang@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Jake Steinman <j@metarealtyinc.ca>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arpith Alexander <arpith99@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: ivsc: csi: Add sensor node in bound callback
+Date: Wed,  4 Nov 2026 01:32:26 +0530
+Message-ID: <20261103200226.100989-1-arpith99@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,77 +101,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/memory_hotplug: don't offline a hwpoisoned page still
- in the page cache
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
-        Oscar Salvador <osalvador@suse.de>,
-        Andrew Morton <akpm@linux-foundation.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>,
-        Naoya Horiguchi <nao.horiguchi@gmail.com>,
-        Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>,
-        linux-mm@kvack.org, linux-cxl@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-        stable@vger.kernel.org
-References: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
- <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
-Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: s9B4BCwDTALIX3ATQWPKDY5aKDQ7jEE5
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA3OSBTYWx0ZWRfX5FIMskpeUOHr
- OZhGvO6WsXT7V8yMJf5bhjcyjCZGS6eT88FECLqozhiDed/jBgPfKDpk2cQw0xFsFZO3amVzrQp
- HBdqLC5aPbKy85bZyBYidVKOMB4IjZEsh9urr21wWSnaYbzN8AWQ
-X-Authority-Analysis: v=2.4 cv=D5XSufRj c=1 sm=1 tr=0 ts=6aea3d08 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=hEunIlkDQR9riCPXO4CBGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=qOjK20r3ws_Z4Kvo5k4A:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA3OSBTYWx0ZWRfX4zNYVyfYZKM8
- T8qKh+YaFZGi8LBAbMG4UJyNEwQqIuz1PHElT5agGPktmS4RJswNh4nllwPVJKMDKWsCgGQqsRC
- hbHsNqcfGKskH1KClK4loR0b0jttgdcnbCTyu7sib6IWqOsLTBRi2SvmL77szQT650LB9vWwV8u
- JiO7mLpbYDgIbTS+9zb/twrggAQlgeyFOlAUOjIf3tYzacmG411B9Y8ENVLGQAxXy9fzEM2APkm
- DotNAFG0Rc8a7Rl8BWbkDEwTBodDrc8kBHizxJzc5uRGcy3zaaUiFuHFTHOx8nggtAxK4qlisgQ
- f6wZZOPQRZtwl1ozyneznC1YLPSSvXyB/vcw8+nXR+taMxtj7Ty2QlPCr63eTU0Tu8YcXjgRP98
- hCd3WZErTwhNjWHyeayfYsOClJErx9gUVrcZtEfmcHdwwlt8IlaRLVOGjrcKES7ojZsHX6jP+gw
- zKLEaaZtFVmYCFrmpkA==
-X-Proofpoint-ORIG-GUID: s9B4BCwDTALIX3ATQWPKDY5aKDQ7jEE5
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11955
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=10 phishscore=0 clxscore=1015 impostorscore=10 adultscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 bulkscore=10 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030079
+Content-Transfer-Encoding: 8bit
 
-On 11/2/26 1:56 AM, David Hildenbrand (Arm) wrote:
-> 
-> What if we still have the page pinned somehow? (vmscplice etc).
-> 
-> Wouldn't it be better to make sure that poisoning code holds exactly one
-> reference (whoever set hwpoison) and check here that the refcount is 1 ?
-> 
-> Pagecache references would turn it > 1.
+The IPU6 ISYS creates sub-device nodes in its bound and complete
+callbacks. A sensor behind the IVSC is bound by the IVSC's own notifier,
+after the ISYS's bound callback has already run for the IVSC, and
+mei_csi_notify_bound() doesn't create a node. Unless another device
+binds to the ISYS afterwards, the sensor's node is therefore only
+created by the ISYS's complete callback, which runs once every sensor in
+the graph is bound.
 
+Commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor") added
+the HM1092 to the ipu-bridge list. The HM1092 has no driver in mainline
+yet, so it never binds and the complete callback never runs. The OV02C10
+behind the IVSC therefore never gets a sub-device node.
 
-Yes right, a pin isn't covered (neither before nor with this patch).
+On a Dell XPS 13 9340, libcamera then fails with:
 
-I don't think refcount == 1 can replace the mapping check though. In the
-race from the changelog memory_failure() has set PG_hwpoison but is 
-still waiting in get_hwpoison_page(), so it doesn't hold its reference 
-yet, and a clean page-cache folio then has just the one reference from 
-the page cache. memory_failure() also doesn't take a reference on the 
-kernel pages it ignores, and a poisoned page that gets freed later sits 
-at 0.
+'ov02c10 3-0036': Failed to open V4L2 device '': No such file or directory
+No valid pipeline for sensor 'ov02c10 3-0036', skipping
 
-So I'd keep the mapping check and add "refcount <= 1" on top as a
-follow-up, since that also needs do_migrate_range() to drop the 
-reference it takes when it takes a poisoned folio off the LRU. Does that 
-sound good?
+Register the sub-device nodes in mei_csi_notify_bound() as well, so that
+the sensor's node is created as soon as it binds. If the complete callback
+runs later, v4l2_device_register_subdev_nodes() skips sub-devices that
+already have a node.
 
-I'll send a v2 soon with a small do_migrate_range() change from the 
-bot's review.
+Commit 7456b40bc992 ("media: i2c: cvs: Add sensor node in bound callback")
+is the CVS equivalent of this IVSC fix.
 
-Mani
+Fixes: 29006e196a56 ("media: pci: intel: ivsc: Add CSI submodule")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arpith Alexander <arpith99@gmail.com>
+---
+Tested on a Dell XPS 13 9340 (Meteor Lake IPU6, OV02C10 behind the
+IVSC) with v7.4-rc1. ipu-bridge connects both sensors ("Connected 2
+cameras"), the HM1092 has no driver and doesn't bind, and the OV02C10
+now gets its sub-device node. libcamera finds the camera and streams at
+30 fps (cam -c 1 -C10). The camera last worked on v7.2.
+
+The test kernel also had my two other v7.4-rc1 fixes for this laptop:
+https://lore.kernel.org/linux-spi/20261103131435.21838-1-arpith99@gmail.com/
+https://lore.kernel.org/linux-media/20261103163814.96980-1-arpith99@gmail.com/
+
+Unlike a revert of commit 4fdb0342f05e, this keeps the HM1092 entry for
+the pending driver, and it also covers kernels built without that driver
+once it is merged.
+
+ drivers/media/pci/intel/ivsc/mei_csi.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ivsc/mei_csi.c b/drivers/media/pci/intel/ivsc/mei_csi.c
+index 005b1414a252..f9513cffaacd 100644
+--- a/drivers/media/pci/intel/ivsc/mei_csi.c
++++ b/drivers/media/pci/intel/ivsc/mei_csi.c
+@@ -29,6 +29,7 @@
+ #include <media/ipu-bridge.h>
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+ #include <media/v4l2-subdev.h>
+ 
+@@ -513,7 +514,7 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 				struct v4l2_async_connection *asd)
+ {
+ 	struct mei_csi *csi = notifier_to_csi(notifier);
+-	int pad;
++	int pad, ret;
+ 
+ 	pad = media_entity_get_fwnode_pad(&subdev->entity, asd->match.fwnode,
+ 					  MEDIA_PAD_FL_SOURCE);
+@@ -522,10 +523,14 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 
+ 	csi->remote = &subdev->entity.pads[pad];
+ 
+-	return media_create_pad_link(&subdev->entity, pad,
+-				     &csi->subdev.entity, CSI_PAD_SINK,
+-				     MEDIA_LNK_FL_ENABLED |
+-				     MEDIA_LNK_FL_IMMUTABLE);
++	ret = media_create_pad_link(&subdev->entity, pad,
++				    &csi->subdev.entity, CSI_PAD_SINK,
++				    MEDIA_LNK_FL_ENABLED |
++				    MEDIA_LNK_FL_IMMUTABLE);
++	if (ret)
++		return ret;
++
++	return v4l2_device_register_subdev_nodes(subdev->v4l2_dev);
+ }
+ 
+ static void mei_csi_notify_unbind(struct v4l2_async_notifier *notifier,
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.55.0
+
