@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712433;
-	b=2dUTkx41W7BBl7R7c7Nt1hGlWhNgNLfKDNOYluxgchSyvyG+csDCSe9qIWnZ5IWfeVER
-	 DUBXRB4f/5sw4MRvZD1t+pafZcGLCkiAO7PZDmCi0yfJZpaMVzLvvjIlMPumSseBDZEJM
-	 4Jw5C2mzI+6vvFRwql7Rnec8aZX0m8bkPCBc4IOEXtcAGJpXD/dVBsRkB2sJ8K86cY7HT
-	 n2MWvxJfvicGoWr4vnrOrfBtxn1hSGdcVES7UlxmCKE7iPzNw+JzXSGzR3z9o/yg3xiJ+
-	 CtnpS5PoDpXDrOI8KKj5yvOGWLLbOImQZqp/sGJTZ3Qxjr7M9arSq9Bqe1wM/kY+0cg==
+	t=1793712781;
+	b=trEFPwF8JcomnEwW3Am7Y+Uz0Z8nQl7gXBoTerpcvFMxyDFj7ApaWIzxDkdLzPO1/Rau
+	 knnAeJpfZrYY6Rd7q6gGv6dFEwl/aEAblNSfoDSWLLh5atVqsJgd0Y/TI64ugPQgDzp5Z
+	 yCB2NuPVGpyv/bwokcbCS44PqIrZN2rAfb/F+Nog/tXYS7RWeJa4O+PZJejtEuDOd4jLG
+	 BY246Z2rAwTrJZ8Pd28akvm2poIgYOEVfPZ2508UJy9v+KVVlFk6RsPHm1cpNt1EjitE9
+	 XQu9yHEJGddqm7syTurN0VmWYbu7yBEKIEgP9gt2KL6EfD5RcfHZCLwkOIt/ird203g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712433;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=6OP42S54OKX78BiUtyHVgUQAOSoy774DMu20I6vV1fI=;
-	b=2O2EE+9VgDvkYp4LxHtDzd0fFZ06RShvicwmPUMZ5wPbtVRqWCa3UANrnU66PtcfPxXL
-	 q5FFW+tjr693dh8tS7zZM9ERwQeReYoMtUEB26TT62cTUCAze7eD/SH7Xr/3KUGdOm3cJ
-	 9H7+6DUlTv4o0f3HWY315B+xNovqjhVwI4YMW9K6J92OibJY3beuT8IrEhuz2qrDglIf6
-	 k7ntB0n2O6eB7vJQMbLR300lOke7HcQfNL92hiZwY3SvBtEy4IjDuwViFY8vkfZwg2u58
-	 ynTtAJWZhYPFqOL5K1B9boPu1xOELDArBp8gbddmAu0FJbfttNpaYs9i97QCCoQgwdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712781;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=z66IJvRsxHOgUIzPPCi2BqeXwiNJpMUq53kMmMzM7i0=;
+	b=ea30Eypbzb+ECKWAlZoxo0zUbvejsl0fwIck1wXgjFyHMFIJQweKkkPfmTngOXoYm4bH
+	 1niqS/HQbmIbkNWET/Qww6yysnyAwaGRTSQX7Lp0arDjCPW2IVltIGpUHEhDrRNxX4OJE
+	 tpeSiNLtvGrz9khQeBv1XGR5aBgNC1EVtJnJWdwSodIsbVtmIGfPQeOfhmFq8rXsBhuTk
+	 kGIROvJTHZqVUuC32/ultiRzs+xsssmQifxh8kV+r9E6nTHz5i3+fM0ke3O1PWGqtybfU
+	 p1lu6/flgKsaWjcGxt/U9iGmmUpoXCb1ZRnAbvKlopg4TYVUVTGxbU53dUQpQZTdRvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	arc=none smtp.remote-ip=93.188.205.243
-Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Nt/lkrxN";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A306083631;
-	Tue,  3 Nov 2026 13:27:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A306083631
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793712427;
-	bh=I33FXfO8Gp7E7V66wFrmBkH+r2omEzUOSnQAEGC4qEE=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gmzWkpU2ogr0P4r0iopl7XF2VylUpM0uFl2rPtQ4dTB3Lyag9D835hn5UywaPbzme
-	 NdwUyqI3l9KY2EejTS+XxJJtrvHpDt2dzx+7kpYhqkqfoPqKYiK3oc+uSVUK7fEKkG
-	 26YkRACjjSi5zSywvZrZkYVYGJu0NJxsUKcnHe4B8i/TxUFPOTy8t09k6YoPDWrPj8
-	 zIO35DV14ofL86rk+JXh2k/e7YRg+3cyre42t7OJu3G+e1ru6BaVLTLQupsUYHObrq
-	 Ox+gPmtFTF3PYxTVQ9xEagMV0K5gr8lZCaYSp+Esrq1l+JtWRAUp/Go4ZLltEC89Nt
-	 7QPSSQeiIajaw==
-Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 57E9B1F6FA;
-	Tue,  3 Nov 2026 16:27:07 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
-	Tue,  3 Nov 2026 16:27:05 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.27.207])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJq9h6wlFz22lT;
-	Tue, 03 Nov 2026 16:27:04 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Lang Xu <xulang@uniontech.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Kaiyan Mei <kaiyanm@hust.edu.cn>,
-	bpf@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] bpf: Fix OOB in pcpu_init_value
-Date: Tue,  3 Nov 2026 16:25:30 +0300
-Message-ID: <20261103132532.643-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734B7606A32E;
+	Tue,  3 Nov 2026 13:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nt/lkrxN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA15E1F00A25;
+	Tue,  3 Nov 2026 13:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793712781;
+	bh=z66IJvRsxHOgUIzPPCi2BqeXwiNJpMUq53kMmMzM7i0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nt/lkrxNhGcb+EDFbGugnOKZjb0SLIRgQ1B8QtgrJ41MAx1rZ/Z0ZUdQBep+W3APx
+	 SyR2j3I051Va5lIZ46oRbA9JAZZn45Zz0UQpcYcKuelmdOLA0Lnqtqg3XO8Z/0FTkK
+	 ArFerxTRLwBhJhy2CKA0yTmlEJdCbJTt6UIaQ6xWzTF4gNym9Lkc0NPfJ9Xx99qenr
+	 gF/lVBgpWt/15j/prwkQ8lBu7unWDVXIuDhKcuLYLV3UvCDL1/v20kuph1MO3e5Ihc
+	 eDjAjU25T3/z+ur7QrnngZjgaDfAHkoFYi4BNVbUcrJn/gWzG72Bm/VOV/ZDuukHAI
+	 qJKwnANsLlBmA==
+Date: Tue, 3 Nov 2026 14:20:24 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Yuqiang Sun <izaiahsun@gmail.com>
+Cc: haris.iqbal@ionos.com, jinpu.wang@ionos.com, jgg@ziepe.ca,
+	guoqing.jiang@linux.dev, gi-oh.kim@ionos.com,
+	aleksei.marov@ionos.com, lgs201920130244@gmail.com,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] RDMA/rtrs-srv: Do not free the path on path file
+ creation failure
+Message-ID: <20261103122024.GG264423@unreal>
+References: <20261029042719.75868-1-izaiahsun@gmail.com>
+ <20261029042719.75868-2-izaiahsun@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,76 +61,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/03 12:04:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;lore.kernel.org:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207225 [Nov 03 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/03 11:26:00 #28786010
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/03 12:04:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029042719.75868-2-izaiahsun@gmail.com>
 
-From: Lang Xu <xulang@uniontech.com>
+On Thu, Oct 29, 2026 at 12:27:17PM +0800, Yuqiang Sun wrote:
+> When rtrs_srv_create_path_files() fails after kobject_init_and_add() of
+> srv_path->kobj, its error path ends with kobject_put(&srv_path->kobj),
+> and the release, rtrs_srv_release(), frees srv_path.  The caller does
+> not expect that: process_info_req() goes on to free its tx IU through
+> srv_path->s.dev, and rtrs_srv_info_req_done() then closes the path,
+> whose close work tears down the connections, puts the session and
+> finally frees srv_path again in free_path().
+> 
+> Commit 5b7437339011 ("RDMA/rtrs: Fix use-after-free in path file
+> creation cleanup") reordered the cleanup inside
+> rtrs_srv_create_path_files() so that the helper runs before the put, but
+> the final put still frees srv_path under the caller.  The same pattern
+> exists one level down: rtrs_srv_create_stats_files() puts
+> srv_path->stats->kobj_stats on failure, whose release frees
+> srv_path->stats, which free_path() frees again.
+> 
+> With one allocation failure injected into kobject_init_and_add() of the
+> path kobject (failslab restricted to rtrs_srv_create_path_files), KASAN
+> reports while a client connects:
+> 
+>   BUG: KASAN: slab-use-after-free in rtrs_srv_info_req_done+0xe43/0x1740
+>   Read of size 8 by task kworker/0:1H/84
+>   Call Trace:
+>    rtrs_srv_info_req_done
+>    __ib_process_cq
+>    ib_cq_poll_work
+>   Freed by task 84:
+>    kfree
+>    kobject_put
+>    rtrs_srv_create_path_files
+>    rtrs_srv_info_req_done
+> 
+> These paths run in the server's completion worker when a client sends
+> its info request, and are reached when allocating or creating the sysfs
+> entries for the new path fails.
+> 
+> Keep srv_path and its stats owned by the caller on failure: the error
+> paths only delete what they added, and free_path(), which runs in every
+> case, drops the kobjects that were initialized but never made it into
+> sysfs, so their releases free the structures; otherwise it frees them
+> as before.  This keeps the kobject names from leaking, which is what the
+> puts in the error paths were added for.
+> 
+> The problem was found with kbound, a static analysis prototype that
+> checks whether callers rely on an object after a callee returns a value
+> for which the callee may have released it, on v7.2.12; it is present in
+> the rdma for-next branch.
+> 
+> Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
+> warnings.  Run-tested under KVM (KASAN, lockdep, kmemleak), failing the
+> path or the stats kobject allocation with failslab during a client's
+> connection: before this series KASAN reports use-after-free in
+> rtrs_srv_info_req_done() and rtrs_srv_close_work() and a general
+> protection fault follows; with this series nothing is reported, also
+> with CONFIG_DEBUG_KOBJECT_RELEASE.  Failures of the two
+> sysfs_create_group() calls were not injected.  With this patch alone,
+> the close work still uses the session freed as described in the next
+> patch.  Not tested on RDMA hardware.
 
-commit 576afddfee8d1108ee299bf10f581593540d1a36 upstream.
+Interesting claim. How did you trigger the KASAN warning in the RDMA ULP?
 
-An out-of-bounds read occurs when copying element from a
-BPF_MAP_TYPE_CGROUP_STORAGE map to another pcpu map with the
-same value_size that is not rounded up to 8 bytes.
+Thanks
 
-The issue happens when:
-1. A CGROUP_STORAGE map is created with value_size not aligned to
-   8 bytes (e.g., 4 bytes)
-2. A pcpu map is created with the same value_size (e.g., 4 bytes)
-3. Update element in 2 with data in 1
-
-pcpu_init_value assumes that all sources are rounded up to 8 bytes,
-and invokes copy_map_value_long to make a data copy, However, the
-assumption doesn't stand since there are some cases where the source
-may not be rounded up to 8 bytes, e.g., CGROUP_STORAGE, skb->data.
-the verifier verifies exactly the size that the source claims, not
-the size rounded up to 8 bytes by kernel, an OOB happens when the
-source has only 4 bytes while the copy size(4) is rounded up to 8.
-
-Fixes: d3bec0138bfb ("bpf: Zero-fill re-used per-cpu map element")
-Reported-by: Kaiyan Mei <kaiyanm@hust.edu.cn>
-Closes: https://lore.kernel.org/all/14e6c70c.6c121.19c0399d948.Coremail.kaiyanm@hust.edu.cn/
-Link: https://lore.kernel.org/r/420FEEDDC768A4BE+20260402074236.2187154-1-xulang@uniontech.com
-Signed-off-by: Lang Xu <xulang@uniontech.com>
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-[mdmitrichenko: The older implementation uses bpf_long_memcpy()
- rather than copy_map_value_long(). Replace it with memcpy() using
- map.value_size to avoid reading beyond the source buffer.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-53076.
-
- kernel/bpf/hashtab.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
-index 4c7cab79d90e5..59f1ffa9a59d3 100644
---- a/kernel/bpf/hashtab.c
-+++ b/kernel/bpf/hashtab.c
-@@ -844,8 +844,8 @@ static void pcpu_init_value(struct bpf_htab *htab, void __percpu *pptr,
- 
- 		for_each_possible_cpu(cpu) {
- 			if (cpu == current_cpu)
--				bpf_long_memcpy(per_cpu_ptr(pptr, cpu), value,
--						size);
-+				memcpy(per_cpu_ptr(pptr, cpu), value,
-+				       htab->map.value_size);
- 			else
- 				memset(per_cpu_ptr(pptr, cpu), 0, size);
- 		}
--- 
-2.43.0
-
+> 
+> Fixes: 424774c9f3fa ("RDMA/rtrs: Call kobject_put in the failure path")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5 kbound
+> Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
+> ---
+>  drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c | 16 +++++++---------
+>  drivers/infiniband/ulp/rtrs/rtrs-srv.c       | 14 +++++++++++++-
+>  2 files changed, 20 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c b/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c
+> index 9dd9141c86a5..45ee07a98ca8 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-srv-sysfs.c
+> @@ -238,25 +238,24 @@ static int rtrs_srv_create_stats_files(struct rtrs_srv_path *srv_path)
+>  				   &srv_path->kobj, "stats");
+>  	if (err) {
+>  		rtrs_err(s, "kobject_init_and_add(): %pe\n", ERR_PTR(err));
+> -		kobject_put(&srv_path->stats->kobj_stats);
+>  		return err;
+>  	}
+>  	err = sysfs_create_group(&srv_path->stats->kobj_stats,
+>  				 &rtrs_srv_stats_attr_group);
+>  	if (err) {
+>  		rtrs_err(s, "sysfs_create_group(): %pe\n", ERR_PTR(err));
+> -		goto err;
+> +		kobject_del(&srv_path->stats->kobj_stats);
+> +		return err;
+>  	}
+>  
+>  	return 0;
+> -
+> -err:
+> -	kobject_del(&srv_path->stats->kobj_stats);
+> -	kobject_put(&srv_path->stats->kobj_stats);
+> -
+> -	return err;
+>  }
+>  
+> +/*
+> + * On failure, the caller still owns srv_path and frees it in free_path(),
+> + * which also drops the kobjects initialized here.  Do not put them here:
+> + * their releases free srv_path and srv_path->stats.
+> + */
+>  int rtrs_srv_create_path_files(struct rtrs_srv_path *srv_path)
+>  {
+>  	struct rtrs_srv_sess *srv = srv_path->srv;
+> @@ -296,7 +295,6 @@ int rtrs_srv_create_path_files(struct rtrs_srv_path *srv_path)
+>  	kobject_del(&srv_path->kobj);
+>  destroy_root:
+>  	rtrs_srv_destroy_once_sysfs_root_folders(srv_path);
+> -	kobject_put(&srv_path->kobj);
+>  
+>  	return err;
+>  }
+> diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
+> index 5314599d29fe..641a7bf5e02c 100644
+> --- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
+> +++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
+> @@ -1584,11 +1584,23 @@ static void free_path(struct rtrs_srv_path *srv_path)
+>  	if (srv_path->kobj.state_in_sysfs) {
+>  		kobject_del(&srv_path->kobj);
+>  		kobject_put(&srv_path->kobj);
+> +		return;
+> +	}
+> +
+> +	/*
+> +	 * rtrs_srv_create_path_files() may have failed after initializing
+> +	 * these kobjects; then their releases free the structures.
+> +	 */
+> +	if (srv_path->stats->kobj_stats.state_initialized) {
+> +		kobject_put(&srv_path->stats->kobj_stats);
+>  	} else {
+>  		free_percpu(srv_path->stats->rdma_stats);
+>  		kfree(srv_path->stats);
+> -		kfree(srv_path);
+>  	}
+> +	if (srv_path->kobj.state_initialized)
+> +		kobject_put(&srv_path->kobj);
+> +	else
+> +		kfree(srv_path);
+>  }
+>  
+>  static void rtrs_srv_close_work(struct work_struct *work)
+> 
+> base-commit: c3e8e9451e6f1b69f685b75e0fbf14f3d0fb2539
+> -- 
+> 2.53.0
+> 
