@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793700337;
-	b=d5Rz3m7MGVNVomD8HglJvL7xJ+YJrncDb/iDd3EU0UslpDuHD2nUjm6F0bTyzrVH/xZ2
-	 yxRmCg299wkFiQjPA4mDIWSWRoZzX3bMOTvmSn5QV02FowPjvc/cFf+4BXQS2xBgNe5N9
-	 7VB2wcicrtZ0uE6wYbP8Fddg/bNsw//5N1gkQjZmW8Nq/vs4M4JeOOgMJFzywwpzwTpl8
-	 ea0chwYxGDmQ2enHRrOnDVOcL9/xlE1o0Yolm3XPxOCctnlHSUOkPZahlKGzAQwCxFQII
-	 qDfsmDsWizBG/Jl/uwTjryhY8hzCKjdaQPzRD8OZYICdn1s6XKCp0IUv3Z3fG/FWHAw==
+	b=ANctgZRhj/nAgdo8XHxTdatWUvOFOtGE+dGb7XCoIKCAgjz/njrvj1gFVPl/FtO3VzEi
+	 zWhd60aA9zdgMg/TTfLxclC1lx4+ttZ2nj/GYjLJB5T8nNrsILJCUzaf7Mw9cmCWltzBg
+	 O13eYeTGdr4wWOeKUTjBniT5UEsoDHuPhvGS3i0rhYLzYaw6UbQB6cXma+xKnL+EbmVU+
+	 a0bbjPnC6762ZHLYrmOJmqgQ8XPELgBlDs3R97foZ1e8r5oxMDNPpoJbzh9D5hnavAeSh
+	 P+WDqn0PwmHCMZQn4OR88OHlnriRNwY7/py//s3tXnushhwfu2N4PSoBtrg3USYfpeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793700337;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=pHILoWh8cXh4Ja4FuwvyiXCXnwvyYnbih+aBsUhTx5M=;
-	b=JnxRVp5u320dv+GQtEzu6+4JA68/wb54ogte6yUeRc96vWh9RQ8j3m4TIKZ6nUoFd7lF
-	 4ph2SjXemGAfQQXD81IpRZoXG/E+6yBgvRQLffoo2I2Q3XeEst/dKFMDdQRj0xF4KpXQt
-	 Pq8gaFaz+tcmK7FdbTK400TaAj9nwApOwNRETrNw1LB1QJmp0Iagi4TT6omIMky2z2QYu
-	 E2ocjS72hUT0vz93ItsCn4jtxwS3+QSMRacGVY5zZhcRQe245aCTAtbov7KESROMJ2Vn1
-	 zJJ5oglGI55NS5rnzepTMh0b44VKK5F6PXwOHQbKjMI5QOlhKtiCzf20QrHgihJVx3g==
+	bh=HCukR9YFAOk3lavwPJ7DeboS3Lw+qEhNBmLe1sbsC3o=;
+	b=1ZNef7yUvoxkvx66kxU0tExzbhGhTLjncVCQQrxqI+wdHfBg5aFCbJeKRIDXULw4TppT
+	 Cal64UQDsZTYf/pG+7aE+ha1yV59aoWCbELPRuAYRu291eV2qUeySt40j9jM+0p8IC8A5
+	 AFI16Dtza1s1NylfH76vTCSAB+KQ59Ln5BtieuHjf8TcLYEVDjeh7f+xZ7knfEWBwfASK
+	 H57bZGZTgDrAndQOIB4dlmvHvomSId1Dq13zo56OMkEVqCk+ku3w6V1BA9tf36kmcu9QB
+	 Crjp6txQVF4fetsD9qCbjX7rgbjjgO9a2yGTMomD3TwkiuN+q871ot/E7IsnElS4e3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,30 +25,29 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F576085094;
-	Tue,  3 Nov 2026 10:05:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3F576085094
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F996083637;
+	Tue,  3 Nov 2026 10:05:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F996083637
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACHkpPlselql3s7AA--.2932S2;
-	Tue, 03 Nov 2026 18:05:25 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAAHGJnjselqfHs7AA--.2489S2;
+	Tue, 03 Nov 2026 18:05:23 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+To: Madalin Bucur <madalin.bucur@nxp.com>,
+	Sean Anderson <sean.anderson@linux.dev>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: ixgbevf: drop the SA reference if secpath_set() fails
-Date: Tue,  3 Nov 2026 10:05:34 +0000
-Message-Id: <20261103100534.1310071-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: fman: drop the FMan device reference after port probe
+Date: Tue,  3 Nov 2026 10:05:32 +0000
+Message-Id: <20261103100532.1309969-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,11 +59,11 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACHkpPlselql3s7AA--.2932S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrtw17Wr17tF4kGr13try3XFb_yoW8Jryfpa
-	n8CFyj9ryrXw4jga4DXa1kuF9akayxtrW5GryFkwnavwn8Ary5CFnYvrWj9ry0yrWrGF13
-	tr1jyFsxuwnxZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowAAHGJnjselqfHs7AA--.2489S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kry5ZFWUJw47WF15Zr45Awb_yoW8Zr1fpa
+	yDGa909rWrG3WY9w1DXa1IvF10kw42y34rWryIyw4SqrsIvryrtrWUZFyvvF43ZFZ7Wa4Y
+	yryUArZ7AFs8J3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
 	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
@@ -73,45 +72,67 @@ X-Coremail-Antispam: 1UD129KBjvJXoWrtw17Wr17tF4kGr13try3XFb_yoW8Jryfpa
 	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
 	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
 	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6r
-	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
-	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQAA2rpnOFgZgAAsz
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
+	IYCTnIWIevJa73UjIFyTuYvjfU7nmRUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIBh+QAAsf
 
-ixgbevf_ipsec_rx() takes a reference on the xfrm_state returned by
-ixgbevf_ipsec_find_rx_state(). On success that reference is handed over
-to the skb's security path, which releases it when the skb is freed.
-When secpath_set() cannot allocate the extension it returns NULL, but
-the function returns without releasing the xfrm_state, so the SA
-reference is leaked.
+fman_port_probe() looks up the parent FMan platform device with
+of_find_device_by_node(), which takes a reference on the embedded
+struct device.  The reference is released on the error paths, but not
+after a successful probe, and the __devm_request_region() failure path
+jumps directly to freeing the port.
 
-Put the reference before bailing out.
+As a result the reference is never dropped.  Put the FMan device and
+the port node before returning success, and route the failed region
+request through the existing cleanup labels as well.
 
-Fixes: 0062e7cc955e ("ixgbevf: add VF IPsec offload code")
+Fixes: 18a6c85fcc78 ("fsl/fman: Add FMan Port Support")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/intel/ixgbevf/ipsec.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/freescale/fman/fman_port.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/intel/ixgbevf/ipsec.c b/drivers/net/ethernet/intel/ixgbevf/ipsec.c
-index 076fd0a24858..bf3fcab3bd57 100644
---- a/drivers/net/ethernet/intel/ixgbevf/ipsec.c
-+++ b/drivers/net/ethernet/intel/ixgbevf/ipsec.c
-@@ -596,8 +596,10 @@ void ixgbevf_ipsec_rx(struct ixgbevf_ring *rx_ring,
- 		return;
+diff --git a/drivers/net/ethernet/freescale/fman/fman_port.c b/drivers/net/ethernet/freescale/fman/fman_port.c
+index 1b8fef69114e..faf1e35399cd 100644
+--- a/drivers/net/ethernet/freescale/fman/fman_port.c
++++ b/drivers/net/ethernet/freescale/fman/fman_port.c
+@@ -1850,15 +1850,13 @@ static int fman_port_probe(struct platform_device *of_dev)
  
- 	sp = secpath_set(skb);
--	if (unlikely(!sp))
-+	if (unlikely(!sp)) {
-+		xfrm_state_put(xs);
- 		return;
-+	}
+ 	port->dts_params.fman = fman;
  
- 	sp->xvec[sp->len++] = xs;
- 	sp->olen++;
+-	of_node_put(port_node);
+-
+ 	dev_res = __devm_request_region(port->dev, &res, res.start,
+ 					resource_size(&res), "fman-port");
+ 	if (!dev_res) {
+ 		dev_err(port->dev, "%s: __devm_request_region() failed\n",
+ 			__func__);
+ 		err = -EINVAL;
+-		goto free_port;
++		goto put_device;
+ 	}
+ 
+ 	port->dts_params.base_addr = devm_ioremap(port->dev, res.start,
+@@ -1868,13 +1866,14 @@ static int fman_port_probe(struct platform_device *of_dev)
+ 
+ 	dev_set_drvdata(&of_dev->dev, port);
+ 
++	of_node_put(port_node);
++	put_device(&fm_pdev->dev);
+ 	return 0;
+ 
+ put_device:
+ 	put_device(&fm_pdev->dev);
+ return_err:
+ 	of_node_put(port_node);
+-free_port:
+ 	kfree(port);
+ 	return err;
+ }
 -- 
 2.34.1
 
