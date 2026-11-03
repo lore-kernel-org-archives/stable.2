@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701741;
-	b=1+OAsmyK1I8UE1OI9eVDbb7e7bKtngMTZfyud5RR+yBENDsmUQypwMWy6zpHQ0e3Tm1j
-	 xMByqFagkVufHG7+IOSgWEpQkk/+vDM/epRHK9vFZqgEw+3ONyAM1vHXGYGM3fuFRv2KU
-	 B8iipebQ9YVVA82QlKRQqJDItZSUyrft3Wibj+rK5x7FmmT6zUOxfGKERJnoQ/6YckNLL
-	 bIC8fuc8UQ5skn+ur3Kbq8UBCP+cYmt1DH88miHejDjnH3pzsWRRWoeeEbLW/eCfD9lsJ
-	 doC2QuuyJ8AgHBj+nTult5BLIidt7U43p7bryWpeh8rL7jH3rlUXyjxyIyVUBXZW/xw==
+	t=1793701738;
+	b=CMl2o2WvnsHE/Ic1hfhUCi9jRi4LZIW2IEVvP1GYM5SfhFzuWknQ77eozF5IprAiEw1o
+	 5B+NmQ4x2m5W8VoijAMi/J74mv1lWALXMfvar5Z4lvIFcdAOQkn+JYitcvHMDIfa3TEyF
+	 TGY+EdoanP3/F9R5t6evfrIxy8E0RcsM0BrcvooJgx/ga+1OjVbYWxfw2Q5RypMWeoJex
+	 z6DTRg0PoxsR2Ot3w1rHT0cUAnNep8yrRCPTC5kEYXIr/aWWl4BbrSc2EaadhYexC+vNO
+	 YPc+o5yFuztCABLbO3iKRu+AtFHod3EpavVZUnaCtKI2k8PiIen+OuHXPIKzUMh29hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701741;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701738;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=jqrLKz9LrRsFxqXYepb2D+Y6GF21YYOQi1/zUhtLyRg=;
-	b=KKWNMgwM/VErlO9hUW/w2z1J4nekDMxVuAW9DMBrq+D5VJdnw5aRqnLRqg4wkkyvrodv
-	 U+CESW0eobsO3axZAcstyfleIWyv5ODkjdLBKjxsTdv61dNtJ/ibeDdoSBrtnu/RXZ7gk
-	 LFUMlzfndb4//8NE1Z7fkVQ7kXyh/32Lhz27zuW3KiftPMh9sNPmPgWgarKGhBAi8yiNu
-	 CbKYPD0wb5R3BONUxz7tdgDJHhWJbxFxvH2MvPVAjDtUvchcs32O4LiogKHAh0EuxrvAP
-	 XWsSgSfyfeS2H0bOkyaE2dNopoebngdNeYOtiuVW86CWhSEi78cy5e5FuVq7JV3u1tg==
+	bh=atR9w/LIKXlCxoZMtunWQfcgxsIkELEPvu7ajRcHDaM=;
+	b=rPiXixtM73A0bAj2F4JIDgZrAb6c+0yBFvqpPuSH6SGqPdCam9nJD7MkL3sclrF4EPvK
+	 mHiwi+14zpSH4yoxNQ6ZGR1sAAusbScIbtzMeeRCH4LaVV1QvkthFMZGL25739laCNRXY
+	 SXKR/cZ4XJHPcWwSvZ0LO2tox8T3VCAy5sdPABA08UCH+ANsR6sWmVBZf9SW/eIvvhTmz
+	 lbzhMOW1JZfa2ZOa6bxa5dyGiPyVvgYsEQzH/sBMSjJdF0JErC+khxjGPLo9o3AR4Xr8E
+	 YggU15KKU627SuKSCwQ0Y2zLvN0PXNnE1NxABdrlEOLCmXlX6MIdRp29zk0bcSUDLNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,32 +25,28 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8252760A5BC4;
-	Tue,  3 Nov 2026 10:29:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8252760A5BC4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243CA60752F0;
+	Tue,  3 Nov 2026 10:28:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 243CA60752F0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wZJgt+lqsak7AA--.3028S2;
-	Tue, 03 Nov 2026 18:28:48 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAAnN5hjt+lq0qk7AA--.49100S2;
+	Tue, 03 Nov 2026 18:28:51 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: stmmac: free RX resources when TX allocation fails
-Date: Tue,  3 Nov 2026 10:28:57 +0000
-Message-Id: <20261103102857.1340748-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: usb: hso: free an unused shared interrupt state on probe failure
+Date: Tue,  3 Nov 2026 10:29:00 +0000
+Message-Id: <20261103102900.1340894-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,10 +58,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wZJgt+lqsak7AA--.3028S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw4DZr13ZF4UJr43Zr43KFg_yoW8XryUpw
-	s3ZayUKr9Fqr4fJw4DJw109Fy3uaySyr4UWa1xZa1fWF43uryjgr1aqrWUXF1UJFW8ZF1a
-	vr4qk3W3CF1DA3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowAAnN5hjt+lq0qk7AA--.49100S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF1xury5XFWftw1UJFW8Zwb_yoW5Aw43pF
+	4vgFW5JrWDJrs8J3y3Xr4rGFWF9r4kGa4UCF9xK393G3sxtrySv34UKFy5tF45CrykJFWr
+	tF9ruFyq9ay29rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -79,41 +75,93 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7uw4DZr13ZF4UJr43Zr43KFg_yoW8XryUpw
 	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
 	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
 	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMAA2rpnOFxBAAAsH
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggAA2rpnIR0AwAAsh
 
-alloc_dma_rx_desc_resources() unwinds the RX queues when the RX
-allocation itself fails, and alloc_dma_tx_desc_resources() unwinds the
-TX queues when the TX allocation fails.  But when the RX allocation
-succeeds and the TX allocation then fails, the RX queues that were
-already set up are left behind.  stmmac_setup_dma_desc() only frees the
-dma_conf on this path, so the RX DMA rings, page pools and socket
-buffers are leaked.
+hso_probe() allocates the shared interrupt state with
+hso_create_shared_int() for a multiplexed interface and then creates one
+muxed serial device per port advertised by the device. A muxed serial
+device takes ownership of the shared interrupt state by incrementing its
+ref_count, and hso_free_serial_device() releases the state together with
+the last reference.
 
-Release the RX queues from alloc_dma_desc_resources() when the TX
-allocation fails, before the caller drops the partially populated
-dma_conf.
+There are two paths where the state is allocated but no serial device
+ever takes a reference to it: the port mask read from the device contains
+no port that can be muxed (including a port mask of zero), and the
+creation of the first muxed serial device fails. In both cases
+hso_probe() leaves through a path that only frees the registered serial
+and network devices, so the URB, the buffer, the mutex and the state
+itself are leaked.
 
-Fixes: ba39b344e924 ("net: ethernet: stmicro: stmmac: generate stmmac dma conf before open")
+Release the state in both places when no serial device took it over.
+hso_free_shared_int() still has to be called with the state's mutex held,
+so add a small helper which takes the lock first.
+
+Fixes: 72dc1c096c70 ("HSO: add option hso driver")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/usb/hso.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 9ded31150fbe..049d85b3e25f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -2446,6 +2446,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
- 		return ret;
- 
- 	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
-+	if (ret)
-+		free_dma_rx_desc_resources(priv, dma_conf);
- 
- 	return ret;
+diff --git a/drivers/net/usb/hso.c b/drivers/net/usb/hso.c
+index 71caa3764b23..818444830072 100644
+--- a/drivers/net/usb/hso.c
++++ b/drivers/net/usb/hso.c
+@@ -2736,6 +2736,13 @@ static void hso_free_shared_int(struct hso_shared_int *mux)
+ 	kfree(mux);
  }
+ 
++/* Release a shared interrupt state which no muxed serial device took over */
++static void hso_free_unused_shared_int(struct hso_shared_int *shared_int)
++{
++	mutex_lock(&shared_int->shared_int_lock);
++	hso_free_shared_int(shared_int);
++}
++
+ static
+ struct hso_shared_int *hso_create_shared_int(struct usb_interface *interface)
+ {
+@@ -2853,8 +2860,9 @@ static int hso_probe(struct usb_interface *interface,
+ 	int mux, i, if_num, port_spec;
+ 	unsigned char port_mask;
+ 	struct hso_device *hso_dev = NULL;
+-	struct hso_shared_int *shared_int;
++	struct hso_shared_int *shared_int = NULL;
+ 	struct hso_device *tmp_dev = NULL;
++	int mux_count = 0;
+ 
+ 	if (interface->cur_altsetting->desc.bInterfaceClass != 0xFF) {
+ 		dev_err(&interface->dev, "Not our interface\n");
+@@ -2912,11 +2920,16 @@ static int hso_probe(struct usb_interface *interface,
+ 						interface, i, shared_int);
+ 				if (!hso_dev)
+ 					goto exit;
++				mux_count++;
+ 			}
+ 		}
+ 
+ 		if (tmp_dev)
+ 			hso_dev = tmp_dev;
++
++		/* No muxed port took over the shared interrupt state */
++		if (!mux_count)
++			hso_free_unused_shared_int(shared_int);
+ 		break;
+ 
+ 	case HSO_INTF_BULK:
+@@ -2943,6 +2956,11 @@ static int hso_probe(struct usb_interface *interface,
+ 	return 0;
+ exit:
+ 	hso_free_interface(interface);
++
++	/* No muxed port took over the shared interrupt state */
++	if (shared_int && !mux_count)
++		hso_free_unused_shared_int(shared_int);
++
+ 	return -ENODEV;
+ }
+ 
 -- 
 2.34.1
 
