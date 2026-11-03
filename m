@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698090;
-	b=ENhJJ2nvi9i1gHO2B8OCl/EyLzXdBl9+9kGgZgIBYKN4DABvU+akee6O6Um6h2yJAMm6
-	 HuSnrbFDwY8TgBwJ2PFQmnBqgcrv32uCBulzxGY0ZLBw60DPI692FulYAQDb2OP1sCjTt
-	 3Cahku/7Cw6ZG7IXypbSEV4p1DxPPAsmZW8gSpEkqqyM3ztnwjF8tADMZD5xXoUV0VC5X
-	 Zfc7rHOjCAJIuI2e3jslGjhGQYgiP1dj7a4QxUhnSh/alc7UT67M0bgNat3ggadBDlQNC
-	 PzBNzUquyczPFVQ9GYtp8lzllgqJGw3E3jCoH5WK4GRgPwceFUy9z5YhgmWBf77QAIA==
+	t=1793698093;
+	b=dkzbZwSES/GIhjUcm+tNyS2rWZ/pII50T5LsJ576tfRT557AHbNHKN+3OP8+ksRT7tDQ
+	 3juvah14LWmTGWnTo4H+A5qGi2cz2NBzsMMMelv3JcMyb3yENrRV3d5z9SRxwYchy/4m9
+	 rEiRrmr7LvCCpoYxE8So2zaOs3K6yFRL7VovbkUJKfeFh9uGE7RjzzSacWHKkMNeckoE5
+	 1IY+c2YWJnLTJBg29JDBYwB55hucxVUjrmTh9pK6Gvp48AqsVyZvFrcO+MMqo+s7sY3ha
+	 W9CtmtLRO1E4R/aOULYk4XGDIH0X7JfxqgefBw5U6FLP7ryeOla6woH2M/BGqNinwUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698090;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698093;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tkRdaw9CKQa+QeUibzAbt0S2MJfnrjPZ7a/LQzcZE6w=;
-	b=Nwp0WGTaV8lBARLxuJ6fgEke6RAePwZYORpDi8PP3uXmKzgvUA8AJmD6CZemZNTHkUEN
-	 dJl92t/dj5WlorxTLR18suUprMUYEsPemq38mnrH8/6NKgvFs1MgNJRY2dWtiTCb2jsW1
-	 8DOoWDpCbNcni1kitZH7EckQ82XsrYKXIf4/HjiijDEVxFuUs75s0j2O37k0tRg/dKdIc
-	 BBqeQ75Fh7hOBf/dlHUvaeh090R04fCShXnLHRFevfs2TJxt2r3OCoy3lHMKRrLxAm6SY
-	 eQXh3kvtT6lAGi7GVus98y+gFBhVUXVrRWhV0Muq8hHyoeNOuuVM8oI/2fYZ8xZ3HIg==
+	bh=Q+bB5gmDGLtqPIJ6y2fMdQitLLU/dGXPtbUy8Xl3+Hk=;
+	b=S3aiz4Kwp/jR3fZDymYCi+1DDDY3t3YKfkvMQ7g9M93kTNOEE1vRcTsc4hRKYQOzYAD1
+	 xpA46o/snsz4jrwnMvK62aBvQ6yifdYYi8JmHB/9xe+rVRcb+lNnEFGWbEdRYbtzi+Dpm
+	 Il7BtuqqntCcLuOM1ZSL7VjKRd2V0Njn+cxMGlSvj8Wz3k10QsePCwQwaAIBsFJgBoArf
+	 KNiZcLP9Iynk5hzkqRIG8phrswPGyVVYDuKM9XQP57QoWb0osKMqowzgS2IcASJtzziDM
+	 4GZP8eieXQy+cFvaCsuMdpV+xvyWwsTF98i6UqZDkqsZDe96OjvChX8vsfHCe3HSfLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKGs0U2u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZV3WDYp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F2B606A324;
-	Tue,  3 Nov 2026 09:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796E5606A32D;
+	Tue,  3 Nov 2026 09:28:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKGs0U2u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3315C1F000C1;
-	Tue,  3 Nov 2026 09:28:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZV3WDYp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BD01F0093A;
+	Tue,  3 Nov 2026 09:28:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698089;
-	bh=tkRdaw9CKQa+QeUibzAbt0S2MJfnrjPZ7a/LQzcZE6w=;
+	s=k20260515; t=1793698093;
+	bh=Q+bB5gmDGLtqPIJ6y2fMdQitLLU/dGXPtbUy8Xl3+Hk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WKGs0U2uGQwcpplaJ/N1mP5f/Zq71mKyFkNT6Cd+4p2XF62MvsD6kbR/8csoPZ+OY
-	 8vxQTP5JsMws6nsboiweSh2A8lanneCplfYuVjB/RIM2FX/dMq+dDg/72lEn4wto97
-	 cagT0i+5SGx7eYF4e3WAyuu1Wl+yjtcjwtyhcRx1ZImvcRoJr1/y1uzfya/+3esNHK
-	 YDg2pRMvd2HO/AZYNwNErJ9/sGzYlXGQmY8UnHFFIxyTdk/szXCb/dUf12O3DK3b0V
-	 M9yIS2JjjXL5VzAt0TkOYMtu7LRzToF7zmWagY43wK0DJqXZ3I0yDclkRnCyN1Sitm
-	 Bd1sbEJY5C1Fg==
-Date: Tue, 3 Nov 2026 10:28:05 +0100
+	b=EZV3WDYplktXctFCMYyT618gYz0Xu7ZJHjQx0nxAh44OtIaJZBovtV50QHEST8B3s
+	 cURX+VAt5OzRXmfmjqKSr9otL2KIcmmwEkYpR1rbw+Pc0dc4aJsL5YSa5NRTjIiBH6
+	 I968Q/LKV5H8tdsJPJ/J0gyKgewMPtS8RXk4D/BDKsyO3bj+GIA4KKI67i6SkKCBla
+	 PbvTNuacY4v9lEMYCu/eVXMUDbQlWK+5G2XLZi/rWlXgP8hKHQWXG3jaGyQgzCnUwO
+	 gGZtzKVXNMP0OQzi9tIDylUzuoNCgfQGonHkJWqAolwYRUp3cQ2GKYTzsLAaEUS1A+
+	 ZAf/m/74x54Kw==
+Date: Tue, 3 Nov 2026 10:28:09 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: leon@kernel.org, linux-kernel@vger.kernel.org, jgg@ziepe.ca, 
-	linux-rdma@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] RDMA/cm: Release the GID attribute even if its port has
- no CM support
-Message-ID: <20261103-exotic-savvy-spider-5fb44f@quoll>
-References: <20261103081103.1134475-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, tursulin@ursulin.net, 
+	rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, intel-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, stable@vger.kernel.org, jani.nikula@linux.intel.com
+Subject: Re: [PATCH] drm/i915/selftests: Unpin the context in the LRC garbage
+ test
+Message-ID: <20261103-resourceful-bullfinch-of-strength-5a54aa@quoll>
+References: <20261103080434.1127682-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,27 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103081103.1134475-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103080434.1127682-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:11:03 +0000, Wentao Liang wrote:
-> When no source GID attribute is supplied, get_cm_port_from_path() looks
-> one up with rdma_find_gid(). A successful lookup takes a reference even
-> if the matching port has no CM port object. cm_add_one() skips ports
-> without IB CM support, so cm_dev->port[] can contain NULL entries.
+On Tue, 03 Nov 2026 08:04:34 +0000, Wentao Liang wrote:
+> garbage() explicitly pins the context to corrupt its register state, but
+> only releases that pin when request creation fails. On success, its caller
+> waits for the request and drops the context reference without unpinning.
+> The request's own context pin does not account for this extra pin.
 > 
-> The current cleanup tests port instead of the lookup result, leaking the
-> GID attribute reference when a matching non-CM port is found. Test whether
-> the attribute is valid before releasing it. Keep the put outside the
-> CM device lock and skip it for a failed lookup or an empty device list.
+> Release the explicit pin immediately after creating the request, on both
+> success and failure. A successful request already holds the context pin
+> it needs until retirement, as in the other context selftests.
 > 
-> Fixes: 398391071f25 ("IB/cm: Replace members of sa_path_rec with 'struct sgid_attr *'")
+> Fixes: 24eba7a9981d ("drm/i915/selftests: Check recovery from corrupted LRC")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/infiniband/core/cm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/i915/gt/selftest_lrc.c | 11 +++--------
+>  1 file changed, 3 insertions(+), 8 deletions(-)
 > 
 
 
