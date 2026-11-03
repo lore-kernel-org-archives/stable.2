@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723196;
-	b=de0t5tAyrnyXAbkQbiTZ2C+cbAYfDQs2cTyl/SqxKfDJG3XHdMeMj3022Ufe+mERdVAT
-	 +ZzygmdJOITO18ZCTcF6Hze1dneVPtjYSJLLNNOZ4bq4JZQoTyhfB2H4OWGAlSDtbAp8X
-	 lMw+lQb0HBhfuqekU6sPU6XOcgN62V2BzWtztyYNkR5lDMcxukdlo1ZJ+1pazOpZmQLfn
-	 yWXqCMjxYFEfYAIrmYqyKPh7vya7mLyXWm99lwJ3Yunl0DlePoZ15H46ZKsOVXA5XjajR
-	 amsBuX0CyCvpY0OOus2YL65Do0Uox5LMAGQG9R6+YMBItQrG2k2yVSvVPsokIp2mzZA==
+	t=1793723214;
+	b=thoGMXfnLMP5kDrH0SFTYOT/geU/uA1YSBJYz90Kq0WCvOvBtrsI0QYAedlsXWlxiJxp
+	 ofhjjEpqLBeSqTi4+VWEgLRtZHmbxI4ocJqJYuodo4IqHWqF0tu51RA524pSdGz3NsrG8
+	 ThDPqsR6BuFXJskeZ5tLcazIcrh1qHKbeUu5DkusDvNOVODWN3jQKRXyXeBxBkDBs28a8
+	 EMyTU1uLtAB1RAqGgeNeBjHmkQF22pcruFpKkobWB1Utb6YbvPAzzRtKORQL7El0/xpNX
+	 +7AdfNO63iBK0Q8vhCSo0DbkK5yHMPWh3VimtpJAYDoSydSZyP4KL3edQy0CYzT4mrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723196;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=88x5nWCU4/5DUnm5J75+/44oJREtwTCj+m3lJcaJoNE=;
-	b=tdawQlYfgDrb3alGEDfr439O5Cw+xIZMzgxuDQTvu1eq98R7olpfgWnXNElxe+6RNneW
-	 +WtM6uldUVExM54iZpuquygLBgV4ss9v1DdlPrhBRgjlpJsdA9htasb5VqBuKI9xdRRZQ
-	 mXNqPuVznzoA01sj3DERKYaelKX3fIa36NpOutkvXGqh8Mxsj0eSKWhsIaJedFVEQIxti
-	 n7X9odVx6mncFTtIw7BeW8JUrJIaRC0dbILM11QFF47/8afyZkTDuml9E/fnFFfGtarJY
-	 +ME6FErInGL9MCUfBY7Ykc5Ds6s17BJZSRUQzGoG5BB1MPpvwHhtpkwzrDzTAt0asVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723214;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
+	b=iUPZ/ZqmmCOcC5/T7YODV3iB3/wYXLgH6g1jVhWT55vgvCyEi8sjDA5tlo4UtFR8YXOP
+	 LYl2/tQzo3EesF8tKl1k8ZhmxyGg4jcnagCOCU4AkEdqEwVFaE3diuc+Y4w0j6vs5/fYC
+	 hOx/UOSwj/o6aaUa4mN109/3IUpujCYZaWXxznPxfVcnWrVRzROo0LS4B+816LkOvgvwU
+	 ZCczaiHpIxicvVNa2CFvRTEQj4zSdUjyRDvfUkV6Jmli2vQ41OrVxOKRKBa6Qm7d3FMHn
+	 /KSpkJrNO8ZlKqh6KUbQbuqnNB0q/SyxvN8rHPe6MKw5aUJ6BiL+CDjxTnGnYc+OrPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyDteQG2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 259F4606A327;
-	Tue,  3 Nov 2026 16:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91844606D81A
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:26:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91844606D81A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HyDteQG2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09A721F000C1;
-	Tue,  3 Nov 2026 16:26:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723195;
-	bh=88x5nWCU4/5DUnm5J75+/44oJREtwTCj+m3lJcaJoNE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HyDteQG2VBDz2pwudxJvRFZ3NzuhMM1n/qoJyRpSIEa+4sIo8qfNjCKCMkx9fqPnu
-	 PTXEB3HB8c+csEYJbUqrD18YNji+Wb3P0nPR4rCDriU41qd0d35Q951xfxtaew6zqD
-	 xTRV7HQa/evoV4YEWVb3yEGxlVh8/pDAOnR650sPVOaA2QtXNMiUjYtFVGzVyuFmxJ
-	 cuqSFcaDMPcPNDAwdq/HarCHKLW8nQ/TcudxBJnTO/IQN1HpQ6LTm2xHx92xHn7YRV
-	 9GYQVIg2n29fkajQrtiWC1hueIuFYRrAfwMXbzDr3+UFxfeou5MMiBIFbN+ZYhp4th
-	 RFlMkVbcaKQDw==
-Date: Tue, 3 Nov 2026 17:26:21 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Chuck Lever <cel@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
-	Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>, 
-	Eric Dumazet <edumazet@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
-	Greg Kroah-Hartman <gregkh@suse.de>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-s390@vger.kernel.org, 
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>, linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
-	Linuxppc Dev <linuxppc-dev@lists.ozlabs.org>, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
-	platform-driver-x86@vger.kernel.org, coreteam@netfilter.org, kexec@lists.infradead.org, 
-	linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, ibm-acpi-devel@lists.sourceforge.net, 
-	jfs-discussion@lists.sourceforge.net, linux-alpha@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
-	linux-usb@vger.kernel.org, samba-technical@lists.samba.org, sparclinux@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, linux-input@vger.kernel.org, 
-	linux-raid@vger.kernel.org, linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
-	linux-debuggers@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 27/38] sunrpc: make queue_wait a global wait queue
- again
-Message-ID: <20261103-lufttemperatur-absondern-zweifach-31d272ad55ab@brauner>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-27-59422ed3e465@kernel.org>
- <16f91f93-16b4-49b1-b7fa-cec69759c349@app.fastmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261103162650euoutp01b0e3bdb5611f6b8b269e29c8c877035e~klcGrf6u_2388623886euoutp01E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:26:50 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261103162650euoutp01b0e3bdb5611f6b8b269e29c8c877035e~klcGrf6u_2388623886euoutp01E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793723210;
+	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Vo2qH0rtUulQjTrvDSQeJ3FpQ5/0v4yjObZmApKDrtovCvqGFLsds5v4aD5h7yjGw
+	 wCypu29RbvmDDkS2f66RSUdwWk03EBJ1dibVH/lGC+fCL5SjE8eE49epyXQaLhhvqV
+	 doLOZNNKtAG8LABMwmRcRzAYnQajLB12K4sfollI=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8~klcFy-Wv13209832098eucas1p29;
+	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103162649eusmtip1b9257770e9aa42f127e639da49ee93ae~klcFXrMLm2977329773eusmtip1Q;
+	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
+Message-ID: <d495affe-2501-4a82-9798-aa4b279a0cba@samsung.com>
+Date: Tue, 3 Nov 2026 17:26:48 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,72 +64,246 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <16f91f93-16b4-49b1-b7fa-cec69759c349@app.fastmail.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 1/2] media: videobuf2: publish buffers in bufs_bitmap
+ under mmap_lock
+To: Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa
+	<tfiga@chromium.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans
+	Verkuil <hverkuil@kernel.org>, Benjamin Gaignard
+	<benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
+X-EPHeader: CA
+X-CMS-RootMailID: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
+References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
+	<CGME20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96@eucas1p1.samsung.com>
+	<20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
 
-On Mon, Nov 02, 2026 at 10:12:12AM -0500, Chuck Lever wrote:
-> 
-> 
-> On Mon, Nov 2, 2026, at 9:21 AM, Christian Brauner wrote:
-> > Since commit 552d0e17ea04 ("sunrpc: convert queue_wait from global to
-> > per-cache-detail waitqueue") poll() and epoll queue their waiters for a
-> > channel file on the queue_wait head in struct cache_detail. But the
-> > cache_detail can be freed while its channel file is still open and
-> > waited on.
-> >
-> > The procfs channel files of a network namespace are removed when the
-> > namespace goes away. Removing a procfs file waits for the callers that
-> > are in one of its methods right now and then calls ->release on every
-> > file that is still open (cf. close_pdeo()). The waiters that poll() and
-> > epoll left on the head stay queued until their file is really closed.
-> > So:
-> >
-> >   sunrpc_exit_net()
-> >   -> ip_map_cache_destroy()
-> >      -> cache_unregister_net()
-> >         -> remove_cache_proc_entries()
-> >            -> proc_remove()      // ->release, the waiters stay queued
-> >      -> cache_destroy_net()      // kfree(cd)
-> >
-> > and when poll() returns remove_wait_queue() writes to the freed
-> > cache_detail:
-> >
-> >   BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x4b/0xa0
-> >   Read of size 1 at addr ff110001131bb570 by task sunrpc-poll-uaf/242
-> >   Call Trace:
-> >    remove_wait_queue+0x22/0x1c0
-> >    poll_freewait+0xc2/0x230
-> >    do_sys_poll+0x9ba/0xd50
-> >    __x64_sys_poll+0x165/0x470
-> >   Freed by task 12:
-> >    kfree+0x267/0x620
-> >    sunrpc_exit_net+0x34/0x80
-> >    ops_undo_list+0x271/0x8d0
-> >    cleanup_net+0x3f3/0x860
-> >
-> > Closing an epoll instance that watches the file gets there through
-> > ep_unregister_pollwait() instead.
-> >
-> > The channel files of a network namespace belong to the root of its
-> > user namespace and cache_open() doesn't check for a capability. So an
-> > unprivileged user can open the channel file of a namespace of its own
-> > from the outside, poll it and let the namespace die.
-> >
-> > Go back to a single static wait queue that never goes away. A wakeup
-> > for one cache wakes the waiters of all caches again but cache_poll()
-> > reports per cache_detail so that's just a spurious wakeup. procfs
-> > should really own the wait queue of its files like kernfs does but
-> > that's nothing for stable.
-> >
-> > Reported-by: Chris Mason <mason@kernel.org>
-> > Fixes: 552d0e17ea04 ("sunrpc: convert queue_wait from global to 
-> > per-cache-detail waitqueue")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> 
-> Acked-by: Chuck Lever <cel@kernel.org>
+On 03.11.2026 11:56, Ricardo Ribalda wrote:
+> vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
+> To keep vb2_mmap() safe, newly allocated buffers must not become visible
+> in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
+> held.
+>
+> Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
+> memory is allocated and without holding q->mmap_lock. As a result:
+>
+> - A concurrent mmap() can find a half-initialized buffer, and if buffer
+>   allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
+>   without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
+> - If fewer buffers are allocated than requested, they are already
+>   counted as active in q->bufs_bitmap before .queue_setup() checks
+>   whether the smaller count is acceptable.
+>
+> Fix this by keeping new buffers only in q->bufs[] during allocation and
+> setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
+> and .queue_setup() succeed, and let __vb2_queue_free() read q->bufs[]
+> directly when cleaning up unexposed buffers.
+>
+> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 
-Fwiw, I have a patch series on top of this that makes procfs own the
-waitqueue and then this whole UAF issues goes away structurally and you
-get to elide that global thing here.
+One minor issue below, besides that is look fine.
+
+Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 66 +++++++++++++++++++++----
+>  include/media/videobuf2-core.h                  |  8 +--
+>  2 files changed, 61 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..70ef38c3d16a 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -431,6 +431,9 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
+>   * @q:	pointer to &struct vb2_queue with videobuf2 queue.
+>   * @vb:	pointer to &struct vb2_buffer to be added to the queue.
+>   * @index: index where add vb2_buffer in the queue
+> + *
+> + * The buffer is stored in @q->bufs[] but remains invisible to vb2_get_buffer()
+> + * until published with vb2_queue_publish_buffers().
+>   */
+>  static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
+>  {
+> @@ -439,7 +442,31 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
+>  	q->bufs[index] = vb;
+>  	vb->index = index;
+>  	vb->vb2_queue = q;
+> -	set_bit(index, q->bufs_bitmap);
+> +}
+> +
+> +/**
+> + * vb2_queue_publish_buffers() - publish buffers staged by __vb2_queue_alloc()
+> + * @q:		pointer to &struct vb2_queue with videobuf2 queue.
+> + * @start:	index of the first buffer to publish.
+> + * @count:	number of buffers to publish.
+> + *
+> + * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
+> + * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
+> + * them visible to vb2_get_buffer().
+> + */
+> +static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
+> +				      unsigned int count)
+> +{
+> +	unsigned int i;
+> +
+> +	lockdep_assert_held(&q->mmap_lock);
+> +
+> +	for (i = start; i < start + count; i++) {
+> +		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
+> +			    test_bit(i, q->bufs_bitmap)))
+> +			continue;
+> +		set_bit(i, q->bufs_bitmap);
+> +	}
+>  }
+>  
+>  /**
+> @@ -460,6 +487,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+>   * @first_index: index of the first created buffer, all newly allocated buffers
+>   *		 have indices in the range [first_index..first_index+count-1]
+>   *
+> + * The allocated buffers are stored in q->bufs[] but not published in
+> + * q->bufs_bitmap: the caller must either publish them with
+> + * vb2_queue_publish_buffers() or free them with __vb2_queue_free(), both under
+> + * q->mmap_lock.
+> + *
+>   * Returns the number of buffers successfully allocated.
+>   */
+>  static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+> @@ -562,7 +594,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>  	struct vb2_buffer *vb;
+>  
+>  	for (i = start; i < start + count; i++) {
+> -		vb = vb2_get_buffer(q, i);
+> +		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
+> +		vb = q->bufs[i];
+>  		if (!vb)
+>  			continue;
+>  
+> @@ -580,6 +613,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>   * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
+>   * related information, if no buffers are left return the queue to an
+>   * uninitialized state. Might be called even if the queue has already been freed.
+> + *
+> + * Buffers are looked up directly in q->bufs[] instead of through
+> + * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
+> + * never published in q->bufs_bitmap (because a later .queue_setup() call
+> + * rejected the allocated number of buffers) are freed as well.
+>   */
+>  static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
+>  {
+> @@ -587,9 +625,13 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	lockdep_assert_held(&q->mmap_lock);
+>  
+> +	/* q->bufs is NULL until vb2_core_allocated_buffers_storage() runs */
+> +	if (!q->bufs)
+> +		return;
+> +
+>  	/* Call driver-provided cleanup function for each buffer, if provided */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (vb && vb->planes[0].mem_priv)
+>  			call_void_vb_qop(vb, buf_cleanup, vb);
+> @@ -624,7 +666,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  		q->cnt_unprepare_streaming = 0;
+>  	}
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  		bool unbalanced;
+>  
+>  		if (!vb)
+> @@ -676,7 +718,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	/* Free vb2 buffers */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (!vb)
+>  			continue;
+> @@ -1000,14 +1042,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+>  		 * VB2_MEMORY_UNKNOWN.
+>  		 */
+>  		__vb2_queue_free(q, first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return ret;
+>  	}
+> +	vb2_queue_publish_buffers(q, first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> @@ -1125,14 +1169,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> -		 * VB2_MEMORY_UNKNOWN.
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+> +		 * VB2_MEMORY_UNKNOWN if no buffers are left.
+>  		 */
+>  		__vb2_queue_free(q, *first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return -ENOMEM;
+>  	}
+> +	vb2_queue_publish_buffers(q, *first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4b4f4c15c53a..2e93e6985d5f 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -564,9 +564,11 @@ struct vb2_buf_ops {
+>   * @mmap_lock:	private mutex used when buffers are allocated/freed/mmapped
+>   * @memory:	current memory type used
+>   * @dma_dir:	DMA mapping direction.
+> - * @bufs:	videobuf2 buffer structures. If it is non-NULL then
+> - *		bufs_bitmap is also non-NULL.
+> - * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
+> + * @bufs:	videobuf2 buffer structures. Must be accessed with
+> + *		vb2_get_buffer(), as an allocated buffer cannot be used
+> + *		until it is published.
+
+
+"Drivers must access it through vb2_get_buffer()", otherwise You risk getting
+tons of poor-LLM generated patches fixing vb2-core to use vb2_get_buffer()
+instead of poking q->bufs[].
+
+> + * @bufs_bitmap: bitmap tracking published buffers. Bits are set and cleared
+> + *		under @mmap_lock.
+>   * @max_num_buffers: upper limit of number of allocated/used buffers.
+>   *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
+>   *		     for backward compatibility.
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
