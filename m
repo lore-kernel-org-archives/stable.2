@@ -1,87 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=93.188.205.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712263;
-	b=Y77QG4jYZO2zXdx0DU2IFR5fcR49Ai0k+edprvb47yvwgncz5mvGL5L8Xj2oWsTMzkGz
-	 QdaN1VvD9yRWvMh+KkIbs+W7FuFRuhn/COvUzm43X8sFXzynh/EyAkelXFGG1gOoaOFxm
-	 hZK/5faJ3PpOOoDnGfsqV/h/WEz4kq2YlDAWSGF9VWU5MvqXpH14bRF7pVcvgPvmgsrmN
-	 m7qDvFTL4wd1hFZXKYNA/0ycHRvYOMV9UWH7FrE7BihGHZspgl4KKhWs/TrLyNVNuInD5
-	 0FS9cewDuwuVWE5dT+fQAUK3/BPQiE0SvdiH0Mn0LxGMQH6fqEdlcCfe7BaRv5l7sPw==
+	t=1793712433;
+	b=2dUTkx41W7BBl7R7c7Nt1hGlWhNgNLfKDNOYluxgchSyvyG+csDCSe9qIWnZ5IWfeVER
+	 DUBXRB4f/5sw4MRvZD1t+pafZcGLCkiAO7PZDmCi0yfJZpaMVzLvvjIlMPumSseBDZEJM
+	 4Jw5C2mzI+6vvFRwql7Rnec8aZX0m8bkPCBc4IOEXtcAGJpXD/dVBsRkB2sJ8K86cY7HT
+	 n2MWvxJfvicGoWr4vnrOrfBtxn1hSGdcVES7UlxmCKE7iPzNw+JzXSGzR3z9o/yg3xiJ+
+	 CtnpS5PoDpXDrOI8KKj5yvOGWLLbOImQZqp/sGJTZ3Qxjr7M9arSq9Bqe1wM/kY+0cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712263;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
-	b=nDn27iuRSBz0d/PTE1fULD1hqt/sKxl/BRrCk0v5GpN+76dkJUCMe4zawWhT2xoR+dO7
-	 5fe9EuWxW3lBRJvX5XRzngnDZr67lHIwV3KrHQF7k3jTPPvbQcqeUi4+7FbbHDJOMElfc
-	 lgNBHAmpNOjT5ALHcACa1D7WfmGWjJKlqhyN6PMpOfpKrIqtx9L3xtimNc6N5kTemCjW0
-	 BzpZfXgfdjSdCUheGaU8s9JBG3es/VdIb6XcSx1YedbJinwHqyGnasKXc9tDqhKd8hXFv
-	 7Eb2kz5VVZpZkJGvJlSZaQcC2ovgzMFGCso08LdtuTsIN76UIRp7e+rtzZLUgXjMVag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712433;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=6OP42S54OKX78BiUtyHVgUQAOSoy774DMu20I6vV1fI=;
+	b=2O2EE+9VgDvkYp4LxHtDzd0fFZ06RShvicwmPUMZ5wPbtVRqWCa3UANrnU66PtcfPxXL
+	 q5FFW+tjr693dh8tS7zZM9ERwQeReYoMtUEB26TT62cTUCAze7eD/SH7Xr/3KUGdOm3cJ
+	 9H7+6DUlTv4o0f3HWY315B+xNovqjhVwI4YMW9K6J92OibJY3beuT8IrEhuz2qrDglIf6
+	 k7ntB0n2O6eB7vJQMbLR300lOke7HcQfNL92hiZwY3SvBtEy4IjDuwViFY8vkfZwg2u58
+	 ynTtAJWZhYPFqOL5K1B9boPu1xOELDArBp8gbddmAu0FJbfttNpaYs9i97QCCoQgwdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ftOEIgad;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	arc=none smtp.remote-ip=93.188.205.243
+Received: from mail-gw02.astralinux.ru (mail-gw02.astralinux.ru [93.188.205.243])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD6C606A32E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:24:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD6C606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=ftOEIgad
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214af2076so32021065e9.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 05:24:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793712261; x=1794317061; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
-        b=ftOEIgadY8W0LAJnkXXgN0QtEq3/FP+QPVbndYenNNSBW9T1qhi8kSL3zwCjBwffS/
-         a5aQGC/hg7bNcK/3BQh47VdySgCybacc032j9tUvbAGA8w9I9jN9qaMqjvIXgtVeaUpf
-         yw0zXUu3X6yc4my7Ltu54Yde+oSBvHwUIAhp7ehOavw4DQZwgrj5l9KT7Atg/SwrAZq5
-         Eah8hgcrQeFbzk6RK7x6mHX9Fk+Q6L6UNNOsGZgqN1t1HwWAGzVVuAVYd4QxBqgd5ru9
-         1WBT9BL8kLOtpOrlWljRUr/59Wc5gztLPIcSORMVove8sgs7ete+Y9jrcCFPIqhBuKrQ
-         dPQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793712261; x=1794317061;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2j0GMs1294BoS0QgCrjSsNNwFi17Dnm1SAfspQeLyKw=;
-        b=S7Zi4YpxDktEFbW5fvBh/zrrLt0QXG94Boq4UH1LhzETaTOr0jcduMe8iO8cJlcpls
-         L5OOiGQd8kOh2MAknz+KVtEAOtyu9oMR1O7etxAflCszDEYOOi6kVJM9CpZi05itrkg6
-         SfC9JcYrknk1emDF4dCnLpsc/cdVDJmZuS6NlrdrSC5cBfRgtUtBhvd0j5FxPBC242f0
-         jhWsLJ2UZUFC/TPTKcAaIlrBZtyUcO+3/u8hI6z9KY40amlY2XILejn/e+aPBT0gu61+
-         61IkwRztF2bln6Vk4VUruAFd+VKpaYv8LL9TkC6YG/1MYsJNHrjDPl+hz//qc9ZLZcHe
-         Kj9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzkfM7394FWTyprf38a73qoBeCd9bx4AA92rH6EcA6hrHUMIdGnNY28P7ITiimgd/mX8Ynb9Ao=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XknTIYyUhzcT2AoNY0j+XQOn/+HS5Mle4kUG5KxdUVLB2F36p
-	wLjIczm3dndC2H+F0KRrf+JenxF/PFtg2gXgK0FEDekEaBq30yr1bZ+28HM8MnCPvAM=
-X-Gm-Gg: AYBFou2Nhbc3lnafTd3j+AtrL0oul7K9FnlV3aL7Pow3y4a4qSUF9sNWlVI80pshjiq
-	R0x6CqMpdMBv81AotIsRwCucSf/5naxuiX12gtPqN121CXlYBQAN3CEf8rZNWVNJm3Qr/StBOON
-	JBCGBysdiNCQ01LGWO6at0+GkFxhXS7uN1kKcuJBIU4OGqQGvSRDQZAPxR8UCZYcw4oS2DlDCCS
-	T+oKpuYYqgnV5n1A4uSJJD/X0tpY5gMZ+eBQcjEHYbktNDt0XqQBdCZlqHGMF7/Quu0HOEIXE3N
-	ihXAjsQHH98SSr++wRs9tER/JBUsw+PZq55E4fm2ujwuwlUzTXpVssgrtaR1VCvtbB+FNQO3bzn
-	irCZTB92oBwGfv5e6RVwd1PDbJRlpnXXUHQKWSQaGTa/EV/jff+dTxXvto9xXviBRJ+ONmDtcF2
-	g3gS5qTvUoSHiwkKJuyS6sLTHfhc/Vcxgl92aOay/qGXkOr8yaI/h+fS1aeMQLHnZy/8gAsESGm
-	6/pUD4Ta7aQwV6jfp1/oWyKqbng6DgfrGPTSf2WZQBD3iKu2nko53PYa5lDNV+F9YpWdV+rF6VV
-	XnsUrJXu18xlXrIII0H7ViLd8Q==
-X-Received: by 2002:a05:600d:a:b0:4ac:aae6:6400 with SMTP id 5b1f17b1804b1-4acaae665a6mr224247265e9.13.1793712260624;
-        Tue, 03 Nov 2026 05:24:20 -0800 (PST)
-Received: from localhost ([2001:4090:a244:81d0:2c16:1c4d:8a04:e0bf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8011csm28284449f8f.31.2026.11.03.05.24.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 05:24:19 -0800 (PST)
-From: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Date: Tue, 03 Nov 2026 14:24:03 +0100
-Subject: [PATCH] bus: ti-sysc: Don't reserve the system timers on AM33xx
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A306083631;
+	Tue,  3 Nov 2026 13:27:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70A306083631
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793712427;
+	bh=I33FXfO8Gp7E7V66wFrmBkH+r2omEzUOSnQAEGC4qEE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=gmzWkpU2ogr0P4r0iopl7XF2VylUpM0uFl2rPtQ4dTB3Lyag9D835hn5UywaPbzme
+	 NdwUyqI3l9KY2EejTS+XxJJtrvHpDt2dzx+7kpYhqkqfoPqKYiK3oc+uSVUK7fEKkG
+	 26YkRACjjSi5zSywvZrZkYVYGJu0NJxsUKcnHe4B8i/TxUFPOTy8t09k6YoPDWrPj8
+	 zIO35DV14ofL86rk+JXh2k/e7YRg+3cyre42t7OJu3G+e1ru6BaVLTLQupsUYHObrq
+	 Ox+gPmtFTF3PYxTVQ9xEagMV0K5gr8lZCaYSp+Esrq1l+JtWRAUp/Go4ZLltEC89Nt
+	 7QPSSQeiIajaw==
+Received: from gca-msk-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw02.astralinux.ru (Postfix) with ESMTP id 57E9B1F6FA;
+	Tue,  3 Nov 2026 16:27:07 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw02.astralinux.ru (Postfix) with ESMTPS;
+	Tue,  3 Nov 2026 16:27:05 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.27.207])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJq9h6wlFz22lT;
+	Tue, 03 Nov 2026 16:27:04 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Lang Xu <xulang@uniontech.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Kaiyan Mei <kaiyanm@hust.edu.cn>,
+	bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] bpf: Fix OOB in pcpu_init_value
+Date: Tue,  3 Nov 2026 16:25:30 +0300
+Message-ID: <20261103132532.643-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,103 +84,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAHLg6WoC/yXMwQ6CMAwA0F8hPdtkWyMEf8V4wFK0RmBZB9EQ/
- t2px3d5G5gkFYNTtUGSVU3nqcAfKuB7N90EtS+G4ELtHTlcGyTMc1TGbiQ6PuOIWdHexuhpcMG
- 33PZ1A2WISQZ9/fbz5W9brg/h/C1h3z+Ok8lJfwAAAA==
-X-Change-ID: 20261030-v7-3-topic-am335lpm-ti-sysc-13f0219c9d67
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Matthias Schiffer <matthias.schiffer@tq-group.com>
-Cc: linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
- "Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2495; i=msp@baylibre.com;
- h=from:subject:message-id; bh=nVuwYE9m11lYdl/oeJjVyknAejqd1mpWoS0UcE2QfJg=;
- b=owGbwMvMwCXWejAsc4KoVzDjabUkhqyXD6oj9lVMmdu1+oNC/u7HTrncbqHN86yzeVlXTFx1N
- 7Tw8BuRjlIWBjEuBlkxRZbOxNC0//I7jyUvWrYZZg4rE8gQBi5OAZjIupeMDEsCTvq8DVS79WtF
- ttxF1gnM3y9IG965VbyeTckmdpFD7VuG/35rWZ/e5Nkfk7Ew/fhVSy4ZlpqNq4/MfdG35aGPeBl
- 3KR8A
-X-Developer-Key: i=msp@baylibre.com; a=openpgp;
- fpr=BADD88DB889FDC3E8A3D5FE612FA6A01E0A45B41
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/03 12:04:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;lore.kernel.org:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207225 [Nov 03 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/03 11:26:00 #28786010
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/11/03 12:04:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-Commit
-    3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
-introduced handling of am33 SoC timers that are already active as
-reserved. During probe this means the clocks are enabled and a reference
-is kept.
+From: Lang Xu <xulang@uniontech.com>
 
-On AM33xx deep sleep is entered by the PM coprocessor which
-requires the PER power domain to be idle. The system timer driver
-disables the clock during suspend but the additional reference held by
-ti-sysc leads to the PER power domain not being idle:
+commit 576afddfee8d1108ee299bf10f581593540d1a36 upstream.
 
-    pm33xx pm33xx: PM: Could not transition all powerdomains to target state
+An out-of-bounds read occurs when copying element from a
+BPF_MAP_TYPE_CGROUP_STORAGE map to another pcpu map with the
+same value_size that is not rounded up to 8 bytes.
 
-The reserved status is only needed where the
-gpt12 system timer must be kept from idling, see commit
-    3ff340e24c9d ("bus: ti-sysc: Fix gpt12 system timer issue with reserved status")
+The issue happens when:
+1. A CGROUP_STORAGE map is created with value_size not aligned to
+   8 bytes (e.g., 4 bytes)
+2. A pcpu map is created with the same value_size (e.g., 4 bytes)
+3. Update element in 2 with data in 1
 
-The timer configuration in the devicetree is the same on all SoCs, so
-there is no reason to reserve the timers on AM33xx.
+pcpu_init_value assumes that all sources are rounded up to 8 bytes,
+and invokes copy_map_value_long to make a data copy, However, the
+assumption doesn't stand since there are some cases where the source
+may not be rounded up to 8 bytes, e.g., CGROUP_STORAGE, skb->data.
+the verifier verifies exactly the size that the source claims, not
+the size rounded up to 8 bytes by kernel, an OOB happens when the
+source has only 4 bytes while the copy size(4) is rounded up to 8.
 
-Return -ENODEV for the system timers on all other SoCs. Like -EBUSY it
-stops the probe but the driver core doesn't report it as failure.
-
-Fixes: 3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
-Cc: stable@vger.kernel.org
-Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+Fixes: d3bec0138bfb ("bpf: Zero-fill re-used per-cpu map element")
+Reported-by: Kaiyan Mei <kaiyanm@hust.edu.cn>
+Closes: https://lore.kernel.org/all/14e6c70c.6c121.19c0399d948.Coremail.kaiyanm@hust.edu.cn/
+Link: https://lore.kernel.org/r/420FEEDDC768A4BE+20260402074236.2187154-1-xulang@uniontech.com
+Signed-off-by: Lang Xu <xulang@uniontech.com>
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+[mdmitrichenko: The older implementation uses bpf_long_memcpy()
+ rather than copy_map_value_long(). Replace it with memcpy() using
+ map.value_size to avoid reading beyond the source buffer.]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
 ---
- drivers/bus/ti-sysc.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Backport fix for CVE-2026-53076.
 
-diff --git a/drivers/bus/ti-sysc.c b/drivers/bus/ti-sysc.c
-index e118b900c9ac..922a90d4c5a3 100644
---- a/drivers/bus/ti-sysc.c
-+++ b/drivers/bus/ti-sysc.c
-@@ -48,7 +48,6 @@ enum sysc_soc {
- 	SOC_UNKNOWN,
- 	SOC_2420,
- 	SOC_2430,
--	SOC_AM33,
- 	SOC_3430,
- 	SOC_AM35,
- 	SOC_3630,
-@@ -2917,7 +2916,6 @@ static void ti_sysc_idle(struct work_struct *work)
- static const struct soc_device_attribute sysc_soc_match[] = {
- 	SOC_FLAG("OMAP242*", SOC_2420),
- 	SOC_FLAG("OMAP243*", SOC_2430),
--	SOC_FLAG("AM33*", SOC_AM33),
- 	SOC_FLAG("AM35*", SOC_AM35),
- 	SOC_FLAG("OMAP3[45]*", SOC_3430),
- 	SOC_FLAG("OMAP3[67]*", SOC_3630),
-@@ -3124,13 +3122,12 @@ static int sysc_check_active_timer(struct sysc *ddata)
- 	 * A to B4 at some point.
- 	 */
- 	switch (sysc_soc->soc) {
--	case SOC_AM33:
- 	case SOC_3430:
- 	case SOC_AM35:
- 		error = -ENXIO;
- 		break;
- 	default:
--		error = -EBUSY;
-+		error = -ENODEV;
- 	}
+ kernel/bpf/hashtab.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+index 4c7cab79d90e5..59f1ffa9a59d3 100644
+--- a/kernel/bpf/hashtab.c
++++ b/kernel/bpf/hashtab.c
+@@ -844,8 +844,8 @@ static void pcpu_init_value(struct bpf_htab *htab, void __percpu *pptr,
  
- 	if ((ddata->cfg.quirks & SYSC_QUIRK_NO_RESET_ON_INIT) &&
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261030-v7-3-topic-am335lpm-ti-sysc-13f0219c9d67
-
-Best regards,
---  
-Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+ 		for_each_possible_cpu(cpu) {
+ 			if (cpu == current_cpu)
+-				bpf_long_memcpy(per_cpu_ptr(pptr, cpu), value,
+-						size);
++				memcpy(per_cpu_ptr(pptr, cpu), value,
++				       htab->map.value_size);
+ 			else
+ 				memset(per_cpu_ptr(pptr, cpu), 0, size);
+ 		}
+-- 
+2.43.0
 
