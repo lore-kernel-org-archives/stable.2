@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701596;
-	b=mOFvMr7lrvANmpe+wxG2m1wm2ttQ9yRnD91c7ZJGncGX9aqERDHIoEjoXjyiypoay5cg
-	 Y3Y2tRBiYIgI9E949MN1MrhIagAxsh9j08WUL3twHPp0QvAbM5Wm5AM2UlmULKnEY+KsX
-	 0NR6R3cN24Zb6RKomWGfFZn5Fg2VX4yicRDY9XtQ2p3+bBLgY+ma1lfwEIlW2/aE74Jqj
-	 NrM5QfLxB3kk88d4mEa/gLyWyxibvBi5OH22FNuhbgquN6Yg+AP3HuX6LqYmGV2ZpQE4f
-	 VFiK62LMSpbBnZwNBK0ollXW4xlZz56K1lQ0Gna/8l4Qq4thfJJdboVv28wtXBmC6wQ==
+	t=1793701592;
+	b=Csmo4dfLlSZsLx2wO1b/4a3NFHSdLGuA/XaTAvtJi+9vHw7/6eiXIZleM68mVBrt+Odc
+	 i5G7ZYnp3D0wvpsJQcr8y4I9l41lcz9D/syhR1RJIQjSJEG0zSR4zBP9g18dWI9QPGWra
+	 arXICgUVkXYqSNmT068368W96Ug8N2yHfEumEsC5xyIeWBJ0qjC4Acw8l5AyEUW+sFLzH
+	 3lhTx9bvNvTUuD2rbZOyf4MhVtSr48vZcGDmIuCJ+qSPZNB04NNBslNin8PAtegcdtKml
+	 nAcjlg4pHUK41LrGWEihBk2kAXZt/1Y7ekGTErOHWiWut/OhkuFXlkSNyAMPpQ20Lzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701592;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hmBDURKZM2gT8yAhEobO4jEMpgXoE9EjguJBnydKsTg=;
-	b=KjcTIG14+pIFh1hyapWgeoGceH2eCp4UC4veXMHOPrzbp4YY4dr8DNmUlKJRm715B0QA
-	 uXdEHB/61rGlCzZ3W9McTsaUO5QloYmW22OokxAayzrESgxnrFy5t+1XeFafF9Ke9pgHt
-	 ENI4YrbiovEM3m645R5Pn61jZ8PGIq8hDBm/8FvtbYqSP+ILUrCAKenNVrY2ea+Zu2KDM
-	 rdQPEDP19zw7wOedZ1VTE61t7IUccu9e8oJqkvyTrcXiMw96HbfGUONAdYarnS4JFHNah
-	 qTiv4HbyL35sy349aOCalsuvTQWIpYmlY5PwRP+aFcc6aWnU/+h/yO4NPH7TaX04V4A==
+	bh=KfnI8zt/AZ8WAgoOs9mBI1mCPV8VU01+baE2vWXucIE=;
+	b=vVEnHcVCuOzPVr+9mKAcRiygc9KIawj+bT6r/d9AL48ACG91rkWo3AqiwuegwKq7eJWj
+	 8vc4MpLDBrmenLWp3GJ3EgsWBxxqfTcadAdln0XaTahYL1YarJqQHsFCcuo9wklk2rGyx
+	 KejOkmfuq2LmuEo4K1k7nfwjlygAZyj/iFf+Y4iJFo+G+145ALs11wg5/HLahROtYpv2X
+	 V/SVaHOnMwyo+I34l98DuSXzc7iC6U2DYWh9MywqKsVaPU4UUs/2dXazRKqt3vOynBTFK
+	 GUC0CteDLcexoRXeU0RRHle2FTWw+S/zGPKaYLqfs3Y1moIsIa+kJGOEeCs1WhrXYAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AS8y0wXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBI+l3qQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA460606FAFA;
-	Tue,  3 Nov 2026 10:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0A7606A816;
+	Tue,  3 Nov 2026 10:26:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AS8y0wXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A2E1F000C1;
-	Tue,  3 Nov 2026 10:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBI+l3qQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1A41F000C1;
+	Tue,  3 Nov 2026 10:26:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701595;
-	bh=hmBDURKZM2gT8yAhEobO4jEMpgXoE9EjguJBnydKsTg=;
+	s=k20260515; t=1793701592;
+	bh=KfnI8zt/AZ8WAgoOs9mBI1mCPV8VU01+baE2vWXucIE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AS8y0wXnWcBUBfhwFlyUm7+MNcSgfdkdGZy7w0+Yc7BXy59IV4eONnGcHohniBb9K
-	 OPLHbgXnHPR8Y0nQeB359c4s+kuhkKhWxl8RrImYfSd/HPChDd4+EKLOY0lybaZUyY
-	 n5NOCnXzTaLtqVvmnZ0oAyJXPRroHJs7qT/Ay3xMmJlDwFLrRSTbpO34VzC6cPOiWm
-	 2gcmG5X8T3c1rCCIuCORpvAmpVNsL68DUBlCkmajLZ0x7JJOUSc614o/zf9lIKRcj8
-	 SuckTqkzCm2xQO+Nn9Ru08zNPxqxhYjnmuCNK/4aYkjXmMaeUcUH0bma8Flc+Xd63N
-	 TdhtYHsJV+OAw==
-Date: Tue, 3 Nov 2026 11:26:32 +0100
+	b=bBI+l3qQAwA83v2g+i3NkocwEVgIFMlMM7m4mvG339fl5uhFrGYMAwhQfu0ZMUQz4
+	 xH0tp6IXNO9CCcCTc9X/Xcbq3OdUSauTMwPEXehnbrbgzbCWaZrc6scUOefxZL+rjd
+	 yxuPTPh4QfczMjAOn78b8LUuRS8R9k0UnsQfO7vBQVrIzM+FVw+nPwfk9g6rvOx018
+	 EbhC8uRNJshBgXXCWK78Su6uVOtBTh/OmloSaZAq77wf6yE7hZKiF3GdZCdEMs0ykX
+	 KqSM5WsmlY5Wdbv2Q1vTmR4JACURvuahkC0gQbibCM6v5dIbiOi2KEMjbI32C6V0sY
+	 mG2OSQdv/hvOg==
+Date: Tue, 3 Nov 2026 11:26:29 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>, 
-	linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND] bcache: Release the cache kobject when
- cache_alloc() fails
-Message-ID: <20261103-statuesque-lionfish-from-saturn-baae9d@quoll>
-References: <20261103094643.1289833-1-vulab@iscas.ac.cn>
+Cc: Thomas Richard <thomas.richard@bootlin.com>, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Lee Jones <lee@kernel.org>
+Subject: Re: [PATCH] mfd: cgbc: release the platform device if driver
+ registration fails
+Message-ID: <20261103-advanced-memorable-swift-865a45@quoll>
+References: <20261103094625.1289569-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,38 +59,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094643.1289833-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094625.1289569-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:43 +0000, Wentao Liang wrote:
-> cache_alloc() initializes ca->kobj with kobject_init(), which takes the
-> initial reference on the kobject, and takes a reference on the bcache
-> module.  The object is released later by bch_cache_release(), which also
-> drops the block device, puts the super block folio, frees ca and drops
-> the module reference.
+On Tue, 03 Nov 2026 09:46:25 +0000, Wentao Liang wrote:
+> cgbc_init() registers the "cgbc" platform device before registering
+> the platform driver.  If platform_driver_register() fails, module
+> initialisation fails and cgbc_exit() is never called, so the platform
+> device stays registered and its memory and resources are leaked.
 > 
-> When one of the allocations in cache_alloc() fails, the function frees
-> only the buffers it managed to allocate and returns an error.
-> register_cache() then only calls fput() on the block device and returns,
-> so the reference taken by kobject_init() is never dropped: ca is leaked
-> together with the super block folio and the module reference.  The
-> comment on that path still claims that ca->kobj is not initialized, but
-> kobject_init() is the first thing cache_alloc() does.
+> Unregister the platform device before returning the error.
 > 
-> Put ca->kobj on that path so that bch_cache_release() runs and releases
-> everything.  bch_cache_release() frees ca->buckets and ca->prio_buckets
-> as well, so clear those pointers in cache_alloc() after freeing them, and
-> drop the module_put() from the error path because the module reference is
-> now released by bch_cache_release().  Skip the bucket page free in
-> bch_cache_release() when cache_alloc() failed before allocating them.
-> 
-> Fixes: cafe56359144 ("bcache: A block layer cache")
+> Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/md/bcache/super.c | 22 ++++++++++++++--------
->  1 file changed, 14 insertions(+), 8 deletions(-)
+>  drivers/mfd/cgbc-core.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
 
 
