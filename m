@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706609;
-	b=pNo8syGZ1Og/rTn4DuppeQxUFCxS8NbYgXuBryJkjb4gCqUb0wLcqMF+RQH6fdZGN+az
-	 AMPhKPAKVvvsoSc0wUvf+4sMnZXk1rYfK9B/ZsojOZdw63uiYZJLmzWiKkKf/9amsiXqN
-	 uEROQEPUBomoX9AA3dN0LCOv/0VQ0+zU0/xG64wwpWvF3JkvBASf0ltbPzNuSIi5+MMWM
-	 0LOAJ8QKh2bLUtSS+DK9VR6Vh39ZQ14/3zP/8Xx8pf59nSVtLgj6AxKAcjZvLURfgSfd5
-	 LSrw3wN1maXQEtg8s4JxBZrloBupEI30RCad/rIVnML1wZtzliVCdDTNF/Wzb8ypG2w==
+	t=1793706638;
+	b=DBQfh4HPloqflUuXryXbSXLylE7uHB71Q4ypGOd1soB9E4In8Hb251xE16E1/Su64fmH
+	 OYMZ9J9BbbPLJn0Z1cCmfbmsPI0J/tlDgvX56c24P9nmlGt40bqeuNdZkcYgb48GLDsVJ
+	 aIHSVA/oM2KM+ZRsPQU/3rP9txK8jItmDFk0EP4P2xCzaDd1jPJRfp5gh6rgWz9qQL4fX
+	 EVTJqNBLVI/+/oIgyjLSTbNcbmMNta1E/o5VuDf8C2JDgzIaxxqPhO4vT8Eg3XZ7s+PIB
+	 Pzw8imV5NukH5av42CNh9HOAf2Hno4nC1cgHyCHhiZ8y/sA5zA/rXtEBzSBTXxlUy0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706609;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=21vYI0bQVUl3hCiSLmuD6Wo76ikPKRN+C6h2vCMSb/E=;
-	b=VRtUxdGx8WKgu1Dy4chhC3aOcfeXKrG8KxBJRNZGRuV3YCDG3K+XadMGIv/O56QfOWCh
-	 Xhsd9tdJw/Ix0N50l/p3oi+Il+fHWUzJMUJzpUcsMjWbSl6l2xqPxTf1Ew53kF2NdaRF8
-	 LfWhBq5/7LY3Mq8jFEIx8iyiM5hsIgneeYwtk4B42m2PqoM3K1yEI72rPotFUmHAXL9bN
-	 tqmemiZxauhG+7iam3nhhSc6TAFCJ6b7nr51JjNhh8/XONeG2Ie/bC8envpUb2LieHWji
-	 /fCBhPLPFaEjzZYH4ZI3/5BOX8LtoZ7iiKDMOHS7TxO65bdUn9DwGVbcOiB18Rf3SZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706638;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=K2XfEeUcN1jWTOzmdT3RYJ78fSiNTv4T5ATMrI0edQw=;
+	b=CyMtKBkiyzFnyFEktrkpH9FkWbN0odb6yieAfT6GGgr94zS0saNVl+yO8Ty79ovuwhlD
+	 CFgtGdeBn9xtVIr4BfDnhkfDjzkmwDScdkFg1gxRyuLS6TEAHzAwaf+yLDMG0nsi8EXlK
+	 +M7qkj7Ii2q3anGyQKpawwK5bMYkzIm/UZfHGQWW2CBuHVXvbG6hAIEi/3ZQ1//7For2H
+	 8nNfHWCwcFrxBruFfwsqvmirEC/mtW6cX7kGPMa1wyyz/ued03cS3LmGzud9eiyss1LvR
+	 s6++xocA3W+14aw3RkWoIv8psBm6rWFqtl4TZTeSWhVl1h0Veh5XVFfnBe9BwF+cv5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTzqHn6U;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=SM83Qf9N;
+	arc=none smtp.remote-ip=74.125.224.47
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20CB606A32F;
-	Tue,  3 Nov 2026 11:50:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD649606EEB0
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:50:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD649606EEB0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NTzqHn6U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF13B1F00A1E;
-	Tue,  3 Nov 2026 11:50:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793706608;
-	bh=21vYI0bQVUl3hCiSLmuD6Wo76ikPKRN+C6h2vCMSb/E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NTzqHn6UV0XlvZnKXNpull1pI9vC844ALQF1QB7ewEHwqFQiUxyCsX1vR+MKE0t3r
-	 y935niEs67SECOk8icBrppwNaHDapOCSo4lYsI9LV+Jh3Jjn1Fwlw5SFMDjEPHbzYp
-	 fallXfTmScstELEyPZU/q8ctAZXnUDFYs9sHj8qV+GqrKukjw+ot07vYiWCmgQ0bde
-	 /zKZbJeHE3MHwOiOqL7ug13nzBn6nMhZdERc3wzWDlDmpxqSjOakD4fg1zI7oqzmYQ
-	 1DNre6XTfOXizmQ9gtggy3llNS+vRrnNSB9eSeoUwNO/nU0cXwmqZ45F445dV1Ead6
-	 28Saxt+cZEROA==
-Date: Tue, 3 Nov 2026 11:50:03 +0000
-From: Will Deacon <will@kernel.org>
-To: Wei Wang <wvw@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	wei.vince.wang@gmail.com
-Subject: Re: [PATCH] arm64: suspend: Save and restore TPIDR2_EL0 across CPU
- suspend
-Message-ID: <aunKa8uBZJTCzVjd@willie-the-truck>
-References: <20261102234813.1069156-1-wvw@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=SM83Qf9N
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679965fb848so4170529d50.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 03:50:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1793706637; x=1794311437; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K2XfEeUcN1jWTOzmdT3RYJ78fSiNTv4T5ATMrI0edQw=;
+        b=SM83Qf9NT+SVsUiUy+tTcJBP+bhj27xdLr5TwKW9X3AhPEMUBFKimxyNr36cGB9ybP
+         PWWD7bW/bpvEE6UX2ABkt5nox7TMUIHabOtmOqNpki/3A231PcqnuD7DiSnq3wHohoiR
+         SnQ+C12ADuw0H7Vo/DhbHdpyPmlSW2yLlyiCE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793706637; x=1794311437;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=K2XfEeUcN1jWTOzmdT3RYJ78fSiNTv4T5ATMrI0edQw=;
+        b=fa1QKlikkB91afc4BnkZPNaM2CYLRFLG6IDokGf/GnDZ4L6zKrkL4h+EVRRbv1oQpC
+         wN0XCbfwUEuTUNdX8/dfPS+fpV/ibY8BhMXSMWBEVPpHiMD8OEFLMbrv8rjtxB2kgpi3
+         tsmdhGuuwrkv+HJeNOtbHinanDgpw/TbSY4XoGLVrCWai/JUft9gpZwH4QTeRRHqA2iB
+         T1WJ+70jyhPuMxXw4jjcOOXxp4KywKJR/AGSm30n3+4bp9bphwqfBAKk4KzzP0T+w9dc
+         BGBuspD2pqfYRBcAsfdT50lJHBQFuChyixHNGgBvnC6S9Uje5zu2T/xYyEONgKAXwTqt
+         0YPA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2j0/CBQphnOjKqyZGR15QoyGyLvc+lebjPvPwLiV92yVmyGv+2Ogx2SDWk3HHVmRNxx/yE5Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JIYyT4GynWeiLVM/MpCFoVPUe3PxuwPmwwofNGa67A/NIWDd+
+	rxl+bwPXkpjA2c0rk2h8BZfz32hjn/JhRuWprX3GRDFL52GSjFbph58YjAPX1Vm2bg==
+X-Gm-Gg: AYBFou3ExihcrtnQwTxeccKHhQD5qBWw0XI1zJRiscmAkeUFnS0csHakCT7VyKGgKM2
+	qGephBKhvREfFs4KpuhQVt9qMwahpG7bzW/aY6TR+2ETVUaDjiyV8VtcZ/7gbDwsFTPqmB0vFKa
+	mS6mgB0i3TKwryaYsAczinBFrV94K6UeABgn5IQU3FyS13VnuIzUNPRp4z5xtz+gmRJra2NYgxE
+	wBO8Nw7Au3TnV0JEB0QCOyl7amdsNUJFwVHwgzuDfjN7Hpt0yPz6RstQve4E3mywJp/OU5C/Oqp
+	+AtxlzKpopqWlLpHxCdIOlM6wT2SBrlO2blF1yW5Cm8Onn7sxippT85h5NA4IlVq6ALgFhr5JiW
+	oVhCNBAXLJA7PMYxNsx+fgFEh79odRjMobUQfNukGtxi0Nbh4yvmPSOIfLB05qectbQeDQRDA/c
+	uReBNzG7L0W3ZElFe55ul5r2F41lAcwkq5AcZPONah1qb/y5O/GHnIsXfkqonCaoBMA6GVmFtlp
+	lqywNlxYi2qgQ5nFRxjzZ2QzJgCVplJon3sKOLdAUEPtH68/JBkCUsAQE6UDjL94Ar7gggQxtx+
+	VNtpVJUa3SGiDvBiF/+twZDZYqojW4nD/h+I07qHguZFuVAuMADxk9Pd7zb65eJixbOwDAuM5h3
+	HWbl7Vv0PzHT+fh0=
+X-Received: by 2002:a05:690c:fce:b0:8b1:738a:b44c with SMTP id 00721157ae682-8b2b66c780bmr74176927b3.23.1793706636793;
+        Tue, 03 Nov 2026 03:50:36 -0800 (PST)
+Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b704d699sm70016857b3.5.2026.11.03.03.50.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 03:50:36 -0800 (PST)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	stable@vger.kernel.org,
+	shaos <shawnq1@163.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Tom Goff <thomas.goff@boeing.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Yotam Gigi <yotam.gi@gmail.com>,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH net v3 0/4] net/sched: fix short-skb metadata and namespace boundaries
+Date: Tue,  3 Nov 2026 06:50:28 -0500
+Message-Id: <SER-NSBD.v3.r0.20261103064310@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,106 +105,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102234813.1069156-1-wvw@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 11:48:13PM +0000, Wei Wang wrote:
-> On systems with FEAT_SME, TPIDR2_EL0 is part of userspace thread state:
-> the AAPCS64 SME ABI uses it as the ZA lazy-save pointer, and the kernel
-> context-switches it eagerly in tls_thread_switch(). While a task is
-> running, the live register is the only copy of its value.
-> 
-> The architecture defines TPIDR2_EL0 as UNKNOWN after a warm reset, so
-> a CPU power-down through PSCI CPU_SUSPEND or SYSTEM_SUSPEND can lose it.
-> cpu_do_suspend() and cpu_do_resume() already preserve TPIDR_EL0 and
-> TPIDRRO_EL0, but not TPIDR2_EL0.
-> 
-> For CPU idle this is harmless: current is the idle task, and the next
-> context switch reloads TPIDR2_EL0 from next->thread.tpidr2_el0. For
-> suspend-to-RAM and hibernation, however, cpu_suspend() runs in the
-> context of the userspace task that wrote /sys/power/state, and that
-> task returns to EL0 with an UNKNOWN TPIDR2_EL0. On hardware where the
-> reset value is non-zero, the next SME ABI lazy-save check in that
-> thread faults. For example, bionic's fork() -> clone() ->
-> __arm_za_disable() -> __arm_tpidr2_save() loads from the garbage
-> pointer:
-> 
->   # echo mem > /sys/power/state; true
->   signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0xa3bad11bcaf72e93
->       x16 a3bad11bcaf72e89
->   #00 pc ... libc.so (__arm_tpidr2_save+24)
->   #01 pc ... libc.so (__arm_za_disable+32)
->   #02 pc ... libc.so (clone+480)
->   #03 pc ... libc.so (fork+60)
-> 
-> Having firmware zero TPIDR2_EL0 on warm reset avoids the crash. It is
-> not enough on its own, though: a thread that enters the kernel with a
-> lazy save pending (TPIDR2_EL0 pointing at a valid TPIDR2 block) would
-> see TPIDR2_EL0 == 0 on return. It would then wrongly conclude that ZA
-> had been committed and restore stale data from its save buffer. The
-> kernel owns this state and must preserve it.
+This series fixes three independent boundary problems in net/sched, and
+covers the third one with tc-testing cases.
 
-There's a lot of unnecessary (AI-generated?) detail in here. Please can
-you trim this down a bit? I don't think we care about the firmware part,
-the stuff about idle or the bionic crash. The bottom line is that we're
-not saving/restoring a live EL0 register across suspend/resume.
+1/4 act_ife: encode a configured zero metadata value.  The u32 and u16
+presence callbacks reserve an 8-byte TLV for a configured zero value, but
+the encoders returned without writing it, leaking stale skb headroom bytes.
 
-> Save TPIDR2_EL0 in cpu_do_suspend() and restore it in cpu_do_resume()
-> when SME is present. Placing this in proc.S covers both cpu_suspend()
-> and hibernation. The new slot uses ctx_regs[14]; sp moves into what was
-> previously tail padding, so sizeof(struct cpu_suspend_ctx) stays 128
-> bytes. sp is only accessed through the CPU_CTX_SP asm-offset.
-> 
-> Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
-> Signed-off-by: Wei Wang <wvw@google.com>
-> ---
->  arch/arm64/include/asm/suspend.h | 2 +-
->  arch/arm64/mm/proc.S             | 8 ++++++++
->  2 files changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
-> index eb60c9735553..2cc5fb405769 100644
-> --- a/arch/arm64/include/asm/suspend.h
-> +++ b/arch/arm64/include/asm/suspend.h
-> @@ -2,7 +2,7 @@
->  #ifndef __ASM_SUSPEND_H
->  #define __ASM_SUSPEND_H
->  
-> -#define NR_CTX_REGS 14
-> +#define NR_CTX_REGS 15
->  #define NR_CALLEE_SAVED_REGS 12
->  
->  /*
-> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-> index 7afbece885a3..c7b7fa6491c3 100644
-> --- a/arch/arm64/mm/proc.S
-> +++ b/arch/arm64/mm/proc.S
-> @@ -103,6 +103,10 @@ SYM_FUNC_START(cpu_do_suspend)
->  alternative_if ARM64_HAS_TCR2
->  	mrs	x2, REG_TCR2_EL1
->  	str	x2, [x0, #104]
-> +alternative_else_nop_endif
-> +alternative_if ARM64_SME
-> +	mrs_s	x2, SYS_TPIDR2_EL0
-> +	str	x2, [x0, #112]
->  alternative_else_nop_endif
->  	ret
->  SYM_FUNC_END(cpu_do_suspend)
-> @@ -142,6 +146,10 @@ alternative_if ARM64_HAS_TCR2
->  	ldr	x2, [x0, #104]
->  	msr	REG_TCR2_EL1, x2
->  alternative_else_nop_endif
-> +alternative_if ARM64_SME
-> +	ldr	x2, [x0, #112]
-> +	msr_s	SYS_TPIDR2_EL0, x2
-> +alternative_else_nop_endif
+2/4 act_ife: require a full Ethernet header on egress.  An undersized
+linear head can make the encoder read past the end of the skb data.
 
-nit: We use msr and REG_* for TCR2, so it would be more consistent to do
-the same for TPIDR2_EL0 if the assembler is happy with it.
+3/4 sch_teql: reject qdiscs from another network namespace.  The global
+TEQL master lives in the initial netns; a qdisc created in another netns
+could still mutate the master's MTU and flags.
 
-Otherwise, looks ok to me:
+4/4 selftests: tc-testing: cover each of the two teql attach rejections on
+its own.  Case 124e moves to the initial namespace, where it creates its
+own device, so only the root-only check can refuse it; a root attach from
+the test namespace is refused only by the namespace check.
 
-Acked-by: Will Deacon <will@kernel.org>
+Origins:
 
-Will
+1/4: reported by shaos <shawnq1@163.com> with a reproducer, which was
+reproduced and verified in our test environment.
+2/4: found by Sashiko (nipa and gemini) while reviewing Victor Nogueira's
+parent act_ife patchset; independently reported by shaos
+<shawnq1@163.com> with a reproducer, which was verified in our test
+environment.
+3/4: reported by shaos <shawnq1@163.com> with a reproducer, which was
+reproduced and verified in our test environment.
+4/4: follows Sashiko (nipa) reviews of the v2 posting, which pointed out
+that a single case cannot witness both teql attach rejections.
+
+The four patches are independent.  They target net and the three fixes
+carry a stable nomination; the test cases do not.  They are sent together
+because they share the short-skb and namespace-boundary review context.
+
+Jamal Hadi Salim (4):
+  net/sched: act_ife: encode configured zero metadata values
+  net/sched: act_ife: require a full Ethernet header on egress
+  net/sched: sch_teql: reject qdiscs from another network namespace
+  selftests: tc-testing: teql: cover each attach rejection on its own
+
+ net/sched/act_ife.c                                | 13 ++++----
+ net/sched/sch_teql.c                               |  9 ++++--
+ .../selftests/tc-testing/tc-tests/qdiscs/teql.json | 36 ++++++++++++++++++----
+ 3 files changed, 44 insertions(+), 14 deletions(-)
+
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+---
+
+v2 -> v3: considers comments from Sashiko (nipa) on the v2 posting.  Case 124e
+ran under nsPlugin, in a namespace where the teql0 master is not present,
+so the namespace check answered it and the case no longer proved that a
+child attach is refused as such; the case added in v2 covered only the
+namespace check.  124e now runs in the initial namespace and creates its
+own device, and the namespace rejection keeps its own case.  Both cases
+were verified to fail when the check they exercise is removed.
+
+1/4's and 3/4's diffs are unchanged from the v2 posting, so neither carries
+a changelog; 2/4's Fixes: tag now names the commit that introduced the
+unguarded copy.
+
+v1 -> v2: considers comments from Sashiko (nipa) on the repost2 posting.  The
+cross-netns check in 3/4 ran before the "teql can only be used as root"
+check, so every case it did not catch was answered by that check, masking
+the assertion that tc-testing case 124e makes.  The root-parent validation
+now runs first and the namespace check second, and 4/4 covers the namespace
+rejection on its own as suggested by sashiko-nipa.
+
+1/4 and 2/4 are unchanged from the repost2 posting.
