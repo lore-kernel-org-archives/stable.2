@@ -1,49 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793718949;
-	b=Bd0pTxJ+SyitDYnyRsv14irxfjYSluXSOBUuV9FmSdUOsO2y1oVPnX295+hrR6pLqa6M
-	 VIJb+M3wcS3khJYQiA8Psurb+lSoyojO/yNc2P84Xbz31GQY5efLtrfOQEpH1T8NvlNhW
-	 qHammzg9XQv5eTRP0WWN27F1qbP9tJ15NlXqXXHD5LpbJQDxvlvB3A35gzSJI1CsXyhEX
-	 ZgvTPLjWAdAzjHonTLJ9ZcgE2G8MbbO0W3PCRXTrRrhmj2tKon0IHsNB+ke/JVWzYvTQf
-	 W27xTdWKE2GG9h/ODMQx8J0NOw0Wt0D3L+iMPh8fcBj1F1EmKzNOqMVbm65rufJJgng==
+	t=1793719002;
+	b=LtrugYMrIPRN2VKZspavsgFvaFSKU0PmA38fxRNfSc5eDnhiF/8jxuxQScmVd3ARb6vd
+	 vruS9pNBE1/92FmHjmkuPtvn62SvFhJEmoGu6Iq/A52BcJEQaOV8OV8QoP4lEQT+U/T69
+	 UZ9SIxLWfqLDFR/Da6p9O4POUGRnTTIfqWR5+Y5uZCm++2BZ1/P69ENU8VMNHLwjaLS5j
+	 D48RA++DyghlAb0Po9J9Hc4QZH/c0xRoNx8IqbbRJCF4c4ltmzuAzehWl37/gD1PIstGW
+	 qa6iXXowWaFkis6Ub1czz7x6NxS7B6G1BAos3jrRQMLBeDHwUTtP8rM1rojj9bhzoug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718949;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=W0s7ZEWF8co8VYOGI85E38Dt868T5tqn4KMr7YPDLx4=;
-	b=rfty5BZ36Y3jHjquGTMO1ZoFx3wEFGCs3qBaW3WV9EEK5vqMMdQIKsGOgrMdUQGBcRsl
-	 xxuKdtdkkKGcnhASaftQoHsR46FIym/jFH5+e6LtsE613lpzdWTswpQM5D5G0bChPQpIy
-	 Iroj/BrWl135rwm6fUlqRZH9e39WhpyVe48yTKn7d714qilP9edRFSkp4XgCZ1u7MbThy
-	 96M6Yj2JNXxPzXo0NYJCpY+sMp+8UOX941eLdzMJlUnw4wByBdTy54QfzMRXbuDJczKS0
-	 O3yA18XbL1kQeICSQnECaWoo8YS4ig0wwjVrjUehRYjFyRDgvILNH7S9PuSeLyszTmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719002;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=au4AmZUdRYKTQ4LOi/XLGJLc3knMwhjDuZWYgFZcylg=;
+	b=qVKLrFlL8cHm8mNl2906YmSSIANc9qkBTx0MPwO5BPo3viMnTqmuj/95J9pT6xHpRILb
+	 g6naAgxcTdV4bdeGzJCZ2b/k/WXcUlSMm05jIP+v/9XQi7Krdlg4FwpwnMeZFG92Ods3Q
+	 SCekNkFbEy4zpQgSE3FjikI73Ur887TlZBi+/4RF3T0RcvE5JVeYpcYoZlai1D4AwTCcz
+	 xak8ALqoT8DT1shlVgXWVuOnXEyufCcKJ79xXqTLE8QteCp9hZv9FW0hsL2c0vVnSf2yT
+	 kTLebhzSX0mGyz8gbkrtTM97rYMEs6znuZrDprbi5CNyEpKuCfA7/WUPPISrGzxiFDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=fb2BBPzZ;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98CAE6071A06;
-	Tue,  3 Nov 2026 15:15:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98CAE6071A06
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kl8sXmOD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E51606A78E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:16:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=fb2BBPzZ
-Received: from [10.26.7.43] (unknown [4.213.232.16])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 8D0D620B7166;
-	Tue,  3 Nov 2026 07:15:28 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8D0D620B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793718933;
-	bh=W0s7ZEWF8co8VYOGI85E38Dt868T5tqn4KMr7YPDLx4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fb2BBPzZx0r364zjrBTyixV4UjCX9yqZab3TgOEp+I7KXTPdkLhH/d1Xh0WkpXyZj
-	 2MOn5TigDJl4bxbuLWsQAALsgAva5eG1udYtFVcfDv+qYm+h57iZ/OUiOyNiDase4x
-	 ZhqpG/21G6UdYzqMpkZ77Y8Q2m++FpWpsoQJYQeg=
-Message-ID: <d8a49b6a-36b9-4ebb-9d26-b6ce58248ed7@linux.microsoft.com>
-Date: Tue, 3 Nov 2026 20:45:40 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kl8sXmOD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E564A1F000C1;
+	Tue,  3 Nov 2026 15:16:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793719002;
+	bh=au4AmZUdRYKTQ4LOi/XLGJLc3knMwhjDuZWYgFZcylg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Kl8sXmODK6cNwDytNTf+SJXBATcjjqxDQN839WF0T/MiirYSNyd5fs69PEq+lE7Pb
+	 UXL+KFg2agfF1rTkfOjwF+2oz4U8hmK3HkJuWxkArGELqW1av+LRbFyUHSQTiWXWk0
+	 2vSMdHkBlPIfPRTFU2dLjVmGqX4dUVVuQ18V+uaGoHfhpUcoPPvalU/pmOS6CSa2ww
+	 WofLp5w/sJiQdPkbpgs8L3xmKXF8S7Ac9deKz77H+BsmDeoXHGbsG0zzyhDwEZaINQ
+	 UDu5zrPUQsUsBv+n+chDXYkcdTtSWYko33ZD5nmuYcQMSPrUPSwfOv/AyU8dqF8pdr
+	 k3smioYPvI+BA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vincent Liu <vincent.liu@nutanix.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] driver core: Check drivers_autoprobe for all added devices
+Date: Tue,  3 Nov 2026 10:16:39 -0500
+Message-ID: <20261103151630.247511-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110314-chloride-agony-d0f9@gregkh>
+References: <2026110314-chloride-agony-d0f9@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,199 +59,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4] net: mana: Add support to process throttled EQEs
-To: Paolo Abeni <pabeni@redhat.com>, netdev-bot+sashiko@kernel.org
-Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, kotaranov@microsoft.com, horms@kernel.org,
- ernis@linux.microsoft.com, gargaditya@linux.microsoft.com,
- mawasthi@linux.microsoft.com, leitao@debian.org,
- linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- stable@vger.kernel.org, weh@linux.microsoft.com
-References: <20261028084020.2051254-1-sahilchandna@linux.microsoft.com>
- <179352349805.3131.9139142774275348324@kernel.org>
- <07a21553-8ab1-4478-8a22-b1a13e70faba@redhat.com>
-Content-Language: en-US
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-In-Reply-To: <07a21553-8ab1-4478-8a22-b1a13e70faba@redhat.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03-11-2026 03:16, Paolo Abeni wrote:
-> On 11/1/26 09:58, netdev-bot+sashiko@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 2 potential
->> issue(s) to consider.
->>
->> Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
->>
->> If you believe none of the issues are legitimate, please reply to each
->> issue of Medium severity or higher and explain why the AI is wrong.
->> If any of them are legitimate and you plan to respin, please let patchwork
->> know by including "pw-bot: cr" as a separate line at the end of your reply
->> (one such reply per series is enough).
->>
->> - [High] The patch tells firmware that every EQ on the function handles
->>    throttled EQEs.
->> - [Low] The patch marks only one side of the concurrent accesses.
->>
->> Pre-existing issues:
->> - [High] mana_gd_destroy_cq() waits for a grace period
->>    (synchronize_net()) only when mana_gd_detach_cq() returns true,…
->>
->> --
->>
->> net: mana: Add support to process throttled EQEs
->>
->> This commit handles GDMA_EQE_THROTTLE events. It records up to two child
->> CQs per EQ and calls their callbacks when a throttle EQE arrives. CQ
->> teardown now detaches the CQ from its parent EQ and from cq_table[]
->> before a grace period. The patch also advertises a new capability bit and
->> adds a per-EQ throttle counter to ethtool stats.
->>
->>> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
->>> index 8c915e0087846..ab942d5bfe058 100644
->>> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
->>> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
->>> @@ -757,6 +757,27 @@ void mana_gd_free_service_wq(struct gdma_context *gc)
->>>   	gc->service_wq = NULL;
->>>   }
->>>   
->>> +static void mana_gd_schedule_eq_cqs(struct gdma_queue *eq)
->>> +{
->>> +	struct gdma_context *gc = eq->gdma_dev->gdma_context;
->>> +	struct gdma_queue *cq;
->>> +	u8 i;
->>> +
->>> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
->>> +		cq = rcu_dereference(eq->eq.child_cq[i]);
->>> +
->>> +		if (!cq)
->>> +			continue;
->>> +
->>> +		if (cq->id >= READ_ONCE(gc->max_num_cqs) ||
->>> +		    !gc->cq_table || gc->cq_table[cq->id] != cq)
->>> +			continue;
->>
->> [Severity: Low]
->> This patch marks only the write side. mana_gd_detach_cq() clears
->> gc->cq_table[id] with WRITE_ONCE(), and mana_hwc_destroy_channel() now
->> sets gc->max_num_cqs with WRITE_ONCE().
->>
->> The readers still use plain loads. Here that means gc->cq_table and
->> gc->cq_table[cq->id]. The GDMA_EQE_COMPLETION branch of
->> mana_gd_process_eqe() also reads both fields without READ_ONCE():
->>
->> 	if (WARN_ON_ONCE(cq_id >= gc->max_num_cqs))
->> 		break;
->>
->> 	cq = gc->cq_table[cq_id];
->>
->> Could KCSAN report these as data races? Should the readers use
->> READ_ONCE() to pair with the marked writers?
->>
->> This is mostly an annotation issue. The completion-path race was already
->> there before this patch, and the loads in mana_gd_schedule_eq_cqs() only
->> compare the pointer value.
->>
->>> +
->>> +		if (cq->cq.callback)
->>> +			cq->cq.callback(cq->cq.context, cq);
->>> +	}
->>> +}
->>
->> [ ... ]
->>
->>> @@ -1073,25 +1104,66 @@ static void mana_gd_create_cq(const struct gdma_queue_spec *spec,
->>>   			      struct gdma_queue *queue)
->>>   {
->>>   	u32 log2_num_entries = ilog2(spec->queue_size / GDMA_CQE_SIZE);
->>> +	struct gdma_queue *parent;
->>> +	u8 i;
->>>   
->>>   	queue->head |= INITIALIZED_OWNER_BIT(log2_num_entries);
->>> -	queue->cq.parent = spec->cq.parent_eq;
->>> +	parent = spec->cq.parent_eq;
->>> +	queue->cq.parent = parent;
->>>   	queue->cq.context = spec->cq.context;
->>>   	queue->cq.callback = spec->cq.callback;
->>> +
->>> +	if (!parent)
->>> +		return;
->>> +
->>> +	/* For throttled EQE store the child CQ */
->>> +	for (i = 0; i < GDMA_EQ_MAX_CHILD_CQ; i++) {
->>> +		if (!rcu_access_pointer(parent->eq.child_cq[i])) {
->>> +			rcu_assign_pointer(parent->eq.child_cq[i], queue);
->>> +			return;
->>> +		}
->>> +	}
->>> +
->>> +	WARN_ONCE(1, "mana: EQ %u has no free child CQ slot\n", parent->id);
->>>   }
->>
->> [Severity: High]
->> Do mana_ib CQs ever end up in child_cq[]?
->>
->> This is the only place that writes child_cq[], and it returns early when
->> spec->cq.parent_eq is NULL. mana_ib_create_kernel_queue() uses a zeroed
->> spec:
->>
->> drivers/infiniband/hw/mana/main.c:mana_ib_create_kernel_queue() {
->> 	struct gdma_queue_spec spec = {};
->> 	...
->> 	err = mana_gd_create_mana_wq_cq(mdev->gdma_dev, &spec, &queue->kmem);
->> 	...
->> }
->>
->> mana_ib_gd_create_cq() then binds the RNIC CQ in hardware to an mana_ib
->> EQ:
->>
->> 	req.eq_id = mdev->eqs[cq->comp_vector]->id;
->>
->> mana_ib_install_cq_cb() adds it only to gc->cq_table[].
->>
->> mana_ib_create_qp_rss() and mana_ib_create_qp_raw() attach raw and RSS
->> QP CQs to the per-vPort mana_en EQs:
->>
->> 	eq = &mpc->eqs[cq->comp_vector % mpc->num_queues];
->> 	cq_spec.attached_eq = eq->eq->id;
->>
->> These CQs are also registered only through mana_ib_install_cq_cb().
->>
->> The patch also adds GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE to
->> GDMA_DRV_CAP_FLAGS1, which mana_gd_verify_vf_version() sends for the
->> whole function.
->>
->> Suppose hardware folds one of these CQs' completions into a
->> GDMA_EQE_THROTTLE. mana_gd_schedule_eq_cqs() walks child_cq[], which is
->> empty on mdev->eqs and holds only the mana_en TX and RX CQs on mpc->eqs.
->> mana_ib_cq_handler() never runs, and nothing polls or re-arms the CQ.
->>
->> Wouldn't that stall the RDMA CQ the same way the commit message
->> describes for TX?
->>
->> A fixed two-entry child_cq[] also cannot represent an EQ shared by many
->> RDMA CQs on the same comp_vector.
->>
->> The commit message says:
->>
->>    "A mana_en EQ serves one TX CQ and one RX CQ, and the HWC EQ serves
->>    the HWC CQ."
->>
->> Is that still true once raw QPs attach CQs to mpc->eqs?
->>
->> If advertising the bit is what turns on throttle EQEs, this patch adds a
->> new RDMA stall. If it is not, the RDMA case stays unfixed. Could the
->> commit message cover mana_ib in either case?
-> I understand from discussion on v3 that this will be handled separately,
-> am I correct?
-> 
-Yes, that is correct. I have discussed this already with Wei Hu for RDMA
-CQ handling.
+From: Vincent Liu <vincent.liu@nutanix.com>
 
-Regards,
-Sahil
-> /P
+[ Upstream commit ea34511aaf755349999a1067b2984a541bee1492 ]
+
+When a device is hot-plugged, the drivers_autoprobe sysfs attribute is
+not checked (at least for PCI devices). This means that
+drivers_autoprobe is not working as intended, e.g. hot-plugged PCI
+devices will still be autoprobed and bound to drivers even with
+drivers_autoprobe disabled.
+
+The problem likely started when device_add() was removed from
+pci_bus_add_device() in commit 4f535093cf8f ("PCI: Put pci_dev in device
+tree as early as possible") which means that the check for
+drivers_autoprobe which used to happen in bus_probe_device() is no
+longer present (previously bus_add_device() calls bus_probe_device()).
+Conveniently, in commit 91703041697c ("PCI: Allow built-in drivers to
+use async initial probing") device_attach() was replaced with
+device_initial_probe() which faciliates this change to push the check
+for drivers_autoprobe into device_initial_probe().
+
+Make sure all devices check drivers_autoprobe by pushing the
+drivers_autoprobe check into device_initial_probe(). This will only
+affect devices on the PCI bus for now as device_initial_probe() is only
+called by pci_bus_add_device() and bus_probe_device(), but
+bus_probe_device() already checks for autoprobe, so callers of
+bus_probe_device() should not observe changes on autoprobing.
+Note also that pushing this check into device_initial_probe() rather
+than device_attach() makes it only affect automatic probing of
+drivers (e.g. when a device is hot-plugged), userspace can still choose
+to manually bind a driver by writing to drivers_probe sysfs attribute,
+even with autoprobe disabled.
+
+Any future callers of device_initial_probe() will respect the
+drivers_autoprobe sysfs attribute, which is the intended purpose of
+drivers_autoprobe.
+
+Signed-off-by: Vincent Liu <vincent.liu@nutanix.com>
+Link: https://patch.msgid.link/20251022120740.2476482-1-vincent.liu@nutanix.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+Apply the bus-side change to the existing shared probe helper, preserving
+the deferred-probe parent locking. PCI still calls device_attach(), so
+its probe behaviour is unchanged. Retain this change to prepare
+device_initial_probe() for the async-attach retry handling.
+
+Stable-dep-of: 187a62f99da2 ("driver core: take parent lock in async device attach")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/base/bus.c |  3 +--
+ drivers/base/dd.c  | 10 +++++++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index 65c138dc9b3fb..dccfbc5f389bb 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -570,8 +570,7 @@ static void __bus_probe_device(struct device *dev)
+ 	if (!sp)
+ 		return;
+ 
+-	if (sp->drivers_autoprobe)
+-		device_initial_probe(dev);
++	device_initial_probe(dev);
+ 
+ 	mutex_lock(&sp->mutex);
+ 	list_for_each_entry(sif, &sp->interfaces, node)
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index c6ba7402bd514..4accc885a9d44 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -1156,7 +1156,15 @@ EXPORT_SYMBOL_GPL(device_attach);
+ 
+ void device_initial_probe(struct device *dev)
+ {
+-	__device_attach(dev, true);
++	struct subsys_private *sp = bus_to_subsys(dev->bus);
++
++	if (!sp)
++		return;
++
++	if (sp->drivers_autoprobe)
++		__device_attach(dev, true);
++
++	subsys_put(sp);
+ }
+ 
+ /*
+-- 
+2.53.0
 
