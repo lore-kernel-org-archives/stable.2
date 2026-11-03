@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698097;
-	b=JzR/sse/Fj3ltQ0OJEEKtScV0vVsmAZKiB4T4BI8R8wmRAD+gmCsEBp9ZMWhZyWtuQRz
-	 NB/MkeVyYGZP1mtOcnJicgXRq5eDEC8NIFXkukDSl6X6Ft3E0eIFitNNR2bWCmpK/gC9N
-	 xr4ZFnz2HOWZUzYjHqkU8/TkaRl56BBLtsRH/pPNpYv/yK03YsAAUMwkxDrPuwk+J31n8
-	 sLZMdnWlrkNgUskiummbsxO8s556qR/LtMcfuFofvcca0+IXUfRr2gW43DrWcJk5lBmud
-	 toAYLFICjDERXQTf9x63LO+foBQs31N6FIARVrfvnYkmF2+e8/sh92RLpAT2Loow++w==
+	t=1793698102;
+	b=sEPouEbJZLYfUHInb22UmgNIlXF3P2RG/gb1IWG5PYQAkQhSRyy4S4BX4Li8D2LikKqS
+	 U7S/f+JOE2KsVon2eV/JRvKyHhg7QgRJdXaAqTvvJBiKbJ86AlullAkpB68c0ER3puBvn
+	 TYEDFh6MDao1aClS1oGmZ/tg/jWXKHnSuAVvl4zk2PhYQ/wys9sG8rkWWAFpNDo/F+V+r
+	 2JgPjpyTlKwVgHDy8Ge2DNvx3SUSVgux5NPhhTNd0bYe9zQraLHAT6XUqFJm/w6XEbpoZ
+	 M08V+j068WkU5L/XLVVDj8BNL75uePUkcMozoQj1q1PoD+oY9lNQJtGFQjvsP7mgtuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698097;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698102;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kHLZywTsZAKLRgvfxdfCZJOqF7Eh2MWorebcjzuhWEU=;
-	b=1ed8CH7+52pQXtFnMCCNQTLIVrnTyXTqq9UkEAMSb5VzcCi8/mmX8NYkaxnMxZbhJTye
-	 ljaWOJjdxvtVp6vPpHgfCcrhKiVkVajcQ8+YdrzST/KRmw4n1J8dDeV+yjzcjIn9SkBxU
-	 vNzUzCEAsCLnayNmWKDE3WaIZhaoEw59W4CM4RduyzIcHl6+n5TFx9LF9CGYhtO34H+aI
-	 8AHiykShZ6vLba+UrPnZ/7Jx6Ard2NrLm05mw36iA61KmHLbV+nTGv+nOIs8YCKBxritZ
-	 B1D5m1RROrD/RdwDxjKPPQma8Jr32OgKWTEXmYFyAq/vOOGpXq7L/1HV3wX4PCBFR7Q==
+	bh=hH9PlPzoP3U94hf+L9Pm/adhsp5Uc+pQd7zlXDgtirc=;
+	b=2NSaBsc54XQMF1bWQkNAjRdG+5uPcQRWz/Kf2PAIkd+BuwiDEccmLDCkkSBQGunkuglq
+	 fiMyeYIoV3RoNureEZSeU8TjlMpVpcj0g7MMQQycgYiVo33UWATgwS562tJS0gp8f7S5/
+	 2/mlCIFlNDHXCESXkt76rMGGbU9GylpP9a+eN38dh4QkRMfUrzMKJFhg/MH6ZiYx6c4Hr
+	 XqWOFFIXeuVD/KBQ8JJ0rkvV/vg3iZ4s5UMMyxhEF+Mu3lQK4Ch5OQmr/xZcytpBU/i2M
+	 EFNjKFwvTYu8CUXrHOCqVLmf6UK7yMjfPAaFjIv7w4uPM/c4V+P5H8l6QyOPAtgMmuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT2qId1Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqV2AiVf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC27606A332;
-	Tue,  3 Nov 2026 09:28:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9793D606A324;
+	Tue,  3 Nov 2026 09:28:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kT2qId1Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E4D1F00919;
-	Tue,  3 Nov 2026 09:28:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FqV2AiVf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B350B1F00A16;
+	Tue,  3 Nov 2026 09:28:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698096;
-	bh=kHLZywTsZAKLRgvfxdfCZJOqF7Eh2MWorebcjzuhWEU=;
+	s=k20260515; t=1793698102;
+	bh=hH9PlPzoP3U94hf+L9Pm/adhsp5Uc+pQd7zlXDgtirc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kT2qId1Zp9eYvDrck79F70FvBP101HDFX//4Pvj9xn3JTEnrEDayWXWHeI1D+Gdhp
-	 Bp+b9GeK0b5cB4MoKfoSHG+0DYvcfXO8+B2dwfwFjRV953OF6TYp4VlxNDjQOYreUW
-	 ufrDUKu0UxNYQm/29EmCnAgo/XBbtGA0NXz+FYICiQDftRU8RxNQU+7YXKMvcZ0A8a
-	 reAxiFNwgjsjjUV2ivevXRhIqLxxTB8e1NsjrV0wyeSOZTgrTIqYWrLVu2q90+D4Jm
-	 Tc81C9K7HqCCMb6nyk6RYK6J1ks3LuY1pfahYUNgWYZP/CqyzzZbvxDYfSxAesJr/Z
-	 ispKMN6o3Xn1A==
-Date: Tue, 3 Nov 2026 10:28:13 +0100
+	b=FqV2AiVfZgk8d3wFCCs2c1ayH3IZli6QMy4WSWgnRLuQu+g2IGS5Ij/gQg5c12CS4
+	 +P3x/SpT+HIC1yabLkjolRfIDROPYOtebAIAmZLs6UJoP07bIPR8hxif1uiWXMBh2E
+	 wgjJ4qsuh1Z8fz8ZPdD6HJVJ2NKHpx0P3ppkcp42+8j/pt3aQiAxYyE6GgzEp02koL
+	 QAYdH1I4UUFP7rnwMK0mLZ7LJpnvgdaGqbzwMJS0fC5kNqHCNQXtcn3w+QZeTd0KXL
+	 MN+npvwCZ1L+vGf3A2l4lfA8UHhMUrdkObnwf8wJYgjemrzdo6Pu1j1q3cMmia2q0w
+	 B1DtWZ4CWlMrA==
+Date: Tue, 3 Nov 2026 10:28:20 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, umesh.nerlige.ramappa@intel.com, 
-	intel-gfx@lists.freedesktop.org, tursulin@ursulin.net, jani.nikula@linux.intel.com, 
-	joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/perf: Unpin the context if reading its GuC ID
+Cc: jani.nikula@linux.intel.com, tursulin@ursulin.net, 
+	joonas.lahtinen@linux.intel.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	daniele.ceraolospurio@intel.com, rodrigo.vivi@intel.com, dri-devel@lists.freedesktop.org, 
+	intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/pxp: Unwind component binding if HuC loading
  fails
-Message-ID: <20261103-charming-pygmy-elk-eded62@quoll>
-References: <20261103080237.1126027-1-vulab@iscas.ac.cn>
+Message-ID: <20261103-silent-strong-wren-74d8cd@quoll>
+References: <20261103075914.1122975-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,30 +61,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103080237.1126027-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103075914.1122975-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:02:37 +0000, Wentao Liang wrote:
-> oa_get_render_ctx_id() pins the context before obtaining its hardware ID.
-> With GuC submission, gen12_get_render_context_id() can fail while
-> allocating or accessing the scratch buffer used to read that ID. The
-> error is returned without releasing the context pin.
+On Tue, 03 Nov 2026 07:59:14 +0000, Wentao Liang wrote:
+> The PXP component bind callback publishes the component pointer and may
+> create a stateless device link before loading HuC firmware. If HuC
+> loading fails and the device is active, the callback returns that error
+> without clearing either resource. The component framework does not call
+> unbind for a component whose bind callback failed, leaving a stale
+> component pointer and an unreleased device link.
 > 
-> i915_oa_stream_init() immediately returns this error, and its caller
-> frees the stream without invoking the stream destroy callback. There is
-> therefore no later opportunity to release the pin.
+> Clear the published pointer under tee_mutex and delete the link before
+> returning the firmware error. Check the error before the suspended-device
+> shortcut too, so binding failure does not depend on runtime PM state and
+> PXP hardware initialization is skipped on failure.
 > 
-> Unpin and clear pinned_ctx before returning this error. Also clear the
-> pointer on the existing context-control-offset error path, so failed
-> initialization consistently leaves no pinned context in the stream.
-> 
-> Fixes: 682aa4373f15 ("drm/i915/perf: Fix OA filtering logic for GuC mode")
+> Fixes: 087b681805f1 ("drm/i915/dg2: setup HuC loading via GSC")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/i915_perf.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+>  drivers/gpu/drm/i915/pxp/intel_pxp_tee.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
 
 
