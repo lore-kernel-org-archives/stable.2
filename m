@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698165;
-	b=SBs77o/PdsbibZ7H/UkioX4Dn9MlLDGHB9FBB7VMSxwUsOB3Wdr0d07gr4ZfLplwEpG/
-	 brsRPi3GK/gNuGuBzXhrT5yC0aCeRDCEB7wSNiw1jljCeF5A7ybzrsp44AeEb/+r5GaIz
-	 b2xQ6GxWJBHb4qnqyEscHXjqCBgjBmZeuuIbLTWBAKHpIxLhg9IF2dUmZfrkXiJevIlTB
-	 wmPSqDgwCCJXRfdfdOgkFQnLv5/o7Hy+4LFIFUFbyHD/tk7GcIhdAatI6fcBB4NbiiokA
-	 ezjc9f2N+F7nv8hKvq8Ld8vZXZc1ZH4CrCyYgO5lhCHNgTV/8yVG+CQrns+7vMbXfrA==
+	t=1793698327;
+	b=efdp2zZNb4D1atoR/tK7DSrQbc5fMJU3ehW3sSEjI77DYLcxcRhQPLzeZsMpW+sdokiW
+	 xa28FAZI0sZiBLTd1UeYmraCZyw9MSVsssQQYdt75ZEM853KgHhSbyk1wRy47+ICl4kHS
+	 DjPkvuKOKnqKjqBOrZFSXTh5MDk/6jA4WONIK+nRp/X8oHSCFglZH8n05F048PadPIfVz
+	 QvOkWuGAK/32m0gVX6mFs6iDYnSnM8D2LRdOZ4pjpsRJdhrAgKyj8XHdwCWM1JK9Y1+J9
+	 epZVY1/xGBvI9VsdB2Qdn1BaPHXzGwO5gE3ktluynuBnGxz7B+DD5JE8uRdHLoKwgbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698165;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698327;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F2+4Yzh+dcpVAnl+hKWRshMrg70cWm8d6zxfSczxXVA=;
-	b=FrE5XFFv6XahdksMhuFSLvv9PZXG6QRD6ez06MU+Z3B0S/Jmmxifbduo9cIUhgeiyrAx
-	 pQtsj7NivlcMeOd1KYM+XKZmoOBIKNuL9KD5Fd+iB6z3wZLPbaVe5JfrMlw1XMQXZ/wGC
-	 u0PjEIXIzJ3nBzk02k7Q2KNgsuJqw0tJu3Rungx452qO3AiOaq15hDtZ/vcx1tJ7Dor7J
-	 mdIaSV31Rn0y5Z3lWrfZELc2ul1KqPqhKPJ4+z4B36BXMoaUN9wcWtns7+9sw7f8UNGyf
-	 co+dSW/+QKvo6PL1tPoq5x+LeRO7qhcnMDYSDhVJu4p0nV4vBmmRpc3QCbGhltaEGrA==
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=svEw9j4vz2XAfPUeGFTk6zzUJwNy4pNLV6jlNwXVwUI=;
+	b=kjH8LpRJJltyrZZc4Y/+hBJe8SrNyDrpRlT0ePRPwFYlVOeWKiraIfiugLuOCVHoKEB3
+	 +20EObdbVqovHbuiHilxv09N+jIgvkcRRwAADTUM1IgFiRrqIdX16cG4nshfyoIzDVlWs
+	 yCgCGUznADYmiKe9vsoCNwOl4NomW8v3LAZEdjRpIWprofQNhJ0ltChz3buMqRjhROb9y
+	 AF7e/kPPC/nqkVJWTSwp7nh1hCnetQ09mkGKk2Ep2rxNGPmLd/yFtzz8oXXWj0xqeyo4W
+	 oITPh/Spvz0E0+a8Zlm4TO1EXowZl7tuZ5JE37DK4XERwr1h/lZacF2uKpzdxEoIP3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LLMh0wcx;
-	arc=none smtp.remote-ip=115.124.30.110
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=nkB0Z9Yc;
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A963606A327;
-	Tue,  3 Nov 2026 09:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A963606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2E9606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:32:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D2E9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LLMh0wcx
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793698160; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=F2+4Yzh+dcpVAnl+hKWRshMrg70cWm8d6zxfSczxXVA=;
-	b=LLMh0wcx3PbZ2/WfHRU3Sxhz1s9n2U7dOx47j3DtyMbWaiO1Dvo21u2oU4uf+qZkI4X5Qbvig806larIv2cUQG1ZL9jmvZ8wIZsM7hC9xBNyBD3/YvX6Yv6Enn+1/dOUlc6l2na3O2KH17PYDE3h0p9ekk+Ik8GzYa53Vrvtchk=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R711e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XE2Mcek_1793698158;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XE2Mcek_1793698158 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 03 Nov 2026 17:29:19 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: Steve French <stfrench@microsoft.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=nkB0Z9Yc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1793698275;
+	bh=svEw9j4vz2XAfPUeGFTk6zzUJwNy4pNLV6jlNwXVwUI=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=nkB0Z9YcNQ0z3XIdWMbOKTscvDFEQzATTVXB0z1t+ecTbKiZBdgAyu7wgT3XPwJg3
+	 /izoA75IE2n95bO26eQT6hb5p2I0xnqfOSGLKiQrahk+OyEzBqASw+W11SaBHmGT8f
+	 7L9X2NYqtLmQ30GFvqHqUEbu8wJi3CTnPoA8Hg1s=
+X-QQ-mid: esmtpsz18t1793698257t14d9e1d7
+X-QQ-Originating-IP: OOgvOriFHAKnAxK5krETsc6Q141AK2pojOa9UxUR4us=
+Received: from localhost.localdomain ( [61.183.83.60])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 03 Nov 2026 17:30:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 1873500742947398579
+EX-QQ-RecipientCnt: 8
+From: Wentao Guan <guanwentao@uniontech.com>
+To: sashal@kernel.org
+Cc: gregkh@linuxfoundation.org,
 	stable@vger.kernel.org,
-	linux-cifs@vger.kernel.org
-Subject: [PATCH 6.6.y RESEND] smb: client: base punch-hole EOF decision on server_eof
-Date: Tue,  3 Nov 2026 17:29:18 +0800
-Message-Id: <20261103092918.2363406-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	Li RongQing <lirongqing@baidu.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Sohil Mehta <sohil.mehta@intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: [PATCH 5.10.y && 5.15.y && 6.1.y && 6.6.y && 6.12.y && 6.18.y] x86/ioperm: Prevent NULL dereference on theoretical missing IO bitmap
+Date: Tue,  3 Nov 2026 17:30:47 +0800
+Message-Id: <20261103093047.571626-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.39.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,114 +73,62 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MPAlP4yRn0xgT4MtLD/FFPD3ImwXQTfsDrYZfCQOB043521puDvLgHs6
+	I6CFkvcADg71Jyu0H81o+hg4YIB6JqyQlG+zBf1yv77x6KhSP/tsKVnqupidEyFl5DHeINn
+	QZ05KsvghDxOP9+v4tFflEQc/Pm9BEj7Rg2akToqVqkK0wkgGjKdpWqEjU1kpePKop72acJ
+	RfJPBHKZAzwY9CAvhXJiEwjqWqsQKw+qGzO84x2SCi1NGq85Fpp7C+lf8FoQSPmjrYEPIAV
+	AB6jdf1kwpXSnsgNn/O3J6Nb4JiulohSs7HPNyhrhLQEkLyuBj1lrQe5t16KbSaJHdmXk1j
+	2/fdYa5+C3ePmMIh8roEWkBEsQpF9x/0yWNeF683LbPW32/RuR3YxTycNIHox6/jXw88za3
+	MMm9sQpNTJUDmeMibIp0hXZ3jZ6sxzORsR8+LlX92MmWsqUSo6WAj840c0PEhHHIETJzcE3
+	t/7pb/cAFnj3TKEQ0rVP3X31e61tKZ2JDvhhTDPMl0cotcoxLkrVBb6jUqcwTguCxpSCORj
+	99qVPG0mQpump7yUx2+LmBndCtP9dtJs5tlccRvzrgA4xBhC3Dt+XkZD0z4xk0+GewaEC3x
+	hxuo+pkowt6PIXaOwvZEqLKEoqK7BWoYyVqVDFC0ZckLwAqp9vs4sVfDy6jF2sa6eKkPcms
+	UJmVUAbIwjr+bBo3vumfk8tS5M5O3lENu1E/CdC6dkGDWkR/tOcNpWsTo2K7aCE9+WA9bVf
+	rCC982T1UaqQEHkSYXDSBQvYvPLIDa8OQ9tjlej7cXS0frEMZ4ZmiCJhXlpvtPxlMEq45NR
+	nXRzpl6ucN156Iql+tTB72mzjc1rJgSfbFXR3i9nULf7es7/coU8WDg16wI7lPwZG64qN9y
+	96oh2KtmDbSvPFDXrq1lDHNBh33uRCJI3byAM2l3abFv6ml8AsOn2BIWjaCKOb8xB3aBmE/
+	9O1FguMqdzlPjmIfSbSTvmPwlGm9W410K7Be3aqspZhU4ZPFQmTzB4g2IRjFAzYIolx7T8K
+	/L6K5pW6p6V2aIOaN3jNpHHkSqPu7fWdX9NXrlG+lRM1kK99QTvrzlfBEs/Gh16umhfUeFK
+	Q==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-smb3_punch_hole() decides whether to move the server EOF marker by
-comparing against netfs_inode(inode)->remote_i_size.  Nothing on this
-base keeps that field up to date: netfs_inode_init() has no caller under
-fs/smb/, so remote_i_size is never even initialized, and the only writes
-to it are netfs_resize_file() from the clone and copy_file_range paths
-and this function itself.  The writeback path tracks the server size in
-cifsi->server_eof through cifs_update_eof() instead, and
-cifs_fattr_to_inode() refreshes only server_eof as well.
+From: Li RongQing <lirongqing@baidu.com>
 
-Reading remote_i_size therefore compares the punch against whatever the
-slab object last held.  With it at zero, punching the first 4k of a clean
-8k file passes "end > remote_i_size && i_size > remote_i_size", issues
-SMB2_set_eof(4096) and truncates the server file in half, with nothing
-dirty left to write the tail back.
+Outside the IOPL emulation path, the IO bitmap is always expected
+to be allocated when TIF_IO_BITMAP is set. The paranoid WARN_ON_ONCE()
+handles the case where the flag and the pointer got out of sync.
+In this theoretical scenario, which presumes some other bug in the
+code that triggers the WARN_ON_ONCe(), return early, instead of
+continuing and dereferencing a NULL pointer.
 
-The flush added by commit 216e46958605 ("smb/client: flush dirty data
-before punching a hole") makes a second variant reachable.  It writes
-out and cleans any page straddling the end of the punched range,
-including the valid data in it beyond the hole, and advances server_eof
-but not remote_i_size.  When the punch end lies beyond that stale value,
-SMB2_set_eof() shrinks the server to the end of the hole and discards
-what the flush just wrote out.  The page is clean, so a later fsync or
-close will not write it again and the data is silently lost.
+[ mingo: Clarified the changelog. ]
 
-Base the decision on CIFS_I(inode)->server_eof and keep both size fields
-in sync when the marker moves, so the server is never shrunk below data
-that has already been written out.  Take inode->i_lock for the read and
-the update, as server_eof is documented to require, and only ever
-advance it, matching cifs_update_eof(): background writeback of folios
-outside the punched range is excluded by neither i_rwsem nor the
-invalidate lock, and can publish a larger EOF while SMB2_set_eof() is in
-flight.
-
-Mainline does not need this change.  cifs_alloc_inode() zeroes
-_remote_i_size there, cifs_fattr_to_inode() refreshes it, and the
-writeback path advances it through netfs_resize_file(), so the value
-cannot be stale after the flush.
-
-Fixes: 288d398df80c ("cifs: Fix FALLOC_FL_PUNCH_HOLE support")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Sohil Mehta <sohil.mehta@intel.com>
+Cc: H. Peter Anvin <hpa@zytor.com>
+Link: https://patch.msgid.link/20260615070115.4720-1-lirongqing@baidu.com
+(cherry picked from commit 2d36d3b451a94899db9c965adde15492ffe6027a)
+Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 ---
- fs/smb/client/smb2ops.c | 39 ++++++++++++++++++++++++++++++---------
- 1 file changed, 30 insertions(+), 9 deletions(-)
+ arch/x86/kernel/process.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 21a2b265ae7c4..2826a60f0d8ab 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -3346,7 +3346,7 @@ static long smb3_punch_hole(struct file *file, struct cifs_tcon *tcon,
- 	struct inode *inode = file_inode(file);
- 	struct cifsFileInfo *cfile = file->private_data;
- 	struct file_zero_data_information fsctl_buf;
--	unsigned long long end = offset + len, i_size, remote_i_size;
-+	unsigned long long end = offset + len, i_size, server_eof;
- 	long rc;
- 	unsigned int xid;
- 	__u8 set_sparse = 1;
-@@ -3392,20 +3392,41 @@ static long smb3_punch_hole(struct file *file, struct cifs_tcon *tcon,
- 	if (rc)
- 		goto unlock;
+diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
+index fd91c301218d5..854aaf390b262 100644
+--- a/arch/x86/kernel/process.c
++++ b/arch/x86/kernel/process.c
+@@ -405,6 +405,7 @@ void native_tss_update_io_bitmap(void)
+ 		if (WARN_ON_ONCE(!iobm)) {
+ 			clear_thread_flag(TIF_IO_BITMAP);
+ 			native_tss_invalidate_io_bitmap();
++			return;
+ 		}
  
--	/* If there's dirty data in the buffer that would extend the EOF if it
--	 * were written, then we need to move the EOF marker over to the lower
--	 * of the high end of the hole and the proposed EOF.  The problem is
--	 * that we locally hole-punch the tail of the dirty data, the proposed
--	 * EOF update will end up in the wrong place.
-+	/*
-+	 * If the tail of the file beyond the hole has not been written out
-+	 * yet, the server EOF marker is still below both the end of the hole
-+	 * and i_size.  Move it up to the lower of the two: when that is
-+	 * i_size the file is already at its final size, otherwise the
-+	 * remaining dirty tail is written later and extends it the rest of
-+	 * the way.
-+	 *
-+	 * Decide on server_eof rather than the netfs remote_i_size, which
-+	 * nothing here keeps up to date: the flush above advances only
-+	 * server_eof, through cifs_update_eof(), so comparing against
-+	 * remote_i_size would shrink the server below data that was just
-+	 * written out.
- 	 */
-+	spin_lock(&inode->i_lock);
- 	i_size = i_size_read(inode);
--	remote_i_size = netfs_inode(inode)->remote_i_size;
--	if (end > remote_i_size && i_size > remote_i_size) {
-+	server_eof = CIFS_I(inode)->server_eof;
-+	spin_unlock(&inode->i_lock);
-+
-+	if (end > server_eof && i_size > server_eof) {
- 		unsigned long long extend_to = umin(end, i_size);
- 		rc = SMB2_set_eof(xid, tcon, cfile->fid.persistent_fid,
- 				  cfile->fid.volatile_fid, cfile->pid, extend_to);
--		if (rc >= 0)
-+		if (rc >= 0) {
-+			/*
-+			 * Writeback of folios outside the punched range may have
-+			 * published a larger EOF while the request was in flight,
-+			 * so only ever advance, as cifs_update_eof() does.
-+			 */
-+			spin_lock(&inode->i_lock);
-+			if (extend_to > CIFS_I(inode)->server_eof)
-+				CIFS_I(inode)->server_eof = extend_to;
- 			netfs_inode(inode)->remote_i_size = extend_to;
-+			spin_unlock(&inode->i_lock);
-+		}
- 	}
- 
- unlock:
+ 		/*
 -- 
-2.39.3
+2.39.5
 
