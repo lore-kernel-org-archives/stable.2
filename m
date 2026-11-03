@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.132
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793734902;
-	b=TxEkTXwz2Ah6yePTjnU0yELMqwzYBbZDvo3popBBXdFe89Ihaa1Gi4Hj+JkTgqwYRlD4
-	 nIZsjWKvWqquUfYTFPk8pkuouAbI1QjIPZK0Hd1qNldGn8u4B7SctF9jOIEwFdI95vO6c
-	 RVHUbg7/Q/KNUG9otZX1XZdMn/sWNYJ7CBbJZ0hVyFl9AKo9To7f6NhLXnNwtZN196p5c
-	 k+yn0KIPJ7g/dBsPPvwngciKgTsi8z0dMUE/Na11zCExBgmxcy4PQ8Ommmg42jlG3TPNs
-	 pf5X54//oQ/FvvaT/GfSfTsB0Lhokt697SuEeBBvLsLN+J3JHV+DYpZZ8bK0AG9zkFQ==
+	t=1793735022;
+	b=5K6diJdTsNgaRCQ1O9oxKpX3i5s1yQ6ZZryzr0bcEK0h7IOlrCbvMb6eF9SwVvm8SpMC
+	 WqmYMeeMRGoqKEvFhwWqh5FcUCb/EXegNdeVxo7bBLc4s/B9pNpNXLqDzuUSYNAhP5oPH
+	 D8WjCc2xylS7hPAhwBL21m6zzecgV3nJ21ze9T/hQhU9DYrWdfZS6VkNqA2IFMA59kV1S
+	 9vX53Flq30Fs1JGrkCjHqQGUnvldl6gTWaCFthvWopo49eLYiPuNemoPPZ9Lng9KgyeSD
+	 QsOhIMtdWa84dy+bVQAWUOiLZabGiYs4cU+alq5eOAeovk+vOfBDOjG8LkvVmh5Lsng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793734902;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735022;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xezF0fn8IDQBSoJVFqpD27Lisy+bsjzUf+Sl1jGurIk=;
-	b=b7qVTt2U+KqsrDYmRkamhS66OhLyivp/I66mWNBu/Zs8CXzbcquk/wr3sD1TQ3qX+Kt2
-	 AkVmubYu9SOj02/h1g9I3jWMBTgXbaRJi4P+nE6B8mF2BhZUodTysh1zJjGtJHDqfyeVd
-	 coXofAG8ncgSZxRruLvLtGfb88la9Q7W3bTBpJ8zT4W+UDRfCRCFgiOl0dJL2OsDNG50C
-	 yLrzVKPfdTWx64psMHDnT2ZZrxnjjzRr7CbEFrG8DRUChzKLmIK4QT7pfsqLxtT+IGOKV
-	 9NaeHzL1G78qSWkiAmzPkRgknc5VwsZoh2Xo17v7eupjt5l/Tzq5bUp/sg+I8nMheKw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pM+ObFq+7UvTBHo/IKaCGchHuKGnrduWJa929a2AGj4=;
+	b=A5ajhASRAov+kLzor683B299NgNeCqy4soAuH0mdF+1I4VZyoXNY2uRr7J6g5Phk2jyO
+	 P0MbNyAEXKhEYVaHHQwxsPNQ3C/RTJadvmjpVbbzyDb+1c2dx3jaDlYji8JHZvIV0vOuF
+	 8dfAHNIlIRdYRyHnjxhhacvVDQ74m63VKNb4CApVAuiGJobVPAAGq3CqJRuEiafPKt3bs
+	 YvaWEyYFMwuvoIufChB97ZfJbxf5pEadZ8J5EIfknpsxv7nXfU9GiXDTx9svlTOsh1XrO
+	 g2gHAH1TMreXcV/FoFcIJdZLOVoiEDnT/7bgeVvztzkwS1865sERCDWrf4FvohYJ/oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8nbt7Kg;
-	arc=none smtp.remote-ip=74.125.229.132
-Received: from mail-dl2-f4.google.com (mail-dl2-f4.google.com [74.125.229.132])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lbPap6xL;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED89B606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED89B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6894606A32F
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:43:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6894606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o8nbt7Kg
-Received: by mail-dl2-f4.google.com with SMTP id a92af1059eb24-1b2459d36aaso992c88.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:41:41 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lbPap6xL
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-14fc585291cso3687505c88.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:43:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793734901; x=1794339701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xezF0fn8IDQBSoJVFqpD27Lisy+bsjzUf+Sl1jGurIk=;
-        b=o8nbt7Kg4VLEAVGwOT3wfSMSaYrtKlxDWnrkTwbt16DwdSREle9viHmSI61W/yEHJ4
-         wva+9xyktj9klqdIbCed9fiX6W7X7j/t7YVxMeY6blmFgg0dRRsLH3CXgoLCjViBVCvK
-         X83Onfo09mrcdfTkHUvwXHM6eatj+m3dnpxW0im2hhcdKyfMpPrgjUo6M90Rar18p08m
-         Le0mXuEgSmxASxlHveGZJPhCbZj9yZiZy0Q4BHJimV0PSg0T9IKX23jNfIcjM6S8iOVt
-         fm0MfMcu5JTlvEr2l1dq2um8Msr7j/k0coAHQqT5pZBz0PGK71L6Za9Ewd2oCBlKkTuj
-         upOA==
+        d=chromium.org; s=google; t=1793735021; x=1794339821; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pM+ObFq+7UvTBHo/IKaCGchHuKGnrduWJa929a2AGj4=;
+        b=lbPap6xLlqMk+JYnuSIyFjcRQFqANvPP5Qqin+Bz3DY7GsGTRk8PniDPJ15f+G5ilO
+         r9FUH9gktdgCzOrQpBTRygzrW0nj0WmLAxNtcOyIHnDJx0oZzTd14VRe3a1Nni0MjvN0
+         78W91quHXoMTrB33+q740l4pO9Al9IeFiNf8I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793734901; x=1794339701;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xezF0fn8IDQBSoJVFqpD27Lisy+bsjzUf+Sl1jGurIk=;
-        b=FOMFXnYEx836cI0fiSnPHT4SPq835B79Y03iXPd/QM3Ah1ZJtTHlkHmYMXe4XvUWBV
-         s+LDz/gHxfbVZp9IrDb+zSC7Jmty0bQAHc/4P21nI340vGf9PXWsyHpuMg6Co/ZQhksO
-         6LuZ67aroECtN7gpa5LVtqY1SiQ/QsnGjNCvmZAmRGr4wgx/s65QE3L6FnmTd8wgk0/2
-         f8p6kFmQnNWjDYFaZUh8yX4Tt2qz0G6kjf4taswqXyHGiCZcblklYH5c9Jc4oU0mpWHL
-         23JJmnihztIg6CtP+nG+pCh4crNk2hFtAGVwIqsylbhkPnMNTFAmPElu8ox/2/B03ehb
-         52Lw==
-X-Forwarded-Encrypted: i=1; AKwUvByaCK2Ppe/4pzSyrRU7unHyJdVgZmP/Vxh1/1RhEy1fAM89zcDCFZSToqemygRYZDBdxhjd3VY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+tf6vYpjQKwqJxpfK3r/oafDfT7fRFF9C8rclwHD38kaWAtAnZ
-	w0+Lgi4VEi6qApkJeqVgwC3r5DrKLbl3dsAswHIHU5uU9DmqwFjPyOHf
-X-Gm-Gg: AYBFou1r1GWL9GUC+C064QT9/yTiIqI9t//4O5p3HqKALiWoNgUlp2k3ZzTPYdscxja
-	8wlNOCLUl0Jqqn9C4GRDeF5kr84/CyAM6L6I03TxZowIZ9vvYEXOk7cY8fQk7Zc+W9DyEeBBCDb
-	L6mO4EZZFj2rkAPzATsSeimM7i+4A6DcUv5D+MPIJKb/yjf2AJ1Rw68OpXAoVd5CcdHbsniIISv
-	PTtNrMwQ9lAGkTMSFHC8gvbtU0Ruqh/7IgI5zVyvWNDeN0xTkvjXGBkMaoMgWrz8MjXcFZsxnM4
-	ZNj3gqtKhMZS7hiFciMH8rDQiQHOQwobn1w/2ipTUB6td+G6TBcQE55V8Q4855ZBMnnZF6SR/wo
-	hyAeYcWX33afgzFO7zgGQJWM+pD85GP58FpO6INYOwW/CU5wCJgz4oSzM2WU/Bf0hXxShm+aVC1
-	+/jrJ3gohh5ds9BnuWpg8Tz6fQcqwvcwZ8X6qS+ZmjzWOqmBPCB0PxAW3cmmgZRFCLkjjz3JM7B
-	JVfF010Fh6HqWtuGHwm/cqDTwaanZOR8kKIXlNttQREWE3rqqcFaatVaTYvzo5mV5p2dvrQPxTC
-	1VTfxmsNuZWpuponlRDeCfpYO13y0H7Zr2m2G7XeamchQJLxG7X4XxYd
-X-Received: by 2002:a05:7022:1402:b0:193:9568:b42a with SMTP id a92af1059eb24-1ac5c45fd35mr19813397c88.8.1793734901021;
-        Tue, 03 Nov 2026 11:41:41 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a54ccsm304564eec.4.2026.11.03.11.41.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:41:40 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: akpm@linux-foundation.org
-Cc: willy@infradead.org,
-	jack@suse.cz,
-	shr@devkernel.io,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH] mm/page-writeback: avoid overflow when reporting BDI byte limits
-Date: Tue,  3 Nov 2026 19:36:26 +0000
-Message-ID: <20261103193627.71959-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793735021; x=1794339821;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pM+ObFq+7UvTBHo/IKaCGchHuKGnrduWJa929a2AGj4=;
+        b=D/rsxOkOw/SdHoEHZgbIFki+tD1a01m7zk6Skt/2KOrM/ZVEMNsGwsQ6GdTo4RYmTm
+         uRs1vLSFmZlaMsp3JN78p+nGSM+DUxk/gDIRY9qsTlX+gI4UlxIB7AXCJ7Id/ynsnGub
+         RzGBr5qbpa+5CiwLuTYa5Rq84EOw0F7mxFsxLqofjcLf4NoduPcrnnpha9qMU9UtnTZR
+         kpfqtjtQjmC3SMvpfHQNgjVkswk3fM5RnWquQrBycvmMFAa8GWHdEC3oY3mdia3/b3zu
+         kxdqrn8T6vrVFqgm6azgOwNKKjtzsjsOAes4636mlSlYtbSzDVwFobb0CmXjIyQlhOOe
+         tq4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzY34Wolddq8J1hlIHIa198ENZDjLy9nARPw1dwAlbj+pm++nF07Qg0PaZl4vQzLXgXXn8lqZ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xJKkbLrUu8+qoLX+ZRf2qTUWsY9ikxFdhapUzv+FxYS70tHuK
+	cbsTN9C6cWRFPl0dfM8aKahT+B1S1/EsHaI2jxbG6/IZF1UTqgcvN3HHb/eRSNBKZQ==
+X-Gm-Gg: AYBFou0Kfiwn1sxZy4ezOYl0qz84NEY7Os/I62RaRIY/WSVuXGNHn4hq4oejBY83wa5
+	+soIsMA0hMgijiGIjkPzYY1mQW/DxjhyWvxAypIIN+tFRQK0rKTrE5fZn0OA8iylLwFEzdUQLgn
+	q7LCEFu4GMUdoiDWAcNrw0MIYV2hF59n7y1fbGGRbwSKui2NMEuCfAfn3S/+fA0PYoP6ibUN4SE
+	g+psLgL6ntIrpZSxw1UqN1vnuQLWwZKx/ZvmXkydaQkb007bCLAMrHyHpfEnjSwV13vibXU2s3L
+	6izgp1mh75P7AsZGCoB2GXKSL8H7O3qVjF02+aJ2wGdAckSt78hyanU8TuBDjxyRD666ZXvo5tc
+	jGdY0viwTbxYuDHhL4afmyouaISKAvYIRc+zVraTjjz0d/v7LJNJU8TqwFCCZrGVOV5yzuo5mv9
+	cEI49kfCxcuXwSnJcUJPb4OmIKpI1PeBqrxf1Q741MsYsAK8R46UvtWUoMueJwSHom1Wdcc0mJN
+	C6o2jY1ysOALqCec1TOuFp02M3ioWBqwmRacZGgJF+B3ZgBdcbPpCHRCQ0pFXJ40mBYDDxFRUkU
+	zDoMkGoahnGTRm9FY3DHU7HSJN708+RHUDFWwZ7Crh4SYv5o9H9hJYaPx9+/xjfalMI=
+X-Received: by 2002:a05:701b:418f:10b0:14a:8df8:56c5 with SMTP id a92af1059eb24-1ac5dd5a055mr21441051c88.26.1793735020817;
+        Tue, 03 Nov 2026 11:43:40 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b245c2c2ddsm985448c88.10.2026.11.03.11.43.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 11:43:40 -0800 (PST)
+Date: Tue, 3 Nov 2026 11:43:38 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Stanley Jhu <stanleyjhu@google.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Praveen Talari <praveen.talari@oss.qualcomm.com>,
+	Peter Wang <peter.wang@mediatek.com>,
+	Can Guo <can.guo@oss.qualcomm.com>,
+	John Garry <john.garry@linux.dev>, linux-scsi@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] scsi: ufs: core: Keep clock-gating hold on failed W-LUN
+ runtime resume
+Message-ID: <auo5ar8427cuH_nX@google.com>
+References: <20261029040002.2100002-1-stanleyjhu@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,40 +103,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029040002.2100002-1-stanleyjhu@google.com>
 
-bdi_get_bytes() multiplies unsigned long operands before assigning the
-result to u64. On 32-bit kernels, the intermediate product wraps and
-min_bytes and max_bytes report incorrect limits. For example, with
-vm.dirty_bytes set to 104857600 and max_ratio set to 100, max_bytes
-reports 268 instead of 104857600.
+Hi Stanley,
 
-Convert the page count to bytes in u64 and use mul_u64_u32_div() to avoid
-overflow in the subsequent multiplication. This also handles large dirty
-limits on systems with larger pages. Combining the two divisions keeps
-the existing rounding behavior.
+I'm not extremely familiar with the UFS or block layers here, so I'm
+just coming from a general driver + runtime PM perspective. That said, I
+have some thoughts:
 
-Fixes: 00df7d51263b ("mm: add bdi_get_max_bytes() function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- mm/page-writeback.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On Thu, Oct 29, 2026 at 03:08:30PM +0800, Stanley Jhu wrote:
+> 1. __ufshcd_wl_suspend() takes one ufshcd_hold() reference and sets
+>    hba->clk_gating.is_suspended while the UFS device W-LUN enters
+>    RPM_SUSPENDED.
+> 2. Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
+>    suspend callback failures"), a failed runtime resume (for example
+>    START STOP UNIT completing with an error) leaves the W-LUN in
+>    RPM_SUSPENDED with power.runtime_error == 0, while
+>    __ufshcd_wl_resume() already clears hba->clk_gating.is_suspended and
+>    calls ufshcd_release().
+> 3. The next W-LUN runtime resume runs __ufshcd_wl_resume() again without
+>    an intervening suspend and calls ufshcd_release() a second time,
+>    dropping a reference it does not own and underflowing
+>    hba->clk_gating.active_reqs on UFSHCD_CAP_CLK_GATING hosts.
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index 499a35473e4f..ddebec79d8d9 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -665,7 +665,8 @@ static u64 bdi_get_bytes(unsigned int ratio)
- 	u64 bytes;
- 
- 	global_dirty_limits(&background_thresh, &dirty_thresh);
--	bytes = (dirty_thresh * PAGE_SIZE * ratio) / BDI_RATIO_SCALE / 100;
-+	bytes = mul_u64_u32_div((u64)dirty_thresh << PAGE_SHIFT, ratio,
-+				100 * BDI_RATIO_SCALE);
- 
- 	return bytes;
- }
--- 
-2.43.0
+I _think_ this reasoning and patch all looks good, with one possible
+exception: ufshcd has explicit recovery in ufshcd_recover_pm_error(),
+which relies on checking power.runtime_error, and then explicitly
+overrides the status to active to clear the error.
 
+It seems to me like commit eef1d74bf88f might have subverted some of
+that logic too, because resume failures will no longer latch a
+runtime_error value, so that recovery function may not be doing
+much/anything. Is that a problem too?
+
+> Keep hba->clk_gating.is_suspended and the suspend hold across a failed
+> W-LUN runtime resume, so the hold stays paired with the W-LUN
+> RPM_SUSPENDED state and the next successful resume releases it.
+> 
+> Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
+> Cc: stable@vger.kernel.org # v7.3+
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+> ---
+>  drivers/ufs/core/ufshcd.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+> index cc75384c6502..9be370cea52a 100644
+> --- a/drivers/ufs/core/ufshcd.c
+> +++ b/drivers/ufs/core/ufshcd.c
+> @@ -10626,8 +10626,14 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+>  out:
+>  	if (ret)
+>  		ufshcd_update_evt_hist(hba, UFS_EVT_WL_RES_ERR, (u32)ret);
+> -	hba->clk_gating.is_suspended = false;
+> -	ufshcd_release(hba);
+> +	/*
+> +	 * A failed runtime resume leaves the W-LUN RPM_SUSPENDED, so keep
+> +	 * is_suspended and the suspend hold for the next resume.
+> +	 */
+> +	if (!ret || pm_op != UFS_RUNTIME_PM) {
+> +		hba->clk_gating.is_suspended = false;
+> +		ufshcd_release(hba);
+> +	}
+
+This looks right to me, as a non-expert in this code, and it may even
+have been wrong before commit eef1d74bf88f.
+
+Reviewed-by: Brian Norris <briannorris@chromium.org>
+
+>  	hba->pm_op_in_progress = false;
+>  	return ret;
+>  }
+> -- 
+> 2.56.0.313.g2479322e68-goog
+> 
