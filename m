@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793715191;
-	b=NKxPsJyiyLaIKW1xHdblJQKQQOpruc2rXcz7Boveoz+3uKvYfLLCae+aAm80KjS6OPqp
-	 yjvSBXwgS29pYdGeeBMwHiEWynkifQbU8rrGcF7HuMUCfndPoacW9kSt0t/EspiJRgdm7
-	 T8iMtVv/BHtFgEooRL/UJMJH4+am6VbF/SVoy/DE/3QOzk2vq8AoXDknbyl/HCCH9Elcj
-	 C5uiqYYt8RzhXbwGUBJwaXpLQQCFOYXCetY2QEv+bX2zdYmCKn2BCqZSTPo5rXE5SMhFg
-	 Po2eMmLIMGOTPpwwZPTblDEpD7N0yY8JvwWsJJ73IQ+6QJ3dBJdk6A1YlzDQrKEny4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793715191;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HL04h1yc9M4hwxY/BxNlJ65GkcTfjvC+va5ivgCWeBs=;
-	b=tEHAJk/6c5hi1K/at4DLxZGKZv+U0wl5Koui6oWbbJTOMSLMXBNCXCagEcOchG8Bv/58
-	 Tg0sUAlQ9DCSOEhIHrIvFlEMLsgOvoL7cyNryd4ZqFXNyQSYEkoH99fXJpeMNzyri4UaI
-	 o6dZ4yVaNZsQEhwonfPwUfS+8sek/zVz33DHczKv9EaLI0wxYKHIO2qos5VWfG+NHLqJe
-	 qXHyDtIYqyAsCcYNVLUKO+RWtCjgh9obQNrJUxYVPNFOpPW/UVXyQhiUuO4a+XBr8hcAW
-	 Dt7dYnHe3aKyGtBh9WfjA04vmf4E1wnS7LNX18Me+OZ2fznapuk1wLS09SLvKnAPmYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=APtZSFjT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.70
-Received: from mail-lr2-f6.google.com (mail-lr2-f6.google.com [74.125.230.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793715597;
+	b=v3eFZ6qTGJYbC5aDnEGHipS9ZKzmXXcxgeWIFQGVTbti1fNUY/nfPzHgGC5b0td3DAd7
+	 aFMOsAmGFfWbQkaUoQpbxtZHsKV5JuAlCw+RCyQDSm6N5ptMIpeTTT/FEJuRSo83DCyK0
+	 ckl3XU4Oa8gRu3R+hxgRxJzQbh+2eOi9Px0YhJv3O8PqFtExpkc/BjXTi7NWgXh25ZLUj
+	 SPMnzBPrPozKENbF4TQNJi/K6JDXPBuUGCnIJ41Ole/ONheHdpEIVTFgzoKfBP/2e7Gdu
+	 eG1NOAA7IMximevQ2xCXz/3K7a+eEKOHxSJR8CspIpu9kqJObOI0ILhf16qnsA4vHSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793715597;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SZCN1KJ0Gxb3baIrMzkxwxg1JoGJHrMBrLpX0iRDcDQ=;
+	b=rYhPfrHHwcvrbe/dYqipjCQm9IckwBuP/cv/5l92rNuSanme6vTpi0auquZ3suHrlutc
+	 HWxRoYERcCuQ6NFK4edOqOTC5KJptUrllH7T9gx8XktGF802IqOl+gSpf25XO0/Eep6QR
+	 UqDwXp9qNZgyfaUQQC4e+6e/SB+T+y1zqWepgXLg90vJlBn/3t/LKPnswyXV7etnwJe3S
+	 kmPNXbeV0EvvP0BYw2B3TIk22WsYekcs08D/JcUhheB4ZWQNZQYC5kR7BIiB0tUYZENYp
+	 PFeu0tKhk2k5HWbetG03eGmcGEDJ3tho5YPISQq1vKh7WVPk04tkBa7OgPdw4Nl0qjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0kMnQsS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1350606A327
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:13:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1350606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF96606A327;
+	Tue,  3 Nov 2026 14:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=APtZSFjT
-Received: by mail-lr2-f6.google.com with SMTP id 38308e7fff4ca-3ab1b11ca0bso26459771fa.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:13:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793715189; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nszig1Gg8UuIMUDEFfzlVSYiqwtqIhQGkiQBd0J8Bueqn1NJ8/XQhOMWdw/mQWSk75
-         tigb80IzcYomOnuNDnRJHE0fSoXUAWnS9ecTeE3E348ZOzUTefadN6F3cdZ3MoWKeDN/
-         zN8yEd/5rd40O2uWB2NXWR6zyO7g+EDWjPYCq6/m0AewcPBQBzbavKEItSFksPpeStY7
-         uvrMRvlwYz5O09ai6GQzkMTOEUJJhhQwRUVZZ+kzsjSnOvOjN+oPbKlAOJ/5pYYJoloI
-         BGfsXTNZvT9w5bUNhaWsxr5gg6TQn/2RQoTbrVuNPL2HX5pD+afsMhaRIwA3BxPT4rUe
-         tGew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HL04h1yc9M4hwxY/BxNlJ65GkcTfjvC+va5ivgCWeBs=;
-        fh=bxiNLwGv+Qo2/UczIAtm7/Fz8srWU+cwfyU5ixariKI=;
-        b=ItG3li3ao1DMn+UjU2PpNILbmdYbWdm5C94RqUHUK2+UpNbEHRPlw1N8wrx5MNO+en
-         fJuhWMbYh4XYvxysfkHKuG4KJE4rA3dQWglAyNp4AR5RfGEa8Q8PnlwQjbf+yW47doN/
-         UrklxdpRqvc3vrHGsH/z6794kta5ZMpxe4cOBuURwZY3sEa4YL9ySjTN+RUqxn/a8NyU
-         qhMthuRd1CcgaWA8uqGEr/+Os5b/AQlX9BQLviquXhqqOur3aRapgi3ZIkftelaEGr5U
-         DEsjc2pAlWAWGI/rP7OP+uA0EQfHkhf1AWFaaMVvpx/QbD74EBci8t/QmgnPKN8lr0Qg
-         zurg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793715189; x=1794319989; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HL04h1yc9M4hwxY/BxNlJ65GkcTfjvC+va5ivgCWeBs=;
-        b=APtZSFjTMWO8qjF7GxxiWwzto/kwZF7nZ7TuzyxegZ3QQg47qjf7Q9FEsZ/gsaIbZS
-         CvVufX3TCvXgBGLnjkWvSfbo9FIhWjdpSmA0z+Tn1/LcjXcVhyu/s1fj7xEcyb7xxCjf
-         ZZ4MsVpybYhKKOjPTf/Wn/RJPmwBBuJOEqq8JR07cUEwnJKfYYbl7qiKVOxrRDOLXCUn
-         QDsfnO1A9Nt4oBz7gr322PjtesSZ7D/GkMuq5GqWlDS6O7ZEbQ/jawnq7zgZ8sxtmbnh
-         MJfcsSKqWsR1bBzqZvo3vWNrIMWFO222i/3C8XRE1Rit9rybjTP6Th61UvW4DNUHvq+Q
-         ntwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793715189; x=1794319989;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HL04h1yc9M4hwxY/BxNlJ65GkcTfjvC+va5ivgCWeBs=;
-        b=YvzG8X2tjEM5h7iLLFaIEbQiJwitDDG8OgYBduK4zIMVyBivoXnGt/cPpYZmvwwe00
-         XRC5HSSKLO3C7lFIH3oItO59D/BFkg2sd7hqclQ8YtF31gEpfzCQo7W9Hw1nT93C3P5J
-         n/cnouyABQ6tZbCGfwB2Nn41q7wyU9L7xpS6/1iraOKYt2Ed/9BA6mBIpQ6IGR1RCYSR
-         XerRE8e6rRkM5EYSxQf5eupY/DDHlN+qeFxfuZY3VXyTy4CL3qhkAVlaPfOcu6d9I7IC
-         p9WUQcHx+Rg7iWb/NYaHUy1xJCnPPyloOhv9HJ2L7azubiFAp1Bff6bNMJoUDC9xgnZd
-         H6zg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQIv21UoPwq+u8RohLBCntRVMBjYiMtrYWdoB7k8kOjrWhjx1UDXKt2UVT176RXtZq26qfjkk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DvEKNgk+5IUDqYR1VRbXtaBfYYqLxUsfTC5brDZvaZ7AKRIev
-	KV4C+tRynqzO5R5D6Nj77JF90TciJJyb5QCKViD+BknLAnrWNkidMeV7wi0SxGcU4RKTySbh7mc
-	Opzp7aARQDqKVaO4I23Mg4+LB3+HobNsrjkoivmrBXydD9mY=
-X-Gm-Gg: AYBFou1gHYBuah5/x1K9KqhC8P7JBUIKuF0awmJ6vi7xMrCev7j7h9IuezuUXe7SXNh
-	yoBE7FzneSCxvU18tkzy9p/PUgfGsOqDN58zbXMWXMn5y9WfdVt3/F6KvEaA6UYLxBSVuNmkkW2
-	TUNeX1RsFQVNBVt0o+v6UXJ1iWDkJzaiRTASkGG+YuSRV/F545Wx74Cm4lfshsRzF0utunuQs5J
-	intuYr1k4r91lhAyuCc0yVOTfBmaCV2BYRWRBVbask+6PoeS20O156cFTfFvGpbreFu230XuyLq
-	ciTOaUvK8ZNcaAfOo/Q/Bg+5e3dyT880hJGbD2vE7bThvlXNKYCdcKEuXaZysfX0bd5DWiQTS9w
-	L8zO0H5Qe/09KfRvJUIR9WVjftdkaTWjUGOAHcdYW49iBmmGsMcMyRhlOOgOdTzDexY7KuX8km1
-	4vZOUw82sEPC8nY37hlg==
-X-Received: by 2002:ac2:4c52:0:b0:5bf:ce41:7a8f with SMTP id
- 2adb3069b0e04-5bfd957d192mr4098858e87.53.1793715188505; Tue, 03 Nov 2026
- 06:13:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c0kMnQsS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53C21F000C1;
+	Tue,  3 Nov 2026 14:19:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793715596;
+	bh=SZCN1KJ0Gxb3baIrMzkxwxg1JoGJHrMBrLpX0iRDcDQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=c0kMnQsSOC5cxQwmlZLw8EGmyMWEFgPbWGm1M9peib0BSrFl+zK8FYEf8gcjgs6HG
+	 E/7vFzVvnDyAQiwvvr+rmEO4BmDtMZoAjLBCB8uwIh2oOS2ZGViO44iXFqPIXIPCXK
+	 So+dNI6VbTOqt8/wJxBvL/IG3sgPaYvOWsC4iB4idqwEBuCHo2InTFUyt3XSNtc8cs
+	 jtXr4l0gFUsa8ihfJzrCmFGeHYUQqfyTrO1mobWwBgWyo+NimJZQHu444pLWRH8jWZ
+	 Njb3Dj5UTK487c9IwBL8aqobl6jwLdG73YczFMjWY/uBCEAFl+0cRbKQ/5rFCfoxUX
+	 P+pOS6Rl+kU0w==
+Message-ID: <593b9102-73cd-44f1-9a57-7df0806d6505@kernel.org>
+Date: Tue, 3 Nov 2026 15:19:53 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,45 +51,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102150146.19777-1-jianyungao89@gmail.com> <717984c9-a0c2-43d8-a801-d36c18c7040d@web.de>
-In-Reply-To: <717984c9-a0c2-43d8-a801-d36c18c7040d@web.de>
-From: Jianyun Gao <jianyungao89@gmail.com>
-Date: Tue, 3 Nov 2026 22:12:41 +0800
-X-Gm-Features: AclHuK-MfLQMs5fQ5T8G-7KqHA8RnCDfPbXHT1W5k5aa0ReYsJ56PCXds9stJu4
-Message-ID: <CAHP3+4BfTma1tQLbGLzy3aAzx05eR0QKOfmL0V-X5vEeOWtAEg@mail.gmail.com>
-Subject: Re: [PATCH] xfs: fix temporary cursor leak in btree shift corruption paths
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: linux-xfs@vger.kernel.org, Carlos Maiolino <cem@kernel.org>, stable@vger.kernel.org, 
-	LKML <linux-kernel@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
-	"Bill O'Donnell" <billodo@sgi.com>, "Darrick J. Wong" <djwong@kernel.org>, David Chinner <david@fromorbit.com>, 
-	Kefeng Wang <wangkefeng.wang@huawei.com>, Lachlan McIlroy <lachlan@sgi.com>, 
-	Viktor Malik <vmalik@redhat.com>, Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] media: videobuf2: order buffer initialization
+ before bufs_bitmap publication
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+ Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa <tfiga@chromium.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
+ <CGME20261103105616eucas1p212ea654a93c4754fcc58bf449a2e58b4@eucas1p2.samsung.com>
+ <20261103-vb2-mmap_lock-v2-2-054e11dcd013@chromium.org>
+ <c1caf0c5-d82e-44c1-9d0f-934008f4febd@samsung.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Content-Language: en-US
+In-Reply-To: <c1caf0c5-d82e-44c1-9d0f-934008f4febd@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Markus,
-Thanks for the review and the suggestion. I agree that centralizing
-the error handling paths in these functions would improve readability.
-However, to keep this patch focused strictly on the cursor leak fix
-(as per the 'one patch, one thing' principle), I would prefer to
-submit the code clean-up as a separate follow-up patch if that's
-acceptable. I will review the affected functions and see if there are
-any obvious style issues worth addressing.
-Best regards,
-Jianyun
+On 11/3/26 14:39, Marek Szyprowski wrote:
+> On 03.11.2026 11:56, Ricardo Ribalda wrote:
+>> Stateless mem2mem decoders call vb2_find_buffer() -> vb2_get_buffer()
+>> from .device_run() without holding q->lock or q->mmap_lock, which can
+>> run concurrently with VIDIOC_CREATE_BUFS on a streaming queue.
+>>
+>> Both set_bit() and test_bit() are unordered, and mutex_lock(&q->mmap_lock)
+>> is only an acquire barrier. On weakly-ordered architectures such as
+>> arm64, a lockless vb2_get_buffer() caller can observe a newly set bit in
+>> q->bufs_bitmap before the kzalloc() zeroing, buffer initialization, and
+>> q->bufs[] pointer store performed by __vb2_queue_alloc() become visible.
+>>
+>> Pair smp_mb__before_atomic() in vb2_queue_publish_buffers() with
+>> test_bit_acquire() in vb2_get_buffer() so that any reader observing a
+>> set bit in q->bufs_bitmap also sees a fully initialized vb2_buffer.
+>>
+>> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> 
+> 
+> Can't we use ordinary locking instead of those memory barriers and relying
+> on not-always-atomic bit operations? For me this looks like over-optimization,
+> taking into account that those operations are not on the critical path nor
+> anyhow time-comparable with filling the whole buffer with image data.
 
-On Tue, Nov 3, 2026 at 6:43=E2=80=AFPM Markus Elfring <Markus.Elfring@web.d=
-e> wrote:
->
-> =E2=80=A6
-> > held by the duplicated cursor.  Jump to error1 instead, which calls
-> > xfs_btree_del_cursor(tcur, XFS_BTREE_ERROR) to properly release all
-> > resources.
->
-> Can further source code clean-up become helpful for affected function imp=
-lementations?
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/D=
-ocumentation/process/coding-style.rst?h=3Dv7.4-rc1#n526
->
-> Regards,
-> Markus
+I was thinking the same thing.
+
+I *think* the code is correct, but I'm not sure. Memory barriers are hard to get
+right, and I consider myself to be a newbie when it comes to that. A simple spinlock
+is much easier to understand, and this is hardly a high-performance loop where you
+need to squeeze the last bit of performance out of it.
+
+It's why I wanted to split this off from the original patch, so it is easier to
+review.
+
+Regards,
+
+	Hans
+
+> 
+> 
+>> ---
+>>  drivers/media/common/videobuf2/videobuf2-core.c | 8 ++++++++
+>>  include/media/videobuf2-core.h                  | 6 +++++-
+>>  2 files changed, 13 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+>> index 70ef38c3d16a..d0dd4b22b646 100644
+>> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+>> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+>> @@ -461,6 +461,14 @@ static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
+>>  
+>>  	lockdep_assert_held(&q->mmap_lock);
+>>  
+>> +	/*
+>> +	 * Order the buffer initialization and the q->bufs[] stores done by
+>> +	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
+>> +	 * test_bit_acquire() in vb2_get_buffer(), which is also called
+>> +	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
+>> +	 * from a mem2mem .device_run().
+>> +	 */
+>> +	smp_mb__before_atomic();
+>>  	for (i = start; i < start + count; i++) {
+>>  		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
+>>  			    test_bit(i, q->bufs_bitmap)))
+>> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+>> index 2e93e6985d5f..20b961da21e0 100644
+>> --- a/include/media/videobuf2-core.h
+>> +++ b/include/media/videobuf2-core.h
+>> @@ -1288,7 +1288,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
+>>  	if (index >= q->max_num_buffers)
+>>  		return NULL;
+>>  
+>> -	if (test_bit(index, q->bufs_bitmap))
+>> +	/*
+>> +	 * A set bit guarantees that the buffer is fully initialized, pairs
+>> +	 * with smp_mb__before_atomic() in vb2_queue_publish_buffers().
+>> +	 */
+>> +	if (test_bit_acquire(index, q->bufs_bitmap))
+>>  		return q->bufs[index];
+>>  	return NULL;
+>>  }
+>>
+> Best regards
+
