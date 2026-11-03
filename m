@@ -1,104 +1,104 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709127;
-	b=1hkgfORxSf3JK5g71jANbmAPe2l/K53R38km8HJpGeVnl735M8VLzbTozzA+jKojljZd
-	 3La9nBTQl6WoXbYzJj512524RS6ZNuPvsA3VwzNdeYMIcRm4OvoUz7SQDS8hmj03u8PDm
-	 2kCHHIjaxQYBvQW3R0HSp+GysJ9uVGiyrZcbgBDiqH8tUl0ty7AVW6NYsSeVDl9n6CQXO
-	 qP7GLtDa4+5KA6U1+oPqT8ejJxJsRboupYPDXNIC7plsDfm9Ngmf6wyM+sJBtxJvMZmF6
-	 ju8oH6VTt8Dz2cTsAlxijggpY5nZQuiS6GsML+sM2gEaENzMfFEMe1/y0XB073C1Q+w==
+	t=1793709117;
+	b=bSUEVSkAZLSdCZD9CGI+SGEx/AFLlDerwAd/LNgZwCXyB0XcLGW64jKcjgp34F1L5qV0
+	 2fyuyPlaQxD3zVRVeYR3r55yWALuQyVt6v9AIJl8KcmRGtmqbO0PompcEJNHlePF59W4L
+	 i57hvwcoM9ZgtA3mq0sc/RN0JPyIZz4OAyfWtqe7Wke4PGhBN8wVlzipkfbdIkqEJVM4S
+	 X6RiK2364IyMTwH3UhKiF9Q/nXFVSxzKQAT2pyHrgZK9jI80NXqPlFEE2PwgPj5+VUza+
+	 GlT4FmcFkigE3QC5ze3WXQlNpUZ5mV0Nmr+nh0c13uLUczx5FTYyIl1hIAX1yQgry3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709117;
 	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
 	 DKIM-Signature:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Spamd-Result:X-Spam-Score:X-Spam-Level:
-	 X-Spam-Flag;
-	bh=eLHj1MqvPSxNJRwQe2kJjh7RW6JL1CbP9jKiRsa1DLE=;
-	b=lsgYgxyPdmfnb+ZlVMCXsIHZrXKvZYYYtS1PFDbeh3uMmIUh5UgjMGejun5xoZ5MSN7H
-	 fvrw/gvmMA9rPccTxgd4TQp2qFJ5jORDAQ3pSTMN/nkydOt/lpGfLOlR2IoLgsHdwrhrn
-	 nK4g1Ualrsv42hXeXZ8pMEYuBh/7VtubRBFHHIwidzWaPq8o/9UWykM7sGz+kpY3GgmEH
-	 QFQk5pPa2t0XLQzknWx4iTU9JM/PHBrSru68eTrwpsEYojh97RKYnzK8zM8HN+Qdg0l6C
-	 uPqyikMp5SCM4qdx5M4rwTfGbjMtuxZ2fCTjJFKZkYLWwz2Cws5cR+BaoM2h+ostZag==
+	 In-Reply-To:To:Cc:X-Mailer:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
+	 X-Spam-Score;
+	bh=ieBmRp1XcwhQFbEylt8mhSxOR3vG2tatu8PChzPxznk=;
+	b=mwc2G1WhSn57TTdT2RvWAtHlkpHYwKVfUm66kPwruWYL4c+oL6CpSfE/hrOLzB1W/0w0
+	 Ux9jzcz/vBlcpbU6/Rs+41F10iUebaWVEBdJIBhhDAeBF6JmestOrwZdTXiM5YJiJio1t
+	 xe/lD7Brd0CL5j2I3A4y9c4zjE+C6r7PpEpOk09Nvtgs8PIs9xBXbVpIW3Dk3/3cGdyFf
+	 o4UpJ7D4MB2I3lRR/l8vyIaOSbQdRVwbrxJNsu1NUClIZMxSHcARP0xu+eHeyXBc2W/Pg
+	 5jTGAFYCg+Mqk9XuXofduJ6i2dKGEG9HnP5J+3lcO/Bw303Zd0PLchD05orPaajIhOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.de;
 	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vwuUpvd/";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PMUEHix5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="vwuUpvd/";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PMUEHix5;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=a0DXus7o;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=c68sBFbQ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=a0DXus7o;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=c68sBFbQ;
 	arc=none smtp.remote-ip=195.135.223.130
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D49606EEA7;
-	Tue,  3 Nov 2026 12:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13D49606EEA7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99911606A33B;
+	Tue,  3 Nov 2026 12:31:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99911606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vwuUpvd/;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PMUEHix5;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vwuUpvd/;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PMUEHix5
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=a0DXus7o;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=c68sBFbQ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=a0DXus7o;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=c68sBFbQ
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 99DB522758;
-	Tue,  3 Nov 2026 12:32:05 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id CE6A322607;
+	Tue,  3 Nov 2026 12:31:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793709125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793709114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eLHj1MqvPSxNJRwQe2kJjh7RW6JL1CbP9jKiRsa1DLE=;
-	b=vwuUpvd/EPf6qgzj0QnitSAbVU6R5c8MKpMQWUks0o4t96Q+OGM/X3oOOxGoHSDHVpynQx
-	+iW4VjKVUboIcZGQaBP2eCJE8Wrzy8d4DK1yheNwomTUVv0gD+VyhkANbxjWVXLGujGy4V
-	W2x4bZpO7w6ABcCAdFy8BlB1/P6Qj+0=
+	bh=ieBmRp1XcwhQFbEylt8mhSxOR3vG2tatu8PChzPxznk=;
+	b=a0DXus7of5RgUOPO5EQ7spZ0WftX5e4qot6+LNYxmKKukyCizDWc1oKY4CC6LBzBB+thN2
+	Ttp/MVdNvw/3uNHsheMrpare5fAH1iVzi7m3g7SeRQbug8WxLuEYYUV2e7d3YbuXdSxzy5
+	T4zx8jIXyMeboatx196X1/KbjigXgA8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793709125;
+	s=susede2_ed25519; t=1793709114;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eLHj1MqvPSxNJRwQe2kJjh7RW6JL1CbP9jKiRsa1DLE=;
-	b=PMUEHix52mcP7IfsUOmqKfG4Lo2QCwrcSagaMQ8snlbB1Mip6RJZoKLGagb2OojFs4AO/L
-	tRiQffAG/YcR5sAw==
+	bh=ieBmRp1XcwhQFbEylt8mhSxOR3vG2tatu8PChzPxznk=;
+	b=c68sBFbQoqCoja45UCE7ehZNKOZUzrAAEHvJPSTYcDxpLFADBOJFNaC2OoS/mO0e85UbjS
+	QhLIZTAe06G+fYDg==
 Authentication-Results: smtp-out1.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793709125; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1793709114; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eLHj1MqvPSxNJRwQe2kJjh7RW6JL1CbP9jKiRsa1DLE=;
-	b=vwuUpvd/EPf6qgzj0QnitSAbVU6R5c8MKpMQWUks0o4t96Q+OGM/X3oOOxGoHSDHVpynQx
-	+iW4VjKVUboIcZGQaBP2eCJE8Wrzy8d4DK1yheNwomTUVv0gD+VyhkANbxjWVXLGujGy4V
-	W2x4bZpO7w6ABcCAdFy8BlB1/P6Qj+0=
+	bh=ieBmRp1XcwhQFbEylt8mhSxOR3vG2tatu8PChzPxznk=;
+	b=a0DXus7of5RgUOPO5EQ7spZ0WftX5e4qot6+LNYxmKKukyCizDWc1oKY4CC6LBzBB+thN2
+	Ttp/MVdNvw/3uNHsheMrpare5fAH1iVzi7m3g7SeRQbug8WxLuEYYUV2e7d3YbuXdSxzy5
+	T4zx8jIXyMeboatx196X1/KbjigXgA8=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793709125;
+	s=susede2_ed25519; t=1793709114;
 	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eLHj1MqvPSxNJRwQe2kJjh7RW6JL1CbP9jKiRsa1DLE=;
-	b=PMUEHix52mcP7IfsUOmqKfG4Lo2QCwrcSagaMQ8snlbB1Mip6RJZoKLGagb2OojFs4AO/L
-	tRiQffAG/YcR5sAw==
+	bh=ieBmRp1XcwhQFbEylt8mhSxOR3vG2tatu8PChzPxznk=;
+	b=c68sBFbQoqCoja45UCE7ehZNKOZUzrAAEHvJPSTYcDxpLFADBOJFNaC2OoS/mO0e85UbjS
+	QhLIZTAe06G+fYDg==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 55D39134B8;
-	Tue,  3 Nov 2026 12:32:05 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8AE45134B8;
+	Tue,  3 Nov 2026 12:31:54 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id fv8IC0XU6WpZBQAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Tue, 03 Nov 2026 12:32:05 +0000
+	id kWjGGDrU6WpIBQAAD6G6ig
+	(envelope-from <dwagner@suse.de>); Tue, 03 Nov 2026 12:31:54 +0000
 From: Daniel Wagner <dwagner@suse.de>
-Date: Tue, 03 Nov 2026 13:31:40 +0100
-Subject: [PATCH v2 5/7] scsi: qla2xxx: Fix inverted IRQ_NO_BALANCING
- toggling around PCI reset
+Date: Tue, 03 Nov 2026 13:31:36 +0100
+Subject: [PATCH v2 1/7] scsi: qla2xxx: Check FCE state under fce_mutex in
+ debugfs release
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,7 +110,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-qla2xxx-fix-v2-5-c6d2cdf2c806@suse.de>
+Message-Id: <20261103-qla2xxx-fix-v2-1-c6d2cdf2c806@suse.de>
 References: <20261103-qla2xxx-fix-v2-0-c6d2cdf2c806@suse.de>
 In-Reply-To: <20261103-qla2xxx-fix-v2-0-c6d2cdf2c806@suse.de>
 To: Nilesh Javali <njavali@marvell.com>, 
@@ -121,6 +121,8 @@ To: Nilesh Javali <njavali@marvell.com>,
 Cc: linux-scsi@vger.kernel.org, Daniel Wagner <dwagner@suse.de>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
+X-Spam-Flag: NO
+X-Spam-Level: 
 X-Spamd-Result: default: False [-17.30 / 50.00];
 	SUSE_INTERNAL_BYPASS(-9.00)[];
 	REPLY(-4.00)[];
@@ -142,51 +144,63 @@ X-Spamd-Result: default: False [-17.30 / 50.00];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
 X-Spam-Score: -17.30
-X-Spam-Level: 
-X-Spam-Flag: NO
 
-qla2xxx_set_affinity_nobalance(pdev, true) sets IRQ_NO_BALANCING and
-false clears it. The PCI error handlers call it the wrong way round:
-qla2xxx_pci_error_detected() clears the flag before the reset and
-qla2xxx_pci_slot_reset() sets it afterwards. So irqbalance can still
-touch the MSI-X vectors during EEH recovery, which is the failure the
-commit set out to fix, and IRQ balancing stays disabled for good after
-a successful recovery.
+qla2x00_dfs_fce_release() tests ha->flags.fce_enabled and ha->fce
+before taking fce_mutex. Since commit 841df27d619e ("scsi: qla2xxx:
+Move FCE Trace buffer allocation to user control") the buffer can be
+freed at runtime by writing 0 to the fce debugfs file, which clears
+ha->fce under fce_mutex.
 
-Set the flag in error_detected and clear it in slot_reset, as the
-commit message and the kernel-doc describe and as the ipr driver does
-in commit 6ac3484fb13b ("scsi: ipr: Enable/disable IRQD_NO_BALANCING
-during reset").
+If that write runs between the unlocked check and mutex_lock() in
+release, release goes on to memset(ha->fce, ...) with ha->fce == NULL:
 
-Fixes: eaea513077cd ("scsi: qla2xxx: Enable/disable IRQD_NO_BALANCING during reset")
+  CPU0 (close)                    CPU1 (echo 0 > fce)
+  !ha->fce -> false
+                                  mutex_lock(&ha->fce_mutex)
+                                  qla2x00_free_fce_trace()
+                                    ha->fce = NULL
+                                  mutex_unlock(&ha->fce_mutex)
+  mutex_lock(&ha->fce_mutex)
+  memset(NULL, 0, ...)
+
+Move the check under fce_mutex.
+
+Fixes: 841df27d619e ("scsi: qla2xxx: Move FCE Trace buffer allocation to user control")
 Cc: stable@vger.kernel.org
 Signed-off-by: Daniel Wagner <dwagner@suse.de>
 ---
- drivers/scsi/qla2xxx/qla_os.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/scsi/qla2xxx/qla_dfs.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/scsi/qla2xxx/qla_os.c b/drivers/scsi/qla2xxx/qla_os.c
-index 3c412c7fb6fe..93103d7e4e28 100644
---- a/drivers/scsi/qla2xxx/qla_os.c
-+++ b/drivers/scsi/qla2xxx/qla_os.c
-@@ -8009,7 +8009,7 @@ qla2xxx_pci_error_detected(struct pci_dev *pdev, pci_channel_state_t state)
- 		goto out;
+diff --git a/drivers/scsi/qla2xxx/qla_dfs.c b/drivers/scsi/qla2xxx/qla_dfs.c
+index 5d08bdbcf70a..247174a38d94 100644
+--- a/drivers/scsi/qla2xxx/qla_dfs.c
++++ b/drivers/scsi/qla2xxx/qla_dfs.c
+@@ -464,11 +464,11 @@ qla2x00_dfs_fce_release(struct inode *inode, struct file *file)
+ 	struct qla_hw_data *ha = vha->hw;
+ 	int rval;
+ 
+-	if (ha->flags.fce_enabled || !ha->fce)
+-		goto out;
+-
+ 	mutex_lock(&ha->fce_mutex);
+ 
++	if (ha->flags.fce_enabled || !ha->fce)
++		goto unlock;
++
+ 	/* Re-enable FCE tracing. */
+ 	ha->flags.fce_enabled = 1;
+ 	memset(ha->fce, 0, fce_calc_size(ha->fce_bufs));
+@@ -480,8 +480,8 @@ qla2x00_dfs_fce_release(struct inode *inode, struct file *file)
+ 		ha->flags.fce_enabled = 0;
  	}
  
--	qla2xxx_set_affinity_nobalance(pdev, false);
-+	qla2xxx_set_affinity_nobalance(pdev, true);
- 
- 	switch (state) {
- 	case pci_channel_io_normal:
-@@ -8147,7 +8147,7 @@ qla2xxx_pci_slot_reset(struct pci_dev *pdev)
- 	ql_dbg(ql_dbg_aer, base_vha, 0x900e,
- 	    "Slot Reset returning %x.\n", ret);
- 
--	qla2xxx_set_affinity_nobalance(pdev, true);
-+	qla2xxx_set_affinity_nobalance(pdev, false);
- 
- 	return ret;
++unlock:
+ 	mutex_unlock(&ha->fce_mutex);
+-out:
+ 	return single_release(inode, file);
  }
+ 
 
 -- 
 2.56.0
