@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702866;
-	b=dGCP/Ace1l66PyLoC5tHjmvgenkCXuQLGI0tsmIVFlTOi7pP2Z/WM8mjWCb5bSGDky3l
-	 PS3KvnSzryZPRiU2oNIVnOohUM+PUfhdjamGClCAM30FvvtkXT0cOOec/mpRH/jLTcAjZ
-	 aLUjsk+867mD8yNUcRhzrqnhOA16V2pa1yqgbadsRnNSICul04zBI1TOUenq+5W7eWYZC
-	 kHxDTsjBGRszR8O9oMS/ocRjp+f78KKUa8g6nTzSDIYoCEnoy196+h3B+hrnXxe8ddS+O
-	 xSOcnfEXt/xHMZltoGkf222OEmUH9UTgdy8Msl/jR/+k6q9hRzHAM3kvrW4/yn0hWeg==
+	t=1793702868;
+	b=swgEeJ8ZOlLwwW9zaQ5lcakE1/7DVZYrEME32TQz5xy7PvLJwr2r5vxqHYi81rNdSIKa
+	 7NzTmbhxsx7Ne8Fd/vjI0hR5lEMUgyTn/bDyN4tmoFr81iWQUODNLXzEM8DkAq+znRc/h
+	 wsCoB1slBTXOltYjdBrIo7/FGYejyhAy2phr3YPzW4U6NicUX3z3eY797dmyG5BCVKYTt
+	 tISvYAAMybMmuE909EA8Iz4kCgv8spLoTDMzcILubDoPjmPVBPqEmXv/KqlW7o+ymkpEO
+	 xT3p60/5L9OKQDe2EZPKl5kXOBGGZxkz/Hn2jmGl4+yI4fGzsojVpQeBr5xpUmCNh6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702868;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zHBI0l1cclh9lVcu11iu7wBxLJB1gPW1s8i5q0hhhTE=;
-	b=2zX8k7+6WAurhKeDjwf7VYa5A6zm2YIvXc3yif8yNngbxZVUMsz5bq6Nh+z5Q59zLVxy
-	 uv66UFJARy67YvIPB4qsx2tk05GSRsgYd8+vRnVqQ+OoyAUfKj6c3EJCJ51Dv3AUYLZ46
-	 97/JgM7FCEoDRMRP56We2sVEIvzHjAQc4Q/bkxLigylMbfxTYCYpweZJ3a/B9qUekNWeA
-	 HGkwc22eleXQg2z/puwbeLbqCufu3MXtf2GY4LuHL9TWmbAv9lwgaegMiiGyk7xnxyGlT
-	 RKsr2/u2dQCpY96jBYgX78HVJ/ZohgO1UfD45jLlFc4w6hp4zhPV/6pY+OwwRtpxYUg==
+	bh=pUDn/bDBHFFPg15IWdAi3JzTlZmCSHu0oWpw2norP4M=;
+	b=Po6Yiu1tTgxVofevLRE8akhqdqw/oJnzTV+p+DETi/DKe0maahWH/014eNWu2Nwd7IdF
+	 F5Z0NOOsxXFHeHqhv5LyQXrU3DrNLFr6IkIfU75dxc7v/tTdNt8g5EUxkDGmA2Oj2K21k
+	 FwS0wv26JB9ihL3ebKUCVExLLwGSbhEBp8R+8UuKQE+XbWyjSDl/tSCwNmNhpJzh/3X2r
+	 yCRA4n0nCTf4VVR87wmGP1SnODQOvYHB3w6lZO1gzP53vz3gF0Jx7ZtOMH69MaMPoN1Bu
+	 HLboAgSoYvs2gd7dg19pO5/WyuMwXm4r3OmtXttlATDX/41m4xrn28ex7uszbCuIN/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O32zEIhV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gZl9E01d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94F8260736C0
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:47:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD386073787
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:47:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O32zEIhV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F671F00919;
-	Tue,  3 Nov 2026 10:47:45 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gZl9E01d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A8E1F00919;
+	Tue,  3 Nov 2026 10:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793702866;
-	bh=zHBI0l1cclh9lVcu11iu7wBxLJB1gPW1s8i5q0hhhTE=;
+	s=korg; t=1793702867;
+	bh=pUDn/bDBHFFPg15IWdAi3JzTlZmCSHu0oWpw2norP4M=;
 	h=Subject:To:Cc:From:Date;
-	b=O32zEIhVORv5AFc792jkfC2EajpQrQzkA4194fQuJ8cIE8I3Nj6raWu/lslEKt2UB
-	 ChgE7TzXmOCNTYM81Z1W6Sr3IQXbzEJPWzqfItOMThpF8fTzZnfo3Bpy6aOWwcwbPx
-	 xevBZb7GcGfU5C6gQlH+MQnsJeSrA2/n7yvv87os=
-Subject: FAILED: patch "[PATCH] ksmbd: prevent share root removal through empty paths" failed to apply to 6.6-stable tree
+	b=gZl9E01dz4O1BkSFt8VwZKDn+qoyqWCk73q4SfVoVx/OIXwaRFmuumAOOdwqUagvY
+	 UBp5xSQ+rgqEi6koB1SCeLGSZxFmfiLz9x4/GB21cnUJliW+5epQsFo90r/aajOdPx
+	 CSfPtO1t443qoN4zXIFmXNGvKzwVH/SXwUehOP5k=
+Subject: FAILED: patch "[PATCH] ksmbd: prevent share root removal through empty paths" failed to apply to 6.1-stable tree
 To: linkinjeon@kernel.org,zachariah@aplosai.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 03 Nov 2026 11:45:37 +0100
-Message-ID: <2026110337-caboose-tile-5488@gregkh>
+Message-ID: <2026110337-undivided-femur-faa6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9fd1fcbbf84986a7bcf601a2b90540899069d263
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110337-caboose-tile-5488@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110337-undivided-femur-faa6@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
