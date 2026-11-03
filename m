@@ -1,79 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793728868;
-	b=M9Cc6GeHyWwgN6k1U1CHzilLwUk80iHKxkqOW2/CnUBAWganpVkIiJxfNL61AG3ImZwr
-	 JMF4mzBd0fHtUq/+GE1T+Va9IekUy7PkYZlqaMqlLuu0I7PpbPIXTQp0IeLUt0pAE86Jf
-	 6CeJ32xW6ajpK/45vz/b6SfSMlYGdLweMG4M0PyaF1EFAou8oSO7CiCEs6dGR3p2YoOC1
-	 tImO6UTXHqrIrtJvRESLqi4HEY6H1pUGLiFMRzkfVu+dh54szO7ikeab3ShP4FU3P3dMu
-	 1Ky+lB46GSRzkXzrx4N/PRyoOkF7WoY5gyup/asLT2O0su+AVnZ1MnhWyUzVGX9fcfQ==
+	t=1793728987;
+	b=rLQmj4HcG5hCKlML+/eZHVI0tXvVa397R00WQEIHVfO4gynJTyea25UpOFCRfs8Zz0g0
+	 Mnq9F7oTeufGzzJSGrRWY4ziAt8USEBR4+fXE3kdRrPEf6TTVLuwC4adLycYBjBX+PVvO
+	 cHLjYjlfeXJvLNXT1OGxCQHNMY6W8nfdNGzHLLirmPOrKsXI5wwrhMvpdA2CV9y0+d8Rd
+	 0ZOmILa51MMKEbpCtiA69UUSEMhyqQwv+fpBwXhOeQiYZCLuuDmux27aaUebZt3QHZX4h
+	 R2dt/ZQ5jnDQsrKiefQvkAmOSlBd3R84AQeLoP65xzVUu8Y7Oy7gR5B8/KkeolRj9AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793728868;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=LihcftIqtHPBx/BrYp2PBuP9LehJ9ydf5sfAZouf5C0=;
-	b=PfacG04jBFnvYWx99BvkuyRPJuZFGrWp4lmq0YIkcMuciJ7mVic8Dd7GFEuSRn6KvRih
-	 HaShx7vC4d+Hya9fOMuvNK0fKI6+bToC9WDCmSeYHb26x739cMIqF5mACa3Pyq3avMHLJ
-	 JoR126BslcDmZAnjvRWOuuv620VNkh7nYe3xJA8QfNmLnlsF2Ogc/BeDYfSRYRKveY1hO
-	 M7WTZ6xMzsbcGtWrA23NxL2oA8o2RUw6icogbpHzIPSjZEx/eyClP+IAY3gI2IYabB4mA
-	 bzEDwIQulkFghzB3iqCPp4PyiOrEBKzNhNPjMZyHtch0Cbytcd7akHvVGlMPlaxmtRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793728987;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oJtXASTa48RwOT6JweuokeA+vIrZ1COV+im6KtcmwTw=;
+	b=zckp227/OnymIQzqndtboPi6nu3wjIX6YVEekklFRnno7sznYh2hr4OrYcsDRDwJ2B/O
+	 Nv7nnRSW3EV/jsMK/OGX0/VLhcG4SQObKdSlnzwCZRjBx3Fxxh0ok5Z7O2DqUcnucAJBb
+	 O8xJLOAf6mKJDmZfCcRPTlmz2F+AW45PGV/aPGRNZP/C9CVSg8BWaQgD259cNN+A9gYyR
+	 KwUYJWtjGrgwEYr/cj2L2OSU+ZdYaK4H+/n+RXMMXlEbzo5q4UOOKCmlRTB9LGvmNdHFs
+	 a4CxmlyMkj8yKKjgLNI/UxoUI7T1iwAfWIj1bG1WbS8OrrYzKw8FVn5W4XzKlsdjsPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FU2td6Ru;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=7l8frmfI;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF3C606A31B;
-	Tue,  3 Nov 2026 18:01:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF3C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1FA606A328;
+	Tue,  3 Nov 2026 18:03:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A1FA606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FU2td6Ru
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793728867; x=1825264867;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZEu3T8PKR06aXeT5T9tiffD3wPOcQDLY2cPsllGkJb8=;
-  b=FU2td6RuGbqAdYnvgUZtkmeutBvX9bpcs2/0aFbtMXWudPqrDxt6j0B6
-   Iv6Q3DqoHgccS1ecdcOUsVDY0FhSQ7Y+IbJoxhvdn1iZaTA6tsAUp6P2+
-   JbmAU9coLwBzF6Hss5XRxskV2cQhMcQNza6Jml1zjvPSGngIe7dchG/na
-   EBvdZb/RjvLyanEVdHQIS8VhJIW6CsMpS7sbKDXChMvgIQwbt//UPasnX
-   ixk+waBGEyKaq2jaNQd0Ajg9oo7rTnYu6BAoxpld/QdYrECVW05+tfdmU
-   kb2VPA9wI7WyxnRUxhavBzyqA8IIIFWebKcw8u4txwEKJb8BAs600zx/x
-   g==;
-X-CSE-ConnectionGUID: BrLltAQpTYS94N2wauE2vw==
-X-CSE-MsgGUID: GtqkIw9xTG6SJvmUT5mRfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2494043"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2494043"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:01:07 -0800
-X-CSE-ConnectionGUID: QBmGdKfMTHyif7+/Dou+uA==
-X-CSE-MsgGUID: r8oFF1v1SbyfMQy59H8d2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="8271042"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 10:01:05 -0800
-Date: Tue, 3 Nov 2026 20:01:02 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: trigger: fix use-after-free in
- current_trigger_store() on concurrent writers
-Message-ID: <auohXrCmejLW20Ta@ashevche-desk.local>
-References: <20261026100246.68005-1-yuz08559@gmail.com>
- <20261102034532.33246-1-yuz08559@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=7l8frmfI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=oJtXASTa48RwOT6JweuokeA+vIrZ1COV+im6KtcmwTw=; b=7l8frmfI/1jBUVR3stxsxfjo2H
+	YgZBWjtDUGBVZ8D5b0u+tkgeWAOKmt7O+Y2hSHLFN6GnaSLe/QMPoyPYrjGmhCpxHdzg/EYCspBW/
+	hIBSWbVLyVUBMNfzuEkRo3GQcqx1VmLsgs5AtTTsDW5gHejcFcuH21Nt5WpPiN4C5WEffI7Xj7HYt
+	xhDUEr87sPKP4cOJb2llSpEUCOXhlN+oBM1FA5MzMUUcTWz7iFqUML9u+52Mi0B1dzpskTp3WIzH9
+	8c2PYhrb3sNlTMyGdKGnrMOhBSqlKf140meOFLDySxTrzsKMWylTCT/0cTu4K9R6BTNjh0msUXY4F
+	5v4qV9gw==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xOIqX-00000000iuv-2QGn;
+	Tue, 03 Nov 2026 15:02:58 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org,
+	netfs@lists.linux.dev,
+	David Howells <dhowells@redhat.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Christian Brauner <brauner@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 08/16] smb: client: issue writes from a worker if the task is dying
+Date: Tue,  3 Nov 2026 15:02:47 -0300
+Message-ID: <20261103180255.1482516-9-pc@manguebit.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261103180255.1482516-1-pc@manguebit.org>
+References: <20261103180255.1482516-1-pc@manguebit.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,88 +72,151 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102034532.33246-1-yuz08559@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 02, 2026 at 01:45:32PM +1000, Yu Zhang wrote:
-> current_trigger_store() holds iio_dev_opaque->mlock only around the
-> INDIO_BUFFER_TRIGGERED / trig_readonly checks and then drops it. The rest
-> runs unlocked: it reads the current trigger into oldtrig, acquires the new
-> one by name, stores it into indio_dev->trig, and drops the old trigger's
-> reference with iio_trigger_put().
-> 
-> sysfs does not serialize writes to the same attribute issued through
-> different open file descriptors (each open has its own kernfs_open_file),
-> so two threads can run current_trigger_store() on the same
-> .../trigger/current_trigger concurrently. Both read the same oldtrig, both
-> overwrite indio_dev->trig, and both call iio_trigger_put(oldtrig). The
-> extra put drops the trigger's refcount to zero while it is still in use,
-> frees it, and a concurrent writer then dereferences the freed trigger.
-> 
-> With two sets of writers hammering current_trigger between two software
-> triggers on an iio_dummy device, KASAN reports:
-> 
->   refcount_t: addition on 0; use-after-free.
->   WARNING: CPU: 3 PID: 3467 at refcount_warn_saturate+0xbb/0xe0
->    kobject_get+0xf6/0x100
->    current_trigger_store+0x15c/0x4b0
->   ...
->   BUG: KASAN: slab-use-after-free in current_trigger_store+0x168/0x4b0
->   Freed by task 3468:
->    kobject_put+0x125/0x220
->    current_trigger_store+0x2cc/0x4b0
->   Allocated by task 3454:
->    __iio_trigger_alloc+0xc7/0x100
->   ...
->   Oops: general protection fault
->    __module_get+0x27/0xd0
->    current_trigger_store+0x192/0x4b0
-> 
-> Hold mlock across the whole operation so that reading oldtrig, swapping
-> indio_dev->trig and dropping the reference are atomic with respect to
-> other writers (and to buffer enable, which the -EBUSY check guards).
-> Acquiring the new trigger with iio_trigger_acquire_by_name() under mlock
-> is safe: it only takes iio_trigger_list_lock, and the buffer path already
-> calls iio_trigger_{attach,detach}_poll_func() with mlock held.
-> 
-> The trigger swap itself keeps its goto based cleanup of the newly
-> acquired trigger, so move it into a helper and take mlock with guard()
-> in current_trigger_store() around the mode checks and the helper call,
-> rather than mixing guard() and goto in one function.
+A task with a fatal signal pending can't send on the socket:
+__smb_send_rqst() refuses it upfront with -ERESTARTSYS, as SIGKILL can't
+be blocked and a send interrupted halfway forces a reconnect.  Writeback,
+however, runs in the context of whoever starts it, so when a dying task
+flushes dirty pages - close() racing with SIGKILL, or fd teardown during
+exit_group() - every write subrequest gets refused:
 
-...
+  smb3_write_err: ... offset=0x1400000 len=0x400000 rc=-512
+  cifs_flush_err: ino=... rc=-512
 
-> +static ssize_t current_trigger_store(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     const char *buf, size_t len)
-> +{
-> +	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-> +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
-> +
-> +	guard(mutex)(&iio_dev_opaque->mlock);
-> +
-> +	if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
-> +		return -EBUSY;
+Since the switch to netfslib, a failed upload ends writeback with the
+folios clean, so the data is silently lost: the server ends up with
+20MiB of a 64MiB file while stat(2) reports the full size.
 
-+ Blank line.
+Issue writeback subrequests of dying tasks from a new cifswritebackd
+workqueue instead, like afs does for all of its writes, so they get sent
+from a context with no signals.  Leave direct and unbuffered writes
+alone, as their callers get the error.  Use a dedicated WQ_UNBOUND
+workqueue as the writes may block for long on credits, sends or reopens,
+e.g. on hard mounts with an unresponsive server, and must not hold up
+other cifs work such as reconnects, nor starve the WQ_MEM_RECLAIM
+rescuer of cifsiod_wq.
 
-> +	if (iio_dev_opaque->trig_readonly)
-> +		return -EPERM;
-> +
-> +	return iio_trigger_set_current(indio_dev, buf, len);
-> +}
+Fixes: 3ee1a1fc3981 ("cifs: Cut over to using netfslib")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org
+---
+ fs/smb/client/cifsfs.c   | 15 +++++++++++++--
+ fs/smb/client/cifsglob.h |  1 +
+ fs/smb/client/file.c     | 26 +++++++++++++++++++++++++-
+ 3 files changed, 39 insertions(+), 3 deletions(-)
 
-> +
-
-Drop this blank line.
-
->  static DEVICE_ATTR_RW(current_trigger);
-
+diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
+index 9db6a32d6e05..c90fb0cc0f0e 100644
+--- a/fs/smb/client/cifsfs.c
++++ b/fs/smb/client/cifsfs.c
+@@ -164,6 +164,7 @@ struct workqueue_struct	*cifsoplockd_wq;
+ struct workqueue_struct	*deferredclose_wq;
+ struct workqueue_struct	*serverclose_wq;
+ struct workqueue_struct	*cfid_put_wq;
++struct workqueue_struct	*cifs_writeback_wq;
+ __u32 cifs_lock_secret;
+ 
+ /*
+@@ -2124,9 +2125,16 @@ init_cifs(void)
+ 		goto out_destroy_serverclose_wq;
+ 	}
+ 
+-	rc = cifs_init_inodecache();
+-	if (rc)
++	cifs_writeback_wq = alloc_workqueue("cifswritebackd",
++					    WQ_UNBOUND | WQ_MEM_RECLAIM, 0);
++	if (!cifs_writeback_wq) {
++		rc = -ENOMEM;
+ 		goto out_destroy_cfid_put_wq;
++	}
++
++	rc = cifs_init_inodecache();
++	if (rc)
++		goto out_destroy_writeback_wq;
+ 
+ 	rc = cifs_init_netfs();
+ 	if (rc)
+@@ -2197,6 +2205,8 @@ init_cifs(void)
+ 	cifs_destroy_netfs();
+ out_destroy_inodecache:
+ 	cifs_destroy_inodecache();
++out_destroy_writeback_wq:
++	destroy_workqueue(cifs_writeback_wq);
+ out_destroy_cfid_put_wq:
+ 	destroy_workqueue(cfid_put_wq);
+ out_destroy_serverclose_wq:
+@@ -2242,6 +2252,7 @@ exit_cifs(void)
+ 	destroy_workqueue(fileinfo_put_wq);
+ 	destroy_workqueue(serverclose_wq);
+ 	destroy_workqueue(cfid_put_wq);
++	destroy_workqueue(cifs_writeback_wq);
+ 	destroy_workqueue(cifsiod_wq);
+ }
+ 
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index b6a993cc0245..e211dea91e6e 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -2144,6 +2144,7 @@ extern struct workqueue_struct *cifsoplockd_wq;
+ extern struct workqueue_struct *deferredclose_wq;
+ extern struct workqueue_struct *serverclose_wq;
+ extern struct workqueue_struct *cfid_put_wq;
++extern struct workqueue_struct *cifs_writeback_wq;
+ extern __u32 cifs_lock_secret;
+ 
+ extern mempool_t *cifs_sm_req_poolp;
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 6a1711bf89d4..31149d7d4498 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -90,6 +90,12 @@ static bool cifs_io_aborted(struct cifs_io_subrequest *subreq)
+ 	       tcon->need_reconnect;
+ }
+ 
++static bool cifs_writeback_dying(struct netfs_io_subrequest *subreq)
++{
++	return subreq->rreq->origin == NETFS_WRITEBACK &&
++		fatal_signal_pending(current);
++}
++
+ /*
+  * Prepare a subrequest to upload to the server.  We need to allocate credits
+  * so that we know the maximum amount of data that we can include in it.
+@@ -164,7 +170,7 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ /*
+  * Issue a subrequest to upload to the server.
+  */
+-static void cifs_issue_write(struct netfs_io_subrequest *subreq)
++static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
+ {
+ 	struct cifs_io_subrequest *wdata =
+ 		container_of(subreq, struct cifs_io_subrequest, subreq);
+@@ -202,6 +208,24 @@ static void cifs_issue_write(struct netfs_io_subrequest *subreq)
+ 	goto out;
+ }
+ 
++static void cifs_issue_write_worker(struct work_struct *work)
++{
++	struct netfs_io_subrequest *subreq;
++
++	subreq = container_of(work, struct netfs_io_subrequest, work);
++	__cifs_issue_write(subreq);
++}
++
++static void cifs_issue_write(struct netfs_io_subrequest *subreq)
++{
++	if (unlikely(cifs_writeback_dying(subreq))) {
++		subreq->work.func = cifs_issue_write_worker;
++		WARN_ON_ONCE(!queue_work(cifs_writeback_wq, &subreq->work));
++		return;
++	}
++	__cifs_issue_write(subreq);
++}
++
+ static void cifs_netfs_invalidate_cache(struct netfs_io_request *wreq)
+ {
+ 	cifs_invalidate_cache(wreq->inode, 0);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
