@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735080;
-	b=KWRO9YfbhktgSEVJDQ3BRRiPyCbSf24o1HytbMDEOxQdsFJ4AYT7heCH2CSuTNj/rKWt
-	 c+4n9ovMkmVYEIGrDhY3SGRJXkKb5k3EYDD/2y1i07B7jAcWGkCXA+e7uNPPWyxCyXWbI
-	 EnnWsbhypSHkIWDJckNI3wA+SeERB+rWLt6tC+wCwoXa7bhnU9u0oh/EpRuGnjqpWrEcx
-	 XwMDpHJ1SGxG802GRQHMTN3gL45imcebRfnldo0NZ3us29KMwaPaW2Hqf93VEAHP/qqhQ
-	 YEMRuxefOn9d0iV2IISSsC+xcNeEcZnM5474zLIiMxSiR4OSjk/zTPssA2j2e+SAgCg==
+	t=1793735274;
+	b=zqAowaQhoPX+I+ABZGxqDqh3As+yi+jM0bMlWr14s4V0mq0NBrKUhWxP0wiqJ8nPrIGs
+	 9L4AaW5qUmy3QHG8XYw2UpHciWfyLIWgSZKqQjluUx7fNDINn9ngd8OFdCnUg4YiYTgvh
+	 H8AqflaobS9hjiHrcYj8Ktxr1BQpTBbtBW3XCx8GSEci3uXbfTuxMjEeUmW5nTB/8rG6h
+	 kVatol7RBpqqKKUyWgiFurdbFZDtmXqxMzbo0LDLuvMH2SKCS9kC9uAYGBydQLiq0OJwD
+	 iXJd5q6bS84fAIbCIdh9XKxdjZ6v/v7FmmRBZ2IhhYgpZTK9u0L3/6botYNFjKa4eog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735080;
-	h=DMARC-Filter:DKIM-Signature:To:Mime-Version:X-B4-Tracking:
-	 Content-Type:Cc:Subject:Message-Id:X-Change-Id:X-Mailer:From:
-	 X-Lms-Return-Path:Received:Content-Transfer-Encoding:Date:
-	 X-Original-From;
-	bh=vcnq1DeugB7564b1ifNJtZSg+TFpvqDt2FpNBOnwADo=;
-	b=4O2tW3nxbvovtPwje8vVBwI/IISNWug9t8LFSXC0OpQLTK+14Snmz0Ah0aYffUOBhBsI
-	 J5U4bOAHruTSSGpJADzRpzYBU7u5RvRxpur38N6Aylzs6lcpF9wbfrqfjRfZ+t16mU51j
-	 pvbjepcTkMig+N/wlLLUBtKTdwAgjNdHZowvv+qg4Ql5p9rDIAHC+OfJ/Cz63lxc6A5wY
-	 3DRilc60PMs0jsKPfzE1ZWpEaPwGOMZi+aU9dZwUx/Wo3EvMggbpAOdIEUk+AhVJbsQgQ
-	 45Q+mHsnmmaJ2NXr7/Hztacn782ukdRKGGjr+9XryNfDzTZds3xofG7IauS35CE1y8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735274;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=RFDP1+qeI/6PE5pzKeEg2jAo+1vbuaZZQsZqEYbMZig=;
+	b=diEvJLLWgUSG7+2ryTXmiBfYBACe/NDMyPy8lTdbfaUtLV9N5CHS4BZfFDxsl9cm4Xgy
+	 6Yw0NRV5RUmNJ34MuW564DkOuvtFg84Y6eFYPbVqtJJ2k1NfInZlk3aFqsSZeiavMAWmc
+	 gV6KS2eD0l8ZW9R6gCtoBuKe0QDfeiBB7pCfBxJqibmDO3/Z405oESRxQRiagmBLV5NBc
+	 L9fIqS/gaumSH+RIJporkBNBYPIV7CltfBPdBYFfCxcC9zz3vpxAgLO561S1fibefOKdS
+	 DpIHR26oWWnIKhxFj3LvRmjtaJx9movm+ReEmP74Te0uuqN0vhHTWcF/CIGLJLo/GQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherr.cc;
-	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=LPBLVSQt;
-	arc=none smtp.remote-ip=71.18.227.2
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4OiUkxb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC628606A32E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:44:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC628606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADA0606D811
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:47:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=LPBLVSQt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1793735068; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=vcnq1DeugB7564b1ifNJtZSg+TFpvqDt2FpNBOnwADo=;
- b=LPBLVSQtQ6b50vGVU4UXRLyUg0wWUEJX5+D+RDbZcGXi1b+UhOTaQHoybwtijPC1UBbG/C
- h1gtlzRmJ6y9KjJnYq4OwDyeWXK3QEif+kAt+yUG5aTFT9wzVfxfrv99aKgYRrAGJnixBW
- rnXKFVmGTxbnNq/nbiYIeWhIDBNN4/ZBFVWMrRLBbIfFwGiqKWYEEbdJzWHfchhDonRLxv
- xSj9rw0ANCUze98DFfb1Pz5zoLni2lhV0NcqCDIuKPV24nDNp5TKM/7pW+vSNZv0EO8xOl
- Eo61W9wibQ2dLheNfUUVxlXVAEggfZYc0cBUyN0xvJq35AHWqsxqqOWvhqFavA==
-To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
-	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
-	"Benjamin Tissoires" <bentiss@kernel.org>, 
-	=?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>, 
-	"Paul Dino Jones" <paul@spacefreak18.xyz>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4OiUkxb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432661F00A02;
+	Tue,  3 Nov 2026 19:47:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793735273;
+	bh=RFDP1+qeI/6PE5pzKeEg2jAo+1vbuaZZQsZqEYbMZig=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=f4OiUkxbUNC+mZwD3QR0QnlPwFSYAtsy+XoPt9aUkXWQ7p1QwklOWJ8t31UklnzVr
+	 71xhAMCMhrBvV5NGJ4AGLgXWs+KqOJfqLuoAz1R0puTSxqWJdUBg+RyV7nzqBHM3pe
+	 GYDFRcBSTHq5Uw8ID/qJkYHIwpJZeQYDMov6Rb0R4iFiU1YtOiov2p0knTeKmmD4Z8
+	 VddG1YWPIQ2sNbV51pVY3XWBUV7K1TmG0FesvlkYGd9FjOrVVDcBdlHSYeOzILtu71
+	 ld3ExivYBvO4K/n05QHEfgpIBkScPV6yzuPp0duhuXBDt6KBrC+SlXdSg4T7RFk4HP
+	 jdc0qoSZxaV+A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	zdi-disclosures@trendmicro.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] ksmbd: prevent stale data from being written by SMB2 WRITE requests
+Date: Tue,  3 Nov 2026 14:47:51 -0500
+Message-ID: <20261103170316.642979-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110351-marsupial-sandbar-d3cd@gregkh>
+References: <2026110351-marsupial-sandbar-d3cd@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,95 +58,113 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAJU56moC/32NQQ6CMBBFr0K6dgytgMSV9zAsynQqY0whUyQYw t0tsHf5kv/fW1QkYYrqli1KaOLIfUhwOWUKOxueBOwSK5ObSuemhraAgZ33IBTRvgloHvpAYQT tSizI6Joqp9J/EPI87+5Hc3D8tC/CcRNui47j2Mt3j09m2x2dFPrTmQxosNeyRbRV6V1+x45Ez oiqWdf1ByPLW57TAAAA
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH v3] HID: pidff: bound the unit exponent rescaling loop
-Message-Id: <20261104-b4-pidff-rescale-exponent-v3-1-f45e64cf488c@cherr.cc>
-X-Change-Id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
-X-Mailer: b4 0.16.0
-From: "Shengzhuo Wei" <me@cherr.cc>
-X-Lms-Return-Path: <lba+26aea399a+0699dc+vger.kernel.org+me@cherr.cc>
-Received: from [127.0.1.1] ([111.42.148.145]) by smtp.feishu.cn with ESMTPS; Wed, 04 Nov 2026 03:44:25 +0800
-Content-Transfer-Encoding: 7bit
-Date: Wed, 04 Nov 2026 03:44:22 +0800
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-pidff_rescale_time() walks the device-provided unit exponent one step
-at a time, allowing extreme values to cause billions of iterations
-while ff->mutex is held. In a UHID test with an INT_MIN exponent,
-EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-Stop rescaling once scaled_time becomes zero, since further
-multiplication or division by 10 cannot change the result. The u32
-value becomes zero within 32 multiplications by 10, and the u16
-input within 5 divisions. This bounds the loops while preserving
-their results for all exponents, including wraparound.
+[ Upstream commit bc0e0f5ac1d7b044d403f859406b4b66d4b1ce9b ]
 
-Also warn during initialization if the duration field's unit exponent
-is outside the range -8 to 0. This helps identify unusual device
-descriptors without logging on every effect upload or changing the
-rescaling result.
+Initialize the compatibility byte in request buffers without zeroing
+the entire allocation. Keep the one-byte compatibility exception for
+SMB2 messages so valid zero-length WRITE requests remain compatible,
+and validate the data range in the WRITE handlers against the current
+compound request before accessing it.
 
-Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field units")
+This prevents stale request-buffer data from being written to files or
+sent to IPC pipes.
+
+Fixes: 443d61d1fa9f ("ksmbd: allocate one more byte for implied bcc[0]")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-32436
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: replaced smb2_current_req_len() calls with inline NextCommand and RFC1002 length calculations ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v3:
-- Declare and initialize exp at its point of use, as requested by
-  Tomasz.
-- Remove Tomasz's Reviewed-by at his request, since his v1 review
-  does not apply to the updated patch.
+ fs/smb/server/connection.c |  1 +
+ fs/smb/server/smb2pdu.c    | 34 +++++++++++++++++++++++++---------
+ 2 files changed, 26 insertions(+), 9 deletions(-)
 
-Changes in v2:
-- Following Tomasz's suggestion, warn during initialization when
-  the duration field's unit exponent is outside -8..0.
-- Add Tomasz's Reviewed-by.
-
-v2: https://lore.kernel.org/r/20261102-b4-pidff-rescale-exponent-v2-1-a75bcca65fd0@cherr.cc
-v1: https://lore.kernel.org/r/20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc
----
- drivers/hid/usbhid/hid-pidff.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
-index 22951b7ecd17..7827b366fa5f 100644
---- a/drivers/hid/usbhid/hid-pidff.c
-+++ b/drivers/hid/usbhid/hid-pidff.c
-@@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_field *field)
- 	int exponent = field->unit_exponent;
+diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
+index ec265f12c4902..833105f23d260 100644
+--- a/fs/smb/server/connection.c
++++ b/fs/smb/server/connection.c
+@@ -520,6 +520,7 @@ int ksmbd_conn_handler_loop(void *p)
+ 		if (!conn->request_buf)
+ 			break;
  
- 	pr_debug("time field exponent: %d\n", exponent);
--	for (; exponent < FF_TIME_EXPONENT; exponent++)
-+	for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
- 		scaled_time *= 10;
--	for (; exponent > FF_TIME_EXPONENT; exponent--)
-+	for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
- 		scaled_time /= 10;
++		conn->request_buf[pdu_size + 4] = 0;
+ 		memcpy(conn->request_buf, hdr_buf, sizeof(hdr_buf));
  
- 	pr_debug("time calculated from %d to %d\n", time, scaled_time);
-@@ -1433,6 +1433,13 @@ static int pidff_init_fields(struct pidff_device *pidff, struct input_dev *dev)
- 		return -ENODEV;
+ 		/*
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index aaccef2e3f3bb..d8aa61602b827 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -7140,23 +7140,28 @@ static noinline int smb2_write_pipe(struct ksmbd_work *work)
+ 	int err = 0, ret = 0;
+ 	char *data_buf;
+ 	size_t length;
++	unsigned int data_offset, req_len;
+ 
+ 	WORK_BUFFERS(work, req, rsp);
+ 
+ 	length = le32_to_cpu(req->Length);
+ 	id = req->VolatileFileId;
++	data_offset = le16_to_cpu(req->DataOffset);
++	req_len = le32_to_cpu(req->hdr.NextCommand);
++	if (!req_len)
++		req_len = get_rfc1002_len(work->request_buf) -
++			work->next_smb2_rcv_hdr_off;
+ 
+-	if ((u64)le16_to_cpu(req->DataOffset) + length >
+-	    get_rfc1002_len(work->request_buf)) {
+-		pr_err("invalid write data offset %u, smb_len %u\n",
+-		       le16_to_cpu(req->DataOffset),
+-		       get_rfc1002_len(work->request_buf));
++	if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
++	    data_offset > req_len || length > req_len - data_offset) {
++		pr_err("invalid write data offset %u, length %zu, req_len %u\n",
++		       data_offset, length, req_len);
+ 		err = -EINVAL;
+ 		goto out;
  	}
  
-+	int exp = pidff->set_effect[PID_DURATION].field->unit_exponent;
+ 	data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
+-			   le16_to_cpu(req->DataOffset));
++			   data_offset);
+ 
+ 	rpc_resp = ksmbd_rpc_write(work->sess, id, data_buf, length);
+ 	if (rpc_resp) {
+@@ -7307,14 +7312,25 @@ int smb2_write(struct ksmbd_work *work)
+ 		writethrough = true;
+ 
+ 	if (is_rdma_channel == false) {
+-		if (le16_to_cpu(req->DataOffset) <
+-		    offsetof(struct smb2_write_req, Buffer)) {
++		unsigned int data_offset = le16_to_cpu(req->DataOffset);
++		unsigned int req_len = le32_to_cpu(req->hdr.NextCommand);
 +
-+	if (exp < -8 || exp > 0)
-+		hid_warn(pidff->hid,
-+			 "duration field has unusual time unit exponent %d\n",
-+			 exp);
++		if (!req_len)
++			req_len = get_rfc1002_len(work->request_buf) -
++				work->next_smb2_rcv_hdr_off;
 +
- 	PIDFF_FIND_FIELDS(block_load, PID_BLOCK_LOAD, 0);
- 	if (!pidff->block_load[PID_EFFECT_BLOCK_INDEX].value) {
- 		hid_err(pidff->hid, "unknown pid_block_load report layout\n");
++		if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
++		    data_offset > req_len ||
++		    length > req_len - data_offset) {
++			ksmbd_debug(SMB,
++				    "invalid write data offset %u, length %zu, req_len %u\n",
++				    data_offset, length, req_len);
+ 			err = -EINVAL;
+ 			goto out;
+ 		}
+ 
+ 		data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
+-				    le16_to_cpu(req->DataOffset));
++				    data_offset);
+ 
+ 		ksmbd_debug(SMB, "filename %pD, offset %lld, len %zu\n",
+ 			    fp->filp, offset, length);
+-- 
+2.53.0
 
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
