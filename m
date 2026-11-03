@@ -1,94 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693458;
-	b=dV9qtc/brLSvNhSZXMjXmVHz03sLijruxPlXvviQTRJOj/+8lPbWIozTVSGZdwRDcY5j
-	 0jlh376Gn0LRsBhmj4vedE8qTgbpAPQijDq1MsUid+cITaQ5G8hWXmMXCPZ3lrAl/M97h
-	 hc0nqBC+5FseGA4yyPCzrgRYOvgkL2uW1iHlIkmJeys8jJw0QDbpHGUN4WaYCWRPi8pwu
-	 5VPRR7lepBMYs/JB2rtnTqriaIGdt9hsPWTWslXPhU1k7xrmQlaQSITrIxtW4NGM4LvX/
-	 iiOoQ7xiI4Plmjzl5ZNmxA1MhFyRByInGJqRNclh4kMDjZRNrYe5G/l2WBx+k7ht8xQ==
+	t=1793693527;
+	b=M/B11RMUlnOy1Q5n/QspPzH2qlOb6YcDizsqTHY9gPbtiXHSZ+bLdfituRiIINhM0Nlw
+	 NfT0YCDZoNw8ZaYQUeLk4A+/rBQxwtpBSOTzI209Nn3C76PpnI+3A4yyKzXjEproBHCka
+	 Q+8WkcciW/yikq3p2FIIBBiPUP8Xmu+9sWxM4DOkv/xdGPpBzT+Buf3jCI+pGTQ6T/DLP
+	 cNHhMn2g5Z5PBb8b8mQClWgcG7jRAx466UH56e8Rk2rq+nDfP4q3oyjoOsl887VViJp8s
+	 Ei5UMmAAYE2Fm5JroQi2P8w4rt6vkJW8aF/YbX8+yqAxlA9MF6FJXDVB6hzsKCSVhog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693458;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OCBEogtd4WQ6NFtESpTyBkJzNayzM85qVHDRTKTymcA=;
-	b=Muo9VMGiM6q3yV0aIaQZk2+lkDkxhXSHYbFRX8W9D5uYrBCci38TpMcJiNDWvugTTwXF
-	 Fs4WOiUT0iyY0AeywDwyrxdZawQnoMbtSqEgYvZpfYmqcyYO23TrlCJ7hSOZh9rfdY1FL
-	 vK6qGfN8UWj/z8GNI2gb+jVZZJbCslgLKw86mk8ZVhHeTii7lZ7+iXsQVKhu5Yb/FxidR
-	 4qb/hhNB49WyiQt8Rk9uhyPG8bH3rIPe+oSIYz2cBISwh+H6HGsGppUBREO7B6yimDeTD
-	 dVUdzIK9eWN4bK9OZRpmGVH5fFq47hRzece08hmdqWccf6vUlj6UXImTUBvQMc/u/cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693527;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=pdCQj6jg57QOmTW1054OXT4ykpV6txuNent/VW313/0=;
+	b=hZakXtICaNK22/bdJwFT2YjuMyJaY/IaOPou7Zg1C8nsY1zs0mwkHsmKm4885pyD1PmJ
+	 NbAMPaFjfN3X3WdUdNNIP3abaWedRvduqyK/K26+DY6YOPAhZFqj3k5N05G7CmTuWzOA0
+	 wACf80TQN24zA/SgKx5wPihOOnv2/Cc3xHdzEco/0LzPUJ3OouX3HUR9MG60cVCCNrguH
+	 0xe/ZyQJWl/08Tu/D9OSKaC+eFC6cFO6MYZmaIrv1UxpckRd9WpwqnHZlzVmG8U5Jz9W8
+	 X0coDThoKRGI+0XJMnjazdT7PPMPVpT+9tkYyUK5/BoeZxF6ViiqECnQHvvaek5eqTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwIpZWkd;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C1F606D806
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:10:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C1F606D806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iwIpZWkd
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-3678f64d078so5877776eec.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 00:10:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793693457; x=1794298257; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OCBEogtd4WQ6NFtESpTyBkJzNayzM85qVHDRTKTymcA=;
-        b=iwIpZWkd/OIVCNYDKv/ylUfUbC6RRjGeOfXP+TJDBfgUTZYPifM7e+YeHVHoaxgV06
-         27Zu7jZqrCgKe/0hb9AjB/DCdFPCeaXPrNqcn755+x8CMHrj27EZr29LL5aiYZMgkBCf
-         5p3nCi/0rijZhRnj5rTfwpJmGaMeNdLFyZboD7UOiCa1qdyjlkMvmMkovmipe1L9LaFA
-         U856VuuPf5w9JD7un/GhGqPTCFIdWS74vSddSxP5l5BVPwGsxi2227F9uBJUG8NV7UXD
-         h0q4A92rR0G9wVXLgAXMzzyH/LsGJKPTtuahj+b1O0YDfk0ulWH+7wbkGRUV6PD5/ZT3
-         a+qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793693457; x=1794298257;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OCBEogtd4WQ6NFtESpTyBkJzNayzM85qVHDRTKTymcA=;
-        b=xLgubz8LRpHMHZWelm7U3Jw/IDLU0jXWymRtxH0+fAaNxUWLMQB9KQrcVX2fksPr8k
-         8qNN6IelD9iJfo5wGjo/MYd1NH2SEppK7pE1cftXHPTHf+oi41rQbKFR/9LeQ2DXtbeu
-         gTkdxUaxas44AaGhH/XX/xg3Ud7e6Pd980n7zmD8Gr3ZNCJzM81Nz5WaZxs8fYDU8d5U
-         ghXN8qg5swhWZg22NUE9CdQH9jFt0PPCN352xyrZoaQBDvEHDByrrgzKVfXPaLt5ObWL
-         ohtMCHB9oRElAhOSb1KeqbD5m4iSI0nV8TKua6M90GAPiIzmigVyCcvzWS6AUEK1dv9+
-         D5NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBY/LvIcNaL0HBrssFR98AqnoaFaiF5IshFwtUa2uHJeEUAWo+lW1H0Ol7/eeGHujHCP5j1QM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/X5DXgdY4HSZwkZvYh21HqJHupPSUECoF3Z1nDDSDx8/hvV+m3
-	zxvd+xy+e901sYHRDWNElCGlnnHrd/Of5czxT2BgSAFDtGMHJcd7tzu2
-X-Gm-Gg: AYBFou3dT125qkT0vgWGVegQYCPP4hCY3E10rpJHaRcnsaHjhEju+p/UOd8yfUsTI3C
-	IoZ+LG8w+3ON8yZPogmYWVtbtPVrO40slci3okszd7lWrmC8SNt0oD4nUFidR+PyH2iDfExX5eW
-	tqRtbklKAdf2lggYsGLrEyZEylc5oeSya/wj6Vw5QNgEEhU+bXBaNLNwchFagrNQpu9fupURgl4
-	joaaxjZL5pmywy1vWAbmAlmi3PRKrtTHT5m0KyuYw13UDg48zIkxTmK+YOqEAe7UrKoXn8E+wq6
-	bAA5inHV5BZaozujgi+stIsNmVGCv1S+ygChgzFS1rtekkui6ouNgtf4zPGmtry5ecJngzlDhZQ
-	98kuUb4o/twJeoJ5C/I0UaTsfow9RBD+pEaPH5eEInmpXrZ7DLaboL1HspQneIYIjGIIoBewVu+
-	HKih/yKYo0CJRMfM+c7+qDcvkIvhRA3XnXgzDrKLIEOu40+5ULDMdtKes14/lnP40FNUJ2jWB4q
-	Q3UHh4L68mTdrgiy6Zc+AhROLmL2ifr7zw1ZmewW4PDfrk9Y9y1WlOCSKR108qgmfDulPapT/oT
-	iKC5mgIc3UStl+S9j+g7jG3QWktQhQ+jVVIZ4ngBYizVutUSag/PfWCN
-X-Received: by 2002:a05:7300:c39f:b0:366:6644:2839 with SMTP id 5a478bee46e88-36a42203e90mr19153100eec.3.1793693457451;
-        Tue, 03 Nov 2026 00:10:57 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36b13bd87b2sm4621906eec.28.2026.11.03.00.10.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 00:10:56 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: miklos@szeredi.hu
-Cc: fuse-devel@lists.linux.dev,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A02606A32C;
+	Tue,  3 Nov 2026 08:12:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A02606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXaZpUl+lqckc6AA--.63141S2;
+	Tue, 03 Nov 2026 16:12:04 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: selvin.xavier@broadcom.com,
+	jgg@ziepe.ca,
+	leon@kernel.org
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	shawnq1@163.com,
-	jamz@amazon.com,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] fuse: clear the old EOF tail when copying past EOF
-Date: Tue,  3 Nov 2026 08:08:46 +0000
-Message-ID: <20261103080846.55656-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] RDMA/ocrdma: Release user memory when MR registration fails
+Date: Tue,  3 Nov 2026 08:12:12 +0000
+Message-Id: <20261103081212.1137625-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,60 +55,65 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXaZpUl+lqckc6AA--.63141S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UXr4xZFW5Zw1xCrW5GFg_yoW8Ar4Upa
+	15Jw4YkrWqqF47Z3W8J3WUuaySk3yrGrWUKF9Fkw1fuFs8Gr48Zrs5C3W0grWDAF97Gr4S
+	qrn8K3Z8uF4fCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUMGQ
+	DUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpWwrirgABsR
 
-__fuse_copy_file_range() invalidates the copied range before updating the
-destination size, but does not clear the tail of the old EOF page. If that
-tail was modified through a shared mapping and the copy starts in a later
-page, the newly exposed gap can contain stale data instead of zeros. A
-subsequent writeback can also send those stale bytes to the server.
+ocrdma_reg_user_mr() pins and maps user memory before preparing its page
+buffer list and registering the MR. If any subsequent step fails, the
+error paths free the MR and any allocated PBL tables, but never release
+the user memory. The pages remain pinned and DMA mapped, and the locked
+memory accounting is not restored.
 
-Remember the destination size before sending the COPY request. After a
-positive copy result, clear the gap from the old EOF to the copy start
-before publishing the new size. Keep the existing invalidation of the
-copied range. Apply the page-cache cleanup to non-DAX inodes and cover
-both write-through and writeback-cache connections.
+Release the umem on these failures. Use a separate label for failure of
+ib_umem_get_va() itself so its error pointer is never passed to the
+release function.
 
-Fixes: 88bc7d5097a1 ("fuse: add support for copy_file_range()")
-Reported-by: shaos <shawnq1@163.com>
-Link: https://lore.kernel.org/r/20261020003429.1009226-1-shawnq1@163.com
+Fixes: fe2caefcdf58 ("RDMA/ocrdma: Add driver for Emulex OneConnect IBoE RDMA adapter")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/fuse/file.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/infiniband/hw/ocrdma/ocrdma_verbs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index d5e1cb53d86a6b35e63ca31b1065068ea5bdb6be..d3fa2bac9903acbd15cdbe9483fe3605f7ab5da5 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3000,6 +3000,7 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 	struct fuse_copy_file_range_out outarg_64;
- 	u64 bytes_copied;
- 	ssize_t err;
-+	loff_t oldsize;
- 	/* mark unstable when write-back is not used, and file_out gets
- 	 * extended */
- 	bool is_unstable = (!fc->writeback_cache) &&
-@@ -3047,6 +3048,8 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 	if (err)
- 		goto out;
- 
-+	oldsize = i_size_read(inode_out);
-+
- 	if (is_unstable)
- 		set_bit(FUSE_I_SIZE_UNSTABLE, &fi_out->state);
- 
-@@ -3087,6 +3090,9 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 		goto out;
+diff --git a/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c b/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
+index 97c2e18e67ad..94a61127fb39 100644
+--- a/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
++++ b/drivers/infiniband/hw/ocrdma/ocrdma_verbs.c
+@@ -868,7 +868,7 @@ struct ib_mr *ocrdma_reg_user_mr(struct ib_pd *ibpd, u64 start, u64 len,
+ 	mr->umem = ib_umem_get_va(ibpd->device, start, len, acc);
+ 	if (IS_ERR(mr->umem)) {
+ 		status = -EFAULT;
+-		goto umem_err;
++		goto err_free_mr;
  	}
- 
-+	if (bytes_copied && !IS_DAX(inode_out) && pos_out > oldsize)
-+		truncate_pagecache_range(inode_out, oldsize, pos_out - 1);
-+
- 	if (bytes_copied)
- 		invalidate_inode_pages2_range(inode_out->i_mapping,
- 					      pos_out >> PAGE_SHIFT,
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ 	status = ocrdma_get_pbl_info(
+ 		dev, mr, ib_umem_num_dma_blocks(mr->umem, PAGE_SIZE));
+@@ -899,6 +899,8 @@ struct ib_mr *ocrdma_reg_user_mr(struct ib_pd *ibpd, u64 start, u64 len,
+ mbx_err:
+ 	ocrdma_free_mr_pbl_tbl(dev, &mr->hwmr);
+ umem_err:
++	ib_umem_release(mr->umem);
++err_free_mr:
+ 	kfree(mr);
+ 	return ERR_PTR(status);
+ }
 -- 
-2.43.0
+2.34.1
+
