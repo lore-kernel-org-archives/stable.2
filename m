@@ -1,59 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704282;
-	b=RE4ekBg1QbTKzsz0DiayZVUEs291190cNtWli+31Uo9jVNNsGA+9Nk6L7MQ1o9gCsNWF
-	 btxgrJ4OKbH5oZLDY/Y/bDF0k5DyezhyhuC09t24XKlncUGayTRPymYi/cRHvdmmYatmX
-	 fjYIbFEBXXBXNiZXUA1D31PkI8WhZ+JiE2U9ZqewFDlrIC7XiWz/IYmUmb2V2wYGD/AT1
-	 a1uZOYBMaokUR8jTT02y1M7g5j65xbPUfSBPgYCrd+VV8xrJ3GrYXF32rNCZKD/FnRYw1
-	 XQwFzecp/llweKPDlN7oBWvYpnRnPuUhejKDb7M5rlVXR/X+6pULu1BsROYz1P8msWg==
+	t=1793704320;
+	b=NN79v6BJnunil2+O+WXYG+49jAtOS77lBLWdfkuAgbXHACc08HRhrU4tnY9CL3RK+1RO
+	 +dTeP0Sr1bLkBMAg8m/rGfYkwBb61L0pqIkbT0aS7TXYZWqsVzI/EFprbhFIZJ0swUk7N
+	 XtwhATFeXV4bzHOwBFkK1k2RaFYAjcQq90dhw6HUkBka58N02bW4A6lRik3+ZHfdRBGbY
+	 m7Yp0LV8Da6OtSov+z8XSidFh9w1xlsQyE13gdAeyH4XaNr6yTdiqG5DE4EE4yGNfkoPW
+	 tSbO8fBE7lPV4fIieBbyRzCtdvBgShkmkYjB9klSAUkDQ4L1K+Fs6ezU1KUk19hpz0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704282;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=zsziOItZCdSqr6GfPwNxi2VUo0k/TNVIqc41ldRAkTY=;
-	b=2G4hnqK4hgZCN0PDGQh8A96oK9eYgkZEhidDa8NioXWCQB5LO4Zpp0pkSRKifYLUoBYi
-	 VYnfFdnIiv/b2d1dGkFbKk05uaysUN/k0xnVG4zHrnppZ/TV7jpYZvEtkZr6FxswxP8kF
-	 cM549jP/U0ypE3f7bL7FCq0RQAzqdseT81eOPsHjjigjR8JMKUuJom5PKPzpM5YXkb4KC
-	 dqKmk87KdNiiiW6qEuYr6Ubc2VObUIRkjwOs2Kcq/AAl0f50L5FtmsSFk7dLJWf8YnbAZ
-	 yu23L8t2MlrD80zikGzg2d+KmpE7jgHmu9olHOk9YN+HjAzfkoXvtEBu16vh3WG/p6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704320;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=tn4EvUkvQ0N554yUW20DtCdORcTwQEym6yT5uKZBJKY=;
+	b=4PH6kMRhMdtTDGmunHz7zyvyBLypsjzvt03LXdoX9ry/s0UER+6zGSry+5+IKo2632q0
+	 Wp0TroGT1oAymIABE7k+48BOyrHYEu/Miw774mOuMhfY/zjfUg3OP+UhhVpS+cW3ppNEW
+	 XCm1U9iY8PjzMl3jVfmpKUCIGG9Viq0oLB4RLJjj0/3JfIQLSKApJEMEVe4EkpbsdIr6j
+	 lzHBeLhtUnKRQWDHld4g8/w6HzkbE5s57CqUuCb81DVCqwYe81q+9pjo0fvuluCRMfpqC
+	 BpCvBVFQzC22iFh/iCRZ1ooE5UUwEWAj9RzJCSe+0rF2Je3vxdzxY/+JqUGPwmT+xQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6QbJhhB;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTCUUchR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA3A60A6F64;
-	Tue,  3 Nov 2026 11:11:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA3A60A6F64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1E2606C5A1;
+	Tue,  3 Nov 2026 11:11:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=c6QbJhhB
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 7C9AA1A1430;
-	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 45F946046C;
-	Tue,  3 Nov 2026 11:11:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1D5BD103291E2;
-	Tue,  3 Nov 2026 12:11:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793704272; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=zsziOItZCdSqr6GfPwNxi2VUo0k/TNVIqc41ldRAkTY=;
-	b=c6QbJhhB/17tzhguxUqsFLfsfw40KcAv6lH5rx6NQ2CQhwMBL8cubmbt11eaK5uGgj0AEm
-	7Qy7mqgujE50XjsiLMuVh4/Z6srFzzj4PZrrIZTsHzovhNPNXQMVqwH0UrBn+NqDlQMBG5
-	/HYfFg79zW07+iNKPS4+Htbq2kEJocaSJhXRkX9BkqQqMeudyohdnGKJlSvL6jINzX3BT9
-	/n/V9tOnpUgmDH030lxPWxrNe2NjCJ4rda0GYkrgXLiJovEzM0r/QnGbIKspPCbh+CuKgn
-	yz+Xtuntby1D5aOygkdnHYwGjKjfpPdXTkrjv1/DudQ8wtdvLYcOWB0PPI5SHg==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Tue, 03 Nov 2026 12:10:57 +0100
-Subject: [PATCH 5.10.y v2] gpio: dwapb: mask/unmask IRQ when disable/enale
- it
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CTCUUchR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB8AF1F000C1;
+	Tue,  3 Nov 2026 11:11:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793704319;
+	bh=tn4EvUkvQ0N554yUW20DtCdORcTwQEym6yT5uKZBJKY=;
+	h=From:To:Cc:Subject:Date;
+	b=CTCUUchRwbFZQnH9vAw3PFU/sp4dOPeDoyPj2on43HtsVp6zxYgOIu8jNaLZ3Yg2G
+	 1Z99KfVrP9iSRHgfNP9TicUXiNGbqScZ17BOesR8STjuLsy++H1Abd47DprcOmf/uE
+	 F1TkuvCiXV8gtnwx8YklQyQMZFtHC0THDNVzZ2xnfxpNbaNCGFuVxU21D19XSZ2k4C
+	 VgyroI+WPzdv8N2z3dsDw95Ccop86L7JtuFQ/Wpz/YuKSWtBlsyE41RF1OANlTCM5A
+	 r4e5FOd35UFLLB/k8SrUqWo+v6Z+4tdM7C6lY7+OT47SsXNVMfXLb1Ryp5YXsXkjnl
+	 vLsgWxp/Dg3Vg==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: airlied@redhat.com
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+	Gemini <gemini@google.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	stable@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 -resend] drm/qxl: fix use-after-free and NULL pointer deref
+Date: Tue,  3 Nov 2026 12:11:54 +0100
+Message-ID: <d9930eabe544a4bec5d55113ccd6b1bcd2998bd6.1793704291.git.jirislaby@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,122 +68,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBAFf4Xs2ZK2pCV48j8MB1q2skYpaStKC
- P9uwavHeZnMWyFiIIxwLlYIOFMkP2aQpwLs0I03ZNRnBsmlFoJXrH93k2GOPqwzqq61UrXTFrI
- /Bczz0bqCKgUvF2h/e3yZO9q0h3ZzoJh8WI7TWRz+n/4smGC2qdBJJ7lu1MV4nx40ltY/od227
- QvQFFGgvgAAAA==
-X-Change-ID: 20261103-dwapb-fix-ab5776557f6c
-To: stable@vger.kernel.org, Hoan Tran <hoan@os.amperecomputing.com>, 
- Serge Semin <fancer.lancer@gmail.com>, 
- Linus Walleij <linus.walleij@linaro.org>, 
- Bartosz Golaszewski <bgolaszewski@baylibre.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Alan Tull <atull@altera.com>, Jamie Iles <jamie@jamieiles.com>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ralph Siemsen <ralph.siemsen@linaro.org>, 
- xiongxin <xiongxin@kylinos.cn>, stable@kernel.org, 
- Riwen Lu <luriwen@kylinos.cn>, Andy Shevchenko <andy@kernel.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793704263; l=3409;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=IjodPtO+QNDMqV9Kndo+ZMbI8L2EGx8jZcDCaQ9m4nA=;
- b=//LghERc+BKoG7dfzTpz8B3hwV0YVfJyUhLSSmUSNlUU7A4kIF3f6SttLSpQyhh6SrINhMUNt
- dRoWjIxjxyxCAP25x5gC5DsMpGuq+0WQeNuDHudP3zrnBRC8JelGogu
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: xiongxin <xiongxin@kylinos.cn>
+When allocating a `qxl_release` structure with `kmalloc()`, the underlying
+memory contained uninitialized garbage. Specifically, `release->base.flags`
+(part of the embedded `dma_fence`) was not cleared.
 
-commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
+This garbage in `base.flags` caused helper functions such as
+`dma_fence_was_initialized()` to return true even for releases where the
+fence was never actually initialized (e.g. via `dma_fence_init()`).
 
-In the hardware implementation of the I2C HID driver based on DesignWare
-GPIO IRQ chip, when the user continues to use the I2C HID device in the
-suspend process, the I2C HID interrupt will be masked after the resume
-process is finished.
+Consequently, during release cleanup in `qxl_release_free()`, the driver
+attempted to put/free an uninitialized `dma_fence`, leading to refcount
+underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
+pointer dereferences in `dma_fence_signal_timestamp_locked()`.
 
-This is because the disable_irq()/enable_irq() of the DesignWare GPIO
-driver does not synchronize the IRQ mask register state. In normal use
-of the I2C HID procedure, the GPIO IRQ irq_mask()/irq_unmask() functions
-are called in pairs. In case of an exception, i2c_hid_core_suspend()
-calls disable_irq() to disable the GPIO IRQ. With low probability, this
-causes irq_unmask() to not be called, which causes the GPIO IRQ to be
-masked and not unmasked in enable_irq(), raising an exception.
+Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
+`qxl_release_alloc()`, ensuring all fields (including embedded fence
+flags) are properly zero-initialized upon allocation, and remove
+redundant explicit zero-initializations.
 
-Add synchronization to the masked register state in the
-dwapb_irq_enable()/dwapb_irq_disable() function. mask the GPIO IRQ
-before disabling it. After enabling the GPIO IRQ, unmask the IRQ.
+The dumps in question:
+ refcount_t: underflow; use-after-free.
+ WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, CPU#0: kworker/0:0/1534
+ Modules linked in: af_packet nft_fib_inet ...
+ CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  b041a6527f6e58424f4cd3de0fade8d408b378fd
+ ...
+ RIP: 0010:refcount_warn_saturate+0x59/0x90
+ ...
+ Call Trace:
+  <TASK>
+  qxl_release_free+0xee/0xf0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  qxl_garbage_collect+0xd1/0x1b0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+  process_one_work+0x19e/0x3a0
+ ...
 
-Fixes: 7779b3455697 ("gpio: add a driver for the Synopsys DesignWare APB GPIO block")
-Cc: stable@kernel.org
-Co-developed-by: Riwen Lu <luriwen@kylinos.cn>
-Signed-off-by: Riwen Lu <luriwen@kylinos.cn>
-Signed-off-by: xiongxin <xiongxin@kylinos.cn>
-Acked-by: Serge Semin <fancer.lancer@gmail.com>
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+And then of course:
+ BUG: kernel NULL pointer dereference, address: 0000000000000028
+ ...
+ RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
+
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Assisted-by: Gemini <gemini@google.com> # only commit log
+Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function v2")
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: stable@vger.kernel.org
 ---
-Changes in v2:
-- Fix typo
-- Link to v1: https://patch.msgid.link/20261103-dwapb-fix-v1-1-c93ef2f20695@bootlin.com
----
- drivers/gpio/gpio-dwapb.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Cc: virtualization@lists.linux.dev
+Cc: spice-devel@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
 
-diff --git a/drivers/gpio/gpio-dwapb.c b/drivers/gpio/gpio-dwapb.c
-index d6240ae0f87ca..51bed3adafc1f 100644
---- a/drivers/gpio/gpio-dwapb.c
-+++ b/drivers/gpio/gpio-dwapb.c
-@@ -282,13 +282,15 @@ static void dwapb_irq_enable(struct irq_data *d)
+[v2] use kzalloc_obj() instead of bare kzalloc()
+---
+ drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..07dc6eafe6f7 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
  {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
- 	unsigned long flags;
- 	u32 val;
+ 	struct qxl_release *release;
+ 	int handle;
+-	size_t size = sizeof(*release);
  
- 	spin_lock_irqsave(&gc->bgpio_lock, flags);
--	val = dwapb_read(gpio, GPIO_INTEN);
--	val |= BIT(irqd_to_hwirq(d));
-+	val = dwapb_read(gpio, GPIO_INTEN) | BIT(hwirq);
- 	dwapb_write(gpio, GPIO_INTEN, val);
-+	val = dwapb_read(gpio, GPIO_INTMASK) & ~BIT(hwirq);
-+	dwapb_write(gpio, GPIO_INTMASK, val);
- 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
- }
+-	release = kmalloc(size, GFP_KERNEL);
++	release = kzalloc_obj(*release);
+ 	if (!release) {
+ 		DRM_ERROR("Out of memory\n");
+ 		return -ENOMEM;
+ 	}
+-	release->base.ops = NULL;
+ 	release->type = type;
+-	release->release_offset = 0;
+-	release->surface_release_id = 0;
+ 	INIT_LIST_HEAD(&release->bos);
  
-@@ -296,12 +298,14 @@ static void dwapb_irq_disable(struct irq_data *d)
- {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct dwapb_gpio *gpio = to_dwapb_gpio(gc);
-+	irq_hw_number_t hwirq = irqd_to_hwirq(d);
- 	unsigned long flags;
- 	u32 val;
- 
- 	spin_lock_irqsave(&gc->bgpio_lock, flags);
--	val = dwapb_read(gpio, GPIO_INTEN);
--	val &= ~BIT(irqd_to_hwirq(d));
-+	val = dwapb_read(gpio, GPIO_INTMASK) | BIT(hwirq);
-+	dwapb_write(gpio, GPIO_INTMASK, val);
-+	val = dwapb_read(gpio, GPIO_INTEN) & ~BIT(hwirq);
- 	dwapb_write(gpio, GPIO_INTEN, val);
- 	spin_unlock_irqrestore(&gc->bgpio_lock, flags);
- }
-
----
-base-commit: f23b568f7597f98a241454018a34361ce2523c05
-change-id: 20261103-dwapb-fix-ab5776557f6c
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+ 	idr_preload(GFP_KERNEL);
+-- 
+2.56.0
 
