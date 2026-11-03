@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690827;
-	b=RQATYkRI++SZiJLHRjFv4lwzGzsm/H2z2yR3n9ZXUMn/X4PpALXAhuiXEg8658GGqxPC
-	 YeDyYZ1t5UH5Z8340g6Hi9bj18iSDFCZYdSz6TKQitTvIBvXT35jjBBJ32itUIC4gpQWl
-	 l8wUW6Dl1U71Pcln0k9OLyyt1kC5lwY25bhjAdJkqHDmAGgmFCrlPeHtVwWLcKcWHtqRO
-	 c92/z8NvZvg8l6qVJCphNe3OI3Nxj8HheOpBWnnTokMAQn6gTDZ7IiLVMf85lmVuf7/pe
-	 CV16tfdPQIX/jl+2ma4l6Sb4GanxUGHZFdX0nZldW31Lip/Kkl0aaAAqTCt9OiaPqgQ==
+	t=1793690824;
+	b=i2BT7R4SP2Cpnh115IJqwFrSsxyH5G9b0C3MCmaJsT7bV73Ai/UqsJtjkrrPZnvoW7As
+	 F+AWC1+NxGV+kkgW1UaPRIp8VgFyBIcvSSyQYtq/Qp82UNFg3Li2zOKYRjHcOPrifDXVn
+	 eYkH5T85lXeRYnVC5af0x/LOxF3wtkQsW332BLUsRrQiu0R7lf0q3z0sZLGJojb+aDWQ7
+	 E9PhNSgkFZvHm/gWEiXGOysY7xUI04DzwvhWBWY3e8Xn2J5Rc8ap4AL60ZRDw+vk7tLlC
+	 G/gDS6bnvtopBOXh0zjuqvQuCiw1faiz+kKDEMxDJ85Veia9kJ+QUWFvchipilZsr7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690827;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690824;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V+/klBUcfcTRm8IMCJQU8L8tHCdvn3hjNDZ9Ft+EtVk=;
-	b=eF1jbNCrUdPab2zFC6oCXaly4SLTAGpwYB6ImsnL00h0U+H1HhEZ2+AsYAjmxN9xn+a4
-	 7Vo47+1FF8HtwZSEJAfuUG+TdyhHe3eb6XjVm1EqAVF7k4WyfGS2ORDCNgkBXx5GbXPM1
-	 iu5/da89xswm8ii4z6MjO3MDmg5VzKZsUKgljyz2mRq4S74DQnn4GKJdkn/JETVsYVCSp
-	 RTVK/miFW51Eza3G07Q6H6tBzH0bwqFfFoIRbvFnWQyyf9F+0Fdp/y/Uhu54vUtzLDOTz
-	 NUtBsBue0pVLJvZ31DZvuYCAaLfaz4CMctNP7E3by9xDlebVe6/pajN2oAvZCY11ldg==
+	bh=2UnuvNTwSNhA/b6GJllR0EE5L47EKTxjsVEy/FAQlXI=;
+	b=m02ndrF9VcnIybxDGFBnF+s0XeSeHYlR8cS++V+7tQjcw2iVz0pgvfYjxiAELqdRdZcf
+	 L1K9wk5PfuCkfXDHiO1ZkLteANHIp/Zt7RaE5wnZ5e9kVaGV2/PnZ+OsyFVhJbIK+vfy9
+	 iqSlVhfAT3JYXPnD0GhmNMg3s6HsgxvBd8n1rOCDTJwJaUx2tUl10yyBdJgoKjIg805Hv
+	 o9paro84wzPebiKGAu9YbXnx1IlnZFcVR3DQuUOSFX558K2r2gGov4MA32fNykRNmB5GR
+	 u0FiTYLqAXI+MdnIdKK9jKOVrdwveywsZkDBEh8Udh++FSaFSKQduo6W58aJX40eFJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLIJ3wD5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIiyxDSn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830C5606A331;
-	Tue,  3 Nov 2026 07:27:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6D2606A32F;
+	Tue,  3 Nov 2026 07:27:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLIJ3wD5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C981F00A02;
-	Tue,  3 Nov 2026 07:27:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NIiyxDSn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CCB21F000C1;
+	Tue,  3 Nov 2026 07:27:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690827;
-	bh=V+/klBUcfcTRm8IMCJQU8L8tHCdvn3hjNDZ9Ft+EtVk=;
+	s=k20260515; t=1793690823;
+	bh=2UnuvNTwSNhA/b6GJllR0EE5L47EKTxjsVEy/FAQlXI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lLIJ3wD5Mh6L8SP90f75YzxQJ/RXZO/CeQ6MEds9Gzx0k85j8RVPXYUjGY4/0BPTb
-	 lXyKHkwsSWIUMKuSCYilbTMWp6292pBWhX909gwASw2ba14boN5woGfSJN9P8PDqeW
-	 KSc0IQx/hUu5pHnApZgIIBE1mTS+yZPQL603SsmHzo2M9hpFkCDN5ZssxA1/p8mkV/
-	 LXiDGXyr7WqWiOSk6HJFr07zcDE64ynGUxeYtBovtHk9CJ8eHflojb98m0teWQdyzS
-	 8ND+AeP+vZD23nnAB5HzCShKmG8Nm8x2PSKQrZRvzw3fSVRr+saxgh+Sn3yAHmBDev
-	 Sv3hqcECB5LKQ==
-Date: Tue, 3 Nov 2026 08:27:04 +0100
+	b=NIiyxDSnojE1F4PCwK7yqKFa+jsgtfS5tsZ52Il6MxHOgyuEgSdh4TI8GPt9M6uJm
+	 52ZHO5L0CImM4bwOnbMppBktyOrU+4rs/Y3zFtjs7JB3Nj5fJ4f8a6y2tnj9igylnj
+	 PtC/51vZJ06PyYvXKUQteHnWeJgg3dyXtKqC7dlLTvmQdokfMQSc4XxhxlDP7vzXSF
+	 2aFDKKWCAj54sPez+fvBoQ/Yyr+KmRnpGVM0e9X97vAtw6VSaOpC16d973rW5iNdcU
+	 fGNPl97f/lq/27kXaKbbu4iNVDNbPLPXqcRxnm1BtaahCP82hbhpf4yUXfbJ67ec+N
+	 nRtY/EvAt2Dyg==
+Date: Tue, 3 Nov 2026 08:27:00 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: zhi.wang.linux@gmail.com, joonas.lahtinen@linux.intel.com, 
-	zhenyuw.linux@gmail.com, tursulin@ursulin.net, dri-devel@lists.freedesktop.org, 
-	intel-gfx@lists.freedesktop.org, stable@vger.kernel.org, rodrigo.vivi@intel.com, 
-	linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com
-Subject: Re: [PATCH] drm/i915/gvt: Release GGTT MM if scratch page setup fails
-Message-ID: <20261103-supportive-olive-barnacle-93590a@quoll>
-References: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+Cc: tursulin@ursulin.net, jani.nikula@linux.intel.com, 
+	rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/selftests: Put GuC test contexts on early
+ failures
+Message-ID: <20261103-careful-honorable-earwig-cee583@quoll>
+References: <20261103065554.1073445-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,26 +60,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103065407.1070225-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103065554.1073445-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 06:54:07 +0000, Wentao Liang wrote:
-> intel_vgpu_init_gtt() creates the GGTT MM before allocating the scratch
-> page table tree. If scratch page allocation or DMA mapping fails,
-> create_scratch_page_tree() releases its own pages, but the GGTT MM and
-> its virtual GGTT and host GGTT buffers remain allocated. The caller
-> skips intel_vgpu_clean_gtt() when intel_vgpu_init_gtt() fails.
+On Tue, 03 Nov 2026 06:55:54 +0000, Wentao Liang wrote:
+> intel_hang_guc() creates an intel_context before changing the heartbeat
+> interval and initializing the spinner. If either operation fails, it
+> jumps to err without dropping that context. intel_guc_fast_request()
+> also skips the context put when spinner initialization fails.
 > 
-> Drop the GGTT MM reference and clear its pointer before returning the
-> scratch page initialization error.
+> Release the context on these failure paths. The existing put after
+> igt_spinner_create_request() handles the later paths.
 > 
-> Fixes: 3b6411c2c205 ("drm/i915/gvt: implement scratch page table tree for shadow PPGTT")
+> Fixes: 69142c0a5f9a ("drm/i915/guc: Add selftest for a hung GuC")
+> Fixes: 706785c19fe9 ("drm/i915/guc: Add a selftest for FAST_REQUEST errors")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gvt/gtt.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/i915/gt/uc/selftest_guc.c           | 1 +
+>  drivers/gpu/drm/i915/gt/uc/selftest_guc_hangcheck.c | 2 ++
+>  2 files changed, 3 insertions(+)
 > 
 
 
