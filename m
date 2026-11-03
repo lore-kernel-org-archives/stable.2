@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704206;
-	b=m8q9L5mgVqpcmLZuSQ5oKiQTJzIQ1hS7Iit9oi25AGBtTaIc7IBn8vrwNshPZdGtKQ9A
-	 gL+Tl3wzdQJp+ErLc2Q46GvS2iA3zDTU0m9uT2vAcjVdcH+nVnMLliSo+mQW7wcJF3INN
-	 /2y2theFVgqUKxthdbTpUfLU/aXVCMGb2GxObKedwrkeVBaG6gN4LQ8+QoyGC9rZqos99
-	 YDmXpVJCMRvYn+v3PgBd2FMlU5CpdZk1M1UsZz9TZS7D70BdS5QPu7V9lEHsBcbIn8+TZ
-	 8l1avE7HR3S3ylnTb4r8uWfJKgv7COr0M5uVFk8HpGAVTWLqvCbGbEBwxZkqNNJf+Dw==
+	t=1793704203;
+	b=bgZuiAK+D+DUm23zX5R++kAqltRE2YqJxKTurhOjFZWlf1AEfCEn7d1RM8PlwB9iej3p
+	 VPvSBz902WSxQN3o606azH2H84UGMWnmM31ymkCCCwJOC8IviPp0NoHyvWCZDklK61E9G
+	 CwT8BA2YpIkAYwrnRjYh0ftmmTyWgPtjt2fQ3LfpUhb/VuJaMUdepx2Noo7ITr9qF+4uv
+	 7OoT6XL3dBZzKMv/fQCr1NtCMbhqQ0c3iQmKGDwR/enLt8J0K/7W/XuWxjy92yDcUTXUA
+	 ThJqCQDILqciKC2h9owZmazqrewVP4PNFaX10Q4eOAU2TUH9ihMRdHoywEYnbQQ0kug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704206;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704203;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dmCkHOV816s90fZumZgoW1aA+6XuqGyb3DqgAN4i7us=;
-	b=WTb7Sg8OBrg70t0NHoxZWGVPvSPngYVirm4v6JTJPMwHEDPCN9KssZpMLn2CF0j0EHL6
-	 rGDmGxJ8TgZDRDQtwXiWFp81nPw2ceEq6rvN6uvxRxFihrzYvJ2/y/9/r1tEs3tICJ3qv
-	 jx9Mg48dz43DWhF9BzrbpDEpSCsTAtJcBo960l8vJh/RIlvJSr8qp0PpFxRcQLQUG9wHK
-	 BMSKsw6nGYSBTd//k3tq4Ssq3WoPx2DgUvRs2e6xuZZ4hA06KHTDA9Xh0npap55RaGpKb
-	 bxbvOj9KCY0QOdRXZJSMQbG5Pm/fA1F9wy82NVcGtG2Z11Dp8muyk3+tUGXWdmvCWMA==
+	bh=iVaqWCIvOxlTswj8zlqsLe/sDKMY0KDVW7ynZAQ76QM=;
+	b=ISgU7+aCK9+ajUJ6ZamMUZclWHTiW6Rjuz9LRUmn6+TKcIeWiIGZe612afPhDtvH433H
+	 thEmTUf3VHQBq21Gfz0M33l8y7kGNjmo8zzvN0GO45wBAY1EkESczNEPGF8soki6ej3xV
+	 6NlhJ4zoZYCx4w74RVhJ1mGqfcUiflGqOZUYG0pCUbvNK2bUqCjbKPJ70enz70Oia+VAP
+	 p22f35dfumRjZ4h3zcqobPikhZqv03V+jbulXkXKbQNYdGNK0CBYWoVLKq33tdboynT8v
+	 fstvlZ3PyzfmNtqG3LRL/dUxv7RWkjKEFh73pNkmbZiB42EU1oMRGei8eJoKv/HrRCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRvlmla3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO+vDHHY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44894606BA6A;
-	Tue,  3 Nov 2026 11:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FC5606BA54;
+	Tue,  3 Nov 2026 11:10:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRvlmla3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE941F0093A;
-	Tue,  3 Nov 2026 11:10:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO+vDHHY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA06F1F00A15;
+	Tue,  3 Nov 2026 11:10:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704206;
-	bh=dmCkHOV816s90fZumZgoW1aA+6XuqGyb3DqgAN4i7us=;
+	s=k20260515; t=1793704203;
+	bh=iVaqWCIvOxlTswj8zlqsLe/sDKMY0KDVW7ynZAQ76QM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WRvlmla3zRoX5UXLTdHUHRWq8TY8FpNCzJ6AeUW0WO003l71vJYkvFPS8cRg6EeGQ
-	 IYDZgmB5+/ONmO6GRLQ45BIGzM0AtUzWHD0gLeN+YAXhA4wgowBG7ocfK92J3mcHmx
-	 e4rdp8iBkI4YO2mWT8GRFsFCl4JlyPbBrvPycJYX4wrcm3IV+y6yqIhHMVie55RWW+
-	 a3PWUukMRvAV/WHDsvpzJv6i5wddXGhJwJkWV7ky6pWxq2Yly7025MC0K9EnNG0WUo
-	 pTViXFLffe6Rg4yirRyZHTCzDKzQRijUUPxt0QbI44Mtc4vnBBjcqVZN6kDanlxGnt
-	 6ahJFDEjoVzMw==
-Date: Tue, 3 Nov 2026 12:10:03 +0100
+	b=eO+vDHHYyHXIXO/jgynse3/Sp94LcLFR/kjfA062WAHHfA2W9w5XssbOHEjQisSJK
+	 WuBPAvh78jQFhSIzWK3kP2ef3lbDSbPx8NrjUCvG/cQNbex9ZO6kZXmqI/nCkoepKm
+	 edGMnC287tQxfEGtz80j6eCoZVw/eEdn3vmQKToLFV9dtdhJeapIb0a3UZmJzxjh0p
+	 jCyyBh/GvcDf7LULllMj2tq7ykbfrMyDIb7rs2klHO51i6MBKGV7SUDIh4S0tQm7MY
+	 weWsSRRwDOE5kJgu974OTcVfOqQKpK2iaa1YVTeWF3uRiDMbGt8+bkxEMgPmguP9N9
+	 qeU/uBeR1LMFw==
+Date: Tue, 3 Nov 2026 12:10:01 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: pmc_atom: drop the PCI device reference
- after setup
-Message-ID: <20261103-perfect-tungsten-junglefowl-ded7fd@quoll>
-References: <20261103105545.1394600-1-vulab@iscas.ac.cn>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, Alexandre Belloni <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH] rtc: stm32: release the LSCO clock provider on remove
+Message-ID: <20261103-cunning-mellow-gaur-ade1c5@quoll>
+References: <20261103105546.1394618-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,25 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103105545.1394600-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103105546.1394618-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:55:45 +0000, Wentao Liang wrote:
-> for_each_pci_dev() walks the bus using pci_get_device(), which takes a
-> reference on every device it returns.  pmc_atom_init() returns as soon
-> as the PMC device has been matched, without dropping that reference, so
-> the pci_dev is never released.
+On Tue, 03 Nov 2026 10:55:46 +0000, Wentao Liang wrote:
+> The LSCO pinmux action registers the rtc_lsco clock provider with
+> of_clk_add_provider(), which takes a reference on the RTC device node.
+> stm32_rtc_remove() unregisters the gate clock but never calls
+> of_clk_del_provider(), so the node reference is never dropped and the
+> provider stays registered with a pointer to a clock that no longer
+> exists.
 > 
-> Save the setup result, release the reference and then return the saved
-> value.
+> Delete the provider before unregistering the gate clock.
 > 
-> Fixes: 93e5eadd1f6e ("x86/platform: New Intel Atom SOC power management controller driver")
+> Fixes: bb7b0df2be5c ("rtc: stm32: add Low Speed Clock Output (LSCO) support")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/platform/x86/pmc_atom.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
+>  drivers/rtc/rtc-stm32.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 
 Multiple things here:
