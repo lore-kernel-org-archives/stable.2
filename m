@@ -1,56 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672545;
-	b=jj/Wl1bRwWwqrikAFaB2agwHQXlVquh8Xsc+8/DnG1B8KEKIkD3V3GthVUXseHCFMFJQ
-	 4vK18G0KSzIWC0xzIR3zwWA97v7Aov4UhHgCC8m9jFzJIdW+SXoBDNQRsPnIfzwXF9JdH
-	 goZWqkHABklh3lMA7jmVooHo4ogirfIlUBKYHlLh6m3TCjniahN2GBg9+LQyt6Q4LwQS5
-	 AmGv1Yr+RO01lXBBHRdVO7+dvtYqtSw/UVUOJ6SKkPQBbPmEUYo2d9Bnan9OJn3Zs5bvJ
-	 ZzyVotbncO+rUj11+M3i6lhUBB/zkj14sse+0OAPvg55ZbQTfgTa9hiyLeoZ2aLLh+A==
+	t=1793672865;
+	b=lniYRzdxhrk01uKG7YJHwnYL+GAMR+XHTC+65GAnYdmCzNWj/KzZBg8s4UdQ+ppslRVo
+	 P+H6UI8VqdqvyKk+vD1k5FJmUPjsHEpMtIeYoCQblRdRUcJ2r5+nRU/RRkC9W7JWOstgi
+	 4+QNKEE6nnINR6wz1AJuQ6sesuqiGIWvvsHmkLOK3PRC0hwj+KeZFp64oXzymlJ1YSsfW
+	 oeod8CH7+kViZkq/cMGsj3nImtW1y9Um1O5k3kve6ujr9ODFMtXje/Db9cmh8Dp08fnXK
+	 d1YRWIg2B4IZNJgo/kLC7v8MGVa2c4mr6WkaS9D9JovQZ8wmczQCGvCN9B2NLe8psiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672545;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NUUpVkuu2VvZEInR5XBa9ztNnNOfurmbvcEuNADRsb4=;
-	b=o9dYzRwXhOzrnUM1BTgDdzkDfoRqyE6PAZHelU27X+a6uNZMPLBsD+/3fgBS05Dlkind
-	 g3TwQMdHRXfyWP80rqYDtXljmUB57/apZTqAQYrmtZEegpFkjCq1IjpD6Ii6dU87CbEuB
-	 qYWjixsd4ScpNBhl+SOfVk+JmiXh8+hbiV3WeLeSWmceE3BgeAXPXv3fzKLZisFV6H4xW
-	 ZLJ9EMdrP57dHWy0Run0isI2kJDhpO/XthGJGZ5Rv6D7OMlx9YWBFzlVdzcrkgn5br3U0
-	 EScdh33cEIRzLNYcDHV4x+NEq3imbLYPthhOcwsRuCYmF7QjPGx8g0+WMI72I7UdN4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672865;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=p8Gfu7m3jVEYukKEc7L9eAr2IwmBTUG/Vj2feSFNAgQ=;
+	b=kQag7B4jucYOzvWnf7NhgaQUj2v4b/NljQaDVPU4YfjDGWGsfelPuCnxdB9fprbbud2n
+	 p2GdbaHWY9LparFhrPxitnw03e1qZz3x2bdz3KG2xvglLAK6mctiW2lzGEhmMPPtzcI2X
+	 EbmUhtzg3j0ElN66I8bsLSGgAfnLUx6wg+1/UZSfGD9trN+9OTbU5AOA/1vpZ/NmMqaKE
+	 hF2dtSmmA6X+9viXnjQDV/eFSydmEBH7MYL/CNMQeE19lC0fMKSecksT9LHV9+h15W7Zh
+	 xHD7m2S8Q1aEKKTQdppZH6xFHaxDU0c4KVSNzipGuSAkRAz/4krDZDyrc/OeE/PZQsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljmFsSAB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYM5HwkO;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CEA4606A32D
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 02:22:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89936606A326;
+	Tue,  3 Nov 2026 02:27:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89936606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljmFsSAB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C559E1F00A15;
-	Tue,  3 Nov 2026 02:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793672545;
-	bh=NUUpVkuu2VvZEInR5XBa9ztNnNOfurmbvcEuNADRsb4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ljmFsSABl5CLi2hbY8vLTh6taqvG0YXmKByTTLtQ6PhA42bs0brK0H2E1Ajonu/Wk
-	 Pd2nwY0pb8TvTG5MrPg2RE7vU3sxnshGPOxJTeVwUqMruQAy/mq1YRCeGUSBoUj6d4
-	 A2o42Ecc6zNFCxkXRgLTrRZqr5v3L7j9fKUsyRKSDMqlmtijQeHJnhwdZjzSVBnPbm
-	 24SJSwyuNzdrebCyGDRfy6N8fYiasHMZigKOSi6i//spUxCegMPrFzmZpIjfV62kyX
-	 Sf6tuyPVw12gCwCHpP9e5Hua8W5QEy04UNUAvv3iiNEgHAG0vTBNlRpCemEOW8SMHB
-	 bfWPoyTbHRABQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: fix early procfs exposure race
-Date: Mon,  2 Nov 2026 21:22:23 -0500
-Message-ID: <20261103020041.2820524-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110229-bath-sphere-8a84@gregkh>
-References: <2026110229-bath-sphere-8a84@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYM5HwkO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793672865; x=1825208865;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=SQ13tx7di0W4Idm6/YUJIKkQi+15W7dpYhnzBWHKOWI=;
+  b=mYM5HwkOc7RHzxxnLFvHQhF+C9ElHspd0118ZK1wVzEQ57tlymTWEHQg
+   rht3+j4AEgsk76zaVfxZa6yF70IzOtScZvJ9XjlXOmN+Eh2qed/d9gvY2
+   UUHmGlxpQUpGpEWwTbj5BJf2gOrojcW0JNfmfnQfLk8PvnWbrhRH88y1G
+   8SPLCL2tifLsYvQtzzz0JPWjo5DXmU5+ZVA/3CBsp/l4uZwsmdlHHSSmm
+   neNvnzMUD7wCVD5lgXte+17I+XprzXJiqEPMhgt3/JS2FYc5E1mZ0dyvj
+   9jvogl3xKU7QY+0S8g1qlta+2SjA/rUFWoVV3WfAqC7G5YATgtw3F3Xof
+   w==;
+X-CSE-ConnectionGUID: xNn0LjLARQWqyf+WBuj8nw==
+X-CSE-MsgGUID: dnlMqDAGRWGRCIgDz44CLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2263874"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2263874"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:27:44 -0800
+X-CSE-ConnectionGUID: GsbJAB9mQJKdODKnrSQSEQ==
+X-CSE-MsgGUID: 0UF13+5WQHGVAcq4ug7Gcw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6380580"
+Received: from emr-371.sh.intel.com ([10.112.106.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:27:39 -0800
+From: Baoli Zhang <baoli.zhang@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Baoli Zhang <baoli.zhang@linux.intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: SOF: ipc4-topology: Fix pin format leak in process widget setup
+Date: Tue,  3 Nov 2026 10:17:10 +0800
+Message-ID: <20261103021710.3647599-1-baoli.zhang@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,133 +90,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+sof_ipc4_widget_setup_comp_process() allocates the input and output pin
+format arrays via sof_ipc4_get_audio_fmt(). When the following
+sof_ipc4_widget_setup_msg() fails, e.g. because the firmware does not
+provide a module matching the widget UUID, the error path jumps to the
+'err' label, which frees the process struct and clears swidget->private
+but skips sof_ipc4_free_audio_fmt(). The arrays are then unreachable and
+are reported by kmemleak:
 
-[ Upstream commit 7b1afb631395c958993cda4631002258ef4151ea ]
+    sof_ipc4_get_audio_fmt+0xc9/0x420 [snd_sof]
+    sof_ipc4_widget_setup_comp_process+0x8e/0x200 [snd_sof]
+    snd_sof_load_topology+0x71a/0x840 [snd_sof]
+    sof_pcm_probe+0x77/0x120 [snd_sof]
+    snd_soc_component_probe+0x21/0x60 [snd_soc_core]
+    ...
 
-Currently, init_cifs() calls cifs_proc_init() near the beginning of
-the function, before INIT_LIST_HEAD, leading to a momentarily
-uninitialized, but exposed, procfs. If a userspace process reads this
-empty procfs, iterating over a zeroed list_head leads to a NULL
-pointer dereference and a kernel oops/panic.
+Jump to 'free_available_fmt' instead, as the other process widget error
+paths after sof_ipc4_get_audio_fmt() already do.
 
-For example, if a delay is added between cifs_proc_init() and
-INIT_LIST_HEAD, and a userspace process is polling
-/proc/fs/cifs/DebugData, the following oops occurs:
+The other IPC4 widget setup functions (pga, mixer, src, asrc) free the
+audio formats in their common error label and are not affected.
 
-BUG: kernel NULL pointer dereference, address: 0000000000000608
-Oops: Oops: 0000 [#1] SMP PTI
-CPU: 0 UID: 0 PID: 3477 Comm: cat Not tainted
-7.3.0-02212-g4df4d2a577db-dirty #6 PREEMPT(lazy)
-RIP: 0010:cifs_debug_data_proc_show+0x103/0xd80 [cifs]
-Call Trace:
-<TASK>
- ? seq_read_iter+0x86/0x400
- ? seq_read_iter+0x86/0x400
- seq_read_iter+0x183/0x400
- proc_reg_read_iter+0x62/0x90
- copy_splice_read+0x215/0x310
- splice_file_to_pipe+0xec/0x1c0
- do_splice+0x4b8/0x780
- __se_sys_splice+0x18f/0x250
- do_syscall_64+0x109/0x330
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-</TASK>
-
-Fix this by moving cifs_proc_init() down in init_cifs(), ensuring it runs
-only after all internal lists, locks, counters, and workqueues are fully
-ready, but before registering the filesystem. Update the error cleanup
-ladder and exit_cifs() to maintain proper LIFO order.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Fixes: f9efae954905 ("ASoC: SOF: ipc4-topology: Add support for base config extension")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: Adjusted context to fit the existing CIFS initialization and teardown code while preserving upstream’s added and removed lines. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
 ---
- fs/smb/client/cifsfs.c | 20 +++++++++-----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
+ sound/soc/sof/ipc4-topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index d369528532c39..60ec559e0b6da 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1842,7 +1842,6 @@ static int __init
- init_cifs(void)
- {
- 	int rc = 0;
--	cifs_proc_init();
- 	INIT_LIST_HEAD(&cifs_tcp_ses_list);
- /*
-  *  Initialize Global counters
-@@ -1885,10 +1884,8 @@ init_cifs(void)
- 	}
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 8b13c97b34804..de03dc58021a1 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1313,7 +1313,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
  
- 	cifsiod_wq = alloc_workqueue("cifsiod", WQ_FREEZABLE|WQ_MEM_RECLAIM, 0);
--	if (!cifsiod_wq) {
--		rc = -ENOMEM;
--		goto out_clean_proc;
--	}
-+	if (!cifsiod_wq)
-+		return -ENOMEM;
+ 	ret = sof_ipc4_widget_setup_msg(swidget, &process->msg);
+ 	if (ret)
+-		goto err;
++		goto free_available_fmt;
  
- 	/*
- 	 * Consider in future setting limit!=0 maybe to min(num_of_cores - 1, 3)
-@@ -1964,19 +1961,22 @@ init_cifs(void)
- 	if (rc)
- 		goto out_cifs_swn_init;
- 
-+	cifs_proc_init();
-+
- 	rc = register_filesystem(&cifs_fs_type);
- 	if (rc)
--		goto out_init_cifs_idmap;
-+		goto out_clean_proc;
- 
- 	rc = register_filesystem(&smb3_fs_type);
- 	if (rc) {
- 		unregister_filesystem(&cifs_fs_type);
--		goto out_init_cifs_idmap;
-+		goto out_clean_proc;
- 	}
- 
- 	return 0;
- 
--out_init_cifs_idmap:
-+out_clean_proc:
-+	cifs_proc_clean();
- 	exit_cifs_idmap();
- out_cifs_swn_init:
- #ifdef CONFIG_CIFS_SWN_UPCALL
-@@ -2008,8 +2008,6 @@ init_cifs(void)
- 	destroy_workqueue(decrypt_wq);
- out_destroy_cifsiod_wq:
- 	destroy_workqueue(cifsiod_wq);
--out_clean_proc:
--	cifs_proc_clean();
- 	return rc;
- }
- 
-@@ -2019,6 +2017,7 @@ exit_cifs(void)
- 	cifs_dbg(NOISY, "exit_smb3\n");
- 	unregister_filesystem(&cifs_fs_type);
- 	unregister_filesystem(&smb3_fs_type);
-+	cifs_proc_clean();
- 	cifs_dfs_release_automount_timer();
- 	exit_cifs_idmap();
- #ifdef CONFIG_CIFS_SWN_UPCALL
-@@ -2039,7 +2038,6 @@ exit_cifs(void)
- 	destroy_workqueue(fileinfo_put_wq);
- 	destroy_workqueue(serverclose_wq);
- 	destroy_workqueue(cifsiod_wq);
--	cifs_proc_clean();
- }
- 
- MODULE_AUTHOR("Steve French");
+ 	/* parse process init module payload config type from module info */
+ 	fw_module = swidget->module_info;
 -- 
-2.53.0
+2.43.0
 
