@@ -1,63 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702058;
-	b=5NKJSEW2AeQaHpujYqMwI4/EeSQh9l3hhVBb2E1ntbUYs+8Cb9ZkHS9bE6lfbF2k6uRB
-	 v5qjDyjCiLI5DttDGzwxPkxa+H7ff1Bj1JYC0CnVV3WtZz7HwgaMMwiD+CLsCv3zkmtCP
-	 OZ+OYK9DOMWkXHrH2MgclhPyaVZW4oPWIosADSXfIjPBeHGwnYZP0pb2JKzC0hb+dI617
-	 szcPhLGTBRIldz7DQOzsd4VUGIpV/YWfulOqBF4vezYv10o392MOKPnzciVFtAWzdm8CK
-	 1xTix35GDRhPkGV8jDQZHh7Izb8DCVcbmipEJqKs6edJgYqI3JGU0SfFoiAtE5CyUmw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702058;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=b7DGNOCzdoGGPGKxSnjekEMmcW6S4fI5lLNzQj77lal0fFmowHgVEoiMD1cLIJGIQbHr
-	 0rDVPrBa0E0T6/2uES0Pw0aAFLqkdTEP06z/N4WZ2Ip779QVoGxOJ8+EsoQ95QgV8YE1Z
-	 /fGjm3XsG+yITjOuhowKozkubJ0UeXEA2j8G6IUk4GSRcpU4ucTt50FTI8waap1X+MvX6
-	 3wvndsPks2BJRQgdDfCGGLYxdkoF0eugkK2+Cge1F29aHdj0myhAeh7HylPcBxm8UocGe
-	 tc217Rmr1Q3zS+L7lDls8WYYYJPdmGWlXLwOOE+Nfw7ZNDzSZ+Ti4uyPg5KpkrcCUQQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fS9kzwX5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.197
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793702064;
+	b=KyGeXJ/8K0/ArKZf6gQRdN8Rb2/raSdMRGEYo/iaMP5hlb6kNKj3fh5EW7H+rnZGVcQ2
+	 74bpqFREQC8Rp9qTKLqWz/6zA+WiDWmWYz5Lonzz1y/8Q21lWvSBy6K385m79BHCYGOSJ
+	 kncMrJdU3t3EJOmKcLVwvKB5hEtzgtsmD9NLVpSaGkC1PM9aqvVlwkW/esGFfGFAuGwZm
+	 AwLoCPBj+2XSGL/egSOpxoP+naEUOF0PEXBUbfwCRCchaI4SU3Pp9aEzxuToDc+e/MggK
+	 dsXMZP0FyEYVjNBfjIOBXF9PUbHYfuJr+U6naVpN8bjUO+SncFFd6N33FBECWYPujSA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702064;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=XOmN6uI5+wry7lHPZoeSnGmX96UmyVh3KKEQZr7ankQ=;
+	b=jsF+Di1bzpZiwnaz8OJ+xSqrYGou8ANvcslcJEdmPOLPDHgxZUEz+4d9AlUOaElXIkdp
+	 v3cwZyKocQeCXu+BqKii0No825y2V0MKt6X9oDvVMw3zb5i6t/lqfS3oHlRQAFTsz7sYA
+	 PvW8C1pk9tGSQvxvTDqtWjA57ZukH1Oty4LoyLlaPFpvN8jxO4vfb04yH8ZpB4crkyH4G
+	 1SCda7JQp9FlJrFde3sd7gE3pOSAcAael7aMnqrI362O6Tq0L7lQBXTlWrgFh2Fyn7sXR
+	 8A30EjTtarKi0rOA/jVAwD27eje13voasvet12emzzxSNxeR0C6nQN35iLMMfoqO0HA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QQNKNuGj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.197
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A76B6072BDD;
-	Tue,  3 Nov 2026 10:34:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A48D760850B5
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:34:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A48D760850B5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fS9kzwX5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FE9B1F0093A;
-	Tue,  3 Nov 2026 10:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702058;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fS9kzwX5oTjQe2eOwu1aNP+Tq0dkbISsvl364Kf7Rs4pqyuq1Bj2lgb3EdLvhqvoI
-	 1POGbaB3RP5kyT2j3x7lLqBXebo1x1MvN7g01wXyk5H0fyRliIRiyE5LXrtOaq/6jE
-	 rPxrIn+5yBCcHIsfGtVlY53rPucIvhxao3ZEMuDgb2tIPP1I83sG59wFVffvuxagK0
-	 QXV9UJUa9Z75VqCNuF3HBvBKU3a8fOdQvby9KYwlk8Ssn1GSJHx8kCN+TPQPDaomql
-	 /Vo8968vOwafgckx6CyvK+8ZG7XT9gz/giQNXPvockgDZGy7yAbVPgis71bMBWRKAS
-	 UrtYgD6vD/IQw==
-From: netdev-bot+sinfo@kernel.org
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] net: stmmac: free RX resources when TX allocation fails
-Date: Tue, 03 Nov 2026 10:34:16 +0000
-Message-ID: <179370205694.488859.8314003939394289435@kernel.org>
-In-Reply-To: <20261103102857.1340748-1-vulab@iscas.ac.cn>
-References: <20261103102857.1340748-1-vulab@iscas.ac.cn>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QQNKNuGj
+Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-5413fa881a9so1559089b6e.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 02:34:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793702062; cv=none;
+        d=google.com; s=arc-20260327;
+        b=B+OwefAY+/7gLhqdiae7ztYjSY6VaSCx9NlaEAJlOkuN3EnM0gLZg5Sz5tYA7aNfyq
+         9wK5WTSJ7j4ynJjoWnM8DWLcNWCyGN8gOZNBXiBMua8NnPrAqoVysX7BJrixf+ZvWlQn
+         K57CyHduAejjjOstnzgcAeQ9VLorQ5QClTvJxYioj72yRLRzSBOnbzi5om4t7L2V6q9Y
+         YLuf7QE+LI5xmM1gUGedx5o2Q8LniBTe1TTKYnR0VLVNM5vh+RV8YtsUYF8UOvStEkIC
+         zZE5TyxbsTWz4SeXAk5e502VbLe0iqzZmotybCuQ4QwAgIIY1XynpDy0wTuYtwSBoPF/
+         E0AQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=XOmN6uI5+wry7lHPZoeSnGmX96UmyVh3KKEQZr7ankQ=;
+        fh=ygzqn5b/yTQThaUaVG80+Lr9IsEChL+ESlvwag5EyPc=;
+        b=P0p57diBf0ML9tMGQrLqtcZtpN797uaVarF1Iq/sEsO3ZwjwoXma6ugYlguwGLisej
+         UNJDUhKMU1teMnPn3Mc79lX3Xy3khheT5lWtdMvIyJsjFo86JTXdGUiZWob7ugaAbqwj
+         O9BgKk3Z4GaSZQGC7hiCBZoUqEkSDOycSiKYhhmpa9lRxr45tl3WHdrJgjFa+zbx7/co
+         ziklcTSlK+Sw7AOdhJfCEHCVAgjGr2vnuFpVdyC0F4OjF24sY4WrufRdx6upuWxnFd+H
+         GgrEuqMyfwXPk4AjuQhmpk37Z+5akJrlhJEyK4kFjOXxkQKG7L3e3YWNsa78IOgQL39V
+         inKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793702062; x=1794306862; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XOmN6uI5+wry7lHPZoeSnGmX96UmyVh3KKEQZr7ankQ=;
+        b=QQNKNuGjmwA56Mma1Gzi+QHMJju7hE3+AoXWA3w9Zjk970uNOO4ovFZiZl7gzB5C1N
+         J7WDvynk50Mni27wvfa2ZXPcKBIQV7G8qE4YL6dohmV7MJhJZNdbni3r56oF052NtPEE
+         rC0hv7+Mb4utA4q325CTjjqnxVlAbk/PWq8CneGcLzt/x0FAn9t7lXYMLmcPAAMbg3y9
+         XX35lOXUbDcP4NCDFD4M2k/+YYaOWIHgYxLbAwVWAXG8XCYa1uWUwH9nPg238lQPEqgD
+         KKuXTu996skOcqWgntwgfR/vgg1y+bV/07UYm2mU/VvfXwx6uDVXfSzF0pfpntXydSBD
+         v31w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793702062; x=1794306862;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XOmN6uI5+wry7lHPZoeSnGmX96UmyVh3KKEQZr7ankQ=;
+        b=p8uRvqiW29Q5e09YKVvMHFvilYE/8XZ2Bt8g2mdjTEg1HFjjQTS8PAjI8JAzDvoj2B
+         eR98At4f8Ki8EDNCfunh8Ixw2EeAusNPhGtsrzK31d1PYGT9eqRwI/GBOQe7ANwg6z6s
+         im/4iSmsEfQR8RxLaagkoq2DoxOwb2lxVxUINYZRVuVMMqj3G67G1IQXy8Ni8wxRNpii
+         Ab709UJi580ILJrvuD/Lp6fpRw1qzS1NbhVvpzeKsOQamhVEvTwCxycP/65DU3MBpwrX
+         y7PuUYIQtgj9SygOSB+mRCOVQM+6EVB7wi1p8kuWUGjeZ0Gz/y5k7VHo0QskPynMeM1Y
+         fgBw==
+X-Forwarded-Encrypted: i=1; AKwUvByGgbz6ktVouZY55g9sZBurIHosVraPypHHd6w1FQbItp9Iu6+wFyK9o3A9V0GnQH82RjgBbC4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DwZdkTdDXyoDoWc6QfMFK8AR60/6NbdAL5chUrYOO79y8PPwy
+	gZ6uIVV/ZFXMAspcGUFAjbOxiWLThOHkdG6nXAJpYyR3WovDkoGT89rbT/rz4p8RDEb1cQt1DGI
+	Rb5q7wg7tp0y9AUnKcZRoRcKjBoIzp3yIhtPgrBoL4+1B
+X-Gm-Gg: AYBFou34CG+rnsNQoxMej25YhmOGtPbGndryc7SpGG3KmJf+D5ClJ9Ksns+PSp/1NgJ
+	oumlx/hlb3WBk7BhpE6I6Dn3KY13WHTwHJa2pOHO+gM+3hd0/zh59/J6ZKT53vc4QumV7bcLN8Z
+	17Hef2G8MTI7MsFa6ByO+0vd/CVihBWUcAmB//QsQ83Cwi/TmmhXR03cgSNBcC41JWt+//kz9Dz
+	PPRI8pa9ge9F8EfbKV93ljwkANpXJoGDI909l9tJ0Iis8KKZdNib3v0uRaDMZgk9rT5p979pB+i
+	0AmT3HCmiOuFCQYiCcHP+hCfNfgtPViD4GwHuQywGkzuhZgTDHBnBNBs9N1838rSpoH7BDPSX+R
+	7Ksa2kbLvauf2zcqR24RmYfR1SzYxMABKuksXZauLGPLw0A7ANdl78CP1lT6EOTH6HWk2FQ==
+X-Received: by 2002:a05:6808:17a3:b0:4ec:4c7e:37b5 with SMTP id
+ 5614622812f47-5640ddb4f38mr7698087b6e.29.1793702062547; Tue, 03 Nov 2026
+ 02:34:22 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,29 +103,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261025164619.89992-1-dennylin0707@gmail.com>
+ <at9xXRhD2xZhszEj@thinkstation> <xmp7ni65vbinfj4j2baisrhp6xzro3asbepuq7xp3mvx6maptn@r4dnoj63uw4t>
+ <at-XtWBQg3jv3H8Z@thinkstation>
+In-Reply-To: <at-XtWBQg3jv3H8Z@thinkstation>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Tue, 3 Nov 2026 02:34:11 -0800
+X-Gm-Features: AclHuK9ZD1xD5M3EAerFCyanz0JIq-n7E7W9-r11Oa-jyzsbvAJqtwo7Cf6PVcU
+Message-ID: <CAGEkeHfq1xZf_jMw9a9cz3iunj6O3UZ4-=iW-65aN2Ss0oT3Uw@mail.gmail.com>
+Subject: Re: [PATCH] shmem: do not extend i_size when no data was copied
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, willy@infradead.org, hughd@google.com, 
+	baolin.wang@linux.alibaba.com, akpm@linux-foundation.org, 
+	dave.hansen@linux.intel.com, linux-fsdevel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi!
+On Mon, Oct 26, 2026 at 06:18:39PM +0000, Kiryl Shutsemau wrote:
+> The per-filesystem alternative is a 'copied &&' in every ->write_end.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Would it make sense to keep this fix local to shmem for now?
+I'll check the folio handling before sending v2.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Thanks,
+Hungyu
