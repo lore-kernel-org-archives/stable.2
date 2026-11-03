@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697694;
-	b=Cl1wQnl1sa+rtP0VT2gq1hQKtdZU0rQyvvts0KQN2MLUPlN2aI/9/orHdehN8v5MNaIx
-	 VrOcI6+sapRWkJQAsGGDHuFBGih0goJyP+pbyoNBNKRhDtxlh0o86Pa9LJlr4Gx1wG9Wo
-	 PKeKpjwg7+gE1ROIKThz6PA4EAxhTVReMOtnt+r8IzXpaYo678S9zsHwJEyh4i+OCnACQ
-	 WMpkIXiyO+E+oEahby2RdkyciorW58naipwJ8AChTJvm/puRtaugg8/FREVuEG8xleTxS
-	 O+yZr0Q3BPalHvp+BG87R0JNWukVdPBHDwo1uccdzaHkuwuw8Ztm0uiZw9PcNYWVzqQ==
+	t=1793697701;
+	b=cZpLom/EoGHlRiPdVAEEt/L/qNLoaJRCnKyZj3dTwDttHBoJyMSsVzEzmJaC4aOX3C6N
+	 loKrW1SJqZXtU36GrV3uyA03Tu7pAWBbPspQ+Nxy+l8M2mDdcTUG37+/BgLX9fg/vlKfX
+	 gyDw4YlA99GR46pOfBh2tiF3SxLP2GIAAL2IAmvrMsWCeFOP3UUI+r3CwCJTOUeZzhqVQ
+	 yYo2tYUP5aqXOn44PNG8OAja6T+CdBToxgB18xNWQd2HHzx/7tW0lnWtGZts5bQP48N36
+	 JtPR9BNfsFBahMr9khE80HJBxF02rdtYMfPUS4EZrPa/7OODR2kRsQfwNU+e8BlST7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697694;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697701;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=r/BYfi44pWt5omLrxYHtr+zgS/ql3OzU/W5sAwqn8fY=;
-	b=1NWGayySrdA3FuDfMiLKqVYGFAL6eocJy0Df1fLmOI1GQyPqb5kC3daROgFiUByOLgJZ
-	 1nqwZt0B9RLWJoBE/3SwasT10Knnkesjb3qaVE9bugj0GkhWhogz3a17CL8S5opls1OCm
-	 quxNRGuoZrIvHKv2rxcxqoQnm9NWXTQZUN36KoiJDZqvFWCX1Uu2B7bnQjUfyR1yaS5NS
-	 TCmFxRvpVCu0588o8qF2stbNovLBnh7RY3l1ncBH2w0UoajIqOHE0QCxiR3Vt8Wgnrap8
-	 UeVD8ZrUUxPC7vtOpZSRHR8kXBGENarUgZCoH8tzOvgmcCNwgmBBkZejoKzIqZCWYBw==
+	bh=ZtVxNjum2onVgyfgmJiMMLLrDXk38z30mQSMHGHOx2o=;
+	b=I+R6h2b4YTX3I8cso9zJml5mcc95FGjh9ze6ulnAjyIDEO+bjM1HTdFi5KY1yX8ds7sQ
+	 J5kITIZK9g/AVYBfo0zV9CyuMdoMNo+Vtefn8B7h+antixsRHVLDOurbZ6+47XXKkP8sR
+	 Skn/vM+Rolx66Qg6RCL7h7h1eocvM4k1RtVCUWW24mXrR+QV852LYreZcsMQqrHKTThak
+	 J85GfobsB3DhDTACen8hJIzDz43RV3UtZPIOd79/PIHvS/lHbCgMzXLd/wqyBDpKiG996
+	 w+ASLmICx1KO5EC80+IvRMLkEc+GpuAXL9cXRrkUwapLxMQOP7V8jIV+uy8Je7RhyPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFwHWBRn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZgbTgaGr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAB5606D837;
-	Tue,  3 Nov 2026 09:21:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3477A6082BC2;
+	Tue,  3 Nov 2026 09:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFwHWBRn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14AE31F00A15;
-	Tue,  3 Nov 2026 09:21:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZgbTgaGr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE411F000C1;
+	Tue,  3 Nov 2026 09:21:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697694;
-	bh=r/BYfi44pWt5omLrxYHtr+zgS/ql3OzU/W5sAwqn8fY=;
+	s=k20260515; t=1793697701;
+	bh=ZtVxNjum2onVgyfgmJiMMLLrDXk38z30mQSMHGHOx2o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OFwHWBRnr5xy89CQpN+MpgeqDnw74EZd4qe77AQfSfa7m9+z/Mo5xVEELrXgTwA7S
-	 TOJtcsxsEuomj/GbPGaIAj0mv6AVUsWsq/0tHCwYqvk9cvAVEL2wpaUiuYhQZJdDAr
-	 h4dIyBRX19u9g6UYDtfiqp43zc64QlgaQAHUxV0Bkg5ORfNPF2A3dxaeqwPnZHdizk
-	 d8e1SChQ/RWF6U0MH2VOJqg6BTzDXC4XYLLJQ94prI1rpZdsM3U8TdaFm81KcCfxoz
-	 7BRGt8cwu5hTAhPAX2J1AGHV/0kCg3j4YsOGc32zzLmMU5MF+0+3fEml1H2FNNpPMp
-	 MjRSCPXmaX/kg==
-Date: Tue, 3 Nov 2026 10:21:31 +0100
+	b=ZgbTgaGrvAF8Fb6QRcJFIMevTkk+19RkTYYqUeUBK18d+O+RfedfvCgCLPnDxbDjh
+	 PIxu2xdGoJsz9a8OXS0W3RKZud0ftPsLJSDz/2EFQbwSMXQ7GphQSnux0zNeBnaQzI
+	 iLFeYjlrB+gzWnDA2GZqO7X0ylbBoynihEXQELaIsWEV2Lox1RvlkYYanmQkxbmii/
+	 yceR/kMzcMjVhJ4jKfULstJfXuMYDkmYDzyUIL7QdCGoEY0BzRh+8hcuSP+1AWxvk1
+	 6/HmFK3jttnLhZTBfHbx6YTS4sqLrGbN2IkJvb6J5hoIYtG2CVete7W3Drvmzm1ol7
+	 k5gxldwI3tGQw==
+Date: Tue, 3 Nov 2026 10:21:38 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	linux-media@vger.kernel.org, nas.chung@chipsnmedia.com, jackson.lee@chipsnmedia.com, 
-	mchehab@kernel.org
-Subject: Re: [PATCH] media: chips-media: wave5: Release m2m devices if video
- registration fails
-Message-ID: <20261103-important-platypus-of-wholeness-5fdac7@quoll>
-References: <20261103083250.1174880-1-vulab@iscas.ac.cn>
+Cc: leon@kernel.org, linux-rdma@vger.kernel.org, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dennis.dalessandro@cornelisnetworks.com, jgg@ziepe.ca
+Subject: Re: [PATCH] RDMA/hfi1: Free the trap send buffer when no address
+ handle is available
+Message-ID: <20261103-peach-mongoose-of-charisma-dee123@quoll>
+References: <20261103081915.1147987-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,28 +59,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103083250.1174880-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103081915.1147987-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:32:50 +0000, Wentao Liang wrote:
-> The encoder and decoder registration helpers allocate a v4l2_m2m_dev
-> before registering their video device. When video_register_device()
-> fails, both helpers return without releasing the m2m device. The probe
-> error path only unregisters codecs that were successfully registered,
-> so it does not call the failing codec's unregister helper either.
+On Tue, 03 Nov 2026 08:19:15 +0000, Wentao Liang wrote:
+> send_trap() allocates a MAD send buffer before checking the subnet
+> manager address handle. If creating that handle fails, or if the subnet
+> manager LID is permissive, it unlocks and returns without submitting or
+> freeing the buffer. No send completion can release an unsubmitted MAD.
 > 
-> Release the m2m device before returning the registration error and clear
-> its pointer. This balances v4l2_m2m_init() for both codecs without
-> unregistering a video device whose registration failed.
+> Free the send buffer after releasing the lock on both early returns,
+> matching the other failures after ib_create_send_mad().
 > 
-> Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+> Fixes: bf90aadd630c ("IB/hfi1: Send MAD traps until repressed")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c | 5 ++++-
->  drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
+>  drivers/infiniband/hw/hfi1/mad.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 
