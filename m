@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702121;
-	b=jXsOzG6LMxcRmYZKjdRDropZgv8/BMPJH47rGoKWWWEMexfkDBRSny43+YjkG+i88N60
-	 lVqoRK8rnGprmhyhNgHIi+OQMoVGKbGUeQCVaz4aqxNT0G18kKbHRJO4OdHcNT7QP8wVw
-	 p0sdCs44XBtgl3EttxOSLyH1W8+fUrBzYON295xvlehC1Pf4Vqpxl9Rq0yEBvVIso4zCu
-	 wAYEfoad4lm9CUzcYm6hXGNjG5IR5nQUoRGOl+z8TckKX6SzYW2pSrqyz2JVgs/NpddnB
-	 AVjmadH/1cNUbJneTe2vwrJ0OGlFde6T3tdimu0SCp2+sZJUEz+rAhOLCor5kNTPQhg==
+	t=1793702128;
+	b=Cu8zs+6OvDMfl/Y2s4IeqIm+liE3GqsVM4L41wmyO5+dFdnCDVos9n88R3PnoJtTcFGZ
+	 lDR+a5PgETix0CEeZfxHIKQa2oibrLzL0j2fYLwMmopTS3jdv9MWlvN691K1GFjFwWwGB
+	 Be3+hYbajkgZgXy5vwczWi/zgMSuVKCCB65dctp9cRlN6mQzu2/YchBjtaIXfkSDVto/e
+	 jiQXBqOd/CgxOV+ULaRnp/mInuY7YeTFek+URpApaX5NFff2gPKKdRm8Nf9FDABpdT65M
+	 caDTYbYSTSsbf4c+/FvzVnOJr1fbtV+/vdiTGvJGqJ4eIYYLxvJ54syzsCYnIcvTLCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702128;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
 	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=g8CXpm9jfE2f7+zLnB5alzNip53AFfXKgOGLuYU8GixIvg+26runSjV3ZUiHRouBjjVr
-	 H01wQ7Nlc/Xvct3S7Dvz82cj9vzoxsa7VU+6tL99nev7ptYI0jY7Xl49fq5lJJ9IQvL84
-	 qdZGK/VY6AO5d43XZyDE6IxRFdvf2ye8MDcEPALzG+k5WDoSjtheCQxlcPWEnFhK2q/mK
-	 r0k91fGjXHhdD1cOaJxPfAkmPcXV5aB/du1TjZMqOPHahCFk1yp7kBcaLy/OaM4uxAbn3
-	 9YuvyBvO4Yo8a1HjlbL+o6PoGIpJPTsZhi+IuKCnG06GvrSf+rqKF0tT50o6imLhVMg==
+	b=TxNvuJwuW/SXSvoZoJNgkzU9iYSiR+YteO1sgYkY5Vgi0wFjheJ3pSd/6jrx4HTU08jE
+	 YRwRGtFv3RxTI/y8XHY4BFWfglmubfz+ACg3+dxOIFTR7hcv9givpZ2pVAUvNzCN0EuO4
+	 H73+fBBbjHIxDy5UM6K3RF5vKsBGrbIHE3hGSNpO5ACq3sfUJvEkQWa0Gz8beM5s0jFfK
+	 GnVhapWeABlhG91p7VkYjhgz2izphVH8KdBwc7V6oh6EQ7Gzx6TGlA8hIbXKhdWgjYJ9W
+	 rPT0OTOaVddBimQipgiN6+fS4KsfcY/SMqGpyFwaSczOe3HvG7BPZE7+F4ZPiEILkRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amasMzCr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gBftJEG8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6003A6070AA3;
-	Tue,  3 Nov 2026 10:35:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE85606C57C;
+	Tue,  3 Nov 2026 10:35:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amasMzCr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5D21F000C1;
-	Tue,  3 Nov 2026 10:35:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gBftJEG8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565831F000C1;
+	Tue,  3 Nov 2026 10:35:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702120;
+	s=k20260515; t=1793702127;
 	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=amasMzCrNeNDN/3vk+4l64FRtVd0KZykcnKoiwcNC1Fm15kyBrVy2PH29l1DV81WM
-	 3czvT95T+4jQXNzzdO7h8gptwQAzkgE155J/QKar9R/thfy989XJeBvHoZx4bmBh9W
-	 lIDv0c7W8X3NtnYIbOdi2xgBY3ANdQmjh5ubIPVUVfTDRISwXy5+XlbmqUbPsrv1xf
-	 fyEEJaCtjd63XJajtfX2gZnbNp2qG/htklQMeeEvtNE29amaB2N+0MvpFOcIBBH5IM
-	 MkV2jwZqTw1IRV1dF92v7sihAIRm7bknrjBV7iNiQEKFeJOSXotp/SayMuAK7b1eFe
-	 VSk3OqwWaECHQ==
+	b=gBftJEG8LZPcJYCNNArZIZpnLVB2E36eekFVNKTyzLxf7ESZYSHjytOIr7a9KRnuB
+	 0LwKhKwzkEvsctdua9jatnHXNwFgQVxs5F5SEn9Za8ssO2UgEYw0tQKjlbsaYnUC8U
+	 uGGfTTXPYzoF3E1T93nTLA0q6YhDUXU59Fn5qjIJgyWc0+78fYVYOR9iMqZxjxb31g
+	 C618bIkSziDxHHVseneLb6axDi9B0jiYeb8AgTkM7Z98rs82vkofsdOBuZjwNBlXoD
+	 vui1yTgGBSigKwqpbI1q923+wYb9hFgULBmDPUPpIEHLdEvCjGPVsnVvLsxWVK7IBM
+	 nbRUpXkkjtDew==
 From: netdev-bot+sinfo@kernel.org
 To: Wentao Liang <vulab@iscas.ac.cn>
 Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND] net: ethernet: ti: cpts: drop the refclk mux node
- reference
-Date: Tue, 03 Nov 2026 10:35:20 +0000
-Message-ID: <179370212002.488859.1362537216158287231@kernel.org>
-In-Reply-To: <20261103102913.1341095-1-vulab@iscas.ac.cn>
-References: <20261103102913.1341095-1-vulab@iscas.ac.cn>
+Subject: 
+ Re: [PATCH] net: ethernet: ti: cpts: drop the refclk mux node reference
+Date: Tue, 03 Nov 2026 10:35:26 +0000
+Message-ID: <179370212692.488859.15181526059142533874@kernel.org>
+In-Reply-To: <20261103102858.1340800-1-vulab@iscas.ac.cn>
+References: <20261103102858.1340800-1-vulab@iscas.ac.cn>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
