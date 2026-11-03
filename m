@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717545;
-	b=cY/B56GnpKRLuAr70vssiTcUBFdRWCF39m/M45sgVrkcps187PSryti1RsdKhxobpmID
-	 wnI1BeitSldaEigayG8CPUA9lGARCY4mM8XuPevT8flADeDAD3x/BBJw4O8LTa9qrl3pz
-	 5AnkTzomm/MexPZ9NXLUg5K75rGCEYw17Ndgf/d/OvKNDp4SPQo20Gsh+LiAGuGTChal1
-	 xS7CzxgYSLtcci1llF8cO4XUTsQYsftt0vmWXUtYeuMV7P36dST2EGmK+196kd1WkqIF8
-	 1wXJCw/fZXpEiTzz1jUshosz6wKGAx7G82QgOHjrBNnbzUKL4B84jxIA9hZsTQsCzNA==
+	t=1793717550;
+	b=olzNrevtSexXwFGPLm9c0mNw8tTaaYTbTwuLG88RzrX6sLeJ7QXuPUuk+S/hJkFwuBBu
+	 aAyF7M3y9A5No/gBjOi/kjPEedILjIfbFSwZQLCqTqSfKPqFfBDpoMq7yFt58w7xXH/sx
+	 X9BAY4MN5an/r6bFtToVdkvWwSa9eUChePyN69orkV7LlMF8wGgp9aeQtzMssJrwF6Irx
+	 wwOrwQD0yTQ1JYkbG9eM44gRLH/+V4Pojon1F5tUG1Oie3NCR8BsRbS4n6uyRhRNhc8g8
+	 j85krcjiGenr9EeiakAtzBnW54cwpBTlNTbMwUeasISFqMKbBSvDkDdpq7f60XUFE7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717545;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717550;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=pZDUQoAPmpcJQ1MGXQerdQ+hsS67diNlOCyUT7orJbQ=;
-	b=Y4LrAKxUWnUhsYOYd2E4ArZWNAyW/eGbe3M30D6KInMvx98cGwTVV27U8qQTl1ix7n7O
-	 V4Tp7iG/TlSaAtiF+TvPuDkjO2Z5BNzjcRoWrdh4jU7Wj/ThlEXpz4b3H2KsQkiRon1bi
-	 TW8gKYWSmmJMkSBVGJJbWFA4s4dSwYu89EHzhh0uEv58BBH3CFb3fuBUodB+66585yfdT
-	 ZO3G9HEOpDA4D+gYObP8Lpyb624XqnDUvgtGtHUrxA4zm5QcQpcHifoxKQMw+Zc44hSMR
-	 hSK9ohlpBd43MLoj3lFP1r9PbrcHCusDRcgBwghoDJ74IsMM8hwGQd0Hjs2SHzd1lLg==
+	bh=AJ1WNah6upJaca386WWHlJshW9ICPmM2oD8/Sgenk20=;
+	b=NCav488LT+aNQCzuUm6ATrtJMeJwMMtam7LBtsZZlQPj2kn8L6PZgSqU1PsFOyayA5BR
+	 kv+qlgsR8GFxQlFAWoZfofyzqbRLWYF20qQXoeeSBySd8XkMyXAbbU73zwVfoO0Jrmn26
+	 OtSgfWRTU13mOn63Rm8dfRIwYX7jul+lADD2OeV/l/4pN+NVDHMqFZgVc1OjrZ46VBv/9
+	 9+HATn4Jb92J7/QNRuCXUgGxxHmgC+2vmQXDHtBJ+9QNgaF2vtm2GjYjw8Pde9y4t6ycX
+	 s6BGjOKaHPK5+EyDVn0ky/MtNdkg306sIlazHNEn/PlszPQXgt9DVRgEq9+RoZ7Fl2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=octuHE56;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYUY5Zyf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB64860A261C;
-	Tue,  3 Nov 2026 14:52:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B91C606BA0F;
+	Tue,  3 Nov 2026 14:52:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=octuHE56
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6A11F000C1;
-	Tue,  3 Nov 2026 14:52:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYUY5Zyf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9798C1F00919;
+	Tue,  3 Nov 2026 14:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717544;
-	bh=pZDUQoAPmpcJQ1MGXQerdQ+hsS67diNlOCyUT7orJbQ=;
+	s=k20260515; t=1793717550;
+	bh=AJ1WNah6upJaca386WWHlJshW9ICPmM2oD8/Sgenk20=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=octuHE56uzGrBMrp7166rFZjq/wnXaFsTr7IIG3zl2GxEZwjKr17pIkusq4jp6mXN
-	 mLEaqJM7SSf41A6AgYFmIZSHLCOBfnRcPxwmUULylluZ/BtRPUVjiAhtcuLPKVSi8+
-	 te+2tpxv6FIBDHG1hYbsVtXZrzYfb998Izoxf1NvzoAEzIvFOpHEvyk3y3Xff+4FC/
-	 o/2WA1kg2cgbqHxaU14o+r5P5lHoCTKwHyVmQ6QfVLsEAZLp2hO32QtmcUI3/DsuhI
-	 KpfZU6WyBhlTVBcgfdQLleBesDDuY0BtMKsH1vepW6wDZUm0XmilXXv5giOikKqoJg
-	 4HoslEFTZnEhw==
+	b=jYUY5ZyfoOJRN2d3S4i1I88kEP1E9sCQjXpsW3afPmkxfvTByN6fFPsypCTLB7UcU
+	 kiDW8TlLaPcchufTRbfcp/lGb9kq7lFgyPSfzTrMSZIFhzD+3VpHyasGp7oGETQJzC
+	 7FHYyV3uWhQaa1KlUAoFeWZYwbUJOslhSdqwxtZxKFAAFKZvJ+/CseyP/bh71ZE+pv
+	 p6MLo4GOThLr9Of9hAZmgM/XuLJp6I4MdZSALRiQ2KujaNEzs/Hd1bNNsfTpXfVg2e
+	 L0r8UiczTZ6RbS0SfLEhRXWFOPQSvqkG9Y/HfUDCvGtBMGsmLMwjE7QpKkXk6ZV264
+	 xfSu+cV0XgKBA==
 From: Sasha Levin <sashal@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tom Zanussi <tzanussi@gmail.com>,
-	Valentin Schneider <vschneid@redhat.com>,
-	linux-kernel@vger.kernel.org
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>
 Cc: Sasha Levin <sashal@kernel.org>,
+	Steve French <stfrench@microsoft.com>,
 	stable@vger.kernel.org,
-	Taeyang Lee <0wn@theori.io>
-Subject: Re: [STABLE v6.1-v5.10] tracing: Keep the predicate limit separate from program capacity
-Date: Tue,  3 Nov 2026 09:51:58 -0500
-Message-ID: <2026-11-03-1-daily-reply-0010-re-tracing-predicate-limit@kernel.org>
+	linux-cifs@vger.kernel.org,
+	Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: Re: [PATCH 6.6.y] ksmbd: fix breaking_cnt leak on early return in oplock_break()
+Date: Tue,  3 Nov 2026 09:52:02 -0500
+Message-ID: <2026-11-03-1-daily-reply-0014-re-ksmbd-breaking-cnt-leak@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102122714.656104-1-lee@kernel.org>
-References: <20261102122714.656104-1-lee@kernel.org>
+In-Reply-To: <20261103110803.2517085-1-joseph.qi@linux.alibaba.com>
+References: <20261103110803.2517085-1-joseph.qi@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,13 +66,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
+> For leases, oplock_break() increments breaking_cnt before calling
+> oplock_break_pending(), and returns early when the pending check
+> reports nothing to break
 
-Not queueing this for 6.1, 5.15 or 5.10. The overflow needs 39f7c41c908b
-("tracing/filters: Enable filtering a cpumask field by another cpumask"), which
-landed in v6.6 and is absent from those trees. There calc_stack() and
-predicate_parse() agree on the predicate count, so there is nothing to
-overflow.
+This is a stable-only fix, so I need an ack from Namjae Jeon on the list before
+queueing it. 6.18 and 6.12 have the identical bug and this patch applies there
+unchanged, so once it is acked I will queue it for 6.18, 6.12 and 6.6 together.
 
 -- 
 Thanks,
