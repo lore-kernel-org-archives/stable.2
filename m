@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672865;
-	b=lniYRzdxhrk01uKG7YJHwnYL+GAMR+XHTC+65GAnYdmCzNWj/KzZBg8s4UdQ+ppslRVo
-	 P+H6UI8VqdqvyKk+vD1k5FJmUPjsHEpMtIeYoCQblRdRUcJ2r5+nRU/RRkC9W7JWOstgi
-	 4+QNKEE6nnINR6wz1AJuQ6sesuqiGIWvvsHmkLOK3PRC0hwj+KeZFp64oXzymlJ1YSsfW
-	 oeod8CH7+kViZkq/cMGsj3nImtW1y9Um1O5k3kve6ujr9ODFMtXje/Db9cmh8Dp08fnXK
-	 d1YRWIg2B4IZNJgo/kLC7v8MGVa2c4mr6WkaS9D9JovQZ8wmczQCGvCN9B2NLe8psiA==
+	t=1793673207;
+	b=ZJl7zMFdKMKHdPvZC/fIKPbxJ1Jz+fPm2W/1Ebv8rKPl5Y3Dw3ZQYrIbKbHZ+vteD9qS
+	 5rli07/PL9ksLCqPPa1MO+uPwESTk6UH+yXiT8XoIIRur7aSBh3FsA1sBlKIg7CHChT4Z
+	 j8TGfBwsX4o5tC1LFoUPEPja015mfQlrcVlCvQnLQ21hpP+JvxIgBqvMj40YFoIrPwBws
+	 kGp2+y+NbFfv23fJED6wuKsiLq/bSGa3YDqJAAFAfbuiSw6VBxd3kdGgmsnz8tHIFQmGT
+	 aYsc8fP1m52oVPs74aZj0qFG4kVJCafO0M4D6JOCbzRonR39pSryDOI3bTVu8h0b6Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672865;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=p8Gfu7m3jVEYukKEc7L9eAr2IwmBTUG/Vj2feSFNAgQ=;
-	b=kQag7B4jucYOzvWnf7NhgaQUj2v4b/NljQaDVPU4YfjDGWGsfelPuCnxdB9fprbbud2n
-	 p2GdbaHWY9LparFhrPxitnw03e1qZz3x2bdz3KG2xvglLAK6mctiW2lzGEhmMPPtzcI2X
-	 EbmUhtzg3j0ElN66I8bsLSGgAfnLUx6wg+1/UZSfGD9trN+9OTbU5AOA/1vpZ/NmMqaKE
-	 hF2dtSmmA6X+9viXnjQDV/eFSydmEBH7MYL/CNMQeE19lC0fMKSecksT9LHV9+h15W7Zh
-	 xHD7m2S8Q1aEKKTQdppZH6xFHaxDU0c4KVSNzipGuSAkRAz/4krDZDyrc/OeE/PZQsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673207;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=plPOmmg8Wbucg4dOntyZK89XdF19GIkTemSi8VnEEAM=;
+	b=ax4SR02IZ6t5Wmu+k4E7JtoBoIxalSCk5e/7olCVJNw77jsiSeTCysaHs2WOYNocM31d
+	 iIKxyROHbAdjKs8YtFHSmR1hJc5YNieSRahlxHCbsjs78+I7PLhiCgYjTF3Cl2/ITIps2
+	 mEy4qqcoRI3G7/rPGoTgFzzFopK2L5Abpo+HMBTDcqXu/tccxL+eHN1belz7B7Zkb0EbL
+	 bQcI7avUDpQLGtOYnBc5MyaC0hquRgsBPML942y2z1bjzesXYc26hbB2rAGR92CHoTuql
+	 bMy33l5oNVBBgbV8CBt8sLjivNWCsbc9fa0xp4fzqefSBTuarvm3KneUp49GflZVtfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYM5HwkO;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BgTIjVx8;
+	arc=none smtp.remote-ip=91.218.175.229
+Received: from mta0.migadu.com (out-229.mta0.migadu.com [91.218.175.229])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89936606A326;
-	Tue,  3 Nov 2026 02:27:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89936606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A88606A32C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 02:33:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30A88606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mYM5HwkO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793672865; x=1825208865;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SQ13tx7di0W4Idm6/YUJIKkQi+15W7dpYhnzBWHKOWI=;
-  b=mYM5HwkOc7RHzxxnLFvHQhF+C9ElHspd0118ZK1wVzEQ57tlymTWEHQg
-   rht3+j4AEgsk76zaVfxZa6yF70IzOtScZvJ9XjlXOmN+Eh2qed/d9gvY2
-   UUHmGlxpQUpGpEWwTbj5BJf2gOrojcW0JNfmfnQfLk8PvnWbrhRH88y1G
-   8SPLCL2tifLsYvQtzzz0JPWjo5DXmU5+ZVA/3CBsp/l4uZwsmdlHHSSmm
-   neNvnzMUD7wCVD5lgXte+17I+XprzXJiqEPMhgt3/JS2FYc5E1mZ0dyvj
-   9jvogl3xKU7QY+0S8g1qlta+2SjA/rUFWoVV3WfAqC7G5YATgtw3F3Xof
-   w==;
-X-CSE-ConnectionGUID: xNn0LjLARQWqyf+WBuj8nw==
-X-CSE-MsgGUID: dnlMqDAGRWGRCIgDz44CLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2263874"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2263874"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:27:44 -0800
-X-CSE-ConnectionGUID: GsbJAB9mQJKdODKnrSQSEQ==
-X-CSE-MsgGUID: 0UF13+5WQHGVAcq4ug7Gcw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6380580"
-Received: from emr-371.sh.intel.com ([10.112.106.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:27:39 -0800
-From: Baoli Zhang <baoli.zhang@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	sound-open-firmware@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baoli Zhang <baoli.zhang@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: SOF: ipc4-topology: Fix pin format leak in process widget setup
-Date: Tue,  3 Nov 2026 10:17:10 +0800
-Message-ID: <20261103021710.3647599-1-baoli.zhang@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BgTIjVx8
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QEpd6a+5vyb7YKmH2HfXuDiiboBz4CjeIOL7fouBhLE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793673205; v=1; x=1794278005;
+ b=BgTIjVx8nAsBtP3F1/GUXtMqw3pw4OJEPGpQ++uutFfQds3NbRcIfmcp3GNAGaLK7RPpjY/S
+ yw/Uj5HTzpBk3eyf5tM9Jsqi8rj63sDupbOUjOGiN5/9gjgHzyT+vi9Zyr+9DoBdCp16aZJbRus
+ vipK+BIW9Sgzd5Lh3Bd6yy9Q=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 09cae95fccecce83;
+	Tue, 03 Nov 2026 02:33:24 +0000
+X-Mizu-Trace-ID: 09cae95fccecce83
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 3 Nov 2026 10:33:19 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Barry Song <baohua@kernel.org>, kasong@tencent.com
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>, muchun.song@linux.dev,
+	ridong.chen@linux.dev, sj@kernel.org, hannes@cmpxchg.org,
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+	ljs@kernel.org, axelrasmussen@google.com, yuanchu@google.com,
+	weixugc@google.com, baolin.wang@linux.alibaba.com,
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+	surenb@google.com, mhocko@suse.com, kees@kernel.org,
+	peterz@infradead.org, jannh@google.com, pfalcato@suse.de,
+	hughd@google.com, pasha.tatashin@soleen.com, pratyush@kernel.org,
+	willy@infradead.org, jack@suse.cz, ziy@nvidia.com, riel@surriel.com,
+	harry@kernel.org, apopple@nvidia.com, nico.pache@linux.dev,
+	ryan.roberts@arm.com, dev.jain@arm.com, usama.arif@linux.dev,
+	kas@kernel.org, matthew.brost@intel.com, jhubbard@nvidia.com,
+	peterx@redhat.com, will@kernel.org, aneesh.kumar@kernel.org,
+	npiggin@gmail.com, osalvador@suse.de, minchan@kernel.org,
+	xu.xin@linux.dev, chengming.zhou@linux.dev, chrisl@kernel.org,
+	shikemeng@huaweicloud.com, nphamcs@gmail.com, youngjun.park@lge.com,
+	gourry@gourry.net, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com, jgg@ziepe.ca, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+	linux-cxl@vger.kernel.org, josef@toxicpanda.com,
+	stable@vger.kernel.org, usama.anjum@arm.com
+Subject: Re: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
+ PUD and PMD tables
+Message-ID: <aulH7zeGrjIvF8Hs@fedora>
+References: <6FACF8FF-F943-45C8-BDFD-3AFB5C060E0A@linux.dev>
+ <20261031055838.60138-1-lance.yang@linux.dev>
+ <a704d458-ad60-43bf-a0ce-3b128b218d88@kernel.org>
+ <CAGsJ_4wjGjDoFPz3qWHqW8WTv31AkR_zrY14ON0dLbTZNsohWQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,50 +90,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGsJ_4wjGjDoFPz3qWHqW8WTv31AkR_zrY14ON0dLbTZNsohWQ@mail.gmail.com>
 
-sof_ipc4_widget_setup_comp_process() allocates the input and output pin
-format arrays via sof_ipc4_get_audio_fmt(). When the following
-sof_ipc4_widget_setup_msg() fails, e.g. because the firmware does not
-provide a module matching the widget UUID, the error path jumps to the
-'err' label, which frees the process struct and clears swidget->private
-but skips sof_ipc4_free_audio_fmt(). The arrays are then unreachable and
-are reported by kmemleak:
+On 11/03/26 at 04:11am, Barry Song wrote:
+> On Sat, Oct 31, 2026 at 5:42 PM David Hildenbrand (Arm)
+> <david@kernel.org> wrote:
+> >
+> > On 10/31/26 06:58, Lance Yang wrote:
+> > >
+> > > On Sat, Oct 31, 2026 at 09:46:37AM +0800, Muchun Song wrote:
+> > >>
+> > >>
+> > >>>
+> > >>>
+> > >>>
+> > >>> Agreed. FWIW, I think Barry Song and Kairui Song would be good candidates
+> > >>> for the maintainer role.
+> > >>
+> > >> +1
+> > >>
+> > >> It would be great if they could take this over.
+> > >
+> > > +1 from me too ;)
+> > >
+> > > They both have been really active on MGLRU and doing great work for quite
+> > > a while. No doubt they'll continue to do so :D
+> >
+> > Fully agreed, we really need some people familiar with this code to help
+> > maintain it, and Kairu and Barry have most experience on this.
 
-    sof_ipc4_get_audio_fmt+0xc9/0x420 [snd_sof]
-    sof_ipc4_widget_setup_comp_process+0x8e/0x200 [snd_sof]
-    snd_sof_load_topology+0x71a/0x840 [snd_sof]
-    sof_pcm_probe+0x77/0x120 [snd_sof]
-    snd_soc_component_probe+0x21/0x60 [snd_soc_core]
-    ...
+Agree. Kairui and Barry have done so much to review and contribute
+patches to MGLRU. The nomination is well deserved.
 
-Jump to 'free_available_fmt' instead, as the other process widget error
-paths after sof_ipc4_get_audio_fmt() already do.
+> 
+> Thanks to Ridong, Muchun, Lance, and David for all the
+> kind words. Your encouragement is truly inspiring!
+> 
+> >
+> > Just a note that I also don't want to pressure into such a role (which comes
+> > with responsibility).
+> 
+> It would be a great pleasure to work for the MGLRU
+> community.
+> 
+> Over the past few months, we've seen many active
+> contributors join the MGLRU effort. It feels like MGLRU
+> has never been this popular. I'm really glad to see the
+> community growing.
+> 
+> I may have missed someone, but besides Kairui and me, I'd
+> like to mention Baoquan, Baolin, Hui Zhu, Ridong, Kunwu,
+> Maxim, T.J., Siddharth, Xiang Liu, Bingfang Guo, Shakeel,
+> Zicheng, and many others.
 
-The other IPC4 widget setup functions (pga, mixer, src, asrc) free the
-audio formats in their common error label and are not affected.
+Thanks for the recognition, Barry. MGLRU has always been on my to-do
+list, I will come back to catch up to review and post queued MGLRU
+patches after my xswap patches are posted.
 
-Fixes: f9efae954905 ("ASoC: SOF: ipc4-topology: Add support for base config extension")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
----
- sound/soc/sof/ipc4-topology.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 8b13c97b34804..de03dc58021a1 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -1313,7 +1313,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
- 
- 	ret = sof_ipc4_widget_setup_msg(swidget, &process->msg);
- 	if (ret)
--		goto err;
-+		goto free_available_fmt;
- 
- 	/* parse process init module payload config type from module info */
- 	fw_module = swidget->module_info;
--- 
-2.43.0
-
+> 
+> It's great to see so many people contributing to MGLRU!
+> 
+> Best,
+> Barry
