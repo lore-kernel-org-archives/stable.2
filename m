@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793666071;
-	b=KQzRKIm7h/dAClQdytYkar2rUkwip8awTTxAgQ/TvXg9+jWsfATxvvLSv8jQN4OaaiRn
-	 Fkl8VzKUx4DOH124d8VicROupnTrVq5Bz0mfXqleXOhuZSB+2WE42Dl2ZuFHhHxA5R4tj
-	 oNKOkcxa8Bi4PM/EYwWtLhcIugnDtPwj3LENZkpDDgG8CuPYAOm2HvvA4U6RAP5sxHoh1
-	 7zg2ed6XKSHDgiXojS+pzMegYCAbIUxeBIjaDa+MtQAnBELHfCMedA1QovStdULOdIUny
-	 4HrAa3pGPT/KpdHwO+woWPYBBbIIiM3Pc1MqLqH+W7jMHHt9AR01e14LNjmjIB3koRA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793666071;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PxTAxfsu2xujpRsZKIGjHiKUrduvY4qnImh+uidz1a0=;
-	b=Pbsd230hrUHsGUUh3ESPvzksDM5qa0eoCEkgXh7w1DG/7MkoqbOlVA4B4X/4cHnaiXO8
-	 ylht3bDvkPiBl1CgnyAAg5Zjax6/rHDRTtICrs2nz+feOL5RU4si7GOqTxIGmsPkpwnBn
-	 cE57PzOFEo0tqOV0zmcH/DD4eS0oQHrQAXZtDjlSpfVyJN/CK9h7HoBaBk2j5gjvcrSt4
-	 B+/a8srGJRIc+loBTedku1MS2sKBdIU8PWcslA8M3ee2AQTlZTtwdOeWq9zHWsxjcSxr2
-	 asjzwwLDfLFYzjcR4GUOz7i++MXdOx4e3QGiATWSrjD9j4UXm6RpEAhmzWCMLgYxqEg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cN0iJRAU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793666420;
+	b=GpxRDS78kNZRDt9xXGUAItTIo0yy1nFkhsCkqbM9QS5psSWfgb/qPVAb0sw9kNubeKe/
+	 pW4b5TzDgtyK5a6d9sxpqsP4FUhugBbyltKn1hJjVWWjQXSfXuPQKUFYg7m3ktx5qrriw
+	 j1mPBgwRl5J7NFQ61BNzzBjtF2lwhkxDynUlPHgzGoap2iXHQiba/dU+KjLarrF6ZnqC7
+	 j9UeIqqfUvRHn8b0Nzekhj4gHDjEFrA16FwIBNa1DTHlz1s6BbPs91xzOJoWmNR8Y4+sW
+	 GsCZxNezl7O5ufe1cP+vMpHhTwhSsri5aFSoSjuANMnbHkiHYZNcyOTtxPOwBvlQxkA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793666420;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=whe/9x+rc26pzbBKiFHALFIMRF+zF1J8ZdVakLWuBL4=;
+	b=YQaOgSw14RbyRRc+PIYUlCZ3veL62rrGJ+XpVvfkmON033xrMiZcHwwQzGzRyfKN9+uk
+	 gJ5Sjn69E9VroQHOeftAUPeksRNvFoeILHaiNTzSMmK4AB6igzyJKVybtQh7egrJ935qN
+	 nrhJ0kfqnMxH2joakIuMnPDob8nxNOTH8QF1SEQLwi6Frog/bWAyVerDMP+K/MpifRaU8
+	 yTsQW1GZoNOL2MyksBuIIe1QYtZhTBlRPY/qQGoXrf6DjHu7KfYAOIzJHeNHxuvLyg7Xp
+	 kYoCXQKeZL6iC5O5soyineMTBl2J2afqnIw0b8uZVXd9Lt25dgPGeCI/OyG+5zOQa8Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OvzmRmgH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60204606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 00:34:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60204606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6092606A324;
+	Tue,  3 Nov 2026 00:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cN0iJRAU
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so1735a12.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 16:34:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793666070; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fAzCTKQE99Uq5Lk9VptRImSi7ORYvC3XOzVtJRnFXlhc821KljVuZYrXBepqTGwIhD
-         nTmHD9dLetAfjTzGJIPiR1Cs4J0SL3Bpu+cE4JCAE3nyOofhLHSABUjm+w1BhjneMYyz
-         QzSFNIXM0WryWsPh4oa2zVrAyFtSYaOLcnyqHedqPufS/RVC5ZTftjMsYN5SZJMo32NO
-         TXPflB2Q5FJ7xMdbLJwub3smk5jKZtCNKOuz+MY4QgwKwiqz0Thl3ImROiqzKEZOrDin
-         Q/TOt8yixe3uJ84s+sXWyet3q9N9vU9/Ih3T7qo43k+MP1q8Xu0AiusoOTvoymodTUUg
-         zncQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PxTAxfsu2xujpRsZKIGjHiKUrduvY4qnImh+uidz1a0=;
-        fh=Q33aXe4//oQSHcFbDN4Emf5nzt5HfoLh4f6HSFA0rKs=;
-        b=qR3ccQ3FpIyXV6yaUNVJYlminb6hiyznAEApHMaSYjVUU4jcPbgxtPUpCr4z3eVFpu
-         dKrtAozQG0P4PIrobPgQ0NGLCKY5XdyJfCnsjNLnIAzeeILS557mkHO3JFSxBe+H61ZD
-         xfOYDmt28MI50eX2e67JG4JBKUVEahA9C9DWTLr+j2QQdgmxYY06PUP5IeMuN5E7IcLw
-         ourpgc7ZbxH9YCR6Qpizt18cilx2bdr847gIutUv+DKIiZbSfujE598o3Z6rH6gslPFB
-         /JD6ULhqUwSrctD8mDMmB94/S0Xn2K8IaNGVYpsmHttc7/j/ebhjNe5OYSg91Q7vUhbs
-         1fEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793666070; x=1794270870; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PxTAxfsu2xujpRsZKIGjHiKUrduvY4qnImh+uidz1a0=;
-        b=cN0iJRAUZTWFJPu2xP47AzsFQwwDHlwRCp7tiGw9UzXTtd188TpuktVfe6W+9lNWhV
-         g+jnzckczYT/wyawEqJc5CL/by6p42E1nf0netC4eThk9nE2yVcHZE4D5kd9k/ZAxaoI
-         R/hSnb2l0ZoSQVN4zpSVfl7FfSUqMvI/1bndhyA6/R42v8QooZU6mwhlJzBBGKvwp1Xw
-         4YN8Z0uBLqNu/pp0DcMrFF+k+KTqx+i7jJ7z5qhlb3805snE/lZU03LjQEcEOC6OMopk
-         3MSrgral6YurjGusBMxiFnhAI8gp3gxYzKC+57v7xz9WaaPXN7Nmn9kf6Qs9bwrouIqo
-         9uPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793666070; x=1794270870;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PxTAxfsu2xujpRsZKIGjHiKUrduvY4qnImh+uidz1a0=;
-        b=IHil67FYprzF9srqgntYG92PgZgZXMG5S6meltcY2yaJpJuRFzuAaLKzaV5PTJlPIa
-         lEax/wCoDDtL7rb5Wgv212kvN4+f2CBhSEiYLK+5uHJc8Jr97OR58TTcnUc24/UCPDEc
-         qnMrHhfodrX7LG4MwY/IVcN+TsGuWuxxbi09HvvYS3cqK/JwQs9J4j6aXHSeffihJUTH
-         mTvlz/dml8SHUAsYjTf9l2RV8YuB8kobLw+hfH2SW4K5fVl84cOWmH4Vd35MlsmDL+k+
-         zytSV5cz1oMj6qJbh71MDBLAxI3bdzHD97KRkp6b4nsnadMSR5wsAHda/zMghcbPShHZ
-         9IVw==
-X-Forwarded-Encrypted: i=1; AKwUvBwprBFGBAGOtKZah1eUpq46nnm3U6jzBwLxZc3PR3+JqPmbwZY+1KuKKrsHWTtoDmOfpAxN5fk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BLjQdY+lsY64ODuE4MApo+AHoS/ivDjikMJeoF6dKsT/mavIR
-	Xn7bxzLsEPLmNzPNg9bK6CS+Iccam2MVbethfE+akqUJUjzcaHrQkTi2/NvkkME0bNnj9oojvNb
-	cB4i4gtMsfbsQSzL9yqg2P3iV1GrLKCx3xWMGQ8Sm
-X-Gm-Gg: AYBFou3GIymL2DAEBLBW505U5V3/X8TOGWyWpZgO7+J8irvtW7Ib1wQuLozH9xhySHP
-	fmqUEwv2ZKsGO1xX+K4jA1a6X/+aqL7jNfUSJ4myiGvNwCN2akd3I9aWKR7gVpL5n3QEJx4r2Nh
-	yvIbySsixep2LTWWWlVaDRme2tg5KrCN12ANdJC/5XENV0NsQOOZbme/IhD56cfQs3qCeGkIChC
-	xTCQFU2+cufNtWNeiRHuRwqHLfivE+YljAH7Nlq1wj6a5XuUoe73yv28ruy/G0FFyWwb2QLIluO
-	MEg8h/rBB2ihiFmVdxiQbvyeQETR1GwfoRDzlpRE0xZZ8UiLO3lVEwaa1BVAFL+hQDDP0AAqiAp
-	n/e6mxgt+XkhHvPHIEYzrS1xu0YWz44uSnkd9xDdNa1T9vZwripXjMTKa8w==
-X-Received: by 2002:a05:6402:23c6:b0:6b1:d80d:396b with SMTP id
- 4fb4d7f45d1cf-6b53e99397bmr14504a12.14.1793666069308; Mon, 02 Nov 2026
- 16:34:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OvzmRmgH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 194AF1F000C1;
+	Tue,  3 Nov 2026 00:40:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793666419;
+	bh=whe/9x+rc26pzbBKiFHALFIMRF+zF1J8ZdVakLWuBL4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OvzmRmgHAQk7FVrpxi/rbL4/J01oaROSjqRzKLZ+rRb2Pt3Tp0+IoQNg9t4FBphDY
+	 HgSmd0PVbq4/bguWqJGCMvjgfzUrMb9TJaZZC4AFJ54OM+/sme1rUMVzKma7ir+jO4
+	 xtgf4eaMvEbJ0P2PtgMvfhi8y7jVDw9353q6iIMD0RnManbZS1GQx6evvew0M2D5rW
+	 A4RA6L5q48sjrSft3OndjMUejBx0QYh92xhXQqLj4sFPt+XKbtTZ5oWirlboqNXZp8
+	 Gp1WfGvFxDQsZuChYBomBIJxI2yivDSoMH6eFfxBHSWCX/3+wbdIy7iBVUKKaDLkBG
+	 Ppyjww2qZZR7A==
+Subject: Re: [PATCH net v2 3/4] net/sched: sch_teql: reject qdiscs from
+ another network namespace
+From: netdev-bot+sashiko@kernel.org
+To: jhs@mojatatu.com
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shawnq1@163.com,
+ davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, jiri@resnulli.us,
+ kuba@kernel.org, pabeni@redhat.com, victor@mojatatu.com,
+ thomas.goff@boeing.com
+Date: Tue, 03 Nov 2026 00:40:18 +0000
+Message-ID: <179366641863.488856.17368571591466000274@kernel.org>
+In-Reply-To: <SER-NSBD.v2.r0.20261101171325-3@mojatatu.com>
+References: <SER-NSBD.v2.r0.20261101171325-3@mojatatu.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,42 +64,145 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102231428.13523-1-pbonzini@redhat.com> <20261102231428.13523-5-pbonzini@redhat.com>
- <CALMp9eT7cnBf6kSXZLWuMyG9a52QveWjzzLz3Z9E=kPuX_ahVg@mail.gmail.com> <aukmeb9mV8b504T6@google.com>
-In-Reply-To: <aukmeb9mV8b504T6@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Mon, 2 Nov 2026 16:34:17 -0800
-X-Gm-Features: AclHuK-5rtlAEwRRycyUXrlFAmgT2tBIF1kZJbMFG50_yS4OyXqjAn6qnB5u6Ck
-Message-ID: <CALMp9eTm1GfVTSCroWNXi_jeGcnEg7AfxEhcqJyN4s_v-PWcmg@mail.gmail.com>
-Subject: Re: [PATCH 4/7] KVM: nVMX: Process each host MSR entry at most once
- when unwinding failed VM-Entry
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
-	stable@vger.kernel.org, David Woodhouse <dwmw2@infradead.org>, 
-	Stefan Teodorescu <fane@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 2, 2026 at 4:10=E2=80=AFPM Sean Christopherson <seanjc@google.c=
-om> wrote:
->
-> On Mon, Nov 02, 2026, Jim Mattson wrote:
-> > On Mon, Nov 2, 2026 at 3:19=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.c=
-om> wrote:
-> > >
-> > > From: Sean Christopherson <seanjc@google.com>
-> > >
-> > > Add a missing "break" in the inner for-loop of the open coded mess th=
-at
-> > > unwinds MSRs back to the pre-VM-Enter state when VMLAUNCH/VMRESUME VM=
--Fails
-> > > due to a consistency check that is caught by hardware but missed by K=
-VM.
-> >
-> > That sentence does not accurately describe what the code does.
->
-> "attempts to unwind MSRs back to the pre-VM-Enter state"
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-KVM makes no attempt to restore MSR values to the pre-VM-Enter state.
-MSRs are forwarded to a post-VM-exit state, as if VM-entry had not
-failed.
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The fix only enforces the master/slave same-netns rule once,
+  when a slave attaches.
+- [Low] After this patch, tc-testing case 124e ("Try to add teql as a
+  child qdisc", tools/testing/selftests/tc-testing/tc-…
+
+--
+
+net/sched: sch_teql: reject qdiscs from another network namespace
+
+With this patch, teql_qdisc_init() rejects a teql slave qdisc whose
+device is in a different network namespace from the teql master. It
+returns -EOPNOTSUPP and sets an extack message. It also moves
+skb_queue_head_init() ahead of all validation, so every constructor
+failure path sees an initialized queue.
+
+Link: https://lore.kernel.org/netdev/20261022144830.67948-1-shawnq1@163.com/
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/SER-NSBD.v1.r2.20261031160050-3%40mojatatu.com
+
+> diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+> index 70c948a26f809..dc21cd9704a25 100644
+> --- a/net/sched/sch_teql.c
+> +++ b/net/sched/sch_teql.c
+
+[ ... ]
+
+> @@ -211,9 +213,12 @@ static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
+>  		return -EOPNOTSUPP;
+>  	}
+>  
+> -	q->m = m;
+> +	if (dev_net(dev) != dev_net(m->dev)) {
+> +		NL_SET_ERR_MSG_MOD(extack, "teql master is in a different network namespace");
+> +		return -EOPNOTSUPP;
+> +	}
+
+[Severity: Medium]
+This checks the namespace only once, when the slave attaches. What keeps
+the master and its slaves in the same namespace after that?
+
+teql_master_setup() does not set dev->netns_immutable, and sch_teql does
+not register a netdevice notifier. So the master can still be moved with
+"ip link set teql0 netns X". __dev_change_net_namespace() only refuses
+the move when netns_immutable is set, and it only shuts down the device
+being moved:
+
+net/core/dev.c:__dev_change_net_namespace() {
+    ...
+	if (dev->netns_immutable) {
+		NL_SET_ERR_MSG(extack, "The interface netns is immutable");
+		goto out;
+	}
+    ...
+	dev_shutdown(dev);
+    ...
+}
+
+The slave qdiscs sit on other net_devices, so teql_destroy() never runs
+for them. m->slaves and NEXT_SLAVE() still point at devices in the old
+namespace.
+
+After the move, teql_master_open() takes its MTU and flags from those
+slaves and teql_master_mtu() checks against them. teql_master_xmit()
+also sends the master's traffic through them:
+
+teql_master_xmit()
+    struct net_device *slave = qdisc_dev(q);
+    ...
+
+Doesn't that bring back the cross-netns master/slave state this patch
+is trying to remove?
+
+There is also a way back into init_net. teql0 has no rtnl_link_ops, so
+when its netns is destroyed, default_device_exit_net() moves it back to
+init_net:
+
+	err = dev_change_net_namespace(dev, &init_net, fb_name);
+
+Suppose root gives teql0 to a container netns B. The container could
+attach a slave in B, move teql0 to another netns C that it owns, and
+then delete C. teql0 would end up in init_net with a slave on a
+container-controlled device in B. That looks like the case the commit
+message describes.
+
+The first move out of init_net needs CAP_NET_ADMIN in init_net, so this
+patch does close the unprivileged reproducer in the commit message.
+
+Could teql_master_setup() also set dev->netns_immutable = true? Another
+option would be to detach the slaves when the master changes netns.
+
+[Severity: Low]
+After this change, does tc-testing case 124e ("Try to add teql as a
+child qdisc") still test the root-only rule?
+
+124e requires nsPlugin, so $DUMMY is created inside a per-test netns.
+teql0 is always in init_net. The root-only check and the new netns
+check both return -EOPNOTSUPP. 124e only checks the exit code and an
+empty matchJSON:
+
+        "cmdUnderTest": "$TC qdisc add dev $DUMMY parent 1:1 handle 2:1 teql0",
+        "expExitCode": "2",
+        "verifyCmd": "$TC -s -j qdisc ls dev $DUMMY parent 1:1",
+        "matchJSON": [],
+
+If the "teql can only be used as root" check were removed or broken,
+the netns check would still reject the command with the same exit code.
+The test would still pass.
+
+The v2 notes say:
+
+  The cross-netns check ran before the "teql can only be used as root"
+  check, so every case it did not catch was answered by that check, masking
+  the assertion that tc-testing case 124e makes.  The root-parent
+  validation now runs first and the namespace check second
+
+The new order only changes which check fires first. Either way, 124e
+cannot tell the two checks apart.
+
+Could 124e run in init_net instead? It could drop nsPlugin and create
+$DUMMY in its setup, as 84a0 does. Alternatively, it could check the
+extack message.
+
+>  
+> -	skb_queue_head_init(&q->q);
+> +	q->m = m;
+>  
+>  	raw_spin_lock_irqsave(&m->slaves_lock, flags);
+>  	first = rcu_dereference_protected(m->slaves, lockdep_is_held(&m->slaves_lock));
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/SER-NSBD.v2.r0.20261101171325%40mojatatu.com
