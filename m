@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735274;
-	b=zqAowaQhoPX+I+ABZGxqDqh3As+yi+jM0bMlWr14s4V0mq0NBrKUhWxP0wiqJ8nPrIGs
-	 9L4AaW5qUmy3QHG8XYw2UpHciWfyLIWgSZKqQjluUx7fNDINn9ngd8OFdCnUg4YiYTgvh
-	 H8AqflaobS9hjiHrcYj8Ktxr1BQpTBbtBW3XCx8GSEci3uXbfTuxMjEeUmW5nTB/8rG6h
-	 kVatol7RBpqqKKUyWgiFurdbFZDtmXqxMzbo0LDLuvMH2SKCS9kC9uAYGBydQLiq0OJwD
-	 iXJd5q6bS84fAIbCIdh9XKxdjZ6v/v7FmmRBZ2IhhYgpZTK9u0L3/6botYNFjKa4eog==
+	t=1793735298;
+	b=RnY9USjH711iVqljOoCYhRykpPF/hrsfyoSwiHkCJlMUCcrjM73Chxwl5CqmuRQHaG6X
+	 WYn8scQRIVAIwUGzmOz3tSSlTLFgC1k6J9CI0zeTMaOZVWQsTuJy5+SC0JyT3CaoP3mBn
+	 58TqW/2BJ58TrlK7nXMGyfn2BXLX5RToukLDZPIYouJqP2QVEHG0yp02NqUDTNNpHse57
+	 hcXJPYsRmOSEM8MpbJsEjCsTHS5GzrHzzUIfYiJGQl4jmGtbkRGg+dwQ9lwr3dymRGjlm
+	 UZR+CheB59yD5+7brzMxAP/wZX5+xUS30EhhAkE0SsXTA36z/egtp4ZycOW3Xx37htA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735274;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735298;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RFDP1+qeI/6PE5pzKeEg2jAo+1vbuaZZQsZqEYbMZig=;
-	b=diEvJLLWgUSG7+2ryTXmiBfYBACe/NDMyPy8lTdbfaUtLV9N5CHS4BZfFDxsl9cm4Xgy
-	 6Yw0NRV5RUmNJ34MuW564DkOuvtFg84Y6eFYPbVqtJJ2k1NfInZlk3aFqsSZeiavMAWmc
-	 gV6KS2eD0l8ZW9R6gCtoBuKe0QDfeiBB7pCfBxJqibmDO3/Z405oESRxQRiagmBLV5NBc
-	 L9fIqS/gaumSH+RIJporkBNBYPIV7CltfBPdBYFfCxcC9zz3vpxAgLO561S1fibefOKdS
-	 DpIHR26oWWnIKhxFj3LvRmjtaJx9movm+ReEmP74Te0uuqN0vhHTWcF/CIGLJLo/GQQ==
+	bh=UK9bUKa3y0eQugXRNJgOdhILZKQ4YXzkPu5K/OmyGeU=;
+	b=SmM7T2owPRsnOi0zO49/zwriQBX91NQsLp4LVSyAKkCOneAA3GJooWlMx4wWM1puNtR9
+	 1PySuRntwL2UHZ11kf/EXQEsXsTIdl4UbybkCtz/mq7VKRFuUJEiDG4rYIlBldGYFF6ET
+	 fT7wVTvMLWaOeeDwIAl6tIg4QRK+61HI1XGoVnlcskFu/wS/HyD9qB31MuLnxq1ALM0Jb
+	 EqohSneiACN6D4/IoegZiHeY2n3zd37soqo5jXIS+RFcjm+se/q0GZ+98lLSj0uO1y2ld
+	 +XgqEAHqd7jCtZvYijGC9Rcty5CS0A9I/CfhE+GXUk3/oR+M/BLaFHUle9myRasLbIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4OiUkxb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxYlObid;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADA0606D811
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:47:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33474606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4OiUkxb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432661F00A02;
-	Tue,  3 Nov 2026 19:47:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QxYlObid
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268321F00919;
+	Tue,  3 Nov 2026 19:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793735273;
-	bh=RFDP1+qeI/6PE5pzKeEg2jAo+1vbuaZZQsZqEYbMZig=;
+	s=k20260515; t=1793735297;
+	bh=UK9bUKa3y0eQugXRNJgOdhILZKQ4YXzkPu5K/OmyGeU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f4OiUkxbUNC+mZwD3QR0QnlPwFSYAtsy+XoPt9aUkXWQ7p1QwklOWJ8t31UklnzVr
-	 71xhAMCMhrBvV5NGJ4AGLgXWs+KqOJfqLuoAz1R0puTSxqWJdUBg+RyV7nzqBHM3pe
-	 GYDFRcBSTHq5Uw8ID/qJkYHIwpJZeQYDMov6Rb0R4iFiU1YtOiov2p0knTeKmmD4Z8
-	 VddG1YWPIQ2sNbV51pVY3XWBUV7K1TmG0FesvlkYGd9FjOrVVDcBdlHSYeOzILtu71
-	 ld3ExivYBvO4K/n05QHEfgpIBkScPV6yzuPp0duhuXBDt6KBrC+SlXdSg4T7RFk4HP
-	 jdc0qoSZxaV+A==
+	b=QxYlObidru6WOeG9mhk9Y4GRbssXL3eIacbrRwF/4AKZzBtttE5OAiWlzTrYMgHvP
+	 1ZPV/MLG8CeLkQdqZePDwckQ1/4tjpRWrJvZsW75n4FM3PgvIxcxokXn70S6QyvJTp
+	 4kg1lAj7XcR2YT7E7sAWlDMG8x0jVHApZpcHuEMJ7MmFMZAxqWjPkVFVY0lKcIOhhA
+	 besWKPh7VYndvwWfOGPxpToSH0I5ymHOvtmQC4sGWQlEsPzLT+VY6rxZPAL4USF2GX
+	 T/b8Tg8yzugASYXyLp0FII/7iKjYTX6pDP1EK1/TTHFT3QpfeSG/kT5+4RPCPBBKMK
+	 dQzOEFWNysBjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	zdi-disclosures@trendmicro.com,
+Cc: Henry Hu <huhai@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ksmbd: prevent stale data from being written by SMB2 WRITE requests
-Date: Tue,  3 Nov 2026 14:47:51 -0500
-Message-ID: <20261103170316.642979-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: fix invalid pointer dereference when get_inode_acl() fails
+Date: Tue,  3 Nov 2026 14:48:15 -0500
+Message-ID: <20261103194744.1016898-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110351-marsupial-sandbar-d3cd@gregkh>
-References: <2026110351-marsupial-sandbar-d3cd@gregkh>
+In-Reply-To: <2026110318-groove-tightwad-0a03@gregkh>
+References: <2026110318-groove-tightwad-0a03@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,110 +62,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+From: Henry Hu <huhai@kylinos.cn>
 
-[ Upstream commit bc0e0f5ac1d7b044d403f859406b4b66d4b1ce9b ]
+[ Upstream commit 19d180c7baab7126af5848ed87d5f7b5add0cef2 ]
 
-Initialize the compatibility byte in request buffers without zeroing
-the entire allocation. Keep the one-byte compatibility exception for
-SMB2 messages so valid zero-length WRITE requests remain compatible,
-and validate the data range in the WRITE handlers against the current
-compound request before accessing it.
+When get_inode_acl() fails, it returns an ERR_PTR(), but
+ksmbd_acls_fattr() stored that pointer in smb_fattr without
+checking for errors. Later callers then passed the error pointer
+to security descriptor helpers or posix_acl_release(), resulting
+in an invalid pointer dereference.
 
-This prevents stale request-buffer data from being written to files or
-sent to IPC pipes.
+This was reproduced on an XFS-backed share when xfs_get_acl()
+returned ERR_PTR(-ENOMEM). Querying the SMB ACL from a CIFS client
+triggered the crash:
 
-Fixes: 443d61d1fa9f ("ksmbd: allocate one more byte for implied bcc[0]")
+  BUG: unable to handle page fault for address: fffffffffffffff8
+  RIP: smb_acl_sec_desc_scratch_len+0x58/0x90 [ksmbd]
+  Call Trace:
+   smb2_query_info+0x40d/0x17c0 [ksmbd]
+   handle_ksmbd_work+0x1ca/0x770 [ksmbd]
+
+Fix this by checking the return values from get_inode_acl() in
+ksmbd_acls_fattr(). Treat -EOPNOTSUPP as indicating that no ACL is
+available, and propagate all other errors to the callers. Update
+smb2_open() and smb2_get_info_sec() to handle these errors.
+
 Cc: stable@vger.kernel.org
-Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-32436
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Assisted-by: Codex:gpt-5.6-sol
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Henry Hu <huhai@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: replaced smb2_current_req_len() calls with inline NextCommand and RFC1002 length calculations ]
+[ sashal: retained the non-const mnt_idmap parameter in ksmbd_acls_fattr() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/connection.c |  1 +
- fs/smb/server/smb2pdu.c    | 34 +++++++++++++++++++++++++---------
- 2 files changed, 26 insertions(+), 9 deletions(-)
+ fs/smb/server/smb2pdu.c | 42 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 34 insertions(+), 8 deletions(-)
 
-diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index ec265f12c4902..833105f23d260 100644
---- a/fs/smb/server/connection.c
-+++ b/fs/smb/server/connection.c
-@@ -520,6 +520,7 @@ int ksmbd_conn_handler_loop(void *p)
- 		if (!conn->request_buf)
- 			break;
- 
-+		conn->request_buf[pdu_size + 4] = 0;
- 		memcpy(conn->request_buf, hdr_buf, sizeof(hdr_buf));
- 
- 		/*
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index aaccef2e3f3bb..d8aa61602b827 100644
+index 793c219b9a610..d73c3c7f1b6da 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -7140,23 +7140,28 @@ static noinline int smb2_write_pipe(struct ksmbd_work *work)
- 	int err = 0, ret = 0;
- 	char *data_buf;
- 	size_t length;
-+	unsigned int data_offset, req_len;
+@@ -2719,10 +2719,11 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
+ 			    le32_to_cpu(sd_buf->ccontext.DataLength), true, false);
+ }
  
- 	WORK_BUFFERS(work, req, rsp);
+-static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+-			     struct mnt_idmap *idmap,
+-			     struct inode *inode)
++static int ksmbd_acls_fattr(struct smb_fattr *fattr,
++			    struct mnt_idmap *idmap,
++			    struct inode *inode)
+ {
++	struct posix_acl *acl;
+ 	vfsuid_t vfsuid = i_uid_into_vfsuid(idmap, inode);
+ 	vfsgid_t vfsgid = i_gid_into_vfsgid(idmap, inode);
  
- 	length = le32_to_cpu(req->Length);
- 	id = req->VolatileFileId;
-+	data_offset = le16_to_cpu(req->DataOffset);
-+	req_len = le32_to_cpu(req->hdr.NextCommand);
-+	if (!req_len)
-+		req_len = get_rfc1002_len(work->request_buf) -
-+			work->next_smb2_rcv_hdr_off;
+@@ -2733,10 +2734,28 @@ static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+ 	fattr->cf_dacls = NULL;
  
--	if ((u64)le16_to_cpu(req->DataOffset) + length >
--	    get_rfc1002_len(work->request_buf)) {
--		pr_err("invalid write data offset %u, smb_len %u\n",
--		       le16_to_cpu(req->DataOffset),
--		       get_rfc1002_len(work->request_buf));
-+	if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
-+	    data_offset > req_len || length > req_len - data_offset) {
-+		pr_err("invalid write data offset %u, length %zu, req_len %u\n",
-+		       data_offset, length, req_len);
- 		err = -EINVAL;
- 		goto out;
+ 	if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
+-		fattr->cf_acls = get_inode_acl(inode, ACL_TYPE_ACCESS);
+-		if (S_ISDIR(inode->i_mode))
+-			fattr->cf_dacls = get_inode_acl(inode, ACL_TYPE_DEFAULT);
++		acl = get_inode_acl(inode, ACL_TYPE_ACCESS);
++		if (IS_ERR(acl)) {
++			if (acl != ERR_PTR(-EOPNOTSUPP))
++				return PTR_ERR(acl);
++			acl = NULL;
++		}
++		fattr->cf_acls = acl;
++
++		if (S_ISDIR(inode->i_mode)) {
++			acl = get_inode_acl(inode, ACL_TYPE_DEFAULT);
++			if (IS_ERR(acl)) {
++				if (acl != ERR_PTR(-EOPNOTSUPP)) {
++					posix_acl_release(fattr->cf_acls);
++					return PTR_ERR(acl);
++				}
++				acl = NULL;
++			}
++			fattr->cf_dacls = acl;
++		}
  	}
- 
- 	data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
--			   le16_to_cpu(req->DataOffset));
-+			   data_offset);
- 
- 	rpc_resp = ksmbd_rpc_write(work->sess, id, data_buf, length);
- 	if (rpc_resp) {
-@@ -7307,14 +7312,25 @@ int smb2_write(struct ksmbd_work *work)
- 		writethrough = true;
- 
- 	if (is_rdma_channel == false) {
--		if (le16_to_cpu(req->DataOffset) <
--		    offsetof(struct smb2_write_req, Buffer)) {
-+		unsigned int data_offset = le16_to_cpu(req->DataOffset);
-+		unsigned int req_len = le32_to_cpu(req->hdr.NextCommand);
 +
-+		if (!req_len)
-+			req_len = get_rfc1002_len(work->request_buf) -
-+				work->next_smb2_rcv_hdr_off;
++	return 0;
+ }
+ 
+ enum {
+@@ -3471,7 +3490,10 @@ int smb2_open(struct ksmbd_work *work)
+ 					int pntsd_size;
+ 					size_t scratch_len;
+ 
+-					ksmbd_acls_fattr(&fattr, idmap, inode);
++					rc = ksmbd_acls_fattr(&fattr, idmap, inode);
++					if (rc)
++						goto err_out;
 +
-+		if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
-+		    data_offset > req_len ||
-+		    length > req_len - data_offset) {
-+			ksmbd_debug(SMB,
-+				    "invalid write data offset %u, length %zu, req_len %u\n",
-+				    data_offset, length, req_len);
- 			err = -EINVAL;
- 			goto out;
- 		}
+ 					scratch_len = smb_acl_sec_desc_scratch_len(&fattr,
+ 							NULL, 0,
+ 							OWNER_SECINFO | GROUP_SECINFO |
+@@ -5942,7 +5964,11 @@ static int smb2_get_info_sec(struct ksmbd_work *work,
  
- 		data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
--				    le16_to_cpu(req->DataOffset));
-+				    data_offset);
+ 	idmap = file_mnt_idmap(fp->filp);
+ 	inode = file_inode(fp->filp);
+-	ksmbd_acls_fattr(&fattr, idmap, inode);
++	rc = ksmbd_acls_fattr(&fattr, idmap, inode);
++	if (rc) {
++		ksmbd_fd_put(work, fp);
++		return rc;
++	}
  
- 		ksmbd_debug(SMB, "filename %pD, offset %lld, len %zu\n",
- 			    fp->filp, offset, length);
+ 	if (test_share_config_flag(work->tcon->share_conf,
+ 				   KSMBD_SHARE_FLAG_ACL_XATTR))
 -- 
 2.53.0
 
