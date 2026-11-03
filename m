@@ -1,117 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793736486;
-	b=OeFWJWvDM61aUNYsKTZg1P7HpyQtOz9eYCNRxerW/34OIXbDzaSe2jEKol/B9J2BlgSs
-	 DS7q5TIyIGjkmqC+WZRSrqR7kNV/7tMr9VrZspEjy8ePJ+sdbvpJunLciJucdlNQVb1cY
-	 dIIvDBy8yxn0efEIiIUu06RDVqaQdL6zs1ZpsPvySm0rOb3FHi/GVKmDJh9DuJnlBKn4r
-	 MXHNxo9QEBRG6ihrb4EAt6VnKhSWOz2o/4CVEEsfoVE/MHJfLCRihVQoPaZ+DB7KNvhMH
-	 vZeJ7m7GWZiZ1S3I821SlWUlehrsAtZPbQQ+28Emz10gORKJV90L1xAnfTvGuEPaLqA==
+	t=1793736646;
+	b=yLCdjs+Vkadm/P5OPD7+7rWR5cgq6Ivpj9TQspcFILlTTm9k7as76yOJb4wIp+uzgcv0
+	 tKLEkDRSGunPnIlijFrNvUim2j3TBn8Vko8LRIsgoSOTIKqgwej1YyAA0Mw8pyxemysLf
+	 sROzulGioFlOPXFDZaTDCrbaHML69hptyXH3XqjhVlHDVtVTZ6kVulNeoU6MI62TC7u0H
+	 tNDGF6RKJMvBewk87S28eHKEbMWSJlBgJo2n3eKyq5/NVsSwgFc1uvyWd4V/KYt8bJZpV
+	 e42Ho/mvo+9S3rhEIy/mi1lRgRw/NzsI58LTBY0bPriAG2wGinShF9j7ElIXYXaZTiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736486;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736646;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=SqCMJqdbcuE3dxyuIYL71YEmgFby0czZ2Kvgqp0XsTs=;
-	b=JUSQ7G4bpEtqaSzvQ0D1i2ealTTfUAV2IbbfJe7ExsEomjVBy6WfVPRrdEC5HyIwHXgU
-	 KbgwUXg1xTB9b9uT0pf7tEZzNxs1wZxnRmTlKTYuUdje63qz5lk9m9eZ5tYgPFwc84haZ
-	 mja+JDvuF3S0foydepD6r/TVASOi20puGb9tTewtGFCEjfwYTBFjJzk44fNsXoCgFhgnG
-	 zE8O5MsYvAt59gkv6nQlFnpLacTPX8hbO82FF71V0jcqtbgFzNAI0aPyR8GoVPe3oPalq
-	 y4prWtGZDfjCRcdR6fcm6h4lZ99nHsojZ1RMQImrX85vXVokRypvjg8WcA2ediOJY7g==
+	bh=G+e0C+OO2ssPNCY+CMpKUyz+R3cTGFEfmTPvkxrQ+aU=;
+	b=BYVvsmNW5KYXTQURdk88XnNEKdFYrQNMEk2RIRnYoxSkuiihuPVWaDN4SbT3k/7a+dKA
+	 4JpoLwBeO7PJuJgqto0mUrac+HSksnkjhwaJjp/V+mfknc8DkngyFgibnF3vTV5FbEMgO
+	 lzscekE1Fk1+e1TSl3KXkBCGTR06HmeA6zVOLBPuc7JHK0NiQeQpELyRsWfWG9pUXsr9B
+	 vGFDzUleJAnbMILt69ggC9Ay1h0mxkf0uhSK2U++BoVQSecbqvFFG9Hqd6Zc/vUW5+2eF
+	 1HWWlLuLs4gEZWKCZVc3VtIDQIRIDmeVDW74x/XKa4jw77F3qO0DknKwTOyI4X5I6bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=OnlEWLfv;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="T3f/deaD";
-	arc=none smtp.remote-ip=103.168.172.150
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aiuJxGNq;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D489606A329
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 20:08:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D489606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D909606A31B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 20:10:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D909606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm3 header.b=OnlEWLfv;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=T3f/deaD
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 9A1D2EC067E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:08:04 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 03 Nov 2026 15:08:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1793736484; x=1793822884; bh=SqCMJqdbcu
-	E3dxyuIYL71YEmgFby0czZ2Kvgqp0XsTs=; b=OnlEWLfv0twqQFE2j/GumEhpZ3
-	oYKRrWRjBdsCZ7FLMn9J3+xduGrQ20ulSyYHQeuG7qGUP1uIkP+bAWCGlg8e5zJt
-	3raGqi0Ry2pGiCWnEgwi8tXMeyveO8RDPREcTGZtL18RJ+c7TkqEmsU+nQIt/oZB
-	ik31R6pWhRUAcnDTQvC99nQdB3fuJ8of+lqH9bMfDdbV96dLhnKGdqkiDhaLcer8
-	uNi5kmk1uX7Up9S/mmNNKMrMGLTp2VpCRNGyWn47q5MUZ1sipZeQTYy8tl6xoc1Z
-	nxk1MNP/ll1lRnyjZ1XFIURnqVp7QXuXjhWyD1oLwJC1kHom/I059aDBnmdg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793736484; x=1793822884; bh=SqCMJqdbcuE3dxyuIYL71YEmgFby0czZ2Kv
-	gqp0XsTs=; b=T3f/deaDZ679sREsyiEXETUA85XkiWrsUfTuJ66AVM5YDI3QoXW
-	IZlml7faB1g5wWONCZMFbJilC6d1C71BQQRh41tHPSzBF0TN7JK9zprusmCIQjIK
-	npUs59qtx0h/tgDITtYjs/JPhP7YhziUnU6Xs+AnJcd2c/kGprwYzYgycQ5oUbr9
-	KzaUoEFn+B7XC8JJSskPG8CXfUHeJqbZcyPQBUAc8iqOde7oH4o/vjyw/Rg8CUBe
-	vGLHmAT3B0VmXDbeOQm7Pn0DragYKYQxJWRY1bDWQsmcwj5TEpi5DcmT8LHwiVK0
-	jLr7+sA+vLCJZOhsZcpL6mUN2NOvueaBIfA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793736484; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:vW2+AIYuRQvbHqnGBzujG0W1XguIzT9blEdOaMh+qkHsLXv
-	Stu2X2W9c2LZPfHXi7r7UlXoZPISSzLeVIW+rq7FZR6d1rfQt2rXwdph6DxilV5I
-	Pdx+gn5KMLbjiuOMXHyq3ZdsEzNvYYAA8HE85dzBvPtL1COvsUT4EjPTJCGwAji5
-	aIXsI/+3LW52VO05y2jfd0NX144JpiYxzYW1+lJt08Ti2MGL7oayqL0b39fANE1k
-	6bsBqxmZEApUNCWQtfvkbjo+JyWVFUZ3iV1T/h7q2LdqJiurM2QMunnuAr0nhNWS
-	USeaqrjKUJWJOecEyMFDtl3y6BIRocg5T3dE7Eg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:mT4z9dYTUt/qPsY6ean5sPmA7mJlLEOqXuE8QLbBFO0=:7q8CmXjL0fo0RDoRZZHTP/Up7w083quCwuGvbEuddvo=;
-X-ME-Sender: <xms:JD_qambZwEYoq_BercHE63N7J0BAeFt_funWc-lghO6GiFl6XjtC5g>
-    <xme:JD_qalQHWzjxVrtpmofpzzoRfuCB3cMyoVZb5xdZlGieJH4R9ZMONDTT67720Abg4
-    uVCPoUr4iSdnnShi9GWNSURXoC5OKy_Qh5nn38KzL-JfAIAxg>
-X-ME-Received: <xmr:JD_qat-xkjBtL6IDfft5krFCfIzpBhEcRAL9dBA4QSnKLhbk728rkL7YPdwwrdkLYvlrdR-DC61uRxyRIDhBl-fB4w>
-X-ME-Proxy-Cause: dmFkZTFs6w/8zjAcmvHgG+y0ye07qTguRk9KO8Tc84YgCJmsHp5nIbFTtvJDYH/Z8I7Lkn
-    4gFSdT0zermog49yrp6syOeEVd78Gxxo7OqahdQ+8nDzicYw1qwshMacAXYEnHgW15kPtf
-    4tlIB7p/r1DIGA7ZbYQ4Htv1zUhjxtGAkPHqWDha+UVq8V8QAiMcrj0+y0jo4iiMPBkwY7
-    8PKtMJlyd0KpMwAqhbulBlSsQG3jGml3YwEIMM3d2b8Tv5F8hOL4GsgEzomTGlTNE/DQbN
-    /berg3pQSWfjQ8V8xrHcy8FPcOwE+JVSAUnwN84Hl9dvhs2n8hCR5uNNBQdUnz1s/SoWM7
-    Hn1rJaHzvxxdJBf5fua7BIJvBJfnty+nFlbKfko2Ax9R4bktp+Qk/H/9jmtWh8YC9Vb0QC
-    ijsFdDMhovj5oHVS/1AHlnIi9HOBjO6TYJNgrwxhrAs9RA3+ig4rE4W7Vv0c8pBKaLO+8K
-    n6tgwswudP7z3dUXjvA8UxSftgcb79q4wgFHmrxz1hQSOSM7cNCaO0qhk2ODQ9kTfX/0LR
-    EEBZvqIBVe7b+x0CkyIBsFMjwkVRAcG20xg1M/lux7Z8UaZjwhsqds4C4zmtphlAk+J50P
-    dGIU23PxKcFz7/xsqzklBpW7LgDIrNNVWfQyAuNFaRS0CAol2nfBM/kSLoOw
-X-ME-Proxy: <xmx:JD_qatiACZNAMAEz8urrWSHRsOSPRaTXvL20b2icRGUNuPaFNvGJFw>
-    <xmx:JD_qamYlPwTbB5ygk1qcJX5JVEQkJ-CSXVcQrKriHloXunM4Jae-Fg>
-    <xmx:JD_qaq_NMqv2QF_ubZF6UQ99RLaJcdKOLqhw_yoYKawGJZ-ie7ZweQ>
-    <xmx:JD_qagNkSy-4WhpIAugPP_W4x6X8TD1zeItnNgpSPf2sk60MPU0XSg>
-    <xmx:JD_qap2HSSTa8FVstm2qZhvbX3HNIUbAalingVlPYOUsl-h_BK-iSC0H>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 15:08:04 -0500 (EST)
-Date: Tue, 3 Nov 2026 21:07:49 +0100
-From: Greg KH <greg@kroah.com>
-To: Fexiven <kernel@picomail.one>
-Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mmc: core: clear MQRQ_XFER_SINGLE_BLOCK for new requests
-Message-ID: <2026110338-tarmac-national-fdd0@gregkh>
-References: <20261103192345.647483-1-kernel@picomail.one>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aiuJxGNq
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-368c26de2e0so1219069eec.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 12:10:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793736645; x=1794341445; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G+e0C+OO2ssPNCY+CMpKUyz+R3cTGFEfmTPvkxrQ+aU=;
+        b=aiuJxGNqM2NOSyqLYh6xbIBKOf21JDB4WHU1FyrgtQBJZArufAJ0HrqHViyCi6VD38
+         vRVHbkUKCTR4vl8vruhaj+5eMiuN+U8fqOOCro9zpjEpBRYYf9lLfxnGQ0LZFl5JH6IN
+         8Ugtk70zgdRxYJIwwY2K3f+TweezPzv3QsuPwBe7ZYHU5cSmedf1L/S/1vKgctgmq2Wk
+         fLaPC4K0kgS2dYkqhL5k3FDjBUvaMeb0sk4FG8b2w+z877/RtUSt6NewD9lzrSQS4USx
+         Yn1EIzEbSO+F1BZtFUXZYpuPjkz8FoGmoAo9k+LE1kdlS1yFXNg06wMs0Papz7oZdk4P
+         //ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793736645; x=1794341445;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G+e0C+OO2ssPNCY+CMpKUyz+R3cTGFEfmTPvkxrQ+aU=;
+        b=FIpkr55nAgpWJExeSC2IeDSHEgt5o82zvn7DPfyZbo62/HS1KKpgxwoN2+cR9ilk4p
+         XngVZnMXg8kWvjNECX25JJ7OQ7vTg6rZOQ8G7UIfQTZjLTlaOU8i/m5pTJTPdYrtwloc
+         ocd5z+gDM4FhRp3F8TuHFq9zYSgoQPzC9v96B0c8HKRrYOAvTJKwbTpnlgVrK180sHyl
+         DcNFxWjyZkAG5Sa2ORYS78vqbsADK/78f3UyqNFvFEgkWtZxIuN+LIXpqFeimYQQ36gC
+         3sjnZCaqWEyeug0TCz8TuJBuBfiMhIR823d5ujAYHo83i7Qh5+cmGuW6XuoGfy3Jcyof
+         6BHw==
+X-Forwarded-Encrypted: i=1; AKwUvByHMk3TOuKyovushb7glx8vize9n9CCYvtyJoOchaY34Ouo6MLOhbcrYhfHprKtJEttDDUWP8M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81+p3l2G1gV1ev3TmkJXcdddm3QwA+XA7k/AN6XYq0FFL9zowO
+	6tD/3f/bLu7uqdETuob4Wl1VexLDcRLyu6HktsJM/SwRbPZkWHkHaW/a
+X-Gm-Gg: AYBFou2QF6j0VyBe82YEb4mBcKPNVSzuqgYOvRCtvHCFrvN1CYTfy1VpDVqizo5oIgM
+	Wz7reYgoxY91HDh29rWObQAbXHVEwt3kWqtf7M4LgbEqnRXI/EO36Tn2EyLOiJ++hHyMOyabHS8
+	tNrhQdG7iMS/fCCEQvZjQsr59GA4Xh8+NAkqqqa1eUfey6UXO4XDHlWoFlmTKNVEYqHtJcq4SYp
+	VcwEkwRhYihVVy1kLlXXGu4CC9J832HwY05i22cjinZQKAPfnmZ5Hi6EPtZZUw7qHAUDNB7BVaW
+	E/WLeVJOJCV7mWarIZh9rR7RSHGa0ruMlty0LG0d0ujj7rrDt7ggXuvVfG6Sc5qbsrW1W8rT99Q
+	xeMcbvybJ/rwpJ8LING8B4dreRzVrkVEOG2HbyzyfZjMBrpDruy/t0zLnNb41mpCcd+QISZhfmz
+	RlRW+TTGgEhRm0WUhvcgAr13uLm5mU1gySXNlOIoVo+u/HirN8r7lW+SRzz0PyYOP5KA0OvuAcj
+	IOCrDOuCBlT3mVDKR9IT0hVGg4m1iMhHSDQBRvvqMm9szHrP6SAduUFjYCedv20lokmknwFkTOS
+	rmMhjL37xBXrCR2UM/2ZGnVuAHrbpVTnlH4KlyltLrI=
+X-Received: by 2002:a05:693c:2512:b0:369:fa7c:aee9 with SMTP id 5a478bee46e88-36a423f54a1mr20127351eec.19.1793736644552;
+        Tue, 03 Nov 2026 12:10:44 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:41::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38a54ccsm481879eec.4.2026.11.03.12.10.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 12:10:44 -0800 (PST)
+Date: Tue, 3 Nov 2026 12:10:39 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Bryan Cochrane <bcochrane@google.com>
+Cc: Michael Chan <michael.chan@broadcom.com>, 
+	Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] bnxt_en: Take RTNL before netif_close() when
+ aborting FW reset
+Message-ID: <auo_uBLO1gNqk2HN@devvm16445.scu0.facebook.com>
+References: <20261103042210.2984373-1-bcochrane@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -121,37 +101,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103192345.647483-1-kernel@picomail.one>
+In-Reply-To: <20261103042210.2984373-1-bcochrane@google.com>
 
-On Tue, Nov 03, 2026 at 08:23:45PM +0100, Fexiven wrote:
-> mmc_blk_mq_complete_rq() and mmc_blk_cqe_complete_rq() set
-> MQRQ_XFER_SINGLE_BLOCK in the request PDU when a transfer fails, so the
-> retry is done one block at a time. Nothing ever clears the flag again.
+On 11/02, Bryan Cochrane wrote:
+> netif_close() must be called with RTNL held in addition to the netdev
+> instance lock: __dev_close_many() asserts it, and the NETDEV_GOING_DOWN
+> and NETDEV_DOWN notifier chains it runs rely on it for serialization.
 > 
-> The PDU belongs to the blk-mq tag and is reused for later requests, while
-> mmc_mq_queue_rq() only resets ->retries for a new request. Every tag that
-> has seen a single transfer error therefore keeps issuing single-block
-> transfers (CMD17/CMD24) for the rest of the uptime.
+> Commit 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
+> replaced rtnl_lock() with netdev_lock() in bnxt_fw_reset_task() and
+> bnxt_fw_reset(). That is sufficient for the paths that only tear the
+> NIC down internally with __bnxt_close_nic(), but the abort paths close
+> the netdev via bnxt_fw_reset_abort() -> netif_close(), and the error
+> path in bnxt_fw_reset() calls netif_close() directly. Those now run
+> without RTNL and trigger a WARN_ONCE() cascade when a firmware reset is
+> aborted:
 > 
-> On an RK3576 board (HS400ES eMMC) with occasional data CRC errors, which
-> are recovered correctly, sequential direct reads dropped from ~200 MB/s
-> after boot to 3-10 MB/s within minutes and never recovered. The host
-> registers showed only CMD17 with a 512 byte block size. With this change
-> the read throughput stays at ~200 MB/s and writes at 60-90 MB/s while the
-> data CRC errors continue to be retried.
+>   RTNL: assertion failed at net/core/dev.c (1740)
+>   WARNING: net/core/dev.c:1740 at __dev_close_many+0x1be/0x1f0
+>   Workqueue: bnxt_pf_wq bnxt_fw_reset_task [bnxt_en]
+>   Call Trace:
+>    netif_close_many+0xb5/0x190
+>    netif_close+0xa2/0xd0
+>    bnxt_fw_reset_task.cold+0x8d/0x213 [bnxt_en]
+>    process_one_work+0x19d/0x3a0
+>    worker_thread+0x1af/0x320
+>    kthread+0xe3/0x120
 > 
-> Reset the flags together with the retry counter when a request is
-> prepared for the first time. Requeued requests keep RQF_DONTPREP, so the
-> single-block retry of the failing request itself is unchanged.
+> followed by the same assertion from call_netdevice_notifiers_info(),
+> fib_rules_event(), inetdev_event(), rtnl_fill_ifinfo(),
+> devlink_compat_phys_port_name_get() and ip_mc_down().
 > 
-> Fixes: d34124edffdb ("mmc: block: Use MQRQ_XFER_SINGLE_BLOCK for both read and write recovery")
+> This was observed on a machine in real use with a BCM57504 (4 PFs,
+> FW 236.1.153.0) running v7.1.6: the firmware crashed, announced a
+> "Fatal firmware reset event" and then failed to come back within the
+> advertised max wait, so bnxt_fw_reset_task() aborted the reset on all
+> ports:
+> 
+>   bnxt_en 0000:c1:00.1 eno16905np1: Firmware reset aborted
+>   bnxt_en 0000:c1:00.1 eno16905np1: fw_health_status 0x448100
+> 
+> Take RTNL (before the netdev instance lock, matching the OPENING state
+> which already uses rtnl_trylock()) in the fw_reset_abort path of
+> bnxt_fw_reset_task() and route the POLL_VF abort through that same
+> path.
+> 
+> In bnxt_fw_reset() only the error path that closes the device after
+> bnxt_get_registered_vfs() fails needs RTNL: drop the instance lock,
+> take RTNL and the instance lock, then clear BNXT_STATE_IN_FW_RESET and
+> close. The normal reset flow, which may run on many VFs at the same
+> time, keeps running without RTNL. BNXT_STATE_IN_FW_RESET stays set
+> across the lock switch, so a concurrent close marks the reset aborted
+> as it does today and a concurrent recovery request backs off.
+> 
+> The bug was found by inspecting the kernel log of the affected machine
+> and the driver source; the fix was prepared with the help of an AI
+> coding assistant (Gemini based) and reviewed by the submitter. It is
+> build tested (allmodconfig with W=1, plus the same change on top of
+> v7.1.6 built as a module for the affected BCM57504 host). The aborted
+> reset path itself only runs when the firmware fails to return from a
+> reset, which could not be reproduced on demand.
+> 
+> Fixes: 004b5008016a ("eth: bnxt: remove most dependencies on RTNL")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Fexiven <kernel@picomail.one>
+> Signed-off-by: Bryan Cochrane <bcochrane@google.com>
+> ---
+> v2:
+>  - Keep bnxt_lock_sp() in bnxt_fw_reset() and take RTNL only on the
+>    bnxt_get_registered_vfs() error path, so that the normal FW reset
+>    flow does not add RTNL contention when many VFs recover at the same
+>    time (Michael Chan).
+>  - Dropped Stanislav's Acked-by because of the change above.
 
-Real name please.
-
-thanks,
-
-greg k-h
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
