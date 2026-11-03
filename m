@@ -1,123 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793718317;
-	b=toY5KlE+YJKQT85jZ1MH0yBpmhNFolNA2hzVsFHCWtw+FVrGRPU1UUxUbRGwBKVLHpJh
-	 x2vbvTTxuvwoxqjFop2FXeelyouhG91O7S8eo/NBqECXB1T1j2SvO2BS+hsIKlNGU28vy
-	 NKNizR6q7kwAiLjaZ9YXCLS5c+3AoV80WEmOaxlGT5WZthvmaOsHrF0q/G00P6M6OPRWk
-	 JYUWxPtj4wRLByxcwXHTpghP6CQxZuF547128NeCcRojySl9KLIC+A9JJg7ZJeVYLvGJn
-	 2iwGgtOQE+uIx83WXwpsdpC3csa+vp+ySK9wqHsBE4FNdXytj/baNQZLBs8eMzyFHJg==
+	t=1793718340;
+	b=CBgtGcpnM7hvjxQY/vJzMO1v5pdzbWlDZygr5DQqNjWfcOAs2Vz81sIVmn8K4VrY3x1y
+	 /fsJnmiSJKt3b2mn4yaG39TSC6wCPs1v1X3+u6zoJSxr4YeMQOt+Y05C9sAnLi+zb5qyM
+	 rGePgMboTrnFVr4Ckg4402WMlkJGVP5L8ruIFhRH3EFaf+87EHNov0wHvVnBhjp3YJjW1
+	 BtFlUuwRZiVQg+vOy7jBlprQo+7bUcfR7iC715w6KDyDoWNH9ruQM6dJrUyTlqUg9IDiJ
+	 4SUto4Z67PwWpQIypJCLcvQVPYQEGUBbWv181c/z0RVfkhPVAjz6cszJ4YBoECaU5qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793718317;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NuaHp9uosPhIJFvZX5gCYipqC32nrkNImWil1iY7jqU=;
-	b=mhscdW5VdNikZxHkinoTj5O5Y6gGiYEHRM8NUbt+7xpYw6WLd5wpd1f/8z1nY3//uLSc
-	 I27WwxD98gnygO75qYSQF3kbAv2h3Spt00vHo8P6wSGx0z52ywWDb4NRA/jWHwvwpqIWU
-	 BNP9LHFVMMO65VUiLGepJDwJ1kYObIfVwOZ9Bni/ghkozmVQsF1wduD2MOyk61G7w6K+O
-	 +0X1YQaNMZMqPMXdGHFXQnuyi0QpTJcOrpzdbQBOy4KulIIqP9nlO3gIpsyZr3eYaewSq
-	 u7S3lFfvGr5TUY9WLwCA6wJqynFFnRWqtxcYnenZBpgnkVESruCUX5chQjxFGux9F4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793718340;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=56Q+l7rKVDW+iqwTLYFdG7hz631zPQcM8ZSeFLv+MKY=;
+	b=Eje9pkT3/XZQ6DqjVxe3HIRdHVOysr9FeqEkVL2YDZnSo66qS/2TrVqu938BWiCAUCq/
+	 jUZrN9WKv3tPTpW8d0F/4pnkZK9JQrV3B48jaGjRHja54IB1ig0PzdM1d6gYr78JHGudd
+	 Re9hsiTb5Xyn9digOyL6/iXs1eFGXSQp9lGWDBVkmOTAv1fys3c7ONzym0YzZul6OIzuh
+	 IhKIf9ux6iute0CBo9/Ij1SPKnHm5A4VIG8KZwiMjujXUNQFkpx5T2AdwWnz0HM+mlll1
+	 U2ERFshuQbe7O6i71aPs9HNg2ZWjwIIpY5MZaAa2s+bgfiFJ1y+rv9it8vaq29bgeog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Yx5Pypjd;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvtLi9St;
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rtQ3aUHF;
+	arc=none smtp.remote-ip=209.85.222.44
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E204606B243
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E204606B243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31732606D2D1
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:05:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31732606D2D1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=Yx5Pypjd;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LvtLi9St
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1F4F57A0063
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:05:16 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Tue, 03 Nov 2026 10:05:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1793718314; x=1793804714; bh=NuaHp9uosPhIJFvZX5gCY
-	ipqC32nrkNImWil1iY7jqU=; b=Yx5PypjdGR2ddMGVw6TlL9kQRhL4OYekufENn
-	4zKoB90XHKX05FhObGrRid8/5hSHrMiH97fNoRG7F3zdZtwhP653LPrG5l+f+SaM
-	H1MQVPVCMMntJm1o4ZfWFwU2uABbn9T2QfzHVmug+wiQGzq9hHBwrVZ5nhjnI4MZ
-	jY5gsTkcg6Yvp0WU/I47ZPQRf+t4vfybUJ/KSYqHyleJfk2eMNPnlNpuiyfHQTG1
-	tERhFqinsgcGOENycmyIgR9VvZz3MycA5ZFwnGgVeXirMwXexwbDgbKc1HR20Ljz
-	due2LpaB0sktzPE4OOiwzXEarUQ6VEMeq+NofjzZB8jjqGH0Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793718314; x=1793804714; bh=NuaHp9uosPhIJFvZX5gCYipqC32nrkNImWi
-	l1iY7jqU=; b=LvtLi9StaS0KFV+NpE2jO6hfSHsbLQIafq0GONK1m8poyYOb9yP
-	MLb8FE084uZaTQrhLwR5nusMXpcNwREdzpHnFASyC6bvG4uq0ajNFBehapD97g80
-	iNgFfjoXg1Ztv8q2wNoeMAXpP0Vj+jKt1xUoJNrQigg72gZkmOkOOwhFkejNPIcO
-	sjc91uB1YUVTCo9J2GGCmEjIqPLUS9v/Det7+g/s4YwwvM5f4PCgbXmTT9npRenZ
-	6KmZNTGpY6Y+3sFQGWNAZ6D7mc+2/4yxTV1AN48jXnyoS/7vSYHjTr0rQB0q0V1S
-	fQwOvUD5NybNFzG4DJpvSAHgAb3p+dUSzlQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793718314; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:DHMr/vBEiry+hlymI54B3XYKz/kNsJ6qCSpBsEJhsoC4v+l
-	tTkbEvi7LxoJ5aa/TJCib//lCRjdJPrLmDRTbSo7zZY8TlU4CdClErZwhSCFp7Ql
-	0F3vK08VxqPwrDWt4Q//ZjTRwOYkW9Sgu+pvtrrIESPLx+QfNFU4ijbi9rhC1yH7
-	qa/28cWnHjhwJHFwvann2jaeTmSPsp0diK+ve5nA57fEl4pbvuAiKBAiiYeA1NLM
-	ov7SDkFleXUwDFuf5GnkSqCflQwbDa9TjEeq2dvusnDegLP3Ry6SayoCIC5bbiP2
-	VY9/gWCGbAXVVFG5oO+cfpVhz28l61Pelns96iA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:GXZbFxsks6YN4t7uEI6A8Y+9bT9hk1GsqJby3FKz//s=:/vmWf7pd3xovjtKqSmqVYTOwZN+N2niluBf4KVU9QOI=;
-X-ME-Sender: <xms:KvjpapWOcP4YywiDmecg74_4pigs5Na-Ygfdtkp1kRWhQLmTHi2FQw>
-    <xme:KvjpamJ6LpVpx-iO08vGprbbh8utDK8aIxuFMVDkjCaGIVa4OrFKRWFgeGLGjRUCU
-    4b5vq3JLzu4tAxUOVCLA0zPQN0fXezUU_MIgrZqp7bIhwk078_kcRI>
-X-ME-Received: <xmr:Kvjpap1gvIjostKhqmNSDF7J2ucdR6g-FWlpYQFDFdEtQpUqIKx7nXDp4FCoZoUJ>
-X-ME-Proxy-Cause: dmFkZTEZaxs/DnHo9E/Pj5ZB+Z0bxAKDwg+7G8Of60PzqbvrqxR0qWoR8FsUllP9WxER3d
-    XWpil5L0oc3xZwKiOt7e8IKcoFg51qvtEf1DuPzR+NkKamUuy6QH1dDqH3wLu3C8Mp+8mr
-    xx3tm4OsOBkMpGpfqY/TeJpeg+VvLOJJFtBKRLOvNBbAn0dnMRg9Eh1rt2/CHsvmFK/+Ai
-    7/SSCt+X1NsWeJw1QnEn8TflfSo1/+px9AD6c5eeNt1Ch8hDq7ariF4fAXbrejzxgQMvos
-    pgZNV6Jy8DDr2E7UM9Us8IzFoKL0s1uVpXy1umlv3evW9SfKafNuno0miS3VxNXNcu62ky
-    7Srgpr+KjJM7Ni1XJe3IJIse2x6TzDeBF1zHorFAKsUv2hvRqVVTcEte0faTXiudvMwrCp
-    Tdmb28RlX28W06/aWtCBmhcsfsb72e2tlXsCa/ZLMTCdAbNk8+3O+iq6kFWyrzuQKtifKD
-    XjUvUq+rrKis0Y1HSe+jii5DTixQApRsU1PefJdQXjEbmGmefTUbmGXUrpgA6+5L9YedeH
-    LzLva5tYD4WEIWvWh7U7LYt4lLmZRzJHhmyIyYmrFtRIJa8w5vpSUCm+MiePoRO3mTCPKh
-    vfL8mUvHC6ZtTpvnsdC+DHcxPl1803nYfYRorwTu/VcFImBOBLDnpL71yVxQ
-X-ME-Proxy: <xmx:KvjpajIyM96WcoVBRvfWN80PXQbYOBUfZsKQ_vGEniMpuD5Oc_sQUw>
-    <xmx:KvjpakgjG5l1BTufoRek3j5pSuLYuK49buc6DfVgbVTKhnU5cSWpWg>
-    <xmx:KvjpajAto2GSdhpV7t8-vxJ4ZqHn6jMsoYlfYT3YaxMYNoxd-47KWg>
-    <xmx:Kvjpam7GEwlahlDO4CDkzhKBU8mFEHsiVY8XgbDK1bMKysgH-hStWg>
-    <xmx:Kvjpav1YqhVEskodTRGYnA6Z4_PWJ3gH_ocdhtLtVdnhtIHjAHhrcRlL>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Nov 2026 10:05:13 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow
-Date: Tue,  3 Nov 2026 09:04:58 -0600
-Message-ID: <20261103150458.11591-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=rtQ3aUHF
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-992f6d8cb51so714674241.3
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 07:05:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1793718339; x=1794323139; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=56Q+l7rKVDW+iqwTLYFdG7hz631zPQcM8ZSeFLv+MKY=;
+        b=rtQ3aUHF/AYyXV7ouh4KpqaLF8J1ges/8mSh0ligYXi/TVsWJs6hAlUuMCipZZGOX9
+         f6kGkNQqjNh6ifNgG6vw1Rioz++0M7nnPYb4eCRzlpMt5L8r+KrJGheVm5CmFFDlOStF
+         KVTfrOeh84LN6jLLzR7xxd3lyoADM3V9phQIJNoSJPdLvDO0XErZDTw95rdpwX8hYZjo
+         K3M50+6QtVjnz2sD0ulqcmcs8Vz7oWg220AWzni/2PcfuVd7lzB1MMzbbCroJ+n7gYqU
+         N2C1nz+bgFpACwzTl3fW51rN06qnCygJWdr77e5DppoEe3bW8I0a/ZnebVpJiQ15PsmL
+         M01w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793718339; x=1794323139;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=56Q+l7rKVDW+iqwTLYFdG7hz631zPQcM8ZSeFLv+MKY=;
+        b=VE+hpCbRiFz/JBmCn7poGIJnvXd0qIov8R7ZPXomFbBI8UdO4yhf52f+TOuMSEZGLK
+         3fVb2JF0xBTtRffffRK7D3z5dpNX4DVbx9w4z70khDRJmbrqPOT0XdhGwipSFeXLgB+J
+         gPM27M9IwyPl3NQT78HoDUUrhRXcOgDNpSphZpMrTB3eFAZaEFrp2awGmsitNzbutyul
+         2qUMlkXAxnXgZRogkceDEyV91VEWB/YMxZc7KrIrn/U/aev4S5vXxB395hjYbSI3tWqx
+         4AOxJMgkJPpbm0wrIB5IHnCG9xqWGZQEM8vWM5EwDhiWnB/0wPaCIzSU6II58uRMsWls
+         1xMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzeT5GrFLXq0EQjZqnazj3vVjQARhgW09l4l9H2M3g93GM2w7pbXgxuBLkTGyc50IFJaWwddKA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IduuSoERDg231kMC9cjq2k+yuntdB1zBmwYZwx87Hr9Eo/xKg
+	PspyiN+W96qbUGqKQGiwLUtP5RPB3gOxorBP/bWOamSUX5dn1jc3OmlKTXTOKpMec6M=
+X-Gm-Gg: AYBFou0Y4JxJjbn8oa8zF5hU6Cnju01iaVl4QHc+VX6lKYi34ICZmbou2knqIfPngEv
+	y5AbGfs/AqsOHy/FsQE3cQ7Pum1apJrLUIqpTvgQHQBGJbI9H8RxJe82h7KANG87KA0phXbE0sI
+	ywRRfLV9hBK8AortNs4KJYMrjBZ1N2ZUx3kZZALBZNNqTaVGMe/3iJ52Aub0pR33zaevs5ZqF6Z
+	RGgfO4aelH+hxhhHkg4ZrpkZ1YU/gZY/f8jYk7EOICSbJuM06FaFedEw8oCyGH/CRanv9xF5Cba
+	zlr/BM2rghBTr/i/lm58XHhB/X1Y3hCOVGUYYixMQNgyYSc2CH6guWJ8kui47l1dKyauWzpv5zQ
+	aIihd0UGv3XlEZDRADNefxgmu1HpdIt1EghQLnbTahIPsq94r/dR7nchOVJhozpzAxyBSSxOAOo
+	OrFkV2BrQQ9hWg4W6spJ2f/IXgEvmCvnChU2yDJmo5hNnh/96Ly71DlbUxLIl+oPIQFypxerTrj
+	4dga+PWKLuXVmyULpWdw1W5/RYmV4vjhvpcWYF5vC0leAuLDGPH6Q9JVAF2zCApDgjKuPSqLAxo
+	9xtKUOl/23BssnyrULNdlGDR2rq9q9uVeWi/pBXC3fAC
+X-Received: by 2002:a05:6122:2490:b0:5ec:3e18:b06a with SMTP id 71dfb90a1353d-5ec682939d2mr5956153e0c.0.1793718338923;
+        Tue, 03 Nov 2026 07:05:38 -0800 (PST)
+Received: from toxicpanda.com ([153.61.196.245])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69bf54casm12957026e0c.9.2026.11.03.07.05.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 07:05:36 -0800 (PST)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 03 Nov 2026 15:05:16 +0000
+Subject: [PATCH v2 1/5] btrfs: don't drop the error of the last split bio
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,241 +92,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-b4-btrfs-data-integrity-v2-1-577dc2690061@toxicpanda.com>
+References: <20261103-b4-btrfs-data-integrity-v2-0-577dc2690061@toxicpanda.com>
+In-Reply-To: <20261103-b4-btrfs-data-integrity-v2-0-577dc2690061@toxicpanda.com>
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, 
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, Qu Wenruo <wqu@suse.com>, 
+ Boris Burkov <boris@bur.io>, Filipe Manana <fdmanana@suse.com>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Zygo Blaxell <ce3g8jdj@umail.furryterror.org>, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793718330; l=3217;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=txHGnvFegj4zHhwRsHMG/dc5XM4UNpDxUo+mK9fvLho=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QKVqmzPA5qHF9bEJOPc08VvWwEFqOdHRL+Yh7PzBtItxruAR3U5xc9JdRPE61l9QoANzjHXOCXq
+ mEOm5C6wzlgk=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-smb_check_perm_dacl() does not match ACEs for the caller's Unix
-groups and refuses an owner named only by OWNER RIGHTS. These callers
-cannot use rights the DACL grants them under MS-DTYP 2.5.3.2.
+When a btrfs_bio had to be split, btrfs_bio_end_io() saves the first error
+of any of its parts in the status field of the original btrfs_bio. The
+part that completes last is supposed to load it into bi_status of the
+original bio before calling the end_io handler, but that is only done if
+that last part was successful:
 
-Match Unix group SIDs (S-1-22-2) against the caller's credentials. Use
-the ordered DACL result when the existing SID lookup and POSIX ACL
-fallback do not decide access. In that result, deny ACEs for the
-caller's groups limit what it grants, also for MAXIMUM_ALLOWED. Match
-OWNER RIGHTS exactly, since compare_sids() also matches longer SIDs,
-and return only file access rights. Preserve the refusal for
-non-inherit-only object deny ACEs, which ksmbd does not parse.
+	if (atomic_dec_and_test(&bbio->pending_ios)) {
+		/* Load split bio's error which might be set above. */
+		if (status == BLK_STS_OK)
+			bbio->bio.bi_status = READ_ONCE(bbio->status);
 
-MAXIMUM_ALLOWED still excludes group allow ACEs. Including them
-requires corresponding changes in smb2_open() to avoid breaking
-existing opens. An open relying on group grants can therefore still
-fail when it requests a maximal access reply. For the owner, that
-reply leaves out the rights of its groups.
+If the last part failed, the assumption is that bi_status was set at the
+top of the function. That is true if the last part is what is left of the
+original bio. If it is a split bio, the assignment was done to the split
+bio, which was freed right after. If the original bio has completed before
+without an error, its bi_status is BLK_STS_OK and stays like that:
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+  original bio (tail)                 split bio (head)
+
+  btrfs_bio_end_io(orig, OK)
+    orig->bio.bi_status = OK
+    pending_ios 2 -> 1
+                                      btrfs_bio_end_io(split, IOERR)
+                                        split->bio.bi_status = IOERR
+                                        bio_put(split)
+                                        cmpxchg(&orig->status, OK, IOERR)
+                                        pending_ios 1 -> 0
+                                        orig->end_io(), bi_status is OK
+
+The end_io handler covers the whole range, so for a buffered read all the
+folios are marked uptodate, including the ones that were never filled, and
+read(2) returns their content instead of -EIO. For a write the ordered
+extent is completed as if all the data had reached the device.
+
+This can be reproduced with raid0 data on two devices, one of them slower
+than the other and with a bad block, by reading a file whose last stripe
+is on the fast device.
+
+The saved status has the first error of all the parts, or BLK_STS_OK if
+there was none, so always use it.
+
+Fixes: d48e1dea3931 ("btrfs: fix error propagation of split bios")
+CC: stable@vger.kernel.org # 6.12+
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Tested-by: Zygo Blaxell <ce3g8jdj@umail.furryterror.org>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
+ fs/btrfs/bio.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Notes:
-    Since v2
-    - Honor deny ACEs for the caller's groups in the new MAXIMUM_ALLOWED
-      fallback (Namjae Jeon [2]).
-    - Match OWNER RIGHTS exactly and return only file access rights.
-    - Keep the existing refusal for non-inherit-only object deny ACEs.
-
-    Since v1
-    - Clear access_bits for explicit requests, preserving refusals for
-      ACE types the existing lookup does not handle (Sashiko [1]).
-
-    The hide unreadable listing and the app instance check use the same
-    answer and change with it.
-
-    Tested on ksmbd-for-next e49296d51ccb with KASAN, with no reports or
-    warnings. A reproducer is available on request.
-
-    v2: https://lore.kernel.org/linux-cifs/20261102200353.884509-1-icb@fastmail.org/
-    v1: https://lore.kernel.org/linux-cifs/20261102061537.830714-3-icb@fastmail.org/
-    [1] https://sashiko.dev/#/patchset/20261102061537.830714-1-icb%40fastmail.org
-    [2] https://lore.kernel.org/linux-cifs/CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com/
-
-    This fix was developed with LLM assistance.
-
- fs/smb/server/smbacl.c | 94 ++++++++++++++++++++++++++++++++++++------
- 1 file changed, 82 insertions(+), 12 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index ab76c5c9e0ea..acb80cf0f2ca 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1459,6 +1459,29 @@ bool smb_inherit_flags(int flags, bool is_dir)
- 	return false;
- }
+diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+index 2c6234f6182f..fc0b021cdefb 100644
+--- a/fs/btrfs/bio.c
++++ b/fs/btrfs/bio.c
+@@ -127,9 +127,12 @@ void btrfs_bio_end_io(struct btrfs_bio *bbio, blk_status_t status)
+ 		cmpxchg(&bbio->status, BLK_STS_OK, status);
  
-+/* Whether the caller's credentials hold the group of an S-1-22-2-<gid> SID */
-+static bool smb_sid_in_group(const struct smb_sid *sid)
-+{
-+	if (sid->num_subauth != 2 || compare_sids(sid, &sid_unix_groups))
-+		return false;
-+	/*
-+	 * ksmbd_override_fsids() builds the caller's credentials with
-+	 * make_kgid(&init_user_ns, ...), so the group membership test must
-+	 * compare in that space.  Applying the mount idmap here (as when
-+	 * resolving a SID to an on-disk gid) would mismatch on idmapped
-+	 * mounts.
-+	 */
-+	return in_group_p(make_kgid(&init_user_ns,
-+				    le32_to_cpu(sid->sub_auth[1])));
-+}
-+
-+/* compare_sids() also matches a longer SID, such as S-1-3-4-777 */
-+static bool smb_sid_is_owner_rights(const struct smb_sid *sid)
-+{
-+	return sid->num_subauth == sid_owner_rights.num_subauth &&
-+	       !compare_sids(sid, &sid_owner_rights);
-+}
-+
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
- 			bool strict)
-@@ -1475,13 +1498,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	int granted = requested;
- 	struct smb_ace *ace;
- 	int i, found = 0;
--	unsigned int access_bits = 0, denied = 0;
-+	unsigned int access_bits = 0, denied = 0, ordered = 0;
-+	unsigned int any_allowed = 0, any_denied = 0, bits;
- 	struct smb_ace *others_ace = NULL;
--	bool or_ace = false;
-+	bool or_ace = false, in_group = false, member, counted;
-+	bool obj_deny = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
- 	bool is_owner, owner_rights = false;
-+	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
- 	vfsuid_t vfsuid;
+ 	if (atomic_dec_and_test(&bbio->pending_ios)) {
+-		/* Load split bio's error which might be set above. */
+-		if (status == BLK_STS_OK)
+-			bbio->bio.bi_status = READ_ONCE(bbio->status);
++		/*
++		 * Load the first error, if any. It may come from a split bio,
++		 * including the one we were called for, in which case nothing
++		 * stored it in the original bio yet.
++		 */
++		bbio->bio.bi_status = READ_ONCE(bbio->status);
  
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
-@@ -1522,7 +1548,7 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		 */
- 		if (is_owner)
- 			allowed = READ_CONTROL | WRITE_DAC;
--		if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+		if (maximal)
- 			requested |= allowed;
- 		if (!allowed || requested & ~allowed)
- 			rc = -EACCES;
-@@ -1531,7 +1557,12 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		goto err_out;
- 	}
- 
--	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
-+	/*
-+	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2). MAXIMUM_ALLOWED takes
-+	 * its result, and so does a caller that only group or OWNER RIGHTS
-+	 * ACEs name.
-+	 */
-+	{
- 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 		aces_size = pdacl_size - sizeof(struct smb_acl);
- 		for (i = 0; i < le16_to_cpu(pdacl->num_aces); i++) {
-@@ -1551,42 +1582,69 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 				      sizeof(__le32) * ace->sid.num_subauth)
- 				break;
- 
-+			if (ace->type == ACCESS_DENIED_OBJECT_ACE_TYPE ||
-+			    ace->type == ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE)
-+				obj_deny |= !(ace->flags & INHERIT_ONLY_ACE);
-+
- 			if (!compare_sids(&sid_owner_rights, &ace->sid)) {
- 				owner_rights = true;
- 				if (!is_owner)
- 					goto next_ace;
- 			}
- 
-+			member = smb_sid_in_group(&ace->sid);
-+			/* ordered counts groups and OWNER RIGHTS only */
-+			counted = member;
-+			if (is_owner && smb_sid_is_owner_rights(&ace->sid))
-+				counted = true;
- 			if (ace->flags & INHERIT_ONLY_ACE ||
- 			    (compare_sids(&sid, &ace->sid) &&
- 			     compare_sids(&sid_unix_NFS_mode, &ace->sid) &&
- 			     compare_sids(&sid_everyone, &ace->sid) &&
- 			     compare_sids(&sid_authusers, &ace->sid) &&
--			     compare_sids(&sid_owner_rights, &ace->sid)))
-+			     compare_sids(&sid_owner_rights, &ace->sid) &&
-+			     !member))
- 				goto next_ace;
- 
-+			bits = le32_to_cpu(ace->access_req);
- 			switch (ace->type) {
- 			case ACCESS_ALLOWED_ACE_TYPE:
--				access_bits |= le32_to_cpu(ace->access_req);
-+				if (counted)
-+					any_allowed |= bits;
-+				/* MAXIMUM_ALLOWED takes no group grants */
-+				if (maximal && member)
-+					break;
-+				if (counted)
-+					ordered |= bits;
-+				access_bits |= bits;
- 				break;
- 			case ACCESS_DENIED_ACE_TYPE:
- 			case ACCESS_DENIED_CALLBACK_ACE_TYPE:
--				denied |= ~access_bits &
--					le32_to_cpu(ace->access_req);
-+				if (counted)
-+					any_denied |= ~any_allowed & bits;
-+				/* access_bits still ignores group denials */
-+				if (!member)
-+					denied |= ~access_bits & bits;
- 				break;
- 			}
- next_ace:
- 			ace = (struct smb_ace *)((char *)ace + le16_to_cpu(ace->size));
- 		}
--		if (is_owner && !owner_rights)
-+		/* Keep only file rights, not MAXIMUM_ALLOWED or generic bits */
-+		ordered &= GENERIC_ALL_FLAGS & ~any_denied;
-+		if (maximal && is_owner && !owner_rights)
- 			access_bits |= READ_CONTROL | WRITE_DAC |
- 				FILE_READ_ATTRIBUTES | DELETE;
- 		access_bits &= ~denied;
--		if ((raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
-+		if (maximal && (raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
- 		    S_ISREG(d_inode(path->dentry)->i_mode) &&
- 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
- 			access_bits |= FILE_EXECUTE;
--		granted = requested | access_bits;
-+		/* An explicit request takes only ordered from this walk */
-+		if (maximal)
-+			granted = requested | access_bits;
-+		else
-+			access_bits = 0;
- 	}
- 
- 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
-@@ -1615,6 +1673,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		if (!compare_sids(&sid_owner_rights, &ace->sid) &&
- 		    !(ace->flags & INHERIT_ONLY_ACE))
- 			or_ace = true;
-+		if (!(ace->flags & INHERIT_ONLY_ACE) &&
-+		    (smb_sid_in_group(&ace->sid) ||
-+		     (is_owner && smb_sid_is_owner_rights(&ace->sid))))
-+			in_group = true;
- 		if (!compare_sids(&sid_everyone, &ace->sid) ||
- 		    !compare_sids(&sid_authusers, &ace->sid))
- 			others_ace = ace;
-@@ -1668,7 +1730,15 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			 */
- 			if (is_owner && !or_ace)
- 				allowed = READ_CONTROL | WRITE_DAC;
--			if (*pdaccess & FILE_MAXIMAL_ACCESS_LE)
-+			/*
-+			 * A group the caller is in, or OWNER RIGHTS for the
-+			 * owner, gives what the DACL grants it in order. An
-+			 * object deny ACE is not parsed, so it keeps the
-+			 * refusal.
-+			 */
-+			if (in_group && !obj_deny)
-+				allowed |= ordered;
-+			if (maximal)
- 				requested |= allowed;
- 			if (!allowed || requested & ~allowed) {
- 				ksmbd_debug(SMB, "Can't find corresponding sid\n");
+ 		if (bbio_has_ordered_extent(bbio)) {
+ 			struct btrfs_ordered_extent *ordered = bbio->ordered;
 
-base-commit: e49296d51ccbf2ad0ed0484db1382f1d7217bd6e
 -- 
-2.47.3
+2.55.0
 
