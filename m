@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725159;
-	b=HWo67REL5PrnkPjxzMxIJhTeB+Okq2I5qFExSWHchnA8IDcwGLB27gpLKui5MxPdrtPd
-	 IOQyYu2tirEDsIxW4b3Azxiohk/opGXTm8dQ/JW0wikxPcxiASoLt16JaejapHXQ7+8xq
-	 ahJ1nZB6OauSLpRtb0EagcJCndFBPCvqZq0UNEOw6n8HUgM1e7f+k6nU7CFySYs7Pr9CB
-	 TTzypQsoK4D3xt4+JDpgqi0aNZVmQzAvo7PPRASjMxSgWeJgHAOdZmHEq4NnIKuYFIa66
-	 fDimMGjveTcRqVxb38RqYediyPPFhBHod9M9UzNv84swK3he7RF2NiwEf6hvcKR5sCQ==
+	t=1793725161;
+	b=ysjb/AZOG2adA0UwjCPQeNu5WAisXN0GahwEJten9/dsHw/lOZoxyWikhfaK8PcHmxxx
+	 ZlsmxY9wuNppmnXkt18VeVOMmTueDgkgdxTmWYIDOCm1K35cFduJbeOD7rZC8jwxXsqLO
+	 27bRrOcv5X4K1gJpnnerIH2oG6fZyDURroaGpkUynuLgxmJ8TJ5RlBYojHmJYYo6Wnx0+
+	 lcNeO2Z+VQgrt0V1o8TeS1HKahbt92Z4yBbMhNfkjte1alwG2XTkBOERqGLaksrhx8jC9
+	 tGf6ICqfh0oBozWMEa9bq8+qO9HbopD/oO6DVT4Q81MuVF5sku6kuAoi2xzQRphY2qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725159;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725161;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qyie3lp94voMetIz4ZK0UyMQldPElbkTK8vbvrxDQEs=;
-	b=h8Lj1K1BXIugSZtfP5NpMvbVLSjEpQBRO71wIWG3bmaxiB7hGBaYdqds7UogOGlXP6f1
-	 bFbJpJi7F2dbEKIy794l1gnamVgZYO+mIe6UiI/mz16QHsVIH4V53AMBjdqR+1vPcMfJP
-	 05ZxiocBwjRSdNpB4BmplIG+pmKe9SuCxC8HJDCwifZYpjAuIVBdEUk5wm7+TBhuo3ivi
-	 4JEGPSbv4bP1i/BGSQ+djP/voERvMgHMgNilsMyXl4G/FegvJ/04tVDFMibAn7s6mBS7w
-	 t0tqALM0UsSIh7j1cmNEuLvuzEzqfS2pVdRPsEE3VCKZ0iXhiONQCXR7/aTQ3JswZnA==
+	bh=x1NI3skowoAtNdcXptzYo27srndyE5ZnDqWHrHmy4U4=;
+	b=5XqMAGMShOj3liEk0OtPoSwv6BaIT8Aailz1vHAGTwRxHfz5VS9uAt0K4k2Kp1ttvNi9
+	 kmOTJe6hE6rHlI0kA7uw7/aYsQwoAd4K9ru8nJDpMqHkhUNt6NnDU/yPROFvOciKDe0kW
+	 VLPN6v5HUC8Xd346P3O+MhJ6rxWj4SJouDjbVDoV1uQ2l+rrGqH6KcyhZa3ruamckdhhx
+	 KlpVOrrbuEOLnH4iQ73O/ei37D7isT7ps3lOELdDr90Fx/qqny0u1fOUBUhSUUlNOiUnm
+	 PwARMni/05spkprI46Rzdl4FA1UJxvbHwSrmuAdSg0AQgeJWHSo3UsWGIKcDrY/TUKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=1password.com;
 	spf=pass smtp.mailfrom=agilebits.com;
-	dkim=pass header.d=1password.com header.i=@1password.com header.a=rsa-sha256 header.s=google header.b=e2u4H5ji;
-	arc=none smtp.remote-ip=209.85.222.174
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	dkim=pass header.d=1password.com header.i=@1password.com header.a=rsa-sha256 header.s=google header.b=HvE6CnDk;
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5819606A330
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5819606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB450606A32D
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB450606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1password.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=agilebits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=1password.com header.i=@1password.com header.a=rsa-sha256 header.s=google header.b=e2u4H5ji
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-9441591aa5cso109169185a.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 08:59:18 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=1password.com header.i=@1password.com header.a=rsa-sha256 header.s=google header.b=HvE6CnDk
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-945ae2daa3eso330295885a.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 08:59:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1password.com; s=google; t=1793725158; x=1794329958; darn=vger.kernel.org;
+        d=1password.com; s=google; t=1793725160; x=1794329960; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qyie3lp94voMetIz4ZK0UyMQldPElbkTK8vbvrxDQEs=;
-        b=e2u4H5jiGKGo9r6gEd2se4tGTZwmdU5p9nRdnHtOCSYXWlvFZj83tcGAwxxRpJ9zAV
-         Mro8wC0WTq2rpRb1Ji8FduryNwdXihHaxmOaRYFBF1Tw8cmDMDaeaikwpbhBcj0Ovq4t
-         1zp7PeTOuJVNUfTKrkm+Y2EsfuDAtAvurwlTY=
+        bh=x1NI3skowoAtNdcXptzYo27srndyE5ZnDqWHrHmy4U4=;
+        b=HvE6CnDkjqXySwNnSQZMyeD4DSmhSNJZ5RuJy5b40IJ8vc3t7iydK31t81eeeIpz0e
+         ZBLyyMJH+Z3iDY+sb0OebSLGqPrZy9R9RhUXkFrBvJT0VjU+YQ6c1S/inFLyGnz3EY9t
+         Bdaj8s+/76t7301785EuSYGoocmPSroSPJJNI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793725158; x=1794329958;
+        d=1e100.net; s=20260707; t=1793725160; x=1794329960;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qyie3lp94voMetIz4ZK0UyMQldPElbkTK8vbvrxDQEs=;
-        b=eVmyKv5E/+EKLox7pNQyRFzRNf32y77qzrQURyvtoKC5EugFPSm/2CpfSR+EXMwc/z
-         4MABeQnqu1PTXMKV3UUW+BBEvU9LcSg5FSCk5H3Z3aitO6sEAt9J1tJJey6nzpBNJvKy
-         A6vcpGTP1FCuAw58Hz0b+TCbDEgkhcQmJqH9PyiM5Zbe7BNzX2fr7moGk1J2ly1JkWrC
-         SQQA+25TdjrgFqo8rG7Foa7TkLXz02JwY7pxo+twCokYBZgiXHQj1QkLmxoyZ3atVvC+
-         dpN5kK2AtXwYcMzFY4HtymhnyYAlkN09B54VAIwAM/P21EVkqnPQzvCQ/W2rDKhxJffO
-         F/Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNGfXKsDCFWz+qTuKa+EZwQvavS37yoADMhMjnzMCuJr3SPB9eUJuiTYW4Ekt+kFW3YnKFmuw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+eKppLEclWwV9SF/nFzMjM/972Kys8JuPXHtuugvWfxV+/d9kt
-	NoAOpOOL/0Al7OXMfrdqkubDh22po302ELeBZQqil72nZJi9JK8hLsSXmcEOHSfFiNA=
-X-Gm-Gg: AYBFou2yKnCbEYSYBroSiQn/T6Lpg3cRrUJ5MssCobsk6zB/VJO0akI83L2Z5lyoqQj
-	Wd4X2UkclzklwTS/wXnBLdTEpJBr09LgGUU9Maq+M/KHR/o/B2jAwhqnErJz0L1b33mfo8qzYVV
-	gLbLBj3p5t1VQEoyghoVf2Abe9dkibxeCYmWKXbP5dJIuDKJnJaTpVhQysxNWhUSbwSMVL+8d4L
-	prO6IHpMPXFplwCLnMr5kld2k7kp9Ic1wUHXyPLnUC5N5JA8FV4SG2SwEsWCnP+8ogoYhigKiNL
-	TNCqrla8lDryjFFuqdFtQ+sDIK2fLBuJHf2Bt1IPKo5tXxUXwb9LbXS8e9Ti6vq2msOa/MrUZh9
-	/rGK1Wikx8QVAAmdC8lwH0RRR+/j4C7yfKJadl0vpDru9lOvSdxyUQIlqHqjrURDl6Aga2zh4pc
-	CyUheadlrBd8P0+IKiSzkUg0HcS+UwSXe+mj/FnlQ5fV9ZQrWRYHmGn4I4QH8VV2w2U7Ax0F3nf
-	ile1oNl8vWEwtX83aIjxdlZ4v6MPoCr+fEeLKIXA0cl56oC0Mr5whdJbz7YLADLxSTKtyzrNDHK
-	Bz0fROcmKLnr1nLvQL7hmC4Pgh3HSESQjDaRWJsdpjaTwjqq4gp0Ptt8IDzuMowdzv/wMiVrsGW
-	4uhFCbw==
-X-Received: by 2002:a05:620a:4613:b0:93f:1789:8359 with SMTP id af79cd13be357-944133bf945mr2719600885a.31.1793725157802;
-        Tue, 03 Nov 2026 08:59:17 -0800 (PST)
+        bh=x1NI3skowoAtNdcXptzYo27srndyE5ZnDqWHrHmy4U4=;
+        b=mBW6zZS6d+ug68v+VhUDSQaCM1RLbTdJhvAKPFfkZ+4rwsLhzdUSHqJXkQZ+Va7W52
+         BFVcYiLEuBNpOZR7ADq1chZgYPE4uSnvhuDNX+77Fy6dSO/hTi7UlyphDL8/2c4s2FJB
+         F0FJWJC/Ofywd9HQ0aNMyYpXKTkVpoW1HFihC1b+qfwDJQKUv2wIllGrpDeaLGwXSvXG
+         4pjmPFgnODkiNLYIcidta7+freVjFdSJ/KcCvS2gagyuiItKw67bB8UAJJjvCs018foa
+         vZzGEOUSR3sIGm1zOg/6B0MTMQSvp11rK8+zT0TrwYPCW5Bx+F6ctLKFkw7R77X5PwEZ
+         hN7w==
+X-Forwarded-Encrypted: i=1; AKwUvBxWUJ06g39Moll4MDr4CMsfw0yIG+jAVBc3Rd+ywDcS/YZQqisbQinTQXA9DvLPzJ0iUMFCFIA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+V6ZDi1uzbaFso/4ZPqYDqfgXkqeqce2DvEjd7zkmiKuALa3X7
+	8nWpabtU2Ib7Lrefprdhf0NO5NwtLkBXYGMQg+fUFQeVeWw1K2C1G70DFJDtP1rn7fE=
+X-Gm-Gg: AYBFou0D3koSYhGx2bh4jTmyX/NRtHwWAeBkeP5zJXP1Jqm/LY2l29oT8yIa5rsyA0A
+	H2pThyokA46dlFwrID/MnJi0RFo+MdYm9tETZToBfe199h+mQltuvQrqzfWqdADSNBcIPUawK3Y
+	G+D15Jf8EA9sgotAGoodTsEKc0LeSuDrpTcBmz4trLGcr/27w2+SfRLcxIJY/17FXU2wIaZf8pL
+	jKr1s2jI3SSVJnCRq+Xr8711VbgVNfz6bVULjNvWwqgv5MRf/22fGZG9gXFQKdqhx06XFEj/KUf
+	k1YLnRaYubXd8BNblM634vsWC59j2rkOTzZEgP1SaY/znEzjLKTw8i+G1vq+i0qn/kupcmb3VQA
+	At3PrMilV7tjhRtBwDxn0ZhMVeLGNk8P2NvcCo4hV2XfBtf2eb/2y5hTdXntiQCmVP1TyA+Q9/i
+	TQCjp9Z/yAX1xk78bZXHlQ8HdplrLTJkBTrBEp/5GdrGXJfSZMMt5TKdNcJeJhkZDTeN79TYueI
+	P5FqqKCB6HON9yHNFw/d/ycJy4mpjoEtyPN3D70hx5919yoefg4Z+0X5RoZPmUEtTy35AgUBEa5
+	4UJjPRp7fICC8bw3nsvYR/np9YFT0AgUIW8C5Lrvp0nfcA6jl3/caEDThSxY
+X-Received: by 2002:a05:620a:4385:b0:93e:5eaf:dd87 with SMTP id af79cd13be357-944217c1057mr2138536485a.62.1793725159609;
+        Tue, 03 Nov 2026 08:59:19 -0800 (PST)
 Received: from localhost ([2600:4041:59c3:300:a850:2af1:eb93:4121])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d3410ae4sm5514285a.26.2026.11.03.08.59.17
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca8066ba4sm120593986d6.33.2026.11.03.08.59.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 08:59:17 -0800 (PST)
+        Tue, 03 Nov 2026 08:59:19 -0800 (PST)
 From: Axel Mierczuk <axel.mierczuk@1password.com>
 To: ja@ssi.bg,
 	horms@verge.net.au,
@@ -89,9 +88,9 @@ Cc: fw@strlen.de,
 	w@1wt.eu,
 	Axel Mierczuk <axel.mierczuk@1password.com>,
 	stable@vger.kernel.org
-Subject: [PATCH nf v2 1/2] ipvs: validate cport in received sync records
-Date: Tue,  3 Nov 2026 11:57:45 -0500
-Message-ID: <20261103165746.39516-2-axel.mierczuk@1password.com>
+Subject: [PATCH nf v2 2/2] ipvs: skip cport 0 connections in ip_vs_conn_out_get()
+Date: Tue,  3 Nov 2026 11:57:46 -0500
+Message-ID: <20261103165746.39516-3-axel.mierczuk@1password.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261103165746.39516-1-axel.mierczuk@1password.com>
 References: <20261103165746.39516-1-axel.mierczuk@1password.com>
@@ -106,61 +105,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Local templates have cport 0 and IP_VS_CONN_F_NO_CPORT clear, so
-ip_vs_conn_in_get() cannot match them. A template received over the
-unauthenticated sync protocol with a nonzero cport can reach the
-protocol state machine. Before template state validation, this
-could cause out-of-bounds reads, crashes and kernel data leaks.
+ip_vs_conn_out_get() does not filter templates. A template with
+cport 0 is matched by a packet sent to client port 0 that traverses
+the out hook, and handle_response() then runs ip_vs_set_state() and
+the timeout update on a connection that must never see packets. A
+backup server receives such templates over the unauthenticated sync
+protocol. An ordinary connection scheduled for a client that uses
+source port 0 has cport 0 as well and is matched the same way.
 
-Ordinary records with cport 0 and IP_VS_CONN_F_NO_CPORT clear, or
-with a nonzero cport and IP_VS_CONN_F_NO_CPORT set, create connections
-that incoming lookups cannot match. The latter also keeps the
-cport-zero fallback in ip_vs_conn_in_get() enabled.
+Apply the rule used by __ip_vs_conn_in_get(): a lookup for client
+port 0 matches only connections flagged IP_VS_CONN_F_NO_CPORT, which
+still wait for their cport, and a lookup for a nonzero client port
+matches only connections without this flag. Test p->vport, which was
+already compared with cp->cport, instead of reading cp->cport again.
 
-Reject all three cases. Continue accepting ordinary connections
-with cport 0 and IP_VS_CONN_F_NO_CPORT. The companion patch
-"ipvs: filter some flags received in the backup server" rejects
-template records carrying IP_VS_CONN_F_NO_CPORT.
+ip_vs_ftp_out() relies on the first case: it looks up the data
+connection with client port 0 to find the IP_VS_CONN_F_NO_CPORT entry
+created for an earlier PASV or EPSV reply. That lookup keeps working.
 
-Fixes: 87375ab47cd0 ("[IPVS]: ip_vs_ftp breaks connections using persistence")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Suggested-by: Julian Anastasov <ja@ssi.bg>
 Signed-off-by: Axel Mierczuk <axel.mierczuk@1password.com>
-Acked-by: Julian Anastasov <ja@ssi.bg>
 ---
- net/netfilter/ipvs/ip_vs_sync.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ net/netfilter/ipvs/ip_vs_conn.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/netfilter/ipvs/ip_vs_sync.c b/net/netfilter/ipvs/ip_vs_sync.c
-index 157f5c8361ab..a85dc95e29cc 100644
---- a/net/netfilter/ipvs/ip_vs_sync.c
-+++ b/net/netfilter/ipvs/ip_vs_sync.c
-@@ -853,6 +853,25 @@ static void ip_vs_proc_conn(struct netns_ipvs *ipvs, struct ip_vs_conn_param *pa
- 	struct ip_vs_dest *dest;
- 	struct ip_vs_conn *cp;
- 
-+	/* Templates require cport 0. Ordinary connections require
-+	 * NO_CPORT exactly when cport is 0.
-+	 */
-+	if (flags & IP_VS_CONN_F_TEMPLATE) {
-+		if (param->cport) {
-+			IP_VS_DBG(2, "BACKUP, template with cport dropped\n");
-+			kfree(param->pe_data);
-+			return;
-+		}
-+	} else if (!param->cport && !(flags & IP_VS_CONN_F_NO_CPORT)) {
-+		IP_VS_DBG(2, "BACKUP, conn without cport dropped\n");
-+		kfree(param->pe_data);
-+		return;
-+	} else if (param->cport && (flags & IP_VS_CONN_F_NO_CPORT)) {
-+		IP_VS_DBG(2, "BACKUP, conn with cport and NO_CPORT dropped\n");
-+		kfree(param->pe_data);
-+		return;
-+	}
-+
- 	if (!(flags & IP_VS_CONN_F_TEMPLATE)) {
- 		cp = ip_vs_conn_in_get(param);
- 		if (cp && ((cp->dport != dport) ||
+diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
+index 94f25fb7d87e..29cbe797bb86 100644
+--- a/net/netfilter/ipvs/ip_vs_conn.c
++++ b/net/netfilter/ipvs/ip_vs_conn.c
+@@ -579,6 +579,8 @@ struct ip_vs_conn *ip_vs_conn_out_get(const struct ip_vs_conn_param *p)
+ 				    ip_vs_addr_equal(p->af, p->vaddr,
+ 						     &cp->caddr) &&
+ 				    ip_vs_addr_equal(p->af, p->caddr, saddr) &&
++				    (!p->vport ^
++				     (!(cp->flags & IP_VS_CONN_F_NO_CPORT))) &&
+ 				    p->protocol == cp->protocol) {
+ 					if (__ip_vs_conn_get(cp))
+ 						goto out;
 -- 
 2.50.1 (Apple Git-155)
 
