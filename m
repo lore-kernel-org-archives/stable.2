@@ -1,80 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695894;
-	b=NmrTErMsYXSqgUONJtDAabYWjmKD5nm5X1SAzcuvkJthg+M8DnJu+aWDz+xHUASgSCbj
-	 wd7Zb3qnE7P0GXf0I+r2JenAi7Bt8N6EpTMTqMP8sVkF8vje5QEvoNXMrNa6m9IcD3CEL
-	 BnS4t3L1zwHDO5JBkn5GP0mxHxCbNtKgWDqmYv3EncRCd45xCtzecD4aXBUQzr0mdP24l
-	 256vzhmJg4CvNwmqMsupw2OF76abiJjQ1Ey9byA+GcVHp0YrSStHg5KMp4JS8MaEyp/p5
-	 ooC6z0dMw9ny7mHYB4EDJzpYfuqV75uBVc24M7L+RNbF7EOoOpBNLEcx0LEVC8OAnQw==
+	t=1793695907;
+	b=ReuRH5K+JW93+5gDsX2EjwfCUL1OIEriYicvnF21TOM+9jpqQG0hivXiI+340zyeGGyG
+	 aczTzVfVWFPFJmKOkOd5yBlgvyO2oD03oTd+GH0FdVd3cA6T597C91IPrwIBn/ZGgIlta
+	 fC2LeVL/3+mWopQh0DSE3xRlSqOZmYb9IhfKMtACXuR7A1E3ay/YyN11eu3MQQFMSwyIY
+	 BRtqjXDx6yZn+s7HP/kBDzTrw2qdbFNq/XYXSg3bJj00y3pglamULMk526TBsL9MOziRT
+	 sMqV8YJeaZFUVZkuac9MhB+gl4YA9H4cVKVddg8JsJNj/HOLL+13sJTZYi0kuZFhX5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695894;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=RG3M7Ph6b75JaKSja+lviEDA771cXnI1I1R7J4t2jQQ=;
-	b=w8bOPPqvcFmIX2DCJ4tyGkdmiCr4uMnfdNOh/vK7pFE1+jts2b/NZB330QvIQGAIehzl
-	 04qOO7UkBhGYvjpcWjh+2csKB7j+1un3ZxHyPtmWm1hWWnu85FlRETti56UJ1J0uDr+AY
-	 5Lj6ii/sEtjtAKa73JgUUiSzOK/ZCEiRsBf5AiA0viQmpyi6dXIsgw0vNRLY5rvX5UZ65
-	 d3fWR3VzzaGKT9268b9XwrVXoFrgWDJ75DGAFDbEeGTUUfT8KLEYGaQncBuAk7O/JJHNf
-	 Vknw7peHiiyz21uXTq1/MONm7O+jWV2bvfZL2Fo5a5iljzt39i+9xsLX7EBny+YYXuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695907;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=XCvvirDHMt/mDpBHlLgw3Uz9ts0ZYOeL2ziEuOb6lFk=;
+	b=afUhCvuxx3YjJQ96RXIq6VKo4Fb76BEJIQyO/sZRLXBuZphELRa+HQQ1l2LgwA3shNuK
+	 9wg3A/OnEfimnEAoBSk2+TU8h2QaeRkDLGLi0mZcFhmXXbU9P5IKmxiLp68lz7ZzjnVfR
+	 kD/i57jQKFeZv11mbHAsRAAUsmfEyIjbdf3W6PFRCfmABO94B63BZkwCTrdfcbw9cSigO
+	 mXIQTQ6cLvRbj0zkWxPIi8/NUBQKFQJqSn6/+GwTvlFNvUfdmh5+5zHqwETWzKXRvP9b9
+	 qu5LITm2GxwuzNBdvTfHSDbGxtMWO1Qmc9rDPwBE8ayfUhlR/BszQ0qEKpRLZMk/11w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=cM18b86I;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=byxHh5Vy;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=icnUUpfH;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5669C606A326;
-	Tue,  3 Nov 2026 08:51:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5669C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E13606A327
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:51:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E13606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=cM18b86I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793695889;
-	bh=HAwwRZHDcggCJMNdBWfKXUgydT26+prS+DXdfiaeX8k=;
-	h=From:To:Cc:Subject:Date:From;
-	b=cM18b86Ip85zBZKa5x31ZqdfftWc9/JOpZDGjXLnfBVZShL8Mdan4ouOkNw2Tvfv6
-	 5qaOWU5beL4yqM6zc6lOoYySVKShLdVZREE7IlKh7GRge+ppLN1VizFARFHk8YzuSf
-	 EvFP2ECa1Ydx053zQAgEBa/xli7VbF5DSvxZTG0gil4vnCSXCpJR0XvPXQ2XdWPcC8
-	 Ri+CsHD6TImTcriiH9OnihpdscYw/HgPQt7Ty8CS+ngb5T2Lj/MOLRhyrf/j2iBPLe
-	 rSLDS0oXFI2zydxSkQkHQ4zui1n9dv8/llxNygyMC3AhFgLsPEPQHG4JTi8BdFpQrQ
-	 NpdTuoQE52yKA==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 69999263AB;
-	Tue,  3 Nov 2026 11:51:29 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Tue,  3 Nov 2026 11:51:28 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.27.207])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJhrt2clqz3tDN;
-	Tue, 03 Nov 2026 11:42:06 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Riyan Dhiman <riyandhiman14@gmail.com>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Martyn Welch <martyn@welchs.me.uk>,
-	Manohar Vanga <manohar.vanga@gmail.com>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] staging: vme_user: added bound check to geoid
-Date: Tue,  3 Nov 2026 11:41:44 +0300
-Message-ID: <20261103084145.678-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=byxHh5Vy;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=icnUUpfH
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A38Alad1431391
+	for <stable@vger.kernel.org>; Tue, 3 Nov 2026 08:51:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XCvvirDHMt/mDpBHlLgw3Uz9ts0ZYOeL2ziEuOb6lFk=; b=byxHh5Vy7u4l6tdm
+	r2fWyET6aQ5qcLf9L8IUjEpsXuKh+j7nZnBzXyTG+pq++GXSyOEyRWQa3xpsUKka
+	N2NawuvEwE6BkavTJSvrGD9vZGmRc6QwRHwGFBw2WZDFXs1xAFWw0OWwmsdFZnZx
+	YaHRbLxGz2pDx4XVq2zMVy9RdczTCL4VP2XfoLItXsE0HW+uy0LCbfU1fP1VE1pO
+	2KTXD6MNaBczeSwpq+MFT4x2ow1MxHrnOHU/rLQJi9GlbB0fFwdO/T1Hvy++WRnp
+	h/Ur3wDMqwpRMyPBVGTz/1r6oMXLm9PyqT59OzgjqKk06dRdE2QiW+z4weassp0U
+	427d2A==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq0872un7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 03 Nov 2026 08:51:45 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91c84695584so11748266d6.3
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 00:51:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793695905; x=1794300705; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XCvvirDHMt/mDpBHlLgw3Uz9ts0ZYOeL2ziEuOb6lFk=;
+        b=icnUUpfHj3tneN4gWWIHjLf+8cdd51I0tiAI/3t0liFDhr/sa6HGw75Ty47QavM/th
+         /Ntw1CDoyH3T3sxXuqsD/KhU2YU2FULHKacktTucOLuSui+TyBeh4287e8UqaZSJh0U7
+         ixx1NjcSFnD0TpYpUFaiN2VMgyifEMivoiIHKUDxKf2MocXXHfhqw+9zmEK2jBXODjaM
+         GKtbNvAPZ9swB8SWjDtIXQq4C+cHFAG2fyAiGzY8EcXNs11LphcF9z9NyhuLvBf222fV
+         8qeBYTTNVm1XXHAVNXS+x78OPo0/Fpe7ql43463cYD9VRmYw4IStvZWXRDpwRgU8FLzN
+         E+XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793695905; x=1794300705;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XCvvirDHMt/mDpBHlLgw3Uz9ts0ZYOeL2ziEuOb6lFk=;
+        b=tWGDJTsJpBVOOq+tijxq70CDGo6NQw/OCpflT4CatTFhC/TUwIF0TCGTQrlyPmSmDJ
+         uCmif0JPIqHHPeXlJOQq2ksNGs96oBUPZaBbbtnvspVrE6ByrEoy4Czw2EFLkuCwhOI2
+         fshkWPUn+LaHnxoEUC6fdhnNu/nG2WnCI10zRIvfJ127kbIASDyHtitCWIzOI47XSs+w
+         h0mWDvkjWBy7NcqReIk4PSPQwH+JLplig3omiPngdQjh/oTlTgmky0yV2E54tAAf0b6d
+         1gR5WP7Vw94uysCait7q483hkVu4JnkJuokMKEoG6lsOKzJpCBO41wz3mf2CJ7/rvo71
+         m6sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwB0lX3Hmjosca6ThavK8zzPa7rsZb0vYiP88JA//fMCYDEA226iHh4tb4ggSUCn6UFWEd6Rec=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ITDt+glLVipeMDkWKtydFS5ai31Xha/Ou/SIYwDL6DhIwVidH
+	elPIKu/hm8kuJfVOyvFH6ow8yMRbHmpvpsy5LACnCpbyeoERtP7ePoVgWTcUVLlKs9fuLvg92vA
+	x4ABW4faSmJO+LC8ZwDjhbbFh+JvwRR916Mkv+ZlE+UJvL+h7+8aKbFvvpV5IG/b3CNU=
+X-Gm-Gg: AYBFou1bu1HbRsuU8x6wFyjyVud2RuyjVVx43Ay+5b37KvItVA4rrJxQiyOxWvyG61W
+	0PCMhZH3wqRKYQPX/JLiK+eAZmoDRyCORy1CaHqb/M+0lUWcnwvCu9Phg0mUYkEmMpBqVz9Tf3c
+	h/Bof/R+43Fn9tOlelCyNkgRGB+LkDYRJInlhnSbnfJB1QG31SnnM62HO6chaBxvkYDHn/AMoaS
+	ZHZp0MyLt2J8s5QTyBoBGDyNVm9TcQ/OirAp2gf7a8NaX7q7Q+3wjtHfxNSFy63Wjja/NaMim02
+	4oQX7uEPsVq0h5IPN9cH7Cv/iZ59nlrtALkPdgJjidLYLzhFwNFl0hjj5RML+jE/Q3uOdpICntW
+	sAsrJ5/9kgNUlwoLATDLl4TjAd+XMOE/bdpDZdIHer2Vrbv2MpNTjQawqKlQv+Kgc1N/04Q==
+X-Received: by 2002:a05:6214:3f91:b0:91c:6e94:3b52 with SMTP id 6a1803df08f44-91ca47af0f3mr285847396d6.0.1793695905234;
+        Tue, 03 Nov 2026 00:51:45 -0800 (PST)
+X-Received: by 2002:a05:6214:3f91:b0:91c:6e94:3b52 with SMTP id 6a1803df08f44-91ca47af0f3mr285847046d6.0.1793695904509;
+        Tue, 03 Nov 2026 00:51:44 -0800 (PST)
+Received: from [192.168.226.81] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cec16997esm66447766b.79.2026.11.03.00.51.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 00:51:43 -0800 (PST)
+Message-ID: <47cc93a6-7816-428c-9c6e-43d689b459fa@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 09:51:41 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,77 +115,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/03 08:16:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;lore.kernel.org:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207207 [Nov 03 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/03 05:25:00 #28784436
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/03 08:16:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] firmware: qcom: pas-tee: Always initialize resource
+ table output size
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261102150110.227479-3-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261102150110.227479-3-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzNSBTYWx0ZWRfXzRW2UnJWsKQ/
+ L598EDyMXy+QvfAqNlQ6eECUJ0/ci5mVlyQVi7o4DiF85elQ6Z34hzJsczTupNxMgzr0Sxvu+x4
+ DpTYvhC3zDUfZZeYrZuUU5BGl3t9ImI=
+X-Authority-Analysis: v=2.4 cv=K9m3jCWI c=1 sm=1 tr=0 ts=6ae9a0a1 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=_Sw2Lv-1HmNiuYeRDNQA:9
+ a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzNSBTYWx0ZWRfXyxI6Rzt5EJvo
+ 53hPli7IiGYd3n4VofdBj0gR4l0hwCmY4pMiPaEDsyx7+9LWa7oDJAv1jtnXD9Fkdm+7ARpbm3A
+ HACB2UXLJhClkG+VEg11nMJP7Jg8u686bVLo95q9jHpwLsqD/D248hBepsQ+C7BF7+nS9FSaB5F
+ CxlVyAue4B6OR93vbozXCKDVxQbezWSlsGgejbRDA3YpCn8M873v+8JiV0JxXhdSxmhhRILInTv
+ h1Lf911oat+nXi1OP3HRjyASqwcubveM5wfgs6p5SEBgms3amKvlLtqFtGUsSFnJyakgXq2TskW
+ FXx9VQF4iOAocwI+hpl0HeHbXXO4HgWIqganO+luBnLvHEZV0eO065qTBA3kzHdNJ3ddEChfyGR
+ g48wozife5In1TXmHQ4bpij1UiRfE3zxmgSwwjVTbMaMmA8TL1MHdhvNz2cApSpbQVqtrdda4eg
+ Zy3QFnY6b7Dz9coXCfg==
+X-Proofpoint-ORIG-GUID: 2N-TkWpazMkOdI-T-tU4TXoCt06c62XL
+X-Proofpoint-GUID: 2N-TkWpazMkOdI-T-tU4TXoCt06c62XL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030035
 
-From: Riyan Dhiman <riyandhiman14@gmail.com>
+On 11/2/26 4:01 PM, Krzysztof Kozlowski wrote:
+> qcom_pas_tee_get_rsc_table() sets the "output_rt_size" only when the first
+> TEE invocation reports a size smaller than the input table, or when the
+> second invocation returns a non-zero size.  If the TEE reports a size
+> bigger or equal to the input size on the first call, but then returns
+> size of 0 on the second call, the function returns NULL (no table) and
+> leaves "output_rt_size" output parameter untouched.
+> 
+> Caller of qcom_pas_tee_get_rsc_table() treats NULL as success, thus
+> uninitialized "output_rt_size" output argument could in theory lead to
+> out-of-bounds accesses further.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-bb15726c-4185-460a-a5f0-f779d5ee144a
+> Fixes: b6f7978da0c4 ("firmware: qcom: Add a PAS TEE service")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
-commit a8a8b54350229f59c8ba6496fb5689a1632a59be upstream.
 
-The geoid is a module parameter that allows users to hardcode the slot number.
-A bound check for geoid was added in the probe function because only values
-between 0 and less than VME_MAX_SLOT are valid.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Riyan Dhiman <riyandhiman14@gmail.com>
-Reviewed-by: Dan Carpenter <dan.carpenter@linaro.org>
-Link: https://lore.kernel.org/r/20240827125604.42771-2-riyandhiman14@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[mdmitrichenko: Apply the checks in drivers/vme/bridges/, where
- the bridge drivers reside in 5.10 and 5.15.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
- drivers/vme/bridges/vme_fake.c   | 6 ++++++
- drivers/vme/bridges/vme_tsi148.c | 6 ++++++
- 2 files changed, 12 insertions(+)
-
-diff --git a/drivers/vme/bridges/vme_fake.c b/drivers/vme/bridges/vme_fake.c
-index eae78366eb028..03469b1bdffb2 100644
---- a/drivers/vme/bridges/vme_fake.c
-+++ b/drivers/vme/bridges/vme_fake.c
-@@ -1071,6 +1071,12 @@ static int __init fake_init(void)
- 	struct vme_slave_resource *slave_image;
- 	struct vme_lm_resource *lm;
- 
-+	if (geoid < 0 || geoid >= VME_MAX_SLOTS) {
-+		pr_err("VME geographical address must be between 0 and %d (exclusive), but got %d\n",
-+			VME_MAX_SLOTS, geoid);
-+		return -EINVAL;
-+	}
-+
- 	/* We need a fake parent device */
- 	vme_root = __root_device_register("vme", THIS_MODULE);
- 	if (IS_ERR(vme_root))
-diff --git a/drivers/vme/bridges/vme_tsi148.c b/drivers/vme/bridges/vme_tsi148.c
-index 5ccda1a363ecc..ee005ea0a6a92 100644
---- a/drivers/vme/bridges/vme_tsi148.c
-+++ b/drivers/vme/bridges/vme_tsi148.c
-@@ -2285,6 +2285,12 @@ static int tsi148_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	struct vme_dma_resource *dma_ctrlr;
- 	struct vme_lm_resource *lm;
- 
-+	if (geoid < 0 || geoid >= VME_MAX_SLOTS) {
-+		dev_err(&pdev->dev, "VME geographical address must be between 0 and %d (exclusive), but got %d\n",
-+			VME_MAX_SLOTS, geoid);
-+		return -EINVAL;
-+	}
-+
- 	/* If we want to support more than one of each bridge, we need to
- 	 * dynamically generate this so we get one per device
- 	 */
--- 
-2.43.0
-
+Konrad
