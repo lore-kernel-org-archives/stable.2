@@ -1,67 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.205.69.214
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793710891;
-	b=EkcV6i7M+SmaSn5d7xf+LV4Y37z/Xngs3+1nWxsJOXBM3OnpVi1Xoe5BcWUgDTpVKzQY
-	 HJoGN/P4qITFt/gj7BHPXfzxLYmHxm94JRSbK6FsazqFkqcaTWJXt/MLvDV+FOEBTl/IZ
-	 5eDz2UBSw2KtiViTj/mJJkH3uZ6CvJlextRLDxxjrF+4Mw6PSdjfxvi2QeQjufmy7MGDS
-	 nOM94pz/E8E7FDpz1CtNTnIJjxS3/7TFv6xwmu7Ob98JTa1RQf6rtUpONYGFrkI6olxTx
-	 MDWjC+IfjoN7HIydb/M+v4RabAT26TyiAGwYDbxnzmpED0W+JDaSlfXqqq1uOeW/zBQ==
+	t=1793711181;
+	b=ZL7uy+wT39raV0yqTcsdOZyblp4qnm37Dj3eCbMy9NEzvxNLVFORdxlHFoBA/Lp4LEJU
+	 MCMWGBbOR9yyngXCudhEItSpQxu8bLOyGj8ob4Ew83PWzeDWkJbYZcGryu0M3ucr/EoAR
+	 HbYze0etOfhnLqzFHdXhRoqivrtG2ihmYDJ1aptHEsjTXB8IbAlSfTz3b9c2UC/0dQ2OF
+	 1JtvFPhCjjbQwzga59rBnB3rZqSZ1C/JrKtxuqYFbqLs1MsMQqWzLHZ5U6kwcs/yZmABw
+	 crAFTaxxkRl/RAH0MZa/Uc8ynvQo5WnVQyqf3ggH1DgxGs+nm+qWnOF41Bz2hMm24rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793710891;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID;
-	bh=DzJkftSALHxewxovsf7uhxAhrTSplWGmkUOlhUCVnSY=;
-	b=c0Lo0+Sp+gE1uwbwH7aFHGGSPlgBlgGK2iqhOVNNwjHsUik+4DLmdnyLKuR0Zw1w9Ng7
-	 uRB4uCFf3pakJ0rv4jGjpA+VDWq+L42Rrxb42nGIi6UW4Io5m0WBCRPAcMs8Jvvb6dW9f
-	 wqEXNxXITYYb5w9jpVDcScK+ndwHdDaqqqnCbB8yCfbEO9VK6VRUa0OBmIZsR19PYAdGW
-	 RtVd1I6P2H1hqkBHkDa5rwlgDoUk7gR5tYrT0SdJcfPTp/Sn5D3QRYu8knYade+YyKu8w
-	 bgQAnbm+EYhdGif5uVVYbs1hg0jGSvU+gBDXxeEVhvjyHr69hOXdrKK70QY5dD8pl5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711181;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
+	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
+	bh=jrvB2uhiOlJMrSsnK6E2dIxlOOfI+P99rLJr/kY+hxU=;
+	b=zYcZAN6yQUZBaUDYQpdAbMOd1Tx5QT+GiSkurfqKNEhv73NjDImVT/EXT/TKYnqAUtWq
+	 Se2w7T/yUrX0yvsoQd1chFq42tCtanl5OMjCsCGIyp6QqnEgNLyKBvhfqJy+/5JrWX+pp
+	 Rfa3WE6UlV0wMZOUgRBKl9tqURe54vXo8MHZp46ZkYByGQZhmDLZ+TAbNgd/bpoD9t+9D
+	 Ti3pWBnpntjQCzbcR3KXxygmq4T2T1CYEpEMOOx56ZG9jSbmDjBiKArIMKomDVmhH9LGX
+	 k5EAXF0seddH8ncK/qEJZ/ceGCgnS0zN+bJA627w945y9KtHimlOg3nBVo0R+gk9pVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuta.io;
-	spf=pass smtp.mailfrom=tuta.io;
-	dkim=pass header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=eqf2TMyy;
-	arc=none smtp.remote-ip=185.205.69.214
-Received: from mail.w14.tutanota.de (mail.w14.tutanota.de [185.205.69.214])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T3NSq3n3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C256D606A328
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:01:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C256D606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuta.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuta.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE3E606A32F;
+	Tue,  3 Nov 2026 13:06:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuta.io header.i=@tuta.io header.a=rsa-sha256 header.s=s1 header.b=eqf2TMyy
-Received: from tutadb.w10.tutanota.de (w10.api.tuta.com [IPv6:fd:ac::d:10])
-	by mail.w14.tutanota.de (Postfix) with ESMTP id 546781A1AF136
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:01:29 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793710889;
-	s=s1; d=tuta.io;
-	h=From:From:To:To:Subject:Subject:Content-Description:Content-ID:Content-Type:Content-Type:Content-Transfer-Encoding:Content-Transfer-Encoding:Cc:Cc:Date:Date:In-Reply-To:In-Reply-To:MIME-Version:MIME-Version:Message-ID:Message-ID:Reply-To:References:References:Sender;
-	bh=DzJkftSALHxewxovsf7uhxAhrTSplWGmkUOlhUCVnSY=;
-	b=eqf2TMyy3+mkJV/+c2wc0t8K4Dsg3aTKCPu/QKrEb6Sy93dJzgwWGLKBKeRFNySQ
-	6jEO1djZau3Q+nVjseWdLD6m+huqxCExAndgKZv063DmmyYRsvMMqCcmpnHFaJiHL6Y
-	T4uhHO0xsa3rcstdpEuNw8acVLNvkVJYZPis6L9FqVv5aWyFCAMIW28bFR6ckZRrJpc
-	TFm3uDuwL/iIANsXgMujVaDL9eS6j1gDwdc+RTGPsxPTv+AGmw+7pv/rmVM/cUD1KY/
-	M+t7uJDMEEFhy/q5x1bIHBqxNRQLNB6AvaHsA85pkZuwHNfdZZmaVaXvvCpX3amAixq
-	h9RI8/NdJg==
-Date: Tue, 3 Nov 2026 14:01:29 +0100 (CET)
-From: Edvard Conrad <edvard@tuta.io>
-To: Amir Goldstein <amir73il@gmail.com>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>,
-	Edvard Conrad <edvard@tuta.io>
-Message-ID: <P5WV0VL--F-9@tuta.io>
-In-Reply-To: <CAOQ4uxh67+vs0mr-Lxmwz9-N+F8m29WUNz+8qFLLDpOVYB7=vg@mail.gmail.com>
-References: <P58Wrer--F-9@tuta.io> <20261030-welpen-anbinden-nullen-b2432cee1d10@brauner> <CAOQ4uxjm=cGPnug18VuhKqiMvkWwLPNLO_TE3KxO8iLZG+veYQ@mail.gmail.com> <P5Qu3co--N-9@tuta.io> <CAOQ4uxh67+vs0mr-Lxmwz9-N+F8m29WUNz+8qFLLDpOVYB7=vg@mail.gmail.com>
-Subject: Re: [PATCH v3] fs: let backing files inherit FMODE_NONOTIFY from
- the user file
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T3NSq3n3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5221F00A20;
+	Tue,  3 Nov 2026 13:06:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793711180;
+	bh=jrvB2uhiOlJMrSsnK6E2dIxlOOfI+P99rLJr/kY+hxU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T3NSq3n3lfS8W4VM0IM77JvlyxS3E3lkY/GvyHOFmBbyBf5FkSIdSv4wGMz+vZSIK
+	 EcLghOEYATx8t/Nnyufi3hU9RLY0c7kHD6OJp4zgfw7zZz8ntFonkmKdt3d8V1dQeN
+	 XdD21Ino2zH92767FVbwWzmh8eOZDZFSe1qJSJZTDoB+Er4NP29R+U2v6kZrMU1Eio
+	 0Ui/24Tn1lJxyIUOuharQsOqvBdeeU2yomI/lla/TKpLVLhs6diPgI+FnkzzXMgpsV
+	 oiA9tAHrlS4IyrDdykSb46tqYO9jtb9ui3d8g4GqcBdhRH5gZJq9rSCjrVvD8s/k/q
+	 13Y29B9g9X+7w==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xOEDT-0000000ATWs-0AHP;
+	Tue, 03 Nov 2026 13:06:19 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	Eric Auger <eauger@redhat.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Will Deacon <will@kernel.org>,
+	Sascha Bischoff <sascha.bischoff@arm.com>,
+	Sebastian Ene <sebastianene@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock
+Date: Tue,  3 Nov 2026 13:05:36 +0000
+Message-ID: <179371111247.2844725.15148154363267227953.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102082933.2673799-1-fuad.tabba@linux.dev>
+References: <20261102082933.2673799-1-fuad.tabba@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,98 +78,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Feedback-ID: 0127f977f5e13e8051b46c6e7f57d0f95a0470d24b79d7c31d07fdf611cc427ab823e0f4692a810119c92d8768973a9281:TurnOnPrivacy!:tutamail
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: oupton@kernel.org, fuad.tabba@linux.dev, imv4bel@gmail.com, eauger@redhat.com, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, will@kernel.org, sascha.bischoff@arm.com, sebastianene@google.com, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Nov 2, 2026 at 1:34 PM Amir Goldstein <amir73il@gmail.com> wrote:
-> Good catch!
-> Please test the attached v2 patch and post the new test cases.
+On Mon, 02 Nov 2026 08:29:33 +0000, Fuad Tabba wrote:
+> A GITS_CTLR write that disables the ITS clears its->enabled and
+> invalidates the translation cache under cmd_lock, while an MSI
+> injection tests the enable bit and populates the cache under its_lock.
+> An injection that passed the test before the disable can cache its
+> translation after the invalidation, and the cached path then injects
+> the LPI from the disabled ITS on every later MSI for that event.
+> 
+> [...]
 
-v2 fixes the merged directory. An impure directory still deadlocks the
-same way: ovl_iterate_real() reads it through ovl_cache_get_impure() and
-ovl_dir_read_impure(), which v2 leaves without the user file, so
-ovl_dir_read() opens the upper directory with plain ovl_path_open():
+Applied to fixes, thanks!
 
-  fanotify_handle_event
-  fsnotify
-  fsnotify_open_perm_and_set_mode
-  do_dentry_open
-  vfs_open
-  dentry_open
-  ovl_iterate_real
-  ovl_iterate
-  iterate_dir
-  __x64_sys_getdents64
+[1/1] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock
+      commit: 61d4f8c3d02cf936cfb91f7b72516b17febf74d3
 
-That takes an upper-only directory that a lower file was renamed into,
-on layers that share a filesystem, so ovl_need_adjust_d_ino() sends it
-to ovl_iterate_real(). Passing the file down the same way v2 does for
-the merged case fixes it for me, on top of v2:
+Cheers,
 
-diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
---- a/fs/overlayfs/readdir.c
-+++ b/fs/overlayfs/readdir.c
-@@ -670,7 +670,7 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
- }
- 
- static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
--			       struct rb_root *root)
-+			       struct rb_root *root, const struct file *user_file)
- {
- 	int err;
- 	struct path realpath;
-@@ -678,6 +678,7 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
- 	struct ovl_readdir_data rdd = {
- 		.ctx.actor = ovl_fill_plain,
- 		.ctx.count = INT_MAX,
-+		.user_file = user_file,
- 		.list = list,
- 		.root = root,
- 	};
-@@ -714,9 +715,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
- 	return 0;
- }
- 
--static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
-+static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
- {
- 	int res;
-+	const struct path *path = &file->f_path;
- 	struct dentry *dentry = path->dentry;
- 	struct inode *inode = d_inode(dentry);
- 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
-@@ -735,7 +737,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
- 		return ERR_PTR(-ENOMEM);
- 
- 	cache->is_refcounted = false;
--	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
-+	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
- 	if (res) {
- 		ovl_cache_free(&cache->entries);
- 		kfree(cache);
-@@ -856,7 +858,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
- 	dput(parent);
- 
- 	if (ovl_is_impure_dir(file)) {
--		rdt.cache = ovl_cache_get_impure(&file->f_path);
-+		rdt.cache = ovl_cache_get_impure(file);
- 		if (IS_ERR(rdt.cache))
- 			return PTR_ERR(rdt.cache);
- 	}
+	M.
+-- 
+Without deviation from the norm, progress is not possible.
 
-Results in a VM on 6b4b543fa18, each kernel run once and with -i 2,
-with the backing filesystem marked:
 
-                                file  dir   merged dir  impure dir
-                                            listed      listed
-  + c3d355f427ce                PASS  FAIL  FAIL        FAIL
-  + your v1                     PASS  PASS  FAIL        FAIL
-  + your v2                     PASS  PASS  PASS        FAIL
-  + v2 and the diff above       PASS  PASS  PASS        PASS
-
-The new cases are posted on top of the directory cases:
-  https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
-
-Thanks,
-Edvard
