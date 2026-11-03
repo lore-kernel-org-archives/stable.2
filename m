@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701568;
-	b=NlgmRxDittllU1RLnbEbZejDOVuc3AkMbH0+jYqtD6NQfzfP3ynBzB3Gxco5D9WCckDg
-	 kUvo5vib4jDCHwLWpyQwrchYxS+lAjY3WmIDOZ8Hs+ByeksijJjCUo3aOjMI/RHLcBMI2
-	 cYlKDaj9czY8q+mgV+sRIlIzFlSOMfEl+5RmKKLH++LLjFMMDeirxfE3UyFua40CA+Wvb
-	 7Zt1xshyIJMRYrPJQidySOchT8a21UbET8DZnUTrOVA/yKPRU6aM/mqFfUieGQd0Gi0x8
-	 beStTpUXKSWZqlIbPxxC3H6cG/dRBwK2IYdGBFKkbEgzZOQIC4oj0kfRezcCSkO23Mg==
+	t=1793701586;
+	b=xq6r1bUrcAm1VVpMTwQ5FKyBCEjbI/lLG47buNMEqH6oXzsWnPXtf/zsCf85FFIlUJdM
+	 Hd7rvxQjTPuYPDHofoo8WxWdAQ+owDu1tHG5LoS7B5yESnSwgBfvb3miaViDPwXdhkmBR
+	 cAkQcaqgd8TEAsmcVDeYJ80lJ8kY/ibh32tjSjSAw00DDkdzSBVI9qIkP6Kdfr/LY15+G
+	 Q5KRezeIw02fQXz9XPa8riSnfQya/C+IDd4AQa+F7uqamCGk5drgMToSSU8OO7T/5M3MV
+	 rG1DRBGFZvZ7yIXjia+HyAthMW9Zp2K7u5sH3jH0P5/jhhwAg+Rs/p7gNEa/uEcf/5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701568;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701586;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZuF7fJYmTTru6AFzam/kZmRQYRbtMt5mtJ5Bhl2O7Ns=;
-	b=xqqpZD0GCeNP0eb2A1bNqqCuH4ZBLfVuOkgqPD8EbarIScrFGzGeXkmZsW1NNL9mC8Zn
-	 vTE5+nkIZfefK9J1T9uMNmBmms4njbglvCFfDxyRTXihjccV4mL1NweEefyqcSsLu3Kdq
-	 WRGF+kROLYYCVqg0fNJMuVsPu7VZSf1sZ147oNB5Uv821+bJHOr/PefQ7ilmP/2B1EDSf
-	 z15UQYZYUBhfeuAPVan1k1mfMa1p8lJ67XHBEN91Uq+CvbUMb6ikEOuxCzZxmYAljnSsM
-	 /ZePICU1PTnirzA9vkjVWLkfXBHQR71ZIiCBRGLncC4SWNrinfPdz1STU3+S14cX27Q==
+	bh=RFD4NEWIqRqGtu5uO5m/Wa4jwby/2BfEOciBe8jqLAw=;
+	b=GlojUld5M3eOJAvE6yjdw2WOncNWDb/7qryQmtJDPLmVrp3bBY9NbTR3Z6VzJzNDqqso
+	 PlKWBjdA2U4AFgS/pF92dZyVYKAutVkgLOQnWVk0oL1Pdp++EJyHgFuU/d8lgGC7zvopq
+	 bW6qzR5+ua0Lgtq+m0S2BrCZjmI9fr1z+ZqMidJzmaWxCrWPNeEUh1dud92jl18gmd3hk
+	 VOaKd1b5KrVzhieFlt4X9/K6JXLCtcEb9KgzJ04fkuYjka1vWMwBv15elkDZhQ9mFfMin
+	 xIqo4wz22M9B5wyTfSCrV/6w5sTwgBdLLZGb1ZsOqMC1DJnpfSQcPlRTACoEXrxYpdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kr5GWY8B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4fhaES8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3773606D837;
-	Tue,  3 Nov 2026 10:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C25E60A6F79;
+	Tue,  3 Nov 2026 10:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kr5GWY8B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA4D1F000C1;
-	Tue,  3 Nov 2026 10:26:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4fhaES8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526511F000C1;
+	Tue,  3 Nov 2026 10:26:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701567;
-	bh=ZuF7fJYmTTru6AFzam/kZmRQYRbtMt5mtJ5Bhl2O7Ns=;
+	s=k20260515; t=1793701586;
+	bh=RFD4NEWIqRqGtu5uO5m/Wa4jwby/2BfEOciBe8jqLAw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kr5GWY8B8k9A2Xlh6UV8JUw4/lNOHG5KFxHXewAh+SkTH5QgBoNDrB8KBI/ie6LK0
-	 giaAY3iV9RjcMEkbFnr2p51A/K5476YCgnDARCKFQkdlM8FHMXygP39Rt3oZeduLYm
-	 RILuMBXVjLAIxEMA82qC88imdvvxwC29yl3OCSXw2TNrIbhyS0HoSC9STa4BTLFkD8
-	 Vibih8Xkv39rclW4dNAJvHNwOruq9rZFlRIlZ0Gb7Ora9bE8oTL/42Fk3VOitL2bNW
-	 6njUttuBIbfU5lyY/qME+Xbjby2Q99tghrl2GwMDJsRyLosNKNC9IN8Z2zPMqOZU6Z
-	 KYnVMV4Xx0Adw==
-Date: Tue, 3 Nov 2026 11:26:04 +0100
+	b=M4fhaES8LjvD+Qqat35pRoUeiet2HgTCzz73C33r8PB5J5ueRvhW4tY5loH+9glUE
+	 FsmA7bcXNQn1EZ+gzf/xgC7/4MD3RYl7qpCzV4W4mP1F9TaklZ/3lyVQ0a6jCT4bIA
+	 nTTXX3GbPdUbRb8OLpNpeaMoWwWlHgxVE3lxWG7D3GcIt2RgBXVpjyoGzj2VH3wEx3
+	 TzW6hKCuDJJpETAQUU8tUqcnx7Mycp0xM8BBMfSJkffFsKS4oN+va06sqcTV7LEiP2
+	 it4nYvyJMxcROoG9nEY8gfsTT54KwKf4M9LDnzh87AHyqXuzyHOwhkqCL4zW+tWTpK
+	 RrxbtPHY9uItA==
+Date: Tue, 3 Nov 2026 11:26:23 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Paolo Abeni <pabeni@redhat.com>, 
-	Eric Dumazet <edumazet@kernel.org>, Elad Nachman <enachman@marvell.com>, 
-	linux-kernel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: prestera: release the ruleset in
- prestera_flower_prio_get
-Message-ID: <20261103-fine-blond-donkey-b4cda2@quoll>
-References: <20261103100532.1309990-1-vulab@iscas.ac.cn>
+Cc: linux-mmc@vger.kernel.org, Adrian Hunter <adrian.hunter@intel.com>, 
+	Ulf Hansson <ulfh@kernel.org>, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] mmc: sdhci-of-arasan: Unregister all clock providers
+Message-ID: <20261103-prophetic-elfish-sawfish-c9e22d@quoll>
+References: <20261103100521.1309763-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,24 +59,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100532.1309990-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100521.1309763-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:32 +0000, Wentao Liang wrote:
-> prestera_flower_prio_get() looks up the ruleset with
-> prestera_acl_ruleset_lookup(), which increments its reference count,
-> but returns without calling prestera_acl_ruleset_put().
+On Tue, 03 Nov 2026 10:05:21 +0000, Wentao Liang wrote:
+> When #clock-cells is non-zero, sdhci_arasan_register_sdclk() registers
+> two clock providers for the same device node: one for the card clock and
+> one for the sample clock.  of_clk_add_provider() takes a reference to
+> the device node for each registration, but the unregister helper only
+> calls of_clk_del_provider() once.  The second device node reference is
+> therefore leaked and the sample clock provider remains registered after
+> the driver has been unbound.
 > 
-> The ruleset reference is leaked on every successful priority query.
-> Release it after the priority range has been copied out.
+> Drop one provider for every clock that was registered.
 > 
-> Fixes: 44af95718fed ("net: prestera: manage matchall and flower priorities")
+> Fixes: 07a14d1df454 ("mmc: sdhci-of-arasan: Add sampling clock for a phy to use")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/marvell/prestera/prestera_flower.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/mmc/host/sdhci-of-arasan.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
 > 
 
 
