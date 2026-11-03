@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689410;
-	b=ans9/mgR1f8KuVmO9YbWs7S06J/El5sxb1GYNr5JifkDSkpvX306f5Vhg2f9bIVfE5I2
-	 ADVXuAbXAVnJiV/8dJEqu/w4VkjYxs8os9zfIv59+Un4ptzu6Udy+1OFksJCb3Ny0/RJt
-	 e3k85+YLXz9GjMR9GlMRLVpuF8CYSb6C/yywc4UGNTBPsMMOmY8WcYz+6gWH2gkEzU3wO
-	 yO687LVLH0+QtMa9ArFOGk2HrS8dkJtcp0RpWzmdfrM55aRRUzuCKWMhSYsUkAI5wSUm0
-	 AyUGY6NOCQp/rsI3KgpyU3k3WHQ9Kb8TJDOSF994AS5FTOvP/1n6TjdF+9hV2g7hKhQ==
+	t=1793689586;
+	b=mLO6axtl64WUIult9Z6iVOS0F0NtMCsShsffs1tzPyNOPiAs4kxmkGtGyM1o6/p7mlk3
+	 DVeu6Xz3c5cBut1d4vO4iCLdIWI7zTMrTTBVSQhXCylEpXL9fyOwY3sxAOzw5A8PFhuQY
+	 QD/FdIiJnsoBASp7K3TEdujILaugbSg+fj4a1L8fDHV5ari0ECpQEWhwozs6PzUcTjgow
+	 lKaxYfkq+oCVKHhe/G6t/xb3DU2vbbEjccYhx/nhUmINMqYuF5KEvy7/hW8oGFvgEa590
+	 Z6MmDdpJnZCIhtt1UWXw6moJsSJogI6j2zCX4MTb65dMDHGF72pntQPSMGHgv8oPMeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689410;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689586;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=aQIzl+tuB5OFcAf0kolt2eswfBhJMyO4rrUmymjV7pY=;
-	b=rVVbuyRbaoWcTzvDUN5Lnm3Gs4Ddk0qO+GpHur+ag4+Gu1Xt+ZZJo0Wu5jWEQLegUmg6
-	 ofctkDgwoXydIpDvpxwmd49qoh8JQjdZoq9Sm1SBQNTx8BWea8NtK1pSPyCrz7ihgqWZN
-	 aZ+LZkokGiQvNBOpd34kSD63SWvpLp9JgqlEY5keUJiRPDjQ8mq9fXlFAbeK0z99QmTjw
-	 A8uIe/LYfNTnPMFQqfFaI/wrglsu4T4BbskI5kPCCRoluKARb30Nc1It1q15HDQtujj8S
-	 EadL2et8tqMQ9YdRcgrWgj9rg9Gl6JEzLwU5YPH0Vfm/850a7WvTTleozjQ3l3XWNKw==
+	bh=lzx1z1WsCZ9bJXMmnAsRLv8NJqpQ4NgCzrf2v7mt/sg=;
+	b=GhPQ2Ty9NTbcf8v49awaKJA52RfpYO7JnZ85/RnrrqDBlF2/UKU9ZhV905gVf5EDvN01
+	 OYE8ndIppG9d1DDIDqdf37U5pN4ilo4ZUPT3TUUyYo8WJRnz44I6A4v6YNEi3UjsQqtnw
+	 +SJ+mccYFfu1CfpKyrNPM/Fe4AxLkLaGR3zPUZWnPlf7uNhV8k1XD4u2MAGVsnefW6m7e
+	 fzvL0bZodrzC0dD2DWJQ972EYO6Ec3PzuQm2ySgpjOsH0HEhQ3byWCZZkjuzyGNzq/jhf
+	 ytseYscBq6oU/jjTV2tEKFUyx7fKWt5Fram0O5QNYEHs33pQ6P5+knvEsxhIQ1gbHKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,25 +25,25 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C57606A324;
-	Tue,  3 Nov 2026 07:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1C57606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6024606A329;
+	Tue,  3 Nov 2026 07:06:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6024606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADn9ZY6h+lqvKQ5AA--.377S2;
-	Tue, 03 Nov 2026 15:03:22 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAB3hpfsh+lq8Kw5AA--.4349S2;
+	Tue, 03 Nov 2026 15:06:20 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org
-Cc: nouveau@lists.freedesktop.org,
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau: Remove the audio device link on component unbind
-Date: Tue,  3 Nov 2026 07:03:31 +0000
-Message-Id: <20261103070331.1079868-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/amdgpu/jpeg: Unwind late software init failures in v2-v4
+Date: Tue,  3 Nov 2026 07:06:29 +0000
+Message-Id: <20261103070629.1083890-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,10 +55,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn9ZY6h+lqvKQ5AA--.377S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KryfCr15XFyDJry7tr43ZFb_yoW8GrykpF
-	48XF9xArWUWa1agay0y3W0vF15CanYyFWxC3sFk3sIgws0yr97CryYqw48XrW5JFs3uFs0
-	qrnxt34UXa18CaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowAB3hpfsh+lq8Kw5AA--.4349S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWrW3tr48Ar47CF4xAr4fZrb_yoWrGw17pa
+	yfZF90vr18ArsrtryDX3WUZF4Fgw13XayrWrWUCwnaq3W3Ar95trn7AFWUJ34kGFZ2krs3
+	Jr1DJ3y7uFsFvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -72,38 +72,112 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7KryfCr15XFyDJry7tr43ZFb_yoW8GrykpF
 	AFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
 	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUO2
 	NtDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQAA2rpWfWRkAACsy
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQAA2rpWfWRkAAEs0
 
-nv50_audio_component_bind() creates a stateless device link from the HDA
-device to the GPU. Component unbind clears the audio component pointers
-but never removes that link. Stateless links are reference counted and
-must be explicitly released by their caller, so repeated component binds
-retain a link reference on every cycle.
+The JPEG 2.0, 3.0 and 4.0 software initialization callbacks create their
+rings before allocating register dump storage and creating the reset
+mask sysfs file. If either of the latter steps fails, the callbacks
+return without releasing the initialized JPEG resources, including the
+ring buffers and vmid_wait fence reference. The IP block's status.sw flag
+has not been set, so the common error cleanup skips its sw_fini callback.
 
-Remove the link after disconnecting the audio component in unbind. This
-also covers a later failure of the HDA component master's bind callback.
+Suspend the JPEG work and release the JPEG software resources on these
+late failures. amdgpu_jpeg_sw_fini() also releases the register dump
+storage if it was successfully allocated before sysfs creation failed.
 
-Fixes: 742db30c4ee6 ("drm/nouveau: Add HD-audio component notifier support")
+Fixes: 63d5f8db5313 ("drm/amdgpu: Enable devcoredump for JPEG2_0_0")
+Fixes: d949e91b42f2 ("drm/amdgpu: Enable devcoredump for JPEG3_0_0")
+Fixes: c3dddd602967 ("drm/amdgpu: Enable devcoredump for JPEG4_0_0")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c | 9 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c | 9 ++++++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c | 9 ++++++++-
+ 3 files changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93db6..bcfddb7008ac 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -672,6 +672,8 @@ nv50_audio_component_unbind(struct device *kdev, struct device *hda_kdev,
- 	acomp->ops = NULL;
- 	acomp->dev = NULL;
- 	drm_modeset_unlock_all(drm->dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index 72069b77f6f1..0707e065160a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -115,14 +115,21 @@ static int jpeg_v2_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_2_0, ARRAY_SIZE(jpeg_reg_list_2_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
 +
-+	device_link_remove(hda_kdev, kdev);
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
  }
  
- static const struct component_ops nv50_audio_component_bind_ops = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+index 564e40899df2..f88200bcb2b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+@@ -130,14 +130,21 @@ static int jpeg_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_3_0, ARRAY_SIZE(jpeg_reg_list_3_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+index b29ca3a49939..454f16f24d7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c
+@@ -141,14 +141,21 @@ static int jpeg_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	r = amdgpu_jpeg_reg_dump_init(adev, jpeg_reg_list_4_0, ARRAY_SIZE(jpeg_reg_list_4_0));
+ 	if (r)
+-		return r;
++		goto err_jpeg;
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(adev->jpeg.inst[0].ring_dec);
+ 	if (!amdgpu_sriov_vf(adev))
+ 		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
++	if (r)
++		goto err_jpeg;
++
++	return 0;
+ 
++err_jpeg:
++	amdgpu_jpeg_suspend(adev);
++	amdgpu_jpeg_sw_fini(adev);
+ 	return r;
+ }
+ 
 -- 
 2.34.1
 
