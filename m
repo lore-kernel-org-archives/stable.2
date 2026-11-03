@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732363;
-	b=cMwPtdEqym1H+/Vgs3tvd4dlxG5E9OyYmfSQ4utMoMWLNbJOCmgt7xThw0XAb3V1dff0
-	 KUk1Ipu9CCYgdII+RGkBJGruE9yxQy7BPUMlwAaBbDNBU4nTFvBAwQxX9r6WlFTiwMq/K
-	 aVBILO/XT6d9nh/Oki/YG42PUebI49o2QYp1Sq0LQfbpR5NfhzGokGEHyFkp7SkNnWaeV
-	 jtoHn8FQQp6+VOf8jmbsQFawrDXRPsFag8WR0ay1a/RKMszzD+qvj5JS2tE1/jIdwas7T
-	 QyXgChrYu4zpe4U1JEBRaOQxLWDhBfoXosn7eMQGc0yw0VQjtoeLKXJK1lLtUP9PcYw==
+	t=1793732374;
+	b=IUY0DAmnL3VAgkP1Bs8mWeNi2MnJZy1Aoo6plW57OoRKlGrmzaCePAyzn8a+qqLF7U40
+	 t57IYet47opyY8Z7z98S2kVHdguObLEaWn6DENo9GWqRD3XkPKtec15pGNp0NmaKzTAkv
+	 9THj0MCJU435/hZsp93Ehbj1T5dhVdjgW3E/98YLkw39U2EuAcONeFHa1bV4GiRcNx/1Q
+	 mrA/WU4IT+zfjPKY0w5zQvrHtxwKsBD+JRBtI0bmk1Su2XSz4yyCuzyYsV6aiy9ufD0Ld
+	 9cSNSkjMzauzGoF7zt8XCW2/UTInArsxkNNc9pcMQdLl83lUmJ5esN8WTqn5EQnZgCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732363;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=31+P6AMFeIVlhmQscpLB4qy/vx9LUkvE2yKWF6dd1So=;
-	b=gFoL3Ewcpp6V85ovP/ZwtQXqpRVBC8pxSyKtgS+WtK5sYKAhacd5+OQJMNqLn7kKFG62
-	 mTBR8sbOdvhISJj77VD8mJP4FRBNnz2VfPPUHVIXiBm29VO2bnU5PXdV4sx732ElHhVYn
-	 c0RoEsCJ779wLTiYkk+9zrB9CFU56qZSgIja94oBwN5iwz3byJy3SpBLuWZTPdVLH6u3+
-	 Wo/Be0ZtPZpx2EADW2HMKkNb9KxsPdSZ5DN9uROW7t2Skqt6C/diyqLz/LZsEBAJkbGA/
-	 Cr8iMirtx9hXYG27afR0RSJ4NXRtPYdPhv1HKghWL/kikN3S28m2auDP3Qd+s+w4FWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732374;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=bt8zI+uZoNGoZFvS1umYm2OEZ8ZGy+WSdchUMDGM+5Y=;
+	b=WSWAcaPtPuSmxwONTHlbvufYNwM8lpeo/w/MBy2C+3WAfmyDrpYiyaFAey5vyLSVv44m
+	 3fOCIOWH6jDqRR+YS5D5tOMKTV26quPc+ef01aSCHHEm7TV7nk4/2Yc7gICB8l/+HpRh1
+	 6CK4K841TST7YRvnYaZudExhUWcPctEiCUVIiWHompHNqRLWk5gUpS9sbOBn/mbX+032N
+	 wP2NGAM5eNAJJNa3FBjjg1syk8Ic8vCtPmkKwLALPj6T74vMbpukFUeBpL5x518ky4ZVJ
+	 m9kU0SvDuJUtQ3PodACXu3Y4YA682RZXMALt64L9aLDbqXzytQ1r6BnarwANFroxnUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wQHtwz1p;
-	arc=none smtp.remote-ip=74.125.229.6
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A07606A329
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 18:59:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24A07606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wQHtwz1p
-Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-35adc681e1aso479348eec.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 10:59:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793732362; x=1794337162; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=31+P6AMFeIVlhmQscpLB4qy/vx9LUkvE2yKWF6dd1So=;
-        b=wQHtwz1p7ctJP+IopmWMaKe+YCjn74fJHc4vqJ82D+qPHg2Jle3Vjj2p5l525YJIX8
-         XAtHT1MpzXlCaPNmbMF+5hJvrl+edDN7I324Ac8/pIaeetciJ+Gjnl+/pDbMrcV/b30h
-         hZClwTnK6HbY7a5DjWg/doIYJdcKHf508roQulOMj+fqNj43d89FeYnybFTZhr5kTkPc
-         714Y2QDP/TWGF5gYwtMxcHSDzPb7ZSBsprFACcDEw/Dr1vkHWv6VNcxH5j9BnzkrGX+U
-         B2NIlvaxq755/fC0sKk5DLcx1oXFcb8wue46nisaBYaPZcPr5Ic9ZKL7Xj+7DOy1HsOp
-         3r5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793732362; x=1794337162;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=31+P6AMFeIVlhmQscpLB4qy/vx9LUkvE2yKWF6dd1So=;
-        b=irHfJe56xfNZ14OZiiKhXH/Of/g2wK9UsSdXKlnudJEyt8ZqPldqV+gRq+gspnUW3d
-         ikRfpnYsVF1angHw74O/MzkKJhnQgYRTdtG6cZoA1+mUwFgQB1oYpAyyck539xRMpfbg
-         6DC4deG2aMPqqqyGfv0CYc4vSmBQ4uI10+cg8qZJqMJrIureCfVkL9yrDEmwr4pxNUbT
-         88ulHOAs7JB7h1OpcSDmabm3UNCeunmHWeI9oD/DoT+bSyxUpBaHTR29BWEAqxiGL4Um
-         WzqMdUovA1h443hp8hsAoWntPu2eWZLPGPlAotBi3bUB4bLnGtR/3/X8JCntIDGbXUVS
-         omLA==
-X-Forwarded-Encrypted: i=1; AKwUvByVVP73uIzro57q0IdUqhl4V+K/8rBTKPOV4DmcIdE0KxpFGMVdCWnNQFL3vyADEN8vvAMfx5s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8ZOKt+i6pO/w2NNMrBMZYwK4PDKBbehfUrzMgKudwmik9uFqf
-	BmR2LmtvtpIK2uLI6auZe/jxV2A3EHXHw1coR31kl7VimwArLYkfJk43
-X-Gm-Gg: AYBFou3qKCFL/JBFArcnQigjOAs9VdxMeB+q7Yd1Y/zjaB1jIfNYh9tVRY3bMDYN7uM
-	KCkldK0A/Da48hlt/VOwYPGtWGnDTcK/qqRC7OBFxcI+RxjU0i9Rw+h4Uy7gEHw2R8HVIBkNo8h
-	1q1LMVxWyS3aUf8VUPSp532a5vBgcP+c3eVU0bT9PMgi7z5sz7PkUPJj6Xy7iHh8IDDJ+d5rUV1
-	L578H01QtL67Tu7zICV9ErHAvf3mqbB5FoTP3+MXsclBhivFDs76FSy2AbCCVhCDhaPUFj+wHq0
-	EitkKxQCX8UgOPgiIRP5CXvgPS9ET6EkX79kq/K6c3+xQP2QmOYeFsuI478BPFIIT0Pa4ChEotR
-	5vC1CkErg3RqcsJ9xjz7MGGSURUUwQYgMMY+BHUorz4LaEPXfv0FXRwGpqPCh0Dhc/JgbNWbiuc
-	ovlDcFjk0EUUWAT916VJT05fgK9jbfcYhmbiuLH2syzoKsL+V7bskmCBDaXMob4xvCotrMOWqre
-	C0zwWarxzap9Ybp7yxatSzbKLUl0P8udeiB58H3DfNFceg9z8Msicx6aIr8QrKgUBsuONU6Xobn
-	AKu5tKqjUn0dXoev3bBnvqolI3qy18XtoEeIldxXIU6iE5YB4nlRkFls
-X-Received: by 2002:a05:7022:f50a:b0:149:50cb:2175 with SMTP id a92af1059eb24-1ac5cb1881bmr18974882c88.33.1793732362218;
-        Tue, 03 Nov 2026 10:59:22 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c1c290sm747339c88.5.2026.11.03.10.59.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 10:59:21 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: axboe@kernel.dk
-Cc: hch@infradead.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	mtsai@redhat.com,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	dennylin0707@gmail.com
-Subject: [PATCH v3] block: fix discard alignment for non-power-of-two granularities
-Date: Tue,  3 Nov 2026 18:59:09 +0000
-Message-ID: <20261103185909.71843-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498C0606A335;
+	Tue,  3 Nov 2026 18:59:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 498C0606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJyYG6hNsz8Xrr9;
+	Wed, 04 Nov 2026 02:59:30 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 6A3IxKnB077140;
+	Wed, 4 Nov 2026 02:59:20 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 4 Nov 2026 02:59:24 +0800 (CST)
+X-Zmail-TransId: 2afa6aea2f0cb8f-d30d5
+X-Mailer: Zmail v1.0
+Message-ID: <202611040259247915t_cYYK0k5pPbEqfdTAQu@zte.com.cn>
+Date: Wed, 4 Nov 2026 02:59:24 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,105 +56,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <martin.petersen@oracle.com>, <alim.akhtar@samsung.com>,
+        <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>
+Cc: <james.bottomley@hansenpartnership.com>, <peter.griffin@linaro.org>,
+        <beanhuo@micron.com>, <stanleyjhu@google.com>,
+        <linux-samsung-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDAvMl0gc2NzaTogdWZzOiBmaXggYW4gUlBNQiB0ZWFyZG93biBjeWNsZSBhbmQgYSBzaGlmdCBVQg==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A3IxKnB077140
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 02:59:30 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEA2F12.000/4jJyYG6hNsz8Xrr9
 
-bio_discard_limit() uses round_up() and round_down(), which require a
-power-of-two alignment. However, discard_granularity need not be a power
-of two. For example, dm-thin supports data block sizes that are arbitrary
-multiples of 64 KiB and advertises the block size as its granularity.
+Two independent fixes in the UFS stack, found while reading the probe and
+remove paths and the task-management hooks.
 
-With a 192 KiB granularity, discarding one complete block at offset
-384 KiB is split into 128 KiB and 64 KiB bios. Neither covers a complete
-thin block, so dm-thin ignores both and the mapping remains allocated.
+Patch 1 is in the core RPMB glue.  ufs_rpmb_probe() registers a child
+device whose parent is the RPMB device, then registers an rpmb_dev on top
+of it.  device_add() takes a reference on the parent, and
+rpmb_dev_unregister() is only called from ufs_rpmb_device_release(), i.e.
+when that reference count drops to zero.  The remove path and the probe
+error path call device_unregister() on the child directly, so the
+reference held by the rpmb_dev never goes away, the release callback never
+runs, and the RPMB child stays registered while the devm-allocated
+ufs_rpmb is freed together with the host.  Unregister the rpmb_dev first,
+as mmc_blk_remove_rpmb_part() does, and let the release callback tolerate
+an already unregistered device.
 
-Use div_u64_rem() to find the starting sector's remainder without
-modifying the sector. Round the maximum bio size down with rounddown()
-and subtract the remainder so that the next bio starts on a granularity
-boundary. This handles non-power-of-two granularities and avoids a small
-initial bio when a large discard starts at an unaligned sector.
+Patch 2 is in the Exynos host driver.  The nexus type masks are built with
+(1 << tag); controllers can expose 32 unified task tags, and tag 31
+shifts a 32-bit int into its sign bit.  Commit 01aad16c2257 fixed the
+same expression in exynos_ufs_post_link() and noted that the UTMRL access
+should be changed as well, but the four remaining mask computations were
+missed.
 
-When discard is unsupported or disabled, discard_granularity can be zero.
-Return BIO_MAX_SECTORS in that case so the existing bio submission checks
-can handle unsupported discard requests without dividing by zero.
+The patches share no code: patch 1 is the core RPMB glue, patch 2 is
+confined to the Exynos host hooks, so they can be applied in any order and
+need review from different people.  Both carry Fixes: and Cc: stable.
 
-Fixes: 9b15d109a6b2 ("block: improve discard bio alignment in __blkdev_issue_discard()")
-Reported-by: Ming-Hung Tsai <mtsai@redhat.com>
-Link: https://lore.kernel.org/r/CALjSBEvjbiGDVewuapWKhGDtaxZwcn4=22raUiBEOyj22rY7-g@mail.gmail.com
-Suggested-by: Christoph Hellwig <hch@infradead.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v3:
-- Use div_u64_rem() instead of sector_div(), as suggested by Christoph
-  Hellwig, so the input sector is not modified.
-- Subtract the starting-sector remainder from the rounded maximum size
-  instead of emitting a short initial bio, following Christoph's proposal.
-- Include <linux/math64.h> explicitly and retain v2's zero-granularity guard.
+Related work: Dmitry Baryshkov's "scsi: ufs: rpmb: register and unregister
+the ufs_rpmb bus" (September 2026) is still under review; the teardown fix
+in patch 1 becomes reachable once that patch lands.  Stanley Jhu's earlier
+series ("scsi: ufs: rpmb: Fix bus registration and device lifecycle", v3,
+September 2026) also calls rpmb_dev_unregister() in ufs_rpmb_remove() to
+break the cyclic refcount, but it is not in linux-next as of next-20261030.
+This patch is the narrower fix: unregister the rpmb_dev before the child
+device and let release tolerate an already unregistered device.
+
+Testing: both apply to v7.4-rc1 (Martin's for-next tip, 6628e7d4c6b2), pass
+checkpatch.pl --strict with 0 errors/0 warnings/0 checks, and the two
+touched objects build with W=1.
+
+Patch 1 was exercised on QEMU/x86-64 with a synthetic hba and a fake RPMB
+WLUN, on top of Dmitry's still unmerged "scsi: ufs: rpmb: register and
+unregister the ufs_rpmb bus" patch - without it device_register() fails
+with -EINVAL and the teardown path is unreachable.  Before this patch,
+ufs_rpmb_remove() leaves the rpmb0 class device registered because the
+child device is never released; with it, rpmb0 is gone.
+
+Patch 2 was exercised with a synthetic hook that calls both nexus helpers
+with tag 31 in a UBSAN kernel.  The unpatched and the patched code write
+the same value (0x80000000), because GCC wraps the undefined signed shift
+under -fno-strict-overflow; no runtime symptom was observed, and the
+patch is a well-definedness cleanup that matches the BIT() usage added by
+01aad16c2257.  There is no Exynos board on this machine, so the driver
+itself was not probed.
 
 Changes in v2:
-- Handle zero discard_granularity before dividing, as pointed out by
-  Sashiko. Leave unsupported discard handling to the bio submission path.
+- Rebased onto Martin's for-next (v7.4-rc1, 6628e7d4c6b2).  v1 was generated
+  against linux-next next-20261030 (7649ba73f9e7), which is not an ancestor
+  of for-next, so the series did not apply there.  No code changes.
+- Patch 2: dropped the claim that the shift trips UBSAN.  Testing shows GCC
+  wraps it under -fno-strict-overflow, so it is a well-definedness cleanup.
+- Refreshed the testing paragraph for the new base.
 
-v2: https://lore.kernel.org/r/20261026195131.46699-1-dennylin0707@gmail.com
+v1: https://lore.kernel.org/all/20261103185229490gmhePBF5_11x_thf4X-Rw@zte.com.cn/
 
- block/blk-lib.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
-
-diff --git a/block/blk-lib.c b/block/blk-lib.c
-index 688bc67cbf7..e98aa483707 100644
---- a/block/blk-lib.c
-+++ b/block/blk-lib.c
-@@ -3,6 +3,7 @@
-  * Functions related to generic helpers functions
-  */
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/bio.h>
- #include <linux/blkdev.h>
-@@ -13,26 +14,25 @@
- static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
- {
- 	unsigned int discard_granularity = bdev_discard_granularity(bdev);
--	sector_t granularity_aligned_sector;
-+	u32 unaligned_sectors;
-+
-+	if (!discard_granularity)
-+		return BIO_MAX_SECTORS;
- 
- 	if (bdev_is_partition(bdev))
- 		sector += bdev->bd_start_sect;
- 
--	granularity_aligned_sector =
--		round_up(sector, discard_granularity >> SECTOR_SHIFT);
--
--	/*
--	 * Make sure subsequent bios start aligned to the discard granularity if
--	 * it needs to be split.
--	 */
--	if (granularity_aligned_sector != sector)
--		return granularity_aligned_sector - sector;
--
- 	/*
--	 * Align the bio size to the discard granularity to make splitting the bio
--	 * at discard granularity boundaries easier in the driver if needed.
-+	 * Align the bio size to the discard granularity to make splitting the
-+	 * bio at discard granularity boundaries easier in the driver if needed.
-+	 *
-+	 * If the current sector is not aligned, shorten the range so that the
-+	 * next one is aligned.
- 	 */
--	return round_down(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT;
-+	div_u64_rem(sector, discard_granularity >> SECTOR_SHIFT,
-+		    &unaligned_sectors);
-+	return (rounddown(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT) -
-+		unaligned_sectors;
- }
- 
- struct bio *blk_alloc_discard_bio(struct block_device *bdev,
-
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
 base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.50.1 (Apple Git-155)
-
