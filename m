@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703417;
-	b=CLGs1TdqjVXdiyOszMp6jjmBt3TK6K+EYwwIrQTwQcMojRFO7ElSrXCGEhIO3aTW8eUp
-	 e8BaTLwjMpuN0Q77kv3pLytbkOiYdA6hfG3IPXGQ80RggB1K2BQHlAF9qU/91jBpLKKc3
-	 V3JhCNn3nunF9lS5dtfabTwa1XmISAMcmFs+8QmcRdqOZazyWlsbsUGvRaUnoNKlvi0Gy
-	 A4H6wzK/PsgIw7C60rMFvEkNzM8y4TZsbt9yYqaroeTCTpdcl9vb2GZt8ymUYzVxbzkBa
-	 SB1r3AQhjguzts+A3ARj2AzCpKlRK7qA0FE4MUj3numSDcg6YAON/wYKPt2EE5Odkaw==
+	t=1793703423;
+	b=yuNpSwjXskvGAN22fxb1sOcIdguZCRdhl+ydGyM9nb1GCKJjlaAGlqDMZhKLbKOnLU2h
+	 aRcivtWIW12lbna/LG5OIYfDGtUgwqZzuF9+O6VCLPlmDHUZ+uwVUnYiGDFP/uHwCGDqq
+	 LVJ4bmGbKMWnNLb1mZ4HCIdOYWNbqx19IDHlFa7VmVMJb2dkGt1Qmo6PtBSBTkg8PSDw0
+	 bDOEuDchl3dgJd4Y6/sjC+bRb+SKZKz75Sgaf5AUiqzQ2EKREz8/CE89rgT7/uyl8ushl
+	 ci4dTdRyWyFdAv6fwIFvXicgZNjieBKbxHxSiY1nepQpzD+wuRT4MrJbLyvz3agK9Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703417;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=GLCdQ7yyYZVSa1Z/8WV0HEWdcD0ZR8tpxoUJ6zf3iks=;
-	b=u6/fGbZsew3w2W6c2je9AhHmSfY0m4DJNPVPKzkOY+F8HocdfuMVdtERxM/tT/wWvTTc
-	 qvMzNjTEjWwcGg86tUFE7a5e01fO7lBOn6MCM4n4ArAKug/F0Cm8x6Dk+aLclm5J/fZoo
-	 /v09nghsOdKSsc52CJ9O7xFl/20kul+pWIts2PFrXRceka5Ib6+RzATIfBznsRwqV2ucN
-	 hoPx+qG603nWsKqv+j7eHB1GtDryVCbqzzH2CUvLJQ7aH2CQZ7lUn9DYJ7XLU3yoADIBB
-	 H4GQasA1SqNcCq4mrORdQQLxz65veUdgiKzbJPpPNjkfoca+q7v6Mk2rSCOrykAIrUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703423;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=cFdQ6prKPN0fVpDGNOM9j75u/A7Rwlpi6Mh1u9hdWiA=;
+	b=OLLnB8nzUjbpwodclWq8VyrrGHGD5qRIbfW0rnJ7u7Cj6v1+vSt/CW8hw0rH4GKJ0MSZ
+	 Bh2EkMbzKob5w6FX4aFlt5DoGdWvOUjz00RZwDdrnmrvvvIPNhLqz3A/mDCdqaR7iCRq3
+	 7HYdD6tdqrmnZBAKIwSQDaEYkq/be59CjHL72NgvJwZeS8FVpILVFDon8TW2EEdju/Q2z
+	 U9D0BMyisHamQReJOU8ZtFESFPTQ+g+cH5VotyoRRVzLPVMxySm/vR8TmrtVWneXgXAG2
+	 60Xu2mFNAvoiQcxUo1EPWJV2IQl/1m0SQhUxd+ijaJbuT15Y3NYXyJS8M9WcTgomxkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aa6IZpZn;
-	arc=none smtp.remote-ip=91.218.175.228
-Received: from mta0.migadu.com (out-228.mta0.migadu.com [91.218.175.228])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Q8ECWup9;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D441606BF94
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D441606BF94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FCE606F7D9
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:57:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2FCE606F7D9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aa6IZpZn
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xul2O4mVtDcfKlb1bMxbQAbRnQ4n0rOnY7nn3uF3ixE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793703412; v=1; x=1794308212;
- b=aa6IZpZnpwjfXx5YqcLcx/jmDShkIWTDUVK5gqxxFWM7R47qsYNwFc/ggSZEAuRul6ZudzED
- CAl5oZzmHsnQl1OWtn6xDLJWuVrhiLD8fv673/DqoybyJLrK+Lit8jrgB/KOcCtl076yre4ac1L
- Ft/5XqeALLMzBql+ozBSI5CU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 6423a6be375d5d61;
-	Tue, 03 Nov 2026 10:56:51 +0000
-X-Mizu-Trace-ID: 6423a6be375d5d61
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Q8ECWup9
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103105659euoutp023e9ce14b42a42f724f7a67741d681bd1~kg8HLXzvM1201612016euoutp02c
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:56:59 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103105659euoutp023e9ce14b42a42f724f7a67741d681bd1~kg8HLXzvM1201612016euoutp02c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793703420;
+	bh=cFdQ6prKPN0fVpDGNOM9j75u/A7Rwlpi6Mh1u9hdWiA=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=Q8ECWup97S5okpt4kL6bPj+NOo0s1VQyH/EJMhFDxWmwvXRrBatcsVRfF7oYB6QYs
+	 87ODuVYfUrZINVPqQm1oEfUn3slXJscdhP27hASwexrlIgHCaAEau7oVGsZY+le3E6
+	 jJYWWzACo7hsNd72IKiO+Q/scHe8TDjSCb+9wKPk=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261103105659eucas1p13666e7692d2b66477f7226dbb9ff0714~kg8G8z4GM0743307433eucas1p10;
+	Tue,  3 Nov 2026 10:56:59 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261103105659eusmtip2db0935c8ac86b48bb9ade39923c4d8e0~kg8Gm_qSB2162521625eusmtip27;
+	Tue,  3 Nov 2026 10:56:59 +0000 (GMT)
+Message-ID: <eaa6bd75-d81e-4432-a950-e38cf98e1d06@samsung.com>
+Date: Tue, 3 Nov 2026 11:56:58 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,108 +63,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 2/4] mm: hugetlb: skip CMA allocations under
- PF_MEMALLOC_PIN
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
-Date: Tue, 3 Nov 2026 18:56:23 +0800
-Cc: osalvador@suse.de,
- David Hildenbrand <david@kernel.org>,
- akpm@linux-foundation.org,
- azpijr@gmail.com,
- linux-kernel@vger.kernel.org,
- linux-mm@kvack.org,
- Qi Zheng <zhengqi.arch@bytedance.com>,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <4EC5E593-7537-4659-879C-95ECC2224D2F@linux.dev>
-References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
- <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
-To: Qi Zheng <qi.zheng@linux.dev>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] dma/pool: eliminate CMA alloc warning in
+ atomic_pool_expand
+To: Maximilian Heyne <mheyne@amazon.de>, stable@vger.kernel.org
+Cc: Robin Murphy <robin.murphy@arm.com>, Nicolas Saenz Julienne
+	<nsaenz@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261030-ghent-tubes-5abba7d2@mheyne-amazon>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261103105659eucas1p13666e7692d2b66477f7226dbb9ff0714
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261030100043eucas1p195785d2a92ca9ff72ce7dab2fc397f20
+X-EPHeader: CA
+X-CMS-RootMailID: 20261030100043eucas1p195785d2a92ca9ff72ce7dab2fc397f20
+References: <CGME20261030100043eucas1p195785d2a92ca9ff72ce7dab2fc397f20@eucas1p1.samsung.com>
+	<20261030-ghent-tubes-5abba7d2@mheyne-amazon>
 
+On 30.10.2026 11:00, Maximilian Heyne wrote:
+> atomic_pool_expand() allocates with decreasing page order first from the
+> CMA and if that fails via alloc_pages(). If the cma allocation fails a
+> warning, such as the following, is printed:
+>
+>   cma: __cma_alloc_frozen: reserved: alloc failed, req-size: 4096 pages, ret: -16
+>   cma: number of available pages:
+>   cma: range 0: 1024@0
+>   cma:
+>   => 1024 free of 1024 total pages
+>   DMA: preallocated 262144 KiB GFP_KERNEL pool for atomic allocations
+>
+> In this case the allocation succeeded via alloc_pages and therefore,
+> printing the warning is not necessary. Therefore, similar to commit
+> 463d439becb8 ("dma/pool: eliminate alloc_pages warning in
+> atomic_pool_expand") silence the warning also for the CMA attempt.
+>
+> Fixes: d7e673ec2c8e ("dma-pool: Only allocate from CMA when in same memory zone")
+> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
 
+Applied to dma-mapping-for-next. Thanks!
 
-> On Nov 3, 2026, at 16:01, Qi Zheng <qi.zheng@linux.dev> wrote:
->=20
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
->=20
-> With gigantic overcommit enabled, a fault during long-term pinning
-> can allocate a fresh HugeTLB folio from CMA despite PF_MEMALLOC_PIN.
->=20
-> The folio must then be migrated before it can be pinned. However,
-> fresh gigantic migration targets are not supported, so pinning fails
-> when the HugeTLB pool has no suitable target, even if the original
-> fault could have allocated pinnable memory outside CMA.
->=20
-> Honor PF_MEMALLOC_PIN in the HugeTLB CMA allocator so the fault can
-> try the non-CMA fallback, or fail when allocation is restricted to =
-CMA.
-
-Wait... I think my Acked-by got ahead of me here. :)
-
-There seems to be a rather odd distinction that GUP is missing.
-
-The usual reason long-term GUP must migrate a page out of a
-MIGRATE_CMA pageblock is that the page was only borrowed from CMA by the
-normal page allocator.  The corresponding CMA bitmap range is still
-available, so a future CMA allocation relies on being able to migrate
-that page away.  A long-term pin would prevent that.
-
-However, a HugeTLB folio returned by
-hugetlb_cma_alloc_frozen_folio() is different.  It is the actual CMA
-allocation, not merely a movable page that happens to reside in a
-MIGRATE_CMA pageblock.  Its range has already been marked allocated in
-the hugetlb CMA bitmap.
-
-Therefore, CMA cannot allocate that range again until the HugeTLB folio
-is freed anyway.  Long-term pinning the folio does not seem to make the
-CMA area any less available than keeping the HugeTLB folio mapped for
-the same amount of time.
-
-folio_is_longterm_pinnable() currently only sees MIGRATE_CMA and does
-not distinguish these two cases.  In that light, rejecting
-PF_MEMALLOC_PIN in hugetlb_cma_alloc_frozen_folio() looks like working
-around an overly broad GUP classification.  It also means that
-hugetlb_cma_only users will fail the fault, while other users may =
-consume
-a gigantic contiguous range outside the dedicated hugetlb CMA area even
-when that area has free space.
-
-Would it make more sense to fix the long-term GUP check instead, so that
-an explicitly CMA-allocated HugeTLB folio is considered pinnable, while
-ordinary pages merely borrowed from MIGRATE_CMA pageblocks remain =
-unpinnable?
-
-Thanks,
-Muchun
-
->=20
-> Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic =
-hugepages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> ---
-> mm/hugetlb_cma.c | 3 +++
-> 1 file changed, 3 insertions(+)
->=20
-> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
-> index 95fd2d190f0d2..dde1c866406fb 100644
-> --- a/mm/hugetlb_cma.c
-> +++ b/mm/hugetlb_cma.c
-> @@ -62,6 +62,9 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int =
-order, gfp_t gfp_mask,
-> 	if (!hugetlb_cma_size)
-> 		return NULL;
->=20
-> +	if (current->flags & PF_MEMALLOC_PIN)
-> +		return NULL;
-> +
-> retry_cpuset:
-> 	if (!nodemask) {
-> 		cpuset_mems_cookie =3D read_mems_allowed_begin();
-> --=20
-> 2.54.0
->=20
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
