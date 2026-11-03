@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701280;
-	b=K0faOwsMDfRbh53KGIO0Fwrfp5iUqmMydD//RLvHKI+JRzwL9JyQBUmHdzVjA/h27CWd
-	 1zrMkpyMdZYySb3RqxHkL0JYozhthrAtZ3LZmNxXbe6pUdfMyKs/060OgYXnvkebRHpk9
-	 8PgnXZjLse2TdC1N283UdnijAXUULbVpFlkeSyFrO5lts3LmQkmYz9iUkXuaO9SeL04QY
-	 ZgkMyuoEdewwGNZ0RdfWjHt65ZEOt4ZRdS2GcJgyrIKGqB5y8Yze+dWQFeRG+8+vd8ePo
-	 iuV3VtdPtvDeLtCUeT/Yknj+sw9RZ9Bz9lKOUkOohXmrOQlY6oqLwYT4pqx3Jl7dknw==
+	t=1793701282;
+	b=Iei0QTuO9Fzxe/N6mmGcuUsOUmUfOrM5Llm/Dl0c76n3Cg3lmV+aIEAOnlXUpfSraqJS
+	 OyvbypytAg6eSgGvbGJNEc+qHIJowWiKy+fUU+3clTGn3/E3TbF5yeqA7XRsV0apZCsUk
+	 mNZx5RCKgHLiqe7GK1IUr0uzU/EaZnA2oxnhK8iizMYsYBSumSgedVbkWi1mW3WCgcNxV
+	 oEH2EDgvOe+fy+0KKQFNhXKd02ea+YOHQOANFHg3P6G+ysRXqt/xmzzpKB9Owh1u5OCUo
+	 +AjYWMYRWmFs2A4ij/3GLdedCu0jx4SyRkLjwmrRoizZ/WTIEc/9eERIQZ/FdjFEXfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701280;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701282;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=J5xcHstc0OYA1gRXB3qSWDNj6xioRTC249N9KaNLqXE=;
-	b=JYnyqRvgt4q4SHyhaMACPWZ0043ILHBAXrM/3bO+XUZ0+JhA3WekeboudUFdIUzVCz3T
-	 CfYsdOZ55lPLdctu98ZFOu3tEZUmUgqh7kpZ+8hsRrPT2Lx/Fw5E4HYLeIVNBrIXzXdG1
-	 00DCzCyJA38fLaKK8JXqo5PVNKkc5Qm183A3+zWn1MnKzFaP0WKbe345kkv0HCKobm9PI
-	 nFErzjUUDgMfFZQNJVynk6pkvskeMvhvU06h32dbVLi4+tbzPJoyegIBCY53MBuh0IC5J
-	 a16j41KWwpLlDKuDruRbDw9N0ISnfcUSDGEx8nT4fRLOWmqjl1oAbX/JqVTlOzRkFfg==
+	bh=Nk0WXS6ZsJvbfUBD4Ab+ZeOO4l/5aEqWbLDoDjPkUFM=;
+	b=MCzoT6eTXJnE/mhwQL28iEBgS4Hr48pRWA6UKmLfGmQoIR7+eeCITylfjmw5Jsq7dVB/
+	 a07a5FGEQswZKwMHUYYi6UORARtTunlomRKIUNKM/oWsHIWWaSHuFcs6GjyO7Frea5YF7
+	 2jTEtZ1SrOl31B3l7neCpVY2G5Lg8TjKiSb59QyMAT6Qy2yEZFDWYIXggxrf90FesisF/
+	 eE1CR9RGDrpvk+WDFavYoOam1XbJYiwMpzFcCT88N2EWc/vLhfv6DkUcJIfswFRET3eo7
+	 zqHP3iz+PZleaC/CTZVtjMxqBADXCwAgRehQWd0RXVBtqhtqN07CMHMwrWPnC3dJcaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nZndnYmK;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TWyrfVEx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FA8C606B107
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66AA8606B107
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nZndnYmK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 512161F000C1;
-	Tue,  3 Nov 2026 10:21:19 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TWyrfVEx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A18FE1F00919;
+	Tue,  3 Nov 2026 10:21:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701279;
-	bh=J5xcHstc0OYA1gRXB3qSWDNj6xioRTC249N9KaNLqXE=;
+	s=korg; t=1793701282;
+	bh=Nk0WXS6ZsJvbfUBD4Ab+ZeOO4l/5aEqWbLDoDjPkUFM=;
 	h=Subject:To:Cc:From:Date;
-	b=nZndnYmKx954eiDU2G08MbyYSR92QK965DOWmGd5WtQjSgNonyk3t7F/pDoN1AQWI
-	 JdkJK7HUqkAEX44H+DIYAtDNKxlwCptLMnI3MpjgAR3HKhVQoP8Dc+lvprt+eUdO2o
-	 6nz89DAgxgZ6mjCtRtnOYeXd2f/L4z+qouulicWg=
-Subject: FAILED: patch "[PATCH] ksmbd: fix invalid pointer dereference when get_inode_acl()" failed to apply to 7.3-stable tree
+	b=TWyrfVExqSdnHQHxm1ZGyCg6ZkJ2V/7G7Nio5vtrZ3+nBGtlAlSHABYXJX58ksVzW
+	 0bpcIyN9FGZQqSZZ8tnehWfca2Lm+DFtaynhZgcqYT7i10a1LIAtktRSzJCfH6nBql
+	 Bq6Ro84ygB435+fLIgWh+o6vjuD/+ay+563b7Qx4=
+Subject: FAILED: patch "[PATCH] ksmbd: fix invalid pointer dereference when get_inode_acl()" failed to apply to 6.18-stable tree
 To: huhai@kylinos.cn,chenxiaosong@kylinos.cn,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 03 Nov 2026 11:21:18 +0100
-Message-ID: <2026110317-decimeter-fool-f1db@gregkh>
+Message-ID: <2026110318-groove-tightwad-0a03@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.3-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 19d180c7baab7126af5848ed87d5f7b5add0cef2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110317-decimeter-fool-f1db@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110318-groove-tightwad-0a03@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
