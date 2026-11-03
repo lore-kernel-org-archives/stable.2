@@ -1,114 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709223;
-	b=BJ0WRuxx2wDwonBV3LRXmjwBF3ge/nG/ToCRzIWmDmaAFTQpy+q5UP2Nlw3smBZWKCTS
-	 8NlPPlwh1IZQ+uTyZfg3knGX2FAK/8zsw9UaXrEr/ovYoHbVdgsviSoMsp9m2kSIXQI/b
-	 EOxYCZuWVQCvpAvtYwzYTodAgvKeJ7Y3SsPTlaTw/kakMTwIDBC0u0FRSwRH4eS879QXM
-	 bd1q+imnhwppVX4rdDfkGrRe0Eg2YOV9w9ax/FZhfU8aZtOPbjfuDrQl9D0DtWjfuy2Hi
-	 Fk1dbMioDgU65HglB5MOhF7NYw4yAnQdV9f9MRqm0bx9esCdy2eypikeKyacKC7+m8Q==
+	t=1793709427;
+	b=pGlr32GDxWwVLE9vhoxFCRY29NvzmUPGqmpoi9ST34ENks2lCsP7NYi92PCVi/3Dkd+2
+	 7vEcsR75zFxFBFurvnfHX6ShkGj1jtAOc64hkROV3mL3Fm45umafYX63YzqNjpQdOnet3
+	 37OxhV98i/SzW8HDgXXcYjGKWhDz/ygF7/nuvwobrkvZV+81hdELjqpuMXpDEsx7UHFyA
+	 +VMFWBbsCtYVkHjU1C7SDpSSi+iuHX69U6Q1b18Uru0MYbD/czTo25URC4kUFHz/cekCM
+	 UC+YNVy6Q9y+syGdYaOfqktfXR2poRA7ftDoS285br4sGPwtANmPt5xm5pT5aIjGA5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709223;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9kjhtb4pMCtL4sI0pWrXeiyW7bmvjyE4sCW+R/9c2t8=;
-	b=FHT4SIi01W8KxecNIgN4aXqf8LFfuJDesEIzxCIhFHb4cfgpdSpJB1gbw6KINbaxI381
-	 Ty7loHyOvulGnDsRqR/+A2K6yicWnrws8qGJ4QnF011jbh20t03ThnwqAVPLBHJ9gn19M
-	 fPxVq/Pk7jeOQLKqm5elF9wl5n4Z6rEkt774uptz51mQ39R3gQmkpsm/oOudIofIaWhHw
-	 J+48zp6UmKGUE4DOGNky1KSV7TQdiYxXB0adqbvQMZ0EdK7j+Nr/E+iyAz/ultR0Zf450
-	 yvHvm5tCBpPQS/In5hZ8KaW1LH4YtRN19hcUl1nyt29eewzpF4cm9dZF3mPQORxnWaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793709427;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UduA7A9kprN1U14/kAFpqBF/rGLcbTkISpiFC5OWlTs=;
+	b=J09vQ97voGr4Z1YkEkRGznVW0unBgPD90lqycb6nzB4iuJp6pnIL2ioXkLDCLeN/qans
+	 2+MjWT1fTEpDoCkmWIcf1rxkmZzf88q6WuZbglm5hrzMQCFA/49FfsBopNR58w2VGi5X1
+	 AdiBvmwux4MbhSqtEeuoiKKBr54GrkV3VTci3IqmWEYcuFYbCjEOcSeLaWDHzYsKVvvgl
+	 I0aGvtFzbq7KkFkza4e5U0vEjSAlFskE/E8X+WweOLkzwNuiIURdg1Yp9MbzKuLovfEMf
+	 wOVqBLSVvoiv88xex2DMDEFWzhx2JNOm8PyrLidLMuIV9bnE7T5WmE4vCuPgT4yNGUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BOcgH7Uw;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=N4mnIjJ0;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bav9ZKiX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB51606D832
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 12:33:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB51606D832
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B6E606A329
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 12:37:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BOcgH7Uw;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=N4mnIjJ0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793709221;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=9kjhtb4pMCtL4sI0pWrXeiyW7bmvjyE4sCW+R/9c2t8=;
-	b=BOcgH7UwuxV78ljG5yC6qqBL/5O97h5DSz/cwhDLbu8/Vqe9pm6la9TZOEg7SkdGHk57tn
-	w/rDuzZoLmHFuRdI7JMzFO43hWDtE2hUMe6/j/gaslhVDbh75k5QDoNkPOigL4/lsBTED5
-	mBPtMKEC2dPB+O3b4wU7EdOM+cMHXeU=
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com
- [74.125.82.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-284-Jz77QfS8Mn2P8JpLA2WIRQ-1; Tue, 03 Nov 2026 07:33:40 -0500
-X-MC-Unique: Jz77QfS8Mn2P8JpLA2WIRQ-1
-X-Mimecast-MFC-AGG-ID: Jz77QfS8Mn2P8JpLA2WIRQ_1793709219
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-14373747468so5443238c88.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 04:33:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793709219; x=1794314019; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9kjhtb4pMCtL4sI0pWrXeiyW7bmvjyE4sCW+R/9c2t8=;
-        b=N4mnIjJ0gFZdIU/eAoQ0meISSelGwIuT51Iohh5OtxvInfHLmvly5WjlM0S6mx5KIO
-         mAHM5oBDu7LxP4dEUfo4QUUqf50mTReagnA5qAVPbBcGvMpr4Uf7Qrp2lj6uWycpYX1/
-         zTOWYlW0Kep63IqI9MCKC9+bc3WYcSNydgSZtOselsogavpv3Vl+MNnVdbgsbc14RM5+
-         hFML+C/Dhe3DBE0DLu128RkQ0yU6u6VdWaoH6d39OVazmDFzt7fdEf+DDhjq2DFJ4JuL
-         rgaVbdvgiXOq1HnI7WYnHN6sa5hu1QtOzGEt56GnaEeB6T5aOI1AiT9q7mVIkjFATwym
-         bY9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793709219; x=1794314019;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9kjhtb4pMCtL4sI0pWrXeiyW7bmvjyE4sCW+R/9c2t8=;
-        b=S82wtsNoZ3O6a8c7OZmRnxaoPH2E9V7pvrPUuRGm4W4CE8d0/8cbNGUgdMZ+/oEUz4
-         tiSOVCq+K1AhAOqL/i0bX4FbS7oqN9x63kYa3fxMsgUoRmNYGqGGBvDGT975ef4NlSMs
-         EZ6T/n3DP7NIUmPDUCXV1bJxUD7EKPJQGnWjIf79M/5CAsENAuyJ7F9+rmA6n9o7cTDD
-         jpxX0Ljzvoakk12NSWCoc7uth8/TIRyxkCPbO5XzZTE0SDgKuaqbtmyvzhBdXiWURb+B
-         iA/mDjBxsxHrurAtFSzMjTOD8EQ4BlNe/tv2/8D+snhXcIeLzXU+251316BXLK5i673E
-         PLQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy20lpMsn2QBKgVmp/xsOR0aY/A2w0c4gUINRgWtXTKyKr5YyXakW77KnddH5SVjR54+r8wdqo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kppXTx3RMEeb38ICnO5Qh5koPvLnhhjzzzgIFnuM0ZKUEZnC/
-	AK+srovbYoekG1kY/i0aKwIZou+11b8eEBKTz9g9Am3G4j3O7V/1X8Rmmux334jYbAPot80F2Cs
-	4atjWPYrcsuv9XyzMhgiWXraQaUcA6hSDEFHCtu52ioUIhVn2HSOBvSiWXw==
-X-Gm-Gg: AYBFou0Mf0nfVf5a9VkpWIw87jVCPEc7IG+hmogiymQGecnXQI467CyHVe+4lXM52mc
-	7dTIZfll6YR2jfgZzWyF1BeZeyR6AxJakAoJq2c25M4njBo1w/2wVUgGiLy5SNYwiRWsTz6rEsF
-	VeDg2cVWrSQqMARiFHxh0NpU/FTq8O+Yx+MGa/rNS2/Pgt7g05SmRgCiGD3gkmZwRSATNJhLzZ1
-	6EZauFFS+eGbQHNMAxBrUgbZPLYu3qo/Ott9gAqx2n4VxIwpVkzAJL8IJEHLQwMAjB2uBeZlG3X
-	oYgV82J2AAvMSUquiQUg1iMb44h5AszIpLwT5IAPI++qWAIBGlgLKRCqIiUkUZ6wESy+VcPXqTf
-	D2sqe2Xa9WIdeXq9kh3RTmnTv6jekhQwxiyDc9h5Nwng3D/sSzR4wdobUlCk1iHdiPu8a5jU1aN
-	9cL74vTYk1/EVb9xrOS61CuSXpy03NsIH4fPh+0saC
-X-Received: by 2002:a05:701a:c907:b0:151:6e80:baa9 with SMTP id a92af1059eb24-1ac5a2a138cmr19661585c88.12.1793709218878;
-        Tue, 03 Nov 2026 04:33:38 -0800 (PST)
-X-Received: by 2002:a05:701a:c907:b0:151:6e80:baa9 with SMTP id a92af1059eb24-1ac5a2a138cmr19661556c88.12.1793709218260;
-        Tue, 03 Nov 2026 04:33:38 -0800 (PST)
-Received: from mgandhi-thinkpadp16vgen1.redhat.corp ([2401:4900:88f9:2014:83b2:887f:ed66:aa65])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm46086298c88.12.2026.11.03.04.33.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 04:33:37 -0800 (PST)
-From: "Milan P. Gandhi" <mgandhi@redhat.com>
-To: sathya.prakash@broadcom.com,
-	kashyap.desai@broadcom.com,
-	sumit.saxena@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	martin.petersen@oracle.com
-Cc: linux-scsi@vger.kernel.org,
-	mgandhi@redhat.com,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpi3mr: Fix integer overflow in reply frame size calculation
-Date: Tue,  3 Nov 2026 18:03:16 +0530
-Message-ID: <20261103123316.223917-1-mgandhi@redhat.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bav9ZKiX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC151F00919;
+	Tue,  3 Nov 2026 12:37:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793709427;
+	bh=UduA7A9kprN1U14/kAFpqBF/rGLcbTkISpiFC5OWlTs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Bav9ZKiX8URtoCUjwC8qIfKr6vU43sYRN7EUg2qqLm8mDwY34K+B3jfEzAfm0VCw1
+	 0dgQWYgrkTSSalVkz5f+kSfKU38aiwFnebyLSC6RJ0ukdp8U/XoFw51HpaE2bD/RyU
+	 E41v3hXygVQgJdzjPh6WfNlzc1iAT7hdwwfxRXn+s9Ec3Z5QJc+JlipCudlwdS2Vpg
+	 3kc8/vaurJq9rq5DwjKkPhFMYJvfslXUUcA4qurz4Q+rfsdMvTZzRWos8BOeQhHs39
+	 r3qdcfoPT59crlNG9c0cOlITB3EAgXMsbadkPFeXeRuPfjBxBmdR0DurFSbMp/pf8j
+	 RSQgUSuSDIpkg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zikang Gao <2715417602@qq.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: do not pass a NULL buf to is_oplock_break()
+Date: Tue,  3 Nov 2026 07:37:05 -0500
+Message-ID: <20261103123629.3819314-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110215-unnatural-hardhead-0088@gregkh>
+References: <2026110215-unnatural-hardhead-0088@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,71 +62,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver reads reply_frame_size from firmware as a u16 value in dwords
-and multiplies by 4 to convert to bytes. If the firmware (malicious or
-buggy) provides a value greater than U16_MAX / 4, the multiplication
-overflows the u16 result before assignment to mrioc->facts.reply_sz.
+From: Zikang Gao <2715417602@qq.com>
 
-For example:
-  reply_frame_size = 20000 dwords
-  20000 * 4 = 80000 bytes (as int)
-  Assigned to u16: 80000 & 0xFFFF = 14464 bytes (truncated)
+[ Upstream commit 2225ab306575e424b3dad2ee1be2521c89249d15 ]
 
-This truncated value is then used to allocate DMA reply buffers via
-kzalloc(). The firmware believes it can send 80000-byte replies, but
-the driver only allocated 14464 bytes, causing a heap buffer overflow
-when the firmware DMAs the full-sized reply.
+receive_encrypted_read() sets *num_mids = 1 and never writes the
+caller's bufs[]. Offload returns -1 with *num_mids = 0, so the
+demultiplex thread skips the frame. The inline decrypt path
+returns 0 even when smb2_find_mid() fails.
 
-Additionally, if firmware reports reply_frame_size == 0, facts.reply_sz
-becomes 0, which can cause division-by-zero or zero-sized DMA pool
-allocations downstream.
+cifs_demultiplex_thread() then treats mids[i] == NULL as an
+oplock break and calls is_oplock_break(bufs[i], server) with
+bufs[i] still NULL. smb2_is_valid_oplock_break() reads
+hdr.Command at offset 12 and oopses.
 
-Fix by validating reply_frame_size in mpi3mr_issue_iocfacts() before
-processing the facts data. Reject values that are zero or would overflow
-u16 when converted to bytes.
+A large encrypted READ whose MessageId does not match is enough
+to panic cifsd.
 
-An attacker with firmware control could exploit this to corrupt kernel
-heap memory via DMA, potentially leading to privilege escalation.
+    Oops: general protection fault, probably for non-canonical address
+    0xdffffc0000000001: 0000 [#1] SMP KASAN PTI
+    KASAN: null-ptr-deref in range
+    [0x0000000000000008-0x000000000000000f]
+    CPU: 0 PID: 100 Comm: cifsd
+    RIP: smb2_is_valid_oplock_break+0xc8/0x2270 [cifs]
+    cifs_demultiplex_thread
+    Kernel panic - not syncing: Fatal exception
 
-Fixes: 824a156633df ("scsi: mpi3mr: Base driver code")
+Return -1 when inline decrypt finds no mid, and skip
+is_oplock_break() plus the unknown-frame dump when bufs[i]
+is NULL. receive_encrypted_standard() already assigns
+bufs[*num_mids].
+
+Fixes: c42a6abe3012 ("CIFS: Add capability to decrypt big read responses")
+Assisted-by: LLM
+Signed-off-by: Zikang Gao <2715417602@qq.com>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Milan P. Gandhi <mgandhi@redhat.com>
+[ sashal: Added braces around the existing single-statement missing-MID branch. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/mpi3mr/mpi3mr_fw.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ fs/cifs/connect.c | 4 +++-
+ fs/cifs/smb2ops.c | 5 +++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_fw.c b/drivers/scsi/mpi3mr/mpi3mr_fw.c
-index f0d3cd398dd0..2b72218e79fb 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_fw.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_fw.c
-@@ -3261,6 +3261,7 @@ static int mpi3mr_issue_iocfacts(struct mpi3mr_ioc *mrioc,
- 	struct mpi3_ioc_facts_data *facts_data)
- {
- 	struct mpi3_ioc_facts_request iocfacts_req;
-+	u16 reply_frame_size;
- 	void *data = NULL;
- 	dma_addr_t data_dma;
- 	u32 data_len = sizeof(*facts_data);
-@@ -3318,6 +3319,19 @@ static int mpi3mr_issue_iocfacts(struct mpi3mr_ioc *mrioc,
- 		goto out_unlock;
- 	}
- 	memcpy(facts_data, (u8 *)data, data_len);
-+
-+	reply_frame_size = le16_to_cpu(facts_data->reply_frame_size);
-+	/*
-+	 * Validate reply_frame_size to prevent integer overflow when
-+	 * converting dwords to bytes (reply_frame_size * 4).
-+	 */
-+	if (!reply_frame_size || reply_frame_size > (U16_MAX / 4)) {
-+		ioc_err(mrioc, "Invalid reply_frame_size %u from firmware\n",
-+			reply_frame_size);
-+		retval = -EINVAL;
-+		goto out_unlock;
-+	}
-+
- 	mpi3mr_process_factsdata(mrioc, facts_data);
- out_unlock:
- 	mrioc->init_cmds.state = MPI3MR_CMD_NOTUSED;
+diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
+index a91d3f6ae5be6..98a3e25c107db 100644
+--- a/fs/cifs/connect.c
++++ b/fs/cifs/connect.c
+@@ -1089,12 +1089,14 @@ cifs_demultiplex_thread(void *p)
+ 					mids[i]->callback(mids[i]);
+ 
+ 				cifs_mid_q_entry_release(mids[i]);
+-			} else if (server->ops->is_oplock_break &&
++			} else if (bufs[i] && server->ops->is_oplock_break &&
+ 				   server->ops->is_oplock_break(bufs[i],
+ 								server)) {
+ 				smb2_add_credits_from_hdr(bufs[i], server);
+ 				cifs_dbg(FYI, "Received oplock break\n");
+ 			} else {
++				if (!bufs[i])
++					continue;
+ 				cifs_server_dbg(VFS, "No task to wake, unknown frame received! NumMids %d\n",
+ 						atomic_read(&midCount));
+ 				cifs_dump_mem("Received Data is: ", bufs[i],
+diff --git a/fs/cifs/smb2ops.c b/fs/cifs/smb2ops.c
+index 781fe599dda7e..348168c9b7617 100644
+--- a/fs/cifs/smb2ops.c
++++ b/fs/cifs/smb2ops.c
+@@ -5208,9 +5208,10 @@ receive_encrypted_read(struct TCP_Server_Info *server, struct mid_q_entry **mid,
+ 		goto free_pages;
+ 
+ 	*mid = smb2_find_mid(server, buf);
+-	if (*mid == NULL)
++	if (*mid == NULL) {
+ 		cifs_dbg(FYI, "mid not found\n");
+-	else {
++		rc = -1;
++	} else {
+ 		cifs_dbg(FYI, "mid found\n");
+ 		(*mid)->decrypted = true;
+ 		rc = handle_read_data(server, *mid, buf,
 -- 
-2.56.0
+2.53.0
 
