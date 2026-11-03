@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690820;
-	b=2Wp7tR2zOd0ZQvA12SGAmWwkH3j98CZJrTQ8DRnoXuIBR3uLCbWD95VkD7C7fTJ2RLJk
-	 xFeBXy2u5AxF7Iy3QuXzAqliJFR9HdH7e2lYmPiV9vCquGLzZxXTBADXKApk2i8icdwtu
-	 AHeb+6TLbD2uIgVfd1ruYUKY+xLSnO4+Ra1Wg4sgJQ3UoBRxSHe41b6nU+M40YNFF/hcv
-	 YEeaveRoxw5PTItwzAZh/Fdt1ihidDJ77f30in4vc/TBqgcMu9mCONFkm/K/ve92fY7IS
-	 C7dBkjsiiP3Nr5nBnkJumvdLE4TSDnQCEnyyarYN2e7VN12xPBb97cQvKwOhN7Wq6DQ==
+	t=1793690827;
+	b=RQATYkRI++SZiJLHRjFv4lwzGzsm/H2z2yR3n9ZXUMn/X4PpALXAhuiXEg8658GGqxPC
+	 YeDyYZ1t5UH5Z8340g6Hi9bj18iSDFCZYdSz6TKQitTvIBvXT35jjBBJ32itUIC4gpQWl
+	 l8wUW6Dl1U71Pcln0k9OLyyt1kC5lwY25bhjAdJkqHDmAGgmFCrlPeHtVwWLcKcWHtqRO
+	 c92/z8NvZvg8l6qVJCphNe3OI3Nxj8HheOpBWnnTokMAQn6gTDZ7IiLVMf85lmVuf7/pe
+	 CV16tfdPQIX/jl+2ma4l6Sb4GanxUGHZFdX0nZldW31Lip/Kkl0aaAAqTCt9OiaPqgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690820;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690827;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=G6WXuYVuFVaqWLX5G0w7v21yMWKT2qQz3bCPmIaySXM=;
-	b=fyOcVOR09OVrdYAP5rTbKdMHtBCHbX45R2CRLXF79Zvw+aqIWgg6tps8VvcbxFTX1D61
-	 Z0B4zpHuAJ4bsRxFKSSmKvklI6wLh0e65YIBaTTSrtWbyhwSnvM+u/XsT+DF0jOhk3Cm3
-	 Llru/8Sk9epTAGld/PH6wZB8HGaXzlOdo+/+Zz6vJwjuTBdHSIvbpNb0pF4hy23gu54oF
-	 bX2Dcj5lF9u8cx0OCvXRJWCJPzzUI1h0UqVNwv7ZwJ5qAjSnpWKIjXyg0rjMlRKvgnKuN
-	 j1kOVAFmO38nE4xtjj+43elPNnBxLAa1kUdYKTr7jpA8ZdlaGF7B8MOvlDnA6RmQNSg==
+	bh=V+/klBUcfcTRm8IMCJQU8L8tHCdvn3hjNDZ9Ft+EtVk=;
+	b=eF1jbNCrUdPab2zFC6oCXaly4SLTAGpwYB6ImsnL00h0U+H1HhEZ2+AsYAjmxN9xn+a4
+	 7Vo47+1FF8HtwZSEJAfuUG+TdyhHe3eb6XjVm1EqAVF7k4WyfGS2ORDCNgkBXx5GbXPM1
+	 iu5/da89xswm8ii4z6MjO3MDmg5VzKZsUKgljyz2mRq4S74DQnn4GKJdkn/JETVsYVCSp
+	 RTVK/miFW51Eza3G07Q6H6tBzH0bwqFfFoIRbvFnWQyyf9F+0Fdp/y/Uhu54vUtzLDOTz
+	 NUtBsBue0pVLJvZ31DZvuYCAaLfaz4CMctNP7E3by9xDlebVe6/pajN2oAvZCY11ldg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI7wUr13;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLIJ3wD5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18DC6606A329;
-	Tue,  3 Nov 2026 07:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830C5606A331;
+	Tue,  3 Nov 2026 07:27:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FI7wUr13
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6B01F00A16;
-	Tue,  3 Nov 2026 07:26:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLIJ3wD5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C981F00A02;
+	Tue,  3 Nov 2026 07:27:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690819;
-	bh=G6WXuYVuFVaqWLX5G0w7v21yMWKT2qQz3bCPmIaySXM=;
+	s=k20260515; t=1793690827;
+	bh=V+/klBUcfcTRm8IMCJQU8L8tHCdvn3hjNDZ9Ft+EtVk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FI7wUr13qUiCZjI5Cfxbb+wytm4cVV3/lKY2i+xGFDsEoJWw4xuc0SWfVMyNwCQli
-	 GfGk87l4VZqMNz1NgrcnMA+ugAdGCVibsvTbAcLcsZkgB6WR3W+HtfS1B0ko1473Df
-	 6X/x8yPB3FoSRWnPZBhcYoX+q2NEWe/ssJU/8lG8y+weFcwW9kyefWtaCqG/TK1Fz6
-	 nkpEPgBVJV2Cv/rPCwAGimB03lq1z2pQql4PKNj9YKEYZytLgkFlKTmZJ/43jri9ac
-	 wE2n2fXTCW8aYJlquNKwpx2umsCtpk8zxXTlWVXrzGTBkP/1GogeNATFEq3ypP1dh6
-	 3riqd62KwmdPg==
-Date: Tue, 3 Nov 2026 08:26:56 +0100
+	b=lLIJ3wD5Mh6L8SP90f75YzxQJ/RXZO/CeQ6MEds9Gzx0k85j8RVPXYUjGY4/0BPTb
+	 lXyKHkwsSWIUMKuSCYilbTMWp6292pBWhX909gwASw2ba14boN5woGfSJN9P8PDqeW
+	 KSc0IQx/hUu5pHnApZgIIBE1mTS+yZPQL603SsmHzo2M9hpFkCDN5ZssxA1/p8mkV/
+	 LXiDGXyr7WqWiOSk6HJFr07zcDE64ynGUxeYtBovtHk9CJ8eHflojb98m0teWQdyzS
+	 8ND+AeP+vZD23nnAB5HzCShKmG8Nm8x2PSKQrZRvzw3fSVRr+saxgh+Sn3yAHmBDev
+	 Sv3hqcECB5LKQ==
+Date: Tue, 3 Nov 2026 08:27:04 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com, 
-	stable@vger.kernel.org, thomas.hellstrom@linux.intel.com, intel-xe@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, matthew.brost@intel.com
-Subject: Re: [PATCH] drm/xe/pm: Balance the runtime PM reference when ioctl
- resume fails
-Message-ID: <20261103-cheetah-of-inescapable-engineering-1766dd@quoll>
-References: <20261103065810.1075142-1-vulab@iscas.ac.cn>
+Cc: zhi.wang.linux@gmail.com, joonas.lahtinen@linux.intel.com, 
+	zhenyuw.linux@gmail.com, tursulin@ursulin.net, dri-devel@lists.freedesktop.org, 
+	intel-gfx@lists.freedesktop.org, stable@vger.kernel.org, rodrigo.vivi@intel.com, 
+	linux-kernel@vger.kernel.org, jani.nikula@linux.intel.com
+Subject: Re: [PATCH] drm/i915/gvt: Release GGTT MM if scratch page setup fails
+Message-ID: <20261103-supportive-olive-barnacle-93590a@quoll>
+References: <20261103065407.1070225-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,25 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103065810.1075142-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103065407.1070225-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 06:58:10 +0000, Wentao Liang wrote:
-> xe_pm_runtime_get_ioctl() uses pm_runtime_get_sync(), which increments
-> the usage counter even when resuming the device fails. Its conditional
-> runtime PM guard only runs xe_pm_runtime_put() after a successful get,
-> so failed resumes leave an extra reference behind.
+On Tue, 03 Nov 2026 06:54:07 +0000, Wentao Liang wrote:
+> intel_vgpu_init_gtt() creates the GGTT MM before allocating the scratch
+> page table tree. If scratch page allocation or DMA mapping fails,
+> create_scratch_page_tree() releases its own pages, but the GGTT MM and
+> its virtual GGTT and host GGTT buffers remain allocated. The caller
+> skips intel_vgpu_clean_gtt() when intel_vgpu_init_gtt() fails.
 > 
-> Use pm_runtime_resume_and_get() so a failed resume releases the usage
-> counter increment before returning the error.
+> Drop the GGTT MM reference and clear its pointer before returning the
+> scratch page initialization error.
 > 
-> Fixes: 23cf006beac3 ("drm/xe: Runtime PM wake on every IOCTL")
+> Fixes: 3b6411c2c205 ("drm/i915/gvt: implement scratch page table tree for shadow PPGTT")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/xe/xe_pm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/i915/gvt/gtt.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
 > 
 
 
