@@ -1,46 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672142;
-	b=Im++2Ha/z04caz5wv6q7ZLhy0V39s1povBnHKqt6Iwb8AAPUsogJ6aN3bhpIAMdPK3iQ
-	 I7tswDuoe8cjPWa3rKTqpbcDhf9rMUJPtsC4Z6hC9Q0yilk5v8DrAYeBrguilCHGSUqCj
-	 4gTVOHAQ5JGBc6+Bb2arDqX4EgQeb8wchlAX2rKITD9c0btmpvk88FvpB30y4SaIA42f9
-	 9Pxs9Pk3kQ4dLrv1DA7LNUpKSUJwhW5IkvnK5J6CdPCG/schK6w3Ffgfs6fXt0XlC65wp
-	 ROOCSdIrHv4e6AQPL2VdIXphSwJ/PDWIpMh3jdzBMUDHzCN3tjW1CbhiVHzR0hilvNA==
+	t=1793672148;
+	b=4cHGGA6OwRdCQOKbMwllHGRC/TD9BdTXTm9DkKY95qxLc/p/G/urGvrU/91Ro1htOalZ
+	 thp/cuASFHVgjy4R5UNPGjmXJW2vnTMJayFdbTVnKDADwwJJQfORXZ6H+2CpY2uA6c6wE
+	 FgkZVf9Pz5bClY3Hil66MJMyqZGM2c4cbGQpC4luDoqggzE80HM1gXnQqP/0jYgYbtMOn
+	 1iZ+NoVTLc6ckFlo19cw3SqmK/YJfrPkNx1bIV1cvk1ZaqI3KiyhuWli/OsnDfhMwRT/K
+	 Rh1LC7G+R21LoHJY07D0vUsNDd9ijB9tw80AmJzppyUp8To0ON+Too5DyFZlyDHgW8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672142;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672148;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=eKrRFECzIzSsGQ+NuDvDqBKaz3T8giMc/FGgy1sk7Kg=;
-	b=Kx7h9uFox0+yJr3AEYUWT3Q9DUfo2HHNY1Ab+9gfZndGsdKj6TQcdsvLZKp4OPJb+PKs
-	 P+cTJFpctWnWG/hFhOmrwKUoBCawglFeHIu0KsMU7Ne9HrdvgZGSLCy8tNyARRohzTUzU
-	 WtO3qdOeY6jNkpoZ1t6/pMSOeiu1js18HzxcDJG356e5bCTKpMU5hYA1n6yTIOj8tMhW+
-	 ht53z5oelbErkazmqI4bOJAiDwd5DPxMFsFzPaIRVISel8DGnVg8QCYO50HBQj7Qd2ZTu
-	 /Awf1eWTtrCTpC77zV0EhY9D61q6J15suwDFsspBVKh636cjOWNm+YB0E82VDkZErRw==
+	bh=ieqF8KJ7YD2uenPGC1WgamZRdSnLRXEr4jbCdmRURPM=;
+	b=s5lxcfewDsUsS5DPpj1sgFWCYBGyi+lSbKpgyCcYJh2ZilNAgsVnB2Lm05qOgko7ObY2
+	 3tuhcXv8LQTp2FHSZNNMSnYo98Iy/ii3zEKw9bq35FFKjmCsUXr8bCctYhoe2LGZ/51GM
+	 IAaDXUFa+AUAB8xxttb+RbnpfRPXBOxDfqnMvhd6qAAYcPLs6H7ik1yGClw1Vv+unynQX
+	 36bcQLdMrqXsRaJ/0kiGJnc9h5lGwQqPtW2FKjojjE56oGbkbbHozyJs4YcThdynjTpox
+	 YCoENC6PmPDfp/JTH3wKDd0FHFn/hCXfAeVbRs6qJQBJd2AAI/oytFJWbigEfcEStSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=lHKQ5J4U;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xqmBzKtf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F05606A32D;
-	Tue,  3 Nov 2026 02:15:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A1F606A337;
+	Tue,  3 Nov 2026 02:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=lHKQ5J4U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC7CD1F0093A;
-	Tue,  3 Nov 2026 02:15:41 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=xqmBzKtf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD861F00919;
+	Tue,  3 Nov 2026 02:15:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672142;
-	bh=eKrRFECzIzSsGQ+NuDvDqBKaz3T8giMc/FGgy1sk7Kg=;
+	d=linux-foundation.org; s=korg; t=1793672147;
+	bh=ieqF8KJ7YD2uenPGC1WgamZRdSnLRXEr4jbCdmRURPM=;
 	h=Date:To:From:Subject;
-	b=lHKQ5J4UrkTzeRxqyOwxzF14/JoJPVB2fSCB0r3ZeacxnzJqO/6auV9Pc4jPQfmyg
-	 mgba/IUOk2rfxE8hMSbl66XCii4rJstdSYh6CEke8wwcloTk0HFY8WA8sIRiEMR7XD
-	 NhjiyH6rSYOiz/dh4XZZBiEVe8IckUFVRFjEDksY=
-Date: Mon, 02 Nov 2026 18:15:41 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sjpark@amazon.de,
-	sieberf@amazon.com,sj@kernel.org,akpm@linux-foundation.org
+	b=xqmBzKtfcgwf196MycRSediNeT4kSd7cKsBr0hbeO2DRxBM94D6uRRNxmhGyGr+4F
+	 UIn9o8+3mD+aETUOtqy360bLp0ilEUwU5Z+P9fkEpF7wn3BxLx/j8VXq9ACXZjHbw4
+	 kv07MwazwyZpLDtYy13Wc6gOZjk6XotEGr62+nHQ=
+Date: Mon, 02 Nov 2026 18:15:47 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,ying.huang@linux.alibaba.com,
+	willy@infradead.org,stable@vger.kernel.org,matthew.brost@intel.com,
+	joshua.hahnjy@gmail.com,gourry@gourry.net,david@kernel.org,byungchul@sk.com,
+	apopple@nvidia.com,akpm@linux-foundation.org,laoar.shao@gmail.com
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-damon-core-move-static-variable-last_nr_regions-to-damon_ctx.patch removed from -mm tree
-Message-Id: <20261103021541.DC7CD1F0093A@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-migrate-snapshot-the-source-nid-before-the-misplaced-migration.patch removed from -mm tree
+Message-Id: <20261103021547.8BD861F00919@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,92 +54,89 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/damon/core: move static variable last_nr_regions to damon_ctx
+     Subject: mm/migrate: snapshot the source nid before the misplaced migration
 has been removed from the -mm tree.  Its filename was
-     mm-damon-core-move-static-variable-last_nr_regions-to-damon_ctx.patch
+     mm-migrate-snapshot-the-source-nid-before-the-misplaced-migration.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: move static variable last_nr_regions to damon_ctx
-Date: Sun, 25 Oct 2026 09:48:05 -0700
+From: Yafang Shao <laoar.shao@gmail.com>
+Subject: mm/migrate: snapshot the source nid before the misplaced migration
+Date: Tue, 27 Oct 2026 10:17:20 +0800
 
-kdamond_split_regions() uses a static variable last_nr_regions, to infer
-if the region boundaries are too stable.  If it looks too stable, it
-does a more aggressive region split because it might be a fake stability
-coming from non-aggressive split.  Because the variable is static, the
-inference can be racy and wrong when multiple kdamonds are running in
-parallel.
+A successful migration frees the source folio before the promotion
+counter update, so the folio_nid() read there operates on a freed
+folio — which may already have been reallocated. It happens to work
+today, as Zi explained:
 
-The user impact is not critical.  No crash, no leak.  DAMON's
-best-effort monitoring accuracy can be degraded when multiple kdamonds
-are used in parallel and the workload has certain access patterns. Still
-it is a bug that is better to fix.
+  : Strictly speaking, it can be seen as a benign UAF. It works, because
+  : 1. folio->flags happens to be the same as page->flags,
+  : 2. folio/page nid is stored in the ->flags and never changed.
+  :
+  : In memdesc world, after a folio is freed, I assume folio->flags would be
+  : zeroed since struct folio is freed and calling folio_nid() on a freed
+  : folio would give a bogus result (yeah, it can be mitigated by not
+  : zeroing node field and each node has its own struct folio pool, but that
+  : makes folio_nid() implementation dependent).
 
-Move the variable into the damon_ctx struct to fix the problem.
+and Matthew explained further:
 
-Link: https://lore.kernel.org/20261025164808.152048-3-sj@kernel.org
-Fixes: 75c1c2b53c78 ("mm/damon/dbgfs: support multiple contexts")
-Signed-off-by: SJ Park <sj@kernel.org>
+  : once struct folio is separately allocated, it's a UAF.  It could be
+  : recycled to a different NID or maybe the slab containing the folio could
+  : be freed (assuming we're not holding the RCU read lock at this point in
+  : migration, and I don't see why we would be).
+
+A separate concern is memory hot-removal.  With memory-tiering mode
+enabled, successful migration can release the source before the
+promotion-accounting folio_nid() read.  If the task is preempted there,
+an otherwise-free source block can be offlined and removed first.  On
+the x86 path, removal can unmap the source's vmemmap, so the later read
+can fault.  The snapshot avoids that read.
+
+Link: https://lore.kernel.org/20261027021721.95781-1-laoar.shao@gmail.com
+Fixes: e39bb6be9f2b ("NUMA Balancing: add page promotion counter")
+Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-eebfcdde-2881-48ef-8df1-e2019d2a47f2
-Cc: Fernand Sieber <sieberf@amazon.com>
-Cc: SeongJae Park <sjpark@amazon.de>
-Cc: <stable@vger.kernel.org> # 5.15.x
+Suggested-by: Zi Yan <ziy@nvidia.com>
+Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: <stable@vger.kernel.org>
 ---
 
- include/linux/damon.h |    5 +++++
- mm/damon/core.c       |    5 ++---
- 2 files changed, 7 insertions(+), 3 deletions(-)
+ mm/migrate.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
---- a/include/linux/damon.h~mm-damon-core-move-static-variable-last_nr_regions-to-damon_ctx
-+++ a/include/linux/damon.h
-@@ -958,6 +958,11 @@ struct damon_ctx {
- 
- 	/* @rnd_state:	Per-ctx PRNG state for damon_rand(). */
- 	struct rnd_state rnd_state;
-+	/*
-+	 * number of regions after last merge.  Read kdamond_split_regions()
-+	 * for more details.
-+	 */
-+	unsigned long last_nr_regions;
- };
- 
- /* Get a random number in [@l, @r) using @ctx's lockless PRNG. */
---- a/mm/damon/core.c~mm-damon-core-move-static-variable-last_nr_regions-to-damon_ctx
-+++ a/mm/damon/core.c
-@@ -3795,7 +3795,6 @@ static noinline_for_stack void kdamond_s
- 	struct damon_target *t;
- 	unsigned long nr_regions = 0;
- 	unsigned long max_nr_regions = ctx->attrs.max_nr_regions;
--	static unsigned long last_nr_regions;
- 	int nr_subregions = 2;
- 
- 	damon_for_each_target(t, ctx)
-@@ -3811,7 +3810,7 @@ static noinline_for_stack void kdamond_s
+--- a/mm/migrate.c~mm-migrate-snapshot-the-source-nid-before-the-misplaced-migration
++++ a/mm/migrate.c
+@@ -2756,6 +2756,7 @@ int migrate_misplaced_folio(struct folio
+ 	pg_data_t *pgdat = NODE_DATA(node);
+ 	int nr_remaining;
+ 	unsigned int nr_succeeded;
++	int src_node = folio_nid(folio);
+ 	LIST_HEAD(migratepages);
+ 	struct mem_cgroup *memcg = get_mem_cgroup_from_folio(folio);
+ 	struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
+@@ -2770,7 +2771,7 @@ int migrate_misplaced_folio(struct folio
+ 		count_vm_numa_events(NUMA_PAGE_MIGRATE, nr_succeeded);
+ 		count_memcg_events(memcg, NUMA_PAGE_MIGRATE, nr_succeeded);
+ 		if ((sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
+-		    && !node_is_toptier(folio_nid(folio))
++		    && !node_is_toptier(src_node)
+ 		    && node_is_toptier(node))
+ 			mod_lruvec_state(lruvec, PGPROMOTE_SUCCESS, nr_succeeded);
  	}
- 
- 	/* Maybe the middle of the region has different access frequency */
--	if (last_nr_regions == nr_regions &&
-+	if (ctx->last_nr_regions == nr_regions &&
- 			nr_regions < max_nr_regions / 3)
- 		nr_subregions = 3;
- 
-@@ -3820,7 +3819,7 @@ static noinline_for_stack void kdamond_s
- 				       ctx->min_region_sz);
- 
- done:
--	last_nr_regions = nr_regions;
-+	ctx->last_nr_regions = nr_regions;
- }
- 
- /*
 _
 
-Patches currently in -mm which might be from sj@kernel.org are
+Patches currently in -mm which might be from laoar.shao@gmail.com are
 
-selftests-damon-sysfs_memcg_path_leak-define-ksft_skip.patch
-mm-damon-core-copy-only-installed-probe-in-damon_split_region_at.patch
 
