@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793734094;
-	b=ru0r3NCcHSQ6nMm4HniNG4SejoCfUTPkHOgxdPped8S7vB00N9ssfO+6EtFktH37t6WJ
-	 m9mKWraIlWDd1UacJMcRiAO+LRhFfVfeWJ4Pg4OCZ+jYsVEv0lnK5yRey4dJQocO/sI81
-	 TPOtWEYEBVELY0h5Oe+yD1VUsVcckkDlkEzpQrghu1/VZDz2VdjQOVSh8eOlEIruFd2KJ
-	 dlCzAowhs7wA2TraB04/Zw7DTtOZEunFgedj6WE3CrCVanq5qvBIxsuN9Bi6Nw8mxEllG
-	 ondRzCFtfpFnqRmjcRqQgbd/nBH/IwUN9j26iIGcH5g5tGhFHbD9C35H/A2Br8fQHKw==
+	t=1793734095;
+	b=DpE8BcqZzL6ZkYJu1fsAg9FB60vuF2HrGSeu133o9cHEAs9CDTOzfKOtTsdnUVbufv7D
+	 5IDG8HFItvil9rQFP91XQxweabLvydblIZBvWueMW/KRn8+8IG8/voDkgrCpMgzF4ndR3
+	 OSJFMODeWPHDZUJxVrSWzMSq4iGEWJ8N5Dq2WEjXlqzv/wn0HeGmlkW+j6Kg4dR631MMX
+	 PgYUH00cEU/Ji4L0LpsIreKn3UZfruDK3yxsZEQEONi2AxOIKecGNbgXrAE5SnJVAz9LE
+	 VYQQS20z/9szzrwFnRK6a8HQY/APE0Fq3OwhpsE+xoAK65BXAEpZY8vOe69IQHrvrRw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793734094;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793734095;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zuEYFaLmVg/iLLrHIfXW07NtXiDvrmAt5+qGwHGIFjg=;
-	b=uOPcJySPyEXWbx4I+AjbC3cqiV4tLNqbSkpmlYueDODZN+16v/HUYIlVOHfNe06Q4t9f
-	 aCaYhaa821vTC2upIbPRjupf3EG12kCyfV0S8ynglwqIO3U4s4myvrWk5jjdGS3YJXgbc
-	 1LECV91Xf6VJZUd0wpO26SarsCyUxzp8VmOjAFVEbU/JeuCnuWcXRAbvHdgY2dDhDeR60
-	 KUiw38qXiUCC+Y5gqEp5z2e1VFF1xE1MFcJDsAdm+KOAP4WNQjZXg72M2qN/+a/Xwnt8A
-	 anJANk2f2Ubzai5vsVPpCj33IFC5hCryJJU0rsyS7jt757HrghLOxVbSz71p8GHIsNw==
+	bh=BKFWknLXoJXJ+ACd5yc6fHV6PM/d25/HPAmyVhKtJBM=;
+	b=HYBTvPPrNRq972ndvx602dL+bQ6njHNugUlb/yHJ6nyhvPGRCgrrGxLeAvUtaiXDKVcL
+	 MhGATcQFJxbnN0gTysms46FOJvJCkuufTAPvgzN+T9emD5rJi1ZL6YenLWxNwHyeLalX1
+	 QuFlqQjTKGVC9g5KmzlNF6BhRKLdki3gz98mDxyYpJnYTbzuycRtNK8EVHqGfugxZiN+a
+	 exxfO0Bq9Tvl/RA7SyCSttBlLz6sk5KIF0THuWoaGZc5o2OnPjtCX/qpwYUnfikwUVVpz
+	 b68cHc86/udnNdUvZUJGgYWbNj7DREeEQfWwE5vbX1CMr8SM4gP5PhQZd4iExUdYcEA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wo41QOxd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nw7Hr28Y;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDC9606A328;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B562D606A32D;
 	Tue,  3 Nov 2026 19:28:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wo41QOxd
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nw7Hr28Y
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793734094;
-	b=s37wJa9wG6OrxU+wBgaXf1Gzhum0+lRqHgxnKl6bDmSIRyImtOWZFX4huxpgyaoWEOGk
-	 D/Tlj5LIN+b4r0CYISQ/oZcuGnBR3WPW9jWShSQNBvs2BUF6HyxM4b8e++S+Ipa+yLru3
-	 xPs8GAMUJaHwET1A85dqNRKX6wE5nBfg1I7hl90vGexvXwJy+IbG/LNp1D7kO21bUaooa
-	 vR2tC1JJk4l2Z53rgT+PRRhIt4TJ6PXjIZluYIeEcF4VRKtmgb9M1mbGW67LCiaRj0nuX
-	 AP37Au8TMdX3qRPaJaDffG0Hpa6elsl6rUgbFP2MhoAmCgDf7WNpwJlY9S9xrOgDUzQ==
+	b=rX2K1n64CxLrBjnNprLKpYo73nnJUyF25reiJWWh7ifob7O69RaO2T0tFoayfHRDOjlb
+	 r3InCi80gAoRRqXrVlpBz9hTZubu/C1sNR69A54ITgLCEn/qpEmIHJEKMHm0uqXwo3gfX
+	 EVuMAciYbifOKCdUStkLdhw4bfeirXfFyJMgTlbJJA6tC/XFnS9+AiDxtm3WfZBnCC4yx
+	 zx+nFZrqys6bx6tR6QH32fZUDDS7BOHVwGv+hiuC1yOlwnuRzJum1KTSrZrSgWhdZULsy
+	 ov5FLw4kv8i8zPaOOOPa20o3klNlCvGjBYPOgrHlwQWq4trjgHujUcCkDxbRUq32xOw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793734094;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zuEYFaLmVg/iLLrHIfXW07NtXiDvrmAt5+qGwHGIFjg=;
-	b=rgHCy1kTaBIt7i4IbQZbqiSVlERciky/wXR5uafixBwTYRTAd4vSiT/0hlR6v5KBiJvd
-	 seXH3eD+5MtGWpEP0sjaeCPLc4AdYnsnjbrl9CLwcD9AkmWHoDIP8vvdHejrcKMiGuNZc
-	 AzjpO4lS1NxruLOeyfhsxN8VA9vmQcSvBbVmLWd3QJRci8n/nWkDGiWLhlRBcTtYs3mlP
-	 5YCVlVnhymqKEUAu8brLLY8pPQapoElQF5bqWf+xKLdZ50yT8xFReUk/FmR9hz0EYCnTb
-	 j2nd4WyLzl5S/fKCsLcl7aR+hAFn8j+N9Xafn3IrMDxsTA5V+HZUl8hTq1SMo767a9g==
+	bh=BKFWknLXoJXJ+ACd5yc6fHV6PM/d25/HPAmyVhKtJBM=;
+	b=kqKn6McNHNs9oLGrhYLe4ABumeHvJEYkf96F3nTgm9sN8++HN7Tdf+pUj7LsqK6nwHBp
+	 CVV8Zuf+ZeylTr+0OXelM8WkPuR5OHaaRtz9vFQ62bMRHbFzaPloT6kumAX6pERzvVdWU
+	 XACkT4tQ+p+kjzYxbL80+mzsaE917nW5cuH/d/at1Rdg9KpBPnOVxiwU607pB0CCLCRoq
+	 VMtHojw6fGwFKGxD1RTIPvNZIrCQtRMOSh8srfCy5jU0lHkciQ38ZfgIzN6hop665VUM2
+	 ZESeUYSbp3ifRFfvX45bCPtcXdQBjfrE2GrCgJ05Mg1S/a/l7CQ7ZCo0RZGl9kydNqw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 650501F0093A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 712A71F00A02;
 	Tue,  3 Nov 2026 19:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793734094;
-	bh=zuEYFaLmVg/iLLrHIfXW07NtXiDvrmAt5+qGwHGIFjg=;
+	bh=BKFWknLXoJXJ+ACd5yc6fHV6PM/d25/HPAmyVhKtJBM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Wo41QOxdi+Rx0EvCtXi4Xw52XSVPn24QYzz6gsylsm2M2rDeytrR1NG3IkPKmAtb2
-	 WL7fB/E2mZrTbREqym+kUtCopGoKYqav1np4jE2NUyJu1Ca2/xNwJW4+W52Pi7hlRQ
-	 484uCrS+/AbwkMolrZIxiYvQu/Iag6/DbsBzl1YSH1bEJ89XmvgxMPssExYFjd4cFR
-	 fRLqZPyBLmGwccCHm5j9WPJZN42e1Rc49pYTzjgtnxTf61ZBa/fkaGxg3OulbO99HC
-	 78divx2sfqf37ZZpiRjHVcfPB1Mnb5PgGVMUz5YnmZAOVFV83od4sYHBfKLcKQ/72Z
-	 kb4o7xpyAd9Mw==
+	b=Nw7Hr28YZTYiJEJu9Ej1+EhwU8AxhOKoaXsaXfNkLBB7Y8Xe/t+MkI6e9viIl4Tpn
+	 cqKGxAtvaASyA/AmpYuuDU5uIYLMRlB1YbR62GAGzw/5xo7UmCw7dG5GEIEk2nprzl
+	 RatvzZFLfe2kl+cZveVPHpeBtMK9YE8SsmWcR+ry49QKH8JLT/nus4b13UkohUSGii
+	 uwS3tq1OoYJxvVrR2VuAYKiX4q5UspY5HN6ekLjqLxuExRZl7NePbb7pkb/GkC+0K4
+	 ej0FV7pft37Ipfi/KJlm0NNCPWwfW2eRl7bX1o1y4BhJLERd/Y+87rRdYGdDhRvqb7
+	 83TZkXHU0+3XA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E274C46AC7;
+	by lkml.kernel.org (Postfix) with ESMTP id EED0446ACB;
 	Tue,  3 Nov 2026 19:28:12 +0000 (UTC)
 From: "David R. Hedges via B4 Relay" <devnull+linuxdev844.thelittleman.net@kernel.org>
-Date: Tue, 03 Nov 2026 13:28:02 -0600
-Subject: [PATCH 2/5] drm/nouveau/gsp: don't report failed DP AUX transfers
- as completed
+Date: Tue, 03 Nov 2026 13:28:03 -0600
+Subject: [PATCH 3/5] drm/nouveau/gsp: don't dereference a failed DP_CTRL
+ reply
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-nouveau-dp-fixes-v1-2-892f4bd357cd@thelittleman.net>
+Message-Id: <20261103-nouveau-dp-fixes-v1-3-892f4bd357cd@thelittleman.net>
 References: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
 In-Reply-To: <20261103-nouveau-dp-fixes-v1-0-892f4bd357cd@thelittleman.net>
 To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
@@ -96,11 +96,11 @@ Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, 
  "David R. Hedges" <linuxdev844@thelittleman.net>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793734092; l=2363;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793734092; l=2139;
  i=linuxdev844@thelittleman.net; s=20261103; h=from:subject:message-id;
- bh=VnhFFCJgwU5i55xG5SnKSfbRyrndYBR8/9ZzNzwvcvc=;
- b=FvGKLCExeTq/wzKIWyYwo1rYcl1ZNPwjfmlGJ9iRJBjjjUCu0eUeEa1Bfv5QXetBKXpDgnJXF
- yayxYdUuTsrDUdBzi3pocWEpW6KG++byU15FYqnfgrHstlChLrGGO5h
+ bh=Em2OoM13M26pHcKpGhv1LYrtl6SYDlTdhnsjJdx/IvI=;
+ b=SbNR04R3SMfP+QN1UMFdmAjrsP/bJpahSlrmBPEiholWFF0MG14BK5ZjKZRTnQSMaOK9sjjOC
+ 2YG7CX4kHn6BN5hvVQCke4v4O6nJOyumj6eFFm+r36izrVnQkjlVZp/
 X-Developer-Key: i=linuxdev844@thelittleman.net; a=ed25519;
  pk=Cynzuei/w0GLdh3LuNJdvH7aaszLrHSxY5UyujS7l+g=
 X-Endpoint-Received: by B4 Relay for linuxdev844@thelittleman.net/20261103
@@ -111,57 +111,53 @@ Content-Transfer-Encoding: 7bit
 
 From: "David R. Hedges" <linuxdev844@thelittleman.net>
 
-Commit 9776c0a75a1a ("nouveau/dp: handle retries for AUX CH transfers
-with GSP.") put the NV0073_CTRL_CMD_DP_AUXCH_CTRL call in a retry loop
-and dropped the check for the call failing.  When RM fails it with
-anything other than a retry request, r535_dp_aux_xfer() ignores the
-error and returns the reply fields as if a transaction had completed:
-replyType becomes the AUX reply, and size and data are copied out.
-NVIDIA's own DisplayPort library (EvoAuxBus::transaction() in
-open-gpu-kernel-modules) treats a failed AUXCH_CTRL call as a NACK and
-ignores the reply.
+Commit eb284f4b3781 ("drm/nouveau/dp: Honor GSP link training retry
+timeouts") put the NV0073_CTRL_CMD_DP_CTRL call in
+r535_dp_train_target() in a retry loop and dropped the check for the
+call failing.  The reply's err field is now read whatever
+nvkm_gsp_rm_ctrl_push() returned, but when the GSP RPC itself fails,
+a timeout for instance, the reply is NULL.
 
-RM does fail these calls.  On a GA102 with GSP-RM 570.144, replugging
-a DP monitor that hasn't come back from DPMS off produces bursts of
+On a GA102 with GSP-RM 570.144 this turned a display hang into an
+oops.  A modeset hit "core notifier timeout", and releasing the output
+afterwards timed out waiting for GSP:
 
-  gsp: cli:0xc1d00001 obj:0x00730000 ctrl cmd:0x00731341 failed: 0x0000ffff
+  WARNING: nvkm/subdev/gsp/rm/r535/rpc.c:164 at r535_gsp_msgq_wait+0xb1/0xc0 [nouveau]
+  ...
+  BUG: kernel NULL pointer dereference, address: 0000000000000010
+  RIP: 0010:r535_dp_train_target+0x1db/0x220 [nouveau]
+  Call Trace:
+   r535_dp_release+0x73/0xe0 [nouveau]
+   nvkm_uoutp_mthd+0xaf0/0xc70 [nouveau]
+   ...
+   nvif_outp_release+0x1b/0xb0 [nouveau]
+   nv50_disp_atomic_commit_core+0x5ba/0x6b0 [nouveau]
 
-(NV_ERR_GENERIC, occasionally NV_ERR_INVALID_DATA), one per AUX
-transaction, and the DPCD and EDID reads made during a burst are
-judged on whatever the reply fields happen to contain.
+0x10 is the offset of err in NV0073_CTRL_DP_CTRL_PARAMS.  Only look at
+err if the control call succeeded.
 
-Return the error from the control call again, as r535_dp_aux_xfer()
-did before the retry loop was added.
-
-Fixes: 9776c0a75a1a ("nouveau/dp: handle retries for AUX CH transfers with GSP.")
+Fixes: eb284f4b3781 ("drm/nouveau/dp: Honor GSP link training retry timeouts")
 Cc: stable@vger.kernel.org
 Link: https://gitlab.freedesktop.org/drm/nouveau/-/work_items/515
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: David R. Hedges <linuxdev844@thelittleman.net>
 ---
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-index f5f22173fc2c..953392504413 100644
+index 953392504413..028f342e020b 100644
 --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
 +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-@@ -1101,9 +1101,12 @@ r535_dp_aux_xfer(struct nvkm_outp *outp, u8 type, u32 addr, u8 *data, u8 *psize)
- 			msleep(ctrl->retryTimeMs);
+@@ -1006,7 +1006,7 @@ r535_dp_train_target(struct nvkm_outp *outp, u8 target, bool mst, u8 link_nr, u8
  			nvkm_gsp_rm_ctrl_done(&disp->rm.objcom, ctrl);
  		} else {
--			memcpy(data, ctrl->data, size);
--			*psize = ctrl->size;
--			ret = ctrl->replyType;
-+			/* The reply only describes a transaction if RM completed one. */
-+			if (ret == 0) {
-+				memcpy(data, ctrl->data, size);
-+				*psize = ctrl->size;
-+				ret = ctrl->replyType;
-+			}
+ 			/* GSP didn't say to retry, or we were successful */
+-			if (ctrl->err)
++			if (ret == 0 && ctrl->err)
+ 				ret = -EIO;
  			nvkm_gsp_rm_ctrl_done(&disp->rm.objcom, ctrl);
  			break;
- 		}
 
 -- 
 2.55.0
