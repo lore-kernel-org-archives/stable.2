@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732840;
-	b=qp0ecpRmuFAILot6/iGjdEzpdxrV3vaBKKkIWMBx1s9/y8T0vKJR5hxyp4S1z+mboxOy
-	 HUJMegbMjL+R8J28sSVjmO2QnrjU95+eYJJsCQBD/52mfXfXP0BpDjY4Dq4FXMfmSXXEO
-	 AO1RUbI8v7o4fVd6d+9FEBtYa2J4Wbu77b9lhtC48PNqQZq8BtH/AYrBrzFVkGdvI6h+5
-	 +2+eeqbM0Ln6fJA4TvkmojDqator+rgpE8aneBkU7RxrOgTUaYRCNUniMbjIeCXJjuSEY
-	 R2Fo+eQ4nnlxrm7yHxSYg7VJh2M51jHpSp5Nlmq5LL/n++MtcbPZ0xNq+8b7rTO9bbw==
+	t=1793732846;
+	b=3zOjVjOJFICk78wHMa/u4lWDc5VmpZ3pdvy2t7NCbB790v8eNEwTCwQBBClbjPpDP/pW
+	 7fGSokFsTJn2bNOZeI2MoGKT/SiX/tm+7l3/XEvS6ILoWMF9loa1niOJrLWfYRfhmKgpT
+	 6YlClV4hXPCErRHNWt3c6J9xAfDcuRz6UlLc5YqWSBsdM8lQDEyWHZSUQI/tjiWhnLHnC
+	 CoLSkgb8dVbIUKfKuy4X6f17cuiJ/R3igGgOnBEnp8FSEMX6SYK6/G6yqU93dkjbZmMLH
+	 nkvJPi+wbs10u0Vbk3/7wtiym7ogVm47xq/JsTAGQQAMSGm0LqH+oP3gFI3dt/Pg8SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732846;
 	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
-	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
-	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=YKxG32AxsufUd7YchK7727X8TY3T1MC6mpG7My++UTg=;
-	b=Nkumtrs4y0ClaxaDbSc9UydUSDuYLr/m1LShrhkdeNerTX9NNZuOwpnS6NUg3UXln/VZ
-	 q/5d50XTk0FhwE0pb9WFIkaz3JnAsUYSTSKmg+Iqj9EVWiissa+I1xgGznL2sjNSwz+WN
-	 mGrGk/hMRKwjfSK68MBCq9IB305p/f+LppjdVFyoZIPyjrI8UnbkR1tvecy0Zwio17+n7
-	 LBvWchtLyFDrTsohdnZu2aTSLrSRRYMDFJLBBdpUNI2F7Xc2D3PfyD6LltDsDWGKiU41M
-	 JHSOsV0D/R7lt+/7zsNwtxO1FdZLZBV5nr5LZ0/SRDnJHfMpmXa7eQT9seyei+Mkkjw==
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=Iy1bK4+jBfc9gJ5+O/X5fpt1iKIpv9Dc2QHfUpTN6oY=;
+	b=4kZY6z9s4RMCS1NyJ5P1UPBqOKxd3yCvrBdLrnCm06CcoT6dF2XQ86Ttd54aL0MNxqA3
+	 G0/3vfTdOyS8rdekNteQv/NcaVx5tLrT4yvr4pb9MQrJj8xQ0ukMdfWqieV84ucCobX0y
+	 U7JKgdCV5rBVC1a0t3NdLerbpvqUJpgI0PYgUv4hiH+gVvyx0CHQrYsNPcaPRlNZ1qdkM
+	 tSC5JWKWBRJSJEJcSDhsETlcxKGqWkgBtPUOIDXZbJq1y3aC1pTneK6TwpB0Q9cu8zafM
+	 BFELIG1s1jqAXAp9ezRqyRBG+Ux9Dj0kQN6X/2sTV67PPAQ+LGZARKa1biCXmurCluQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69078606A326;
-	Tue,  3 Nov 2026 19:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69078606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF2C606A332;
+	Tue,  3 Nov 2026 19:07:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF2C606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJykF5hzRz8Xrr9;
-	Wed, 04 Nov 2026 03:07:17 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6A3J73md084144;
-	Wed, 4 Nov 2026 03:07:03 +0800 (+08)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJykL5mHxz5B0rZ;
+	Wed, 04 Nov 2026 03:07:22 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 6A3J7Aad024105;
+	Wed, 4 Nov 2026 03:07:10 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
+Received: from mapi (xaxapp02[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Wed, 4 Nov 2026 03:07:07 +0800 (CST)
-X-Zmail-TransId: 2afc6aea30db9b5-d1efc
+	Wed, 4 Nov 2026 03:07:12 +0800 (CST)
+X-Zmail-TransId: 2afa6aea30e0aa3-d9fe2
 X-Mailer: Zmail v1.0
-Message-ID: <20261104030707567QiZNPqBVEESVbvpNukFkY@zte.com.cn>
-Date: Wed, 4 Nov 2026 03:07:07 +0800 (CST)
+Message-ID: <20261104030712986Mq-di1Oh8Kl1WqW3R0TQW@zte.com.cn>
+In-Reply-To: <20261104030707567QiZNPqBVEESVbvpNukFkY@zte.com.cn>
+References: 20261104030707567QiZNPqBVEESVbvpNukFkY@zte.com.cn
+Date: Wed, 4 Nov 2026 03:07:12 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,52 +63,75 @@ From: <shao.mingyin@zte.com.cn>
 To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
         <linux-nvme@lists.infradead.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvMl0gbnZtZXQ6IHBjaS1lcGY6IGZpeCBhIGNvbmZpZ2ZzIG92ZXJmbG93IGFuZCBhIGZhaWxlZC1yZWFkIGhhbmc=?=
+Subject: =?UTF-8?B?W1BBVENIIDEvMl0gbnZtZXQ6IHBjaS1lcGY6IGZpeCBzdWJzeXNucW4gY29uZmlnZnMgYnVmZmVyIG92ZXJmbG93?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A3J73md084144
+X-MAIL:mse-fl2.zte.com.cn 6A3J7Aad024105
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 04 Nov 2026 03:07:17 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Wed, 04 Nov 2026 03:07:22 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AEA30E5.000/4jJykF5hzRz8Xrr9
+X-Fangmail-MID-QID: 6AEA30EA.001/4jJykL5mHxz5B0rZ
 
-This series fixes two independent bugs in the NVMe PCI endpoint function
-target driver.
+nvmet_pci_epf_subsysnqn_store() passes the length of the configfs write
+to strscpy() as the destination size:
 
-Patch 1 fixes a heap overflow in the subsysnqn configfs attribute.  The
-store callback passed the length of the configfs write buffer to
-strscpy() as the destination size; an NQN longer than NVMF_NQN_SIZE
-therefore wrote past subsysnqn into the following fields of the
-nvmet_pci_epf object.
+	strscpy(nvme_epf->subsysnqn, page, len);
 
-Patch 2 fixes a hang on failed read commands.  queue_response() completed
-a command with a non-zero status directly, without waking
-exec_iod_work(), which is waiting for the transfer of a DMA_TO_DEVICE
-command.  The completion queue work could then free the iod while the
-work item was still waiting on iod->done.  The work item now waits based
-only on the data direction and length, and completes the command after
-the wait even when it failed.  This is a follow-up to the recent fix for
-the use-after-free in the same function (c9e9bb757971), which moved the
-wait decision earlier but left the failed-command case from
-746d0ac5a07d in place.
+The third argument of strscpy() is the size of the destination buffer,
+not the length of the source string.  The destination is
+subsysnqn[NVMF_NQN_SIZE], i.e. 223 bytes, while a configfs attribute
+store can carry up to 4095 bytes.  A longer NQN therefore overflows
+subsysnqn into the following mdts_kb field and past the nvmet_pci_epf
+object, corrupting the heap.
 
-The two patches are independent, have no inter-patch dependencies and can
-be applied in any order or as a subset.  Both carry Fixes: and
-Cc: stable.
+Using the write length also silently dropped the last byte of the value:
+configfs terminates the buffer after the trailing newline that echo(1)
+writes, so a normal write stored the right NQN while a write without a
+newline lost its last character.
 
-Testing: both apply to next-20261030, pass checkpatch.pl --strict with
-0 errors/0 warnings/0 checks, and drivers/nvme/target/pci-epf.c builds
-with CONFIG_NVME_TARGET_PCI_EPF=m and W=1 without new warnings.
+Take the length of the value up to the newline, reject a value that does
+not fit and copy the NQN explicitly.
 
-Patch 1 was also reproduced and re-tested in QEMU (7.3.0-next-20261030,
-configfs pci_ep framework, no endpoint controller needed): writing a
-230-byte value through the subsysnqn attribute stored it and clobbered
-mdts_kb (512 -> 4276545) before the fix, and is rejected with -EINVAL
-after it.  Patch 2 was not runtime-tested: this setup has no PCI
-endpoint controller.
-
+Fixes: 0faa0fe6f90e ("nvmet: New NVMe PCI endpoint function target driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with configfs and
+nvmet-pci-epf; the attribute store does not need a PCI endpoint
+controller.
+
+Writing 230 bytes to the subsysnqn attribute of an nvmet_pci_epf
+instance runs past subsysnqn[NVMF_NQN_SIZE] (223) and overwrites the
+following mdts_kb field:
+
+  unpatched                            patched
+  write accepted                       write rejected (-EINVAL)
+  mdts_kb 512 -> 4276545 (0x414141)    mdts_kb stays 512
+
+diff --git a/drivers/nvme/target/pci-epf.c b/drivers/nvme/target/pci-epf.c
+index a8df176c1a57..38c210cac961 100644
+--- a/drivers/nvme/target/pci-epf.c
++++ b/drivers/nvme/target/pci-epf.c
+@@ -2531,15 +2531,18 @@ static ssize_t nvmet_pci_epf_subsysnqn_store(struct config_item *item,
+ {
+ 	struct config_group *group = to_config_group(item);
+ 	struct nvmet_pci_epf *nvme_epf = to_nvme_epf(group);
++	size_t nqn_len;
+ 
+ 	/* Do not allow setting this when the function is already started. */
+ 	if (nvme_epf->ctrl.tctrl)
+ 		return -EBUSY;
+ 
+-	if (!len)
++	nqn_len = strcspn(page, "\n");
++	if (!nqn_len || nqn_len >= sizeof(nvme_epf->subsysnqn))
+ 		return -EINVAL;
+ 
+-	strscpy(nvme_epf->subsysnqn, page, len);
++	memcpy(nvme_epf->subsysnqn, page, nqn_len);
++	nvme_epf->subsysnqn[nqn_len] = '\0';
+ 
+ 	return len;
+ }
