@@ -1,47 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793700587;
-	b=quiGCcB1GCssKyz+S4+JHN/49MInp+FlVmnccp+E25PqMgQhdcLUs/BM6vSlFxDqcT9k
-	 iTQbMy15ac9QdFaBhDI5moO3PJq4icnTWmmikIFbyEdEdQ6dFdqCX5jf76GQSqDv3HtiP
-	 dRHSeXailK6VhQwgqfl/avW3Kap/9Li/nlR5OVgRjGczayyR3g/+ZdbF0/e/Qfk8rOpOU
-	 DRZS5BM6G3A5ZOWh9aBJHoRCoDvD7ZbqavGMszPwqq8hG1VFN7kYsBq3snWxY/4RIK4ev
-	 pegfaQYVPn41JRNIBPjQQk+YTBxDoI81ppO0NhMQwH/VT0eNUZC4sF0/8Tna4E6Jr9A==
+	b=urnCcOnyD3mRk/+9WZ815H9MXX8enyc+xjKOY+nn7fSP8TQ0jtaWnGEHJKSyVqSI5a8a
+	 tsQgpjw1+hhLM7YCBe+6uTNGAQE4+PsA4+YJ6eKOiN6L7rabKlqA/A+oO3Cm8B/H+SJ5v
+	 JQ+D2EZZiJqx06543ptGYeJg9zVM7k7dXIG7uIiWMIjKusQDuEXaxN7zlNT2Id+aur8HV
+	 aGVcQjP5AisVLBA3i2IWjmFaeF9z6+McJzM7H9I0Z3JOfG4dC3ff/shmifZHbWFw6F3tI
+	 XPu1axYObFvwkZYu8KKpuECNS9GnN/3A9xo/6ZUhqZQ01YZ8J5Wp5bWDLrIrvUCTG2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793700587;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=87YaXy+vRk/pUtIcFFA/DjdFKBOdW0xOkhu/ncS09xc=;
-	b=2bEByGCrH+uQBAocweTo+39vTDAY4Qdde5ZR8OjjPIdjaFcEjS6NP4iLJt1G0iFB/os5
-	 lcYubRkJeoI37ojER95TSA7MX4upqW/RBvv8z5RxsEEINoYaUoYFyVUyfQs4Q7M32asf8
-	 PcwzFh4Jsy42t5G0TzL0NKadhXh4vXilYIHfsSY0kDpNbqG0PuyA9MJTV/owIzwqwFCJB
-	 /m5flUn3cs8q5u+pdinYGbGbGQYiatoaN1xBcs46KBdy1QgDwbk48LOyXapV4Hts8ZFGB
-	 k8MK3o+G1paydJQfgkkunKAXZzRR0nwPmSMkQtIjb1PSQ/9/3089/IBoa2NXf9tQo3w==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	b=25mfPvOOt9Dlxvz597Sh7NdShj2EMQz1IqPcQtMbGKbqh50LCNxIsteDj5E58myiMbaB
+	 oyUwwDSJRRJuZNgF4f5g8ntLaew92VD4sX3ZOS3G9apNCG7nf1etwryRxzNFgqQ+/oJ7s
+	 YgigHZcQ3bDtFGwE77oj8aZrTUxlSlpdoC6MRsJzt2lkzj1yCsdm0UbqOwV3xsuAAK0S1
+	 4RpoRDZz2EnWEmmB7oN9m+3llHXupOKB+jAffMWsjaZlKDUT2lA08AYw0BfD93E535wtX
+	 6PLgBGDsQm+2pDu0bYZmk+aJIqVQPYVEfu45Am602r3QIUe73AznNP5Nb3wmZDSY70Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UdoTHu3t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HxWdSQ0+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DDD6083602
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:09:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295D16082BFF;
+	Tue,  3 Nov 2026 10:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UdoTHu3t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD48F1F00919;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HxWdSQ0+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744801F000C1;
 	Tue,  3 Nov 2026 10:09:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700587;
-	bh=87YaXy+vRk/pUtIcFFA/DjdFKBOdW0xOkhu/ncS09xc=;
-	h=Subject:To:Cc:From:Date;
-	b=UdoTHu3tNzlba6BT1SSOGkHH9itJgU21Ek52fQmmMXkoX1ALyWbFAA9UU0e1Yveqh
-	 x4J3Z5JLXFzIX1I7RBHwKFjIKbhTe1Fk1dSpF2VbnykzVcF9PlhONE0qn3h5Jbv47A
-	 YD6UUxQ3c9YsAcKkDETX5fRUgMwyaiLS+KKzyveU=
-Subject: FAILED: patch "[PATCH] net/sched: cls_flower: avoid stale mask references after" failed to apply to 5.15-stable tree
-To: z1652074432@gmail.com,bird@lzu.edu.cn,kanolyc@gmail.com,kuba@kernel.org,n05ec@lzu.edu.cn
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:09:37 +0100
-Message-ID: <2026110337-dynasty-fanciness-0b19@gregkh>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793700587;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HxWdSQ0+w7l46vanigC8eTNAA7oTbxAUsSjy8H/EhdsQ9N2EzVKn4V9gOVZn11B0s
+	 1q0TxD4BCUyONuwUNS5/Aw1It/I1usM69v0mlPkucyt0IDH0aBIrRetTUS4MIh2uRR
+	 x6oZLlqVq9OhwVRt+GAGVJPLRxXo7J45701P1v84ZOO789pxXi2vbf3HuL9d8zIPSn
+	 5WVkrhwrquWe63f29+Hbl2AdzvCbUihaad3AWwlJM833H7r2R9Ifm6d9IECGMRIhYQ
+	 4n8X4huyzIqyC9rOQvzXMEMJfbFb+5C7OcSKVnRThEw0m3tx1kuzsnNM6xrz6sIZVJ
+	 jiD3l7HbS3d6A==
+From: netdev-bot+sinfo@kernel.org
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Madalin Bucur <madalin.bucur@nxp.com>,
+ Sean Anderson <sean.anderson@linux.dev>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH] net: fman: drop the FMan device reference after port probe
+Date: Tue, 03 Nov 2026 10:09:46 +0000
+Message-ID: <179370058603.488859.9070965025678524669@kernel.org>
+In-Reply-To: <20261103100532.1309969-1-vulab@iscas.ac.cn>
+References: <20261103100532.1309969-1-vulab@iscas.ac.cn>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,241 +65,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
 
+Hi!
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 58f7989da6e715ce834ac861b7ba6ae9f9bdb098
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110337-dynasty-fanciness-0b19@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Possible dependencies:
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 58f7989da6e715ce834ac861b7ba6ae9f9bdb098 Mon Sep 17 00:00:00 2001
-From: Yuhang Zheng <z1652074432@gmail.com>
-Date: Mon, 12 Oct 2026 09:07:19 +0800
-Subject: [PATCH] net/sched: cls_flower: avoid stale mask references after
- delete
-
-Flower releases a mask reference when a filter is removed from the
-classifier. The filter object can remain alive while dump, walk, or
-hardware reoffload paths hold a reference to it. Those paths can then
-dereference f->mask after the mask has already been released.
-
-Keep the mask reference until the filter reference count reaches zero.
-Release the mask synchronously from the final __fl_put() while the caller
-still holds the tcf_proto reference, and leave the existing RCU work to
-free the mask. This keeps the mask available to every reader that still
-holds the filter.
-
-The filter is still removed from the classifier indexes immediately.
-Therefore, a deleted filter can temporarily retain an otherwise empty
-mask; fl_delete() uses the handle IDR, rather than the mask list, to
-determine whether the classifier has become empty.
-
-Failed mask assignment can leave fnew->mask as an error or borrowed
-pointer without an owned mask reference. Clear it before the common
-failure path so the final put cannot release an unowned reference.
-
-This fix does not add fields, snapshots, or per-filter memory.
-
-Fixes: 92149190067d ("net: sched: flower: set unlocked flag for flower proto ops")
-Cc: stable@vger.kernel.org
-Reported-by: Xin Liu <bird@lzu.edu.cn>
-Tested-by: Yucheng Lu <kanolyc@gmail.com>
-Signed-off-by: Yuhang Zheng <z1652074432@gmail.com>
-Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
-Link: https://patch.msgid.link/20261012010720.2248662-2-n05ec@lzu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-index 1cefea571efd..92a7f2d6efc0 100644
---- a/net/sched/cls_flower.c
-+++ b/net/sched/cls_flower.c
-@@ -518,15 +518,22 @@ static void fl_hw_update_stats(struct tcf_proto *tp, struct cls_fl_filter *f,
- 	tcf_exts_hw_stats_update(&f->exts, &cls_flower.stats, cls_flower.use_act_stats);
- }
- 
--static void __fl_put(struct cls_fl_filter *f)
-+static bool __fl_put(struct tcf_proto *tp, struct cls_fl_filter *f)
- {
-+	bool last = false;
-+
- 	if (!refcount_dec_and_test(&f->refcnt))
--		return;
-+		return false;
-+
-+	if (f->mask)
-+		last = fl_mask_put(fl_head_dereference(tp), f->mask);
- 
- 	if (tcf_exts_get_net(&f->exts))
- 		tcf_queue_work(&f->rwork, fl_destroy_filter_work);
- 	else
- 		__fl_destroy_filter(f);
-+
-+	return last;
- }
- 
- static struct cls_fl_filter *__fl_get(struct cls_fl_head *head, u32 handle)
-@@ -572,11 +579,10 @@ static int __fl_delete(struct tcf_proto *tp, struct cls_fl_filter *f,
- 	list_del_rcu(&f->list);
- 	spin_unlock(&tp->lock);
- 
--	*last = fl_mask_put(head, f->mask);
- 	if (!tc_skip_hw(f->flags))
- 		fl_hw_destroy_filter(tp, f, rtnl_held, extack);
- 	tcf_unbind_filter(tp, &f->res);
--	__fl_put(f);
-+	*last = __fl_put(tp, f);
- 
- 	return 0;
- }
-@@ -617,7 +623,7 @@ static void fl_put(struct tcf_proto *tp, void *arg)
- {
- 	struct cls_fl_filter *f = arg;
- 
--	__fl_put(f);
-+	__fl_put(tp, f);
- }
- 
- static void *fl_get(struct tcf_proto *tp, u32 handle)
-@@ -2488,12 +2494,14 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 	}
- 
- 	err = fl_check_assign_mask(head, fnew, fold, mask);
--	if (err)
-+	if (err) {
-+		fnew->mask = NULL;
- 		goto unbind_filter;
-+	}
- 
- 	err = fl_ht_insert_unique(fnew, fold, &in_ht);
- 	if (err)
--		goto errout_mask;
-+		goto unbind_filter;
- 
- 	if (!tc_skip_hw(fnew->flags)) {
- 		err = fl_hw_replace_filter(tp, fnew, rtnl_held, extack);
-@@ -2547,7 +2555,6 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 
- 		spin_unlock(&tp->lock);
- 
--		fl_mask_put(head, fold->mask);
- 		if (!tc_skip_hw(fold->flags))
- 			fl_hw_destroy_filter(tp, fold, rtnl_held, NULL);
- 		tcf_unbind_filter(tp, &fold->res);
-@@ -2555,7 +2562,7 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		 * after this.
- 		 */
- 		refcount_dec(&fold->refcnt);
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	} else {
- 		idr_replace(&head->handle_idr, fnew, fnew->handle);
- 
-@@ -2580,9 +2587,6 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 	if (in_ht)
- 		rhashtable_remove_fast(&fnew->mask->ht, &fnew->ht_node,
- 				       fnew->mask->filter_ht_params);
--errout_mask:
--	fl_mask_put(head, fnew->mask);
--
- unbind_filter:
- 	if (bound_to_filter) {
- 		if (flags & TCA_ACT_FLAGS_NO_RTNL)
-@@ -2598,14 +2602,14 @@ static int fl_change(struct net *net, struct sk_buff *in_skb,
- 		idr_remove(&head->handle_idr, fnew->handle);
- 		spin_unlock(&tp->lock);
- 	}
--	__fl_put(fnew);
-+	__fl_put(tp, fnew);
- errout_tb:
- 	kfree(tb);
- errout_mask_alloc:
- 	tcf_queue_work(&mask->rwork, fl_uninit_mask_free_work);
- errout_fold:
- 	if (fold)
--		__fl_put(fold);
-+		__fl_put(tp, fold);
- 	return err;
- }
- 
-@@ -2618,8 +2622,10 @@ static int fl_delete(struct tcf_proto *tp, void *arg, bool *last,
- 	int err = 0;
- 
- 	err = __fl_delete(tp, f, &last_on_mask, rtnl_held, extack);
--	*last = list_empty(&head->masks);
--	__fl_put(f);
-+	spin_lock(&tp->lock);
-+	*last = idr_is_empty(&head->handle_idr);
-+	spin_unlock(&tp->lock);
-+	__fl_put(tp, f);
- 
- 	return err;
- }
-@@ -2641,12 +2647,12 @@ static void fl_walk(struct tcf_proto *tp, struct tcf_walker *arg,
- 		rcu_read_unlock();
- 
- 		if (arg->fn(tp, f, arg) < 0) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			arg->stop = 1;
- 			rcu_read_lock();
- 			break;
- 		}
--		__fl_put(f);
-+		__fl_put(tp, f);
- 		arg->count++;
- 		rcu_read_lock();
- 	}
-@@ -2697,7 +2703,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		cls_flower.rule =
- 			flow_rule_alloc(tcf_exts_num_actions(&f->exts));
- 		if (!cls_flower.rule) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return -ENOMEM;
- 		}
- 
-@@ -2715,7 +2721,7 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		if (err) {
- 			kfree(cls_flower.rule);
- 			if (tc_skip_sw(f->flags)) {
--				__fl_put(f);
-+				__fl_put(tp, f);
- 				return err;
- 			}
- 			goto next_flow;
-@@ -2731,11 +2737,11 @@ static int fl_reoffload(struct tcf_proto *tp, bool add, flow_setup_cb_t *cb,
- 		kfree(cls_flower.rule);
- 
- 		if (err) {
--			__fl_put(f);
-+			__fl_put(tp, f);
- 			return err;
- 		}
- next_flow:
--		__fl_put(f);
-+		__fl_put(tp, f);
- 	}
- 
- 	return 0;
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
