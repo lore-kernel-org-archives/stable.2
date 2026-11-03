@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700589;
-	b=2MCV1uiIuUimXzd9qdG1md/+fEZcFVFDBPyoW6GwCX+zbXxPO3n3sUYO2z5hSRxSG59s
-	 F6r/osWGmyO25foboefgGmX6sgDHcGp36lGEmtAscim4Tb4z7Gl3vkUrpER6pnmvKDxzw
-	 PT/2e/nno+P8e8S+X4ZE322JVnl6HEteG1e86N/l9NBvs5XtCfHj8AX3DVmXLBGIJpk6E
-	 A7t9DOd+m6h4yzVpuRnBMGrbBIKTOqw7PEmunXPJbFiIiPADeoCdUK1SF+p3RvoF5BwVc
-	 2bWFu/xm/2qLfTysiTp0zuVtcIFRenkG8iDqlFeTqJtmDkg+/uhb4EhPSsWzrRirzSQ==
+	t=1793700587;
+	b=quiGCcB1GCssKyz+S4+JHN/49MInp+FlVmnccp+E25PqMgQhdcLUs/BM6vSlFxDqcT9k
+	 iTQbMy15ac9QdFaBhDI5moO3PJq4icnTWmmikIFbyEdEdQ6dFdqCX5jf76GQSqDv3HtiP
+	 dRHSeXailK6VhQwgqfl/avW3Kap/9Li/nlR5OVgRjGczayyR3g/+ZdbF0/e/Qfk8rOpOU
+	 DRZS5BM6G3A5ZOWh9aBJHoRCoDvD7ZbqavGMszPwqq8hG1VFN7kYsBq3snWxY/4RIK4ev
+	 pegfaQYVPn41JRNIBPjQQk+YTBxDoI81ppO0NhMQwH/VT0eNUZC4sF0/8Tna4E6Jr9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700587;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fR7KahIHeMz/udWde6/4QZIugPd+/1MY0X6xorzoLUU=;
-	b=2zMcO88a0cFifmtsAAxoagpnTVe4BFvGHlL3cgv02IUkJM7wr5xgqcE8Mf9R+3WHDmCa
-	 Xukkmsst98VRK+pqFP8vTfxvLKN1HpSyebTAddO/g7DPA4Dk4f47gDVDXkyqSw5fFEGVB
-	 1WYlWxPhM/DOt5HIxt2dgsum95bsG91BykQgKThl7ADSrWjwf8Gx0YbdJBX545bBpXS5P
-	 5XZ/2ZKopPKMv4EYLPcNjff00Em52ptvffE87azCqTYr8hPyKYDPpPgdcwYnhiehIrzTu
-	 rNciiKo+jl5mlL9GqqIGOv6EmI31EQciQyHxKnJesVjDBvQmStY57KmHDreBAEhsH5A==
+	bh=87YaXy+vRk/pUtIcFFA/DjdFKBOdW0xOkhu/ncS09xc=;
+	b=2bEByGCrH+uQBAocweTo+39vTDAY4Qdde5ZR8OjjPIdjaFcEjS6NP4iLJt1G0iFB/os5
+	 lcYubRkJeoI37ojER95TSA7MX4upqW/RBvv8z5RxsEEINoYaUoYFyVUyfQs4Q7M32asf8
+	 PcwzFh4Jsy42t5G0TzL0NKadhXh4vXilYIHfsSY0kDpNbqG0PuyA9MJTV/owIzwqwFCJB
+	 /m5flUn3cs8q5u+pdinYGbGbGQYiatoaN1xBcs46KBdy1QgDwbk48LOyXapV4Hts8ZFGB
+	 k8MK3o+G1paydJQfgkkunKAXZzRR0nwPmSMkQtIjb1PSQ/9/3089/IBoa2NXf9tQo3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CsIUeM5x;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UdoTHu3t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCC7606A828
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:09:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DDD6083602
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CsIUeM5x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672731F000C1;
-	Tue,  3 Nov 2026 10:09:48 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UdoTHu3t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD48F1F00919;
+	Tue,  3 Nov 2026 10:09:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700588;
-	bh=fR7KahIHeMz/udWde6/4QZIugPd+/1MY0X6xorzoLUU=;
+	s=korg; t=1793700587;
+	bh=87YaXy+vRk/pUtIcFFA/DjdFKBOdW0xOkhu/ncS09xc=;
 	h=Subject:To:Cc:From:Date;
-	b=CsIUeM5xWMEtKBbfuouaXH9rO++MSBP35sLno2552tarLPKRaOSv/coJLfGWYsrXa
-	 wdfP+RUWGGn2+DEOVzlCKylibCW4+WF6/VQaxagVW4Y95UuCQtCsmJUmZORADkIYuK
-	 mErGmzHT2a4PGT/A+Ud7vXSg5puacOjxTPKvyUzY=
-Subject: FAILED: patch "[PATCH] net/sched: cls_flower: avoid stale mask references after" failed to apply to 5.10-stable tree
+	b=UdoTHu3tNzlba6BT1SSOGkHH9itJgU21Ek52fQmmMXkoX1ALyWbFAA9UU0e1Yveqh
+	 x4J3Z5JLXFzIX1I7RBHwKFjIKbhTe1Fk1dSpF2VbnykzVcF9PlhONE0qn3h5Jbv47A
+	 YD6UUxQ3c9YsAcKkDETX5fRUgMwyaiLS+KKzyveU=
+Subject: FAILED: patch "[PATCH] net/sched: cls_flower: avoid stale mask references after" failed to apply to 5.15-stable tree
 To: z1652074432@gmail.com,bird@lzu.edu.cn,kanolyc@gmail.com,kuba@kernel.org,n05ec@lzu.edu.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:09:38 +0100
-Message-ID: <2026110338-reassign-lapdog-d1ae@gregkh>
+Date: Tue, 03 Nov 2026 11:09:37 +0100
+Message-ID: <2026110337-dynasty-fanciness-0b19@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 58f7989da6e715ce834ac861b7ba6ae9f9bdb098
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110338-reassign-lapdog-d1ae@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110337-dynasty-fanciness-0b19@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
