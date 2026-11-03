@@ -1,57 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707717;
-	b=KjXxD+CvClh/yYEb8CIcjdeup5CEAYpzlZs//4Ej5n67qhvAubtZuExyyfivL4ob3Z+m
-	 fPWSW8KXjMj9YXlh+e5oBE1gTbyjMgZHvyIT5zL1G1z/arh387uw/ASIPK+MZCTdQHt/l
-	 JvENhXhhUCpVBdMG2LMA0gQpEdoVifTNyHX2U9Ny2iVrbzGxYjALHopJmdCDdSWWiY/Nv
-	 k4G7zNEIfdQcR/L6cPO0TmNTBdbrKxvkS4OZegZfMpdrLeZTsBJT4uYEXX0aGxSh7Z6Wx
-	 IcS/HYatawZ5FyAjYwfQsmIsGRkMaBOXEUkabaD9wfIxn1teAJQtnVLEzzOCC4D9u+w==
+	t=1793707912;
+	b=qNPqbVSdeZy4RVEYYjoX9/rdXJSGc4uJS7i2NLwNc+GOhNeeaAbm6LhvV5NtbO1MkWK7
+	 KLGTSA3X9oqzscOtDfsN901RGR4Bkjvoe6GuyDWwtHqQFGgGrGYgwk2jGXZ+cVcCaHkDt
+	 /ICXoD1oZzzN7GasSva8a6qdzLREr2QX7rgPWimb3RA1YpyHX8qKdWj0efM5aTEYMYfvH
+	 ahQNK58jERKq3RQdP8usKCIKF5s0Lr09E4iOkc5xgRwin+h1VsDwrj74uFdUzdACmuuE/
+	 fazwis9am508t0kkrBrb+r6bXS3Ba5sWKtabVr/4iE+MxEz65HQfMpuXR/trOJWIGLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707717;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/x6us06Il7cOBuX1Y5NFLXJj/ZFRDHp6C1Wighv86dA=;
-	b=mIVAvmyptrPMPDD1noI9rHi0YFdW3+bKl44yOzxt0cKFKcHBmD+QxfK2mRWWn++PxafW
-	 nBEbSVCuaAFBucxZLZIm4hTrzuDQsXPDaazHkRgfivkxIkcWcTrL1HYvgwNlmn6nDbWlb
-	 0IT4AL8ftiTy1CAR+ncaWB2i7BiNFUu7/bzwyhXwOpTwpG8NSbiyruQUxtZCwmd7K1rHf
-	 VyEW0wxnkshZGqMNv9M/Nyb75eyKg9EgeemINYBy/NTIalETFYsqpWEAZUA2PNXrUzK7K
-	 cVJiL1i17f07dh4ElfWlNXS0Qm278K/55o32eE2FXE0D+EiHZHkO/rcokZAF+rcgn7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793707912;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-malware-bazaar;
+	bh=MVcnXM36LNxtn2tAVvi5I8q52WV5VnIZn3/vsAKnt4M=;
+	b=wrtr63xzUrgPWYhu8dmtSEIhcKoJaVo4HSdxTH3Oa66yrDSoQ/ZiQEwEXQZP1gi35SLE
+	 +0KwbmXHT2yZFdWDH5vOXmB8uE/VKz+ZcgicZMPH6/eAv85IdzKSQwLEQGotDVT7tGQ2/
+	 fCiOCiGGFWKOjPhK3rS2rnCGdcTj8z7jr/Z33K081ZFqyDBOSp1PGMNBcC4lwZPQd6S2k
+	 7amwVH1BFV1HS7y3dy/iUcZ0ZRssaym1JXGiNQ554+p/ThfG2H7NpI5Iy4wuSI3zG2o+q
+	 MNT3Ujveye2j/9fpEuXY+TmXdOR8PdvmKuudXyG9cywKyuZu4KMZVo8aELJdD4Z0MlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BZ5ZHSZM;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=LwSTw77J;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9752A606A327
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 12:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9752A606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DF9606A326;
+	Tue,  3 Nov 2026 12:11:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BZ5ZHSZM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793707713; x=1793966913;
-	bh=/x6us06Il7cOBuX1Y5NFLXJj/ZFRDHp6C1Wighv86dA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BZ5ZHSZM/I0LtXxu9OGkUKtKV/QAeIsJntO4GzSoEwDTmamrAU8Soo0wgPH3QlV07
-	 +RFyNWdZzVkPN8BfGuLaTWmUsS5oUEBepzJ64HO6wKaW6HR3gkbhNikwq4dF2DsZyG
-	 oEt4AzybXkj0f9FdEttBwpQUGD9EBN7ys0wt5LJSkZoIJMasvlAI7OttSX5BI4dJyT
-	 JdOWqBPHoo+Pq5tEj1ZeVrvkntJbwlVtNQzUn+ySVe6aJC6+Tqo7NRMV+Ge+VpODO9
-	 NG4V7/6neFq+EhZAx2A+vuwScsjcBJTUbiTFjNq1lUKgC2v38X27ZR8gZk1+RIKg4P
-	 BH24CtGBfp4rA==
-Date: Tue, 03 Nov 2026 12:08:29 +0000
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sinan Turunc <enscrpt@pm.me>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] media: cx231xx: Bound audio copies by the PCM buffer size
-Message-ID: <20261103120813.362-1-enscrpt@pm.me>
-Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: b6799638f4bb857c45e6b0a2e0d6c3c3b2c384ad
+	dkim=pass (2048-bit key, unprotected) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=LwSTw77J
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=MVcnXM36LNxtn2tAVvi5I8q52WV5VnIZn3/vsAKnt4M=;
+	t=1793707912; x=1794917512; b=LwSTw77J4aFaJFwOs0nJWghjpGiEqi6XDnGV5eIU2EDgXpa
+	jSw8RfEDle4Rrrgn6Jv+z+kGombk/EKtRSEadpZFw1rZBQfxpA5HcvkD8ZkOJDAzCWIJg98mNX5kz
+	FlgzFrxX2XV4z/KPt+E38LgFDDDUv/wMDn2+XBDYjB0s7OR/Z+WtcXxmpAYew5BHbgG8u1J3KcLq8
+	ddsxW7Z+EW3gCo+OjTYaeBD4YLzW7yRW02ywjiTUSi8FcUbY3cDj9Sszeasg9SFKnZYpcgTFMICH9
+	BAxKQJ3KnZsH3UzzbQgP2bhGl1XRVADJ1glI4zUX9DNKsVfLN9hNz3NzoGeMJiAQ==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xODMf-00000003PjZ-3y1L;
+	Tue, 03 Nov 2026 13:11:46 +0100
+Message-ID: <b9e1a5436b01804946cf76f590743fc558971537.camel@sipsolutions.net>
+Subject: Re: [PATCH v2 2/2] wifi: mac80211: send wake nullfunc when TIM bit
+ is set while awake
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Lee Jones <lee@kernel.org>, Jouni Malinen <j@w1.fi>, Jiri Benc
+ <jbenc@suse.cz>,  Michael Wu <flamingice@sourmilk.net>, Rajkumar Manoharan
+ <rmanohar@qca.qualcomm.com>, "John W. Linville" <linville@tuxdriver.com>,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Date: Tue, 03 Nov 2026 13:11:45 +0100
+In-Reply-To: <20261103110642.260244-3-lee@kernel.org>
+References: <20261103110642.260244-1-lee@kernel.org>
+	 <20261103110642.260244-3-lee@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,64 +72,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-malware-bazaar: not-scanned
 
-cx231xx_audio_isocirq() and cx231xx_audio_bulkirq() split the copy into
-the ALSA ring buffer once at the buffer end and wrap hwptr_done_capture
-once, which is only correct when one packet holds at most buffer_size
-frames. The packet size is max_pkt_size from the device's alternate
-setting, while the hw constraints allow 64-byte periods with
-periods_min 2, so a packet can be larger than the whole buffer.
+On Tue, 2026-11-03 at 11:06 +0000, Lee Jones wrote:
+> When an AP's Beacon TIM element indicates buffered unicast traffic for a
+> station's AID, the AP believes the station is in power-save mode.  If
+> the station is actually awake (IEEE80211_CONF_PS is not set) and
+> dynamic power-save is disabled (dynamic_ps_timeout =3D=3D 0, for instance
+> when power-save is disabled on the interface), ieee80211_rx_mgmt_beacon()
+> currently takes neither the dynamic-PS wakeup branch nor the PS-Poll
+> branch.
+>=20
+> As a result, if the AP's power-save state for the station becomes
+> desynchronised (for example, due to an unauthenticated frame with the PM
+> bit set), an awake client with power-save disabled ignores its AID bit
+> in the TIM and never transmits a nullfunc frame with PM=3D0 to flush the
+> AP's buffered frames.
+>=20
+> Send a wake nullfunc frame in ieee80211_rx_mgmt_beacon() whenever the
+> TIM indicates buffered traffic for the station while IEEE80211_CONF_PS
+> is not set.
+>=20
+> Fixes: 6f0756a38fc4 ("mac80211: do not send pspoll when powersave is disa=
+bled")
+> Cc: stable@vger.kernel.org
 
-Clamp length to buffer_size before the copy in both callbacks so the
-single wrap stays inside the buffer.
+I'm somewhat worried that this is going to cause another issue on broken
+APs that just never clear the TIM and we'd send NDPs all the time, but I
+guess if that were the case then we'd have figured it out in iwlwifi
+maybe.
 
-Reproduced on 7.3-rc7 with a USB/IP device presenting a Pixelview
-Xcapture interface layout and 1024-byte packets into a 128-byte buffer:
+I might still not want to put it in wireless/stable until we have more
+experience with it though.
 
-  BUG: KASAN: use-after-free in cx231xx_audio_isocirq+0x2c7/0x780
-  Read of size 4294966528 at addr ffff88800e8e0400 by task vhci_rx/82
+(Also not sure about the other patch for stable, it's a bit more of a
+cleanup really?)
 
-Fixes: e0d3bafd0258 ("V4L/DVB (10954): Add cx231xx USB driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
----
- drivers/media/usb/cx231xx/cx231xx-audio.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/=
-cx231xx/cx231xx-audio.c
-index b24ceef497e..4e5110dd160 100644
---- a/drivers/media/usb/cx231xx/cx231xx-audio.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
-@@ -123,6 +123,15 @@ static void cx231xx_audio_isocirq(struct urb *urb)
- =09=09=09if (!length)
- =09=09=09=09continue;
-=20
-+=09=09=09/*
-+=09=09=09 * A packet can carry up to max_pkt_size, which the
-+=09=09=09 * device chooses, while the ring buffer can be as small
-+=09=09=09 * as two 64-byte periods. The single wrap below is only
-+=09=09=09 * valid for length <=3D buffer_size, so keep what fits.
-+=09=09=09 */
-+=09=09=09if (unlikely(length > runtime->buffer_size))
-+=09=09=09=09length =3D runtime->buffer_size;
-+
- =09=09=09oldptr =3D dev->adev.hwptr_done_capture;
- =09=09=09if (oldptr + length >=3D runtime->buffer_size) {
- =09=09=09=09unsigned int cnt;
-@@ -210,6 +219,10 @@ static void cx231xx_audio_bulkirq(struct urb *urb)
- =09=09=09=09     stride;
- =09=09=09cp =3D (unsigned char *)urb->transfer_buffer;
-=20
-+=09=09=09/* same bound as in cx231xx_audio_isocirq() */
-+=09=09=09if (unlikely(length > runtime->buffer_size))
-+=09=09=09=09length =3D runtime->buffer_size;
-+
- =09=09=09oldptr =3D dev->adev.hwptr_done_capture;
- =09=09=09if (oldptr + length >=3D runtime->buffer_size) {
- =09=09=09=09unsigned int cnt;
---=20
-2.56.0
-
+johannes
