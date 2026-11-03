@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697680;
-	b=jzUuMWcn9UNc9gKOEvJR2tiyKF9H5m05uK6O8QpOJQVlZXeCYcgdBq8c+DAPM8DQxsfn
-	 ew4aFvbytsOXdT5IBEkU5YfXEmQP8zPkiDTS8kC+6Bya0zY22jVoOR2H7b4Um3r5NaGzn
-	 I/ar6GBcWAxcsxaUyvoVuerhA0zi8eZ86/PHkFqMyGf4+c1BLoC992iVSOsT0KmwzhW3i
-	 wUTkKzDl4Ptbe4wiLexK1X6d1O85wGnjg1HMvJXAukx1WvRh4ge/UUx8Tr8nRhYlyGXJS
-	 pLLlfECIU9XQuZJglpgMEy4HNHfqBLJu0s67EwoC8xyWyisI+35rzePs8wUWLH2kspA==
+	t=1793697683;
+	b=Yfg0hLaPFyP+ObF+pqdWDpGJMXL/kXxQLwvdjE7CTsK5nlk2AwabH+AbJlRnda0mza9D
+	 Y6g1wo+woYxlAH4rijzLz83u4P7nA9xTnC/7usV8Ng2PDU3DR9YEEN6B8H3t7TPn/ASIf
+	 nq+mtweVomqe3/uqXkkasgDECeTBPA9f9nNJokzWdqSiSsYAutASHaI5UD2SKiEL2a7SA
+	 R1+MY6BMTIGP56xDRcLBJzcNWKmth8uPKV5AslNQ1deJLzPzlR2DYeIQizEBbOGULZI2S
+	 Q4X/Joh9gW50PdxhCVtVYu9CPgmch9J1U8rk12y2La1y2yXncb6f6/ZYIh9PA3p98HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697680;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697683;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8ff+Ldb+j3rIyThs2zVt58hJSJJjlNUoF1vfWcjecx4=;
-	b=4e4RW4h1OZS3IbHLVblMRwYKjHivTwGL8n8of7nKaH3zqD8uoLt2nGAisasuPb5rQz3L
-	 dptYTjUnRf1d6hvab+S/uz/RI2ohDEiZIV02DR9Dc/1vnuOCcYf8cG/B+31ZKnT6uGdbl
-	 sVS8F7lG3MXfDA8Xnpguo1q2+lOjbDHuEUOHw7Bm81UXBQ8aR6v+VgIwpU0LjUoeRf0J6
-	 YuoMN5PfZ+xcHqm0KkZFZ9uqVojXpOn2EsBRXsVMv09QPUVqy77amZ3WXJYJqqFsCrpX7
-	 tHyem01kImzQlPo9I/gNncS1p1J2k3FqpD8UctVe+EWbnnYVyEtxJbvfD6XEBy22Pow==
+	bh=WRjg9wnrGZ7nUPdbceOheZj9U6OT129Wwye9oH/fuQ0=;
+	b=gJwjhSzcwdPVuCGN4M/pXsSpKNCEE/xnIii0cCvguJFw3qSoHaMYh5YMF4WqQc2S9Ol1
+	 XdH4R6aSpWPzma7lWMzOzDH/xGNuPx7RDaEwlLEP3yJI6GQ0w5FpDplrkdpoCr65uq7qV
+	 WO3ILXsVMMhoaH3QsnQLTI/oFT0aYJD5aW5TBkZ2N0y56fVoK52inf28Ad2NgdbaavYim
+	 MEx30LdUfPivhza/7Lh6KVGEHlHWeWh88mUR8+bmSQPnfexbKXUkpojP9XftV1x1EvvAI
+	 xmf9+zz0pmYNucCNbXnhEfbCCUebwxWL+7VGYNw1+LNXLA7LvTUEVN9K+MhofOT3t4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWfFpU+a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hURM2oJB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90CB606A334;
-	Tue,  3 Nov 2026 09:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F94606A324;
+	Tue,  3 Nov 2026 09:21:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWfFpU+a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 910D81F00919;
-	Tue,  3 Nov 2026 09:21:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hURM2oJB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF761F00919;
+	Tue,  3 Nov 2026 09:21:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697679;
-	bh=8ff+Ldb+j3rIyThs2zVt58hJSJJjlNUoF1vfWcjecx4=;
+	s=k20260515; t=1793697683;
+	bh=WRjg9wnrGZ7nUPdbceOheZj9U6OT129Wwye9oH/fuQ0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jWfFpU+aR4y2vaJG/o8Zxih+deVBBi55FV9p9y1sP7KWAqD+Gnf0af1aJw8T6QWId
-	 02cEEwKtjpVCEUl2mZ6jOGTQXVkueZb/KOYJ6u0ITXYsYuTF3tXLiJW5m4U6kCoMFo
-	 F66SVUEIAEn0J9fVkYq8RrOMFOk12a/19FLi98dVylfY+GIdVWStW6x4IziDKUHrJL
-	 Ajaqsw1sRZUQZuECpUPFRUMrNLF+utaRY4I6+wCRL8bHqq+zvp4dDdJeBc7AKjwCDF
-	 P2xHglgbR+uw0aqQWbkye2ONpRe8ZN4T8GAcUUOel2DmyxOdvUrhQRns/d+pDj8+ti
-	 ckh6EH2nVbt9Q==
-Date: Tue, 3 Nov 2026 10:21:16 +0100
+	b=hURM2oJBC2OYLD2mT6ekT3v0VDVTkk2baBzSacBZn4V6h52JiQtM2UefBI9v2xgEy
+	 Iy/8nCudEs2Da3L/03mL6YjYKKNz2I1NN7amoiyVX6LEnmHyOoraPHYKCtuWdyC53b
+	 9ZuCZaL1ctb49F6o0CoMISbeYRYY9PElOGzMEgxi32vJfB9T5tFGdQ7EnYdoQzB+f8
+	 STiRqwuR9gRSzxkWWy9/kBgQygOz/cji0FsOmpkviZbIgSwnydy1PGw9FyCFOvMLPx
+	 aUxcyRQ1VhAsktmZSIhEdyA/qMAM9UcOOYT0wnIpv0/3mn5yg2f8xEsPaqPy12hfBW
+	 1cp3hO9oac6Rw==
+Date: Tue, 3 Nov 2026 10:21:19 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: peda@lysator.liu.se, linux-kernel@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, stable@vger.kernel.org, wsa+renesas@sang-engineering.com
-Subject: Re: [PATCH] i2c: mux: demux-pinctrl: Release pinctrl handles on
- deactivation
-Message-ID: <20261103-diligent-taupe-seriema-e3fbd9@quoll>
-References: <20261103082905.1167633-1-vulab@iscas.ac.cn>
+Cc: agk@redhat.com, mpatocka@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, snitzer@kernel.org, bmarzins@redhat.com
+Subject: Re: [PATCH] dm: release the sysfs kobject when its initialization
+ fails
+Message-ID: <20261103-amphibian-pig-of-fragrance-4afaba@quoll>
+References: <20261103082329.1159472-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,30 +59,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103082905.1167633-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103082329.1159472-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:29:05 +0000, Wentao Liang wrote:
-> Each master activation calls devm_pinctrl_get() against the parent I2C
-> controller device. Switching or removing the demux only releases the
-> adapter reference, so the pinctrl reference and its devres entry persist
-> until the parent controller is removed. Repeated switches accumulate
-> these entries. Activation failures after obtaining the handle retain it
-> too.
+On Tue, 03 Nov 2026 08:23:29 +0000, Wentao Liang wrote:
+> dm_sysfs_init() uses kobject_init_and_add(), which requires a matching
+> put even when adding the object fails. dm_setup_md_queue() currently
+> unwinds the disk and holder links without releasing this object. Since
+> md->type is still DM_TYPE_NONE, cleanup_mapped_device() also skips the
+> sysfs cleanup, leaving the initialized kobject behind.
 > 
-> Use pinctrl_get() and keep the handle with the active channel. Release
-> it when activation fails or the channel is deactivated, before dropping
-> the parent adapter reference and reverting the device-tree changeset.
-> Keep the no-pinctrl case working by storing NULL when get returns
-> -ENODEV.
+> Call dm_sysfs_exit() before unwinding a failed sysfs initialization. This
+> both puts the kobject and waits for its release callback, including when
+> CONFIG_DEBUG_KOBJECT_RELEASE delays that callback, before the mapped
+> device can be freed or its queue setup retried.
 > 
-> Fixes: 50a5ba876908 ("i2c: mux: demux-pinctrl: add driver")
+> Fixes: 784aae735d9b ("dm: add name and uuid to sysfs")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/i2c/muxes/i2c-demux-pinctrl.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
+>  drivers/md/dm.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 
 
