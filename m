@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793716409;
-	b=HrsZKoYnnEgMYx54YN+ZFhmx+ZQE3G7c9tkGHPpFAc2YyafYpqiAJgihRUY27yfuQQnJ
-	 LvvIYCrsGbj/rPLLEsTdm7Nt0ZNsnkoU6ufqCRMc6bgAc4lhT3RzyxwIUKq7DZE8bLo28
-	 5n203Dks+AaGioL3P7nRlc47mzPqMOohs16W2ZT4PbfDrOdOq6kNIn7se9UOet2P5CHR4
-	 6xJS+EYPdMPU4tWifA/fZGkGx3Zsi8dAG7zKfAbWvgUIFLSRohJgmoGgAB8RKJ0NKay1T
-	 O5PwzPZvRHxM/qcHkYVMsW/yiZmDwVqHodKp+YK0/jJVDWWkn5gj0wrL2GTe7Yz1nHw==
+	t=1793716458;
+	b=wzNndmRw6zhvChu909Zl993LuFgusCN9z8j+gA3pBeC/Qm9Ze8VqCbl81hU5kjMKv14N
+	 BxwFie37qTad0kzdDWNbJl4OqlUfMrB+DXrTIQfUBNmh7KSKOnejixH4d4B3XIfwZ4Jm/
+	 hlNoFuZrLouZa9eR33MZMfT6dxY9PQE3Id4x3JNbmWjN/P3MAOfaz4msY73TtiTev/c7T
+	 D5WV3ciVt0X3zKXBwzRF4PSNWuedbdOXPejYPXTgwmma+7PhU1rf2L9DyPI1/PHzGRhmI
+	 kJ9kFDHzfa0F2P7imKlfCnS3PaYrhY4VBbdBZUwKvNRZmYzT0FmQElaf4R2rOGxFtpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793716409;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tI+UwBYPAdWdAqb3dEv/Iv9MEi3mF5GYk2Iq/sV6Q+g=;
-	b=LM5xocsShpdueliazh8rHPnwET6NS/5unVwEPZ/Nom9OQKiQu3SQIwPT1o5TqMhUEuyN
-	 jT69ApH3dghXYYgLTylYVMI7edMVDt8SDxD23WhT4tyLE62ecd5T+vex28yQmexRLWmrC
-	 aikQQ/8O1dingqDUwXR5Ub95OE5O+T4lWYSYGILe+lPYOCupMColhgm3XU4oh9+jVA3Ia
-	 H2xSQ53hTvU3scOAekJe9uQTiEepdyGBdbylaxHXw0CzfZ7W/JB+myprjyavTwyv3ExUX
-	 BVX9Px7Hzuy1oHIh32bm8xZHbf49bX+pK8sHidm72J3TjHS5WBkhUtfanzAUUoiyCvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793716458;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0ajyy7n+0qSH1YTBPHJg2ZBD7XeUrxHy6Kcj1EJImYg=;
+	b=d4qipvW2A4OYPJiwkHIbLdVR93dTIQWGh2tPxIBWRgTGg4VIooNs3B6wTRNdoFTE/D+/
+	 Aa0MJEGEAWNvN3OGOshlsKlnsT8YjbQfKs9bqIKkxGFsSu/+Kt9EnX8D36P6h2a1rBviK
+	 0vLB/qfOXWFHb9zFgLxXEL+xzKzokRjdpyh5wW0+1OVaIZrNAizkibanymrkJt969DdcT
+	 Z4m9YtnoBoFeKN8erZkdYKlCMcPynxgkTvyRy0LTa5crDTeSIFcdEY7faJLrogE9cdom5
+	 8eyGrRrNCRChTpf6el95pyZwgK5gXMAJGS1IaG1OWGjNPGcHp8HvD+uimuynbX/FBvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OMakKWWq;
-	arc=none smtp.remote-ip=74.125.227.133
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TPTCykYL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5411D606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5411D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F20F0606D83E;
+	Tue,  3 Nov 2026 14:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OMakKWWq
-Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3ae7c6a2d07so1152636a91.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:33:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793716409; x=1794321209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tI+UwBYPAdWdAqb3dEv/Iv9MEi3mF5GYk2Iq/sV6Q+g=;
-        b=OMakKWWq92Jd+LPrw2dMjUdTbbCAHgwKqsXYpnakA0v1IJIkLsk4HcA6AbC23W5evB
-         tBOnUGm/ka/t1RUwhJg+BHoPaU+s00V6u3Fe1ySkT1SBqwNnxJyzcLx+qHUoRYu32qhP
-         tXVZErMxSmBKIh3vGaM8ZQnRggivAf8MstgCX58MI2A/pAiHxCjpybxhMMRYYxvK5Mqk
-         m4teoOc30twESU7y+jNP2M7ZEUioy8qxI+whMvVDc98MA50iAUcLcIsXt8dD5CtmR1Y6
-         gRxgV4ApYBNEUqoUkpRJ0jyPFall9y1XOJZnbNjJs2eYgcoJ/SYs/A50n2jOFhvZOc4G
-         CQtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793716409; x=1794321209;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tI+UwBYPAdWdAqb3dEv/Iv9MEi3mF5GYk2Iq/sV6Q+g=;
-        b=Q3d+W+QOg/KlFYSxKBfYU6RXZd6FPE4EyaHgdu5pMbYp4nNXWV2gq3C8Em/EtMoWSW
-         4mIoVkOInh3RIV5IVJwyYxGKliRWpSNEOW4OVFCmthF/uDy31+m+Dz43aXCGB+u1gTi/
-         lg1Xnwn3N58ehnERFlrTPeJO0R7IBdGzi0DgKWp6J63ylo/pX+rOnP8LftztrqwM5rtQ
-         Rfum+mG/iZwzFjbvtfXL+RlCLZNf1E8rU/XsJo6duhVuaRJqiT/eORvnwGLJUFz06jU7
-         hwOhEvGMvXfq+lqEycryfTFNzRSi0NBgPmFVrm+mxb01q/9A8/KpEwIAHD+zEwj0UX3j
-         BlKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/pfqzyoCb2JwAqn+8X+WyR9obNZ6xnAqbo2WCehM8gdO33zaDVI82gCURqOSYnLGtMCQFdwg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8bCwbO1KSgTeTlCsV5Ulj5z+R3dV+DlgI/GLof6czbZ0fxH4Rg
-	DnTwr7xCL7PYwHRSFS0p3NnaDcRAUQa/TH0ZrQ2cqYu0bXzhkUeI6XgD
-X-Gm-Gg: AYBFou3F/iCqoaS1WmFq26N+81saPA5qb5tAB9P+c6wmhufP1VcZwPlPT81t6fzzWGD
-	sy1+jMvT4iQgkQA172xh8ad8OEUzDe0BK0D1WE1w3no/NPKGR2ZpRPO4brLUmQeLytPfiJLIFaN
-	nHtBeJnWm95qiduIEE3DrlfGA4DxYjHBqpVTtI4MJs8kWSjB3WBn7m4OXp4EGsaFMzQeRW4CZ8e
-	kT4X7l73lPm515iM/wAFT12mOIsoPXy3zvAiqB24GigrJtSnh9jOXWa8/5Jf7gPqkEnGM9gAsYB
-	L5RQOETpApLs2XukE1v3JLMV996rCmhY11Qa72yb+wrV1v68zMPkLyxkcmSOxHJNQ/xGSYjMXwR
-	YVViFScxQPwqe1lq0f/Oe1NvDAjPI5Y3Odga5ETVmyOlqqX996KuU00h/mBm7XUkbN91KTDNAdu
-	WlJiJqUvj8t9tLBzHYNdp1tWn0io23VNGmLrby6BuN7Ezxa3rgaUzrcjlshNM0+sN6Ik/+6jdPv
-	RC8e/Q8pjAIAfG/+jSZfmTF7r30aHDsyz/m4xwyt+LNa78EzyA8onNXRTwL+K6YlMhyg7PLRj2u
-	/Axiga9S38YrSAdu1VKe7Tk1B8wTdFDzikI7kEehTBodznu/QBJElh0cIflVJaz9mpX0qydgqMQ
-	xPkJ+PbwTGwCvhOWXFgOg140yICW5MCiZNQIsJLNUtdUmP8uSCHo32W3eth6GCvebcQ==
-X-Received: by 2002:a17:90b:4c08:b0:3ac:adce:60a9 with SMTP id 98e67ed59e1d1-3ae8957cc59mr11107986a91.9.1793716408508;
-        Tue, 03 Nov 2026 06:33:28 -0800 (PST)
-Received: from localhost (ec2-18-182-19-4.ap-northeast-1.compute.amazonaws.com. [18.182.19.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c9b0ec5sm4698225a91.16.2026.11.03.06.33.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 06:33:27 -0800 (PST)
-From: jianyungao89@gmail.com
-To: linux-kernel@vger.kernel.org
-Cc: Jianyun Gao <jianyungao89@gmail.com>,
-	stable@vger.kernel.org,
-	Carlos Maiolino <cem@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Yuzuki Ishiyama <ishiyama@hpc.is.uec.ac.jp>,
-	Viktor Malik <vmalik@redhat.com>,
-	linux-xfs@vger.kernel.org (open list:XFS FILESYSTEM)
-Subject: [PATCH] xfs: fix inverted action for empty leaf block in xfs_dir2_leafn_toosmall
-Date: Tue,  3 Nov 2026 22:32:58 +0800
-Message-Id: <20261103143308.10870-1-jianyungao89@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TPTCykYL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC6E1F0093A;
+	Tue,  3 Nov 2026 14:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793716457;
+	bh=0ajyy7n+0qSH1YTBPHJg2ZBD7XeUrxHy6Kcj1EJImYg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TPTCykYLb7YyiJfftqIjfbRil9UPgYWqaphUQv4SNzGMIybk7zut1L7O8CycL0PEv
+	 Smo0NgFZGhnE+mBm7d9Btecxf57Ahxs29iz8mkXeRHCPAETLHr85sZIyWoN6caU4eI
+	 Ol7GIqDjsQJNf1roys0/r/YwrfJP37d3aGtuBGDBHiKYgYoKHl7VVo5s8XPI5BOU3q
+	 Jlv+0oj6r42VtAZvavVTNp0T2saIeiOJ1iLja14RovmpDMdwqr8eAnzS0XW8QkM8Lw
+	 887397wb8fvNkInSWSXM7qeWGxayhLmWhlLO+BDB2X2DhcHaVwnIi73BFArxarkNqm
+	 vJrNG4eH9MRIg==
+From: SJ Park <sj@kernel.org>
+To: Wang Guangke <gkwang@linx-info.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
+Date: Tue,  3 Nov 2026 06:34:09 -0800
+Message-ID: <20261103143410.87235-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103034034.7978-1-gkwang@linx-info.com>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,41 +64,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jianyun Gao <jianyungao89@gmail.com>
+Hi Wang,
 
-When a directory/attribute leaf block becomes empty,
-xfs_dir2_leafn_toosmall decides whether to delete it by calling
-xfs_da3_path_shift to find a sibling.  rval is non-zero when no sibling
-is found and zero when one is found.
+On Tue,  3 Nov 2026 11:40:34 +0800 Wang Guangke <gkwang@linx-info.com> wrote:
 
-The code currently sets *action = rval ? 2 : 0, which is backwards: it
-tries to delete the block when no sibling exists (corrupting the tree
-by self-merging) and keeps the empty block when a sibling is found.
+> estimated_memory_bandwidth is calculated by access_bytes *
+> USEC_PER_MSEC * MSEC_PER_SEC (= USEC_PER_SEC) / aggr_interval,
+> and users read it via
+> /sys/module/damon_stat/parameters/estimated_memory_bandwidth.
+> 
+> On 32-bit systems, access_bytes * USEC_PER_SEC overflows unsigned
+> long once access_bytes exceeds about 4294 (U32_MAX / USEC_PER_SEC),
+> so users get a wrong value.
+> 
+> Fix it by doing the calculation in 64-bit and splitting the division
+> into quotient and remainder.
+> 
+> The issue was reproduced on a 32-bit system (qemu-system-i386): the
+> parameter estimated_memory_bandwidth reported 362 instead of the
+> expected 1926150; with the fix, the value matches the expectation.
 
-The analogous xfs_da3_node_toosmall (xfs_da_btree.c) uses the correct
-*action = retval ? 0 : 2, and the non-empty branch in the same function
-uses *action = rval ? 0 : 1.  Flip the empty-block case to match.
+Looks good to me.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
----
- fs/xfs/libxfs/xfs_dir2_node.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated memory bandwidth")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Wang Guangke <gkwang@linx-info.com>
 
-diff --git a/fs/xfs/libxfs/xfs_dir2_node.c b/fs/xfs/libxfs/xfs_dir2_node.c
-index 19cb536e53ef..55244d153f84 100644
---- a/fs/xfs/libxfs/xfs_dir2_node.c
-+++ b/fs/xfs/libxfs/xfs_dir2_node.c
-@@ -1546,7 +1546,7 @@ xfs_dir2_leafn_toosmall(
- 			&rval);
- 		if (error)
- 			return error;
--		*action = rval ? 2 : 0;
-+		*action = rval ? 0 : 2;
- 		return 0;
- 	}
- 	/*
--- 
-2.34.1
+Reviewed-by: SJ Park <sj@kernel.org>
 
+This patch is applied to damon/next [1] tree.  I will repost it soon (~1 week)
+as an mm.git merge request.  So, no action from your side is needed for now.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
