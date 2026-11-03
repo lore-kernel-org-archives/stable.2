@@ -1,56 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717550;
-	b=IkBsdkl5HJZUchs+7Hz8XxSehuk5IyLs7huPR1/+jaJdA/Bb5jcZjP2d/xu1RZlwwaKy
-	 1pYwj95s1/PcC/HgxtZ1CaO8bQMTcztYzBwgmI4ka9XN66bGpBA9kMTmguPpDqx4p9rDN
-	 mpMU/SY5OmGrb03V920O9Q1+X/Lu19z4MdXGpuIe3905fTtddk1BfrZGwgVDrTpKgW+WR
-	 BznwPNfSTceNpNr3z1VP4PAuMMIOUQWlBsMrzhRcRZBahdnAgC7ps0cpvysZLHgJ+TNGN
-	 mux4RNARWz/qVHYejHqNcfjpkhxKL7o/H3f2tcXdadOFlkkNZdBx1bGblQvXyMrxRkQ==
+	t=1793717545;
+	b=cY/B56GnpKRLuAr70vssiTcUBFdRWCF39m/M45sgVrkcps187PSryti1RsdKhxobpmID
+	 wnI1BeitSldaEigayG8CPUA9lGARCY4mM8XuPevT8flADeDAD3x/BBJw4O8LTa9qrl3pz
+	 5AnkTzomm/MexPZ9NXLUg5K75rGCEYw17Ndgf/d/OvKNDp4SPQo20Gsh+LiAGuGTChal1
+	 xS7CzxgYSLtcci1llF8cO4XUTsQYsftt0vmWXUtYeuMV7P36dST2EGmK+196kd1WkqIF8
+	 1wXJCw/fZXpEiTzz1jUshosz6wKGAx7G82QgOHjrBNnbzUKL4B84jxIA9hZsTQsCzNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717550;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717545;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/wUvuGuXG/E09QKxwxEMFMdnP59gij+zVHw/PpgoP8g=;
-	b=cVOPQEOOFKA7s9Ttr08m6JSUe6Fal0QfGvzw+1XYMpokTWA77Eo7FT3lf+1/I/Ir1GzW
-	 D8zDXRc2xv2wSV1MaGWWbUoUcVh84m6o0rvsSEQfj9cU/yZfLotrremQFDLv1PTFAGIXl
-	 sNYqMVluIXYrVIAl54fN281Dxh+QDqLhkMnXUVV7tWxRz+DvmncZvm2QBNQPaU/BVegVT
-	 EHLpz22fmYTmAw8LAs+mFOcGF7I5b7i/uLBawp+I3FtWwCLEr27SBhTtVr7XWglkE18Rv
-	 gmyKCbY7m+o0doABqmTTfU0GQntcTimy2z1F7YRydc70Fc6sdKN9EeEmb7eLBVuXRGg==
+	bh=pZDUQoAPmpcJQ1MGXQerdQ+hsS67diNlOCyUT7orJbQ=;
+	b=Y4LrAKxUWnUhsYOYd2E4ArZWNAyW/eGbe3M30D6KInMvx98cGwTVV27U8qQTl1ix7n7O
+	 V4Tp7iG/TlSaAtiF+TvPuDkjO2Z5BNzjcRoWrdh4jU7Wj/ThlEXpz4b3H2KsQkiRon1bi
+	 TW8gKYWSmmJMkSBVGJJbWFA4s4dSwYu89EHzhh0uEv58BBH3CFb3fuBUodB+66585yfdT
+	 ZO3G9HEOpDA4D+gYObP8Lpyb624XqnDUvgtGtHUrxA4zm5QcQpcHifoxKQMw+Zc44hSMR
+	 hSK9ohlpBd43MLoj3lFP1r9PbrcHCusDRcgBwghoDJ74IsMM8hwGQd0Hjs2SHzd1lLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rox81nZ1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=octuHE56;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D0D60A3809
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB64860A261C;
+	Tue,  3 Nov 2026 14:52:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rox81nZ1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C091F00A02;
-	Tue,  3 Nov 2026 14:52:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=octuHE56
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D6A11F000C1;
+	Tue,  3 Nov 2026 14:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717549;
-	bh=/wUvuGuXG/E09QKxwxEMFMdnP59gij+zVHw/PpgoP8g=;
+	s=k20260515; t=1793717544;
+	bh=pZDUQoAPmpcJQ1MGXQerdQ+hsS67diNlOCyUT7orJbQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rox81nZ1vobr3Uu6Poj9aYgPqXBNHZv4mXz5gl0BMmKYUBvtAb+oZaQkef+dezOg5
-	 SJIm8DE1vdSgw5lFKTg6HR+gGhxSSjTLQkIwvQaSeiSo97IBKy8uzD3fl9pAp9yscF
-	 0uuKe8z+YlJXN4SFpgEzohqMk2vyaAfaUsCLfmdzJSNbLlqDb2unTiiZjbcwtghTFQ
-	 3WIiK+pTQfgGV9t6Sk5H0tYBeauNiIbVt/0Ye6r0bNhTQOi/j6wvP98r/SN5oT0kVO
-	 INBgIdI3qsUP3LuxBcCBPI60gCI/qYXVilSL4TX61lANb5+kAdGEfKX9A7v6eARfC0
-	 SvT7xxMNRXErQ==
+	b=octuHE56uzGrBMrp7166rFZjq/wnXaFsTr7IIG3zl2GxEZwjKr17pIkusq4jp6mXN
+	 mLEaqJM7SSf41A6AgYFmIZSHLCOBfnRcPxwmUULylluZ/BtRPUVjiAhtcuLPKVSi8+
+	 te+2tpxv6FIBDHG1hYbsVtXZrzYfb998Izoxf1NvzoAEzIvFOpHEvyk3y3Xff+4FC/
+	 o/2WA1kg2cgbqHxaU14o+r5P5lHoCTKwHyVmQ6QfVLsEAZLp2hO32QtmcUI3/DsuhI
+	 KpfZU6WyBhlTVBcgfdQLleBesDDuY0BtMKsH1vepW6wDZUm0XmilXXv5giOikKqoJg
+	 4HoslEFTZnEhw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: lee@kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tom Zanussi <tzanussi@gmail.com>,
+	Valentin Schneider <vschneid@redhat.com>,
+	linux-kernel@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Subject: Re: [PATCH 5.15.y] ksmbd: accept share config responses from ksmbd-tools before 3.5.3
-Date: Tue,  3 Nov 2026 09:52:01 -0500
-Message-ID: <2026-11-03-1-daily-reply-0013-re-ksmbd-share-config-5-15@kernel.org>
+	stable@vger.kernel.org,
+	Taeyang Lee <0wn@theori.io>
+Subject: Re: [STABLE v6.1-v5.10] tracing: Keep the predicate limit separate from program capacity
+Date: Tue,  3 Nov 2026 09:51:58 -0500
+Message-ID: <2026-11-03-1-daily-reply-0010-re-tracing-predicate-limit@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103110729.83771-1-mike.michalo@gmail.com>
-References: <20261103110729.83771-1-mike.michalo@gmail.com>
+In-Reply-To: <20261102122714.656104-1-lee@kernel.org>
+References: <20261102122714.656104-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,10 +69,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> ksmbd-tools releases before 3.5.2 do not have the payload_sz field in
-> struct ksmbd_share_config_response
+> Fixes: 39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
 
-Queued for 5.15, thanks.
+Not queueing this for 6.1, 5.15 or 5.10. The overflow needs 39f7c41c908b
+("tracing/filters: Enable filtering a cpumask field by another cpumask"), which
+landed in v6.6 and is absent from those trees. There calc_stack() and
+predicate_parse() agree on the predicate count, so there is nothing to
+overflow.
 
 -- 
 Thanks,
