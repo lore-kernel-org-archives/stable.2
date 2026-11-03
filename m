@@ -1,101 +1,102 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793738609;
-	b=uYaiiW1mioCGzRVMIvapsqCqmFbHS7/4wGCA+q7cMLSMDr3yUjxkY2aMwJ2EOSdVJ8qJ
-	 gy8HuXV0BHLpp9ov6SCecoHwm+p7wxcl95LYlzo+cS4xMtN1e2R+t8MiEe2i2JuESbf0K
-	 s2sUsQ+dW9y00InkagePhqbPHP3o26dT9RUWhf4VHCMU44rvWRgXWVqx07KeQivTT7EIY
-	 ycGli9dTRw8AaeJ42FsXtJCKTqw1p139tukYDQjz69MzStrLSGWN+IIVzH77bKPK3hcyy
-	 ExLpTbGhDfij9k86d1XG5rw0O7bOkg9tvIBuB76oD8+ydjJUyoCYMaFQZSmyVmu5Xlw==
+	t=1793738611;
+	b=dfzTSDnbiic/7dSwaldy4yaPKd3h1NUbRTFEIAHIyldDWfH3ZvkH4//fnW3eoz9nCC0L
+	 lZN8DDvq+z8p+yrAMCCHI7XTxvtWtTV4NmqyePurX7mENUvLD2k3hoAMpzNtQsImOSR/a
+	 fw1h0N80Tn2wNrKJKdNvmOKsU7KCBZ07ZhY0NzdoTQSeJREJ1+dR1GhtaIAEr5/kImsYQ
+	 bV0qAlDSTa9yGcbxxCOZk/RqFvNJxxIFHSzaVFU1edbWZw880uNAuBMyJRn23byMVA0ks
+	 LGpagndptPpmJjG7l+bOqL9bnn4LAh8hWB5LTGdeKafYTSQnTxsiVVn2pyXUakgnJZw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738609;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793738611;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=0nEjpSELMP25nGdH2jbVcjwi4nIdOa0kdNDedp0p8Jk=;
-	b=InKnnZ1wqXl4hklmrxs+MgYIh1tg5hnJAv/zOS+qznxz9RG7YztL1gd4dtQPcwqW0Zqj
-	 +W4bHpoCSupgR0OVwoXV3oIJeBgpnox9tLwFSCgOUQoHSJnWBUD0/LeYS9Y9HrN9xV8xq
-	 efZBIxRbN+kvuxBTMtXJOxh7ax2M8UfQXejQaQCyYEgU3jkfd+5l0M7sIZELyK3Vw6X8c
-	 z7mebJ6h07rxYAW+u0BHHgH+ZuIJ1rJzf+QEqHz2Su1FXg+ulhbxOhVuXdbaWPGNAOru6
-	 JeCxsbacg3hdR9p3h+md1ZmvyekYfKJJadHh1MQrpmwbpkOVWgf0gvkMJ3REwgpmaHw==
+	bh=uBL+TaD0bKQsormvsgU184GjxDs1/LgdMFn1uQvrKP4=;
+	b=jtfhY00SnOaC3tXa9I4dLd9DAmmUwneCsslJaVfoaoqdYA5WZbVwHsUCNS9tpmoEOii7
+	 NnjEcrcYsWCZJQoy6BBLX/fcurevW4AMUo+6ZCQtajyoR7gBZI/b4fZyUnIuyQhAFfhxe
+	 YLSLPqfhn2VxE/8Z5ALZtSqjnnxoiiK1W3bz+biL+o20dRIML2gNOSaELuJUGGcHeZb+s
+	 HOFStJsL2ChF0jh62op/zANBMJ9qHYN8BHTC8OQakO9i3aRH58fBBCcsOyaqOXlgf7Fw2
+	 aeozXzgXbZfZVyrHamcDPqMFiwqTkCzBS12U7bxgpwFZIyA1vZqcZt0fZ4VzbSmb5hw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=O6Pjpfkc;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="es0A/AO8";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899CC606A335;
-	Tue,  3 Nov 2026 20:43:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 899CC606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C9B606D820;
+	Tue,  3 Nov 2026 20:43:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C9B606D820
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=O6Pjpfkc
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=es0A/AO8
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EBCCC202BA3;
-	Tue, 03 Nov 2026 21:43:22 +0100 (CET)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3D6482022C1;
+	Tue, 03 Nov 2026 21:43:25 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793738602;
+	s=20260414; t=1793738605;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0nEjpSELMP25nGdH2jbVcjwi4nIdOa0kdNDedp0p8Jk=;
-	b=O6Pjpfkc5TX45B3/oJV/COsIBLwuEwWJCJ/OcLm5VhL3+CtT62FTu+uzajexWTIRpZzFdX
-	sAMlxFFSANGQ/P7xpyFL/G7K0M7b7RpE/ZaoJtjzhA4d4Ab/rpNpcZNKFqbbdNKs23P2eG
-	wB6rpWnGy4xVIQ0pSLA4V45hDCoqd/U51VreaEoHQI0ouH/MKYmG0uVsd5jB5eXHMQiMRv
-	i8qfv5X1Brq1E0RSHP9KFILrsJvFSPZQWMt2mFRn66RtK5OX0rW5L95gk3YccPR4Uy2gZ/
-	d4POWiQ7AsxYPeHxOzGSr0fAW5/XISaAvUqU8D4vcR4Z97Y2UcWWKAGT1qOR/g==
+	bh=uBL+TaD0bKQsormvsgU184GjxDs1/LgdMFn1uQvrKP4=;
+	b=es0A/AO8fuAKNjQOSeh68QI7Fk2Uy2BiwxbIMenLix6rRs5nTjLNp+1VoVJI9zr0Mh9pey
+	ITVA0k1l3UEKoBxYamrK1dM7Oz6cJtLxeZYHusY1VZaXzU2z8qdHRDbBCRJ4SdMsiftPpx
+	t9DqHpX0Pc0VX31rm4O0Fa0zRVaEdmjnw7E5q4rcTVTb0MGWiM99AVWADja0QJtMvGStm6
+	FaHLG0dd7f6zQm/yukUzewyG3aUFPnOy70GGhRklc/XFzXDlTSzSmjuMu46rn3RywmCOdO
+	QThkKa9KpmtxvR4SdX0b111ZR8br5Uo7dFGfZGlThik2tMYEpsYCy/elGFqGBw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793738602;
+	s=20260414; t=1793738605;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0nEjpSELMP25nGdH2jbVcjwi4nIdOa0kdNDedp0p8Jk=;
-	b=fI+ImslSFk+tatGOvvIq2DZT8qWHi1k5VF+0Fvv99/8D54V2k2fUg/eTij4q2mUocZlnxM
-	t534q3twoYoOEa/AS4OpwHxNqsi/rDQSFlN9uPKAAA5PRvX66HGC/IZrFa31vYmQ5OQbnt
-	xCkHapNZ+OBzi4sXLIW6qKrKBhWVV77gqHFU9eD4ZBbsm6gA846hWdxOHULylfzCWGNF78
-	7pTEjQ9WaBoT0YwbeRbYyRMWAO3yQJFtMRFHWVu1TpV2Cghjt769munOZQrCpVlVcNWinU
-	pDq/vDlkornBZyualaoymJnNQwoXRlczgwzlH0BqOpKLW1LGYMLCJG5S6Uo6Ow==
+	bh=uBL+TaD0bKQsormvsgU184GjxDs1/LgdMFn1uQvrKP4=;
+	b=NaUjh4PvwlFhivHsKA/hEzcBzsUV8EGaEXYG62jctxxSHqfSSj0kQ5/lIOEXmoMH7Vrv6a
+	84BfT+Revt2sBNWcsoU1+TV/pc2PKeTeRNJEWc8dtbswjFCPR1ncwWvXFMGbjQeIFL6vwC
+	mItQfMBbGWvdUR3pMLhcbEI3L1uOOw3I8wyLLOZBZ5cZKusPIbcBH0w630FLIuDBogNaUl
+	LSru4VUzW2PrHtR2+8Pfz10oPdfTezAo/kljq3WmLFG08pPp9jsXBn3ylbbsUxzFnLv9Ql
+	Or4KHlEWqjVuMhyTYbwdY7RxfzVWQGNBFYCl11nBKfoEsodWSTyyPr4j8awCcQ==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793738602; a=rsa-sha256;
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793738605; a=rsa-sha256;
 	cv=none;
-	b=Axp7tpg2gX5MIbmf2dw9s54oH9wwuKUiK/VO1m+9rUKmIT3I865XDohBVMmSK+32Yi1bpD
-	wL4o6SPbOEnqOsDqP4i7uh6I2eR+r+nk9e+QWVTb5ntilzIIg2uN5o9a1QfA9HRjfjVb+9
-	WgTf/lIIIIWoKX4bc+sugD+RvFIeNYdMDbhsBogwgFnWWIk7DMj8rpssTHxMj+nupJLnhl
-	ghyB7yJNCqCtbmt2Y+/k1QDySxCMWO0A2UKsNNQ4UJ41R5VNaRQzXqWkVWrmfa+OpAettD
-	7x1fs8PtlA+/Z4p1IWD4IywXd+oz+b4p3t5UWm15rX6yYW6tUXp1eFcnXXlS/g==
+	b=FMhdMVrYILOcUHgIzqXtoc8kDh40C4SKxXHT+71kN9SgcBsX2qYBQBkBJlgsA/LfEdmNFC
+	Qo2lILj2zdciftPdk0aRuCNNynhTpeHzfvylOFeNoywS5+scvnq8LHXt6Hz957mShfo+gP
+	A+bAQsAKlq2aP5o7nnXQkC+ZuZUiYY7uRMdgyLX2fyf/t7Xiy3jQ0FZ2tQw0+gYRPM6bCw
+	IpPJTYR+zENMQ7iJFD7T7Za8Vzlb4l/oqUAnz7/mVr7U1mQUQlUxV9ayeX9EbHivxE7ZQr
+	UO7dktpy3/Hxqo5p3vW6oindz2RGBddVfsY/YfWOHj5ambnPKHASCCUEntU+4A==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xOLLm-002V8s-2j;
-	Tue, 03 Nov 2026 21:43:22 +0100
+	id 1xOLLp-002V8z-0Q;
+	Tue, 03 Nov 2026 21:43:25 +0100
 Received: from blackshift.org (unknown [IPv6:2a00:20:73c1:227f:2cd5:5d72:938f:f03c])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 92A0B5DDECB;
-	Tue, 03 Nov 2026 20:43:21 +0000 (UTC)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id DED605DDED7;
+	Tue, 03 Nov 2026 20:43:23 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
 	kuba@kernel.org,
 	linux-can@vger.kernel.org,
 	kernel@pengutronix.de,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
+	ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>,
 	stable@vger.kernel.org,
+	Vincent Mailhol <mailhol@kernel.org>,
 	Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH net 11/15] can: proc: skip stats calculation after reset in can_stat_update()
-Date: Tue,  3 Nov 2026 21:30:32 +0100
-Message-ID: <20261103204305.3211144-12-mkl@pengutronix.de>
+Subject: [PATCH net 13/15] can: dev: can_fill_info(): don't wake up controller if interface is down
+Date: Tue,  3 Nov 2026 21:30:34 +0100
+Message-ID: <20261103204305.3211144-14-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261103204305.3211144-1-mkl@pengutronix.de>
 References: <20261103204305.3211144-1-mkl@pengutronix.de>
@@ -110,77 +111,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oliver Hartkopp <socketcan@hartkopp.net>
+From: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
 
-Commit 80b5f90158d1 ("can: statistics: use atomic access in hot path")
-introduced local snapshots of the statistics counters at the beginning
-of can_stat_update(). When can_init_stats() resets the statistics, these
-stale pre-reset snapshots are still used for the following total/current
-/max calculations and overwrite the freshly reset values. Additionally a
-jiffies tick between the snapshot and the reset could trigger a second
-can_init_stats() call.
+If the interface is down, the CAN controller might be powered down and
+its clocks gated. Don't call do_get_berr_counter() to read the bus error
+counters if the interface is down, and adjust can_get_size() to match.
 
-Merge the reset conditions into a single check and skip the calculation
-for the current interval when the statistics have been reset.
+This removes one trigger for a synchronous external abort seen on
+i.MX8QXP when "ip link show" is run on a flexcan interface that was
+never brought up. The underlying cause is platform-specific: on i.MX8QXP
+the CAN clocks are gated through the SCU LPCG and the subsystem shares
+the IMX_SC_R_CAN_0 power domain, and there is a window after
+pm_runtime_resume_and_get() returns where the clock has not reached the
+module yet. This patch avoids the netlink query path while the interface
+is down, but does not root-cause the LPCG window itself.
 
-Fixes: 80b5f90158d1 ("can: statistics: use atomic access in hot path")
+As a result, IFLA_CAN_BERR_COUNTER is no longer reported for down
+interfaces. Userspace must treat the attribute as optional.
+
+The issue was triggered on an i.MX8QXP board by running "ip link show"
+without ever bringing the interface up:
+
+    Internal error: synchronous external abort: 0000000096000210
+
+    pc : flexcan_read_le+0x0/0x18
+    lr : flexcan_get_berr_counter+0x4c/0x8c
+    Call trace:
+     flexcan_read_le+0x0/0x18
+     flexcan_get_berr_counter+0x4c/0x8c
+     can_fill_info+0x1f8/0x434
+     rtnl_fill_ifinfo+0x8fc/0xbb4
+     rtnl_dump_ifinfo+0x364/0x448
+
+This is the same class of problem fixed for m_can in
+commit 91a55c72a821 ("can: m_can: m_can_get_berr_counter(): don't
+wake up controller if interface is down").
+
+Fixes: ec56acfef2af1 ("can: flexcan: flexcan_get_berr_counter(): switch on clocks before accessing ecr register")
 Cc: stable@vger.kernel.org
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20261027-can-rx-lock-v12-6-eb5afc2d8b9b@hartkopp.net
+Signed-off-by: ChunYuZhiQiang <chunyuzhiqiang@yinhe.ht>
+Reviewed-by: Vincent Mailhol <mailhol@kernel.org>
+Link: https://patch.msgid.link/20261027065012.191348-1-chunyuzhiqiang@yinhe.ht
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- net/can/proc.c | 30 ++++++++++++------------------
- 1 file changed, 12 insertions(+), 18 deletions(-)
+ drivers/net/can/dev/netlink.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/net/can/proc.c b/net/can/proc.c
-index 70104f13077e..fb144d2adc35 100644
---- a/net/can/proc.c
-+++ b/net/can/proc.c
-@@ -149,25 +149,18 @@ void can_stat_update(struct timer_list *t)
- 	long tx_frames_delta = atomic_long_xchg(&pkg_stats->tx_frames_delta, 0);
- 	long matches_delta = atomic_long_xchg(&pkg_stats->matches_delta, 0);
+diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
+index 766d455950f5..b958c04d53db 100644
+--- a/drivers/net/can/dev/netlink.c
++++ b/drivers/net/can/dev/netlink.c
+@@ -812,7 +812,7 @@ static size_t can_get_size(const struct net_device *dev)
+ 	size += nla_total_size(sizeof(u32));			/* IFLA_CAN_STATE */
+ 	size += nla_total_size(sizeof(struct can_ctrlmode));	/* IFLA_CAN_CTRLMODE */
+ 	size += nla_total_size(sizeof(u32));			/* IFLA_CAN_RESTART_MS */
+-	if (priv->do_get_berr_counter)				/* IFLA_CAN_BERR_COUNTER */
++	if (priv->do_get_berr_counter && netif_running(dev))	/* IFLA_CAN_BERR_COUNTER */
+ 		size += nla_total_size(sizeof(struct can_berr_counter));
+ 	if (priv->termination_const) {
+ 		size += nla_total_size(sizeof(priv->termination));		/* IFLA_CAN_TERMINATION */
+@@ -1006,7 +1006,7 @@ static int can_fill_info(struct sk_buff *skb, const struct net_device *dev)
+ 	    nla_put(skb, IFLA_CAN_CTRLMODE, sizeof(cm), &cm) ||
+ 	    nla_put_u32(skb, IFLA_CAN_RESTART_MS, priv->restart_ms) ||
  
--	/* restart counting in timer context on user request */
--	if (user_reset)
--		can_init_stats(net);
--
--	/* restart counting on jiffies overflow */
--	if (j < pkg_stats->jiffies_init)
--		can_init_stats(net);
--
--	/* prevent overflow in calc_rate() */
--	if (rx_frames > (LONG_MAX / HZ))
--		can_init_stats(net);
--
--	/* prevent overflow in calc_rate() */
--	if (tx_frames > (LONG_MAX / HZ))
--		can_init_stats(net);
--
--	/* matches overflow - very improbable */
--	if (matches > (LONG_MAX / 100))
-+	/*
-+	 * Restart counting in timer context on user request, on jiffies
-+	 * overflow or to prevent overflows in calc_rate() and in the
-+	 * match ratio calculation. The local snapshots are stale after
-+	 * the reset, so skip the calculation for this interval.
-+	 */
-+	if (user_reset || j < pkg_stats->jiffies_init ||
-+	    rx_frames > (LONG_MAX / HZ) || tx_frames > (LONG_MAX / HZ) ||
-+	    matches > (LONG_MAX / 100)) {
- 		can_init_stats(net);
-+		goto out;
-+	}
+-	    (priv->do_get_berr_counter &&
++	    (priv->do_get_berr_counter && netif_running(dev) &&
+ 	     !priv->do_get_berr_counter(dev, &bec) &&
+ 	     nla_put(skb, IFLA_CAN_BERR_COUNTER, sizeof(bec), &bec)) ||
  
- 	/* calc total values */
- 	if (rx_frames)
-@@ -196,6 +189,7 @@ void can_stat_update(struct timer_list *t)
- 	if (pkg_stats->max_rx_match_ratio < pkg_stats->current_rx_match_ratio)
- 		pkg_stats->max_rx_match_ratio = pkg_stats->current_rx_match_ratio;
- 
-+out:
- 	/* restart timer (one second) */
- 	mod_timer(&net->can.stattimer, round_jiffies(jiffies + HZ));
- }
 -- 
 2.53.0
 
