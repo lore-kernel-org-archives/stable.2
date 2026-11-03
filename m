@@ -1,54 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704225;
-	b=S5L7fRFw0e0Y1tDJ0RL5elg5sO7ttuJtakusDOJyUlQqRIO0XWBk/Olqb00jdyjyq1IA
-	 tl09C69P6zdi4kcG+HA11CH6+OfA5CRcbGkVaruxLsLkFut+diiftGYpEWLdbvyLLis0z
-	 Ejg/33VizfYYAcrZD/BzSu8Syk2wEqVCMrpSqDed56M/G57fRRljh1yI56q0tH0VoBiSd
-	 VH//9FkGgiRGcI1jxkzitS7H83EPtn3d9kFgR6BCo4hkf3sJvGzh0HDMv4bn3ax6LHZEE
-	 ho2iqPevQcpLvPWvboYbYO2ti2QuyU5hb2kSpwYhqy0sth2ZDTNL3nU9tU06K1SWQFQ==
+	t=1793704231;
+	b=Vouy6MIz9Qv/u2oPYnIlAWq7Mkn0BmsaCs/PnjuZMjfK6UEn3+IdQJZDiZf46HKtaY9x
+	 YspYTxP7ndnInhEBpr3CcHnS6H0vT6MAT/P0JWObMBjmpa/Cdfi+ogs33n7uytdMFpZuc
+	 KbA2fv8vAA8+9at24ycbhI1c5N7LpRqG7nwtGU4aHv6fpcxW2uQB/Fyj60NB1pYAPi3ck
+	 qu2yy2qNPeqxZznmYsS3HWpUpvp0jSAbaTUN3ZrNvM7XJNdxnJSpFysKRchbDuA56IVVW
+	 dIAsekHA/d2ES5FaOB5F69f9t3yItG1EsUO0Kv8jGOcOiD5mqm1NK/lt4YDRszvnxqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704225;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704231;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/W2mjbTmgpq1pqBSl49B/N5yASScZpRogYzJGRRzFXs=;
-	b=49dOstsocsoT1ZfjEKdykMF9JYxnhAWXRdJ/0Fe8wsjPM1o8+ruIq1endH+Qf3xuy9rn
-	 STz+AjsXpN/g9iQfQDYC2S050bmKHP0TQyprAr7legkdMND3PAYloizrBuGaA/MCXgAdy
-	 QyDC4fI2ePE7q5vqp4IgM1tCyleengHQNNDZkgkDAzbl3FwgoQCGbDeDxHkCMsK6wljnk
-	 4ddPWV5nzIWZyodJXajg/lA4bgImMoXSp70tmGODNGubLMKg18ujCKGxiqDI99P7qLUjO
-	 0i1Fu35JzB5VjRfBTwLLtzxVthvInO5O0z6ZUkNZv5sK430m3vJR1yLFTviYLQ7jizA==
+	bh=wwG22fdJmBwOmg0TU45Al3Kqsr0pJf29eGZ38ZwAb+M=;
+	b=OnPGyKCpVNMpeUgBDV2rrowTDSCrvUXFI/s62mR/1Ocw6SlR0uAdZEiaUEvOyq9gDfkC
+	 G7pnsarQ3gEZtH/7IsgRTvCAzYbG94t87AGEC+O+ACVZg7LNO2i1T5LRRJWj74/dyEEHy
+	 3WzaDqqAvJEbu1saW4cnC3NJJmseKp8FVcAQjd1hVOo96NzvvdxMVNrI73lOozq54XZrn
+	 aguQrAaJ7bvJaEEidVG52uyNXKicFhCTQQu9g6hr0xVeSsGTLII+DabG9YhHUSixYY5fy
+	 hwjIq38gU63dv7s1T4f+chbOKGxowrdbnvglheb0FxLArbhF35LvoWRAnUMYZ4YN7fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chPTcyEu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyJEK7l3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FF3606C573;
-	Tue,  3 Nov 2026 11:10:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1988606D823;
+	Tue,  3 Nov 2026 11:10:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=chPTcyEu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344011F000C1;
-	Tue,  3 Nov 2026 11:10:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyJEK7l3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B2211F000C1;
+	Tue,  3 Nov 2026 11:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704224;
-	bh=/W2mjbTmgpq1pqBSl49B/N5yASScZpRogYzJGRRzFXs=;
+	s=k20260515; t=1793704230;
+	bh=wwG22fdJmBwOmg0TU45Al3Kqsr0pJf29eGZ38ZwAb+M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=chPTcyEu3+6/DSswsWsAKE3hFccxSLecUPqONvn2808hJLH2u9pAFZDufqnPJqcRm
-	 2hTmwuqSPEHqO9LT5G6bbCKKJVixQIQd+2rephmmTvsZXJokl1bIy6nSFv75ODy1Mp
-	 gMrs9tbcm2WRe2e5tI7F0ped9GCj1PxSEaGbJN+PU9/UI9UrcKPDhGt+928fONZuLf
-	 A+bX2wFpEf7Dm1bTv01iVW685qctvFwn00OIrHe6nPpLQeV8HMbc4ovZlNNgg/3b6R
-	 zUJpUi2FU66L8L5rDQSpVLkqqPTLrG+wUU5FF+xGQl+7mCJ8m3yQPCuEksYTALFdZL
-	 P3Hxm0F8QdNCA==
-Date: Tue, 3 Nov 2026 12:10:22 +0100
+	b=RyJEK7l3bCWre+kk38VuCHDdjcz94HTRlWD/3iNu0Egasa3PUHwaMAoKuKIpVgRTJ
+	 Iw79dsNijHqIitkKAz5Zy3bTj/UnXFr2rh6Jsdbc5u3eAxRAfr49WmTA16RbckPl5z
+	 dY3or8QA2kyymOeiE54ugE5kC6NprP8spi7gyJJYhO74HgGHaJsONgBxBCZDV65wYi
+	 n6GSTQrFznedeN0hz2fzTiuZtP4fmLVy/T2i8KqFPqGteiGdyYNshb4UIzCmuqdjCZ
+	 NCBJgzsFRYcmQsnv1/xYYUOJWjHCPSQ0m1MUNfBRDrRkX2lPUESXVgxX8fnAAVwkk/
+	 tjgu4LhuUEoXA==
+Date: Tue, 3 Nov 2026 12:10:28 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Vinod Koul <vkoul@kernel.org>, Shan-Chun Hung <schung@nuvoton.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	linux-phy@lists.infradead.org, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jacky Huang <ychuang3@nuvoton.com>, Manivannan Sadhasivam <mani@kernel.org>
-Subject: Re: [PATCH] phy: nuvoton: fix USB PHY clock reference leak
-Message-ID: <20261103-tall-elite-otter-d99ba5@quoll>
-References: <20261103104242.1373863-1-vulab@iscas.ac.cn>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, stable@vger.kernel.org, 
+	Al Cooper <alcooperx@gmail.com>, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Justin Chen <justin.chen@broadcom.com>
+Subject: Re: [PATCH] phy: broadcom: use devm_clk_get() in
+ brcm_usb_phy_dvr_init()
+Message-ID: <20261103-hulking-tuscan-emu-e5ff7e@quoll>
+References: <20261103104240.1373792-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,26 +61,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104242.1373863-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103104240.1373792-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:42 +0000, Wentao Liang wrote:
-> ma35_usb_phy_probe() acquires the PHY clock with of_clk_get(), which
-> takes a reference that must be released with clk_put().  The probe
-> error paths after that call return without releasing the reference,
-> and the driver has neither a .remove callback nor a devres-managed
-> clock, so the reference is also leaked when the device is unbound.
+On Tue, 03 Nov 2026 10:42:40 +0000, Wentao Liang wrote:
+> brcm_usb_phy_dvr_init() obtains the USB 2.0, USB 3.0 and suspend
+> clocks with of_clk_get_by_name() and clk_get().  Both take a reference
+> on the clock that the driver never releases: the error paths after the
+> lookups return without clk_put(), and brcm_usb_phy_remove() only
+> unregisters the sysfs group and the PM notifier.  clk_prepare_enable()
+> and clk_disable_unprepare() only change the prepare/enable counts and
+> do not drop the reference.
 > 
-> Acquire the clock with devm_clk_get() so that it is released
-> automatically on probe failure and on device removal.
+> Use devm_clk_get() so that the references are dropped automatically on
+> probe failure and driver detach, and drop the now unused device node
+> argument.
 > 
-> Fixes: b48baf69db97 ("phy: nuvoton: add new driver for the Nuvoton MA35 SoC USB 2.0 PHY")
+> Fixes: 49859e55e364 ("phy: usb: phy-brcm-usb: Add Broadcom STB USB phy driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/phy/nuvoton/phy-ma35d1-usb2.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/phy/broadcom/phy-brcm-usb.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
 > 
 
 Multiple things here:
