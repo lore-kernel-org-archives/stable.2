@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697423;
-	b=2uiPluJ2kqErY3bT9t0+Bg0m5wlP8kH18QHPf8nJqsoTCgHkKtIw/HXe7NFi024Hp4dy
-	 ljhtmqpxQMbY/mmmmgnnXhZ6q4AQqZFmPg71+uMOgCWSwdc8VONthOJ9jQ8k4F5ni0BPG
-	 5waWqzoEbI+jBJNZWm//vfzXeOgppQ0f2EOGU38KwqMxSQWlxmdA2AmHWf5Mhu9Fz0+EX
-	 ryGN2dmCayXlr2GeZ4Xt32rNvlwUvQvI2Dc+PHRpvzpaqVSmfSVUTgLJdeSa23sOwTA71
-	 g19s+bXmAdalOw0s3vjiDmGtkrY6YPMzDgNCUg83JCcviRmbFKoctD4i8hDbfnuR0GQ==
+	t=1793697621;
+	b=gKoe9bziFih4gIQ1w3zszdziYrnG6wpX1Evq0hZUkn/ho5Cirr2H8ZYWdgK1hACF0DY5
+	 yrOdpTmrUdJ+fGy6dv8fqWCY1tPv0xHTmovccJFCzzlE7jOdWvU0SCsuzd0ebea4E5UHo
+	 U0TRfgmlwagPtw48peZpzZ+NDexCVuf62inFC7UJsoMMxY053wjIP4gYM4BkfAFsf3Gfl
+	 dvgT9ive9wTb/9HK7wG1zcPxP5rQ130ayouWWWoNeQ62mqlUn2NWIDT4pvQq+x8cNwDjg
+	 0L2yRzKXbF2UGA6BAjqdgYlBCdOGpuopphSoJ6aPt0M+92FcRipNxY0VGt2JgkQ7bDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697423;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=w2H8MyAJaO3E0Y/5RKb2VsySWe5qpJSMhyxRnp7Mk58=;
-	b=ZXnQ3TfiaVGI7MDa8bAYc5aIb8Zib8VCpD07nXIE23mB1dFx3hG7sTep3q9imrz8Gg5Z
-	 gORsojk/TsaV7gupxTaH5A15ZQcDWmS5D2OnOPzNWCwEU4zujivybVEWwec+2vpGk0bSk
-	 oeXTVUwObSQTbU4lIdw9kRmxUlkxmL/Rr8yGA1HsVxflLLioNeCeTPlolXE3xwgbeP5Uh
-	 PiVWAs7nRAbLCQKzxPqjks1dyYMmsY3LO3otd5IJ08GteT7s1EnM3o/QC8JfJ8iLTnJ8w
-	 BX42u9cEieC7MdR8nJyjyMAV0wrvDzDe479JWmbKQ6LB32HHHk1Qy1kw3XTg4H9CfTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697621;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Disposition-Notification-To:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=TNCUkOdrDNw6Y0YerpyggbymdScac6P000lKA53Qu5E=;
+	b=0hhQfkXHTMtyT3/PkzNMtKbhWa9x+rSuTFIqN2f6AqX9+BhQYC5f361zaky5uAdaXeZa
+	 +sPxB97n+2xwHjGfY55VHyoBIFElyuc1zriOOcNpTDUNcHLLaewGQ7PNc+u+Cq9UqEaNa
+	 aG++DnSEdBS88A4KmXz1PlGNCiFq5/QbIulZOVGWwG5BxhiP4/lFssrGUrUNCoFcM+TUP
+	 h6Jzo0IO73oXvMOWkhtoYrDPHbWBCTLcGmCL/GQ5N8BJeVG//14IbnYD8LvkyzyerXmu2
+	 DHXm/1HnHR2fBBSwnD6BeUmATVwH0Vk5pvRgv1qLshJKmJ2VAG2Obgt/aGTuBL2lJLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADG+UeTy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MgAXlGvt;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE30606A324;
-	Tue,  3 Nov 2026 09:17:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F679606A339
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F679606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADG+UeTy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A50B1F000C1;
-	Tue,  3 Nov 2026 09:16:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697422;
-	bh=w2H8MyAJaO3E0Y/5RKb2VsySWe5qpJSMhyxRnp7Mk58=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ADG+UeTyNPhwM/GZoqzHgTDZJCfYwjqY8aScLzrXTC/0s0ss/4SAuLUDPAP5HH303
-	 dYmwK3Q0nGyYjdiEnQ45vz2CqcEM67GAq8IitvWL+d3dfW5kgLN9Y8bHjd/t5/RWSQ
-	 B58dn4Cggzc9fR8cKFAhIiyWM5JbgjMaHzIifneEdttGUVMfZ0zWbyb4r3tJRVqe/q
-	 FA8MQnHKpSpjDHn+1Mvzoa0Og/MbX2hfDEEapi1XaPCPIoAusN59GaxzjY13PTmEDg
-	 9YsD00rebhNrwdNmZrPCVTvCVrffRHamO5ikUsJ0WacKDTBpH5PAd1KxtyVYt+bbYR
-	 2hOSBSBPQt/Dg==
-Message-ID: <9ad64922-e6f3-49fe-9715-3efba48a8677@kernel.org>
-Date: Tue, 3 Nov 2026 10:16:56 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MgAXlGvt
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c411b7a2710so71342566b.3
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 01:20:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793697619; x=1794302419; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :disposition-notification-to:references:in-reply-to:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TNCUkOdrDNw6Y0YerpyggbymdScac6P000lKA53Qu5E=;
+        b=MgAXlGvt3N4HPmYe4BFyl00Qw7aY4cTpOPdLrts5i12nDmokkC38bTWwSetKa3NoYY
+         JZqP5sWhuckQoSdqZ0yZvL1x1kKXVozy5G9oAHmArdJizqr+uq7rA5706M7tSOuYs1R7
+         RrVysGMeJe22az4/DYIain/haTwAwwdi3exTWR152z4dkQx8qDcMUj9/P/JsScc6kq13
+         JxYIwmGHjXIIitvY0j1zqJlwy8BFd3BiEwOGTBmeCUr0yTm7A630uFw6YvKzHNpzxkIA
+         qevdaMPZz5TY7i5N8wlW0BN5Yb5Y/81WvJ2GT0A1XVyxSShxQMP19kpKSDJqwPAvBbWu
+         xPLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793697619; x=1794302419;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :disposition-notification-to:references:in-reply-to:date:cc:to:from
+         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TNCUkOdrDNw6Y0YerpyggbymdScac6P000lKA53Qu5E=;
+        b=V9E02xq+QYnRT5SDWKRkz1gnoxCUvPjr3PYgBHpl72mDd1H62xPodmME4V8YtktmhC
+         MQ7n94mEB/TrO6rlJPKxDQxfkwofxXrUVZZW/oMyfR73hH6/G0cgC1viQnA2v9uRsGQ3
+         ifQT46IR7oLA23vfISayQS2brTPvKdTsBTX7k6HPsyGhN5ZFL5y6dyvbAD91eQTMxx59
+         rBu4kjcmEw16X4Kw2ijGWOZbSehR0PFVT92gzNVDdfrBQGipUBDTn50ygWEbp0SQilZ2
+         xAPDfjJN3swnjnJeVNAvYOyJgJoYHHl3r0Cacbhvo+BW5SOhFekHuNbHJJGzWw0Mo2FD
+         Vo6g==
+X-Forwarded-Encrypted: i=1; AKwUvBxz6m9NbPE1GCypkkoJQoY6gANBifsrOe2IMsGVp4bIcXeqAdPmzCktwts+7/MOtz+WxBDA+fU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZrnz3sT592EqituhD/3yQmciVdaXB9GugO7W4FF1SM6ITWFMN
+	QiXxEZPwT2gK3GwCzrST1PzZy0dFg4GKL23IFnm+vhMHpDRDqU0spISp
+X-Gm-Gg: AYBFou3B0CoxVjdLfS2sIdpIiVjcgA3DoiSfGExS5YSi8DIGAaRrmPVCYSw9tI/GizU
+	7smreF5r5vg7H5Xnvy5NXrP2S0colaN5AYYgOKkecUKa5QlHzwHwi9uPsXR4jyWiWCbSHMLz+eL
+	711+1DYQCob2Xlan7QpVfoXgEuR98Vz+C1y2em0DEwvIukxA+5QMGpi6ZSVTG0nPqKv0jXDegeQ
+	45WzC0l7y7PYMG7GN7V8DtIqvbK7laZPGiEaIkkFpzRYC9Ewogp7kPM5ra5a7Ag1lhFsRD8hqMN
+	gPsHdTvO4rWhGkDj3OasIQ4m0hDzZru8BsbTygQlDxuaMwMxXmBvfv5B2/iRMh6anz/+cEl0j5J
+	C0p7xL6MdfcI0H/dWAM3/YafOrM7WiFtSuqLNvDC+cEwYW+sM9fAD4DuYUwVF9gzE+2siolFu5R
+	RgHIe3UIbo4B6j4v29rQrE84ueOUAgitDmeZS/9BBOSWK/eArITI35NKrTviAjSzIQNgdloOnfZ
+	cBSn7d3wCavPgDEnm8CS+H2yc/HJ41tYTnjb7CNtajvtgRctDgQfSks4ukvxEoHBvHBSeZiNpoj
+	a3ABQ5L5/KkDPsbZ5M2WxQetfNhsEhNLVMXeKvcXN29+tZVjwiTAc5IKCkSma/tT7yNuXdPwNeC
+	r8WcTnby3PNqY3g==
+X-Received: by 2002:a17:906:351a:b0:c34:db91:aa1e with SMTP id a640c23a62f3a-c4ca7aa020amr977638966b.4.1793697618437;
+        Tue, 03 Nov 2026 01:20:18 -0800 (PST)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cebf37c9bsm67920366b.48.2026.11.03.01.20.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 01:20:18 -0800 (PST)
+Message-ID: <86a644201b1938155af01f3e2b7dfb71dcca159d.camel@gmail.com>
+Subject: Re: [PATCH v2] HID: pidff: bound the unit exponent rescaling loop
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Shengzhuo Wei <me@cherr.cc>, Oleg Makarenko <oleg@makarenk.ooo>, Jiri
+ Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ =?UTF-8?Q?Micha=C5=82_Kope=C4=87?=
+	 <michal@nozomi.space>, Paul Dino Jones <paul@spacefreak18.xyz>
+Cc: linux-input@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 03 Nov 2026 10:20:14 +0100
+In-Reply-To: <20261102-b4-pidff-rescale-exponent-v2-1-a75bcca65fd0@cherr.cc>
+References: <20261102-b4-pidff-rescale-exponent-v2-1-a75bcca65fd0@cherr.cc>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,80 +106,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: exynos4-is: Release clocks if enabling the bus
- clock fails
-To: Wentao Liang <vulab@iscas.ac.cn>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103090653.1208652-1-vulab@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261103090653.1208652-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 10:06, Wentao Liang wrote:
-> fimc_clk_get() acquires and prepares all of the FIMC clocks.  If the
-> subsequent clk_set_rate() or clk_enable() call on the bus clock fails,
-> fimc_probe() returns immediately without calling fimc_clk_put(), leaking
-> the clock references and leaving the clocks prepared.
-> 
-> Jump to a common cleanup label that releases the clocks on both failures.
-> 
-> Fixes: b71b56b264ae ("[media] s5p-fimc: Check return value of clk_enable/clk_set_rate")
+On Mon, 2026-11-02 at 23:23 +0800, Shengzhuo Wei wrote:
+> pidff_rescale_time() walks the device-provided unit exponent one step
+> at a time, allowing extreme values to cause billions of iterations
+> while ff->mutex is held. In a UHID test with an INT_MIN exponent,
+> EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
+>=20
+> Stop rescaling once scaled_time becomes zero, since further
+> multiplication or division by 10 cannot change the result. The u32
+> value becomes zero within 32 multiplications by 10, and the u16
+> input within 5 divisions. This bounds the loops while preserving
+> their results for all exponents, including wraparound.
+>=20
+> Also warn during initialization if the duration field's unit exponent
+> is outside the range -8 to 0. This helps identify unusual device
+> descriptors without logging on every effect upload or changing the
+> rescaling result.
+>=20
+> Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field unit=
+s")
+> Reviewed-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
 > Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 
-You just don't bother to read replies, right?
+Afaik, the tags should be in a chronological order (my review on the
+bottom) + reviews should be removed if patch contents have been changed.
+My review is no longer viable for this v2
 
-Best regards,
-Krzysztof
+> ---
+> v1: https://lore.kernel.org/r/20261029-b4-pidff-rescale-exponent-v1-1-3ba=
+54accf767@cherr.cc
+>=20
+> Changes in v2:
+> - Following Tomasz's suggestion, warn during initialization when
+>   the duration field's unit exponent is outside -8..0.
+> - Add Tomasz's Reviewed-by.
+> ---
+>  drivers/hid/usbhid/hid-pidff.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidf=
+f.c
+> index 22951b7ecd17..4540f49fe6e3 100644
+> --- a/drivers/hid/usbhid/hid-pidff.c
+> +++ b/drivers/hid/usbhid/hid-pidff.c
+> @@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_fi=
+eld *field)
+>  =09int exponent =3D field->unit_exponent;
+> =20
+>  =09pr_debug("time field exponent: %d\n", exponent);
+> -=09for (; exponent < FF_TIME_EXPONENT; exponent++)
+> +=09for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
+>  =09=09scaled_time *=3D 10;
+> -=09for (; exponent > FF_TIME_EXPONENT; exponent--)
+> +=09for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
+>  =09=09scaled_time /=3D 10;
+> =20
+>  =09pr_debug("time calculated from %d to %d\n", time, scaled_time);
+> @@ -1428,11 +1428,19 @@ static int pidff_find_effects(struct pidff_device=
+ *pidff,
+>   */
+>  static int pidff_init_fields(struct pidff_device *pidff, struct input_de=
+v *dev)
+>  {
+> +=09int exp;
+
+This driver no longer enforces C90 standard (in line with kernel) so
+please, declare the variable where it's needed.
+
+> +
+>  =09if (PIDFF_FIND_FIELDS(set_effect, PID_SET_EFFECT, 1)) {
+>  =09=09hid_err(pidff->hid, "unknown set_effect report layout\n");
+>  =09=09return -ENODEV;
+>  =09}
+> =20
+> +=09exp =3D pidff->set_effect[PID_DURATION].field->unit_exponent;
+
+So here, int exp =3D ...
+
+> +=09if (exp < -8 || exp > 0)
+> +=09=09hid_warn(pidff->hid,
+> +=09=09=09 "duration field has unusual time unit exponent %d\n",
+> +=09=09=09 exp);
+> +
+>  =09PIDFF_FIND_FIELDS(block_load, PID_BLOCK_LOAD, 0);
+>  =09if (!pidff->block_load[PID_EFFECT_BLOCK_INDEX].value) {
+>  =09=09hid_err(pidff->hid, "unknown pid_block_load report layout\n");
+>=20
+> ---
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+>=20
+> Best regards,
+> -- =20
+> Shengzhuo Wei <me@cherr.cc>
