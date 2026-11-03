@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689879;
-	b=0DbtwTJqh3+GFh9hVhRxcagqZvY9SM8sJVDPcw4c+at2wm8z5BWXyzjLTrSmw33+XTXT
-	 ww+SLjDP0f1NDFtqz7fWPtNRaIMwXT3m/nVfT/MUNc9zy7O1UJfW2Rjv1aG/xRiJSNCG3
-	 ubjWmwOIL0TFGEpAdCgpiq1M6LNqdnv2cpQ+A5c9GuNUkw1os8WkMYgC8+jgGtCBJZuOH
-	 ZHpwwczSQvXi6+AnAICr4Ymr6wePhP5qHqs24SM7AFRGgBuvcQPohvyQXZukVemS5VT1n
-	 rWkEIMdapKm/GN0XwgQ4uqkcl014cxXNqXnZZENeUOAFG0AN6sSXUSRLmvG6a1bd/ZA==
+	t=1793689893;
+	b=nRQsE9gn5DDZ02mWoDP2hpXBqJ1EIeeSpgYDVZmOAP38rnDCTLu/ib2BZwexF30SRoNb
+	 hBe5EkmkBA3qE63RKJ0RV447emIrj8/obd6sL3jqL5GmE4c+oAhd/ITN78hh86eeT+MGx
+	 kfqkylA4f01mcG/cgnbbENG66vXk26UZ8gDp++vh+Ns6leuMEtGMdvSXQRF4vzS4f4Dl2
+	 nseRz66Bdb4xnNdTzew61X5zWVVIBAOkpwMiJ/EocJLUhxTZ1dAMW05pK7t6s44g8/3md
+	 ieNsSTIWhDo+Uy1RGgehl/QEtBhowd6VNvETCqt6T/vxAv8+RZw7mFLWTsXsgwKuCQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689893;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=o9Kb9lGlmT9BhFsUX9DwIwbLkEw019Ai6afrvru1/GA=;
-	b=hhhQamoOqA7sXdMzjbtaKhQOU1s1SgayNT5x3eLOUEfY2/mlQEqZLfPKZkblSWGKS5Pg
-	 UAQwD2G+cOJkilCURoL370XN8z2tQ55g0YUlGM0X3ZtWpdo1uD3NMWEVjgJX4o6tRlye9
-	 pStOAjZHf8Rs0QDWJp27aZBB4+2lRc/mM6YOzr6Mjmi1vVJ1CLQb1KQocc0MsN8o/tyjJ
-	 9JB2pUE1htGx9YIu87MuIhagTwyVjftmDRH2jXutRMTcEYgwTD3DhLdFRwBpKv+4hltPZ
-	 puOqB7GTCQMyUgD6lcEj1dUyqe1vxj4VG3KRFhpzIWLVpsGRXGl68G42XXYSWcPKYmA==
+	bh=swiNWtUuNwKuw4eXj5wAu+E/uLXSlCdJjugmRW9mnBw=;
+	b=sW0GIe5MyhjA9XERJJQtSTVQt5Z4dSsDqkiRIah0z5Kr+luWgFpUK918uaW9ay4ZVue2
+	 jGLJexZwlaeRTPNBxsRBH1778wXOYGcU9fbcn4lfECRa+bQZDRU6Ns60uW88LU9vOrC+b
+	 1K0EK7uTCg0/bGEt9mrbX4Ny82kwdyHKebjLx0iWn/WY85QGkXVEBV04HBqueDNeIhi/y
+	 tzgH+CkL2i6X3RBAFr3i2Bmd/uKfD4WMzCt4ww/DViUw5ZWw3hIkOnTrE12wKoN6lherR
+	 6rvpMqPZ4bZ31RE/vhPfMGl6wA0Ja8YuS3NHQ9HZxZ01zKk3ULpNZGUoGpuPOYzBpmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sgyzd+zu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrczeBWQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3FF606A329;
-	Tue,  3 Nov 2026 07:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F04606A324;
+	Tue,  3 Nov 2026 07:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sgyzd+zu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329591F000C1;
-	Tue,  3 Nov 2026 07:11:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XrczeBWQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23671F00A16;
+	Tue,  3 Nov 2026 07:11:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793689879;
-	bh=o9Kb9lGlmT9BhFsUX9DwIwbLkEw019Ai6afrvru1/GA=;
+	s=k20260515; t=1793689892;
+	bh=swiNWtUuNwKuw4eXj5wAu+E/uLXSlCdJjugmRW9mnBw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Sgyzd+zusTH/mW2SnLZNwOg/6GbKSQlp0ODMW1U8fO4/BPLA8GuIl7gDDMZfm6XvH
-	 ejdnNaSs3GYwFkLWgTs6k5CL2T56nGbNhKBPGTlhriOJG+5638xyBGi9yB7y49Ll+S
-	 SSMw6TJxqWd6Zm3Wd5p1hkcycOs8vanWT4St7chdWydUXk1iRX8ApIk4UXHQlWPyjB
-	 tjKIxnuvMTieg9uBusGSdpKHS2gSGd5Gb7f1Lc5tGoVfSbtZj+wtvHPZcPtDc4yLrw
-	 zClS65QypacXxtvuBKwSQ6sMptjWOPFhrVGuRgaI9aiRck/DVBVpnZwfRFZaxaOuQD
-	 1HGOd7XQkveog==
-Message-ID: <610270b7-0dd8-4e7b-a328-40879746650c@kernel.org>
-Date: Tue, 3 Nov 2026 08:11:14 +0100
+	b=XrczeBWQsfx3fQ6PrT05hXV1RI1YDiFOlZ9y5ZWhJE7agsz8daWM+k7RKiX+pNWKu
+	 UcZQ3OQfMw0XY6Pl6+0pP5GVGewN+QZVqVHxlCnr8oPbNVyU3NlP7iiCPdsOpPxGaF
+	 J4ni9IXsgp6lhOsLm5MtTdSCCOOPeAz6NcERPioO40hhrIALZYolsI4mGQdz4xZrjy
+	 +2nkUmQywAYAWc3IAJaBbFnjXGnY4oz3vEQtbh0gDBKbtxbiUQQvMhPdsIzShH1BFE
+	 nXL3sEKyl07Erlx2h3SlzACoQnxvBSdlcyp+nYmzJzV1/cpZuC7a3eE0YRYmouC4zi
+	 5wEJaPwrtafVA==
+Message-ID: <8f39d96f-127d-4e3d-bd8c-150d8c00b9c9@kernel.org>
+Date: Tue, 3 Nov 2026 08:11:26 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,16 +52,17 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: ixp4xx - Free the fallback cipher if context
- initialization fails
-Content-Language: en-US
-To: Wentao Liang <vulab@iscas.ac.cn>, clabbe@baylibre.com,
- herbert@gondor.apana.org.au
-Cc: davem@davemloft.net, linusw@kernel.org, kaloz@kernel.org,
- linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261103062942.1021598-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/bridge: lt9611: Put DSI nodes if device tree parsing
+ fails
+To: Wentao Liang <vulab@iscas.ac.cn>, andrzej.hajda@intel.com,
+ neil.armstrong@linaro.org, rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103064759.1059044-1-vulab@iscas.ac.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
  cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
@@ -105,21 +106,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103062942.1021598-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103064759.1059044-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 07:29, Wentao Liang wrote:
-> init_tfm_ablk() allocates a fallback skcipher before calling init_tfm().
-> If allocating either security association context fails, init_tfm()
-> returns an error and the fallback is left allocated. The crypto core
-> does not call the algorithm exit callback after a failed initialization,
-> so exit_tfm_ablk() cannot release it.
+On 03/11/2026 07:47, Wentao Liang wrote:
+> lt9611_parse_dt() obtains references to the remote DSI nodes before
+> looking up the downstream bridge. If that lookup fails, for example
+> with -EPROBE_DEFER, lt9611_probe() returns without releasing the DSI
+> node references.
 > 
-> Free the fallback cipher when init_tfm() fails. The security association
-> contexts are already unwound by init_tfm().
+> Use the existing err_of_put cleanup path when parsing fails. Both node
+> pointers are zero-initialized, so this also handles a missing DSI node.
 > 
-> Fixes: dfb098d692ea ("crypto: ixp4xx - fallback when having more than one SG")
+> Fixes: 23278bf54afe ("drm/bridge: Introduce LT9611 DSI to HDMI bridge")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
