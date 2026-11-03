@@ -1,66 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717607;
-	b=ABjMdAr2fyGZS3jTfu4/VHZTfeiAhB9qnh3G9muJ8BSZtYNPv5BpYEoOmZtv/sDGgGYc
-	 2Qd4hwEMig5bv/5fruopZGK8/dhrYy/XM2qaATxMbvpGmHe/d7IDGdg0oF1q7mvt1bHTS
-	 don/ljGcgpXppoSRjj2afSY/E6l6VunBeXaiC5OqCbICBGuk779DSGowhkkbLJnLzmknx
-	 qGjBqobwVOBeoi8nIJuBQeSQ2Ok9PVWqnDnLtHaNo+V2db45X1N5kgz2C6zEpBiYnPM8H
-	 LsRm/FYwPHSC1QPHDh/ozPaDmmUXfMR5HN8JIvkYr6HfkThSYUQldZeux+ILuJ7h89Q==
+	t=1793717670;
+	b=kGBYzH4O0NYkX6nO2CC9KNJxutLamY4AwTmvao0LAX9oOR0dCDnQfdVjaAJ7rECo9JMI
+	 QnmvGDKXuUn2KmschSJ+EPXsCDAJTMDtiQ5ayyxYgJX1iaJb08vawgWYOcC67+hukg/SW
+	 afE2cdX/CldQeHyTQcTd0ONqX9zkA1F9R/qU9Tv86blSYOO4gAB2FDUzxe4SX4QlmWwvu
+	 AYmpMoWXFhqTdGnYsSagNsjCEDP5OlXCaKhZXHdFvPF20ZufZZgq69LAgd6plkdkCx492
+	 tFoz+tW6a+mukUIUJrxwSBk5ABfwVqza2JeSnsIsWbCB6DFYbovilijtvfd5ezFe4sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717607;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lN6/UyH0yVLzdc/bLBgkSFZGjwZsixPue/fM7Y5QUY0=;
-	b=yuVQjsQreIbTUX/mntT6pRwZql55neMS7Jc2QVAjaR/1tutxYyGeqRtZnPiB+Jzd8kXP
-	 L3ukqvlxV1e4Ycy8+Gi67O6JUN5IBSq/783Kqz0WI2Trjo1veYP0wqpKC5QL3pqKskIZt
-	 Xb+AW2ZuHQur/AtELobR4tEC5U7t41pNn/qzoLWPZYG90QEgSDxiWopm9W7O29nEOvjvt
-	 yYElGzfklZLSVFmGWoRZC9wZ/CrZwHak7Qa9q3v+eMnsC0tdEKJPEu5Sp6Dmq2+vdxb/z
-	 p8HIuY3Zq6UTxeUFWCWqEhb5PMd/JrJm7Wcga9W80ow230PRGuTmWMz3mlfjf0b8qpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717670;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=;
+	b=XTYYkhuF5WjNReTETykhkuiCN8ja212wseayFzzZvLw9LbQPEehmtXuhyekWSBc48gyo
+	 yl5BNuEccpfhpbfrbUw4XJpKXOkq5e0jWLXhP0R6I+hPPj6W9x7GGhEY898/OY8HAbyjH
+	 Vq82oFB7nsLvYe6vv8AuTd1su7tOXM4zUXOd2H1knFfGyjRoFVOB6Up/xP9wZdaGcyct1
+	 fXUhuLBaiLB9Samr2c3zaqzY85ef5A4n8p0h2kI8LIY6rk4QXGyYBDV4rPE0IVsTBaI2C
+	 t2RRXTtcYZ5jTEv07QGMmaPtg2eMbbiZwpHxmYFaferFNutSngk/aRWZTWHkoC4fw3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYYdTd3y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SVdLAeud;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0lJqVcia;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A3B606D2C8;
-	Tue,  3 Nov 2026 14:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6897606A32C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:54:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6897606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KYYdTd3y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72A981F000C1;
-	Tue,  3 Nov 2026 14:53:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717606;
-	bh=lN6/UyH0yVLzdc/bLBgkSFZGjwZsixPue/fM7Y5QUY0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KYYdTd3yhf0Ql88uloJlEQjPcAm7611vv1CFkAKOfqBFmbVpxeh9LsD99MWBK+VzC
-	 OTpRXC1CN6sr6UupfqPB8Dy0keYYoMs5/g26kF6OFpSZIZqFJHwm8MO9VOqRGFgDCg
-	 VVLMCUILiD+R0uZKD3Hwgs3o5X5av5i/QHt7hxHnQBzzLKlzTu84Ay+D0919U8SpMW
-	 M2K9awzSTViN8Gyyn/rFkUVHJRhLMOhsF9vGZb46MZvW0M87tljXxuJyOwxO7LL4MP
-	 yAfsdutiziA+UHsCoG/mAvMCElgOWGh8Q9yykv/lyasFQY609cIEUIHGXNLfj2A+Dt
-	 QrbTm6eiwKQjQ==
-From: SJ Park <sj@kernel.org>
-To: "Xiaolei Wang (Kaihong)" <xiaoleiwangxiaolei@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	error27@gmail.com,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=SVdLAeud;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0lJqVcia
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id 2EA851D00245
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:54:29 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Tue, 03 Nov 2026 09:54:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1793717667; x=
+	1793804067; bh=SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=; b=S
+	VdLAeud+q/wInsQDqqsUAcWLzXyBiSNh5a7e92keQ44lw5NLJ7wUkFjTEE9BMkSZ
+	Yf8D41EFJWwKDFln5xHCPH8TrFN135d2ipSP8e8vB1an9tffaoqYQQTuJZYp0kRD
+	6bWsxrcyJ6TFpNzOwOWYeNAGO7q3LSlazVCxr06VQp2eyu4bVpz4aAAOYFvClZzS
+	aGhoko7+N4iuVkdZsMI3kRNRRpKPmdATNlHEt+dgEabQ5By7ozi+8JM0UKte+vOB
+	3ZjjlnBYaj6ZuF/2ekrwxCjHO83NPlV1UEs7RXATrq6mfCnHNXKx7/vw0qjGbBsl
+	DvCnlzkOZk2ywrseMig8A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1793717667; x=1793804067; bh=S
+	Sy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=; b=0lJqVciaBelVs7ke0
+	6+v6J9dz4F89dFPPZZdPpjRWjF3IybbvsfgrJGUkA/fLHjjeRnFPnP7ni/ThHnBY
+	8c/U4yDyt6Q4UU8pisKsUmwD2EOK/HApw267UvC0e7CPFEIqNYwp64gHh7Dvn5Fm
+	s2IpXFjKREzmE7OO4FX9RkyXJGKhrmMZkJ+QBVzv9lF0y00cDdZjBrw8gcME8iBl
+	a80OowZ3bvBaRsfQGM/5oWRQq2zHfYvaeBeZuCQ7VejnliX0MXNV69D8etJoZpHE
+	1myfDklidEsgibXZs6iLpkk0wf5zY8bio8AosG/P8bDIxAeSGDSaHx5V2iSxZ6/J
+	EHFJA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793717667; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:jKFr01eQCGP6PqVtFwiPurgTGFFZAx2FbsXfMToI+0C39o5
+	ZDlRIpzzUVzV7EWEndYZs9sGBcTr0+CbaDqGAEppuNA2tckJbpbHDLf7LA9XfFZq
+	D4p4wLbkJj/fJsEu8XMfcaa1qZNgJBMtufu9W/xFN/SvEsHk/V1uIEkTOqKt7w6U
+	vxINePm3aMvCrvX1G14JDbZzW8iMlKoGySd0kAVLqyWm8lYt2bvU6y27YetwV1B9
+	eRxrh8ZSW2hA3Yxa4gS8LhRfeTmlmpGCZd/uQ0YxhMSizDhSygIi0upy+JH589jh
+	/CwaRVbcTDqT55Wht7s3LPTHskBohuXidcfl1RQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:nrSmHOa7lzwzvlWV06WJub79sz1mZ8uA5wp6BHlMjkE=:SSy0GYW9yR4/et/pRegjtStKlFfpGxw/e/vW5MJQH1g=;
+X-ME-Sender: <xms:o_XpaqdOfVyoLXOnfElKaFgLUsoQXWsSzJcwqm93JTpB-otlk_kOyw>
+    <xme:o_Xpav6_nr3RZj7wTvjoHdFb1sJ_QVYQJASJ1Em-AcTOO0EI-au0SQx7GSerkAkvJ
+    cMoABsvjafbFX_EMK3MsM23qwRyhTlX-pMlK9zVJp5nHQMBMUyn_Q>
+X-ME-Received: <xmr:o_Xpan_0ss_kovDi0BvUuiOaqv3jxrluIReCu3xVTwhYVgn4Z2k3SkhMpOw-BImS>
+X-ME-Proxy-Cause: dmFkZTGjXhpuZ3h++4iNHGnZA4O5fFr/0uT7x86idCLG/85j2p6KL36wtfebS2Xc5ySmMb
+    19LyPhGS6OyebFzppJp2KmpbHGC8rDleAGkASg7sqAe3aN9+mXEF/RANIiDiGeZiiz5vSg
+    QaQQxkmNYPyqhE7t/dRGK1DIZJnPTA5+DTFcEy3voNmv7J3vrQKHJ4X1njDSf3VeGI8Kvi
+    WrcSw+sAfhXlnaaRm0rwp98DRNapQREmuriDR8a07ThQzH16K95qZ7HXZOE+pmsovyYEXZ
+    KFd8sgybNTIaqJljeRBDW85nJFvQZBI6ImoZg+ZPslYLvF59KYNzawhueTcsYkfkE6n8Fo
+    KyZO/FVyQ16YpnEspjeLs9n/2f1Khd0VwuDKW0i5Kn8un7EhJpkCA8XYazhMptGvQCA3MT
+    0gOlwgK6rXjB1zgAubM32ttv8Wmxsumy1aaU/j+sxJ/MLIM7JihRzmL9AQ7Iw0S/BemfQs
+    dqk0znlxQ1FFRugC1laY9pxnrGjNUy+jZttceg9MyNHuX7F+LW5bkN9maRGOxgIF1s7yEU
+    zwevLB7jWBLqZZOzltzZWf7QS75GQCjyvKzKtR29ULEmkYFdON2jxbjr1xjsvWCVdGEEnv
+    GVUrJcYhqVKuwQNIMc1jawlQgO2He2Ja0jjvp60lWSR5CJuL6cPmTtV01etg
+X-ME-Proxy: <xmx:o_XpahEMDholwENdSP6RCIg2FO5YNVciORN4cCVogcfR1g5I60k4UA>
+    <xmx:o_XpasXggG1M37XzX6W2Le0eKb3lXbT3o0-4tX1qiZm11PrWEbSrbQ>
+    <xmx:o_Xpat8aLQk2zNq-BMFlfyk9Grq6oasJPxKTxJsPMsyN3yilUO05OQ>
+    <xmx:o_Xpap7bXlhqA2wjoSbQtOq4JUTWRXH8C4OkyMTo4KgCBk8QMpHxkQ>
+    <xmx:o_XpavuJUMxy97ufdDwFQokWaPUxjQEk7nQSRozQFqzlMfzb0IjKWyo4>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 Nov 2026 09:54:26 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
 	stable@vger.kernel.org,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH] mm/damon/core: reject empty access pattern intervals on scheme commit
-Date: Tue,  3 Nov 2026 06:53:19 -0800
-Message-ID: <20261103145319.88120-1-sj@kernel.org>
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH v2] ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow
+Date: Tue,  3 Nov 2026 08:54:19 -0600
+Message-ID: <20261103145419.10809-1-icb@fastmail.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103105418.362459-1-xiaoleiwangxiaolei@gmail.com>
-References: 
+In-Reply-To: <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
+References: <20261102200353.884509-1-icb@fastmail.org> <CAKYAXd-s-g2V4LNY8e5SsH=+0r3qLY+AeOa5Lp9K0T5p_tnA8A@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,44 +133,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue,  3 Nov 2026 18:54:18 +0800 "Xiaolei Wang (Kaihong)" <xiaoleiwangxiaolei@gmail.com> wrote:
+Hi Namjae,
 
-> DAMOS schemes accept access pattern bounds with min > max (e.g.
-> min_sz_region > max_sz_region).  No input path validates the bounds:
-> damon_new_scheme() stores the pattern as is, and the sysfs ul_range
-> stores are plain kstrtoul().
-> 
-> At runtime __damos_valid_target() evaluates "min <= x <= max" for each
-> of the three pattern dimensions.  A reversed interval is an empty set,
-> so every region fails the check and the scheme silently never matches
-> anything: nr_tried stays zero forever while the kdamond keeps running
-> normally.
-> 
-> With such a reversed interval, damo starts normally (rc=0, kdamond
-> state=on), but nr_tried and nr_applied stay zero forever and the target
-> RSS does not drop.
-> 
-> The same holds for the watermarks thresholds, which must be monotonic
-> (low <= mid <= high).
-> 
-> Validate the access pattern and watermarks at the beginning of
-> damos_commit(), through which both new schemes (damo start) and online
-> updates (damo tune) pass.
+You're right. For MAXIMUM_ALLOWED, v2 skips deny ACEs for the caller's
+groups along with their allow ACEs. An owner named only by an OWNER
+RIGHTS ACE then gets the rights of that ACE, write included, even when
+a deny ACE for one of its groups comes first. A probe confirms your
+example.
 
-The documentation is not explicitly mentioning about the inputs (min > max and
-non-monotonic watermarks).  But I was thinking it is not really difficult to
-infer this behavior based on the existing document.
-
-If my understanding of the documentation is not wrong, I find no problem at
-accepting the inputs and just behave as documented.  It might look silly, but
-who knows the users have a creative reason to do that?  As long as it is not
-causing a harm, just supporting it is better for both users and code
-maintainability, in my humble opinion.
-
-Pleae let me know if I am missing something.
-
+I'll send a v3 that processes those deny ACEs when this patch decides
+the MAXIMUM_ALLOWED answer. Where the existing lookup decides, group
+ACEs stay ignored for every request, as before this patch.
 
 Thanks,
-SJ
-
-[...]
+Ian
