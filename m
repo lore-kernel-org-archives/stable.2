@@ -1,94 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793731524;
-	b=mYvCaWqy9ffV3oyWDifKafnZRAhfnyJnoj9k0KOn0E+Fyoo7Ln1DRSnOgZZRg8F0xmK9
-	 eUgL1cvcUkwKsiurmvQdG0xnsEOYMamvpEgLgO69kaWZh1aIEzQugL2ebJsKSJCAUB9b+
-	 x5oPepgUexzCTWUw12WYnyvv23FJ8Jx11f29XqgPdgCFEKFJfrNOGNuvtiwI8Mp2PcruU
-	 8YfjMocFKVCmYspqtImh2oWtPpiG9Rj9tyoCpVPN41nn3n22TI0K9ZKigOdn6Qy3yJu3A
-	 UMDN6uvJh8GPsdKXl11//uOSX8ABVShIpYibjdG87rfY6MpDU10o8HeodtF5UL0Zhzw==
+	t=1793732066;
+	b=jI4aZX8LkYWe2MqZaYXtshindNEDkkG0sdyXWw2dx1GsivXCEB/XgLDvS6xy+t49fZnh
+	 qYxY2KTdn7NWgRF4orpLDNIwZo0yFFjKzCU5hfQ7TnhmTr4MDFbuZc+4uTMTzyDmhpBVu
+	 aGSnt6nbgR9dtA9BUT/8B1JkGSuZ2sltvD0aZugokWzWMEqxlZhJcFJcR2wcmxjqccAmx
+	 h4TV0TjNeoJyRYUTksjKv8Wv1Ud9gWaOvOT39xEjbJQHmTxhcMke11zPfYg+MbnwC5KUq
+	 Yf/KY4OBhXxpmtsC+RvqENbUY/iN0cpBXKREMGe1htC7m+4eMSI+lTvFBeIldVSWkUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793731524;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=dxl6974/XeNGL3VGfuMejNoLR+R+5VwHaUl0w+woIxw=;
-	b=HxNfnaIPPy7UrC2gfQcL15yXF9A6NG0BL2xPeiKBcnXadl9oTPnQXwAly/aw705j0tax
-	 Yt4Vlw3ucUKqjl3+2GJDnvRNgFrNrV9Tmt9kLNpteBjha/1ulxXxtYUfhHUljt5b7giwr
-	 M9Zh7A0bLJhqGTzBmvUUECkRMYzaNWyDZpRyRtt8HQvatgGBD12VSPnEes90pZN3SgRSs
-	 AayQVKd19RxwfGoFfPAq2uQ1ZStjhvmcR8/Yat2UltsR33rRcF3Dm8TCy3qbcrkicCKNo
-	 7sDiuhSMTNceFcPZ8DsjUYeoQRsqHilHUIj31Z+v27U2sIMzEbCCUHYbLdZ/GQI+HsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732066;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JPljfIGYRDg6q52cSpwt94ZpPrzmAsejEq2y2BXIXP4=;
+	b=qxJIvfIVxCuO3EXZV9aPZObsTtONAclQ8e6kr3ZLeU9FOC4je/ZqUpl0LUD8SADpaQ1m
+	 XfZZJ2nGXog+Piexw24tGa9aGmkIrQ4p3kjo73rNSzAZHZQMPVN4KCmY4RhS4VzFb+Psz
+	 5h4eIQTIglVoUZlFI+PXW+nKEQoJ9OAtN5qPPhwP9fz23hDlj29IvjtKKvBSDn8Bwnjox
+	 rbv853vaUY2bCPTFQ7owrvnWyXeniWjuZYnGM64OBcMFdtPcw8YS/VtN37eSTbFSx7dkR
+	 lpu/K8Ef+e9B9l497tSmVpxsNZwPcpK4UobCPD9QZHzjrCSMiz6R5Lu2/Oy+6XjE+Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bRn/Owv1";
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jC9C5R9C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDC9606A31B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 18:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DDC9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370D9606A32C;
+	Tue,  3 Nov 2026 18:54:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bRn/Owv1
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35b2c599f43so8042273eec.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 10:45:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793731523; x=1794336323; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dxl6974/XeNGL3VGfuMejNoLR+R+5VwHaUl0w+woIxw=;
-        b=bRn/Owv1Hbfs4AmSN8ZJ7uUv/i0z0jsI2n/FSJWVnU6sdNs5Vsb6Xm0EVSeeyfd25e
-         s08GRHSnBiw1wt2ZJ57iKnFkzIRWVkEfnnoHjWhJR6uaMXyzdi2V1uY1dCOJnvcLcAGa
-         tOl46D5H4NCfA8pH4ty8mpstLEBI841odDGE8iZL288BlhkJoNYgWzNsmV3/wZQvJ+Wd
-         b1IW+EwkaujwJlpUkvjFTkIXOHtGxTisL8ZYCyaQVlXAw4Nhu+h4ZNRpfaPBcmrbx2YY
-         dlot7YrLO0aHSIq4qsDCn2RGmFQI/dsYji3caC76+BjaLIBiVvV1Oes6fIIA41IYUj8V
-         x01w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793731523; x=1794336323;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dxl6974/XeNGL3VGfuMejNoLR+R+5VwHaUl0w+woIxw=;
-        b=VYRpx50TWK8kIlH1ZU7EGOSFzRLEBcYQTYCg+jrBcq40hD+zKinxTY4b2/LXDpib2A
-         SiKClYpMEGAscSdjlIcF0Dj02471lZfxmeiCu64CLgDf+4rDRuUv1YM/PxgJeTrHUC66
-         sgQhifTA36N23KTUSxXyg7NZ6lNVlF818ebZrZ1BWzfVPb8thTnVRxJDFnxV7ArUsA91
-         bYFqHZTAMPHztf6cPN/Q7Jj1fkkYqhQqAslSg1Eb17zJPby+yeAQJkTKX1uFiWbaxAtW
-         yzYrRqn64YJdcnkZhJcyW7rQvaRTZeq4ZxVd8rwLnTM4dywHBwFCOFA4wTWsMPheXTha
-         gIUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPzFPEPtXRkD9EiZkRmHez5dPcbRQqqZvPBci0y0BajSuVqekZkOUErejfcUYheyvCLeh6dH0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96QmGBBtQWrg1gAQLltNficn7II1LsaZh9nNCzCs7cjcIV4RPL
-	Po0aUyB3Fj4qCpASgsklzZ2yHUu1X2zKuxqAZHxLRbGNUezZsT9aKjAh
-X-Gm-Gg: AYBFou04j8tyvnwOaoxVc2cdgE4rGRknCbS926kkJgGy8/4Hi5gUA39oFO6UAQ6zzrd
-	5kn2isW8jrsur4L7BpEtvIeJaFxqLfvh5glUgpUilXxkm3hXyUtiM0fG+Xi6DGBNsLE7BqpHyOq
-	qSaBt5c+MmGZzHTKUVzsuisfuym0/hAePqUmV5vO9/5BoRtpXzWTf3IC+EO2JraCCnj8kFfKIIt
-	GAP5GCAJNJZ7gWYB83V+nBAmuwGp/QTWW5sTdnCrXm7t8vQOh09CDgyvHtFcQU+GaG2BUZxqt4I
-	9iyOpKIzHYjoq7T4mgJHtgC4bFA1xnq+nndebMiATcDgI7vfOcS2a8HjJUWBbN8x6LeuqA6yjm+
-	/RXVncrPfOBgPdKHcHg1A0AYbr94EdHXhauZQ77R8jphiXVSeSxB6WLj9ET5/pOTdcopgWs/YWl
-	4gm93DOyFIsSAvaNUzBEABBGkyya+ftTbsIvgKf400DSoeiiCrWAfS/eHIruXt9Tc4R++CiTrYZ
-	xHugeogg+7izh1g8VYoOx2F1WYKLbZNoQNN5OhNJJrjazH2PKOTKziRzNTbE7m7Mwniplvo+gpb
-	yHZfRCHYW4VB9/X3xtlq61yE8yNuWO5WpdLz+KNVRMunJyGXixYoVdwNPmXFg/uqyxd0+GZ6fec
-	tXqA+VRQnkHLYQg==
-X-Received: by 2002:a05:7301:648a:b0:369:d793:328d with SMTP id 5a478bee46e88-36c9dd475camr1585502eec.31.1793731523122;
-        Tue, 03 Nov 2026 10:45:23 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:88b4:22ec:d621:c1b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3788bffsm102648eec.1.2026.11.03.10.45.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 10:45:22 -0800 (PST)
-Date: Tue, 3 Nov 2026 10:45:18 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	liuc63@xiaopeng.com, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: joydev - avoid an undefined shift in the legacy
- 0x read
-Message-ID: <auorp8LgmW8Fr9tY@google.com>
-References: <20261103084135.426629-1-zhugl3@xiaopeng.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jC9C5R9C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A2D1F000C1;
+	Tue,  3 Nov 2026 18:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793732066;
+	bh=JPljfIGYRDg6q52cSpwt94ZpPrzmAsejEq2y2BXIXP4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jC9C5R9C/AIcfymo/OgR/5QSN9tRRJhOrWZZ3Ql64cmS7m2RytoQaDU1OOEFjiI1+
+	 LUmcdiwRvFuMNeeOYl6DX5oVQ9GcYX/ijn0V0CXkUrebK6h8Lzg27aVbUF3FFQJInW
+	 ga+3CMyMi7i/WATmUjAQcRfeLz+nDG2yy0i6cyCqLHJXGgQbKiaWqIK1mVnTGbM6e9
+	 xzHQK/m6ctGPw56Mki0ZFtWQ6Snkvt7dFuZQjKKPaBFcoHz8Aiaa2lARbnzTQ1p189
+	 tsM8fDrTcFvS8KTGv5Jao1uv80MSSY3BSv4GdKf90dbSmYvQuVQVqPFc3bOYcF3Wz9
+	 RNt3GxHOfeKvg==
+Date: Tue, 3 Nov 2026 20:54:17 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Umang Pokhriyal <umangpokhriyall@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
+	linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] userfaultfd: validate the whole range before
+ changing write protection
+Message-ID: <auot2ZVM5YjyFlZZ@kernel.org>
+References: <20261102103621.156928-1-umangpokhriyall@gmail.com>
+ <20261102103621.156928-2-umangpokhriyall@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,52 +67,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103084135.426629-1-zhugl3@xiaopeng.com>
+In-Reply-To: <20261102103621.156928-2-umangpokhriyall@gmail.com>
 
-Hi Guanglei,
-
-On Tue, Nov 03, 2026 at 04:41:28PM +0800, Guanglei Zhu wrote:
-> The legacy 0.x read path shifts the axis values by the calibration
-> constants that JS_SET_CAL installs:
+On Mon, Nov 02, 2026 at 04:06:20PM +0530, Umang Pokhriyal wrote:
+> mwriteprotect_range() checks each VMA as it walks the range.  When a later
+> VMA is not registered for write protection, or is a hugetlb VMA the range
+> is not aligned to, the call fails after the earlier VMAs were already
+> changed.  When unprotecting, userfaultfd_writeprotect() then skips
+> wake_userfault(), so threads blocked on those pages are not woken although
+> the pages are writable again.
 > 
-> 	data.x = (joydev->abs[0] / 256 + 128) >> joydev->glue.JS_CORR.x;
-> 	data.y = (joydev->abs[1] / 256 + 128) >> joydev->glue.JS_CORR.y;
+> An unprivileged process can trigger this with a range that spans an
+> unregistered VMA.  It hasn't been seen in practice; it was found while
+> reviewing the userfaultfd range ioctls with an LLM.
 > 
-> JS_CORR is copied straight from userspace as three s32 values and
-> never validated, so the shift count can be negative or wider than
-> the type, which is undefined behavior: the shift compiles to
-> whatever the architecture does with an out-of-range count, and the
-> compiler is free to assume it cannot happen.
+> Validate the whole range first, as mrwprotect_range() already does.
 > 
-> Clamp the shift count to the width of the shifted value.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: a1b92a3f1498 ("mm/userfaultfd: support WP on multiple VMAs")
 > Cc: stable@vger.kernel.org
-
-Why do all these need to be in stable?
-
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+> Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
 > ---
->  drivers/input/joydev.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  mm/userfaultfd.c | 20 +++++++++++++++-----
+>  1 file changed, 15 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/input/joydev.c b/drivers/input/joydev.c
-> index 32459fd8a7c1..4740099599bf 100644
-> --- a/drivers/input/joydev.c
-> +++ b/drivers/input/joydev.c
-> @@ -353,8 +353,8 @@ static ssize_t joydev_0x_read(struct joydev_client *client,
->  	for (data.buttons = i = 0; i < 32 && i < joydev->nkey; i++)
->  		data.buttons |=
->  			test_bit(joydev->keypam[i], input->key) ? (1 << i) : 0;
-> -	data.x = (joydev->abs[0] / 256 + 128) >> joydev->glue.JS_CORR.x;
-> -	data.y = (joydev->abs[1] / 256 + 128) >> joydev->glue.JS_CORR.y;
-> +	data.x = (joydev->abs[0] / 256 + 128) >> clamp(joydev->glue.JS_CORR.x, 0, 31);
-> +	data.y = (joydev->abs[1] / 256 + 128) >> clamp(joydev->glue.JS_CORR.y, 0, 31);
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index 87da92526..b8a9d9574 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -1105,21 +1105,31 @@ static int mwriteprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
+>  	if (atomic_read(&ctx->mmap_changing))
+>  		goto out_unlock;
 >  
->  	/*
->  	 * Reset reader's event queue
+> +	/*
+> +	 * Validate every spanned VMA before changing any of them, so an
+> +	 * invalid range is rejected without changing part of it.
+> +	 */
+>  	err = -ENOENT;
 
-Thanks.
+Nit: this assignment is now redundant, isn't it?
+
+>  	for_each_vma_range(vmi, dst_vma, end) {
+> -
+>  		if (!userfaultfd_wp(dst_vma)) {
+>  			err = -ENOENT;
+> -			break;
+> +			goto out_unlock;
+>  		}
+>  
+>  		if (vma_is_hugetlb(dst_vma)) {
+> -			err = -EINVAL;
+
+Same here.
+
+>  			page_mask = vma_kernel_pagesize(dst_vma) - 1;
+> -			if ((start & page_mask) || (len & page_mask))
+> -				break;
+> +			if ((start & page_mask) || (len & page_mask)) {
+> +				err = -EINVAL;
+> +				goto out_unlock;
+> +			}
+>  		}
+> +		err = 0;
+> +	}
+> +	if (err)
+> +		goto out_unlock;
+
+If we a breaking on any error to out_unlock, why do we need err = 0 and
+this check?
+
+>  
+> +	vma_iter_set(&vmi, start);
+> +	for_each_vma_range(vmi, dst_vma, end) {
+>  		_start = max(dst_vma->vm_start, start);
+>  		_end = min(dst_vma->vm_end, end);
+>  
+> -- 
+> 2.53.0
+> 
 
 -- 
-Dmitry
+Sincerely yours,
+Mike.
