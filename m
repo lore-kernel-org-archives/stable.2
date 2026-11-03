@@ -1,59 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704013;
-	b=29BMC+UmLCGUucaavymYptYaA1qprIx5zt5PQsODJQYMyerG/wTybh7y2SCK3sEXuhvz
-	 LkgDfyYeH5LLDY6PLBthfT5UaIPJIW8bD6EGrK9Zjjf0J0HzKCm5e07Pb/B1eCDg01Nlz
-	 hBHziOgTeOAuDQgsYoIh/MYhUJU0WlO+3v4D0j0lQQli761FHJTxaoi1qHKcIU5olUZz8
-	 A9ZLBrSIW25HoEWjzBKr/toMYRXUhfYuKk70WCGsaFq3Xp2eIU6XAdrwR+TnVygATZ884
-	 ZtR3SphTgJjKbhdZ9/8VJNqSiurwUAWlZ0jpmHpC9aLKjQWTcjB+Icb05f2vtdmDwbw==
+	t=1793704023;
+	b=LWJQ8xO0gmtYSD3JZZg+tIZ06vHavbzrxAHhlXuiUwclkmCelPTZGyFbhqFLsvVKFit0
+	 IepuCCiOkJXmggwvO86YeyZz7kIfo+Vvc6eBatKXzSbmfhmzjC6VWDNt4f2sI9//yKF5+
+	 xCCFjK19SpnlzstV+t8KZR/MwmHVtP3eChxUTEpTPT7EAqPgAuLVJYMsX6tiCnxKEcSuk
+	 TlIbVIAkl7cahTMs4ydCMLZiWOSlk2pdUW73RaUmuXsfIUmKvfuz/Y1CZY34sLfGrR7Mn
+	 aRDMAvqlQ2RKTdBVfsVQ3sMyvDUhyaz/FFDuig73gqm6PKcwrYnaWKGv1EJwdMeYlJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704013;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3s6r6uQsgyw51J/xpkAs4rKI159aXGfCjK6BzQ+pIp8=;
-	b=QlwPOHwhdNUH6gZkEezZDmqwz7CbbPncjMvDEGpoyXozMIqQIhgcZs6aKCFumS2bSfw5
-	 JMCH3sWMMgtRa8tt5VDS9Z9/2kJgPWS9ym+WKC0Id4RrxY2Hab0CHv91O2QQIu3etXVQT
-	 D1aHRVwvOLy+3hCM7w+wquP2fWw78uky2Y5LdL3zKaf/gM2H5Oc6GO93I4Rb2U4APRdMs
-	 1dFLuQvnIvXh7xuoUuk00A8NygLBYZZnVcKYWqcztKtJMu7W9F/mph1UIsDyI/voCb8t0
-	 p5Tl5H9Ds8voEkmebfEMzGNRhKS3fPUDtRsZx+TOjMq7w/zoZ7FzBdzOmEoB5iA4IDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704023;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-Spamd-Result:X-Spam-Score:
+	 X-Spam-Level:X-Spam-Flag;
+	bh=P+w0TJcctZwPlp6HzYj1zMH3kJnTkveWU9RaR7BZfcQ=;
+	b=VUEMf0FuwOQiub8V8VMtzYs6sy1B29dp0nuDhFzPOEuvWEXoH3keT89B1+1Q8AesbsuK
+	 r0gjXN2tYQsX0Ws6gQW4f/Y1WaRS9DdUUkimm+293gsQiKBj2WvgyB9NUygjSUbHkfjCx
+	 OID6HEUEJIQCzs5yrpb9OWr6z7v65tKX+WBThGEphvLY/54pMokfRbwBe6LMPt5TuJH4y
+	 ImPQMEL7i8sPMkQfn7cP4JepQwD8AQjpfIRf317rGhGB0LwyhVGL9rV/wiat/mZCmWPjA
+	 ohdW6YSBJNAi5sQ+3025zoJWsliz/vqHvmDUC+jSvn4l0Of/iu6Un8IwHESpThgSBwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mo2rcKq7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cbZHUvf+;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bUyio6qm;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cbZHUvf+;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bUyio6qm;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2463E6070091;
-	Tue,  3 Nov 2026 11:06:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAB86082BC5
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DAB86082BC5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mo2rcKq7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A0B1F00A2D;
-	Tue,  3 Nov 2026 11:06:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704012;
-	bh=3s6r6uQsgyw51J/xpkAs4rKI159aXGfCjK6BzQ+pIp8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mo2rcKq7CqqioQK7xHc6HQmaTfv2DwklFwvtAw07GTItNhDgXiTI59K8H8WPxfcme
-	 SCLX7WGnjt9jmlq07lyXHhEpwf6SZjtVdH9MS7aP1+0DNlkwqfpgcs8BqQW66FeXPl
-	 fqPlgxHRwaslkQ6Bydo+qZnPT0dFZHGZgd03a9p6+XCK0SttLvJ5KxmuW2j9GEqoQQ
-	 p8Y2wvl0pjYmAifOPMWQ88Xva8wUG6F2hU1fuxTXepgdwYOUeWTyUccDxw3W2VyQpA
-	 F92Qqr+FOSxcHNh5QTgUjbQ6LIueWyrWqBs1ZNrNmLFZseXAZJEcf0/SsV/EYG+SEx
-	 CQ0fbWhATRQYg==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jiri Benc <jbenc@suse.cz>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Luca Coelho <luciano.coelho@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 1/2] wifi: mac80211: ignore PM bit in non-bufferable MMPDUs
-Date: Tue,  3 Nov 2026 11:06:32 +0000
-Message-ID: <20261103110642.260244-2-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-In-Reply-To: <20261103110642.260244-1-lee@kernel.org>
-References: <20261103110642.260244-1-lee@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cbZHUvf+;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bUyio6qm;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=cbZHUvf+;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=bUyio6qm
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8585B1FF23;
+	Tue,  3 Nov 2026 11:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793704013; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+w0TJcctZwPlp6HzYj1zMH3kJnTkveWU9RaR7BZfcQ=;
+	b=cbZHUvf+xE0V+BIxCBRhVmKhW7LM0e51Fes7twmZZx19cG5OUWR2YPDRx7MDyC8N/bqzI1
+	rzB0ECMxaEYoyYyKayjKpGRuzpK/JE20dqHWUn02CeeZ9hcs6zRQ4hzDCTVr+UFz5OV1F+
+	tLXqN4eZg5kSEQwz+NNfpXRaO7ftjRQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793704013;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+w0TJcctZwPlp6HzYj1zMH3kJnTkveWU9RaR7BZfcQ=;
+	b=bUyio6qmvUttdnMniugJvZ64P2w7XOfwnSZ+WWxXgg10tdd6bX3RLtSVVDoadupmwdfyAM
+	1wFYed7Gfx978RBw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1793704013; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+w0TJcctZwPlp6HzYj1zMH3kJnTkveWU9RaR7BZfcQ=;
+	b=cbZHUvf+xE0V+BIxCBRhVmKhW7LM0e51Fes7twmZZx19cG5OUWR2YPDRx7MDyC8N/bqzI1
+	rzB0ECMxaEYoyYyKayjKpGRuzpK/JE20dqHWUn02CeeZ9hcs6zRQ4hzDCTVr+UFz5OV1F+
+	tLXqN4eZg5kSEQwz+NNfpXRaO7ftjRQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1793704013;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+w0TJcctZwPlp6HzYj1zMH3kJnTkveWU9RaR7BZfcQ=;
+	b=bUyio6qmvUttdnMniugJvZ64P2w7XOfwnSZ+WWxXgg10tdd6bX3RLtSVVDoadupmwdfyAM
+	1wFYed7Gfx978RBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 66A5C1350A;
+	Tue,  3 Nov 2026 11:06:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id UnHwEk3A6WoRLQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 11:06:53 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id EB96DB21D; Tue, 03 Nov 2026 12:06:52 +0100 (CET)
+Date: Tue, 3 Nov 2026 12:06:52 +0100
+From: Jan Kara <jack@suse.cz>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Hungyu Lin <dennylin0707@gmail.com>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] inotify: do not coalesce events with different rename
+ cookies
+Message-ID: <oq2wdodspuqn5ncmy4cggiwetm6tedeppamnosj2vldy3iix3b@brk3zr5ngwvc>
+References: <20261025232251.58252-1-dennylin0707@gmail.com>
+ <CAOQ4uxifE0G4r=cpevTB4mzq+HhGdVsNhddzFNuH=BN9YrD6Ag@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,83 +116,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOQ4uxifE0G4r=cpevTB4mzq+HhGdVsNhddzFNuH=BN9YrD6Ag@mail.gmail.com>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,suse.cz,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-In AP mode, the Power Management (PM) subfield in the Frame Control
-header is reserved in non-bufferable management frames (such as Probe
-Request, Authentication, and (Re)Association Request).  Transmitters set
-reserved subfields to zero and receivers are expected to ignore them.
+On Mon 26-10-26 11:32:10, Amir Goldstein wrote:
+> On Mon, Oct 26, 2026 at 1:23 AM Hungyu Lin <dennylin0707@gmail.com> wrote:
+> >
+> > inotify compares the mask, watch descriptor and name when coalescing
+> > adjacent unread events, but ignores their rename cookies. Distinct
+> > renames can therefore lose an event even with IN_ALL_EVENTS.
+> 
+> oops. Somehow I remembered that we never merge MOVE events.
+> Maybe that's even a simpler check. IDK.
+> 
+> > For example, prepare two files in an unwatched staging directory and
+> > rename each onto the same pathname in a watched destination directory
+> > before reading the events. Only the first IN_MOVED_TO event is retained,
+> > although the two renames have different cookies.
+> 
+> Thing is, the "wrong" rename TO cookie is meaningless without the FROM pair.
+> If the second source has a FROM, then the two TO won't merge.
+> Could you really reproduce this case?
 
-Commit 9fef65443388 ("mac80211: always update the PM state of a peer on
-MGMT / DATA frames") removed the bufferable MMPDU check from
-ieee80211_rx_h_sta_process() so that a sleeping station that disappears
-and later re-authenticates transitions back to awake (sta_ps_end()).
-However, removing the check altogether caused the AP to honour the
-reserved PM bit on all non-bufferable management frames in both
-directions:
+So I don't think this is something that practically matters (you have to
+really try to screw up youself to trigger this). Anyway, I think comparing
+the cookie is a sensible thing to do so I'm inclined to merge this. Any
+objections Amir?
 
- - A sleeping station transmitting a non-bufferable MMPDU with the
-   reserved PM bit set to 0 (for example, a Probe Request) is
-   spuriously transitioned out of power-save mode.
+								Honza
 
- - An awake station for which a non-bufferable MMPDU with the reserved
-   PM bit set to 1 is received (for example, a spoofed Association
-   Request) is transitioned into power-save mode, causing the AP to
-   buffer subsequent frames such as SA Query Requests.
-
-Only inspect the PM bit on data frames and bufferable management frame
-subtypes (Action, Disassociation, and Deauthentication) via
-hdr->frame_control, avoiding inspection of encrypted Action payloads
-prior to ieee80211_rx_h_decrypt().  For Authentication and
-(Re)Association Request frames, where a station is always in Active
-mode per IEEE 802.11, transition a sleeping station to awake without
-consulting the reserved PM bit.
-
-Fixes: 9fef65443388 ("mac80211: always update the PM state of a peer on MGMT / DATA frames")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
-
-v1 => v2:
- - Make non-bufferable MMPDU PM-bit handling symmetric across both wake-to-doze and doze-to-wake transitions
- - Expand commit description explaining both transitions and why Authentication/(Re)Association Request still wake sleeping stations
-
- net/mac80211/rx.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
-
-diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
-index ecee9348c70d..29383fc85a63 100644
---- a/net/mac80211/rx.c
-+++ b/net/mac80211/rx.c
-@@ -1920,12 +1920,22 @@ ieee80211_rx_h_sta_process(struct ieee80211_rx_data *rx)
- 	    !(status->rx_flags & IEEE80211_RX_DEFERRED_RELEASE) &&
- 	    (rx->sdata->vif.type == NL80211_IFTYPE_AP ||
- 	     rx->sdata->vif.type == NL80211_IFTYPE_AP_VLAN)) {
--		if (test_sta_flag(sta, WLAN_STA_PS_STA)) {
--			if (!ieee80211_has_pm(hdr->frame_control))
--				sta_ps_end(sta);
--		} else {
--			if (ieee80211_has_pm(hdr->frame_control))
--				sta_ps_start(sta);
-+		if (ieee80211_is_data(hdr->frame_control) ||
-+		    ieee80211_is_action(hdr->frame_control) ||
-+		    ieee80211_is_disassoc(hdr->frame_control) ||
-+		    ieee80211_is_deauth(hdr->frame_control)) {
-+			if (test_sta_flag(sta, WLAN_STA_PS_STA)) {
-+				if (!ieee80211_has_pm(hdr->frame_control))
-+					sta_ps_end(sta);
-+			} else {
-+				if (ieee80211_has_pm(hdr->frame_control))
-+					sta_ps_start(sta);
-+			}
-+		} else if (test_sta_flag(sta, WLAN_STA_PS_STA) &&
-+			   (ieee80211_is_auth(hdr->frame_control) ||
-+			    ieee80211_is_assoc_req(hdr->frame_control) ||
-+			    ieee80211_is_reassoc_req(hdr->frame_control))) {
-+			sta_ps_end(sta);
- 		}
- 	}
- 
+> 
+> > Similarly, coalescing
+> > distinct IN_MOVED_FROM events can discard the cookie needed to match a
+> > subsequent IN_MOVED_TO event.
+> 
+> THIS looks like a case that can be reproduced.
+> Can you provide an inotify LTP test for this case please.
+> 
+> >
+> > The original inotify implementation compared cookies before coalescing.
+> > The fsnotify conversion lost this comparison. Compare sync_cookie as well
+> > to preserve distinct rename events, while retaining coalescing for
+> > ordinary events with zero cookies.
+> >
+> > Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> > ---
+> >  fs/notify/inotify/inotify_fsnotify.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
+> > index 7c326ec2e8a8..6456d9c0e408 100644
+> > --- a/fs/notify/inotify/inotify_fsnotify.c
+> > +++ b/fs/notify/inotify/inotify_fsnotify.c
+> > @@ -40,6 +40,7 @@ static bool event_compare(struct fsnotify_event *old_fsn,
+> >                 return false;
+> >         if ((old->mask == new->mask) &&
+> >             (old->wd == new->wd) &&
+> > +           (old->sync_cookie == new->sync_cookie) &&
+> >             (old->name_len == new->name_len) &&
+> >             (!old->name_len || !strcmp(old->name, new->name)))
+> >                 return true;
+> > --
+> > 2.43.0
+> >
+> 
+> Practically, this means that MOVED events can never be merged,
+> so a slightly cheaper and simpler test would be
+> if ((old->mask == new->mask) && (old->mask & INOTIFY_MERGEABLE_EVENTS) && ...
+> 
+> Thanks,
+> Amir.
 -- 
-2.56.0.313.g2479322e68-goog
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
