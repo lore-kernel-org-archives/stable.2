@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697705;
-	b=0poNHwAzr88JuPFMWDtsTTj5Guowogo99HZfqzAfeFp1N0iARaHkSv8cqbV6oYSgI1Fi
-	 gT/EwMWlr1DONsITBD8A+AluS75RJK2+h/OKp1XEWzfidUdOgT4NXkHcpWwJABSog87lu
-	 9xUQku/GLH2lAjpDAz9dCgGUvz6EjBWA5BirkQETjKxl/UDoLzDju36wgRqKqPRnOWSaq
-	 V40ZbAkRZf04wi42AxaROgln6NKD8knD2XI4MK1tOAaBkJmdiZU4vsXvJu6TeUXaFqVDX
-	 tpwU4jdin6NqYxPOk71LdjBhYRkGPhKvifotR4Staa4zE+HpVM4Oi0OsD4FQTCUr3qA==
+	t=1793697711;
+	b=GAQ2qpFwa0tzYIKGqTTWG9+BBVtQ7HlEpvIxZsqjyZZLcsvLqAk4taWH2Dq7sCBUc9S6
+	 wxZ/CThAK/tUVpLxmfgzWuWzACEdl3Ca/Dkem3z1PwUGBOO/hTmn5g+45THfMj5BWTafC
+	 XtI1OnLPqSpSfbHqAlYtd+evt3p3v0yKhmskFGrhgCbcD2pm9+94UXrTvh780DBbbleeT
+	 b5rUMrbAQTgatjE+XeWb2aBwYfp+3NI3ApwAOjLSaJJgK/vyiCADDXGMRPQ90yOMSEp7x
+	 KMIIp/EdzN4X5z872Q93fbhESk9TUO+KsNOvNlkeGwpmP3r8DlgRPt3oAYRw5mUwTEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697705;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697711;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wSoJrenZh1B9DPRMpx5CpcbMj5JwpEhHMk8T5omwlek=;
-	b=o5D1wrW24GzqtKcnhWo/8QuxnV8nFdS4+at+/vBIP3wfiQeJmrjEvBjzCySxX/mTu8Pb
-	 SJcNPB6gTHiPch0QCUWxjkp6VsQ90k3xZXRPW5RZ9iq6gr9EQIN+M0Iv8MJXT67z4QrZY
-	 jU2h++ZbzgdSNCMlLdXVNORwxFYScfY9hxIeL7e3skct6HUxm+LulJLGqrpPsBfQ0W80B
-	 PKHyWnCGIGHFs1ACLwes55OgFVjdEyw3F92x2Ea3EFJ+7Tu5Zy72tuF8Czwf7mfi9YzMH
-	 6gMJxVLui6u/oQZx/OgaMBCVpjh9Ktv37Y2ETiqRmcYrFDFAi2WZjUE4mWkaNVYI22w==
+	bh=Dm6OMR92xAevISjMzNLDdpd0lsO0u5q4NStQZiJFruo=;
+	b=EslQOHxp8CpOYPWW1NJ/jj6U3VJztz9+guCcwoFryXQw/UhGj259IiXv3TDJEF1wo5lQ
+	 oYobmAfwxxctCnOpWoixFbe/U5U9mCT16Daz2wNIsH3QrjLa0ew2CrcJEYCTOwrzUF5Bs
+	 U1sd8vHmisyI1LzY/fN95AM+7Ywc5H8kg328svmEtJv0smoB0/I3Wi0ip70BC3r9REivu
+	 R/4qClXuwm1i6MtM4Ox8oPRxoOl4pX1IAQ9u/h5R3VAk3AivwMXH3qKujEIjyTTKQd5Jp
+	 nKPuLpdn/Dq84wJAhWMug5ZiTKNoovXcrxzF0+o0J9D/ZFKx7zu9qfziDcNzFByAj4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgdVCDX5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkndL+Tk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CEB606D820;
-	Tue,  3 Nov 2026 09:21:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A4C6083617;
+	Tue,  3 Nov 2026 09:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgdVCDX5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8A261F00A1E;
-	Tue,  3 Nov 2026 09:21:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkndL+Tk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E64F1F00A15;
+	Tue,  3 Nov 2026 09:21:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697704;
-	bh=wSoJrenZh1B9DPRMpx5CpcbMj5JwpEhHMk8T5omwlek=;
+	s=k20260515; t=1793697711;
+	bh=Dm6OMR92xAevISjMzNLDdpd0lsO0u5q4NStQZiJFruo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QgdVCDX5qs7Hvg6Yx/iPUjAss99AQteWsC6hliEo8XgZyip9fVdu+QqGhT3VmMJda
-	 a1t/b22yM20rtlFP2fvkw57cobgP2uqeKs2/xARLLGglN5YP/pPJI2kiAZRKosxq/i
-	 bcfB3DUMnlLk1bRQnrOT+NElV9BVA7qoUXiaThTDQ/5UUrA/TL9iyOYM99sSTeTiwc
-	 KokiObWZhSy1l+lHTHmeDRv0LJwEijACsx3lPrKCLBPlR5WDBUjrjtisPVY+hUYXa3
-	 kGzd5rugrjUNflA8Vh1VK9aResFOII1/awlTnrQ8qWVS1dnFUBlEQg2R2DegenwiXI
-	 pXJzwGhy2bEiQ==
-Date: Tue, 3 Nov 2026 10:21:41 +0100
+	b=gkndL+TkokuC5gxc3W6193nSDBfRnsKAT1QfgWrfCgFtnS9r7pWhvMjYoxcJIcvVv
+	 bj6MeZivoDiIR2OnqZPLUnmQjwLy/PrWSJocp0oQA/j5ju56NzrBxJRXoD+GdlACTZ
+	 OkD9GLty6DUtNHA5H4gpJP6h+cr3Y9NAsHJSdQfr6jGyh5jhMNNhhjQCS8rfi910rV
+	 FmEyjCfPw5iyxvezJmEwmbVEhRPuVoyaauC2EHTdykb79wvoAZFZVIdqd92GV2/hbg
+	 EuvSMDTBa0oywJYHMl8trQ2N+9pbqbdT2nf7lbdo2hQPUoGwip5WiAD5b3DhjGsNpO
+	 Dv2fwPj3tGWdg==
+Date: Tue, 3 Nov 2026 10:21:48 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-rdma@vger.kernel.org, mkalderon@marvell.com, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org, leon@kernel.org, jgg@ziepe.ca
-Subject: Re: [PATCH] RDMA/qedr: Unwind user queue setup if doorbell recovery
- setup fails
-Message-ID: <20261103-ordinary-legendary-mandrill-172e1d@quoll>
-References: <20261103081732.1144512-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, jgg@ziepe.ca, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mkalderon@marvell.com, leon@kernel.org
+Subject: Re: [PATCH] RDMA/qedr: Release user memory on MR registration failure
+Message-ID: <20261103-artificial-delightful-beluga-cf9fda@quoll>
+References: <20261103081615.1143267-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,28 +58,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103081732.1144512-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103081615.1143267-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:17:32 +0000, Wentao Liang wrote:
-> qedr_init_user_queue() pins user memory and allocates its PBL before
-> initializing the doorbell recovery record. If the last step fails, it
-> returns directly without releasing either resource. The CQ and QP
-> creation callers treat this as a failed queue initialization and do not
-> release that queue, leaving its user pages pinned and PBL storage leaked.
+On Tue, 03 Nov 2026 08:16:15 +0000, Wentao Liang wrote:
+> qedr_reg_user_mr() acquires user memory before initializing the PBL and
+> allocating and registering a hardware TID. The error paths after that
+> acquisition release the MR storage and PBL resources, but skip
+> ib_umem_release(), leaving the user pages pinned and DMA mapped.
 > 
-> Free the PBL on doorbell recovery setup failure, then use the existing
-> umem cleanup. Match the PBL allocation mode: RoCE uses the populated PBL
-> allocator, while the other path allocates only the table descriptor.
-> Clear the freed pointer as well.
+> Release the umem at err1, which is reached after a successful acquisition.
+> The failure path of ib_umem_get_va() still jumps directly to err0 and
+> never passes its error pointer to ib_umem_release().
 > 
-> Fixes: 97f612509294 ("RDMA/qedr: Add doorbell overflow recovery support")
+> Fixes: e0290cce6ac0 ("qedr: Add support for memory registeration verbs")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/infiniband/hw/qedr/verbs.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+>  drivers/infiniband/hw/qedr/verbs.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
