@@ -1,126 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793687197;
-	b=QiJkcl+3PfIDCkG6cU2IE7Zl/KPPhb9z+mAL6fn67FBQXCkbL0yXmybcWR7yNbaHcvBu
-	 +lnRn43O7QYrIFvlNigsD/bXePC3mAFcyPR3hoxoH9FfvMoE3VbnIdIV/k+Jsr2ZnSGWn
-	 eGLKcZzyVGy6vqC7WJK+g0Dwf5TCx2dHZpcswuuDoHwiRaBcywV8CwqFkrVn75kLSgNRh
-	 u9qSxkOdqsiPYFVftJisNVtNpb1BoSIZObAK6finRmy+tiVbMiwdlrom47eYOHwurY2NF
-	 nqDQKgiHk4XO0M//2kRCKNGmBgDjJfdAZS7TpaeF2dzbOLWluQD+nEy1y7ZQIcCtcuA==
+	t=1793687212;
+	b=l+jjEFsW2OFuNdSxMjWni4A2Uh4RsEUG7nwcrLgrDsdaB6TkDQD2mPLVQixbTLD+POKJ
+	 pFhXEV1aMa0D2wq6c7AJTB+nDM8sW//qySZbUY8rgL+2ZsdvJHBmCiVRNn1RKLTXDjcs2
+	 RUi3sYD2l2KIjOO1UHwpbZ9sDjeJyrMP0xlrZvJV+5Z6VW84douHvwnxLIbRieBQgPYxr
+	 LRLUb9mtIIkJsEPp8tXTHnYnD/uFSzkdHGpaVjlIJpbwYOPVResnorVXkbY43TFVrTHEJ
+	 i5EE3rgzX6ipj6yzZfp8tHUP831Huq89QQiUOZ6Ui2oG+1QYYIAvBPDGe2JP8LwkNTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793687197;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=89WHsBI4UooPN0e/fzWqgj/M9hLD/tFhYxvpr6aA8I0=;
-	b=F8MZHoYI+G1QcXVdPsTl4AFDuTB3Ch9YRgu2eEUPQ6bTaK3D0sS5BWvV9wblKFAToQX6
-	 A9KRsvOYHqYWq4CmoBXApLioQCNLSb/iB2Jnyd4umale9yxtFBWhfUXKEmFt1WFhxRhnh
-	 3ciBymGeQIWVoChn4RmnHQ3NS+Cyn1bgQnJswMT44DcPoIeUstSerLlzWSxXlReP7XcG/
-	 UOUKxdf+6AKIpAv3z+JVcwbGi+FUv3899TGqPRtOX/dkoZN8/KHGbUPM0pET3qsFN7Wq4
-	 e/DT9w/9Z7Qes2EJaZ7xRQF4WWFgEwmlpAag0q7WOcOnkK+wGrclX8Zc8wiWdtNY9jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793687212;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=GkjvvCHhteZtw/uG+Zq+6BNxON5YRmIpC2a6EV3RPR4=;
+	b=P5II4JrDk97zIf3Tb7FdadspznnOfiBVEeeQFEaa33hlQIb4+QypK7yxQxyH5rkPDpEt
+	 mr7VtHX/MJvYhYuIju0VcnO8ay7a1pvLpKpuucWnWBxa3aPK/joKO6+KKPVSX/aoXHorP
+	 Bc6Gb/VUEXO7pvUPPXcFcvygUtij/slO2RdIICV2ZCc7hbcYOn8G6UfJRkIBDjdpDO4b1
+	 IrUcakIWy1Axwal65VY2yWI20MeXT3eWAeuj4dE6yBV9lS0szHXu1Kxzq5XA4Bt2tpow+
+	 yEseT3OJtzcpRBKGK7N6RrSteqxSb0FEn9HxY/7BHJqVrOatbQJWLcPwc989YFbX5Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BrQ5Opza;
-	arc=none smtp.remote-ip=91.218.175.184
-Received: from mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDDA606A329
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 06:26:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEDDA606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BrQ5Opza
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R4qncA5U596ba8pavgxH4k05FBMaxgAUsAOufRDPVI0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793687194; v=1; x=1794291994;
- b=BrQ5OpzasmaKN5c4rG+lUhIWYHYwU9Zu/yaL7ECDfW6bWPv8oJYd/xoJtaPXoBVLlimlpMUD
- hxMHJYVuqCPlSy9lE3cTmbFIqjIxFUJWVmK1PEWGFGvTx3eyIQsy580HKxs6eKEmRludRp7iNyI
- 96WyFglyjScKawmHaqcOgHAs=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 650e1e2cc95fd22e;
-	Tue, 03 Nov 2026 06:26:33 +0000
-X-Mizu-Trace-ID: 650e1e2cc95fd22e
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com
-Subject: Re: [PATCH v3 38/47] mm: fix deadlock of mremap() against UFFDIO_MOVE
-Date: Tue,  3 Nov 2026 14:26:28 +0800
-Message-ID: <20261103062628.92242-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-38-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-38-d6437171ecc3@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846E8606A32E;
+	Tue,  3 Nov 2026 06:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 846E8606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jJdrn6GLXz5B0sK;
+	Tue, 03 Nov 2026 14:26:49 +0800 (CST)
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 6A36Qbvr029471;
+	Tue, 3 Nov 2026 14:26:37 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp04[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Tue, 3 Nov 2026 14:26:39 +0800 (CST)
+X-Zmail-TransId: 2afb6ae97e9f425-d6d63
+X-Mailer: Zmail v1.0
+Message-ID: <20261103142639249fHll0I2TNe_OAs_YcCBGS@zte.com.cn>
+In-Reply-To: <202611031419019991s0Y8mllWsWU1CBrr87AS@zte.com.cn>
+References: 202611031419019991s0Y8mllWsWU1CBrr87AS@zte.com.cn
+Date: Tue, 3 Nov 2026 14:26:39 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -129,44 +58,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>
+Cc: <linux-mtd@lists.infradead.org>, <chengzhihao1@huawei.com>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyIDQvNV0gdWJpZnM6IHZhbGlkYXRlIGlub2RlIGFuZCBkYXRhIG5vZGUgc2l6ZXMgZHVyaW5nIHJlcGxheQ==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A36Qbvr029471
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Tue, 03 Nov 2026 14:26:49 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE97EA9.000/4jJdrn6GLXz5B0sK
 
+replay_bud() trusts the size fields of inode and data nodes from the
+journal.  An image that is corrupt but has a matching CRC can therefore
+carry an inode node with a negative or too large size, or a data node
+with a size outside 1..UBIFS_BLOCK_SIZE.  During recovery
+ubifs_recover_size_accum() uses these values and ubifs_recover_size()
+may extend the inode to the bogus size.
 
-On Sat, Oct 31, 2026 at 10:40:07AM +0100, David Hildenbrand (Arm) wrote:
->From: Chris Mason <mason@kernel.org>
->
->With per-VMA locks, UFFDIO_MOVE can run concurrently with mremap()
->on different VMAs in the same mm. Those VMAs can share page tables, so
->both operations can acquire the same pair of page-table locks.
->
->UFFDIO_MOVE orders the locks by address, while mremap() takes the source
->lock first. These conflicting orders can deadlock; mremap() holding
->mmap_lock for writing no longer helps.
->
->Move double_pt_lock() and double_pt_unlock() to mm/internal.h and use
->them for all page-table moves in mremap(). Preserve the source entry
->checks after acquiring both locks. Remove the comments claiming that
->exclusive mmap_lock makes lock ordering irrelevant.
->
->In move_ptes(), make sure to just recheck source and destination PMD
->after taking the locks and drop the overly-long comment.
->
->Fix generated by an LLM and sent by Chris Mason in private.
->
->[ david: use new helpers consistently; simplify description and comments;
->         move_ptes() fixup ]
->
->Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
->Cc: stable@vger.kernel.org
->Signed-off-by: Chris Mason <mason@kernel.org>
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->Acked-by: Muchun Song <muchun.song@linux.dev>
->Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
+The normal read paths already reject such nodes (read_block(),
+populate_page()) and truncation nodes are validated in replay_bud() as
+well.  Do the same for inode and data nodes.  While at it, compute the
+data node end offset with 64-bit arithmetic so that a large block
+number cannot wrap.
 
-Nothing jumped out at me, so:
+Fixes: 1e51764a3c2a ("UBIFS: add new flash file system")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+v2: no change since v1.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+diff --git a/fs/ubifs/replay.c b/fs/ubifs/replay.c
+index 263045e05cf1..14cd5598ca0b 100644
+--- a/fs/ubifs/replay.c
++++ b/fs/ubifs/replay.c
+@@ -741,6 +741,12 @@ static int replay_bud(struct ubifs_info *c, struct bud_entry *b)
+ 			struct ubifs_ino_node *ino = snod->node;
+ 			loff_t new_size = le64_to_cpu(ino->size);
+ 
++			/* Validate inode node */
++			if (new_size < 0 || new_size > c->max_inode_sz) {
++				ubifs_err(c, "bad inode node");
++				goto out_dump;
++			}
++
+ 			if (le32_to_cpu(ino->nlink) == 0)
+ 				deletion = 1;
+ 			err = insert_node(c, lnum, snod->offs, snod->len, hash,
+@@ -751,9 +757,21 @@ static int replay_bud(struct ubifs_info *c, struct bud_entry *b)
+ 		case UBIFS_DATA_NODE:
+ 		{
+ 			struct ubifs_data_node *dn = snod->node;
+-			loff_t new_size = le32_to_cpu(dn->size) +
+-					  key_block(c, &snod->key) *
+-					  UBIFS_BLOCK_SIZE;
++			u32 dsize = le32_to_cpu(dn->size);
++			loff_t new_size;
++
++			/* Validate data node */
++			if (!dsize || dsize > UBIFS_BLOCK_SIZE) {
++				ubifs_err(c, "bad data node");
++				goto out_dump;
++			}
++
++			new_size = (loff_t)key_block(c, &snod->key) *
++				   UBIFS_BLOCK_SIZE + dsize;
++			if (new_size > c->max_inode_sz) {
++				ubifs_err(c, "bad data node");
++				goto out_dump;
++			}
+ 
+ 			err = insert_node(c, lnum, snod->offs, snod->len, hash,
+ 					  &snod->key, snod->sqnum, deletion,
