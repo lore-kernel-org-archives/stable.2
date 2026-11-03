@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745676;
-	b=LKpX8SD6PVnMu0UC/nuWxk/RaIORl5KbxBO13NfncliYcnThxlnYPgz+VvOwboelSUb5
-	 EQ1kwl4juGWQAgJ8LaKG8R9eNvYS6WyCwv47z3ZdYIN8gStdstcOj+P+6t2fMUO6e6lsp
-	 eiS60FKZeq4ztYMffO7Ltdvw9VkOaIFiDi2JJHg7gz8rK6leF8DobKObut5PfVoR/ndAC
-	 qjTkhgiQxGJEiF74zGOpgizuEbdR5yHbuJIxUqB6g3yBuqESu8X85ERXCbLhAGVG7VEkE
-	 y4KcsohKTSJQUpuThoU8Uy0+bTr7hrDPKWFGherqIreE3rTPz5C4m6sBbJraBh/+HqA==
+	t=1793745834;
+	b=hh0nsu9qVMk77kABuQRsG28C7nojfARllHiAM4Sjy1+Q/ZN1KChklNwt4rI0TQb5hBfR
+	 OjtrQy3d1glKH0xtcIkUn0uH8ljjX0Vqfo6Ii+c/2HsK1R6xdAgseSRQB0dW39C0FBlu9
+	 mP68aMet1nRiu204GzE4PI+K5EvZg5hdo3h9cWir1cVa0iufh0wunH2MaX+xPQ8a1AUau
+	 AaSR0194nUvpwKFYYrFojw4ZgJEiWxgXDRMU3g+/cDSspbdBiSsx39mWgGeEZCJZmwUvN
+	 BXl1l/KHFVY5jaavVagEWCOXug42N1rsJO7hLzWpWCbhwpx1lBqiLsfPIzdMBmlvgRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745676;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745834;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MsISqNXakbNMhld7Cj1YhO0/ijK5aJ2Aj3UwQYpgHtk=;
-	b=opk5G0xJ3JA2mcVK0uF+etwMD6qNoayiL7G+l2iuQKbFVHTKKqczyFk+TXuZHmf4PP4w
-	 sPk+Ws4xOG0HigVflo1mSJUKKwUSpOre5mN6n4H7gMditA5p8daQLh9auDxEvPHwdnTLS
-	 F4Stby9irQV6kOuAfBJ8X1Bftqv3yul7/66o81z872/07BROHMk0h6bwl6qOSnpwXhPgM
-	 MZcuDikkbQS7wOEgNldtDwDu67eJNnzfLQUqKA26CDfOgKxwQeXAp2zgGU3W1Aar0VHja
-	 wuAtTuV/BPB4QlI711wWUNTKgUisDKgDa3CrOHAKC06LlqxCeIFahC1KPQzobud1G3A==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=R4T8DG2/upTqXCaJBjYHfdzL7xIKY3ifGSNHNZYv3L8=;
+	b=tWdJb5vZ4NhPvMN0NKAOEDpdiQHEEXVNB6/4u70WCTfEZRlPAWVC89cD7dDL3ui5Q6Hp
+	 RyXu/1PnNS3B1DCWcqeVL2syNhvY7kcwHm7++lEbyNO3rZU343Esj5M3HiJgqkRG1YCS+
+	 hAnuSWJb5N5AWVp+/Ne3/o7UPd5vj1WGwpY6qFQA5HULEWT7A0MGaRKat7Lg11R8c2d4J
+	 zOzv09vqVY7EuFRmfXPy+CBDunKtK/fyiQCm8zBFYn0399vcBTqrX4jmqUFsXue5qRqdR
+	 HqCXJfFNMWCUJljGKV+Pw6qjEYsyPsNGQ8XutdBkW4/UsjW4Y5eWTh7WhZ1lBB9GdaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="He/lVY6a";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhZTDg9m;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979B4606A31B;
-	Tue,  3 Nov 2026 22:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB46606A328
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:43:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=He/lVY6a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433F61F000C1;
-	Tue,  3 Nov 2026 22:41:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NhZTDg9m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5AA1F00919;
+	Tue,  3 Nov 2026 22:43:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793745676;
-	bh=MsISqNXakbNMhld7Cj1YhO0/ijK5aJ2Aj3UwQYpgHtk=;
-	h=From:To:Cc:Subject:Date;
-	b=He/lVY6aY//OeLZRSDNoP2UvpLz5LU320Owc/DkB4d3RyZrV5R9Mqj3CQee2watyR
-	 +CDkkTPgd6X8mpE7I6L7VFPR+wU0r1ksn+vJSrAYBRFpWFOz2m840pGVcW/a72XO5a
-	 G+Gf9QdRfgsDISnN7wakErFdSPh1wB8mpatmEKuSiG+T29Rb7nu0DLWbkztPEgxsja
-	 fxphOQoXAAzAgvTeGXsxCJMNWvGpevyfE473f/AZr279ZvC90hd3XAO4SbD43+nNZM
-	 rHFf1LTBXM0y1AkhB6XYjxJkY9LRBYwoMHwKr9YOGtDxlJbUfW0+aDwp4r2n/3tu0D
-	 O26RngXv2D9cQ==
+	s=k20260515; t=1793745833;
+	bh=R4T8DG2/upTqXCaJBjYHfdzL7xIKY3ifGSNHNZYv3L8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NhZTDg9mgvWe5bf2lsg7jQcRHS4TkitIa+YakD3qK2Xp795w9Fm3Sa3oZdCp0Y5aX
+	 6byB3FZAuZjDk6C3tIyJez3MlK9oQ6C9+jljz5seY0ZbP+aJw2P+ZWgUyzvXyApN6W
+	 j+IaeDoeNlqM1S4C+sqVUyGWrIKzv6WmwCa+cjb9wtlv1Fbwst8y/L2gWN3kC88pQg
+	 5sXbtx0e0FWks06GkY+YstkrBLcUEDaBVbsCLytikW8mQhnH6AAk1d/0WzYjBD50Dq
+	 OrM+W/DlNOCf/yCeBh3e9D9QwKS7zjiHujqE1TC7UPqXmTLFAGahTggjwaC0+GtuXt
+	 uQzsESeN56BAA==
 From: Sasha Levin <sashal@kernel.org>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvme-pci: add NVME_QUIRK_DMAPOOL_ALIGN_512 for KIOXIA XG10d
-Date: Tue,  3 Nov 2026 17:41:14 -0500
-Message-ID: <20261103224114.1657779-1-sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	"Zachariah Mithani (AploSec)" <zachariah@aplosai.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: prevent share root removal through empty paths
+Date: Tue,  3 Nov 2026 17:43:52 -0500
+Message-ID: <20261103224336.1548343-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110338-sandfish-raking-bd5b@gregkh>
+References: <2026110338-sandfish-raking-bd5b@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,56 +61,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The KIOXIA XG10d reads past the end of a PRP List that fills a whole
-256 byte small descriptor.  If that descriptor is the last block of its
-dmapool page, the read crosses into the following page.  Behind an IOMMU
-that is usually an unmapped IOVA, and the controller does not survive
-the fault:
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-  arm-smmu-v3 arm-smmu-v3.0.auto: event: F_TRANSLATION client: 0001:09:00.0 sid: 0x20900 ssid: 0x0 iova: 0xff7fe000 ipa: 0x0
-  nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0xffff
-  nvme 0001:09:00.0: Unable to change power state from D3cold to D0, device inaccessible
-  nvme nvme0: Disabling device after reset failure: -19
+[ Upstream commit 9fd1fcbbf84986a7bcf601a2b90540899069d263 ]
 
-When this fired, sixteen 132 KiB writes were in flight, each with a
-32-entry PRP List in a small descriptor from the same dmapool page; the
-one at offset 0xF00 ends exactly at the faulting IOVA.
+A FileLinkInformation request can supply "/" as the new link name.
+smb2_get_name() strips the trailing slash and passes an empty string to
+ksmbd_vfs_kern_path_start_removing().
 
-Only full lists trigger it.  The 31-entry lists of aligned 128 KiB
-transfers land in that last block too, and never faulted in our testing.
-A full list needs a transfer spanning exactly 33 pages, such as an
-aligned 132 KiB transfer or a 128 KiB transfer from a buffer that is not
-page aligned.  Larger transfers get a 4 KiB descriptor, which a 256 KiB
-MDTS never fills.  Transfers above 128 KiB became routine once commit
-2e8e30b3cf9f ("Revert "nvme-pci: clamp max_hw_sectors based on DMA
-optimized limitation"") lifted the 128 KiB cap behind an IOMMU.  Kernels
-before v6.4 are not affected either way: their dmapool never handed out
-the last block of a page (see commit da9619a30e73 ("dmapool: link blocks
-across pages")).
+ksmbd_vfs_path_lookup() resolves an empty pathname as the configured share
+path, without LOOKUP_BENEATH. With ReplaceIfExists set, smb2_create_link()
+can therefore remove the share root from its parent before link creation
+fails. An authenticated client with a writable share and DELETE access to
+a file can trigger this if the share root is empty and the mapped user
+has write and search permission on its parent directory.
 
-Align the small descriptor pool to 512 bytes, as is already done for
-the O2 Micro and Micron 4100AT controllers.  The last block then starts
-at offset 0xE00, and the read stays inside the page.
+Return -EINVAL for empty pathnames when for_remove is set, before
+resolving the share path or acquiring removal resources. Ordinary lookups
+continue to accept empty pathnames for opening the share root.
 
-Cc: stable@vger.kernel.org # 6.4.x
+Fixes: 74d7970febf7 ("ksmbd: fix racy issue from using ->d_parent and ->d_name")
+Cc: stable@vger.kernel.org
+Reported-by: Zachariah Mithani (AploSec) <zachariah@aplosai.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Moved the empty-name check from the shared lookup helper to smb2_create_link() because the helper lacks a for_remove parameter. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/pci.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/ksmbd/smb2pdu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-index 019a1e3cc0a2..2be6d1a9ad4d 100644
---- a/drivers/nvme/host/pci.c
-+++ b/drivers/nvme/host/pci.c
-@@ -4430,6 +4430,8 @@ static const struct pci_device_id nvme_id_table[] = {
- 		 .driver_data = NVME_QUIRK_BOGUS_NID, },
- 	{ PCI_DEVICE(0x1344, 0x6004),	/* Micron 4100AT */
- 		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
-+	{ PCI_DEVICE(0x1e0f, 0x0032),	/* KIOXIA XG10d */
-+		.driver_data = NVME_QUIRK_DMAPOOL_ALIGN_512, },
- 	{ PCI_DEVICE(0x1c5c, 0x1504),   /* SK Hynix PC400 */
- 		.driver_data = NVME_QUIRK_DISABLE_WRITE_ZEROES, },
- 	{ PCI_DEVICE(0x1c5c, 0x174a),   /* SK Hynix P31 SSD */
+diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
+index 4c42205fe5261..0daafda3f59e6 100644
+--- a/fs/ksmbd/smb2pdu.c
++++ b/fs/ksmbd/smb2pdu.c
+@@ -5711,7 +5711,8 @@ static int smb2_create_link(struct ksmbd_work *work,
+ 	link_name = smb2_get_name(file_info->FileName,
+ 				  le32_to_cpu(file_info->FileNameLength),
+ 				  local_nls);
+-	if (IS_ERR(link_name) || S_ISDIR(file_inode(filp)->i_mode)) {
++	if (IS_ERR(link_name) || link_name[0] == '\0' ||
++	    S_ISDIR(file_inode(filp)->i_mode)) {
+ 		rc = -EINVAL;
+ 		goto out;
+ 	}
 -- 
-2.43.0
+2.53.0
 
