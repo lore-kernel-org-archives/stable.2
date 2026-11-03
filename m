@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793732652;
-	b=SFd1sIiLgrO3mdvOe7XxXrK8OV0a5TBAHHmENavcNcVJwnEbheOuBzJ1HU7VawfgIfuW
-	 30N+1UVNESqbbkr/jiyJyY9tdDFtC0zw8hhiEIL8G5QCxMUqA8qrW6nKk2Tb+VyO07sFt
-	 hDq8x3sdD9Fvm9UvElTJhhnarVYSzWuaoMqrwOVkxz/LAphv6sEjDzNv7wNhkX3E1Vlnh
-	 GCFESr9QVRUuaiTUIjYqWDJfbZBaFhkETzSi0oSuCJdQhyZvgd4slTC3W/Fhiq03S7grO
-	 JrHDNS9tOaAfKfEXFUioOtLX9NPHU/kgbirE8HNPx03ilYDX6HH4QqJSQlmhBwujTmw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732652;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nPJWsS0873Oy+02TJGKyZpW86wslqZHLsLqHfzEf5Zw=;
-	b=UiAOEnJNzPgN2Ib1v4+TJDO7pdH8bf+ibZTLQuLYifuLe6so0fvS7RVAQ1MdDYGKUTbQ
-	 LONCCSneuS4/+qte69tlGHPmjbKmU9kl19lpdby4lhM/GbGlPqyZKmjpd2AZVrk/HErsj
-	 OZcXrcKcyySZ2KmPCQS3mnTd3IwfJroLlL/8sGH3cW4rzyTY8I2JIjkuLBQMfxhSasKmf
-	 bEoRayuH2nuGYE7m/gPi9AvBn6hEJ9ciYtiHViELWLxJhUQIg1Mhw657hzFsaao/ZrzzX
-	 iSs7qihbITJktrI00qwhOQdu4IDSNaVSK1NgqhB2+ReQo5cfONJaDKdjpEfh7JwGPZg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbE2m5+z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF704606A31B;
-	Tue,  3 Nov 2026 19:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbE2m5+z
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793732651;
-	b=jGQoX8rQBJVJWcU1sEmvDKgG8Bcxy0s4Rl5JD2MfXlXeF+pJ9XPOmEFkxIGeVOrvZ5aT
-	 +bGjP+2gk/edCz9uiSRuyIUZs0btnOHkr05d1T7a7XD0ERcZTKq8SRdKUE56djh5vWx7l
-	 ca2p/TX8JQD48vItYv9Sq/DdgeSkQU9gEMy1lnVfeJDC7l8D2C234PAVnfVfOaL83O6Hz
-	 6AK6PhWPXaeG6Bv4si6QH6bVdwi0PxFybenGaFPuSKLaW/xkQdxL0uLF1O8oFvpGoc3Qe
-	 JT/Heyf27yy7/z8rNhsyxsNsoThwczyFJcEKMbhKbykLFRFjNJtDbMNbJbnCcMjISkg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793732651;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=nPJWsS0873Oy+02TJGKyZpW86wslqZHLsLqHfzEf5Zw=;
-	b=bDqHiGbQH3pRrnulzgzHpxmXeszmzDrbv79cFGAtw94obWHTCnpHJZnaZiTGuWq3zkDg
-	 ZnhO/DWel1sBREDVr0l4/IbZc5vOAZ1SdjB1MheykvczgJsQX8P52juGkzNEkdBaQemeH
-	 MMaanRegRAlJlkjK11KP/915VXfSAv2eC1WaoDbGtIkeNg/ISmL+mgO3TduwO8vAyTO1d
-	 MJsvMUUTQXH+8bgGg5G1jKPEt/s+SDhykmc/xyJrbLsKuYIn9bebTEfMsgNrK9vi3k4Me
-	 ze5f4RGHxNDyPqEBFN/i6o8/ywOXNrkRjetDcpF1q7SzDfZH09u1yOnC59M6/y0mKAQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793732803;
+	b=jbkQOWwVlrnRV1S4oA4/h20Npp+jC/B0Wi60h7+t0SvyfsYVBeSz1bpRuY15PC058TrS
+	 F4G9rtGKyvyHSYz06ukdqjl41lEDElxjtaUDmG9CJlZ8QsSqTXmNPIqCqHB6HLaWKy86M
+	 hz2uAtOdxwi0M1VMRGSwv/a8i2/T1pZZ6txBms7pMGD070KudN+CtZT7n/a+EXYP7Jf2T
+	 rxUGY2b7v+hHMJmz79KSsZQjzLNc7FmIAwYpmfw5i3jIFI+P0RU9jls+9AnkSR00rsB0Y
+	 SUQl39jt3EFlC1wYMaywrdz6KEu0bZCDve8PIi6ueN0RDsLaD2b3T2x7EPx4JrTBmSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732803;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xnhb546EvTjBiof0WQT3D0GzQYbD7f9E7QPwpqthPc0=;
+	b=ouFOE9e9CLs1t7Robql936EISR6eE9UOGx27xBYaqIvE7QqgHd/Qr78+jnSPEFUZbV6W
+	 +Bo7Y5Av+UeE8iSWkavjbS/90tx9w0uMp5Oov6QDwIEjlvZ0D8uR7Dq6AMRSK+B4yFoYC
+	 AYlo5N7mZEl2w36DS1JTyFuD68JPkK0Q1Yra2GBCg0h8dGYjz+G1+LWtx/4QBdsOfxZcD
+	 L3gs1H8p0Kz5PEVWvJCxspHHEYVpbS7IyxEX00m0WkhawPL+wAUwlYNakaczYUpwLobAu
+	 2AbRa39ECkpaxy9mLommgmzGeTtj54aM10OI4/jyK5Vzr5HFdXEtT/1xPMjJI/YHhzQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFcWmSzn;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BA4031F000C1;
-	Tue,  3 Nov 2026 19:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793732651;
-	bh=nPJWsS0873Oy+02TJGKyZpW86wslqZHLsLqHfzEf5Zw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=lbE2m5+zi2UWh6nw1VuunUHlA74sdhXdsyG5GdxlInbhrNUysFWjMU0DwkyiGK4LQ
-	 rov4QWd2Yf9jU3CmeeMljcpOQiaNE/PHtPLcRqDVJolcTVqU8kzDf0IZeHCJ85GvkY
-	 dyVaaCaX6LyjoZuk3+vn6i1J4J3KrHvXP0gcIvsjxys8V1/axQhiJUtnFVmNnh71Bh
-	 lyEuzGabiAssM1zTfDJugIGrhBEiht7LPw+hhW5AzBCF6GJP5Zf+Zw/7dOuwL+js8Z
-	 XEwofdMnXT3VQHNcYDYh/k131zmyUu2jRxy+rOUKYgmXphdZz62bLa2LjnQnf3LVdn
-	 QLYLHUbDPToQA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1C0A746AB0;
-	Tue,  3 Nov 2026 19:04:10 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 14:04:10 -0500
-Subject: [PATCH] blk-mq: take quiesce_lock when removing a queue from the
- tag set
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B51606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04B51606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IFcWmSzn
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535a54bed9so6748079eec.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:06:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793732802; x=1794337602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xnhb546EvTjBiof0WQT3D0GzQYbD7f9E7QPwpqthPc0=;
+        b=IFcWmSznmlF1houPj1jWOUK4c8slHpSDEh02G7flWSjdRLzgeAssjng+o6yu4rRlOQ
+         viAxaYbNIxL7nC+iioJi4n5rsFC9arOeCnD3EBkml86bzqhDwg8h3n0phu1V3MACjGIe
+         QwySPA+/1tAej1B1FqBzqSzH+J/wDXydeqfAv54Rcs8HPHi0jLVHCGS2mwtjj19DRvc8
+         gswOczoxpXtnCS7LNhZzdJOwtHw4cN196oykGNYhGg+M8rF5v3dfTKhFp9dh34xEEfEg
+         BJ0ZO3cFpkwXRce9scokAXW1z4N+o3JF83JngnLbVZpt7vLmp5+wPMAih975KUImu/ah
+         ckyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793732802; x=1794337602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xnhb546EvTjBiof0WQT3D0GzQYbD7f9E7QPwpqthPc0=;
+        b=okzGtlRKYc9z8kUpFWX2g1bIxJPGEksYAA3iao2JYL7hSJfhz60ik+8w5L4IGj97Eg
+         0uNe9AM0TqWwELCSJBuUbVWBHzD7nTbfp3V9dbuzh+SMXhwfSN+HUt0FEWzXSvcRdmR9
+         xCJ083yDRKGvX0PpjmkzTrLBxdvvo6xpjHfUuQacdRdmGfK5xm35N/hzbp/4MYNJmPX1
+         Axhiwf3chiT7XFK70nTiBt/AT3jexI/13nPqVCZbIPQPVUozUSyvFRBDEUODY3fi4LtV
+         GMeDavW2TOK6n2m9sDGHB2fPGbaMiN8mNbl6BJSowK0QVx8gJW4FUvmUOJxhRJXrAwPz
+         DZFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9Lw3p7d0j+b8wyqqgcTaLIGOW6UUP4dyey/DvH+FqAJ1ObUDhiJB6r2FYoTHXAAYISWSeAUY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8U4vYXv8XhYxMBCwTQau/NThu2yhUMC1d2SEZodjRAx091oB9k
+	ke1Nds24e6tbhL+7HheD3gtQec+ByRTa/YBzc/notpHiea8Jx2w2TRvw
+X-Gm-Gg: AYBFou0F/DhK2/E137wKJWP2UUWQ8SARgBKrH9e0O5/YuzvwMdJZhc8wAEgITyKTcOD
+	4lVINbhkNd89DO3WZEr2bibvPeGrcdhrtjtGmbTJEdSljPtZWIggDd4x51wgdNPZp+FlsG0tT+L
+	vi6a+X/fXCYqIqIqjbUHD824XJ15trKERUUJq5e05DiOHZ6PqDgy1HayTHZg/nh/heV+y/i//yS
+	qTFtxHe0mAaVRNwa42ETGmhI8zL6jRwR4uZcAmqFGSYJ1htDYttX1PYWN/Q0Qb9db4mjtkYGlxp
+	CTnpi1IWezDhBJsruLUHG/n2dLN4js+rJZGjn97e3ZNKisvqVdA/0hpn8zexCznsQljCGSdjeeI
+	KCKCNuuNZFWeHVQRdcGVmv1uoHVABz1tZnV6kTn65CIvbMayhm3utYb6UpnhmG6oqzKny0Yf3gE
+	TlGxHtPhSSCtN5C+bOQecZq/MRPWDF6+oTUa35a25Sppk+wROepFXscGBFDqKnZxzKGfHHYCEup
+	lHmr9SdBEbfn3/cTcK9ITSsL2a09aFxZrT5kqcF7IFnhAAwOB+w4JkNs2jx8Ts2g/tynPRULG1U
+	IL6xfr9iSP/QEgz6pbxwHmridsRXF4rVaqS5BU5vQBK9PG9lmBgrfuvx
+X-Received: by 2002:a05:693c:20c2:10b0:369:f9b6:f486 with SMTP id 5a478bee46e88-36a4260db8cmr22262699eec.41.1793732802065;
+        Tue, 03 Nov 2026 11:06:42 -0800 (PST)
+Received: from bridge.. (deps54-26.deps.ufsc.br. [150.162.54.26])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca38d3754sm175927eec.14.2026.11.03.11.06.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 11:06:41 -0800 (PST)
+From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+To: Daniel Thompson <danielt@kernel.org>,
+	Douglas Anderson <dianders@chromium.org>
+Cc: Jason Wessel <jason.wessel@windriver.com>,
+	kgdb-bugreport@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] kgdb: Fix buffer overflow in the qfThreadInfo packet handler
+Date: Tue,  3 Nov 2026 16:06:22 -0300
+Message-ID: <20261103190622.925741-1-christian.aurichzm@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,129 +98,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-blk-mq-del-quiesce-lock-v1-1-04aa29a481f6@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw6CMBRG4a2QO+YmLRp5bIU4sOVHLpRXK8aEs
- HeLDr/BOTsFeEGgKtnJ4y1B5ilCpwnZ7jE9wdJEU6aym9bqwsYNPK7cwPG6xdKC3WwHNiVUW+j
- ympuCYr14tPL5nev732EzPezr3NFxfAEh1NGHewAAAA==
-X-Change-ID: 20261103-blk-mq-del-quiesce-lock-b9e0f81947b8
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Mohamed Khalfella <mkhalfella@purestorage.com>, 
- Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>, 
- Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>, 
- Nilay Shroff <nilay@linux.ibm.com>, Josef Bacik <josef@toxicpanda.com>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793732649; l=4068;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=N19XFK6Pp+jL6yjmYqq3sqsEIVvyVqas9SpWxi3HCEA=;
- b=KLSAIAInJMbfO/21dGqhMqi18T4b90sFGUsLqNtLBOtEtudKJecw/Bt+m+iV7SNh2BtKReW2Z
- alM2Gh4DK7TBrSEQ2KSyc1pzeTIemYgMvXVPO71MFIFGn6ZxglREXk3
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+gdb_cmd_query() answers qfThreadInfo with a thread ID and a comma for
+every online CPU, 9 bytes each, followed by the first page of tasks.
+Only the tasks are paged, KGDB_MAX_THREAD_QUERY at a time, so the CPU
+entries overrun remcom_out_buffer[BUFMAX] once there are enough CPUs.
+On x86, where BUFMAX is 1024, a typical boot hits this from 109 online
+CPUs (222 on arm64 and riscv), and GDB sends qfThreadInfo as soon as it
+connects:
 
-Unquiescing a tag set can run the hw queues of a queue whose hctxs were
-already freed.  blk_mq_unquiesce_tagset() walks the tag set's queues
-under quiesce_lock and rcu_read_lock().  Commit 71ec3c7d6db8 ("blk-mq:
-quiesce a queue that joins a quiesced tag set") added quiesce_lock to
-the walks and to adding a queue, but blk_mq_del_queue_tag_set() still
-removes a queue without it.  The hctxs are then freed right away since
-RCU only keeps the request_queue itself alive:
-
-  Task A (controller reset)            Task B (namespace removal)
-  blk_mq_unquiesce_tagset()
-    /* finds q */
-                                       blk_mq_del_queue_tag_set(q)
-                                       blk_mq_release(q)
-                                         /* frees the hctxs */
-    blk_mq_run_hw_queues(q)
-      /* reads freed hctxs */
-
-The window is short.  On PREEMPT_RT quiesce_lock is a sleeping lock and
-the walk can be preempted inside it, which is how it's hit here:
-
-  [  399.851277] BUG: KASAN: slab-use-after-free in blk_mq_run_hw_queues+0x4bd/0x550
-  [  399.851328] Read of size 8 at addr ff11000003014148 by task kworker/u9:2/116
-  [  399.851352] CPU: 1 UID: 0 PID: 116 Comm: kworker/u9:2 Not tainted 7.3.0-16299-g81cb9aa43246 #1 PREEMPT_RT
-  [  399.851425] Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
-  [  399.851441] Call Trace:
-  [  399.851457]  <TASK>
-  [  399.851551]  blk_mq_run_hw_queues+0x4bd/0x550
-  [  399.851564]  blk_mq_unquiesce_tagset+0x128/0x210
-  [  399.851576]  nvme_loop_reset_ctrl_work+0x78/0x4c0
-  [  399.851600]  process_one_work+0x92b/0x16d0
-  [  399.851660]  worker_thread+0x4e6/0xd60
-  [  399.851707]  kthread+0x300/0x3e0
-  [  399.851727]  ret_from_fork+0x4f0/0x6f0
-  [  399.851776]  ret_from_fork_asm+0x1a/0x30
-  [  399.851793]  </TASK>
+  BUG: KASAN: global-out-of-bounds in pack_threadid+0x2a8/0x2e0
+  Write of size 1 at addr ffffffff86eecc20 by task swapper/0/1
   ...
-  [  399.851988] Freed by task 111:
-  [  399.852040]  kfree+0x1b3/0x4b0
-  [  399.852050]  blk_mq_release+0x400/0x550
-  [  399.852060]  blk_put_queue+0x94/0x120
-  [  399.852068]  disk_release+0x1bd/0x3f0
-  [  399.852102]  nvme_free_ns+0x39/0x270
-  [  399.852113]  nvme_remove_nsid_range+0x2d1/0x4a0
-  [  399.852123]  nvme_scan_ns_list+0x2cc/0x390
-  [  399.852134]  nvme_scan_work+0x421/0x9f0
-  ...
+  The buggy address belongs to the variable:
+   remcom_out_buffer+0x400/0x420
 
-With BLK_CGROUP the disk's root blkg holds the queue until a grace
-period later, which hides this for NVMe namespaces.  It's still open
-without BLK_CGROUP, and from reading the code also for queues freed
-without a disk (e.g., SCSI device queues on a UFS host).
+Page the CPU entries together with the tasks, so no reply holds more
+than KGDB_MAX_THREAD_QUERY threads. The CPUs still come first, which
+scripts/gdb relies on to detect KGDB.
 
-Take quiesce_lock around the list_del_rcu() as well so that the walk
-either finishes with a queue before it leaves the list or never sees
-it.  With the fix, KASAN doesn't report the use-after-free anymore.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it about once every 20 minutes on a PREEMPT_RT kernel.
-
-Fixes: 59e25ef2b413 ("block: Use RCU in blk_mq_[un]quiesce_tagset() instead of set->tag_list_lock")
+Fixes: 25fc99991383 ("kgdb: fix gdb serial thread queries")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
 ---
-Stable trees need 71ec3c7d6db8 first since it adds quiesce_lock.
 
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/blkquiesce.c
----
- block/blk-mq.c | 3 +++
- 1 file changed, 3 insertions(+)
+Notes:
+    Tested in QEMU with KASAN and GDB 15.1. Unpatched, connecting GDB to
+    a 109-CPU guest gives the report above; patched, 109, 128 and 255 CPUs
+    return the full thread list with no report.
+    
+    Based on v7.4-rc1.
 
-diff --git a/block/blk-mq.c b/block/blk-mq.c
-index 5ae22d556540..54ccfc43c27c 100644
---- a/block/blk-mq.c
-+++ b/block/blk-mq.c
-@@ -4354,7 +4354,10 @@ static void blk_mq_del_queue_tag_set(struct request_queue *q)
+ kernel/debug/gdbstub.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
+index fc6a7a8c1f6e..02f27e70993c 100644
+--- a/kernel/debug/gdbstub.c
++++ b/kernel/debug/gdbstub.c
+@@ -752,15 +752,20 @@ static void gdb_cmd_query(struct kgdb_state *ks)
+ 		i = 0;
+ 		remcom_out_buffer[0] = 'm';
+ 		ptr = remcom_out_buffer + 1;
+-		if (remcom_in_buffer[1] == 'f') {
+-			/* Each cpu is a shadow thread */
+-			for_each_online_cpu(cpu) {
+-				ks->thr_query = 0;
++		if (remcom_in_buffer[1] == 'f')
++			ks->thr_query = 0;
++
++		/* Each cpu is a shadow thread */
++		for_each_online_cpu(cpu) {
++			if (i >= ks->thr_query && !finished) {
+ 				int_to_threadref(thref, -cpu - 2);
+ 				ptr = pack_threadid(ptr, thref);
+ 				*(ptr++) = ',';
+-				i++;
++				ks->thr_query++;
++				if (ks->thr_query % KGDB_MAX_THREAD_QUERY == 0)
++					finished = 1;
+ 			}
++			i++;
+ 		}
  
- 	lockdep_assert_held(&set->tag_list_lock);
- 
-+	/* blk_mq_unquiesce_tagset() runs the hctxs, which are not RCU freed */
-+	spin_lock(&set->quiesce_lock);
- 	list_del_rcu(&q->tag_set_list);
-+	spin_unlock(&set->quiesce_lock);
- 	if (list_is_singular(&set->tag_list)) {
- 		/* just transitioned to unshared */
- 		set->flags &= ~BLK_MQ_F_TAG_QUEUE_SHARED;
-
----
-base-commit: 801bddbf1e4147a69b811c548c35a06a157941b4
-change-id: 20261103-blk-mq-del-quiesce-lock-b9e0f81947b8
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+ 		for_each_process_thread(g, p) {
+-- 
+2.43.0
 
