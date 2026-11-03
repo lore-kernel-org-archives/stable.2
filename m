@@ -1,49 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793730727;
-	b=hyXX8U13zsU42Q4yKj6JGV/v9L3/ZFZsvN2KgVdnew9AV5q33ycUy5Z1IXIMLFZUw/HT
-	 PI8bgV8M4BFkTajLrepu/dzjSinAO1sLoJpVAJqkvMBSQT4LDCOEwzDJwD8HAx1Nj5CTt
-	 +su0JXvOetlgU5GH6h6jineNuRGJMWwIAHJ0LsP702c1kLuiN/1fhpBYoF4PCpgidVfE6
-	 apy7yhNyfXZo+hSSj9OC8iP9+M0k2yOSBdnhq35BnZ9TpLY9ZzVg9DQvi4yeGe31gHwLL
-	 xAtotgbxtZVuxe7xYmaye2u44MsdS3ZIy3rYsckNlo1o1UVpveedvrA9byxt2UnSgfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793730727;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=4lPgWCWw5afVEOKQYPDlfBM+bkXafIhu1shhrvFW/Os=;
-	b=Uqq1Nv4KQG85ZxiKSK/FMSko+IOPFQyGg3NOTbuc+KkEdgQmz7YIHDxjjF1wmDZiCr4Z
-	 fiHBzxP0V8yGHeeEm5nJpRLEesmKjLetVjobuK42rKG6RMa3AuiPRPpHHWQGQkN68HdZr
-	 YHiJM9ASWgB4WKxAciOpsdmmYATfwGtH5/j9kJO3QdVnDWBNQJ2GjNUZY1oCi0ZDSycAS
-	 kHkUhBMeugzjFfuef/HkOLi+S9uI8h4edlP4tfAIEWfYKoZGp+LaMZrxPeQ/KP0VVGdY6
-	 mH+muUJhUl23q/I6w2ZMNE4x4SWUaPI60pOn4vZ3J/j3JE/Plk9XEbg56e69yu/5znQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgpkTNhB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793730863;
+	b=DD+mi7nB6QW/DTyhpCdMIB9/CaNU467uIathMIh6PWub7oqoBWUPQ1SQPnsuBHZNq92F
+	 5XPhObmGK/735hEo2EIRCLCUURh0TF5V8UuYKoa4KuIMLSPzFkOtaJQH/lp3p9p7jbTsP
+	 UwG1pJXg4Z/1GMs1e1am8m8o9kkGu0YIu8JabKOLh5b7QugmWLbz3AsZSgxRY+W/bGLNM
+	 iWyIZGA1M7jfvgUL12sHUWG/H9lLswPgGePHQP1zGGWECJtsVIe41Jjk6kSvNIZK/7Uz1
+	 fSlCdB/Lr2Z2lFPU6lo6H9CDGqGpWCIwELQMAvZHniSySeeTXp5S2QE21au224reffg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793730863;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=/GFDLlgK5HAoW68o12U8J+27i2IlZDakQ4ajhKBmDhE=;
+	b=jmzrWs3hpA3HCI7yOB4XLVC7Hz+r1NuQfxlbzksgbtG4pNTXkf68f97/vdGl1jR5gf+1
+	 pziYCIOMG1fBS6mP2LFpNZbIu5BN4G4M+hkOiNIkFfjMdkQPTDLFB/fErAjFZQLCQy7/k
+	 uyPSlQVDnbGuPBj6ILL89LL9u/mLGKEF/05OVX3B2aG9w0/gEX90Y1O0Ywop2IdpxuBPP
+	 XXyDb+smNid3LxCsxo0iEQCr9qRUvX++zdM5tOmLe9FQTViyZRqgWVoX8OGs+XA4zZSFV
+	 PAndtXf8koGHJEG9KbCb4u8pQRvr/eptdFmq61OOq1xkCFQ9BoRBF5w/tVXlDSoTZgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WzHT2IwS;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AIq6Vzoc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3EF606A33B;
-	Tue,  3 Nov 2026 18:32:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21984606A32E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 18:34:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21984606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgpkTNhB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF9E1F00919;
-	Tue,  3 Nov 2026 18:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793730727;
-	bh=4lPgWCWw5afVEOKQYPDlfBM+bkXafIhu1shhrvFW/Os=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kgpkTNhB7yGXCkKUs4H6jKAD5UBj78pCC/2XF6BjFOZtt8aJaQWLro4WgITERqSea
-	 TyXcWQBG9mkCON+8iBxqKY9eT2aC+PNu7PnRil3Ljfx3NwEGZrFqcf56Bzc9n0pyI8
-	 v4Y0SjZehNNiK3xlxdxo0YHVxys5EjJBXrmdfcQAr23ZIQ8pQ531kP3SVCl9KoBbMO
-	 P8kvxNuIkzUvuWxfWt6Ta6CNaCdwIvms1azZVe5UPBop0UMUDr6nrkSCxZw7yZIxSL
-	 lPymmtDYnrpakY2TcJiXxR0DMSdHKaJaUGCkqSm8d8Rny/vcmB9mGVPp+GD3fYD7n4
-	 fJBY0Ak91Usug==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 03 Nov 2026 19:31:44 +0100
-Subject: [PATCH 1/2] mm/memfd: handle GUP pins more reliably when
- write-sealing
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WzHT2IwS;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=AIq6Vzoc
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3HPbQX4123014
+	for <stable@vger.kernel.org>; Tue, 3 Nov 2026 18:34:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/GFDLlgK5HAoW68o12U8J+27i2IlZDakQ4ajhKBmDhE=; b=WzHT2IwSgehWqDBq
+	Vhz4Z5HT67p975+82qgbF5lx8OMrgUUckAAC48pzuFP6cikOxUP75dOGOMhUXWAc
+	IU/ReqlodDXuPIJ42m9zDtRAVrx+4AuqiCjtVGd3mk6/lw/omR8BDRc10f+bvBhU
+	A0DO++soEbUHhFft2IJVQQgudalGQJ1FE1goSxAryWq+gnrqcZoobipGe0sE/l/8
+	0lOaiCimWHv3jjS/lGi86j+ih2wWBzA4EfHnNZpe5+oDdbwF3KvvE+n65bfDclnC
+	8OMZxKtfbNAuXV0ERkHs6IzEASzbdZ1yKPwxy2n/lpQr38PhZYjSTrSPPgzcYrP9
+	WH1cTA==
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq6m9bur1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 03 Nov 2026 18:34:19 +0000 (GMT)
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-86c3a053d9bso69441997b3.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 10:34:19 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793730859; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ub+A5rdtp93gy39ibRmA8EAdns3dIBx6z9Uk5fbMPq0u961gKuJHEAIBVF1xc26H3V
+         UE7Dj0Jr+efMLQ0vU1zhXG7nN7O5bsfpRXtOX4nMg9g3ce7l+l2ziBmGBOaJxcMDHT9n
+         IOL3OXxbeUXPD9iuXwCKSK6y9zPDnF5E4SFSa5E0MRIMjukYmQEVq4Yq+cPM5t4fPKm/
+         LqwwGC9Epjk6wSnHPqtnRgyfm6oHUa6ziSLU5npWUZSJM8nUwnsoK7HrVn+Xw2Vq41nt
+         2HPxc1IkCN+mCRtU65an47GGPHP23M1kQxULWCRk9q2N1fjH6X4TSQApRdVRvKsSj1Sl
+         5EoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/GFDLlgK5HAoW68o12U8J+27i2IlZDakQ4ajhKBmDhE=;
+        fh=UJhJNQWoAeJ5Sqv3+inSpAGn8PPpXGsan9v09s+nCLY=;
+        b=mL/1Kneuj9FQLmoTmAjJ7W+KREwTxUNXGscoJvr40d//FXe+fVXY51z8aFdvApXYpF
+         TuqdeInj5h4n9xFbQoTA+b9zxUJw2uFTe1zi/h81IaLZi4GegXy0Zon9/qIjZlqEmh2r
+         mPI2F79H34d5Zf6nuhbUso6WTpVr0zu0AKKhrpe041QLX3opQr2yCthMw95Je7lM4SNZ
+         LdZANsReVawvJHku9GmAVlzpQEarYu59d74jnZ6De0xMPtxFVeJutESZyaLMbmUFh6mC
+         RfKMpOFlEJmP7N/lD73qZN3ITLLs/s2G1JwzIcTEWauCI9XbEKSgIW8cp44KaeqJ6xJB
+         XToQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793730859; x=1794335659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/GFDLlgK5HAoW68o12U8J+27i2IlZDakQ4ajhKBmDhE=;
+        b=AIq6VzocRIxKkk8ARUG7ZEUZqJyqhN8weKZpJhFifmBVUeXFdJ7PeA9cLZXPYH1tCU
+         IRZ+skH5IsPMTiZWKgrWy1CNUUW/JObaCHwoHRnNBPasCaDj9lqyxbHoASmyfKdZBYRQ
+         7FTxGEJ+Y9Wc5HRoodX1y3PB8A/QxrKdOznZpljaeeGZznSTKZaoExQuRafmjIG0oPq6
+         w+398qVZig3+502yLaeCfQAoTh5HgvLejYpCLSFiZJ48EuFOS8geB/xxuKBi9otakpDE
+         l/draJ3sLU19EEQdJAD91Vzkf05eWbtlq0ysGXaVf4Hc469x+Iz7zeNF3RpflPg636DA
+         0KpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793730859; x=1794335659;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/GFDLlgK5HAoW68o12U8J+27i2IlZDakQ4ajhKBmDhE=;
+        b=I+5SXHX8D5dPm6hHiPGMeA0Nrw9q2Uu6xha7ChcnM+yzc4bPfI9kvbXAgbQNLDk3nw
+         SAxGtqb48NrD1rp0OX7O+HTYgUpmRPmDp3uoNyWroU5R2VOY7uMw2k4luHl6dCORg59O
+         dECJpecB5vEJla7W2LggAMCBjIoRCKNOx/m+ejACjvUV1aGYrDyoSmCTVguivetTe+/G
+         DpHw4xyZzVRbjJf2PvXQ2/4DznBlpLCuRmlIDQyls3S83SDW4IK9W5HlSE2miVINRhHE
+         s6Zr3lCVI7p7klco1CvYGbjv2G0RaYsiqaLdsLW44vbiM/tYOP5s+So7nZT8NRyrDat+
+         UuwA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHK8zhLo+4+zuNQAg+dNhvtJM2NWh8C5SP3r+2cU4CbCwxvyVWpOyFvGKSDoQosxQobJJoXf4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4txln4N2CjILvJNgtr6SFpDw6+PBWQBzl1BB6X1y2IufBBXVx
+	dvEYFMIO55nwBNvhrmtSQVg/1PzZHgFRYNdzYnEkmL9hP80XGiS0UNbWqN6EkHrrbg+7k9QVqtU
+	Jra+dvjbSE4ETGfcYxAmrQx+TezbHaYOFK7r63d2WUKOGQ/n5ErhYumz3mQHDQQe/2l+HVzxv/9
+	Rh8WEbf0w5e7JMva7dQ87iYuf9bCnZMEXqvQ==
+X-Gm-Gg: AYBFou2CJhxyl+FtYT7ZFY2GhrdHWPUWj+UbnJpjEDUnngxfVmkRRwMHI2+FJhyOUZI
+	64Tkmdws3xQuJYuNpAZTMV9+/m0i0/U8vLz7bzBw/JtLbSCWUn0RkEk9WLpCYx7PIqsybFsU0Fx
+	apZrZEF4rBnuMJSQXmFopAZlU9mGni8JD0IL3Gc3ZVlT8n2kPZFMYfTWF8YtQvmC44qr33HGl1r
+	T+cZMYfojTuBvkd8cTFAI7u5m1NEoTPyIgCWjMO
+X-Received: by 2002:a05:690e:4088:b0:67b:bb72:dd09 with SMTP id 956f58d0204a3-67bbb72e7a7mr7242608d50.44.1793730859376;
+        Tue, 03 Nov 2026 10:34:19 -0800 (PST)
+X-Received: by 2002:a05:690e:4088:b0:67b:bb72:dd09 with SMTP id
+ 956f58d0204a3-67bbb72e7a7mr7242592d50.44.1793730858912; Tue, 03 Nov 2026
+ 10:34:18 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,81 +128,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-fixes_core_2-v1-1-f332954f1df4@kernel.org>
-References: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
-In-Reply-To: <20261103-fixes_core_2-v1-0-f332954f1df4@kernel.org>
-To: Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Rheinsberg <david@readahead.eu>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1804; i=david@kernel.org;
- h=from:subject:message-id; bh=Wy87zWgjvDFa6nQn3gznSv/cs+suxS5XMGobWeCkKH4=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLJeacxay2Tq/jbvx5a4SpXu5FvTM5f3zpp0mGf3tISf8
- 8orotOZO0pZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiIjC4jw35n6f1q96ULl63I
- 5P10sEks7a+G2Pf/s6X9mafcXTDzji0jw6Ps/xadM04YR4VOShN4+fWJYTFnrmRs52SRBKPbM+4
- /5wIA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+References: <20261023210238.551855-1-g.osokin@auroraos.dev>
+In-Reply-To: <20261023210238.551855-1-g.osokin@auroraos.dev>
+From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 19:34:08 +0100
+X-Gm-Features: AclHuK_m9Jis2nJnxj8Yo9gCVbFV_e32G26TRERoPo0wBnnCXCaoIJVZvpoofSI
+Message-ID: <CAGgiveXkWxrdeRYCxBC9X0eQSUAAxF5N+ioe3iM6GZ=pSqHHeg@mail.gmail.com>
+Subject: Re: [PATCH] tee: shm: don't warn on an oversized page array in register_shm_helper()
+To: Georgiy Osokin <g.osokin@auroraos.dev>, Sumit Garg <sumit.garg@kernel.org>
+Cc: Jens Wiklander <jenswi@kernel.org>, op-tee@lists.trustedfirmware.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        lvc-project@linuxtesting.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: QCXjEfOKuE6qdTQmOJloi7GF8PmDyWDS
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA3MyBTYWx0ZWRfX8W/ZXocPOk+1
+ LEwkYKre1kmOiHww5Nyd7IBOIrFCP34vaV0/5oyLwfD8gE5X/TTnH0dnFcLJV4QJvmxKrCAhOAW
+ d6MunlD1gScfnpDBWEA3y0iibcRE2Ws=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA3MyBTYWx0ZWRfX3pUevPcuo2tO
+ tk8rq5nOFkvo62AJtcgvM3KZjYRjDL+bnDeQIak1JplSmHMs8ifcFy4afK4NYzEnr0b1XDEet6D
+ 6W5XEdztgGHrQXZuh8P/q9xgwqifL3cbf2C6/ccjSuTFqIxdvsq0P/q3kl01IdxYAnEciSmIjgR
+ ghyCB4gE+7uzrt37Or5iULiZkbfQevWuw+ZBbtdZTr2gPVCe03lyUOH+2RX3gLFuVWy4aNG0q8m
+ UeICRn0YpbJfN+5hs8LpyC7p7aH3BTc0Kwz0ws/b3X9UfLDkMgyUpESe8iNm+2CUfiV4e5UysPI
+ xyaTjIIk4IHG2eoKwnX/0jEwAR4JcVqn/7ql1CCZ7+sDOaUXv+xo3s/DjIv+hadi6EvsBjaEKwb
+ hFS9oc3LHvwjTXJen4O9/9Nwl4BEtbDVkCd92oMutyyj1vGgtJGQzbwKQ//pourCAPkqZPfFhoi
+ BChD9uSg7kXubGzd1pA==
+X-Authority-Analysis: v=2.4 cv=C7B8WgP+ c=1 sm=1 tr=0 ts=6aea292b cx=c_pps
+ a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=HH5vDtPzAAAA:8
+ a=c0YJ09nfCN-JFu4Q_T8A:9 a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
+ a=QM_-zKB-Ew0MsOlNKMB5:22
+X-Proofpoint-ORIG-GUID: QCXjEfOKuE6qdTQmOJloi7GF8PmDyWDS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_04,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030073
 
-memfd_wait_for_pins() detects GUP references by comparing a folio's
-actual refcount with its expected refcount. As spelled out by
-folio_expected_ref_count(), obtaining the expected refcount when there
-can be concurrent folio (un)mapping is racy.
+Hi,
 
-So it is possible that a changing folio mapcount can race with our
-check for GUP references, and F_SEAL_WRITE might succeed even if there
-are some, allowing file contents to be modified after sealing.
+On Fri, Oct 23, 2026 at 11:03=E2=80=AFPM Georgiy Osokin <g.osokin@auroraos.=
+dev> wrote:
+>
+> register_shm_helper() sizes shm->pages from the length passed to
+> TEE_IOC_SHM_REGISTER and allocates it with kzalloc_objs(). A length above
+> 2 GiB makes the array larger than the page allocator can serve in one
+> block (MAX_PAGE_ORDER), so it trips its order warning; on a panic_on_warn
+> kernel that is a panic.
+>
+> The size comes from userspace and the request fails with -ENOMEM anyway,
+> so pass __GFP_NOWARN. kvzalloc_objs() would not help since kvmalloc
+> warns above INT_MAX as well.
+>
+> Fixes: 033ddf12bcf5 ("tee: add register user memory")
+> Cc: stable@vger.kernel.org
+> Cc: lvc-project@linuxtesting.org
+> Signed-off-by: Georgiy Osokin <g.osokin@auroraos.dev>
+> ---
+>  drivers/tee/tee_shm.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
+> index 6742b35..d539988 100644
+> --- a/drivers/tee/tee_shm.c
+> +++ b/drivers/tee/tee_shm.c
+> @@ -438,7 +438,8 @@ register_shm_helper(struct tee_context *ctx, struct i=
+ov_iter *iter, u32 flags,
+>                 goto err_free_shm;
+>         }
+>
+> -       shm->pages =3D kzalloc_objs(*shm->pages, num_pages);
+> +       shm->pages =3D kzalloc_objs(*shm->pages, num_pages,
+> +                                 GFP_KERNEL | __GFP_NOWARN);
+>         if (!shm->pages) {
+>                 ret =3D ERR_PTR(-ENOMEM);
+>                 goto err_free_shm;
+>
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> --
+> 2.54.0
+>
 
-For folios with a reliable pincount, detect FOLL_PIN references using
-folio_maybe_dma_pinned() before falling back to the refcount comparison.
-For small folios without that, the 1024 pinning BIAS makes it very hard
-(although not impossible) to misguide the refcount comparison.
+Looks good. Sumit, do you agree?
 
-This improves FOLL_PIN detection for folios with a pincount. Handling
-FOLL_GET and small folios requires a more fundamental change.
-
-Fortunately, most interfaces that allow for GUP'ing such pages use
-FOLL_PIN, in particular interfaces using FOLL_LONGTERM. However, we
-still have some FOLL_GET leftovers ...
-
-Fixes: 05f65b5c7090 ("shm: wait for pins to be released when sealing")
-Cc: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/memfd.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/mm/memfd.c b/mm/memfd.c
-index 0f6fff004f5e4..9eda4c3eeaca5 100644
---- a/mm/memfd.c
-+++ b/mm/memfd.c
-@@ -32,6 +32,13 @@
- 
- static bool memfd_folio_has_extra_refs(struct folio *folio)
- {
-+	/*
-+	 * Use the precise pincount where available to avoid racy refcount
-+	 * comparisons.
-+	 */
-+	if (folio_has_pincount(folio) && folio_maybe_dma_pinned(folio))
-+		return true;
-+
- 	return folio_ref_count(folio) != folio_expected_ref_count(folio);
- }
- 
-
--- 
-2.43.0
-
+Cheers,
+Jens
