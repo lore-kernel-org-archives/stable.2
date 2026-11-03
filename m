@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700748;
-	b=VZsFWGeFMSO7trWJIwh0XVQiTY7QUfABULgA0UQ3NFG7IR4fVmUL8+keR14+SfduTTIS
-	 ntjyg5eF72di4XbU334RF/da3EtyzIRZoJJDmvCew7BYlVld8bYvp4R3Vr9ozQdRmExFY
-	 Npe5LZ80OHvhdWsZ4jZk77g/NUVUySWphKW8/6QTUTVabh0siit/sduZbpP834ffhzT6m
-	 8DsNzaElFi8Kdwd5rh1FpQN9dkLDVQqAbEsBBpkEqJAdiHnEqbWLK8Ln2AufaS2WlDR+z
-	 2v811DPhDEZdMwC5K2JbBRATxME9ShiFDAR9IHgdspK0J4vY+j5EWF5KK5QkC4EuAWg==
+	t=1793700756;
+	b=3WJsQyY1nNu6t9QmpMZDxm92uTXSHFnYgYaD3PXZSror2//ezqB7C7BJIMVtqHOc2GZd
+	 dUxyo2++lvGIn+WQOCSwrmVYxy+yVPIn603GrV1aPY/jEcfomtNSDPILqCjWNgroBkhK2
+	 F2uVw2nMTByzO80H4UToEQ4+OJRyuOAW4tra90SlobZd6aHaHHd3QzrnBeCybEPQQBTDh
+	 uHGYOpgpQcWykbSeZrajEvnmWQX1rLXkTED0cjh8GilfL3Ch4lyUXHBYlLKt4XNd33/6F
+	 Ilhl8BKiF3ZEWQd5Tdj21RxZaCI6cRteaFwp/Co66EfvVPyz3+6rC4MkkBG9V19+xhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700748;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700756;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Ow8yH0V5ZwJSUaoVpjAdmyCtMNgOinLdFqlRQvSr7gk=;
-	b=FTKV/rT2WfUAWbbCUIaiHrXQBufpKcFrtIkep5qG8P6puGqwHcFnP1xgfoqHQi1bIDH1
-	 WaWkPAGdna6zsTji2e9iqf28eFKtAkUxmcPNBsENTeaNFal6oQ63XuGqkWJ6tXt7Kf2Il
-	 UzIyUJhhuKPzB+pdDeDpBvR/Kz3zuv1sCyKk3TFA94A++QTS9k5aCYciI1BSmEBzNoS8V
-	 JH/hoDaEOdqjn5W27RT4pk2Hl0TrRpbrZHZ1EExHYFUJ8oNyGQZ8HapMqdBzyOm3MgDUW
-	 lwlUww4GL//tt05m3MFT1Kq4Gw9YVxZ8PEkXd2GbHqwukSjCcuXtnttecAu3CQSoqNg==
+	bh=v50V2YdLqpJLG5g1OLGljgufXFpdpQPxt7zi9Fzizq4=;
+	b=3gZuW+S2EQBTT7P4AVo43aIZ0FbwOqC5fk5GRnpjZmNGbNmsNNIM4xJJKqMgVpi7l6FK
+	 r1SEWT7mw7sT1QB3illES4wQcaE/YfHt+vauYxl9RTkzZuaq1HlniKIM2c3f+MqT94Noy
+	 9fmQK54zyMlW0N5ztTJdmaF7HKQBCyMKv/TPva1K2X+T737hDEbZabWli1d2EiUb0Kjm2
+	 f1hP5g7JPMMJjgZiEcdKMZvL/8Yc0DH2iGmbC7SyUsVemz5wdxOMTjGdBsXCiLgWUCJz1
+	 TVEjv/jUgSn+u/Nxoc6g58Bjd96DLAn5VdaROMG4zkDR4JkOejrfoC/Om50HuyTyPhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qTZL7UxX;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zLDz8rmO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EABA606BF9C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFCA606BF9C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qTZL7UxX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB031F000C1;
-	Tue,  3 Nov 2026 10:12:27 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zLDz8rmO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B883A1F00919;
+	Tue,  3 Nov 2026 10:12:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700748;
-	bh=Ow8yH0V5ZwJSUaoVpjAdmyCtMNgOinLdFqlRQvSr7gk=;
+	s=korg; t=1793700756;
+	bh=v50V2YdLqpJLG5g1OLGljgufXFpdpQPxt7zi9Fzizq4=;
 	h=Subject:To:Cc:From:Date;
-	b=qTZL7UxXiSW9qLai6DpKJu8tYU0R4CdLeh5whrfLb2Tz8NzOt7dhwR18hPQlmmvOh
-	 QROSCvo7IKvaeY91gc19JGu7lziL4PwEIj+UiaTwqcCf21pM/z/PPUOIHxYIKos7Sv
-	 fFvHWzg7ajUOpCJxtZZinQQuYgervT9+uRf4VuWA=
-Subject: FAILED: patch "[PATCH] driver core: Limit the messages on a refused uevent" failed to apply to 5.15-stable tree
+	b=zLDz8rmOGlWgdgd/du6gmENZ132tzb3rlNV47eM1YpBA+g8+nQAN1+jhWHen9pgAd
+	 NH9j8fcJ/IGomTR/gBEhBwFBwLBeVaNUCxDydpQ5ss2E+3btfsuytVyQygQKQutG8+
+	 IbQ4n9KVZ/fXHH3Z/aFmREBjzvlaG88S0RGfeLQM=
+Subject: FAILED: patch "[PATCH] driver core: Limit the messages on a refused uevent" failed to apply to 5.10-stable tree
 To: josef@toxicpanda.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:12:25 +0100
-Message-ID: <2026110325-yoga-strut-6a3a@gregkh>
+Date: Tue, 03 Nov 2026 11:12:26 +0100
+Message-ID: <2026110326-defuse-swifter-f038@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x a01c8e5b1dff1ce489e6b339139e744db36b8bb3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110325-yoga-strut-6a3a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110326-defuse-swifter-f038@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
