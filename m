@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689738;
-	b=KFs222KKzWBNGjKY+TwBoYQwrJrzBaAxkMaqcp87bBbdeqJDWf/mC/o5SEunKa/XKRC3
-	 +mpMOnjOzM3/Lw6HSRphcx6WyPO8OheD+nysk+sGOxE8lFW5Y/WwsdOH3lAJp1SGeFEqS
-	 en8dcuEgBGGo7mOR5Ii/GHhqU08HJl8gNCJQ7cp/uNmzYswDPFeQ7JVdtvRmna8g9oGiu
-	 2UhCoTn4tYyGaMZpp1u6qTd1VdRFWUDpXGqz7B/wNtuKMHviSX5IybYhgpSD4TZlbN1j9
-	 sC9nj132cyhMo9Qx28b7TyIVtxTyz+LNhCbTAqpdrICyCU2oZnbR0xCWSe4xiUA/gTw==
+	t=1793689822;
+	b=a7JusUmtCfrMJRYxcVRe58AYItYxj1EFtbGFOM+Sr8FEec21HcRIJEhg018Klh8m+NM8
+	 9jUhIZVgrthxKnLoBIeMiwUBKIM9lpLqrJDesw+nN26m8bCQ3ZOdaK4vVegUDisnGmcHy
+	 XpzXRaj/FIgtgX19yeB7qvb7glyUQlHiaXVZo9vnBnyiqeNqK8BgCH6dDQTpfNQXfqam5
+	 iOjeav92iqRw7VMB5cgiNLY8EN38qSB1Ug03yAhYqJSwD/GIRRZqjUhE0+DrIyh6yq9yp
+	 Z/EvYFteQGvmeIjKGu8n5CODclTPDIGqbJM4lh1KeWEBqLxiJZ+IB6BtKHDDVEo9AoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689738;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=m8AuPCOFAf/2S2nvWRU/STz1Sg7kLIO+T08Yd5N1l88=;
-	b=n7/TB+tbAoSrjxXdgcjWE8qjekmi0QUwhXOkR5C3Mfu35bnKRh5gNxyQQlm6tUWfQz2Z
-	 J75rYEBHwNcwMQ3+fo7j6ePJ/en+G9AqKoI4tElTsIp/BT14Bn9ItqGcyBXzD34X3q4n7
-	 3FpuW75VqcFGdcN/bpHNaSMPkoPE9TJjuoJ8thEN1XK6jMLkDyZvO4fsQ0JZoeN6+yX+w
-	 OZByykJtuydN79tAwPwcYOzfbzqAsp0Ddl1qgYrLMsaFs7Hy7PjjMRRPCb6jffBTltl0l
-	 gePmykCqm2GdbI73FzoqPDbc6jUXGikxFNK9Kxi4po+aMDjlT1FesL5+cDyLu8/1prQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689822;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lhekMbxihbNT10QqQYBHsUxGrrg/edudFTnsSxoMiNU=;
+	b=YasrJiNzs2KDwvn41qVfm9oYL45gWNYSIOsiwMTtDsdnRJnNwb2CsGQuvPrmteg3DXoE
+	 Y0Ykxs+kxJ95+GmtAFXC8nmNQo32A9AKsfygPtnqJJVf9KnrWyP9dUMVKPwxVvYQgLd5Q
+	 cO7NW2KgnGUsLjaXHzTp2yUbaNgfbDqcBkeK+ezFgx8svu+A5heiTVSkt9CJJkEm98qoc
+	 3VUUSzkn9wCTUTH2x4TLDzwNjiy+9ScvHCCAVOpTzGr1+rxXusaQlzjLYqkCcgsoICf2C
+	 lswvDHN2QxCZ+YqrrYW3zSmzzuSYvuv3INPCGws3Bkhau9s5iPg5WLTsiWjynZQQAoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cko3MwKc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7145E606A324;
-	Tue,  3 Nov 2026 07:08:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7145E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACHk5SHiOlqkLQ5AA--.4125S2;
-	Tue, 03 Nov 2026 15:08:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexander.shishkin@linux.intel.com
-Cc: linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] intel_th: Balance the runtime PM reference on driver removal
-Date: Tue,  3 Nov 2026 07:09:04 +0000
-Message-Id: <20261103070904.1085387-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F350606A32C;
+	Tue,  3 Nov 2026 07:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cko3MwKc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19AB1F0093A;
+	Tue,  3 Nov 2026 07:10:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793689821;
+	bh=lhekMbxihbNT10QqQYBHsUxGrrg/edudFTnsSxoMiNU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cko3MwKcBQOuRl8lP0yhkcP2yiWsxST+VMSEZ2OVgtdwKWeP02A6k8ezqdERumT1v
+	 dEb2nFC+ZNjRe7ll4E+tOqYa1AvbmPnRIfh1dkFSpCna6vgiE57f87sDjj3NKI09E+
+	 3DqGgLZbaxPwpx9n/cOTsd/Qinw/uCz26+jcxk7PgJ46Gcqzbn6K7Z+0rIUrehFRhk
+	 FChI+5oWA70AskDcdKVLvBWpz9REg1vr5A9XJEhLaFJ0YZIsXFTncjMcB3hvb7i+bz
+	 YRekryNJ0jTQQAnfHTyAlee8o622fNIMm7SZSExGTp+sD863gDz3HKQVEDiJBsdk9G
+	 RCfnLybxpXxrw==
+Message-ID: <2bc3c884-00ce-4104-b019-893c22c36436@kernel.org>
+Date: Tue, 3 Nov 2026 08:10:17 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,55 +51,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACHk5SHiOlqkLQ5AA--.4125S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF4UXrWfCw17uF15Xw1fWFg_yoW8Jw15pF
-	4DXFy2kFW7Xw42va12yrnrZFyYgayftrWfGFykGa4rZa45Aa42qryUKFyYqa4UtryrtF9x
-	tw4ktrW7WFW8tFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUyK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0E
-	wIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E74
-	80Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0
-	I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04
-	k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7Cj
-	xVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUYzuWDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUAA2rpWfWghwAAsX
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] crypto: octeontx2 - Unwind allocations when AEAD
+ initialization fails
+To: Wentao Liang <vulab@iscas.ac.cn>, schalla@marvell.com,
+ bbhushan2@marvell.com, herbert@gondor.apana.org.au
+Cc: davem@davemloft.net, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261103064248.1054181-1-vulab@iscas.ac.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103064248.1054181-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-intel_th_remove() resumes the device with pm_runtime_get_sync() before
-calling the driver's remove callback, but never drops that usage counter
-increment. Disabling and re-enabling runtime PM does not reset the usage
-counter, nor does the driver core's subsequent pm_runtime_reinit().
-Repeated unbind and bind cycles therefore retain an extra reference each
-time and can prevent the device and its parent from suspending.
+On 03/11/2026 07:42, Wentao Liang wrote:
+> cpt_aead_init() allocates a hash transform, descriptor and pads before
+> looking up a CPT device and initializing the hardware context. Failures
+> in those later steps return without freeing the earlier allocations.
+> If fallback allocation fails, the hardware context is also left mapped
+> and allocated. The algorithm exit callback does not run after a failed
+> initialization.
+> 
+> Release the hardware context when fallback initialization fails and free
+> the hash resources on all three failure paths.
+> 
+> Fixes: 6f03f0e8b6c8 ("crypto: octeontx2 - register with linux crypto framework")
+> Fixes: e92971117c2c ("crypto: octeontx2 - add ctx_val workaround")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Drop the removal reference with pm_runtime_put_noidle() while runtime PM
-is disabled, before restoring the existing active state.
+Another fake identity of "vulab" doing exactly the same as other cases,
+repeating same mistake of running unsupervised crappy bot even though
+was asked multiple times to fix that.
 
-Fixes: 142dfeb20209 ("intel_th: Add runtime power management handling")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/hwtracing/intel_th/core.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/hwtracing/intel_th/core.c b/drivers/hwtracing/intel_th/core.c
-index 56acf31546da..1c1f59b8ed3f 100644
---- a/drivers/hwtracing/intel_th/core.c
-+++ b/drivers/hwtracing/intel_th/core.c
-@@ -162,6 +162,7 @@ static void intel_th_remove(struct device *dev)
- 	}
- 
- 	pm_runtime_disable(dev);
-+	pm_runtime_put_noidle(dev);
- 	pm_runtime_set_active(dev);
- 	pm_runtime_enable(dev);
- }
--- 
-2.34.1
-
+Best regards,
+Krzysztof
