@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672128;
-	b=fD0gaXOPKXv3ZVYgDN08tvott6xG4f4xMrThYYr/JIJP6Ci3QJ4WMhYv7hYa7stSoofB
-	 S3QxsJGqPDit4SFi8qC67uAZ4v36Q+JCWJf2dE47mUxxPCsnjxMKLzUhfdIgfqN28q1hC
-	 Amk5HX9YGTa3yFzkHDKH8BYBSGCtfFT5XbB20E9Rbt2fxaSkufJ1glXRs2Ep/5GrvBnHl
-	 wCNslnEdr0IduUrq8M8CXhBGlwhrUm2hWECnEW+fD+Vklk6BTV65k7tqQo0mIFvPm3bTw
-	 CQEKdYsHX3hhX0U2KFerLfIBkRfc1a+8ef/TqtvQevnXrc6+2RA/mg4WJ2lmpDXDduQ==
+	t=1793672130;
+	b=rdn7v15BXItPv+hSzOcY+BFF/yXSq8eZUGdKEdnKPQT8i55siapgN4ujSGyKWYU6Mt8z
+	 6ZigtmZncGnJ0KN8sOIX/vuSWs9UsOFjG0T//5jbIW+pL5eQiMo+dWozqSa2J1ikGUgj4
+	 4RC6qRCcSaYq3XlbY1/i6DQQ9MhNAjx/HnVRU18cQj81oj4khKxQ2iVt5OVabSt2SLGQ6
+	 DDIZMjKXa7/05fQmYGRAMwyvLWNGHOqt4GS3VHlv52eCVl0wLm2VD/nUlnlFNSAzuKtQ4
+	 xeYMnzC/kobT4tYT14+eLZhq8mpKL1iTX586Gc3Va1vfNbTp+KwdzOfRjh0ltQroDww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672128;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672130;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=/dizXlwya//rUrZvDlBatSPZVLOm9hZ2fu04Ti5DfbE=;
-	b=n37YqhM4FIaGt+U+9Lq4ZpypUcAk8lArl1T+mkb7CUOzL3pBAgpyfLyMdk8wo5t7jXoE
-	 5PaX+bnp1g5+ZtnuTR1fur1VnG1b+ysVcWbzoqHx02uB9qKGxpDJwqjShYtA+61NQqgxe
-	 0kV0wVr+fKehDmVb/n5cpptRlEFEW2nzDl+QjZovAmY5iD+lI9FWB1ppwFZxJwsrb3R5L
-	 Hp8UB+FiGDCNh8lcxM96wuE3RUDpO4GkJ1yVzxhImb2vNNEuaKfMEjT7SRUJS7DmSnJlb
-	 laahggMRELKrf+9kIGB5zge/f53arlAK9dO6wafdTpLxBmhlU8UVYp1f7ZU2fJxQgUA==
+	bh=MQ1HzEm2PQVD6xjtjV2vORDGvBlcpLWbJsj1oqJY6p4=;
+	b=PWdTC8IPGJjSNPwwoc28E/JzzXSMohq8UH6umjxGgxFGCAFfn36kbTgQXszesoBCNeMB
+	 Umkmo+FA2WstSDjbtdreIh9S49qWVYY4uC0m7neInpF7l/eiVqKDGKrir43CmUwnMcCCd
+	 ZAOOgNyOpAE4fRtMfeYzIE1MAscqYcUQaDfW6eXrNQg35zNcZ+CcM698xlaisTgUYY4w+
+	 92VF0KXBhkom8fkfXjnU5ybS9Ie+wYYf8aQRanodPug5TBU8/5dH1iAJbjBcUdCvrai4W
+	 oZQAI5+d7aEPR8+hoHJjATTxrLuiVd2sfhD8ilRmDwx4Wj2NiKqc/jAfdIN4XkCZZMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jgCRy55g;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=swPCSfJ8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B12606A32F;
-	Tue,  3 Nov 2026 02:15:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48717606A324;
+	Tue,  3 Nov 2026 02:15:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jgCRy55g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79B31F00919;
-	Tue,  3 Nov 2026 02:15:27 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=swPCSfJ8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A9EE1F000C1;
+	Tue,  3 Nov 2026 02:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672127;
-	bh=/dizXlwya//rUrZvDlBatSPZVLOm9hZ2fu04Ti5DfbE=;
+	d=linux-foundation.org; s=korg; t=1793672130;
+	bh=MQ1HzEm2PQVD6xjtjV2vORDGvBlcpLWbJsj1oqJY6p4=;
 	h=Date:To:From:Subject;
-	b=jgCRy55gtF96t5YTOIf1AazUhjiUq0OHMZSmnEwjd8/SBn8rRkqkCn2sHtrfmKWw5
-	 RjPj1oVni6okBWXNkXHqMaVg3/xonvJzKIIuNmo1J3PLH2TJEp2Ty/NhZpTTfS3PUy
-	 D2K7VkmDmp8LpKk4sVPdJBs9BFbG+2ipqxkuPzTc=
-Date: Mon, 02 Nov 2026 18:15:27 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,
-	peterx@redhat.com,osalvador@suse.de,muchun.song@linux.dev,david@kernel.org,
-	azpijr@gmail.com,lizhe.67@bytedance.com,akpm@linux-foundation.org
+	b=swPCSfJ8W7upaaQBgLPXsPpJVOUWS6WNnd3ipV377IgvC34mx6j/dyCRwOipYiAof
+	 ASTNkj2M6avHw9RY+Vfw/6pSh3UN1wA46rFJerC8TW06Uoby8A53qojdi0BzItL2nW
+	 fHcEGKVApqb3rAK1Fu3ZRuKSk2UzO9G6e+ZjJyng=
+Date: Mon, 02 Nov 2026 18:15:29 -0800
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,
+	pfalcato@suse.de,matenajakub@gmail.com,luizcap@redhat.com,liam@infradead.org,
+	jannh@google.com,ljs@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch removed from -mm tree
-Message-Id: <20261103021527.B79B31F00919@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch removed from -mm tree
+Message-Id: <20261103021530.1A9EE1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,149 +53,110 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/hugetlb: fix mremap deadlock when PMD sharing is possible
+     Subject: mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
 has been removed from the -mm tree.  Its filename was
-     mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch
+     mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Li Zhe <lizhe.67@bytedance.com>
-Subject: mm/hugetlb: fix mremap deadlock when PMD sharing is possible
-Date: Thu, 22 Oct 2026 11:45:43 +0800
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/vma: fix expansion of VMA_MIXEDMAP_BIT VMAs
+Date: Fri, 23 Oct 2026 16:17:31 +0100
 
-move_hugetlb_page_tables() holds the mapping's i_mmap_rwsem for
-write while moving hugetlb PTEs. This prevents races with truncation
-and protects huge_pmd_unshare(), but the move loop must not call
-helpers that can acquire the same rwsem for read.
+Commit ca3d76b0aa80 ("mm: add merging after mremap resize") combined
+merging with expansion of mremap()'d VMAs, however it also unintentionally
+disallowed the expansion of unmergeable VMAs.
 
-huge_pte_alloc() can do that when the destination can use PMD
-sharing: it may call huge_pmd_share(), which takes i_mmap_rwsem for
-read while searching for a shareable PMD table. Calling it while the
-move path already holds i_mmap_rwsem for write can deadlock.
+Previously it was possible to expand a mixed mapping which mremap() had
+already ensured was a legal expansion.
 
-Avoid that path for PMD-sized hugetlb mappings that can use PMD
-sharing. Instead of allocating or sharing the destination page table
-while moving, zap the source range and let the destination fault path
-populate or share the PMD lazily.
+This is clearly seen in the mremap() logic, as it checks
+vma_is_fixed_mapping() to determine legality of an expansion rather than
+vma_can_merge().
 
-Reuse the hugetlb unmap logic for the source-side zap by splitting
-the core loop out of __unmap_hugepage_range(). The wrapper keeps the
-existing tlb_start_vma(), tlb_end_vma() and huge_pmd_unshare_flush()
-behavior, while move_hugetlb_page_tables() can reuse the unmap loop
-with its existing mmu_gather.
+Additionally, copy_vma() allows for a failed merge to result in a new VMA
+being instantiated if MREMAP_MAYMOVE is specified.
 
-Link: https://lore.kernel.org/20261022034543.51226-4-lizhe.67@bytedance.com
-Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
-Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+However, this is not attempted, as a failure in vma_merge_extend() is
+assumed to be an -ENOMEM failure.
+
+Since vma_merge_extend() is used exclusively by mremap() to perform a merge
+and/or expansion, resolve the issue by invoking vma_expand() for
+unmergeable VMAs there.
+
+Explicitly assert that the VMA is both non-fixed and a mixed mapping.
+This provides double insurance against broken changes in future.
+
+Note that khugepaged_enter_vma() (which vma_merge_new_range() runs) is
+redundant in this case, as a mixed mapping is not subject to khugepaged.
+
+Also update the VMA userland tests to add a required predicate.
+
+Link: https://lore.kernel.org/20261023-vma-expansion-fix-v1-1-6142baf1f46b@kernel.org
+Fixes: ca3d76b0aa80 ("mm: add merging after mremap resize")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reported-by: Luiz Capitulino <luizcap@redhat.com>
+Closes: https://lore.kernel.org/all/20261023023106.515365-1-luizcap@redhat.com/
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jakub Matěna <matenajakub@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/hugetlb.c |   47 +++++++++++++++++++++++++++++++++++++----------
- 1 file changed, 37 insertions(+), 10 deletions(-)
+ mm/vma.c                        |   19 ++++++++++++++++---
+ tools/testing/vma/include/dup.h |    5 +++++
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
---- a/mm/hugetlb.c~mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible
-+++ a/mm/hugetlb.c
-@@ -137,6 +137,10 @@ static int __huge_pmd_unshare(struct mmu
- 		bool check_locks);
- static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end, bool take_locks);
-+static void hugetlb_unmap_range(struct mmu_gather *tlb,
-+				struct vm_area_struct *vma, unsigned long start,
-+				unsigned long end, struct folio *folio,
-+				zap_flags_t zap_flags);
- static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
+--- a/mm/vma.c~mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas
++++ a/mm/vma.c
+@@ -1851,12 +1851,25 @@ struct vm_area_struct *vma_merge_extend(
+ 					struct vm_area_struct *vma,
+ 					unsigned long delta)
+ {
+-	VMG_VMA_STATE(vmg, vmi, vma, vma, vma->vm_end, vma->vm_end + delta);
++	const unsigned long start =
++		vma_can_merge(vma) ? vma->vm_end : vma->vm_start;
++	VMG_VMA_STATE(vmg, vmi, vma, vma, start, vma->vm_end + delta);
  
- static inline bool subpool_is_free(struct hugepage_subpool *spool)
-@@ -5227,6 +5231,8 @@ unsigned long move_hugetlb_page_tables(s
- 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
- 		const unsigned long offset_to_last_entry =
- 			(old_addr | last_addr_mask) - old_addr;
-+		const unsigned long offset_to_last_dst_entry =
-+			(new_addr | last_addr_mask) - new_addr;
+-	vmg.next = vma_iter_next_rewind(vmi, NULL);
+ 	vmg.middle = NULL; /* We use the VMA to populate VMG fields only. */
  
- 		src_pte = hugetlb_walk(vma, old_addr, sz);
- 		if (!src_pte) {
-@@ -5243,6 +5249,24 @@ unsigned long move_hugetlb_page_tables(s
- 			continue;
- 		}
- 
-+		/*
-+		 * Avoid entering the destination PMD sharing path while holding
-+		 * i_mmap_rwsem for write. Leave destination page table
-+		 * population to the fault path, which can share the PMD lazily.
-+		 */
-+		if (sz == PMD_SIZE && want_pmd_share(new_vma, new_addr)) {
-+			const unsigned long unmap_size =
-+				min(old_end - old_addr,
-+				    offset_to_last_dst_entry + sz);
+-	return vma_merge_new_range(&vmg);
++	if (vma_can_merge(vma)) {
++		vmg.next = vma_iter_next_rewind(vmi, NULL);
++		return vma_merge_new_range(&vmg);
++	}
 +
-+			hugetlb_unmap_range(&tlb, vma, old_addr,
-+					    old_addr + unmap_size, NULL,
-+					    ZAP_FLAG_DROP_MARKER);
-+			old_addr += unmap_size - sz;
-+			new_addr += unmap_size - sz;
-+			continue;
-+		}
-+
- 		dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
- 		if (!dst_pte)
- 			break;
-@@ -5262,9 +5286,10 @@ unsigned long move_hugetlb_page_tables(s
- 	return len + old_addr - old_end;
++	/* Mixed mappings are permitted to be expanded, not merged. */
++	VM_WARN_ON_ONCE(vma_is_fixed_mapping(vma));
++	VM_WARN_ON_ONCE(!vma_test(vma, VMA_MIXEDMAP_BIT));
++	vma_prev(vmi); /* Reposition to start of VMA. */
++	vmg.target = vma;
++	if (vma_expand(&vmg))
++		return NULL;
++	return vma;
  }
  
--void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
--			    unsigned long start, unsigned long end,
--			    struct folio *folio, zap_flags_t zap_flags)
-+static void hugetlb_unmap_range(struct mmu_gather *tlb,
-+				struct vm_area_struct *vma, unsigned long start,
-+				unsigned long end, struct folio *folio,
-+				zap_flags_t zap_flags)
- {
- 	struct mm_struct *mm = vma->vm_mm;
- 	const bool folio_provided = !!folio;
-@@ -5282,13 +5307,6 @@ void __unmap_hugepage_range(struct mmu_g
- 	BUG_ON(start & ~huge_page_mask(h));
- 	BUG_ON(end & ~huge_page_mask(h));
- 
--	/*
--	 * This is a hugetlb vma, all the pte entries should point
--	 * to huge page.
--	 */
--	tlb_change_page_size(tlb, sz);
--	tlb_start_vma(tlb, vma);
--
- 	last_addr_mask = hugetlb_mask_last_page(h);
- 	address = start;
- 	for (; address < end; address += sz) {
-@@ -5417,6 +5435,15 @@ void __unmap_hugepage_range(struct mmu_g
- 		if (folio_provided)
- 			break;
- 	}
-+}
+ void unlink_file_vma_batch_init(struct unlink_vma_file_batch *vb)
+--- a/tools/testing/vma/include/dup.h~mm-vma-fix-expansion-of-vma_mixedmap_bit-vmas
++++ a/tools/testing/vma/include/dup.h
+@@ -1727,3 +1727,8 @@ static inline bool vma_flags_can_merge(c
+ 	 */
+ 	return !vma_flags_is_hugetlb(flags);
+ }
 +
-+void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-+			    unsigned long start, unsigned long end,
-+			    struct folio *folio, zap_flags_t zap_flags)
++static inline bool vma_can_merge(const struct vm_area_struct *vma)
 +{
-+	tlb_change_page_size(tlb, huge_page_size(hstate_vma(vma)));
-+	tlb_start_vma(tlb, vma);
-+	hugetlb_unmap_range(tlb, vma, start, end, folio, zap_flags);
- 	tlb_end_vma(tlb, vma);
- 
- 	huge_pmd_unshare_flush(tlb, vma);
++	return vma_flags_can_merge(&vma->flags);
++}
 _
 
-Patches currently in -mm which might be from lizhe.67@bytedance.com are
+Patches currently in -mm which might be from ljs@kernel.org are
 
+mm-vma-read-anon_vma-carefully-in-validate_mm.patch
 
