@@ -1,113 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711183;
-	b=hvrj68pBClhOMo+LgPtnGyMX+DPEDrU8jkkRudgIX4ZU0XIru7ldC4IXAxhAwAjbDfF3
-	 1Fge9tB4+F9KLiMBlT8h26+QozA386ugvhEJ47YVDd0A+JUQxWX1eqiAYNNw0USGznCd9
-	 ON8lvq/Ein9iswCmD5MzrURzv6Gr+LBRCwwdFwCCdxodpifTEnFzVr1+N0QAKJbsCSNYZ
-	 bG079N0ShFiYo1nFSzJ8oC6+Ii66zLj41SxNHm2i8YSKpqbP3DHiU9m1O99ynN6kt4ORo
-	 zjDTnxjFG78ErJTZ2+nlEjm5RYfOBdLN6kiFSRJ0n0pJX9ktaDM3mJ0eR6TkvSVFQ4A==
+	t=1793711179;
+	b=M0GsDHqmzjoIe4QLBb/5vrY6XOO6yELAVOC8KvUCNUZKkmSEoq5dicLZpnioDXLnDErg
+	 74t+xOvL67NnZrRzjb0Fd1wCSh71jrDUeILonKLpnkYvGqA9KHMtJ3hPV3+bQHWD28dnG
+	 VMP4NN/0X2mRs9wC6277k+pLXpHRa9y40xRIer1nl64GzRAraqnNz0N2Sns2iM/cBIpQK
+	 lC3K4QN922nWfos3+4N4QyDye9pCZjwo7m8PbFYBmumq7TOyjbbVChkQ2ncF4RXWgBzUn
+	 pTVN1HvlwfOOSGbRJQSOrhV4vqSOIIqtEFi9Lk35s/sW+ENVRhggl7ilL4LnN+2Aepw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711183;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=tnuSaPNozja1a/+023AZ6wWIK0uTSszN2HCVpuU4g+w=;
-	b=SsmSYQ8PNODCnmaQHP5L1/2hDXhhXvPeCT64td2j7xyJMpotptOm1JMexbEt2jYGLjpy
-	 hf+V2KIiyklPClpu637hgdg0Nj6/vUxInAQ6w2UlK3vqZdlADlXiamH7Ex1Q7LEFExyX8
-	 c1wD6fkXy2ll8euxYjmQ93zlJOupm/9Vj2s8AOuJ5jpExllCi+01lYJIpeFZQFDUFfPjL
-	 qu0nMUVyIkHEwYtoxHnOG9UfkDS0yNminMGRdoaqgmYCYO9F98713QfF+r1w60nAk4jcJ
-	 2c6ZRs9Ky0i4Wrh4fTHQdV3rWfarP0KbuC92X3Z0ZO5jHbr//u4h9apN+sDJRMbm9zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711179;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
+	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
+	bh=BTkNktWDKcUZl7Dn/5iy3nlFeUBooGmydxvaPYQQPMs=;
+	b=izlH7uxQnqMDqe7P8SdUt/nDBCplNc0PYTcy3rVqO2+KFnX0qqBPQyaMCMDRW8/P5mZ8
+	 42DuMd/61oAwPuRLqEyZBhXuz/tNQaj8ZEcSBSOKOirPGd0+Yl5Fn++Q9BNErp7y4MtRJ
+	 PQT2UKtDCZuaQJKdwW4R8W0s9a/iC0ofaVHO/AuR9LCZ3XukoIi3f3gyeWFpbbKDHSZ3G
+	 TzZqq7CiqQ3hzBbN+49o3qfy+KxcqD81mb+zeqb3HSo20LdOTBaacOGv7PodhWBUM63Hq
+	 nzSa+f6yq9nbWL7jR1/ChZWXGPgbfO/uSMJHfm9egv4wY2kOaWXIlvXjzE+gLhHa0iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=2tQkpWXm;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=feTszLZj;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=F1vN2Ba8;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4DuoV8qh;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MnAkAzcz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E2D606A335
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:06:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90E2D606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D24B606A330;
+	Tue,  3 Nov 2026 13:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=2tQkpWXm;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=feTszLZj;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=F1vN2Ba8;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=4DuoV8qh
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4AEA221E12;
-	Tue,  3 Nov 2026 13:06:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793711167; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tnuSaPNozja1a/+023AZ6wWIK0uTSszN2HCVpuU4g+w=;
-	b=2tQkpWXmBFwgVgWUVhk8w+6SshzRPXNOd8jVerTNnTgN9MDpyv9rckjdGEkinp0h5Ftu6O
-	FlldqZs3Jd7lklz//MtwdonrNRuhPucmHtF7mQOGhwMBbWMmG+zlIxjoipE0H2yeUiIxDs
-	/vTxrJRRrraWlIBzQaMfYLoOS3Pu2vo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793711167;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tnuSaPNozja1a/+023AZ6wWIK0uTSszN2HCVpuU4g+w=;
-	b=feTszLZjpWuDcwcDCZkRAdJNux1Pc5y81uBnXIl+8Ys/1J9PGvy0r1Bwr8cK5N8ySHx2Za
-	+7dnSjnW4eTd21AQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=F1vN2Ba8;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=4DuoV8qh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1793711166; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tnuSaPNozja1a/+023AZ6wWIK0uTSszN2HCVpuU4g+w=;
-	b=F1vN2Ba8pxyrHaVpu7ur7ZlD+ZmaoYWdmZMsNz9QXXPn2jFytmXZ1C3OmXqEnmEQawCyib
-	eRQIvczwy1JKFnEqNzRJBoko5cXzNsyT+WKL9JRI5RoJ+CHHIRIEf94RJUuH7GE1/fIH9K
-	WFKietRmY0Uxjl+IousD5oKgfIbAj+0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1793711166;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tnuSaPNozja1a/+023AZ6wWIK0uTSszN2HCVpuU4g+w=;
-	b=4DuoV8qhMxfGisUtwt8/9u45LuAhh3boOkN/WCjdPOsp4VwU242shGqg4iIVcr35feNYQi
-	HvcQoXjcmjw7cuBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B8DE1350A;
-	Tue,  3 Nov 2026 13:06:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id VknWNz3c6WqIKAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 03 Nov 2026 13:06:06 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id AD344B269; Tue, 03 Nov 2026 14:06:05 +0100 (CET)
-Date: Tue, 3 Nov 2026 14:06:05 +0100
-From: Jan Kara <jack@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Hungyu Lin <dennylin0707@gmail.com>, jack@suse.cz, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] inotify: do not coalesce rename events
-Message-ID: <u6fltejwlekpknwpxzy6pefif7ld3dhwvzqqalbzmtwtzjjaj2@hsulwhevxfds>
-References: <20261027192027.8617-1-dennylin0707@gmail.com>
- <CAOQ4uxj3et_cyzD1iWHr3_z1dH1R3WQMCOm+kO2Q90TXjaV9pQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MnAkAzcz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DF3B1F00A17;
+	Tue,  3 Nov 2026 13:06:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793711179;
+	bh=BTkNktWDKcUZl7Dn/5iy3nlFeUBooGmydxvaPYQQPMs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MnAkAzczNJRLyDpmgrGNenNN/k+Ap0dBRU//KHOMjsporYHUex06eOWSqy3oa/AWQ
+	 rTyYhYyCNVNGVvI0Evkt206+MF4OfVUGcu1A61j1V678cDND8wqUhM5AfnzThslU3I
+	 Y0LTEstlyRvP7S6gbmLx9Y6ltuxzl+HrjQ1Gscpa333Vu8+WIlpcaIjTiyfWCfSuIL
+	 jBBoQpLWkn+vAJrQ3QRSUbEClSpl5YLLHKdptUyLp0U2jzX8s/KIYUsfG7PDGlbn3b
+	 rDi96fKMm+xgqfAT8hpmACd1S9TP1o5IgmBCPATyzoOmi0shA44d1k4Web+9pSfcs0
+	 maJSzGExxYBag==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=valley-girl.lan)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xOEDQ-0000000ATWs-31XY;
+	Tue, 03 Nov 2026 13:06:16 +0000
+From: Marc Zyngier <maz@kernel.org>
+To: kvmarm@lists.linux.dev,
+	Ard Biesheuvel <ardb+git@google.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	will@kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	stable@vger.kernel.org,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Oliver Upton <oupton@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v2] KVM: arm64: Don't livelock when AT can't resolve a fault IPA
+Date: Tue,  3 Nov 2026 13:05:27 +0000
+Message-ID: <179371111288.2844725.13597429882644149907.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103114411.3642140-2-ardb+git@google.com>
+References: <20261103114411.3642140-2-ardb+git@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,97 +75,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOQ4uxj3et_cyzD1iWHr3_z1dH1R3WQMCOm+kO2Q90TXjaV9pQ@mail.gmail.com>
-X-Rspamd-Queue-Id: 4AEA221E12
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DWL_DNSWL_BLOCKED(0.00)[suse.cz:dkim];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,suse.cz,vger.kernel.org];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -13.01
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: kvmarm@lists.linux.dev, ardb+git@google.com, linux-arm-kernel@lists.infradead.org, will@kernel.org, ardb@kernel.org, stable@vger.kernel.org, fuad.tabba@linux.dev, oupton@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed 28-10-26 05:07:21, Amir Goldstein wrote:
-> On Tue, Oct 27, 2026 at 9:20 PM Hungyu Lin <dennylin0707@gmail.com> wrote:
-> >
-> > inotify compares the mask, watch descriptor and name when coalescing
-> > adjacent unread events, but ignores their rename cookies. Distinct
-> > IN_MOVED_FROM events can therefore be coalesced, losing the cookie needed
-> > to match a later IN_MOVED_TO event.
-> >
-> > For example, watch two directories with IN_MOVE. Move an entry from the
-> > first directory into an unwatched directory, recreate it under the same
-> > name, then move it from the first directory into the second watched
-> > directory before reading the events. The second IN_MOVED_FROM is merged
-> > with the first, while the IN_MOVED_TO retains the second rename's cookie.
-> > Userspace can no longer pair the second rename's events.
-> >
-> > The original inotify implementation compared cookies before coalescing.
-> > The fsnotify conversion lost this comparison. Do not coalesce
-> > IN_MOVED_FROM or IN_MOVED_TO events, which carry the identity of their
-> > respective renames. Leave coalescing of other event types unchanged.
-> >
-> > Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-> > Cc: stable@vger.kernel.org
-> > Suggested-by: Amir Goldstein <amir73il@gmail.com>
-> > Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-> Reviewed-by: Amir Goldstein <amir73il@gmail.com>
-
-Thanks Amir and ignore my comment on v1. I've added this to my tree.
-
-								Honza
-
+On Tue, 03 Nov 2026 12:44:12 +0100, Ard Biesheuvel wrote:
+> When a stage-2 permission fault doesn't report its IPA in HPFAR_EL2,
+> __get_fault_info() recovers it with an AT S1E1R/S1E1A on FAR_EL2. If that
+> fails, kvm_hyp_handle_memory_fault() goes straight back to the guest, on
+> the assumption that the replayed access will either succeed or take a
+> fault that the slow path can handle.
 > 
-> > ---
-> >  fs/notify/inotify/inotify_fsnotify.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
-> > index 7c326ec2e8a8..6e3af6452dcc 100644
-> > --- a/fs/notify/inotify/inotify_fsnotify.c
-> > +++ b/fs/notify/inotify/inotify_fsnotify.c
-> > @@ -36,7 +36,7 @@ static bool event_compare(struct fsnotify_event *old_fsn,
-> >
-> >         old = INOTIFY_E(old_fsn);
-> >         new = INOTIFY_E(new_fsn);
-> > -       if (old->mask & FS_IN_IGNORED)
-> > +       if (old->mask & (FS_IN_IGNORED | FS_MOVE))
-> >                 return false;
-> >         if ((old->mask == new->mask) &&
-> >             (old->wd == new->wd) &&
-> > --
-> > 2.43.0
-> >
+> That assumption doesn't hold when the AT fails because its stage-1 walk
+> takes a stage-2 fault on one of the guest's page-table pages, while the
+> guest still holds a cached translation for the faulting VA. The guest
+> doesn't walk its page tables, so it never takes the S1PTW fault that
+> would let the slow path fix things up. It takes the same permission fault
+> again, the AT fails again, and the vCPU livelocks in the world switch.
+> 
+> [...]
+
+Applied to fixes, thanks!
+
+[1/1] KVM: arm64: Don't livelock when AT can't resolve a fault IPA
+      commit: 36b225a9b1c41a71d80e2cc17b3f0fcde4bd598e
+
+Cheers,
+
+	M.
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Without deviation from the norm, progress is not possible.
+
+
