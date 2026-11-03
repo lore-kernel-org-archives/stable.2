@@ -1,47 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672126;
-	b=LUoBvX4XbPJBvUoc06IgovIClWbISOskSkHvQs1IkUM/71bRY5eH32bkUPV1eTQ2FUZC
-	 9tnhU8z+gTSm7gdUoHQ9BS4mxoi1vXj8Ga5EEsUo7KDc4sqtwk4xjS9qxlwbN9xcDh0ve
-	 /G/Ddw25se/CwfPnwSvYGXt4MZwo2TGIlagV/1xH3pkBpeMijrFhwcDru9rxEuZzWFCWs
-	 AG8AwHz7ykF17Km4RoTWFlosd4lCdy+ZI9HFx0zC15bV0fzO53FpOtshOxJO7mZNjUjSS
-	 44Uw4rMxTA+90VDUnw0LVXhAQDugoFuVdOP4G5J3dAtrgQtKGUOUdh+JR/2Ef2Lsr8g==
+	t=1793672136;
+	b=mcovWpfznWq3WMxQ8yT5RsOVPRXIjBmSUv74l50ZtZsrCxCHxorLoEcHImPZF14bpWt7
+	 5KbvUalL61jt/uuYrWM+PGvBl0l82ChwNDRZU0FJs7yagMhJLXseSioZKBAiJgtvkj9F+
+	 84njcCoSHcXdCRfgZnaIkDNHm98U91Esf+xyK0zlKs9z2WlYAe4WhNanmWRYTwWcBrdjs
+	 QDDI4rLvsEU1FcEuKQsezuOy9bM8gIAFmtubmYWhc5fu3RVS4RUYlEUEbzc++FFHmgiWl
+	 ZF2Cn97xYLjjN2ZJoxDTtd2p3LKMMfRrUIc59fMylTLuRTkIbCFjmgQ7g2nTz0VtNnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672126;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672136;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=rJhw/zUiXfhLQ6/b6e+y1WSCvnq39HT5qqKGj6KPX/k=;
-	b=TW7J483gh02xezFWy4ZGkihcIZipjIYs+rqK+XXku4crhriVEKkUTxDVHPOFVWBtPIpM
-	 cgADrj8CJ6QTEgsfnY7HJCgGvxLZx2f6tsbsm/judauG+/H7dHBDgaCnpog1HW6VbXliI
-	 rXj/Uo85L5d3BpZxDmxuLZ/qOhSpCL06hpF2TW1JPi/bq62A2Ezx+JwSJOwWUEHyL0nHP
-	 hni0LHQPwAwG+9dEkVYRDsqADHSqFDupmTtqeTqpXlNhFnGlsR74PVyJzmBjuLU4epNsD
-	 BCWA+mSu9+xHR+VoOBsShRhc6L5BZckAGqrdTgAZW/cP13VKkpUf2XDfJAatmOsYWCg==
+	bh=81c/CIbeUI49AQeq8U0mWkFHFiq032kJ91gY7TvTAKQ=;
+	b=pmDU+6L/TAU53FGGUmvaVUVgIx6am2B2hD6CVl5yS7jMnzTYnu+ufUToF0HyayJpXhVb
+	 9WURhB04BUKdmRKJ58OQGcegCrOBqx8UMnpJzyRp75wq0dWYMPwKXdQqF1Ork+Fpbf419
+	 RSsIHjyk9O0wm0Ss2OqAIqMR1xFm6dc33x+N4yONHWnXhdVqXF2AIJW6qkls+uGlL2ja1
+	 NtdgpFHzlnjDR2l5e1V4TanO7X/ACxWwj2DwbUHgPXXe5esuWuRMn8XIcCBAk1P7VI2Tp
+	 b7LRqnUFAOkFf1S9vFB4yiUrtTyNI0eDO0Fr0f1pFEuQbHjKXfeWwhJlRjkcJ/jkiYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aHKGDZ4B;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EP5MTUec;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B11CD606A32E;
-	Tue,  3 Nov 2026 02:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181AD606A332;
+	Tue,  3 Nov 2026 02:15:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aHKGDZ4B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A88B1F00A1B;
-	Tue,  3 Nov 2026 02:15:25 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EP5MTUec
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65DB1F000C1;
+	Tue,  3 Nov 2026 02:15:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672125;
-	bh=rJhw/zUiXfhLQ6/b6e+y1WSCvnq39HT5qqKGj6KPX/k=;
+	d=linux-foundation.org; s=korg; t=1793672135;
+	bh=81c/CIbeUI49AQeq8U0mWkFHFiq032kJ91gY7TvTAKQ=;
 	h=Date:To:From:Subject;
-	b=aHKGDZ4BzbTiuy3id1M/lSamXpWlwrzKEo6LZ4UJJhiOosYe2Czu8S9nq7JsAAzV2
-	 CPw6R0B4rVEDbA48p8g0+YBrk8FNUJA3L9duZMf7LGlUBusLhVpE1C9XAa2oR7+U2x
-	 inH+XUxTBGBIsGes14xVrDPzIiGKdioJRhK/ASyc=
-Date: Mon, 02 Nov 2026 18:15:25 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,
-	peterx@redhat.com,osalvador@suse.de,muchun.song@linux.dev,david@kernel.org,
-	azpijr@gmail.com,lizhe.67@bytedance.com,akpm@linux-foundation.org
+	b=EP5MTUeclPHUNixWDa9HtbONA0uf35oIr1HwvYb7KcOVGSm7E+NfXxn74UjeXPurs
+	 +zf4v+2dZP6jrvJ+K2H0VYquZ7izQHoXS0F/KIyyvIU8g0hQ/R4i5FCD/U2NS8v1nY
+	 0WOtx9S+cS/8fv+muiyZsq+YbRjc5Llxb8TQEmlc=
+Date: Mon, 02 Nov 2026 18:15:35 -0800
+To: mm-commits@vger.kernel.org,xu.xin@linux.dev,stable@vger.kernel.org,
+	rppt@kernel.org,peterx@redhat.com,lance.yang@linux.dev,kas@kernel.org,
+	david@kernel.org,chengming.zhou@linux.dev,samarth.colleges@gmail.com,
+	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-hugetlb-fix-mremap-move-length-truncation.patch removed from -mm tree
-Message-Id: <20261103021525.6A88B1F00A1B@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-ksm-keep-soft-dirty-when-merging-a-page.patch removed from -mm tree
+Message-Id: <20261103021535.D65DB1F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,117 +54,58 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/hugetlb: fix mremap move length truncation
+     Subject: mm/ksm: keep soft-dirty when merging a page
 has been removed from the -mm tree.  Its filename was
-     mm-hugetlb-fix-mremap-move-length-truncation.patch
+     mm-ksm-keep-soft-dirty-when-merging-a-page.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Li Zhe <lizhe.67@bytedance.com>
-Subject: mm/hugetlb: fix mremap move length truncation
-Date: Thu, 22 Oct 2026 11:45:41 +0800
+From: Samarth Narang <samarth.colleges@gmail.com>
+Subject: mm/ksm: keep soft-dirty when merging a page
+Date: Wed, 21 Oct 2026 11:21:57 -0700
 
-Patch series "mm/hugetlb: fix mremap bugs", v3.
+replace_page() maps the KSM page with a PTE built from scratch, so the
+soft-dirty bit of the PTE it replaces is lost.  A page written since
+"clear_refs 4" then no longer shows as soft-dirty once it is merged, and a
+soft-dirty based dumper treats it as unchanged.
 
-This series fixes a few hugetlb mremap bugs.
+Copy the soft-dirty bit from the original PTE to the new PTE.
 
-Patch 1 fixes the return type of move_hugetlb_page_tables(), so large
-hugetlb moves cannot be truncated when reported back to the generic
-mremap code.
-
-Patch 2 disables hugetlb PMD sharing for UFFD missing mode, so
-UFFDIO_POISON markers cannot become visible through shared PMD page
-tables.
-
-Patch 3 fixes the recursive i_mmap_rwsem deadlock in the hugetlb mremap
-path by avoiding the destination PMD sharing allocation path while the
-mapping lock is already held for write.
-
-
-This patch (of 3):
-
-move_hugetlb_page_tables() returns the number of bytes moved, but
-its return type is int while the generic move_page_tables() path uses
-unsigned long lengths.
-
-A hugetlb mremap() move length above INT_MAX can therefore be
-misreported to copy_vma_and_data(). The out-of-range conversion to int
-is implementation-defined; on common 64-bit builds, for example, a
-4 GiB move can be reported as zero, making the caller treat the move as
-a failure and use the wrong length for rollback.
-
-Return unsigned long from move_hugetlb_page_tables(), matching
-move_page_tables() and preserving the full byte count.
-
-Link: https://lore.kernel.org/20261022034543.51226-1-lizhe.67@bytedance.com
-Link: https://lore.kernel.org/20261022034543.51226-2-lizhe.67@bytedance.com
-Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
-Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+Link: https://lore.kernel.org/20261021182157.1873726-1-samarth.colleges@gmail.com
+Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
+Assisted-by: LLM
+Cc: Xu Xin <xu.xin@linux.dev>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
 Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- include/linux/hugetlb.h |   15 ++++++---------
- mm/hugetlb.c            |    7 +++----
- 2 files changed, 9 insertions(+), 13 deletions(-)
+ mm/ksm.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
---- a/include/linux/hugetlb.h~mm-hugetlb-fix-mremap-move-length-truncation
-+++ a/include/linux/hugetlb.h
-@@ -121,10 +121,9 @@ void hugepage_put_subpool(struct hugepag
+--- a/mm/ksm.c~mm-ksm-keep-soft-dirty-when-merging-a-page
++++ a/mm/ksm.c
+@@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_s
+ 		dec_mm_counter(mm, MM_ANONPAGES);
+ 	}
  
- void hugetlb_dup_vma_private(struct vm_area_struct *vma);
- void clear_vma_resv_huge_pages(struct vm_area_struct *vma);
--int move_hugetlb_page_tables(struct vm_area_struct *vma,
--			     struct vm_area_struct *new_vma,
--			     unsigned long old_addr, unsigned long new_addr,
--			     unsigned long len);
-+unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
-+		struct vm_area_struct *new_vma, unsigned long old_addr,
-+		unsigned long new_addr, unsigned long len);
- int copy_hugetlb_page_range(struct mm_struct *, struct mm_struct *,
- 			    struct vm_area_struct *, struct vm_area_struct *);
- void unmap_hugepage_range(struct vm_area_struct *,
-@@ -338,11 +337,9 @@ static inline int copy_hugetlb_page_rang
- 	return 0;
- }
- 
--static inline int move_hugetlb_page_tables(struct vm_area_struct *vma,
--					   struct vm_area_struct *new_vma,
--					   unsigned long old_addr,
--					   unsigned long new_addr,
--					   unsigned long len)
-+static inline unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
-+		struct vm_area_struct *new_vma, unsigned long old_addr,
-+		unsigned long new_addr, unsigned long len)
- {
- 	BUG();
- 	return 0;
---- a/mm/hugetlb.c~mm-hugetlb-fix-mremap-move-length-truncation
-+++ a/mm/hugetlb.c
-@@ -5195,10 +5195,9 @@ static void move_huge_pte(struct vm_area
- 	spin_unlock(dst_ptl);
- }
- 
--int move_hugetlb_page_tables(struct vm_area_struct *vma,
--			     struct vm_area_struct *new_vma,
--			     unsigned long old_addr, unsigned long new_addr,
--			     unsigned long len)
-+unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
-+		struct vm_area_struct *new_vma, unsigned long old_addr,
-+		unsigned long new_addr, unsigned long len)
- {
- 	struct hstate *h = hstate_vma(vma);
- 	struct address_space *mapping = vma->vm_file->f_mapping;
++	/* Preserve soft-dirty when replacing the page. */
++	if (pte_soft_dirty(orig_pte))
++		newpte = pte_mksoft_dirty(newpte);
++
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+ 	 * No need to notify as we are replacing a read only page with another
 _
 
-Patches currently in -mm which might be from lizhe.67@bytedance.com are
+Patches currently in -mm which might be from samarth.colleges@gmail.com are
 
 
