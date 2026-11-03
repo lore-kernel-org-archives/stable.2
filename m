@@ -1,74 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.247.232.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793677251;
-	b=zrAR5BIlzumbVWYEl4yZltUcvs5PMF/nVIlTzxDAM6XqTd7eerAr6+CbyaRvEpCx4QjP
-	 FXjH0p1nuPNSCTXMVcYLt6MxZrW4XGugDHjT5RnRrUqR0Iyrnh31HD3Tr5fqUqZ/FOn/i
-	 u1/B5wAKNPJftqiNKWYvF20H3L4UxvbdlVCsgYqZFd8vc8+gDAcaP52tZ73KnZt9g8nuX
-	 gSOiduCUFGH+wEPa23YkZrYgYTDrIcIxVWj8M7lw2lYXuyqgqJfTGVX05jeUqMgr63H+u
-	 imULqO6/w/0C3aQ6osz2amRu75rzqYxPEklw6S5iCaTbov0S7POfEzhToqv0fxkVS9A==
+	t=1793677261;
+	b=vlIc8sVeRvCksnhilnudyXI3tTcI2f5BJMHpcLWkoPDaRioOVblhhc9N+isbzlEbf9HK
+	 eILYD6ytdttstNlirNTTpsC3zFC7ICwwOl6j++W8KQYv15jtcvCKLL1rmgkrBgmBsIM7p
+	 +sERUQPhnQC9lTKtTdRYBBMdP7W1mooz6D9eJUcv2MNcjTpxh9UlwBypC8hoJGcGtyQBs
+	 YGYtAPK1fgMQLf7goSVSANC1AscdBe8gROR2nJ66jv6cAMRbzVZk3JUH3i37dS/9bznGG
+	 SF4Y8ULjd8PE7PkG/dPvxKMANtWxw7ubqEcI+HmffFPI3M8t0pFCT52GLy//t0TsQ1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793677251;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
-	 Message-ID:Date:MIME-Version:Content-Type;
-	bh=HodTozwawD9j07WmHXhpT9Uy+aGkSUigiAybYEm4Tyc=;
-	b=F4I1D7YA4C0qPDUyk88C43ecNWY9AHmzWn7m0e73OCTOsSIDzO7LUYscoS5xVghpIhRt
-	 sDWlh4348ZdzWkfUIknsgOegMEsXxPqrrciNa783IZKD46CeUH2g1nhh/4qjblC3Lw/X0
-	 CLH5yx9Alnwb90SUznKiCSs7LC9hYHWmwMjQOsyiEh2+dLhSKujtrtQoC86wE9yoLfcFL
-	 S+8NvwOmwFovdKIaj6cZxBM8iza1TkOmkn0zXcHbFbNMQx6OpUzymZx/dq1DGrh78nUy9
-	 HbskzAU1jO567mIutBE9ob93+oYg+JihU+Tg/dH1hM2fxhqmBRVXwRDwGRpKWKYHP+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793677261;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=VSTrktgGZ8s9uEUboO9uuASria0PEjkILQvjOya3gqE=;
+	b=5YB/mijk9AqgoynXkdsOGNAuSC/xGzZ5Nxm5SUjBKQ+0mCWsVBIy3ScPNQLU/4G4Q1hV
+	 CD4JgXpFW1QDi//sS1UDpGLQo0AwK6tfWr4MF9EavQAJK8FJAgxgmmFT3oPgSSzAfljyb
+	 7akOlz/Sfvf+n/gY/TkUQTZ4go4/N4B1RQGR2QmRUY/w0CEXxkGDfFOS8Vro/uFYj0ZAV
+	 wBm4a+TW9DvJ5Jcz0Vb8t8AjGLiiVy2vHbCs0L1kY8/7MQ9qwgIXgsAek7vfeQ3Tqot6w
+	 VXnbkSt3KDoqk85O51wl6HLTYUI/S0uYGJvLAD3YTld/tAFwNtwPSADGNhxGRaBpRUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=fZTdKQOJ;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BE9606A324;
-	Tue,  3 Nov 2026 03:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15BE9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=fZTdKQOJ
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A33ecc872705184, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793677238; bh=HodTozwawD9j07WmHXhpT9Uy+aGkSUigiAybYEm4Tyc=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=fZTdKQOJNPpmX5B5vn7vbz10rPnNlFERaOP8rokIGPTj2QFPPwm5C0nGBm/wRIjJu
-	 mgiCd577ULPA6q/fOS44FRvHFZ6m8aJI642lhVrOmn6A9I9UfHOMvqF1Be+1TTlWkR
-	 G3hPmEzxZMnH8pqAlkm+vXOTyJXSxxR96+FzgaVd6i1Rg0Z8Pd+HXXwRxLWZYEaoZT
-	 f8ePDJpNeFC1PGjr24lZK8uVUjSeEitv+1hlJW0cF5jhUiis92D+MrsqKNn9HAjyZ2
-	 zGVdKoMqGIPMgrpWQL6xyIHTplYxNbxduK6Qt4nK8HqTLI6wLTtS2O2StSosAw5/tm
-	 n3/l+AmKiKGNw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A33ecc872705184
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 11:40:38 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:40:39 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:40:38 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
- (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 11:40:38 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Devin Wittmayer <lucid_duck@justthetip.ca>, Ping-Ke Shih
-	<pkshih@realtek.com>
-CC: <linux-wireless@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH rtw-next v2] wifi: rtw89: debug: return the error when a read handler fails
-In-Reply-To: <20261019170120.726156-1-lucid_duck@justthetip.ca>
-References: <20261019170120.726156-1-lucid_duck@justthetip.ca>
-Message-ID: <4f4ca02a-3d58-4391-9efa-6c82b708efa8@RTKEXHMBS06.realtek.com.tw>
-Date: Tue, 3 Nov 2026 11:40:38 +0800
+	dmarc=none header.from=linx-info.com;
+	spf=pass smtp.mailfrom=linx-info.com;
+	arc=none smtp.remote-ip=114.247.232.78
+Received: from mail.linx-info.com (mail.linx-info.com [114.247.232.78])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BC4F0606A326;
+	Tue,  3 Nov 2026 03:40:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC4F0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linx-info.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linx-info.com
+Received: from localhost (localhost [127.0.0.1])
+	by mail.linx-info.com (Postfix) with ESMTP id 761E53211C5;
+	Tue,  3 Nov 2026 11:40:51 +0800 (CST)
+Received: from mail.linx-info.com ([127.0.0.1])
+	by localhost (mail.linx-info.com [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 0X34993ex3hU; Tue,  3 Nov 2026 11:40:51 +0800 (CST)
+Received: from localhost.localdomain (unknown [172.22.21.200])
+	by mail.linx-info.com (Postfix) with ESMTPSA id 5DBB232119D;
+	Tue,  3 Nov 2026 11:40:51 +0800 (CST)
+From: Wang Guangke <gkwang@linx-info.com>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Wang Guangke <gkwang@linx-info.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
+Date: Tue,  3 Nov 2026 11:40:34 +0800
+Message-ID: <20261103034034.7978-1-gkwang@linx-info.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,26 +56,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Devin Wittmayer <lucid_duck@justthetip.ca> wrote:
+estimated_memory_bandwidth is calculated by access_bytes *
+USEC_PER_MSEC * MSEC_PER_SEC (= USEC_PER_SEC) / aggr_interval,
+and users read it via
+/sys/module/damon_stat/parameters/estimated_memory_bandwidth.
 
-> Return the error when a read handler fails, instead of passing it to the
-> copy to userspace as a length:
-> 
->   rtw89_8852bu 2-1:1.0: invalid read reg len 0
->   usercopy: Kernel memory exposure attempt detected from SLUB object 'kmalloc-8k' (offset 56, size 262144)!
->   kernel BUG at mm/usercopy.c:102!
-> 
-> Fixes: 831cceed3baf ("wifi: rtw89: debugfs: implement file_ops::read/write to replace seq_file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+On 32-bit systems, access_bytes * USEC_PER_SEC overflows unsigned
+long once access_bytes exceeds about 4294 (U32_MAX / USEC_PER_SEC),
+so users get a wrong value.
 
-1 patch(es) applied to rtw-next branch of rtw.git, thanks.
+Fix it by doing the calculation in 64-bit and splitting the division
+into quotient and remainder.
 
-cc595477e6f8 wifi: rtw89: debug: return the error when a read handler fails
+The issue was reproduced on a 32-bit system (qemu-system-i386): the
+parameter estimated_memory_bandwidth reported 362 instead of the
+expected 1926150; with the fix, the value matches the expectation.
 
+Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated memory bandwidth")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Wang Guangke <gkwang@linx-info.com>
 ---
-https://github.com/pkshih/rtw.git
+Changes in v2:
+- v1: https://lore.kernel.org/all/20261101180001.167198-1-gkwang@linx-info.com
+- Clarify the issue and its impact on users.
+- Add Cc: stable@.
+- Rename variable bytes_per_interval to bytes_per_us.
+- Use USEC_PER_SEC instead of 'USEC_PER_MSEC * MSEC_PER_SEC'.
+---
+ mm/damon/stat.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/mm/damon/stat.c b/mm/damon/stat.c
+index b05b68f73e10..e44f5bf3645c 100644
+--- a/mm/damon/stat.c
++++ b/mm/damon/stat.c
+@@ -32,8 +32,8 @@ static bool enabled __read_mostly = IS_ENABLED(
+ module_param_cb(enabled, &enabled_param_ops, NULL, 0600);
+ MODULE_PARM_DESC(enabled, "Enable of disable DAMON_STAT");
+ 
+-static unsigned long estimated_memory_bandwidth __read_mostly;
+-module_param(estimated_memory_bandwidth, ulong, 0400);
++static u64 estimated_memory_bandwidth __read_mostly;
++module_param(estimated_memory_bandwidth, ullong, 0400);
+ MODULE_PARM_DESC(estimated_memory_bandwidth,
+ 		"Estimated memory bandwidth usage in bytes per second");
+ 
+@@ -55,15 +55,18 @@ static void damon_stat_set_estimated_memory_bandwidth(struct damon_ctx *c)
+ {
+ 	struct damon_target *t;
+ 	struct damon_region *r;
+-	unsigned long access_bytes = 0;
++	u64 access_bytes = 0;
++	u64 remainder, bytes_per_us;
+ 
+ 	damon_for_each_target(t, c) {
+ 		damon_for_each_region(r, t)
+-			access_bytes += (r->ar.end - r->ar.start) *
++			access_bytes += (u64)(r->ar.end - r->ar.start) *
+ 				r->nr_accesses;
+ 	}
+-	estimated_memory_bandwidth = access_bytes * USEC_PER_MSEC *
+-		MSEC_PER_SEC / c->attrs.aggr_interval;
++	bytes_per_us = div64_u64_rem(access_bytes,
++			c->attrs.aggr_interval, &remainder);
++	estimated_memory_bandwidth = bytes_per_us * USEC_PER_SEC +
++		div64_u64(remainder * USEC_PER_SEC, c->attrs.aggr_interval);
+ }
+ 
+ static int damon_stat_idletime(const struct damon_region *r)
+-- 
+2.47.3
 
