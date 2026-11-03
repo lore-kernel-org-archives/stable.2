@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690600;
-	b=Zq3kaYTc+ndUWibCCAufcNPTYLtlWJfcvUqr1owauztUzeGKrhW6WVM9EVtE7vvHFB8U
-	 IMEVsQR+qCcSU7n5oVUp3cNUOd3+GCO92dq4vrj7HgL/xTnFHyFxNi9baWsd1MSAH0tF3
-	 f2DOpWZqv56NsVcg/H5pLRMsL5zGYgcIpalJiPF5D0YK72qbRsMcFx7A4Hjb+ynml5qhr
-	 zlm3FFl94t+ZpUMgM7Up/HAiMJOPRC//iFQcJn0Im2mI3Slaz5+md2/Nyy++KHK7hPag8
-	 SjnplaFiE7Gahd6SjkioQga9o90L9u92zuSwIXGo9gKlwj8qG1FCHP9Xq4LzU2VGCCA==
+	t=1793690662;
+	b=XGGQP6exHS5hIt4CPZoy8FTdqmZUEi8Zm8wavxVPQJ7nU5jTF5LbZtZYD/GJRa/RNu+Q
+	 GaeY/YwECRfT+33Tt2N/DEMVpLRSk0Jzi1NVD9pXujAiCA62FV6WKjDNpiE3OK2wc3Dfi
+	 4aEJvRKpSDUHFMz9cIk0WfTSAncDQldHxUWCLIqQMt3R7SDZV8F719R+An7iqRuPUkUJN
+	 R4ZhVGOFe2boXq+354tslUvj6VGw+yGySJ0KpognooplMyyhrLQjJC3GuwZmLIdVVcGn4
+	 DqNn2VFim4zt52svrIrAvthijMkH+jreHMNnVskxSOuF51On/6unC5X5ah7NpTSufHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690600;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=p9jXNwa699IkdxAM2a5EMXt5gcZr4wwka5kn1dl+WNc=;
-	b=PdrFAy9bIk3Upo67X/fhawn5Bc6zLH1Z22XQsb/npqI32uTByVWNuITia+tz/gV8R6yG
-	 eCvf15HqacZQW3ZthtvrPbOvMtPv2V05lNKL/Tu32iJwUxwxGuQjlPZOUJ7fQA8X2ns59
-	 VljgMUtPhQ4YVmHTiLgA2+b5MVxBx0VZAkuxLW/AWYti+lJqhIRK4EKCNJz0aJCgAD+VC
-	 aKRlT8eTtsZljNEUOtt1Vx95ieemcrMz7drVhRJVkN2CvxeBnPoZw8Hs2a/JQKKGsREZw
-	 tn/5Ts0UzJmfdLkVEZYPOdBtm0QedqxPWjlxdxCZreootpJBr5GdfHe3AsmV9xwCAvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690662;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=lPZAbR6APkWcvJdwkidIfAdrIskZ0pgyl4oCJKTPYyk=;
+	b=tODLAd3M6wB2S/OThH5/xH2urXfJB9wO4/FGzd/1j3O1FCCYnIBdJFUXV75PPTKbVc8E
+	 VoQm2MRu7V8vKDcFtTmRQhoqJa0w5rJm+UifCqo091XCWBh0HS13lSTmdncc6xmO8E62c
+	 gORV/8aPtm4fEE5a2xB/urlWW8/MI0PVpBJSs+ZewvTwhwkY3mgS5yskz4Q0SSjler0O/
+	 BiZUK+H+BaXheu4lCKBnor9wftnRwbyORGroIH4njriWtlEjbfc5KH2BVgSquTb9uomkp
+	 Q3UjWRQaO0X7qyQKAYRla7XhCl/VOdhA/xrNfYCOR/ohtq3l/C0yjBz19OSSOZ/Wvfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7vmWaUo;
-	arc=none smtp.remote-ip=74.125.227.136
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5B6606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 07:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC5B6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S7vmWaUo
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ae93a86008so2284257a91.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 23:23:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793690599; x=1794295399; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p9jXNwa699IkdxAM2a5EMXt5gcZr4wwka5kn1dl+WNc=;
-        b=S7vmWaUoyslEfTjkDmZaSctew6UQ4i5PRtOOuyCzM7AgFpelmq58vuA8N6zvfnNGe3
-         5GKfoprGk8jrR/28uvvos3Kem8HmxNs352a1343rJLf38vwB9YML6h1+CrfPkpnRgYGT
-         hhtLUnsu4fpqtKUvDypt6zAEKiuz6rmeFkoOUpn8eDlHx92KlXo8W4w/uSUcxqK9NH2b
-         BEwDQTwyJFKwW+xRo8v4UER8narutqHKkjB1vXxSWZ5Srjq4iBaIOBvrb07j5A3j7w4G
-         eWX64gV/H5Egx6cFoYKRGfyfmMqN1v5z9G5WBmV8+EMksIF5wPl5I08kLUN/KzVQ/aTR
-         N9pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793690599; x=1794295399;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p9jXNwa699IkdxAM2a5EMXt5gcZr4wwka5kn1dl+WNc=;
-        b=YMqkAmM5VnQ9eGdKLQ5KvNBVTWA6Bx1q1U10V41UBVmSy7Zns0sEScWB0DMgQLSgE5
-         XMp3vmwrR384aLuLA0NsrILWRlu71W4avrNlcP99WvcnOstjlHDJOA8GSIY6/X2+2DWw
-         qxQng2t0QvIz1SN4fMVCRLFUFHAxt9Z2Q/F5jEm+/t/5iRJBll5Kpcfnbz7yCUQUc4Pj
-         Cu5Nz8mfeZFW5JyxKoFpsuTFfdjmUKBzcJx+8ssPzicRB+WhscTtd+djjTnGJLzY+F5f
-         6M7+TPavJDn2P5O588FWPYVl3haMaQg+h1XxcdhMfvRPo8lDcJOAzkWNLq9PPD+WWW6t
-         dIoA==
-X-Forwarded-Encrypted: i=1; AKwUvByy3AtCGQmeLFZrkXjHEd7UUak9MhLEX+VySkgZdHXm7v09knNu8bQJFHQYvSSJM/Q48Buhz6w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AWcd7vt1m5petVF4/6RVQomFb83kVvmrYKeWtVWrN49bZ5sly
-	5/ssWf7R3FpNcQCx9cIpPsc49ZId3VFqmyG4vwKuO5SNwlup/nW3CkoL
-X-Gm-Gg: AYBFou1yXYr+LDovlGfmk9NvUoyV0/ZhBdreTWDUYPvDgEcDLE8XrbjD6d2KLTsUaXO
-	gDTe7Yvr3RF8iqT5plumw9jNDj7DBMORB5KXzN0V2nmHsdecoEAp+oX/ZHvrQ+RBB/MatbLPjl9
-	YlaBIUP34mbwo0iLHsL5sOF43SxNvELXFnMEy/wWm6nKEY74sK0CXyVrTl2oVqwV+L5NEQ9zKm6
-	jEmXj9HcdWNOzA7bdpX8Bte9FLxosN9PcAZuKjSMJWc/hyEjdwjycJwtdeKI/Rx5hm+nIEVAVym
-	dDmOVNZ/xY63mKcYd6yKbkweXh1g2qEwJWQy7TFMVOxT1b0qOFXB7WxSbwg8idn65fP1e7oWBSQ
-	8Ew9R1Sarrra1EqzgmkYmOU0Y6Br+mh1S0KJt6TxfKGl3YqEZel27nXWWWNH0jUaAGIAPliMq5o
-	tcKGvMYAAKPtQ/+PgvJluA1JWW6l98cDUkCMt5px/pe5LbebCRjH9YKkn8tNpyijZNss3luHjs2
-	oJHod3D2qWODTNLgKfvGaSjMgbRKo0sbbymxv7btsJjYivTc0VEAiuszeawrIMsuAOA0BuCI/kV
-	C8P1NxPZhfcCc3d9EFdBTloGPcDHfT552n+9vpAvrbp8ke96bZ17niEi6XiJFDNJ2A1IEnJzW3x
-	7LQ==
-X-Received: by 2002:a17:90b:5686:b0:3ac:9c37:9430 with SMTP id 98e67ed59e1d1-3ae89724b1dmr10286440a91.21.1793690599284;
-        Mon, 02 Nov 2026 23:23:19 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85f662basm8638824a91.1.2026.11.02.23.23.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 23:23:18 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: brauner@kernel.org
-Cc: viro@zeniv.linux.org.uk,
-	jack@suse.cz,
-	willy@infradead.org,
-	kas@kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] buffer: avoid extending i_size after failed writes
-Date: Tue,  3 Nov 2026 07:22:34 +0000
-Message-ID: <20261103072234.55611-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DE93E606A32E;
+	Tue,  3 Nov 2026 07:24:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE93E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8AxXdIijOlqz90bAA--.15414S3;
+	Tue, 03 Nov 2026 15:24:18 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJBxpMwYjOlqxRUyAA--.11093S4;
+	Tue, 03 Nov 2026 15:24:17 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yinbo Zhu <zhuyinbo@loongson.cn>,
+	zhanghongchen <zhanghongchen@loongson.cn>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v8 2/7] thermal/drivers/loongson2: Fix clamp() usage for thermal trip points
+Date: Tue,  3 Nov 2026 15:23:51 +0800
+Message-ID: <d8323ccee74480f26b322b6e6af4550d38ac05bc.1793690276.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1793690276.git.zhoubinbin@loongson.cn>
+References: <cover.1793690276.git.zhoubinbin@loongson.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,55 +69,57 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxpMwYjOlqxRUyAA--.11093S4
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEACGrpUP0DwQAAsn
+X-Coremail-Antispam: 1Uk129KBj93XoW7WFy7uF1DJF4DKFWkGFWxAFc_yoW8GrWrpF
+	WfCw1qkr1UJF18Z3ZxA348XF95Aa9YyFZruFZ7K3Z3W3s8Xw129ryrJF1UXrWIvr1UWFyU
+	XryvkFWUCF4DC3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBqb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1a6r1DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
+	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+	Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Y
+	z7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
+	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE
+	2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42
+	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY
+	1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUjiL0UUUUUU==
 
-generic_write_end() updates i_size to pos + copied even when a nonempty
-write copied no data. Since prefaulting moved to the slow write path, a
-pwrite() past EOF from an unreadable buffer can fail with EFAULT after
-extending the file to the write offset.
+clamp() takes the value to clamp as its first argument, followed by the
+minimum and maximum bounds. The current code passes the -40 and 125
+limits as the value instead, so the trip thresholds are not clamped to the
+supported sensor range.
 
-For example, on ext2, a one-byte pwrite() at offset 4096 into an empty
-file fails with EFAULT but leaves a 4096-byte file.
+Correct the arguments so that low and high are clamped to [-40, 125].
 
-Require copied data before extending i_size for a nonempty write. Keep
-zero-length write_end() calls working, since generic_cont_expand_simple()
-uses them for expanding truncate operations.
-
-Also call pagecache_isize_extended() only when i_size changed. Otherwise,
-blocking the size update would leave its endpoint beyond EOF and trigger
-its warning.
-
-Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
-Reported-by: Kiryl Shutsemau <kas@kernel.org>
-Link: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Fixes: 734b5def91b5 ("thermal/drivers/loongson2: Add Loongson-2K2000 support")
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
 ---
- fs/buffer.c | 4 ++--
+ drivers/thermal/loongson2_thermal.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/buffer.c b/fs/buffer.c
-index 5d3852b726d6b113542e9761315cfdaf99f14587..f88ca7c079bee3462288fdebf57131da60b74798 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -2203,7 +2203,7 @@ int generic_write_end(const struct kiocb *iocb, struct address_space *mapping,
- 	 * But it's important to update i_size while still holding folio lock:
- 	 * page writeout could otherwise come in and zero beyond i_size.
- 	 */
--	if (pos + copied > inode->i_size) {
-+	if ((copied || !len) && pos + copied > inode->i_size) {
- 		i_size_write(inode, pos + copied);
- 		i_size_changed = true;
- 	}
-@@ -2211,7 +2211,7 @@ int generic_write_end(const struct kiocb *iocb, struct address_space *mapping,
- 	folio_unlock(folio);
- 	folio_put(folio);
+diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+index 54ddee47cb32..9256cd3663e6 100644
+--- a/drivers/thermal/loongson2_thermal.c
++++ b/drivers/thermal/loongson2_thermal.c
+@@ -62,10 +62,10 @@ static int loongson2_thermal_set(struct loongson2_thermal_data *data,
+ 				 int low, int high, bool enable)
+ {
+ 	/* Set low temperature threshold */
+-	loongson2_set_ctrl_regs(data, clamp(-40, low, high), true, enable);
++	loongson2_set_ctrl_regs(data, clamp(low, -40, 125), true, enable);
  
--	if (old_size < pos)
-+	if (i_size_changed && old_size < pos)
- 		pagecache_isize_extended(inode, old_size, pos);
- 	/*
- 	 * Don't mark the inode dirty under folio lock. First, it unnecessarily
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ 	/* Set high temperature threshold */
+-	loongson2_set_ctrl_regs(data, clamp(125, low, high), false, enable);
++	loongson2_set_ctrl_regs(data, clamp(high, -40, 125), false, enable);
+ 
+ 	return 0;
+ }
 -- 
-2.43.0
+2.52.0
+
