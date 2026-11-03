@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.38.247.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693076;
-	b=OrtyPzDX88sAa6MD11feT9gN6kn1LbIM3jYtIyXWqSO07HSB4qk95nT0IpvOSHeGZNt/
-	 oj3OtZmmx3ghJuU99sNhVGjaa3rgBiAhWpZJUXgaPGFcrBW1Ay+C43XPyynDWOH6eKQD0
-	 vBp3VQqdc3h8/jjQhxqe7CzQt62tcZA0Ro+q/xcUPKvJ/Yv33STAPUo2Hteb+gzjwPyjV
-	 W0EB44xssqQ+skgGotfLEDpxOEHMhPHpB1Rsjt6L3t2HhsJyYR9xLnm3w5DtOmyDeIF4U
-	 bwbXmH+dnNApmskMXw2ieuowNRaiqCBf/bqOpEeLIrNz7TD3v1tCKWxVMJgAduofRlw==
+	t=1793693440;
+	b=hHGXLAGsy4TowHUtpdVlDaADggrngPej6Bc+JsmmIeDymkRRNO+zumUstNue+T9uk+nK
+	 Joxj2JyXrmcu4INfOuGvL9ShJdFXtstAO1JueBSjR/C+WGaiZ/ZQBAp/qv6H1Ch7Jmf0q
+	 TRTQaCqghlwUrS8o43yOwLCGSdeDbWy0BYLEgYdvf1ZST8uGheaCbKvwwUotqnfxmQLE3
+	 Zs80jbdXF9ZFsoQtIlxsU/zBHhWZgwSm7ivjup4g8jdVtXOnpaCmrmtYkIB0thbcwVXb+
+	 G6KlFmOeDKwx6W+sojderA7zfsQVjUXWwyJd0svc2ChAPUwnw8HG4juUm3ZpqV+ECYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693076;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
-	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-NC-CID;
-	bh=L4EcRlcPTyEkbIxRjhXJq9ZXvdXvVbjjYlySVR1wKYI=;
-	b=2Ode1xzQnZeObJjtfZzdY0gvr8tpMFRKLF65niGemh3HapuddomRf1vV5aP53W5aI1AM
-	 qi1wF8hNEQPs9qk2QavDStsgkLNZ6DPQHZuS9bIMZbuHiv9K32Y1wodykMuW916rnr1Kx
-	 AnTT9wjs5Nlr/2c/7RRWvf50MJluzSfzNFkiLDT8imIq59zTe1nwcx9gXqcm2ITsHAnuR
-	 1CegouVTF3+AAtl/y4Bpf46ggiT6ENhs9tFfasvW+SN0a38JTr76BpJRX8BJE5jSI6+/v
-	 cI8NxSo2hL1kNsLAM7gyEfGhw0cDzK+9V6KHH69KY9lNr7C1/WCDYYc9VGuYfgNQaZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693440;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=KhCQsbEtDHVWIosXzD12/AzO9JwD6rO3/xpeBtsKprU=;
+	b=H9rpf2B44WUyjSUgNjfe44mD/NYCL/fHr/u0FtaP+7qhBkq9LN49ZRlm/ydGz//e5IIQ
+	 eOaL7d461uOEXGl19s22RVmsh1v6FQmM236jZ7sN2GDoaCFf2b7U0w2jyHu5tzrEgxdqa
+	 8qYbFAY3R+JejzRfsRKiPz9z4OYyiFS5B3KIJT9nPKC5RjwWAuLTu6wMnCfARoYLXtZpu
+	 XZLWm8vcuruKP3Z4DzS/fnyUvk9K2WTwd9xz4m8djO80xS5HnYY5a6szO/WRiMf/mEzPL
+	 ZeJUSIRFjskIf6H28htmMojHI9fMM6UKK52YEoOIA+4klOddlZE74TnqzaGXWf/XGFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=aYIqX3pq;
-	arc=none smtp.remote-ip=46.38.247.119
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5CD2606D805;
-	Tue,  3 Nov 2026 08:04:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5CD2606D805
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=aYIqX3pq
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jJh1W0RNxz8RZt;
-	Tue,  3 Nov 2026 09:04:31 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1793693071;
-	bh=yDjkuQhj8wqQW7sNON4Yy0/wXIldLBtFl12mMAzBTUA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=aYIqX3pqZYRHgMXt1cl5PXhWOkl92PXD2HC6hwfkeTj6/5x0BIS58eaWF5pxMqatX
-	 TVnSDqeCxgty+xcfflRxnG1ulNDV9QNGlCz226C+cE4OTYTa6w5FTdhjnKiaV0s8vB
-	 9qt0yQ9MUlmKrBP3iyKHnGos5cN2NXvHDWS00056tenzilh0S+eC1VDxPrRBaP4ZT9
-	 4vch9kdtN0QLp1ainTkmtSOM5Pc9msZAPwhv6ZCLIkdA4P6YpHC3nuwMOV7jlX8tA2
-	 Wc3UVSBu6somilMB5IHRejzUz4jbtp0robDXbjk5Nohm8zHx37er5dizXinX/r8D1B
-	 9n7yKqY4L8Vaw==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jJh1V6qskz4xJ2;
-	Tue,  3 Nov 2026 09:04:30 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jJh1S5T0Mz8tgr;
-	Tue,  3 Nov 2026 09:04:28 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 5889D5FA02;
-	Tue,  3 Nov 2026 09:04:17 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <7a1cb587-7640-4da5-92d8-57553fd00ca4@leemhuis.info>
-Date: Tue, 3 Nov 2026 09:04:16 +0100
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4FF5606A324;
+	Tue,  3 Nov 2026 08:10:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FF5606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=KhCQsbEtDH
+	VWIosXzD12/AzO9JwD6rO3/xpeBtsKprU=; b=AoXN4BrFWrDvFXF5wQpB7ULUCF
+	+E9dKXtLfx/kdMuTaUWOj24QMAxE9a6WRJFcLB60jAO04S6lRe770DkHIh6JPgqz
+	Ujb+eSbb3jrQgOkBuOZdRfs4DS2y/tPmWfu8+oYsjlqEdxeG+bhrfLkX7ptHjBUq
+	krtBTgIZqgGd02RNc=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2OP7vlulqoKgdAQ--.33754S2;
+	Tue, 03 Nov 2026 16:10:24 +0800 (CST)
+From: 25031212351@stu.xidian.edu.cn
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] media: gspca: don't complete buffers before streaming has started
+Date: Tue,  3 Nov 2026 16:10:22 +0800
+Message-Id: <20261103081022.27105-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,69 +60,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/gem-shmem: Install writable PTEs for write faults
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- Sergio Lopez Pascual <slp@redhat.com>
-Cc: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrew Morton <akpm@linux-foundation.org>,
- Konstantin Fastov <kfastov@gmail.com>, David Hildenbrand <david@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-References: <20260804140403.16337-1-kfastov@gmail.com>
- <20260804162924.0268f80a@fedora-21.home>
- <CABWhNekebS6dt=Ft+74iG4YpCq-5ZcV1EvvERNxT612VUOC9Ww@mail.gmail.com>
- <18f0bae1-5cdb-460c-a147-33cd1fa2acdf@leemhuis.info>
- <CAAiTLFXd=LK93e=f3PE1f6y5m15yVknqqVNBei5rLz2AnSJ4pQ@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: 
- <CAAiTLFXd=LK93e=f3PE1f6y5m15yVknqqVNBei5rLz2AnSJ4pQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179369305797.899839.5052632304350013051@mxe9fb.netcup.net>
-X-NC-CID: 7sMBmLbKDQp9r384H0I/4YWHJCS0kWyZfxMwgublF8WzQF9lEXo=
+X-CM-TRANSID:BLQMCkD2OP7vlulqoKgdAQ--.33754S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF17CF43XF47Gw4ktF47Jwb_yoW7CF1xpF
+	Z3KayFy398Jr4kCrsrXwnxGa4fGayxJ3y7KrWSgwn5Ars8AF90vFyrtr48KFy7CrZFvFW0
+	qFn8G3yDCw4IqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUm014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAac4AC6xC2jxv24VCSYI8q64vIFxWle2I262IY
+	c4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI
+	0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY
+	0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14
+	v26r1q6r43MxkIecxEwVAFwVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
+	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
+	6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
+	vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
+	vjDU0xZFpf9x0JU4GQgUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2roqcKe4gAAsb
 
-On 10/29/26 17:55, Sergio Lopez Pascual wrote:
-> Thorsten Leemhuis <regressions@leemhuis.info> writes:
->> [CCing Paolo and Sergio]
->> On 8/4/26 16:57, Konstantin Fastov wrote:
->>> вт, 4 авг. 2026 г. в 17:29, Boris Brezillon <boris.brezillon@collabora.com>:
->>>> On Tue,  4 Aug 2026 17:04:03 +0300
->>>> Konstantin Fastov <kfastov@gmail.com> wrote:
->>>>
->>>>> Since the introduction of dirty tracking, drm_gem_shmem_vm_ops has a
->>>>> .pfn_mkwrite handler.  Its presence makes vma_wants_writenotify() true,
->>>>> so vma_set_page_prot() removes the write bit from vm_page_prot of
->>>>> shared mappings, and the vmf_insert_pfn() call in the fault handler now
->>>>> installs read-only PTEs even when serving a write fault.
->>>> [...]
->>>> The same issue is being discussed here [1].
->>>> [...]
->>>> [1]https://lore.kernel.org/dri-devel/20260804120529.1730187-1-pbonzini@redhat.com/
-> [...]>> FWIW, it seems that series takes a while to get polished and
-mainlined:
->> https://lore.kernel.org/all/CABgObfYgZ87%3DW%2B6E%3DN%3DWwTuyYkaoKU3hqd84JDTSAvT3_9dh6w@mail.gmail.com/
->>
->> To quote: "It ballooned a bit and getting acks from everyone involved is
->> hard... Either I or Sergio will get back to it."
->>
->> Is that something you/AsahiLinux/the world can live with?
-> 
-> Asahi still ships their own kernel with downstream patches, and have
-> backported Paolo's series. But for the rest of the world this is pretty
-> bad, as it means anything that requires virtio-gpu with blob mappings
-> (venus, native context, etc..) is broken.
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-Thx for this assessment, helped a lot!
-> Since the proper fix is going to take a while, I think having some form
-> of interim solution could be a good idea.
+gspca enables the data transfers before it knows whether start_streaming()
+will succeed: gspca_init_transfer() sets gspca_dev->streaming before the
+URBs are submitted, so an URB that has already been submitted can complete
+and gspca_frame_add() can hand its buffer to videobuf2 while the remaining
+URBs are still being submitted.
 
-Sounds like it. Is there one that is in reach? Is reverting the culprit
-from Thomas and anything that depends on it an option? Boris patch this
-thread is about would not do the trick I assume?
+When one of those submissions fails, gspca_start_streaming() returns the
+buffers that are still queued to vb2 in QUEUED state, but the buffer that
+has already been completed is no longer on the driver's queue, and
+vb2_buffer_done() cannot take it back (it only accepts active buffers).
+vb2_start_streaming() then warns because the driver left a buffer on the
+done list although it failed to start:
 
-Ciao, Thorsten
+ ------------[ cut here ]------------
+ WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1821 at vb2_start_streaming+0x312/0x680
+ ...
+ Call Trace:
+  <TASK>
+  vb2_core_streamon+0x285/0x470
+  __vb2_init_fileio+0xdc1/0x1120
+  __vb2_perform_fileio+0xa7a/0x15e0
+  vb2_fop_read+0x219/0x3e0
+  v4l2_read+0x1fc/0x320
+  vfs_read+0x1d9/0x980
+  ksys_read+0x111/0x210
+ ...
+ gspca_main: set alt 0 err -19
+ gspca_main: usb_submit_urb alt 1 err -2
+
+This was observed on a camera whose USB configuration was changed from
+userspace while a read() was starting the stream: the endpoint is removed,
+so usb_submit_urb() fails with -ENOENT, and the driver is unbound.
+
+Do not complete buffers before the transfers are fully set up.  A new
+streaming_ready flag is set at the end of gspca_init_transfer() only when
+it succeeded, so a failing start_streaming() always leaves the done list
+empty.  Frames that arrive before that are dropped, just like frames that
+arrive when no buffer is queued; the window lasts only as long as the
+remaining URBs are still being submitted.
+
+vb2_is_streaming() cannot be used for this check: videobuf2 sets
+q->streaming before calling start_streaming() when VIDIOC_STREAMON comes in
+with fewer buffers queued than min_queued_buffers, and start_streaming() is
+then called later from vb2_core_qbuf().
+
+Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+Changes in v2:
+ - Do not gate the completion on vb2_is_streaming(): videobuf2 sets
+   q->streaming before calling start_streaming() when VIDIOC_STREAMON is
+   issued with fewer buffers queued than min_queued_buffers, so that call
+   site was still reachable and the warning could still be triggered.
+   Track in the driver whether gspca_init_transfer() has finished setting
+   up the transfers instead.
+
+ drivers/media/usb/gspca/gspca.c | 23 +++++++++++++++++++++--
+ drivers/media/usb/gspca/gspca.h |  1 +
+ 2 files changed, 22 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 594d73e50b9f..3f5ece57d66a 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -392,8 +392,23 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
+ 	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
+ 
+ 	if (packet_type == FIRST_PACKET) {
+-		/* if there is no queued buffer, discard the whole frame */
+-		if (!buf) {
++		/*
++		 * If there is no queued buffer, discard the whole frame.
++		 *
++		 * Frames are also discarded until gspca_init_transfer() has
++		 * set up the transfers: the first URB can complete while the
++		 * others are still being submitted, and if a submission then
++		 * fails, start_streaming() must leave vb2's done list empty.
++		 * A completed buffer cannot be taken back, so frames that
++		 * run into that window are dropped.
++		 *
++		 * vb2_is_streaming() cannot be used for this: videobuf2 sets
++		 * q->streaming before calling start_streaming() when
++		 * VIDIOC_STREAMON comes in with fewer buffers queued than
++		 * min_queued_buffers, and start_streaming() is only called
++		 * later from vb2_core_qbuf().
++		 */
++		if (!buf || !gspca_dev->streaming_ready) {
+ 			gspca_dev->last_packet_type = DISCARD_PACKET;
+ 			gspca_dev->sequence++;
+ 			return;
+@@ -732,6 +747,7 @@ static int create_urbs(struct gspca_dev *gspca_dev,
+ static void gspca_stream_off(struct gspca_dev *gspca_dev)
+ {
+ 	gspca_dev->streaming = false;
++	gspca_dev->streaming_ready = false;
+ 	gspca_dev->usb_err = 0;
+ 	if (gspca_dev->sd_desc->stopN)
+ 		gspca_dev->sd_desc->stopN(gspca_dev);
+@@ -887,6 +903,9 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
+ 		}
+ 	}
+ out:
++	/* the transfers are set up now, buffers may be completed */
++	if (!ret)
++		gspca_dev->streaming_ready = true;
+ 	gspca_input_create_urb(gspca_dev);
+ 	return ret;
+ }
+diff --git a/drivers/media/usb/gspca/gspca.h b/drivers/media/usb/gspca/gspca.h
+index a6554d5e9e1a..3e0b9e27f4b1 100644
+--- a/drivers/media/usb/gspca/gspca.h
++++ b/drivers/media/usb/gspca/gspca.h
+@@ -187,6 +187,7 @@ struct gspca_dev {
+ 	__u8 last_packet_type;
+ 	__s8 empty_packet;		/* if (-1) don't check empty packets */
+ 	bool streaming;
++	bool streaming_ready;		/* buffers can be completed */
+ 
+ 	__u8 curr_mode;			/* current camera mode */
+ 	struct v4l2_pix_format pixfmt;	/* current mode parameters */
+-- 
+2.34.1
+
