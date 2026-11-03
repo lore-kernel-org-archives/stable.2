@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704219;
-	b=M9K2r4LqlrcvTXYleY/xkUXCbgX3VRWYc/vZ99GNgERKcsd7GBovjBJ/YEOCJ421lqCO
-	 6gTuwYHhiFD3CA7/vfweotLxslwtSbvvK0n/u8uXlHyZewAHbPyEsH4k5npTu9xh5OltG
-	 FXZir4z8DoHMDAYFkhm0+CALNSn+H9sivUiN6E5K8WCc3JQUTGD/fZD0LlgOaAGgFA5uI
-	 1frL2xgxqtL6hcGtcAkWy4gAULguBG6QVHCtc5aBOOsxedaKpXQVPqQtEFlQvVVbtW8Sd
-	 1rl5ibcJyovKT1SMfnrQXdNkqMKjD9sQsvLRbaRxj+Bq6149A8Aic6y75js8SmX6F0g==
+	t=1793704210;
+	b=vVbTtiaJk1S/sCC12KOytLF9ixJsABWB0JkvMhJfJgOSSKQO3cpftlCpz+9ZHJPTMJLC
+	 agvyHpBYVR8pfop+UlatC+1LO0KZv5Nn6VhLufEtibk0u0zp8nWjrPYCZbQ2bW0KpfAjp
+	 x6J1rqkVXCEugn6wAdmLX7v54QS64XIvfI0t5EOHUiH8rZGVOLCBWgoPn/BX21TN8Fd8Z
+	 7wx2y1l6Iz3SAK4ORHBGqPdXoBt4kPSts9jq2tEZFzCVi8tmZfGOhHKpd9gD+2JJB8fCa
+	 /Ss9DQoNFj6FGcap8tXZA3/bL3eiwV6RMH/oEN8SRRavGTaJZOuHBjadUDpyyRg186Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704210;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NcMf+ZVLmz04u/HN3Wxip9DQ9rG8PD3kxPva+jU7U8U=;
-	b=GYyW39/AK7tfsfapnt/gTZvRA2DtZUxN6KOstW6pIWFivoy4o7C5pAzTJIKmuOyIdG4s
-	 oxFODd7sFU1ZCq6NDvOS2Xu6gPzgeENOwFdEZ9uvlzU5xZZih3Zon8i6L8xK8IrQJShAm
-	 vHmwZweRUodEYH6NKZWGKJJsw3tMkYaeC5S9KLEPxM4z9xgdCT+jvfZELtewoR8aT4TIH
-	 vdEqHiOJr7rd0DXfzcXuxg52RWM+ZZp/FvKHeeLH0Rr+dmD8Tk8IZ9fVnKk98DZlL1vWH
-	 ovULAgCTPg2VHgYfykfqQlXr37vjPsPguyn6t3nLE6HmkbrMi4VpYoVNcSI+Mu/rrJg==
+	bh=M351HoN9QnzW4bajTJUrOSxIeJFA3W05dDUYpXeLH3c=;
+	b=0+GDFKnFZ5joyjrfU+lWCel05P62B01zkPEAZESGntlQGZ63A3WM5nPhVvVhVyMop3oO
+	 JwbasK/ZJcbEppL/jddQJTyK9vnhFiTJbNeBfcTNU0E8n9oBqM6Ija0+gyt//H8HWm6Co
+	 aabHUE1nPCvJANvI7Q+YC1qAM6BZyOV48eFlyqJ1BFcXj9/ZLAl7n/ou3YFO1fd0TlHPk
+	 aPzc9oSdqzmf6boRL2Y39ZsYq+uUs9wrgU/Jt9wjB/tpxdQqgdHqoVLG9JDtVYR/MlyxV
+	 fn0CUqwWz+A35QCapyj90tXg2px8WAYSVVUcltRozMzwZRDKDwyEUGFWwnhNs+F9p4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mdlyZ/Y6";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqHxQZEb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99F7606C567;
-	Tue,  3 Nov 2026 11:10:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0616606BF86;
+	Tue,  3 Nov 2026 11:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mdlyZ/Y6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B348E1F000C1;
-	Tue,  3 Nov 2026 11:10:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JqHxQZEb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A538F1F00A17;
+	Tue,  3 Nov 2026 11:10:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704218;
-	bh=NcMf+ZVLmz04u/HN3Wxip9DQ9rG8PD3kxPva+jU7U8U=;
+	s=k20260515; t=1793704209;
+	bh=M351HoN9QnzW4bajTJUrOSxIeJFA3W05dDUYpXeLH3c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mdlyZ/Y6k0sbdKbPikMDKXgsUtOAz5HrJRPAoVFXjshi76nsuMvVkkNHl84B39eLt
-	 mylrl8mWmKM2EClq6buoqHPVskn/HH+gGTbb4zYZkydPBBaG4OhhTvpUVrSChfZPQw
-	 wc0nYOhZbdHjk5953sL3BwLrcZzaeN1Tzir+BqaLaTNmwvl3Y9FqA5jyIbdpZvU4z8
-	 cyacM2376J6s3vZMEcviRg5GpWEPOQKC93qLHBlorrwsozfkQl/m00ZSnL4rzhAxjZ
-	 dRxtNnkk/4oSqbMt4iEGK0fK9XmmAXGlgKl/iEQTZsK6oPvi2WIZzF4EMTBXD7JF6O
-	 vK+JeO3lmMKKw==
-Date: Tue, 3 Nov 2026 12:10:16 +0100
+	b=JqHxQZEbjqIPWdvJn3/s8FzkAMJ3m7hfBmzygiVTmR7MngOYVd4fwl45ATYkbt9yZ
+	 Kx6kVV/jvmvI/Oq14BHn2zGSJuUn1eQYDhJDdkeXtFKrrd085LSeZlpEEKuamnrab4
+	 flrrkqyWYxbzI5s+kam2gkU5K7LxUOlKvISq3KbPbjhcPzrVp6BgjCa86T6puu5jFT
+	 NZJ6lI4YZD6Asv8g2O0GbkWm1dZgDd6aK5SsCpgmc6nr61YuqFUah5z7rA4DPUZMiq
+	 7lYIl8HIUfuiS/vcE84+KEsC4RRQQmQI5bDjIbXgrGkosdXqNLQHY6zHhdDO/IVIdM
+	 iDZyYe8MSA4QQ==
+Date: Tue, 3 Nov 2026 12:10:06 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
-	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	linuxppc-dev@lists.ozlabs.org, Jakub Kicinski <kuba@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Zhao Qiang <qiang.zhao@nxp.com>
-Subject: Re: [PATCH] net: wan: fsl_ucc_hdlc: release the net device on remove
-Message-ID: <20261103-psychedelic-malamute-of-health-ce7f30@quoll>
-References: <20261103104237.1373675-1-vulab@iscas.ac.cn>
+Cc: Vadim Pasternak <vadimp@nvidia.com>, Hans de Goede <hansg@kernel.org>, 
+	stable@vger.kernel.org, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH] platform: mellanox: unregister the fan device on probe
+ failure
+Message-ID: <20261103-ancient-excellent-mongoose-3ed148@quoll>
+References: <20261103105545.1394576-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,26 +60,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104237.1373675-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103105545.1394576-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:37 +0000, Wentao Liang wrote:
-> ucc_hdlc_probe() allocates the net device with alloc_hdlcdev() and
-> registers it with register_hdlc_device(), but ucc_hdlc_remove() only
-> tears down the QE resources and frees the private data.  The net device
-> is never unregistered or freed, so after the platform device is removed
-> or the module is unloaded it stays registered, keeps its reference to
-> the module and is left pointing at the freed private data.
+On Tue, 03 Nov 2026 10:55:45 +0000, Wentao Liang wrote:
+> mlxplat_platdevs_init() registers the mlxreg-fan platform device before
+> the watchdog and DPU devices, but the error paths for those later
+> registrations never unregister it: the cleanup chain below
+> fail_platform_wd_register drops the watchdog, io, LED and hotplug
+> devices, but not the fan.
 > 
-> Unregister and free the net device in ucc_hdlc_remove(), before the
-> private data is released, as fsl_qmc_hdlc does.
+> Unregister the fan device on those failure paths.
 > 
-> Fixes: c19b6d246a35 ("drivers/net: support hdlc function for QE-UCC")
+> Fixes: 158cd8320776 ("platform: mellanox: Split logic in init and exit flow")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/wan/fsl_ucc_hdlc.c | 2 ++
+>  drivers/platform/mellanox/mlx-platform.c | 2 ++
 >  1 file changed, 2 insertions(+)
 > 
 
