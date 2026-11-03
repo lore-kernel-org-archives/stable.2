@@ -1,65 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717541;
-	b=Ou+1bNJ6uur+pOOZ2DBw9tedTi02WnUcmEvGcFrfe65CxJf9npsIvEoxxE6I8IE8iV/e
-	 oqwGQWKTCAJk1zCc/I/6IKbq5J6dPfEjATb8PPqf+exOZf/j4FbhR/fF9lJ9Mn/yjkmOi
-	 jwo4PKxg2GdvpqGh4frmTIpiIwKTmIsgXBgr39Zkn5H6fhIacBqNz8UIHxOQuCKoRWQZ9
-	 sS6bUmgjUUQA8juGUCgEL9eJmmFksHH7g9B4AkKSAhDrlmp/NT5zWx5gM5KpMnfkjRTAU
-	 IhFqzxW4ptWmUygiyzMWAeN0cc+G2X6i+TyRjW71rzZ1WexVMPvZqokGiqjok5h2cNg==
+	t=1793717540;
+	b=Bj9Phn9gAl3joL4euYqPZSjL3412eujJcqi6PRJmrUeU/WA+zvjodg75LZeN22VmqWb4
+	 VWZdIo7xeJCbvgr1U6KElTP6eUZ4ONhMMvcfc5r1rcuPmyP5aElfhq+u0EcXp5olWwol9
+	 5YujprU045WbPON2jsUrS6nIq32/8vDif3Fo4OU4v7n9R2prlfJcElXVSbk4Le1JxACJ9
+	 gQ/aNR5rVdlG1wYZjGnzcT6/TBqdyxaezL1gDffLQGi1XnhWTf7qY6TG7OURTjfEkX6cr
+	 HcPzMFpcKJcaj46+NCP0vjyKGFCubyLLZ593I6zH8MOD7sJWvqsjvAfR7Ta7AlmR9Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717541;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717540;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=q1RwUUB2SGzRM/xlK6bFv1Cor0DulNlU980YLEG+TAE=;
-	b=5XmbzpIG57UzRtQqO9SVyHT9RFc4e/qp8rCWMh+o0AIvBQUSP+W396NoHUpwXBMTXijf
-	 wOYH1lCoPoQ6nbkNGBbkwwpbk6qOa/SXpvLdyNqIGlAT5T2c9UmUv2EyY2bdNqU3bKkQK
-	 PC3tTr9LXRbLH/dkmlkPpxw6P8lfVINLLkmmTngEv5iZLdMjDiTsaNfvbUF/iPLuh/fgR
-	 FxLkZn0f8CxRvI5GlEPDjwbuXz29VrlrvSGEza+gXqtCfqLW6gZmeBoCu3DeHxCD0gP1L
-	 +3bztvsbsryD+LDAGQXzej+65YaVcmQ7Y/AD9wyyQ7BgqzHsc9XGq1H6zvWpLHdbh1w==
+	bh=SXrZFm5c7Y9YEJYXHf63c7OvltqSiN79R5Fh6JHirao=;
+	b=drXkNqBjg6eL+GamPdpqmwtxOXRRV6aB1sEyrX5KqFPCv5LO/evqyc7tBSLhwfXlAxnK
+	 EVFOYaZtYzVQDkBfMP42DNgUErsq/NOoBchCuFx/N8PppUPTDDRLoKYTSCvsfbc7ZpZMv
+	 5QWJj6Rtt2i/NM0Ywjx7Heu6fxU5sD6ujf98XNKogTAJv29+v4a+AQ++SpXVd/DDvq/v1
+	 PWV8NqPI1O1bjPbtWx0gTQGklnluLlom3VVc3MyGbqsnjcAMU3cx5ZdBF9610WErvkryL
+	 /h6i7Qc8lYYCmIVpiGVGOpdh7nt5QDIiZFUvCBAJA8b4YZK5hZ7h9w6tvOjUcsdysww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrHKGYCN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWYySZfx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843BC60A2619;
-	Tue,  3 Nov 2026 14:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrHKGYCN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 109DD1F00A15;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9A460A2611;
 	Tue,  3 Nov 2026 14:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWYySZfx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1121F00A16;
+	Tue,  3 Nov 2026 14:52:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717541;
-	bh=q1RwUUB2SGzRM/xlK6bFv1Cor0DulNlU980YLEG+TAE=;
+	s=k20260515; t=1793717539;
+	bh=SXrZFm5c7Y9YEJYXHf63c7OvltqSiN79R5Fh6JHirao=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QrHKGYCNgqCSncLN4i2WXs3uJxSVn+qIiCKZHCT2QCisFV5DIoHEkkvmbFQPyYitL
-	 UsELGDV96+izMumxGBdhMH0aYqOfaet7hs9Wnikknwye6cKY8buyzfo6fySQN7PNIS
-	 cmH3M1/Iu09CsR5K84dNuT9TyPskp+xCd/Qj5sJw4vSPODnOaF6QL7UgYUKH7Vsj4M
-	 R7mGJo8FA/RreBRw7UptLSMzLt+15XNfoVLNwDQyKFCY08QumfP5fRXUd/Qu+XMqDY
-	 L497hLplKdiTwBsrj0ZsQhWxVTgVpq41FXssa8xDKXlLdJPu2rhu/iD8QzP3VoCJCv
-	 eXE5uLYIsPLrg==
+	b=RWYySZfx0rRUBHS+D6mQrv70dNgBDuLHIhEJF/nZaakyJBbj16IsQUC/oHhhp+GL9
+	 eDEiPZPHHZTInSBMx+M9V4sQyMUg5Aa1V1epiUXOfbz1vyR11VxHwAAtNvriqi8yM5
+	 Getoowq88Rw6kMDDSYuGHHKqRlAqdEJLPOEuZHQMK6GSgWz0kRqbp8kvTVsuE1y0vd
+	 mfyGRs/5LnLLdRw5S0lbZXvQturO85V2JjHTiIyqvcnDgz/HGODZIA53opgqDL3zSA
+	 pVFmYtWkMNWSZsMZyXAh7q6jf43oTEbYSupvgYA0FRV4kz1Bmt/dibNEIktSQDz8xR
+	 YPRAdrqElfHWw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com
 Cc: Sasha Levin <sashal@kernel.org>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Salvatore Bonaccorso <carnil@debian.org>,
-	Erik Brangs <erik.brangs@gmx.de>,
-	benh@debian.org,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	linux-bluetooth@vger.kernel.org,
-	regressions@lists.linux.dev,
-	1149377@bugs.debian.org,
-	Christoph Zwerschke <cito@online.de>
-Subject: Re: [PATCH 6.18 1/2] Revert "Bluetooth: btusb: Add ASUS USB-BT600 for Realtek 8761CU"
-Date: Tue,  3 Nov 2026 09:51:56 -0500
-Message-ID: <2026-11-03-1-daily-reply-0008-re-revert-asus-bt-rtl8761cu-6-18@kernel.org>
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	=?utf-8?b?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+Subject: Re: cgroup: fork vs cgroup.procs write race in favordynmods mode -- v7.3 is affected; please make sure bf6fbf46b5ff reaches the stable trees (repro incl. uninstrumented natural hit)
+Date: Tue,  3 Nov 2026 09:51:55 -0500
+Message-ID: <2026-11-03-1-daily-reply-0007-re-cgroup-fork-procs-race@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102153241.373878-1-cito@online.de>
-References: <20261102153241.373878-1-cito@online.de>
+In-Reply-To: <3d753a39.1d66a.1a1a13d3452.Coremail.xuhx@hust.edu.cn>
+References: <3d753a39.1d66a.1a1a13d3452.Coremail.xuhx@hust.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,12 +67,11 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> This reverts the ASUS USB-BT540/BT600 Realtek 8761CU ID backport.
->
-> Mainline keeps the ID entry, so this revert is for 6.18.y only, as agreed
-> in the regression thread.
+> This is fixed upstream by bf6fbf46b5ff ("cgroup: serialize migrations of newly
+> forked processes", merged 2026-10-20, already tagged Cc: stable #
+> 6.18+), which v7.3 predates.
 
-Queued the series for 6.18, thanks.
+Queued for 7.3 and 6.18, thanks.
 
 -- 
 Thanks,
