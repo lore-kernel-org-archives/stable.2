@@ -1,63 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706876;
-	b=kOF4V0TaEKCJ4NcM4wqzUnjXwrdMRQBhJ67R98RF9ZFtTH2r7ArtOYSZX5eWgDj0jVqL
-	 AU8UUd31yaTc5UtyG4MdB4GCMR6ys+RKtGUwF24TpivzIBcyWIGgcbM8jAZsSI/nQzcq4
-	 CGNT0AZtQBLkQ7MGX7FXN3rbFl1TpUQ0b53CeOPfscfGdGegPwS+GF1ZVuejbsxGtRfk2
-	 3V4wVi38ftDLwyMAxCutkb4A3x+V/puI8dktQ/IERMiNIC1csItOSAH0ReOh2CVNjdDAm
-	 /YYxqoMKHETVB8qA90oDUyCuBMPW/68nlhU8sjuGWP0e9nahf4qeXn8me1/pwcUO7TA==
+	t=1793706967;
+	b=3jGChwP4dHyIXuAMW3z3EYUeFGOP1SmRy5sXGWe0DvrrCHUBdTJ0Jk/WwaHuqdfAa3z+
+	 JiXDn1a35AI/HDsgBgHfT99U6UVyDWc/nisscbeZVDZ2RLJ1Q0eju8dXAa6yofHHgQhE8
+	 CcX6LEMC3aT8ah0LWTyOPQdy1SlGZp8tc/Ch3H0QH485G50rsRuyur85InMFusi7LkaI6
+	 ArcWJgLfVEKlIXseB/sruuBQ5D3305LWu5rqjUelsHK02PVybvcyK6H8n5zjeRk0niYBG
+	 XX6FEkHipH0ZyMXNoE07pyVqPd9QDj53cLxYtBLjZY3xWKyyXWZoqygzswXqxJ/1f9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706876;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=gc7wGKMftdTOogN4WhTw2Z9/ycUPW2ITHXwzlkwoNwI=;
-	b=L8aVeiKQyCuZk6Km67Gy0AuY+BOi/f/3Q2wjoFd/uSsQbhCfdzNfl2dPDyNMEGnL5OM+
-	 VNKNeUR1E0te5KsCsRYlakqILNAeCTKQ/jkshbSdz4YlKrHwWNdTSnfZLcizFBRVfavg2
-	 c+CxUAYMIWD/LcSN6vtJlUGGnxKiRyMxKBZ8Kcd34pL9VQrZIvBRgX5gdW+jVBi2pubQs
-	 EaVVf+vX+B2KzXW2vA+N7T5FtM7Xr6NNWv1rPYJtS+QNqdAiXQOhssahAAsL6AzKOICEp
-	 NxauKoHeL1RyZdGdlYojkZQqAHu+qjWu2QY5Ncy4qc7deffrhWbLcZJXP1gfB1AZEqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706967;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:Date:
+	 Message-Id:To:Cc:In-Reply-To:References:X-Mailer;
+	bh=ONK88Mc3FVMhpnTXlcgn9JF9XGNsz0fFBW8JVFGM8tQ=;
+	b=vdSGOpqZV17ih5sg0i2yw9knEWkxBRfoRmGPnZQjuRmGMLni1Y9AQja1RuYklyFG286M
+	 cp93kcCBTIr27FOZJIKLQ3NufvVM/iIRv+PWpd71PVXmQ0HBuInS9hWlgTIfqIsI3nK6d
+	 MN+liT8J/xq1w3Vd/7o6bFx0PgtlWGjbVd3w0Wy8XeR5soFv+I7n+e92VWKl478Xw8F4c
+	 6NveXOTCL7sZTN03KpDTHIb53la6mz7gWXjZ7BYy65Gh+Pw76XvW82XAdkzKzKysFTU+G
+	 +Wtir5DT8MlaJ8K5tD4zGvb5g/uBFjpoaPf43awfdMszRpo6HjYctSotEH9qjF03pUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE83Pxkw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lDoxvMNL;
+	arc=none smtp.remote-ip=74.125.227.129
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31692606A32F;
-	Tue,  3 Nov 2026 11:54:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9EB606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:56:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C9EB606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aE83Pxkw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25EF51F00919;
-	Tue,  3 Nov 2026 11:54:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793706875;
-	bh=gc7wGKMftdTOogN4WhTw2Z9/ycUPW2ITHXwzlkwoNwI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aE83PxkwojHMZUiY6DMHWJE41PYrrLKBmdqNabN2stBxILPTl7ZG0jDEP0Lz1DhVV
-	 oc3J7xCf2J+jfnkku50x5PHK4FZgtNelGaySovsEEP3Yx6DCYv8KwGji2m9hnLYvHA
-	 Au/C37hIaALFHHohx1i5QKbAisSjRP3m/d1WohSwh8W3V0y5laLW7ipw05FeUnr+jH
-	 rL0Wf2qW8+harCwvwy7hSwjPVzEoj1FbVnPIoalfLS7cSWpf6C56FM9EafAKYW0Z8I
-	 SVBNbR1wCTgYMiXsemHWIvXwI2bjjR+G9iUa34l8JT/I+0GEVre+jqOR+nNbE+aeo8
-	 /VMVNqmAmgCZA==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Li Yang <leoyang.li@nxp.com>,
-	Liu Shuo <b35362@freescale.com>,
-	Scott Wood <scottwood@freescale.com>,
-	Kumar Gala <galak@kernel.crashing.org>,
-	Dipen Dudhat <Dipen.Dudhat@freescale.com>,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Reid Downing <skibletz@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure and removal
-Date: Tue,  3 Nov 2026 12:54:27 +0100
-Message-ID: <179370686157.132651.15818367772843670877.b4-ty@b4>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101120838.36227-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261101120838.36227-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lDoxvMNL
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2e85fb35300so7324995ad.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 03:56:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793706967; x=1794311767; darn=vger.kernel.org;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ONK88Mc3FVMhpnTXlcgn9JF9XGNsz0fFBW8JVFGM8tQ=;
+        b=lDoxvMNLfTfPxFe8IHFNe3DHmHNgCatUpfJIOzy8t2XSpCxlyg/qolVA52u19Hwb5c
+         L5DTcJHoV1Ebi0ieNd3KR++C3RrDJzfdvd3CFrxvCjDfE0zKWAqCDriBn6EHb+l7jgdd
+         c0VySSEGndg8Y16paAHpux4jdQeODtD+GfPsGddQNFbFIpag8uHJwEzcPbyHOxuVwPGu
+         wyiI0bbiSztW/GLIe6eoPKK2PTucvPlGTvGAOuWmVLPADRyAESI/DgKLeR9S8zRm1Mdt
+         sNu36q+EMN2xKf1+AjI+uH1YUzoFoX4sYPw1wB2U7USZedNwBNa2nM3/+4SmfP2DtP7I
+         UzEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793706967; x=1794311767;
+        h=references:in-reply-to:cc:to:message-id:date:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ONK88Mc3FVMhpnTXlcgn9JF9XGNsz0fFBW8JVFGM8tQ=;
+        b=2CbwUXX2amwCoFJYAOFcwqg/A2fAFE9FpfgyLmEeVzEvHxGzCCi0bJxB4OqGNv/4kg
+         cLoN1r/mJSZUvLV4io6VoLUh28Ajl0dBEjNt2hmCBoMZFBwZ0VORnlcrkbkhLIrZuzg0
+         6tcGBX8k9jOmUV2g/bRbEUq0hrzDrPf3ysCfxWOPtNSZaSAUfXaB9D/lZCfUQc+LxHSI
+         B7nX7sMc0NSriEfsH2Q7MCDN33WxPVj9NoO0kfWJVIkXb8nTefOUut3u9PgRYFXeqk04
+         GH3A2CH0BQDpd7mrlFblCPQtTDLkNecohFXQtHdQWiH4G30qurZQOKUaUKRtiFZiT5FI
+         yipQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAlXu4+DfXcvFacNE0feyAohZyNETsgafhxJJ0+FZi4EyRV/7KjJ4bE5HMEx/2PqzmBS3CZZg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OZ65lC30TpRPSrU3XXsWv3zQlUoFQG1S9w/BqlmMKnuiOd02O
+	W02BElyH2plNRemGven7GmBQDklaOUaerDQLtXITnHohVloY9MtJw2wRoTCpyjILV6I=
+X-Gm-Gg: AYBFou0tUpN0ObmNyeShn0c9AZpqfC0KweGQi1yVOxKGv9IhGOH3hmAiPG44lSs2Bur
+	dsnxlHei1vZ/L2KNHvBwTozLUWxxkNb7Bno8O47Pyx7tcomRZMLzjM6eECBkye0Z4V9iRuW0Bps
+	CQDuY0ExwmoTKUVk1vTimV4MskYW6nPniXuXzFQtPhHGYjRC58MeUiz4PTY6JdV+kI0lhhD5XZI
+	S4iCE3RWDJyYc728swusKDZEty63Voyrb0vPJUwldJwhXSweOV8lsH2aGMy3xwzabw3MtrXX5py
+	w2+Ctqnh6CF3lHDzJfsERgvx7A0maU0AV/SoU8G9AgWzXPvLGuiFSJD8VC1w74NMEQqwMj+jwms
+	TqbmeJ3DK+Qfe9+VOAb6qiCyrMlSHAVgKdES9CxAmsGY690N1lOEpj8qOQj0DvNX5umCVXt+aQm
+	bMgsXg80MyzQ+Oz82SZsHoyAd5zM7VLMSlfVmYNtqy1J8XS5FNbCXuwziA7jbMx6Kw/s8qv58c7
+	g0aFidce089ivefcrOqATQuqxaSxtZODviEYO0dYqTpYXDHUE3pkbHyLSa3B9rbrc5lTamYK3e4
+	j/HikgecOPl/LzJamcuHxy7pIzn8VnNf6pX1M4jXpqv2N+y5RlhA7ht7CeKyP0NyiAjJyeoAydG
+	LlJBxNMn5Mha73WJ/Z9iNsWl8ZRs=
+X-Received: by 2002:a17:90b:1b0d:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3ae89776936mr6987759a91.28.1793706966861;
+        Tue, 03 Nov 2026 03:56:06 -0800 (PST)
+Received: from localhost (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3aebc89475asm5134252a91.0.2026.11.03.03.55.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 03:56:06 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,27 +90,55 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=722; i=krzk@kernel.org; h=from:subject:message-id; bh=7LIDX/5W2wTRXTuSfYOXB2HXy/WMlQUxtqUB4sZ3eIk=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq6ct0J2L+37YqOorOQTYQEe3V+v3j8AYDqk6YJ 9qyTNvLU3OJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaunLdAAKCRDBN2bmhouD 1+fXD/496OfsITvJo0gJS3IOfQS+ZpSfEcEpBC9znZma04PLdW0dCWxQnGAtQz9ro/4Y6znQ+V4 QnNJs1Uv3Brd9kXINuglRmbg68qQ/m8OaryJQINj4P7SMxs3R5YgpS3Stw7y5N7DnCknCgaprl4 UmWDnn4Ofs+fEstMEZnQvF+bpqAS6Bkn2PqSUHoiA66J4GrFeHMk9X0SYUlbt8c3xuvoAaulxhp qvZCnmPJa2Isx/suIRUKoDidcrcpJ115KsUxP2Qjo4hgoEmz7w/mye/SFvGgDoWSjIgXBjdG1RN KjuVnrWg4ehOsiigixO4Oj3Mz7Eg5Iz4xDgRgb8laH9rxba9r8Oi63Frk0+uwVyjed4/WjISu47 SIZIqf45mQ7uxDZGl2Dszgmx8zYX8KF3ANKL1uss/uqTOgSHG7E0BK3MbDUDTYEEAx3vGI9se9a 1E3cfSUWHbISDL7HFGfTcGNI8OV2yFadhhwqsGpS5I7GPWQEEVGjDECP7ik4YYdzmHy/KkRpBJk ZAsCqe8o2GFfuHnag9vnGEe31p6EJ6eoMKrQY/XiIjnNAt+MAVr2FWL7wpECICySBmZgjzPS72u xrhnzcLpYcVKvk0LrxD/uZLLvVb7okq0XNuivEaxbkmuvGwcWz81q9gv3cd4Nd7v3RnwjDyvxbW INlIPR12moBEf7
- w==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/damon/core: reject empty access pattern intervals
+ on scheme commit
+From: Aveline Noir <jm5905938@gmail.com>
+Date: Tue, 03 Nov 2026 22:44:03 +1100
+Message-Id: <179370624368.195197.14262032219867976650.b4-reply@b4>
+To: "Xiaolei Wang (Kaihong)" <xiaoleiwangxiaolei@gmail.com>
+Cc: akpm@linux-foundation.org, damon@lists.linux.dev, david@kernel.org, 
+ error27@gmail.com, "Liam R. Howlett" <liam@infradead.org>, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
+ sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, sj@kernel.org, 
+ stable@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>, 
+ Vlastimil Babka <vbabka@kernel.org>
+In-Reply-To: <20261103105418.362459-1-xiaoleiwangxiaolei@gmail.com>
+References: <20261103105418.362459-1-xiaoleiwangxiaolei@gmail.com>
+X-Mailer: b4 0.16.0
 
+Hi Xiaolei,
 
-On Sun, 01 Nov 2026 13:08:39 +0100, Krzysztof Kozlowski wrote:
-> Global fsl_ifc_ctrl_dev is allocated with devm_kzalloc(), so it is freed
-> when probe fails or when the device is unbound, but the exported global
-> pointer is never reset.  Subsequent calls to fsl_ifc_find() or probing
-> of fsl_ifc_nand would then pass the NULL check and dereference freed
-> memory.  Issue is mostly theoretical, because there are no users/calls
-> to fsl_ifc_find().
-> 
-> [...]
+On Tue, 03 Nov 2026 18:54:18 +0800 Xiaolei Wang (Kaihong) wrote:
 
-Applied, thanks!
+> At runtime __damos_valid_target() evaluates "min <= x <= max" for each
+> of the three pattern dimensions.  A reversed interval is an empty set,
+> so every region fails the check and the scheme silently never matches
+> anything: nr_tried stays zero forever while the kdamond keeps running
+> normally.
 
-[1/1] memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure and removal
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/a78ee2e05f7c7dd09e58ea615960105f78dc3c75
+My understanding is that DAMON just does what the user asked for here,
+so this looks more like an input validation improvement than a bug fix.
+Since previously accepted input would now fail with -EINVAL, maybe drop
+the Fixes: and Cc: stable tags, and mention the behavior change in the
+changelog?
 
-Best regards,
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+> The same holds for the watermarks thresholds, which must be monotonic
+> (low <= mid <= high).
+
+Not for all cases, I think.  With mid > high (and low <= high), the
+scheme still works; mid just has no effect.  The subject would also
+need to mention watermarks.
+
+> +	if (p->min_sz_region > p->max_sz_region ||
+> +	    p->min_nr_accesses > p->max_nr_accesses ||
+> +	    p->min_age_region > p->max_age_region)
+> +		return -EINVAL;
+
+As Sashiko pointed out, this would break the DAMON sysfs.py selftest,
+which uses size=[4096, 2**10].  Maybe update it together, and also add
+a kunit case and a note in the DAMON usage document?
+
+Thanks,
+Aveline Noir
