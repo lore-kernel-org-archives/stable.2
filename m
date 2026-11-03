@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793729661;
-	b=MuHOmpZCn6ggxH6sfzzSPdoZz9mYfUoZdy0dhuca6acrpdzDoFFIHXTjuePaXzABdjyi
-	 HUoxnWi0MYglfOIe+3h0tudk2n6wGdmMqxMcsrh8wEqbFV2SjxJd873GXI6ZF1x9WQvc0
-	 6tTxFi/qscR+nuf4V/iiBSBzcx3xHjXWXPQlRCmCyRJ2XZ6AO9QBvk54aEu3NM1KP2yt3
-	 0SicA//ZmFBCwqDbWfbL7thuo6s/nYGWfUusiP+fmqWNOXvGvt3Id77uuHJib/okv/Bs7
-	 0sZKst2hu5LzIoCasBtOAuzPmr8vWPYpYFjxrTyThieM9FZofgVYqsZTHV47ZkwbSiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729661;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OqWiK66+ITYgEweXXpu9oPRXdnmQupnf0R3lUGvBlJc=;
-	b=GHtTJ3SQbpZ+La9SySSYJaYK6tLgksQrLCtKx7Igx3Ixp8u16XArAwPug7jkLnL9ju44
-	 5R/f7E90ZZzDfy+1VX/KjaBbE/9yP0vLNxfRObZ8vbzmq5Pb8Ot2t2PIYLp0MOn9epKyA
-	 ie47oUlpEYenMPg3l7LcMABXCfc9tmrlROltiE4vbPGOWEMlsfBcBRiG6WeBPK1Lwr93t
-	 mIwQvv00WKuaC01Yc0+B4HLUqWAlSXsz05zB/MgtMLv804ChPwY4aetYvBmvTsTNIV7Er
-	 G1xkUTcCft3DEfNgOwqw4yiGYi5rTYpHCXYKGSMa9/qAMxY8hqXh3xQto+Ulm3cPmFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bNRyP3U/";
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793729942;
+	b=Okcz51E9fzV2s+IkVuEhCXWROEEaYnz0hPQtDt+sPAyimcF48zkTzQN1j7orRyVMb69G
+	 XiLZjZLcl4F5iAaZd7aB3xClL6qZNA+yRKu5JkY7eDDaeV9B1VcGZ1E538hOVKtGTvWdi
+	 JmZkSmi4HTNbwES4LPmtawcPGfzeRlbETMe+59M3gVE1MGcdcqRu2wU1tRY8ys2rE6zWt
+	 V6IDlfx6s7y/TAlDP4HOpwIiHvUFZY7qiI+lwIJxRi7qLTMBwqkqsbOyAXPGiMkPuVVca
+	 EDaIV1u6qZ7/kmN9O3sJHezLIh34dHu8Ok+5FNCbUst6OWJkARzh6MdovMjtdkn1tiQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729942;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
+	b=P4NXIHWaoRsIb1CLuIgg9Upm5vaaS6dQ60FAoWfR3QqEJXvIMW2xkKjpBmwl1VmtGcCb
+	 v77VZA+BGEn/0DuScybunu/s9qG3gpTLUYZVlpm0ju3QHUbQmmwtvXqJGgtvtoMCOB1D8
+	 B4OhrNbUY1O2KUDfqTfQYWCZwaDI7FtGizvxpOuwUyYrv2Q/iAllOVgOhCUd8J2wi9hlq
+	 /hOnh1P+V9CF843y360f9JoHO6GCDg4Kjv2RBtHb+nZPJTrGsvOAJql0S/Vix5bqJd2ye
+	 AIk+uHn1Hx4S+NZONvH9Zs+xcbcDCOIWibkaPH97sm3Tj9qxKbjRWQUe5ViKiWxaklg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByKGCdBK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B78E606A328;
+	Tue,  3 Nov 2026 18:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ByKGCdBK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793729942;
+	b=UxmtYHcH++KuSzSy0auBgxwHKEdqk0FWtQe9rwHW80190P3GCSRFhcmLGpQ40RUER2n0
+	 7lxPvJDzlNoft4PZS06EA5nm1pOKgxGbapqFPpuINQC64KLVKoUhrVJ6Q/ZXF3BK+lKom
+	 Pn8RRayw6K0GT7BTyPRtOkubiOfpFJcfym4H3PCSQ3SlOQEuXe8pSYWR8M8Npsh07YpP/
+	 14k8BHp5VEniDy+5fw6otkzagOka01BsGysj8gQwCWOKzbCPyz9JM0YmU5fFsP29Qcdy5
+	 AAIVwpM4dYonvTaBA2PqXP96XOR9/gKbcZ8J1fKwqjtxNnZjkCLWCt77CtiO3VWwGYw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793729942;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
+	b=Dx2xB5A2CxOaBwGAWm6cIyQaaM2r5w7O8J53GP/gy7xakO2psTej83Z+e8gBfDL30OGZ
+	 ZZUJgHe/tDgKNa2o1EtNhxKbDL5e5z2sdCRhx4hV7SMCcbqN5pb+9T+3PV6DBbueGe7rH
+	 zn2ITGvuMPlPMZI2A/GrKXDvR0bPGDlVzscXRRjuSDPEs0KiQCc7s2SCKyE0iCOUqIJ1c
+	 ct6mjWAUBs+nyDNeI1kwJb61R+aUdb4HMuuQEoGRKLNF286I0TpKo3MRRcKNekZbqvQMT
+	 Sq9bzbv4YbvKpN0ggVauP09wZb55YPiYp/P0kwu+7f26o/fvCfwqEbdJTbIsjHluK+A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6CA606A329
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 18:14:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C6CA606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bNRyP3U/
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a6b774d12so362096eec.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 10:14:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793729659; x=1794334459; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OqWiK66+ITYgEweXXpu9oPRXdnmQupnf0R3lUGvBlJc=;
-        b=bNRyP3U/CnE4DU3IS4KQPH9SCFHqw3ogyoj/xzEhUsdCCMtQdFDUiHslJnzgezPCnA
-         Jbk0hcOozBvYsPlgQaPaBHQZ0Av4UIZt0mJTnvS++/ZUxjCSrxLCU2ZG+XS0FxnCRbiE
-         vDw/anv23miCdy+FHc8LMez/AC0wKMWMxPEgabI7BfaDFNqiS7DKwacy/eJXwEn7+jeR
-         rtf9bxr6Y+DBFVfhhM0XTtcV42080oi/35G9AiLnopCLVkcYxVgqq6U3cbJ3xOYX0tQ8
-         svjgr7Bhr88FLMfTNxq/naf2qgerU73ObSVko39M6LoSzEljKWjdicPHhslBERS1i6V5
-         njQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793729659; x=1794334459;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OqWiK66+ITYgEweXXpu9oPRXdnmQupnf0R3lUGvBlJc=;
-        b=VtJuDbcLCXfFUuZn2Qf1KdUg0+sECkVgi9o0LD+QA5wTJA6EzmXm8J1tFJHJisiBIu
-         gUmXFtEvOAM0y3b90s6iIRhuA3TZjeF+GCARe+BktCyJKix42D2hHwqOkHmQXR4wPa0h
-         3MRBle0N8F+f9WekVt6uAIZqmAAk9vkavlQfDB8b+ANlW9MabJ5ihTRUDg0Z2qhjTjvR
-         9NjEiIJ5kLdyWjV1IEp6JoeDE4tUkT4Y1A3TzEZq6m9YUpq8cYyKKrm5KriDKblzY/fG
-         vncqdv4QIgHS5o5W2Z0GtWQTMVfnVYhVx+Hybg3vg13PdH9zflmr66W9lcsPa/L3PglO
-         fnzw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7xZ2BSo4SBzzjst7EE7CS8rLYdYNuHLyiI5537BfhJL/s69ApRb0TM9TMG0SyI4AyXriGQx4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vusX2yr3nSMhviAFUKNkGnRN8tljsT1ovvw8zrhwik09k/XQT
-	mL5S1vzY/KDWDjzPR/VzTc/Qi8nB8bI+pvVhcVFZH9Jg1qBmCP+ShYLGsS5Cn9d32XM=
-X-Gm-Gg: AYBFou29i/hRiwaXLnj7zKKTk32xhupLtvdVsKImsxEYNcDRWtorEjXN/YGHhHfq8uU
-	0+6vfWVUfPZgNW130wlG4Wa8Cl4ivEo9S+ujb5EkYD324KMk/m/ffzvcL+3U8DZmlqF+nj8XxVO
-	FS8HJtIhMayw79sAzfoO3Y1VI5CPU7CP5R0bINeiOy5m/+ovtkGauDpZcSdSY/+SV0BvhjZpKki
-	R73zR2Vm+GV7kglUQ1fIe2NNHYIR/Yu1+gxQ0teapr2GV3OPUec6vNsaBZ8mRUb5UBCtrDNQUvq
-	IQEMzWNn9m2x8Rzh/UNtVFZJUIMPJigYP1u0E/HtJ+CccewGxutDh0ERlW+qfNpszjh6u5xL1V+
-	XvM4OATzNadeI+fjbi2ib7EKt6nsDng0c2hbgO7xk+bTNSdNx0ARlyETL5P3ZdP3NKO9niPH6IP
-	WUGZANEz+wapvS0wBk7UfDVi3PBLexo0Y3qAJJ/97XVJGqNH9tSQwIFCkOCD4pwafdYYi0GZV/h
-	2qsy4+rLI06AYOxb1RzKVJIjT+0NFXwcESbQTNx63iWPTpOpiqCvbbCne14Nqz3neRaKuq2AsbY
-	Qx5rxuk07DEfCzILOh2TojOAZztLYVQhaTa7y7JAsA==
-X-Received: by 2002:a05:7022:eb46:10b0:14b:edb2:c3bc with SMTP id a92af1059eb24-1ac4fd01362mr32675227c88.0.1793729659320;
-        Tue, 03 Nov 2026 10:14:19 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm51929768eec.7.2026.11.03.10.14.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 10:14:18 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: trondmy@kernel.org,
-	anna@kernel.org
-Cc: cel@kernel.org,
-	jlayton@kernel.org,
-	linux-nfs@vger.kernel.org,
-	Chengyu Liu <lui2012qwq@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nfs_common: release decoded ACL on nfsacl_decode() error
-Date: Wed,  4 Nov 2026 02:14:10 +0800
-Message-Id: <20261103181410.1601083-1-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	by smtp.kernel.org (Postfix) with ESMTPS id 9BE2D1F000C1;
+	Tue,  3 Nov 2026 18:19:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793729942;
+	bh=IhcsKsF4c4Bor6ZjDZme0cgeE1Ch/I0WodiVCA7SelM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ByKGCdBKMXljtwAZqJi5rrb3qtF2/R7MVUIh2EI8Osf03XSxwhHjMLu7LYcqr421l
+	 gSgowfrxS5REw+1hN9gFdsCKX6AsA6S0O9Q2IfMsSZJqeRs9B24b1lL9bHh0l/+GrQ
+	 a+/uFHPgSWMx0ESjvukwUpJcW1j9wj/8qLqpxj4h+hs6ylQin4WyBx3CM35wz7mzTH
+	 PzJK5RLKB2LjaI6fC5eSRDow/+9jRRu6P84hV7ajNv6UJQRiSl1UzrWAOE1RttYZI1
+	 ozltsMuTixIPRjEVR1OupwlERBbCiskB08Ik4gjlgose7ZFRfFARzI8hvxjUy5/7Tb
+	 PAf/2tc/oFs/g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0029346A51;
+	Tue,  3 Nov 2026 18:19:00 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Tue, 03 Nov 2026 13:19:01 -0500
+Subject: [PATCH] eventpoll: wake the next waiter when a woken waiter is
+ killed
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,48 +83,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-epoll-killed-waiter-v1-1-36e08c16b8a2@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDMBRG4a3IHfdCorZCt1I6SPRXbw0qiS8Q9
+ 260w29wzk4BXhDonezksUiQoY/Qj4TK1vQNWKpoSlX60lpljHFwjjtxDhWvRiZ4NrktapspPPO
+ CYjl61LLd18/37zDbH8rpWtFxnFu4jhp3AAAA
+X-Change-ID: 20261103-epoll-killed-waiter-a4b7fb30e547
+To: Christian Brauner <brauner@kernel.org>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Jan Kara <jack@suse.cz>, David Rientjes <rientjes@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729940; l=2916;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=E8yisygosXMPs5dY2TbIReZZXoa4ZP3lxybfZT/nZno=;
+ b=aPmE12Nzr0ZXZzOHh4n1Njq5Crq6XBaG7njn8SMGIP/JOD/Z9dC6jXRYiGqBowMARDfU0qXSn
+ 0Y0LS0MWt62BJgfbMUG/9E4thuifNVP9VcCUMfJ3FCiwqBw1O9hHd/d
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-nfsacl_decode() is used by the NFSv3 client to decode GETACL replies.
-xdr_nfsace_decode() allocates desc->acl with posix_acl_alloc() before
-validating the entry contents, and the out: path of xdr_xcode_array2()
-only frees its temporary element buffer.  If decoding fails partway
-(e.g. an entry with an invalid id), nfsacl_decode() returns the error
-without releasing nfsacl_desc.acl, leaking an up-to-
-NFS_ACL_MAX_ENTRIES acl (about 8KB, a kmalloc-16K slot) per failed
-reply.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-A malicious or compromised NFSv3 server can repeat this for every
-client GETACL (getfacl, getxattr system.posix_acl_access - also issued
-periodically by backup/scanner agents), slowly leaking client kernel
-memory.
+Processes sharing an epoll instance can sleep forever while an event is
+ready.  An event wakes only one waiter, which then wakes the next one in
+ep_done_scan() if events are still ready.  Since commit c257a340ede0
+("fs, epoll: short circuit fetching events if thread has been killed"),
+ep_send_events() returns before the scan when the waiter has a fatal
+signal.  If the woken waiter is killed before it runs, nobody wakes the
+next one:
 
-Release the acl on the error path; posix_acl_release() is NULL-safe.
+  Task A                     Task B                 Task C
+  epoll_wait(ep, -1)         epoll_wait(ep, -1)
+                                                    write(efd)
+                                                      /* wakes A only */
+                                                    kill(A, SIGKILL)
+  ep_send_events()
+    return -EINTR
+      /* skips ep_done_scan() */
+                             /* still asleep */
 
-Found by static analysis.
+B then sleeps until another file on the instance becomes ready, if ever.
+This can hit eg a pre-fork server whose worker gets OOM killed.  Commit
+7fab29e35630 ("fs/epoll: restore waking from ep_done_scan()") fixed the
+same kind of hang when the wakeup in ep_done_scan() was removed.
 
+Keep the early return so that a dying task still doesn't take events
+nobody will see, but wake the next waiter there if events are ready, as
+ep_done_scan() would have.  With the fix, B gets the event.
+
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 2s.
+
+Fixes: c257a340ede0 ("fs, epoll: short circuit fetching events if thread has been killed")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
- fs/nfs_common/nfsacl.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/epollkill.c
+---
+ fs/eventpoll.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/fs/nfs_common/nfsacl.c b/fs/nfs_common/nfsacl.c
-index e2eaac14fd..e7ad47e2ca 100644
---- a/fs/nfs_common/nfsacl.c
-+++ b/fs/nfs_common/nfsacl.c
-@@ -353,8 +353,10 @@ int nfsacl_decode(struct xdr_buf *buf, unsigned int base, unsigned int *aclcnt,
- 		return -EINVAL;
- 	nfsacl_desc.desc.array_maxlen = entries;
- 	err = xdr_decode_array2(buf, base + 4, &nfsacl_desc.desc);
--	if (err)
-+	if (err) {
-+		posix_acl_release(nfsacl_desc.acl);
- 		return err;
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 7a32c70bf2ad..b959af04772c 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -2144,10 +2144,17 @@ static int ep_send_events(struct eventpoll *ep,
+ 	/*
+ 	 * Always short-circuit for fatal signals to allow threads to make a
+ 	 * timely exit without the chance of finding more events available and
+-	 * fetching repeatedly.
++	 * fetching repeatedly. The wakeup that got us here may have been the
++	 * only one for the events on ->rdllist, so pass it on to the next
++	 * waiter, as ep_done_scan() would have.
+ 	 */
+-	if (fatal_signal_pending(current))
++	if (fatal_signal_pending(current)) {
++		spin_lock_irq(&ep->lock);
++		if (!list_empty(&ep->rdllist))
++			wake_up(&ep->wq);
++		spin_unlock_irq(&ep->lock);
+ 		return -EINTR;
 +	}
- 	if (pacl) {
- 		if (entries != nfsacl_desc.desc.array_len ||
- 		    posix_acl_from_nfsacl(nfsacl_desc.acl) != 0) {
--- 
-2.25.1
+ 
+ 	init_poll_funcptr(&pt, NULL);
+ 
+
+---
+base-commit: a522dd871024a0f065bfa7638afdb929607f58fc
+change-id: 20261103-epoll-killed-waiter-a4b7fb30e547
+
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
+
 
