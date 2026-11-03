@@ -1,53 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701635;
-	b=PRSj52V/4ZU18hqNaZ1JjYm7JA9GXKnmsP5+ix25pJ4wmzWWyLqFboOJpAOF1VhXLLgs
-	 2RKymoteH9Dr7ZhmLCgtg/j7ADW3QpneuI72y+h1g9M7nvGgS77cTo6LIJqb2uoUk9oBH
-	 oeLckrD+IDcl9lSrmmJl7P9nyEvr/4Rl2Byp/qnSC+QjpZRrfvds0YeY3W4vuBR9V3JLZ
-	 n7q9br5peexF+WtgN2cxF5NjiDoY6pxWuuzTf4jzHtbmLH0B3pn3DfYHieXxOvbrTWhi4
-	 hrJHenDpWCoXd18qGwizv7LObKClTf+oEBhTA7vA6EyWaN/EI3lXOcDaNSLymvR8JoQ==
+	t=1793701729;
+	b=dnK2lztzHk1/EeuyfqoxfR2RnZK8BY5sqAC2diCm8x1qZsQkaYHpYymEt3+PWY2u2Ad0
+	 UZJgj/nL2XqJnuRJrzRBE+nAZhY85ZEGNu/cOkBjxBk1Ft/kHDuA9fANL8Mx9ahDVYTXS
+	 duTBV2qFA2VzbfGkgrr/LIjImwudURu8LGzZtTY2BMyMVh4Gd4Y1GReUTXxg4LHzxomqL
+	 n0lFCd8+onGWrfI7NL3oSZIyZbLkoP4SOaTcv51Pzi3fG4kZFAYh8DcJqHKK5cYMSIWTJ
+	 UllxQCf5N+Sje6oGwyW0YzUdKyd+9AiWaQvm13sJo7WO8WttSyknfLUc/QebQJqcohw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701635;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=dbBqPt54DB+uHD8qf9foSNr730yTB0g2zDUcRBZu+nA=;
-	b=jJzzeyGNxgy3Ij8XeVD7zKXhOSYSbhW60Mcv+1gxL+DKyhDk0Gb4noPl5VGydVcOL1vx
-	 vof3fYB1Rs50XvaiPUnjMZalDYqJAXHtOKOayiGlNDLlyYsb0ICBFeSH4dtL+zPsxh71S
-	 FdiAMOOHR3MkU+uj5gUbByGOzCsUIqre0UXI8M6SquDoHo1p8OdTDIyeG3x4ziINoFeTt
-	 OiK4kUcoE0xQ8HwENNee4y92f4ljr7deUTRQYiG/psJDPtmXD4atbgfk9aqelh/S0bPjg
-	 ruc6qFvYb2D9gvp/ktXcZ567We6svaiP1bM7rNcEsE5eLWumwz20hLc/YoYdmPJAvQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701729;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=1nWpelF9/VGZh/vb7Tz46GHWSc2AwSVyy7M1a5xC1/I=;
+	b=vYRab8On/bOch9V/JQwdbHZrzT90Vtz9rOX6kkkc5N2qDP/infslGNhPcgpX2q9IL2I1
+	 SrZmzSaatPqnr6Vs8uYBtuxWJnjm+9a0f2IslFvaMnA/bBVK8EfEtJyN/dhtMfOSt1ud0
+	 /D8cXp7q5MPewGdSaLcoT4O2jxh4JXZ2ge2sF2oKqqY4qYoRH7CELORIxIjWckxzU6zfb
+	 gPYmxbVR1hIqy8KKwQdKv96O+Rpj/7dMf/td9X/rYm13alAImF9vLo2fj5qZLK6pnenJ3
+	 e88ieOXbPTaOrck37mV78rh4mIKXpnzbPVbqb/xg0Q207967714C8MMkCOb/KUnppWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mss+YYjW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9646606BF9A;
-	Tue,  3 Nov 2026 10:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mss+YYjW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6881F000C1;
-	Tue,  3 Nov 2026 10:27:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701634;
-	bh=dbBqPt54DB+uHD8qf9foSNr730yTB0g2zDUcRBZu+nA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Mss+YYjWny72SIbBtkXm9foHyh0guibPm4/sQJ7QhliljnEPweWGI2OHXWqoL+DI2
-	 VIvS0i3NmPHhHCTBW2PvhBszbdsBQkD/6EPx4KBT0hmZ9Mddbg7ua64ThjkluuNmKZ
-	 K4oPhf7H8uiFSSnf/RGN2aObhNpLBYpgMVYmZTktFwx80gr6Y56ag82jMKVSMpbJw+
-	 fB+pwdG3PS+vVdDVfXNtwxzoZnR/K6m1+BX45SgTSGp6PBSUQbI/J/0aaJSG+Bwsr6
-	 Qqsized+zutyoWs+M85R+aadMWKC8o7gBvWpPW/dF5hxIeKQZpr5plHUo5H0nXQzm1
-	 thDKFBZxUIyXQ==
-Date: Tue, 3 Nov 2026 11:27:12 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, Akihiro Tsukada <tskd08@gmail.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: pt1: Detach the frontend when registration fails
-Message-ID: <20261103-innocent-kangaroo-of-foundation-906005@quoll>
-References: <20261103094615.1289328-1-vulab@iscas.ac.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD8D6071534;
+	Tue,  3 Nov 2026 10:28:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AD8D6071534
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADn9ZZbt+lqeak7AA--.2751S2;
+	Tue, 03 Nov 2026 18:28:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: ethernet: sunplus: spl2sw: release the port node in probe
+Date: Tue,  3 Nov 2026 10:28:52 +0000
+Message-Id: <20261103102852.1340500-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,71 +56,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261103094615.1289328-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADn9ZZbt+lqeak7AA--.2751S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uFyUGFy7uw4rKFykur17KFg_yoW8Cr18pa
+	yUGayY9ryqyF4xAa4xtw18AFyYk3WDKrWF9a1Iyw4ru390yr17Ar4DWFyjvrWrCFWkKF45
+	tr1UAFykZFs8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8
+	Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6J
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIAA2rpnOFw8QAAsy
 
+spl2sw_get_eth_child_node() returns a device node reference obtained
+from for_each_child_of_node(), so the caller must drop it with
+of_node_put(). spl2sw_probe() never does, leaking one reference per
+port on both the success and the error paths.
 
-On Tue, 03 Nov 2026 09:46:15 +0000, Wentao Liang wrote:
-> dvb_register_frontend() allocates the frontend private data and sets up
-> two references: one is released by dvb_unregister_frontend() and the
-> other by dvb_frontend_detach().  If registration fails,
-> pt1_init_frontend() returns without calling dvb_frontend_detach(), and
-> the error path in pt1_init_frontends() only releases the tuner and demod
-> modules.  The frontend private data allocated by dvb_register_frontend()
-> is never freed.
-> 
-> Call dvb_frontend_detach() before returning the registration error.
-> 
-> Fixes: 4d1f413e820c ("V4L/DVB: pt1: Support Earthsoft PT2")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/media/pci/pt1/pt1.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
+Drop the reference once the node is no longer needed and on the early
+continue paths.
 
+Fixes: fd3040b9394c ("net: ethernet: Add driver for Sunplus SP7021")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/sunplus/spl2sw_driver.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-
-Multiple things here:
-1. Your team ignored completely previous feedback. Multiple times.
-
-2. You use multiple identities with this email address, thus I doubt that we
-   speak with an actual person.
-
-3. Your bot does not even bother running checkpatch, right?
-
-4. Nothing of this was reproduced nor tested.
-
-5. Finally, the same feedback:
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
-
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem (so a patchset grouping multiple patches with a short cover
-letter), how to document the issue discovery method and what was
-or was not tested.
-
-Best regards,
-Krzysztof
-
-
-
+diff --git a/drivers/net/ethernet/sunplus/spl2sw_driver.c b/drivers/net/ethernet/sunplus/spl2sw_driver.c
+index 5e0e4c9ecbb0..551d36ea0579 100644
+--- a/drivers/net/ethernet/sunplus/spl2sw_driver.c
++++ b/drivers/net/ethernet/sunplus/spl2sw_driver.c
+@@ -427,6 +427,7 @@ static int spl2sw_probe(struct platform_device *pdev)
+ 		if (of_get_phy_mode(port_np, &phy_mode)) {
+ 			dev_err(&pdev->dev, "Failed to get phy-mode property of port@%d!\n",
+ 				i);
++			of_node_put(port_np);
+ 			continue;
+ 		}
+ 
+@@ -435,17 +436,20 @@ static int spl2sw_probe(struct platform_device *pdev)
+ 		if (!phy_np) {
+ 			dev_err(&pdev->dev, "Failed to get phy-handle property of port@%d!\n",
+ 				i);
++			of_node_put(port_np);
+ 			continue;
+ 		}
+ 
+ 		/* Get mac-address from nvmem. */
+ 		ret = spl2sw_nvmem_get_mac_address(&pdev->dev, port_np, mac_addr);
+ 		if (ret == -EPROBE_DEFER) {
++			of_node_put(port_np);
+ 			goto out_unregister_dev;
+ 		} else if (ret) {
+ 			dev_info(&pdev->dev, "Generate a random mac address!\n");
+ 			eth_random_addr(mac_addr);
+ 		}
++		of_node_put(port_np);
+ 
+ 		/* Initialize the net device. */
+ 		ret = spl2sw_init_netdev(pdev, mac_addr, &ndev);
+-- 
+2.34.1
 
