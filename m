@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745508;
-	b=ojVtEIX6zD8vQokP+cRe91KcHuZ9nRk+ZydRLGj/J1O4FhhNWTbpaKPyMkohuC3o6tYr
-	 jzlAZ+KUrK/F/FOTJcRVtFd4d461SYXwxb+IEIRkcAUNv8Y63kuL2Eo+gUQqY9nx1GYHu
-	 ZtMbUTqLJsjdbG8F1rYVwVEeXw0NPPesBZPuQsydBTXvSL/9PWXqI8ezCuRhg7cnbqQqP
-	 JBGC/HO8RnsmAcvxCUGtO7nuQCDhe1Li8B3jSxv3icLIQI6wnlCRRgoZOhtMVTgHGPIxw
-	 PdsX4ph4ZR0nLBpvFDXyi1utLZEneo/teY4lmPa8sO06sNFsku+US/WU4xJKV9AXqUg==
+	t=1793745512;
+	b=VchyQ2pvTGXovcLFvvB6Xe06TWdYAM8JfXu9E0rQjo4ehqK+hronJzJqVv8v0TxfGmHQ
+	 Re3zQhX2yw3JZ0cALVPMTGdq3kOAFePp/iRJ1cU9YOSStL/MUlqxj3YZdJa1HOjLF83wF
+	 6j5XLOQCyrXq6DY3yQ+hLtGLlI4gksaTRUI2T54ZpFnlk9VLkkmI89EZQgCVNkC9reKDp
+	 EmFO4HpdT2Ohjsjeem7z4u75qf9fsxXKQvD2CVJi65gK7IDkDZJcQ1K/DX0pYucFEwjxM
+	 zoistgj/etWmgn0bDABRw+lix+Mwp3KSjwk3J99UjAqaVvEG6f3SBY4+dceG9pWs9bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745512;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=CNfhVmOoSlL3wC6OcMbKZaKfB8BCmJy4Z72sfxwNi3U=;
-	b=kdAPggQVDESM2QtWdL3GMsoHCWduCTPsEd+dU1amHczqNfoggPx+rpG7yg/Ztylo9ev7
-	 O23/iQ9+ZtXH0icGpoLlI54DZbiK0jFjXT7jbXLR0MBdEh+PDS/a4H6rDLiUZtnpUDsct
-	 UrWqo0vq34tLvptdVYkpwxzYqLcKWmDnnGNRsl++SC8JUykwZtXiKCq4ltW+qpFDtRwcl
-	 uPtY6HuzRTIB9k1F6ErpY7D80nUN1k2pSIl5TF8+kt94y4N67RHemECzI4iREjS+k//WL
-	 TzEXS2SGqCeLwHmULoOCK9MTpY6vU//flsAlIPKZwMZXdx0PdSvZVfVfIVixsLEfuLQ==
+	bh=0cAU6BArbYiC+br41fGhZ37JnPTBX00Zr63NC1JHd2I=;
+	b=zX59pxRLWNMMkqdAHOGWoahls6Ww5X+0U23dkocWFyfTIykLVUk6/QjdfVkBbeJkjjbe
+	 Ppg7MtjIgu9o05AXdSo+CwpreruiYPYS8OrIDm4V0LHjIWRQLer9UUI82Up2+LsDaSdBM
+	 /U+zVgGgsQcpa93Rj5dHlt5QZdLJSZNJoCWjd2XRR/Ic3sckYmwSAsH6+tfL2Dk/lAUkb
+	 wOCF7mXd9svJyg0H9FFqoDZcU0EJ39NG7GPPYK9V1St9UB3mb0xg6gEfjXfZVFyrgdvML
+	 0nFdzgxbswye0awWEQhCOMkhs5CpQfo1Rr5cvaoqCubGXOtUg3hrHHR7QfzlaHY7IPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=isslab.korea.ac.kr;
 	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="fi8h/sIZ";
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fBQvdiYz;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F4D5606D813
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:38:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F4D5606D813
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A23D606D80A
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:38:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A23D606D80A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fi8h/sIZ
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso65587a91.2
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 14:38:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fBQvdiYz
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acd21ba21aso115789a91.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 14:38:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793745508; x=1794350308; darn=vger.kernel.org;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1793745511; x=1794350311; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CNfhVmOoSlL3wC6OcMbKZaKfB8BCmJy4Z72sfxwNi3U=;
-        b=fi8h/sIZaQkcsmsmGviALRVG91mo3uz5ZdlWhUImjEmIXw4SghMonsnBi2Qlr8Ob6F
-         dk5v25/FTscjSg9h6v6LDgMeNMhNlOaDwZLZKaIhOVocIzY9N0Gtq+zl5qioTxkAGmqw
-         RzDqP5s1MTwNaRBVmbWf1Q9Hzj6J15yoJ/lr86BuA0DZczhXI62eFoYziub+EK9ZWlBu
-         f0AzdcP4SVoL3bv5W4Tnwez4+CEEzoaPhu2PL1AHAKkL5LjAWlq1jnSFG1bxqYsY+Ry4
-         JbsK+P0EXHinDusMpYyRy2AmrJmei0Nw4Ui/cJ6SSbhKgH5ITt8y1GLq7kxsI7bJFG5c
-         OK/w==
+        bh=0cAU6BArbYiC+br41fGhZ37JnPTBX00Zr63NC1JHd2I=;
+        b=fBQvdiYzchldSNB0IcZXUfPhyNKEnLXt2sGy1U2vwcsjGM9YHVgIqpoDI/gVFPvlCg
+         gwz2fFFLqXjVmzYDWXQSSJcUyhSnETya7US4ROWTO+5NuY8FSpR/mAMQAKP37CAHoQHu
+         mwbImIwhkpcbGEW1AcOGGgM8CA7kvFo0ecP4YOSYpmw9Z5/hMCn0Xpqm4DLj92aVJJk8
+         aHTfzBIbJwYn1UoheB3e7xX8Tn8K7LtpZFPFSSKs3CRk8nzjCHoF2MJHgHTvR/CEP+jU
+         +M1/qOyaGoLc6h+DVNutr4zsis4QQkRdbwH1tONIkrdsiYwFSUBKXKY/WvaJ3OAYsLlf
+         QuNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793745508; x=1794350308;
+        d=1e100.net; s=20260707; t=1793745511; x=1794350311;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CNfhVmOoSlL3wC6OcMbKZaKfB8BCmJy4Z72sfxwNi3U=;
-        b=NkFDlbgtCQhXHvnNCItdh6KyVgkx1aICjhNJaWuGbulFtQzYLzfuiXhBPtfLhbmqee
-         YqxIi3kiu+pkS0M0EZGf7ApugOQAns0HPKToIhwv9m769cUrXIlrH0lxDOhBF833obhM
-         E9xdP3PqmnYsTprwMDvSUi6aAj0Bi05NHde+GfCji/ZN+aXN/OawxNfhJ8qO18iBFd2I
-         zebaa0pEXTZTo1xyQr43poeKToDYack/btcLCdOOyarv3KF4rIdmOPafNQMHdumospXC
-         r9wNUovLy7bi/QmUdNrRKzxJ/8pUasQrYt48woXLBL18AqLxLRfL2lYc+tTWbI3MSES0
-         xZUg==
-X-Forwarded-Encrypted: i=1; AKwUvByPqIC1LTr7dF0U2WyBigPbCgf4JyWMBedsQSr9URgCD9UYL/fH5FuVFFvwaTWFfpEqkMs9xQI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9uKp+nUpJFZxtwxnx5+RyjOYe8QjLDTPdLtaZyLmxgY9HHumjR
-	WmvRJ9ocSzcpOYt5KZ3FgsGoMPNszsmpzil4WxWH7IupKmUd03Krru+BXnJvAuuUTWY=
-X-Gm-Gg: AYBFou2v4vV5NsQ/H2LEkSTGyXMYXc4fk5wTAmm4t4uJiHRXt/JrAhTYukt3TE1JeJC
-	2+zCqg+RzoqI9W+FMy3qtD8p+Euen2JFW9LjaiAafEKDG9ZSOs5mwY97MNePT++OYJyfJmORSef
-	ACgjqZWxru71YCcv5CTppiWXYGhr9j3b/h1aDW6cava64atg6e/xeBCKoeeTNwMegSxSyLa8bAA
-	2mKo2dBzja3wH7Vpzj4WJL4xC7ik4yiTTxBy5+AFUG+mB8N7MulJN+IoDqzZOk9e9dflJWGdTWD
-	0eJnii7X+zt22KN740f6G3mx+akGZ2lvQqm7fbplnr55D0meHBskHzwB5MZBnJTuZD1R3RvcJZu
-	FZ65R6lMuYtEzPUnKfDnrRg909rBPJrersq8phfcfkT9o4BcAiDToEaw8JKtbzUoIcSfW5lFsRu
-	Ra/Md9ey/2VbS8xeAXgbUqm+L+3RE3/Gp01OAdEpy0VxJD7qfoNlxmL8mEqKsdGNwN4zCuh9gOg
-	XZwLdFnteQPPFGiJr9OIsGY11vmwXVws6LQtOd+QMv3Joo6toukcBYScy/hVIW9VgKeMlMCTRHn
-	YgdyJj7f9cPwVC5jmkwABRdD7g2Dd27WLlIMDoOkME3VibyQtWHOFVkrVjcW/e4PTdPrdiSbPKT
-	AkfyC+HQ6RKcNOW9oSLOzFmn4ej6WbuqklEBS/tTyG2/rvHr42JQ+jm+EIQ==
-X-Received: by 2002:a17:90b:4a85:b0:3ab:c674:cad1 with SMTP id 98e67ed59e1d1-3ae897994c4mr11801532a91.50.1793745507642;
-        Tue, 03 Nov 2026 14:38:27 -0800 (PST)
+        bh=0cAU6BArbYiC+br41fGhZ37JnPTBX00Zr63NC1JHd2I=;
+        b=THVaFpDDhif3+tnNksvgzBb//qMvHU1AyPfhETmXPANFVId5Oxj2PkgzPjE5aPGmW3
+         Qv0wvlDdw//uoF+3JaF0a3A+0QCFf3185jbIGHJr3qbz1c8kZVfjAhct4cv6FQDwFgXF
+         UVXtHyJi3qikVHC4boBfuPTR/W35pYz/rSx5vSJQ+Ps7LImI3aHeRjwiK4SxqfmOscWp
+         i+kfW88iwo/zSID2kFkcYk00Dvv3z/OlbFDsC/Nzb29Bj0lbCCCKcxUFd/GmW2Ar/zpO
+         9CUeluOv56CEJjMpxvK0AyFoepGgAIIZBIpqMfJgDSnXJhxgAJoggDBvvhSgzf9LKuJP
+         HM/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzqlWucxvOfRyxzOw8vCvrwC4yFBd5czyRkMDE+0j1RHJIVD1DwdlynYmkHo2tZ2BeY+QVxXVs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZqHyhPTrKkOTduLHZ2tDDH/ifFPV2sj3fVSymbyWflMV5K+20
+	VPzlrpIjGYSxudczoyt3uNwL5sryZhhRe4Zj8iaCKKWjqbmdVyW1BQtJB0MW5f2aX9c=
+X-Gm-Gg: AYBFou0B6YbpbJvoH0w4BwpX1ZKudrXUj61kNbQF1BkwCV08GEu029G4eb5rRUmH+dZ
+	NelhOi8zXuHrf/R5SfobtgyiyzIsfd357J9jI4LXscnNI8edAIQtEwu0d8r9XFUhjz42+iSd/pe
+	r4C1ibuTM9Om84NXhs1bzv8aEVih52LJ9jVCUW3wAkLVM+LX/SXSiXdn1DPffAk5M10fXaT4vBA
+	FKJfqtTjTNuBkgnV1M7osbgTpAlRap2uRtG3yiRwkLqB4AQ9UtIOr9sDqZLlDr0Q1PhqyG9TPpw
+	4KeN+KeJCNQp3Hpx0yUCpMBnMwcM3bJ7MayHaMJUYuoDYuLyGUMBz2BBa5itLePQLh0rTSnJ5wU
+	nckLY0/UZvN26rYislimkaxwWhoqyNKuHpHjdCDUm9CFPGttv7gW1aAAec/Rn8LpPj/9a8qL5RY
+	ASQ77nFTSU12Ohz16SReQW/Wo5SWNKHOkusLfPd/1y23/Gzz0e8nx2Avwdri/6x0HK6gqSveLm0
+	0UBcyFdDC27QHjQhLXe624pfj5avt39HMvkPYyf4KrCecbNwaFFQEFgz576L4Y81/M8wHpgsQ25
+	RSCmZHgBpOkvBbmPVWXcHPvjjHeiM/sIOVI1TtPtQ2X/rlOcvQ8T+8VMO0BZS5wAJ/4kU50qicS
+	coPEBK+Kq6DnjubFcwbvAv+/NjybANDuzVkhZ
+X-Received: by 2002:a17:90b:562d:b0:3ac:8527:3fcd with SMTP id 98e67ed59e1d1-3ae898385a1mr11994420a91.39.1793745510812;
+        Tue, 03 Nov 2026 14:38:30 -0800 (PST)
 Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:744:cf40:a7b2:e78f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b096b6116bsm223711a91.4.2026.11.03.14.38.24
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b096b6116bsm223711a91.4.2026.11.03.14.38.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:38:27 -0800 (PST)
+        Tue, 03 Nov 2026 14:38:30 -0800 (PST)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: Sagi Grimberg <sagi@grimberg.me>,
 	Max Gurtovoy <mgurtovoy@nvidia.com>,
@@ -91,9 +91,9 @@ Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
 	linux-kernel@vger.kernel.org,
 	Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
 	stable@vger.kernel.org
-Subject: [PATCH v6 4/6] IB/isert: drop the promotion reference when a connection errors out
-Date: Wed,  4 Nov 2026 07:38:00 +0900
-Message-ID: <20261103223802.1697607-5-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH v6 5/6] IB/isert: do not build a new isert_device for a device being removed
+Date: Wed,  4 Nov 2026 07:38:01 +0900
+Message-ID: <20261103223802.1697607-6-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261103223802.1697607-1-yhlee@isslab.korea.ac.kr>
 References: <20261103223802.1697607-1-yhlee@isslab.korea.ac.kr>
@@ -108,56 +108,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-isert_connected_handler() takes a reference when it moves a connection to
-ISER_CONN_UP, and the paths that give a promoted connection up drop it
-again.  isert_connect_error() does not: it drops one reference for any
-state.  A promoted connection that then gets an error event keeps one
-reference for ever, so isert_connect_release() never runs and the
-isert_device reference it holds is never returned.  isert_remove_one()
-waits for that in wait_for_completion(&removal_comp).
+isert_device_get() looks the device up by node_guid and has no reason to
+refuse one.  A CONNECT_REQUEST arriving while isert_remove_one() runs
+therefore builds a new isert_device on an ib_device the core is about to
+free, and nothing waits for its QP, CQ or PD.  cma_process_remove() waits
+only for id destruction, and the core takes no device reference for them,
+so ib_dealloc_device() can run while they are still being released.
 
-A REJ after the RTU reaches this path.  cm_rej_handler() accepts
-IB_CM_ESTABLISHED while lap_state is IB_CM_LAP_UNINIT, and a passive id
-stays in RDMA_CM_CONNECT after ESTABLISHED, so cma_ib_handler() passes the
-event on as RDMA_CM_EVENT_REJECTED.
+Let the ib_client data say whether a device may be used.  isert_add_one()
+stores a non-NULL value, isert_remove_one() clears it under
+device_list_mutex before anything else, and isert_device_get() refuses a
+device whose data is NULL.  The clear and the lookup are in that one
+critical section, so no isert_device can appear for the device after the
+clear.  The lookup also skips an isert_device being removed, so a device
+with the same node_guid cannot raise its reference count again.
 
-Drop the promotion reference too when the connection being given up was
-promoted.  A test-only knob delivered that event to eight promoted
-connections.  On patches 1 to 3 of this series the device delete did not
-return within 240 seconds in any of three runs, each printed ten hung task
-warnings, and isert_device_put() ran once, twice and twice, the first of
-those being the one isert_remove_one() does itself.  Three runs with this
-patch ran it nine times and the delete returned in 15 seconds.
+A test-only delay before isert_device_get() opens the window.  It opened in
+three of fifteen runs of patches 1 to 4 of this series, and all three built
+a second isert_device and took ten or eleven warnings from the core.  It
+opened in three of fifteen runs with this patch, and all three built one
+device and took no warning.
 
-  INFO: task rdma:206 blocked for more than 10 seconds.
-        Not tainted 7.4.0-rc1-NR3-00004-g11e5479fd20e #123
-  "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-  task:rdma            state:D stack:26592 pid:206   tgid:206   ppid:1      task_flags:0x400100 flags:0x00080800
+  WARNING: drivers/infiniband/core/cq.c:370 at ib_cq_pool_cleanup+0x189/0x250, CPU#0: rdma/202
+  Modules linked in:
+  CPU: 0 UID: 0 PID: 202 Comm: rdma Not tainted 7.4.0-rc1-NW4-00006-ga65579195c15 #125 PREEMPT(full)
+  Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  RIP: 0010:ib_cq_pool_cleanup+0x189/0x250
+  Code: 85 19 ff ff ff 48 8b 04 24 49 83 c4 10 49 39 c4 0f 85 cd fe ff ff 48 83 c4 18 5b 5d 41 5c 41 5d 41 5e 41 5f c3 cc cc cc cc 90 <0f> 0b 90 e9 20 ff ff ff 48 89 44 24 08 e8 15 16 0b fe 48 8b 44 24
+  RSP: 0018:ffff88810c737308 EFLAGS: 00010206
+  RAX: ffff88810a03fc40 RBX: ffff888104b5c000 RCX: 0000000000000007
+  RDX: 000000000000010c RSI: 0000000000000000 RDI: ffff888104b5c02c
+  RBP: dffffc0000000000 R08: 0000000000000001 R09: 00000000000000bf
+  R10: 0000000000000003 R11: 00000000d3012b20 R12: ffff8881047f0ad0
+  R13: dead000000000122 R14: dead000000000100 R15: ffff88810a03fc00
+  FS:  00007f8b74df1740(0000) GS:ffff888189e5e000(0000) knlGS:0000000000000000
+  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  CR2: 00007f9e81f41000 CR3: 0000000105f2b002 CR4: 0000000000770ef0
+  PKRU: 55555554
   Call Trace:
    <TASK>
-   __schedule+0x180f/0x4bb0
-   ? filter_irq_stacks+0x71/0x90
-   ? __pfx___schedule+0x10/0x10
-   ? kasan_save_track+0x14/0x30
-   schedule+0x70/0x1f0
-   schedule_timeout+0x1cd/0x200
-   ? __pfx_schedule_timeout+0x10/0x10
-   ? vprintk_emit+0x200/0x2f0
-   ? __pfx__raw_spin_lock_irq+0x10/0x10
-   __wait_for_common+0x29e/0x420
-   ? __pfx_schedule_timeout+0x10/0x10
-   ? __pfx___wait_for_common+0x10/0x10
-   ? mutex_lock+0x79/0xd0
-   ? mutex_unlock+0x7b/0xd0
-   ? __pfx_mutex_unlock+0x10/0x10
-   isert_remove_one+0x529/0x710
-   ? xas_load+0x1a/0x250
-   ? __pfx_isert_remove_one+0x10/0x10
-   ? xa_load+0xbf/0x120
-   ? __pfx_xa_load+0x10/0x10
-   ? __pfx_up_read+0x10/0x10
-   remove_client_context+0xa4/0xf0
-   disable_device+0x128/0x240
+   ? remove_client_context+0xb7/0xf0
+   disable_device+0x13c/0x240
    ? __pfx_disable_device+0x10/0x10
    ? __pfx_mutex_lock+0x10/0x10
    __ib_unregister_device+0x226/0x3f0
@@ -186,52 +177,101 @@ patch ran it nine times and the delete returned in 15 seconds.
    ? fpregs_assert_state_consistent+0x56/0xe0
    do_syscall_64+0xdd/0x4a0
    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  RIP: 0033:0x7fe0ecec20d7
-  RSP: 002b:00007fffe9d34978 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
-  RAX: ffffffffffffffda RBX: 00005621db1ab390 RCX: 00007fe0ecec20d7
-  RDX: 0000000000000018 RSI: 00005621db1aa2a0 RDI: 0000000000000004
-  RBP: 00007fffe9d349b0 R08: 00007fe0ecfb9200 R09: 000000000000000c
-  R10: 0000000000000000 R11: 0000000000000202 R12: 00007fffe9d34ba0
-  R13: 00007fffe9d34984 R14: 00007fffe9d34bc0 R15: 00007fffe9d34ba0
+  RIP: 0033:0x7f8b74f200d7
+  Code: c7 c0 ff ff ff ff eb be 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 80 3d 75 ef 0d 00 00 41 89 ca 74 10 b8 2c 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 69 c3 55 48 89 e5 53 48 83 ec 38 44 89 4d d0
+  RSP: 002b:00007ffd34f4ef18 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
+  RAX: ffffffffffffffda RBX: 0000556b747c4390 RCX: 00007f8b74f200d7
+  RDX: 0000000000000018 RSI: 0000556b747c32a0 RDI: 0000000000000004
+  RBP: 00007ffd34f4ef50 R08: 00007f8b75017200 R09: 000000000000000c
+  R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffd34f4f140
+  R13: 00007ffd34f4ef24 R14: 00007ffd34f4f160 R15: 00007ffd34f4f140
    </TASK>
 
-Fixes: 954f23722b57 ("iscsi,iser-target: Initiate termination only once")
+Fixes: 63b268d232b8 ("IB/isert: Properly release resources on DEVICE_REMOVAL")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
- drivers/infiniband/ulp/isert/ib_isert.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/infiniband/ulp/isert/ib_isert.c | 35 ++++++++++++++++++++-----
+ 1 file changed, 28 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/infiniband/ulp/isert/ib_isert.c b/drivers/infiniband/ulp/isert/ib_isert.c
-index 4812dabd939453..712d6165150e3c 100644
+index 712d6165150e3c..2057bb35af4cac 100644
 --- a/drivers/infiniband/ulp/isert/ib_isert.c
 +++ b/drivers/infiniband/ulp/isert/ib_isert.c
-@@ -721,7 +721,7 @@ isert_connect_error(struct rdma_cm_id *cma_id)
- {
- 	struct isert_conn *isert_conn = cma_id->qp->qp_context;
- 	struct isert_np *isert_np = cma_id->context;
--	bool owned = false, bound = false;
-+	bool owned = false, bound = false, promoted = false;
+@@ -41,6 +41,11 @@ module_param_cb(sg_tablesize, &sg_tablesize_ops, &isert_sg_tablesize, 0644);
+ MODULE_PARM_DESC(sg_tablesize,
+ 		 "Number of gather/scatter entries in a single scsi command, should >= 128 (default: 128, max: 4096)");
  
- 	mutex_lock(&isert_conn->mutex);
- 	mutex_lock(&isert_np->mutex);
-@@ -730,6 +730,7 @@ isert_connect_error(struct rdma_cm_id *cma_id)
- 			isert_conn->state == ISER_CONN_FULL_FEATURE;
- 	} else {
- 		owned = true;
-+		promoted = isert_conn->promoted;
- 		list_del_init(&isert_conn->node);
++static struct ib_client isert_ib_client;
++
++/* Non-NULL client data on a device means it may be used. */
++static char isert_device_enabled;
++
+ static DEFINE_MUTEX(device_list_mutex);
+ static LIST_HEAD(device_list);
+ static DEFINE_MUTEX(isert_conn_mutex);
+@@ -275,14 +280,19 @@ isert_device_get(struct rdma_cm_id *cma_id)
+ 	int ret;
+ 
+ 	mutex_lock(&device_list_mutex);
++	if (!ib_get_client_data(cma_id->device, &isert_ib_client)) {
++		mutex_unlock(&device_list_mutex);
++		return ERR_PTR(-ENODEV);
++	}
+ 	list_for_each_entry(device, &device_list, dev_node) {
+-		if (device->ib_device->node_guid == cma_id->device->node_guid) {
+-			device->refcount++;
+-			isert_info("Found iser device %p refcount %d\n",
+-				   device, device->refcount);
+-			mutex_unlock(&device_list_mutex);
+-			return device;
+-		}
++		if (device->removing ||
++		    device->ib_device->node_guid != cma_id->device->node_guid)
++			continue;
++		device->refcount++;
++		isert_info("Found iser device %p refcount %d\n",
++			   device, device->refcount);
++		mutex_unlock(&device_list_mutex);
++		return device;
  	}
- 	mutex_unlock(&isert_np->mutex);
-@@ -748,6 +749,8 @@ isert_connect_error(struct rdma_cm_id *cma_id)
- 	}
  
- 	ib_drain_qp(isert_conn->qp);
-+	if (promoted)
-+		isert_put_conn(isert_conn);
- 	isert_put_conn(isert_conn);
+ 	device = kzalloc_obj(struct isert_device);
+@@ -2791,6 +2801,7 @@ isert_remove_one(struct ib_device *ib_device, void *client_data)
+ 	LIST_HEAD(removal_list);
  
- 	return -1;
+ 	mutex_lock(&device_list_mutex);
++	ib_set_client_data(ib_device, &isert_ib_client, NULL);
+ 	list_for_each_entry(device, &device_list, dev_node) {
+ 		if (device->ib_device != ib_device)
+ 			continue;
+@@ -2805,7 +2816,9 @@ isert_remove_one(struct ib_device *ib_device, void *client_data)
+ 		return;
+ 
+ 	mutex_lock(&isert_conn_mutex);
++	mutex_lock(&device_list_mutex);
+ 	found->removing = true;
++	mutex_unlock(&device_list_mutex);
+ 	list_for_each_entry(isert_conn, &isert_conn_list, conn_list) {
+ 		if (isert_conn->device != found)
+ 			continue;
+@@ -2828,8 +2841,16 @@ isert_remove_one(struct ib_device *ib_device, void *client_data)
+ 	wait_for_completion(&removal_comp);
+ }
+ 
++static int isert_add_one(struct ib_device *ib_device)
++{
++	ib_set_client_data(ib_device, &isert_ib_client, &isert_device_enabled);
++
++	return 0;
++}
++
+ static struct ib_client isert_ib_client = {
+ 	.name   = "isert",
++	.add    = isert_add_one,
+ 	.remove = isert_remove_one,
+ };
+ 
 -- 
 2.43.0
 
