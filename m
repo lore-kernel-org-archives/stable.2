@@ -1,100 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793706644;
-	b=Y22Irv/ZwUmBM6kYSz85I96OVjhHIygJcXD4No+WzXjt2D5/Af41gaPIdigxshihj24K
-	 O6jaXKdchCGlhsvRLYd6E68dpc6SubwZasPuiKRQaze/TTFUsumlEvJZu2f2I+Sfl39RM
-	 RlDX5CCi9hfz39yHsD4vROrkW2DFBPMqrKuSm6lMxT9GqaG1MqaRvirS54gm/HVOczrkL
-	 yj9Qk+X2YPI1fceK9fGlmxadbi8LqY+wBJ6D7qO4F00L0ZNB6qMlFvzmi1192LqrXUcaB
-	 PcSS1RiW1cpamEZ3O44xIUoT4tp+DlQgOln6+87bBaE9Ya07sJROH89+0qfsD8hiNsw==
+	t=1793706750;
+	b=voHgNVZNaIwG+wkHKOVm6Meei4q5PL8apCGY0zbVBXVXp49CHtRzAu9jrk4GRlaliHVs
+	 Wbf2JbjgI9cgG8RuANmWdo/HveGVc6O+rErK++jfuANo7AKUoPcfE6+jImI2t75EPr71q
+	 rVqW6sJCMcuNgAcN6Ncyf1wBsECQFtvCmV0LV9rj2ksRL/wexgzjXvWRna4TGoO2SK9AD
+	 X/qRLv5rKEUbpH+b2/c14ii/8kQKEArWgi6dCGeAo9dY9nhspTKqRCXZyRft2NVxdLxgE
+	 HYT1NEbwsubQH+yGQUNzeUb87pyN7hQ7bPxtTJY54pTGYZc2oRWCFFus3jqDcUZzS0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793706644;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VJVYoV66ZWlCSKMq9UP4qiOpvHPf91Q6R1ZFhFW7yl4=;
-	b=sXrhxKkw//XTNksAVzO4/vgtc0VTg7tNe/zomtV4bmZv92SegbGRy8dGL5KYlQyHS5+t
-	 lbTvtNF/NQp7HcGGpsZDBQrA8nsYBXNdJQeJRSyxKMKS8kBWkBN+jr0J81gvHkn77Bdhi
-	 RKBaEZMX38Ei9FoSibOMju4uR5oWfxX3mBzHXwYi3Vf+ZpE0O60jvfzkAf7usMOQb/xpT
-	 aaFfDNWdYa2tkItnTkquHm0r032Lv+9Lp3hCTKJDGAbdzhRPsR1i95bsJ9QX+YoRa6/9Q
-	 Q4vbsahfj7x6DRm8gRmq7wik3+TERHdjDEwjS8W6PbgG50grnNDSGYx9lYkXxUvxUDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793706750;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iWyW+bGyGveMgmXtKW3uGBlbS+JH67BydEPcZUH8PVc=;
+	b=IkAEp3QfMB7BaJ6MGsCX8q3HbvRJ8oxa+eUAkl4mqhLJDaNfZbDHwgBE2JfzLXOFAQtb
+	 xXVxvP1YQ1kJBGMESQTLjqI2Uwhhxh18OlZ0YPS6QE4J7lwIJJ1ulAzP0ZEaGaEKh6FtX
+	 KpH+M/uyF34YhliQeq5gfMCjjZPEMgVAkfnbij+FZ9bftSvi8r5vMsT8f4jK09u1qPA4D
+	 YUY377JOtkCCVFT7GYgboyJrh7NSrgMKW8cAKACbd7vmdlEthSemUwc+DCl6yVkpkw2wq
+	 WGO1GLEnNoRBVMJYSpu3lQ062XsgLlAxwxLvjDTSHBAySDuX0/TXnQjLYDWtfGTwVRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mojatatu.com;
-	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=JG5+voIm;
-	arc=none smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKoyMglv;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24D56082BCE
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 11:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E24D56082BCE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28E1606A329;
+	Tue,  3 Nov 2026 11:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=JG5+voIm
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b0cf2c0785so32766197b3.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 03:50:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1793706643; x=1794311443; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VJVYoV66ZWlCSKMq9UP4qiOpvHPf91Q6R1ZFhFW7yl4=;
-        b=JG5+voIm8YTjfsd55AAV3HQ/hnlIBZ1bqkudSIHYHgBAOg/DZ7069ajknDps976l9V
-         Nzl+UX9wxtFe+DU9JmpDHzfsoeKSIl3SGUHJc+DR30NcxrorZtE0Byw5vLSRqn6p8z+5
-         7mEhZE1Wju+lm9I1bKBi7AVb75ZwKC2Y2i4YE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793706643; x=1794311443;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VJVYoV66ZWlCSKMq9UP4qiOpvHPf91Q6R1ZFhFW7yl4=;
-        b=u2vQVRjNcrr+P+UuVYriP75KgAKSFaQfO58zwt/ToYdVFgapKuuLttZ/fE1vBTZmwK
-         SVXsqdQUvRXUuwqI4/hups2oSkDQq4+0RlAAwwTrVhoRBKFnSiqy0N0/t7vTzfte7fHP
-         ntiMFO3OBK1Ot/BjccRsumFSv9y0Q8qg6TQ1mo/hg5+xLdYImUKEsmekzi3YW1NwMVk6
-         JC8wT/XI6fh+eznbjfs1X6MF6VaoS6C05qsZfs6eValawkpj0ZBN96UCGMBxdC7tKgyj
-         Kqmr4/YEi7KvmpvM1jD5PhiN0qBh4P//r5m+BxK4mH8LgdIerjzB60M3n7b+ax3wbg0v
-         T/yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+KMitCcT54Sq3vGdj3aAugylvf2vUTn8ywWD4bru7PZGk5/JQ6+x4affVKH3jQkyHeZRhvo0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96Ex0rkLBkZZdTmEKcQff+bNl/IjIdd2eBoL+gcahqUdGJdupL
-	wgJO1F7tp/Msz8huT3UtziqQ8vz2jzUudl3If7UWVlkrOCFVFrXlcWEeDHJEjUKiZg==
-X-Gm-Gg: AYBFou1xW1WjQEh0w08sWIoCuuuOcZ0y6cq3HZVGUDp/N8l76Iw+WGH7dTnySHafCiD
-	m0Kn/EjeiPu1AVUcrHP4+z7cwORnxjnljUQfgWa7rNdoyTR6eEf2cjKAexhN0CDyI6DS7n+XhTS
-	NyOWIuPT0Ni5DEeOCAaZ54+irZ8yPxexhWP6fS7bkTSPO9q6wGFJu5A/jdv58cFLhZVqcfuCm2n
-	PhpoTqFWoVew0MQCZSKhV9/L96GOgW5rvCJMoIeF944sdX1Bk8k61Kpm+VM6spp3PhrSZAA8GtO
-	Tnc3w5ezUjAF89iIvwKHlMi83tVDXgzYby38yKXkedGkI7oTnzwl8pBa5ZqbWSjcXSGJ7j4EVdt
-	4Q1CePd8xksju0Ecq/oGpM+9oyDu9Hs3K8MnReqvmdDzbb+wUTO1fvnuM/904ssoLv6GCEU0Sq/
-	uTOjEopDawPlhbnp9SmLMrrneIdt4zxOLOlwUK8F3WwmLMlW/fgaf8j56VYq554P3xfUCEHZcXX
-	jPYi5LJw1fd+cw7NFVX4f8s5DA2PxJ4yDic5z4V4B8GZr8V4F9d5i1aJ3oCuQzCG30CKtizIQjM
-	y3Q6fRG8GwU7PNXPs473lXPm/mHiKdwJUyOxgb8Phduy/SjSPJuXYzuy3A22ZeuBjzODa/MrFez
-	Z1opsdR9svTOZaAA=
-X-Received: by 2002:a05:690c:c507:b0:873:5ddf:d872 with SMTP id 00721157ae682-8b2b6749779mr76437497b3.61.1793706642822;
-        Tue, 03 Nov 2026 03:50:42 -0800 (PST)
-Received: from mbili.tail33bf8.ts.net ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b704d699sm70016857b3.5.2026.11.03.03.50.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 03:50:41 -0800 (PST)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	stable@vger.kernel.org,
-	shaos <shawnq1@163.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Tom Goff <thomas.goff@boeing.com>
-Subject: [PATCH net v3 3/4] net/sched: sch_teql: reject qdiscs from another network namespace
-Date: Tue,  3 Nov 2026 06:50:31 -0500
-Message-Id: <SER-NSBD.v3.r0.20261103064310-3@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <SER-NSBD.v3.r0.20261103064310@mojatatu.com>
-References: <SER-NSBD.v3.r0.20261103064310@mojatatu.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WKoyMglv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D621F000C1;
+	Tue,  3 Nov 2026 11:52:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793706749;
+	bh=iWyW+bGyGveMgmXtKW3uGBlbS+JH67BydEPcZUH8PVc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WKoyMglvOchDD2D5K5t6zuBBSTJeqjwBhmAjJHtuQuQrIMQn4TyLXg7poNkpL3+ur
+	 ANeQ6Oy1q5X7Z9Hax5cjkJLaLfVpFFW0seUViNrnZaNMjX+4SdA1y+aM0NpktUIJVD
+	 mdMxecqUxS3yjrc0yPHtRX2wlQV1cWukiFNUFHuKlPCXDKdj9TamuRJRpNAq0AcRjd
+	 89/+N2XmDgCzG6Vay9XiZ5vM5yI4hftxzxHh0I5h9obnt8hFx1cEo17X3xdgt5WGjZ
+	 7un3053U62ewJJuIWhJjsN1Or2XFE525Spv39c3D2y9uDWvxOmFvzl/AMlNW+67b8L
+	 j4JURwckfmKTA==
+Date: Tue, 3 Nov 2026 11:52:24 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, Chris Mason <mason@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] maple_tree: Update internal warning and bug_on
+ code
+Message-ID: <aunI9hG6Qw8IQ1Uk@gremlin>
+References: <20261103020724.2614498-1-liam@infradead.org>
+ <20261103020724.2614498-4-liam@infradead.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,93 +60,243 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103020724.2614498-4-liam@infradead.org>
 
-Reported by shaos <shawnq1@163.com> with a reproducer, which was
-reproduced and verified in our test environment.
+On Mon, Nov 02, 2026 at 09:07:24PM -0500, Liam R. Howlett (Google) wrote:
+> When CONFIG_DEBUG_MAPLE_TREE is set, call WARN_ON() once per site after
+> the custom information is dumped about the tree.  Without using the
+> kernel's WARN_ON calls, syzbot will not catch issues detected by this
+> code.  The BUG_ON variants now stop instead of dumping and continuing.
+>
+> Update the non-debug code to call WARN_ON_ONCE() as well.
+>
+> The userspace tests asserted on dump_stack() but only print on
+> WARN_ON(), so make WARN() fatal in maple-shared.h and have the maple
+> test exit with the result of maple_tree_seed().
+>
+> Cc: <stable@vger.kernel.org>
+> Reported-by: Lorenzo Stoakes <ljs@kernel.org>
+> Fixes: f0a1f866aba1 ("maple_tree: add debug BUG_ON and WARN_ON variants")
+> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
 
-The issue:
-The teql master devices are created once in the initial network
-namespace and their Qdisc_ops are global. teql_qdisc_init() takes the
-teql_master embedded in the registered sch->ops and uses it without
-checking whether the new qdisc's device lives in the same network
-namespace as the master. A qdisc created in another netns can therefore
-attach to the init-net master and change its MTU and flags.
+Thanks for doing this! This covers off my concerns with the userland testing
+changes so all LGTM and:
 
-The Fix:
-Reject a teql qdisc whose device is not in the master's network
-namespace with -EOPNOTSUPP and an extack message; same-netns teql still
-works.
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Initialize the private skb queue before any validation so every
-constructor failure path, including qdisc_create_dflt(), which resets the
-qdisc before destroying it, sees an initialized empty queue.
+> ---
+>  include/linux/maple_tree.h          | 48 ++++++++++++++---------------
+>  tools/testing/radix-tree/maple.c    | 13 +++++---
+>  tools/testing/shared/maple-shared.h | 33 ++++++++++++++++++++
+>  3 files changed, 66 insertions(+), 28 deletions(-)
+>
+> diff --git a/include/linux/maple_tree.h b/include/linux/maple_tree.h
+> index e30e57f5f3df9..3a9751c6689fc 100644
+> --- a/include/linux/maple_tree.h
+> +++ b/include/linux/maple_tree.h
+> @@ -680,7 +680,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -696,7 +696,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -713,7 +713,7 @@ void mt_cache_shrink(void);
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> +		BUG_ON(1);						\
+>  	} else {							\
+>  		atomic_inc(&maple_tree_tests_passed);			\
+>  	}								\
+> @@ -722,16 +722,16 @@ void mt_cache_shrink(void);
+>  #define MT_WARN_ON(__tree, __x)  ({					\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (__ONCE_LITE_IF(ret)) {				\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mt_dump(__tree, mt_dump_hex);				\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+> @@ -739,17 +739,17 @@ void mt_cache_shrink(void);
+>  #define MAS_WARN_ON(__mas, __x) ({					\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (__ONCE_LITE_IF(ret)) {				\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mas_dump(__mas);					\
+>  		mt_dump((__mas)->tree, mt_dump_hex);			\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+> @@ -757,18 +757,18 @@ void mt_cache_shrink(void);
+>  #define MAS_WR_WARN_ON(__wrmas, __x) ({					\
+>  	int ret = !!(__x);						\
+>  	atomic_inc(&maple_tree_tests_run);				\
+> -	if (ret) {							\
+> -		pr_info("WARN at %s:%d (%u)\n",				\
+> -		__func__, __LINE__, __x);				\
+> +	if (!ret) {							\
+> +		atomic_inc(&maple_tree_tests_passed);			\
+> +	} else if (__ONCE_LITE_IF(ret)) {				\
+> +		pr_info("WARN at %s:%d\n",				\
+> +		__func__, __LINE__);					\
+>  		mas_wr_dump(__wrmas);					\
+>  		mas_dump((__wrmas)->mas);				\
+>  		mt_dump((__wrmas)->mas->tree, mt_dump_hex);		\
+>  		pr_info("Pass: %u Run:%u\n",				\
+>  			atomic_read(&maple_tree_tests_passed),		\
+>  			atomic_read(&maple_tree_tests_run));		\
+> -		dump_stack();						\
+> -	} else {							\
+> -		atomic_inc(&maple_tree_tests_passed);			\
+> +		WARN_ON(1);						\
+>  	}								\
+>  	unlikely(ret);							\
+>  })
+> @@ -776,9 +776,9 @@ void mt_cache_shrink(void);
+>  #define MT_BUG_ON(__tree, __x)		BUG_ON(__x)
+>  #define MAS_BUG_ON(__mas, __x)		BUG_ON(__x)
+>  #define MAS_WR_BUG_ON(__mas, __x)	BUG_ON(__x)
+> -#define MT_WARN_ON(__tree, __x)		WARN_ON(__x)
+> -#define MAS_WARN_ON(__mas, __x)		WARN_ON(__x)
+> -#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON(__x)
+> +#define MT_WARN_ON(__tree, __x)		WARN_ON_ONCE(__x)
+> +#define MAS_WARN_ON(__mas, __x)		WARN_ON_ONCE(__x)
+> +#define MAS_WR_WARN_ON(__mas, __x)	WARN_ON_ONCE(__x)
+>  #endif /* CONFIG_DEBUG_MAPLE_TREE */
+>
+>  /**
+> diff --git a/tools/testing/radix-tree/maple.c b/tools/testing/radix-tree/maple.c
+> index bfe4b8626c429..846c67e20e82a 100644
+> --- a/tools/testing/radix-tree/maple.c
+> +++ b/tools/testing/radix-tree/maple.c
+> @@ -36502,22 +36502,27 @@ static void regression_tests(void)
+>  	test_spanning_store_regression();
+>  }
+>
+> -void maple_tree_tests(void)
+> +int maple_tree_tests(void)
+>  {
+> +	int ret;
+> +
+>  #if !defined(BENCH)
+>  	regression_tests();
+>  	farmer_tests();
+>  #endif
+> -	maple_tree_seed();
+> +	ret = maple_tree_seed();
+>  	maple_tree_harvest();
+> +	return ret;
+>  }
+>
+>  int __weak main(void)
+>  {
+> +	int ret;
+> +
+>  	maple_tree_init();
+> -	maple_tree_tests();
+> +	ret = maple_tree_tests();
+>  	rcu_barrier();
+>  	if (nr_allocated)
+>  		printf("nr_allocated = %d\n", nr_allocated);
+> -	return 0;
+> +	return ret ? EXIT_FAILURE : EXIT_SUCCESS;
+>  }
+> diff --git a/tools/testing/shared/maple-shared.h b/tools/testing/shared/maple-shared.h
+> index 2a1e9a8594a28..5f827709773a0 100644
+> --- a/tools/testing/shared/maple-shared.h
+> +++ b/tools/testing/shared/maple-shared.h
+> @@ -8,6 +8,7 @@
+>  #include "shared.h"
+>  #include <stdlib.h>
+>  #include <time.h>
+> +#include <assert.h>
+>  #include "linux/init.h"
+>
+>  void maple_rcu_cb(struct rcu_head *head);
+> @@ -20,5 +21,37 @@ do {                                            \
+>      call_rcu(&((_p_struct)->_memb), rcu_cb);    \
+>  } while(0);
+>
+> +/* Make WARN() fatal */
+> +#undef WARN
+> +#undef WARN_ON
+> +#undef WARN_ONCE
+> +#undef WARN_ON_ONCE
+> +#define WARN(condition, format...) ({				\
+> +	int __ret_warn_on = !!(condition);			\
+> +	if (unlikely(__ret_warn_on)) {				\
+> +		__WARN_printf(format);				\
+> +		assert(0);					\
+> +	}							\
+> +	unlikely(__ret_warn_on);				\
+> +})
+> +#define WARN_ON(condition)					\
+> +	WARN(condition, "assertion failed at %s:%d\n", __FILE__, __LINE__)
+> +#define WARN_ONCE(condition, format...)	WARN(condition, format)
+> +#define WARN_ON_ONCE(condition)		WARN_ON(condition)
+> +
+> +/* Once state for the debug macros */
+> +#ifndef __ONCE_LITE_IF
+> +#define __ONCE_LITE_IF(condition)				\
+> +	({							\
+> +		static bool __already_done;			\
+> +		bool __ret_once = false;			\
+> +								\
+> +		if ((condition) && !__already_done) {		\
+> +			__already_done = true;			\
+> +			__ret_once = true;			\
+> +		}						\
+> +		__ret_once;					\
+> +	})
+> +#endif
+>
+>  #endif /* __MAPLE_SHARED_H__ */
+> --
+> 2.47.3
+>
 
-Conditions to recreate the bug:
-CONFIG_NET_SCH_TEQL=y, CONFIG_DUMMY=y, CONFIG_USER_NS=y, CONFIG_NET_NS=y.
-As an unprivileged UID, unshare a user and network namespace, create a
-dummy device, set its MTU to 60000, and add a root teql0 qdisc:
-
-  unshare -Urn
-  ip link add dummy0 type dummy
-  ip link set dummy0 mtu 60000
-  tc qdisc add dev dummy0 root teql0
-
-The init-net teql0 device changes from MTU 1500 to 60000. A pfifo control
-on the same device leaves the MTU unchanged, and a direct MTU change on
-init-net teql0 is denied. The namespace needs CAP_NET_ADMIN; no init-net
-privilege is required. With the fix the attach fails with
-"Operation not supported" and the init-net MTU stays 1500.
-
-Fixes: 7316ae88c43d ("net_sched: make traffic control network namespace aware")
-Reported-by: shaos <shawnq1@163.com>
-Link: https://lore.kernel.org/netdev/20261022144830.67948-1-shawnq1@163.com/
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/SER-NSBD.v1.r2.20261031160050-3%40mojatatu.com
-Link: https://lore.kernel.org/netdev/179366641863.488856.17368571591466000274@kernel.org/
-Cc: stable@vger.kernel.org
-Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
-v1 -> v2: considers comments from Sashiko (nipa) on the repost2 posting:
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/SER-NSBD.v1.r2.20261031160050-3%40mojatatu.com
-
-The cross-netns check ran before the "teql can only be used as root"
-check, so every case it did not catch was answered by that check, masking
-the assertion that tc-testing case 124e makes.  The root-parent
-validation now runs first and the namespace check second; 4/4 adds a
-case that covers the namespace rejection on its own.
-
- net/sched/sch_teql.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-index 70c948a26f80..dc21cd9704a2 100644
---- a/net/sched/sch_teql.c
-+++ b/net/sched/sch_teql.c
-@@ -200,6 +200,8 @@ static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
- 	struct Qdisc *first;
- 	unsigned long flags;
- 
-+	skb_queue_head_init(&q->q);
-+
- 	if (dev->hard_header_len > m->dev->hard_header_len)
- 		return -EINVAL;
- 
-@@ -211,9 +213,12 @@ static int teql_qdisc_init(struct Qdisc *sch, struct nlattr *opt,
- 		return -EOPNOTSUPP;
- 	}
- 
--	q->m = m;
-+	if (dev_net(dev) != dev_net(m->dev)) {
-+		NL_SET_ERR_MSG_MOD(extack, "teql master is in a different network namespace");
-+		return -EOPNOTSUPP;
-+	}
- 
--	skb_queue_head_init(&q->q);
-+	q->m = m;
- 
- 	raw_spin_lock_irqsave(&m->slaves_lock, flags);
- 	first = rcu_dereference_protected(m->slaves, lockdep_is_held(&m->slaves_lock));
--- 
-2.43.0
-
+--
+Cheers, Lorenzo
