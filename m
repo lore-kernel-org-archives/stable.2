@@ -1,102 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.3
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793722381;
-	b=bedicvLqDH6LacM1nylhAEKbSxy7/16ufpR2k3r5KkeXygmRYTsr5n4ZaYdbhX2B2Fff
-	 axKhyGCoJ5G23n9yfiWmAb/xUaxVjlDroBva0gQyuZ6mqBAPfMRYdczT7Y24f+Kfb3U9F
-	 4BI3mS4zNRzkRJ6HXEHzpkGaMV0z7TgeJ9sknHE872vUz64KV0ogKJgljnIWwDtPnobha
-	 XJip9GBVyrkeU1moH9efAmiaw+1ENBlUaMssozX0/ST5ptnfirmIeRY6Q+5gkXHK9JqVz
-	 UwYi/0LOLUqEUucbNB+CiPLlCJKUT8L1j+UsH5cKbCbAqHjcBWMF3g+Ym3y9UGqxqtA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722381;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=brER5E6AiOc41/iMcDOMIPpJ+BAylAFG8gkZPPLfEHE=;
-	b=JMdIitMXyDw6R1zntNFldYcFuwzEMZXj8p8PQs/nleS2Rpkl7bS4OBS5dFJ7dLu+gIUV
-	 k0MdslygK5ex+JN/DQdCd8YRT0NCU1QopN0cGaNYiCVJu7YbpHxhxQVeFXc4x9C6oSwuG
-	 iLnt2FEvcVnWJXsrD4EfY0nVBF+M/4xMp4KKTASJTRMqBgCEBcV9FaAXtpA12fBucyabh
-	 ofxHYoJ4iOgVKfanU1ElV+qwc6SV0Pn7tXJaD53rcSDidXr0SmDSibqyls76TyNZR8dpX
-	 8kJONJ/gWDjNgYtQh+c/hJKP+mAdGkmnrVCsAN722/xiPUvygj1aFMMu+c7RuEANNMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ljfLG2xK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.3
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011003.outbound.protection.outlook.com [52.101.52.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 382A3606A32F;
-	Tue,  3 Nov 2026 16:13:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 382A3606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ljfLG2xK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kR8YtGFM1AlvOdL0hlOiwtgsh8Js+9cqsO0JTEr0J0y/CMtzkTKyq/iwajYVeVUSdti//ftCma6bitoHXFsgu5+uyTryLJOpQ4tvCc36D88O61AOHvuiM026bCDqyO65/RP95YAamNN4jW4kS23vpY5mcF3Z9kdLOxFWtuDObTA0MZG+FI/RlVlRU6xnTguRxyCVrLtSg8gzYJRxrC7oSJCsYThyNwawvG+Mi5jQQqBW0MgwQBJelTJDgwqyGQmdMssmgRNAoSj9rCZVt2L6r+S9oR9c2lSB8EOAwMPqF8NH5V9Cg87Tsgf+52s85mONQwRVexHpXefeLPPK8h3R+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=brER5E6AiOc41/iMcDOMIPpJ+BAylAFG8gkZPPLfEHE=;
- b=Gt8v4BhYboTr05cLAff62WErua4E6ljFxV7ABrjt3/Ldbmr8A0FCcTDKCg40eC21M/EJ7B3ib+qftoEEvKT/a32TMEI9ehP40wDL105b5ElNIFiMA6nGJV7Nj1d153+royro+Y6jS39KuO3bsleqQ1k5lnmMd2kYTuTCp7BGqw+BlaLbeeseK2Bt+0KKTRnqJ7WDMglCvvwJ2sbsqfM4vLKB+3oAcQfAsUOrWi4jFqfscnvrhepKdl9oyiscS+gZxpZt99eVbVD/fQCj1sdzxv+vKTDtivrldrslfIrYlU7O06ipQNkJXdX5J0gAQu7+QFFqE9oG79yysQZNhFr8+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=brER5E6AiOc41/iMcDOMIPpJ+BAylAFG8gkZPPLfEHE=;
- b=ljfLG2xKmm8B/0lW0HB/xvYXLGP2FpfQVX5jHXVgw3iffGKonzuulz0GkPrTZPbEzTjCbl3FxQh1h05mdpAkK07FrShAmqtTjSjtWzdHFNrosdWu7soOYZ9vHq69A26HHEwbQ6uBFKOaXNqKc/imz1cgFyjPb0Tb34ZuPntvT7gEdjN91+bfeAk962zc2QrteSadjM49jk68qfknFY5Ih39Z6SZb/2MCbIsV99nLLZwwlf/ETMScaEAMhIBYabzzBeV8ZIkFUNOTTn8tKP3qrtkl5vEfRhb7D8GdI3skvP+PHhFcsvoxWDM7Enm/+kdD4tPg9VL5rKJR+v+dX5Y9fQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by DS0PR12MB8478.namprd12.prod.outlook.com (2603:10b6:8:15a::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Tue, 3 Nov 2026
- 16:12:55 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 16:12:55 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org,
- kernel-team@meta.com, akpm@linux-foundation.org, surenb@google.com,
- mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
- linmiaohe@huawei.com, nao.horiguchi@gmail.com, david@kernel.org,
- ljs@kernel.org, liam@infradead.org, rppt@kernel.org, osalvador@suse.de,
- muchun.song@linux.dev, iamjoonsoo.kim@lge.com, anshuman.khandual@arm.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH 4/6] mm/page_alloc: don't undo another isolation in
- alloc_contig_range
-Date: Tue, 03 Nov 2026 11:12:52 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <CEC81354-7239-4F7F-B46F-935BFEB8930D@nvidia.com>
-In-Reply-To: <6091a4d5-ded8-423e-a806-2c4b11f21e09@kernel.org>
-References: <20261027042204.3741307-1-gourry@gourry.net>
- <20261027042204.3741307-5-gourry@gourry.net>
- <6091a4d5-ded8-423e-a806-2c4b11f21e09@kernel.org>
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
-X-MS-Reactions: disallow
-X-ClientProxiedBy: BN9PR03CA0069.namprd03.prod.outlook.com
- (2603:10b6:408:fc::14) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793722553;
+	b=hMYXVNIIk85Z8mpBRKrYlS7/Gt6Z8wpbuPGVX/bnWu1CTJsYK9QWhMZQ9JW5p9Q4Fw0z
+	 m8QzQjz63EmXQhZqP13x6s7EO8o8O+Imec2o46tGnKIfLwGFUC4RMsJfOn7K3l2tRzEHa
+	 Hx18Ltu8nqpkce7luYmVxl5JhQSqwUtAICTnDZjS+JHwTW2dh3y4ZdxM/OIhP6iULYfWz
+	 L4lB2wxS+afWvtAHVqPzFCQpuVj+/MFCTgXTLqH0WLY+0jnk9aVd0KcRcIoZ+AnTrLiFu
+	 leyRyBIwN9irgFrPDGBoToJQ9/EDRIH4YmQdcVQ0tloVrf6Lu3XDqYVuCRu2Z0kl5/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722553;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=fBOjexThyqX9vtjFuxgIxqfaXQ1kHhMRsue68ZUwUxM=;
+	b=2XGPso0cjJPkC3Bslm0Hm7r5THYwOUe6Kw5pMWRBbAsjGEwTJTBNKmd2VQrfkOEDeCDg
+	 38pTY4X5yqv3sJdH6xrVHP1b6oq9ApzzgcGY2PUZFGLeH/CMWnWSfLGRBd/4ga/n3kDkb
+	 SJXri3H90/6zTgG1aR0KqNk8v/wafbiLHsz85guMh+4xCef4zNlXu+gvCqbeJkS4HHzm3
+	 9kPiHoZF0/3NNNkWhEXDKDKdaZ8IKU1UJ1nXSA6pg0BCWFe8f8F695FMucbW7TiTSqkkv
+	 NVoweIijRd2IJQxfBu9WENJ5wzmdS7jRcByRV7k3PVtLeRV+MjqHgqZXeVPWaQJQFtQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C23C606A337;
+	Tue,  3 Nov 2026 16:15:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C23C606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=fBOjexThyq
+	X9vtjFuxgIxqfaXQ1kHhMRsue68ZUwUxM=; b=Mk0X8iK7Q/bzmKdIlSyyDSaCww
+	Fg6vO8MBm5MCKVjJD6la264JbwDjaYsrulWX+zLSWvQ/D0kLb/bMMZ5Riv+nreLM
+	zJr7KvrdmHzzg79oGPd5sMbbzc3f5Eu2WgR/Zsaku/xsvluSYmDMrZFg3ESIKHEl
+	9MDUTVd63SEoDZkmU=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.43])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkC2_gOtCOpqMa8fAQ--.34019S2;
+	Wed, 04 Nov 2026 00:15:42 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v4] media: gspca: don't complete buffers before streaming has started
+Date: Wed,  4 Nov 2026 00:15:40 +0800
+Message-Id: <20261103161540.23947-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,116 +60,261 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DS0PR12MB8478:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4656f0a4-0907-4233-4cb5-08df39c55158
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|7416014|1800799024|366016|4143699003|11063799006|56012099006|261009223027099003|261022105027099003|261102123227099003|261021121427099003|261028144727099003|261026140227099003|261026121527099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	2Q/Q6OTyUnRzQE+Wc+vK90DL4wlQPZg8t5y48ZTS+F4od05U8+HlWNa/j12dG03n6hbdCxB4yj4ktBUCgEFtAgz6I6IdNZEPtT27mdc4CYkqWK0KNe6vnOYetDT1gUBwF5ErNdwrvR7oQTlfDPEA5dAjSoTZzznDJCFgY4t68rvIcaehtb3UcoKHrfmMKKw8AIfux/epl+yR2VQl1wLcUyoZyblS9PiNuMCNCjLsK/a0278hrhEjqKZ+RftpwXyKNhxvLgfz2BqpHLGEzdIcO61oKmEAAdf0ZRjnkrLfIQXYwfB9M+hNzYqg5TwH4vTrgSoA6XPRKIbbocAAn2Gk0rPsn+SeSJPsUKQsboBMexPuYV4+Q7pyJLv/AaXH/8Vkn5kdX7l6T1USNLv6zffNLhvSV9m2p9oPGeop3+R68cORHaNJOK0b8ZjFy4dHiFV1tl0Ct44s1NsdbNT2JUIwapxqhVyc7SyMwfaztF2vtSO4bd5PgHlvcqZkHdd/Ig96p8mT2VeekyWmAOlDyUI0WRj2tOfXY3c9WpYoQp/pXWlfC3PcEDWZ7cpd7y0vT/9XkBXpjBGEXJoS5gDDlNnh6+GujF4/XO9oKyVWyjGxXWElxjpPt7qhE7DTSOjuqG6HzokuK5/x1m5CGM15bUQ3FkTqbqVtx3iQ4Tv34kZisI4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(4143699003)(11063799006)(56012099006)(261009223027099003)(261022105027099003)(261102123227099003)(261021121427099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bRDdnvkIm3P9iRNO2GcLAcWuFayHfgmYtI9V9ThTUTaJay8A4NNDKp69yeLM?=
- =?us-ascii?Q?VMrbNFxENH7Y4LYKmSXyOZBLGIFHqtpOVwuUu9MscSzhESKkVSqHstgekl89?=
- =?us-ascii?Q?9h80Uzk1jmx0Q0upbTqmGN+a+LWN8xesflIeGifPDSIS5a228WceiEiZikC1?=
- =?us-ascii?Q?hgQuR2anUHhgDr1EkR8xDDzLLUrj8OgbMVO8OaD7Mh1Z8Jvbq5XZkTgOLcmp?=
- =?us-ascii?Q?wv53Uiw/aspjouuzqf/4x0Z7aMIc/vXKk+NQOcgP5m6tbhMbL446gXVSqLyi?=
- =?us-ascii?Q?GAX0p00iAoO1k2j42wHhoUuPVUJHN4IIMVa8u2vLkwnMqAM6W5kYFvDcwhtK?=
- =?us-ascii?Q?kwiPP1HjUBNrEMAJdlTc4ByToqKtjSa2DsdjTueC5976bkKAGHOspRCMKmra?=
- =?us-ascii?Q?Y6zRiEZfpjzni/GEoVMXk2WPGhYBhNPc8FDeGi8xmtjf6SN5vak6wGVXIRhk?=
- =?us-ascii?Q?+EzqkKWvFJHwnXWBFg6lkrtwxU+vnFha8o7jueAx4sIkDbyezhMYUJZmk6eS?=
- =?us-ascii?Q?p44UEMU2ADJuIwFOT/BcRu7yuKx8uJglU6cLzGO7LDCEBi/pHE2wf2eU6GXC?=
- =?us-ascii?Q?iDAIKQCgpqIMghwUfYFXB2nr9yKjTtm0qStg7nFCAIWgktHQhDhfOzSdoPVl?=
- =?us-ascii?Q?SOYxCD5TxkYrbL8oJ5CpjLlsiOL2m1yJL5Yv3RnIbYZMkCSl18eXMQHSzeHB?=
- =?us-ascii?Q?5jC5NIeCbX6wYJNZFwqndlW0AAbsTopO6KvdMrLie0HqOG1STo2A9edsriNn?=
- =?us-ascii?Q?o1dIQGnQHebunYy2v2r7CBAXAtRqbqXPdA9eY4v7iEAsl79xeJVlyCpWmGdI?=
- =?us-ascii?Q?OQQOmWcJXl0FnrsjWPkuvLrhcWD8Rht1PtGd4hm0BwWSl6zVam37mmvlgiGh?=
- =?us-ascii?Q?7kgMvCHN6hxiJWFYu6gtpmHSTeQqlkeeEGkHCYJLu6ig/sVoAwlnn0Qwgwfq?=
- =?us-ascii?Q?TR2fyY59BTfftceEzGy5JcXcc2UtJh0sUJxrdaxSW4q+tmebEPNjJaORj4M5?=
- =?us-ascii?Q?5WFz7kptU2KqI/7uoKnFSoPEoYowsMV3JAwV9Q0vkJo9HgGp/6avZQW1o4EK?=
- =?us-ascii?Q?f+8Mq+QK9SGplEn5W1/dcqWBGe1VShRN8PqNSBr/mXJ0QPp+fWxJlSecQLk4?=
- =?us-ascii?Q?31l0a2FaGOm1XijZRw0LgCONboNE2hJPVC433vnE1R69NQhN/J5uY6Hh4qIb?=
- =?us-ascii?Q?nbt8JgSx6Huxf9T9BW4UeFC/owfqUf/ZfanwkBO2OaTtR+Z2GLs9JuU5ReGG?=
- =?us-ascii?Q?cYjz6KWGkEdJPSupNqY0zwDM5B/LPNW+ZpvBxRCPlREkIyHoOsYevfErSpHH?=
- =?us-ascii?Q?IP/pB5zkgXhBj9aupgcw34Flhjbt2C2kVZ0HaQGgFPSyp7V+p9CWnfLk86hA?=
- =?us-ascii?Q?bdoj1DtYHxqfBEsoWXYO0ngTdcVPSgqRjLLXzy+U/bv1B8hdvlJF7UC4Npy3?=
- =?us-ascii?Q?3nWhCnT5IYDx9pE/AhZxAFtoMGDHuSv/O0gysSDkwL51BRUwszXriKaSdvY0?=
- =?us-ascii?Q?hiWaCofXWF5wK+pdQvoKiZVVnukq2ocbQ74y3Yxfd2EZj2oLmbpuSZWZYco0?=
- =?us-ascii?Q?FHxo2sr9KyXx4j/zGhjBCCfnlNpOogevPr9KQKmIBh5mCmcBqD68Ton1b8RF?=
- =?us-ascii?Q?KPb9kTUbhbF0SxQaG75j0yK2w8CaXBK8gz/P+D7i0wQzQ2Sf0ZiIJVnTRXyd?=
- =?us-ascii?Q?/1s7935IkiorZnu2dJ5m7up8rYoU2gVwzct36dSZL2R10WWr?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4656f0a4-0907-4233-4cb5-08df39c55158
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 16:12:54.8050
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AuZ8oyWeWDYNkq05fnUFwrpDEuvDc1YRaPCNFNxfN9fJsz6OSAmzxAxCPCcaRfO9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8478
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkC2_gOtCOpqMa8fAQ--.34019S2
+X-Coremail-Antispam: 1UD129KBjvJXoWfJrWxAF1xtryrAr18uFW3ZFb_yoWDAF4UpF
+	Z3Kay5tayDJr1kCr4UXw1DGF1fua1kJ3y7CrWSkwn3Ar4UXF98ZFyFqry8Gr47ArZFvw4r
+	Jw1UGrWUCws7XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9m14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
+	rcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_JwCF04k20xvY0x0EwIxGrwCFx2
+	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUzT5dUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2rp+0MMQQAAs4
 
-On 3 Nov 2026, at 10:12, Vlastimil Babka (SUSE) wrote:
+gspca enables the data transfers before it knows whether start_streaming()
+will succeed: gspca_init_transfer() sets gspca_dev->streaming before the
+URBs are submitted, so an URB that has already been submitted can complete
+and gspca_frame_add() can hand its buffer to videobuf2 while the remaining
+URBs are still being submitted.
 
-> On 10/27/26 05:22, Gregory Price (Meta) wrote:
->> An alloc_contig_range() that overlaps a block going offline can leave
->> the offline spinning until it gets a signal, holding the device hotplu=
-g
->> lock.  When isolation fails, alloc_contig_frozen_range() undoes it ove=
-r
->> the whole range, clearing the offline's MIGRATE_ISOLATE too:
->>
->>   CPU 1 (offline_pages)               CPU 2 (alloc_contig_range)
->>   start_isolate_page_range()
->>     blocks are MIGRATE_ISOLATE
->>                                       start_isolate_page_range()
->>                                         -EBUSY on CPU 1's blocks
->>                                       undo_isolate_page_range()
->>                                         blocks are MIGRATE_MOVABLE
->>   test_pages_isolated()
->>     never succeeds again
->>
->> start_isolate_page_range() fails only on a block someone else isolated=
-,
->> after undoing its own, so this undo only ever clears another caller's.=
+When one of those submissions fails, gspca_start_streaming() returns the
+buffers that are still queued to vb2 in QUEUED state, but the buffer that
+has already been completed is no longer on the driver's queue, and
+vb2_buffer_done() cannot take it back (it only accepts active buffers).
+vb2_start_streaming() then warns because the driver left a buffer on the
+done list although it failed to start:
 
->> Return directly, as before alloc_contig_range() went pageblock granula=
-r.
->>
->> With offline_pages() parked after isolating a DIMM block and a 1G
->> hugetlb allocation made over it, the offline on base still loops 30s
->> later in 4 of 4 runs:
->>
->>   offline_pages+0x5b2/0x1570
->>   memory_subsys_offline+0x17e/0x470
->>   device_offline+0x250/0x340
->>   state_store+0x88/0x110
->>
->> With this patch the allocation still fails, and the offline completes =
-in
->> 3 of 3 runs.
->>
->> Fixes: b2c9e2fbba32 ("mm: make alloc_contig_range work at pageblock gr=
-anularity")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
->
-> I've applied this single patch to page_alloc/for-next-fixes and will dr=
-op
-> the version from Josef [1]. Also transferred Zi's R-b since it's the sa=
-me
-> code change (plus comment).
->
-> [1]
-> https://lore.kernel.org/all/20261027-pgalloc-ai-hotfixes-v1-1-9c7d1aca8=
-01e@kernel.org/
+ ------------[ cut here ]------------
+ WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1821 at vb2_start_streaming+0x312/0x680
+ ...
+ Call Trace:
+  <TASK>
+  vb2_core_streamon+0x285/0x470
+  __vb2_init_fileio+0xdc1/0x1120
+  __vb2_perform_fileio+0xa7a/0x15e0
+  vb2_fop_read+0x219/0x3e0
+  v4l2_read+0x1fc/0x320
+  vfs_read+0x1d9/0x980
+  ksys_read+0x111/0x210
+ ...
+ gspca_main: set alt 0 err -19
+ gspca_main: usb_submit_urb alt 1 err -2
 
-Thanks.
+This was observed on a camera whose USB configuration was changed from
+userspace while a read() was starting the stream: the endpoint is removed,
+so usb_submit_urb() fails with -ENOENT, and the driver is unbound.
 
-Best Regards,
-Yan, Zi
+Do not hand a buffer to videobuf2 before the transfers are set up.  A frame
+that completes earlier is moved from the queue of free buffers to a pending
+list, and is given to videobuf2 only once gspca_init_transfer() reports
+success.  A failing start_streaming() therefore always leaves the done list
+empty, while the frame is not lost either: the subdrivers that restart
+their transfer from the frame completion callback (sq930x, se401) keep
+working when the very first frame completes inside that window.  When the
+start fails, the pending frames are put back on the driver's queue and
+gspca_start_streaming() returns them in QUEUED state with the others.
+
+The frame has to be taken out of the queue of free buffers: it is that
+queue's first entry, so the next frame would take the same buffer and
+overwrite the completed one, which would then never reach videobuf2.
+
+The state of the frame being received is now also reset when a lower
+alternate setting is retried, so that the packets of the retried transfer
+cannot be appended to a frame left over from the previous one.
+
+A driver side flag is needed because videobuf2 sets q->streaming before
+calling start_streaming() when VIDIOC_STREAMON comes in with fewer buffers
+queued than min_queued_buffers, and start_streaming() is then called later
+from vb2_core_qbuf(), with the first URBs possibly already completed.  The
+flag is cleared when gspca_init_transfer() starts rather than when the
+stream is stopped: gspca_suspend() does not go through gspca_stream_off(),
+and gspca_resume() calls gspca_init_transfer() directly.
+
+Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+Changes in v4:
+- Move the frames that complete before the transfers are set up to a separate
+  pending list.  Leaving them in the queue of free buffers, as v3 did, did
+  not protect them: the completed frame was still that queue's first entry,
+  so the next FIRST_PACKET took the same buffer and overwrote the frame,
+  which was then never handed to videobuf2.  The subdrivers that send
+  FIRST_PACKET right after LAST_PACKET (etoms, ov519, konica, nw80x) hit
+  that on every start.
+- Put the pending frames back on the queue in gspca_return_all_buffers(), so
+  a failed start still returns every buffer to videobuf2.
+ drivers/media/usb/gspca/gspca.c | 58 ++++++++++++++++++++++++++++++---
+ drivers/media/usb/gspca/gspca.h |  2 ++
+ 2 files changed, 55 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+index 594d73e50b9f..1232f5d10bae 100644
+--- a/drivers/media/usb/gspca/gspca.c
++++ b/drivers/media/usb/gspca/gspca.c
+@@ -392,7 +392,7 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
+ 	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
+ 
+ 	if (packet_type == FIRST_PACKET) {
+-		/* if there is no queued buffer, discard the whole frame */
++		/* If there is no queued buffer, discard the whole frame */
+ 		if (!buf) {
+ 			gspca_dev->last_packet_type = DISCARD_PACKET;
+ 			gspca_dev->sequence++;
+@@ -439,11 +439,10 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
+ 	 * next first packet, wake up the application and advance
+ 	 * in the queue */
+ 	if (packet_type == LAST_PACKET) {
++		bool ready;
++
+ 		if (gspca_dev->image_len > gspca_dev->pixfmt.sizeimage)
+ 			gspca_dev->image_len = gspca_dev->pixfmt.sizeimage;
+-		spin_lock_irqsave(&gspca_dev->qlock, flags);
+-		list_del(&buf->list);
+-		spin_unlock_irqrestore(&gspca_dev->qlock, flags);
+ 		buf->vb.vb2_buf.timestamp = ktime_get_ns();
+ 		vb2_set_plane_payload(&buf->vb.vb2_buf, 0,
+ 				      gspca_dev->image_len);
+@@ -451,7 +450,25 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
+ 		buf->vb.field = V4L2_FIELD_NONE;
+ 		gspca_dbg(gspca_dev, D_FRAM, "frame complete len:%d\n",
+ 			  gspca_dev->image_len);
+-		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++		/*
++		 * The frame can complete before gspca_init_transfer() has set
++		 * up all the transfers: the first URB can complete while the
++		 * others are still being submitted, and a submission can then
++		 * fail.  Videobuf2 requires that start_streaming() leaves its
++		 * done list empty in that case, and a completed buffer cannot
++		 * be taken back, so the frame is only released to videobuf2
++		 * once the transfers are known to be set up.  Until then it is
++		 * parked on the pending list, out of reach of the next frame.
++		 */
++		spin_lock_irqsave(&gspca_dev->qlock, flags);
++		ready = gspca_dev->streaming_ready;
++		if (ready)
++			list_del(&buf->list);
++		else
++			list_move_tail(&buf->list, &gspca_dev->pending);
++		spin_unlock_irqrestore(&gspca_dev->qlock, flags);
++		if (ready)
++			vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
+ 		gspca_dev->image = NULL;
+ 		gspca_dev->image_len = 0;
+ 	}
+@@ -732,6 +749,7 @@ static int create_urbs(struct gspca_dev *gspca_dev,
+ static void gspca_stream_off(struct gspca_dev *gspca_dev)
+ {
+ 	gspca_dev->streaming = false;
++	gspca_dev->streaming_ready = false;
+ 	gspca_dev->usb_err = 0;
+ 	if (gspca_dev->sd_desc->stopN)
+ 		gspca_dev->sd_desc->stopN(gspca_dev);
+@@ -745,6 +763,26 @@ static void gspca_stream_off(struct gspca_dev *gspca_dev)
+ 	gspca_dbg(gspca_dev, D_STREAM, "stream off OK\n");
+ }
+ 
++/*
++ * The transfers are set up: from now on the frames are handed to videobuf2
++ * as soon as they are complete.  Release the ones that completed while the
++ * URBs were being submitted, they could not be completed earlier because
++ * start_streaming() could still have failed.
++ */
++static void gspca_flush_pending_frames(struct gspca_dev *gspca_dev)
++{
++	struct gspca_buffer *buf, *node;
++	unsigned long flags;
++
++	spin_lock_irqsave(&gspca_dev->qlock, flags);
++	gspca_dev->streaming_ready = true;
++	list_for_each_entry_safe(buf, node, &gspca_dev->pending, list) {
++		list_del(&buf->list);
++		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++	}
++	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
++}
++
+ /*
+  * start the USB transfer
+  */
+@@ -760,6 +798,7 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
+ 	gspca_dev->image = NULL;
+ 	gspca_dev->image_len = 0;
+ 	gspca_dev->last_packet_type = DISCARD_PACKET;
++	gspca_dev->streaming_ready = false;
+ 
+ 	gspca_dev->usb_err = 0;
+ 
+@@ -870,6 +909,10 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
+ 		/* the bandwidth is not wide enough
+ 		 * negotiate or try a lower alternate setting */
+ retry:
++		/* the frame of the previous transfer is lost */
++		gspca_dev->image = NULL;
++		gspca_dev->image_len = 0;
++		gspca_dev->last_packet_type = DISCARD_PACKET;
+ 		gspca_err(gspca_dev, "alt %d - bandwidth not wide enough, trying again\n",
+ 			  alt);
+ 		msleep(20);	/* wait for kill complete */
+@@ -887,6 +930,8 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
+ 		}
+ 	}
+ out:
++	if (ret >= 0)
++		gspca_flush_pending_frames(gspca_dev);
+ 	gspca_input_create_urb(gspca_dev);
+ 	return ret;
+ }
+@@ -1338,6 +1383,8 @@ static void gspca_return_all_buffers(struct gspca_dev *gspca_dev,
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&gspca_dev->qlock, flags);
++	/* the frames that never reached videobuf2 are still queued */
++	list_splice_init(&gspca_dev->pending, &gspca_dev->buf_list);
+ 	list_for_each_entry_safe(buf, node, &gspca_dev->buf_list, list) {
+ 		vb2_buffer_done(&buf->vb.vb2_buf, state);
+ 		list_del(&buf->list);
+@@ -1518,6 +1565,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
+ 	gspca_dev->vdev.queue = q;
+ 
+ 	INIT_LIST_HEAD(&gspca_dev->buf_list);
++	INIT_LIST_HEAD(&gspca_dev->pending);
+ 	spin_lock_init(&gspca_dev->qlock);
+ 
+ 	/* configure the subdriver and initialize the USB device */
+diff --git a/drivers/media/usb/gspca/gspca.h b/drivers/media/usb/gspca/gspca.h
+index a6554d5e9e1a..93f304787cd4 100644
+--- a/drivers/media/usb/gspca/gspca.h
++++ b/drivers/media/usb/gspca/gspca.h
+@@ -187,6 +187,7 @@ struct gspca_dev {
+ 	__u8 last_packet_type;
+ 	__s8 empty_packet;		/* if (-1) don't check empty packets */
+ 	bool streaming;
++	bool streaming_ready;		/* buffers can be completed */
+ 
+ 	__u8 curr_mode;			/* current camera mode */
+ 	struct v4l2_pix_format pixfmt;	/* current mode parameters */
+@@ -196,6 +197,7 @@ struct gspca_dev {
+ 
+ 	spinlock_t qlock;
+ 	struct list_head buf_list;
++	struct list_head pending;	/* completed, not given to videobuf2 yet */
+ 
+ 	wait_queue_head_t wq;		/* wait queue */
+ 	struct mutex usb_lock;		/* usb exchange protection */
+-- 
+2.34.1
+
