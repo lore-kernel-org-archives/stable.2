@@ -1,47 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702396;
-	b=ZaDLAy29W6raOJbw+it014qFMapx4/jls27pRZNxbR3Ugpg3aL2dULsavKAwxUrvT0os
-	 huYEJRD5CUqzPJHnvPPjI/OnbFvZ8Qbv8QQloJubQl6orBwfQ9DnNRAzluKHSh7htAOeb
-	 YzDxBWbNDVKxTLbihXEKOb/SPJvBnFKDSf+XhxbKzdb88kpm9FP9C9x65q1qH6xOmUPn0
-	 2GL8Xk6xsBCnfVpH4x63rfd+V98pQZy5Hnd0RmPnTy7mVrp5u3NU5TFsSWpv43a8tpwcq
-	 5NPz9XlcC3caIt/tXkRvVXpxR5dOUP+UnR9+fw2uiysmKHFrIYQcn6H5Kj0MrPXD/Vw==
+	t=1793702454;
+	b=d8OdQXWvHNHfwM48dU872RFUh9TTw3mz+GKBbB9VVpz0R4f9bgNzdfPkWnLDu6iI6nTG
+	 Jwk6ot7u0h5vWuNZaCv/RLeWG5Uv+skHIqehejoePwGtRUaBstSToCL0HU9Ngql9s+InL
+	 UNIwkqG8NGOWHLqX29vCv6jCAQZvL76YLzH4eZDW1s0+4b2n/o4LE8Te0u3dtqJcUt2K9
+	 CXdLZbKsxQHudPf3J/8rZeOj068+MmM2OHqKns8WfBXCogo90m/f5QHdONW7btygdsjAi
+	 MhKgs/r5MK8IDit4EtcLzD4PPp8jLbgzhRRxiRJ0ohub0Y9j6KbASBTMcsGF4a1YzoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702396;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=cfHt9usOTpMxzTBQMtoIT6JRw7NlORXJmRCK2v0hpLI=;
-	b=ekK1g+7TczwdxgPELkJpmA3ZidBxpqv67gClMtVMYHr6+OYRPqsdqSr5jdEQ6Zaacrrj
-	 HquHm01n5v94NzqExGnq5szZ0MLnt0Zaar/xm97Jls9hxjjPfB4a1ZtAJiKwaTdikBxrV
-	 MT1zA7PY/iZwnfQNnx8sEuWn5x02ROi7C035bdEo+17lL5vzv3mJSRLbXrWKSEaR3K/6I
-	 QEWjW9kD966fUmDCP/FOnMryleHikBoR50c0vZGKL9Y2plB+a14d5wOKl+MgfzNumVImV
-	 +MZSj8QDFmNU3dxE957yQG1St+1tOdPzqwPXH9P+ilcWyaZ9tykvqZ2xam4injGGgjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702454;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IYxQu6rRV+yeU/8fjYNJ89G0AYUb0oOfgKRpklW/3u8=;
+	b=1qpjf3ZyohQZB2ReBg2k1cVMjcGDKqMhfOsDine9SDYvt3QRhrFMdyyRlet4hO8UBwP/
+	 2fi1ZQbffA8cWmw2cTMjN95oJ+sRXiqMrVlqdsWNDpIkC+uPTohkn11PRQ+1OEgTICkdC
+	 W3WuhPn8Zg9ifUD9dXBHub1FW4Vo0+OE5g7UBJaRxpZForQeE+8YhX/+oO+5qBbThKEWa
+	 zDKSF6NGTlVEihYbZIljF2FaosoetDSoV8RlomVTvUed2O/5fAPus/YJS+Ub7hKL3dr4l
+	 G6lqEyHAgFIY1ilBy59Ws9PCaCu4aueUhuuue9lpvfGfvnP2SRjrSTLkxysfvrfaTbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AV4rbzDF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a1IsFgao;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0FC606C5E2;
-	Tue,  3 Nov 2026 10:39:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4E5606A831;
+	Tue,  3 Nov 2026 10:40:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AV4rbzDF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0BD1F000C1;
-	Tue,  3 Nov 2026 10:39:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a1IsFgao
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA731F00A02;
+	Tue,  3 Nov 2026 10:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702396;
-	bh=cfHt9usOTpMxzTBQMtoIT6JRw7NlORXJmRCK2v0hpLI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AV4rbzDFg5xXV5EDHj4z8P/dx5R9Nfij2ZuuQU74DrXMNaAXyvc6vXsQPO4nTg4NG
-	 UGV3X9KzcvmsYt/YX7dTsW4g+DYnIPfJv6JOL8kbEpl5UCAYaVLjCCs2Fyo1v/ue3a
-	 cOTx0MeJ8vEtpImTp3kx7ceqHs7TJTQ0kBUwa2+kgviZ71VfFvMstdfZoooJEGyNhK
-	 WEHOuJTDIICzEmesDvtfR65q56vRXMYFya/MokJm9Z+2VENEiGv13V8MhktHK/yrw5
-	 0EJjnWz0UDMUUkvrXts6EWe9aM7nKqkYaSgWf542CIBEXhrjQ73vKdSoXVz/8JCesb
-	 yY/mj3iEXNJSw==
-Message-ID: <b38f9573-4674-4766-9a16-799888f865e9@kernel.org>
-Date: Tue, 3 Nov 2026 11:39:50 +0100
+	s=k20260515; t=1793702453;
+	bh=IYxQu6rRV+yeU/8fjYNJ89G0AYUb0oOfgKRpklW/3u8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a1IsFgaocJ/+veS0AT+Uu3h9gCVAOdbP71qRvxqY7UZ8nac3q+Ww5xCIyhw/GCNQF
+	 Wwg3uWGybrOov4FmLlXoSW8tWuw2fQkGMsCuniXx62TdZnvhQIf0PXnezqXlfVwgIR
+	 bRdAoET2uKSQGl/pQeCMNU2MUmjZX/m+j+gUXvrIcXxNJRYy/kOxV3B8nC2ejkMTf4
+	 LY7U7ezH5A6RVtwR27NTf5zO5Kh+L0r3h+OARgRi1zEWFrfTXqC5c9UtDn4Vgob9VS
+	 xROax+kPZlGbYQoT/UMxACOgOiz453rEbzuUGuLeDE/+/N0+a72sQ0PBSJ1azIF6Nj
+	 vLTy+bEflIwSw==
+Date: Tue, 3 Nov 2026 11:40:50 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, UNGLinuxDriver@microchip.com, 
+	stable@vger.kernel.org, Bryan Whitehead <bryan.whitehead@microchip.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH] net: lan743x: disconnect the PHY when PTP setup fails
+Message-ID: <20261103-offbeat-polar-starling-3aaa06@quoll>
+References: <20261103102852.1340530-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,86 +59,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] net: stmmac: drop the runtime PM reference on
- probe failure
-To: Wentao Liang <vulab@iscas.ac.cn>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261103102914.1341121-1-vulab@iscas.ac.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261103102914.1341121-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261103102852.1340530-1-vulab@iscas.ac.cn>
 
-On 03/11/2026 11:29, Wentao Liang wrote:
-> __stmmac_dvr_probe() takes a runtime PM reference with
-> pm_runtime_get_noresume() and enables runtime PM before registering the
-> MDIO bus.  The reference is only dropped on the success path, so a
-> failure of the MDIO, PCS, phylink, devlink or netdev registration leaves
-> the usage counter elevated.  The device is never bound in that case, so
-> stmmac_dvr_remove() never runs to release it.
+
+On Tue, 03 Nov 2026 10:28:52 +0000, Wentao Liang wrote:
+> lan743x_netdev_open() connects the PHY before opening PTP, but if
+> lan743x_ptp_open() fails it jumps to close_mac, which skips
+> lan743x_phylink_disconnect(). The reference taken by
+> phylink_connect_phy() is then never released, and the PHY stays
+> attached to the phylink instance.
 > 
-> Drop the reference and disable runtime PM again on the common error path.
-> Only disable runtime PM if this driver enabled it, because PCI devices
-> already have it enabled by the PCI core.
+> Add a close_phylink label in front of the phylink disconnect, as the
+> pre-phylink conversion code did with close_phy, and use it on the
+> lan743x_ptp_open() failure path.
 > 
-> Fixes: 5ec55823438e ("net: stmmac: add clocks management for gmac driver")
+> Fixes: a5f199a8d8a0 ("net: lan743x: Migrate phylib to phylink")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ethernet/microchip/lan743x_main.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
 
-Implement comments you received, instead of resending.
+
+
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
+
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
+
+3. Your bot does not even bother running checkpatch, right?
+
+4. Nothing of this was reproduced nor tested.
+
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
 
 Best regards,
 Krzysztof
+
+
+
+
