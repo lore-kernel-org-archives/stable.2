@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704198;
-	b=AtPSeNmbi1xdA+zA22VUTWdbomxfBaH1/l14z/zMO0oLm/u7uoOhZiRuRAwgzpmZibuG
-	 N5eK/8D5+IoXLi47ymmfJvL6zCMiR+O6jl4wkd8EAl5MU5XBJxhRIgaUXMCXddmW3UKdN
-	 XBsv7ur1yI2OwIy0kIUmYmCXsNjWnu8mT8wBDQxSjvHWbm9hePt4v/hXnVCwO5pJgx6Kc
-	 zDYUfz8zjT4ifOu7mF17t7VFFdeOklLlJV5VtyhCrid7mWesxBpUQKHIu3/ZQtenrAEms
-	 ZZc+Jk2nRz27TdxwZOx9gA6EmxmpUaikF9hEFWOF+OpoOSdEL8zaiNSj2o0wgrdU/bg==
+	t=1793704206;
+	b=m8q9L5mgVqpcmLZuSQ5oKiQTJzIQ1hS7Iit9oi25AGBtTaIc7IBn8vrwNshPZdGtKQ9A
+	 gL+Tl3wzdQJp+ErLc2Q46GvS2iA3zDTU0m9uT2vAcjVdcH+nVnMLliSo+mQW7wcJF3INN
+	 /2y2theFVgqUKxthdbTpUfLU/aXVCMGb2GxObKedwrkeVBaG6gN4LQ8+QoyGC9rZqos99
+	 YDmXpVJCMRvYn+v3PgBd2FMlU5CpdZk1M1UsZz9TZS7D70BdS5QPu7V9lEHsBcbIn8+TZ
+	 8l1avE7HR3S3ylnTb4r8uWfJKgv7COr0M5uVFk8HpGAVTWLqvCbGbEBwxZkqNNJf+Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704198;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704206;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aDcn00x3HCJLq7a35uucPjttQqk01CWu981mURwTv6E=;
-	b=prgQBUgYXZPKBLEzEPpD7V0W4Ykn/0ymJxiwtZL0qvzRC7wNPWMxFR1o1Xrm6VAWb3Ut
-	 YcM63PWHFTgy6xBvrXnbkZ+B7zF2oF20jvrPCdK8vxP7VdGyB/JiVk8kPUN9xLURWftkC
-	 BB9DFakfKt1IyU12pnh+tucTLcJX214jK8X8YPhdTXq/fcoU4x+seHS29heqnwrvPNuIx
-	 jG5MJBbkoQkSp4aymv6M+g8CWhkhfQ3Y4sB+1vSSL8zdcmzSG8urPYMm41z1tg85W7PZ3
-	 BQAx9r2oadcrh/hh/RJf+cZSsh+6NLjiHkGL4QjCyX81I5lUSsq4AGFJ0TJNc3iKBVQ==
+	bh=dmCkHOV816s90fZumZgoW1aA+6XuqGyb3DqgAN4i7us=;
+	b=WTb7Sg8OBrg70t0NHoxZWGVPvSPngYVirm4v6JTJPMwHEDPCN9KssZpMLn2CF0j0EHL6
+	 rGDmGxJ8TgZDRDQtwXiWFp81nPw2ceEq6rvN6uvxRxFihrzYvJ2/y/9/r1tEs3tICJ3qv
+	 jx9Mg48dz43DWhF9BzrbpDEpSCsTAtJcBo960l8vJh/RIlvJSr8qp0PpFxRcQLQUG9wHK
+	 BMSKsw6nGYSBTd//k3tq4Ssq3WoPx2DgUvRs2e6xuZZ4hA06KHTDA9Xh0npap55RaGpKb
+	 bxbvOj9KCY0QOdRXZJSMQbG5Pm/fA1F9wy82NVcGtG2Z11Dp8muyk3+tUGXWdmvCWMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C00YBWCH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRvlmla3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E768606B11D;
-	Tue,  3 Nov 2026 11:09:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44894606BA6A;
+	Tue,  3 Nov 2026 11:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C00YBWCH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0D4B1F00A1B;
-	Tue,  3 Nov 2026 11:09:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WRvlmla3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE941F0093A;
+	Tue,  3 Nov 2026 11:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704197;
-	bh=aDcn00x3HCJLq7a35uucPjttQqk01CWu981mURwTv6E=;
+	s=k20260515; t=1793704206;
+	bh=dmCkHOV816s90fZumZgoW1aA+6XuqGyb3DqgAN4i7us=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C00YBWCHcRN3w3WEARmmeZzRMqYKfN2blSHKYeslzgwEw0yZLUe21YW8gnYBKtPD9
-	 QUpjz3u5gDeH8iXWogZ/IFeAE5J/MiV26MHSAwj31SHS3M9a83zcqG5ROK5glr0RHX
-	 UbjpqoF1Gi1t+12qvMrSsbB5PelzHX0aKrzBEyoSWI+aWxixhGgQGoczSlb0JKfNAf
-	 iQ36pikIOsR0MwwG26gdRJiuXypquG+8h3+m+kUuPmUt3KJ5GZK0eFb9ELxR8i6k0N
-	 fiZ+HbxVqOsKbiD7n22LiD7dmfdv5sMGey7igMmigL1DjUirmthDTvneAWsgPcVhiq
-	 JGgvCDtb116/g==
-Date: Tue, 3 Nov 2026 12:09:54 +0100
+	b=WRvlmla3zRoX5UXLTdHUHRWq8TY8FpNCzJ6AeUW0WO003l71vJYkvFPS8cRg6EeGQ
+	 IYDZgmB5+/ONmO6GRLQ45BIGzM0AtUzWHD0gLeN+YAXhA4wgowBG7ocfK92J3mcHmx
+	 e4rdp8iBkI4YO2mWT8GRFsFCl4JlyPbBrvPycJYX4wrcm3IV+y6yqIhHMVie55RWW+
+	 a3PWUukMRvAV/WHDsvpzJv6i5wddXGhJwJkWV7ky6pWxq2Yly7025MC0K9EnNG0WUo
+	 pTViXFLffe6Rg4yirRyZHTCzDKzQRijUUPxt0QbI44Mtc4vnBBjcqVZN6kDanlxGnt
+	 6ahJFDEjoVzMw==
+Date: Tue, 3 Nov 2026 12:10:03 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, stable@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI/IOV: drop PF reference if max VF bus computation
- fails
-Message-ID: <20261103-easygoing-imported-pudu-ce7e77@quoll>
-References: <20261103104239.1373721-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: pmc_atom: drop the PCI device reference
+ after setup
+Message-ID: <20261103-perfect-tungsten-junglefowl-ded7fd@quoll>
+References: <20261103105545.1394600-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,26 +59,25 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104239.1373721-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103105545.1394600-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:39 +0000, Wentao Liang wrote:
-> sriov_init() takes a reference on the PF found on the bus and stores it
-> in iov->dev.  The reference is normally released by sriov_release()
-> through sriov_disable().  But if compute_max_vf_buses() fails, the
-> error path clears dev->sriov and frees the iov without dropping that
-> reference, so the PF device refcount is leaked once per failed SR-IOV
-> initialisation.
+On Tue, 03 Nov 2026 10:55:45 +0000, Wentao Liang wrote:
+> for_each_pci_dev() walks the bus using pci_get_device(), which takes a
+> reference on every device it returns.  pmc_atom_init() returns as soon
+> as the PMC device has been matched, without dropping that reference, so
+> the pci_dev is never released.
 > 
-> Release the PF reference on that path before freeing the iov.
+> Save the setup result, release the reference and then return the saved
+> value.
 > 
-> Fixes: ea9a8854161d ("PCI: Set SR-IOV NumVFs to zero after enumeration")
+> Fixes: 93e5eadd1f6e ("x86/platform: New Intel Atom SOC power management controller driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/pci/iov.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/platform/x86/pmc_atom.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
 > 
 
 Multiple things here:
