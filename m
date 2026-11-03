@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698093;
-	b=dkzbZwSES/GIhjUcm+tNyS2rWZ/pII50T5LsJ576tfRT557AHbNHKN+3OP8+ksRT7tDQ
-	 3juvah14LWmTGWnTo4H+A5qGi2cz2NBzsMMMelv3JcMyb3yENrRV3d5z9SRxwYchy/4m9
-	 rEiRrmr7LvCCpoYxE8So2zaOs3K6yFRL7VovbkUJKfeFh9uGE7RjzzSacWHKkMNeckoE5
-	 1IY+c2YWJnLTJBg29JDBYwB55hucxVUjrmTh9pK6Gvp48AqsVyZvFrcO+MMqo+s7sY3ha
-	 W9CtmtLRO1E4R/aOULYk4XGDIH0X7JfxqgefBw5U6FLP7ryeOla6woH2M/BGqNinwUg==
+	t=1793698100;
+	b=WWFxbvEAsptycYmUjjk6zliSEIckoNbxZi4um0xdYes1ht2tILqfgdpa6kF036HHglGc
+	 MQ166ZOIcui9HyjN08o3pIEDxTf6GVe/YgklKskqAdkqqwQtahdLUxvL/8WYTg6kswJqd
+	 lGMDk0uQqKT7U1TjI5E3prMPtEX9lLZqYj6expbA+HGrdfBJgAfvHnMoBdGC17cONy6M1
+	 I4pxjmZB+j/44AzZOLMcyyUgRDo4g4ZiTd4Gp/b8jef/7LMw06gZLHhgsIzENbnl5lTSr
+	 52CpI9s4Yhkt5Pjr4F6KgOWA5jWEbLnLbDIdjDQhwRdWvYHcuV1xRReBEHACA4E2l9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698100;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Q+bB5gmDGLtqPIJ6y2fMdQitLLU/dGXPtbUy8Xl3+Hk=;
-	b=S3aiz4Kwp/jR3fZDymYCi+1DDDY3t3YKfkvMQ7g9M93kTNOEE1vRcTsc4hRKYQOzYAD1
-	 xpA46o/snsz4jrwnMvK62aBvQ6yifdYYi8JmHB/9xe+rVRcb+lNnEFGWbEdRYbtzi+Dpm
-	 Il7BtuqqntCcLuOM1ZSL7VjKRd2V0Njn+cxMGlSvj8Wz3k10QsePCwQwaAIBsFJgBoArf
-	 KNiZcLP9Iynk5hzkqRIG8phrswPGyVVYDuKM9XQP57QoWb0osKMqowzgS2IcASJtzziDM
-	 4GZP8eieXQy+cFvaCsuMdpV+xvyWwsTF98i6UqZDkqsZDe96OjvChX8vsfHCe3HSfLw==
+	bh=ij4pfawAIRW/R6iIROir5Bacygd6lNvKMKgQO8Yp+JI=;
+	b=gVbWIczYcZXq7lo74QzP+Hktz2wBTJ+mP2MaLxR1P7Sh5YO8pQw+Owwf1dwN16zXOIW6
+	 vFHMi/cXbWBvbRt28RSqqPaqGRiPeepFbXkXBTnaxjByv/D2J1di029N4PGxDhz0ZHTdY
+	 svGdBYQfJOWtcHj8RmkUwjdcH1lytpg5J1GLUmrgE7oZjwyID0A3Ekurl27WiothI60wj
+	 fCIFmRriCq18z8HgzNf4ZcY1qop5Bmt7vsjdPTkTxLiuHsKWrdWCsXxmV57gbBWduzCjA
+	 sQw0M0H25RtayBuWmN744VPLLSnKFCX4igL+9muW6/yxBxhIca9LmGY7fZcYgJ/Vy0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZV3WDYp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYPHNe7Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796E5606A32D;
-	Tue,  3 Nov 2026 09:28:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B540C606A326;
+	Tue,  3 Nov 2026 09:28:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZV3WDYp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BD01F0093A;
-	Tue,  3 Nov 2026 09:28:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYPHNe7Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8E1A1F0093A;
+	Tue,  3 Nov 2026 09:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793698093;
-	bh=Q+bB5gmDGLtqPIJ6y2fMdQitLLU/dGXPtbUy8Xl3+Hk=;
+	s=k20260515; t=1793698099;
+	bh=ij4pfawAIRW/R6iIROir5Bacygd6lNvKMKgQO8Yp+JI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EZV3WDYplktXctFCMYyT618gYz0Xu7ZJHjQx0nxAh44OtIaJZBovtV50QHEST8B3s
-	 cURX+VAt5OzRXmfmjqKSr9otL2KIcmmwEkYpR1rbw+Pc0dc4aJsL5YSa5NRTjIiBH6
-	 I968Q/LKV5H8tdsJPJ/J0gyKgewMPtS8RXk4D/BDKsyO3bj+GIA4KKI67i6SkKCBla
-	 PbvTNuacY4v9lEMYCu/eVXMUDbQlWK+5G2XLZi/rWlXgP8hKHQWXG3jaGyQgzCnUwO
-	 gGZtzKVXNMP0OQzi9tIDylUzuoNCgfQGonHkJWqAolwYRUp3cQ2GKYTzsLAaEUS1A+
-	 ZAf/m/74x54Kw==
-Date: Tue, 3 Nov 2026 10:28:09 +0100
+	b=WYPHNe7ZvTdgRYfHSEy1NJjaWvcZ26yHXR7t3Ip8hyIA+z1hJDA5hSUxMESCv71ic
+	 RqgihqSPEfMPxw+ABjgT0UHoiHG/8G6G6+RcqqraijEdY13LinVuLaUQJjsjMUcC+m
+	 zhJb70LE+ieUwrENJXkrBTrl/4BaOWMwTsIO+syrsCATQDVBx3iFqU9seqolHGboPj
+	 ehG4Ayy6etBetGZzSwdiv2WmaGd3qIheguXyFKNnE8d5b9GGWl7kX45YHZvHKd52Bh
+	 63Tem4Ce/o/HNevQnQpVNjHmpUDRnxVQnGQ81hFMPCDivhWSE6LR6t4grHUV5zJJW8
+	 yNu2kV57ouFKw==
+Date: Tue, 3 Nov 2026 10:28:17 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, tursulin@ursulin.net, 
-	rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, intel-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, stable@vger.kernel.org, jani.nikula@linux.intel.com
-Subject: Re: [PATCH] drm/i915/selftests: Unpin the context in the LRC garbage
- test
-Message-ID: <20261103-resourceful-bullfinch-of-strength-5a54aa@quoll>
-References: <20261103080434.1127682-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, dri-devel@lists.freedesktop.org, 
+	joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, rodrigo.vivi@intel.com
+Subject: Re: [PATCH] drm/i915/selftests: Balance batch VMA pins in the
+ preemption gang test
+Message-ID: <20261103-slick-wapiti-of-snow-e9dc0d@quoll>
+References: <20261103080030.1124149-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,26 +60,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103080434.1127682-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103080030.1124149-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:04:34 +0000, Wentao Liang wrote:
-> garbage() explicitly pins the context to corrupt its register state, but
-> only releases that pin when request creation fails. On success, its caller
-> waits for the request and drops the context reference without unpinning.
-> The request's own context pin does not account for this extra pin.
+On Tue, 03 Nov 2026 08:00:30 +0000, Wentao Liang wrote:
+> create_gang() pins each batch VMA before mapping and submitting it. The
+> mapping and request allocation error paths drop the object without
+> unpinning the VMA. Later errors drop the request references but also leave
+> the pin behind. On success, live_preempt_gang() releases the batch
+> reference after waiting for each request, again without unpinning it.
 > 
-> Release the explicit pin immediately after creating the request, on both
-> success and failure. A successful request already holds the context pin
-> it needs until retirement, as in the other context selftests.
+> Unpin on every error after a successful pin. Keep the batch pinned while
+> the gang is in use, and unpin it when the caller releases each batch.
+> This preserves the fixed addresses used by the semaphore chain while
+> balancing the pin before the final object reference is dropped.
 > 
-> Fixes: 24eba7a9981d ("drm/i915/selftests: Check recovery from corrupted LRC")
+> Fixes: 2d19a71ce68f ("drm/i915/selftests: Exercise long preemption chains")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/gpu/drm/i915/gt/selftest_lrc.c | 11 +++--------
->  1 file changed, 3 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/i915/gt/selftest_execlists.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
 
 
