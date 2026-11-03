@@ -1,101 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793746143;
-	b=3u+NHYG2yqOpSz+rfH2pDT/LB3nyRLlx/EBq9Hx1mjx3tblvvr/gQ07l7UCAxjF3YpNZ
-	 fJgXReCUK3S1sQDFtrgEirtSvCbZ92edS2VU9stYix6+vXx/dXq/e14jqahvgSWR0lJH7
-	 aePTPLN6dFc2aPTprh761sqk5vzxepvgPCm3xi8MQsl0XH6E+mAuZbgN4s7RBAtmhyYpE
-	 +vkmSwrFJ63F/Cr8W0jLjvpp5wLAO6Gf3VtJ/eUxaVZjkLCl2/V0Ex3wjAX7sebkfLWtw
-	 jU4xH8bvhOF1p4qfTPb/JFceGH48kT3qQbGai5jwgKd0jMiu7bf0PA3xVQj5cxFNcAA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793746143;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793746303;
+	b=VOvsXrV5PbESDHnQMwdwe0i1zHQCToxyvvPsz86odBoWjHfUHDf95zIfesW7KzVL17X0
+	 XLlwY13q9WDZV4OljVzgWWZEmh/N1jvj52bs97LbtEZdzopNbW0j+e6JIdlaW7nmSULeQ
+	 oV4eCYi3cgvAV2T0IJthQvgdxKgQoBAkR/EcPhxGuwemnk8hSYkbK/lyqGrVzRz0IcdtB
+	 pUtsCeMcWsPQYRx59/6ftdLkPr48oJxI++EwxriOv7LjgKxdll3aMTzfuf4YDgtUlaB59
+	 pJjxhowWy8UAHtPVXcMvtVTJ14LUi7uZm1Dy1HBRZ6NLT63soO/nJY9VinwsdMZYmfQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793746303;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=KjsO2xbI1+nan0ew9bz1EKvcLMTzPy170fWQbRpKB9M=;
-	b=I9yFnwbDLc8jQPTCezJ2M4MnzniIkbwOhoncCX07M6pwI9749bw74uWGR6MIIB8fCQ67
-	 +vKEehc7WpJWxpAj88w9H1b44xJvz17DHn1FehAqlVUURJ6LILDRZU+snijjNedfhSaKC
-	 1BsDcCxOZv7fho1e0aZzpvbUJaCbBdsT2syylerx4sSBugfChUIy2e0mtX/nzoNbbXvU8
-	 HR8ii47qaf3nuwyobH27MxTwXYQjb7bXWLEbcgBAnvlVgw5/CRsfWfsSsPyEi+kCGFdEs
-	 6fXZmrLv88PYqstr/7AZ3VvPjdDtxWBL1gaKahSXhNgsvucOAVjSeH2OW+OaXrF66Xw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GfempdcGORpTCoUvUOwY2J8rsww1WHgZWB8tQ8C/C8s=;
+	b=4C0nSrA/T8RNh+xBnkEWlGmF+rW5k0d+XpsaUVikkqagV0TujIa1e1Xiw8KQLe25Fnrc
+	 8qQb9BWnBqMpUYb3ZFCyYfIYUMUmHTAMfSPJ3yLHhTUoDvEzxVRjGMTSEya8fkhiqzDI+
+	 R5EsRARDI9liJkI69SW1C5KvEMiaicyElyzPR7SbqBrqYP08sNbL2GI4w8e1AAu0sYplG
+	 mF/2eXf1lVytfYYL5qJ1ksvfI/CMO3cqT/7LvfSOcodK7O2h3vwjboETBOWuOoBHucOqS
+	 PCTEY1gkAFuXLPC/Q8dRcl/XHU0Zq2mnxMmnPLh/4p4dtY2pntgr1lpISbQ9oU+ruUQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CZXpytd8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.173
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K5OoO+mP;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0E9606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF0E9606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3A4606A328
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:51:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD3A4606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CZXpytd8
-Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8ab37e44643so966067b3.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 14:49:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793746142; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qhJR+PLHrHlgJ5xm7JBRUiH+t28qyXWWsZIb3s4J/xKZJKoH2tPW7nrA1R4sFf1ANq
-         Ch4+IhX8JqD1Ji7LKOxzG6IryqJ3BrjJnxC2+ApJgHVay4H41UGDxtIoKHhuyyOj9IE6
-         dbpKRtVM3j/tjsaVz4xSPmHS21V9WtIrObECIL9CJTpQcp7c/rrQlx2NYVRpfsn+X7iG
-         H2Ak/nZZ6dr0gL4UppcTc6sdBZZrn/kx6mTrI2S0JUDxl/xok27KACUJ2SafHlfAd7gu
-         oJgbckCV9mGHVwBFPMiqcuP+f3cLHEzLQqX31CnDHEM4lUm1XMdiDolcyKCjPTO9TcFD
-         hCMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=KjsO2xbI1+nan0ew9bz1EKvcLMTzPy170fWQbRpKB9M=;
-        fh=BAtAgqNrw/wl9UROBF7x9eXdOqfZK4XwWAXjUeR+P2Q=;
-        b=e6MXi9m8mCf7PvGM8TvkZWflQBKwR34t9QWoa4hy51iJW1SxfAuJ4q4E6otMiOircl
-         iu6Kcnq3ptUEtR6oQkxI27ZHwXVmBlpLCQMCMd6gD0INsjLaPNxmcbTLGL1pJgFstRvb
-         HglwYi3OyNvifinY6iZwkw2P5mgaV+eL4GHZUpA9cwww8RCso1dx6UD75kAIKfFlKXk1
-         RtYB/eK6r98Woy5utRtdpKjZw5nZ4l5WdFg2C7lyVo+QgxVBv+7000S3sDMF/nLFMtYH
-         kwug9MrSv/vLnkOc4QpHanHhE+rQ7xTirUapcr9cQxw994DN/+Ai2o4TaYm3gUVbsI+w
-         GbbQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K5OoO+mP
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cdab8873d9dso53699a12.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 14:51:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793746142; x=1794350942; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KjsO2xbI1+nan0ew9bz1EKvcLMTzPy170fWQbRpKB9M=;
-        b=CZXpytd82N+GyyopJIgKJr2BdzKJ/NFxXhBg1NBKxHgCJwb4CGKc4PqEBOzKqRuX54
-         LKDmdM9OEQQ2C/zoX7/gHYbCueFW6ANoy4cK4O2vXwCfWfmpnGz0C2bcs0xXAEfmsY9+
-         +2rGrC3aL9wBy+1QFWzgBlBAXhUdEzYAAw6opZH8WSxD7cudjVkq+/RomwHbjl9JK1jg
-         kRH32f+YDo3jdJQMgJ2ntNv+E/ME2cZnKLFLRivYq3QMgwN3T5qZBj7ZiBItzZ/Kst6H
-         zntLBvINH7WK+LpY3TNnSWtTIFSMB+7DGJXT7Sn1gtDaHq0O8jiDCx5/XyssfhMp0rAn
-         gc+Q==
+        d=gmail.com; s=20260707; t=1793746302; x=1794351102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GfempdcGORpTCoUvUOwY2J8rsww1WHgZWB8tQ8C/C8s=;
+        b=K5OoO+mPeQIgJ0QvWq0G5ftnB/gmSZRUeQyCu9SwbTEeL0zej/U2UClWjE3au2JQrZ
+         RYqK4LUYzsrc0Fcikmk9sLQAChktZRhTFmZl01JeLkB7nMSI1vWVeYxWgFVkmCgcr+j2
+         ghymHACfpqROaD/jSkvgCz7Do3q/VNL551svFkodhcbtl/epNp4azusQUA0PeQMG8smK
+         1r7AkvOrbesT1sydLZOOnBrxZDyZvwc5J4MeOs6NFp266gNh1ZyTDJrZKLY8Ljcvd9fR
+         sdlWfqwj1J557RMqX3rUX0hRWVT4jHWdVVkI9PSkvZu2+yoU5PDflDm6JiJiIBtuYet0
+         eFuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793746142; x=1794350942;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KjsO2xbI1+nan0ew9bz1EKvcLMTzPy170fWQbRpKB9M=;
-        b=tTHbXJO72glnZAT4qP4As2qYJ2Bmu65kOE1gRYuy5zgAqnuzLef5H7ujNAjl2lXRda
-         5seEijTPYBhFGFjYX8972Yyg3GsaG1Upr3g60fxp+i3zUM1E9prvxTe+pbZZWpyAOFwB
-         hxX9qjDxB5tXpGAibJPZyTCBdIOyMOn+LYld0GJfFbW9wi1L23cUnZ8PXQz7tZ2g5b3U
-         bJyHIcWifF8PX8QZ9mCWEVaXNmFxVs1epDfodvaDlNzmLuBVMw500QI8gW5ywzXeV1iR
-         UtnO7hCr9L87L/C9H/fiFJOib9TPe6uZyRjJvROuo8XPKeeuZ8Rn9RNnt44+xTKyjXgY
-         MVeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWH6GtxxiBy7bk8sjfggZmkiPt0LgKrLDls210aKQQsPbDIONGAxonFj5CGBsyqJ44986GN54=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kwCGH2q02bAkVmT1xwOqF0FeJpnKzZmcDbVcymwF5comafxWK
-	z0bQtg6w03VCsxAAa9MK9HtIVvNw34fKrANXy7bMfyLGdpraUwrTi1xHYwhyC3U1vMZ+eXVMP5S
-	cG7NhJI7jKCAxOxm+nHD3PAVborZeug0=
-X-Gm-Gg: AYBFou36t5BqqMR9sW7qX5XtKr3YjGJ+wGgSSv3sxjnRADjzxymzXqc6sOX4t14o9mm
-	2gR6jzut/Y6CsZtjbBfEWcbHq0AbGxo0drDp41amQ80atjWzJh/PFwHhzuFOZYtd266WYwqQbf2
-	zncsWlSaYwQ2zIVUm3PmlHBm610tAj9FPX32GyvFgt/r1P32HAO/qdlEgYEwEHVh8UsHjpd3QE6
-	7MsMZcmn1HoX7ucOMSkJjRvB3NSoowRWsa5K39V6LoL2Zo8J4j00NIEH9I8Jh1jwhHodYLzFpUx
-	/fqkZgSv8HAmtp9GidkpunK3i1CUSra5WnIq9QzjPkKspuzVaEj6QgAW8iP9m5aZligu2Jao2MA
-	j+e4EotrQilkMo2CX3FiIbzUwKsa8lR3DxeDg7sQeW/rtjuJNrPCVRq+brqiHsvSjXvcLyXpMxK
-	v0fqnkncU3pnADJs0BfZme3jUShPQm5biNKFBV/j0448fewZxlgzkTwCs/IP8wDu3zwj2vsiK4K
-	N3Yv/Rd
-X-Received: by 2002:a05:690c:f93:b0:89f:4c20:73ca with SMTP id
- 00721157ae682-8b2b671f0f7mr94194447b3.46.1793746141623; Tue, 03 Nov 2026
- 14:49:01 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793746302; x=1794351102;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GfempdcGORpTCoUvUOwY2J8rsww1WHgZWB8tQ8C/C8s=;
+        b=FUw1Zzz1uubLHFj3oOVTtLb+v/yH8scFqDb/DERXhtHG4xj8UnmcdCdSOYAZg2QlbF
+         3kZI0j6Ruz77elKdSN0Rbx8LDRAE/epi/t4g9hSdjaqbQgtZXzVSZ961WRRNpwt1LtOc
+         j4HkHxR6Uoom5mS/73qQ9pQIPxNUMbd5/w0rWO5L6XMxOnY8xSyhq7DTLhClOMNC/aPR
+         52XvLF4k4z3aAfQCeuFj1p/nge67ygKM3VjUd8gCZWjOaAF+uMBvLQJ1GgAsYkv4oi7O
+         8FJQNqdIZSafTkDRITgYsQduXFUZNky4rB1DLWNaaIRHtLoCoEjR0q2TmQGReHFP5GgD
+         6AFA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkGBoIhKHwKl6Q4z3kxqrtMQTG9JVeMq0sqdpFLWL6CNXNfD200Gfr952cR8EHy44l9oMjxRc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8KVLBfPc3HHji4YhpnbBMISAhnybhA+VhhwjkSV60SFGiLoWz
+	3heApesqk33/CIZYFjSoFpL438DmXJ63mIn9huKreX8OwWBYA8pb7Db3
+X-Gm-Gg: AYBFou2OjmhNlfAhN/N1Gv+vz70muR9Jxd22hNuOM6NW+DmFi4J9pB182Q0w2EmN4vi
+	N/9AgsL9LHmutK/s5A4bkYIPnp/zVKuBlQJJgaNdnbaasuJseAMtmzSsFJjvqCoMv/30NUO54HY
+	wNArcJ1VC1pEwlwt23gaRqRn3jVbqCvekZXWa7SjzBEeKDgcZiQOBl3iu3uTyg76ijTeTHO0vNi
+	utbk9x5mTaIPW6zzjohVnGnqBYlXvIUdXq5MpRwpNlOM/HRWAu4cLDMqYbBa3kvgKIMD3xGy60B
+	H+hDIyZdoLHqbIODRI9ILP2PLgn+YEkyLZ++v4A01gs7ZnrM3jmvikBAErXuAvV1DutWG5Hwt+B
+	amM0b/gF0jPpREe+fSG2iafi4TWmEPFi3iHOOiRwwenGZP13qOCEdni0v4B61FVjwUjzjHJU3wY
+	Rld5SZBjkmI7/ZV/pSvoSD9YSVE27lxCEiEYhe6V4HnagLR0olEo/YpUfyzgKTG4x1fqegUyM9h
+	E1oz8kkwjCVWgppKSNSnZZPn1/n4W6G93dEqoiDckdaCgisP2U2SGTFxQHhnIPXv45nYZzpzaGj
+	xTdaUa9xW0QLzBpJV0bTPO2yiXlOwv/nN+Y0vhBEtJCIfbTpqE8tIL4yTz7Exu6ILiheaoQamyt
+	SL8oR5/v0uAmAQDazgTMAAN06HBjtolBd7Xyarep45cuAogf8lk9w2QIcIOcwk5OvEowvZ23uMI
+	+ApjKWcebGDZ9u2FV8n+fqmo0mm0p9VOZqIHi3Qoa/Kg7Yy0I0Rv6v9jn8NOa2OxRdyg==
+X-Received: by 2002:a17:90b:17d1:b0:3b0:9941:8d41 with SMTP id 98e67ed59e1d1-3b09941917emr50243a91.28.1793746301998;
+        Tue, 03 Nov 2026 14:51:41 -0800 (PST)
+Received: from josephctchan-96c-1t.c.googlers.com.com (95.100.125.34.bc.googleusercontent.com. [34.125.100.95])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b09449bff2sm913217a91.9.2026.11.03.14.51.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 14:51:41 -0800 (PST)
+From: Joseph CT Chan <jctchan@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Joseph CT Chan <josephctchan@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] spi: spi-ti-qspi: finalize message on transfer error
+Date: Tue,  3 Nov 2026 22:51:15 +0000
+Message-ID: <20261103225116.3624270-2-jctchan@gmail.com>
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+In-Reply-To: <20261103225116.3624270-1-jctchan@gmail.com>
+References: <20261103225116.3624270-1-jctchan@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,49 +102,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102201410.55089-1-sidchintamaneni@gmail.com>
- <2026-11-03-1-daily-reply-0011-re-smb-busy-dentry-dio@kernel.org>
- <CAE5sdEi4GOXeVDPEUk-RR7bjE8z=25f+waQNedMQd6VCum3TrQ@mail.gmail.com> <7bd9007e90f271821114f617fda2c1ee@manguebit.org>
-In-Reply-To: <7bd9007e90f271821114f617fda2c1ee@manguebit.org>
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Date: Tue, 3 Nov 2026 14:48:50 -0800
-X-Gm-Features: AclHuK9F4A_hrgFEV-uV0gf-kgj7qpX4biDiSW1s2drGmroNJJVSplQURRyCVRY
-Message-ID: <CAE5sdEhCOuK=UK1y-25rRZwj_Ub0Bd8jETKm-VuiYtceGAJv-A@mail.gmail.com>
-Subject: Re: [PATCH 6.6.y] smb: client: fix busy dentry warning on unmount
- after DIO
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org, gregkh@linuxfoundation.org, 
-	wozizhi@huawei.com, lsahlber@redhat.com, sprasad@microsoft.com, 
-	tom@talpey.com, glaming@microsoft.com, linux-cifs@vger.kernel.org, 
-	apais@microsoft.com, rlmenge@gmail.com, hargar@linux.microsoft.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 3 Nov 2026 at 14:30, Paulo Alcantara <pc@manguebit.org> wrote:
->
-> Siddharth Chintamaneni <sidchintamaneni@gmail.com> writes:
->
-> > On Tue, 3 Nov 2026 at 06:52, Sasha Levin <sashal@kernel.org> wrote:
-> >>
-> >> > commit 75f5c412fa867efa0bf9b646bffe0d912109e84a upstream.
-> >> >
-> >> > Kernel 6.6 predates the netfs I/O request conversion and instead splits
-> >> > I/O across three reference-counted structures that each hold a
-> >> > cifsFileInfo reference
-> >>
-> >> This is a hand-written 6.6 adaptation of 75f5c412fa86 ("smb: client: fix busy
-> >> dentry warning on unmount after DIO") rather than a cherry-pick, so I need an
-> >> ack from a cifs maintainer (Steve French or Paulo Alcantara) on the list before
-> >> queueing it. 6.1 also has 340cea84f691 and the same bug; please send a 6.1
-> >> variant too.
-> >>
+From: Joseph CT Chan <josephctchan@google.com>
 
-Don't mean to dodge your request. I'll work on it.
+When ti_qspi_start_transfer_one() hits an error in qspi_transfer_msg(),
+such as a transfer timeout (-ETIMEDOUT), it unlocks qspi->list_lock and
+returns ret directly without writing QSPI_INVAL to QSPI_SPI_CMD_REG,
+setting m->status, or calling spi_finalize_current_message(host).
+Because the message is never finalized, spi_sync() or the spi_async()
+callback waits forever on queued transfers. If spi_sync() took the
+no-queue path, it returns -EINPROGRESS instead of the error, and the
+message's optimize state is never released. The frame is also left
+open, because the QSPI_INVAL write that ends it is skipped.
 
-> >
-> > CC'ing Paulo Alcantara's correct email for review. Thanks!
->
-> LGTM.
->
-> Acked-by: Paulo Alcantara <pc@manguebit.org>
+Set status to the transfer error and leave the transfer loop, so the
+error goes through the existing tail: unlock list_lock, write
+QSPI_INVAL, set m->status, and finalize the message. This fixes both
+paths, and the caller now gets the error from qspi_transfer_msg()
+instead of -EINVAL or -EINPROGRESS.
 
-Thanks!
+Tested at runtime with KUnit (spi_ti_qspi, ti_qspi_test, added later in
+this series) by injecting a QSPI_SPI_STATUS_REG WC poll timeout
+(-ETIMEDOUT) via logic_iomem emulated MMIO on ARCH=um.
+
+Developed with help from the Claude and Gemini AI assistants.
+
+Fixes: 505a14954e2d ("spi/qspi: Add qspi flash controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph CT Chan <josephctchan@google.com>
+---
+ drivers/spi/spi-ti-qspi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/spi/spi-ti-qspi.c b/drivers/spi/spi-ti-qspi.c
+index 091a8b8842f5..7360ee6bd122 100644
+--- a/drivers/spi/spi-ti-qspi.c
++++ b/drivers/spi/spi-ti-qspi.c
+@@ -708,8 +708,8 @@ static int ti_qspi_start_transfer_one(struct spi_controller *host,
+ 		ret = qspi_transfer_msg(qspi, t, transfer_len_words * wlen);
+ 		if (ret) {
+ 			dev_dbg(qspi->dev, "transfer message failed\n");
+-			mutex_unlock(&qspi->list_lock);
+-			return -EINVAL;
++			status = ret;
++			break;
+ 		}
+ 
+ 		m->actual_length += transfer_len_words * wlen;
+-- 
+2.56.0.385.gac671c819a-goog
+
