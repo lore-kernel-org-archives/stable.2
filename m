@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701302;
-	b=ksFKqCNAgk667oUNiAzW/ySjjOafG2dUyE+UeuOboir55BpxL54mOAXYMLTl0Jg1ImaI
-	 xFyVlhTVhyODXVbwbEoO40Xb8/EHIVfWejjOG1tKv5AiKTaw4o+kNA0//yKNJOvkgCvn5
-	 7fNjn/VMLDf7RMM0w6YUAXLJnT9Z9jUrW4GOk2eoCB0KGPaELNdGwawztjd5uaBV/NptX
-	 uD+Kb3Fx3GNOPIyEVV1FfkvMP3YlWrSh5Z/u+EEe6llmfC4FM6UqsCOEDxAyz8CZSa42R
-	 3T+kou/ckqFU+yxkGhuUtCvc37fsq72aQ0BC+NeCVfKrc2zIRenpS2KrigfUauYZIiA==
+	t=1793701304;
+	b=CqGh//JZT+/l0iaMDv5kjRK5tapQVnSCEN7BhBP1+wwpaRmiaNtMZEf8AGvb+drBuyFg
+	 D84TWhpQJD/KLunNgvFAd8fTRCYt0bJ2th4RZk+NaPt7ILA1VFbD/EyQlEQoVSgTbnhP9
+	 BhJJCrZ+WiDMYj0KcY/I7nwX9SZU7DDH3qDbMAmtjxkMPw4Z6m/Uwz/GtM86y7PTYkhuj
+	 PZfrv9ADXG/+CPDpprllgCdiKDaJGFjgmDTjlFbnulp5Nkx7qB+eV6vbtwSHsnu5kPwDy
+	 fySZi26wFlyMRPfvRKqqrRj4Tq++/6Gc6ZrcDyoRbr9yV/EFXLpIq/P69pUsY3aZJxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701302;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701304;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9+tKFqQ8br4EZRrOH8C7Z/EwI3rT1cUcTvVRZ8p7rZo=;
-	b=lEH06LOA8/Tfnuqx08W/i4NEaOM50BdBSyLk08fvtFd5UgRDPDXDch6Ds7JG8cejW6+x
-	 hSzIIZg5uzMGjcuMd7sUUARlosEichIFbyBjHy4/L3giSVp/sorZfWX08ex38/iqQibRo
-	 YCe9BzzPDYwyFmuOZCWvOViU2dx/cQ6XIHtJNIqP3bH8eOWwGj+TVn9X3421zZw5dL+MI
-	 gAREaKj19T8ZnAoEofG45B91gfFMnLG879cfzPZgTxVeiyo2yZSpu1428zScUVeykn4y9
-	 UoJQ7o3gCudmqZyE7+piYkL4c7G4HtazBod/3wzKpUcdzsw3P/HfA00kS/sVZeTR8uA==
+	bh=P5e+ytIKcoUsIsPOyEYP3E5+hUdO6IEwyqwbEPjdGsc=;
+	b=t07+7azGynaQE/DQcnB61PmUoL22pjFXJA4Q5qj+Q4NqzlB2cU2ml60upidHYYxjN/54
+	 AoO/0u6tQ0oX7MRvioUsw7uvxGnDwqGQ1NywqRcZZShcV/kmJwcrxVCoQqnpSKywLIVww
+	 duo9Wzb7Z1CAJR7Hg8o1NYopULsSPL7sXHLZbsXpDWq4deH6afgUd82sbmobE5Mbu5P22
+	 X8i2yBJYsR74cxOTZyfI+bEHu0L6HvmR8rTspjHzwPV66rHK91siTqjS9xTiEnTQiyoDk
+	 V1gat+Ti2zLr0QZmqzgggVbtIF4QMbHBmFdAyTD7FPj0pxZfhThwQ9eRRK8Q0W1s23Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=J3LgUqrO;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Wa/OwZCr";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032CC606C575
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8271606C57B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=J3LgUqrO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E021F0093A;
-	Tue,  3 Nov 2026 10:21:41 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Wa/OwZCr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB3F1F000C1;
+	Tue,  3 Nov 2026 10:21:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701301;
-	bh=9+tKFqQ8br4EZRrOH8C7Z/EwI3rT1cUcTvVRZ8p7rZo=;
+	s=korg; t=1793701303;
+	bh=P5e+ytIKcoUsIsPOyEYP3E5+hUdO6IEwyqwbEPjdGsc=;
 	h=Subject:To:Cc:From:Date;
-	b=J3LgUqrOxFtWQtgBvIxoxTFOsfkXmn7CKXW8rW6084r2YfIqEI//iyHk+mKZUkYCl
-	 cqgvKrM6KhmCX5+cAwNW5jg6ZXAivQiTYTLatZf4+HU+2bPqoPBsA0lcc+xG9DNAjc
-	 ESafZKAiT/XL54hqb0UhCk/9YkM4isZwq4mTY4+Y=
-Subject: FAILED: patch "[PATCH] ksmbd: fix named stream write and EOF handling" failed to apply to 6.6-stable tree
+	b=Wa/OwZCrjnz2qN1OB+nmkjrkR2YK5uLoPJ9AwcMuZSNhq0xRHRA/iAQjyjTb6YJi4
+	 3zwlSQcnm9499m/eOWQ68DEy82sJKfynaheHNqOJvdY2kG+RKhrY+bfNYpz1uPri0M
+	 BAeNzapY6JdlG+LBzAxbNfeYPN8+WBPr4eGjE6WU=
+Subject: FAILED: patch "[PATCH] ksmbd: fix named stream write and EOF handling" failed to apply to 5.15-stable tree
 To: charsyam@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:33 +0100
-Message-ID: <2026110333-coke-seismic-b0a6@gregkh>
+Date: Tue, 03 Nov 2026 11:21:34 +0100
+Message-ID: <2026110334-operative-heavily-7efb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 02165c8d402392278a5cd2cf97645ed73a7ad4a1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110333-coke-seismic-b0a6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110334-operative-heavily-7efb@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
