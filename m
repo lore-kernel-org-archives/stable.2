@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735342;
-	b=MTXnKXsP50hdo3L7R7wCk57KcofKF5GsOw2kcVbT0A6wv9peSW0Isp1kw+WvPKXnhZwD
-	 6xLb69tBh5Mh/OqgPzB8OQTO7oyXbfrmLV+gPzP1Yw+JIOQQnX7iDV2GjA1WRD2Jbolv2
-	 s9V1HlTMUR+cAYdb7KDpb7Vt4cP24zCeTauQv7tuRVFcJn5eBS4YUIAhMYXVDimCfwi6n
-	 9GMBGOQmkYRExcgCjMddoHb+kKAFcE26JHa0r1JqcKZValO6aawRnW360xrVRA+nrxENA
-	 LlFHzvlunXIRWx5zId5IZGylM5+2ChgCeDzaVLs9bPcjhbn0pF9nUeGKF1CTqe79e3A==
+	t=1793735352;
+	b=Yc/iuAxSPS2odc2n7hnvMxLBjKtjw2NA3TBmJivp2GyltTPOTXKppLo8Apc51LeD8ZM6
+	 bbeLMkPn0gZhWT+0QpLEy/9sanePmLtxAYhXxAadA6ONq7D5mwjGok+SBBiCKUsp0D0l6
+	 pkJqeWhYhfIwWCJZP8g43wZTCHaK2b7marpdqHYMlfSnQdjxfSiUxzAn4V2OA8Ux5oUVJ
+	 FUKYFbDVHHlwFoNpaE0Ff7/Xkcbrgozuk0AareRyZGzlStJTulHIlLEOgXqIF0QIadlHx
+	 rdBzvCoY19FNybRxDDR3hjeYjaecFMJNGpwnAAacXqo3bCjztsAT77WwXXuTUe4AGog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735342;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nuT9VrRFVipCnkJlP67E6HGAMPY0o6hzJ9QLOxqMj5s=;
-	b=XtqKAeVqaz9trL/2vqcQzYjUtUP2OiEaiaG0fxtqUBJjuSuTBmBDkiTqneMqJR1aF/Qe
-	 N8IOGpUmUxYfEBCSwjNjgKYJ9lBJENzU2qMB/hOcyz2KNAbTRWJKi0oLCN7F/1xg0YkuH
-	 Wz6ILsmoS6wyz9z7BFnZST5CiF7wLBMe4kTIrc6pd/FH2OzXskFks58pukm9T5w8kXY8s
-	 Au6o+mGzZXSTgFLHRd266xNwmKJwvj0QMST+Dr9WCAl2xFCvVbP4Ov2JPxkAF0iTndHiz
-	 yjUYYvHYvMMVhDskDKNT48eGGvZHcS3yXvwdyLftHMId1GcLh6coNrgFLS+7dQPxKug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735352;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=P0AC+ymgXYnQmZ+rTAXF3fAS8FaKmkjFTCnbuMJ/sUM=;
+	b=Xa3KzXspjrWWhGnm93nrKDDUEVahltHm8ZspNG5Mv2i9UrYu84MILda7gq8ZrFTKAoVy
+	 FrR95Ltyhq4CcmZ/THhwSBpaaFZ+hOy/1pId29hvZMUUI/Vd0qVlkPUtGyVJGa44wjp+w
+	 cVyqs9YtHdHVo8/VjVrikLYlv4ALU3TYN9awupnuPaxBP23V28kMDBQHQq7RcwrCOr250
+	 t5N2zHwFZejIukW5fGZbQDuclrmgdwifxt6pzT9G65bKVG7gR2hUDa6wKt0o6BGTSzwkg
+	 Jc/0NElrvajSkKe7HcC7TCwYzeOGaRRS2l7HrBllVj1UGplhNZAdi/mju1Cc7Y1wucw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcuXiGqU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aGZ2Et9X;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADA8606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3135606A328
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:49:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3135606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dcuXiGqU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C271F00919;
-	Tue,  3 Nov 2026 19:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793735341;
-	bh=nuT9VrRFVipCnkJlP67E6HGAMPY0o6hzJ9QLOxqMj5s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dcuXiGqUPuWs788AbzAKdctoy4aJkCgCDU2JDY9WP8ARanNX//tCi77t4T/OkbDiQ
-	 8IVwS+1NlbxKPM/uKUODCbpCOo5WY/IomPmrt9KnwzFRbLRAcd/ug4j1jP2IDJD4SC
-	 TlXoTOX8mn/bQ2AwQrmVFjoeGY2VQqJTkwWnL4VhZgQbmOsUo+9l4v2Cg6ZkjJ2SyQ
-	 0Tul7cwhlCinM5nHBr94YdiIG2h/Rq4s4lqsLP7bRCnkTdGtrd+4bTaD9LEvy0mjSj
-	 RiFr25h0TaI2dC4j7wLYGkabMh+12BCmT292k4vhGOtqRDO90V9x7W5xbWJVs1BE4D
-	 DYNW+u7lrvysQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ian Bridges <icb@fastmail.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ksmbd: fix out-of-bounds read when padding the final compound response
-Date: Tue,  3 Nov 2026 14:48:59 -0500
-Message-ID: <20261103194749.700441-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110340-sadness-alienable-ddc9@gregkh>
-References: <2026110340-sadness-alienable-ddc9@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aGZ2Et9X
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso5129537eec.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:49:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793735351; x=1794340151; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P0AC+ymgXYnQmZ+rTAXF3fAS8FaKmkjFTCnbuMJ/sUM=;
+        b=aGZ2Et9XRSoW7cbdfG5lGqV1+6xNkMS1R5B1w4VS3Ui4cwG+dA7ZizFdMHeq/+0/U2
+         BilbKO1Fm20PtDD+HMuAm41zwNmvgYD1/eu5ZYOqs0KvvAzMehsm4uvfUZwfY7oaLBib
+         FeozBa5ngKAi8pE181aL5qQbAJrKKuOySBVyw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793735351; x=1794340151;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P0AC+ymgXYnQmZ+rTAXF3fAS8FaKmkjFTCnbuMJ/sUM=;
+        b=k2LTs9EpyNyhlnVmNSXzeIcbBUq8n5T24gScoIrzozpWJ8o5ZqNQ/yLqKSV3CDm/V1
+         zFnqIHi1+PCPJa0qV9Rtr4nlLre9dtAM+fILXPvY/h3QI0CeC55zU12pSGMXbAq+BhE4
+         /wf5jWF25e6E/s1VP9/iQEyP1XaTFQM3mWRRTiLkpH8CVG6uqRY3Vj1DRUGK/78krEM8
+         LKLjTngLulmhWV6oX/DqjGUJTTaMoDPnJM/t870/4pNmbP+gy2mIcSzGS0Wfrx+roXBT
+         V5QwdMIX6gJ84j1K5m60lLhIgC9dgXqH1Jn5QUwQGNtBpruymCLOYlj8jF6yU/IZqYbn
+         nJ9A==
+X-Forwarded-Encrypted: i=1; AKwUvBydm39/dkXA+VaINHwNucHApZR3m43tk7ONxeMlCzYJh2Hq212ZJWQ+2jw8cVm5k+jrKnCwPis=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91+f9bSiQRslqtK6SafMEYBSx1gviMCj7EVPy7WQCz9nrX1UQg
+	52Hpk7LbjUhQxACM0l+xT7l5TTYfHQz8jmkont7sjk4irw7s2NLJVStNACMCvbvvhA==
+X-Gm-Gg: AYBFou3mS6Mbo1fkzj5YzncuCOr0grAKRxe0bepFyzAidu2isuycMYuwXU5EDqPeHQP
+	F+l9gv7BQzvbklOiRP6xRelBdwG5MNZ+UWwTnRIiXVqn2rvJ8cFqD+dnCWb+A5TLcXVpsn3KcFu
+	AgzQFfGfOD+qkaUyhRwloVzMJZ9EjB1uAs14SdC8yEGAaN6S3jux3NPSI2hADdVc3ErXue6GOcr
+	o3FgJBvf2lAWjYcwxE5u8MkQlGEyz1K5VGYUWfJ4xRy8V4VOtsiPsulaapTgHNCVypa7fNtrixG
+	ILVYHlTyfcuoS6KwMKmzVyQEKNQIaTRhVQX7Gw5J3TMVHNy1RGmBxWBEqmgMgteFAIcmutvXI7C
+	V4yvu+gD3ldwCqAbM41FdK56/cQDfNRfOE9KHJhBZKJdliG5MwIhMFipL9XL9z1VdCaXEPZQBIA
+	fuT/ST3VIm3h/e1IXa3EDMxNUjJ/qa2yxt1t3Zbj524yTt0gxI8Jat9CUKWMN4Bf6zsn8wH7q4+
+	BE144trt9oLXZf4NOTmCGv+u48dqmpqtT8Sne40oTJkyMHSCVxFJuTVmyjO1U3tUeSsIM1ijfCt
+	hThV6LajTASa1pQclxLKdBr1rR8/+iAD0NQaRUHBTb0EFWX4gARy30Dp0IP54tPur7c+
+X-Received: by 2002:a05:7301:4203:b0:36a:50f4:ed0d with SMTP id 5a478bee46e88-36a50f4ef92mr16355856eec.25.1793735350827;
+        Tue, 03 Nov 2026 11:49:10 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-36ca38a54ccsm382104eec.4.2026.11.03.11.49.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 11:49:10 -0800 (PST)
+Date: Tue, 3 Nov 2026 11:49:08 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Stanley Jhu <stanleyjhu@google.com>, Jens Axboe <axboe@kernel.dk>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Praveen Talari <praveen.talari@oss.qualcomm.com>,
+	Alan Stern <stern@rowland.harvard.edu>, linux-block@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] block: Keep RPM_ACTIVE in blk_pre_runtime_resume() when
+ already active
+Message-ID: <auo6tLmH0R4_TRG6@google.com>
+References: <20261029040001.2100001-1-stanleyjhu@google.com>
+ <8125a75a-ea47-49f8-90e4-7f7c83db90e2@acm.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,74 +99,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8125a75a-ea47-49f8-90e4-7f7c83db90e2@acm.org>
 
-From: Ian Bridges <icb@fastmail.org>
+Hi Bart,
 
-[ Upstream commit 714f27729121d59f103ca4dad7b0c2d1c125cd71 ]
+On Thu, Oct 29, 2026 at 09:22:23AM -0700, Bart Van Assche wrote:
+> On 10/29/26 12:08 AM, Stanley Jhu wrote:
+> > 2. The first runtime resume fails in the driver callback, and
+> >     blk_post_runtime_resume() sets q->rpm_status to RPM_ACTIVE and calls
+> >     blk_clear_pm_only(), decrementing q->pm_only from 1 to 0 so recovery
+> >     commands can enter the queue (intended since
+> >     commit 6e1fcab00a23 ("scsi: block: pm: Always set request queue
+> >     runtime active in blk_post_runtime_resume()")).
+> 
+> q->rpm_status should be changed back to RPM_SUSPENDED if a runtime
+> resume fails. The changes made my this patch don't look right to me.
 
-Compound response handling pads the last response of a compound to an
-8-byte boundary by growing the final iov and the RFC1002 length.
-smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
-fill the response buffer to within 7 bytes of its end, for example a
-QUERY_INFO whose output is bounded only by the space left. The padding
-can then run past the allocation, and ksmbd_tcp_writev() reads those
-bytes when it sends the response.
+Pardon me if I'm misreading/misunderstanding, but I believe your
+suggestion is essentially to unwind the quoted commit 6e1fcab00a23,
+which might reintroduce a deadlock.
 
-  BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
-  Call Trace:
-   _copy_from_iter+0x744/0x10e0
-   tcp_sendmsg_locked+0x2290/0x3f80
-   ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
-
-Allocate room for the padding when the request is a compound, as
-smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
-unchanged, so commands still fill only up to it, and kvzalloc() zeroes
-the padding.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Adjusted context to retain work->conn->vals->max_trans_size instead of vals->max_trans_size. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/server/smb2pdu.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 793c219b9a610..8becc30fdf835 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -539,7 +539,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
- 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
- 	size_t large_sz = small_sz + work->conn->vals->max_trans_size;
--	size_t sz = small_sz;
-+	size_t sz = small_sz, pad_sz = 0;
- 	int cmd = le16_to_cpu(hdr->Command);
- 
- 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
-@@ -561,10 +561,17 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
- 	}
- 
- 	/* allocate large response buf for chained commands */
--	if (le32_to_cpu(hdr->NextCommand) > 0)
-+	if (le32_to_cpu(hdr->NextCommand) > 0) {
- 		sz = large_sz;
-+		/*
-+		 * is_chained_smb2_message() pads the last response of a
-+		 * compound to 8 bytes, which can take it past response_sz.
-+		 * Leave room for the padding. kvzalloc() zeroes it.
-+		 */
-+		pad_sz = ALIGN(sz - sizeof(__be32), 8) - (sz - sizeof(__be32));
-+	}
- 
--	work->response_buf = kvzalloc(sz, KSMBD_DEFAULT_GFP);
-+	work->response_buf = kvzalloc(sz + pad_sz, KSMBD_DEFAULT_GFP);
- 	if (!work->response_buf)
- 		return -ENOMEM;
- 
--- 
-2.53.0
-
+Brian
