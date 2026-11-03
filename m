@@ -1,76 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793682474;
-	b=3yN4c8Dq4es9nIqbaBBM8d6ucOIHZHNtgtqJffBte8C0IZkgv01TXrF6Jyuq9H11rxZm
-	 Qx91HgeBOAqGoR3ObNSunVNAVLZnnPiOT/uZGHA1qEruiOYKod8KKUKiQGTSxSlenw/RL
-	 8SZ/rUkyT56qazH3BIbq4AtxKpJHE0B5tWC1VRZZ7B7rhDZDbWSQLkSYGXaKLQiTbShil
-	 MbCB6rifQncq2dEqecXVE0WeoygY8fMWqg8VrI4WZ0xNx6ermubTHNF3pwSNPLsMYnyiN
-	 yIDKNLArNsPmh/oQ/SH2QTOWFdvEedS2DJgeq1Ac0PpK3vFkGgRAJGWUzCdwocjjfHg==
+	t=1793682690;
+	b=0DazbTqOz5xhYzp4/dg/C29aQTeh8PNS+FtsDaCwWbf3Ir4zxLcYiAUoCEMR2T8c+ehj
+	 GKRKrGEdRa5QWg9KDHPJF6CASm+SAKcx5kKQjFAPKd12y9GYerV9f+KEMz25wBhG0mOKU
+	 623lT7fosNEdrXE/j/Un3XSuItOfWequbFAnVVkCP+8rWpAj49caAhj2Q8DAjRmv313wm
+	 OLo8iMk2g8viMmAw/v5P5YONAug0DjBMyiW1xHkWtC+9D6OdCmJ67LzNA+kJxvv1n/mPF
+	 edfWnb8tMimMNVEdLoblUENi9onI9iZuAvOCWHH9ekMxdH6eI9tJq5TXLaENCl+/OkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793682474;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=SFlEIXtfeBdCi4j7U4HZAVeWwarSZTrBIgJfQrtcCCE=;
-	b=VDXJGD1LXrctLuEKUT9bHsFMc9M6C9JbpqgJJJlTBcBB2pkuHjkbWAC9kpR6L9EQAQGG
-	 RrO7gM1LUo4Mw0oWAz5i7sMajWq8z/Y+qQBrvYdaRaED29s6masP6x7SJJyFElSCj3yng
-	 yUZnbBSut/11RpnWhmG6dpUUu0nOls+nmouV1nkI/gRlY7I2F2Y/h9RQnip/CKOije+O6
-	 vnPSRspnF3eXjVYX+keRq0/SbjBsDRck9N6+agsOmqYwdgbseh8RFP15AUf9eViwCtKV6
-	 zEMe+2ygBxq2d1xgeQ7Q00dxdC/Bo0hl+JJsxSBp9ovxmaQxQ/NH4QTiT8XMYJPj1Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793682690;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=j7vQDEKQmGcWvPJaz5e72XAn3awce25f7QO5l1L+IV0=;
+	b=flE+CiE35y2ZgP/xfQIvehxiXndF9STxbHrW1jcKCb1ZSQQ1VmrR0K3wuRh/YcSyhG4G
+	 uIwoS/tCw4I12CA1abg8CCqupO44PFoV/8XReAWU8c3ynVSH5CJPftL10tQMC+1wPI9n9
+	 g+lkrqjDbqGFAnoZwgqeE5qq2vNsTAOAE754Xk7GGAfIHl41VkIzENOw6fr7s5pVC4AQN
+	 Pv/XJjYDjwnd7kdGCrCoeVs70LCrAVBhTi6XryUdb5up0GIzWBAqevzaujth5Eyw5G3Xw
+	 efcrpFyzt/uiOLRXsGnkcZVqP4Vn35kpJRe1o+5LP9r65Et3akkqhn3K67siZJehY+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ssi.bg;
-	spf=pass smtp.mailfrom=ssi.bg;
-	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=pT0cdI18;
-	arc=none smtp.remote-ip=193.238.174.39
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=YmHu2zWc;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE63E606A324;
-	Tue,  3 Nov 2026 05:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE63E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD34606A324;
+	Tue,  3 Nov 2026 05:11:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CD34606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=pT0cdI18
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 86B6A213E3;
-	Tue, 03 Nov 2026 07:07:50 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=SFlEIXtfeBdCi4j7U4HZAVeWwarSZTrBIgJfQrtcCCE=; b=pT0cdI18E7g4
-	e/tMOQO9eOeTfUFzTQDLnlFJWfVjEWQ07znvVAWpgpPUXKB7XwiAq/rtXZin1Vf2
-	nZ+STny8kgtlW/YmrKFmv2Lefb4OIeMZj2a2TINH8r3pL4EZtkWS7kBI9tlnJJdU
-	gq0RKwGCq2uzq66X/PrrZb1glghhi8aLbmTYG9HlxLABeJ8YdMN/NqcaHEegLDbB
-	NRY/UwaWpBSLwvSfnEYuEYPV0o5FBnO+dMvSKOrS400QLVJC8NoTaPIy/MrE8Eh7
-	GR1OL+ySjFQGiLGaODkk0eQQaxquAMd6hS7JzzMh6Ab+9xC+h59PwrIQQq22VdrB
-	LlP44HNeRtg0Z7Q1Hczbxh229sklv3N3RhRF2VxdH3zb1QGnQKQNcl3Jlpi4YriF
-	vR14BFCTV2pJWFOQ64DmQ20phGqV2Al3Agg5i936t1qCLoa2By4EaeeveBTPrt6Z
-	7ozdRH/HmLziNOTfR8hbrJ65qoIZtAPC+ny5FoDvpQKGg4wre+VaJhgx5Hr8m+Q6
-	PD1XeFUCJ3SnPV9v8rpSoweti/DNgvc+ixVPpCI895r57BxYv7yzm61NqKWyPvTu
-	V3hmV+koSH+rBlzcojDTXG/5cwYWhO0sONptgS6qHEM0DE9KF8pRoI7RHL981fD9
-	sWFLMTrW/s6ig3mg/7tfrv2vyyFbPIs=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Tue, 03 Nov 2026 07:07:50 +0200 (EET)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id DEB7261E56;
-	Tue,  3 Nov 2026 07:07:49 +0200 (EET)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 6A357lWt006288;
-	Tue, 3 Nov 2026 07:07:48 +0200
-Date: Tue, 3 Nov 2026 07:07:47 +0200 (EET)
-From: Julian Anastasov <ja@ssi.bg>
-To: =?UTF-8?B?7ISx67OR7LCs?= <tjdqudcks0424@naver.com>
-cc: horms@verge.net.au, pablo@netfilter.org, netdev@vger.kernel.org,
-        lvs-devel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=YmHu2zWc
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31iMlM236041;
+	Tue, 3 Nov 2026 05:11:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=j7vQDEKQmGcWvPJaz5e72XAn3awce2
+	5f7QO5l1L+IV0=; b=YmHu2zWcELr46SCzBTRBQGPX9RN3eVcG3XsZbMBdtUl30R
+	5DXT1zlE3ZQP1smydFmgPbKNZoobHTK4MZ0yOnttgEMZa/P1j2PsXdFiHFEwXuh7
+	DPGRYsF/dJEfSXmTTZauI568ZTCabh5rgNH3T/u9Y6AYj40aZnaYTUVabH4r5fUd
+	jPFoTvAMfJK4VdDNTH+L+MC5xXsWHf/u438BdloGe2EjXKHxrSBDwkL0xtJSRRcd
+	twfMKva33gDsfEr3I//MxN3GlFEeHxL1ZBAVzCT6n+oO+xq3BlDhqNMAdxR0qqay
+	xgNNP9gJ6ojFX/dLLtKiOFsM5vqbv0JMNLqGVLDA==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rhm1mw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 05:11:15 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A31o1JL623480;
+	Tue, 3 Nov 2026 05:11:14 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hnvvfrrjw-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 03 Nov 2026 05:11:14 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A35BDEa50528598
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 3 Nov 2026 05:11:13 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 138DD20043;
+	Tue,  3 Nov 2026 05:11:13 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 957D42004B;
+	Tue,  3 Nov 2026 05:11:09 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.27.56])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue,  3 Nov 2026 05:11:09 +0000 (GMT)
+Date: Tue, 3 Nov 2026 10:41:06 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: guolingxing <guolingxing@tju.edu.cn>
+Cc: Jan Kara <jack@suse.cz>, "Theodore Ts'o" <tytso@mit.edu>,
+        Andreas Dilger <adilger.kernel@dilger.ca>,
+        Baokun Li <libaokun@linux.alibaba.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+        linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
         stable@vger.kernel.org
-Subject: Re: [PATCH net] ipvs: prevent LBLCR destination leak after entry
- expiry
-In-Reply-To: <3ed677db-8c85-a603-6c9e-3cf21535a488@ssi.bg>
-Message-ID: <633084dc-adb3-27f8-a702-509adff2258d@ssi.bg>
-References: <20260929170747.503223-1-tjdqudcks0424@naver.com> <3ed677db-8c85-a603-6c9e-3cf21535a488@ssi.bg>
+Subject: Re: [PATCH v2] ext4: report unwritten extent conversion failures as
+ writeback errors
+Message-ID: <auls6tGk1DAr-uTn@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20261015102943.74632-1-guolingxing@tju.edu.cn>
+ <20261101102145.647496-1-guolingxing@tju.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,88 +96,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="-1463811672-1102736379-1793682468=:3469"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101102145.647496-1-guolingxing@tju.edu.cn>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: SOj_O2UZAsWuD7SAr4RJPOH4R-C34hmo
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfX47pcEP3Xk023
+ 8OxjPGnmf7RSamZLb4ZVBhZT2V5tNgw5FBOJ3CZrOk1UIXmz7U9Xp72A+VACO4w7jDJTazCN3uW
+ QAOxjesVUn1l/meHff3ow2jrJWKd86U=
+X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6ae96cf4 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=z4EYaZmNoVUiA4pjg24A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxOCBTYWx0ZWRfX9GkB26nBatIV
+ V6uVidMitkwwEg1ErQF5AFv0WKhV7XBPFbinKPlnRtR557uwMJLzvcauE5jcaPfnFJ2GlmE7YRg
+ 8QpAgSGFPGVvsP9V98/hjIViV4mbJK0HeQP+6fv1Kdy36PPUhuuIblhTNcuVTZGYXZaSS0wg9sU
+ e1F6yBBgdm9LEDqZ4t3vUkjGARkGwvjK/UHJ2jtLJeJCe02XFwN+ga132KFHf1KywH8GRSg3Db7
+ LrOZTQDbIJ23kscMHdogNPaz1Z1qVnFD+ttPgFohcY7oSK2UQaJ3irZrE/IIAs8Uv5F44GHyl2h
+ 8H/mM4mg6vgC0wisEkkztnL7eQ0n/qiU2K34ydTv+/WRaCEOk6WjRd3k+FQ+37BvY3x3NnvlHMr
+ Jp7FGjBS0VmqtdjJFVTzve3yULPaoajk5FbJQu+x/1GoVOewJ1yuMvJwp4wSXZz0gXgBoA1pEPQ
+ 4C/5gnPYrhGDJMTCMng==
+X-Proofpoint-GUID: WTg2K7L-m-8lLPqRSOr4RtBAyAjuxAA-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 clxscore=1011 impostorscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030018
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
----1463811672-1102736379-1793682468=:3469
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-
-	Hello,
-
-	Ping after 1 month...
-
-On Wed, 30 Sep 2026, Julian Anastasov wrote:
-
-> On Wed, 30 Sep 2026, tjdqudcks0424@naver.com wrote:
+On Sun, Nov 01, 2026 at 10:21:45AM +0000, guolingxing wrote:
+> When a data writeback bio completes successfully but the subsequent
+> unwritten extent conversion fails, ext4_end_io_end() does not record
+> the error in the inode's mapping writeback error state.
 > 
-> > From: 성병찬 <tjdqudcks0424@naver.com>
-> > 
-> > ip_vs_lblcr_schedule() looks up a cache entry under RCU before taking
-> > svc->sched_lock.  The expiry timer can remove that entry from the hash
-> > table and erase its destination set before the scheduler takes the lock.
-> > 
-> > RCU keeps the stale entry itself alive, so the scheduler can continue and
-> > insert a new destination-set element into it.  Since the entry is already
-> > unhashed and its set was already erased, no later path finds the new
-> > element.  Both the element and its destination reference are leaked when
-> > the parent entry is freed.
-> > 
-> > Recheck the address mapping while holding svc->sched_lock and update the
-> > set only when the hash table still maps the address to the entry obtained
-> > by the scheduler.
-> > 
-> > This was found during an AI-assisted source audit.  Diagnostic-only timing
-> > instrumentation forced expiry after lookup on a two-vCPU x86-64 QEMU
-> > guest.  The unmodified code inserted into the stale entry and left one
-> > element outstanding in each of three runs; kmemleak reported the related
-> > allocation in one run.  With this change, the same stale-entry condition
-> > was reached in three runs, but no stale insertion or outstanding element
-> > remained.
-> > 
-> > An unforced 679-second run processed 65,536 marked packets without hitting
-> > the race.  The result therefore confirms the lifetime leak and the effect
-> > of the fix under forced timing, but does not establish practical remote
-> > resource exhaustion.
-> > 
-> > Fixes: c5549571f975 ("ipvs: convert lblcr scheduler to rcu")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: 성병찬 <tjdqudcks0424@naver.com>
-> > ---
-> >  net/netfilter/ipvs/ip_vs_lblcr.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-> > index f53f05ceea36..ef18f3c9d5da 100644
-> > --- a/net/netfilter/ipvs/ip_vs_lblcr.c
-> > +++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-> > @@ -686,7 +686,8 @@ ip_vs_lblcr_schedule(struct ip_vs_service *svc, const struct sk_buff *skb,
-> >  
-> >  		/* Update our cache entry */
-> >  		spin_lock_bh(&svc->sched_lock);
-> > -		if (!tbl->dead)
-> > +		if (!tbl->dead &&
-> > +		    ip_vs_lblcr_get(svc->af, tbl, &iph->daddr) == en)
+> Bio failures are already recorded by ext4_end_bio(), but conversion
+> failures are not. When the conversion is processed asynchronously,
+> its return value is not propagated to userspace, so fsync() may
+> return success despite the failed conversion.
 > 
-> 	ip_vs_dest_set_eraseall() does not update set->size, what if
-> we use atomic_set(&set->size, -1) there and to check it here to
-> avoid inserting dest into dying en? This should reduce the time
-> while we hold sched_lock.
+> Record conversion errors with mapping_set_error() before
+> ext4_release_io_end() ends folio writeback and wakes waiters. This
+> allows fsync() to observe the failure.
 > 
-> 		if (!tbl->dead && atomic_read(&en->set.size) >= 0)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: guolingxing <guolingxing@tju.edu.cn>
+> Reviewed-by: Jan Kara <jack@suse.cz>
+
+Yep, I noticed this recently when an endio failed during conversion in
+prod but fsync went through :/ 
+
+Thanks for fixing it, feel free to add:
+
+Reviewed-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+
+Regards,
+ojaswin
+
+> ---
+> Changes since v1:
+> - Drop the incorrect Fixes tag. The conversion error was already lost
+>   before commit b82e384c7bb9, as pointed out by Jan Kara.
+> - Collect Reviewed-by from Jan Kara.
 > 
-> >  			ip_vs_dest_set_insert(&en->set, dest, true);
-> >  		spin_unlock_bh(&svc->sched_lock);
-> >  		goto out;
-> > -- 
-> > 2.43.0
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
----1463811672-1102736379-1793682468=:3469--
-
+>  fs/ext4/page-io.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
+> index 734d856a6d478..2701452fa65ca 100644
+> --- a/fs/ext4/page-io.c
+> +++ b/fs/ext4/page-io.c
+> @@ -192,6 +192,8 @@ static int ext4_end_io_end(ext4_io_end_t *io_end)
+>  			jbd2_journal_abort(EXT4_SB(sb)->s_journal, ret);
+>  	} else {
+>  		ret = ext4_convert_unwritten_io_end_vec(handle, io_end);
+> +		if (ret < 0)
+> +			mapping_set_error(inode->i_mapping, ret);
+>  	}
+>  	if (ret < 0 && !ext4_emergency_state(sb) &&
+>  	    io_end->flag & EXT4_IO_END_UNWRITTEN) {
+> -- 
+> 2.34.1
+> 
