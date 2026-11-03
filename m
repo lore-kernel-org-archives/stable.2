@@ -1,98 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793686235;
-	b=T3vxqQiPzHXSu0TOU81gUt1gwmxhMatikxkVEpNUWSfUmTtVpRz47VCwO1Z1XeEC8tt5
-	 jW8J/Xk5AIKq+fud6b2FBnZIWroUvaZhqimRf76FxMNj/T6ndKxLrP8M6U9oAfLZL/bHC
-	 n+wIgauIpcpvQkIHCrnlYPRLZnxBnUxtEzJ0fP/Xh3c6gUiOc+AXlBUTWZkvQOJA6fvQZ
-	 JzNFUQ04l5jeaUSYjqfEIzcyXQa1oKOzATBrsatLcWZionvsBXBcHmG+M8dq5M3Vb4q5v
-	 /Qgb3xoLmV8ydcRFU9xWZBUIiXdZLZO8Pj3PHocrbD0hTfgueXdEbj7MWUE1Zy0Gz7A==
+	t=1793686302;
+	b=XqMrsL0tKumKjwAb7kRWt+lNiNfIxfGocd6m/WUobcm4X71/tLxlr/VWbNtM7qjKDhRF
+	 yDxI40RqgyTENKOjk/6K+6XUoRAou/6SstsWn7ZuX999eLSvsDryL8mY6AA/mOrJzdVJJ
+	 uuzlSStmps0Za4V+Q48s0/hkTQpMkzXrfYDbrPmJtqOObY0utbCA4wCpYAvefMxtsgeRz
+	 3NF6nx+mjIl6EjI09OThE5zAMxQJm8ikZDlfqS9e0ZNQT8wFOHEgZmERt3/1bhjpzcljo
+	 5qcv+AopNjHwweQc425fktoba/U8bGT98hMEQAjWyh6GdZ/6t/gnE5zngjGCC1/zuaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686235;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686302;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
-	b=HjaaezEZ3sLI42XNnBSHjCOwO45SqolNXAatwwvyAIhtt/hT+H0mxEm1r+wrf/Q87w2q
-	 IEaWH/AoaqgX9zuAaKvoFQJBZt0U2CRisPksmnRt/8UHvt6F9i6Sh+AV44kHGk+j4c6mo
-	 Kj8C5AvALSC44xNJR1uKgOiiBSQT28q0zd3pt/YGVRYiv5iL3QjiJJTRifn8p6U9HgEJ6
-	 NrZHQ/kuaqCSPyHogidLT919s1GfSdxjhAlT4RJ9VHZXX/QCm4I20WxJES2wwtnLci9uf
-	 YE+2mNWqJIyHQrdpN9h6LUkq2AroaoCi56mGAZJw7dpTJuwPz4FVruLABg6ENA10gKg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BYXUCwkPXhE2WOYZgJcFT+Ca8H8+sCFYPzL9CHP8/xA=;
+	b=a/MJBI6ZFfSONG3CDSsucVQq7PKabg8C/aieu0z6sNkr6v5vFTZQEhWPfALKD1naZKOf
+	 656EVyoIQviHj3PSDHZ+NiNsfSbnkfyHg4STqV4NGi/lLJg4l8+F0CDDp0WdvPy/sqb4F
+	 iG8wHGgB7ccd9zvBghoQwuVOooPk3FHZlBmzZzkcVy99JdzemX61hmj/7DExorhrt80hC
+	 W7TJPrv1lB1q7bMhcfzeiORxALQLjC4aPL03YasVx2jIPXXWDYBjW6/Dk2ZLpvL8rvszr
+	 69mjoiVWQjHlD9cPVr7JXifCctMx2zZi7IEp/SRTTmU9XBqjianLmJ4DRuv94XFbgUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asu.edu;
-	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OB+8CPCL;
-	arc=none smtp.remote-ip=209.85.219.50
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdWGRSa+;
+	arc=none smtp.remote-ip=74.125.227.136
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18B0606A336
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 06:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C18B0606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C540F606A32C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 06:11:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C540F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OB+8CPCL
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91c75be77c4so38151826d6.3
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 22:10:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdWGRSa+
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac749e0719so988392a91.0
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 22:11:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793686234; x=1794291034; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
-        b=OB+8CPCL3Zw1NNu/20+ZOMwJ8pRismzLJcCVuJHPrrEM8/rSrzdl2OEG5XJnhPn6M2
-         5sBiNPt1EmI0dRmbugAnbvxmTDjyTSn1y5uKaQz30Cft5UYRyf9FSmkt2K5IBP6EEy9L
-         Qy0j/GCRQsFo/BHB5zhZDkPNlP38OG7B9UMegjs6DClNJx/PshbxLkic3jRDs6jwOK6e
-         fjJMxzDN3iCAoz6t0cP/DR+sb90MR5WRVXCAMV20r/VJdigErUpOhhrYK79osR6u8t1Y
-         toAZtS+WaVD9gN+PiIOYbbAtZ/RGcIgXBflCFU5kzrLEEMLtdpHDOjgrUN/YjJq5/SVm
-         UKtQ==
+        d=gmail.com; s=20260707; t=1793686301; x=1794291101; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BYXUCwkPXhE2WOYZgJcFT+Ca8H8+sCFYPzL9CHP8/xA=;
+        b=wdWGRSa+d1G7wMGWQ3kVcsIu8QnaPYbLH27zMi7SmQORKsqMByHfw9zsaEQ1OSacQk
+         Fx4Tu1yYv1cbAjyujStyK3RGbUjkIEZ49iKCbT4OjDgqcOwO7vYiB4V0e8etoUsRVWJj
+         LMvyDtUG553U05EayY0Irf6g40naNT34PZT4qt5H9geoHSqZOWMc959vwuEGRm7gd0fO
+         EoZ/mSV/OmdqSsfV98mcA9g64VAKXyOy6QpfsDUWAs9km6x/nVaMxUQb5KZFQYh7wzxo
+         16BJQqKYVYN15LGVtoZ1zQSj/oUdpYtDxLeYnSwCXbD1SVS22wClSgRNETan+n618/SZ
+         WR4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793686234; x=1794291034;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
-        b=VNr0MZm/N5Ee8YdZWbqBr6EmnkD8z9mJmKTWqR8wXQExsK4Aukwsc/0I8VcSzXdRQ8
-         HnrJqSATt2FwKpUrtNfhhM4hKgW68o7u4F+kF5jqrlYYaJEf6eYse9sKe7oo8ZL4WhdW
-         ETOfGFY3Vk+r2/vRsHH6/DYyauaTRwYy9ZsOt7FCqC56vNHk81p65G5hkYVIc4VfTzvZ
-         xNTZ85hA7Yu4SITh3p2MgR++I9KoBXKu/eEJZ7NO+D4WoZtgRHKgtjSHc/ZDTE4vF5Me
-         L6Q8C7+I2+6pVikWaerO3mXMS83zGKJVf33y47KZVvMCvV/V7z13yX6iUFuUkN3D70/n
-         L1gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZXn6oRjUetRPfRCwKWRgu+RPT6ecWuxTIzyXyD/l6xEDm8HiHIb90UGoJTYWTOfhDufVnwDA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b0AOZsK4Y864o0IWUvfRjsMjmsVSl6LFyL505oMqllOd3oxRZ
-	j3ks3heBNfIubKrEVx1yMSzyh2/zj/1ApGXEPc3Jwzf1JldoeuS7bMqgCl7BDTp1qg==
-X-Gm-Gg: AYBFou2h7zJmp/1hS3xfKeO5Co93GPUMlNSEqrixcrknEhwN4omqfzyBBblVstwwgUa
-	/1Fsqq5kK3H1E2j2oEKMlyKlFzoV1eenBJsEUfUKsS9Vdstp461ENMyurKdLJPf6rAX3t8wOvYH
-	istMyw2zIOgPa7naLKaeyKZH+H7i6Pvu/LvvoPVqV55vaudWuqnWMszWvnBTaD7clMj74xkqeGM
-	alyCqxap3DipMV+YEVTjVWj3cBrYafHW/SDjFfLEExYIsuJHskDgCbQhzZSklj+6ari47z+dOZz
-	nHC4kqQpOqQZRYZ3ZPUFYk7M1il3lD5tHvofhAIkPd9Gi/LyaXY4t302LuTZWKHH6olv8fKuWO4
-	LSpGEBYNfKy1B267jL8PDaClFEILLvtlpKaNF8l1gUyyEai9Hoy5slrbaD8VxIXclwdJI+gtCdp
-	3RVgfaY8FHMnM/PNTYYiUvLDrsk0WnglWXXCm8QReFhjLAQOpIRV7V/KqLc3FEtIAgf6AWadtfK
-	tLULfKH8vKu+XX/ylbEHa/dym2/9UmWojMD3h3uqhnXwlOThyTQCeT/un2PBsxZSEqN0d2AVZ8z
-	PaFaEybft2yZC3oYHNgjWJLMLuNVkNkAAMwg8F5LyTQ=
-X-Received: by 2002:a05:6214:ace:b0:91c:7a68:2ab3 with SMTP id 6a1803df08f44-91ca4bb34camr203741326d6.37.1793686233610;
-        Mon, 02 Nov 2026 22:10:33 -0800 (PST)
-Received: from localhost.localdomain ([2600:1011:b1ae:f075:aa26:e161:414d:7ec7])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807d8fasm109173076d6.41.2026.11.02.22.10.31
+        d=1e100.net; s=20260707; t=1793686301; x=1794291101;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BYXUCwkPXhE2WOYZgJcFT+Ca8H8+sCFYPzL9CHP8/xA=;
+        b=RoIvV7mAZrIwdzMmCY9KyUclOzgprNBhDlYoG5DCPo0aTRz9YtI0maY/3JzBqQ8VXh
+         HfO2Yhv1YETkQb3svk6s4um9qSGS1btRhMKIvWNSJZDnflAdPEwuP0ri5H6fcErIvazx
+         t4JiJ5AoW3ZttQQ0ppXGpL3MDrysaiKeFMzYoUAV8wVqSB5ntQG1fliMH97WI7HF2XUs
+         +t0znOUd7yDNb4v13kE+bR6sqbqbXLF78hAYyVIRUB228UngAX61/IFDpVwVfmmPz7jN
+         Nfm2vFXCdGzKP6jkFejtb0VG/US39VtqN84Rl460sQ9kaGFxMEaY1n5pQ6E5yEQrHwV2
+         PvRw==
+X-Forwarded-Encrypted: i=1; AKwUvBy1/2+Y53KYLGF8si+653T4FdHYENxGZM2+VByaHSdaVHDNo1eWT17Jqm7soNdOra42hLlkYxc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ggQod6TGVIfcxuVsni+71GGwIfZqj1FDOj8X1UexPH/PCtx/3
+	3vhTepaMHnvV4a+rcqXcle5um5dpwL3FCJ6qt0bp4uKs5HHUmoPh5SJAM4y9V7iW5qQ=
+X-Gm-Gg: AYBFou339QLQ2JTpRy5lbIumPpnbv8X+xtqa9OQcKIqZfFXvD55QrOHQ9moXggz1Qw8
+	mRHNj7a588hiaC4gMgwOAjOzw3SmKK6LcpYxGhtT//bq02QYw08Hv1tPTMB0Mw//9y/RHMJCOiX
+	voqjUe3ghy0EiA9p3vdwEqs4iD1b4UDvZL2Iwg6hJ3peryg/mJ8dbDl4u75G5fldAF+l3zmbGIB
+	3zyvwlLcmedoH/nT2wahpniinCfSTjXaB7ef7ShzjHzbMMlGeLVHDgmJb/KfwwomRhrsUY0a8kw
+	cpnSEPZ8uEaygKcv00QzykQvxIAfCFheurzsX5x4mYHOsM9UtlmQ9itik1cISb6UA2sLCchmvMd
+	52iQVmjYUyBBRsytrzqtchVKCxe+WhtPlb+NDOp97y/RZddwIMSgc5hpWLkGR18LFr1xArbAwyx
+	odOjhp8xcOyuJtp4Lup78jxyP6AyyfiFxaQhM5yrWxODf7ReAjL7cV1Gqtk8GTisI4Jodf0w5gt
+	wGDHsgkmdW9BUAOaOGOg+E2F3HF3XRSiZgqiFSqjO3tnj7lUxmFwi3wn/lYzlqEPshj6NQPu78P
+	iFJ+IwdfpNurwFQee7hVwsra/r7D9bNJP/uZrYhkFzn5LkijNRF9LcXR
+X-Received: by 2002:a05:6a21:a101:b0:3e2:a9cc:3ecd with SMTP id adf61e73a8af0-3e928aaf420mr8144984637.7.1793686301096;
+        Mon, 02 Nov 2026 22:11:41 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb363a62e3sm748229a12.4.2026.11.02.22.11.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 22:10:33 -0800 (PST)
-From: Siddharth Mishra <smish149@asu.edu>
-To: dsterba@suse.com
-Cc: wqu@suse.com,
-	boris@bur.io,
-	mason@kernel.org,
-	linux-btrfs@vger.kernel.org,
+        Mon, 02 Nov 2026 22:11:40 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Siddharth Mishra <smish149@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] btrfs: tree-checker: reject extent owner ref without simple quota
-Date: Mon,  2 Nov 2026 23:10:21 -0700
-Message-ID: <20261103061021.2213691-3-smish149@asu.edu>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261103061021.2213691-1-smish149@asu.edu>
-References: <20261103061021.2213691-1-smish149@asu.edu>
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] fs/ntfs3: end trim runs at fully allocated bitmap windows
+Date: Tue,  3 Nov 2026 06:05:56 +0000
+Message-ID: <20261103060556.55571-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,83 +98,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[BUG]
-An extent item can contain an owner ref.  The owner ref is correct only
-when the super block has the SIMPLE_QUOTA bit.  If the bit is not set,
-check_extent_item() gives a WARN_ON() and then accepts the leaf :
+ntfs_trim_fs() keeps a free run pending across bitmap windows. When
+the cached free-bit count of a window is zero, the loop skips it without
+ending the pending run. Free clusters at the start of a later window
+are then added to the old length despite the allocated gap.
 
-	case BTRFS_EXTENT_OWNER_REF_KEY:
-		WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
-		break;
+For example, two eight-cluster holes separated by fully allocated bitmap
+windows can be submitted as one sixteen-cluster discard starting at the
+first hole. This discards allocated clusters while leaving the actual
+second hole untrimmed.
 
-For all other incorrect inline refs, check_extent_item() returns
--EUCLEAN.  After the tree-checker accepts the leaf, a free of the extent
-calls btrfs_get_extent_inline_ref_type().  This function ASSERT()s the
-SIMPLE_QUOTA bit.
+Finish a qualifying pending run and reset its length before skipping a
+fully allocated window. Preserve the minimum-length check and the cached
+window optimization, matching the analogous handling in wnd_rescan().
 
-On a kernel with CONFIG_BTRFS_ASSERT=y, a free of such an extent gives :
-
-  WARNING: fs/btrfs/tree-checker.c:1782 at __btrfs_check_leaf
-  assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
-  in fs/btrfs/extent-tree.c:354
-  kernel BUG at fs/btrfs/extent-tree.c:354!
-  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:btrfs_get_extent_inline_ref_type.cold
-  (fs/btrfs/extent-tree.c:354)
-  Call Trace:
-   lookup_inline_extent_backref (fs/btrfs/extent-tree.c:919)
-   lookup_extent_backref (fs/btrfs/extent-tree.c:1100)
-   __btrfs_free_extent.isra.0 (fs/btrfs/extent-tree.c:3319)
-   __btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2134)
-   btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2246)
-   btrfs_commit_transaction (fs/btrfs/transaction.c:2278)
-   ksys_sync (fs/sync.c:104)
-
-Without CONFIG_BTRFS_ASSERT, the kernel gives only the WARN_ON().  Then
-btrfs continues to use the owner ref.
-
-[CAUSE]
-I made a crafted image : an owner ref, no SIMPLE_QUOTA bit, and no quota
-tree.  I removed the file of the extent.  At the next commit, btrfs
-frees the extent and gives the BUG above.
-
-For an owner ref without the SIMPLE_QUOTA bit, the tree-checker gives a
-WARN_ON() and keeps the leaf.  For all other inline ref types, it
-rejects the leaf.  Two sources can put owner refs without the
-SIMPLE_QUOTA bit on a disk : a damaged or crafted image, and a kernel
-without commit f2363e6fcc79 ("btrfs: fix transaction atomicity bug when
-enabling simple quotas").
-
-[FIX]
-Reject the leaf with -EUCLEAN, as for all other incorrect inline refs.
-Then btrfs finds the problem when it reads the leaf, and the ASSERT() is
-not reached.
-
-Link: https://syzkaller.appspot.com/bug?extid=d7d1fc7e21835ca19219
-Link: https://syzkaller.appspot.com/bug?extid=4983e68a6d77180bfe33
-Cc: stable@vger.kernel.org # 6.7+
-Signed-off-by: Siddharth Mishra <smish149@asu.edu>
+Fixes: 3f3b442b5ad2 ("fs/ntfs3: Add bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- fs/btrfs/tree-checker.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/ntfs3/bitmap.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-index bb86c30a2..f021ac14b 100644
---- a/fs/btrfs/tree-checker.c
-+++ b/fs/btrfs/tree-checker.c
-@@ -1779,7 +1779,11 @@ static int check_extent_item(struct extent_buffer *leaf,
- 			inline_refs += btrfs_shared_data_ref_count(leaf, sref);
+diff --git a/fs/ntfs3/bitmap.c b/fs/ntfs3/bitmap.c
+index 60b362f388d960558cd8ea65680df266e26dabd5..8875e6feff9c9715933545dc2fc173a191302ddc 100644
+--- a/fs/ntfs3/bitmap.c
++++ b/fs/ntfs3/bitmap.c
+@@ -1447,8 +1447,16 @@ int ntfs_trim_fs(struct ntfs_sb_info *sbi, struct fstrim_range *range)
+ 		if (lcn_wnd > lcn_to)
  			break;
- 		case BTRFS_EXTENT_OWNER_REF_KEY:
--			WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
-+			if (unlikely(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA))) {
-+				extent_err(leaf, slot,
-+					   "extent owner ref without simple quota");
-+				return -EUCLEAN;
+ 
+-		if (!wnd->free_bits[iw])
++		if (!wnd->free_bits[iw]) {
++			if (len >= minlen) {
++				err = ntfs_discard(sbi, lcn, len);
++				if (err)
++					goto out;
++				done += len;
 +			}
- 			break;
- 		default:
- 			extent_err(leaf, slot, "unknown inline ref type: %u",
--- 
-2.54.0
++			len = 0;
+ 			continue;
++		}
+ 
+ 		if (iw + 1 == wnd->nwnd)
+ 			wbits = wnd->bits_last;
 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.43.0
