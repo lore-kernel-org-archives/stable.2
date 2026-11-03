@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701554;
-	b=kvCD1LLbPS6DOyXnSbLgmusFA3jUYFjkilaHjbCvS2CJb3qHPNDkn7yuaCOO/ghBnDbc
-	 aOA0Yc/VmVuT4LR9q9SsqWP57kkL3PlNt1uFijqKhVnlM51NCnDsI++vj/rk3TPzXq+Tj
-	 wa7mmzrGCIMFttGSnK6r071UxsL9DQH3jbfIE0Je76YePzqB1tvEU40dUIkBAobWlk9ic
-	 FwqbMxOZikBL+dl7wKWcX3gr5Ojxxznj9mTNQrGJ5b/ljPC/ZeFjIFPX60VuNLrkvEygQ
-	 bkDnXGyqiAD6zMhwHj+1Q8H+nMr+pHJ7m2WgMJAv91Elo5l4yKKjJigdEnohD3+soqw==
+	t=1793701571;
+	b=TZBBtsA9NZRsv3Nvx5EJBnIt9RzwlAwrhkOsyihkVkflCysUIko4geIQXJSPMtovLoSC
+	 xAh+HK8OauQD3rQTThFQ4Xzrv69EtDruCnmluj6z+5GtEWYfjbKets9c54eNPO0Xgl2+w
+	 nhdvpa0u2Wcdmk0qQAbrtfbksaNwW9MwRqZy8vNwKa+c5qlndRhRT83jWXhgpjRLEL83h
+	 ZLTGYopvAyQ7rUBwtuhQlWPBzerNzv8fsjr5vaBWKU9QbaClhwuwgbQv1Ao5atrjINhMP
+	 3NQI3bm/ZyFSCc7blrrGlqs+Zh0ngCDP/ODbCfqjV/iQ9yLq6i69XyFw0Ve9EQhXtGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701554;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701571;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xMnmfPB2x1ONdx8H/7UeU0nSjR+hb66yayecZ+DFW8k=;
-	b=NlYjSbKhhDSXxzE08nQtGrFxXwXfljxaovfBTIkdLKCYqPwPnn0tdiO2pysIms2Alc39
-	 N/zsaAiCK1RMCeEdnBJMF0U8q/6kDod3VdXvmZPvHDoT9eGG3Qc2wDi7cL5/TljTfwM1v
-	 58Xbd5RlvHiNcnBynsgpn4VjCcbTyWQ4IF5hCF5WCFUxNgLEaWXU9ulgElW2EHZlarkBj
-	 8CBT0zHaHWwYgfoeL+KTIgMZaYhIHD58jrKvzoDyk/gIz+RfdsB2/Ct1ku7yNaVKNQFo3
-	 RQQMaQOSSVD0juJTATmDTmompa2mGtNPCk31cBifGJGniMJoZhpYhbnwhjZb5SQ1JzA==
+	bh=+tVXS2qXFnFcTdFlcoUpcMZROLwvP5rjxvPBVj72EVo=;
+	b=mQKRLpBvEc3NkURKf/gkt3F0njI3hOgSbdOwbDev3zP9HFZONmubD65d6dvZSJCwBI1I
+	 xnKHOl9rhVEGo0WodvqOyE8n07A/nMl16Aw5oDDgqcrziW1/nZ5mEBA9QLtL/KxxPIh3s
+	 zyBekJzqR5VVfpock2i4NTvyNxtVLZsGq313lHIauBsTXuO6LQ9/BZumLgfVUbym/6q4/
+	 2P4R/+EQ5Thmr7UzLfeJDITKzTraMbPHvXmmyqkpBsttKe+JtSDEnhYqcXq/FTYQfaAi8
+	 FQIiOU7+reZR9nPKUarmpVGxziC+pHaPTIFvJtuTKs3oM6ggudCSB+D8CxdAl296zfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhM18OIZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V96M6+aW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE78606A337;
-	Tue,  3 Nov 2026 10:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5797E606B13A;
+	Tue,  3 Nov 2026 10:26:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhM18OIZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECB91F00A1B;
-	Tue,  3 Nov 2026 10:25:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V96M6+aW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2141F00A1E;
+	Tue,  3 Nov 2026 10:26:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701554;
-	bh=xMnmfPB2x1ONdx8H/7UeU0nSjR+hb66yayecZ+DFW8k=;
+	s=k20260515; t=1793701571;
+	bh=+tVXS2qXFnFcTdFlcoUpcMZROLwvP5rjxvPBVj72EVo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EhM18OIZurDB9UMxnBQ2+8Y3bdlSXHVCebvL6B6JCwTJaui7KXf2IgyCg9tJekK7h
-	 kghIfpSXgSlq97jcXy/B9/sdy86knrpvJU7SyLr5Xe5RJEljE2w21iFE2rbgwaBGBJ
-	 xv/tAY3gm34kHV+t6XLP76+B2xi+fZ/ujXq6eHyFyRPnlImQOWpqz/ci776QsryziC
-	 au5E/DHUdMQy9WRv3xFiKzCPwyLKxTytIoPe+pCNvfUYi9ac3V48dX1yuEcD1/bU4q
-	 Hia0KTNcIGXd8uopntqp4eVDOGyffvZtLIR3AbElRaq68xLDTfUrpQZX2ymvFZ9wLZ
-	 lH59lJZVAfvDw==
-Date: Tue, 3 Nov 2026 11:25:51 +0100
+	b=V96M6+aWiTTHVj6EbJcdFT+MAlD9HNzEDEOOfCOKlXGFDP6zXRe6tkbF3v7ACN0r7
+	 k+uFpQjxwLofHgDmGv3P2OtzI0xREeFM34cKMgZ9Bw4WmtgQ2Tn59o1R+Qfs82y6ih
+	 DvHAKn2o3h3XKQy9pAbxQLgPzxtvHsU9sso4ngt3/vRR9OF40hhVuSzNHm+V3Oj/C9
+	 zJmJ7+g7zjgveisL8ZhYoYuoR/alUTsef9VNo2TPK4BHDnikvnTPe9/wy+fkEA81UE
+	 PHfSc/Pvw2oSzCLx6cIM9sjCMKqY8XxUMkSzScA0hM/amQQZpmoSzVlnOzsVBxPlpF
+	 75ldcgmtL4uZQ==
+Date: Tue, 3 Nov 2026 11:26:08 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
-	"David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
-	Jijie Shao <shaojijie@huawei.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	Jian Shen <shenjian15@huawei.com>
-Subject: Re: [PATCH] net: hns3: destroy the page pool if RX buffer allocation
- fails
-Message-ID: <20261103-melodic-translucent-lemming-6abaac@quoll>
-References: <20261103100533.1310018-1-vulab@iscas.ac.cn>
+Cc: Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+	Potnuri Bharat Teja <bharat@chelsio.com>, Paolo Abeni <pabeni@redhat.com>, stable@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH] net: cxgb4: do not leak a PTP skb when the Tx queue is
+ busy
+Message-ID: <20261103-astute-literate-malkoha-251bce@quoll>
+References: <20261103100530.1309928-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,28 +61,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100533.1310018-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100530.1309928-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:33 +0000, Wentao Liang wrote:
-> hns3_alloc_ring_memory() creates the page pool and then fills the RX
-> ring with buffers from it. If filling the ring fails, the error path
-> only frees the descriptors and the descriptor callbacks, so the page
-> pool created a moment earlier is leaked.
+On Tue, 03 Nov 2026 10:05:30 +0000, Wentao Liang wrote:
+> cxgb4_eth_xmit() stores the PTP skb in adap->ptp_tx_skb with an extra
+> reference before the descriptor credits are checked.  When the PTP
+> queue is full the function returns NETDEV_TX_BUSY, and later failures
+> such as an unsupported FCoE offload or a failed DMA mapping jump to
+> out_free.  None of those paths transmit the packet, so no transmit
+> timestamp ever arrives and the extra reference is never released.
 > 
-> The page pool is normally destroyed by hns3_fini_ring(), but
-> hns3_init_all_ring() only cleans up the rings that were set up before
-> the failing one, so the pool of the failing ring is never released.
+> Only take the extra reference once the packet is certain to be queued,
+> just before it is handed to the hardware.  The initial check for an
+> outstanding PTP skb is kept, and PTP transmits are serialized by
+> adap->ptp_lock, so only one PTP packet can be in flight.
 > 
-> Destroy the page pool on the buffer allocation failure path too.
-> 
-> Fixes: 93188e9642c3 ("net: hns3: support skb's frag page recycling based on page pool")
+> Fixes: a456950445a0 ("cxgb4: time stamping interface for PTP")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/net/ethernet/chelsio/cxgb4/sge.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
 > 
 
 
