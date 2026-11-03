@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793712171;
-	b=rqpoUZ93CRBboAokx9bBcaZaZiXJGDh1KfLU4ku42ShBbrNPCnBRU93KN2l04emX6yiR
-	 e5R2pZrpc1ITUTe2MpuJzYW6fEdkh4EKf050SpWIaK3nxiEVAt0w06SXY+YfhLyaDhZwe
-	 P5R25M/CMGG/ITdnGFdToml5DIFMTgYPOzGET2IrCdkvjv9vH9NqnYSeTsYb6/l2enTzH
-	 Cp9CzuS20B4/81Cmk+qiWsCV9v54cTGI4hIc4eGynRUHH9AzHZ2g/TW9KbA9P6+NRyCWL
-	 dwr5UPWzsfRztZmpS26fwdM/JIfhrFW51BVSNprNs7hN0nTqGrRbs67xYU5QlvQDF4A==
+	t=1793712188;
+	b=L+90n5ffK30WKb93ej28otElCQHp+o09e1EeI4A14aAuGEkEtrh24Eqpbrw/UbpYil/a
+	 cUon9TsCNt6sisVvc92DYE6YTftMa4ZHSFUOX9/6eP2nmOpO/v2qcC8h+4fAzl/FVfs58
+	 01ZLj4f6WbVWrT2lGAN8rH4/uJs9vAMQ3kNuzVdr3FKWGzPfbl6ty06j273yhZH3TN2Fh
+	 IKogngJTceGyNMsvLiH8a1Ribh4Db4iUpnnfTP7EW4cn6EAILfhNYrL9J1+hSNASE/NKK
+	 Z3RPWLKrHq6jEwLkUhk+NSvcK4xa3XcXTZF/t+g6C6hrnHY3Fdueay8ESt8pPeDZprQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793712171;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793712188;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=iQivvky2ATDTmaxZzTIV2FyhaqawfZzHTFUstVZoE7s=;
-	b=Yks5kxRYVONa3i8rvI+bX94g3Ib3b0z8DSKJQTy4QwwikRpHj4TBIpdSFUofTZRBOC06
-	 5Yecar4HRwEYHxLS/x7M5iKwsZeOYSLYZYZheyAN9S7fbmo6+880iBFQv3thQ7AgFSO+x
-	 TiYqJVyRoP+/UYtmz0MLl/ReelmKbeS9qe+D0gFn174rlxcDIUoUHGcMk6KhlyGVvwEUH
-	 0xYzkLGPcC9NVk82GJYP93D3nZhn5ceeEPnau0t6eflmz53e5iqoBWpRumeJAA+23CLiY
-	 a6RxamoUwSTw5mZqsggxpw7vfjW3RITyPmw2oJ389r+AvSNK2cNYa+ie6rXdZIjVDPA==
+	bh=Jnvtc4gqdtiixcNCaFZLBeaCmrtHkcb1NAUR/aXN7GI=;
+	b=JRsHNEmfieguhBRjUqcVG5FMsvmnTsv/9mjuTOq6W5fqsaVM/cGc1AIU3jkzxaDK7N8G
+	 DhA9oghoWjJzH6mWBKmibCMwMv6kapSiexQWuaufeDI+0CdivUvJ8Bwbvu8Q+MXdqKmCb
+	 ITbbhyTBcX29KpkJ4EKAZoW8eIdt7RGnXXFtofoDsn7+Mpynm3LQoOJ4S7OTVQeKnM0Ht
+	 n9NAe8MqO1/StZ0xt7neKGEEdIjxhR49ZTvRz3ADB3PaiXd1YjPepnyNU0U6i5kv7Gfpx
+	 kWL+Pod+CzVsn1phsZzt9DXB9moiPNFk2nNj0DiMqwRyK5hA/abVbNzmRIjlfpkEn5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RXPsMV1x;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=OCzXpUDo;
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37126606A324;
-	Tue,  3 Nov 2026 13:22:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37126606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFED606A334;
+	Tue,  3 Nov 2026 13:23:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FFED606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RXPsMV1x
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=OCzXpUDo
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793712169; x=1793971369;
-	bh=iQivvky2ATDTmaxZzTIV2FyhaqawfZzHTFUstVZoE7s=;
+	s=protonmail3; t=1793712185; x=1793971385;
+	bh=Jnvtc4gqdtiixcNCaFZLBeaCmrtHkcb1NAUR/aXN7GI=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=RXPsMV1xT0Do4WHpXEam5AhviJnf4d2MuC5A7yUmIF03LFsA440tOD9TnQQLanCSO
-	 mRkmPMGLPCvh31AnOGr30HUh0mZaZxyWCvOHPRoOEzcVE008RT8Ly6R/GjHZPgvE42
-	 6zZrS+m5lboG2otqtralXJSQrJnIJnahOPymjBtIn0k5d4dx19BvIUnIN5nBh0mIj3
-	 BLNO7U0n+GpqRkhdsNN/UbuxaLEuv9r8QayNwuNUIaxP1a7kV+eotubv/m1NYz2adN
-	 r3u+am2GydXBtgrdSwAObtBl0O1u9OLqZFoGEDhfysKNDz340C2aar6qqGq9sThz17
-	 xLYF6bUi6I6+A==
-Date: Tue, 03 Nov 2026 13:22:44 +0000
+	b=OCzXpUDodzgnJ/KkNHRu8AajhAziYdVk9f23cQWaRXHEnQSGFA+QLHR0UPGKytBA0
+	 jSGUa0uQZuMLONvYIucBYUWHKswDM1GE/QL5Wq6RuUIHwh7oe41pVzGwP9Js8X8w4G
+	 aaKJOOsMKUFWZ/RcVOddi8XlfWdC7pN8Z2c9dluW0FUEJ3+gPhBy2VgOSjcR/x2DT/
+	 G7Z+ACnn0JX4khILjAyIGh6usoCXSQ/dyIPNZtViT5Rx76MquLNyHKK73vVSrezlwk
+	 +hAvuRhWwAl1XlGJk4WLmyDpKPnl1vZN7NpFV7c6MRkpKEtuu/fFo+jHWeD1hUkGCC
+	 iUBQf2Q4oX2Pg==
+Date: Tue, 03 Nov 2026 13:23:03 +0000
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 From: Sinan Turunc <enscrpt@pm.me>
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2] ALSA: line6: Reject capture buffers smaller than two packets
-Message-ID: <20261103132227.696-1-enscrpt@pm.me>
+Subject: [PATCH v2] ALSA: usx2y: Reject buffers smaller than two packets
+Message-ID: <20261103132247.713-1-enscrpt@pm.me>
 Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: ccc3b01cd691daf4f6f25c596ac56161c798b3e0
+X-Pm-Message-ID: 7f98d601991cc0f07238302346ff0ac8e1b05903
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,94 +64,106 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-line6_capture_copy() splits the copy into the ALSA ring buffer once at
-the buffer end and wraps pos_done once, which is only correct when one
-packet holds at most buffer_size frames. The packet size comes from the
-device's endpoint, and the per-device hw structs allow 64-byte periods
-with periods_min 1, so a packet can be larger than the whole buffer.
-audio_in_callback() logs an oversized packet and then copies it anyway.
+usx2y_urb_capt_retire() splits the copy into the ALSA ring buffer once
+at the buffer end and wraps hwptr_done once, which is only correct when
+one packet holds at most buffer_size frames. The packet size is the
+endpoint's maxpacksize from usb_maxpacket(), while the hw constraints
+allow 64-byte periods with periods_min 2, so a packet can be larger than
+the whole buffer.
 
-The packet size is known at probe time, so constrain
-SNDRV_PCM_HW_PARAM_BUFFER_BYTES in snd_line6_capture_open() to at least
-twice the larger of the two endpoints' packet sizes. Two rather than
-one, because pos_done advances by the packet and wraps once, so a buffer
-of exactly one packet leaves the position unchanged after every packet.
-hw_params then rejects a buffer that cannot hold two packets, and the
-single wrap is valid for every configuration that gets through. Keep a
-guard in line6_capture_copy() that drops an oversized packet with a
-ratelimited error, for the case that should no longer be reachable.
+The endpoint is known at probe time, so constrain
+SNDRV_PCM_HW_PARAM_BUFFER_BYTES in snd_usx2y_pcm_open() to at least
+twice the endpoint's packet size. Two packets, matching the line6 fix.
+The bound makes the copy safe, but it does not make every larger buffer
+progress: the position is reported once per URB of 4 packets, so a
+buffer that divides one URB's data returns to the same position at every
+callback. That was already the case before this patch and is not changed
+here. Keep a guard in usx2y_urb_capt_retire() that drops an oversized
+packet with a ratelimited error, for the case that should no longer be
+reachable.
 
-Reproduced on 7.3-rc7 with a USB/IP device presenting the GuitarPort
-interface layout and 1024-byte packets into a 128-byte buffer: ALSA
-logged "invalid position: pos =3D 224, buffer size =3D 32" and the driver
-logged "driver bug: len" on every following packet. With this patch a
-1024-byte buffer is refused at hw_params, and a 2048-byte buffer streams
-for 30 s with no report and with the position moving inside the buffer.
+Reproduced on 7.3-rc7 with a USB/IP device presenting the US-122
+interface layout and 1024-byte packets into a 512-byte buffer:
 
-Fixes: 705ececd1c60 ("Staging: add line6 usb driver")
+  BUG: KASAN: out-of-bounds in i_usx2y_urb_complete+0x1285/0x1ac0
+  Read of size 18446744073709551104 at addr ffff88800e448800 by task vhci_r=
+x/83
+
+With this patch a 1024-byte buffer is refused at hw_params; a 2048-byte
+buffer is accepted and safe but barely advances (hw_ptr 9216 after 30 s,
+for the reason above); a 3072-byte buffer streams for 30 s with no
+report and with the position moving inside the buffer.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Sinan Turunc <enscrpt@pm.me>
 ---
 v2: constrain the buffer at open instead of clamping in the copy. v1
 clamped the frame count to buffer_size, which left the ring position
 unchanged on every oversized packet and stalled the stream, as the
-Sashiko review of the line6 patch pointed out. A buffer of exactly one
-packet has the same effect, so the bound is two packets. The clamp is
-replaced by a drop guard for the case the constraint makes unreachable.
+Sashiko review of the line6 patch pointed out. The bound is two
+packets, matching the line6 fix; see the message for what it does and
+does not change. The clamp is replaced by a drop guard for the case the
+constraint makes unreachable.
 
- sound/usb/line6/capture.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ sound/usb/usx2y/usbusx2yaudio.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/sound/usb/line6/capture.c b/sound/usb/line6/capture.c
-index 6dbaf30232f..7aaf7826c48 100644
---- a/sound/usb/line6/capture.c
-+++ b/sound/usb/line6/capture.c
-@@ -94,6 +94,18 @@ void line6_capture_copy(struct snd_line6_pcm *line6pcm, =
-char *fbuf, int fsize)
- =09if (runtime =3D=3D NULL)
- =09=09return;
+diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudi=
+o.c
+index a3a0bc13632..d1ddc2b425d 100644
+--- a/sound/usb/usx2y/usbusx2yaudio.c
++++ b/sound/usb/usx2y/usbusx2yaudio.c
+@@ -51,6 +51,17 @@ static int usx2y_urb_capt_retire(struct snd_usx2y_substr=
+eam *subs)
+ =09=09=09dev_dbg(&usx2y->dev->dev, "%s: 0 =3D=3D len ERROR!\n", __func__);
+ =09=09=09continue;
+ =09=09}
++=09=09/*
++=09=09 * snd_usx2y_pcm_open() constrains the buffer to hold at least
++=09=09 * two packets, so this cannot happen for a conforming device.
++=09=09 * Drop the packet rather than overrun the single wrap below.
++=09=09 */
++=09=09if (unlikely(len > runtime->buffer_size)) {
++=09=09=09dev_err_ratelimited(&usx2y->dev->dev,
++=09=09=09=09=09    "%s: packet of %i frames exceeds %lu-frame buffer, drop=
+ping\n",
++=09=09=09=09=09    __func__, len, runtime->buffer_size);
++=09=09=09continue;
++=09=09}
 =20
+ =09=09/* copy a data chunk */
+ =09=09if ((hwptr_done + len) > runtime->buffer_size) {
+@@ -880,6 +891,7 @@ static int snd_usx2y_pcm_open(struct snd_pcm_substream =
+*substream)
+ =09=09((struct snd_usx2y_substream **)
+ =09=09 snd_pcm_substream_chip(substream))[substream->stream];
+ =09struct snd_pcm_runtime=09*runtime =3D substream->runtime;
++=09unsigned int=09=09pipe;
+=20
+ =09if (subs->usx2y->chip_status & USX2Y_STAT_CHIP_MMAP_PCM_URBS)
+ =09=09return -EBUSY;
+@@ -888,6 +900,18 @@ static int snd_usx2y_pcm_open(struct snd_pcm_substream=
+ *substream)
+ =09runtime->private_data =3D subs;
+ =09subs->pcm_substream =3D substream;
+ =09snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_PERIOD_TIME, 1=
+000, 200000);
 +=09/*
-+=09 * snd_line6_capture_open() constrains the buffer to hold at least
-+=09 * two packets, so this cannot happen for a conforming device. Drop
-+=09 * the packet rather than overrun the single wrap below.
++=09 * The capture and playback copies wrap the ring buffer once per
++=09 * packet and advance the position by the packet, which only works
++=09 * when the buffer holds more than one packet. The packet size is the
++=09 * endpoint's, so bound the buffer by two packets here.
 +=09 */
-+=09if (unlikely(frames > runtime->buffer_size)) {
-+=09=09dev_err_ratelimited(line6pcm->line6->ifcdev,
-+=09=09=09=09    "packet of %d frames exceeds %lu-frame buffer, dropping\n"=
-,
-+=09=09=09=09    frames, runtime->buffer_size);
-+=09=09return;
-+=09}
-+
- =09if (line6pcm->in.pos_done + frames > runtime->buffer_size) {
- =09=09/*
- =09=09   The transferred area goes over buffer boundary,
-@@ -224,6 +236,23 @@ static int snd_line6_capture_open(struct snd_pcm_subst=
-ream *substream)
- =09if (err < 0)
- =09=09return err;
++=09pipe =3D substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK ?
++=09=09usb_sndisocpipe(subs->usx2y->dev, subs->endpoint) :
++=09=09usb_rcvisocpipe(subs->usx2y->dev, subs->endpoint);
++=09snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
++=09=09=09=09     2 * usb_maxpacket(subs->usx2y->dev, pipe),
++=09=09=09=09     UINT_MAX);
+ =09return 0;
+ }
 =20
-+=09/*
-+=09 * line6_capture_copy() wraps the ring buffer once per packet and
-+=09 * advances pos_done by the packet, which only works when the buffer
-+=09 * holds more than one packet: with exactly one, pos_done gains a
-+=09 * buffer and loses it again on every packet. The packet size comes
-+=09 * from the device, so bound the buffer by two packets here. The
-+=09 * impulse-response path copies a playback URB into this ring, so
-+=09 * take the larger of the two endpoints.
-+=09 */
-+=09err =3D snd_pcm_hw_constraint_minmax(runtime,
-+=09=09=09=09=09   SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-+=09=09=09=09=09   2 * max(line6pcm->max_packet_size_in,
-+=09=09=09=09=09=09   line6pcm->max_packet_size_out),
-+=09=09=09=09=09   UINT_MAX);
-+=09if (err < 0)
-+=09=09return err;
-+
- =09line6_pcm_acquire(line6pcm, LINE6_STREAM_CAPTURE_HELPER, false);
-=20
- =09runtime->hw =3D line6pcm->properties->capture_hw;
 --=20
 2.56.0
 
