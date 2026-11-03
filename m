@@ -1,126 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717363;
-	b=HCCax0FIbMa7jRY0fnsRPWgIwLKxJgkdQ7Q6TE8wA9Mr/ev4jFt6pRIoULN1k/IK61Nt
-	 gjr1w01wUrd1JuYQTUFVgqq3CIy/+3rbKbFlClLkTymJ7Q3k9qyvzwZ0HiBIOIq5TFlx9
-	 Z3OtQF6KC8Hn3vSEC39/uIG+7JvOPW1i4QCGTZwdTRpqjtso4zzNAy0JzPXnU/SJNS+lo
-	 0KKk7MO+UQ9Kwb5O1/OQNNSvUnXf3XC6kDxz8dtc60jDjKfkAVt8M/cn9b73cwGa9wdg5
-	 8vXWJx/W1HX1PAYnx+vgvqLFSlEOt/0kJqu9Drs0FMgHJHWwlfzsSWqQxuwFv55v7rw==
+	t=1793717393;
+	b=i3bldPxcPlJmSnJ0pTs9rvCTq6+VKuKWRInhxs00ch9FuIYP/7DlNDB1raWSYNc9fa6R
+	 B6kS7FIX2ajP7slhwGRvouY80AM8KvNlZ4/zqFx0riyD1jvPeKKjh6XaOoOrgoxJ81Hit
+	 0PbpxrREMkJ2Q2aqkdvgaVNSBtpgPjCa9i2n0MOCH9MOYjq1Fs+qATWiM40QIR3AvQZjd
+	 c9QHXurmY9DzJle9n6BDzdI/ZPscqdu//xBJtaPn6AK0zlEdTpiWD+aZlF69oGwZwW5Gl
+	 vTzMQZRbrVH8bg4q0wNhHUkQCqxi0dE6cAzx4hW0/jl0g8YFuElnrsJ4om43jaxd64g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717363;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0jU0FKXBVK1IwPB+pnplBif7xzGvyqeYd/rvs2r/ax0=;
-	b=0xt+NKXnZzvyhfAHXcQ+8mlGpIZRrx/on1UkspHutz9MLHPx3lAHbvIPUNj38KrhWp1R
-	 mXFjzbtoujo1sCnYi/pykk61d5VQuExH4TKYs7/0vFeI6ribLtPtkIEsz20NyvP1NO+ip
-	 h3npyZ9T5YLIGO9DqK3L3/fMBBfDLbeo+94djzvSl9D3OGD8a0SjiBxG+vDe84lFYYMOM
-	 bMGe6Rfyf8DNUUaFBIK6/QgXurcrgcO9/+8riUQzImjRf5yhlHY1Z8rME5LG2WxueVX4L
-	 aQfPiEA99C8/a3DHdgZexRzbO0y7EcY2i180aZ2FEhfhFrRyjIScVsPYjPDXQwSpEGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717393;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=27qD6Pz/Glh9kkpJIUr3/I4AZLpTM9yA9jtQ1ZwO82Y=;
+	b=AQVqicBi2j2/5KlhX9gNyWRdwR8gF9DjvvEuhn25H/uGedoTRq9cAq/SEAf+1HgmS6Qf
+	 0iksGf20omo3Gt2Je40knIL6mtJXxOOE/wcBA8xaNMNwi7hLemyV7cp+Hs9CN9vhMWj/n
+	 p5iu7UONfXGMtIvJefv6DXFSXdbjulV10tJ4ULs2sl2odcpjBTQf3qGPTEv61lNfvWfO3
+	 kKFwYxs0VCyTRXPH0roE8rcYSZw7YvHaBkul4IMEo8yQWTBzUKEth5mAy8rLrIgiESCW4
+	 +MH4Dgmn2IK+X2ih4hvQwhOvnzlbUOqwNCrzziw+efCv0XAZTkGl3Y/28lzLZesRrLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QzuU3YVM;
-	arc=none smtp.remote-ip=91.218.175.92
-Received: from mta0.migadu.com (out-92.mta0.migadu.com [91.218.175.92])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIGpP7aR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601A4606D82F
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:49:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 601A4606D82F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626E3606D83D
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QzuU3YVM
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dOHWqJbFAMJYJY9pYQ0G9QdWl3ff5fr4nC5HvUAG8+A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793717360; v=1; x=1794322160;
- b=QzuU3YVMkybToy3jCx589JuXk6v7arOjZKVMIuzVTtcNW67BI2N1Sv/tO1vpXZew6+OWlgh+
- BtzfOsvNi5KxLjRGGqGPhJtBN3VmFTvpgdWNR8NKH7Gp6SbMkzFQdncMIrRdzS1uk7Hz+9X+9N+
- g3oq2Ln4/BioZxzKZymYhmOg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 632a76e6b0da1a08;
-	Tue, 03 Nov 2026 14:49:18 +0000
-X-Mizu-Trace-ID: 632a76e6b0da1a08
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	kees@kernel.org,
-	peterz@infradead.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	hughd@google.com,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	willy@infradead.org,
-	jack@suse.cz,
-	ziy@nvidia.com,
-	lance.yang@linux.dev,
-	riel@surriel.com,
-	harry@kernel.org,
-	apopple@nvidia.com,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	matthew.brost@intel.com,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	osalvador@suse.de,
-	minchan@kernel.org,
-	muchun.song@linux.dev,
-	xu.xin@linux.dev,
-	chengming.zhou@linux.dev,
-	chrisl@kernel.org,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	youngjun.park@lge.com,
-	gourry@gourry.net,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	jgg@ziepe.ca,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	mason@kernel.org,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com
-Subject: Re: [PATCH v3 42/47] mm/vma: call ->may_split() before a partial merge
-Date: Tue,  3 Nov 2026 22:49:09 +0800
-Message-ID: <20261103144909.6138-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261031-fixes_core-v3-42-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-42-d6437171ecc3@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kIGpP7aR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40F711F00A1B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:49:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793717393;
+	bh=27qD6Pz/Glh9kkpJIUr3/I4AZLpTM9yA9jtQ1ZwO82Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kIGpP7aR1scUpNqCFWVyvqhbrG/s9k0ZdkJR1J8ckr4werPo8N7S+1tPRuPNdQFUD
+	 S2mnA5AqFPe1HAd+zP2JYrtXwIUwCn9gjRuBBVMJJDvA4Gzox/Mww6czHdYdFh1hCd
+	 XLHRgRYM993qy1/tGMyVR3tvKgGZ6DNU5nXVziqSkJF0SWCUdrFtl0r2nGu6rnGQH7
+	 Ir6Wdei4nXB8Ce9rCSQjcQTaO5UUFWOWkAOheJ9QFY2fULmkdYYj2zTmRVoIoPIKeu
+	 tcKp5zfJAUZoqF6kKbNWNHONOU06KmjLwsJTd5xXnfzATKI3WDldEJzkaCFYuE3iUn
+	 NwrQP67uMQPuw==
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4f488ba6e90so1574085b6e.3
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:49:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBz/feNRmEHIG92LvoJJYEfMhuJ0T/UFHP2W3qwkBURqRMvIywli8DNKng90EVx+dmCY14GGU4Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/oNYSf5z6WRUn1T30rOukVRARJQQBAOwrcPbaL4DV7m2kWllp
+	rR9xY+oJc+U8GXcfDj9A2KDeBupw5E9OuPzHxpvdMMQ684OTWFb5mNKQK53jabcATiEd+CBVIoC
+	xwzMTFqMAy1eDNrXi1bjNJNqRV6b4ZqM=
+X-Received: by 2002:a05:6808:11c7:b0:539:dfe8:9960 with SMTP id
+ 5614622812f47-5640de0f2bamr8850934b6e.56.1793717392538; Tue, 03 Nov 2026
+ 06:49:52 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -130,70 +59,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261029214219.1035176-1-imv4bel@gmail.com> <20261029214219.1035176-3-imv4bel@gmail.com>
+In-Reply-To: <20261029214219.1035176-3-imv4bel@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 3 Nov 2026 15:49:40 +0100
+X-Gmail-Original-Message-ID: <CAL4WiioDoAT-50wStYDOy0b7f972QivB=Zk_7TCDrVPfOY665A@mail.gmail.com>
+X-Gm-Features: AclHuK8zhh9M8Ej8AYQXAAw1VHdM8fimcEAeuD8qgg1yWG-Nxe-lIMO_Y4uRs9Y
+Message-ID: <CAL4WiioDoAT-50wStYDOy0b7f972QivB=Zk_7TCDrVPfOY665A@mail.gmail.com>
+Subject: Re: [PATCH net v5 2/2] net: restore refcount ordering for lockless
+ socket access
+To: Hyunwoo Kim <imv4bel@gmail.com>
+Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, martin.lau@linux.dev, 
+	john.fastabend@gmail.com, weiwan@google.com, sd@queasysnail.net, 
+	jiayuan.chen@linux.dev, netdev@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Le jeu. 29 oct. 2026 =C3=A0 22:42, Hyunwoo Kim <imv4bel@gmail.com> a =C3=A9=
+crit :
+>
+> Before commit fb041bb7c0a9 ("locking/refcount: Consolidate implementation=
+s
+> of refcount_t"), default builds implemented refcount_inc_not_zero() using
+> atomic_add_unless(), which provided full memory ordering on success. The
+> commit removed that ordering on weakly ordered architectures, allowing
+> accesses after a successful reference acquisition to be reordered before
+> it.
+>
+> Use refcount_inc_not_zero_acquire() in the IPv4 and IPv6 established
+> lookups and in inet_twsk_purge(), where the socket is validated again
+> after taking a reference.
+>
+> bpf_sk_assign() can receive a socket pointer obtained through BTF
+> without a reference. Use acquire ordering when it takes its own reference
+> for a refcounted socket.
+>
+> Use refcount_set_release() when setting refcounts in the SYN cookie,
+> TCP Fast Open, request migration, and TIME_WAIT paths. Keep the existing
+> TIME_WAIT smp_wmb(), which separately orders the refcount store before
+> ehash publication.
+>
+> Fixes: fb041bb7c0a9 ("locking/refcount: Consolidate implementations of re=
+fcount_t")
+> Fixes: 27e5203bd9c5 ("bpf: Change bpf_sk_assign to accept ARG_PTR_TO_BTF_=
+ID_SOCK_COMMON")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+> ---
 
-On Sat, Oct 31, 2026 at 10:40:11AM +0100, David Hildenbrand (Arm) wrote:
->From: Chris Mason <mason@kernel.org>
->
->A driver can use the ->may_split() hook to forbid a VMA boundary at
->certain addresses.
->
->A device-dax device is a character device that gives raw access to a
->range of memory through mmap(). device-dax refuses any address that is not
->a multiple of the device's alignment through vm_ops->may_split.
->
->vma_merge_existing_range() can move boundaries, but does not call
->vm_ops->may_split.
->
->If a range at the edge of a VMA gets the attributes of the adjacent VMA,
->the function moves only that range over to the neighbour: one VMA shrinks
->and the other grows. This is a partial merge, and vma_modify() tries it
->before any split.
->
->Take a device-dax VMA that lies next to another VMA of the same file.
->The user calls mprotect() on the one page of the first VMA that touches
->the second VMA, and asks for the protection that the second VMA already
->has. The result is a partial merge. It puts the boundary inside a 1 GiB
->mapping, which is a single leaf entry at the PUD level.
->
->As part of the merge, the kernel looks for a huge PMD to split at the
->new boundary. That code does not expect a PUD leaf:
->
->    vma_merge_existing_range()
->      commit_merge()
->        vma_adjust_trans_huge()
->          split_huge_pmd_address()
->            mm_find_pmd()
->              treats the PUD leaf as a pointer to a PMD table,
->              so the "table" is the device memory that the leaf maps
->            __split_huge_pmd()
->              reads a PMD that the user wrote to the device memory
->              folio_put() on the folio that this PMD names
->
->Bad. While the code must at some point be taught to split PUD entries as
->well, the issue here is that we move VMA boundaries such that they are
->incompatible with the driver.
->
->Fix this by calling ->may_split() on the address that a partial merge
->would move the boundary to, and by abandoning the merge if the driver
->refuses. vma_modify() then tries the split, which fails with -EINVAL.
->
->Factor out existing split handling into check_split() and reuse it.
->
->Fix generated by an LLM and sent by Chris Mason in private.
->
->Fixes: 38607c62b34b ("fs/dax: properly refcount fs dax pages")
->Cc: stable@vger.kernel.org
->Signed-off-by: Chris Mason <mason@kernel.org>
->Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->[ david: improve description; cleanup the code ]
->Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
->Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->---
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Lack of links to prior versions is rather annoying.
