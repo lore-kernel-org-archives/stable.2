@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701034;
-	b=irmWl9KZyI1VJMdFG0f9F+uS75vCdHE5nm+1XL1HofPEFGyppS+AuglQOeayK7a6UceO
-	 sP70HaaNOUvJkLYcJM8+ZJFmAHjWFpu0i7HjeYE9/TKN85DFNH4XumTfGlJvmLjQm3YDM
-	 lvG1sFwTfrWAZL/6YVDcJVcW4qpWwvSjej7HZTioP163iVlY+4NBQy9lUct7VG6yHy3Jx
-	 Bzi54Y9nvU6E5R3j/JP2aqWXfXJwonAj52Uuyo4CdlIKX7BmeA4AvGet76V8kzlckdpob
-	 SuzHbOJjTRxV01VtS868ELuuplgwONzjoCtGTJjnriqjnJcyUcN8UAJJcvfzcMv/Qrw==
+	t=1793701040;
+	b=TK5ojfstaB5H+5nZcJCc7HtJZf9VGsVMqKf7FX8w2VYNV96gRmkm1cGf8XMl7jG/tSWq
+	 UXncLRB7knbbgESBfq/CyAkIegCVuvvHDqyA3XxFbez5T4p3/KxhJq6S14NRhUZ8Q5o5l
+	 OQ7hCoEAjDToFX+cmoLTQDVFpkwio6QRFkc0M9U8T+hH4dfOAMx35w2BjqbtPPVNKkitI
+	 RapLI1rjcG0U1bPedLvl8WZY+cw2joRItmwVisXjuIsdxmEaZOQSAB9yml8L1b4mmvW6t
+	 U6QcGmqSWDdu4i8FRrlEM/ffKm55qYnx4egvalssLncmgAsoOJeHgyVTW4zZ4NFhsGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701040;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DEZuBPSQ8mym6b0BYlcghyKhx1EV1DLss7ZzzYwQqBU=;
-	b=hpAigj8JDmiQHKX4EALfdebZTMP0m/8wUtt0D6FrUZtwr6a/TA/k9kFBn7WjR+QIJZfO
-	 zGTLrKhleJIToYHxDcM6U+cHSKuk/yt+lCd0I3sxowLBz7mlnZBsr89+F8oqQv/paw04o
-	 qlFq7ecZYUFukTwWREQN4cP269rhMdkUKMGnt7n4+aiQjNRdnyC/KCVH0GQfybVMSbJcS
-	 DHdP17rLOMEKHejZZHmSlJFu0/SpK6DIlUDvzc25WFZy5Y+kgzfUGNjW3VAtSms21hcW8
-	 AHFtNQlGcWjELkjPMwdWSZ9l3vAGzI1d6FbN82K9OS7ckcdbBxn74WW1vkKyzLFeQTw==
+	bh=MD+2k0Mkcrlp6nWnWnhg6nW9gG355tBkPKwe33jjcfY=;
+	b=TgayReWtiImqKjuforvp+16sQ+a0F/nUC1DQX8BOVa+/5PfoA6yOu8Q2qzpP8pyGge29
+	 hzlH17+sAaj7e4SSPd0v3322S+pzVJC3SwLYIMQhX/y+WA8OABDKSxYIrIvy1hpjAskK+
+	 wgkFCKFu1JsNVisGPdBniidAnkHnwecgDV97hBpGRm544dCmbcu+iIaOT9t0LCPesbOto
+	 zGU57Az+oENkpnr8/h3uWBtv/KeLo9LbZCctzgBbGewOJ77JTSRxNpAS6vnlxkFCDiD4e
+	 iHcGgnoWUqT2TtHAvVjz+wgVdzYLITGqrwwXSnnCFhaViKxzLH0QhmzkYTH/Jr8sRJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fcct7NBS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E7oHIeGZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED4D606D83D
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71B8606B113
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:17:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fcct7NBS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3911F00919;
-	Tue,  3 Nov 2026 10:17:13 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E7oHIeGZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042C81F0093A;
+	Tue,  3 Nov 2026 10:17:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701033;
-	bh=DEZuBPSQ8mym6b0BYlcghyKhx1EV1DLss7ZzzYwQqBU=;
+	s=korg; t=1793701039;
+	bh=MD+2k0Mkcrlp6nWnWnhg6nW9gG355tBkPKwe33jjcfY=;
 	h=Subject:To:Cc:From:Date;
-	b=Fcct7NBS9/yxfZANRLMue/w9kow9VxaP5j0KP5sPkLRGSitgODaOsV5Eb7y8CQ6Ha
-	 x7X1h2ItWF5eh1whx1Cf7UgFqHltJTcfjSfcUZKpFhU4NPnqiOdgnRSr9mpdmQK+u7
-	 RXYLj85aCP0UtmmKmBkhdAaxpXWO8iIHixhNAYPE=
-Subject: FAILED: patch "[PATCH] ksmbd: fix parent dentry lifetime in directory enumeration" failed to apply to 5.15-stable tree
-To: cenzhang@linux.microsoft.com,linkinjeon@kernel.org
+	b=E7oHIeGZYG5reZ7zWvXXUaNyKmAoooM9W68dq277UefHoSL2/Z+RZUKbYL3Z76pq2
+	 ZyCvCLxFlKG+uMZzqTnFxPs4bHEUtyYr2j8J7O+5mlRmBqdC4oXJVPnn4qY2Z+tRqE
+	 i5k4EoBb4vttNBOdGI0JSC6yUFAxcuS8Y0lMgsBU=
+Subject: FAILED: patch "[PATCH] ksmbd: fix session reference leak on compounded SESSION_SETUP" failed to apply to 6.18-stable tree
+To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:17:04 +0100
-Message-ID: <2026110304-turbine-equal-c720@gregkh>
+Date: Tue, 03 Nov 2026 11:17:17 +0100
+Message-ID: <2026110317-undermost-pretty-44e0@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 171df27077fb49b4af2c53ad2cedcd0e39664fe8
+git cherry-pick -x 03bd8f5279e490e15e0c0f0fa388ffbd2fbacd65
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110304-turbine-equal-c720@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110317-undermost-pretty-44e0@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,82 +79,80 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 171df27077fb49b4af2c53ad2cedcd0e39664fe8 Mon Sep 17 00:00:00 2001
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Date: Thu, 22 Oct 2026 00:12:16 -0400
-Subject: [PATCH] ksmbd: fix parent dentry lifetime in directory enumeration
+From 03bd8f5279e490e15e0c0f0fa388ffbd2fbacd65 Mon Sep 17 00:00:00 2001
+From: Ian Bridges <icb@fastmail.org>
+Date: Tue, 27 Oct 2026 10:21:35 -0500
+Subject: [PATCH] ksmbd: fix session reference leak on compounded SESSION_SETUP
 
-ksmbd_populate_dot_dotdot_entries() builds the ".." entry from
-the open directory's d_parent and passes that pointer to
-ksmbd_vfs_fill_dentry_attrs() without taking a reference. That pointer
-is only valid while the directory stays under this parent. If a
-concurrent rename moves the directory elsewhere, the old parent loses
-its last reference; a following rmdir then turns it into a negative
-dentry with d_inode cleared, and after the RCU grace period the dentry
-itself is freed. The worker still holds the raw pointer and
-dereferences d_inode through vfs_getattr() and vfs_getxattr().
+A compound request can place SESSION_SETUP after another command. That
+earlier command leaves a reference to its session in work->sess.
+smb2_sess_setup() then overwrites work->sess with the session it looks up
+or creates, and the dispatcher later puts work->sess only once. The
+inherited reference is never dropped. That leaks the session, together
+with its setup connection and socket, and every repeat of the compound
+leaks another.
 
-A remote SMB client, authenticated or guest, triggers this by listing
-a directory while that directory is moved under a new parent and the
-old parent is deleted. It can be done by the client itself with write
-access or by other concurrent writers, triggering null-ptr-deref and
-slab-use-after-free on a KASAN build.
+  unreferenced object (size 512):
+    __kmalloc_cache_noprof+0x32c/0x3a0
+    ksmbd_smb2_session_create+0xf6/0x9c0 [ksmbd]
+    smb2_sess_setup+0xda4/0x6280 [ksmbd]
+    handle_ksmbd_work+0x88c/0x1cb0 [ksmbd]
 
-  KASAN: null-ptr-deref in range
-      [0x0000000000000000-0x0000000000000007]
-  Workqueue: ksmbd-io handle_ksmbd_work
-  RIP: 0010:xattr_permission+0x9d/0x160
-  Call Trace:
-   vfs_getxattr+0x9c/0x1b0
-   ksmbd_vfs_getxattr+0x82/0x100
-   ksmbd_vfs_get_dos_attrib_xattr+0x7f/0x130
-   ksmbd_vfs_fill_dentry_attrs+0x435/0x650
-   ksmbd_populate_dot_dotdot_entries+0x25e/0x630
-   smb2_query_dir+0xcf9/0x1a20
-   handle_ksmbd_work+0x5f1/0x1c80
-   process_one_work+0x90b/0x19d0
+Save the inherited session on entry. After the request has been
+processed, release it once, but only when smb2_sess_setup() has replaced
+work->sess with its own session or cleared it. Do this after
+ksmbd_conn_unlock() so the put does not run under srv_mutex. An error path
+may instead leave the inherited session in work->sess. Keep it there, so
+the dispatcher still puts it and the error response is still signed or
+encrypted with it as before.
 
-Fix by using the dentry reference counting APIs: take the parent with
-dget_parent(), take a matching dget() on ".", and dput() the dentry
-once ksmbd_vfs_fill_dentry_attrs() has returned or the pattern does
-not match.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: 7aa8804c0b67 ("ksmbd: fix user-after-free from session log off")
 Cc: stable@vger.kernel.org
-Cc: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
-index 7dbcfa658edd..f9fb3741ada3 100644
---- a/fs/smb/server/smb_common.c
-+++ b/fs/smb/server/smb_common.c
-@@ -478,16 +478,17 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
- 			if (i == 0) {
- 				d_info->name = ".";
- 				d_info->name_len = 1;
--				dentry = dir->filp->f_path.dentry;
-+				dentry = dget(dir->filp->f_path.dentry);
- 			} else {
- 				d_info->name = "..";
- 				d_info->name_len = 2;
--				dentry = dir->filp->f_path.dentry->d_parent;
-+				dentry = dget_parent(dir->filp->f_path.dentry);
- 			}
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f4b61521beac..9f2b435fd437 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2563,6 +2563,8 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	struct smb2_sess_setup_req *req;
+ 	struct smb2_sess_setup_rsp *rsp;
+ 	struct ksmbd_session *sess = NULL;
++	struct ksmbd_session *prev_sess = work->sess;
++	bool installed = false;
+ 	struct negotiate_message *negblob;
+ 	unsigned int negblob_len, negblob_off;
+ 	u64 previous_session_id = 0;
+@@ -2679,6 +2681,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 			int sign_ret;
  
- 			if (!match_pattern(d_info->name, d_info->name_len,
- 					   search_pattern)) {
- 				dir->dot_dotdot[i] = 1;
-+				dput(dentry);
- 				continue;
- 			}
+ 			work->sess = sess;
++			installed = true;
+ 			if (sess->dialect >= SMB30_PROT_ID)
+ 				sign_ret = smb3_check_sign_req(work);
+ 			else
+@@ -2731,6 +2734,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 		conn->binding = false;
+ 	}
+ 	work->sess = sess;
++	installed = true;
  
-@@ -496,6 +497,7 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
- 							 idmap,
- 							 dentry,
- 							 &ksmbd_kstat);
-+			dput(dentry);
- 			if (rc)
- 				break;
+ 	negblob_off = le16_to_cpu(req->SecurityBufferOffset);
+ 	negblob_len = le16_to_cpu(req->SecurityBufferLength);
+@@ -2928,6 +2932,14 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	}
+ 
+ 	ksmbd_conn_unlock(conn);
++
++	/*
++	 * Later in a compound, work->sess holds the reference that an
++	 * earlier command took. Drop it once this request has installed
++	 * its own session there or cleared it.
++	 */
++	if (prev_sess && (installed || !work->sess))
++		ksmbd_user_session_put(prev_sess);
+ 	return rc;
+ }
  
 
