@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793686233;
-	b=Y9EjchQ0Hv9LqxfV7Wu/pk2yPedbYHLM0TNkm+/Dr6WiZad0Bgg/uTLr/hUVE0mjDo2V
-	 yffTIkNuruO+xlVdGO1MMsk53vBccXCzktRKwZWpeMDVCkSoox7wIwKTIwpDI3EIMsLfL
-	 2fQuFlp4vZioWyrEQskUz2InIFFlE5kHkdpPP4lt+JEvVFRQPL8y3uq3dPcwA6eF87o2x
-	 p9XwDZXv5eo2Zh18R9AmMrCBb1jucHyzz57SkaTdyoLTVWsYlWFLvUutMRoAGh6wKo4gc
-	 L/5f1WUKiDU2dvpEsdZb37q2+BBDPS+9wSs8+U0KHQ5opXcacIocJI8TSASrd2FcYAw==
+	t=1793686235;
+	b=T3vxqQiPzHXSu0TOU81gUt1gwmxhMatikxkVEpNUWSfUmTtVpRz47VCwO1Z1XeEC8tt5
+	 jW8J/Xk5AIKq+fud6b2FBnZIWroUvaZhqimRf76FxMNj/T6ndKxLrP8M6U9oAfLZL/bHC
+	 n+wIgauIpcpvQkIHCrnlYPRLZnxBnUxtEzJ0fP/Xh3c6gUiOc+AXlBUTWZkvQOJA6fvQZ
+	 JzNFUQ04l5jeaUSYjqfEIzcyXQa1oKOzATBrsatLcWZionvsBXBcHmG+M8dq5M3Vb4q5v
+	 /Qgb3xoLmV8ydcRFU9xWZBUIiXdZLZO8Pj3PHocrbD0hTfgueXdEbj7MWUE1Zy0Gz7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793686233;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793686235;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
-	b=Qvm23quqRRtrJ0UPUjsVOo3AYJPrtsBH3r8w4igNTnI1pZQUWIRFvGKUG2KMPXg55TA/
-	 g8fTSwyXUbXpSKmrkXJ6tRncqanmJ162yipQedzLh/s23BPY+/d34HFGVeiltJT9S6aI8
-	 Jg+FytAdGXuDe8o8Mi41o/eQNymACHx1lag9Usu5S+QWvwDrTui5nhQJ8hOQ5ST4iSF2p
-	 JNmxMJwSdIpFnGDYxFnYjONsY2jin7DnBolw5/FCQz79r7blujfvQPzMWoSmND/RMrcup
-	 lUdSiI/TY0FoNTJGBxwryf0iBCPajMLkDzhOvcfbZePMvrKkujhQgfoZCcSMjmBbbIA==
+	bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
+	b=HjaaezEZ3sLI42XNnBSHjCOwO45SqolNXAatwwvyAIhtt/hT+H0mxEm1r+wrf/Q87w2q
+	 IEaWH/AoaqgX9zuAaKvoFQJBZt0U2CRisPksmnRt/8UHvt6F9i6Sh+AV44kHGk+j4c6mo
+	 Kj8C5AvALSC44xNJR1uKgOiiBSQT28q0zd3pt/YGVRYiv5iL3QjiJJTRifn8p6U9HgEJ6
+	 NrZHQ/kuaqCSPyHogidLT919s1GfSdxjhAlT4RJ9VHZXX/QCm4I20WxJES2wwtnLci9uf
+	 YE+2mNWqJIyHQrdpN9h6LUkq2AroaoCi56mGAZJw7dpTJuwPz4FVruLABg6ENA10gKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=asu.edu;
 	spf=pass smtp.mailfrom=asu.edu;
-	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LzSRVlfL;
-	arc=none smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OB+8CPCL;
+	arc=none smtp.remote-ip=209.85.219.50
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE46606A32E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 06:10:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CE46606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18B0606A336
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 06:10:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C18B0606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=LzSRVlfL
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-535179e995bso45567081cf.0
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 22:10:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=OB+8CPCL
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91c75be77c4so38151826d6.3
+        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 22:10:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1793686231; x=1794291031; darn=vger.kernel.org;
+        d=asu.edu; s=google; t=1793686234; x=1794291034; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
-        b=LzSRVlfLP02uU5/OGyMmh7EMgSSCvlUlAHpyAIrdp6PgekhyJ4SLqtwBm+Tu7XWkXq
-         Wn/9PEqz1enAH5uBbk+LjvkM9YMRSgdOkh7N1G+ktJIYVP3bC6yG65ntwZe9R7SPCN2V
-         8phR+NPCSn5LVpqxONSOL19z4PUzXeRcvj4CgJ56gE/f6cpELDOaX3ehKBw3IYRzLyZz
-         Xl9CF1Gj1vF49f0kEadKzr93Rv7KMGqbZy1ZrnAeuPk5ieXkdIVcYV9h/03zJnrz1K8D
-         RxUorEqH/VjbK7TA23miHWIeN9ZEvZCtgWuU59J3HeE4httG8GAZ9INTfyxOAxZKH96m
-         nn4Q==
+        bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
+        b=OB+8CPCL3Zw1NNu/20+ZOMwJ8pRismzLJcCVuJHPrrEM8/rSrzdl2OEG5XJnhPn6M2
+         5sBiNPt1EmI0dRmbugAnbvxmTDjyTSn1y5uKaQz30Cft5UYRyf9FSmkt2K5IBP6EEy9L
+         Qy0j/GCRQsFo/BHB5zhZDkPNlP38OG7B9UMegjs6DClNJx/PshbxLkic3jRDs6jwOK6e
+         fjJMxzDN3iCAoz6t0cP/DR+sb90MR5WRVXCAMV20r/VJdigErUpOhhrYK79osR6u8t1Y
+         toAZtS+WaVD9gN+PiIOYbbAtZ/RGcIgXBflCFU5kzrLEEMLtdpHDOjgrUN/YjJq5/SVm
+         UKtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793686231; x=1794291031;
+        d=1e100.net; s=20260707; t=1793686234; x=1794291034;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EROaWjdO6oYboqJP5qDVlNq8HvD3vjgSVaQkzFo8u90=;
-        b=n312HlhMPnEOFHz4eqOB1j+xPdgKwnzMDv9SwafQA7Nuz8dJzQorrnt3c0BMZco42f
-         JAPLsqs3LtLeehDIyimJ7c6X1Ih2mjlcVwQmDDLiVpt7UoUmHUI3Ol782qbNmic4vISu
-         JdxLbR8zDcD/RuOLAHWSmV7WXcNll+D/A/exrrdaw34tp9t/z9qMSJ1RV1DQGuOxfSav
-         u8rgmKr5cWNrQJTcC8YoccN+lJWOUq+OietYwyMLSOUgPCCf8CjSjoFy5B1Rd+89r4jo
-         q0OAlLT8TCwV1J69qjUR6IGDl0dml3bX7tat+E482cOEYauHuDY3AmxZT3/5aOxDtROo
-         VlNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxApAOIgosMrRVZ5/GuifFMHb0qURaqMgFeNkItx0WwuHJX9RyRKokyE01rdCBJ8unEQmUmTk4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9514eRrp+3cb/WR5ChfbO3oPuKAmnzXEKS9YdiUVV3nCq/bEnZ
-	Tc/fIbi5d92amBVtK2PwpGJAvanRJUUqet/pFbZn9LDvLY0UNsIF2G7qwY9IEhS8Nw==
-X-Gm-Gg: AYBFou2P+WcScJlvfdBc74aWaVCFhMfTFJ6lwndoETuPMs1r/JkXssuMwjeyoscWehz
-	8gwNkKPXN39fyYcPJVceTN41QG+Eaq0i/4KrUjMKNBvITazuRWEdogHsI8I19i+X7fFUy6LIKM9
-	l73NYHBqM/ijx9CSEMtp+GiVS4mP2nY/JoCIWcXb8mO27IqGZf+ZfUys6vJW+fMxiV6Ys5U+BIq
-	EopIQRYc7b1/BhG/U5ZXM75ebbyOnxZJf9lFPt/u/+QlAVuxmcTNuHjTh7fe3EqAKATRJ3MywIJ
-	+ab2fo2PQiw3VJfYgnSagDgqZnmc6aF8Fts7yhV87DeZu/o/Wy8yp2Lc4+6pmJ6E2anEh+dFMc2
-	oijShq77zl9k1ywOGOOpjwwO92mM8L5kjcxmilsD/aXrDL0akgTWVFO10b1cOjBBbx7aEvHCv1w
-	cca4+HW/c4Njpo65yjCbvwXTMvJAfNUtbWtTii+EHwfEau7xjv348hnUDCEzMQi3lULINuDgj0M
-	bGuQ3i+D5AnJPA78N9J4jR9CyQp7abhzwH2nP5r/hevmOpEW8y+g9pcRvM26R2a/8RtX/OM9FfE
-	IMnkDwCLre4tZmhDylQvS5gbaQZqGv9P3+4cT7xIYQ==
-X-Received: by 2002:a05:622a:1f90:b0:536:6378:c804 with SMTP id d75a77b69052e-542b83f7efamr173986521cf.73.1793686231189;
-        Mon, 02 Nov 2026 22:10:31 -0800 (PST)
+        bh=D7f/7cfhMuxRUvMF2+7Ngeja0NaB7eB5cH8ZEWQf8hE=;
+        b=VNr0MZm/N5Ee8YdZWbqBr6EmnkD8z9mJmKTWqR8wXQExsK4Aukwsc/0I8VcSzXdRQ8
+         HnrJqSATt2FwKpUrtNfhhM4hKgW68o7u4F+kF5jqrlYYaJEf6eYse9sKe7oo8ZL4WhdW
+         ETOfGFY3Vk+r2/vRsHH6/DYyauaTRwYy9ZsOt7FCqC56vNHk81p65G5hkYVIc4VfTzvZ
+         xNTZ85hA7Yu4SITh3p2MgR++I9KoBXKu/eEJZ7NO+D4WoZtgRHKgtjSHc/ZDTE4vF5Me
+         L6Q8C7+I2+6pVikWaerO3mXMS83zGKJVf33y47KZVvMCvV/V7z13yX6iUFuUkN3D70/n
+         L1gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZXn6oRjUetRPfRCwKWRgu+RPT6ecWuxTIzyXyD/l6xEDm8HiHIb90UGoJTYWTOfhDufVnwDA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8b0AOZsK4Y864o0IWUvfRjsMjmsVSl6LFyL505oMqllOd3oxRZ
+	j3ks3heBNfIubKrEVx1yMSzyh2/zj/1ApGXEPc3Jwzf1JldoeuS7bMqgCl7BDTp1qg==
+X-Gm-Gg: AYBFou2h7zJmp/1hS3xfKeO5Co93GPUMlNSEqrixcrknEhwN4omqfzyBBblVstwwgUa
+	/1Fsqq5kK3H1E2j2oEKMlyKlFzoV1eenBJsEUfUKsS9Vdstp461ENMyurKdLJPf6rAX3t8wOvYH
+	istMyw2zIOgPa7naLKaeyKZH+H7i6Pvu/LvvoPVqV55vaudWuqnWMszWvnBTaD7clMj74xkqeGM
+	alyCqxap3DipMV+YEVTjVWj3cBrYafHW/SDjFfLEExYIsuJHskDgCbQhzZSklj+6ari47z+dOZz
+	nHC4kqQpOqQZRYZ3ZPUFYk7M1il3lD5tHvofhAIkPd9Gi/LyaXY4t302LuTZWKHH6olv8fKuWO4
+	LSpGEBYNfKy1B267jL8PDaClFEILLvtlpKaNF8l1gUyyEai9Hoy5slrbaD8VxIXclwdJI+gtCdp
+	3RVgfaY8FHMnM/PNTYYiUvLDrsk0WnglWXXCm8QReFhjLAQOpIRV7V/KqLc3FEtIAgf6AWadtfK
+	tLULfKH8vKu+XX/ylbEHa/dym2/9UmWojMD3h3uqhnXwlOThyTQCeT/un2PBsxZSEqN0d2AVZ8z
+	PaFaEybft2yZC3oYHNgjWJLMLuNVkNkAAMwg8F5LyTQ=
+X-Received: by 2002:a05:6214:ace:b0:91c:7a68:2ab3 with SMTP id 6a1803df08f44-91ca4bb34camr203741326d6.37.1793686233610;
+        Mon, 02 Nov 2026 22:10:33 -0800 (PST)
 Received: from localhost.localdomain ([2600:1011:b1ae:f075:aa26:e161:414d:7ec7])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807d8fasm109173076d6.41.2026.11.02.22.10.28
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807d8fasm109173076d6.41.2026.11.02.22.10.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 22:10:30 -0800 (PST)
+        Mon, 02 Nov 2026 22:10:33 -0800 (PST)
 From: Siddharth Mishra <smish149@asu.edu>
 To: dsterba@suse.com
 Cc: wqu@suse.com,
@@ -87,9 +87,9 @@ Cc: wqu@suse.com,
 	linux-kernel@vger.kernel.org,
 	Siddharth Mishra <smish149@asu.edu>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] btrfs: tree-checker: validate qgroup status item
-Date: Mon,  2 Nov 2026 23:10:20 -0700
-Message-ID: <20261103061021.2213691-2-smish149@asu.edu>
+Subject: [PATCH v2 2/2] btrfs: tree-checker: reject extent owner ref without simple quota
+Date: Mon,  2 Nov 2026 23:10:21 -0700
+Message-ID: <20261103061021.2213691-3-smish149@asu.edu>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261103061021.2213691-1-smish149@asu.edu>
 References: <20261103061021.2213691-1-smish149@asu.edu>
@@ -105,118 +105,82 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 [BUG]
-An image can have a status item with SIMPLE_MODE and a super block
-without the SIMPLE_QUOTA bit.  On a kernel with CONFIG_BTRFS_ASSERT=y,
-the mount of this image causes a BUG :
+An extent item can contain an owner ref.  The owner ref is correct only
+when the super block has the SIMPLE_QUOTA bit.  If the bit is not set,
+check_extent_item() gives a WARN_ON() and then accepts the leaf :
 
+	case BTRFS_EXTENT_OWNER_REF_KEY:
+		WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
+		break;
+
+For all other incorrect inline refs, check_extent_item() returns
+-EUCLEAN.  After the tree-checker accepts the leaf, a free of the extent
+calls btrfs_get_extent_inline_ref_type().  This function ASSERT()s the
+SIMPLE_QUOTA bit.
+
+On a kernel with CONFIG_BTRFS_ASSERT=y, a free of such an extent gives :
+
+  WARNING: fs/btrfs/tree-checker.c:1782 at __btrfs_check_leaf
   assertion failed: btrfs_fs_incompat(fs_info, SIMPLE_QUOTA),
-  in fs/btrfs/qgroup.c:411
-  kernel BUG at fs/btrfs/qgroup.c:411!
+  in fs/btrfs/extent-tree.c:354
+  kernel BUG at fs/btrfs/extent-tree.c:354!
   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:btrfs_read_qgroup_config.cold (fs/btrfs/qgroup.c:411)
+  RIP: 0010:btrfs_get_extent_inline_ref_type.cold
+  (fs/btrfs/extent-tree.c:354)
   Call Trace:
-   open_ctree (fs/btrfs/disk-io.c:3789)
-   btrfs_get_tree.cold (fs/btrfs/super.c:2133)
-   vfs_get_tree (fs/super.c:1943)
-   fc_mount (fs/namespace.c:1282)
-   path_mount (fs/namespace.c:4337)
-   __x64_sys_mount (fs/namespace.c:4542)
+   lookup_inline_extent_backref (fs/btrfs/extent-tree.c:919)
+   lookup_extent_backref (fs/btrfs/extent-tree.c:1100)
+   __btrfs_free_extent.isra.0 (fs/btrfs/extent-tree.c:3319)
+   __btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2134)
+   btrfs_run_delayed_refs (fs/btrfs/extent-tree.c:2246)
+   btrfs_commit_transaction (fs/btrfs/transaction.c:2278)
+   ksys_sync (fs/sync.c:104)
 
-Without CONFIG_BTRFS_ASSERT, the mount is successful in simple quota
-mode.  The first data write then adds an owner ref.  The write-time
-tree-checker sees the owner ref without the SIMPLE_QUOTA bit and gives
-a WARN_ON() (tree-checker.c:1782).
+Without CONFIG_BTRFS_ASSERT, the kernel gives only the WARN_ON().  Then
+btrfs continues to use the owner ref.
 
 [CAUSE]
-The super block does not have the SIMPLE_QUOTA bit, but the status item
-has SIMPLE_MODE :
+I made a crafted image : an owner ref, no SIMPLE_QUOTA bit, and no quota
+tree.  I removed the file of the extent.  At the next commit, btrfs
+frees the extent and gives the BUG above.
 
-  incompat_flags  0x361
-                  ( MIXED_BACKREF |
-                    BIG_METADATA |
-                    EXTENDED_IREF |
-                    SKINNY_METADATA |
-                    NO_HOLES )
-
-  item 0 key (0 QGROUP_STATUS 0) itemoff 16243 itemsize 40
-          version 1 generation 12 flags ON|SIMPLE_MODE scan 0
-                                           ^^^^^^^^^^^
-
-The tree-checker does not examine the status item.
-btrfs_read_qgroup_config() reads the flags of the status item.  For
-SIMPLE_MODE, it calls qgroup_read_enable_gen().  This function ASSERT()s
-that the SIMPLE_QUOTA bit is set and that the item contains enable_gen.
-Since commit f2363e6fcc79, the kernel does not write SIMPLE_MODE without
-the SIMPLE_QUOTA bit.  Thus only a damaged or crafted image has this
-state.
+For an owner ref without the SIMPLE_QUOTA bit, the tree-checker gives a
+WARN_ON() and keeps the leaf.  For all other inline ref types, it
+rejects the leaf.  Two sources can put owner refs without the
+SIMPLE_QUOTA bit on a disk : a damaged or crafted image, and a kernel
+without commit f2363e6fcc79 ("btrfs: fix transaction atomicity bug when
+enabling simple quotas").
 
 [FIX]
-Add a tree-checker rule for the status item :
-- The item must contain the four members of all versions : version,
-  generation, flags and rescan.
-- With SIMPLE_MODE, the super block must have the SIMPLE_QUOTA bit, and
-  the item must also contain enable_gen.
-If a rule fails, the tree-checker rejects the leaf with -EUCLEAN.  Then
-btrfs_read_roots() cannot read the quota root.  It ignores the error, as
-before, and btrfs mounts the filesystem without quotas.
+Reject the leaf with -EUCLEAN, as for all other incorrect inline refs.
+Then btrfs finds the problem when it reads the leaf, and the ASSERT() is
+not reached.
 
+Link: https://syzkaller.appspot.com/bug?extid=d7d1fc7e21835ca19219
+Link: https://syzkaller.appspot.com/bug?extid=4983e68a6d77180bfe33
 Cc: stable@vger.kernel.org # 6.7+
 Signed-off-by: Siddharth Mishra <smish149@asu.edu>
 ---
- fs/btrfs/tree-checker.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ fs/btrfs/tree-checker.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-index 61ea8f42c..bb86c30a2 100644
+index bb86c30a2..f021ac14b 100644
 --- a/fs/btrfs/tree-checker.c
 +++ b/fs/btrfs/tree-checker.c
-@@ -2083,6 +2083,36 @@ static int check_raid_stripe_extent(const struct extent_buffer *leaf,
- 	return 0;
- }
- 
-+static int check_qgroup_status_item(const struct extent_buffer *leaf, int slot)
-+{
-+	const u32 item_size = btrfs_item_size(leaf, slot);
-+	const u32 min_size = offsetof(struct btrfs_qgroup_status_item, enable_gen);
-+	struct btrfs_qgroup_status_item *ptr;
-+
-+	if (unlikely(item_size < min_size)) {
-+		generic_err(leaf, slot,
-+		"invalid qgroup status item size, have %u expect at least %u",
-+			    item_size, min_size);
-+		return -EUCLEAN;
-+	}
-+	ptr = btrfs_item_ptr(leaf, slot, struct btrfs_qgroup_status_item);
-+	if (!(btrfs_qgroup_status_flags(leaf, ptr) & BTRFS_QGROUP_STATUS_FLAG_SIMPLE_MODE))
-+		return 0;
-+
-+	if (unlikely(!btrfs_fs_incompat(leaf->fs_info, SIMPLE_QUOTA))) {
-+		generic_err(leaf, slot,
-+	"qgroup status item has SIMPLE_MODE but SIMPLE_QUOTA incompat bit unset");
-+		return -EUCLEAN;
-+	}
-+	if (unlikely(item_size < sizeof(*ptr))) {
-+		generic_err(leaf, slot,
-+	"invalid qgroup status item size for simple quota, have %u expect at least %zu",
-+			    item_size, sizeof(*ptr));
-+		return -EUCLEAN;
-+	}
-+	return 0;
-+}
-+
- static int check_remap_key(const struct extent_buffer *leaf,
- 			   const struct btrfs_key *key, int slot)
- {
-@@ -2475,6 +2505,9 @@ static enum btrfs_tree_block_status check_leaf_item(struct extent_buffer *leaf,
- 	case BTRFS_FREE_SPACE_BITMAP_KEY:
- 		ret = check_free_space_bitmap(leaf, key, slot, prev_key);
- 		break;
-+	case BTRFS_QGROUP_STATUS_KEY:
-+		ret = check_qgroup_status_item(leaf, slot);
-+		break;
- 	case BTRFS_IDENTITY_REMAP_KEY:
- 	case BTRFS_REMAP_KEY:
- 	case BTRFS_REMAP_BACKREF_KEY:
+@@ -1779,7 +1779,11 @@ static int check_extent_item(struct extent_buffer *leaf,
+ 			inline_refs += btrfs_shared_data_ref_count(leaf, sref);
+ 			break;
+ 		case BTRFS_EXTENT_OWNER_REF_KEY:
+-			WARN_ON(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA));
++			if (unlikely(!btrfs_fs_incompat(fs_info, SIMPLE_QUOTA))) {
++				extent_err(leaf, slot,
++					   "extent owner ref without simple quota");
++				return -EUCLEAN;
++			}
+ 			break;
+ 		default:
+ 			extent_err(leaf, slot, "unknown inline ref type: %u",
 -- 
 2.54.0
 
