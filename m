@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735022;
-	b=5K6diJdTsNgaRCQ1O9oxKpX3i5s1yQ6ZZryzr0bcEK0h7IOlrCbvMb6eF9SwVvm8SpMC
-	 WqmYMeeMRGoqKEvFhwWqh5FcUCb/EXegNdeVxo7bBLc4s/B9pNpNXLqDzuUSYNAhP5oPH
-	 D8WjCc2xylS7hPAhwBL21m6zzecgV3nJ21ze9T/hQhU9DYrWdfZS6VkNqA2IFMA59kV1S
-	 9vX53Flq30Fs1JGrkCjHqQGUnvldl6gTWaCFthvWopo49eLYiPuNemoPPZ9Lng9KgyeSD
-	 QsOhIMtdWa84dy+bVQAWUOiLZabGiYs4cU+alq5eOAeovk+vOfBDOjG8LkvVmh5Lsng==
+	t=1793735080;
+	b=KWRO9YfbhktgSEVJDQ3BRRiPyCbSf24o1HytbMDEOxQdsFJ4AYT7heCH2CSuTNj/rKWt
+	 c+4n9ovMkmVYEIGrDhY3SGRJXkKb5k3EYDD/2y1i07B7jAcWGkCXA+e7uNPPWyxCyXWbI
+	 EnnWsbhypSHkIWDJckNI3wA+SeERB+rWLt6tC+wCwoXa7bhnU9u0oh/EpRuGnjqpWrEcx
+	 XwMDpHJ1SGxG802GRQHMTN3gL45imcebRfnldo0NZ3us29KMwaPaW2Hqf93VEAHP/qqhQ
+	 YEMRuxefOn9d0iV2IISSsC+xcNeEcZnM5474zLIiMxSiR4OSjk/zTPssA2j2e+SAgCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735022;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=pM+ObFq+7UvTBHo/IKaCGchHuKGnrduWJa929a2AGj4=;
-	b=A5ajhASRAov+kLzor683B299NgNeCqy4soAuH0mdF+1I4VZyoXNY2uRr7J6g5Phk2jyO
-	 P0MbNyAEXKhEYVaHHQwxsPNQ3C/RTJadvmjpVbbzyDb+1c2dx3jaDlYji8JHZvIV0vOuF
-	 8dfAHNIlIRdYRyHnjxhhacvVDQ74m63VKNb4CApVAuiGJobVPAAGq3CqJRuEiafPKt3bs
-	 YvaWEyYFMwuvoIufChB97ZfJbxf5pEadZ8J5EIfknpsxv7nXfU9GiXDTx9svlTOsh1XrO
-	 g2gHAH1TMreXcV/FoFcIJdZLOVoiEDnT/7bgeVvztzkwS1865sERCDWrf4FvohYJ/oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735080;
+	h=DMARC-Filter:DKIM-Signature:To:Mime-Version:X-B4-Tracking:
+	 Content-Type:Cc:Subject:Message-Id:X-Change-Id:X-Mailer:From:
+	 X-Lms-Return-Path:Received:Content-Transfer-Encoding:Date:
+	 X-Original-From;
+	bh=vcnq1DeugB7564b1ifNJtZSg+TFpvqDt2FpNBOnwADo=;
+	b=4O2tW3nxbvovtPwje8vVBwI/IISNWug9t8LFSXC0OpQLTK+14Snmz0Ah0aYffUOBhBsI
+	 J5U4bOAHruTSSGpJADzRpzYBU7u5RvRxpur38N6Aylzs6lcpF9wbfrqfjRfZ+t16mU51j
+	 pvbjepcTkMig+N/wlLLUBtKTdwAgjNdHZowvv+qg4Ql5p9rDIAHC+OfJ/Cz63lxc6A5wY
+	 3DRilc60PMs0jsKPfzE1ZWpEaPwGOMZi+aU9dZwUx/Wo3EvMggbpAOdIEUk+AhVJbsQgQ
+	 45Q+mHsnmmaJ2NXr7/Hztacn782ukdRKGGjr+9XryNfDzTZds3xofG7IauS35CE1y8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lbPap6xL;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dmarc=pass header.from=cherr.cc;
+	spf=pass smtp.mailfrom=cherr.cc;
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=LPBLVSQt;
+	arc=none smtp.remote-ip=71.18.227.2
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6894606A32F
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:43:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6894606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC628606A32E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 19:44:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC628606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lbPap6xL
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-14fc585291cso3687505c88.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 11:43:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793735021; x=1794339821; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pM+ObFq+7UvTBHo/IKaCGchHuKGnrduWJa929a2AGj4=;
-        b=lbPap6xLlqMk+JYnuSIyFjcRQFqANvPP5Qqin+Bz3DY7GsGTRk8PniDPJ15f+G5ilO
-         r9FUH9gktdgCzOrQpBTRygzrW0nj0WmLAxNtcOyIHnDJx0oZzTd14VRe3a1Nni0MjvN0
-         78W91quHXoMTrB33+q740l4pO9Al9IeFiNf8I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793735021; x=1794339821;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pM+ObFq+7UvTBHo/IKaCGchHuKGnrduWJa929a2AGj4=;
-        b=D/rsxOkOw/SdHoEHZgbIFki+tD1a01m7zk6Skt/2KOrM/ZVEMNsGwsQ6GdTo4RYmTm
-         uRs1vLSFmZlaMsp3JN78p+nGSM+DUxk/gDIRY9qsTlX+gI4UlxIB7AXCJ7Id/ynsnGub
-         RzGBr5qbpa+5CiwLuTYa5Rq84EOw0F7mxFsxLqofjcLf4NoduPcrnnpha9qMU9UtnTZR
-         kpfqtjtQjmC3SMvpfHQNgjVkswk3fM5RnWquQrBycvmMFAa8GWHdEC3oY3mdia3/b3zu
-         kxdqrn8T6vrVFqgm6azgOwNKKjtzsjsOAes4636mlSlYtbSzDVwFobb0CmXjIyQlhOOe
-         tq4A==
-X-Forwarded-Encrypted: i=1; AKwUvBzY34Wolddq8J1hlIHIa198ENZDjLy9nARPw1dwAlbj+pm++nF07Qg0PaZl4vQzLXgXXn8lqZ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xJKkbLrUu8+qoLX+ZRf2qTUWsY9ikxFdhapUzv+FxYS70tHuK
-	cbsTN9C6cWRFPl0dfM8aKahT+B1S1/EsHaI2jxbG6/IZF1UTqgcvN3HHb/eRSNBKZQ==
-X-Gm-Gg: AYBFou0Kfiwn1sxZy4ezOYl0qz84NEY7Os/I62RaRIY/WSVuXGNHn4hq4oejBY83wa5
-	+soIsMA0hMgijiGIjkPzYY1mQW/DxjhyWvxAypIIN+tFRQK0rKTrE5fZn0OA8iylLwFEzdUQLgn
-	q7LCEFu4GMUdoiDWAcNrw0MIYV2hF59n7y1fbGGRbwSKui2NMEuCfAfn3S/+fA0PYoP6ibUN4SE
-	g+psLgL6ntIrpZSxw1UqN1vnuQLWwZKx/ZvmXkydaQkb007bCLAMrHyHpfEnjSwV13vibXU2s3L
-	6izgp1mh75P7AsZGCoB2GXKSL8H7O3qVjF02+aJ2wGdAckSt78hyanU8TuBDjxyRD666ZXvo5tc
-	jGdY0viwTbxYuDHhL4afmyouaISKAvYIRc+zVraTjjz0d/v7LJNJU8TqwFCCZrGVOV5yzuo5mv9
-	cEI49kfCxcuXwSnJcUJPb4OmIKpI1PeBqrxf1Q741MsYsAK8R46UvtWUoMueJwSHom1Wdcc0mJN
-	C6o2jY1ysOALqCec1TOuFp02M3ioWBqwmRacZGgJF+B3ZgBdcbPpCHRCQ0pFXJ40mBYDDxFRUkU
-	zDoMkGoahnGTRm9FY3DHU7HSJN708+RHUDFWwZ7Crh4SYv5o9H9hJYaPx9+/xjfalMI=
-X-Received: by 2002:a05:701b:418f:10b0:14a:8df8:56c5 with SMTP id a92af1059eb24-1ac5dd5a055mr21441051c88.26.1793735020817;
-        Tue, 03 Nov 2026 11:43:40 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:ab71:b3df:693a:fbf2])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b245c2c2ddsm985448c88.10.2026.11.03.11.43.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 11:43:40 -0800 (PST)
-Date: Tue, 3 Nov 2026 11:43:38 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Stanley Jhu <stanleyjhu@google.com>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Bart Van Assche <bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Praveen Talari <praveen.talari@oss.qualcomm.com>,
-	Peter Wang <peter.wang@mediatek.com>,
-	Can Guo <can.guo@oss.qualcomm.com>,
-	John Garry <john.garry@linux.dev>, linux-scsi@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: ufs: core: Keep clock-gating hold on failed W-LUN
- runtime resume
-Message-ID: <auo5ar8427cuH_nX@google.com>
-References: <20261029040002.2100002-1-stanleyjhu@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=LPBLVSQt
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1793735068; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=vcnq1DeugB7564b1ifNJtZSg+TFpvqDt2FpNBOnwADo=;
+ b=LPBLVSQtQ6b50vGVU4UXRLyUg0wWUEJX5+D+RDbZcGXi1b+UhOTaQHoybwtijPC1UBbG/C
+ h1gtlzRmJ6y9KjJnYq4OwDyeWXK3QEif+kAt+yUG5aTFT9wzVfxfrv99aKgYRrAGJnixBW
+ rnXKFVmGTxbnNq/nbiYIeWhIDBNN4/ZBFVWMrRLBbIfFwGiqKWYEEbdJzWHfchhDonRLxv
+ xSj9rw0ANCUze98DFfb1Pz5zoLni2lhV0NcqCDIuKPV24nDNp5TKM/7pW+vSNZv0EO8xOl
+ Eo61W9wibQ2dLheNfUUVxlXVAEggfZYc0cBUyN0xvJq35AHWqsxqqOWvhqFavA==
+To: =?utf-8?q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>, 
+	"Oleg Makarenko" <oleg@makarenk.ooo>, "Jiri Kosina" <jikos@kernel.org>, 
+	"Benjamin Tissoires" <bentiss@kernel.org>, 
+	=?utf-8?q?Micha=C5=82_Kope=C4=87?= <michal@nozomi.space>, 
+	"Paul Dino Jones" <paul@spacefreak18.xyz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,80 +57,95 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029040002.2100002-1-stanleyjhu@google.com>
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAJU56moC/32NQQ6CMBBFr0K6dgytgMSV9zAsynQqY0whUyQYw t0tsHf5kv/fW1QkYYrqli1KaOLIfUhwOWUKOxueBOwSK5ObSuemhraAgZ33IBTRvgloHvpAYQT tSizI6Joqp9J/EPI87+5Hc3D8tC/CcRNui47j2Mt3j09m2x2dFPrTmQxosNeyRbRV6V1+x45Ez oiqWdf1ByPLW57TAAAA
+Content-Type: text/plain; charset=UTF-8
+Cc: <linux-input@vger.kernel.org>, <linux-usb@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH v3] HID: pidff: bound the unit exponent rescaling loop
+Message-Id: <20261104-b4-pidff-rescale-exponent-v3-1-f45e64cf488c@cherr.cc>
+X-Change-Id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
+X-Lms-Return-Path: <lba+26aea399a+0699dc+vger.kernel.org+me@cherr.cc>
+Received: from [127.0.1.1] ([111.42.148.145]) by smtp.feishu.cn with ESMTPS; Wed, 04 Nov 2026 03:44:25 +0800
+Content-Transfer-Encoding: 7bit
+Date: Wed, 04 Nov 2026 03:44:22 +0800
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
 
-Hi Stanley,
+pidff_rescale_time() walks the device-provided unit exponent one step
+at a time, allowing extreme values to cause billions of iterations
+while ff->mutex is held. In a UHID test with an INT_MIN exponent,
+EVIOCSFF took 3.1 to 4.3 seconds to upload a finite-duration effect.
 
-I'm not extremely familiar with the UFS or block layers here, so I'm
-just coming from a general driver + runtime PM perspective. That said, I
-have some thoughts:
+Stop rescaling once scaled_time becomes zero, since further
+multiplication or division by 10 cannot change the result. The u32
+value becomes zero within 32 multiplications by 10, and the u16
+input within 5 divisions. This bounds the loops while preserving
+their results for all exponents, including wraparound.
 
-On Thu, Oct 29, 2026 at 03:08:30PM +0800, Stanley Jhu wrote:
-> 1. __ufshcd_wl_suspend() takes one ufshcd_hold() reference and sets
->    hba->clk_gating.is_suspended while the UFS device W-LUN enters
->    RPM_SUSPENDED.
-> 2. Since commit eef1d74bf88f ("PM: runtime: Only set runtime_error on
->    suspend callback failures"), a failed runtime resume (for example
->    START STOP UNIT completing with an error) leaves the W-LUN in
->    RPM_SUSPENDED with power.runtime_error == 0, while
->    __ufshcd_wl_resume() already clears hba->clk_gating.is_suspended and
->    calls ufshcd_release().
-> 3. The next W-LUN runtime resume runs __ufshcd_wl_resume() again without
->    an intervening suspend and calls ufshcd_release() a second time,
->    dropping a reference it does not own and underflowing
->    hba->clk_gating.active_reqs on UFSHCD_CAP_CLK_GATING hosts.
+Also warn during initialization if the duration field's unit exponent
+is outside the range -8 to 0. This helps identify unusual device
+descriptors without logging on every effect upload or changing the
+rescaling result.
 
-I _think_ this reasoning and patch all looks good, with one possible
-exception: ufshcd has explicit recovery in ufshcd_recover_pm_error(),
-which relies on checking power.runtime_error, and then explicitly
-overrides the status to active to clear the error.
+Fixes: 8713107221a8 ("HID: pidff: Rescale time values to match field units")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+---
+Changes in v3:
+- Declare and initialize exp at its point of use, as requested by
+  Tomasz.
+- Remove Tomasz's Reviewed-by at his request, since his v1 review
+  does not apply to the updated patch.
 
-It seems to me like commit eef1d74bf88f might have subverted some of
-that logic too, because resume failures will no longer latch a
-runtime_error value, so that recovery function may not be doing
-much/anything. Is that a problem too?
+Changes in v2:
+- Following Tomasz's suggestion, warn during initialization when
+  the duration field's unit exponent is outside -8..0.
+- Add Tomasz's Reviewed-by.
 
-> Keep hba->clk_gating.is_suspended and the suspend hold across a failed
-> W-LUN runtime resume, so the hold stays paired with the W-LUN
-> RPM_SUSPENDED state and the next successful resume releases it.
-> 
-> Fixes: eef1d74bf88f ("PM: runtime: Only set runtime_error on suspend callback failures")
-> Cc: stable@vger.kernel.org # v7.3+
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
->  drivers/ufs/core/ufshcd.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-> index cc75384c6502..9be370cea52a 100644
-> --- a/drivers/ufs/core/ufshcd.c
-> +++ b/drivers/ufs/core/ufshcd.c
-> @@ -10626,8 +10626,14 @@ static int __ufshcd_wl_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
->  out:
->  	if (ret)
->  		ufshcd_update_evt_hist(hba, UFS_EVT_WL_RES_ERR, (u32)ret);
-> -	hba->clk_gating.is_suspended = false;
-> -	ufshcd_release(hba);
-> +	/*
-> +	 * A failed runtime resume leaves the W-LUN RPM_SUSPENDED, so keep
-> +	 * is_suspended and the suspend hold for the next resume.
-> +	 */
-> +	if (!ret || pm_op != UFS_RUNTIME_PM) {
-> +		hba->clk_gating.is_suspended = false;
-> +		ufshcd_release(hba);
-> +	}
+v2: https://lore.kernel.org/r/20261102-b4-pidff-rescale-exponent-v2-1-a75bcca65fd0@cherr.cc
+v1: https://lore.kernel.org/r/20261029-b4-pidff-rescale-exponent-v1-1-3ba54accf767@cherr.cc
+---
+ drivers/hid/usbhid/hid-pidff.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-This looks right to me, as a non-expert in this code, and it may even
-have been wrong before commit eef1d74bf88f.
+diff --git a/drivers/hid/usbhid/hid-pidff.c b/drivers/hid/usbhid/hid-pidff.c
+index 22951b7ecd17..7827b366fa5f 100644
+--- a/drivers/hid/usbhid/hid-pidff.c
++++ b/drivers/hid/usbhid/hid-pidff.c
+@@ -354,9 +354,9 @@ static u32 pidff_rescale_time(u16 time, struct hid_field *field)
+ 	int exponent = field->unit_exponent;
+ 
+ 	pr_debug("time field exponent: %d\n", exponent);
+-	for (; exponent < FF_TIME_EXPONENT; exponent++)
++	for (; scaled_time && exponent < FF_TIME_EXPONENT; exponent++)
+ 		scaled_time *= 10;
+-	for (; exponent > FF_TIME_EXPONENT; exponent--)
++	for (; scaled_time && exponent > FF_TIME_EXPONENT; exponent--)
+ 		scaled_time /= 10;
+ 
+ 	pr_debug("time calculated from %d to %d\n", time, scaled_time);
+@@ -1433,6 +1433,13 @@ static int pidff_init_fields(struct pidff_device *pidff, struct input_dev *dev)
+ 		return -ENODEV;
+ 	}
+ 
++	int exp = pidff->set_effect[PID_DURATION].field->unit_exponent;
++
++	if (exp < -8 || exp > 0)
++		hid_warn(pidff->hid,
++			 "duration field has unusual time unit exponent %d\n",
++			 exp);
++
+ 	PIDFF_FIND_FIELDS(block_load, PID_BLOCK_LOAD, 0);
+ 	if (!pidff->block_load[PID_EFFECT_BLOCK_INDEX].value) {
+ 		hid_err(pidff->hid, "unknown pid_block_load report layout\n");
 
-Reviewed-by: Brian Norris <briannorris@chromium.org>
+---
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+change-id: 20261028-b4-pidff-rescale-exponent-1d5c4e218e6d
 
->  	hba->pm_op_in_progress = false;
->  	return ret;
->  }
-> -- 
-> 2.56.0.313.g2479322e68-goog
-> 
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
