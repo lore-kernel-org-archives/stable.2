@@ -1,57 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717066;
-	b=BP1j3lkZOLZxaiyA7pHLD9muw850cPrZfUHpDpqiHbTNqzpXMk1KZXltMMcaMvjWr4zI
-	 ObL+09l4hO5Or43f6EULnUgBzAVRm8Y0EvMoZFmE6THp5Ge9gQoIhykqyc3f5PuayEHXj
-	 U1WOMW1tOlVbrL+2RYkWPQCTfK0xNxgTB8w+vCCzgu59aE5wk0ap8JaRaiK9v4BHIbwhD
-	 iN4lbE3PhpXPbx1seKBibQ0HEMSOQ8M2UsDLIVc31m+q4s+Kwd1jENw26XyxnFu7BOpR0
-	 1A1HACp+5UJSE6WnG0v+HeJawPDbuXIN15AH4KIi4FUwzmbqK8IAD4/+1tpon3eiWpg==
+	t=1793717077;
+	b=aUQS/0xNUq2BmoJ6TstOx3sucVaJAyW7UTiHf0C++Vnr14NW1K+tYEcXKDX/mv04RIsm
+	 1m/LPHjZqJ3H4g8aCSYCgYCtDbBVhAndLsChzdiyBFr5ySHZrxe6J/xBk0d2KkC8KYTdO
+	 pqEkOaXH5l5Rulkd3FxarQrL/JStmziegT45WhaexPTBJT3wSKUTvSSVitMy6RInZDjeA
+	 Da99Ug4MDsr/U0fpP1sWyV4LWA/jGp4hn5+7Is1r9Tz0PcKuD9ekctsiwLNNhzOB9OCzl
+	 OlySkEUcdvSNvwMWTG64jhzo1eS458FlgOEgDp/ysJsjIrOEC1xobsMiZQLpK5w3MKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717066;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KaGxOIDUSLDrhNtJZX8c9f03J0fEHiNZw1qU0QBhoYc=;
-	b=WOiD3NQ0awfiwsyt7c89fe96FewIrrJlZbpfNjZiNYtSto8JSMtUk0zE4LVXijwSBZqs
-	 xSW/4CIgL90rbUxyBO3uQwcKggvT+SLk6CfKB9nvOBEdrPjoNr7s8cfIJzC/Qfol5/31N
-	 2Z8lYggU4HuBh7/nvg8MTr0MV8SgYO9/9jsnRqrvXu8abWTqdWipvTrAgst4Wo4yOuChp
-	 aGBMLln/KLpOaxokozP3zaumWV0kquWz6N4TU3VNqpi95jz5w9pJAYqPfu81jEGsjYtbR
-	 6HDIYlfTJBD64ThWpl5+1H+6lrTDMLf7ET9+0o6d4dFzaNFOIlouu3mbMVOqmnfU+6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717077;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
+	b=oRkF3QM5HZ1dFqRX+umxt5U0Ol9O2+ynd3R2xwt9ZcWuljFOjtH0b05kL3wKVP80B00q
+	 TpAsrakFBuCUorZZwArRSwU5oYmKgGEGycAmmQHfUTp4PYRf+H8ub4hgMnta1s9gFx/pR
+	 hzpE20V0ujh5xMZElC1iu9jgOeRdCHjrMZrJENQCPtvtA+/8meiFxMUmtdnpdR/7qjmCy
+	 stZzc46iBqkSKoHAnjwpich2j3upDIgqWGor80nH9uEXZVar1b8PDNy878GOXTMgzR1zR
+	 tkohAPsx6+vsQFA9DOaaqqindB43bLrDbHAyRbVllIwfqcbWpWinH83xJMcBAxwTVsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBZHsAMi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vYWHbTwJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pjH1LFEK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=veVd1VnK;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fu55teLJ;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 342D4606A324;
-	Tue,  3 Nov 2026 14:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9ABE606A329
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:44:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9ABE606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBZHsAMi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F99E1F000C1;
-	Tue,  3 Nov 2026 14:44:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717065;
-	bh=KaGxOIDUSLDrhNtJZX8c9f03J0fEHiNZw1qU0QBhoYc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dBZHsAMiJ+/PGPEom3ti3bETufGkQzi2dhXzD+07ycVN49yX4KekU4AIxvAaTOy8A
-	 50yWGwqZxKKcpEr2leVlYVLngMKbBGp2hdScXLCyTPGdCCpUSTuYUHuaBTkWCBDIYe
-	 D7WDxL8V9RH3ZXUk/lsd+cCYZl5eVAadFkMkcJrN3xLS0U/bmOXrofOrQkOOPQAEEC
-	 hlfVtMo/+6YbLzAXRNdVzlk9EjSuY6zilZXNzPFyEv9B4OOOBz7kQHaiY6RHTjFu4x
-	 cmvEMDXgGVXIo8toz1CX76Juf7ITWlO9rrCDS4ghbbK+aXlU177nZKQIX+ZyAm8JES
-	 Z9/e14ef+8fug==
-Date: Tue, 3 Nov 2026 15:44:20 +0100
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Jiale Yao <yaojiale02@163.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Marc Zyngier <Marc.Zyngier@arm.com>,
-	Hanjun Guo <guohanjun@huawei.com>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 01/20] ACPI: irqchip: validate MADT entry bounds
- before probing
-Message-ID: <aunzRO9rxFUlC0Ym@red-moon>
-References: <20261029035253.2333852-1-yaojiale02@163.com>
- <20261029035253.2333852-2-yaojiale02@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vYWHbTwJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=pjH1LFEK;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=veVd1VnK;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fu55teLJ
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8E7D21F769;
+	Tue,  3 Nov 2026 14:44:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793717067; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
+	b=vYWHbTwJHrx+bHm+iJSZc6M+BPrBQ1uiG0X2WcWxr9Ywc3IJUIaVreUwNhEZD7ACKnfJLq
+	dOhDoBO91elMkKglnlJ90JB8x11tihfknKPFDfBdrzhJ8SYPgy8SK3k/ERgpjYhUWqNymX
+	FTy6GYatUJuYJnMDOC0rit9qJizcuWE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793717067;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
+	b=pjH1LFEKtGfIYJVjgCfyO5KqKO18HTqb9IT1qxFpuYvsJ0NO62EGJg3kGPXqiGQM0cqKPV
+	VETySZIi1J+zKLAg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=veVd1VnK;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fu55teLJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793717066; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
+	b=veVd1VnKzGi9ou7E8al/Z1MNeqbcEe/7BsP67W0o6YroWdAuLP992JtUXxwvYAiAN+acfR
+	HBcWpUd5bXtRX5ZZj0Wt6jo9PYmCyitAO2imwYLjlP+J5vnQPNA2IHMMEoSleV5gz6Mu1o
+	jfGnKnJjo3PdwWSPKZxBPpC9MJUnoPM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793717066;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MOx8F45uSrWJfrvKQQ9bd2fIwgZx3o0QDqg7GBPLn0o=;
+	b=fu55teLJdDMP1BP90SMNi97wx4SaHkG4InEwNntbU/TjzrUGx7Dk9TMzB+DTCdFoAbHdC3
+	xIidlfHPPx7kPJDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4D76C134B8;
+	Tue,  3 Nov 2026 14:44:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Mz1DCkrz6WrwDgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 03 Nov 2026 14:44:26 +0000
+Date: Tue, 03 Nov 2026 15:44:25 +0100
+Message-ID: <871p92x9di.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Slaton Christie <slatonchristie@gmail.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+	Richard Fitzgerald <rf@opensource.cirrus.com>,
+	Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	patches@opensource.cirrus.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda: cs35l41: Add DSD properties for ASUS UX582Z (1043:1a8f)
+In-Reply-To: <20261030170354.7427-1-slatonchristie@gmail.com>
+References: <20261030170354.7427-1-slatonchristie@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,71 +116,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029035253.2333852-2-yaojiale02@163.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 8E7D21F769
 
-On Thu, Oct 29, 2026 at 11:52:32AM +0800, Jiale Yao wrote:
-> IRQ chip probing invokes validation and probe callbacks after the common
-> table walker has only established that a generic subtable header is
-> readable. A malformed length can leave callback field accesses outside
-> the MADT.
+On Fri, 30 Oct 2026 18:03:54 +0100,
+Slaton Christie wrote:
 > 
-> Validate the generic header length and ensure the complete declared
-> entry is contained in the table before invoking IRQ chip callbacks.
+> The ASUS Zenbook Pro Duo 15 UX582Z with PCI SSID 1043:1a8f has two
+> CS35L41 amplifiers on SPI (CSC3551), but its BIOS provides no _DSD
+> properties for them, so the amps fail to probe and the internal
+> speakers are silent:
 > 
-> Fixes: e647b532275b ("ACPI: Add early device probing infrastructure")
+>   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: Failed property cirrus,dev-index: -22
+>   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: error -EINVAL: Platform not supported
+> 
+> The Realtek codec quirk for this SSID already exists
+> (ALC245_FIXUP_CS35L41_SPI_2), and linux-firmware already ships the
+> tuned cs35l41-dsp1-spk-prot-10431a8f-* files. Only the property table
+> entry is missing.
+> 
+> Add an entry using the same configuration as the sibling UX582ZS
+> (1043:12af): internal boost, CS/reset/speaker-ID GPIOs at indices
+> 0/1/2, 1000nH inductor, 4500mA peak, 24uF capacitor.
+> 
+> Tested on a UX582Z running 7.3.0 (CachyOS) with the change built as a
+> DKMS module: both amps probe, load the spk-prot firmware, apply the
+> EFI calibration (R0=10611 / 10708) and the speakers play audio.
+> 
+>   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: Firmware Loaded - Type: spk-prot, Gain: 17
+>   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.0: CS35L41 Bound - SSID: 10431A8F, BST: 0, VSPK: 0, CH: L, FW EN: 1, SPKID: 0
+>   cs35l41-hda spi1-CSC3551:00-cs35l41-hda.1: CS35L41 Bound - SSID: 10431A8F, BST: 0, VSPK: 0, CH: R, FW EN: 1, SPKID: 0
+> 
+> The boost values are copied from the 1043:12af entry, not taken from
+> ASUS or Cirrus documentation; confirmation of the boost parameters by
+> Cirrus would be appreciated.
+> 
+> The diagnosis and the patch were prepared with the help of an AI
+> assistant (Claude, Anthropic), from the dmesg output above and the
+> existing 1043:12af table entry; testing was done on real hardware by
+> the submitter.
+> 
 > Cc: stable@vger.kernel.org
 
-I don't think this patch fixes anything (actually you don't know, it
-might break kernels that are currently booting).
+You forgot Signed-off-by tag?  Please resubmit with it.
 
-Remove the stable tag (on the whole series, though others might have a
-different opinion). If this gets merged, goes to stable and then
-we discover it triggers a regression (on existing platforms whose
-ACPI tables are broken but the system is working) it would be very
-annoying.
 
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->  drivers/acpi/scan.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> index 0b17a7e51956..10e8d736f44b 100644
-> --- a/drivers/acpi/scan.c
-> +++ b/drivers/acpi/scan.c
-> @@ -2896,6 +2896,13 @@ static DEFINE_MUTEX(acpi_probe_mutex);
->  static int __init acpi_match_madt(union acpi_subtable_headers *header,
->  				  const unsigned long end)
->  {
-> +	unsigned long start = (unsigned long)header;
-> +
-> +	if (start >= end || end - start < sizeof(header->common) ||
-> +	    header->common.length < sizeof(header->common) ||
-> +	    header->common.length > end - start)
-> +		return -EINVAL;
+thanks,
 
-This is a check that AFAICS could be done in acpi_parse_entries_array() once
-for all (where you also know header->common is what you need checking, btw). 
-
-Actually, what's missing there to avoid peppering the kernel with
-BAD_MADT_ENTRY checks is the entry size (that we could add with a LUT).
-
-The downsize is that by centralizing it, if anything breaks (which is
-possible) we have to revert it and therefore remove the check for all
-consumers.
-
-I don't know. Rafael, all, thoughts on this ?
-
-Thanks,
-Lorenzo
-
-> +
->  	if (!ape->subtable_valid || ape->subtable_valid(&header->common, ape))
->  		if (!ape->probe_subtbl(header, end))
->  			acpi_probe_count++;
-> -- 
-> 2.34.1
-> 
+Takashi
