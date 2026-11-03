@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702462;
-	b=ws+WCvtQFF4LeO1tgXAu8M/GfMZ3kCfvkXWYK2qiBdIRSYsRvySLKOWlJ6kj3ZQ3Aqpr
-	 V8unOL1rzbAj/Xtxd+3Lg95tYXVzU1ucIVBOG9F5RfvDMgjlCOlPgLrhQlxEYQ91Ctm3o
-	 hebfVbQ+6ne4CO7Ohyv6I/QkVd/jUpw551S9+y0qWR9AQW2wmaEnsf4zDr8ob99qVgyyn
-	 74inJe1Fs1PCo6ktaVkJMF+NjWrbS2ZtSIXympAa1DQ4tAGsSS8iveG/bMyJgDkvAiawR
-	 bTHXPnk4pNcP2NIQhQr1i7QDinhj+jlYyYuSaWkufKrRd7Z3B+mOd1w50N2rgHCA1LQ==
+	t=1793702467;
+	b=GjsLBHyThNl2H1tPY95zYC2VKlHAU4Sr++qqf9Suzj+8+ZwqvH7LNlgviknHfy4SByZn
+	 TAchcUxFjKrP2k1Z8ybic4jw72tdQcrtdN+SUNBgtPUuWBV+ueCQfrhk3ePduDvkNurTU
+	 ZH5BC14cgoLfjDHodGNbZ2oC1D9mCylTKH7lqNh/v58abxlqWIDqZAJaTnQ2aw71ho+q8
+	 VuqwjpVSLvsSI8GvnnvSL+wEwwD6HyGyKJ5vwfDYDZGE8ap+/fKMuj17Y9LFvgx/RgpvQ
+	 w0qWOjHVUt1NQ4FKO9DbU0R71yDkoZlirF9rVpqkbEPmA7LSplsrV/cK13Ni2op4vzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702467;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tjIG230mhGv1oCH45nA8ShTRVOkOe3IxxB2JzFrwQeo=;
-	b=b/0HK5kOKJkEbMr4mcWGMwVZKiHlcZliJs0SeqfROMhjt93Xcd794896QhEY0hCmz13T
-	 gfKPjTOaTns3AthghAtw5f2P79yZ0CQgdel4myZDaq8VcwpJjphHyhpO7E6cT4aamVMKb
-	 HeHuZk4SG/rmoFZgwkDaPGpQfNLSaG98wUpM1uOAUaJB+88pIOVByUUXL47YZNOGjVQN1
-	 KvXLtKPuMtyeE6lMhVXmav5aZx3SKDvd3/h9U9nxAzQIVbdukj/N5L5+Go0VtPdDElo6U
-	 j32xI+yZDuhlo8WDJcLdbTCwezc70Xs0Kgqc4lAIOaL5+1O2OwnmJM4YbJhRJRKWnRg==
+	bh=8nIUAdKhQOdU5bD0Ebix2Rj1z+5vhf3MK7JazPI6O1M=;
+	b=vONFboX61U4bAEy//3Png6tov+yVjEn+NXmkAvv4vfUUYslQTyosT1RDMfrKlu2LaHrx
+	 rvvCB71G784CyRLIRmKWnDojVyoRGwibeBe3fI6kwHaKrfV6xhLVyr2OuDJcl1T6lGF3+
+	 LwkO970YePX8Z73m66UN+iFCZuocbK9j1zqBFRKucHUCT/Fa+/KMOVXRoiV37LVk5Kln4
+	 tSIM7g+0KUxI3sMg0nMT0Q1+E262HU6KOqQuQhOitLHwUz7ikP3YetCN2KUr02DsF1aHf
+	 JPIh1wEcjk1953QOull9QDPRt1BVL1k63zf83RefMryXqNFXNb/5uqylhl34Y/uLp9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhFvSqJo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEKbJfYv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC266078F0E;
-	Tue,  3 Nov 2026 10:41:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 954526078F3B;
+	Tue,  3 Nov 2026 10:41:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhFvSqJo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828C21F00A15;
-	Tue,  3 Nov 2026 10:41:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PEKbJfYv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE49D1F00A02;
+	Tue,  3 Nov 2026 10:41:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702462;
-	bh=tjIG230mhGv1oCH45nA8ShTRVOkOe3IxxB2JzFrwQeo=;
+	s=k20260515; t=1793702467;
+	bh=8nIUAdKhQOdU5bD0Ebix2Rj1z+5vhf3MK7JazPI6O1M=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GhFvSqJor3zOKimRSRifG6qVMYl3H/N/moXCK3AGl52EVOA50Ni64eryNgzoI5SI7
-	 +gjx07PNY34O5Ks1MxVPzJsuO/31hpVg7rL38hr6Nz4dZRJDn5up5HOPadh7chB6HR
-	 Y5ruw8/vD1fGodVNsBNcGZs/D2OSrbOQ/nOA+3ssFkXFBdGpcFej7WLbGHjfxqcrwy
-	 ZdvDzb575i0KtEdohhhyjkcT9bLnyeL55/BpSQK1Yz6+qwS2EIVWtqu6/zyxBRi9ui
-	 LTC3qpLc1L44jOc8XiYUmHN8NMQf79edFnhL10OSiabXSEzq+J16g1C9s02XdoUUoZ
-	 MnRAWhOuHN5mQ==
-Date: Tue, 3 Nov 2026 11:40:59 +0100
+	b=PEKbJfYv0gQXOfZZKZgDdS0Xx5ADDeTDUQg46LyAXCi0aBZAYa7GhmO8hOkC2p7dX
+	 5C5O0j+rfTmjTlXSr7QRAbOfu66F7Zt5wmSxzn9iKBGyMF+cYY8EY908q3tScIltod
+	 xbwED2+h5Nabfceq8hjmD8tX7hbXgGTQ6xpLjyhoQspuZOualCNlVQUGUJnlUAJgN7
+	 wVgydqMcQrAUDYOyENhucAc1Yx18K84Rgxf/0Fb3YkNtl8vuuEz8Ni10yW72bdTZcP
+	 xa1VYJMczhbO9NvGFetMUgUxMrSgYJX63gogW+TdRO017GJeoLBXlBkqF1UcNgPTlK
+	 YRC2gUD2q8XPA==
+Date: Tue, 3 Nov 2026 11:41:05 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	wcn36xx@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>
-Subject: Re: [PATCH] wifi: wcn36xx: drop the SMSM state references on probe
- error
-Message-ID: <20261103-nostalgic-clever-boobook-3c8dbb@quoll>
-References: <20261103102902.1340936-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, ath11k@lists.infradead.org, 
+	stable@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	Jeff Johnson <jjohnson@kernel.org>
+Subject: Re: [PATCH] wifi: ath11k: release the rproc reference on teardown
+Message-ID: <20261103-complex-kickass-reindeer-f5a0fd@quoll>
+References: <20261103102859.1340835-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,32 +59,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102902.1340936-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102859.1340835-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:29:02 +0000, Wentao Liang wrote:
-> wcn36xx_platform_get_resources() acquires two SMSM state handles with
-> qcom_smem_state_get(). Each successful call returns a reference that the
-> caller has to release with qcom_smem_state_put(), which is only done by
-> wcn36xx_remove() for a device that probed successfully.
+On Tue, 03 Nov 2026 10:28:59 +0000, Wentao Liang wrote:
+> ath11k_core_get_rproc() looks up the target remoteproc with
+> rproc_get_by_phandle(), which takes a device reference and a reference on
+> the remoteproc driver's module.  The resulting pointer is stored in
+> ab_ahb->tgt_rproc and never released: ath11k_ahb_free_resources() only
+> tears down the firmware resources, and the probe error paths after the
+> lookup jump to err_core_free without dropping the reference either.
+> rproc_shutdown() does not release it, it only drops the power reference.
 > 
-> Several error paths in between return without dropping the references
-> already taken: failing to get the "tx-rings-empty" handle leaks the
-> "tx-enable" one, and failing to look up the qcom,mmio phandle or to map
-> one of the mmio regions leaks both of them. A probe that fails after the
-> first successful acquisition therefore leaks the SMSM state references
-> for good.
+> Release the reference when the AHB resources are freed and on the probe
+> error path, so that repeated bind/unbind cycles no longer accumulate
+> remoteproc references and the remoteproc module can be unloaded again.
 > 
-> Make these paths unwind through the existing label chain and put the
-> handles there.
-> 
-> Fixes: f303a9311065 ("wcn36xx: Transition driver to SMD client")
+> Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/wireless/ath/wcn36xx/main.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
+>  drivers/net/wireless/ath/ath11k/ahb.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
 
 
