@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700635;
-	b=g2a03mRPrAyYClCSxJYR1cct7lHMIbx4kLjNut5YPAxgt+fnEVHYiBj7TrFx3CnXrcKq
-	 NKGZGfAuxNR94+0gpWwj9TFZVJlqJUwT2jeZeF9LBcSwYDq0qAtbmRgB3rS1exhd8Jave
-	 Tj/hHF2wpY4lVqa3kzg7hIzUJ9IsJ3chXBfrdiEjlqU/QZbT35qQQtTMN8tgl/Ltivg/X
-	 GRJWokVbsCPrtQ0i4Ulw/XMKTeA7gQWALHhbZTcHAh5R8c/1mumIR4+5oFq6JS7ABy8qh
-	 LWMR9ba4tM/mY+wZEPmHVGahWiB25vsJ90iFZ1ZFJOWLbSyTs4OOIdw5wnBC+JKMmmg==
+	t=1793700646;
+	b=bfE0EyqCjS0mlZD9kNdgeTDxnjenbaoblxJgm3pb/Rvr9+iyO5EIhil/q1wwckokeIjK
+	 0BAgWpkuoS9W17InXD76/1gL32/0xu7OQ52Y9FQ4PkU+gHN/HmaWjLiJQpRSKq2eyv0lP
+	 4kiirm+a6zm3yQTs/cTG4a3zqnwxsCIDzn07kE9s9nPrzlhFe7rAzL8RcJ5yJPgweHkm+
+	 zvF4ebG0nZNvhqPqU/xLcyxQN6EdNo7fWkxg+ycm6hwmms9eh9oaGfAZu2kQUUUd/V+6W
+	 yf1ihAgpleMaLnkS7QEKghhX3rBqmoyjsMrVfJzQJnsOK2ApzvyoGluv529G6MH+feg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700646;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=n/a95moMhTo2V1bhlqxFOojiRsUuFnaNeAtgD+c7R2g=;
-	b=uL035YyY8IPnjDoaK4I3QZkl/UfqWTlEHuoDzoEHZ/UfWcqMMzU/SKfd4oEnZ5QjKBxs
-	 MPdx8gKmh++bcXw4onc1bfj3zWJUNu37oW0WPuaPuicTydmpBzEtWq9tpjZymhlpIuOhT
-	 k5Yx4wAqie2fvD3XxBxuGmdr7LdTFcPortooWJ+2pvsdPnWqbQbAx98ja2TIaJ+FtMsoa
-	 S3kbLXjGX4Br3aM1AuIjneu7ekXpPt9jCKz35o1rTa0HUOe24gpx8BVcm5NI1U+w1ZxPn
-	 pDU7ewAIEhlehGJFm5pwPO25bdPVE2wl7Vu/+8kdjMOi5uq3rhTG/4YdT5bZHFMmwvw==
+	bh=ZacAEQsKRdTBk6pqu59uPdfr8wGt5ZqSWYx1IZFANNU=;
+	b=S1+ZCjFuGHwyiw9HbBL3saMlwhVWXu4hTAbpICgrVx7iqsEUa607p06C6LNVfA/4Vuje
+	 q4VQrRT4Y551beHp7R3WS9v7YOsotcwH0r0KyyAUSzjd9VDnYtv3G01+Jj7ZK3Kx9AJaC
+	 6Oc3RekXHNfiFq1XUYbIK0uSpxeOHOqsO79g6D9k7sY8dZ2BqFSrtreprepBsn8PGi8MI
+	 LOWMdtvVvjQmKx8Ym10cDJV8oXdj9Y/fpvfZ2PCzxZ22Wm89QY11mAe8J2HroYTMqbZbW
+	 BwT1ZndyNI7nyeGECnTCKVuWwdc/sN743BoHsaaUo3tOUvxxrWf3C63XD0LJyBWPWhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yu2rMxZZ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jye7OuDL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A90606B12B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:10:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C4D60A3823
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:10:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yu2rMxZZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59911F00919;
-	Tue,  3 Nov 2026 10:10:34 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jye7OuDL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EFD81F000C1;
+	Tue,  3 Nov 2026 10:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700635;
-	bh=n/a95moMhTo2V1bhlqxFOojiRsUuFnaNeAtgD+c7R2g=;
+	s=korg; t=1793700645;
+	bh=ZacAEQsKRdTBk6pqu59uPdfr8wGt5ZqSWYx1IZFANNU=;
 	h=Subject:To:Cc:From:Date;
-	b=yu2rMxZZCYJdFw+f7Oe7SL5umMwjPOzSMC5o6YVVDSZgdUowDcajL3xZYJoJkePTM
-	 0+eYLGwJA/pg5M9A5Z2ixY+QpPaH6RNnnlSAynt+9Tg4Hu2ErJT+L+2oezt2963u3C
-	 TqRcdjK5iNrEOlUJovqw4R7d9h/pLcJHMcXOvRC4=
-Subject: FAILED: patch "[PATCH] net/sched: sch_teql: fix use-after-free on lower qdisc drop" failed to apply to 5.10-stable tree
-To: owen@verialabs.com,horms@kernel.org,jhs@mojatatu.com,pabeni@redhat.com
+	b=jye7OuDLEUwp6O4hPVEekhq1WTPaDkPWzJFRTcXKOs5urxvISnU96tN/ddn5XuQQH
+	 jSu3KOD5C6aUOkyEhnNlzCsymslpT/yr5HlzOnwOCt2knwCgDwyr+gdZmxxdpIioEK
+	 /NWYMa4mpG1IzQ4yIp2Nh2V9AxrGrFjwO74B2b5A=
+Subject: FAILED: patch "[PATCH] net/sched: fix packet reordering on requeue" failed to apply to 5.10-stable tree
+To: antonio@mandelbit.com,edumazet@kernel.org,hawk@kernel.org,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:10:25 +0100
-Message-ID: <2026110325-gauging-cupcake-40eb@gregkh>
+Date: Tue, 03 Nov 2026 11:10:44 +0100
+Message-ID: <2026110344-headcount-urgent-8af6@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +64,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 782d6bb8f9b8e9d8591181662222bf74cd3ecf79
+git cherry-pick -x 14368b9aa1017fee35d2589be7b17e0485c0f93e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110325-gauging-cupcake-40eb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110344-headcount-urgent-8af6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,81 +79,69 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 782d6bb8f9b8e9d8591181662222bf74cd3ecf79 Mon Sep 17 00:00:00 2001
-From: owen kwan <owen@verialabs.com>
-Date: Sat, 24 Oct 2026 10:34:15 -0400
-Subject: [PATCH] net/sched: sch_teql: fix use-after-free on lower qdisc drop
+From 14368b9aa1017fee35d2589be7b17e0485c0f93e Mon Sep 17 00:00:00 2001
+From: Antonio Quartulli <antonio@mandelbit.com>
+Date: Mon, 26 Oct 2026 16:31:12 +0100
+Subject: [PATCH] net/sched: fix packet reordering on requeue
 
-The issue: teql_master_xmit() tests the slave's ndo_start_xmit() return
-value against NETDEV_TX_OK alone. A slave that consumes the skb but
-returns an error code (rc < NET_XMIT_MASK, e.g. NET_XMIT_DROP) is treated
-as if the skb were still owned, so the loop restores skb->dev and calls
-__skb_pull() on it. A VLAN slave returns the result of dev_queue_xmit()
-from its ndo_start_xmit() (propagated since cbbef5e18307), and when the
-lower qdisc drops the packet that value is NET_XMIT_DROP after the skb
-has been freed, giving a use-after-free in teql_master_xmit().
+dev_requeue_skb() appends requeued skbs to the tail of q->gso_skb, while
+dequeue_skb() takes them back one at a time from the head. If the driver
+returns NETDEV_TX_BUSY again for the first of them, it moves behind the
+skbs still parked there and is sent after them.
 
-The Fix: test for consumption with dev_xmit_complete(), which accepts
-NETDEV_TX_OK and every rc < NET_XMIT_MASK, matching other callers that
-need to distinguish consumed results from busy. Only NETDEV_TX_OK keeps
-the packet counted in tx_packets/tx_bytes and advances the slave; a
-consumed result that is neither a success nor NET_XMIT_CN ends the
-attempt and is charged to tx_dropped, so lower-qdisc drops are no longer
-reported as good transmits. NET_XMIT_CN is counted like success because
-it can accompany acceptance of the current packet: pfifo_head_drop drops
-the old head, enqueues the current skb and returns NET_XMIT_CN.
+This showed up as heavy TCP reordering while benchmarking over veth,
+which returns NETDEV_TX_BUSY whenever its ring is full since
+commit dc82a33297fc ("veth: apply qdisc backpressure on full ptr_ring to reduce TX drops").
 
-Conditions to recreate the bug:
-With CONFIG_NET_SCH_TEQL,
-CONFIG_VLAN_8021Q and CONFIG_DUMMY enabled, add lkrdummy0 (dummy) and
-lkrvlan0 (VLAN id 37 on lkrdummy0); set a pfifo limit 0 root on lkrdummy0
-and a teql0 root on lkrvlan0; bring teql0 up with an address and send one
-UDP packet to it. The VLAN xmit returns NET_XMIT_DROP from the lower
-qdisc while holding a freed skb.
+Requeue the skbs at the head of gso_skb, keeping their order. With 4 TCP
+streams over a veth pair with a pfifo qdisc, this removes about 1.3M
+out-of-order segments and 15-37k retransmits per 15 seconds, and raises
+throughput from about 40 to 76 Gbit/s.
 
-Fixes: 572a9d7b6fc7 ("net: allow to propagate errors through ->ndo_hard_start_xmit()")
-Link: https://lore.kernel.org/netdev/179248763469.3135.1739559328868319628@kernel.org/
-Link: https://lore.kernel.org/netdev/20261023162821.GN708417@horms.kernel.org/
+Fixes: a53851e2c321 ("net: sched: explicit locking in gso_cpu fallback")
+Fixes: 9540d977618c ("net: sched: fix skb leak in dev_requeue_skb()")
 Cc: stable@vger.kernel.org
-Signed-off-by: owen kwan <owen@verialabs.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/QDISC-Y0BY.v2.r0.20261024060625-2@mojatatu.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Acked-by: Jesper Dangaard Brouer <hawk@kernel.org>
+Link: https://patch.msgid.link/20261026153113.3275494-1-antonio@mandelbit.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-index 6764f0dd38df..70c948a26f80 100644
---- a/net/sched/sch_teql.c
-+++ b/net/sched/sch_teql.c
-@@ -360,12 +360,18 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 		case 0:
- 			if (__netif_tx_trylock(slave_txq)) {
- 				unsigned int length = qdisc_pkt_len(skb);
-+				int rc = NETDEV_TX_BUSY;
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index bff425a14526..3e8ee4a691c3 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -168,8 +168,11 @@ static inline void qdisc_enqueue_skb_bad_txq(struct Qdisc *q,
  
- 				skb->dev = slave;
--				if (!netif_xmit_frozen_or_stopped(slave_txq) &&
--				    netdev_start_xmit(skb, slave, slave_txq, false) ==
--				    NETDEV_TX_OK) {
--					__netif_tx_unlock(slave_txq);
-+				if (!netif_xmit_frozen_or_stopped(slave_txq))
-+					rc = netdev_start_xmit(skb, slave, slave_txq, false);
-+				__netif_tx_unlock(slave_txq);
-+				if (dev_xmit_complete(rc)) {
-+					if (rc != NETDEV_TX_OK && rc != NET_XMIT_CN) {
-+						master->tx_dropped++;
-+						rcu_read_unlock();
-+						return NETDEV_TX_OK;
-+					}
- 					raw_spin_lock_irqsave(&master->slaves_lock, flags);
- 					if (rcu_dereference_protected(master->slaves,
- 								      lockdep_is_held(&master->slaves_lock)) == q)
-@@ -379,7 +385,6 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
- 					rcu_read_unlock();
- 					return NETDEV_TX_OK;
- 				}
--				__netif_tx_unlock(slave_txq);
- 			}
- 			if (netif_xmit_stopped(netdev_get_tx_queue(dev, 0)))
- 				busy = 1;
+ static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
+ {
++	struct sk_buff_head requeue;
+ 	spinlock_t *lock = NULL;
+ 
++	__skb_queue_head_init(&requeue);
++
+ 	if (q->flags & TCQ_F_NOLOCK) {
+ 		lock = qdisc_lock(q);
+ 		spin_lock(lock);
+@@ -178,7 +181,7 @@ static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
+ 	while (skb) {
+ 		struct sk_buff *next = skb->next;
+ 
+-		__skb_queue_tail(&q->gso_skb, skb);
++		__skb_queue_tail(&requeue, skb);
+ 
+ 		/* it's still part of the queue */
+ 		if (qdisc_is_percpu_stats(q)) {
+@@ -194,6 +197,11 @@ static inline void dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
+ 		skb = next;
+ 	}
+ 
++	/* the skbs may come from the head of gso_skb, so put them back there:
++	 * appending them would let the ones still parked overtake them
++	 */
++	skb_queue_splice(&requeue, &q->gso_skb);
++
+ 	if (lock) {
+ 		spin_unlock(lock);
+ 		set_bit(__QDISC_STATE_MISSED, &q->state);
 
