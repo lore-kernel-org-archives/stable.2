@@ -1,74 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793685236;
-	b=LNb5PCDxmrn3218MiyjWUPqksQmC3OC8Vz3ZLVbrzevxOOehgjLQsptjY9aTpflDhDKc
-	 l9LiZx6MH+OEnNPSMBTn751YBy3eXFPng9swMN/OD8fjR3cNJOrNJ1cIqn3eAE5l3XMVL
-	 gGrDUl6ZyAlFfbJ41Zi2OpaqnFRVPONG0EUPRLOA77GBbn0oPFr8cyCHhqAWAwJwJ0SD4
-	 N76/HfMiOgcR/lBoE7Wf9Jz8ojX8Hjx6I0SDwb/ue4pUWKHeP7fAT521mWhg+F6M0qFJJ
-	 w71f2e7JGEHhWuW83TJbppVqN3clvX7ZT9M8wrfx/11ijdLV19njshJD4I1lmAoWoig==
+	t=1793685430;
+	b=sPYwOveeirP+taPXvWJTPlIc9NULmeZFZsAr0YAYQ8v0FwZgj2A3j9ZGirzRg5gX1PWb
+	 k0eD0XBtY1Arel2/MGnbW57qIu4D49/5euPrtpUxIGr6RfSzW/jaflkLV3dX3JSjF1h0Z
+	 tI/mKckptOl7b2/l+gtfBI5dZ6Ni+DzOBguhQxtWWeAJX6ktkl5dAoNOlvscqy0QbBnVf
+	 CrM12RRPm9k8mkDgYB73sTlnZPAooZOmtdw4Qs7x2Gx0/jYSjOX7XrGMAnEhPVT2E7mOR
+	 lhGzJuR46yzKRg2tpVjbl/KmJsW3aNq2SdjQv+ZNII+2/8qioW5dp7HEYJNVBPft2Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793685236;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=LQOSfvYjsc0pne7U/QqZbr4f9DH/Fqk28lPhlIhBOEA=;
-	b=lbWUQeEjuJLRrFmPBBeKqxFWpRuy1nBpTt2lFF+dGmzpakvyCH+ve+2dqT8cRiBTMf9g
-	 CpShqCSfwfXYVGMhNSal9skO82ZXvLG9ML5zclpfmHV2oGZwVgkobJF26Yg5MqbL9itxQ
-	 hV8RHKCTlVZfjXGVDx3MtDvYLPOLopeNVM002fpSVFao1wxRcwcBVOPk8LBz6jgqhUQHP
-	 Jvp9423nV5XG8JsVGFRVnFpKQ8P9p6mZ4v1ERnPI5lSSW1zC01sgM3qopk/zqw84uX6mx
-	 p4GX2N6DjA8EKOsmAsisvAvbyqZ7xELWuDxsz5m1DiKl5Sl6oA5FFrQtLWrSX6zbknQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793685430;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=8vAUA+tXKBngYUH5vQIMYzDTXBGREk2oTfc9mdv5kno=;
+	b=oYRtoF/qYIRe03uTRwUZoaOLuZpZmhNF4WTCi8MHd7Ry9p3q2hyAbTWaIQE8AmLaClBr
+	 /tak7K6N5OSLQFZHnVgvct3Jmu186sErAqM40TPyM4Q+wtQRiKBJdu3G2zukf4OL8eBOy
+	 ffVvWQDXEXLK8OIqbh49WCQmanEZhCszhHGhpW8GTA2cnHCuT/niWLjwwduEPp2CB16Ox
+	 JVoZL7p77DoAyOeo4XG3dnpGO92A2+e9BzEcUAzFiJgIYnuV/LMckxK9gZD56sJ67VYw6
+	 j6o4nhO6m9CNC+Wkk5/f2CXSn5VJgXrU/u26bOHAFSPQZSn03tazlnZMaQ0s8ysjMsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=StFthbsA;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=wWu+nLOB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RO8jVIjy;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2B1606A32E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 05:53:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D2B1606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10175606A329;
+	Tue,  3 Nov 2026 05:57:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10175606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=StFthbsA
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e9572e892dso26981265ad.1
-        for <stable@vger.kernel.org>; Mon, 02 Nov 2026 21:53:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793685235; x=1794290035; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LQOSfvYjsc0pne7U/QqZbr4f9DH/Fqk28lPhlIhBOEA=;
-        b=StFthbsAOp6jdyLITZCeesv53uxGdx7tmGtLXJFplgrKgU6dRrKMf31aKh5NByS080
-         ZOxD6LKwIZiR5Fk42GJDFakkKnrBJZAWMGjtRT2y+xdNvyAUiHjcENxUIk4LM/GrR/1l
-         chTPZSNddCb07kj3GMXweJSzTRLUzlQRt6I19JPyha71MOsj3hAnhvMT0yLOKGNSFdRW
-         S1mqRoQrXlfpI+3YE+odNwJHwKsb8IwbjujPeAs4Qk+RXB6r/XmUNwBYD9H8dDoUsiDc
-         D6tOZ+xc1vtUEIQEuTP3Ap2xUIq9vUAp8iPPcuQeO5YORSsE8Gnfaz4+GZXoE2dn2IuD
-         M6Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793685235; x=1794290035;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LQOSfvYjsc0pne7U/QqZbr4f9DH/Fqk28lPhlIhBOEA=;
-        b=Y3C/IBRK/qS67nxLxD42k3Ks/ZQjB8DA7PjDgcF95dedK15NzYg39LIMHx7QWvt8vg
-         yh0PT2ZyBrzmFZBjWq9cbXj9CNk/XsiUNtQaBCG/WHvSig2vykNpqNy5b8UnF/YptysO
-         uU2ZYh5XoXzuOm9AAJBpgmGqTrA0+7KCBrDhgbAbrC9wDWMOjKs1AHzTKKhYqNTZByQK
-         EGsp+/j6zB4xwfv6bfXxihCTY91aHQqdvmGEljJ7GbTb21b6Y6OJFUAYsp1bOvpnvi39
-         OIkbkoOfLClgBcxsi3rzgTN8tnnhMyXYDKlfVFLAvcvA0tIFCEOtuqmSYTQm08TXW1B4
-         f6YQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8LylpY9/oF7iof0uqplWx2RpyLgBEv6OtLDzLdh1GloHiJjjG/LRED4EE2s2b+RegoFguQKE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++HjU3ikvFICLBWoZSNgikBRUBwQpZ7hEGXGN5gINuSv1fQR8w
-	z0JIhUIXDBFUeFowNPt0Ju/Qpzyadb+DSlA69CkJkQWbv4rZrN8dzm0LnCNevSxtmJxxnoKHjhz
-	qBBVPtg==
-X-Received: from plbmv11.prod.google.com ([2002:a17:903:b8b:b0:2e9:4bb7:2719])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1251:b0:2df:9497:3c89
- with SMTP id d9443c01a7336-2eb36526a09mr102814215ad.59.1793685235115; Mon, 02
- Nov 2026 21:53:55 -0800 (PST)
-Date: Tue, 3 Nov 2026 05:53:54 +0000
-In-Reply-To: <34f32e63b803f9f7faf0b0a5754219e48a986136.1793616950.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=wWu+nLOB;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RO8jVIjy
+Date: Tue, 03 Nov 2026 05:57:04 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793685426;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8vAUA+tXKBngYUH5vQIMYzDTXBGREk2oTfc9mdv5kno=;
+	b=wWu+nLOBUsEz+hmUdOW5M49BRTAx7Bgpvv8WNx0UOOs0BkV5iX7EeqC5rzgI897n62jlmU
+	RH//atjZ5yFRMJHWNzlHPSEq5tcAmPcipcsbdD1wQrf6EDR8rC0foQRllzVc2SlRdz4inB
+	ZT+y+AIA+4roeEE3l3TsaHB6JoUhmO/GgtiVRVHCDqkKIEH6h4jtPH+RbapNPVZl8OzK+N
+	i8wZ4DmnqS3v7IDyb6E6PayT5T2XQo7HCvCawWV0DHgmWGdUeQJnjLn5FRlSsJcjp/cJ2T
+	Trt3JT7mnYLWvaLx56A4/AaR3QFr0MrkXlMSoFfY0y/HJmp4Hnz6QQhuEM1O4w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793685426;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8vAUA+tXKBngYUH5vQIMYzDTXBGREk2oTfc9mdv5kno=;
+	b=RO8jVIjyn5XyhaNrT3pNkuOtOXgDs2DZQF0ku0kTUSLoejLh+dbFQfK/66bG64SlFecXkt
+	YDl574pczzIS0OBg==
+From: "tip-bot2 for Naman Jain" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/init: Initialize wall clock in get_rtc_noop()
+Cc: Naman Jain <namjain@linux.microsoft.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>,
+ Roman Kisel <vdso@mailbox.org>, Hardik Garg <hargar@linux.microsoft.com>,
+ Dexuan Cui <decui@microsoft.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260831082528.1623843-1-namjain@linux.microsoft.com>
+References: <20260831082528.1623843-1-namjain@linux.microsoft.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,67 +79,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <34f32e63b803f9f7faf0b0a5754219e48a986136.1793616950.git.x-professor@outlook.com>
-Message-ID: <aulzHJaoSQOWbw_l@google.com>
-Subject: Re: [PATCH net] tcp: free saved_syn after an RCU grace period
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Daniel Borkmann <daniel@iogearbox.net>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Message-ID: <179368542482.1009794.8515933785273652302.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 02 Nov 2026 10:55:58 +0000, Yingjie Wang wrote:
-> tcp_reqsk_record_syn() allocates saved_syn separately from its request
-> socket.  bpf_sock_ops_get_syn() can load that pointer while processing a
-> retransmitted SYN under RCU.
-> 
-> There are two ownership transfers which can let another CPU reclaim the
-> allocation while such a reader is still using it.
-> 
-> First, tcp_move_syn() transfers req->saved_syn to a newly created child
-> socket.  The child can be closed and tcp_saved_syn_free() can reclaim the
-> allocation before a reader of the old request finishes.
-> 
-> Second, inet_reqsk_clone() shallow-copies request_sock during request
-> migration.  The migrated clone becomes the owner after
-> reqsk_migrate_reset() clears the old request's pointer, but a reader which
-> already loaded the pointer from the old request can still be using it when
-> the clone is released.
-> 
-> Both request and full TCP sockets currently free saved_syn with plain
-> kfree().  Embed an rcu_head in struct saved_syn and use kfree_rcu() for
-> both teardown paths.
+The following commit has been merged into the x86/urgent branch of tip:
 
-Please add rcu_dereference() in bpf_sock_ops_get_syn()
-and RCU_INIT_POINTER() on the writer side.
+Commit-ID:     7d5af1f256fdecff6a7986bbc9146b69cb355bb5
+Gitweb:        https://git.kernel.org/tip/7d5af1f256fdecff6a7986bbc9146b69cb3=
+55bb5
+Author:        Naman Jain <namjain@linux.microsoft.com>
+AuthorDate:    Mon, 31 Aug 2026 08:25:28=20
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Mon, 02 Nov 2026 21:38:37 -08:00
 
+x86/init: Initialize wall clock in get_rtc_noop()
 
+get_rtc_noop() is used when an RTC is unavailable, but leaves its output
+argument untouched. When CONFIG_INIT_STACK_ALL_ZERO is not enabled,
+timekeeping_init() may therefore receive a nonzero invalid persistent
+clock value and warn:
 
-> This follows commit e3f33b0a1d89 ("ipv4: free
-> inet_opt and ireq_opt after an RCU grace period"), which fixed the same
-> ownership-transfer pattern for IPv4 options.
-> 
-> The issue was confirmed with KASAN on v7.3-16007-g36aad21d50d1 using
-> temporary kernel instrumentation to widen the reader and request-migration
-> window.  KASAN reported a slab-use-after-free read in
-> bpf_sock_ops_get_syn(), with the allocation freed by __reqsk_free() from
-> reqsk_timer_handler().  The same explicit migration test completed without
-> a report with this change.  A patched kernel without the delay
-> instrumentation also completed a successful migration and seven saved-SYN
-> reads without a KASAN report.
-> 
-> Full allmodconfig and allyesconfig builds completed with W=1.  Existing
-> warnings outside the modified files were made non-fatal with
-> KCFLAGS=-Wno-error; the modified files emitted none.
+  "Persistent clock returned invalid value"
 
-I'd drop this paragraph or move after --- since it does not
-add any value after review.
+Initialize the output to zero, the documented representation of an
+unsupported persistent clock.
 
+Fixes: c311ed6183f4 ("x86/init: Allow DT configured systems to disable RTC at=
+ boot time")
+Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Roman Kisel <vdso@mailbox.org>
+Reviewed-by: Hardik Garg <hargar@linux.microsoft.com>
+Reviewed-by: Dexuan Cui <decui@microsoft.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260831082528.1623843-1-namjain@linux.microso=
+ft.com
 ---
-pw-bot: cr
+ arch/x86/kernel/x86_init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/kernel/x86_init.c b/arch/x86/kernel/x86_init.c
+index 252c582..3b9b418 100644
+--- a/arch/x86/kernel/x86_init.c
++++ b/arch/x86/kernel/x86_init.c
+@@ -37,7 +37,7 @@ static void iommu_shutdown_noop(void) { }
+ bool __init bool_x86_init_noop(void) { return false; }
+ void x86_op_int_noop(int cpu) { }
+ int set_rtc_noop(const struct timespec64 *now) { return -EINVAL; }
+-void get_rtc_noop(struct timespec64 *now) { }
++void get_rtc_noop(struct timespec64 *now) { *now =3D (struct timespec64){0};=
+ }
+=20
+ static __initconst const struct of_device_id of_cmos_match[] =3D {
+ 	{ .compatible =3D "motorola,mc146818" },
