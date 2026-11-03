@@ -1,47 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701010;
-	b=Pjqt5hez6XI1hCuP8VvFN63mF4FjiAYSFHTJShLhFZ1987+M5j8kSZGZywvsvvihBdc6
-	 nz69LEQ3xOMQ2XFFbdGJac9gs9Ybq8ltMJTG053h6SV69fxONstXbJbK5FhqZfGPhd4N1
-	 /SOHkPlznh5ywWpJYdjKIMcZ/Z0h9FFFPKNU5suak9/VC6IYNC0nQ/WPoJ0yhsTCdOtiz
-	 Y55mxDN37Tx0u4C2XoxBUDkZKZ97wwHF3kRbj4YygYAS87sJf+xwXsMjJ/P7QylZcfI5X
-	 IlwYygf2HrDZ8N8vcY1zAC4fy/GzBjBKWcmYzc3VZse6ENw+Irx7P5gEidedvWSOn4g==
+	t=1793701020;
+	b=Kcw2xBENjKg8BQtlK7E1HyVP8+Y4rZHRuKDJmR/kWmphUsdc2u5gP0sX/gq3FKHpZVLj
+	 V3DJlhhW3A4gkZEEPmXlRcNtmRKnVbWimWxJCORlhy5rKjO0U6lEkC6Fo19Uq1wHisO/Q
+	 e1xODo4dHVN90U5/C577AWJSVT7/0VFPCHjEREU+NqbMm7tAf9V3VG/gZyrHFBo8he7Oi
+	 BErqJOp31NN5QBr/cfBPhexECMphVV3UUp4YNqbaNP7fvBbSu63fCPS2lY7/jykh8+75S
+	 C8/fl4jMHmYz4WewoKkshhzAVt3nW3d+aZqjk522gQwdx243K2AhOykVvlhgGSEoLWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701010;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZV3x6Q99+KY4mBwAHW84Cxnd7+9ziusRje5+7Iv1oUA=;
-	b=f/f/hXo7hNKXcw2CnyIvivNNdEKekmO8mV2AhLmOdgvgdB6GjmwOH78CqYEcUL59WNiO
-	 7oh26v99NRPn8XdiMR+ngrFNQUjuQPjHw9LtFQ78slgg65rRukmS8vf59PAAN9JWKfiHX
-	 UVvCsrlHFRT2i1JwccrsPrZqliELWrkjIQtIRS8cEM6Ds35F9yfSwx/jrutQtC2be5m6A
-	 TEHlYtbk7XJWtRKyqntV8LUf2cKk8sQiD06CAEnTYry0FNPFKIEOB8zdIyFEsoPl0yxZ6
-	 fv/Z8KSJtIrVYSwK28kN021wWaI8MSpe1Hx7lv+9AQenj8yidNwNrSlc/0T4FYF4Guw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701020;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-SRS-Rewrite;
+	bh=rRLij3XTVGso9Uz44bcLDss/GOkyK6j16uFo3GBaQE4=;
+	b=A5EUencz9ZpeqhltnTfqeeSKVcP9DbOWBR3/AYGaqrhOIKzAXJtUGHgp1AwGB4AUqC8r
+	 FLpq3kOGPm16C+HgXnOtmTQ5qFGtK5kok+1BsQjjMfC95iYH8PrdogZw8Saz1j2h0eyeN
+	 A1oax5Oqq7qJ0dpzBjxW3N3OwzVlaBaYIKcwdkGPSzWuKFyx0YQ+zEHq+zF/1Luozi0ff
+	 Nw7NjAwfKL6XNerZIsJ9J+uI8+vk2CDdnw12/ArlVM3AC7q05G7ZuSq7iga92F6Dk4VQ6
+	 QEicqETb45FCYjdn3J7lechPYQXKykQwhJNeS6RqVTQTrpHuxDCEzw6+su+GNiawzGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1ToxBBge;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=bombadil.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZoAMAXYZ;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6B5606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:16:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 179D1606A324;
+	Tue,  3 Nov 2026 10:16:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 179D1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1ToxBBge
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9F9D1F00A02;
-	Tue,  3 Nov 2026 10:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701010;
-	bh=ZV3x6Q99+KY4mBwAHW84Cxnd7+9ziusRje5+7Iv1oUA=;
-	h=Subject:To:Cc:From:Date;
-	b=1ToxBBge0luAOJyxPkh4hGtOmutaoIeKvBfAUGOoQyXUPRM2wRsXtRm2lsO/kqt58
-	 ZWJlYPZQavkTZQWc5Rj21PwydBPHGKdJ4i2ogApqsPMJm3FJjzsLV6zg4sU/5gRR2d
-	 o5SagJcVHDN+8LGywBROe4gUIx7cZfrJyF1opAic=
-Subject: FAILED: patch "[PATCH] ksmbd: fix overflow in dacloffset bounds check in" failed to apply to 5.15-stable tree
-To: gkobakhi@asu.edu,linkinjeon@kernel.org,xmei5@asu.edu
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:16:48 +0100
-Message-ID: <2026110348-unselfish-dinginess-65e2@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZoAMAXYZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=rRLij3XTVGso9Uz44bcLDss/GOkyK6j16uFo3GBaQE4=; b=ZoAMAXYZrR1rxiM3Ntu+4+j9Mp
+	SDUCqT/XSjYcoRGB0hnkrzDMhhkQD/FQur5SjpvV7goEusFaQAXLapmngYItkX9DgNNFzJdzB1ssV
+	CoUNzFXiGSwN4AWb1QC49oJE+B4X3W7u4IakXtCXszbyMTb/mdYIFFijsBbO0ypNmpagQMMi15h4L
+	BxUm4keCC9d2GzS7m1oo6sl6R/YqO6R7Br5Gp2PSG1/PvzcyTZwPIItYz+P1BKHS2yfVkp4YjfZc9
+	zeItOGyo6kJqHoJdIWrjpbUwxKq2KLdgHmW7Z4EASEyUQfA9MwSHS8xz5Ofu2RmRX3aRKQokJbFkY
+	/r8lJQ5Q==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xOBZb-00000001wsV-2TAD;
+	Tue, 03 Nov 2026 10:16:59 +0000
+Date: Tue, 3 Nov 2026 02:16:59 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dm-devel@lists.linux.dev,
+	mtsai@redhat.com, colyli@suse.de, stable@vger.kernel.org
+Subject: Re: [PATCH] block: fix discard alignment for non-power-of-two
+ granularities
+Message-ID: <aum0m6cC98UhzHOB@infradead.org>
+References: <20261026000511.73371-1-dennylin0707@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,98 +65,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026000511.73371-1-dennylin0707@gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
+On Mon, Oct 26, 2026 at 12:05:11AM +0000, Hungyu Lin wrote:
+> bio_discard_limit() uses round_up() and round_down(), which require a
+> power-of-two alignment. However, discard_granularity need not be a power
+> of two. For example, dm-thin supports data block sizes that are arbitrary
+> multiples of 64 KiB and advertises the block size as its granularity.
+> 
+> With a 192 KiB granularity, discarding one complete block at offset
+> 384 KiB is split into 128 KiB and 64 KiB bios. Neither covers a complete
+> thin block, so dm-thin ignores both and the mapping remains allocated.
+> 
+> Use sector_div() to find the distance to the next granularity boundary,
+> and rounddown() to align the maximum bio size. This handles non-power-of-
+> two granularities while preserving the alignment for power-of-two ones.
+> 
+> Fixes: 9b15d109a6b2 ("block: improve discard bio alignment in __blkdev_issue_discard()")
+> Reported-by: Ming-Hung Tsai <mtsai@redhat.com>
+> Link: https://lore.kernel.org/r/CALjSBEvjbiGDVewuapWKhGDtaxZwcn4=22raUiBEOyj22rY7-g@mail.gmail.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  block/blk-lib.c | 11 +++++------
+>  1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/block/blk-lib.c b/block/blk-lib.c
+> index 688bc67cbf73..e0de5bb4d969 100644
+> --- a/block/blk-lib.c
+> +++ b/block/blk-lib.c
+> @@ -13,26 +13,25 @@
+>  static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
+>  {
+>  	unsigned int discard_granularity = bdev_discard_granularity(bdev);
+> -	sector_t granularity_aligned_sector;
+> +	unsigned int remainder;
+>  
+>  	if (bdev_is_partition(bdev))
+>  		sector += bdev->bd_start_sect;
+>  
+> -	granularity_aligned_sector =
+> -		round_up(sector, discard_granularity >> SECTOR_SHIFT);
+> +	remainder = sector_div(sector, discard_granularity >> SECTOR_SHIFT);
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Please avoid using do_div (or the obsolete sector_div wrapper around) it
+becaus it modifies the first parameter in a sneaky and dangerous way.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+>  
+>  	/*
+>  	 * Make sure subsequent bios start aligned to the discard granularity if
+>  	 * it needs to be split.
+>  	 */
+> -	if (granularity_aligned_sector != sector)
+> -		return granularity_aligned_sector - sector;
+> +	if (remainder)
+> +		return (discard_granularity >> SECTOR_SHIFT) - remainder;
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x eb96e2a0e817807c48dc8387ca6a5249fdeae3a0
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110348-unselfish-dinginess-65e2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Also this is actually suboptimal, we can just remove the remainder from
+the full size.  Something like the untested patch below:
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From eb96e2a0e817807c48dc8387ca6a5249fdeae3a0 Mon Sep 17 00:00:00 2001
-From: Giorgi Kobakhia <gkobakhi@asu.edu>
-Date: Fri, 11 Sep 2026 17:08:17 -0700
-Subject: [PATCH] ksmbd: fix overflow in dacloffset bounds check in
- build_sec_desc()
-
-When the large dacl_offset is provided, dacl_offset + sizeof(struct
-smb_acl) overflows on 32-bit builds and the check is passed,
-Which makes le16_to_cpu(ppdacl_ptr->size) read out-of-bounds. This
-only happens for dacl_offset in range [0xFFFFFFF8, 0xFFFFFFFF]. So
-the oob read is max 8 bytes preceding the allocated ppntsd.
-
-    unsigned int dacl_offset = le32_to_cpu(ppntsd->dacloffset);
-    int ppdacl_size, ntacl_size = ppntsd_size - dacl_offset;
-
-    if (!dacl_offset ||
-	(dacl_offset + sizeof(struct smb_acl) > ppntsd_size))
-	    goto out;
-
-Commit beff0bc9d69b ("ksmbd: fix overflow in dacloffset bounds check")
-fixes similar checks in other functions. But leaves this one out,
-because it is only valid for 32-bit builds.
-
-Reproduced on 32-bit ARM with KASAN, by a client sending SMB2
-SET_INFO(SEC) with dacloffset=0xfffffff8, then QUERY_INFO(SEC) on the
-same file:
-
- BUG: KASAN: slab-out-of-bounds in build_sec_desc (fs/smb/server/smbacl.c:1105)
- Read of size 2 at addr c2a273fa by task kworker/1:1/35
- CPU: 1 UID: 0 PID: 35 Comm: kworker/1:1 Not tainted 7.3.0-rc2+ #5
- Workqueue: ksmbd-io handle_ksmbd_work
- Call trace:
-  kasan_check_range from build_sec_desc (fs/smb/server/smbacl.c:1105)
-  build_sec_desc from smb2_query_info (fs/smb/server/smb2pdu.c:7676)
-  smb2_query_info from handle_ksmbd_work (fs/smb/server/server.c:160)
-  handle_ksmbd_work from process_one_work (kernel/workqueue.c:3401)
-  process_one_work from worker_thread (kernel/workqueue.c:3473)
-  worker_thread from kthread (kernel/kthread.c:436)
-
-Add overflow check.
-
-Fixes: 8f0541186e9a ("ksmbd: fix heap-based overflow in set_ntacl_dacl()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM claude
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 05f93a4d9d82..cf8093c7e381 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1096,9 +1096,12 @@ int build_sec_desc(const struct mnt_idmap *idmap,
- 			struct smb_acl *ppdacl_ptr;
- 			unsigned int dacl_offset = le32_to_cpu(ppntsd->dacloffset);
- 			int ppdacl_size, ntacl_size = ppntsd_size - dacl_offset;
-+			size_t dacl_struct_end;
+diff --git a/block/blk-lib.c b/block/blk-lib.c
+index 688bc67cbf73..6c45f15c41a2 100644
+--- a/block/blk-lib.c
++++ b/block/blk-lib.c
+@@ -13,26 +13,22 @@
+ static sector_t bio_discard_limit(struct block_device *bdev, sector_t sector)
+ {
+ 	unsigned int discard_granularity = bdev_discard_granularity(bdev);
+-	sector_t granularity_aligned_sector;
++	u32 unaligned_sectors;
  
- 			if (!dacl_offset ||
--			    (dacl_offset + sizeof(struct smb_acl) > ppntsd_size))
-+			    check_add_overflow(dacl_offset, sizeof(struct smb_acl),
-+					       &dacl_struct_end) ||
-+			    dacl_struct_end > (size_t)ppntsd_size)
- 				goto out;
+ 	if (bdev_is_partition(bdev))
+ 		sector += bdev->bd_start_sect;
  
- 			ppdacl_ptr = (struct smb_acl *)((char *)ppntsd + dacl_offset);
-
+-	granularity_aligned_sector =
+-		round_up(sector, discard_granularity >> SECTOR_SHIFT);
+-
+-	/*
+-	 * Make sure subsequent bios start aligned to the discard granularity if
+-	 * it needs to be split.
+-	 */
+-	if (granularity_aligned_sector != sector)
+-		return granularity_aligned_sector - sector;
+-
+ 	/*
+-	 * Align the bio size to the discard granularity to make splitting the bio
+-	 * at discard granularity boundaries easier in the driver if needed.
++	 * Align the bio size to the discard granularity to make splitting the
++	 * bio at discard granularity boundaries easier in the driver if needed.
++	 *
++	 * If the current sector is not aligned, shorten the range so that the
++	 * net one is aligned.
+ 	 */
+-	return round_down(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT;
++	div_u64_rem(sector, discard_granularity >> SECTOR_SHIFT,
++			&unaligned_sectors);
++	return (rounddown(BIO_MAX_SIZE, discard_granularity) >> SECTOR_SHIFT) -
++		unaligned_sectors;
+ }
+ 
+ struct bio *blk_alloc_discard_bio(struct block_device *bdev,
