@@ -1,68 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793698327;
-	b=efdp2zZNb4D1atoR/tK7DSrQbc5fMJU3ehW3sSEjI77DYLcxcRhQPLzeZsMpW+sdokiW
-	 xa28FAZI0sZiBLTd1UeYmraCZyw9MSVsssQQYdt75ZEM853KgHhSbyk1wRy47+ICl4kHS
-	 DjPkvuKOKnqKjqBOrZFSXTh5MDk/6jA4WONIK+nRp/X8oHSCFglZH8n05F048PadPIfVz
-	 QvOkWuGAK/32m0gVX6mFs6iDYnSnM8D2LRdOZ4pjpsRJdhrAgKyj8XHdwCWM1JK9Y1+J9
-	 epZVY1/xGBvI9VsdB2Qdn1BaPHXzGwO5gE3ktluynuBnGxz7B+DD5JE8uRdHLoKwgbQ==
+	t=1793698426;
+	b=zpUkUsSmtGq2jX+j0qKu6OqxQIUFMTjQ/82ovYkVH0V4ssDNU7rre/ChSt+o92SAiiLa
+	 0ckDxvJ0p525RqTpTQFQC1aR7Z1GIepvYR0MY1Y6DS44nuBooTrde2RLEYmsUdI/Dgkye
+	 4rK17pg8nKcKYtynAxCTrlqLB2BLQ9DEZXbvM9/zqWDk8xzfA83SkJinA4bu20FSRmA++
+	 mm/y/YWRSaA+3vE6i46FwqLmgoghm9R34/l3Dodn+tjcZJNzDIG+uTicvNFDPsPlhk/Iz
+	 bI685gewGotgpcUFVsdwyWD6v4nKplWJiB39bfDLrJsdNM2WgRCgBCq01sPcc4M2BbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793698327;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=svEw9j4vz2XAfPUeGFTk6zzUJwNy4pNLV6jlNwXVwUI=;
-	b=kjH8LpRJJltyrZZc4Y/+hBJe8SrNyDrpRlT0ePRPwFYlVOeWKiraIfiugLuOCVHoKEB3
-	 +20EObdbVqovHbuiHilxv09N+jIgvkcRRwAADTUM1IgFiRrqIdX16cG4nshfyoIzDVlWs
-	 yCgCGUznADYmiKe9vsoCNwOl4NomW8v3LAZEdjRpIWprofQNhJ0ltChz3buMqRjhROb9y
-	 AF7e/kPPC/nqkVJWTSwp7nh1hCnetQ09mkGKk2Ep2rxNGPmLd/yFtzz8oXXWj0xqeyo4W
-	 oITPh/Spvz0E0+a8Zlm4TO1EXowZl7tuZ5JE37DK4XERwr1h/lZacF2uKpzdxEoIP3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793698426;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=D6rny5kjXK5DrJDvzkFSnRh5hQ+TqEu9S3skisSzk08=;
+	b=qkNAKHj8cVRyOUXqA8mh+v3o10/hpp0TMJbn8Oat7Zzl8hZ/P0boqjV6TZbKo6NMl36I
+	 IqfY5bnIL2isoi6GyYMWTz8PTKYwUQKByQtpVRQsMVYGXmuOo45/kpZWmnq2jVsm7JwIp
+	 UkLlpmAZOErOafeIGOxjOoX8wNEsdtgpzBvIMJJU5uQutqyv1jIUovB3fH93rWr9y/AMs
+	 4Qk1LfcYOCfgPhkgdDOEWj6zTIqDh7t28TQsx4YzD31H7QVGX+/k9V60O3tIE1IipJjVj
+	 bZhyqbMCLEpbovoEjsSM3LRaDtD7WWBStwOWj/K9ydF1bU2bp+tc0xFJGcDqbW4xkTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=nkB0Z9Yc;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XDwNz6/X";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2E9606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:32:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D2E9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A554606A329;
+	Tue,  3 Nov 2026 09:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=nkB0Z9Yc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1793698275;
-	bh=svEw9j4vz2XAfPUeGFTk6zzUJwNy4pNLV6jlNwXVwUI=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=nkB0Z9YcNQ0z3XIdWMbOKTscvDFEQzATTVXB0z1t+ecTbKiZBdgAyu7wgT3XPwJg3
-	 /izoA75IE2n95bO26eQT6hb5p2I0xnqfOSGLKiQrahk+OyEzBqASw+W11SaBHmGT8f
-	 7L9X2NYqtLmQ30GFvqHqUEbu8wJi3CTnPoA8Hg1s=
-X-QQ-mid: esmtpsz18t1793698257t14d9e1d7
-X-QQ-Originating-IP: OOgvOriFHAKnAxK5krETsc6Q141AK2pojOa9UxUR4us=
-Received: from localhost.localdomain ( [61.183.83.60])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 03 Nov 2026 17:30:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 1873500742947398579
-EX-QQ-RecipientCnt: 8
-From: Wentao Guan <guanwentao@uniontech.com>
-To: sashal@kernel.org
-Cc: gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	Li RongQing <lirongqing@baidu.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: [PATCH 5.10.y && 5.15.y && 6.1.y && 6.6.y && 6.12.y && 6.18.y] x86/ioperm: Prevent NULL dereference on theoretical missing IO bitmap
-Date: Tue,  3 Nov 2026 17:30:47 +0800
-Message-Id: <20261103093047.571626-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XDwNz6/X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 588901F0093A;
+	Tue,  3 Nov 2026 09:33:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793698426;
+	bh=D6rny5kjXK5DrJDvzkFSnRh5hQ+TqEu9S3skisSzk08=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XDwNz6/X0GpDQK0tjwuoGy3TWaQl/Dxzlr5GxqbYRhKwwtzuoBRRTXln1RQ7g3mf8
+	 kPcKMs5zlFnb8gNclOOmphQCGI4EnSaF3r9KGrNIxHIfGLlnNbXbnrxgfHCqfhA7zS
+	 GbZZlEFsGH5ZGpdcRQJqoWw63YqXMyYnQuhvid0TA6on96iRybfnHPp2YIye1JeQhN
+	 v1Erbwp+3Cg+KQ9FCc4b9PLGyWv+OJxEcQ/L/yRaBxUcXqgbTKsy56kBLZf8WH5ol6
+	 WVDh4+1BaQslqT5bAuI93g2gQygc6DCujpnhZnB7xHJnnsM4PB2LPQMVetJUTA7aRI
+	 AJ3rCxzCO3bfQ==
+Subject: Re: [PATCH net v3] ipv6: fix dead half of the MTU guard in
+ __ip6_append_data()
+From: netdev-bot+sashiko@kernel.org
+To: treebacker@foxmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, dsahern@kernel.org, edumazet@kernel.org, idosch@nvidia.com,
+ horms@kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 03 Nov 2026 09:33:44 +0000
+Message-ID: <179369842489.488856.13715635403726520174@kernel.org>
+In-Reply-To: <tencent_AE3DA7423209553B562E5C7FBCB808EB680A@qq.com>
+References: <tencent_AE3DA7423209553B562E5C7FBCB808EB680A@qq.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,63 +63,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MPAlP4yRn0xgT4MtLD/FFPD3ImwXQTfsDrYZfCQOB043521puDvLgHs6
-	I6CFkvcADg71Jyu0H81o+hg4YIB6JqyQlG+zBf1yv77x6KhSP/tsKVnqupidEyFl5DHeINn
-	QZ05KsvghDxOP9+v4tFflEQc/Pm9BEj7Rg2akToqVqkK0wkgGjKdpWqEjU1kpePKop72acJ
-	RfJPBHKZAzwY9CAvhXJiEwjqWqsQKw+qGzO84x2SCi1NGq85Fpp7C+lf8FoQSPmjrYEPIAV
-	AB6jdf1kwpXSnsgNn/O3J6Nb4JiulohSs7HPNyhrhLQEkLyuBj1lrQe5t16KbSaJHdmXk1j
-	2/fdYa5+C3ePmMIh8roEWkBEsQpF9x/0yWNeF683LbPW32/RuR3YxTycNIHox6/jXw88za3
-	MMm9sQpNTJUDmeMibIp0hXZ3jZ6sxzORsR8+LlX92MmWsqUSo6WAj840c0PEhHHIETJzcE3
-	t/7pb/cAFnj3TKEQ0rVP3X31e61tKZ2JDvhhTDPMl0cotcoxLkrVBb6jUqcwTguCxpSCORj
-	99qVPG0mQpump7yUx2+LmBndCtP9dtJs5tlccRvzrgA4xBhC3Dt+XkZD0z4xk0+GewaEC3x
-	hxuo+pkowt6PIXaOwvZEqLKEoqK7BWoYyVqVDFC0ZckLwAqp9vs4sVfDy6jF2sa6eKkPcms
-	UJmVUAbIwjr+bBo3vumfk8tS5M5O3lENu1E/CdC6dkGDWkR/tOcNpWsTo2K7aCE9+WA9bVf
-	rCC982T1UaqQEHkSYXDSBQvYvPLIDa8OQ9tjlej7cXS0frEMZ4ZmiCJhXlpvtPxlMEq45NR
-	nXRzpl6ucN156Iql+tTB72mzjc1rJgSfbFXR3i9nULf7es7/coU8WDg16wI7lPwZG64qN9y
-	96oh2KtmDbSvPFDXrq1lDHNBh33uRCJI3byAM2l3abFv6ml8AsOn2BIWjaCKOb8xB3aBmE/
-	9O1FguMqdzlPjmIfSbSTvmPwlGm9W410K7Be3aqspZhU4ZPFQmTzB4g2IRjFAzYIolx7T8K
-	/L6K5pW6p6V2aIOaN3jNpHHkSqPu7fWdX9NXrlG+lRM1kK99QTvrzlfBEs/Gh16umhfUeFK
-	Q==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
 
-From: Li RongQing <lirongqing@baidu.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Outside the IOPL emulation path, the IO bitmap is always expected
-to be allocated when TIF_IO_BITMAP is set. The paranoid WARN_ON_ONCE()
-handles the case where the flag and the pointer got out of sync.
-In this theoretical scenario, which presumes some other bug in the
-code that triggers the WARN_ON_ONCe(), return early, instead of
-continuing and dereferencing a NULL pointer.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-[ mingo: Clarified the changelog. ]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Sohil Mehta <sohil.mehta@intel.com>
-Cc: H. Peter Anvin <hpa@zytor.com>
-Link: https://patch.msgid.link/20260615070115.4720-1-lirongqing@baidu.com
-(cherry picked from commit 2d36d3b451a94899db9c965adde15492ffe6027a)
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
----
- arch/x86/kernel/process.c | 1 +
- 1 file changed, 1 insertion(+)
+- [Medium] In __ip6_append_data() (net/ipv6/ip6_output.c:1502-1507), the
+  patch adds a new minimum check: `mtu < reserved_headerlen +…
 
-diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
-index fd91c301218d5..854aaf390b262 100644
---- a/arch/x86/kernel/process.c
-+++ b/arch/x86/kernel/process.c
-@@ -405,6 +405,7 @@ void native_tss_update_io_bitmap(void)
- 		if (WARN_ON_ONCE(!iobm)) {
- 			clear_thread_flag(TIF_IO_BITMAP);
- 			native_tss_invalidate_io_bitmap();
-+			return;
- 		}
- 
- 		/*
+--
+
+ipv6: fix dead half of the MTU guard in __ip6_append_data()
+
+This patch replaces the MTU entry guard in __ip6_append_data(). The
+second half of the old guard could never be true. The new guard requires
+room for the fragmentable headers, plus dst.header_len for non-tunnel
+xfrm, plus a fragment header and one 8-octet payload block. The goal is
+to stop maxfraglen from underflowing, which leads to an skb_over_panic()
+in skb_put().
+
+> diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+> index 25fe0ba98b1a6..936dad85f1c98 100644
+> --- a/net/ipv6/ip6_output.c
+> +++ b/net/ipv6/ip6_output.c
+
+[ ... ]
+
+> @@ -1499,8 +1499,11 @@ static int __ip6_append_data(struct sock *sk,
+>  		     (opt ? opt->opt_flen + opt->opt_nflen : 0) +
+>  		     rt->rt6i_nfheader_len;
+>  
+> -	if (mtu <= fragheaderlen ||
+> -	    ((mtu - fragheaderlen) & ~7) + fragheaderlen <= sizeof(struct frag_hdr))
+> +	reserved_headerlen = fragheaderlen;
+> +	if (!skb && !(rt->dst.flags & DST_XFRM_TUNNEL))
+> +		reserved_headerlen += rt->dst.header_len;
+> +
+> +	if (mtu < reserved_headerlen + sizeof(struct frag_hdr) + 8)
+>  		goto emsgsize;
+
+[Severity: Medium]
+Does this new check also reject datagrams that fit in the MTU and would
+never be fragmented?
+
+The minimum is computed only from header sizes. It runs before
+__ip6_append_data() knows whether this send needs fragmenting. Take an
+IPv6 socket whose extension headers (for example a hop-by-hop options
+cmsg) leave mtu - fragheaderlen between 1 and 15, and a payload where
+headersize + transhdrlen + length <= mtu. That send used to work.
+
+On the first skb, the alloc_new_skb path picks the mtu side of the
+clamp, because cork->length <= mtu:
+
+    if (datalen > (cork->length <= mtu ? mtu : maxfraglen) - fragheaderlen)
+        datalen = maxfraglen - fragheaderlen - rt->dst.trailer_len;
+
+The clamp does not fire, so fraglen = fragheaderlen + length <= mtu. The
+underflowed maxfraglen is never used on this path. After that,
+__ip6_finish_output() sends the packet without fragmenting it:
+
+    if (unlikely(skb->len > mtu ||
+        (IP6CB(skb)->frag_max_size && skb->len > IP6CB(skb)->frag_max_size)))
+        return ip6_fragment(net, sk, skb, ip6_finish_output2);
+
+With this patch, the same sendmsg() returns -EMSGSIZE from the new check,
+and ipv6_local_error() reports a pmtu.
+
+The commit message says:
+
+    Replace the dead expression with a single check that requires room
+    for at least one 8-octet payload block after the fragment header,
+    matching the minimum ip6_fragment() already enforces:
+
+ip6_fragment() only applies this minimum to packets that are larger than
+the MTU and are actually being fragmented:
+
+    if (mtu < hlen + sizeof(struct frag_hdr) + 8)
+        goto fail_toobig;
+
+Here it applies to every send, including ones that fit. Since IPV6_MTU
+accepts any value >= 1280, it is not hard to land in that window. The
+patch is also tagged for stable, so stable trees would get this change
+in behaviour that userspace can see.
+
+Could the minimum be applied only when this call will need to fragment?
+For example, gate it on cork->length + length > mtu - headersize,
+evaluated before cork->length += length. Or could the commit message at
+least describe the change for unfragmented sends?
+
+>  
+>  	maxfraglen = ((mtu - fragheaderlen) & ~7) + fragheaderlen -
+
 -- 
-2.39.5
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_AE3DA7423209553B562E5C7FBCB808EB680A%40qq.com
