@@ -1,92 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793725633;
-	b=aZ7flpMwryi4Ki/ygBMFhH2Y1DwCs2i9L3cRSclxiZODnUyerZcnbjU3eubyOiuTQFNt
-	 eolC/S79EQwJsMpV0+l+5zvttsgjQdUSo3ek59pnYKzDWnjXCIU2LErcxGMS0e+5sGDsA
-	 O2P3sVl71d+tBSaYfXqUtNqRn20wIEA7CQNH2f0L/AnNZ/mCxIHgBIJKCPjdKvIkAGUb+
-	 B4tWAn8eQfVyIqHSr9MEE9rT5RiO7ltyKLcX6MChUogKRt7DCF1jA9u8tSJzMMZ0UY8tU
-	 Kb/2GH3fUA45PN7d/TLvwWDg5ZQBR1vGWDhnt/DXMgZ6/yRQI38s3LYfhr69J7tpytA==
+	t=1793725900;
+	b=4fQWhImmdriPMCnbuv3QTcRypHhC9aay/eyatNIc4+3KN9z0C5WjzzBbLxUN2Uex2OMr
+	 kSQmIHgQJLIPFxfVtEOYZnQdiT8CppYK7dgtHZkdB20/WH97+l66lsLyat6c2sh8WUuBR
+	 kWp485ozeyYl0R5UNlwNPh5NGn6gkhcVh6oNDoxzEi4gEl/P5+G7//k+5ukKy4UWBbDL7
+	 8sC6HgXQTCkIfIAlSuWumt12E4eoSjm5NskHTSnYCbhRpkuGgplgZey5lLTAsZ0o/wUUF
+	 F6Y0Xay9DwwN2U4deEGPSmgEak+gTcm7ZYcSoJ/EdMGDk6TySVYev568kCtNOOicVwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793725633;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=U+uq6o7h5QCzlT0B6D4QGcxxj9excjN11FXi6rk4g1s=;
-	b=TYuWNJuyTLIhYQsb9ADLNr0RHpWhb1yk6rHMAAulF8qaVlSbhbeGvesz4SrXGUVIosBw
-	 ROxQYtKhoGNU/U7Z6mhCtK51DEmlj8DhLrH52sjldMcJqUJS0Bb4dn5FFymX6SQRjwnZP
-	 Pmwk9tIdRSRwZWzxTdvD1B2VqSZB8+R65RyY80dyIkNS2tm4jU0JSbN6kvMOub+VJUWad
-	 oWhtym5t/mGcquNQRK2sXTpegcWO2V0k2ys7Dcq1KVvhYhTewcRAhbL39yGJHTpmKJD7f
-	 oJp7LYvj5eWt+brRq5v0ZOKkpFEgL6TEajFelurV6YKYBpTwF8cWveW2AbUU/aGNogA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725900;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Patchwork-Hint:Organization;
+	bh=ZtcdwHMpDGMWv0H3NwsrmbaIS/nGthqYoowZYVaPd7s=;
+	b=cDXJA0zrXgNMUFjcVYjyhfPKYMn067Uy5Ro2/+4KC2hdSUIkRhqEz78KyaoXymMMrOtu
+	 CvGHL0Eb61FCJ74/XMXyKwZvBLCLWPYWqBMkanERUJY1j73Rc07aR9Ft0jLcGLqATI9Pc
+	 ZGeUhIaPg+qiTwmB1wF1cOuvE9OQjv+HMNSGcnlW0stFLvfYYmCDSWY/zKqNnTzGuyZZr
+	 pYGtQqh5SQ9cqriUkQxiDwOxk63tBef7sM8VIL7V+MrX3R6W3Kpa0ECdnXebnrlXWjtNi
+	 ukINq0mzTNFXiAHq2kZbkVPkeiiAx4mcCel//X/4DSO0WzgEW6w3f5fFopruWegJFKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iGWyDvgf;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="dGQSL/xr";
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6889B606A328
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 17:07:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6889B606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8B4606A32D
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 17:11:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C8B4606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iGWyDvgf
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-17e82de56ccso104263c88.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 09:07:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793725632; x=1794330432; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U+uq6o7h5QCzlT0B6D4QGcxxj9excjN11FXi6rk4g1s=;
-        b=iGWyDvgfWA7BABkCv2yaRDP+Ci1wwzDKEsG2/WxT2q3MSsLyE3lSmy32j0dnvGTIiE
-         G5iBtFTfje+3OwTTkO8OdTrFB7+DyS1zn8lDkvVtr8uh/gazstnu4y5yedxcqwvXkL9k
-         45WcsTyH83pI4bphWwo5FHm2HBZ9Go3Sv2CP2HuZv/qD+IgTIGutraHmvob4MydjsFyS
-         NIpaywLWw9Ckc+LoCPi3nBL5l3GOWA7ut4LBQd/QIIKPun0kpsJo5KptsWZVy2n4YY8V
-         cvRQrKTVD8AhAQKbUEUCQXvbcReKRMhijrvPG849xYBKMVlS10FaUjb2kN+6+cFJy4my
-         0R2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793725632; x=1794330432;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U+uq6o7h5QCzlT0B6D4QGcxxj9excjN11FXi6rk4g1s=;
-        b=2ebrYr2WyWz9It8fahiMTObSw63BVok4gMcu4F97e0B+YkqGm+mFGtgdWfshY8Ec5Z
-         CTsdzMmi3NqsTv4ow3sdP7ZOQ/Zkx2WyHlMbn4sk0W43DM3XOgqMVhXaHCGeciKU9ztV
-         VjrWmXnAOzX7F4BpceYapW1x7T+yJnspAdlCJQxRLXT/5MDmkyt4pMenTF1HjOXHdAjU
-         uNpyjQJbwIm5OblTNzVgLrvHDg2ONfruJw0R2XMOjk9H5VupWt2U8RB4CJOjRj0jaQ34
-         +cRusD6f/qeheNyuOJ60jkGhH9w7G7pGDvWI7Xej6Gj1w3l1T/rEYP48klHkXRmvHc6X
-         ZIVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsLL2fPHUZmXt8XHo9E/ZSrzaaKaoTe3uKQHaeGoD/USnvgjJ5TdJSWZN5Dna/saRRo8+NalY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JY0W5isthqkc+GHaf//Pft41Tx9jrXhd1qKfht5gZw5yHZTus
-	4PhXJ1XuW0aVVNgJw9iX8N2TVb404mmWxQheODN72PrkIMeaQdUdmayC
-X-Gm-Gg: AYBFou1eUgQ7O0WDmqz2owRY+ASw/2cAVfkmcddcPrtXKEpb4TKTg2f2pyPzWLxPKx/
-	q2fKAGCylPdyLwOrA2R7jpQNrSmSFRnD9hdvqKtdE4m494rPVlzvYgM/Ta/IiG1pd+f+kyyak8v
-	nXa6uICmfCJBnYPc2CgyfmaWpy/LlIB3MdqBWAY9UFVf20/nImZqSBAImHTzQJpuTWwB7al0xPN
-	W4MFMs+BrCqrfxxeNWLuoIsH0TumSOQpRfLQpmDkPQAyP2iDpPxHASImzx9mtAjxrVbnq2JFXF0
-	R9ImZyZJh1X0WH2rq0Q/5iJcqLW4jJRaZ/XquOHOGEtQNDXlcnAHrjLsaqaLtoe6vwX0SAYSHtC
-	8UtvP660yQLs0XTJAnFxtVueI2afj2JRHaALkh7ms2eCefGMDJALzW+04odKQA8Ypw2MCYYe28U
-	j3ynrF2Br0FGoluM9mN1ICgtwUC7Eoz50L6bZG526QtTvlUyVlmmOwzzIIwCCy6VvqOLK+DvVTS
-	rXuDcMYH27D/MCormcJsI4Up4ogUZLW32Nlb9JU12swrQVcGG8PTNbIqf0BalJNw5/N8F8EkojA
-	gC6Br5NgVo0ijZ2cOmSDzUVJ0MctcKY5Aea8cFlKeA==
-X-Received: by 2002:a05:701b:2515:b0:17f:641e:7f6b with SMTP id a92af1059eb24-1ac5904ae73mr28989298c88.1.1793725632414;
-        Tue, 03 Nov 2026 09:07:12 -0800 (PST)
-Received: from CRASHEDROM.localdomain ([142.249.36.161])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245b87c4asm305684c88.3.2026.11.03.09.07.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 09:07:12 -0800 (PST)
-From: Chengyu Liu <lui2012qwq@gmail.com>
-To: jgg@ziepe.ca,
-	leon@kernel.org
-Cc: linux-rdma@vger.kernel.org,
-	Chengyu Liu <lui2012qwq@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] RDMA/ipoib: cancel the AH reaper work synchronously
-Date: Wed,  4 Nov 2026 01:07:03 +0800
-Message-Id: <20261103170703.1600310-1-lui2012qwq@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dGQSL/xr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793725901; x=1825261901;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=CjpixaBix/pua7fjqohEmpq86pzXz468uk/AW/PT3JI=;
+  b=dGQSL/xryTvcivp5gtAuJRYLcS+uUWlw+mneowMvhhuvbtmbSXUtX7Bm
+   ud6y+DZ/mquBqOjSzCU96FU7BA4I5xCFmDyyerD/2CSsM3fB8LhFJML+H
+   Acuw8c77qUAG2QTb1VfpGsoPjzxBGFubXHp6uMO+qQtCTzpWxSX6qf5b+
+   6m87y8yiwacae3YBng1noleTnKtL7Rh/CRLClNCDn3mbYd2UvNqmxSnYP
+   3aY8HKWRQdlhTY7h07uKL9Hg61+BWrpkhnGgpNMHqV6fwQaNKZlnD2+l0
+   NML7hkDzwg+qABh35W5Lz88ch+FegZKP2LH5qCFneSHI13BMzJ+aoMUro
+   Q==;
+X-CSE-ConnectionGUID: 9XrfXqoqTSmuls+tOTKATw==
+X-CSE-MsgGUID: AEPjMKNfStiECfeNdj/dtQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2456406"
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="2456406"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:11:40 -0800
+X-CSE-ConnectionGUID: 0CWh79sxQQm1faR4JnCN0Q==
+X-CSE-MsgGUID: tj4reW5GTxyz4lbAe+r+zQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
+   d="scan'208";a="8256618"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.193])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 09:11:36 -0800
+Date: Tue, 3 Nov 2026 19:11:34 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	airlied@gmail.com, simona@ffwll.ch, javierm@redhat.com,
+	louis.chauvet@bootlin.com, dri-devel@lists.freedesktop.org,
+	sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/vblank: Restart enabling vblank timer on possible
+ deadlock
+Message-ID: <auoVxgQ0D1-6QEDD@intel.com>
+References: <20261102143919.1672293-1-tzimmermann@suse.de>
+ <auioL8zR9O5u4TCF@intel.com>
+ <4212140f-fa07-4f0c-bd3a-0ae3d88b250c@suse.de>
+ <aujFSzHEv5pAfHPf@intel.com>
+ <ec9020b5-28bb-45a5-89d7-e64e804769de@suse.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,181 +86,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ec9020b5-28bb-45a5-89d7-e64e804769de@suse.de>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-ipoib_stop_ah_reaper() uses cancel_delayed_work(), which cannot stop a
-callback that is already running.  ipoib_reap_ah() re-arms itself after
-an unlocked test_bit(IPOIB_STOP_REAPER) check, so a callback that has
-passed the check but has not re-armed yet still queues the delayed work
-after the "stop":
+On Tue, Nov 03, 2026 at 04:55:34PM +0100, Thomas Zimmermann wrote:
+> Hi
+> 
+> Am 02.11.26 um 18:15 schrieb Ville Syrjälä:
+> [...]
+> > But what I'm thinking is:
+> 
+> I've ran a lengthy session to explore various solutions.
+> 
+> > - stop with the explicit cancel entirely and just rely on the
+> >    timer cancelling itself
+> > - try to start the timer in vblank_enable(), and if that can somehow
+> >    fail because the timer is still running it should be fine because
+> >    the self cancellation should anyway have been aborted
+> 
+> Having an old vblank timer still running while enable_vblank sets up a 
+> new one can mess up the hrtimer's internal ordering. It's full of subtle 
+> bugs, according to my LLM.
 
-  CPU0 (reaper)                     CPU1 (stop/teardown)
-  test_bit(STOP_REAPER) == 0
-                                    set_bit(STOP_REAPER)
-                                    cancel_delayed_work()  (no-op)
-                                    ... destroy_workqueue(priv->wq)
-  queue_delayed_work(priv->wq, ...)  <- delayed work sits on the timer
+The hrtimer code looks like it's designed to handle this. It
+first removes the old queued timer and then inserts it back
+with the new expire time. And there's also locks in there.
 
-destroy_workqueue() cannot see a delayed work that is pending on the
-timer wheel, so the re-armed work fires after the workqueue is
-destroyed and priv is freed: both the queueing onto the dead queue and
-the callback's container_of() on freed memory are use-after-free.
+> 
+> 
+> > - explicitly wait for the timer to have stoppped in drm_vblank_off()
+> >    to make sure the wrong interval can't leak from one mode to
+> >    another
+> 
+> I'll soon send out a series implementing this idea.
+> 
+> Best regards
+> Thomas
+> 
+> >
+> 
+> -- 
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+> 
 
-Use cancel_delayed_work_sync(), which waits for a running callback and
-prevents its re-arm from taking effect.
-
-The comment above claims ipoib_reap_dead_ahs() "ensures the work is
-really stopped", but it never touches the work item - it only walks the
-dead_ahs list under priv->lock.  The stop guarantee comes from the
-cancel; fix the comment along with it.
-
-Found by static analysis.  The race was reproduced on a KASAN build
-with a small module exercising this exact guard/cancel/free pattern
-(no Infiniband hardware available); PoC and splat are below.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
----
-
-Reproducer notes (PoC source below; a module parameter selects the
-shape): mode=3 (cancel_delayed_work + lockless guard race, this bug's shape) produces
-
-    [    2.05] BUG: KASAN: slab-use-after-free in queue_delayed_work_on+0x27/0x70
-    [    2.05] Workqueue: events pm_td_cb [pm_flush_poc]
-
-after the teardown frees the container; mode=1
-(cancel_delayed_work_sync, i.e. this fix) stays clean.
-
----------------------------- reproducer: pm_flush_poc.c ----------------------------
-// SPDX-License-Identifier: GPL-2.0
-/*
- * pm_teardown_poc - mechanism PoC for the drv-teardown-sync C/D variants
- * (F-026 ipoib / F-028 epf-ntb / F-029 habanalabs).
- *
- * Modes (module parameter):
- *   0  F-029 vuln shape:  flush_delayed_work + lockless guard
- *   1  control:           cancel_delayed_work_sync (>=6.9 swallows re-arm)
- *   2  F-028 vuln shape:  cancel_delayed_work (non-sync) + unconditional re-arm
- *   3  F-026 vuln shape:  cancel_delayed_work (non-sync) + guard check/queue
- *                         race window (test passes, teardown slips in before
- *                         the queue_delayed_work)
- *
- * Every vuln mode must produce KASAN slab-use-after-free when the orphaned
- * work fires after kfree; the control mode must stay clean.
- */
-#include <linux/module.h>
-#include <linux/workqueue.h>
-#include <linux/slab.h>
-#include <linux/delay.h>
-
-static int mode;
-module_param(mode, int, 0444);
-MODULE_PARM_DESC(mode, "0=flush(F-029) 1=cancel_sync(ctrl) 2=cancel_nosync(F-028) 3=cancel_nosync+guard-race(F-026)");
-
-struct pm_td_ctx {
-	bool			fini_pending;
-	struct delayed_work	work;
-};
-
-static struct pm_td_ctx *ctx;
-
-static void pm_td_cb(struct work_struct *w)
-{
-	struct pm_td_ctx *c = container_of(to_delayed_work(w),
-					   struct pm_td_ctx, work);
-
-	pr_info("PM-POC: cb running, fini_pending=%d\n", c->fini_pending);
-
-	switch (mode) {
-	case 0:		/* F-029: lockless guard then long body then re-arm */
-		if (c->fini_pending)
-			return;
-		msleep(300);
-		schedule_delayed_work(&c->work, HZ / 10);
-		pr_info("PM-POC: re-armed (flush shape)\n");
-		break;
-	case 2:		/* F-028: unconditional re-arm, cancel must catch running cb */
-		msleep(300);	/* long body so cancel lands mid-run */
-		schedule_delayed_work(&c->work, HZ / 10);
-		pr_info("PM-POC: re-armed (no guard)\n");
-		break;
-	case 3:		/* F-026: guard check passes, THEN teardown slips in */
-		if (c->fini_pending)
-			return;
-		/* widen the check->queue race window like ipoib's 724->725 */
-		msleep(300);
-		schedule_delayed_work(&c->work, HZ / 10);
-		pr_info("PM-POC: re-armed past guard (test-queue race)\n");
-		break;
-	default:
-		break;
-	}
-}
-
-static int __init pm_poc_init(void)
-{
-	ctx = kzalloc(sizeof(*ctx), GFP_KERNEL);
-	if (!ctx)
-		return -ENOMEM;
-	ctx->fini_pending = false;
-	INIT_DELAYED_WORK(&ctx->work, pm_td_cb);
-
-	pr_info("PM-POC: arming, mode=%d\n", mode);
-	schedule_delayed_work(&ctx->work, 0);
-
-	msleep(50);	/* callback is mid-run now */
-
-	/* teardown sequence for the selected variant */
-	ctx->fini_pending = true;
-	switch (mode) {
-	case 1:
-		cancel_delayed_work_sync(&ctx->work);
-		break;
-	case 0:
-		flush_delayed_work(&ctx->work);
-		break;
-	default:
-		cancel_delayed_work(&ctx->work);	/* non-sync: C variants */
-		break;
-	}
-
-	pr_info("PM-POC: teardown done, freeing ctx\n");
-	kfree(ctx);
-
-	msleep(600);
-	pr_info("PM-POC: SURVIVED (no KASAN splat)\n");
-	return 0;
-}
-
-static void __exit pm_poc_exit(void) { }
-
-module_init(pm_poc_init);
-module_exit(pm_poc_exit);
-MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("drv-teardown-sync C/D variant mechanism PoC (F-026/028/029)");
-
- drivers/infiniband/ulp/ipoib/ipoib_ib.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/infiniband/ulp/ipoib/ipoib_ib.c b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-index 81bbb3f7c1..5ed4f709cb 100644
---- a/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-+++ b/drivers/infiniband/ulp/ipoib/ipoib_ib.c
-@@ -736,11 +736,11 @@ static void ipoib_start_ah_reaper(struct ipoib_dev_priv *priv)
- static void ipoib_stop_ah_reaper(struct ipoib_dev_priv *priv)
- {
- 	set_bit(IPOIB_STOP_REAPER, &priv->flags);
--	cancel_delayed_work(&priv->ah_reap_task);
-+	cancel_delayed_work_sync(&priv->ah_reap_task);
- 	/*
- 	 * After ipoib_stop_ah_reaper() we always go through
--	 * ipoib_reap_dead_ahs() which ensures the work is really stopped and
--	 * does a final flush out of the dead_ah's list
-+	 * ipoib_reap_dead_ahs() which does a final flush out of the
-+	 * dead_ah's list
- 	 */
- }
- 
 -- 
-2.25.1
-
+Ville Syrjälä
+Intel
