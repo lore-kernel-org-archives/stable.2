@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701602;
-	b=CJwC2Vcm/WNoySkCeAo5DyIY1/hhVjE43RkMtqG41BfACp1kruZlyeVWoG7nDeBAqTZJ
-	 YbXtR8BVjXp5sAZvMEh0Pytwsk76AZBwQ0qenbBDwBcUTBhGl7SPjE19tWHyK8LxFOT/c
-	 5kN2Ve9y2KLjssroHlWJPilXvE8KYOfENbWu5nXuIuVZ6y/Yh5t6ubS+6qblt3nChd5F+
-	 KGV5Gsm6rom2Gsk2gY2TslAlLTmjxuZyw7btqyQYmJ1g/fYt973P4nW0uWIr+Ybch6Q2E
-	 MOlrqHnPMZ0wD2n5fYXczo4TO6vq7fmMILWPFE2euMRDm+rGGXp4KUrK9C16TipvV/Q==
+	t=1793701611;
+	b=XZbetodK2JkyX3+g8S8gQXk8VKhBtyL6CszgGwRyxPuF9gwSMsIEnr+CLCWpgboC8hDC
+	 YYG5ShIoe1d9sWTiMe/GoX1SkxeMepZ8GS/goYT43ptcRwwJQou3gegr93DIG1YW2AtZn
+	 W49mKVHZHvZdoC8FE+o7aiNIUSv5ZKMXlU/X+3zwrhzTA3SXI3YnnPipn/qBAWT0Exi34
+	 t3dxCYIX6gtnsNgsL8su07P+5QtvLzpykc4f+HO+lrEOyzyvbZkoU/5QCVUR8D9qP8KoL
+	 Eb2PSkQwaM2hoee6UHXfTyMbZBzhnIsKItbKcq3HQYvUP0LhH454HyOqFNGYOhyZvgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701602;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701611;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kUc2Z59dq9gHOU963K+8gnhDmDxS1p9MxNfkqY/lsVc=;
-	b=Fzk+m+UnynfGHIlmkpzEPoMn2vvA6h535mP0TAZGZtSmFOu9ub3MFhEqKRftSImvvSrx
-	 ElzToPW+FCojJUIwEQ9uTtIKry/XGKoMU5+szl/2220nNG/hriY91A6tYEHpJprjxVZOo
-	 Acxm71plPsuTtkApKHFb4H8q/6FLYxcAmvi97F38rpwFgGTpwyvvuHOSAyNQRJQ/w8UWg
-	 kLQHs/7jbJseJ38+F40Q8Z80bSiN9wvW1Gmgxn+/MqavPpWdqk7ZZczI/AsGKOFTS+Qjo
-	 vpc+vzq+IkCPMV03t0N1yJ/5B/xmMoeLn8JA/PM+pFvgOQ/asn7vWCzSdT2D+xKbQzw==
+	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
+	b=D1rRtjTg/QG/kZMlW9d3ygUfNvOA55wX1HXftx9JxV+wRSES2EaIhFE3sjVP2BD+Pnlj
+	 7HP/grgbOJ9Bo8YPzNfrX2MJal9aWgvCzGtwcESVLUp17FWsd+ysAeuEQYrjSOzOSuW5S
+	 AyjqnvBYed4O77+nPVtGuOPYBQWut5E46LwmJTWOSzAi6PhMKnwUQajg60AFYKtNoQT6C
+	 uFRf3VWUMPMp6Bem3uJPusXpi1rY7UQ77z6TN3TpGwXeFSLtiWaF0GE7GPAyI2pF10PH+
+	 LwApG9Xy9N0Kabh5CuWzuXsEuNqkkxSu5gTK6RXQJJhPu1RB0IswVwYOOHL5hQxlVuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cr5t3Y6i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gj7/7uaW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E391B606F7EE;
-	Tue,  3 Nov 2026 10:26:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F4C606FAC1;
+	Tue,  3 Nov 2026 10:26:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cr5t3Y6i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49CA1F00A17;
-	Tue,  3 Nov 2026 10:26:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gj7/7uaW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8941F000C1;
+	Tue,  3 Nov 2026 10:26:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701601;
-	bh=kUc2Z59dq9gHOU963K+8gnhDmDxS1p9MxNfkqY/lsVc=;
+	s=k20260515; t=1793701610;
+	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cr5t3Y6iWHVOh7GU7fE7fLTZqrCgd/xd429ylD9lyGmRSBNrmMcL/vxaLhyPOsrs4
-	 l0D+1xIuxLjncK21VVxlaeu9O5IIka7MTtLn9VIwc5WKWsqBwBzcHedMPc6I1YPR3x
-	 Zk7I0feQptBi0NByVJ2+IRaURNZqjFF2OW3RKkQla/VSVvBx3the89LR9/rxZCBUob
-	 XK+D3f14RRCaQEzvf3u/sKuThUOs/8mSfDFzEO2ifoO9Cl+IoCLEUtQhu4+gHBaIS5
-	 4yLAm4HlW6yWGRH91qqq4Kg6cM0jPZlH9A1IKGxxBFypVZ2A29GrJgM//PO8b2uvkJ
-	 ZhG33kp0E4zlg==
-Date: Tue, 3 Nov 2026 11:26:38 +0100
+	b=gj7/7uaWPD8l6WCj0nkt/dxqvS9SCyLl9TTQbG6hPZEVvTZ5+7uEmWYcgQJ5VNW61
+	 SFuhU2qByE2lKcYuC9ggyHv94fyQv1Id3fNfwGTC5pJIHDQ4kAWNm1hq+YRueNuW18
+	 o62P3bhO4pwqnKEaIO1omu8NR6FFii2r1WSUKURfTr4FEE+IVgiXjkkGoOXQ+daLxZ
+	 lmMZ9M96hfu5PwTjnR2zxMcf47/LpDluWegzpGbV3fcPARsJmh51jtuBIzYjW8/Z6l
+	 1KKvF5Hw5S0frWh36GQhe7TKp9GY8ihe3Vf4QZlh3eGV8gwn7DqTjJSxH8kvKmgOdx
+	 ZnI/XJh5NZ6Ag==
+Date: Tue, 3 Nov 2026 11:26:48 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-rdma@vger.kernel.org, stable@vger.kernel.org, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Potnuri Bharat Teja <bharat@chelsio.com>, 
-	Leon Romanovsky <leon@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] RDMA/cxgb4: Balance the extra skb reference on
- rx_pkt() error paths
-Message-ID: <20261103-admirable-ammonite-of-superiority-7ad409@quoll>
-References: <20261103094642.1289811-1-vulab@iscas.ac.cn>
+Cc: linux-media@vger.kernel.org, Devarsh Thakkar <devarsht@ti.com>, 
+	linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: imagination: Release m2m device on probe failure
+Message-ID: <20261103-tiny-centipede-of-fragrance-a21f0f@quoll>
+References: <20261103094617.1289402-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,32 +59,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094642.1289811-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094617.1289402-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:42 +0000, Wentao Liang wrote:
-> rx_pkt() takes an extra reference on the skb with skb_get() so that the
-> pointer stored in req->cookie stays valid after the handler returns.
-> process_work() frees the skb once when the handler returns 0, and the
-> firmware completion path releases the extra reference through that
-> cookie.
+On Tue, 03 Nov 2026 09:46:17 +0000, Wentao Liang wrote:
+> e5010_probe() initializes the mem2mem device after registering the v4l2
+> device. When mapping the "core" or "mmu" register region, requesting the
+> IRQ or getting the clock fails, the error path jumps to the
+> fail_after_v4l2_register label, which only unregisters the v4l2 device.
+> The v4l2_m2m_dev allocated by v4l2_m2m_init() is not released, so it
+> leaks on these probe failures.
 > 
-> If the route, neighbour or L2 table lookup fails, rx_pkt() returns
-> without calling send_fw_pass_open_req(), so the extra reference is never
-> released and the skb is leaked.
+> Release the m2m device from that label as well, so that every error path
+> taken after v4l2_m2m_init() succeeds frees it. v4l2_m2m_release() accepts
+> a NULL pointer, so the v4l2_m2m_init() failure path is unaffected.
 > 
-> Move skb_get() down to just before send_fw_pass_open_req(), where the
-> reference is actually handed to the firmware.  The early error paths now
-> leave only the reference owned by process_work(), which releases it when
-> the handler returns.
-> 
-> Fixes: 1cab775c3e75 ("RDMA/cxgb4: Fix LE hash collision bug for passive open connection")
+> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/infiniband/hw/cxgb4/cm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/media/platform/imagination/e5010-jpeg-enc.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
 > 
 
 
