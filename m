@@ -1,92 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699225;
-	b=enMeIoekTzyNAUZpkmISCNn+Aj/tF+JiEfK2Q9YkylpZK74fZEzhVqkHL5pJvgdC18YT
-	 TDJPvS49lDpZaeRRX4pPq5hsI0E38uq7IHEzfGpb8LcxdG/1w9lLj2uyUGaPeepHEx666
-	 kKZYXGB1H0v0TaeekQcHKMBCkpGFNlIO9pDIcmJVg6QwIF8SujxZAG8D4pwkPlHojmdIZ
-	 u5rBZo8QK6UGyOHNAc7en+dTdyXq5v+731TQOlUSS34YTpAibcrS6WyKY3FOoQnk80m2g
-	 zsMIyVb+a0RmdVcQcJmYqexHcbjdCWMH7SwSFkyISaQfh4fYJqtsi+rPRXUh7ErpZ6A==
+	t=1793699238;
+	b=q4YeAyttZCf5WvGIncL0Bch7Xr6O6MdHodQ9mUSyQkiYr+Ub7H48Fn9VM7ymW7ewzE/6
+	 oDLvWUzo3yD3ZccuiCr8UeSZ751hEG8hfj8QKDMTScZhzP+dYF8Eh0Xeh0posPzmCZsg/
+	 /+mtkO4OVh+HvGzPuXlk3P1R1pNsjsSRDAkT9pvYw2kEF7pCRJSjoGdKwfwsxju+gJbOL
+	 h8+eQk4AD0USNJeiNq24iq3cIzeJUMQ04zE+j8niH5qlx7knLNAiy04tQriT7UpeDgfx6
+	 /+txkW+25EH44Nxd9UJcG3oy+/IEMUbjqGt5nCNif8HL+F4JzBb6Ftgo2Exc3LHi4nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699225;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References:
-	 MIME-version:Content-type:Content-Transfer-Encoding;
-	bh=0JBGFPPLquwWwHmBGhL2h+y4hpkquMXF6f4Dd0IfIRA=;
-	b=Yb4cdcNdOlJqJOwgDh0cQuSyduXlnm/CXLZbYTqU6C3g2l+aiVhviNavgYcWRNTSB7rF
-	 6Z1i4ZZxMhoKPGPHSiIXkjkrtVgcoxvQfmNljoCZnQ4DXgDqGs8pJMNpnEulhnOGM7szh
-	 idy3nFdwbUcySUsVlrRbWPSgmG/GnQ/lhBHd6+R0UFq7mJtYivEqUsp77eRr8u/I4dqHt
-	 6VWPJfzz/dJnZN4l5E9VLT/lgiggH0UjI4Q8MAawpoevdhG/CVY9RNkkPBr4N6SY4nQKz
-	 wMtUQSdvbSMsK4wAtLEMiokNPUwra+D2kZ4TGm1vwJCDIShtiXX8WkSFMSKHcQbsh3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699238;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0n0HkzJNtdQjaMLzn2VLaFHeZeyP5LsybYLDB5MJ+Gw=;
+	b=iS8Jw1ksQsS0Cu/NS9mlFXeKqH2+iYb+6dVdJppQ7PTwNTCgKAe001g3Dh5U6+ljtb81
+	 4HVx55J1Bessb8vmPCzv/ZCJaU2ecd79+midQ2fBla+dGrxcqDqRzmodlReKbcG/1JYkV
+	 4hzdsUAuGHi3OJTKHan98HTwzZsIQKvpde0SNbBDL+hTncL9xWucZ19kssh0jmym3sp0Y
+	 RKFEIw3MDVYNMmus6AjrfM+jKRFwcKoEhVUm8UG9YLbDDGBada9tPfMi9blc6y9ReqiAI
+	 lQlTU3kAfaCmZH3X3ftCjcyEVReLT0N10gfImWntYriOTemKDMQh682dgnX++LVOkOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b6L2Aj81;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GnNNbhwT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jONS5vnE;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98BB606EEAA
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:47:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B98BB606EEAA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51FA606D828
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 09:47:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E51FA606D828
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b6L2Aj81
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso6650914eec.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 01:47:04 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GnNNbhwT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jONS5vnE
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A37Rt401397523
+	for <stable@vger.kernel.org>; Tue, 3 Nov 2026 09:47:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=0n0HkzJNtdQjaMLzn2VLaF
+	HeZeyP5LsybYLDB5MJ+Gw=; b=GnNNbhwTN83iXiav3DX1K5/quVWHfT4D2wx1kf
+	Uh1ZktXs2MF1/xeuTrRQVXzlht+LfOY7OZyYFctJCaD3j5AbGentLrNqYKWrfJF0
+	Lu5ZUxIu5DOLd4KIN59UeUOVum+scx9YYyT+SuP0ad5ekY/mzqKO14wfdO6mbRwl
+	Gz7n9wNDtOaxat16zS+UJhzlxQE4mY/BYi9UlgWSFDoOPS1cKUF3/5cDXVC2VRVA
+	Cylv0lzMsNOVo/Q9KgUu8sJIuY8p2TsNGE4H/v4BDPFIcj+MrmHQ+Jz6OBetgrBR
+	16TjekVmnGMX5CB+TRKZctpw0124hRzCB/CFzYdLRYMxiFTA==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq4v5j19t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 03 Nov 2026 09:47:17 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-990835cec5aso364024241.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 01:47:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793699224; x=1794304024; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0JBGFPPLquwWwHmBGhL2h+y4hpkquMXF6f4Dd0IfIRA=;
-        b=b6L2Aj81JYNG0j3AYXRQzcnSaKwkxDIPpZxq6zx2Lea4S+scn7qFA+MO7PX1lJjgBl
-         iLcwKu5NaQ1YRFeeeCDeZCO4XYNqR1YpyHTaOFsB/LHL4/8O06i8SlUdCm7gDiT6K97c
-         5PibD1eiTY0cWmYG+8tl1tWXPqzVpAKvE1J6JchBcLJaubQJaOyZecNijGvACPoHtP3R
-         kL7j5n5p7VR+EcuNGoD3eF7DjhF3TANIdoEjARIv6V8DcmRVJ9s6rzZAW4uUVWXEgrpj
-         Ay0yt0HPo0YmxKMSZDT44J5GdlDsdPJowlZJd98SzWPH/mPx9f1VKDLUnBt/XPp/gP8U
-         Grrw==
+        d=oss.qualcomm.com; s=google; t=1793699236; x=1794304036; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0n0HkzJNtdQjaMLzn2VLaFHeZeyP5LsybYLDB5MJ+Gw=;
+        b=jONS5vnEp9hUF1cE56MVN33U/Q6k+9zuYs5++dT4IKO7X0w9n9hl+TGTrJi8Mn3nar
+         YsnPMhCMqB1jhye4sqjLLH32Uc+G3pmOOtvAihiGo3XP/gifCFIhGpkotYuq3/CDA61A
+         hPqogvLMvnhc//LkIhH9Os2zh8+IsjvTbQmo4chvypvd0GXcJ2Cv9flFPO2PPwUrR4Gt
+         4wf9ZRiIlY2ccF20CF4oq23atQyipZkoY70Uaw3xYzMP/7wY7YWIB6vYXzw8s610KTa5
+         J1qidPgV7bgaOAQZLOYuOa8/xaXBNZF1zX6UIupBTTRz8qRfS4Qosy5B7I+c3dKF+nc/
+         aylw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793699224; x=1794304024;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0JBGFPPLquwWwHmBGhL2h+y4hpkquMXF6f4Dd0IfIRA=;
-        b=EccUgO0UvL6uVbnBlGZjOlhQTtRAYnZd1VHe0A3XHteJz6aJovx6gBCXhgrRFXNDqY
-         nXNCRYrdIms9azUnyYIiE1kj5hTqg0EtSe8bt8vYE0Dw42ujxOerBuvcLEtWvR2MOKxE
-         Ao8/3JctTgt9fqnUnif/L2tH459AyvdSV3IUoqePBEF1N71D0lFcffsAThQXDs6vPJUG
-         IZYTaUdixQmiSdtnlNZDA071n7Z9VMzR5x4FWuYOBoOSjTah6+7lSlZ50jg8BiRAg4eK
-         +9zAUepRoOtahJ5UFdDpuGyLE4TRACEiucrVDHz+Lx5H4W8nqGCozoL8fpHrKMj3KkZY
-         8GUw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4B157vNq8eMBtHkmm4e02IaoxZAOGeYEYKKPaH98UNWLO4cXNKZNkXuRXzqbjLz0axxx5s90=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87xXXgKMVM/RjQ4haX4CxQAtpb3P1Bv7M9YsRYzqg/0khNIVVe
-	EGoPPwwlfwr5y5OuYKYuR6rLOq5jPnPFl3LVQlIU8DRWGi5pMKSEppIk
-X-Gm-Gg: AYBFou2gUKkvm8OuxBHqf63YFY0+JJINGpy77cBCBT4Xxb2xPE97LXFM4wgxz8aU7fx
-	kFhFoxQHPodC0Fa1buUgZ63iT3kF3amGXYPOE6FXHyhIKLwkV2zevncuJv3BrCjdbtFxUh9Sqrq
-	66GvEnTs8hSZsVF5YzHxyK+94b80mzepdhYmlD46MNtc7v3SZY+9OgNQAv6JGQ2aOyi+kVtPlsi
-	Luv/7vhrVM1u2LYJIOWmdkzs9M0HebaRKr6+vybLpK5NSbr53KfBoHk496wU8PTJRkmHxo1nIrO
-	Rdkua6OlAiYgI61LLo6XLcQGYGXz05VNp6oHqbp3bRRNfGXQxMaR5R8cZvliimQ9GXlVJf459yo
-	9cOph+XV6YIi1Uvx+mq7nPJXSGLY/CC5dIqBnL0b9Vp9qezOJP2dTORtMa+DBxaWY0hzIB1ggcS
-	cQGMbETZJUNLiy0hP1VNt/yfiNMh+pg5JIdK+rqtXjbHFwX94caExsHiQrf8vOwgZ4SGEmQaocK
-	cQpglroV4SPsd8hiqbsRtqTnKy0psVWTSp2HgnVYrRTmu0LsdxfbcQXjm6w0icJQNuRqW3W/Mq+
-	fpxToz8NKkIoPOEB+gTV/3zoWMU=
-X-Received: by 2002:a05:7301:6405:b0:366:83dd:4704 with SMTP id 5a478bee46e88-36a423dc7f8mr19544762eec.17.1793699223769;
-        Tue, 03 Nov 2026 01:47:03 -0800 (PST)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm38668145eec.4.2026.11.03.01.46.59
+        d=1e100.net; s=20260707; t=1793699236; x=1794304036;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0n0HkzJNtdQjaMLzn2VLaFHeZeyP5LsybYLDB5MJ+Gw=;
+        b=b7Ze/LhiP8u3YU1+NmzEQtdv/gFre93bynk2hUHqPJbLtndubbxae2Kv5w/1949T+f
+         /5w8N9brNKg4sb/42yDVRhBBJw2Dhzb7HIRB5Iq9rlCzgUXG2d1d/2Spr77TE0JCiTyw
+         B1q2Hrup6LM/Mpcb8nqQHUAolLrE1RBg145m5PMhtT+cR4r/9Gv1HRzDXosfk0OtOhFL
+         DOmTVgx8ZwuCYi/tcJmEfjyY7BuKdxmvan2gvhyxf5Ye9rJfBNSpIUYKGKTn3H3mq/Ba
+         7lJdMl13uPfc8YSi8KiNDtdU52Sz9ymjYDVs8+OughCvtfT9rlTi6ptL3SqRDApnbvps
+         J3MQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzir7jNb6WOejKKTWLNRjRDm5o+UHzaVBEIB0MooPY9KOi3zSOBr0f5hL8S9lf/B3bv7Vvvj2g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/h7kR1WusMsllEXPZu1hdFY0zYjfjn810vU7dA0xuF9u5rVbr1
+	MYuJh882oQhATLCiSedJxToGLuChRpIrPU/jfG8ReI/7kL5ms2EayBYcB6TAd6iQqvoO1bHo/He
+	MpghN9RShRO5SYbR0Bm4R1rJe/j6YxwLdo1WAcTu2r1SAjSGGtznq9eNLxtE=
+X-Gm-Gg: AYBFou09b9DkCXIsd1Lck7y46I69xus0J9qHts2wCDW2bMZ4LVDgusbrfwFrTAx2tEO
+	1Z6PBuFUYIjbHFv/aqIm1noiVsxYJpRcxx1kdTv8oityh1VFn6DiMi2ilu6+tDXAu1eT69tSlyJ
+	7ZEdo6oIebeZ+KeE+t9PVvnQyVk8w0utFkGDanvMjDixPojUj/ssbM8xKW3S3BnCpBCmirvQMem
+	0MdLPDHuUYI7QJMio4MVmOic97SWeqbFx4Yh6kLUmgLeJ9KEXczxV8SxfaWFjDG+ZJdvC161K3u
+	0LstU83n7HO6/WIoWqkHDQLIeF50/Y7l+goRO7WQfyrRCpjKJ9VOXIxllpUk1KEHtXEPO4Rfqfv
+	NmJlOxWWQYSOwMN13Bu6WGI8Nx5UXk8zUwOROQToCwANcPz/rC6QoK8bvJw==
+X-Received: by 2002:a05:6102:e07:b0:7b3:9d2e:c1a2 with SMTP id ada2fe7eead31-7d0543af600mr4596910137.42.1793699235880;
+        Tue, 03 Nov 2026 01:47:15 -0800 (PST)
+X-Received: by 2002:a05:6102:e07:b0:7b3:9d2e:c1a2 with SMTP id ada2fe7eead31-7d0543af600mr4596907137.42.1793699235236;
+        Tue, 03 Nov 2026 01:47:15 -0800 (PST)
+Received: from [127.0.1.1] ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9eaeesm24018477f8f.49.2026.11.03.01.47.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 01:47:02 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Hari Bathini <hbathini@linux.ibm.com>, stable@vger.kernel.org, Josef Schlehofer <pepe.schlehofer@gmail.com>
-Subject: Re: [PATCH] powerpc/code-patching: Flush the patch area TLB entry locally
-In-Reply-To: <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org>
-Date: Tue, 03 Nov 2026 14:42:04 +0530
-Message-ID: <wlqu5lej.ritesh.list@gmail.com>
-References: <b7916dadd8ef56d417d0cbf69fa9ef2a447a5a3e.1793674111.git.ritesh.list@gmail.com> <44406eef-0035-4d6f-a2b0-3647d7c1ea2e@kernel.org>
+        Tue, 03 Nov 2026 01:47:14 -0800 (PST)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Tue, 03 Nov 2026 11:47:12 +0200
+Subject: [PATCH RFT] clk: qcom: clk-alpha-pll: Fix the rate of Zonda PLLs
+ with a negative alpha
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,148 +113,162 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-version: 1.0
-Content-type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-clk-qcom-zonda-signed-alpha-v1-1-31559b3b872f@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAJ+t6WoC/yXMMQ7CMAxA0atUnrHUpKiKOAAHQGwVg0lMayhJi
+ QEhqt6dAOP/w5tBOQsrbKoZMj9FJcUSZlWBHyj2jBJKg61ta0xt0Y8XvPl0xXeKgVCljxyQxmk
+ gbBq3bsm44CxBEabMJ3n99A522z0c/lMfxzP7+9eFZfkAEGXSDIQAAAA=
+X-Change-ID: 20261102-clk-qcom-zonda-signed-alpha-33846a18d82a
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Jonathan Marek <jonathan@marek.ca>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Sashiko <sashiko-bot@kernel.org>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3378;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=NGjlwTJr3xwIbJKj95ykRuhiH5GJEDrsyfPMCsr8X3E=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq6a2gjBxk7B7wjkjrGxO/bK1L4lQ+jBG2DyEZu
+ eXrsveEt+KJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaumtoAAKCRAbX0TJAJUV
+ VnnRD/9lIFtvtsyDSD/kQEokY+dGlPYj2iqAVCVKzzr617qc4qDQOm03wA/LZgfQBbl6+giZ43J
+ fCHjSSBjsNN2o9VexxUrGBJzay6vKXgTlKpTCHI6eLhcnCU+Iv3F4PExEi8J1Xfrw6ky2MZHPz7
+ K8ioprMG16ZAZU7+GHXlIPwDL7XLbwCrYhFjrQJxIHlTskOIs/E8scQYyO+cT5SF+IHbHV0m4wj
+ niQ8ppNimue/p/J3pz5xqSbtOcbFi38p0EMm0YcVxChfrYApaasq8jBO0+yer1MGKBnTs3gms09
+ fQw3Hdbw+JUyKrTD1OCA8IhWin5x3wV99xgYX3n/0GX+6n9LhqyYTibrdC9IfyVKhiuCG68AWzF
+ 53M+m3AB4QJzZT7yWPvKnhPAJ+wWKS06G1gVh4dZTh1bJa8790ZigcIYVRrlh6zfXRqezEDxx0x
+ yNljpW4/slcUpB3i4evioPFyZW8vYe0uNyxScnmRf5vZP9ikCchGi6S9azdBoRgTrX1GO1tGxnY
+ KAUn5g9D40mTF+SOevLulS0/y6SJQLG9Rw+b6lYsyu3IKganh4aAIeJG70+RWistYFRoPNfeSfC
+ btGCmWebNhbPOb3qvM4XJr7/j+M+l581E10K/VbhbBm/rTeC37pbI6RnMnn8KNxDGPryCTAspHc
+ UViKTt4mchLGogA==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Proofpoint-ORIG-GUID: OM3qwNdg6s4ilfOs1wML50lmiaOe2xF1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzOCBTYWx0ZWRfX0/2ZGkLgimtY
+ ZXvGrgDG0/b3Y5pcuTlAEsNdqF2/90d12GBRydnZAPsEgJowk8F2/7qjpsXYbbvQwKf5sdqRJzh
+ GsaaZxfFl4bpESaFEEQ0W+ZfYGnRqH4FnMCmWBRj+IAg/tjj3qH+b2njPICtXKeZo2XPxqihglb
+ Eja/puizX8euwPKUfG+thLBt2MWR+MTPfccHp0tB2tQBJmKxfhC0HT177kje07mfWIswA+Nnx94
+ M6PBjzYu2LPBsXEmLihDlZN0BJiwDble6y7DoKIcSK0UuuOn50f9z05+/KiFTBSTpaX53ATs4Oy
+ 5t+GUHsU5fWeKXE+ZW+f+Bhfwmj0n/FanvF3bePxNrJ5Qq7NAJ9e0S2VgQF+ihOp3kXm/dG0h64
+ DlZMLiqdVcj02lu7qIAcZp8E6eUZw+nv98pxLX7QrVlcTvAJ3PcSGskMYhLqWwn5q0eYmDkd6eh
+ AoAP386NCEf/RVN9+yA==
+X-Proofpoint-GUID: OM3qwNdg6s4ilfOs1wML50lmiaOe2xF1
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzOCBTYWx0ZWRfX3qRN+Hcthp96
+ eY6WGKoPilqSmKIMudOvi/dVgVcrZl8wrJGSzS5GkiWZJJSuNsAOjeGFo+4TWw+7841Sq3EyYDy
+ RTPPV/w28C1DIOaWtcWdgVdILO70Upo=
+X-Authority-Analysis: v=2.4 cv=NeZzRGD4 c=1 sm=1 tr=0 ts=6ae9ada5 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=HIFZfxgX9pW5VpyTZ0YA:9
+ a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
+ a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 priorityscore=1501
+ adultscore=0 suspectscore=0 clxscore=1015 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030038
 
-"Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
+The alpha value of the Zonda and Regera PLLs is a signed fraction.
+clk_zonda_pll_set_rate() accounts for that by programming L one higher
+whenever the alpha value has its MSB set, but both PLL types use
+clk_trion_pll_recalc_rate(), which takes the alpha value as unsigned.
+For such a configuration, the rate reported to the clock framework, and
+so to all the children of the PLL, is higher than the actual one by the
+parent rate.
 
-> Le 03/11/2026 à 03:54, Ritesh Harjani (IBM) a écrit :
->> patching functions like patch_mem() and patch_instructions(), maps the
->> target page at the per-cpu text_poke_area, write it, clear the PTE and
->> then flushes the tlb using flush_tlb_kernel_range(), with interrupts
->> disabled. flush_tlb_kernel_range() on SMP nohash (e500) does an IPI
->> based TLB invalidation i.e -
->> 
->> 	smp_call_function(do_flush_tlb_mm_ipi, NULL, 1);
->> 
->> ...which will wait for other CPUs but with interrupts off. This can be
->> caught by lockdep with the following warning:
->> 
->>    WARNING: kernel/smp.c:917 at smp_call_function_many_cond+0x430/0x818, CPU#1: swapper/0/1
->>    CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.3.0-rc1-leds-v4 #1 PREEMPT
->>    Hardware name: Turris 1.1 e500v2 0x80211051 Freescale P2020
->>    Call Trace:
->>    [c1915bc0] [c001be04] flush_tlb_kernel_range+0x2c/0x74
->>    [c1915bd0] [c001ce2c] patch_instructions+0x1b0/0x318
->>    [c1915c20] [c003113c] bpf_arch_text_copy+0x5c/0xb4
->>    [c1915c40] [c01c3398] bpf_jit_binary_pack_finalize+0x28/0x8c
->>    [c1915c60] [c0031770] bpf_int_jit_compile+0x5dc/0x758
->>    ...
->>    [c1915dd0] [c102e114] ptp_classifier_init+0x30/0x4c
->>    [c1915df0] [c102d3a8] sock_init+0xc8/0xe4
->>    ...
->>    hardirqs last disabled at (3076): [<c001ceb4>] patch_instructions+0x238/0x318
->> 
->> Josef confirmed that this was causing a hang (deadlock):
->>      I think this is why the CZ.NIC Turris 1.1 hangs early in boot with
->>      CONFIG_JUMP_LABEL=y. On 6.18.44 it hung in 19 of 19 boots and booted
->>      fine 9 of 9 times with jump labels off. The hang comes while static
->>      keys are patched and modules are loaded, nothing is printed and the
->>      watchdog resets the board. OpenWrt keeps jump labels off on these
->>      boards for now.
->> 
->> ...which is possible if both cpus are doing similar operations with interrupts
->> off and doing TLB invalidation using IPI.
->> 
->> Broadcast TLB invalidation is not needed here since text_poke_area is
->> a per-cpu area. It is mapped and unmapped with interrupts disabled by
->> it's own cpu. The only reason I think, if we would need a broadcast tlb
->> invalidate is, when we want to prevent a stray or malicious write to
->> this cpu text_poke_area by another CPU. This generally gets solved with
->> temporary-mm path like how Radix and even x86 implements. However, booke
->> doesn't implement that, so for now let's ensure we use local tlb
->> flushing for correctness.
->
-> This problem was already discussed one year ago, see 
-> https://lore.kernel.org/all/PA3P192MB2865C07D634E3B775D003C7F8CD7A@PA3P192MB2865.EURP192.PROD.OUTLOOK.COM/
->
-> See response from Arnd, a stop_machine() should be done for completeness.
->
+Add a recalc_rate operation for these PLLs that takes the sign of the
+alpha value into account.
 
-I will have to take sometime to go over what ARM does here with
-stop_machine(). However, either ways I think, we still need this fix,
-since otherwise P2020 boards gets hung during boot. Thoughts?
+Fixes: f21b6bfecc27 ("clk: qcom: clk-alpha-pll: add support for zonda pll")
+Fixes: 0c31f6a3ab7f ("clk: qcom: clk-alpha-pll: Add support for Regera PLL ops")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-17339f1f-7afb-40a5-96cd-70361917e0f2
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+---
+Tested on the X1E80100 CRD, which boots without new warnings, but does
+not exercise this change: the registers of gpu_cc_pll0 read as zero
+while the GX domain is off, so its rate is reported as 0 either way.
 
+Prepared with help from an LLM-based assistant.
+---
+ drivers/clk/qcom/clk-alpha-pll.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
->> 
->> Fixes: 49e3d8ea6248 ("powerpc/fsl_booke: Enable STRICT_KERNEL_RWX")
->> Cc: stable@vger.kernel.org
->> Reported-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
->> Closes: https://lore.kernel.org/all/20261026195644.16384-1-pepe.schlehofer@gmail.com/
->> Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
->> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->> ---
->>   arch/powerpc/lib/code-patching.c | 21 +++++++++++++++++++--
->>   1 file changed, 19 insertions(+), 2 deletions(-)
->> 
->> diff --git a/arch/powerpc/lib/code-patching.c b/arch/powerpc/lib/code-patching.c
->> index 44ff9f684bef..6351342fa5c3 100644
->> --- a/arch/powerpc/lib/code-patching.c
->> +++ b/arch/powerpc/lib/code-patching.c
->> @@ -276,6 +276,23 @@ static int __do_patch_mem_mm(void *addr, unsigned long val, bool is_dword)
->>   	return err;
->>   }
->> 
->> +/*
->> + * The patch area is per-CPU and only used by its own CPU, with IRQs
->> + * disabled, so only the local TLB can hold an entry for it.
->> + *
->> + * On nohash SMP, flush_tlb_kernel_range() IPIs the other CPUs and waits, which
->> + * must not be done with IRQs disabled (see smp_call_function_many_cond()), so
->> + * flush just the local kernel (PID 0) entry.
->> + * Book3S keeps flush_tlb_kernel_range() which doesn't IPI here.
->> + */
->> +static void flush_patch_area(unsigned long addr)
->> +{
->> +	if (IS_ENABLED(CONFIG_PPC_BOOK3S))
->
-> CONFIG_PPC_BOOK3S not consistant with commit message. Are you adressing 
-> a problem on e500 only ? on all not book3s ? What about book3s/32 ? What 
-> about 8xx ? Even for book3s/64, is it correct at all when 
-> mm_patch_enabled() returns false ?
->
+diff --git a/drivers/clk/qcom/clk-alpha-pll.c b/drivers/clk/qcom/clk-alpha-pll.c
+index 60173b076cc5..59fe8fde81c2 100644
+--- a/drivers/clk/qcom/clk-alpha-pll.c
++++ b/drivers/clk/qcom/clk-alpha-pll.c
+@@ -2274,6 +2274,32 @@ static void zonda_pll_adjust_l_val(unsigned long rate, unsigned long prate, u32
+ 	*l = rate + (u32)(remainder * 2 >= prate);
+ }
+ 
++static unsigned long
++clk_zonda_pll_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
++{
++	struct clk_alpha_pll *pll = to_clk_alpha_pll(hw);
++	u32 l, frac, alpha_width = pll_alpha_width(pll);
++
++	if (regmap_read(pll->clkr.regmap, PLL_L_VAL(pll), &l))
++		return 0;
++
++	if (regmap_read(pll->clkr.regmap, PLL_ALPHA_VAL(pll), &frac))
++		return 0;
++
++	/*
++	 * The alpha value is signed, so with its MSB set, it is a negative
++	 * fraction and L is one more than the integer part of the multiplier.
++	 * See zonda_pll_adjust_l_val().
++	 */
++	if (frac & PLL_ALPHA_MSB) {
++		if (!l)
++			return 0;
++		l--;
++	}
++
++	return alpha_pll_calc_rate(parent_rate, l, frac, alpha_width);
++}
++
+ static int clk_zonda_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+ 				  unsigned long prate)
+ {
+@@ -2322,7 +2348,7 @@ const struct clk_ops clk_alpha_pll_zonda_ops = {
+ 	.enable = clk_zonda_pll_enable,
+ 	.disable = clk_zonda_pll_disable,
+ 	.is_enabled = clk_trion_pll_is_enabled,
+-	.recalc_rate = clk_trion_pll_recalc_rate,
++	.recalc_rate = clk_zonda_pll_recalc_rate,
+ 	.determine_rate = clk_alpha_pll_determine_rate,
+ 	.set_rate = clk_zonda_pll_set_rate,
+ };
+@@ -2998,7 +3024,7 @@ const struct clk_ops clk_alpha_pll_regera_ops = {
+ 	.enable = clk_zonda_pll_enable,
+ 	.disable = clk_zonda_pll_disable,
+ 	.is_enabled = clk_alpha_pll_is_enabled,
+-	.recalc_rate = clk_trion_pll_recalc_rate,
++	.recalc_rate = clk_zonda_pll_recalc_rate,
+ 	.determine_rate = clk_alpha_pll_determine_rate,
+ 	.set_rate = clk_zonda_pll_set_rate,
+ };
 
-No we are addressing the problem on all NOHASH platforms. IIUC, all
-!BOOK3S are "nohash". Although some of them maybe UP, so it doesn't
-matter whether a flush_tlb_kernel_range() is called or
-local_flush_tlb_page() - it wouldn't matter. And on others which are SMP
-but do not have STRICT_KERNEL_RWX enabled, they will anyway not go
-through this path - but if they ever do - then we should ensure they too
-do a local_flush_tlb_range() to avoid the same deadlock.
+---
+base-commit: 2637bdec0535a2044cd830eba9a79363651d9043
+change-id: 20261102-clk-qcom-zonda-signed-alpha-33846a18d82a
 
-However, I think, maybe we could use CONFIG_PPC_MMU_NOHASH instead of using
-CONFIG_PPC_BOOK3S, thoughts?
+Best regards,
+--  
 
+Abel
 
--ritesh
-
->> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE);
->> +	else
->> +		local_flush_tlb_page(NULL, addr);
->> +}
->> +
->>   static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
->>   {
->>   	int err;
->> @@ -296,7 +313,7 @@ static int __do_patch_mem(void *addr, unsigned long val, bool is_dword)
->>   	err = __patch_mem(addr, val, patch_addr, is_dword);
->> 
->>   	pte_clear(&init_mm, text_poke_addr, pte);
->> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
->> +	flush_patch_area(text_poke_addr);
->> 
->>   	return err;
->>   }
->> @@ -488,7 +505,7 @@ static int __do_patch_instructions(u32 *addr, u32 *code, size_t len, bool repeat
->>   	err = __patch_instructions(patch_addr, code, len, repeat_instr);
->> 
->>   	pte_clear(&init_mm, text_poke_addr, pte);
->> -	flush_tlb_kernel_range(text_poke_addr, text_poke_addr + PAGE_SIZE);
->> +	flush_patch_area(text_poke_addr);
->> 
->>   	return err;
->>   }
->> --
->> 2.39.5
->> 
