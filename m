@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701586;
-	b=xq6r1bUrcAm1VVpMTwQ5FKyBCEjbI/lLG47buNMEqH6oXzsWnPXtf/zsCf85FFIlUJdM
-	 Hd7rvxQjTPuYPDHofoo8WxWdAQ+owDu1tHG5LoS7B5yESnSwgBfvb3miaViDPwXdhkmBR
-	 cAkQcaqgd8TEAsmcVDeYJ80lJ8kY/ibh32tjSjSAw00DDkdzSBVI9qIkP6Kdfr/LY15+G
-	 Q5KRezeIw02fQXz9XPa8riSnfQya/C+IDd4AQa+F7uqamCGk5drgMToSSU8OO7T/5M3MV
-	 rG1DRBGFZvZ7yIXjia+HyAthMW9Zp2K7u5sH3jH0P5/jhhwAg+Rs/p7gNEa/uEcf/5g==
+	t=1793701589;
+	b=F6grtBg6p7/Nsgg0ih6+/hb5sepG61oP14Q04Y7KUH0j/71B+7lrUyfvHubK7Z/qe0BY
+	 YMu74YGkHpiy3IitJkMHSy29dsfm190rtn23c+ensWXplzDyO0zd3iLc/s3BWRkQegV5/
+	 wLubGPQhQZjlVKhMGRwjZZZwqtiyaTAmpcq30P1TKYJSh9dCojaf/4lUHGXaGiM6IESKr
+	 noLer+OqfRbeTR91eBr1ZgiMA5m0CFkpzjAr/djtsZ3Sxj94bpxFqze0JsLHGH3rV9WUU
+	 /Jg3XsA3Oh6mQPiTqJnwKv7gkyQNJ1zyeNfBeHS13ZvWa5cPRGFJLPd7PP8P5Y6nmyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701589;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RFD4NEWIqRqGtu5uO5m/Wa4jwby/2BfEOciBe8jqLAw=;
-	b=GlojUld5M3eOJAvE6yjdw2WOncNWDb/7qryQmtJDPLmVrp3bBY9NbTR3Z6VzJzNDqqso
-	 PlKWBjdA2U4AFgS/pF92dZyVYKAutVkgLOQnWVk0oL1Pdp++EJyHgFuU/d8lgGC7zvopq
-	 bW6qzR5+ua0Lgtq+m0S2BrCZjmI9fr1z+ZqMidJzmaWxCrWPNeEUh1dud92jl18gmd3hk
-	 VOaKd1b5KrVzhieFlt4X9/K6JXLCtcEb9KgzJ04fkuYjka1vWMwBv15elkDZhQ9mFfMin
-	 xIqo4wz22M9B5wyTfSCrV/6w5sTwgBdLLZGb1ZsOqMC1DJnpfSQcPlRTACoEXrxYpdw==
+	bh=rIlYC4RGaBYFb8msoJbR+EejQjSODQYfHSJuVWGfL3U=;
+	b=nnSQsirMUt3OGQj4CuH9GU9kbx3q8MdvqE6Nt7iBy5m+LTWmEWjSa0EZNNnufEYNcSd0
+	 SI4H4kQklM5fObU8nRqWQvB0g8+DtMXr4yFN12uz3ERnFZFHGzT2E9LDXF/r7Av2EbsfI
+	 BkdgBYCAgRz/yrUglN+JIELjJef6uehDI6dYVqu0hI506wgki9yb4Tbh88DG12Q7ZcS+0
+	 qEhdupykjTA2hhKBluOLcHQSnBfT45cyz7aNsrrvbisXpsOcg2XLj2yrjfkWnYQ0RM90m
+	 yI2uUwtsqBSQhmZCrbK+UGiXhJy2mpYC9vZlEJ5/RNxzCdPOE3T4K49iyDSMTygzR2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4fhaES8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlJLy8eM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C25E60A6F79;
-	Tue,  3 Nov 2026 10:26:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B861606BA78;
+	Tue,  3 Nov 2026 10:26:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M4fhaES8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526511F000C1;
-	Tue,  3 Nov 2026 10:26:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZlJLy8eM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2FC1F00919;
+	Tue,  3 Nov 2026 10:26:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701586;
-	bh=RFD4NEWIqRqGtu5uO5m/Wa4jwby/2BfEOciBe8jqLAw=;
+	s=k20260515; t=1793701589;
+	bh=rIlYC4RGaBYFb8msoJbR+EejQjSODQYfHSJuVWGfL3U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M4fhaES8LjvD+Qqat35pRoUeiet2HgTCzz73C33r8PB5J5ueRvhW4tY5loH+9glUE
-	 FsmA7bcXNQn1EZ+gzf/xgC7/4MD3RYl7qpCzV4W4mP1F9TaklZ/3lyVQ0a6jCT4bIA
-	 nTTXX3GbPdUbRb8OLpNpeaMoWwWlHgxVE3lxWG7D3GcIt2RgBXVpjyoGzj2VH3wEx3
-	 TzW6hKCuDJJpETAQUU8tUqcnx7Mycp0xM8BBMfSJkffFsKS4oN+va06sqcTV7LEiP2
-	 it4nYvyJMxcROoG9nEY8gfsTT54KwKf4M9LDnzh87AHyqXuzyHOwhkqCL4zW+tWTpK
-	 RrxbtPHY9uItA==
-Date: Tue, 3 Nov 2026 11:26:23 +0100
+	b=ZlJLy8eM6LcgBzKjbZG6s94R+zcLzCqKvHAN+PzsR+gn5D69ZF1XwfBbzG9kmOHly
+	 rkx6cHR0QurRoj5qxtYCZDjTPCVdFiKLa01IqHlDkYLlr0U6emnYFh1GkgOwkl29Vf
+	 YYcYd9z0J20m/jOXF0V9o1yjzCvDA0fSiC7iGZ/He6apFFFoRwKWRlbyCgBq0abnTp
+	 f6y+/FVq6ZnicYtpiyoYDHka1LPwP7926QpyWYlq3w3LKz22OexFpMCWiSEjxxe4w5
+	 vIP5CzZfUWwj2Bc8IevU2OltJSpdiTFr9MuhLrcjcioMzEtUmPafbDpcUmwutDArHk
+	 GYSgoUkqgNTnA==
+Date: Tue, 3 Nov 2026 11:26:26 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-mmc@vger.kernel.org, Adrian Hunter <adrian.hunter@intel.com>, 
-	Ulf Hansson <ulfh@kernel.org>, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] mmc: sdhci-of-arasan: Unregister all clock providers
-Message-ID: <20261103-prophetic-elfish-sawfish-c9e22d@quoll>
-References: <20261103100521.1309763-1-vulab@iscas.ac.cn>
+Cc: Samuel Holland <samuel@sholland.org>, stable@vger.kernel.org, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	linux-arm-kernel@lists.infradead.org, Vincent Mailhol <mailhol@kernel.org>, 
+	Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH] can: sun4i_can: Use devm_clk_get() for the CAN clock
+Message-ID: <20261103-competent-tactful-condor-50b96c@quoll>
+References: <20261103100520.1309743-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,27 +61,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100521.1309763-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100520.1309743-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:21 +0000, Wentao Liang wrote:
-> When #clock-cells is non-zero, sdhci_arasan_register_sdclk() registers
-> two clock providers for the same device node: one for the card clock and
-> one for the sample clock.  of_clk_add_provider() takes a reference to
-> the device node for each registration, but the unregister helper only
-> calls of_clk_del_provider() once.  The second device node reference is
-> therefore leaked and the sample clock provider remains registered after
-> the driver has been unbound.
+On Tue, 03 Nov 2026 10:05:20 +0000, Wentao Liang wrote:
+> sun4ican_probe() obtains the CAN clock with of_clk_get(), but neither
+> the probe error paths nor sun4ican_remove() ever call clk_put(), so the
+> clock reference is leaked both when probing fails and when the driver is
+> unbound.
 > 
-> Drop one provider for every clock that was registered.
+> Use devm_clk_get() so that the reference is released with the device.
 > 
-> Fixes: 07a14d1df454 ("mmc: sdhci-of-arasan: Add sampling clock for a phy to use")
+> Fixes: 0738eff14d81 ("can: Allwinner A10/A20 CAN Controller support - Kernel module")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/mmc/host/sdhci-of-arasan.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
+>  drivers/net/can/sun4i_can.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 > 
 
 
