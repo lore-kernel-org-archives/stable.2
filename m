@@ -1,73 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717549;
-	b=axiKfS54sN/qrLLXbkYrJtVIMeRpomLJGDML8y+rUyBMiqHQUrfoOmo8wPvMv2MFY3mf
-	 dcvPYDiqwQ9nHvY43JEx0Vvd+TRLM5/IKbRkm4sQUePR6JVLQCtVOKPcGitWAKp9Sn36O
-	 cOiSfA6NicAqCWa6LJcDZ2ETx5GaGKS6gVCU8FvAdrrp0/ti8zqeppIibebQRo7a2Y+yf
-	 MMEjE1+AH7eMR5tc264wTjpGHscW15cpz8IWrPCKIxJMDd/IPYQ/gtOHa4W9XggHEgHS+
-	 CVfF7bZwKDwTPu2kkyQ23nMEavxsfhKnhMYQMaLrEcVqAr4Fewii4JwGqEF6yKEKu3w==
+	t=1793717555;
+	b=hDa1U0unGkX+vbfYRCy9Rb8XIy9r0OjacVF7OqRtiDECY0hA1UhRyt5UfQZVmry5nwGt
+	 d7EwOBEMvVRG8co3epCX7tJDfnzDOtBEWcRdGQaoBaAEdSVtLxmQVn7EaubF9iBb3tc3y
+	 5uMUOJNC02iFNhSr902vUu9xlMkM3E5NLHtJhiXOzKkgMsWO+LX2Tl1pbQn4x4maRquI3
+	 HFIBAs5IpuKhiv4981csj353xHBFKKnI8NUuPTxm9mRi0LESdoIw9rUBQECBocBYkjuQz
+	 8Y2m8VGmabUnUp1LWIQJGXQUppxNqYTXkgvbFvUoX8Thwi6HbOOBAQR1KBy35/uibvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717555;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=A+tKrZaRWVm75PTRzfEdV7eNXoe4/w0grid+41M9KbQ=;
-	b=aBhduu2PXY7InC4ZxP2hirvpIYtYRUVQdlpKoZ2G109OdzfrVNdobJKU8tSOBMzf8V0j
-	 LETPblpDZdyBvF9ZuDYhQrzUXQHcheTFHUVzcmX8PLPCBqjPzbHiucYToaRLbSK8WmvWp
-	 da4EXoXrwJZnyJAVAanFQKNykJ4pNOvRWm95qSty33w0G0gmQrNALzL1p+ts6a1nnx/JD
-	 o1bJTfFv2i2sbtChGIi9+k4wRkYEoqO1DGq7a6CVenZGoJdqCYxXUcdb5J3m+WxixZxug
-	 qOuF4pq3J7SanhLzAun2D2hfq1hT//F434xPFblw4QrDmVtpX3XmoAaEokSBgPkS8Bw==
+	bh=AAzIll/G3mnF5zQtYAyuxjDt0EffXJJC3bR+/g2IsC8=;
+	b=ABbBRWwlN6GeIO2Fr19TyXtQCtHaEQP4HE93ox9vuP6WWPJGrsil94uELaJICnPx1fAe
+	 Drh/fWRjvWCRZOi/jQgGjJszv6u/tf5w9kF7pqs2IGDXzNWI0JUsm02dcweWsSu30cDwJ
+	 BB1746PI45syZVmna/IofJPuVx/NDROjTrSgvUL0cxi5GusWJPxCorxuObB4EeN9lkeLk
+	 xENare2dbOKPqoSnjQFK5BrDNToRGQw7LPSBzv4oM8Q2wFc8++xwSr/ur+g3f4Hf8RXuL
+	 zU0xdZGsr+KPI86/yypDWvmFwP45g7d1cPRTzT5KZTWZoOQVw1WJgTtmQN+yHuGGl2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRc3mOoD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mo2bin+6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E086660A263B;
-	Tue,  3 Nov 2026 14:52:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03B060A3836;
+	Tue,  3 Nov 2026 14:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRc3mOoD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E06C1F000C1;
-	Tue,  3 Nov 2026 14:52:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mo2bin+6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD8D31F000C1;
+	Tue,  3 Nov 2026 14:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793717548;
-	bh=A+tKrZaRWVm75PTRzfEdV7eNXoe4/w0grid+41M9KbQ=;
+	s=k20260515; t=1793717554;
+	bh=AAzIll/G3mnF5zQtYAyuxjDt0EffXJJC3bR+/g2IsC8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eRc3mOoDdkBOCF0c8E/7Al2WeUUQHZwfCTZzH4z9srXUfoQFFrxdTPXBTzP3y/8ue
-	 uGJ33I3jaiSXOW7AZim45b199vK9dUFMVNGMu26lIzppvPYIYOCvKP2zd6AjC6mriz
-	 VxVuqmdsnn6oETkTVmv6xaBb2PzmscOXwVgUhmjHnWmnKBzqBt3RzgnE5ssO049Qyq
-	 ISE7ZbDUORr2e0CDKzKmFzsM2G63jcoAHBlL5gvSE0WlUScH+3bP0/caDfsMxW1Vko
-	 Q+Isn6QNEHcPnVw5A7WEZ0y5DGl303Duvcx5TSywbUGoT2B1kRvwgUKLfSDkSPbgEx
-	 PanebEwa3IU/w==
+	b=mo2bin+6UEhZdQFP7BJXmtl/XVg1f412ocjqydBcw/uxwQCfqxm6GvbOhhclp8c4D
+	 H2HBnbGKfP9jDlHzlYRx61e504s12dwQ2/6618fKlvIvqDfhZnY+AyV8cY8ctFEbWc
+	 gQD1TvKr2eBp9cq6THOQUsYOPlXbb2KSmTEMLr3QIrk+axL40W70TPYQ05Lsvdtudt
+	 ksqp1O5OPrZl4isR8KHXCiE3lJV78kRfRri0OO70aDWUt2usAqsiCd6kJRGot73ZOw
+	 g5Kmm18dawUazihyIar1/k0GlSwR2+02JsPLo/AQyMWuoifitt6ejmLrT+p+OjfMft
+	 N+l9cy28m2mDg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	Hoan Tran <hoan@os.amperecomputing.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Bartosz Golaszewski <bgolaszewski@baylibre.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Alan Tull <atull@altera.com>,
-	Jamie Iles <jamie@jamieiles.com>
+	stable-commits@vger.kernel.org,
+	abdurrahman@nexthop.ai
 Cc: Sasha Levin <sashal@kernel.org>,
-	Benjamin Robin <benjamin.robin@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ralph Siemsen <ralph.siemsen@linaro.org>,
-	xiongxin <xiongxin@kylinos.cn>,
-	stable@kernel.org,
-	Riwen Lu <luriwen@kylinos.cn>,
-	Andy Shevchenko <andy@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Subject: Re: [PATCH 5.10.y v2] gpio: dwapb: mask/unmask IRQ when disable/enale it
-Date: Tue,  3 Nov 2026 09:52:00 -0500
-Message-ID: <2026-11-03-1-daily-reply-0012-re-gpio-dwapb-5-10@kernel.org>
+	Michal Simek <michal.simek@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: Patch "i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO" has been added to the 6.6-stable tree
+Date: Tue,  3 Nov 2026 09:52:06 -0500
+Message-ID: <2026-11-03-1-daily-reply-0018-re-i2c-xiic-defer-rx-full@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
-References: <20261103-dwapb-fix-v2-1-9bd3785d1365@bootlin.com>
+In-Reply-To: <DML5Z7RGR8LJ.1N4L196Z6ZTPS@nexthop.ai>
+References: <DML5Z7RGR8LJ.1N4L196Z6ZTPS@nexthop.ai>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,11 +65,16 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> From: xiongxin <xiongxin@kylinos.cn>
+> On Mon Nov 2, 2026 at 2:40 PM PST, Sasha Levin wrote:
+> > This is a note to let you know that I've just added the patch titled
+> >
+> >     i2c: xiic: defer RX_FULL until all trailing bytes are in FIFO
+> >
+> > to the 6.6-stable tree
 >
-> commit 1cc3542c76acb5f59001e3e562eba672f1983355 upstream.
+> This patch should be avoided. I have send a revert earlier.
 
-Queued for 5.10, thanks.
+Thanks, I have dropped it from the 6.18, 6.12 and 6.6 queues.
 
 -- 
 Thanks,
