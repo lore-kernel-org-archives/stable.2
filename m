@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672121;
-	b=YeaFoxq0khjcU/XABDPQ3758rkHmBZW0Z/vOv0bOjLHfPyeAIlvvCotGWhXIt9t8ILmv
-	 D/m7V4Gfhw8Ip3xDV2YMLtI361BNHKzYSdNHGKC7Bgj6L02fvbjem5GruFMZyAlnDaNxT
-	 701AEdVdYp5OZm7HqjN0op25rjFiox4WrKL70nVSnkX+ENCRZsQtpEaS9+mzqvAAt93sN
-	 z0hPILsVgUBn6W++GpCdq1pxIhaXFv53GKotUWvFVHKOLQ4nPsnVeGh0lKsjXpnDSZ1cZ
-	 kRVqZwUkzIC3vQqPfSTjP1kOeJKxIiNZLb6DA9lNrZ7EMHis3wl762sqQsIz7FOyofA==
+	t=1793672128;
+	b=fD0gaXOPKXv3ZVYgDN08tvott6xG4f4xMrThYYr/JIJP6Ci3QJ4WMhYv7hYa7stSoofB
+	 S3QxsJGqPDit4SFi8qC67uAZ4v36Q+JCWJf2dE47mUxxPCsnjxMKLzUhfdIgfqN28q1hC
+	 Amk5HX9YGTa3yFzkHDKH8BYBSGCtfFT5XbB20E9Rbt2fxaSkufJ1glXRs2Ep/5GrvBnHl
+	 wCNslnEdr0IduUrq8M8CXhBGlwhrUm2hWECnEW+fD+Vklk6BTV65k7tqQo0mIFvPm3bTw
+	 CQEKdYsHX3hhX0U2KFerLfIBkRfc1a+8ef/TqtvQevnXrc6+2RA/mg4WJ2lmpDXDduQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672121;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672128;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=e85SSk/nwENLnkdPbvygMUXH2VcwgSauiuUzENsl+cs=;
-	b=lEIbGYpo2rHNCThyUQOBExQ7npvue5NM/NEnCxhNednSF9/FPhTXCdUtee17ndaeLoHR
-	 8mHw0n+qpj1HDpVdXhIdeuXdOqbfHi+L0BHc1WBd92NNmKgNC5IqCgHz7IiYbpEwGVr2U
-	 MwW8IQmkudZZ/wzA0GLTIU0yxJrvaIVm8eFxpNT0lAsPqhtNQpqbbaiqK0AcBjDyY8H23
-	 9/XR85YeVPK0XCyca0VKQwEKYsLFKdukzYffpX8qF+b0Kx+aht27T044X/2/pehg13KNz
-	 XaEPPTSfTMQxXKSK8QXXEA30jcOPWtHHRjTfp4WgPn2tn/d31o+xZjuPbu9BOkqwidQ==
+	bh=/dizXlwya//rUrZvDlBatSPZVLOm9hZ2fu04Ti5DfbE=;
+	b=n37YqhM4FIaGt+U+9Lq4ZpypUcAk8lArl1T+mkb7CUOzL3pBAgpyfLyMdk8wo5t7jXoE
+	 5PaX+bnp1g5+ZtnuTR1fur1VnG1b+ysVcWbzoqHx02uB9qKGxpDJwqjShYtA+61NQqgxe
+	 0kV0wVr+fKehDmVb/n5cpptRlEFEW2nzDl+QjZovAmY5iD+lI9FWB1ppwFZxJwsrb3R5L
+	 Hp8UB+FiGDCNh8lcxM96wuE3RUDpO4GkJ1yVzxhImb2vNNEuaKfMEjT7SRUJS7DmSnJlb
+	 laahggMRELKrf+9kIGB5zge/f53arlAK9dO6wafdTpLxBmhlU8UVYp1f7ZU2fJxQgUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nYMc8wq4;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jgCRy55g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C947C606A330;
-	Tue,  3 Nov 2026 02:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B12606A32F;
+	Tue,  3 Nov 2026 02:15:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=nYMc8wq4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 651531F000C1;
-	Tue,  3 Nov 2026 02:15:20 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jgCRy55g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B79B31F00919;
+	Tue,  3 Nov 2026 02:15:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672120;
-	bh=e85SSk/nwENLnkdPbvygMUXH2VcwgSauiuUzENsl+cs=;
+	d=linux-foundation.org; s=korg; t=1793672127;
+	bh=/dizXlwya//rUrZvDlBatSPZVLOm9hZ2fu04Ti5DfbE=;
 	h=Date:To:From:Subject;
-	b=nYMc8wq4+TFqJUsmaBka3gj599HqjwKUv5hEv8Bbc/L0FazRgp6RJUJvKfp69MDfs
-	 6uH1KhONZBmlXVGVRETg+y8zLWyaCJozAkU/6Vy0N4Clra13HLkrjem67cmc0Ei8ke
-	 VwndWtQERCIUv3/wvibXAtjnzTaaoNP/hbIqvTQo=
-Date: Mon, 02 Nov 2026 18:15:20 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,rppt@kernel.org,qi.zheng@linux.dev,pfalcato@suse.de,
-	mhocko@suse.com,ljs@kernel.org,liam@infradead.org,jack@suse.cz,
-	david@kernel.org,ayushr@modal.com,baolin.wang@linux.alibaba.com,
-	akpm@linux-foundation.org
+	b=jgCRy55gtF96t5YTOIf1AazUhjiUq0OHMZSmnEwjd8/SBn8rRkqkCn2sHtrfmKWw5
+	 RjPj1oVni6okBWXNkXHqMaVg3/xonvJzKIIuNmo1J3PLH2TJEp2Ty/NhZpTTfS3PUy
+	 D2K7VkmDmp8LpKk4sVPdJBs9BFbG+2ipqxkuPzTc=
+Date: Mon, 02 Nov 2026 18:15:27 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,
+	peterx@redhat.com,osalvador@suse.de,muchun.song@linux.dev,david@kernel.org,
+	azpijr@gmail.com,lizhe.67@bytedance.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-memory-fix-truncation-removing-mapped-folios.patch removed from -mm tree
-Message-Id: <20261103021520.651531F000C1@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch removed from -mm tree
+Message-Id: <20261103021527.B79B31F00919@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,201 +53,149 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm: memory: fix truncation removing mapped folios
+     Subject: mm/hugetlb: fix mremap deadlock when PMD sharing is possible
 has been removed from the -mm tree.  Its filename was
-     mm-memory-fix-truncation-removing-mapped-folios.patch
+     mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-Subject: mm: memory: fix truncation removing mapped folios
-Date: Wed, 28 Oct 2026 08:52:57 +0800
+From: Li Zhe <lizhe.67@bytedance.com>
+Subject: mm/hugetlb: fix mremap deadlock when PMD sharing is possible
+Date: Thu, 22 Oct 2026 11:45:43 +0800
 
-Ayush reported an issue that shmem/tmpfs folios are still mapped when
-truncating them on production:
-"
-BUG: Bad page cache in process ...  pfn:...
-page dumped because: still mapped when deleted
-"
+move_hugetlb_page_tables() holds the mapping's i_mmap_rwsem for
+write while moving hugetlb PTEs. This prevents races with truncation
+and protects huge_pmd_unshare(), but the move loop must not call
+helpers that can acquire the same rwsem for read.
 
-I reproduced the issue with Ayush's reproducer [1] with the latest
-mm-unstable branch, and I got the following crash info.  From the dump
-message, we can see that truncate_inode_folio() is really trying to remove
-mapped folios, which is incorrect.
+huge_pte_alloc() can do that when the destination can use PMD
+sharing: it may call huge_pmd_share(), which takes i_mmap_rwsem for
+read while searching for a shareable PMD table. Calling it while the
+move path already holds i_mmap_rwsem for write can deadlock.
 
-"
-[  189.171977] page: refcount:3 mapcount:1 mapping:00000000fe168ee1
-index:0x3880 pfn:0x191647
-[  189.171995] memcg:ffff0000cc073d40
-[  189.171997] aops:shmem_aops ino:3c01 dentry name(?):"memfd:runsc-memory"
-[  189.172006] flags: 0x17fffef0002022d(locked|referenced|uptodate|lru|
-workingset|swapbacked|node=0|zone=2|lastcpupid=0x3ffff)
-.......
-[  189.172017] page dumped because: VM_BUG_ON_FOLIO(folio_mapped(folio))
-[  189.172026] ------------[ cut here ]------------
-[  189.172027] kernel BUG at mm/filemap.c:155!
-[  189.172057] Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-.......
-[  189.177721] CPU: 3 UID: 0 PID: 5521 Comm: repro Kdump: loaded Tainted:
-7.3.0-rc4+ #277 PREEMPT(lazy)
-.......
-[  189.183986] Call trace:
-[  189.184124]  filemap_unaccount_folio+0xf0/0x1e8 (P)
-[  189.184391]  __filemap_remove_folio+0x34/0x160
-[  189.184633]  filemap_remove_folio+0x4c/0xb0
-[  189.184859]  truncate_inode_folio+0x34/0x58
-[  189.185087]  shmem_undo_range+0x220/0x658
-[  189.185308]  shmem_fallocate+0x2f0/0x470
-[  189.185527]  vfs_fallocate+0x128/0x328
-......
-[  189.187078]  el0t_64_sync+0x184/0x188
-"
+Avoid that path for PMD-sized hugetlb mappings that can use PMD
+sharing. Instead of allocating or sharing the destination page table
+while moving, zap the source range and let the destination fault path
+populate or share the PMD lazily.
 
-After analysis, I believe the race exists between truncation and
-MADV_DONTNEED, and shmem's ->map_pages() merely makes the issue easier to
-reproduce.  Since MADV_DONTNEED synchronously releases the pagetable page
-before calling tlb_flush_rmaps(), this could cause another thread's
-truncation to skip zap_pte_range() (due to pmd is none) but still observe
-the folio's mapcount as non-zero.  A possible race scenario is as follows:
+Reuse the hugetlb unmap logic for the source-side zap by splitting
+the core loop out of __unmap_hugepage_range(). The wrapper keeps the
+existing tlb_start_vma(), tlb_end_vma() and huge_pmd_unshare_flush()
+behavior, while move_hugetlb_page_tables() can reuse the unmap loop
+with its existing mmu_gather.
 
-CPU 0                           CPU 1
-shmem_fallocate                 madvise_dontneed_single_vma
-  unmap_mapping_range            .......
-  ......
-  (filemap_map_pages() remap folios)
-				  zap_pte_range
-  truncate_inode_folio		    zap_empty_pte_table(pmd clear)
-    unmap_mapping_folio
-    ......
-      zap_pmd_range (saw pmd none, skip)
-
-  filemap_remove_folio
-    BUG_ON(folio_mapped)
-                                    tlb_flush_rmaps(remove rmaps)
-
-To fix this issue, we should move the pmd clear operation (via
-zap_empty_pte_table()) to after tlb_flush_rmaps() and use
-sync_with_folio_pmd_zap() to sync with concurrent zapping, so that when we
-find a pmd_none() while unmapping a folio without holding the PTL, the
-folio's mappings are guaranteed to have been removed via
-tlb_flush_rmaps().
-
-Meanwhile move the second pmd_none() check to where it belongs: if
-splitting zapped the PMD.
-
-Link: https://lore.kernel.org/14ebbd556cc4941f0ebc43da59fa6a2fdca25dc8.1793148609.git.baolin.wang@linux.alibaba.com
-Link: https://lore.kernel.org/all/20260925065013.3682431-1-ayushr@modal.com/ [1]
-Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
-Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Link: https://lore.kernel.org/20261022034543.51226-4-lizhe.67@bytedance.com
+Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Ayush Ranjan <ayushr@modal.com>
-Closes: https://lore.kernel.org/all/20260924061708.1645968-1-ayushr@modal.com/
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
 Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jan Kara <jack@suse.cz>
+Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/internal.h |   10 ++++++----
- mm/memory.c   |   35 ++++++++++++++++++++---------------
- 2 files changed, 26 insertions(+), 19 deletions(-)
+ mm/hugetlb.c |   47 +++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 37 insertions(+), 10 deletions(-)
 
---- a/mm/internal.h~mm-memory-fix-truncation-removing-mapped-folios
-+++ a/mm/internal.h
-@@ -589,14 +589,16 @@ void free_pgtables(struct mmu_gather *tl
- void pmd_install(struct mm_struct *mm, pmd_t *pmd, pgtable_t *pte);
+--- a/mm/hugetlb.c~mm-hugetlb-fix-mremap-deadlock-when-pmd-sharing-is-possible
++++ a/mm/hugetlb.c
+@@ -137,6 +137,10 @@ static int __huge_pmd_unshare(struct mmu
+ 		bool check_locks);
+ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, bool take_locks);
++static void hugetlb_unmap_range(struct mmu_gather *tlb,
++				struct vm_area_struct *vma, unsigned long start,
++				unsigned long end, struct folio *folio,
++				zap_flags_t zap_flags);
+ static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
  
- /**
-- * sync_with_folio_pmd_zap - sync with concurrent zapping of a folio PMD
-+ * sync_with_folio_pmd_zap - sync with concurrent zapping of folios
-  * @mm: The mm_struct.
-  * @pmdp: Pointer to the pmd that was found to be pmd_none().
-  *
-  * When we find a pmd_none() while unmapping a folio without holding the PTL,
-- * zap_huge_pmd() may have cleared the PMD but not yet modified the folio to
-- * indicate that it's unmapped. Skipping the PMD without synchronization could
-- * make folio unmapping code assume that unmapping failed.
-+ * zap_huge_pmd() may have cleared the PMD but not yet updated the folio
-+ * mapcount, and zap_empty_pte_table() clears the PMD only after the rmaps
-+ * for the table have been removed, but nothing orders the pmd_none() read
-+ * against later mapcount reads. Skipping the PMD without synchronization
-+ * could make folio unmapping code assume that unmapping failed.
-  *
-  * Wait for concurrent zapping to complete by grabbing the PTL.
-  */
---- a/mm/memory.c~mm-memory-fix-truncation-removing-mapped-folios
-+++ a/mm/memory.c
-@@ -2036,6 +2036,15 @@ retry:
- 		}
- 	} while (pte += nr, addr += PAGE_SIZE * nr, addr != end);
+ static inline bool subpool_is_free(struct hugepage_subpool *spool)
+@@ -5227,6 +5231,8 @@ unsigned long move_hugetlb_page_tables(s
+ 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
+ 		const unsigned long offset_to_last_entry =
+ 			(old_addr | last_addr_mask) - old_addr;
++		const unsigned long offset_to_last_dst_entry =
++			(new_addr | last_addr_mask) - new_addr;
  
-+	add_mm_rss_vec(mm, rss);
-+	lazy_mmu_mode_disable();
-+
-+	/* Do the actual TLB flush before dropping ptl */
-+	if (force_flush) {
-+		tlb_flush_mmu_tlbonly(tlb);
-+		tlb_flush_rmaps(tlb, vma);
-+	}
-+
- 	/*
- 	 * Fast path: try to hold the pmd lock and unmap the PTE page.
- 	 *
-@@ -2043,18 +2052,12 @@ retry:
- 	 * to hold the pmd lock failed, then we need to recheck all pte entries
- 	 * to ensure they are still none, thereby preventing the pte entries
- 	 * from being repopulated by another thread.
-+	 *
-+	 * Clear the PMD after the rmaps for the table have been removed, in case
-+	 * an incorrect mapcount is observed after unmapping the folio.
- 	 */
- 	if (can_reclaim_pt && direct_reclaim && addr == end)
- 		direct_reclaim = zap_empty_pte_table(mm, pmd, ptl, &pmdval);
--
--	add_mm_rss_vec(mm, rss);
--	lazy_mmu_mode_disable();
--
--	/* Do the actual TLB flush before dropping ptl */
--	if (force_flush) {
--		tlb_flush_mmu_tlbonly(tlb);
--		tlb_flush_rmaps(tlb, vma);
--	}
- 	pte_unmap_unlock(start_pte, ptl);
- 
- 	/*
-@@ -2101,13 +2104,15 @@ static inline unsigned long zap_pmd_rang
- 				addr = next;
- 				continue;
- 			}
-+			/* We already synchronized with concurrent zapping. */
-+			if (pmd_none(*pmd)) {
-+				addr = next;
-+				continue;
-+			}
- 			/* fall through */
--		} else if (details && details->single_folio &&
--			   folio_test_pmd_mappable(details->single_folio) &&
--			   next - addr == HPAGE_PMD_SIZE && pmd_none(*pmd)) {
--			sync_with_folio_pmd_zap(tlb->mm, pmd);
--		}
--		if (pmd_none(*pmd)) {
-+		} else if (pmd_none(*pmd)) {
-+			if (details && details->single_folio)
-+				sync_with_folio_pmd_zap(tlb->mm, pmd);
- 			addr = next;
+ 		src_pte = hugetlb_walk(vma, old_addr, sz);
+ 		if (!src_pte) {
+@@ -5243,6 +5249,24 @@ unsigned long move_hugetlb_page_tables(s
  			continue;
  		}
+ 
++		/*
++		 * Avoid entering the destination PMD sharing path while holding
++		 * i_mmap_rwsem for write. Leave destination page table
++		 * population to the fault path, which can share the PMD lazily.
++		 */
++		if (sz == PMD_SIZE && want_pmd_share(new_vma, new_addr)) {
++			const unsigned long unmap_size =
++				min(old_end - old_addr,
++				    offset_to_last_dst_entry + sz);
++
++			hugetlb_unmap_range(&tlb, vma, old_addr,
++					    old_addr + unmap_size, NULL,
++					    ZAP_FLAG_DROP_MARKER);
++			old_addr += unmap_size - sz;
++			new_addr += unmap_size - sz;
++			continue;
++		}
++
+ 		dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
+ 		if (!dst_pte)
+ 			break;
+@@ -5262,9 +5286,10 @@ unsigned long move_hugetlb_page_tables(s
+ 	return len + old_addr - old_end;
+ }
+ 
+-void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+-			    unsigned long start, unsigned long end,
+-			    struct folio *folio, zap_flags_t zap_flags)
++static void hugetlb_unmap_range(struct mmu_gather *tlb,
++				struct vm_area_struct *vma, unsigned long start,
++				unsigned long end, struct folio *folio,
++				zap_flags_t zap_flags)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	const bool folio_provided = !!folio;
+@@ -5282,13 +5307,6 @@ void __unmap_hugepage_range(struct mmu_g
+ 	BUG_ON(start & ~huge_page_mask(h));
+ 	BUG_ON(end & ~huge_page_mask(h));
+ 
+-	/*
+-	 * This is a hugetlb vma, all the pte entries should point
+-	 * to huge page.
+-	 */
+-	tlb_change_page_size(tlb, sz);
+-	tlb_start_vma(tlb, vma);
+-
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	address = start;
+ 	for (; address < end; address += sz) {
+@@ -5417,6 +5435,15 @@ void __unmap_hugepage_range(struct mmu_g
+ 		if (folio_provided)
+ 			break;
+ 	}
++}
++
++void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
++			    unsigned long start, unsigned long end,
++			    struct folio *folio, zap_flags_t zap_flags)
++{
++	tlb_change_page_size(tlb, huge_page_size(hstate_vma(vma)));
++	tlb_start_vma(tlb, vma);
++	hugetlb_unmap_range(tlb, vma, start, end, folio, zap_flags);
+ 	tlb_end_vma(tlb, vma);
+ 
+ 	huge_pmd_unshare_flush(tlb, vma);
 _
 
-Patches currently in -mm which might be from baolin.wang@linux.alibaba.com are
+Patches currently in -mm which might be from lizhe.67@bytedance.com are
 
 
