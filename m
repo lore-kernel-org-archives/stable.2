@@ -1,93 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793748413;
-	b=SbMkBV3qbOJ6gtgERAbKmfn2UuvRi96yw/c9BAHhCcXgih7PDjKSxsrWmck7ya3nEB8F
-	 onPc8GK6fyzxjA8I5GZiJCzy6f7FZUknk2K0B6qKhgXvC+Evf0+Pmo7+j/L27DFZSfRog
-	 WU8+GdbVqastu1G9gygk+LErLncNL8qBNNCjZc5Ydwd8JHRbACnRK2cz568gMYH7zAii5
-	 vC8dmwTGZBDHoq+1VDz2s57oWEQz3hzuBKLoDc+J8t3yJ+om16qr7gW0yNYUZcxlF49Ls
-	 5yLYJVj3HKSsqOYHuCFiZU3Hh5ffdcHAODu8YuUOqx1vw9w5c2EylV6cNCtRxCxF8Ng==
+	t=1793748475;
+	b=KfLiWKAkLa0OvRq9cq3w72T6u3K+NVELy4E4XC3pkIxNy9xtkvgiC+ix4xx5k3MzaiPZ
+	 y8KvXqw9Eh89wW7ibUYfFDKuTVubzzMWMC5lZoA/3ExUvl9IDvQ2tPTTOIaRwGx7u3gyz
+	 R9sM7WWlc8iEXaH5BKZNrSHlefLAbhsFwLrN6/r5LPMnVaHO8KAw7gnHsl3N12VvK7Khj
+	 QwWGqDmhKHjePSQwGJcn8dvqQ8a935tIf1haL6pp7Is7nXrXAno1WLvR1zU/tXVjRwB+f
+	 APyNTskrUGIG3syKX/MDZQtnW4Dl7ryx1fkh4Gw0KbJ1qO+trO1/c0dvTwg3i8kTAcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793748413;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6GC1/D8rCTZG76ZRBb6JFA+whGRoK5mBSHc05PTJ2Kk=;
-	b=UONvgQuq0IdJ64GkRb1HzV0JBa+qXZUd6tP1fV7SQ8fzAExla28mFRjcM6vA/EIDlfoE
-	 1ApxEFmcwKMRHypvQzOt/wRXic4oc1FN1+ukK9TlbidFtytDBRxXJdZeqrbrxFPX/sazt
-	 pqpoYoFGzHMwu0MHYCb4U4VoIMmbZPT1vvPHzAmjARHSvwUYBzOr5No3uMOJ3Qk5SUqLH
-	 NoUvv5h8b6oYtJrwK5cibdRza/nabZrK4HD5ofdWU/0kzIcMk6+XlmnmWOoWaVhIQI/X/
-	 ctYKAela/XGd2b0CUiCLDMUHfctTV0CgUHoSwZpEhFUQfmctfbQMnAXfe1iEUR0tjZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793748475;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9YlSOqHA0gHIXM4usQLx5lxexIrsjV51TvMzaJI2TuU=;
+	b=IwmhK5yzQAYBiI19c5Hilsj8hkJKzCHGl9YcomZsAWSDp7r+rCHrmd/cVLyILAoWaiS7
+	 W9M8lus/kqyhOdJdFZJRmJWmIqM9z+xSeccKJU642bB0bbl/FcG+j/UkWJkCvTjVNRERm
+	 rKHXBcob6D2TBuZFhT5xo3FdTzz4YS4sotwQhlb3dkbaq9zAirerXup0BkLEdd5mBmC7q
+	 kaNsjNVhOnTrWseDJWesjTeHZyeX337seHloOP1cMgUN29CsvLW4Y7ieeAg+uRHVH1VYt
+	 tWacYtw/pijeT04pozm8mBrS4B+c6aQiMu4CRUSB+roD5rL67vxrBmsI8fALDz3qziA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O9Nn3YTE;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IT8PkbuM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B87606A328
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 23:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48B87606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710B2606A31B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 23:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O9Nn3YTE
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so717755e9.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 15:26:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793748411; x=1794353211; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6GC1/D8rCTZG76ZRBb6JFA+whGRoK5mBSHc05PTJ2Kk=;
-        b=O9Nn3YTE8dyOZfeNiT5qpPNlfOm3EpYECrP3B0GPokTicn25MDq/RklC3lk/43H4o2
-         YwK5z7zAxc+yq5rl3ajLofqGchDVxhiHP4kdq85jIj5F70xyhoRXzXtkg2lW02UV/BF/
-         0XtglXYfHNqnVdECtu8K0Y4rNO9WiqaDuopEEZCCIVpGbHrAY1EgS3Z4YZBYhlxmFVAv
-         RKqPEJcilYuUi2qnG7qmEw7L9cNB3HppLx17T4mXPAvR49XenhXqZgIMr9MtTrfMk57w
-         pj4Syrncp0XCTySp4/9eonuhN307DFVRjQIccB1QOecqL76g28Zlbl1dUvm7fhW8LcG8
-         UTLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793748411; x=1794353211;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6GC1/D8rCTZG76ZRBb6JFA+whGRoK5mBSHc05PTJ2Kk=;
-        b=Ck0TsaSIqX8bL+LwQjXw4BvBDiVnhVSL6OOFXrJKvUCRIjoIvm/ug9zfau0wIfo8zg
-         fxlcKTyhGqenGt122PkcJzl0KH5rq66BLbgTmBpwfi0wxq0SrYeRwl+jAMxgo6OblXwG
-         kffaIG74nb4O3z1QxdKCt70isDm4QlxBUTmZTWuNani/xJ3xNXgvXFTPqEPpGQmVujWW
-         f+9XGiGIEb2eALRELFf9hlyUNvd48Grrw5941oZ3EAVvnbEW2j5006Q4164dzY0b0yIk
-         xFLzUBypf4NwcZLhiog13gU0tv/0SLvRbDHVMA00kb4hHwSqOccWsco7GdhAKbuKCmkL
-         NxmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqwo6QNFbvTNlsP+TCyidkNUtiBI5nhnfnzegJ4/6ydYJSpRdQdTNFJ6LNXX7aowNnV/gLCII=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZMVu4XBQaBgqdOqorU7IH2QFgDwBqDTNatDeHsbUpjJ2fuuT+
-	0yt5ckqsYfmf2olP08DaGaK5ZKl7dVuCRr43r9CD+nI0sP6m4fo88Lc=
-X-Gm-Gg: AYBFou35ZT+wxCVoCUSRnVImiUUH9jyhpyh2/W5HxqQ9VuIlsQOwur2KTsnC3Tsw/Pl
-	H+FgRSQEiCiIywkCbFImMqALSwd+xH4ESkpJ+A7KKSROYCJBfFf4yam6BtKEGF2/Oyltg6//+sm
-	s01jQ/VfdRYDpBQXR7wgRb8/ZA5wuQl4asd0ooQgtegkrjyhxSkOzbxRit1L6aFOTEq/UMUs6so
-	CMuQbGeT+uxaQxNoBbZWJiLZXKroYmXatdHdv1rPXVhjmQmGk8xpOSs9Ypkrsyc0mtUmFbtTsVw
-	BIpp5tYZ7F1V3ALr/nAicpLAz0+QiW3Wpbbjub6tMQF7qYqbqIAqoCJLG1l9n9wNTpwANa5k17/
-	VE7vKMFuHV/y7fvbfgApZPLYcJ74NwPRDqrmwFy3ogotfkrumHtJ/m5nSXmIhj8TxtSxnvm0Z/j
-	MpfhWfPXUCY/pTHS/aLp9+WT8v814UJ7X2QOR/bgZ5iC3JXLHUSV3SEQnrgJ03qxtgg6X3kKWNW
-	xckf9lUddCQfmjkPtu8RkQOx/K+vtedkD39YX8YrIJQ+t88ND4/0ylfIT3bi/EM57djXQI9nPwd
-	8sstkDN0GY6UW2uQSac=
-X-Received: by 2002:a05:600c:83c5:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4ac1970b976mr282294535e9.33.1793748411490;
-        Tue, 03 Nov 2026 15:26:51 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b43c17ecdasm13822005e9.5.2026.11.03.15.26.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 15:26:50 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Pouiller?= <jerome.pouiller@silabs.com>,
-	linux-wireless@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH wireless] wifi: wfx: validate num_tx_confs against message length
-Date: Tue,  3 Nov 2026 23:26:50 +0000
-Message-ID: <20261103232650.13350-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IT8PkbuM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513EC1F00919;
+	Tue,  3 Nov 2026 23:27:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793748474;
+	bh=9YlSOqHA0gHIXM4usQLx5lxexIrsjV51TvMzaJI2TuU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IT8PkbuMOmLniGkqtwJw7GnTejH5a5wsdyW58ZSxDckjIPWBApDLxT3EzuhKlIXC2
+	 HdNMA7F1wHOKGfuTyhcB2yKYzRAFJYhQoxSJDaAhp60mVAjzkr9eeMDBUYlIJrOIOP
+	 cNA9pLRQgZaATbFrjXoRF4H2dbve/MdXKNTYjzDgCj15JPQTBlYFns+GS1e3n1vN2F
+	 FSQyzLAIr0Cmy9P+hcQbG57UNl+vzJnuQ0+sa5SrkT9CF7rFwwm12asgeLPfe90GcB
+	 T1g6Cys40mV8B61Duaq1eEywSt5dOCHA250rDUgWtpLO/5a44Pp/sKOVtweBcAaD6q
+	 2oIP/su1ylePw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Henry Hu <huhai@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] ksmbd: fix invalid pointer dereference when get_inode_acl() fails
+Date: Tue,  3 Nov 2026 18:27:53 -0500
+Message-ID: <20261103232717.1653576-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110321-cheer-confetti-1346@gregkh>
+References: <2026110321-cheer-confetti-1346@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,43 +62,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+From: Henry Hu <huhai@kylinos.cn>
 
-wfx_hif_multi_tx_confirm() iterates over the tx_conf_payload flexible
-array based on body->num_tx_confs, but does not check that the message
-is actually large enough to contain that many entries. Add a check
-comparing num_tx_confs against the available message payload before
-iterating.
+[ Upstream commit 19d180c7baab7126af5848ed87d5f7b5add0cef2 ]
 
-Fixes: 9bca45f3d692 ("staging: wfx: allow to send 802.11 frames")
+When get_inode_acl() fails, it returns an ERR_PTR(), but
+ksmbd_acls_fattr() stored that pointer in smb_fattr without
+checking for errors. Later callers then passed the error pointer
+to security descriptor helpers or posix_acl_release(), resulting
+in an invalid pointer dereference.
+
+This was reproduced on an XFS-backed share when xfs_get_acl()
+returned ERR_PTR(-ENOMEM). Querying the SMB ACL from a CIFS client
+triggered the crash:
+
+  BUG: unable to handle page fault for address: fffffffffffffff8
+  RIP: smb_acl_sec_desc_scratch_len+0x58/0x90 [ksmbd]
+  Call Trace:
+   smb2_query_info+0x40d/0x17c0 [ksmbd]
+   handle_ksmbd_work+0x1ca/0x770 [ksmbd]
+
+Fix this by checking the return values from get_inode_acl() in
+ksmbd_acls_fattr(). Treat -EOPNOTSUPP as indicating that no ACL is
+available, and propagate all other errors to the callers. Update
+smb2_open() and smb2_get_info_sec() to handle these errors.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Assisted-by: Codex:gpt-5.6-sol
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Henry Hu <huhai@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: adapted ACL lookup and mount mapping to use get_acl() and the existing user_namespace API. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/silabs/wfx/hif_rx.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ fs/smb/server/smb2pdu.c | 42 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 34 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/wireless/silabs/wfx/hif_rx.c b/drivers/net/wireless/silabs/wfx/hif_rx.c
-index 64ca8acb8e4f2..42417db66c128 100644
---- a/drivers/net/wireless/silabs/wfx/hif_rx.c
-+++ b/drivers/net/wireless/silabs/wfx/hif_rx.c
-@@ -62,8 +62,17 @@ static int wfx_hif_multi_tx_confirm(struct wfx_dev *wdev,
- 				    const struct wfx_hif_msg *hif, const void *buf)
- {
- 	const struct wfx_hif_cnf_multi_transmit *body = buf;
-+	size_t needed;
- 	int i;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 8d2f5e4e9ae3b..1ea9ab0039120 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2709,10 +2709,11 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
+ 			    le32_to_cpu(sd_buf->ccontext.DataLength), true, false);
+ }
  
-+	needed = sizeof(*body) +
-+		 body->num_tx_confs * sizeof(body->tx_conf_payload[0]);
-+	if (le16_to_cpu(hif->len) < sizeof(*hif) + needed) {
-+		dev_warn(wdev->dev, "invalid num_tx_confs %d for msg length %d\n",
-+			 body->num_tx_confs, le16_to_cpu(hif->len));
-+		return -EINVAL;
-+	}
+-static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+-			     struct user_namespace *mnt_userns,
+-			     struct inode *inode)
++static int ksmbd_acls_fattr(struct smb_fattr *fattr,
++			    struct user_namespace *mnt_userns,
++			    struct inode *inode)
+ {
++	struct posix_acl *acl;
+ 	vfsuid_t vfsuid = i_uid_into_vfsuid(mnt_userns, inode);
+ 	vfsgid_t vfsgid = i_gid_into_vfsgid(mnt_userns, inode);
+ 
+@@ -2723,10 +2724,28 @@ static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+ 	fattr->cf_dacls = NULL;
+ 
+ 	if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
+-		fattr->cf_acls = get_acl(inode, ACL_TYPE_ACCESS);
+-		if (S_ISDIR(inode->i_mode))
+-			fattr->cf_dacls = get_acl(inode, ACL_TYPE_DEFAULT);
++		acl = get_acl(inode, ACL_TYPE_ACCESS);
++		if (IS_ERR(acl)) {
++			if (acl != ERR_PTR(-EOPNOTSUPP))
++				return PTR_ERR(acl);
++			acl = NULL;
++		}
++		fattr->cf_acls = acl;
 +
- 	WARN(body->num_tx_confs <= 0, "corrupted message");
- 	for (i = 0; i < body->num_tx_confs; i++)
- 		wfx_tx_confirm_cb(wdev, &body->tx_conf_payload[i]);
++		if (S_ISDIR(inode->i_mode)) {
++			acl = get_acl(inode, ACL_TYPE_DEFAULT);
++			if (IS_ERR(acl)) {
++				if (acl != ERR_PTR(-EOPNOTSUPP)) {
++					posix_acl_release(fattr->cf_acls);
++					return PTR_ERR(acl);
++				}
++				acl = NULL;
++			}
++			fattr->cf_dacls = acl;
++		}
+ 	}
++
++	return 0;
+ }
+ 
+ /**
+@@ -3219,7 +3238,10 @@ int smb2_open(struct ksmbd_work *work)
+ 					int pntsd_size;
+ 					size_t scratch_len;
+ 
+-					ksmbd_acls_fattr(&fattr, user_ns, inode);
++					rc = ksmbd_acls_fattr(&fattr, user_ns, inode);
++					if (rc)
++						goto err_out;
++
+ 					scratch_len = smb_acl_sec_desc_scratch_len(&fattr,
+ 							NULL, 0,
+ 							OWNER_SECINFO | GROUP_SECINFO |
+@@ -5452,7 +5474,11 @@ static int smb2_get_info_sec(struct ksmbd_work *work,
+ 
+ 	user_ns = file_mnt_user_ns(fp->filp);
+ 	inode = file_inode(fp->filp);
+-	ksmbd_acls_fattr(&fattr, user_ns, inode);
++	rc = ksmbd_acls_fattr(&fattr, user_ns, inode);
++	if (rc) {
++		ksmbd_fd_put(work, fp);
++		return rc;
++	}
+ 
+ 	if (test_share_config_flag(work->tcon->share_conf,
+ 				   KSMBD_SHARE_FLAG_ACL_XATTR))
 -- 
-2.47.3
+2.53.0
 
