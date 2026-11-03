@@ -1,68 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717769;
-	b=yda4VqgaBkghk1NrY6O/obdK1AxcdEp8xfbrvvcSKarpjjaTAHGg+Sne3Bi4/RpevvvQ
-	 DMr7Ys+VLgKEq+DGqbt13iIeYxeLwxhecE0dOdIBdIXOZsT2QczueFittFRM6P3OxVD0X
-	 Fj50KNk14zzOyDSirghsW+nLVWaIy5iJH8QbDJP9Yx6QbGnyJEh3TIUZJo27+bt3gOrLF
-	 oDGoJACZABmp28ZMVFFkazU9cTeDMMA1t6MjJks/US8S/3xodbLa1a/MZaX0mwhG6p0ST
-	 rBeT+6E1/r+G2j70Py4Tc81BFRPSgFCHKbQ4Nw6pAb3psiFrq3YbWe19IO7mTvJ49vA==
+	t=1793717814;
+	b=eu+a6lGeIdqvT5GSAtkuD4P+a2l23wEc3wYrsc5hxyupO8uqwKlOU6kxvn/aTDU6nzA8
+	 Yna/08gGALNvAu5jbekEpaRsiaRyaqn9sIaFE2LVUyJJr3y0dN74wEL77BaBBJueYMtqZ
+	 7mfYqioZexhR4zpyuqS5qGuYmlHansn5e5E/JVSckgVawSthlOXHwbBEGTqgwxgCceINI
+	 r7b8943XjWpcPLqzgLp68UJZP0of542ddWvrBopJI+oWK5u2OlzvQs97+nhXzAnAc7tT0
+	 EjCiwGh7ENI9aOzT3k6t2jPq9sppa7F0enlzBG+IRwuDduRR2pv/vdRGAfcJhahuU4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717769;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vebAuFRic18JYj0ceFy67NLDnQtwOl1/tHyfOqhU5xg=;
-	b=T0Xc5gycyU1YJ13kSyUwVOVHl91GMi+346kjtDo30rDK9Xae3J4rgavBwrWhBtsSW3Al
-	 waJAiA7xxy5N9ygrOhuK/8W9a6s05OBSwJE93SKAbMMungwpnvbREtacI7LP1veNG5hrQ
-	 h2eKrJZe0kzOie53q8uN8CBPIjZxTbNMnPgL5Rtil7Y6bdmKeuHK7m4wd/5MRqh9ccNYF
-	 FweKI0tlx+wtVgEs9LhqCrG4I7RRC34myppdzV0W6JMWvvkbOQWau5k0CViekRcjtgHMe
-	 wkhXbOrZ2URLZ6GzxVJRTdKAp1tGbjxLf5b4toaY74TVSx233Kug6tbaOim7nQ7If3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717814;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=lnK9cNxarT5IGLjO8Msq2uGG6ZCud5JN62cvdJDIdoo=;
+	b=ZLAnxd43GBW/hNLCuHhCt410KZLx8d0JennJ1X7+0G9rAoJH6KyV+5QncwlDDh8+tiu6
+	 iqx0aCJrp0uAgUGDqvOwYDpmrTNB0mF5T3CkCeIka0Z6jSvSwEgqbMjFKHaMFR5YP+okK
+	 4ZwRF37nzfyInRr2PyrCmdiotSd1q8TdbfH/tYuKD37PC8XmS0afCKwmA29+kGR8aDIZg
+	 V9/1VW0HyIdrRJNpw46BkcTxngjW9JOVdC8dBVxhjsWwsc6AmBJFNYj3urydD75uZk4oY
+	 uTp5l/w+Ljuewd04wbPd+lMNPwlvZTh88SeifP39oCoefIrlR0fSM100eLYR1fbXqzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=El05i11B;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fgcP0nU1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Cl2hQRud;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DC4606A32F;
-	Tue,  3 Nov 2026 14:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22DC4606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B342606B26B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 14:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B342606B26B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=El05i11B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793717769; x=1825253769;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ZpeTG0rBnmzRLYcZp0cYQM8/3s5qDdobT3m1WWFTXNM=;
-  b=El05i11BRc51IK454Di3Iwt7T7KlSWbea4PtVXy1yXsM/NSAi0q6jUqZ
-   752Cpu2XL9zK23kKi6qkhSjAApOxYcg6ud5oCkM+8UwIeQLbgBY80YQok
-   xHZf1Vyu7trS/qcVtUo5A6GHsePMdnpai01ulhCQlSXerGTtF+uBtkKBf
-   2vm79tAa7OAgeUS9q+S+seznslZDXlr7GybIM2LODisXE9Bg3+oxA/yxw
-   CYGmcl0xc8Re9086JIvMqnazxrtKp2Yf0pfLe5Z4deYpS5fHp3v8q2M50
-   NrhCAkP8gNV0QPPC2kpTO3Y/iCTei2ioRobiPBgPN4shmIgKWOzMxClhW
-   A==;
-X-CSE-ConnectionGUID: M9eWUd2rS1WiHZM70QWB3Q==
-X-CSE-MsgGUID: eHqUMTd1RAiEvUh4pw8VtQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2323537"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2323537"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:56:08 -0800
-X-CSE-ConnectionGUID: y2qZUdDxTi+LPkiTnKGi6Q==
-X-CSE-MsgGUID: PiB7GEVYTJ+Csp0vNOpFcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6814335"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [10.245.245.138]) ([10.245.245.138])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 06:56:06 -0800
-Message-ID: <3ca5cced-f429-42d9-9bbb-f5111acd9665@linux.intel.com>
-Date: Tue, 3 Nov 2026 16:56:02 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fgcP0nU1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Cl2hQRud
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EANIA3690183
+	for <stable@vger.kernel.org>; Tue, 3 Nov 2026 14:56:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=lnK9cNxarT5IGLjO8Msq2uGG6ZCud5JN62c
+	vdJDIdoo=; b=fgcP0nU1jYJOP9wnLSJ34pDx907ZC1KadQBycUzKNOL38aWFkHl
+	9AwVzOB9WKo7VtkLDmPXG5LftKj2c4jdG4v54ZSUOYWpKJ4Oe704CVM8jWgIFUsS
+	5oVhwbdCM679WxADjh394ffo6u7Nv48JwUtmxDU2qGzA7Bn3gXU61il69ZdnpteY
+	2ZoUy7CDKqsxrHWuCaLTKObIxCkReBrBjqoCnG+fC+sn/Eiu//iAbUgIflAmcBMd
+	H1GPciAPWXK0SQnznRJ026FoEz6J1WAAF0PPJKl/H+BiEj5BwsX8T2jc7j0vEaRl
+	ll6MyU+GQE9IEpxmMbV0bSENyDk3WyR98gQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq6m9at6d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 03 Nov 2026 14:56:53 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f37c94ceeso138292785a.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 06:56:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793717812; x=1794322612; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lnK9cNxarT5IGLjO8Msq2uGG6ZCud5JN62cvdJDIdoo=;
+        b=Cl2hQRudG44CLbQhV9AoPOrhHOfg+SsOhDFBhML143IfTBBukzEQCRApoilq6GEOvE
+         /iqhAh2Oib0UOqldKQgvHYDmNlwausVNx7biEHIi4Mu78foGrYGZpI1L1ST4B41u9/ck
+         HzGCy9FCpNFlKipGn+PwQdnzbIxUKZ0LWtnt3MJXLhRJ4arW2/Y8wDDtWoulzPkHDNkz
+         qkeIa/R0Z8MW4iGy30McrbfkUqVDu5rg69hHfikFKT7aomjbxTsldcYH5PCCyejIANqf
+         M8AjHgvJob4H7YTdrbAP93N/Do+HXnhJjXtjlNw670zLS24AUc07rvdD0B3oyH33iUWv
+         BPaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793717812; x=1794322612;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lnK9cNxarT5IGLjO8Msq2uGG6ZCud5JN62cvdJDIdoo=;
+        b=kbVFpzsqnkryIjGZ6HdKyeqByo2aTc5CLQGwgBcD/0H8lmnTvNjp+uICncJ9DUGAAa
+         z78rdnQ3u5Zch3OnqRouDSFvJfWqIb6sjp1gsSemEB7+HDeL/CSLfhhODuGnliQkw/RL
+         TSbO3qq19DtT8ua9wYTRJSfEbe+MEv7jqtDUdk7ii7L5JkEwP3f6e4+MIkQPFV4CD7qz
+         iRE+94bBSs8tvdAdX/3OMTSkF92vcZk2BBQjEZQ2ewWpUQX2tEYUGMAgq/tGxJbadcrs
+         Dqly9TnHMhqawmjTKgGnwrbLRwWa0x2raax4fFiUjbMcXY7R4Kd9qeSC/70ny/5P3QeS
+         AU+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxnNz/y9yqn5e/nJbHVP3PiiNyO0W2cwD7tygSIzdYo90fhRbWC3sVVlP5lrH6C7mvIRjjDcU0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/x1sJFY53JBDwZ6bu7gl8vJ9mNmUQ+aCjTy4RVm4vL5dejD5Xy
+	SEIfidQKT7U/N7muwo4eCfJ+zIdjCIdfL0EkvseCn2biYJcG+mPcpd4R/rH5ySYtFf9P/N3Zuw8
+	F6atb1ThHaS8Vx+l2wfuMZGherI2bYZv4Dk73I9afSPb3ek+8KkHRdUcH8vo=
+X-Gm-Gg: AYBFou17TUoOYn4XSkNQOkSSwJLOuAnv8FAxPXOPc3JaF9SJ0xlYWflvx/VpmabiX/J
+	nu0hiUbeLqFDO6wNQ8yUvmVpeaLhx0WuphqPoOvwY3GgUF9x1yLr8GCVDI6M0cROw/OH3IRNMnE
+	V7DVBl50hGCRtVgcaeqvIovsqYrPn6mNbNjyqCDE7eiaMH9rFLLiZlGwPPvpiJhylB17ReZcUN/
+	5Lj5ABajq0UJgz5D7l9q5JL0cdRrYKqr7hAKft06v30iOMlJ9pVtVuFVROOs2xv4ke8dTkNGHvj
+	M5mVQ+GgTMPNcNiOUDjH8jv+X8Ei+TEfmsUe7z3OCvvpSoGHlWAlSXVibIr7cAG1/PFA7W3NUZK
+	aibrP2/BCDlb1ZZvGK4OVNFSVkiI0HtgVRe/Cgb9czdqCblvjfU6PYhX0xunuew==
+X-Received: by 2002:a05:620a:4492:b0:945:c430:1c09 with SMTP id af79cd13be357-945c4301ff5mr454832585a.37.1793717812318;
+        Tue, 03 Nov 2026 06:56:52 -0800 (PST)
+X-Received: by 2002:a05:620a:4492:b0:945:c430:1c09 with SMTP id af79cd13be357-945c4301ff5mr454829185a.37.1793717811835;
+        Tue, 03 Nov 2026 06:56:51 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cebdbsm69772645e9.3.2026.11.03.06.56.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 06:56:50 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Andy Gross <andy.gross@linaro.org>,
+        Mark Brown <broonie@kernel.org>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v3 1/3] soc: qcom: apr: Reject packets with header size larger than packet size
+Date: Tue,  3 Nov 2026 15:56:36 +0100
+Message-ID: <20261103145635.309032-4-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,173 +123,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] usb: xhci: Fix use-after-free race in
- xhci_stop_device()
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Bin Yu <byu@xidian.edu.cn>,
- Cheng Wen <wencheng@xidian.edu.cn>
-References: <20261026123628.7493-1-25031212351@stu.xidian.edu.cn>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20261026123628.7493-1-25031212351@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2138; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=brLsQ5FQCOSS/Rl7j7/iKzfxezF6HgBn+lqAUQwMLds=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq6fYjmScZL4nxD57jA2v88TZxblr6T0YGtq7sA
+ h9mP/aUo8eJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaun2IwAKCRDBN2bmhouD
+ 13OKD/9Ad96aCWnLc/po7LE6/YPWAeZodb6j+Zy18EtgTINbWBYIC076NLO08VzuSB5jIrvUv96
+ 6+MVbhfr/5oHhoofW4UAIbpwNBHlnIZ8PWUuqUrxLPTpZIAvONta5cfU4cDUFXXx7ggSEeO0TSQ
+ ygk4dRmpQWcTyjRcTADWh/ofjxPMvqQClD9dX05LHB8xHUQHSSNGkHAEBONqXrqepN5UWjj9rpT
+ 1KDJ1d9rmziFo68O0OnEaYctHrOUoAvJzMfjFR7w5sL7ThwkdTjaFDSdVkdRbAnK8arT4bmyAn8
+ IZY+3MGLy7Gox4DMD1SuUbrEhHitkb4s0Jvu6RYFjv9PUFwrWhu9SKwkVv5Kdvs+5emskJ+yTsy
+ QwwUvx/4jPdUJykQde+ihkaB5T2cKcIc8wTWtmAiFNHhWMqkzp3/y4uEndgxlBWsqj0cT3TS49g
+ jvClAr05/HJKR60ffJpGRi1lRh8iT0qcOeyKpuByAhRkTsxkobPXQhzWU/HmqkmThIZ+YWlIjfT
+ MTX2q/3AbFpMWyNDnCRaHMX7AZUjByPFWsjsP6b3jsDS349C+CyV8IXbFLK5P3xwXRsXVYFvJ+A
+ S2mDfJWuKnQ37OlzGqMBWt9Y468sjqbzeLUEY2Fqpn6wfTTLIxn8/NQMzOTMSBIvbGbD8Eq6mIe U8jbaVAvX3YgLbQ==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: obtYQQDdR6MSMAKJ8eqtlLTaJUfXU5qt
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfXxWM8rDwq8YKA
+ X0u9Cm95Ymaf3ngMe0YFUXr2DLafLDOFNMZZ/HUZt93kXyT6vJjgYa7zn7mqfwGAYvZiwz4oFKv
+ X9BDrIQCGEPFyu7IdjYiWknMPmXkNcs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfXwnkzINw9YtBv
+ Wm/McVaWmCqUsUs7zkN753Kh8S1JbnlljJpRGPg6I5qLwPJNziWy0L+pMV7l66d+foDNEAt4qN3
+ 87d68nhuSlKPmn+WiQJX0d1BjmLmqQxMAgPd+gPrUtnDFKXBQQLwlyflGx9kjZ/B2YOOEwRYrPE
+ 5GmXTL7nwWJpvd9KwG4uV0YkC5o+oqZRTSJnWNqgs9zShHtmRZkY+EYYrK+72RP1F3OHQpjnD64
+ cHjsGTLVUGHPWb55qIU83Q8rbQ1ftDlP6fF3ro/Kkm17oWnkldn9aCZJ5lLievx2LDKGjkx5J4P
+ IPi1TRD8Q7CAi4uuaBoo8iU2jIFWTa48nZsi1ovEBI1qv84KExynGQuF00APhqILMFWZQYYAl8S
+ 5lion3yUEhN1RK7JN/Q4FLYHaw5VKTanwEQKonVS6TRzGp2MDmEF1LuKdHE5ToljJrIebMA7k4x
+ bLlUFzxeZTc19tyoZfg==
+X-Authority-Analysis: v=2.4 cv=C7B8WgP+ c=1 sm=1 tr=0 ts=6ae9f635 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=fiEMaWzmfHqX7dR_b_IA:9
+ a=IoWCM6iH3mJn3m4BftBB:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: obtYQQDdR6MSMAKJ8eqtlLTaJUfXU5qt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030059
 
-Hi
+apr_do_rx_callback() and gpr_do_rx_callback() validate the header size
+and the packet size separately, but never check that the header fits
+within the packet.  Both sizes are u16, so with a malformed packet where
+the header size exceeds the packet size, the subtraction computing
+resp.payload_size gets promoted to int and becomes negative.
 
+Further check "resp.payload_size > 0" would fail, leading to
+resp.payload left uninitialized (stack value).  Reject such packets as
+having a wrong packet size, although unlikely that firmware would
+produce such packets.
 
-On 10/26/26 14:36, YuanZhe Liu wrote:
-> A KASAN slab-use-after-free read was observed in xhci_stop_device():
-> 
->    BUG: KASAN: slab-use-after-free in xhci_stop_device.constprop.0.isra.0+0x395/0x430
->    drivers/usb/host/xhci-hub.c:479
->    Read of size 8 at addr ffff88804e85d2f0
-> 
->    Freed by task 585700:
->     kfree+0xf8/0x390 mm/slub.c:6566
->     xhci_free_virt_device+0x3f/0x50 drivers/usb/host/xhci-mem.c:881
->     xhci_free_dev+0x286/0x350 drivers/usb/host/xhci.c:4131
->     usb_disconnect+0x6b6/0x910 drivers/usb/core/hub.c:2391
->     ...
->     usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
-> 
->    Allocated by task 572283:
->     xhci_alloc_virt_device+0x171/0xb70 drivers/usb/host/xhci-mem.c:986
->     xhci_alloc_dev+0x475/0x840 drivers/usb/host/xhci.c:4271
->     usb_alloc_dev+0xe8/0xdc0 drivers/usb/core/usb.c:661
->     hub_event+0x1c82/0x4050 drivers/usb/core/hub.c:5953
-> 
-> xhci_stop_device() reads xhci->devs[slot_id] without xhci->lock and
-> keeps using the pointer across xhci_alloc_command(GFP_NOIO), which may
-> sleep.  All callers (the port suspend and bus suspend paths in
-> xhci_hub_control() and xhci_bus_suspend()) drop xhci->lock before
-> calling it, so a concurrent usb_disconnect() -> xhci_free_dev() can
-> clear xhci->devs[slot_id] and free virt_dev under xhci->lock in that
-> window.  The endpoint loop then dereferences the freed virt_dev.
-> 
-> commit 88716a93766b ("usb: xhci: Fix panic if disconnect") added a
-> NULL check for this case, but that only helps when the device was
-> already freed before the check; it does not close the window.
-> 
-> Re-check xhci->devs[slot_id] against the pointer fetched earlier after
-> taking xhci->lock and bail out if it no longer matches, or if the
-> device is already being torn down.  The tracepoint reloads
-> virt_dev->udev, so it moves under the lock and only runs while the
-> device is still attached.
-> 
-> xhci_free_dev() clears virt_dev->udev without xhci->lock, and only
-> later detaches the device from xhci->devs[] in xhci_free_virt_device(),
-> also under the lock.  Take xhci->lock when clearing ->udev so that
-> xhci_stop_device() can rely on it while holding the same lock.
-> xhci_free_virt_device() frees the device under xhci->lock, so a
-> matching pointer while holding the lock keeps virt_dev alive until
-> xhci_stop_device() drops the lock, after which virt_dev is not used
-> anymore.
-> 
-> Fixes: be88fe4f4dda93e3 ("USB: xHCI: port power management implementation")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Fixes: 6adba21eb434 ("soc: qcom: Add APR bus driver")
+Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-82d40745-1593-4c20-8432-d86099836525
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks for the patch, good catch.
+---
 
-I have some small minor adjustments that would make final code a bit cleaner
+Changes in v3:
+1. None, resending because I threaded it wrongly.
 
-> ---
-> Changes since v1:
->   - xhci_free_dev(): clear virt_dev->udev under xhci->lock, so that
->     checking it under the same lock actually synchronizes with the
->     store.
->   - xhci_stop_device(): bail out with -ENODEV once ->udev has been
->     cleared, instead of queueing stop-endpoint commands for a slot
->     that is already being disabled.
-> 
->   drivers/usb/host/xhci-hub.c | 19 +++++++++++++++++--
->   drivers/usb/host/xhci.c     |  3 +++
->   2 files changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/host/xhci-hub.c b/drivers/usb/host/xhci-hub.c
-> index b0264bd8577a..f4401f2fcea0 100644
-> --- a/drivers/usb/host/xhci-hub.c
-> +++ b/drivers/usb/host/xhci-hub.c
-> @@ -467,13 +467,28 @@ static int xhci_stop_device(struct xhci_hcd *xhci, int slot_id, int suspend)
->   	if (!virt_dev)
->   		return -ENODEV;
->   
-> -	trace_xhci_stop_device(virt_dev);
-> -
->   	cmd = xhci_alloc_command(xhci, true, GFP_NOIO);
->   	if (!cmd)
->   		return -ENOMEM;
->   
->   	spin_lock_irqsave(&xhci->lock, flags);
-> +
-> +	/*
-> +	 * Callers drop xhci->lock before calling us and allocating cmd
-> +	 * above can sleep, so xhci_free_dev() may have detached and freed
-> +	 * the device in the meantime.  It removes the device from
-> +	 * xhci->devs[slot_id] and clears ->udev under xhci->lock, so while
-> +	 * the lock is held a matching, still-attached device stays alive
-> +	 * and keeps its udev.
-> +	 */
+Changes in v2:
+1. Test for <=, because hdr==pkt size still would leave the response
+   payload uninitialized.
+---
+ drivers/soc/qcom/apr.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Comment above is not needed, can be removed
+diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
+index 2d5645ff9919..e303562526d4 100644
+--- a/drivers/soc/qcom/apr.c
++++ b/drivers/soc/qcom/apr.c
+@@ -210,7 +210,8 @@ static int apr_do_rx_callback(struct packet_router *apr, struct apr_rx_buf *abuf
+ 		return -EINVAL;
+ 	}
+ 
+-	if (hdr->pkt_size < APR_HDR_SIZE || hdr->pkt_size != len) {
++	if (hdr->pkt_size < APR_HDR_SIZE || hdr->pkt_size != len ||
++	    hdr->pkt_size <= hdr_size) {
+ 		dev_err(apr->dev, "APR: Wrong packet size\n");
+ 		return -EINVAL;
+ 	}
+@@ -280,7 +281,8 @@ static int gpr_do_rx_callback(struct packet_router *gpr, struct apr_rx_buf *abuf
+ 		return -EINVAL;
+ 	}
+ 
+-	if (hdr->pkt_size < GPR_PKT_HEADER_BYTE_SIZE || hdr->pkt_size != len) {
++	if (hdr->pkt_size < GPR_PKT_HEADER_BYTE_SIZE || hdr->pkt_size != len ||
++	    hdr->pkt_size <= hdr_size * 4) {
+ 		dev_err(gpr->dev, "GPR: Wrong packet size\n");
+ 		return -EINVAL;
+ 	}
+-- 
+2.53.0
 
-> +	if (xhci->devs[slot_id] != virt_dev || !virt_dev->udev) {
-> +		spin_unlock_irqrestore(&xhci->lock, flags);
-> +		xhci_free_command(xhci, cmd);
-> +		return -ENODEV;
-> +	}
-
-No point in keeping the 'virt_dev = xhci->devs[slot_id]' before taking the lock.
-
-Just move that part inside the lock as well:
-
-virt_dev = xhci->devs[slot_id];
-if (!virt_dev || !virt_dev->udev) {
-	unlock
-	free command
-	return -ENODEV
-}
-
-> +
-> +	trace_xhci_stop_device(virt_dev);
-> +
->   	for (i = LAST_EP_INDEX; i > 0; i--) {
->   		if (virt_dev->eps[i].ring && virt_dev->eps[i].ring->dequeue) {
->   			struct xhci_ep_ctx *ep_ctx;
-> diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
-> index 5c759ad28199..9e375eb48f38 100644
-> --- a/drivers/usb/host/xhci.c
-> +++ b/drivers/usb/host/xhci.c
-> @@ -4128,9 +4128,12 @@ static void xhci_free_dev(struct usb_hcd *hcd, struct usb_device *udev)
->   	trace_xhci_free_dev(slot_ctx);
->   
->   	/* Stop any wayward timer functions (which may grab the lock) */
-> +	spin_lock_irqsave(&xhci->lock, flags);
->   	for (i = 0; i < 31; i++)
->   		virt_dev->eps[i].ep_state &= ~EP_STOP_CMD_PENDING;
->   	virt_dev->udev = NULL;
-> +	spin_unlock_irqrestore(&xhci->lock, flags);
-> +
-
-Should work, we are now using virt_dev->udev as a flag to tell xhci_stop_device() to
-not queue any stop endpoint commands as we know a 'disable slot' command will be
-queued shortly.
-
-Another option would be to add an actual 'disable_slot_pending' flag to struct
-xhci_virt_device, and set it in xhci_disable_slot() when we really are queuing the
-disable slot command with lock held.
-
-While looking at this I realize that xhci_disable_and_free_slot() might also race
-with xhci_stop_device(), but that change doesn't need to be part of this patch.
-
-Thanks
-Mathias
