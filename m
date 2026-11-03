@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700798;
-	b=g+7a3EucIqBEsVFgXVrf86XPvF9R64Twcn3XB5i1R9kwQ60b+llBj6W8PvLe8h/iYeaO
-	 IWCuYqGeAUoB7MhrUAahPtcnUS5x1wKGz1R0OWWO6UIrs16/TqI+GecW4M0RFmCZzkiTW
-	 uNN177/GE+Cn1qJpUroKnjuvHfvDlvKMEq5n+QG/SgH0coecPOoPEabtIOPhDsuj0YVVY
-	 X/YFAqj2FKUDySTx+vY4chSJsuBlztASJK6uNR18vOB8RU47CfsRz4oAF0xlYLlq5Pl50
-	 Z9JFGY56wj/JTd3fiwpSQOIy1TGNbYDtuIB4WLUuhEAa61Vm9w3WGq+dn5pqTFnFkYg==
+	t=1793700801;
+	b=HxlnvtTF/uymPZnboqIvmwmj6IASz5LBpY7aqVMasz0Ru8wIbRYb/wIYi9UAy4e/5lzR
+	 6+sOo5jGajAxM3aN0Rb1fZIW+zGu8CVo9X0aBiyaoZT+7kAKSvysPOlUJnGnn7rXdHEzY
+	 GmlWb3rJu/KEeUa4pH71aggozt90/kKYPCZhW+51/0yQZlNphuj97wHPjqgNKgfzA8lOU
+	 JtO+JOMxaILeFiwxVIiZDG65J5MPasSIq/BdvPVpudEEgn9iyAHe5CNtSaNjCEr9ixDXD
+	 o7uasDDe1bNAFXku+a8ezSZcmxzGbVyn683U2DymuXpYJgw/xMqAfda+gZguhbcD3cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700798;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700801;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1x5tEmqcoze0z35L/6KIkImfMxpmNPNqrZwdx8fqq+o=;
-	b=RhSl0X9JeOaHaiDRmtdGmY86y61MTyIbEH3YLtYAA28KS7cvfpWODN/2+hAoUd+qX2tx
-	 F5FV64Ymh7uPXvlBFppQm7CYWPnckqp5zC3grXBnofEXpz1iVYomRYMqXxzupOGAOf9Zb
-	 kwoRCqId3gmL3VlYAtnmPpW7p8q8JnYp+zzenR1HSnMw5+1qOc3HaNEBLVfs8Y6YbvwU7
-	 YuY0wlWRNg2jonlISz8EjCCBs+QAYc4x6pXaXyT6skIG3n516nH6uQrXurGOrULRiaZZi
-	 HwZ0iK58+RrFvSoKyuerqZuLphuZXQg8Wi5xYpsHb0ozkU1p6Gzx0IBcPxIke6hJOhw==
+	bh=Q5Tg6fKyPIc3EX6JjpTwwUKAfQptQnE9xjERu/8zsFU=;
+	b=rB4Z2auvOyOj6DWGxqRx9NpNdUBL9sy+nFKlFpD/nKh/2Oa8r4WWo4ygR3xGO1J9jqGM
+	 F+qx8ihaZOJfBSu3w5j20b3wgo4oWXxJgo0EUfM4ewt4Zeh1Ki3Covb/ZIA9c23CjnaIK
+	 iHwW6IOn+OjnFCPq97diJP6AKxVlxlwnXAZotn4/NtJjmovsQDW6WUC0tZ913V2FTNNWf
+	 WZvzzFvc9bxCxGyx4rIjihS76ibMkW4v/qqGVUmqJFE6l17RAlipMejQZ2jeSNKRRu08U
+	 cJZx+p1X0igolo6dD36ZVhCqt2qQiSbTEi5ffI5T03nDsyVHDy6FvnLbBa0p90OIsIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="r9rKXA/B";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CLDWjAj5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD1B606B10F
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:13:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71FD606B10F
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:13:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=r9rKXA/B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB3341F0093A;
-	Tue,  3 Nov 2026 10:13:17 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=CLDWjAj5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546DB1F00A18;
+	Tue,  3 Nov 2026 10:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700798;
-	bh=1x5tEmqcoze0z35L/6KIkImfMxpmNPNqrZwdx8fqq+o=;
+	s=korg; t=1793700800;
+	bh=Q5Tg6fKyPIc3EX6JjpTwwUKAfQptQnE9xjERu/8zsFU=;
 	h=Subject:To:Cc:From:Date;
-	b=r9rKXA/B1ifrPtXtTWOC4PA/v69d2XIdJRYyg57CF+oOiiJJY+f1KP14ttPOvhUDv
-	 WADlWja3+wd2B8L0y0DwYrXCCwxNxCw92A9dHnHKWceyOD1lpmozsaenN6bKFvuT9W
-	 KTebA/ZN3eq8nSZ/iqNZ62YJgkunjHdBG075dYBY=
-Subject: FAILED: patch "[PATCH] driver core: take parent lock in async device attach" failed to apply to 6.6-stable tree
+	b=CLDWjAj5jy4N21RaCuSHNl93W6LNILXKtzyqNp9C5vCaupOD2gMdv/MmhY8hvnwtc
+	 NvmfwAhtDXmkpwsfsvuDV09BjUdtisgU5bHoXqQuIN7ZPqzXMPgFrmTP7Ocgs7F3SQ
+	 WIcklt5s7CnSusUr6QlAM3qqRMvm22+wEb4f0uS8=
+Subject: FAILED: patch "[PATCH] driver core: take parent lock in async device attach" failed to apply to 6.1-stable tree
 To: mario.peter@leica-geosystems.com,dakr@kernel.org,dmitry.torokhov@gmail.com,johan@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:13:14 +0100
-Message-ID: <2026110314-chloride-agony-d0f9@gregkh>
+Date: Tue, 03 Nov 2026 11:13:16 +0100
+Message-ID: <2026110316-tidiness-persuaded-76af@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 187a62f99da29b1a55602b0d401a783d8dc86161
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110314-chloride-agony-d0f9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110316-tidiness-persuaded-76af@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
