@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793745588;
-	b=Pq5KrrJKr+bG42+nFJ6q5Y3+iQoBTuiAvP8n66Unqmv/0DKuK6S8UUI5OLy+dpo4EN1F
-	 hxw2Uv7AZKpAsjlyLRNzIFlw7FTFm+kQZh6FrfXpwnPvynom9VofmCTiX1XlNqkBlFerf
-	 mLPr2TR79VsMoZuZO5A6KwX7K4lXGW0kb/BUL28k+q9h7F7YDcGa20aF4nyHqJYtr9at4
-	 v0alEJIlfAAJCabFmtByZg5G1ja24QHHt5SeHIVeDTBgPnFFiBpjBsjzKgCqxdPilDe40
-	 OgiQzQTraNpadQ2dp+Hb1k63YIc9IjqkDLjWf3Wyr7DFBHjTk8empyWEh0SSuB5ZLKw==
+	t=1793745595;
+	b=10/y4v/kb+1fd3VibHJBCz6kShv8q8PypRnlLc42wQcfOwXS1gc+fCQbZ1xf2oqIcBst
+	 rzobUAVRQ6Ty84xUKngTzQKTF1JXKkMBEVDcfnSB/xCoBE9RQyNP39Dswtbmo7XuubZwb
+	 +x3pEJq7aa/aSIjjYt24C512e6XB1K/3NRk4lLYRIF1H+LTZL6QLECngg3NgcUl+zFh+h
+	 EyGCiCzBx5MbUtU8V/qOfTSprJQnLtMPHiVUBss4xaXCBkNj5tzAulMHWxX8e04Pug9E1
+	 /pZqS/v72iJtTTL9M5PvoRkJ0t2C3yUvPUNGA+BdlSED7kewwEACGwJA5uf7H5CUXig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793745588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793745595;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=aZIe3kT6amkhzi0XYW9ak/In12ZN3+Lm3m8pB82JAsM=;
-	b=gLCV0mtRnnvD9+vB+HKnfHoyvIQY/a8jcll/6h0PWdeGRz7qky0kfXbkgpWNwYAE7Nm0
-	 ObzvRbMlzM3kbVxvh6nCX1wmvAbvLT76piVM4lnasaSQryuc0bFuZrdrhRGJ/QX4G57J1
-	 eUnRAnDIxMXEfMj/mc0mKcXh2pwCQ81ITdD7Vj9Dhifur8VPzr6Ys7qPMADyKOHvd73sq
-	 x/NH4yF4D1jnWYam6AJz260Bb+QYYsUPo1Zj6D127pAUFRlHKv47HL2u3JBySN3+qz3d4
-	 rx3q72qse6ahv+sY9xN3IPSjrTl6+KGQYoubI2qkO27xMAT7AXUaQ34uSArmihKrm8w==
+	bh=0QVFJmzDW8c6yAQ16UdkZaew1WvBgpFaonuAYhb5emA=;
+	b=xufx2yTKk0Tw6nHZzULEqCxELD2NWVtceEldYcMAlGCFgXEp6IfgGiwNrw8DSKVNGQgp
+	 BMziO3sJv+nXJmL6KLDxgds4XeGFEOZQ1fj0+puxWD/G7CQu3ku7vVIQ3DFnz3DY88j6/
+	 Yqn3OTlnAz5ROvlUEAN0kmpDOG+miF1Bmc20rVvaylL11wI6Wtd8g/hlwMD+dheQWgVHj
+	 h3a1mXCu4ymUDEpKuU1HAFMsJjPzWsNzdao8aAP8Fii0FZvV/DUOHIV3DGhV2dGOrmpCG
+	 0lf6qMAZXHhXGbEvYfDSC5oJtETKrBdF8a/ckyAXb8ix+24arxLFith4D6ZplLecQsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSAKyIwh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5wBif9W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD80D606A31B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:39:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14C8606A32E
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 22:39:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSAKyIwh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDBEF1F000C1;
-	Tue,  3 Nov 2026 22:39:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5wBif9W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F5931F00919;
+	Tue,  3 Nov 2026 22:39:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793745587;
-	bh=aZIe3kT6amkhzi0XYW9ak/In12ZN3+Lm3m8pB82JAsM=;
+	s=k20260515; t=1793745594;
+	bh=0QVFJmzDW8c6yAQ16UdkZaew1WvBgpFaonuAYhb5emA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FSAKyIwhSsHpo21XFYzVBnqDoCrOOpQhVU/IgHNyyCknocUe00TTjxonoKbMkWpty
-	 7TncvCDKKMV/xNhfqIm4h9ff+xOgJYXZ0VkQiaf4LfjHtZztTvYTaU2XLlbaVCP2Kq
-	 JBu12RcpnuvamL8dleFzD2KEUyDpK94wUimTmiQlDJEvRmRxGxn0a1SG/sOcuWaxJk
-	 ie5CvDu7dTSwHtftd2gwM1I2vWHBcePSnvB4alKRlbvk8hsXsGGEg7+bJ7eQdLxbpD
-	 bjOz3VyJFCGCji71/0Qhm51aZMvKBwlCYhC9/xPdX0O+84xUVIH2aAaSh6Vl8r3UX3
-	 8CTDd2ZTYwDuA==
+	b=c5wBif9W29k8dYMj7Rs7Vcv1DiDdHryo29fARRU1B7/I34h8N6T/g7PpFXHTn2s9Z
+	 33X444PAjaRFFdrsoYeA0gTjBMOECiH1aHt9vFwZW0SDzWVrwmWK0oVoU3lNquyJaB
+	 cD/wqZm6nKJz0YFbZ2HrlBSxHxm009p/4mGlZR40Qgw1lxngQGPXjlndO7faj0BlkU
+	 mdyG8pjtwGLS3YW3J5u6jxOfBu+3qnmv10TBlKFyFMwip+Nz8Xl9UgW7JwN7zqeDCV
+	 1Ik6ljmSkKOyB44a+VYkE+2Sc5STF46gYxm9EAjHUJOwC8U3i2Wm+ruaYIcnui6+87
+	 XeZjkAszjiThw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: DaeMyung Kang <charsyam@gmail.com>,
+Cc: Dairui Zhang <zhangdairui@gmail.com>,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ksmbd: fix named stream write and EOF handling
-Date: Tue,  3 Nov 2026 17:39:45 -0500
-Message-ID: <20261103223846.1614932-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ksmbd: verify transform SessionId matches the decrypted header
+Date: Tue,  3 Nov 2026 17:39:52 -0500
+Message-ID: <20261103223848.1550953-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110333-coke-seismic-b0a6@gregkh>
-References: <2026110333-coke-seismic-b0a6@gregkh>
+In-Reply-To: <2026110343-scored-pummel-0600@gregkh>
+References: <2026110343-scored-pummel-0600@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,182 +61,159 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: DaeMyung Kang <charsyam@gmail.com>
+From: Dairui Zhang <zhangdairui@gmail.com>
 
-[ Upstream commit 02165c8d402392278a5cd2cf97645ed73a7ad4a1 ]
+[ Upstream commit 798214e6fafcdcc29f5ba2661a473232b5e70cfb ]
 
-An SMB WRITE to an existing named stream can silently discard data after
-its written range. ksmbd stores streams as xattr values, but the write
-path passes offset + count as the length of the replacement xattr even
-when the old stream is longer. Writing 26 bytes at offset 0 to a 60-byte
-stream reports 26 bytes written while discarding the remaining 34 bytes.
+When an encrypted request comes in, the decryption key is picked by
+the SessionId in the transform header, but the request is then
+authorized under whatever session the decrypted inner header names.
+Nothing ever compares the two, so on a connection with more than
+one session a client can get a request decrypted with one session's
+key and run it as another session. Encrypted requests are exempt
+from signing too, so a valid AEAD tag is the only proof of session
+identity, and it is checked against the wrong session.
 
-Keep the existing xattr length when an in-place write ends before EOF.
-Reject writes that cross XATTR_SIZE_MAX rather than storing only the
-portion that fits while reporting the full requested count.
+MS-SMB2 says the server must check that the transform SessionId
+matches the one in the decrypted SMB2 header and treat a mismatch
+as a protocol error. Add that check in __handle_ksmbd_work() after
+decryption, before dispatching: the message has to be at least one
+fixed SMB2 header, the first operation must not set
+SMB2_FLAGS_RELATED_OPERATIONS and its SessionId must match the
+transform SessionId, and every following non-related operation in
+a compound chain must carry the same SessionId. NextCommand
+offsets must be 8-byte aligned and stay inside the message; the
+bounds check is done by subtraction so it cannot wrap.
 
-Commit 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
-intentionally skipped ordinary inode truncation for stream handles: an
-EOF SetInfo on an ADS had truncated the base file. That fixed the base
-file corruption but left stream EOF changes reporting success without
-resizing the stream. Handle these requests by resizing only the stream
-xattr; the base file size remains untouched. Zero-fill stream extensions.
-This is needed alongside the write fix: a short write's accidental
-truncation previously masked an ignored explicit EOF change. The stream
-resize helper returns xattr errors directly rather than using the
-base-file truncate path's EBADF conversion.
+When the decrypted payload is a compression transform, the
+existing decompression step runs first and the decompressed SMB2
+message is checked instead, since a compression transform header
+carries no SessionId.
 
-Fixes: f44158485826 ("cifsd: add file operations")
-Fixes: 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Reported-by: Dairui Zhang <zhangdairui@gmail.com>
+Assisted-by: LLM
 Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: Used fp->filp->f_pos instead of the unavailable fp->stream.pos to store the stream write position. ]
+[ sashal: adjusted context to match the existing decryption flow ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/smb2pdu.c |  2 ++
- fs/smb/server/vfs.c     | 72 ++++++++++++++++++++++++++++++++++++-----
- fs/smb/server/vfs.h     |  1 +
- 3 files changed, 67 insertions(+), 8 deletions(-)
+ fs/smb/server/server.c  | 16 ++++++++++++
+ fs/smb/server/smb2pdu.c | 54 +++++++++++++++++++++++++++++++++++++++++
+ fs/smb/server/smb2pdu.h |  1 +
+ 3 files changed, 71 insertions(+)
 
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index e81d3e4e1ee22..11d5c331f0f87 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -169,12 +169,28 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
+ 
+ 	if (conn->ops->is_transform_hdr &&
+ 	    conn->ops->is_transform_hdr(work->request_buf)) {
++		u64 tr_sess_id;
++
++		if (get_rfc1002_len(work->request_buf) <
++		    sizeof(struct smb2_transform_hdr)) {
++			ksmbd_conn_abort(conn);
++			return;
++		}
++		tr_sess_id = le64_to_cpu(((struct smb2_transform_hdr *)
++				smb_get_msg(work->request_buf))->SessionId);
++
+ 		rc = conn->ops->decrypt_req(work);
+ 		if (rc < 0) {
+ 			ksmbd_conn_abort(conn);
+ 			return;
+ 		}
+ 		work->encrypted = true;
++
++		rc = ksmbd_check_transform_session(work, tr_sess_id);
++		if (rc < 0) {
++			ksmbd_conn_abort(conn);
++			return;
++		}
+ 	}
+ 
+ 	if (conn->ops->allocate_rsp_buf(work))
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index aaccef2e3f3bb..7906e7e747d83 100644
+index 5f752434be3cf..ff8dd05419123 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -6497,6 +6497,8 @@ static int set_end_of_file_info(struct ksmbd_work *work, struct ksmbd_file *fp,
- 
- 	newsize = le64_to_cpu(file_eof_info->EndOfFile);
- 	inode = file_inode(fp->filp);
-+	if (ksmbd_stream_fd(fp))
-+		return ksmbd_vfs_stream_truncate(fp, newsize);
- 
- 	/*
- 	 * If FILE_END_OF_FILE_INFORMATION of set_info_file is called
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index aed2d2dd9b25a..4daae499769ae 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -417,23 +417,21 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 	const struct cred *saved_cred;
- 	char *stream_buf = NULL, *wbuf;
- 	struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
--	size_t size;
-+	size_t size, write_end;
- 	ssize_t v_len;
- 	int err = 0;
- 
- 	ksmbd_debug(VFS, "write stream data pos : %llu, count : %zd\n",
- 		    *pos, count);
- 
--	if (*pos >= XATTR_SIZE_MAX) {
-+	if (*pos < 0 || *pos >= XATTR_SIZE_MAX) {
- 		pr_err("stream write position %lld is out of bounds\n",	*pos);
- 		return -EINVAL;
- 	}
- 
--	size = *pos + count;
--	if (size > XATTR_SIZE_MAX) {
--		size = XATTR_SIZE_MAX;
--		count = XATTR_SIZE_MAX - *pos;
--	}
-+	if (count > XATTR_SIZE_MAX - *pos)
-+		return -EFBIG;
-+	write_end = *pos + count;
- 
- 	saved_cred = override_creds(fp->filp->f_cred);
- 	v_len = ksmbd_vfs_getcasexattr(idmap,
-@@ -446,6 +444,8 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 		err = v_len;
- 		goto out_revert;
- 	}
-+	/* Preserve the tail of an existing stream on an in-place write. */
-+	size = max_t(size_t, v_len, write_end);
- 
- 	if (v_len < size) {
- 		wbuf = kvzalloc(size, GFP_KERNEL);
-@@ -474,13 +474,69 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 	if (err < 0)
- 		goto out;
- 
--	fp->filp->f_pos = *pos;
-+	fp->filp->f_pos = write_end;
- 	err = 0;
- out:
- 	kvfree(stream_buf);
- 	return err;
+@@ -9362,6 +9362,60 @@ bool smb3_is_transform_hdr(void *buf)
+ 	return trhdr->ProtocolId == SMB2_TRANSFORM_PROTO_NUM;
  }
  
-+/**
-+ * ksmbd_vfs_stream_truncate() - change the length of a named stream
-+ * @fp:		stream file handle
-+ * @newsize:	new stream length
-+ *
-+ * Resize the stream xattr without changing the base inode size.
-+ *
-+ * Return: 0 on success, otherwise a negative error code
++/*
++ * The decryption key is selected by the transform SessionId, but
++ * the request is authorized under the session named in the
++ * decrypted SMB2 header. Per MS-SMB2 the two must match, so check
++ * the decrypted message and its compound chain before dispatch.
 + */
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize)
++int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id)
 +{
-+	const struct cred *saved_cred;
-+	struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
-+	char *stream_buf = NULL, *new_buf = NULL;
-+	ssize_t v_len;
-+	int err;
++	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
++	size_t msg_len = get_rfc1002_len(work->request_buf);
++	size_t off = 0;
++	bool first = true;
 +
-+	if (newsize < 0)
-+		return -EINVAL;
-+	if (newsize > XATTR_SIZE_MAX)
-+		return -EFBIG;
-+
-+	saved_cred = override_creds(fp->filp->f_cred);
-+	v_len = ksmbd_vfs_getcasexattr(idmap, fp->filp->f_path.dentry,
-+				       fp->stream.name, fp->stream.size,
-+				       &stream_buf);
-+	if (v_len < 0) {
-+		err = v_len;
-+		goto out;
-+	}
-+	if (v_len == newsize) {
-+		err = 0;
-+		goto out;
++	if (msg_len < sizeof(*hdr)) {
++		pr_err_ratelimited("Decrypted message is smaller than SMB2 header\n");
++		return -ECONNABORTED;
 +	}
 +
-+	new_buf = stream_buf;
-+	if (newsize > v_len) {
-+		new_buf = kvzalloc(newsize, GFP_KERNEL);
-+		if (!new_buf) {
-+			err = -ENOMEM;
-+			goto out;
++	for (;;) {
++		u64 sid = le64_to_cpu(hdr->SessionId);
++		u32 next;
++
++		if (first) {
++			if (hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) {
++				pr_err_ratelimited("RELATED_OPERATIONS set on first operation\n");
++				return -ECONNABORTED;
++			}
++			if (sid != tr_sess_id) {
++				pr_err_ratelimited("SessionId mismatch between transform and inner header\n");
++				return -ECONNABORTED;
++			}
++			first = false;
++		} else if (!(hdr->Flags & SMB2_FLAGS_RELATED_OPERATIONS) &&
++			   sid != tr_sess_id) {
++			pr_err_ratelimited("SessionId mismatch in compound chain\n");
++			return -ECONNABORTED;
 +		}
-+		if (v_len)
-+			memcpy(new_buf, stream_buf, v_len);
-+	}
 +
-+	err = ksmbd_vfs_setxattr(idmap, &fp->filp->f_path, fp->stream.name,
-+				 new_buf, newsize, 0, true);
-+	if (new_buf != stream_buf)
-+		kvfree(new_buf);
-+out:
-+	kvfree(stream_buf);
-+	revert_creds(saved_cred);
-+	return err;
++		next = le32_to_cpu(hdr->NextCommand);
++		if (!next)
++			return 0;
++		if (next % 8) {
++			pr_err_ratelimited("NextCommand %u is not 8-byte aligned\n", next);
++			return -ECONNABORTED;
++		}
++		if (next > msg_len - off - sizeof(*hdr)) {
++			pr_err_ratelimited("NextCommand %u is out of the message\n", next);
++			return -ECONNABORTED;
++		}
++		off += next;
++		hdr = (struct smb2_hdr *)((u8 *)smb_get_msg(work->request_buf) + off);
++	}
 +}
 +
- /**
-  * ksmbd_vfs_write() - vfs helper for smb file write
-  * @work:	work
-diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 06903024a2d88..526c0541ec691 100644
---- a/fs/smb/server/vfs.h
-+++ b/fs/smb/server/vfs.h
-@@ -82,6 +82,7 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- int ksmbd_vfs_write(struct ksmbd_work *work, struct ksmbd_file *fp,
- 		    char *buf, size_t count, loff_t *pos, bool sync,
- 		    ssize_t *written);
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize);
- int ksmbd_vfs_fsync(struct ksmbd_work *work, u64 fid, u64 p_id);
- int ksmbd_vfs_remove_file(struct ksmbd_work *work, const struct path *path);
- int ksmbd_vfs_link(struct ksmbd_work *work,
+ int smb3_decrypt_req(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_session *sess;
+diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
+index f0332eab2fe03..f7c3a6d45066c 100644
+--- a/fs/smb/server/smb2pdu.h
++++ b/fs/smb/server/smb2pdu.h
+@@ -447,6 +447,7 @@ struct channel *lookup_chann_list(struct ksmbd_session *sess,
+ void smb3_preauth_hash_rsp(struct ksmbd_work *work);
+ bool smb3_is_transform_hdr(void *buf);
+ int smb3_decrypt_req(struct ksmbd_work *work);
++int ksmbd_check_transform_session(struct ksmbd_work *work, u64 tr_sess_id);
+ int smb3_encrypt_resp(struct ksmbd_work *work);
+ bool smb3_11_final_sess_setup_resp(struct ksmbd_work *work);
+ int smb2_set_rsp_credits(struct ksmbd_work *work);
 -- 
 2.53.0
 
