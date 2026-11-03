@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719232;
-	b=sCHKXIKm1wUyrQEbiU684EU6rWBKr9pKRWjFvtayqIfL5aGMkNCHRW6yX6ZxTUv91yCX
-	 BzktGI8jTn/JCmP7z10QIzdlwyRXjmihDcf2Fq1rIOJJhMuqsFMiOrr+segErlwvt+5fI
-	 gfWQ2r+eEesj5uhO6MO6npxj8vb4n4+Eoulr8RO2q5AXyfDUa8JEsRivZOWWyyHrrfFWw
-	 u/Vq7dgbnYYdfaJYoJnlh32l+O/OKD+lsxNPNs3+0tPZru5OvwHLDoxFruvCwjh19jq2H
-	 y8OclSsLjzlxoizOyh55sjGlrrf2qMrW3UzgrIy4+wECnHw4x181KbA/UnTVAP5ZJzA==
+	t=1793719244;
+	b=H0mJeEDXBAXCZxT8FixHzDg5LVIkF/VXM5wkM9aYnU8wbfRSZiNSMPTgSDwhW81EgsYh
+	 oU5kS3AmG6ROWN2qZBVIjk6LUev+OHTZxRcaSMHqOQkyfG7WgnfH2Z9np+5kk9JkMm5yw
+	 d+CDiB+F3wX5uOnUAizRnb1qC5mYXy5or/pqRPEqCCHkHMywECOCbTj3tgalziYLnumO5
+	 acOzwRxKNfVzQl0VEo9muOu/VywN9WxuneWggxg7V1N/FaSUgYH53Vai7iBSznbQv9St5
+	 gF77mWdzTBECGy3KKh1+2kqh7d69E2etwQMVvOKohS0TLhcgpvFYQIuvqB/mox/n9+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719244;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TTu5uKWZbqs7La8xRv9JcxdhlL/aiFG3QQqDM967/tw=;
-	b=pwllQdX8nSzq/3PsPwR2k+x4Gj0LdG/spKfI1KK7qB1aFNr7yxXD06YPKn2CkV21u3Ta
-	 eHN77cUyZJOE+d3BzdqUykl5bYjuP7tvkHdSRstbg7yq/wMMyUZi6x48AkGNim2J0Dh2E
-	 bUZCDCENon4N0cNEgY276mUcu2FZVnKGEa3yEX7jT71wXk7RWT03LOg0hxzxkmZu58sDy
-	 8qWyHQ7UjrMqLWIsI7KHRxzMC5p9qUkYVHb6zYzq5W8ciEDgSqkt0/b9si0xphr23kKiT
-	 YzZE/lKXE6ejK9R+RAwTg6rjUrfvs2zFPTxQ7ufU8yPs6VdlLll3COBcNi24fEcNUHQ==
+	bh=WbMRgdcMaqEPX9VxUTealMfsTX85mg1h68JYcuFLpL4=;
+	b=cOeJ9LyG05vOlv4brCXcMtIOt+kRrHvVtu1tthPTsD8qIfENJi5ACYfjnJ/JDp57p4qA
+	 Em+vxBcOUKJ7aWDVEOsGAEK0+DtcVGCXb56/V5D5dziBIIO5xdTtHFM0fOkHqlVsC3OnS
+	 PghClYZf1mNyTohva4rpuNpdq3qRf4gXsEePdU1sLIw96XS4kDrqRmz2kEakkTwsnKra0
+	 Gr0VmUMh0VmEEEHXQebURcCjwMtRDeoebEgtaiqTodJNy++eDsOxSeY7mJQ2+o42NkNO6
+	 Urb4MFWn22aEmYplcfkCiTMNd0ncHoOBqNPmnlegLFNZKumW09cCwrgAJre3CqCJEgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cH/QIhi+";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOCFMgj3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBDA606A328
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:20:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917BE606A79F
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cH/QIhi+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7E51F000C1;
-	Tue,  3 Nov 2026 15:20:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MOCFMgj3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A2151F01806;
+	Tue,  3 Nov 2026 15:20:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793719231;
-	bh=TTu5uKWZbqs7La8xRv9JcxdhlL/aiFG3QQqDM967/tw=;
+	s=k20260515; t=1793719244;
+	bh=WbMRgdcMaqEPX9VxUTealMfsTX85mg1h68JYcuFLpL4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cH/QIhi+kkQ9fOqseQz8XTeTmH6eSxuG8CONrXA2F0i+28XF/DlLDSndLjQRY0CcR
-	 gk+FxTASguwupWoQKReNjmx9m1/xLAcXzJ1LeU+Fs7wTEMzGxmbtP49Uy/W/KVyjDp
-	 amSyOYzX939+9FJAz8jtSM1oFXagB3IUNEVGQg4tHAwXRSXYYDumTbqLeZidmv/rW1
-	 MprgA2Gct7dnzT7tXFtqxrqzRJGV/gXLn2Uyl0Nq5W4Zb/mXXegBpjGm4r0km3Kw2e
-	 3IPPldee4PFV0dRkAItjT6T7tqowb/TJe3RXIQRWii+L2goQU42FwGxaVx6t5uV41X
-	 3uT15MRhX455A==
+	b=MOCFMgj3bvs6n+FFGDYKXLyp1wLK5Vvb518iKfYYto1pXHOk3wIRB+dkPd1QpzGj/
+	 OPtFOXnpIxsymB16JAuEG0PiCEK6Ta593E6a45AW/spgdsMWVq/uDZ5kKn1Zwqpye0
+	 l+O+6pF6zb1Z/4QkvlciubZ7vTk9g5e/JcneXcSqRUXhhij1vlGAfWRmd4dkFbILKl
+	 kduoUGhLPlKoBYqkm1yz8ACF0BwO2lomdRC9g+kfEGbplySaA9d4STyuzLsCy216UE
+	 RP9zl5pmhAnWaB2mzOgh7ShPn3fkxip98sxrEiS9iV/lJBh3H9/+6AL3jxZqdhlMJ0
+	 lhjHxDbTREg6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Abdifatah Suruur <suruurism@gmail.com>,
+Cc: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>,
+	AutonomousCodeSecurity@microsoft.com,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ksmbd: reserve space for the UTF-16 terminator in stream info
-Date: Tue,  3 Nov 2026 10:20:30 -0500
-Message-ID: <20261103152019.378557-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ksmbd: fix parent dentry lifetime in directory enumeration
+Date: Tue,  3 Nov 2026 10:20:42 -0500
+Message-ID: <20261103152020.246425-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110318-lanky-disallow-4cf3@gregkh>
-References: <2026110318-lanky-disallow-4cf3@gregkh>
+In-Reply-To: <2026110303-stress-stardom-c27a@gregkh>
+References: <2026110303-stress-stardom-c27a@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,51 +62,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Abdifatah Suruur <suruurism@gmail.com>
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
 
-[ Upstream commit a025c4991a7d83edc4dd339e3ea86d8ff6226eca ]
+[ Upstream commit 171df27077fb49b4af2c53ad2cedcd0e39664fe8 ]
 
-smb_strtoUTF16() always writes a terminating zero UTF-16 unit after the
-converted characters, but get_file_stream_info() budgets only
-sizeof(struct smb2_file_stream_info) + streamlen * 2 for a stream entry
-and sizeof(struct smb2_file_stream_info) + 7 * 2 for the trailing
-"::$DATA" entry. When an entry exactly fills the 448-byte small response
-buffer, the terminator is written two bytes past the allocation.
+ksmbd_populate_dot_dotdot_entries() builds the ".." entry from
+the open directory's d_parent and passes that pointer to
+ksmbd_vfs_fill_dentry_attrs() without taking a reference. That pointer
+is only valid while the directory stays under this parent. If a
+concurrent rename moves the directory elsewhere, the old parent loses
+its last reference; a following rmdir then turns it into a negative
+dentry with d_inode cleared, and after the RCU grace period the dentry
+itself is freed. The worker still holds the raw pointer and
+dereferences d_inode through vfs_getattr() and vfs_getxattr().
 
-Reserve one extra UTF-16 unit in both budget checks. The terminator is
-not part of the wire format, so the reported lengths are unchanged.
+A remote SMB client, authenticated or guest, triggers this by listing
+a directory while that directory is moved under a new parent and the
+old parent is deleted. It can be done by the client itself with write
+access or by other concurrent writers, triggering null-ptr-deref and
+slab-use-after-free on a KASAN build.
 
+  KASAN: null-ptr-deref in range
+      [0x0000000000000000-0x0000000000000007]
+  Workqueue: ksmbd-io handle_ksmbd_work
+  RIP: 0010:xattr_permission+0x9d/0x160
+  Call Trace:
+   vfs_getxattr+0x9c/0x1b0
+   ksmbd_vfs_getxattr+0x82/0x100
+   ksmbd_vfs_get_dos_attrib_xattr+0x7f/0x130
+   ksmbd_vfs_fill_dentry_attrs+0x435/0x650
+   ksmbd_populate_dot_dotdot_entries+0x25e/0x630
+   smb2_query_dir+0xcf9/0x1a20
+   handle_ksmbd_work+0x5f1/0x1c80
+   process_one_work+0x90b/0x19d0
+
+Fix by using the dentry reference counting APIs: take the parent with
+dget_parent(), take a matching dget() on ".", and dput() the dentry
+once ksmbd_vfs_fill_dentry_attrs() has returned or the pattern does
+not match.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Cc: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: adjusted context for the existing ksmbd_vfs_fill_dentry_attrs() call using user_ns without a return-value check ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ksmbd/smb2pdu.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/smb/server/smb_common.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
-index 4c42205fe5261..0346305edf8a4 100644
---- a/fs/ksmbd/smb2pdu.c
-+++ b/fs/ksmbd/smb2pdu.c
-@@ -4773,7 +4773,8 @@ static void get_file_stream_info(struct ksmbd_work *work,
- 				     ":%s", &stream_name[XATTR_NAME_STREAM_LEN]);
+diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
+index 0350697c9093b..d30547f656ccd 100644
+--- a/fs/smb/server/smb_common.c
++++ b/fs/smb/server/smb_common.c
+@@ -447,16 +447,17 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
+ 			if (i == 0) {
+ 				d_info->name = ".";
+ 				d_info->name_len = 1;
+-				dentry = dir->filp->f_path.dentry;
++				dentry = dget(dir->filp->f_path.dentry);
+ 			} else {
+ 				d_info->name = "..";
+ 				d_info->name_len = 2;
+-				dentry = dir->filp->f_path.dentry->d_parent;
++				dentry = dget_parent(dir->filp->f_path.dentry);
+ 			}
  
- 		next = sizeof(struct smb2_file_stream_info) + streamlen * 2;
--		if (next > buf_free_len) {
-+		/* smbConvertToUTF16() also writes a terminating UTF-16 unit. */
-+		if (next + sizeof(__le16) > buf_free_len) {
- 			kfree(stream_buf);
- 			break;
- 		}
-@@ -4795,7 +4796,7 @@ static void get_file_stream_info(struct ksmbd_work *work,
+ 			if (!match_pattern(d_info->name, d_info->name_len,
+ 					   search_pattern)) {
+ 				dir->dot_dotdot[i] = 1;
++				dput(dentry);
+ 				continue;
+ 			}
  
- out:
- 	if (!S_ISDIR(stat.mode) &&
--	    buf_free_len >= sizeof(struct smb2_file_stream_info) + 7 * 2) {
-+	    buf_free_len >= sizeof(struct smb2_file_stream_info) + (7 + 1) * 2) {
- 		file_info = (struct smb2_file_stream_info *)
- 			&rsp->Buffer[nbytes];
- 		streamlen = smbConvertToUTF16((__le16 *)file_info->StreamName,
+@@ -465,6 +466,7 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
+ 						    user_ns,
+ 						    dentry,
+ 						    &ksmbd_kstat);
++			dput(dentry);
+ 			rc = fn(conn, info_level, d_info, &ksmbd_kstat);
+ 			if (rc)
+ 				break;
 -- 
 2.53.0
 
