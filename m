@@ -1,182 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793675974;
-	b=wPZnA6Lm4Y/QLJePu4NuMfiDfQk3SWOU4IHwiNb0mSMeguJO/T32JYNy2eUDxso2eYIC
-	 d6vVyiJKOw0wJUQtdNEylC9TZTCHJOuf41Gs1hXk0XkefXHRmus4xFIMg5kGePrQDkI/X
-	 tik36NSdrbSbrzduRTX8Xd3okzvpyFq2B4X4oPhskOUNoh3oDfhRm/C3bRBBqp0elTase
-	 NwECpw5wl8VSAMREi1higSzaZIfDU4sAcPVywDWtxHOZUSXmsnk30yZvyAVcEDhjcOlsf
-	 ZMAyYV89F/ljDlK2pEzqnk7LZJ1GC3dtBb4fVXx6xoRwUsm6/qhl5++nZq1FL4xZ6Hg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675974;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=EzlFOft1IugyFc3O7AAc1tr1+uwzZGuW33+lJCS41Jg=;
-	b=mhqbi6269C5wFS9PaZ4uul+VIBaERgb8sJgfuIK8fP8Anpng7a3AvsiBDmZNFH4J8Xx4
-	 XRgQZzI94LRqL7ZtuP0kTmU4HkpG94QGz34ZFjlsciBW/Cj3SL/W1agfXDg9RKiNKN+eO
-	 Ii9q5InAyBAhPKYG2yiV5XDbGbhCcG4dJAiSx445LlT8QFffDZY7kkHlbpJi7PT77FgA6
-	 TbCJxz4FrJUsgD6MBmmAyrcI+gesbaO5ksf3dCyehTKkKdAJg/NTwoP9eZDw3pNxobLQS
-	 ruIQpCJFD2lxded+2zxFmy8wVYGbgdgVkEe6Qsvru3UYtBjMv91PZZ2xrpMoURTZ0rQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FhQDephA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793675975;
+	b=AD0vFZPvlit6Q+rCsalBqUOh918gNw+G36tHcT2iNh5J/tZQTuujsaArvW4yrOOipQK7
+	 5AUjRo1SjCTS7m6CyNDOWgxP/6l96eoaTNjRnlO964NG9geWY6DC+zp5KFxtIriaAm3S0
+	 3CuzBjfQmV4VgW+8C2ckR3xCv+ucpHM9NuvrdvVM6dq1cXaPd4cFqqJl4hZRr8bzyTQ1o
+	 SVJhHIISLCNsCrB/YBRsEXOSi2knG6id1Ygb4L9kXTMlUFa653WXY0RHRx1DIogu+VRHP
+	 XseQoRFndBD+JzZsMYZ7Kor8mc3y6ajeteEO0LW6lh06JhhrDLONeW/JXM8vpZ0E19A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675975;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=ZBc6vW+MC16lgEAg684k9mt22s9+kyKXBv0BnVsALQY=;
+	b=qVGg11XXZeUb8xycU6JdhDeQPOHjACllxr+SK3yBUhEaBslr8jS0MwRe4fV6RXqsOm78
+	 eznjH2n7y+qxRq1mBCkHHws44OH9wSidpTtidSALgMlYKQcP0SFwofa1FazH2yvurLQlf
+	 NBcMhhMQ4BuQneHLq/CHQHtEDlHUYWjbpmwwYxi2de2ShW+c12eUBBcSx3Bs7n6dy29to
+	 xYFP/AO/FkWVS+63flvAAGKxDBX0mdK8NLmFvbso3GYEt7os10T6McrKfwIxblrklYqzz
+	 H8pdkfJ0YGcTeoDHnHtj/2IxlcmQiTuu8UzbvH6BTosGTLRwRNZQs1JE6IlktWDv/bg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ezc61Fl5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08A4606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 03:19:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F08A4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629F8606A335;
+	Tue,  3 Nov 2026 03:19:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FhQDephA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793675972; x=1825211972;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=EzlFOft1IugyFc3O7AAc1tr1+uwzZGuW33+lJCS41Jg=;
-  b=FhQDephA8HuNTU8Wf0SgiAIsZn0L8Y64/nlLwfGlchOquIRcDGSiBIAU
-   W6tXjSlKcqckdCcJkU7pun5ZZu7+XgnXsY31K4Spz4HrN4OAKroIQf12m
-   DQekLHZK4CmiZ5YkeW+UBR1A4ms9sLQS6kePjPiU35CKusQuD73Is6JsW
-   rqhWGesC8MiqeJvEcbyTEeb2xO8r0G7uPB/x/QnUrCC7mNMMr7cXY3Khh
-   kZGQze4wEcCkbYx78uu8Awzm9Gtc24oMQl+zdi89co6kOSw/6hqrdYKbO
-   gPCXqpIe2SIw1jjpKKsE58zVLQxTE2Gx5XEoDkNS0wR14GenO0oFt1UuT
-   Q==;
-X-CSE-ConnectionGUID: 9JNpLjwxRo+YNgn5+AuZ/A==
-X-CSE-MsgGUID: fraJDa4GSTGz39aqeL3XfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2416129"
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2416129"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 19:19:32 -0800
-X-CSE-ConnectionGUID: biJc929lSyOzbWblUIgYDg==
-X-CSE-MsgGUID: YOroTsUnTtuzGqaccAdHSA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6624792"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 19:19:31 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 19:19:30 -0800
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 19:19:30 -0800
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.34) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 19:19:30 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TCIKJyJ/WGYLDT5kGWRO/ap1hcEfYPhwBFftZARLQcR1Cq/0oASKUjg4vIeARPZq94bphoY1+63O8LlhnR0SClTXKMnoQsVJOuyRO860dQjW1+fO0lOLuu384ynR9GX5+01tXGn7eW6js6fbRvRCQYVUJWFqHphGvN2w7bfwWflZ40+5mPUk+2xp7b7DvEIqmYBSR0X7q3rLwqufWdp9PoHRwHXJxFSVPF95ATkhRR6mFZfCcW5n++V/cw6z1sDuQqkSMR9BS7rYEiBeIm6tBIzYWa6k/bGzwr+E+gVSAYWxjyg2bmSfIeBStzLJTRgYzrq4yFqbsAXxtDtFCkWLGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EzlFOft1IugyFc3O7AAc1tr1+uwzZGuW33+lJCS41Jg=;
- b=yUOTCOJkJrpzk3CyVXhIZ+8e0b5wXYEEfcIXbEpkqeYGF4fSoj0RMS+ly+twWOQYiYHEkWoCQSAN2uychKHKmxDMBgcOkoo+GFU1z+dwoqVQl2+CaWeyL5h87ubYacor8D5cqr9EmJC1eW9EXc1QEj9cWTzE5DgrdK6iuOSKAqksgHXVj4rUHrG4s9nOzqHAeiMi+jXkHDZkibn9nQ++btF0Hs5HDV9tuRq4NzPPg5GQHS6qA1vCaJRpQUen2uFqr2S9HuDQNyXcR1sLM8Hq5TsLrCCTDgybpuglqJRXqqZMNucVTX/T9p5kSt/uOm7E8UD91gwkPCH0qVt42Dvu0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5b) by IA0PR11MB7695.namprd11.prod.outlook.com
- (2603:10b6:208:400::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 03:19:23 +0000
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::19f5:13eb:df52:68ff]) by DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::19f5:13eb:df52:68ff%8]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 03:19:21 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
-	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH 01/10] drm/i915: Disable port sync if VRR is enabled
-Thread-Topic: [PATCH 01/10] drm/i915: Disable port sync if VRR is enabled
-Thread-Index: AQHdaJIUIAMjnvGYHUOO7JzADYEOdLcaghZA
-Date: Tue, 3 Nov 2026 03:19:21 +0000
-Message-ID: <DS4PPFE901A304FD05565ABE33F79803F55E3692@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20261030171327.29829-1-ville.syrjala@linux.intel.com>
- <20261030171327.29829-2-ville.syrjala@linux.intel.com>
-In-Reply-To: <20261030171327.29829-2-ville.syrjala@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|IA0PR11MB7695:EE_
-x-ms-office365-filtering-correlation-id: 796e9487-93e9-4ea4-c65c-08df3959411d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|261102123227099003|56012099006|22082099003|3023799007|261009223027099003|38070700021|261021121427099003|4143699003|11063799006|5023799004|10067099003|261026121527099003;
-x-microsoft-antispam-message-info: uG05SkMGQvC5D5zAwb2Yt7zEPDxaSQL9fsazlOd/gLYbvPfrIkPBnWH9ZJtC9PR0HYKBOSgmdJEBx3gcVa9LmI84oL1rxMtlFImH7cv3PKs8FGOEsYfLF6UJsSFCKUSbdFda8bdmdpH/JWa56OFa+7kQ9NnNZwrYsb++JKPEPsEfQ7/riE0py6jXQLdhv+h4HTW82b9QRgPW0fkr+6g5ALrSzuTqxFkDtcBk9/UwO40Et/eIYDNOd7r8cHjuGfGP/I6Bzos7BioNmtfNWeaQe08JfZ0JuHp/vqtZAdiqztrh4doXVMj2GI0wYHlKlX+kjfZO2egOpUlz0GYjL6+QD48CfkyouMuTkQmgKRUmVHhikMyZ4YLkoKJmht1ujCQBexkfTkAmyRwDOGaJ2kXCKdsdhIt30jmpCNukLzUYWWUwfFd0m3838ooAonOStYVNEFElb2nACoXMDqNhiRwI/vMatQ45Ycx/+ihdpc81u2hUcKDCM1QI49+muvo3iEH7TJmP7kiCNMXjmrMlsnCDSB70Iqcmort/lWbINeM968J6TWNFIQ1wRcHnxtRH79MIlVD9ckkFDWwE5mtHjMNkRKjkin+0CCGWwqYomqXQDeX4EMSOsV0xIWwqiPRlUspObutFGSoY9OgNwuUX7a9NPiOgNRvez6+xTAwCHaqGB5M=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPFE901A304F.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(261102123227099003)(56012099006)(22082099003)(3023799007)(261009223027099003)(38070700021)(261021121427099003)(4143699003)(11063799006)(5023799004)(10067099003)(261026121527099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UklnY05WRTRDTDVvSWJpTmF5RytUQ090VkVQUDQ1ZDMvak1SZndRSnoxcWJL?=
- =?utf-8?B?Z2hBYjk1ZDNnMEM5UkhibUFNbWdxYXVQbzl2Q2NqQy9IVWVxOVpVdU9VSnE2?=
- =?utf-8?B?SitUanlNRUNhaU9JZmNpL2NSNng2MFBQUkV0b2NuVWFzT2pzSVdUbjFETTBl?=
- =?utf-8?B?Qm5sVWwxVnJpVGlpSndBOGRqVlI1Rk9QdmQ4QktIQTd2V0RUallsQkJRMElj?=
- =?utf-8?B?WCtxWnJQY1lzTHFzOW1lOCtNNzNxR1Z4a0ZKMkJJeUVOZEVhY0tnUng2aWRH?=
- =?utf-8?B?MXNYYXBnays1WDVVdTB6bjA3UEJLOEdtTU9XajhrYmVhQndteWtNRk42V3FM?=
- =?utf-8?B?czk3V0k3UTNnOUUwaVNNR3ZGVDhDOElNS3FZMXRnZzc4K2dwUVgxa2FWa3lJ?=
- =?utf-8?B?VUF1ZWJ6Y2ZOeE5UQ2lmdnlmRXNDYjNETksyeDVHVEhTczNEU3JJUFRUV2VX?=
- =?utf-8?B?WFhBemsySUtCMnBCY3hJdk0zTjF4M25DNHdqejg1aWVFSTFVRXMvK3RvS29r?=
- =?utf-8?B?ZjBaSVVmdkRiNUlOTXV0SEwrZFAxMUNJOVBaT2c0ZFRlR1QyM2phSHJqMHlL?=
- =?utf-8?B?MWwvckswSEVuNmxJYmxEUXFlTUZ0Zk5rTDhjKzNJQnMrMHg2Q0w3Q3FGdCtT?=
- =?utf-8?B?YVlNdVVGRnh2aStLblFVSllHQmxNRndOOHcvZGtwMnBlZDJkS1FVWnVEN0Yy?=
- =?utf-8?B?ekZkdnlpanR4WlZIL0dhRjBHR1ZWQkd6V1lqZmppUzFOOVhCWUlRRVBONHNT?=
- =?utf-8?B?akhIWFEwTkMzUUVON0xrWlcyaVNnbVNPOTRwTysvbys2MGp0c2xMSmRLWkFX?=
- =?utf-8?B?UXZ1bFVTSVlhenZwRVNmZmUrbE4zTUkvNGxTdklNMFpRa24zTy83V245ZDUx?=
- =?utf-8?B?THpIQVJlNm9rdTJnRkkrZ0Z0MTUvc0k5ZzYrZGtvZjdTSVVCR1hkdjdUcHg4?=
- =?utf-8?B?bTdtU1IxT2ZESEpYV0F6NkhnMUQxcnAzTytFeEhqSkhKNkdiQko2WFJtQzBJ?=
- =?utf-8?B?MjRndU5hbHFjWXlPRDBjdzJjdXFhZy9vMzBOaXpHd2JNOWorUTZFc2ZqeWZY?=
- =?utf-8?B?S0xyS1VIMjJBQnlEOEFTZTIyVXROdGlIVEZsbUxkR1gyenBhWktBaFphaGMx?=
- =?utf-8?B?b2xkcXI5VkNUWEZuaUdYSk1PSXJ3c0dvR2FOR1dJamNvZ040SzVMb2RNODJD?=
- =?utf-8?B?N01JbzFmZWxsWGRqcGtNaFBZaXRteWF6SjJQdWlvK2NvVC9RM1VmdWpHK1RW?=
- =?utf-8?B?bi9WNEw3eVBHNEIzZXNoWXRqV2V4MlVrSzQ1WTRxdWo1WERkVTkzeFBLaXha?=
- =?utf-8?B?WWNTZndTamQ2MHlWdDl3YVQ2RExHUEhzNEpXZjRNbmFIMXVLOUZUcWxGOUJM?=
- =?utf-8?B?WHg5Skg0dWlSYkg5ZU54N2pkaTA3c2dQcVlZS3hRbjd2aFh5WjhWTnlNZitx?=
- =?utf-8?B?eEtUVFhubVFhU3BmYzFMeUJrZjNDcVZIMWRYQXlqK0txWTA2N2s2dVpreWRs?=
- =?utf-8?B?K25MV2VTYnZUYVlla1d6V1VjaGNEZVRNaXN2S2ljcWlab1RHZFhYRjRnVXJK?=
- =?utf-8?B?dG1HckNUbzd3QzJkdTNVNDh2dU1ObXdjcnpUbjRyWDlpYkJHaE1ST0gzYTlG?=
- =?utf-8?B?djZxNzF5M2ZLMy9Ibk9ldHU4Mmc0YXo4Q3VZbURCVGRMVGZ5VHptdnl1SzRE?=
- =?utf-8?B?cVRxNmpyLzhzWm9Md0tRN0JBYzJVTisyS3BwVzcvYzNVOFdvekwweDZWaWND?=
- =?utf-8?B?aFFhWlYzNGRZclJVbkR1TDBPRHVqZUpGQWcxQ3N5T2FYMDBkL3crSkdwN3dt?=
- =?utf-8?B?WHRvUjY2K2pRZUNkbHBWWFFqenJrOGlCeVM0WHJEaTFXdXdDVGFkdzBoY04z?=
- =?utf-8?B?SlpKcVJWQnF6YzM3ZFFDS1ZEcE5vWU9hMWp1NUo2SDRSQmFJdVpzQmFPTDF3?=
- =?utf-8?B?NWVpY0gyK0o2RW9BQ2o3RlFjbDI3WW1uN3M1SjZHcGg5UEc3YXBNSVo5VExU?=
- =?utf-8?B?K2kwRDdKRE9xa1JDMWtRZVlMQytBMVYwN05Ub1I2ZHU5VWVtNjR3cUZZN3V3?=
- =?utf-8?B?UzlBSTkyL3BVVGQrZUQreFFzTTl3cW1IdDRXbkNGRHhGK3JjMGxFZzlSZmll?=
- =?utf-8?B?YXRYKzZTVGZVOS9OSithQ2xZaWszbGlsTEVIOXVGU1EreWdoVW93QUhjSDdz?=
- =?utf-8?B?cFlwVjYxc3hjK2d2WmFkV094cFRIb3R4RGdDak4yMUNBMWNPR0FEKzFETXBn?=
- =?utf-8?B?d1BEaXhBend4TUE2TlZxVy9aeUVRdkVydE1vcGh6ZmFVekV3L2lGWlduZWxQ?=
- =?utf-8?B?dE5yWmxRelRYK0RLaHFpbmVVVnZkWTcyVm9QWUs1bTkwZWh5M2hRQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ezc61Fl5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E02F91F000C1;
+	Tue,  3 Nov 2026 03:19:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793675975;
+	bh=ZBc6vW+MC16lgEAg684k9mt22s9+kyKXBv0BnVsALQY=;
+	h=Date:To:From:Subject;
+	b=ezc61Fl5dyUL+6tGnLGmDaRy2613ZKlhXmAMNhvJZM9XyfbfJAV6o2i+AOAG3DbCn
+	 VhtL2nJO2xLiL+Uie22YWNRf8F30qVg7BKpBxBthwL4cZxDn7K5lnaHaJ4wUpyouDf
+	 ogwg4LwScFul33OrH4lCWXE2V3AQXqfP+LNL8buw=
+Date: Mon, 02 Nov 2026 19:19:34 -0800
+To: mm-commits@vger.kernel.org,zzzccc427@gmail.com,
+	syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com,stable@vger.kernel.org,
+	mark@fasheh.com,kartikey406@gmail.com,joseph.qi@linux.alibaba.com,
+	jlbec@evilplan.org,heming.zhao@suse.com,eklavyasingh2106@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [merged mm-nonmm-hotfixes-stable] ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch removed from -mm tree
+Message-Id: <20261103031934.E02F91F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -185,56 +52,194 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: F+1G9EJNiU1bRVykdoz78kUgOnMnbTBn51rmakQ4auWr8zq8tmH2LYZZs7pF0wn3FFUz4szs8m8gbuQUEOSwuEQk1zeHDCY0dWX9n1JqIhvYZuDuXlHbVQIejAvgZBVvwz+zGCDH480/eOlNyRW2jM0ykkOyLrirexGikQaMR2Z0Sd3K7BfyjcFYcoyIxjpGh5uczP31i0VBiyIuIwHYFcMoOthSImr128NJ0VvBAp8GrJlerBkVmI6DYoa9J5WZZRuox/ARFeUYLQfwVaTBu88THgAYuPjcM80MR+ptfP9fa2djiBRk4Hn7Xz46tdKyAjXmcZNDiuH5BVXXqamYvA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 796e9487-93e9-4ea4-c65c-08df3959411d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 03:19:21.7057
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Yj98C4op1723eukeuc4M6vMV8/EOpDPzZIe5T3u4wxWVygaWmYDniHGrUKev8YZ6YHXiUSi7OjEXMooOUBDRlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7695
-X-OriginatorOrg: intel.com
 
-PiBTdWJqZWN0OiBbUEFUQ0ggMDEvMTBdIGRybS9pOTE1OiBEaXNhYmxlIHBvcnQgc3luYyBpZiBW
-UlIgaXMgZW5hYmxlZA0KPiANCj4gRnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxh
-QGxpbnV4LmludGVsLmNvbT4NCj4gDQo+IFVzaW5nIGJvdGggVlJSIGFuZCBwb3J0IHN5bmMgdG9n
-ZXRoZXIgd291bGQgcmVxdWlyZSBleHRyYSB3b3JrLCB3aGljaCB3ZQ0KPiBkb24ndCBkby4gVHJ5
-aW5nIHRoaXMgd2l0aCB0aGUgY3VycmVudCBjb2RlIHdpbGwgYW5nZXIgdGhlIGhhcmR3YXJlLiBE
-aXNhYmxlIHBvcnQNCj4gc3luYyBpZiBWUlIgaXMgZW5hYmxlZC4NCj4gDQo+IFRoaXMgd2lsbCBv
-ZiBjb3Vyc2UgYWxsb3cgdGhlIHByZXZpb3VzbHkgc3luY2VkIG91dHB1dHMgdG8gZ28gb3V0IG9m
-IHN5bmMuIEl0IHdvdWxkDQo+IHByb2JhYmx5IG1ha2UgbW9yZSBzZW5zZSB0byByZWplY3QgVlJS
-IGluc3RlYWQgd2hlbiBwb3J0IHN5bmMgaXMgdXNlZCwgYnV0DQo+IHRoYXQncyBub3QgcG9zc2li
-bGUgcmlnaHQgbm93IGJlY2F1c2UgVlJSIHN0YXRlIGlzIGNvbXB1dGVkIGZyb20NCj4gLmNvbXB1
-dGVfY29uZmlnKCkgYW5kIHBvcnQgc3luYyBmcm9tIC5jb21wdXRlX2NvbmZpZ19sYXRlKCkuDQo+
-IFNvIGxldCdzIHRha2UgdGhlIGVhc3kgd2F5IG91dCBmb3Igbm93LCB3aGljaCBhdCBsZWFzdCBr
-ZWVwcyB0aGUgaGFyZHdhcmUgaGFwcHkuDQo+IA0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9y
-Zw0KDQpTaW5jZSB0aGlzIGlzIGdvaW5nIHRvIHN0YWJsZSBkb2VzIHRoaXMgYWxzbyByZXF1aXJl
-IGEgZml4ZXMNCg0KPiBTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmph
-bGFAbGludXguaW50ZWwuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3Bs
-YXkvaW50ZWxfZGRpLmMgfCAzICsrKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygr
-KQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
-ZGRpLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jDQo+IGlu
-ZGV4IGEwYWZmMDg3ZmFmYS4uZWQ3ZDRjYmJmYjVhIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2RkaS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvaW50ZWxfZGRpLmMNCj4gQEAgLTQ1OTksOSArNDU5OSwxMiBAQCBzdGF0aWMg
-Ym9vbCBjcnRjc19wb3J0X3N5bmNfY29tcGF0aWJsZShjb25zdA0KPiBzdHJ1Y3QgaW50ZWxfY3J0
-Y19zdGF0ZSAqY3J0Y19zdGF0ZQ0KPiAgCS8qDQo+ICAJICogRklYTUUgdGhlIG1vZGVzZXQgc2Vx
-dWVuY2UgaXMgY3VycmVudGx5IHdyb25nIGFuZA0KPiAgCSAqIGNhbid0IGRlYWwgd2l0aCBqb2lu
-ZXIgKyBwb3J0IHN5bmMgYXQgdGhlIHNhbWUgdGltZS4NCj4gKwkgKg0KPiArCSAqIFRPRE8gVlJS
-ICsgcG9ydCBzeW5jIG5lZWRzIHNwZWNpYWwgaGFuZGxpbmcNCj4gIAkgKi8NCj4gIAlyZXR1cm4g
-Y3J0Y19zdGF0ZTEtPmh3LmFjdGl2ZSAmJiBjcnRjX3N0YXRlMi0+aHcuYWN0aXZlICYmDQo+ICAJ
-CSFjcnRjX3N0YXRlMS0+am9pbmVyX3BpcGVzICYmICFjcnRjX3N0YXRlMi0+am9pbmVyX3BpcGVz
-ICYmDQo+ICsJCSFjcnRjX3N0YXRlMS0+dnJyLmVuYWJsZSAmJiAhY3J0Y19zdGF0ZTItPnZyci5l
-bmFibGUgJiYNCj4gIAkJY3J0Y19zdGF0ZTEtPm91dHB1dF90eXBlcyA9PSBjcnRjX3N0YXRlMi0+
-b3V0cHV0X3R5cGVzICYmDQo+ICAJCWNydGNfc3RhdGUxLT5vdXRwdXRfZm9ybWF0ID09IGNydGNf
-c3RhdGUyLT5vdXRwdXRfZm9ybWF0ICYmDQo+ICAJCWNydGNfc3RhdGUxLT5sYW5lX2NvdW50ID09
-IGNydGNfc3RhdGUyLT5sYW5lX2NvdW50ICYmDQoNCkkgcmVtZW1iZXIgdGhlcmUgd2FzIGEgaXNz
-dWUgb24gUFRMIHdpdGggNWsgZGlzcGxheXMgdGhhdCB1c2VkIHRpbGVkIGRpc3BsYXkgdG8gc2hv
-dyB0aGUgc2FtZSBzY3JlZW4gd2hpY2ggY2F1c2VkIHBvcnQgc3luYyBkaXNhYmxlIA0KVG8gZGlz
-cGxheSBjb250ZW50IGEgbGl0dGxlIHNoaWZ0ZWQuDQpodHRwczovL2dpdGxhYi5mcmVlZGVza3Rv
-cC5vcmcvZHJtL3hlL2tlcm5lbC8tL3dvcmtfaXRlbXMvODk5MQ0KDQpSZWdhcmRzLA0KU3VyYWog
-S2FuZHBhbA0KDQo+IC0tDQo+IDIuNTUuMA0KDQo=
+
+The quilt patch titled
+     Subject: ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
+has been removed from the -mm tree.  Its filename was
+     ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute.patch
+
+This patch was dropped because it was merged into the mm-nonmm-hotfixes-stable branch
+of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+------------------------------------------------------
+From: Eklavya Singh <eklavyasingh2106@gmail.com>
+Subject: ocfs2/heartbeat: serialize concurrent writes to a region's dev attribute
+Date: Wed, 21 Oct 2026 02:53:39 +0530
+
+o2hb_region_dev_store() checks reg->hr_bdev_file to see if the region
+is already started, but nothing stops two writers from doing that at
+the same time. configfs only serializes writes through the same open
+file, so two processes that each open the dev attribute can both get
+past the check:
+
+  A: hr_bdev_file is NULL, opens file A, sets hr_bdev_file = A
+  B: hr_bdev_file is NULL, opens file B, sets hr_bdev_file = B
+  A: start fails, fput(hr_bdev_file) drops B, sets it to NULL
+  B: start fails, fput(NULL)
+
+Both calls also use the same hr_slots, hr_slot_data and hr_tmp_block,
+so the error paths can free the slot data twice.
+
+syzbot hit the fput(NULL) with an unbound loop device, where every
+start fails with -EIO. With four threads doing the same thing on a
+KASAN kernel I get both crashes within a second:
+
+  BUG: KASAN: double-free in o2hb_unmap_slot_data+0x14d/0x2f0
+  BUG: kernel NULL pointer dereference, address: 0000000000000158
+
+Add a mutex to the region and hold it in dev_store(), in the
+block_bytes, start_block and blocks stores, and in dev_show(), since
+they all look at hr_bdev_file. dev_store() cleans up with goto, so it
+takes the mutex in a small wrapper rather than with guard(). The mutex
+is dropped while dev_store() waits for the heartbeat to become steady,
+which takes seconds, so a read of dev doesn't stall behind a start.
+hr_bdev_file is already set at that point, so other writers still get
+-EINVAL, and the cleanup after the wait retakes the mutex.
+
+With the patch the same test ran for 10 minutes with lockdep on and
+nothing was reported. So did a second one, with a working loop device,
+that interrupts starts during the wait while other threads read and
+write the attributes.
+
+Link: https://lore.kernel.org/20261020212339.46591-1-eklavyasingh2106@gmail.com
+Fixes: a7f6a5fb4bde ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
+Signed-off-by: Eklavya Singh <eklavyasingh2106@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: <syzbot+5d4e96acd0febccb5e87@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=5d4e96acd0febccb5e87
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>
+Cc: Cen Zhang <zzzccc427@gmail.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ fs/ocfs2/cluster/heartbeat.c |   40 ++++++++++++++++++++++++++++-----
+ 1 file changed, 34 insertions(+), 6 deletions(-)
+
+--- a/fs/ocfs2/cluster/heartbeat.c~ocfs2-heartbeat-serialize-concurrent-writes-to-a-regions-dev-attribute
++++ a/fs/ocfs2/cluster/heartbeat.c
+@@ -269,6 +269,8 @@ struct o2hb_region {
+ 	struct list_head	hr_handler_list;
+ 	/* Serializes timeout arming against failed-start and teardown. */
+ 	struct mutex		hr_arming_mutex;
++	/* Serializes the dev, block_bytes, start_block and blocks attributes. */
++	struct mutex		hr_dev_mutex;
+ 	bool			hr_stopping;
+ 
+ 	/* last hb status, 0 for success, other value for error. */
+@@ -1681,6 +1683,7 @@ static ssize_t o2hb_region_block_bytes_s
+ 	unsigned long block_bytes;
+ 	unsigned int block_bits;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1710,6 +1713,7 @@ static ssize_t o2hb_region_start_block_s
+ 	char *p = (char *)page;
+ 	ssize_t ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1736,6 +1740,7 @@ static ssize_t o2hb_region_blocks_store(
+ 	char *p = (char *)page;
+ 	int ret;
+ 
++	guard(mutex)(&reg->hr_dev_mutex);
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1753,10 +1758,12 @@ static ssize_t o2hb_region_blocks_store(
+ 
+ static ssize_t o2hb_region_dev_show(struct config_item *item, char *page)
+ {
++	struct o2hb_region *reg = to_o2hb_region(item);
+ 	unsigned int ret = 0;
+ 
+-	if (to_o2hb_region(item)->hr_bdev_file)
+-		ret = sprintf(page, "%pg\n", reg_bdev(to_o2hb_region(item)));
++	guard(mutex)(&reg->hr_dev_mutex);
++	if (reg->hr_bdev_file)
++		ret = sprintf(page, "%pg\n", reg_bdev(reg));
+ 
+ 	return ret;
+ }
+@@ -1872,11 +1879,9 @@ out:
+  * this is acting as commit; we set up all of hr_bdev_file and hr_task or
+  * nothing
+  */
+-static ssize_t o2hb_region_dev_store(struct config_item *item,
+-				     const char *page,
+-				     size_t count)
++static ssize_t __o2hb_region_dev_store(struct o2hb_region *reg,
++				       const char *page, size_t count)
+ {
+-	struct o2hb_region *reg = to_o2hb_region(item);
+ 	struct task_struct *hb_task;
+ 	long fd;
+ 	int sectsize;
+@@ -1884,6 +1889,8 @@ static ssize_t o2hb_region_dev_store(str
+ 	ssize_t ret = -EINVAL;
+ 	int live_threshold;
+ 
++	lockdep_assert_held(&reg->hr_dev_mutex);
++
+ 	if (reg->hr_bdev_file)
+ 		return -EINVAL;
+ 
+@@ -1987,9 +1994,15 @@ static ssize_t o2hb_region_dev_store(str
+ 
+ 	wake_up_process(hb_task);
+ 
++	/*
++	 * Don't hold hr_dev_mutex across the wait, which can take seconds.
++	 * hr_bdev_file is already set, so other writers still get -EINVAL.
++	 */
++	mutex_unlock(&reg->hr_dev_mutex);
+ 	ret = wait_event_interruptible(o2hb_steady_queue,
+ 				atomic_read(&reg->hr_steady_iterations) == 0 ||
+ 				reg->hr_node_deleted);
++	mutex_lock(&reg->hr_dev_mutex);
+ 	if (ret) {
+ 		atomic_set(&reg->hr_steady_iterations, 0);
+ 		reg->hr_aborted_start = 1;
+@@ -2041,6 +2054,20 @@ out:
+ 	return ret;
+ }
+ 
++static ssize_t o2hb_region_dev_store(struct config_item *item,
++				     const char *page,
++				     size_t count)
++{
++	struct o2hb_region *reg = to_o2hb_region(item);
++	ssize_t ret;
++
++	mutex_lock(&reg->hr_dev_mutex);
++	ret = __o2hb_region_dev_store(reg, page, count);
++	mutex_unlock(&reg->hr_dev_mutex);
++
++	return ret;
++}
++
+ static ssize_t o2hb_region_pid_show(struct config_item *item, char *page)
+ {
+ 	struct o2hb_region *reg = to_o2hb_region(item);
+@@ -2143,6 +2170,7 @@ static struct config_item *o2hb_heartbea
+ 
+ 	INIT_LIST_HEAD(&reg->hr_all_item);
+ 	mutex_init(&reg->hr_arming_mutex);
++	mutex_init(&reg->hr_dev_mutex);
+ 	reg->hr_stopping = true;
+ 	INIT_DELAYED_WORK(&reg->hr_write_timeout_work, o2hb_write_timeout);
+ 	INIT_DELAYED_WORK(&reg->hr_nego_timeout_work, o2hb_nego_timeout);
+_
+
+Patches currently in -mm which might be from eklavyasingh2106@gmail.com are
+
+
