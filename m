@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700336;
-	b=xReiPsKhO+GvOOCJv+2CVWTs3WnV1D0QFRFHmzKxFj7fb4c67WZjSYTXjpMv+w9vs9gi
-	 Fy+ldQZhJQC4kS7yom0MipVVgbAFt2Q0PzvXRMm6xpU/ft5O8EU7g3bWQv/ilPK6IDFFu
-	 pscZTW7mbGwhbSFo7emneDT85BY9W9givKD4Vqfuk1v/YNzCt8zRP4MQoLaT9FS/2rg3T
-	 ZVKMFXrtN8g6P40LFwBlUOujwESYjDbKm2foy4zk+c2sU9NcUTu774pFlpek4nZxYvOtZ
-	 F0jWQOUPHTZh96VFpNBneYus1EX/YuDBsOqxU6RQ6gGruejFfAzy5xYLEz51YgZlEdw==
+	t=1793700338;
+	b=NJEiRCC/MvH5queNgw5dn0uhcJNv0rQm1RGMsK+bVDzOzi8bk+/xNeC+AwZRhn+cosZo
+	 /YE41SRhwUJlNwmhvba1vRNTEYQVZK2EwFs3fnlcE9MeVezxeduQsQ1WuO5xaf+ecQY2C
+	 hZbZ6OozL+6CbQgs/6GNg9Qw7DaK4+VgGLbtsr1GR7hNAWZTr6uXiESVYixKZ+cLJyqFh
+	 8pXOFXspOwX9xN1TZvQE/H2xRVLt+/m4dwUUYUUcQL6Dg7k0EVSSs7QCBksUk6drGHIjD
+	 RL2k8UPEZytag9UzNRqqhClgFE12S3Mi1dNoD5T2ElNI5AGyAqJWartkGnR5fplJDBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700338;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=Yt3HBs83jX9B8IR02MP/6eu/676fqC4Ktt+8AJPnvUs=;
-	b=spYvAxGri2JfQCCellxECTRbkWIUXfVe6x3udgN4yn8SsscIhMOPcTaP1Ea32zd7uWjx
-	 66XopN9KMofYkRHbLL7d0/V2IvmSXxn7JXBG1owCvgBUHevXAcFTJAE4jOv5MPInrWHAO
-	 igpoCefGc1NPV3RlvDuLtR7ErGnf2CGnHAOI0IaZTZDYQQ8KxKY4RrLiqdvy26Si3/M1A
-	 YpS65eoQ9yyO17NxhEwEQycLmegy1oxUzrjHVM7bUJOaouivIuPvYbcErYaCBUV5qBheA
-	 H/aAXwaK4myfJuUaqcEUgNz7VXl3RHvwlU9+HVST3nNk3+dxrjRxL6OtMfrPiXz5ujA==
+	bh=Oh/m/hg+bzvxxYBT2T2fdKMkhIaukkQ/MVnjb8MgjsY=;
+	b=m1jb2XQh6dInPRqDc88B94FlOO8IJhWZ6RXqdkrnrkpvwoqb0FuibbYMm+aJX4DS9T/O
+	 t2rAYfqLWkyub09wIfck5FV6ub9xnG13MHa2ItLuoDkd6v01xKjmtuGrBdafA6ah1tF9T
+	 n9WCRjFMx+eQtiAVUQU55YTe7EXfXl+692oXTbWNBFMHBt1uc77t78IHzirmIzBlJiiqB
+	 lV5N4q1Re7XME5tDEguS3kKtT9BxcmemCQ5Gas6mj8fuRXraeykfNxRvi0q/1TL0bztkR
+	 1oDk/OmY+5s0jRa3As+JGcxc5v6gHtELls+oGYE+EtBPrJmZ3/RjdiJDwLUddjTpBkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,30 +25,32 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2672C6083638;
-	Tue,  3 Nov 2026 10:05:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2672C6083638
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB3C60850B3;
+	Tue,  3 Nov 2026 10:05:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDB3C60850B3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3xZblselqkHs7AA--.2541S2;
-	Tue, 03 Nov 2026 18:05:25 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowACnt5jnselqoXs7AA--.2514S2;
+	Tue, 03 Nov 2026 18:05:27 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+To: Sunil Goutham <sgoutham@marvell.com>,
+	Geetha sowjanya <gakula@marvell.com>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Subbaraya Sundeep <sbhatta@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
+Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: ixgbe: drop the SA reference if secpath_set() fails
-Date: Tue,  3 Nov 2026 10:05:34 +0000
-Message-Id: <20261103100534.1310039-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: octeontx2-pf: drop the TC mark reference when adding a flow fails
+Date: Tue,  3 Nov 2026 10:05:36 +0000
+Message-Id: <20261103100536.1310108-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,10 +62,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3xZblselqkHs7AA--.2541S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Wr4Uur18tF4UXr4fuFyrtFb_yoW8JF15pa
-	n8CFy8uFyDXw48Wa4kXw4rCFZI93yIqry5Cr9Yk3Z3Zw1rAry7CrnYvFyjvr18AryrKF43
-	tFy7AFsxC3ZxA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowACnt5jnselqoXs7AA--.2514S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4UWw15uFy7JF4fAF4kXrb_yoW5JrW3pr
+	48u3429F1rAr17Wrn7Ja15Ary5Gw4jqFy5Gay8Cw1Sgw13Arn7Za4DK3y09348KrZ3Ga9I
+	qFyjyws5Ca1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -77,41 +79,70 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Wr4Uur18tF4UXr4fuFyrtFb_yoW8JF15pa
 	yUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
 	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
 	JvcSsGvfC2KfnxnUUI43ZEXa7VU8jQ6JUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggAA2rpnIRi8AAAsE
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIAA2rpnIBiCQAAss
 
-ixgbe_ipsec_rx() takes a reference on the xfrm_state returned by
-ixgbe_ipsec_find_rx_state(). On success that reference is handed over
-to the skb's security path, which releases it when the skb is freed.
-When secpath_set() cannot allocate the extension it returns NULL, but
-the function returns without releasing the xfrm_state, so the SA
-reference is leaked.
+otx2_tc_parse_actions() increments flow_cfg->mark_flows when it finds a
+FLOW_ACTION_MARK action. The reference is meant to be dropped again by
+otx2_tc_del_flow() when the flow is removed, so a flow that fails to
+install after its actions were parsed leaks it: the checks for the MCAM
+entry, the insertion into the flow list, the mailbox allocation and the
+mailbox reply all free the new flow node without touching the counter.
+The same happens when parsing the actions itself fails after the mark
+action was processed.
 
-Put the reference before bailing out.
+Release the reference on the error paths of otx2_tc_add_flow(), using
+the match id of the parsed request to tell whether it was taken.
 
-Fixes: 92103199f10a ("ixgbe: process the Rx ipsec offload")
+Fixes: 6a57f091622a ("octeontx2-pf: Add support for offload tc with skbedit mark action")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-index bd397b3d7dea..e44d5eed9ab5 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-@@ -1197,8 +1197,10 @@ void ixgbe_ipsec_rx(struct ixgbe_ring *rx_ring,
- 		return;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
+index dee38d5c7f65..c3726d9f455a 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
++++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_tc.c
+@@ -1237,6 +1237,13 @@ static int otx2_tc_del_flow(struct otx2_nic *nic,
+ 	return 0;
+ }
  
- 	sp = secpath_set(skb);
--	if (unlikely(!sp))
-+	if (unlikely(!sp)) {
-+		xfrm_state_put(xs);
- 		return;
-+	}
++static void otx2_tc_put_mark_flow(struct otx2_nic *nic,
++				  struct npc_install_flow_req *req)
++{
++	if (req->match_id)
++		refcount_dec(&nic->flow_cfg->mark_flows);
++}
++
+ static int otx2_tc_add_flow(struct otx2_nic *nic,
+ 			    struct flow_cls_offload *tc_flow_cmd)
+ {
+@@ -1273,6 +1280,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
  
- 	sp->xvec[sp->len++] = xs;
- 	sp->olen++;
+ 	rc = otx2_tc_prepare_flow(nic, new_node, tc_flow_cmd, &dummy);
+ 	if (rc) {
++		otx2_tc_put_mark_flow(nic, &dummy);
+ 		kfree_rcu(new_node, rcu);
+ 		return rc;
+ 	}
+@@ -1287,6 +1295,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
+ 		if (rc) {
+ 			NL_SET_ERR_MSG_MOD(extack,
+ 					   "MCAM rule allocation failed");
++			otx2_tc_put_mark_flow(nic, &dummy);
+ 			kfree_rcu(new_node, rcu);
+ 			return rc;
+ 		}
+@@ -1331,6 +1340,7 @@ static int otx2_tc_add_flow(struct otx2_nic *nic,
+ 	return 0;
+ 
+ free_leaf:
++	otx2_tc_put_mark_flow(nic, &dummy);
+ 	if (is_cn20k(nic->pdev))
+ 		cn20k_tc_free_mcam_entry(nic, new_node->entry);
+ 	otx2_tc_del_from_flow_list(flow_cfg, new_node);
 -- 
 2.34.1
 
