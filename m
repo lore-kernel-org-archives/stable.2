@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793729362;
-	b=0o2up9vWaFmMbs72rIytnMJQWoSuD0VgNQM0cMVtsU1qsIubXDCLEQ7Qst08Lilj4ACQ
-	 ffdD+BhOLo4t+zfVa28xCc6zZdwGvwjdEUvC+G8XapvUZJcvRe1/+d4siFuGdsO9hTiQl
-	 0DYQiO89Pw1CpSeuEj4lEku3Z8NqMPaw1+4+OGEheVaUyaw7MK2xi79iVxSBHbeXfbFt/
-	 MfWc4lRsR5yoYPeerEWydlMHZLTLt3rW+pBvErWgFPSMtjsbLw1bibwad99GNbd3idDwK
-	 xyagF/gzB0wg01UY2kHB4Ntzh/eRXMMHNk1sMAY9ycxqC2wYxbWaXqFUSBroe1j/CoA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793729362;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
-	b=oGXsOL+ccmk9JUpwGxkvOJzirj5kBpaZG/9sgIgLzrWZevZ6emzFuVMsL1zSWZ7XKLcy
-	 bEylENU7rXXXA3yXnTtziZWfNftbfON6pbIe+dqQRDXI2YFXuzkuXTVunHxQtk9jOoSgl
-	 cyDSVCTE/nOahERD2z158VDn8OQ5JyjpWK1KAB9nWLsoR+hpc9eZXaFqUqk2DFZzz5y0Q
-	 PyfBQ4j8wRjTd6PZCrawQZ2ZSoIiWvJ3wo8VAxQQ0XAkSaT69ffVDco6bJ7IHr7FQvANO
-	 hWpFDUZKDGNoCBW/SRC8tKd+mm4FKPm88iyPI/6CIS9qrpBeatPh3FYiy9knJkU5Dqg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqOS5RlT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793729462;
+	b=bhvsWFpQA3qAk9pU0SceCfhdOkt5ffWo25CuuZXqDNhbzHHPiBJ9jAdLkaC5bhhYRDHH
+	 yLb/yFW/DjVVRBalLwvi88L2/LnWdj2FiV7WAOyeEv0gpBfBvHkEPQ6fni6LrsDseha/V
+	 uu6EP1YopYbyodVF1UJn2dIno74j4ie0s2mk7cY89icehndK5lLBav7lBaa6DSXX545Gk
+	 OPZsErWE8f4Z/YNzrqcrzhYKZQhniYfhTEuQVByIpVOuymeghwlhzCooM/lGp0W5HuT1B
+	 41ljiyMjAiqLhKM1ZyvnIynYPOB4g7NsVOw3hSYLp7mxoV7+dHW7RYpxtljfjGjAfrg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793729462;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=tTVKurc9kGIhuhJC6hakp2QSmzsX9SX1tKAh9my/9n8=;
+	b=24u78gQrqjtanXioEwOneDzmca5aSRTRWnOheKUmQSZMEVmmHDqayBEwx/W/Nw56MsAj
+	 MepyXLcge4t6jp5izVyrnYJ83lr8kwFwx7Z9Obm/u9zeY5iI+39wHyNZE1cHVM6URdoxP
+	 w0OhnnuWvvlmB7+dZHK+QwarnM3+YFW8QN4JKr0cF/JwPeZVoZAKXZt1hYx74TSixtet4
+	 kl4QSqySutdUfqRS1AmZyJU2ZiDUlxym7u+dpjH+COEDI70VPPwIQHh4uUPsmgU2ZioFb
+	 eLz9Lzwq0ZfpfJwRjTTQVPmrvyLO71iIrhaUd8/5EB49z50tUh/GtYS2vmLAarw6aSA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwuESlr8;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6C4606A329;
-	Tue,  3 Nov 2026 18:09:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766FA606A31B
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 18:11:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fqOS5RlT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793729362;
-	b=DiRQx7WCtdPKlSimEi/lCSfRptMxGVd2XpoEokkLCLWJB9fNHodEH8gqWj2DY7uflLbg
-	 CtAN5YrFYVlCcrEAbvctlor4AbNwPizNxccaWqyu4HKxVrccwI1fv/4Q/bcDwxsMnlBcf
-	 Um3AWlckP3VovhBXmdQnKNyXBUE7JNf4LvtGZjTR1HNjDXvbH76FfeX5WvK4iw0V4fpvX
-	 NIWqV4xFQWNAZyw/drxzQ16rWZ1CuWoFY/iFks7r8d11fpkQmQ698zb8un8UuYJ0AqL2T
-	 e4uX1GFitGDYMhdzbI/XDivkjj4cc7LNhnklZq60ptM3gHAeT5kLdakrZ6KOm5CTnkg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793729362;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
-	b=zort7V+wikGI0O4vBys+Kt2uaapHHR/Fr5+2P1q3VkrEXprtGeobeiEa0ef7bNgrkQsz
-	 SsfG4IKbU5smlEMw9xCAkvUFVHQXNmWw2OwUXwFvEZ7hSE63pv/Tf9no7eJdnOjLflAxw
-	 OM1Z2F5Rl9YfLG3HGwWyz/wG+kyDKPzgwKrVXmAWLoeMSan5i8b/GgGbH3/b6tIgVTqFj
-	 nA5IqPyZ3YVXzG5nkRHvqwJnlkItsQXG9dEB1ays2omTtmiDw6uq7FW9XfNIYlzG2ht+s
-	 aCDZFfDE3ixUO23xHnJ5LM5Ayg3a+zLWvmRYV3xP5kj7QmsFk3gw5+cCslIdn5Yh04g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 5EDCE1F000C1;
-	Tue,  3 Nov 2026 18:09:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwuESlr8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C691F00919
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 18:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793729361;
-	bh=Yim4+xjFSL3rrvzkKn7LXdVgRhB+1jTYxkhUigaCIes=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=fqOS5RlTgteUHXEnSu+JKU5LlW4VRu+a++526Ulfj8C0WvDXfmftzrNjxFZTL+VKg
-	 0MmExkUVcnEubTEP5KTZsATcPeB4yc9zACPHMltoFFMFesgTrkc76be7/sYbL8NG4Y
-	 bMXBCp38DpIQzpLNT0SQyEl94tvh5rsV/i9dp0w2R7f0VMgasnODd4BiXIoXW+osrU
-	 UT1gq81cckzzL+d4BKEtiNmjpi6p+Xb2tNavpaA8uK+zEJ1BQk23RDoFZcbKBOXIuX
-	 rmeocVStjRRR3nQvwWL3zaxUtoFMtXxxP9Jx/ngFw9jl5qySrfbF8ZnIl55bsBkslz
-	 xx9iZO36uHAgA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id B0FA346A69;
-	Tue,  3 Nov 2026 18:09:20 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Tue, 03 Nov 2026 13:09:20 -0500
-Subject: [PATCH] cgroup/freezer: walk exiting tasks in the v1 freezer
+	s=k20260515; t=1793729462;
+	bh=tTVKurc9kGIhuhJC6hakp2QSmzsX9SX1tKAh9my/9n8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XwuESlr8OQ67yjRLkNZkS5jLbRSrI8EJtBrIOSoFdnvWWzpVa/LjFwah3W0zmfRB1
+	 pBUK6jemqxdraGVqiyXMjqgxDg+RENl4K4ndCX2wx1lKKwoC6cEVEX8TEsQVZyDe08
+	 nb97/z0nzEwiyCCWYPzrM37yxBfa/bndGQJc0uDWVqgd4mAZD/FLSoapPfPciB9XhP
+	 k7Ne9N+EgTjixv7FLqDEHZIk4hNs9quwsyUpAOG0ZXYFquwgblJ6M6KpNSr0Crq+sr
+	 aBb5WVrQJ15PMVMMo0RiMJsbRDcS51uC9PGM2S0kFC/lex8ScRMsDkUaD0bVpcZCf0
+	 iU3z88BSE9sIw==
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-9905d61449cso1198087241.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 10:11:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByZAtpQu/m5IJKy9LgerF1KDn6fnDX+CN2bnx60zOdV9TEqlWV6w7Wa/xtOCt/xfxNXyCRGB/8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++AHhz72gqh9X4nEnT1R/62cDbjXB98sG02EajaRpqel9jKLEc
+	3RgS+La2gzDexIkclkOIqC8Ut+sD1CMTT1xwNui2FUTMbAxQo3LssUk8csBNGeuWbAQzxJdT2zM
+	rVLQrmAaZCS+QVX/Bb+Ki11G2lMVcQMc=
+X-Received: by 2002:a05:6122:488f:b0:5ec:3e18:a8da with SMTP id
+ 71dfb90a1353d-5ec689737efmr6255947e0c.17.1793729456351; Tue, 03 Nov 2026
+ 10:10:56 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,124 +59,283 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-cgroup-freezer-exiting-v1-1-00d43b443747@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxG4atUnrHkBFQkroIYwPwJZkgrp0UVV
- e9OgPEb3lupwg2VTt1KjpdVG0pD2HWkj2vJYLs3U5TYhyCRNfswj5wceMMZi01WMusx9YKD7qM
- ItXh0JFt+4/Pl7zrfntDpe6Nt+wAsaXPhegAAAA==
-X-Change-ID: 20261102-cgroup-freezer-exiting-c7f60e4c3200
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu, 
- stable@vger.kernel.org, Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793729360; l=3795;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=KM/MnDxFBAC+sHs8ZYIfu9PpFh912v0OKBTiwLZBXTs=;
- b=1kmrrNgSRj3B7olIMU2INLso9M0fRHp0YmplSCHp+8t7YB5hBjT1nV0u0MqY2E+m8lzO1Cm9Y
- Z75ryOfyQFtCv4tOtkiqG9jzOFrSmMPf2JNi7dBlcze4KBym1pfyMJ4
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+References: <20261103-b4-btrfs-data-integrity-v2-0-577dc2690061@toxicpanda.com>
+ <20261103-b4-btrfs-data-integrity-v2-3-577dc2690061@toxicpanda.com>
+In-Reply-To: <20261103-b4-btrfs-data-integrity-v2-3-577dc2690061@toxicpanda.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Tue, 3 Nov 2026 18:10:19 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H6B9=fL2_Lx5OzWLRtFXNqfgnTn=kCf4NnE8JktuhSDKw@mail.gmail.com>
+X-Gm-Features: AclHuK-enhHChCkU85AEg6Ya23uqbf2RYeIoQIh4TMc5ZRKj8fTxDdWuqhyj8Zg
+Message-ID: <CAL3q7H6B9=fL2_Lx5OzWLRtFXNqfgnTn=kCf4NnE8JktuhSDKw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] btrfs: wait for ordered extent IO in fast fsync
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
+	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Mani Tofigh <mt4022@columbia.edu>
+On Tue, Nov 3, 2026 at 3:57=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> w=
+rote:
+>
+> A fast fsync waits for writeback and then checks
+> BTRFS_INODE_COW_WRITE_ERROR to see whether a COW write failed. If one
+> did, it must wait for the ordered extents to complete before logging,
+> since until then the extent maps of the failed range point to extents
+> that were never written. Logging them puts unwritten extents in place
+> of the data that was there before when the log is replayed.
+>
+> The flag can be set too late for that check. end_bbio_data_write()
+> clears writeback before it finishes the ordered extent:
+>
+>   end_bbio_data_write()            fsync
+>
+>   btrfs_folio_clear_writeback()
+>                                    filemap_fdatawait_range()
+>                                    BTRFS_INODE_COW_WRITE_ERROR clear
+>                                    btrfs_log_changed_extents()
+>   btrfs_finish_ordered_extent()
+>     set BTRFS_INODE_COW_WRITE_ERROR
+>
+> The write paths that fail before submitting a bio, writepage_delalloc()
+> and submit_write_sector(), clear writeback and finish the ordered
+> extent through btrfs_mark_ordered_io_finished(), which never sets the
+> flag at all.
+>
+> Fix by dropping the flag and having a fast fsync wait for
+> BTRFS_ORDERED_IO_DONE on the ordered extents it collected for logging.
+> can_finish_ordered_extent() sets it only after recording any error with
+> BTRFS_ORDERED_IOERR. The wait costs little, because IO_DONE is set
+> right after writeback is cleared, not when the ordered extent completes.
+>
+> Fixes: f13e01b89daf ("btrfs: ensure fast fsync waits for ordered extents =
+after a write failure")
+> Fixes: a11d6912fdd9 ("btrfs: remove folio parameter from ordered io relat=
+ed functions")
+> CC: stable@vger.kernel.org # 6.10+
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-An exiting task can stay frozen after its v1 freezer cgroup is thawed.
-Since commit a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
-the css task walk hides an exiting task once its process has no live
-threads left.  That count drops when another thread of the process
-exits, which can happen between the freeze and the thaw walk.  A pid
-namespace init hits this easily since it waits freezably in
-zap_pid_ns_processes() after commit 81933038f5e2 ("pid_namespace: make
-zap_pid_ns_processes() freezable"):
+The idea looks sound to me.
 
-  Task A (pid ns init)      Task B (A's thread)      Task C
-                            do_exit()
-                              exit_signals()
-  do_exit()
-    zap_pid_ns_processes()
-                                                     write FROZEN
-                                                       /* A frozen */
-                              /* live count 0 */
-                                                     write THAWED
-                                                       /* A skipped */
+Sashiko found something and from a quick glance it seems valid to me:
 
-A then stays frozen even after SIGKILL:
+https://sashiko.dev/#/patchset/20261103-b4-btrfs-data-integrity-v2-0-577dc2=
+690061%40toxicpanda.com
 
-  [   10.775155] task:fz-init         state:D stack:28152 pid:65    tgid:65    ppid:1      task_flags:0xc0004c flags:0x00080000
-  [   10.775176] Call Trace:
-  [   10.775180]  <TASK>
-  [   10.775188]  __schedule+0x10f1/0x4760
-  [   10.775252]  schedule+0xd7/0x2c0
-  [   10.775265]  zap_pid_ns_processes+0x2c7/0x5f0
-  [   10.775346]  do_exit+0x1bf4/0x2560
-  [   10.775403]  __x64_sys_exit+0x3d/0x50
-  [   10.775414]  x64_sys_call+0x156c/0x1570
-  [   10.775425]  do_syscall_64+0xfb/0x590
-  [   10.775450]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-  [   10.775529]  </TASK>
-
-Use CSS_TASK_ITER_WITH_DEAD in the three v1 freezer walks so they all
-see the same tasks, as commit 60f21a264930 ("cgroup, sched_ext: Include
-exiting tasks in cgroup iter") did for sched_ext.  With the fix, A is
-thawed and exits.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within about 10s.
-
-Fixes: a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
----
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/freezev1.c
----
- kernel/cgroup/legacy_freezer.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/kernel/cgroup/legacy_freezer.c b/kernel/cgroup/legacy_freezer.c
-index 8545e0d1ba3d..bd11047f2311 100644
---- a/kernel/cgroup/legacy_freezer.c
-+++ b/kernel/cgroup/legacy_freezer.c
-@@ -265,7 +265,7 @@ static void update_if_frozen(struct cgroup_subsys_state *css)
- 	rcu_read_unlock();
- 
- 	/* are all tasks frozen? */
--	css_task_iter_start(css, 0, &it);
-+	css_task_iter_start(css, CSS_TASK_ITER_WITH_DEAD, &it);
- 
- 	while ((task = css_task_iter_next(&it))) {
- 		if (freezing(task) && !frozen(task))
-@@ -309,7 +309,7 @@ static void freeze_cgroup(struct freezer *freezer)
- 	struct css_task_iter it;
- 	struct task_struct *task;
- 
--	css_task_iter_start(&freezer->css, 0, &it);
-+	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
- 	while ((task = css_task_iter_next(&it)))
- 		freeze_task(task);
- 	css_task_iter_end(&it);
-@@ -320,7 +320,7 @@ static void unfreeze_cgroup(struct freezer *freezer)
- 	struct css_task_iter it;
- 	struct task_struct *task;
- 
--	css_task_iter_start(&freezer->css, 0, &it);
-+	css_task_iter_start(&freezer->css, CSS_TASK_ITER_WITH_DEAD, &it);
- 	while ((task = css_task_iter_next(&it)))
- 		__thaw_task(task);
- 	css_task_iter_end(&it);
-
----
-base-commit: fffbdad76a57eed26cff1be19f4cbb407f0b6e7c
-change-id: 20261102-cgroup-freezer-exiting-c7f60e4c3200
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
+Thanks.
 
 
+> ---
+>  fs/btrfs/btrfs_inode.h  | 10 ----------
+>  fs/btrfs/file.c         | 52 +++++++++++++++++++++++++++++++++++++++----=
+------
+>  fs/btrfs/ordered-data.c | 31 -----------------------------
+>  3 files changed, 42 insertions(+), 51 deletions(-)
+>
+> diff --git a/fs/btrfs/btrfs_inode.h b/fs/btrfs/btrfs_inode.h
+> index f7aa0d145185..65ba8ec23258 100644
+> --- a/fs/btrfs/btrfs_inode.h
+> +++ b/fs/btrfs/btrfs_inode.h
+> @@ -89,16 +89,6 @@ enum {
+>         BTRFS_INODE_FREE_SPACE_INODE,
+>         /* Set when there are no capabilities in XATTs for the inode. */
+>         BTRFS_INODE_NO_CAP_XATTR,
+> -       /*
+> -        * Set if an error happened when doing a COW write before submitt=
+ing a
+> -        * bio or during writeback. Used for both buffered writes and dir=
+ect IO
+> -        * writes. This is to signal a fast fsync that it has to wait for
+> -        * ordered extents to complete and therefore not log extent maps =
+that
+> -        * point to unwritten extents (when an ordered extent completes a=
+nd it
+> -        * has the BTRFS_ORDERED_IOERR flag set, it drops extent maps in =
+its
+> -        * range).
+> -        */
+> -       BTRFS_INODE_COW_WRITE_ERROR,
+>         /*
+>          * Set by reflink while it holds the source's VFS inode lock shar=
+ed.
+>          * Direct IO writes also take that lock shared; one that finds th=
+is bit
+> diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+> index f978c6524aa0..4ae9aed8993f 100644
+> --- a/fs/btrfs/file.c
+> +++ b/fs/btrfs/file.c
+> @@ -1512,6 +1512,42 @@ static inline bool skip_inode_logging(const struct=
+ btrfs_log_ctx *ctx)
+>         return false;
+>  }
+>
+> +/*
+> + * Wait for the IO of the ordered extents collected for logging to be do=
+ne, and
+> + * return true if a COW write among them failed.
+> + *
+> + * Waiting for writeback is not enough to know that: the end IO handlers=
+ clear
+> + * writeback before they account the IO in the ordered extent. An ordere=
+d
+> + * extent gets BTRFS_ORDERED_IO_DONE only once all of its IO is accounte=
+d, and
+> + * can_finish_ordered_extent() sets BTRFS_ORDERED_IOERR before that.
+> + */
+> +static bool cow_write_failed(struct btrfs_inode *inode,
+> +                            struct list_head *ordered_extents)
+> +{
+> +       struct btrfs_ordered_extent *ordered;
+> +       bool failed =3D false;
+> +
+> +       list_for_each_entry(ordered, ordered_extents, log_list)
+> +               wait_event(ordered->wait,
+> +                          test_bit(BTRFS_ORDERED_IO_DONE, &ordered->flag=
+s));
+> +
+> +       /*
+> +        * can_finish_ordered_extent() records a write error before it se=
+ts
+> +        * BTRFS_ORDERED_IO_DONE, both under this lock.
+> +        */
+> +       spin_lock(&inode->ordered_tree_lock);
+> +       list_for_each_entry(ordered, ordered_extents, log_list) {
+> +               if (test_bit(BTRFS_ORDERED_IOERR, &ordered->flags) &&
+> +                   !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags)) {
+> +                       failed =3D true;
+> +                       break;
+> +               }
+> +       }
+> +       spin_unlock(&inode->ordered_tree_lock);
+> +
+> +       return failed;
+> +}
+> +
+>  /*
+>   * fsync call for both files and directories.  This logs the inode into
+>   * the tree log instead of forcing full commits whenever possible.
+> @@ -1615,7 +1651,7 @@ int btrfs_sync_file(struct file *file, loff_t start=
+, loff_t end, int datasync)
+>          * IO of a lower priority task while holding a transaction open.
+>          *
+>          * For a full fsync we wait for the ordered extents to complete w=
+hile
+> -        * for a fast fsync we wait just for writeback to complete, and t=
+hen
+> +        * for a fast fsync we wait just for their IO to complete, and th=
+en
+>          * attach the ordered extents to the transaction so that a transa=
+ction
+>          * commit waits for their completion, to avoid data loss if we fs=
+ync,
+>          * the current transaction commits before the ordered extents com=
+plete
+> @@ -1627,7 +1663,6 @@ int btrfs_sync_file(struct file *file, loff_t start=
+, loff_t end, int datasync)
+>          */
+>         if (full_sync || btrfs_is_zoned(fs_info)) {
+>                 ret =3D btrfs_wait_ordered_range(inode, start, len);
+> -               clear_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_fl=
+ags);
+>         } else {
+>                 /*
+>                  * Get our ordered extents as soon as possible to avoid d=
+oing
+> @@ -1640,15 +1675,12 @@ int btrfs_sync_file(struct file *file, loff_t sta=
+rt, loff_t end, int datasync)
+>                         goto out_release_extents;
+>
+>                 /*
+> -                * Check and clear the BTRFS_INODE_COW_WRITE_ERROR now af=
+ter
+> -                * starting and waiting for writeback, because for buffer=
+ed IO
+> -                * it may have been set during the end IO callback
+> -                * (end_bbio_data_write() -> btrfs_finish_ordered_extent(=
+)) in
+> -                * case an error happened and we need to wait for ordered
+> -                * extents to complete so that any extent maps that point=
+ to
+> -                * unwritten locations are dropped and we don't log them.
+> +                * If a COW write failed, before submitting a bio or duri=
+ng IO,
+> +                * the extent maps of its range point to unwritten locati=
+ons
+> +                * until the ordered extent completes and drops them. Wai=
+t for
+> +                * that, so that we don't log them.
+>                  */
+> -               if (test_and_clear_bit(BTRFS_INODE_COW_WRITE_ERROR, &inod=
+e->runtime_flags))
+> +               if (cow_write_failed(inode, &ctx.ordered_extents))
+>                         ret =3D btrfs_wait_ordered_range(inode, start, le=
+n);
+>         }
+>
+> diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
+> index df74c75d6c29..27aca31866fd 100644
+> --- a/fs/btrfs/ordered-data.c
+> +++ b/fs/btrfs/ordered-data.c
+> @@ -436,37 +436,6 @@ void btrfs_finish_ordered_extent(struct btrfs_ordere=
+d_extent *ordered,
+>                                         uptodate);
+>         spin_unlock(&inode->ordered_tree_lock);
+>
+> -       /*
+> -        * If this is a COW write it means we created new extent maps for=
+ the
+> -        * range and they point to unwritten locations if we got an error=
+ either
+> -        * before submitting a bio or during IO.
+> -        *
+> -        * We have marked the ordered extent with BTRFS_ORDERED_IOERR, an=
+d we
+> -        * are queuing its completion below. During completion, at
+> -        * btrfs_finish_one_ordered(), we will drop the extent maps for t=
+he
+> -        * unwritten extents.
+> -        *
+> -        * However because completion runs in a work queue we can end up =
+having
+> -        * a fast fsync running before that. In the case of direct IO, on=
+ce we
+> -        * unlock the inode the fsync might start, and we queue the compl=
+etion
+> -        * before unlocking the inode. In the case of buffered IO when wr=
+iteback
+> -        * finishes (end_bbio_data_write()) we queue the completion, so i=
+f the
+> -        * writeback was triggered by a fast fsync, the fsync might start
+> -        * logging before ordered extent completion runs in the work queu=
+e.
+> -        *
+> -        * The fast fsync will log file extent items based on the extent =
+maps it
+> -        * finds, so if by the time it collects extent maps the ordered e=
+xtent
+> -        * completion didn't happen yet, it will log file extent items th=
+at
+> -        * point to unwritten extents, resulting in a corruption if a cra=
+sh
+> -        * happens and the log tree is replayed. Note that a fast fsync d=
+oes not
+> -        * wait for completion of ordered extents in order to reduce late=
+ncy.
+> -        *
+> -        * Set a flag in the inode so that the next fast fsync will wait =
+for
+> -        * ordered extents to complete before starting to log.
+> -        */
+> -       if (!uptodate && !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags))
+> -               set_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flag=
+s);
+> -
+>         if (ret)
+>                 btrfs_queue_ordered_fn(ordered);
+>  }
+>
+> --
+> 2.55.0
+>
+>
