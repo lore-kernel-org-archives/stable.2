@@ -1,55 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723985;
-	b=rTFBE43U5Rdc1az6DU/dwc7fNEY2udqe2HCIJv37aWIshSW04HOWjnv2ApV5aaskXFtQ
-	 HqHEID9ImYw2nlgHrSSNypiqwQ3/LD9mPy0z2Nq/zExaCWCHR4nfFELEDsM6kJVvB41IR
-	 3VueIi9VLLTLW0YpfL0EPk6s0PtOGK4/sbbVU09pHgpzzwUWLxAmeEUuI/FcEPWu23O4m
-	 hgq0jqJhhnn/0r4hgfgYshxAcIYrWPuGGISWiv0ZCPa5FuBM9aKUwZG2lml2LrkJgml6F
-	 CGv/fZgbFXOFJt7btt7fe4oCfEJW5MB54EjnmIeHIwO7ZbdJvc4q4BsyvH6T+qo+ZLQ==
+	t=1793724571;
+	b=Z03XJeDchPlce0A9cdIkvEjvgXj4LBrPEjETc7itBJA7H9zuJwBPDTaDtH/YIW3bSVKP
+	 ei9o3RneXgd6AlDfpldgPQ1lnNTyaUoTLHGfWg6C5HxXdHDpqyLtEWj5+h6OwQyG8KoG8
+	 sxgeUnbR0iu5rpSFcP1Mg8GdiaXYee3tKhnVs0Q6hsaeFLL22Qf0CPezOGArlN46Rh5/9
+	 E/EOnL/VJYQOuUqP3A8XeiEX1jeBS7leyrIr20IyLZYLG7QxjIkWq6ty0YrOnZxQQLIQp
+	 bGTzfreJ5JOgBxPgodBdqgWGYOD1iNYBdN0ZqfFKacwXBQzeTFDDdFhQdf7LPlCx6Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723985;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Enc8TR23gw9j1IR2jPzVk9FgWDjw7wKAMbSVzRe4YWQ=;
-	b=RTU8mjQwgR8grybCumUrTrnS8QSsXOTo6R6LnUcndTCgLeuIqGwdJiT0Tjr6bB15QYdn
-	 QwTCkAG8NIP/INbU3vp1o3fHMwMjBs5tZJyP50Tal0ogBO32jdRX7guvTPc1ukhyvifIg
-	 /Uwl4NHmPo6skXYBO+Xg4PAiy2G3lcPHgBNKEUg6fIDKy3QaK/M8cL1ztoRkpclbUQNAg
-	 OgInvzCbw6F/G7/yjDkd1vrZ88AuUYCLUuk6gyQCxfB26khptsFYfHm7jzSUwg87BVddG
-	 LGoOYgXaprNz2elwhZLwVb7GZY3tbPfH5lqDavT0vi0bxdlcFd82Vx3v6sFG4bpOa4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724571;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=5dGb8WXTIZvpvRNeR8lBF+8mxozMxifiVbHhgx0PdyY=;
+	b=sTnnyR7teJsjDaa9C2qVGUMNUydxva7dz/IVxYg1dZiaeATILVumceBYgi2m1lltvkXw
+	 XkVtwHclrNPCsJhN34jRBXhb8jLRsdATVXj07WspJFuL59ztehzWwP+qMvpypkkywdgUZ
+	 MrkcaKNko+Yqouku158SPOK1QRhHUi/bfvawYHjOGf6Bsd2y132j66eG6F/6eiqq0MSL+
+	 09Vc7/nQCTtQyJj4Eh9v2xi8fRJ0ewAnNVGVcg2q5DFYZqAflGdxPJV5UBAmb9/vYCD4N
+	 6TUM6wdOPz19kRCYPhg4ht87Orcum8PfQvt/aDQ7HEuljmIFA+9axRWgYvIhhUZ4NBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eof3qKl0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MIwJML6Z;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC161606EEB3
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:39:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2E2606A335
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 16:49:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB2E2606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eof3qKl0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564ED1F00919;
-	Tue,  3 Nov 2026 16:39:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793723984;
-	bh=Enc8TR23gw9j1IR2jPzVk9FgWDjw7wKAMbSVzRe4YWQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eof3qKl02vIuWuCYcYPWHiwiPExNQLozpe15r8ffKZ8bfKFAtz10DNLPTeX4FGEoe
-	 gffI+2pdIzNyUSKrhTnkn9fCMWDhwbQMQXURpwIdRPwd96EV0TOtsGAk1EhFmvcT9Q
-	 vBkTQIkHIWIef4xD6AJjcKUhoIzf8wXb6RUA8O0axPwDiW/cRTe+hCLs3/ldwno4VR
-	 OV5RR/064G+jrF6gI5CzW5f3+dsF77fD0ffY+i8k6EJhnZ0ZyClvkn+8/H7DPcAy2F
-	 X7gRZt8EHEWN1Wiy9Xkq+HTxYn90/pyJV6HDDHOr/1g5gqF3+f8z8ghR94SMUOBEO+
-	 xgTqnKlo2FyuQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	zdi-disclosures@trendmicro.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ksmbd: prevent stale data from being written by SMB2 WRITE requests
-Date: Tue,  3 Nov 2026 11:39:43 -0500
-Message-ID: <20261103163911.497623-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110350-activist-riot-545a@gregkh>
-References: <2026110350-activist-riot-545a@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MIwJML6Z
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id BA7D1C49F46;
+	Tue,  3 Nov 2026 16:50:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 150F76046C;
+	Tue,  3 Nov 2026 16:49:28 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 28C0D10328C5E;
+	Tue,  3 Nov 2026 17:49:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793724567; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=5dGb8WXTIZvpvRNeR8lBF+8mxozMxifiVbHhgx0PdyY=;
+	b=MIwJML6ZrlML9gz4Da6Q/pl+r7yvzkdB1t99vQCrz9KcnpBFz6rKO4/9fh/7X8eejWR3En
+	C3YsFzJs/+s0kA7YGKSralaozX2IWSwrEtAMNWLlcmU1xChHsX5L6rrKONeeAei7H7Xywk
+	RRP2mVeed8iMRMHRhS07fIAQXPGlBj7hD5N4enabnNV3CiMKjnaHdBoobtNQtmw7WTDTld
+	6rhbW+Vsze5lLum/0OTl0e18R0x3Ex0aQq330KScu9UyzZJSA/v9hrFVfnwOaI9TamqqtY
+	/gvUMDEsnvBBfPlXeAlFDIQ+ZjXiuS/2Az8m/J+BggJQog6bag0vcYCx0XnyeA==
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Subject: [PATCH v5 0/9] Congatec Board Controller: Add storage devices
+ support
+Date: Tue, 03 Nov 2026 17:49:08 +0100
+Message-Id: <20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,112 +63,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43QzW7CMAwH8FdBOS+VnTT94MR7TDukqQNRSwNJ6
+ QaId19aJLaJw7hEciL//nauLFJwFNl6dWWBJhedH1Kh3lbM7PSwJe7aVDMBooASS262jeFOGB5
+ HH3R6b1OXocjj6XDwYeSNJCoNaSkFsMQcAln3tUS8f9zrQMdTShrvl2xPMeolab2acxBECbWUU
+ GSiQlHUiiPviTYdhYH6zIftDD+3ScAcRA6ZQCyrgkvehcs5XkZvs85fev8ZO7fxMWbHk+6N3++
+ zdLB5qp2b9zkv/zDhMtaycgX5/ytPyIFbamWlEIoSzabxfuzd8OAn8YtEfIEUiZRkdV1XBGTVM
+ yl/yPolUiZS1XmjpG2MIv1M5g8SAcQLZJ5IanJBYLG1qv5L3m63bzDq4x5hAgAA
+X-Change-ID: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+In this v5, I re-ordered a bit the patches to fix I2C bus names first.
+I also made an error message more user friendly.
 
-[ Upstream commit bc0e0f5ac1d7b044d403f859406b4b66d4b1ce9b ]
+Lee, this series conflicts with some other ongoing patches series:
+- mfd: Assorted resource lifetime, teardown, and error-handling fixes [1]
+- mfd: Constify mfd_cell arrays [2]
 
-Initialize the compatibility byte in request buffers without zeroing
-the entire allocation. Keep the one-byte compatibility exception for
-SMB2 messages so valid zero-length WRITE requests remain compatible,
-and validate the data range in the WRITE handlers against the current
-compound request before accessing it.
+To make your life easier I rebased this series on top of them. Please let
+me know if you want to proceed in an other way. 
 
-This prevents stale request-buffer data from being written to files or
-sent to IPC pipes.
+[1] https://lore.kernel.org/all/20261027093306.2812695-1-lee@kernel.org/
+[2] https://lore.kernel.org/all/20261030071137.100954-3-krzysztof.kozlowski@oss.qualcomm.com/
 
-Fixes: 443d61d1fa9f ("ksmbd: allocate one more byte for implied bcc[0]")
-Cc: stable@vger.kernel.org
-Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-32436
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-[ sashal: replaced smb2_current_req_len() calls with inline request-length calculations using NextCommand and the receive-buffer offset ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Best Regards,
+Thomas
+
+Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 ---
- fs/smb/server/connection.c |  1 +
- fs/smb/server/smb2pdu.c    | 34 +++++++++++++++++++++++++---------
- 2 files changed, 26 insertions(+), 9 deletions(-)
+Changes in v5:
+- mfd: fix error message in case we fail to get session handle.
+- fix I2C bus names earlier in the series.
+- Link to v4: https://patch.msgid.link/20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com
 
-diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index d3dd89e612c6e..b532e553301aa 100644
---- a/fs/smb/server/connection.c
-+++ b/fs/smb/server/connection.c
-@@ -520,6 +520,7 @@ int ksmbd_conn_handler_loop(void *p)
- 		if (!conn->request_buf)
- 			break;
- 
-+		conn->request_buf[pdu_size + 4] = 0;
- 		memcpy(conn->request_buf, hdr_buf, sizeof(hdr_buf));
- 
- 		/*
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 5f752434be3cf..73b310f748e09 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -7168,23 +7168,28 @@ static noinline int smb2_write_pipe(struct ksmbd_work *work)
- 	int err = 0, ret = 0;
- 	char *data_buf;
- 	size_t length;
-+	unsigned int data_offset, req_len;
- 
- 	WORK_BUFFERS(work, req, rsp);
- 
- 	length = le32_to_cpu(req->Length);
- 	id = req->VolatileFileId;
-+	data_offset = le16_to_cpu(req->DataOffset);
-+	req_len = le32_to_cpu(req->hdr.NextCommand);
-+	if (!req_len)
-+		req_len = get_rfc1002_len(work->request_buf) -
-+			work->next_smb2_rcv_hdr_off;
- 
--	if ((u64)le16_to_cpu(req->DataOffset) + length >
--	    get_rfc1002_len(work->request_buf)) {
--		pr_err("invalid write data offset %u, smb_len %u\n",
--		       le16_to_cpu(req->DataOffset),
--		       get_rfc1002_len(work->request_buf));
-+	if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
-+	    data_offset > req_len || length > req_len - data_offset) {
-+		pr_err("invalid write data offset %u, length %zu, req_len %u\n",
-+		       data_offset, length, req_len);
- 		err = -EINVAL;
- 		goto out;
- 	}
- 
- 	data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
--			   le16_to_cpu(req->DataOffset));
-+			   data_offset);
- 
- 	rpc_resp = ksmbd_rpc_write(work->sess, id, data_buf, length);
- 	if (rpc_resp) {
-@@ -7335,14 +7340,25 @@ int smb2_write(struct ksmbd_work *work)
- 		writethrough = true;
- 
- 	if (is_rdma_channel == false) {
--		if (le16_to_cpu(req->DataOffset) <
--		    offsetof(struct smb2_write_req, Buffer)) {
-+		unsigned int data_offset = le16_to_cpu(req->DataOffset);
-+		unsigned int req_len = le32_to_cpu(req->hdr.NextCommand);
-+
-+		if (!req_len)
-+			req_len = get_rfc1002_len(work->request_buf) -
-+				work->next_smb2_rcv_hdr_off;
-+
-+		if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
-+		    data_offset > req_len ||
-+		    length > req_len - data_offset) {
-+			ksmbd_debug(SMB,
-+				    "invalid write data offset %u, length %zu, req_len %u\n",
-+				    data_offset, length, req_len);
- 			err = -EINVAL;
- 			goto out;
- 		}
- 
- 		data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
--				    le16_to_cpu(req->DataOffset));
-+				    data_offset);
- 
- 		ksmbd_debug(SMB, "filename %pD, offset %lld, len %zu\n",
- 			    fp->filp, offset, length);
--- 
-2.53.0
+Changes in v4:
+- Fix struct cgbc_i2c_platform_data comment (kernel-doc warning)
+- Move struct cgbc_i2c_platform_data from linux/platform_data/i2c-cgbc.h to
+  linux/mfd/cgbc.h
+- Use MFD_CELL_NAME macros.
+- Link to v3: https://patch.msgid.link/20260911-cgbc-i2c-storage-devices-support-v3-0-594b53fbc5ea@bootlin.com
+
+Changes in v3:
+- rebased on v7.3-rc2
+- use PLATFORM_DEVID_AUTO for child devices
+- move I2C bus and I2C device definition in the MFD driver
+- Link to v2: https://patch.msgid.link/20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com
+
+Changes in v2:
+- i2c: fix typo in CGBC BIOS EEPROM label.
+- mfd: make cgbc_devs const
+- Link to v1: https://patch.msgid.link/20260804-cgbc-i2c-storage-devices-support-v1-0-fed38510671c@bootlin.com
+
+To: Thomas Richard <thomas.richard@bootlin.com>
+To: Lee Jones <lee@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Werner Gartner <Werner.Gartner@congatec.com>
+Cc: mfd@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
+
+---
+Thomas Richard (congatec GmbH) (9):
+      mfd: cgbc: Fix use of negative error code as valid session handle
+      i2c: cgbc: Use real I2C bus names
+      mfd: cgbc: Add I2C platform data
+      i2c: cgbc: Use plateform data to get bus ID and adapter name
+      mfd: cgbc: Use PLATFORM_DEVID_AUTO for child device registration
+      i2c: cgbc: Add support for fixed frequency buses
+      mfd: cgbc: Add virtual I2C bus support
+      mfd: cgbc: Add virtual storage devices on the virtual I2C bus
+      i2c: cgbc: Register known I2C devices on the bus
+
+ drivers/i2c/busses/i2c-cgbc.c | 108 ++++++++++++------------
+ drivers/mfd/cgbc-core.c       | 187 +++++++++++++++++++++++++++++++++++++++---
+ include/linux/mfd/cgbc.h      |  16 ++++
+ 3 files changed, 244 insertions(+), 67 deletions(-)
+---
+base-commit: d3dfdb6b429a5b99bfd47176bf07cad0956f14ed
+change-id: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+prerequisite-message-id: 20261027093306.2812695-1-lee@kernel.org
+prerequisite-patch-id: 7d50ed21b2d5d1bb25290d19c46b4668073feddf
+prerequisite-patch-id: 45cdf12f5527ab86a560ba98c02cc447bf6eee4e
+prerequisite-patch-id: 6148da531ee7713f8afb7bec90fb3f548b562d28
+prerequisite-patch-id: fb0c30c409ef451192973c417a0585f989f8917b
+prerequisite-patch-id: 8403fcd8efcd44138f139767624773fa654a5a2f
+prerequisite-patch-id: 434546741519ecd3032e19f3acf2c5370e9a454c
+prerequisite-patch-id: 29540ca5739d6f6f3e2d3fe5b87893ad31f6c3ee
+prerequisite-patch-id: a33adadb2e2efe82d2a14417c1c35c579bf212d0
+prerequisite-patch-id: dd53f1e6db35d71b51061dad45de28dde9ebc70f
+prerequisite-patch-id: 85a1da1285d64ce3fc78c8ae7969fbb0dc7c3cd7
+prerequisite-patch-id: e9b952ebc380d058ac2144771c780a0b08c3b7c3
+prerequisite-patch-id: 1f0dcc7a8c5df7ae1c8bfb5a1c8f62b441704286
+prerequisite-patch-id: 077a4ef70d74321711e2efd4e016e01a1d41c818
+prerequisite-patch-id: 4dcd6cc156bb6ba43684605972fb179557a3891e
+prerequisite-patch-id: 62e87491674feaae09327a99a5ff1b4ed368f221
+prerequisite-patch-id: ab1eac435fd40cdb3d9a8d453a12852a105f57c4
+prerequisite-patch-id: 1cbcc3b666db27cbe9f3fa6c6ead2f49a0d459da
+prerequisite-patch-id: ecb566a7bea44600e9d7e9617e280c994773e3dd
+prerequisite-patch-id: 20e295db85a31587d342471a3c341615c8eb0fd7
+prerequisite-patch-id: 06118bf6e5affc234e7edbdb5c0aae9b05412b33
+prerequisite-patch-id: 17afeb13c5012348feee8eb739ff058e84ed2df8
+prerequisite-patch-id: 27693bdeffbc7a0a295c165912b89af5ca3264aa
+prerequisite-patch-id: 8313fe2293eaf0e69ffd2f0017e18fde64ca68f7
+prerequisite-patch-id: fc53af34353efecb4490087ed066ccb256a74695
+prerequisite-patch-id: 02ad8a3b1fddb4f4e806939d36ae642c01004c36
+prerequisite-patch-id: 7b9b8460613f4240492ffe11ee7ee0e6c0b6ded8
+prerequisite-patch-id: 699c068a32ac9d3171e7a494fb2ca5522045779a
+prerequisite-message-id: 20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com
+prerequisite-patch-id: f6cf975bf90acb029fa985ecd659b59076fdc0cd
+prerequisite-patch-id: 4f16ad80662de796ae1454904c938e7e85115fbd
+
+Best regards,
+--  
+Best Regards,
+Thomas Richard
 
