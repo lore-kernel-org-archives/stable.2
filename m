@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701574;
-	b=iBJ36cedFqoq18xrnIMu6EkkLrM0H53ggzRYMK485rXqpuyg1fx0nPrFXISZA+LK8kqR
-	 kCRW9xaBXmy4v68Iu67hYCTJWFtyyzpUdeeSUEOBNYe8XMtNgmnFcNpp5B72PkmsKBLA1
-	 sfNRD2EVkr8X5xpP3w7DliLiWVStpisqnDIbBCEvKNHxbmns+GNe7m94vNa/C0p7f3oHs
-	 dlSy7FbRQxcgc8/Hp21tEBDkYwgg5jped4e3ImOvNm+Iz9TXBqHGpP9TR6HvWzJDpuJQi
-	 vNvZCsOMSioAoaCT6CiB3UXARX4d+4DoQaR9aaF4avhz7VmTFPEJZKmnw2vu0fUZ92A==
+	t=1793701596;
+	b=mOFvMr7lrvANmpe+wxG2m1wm2ttQ9yRnD91c7ZJGncGX9aqERDHIoEjoXjyiypoay5cg
+	 Y3Y2tRBiYIgI9E949MN1MrhIagAxsh9j08WUL3twHPp0QvAbM5Wm5AM2UlmULKnEY+KsX
+	 0NR6R3cN24Zb6RKomWGfFZn5Fg2VX4yicRDY9XtQ2p3+bBLgY+ma1lfwEIlW2/aE74Jqj
+	 NrM5QfLxB3kk88d4mEa/gLyWyxibvBi5OH22FNuhbgquN6Yg+AP3HuX6LqYmGV2ZpQE4f
+	 VFiK62LMSpbBnZwNBK0ollXW4xlZz56K1lQ0Gna/8l4Qq4thfJJdboVv28wtXBmC6wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701596;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qUyoZGjFGQOPeeRO9E3lTpQ1eLM4d6d6tlvrm+8kxb0=;
-	b=G0tQoo0CBaxeXlNZNPCtahpXCBcnQpjjNhWJhSnbELpvakhL4MSSZqgYsI9JcMld1F0A
-	 AcfC3pNki9RksaallOdNCP6HZvnRK33coTkYnAtMmncLVgD4mL/z4PiQIVSt52TPPXacO
-	 3RE10HjHpq0OmWMxKeE18RhPIvCROOvhhFkuY/+56va+KyFeVN+Iw9VJzOpJO5OF5PZ+v
-	 icudJ7G4huPaxAiHIBYpPoFNplc2aqP/PLeoGAxDp+i3Mcx2ukETX76rorGJKBCdO8QXU
-	 coaEYHk0eOsGzcyXzjUbsQ9Ud6uO1TUsdIIQxyp+7mC+b3DktVE/DpwnPxC/GbzgypQ==
+	bh=hmBDURKZM2gT8yAhEobO4jEMpgXoE9EjguJBnydKsTg=;
+	b=KjcTIG14+pIFh1hyapWgeoGceH2eCp4UC4veXMHOPrzbp4YY4dr8DNmUlKJRm715B0QA
+	 uXdEHB/61rGlCzZ3W9McTsaUO5QloYmW22OokxAayzrESgxnrFy5t+1XeFafF9Ke9pgHt
+	 ENI4YrbiovEM3m645R5Pn61jZ8PGIq8hDBm/8FvtbYqSP+ILUrCAKenNVrY2ea+Zu2KDM
+	 rdQPEDP19zw7wOedZ1VTE61t7IUccu9e8oJqkvyTrcXiMw96HbfGUONAdYarnS4JFHNah
+	 qTiv4HbyL35sy349aOCalsuvTQWIpYmlY5PwRP+aFcc6aWnU/+h/yO4NPH7TaX04V4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFkSfzCh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AS8y0wXn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1FB606EEB0;
-	Tue,  3 Nov 2026 10:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA460606FAFA;
+	Tue,  3 Nov 2026 10:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFkSfzCh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EB91F000C1;
-	Tue,  3 Nov 2026 10:26:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AS8y0wXn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A2E1F000C1;
+	Tue,  3 Nov 2026 10:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701574;
-	bh=qUyoZGjFGQOPeeRO9E3lTpQ1eLM4d6d6tlvrm+8kxb0=;
+	s=k20260515; t=1793701595;
+	bh=hmBDURKZM2gT8yAhEobO4jEMpgXoE9EjguJBnydKsTg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lFkSfzChsyncS1wMeU3n9VEwiz8x0Fo71a/5ra/ytsLVU3hRGSo0FJJE3YkCF3kxq
-	 jPKnCfLlTzXsUG9QHLidsVMZDz6erG/Bb76JeTIPea/xX0uRA01of4Ta7VdDYvjCsE
-	 0qDbmSmzQtM/tDZzqtAwuUbEyuIHP1sLp5fsh+2gYs7zGrYJeBBlEgxdio27DSBSMF
-	 sllaNWPGI1dcjZlB8jelkOC3jHksyXRxWC32VZYdvfQ0gk8+IBFoUlRQ1t4Z3/kXRq
-	 xrnc/BbfCmags8Dk47dr1Cc++p/BjUgHeGJ+sRzi/TnnfAye3DDqg5eqP3QVCPFF8j
-	 2C6tQk1hjCkPA==
-Date: Tue, 3 Nov 2026 11:26:11 +0100
+	b=AS8y0wXnWcBUBfhwFlyUm7+MNcSgfdkdGZy7w0+Yc7BXy59IV4eONnGcHohniBb9K
+	 OPLHbgXnHPR8Y0nQeB359c4s+kuhkKhWxl8RrImYfSd/HPChDd4+EKLOY0lybaZUyY
+	 n5NOCnXzTaLtqVvmnZ0oAyJXPRroHJs7qT/Ay3xMmJlDwFLrRSTbpO34VzC6cPOiWm
+	 2gcmG5X8T3c1rCCIuCORpvAmpVNsL68DUBlCkmajLZ0x7JJOUSc614o/zf9lIKRcj8
+	 SuckTqkzCm2xQO+Nn9Ru08zNPxqxhYjnmuCNK/4aYkjXmMaeUcUH0bma8Flc+Xd63N
+	 TdhtYHsJV+OAw==
+Date: Tue, 3 Nov 2026 11:26:32 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Vladimir Oltean <olteanv@gmail.com>, stable@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH] net: dsa: loop: release netdev reference on registration
- failure
-Message-ID: <20261103-subtle-private-dinosaur-e0effb@quoll>
-References: <20261103100529.1309887-1-vulab@iscas.ac.cn>
+Cc: Coly Li <colyli@fygo.io>, Kent Overstreet <kent.overstreet@linux.dev>, 
+	linux-bcache@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] bcache: Release the cache kobject when
+ cache_alloc() fails
+Message-ID: <20261103-statuesque-lionfish-from-saturn-baae9d@quoll>
+References: <20261103094643.1289833-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,25 +59,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100529.1309887-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094643.1289833-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:29 +0000, Wentao Liang wrote:
-> dsa_loop_drv_probe() takes a reference on the CPU net_device with
-> dev_get_by_name() before calling dsa_register_switch(). The matching
-> dev_put() is only done in dsa_loop_drv_remove(), which the driver core
-> does not call after a failed probe, so every failed registration leaks
-> the reference.
+On Tue, 03 Nov 2026 09:46:43 +0000, Wentao Liang wrote:
+> cache_alloc() initializes ca->kobj with kobject_init(), which takes the
+> initial reference on the kobject, and takes a reference on the bcache
+> module.  The object is released later by bch_cache_release(), which also
+> drops the block device, puts the super block folio, frees ca and drops
+> the module reference.
 > 
-> Drop the reference when dsa_register_switch() fails.
+> When one of the allocations in cache_alloc() fails, the function frees
+> only the buffers it managed to allocate and returns an error.
+> register_cache() then only calls fput() on the block device and returns,
+> so the reference taken by kobject_init() is never dropped: ca is leaked
+> together with the super block folio and the module reference.  The
+> comment on that path still claims that ca->kobj is not initialized, but
+> kobject_init() is the first thing cache_alloc() does.
 > 
-> Fixes: 98cd1552ea27 ("net: dsa: Mock-up driver")
+> Put ca->kobj on that path so that bch_cache_release() runs and releases
+> everything.  bch_cache_release() frees ca->buckets and ca->prio_buckets
+> as well, so clear those pointers in cache_alloc() after freeing them, and
+> drop the module_put() from the error path because the module reference is
+> now released by bch_cache_release().  Skip the bucket page free in
+> bch_cache_release() when cache_alloc() failed before allocating them.
+> 
+> Fixes: cafe56359144 ("bcache: A block layer cache")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/dsa/dsa_loop.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/md/bcache/super.c | 22 ++++++++++++++--------
+>  1 file changed, 14 insertions(+), 8 deletions(-)
 > 
 
 
