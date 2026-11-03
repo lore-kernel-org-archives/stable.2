@@ -1,68 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674904;
-	b=ftHA39oqAd8wh25Sm7geKOieoUH1wtkIVX9l/zdloQPSDDaVSz9KdhdkTWyOqfDTGjX+
-	 armFQvx3HmwixY3CHNkbhztvawOmQd2iCz+KvnNr/AkM109a04qhU1BPHangAJPaHdNZW
-	 YgdGxbyfqRpjYbScmEekHVQADwDm1wbfsRbh8KYdDPBbV3a5MLFfAlb/KjNisEv6Qd93v
-	 STXaoJZkCL99rfrZNKYzWavkbZK0rIDUuEfu0isAWjrL38CAEjJxP0FIO4A7lxtI/A4TT
-	 p+FY3ZlFZgvJ8z9J9oXE6TEo8NtnO1083TlqKTL7dWgIPHSdR1tE4yrnA0f0jcdl+lA==
+	t=1793674973;
+	b=eHG1lJ4jQ5QTFX1gZDJM4XoiFemEimSSw38YtqAuOFE/62k7YIpcJpGfIlosOVn5T4GO
+	 uwqJ8MrU41OD+J/Y7ZkWo6iwAt6xIczwcnYpYUM7hSpyRsIQYxUoBtifWPJhoZkbEGajP
+	 oB2eiPVkfxZnmxslO+cHE7FRRUpXlfmxtMhO9r3c2ciH7fmBHopdVowl1gCFEZJXaJ66S
+	 MP1JhV31bd8PiVAK94aS6+pM7g5J2Ff/jNAfjbxnf0UqphMHHlYLfOTH0dBgwkVb7JeZq
+	 UBMMu3OITBUcttnt7I8eZa/HX95mj5lqeq2n2isGeIWCR4wJ0Wx3qwJQhOFUQxMlgug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674904;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=eB1sE7Pq3QKF6dYlhdLcuSL9a7OBlMmlpjtwbXguLEo=;
-	b=AW00RFtPDUus4/mmL4l/O6ghRltF1RacyB2ja/4F2o69DRpdmLgXHxPYqKaf1pfMvCvS
-	 S61uI4zvn2Fjln09BQoA0JXLBLNnt2QZLid387eSbm13KF19JbXhHbgni9PStFqiL6S9L
-	 QIuC0t/TsnPbtDZUUN58AoxDJ5f8JyidmRHitz5oQ1BGbCjw5SsiBVgTG13dnjzW00O9U
-	 bhiDyUV00t8DVJ+tiGoAl5608w1FWTRNKiDwylYctkcSXL1zlDxRb/a84M8B+z/2p8W4F
-	 gOp/LCVe03Peh2WV/UNLcIwtwbL2IaS9AP6bQ1gLoNjbfX7n75X/ym/9xxyfZZdiVig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674973;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=LDDJ93BkO849C2mhgv5WGiNanef8BM3ODaG/2JsNB5A=;
+	b=K5GLy6Az3DPHTay6W1f5UUkKvKtZ+s/z51uuUdVkLu1MtHtuJw+Dm8tI3bqGCcmhcu0O
+	 gjFruTttxSZDQNWMGTr4hlEvoDjc9TWRPIoPUhafSjfwx8Duaj0faQ5PqONHRB5YIQtuN
+	 zpFnBKiTQTz6BNJIi4NWmw4BGLFpdQdZG9Uq77+Wl3/kYhWYPb+zPoE2Z+CTlFRgfN1qX
+	 k19FYUxmY1tst6roooJUzO+F3kY6bAv3XI1/C0tGkfpQyGIFo+1o3Chjo/6aKdH3cV/Q1
+	 vqPeA5eNNUfKd15FiMo9JPhAY7QoVOkMuZm0XeedHmJJFjohbpSYapZIrVEvF/K3hZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="UnDX7r/S";
-	arc=none smtp.remote-ip=113.46.200.225
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SQJWkRdI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB62606A324;
-	Tue,  3 Nov 2026 03:01:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CB62606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 34E45606A332;
+	Tue,  3 Nov 2026 03:02:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UnDX7r/S
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=eB1sE7Pq3QKF6dYlhdLcuSL9a7OBlMmlpjtwbXguLEo=;
-	b=UnDX7r/SIntrBRDiJaEyYGGO0/bDXqZr4Z2DuPiQKaQoSHM8QdXowW6gKW3U6sNK0Tr83oi5q
-	yPrdEaYKNznTbJ1DxdDbKIsSA3aHAyaIDJr6CmYPwPMGJjLtyAWkOT5h0uwWcJ7LZzSeYDXXz8a
-	4OY12x2bX3C93pP6osBbLhM=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jJYHx2G1sz1K975;
-	Tue,  3 Nov 2026 11:01:33 +0800 (CST)
-Received: from whupemk300014.china.huawei.com (unknown [7.152.185.8])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6BC1D4055B;
-	Tue,  3 Nov 2026 11:01:37 +0800 (CST)
-Received: from huawei.com (10.50.85.128) by whupemk300014.china.huawei.com
- (7.152.185.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 3 Nov
- 2026 11:01:36 +0800
-From: Li Xiasong <lixiasong1@huawei.com>
-To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, NeilBrown
-	<neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
-	<Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Trond Myklebust
-	<trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>
-CC: <linux-nfs@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
-	<stable@vger.kernel.org>, <yuehaibing@huawei.com>,
-	<zhangchangzhong@huawei.com>, <weiyongjun1@huawei.com>
-Subject: [PATCH v2 0/3] rpcrdma: Fix device removal races and endpoint cleanup
-Date: Tue, 3 Nov 2026 11:27:55 +0800
-Message-ID: <20261103032758.1302493-1-lixiasong1@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SQJWkRdI
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4FC131F000C1;
+	Tue,  3 Nov 2026 03:02:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793674972;
+	bh=LDDJ93BkO849C2mhgv5WGiNanef8BM3ODaG/2JsNB5A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SQJWkRdIcjvAY4W8I1hKBDHFP+BiR81cLIPg9YWzvy4whukwNKfwQlFC/F+dnuBPm
+	 JDC3INvVchW4+cTJRN2+h7MS7EQO36Gv+hlobgituZzhXz+FsnYY8xS37YUUrIhM5w
+	 khhgdvxq2y9w7txWIVba/jbkE0Su7U/SGtn0M5Y5ymyBOcyBog1gw2rhvWFVIMTSqN
+	 +gumTBvv7MMoXjxOYdkrOLm0R6FDzGqIhd6KeZJvGhT/BzHDlQSc/G8cLc4WZka+VQ
+	 9V4MYyw/+t+Kz7ggGeNV32VYv2WhKwJJI+027cdjCdGvO9UDJKJhLttuTPZMYF6QDi
+	 fY3Tfkd+cinwg==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>,
+	linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	keyrings@vger.kernel.org,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	stable@vger.kernel.org,
+	Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	linux-nvme@lists.infradead.org (open list:NVM EXPRESS DRIVER),
+	linux-kernel@vger.kernel.org (open list),
+	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM)
+Subject: [RFC PATCH v2 02/11] nvme-keyring: Add a missing key_put() call to nvme_tls_key_lookup()
+Date: Tue,  3 Nov 2026 05:02:07 +0200
+Message-ID: <20261103030226.2685251-3-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261103030226.2685251-1-jarkko@kernel.org>
+References: <20261103030226.2685251-1-jarkko@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,78 +77,29 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk300014.china.huawei.com (7.152.185.8)
 
-This series fixes races and endpoint cleanup issues in the RPC-over-RDMA
-device removal paths.
+Call key_put() before returning -EKEYREVOKED, as the reference count gets
+incremented by key_lookup().
 
-Notification registration is not serialized with device removal. Removal
-can free the per-device private data while registration is still using it,
-or finish walking the notification array before a new registration is
-published. In addition, the notification walk does not hold references to
-the objects containing the notifications, allowing concurrent unregister
-and teardown to free an object before its removal callback is invoked.
+Cc: stable@vger.kernel.org # v6.12+
+Fixes: 5bc46b49c828 ("nvme-tcp: check for invalidated or revoked key")
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ drivers/nvme/common/keyring.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On the client side, the device removal callback only forces a transport
-disconnect. A connect worker waiting for re_connect_status to change can
-remain asleep, preventing endpoint cleanup. Removal that races with
-connection establishment can also be overwritten by a late ESTABLISHED
-event, and releasing the endpoint from a removal callback or address
-change can free its CM ID context before CMA has stopped dispatching
-events to it.
-
-Patch 1 serializes notification registration with the transition to device
-removal and protects access to the per-device private data.
-
-Patch 2 uses the same mutex to serialize notification reference acquisition
-with unregister, and holds references across each removal callback. Each
-notification records the references it acquires, so a partially completed
-acquisition can be unwound without touching a freed owner or blocking on
-XPRT_LOCKED under the device mutex. The client endpoint pin also takes a
-reference on the RPC transport. Callbacks and reference release run outside
-the mutex to allow teardown to unregister notifications.
-
-Patch 3 records device removal in the endpoint connection status and wakes
-a waiting connect worker. Atomic state transitions ensure the first path to
-leave the established state forces a disconnect exactly once. It drops the
-connection-management callback get/put pairs and destroys the CM ID in the
-endpoint destructor, before freeing its context, so that active and future
-callbacks are fenced. It also handles connection establishment racing with
-removal.
-
-The patches are ordered by dependency: patch 2 uses the serialization
-introduced by patch 1, and patch 3 relies on the callback lifetime
-protection added by patch 2.
-
-Changes since v1:
-- Pin the client RPC transport alongside the endpoint owner, and track
-  acquired references separately so a partial acquisition can be unwound
-  without accessing a freed owner or waiting for XPRT_LOCKED under the
-  device mutex.
-- Add kernel-doc for the new get/put callbacks and Context: sections to
-  the notification registration interfaces.
-- Rework client endpoint lifetime: remove the connection-management
-  callback get/put pairs and destroy the CM ID in the endpoint destructor
-  before freeing its context, closing the use-after-free window on
-  teardown.
-- Give UNREACHABLE and REJECTED the same atomic status handling as
-  ADDR_CHANGE so a transition on an established connection forces a
-  disconnect exactly once.
-- Link to v1: https://lore.kernel.org/all/20261023125033.528835-1-lixiasong1@huawei.com/
-
-Li Xiasong (3):
-  rpcrdma: Serialize notification registration with device removal
-  rpcrdma: Pin notifications during removal callbacks
-  xprtrdma: Wake connect worker on device removal
-
- include/linux/sunrpc/rdma_rn.h           |  29 +++++-
- net/sunrpc/xprtrdma/ib_client.c          |  84 +++++++++++++++--
- net/sunrpc/xprtrdma/svc_rdma_transport.c |  21 ++++-
- net/sunrpc/xprtrdma/verbs.c              | 114 ++++++++++++++++-------
- 4 files changed, 203 insertions(+), 45 deletions(-)
-
+diff --git a/drivers/nvme/common/keyring.c b/drivers/nvme/common/keyring.c
+index 32d16c53133b..87cb51e1f5a7 100644
+--- a/drivers/nvme/common/keyring.c
++++ b/drivers/nvme/common/keyring.c
+@@ -35,6 +35,7 @@ struct key *nvme_tls_key_lookup(key_serial_t key_id)
+ 	}
+ 	if (nvme_tls_psk_revoked(key)) {
+ 		pr_err("key id %08x revoked\n", key_id);
++		key_put(key);
+ 		return ERR_PTR(-EKEYREVOKED);
+ 	}
+ 	return key;
 -- 
-2.34.1
+2.47.3
 
