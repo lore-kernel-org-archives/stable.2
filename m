@@ -1,167 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.123
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793711777;
-	b=CAon6jFWkG4F5z5L1REaeWnURLh6W+dHCFCig4TQOKXNDbR1vA8A79A6/d0mDsD0vxVt
-	 QqXQjYw6tAh/uF/ppvZ+QDR69Pw891Pgh5oyMjCsy/inpxPniHxQTz19qrEjcT407wXcE
-	 Ol2RqnPqGhjVWubBHYdqwynVImGsvUWsdunsCcenKf0f0IZhByphwNh/19P9C3A3vvfmD
-	 V8x909UZSafRTtRCEELdW26Qn6aKgRKURjxeEnQ47aPmbyR2JtyNVMcG9gH3WmQvSjIrW
-	 EvjkfHkoPrKUGLNXEL7H6oabgZeMvJH9j3TAlJHl9pFvmduIzpoSXEWCbIaGifh/AwQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711777;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=LTZeSPilcr0VvsQN9O3n90i8cH3CfRT79/HqaFWbnZU=;
-	b=21Sc7vyxCVKTrOkDLxIBqPZiCmmPfoHAvusOTTwTxwfjl0+lWFm5rkkQ7YR+YYeDGnA1
-	 l3nzEumMQ/vJjU1z6atBOFjwETmajlIeMBavtf5VY50+C9Weq4Ej6+zeb+OHoRSVQNJMX
-	 FWquI04I/Etd3uVQ6w18LBqMf8m1kEbF9RD2gtPDWv3yQRYvmrAhWH9vYfWrrfvOzt84h
-	 F6m0VjUEWjiufeCVGWkz+g22+vDv8DWfjRdUUtzLiVlkzYkHDFNx/Ww3DlTnx/QjeK/El
-	 t8XVR5aVgKR4mAsg3uhNPJXHeOEYrdR5jPtIpim7MtDJmU1zNOnBR3LsLsiABHA4SOw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aweta.nl;
-	spf=pass smtp.mailfrom=aweta.nl;
-	dkim=pass header.d=aweta.nl header.i=@aweta.nl header.a=rsa-sha256 header.s=selector1 header.b=I8f79xff;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.123
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11023123.outbound.protection.outlook.com [52.101.72.123])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793711856;
+	b=xCstNSkcxTLryPi2QRTIP/kr3ME78tNOji3omrwgU28UiLmA69NJ50hGHfRltTE59iv2
+	 OTGIav6jxa+ztyDa+6Ye7fbWYsZsARNnCM1kd3yv667ssAS6dILA3r75fzYnVxrb2mdin
+	 sbAoRqeS5oNtylsP4u3JSEWVe9HBfuXQ1YZc3q1b4Tetu/k/R8aS+Pl1KCGEZHrofHb1i
+	 PnbBI6f9lRmyiM8EUxJufzWN6lqE93tbMQtivs2D5L6fY5kOsEIrapMNHSTjisZJeW4FS
+	 w4ERBVv34iZCKFQN6nNSvM6WSacJncPtTd3r/7mMJgP6mB/1mlXg4cwzO2E4SBn6QnQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711856;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=krGMqJXjl1D9Mmra3Z5byR4JKzxKLC6rxWf5tOUwhzY=;
+	b=R5bpOp6E4VdNXuZo0RIOtIl4sM3oU6ZeNy9WNmrHfq8vAoaVH6NkbFMpYhPNZwkWXAd6
+	 BY+mwwEAjGxAbXziPYyhxml3uDB0PiwVgiolGT8IwWGF5EikZ7DtD6Pb2kWKTfPN8RTYT
+	 DbhtaRNkMbv7QqT5R2+Lz36/TZVFs37gsCcganNI4A60WQo+zYEqhX+PdiBy9gUCIsi0i
+	 iQx5OdQAq9bKoiUx040yhR5owaRPqE8kUFAgtV3p0fJfrYtdUSOaQn44+ik9cabVDeiDn
+	 8nL851UlQSeGskcUH02lT/vOIDqqPP1y7gvZ35K21D8voxPsWdsD1UoYyjZhowS1aPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="lfXu/H9z";
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=XOuF3Hzx;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53765606A324;
-	Tue,  3 Nov 2026 13:16:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53765606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aweta.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aweta.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1218606A327
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 13:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1218606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=aweta.nl header.i=@aweta.nl header.a=rsa-sha256 header.s=selector1 header.b=I8f79xff
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dN7ebemShMrjTCopTQstG/I7AL5lq9yx/yxJ10DJJTg7r4pF/wtV9ZGEYgc9TH9Qdn0AAgSlV4rSCICJWFXsCB7DHwaMmF+vjRT86/jjUVSkdC6pneq7A//WTeRLffuTBIsr4y5LUySxGTiN8UdbNTTD1gqN7zKzqevMHEciTFi8guVg54FqbG9hMlMXuKGYMKW0ppJE5+9S0ZbCTADNl68pkmu8+xKh+iQujc2bm8RdnnjpF8y0NDo++YRn2cCN3kkXz6/X0tzg6AlOLlc/QgRM6xzvZrKBUZPzLsIYfusi5+wRKaKO0QEknJa4nf66lXnWaHBZoZOZeJV4QO+H+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LTZeSPilcr0VvsQN9O3n90i8cH3CfRT79/HqaFWbnZU=;
- b=A6w871EbLyvqVSdMLNjLiuju4rjK59PWRR5zW2571LRJ/yEAq8bM0dgyjE9KtNs8IaEdTvU80J27K0BYpHXFUWZP8WwLHsTKDLoXwjRfx91rozgY1HGvapceq//AZoJOa5EP5DnyCDwlrYk+BoZEAlRVxTDqvxq/SG7HA0f3PRGtBTkmQ73JH+ZIc3OEt6JFIojgXPt12HanAw82QwlciBbXn/eIV4ekYWqtGr8gvVJk8znrEZEXhFcMW6IMt9KFJKTCZr0z2iqBaVV/cNVU2zjYt956q8JYigUYV2gSaM7bGOX2fjUt3X5Hs1aM8Ei1svl57B+AJ0Z18Rneo/6bhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aweta.nl; dmarc=pass action=none header.from=aweta.nl;
- dkim=pass header.d=aweta.nl; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aweta.nl; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LTZeSPilcr0VvsQN9O3n90i8cH3CfRT79/HqaFWbnZU=;
- b=I8f79xffVZgiI6gxDdWeC0hWsLqjyh9DFNV6LBOn6nriNQSZNCfHZrRGPcPiHFGl0gOtUCcQtyIlJ4FYCrgfSRDHxD3Gba6/PBbEao4r5A3ecW35LayWmfN61A6EnbaQzOxuBSxvR+Htp9Qo8kTpn+JtGlHN1EZu2XgRgBrOpvfYAB2qsatdcFjZ+Tz8jITyb+svrEtGbbfy2Qw7D9+h4W4pp2sybl5ob/BIZeXzIFQbwXeIO4kwcFjpRE31R9Yy6zEj2joWysMXY3I4yo5UW4FrbMXvAl8OdjQjQyY5iTsFfUSv5NjNp1vGGs9hnMv/xHS/4Wl99+GJIH6w6ASoWQ==
-Received: from AS5PR05MB11020.eurprd05.prod.outlook.com
- (2603:10a6:20b:67d::13) by PAXPR05MB8907.eurprd05.prod.outlook.com
- (2603:10a6:102:2bb::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 13:16:03 +0000
-Received: from AS5PR05MB11020.eurprd05.prod.outlook.com
- ([fe80::2dc4:6bec:d87e:3492]) by AS5PR05MB11020.eurprd05.prod.outlook.com
- ([fe80::2dc4:6bec:d87e:3492%4]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
- 13:16:03 +0000
-From: Tjerk Kusters <tkusters@aweta.nl>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "anthony.l.nguyen@intel.com" <anthony.l.nguyen@intel.com>,
-	"przemyslaw.kitszel@intel.com" <przemyslaw.kitszel@intel.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
-	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
-	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"ast@kernel.org" <ast@kernel.org>, "daniel@iogearbox.net"
-	<daniel@iogearbox.net>, "hawk@kernel.org" <hawk@kernel.org>,
-	"john.fastabend@gmail.com" <john.fastabend@gmail.com>, "sdf@fomichev.me"
-	<sdf@fomichev.me>, "sven.auhagen@voleatech.de" <sven.auhagen@voleatech.de>,
-	"richardcochran@gmail.com" <richardcochran@gmail.com>, "kurt@linutronix.de"
-	<kurt@linutronix.de>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
-	"maciej.fijalkowski@intel.com" <maciej.fijalkowski@intel.com>, "p@1g4.org"
-	<p@1g4.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>,
-	"piotr.kwapulinski@intel.com" <piotr.kwapulinski@intel.com>,
-	"aleksandr.loktionov@intel.com" <aleksandr.loktionov@intel.com>,
-	"alexander.nowlin@intel.com" <alexander.nowlin@intel.com>
-Subject: RE: [PATCH net v4 1/2] igb: do not let XDP frames span more than one
- Rx buffer
-Thread-Topic: [PATCH net v4 1/2] igb: do not let XDP frames span more than one
- Rx buffer
-Thread-Index: AQHdarejzpT57/RavUmAT0FgGXupo7ccNBKAgAAhW7A=
-Date: Tue, 3 Nov 2026 13:16:03 +0000
-Message-ID:
- <AS5PR05MB11020C461985A30820EE5BF5EB9692@AS5PR05MB11020.eurprd05.prod.outlook.com>
-References: <20261102-igb-rx-ts-fix-v4-1-8785124c5d23@aweta.nl>
- <179370458190.488856.17697539789438631896@kernel.org>
-In-Reply-To: <179370458190.488856.17697539789438631896@kernel.org>
-Accept-Language: en-US, nl-NL
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aweta.nl;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS5PR05MB11020:EE_|PAXPR05MB8907:EE_
-x-ms-office365-filtering-correlation-id: 4808b2e6-0518-4da9-c726-08df39ac9c8b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|18002099003|22082099003|56012099006|38070700021|4143699003;
-x-microsoft-antispam-message-info:
- Yrf2mR7KVW2A3BnUhCv+omUcMeDhTq77hsUpoVEKNNxhvsXwWyRg4b8N/fKHs4+pErwvx3cTF+umuAMpQCpJaU0OG1srjaIUTv51jIA5fP258zPsEHFH53LIGStZURVMRRoHvnCcwYUm2TG7ChKGaMKV+fOMc9XT5WKD1tnK1/tkksjjhx3ejfCKNu73YMB1YQ40kd14nTH+i/SM+nD/r+kfrV0/4+yhfpE3a50RWjFfekPxVB4GjtbSbb8WUL1jqiDMVPyJ6XED4jgvNcodfo41xfsRvR/Lg9jTDuzL/VyhVJLVy8DMl9AyfzMB9MGwp05wWb1G8CUpug0OdmbM0zEtyktCwU5C/mlkSo60Fa9QPwXzYaeUTd2Lpxibu/6B8OLjRzh1mSGgGljPLf2seddoAR1rxqmF2bT+iOiaIrcayrfo2q6Be1usbflmGifbPJCuT3UkvhoA7JbFgx38rNn3xTm+JXYYfXZJkndU9ypz4Sv3qojSkxKfbrcBWqGGf/DxuByGX7oPssS4yqXFlAQP8G+gg8rYebCDoRtHCAjuE2rKdUK4x6gNZQ0gxzWqbj9DVtNvJpMbQq7eo8EprpECk2/chRnzDWBaJr8FZ9Rzk82vQ89pwUqtDA5i0Sgkd7pPij4Sn5vF9JdOYW+Y8C1q1EU8y+OKBzginNmxLT1TSFrM3TJ+FcCDFPFw5l+drOghglGfTg1HAHkf/0e86MuYDxvLXuNXFT+VFOobOYA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS5PR05MB11020.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(18002099003)(22082099003)(56012099006)(38070700021)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?QS9rQkZFRVJlS1NoY1l4bjN6RUNoMFFqV1MyM3J1MjBpbHRZZm1rbG9SaHN1?=
- =?utf-8?B?aFZCaTg1eDdKb0VpeklJVDFKdzFjZjNsTTVUMExrR0laRGkyRnVodjNmamty?=
- =?utf-8?B?VWlsTDVZQWF1Yml4b2tlSzVLOFJWanZEdTIrdXl1RGU5STEyOFNJMVRFT2Nh?=
- =?utf-8?B?UmZJZFArOVIzRFlON0pSS1RQckcwdWF6Z3JUd1lzMkprR21yOEJNcVpMWVZN?=
- =?utf-8?B?NE9TcVdYZWpuR005RFZTMW9QZUFadkJCNktaS2JYd01VNzJTOGFjamxGR2Jm?=
- =?utf-8?B?MHFHdjcrQ21ieHJHZzBEVXJBQXVTS1RuSDBSeFQzbFZjdUtwMEkzYWd3Q0ZG?=
- =?utf-8?B?K3U1MHBQV1ZyaWNnOWtPTnh6cEtXMnhlcWhXWkRGQmlDalYvTnVEZWZ2NGZL?=
- =?utf-8?B?NE0ra25GbDhMcUM2RXZEZmNUZ2xBTSt1NVpYRFhoRG9qRXBsd3ZPMjZIelZD?=
- =?utf-8?B?VnNVRHUvZkZiSVVXekRNY1F4SkQ3VmZKTzBCR2hCU1h2TVVlOE9NU1ordmM1?=
- =?utf-8?B?alFIU1N0YkR2UG9SNjZtWHdXRVR5c25qbjdTeDFWS2FLMWhkamk3cjdlTE1y?=
- =?utf-8?B?Y0h1OHdlTVpKbjlBRzdrWmgxdDM0akZpR3psbG8zUmJidnBNVCtqZHhaUmh2?=
- =?utf-8?B?NGEvdVIrZzFrbHFrVFJHSmhVbVdMOW1vYTRwazE5dkZIUzFHcUxpSXFqaGRV?=
- =?utf-8?B?UTExMmRJYi9yUWVhWHJ2R0pqVjhyaWE4K3QwVkdNM05XbEJOZE5iNWZqelNn?=
- =?utf-8?B?V2dDYm1Ha1FOaTdJTlhzY3ZoWVNjOVA1YmN1Lzk3QVNoam5IY2RvRmJxekp6?=
- =?utf-8?B?MXV2aHR0WHBSdWEySTBodnRVcndpT0dkalpzazcvWXd0RnFBWXc0NUxwd0dP?=
- =?utf-8?B?V2NYb2xPN3YxQzIwd0JiTWtsdTBkMGhDNWRwQVJLVXJxQWx0dHZxWmZBTEth?=
- =?utf-8?B?SWFtWlpqS0dyNkZKV2J3OVlGOU9XNVdoemIzTTZ6Ui8valA2dE5GazlvMVU1?=
- =?utf-8?B?ZVBkc2hyVkxkNUJSZUhqeW05dWw0UU41TXBqSDRJeUVqczFQRkVlNFYyelN6?=
- =?utf-8?B?MHRXcGlNWWZCamdTeUJGdlQ3SUlLVVNzNU4vM0tvc1JSRlFFejNFMjJsODFH?=
- =?utf-8?B?NEhOSno4WjE4a1Rjby9raFd6emtzc3lNUzg5a1VtNGFVdnJFVVlBTSsycEFx?=
- =?utf-8?B?QWFsZ2R0VnM1V01ydmJiN1NUSlVCRTl2N2MvU0gydkJUcmNPbGlENGRYZFdZ?=
- =?utf-8?B?NG5hRjN5dFcxSzJTcmhUWnhTNXp4L3FQbW5pRXVpSjFMZzAyNXR2ak1GRHRz?=
- =?utf-8?B?WE9LRDNBT2lXVjJVWnQ0R2ZQY3JpWitCS3dQK204aGNPOXd3b1NIOHU3dndm?=
- =?utf-8?B?dlpvRXp3cXlEVHVKVnFYMGlCMGltSWNhS2VuTUlsaTFpMTJhYk1HS3lLMEg2?=
- =?utf-8?B?cTV2Z3F5RUdtbzVSS0prVXk0MVNrbExXWFlDMHNUV285TGZuMHRINWdYMkV3?=
- =?utf-8?B?Wk5mOUlaSGNrcGh3ZkhST2l6Y3lNQms4aFlMWWVrNWJ0ZmxCZStrTXlWUnZx?=
- =?utf-8?B?d1BjR09GOHl6V0dRMUJTWEZRcndMeEQxL1ZPZGtpYU9GNHZWUC9kY24vSDd1?=
- =?utf-8?B?QjBGK2JYKzZFamhzRFlMeTY0RGNXWUlWdTlJVG5UMjhvQzBhTkJZT3JwUjlV?=
- =?utf-8?B?dm5Rd2JBOWYrOEk1YXQvVVZpaUpzaUhRK1pKKzdGanV5b3licElmaTNwT0lz?=
- =?utf-8?B?ZU0wdjNsYzhiaHkzZHVnRloybWpXc2tOZUNtV09DMXZEZFYxSEVONVZYYWU3?=
- =?utf-8?B?VEd5ZU4raXZrOTJsQzVWN3dOSzVENVVzVkZ6eHJyaGRmTnhPOVZyZTZvVmpx?=
- =?utf-8?B?S3JCUzgxdldCeDlUWTBJVVQ5NTd6RkRSdzgydHd2amZ1UWF5ZFNQcHZSVU1P?=
- =?utf-8?B?U25mOW5jNllTQmprcXBuL0d1T0JTOWQ2S1E2RnliblprNEdtYzJlM1J6ZWhx?=
- =?utf-8?B?dlAyMnBXTXhINE13dTdNc1BxOHlDNTcxbmVJcDgxdTlkcGxEbUJuYVpKN0ZI?=
- =?utf-8?B?STc5RUlsSHZsbVhSVGtNUkhTbHNOaUh4ZTVBOEN4dmk5OThyZGoyamg0RDIv?=
- =?utf-8?B?NlM1dFN5T1F2c3NiVVRBTW5qKzFpUVFFRWE5dk9TeVU3a3MzY0pXc005WUox?=
- =?utf-8?B?ZFBVS1plN2M2aVdzUnhYd29ndVo2OHl4cDVPZGx0S2JiQkFpOEJoUStocmln?=
- =?utf-8?B?aytOTTJscGR6WXNBMmtZcnIxME82RnRxUkoyb3FpVTVycnlFc3d0TmR3NkZy?=
- =?utf-8?Q?Eawo3BYI/spA+SSdMP?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=lfXu/H9z;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=XOuF3Hzx
+Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A38SGmp4083639
+	for <stable@vger.kernel.org>; Tue, 3 Nov 2026 08:17:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=krGMqJXjl1D9Mmra3Z5byR4JKz
+	xKLC6rxWf5tOUwhzY=; b=lfXu/H9zjyqkaIVUU0VXqVi/rKt7bWk2lXNuNWgHMR
+	kfq+h7nTeHbUwoENtYJNJJ8Ekr8mogJhLCDbw725H72ZoEEsyNwcE3sxxZZWirO9
+	O1hB93DZYhleGmo9Nywq/U6R4tNmPU0qtSB9oit13Vbj+XPvNHlsNzaC/ohvTwTT
+	ot7W9OSfnjWiXufejJz+V7foDMoh0FglmCvGNh2U/rfCkI43CCecXJEVaGV3yZN0
+	j4dQ5KOu+jkXYrieVPnr2sZjDHBpQrDq/XwUqtaU1qy48wx9FLlZ6gBWDZnkxz8N
+	UYy+ar8N0+msWaUEVjmBpBo3M8zYxbpOOINovT5cvQLA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hqawfseaj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 03 Nov 2026 08:17:34 -0500 (EST)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f32050e72so606497385a.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 05:17:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793711854; x=1794316654; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=krGMqJXjl1D9Mmra3Z5byR4JKzxKLC6rxWf5tOUwhzY=;
+        b=XOuF3HzxvftrvdQK+rv00mbnHTzwkDPk7OaUuk83XXrwcukZpRy/0uO0FWJHBQlypy
+         CcZeNM0zZOKZFbpcSE1lv5K8j3+7gJiagaBJqXBzo8hW3GMektkVllwQXkUerSn9rdQZ
+         Ihl6fwZMZpqRcAY7ktPYw2+JZRyJsgzHRAwpqX4LR0ybzjCB9pTBptcUtdPX+3NGL26o
+         +wjTWT9cB0RPNzKwvnNSettt95jvsnSZftRpTpUygSBVnNzmGW+oFa/1VWMqjid5oy2J
+         hOTcXoOORwXDT+SjCJw6TR/QDoolt4fvglx+mEzLSKlu6vqhvEDc2IJqrOIcgqiQRWlt
+         CIZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793711854; x=1794316654;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=krGMqJXjl1D9Mmra3Z5byR4JKzxKLC6rxWf5tOUwhzY=;
+        b=cTsd2b1V65m5r7ZWBmlH+eS3/0V8zIKxRwJgBczhcBk5U1gmxdftnA3gDHJvOQ5WcW
+         7a9oCSqCXjQd1G/n9YgsxXuu4Et+2eXR4ntACJnZ3LNJO8Hc9lAYgmW/OHElD24RkUKs
+         3Sd1M0A6lijD4aPKmlfAYFZ5AB+jSOK7atFEg6vc8tuQy5rtb6uzw1wzfP7Ne6hqXtBc
+         iSAlAtV4BjEQpihmV620fr23I2IxGDOWID/iqC7iE1dMtPBXFoXkyUDVD2aylW7a0GCV
+         eRd35gKWvHzCsj5FEtyrqGf6rBdN5zupKWTCLGjasx5cSJaOD8ouUEls0m0XkYQHJCuk
+         F3qA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgHc18W4JN+3Jzv4+z9KZ9oFFcIX0l35cq8XoscSZgICyqThczoeI/N/MK6oMjxrv5XNhHmmo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nBlNrrfczFJ0I58MRBlPAIaBaf8vLOXybvGcADQHvMAZZoAkc
+	ztrjWRcBI9SPyZJko5UgAGYlb4lr+NhnSCOkRsuA9yoGna6D9+jJnw7vQFFtB6uSrz0Wh/sF95X
+	MqJdk/Igz5hSSWGZh5xQEUFiFz87NRN+KOkJ/eDSuKWSdru9yM1yRWA==
+X-Gm-Gg: AYBFou1SI+o1TEhowEs8rdzrGRqycysND5EiejJwd+XO0oZ8RbtykSQebfvwebGP7tZ
+	iyT3X5N7a3F7VAc3FaRkNMqy4tfAFIYq1NzvT9uzb0htKzlnYUBlAftFga9tbJM1cSANHC1SAHx
+	SX4x56Soza2QftCCooZP6FzNseWO/CF0/mMtlVF2sv2gezNw6ISLnJyE0N/GR5AG+uaG7J4b3n8
+	c7+eX7hGpqW7l29UKUDCAEGk2hqyKSP05aidokOGq8duCFWBpmVaUM5D5/P7UKO1Zzod24joxHF
+	3uZOS9rlfaFV/i0IvdclRZD6LAyQnaipnIrBVlSUyLc79VvPEZ0c+bZh+pzeYTBCvtFZ8ScB7Mr
+	K+4kUAYVxvQxF8anK5RcLV9VREvf51tUQvneROphuQjXqbY+Jl50GetVnlBE=
+X-Received: by 2002:a05:620a:2989:b0:939:de48:e41f with SMTP id af79cd13be357-9442167723amr2271885885a.31.1793711853683;
+        Tue, 03 Nov 2026 05:17:33 -0800 (PST)
+X-Received: by 2002:a05:620a:2989:b0:939:de48:e41f with SMTP id af79cd13be357-9442167723amr2271879085a.31.1793711852988;
+        Tue, 03 Nov 2026 05:17:32 -0800 (PST)
+Received: from [127.0.1.1] ([37.142.147.122])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aa5781c9sm62076885e9.8.2026.11.03.05.17.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 05:17:31 -0800 (PST)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH 00/16] squashfs: convert the read paths to folios
+Date: Tue, 03 Nov 2026 08:16:58 -0500
+Message-Id: <20261103-squashfs-folio-v1-0-7b0fd4d20882@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -171,28 +114,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: aweta.nl
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS5PR05MB11020.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4808b2e6-0518-4da9-c726-08df39ac9c8b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2026 13:16:03.3295
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 6546512a-ba20-41bf-9d8d-c076dcbf6fd9
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: U4Sr5UMb4p7xHqmIsIYBV3hA0msKCSyJW2wdG31ttdreuUPSa1ejWuBWLA29AgiVumApuThRj3hQpQa+3reA9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR05MB8907
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMre6WoC/yXMwQ5FMBBA0V+RWWvSaYLwK2JBTRkRpYNIxL+/e
+ pZnce8NQoFJoEpuCHSysF8iME3Aju0ykOI+Gow2OWo0SrajldGJcn5mrzLUZWaxdKbIIUZrIMf
+ Xf1g3n+XoJrL7e4Hn+QFDG1KIcgAAAA==
+X-Change-ID: 20261012-squashfs-folio-51095c19f276
+To: Phillip Lougher <phillip@squashfs.org.uk>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Hsin-Yi Wang <hsinyi@chromium.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793711849; l=3053;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=Lq3LJENrUjegDb71lgLDYM552fD4afWLvC+uQdiwjaw=;
+ b=6db4qgrCklzf7CZv25CyimYW5qpwTC8nJLH7rrUMnGK7GHCQ7Shz2WHhCHeYQ0DFW8U6SS6sr
+ y1zLiaxlxo/BmekXXszUn/OjZlV2eL2NrJaWUC0Sw3wg4QiW8LOxdzg
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-ORIG-GUID: dbf9rjrxp4hxgT0E4X0oCRhYqrozi-81
+X-Authority-Analysis: v=2.4 cv=DsXDa2/+ c=1 sm=1 tr=0 ts=6ae9deee cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=6RgaMXXTExC6Yw++yBnrug==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
+ a=LSP6vmwHhFFJrJolKBEA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1MiBTYWx0ZWRfXyE/PuCxnhdxX
+ yxHM0ZmaLZr5ZdfGD8rslzABzWKnrmCjZqofQLNpgwiSJ7x30t3+w2rdvD5EH7W5qqfZijJMMSa
+ UCFoqBM+4GRTuGywV+/NEwqYoC4W4qynH730gN043ucMJAdBDgBE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1MiBTYWx0ZWRfX+WM0yLQOkvIB
+ LJgI0PIc3o+2JPnzVVxAiX//tDIWxdgdf+juwiEiL9qHITKFgVzfDMx0RaNwyJXxaeE73WyuKp/
+ xPHDWM8PnuDRBgQGmG/eKsqXsE1CUbO6aOzZr/QLtRjwvCmAeFDSbXLnGz0w3ul03uxHnrsJWN4
+ rhwYyQS25YpgxR0zVSisQBLDvd2UpoVpwivtJLQPymedOP/opAF4w80A+HPvd6V+7AcDgsLBUSn
+ sVSfGANaq/5Y0yjZULdgCzrwFSD1jwIK6o/dyG241t+sGs3EqcsosJAGcrBOVlWQkAEEizqFhPR
+ w9dfzEqCNj33iVCfzhwZPLn7qwZgKoSjXBJux2dv+VCK6PQX4GItGvvs6KTgJk0fwHWOQQo/qZT
+ iDBM04dH3WXSVM0cq8WwOMVJwP3fs0HbPaUYM+IMGP9WxDoP+9QMFDVLheZrZvymw3EJxxOGkBT
+ GVMbn8lgEejzUbTC7BA==
+X-Proofpoint-GUID: dbf9rjrxp4hxgT0E4X0oCRhYqrozi-81
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11954
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 spamscore=0 priorityscore=1501
+ clxscore=1015 bulkscore=10 lowpriorityscore=10 impostorscore=10 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030052
 
-VGhhbmtzIGZvciB0aGUgcmV2aWV3LiB2NSB3aWxsIGFkZHJlc3MgdGhlIGlzc3VlcyBpbiB0aGVz
-ZSBwYXRjaGVzOg0KDQotIFhEUCBhdHRhY2ggYW5kIGRldGFjaCBhdCBNVFUgMTUwMCwgYW5kIHRo
-ZSBNVFUgY2hlY2tzLCBub3cgdXNlIHRoZQ0KICBidWZmZXIgc2l6ZSB0aGUgcmluZ3Mgd2lsbCBn
-ZXQ7DQotIEFGX1hEUCB6ZXJvLWNvcHkgcmluZ3MgZ2V0IGZ1bGwtc2l6ZSBidWZmZXJzLCBhbmQg
-c3BsaXQgemVyby1jb3B5DQogIGZyYW1lcyBhcmUgZHJvcHBlZCAodHdvIG5ldyBwYXRjaGVzKTsN
-Ci0gWERQIGlzIHJlZnVzZWQgd2l0aCByeC1hbGwsIGxlZ2FjeS1yeCBjYW5ub3QgY2hhbmdlIHdo
-aWxlIFhEUCBpcw0KICBhdHRhY2hlZDsNCi0gdGhlIHJlY2VpdmUgbGVuZ3RoIGxpbWl0IGlzIHBy
-b2dyYW1tZWQgZnJvbSBpZ2JfY29uZmlndXJlKCkgaW5zdGVhZA0KICBvZiBpZ2Jfc2V0X3J4X21v
-ZGUoKTsNCi0gcGF0Y2ggMidzIGNvbW1pdCBtZXNzYWdlIGlzIGNvcnJlY3RlZCAoaWdjLCBtaWQt
-ZnJhbWUgbG9zcywgc2l6ZQ0KICB3cmFwKS4NCg0KT2YgdGhlIHR3byBwcmUtZXhpc3RpbmcgaXNz
-dWVzLCB0aGUgVkYgZnJhbWUgc2l6ZSBpbiBpZ2Jfc2V0X3ZmX3JscG1sKCkNCmdldHMgYSBzZXBh
-cmF0ZSBmaXgsIGFuZCB0aGUgYnVpbGRfc2tiIGxheW91dCBvdmVybGFwIGlzIGRlc2NyaWJlZCBp
-bg0KdGhlIHY1IGNvdmVyIGxldHRlci4NCg0KcHctYm90OiBjcg0K
+Convert squashfs's read paths to folios.
+
+Patches 1-4 fix bugs found along the way. Patch 1 fixes a hang reading
+past 8 TiB of a file through squashfs_copy_cache(). Patch 2 stops
+readahead from reading an extra block when the window is already block
+aligned. Patches 3 and 4 fix a locked page leak and a kmap leak on error
+paths.
+
+Patches 5-9 add a folio based page actor, convert the two users to it,
+and remove the page based one. This removes some of the last callers
+of grab_cache_page_nowait() and readahead_batch_length(), and a few
+hidden compound_head() calls per folio.
+
+Patches 10-13 make the actor, the tail zeroing, the readpage_block
+lookups, and the cache copy step by folio size instead of PAGE_SIZE.
+squashfs only uses order-0 folios, so nothing changes yet. This is a
+step towards enabling large folios.
+
+Patches 14 and 15 are small cleanups on the way.
+
+Patch 16 fills the compressed data bio with folios. This removes one of
+the last callers of find_get_page().
+
+Tested in a KVM guest with KASAN, lockdep and kmemleak, with both
+CONFIG_SQUASHFS_FILE_CACHE and CONFIG_SQUASHFS_FILE_DIRECT, by mounting
+images built with every compressor at 4K, 128K and 1M block sizes and
+checking the data through readahead, read_folio, mmap and concurrent
+readers, with no failures or warnings. Each pre-existing bug was
+reproduced on the base kernel and fixed with the series.
+
+---
+Tal Zussman (16):
+      squashfs: don't truncate page cache indices in squashfs_copy_cache()
+      squashfs: don't read an extra block when expanding readahead
+      squashfs: release the grabbed pages if allocating the page actor fails
+      squashfs: unmap the current page when a readahead fragment copy fails
+      squashfs: add a folio based page actor
+      squashfs: convert squashfs_readpage_block() to folios
+      squashfs: convert squashfs_readahead() to folios
+      squashfs: remove the page based page actor
+      squashfs: give the folio page actor helpers their old names back
+      squashfs: walk folios by offset in the page actor
+      squashfs: zero the tail of the last folio up to folio_size()
+      squashfs: step squashfs_readpage_block() lookups by folio
+      squashfs: copy cache entries by folio size
+      squashfs: use folio_pos() and squashfs_block_bytes() in squashfs_read_folio()
+      squashfs: use folio_end_read() for cached folios in squashfs_bio_read_cached()
+      squashfs: use folios to fill the bio in squashfs_bio_read()
+
+ fs/squashfs/block.c          |  52 +++++------
+ fs/squashfs/file.c           | 203 ++++++++++++++++++++++---------------------
+ fs/squashfs/file_direct.c    | 104 +++++++++++-----------
+ fs/squashfs/page_actor.c     |  67 ++++++++------
+ fs/squashfs/page_actor.h     |  34 ++++++--
+ fs/squashfs/squashfs_fs_sb.h |  24 +++++
+ 6 files changed, 271 insertions(+), 213 deletions(-)
+---
+base-commit: 4fab3abf085638e7fd2ebabf0aab8aa299486207
+change-id: 20261012-squashfs-folio-51095c19f276
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
+
