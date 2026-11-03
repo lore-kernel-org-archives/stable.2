@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793748486;
-	b=NYcRWFuwNvQLWXzgXvqS/XuH16Bt0HaHzL5MtrIdnqOJlAdWSbjGZ5+YPxY8va1t85W1
-	 WMEm8ZNp/iK5QaiNcEGRMS6g3OaXTiiycp12WVVcvNBuHo4dOv8iDibHJVukcLSJdlfQI
-	 MU0XdY+MgLrFSByCKMdhz/nOw6xMy0wQDmjNMwH9AOpUA44Z3GHdz9mSYrqqinzSthqu3
-	 HKmwjObTxtlHOg3xnlt7E1RR558rpE5Mygh5nV8TofAEIQleaW07ppkPjYein2/NlwTjz
-	 cxXv+I7J/mMXYRmNWLczqVMkuyfCPyogiThwMCnmeG/vUpuV1qJZxyR3/QRCOYoKxFw==
+	t=1793748495;
+	b=romRGf3KWw0/S1UvnqJ4+sePXI8qh1sZGiydcgEIljgnODc3sMSAvsqxmcyumJQpgXTY
+	 PHvh73vYZv1cR5dyZZnT7aoH6vL1MS01Sy8x6awIJPi2wSy6yMZjb8zVACavVvDXw01Pj
+	 pgmmWIBBBlEJD2ZFc4Qumj08zoz2n4B25NFv3WXvfvKM0qEF2BD1GNkbq97e5u9zMrnY1
+	 kF65MXynxvneH/B3XnjI/9tJVul092/nbBhaZXNNZtVKteSH95TKaXnaWZpGidfXlEwLw
+	 2kPlVn0Z/BWUJYVcQnrRDsxrhNCyYlBof/sJPnw+cwCDynxnGMlg3tEohKbTkYtMXmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793748486;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=HTEjSItWKIsdJkuG+lzcjXBextZFeFZ19Xztacgy4NY=;
-	b=qxwXPfaNvoHImZITNMukKb+HIRCjSH6R/mjQPFJAbidKjUI32AX/RIIpLqGn+/xEiOy4
-	 UHJqOZ1QpU3Pu/DoYCdstlbs2R8Kc3mTvxsASvVHiCCCX0HyiTOtp4HjgKAo8yqURZTw8
-	 EAMMbTMeo35+Q1lIGpKpseNConCkSUVvrEnuDZcKiP3zzrZ52mBFfnzCnjf3VDcPf4Bna
-	 kBkkZbEkYByDgZd2+MsZU0ocAkuLwwj9wPMDJU0mu9tc6MPt4zTPM4GFxH8YIn+vY4HLl
-	 8iN18anHnv9RJo2CPvxUZJ4CELqBQM3n/56017Va+M5EIVeRuUUQCnFJ6VxhxctwBSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793748495;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=BuvKBZZT7vspiL9khnnSeHmRCdSafJ+of+w9p2VPzFY=;
+	b=xCndwJink7v1v626GSDf9hUzeMUUjDs3SHtwmeon4gZnSptj1pYUCpqJL755r2nKxkow
+	 nDjGy8Na9T1C47sw8veIlRulRWnSub2elxXMQytzx/aAOxRfPA0ScHgbReJXzhMCmCS63
+	 MF312LE5Bexk96gXbJB62j/HGOT9v7S00oZ2X8Qzh7quAYLVNvs9j8Qe3O1Byk9+9GH7b
+	 vLKvs7lwIZ5qU7iug2j0ZVidlnMAkZHya9y5RhHA4glwdnLRj9Q4yS1Y3ofGO7Fuj1Ln6
+	 /srurnmAGiht6CdJ1kX6ROL95ledingkdgiucd1Bl80TWgnGPTr5X0OhDKa0i5ozBuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=nNCcFfpI;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZE12fB6r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EA8606A324;
-	Tue,  3 Nov 2026 23:28:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4EA8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933CF606A326
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 23:28:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=nNCcFfpI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=HTEjSItWKIsdJkuG+lzcjXBextZFeFZ19Xztacgy4NY=; b=nNCcFfpIZVrYjsdr6/bFyuDAa0
-	de83MePl5BcC5g2v4OIYYHkZHtRU6cIoCHVDv0RavLPPq1R+ffyLWg8qt6DFL5aHXHVsobuFZHwMX
-	j6NdvR5YI+UY748SjIfvHtehCzwxq1EhtGY32QV5tuZfQZBzGiDfcjKerMhxQht2c1ijJ0YjaN9Bs
-	mY2bCY2pgQBeIJjp/1Jm0m7BDD31c8RN/mZgBypbLR9WW6VNUDVzTGXbiQTaqRn4X8DDjn03UHqbx
-	cMULbLPrIENQ45aEJmtDEio52AE+h4PNzzNxYWZbi1kbc4Dt2F0m75ZXyU8EnHHGnloKgxjDEIleS
-	mqUEdV3g==;
-Received: from [151.115.150.205] (port=52178 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xONvB-0000000GktW-08ml;
-	Wed, 04 Nov 2026 00:28:03 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>
-Cc: linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] afs: Fix server UAF during peer appdata lookup
-Date: Tue,  3 Nov 2026 23:19:30 +0000
-Message-ID: <20261103231930.3213821-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZE12fB6r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39B21F00A1B;
+	Tue,  3 Nov 2026 23:28:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793748495;
+	bh=BuvKBZZT7vspiL9khnnSeHmRCdSafJ+of+w9p2VPzFY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZE12fB6r4ktlTn2rNZ+jtfiVeKnmj4TOIuifXS/VKXJiVaDK6a0l8bS75Vyf8PkGZ
+	 es2uQMoaZbD+EwKr02phPKZO6n9qathPERX9VVA0To/End9AviQZw4btJkhpbC1Yr+
+	 lgYmJYdly9ltbt0cQtRNnr8WgpfK9Gw0GFMaK22qe1lqcNAxmL5gFsPkHsJfH4RJND
+	 zsuawc/w8TGlNjKP/wXcwp9EtmyjuVoR3bTYJ+jxeVAjKiNJ34tZXx0UeYzx6Qq+H2
+	 SooTZz3/VTQ3xODvLIV6kQAYeJM9zOgjlL/ArG1UMvqoTWY2dGNEow8bWJ8MRjjK2W
+	 Trczqn/2TUR4g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ian Bridges <icb@fastmail.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] ksmbd: fix session reference leak on compounded SESSION_SETUP
+Date: Tue,  3 Nov 2026 18:28:13 -0500
+Message-ID: <20261103232718.1548000-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110320-crepe-chapter-73d8@gregkh>
+References: <2026110320-crepe-chapter-73d8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,67 +59,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-AF_RXRPC does not take a reference on objects stored in peer appdata, so
-afs_find_server() can race with afs_server_destroyer(): it may read an old
-server pointer and pass it to afs_use_server() after the object has been
-freed through RCU. KASAN reports the UAF as:
+From: Ian Bridges <icb@fastmail.org>
 
-  BUG: KASAN: slab-use-after-free in afs_use_server+0x2e/0x250
-  Write of size 4 at addr ffff888002b910f0 by task afs-peer-uaf/87
+[ Upstream commit 03bd8f5279e490e15e0c0f0fa388ffbd2fbacd65 ]
 
-Keep the peer appdata lookup under RCU and use
-__refcount_inc_not_zero() to get a server reference before leaving RCU.
+A compound request can place SESSION_SETUP after another command. That
+earlier command leaves a reference to its session in work->sess.
+smb2_sess_setup() then overwrites work->sess with the session it looks up
+or creates, and the dispatcher later puts work->sess only once. The
+inherited reference is never dropped. That leaks the session, together
+with its setup connection and socket, and every repeat of the compound
+leaks another.
 
-Fixes: 40e8b52fe8c8 ("afs: Use the per-peer app data provided by rxrpc")
+  unreferenced object (size 512):
+    __kmalloc_cache_noprof+0x32c/0x3a0
+    ksmbd_smb2_session_create+0xf6/0x9c0 [ksmbd]
+    smb2_sess_setup+0xda4/0x6280 [ksmbd]
+    handle_ksmbd_work+0x88c/0x1cb0 [ksmbd]
+
+Save the inherited session on entry. After the request has been
+processed, release it once, but only when smb2_sess_setup() has replaced
+work->sess with its own session or cleared it. Do this after
+ksmbd_conn_unlock() so the put does not run under srv_mutex. An error path
+may instead leave the inherited session in work->sess. Keep it there, so
+the dispatcher still puts it and the error response is still signed or
+encrypted with it as before.
+
+Fixes: 7aa8804c0b67 ("ksmbd: fix user-after-free from session log off")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: omitted the installed flag assignment from the binding-error branch because it does not replace work->sess ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/afs/server.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ fs/ksmbd/smb2pdu.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/fs/afs/server.c b/fs/afs/server.c
-index 189138bd6d712..506119f9b1d32 100644
---- a/fs/afs/server.c
-+++ b/fs/afs/server.c
-@@ -23,11 +23,21 @@ static void afs_server_destroyer(struct work_struct *work);
-  */
- struct afs_server *afs_find_server(const struct rxrpc_peer *peer)
- {
--	struct afs_server *server = (struct afs_server *)rxrpc_kernel_get_peer_data(peer);
-+	struct afs_server *server;
-+	unsigned int a;
-+	int r;
+diff --git a/fs/ksmbd/smb2pdu.c b/fs/ksmbd/smb2pdu.c
+index 4c42205fe5261..d24c0b3d2a33a 100644
+--- a/fs/ksmbd/smb2pdu.c
++++ b/fs/ksmbd/smb2pdu.c
+@@ -1703,6 +1703,8 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	struct smb2_sess_setup_req *req;
+ 	struct smb2_sess_setup_rsp *rsp;
+ 	struct ksmbd_session *sess;
++	struct ksmbd_session *prev_sess = work->sess;
++	bool installed = false;
+ 	struct negotiate_message *negblob;
+ 	unsigned int negblob_len, negblob_off;
+ 	int rc = 0;
+@@ -1819,6 +1821,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 		conn->binding = false;
+ 	}
+ 	work->sess = sess;
++	installed = true;
  
--	if (!server)
--		return NULL;
--	return afs_use_server(server, false, afs_server_trace_use_cm_call);
-+	rcu_read_lock();
-+	server = (struct afs_server *)rxrpc_kernel_get_peer_data(peer);
-+	if (server && __refcount_inc_not_zero(&server->ref, &r)) {
-+		a = atomic_inc_return(&server->active);
-+		trace_afs_server(server->debug_id, r + 1, a,
-+				 afs_server_trace_use_cm_call);
-+	} else {
-+		server = NULL;
-+	}
-+	rcu_read_unlock();
-+	return server;
+ 	negblob_off = le16_to_cpu(req->SecurityBufferOffset);
+ 	negblob_len = le16_to_cpu(req->SecurityBufferLength);
+@@ -1976,6 +1979,14 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 	}
+ 
+ 	ksmbd_conn_unlock(conn);
++
++	/*
++	 * Later in a compound, work->sess holds the reference that an
++	 * earlier command took. Drop it once this request has installed
++	 * its own session there or cleared it.
++	 */
++	if (prev_sess && (installed || !work->sess))
++		ksmbd_user_session_put(prev_sess);
+ 	return rc;
  }
  
- /*
 -- 
-2.47.3
+2.53.0
 
