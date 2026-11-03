@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701580;
-	b=h6rGylK0HgKfhD164EOUrwyw3j0lpWBWMiOUq3zyVoVQpLvlK0zzkgziK0my3UhI9C3S
-	 SdKoiHW9Y6QjF887NmP8NvpB6zTkClHtyG4XTgsJNSFGtB82Ev1rCEBEN/yAqsEI6LCPh
-	 8j4I4So0+p2NFFJX0tqTw0BgZkZEBQmXSSwxEEciiEp5ptstBHy3FWTLNK8I4mONTAcEK
-	 E6uB1m6KhHerL3Z539phf6pV0xj4fsvAHKyftaBkR59Ap5LeptODRRs+UTweuFyEfRZOk
-	 H+icWUwhUIW1Gvr9Q0UYEBn6FlKWF+l3DyfNuza/Kae7vvvm6pJqBvsExBiO0dWOXig==
+	t=1793701568;
+	b=NlgmRxDittllU1RLnbEbZejDOVuc3AkMbH0+jYqtD6NQfzfP3ynBzB3Gxco5D9WCckDg
+	 kUvo5vib4jDCHwLWpyQwrchYxS+lAjY3WmIDOZ8Hs+ByeksijJjCUo3aOjMI/RHLcBMI2
+	 cYlKDaj9czY8q+mgV+sRIlIzFlSOMfEl+5RmKKLH++LLjFMMDeirxfE3UyFua40CA+Wvb
+	 7Zt1xshyIJMRYrPJQidySOchT8a21UbET8DZnUTrOVA/yKPRU6aM/mqFfUieGQd0Gi0x8
+	 beStTpUXKSWZqlIbPxxC3H6cG/dRBwK2IYdGBFKkbEgzZOQIC4oj0kfRezcCSkO23Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701580;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701568;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qt/XERH9JA6N26gnj2KjkQP/rhmppH53Kiuwbw79Xu8=;
-	b=1JWGM2fJWXubYM3BsIjX71x5NM4Sbj6YWmjNRKpcakS74kr4IiabmjXdTC3tlRxcJngZ
-	 nAmeeKR8HQ192AjXjREQ/toi5pLRF2x/2vFYIXv5ixLMXMyiFxQDqBMzaJqssmI7V8EFs
-	 q4f/m+mTTdXsB7lg2zvfr0Fw8W7aerzNjb2WvznGv8ozUOTyIkO/u7YNb3TVVHy8TVmWA
-	 ZyM5OPnJBg2KU0aOr2bLf6X5xZiL/W1e7w2JKfKPdv8lHrNg7qveOBQEQ3eRlXsoXV/IG
-	 6MuDiKrxOA8saZBV5MgP8g8vzJC2BQyLM6IypdXw0o5Ur5E2EHfS4UlQahD+NLpC6Ng==
+	bh=ZuF7fJYmTTru6AFzam/kZmRQYRbtMt5mtJ5Bhl2O7Ns=;
+	b=xqqpZD0GCeNP0eb2A1bNqqCuH4ZBLfVuOkgqPD8EbarIScrFGzGeXkmZsW1NNL9mC8Zn
+	 vTE5+nkIZfefK9J1T9uMNmBmms4njbglvCFfDxyRTXihjccV4mL1NweEefyqcSsLu3Kdq
+	 WRGF+kROLYYCVqg0fNJMuVsPu7VZSf1sZ147oNB5Uv821+bJHOr/PefQ7ilmP/2B1EDSf
+	 z15UQYZYUBhfeuAPVan1k1mfMa1p8lJ67XHBEN91Uq+CvbUMb6ikEOuxCzZxmYAljnSsM
+	 /ZePICU1PTnirzA9vkjVWLkfXBHQR71ZIiCBRGLncC4SWNrinfPdz1STU3+S14cX27Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ3J97Ml;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kr5GWY8B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB816083618;
-	Tue,  3 Nov 2026 10:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3773606D837;
+	Tue,  3 Nov 2026 10:26:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NQ3J97Ml
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265711F000C1;
-	Tue,  3 Nov 2026 10:26:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kr5GWY8B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABA4D1F000C1;
+	Tue,  3 Nov 2026 10:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701579;
-	bh=qt/XERH9JA6N26gnj2KjkQP/rhmppH53Kiuwbw79Xu8=;
+	s=k20260515; t=1793701567;
+	bh=ZuF7fJYmTTru6AFzam/kZmRQYRbtMt5mtJ5Bhl2O7Ns=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NQ3J97MlzbGvbPfqP+8jmcqpXwFhQwFkdoBsXHSVlYt4kgfqM1t9TPAYyAgjsHuEz
-	 xPaoAhx8x+Q+NIgUVeOo5FKZwtT950eA2hNgOzsHNWkfWEImJZAWEZNdozzsNjqNcu
-	 Z/1D1JdCvRJUIYSOvtNL7gUlofzKee/IrCIgAXDV0iZqZaVS+DqfY7XXW3VmQrrWui
-	 n7nmOltb0QuCZPq7VcJiZRB9+inv+mW7MvE7tJECWLPlg92yZ9VBp+TIRltfSsT6Cb
-	 VuKob6Bo8aPZnFPntFJ0A+3EdWo4WMrT5Nh/hEIqSmV7SR3PEnp7qiSBHpFo4IpmOk
-	 DKQK4/n1AIZLQ==
-Date: Tue, 3 Nov 2026 11:26:17 +0100
+	b=kr5GWY8B8k9A2Xlh6UV8JUw4/lNOHG5KFxHXewAh+SkTH5QgBoNDrB8KBI/ie6LK0
+	 giaAY3iV9RjcMEkbFnr2p51A/K5476YCgnDARCKFQkdlM8FHMXygP39Rt3oZeduLYm
+	 RILuMBXVjLAIxEMA82qC88imdvvxwC29yl3OCSXw2TNrIbhyS0HoSC9STa4BTLFkD8
+	 Vibih8Xkv39rclW4dNAJvHNwOruq9rZFlRIlZ0Gb7Ora9bE8oTL/42Fk3VOitL2bNW
+	 6njUttuBIbfU5lyY/qME+Xbjby2Q99tghrl2GwMDJsRyLosNKNC9IN8Z2zPMqOZU6Z
+	 KYnVMV4Xx0Adw==
+Date: Tue, 3 Nov 2026 11:26:04 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, linux-can@vger.kernel.org, 
-	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
-	linux-kernel@vger.kernel.org, =?utf-8?B?U3TDqXBoYW5l?= Grosjean <s.grosjean@peak-system.fr>
-Subject: Re: [PATCH] can: sja1000: fix netdev leak for non-contiguous channels
-Message-ID: <20261103-enlightened-righteous-leech-e92bb9@quoll>
-References: <20261103100528.1309863-1-vulab@iscas.ac.cn>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Paolo Abeni <pabeni@redhat.com>, 
+	Eric Dumazet <edumazet@kernel.org>, Elad Nachman <enachman@marvell.com>, 
+	linux-kernel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: prestera: release the ruleset in
+ prestera_flower_prio_get
+Message-ID: <20261103-fine-blond-donkey-b4cda2@quoll>
+References: <20261103100532.1309990-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,28 +61,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100528.1309863-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100532.1309990-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:28 +0000, Wentao Liang wrote:
-> pcan_add_channels() stores a registered net_device at card->channel[i],
-> where i is the hardware channel index, but only increments
-> card->chan_count by one. When a lower channel is absent or fails to
-> register and a higher one succeeds, chan_count no longer covers the
-> used slot. pcan_free_channels() then iterates only up to chan_count and
-> leaks the net_device of the higher channel; the LED timer and the
-> interrupt handler also skip it.
+On Tue, 03 Nov 2026 10:05:32 +0000, Wentao Liang wrote:
+> prestera_flower_prio_get() looks up the ruleset with
+> prestera_acl_ruleset_lookup(), which increments its reference count,
+> but returns without calling prestera_acl_ruleset_put().
 > 
-> Record the highest used channel index plus one in chan_count so that
-> every iterator covers all channel slots.
+> The ruleset reference is leaked on every successful priority query.
+> Release it after the priority range has been copied out.
 > 
-> Fixes: 2b61972b7421 ("can: sja1000: add support for PEAK-System PCMCIA card")
+> Fixes: 44af95718fed ("net: prestera: manage matchall and flower priorities")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/can/sja1000/peak_pcmcia.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/net/ethernet/marvell/prestera/prestera_flower.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
 
 
