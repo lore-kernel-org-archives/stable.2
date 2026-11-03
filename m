@@ -1,48 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672151;
-	b=uVoAcLnMsuuqYMxOUuvle1UwFpkqJsPh9mbX0dofltVMZFuy7EpU9qxc1mO5lVEdW/be
-	 HFOi3HWFidHpELzjEvGyAVujlaNxQTsGhR6cvckzXqtO3ldDdBqLCh/mznb3YTHBUV7PO
-	 ObalvqTFmFRopT+P9tFVoqE8PGwewKCHw3Mk/6crhUVq32k2Xer1f9AR6nqXsopO+OjLS
-	 DbeMneQmImQxHgOrP5nb7Md/Dpg4JDTnitVeAHvpqDeEB0K8Ti4gBy1WoXE3H4+bfRs6c
-	 TmoAGuat07U/rjsylGHtU/62GmADfqKLNoY1NFv1cGUjUWY75i0NBmB+LTHUal3yn6A==
+	t=1793672147;
+	b=WatryqmN7pqR2zJhKf1jn6/+p5TCZyr3BCIfGokQwZpkpcRLvzOjweKyWqQq4SmqWuKw
+	 Qn5+cZDF3MJSb6NlElBoaR3OyT2gBKWqk9uLf909/2xkcq9eK339NlZAe+kAUxNXKl3rT
+	 as93KgY96dVOlDhlNn/9XW8invfPSZKvuyrTkLlVO4YwlNtDexvJntnTSvszK06CadUwQ
+	 KsY/SF3lwXCz9TindBM8ERhLb6WSic0zYQI1UNPpPw3AsE6OdfbepR+0M95KToZ51DcGc
+	 fVy1yKIjHcwC15aDO/up0Fb9O9CWo1BFg0Ok47Dg9FUtu+MKYEt0cZ176BdFT97BD6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672151;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672147;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=fmXWafv3nOOTVJ2JnwhkpMwGDwRW7FWPnOxpj9tGcUc=;
-	b=c53wTVAZiSdvDO57HiW1Hm+Wd0Ulp7/5ntgdChXcPxD6ooLlfxpIecUJpbvl5mcXJZst
-	 8iGqTbSb2UbtsR2T1yBEtO7Kn7tLPuMuXasPNLh4udrT2wNip6CN3P++Fgd8UelLOJGke
-	 deV23dPC26jkW9h3bv7DRBj4pSzI++BTwn+o7wga7xFpovekw171zTWINXPddgcfk+AAI
-	 5JmtGopME98zU/4jxYV/I0hzvpdoPB7ap/AUp4D4ujtDF1LxueQHdKjAc/1hRc7M8Un0j
-	 YHZW4QoCTjDLnaG9zAEqjgVxccw7NXn0W730+eilFlS8HUH5GlZPre2CGKwj+UVbBwA==
+	bh=APoOSE3eQiTpI/a8/7eMeTk/q6sS/mBd5YfCvBguydo=;
+	b=HmPJAWR3wDdwRAAGgXNR1b0+3m42uaD+D2DXgoMWQwyZ6hrZnM5Tq9G24P3CeLwXKtop
+	 fcJZVif1h/Chl8K2WlFBee7/8BMKDY7lvzdS+SW/Vg4Dpa+TcHcn0WORo9TAmmIyTl4lv
+	 J20UQoWJtLUWKi11FQnNohnKJdAzdWjFsVP4wLpyIHeMVG21clqMEm4v/bqEBbzBlAjZF
+	 OPI0CEY3ZHA3b1lfuW9LCxDxzpDcvvq3etd0klZVv59vaL0rPgGWAxzAo9p5dZF2U6JLk
+	 pAiIummi5MO9KfsJUmusVmmWSDzGiogV12lUZBGD24kljNMlj0h5GUHDbiIw/OTo/YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Eeu2ODKs;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rL7fMwcq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32886606A32D;
-	Tue,  3 Nov 2026 02:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2B3606A32E;
+	Tue,  3 Nov 2026 02:15:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Eeu2ODKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B23BA1F000C1;
-	Tue,  3 Nov 2026 02:15:50 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=rL7fMwcq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8B81F000C1;
+	Tue,  3 Nov 2026 02:15:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672150;
-	bh=fmXWafv3nOOTVJ2JnwhkpMwGDwRW7FWPnOxpj9tGcUc=;
+	d=linux-foundation.org; s=korg; t=1793672146;
+	bh=APoOSE3eQiTpI/a8/7eMeTk/q6sS/mBd5YfCvBguydo=;
 	h=Date:To:From:Subject;
-	b=Eeu2ODKsXzOib+LiwaNOS+yOuiwibBhDi0KubUTFUsDIUYBimw8Of1w6OkPwz4hnZ
-	 IMQrlbGD1QpcZH7mXLT15RupGiX2181RaTvtTxWcxVxVD5pgQQTelewePz7X/G5gox
-	 fiV+ddpJ17I7CDTJHlK3/GCuyhyywUnjgfGBLOnA=
-Date: Mon, 02 Nov 2026 18:15:50 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,sj@kernel.org,shakeel.butt@linux.dev,pfalcato@suse.de,
-	liam@infradead.org,jannh@google.com,david@kernel.org,azpijr@gmail.com,
-	ljs@kernel.org,akpm@linux-foundation.org
+	b=rL7fMwcqn+ckPFbur97k19MzPOh9wBs5FNbqbx1l0RgHKrT+wS7mbhvHRBlljbSTH
+	 eQ0p/CAoPKZtd2pPhD1Q8b7mn5xdAAGZNe65rLpNSVy6yNViDyr+uJ/HqWRTyBfHcd
+	 eYpjAQdh6cHj8tvej35qP2Ikz15R14xXt5hUlcPU=
+Date: Mon, 02 Nov 2026 18:15:46 -0800
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,xu.xin@linux.dev,
+	xemul@openvz.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,
+	sj@kernel.org,shli@fb.com,seanjc@google.com,samarth.colleges@gmail.com,
+	rppt@kernel.org,riel@surriel.com,peterx@redhat.com,pbonzini@redhat.com,
+	mhocko@suse.com,mgorman@techsingularity.net,med08elkadiri@gmail.com,
+	mcfadden8@llnl.gov,ljs@kernel.org,liam@infradead.org,kas@kernel.org,
+	jthoughton@google.com,jglisse@redhat.com,hughd@google.com,hannes@cmpxchg.org,
+	gokhale2@llnl.gov,dplotnikov@virtuozzo.com,dgilbert@interlog.com,
+	david@kernel.org,cracauer@cons.org,corbet@lwn.net,chengming.zhou@linux.dev,
+	bobbypowers@gmail.com,bgeffon@google.com,aarcange@redhat.com,
+	lance.yang@linux.dev,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] fs-proc-task_mmu-fix-missed-vmas-when-reading-proc-pid-maps-and-friends.patch removed from -mm tree
-Message-Id: <20261103021550.B23BA1F000C1@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch removed from -mm tree
+Message-Id: <20261103021546.7D8B81F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,308 +61,151 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps and friends
+     Subject: mm/ksm: fix userfaultfd protection during merge and unmerge
 has been removed from the -mm tree.  Its filename was
-     fs-proc-task_mmu-fix-missed-vmas-when-reading-proc-pid-maps-and-friends.patch
+     mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: fs/proc/task_mmu: fix missed VMAs when reading /proc/PID/maps and friends
-Date: Tue, 27 Oct 2026 14:08:26 +0000
+From: Lance Yang <lance.yang@linux.dev>
+Subject: mm/ksm: fix userfaultfd protection during merge and unmerge
+Date: Mon, 26 Oct 2026 21:00:54 +0800
 
-Reading /proc/PID/maps under per-VMA locks can skip continuously mapped
-address ranges during concurrent VMA splits or merges. This violates the
-guarantee in Documentation/filesystems/proc.rst:
+KSM loses userfaultfd protection when replace_page() builds a new PTE from
+vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
+through ordinary COW instead of userfaultfd write protection handling. 
+For RWP, a merged page also becomes readable without faulting.
 
-"If there is something at a given vaddr during the entirety of the
-life of the smaps/maps walk, there will be some output for it."
+Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+have to handle unmerging.  An existing KSM page can be protected with RWP
+before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+of preserving RWP during merging.
 
-lock_next_vma() reuses a tree iterator across calls under RCU. The iterator
-remembers the range of its last entry. When its node is replaced,
-mas_next_slot() walks the tree again at the last index of that range, then
-advances past the entry containing that index. If VMA boundaries changed,
-this can skip a range that has not been reported:
+Unsharing replaces a shared page with a private one and should leave
+userfaultfd protection in place, as do_wp_page() already does for write
+protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
+can proceed to do_wp_page().
 
-- A lookup finds [A, C), then mprotect() splits it into [A, B) and [B, C)
-  before vma_start_read() locks the first VMA. The reader reports [A, B),
-  but the iterator still covers [A, C). The next call starts from B yet
-  advances past C, omitting [B, C).
+- With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+  break_ksm() then reports success with a KSM page still merged.
 
-- The reader reports [A, B) and unlocks it. A concurrent mprotect() then
-  merges it with [B, C). On the next call, the iterator resumes at B - 1,
-  which now belongs to [A, C), and advances past C. Again, [B, C) is lost.
+- With asynchronous RWP, protection is cleared before unsharing.
 
-Checking the mmap_lock sequence only within the next call misses writers
-that completed before that call began. Also, a NULL result is currently
-accepted without validation, so a race can terminate the walk early.
+Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
+FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+private copy as well.  Unsharing can then complete with RWP still armed
+for a subsequent access.
 
-Even a fresh lookup can skip a mapping. Suppose it finds a gap before
-[B, C). A writer inserts an adjacent VMA at the end of that gap, then
-merges it into [B, C), replacing the node. The lookup resumes at the old
-gap's last index, now inside the merged VMA, and steps past it. The
-original [B, C) remains mapped throughout. Repeating the forward lookup
-is insufficient: another merge can make it skip the same mapping again,
-returning the same later VMA or NULL.
-
-The fresh-lookup race also affects /proc/PID/smaps, numa_maps and
-smaps_rollup. Resetting the iterator after gathering each VMA's statistics
-does not prevent a merge during the next lookup. Fixing lock_next_vma()
-also prevents omitted entries and incomplete rollup statistics.
-
-Tie VMA iterator state with the current mm and the write generation at the
-point of last mm speculation in vma_rcu_iter, whose values we call 'rvmi'.
-
-This allows us to neatly abstract the existing priv->iter logic alongside
-query_vma_find_by_addr() which uses its own VMA iterator.
-
-Then, provide helpers that act on the rvmi - vma_rcu_iter_[maybe_changed,
-may_have_skipped]() to determine whether any VMAs may have
-been altered since last mm speculation.
-
-Additionally introduce vma_range_is_empty(), used by
-vma_rcu_iter_may_have_skipped(), to determine conclusively whether VMAs
-exist in a set range, needing to be traversed.
-
-Original fix generated by an LLM and sent by Josef Bacik in private, then
-amended by David Hildenbrand, and Lorenzo Stoakes added additional
-abstraction.
-
-Link: https://lore.kernel.org/20261027-fix-proc-pid-maps-missing-vmas-v2-1-2791cc9fc95f@kernel.org
-Fixes: 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma lock")
-Fixes: ea3085dd7a4e ("fs/proc/task_mmu: read proc/pid/{smaps|numa_maps} under per-vma lock")
-Fixes: 0e985559d72a ("proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock")
-Fixes: d9d1c2d81797 ("fs/proc/task_mmu: execute PROCMAP_QUERY ioctl under per-vma locks")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
+Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+Signed-off-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Xu Xin <xu.xin@linux.dev>"
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jérôme Glisse <jglisse@redhat.com>
+Cc: Andrea Arcangeli <aarcange@redhat.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Bobby Powers <bobbypowers@gmail.com>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+Cc: Doug Gilbert <dgilbert@interlog.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Martin Cracauer <cracauer@cons.org>
+Cc: Marty McFadden <mcfadden8@llnl.gov>
+Cc: Maya Gokhale <gokhale2@llnl.gov>
+Cc: Pavel Emelyanov <xemul@openvz.org>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Shaohua Li <shli@fb.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>
 Cc: SJ Park <sj@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/proc/internal.h        |    1 
- fs/proc/task_mmu.c        |   13 ++++---
- include/linux/mmap_lock.h |   22 +++++++++++-
- mm/mmap_lock.c            |   61 ++++++++++++++++++++++++++----------
- 4 files changed, 72 insertions(+), 25 deletions(-)
+ mm/ksm.c    |    8 +++++++-
+ mm/memory.c |   14 ++++++++++----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
 
---- a/fs/proc/internal.h~fs-proc-task_mmu-fix-missed-vmas-when-reading-proc-pid-maps-and-friends
-+++ a/fs/proc/internal.h
-@@ -393,6 +393,7 @@ struct proc_maps_private {
- 	struct inode *inode;
- 	struct task_struct *task;
- 	struct vma_iterator iter;
-+	struct vma_rcu_iter rvmi;
- 	loff_t last_pos;
- 	struct proc_maps_locking_ctx lock_ctx;
- #ifdef CONFIG_NUMA
---- a/fs/proc/task_mmu.c~fs-proc-task_mmu-fix-missed-vmas-when-reading-proc-pid-maps-and-friends
-+++ a/fs/proc/task_mmu.c
-@@ -160,7 +160,7 @@ static struct vm_area_struct *get_next_v
- 		return vma_next(&priv->iter);
- 
- 	unlock_ctx_vma(lock_ctx);
--	vma = lock_next_vma(lock_ctx->mm, &priv->iter, last_pos);
-+	vma = lock_next_vma(&priv->rvmi, last_pos);
- 	if (!IS_ERR_OR_NULL(vma))
- 		lock_ctx->locked_vma = vma;
- 
-@@ -265,7 +265,7 @@ static void *m_start(struct seq_file *m,
- 	 */
- 	if (last_addr > 0)
- 		*ppos = last_addr = priv->last_pos;
--	vma_iter_init(&priv->iter, mm, (unsigned long)last_addr);
-+	vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, (unsigned long)last_addr);
- 	hold_task_mempolicy(priv);
- 	/*
- 	 * If seq_file had to flush its collected data right after m_next() set
-@@ -515,6 +515,7 @@ static struct vm_area_struct *query_vma_
- 	struct mm_struct *mm = lock_ctx->mm;
- 	struct vm_area_struct *vma;
- 	struct vma_iterator vmi;
-+	struct vma_rcu_iter rvmi;
- 
- 	if (lock_ctx->mmap_locked)
- 		return find_vma(mm, addr);
-@@ -522,8 +523,8 @@ static struct vm_area_struct *query_vma_
- 	/* Unlock previously locked VMA and find the next one under RCU */
- 	unlock_ctx_vma(lock_ctx);
- 	rcu_read_lock();
--	vma_iter_init(&vmi, mm, addr);
--	vma = lock_next_vma(mm, &vmi, addr);
-+	vma_rcu_iter_init(&rvmi, mm, &vmi, addr);
-+	vma = lock_next_vma(&rvmi, addr);
- 	rcu_read_unlock();
- 
- 	if (!vma)
-@@ -1416,7 +1417,7 @@ static int show_smaps_rollup(struct seq_
- 	rcu_read_lock();
- 	reset_lock_ctx(lock_ctx);
- 
--	vma_iter_init(&priv->iter, mm, 0);
-+	vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, 0);
- 	vma = proc_get_vma(m, &pos);
- 	if (unlikely(!vma))
- 		goto empty_set;
-@@ -1465,7 +1466,7 @@ static int show_smaps_rollup(struct seq_
- 			reset_lock_ctx(lock_ctx);
- 			/* Resume from the last position. */
- 			pos = last_vma_end;
--			vma_iter_init(&priv->iter, mm, pos);
-+			vma_rcu_iter_init(&priv->rvmi, mm, &priv->iter, pos);
- 		}
- 		vma = proc_get_vma(m, &pos);
+--- a/mm/ksm.c~mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge
++++ a/mm/ksm.c
+@@ -34,6 +34,7 @@
+ #include <linux/memory.h>
+ #include <linux/mmu_notifier.h>
+ #include <linux/swap.h>
++#include <linux/userfaultfd_k.h>
+ #include <linux/ksm.h>
+ #include <linux/hashtable.h>
+ #include <linux/freezer.h>
+@@ -1463,9 +1464,14 @@ static int replace_page(struct vm_area_s
+ 		dec_mm_counter(mm, MM_ANONPAGES);
  	}
---- a/include/linux/mmap_lock.h~fs-proc-task_mmu-fix-missed-vmas-when-reading-proc-pid-maps-and-friends
-+++ a/include/linux/mmap_lock.h
-@@ -17,6 +17,13 @@ extern int rcuwait_wake_up(struct rcuwai
- #define MMAP_LOCK_INITIALIZER(name) \
- 	.mmap_lock = __RWSEM_INITIALIZER((name).mmap_lock),
  
-+/* Tie a VMA iterator to mm write lock state at iterator initialisation. */
-+struct vma_rcu_iter {
-+	struct mm_struct *mm;
-+	struct vma_iterator *vmi;
-+	unsigned int mm_wr_seq;
-+};
-+
- DECLARE_TRACEPOINT(mmap_lock_start_locking);
- DECLARE_TRACEPOINT(mmap_lock_acquire_returned);
- DECLARE_TRACEPOINT(mmap_lock_released);
-@@ -509,6 +516,16 @@ static inline void vma_mark_detached(str
- struct vm_area_struct *lock_vma_under_rcu(struct mm_struct *mm,
- 					  unsigned long address);
- 
-+static inline void vma_rcu_iter_init(struct vma_rcu_iter *rvmi,
-+		struct mm_struct *mm, struct vma_iterator *vmi,
-+		unsigned long addr)
-+{
-+	vma_iter_init(vmi, mm, addr);
-+	rvmi->mm = mm;
-+	rvmi->vmi = vmi;
-+	rvmi->mm_wr_seq = UINT_MAX; /* Start odd so changed by default. */
-+}
-+
- /*
-  * Locks next vma pointed by the iterator. Confirms the locked vma has not
-  * been modified and will retry under mmap_lock protection if modification
-@@ -516,9 +533,8 @@ struct vm_area_struct *lock_vma_under_rc
-  * Returns either a valid locked VMA, NULL if no more VMAs or -EINTR if the
-  * process was interrupted.
-  */
--struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *iter,
--				     unsigned long address);
-+struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
-+				     unsigned long from_addr);
- 
- static inline void vma_assert_can_modify(struct vm_area_struct *vma)
- {
---- a/mm/mmap_lock.c~fs-proc-task_mmu-fix-missed-vmas-when-reading-proc-pid-maps-and-friends
-+++ a/mm/mmap_lock.c
-@@ -13,6 +13,8 @@
- #include <linux/trace_events.h>
- #include <linux/local_lock.h>
- 
-+#include "internal.h"
-+
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_start_locking);
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_acquire_returned);
- EXPORT_TRACEPOINT_SYMBOL(mmap_lock_released);
-@@ -428,21 +430,53 @@ static struct vm_area_struct *lock_next_
- 	return vma;
- }
- 
--struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
--				     struct vma_iterator *vmi,
-+/* Is there no VMA in [start, last]? */
-+static bool vma_range_is_empty(struct mm_struct *mm, unsigned long start,
-+		unsigned long last)
-+{
-+	VMA_ITERATOR(vmi, mm, start);
-+
-+	return !vma_iter_load(&vmi) && vma_iter_end(&vmi) - 1 >= last;
-+}
-+
-+/* Might the VMA tree have been modified since last mm speculation? */
-+static bool vma_rcu_iter_maybe_changed(const struct vma_rcu_iter *rvmi)
-+{
-+	return (rvmi->mm_wr_seq & 1) || /* Odd implies write-lock. */
-+	       mmap_lock_speculate_retry(rvmi->mm, rvmi->mm_wr_seq);
-+}
-+
-+/* Could the VMA iterator have skipped a VMA due to the tree changing? */
-+static bool vma_rcu_iter_may_have_skipped(const struct vma_rcu_iter *rvmi,
-+		unsigned long from, unsigned long to)
-+{
-+	return vma_rcu_iter_maybe_changed(rvmi) &&
-+	       !vma_range_is_empty(rvmi->mm, from, to);
-+}
-+
-+struct vm_area_struct *lock_next_vma(struct vma_rcu_iter *rvmi,
- 				     unsigned long from_addr)
- {
-+	struct mm_struct *mm = rvmi->mm;
-+	struct vma_iterator *vmi = rvmi->vmi;
- 	struct vm_area_struct *vma;
--	unsigned int mm_wr_seq;
--	bool mmap_unlocked;
- 
- 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(), "no rcu read lock held");
- retry:
--	/* Start mmap_lock speculation in case we need to verify the vma later */
--	mmap_unlocked = mmap_lock_speculate_try_begin(mm, &mm_wr_seq);
-+	/* Only trust the iterator's position if the tree cannot have changed. */
-+	if (vma_rcu_iter_maybe_changed(rvmi)) {
-+		vma_iter_set(vmi, from_addr);
-+		mmap_lock_speculate_try_begin(mm, &rvmi->mm_wr_seq);
-+	}
- 	vma = vma_next(vmi);
--	if (!vma)
--		return NULL;
-+	if (!vma) {
-+		/* No reason to fallback if nothing left in range. */
-+		if (!vma_rcu_iter_may_have_skipped(rvmi, from_addr, ULONG_MAX))
-+			return NULL;
-+
-+		rcu_read_unlock();
-+		goto fallback;
+-	/* Preserve soft-dirty when replacing the page. */
++	/* Preserve soft-dirty and uffd protection when replacing the page. */
+ 	if (pte_soft_dirty(orig_pte))
+ 		newpte = pte_mksoft_dirty(newpte);
++	if (pte_uffd(orig_pte)) {
++		newpte = pte_mkuffd(newpte);
++		if (userfaultfd_rwp(vma))
++			newpte = pte_modify(newpte, PAGE_NONE);
 +	}
  
- 	vma = vma_start_read(mm, vma);
- 	if (IS_ERR_OR_NULL(vma)) {
-@@ -471,14 +505,9 @@ retry:
- 	 * installed ahead of it. Otherwise we might observe a gap that should
- 	 * not be there.
- 	 */
--	if (from_addr < vma->vm_start) {
--		/* Verify only if the address space might have changed since vma lookup. */
--		if (!mmap_unlocked || mmap_lock_speculate_retry(mm, mm_wr_seq)) {
--			vma_iter_set(vmi, from_addr);
--			if (vma != vma_next(vmi))
--				goto fallback_unlock;
--		}
--	}
-+	if (from_addr < vma->vm_start &&
-+	    vma_rcu_iter_may_have_skipped(rvmi, from_addr, vma->vm_start - 1))
-+		goto fallback_unlock;
+ 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
+ 	/*
+--- a/mm/memory.c~mm-ksm-fix-userfaultfd-protection-during-merge-and-unmerge
++++ a/mm/memory.c
+@@ -4125,8 +4125,11 @@ static vm_fault_t wp_page_copy(struct vm
+ 		if (unlikely(unshare)) {
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
+-			if (pte_uffd(vmf->orig_pte))
++			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
++				if (userfaultfd_rwp(vma))
++					entry = pte_modify(entry, PAGE_NONE);
++			}
+ 		} else {
+ 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+ 		}
+@@ -6662,9 +6665,12 @@ static vm_fault_t handle_pte_fault(struc
+ 		 * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+ 		 * NUMA hinting and must still fall through to do_numa_page().
+ 		 */
+-		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+-			return do_uffd_rwp(vmf);
+-		return do_numa_page(vmf);
++		if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
++			if (!(vmf->flags & FAULT_FLAG_UNSHARE))
++				return do_uffd_rwp(vmf);
++		} else {
++			return do_numa_page(vmf);
++		}
+ 	}
  
- 	return vma;
- 
+ 	spin_lock(vmf->ptl);
 _
 
-Patches currently in -mm which might be from ljs@kernel.org are
+Patches currently in -mm which might be from lance.yang@linux.dev are
 
-mm-vma-read-anon_vma-carefully-in-validate_mm.patch
 
