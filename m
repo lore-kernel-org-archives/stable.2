@@ -1,49 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793672135;
-	b=m6QhIjT6BO89JS832u2H+356pW9z1+3HHN/zz875TTs/fpq7EHL2D98n6d8ffH/Kml7+
-	 i5Dhoa+tymeo4lZesTdDkJVbM6AwwjF6e1bELh8ixGhxPISF29CTjoiVd/gBnZALbeTBP
-	 vXzfV0hI/d/JO/DqOO2ZqPt7EO6LVqeCteDV69hm87iGZLpkU5riHp7Fi83WHTQWA+e9p
-	 QTXgGOBAgZicu2gKkEYLGgT0W+VOdQbJvwmIr/5XbBNKCvdNff6idrIL3tfNxZKNBa2HK
-	 dD8DrmtSWtPJ9+UaeYFS0JHE8Ibnt0v60OuPjjC7NkycpbkDADZ9ubyQ/s1ECP93otQ==
+	t=1793672144;
+	b=Z+KfrRLI6a7ZIbvnZsGKcm5EAW306462CYuEMyW1wYes1ZxA4KBWZ2jYdN826bpUXb5A
+	 Mux5OHzzJPi1mMniy8c2gc+uEJzuERgpP5Cu392uP9y9cAWomqBopg7Beu6GTDRRd4sAw
+	 8WfmVBPZYQmlvtnTdPRciTHVK2EUqL576BqQqOsdJ49xp9upbse/5eM8HqrU/4GZqSx+n
+	 2C+Xfz3bDwcStZQ7qBsCv10v83SpMjYltAxfPQEqmI+BbD1mrcoIRHSuTkkdLS24uBCv2
+	 G8gJFFAcWARG3rl9GLbXenTSaML8jUgGk33dxMZMAmpL1s2F8S05BaYhT0nnpHeeiew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793672135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793672144;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=d0KE9FRiDXklu+is89zxxemQV6g5/SGdbntGd/nFOzM=;
-	b=Vp5LHJpWQM7E2Ens1bHIujnRFXyBlIp3F64qUuyprm8GdTTh8w3nR5cj9AxDlJgIEYBB
-	 pJ8VJQ6S/q7QThkyq53Ys0jLR9uy98QOTvvUWOFKHDZuBTaPJTVcX0vdq6YIUgEGsqstJ
-	 K0FoT3GE7bjGvKsWm/KektCxQj1qhs0KNQrwk3/Bg627A769s5ehHkW1UhxPsVUfW7MmA
-	 76WxWfRNLThywIVhFiV9abbZa/8kuUeuvbBnv7O3k7zIJX3QPwqbP7u6ttqLaus0FmYqu
-	 a0hixT1LyskNdGdpuDODEW4NzQceJHVhH89idWcwUvWor0oPFNzi1RhOf55rDxByRrw==
+	bh=0hH4diZxkE9FYqMBlXHB0HpZuREEprMCduMPs/5JO+0=;
+	b=yELMDDMzJC3NcehzyjZDYa8vdejyGOImw3gtJc9T9vpybWB92BRel4A2iLq5iPEQvt5N
+	 sG+/ddizlvblrrJl7X+GujJGCaDoVSkSY//A+z1NNH4dIg+66AhIp8n0wt+/nnB26H3Wq
+	 RuBPHATrXcmgV6lCpRds7KgF9Hxo8YxWqeOLwKYfUwbUmiVAitRdoSttOZAhFNDrc5Y4M
+	 A7rbmB4DBnJH6aLeXMnyOu+GLVJ4bWcrVmzTRMjOlsHBZD9h0q9jpSyr0Ulx8cJZCWSj0
+	 tb5alsHXYciH7t7wEtiBlanQ4OeOiLvObFXpkpBr2pf7zges+v7svgjvgXVOO8r1bwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YiNR1crC;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zUsBBRll;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E86606A32F;
-	Tue,  3 Nov 2026 02:15:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44760606A326;
+	Tue,  3 Nov 2026 02:15:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YiNR1crC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18211F000C1;
-	Tue,  3 Nov 2026 02:15:34 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zUsBBRll
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A0B1F00919;
+	Tue,  3 Nov 2026 02:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793672134;
-	bh=d0KE9FRiDXklu+is89zxxemQV6g5/SGdbntGd/nFOzM=;
+	d=linux-foundation.org; s=korg; t=1793672144;
+	bh=0hH4diZxkE9FYqMBlXHB0HpZuREEprMCduMPs/5JO+0=;
 	h=Date:To:From:Subject;
-	b=YiNR1crCE58bVcJMVM/pEGLHkZyEpjp2CT1raH4cvIajbqXorp17t2wXozCBrFcHu
-	 ro7T7H8LJuekrTIIuQjOnqgygkaU/nIznUE3SRrgqXnuuptIUrqElIr8fJ0kpK+l4A
-	 7N4YWi1HzAiG7Rd1Tq0c8pbMfvSwIjyhvdt3wGrM=
-Date: Mon, 02 Nov 2026 18:15:34 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,sj@kernel.org,rppt@kernel.org,pfalcato@suse.de,
-	mhocko@suse.com,liam@infradead.org,kees@kernel.org,jannh@google.com,
-	gourry@gourry.net,david@kernel.org,dave@stgolabs.net,ccross@google.com,
-	ljs@kernel.org,akpm@linux-foundation.org
+	b=zUsBBRllvN+l1ToWXDK2xF/7jMTJP+FrScis07yJS2ad7NlFrBaPrZPelGCd7omlB
+	 bpVz5N37bQLUxWMXNbdbnWQXVCmnuuXyIVGD38XXM4L00ufA24ov143n+7GL4HAwYC
+	 Mo3uvtPbwnYEde7ZPsFkra1U55aoMq8VZEYl+XhE=
+Date: Mon, 02 Nov 2026 18:15:43 -0800
+To: mm-commits@vger.kernel.org,youngjun.park@lge.com,vineeth@bitbyteword.org,
+	stable@vger.kernel.org,rafael.j.wysocki@intel.com,nphamcs@gmail.com,
+	kelleynnn@gmail.com,kasong@tencent.com,hughd@google.com,
+	huang.ying.caritas@gmail.com,chrisl@kernel.org,baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,baohua@kernel.org,chris@chrisdown.name,
+	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags.patch removed from -mm tree
-Message-Id: <20261103021534.B18211F000C1@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-make-swapoff-interruptible-when-unusing-mms-shmem.patch removed from -mm tree
+Message-Id: <20261103021544.00A0B1F00919@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,264 +56,120 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags
+     Subject: mm: make swapoff interruptible when unusing mms/shmem
 has been removed from the -mm tree.  Its filename was
-     mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags.patch
+     mm-make-swapoff-interruptible-when-unusing-mms-shmem.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: mm/vma: avoid losing atomic VMA flags when setting sticky VMA flags
-Date: Fri, 23 Oct 2026 14:47:30 +0100
+From: Chris Down <chris@chrisdown.name>
+Subject: mm: make swapoff interruptible when unusing mms/shmem
+Date: Mon, 26 Oct 2026 22:31:03 +0800
 
-vma_merge_existing_range() merges an existing VMA (middle) when its
-attributes have changed to match those of one or both adjacent VMAs.
+try_to_unuse() only checks for a pending signal between mms, and
+shmem_unuse() doesn't check at all.  That means that once swapoff gets to
+a process or a shmem file with a lot swapped out, nothing can interrupt it
+until every last page of it has been read back in.
 
-Sticky flags are propagated if they are set in any of the merged VMAs. They
-are initialised from vmg->vma_flags, which is assumed to contain middle's
-sticky flags when the function is invoked.
+Just as one example of where this can concretely show up, freezing tasks
+for suspend or hibernation has to wait for swapoff to notice the freezer's
+fake signal, and gives up after freeze_timeout_msecs (20 seconds by
+default).
 
-However, the VMA write lock is not held for middle when they are first
-populated, so concurrent updates to atomic VMA flags may occur, which will
-be lost upon merge.
+Here's a facetious example where one swaps out 2GiB of one process to a
+swap file on ext4, starts swapoff, and half a second later tries to freeze
+with pm_test=freezer.  Writing to /sys/power/state then fails with EBUSY
+and this in dmesg:
 
-This can result in fork failing to propagate guard region markers and (if
-file-backed) THP collapse discarding them.
+    Freezing user space processes failed after 20.003 seconds (1 tasks refusing to freeze, wq_busy=0):
+    task:swapoff         state:D stack:0     pid:3175  tgid:3175  ppid:2955   task_flags:0x400100 flags:0x00000419
+    Call trace:
+     [...]
+     io_schedule+0x44/0x70
+     folio_wait_bit_common+0x1ec/0x3d0
+     __folio_lock+0x24/0x40
+     unuse_pte_range+0x2d0/0x348
+     unuse_vma+0x158/0x248
+     unuse_mm+0xfc/0x150
+     try_to_unuse+0x104/0x3f8
+     __do_sys_swapoff+0x220/0x5d8
+     [...]
 
-Resolve this by propagating the sticky flags after middle is locked.
+The same goes for anything else that wants swapoff to stop, like an admin
+hitting ^C in a panic, of course.
 
-Make life easier by factoring this into propagate_sticky_flags(), which
-treats vmg->vma_flags as its base (in case any sticky flags are set there),
-updating it as sticky flags are accumulated from merged VMAs.
+Prior to commit b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+try_to_unuse() was driven by find_next_to_unuse() which checks for a
+signal before every entry, so let's restore that behaviour.
 
-Also update vma_expand() to use propagate_sticky_flags() so all merge paths
-utilise it.
+Just as an example of the improvements, here's how long freezing takes
+in the same test while swapoff is happening on my computer:
 
-propagate_sticky_flags() also asserts that the VMA write lock is held for
-the VMA whose sticky flags are being read, with a comment explaining why.
+                      before                  after
+    400MiB anon       8.925s                  0.028s
+    400MiB shmem      1.639s                  0.003s
+    2GiB anon         failed after 20.003s    0.011s
 
-Another means by which atomic VMA flags can fail to be observed is when the
-merge is finalised in commit_merge().
-
-rmap locks are dropped in vma_complete() before the sticky flags are
-written, meaning an rmap walker can observe the VMA without sticky flags
-set, which can also result in retract_page_tables() discarding guard
-markers.
-
-Resolve this by assigning the sticky flags before dropping rmap locks,
-factored into commit_sticky_flags() with a write assert on the VMA being
-written to.
-
-Also remove the vma_set_flags_mask() invocation at the end of
-vma_merge_existing_range() as this was introduced by commit
-64212ba02e66 ("mm: implement sticky VMA flags") to propagate sticky flags,
-which is now redundant with the introduction of commit_sticky_flags().
-
-The vma_set_flags_mask() invocation at the end of vma_expand() setting
-sticky flags only is also removed for the same reason.
-
-Also update vma_merge_existing_range()'s comment to reflect the fact that
-vmg->vma_flags gets updated.
-
-Finally, update the userland VMA tests to reflect a previously missed
-const-ification in vma_assert_write_locked() which would otherwise cause a
-warning when building them.
-
-Link: https://lore.kernel.org/20261023-fix-vma-atomic-v1-4-8ff4fae1fc85@kernel.org
-Fixes: 2ab7f1bbafc9 ("mm/madvise: allow guard page install/remove under VMA lock")
-Fixes: 49e14dabed7a ("mm: set the VM_MAYBE_GUARD flag on guard region install")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Link: https://lore.kernel.org/at9kJwdGkHPsWwgG@chrisdown.name
+Fixes: b56a2d8af914 ("mm: rid swapoff of quadratic complexity")
+Signed-off-by: Chris Down <chris@chrisdown.name>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: SJ Park <sj@kernel.org>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Colin Cross <ccross@google.com>
+Acked-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
+Cc: Ying Huang <huang.ying.caritas@gmail.com>
+Cc: Kelley Nielsen <kelleynnn@gmail.com>
+Cc: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- mm/vma.c                          |   55 +++++++++++++++-------------
- tools/testing/vma/include/dup.h   |    2 -
- tools/testing/vma/include/stubs.h |    2 -
- 3 files changed, 32 insertions(+), 27 deletions(-)
+ mm/shmem.c    |    4 ++++
+ mm/swapfile.c |    4 +++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
---- a/mm/vma.c~mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags
-+++ a/mm/vma.c
-@@ -783,6 +783,27 @@ static void vmg_adjust_set_range(struct
- 	}
- }
+--- a/mm/shmem.c~mm-make-swapoff-interruptible-when-unusing-mms-shmem
++++ a/mm/shmem.c
+@@ -1742,6 +1742,10 @@ static int shmem_unuse_inode(struct inod
+ 		if (ret < 0)
+ 			break;
  
-+static void propagate_sticky_flags(struct vma_merge_struct *vmg,
-+		const struct vm_area_struct *vma)
-+{
-+	const vma_flags_t sticky =
-+		vma_flags_and_mask(&vma->flags, VMA_STICKY_FLAGS);
-+
-+	/* Write lock prevents concurrent atomic VMA flag updates. */
-+	vma_assert_write_locked(vma);
-+	vma_flags_set_mask(&vmg->vma_flags, sticky);
-+}
-+
-+static void commit_sticky_flags(struct vma_merge_struct *vmg)
-+{
-+	const vma_flags_t sticky =
-+		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
-+	struct vm_area_struct *target = vmg->target;
-+
-+	vma_assert_write_locked(target);
-+	vma_set_flags_mask(target, sticky);
-+}
-+
- /*
-  * Actually perform the VMA merge operation.
-  *
-@@ -818,6 +839,8 @@ static int commit_merge(struct vma_merge
- 		return -ENOMEM;
++		if (signal_pending(current)) {
++			ret = -ERESTARTSYS;
++			break;
++		}
+ 		start = indices[folio_batch_count(&fbatch) - 1];
+ 	} while (true);
  
- 	vma_prepare(&vp);
-+	/* Must be made visible before vma_complete() for rmap walkers. */
-+	commit_sticky_flags(vmg);
- 	/*
- 	 * THP pages may need to do additional splits if we increase
- 	 * middle->vm_start.
-@@ -857,8 +880,8 @@ static bool can_merge_remove_vma(struct
-  * merge.
-  *
-  * As part of this operation, if a merge occurs, the @vmg object will have its
-- * vma, start, end, and pgoff fields modified to execute the merge. Subsequent
-- * calls to this function should reset these fields.
-+ * vma, start, end, pgoff and vma_flags fields modified to execute the merge.
-+ * Subsequent calls to this function should reset these fields.
-  *
-  * Returns: The merged VMA if merge succeeds, or NULL otherwise.
-  *
-@@ -872,8 +895,6 @@ static bool can_merge_remove_vma(struct
- static __must_check struct vm_area_struct *vma_merge_existing_range(
- 		struct vma_merge_struct *vmg)
- {
--	vma_flags_t sticky_flags = vma_flags_and_mask(&vmg->vma_flags,
--						      VMA_STICKY_FLAGS);
- 	struct vm_area_struct *middle = vmg->middle;
- 	struct vm_area_struct *prev = vmg->prev;
- 	struct vm_area_struct *next;
-@@ -966,24 +987,18 @@ static __must_check struct vm_area_struc
- 
- 	/* No matter what happens, we will be adjusting middle. */
- 	vma_start_write(middle);
-+	propagate_sticky_flags(vmg, middle);
- 
- 	if (merge_right) {
--		vma_flags_t next_sticky;
--
- 		vma_start_write(next);
- 		vmg->target = next;
--		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
--		vma_flags_set_mask(&sticky_flags, next_sticky);
-+		propagate_sticky_flags(vmg, next);
+--- a/mm/swapfile.c~mm-make-swapoff-interruptible-when-unusing-mms-shmem
++++ a/mm/swapfile.c
+@@ -2689,6 +2689,8 @@ static inline int unuse_pmd_range(struct
+ 	pmd = pmd_offset(pud, addr);
+ 	do {
+ 		cond_resched();
++		if (signal_pending(current))
++			return -ERESTARTSYS;
+ 		next = pmd_addr_end(addr, end);
+ 		ret = unuse_pte_range(vma, pmd, addr, next, type);
+ 		if (ret)
+@@ -2922,7 +2924,7 @@ retry:
+ 	if (swap_usage_in_pages(si)) {
+ 		if (!signal_pending(current))
+ 			goto retry;
+-		return -EINTR;
++		return -ERESTARTSYS;
  	}
  
- 	if (merge_left) {
--		vma_flags_t prev_sticky;
--
- 		vma_start_write(prev);
- 		vmg->target = prev;
--
--		prev_sticky = vma_flags_and_mask(&prev->flags, VMA_STICKY_FLAGS);
--		vma_flags_set_mask(&sticky_flags, prev_sticky);
-+		propagate_sticky_flags(vmg, prev);
- 	}
- 
- 	if (merge_both) {
-@@ -1054,7 +1069,6 @@ static __must_check struct vm_area_struc
- 	if (err || commit_merge(vmg))
- 		goto abort;
- 
--	vma_set_flags_mask(vmg->target, sticky_flags);
- 	khugepaged_enter_vma(vmg->target, vmg->vm_flags);
- 	vmg->state = VMA_MERGE_SUCCESS;
- 	return vmg->target;
-@@ -1241,16 +1255,11 @@ int vma_expand(struct vma_merge_struct *
- 	struct vm_area_struct *target = vmg->target;
- 	struct vm_area_struct *next = vmg->next;
- 	bool remove_next = false;
--	vma_flags_t sticky_flags =
--		vma_flags_and_mask(&vmg->vma_flags, VMA_STICKY_FLAGS);
--	vma_flags_t target_sticky;
- 	int ret = 0;
- 
- 	mmap_assert_write_locked(vmg->mm);
- 	vma_start_write(target);
- 
--	target_sticky = vma_flags_and_mask(&target->flags, VMA_STICKY_FLAGS);
--
- 	if (next && target != next && vmg->end == next->vm_end)
- 		remove_next = true;
- 
-@@ -1265,7 +1274,7 @@ int vma_expand(struct vma_merge_struct *
- 	VM_WARN_ON_VMG(target->vm_start < vmg->start ||
- 		       target->vm_end > vmg->end, vmg);
- 
--	vma_flags_set_mask(&sticky_flags, target_sticky);
-+	propagate_sticky_flags(vmg, target);
- 
- 	/*
- 	 * If we are removing the next VMA or copying from a VMA
-@@ -1282,18 +1291,14 @@ int vma_expand(struct vma_merge_struct *
- 		return ret;
- 
- 	if (remove_next) {
--		vma_flags_t next_sticky;
--
- 		vma_start_write(next);
- 		vmg->__remove_next = true;
- 
--		next_sticky = vma_flags_and_mask(&next->flags, VMA_STICKY_FLAGS);
--		vma_flags_set_mask(&sticky_flags, next_sticky);
-+		propagate_sticky_flags(vmg, next);
- 	}
- 	if (commit_merge(vmg))
- 		goto nomem;
- 
--	vma_set_flags_mask(target, sticky_flags);
- 	return 0;
- 
- nomem:
---- a/tools/testing/vma/include/dup.h~mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags
-+++ a/tools/testing/vma/include/dup.h
-@@ -1212,7 +1212,7 @@ static inline void vma_assert_detached(s
- 	WARN_ON_ONCE(vma_is_attached(vma));
- }
- 
--static inline void vma_assert_write_locked(struct vm_area_struct *);
-+static inline void vma_assert_write_locked(const struct vm_area_struct *);
- static inline void vma_mark_attached(struct vm_area_struct *vma)
- {
- 	vma_assert_write_locked(vma);
---- a/tools/testing/vma/include/stubs.h~mm-vma-avoid-losing-atomic-vma-flags-when-setting-sticky-vma-flags
-+++ a/tools/testing/vma/include/stubs.h
-@@ -320,7 +320,7 @@ static inline void anon_vma_lock_write(s
- {
- }
- 
--static inline void vma_assert_write_locked(struct vm_area_struct *vma)
-+static inline void vma_assert_write_locked(const struct vm_area_struct *vma)
- {
- }
- 
+ success:
 _
 
-Patches currently in -mm which might be from ljs@kernel.org are
+Patches currently in -mm which might be from chris@chrisdown.name are
 
-mm-vma-read-anon_vma-carefully-in-validate_mm.patch
 
