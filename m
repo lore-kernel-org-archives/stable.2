@@ -1,45 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703363;
-	b=lqX/2SP9IXEVQDl/uSX3e2Igef4Utntv6R6oJIV6di2CghdzYcWcuNFt8Go5F1dmiyD2
-	 /Yr6nflWiQSSUtLe+mxwSSsHLR6YqzS9xg2twS7LkmTQYs6t69sMKPZ6Yuzgk9xPJyIey
-	 cQ60pUySHsP+vYWMHxJ56F+egHEUIuxq+JCKf12sPZRk7ffBFLwwGmIqCjQPdtdKkyD9D
-	 7B1uA0HbzN/a0uRWtudwj7Gw/5gj13HrsgVWSSWizeHMhav5AVKxSfK7GulDw7c3pDQI7
-	 lbmhiOYiRaU7HNeHFsEQrFYl8dpypkut0vHcZbRuwp1Fnx/oMZzTmjfQNWTbiC3lc5Q==
+	t=1793703373;
+	b=1jWutNMtgCZg5pkyHTHMTOpVRFcNLuBVDdpgrgWGbzw0eqD1IHTZuohoGB3SvYgLKa3q
+	 YSoDkf51tafa/9v/iPpZyJ2F71p+c7+ZzKhSnvWhEvTxUICeCUJVZ45fFieS2gdGKSqkz
+	 nFSCO7uOcBLHBSj9EJXEvKaMaPMhjsZExmarNg5ydA5SEdlc/elyiesB3V3tq+pLUmQmx
+	 Z9cIi9rPkmdb4KfuishQIgagjEYzZD9ujFiMHFeKHDK6b7BAB80/W1JI7rHlS4RC+THEg
+	 yQSysSGV1UJAh2zwNvh1fg2dEcH8OLQ+g8AGGXerd6ahsJBmM+hW3Nxnh7qgO2rT+JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703363;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=MfuUnO7MQsPJpDHuR7JnzHeMALwBfgM6IuedB8NN/Fc=;
-	b=EPp5peRjK7r5oaEZ+Yr4huuHiyDUMxIXs3FFqiLYVb58Vrur6ju8clGnwXeWv6roXo+Y
-	 g0uzvt0D+zdqpHQKruQnvbpIQly/KCfcr/wdtvfBdkYqSAmSi+hl0U699IrcLdIqsEMAA
-	 TJpc10DByBpnJqjdrPkobHJamC5PR32/bTfFXMU/vLWsrcl3w+/eR5vB4DdH2z+JvrWSO
-	 A2/CtbwPvHKmrv5cA26hw03bLVtzvbLaY+zdiUUsXrDl7K6vFjtao9UTlogNH8vdEzCcM
-	 muQsNlSfrsGQw6sUo8CGzma+GcdlYA9q3+hkhwt8VUW+8s4eoYpgxsWixOJUTZvVFlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703373;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=o5m6x1zTq9mQX096k7d8zrZcnlgwQ3oTTf7qyiSE3PY=;
+	b=07nCA1LjzUHhDvR4F/LIIWr6Yu75dNcNGpmH3KgSnlFt/1TK+ZZGis+H5QXXaBRkQRg6
+	 6iD4nxeuyxho9L+NVn0rIwSUBI8TD4eTKn3RLuliLdXmUC4VUR1yj6vOFVK06LA8izEEv
+	 DfQVZp3J5wyqLfXyjij2x8blW2HP5YPlWtY36yhfBgBImqUmpfO2P4gOXWXwV05Oem7wo
+	 Twzl0zvjB0IzsdMoABI+Bi+UJpWQKwZjL0q6Hjt2DiYwTFat8N2p7k2R1Mr9u9tsIvgAD
+	 jvYF+hbzHdIglOghh4vPjZEoHYpuoEFftv0Xf8Nej0zo4sP1BI1rGQGxY2u3pMAlBXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XbLYk30j;
+	arc=none smtp.remote-ip=209.85.167.41
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE181606EE80
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE181606EE80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADH0JHAvelqq+I7AA--.6804S2;
-	Tue, 03 Nov 2026 18:56:00 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: vulab@iscas.ac.cn
-Cc: stable@vger.kernel.org
-Subject: [PATCH] rtc: m41t80: use devm for the square wave clock provider
-Date: Tue,  3 Nov 2026 10:56:09 +0000
-Message-Id: <20261103105609.1394826-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16683606EEA9
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:56:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16683606EEA9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XbLYk30j
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso649740e87.0
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 02:56:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793703370; x=1794308170; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o5m6x1zTq9mQX096k7d8zrZcnlgwQ3oTTf7qyiSE3PY=;
+        b=XbLYk30jfXunhsEYxjVwplYjk4X+rlhKam6UuehkAzt1FaP3n2VLvzloSSe4MVDJBQ
+         nWd5tH69f0pKXulOG8ihw8TZPrCSll9OXe2Mtdu5fz1uZjBsDWZB44nO4YOsbsU7VEKA
+         ++XSzzNMTzcWucoBurdROfSfmGsXmuPszhqJY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793703370; x=1794308170;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=o5m6x1zTq9mQX096k7d8zrZcnlgwQ3oTTf7qyiSE3PY=;
+        b=CB23fKBVchL8HlkoClLwa9+P/DiubNHn6Tl0F/TcqDRf70IPXXLVzPNYhX/VkY2kV2
+         5i92cTchIYphWEnMMhfBAnnSWyYothROSHA1GPRYp7lURINMrYtkDwsz7Qcgh4PCCHLU
+         X7vaxvJaR+oGVZWIaoeWOfQdXYGILyugs5HpMmDJKd5gI/np6v5rNEoXkUxyFxGBewMp
+         0dRY+Xm1+m7AULcflb0j9d3UtZsixkYhP2kgi+jHeXnvtOPJI6cChNxTBQEMW2ztqDlz
+         zL9sOakVDkGEJZmlpHWGhFkSWz0hK6nRZ5eEsiaZt0hErYBJgHqWVL13HgMYCC/Hp4bt
+         sSJw==
+X-Forwarded-Encrypted: i=1; AKwUvByqXyBJ/1MF5RRtnoqIOJ9SOckGOwL5otdh1tGc/yb1ig4stnpCD8IhZLuecLl9muqQOU58AeQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z83W7ULApdafu9ioKRN/7fxM2zlva+h25l4ubfrZrhtrXVgwYck
+	PkZYjls7U3uFzedxCttwuMetP0F3P4k72199SK/7k8VQ2LL1M6AfMvVwzmlrZN/kKcK88ab2MmA
+	/WNrnytBk
+X-Gm-Gg: AYBFou2KcKK+/4iJMyapmgmHOXTj19K5K8Z9iXuaSyEAC1TsdlLC3+U4OAgkeBIwqFw
+	/ea4Soz5N4KwT2s50+ZEkiUHu6w7+CFEqWrlkAfiiXYhmE96q8EPQxb8IZn7UdvGgLXs0TXtYQt
+	QoJBXHlQCIkWdWOLf34a7+P19LTh8YNRvRu9Jesj5ZIvOpcEEDUF6Wpn1wVSnNM/aspgh3mWjqN
+	BZwJdGo6SPnqW/3LNy7SwhcsO02YqIMBOJSMllz19IhX6k7WfhmxTeK42BMaIVNi+H1/NIgnNW/
+	XzN55XvxMgQ6gL0W3k0LppOXsxbvs0dVF809Qup711ptAlrw2l+78ekK30n/rLhGY7IRVxdrjIS
+	Sbs0W2MUwHk5tl2+mi5F+pEBIkLjenpF1e/lY9N46PIEwLea/Q/bU6oYAdZPpDYhxs65hNth50L
+	k+ZHy6CRqO/VmAXSF3RM3T91xXdhfODiReh/GxZbqGgAt2xvCWyaGRA45c3Gt8OIXTyvOasd8Db
+	E9u8Ywpeu/8zbdrlDu9XH/DZrQADGPJtkmV3LcWvNc3Pm/TCcMQ4T9/X1ZxwCPANMPVIyDIP6Rk
+	jsPxBG+KSeslngW5hFZydsPSsuasM/QQdZ5RX1cwC7R7/djgeZXplTEWMUTvo68sldIa8jknpMf
+	Z6HaUxPsvOSxg9ndUi4LnLyjHvS43z9w=
+X-Received: by 2002:a05:6512:1325:b0:5bf:a34f:14ce with SMTP id 2adb3069b0e04-5bfd11e9f41mr4389560e87.11.1793703369932;
+        Tue, 03 Nov 2026 02:56:09 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe0754779sm2103257e87.82.2026.11.03.02.56.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 02:56:09 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Subject: [PATCH v2 0/2] media: videobuf2: publish buffers in bufs_bitmap
+ under mmap_lock
+Date: Tue, 03 Nov 2026 10:56:07 +0000
+Message-Id: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,104 +91,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADH0JHAvelqq+I7AA--.6804S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWr4UJF4rKF47Aw4Uur1DAwb_yoW5WrWrpa
-	93uFy5CF1aqr4xWr4vka13AFnIkw1xtF45Aa4xGws2vr15GFW8tayjyasYvFsIqrWruw47
-	Jr4UtFWruF48ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvqb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWrXVW3AwAv7VC2z280aVAFwI0_Cr1j6r
-	xdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2
-	zVCS5cI20VAGYxC7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWU
-	XVWUAwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0x
-	ZFpf9x07bFeOXUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEAA2rpnISISwAAsc
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMe96WoC/3XMQQ7CIBCF4as0sxYDVIx15T1MY1oYykQpDSjRN
+ Nxd7N7l/5L3rZAwEiY4NytEzJQozDXkrgHthnlCRqY2SC6PQnDJ8iiZ98NyewR9Z53qkGt9QDO
+ 2UD9LREvvzbv2tR2lZ4ifjc/it/6TsmCCWVSKW+QtmtNFuxg8vfw+xAn6UsoXYTpcyK0AAAA=
+X-Change-ID: 20261102-vb2-mmap_lock-959e0cc4edb3
+To: Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-m41t80_sqw_register_clk() registers the square wave clock with
-clk_register() and publishes it with of_clk_add_provider(), but neither is
-ever torn down again: m41t80_remove() only unregisters the watchdog.
+vb2_mmap() only takes q->mmap_lock, not the main queue serialization
+lock (q->lock). Commit a286b0837e13 ("media: core: Add bitmap manage
+bufs array entries") started setting bits in q->bufs_bitmap inside
+__vb2_queue_alloc() before buffer memory is allocated and without
+holding q->mmap_lock, allowing a concurrent mmap() to access a
+half-initialized buffer and hit a use-after-free if allocation or
+.buf_init() fails, and prematurely counting tentative buffers during
+partial-allocation .queue_setup() re-checks.
 
-The provider therefore keeps a reference to the device node and points at
-m41t80->sqw, which lives in devm-allocated driver data that is freed when
-the device is unbound. Resolving the clock afterwards dereferences freed
-memory.
+Patch 1 fixes this by dropping set_bit() from vb2_queue_add_buffer() and
+publishing the range in q->bufs_bitmap via vb2_queue_publish_buffers()
+under q->mmap_lock once allocation and .queue_setup() succeed.
 
-Switch to devm_clk_hw_register() and devm_of_clk_add_hw_provider() so that
-the clock and its provider are released with the device. The function no
-longer returns a struct clk pointer, so make it return an int instead.
+Patch 2 adds smp_mb__before_atomic() / test_bit_acquire() ordering on
+q->bufs_bitmap for lockless vb2_get_buffer() callers (such as
+vb2_find_buffer() called from stateless mem2mem .device_run() while
+VIDIOC_CREATE_BUFS runs on weakly-ordered architectures).
 
-Fixes: 1373e77b4f10 ("rtc: m41t80: add clock provider support")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+This series was generated by an LLM, but supervised and reviewed by a
+human (not the most handsome human, but a human).
+
 ---
- drivers/rtc/rtc-m41t80.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Changes in v2:
+- Keep vb2_queue_add_buffer() without set_bit() so __vb2_queue_alloc()
+  stays unchanged, and add vb2_queue_publish_buffers() using atomic
+  set_bit() (rather than non-atomic bitmap_set(), since vb2_get_buffer()
+  has lockless readers).
+- Split the smp_mb__before_atomic() / test_bit_acquire() memory barrier
+  pair into a separate patch with an explanation of the arm64
+  VIDIOC_CREATE_BUFS vs vb2_find_buffer() race.
+- Drop lockdep_assert_held() from vb2_queue_remove_buffer().
+- Simplify the !q->bufs guard in __vb2_queue_free() to 'if (!q->bufs)
+  return;' (still needed as a NULL check now that __vb2_queue_free()
+  indexes q->bufs[] directly instead of going through vb2_get_buffer(),
+  since vb2_core_queue_release() and REQBUFS(0) call it when
+  q->bufs == NULL).
+- Clarify @bufs and @bufs_bitmap documentation in struct vb2_queue.
+- Link to v1: https://lore.kernel.org/r/20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org
 
-diff --git a/drivers/rtc/rtc-m41t80.c b/drivers/rtc/rtc-m41t80.c
-index 1385cb43864b..c20b8734cb66 100644
---- a/drivers/rtc/rtc-m41t80.c
-+++ b/drivers/rtc/rtc-m41t80.c
-@@ -563,13 +563,12 @@ static const struct clk_ops m41t80_sqw_ops = {
- 	.set_rate = m41t80_sqw_set_rate,
- };
- 
--static struct clk *m41t80_sqw_register_clk(struct m41t80_data *m41t80)
-+static int m41t80_sqw_register_clk(struct m41t80_data *m41t80)
- {
- 	struct i2c_client *client = m41t80->client;
- 	struct device_node *node = client->dev.of_node;
- 	struct device_node *fixed_clock;
- 	struct clk_init_data init = {};
--	struct clk *clk;
- 	int ret;
- 
- 	fixed_clock = of_get_child_by_name(node, "clock");
-@@ -580,17 +579,17 @@ static struct clk *m41t80_sqw_register_clk(struct m41t80_data *m41t80)
- 		 * registered automatically when being referenced.
- 		 */
- 		of_node_put(fixed_clock);
--		return NULL;
-+		return 0;
- 	}
- 
- 	/* First disable the clock */
- 	ret = i2c_smbus_read_byte_data(client, M41T80_REG_ALARM_MON);
- 	if (ret < 0)
--		return ERR_PTR(ret);
-+		return ret;
- 	ret = i2c_smbus_write_byte_data(client, M41T80_REG_ALARM_MON,
- 					ret & ~(M41T80_ALMON_SQWE));
- 	if (ret < 0)
--		return ERR_PTR(ret);
-+		return ret;
- 
- 	init.name = "m41t80-sqw";
- 	init.ops = &m41t80_sqw_ops;
-@@ -604,11 +603,12 @@ static struct clk *m41t80_sqw_register_clk(struct m41t80_data *m41t80)
- 	of_property_read_string(node, "clock-output-names", &init.name);
- 
- 	/* register the clock */
--	clk = clk_register(&client->dev, &m41t80->sqw);
--	if (!IS_ERR(clk))
--		of_clk_add_provider(node, of_clk_src_simple_get, clk);
-+	ret = devm_clk_hw_register(&client->dev, &m41t80->sqw);
-+	if (ret)
-+		return ret;
- 
--	return clk;
-+	return devm_of_clk_add_hw_provider(&client->dev, of_clk_hw_simple_get,
-+					   &m41t80->sqw);
- }
- #endif
- 
+---
+Ricardo Ribalda (2):
+      media: videobuf2: publish buffers in bufs_bitmap under mmap_lock
+      media: videobuf2: order buffer initialization before bufs_bitmap publication
+
+ drivers/media/common/videobuf2/videobuf2-core.c | 74 +++++++++++++++++++++----
+ include/media/videobuf2-core.h                  | 14 +++--
+ 2 files changed, 74 insertions(+), 14 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-vb2-mmap_lock-959e0cc4edb3
+
+Best regards,
 -- 
-2.34.1
+Ricardo Ribalda <ribalda@chromium.org>
 
