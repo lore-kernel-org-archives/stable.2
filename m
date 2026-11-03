@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793741446;
-	b=uUilN0dnFYRLndT4M/COTiZKf0VWlq4YX2E1CcibWu9WRNyzih78hSIlHpwwgI3D8QVQ
-	 ZC/Qo9gDMi1GI55RnpTJyc0D8MjM5An/BhiZsVTQkvQ410GlUgP3O5AWzGttkzJGC/CeZ
-	 j5257vxNrz3nvFwlRyroz87jlv1XI9v+3VJjE8h8MGQqqKuSzGfvHao3+u2xKQFOfeHg/
-	 wBAQZfVrbj7SNwmOzUiVB4cq8nQ1YA3cAs/FD7pAqwHH1Gpn8MDr1BGpwtM2wUIVEx1Ct
-	 E46iyksHBLRxHb8brWGK9BIXwu5cADF1cgLL3IUVUSo2nCnJul33GfhaSfknkwuT4yA==
+	t=1793741452;
+	b=lQ8YnyU2ehKJ34wcHdyzWPk+HP85BM1nK6r02V7dCnBCi4jmXcnlSAX3mgVnyjmZDChX
+	 PEJ4CvWbDcwqSRwK2ni7tC4Z09FPf8gfkAmzBA3iyxLHNfQhzcwfkAJ+MuOncxBb+0Ic5
+	 3RVnQr0BPprwaEEM15ut5Tz/KKslXiF9w6JRXj4XpY39J3/UXnuVTjXfrsBdiApYrzTkw
+	 6Z8o/sAH/7WCp9ptNxExjC1tEC5LhfZMIH6bpQGVgUAGn92GYQ45Z/fKymIqVy7XbFB3v
+	 O0AbDlWcSnH/6UucScMSoYj8oGkGbFrXgkd6j3iFmdAdiJhCd6YyW3Wb4xvO352KZJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793741446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741452;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KBiAFwJBjOECAsi6lOaXohAXyvd5VSKVrxjrzr7WTOQ=;
-	b=butmwnwlakU+slNLJAHGEcoDCbEwa+389YGB8J6TV6+iIR4vSkbt3VE9YxjggArl4Kz8
-	 yH3ThzBOZn0FHvE0fi4eZ1CoLn0BlURCbSSsVN7HGhZr3p6T4jtaeRhY6724pN8IuiGS5
-	 CURmKI/jNor36lwMq5UZXyJWXu/IQDH4eNB3nLulzZqicHeKGab+Fr0N7jjrRknIhlmyT
-	 JRDTjWEt40r4ZNu/nXrLFxXgsRYNe3iSgqbZlqK82vp77U2dlPwh3v1vYsgChBIuc0Dy5
-	 z6eopAq5KFk+zzvsk+/w0983zCQR2CcAuXhorKx0AbaDIKyn1e26X5nvgioJpEmKVXA==
+	bh=vINjqp9pvya8axfuBwfbY8HnHtZqyY6Mf4sC6k4LGmg=;
+	b=PtPPyyVP1tUyiSrNxy/iyox+WjYwYqSZOZ5Y9fS/e5ZRrSRzrwZSl3YldOrGTBhucKTX
+	 d7blxDgh7buI0i+Mx01NcEPzUr59DZgN5+f5Q59m7df4nyfFSVFL2df3XkgQVmP44gfAX
+	 kt0NyZWnLlB47uB3DvsFTYYDlWvkMdKBpR6f9Wi0g2DrrrU3i/P+p3KfsH20fPK7E2vWS
+	 mcUJE1j5oj8d23Xm8L0TwpaSQpAppquYRmlhkc6+IVAR6sRofa073Lpiwx2kVk43as/Go
+	 HUEQJ9TrB3Hp5orBCr8KgC4LqD9d75HN8urx2dP4Vmpnwcme96L9I+TkUKous2W3A2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVBgVzxk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8TCBl3P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E38606A31B;
-	Tue,  3 Nov 2026 21:30:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C2A606A324;
+	Tue,  3 Nov 2026 21:30:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVBgVzxk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77531F000C1;
-	Tue,  3 Nov 2026 21:30:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8TCBl3P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A288D1F000C1;
+	Tue,  3 Nov 2026 21:30:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793741445;
-	bh=KBiAFwJBjOECAsi6lOaXohAXyvd5VSKVrxjrzr7WTOQ=;
+	s=k20260515; t=1793741452;
+	bh=vINjqp9pvya8axfuBwfbY8HnHtZqyY6Mf4sC6k4LGmg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NVBgVzxkOHue8Bg8JZMVboN8UaAg+gjtemfKI+FdOkT7atn0v5vN2e9Fm67rCiD32
-	 cYKDgbjBaFAD6SoS5R9qVbTl/nLZVR0MWI5qtlYlRey/oBI05VPAUfUU7uAbB5oa6Q
-	 UH9GRuAA0idLh31GkoGdWpWZDW8kZt2wLKIRepoKrt00lC20JGhw0RUEWDsaGGGNaH
-	 nZNupU8pZM2rBvzt7agksL8BoHDoJJGAhcVDJX31O0u/GpFq0bcpy+kF97rMX50mvf
-	 /GTcmFrqnyOD3FZLJfKl3jOqT/cnSGur4nevvqukBL/uJRoz6+E+IBgi6DjOtDJx0Y
-	 jH3VSMCq49BXQ==
+	b=P8TCBl3Pz2aHOP6xh2Rc3AzoVGQ5WnQltf1OxLL5tXtVIuTDgv84J2srOCYwS6WXr
+	 OiZaqjb8Ovrzws3CEkiULS1Z6Pfe3iNbivm1QQYW8N21bkn3dl4jjmz6N4kR1yWWzx
+	 fJR48SqMzNLFGEOVbBvtIX4Rybu9g4zKBkc0zaaEgh+lmLYeumJjEE2MC+NE0Qye4B
+	 FebYcuGsGHuT+UuA2DAntL9BrxQPyRJ4F6UO1Okb3WjgGECYSVf33b7/ickptYIUJV
+	 4NgfdqxsUyGTxEqx0tT89jZkM0VrCHwn+w1YnG32pWXLbr213yrrdNCeF4ePIh+VRl
+	 LwJ6Q3UeKBqOg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	James Tai <james.tai@realtek.com>,
@@ -51,9 +51,9 @@ To: lee@kernel.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] pinctrl: realtek: Prevent out-of-bounds access in rtd_pinctrl_find_config()
-Date: Tue,  3 Nov 2026 21:29:10 +0000
-Message-ID: <20261103213002.1673560-6-lee@kernel.org>
+Subject: [PATCH 06/10] pinctrl: realtek: Fix bit shift when configuring RTD_HIGH_VIL
+Date: Tue,  3 Nov 2026 21:29:11 +0000
+Message-ID: <20261103213002.1673560-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
 In-Reply-To: <20261103213002.1673560-1-lee@kernel.org>
 References: <20261103213002.1673560-1-lee@kernel.org>
@@ -68,38 +68,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Several Realtek SoC pin configuration tables (such as rtd1319d_iso_configs,
-rtd1619b_iso_configs, and the rtd1625 config tables) omit trailing pins
-that do not support pin configuration, making data->info->num_configs
-smaller than data->info->num_pins.  Because rtd_pinctrl_find_config()
-indexes data->info->configs[pin] without checking data->info->num_configs,
-requesting pin configuration on a trailing pin reads out-of-bounds memory.
+In rtd_pconf_parse_conf(), the RTD_HIGH_VIL case prepares mask as
+BIT(hvil_off) for regmap_update_bits(), but sets val = 1 without
+shifting it to hvil_off.  Whenever hvil_off is non-zero,
+regmap_update_bits() masks val with BIT(hvil_off) and clears the high
+VIL bit instead of setting it.
 
-Check that pin is less than data->info->num_configs before indexing
-data->info->configs[].
+Set val to BIT(hvil_off) so that the target bit is set as intended.
 
-Fixes: e99ce78030db ("pinctrl: realtek: Add common pinctrl driver for Realtek DHC RTD SoCs")
-Closes: https://sashiko.dev/#/bug/linux-60e13761-fd9e-4fd3-826a-47344f36d4fa
+Fixes: dcc9334435b0 ("pinctrl: realtek: add support for slew rate, input voltage and high VIL")
+Closes: https://sashiko.dev/#/bug/linux-e7077311-3f30-4b77-844b-1447519d0c84
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/pinctrl/realtek/pinctrl-rtd.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/pinctrl/realtek/pinctrl-rtd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/pinctrl/realtek/pinctrl-rtd.c b/drivers/pinctrl/realtek/pinctrl-rtd.c
-index 60222339726b..2b877099ec85 100644
+index 2b877099ec85..72773600303b 100644
 --- a/drivers/pinctrl/realtek/pinctrl-rtd.c
 +++ b/drivers/pinctrl/realtek/pinctrl-rtd.c
-@@ -252,6 +252,9 @@ static const struct pinctrl_pin_desc
- static const struct rtd_pin_config_desc
- 	*rtd_pinctrl_find_config(struct rtd_pinctrl *data, unsigned int pin)
- {
-+	if (pin >= data->info->num_configs)
-+		return NULL;
-+
- 	if (data->info->configs[pin].name)
- 		return &data->info->configs[pin];
+@@ -473,7 +473,7 @@ static int rtd_pconf_parse_conf(struct rtd_pinctrl *data,
+ 		hvil_off = config_desc->base_bit + config_desc->hvil_offset;
+ 		reg_off = config_desc->reg_offset;
+ 		mask = BIT(hvil_off);
+-		val = 1;
++		val = BIT(hvil_off);
+ 		break;
  
+ 	case RTD_DRIVE_STRENGTH_P:
 -- 
 2.56.0.385.gac671c819a-goog
 
