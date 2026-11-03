@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793736170;
-	b=uqahLUm5tyw9Ugf7UoN3TC/M29JXHW9LbFydHKLicuRQN81DGJcmIAbkEvgOwhsq2i4P
-	 EASC+qhjy6Hk/vcDKFgVPAwjP/NjkoZne2f9ku55qlV6C8ozl8K/3do880YAkA/bO1Si8
-	 NZVnIQsjNRXezOSNJTiOBHm3y8KmAalug6PXXtHcNQ8HaObtMHrrJzhogMAmZjb4967/H
-	 zfb6Wfjv0/nCsv23arVUFGZ1vNGqbZhp0ur+9sKSRp2I0nThLduFqG0eumsr8vuUQVOe/
-	 S+/9NX6HDsE0NsQbQe17t8G7SjMfNBSr0W9NvN25jdrYFYTKhTGS/iAbcix3qasTU1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793736170;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
-	b=laeXFgrsr4V+owFonlQly2JOUzc2eX5z7CMpgn3BNvLHY2xe/O6Ry1v8Y9NxjdnOGw9+
-	 TjrZGmjnVgYzrsMOqtyeRwl1nPrb8OjFzmqAGU6PZKHzxw2eHMFKJ64qPc3QIiZXAWvJF
-	 Hj5fIQtQz9n3Nnxdbiiet6vsGCCOfH5C+0i1SAxYV9typ1IYQz1TiWJeLnXHuu8KgEYYt
-	 GKY/Ger9V7pTD4UCN50Kdsj1NHxlIJJkqJQ1TrtGnWhG2jyi+PbWEs37zXBOKM3IrL4ST
-	 FLXeZduqDVTfxkfpATBp3fCyagg94b8xIsNnHHD0DkLWJCy56kLxKe1ubvSpFm40ohQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793736202;
+	b=lZKAMXUsFwwWrBp2MmSnlrDuuO/fxD0H9WdXeBTwq6xI+r+DyUxNU7afvCw+b6RG1DIk
+	 P1IH0leyKO1Rau8tYcZWSDdm4fjbCJ7gEkTRL8VcQVpKEznKalM/I64N0LPVfi4ePPGX/
+	 gCletmjnYX4KMyE4kuW1/TY1CMqsO+b8L7cyZapZeI++9YPKq//WbUU4NNiS5Q7Zd71pV
+	 nzd+DAmkYlKrW5kgksPb1Kihc2xwGCJ3BGFZZIZ3P/cqc1SHmiJ8KCBRFnz+S3fter3S7
+	 Q4xQK1mb7u8Pg3y73Pdri16AP0KEhmREnGi8tAo7JXEfaPCikVJFMPjF1eqkn0iwrUg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736202;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GIMs1YJrQR1ugDS+TrlJFUtffoilOTXQSJKU4AwMCqM=;
+	b=eLXwEAjV9YxWMAHwggOOn3dcX6CnCisFcThh4IA4bJIhe/p26CzwCzXyWDvq3eKYeKlN
+	 Z6KSIB50xETucjxW64J5LLCZtKOhF8fpuYa2W5pBXuNSoxMcJY/r7Ewd4WZ/uL/7kA9Ql
+	 ZWIziQzRW5GbezKQEUPS/vsxCIppkRNx2WPt8+VMnJpYlEBxGkAfJf12yOI+kw47uYCUA
+	 rYXaGIkjazEQ0b0rkk9c/yivWAe/B5hQcC33w7ydGZE405HnT7ogIpQdeBzH152nrNbOc
+	 fAWqFu3CQh4+eepieiPNW2FjDx04CbUoYtt3GHCe8U2f9dMtCPrE9Inw+9YjYglJ92Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUS9abmS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891D5606A31B;
+	Tue,  3 Nov 2026 20:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUS9abmS
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793736202;
+	b=UefImCJBzoN+WQU+VYuHKZAy5AtI8ZJDIrVnjxERCFD1Os0oh3jyAZtO0tvx8pSgv1RX
+	 S4K+o5DC1QEDL0Ts2Op067N0pQjBkq1WBCFILzmDn88X7/GCYiOeYc5Yzh40so3RNTs7u
+	 lHUABKHEpMjsGaqPjdSc6eL8TGio8/oa1h+svxMh7in3tqLQQWL484pDYRpZ4e9/p+9U9
+	 6PPgVPD0BcWAQRdtdWq6y9+Bh+wyVphGk5IgUOkLlIJdvEtSax6bdsk0h+blUZPjhIELG
+	 0bQtefzb7AIDwHGmG9LoSzXr79ygZy7elqOdkoixSdobkSHnVteH4uNe+jmUTDyKcZQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793736202;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GIMs1YJrQR1ugDS+TrlJFUtffoilOTXQSJKU4AwMCqM=;
+	b=mckztlEjhc62Zj9BxKd/SvurwqMGIzo3Oi07PxktWHrdJyKh9muFugKNzyPz6Ofz4gff
+	 WHNx+z3ewNH6xyNRCX+gT8xJQeHZg1UXn+s7n8ZWms1SZqAhy9+XD8HNGhkPUATqSlfMw
+	 PKufFIl0BPCS3bSTtpNl/t4xVB5iBEJf8fXl+WMx06orltuh4u/Dng98zNUyyU41m2n9r
+	 G2KBFOg/g0+FiIB1s0FBMIMMvAR++JIkaq/oCXkHP9D+6UnieG7+igoN33OqUUtXcb5ST
+	 GLkevxGAur484H8RD1LsXCeCdFpcAkj8QIDvGxVIeDuVACrGQaXrYdWQlnslJsVXEOQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C761606A32C
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 20:02:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C761606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a8cc11ac42so31702c88.0
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 12:02:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793736169; x=1794340969; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
-        b=IMIi0lcwaYilC5g2AlqhKWWjrMWQI4GWC1wHHyUcDpYA1VjjA4rZg3G+gu57oNMOCZ
-         L23NEy0TVcXP4YI1f+xhLBvS8of/B9gD0ufgA4ol5QccJXY/IKAyxwxW0v1ZQYETWjiK
-         ojoSDEtrxPvKTpqjodA3bCsDUGX8abgkkPcq81ePRT2sGTN4kvqA2Ua/M4SbUQnLJU13
-         Z7rJNCZtrHSERcXqY4QGnwmQw7yD+02JcTAyDYA7N3y/yxwO8Uit/YpCSSyN1HOvd0Cg
-         Cs86vphKnq5f+5fpNxuDZKqAalCt+UDoE53lGErEjhtsm8O2ltiV1Ze7Ww8LfDV9Jfn/
-         sSfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793736169; x=1794340969;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
-        b=bU9kYAsH6xBM6ffSvZDGOKmxENw/j2WVhf7thLJ3+NmPZ7KarlIoDCqFs4TmC+Ucq6
-         xOR7PX/iqpVf/3IMOp0+juqk2HRXL5hzL3LMz1+as6l4FwZembnBI2jsvo7OU4c5d0kg
-         oR7irCZoPJFykX4zd//YvHC2Q29yFNMypF+Qcf+elNEjr+c/N0WODm+ibW53521WCL66
-         VFNRUwu7mOexIqEFMJaAu9IqcCVDIvcrI3BNGA8Ofnxkal+WGJJrxW3xwmJ6fVqpznIk
-         IJVc3LZodpUAidGqRE9+OW/D9lqa9DqIR9X/t2kvB1xLENWCnfzwuWuUVOEHyyiJuc39
-         P1JA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/UOxKW8XkvfnfQBcgOUl8nnFAoosMS33sBGn2Nzv80Nw0s/8YXAwLva0SILCTA0Ph4EMDNMU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9K14UgG+Q6o+ckhjINBzL1xLNctdzTlCXREw5UZvisSmOHwFVt
-	TLCTmZY7wLkIDtfjCZCp5e7GJjl5qq/8fQvnjLggqavBkJb5Rsb7RTfx
-X-Gm-Gg: AYBFou31eH3sVYAhwekbLEN5MUyzyZ5mFMdjW1913HMavv0sxNeDkYqAPvi0WKTOSdS
-	isHDH51oUf1T1d4JCtfrqMnJCFMWtie7VlHinUM6T4qEKH0V3FqXYZFbOBDpYirkO6v4H/yc797
-	v1oC2DLmLeNupmliZtyrMJ2O/nTd/l2GSXx0vJM+EMou9jQA8HLSvKaVS/0ilx5zei/9eF952jm
-	YoQzBGM+qSFeqkcBuarf4hLq6hMP5L1rVenZAfXnU7ubB58W1/yFeF9nf4VDo42xuv5/ZHEFmBO
-	IUT1nXR3IC+nPklUQzkt38tWQr3I6AAVIvX7K3+Pa0XIBYw0r3X+ocIL0RS3ByzfA44Oka7IoTg
-	EmCH/ZVY08iwhJ4wn42YHADW/6W9TcSOBtDQ8y1TByG+yq3OfOh7n2e2w0Ht+D1tM2fnMEpSo8P
-	dslGD/Qv3CPom1OAGEAu2vsTATPi3YwK8lDzk9SUd5VkiP2X4LSlRjtFSFm1vUjcZHP0pJGY2iP
-	34n6+Oa6vx1xiPBJH55qDHLKap7X6dxotBdNmenPHCxBHhR1O9/+z/ZIu/dFUxjh3YmvDRfJQla
-	YDo4QgFSXtl/dQk7ku/Kp7VIR6iluvHOvUyHpNrUcJTxnO5ZMUaU0INNltkQ5Jw8gSc=
-X-Received: by 2002:a05:7022:eb44:10b0:186:5b49:90d8 with SMTP id a92af1059eb24-1ac5782fd31mr22158852c88.4.1793736169213;
-        Tue, 03 Nov 2026 12:02:49 -0800 (PST)
-Received: from arpith-debian ([2402:3a80:449:13bc:6d9f:f092:24ee:20f6])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm1395865c88.15.2026.11.03.12.02.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 12:02:42 -0800 (PST)
-From: Arpith Alexander <arpith99@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Lixu Zhang <lixu.zhang@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Jake Steinman <j@metarealtyinc.ca>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arpith Alexander <arpith99@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: ivsc: csi: Add sensor node in bound callback
-Date: Wed,  4 Nov 2026 01:32:26 +0530
-Message-ID: <20261103200226.100989-1-arpith99@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.kernel.org (Postfix) with ESMTPS id D27F71F000C1;
+	Tue,  3 Nov 2026 20:03:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793736202;
+	bh=GIMs1YJrQR1ugDS+TrlJFUtffoilOTXQSJKU4AwMCqM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=WUS9abmS/zkyjFkjfse8JT6//dm5rb3MhXWsN743vApIAqQQHbE6Iv/Ziv0uNmGXr
+	 1Yi4qtzqL5V11Ri/GUUqNQrpGkH7ZDomscZc/l/6Dmj4HqohoV9iGw7vYKjHEg9qaZ
+	 oGL43jmldfl+kcAz7Uwy8vn641usc7+Br6CDvYh1fkLMzqDhn4SsKfs37Bs1WsUXZy
+	 94n86tT0y9w7OjoGBE9KDlf1H29rc/QOT8zBDBgeE1SCY5BpByY6jBqFiX/MTy/vg1
+	 V7IhZOzBv3hlL0ap0J1RWIq4viJPjevU4/Px7A/eKj56LrYbi2K7eE8aU3A3FqJ79d
+	 Gf552NWp3UuoA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6453E46ADB;
+	Tue,  3 Nov 2026 20:03:21 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Tue, 03 Nov 2026 15:03:21 -0500
+Subject: [PATCH v2] btrfs: fix bio counter and bioc leak when async
+ checksumming fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,97 +83,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-btrfs-async-csum-leak-v2-1-30872bec9613@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4XM2jGdEiG68j8Mi1KmUuVhOpRIC
+ P8uj7XLk9x7zgzCwbPALZkh8OjF990K+pSArU33ZPTVyqCVzkilCsshOEEjU2fRSmyxYfNGynN
+ duYtTNtWwfj+Bnf/u3kdxsMTyxXbYZNui9jL0YdrDI227o0GK/jRGQkLHxnFuOCO+3m3fxLb05
+ sxVhGJZlh+5AekZzwAAAA==
+X-Change-ID: 20261030-btrfs-async-csum-leak-1772df5f0c32
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
+Cc: Qu Wenruo <wqu@suse.com>, Christoph Hellwig <hch@lst.de>, 
+ Josef Bacik <josef@toxicpanda.com>, 
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
+ John Garry <john.garry@linux.dev>, linux-btrfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793736201; l=3251;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=sZ15wckZNBlDyiOLVC9bEfAohvO3ectUWRrLDyA5+Jo=;
+ b=SvIUTYUzswOF461t+ia+Mvr4QdkS5dDCzWFzYtYqa6vm3Ju6Yv/w1en7R2C3eCAZtWSAW9u2L
+ ifiK38ND2fWA1pfSmFN8mySC2RaANi85jqbizdLWXKaJspdrg/xVBZx
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-The IPU6 ISYS creates sub-device nodes in its bound and complete
-callbacks. A sensor behind the IVSC is bound by the IVSC's own notifier,
-after the ISYS's bound callback has already run for the IVSC, and
-mei_csi_notify_bound() doesn't create a node. Unless another device
-binds to the ISYS afterwards, the sensor's node is therefore only
-created by the ISYS's complete callback, which runs once every sensor in
-the graph is bound.
+From: Mani Tofigh <mt4022@columbia.edu>
 
-Commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor") added
-the HM1092 to the ipu-bridge list. The HM1092 has no driver in mainline
-yet, so it never binds and the complete callback never runs. The OV02C10
-behind the IVSC therefore never gets a sub-device node.
+A single failed checksum allocation can make a later device replace
+hang forever.  btrfs_submit_chunk() takes a dev-replace bio counter
+reference and a bioc before it hands a write to the checksum worker.
+If the checksum fails there (e.g., its allocation fails),
+run_one_async_done() ends the bio but drops neither.  The counter then
+never gets back to zero and the next replace waits for it:
 
-On a Dell XPS 13 9340, libcamera then fails with:
+  [    8.369171] BTRFS info (device ram0): dev_replace from /dev/ram0 (devid 1) to /dev/ram1 finished
+  [   41.534247] INFO: task btrfscsum:80 blocked for more than 20 seconds.
+  [   41.534391]  btrfs_rm_dev_replace_blocked+0x135/0x180
+  [   41.534463]  btrfs_dev_replace_finishing+0xefe/0x13b0
 
-'ov02c10 3-0036': Failed to open V4L2 device '': No such file or directory
-No valid pipeline for sensor 'ov02c10 3-0036', skipping
+The worker is only used when CONFIG_BTRFS_EXPERIMENTAL is off and the
+checksum isn't a fast one, e.g., sha256.  We hit it on a sha256
+filesystem.
 
-Register the sub-device nodes in mei_csi_notify_bound() as well, so that
-the sensor's node is created as soon as it binds. If the complete callback
-runs later, v4l2_device_register_subdev_nodes() skips sub-devices that
-already have a node.
+We put the bioc and drop the counter in that error branch.  We also
+put the bioc on the synchronous error path and on the btrfs_split_bio()
+error path, which both only drop the counter.  With the fix, the
+replace doesn't hang anymore.
 
-Commit 7456b40bc992 ("media: i2c: cvs: Add sensor node in bound callback")
-is the CVS equivalent of this IVSC fix.
+This bug was identified and confirmed with the help of fault-injection
+testing on a deterministic hypervisor currently under development.  The
+C reproducer below however hits it within about 35s.
 
-Fixes: 29006e196a56 ("media: pci: intel: ivsc: Add CSI submodule")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arpith Alexander <arpith99@gmail.com>
+Fixes: f8a53bb58ec7 ("btrfs: handle checksum generation in the storage layer")
+Fixes: c7c97ceff98c ("btrfs: handle bio_split() errors")
+Cc: stable@vger.kernel.org # 6.6+
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 ---
-Tested on a Dell XPS 13 9340 (Meteor Lake IPU6, OV02C10 behind the
-IVSC) with v7.4-rc1. ipu-bridge connects both sensors ("Connected 2
-cameras"), the HM1092 has no driver and doesn't bind, and the OV02C10
-now gets its sub-device node. libcamera finds the camera and streams at
-30 fps (cam -c 1 -C10). The camera last worked on v7.2.
+Changes in v2:
+- Also put the bioc on the btrfs_split_bio() error path (Qu)
+- Mention the sha256 / non-EXPERIMENTAL setup in the commit message (Qu)
+- Add Reviewed-by from Qu
+- Link to v1: https://patch.msgid.link/20261101-btrfs-async-csum-leak-v1-1-feafe7ae61e9@columbia.edu
 
-The test kernel also had my two other v7.4-rc1 fixes for this laptop:
-https://lore.kernel.org/linux-spi/20261103131435.21838-1-arpith99@gmail.com/
-https://lore.kernel.org/linux-media/20261103163814.96980-1-arpith99@gmail.com/
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/btrfscsum.c
+---
+ fs/btrfs/bio.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Unlike a revert of commit 4fdb0342f05e, this keeps the HM1092 entry for
-the pending driver, and it also covers kernels built without that driver
-once it is merged.
+diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+index 2c6234f6182f..2e12a6d7e16f 100644
+--- a/fs/btrfs/bio.c
++++ b/fs/btrfs/bio.c
+@@ -624,6 +624,8 @@ static void run_one_async_done(struct btrfs_work *work, bool do_free)
+ 
+ 	/* If an error occurred we just want to clean up the bio and move on. */
+ 	if (bio->bi_status) {
++		btrfs_put_bioc(async->bioc);
++		btrfs_bio_counter_dec(async->bbio->inode->root->fs_info);
+ 		btrfs_bio_end_io(async->bbio, bio->bi_status);
+ 		return;
+ 	}
+@@ -762,6 +764,7 @@ static bool btrfs_submit_chunk(struct btrfs_bio *bbio, int mirror_num)
+ 		split = btrfs_split_bio(fs_info, bbio, map_length);
+ 		if (IS_ERR(split)) {
+ 			status = errno_to_blk_status(PTR_ERR(split));
++			btrfs_put_bioc(bioc);
+ 			btrfs_bio_counter_dec(fs_info);
+ 			goto end_bbio;
+ 		}
+@@ -822,6 +825,7 @@ static bool btrfs_submit_chunk(struct btrfs_bio *bbio, int mirror_num)
+ 	return map_length == length;
+ 
+ fail:
++	btrfs_put_bioc(bioc);
+ 	btrfs_bio_counter_dec(fs_info);
+ 	/*
+ 	 * We have split the original bbio, now we have to end both the current
 
- drivers/media/pci/intel/ivsc/mei_csi.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+---
+base-commit: 6255426d70f2755968bb5436ae7b43dae742ac38
+change-id: 20261030-btrfs-async-csum-leak-1772df5f0c32
 
-diff --git a/drivers/media/pci/intel/ivsc/mei_csi.c b/drivers/media/pci/intel/ivsc/mei_csi.c
-index 005b1414a252..f9513cffaacd 100644
---- a/drivers/media/pci/intel/ivsc/mei_csi.c
-+++ b/drivers/media/pci/intel/ivsc/mei_csi.c
-@@ -29,6 +29,7 @@
- #include <media/ipu-bridge.h>
- #include <media/v4l2-async.h>
- #include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
- #include <media/v4l2-subdev.h>
- 
-@@ -513,7 +514,7 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
- 				struct v4l2_async_connection *asd)
- {
- 	struct mei_csi *csi = notifier_to_csi(notifier);
--	int pad;
-+	int pad, ret;
- 
- 	pad = media_entity_get_fwnode_pad(&subdev->entity, asd->match.fwnode,
- 					  MEDIA_PAD_FL_SOURCE);
-@@ -522,10 +523,14 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
- 
- 	csi->remote = &subdev->entity.pads[pad];
- 
--	return media_create_pad_link(&subdev->entity, pad,
--				     &csi->subdev.entity, CSI_PAD_SINK,
--				     MEDIA_LNK_FL_ENABLED |
--				     MEDIA_LNK_FL_IMMUTABLE);
-+	ret = media_create_pad_link(&subdev->entity, pad,
-+				    &csi->subdev.entity, CSI_PAD_SINK,
-+				    MEDIA_LNK_FL_ENABLED |
-+				    MEDIA_LNK_FL_IMMUTABLE);
-+	if (ret)
-+		return ret;
-+
-+	return v4l2_device_register_subdev_nodes(subdev->v4l2_dev);
- }
- 
- static void mei_csi_notify_unbind(struct v4l2_async_notifier *notifier,
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.55.0
 
