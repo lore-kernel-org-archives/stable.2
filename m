@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693023;
-	b=sJmzhD4xLVgQgLmgl7WT8r8IYROZcW5LzjpBkHvn0mbX2mGjj3XY7HJM7Xf0VLqluG/J
-	 qQdVE6EAocJsGS3Rlq3oxgnwrP4rSFc0JJTcDBtnPcv9T1/ZgZHahQyxLMT+IZ7xki+L+
-	 6aSHYQqikvAwzI6onTcrIPeAn3w17oNnDAXqLOfZlnAYk493GihxPKVc+iY9RjxqPrzZE
-	 D9SaLiJKXjCsgJoNzMaCH0Eswx2qSxtEN/wqRfgBbG6pT087UzqG7HGOfM6o/cqTTS+QC
-	 YNwDCHgAlOiCPVRh88yZNJKiy71c6YxOtZTyAUuvf4zXgpbbMWqwa/gU37Hhj5C/dbA==
+	t=1793693037;
+	b=ar8VL3pXTbwR0xcK3PyzUB5p/jv0KlES+7HAqa8NP80NItqX9AA81u9GbBjJEMkRmm5n
+	 4wke4mmYeehD11lUGpRSKN++UhQuRrD5GgE6Caq09b1IwcF/ikXKH7eladiFS91Jka/gm
+	 3EiFzrsuj3KC2n/Mk8ojuOJbSa6BQtYc3H2zng+x+o4Hg23q60TK6Kik4VmRQxGqTR07w
+	 0szl2CJZmCgot/xtXdDWh93xihHjLXSSob6MXl77unewmudhemQ8n1RIS/4MZ7JU3zVbT
+	 YfCYBjGj19JjsDuonHdsh4+FALQpwYh/F0aD2iRhX2pmIHU2eVRQgmZ11VxQsyOuRyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693023;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693037;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=k8dB3+qhC6Yj5VtlqN6Ai/FheADqdjphvH+ied6xs8Y=;
-	b=zjNhJ4+CinKWN49rVlqfwWM96g+hPPUW+1G8DmILUlDF6Q511iu8hVlHnnANY9QzoRtN
-	 a9y6Faf6j1xekm/861mLz5+alawItZX3scElaIU0JjckNnb71TSxHb1FDLCy+L1Cgp2IK
-	 UJJY5BjJAR+2AzD9FQB+LkcvWFBqiv8YHNnczJmAC53jDtbsCxVM3VNBd3YsgTWlVeK3Q
-	 B9d85jqKqhvGAmYjKjECrsCNuUKFLd1+5zTfRXaKywqdykPVlhuZYTZMoqVtLVrOAOu8d
-	 t5H/aUGh7azt1kzSMyKTQjXrDC2IcHiyk9xzjxIPErx26N+i1o6wUL86H2jA52auSEw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
+	b=gXZg67D8wBxDafc8Bx6xj9nZYJbpnjZCOb6KGF0Fk7vtb+H3Z8MFfyjonoUvSEeGsANW
+	 v1MOFdMLl9fx0ip3sEc40mHgZ3WP3PdzVpRXI839VnGfE5lLnrlg3xzdUKounSsDM4+KM
+	 EUJuAxJ1U/lt79Kkldfub4pbTkhKzCHZGLRhnsqUae5fFfPQreIswaawJVrAUAlwa8ZkD
+	 SpmVPeCia4/XvN4cMwIgOrB4gsVo+oejD0+QTU2Z3gWPErMzX0eK15SQPJEZ49IS7Ywos
+	 nIqRgIFMvs/7few8alPe5Hu+0iOifeJRbr1utBj8oJdY9+Z3i4MDiSFqrONJWTpDe2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w/567uIM";
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YDNEu0Qs;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9478606A32E
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:03:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9478606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B661E606A33C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:03:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B661E606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w/567uIM
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ccca948203aso1468400a12.3
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 00:03:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YDNEu0Qs
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so2818850a91.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 00:03:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793693022; x=1794297822; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k8dB3+qhC6Yj5VtlqN6Ai/FheADqdjphvH+ied6xs8Y=;
-        b=w/567uIMBo+IY48ZiAJHoJ3pRy+bfyqouK78Me0yNKQ12YsjxYvUXnghr4squ3R/Bn
-         NvzDsimtJY2OYOF5/MIkohuYsPQVWZtN9JTVvP+f3a8RmIGqGMdsA4sTbGIudc7M12qc
-         EFtQlxFIjkVrlzYwbW2rZLLljr2tfgx1oU15h956YMGxW+AbBLzRGgXSAAtXPMy2ruLz
-         nIKzEM1NrTrIlBXlQXtFrnR/JU4Iq/ypKNPcENen3vfip9EI8mBz0keeKLjDVE364+Ks
-         OrWcA/NoG/F6Xp4tkyj77DqTyzE74LpH45kUsxutiPAS46rP8OxsG/rxuet0cRIQKef4
-         1PNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793693022; x=1794297822;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793693036; x=1794297836; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k8dB3+qhC6Yj5VtlqN6Ai/FheADqdjphvH+ied6xs8Y=;
-        b=fTk6iAOR5JZwS4LVpWg8P2UndjxTSB+YWornW9/rMgsB+AojNNDdvV0QewC3QUjCil
-         ozFu0J7jjpxMdugAYRB9wLqjkthUSmAL+AlB5AkDwHDUdttTZ7uiLYRNyv52NImGNw6n
-         JmxY9AsV8eotF9LW3JTRKJW9aL0leIt3blL/zLxsq9xfyafILJBpTmuhT/LlCBaxckGU
-         X2QdXGfKtgg3QSZkkehQC0UHPq61hGCytUpktzx7XjwAIJeJpj3/usbmJloXQK64AdP7
-         pHcB/qSG0UQYFT2o1dZhPqknObmVIGvg7k+8XIX315Zg0iXx0CbCtvtmYcxo96D/VLvL
-         rCVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwksvX01r22a/dY0EmqN7DkvaguRUQjAM3E+jZUzMyK5xnLdGGn4WO57l/0MevwywwZ8q7w/mY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94qFT9S/3MeR9X0aPpanhy84BLP2WpIWPUJSVfpUh2hAcmFa0L
-	R+D2QppdvDM0PHlZHnac4OxvpTHHChKoJZavaZvYXurVsIvMM5/lDgAs
-X-Gm-Gg: AYBFou13F+Thp2PJ7wWAAQDerFOOPPYZK6anv9FgKRMKpytRSKRHNPL00YSTj3VWsK0
-	7eqB1Vx5iUr0HuqqkNvcRkjzCu0D0nLFrXGT3YzP8i05RVM6ggcEaEkyVQ3e/sWJKrxK+lbdIQG
-	isddRwyzBvn0KQlbK/5YHpr8E5kAABJkQMQFhal8CDd/OiA5sSyyWQXUlgPKPFmLK3ASwjxOLCz
-	zZakwQlUwH9lBNeqQW4VGcCJaElmx/3GxKFngnMYN5Rk+KX2a3ATTTWSCkaJ85Z0QCbfnAHvrad
-	nyWu0f9obwR9dYIjMD8pn/yaPpsnO1EFIL2N68+FsBagvyyPDyRjUuBEpJFhGY46sCrF9C3J9tT
-	jTxkcM8Hqc3LMh2ncIdNAiafwSw4ZtVEOjm+/v1eil4oPrXqyvIGGdCJJAsbOBd4liPKWa3nIqx
-	pBtlIrg1lHvHRtztciPDmo2MCsU9PrqTit9iZWbN4AL1HneHLOeKnlbl+SGY71Rffo9kp/TEjUc
-	Y+AzMV6KUwJBSmLe1lws5tfUP3Zyuk9GFBGr0zRZN0HTdfbV9H20hiP2CCxyelmyk3m/lSYvn41
-	EHwI0Kw4/WEszCga29d/B1LCcx6UpLj4wTC5r4m7bptcZxTUylodsR8=
-X-Received: by 2002:a05:6a20:430a:b0:3e1:78c5:dfde with SMTP id adf61e73a8af0-3e92903d6a4mr11608227637.87.1793693021940;
-        Tue, 03 Nov 2026 00:03:41 -0800 (PST)
+        bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
+        b=YDNEu0QseFDDKOsEloJCR9Igt4kQC9ySzig+W7DHQGXaZYarzT+1a6Kxbwi7JUFKyJ
+         LFhuFr/FCX/Eiob3g3SfhOwGbKPRgB55PQZIw9ex1A2UGFtnZRP4/Md82BjFrojjOvdO
+         x2GpZ08C+XKpNqeaxunPskSVKHNHUDVOMe1APKiKAzDrnPiArh6fchaW9am+ficJ80/X
+         3+SjASb1GeSoNpRG/4yqSZmF0eQoRPiAv83vHT/Lan5OuY6k4r2Zifo1mF8t5oq16v1k
+         xHJpMWlWhwq41ib6SdACltbaMMarZAMIyLI9uQw4INca+Zv0pwTjyWcgXz+D+mhO97lO
+         VLMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793693036; x=1794297836;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Gs5+MUVCUFpHGD304h1ti8CPR/+CDqRB4o1YL2rOSQE=;
+        b=Mz6kOSRFr1qWWyEOHVHyTXF7FYJTLO8POvs8IZbB33zyDxTcPr/FoWHkmMn9acVopu
+         4HTuN+Qc6Mo0FW2Nwy6hi4ewxvtPvS0VYBtZc7T8sITfp7kgEVpuReFJiUKphj4lMGeN
+         L2ypG6jK8POMrgrqfdAIZ28KZwFnDjAT3s7UFttqOCRsry/AteAmAwCn9IsesUXevg0S
+         b/Q4sArDUyrzRSVZYxQaui07p4s3iYKBsep1nzhrwZ9OfJx4cUCcDiLwBrEw1oaJKVsD
+         1beaiZj4ocQhXjZSPDoaOyK6ErxacVinFih9ZZe/GQJZzCs2cnmESlr+eF0pmrYkBSyf
+         tOQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxc3u9OrP4Z7nr7SC7R4cnPgQj6NlyCE2pHUtjneiAlsK8DDJAG+2p6vxGOTO9+4Ia9INhzbQA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ihP+1WZJIrxVi0vdbQyzXaoPK4oc7+Y54/akX3X26l3GvBvTj
+	S8BJun9TrPmfdelfmzTmqj2ipgYq3Ch831aLgE7AD7W1/ds4QgXh6vyV
+X-Gm-Gg: AYBFou2xF/Xd08086HcdY3/JAcow6wsKat49F8+cSMICHdPPJJnrQsUCv3JhqccdoAG
+	fz/yu7Qorhm6X/dundg2YZGghDGjaprqqe29B/9yD9WbvPwLLYAjB7ET4PAMjh2IoqSk5lJJkJR
+	+QsYGJMLLzYTuIMnwr3m0LfCjLA5Cv0lrAAxETMtLxbNOkEyytboScZTeesQDRY9Eg3U+/ose5B
+	uIHdBzilie8cRk2hPHP16AWA22gbFze8XOvSoNUUvUCjU61xJDgwSOrpSu6TxKyCGaiebTqWWJJ
+	k8gpIUl8jAnsyt7y/ix50t8498WpI/QuZk9Cu8q2+LGCGS90a/LL7kU4JpAVCQd9WWRDfRd3ngI
+	mIMQMT3OCIN2+JigZsQ+lVjUaYZnDzzKZHAuR4UpcSIxv8EBNvkbs+D03ZPzA1GUiyzuUi4+pAj
+	poMleSJ8oAlX6gwqre0CwAy/HnoEOgH5M5FQRU11EcfBF3qBNhZyTCsgIszl7tDkoVZgSovGprx
+	ltLdnZ7Vj/a/EaE9L7kRviJo+rihnM4IVo7BFPzADBXYYxPopI16Fk0fAqVy/mo0OoRjPFflCoG
+	jchsvThH7k4sAyCdU0Bi0ZDPM7rZ/w2K8CrdyC73B2zDPYzh/q71lLcryjv4o02v1h2MrIshkzz
+	3
+X-Received: by 2002:a17:90b:4c85:b0:3a4:b418:94ce with SMTP id 98e67ed59e1d1-3ae89574db4mr9347219a91.1.1793693036031;
+        Tue, 03 Nov 2026 00:03:56 -0800 (PST)
 Received: from localhost.localdomain ([155.69.168.11])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb364af8desm842130a12.26.2026.11.03.00.03.37
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c5814basm3316347a91.2.2026.11.03.00.03.53
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 03 Nov 2026 00:03:40 -0800 (PST)
+        Tue, 03 Nov 2026 00:03:55 -0800 (PST)
 From: Yuqiang Sun <izaiahsun@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: amit.kumar-mahapatra@amd.com,
-	luca.ceresoli@bootlin.com,
-	harshit.m.mogalapalli@oracle.com,
-	linux-mtd@lists.infradead.org,
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com
+Cc: mhklinux@outlook.com,
+	stephen@networkplumber.org,
+	linmq006@gmail.com,
+	linux-hyperv@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] mtd: virt-concat: Tear the concat down when its master goes away
-Date: Tue,  3 Nov 2026 16:03:27 +0800
-Message-ID: <20261103080327.90193-1-izaiahsun@gmail.com>
+Subject: [PATCH v2 1/2] Drivers: hv: vmbus: Keep the channel when vmbus_add_channel_kobj() fails
+Date: Tue,  3 Nov 2026 16:03:46 +0800
+Message-ID: <20261103080347.90310-2-izaiahsun@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261103080347.90310-1-izaiahsun@gmail.com>
+References: <20261103080347.90310-1-izaiahsun@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,449 +106,140 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Partitions that are part of a virtual concatenation are never registered
-on their own: add_mtd_partitions() hands them to mtd_virt_concat_add() and
-skips them, so they are not on the parent's partition list either. The
-concatenated device is registered with a copy of the first partition's
-struct device, whose parent is the master's device.
+The channel is freed by the release of its kobject, and free_channel()
+drops that reference. Since commit 8bc69f86328e ("Drivers: hv: vmbus:
+Fix memory leak in vmbus_add_channel_kobj"), vmbus_add_channel_kobj()
+also drops it when it fails, as kobject_init_and_add() asks for. That
+frees the channel, and both callers then go on with it:
+vmbus_add_channel_work() unlinks a sub-channel, unmaps and releases its
+relid and calls free_channel(), a use after free and a second
+kobject_put(); for a primary channel, vmbus_device_register() unwinds
+through vmbus_device_release(), which removes the channel too.
 
-When the master is unregistered, mtd_virt_concat_destroy() looks for a
-concat item whose DT nodes include the master's of_node. The items hold
-the partition nodes, so nothing ever matches: the concat stays registered
-and keeps the master's device alive (it stays in the idr and in
-/proc/mtd), while the driver frees the master. Reading /proc/mtd then
-uses freed memory, and so does device_shutdown(). The concat's partitions
-are leaked, and since the item's subdev count is never reset, binding the
-driver again writes past the end of concat->subdev[].
+The kobject is also only initialized in vmbus_add_channel_kobj(), so the
+error paths before it, for instance a vmbus_device_create() failure in
+vmbus_add_channel_work(), call free_channel() on a kobject that was
+never initialized: kobject_put() warns and does nothing, so the channel
+is leaked, and removing the attribute group from a kobject that is not
+in sysfs warns as well.
 
-The matching branch is reached only from the MTD core's module exit,
-which cannot run while the concat is registered (it holds a reference on
-the module). There, a failed add_mtd_device() frees the caller's mtd
-instead of the child. The concat also puts references on its parts that
-it never took.
+Initialize the kobject when the channel is allocated, so that
+free_channel() is the one place that drops its reference on every path.
+vmbus_add_channel_kobj() then only adds it, and leaves the reference to
+its callers when it fails. Remove the attribute group only if the
+kobject was added.
 
-Find the concats to tear down by the master of their parts instead.
-Unregister each one that includes a partition of the master that goes
-away, free those partitions and drop them from the item, which keeps its
-DT nodes and the other parts, so the concat is joined again when the
-master comes back. Do not put references that were never taken, and only
-unregister a concat at module exit if it is registered.
-
-For this to work when the parts are on different masters, and when the
-concat is in use as its master goes away:
-- Keep each part in the slot of its DT node, rather than in the order the
-  parts are registered, so that a part whose master comes back does not
-  end up last.
-- Register the device that mtd_concat_create() returns, instead of a
-  copy of it in the item: an item can then be joined again while the old
-  device is still open, and the error path of add_mtd_device() no longer
-  frees the erase regions the copy still points to.
-- Keep the device, its name and the freed master's partitions until the
-  last user puts it, through the _get_device() and _put_device() hooks.
-
-Tested on QEMU (arm64 virt, TCG) with KASAN, physmap and the MTD core as
-modules, with two partitions of the CFI flash joined by
-part-concat-next, and with one partition on each of the two flash banks
-described as two flash devices: unbind the first flash, bind it again,
-unbind it again, unload the modules. Without this patch the first unbind
-leaves the devices behind and each read of /proc/mtd gives KASAN
-slab-use-after-free reports in mtd_proc_show(), binding again gives
-slab-out-of-bounds writes in mtd_virt_concat_add(), the MTD core cannot
-be unloaded, and device_shutdown() at power-off reports use-after-free
-and refcount_t underflow. With it the concat is removed on unbind,
-created again with its parts in order and readable after binding, and
-the MTD core unloads, with no reports. Failing each of the first eight
-allocations under mtd_virt_concat_create_join() when binding again fails
-the bind, with no reports. The same steps without part-concat-next are
-clean with and without this patch.
-
-Fixes: 43db6366fc2d ("mtd: Add driver for concatenating devices")
+Fixes: c2e5df616e1a ("vmbus: add per-channel sysfs info")
+Fixes: 8bc69f86328e ("Drivers: hv: vmbus: Fix memory leak in vmbus_add_channel_kobj")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
 ---
 
 Notes:
-    The bug was found with kbound, a research static analysis prototype
-    (its report was the add_mtd_device() failure path in
-    mtd_virt_concat_destroy(); running it showed the teardown problem).
+    The bug was found with kbound, a research static analysis prototype.
     The patch, the changelog and the test setup were written with the help
-    of an AI coding assistant (Claude); I have reviewed and tested them as
-    described above.
-    
-    Changes in v2, after the Sashiko review of v1:
-    - Keep each part in the slot of its DT node. With a concat across two
-      flash devices, v1 joined it again as kbb-kba-concat after the first
-      flash was bound again.
-    - Register the device returned by mtd_concat_create() instead of a copy
-      in the item. This also removes the double free of the erase regions
-      after a failed add_mtd_device(). That path is not reachable on QEMU,
-      whose CFI flash has a single erase region, so it is not tested.
-    - Keep the concat, its name and the parts of the master that went away
-      until the last user puts the concat.
-    
-    An MTD device held open while its flash driver is unbound gives KASAN
-    use-after-free reports in the MTD core and the CFI driver, with or
-    without this patch, for a plain partition too: the driver frees the
-    master while the open device, whose struct device has the master's as
-    its parent, is still around. With this patch a concat held open across
-    the unbind gets reports of the same kind, none of them in
-    mtd_virt_concat.c. Closing it then frees its parts.
-    
-    v1: https://lore.kernel.org/all/20261102083045.8512-1-izaiahsun@gmail.com/
+    of an AI coding assistant (Claude); I have reviewed them and tested them
+    as described in the cover letter.
 
- drivers/mtd/mtd_virt_concat.c | 223 ++++++++++++++++++++--------------
- include/linux/mtd/concat.h    |  14 +--
- 2 files changed, 142 insertions(+), 95 deletions(-)
+ drivers/hv/channel_mgmt.c |  5 +++--
+ drivers/hv/hyperv_vmbus.h |  1 +
+ drivers/hv/vmbus_drv.c    | 25 ++++++++++++++++++-------
+ 3 files changed, 22 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/mtd/mtd_virt_concat.c b/drivers/mtd/mtd_virt_concat.c
-index 40b300021dda..64b0dd434ee2 100644
---- a/drivers/mtd/mtd_virt_concat.c
-+++ b/drivers/mtd/mtd_virt_concat.c
-@@ -26,15 +26,32 @@ static LIST_HEAD(concat_node_list);
-  * @head: List handle
-  * @count: Number of nodes
-  * @nodes: Pointer to the nodes (partitions) to concatenate
-- * @concat: Concatenation container
-+ * @concat: Parts found so far: subdev[i] is the partition of nodes[i], or NULL
-+ * @vdev: The concatenated device, if it is registered
-  */
- struct mtd_virt_concat_node {
- 	struct list_head head;
- 	unsigned int count;
- 	struct mtd_concat *concat;
-+	struct mtd_virt_concat_dev *vdev;
- 	struct device_node *nodes[] __counted_by(count);
- };
+diff --git a/drivers/hv/channel_mgmt.c b/drivers/hv/channel_mgmt.c
+index c42def04ac41..cb1d8d76928f 100644
+--- a/drivers/hv/channel_mgmt.c
++++ b/drivers/hv/channel_mgmt.c
+@@ -367,6 +367,7 @@ static struct vmbus_channel *alloc_channel(void)
+ 		     vmbus_on_event, (unsigned long)channel);
  
-+/**
-+ * struct mtd_virt_concat_dev - A registered concatenated device
-+ * @mtd: The device, from mtd_concat_create()
-+ * @refs: One for the registration and one for each user of the device
-+ * @num_gone: Number of entries in @gone
-+ * @gone: Parts whose master went away while the device was in use, freed
-+ *        with the device
-+ */
-+struct mtd_virt_concat_dev {
-+	struct mtd_info *mtd;
-+	struct kref refs;
-+	unsigned int num_gone;
-+	struct mtd_info *gone[];
-+};
-+
- /**
-  * mtd_is_part_concat - Check if the device is already part
-  *                       of a concatenated device
-@@ -57,94 +74,119 @@ static bool mtd_is_part_concat(struct device_node *dev)
- 	return false;
+ 	hv_ringbuffer_pre_init(channel);
++	vmbus_init_channel_kobj(channel);
+ 
+ 	return channel;
  }
+@@ -663,8 +664,8 @@ static void vmbus_process_offer(struct vmbus_channel *newchannel)
+ 			mutex_unlock(&vmbus_connection.channel_mutex);
+ 			cpus_read_unlock();
+ 			/*
+-			 * Don't call free_channel(), because newchannel->kobj
+-			 * is not initialized yet.
++			 * Don't call free_channel(): newchannel was never
++			 * added, and its kobject holds nothing yet.
+ 			 */
+ 			kfree(newchannel);
+ 			WARN_ON_ONCE(1);
+diff --git a/drivers/hv/hyperv_vmbus.h b/drivers/hv/hyperv_vmbus.h
+index 33923621a5a3..7865a519dd7f 100644
+--- a/drivers/hv/hyperv_vmbus.h
++++ b/drivers/hv/hyperv_vmbus.h
+@@ -408,6 +408,7 @@ struct hv_device *vmbus_device_create(const guid_t *type,
  
--static void mtd_virt_concat_put_mtd_devices(struct mtd_concat *concat)
-+static void mtd_virt_concat_free_part(struct mtd_info *part)
- {
--	int i;
-+	kfree(part->name);
-+	kfree(part);
-+}
-+
-+static void mtd_virt_concat_release(struct kref *refs)
-+{
-+	struct mtd_virt_concat_dev *vdev =
-+		container_of(refs, struct mtd_virt_concat_dev, refs);
-+	unsigned int i;
-+
-+	for (i = 0; i < vdev->num_gone; i++)
-+		mtd_virt_concat_free_part(vdev->gone[i]);
-+	kfree(vdev->mtd->name);
-+	mtd_concat_destroy(vdev->mtd);
-+	kfree(vdev);
-+}
-+
+ int vmbus_device_register(struct hv_device *child_device_obj);
+ void vmbus_device_unregister(struct hv_device *device_obj);
++void vmbus_init_channel_kobj(struct vmbus_channel *channel);
+ int vmbus_add_channel_kobj(struct hv_device *device_obj,
+ 			   struct vmbus_channel *channel);
+ 
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 4692687cdbf3..fc0f16f51266 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -2084,6 +2084,15 @@ int hv_remove_ring_sysfs(struct vmbus_channel *channel)
+ }
+ EXPORT_SYMBOL_GPL(hv_remove_ring_sysfs);
+ 
 +/*
-+ * A concatenated device has no parent, so it is its own master: the MTD core
-+ * calls these for each of its users, the last _put_device() after it is done
-+ * with the device.
++ * vmbus_init_channel_kobj - initialize the kobject that holds the channel's
++ * lifetime; free_channel() drops its reference
 + */
-+static int mtd_virt_concat_get_device(struct mtd_info *mtd)
++void vmbus_init_channel_kobj(struct vmbus_channel *channel)
 +{
-+	struct mtd_virt_concat_dev *vdev = mtd->priv;
- 
--	for (i = 0; i < concat->num_subdev; i++)
--		put_mtd_device(concat->subdev[i]);
-+	kref_get(&vdev->refs);
-+	return 0;
++	kobject_init(&channel->kobj, &vmbus_chan_ktype);
 +}
 +
-+static void mtd_virt_concat_put_device(struct mtd_info *mtd)
-+{
-+	struct mtd_virt_concat_dev *vdev = mtd->priv;
-+
-+	kref_put(&vdev->refs, mtd_virt_concat_release);
-+}
-+
-+/*
-+ * Unregister the concatenated device of @item, if it is registered. The
-+ * caller drops the registration's reference once it is done with the parts.
-+ */
-+static struct mtd_virt_concat_dev *
-+mtd_virt_concat_unregister(struct mtd_virt_concat_node *item)
-+{
-+	struct mtd_virt_concat_dev *vdev = item->vdev;
-+
-+	if (vdev) {
-+		item->vdev = NULL;
-+		del_mtd_device(vdev->mtd);
-+	}
-+	return vdev;
- }
- 
- void mtd_virt_concat_destroy_joins(void)
- {
--	struct mtd_virt_concat_node *item, *tmp;
--	struct mtd_info *mtd;
-+	struct mtd_virt_concat_node *item;
-+	struct mtd_virt_concat_dev *vdev;
- 
--	list_for_each_entry_safe(item, tmp, &concat_node_list, head) {
--		mtd = &item->concat->mtd;
--		if (item->concat) {
--			mtd_device_unregister(mtd);
--			kfree(mtd->name);
--			mtd_virt_concat_put_mtd_devices(item->concat);
--			mtd_concat_destroy(mtd);
--		}
-+	list_for_each_entry(item, &concat_node_list, head) {
-+		vdev = mtd_virt_concat_unregister(item);
-+		if (vdev)
-+			kref_put(&vdev->refs, mtd_virt_concat_release);
-+		kfree(item->concat);
-+		item->concat = NULL;
- 	}
- }
- 
- /**
-- * mtd_virt_concat_destroy - Destroy the concat that includes the mtd object
-+ * mtd_virt_concat_destroy - Destroy the concats that include partitions of
-+ *                           an MTD device
-  * @mtd:        pointer to 'mtd_info'
-  *
-- * Return: 0 on success, -error otherwise.
-+ * Called when the master of @mtd is unregistered. Partitions of that master
-+ * that are part of a concatenation were never registered on their own, so
-+ * unregister every concat that includes one of them, and free them once that
-+ * concat is no longer in use. The other parts stay with the concat item,
-+ * which is joined again once all its parts are back.
-+ *
-+ * Return: 0.
+ /*
+  * vmbus_add_channel_kobj - setup a sub-directory under device/channels
   */
- int mtd_virt_concat_destroy(struct mtd_info *mtd)
- {
--	struct mtd_info *child, *master = mtd_get_master(mtd);
--	struct mtd_virt_concat_node *item, *tmp;
-+	struct mtd_info *part, *master = mtd_get_master(mtd);
-+	struct mtd_virt_concat_node *item;
-+	struct mtd_virt_concat_dev *vdev;
- 	struct mtd_concat *concat;
--	int idx, ret = 0;
--	bool is_mtd_found;
--
--	list_for_each_entry_safe(item, tmp, &concat_node_list, head) {
--		is_mtd_found = false;
-+	int idx;
+@@ -2094,13 +2103,14 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
+ 	u32 relid = channel->offermsg.child_relid;
+ 	int ret;
  
--		/* Find the concat item that hold the mtd device */
--		for (idx = 0; idx < item->count; idx++) {
--			if (item->nodes[idx] == mtd->dev.of_node) {
--				is_mtd_found = true;
--				break;
--			}
--		}
--		if (!is_mtd_found)
--			continue;
-+	list_for_each_entry(item, &concat_node_list, head) {
- 		concat = item->concat;
-+		vdev = NULL;
++	/*
++	 * On failure the kobject keeps its reference: the callers' error
++	 * paths drop it in free_channel(), which also frees the channel.
++	 */
+ 	kobj->kset = dev->channels_kset;
+-	ret = kobject_init_and_add(kobj, &vmbus_chan_ktype, NULL,
+-				   "%u", relid);
+-	if (ret) {
+-		kobject_put(kobj);
++	ret = kobject_add(kobj, NULL, "%u", relid);
++	if (ret)
+ 		return ret;
+-	}
  
--		/*
--		 * Since this concatenated device is being removed, retrieve
--		 * all MTD devices that are part of it and register them
--		 * individually.
--		 */
--		for (idx = 0; idx < concat->num_subdev; idx++) {
--			child = concat->subdev[idx];
--			if (child->dev.of_node != mtd->dev.of_node) {
--				ret = add_mtd_device(child);
--				if (ret)
--					goto out;
--			}
--		}
--		/* Destroy the concat */
--		if (concat->mtd.name) {
--			del_mtd_device(&concat->mtd);
--			kfree(concat->mtd.name);
--			mtd_virt_concat_put_mtd_devices(item->concat);
--			mtd_concat_destroy(&concat->mtd);
-+		for (idx = 0; idx < item->count; idx++) {
-+			part = concat->subdev[idx];
-+			if (!part || mtd_get_master(part) != master)
-+				continue;
-+
-+			if (!vdev)
-+				vdev = mtd_virt_concat_unregister(item);
-+			concat->subdev[idx] = NULL;
-+			concat->num_subdev--;
-+			if (vdev)
-+				vdev->gone[vdev->num_gone++] = part;
-+			else
-+				mtd_virt_concat_free_part(part);
- 		}
--
--		list_del(&item->head);
--		for (idx = 0; idx < item->count; idx++)
--			of_node_put(item->nodes[idx]);
--
--		kfree(item);
-+		if (vdev)
-+			kref_put(&vdev->refs, mtd_virt_concat_release);
- 	}
--	return 0;
--out:
--	mutex_lock(&master->master.partitions_lock);
--	list_del(&child->part.node);
--	mutex_unlock(&master->master.partitions_lock);
--	kfree(mtd->name);
--	kfree(mtd);
+ 	ret = sysfs_create_group(kobj, &vmbus_chan_group);
  
--	return ret;
-+	return 0;
- }
- 
- /**
-@@ -226,7 +268,10 @@ bool mtd_virt_concat_add(struct mtd_info *mtd)
- 		concat = item->concat;
- 		for (idx = 0; idx < item->count; idx++) {
- 			if (item->nodes[idx] == mtd->dev.of_node) {
--				concat->subdev[concat->num_subdev++] = mtd;
-+				if (concat->subdev[idx])
-+					return false;
-+				concat->subdev[idx] = mtd;
-+				concat->num_subdev++;
- 				return true;
- 			}
- 		}
-@@ -287,6 +332,7 @@ int mtd_virt_concat_node_create(void)
- int mtd_virt_concat_create_join(void)
- {
- 	struct mtd_virt_concat_node *item;
-+	struct mtd_virt_concat_dev *vdev;
- 	struct mtd_concat *concat;
- 	struct mtd_info *mtd;
- 	ssize_t name_sz;
-@@ -301,7 +347,7 @@ int mtd_virt_concat_create_join(void)
- 		 * concatenation are not handy, concat MTD device can't be
- 		 * created hence switch to next concat device.
+@@ -2109,7 +2119,6 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
+ 		 * The calling functions' error handling paths will cleanup the
+ 		 * empty channel directory.
  		 */
--		if (item->count != concat->num_subdev) {
-+		if (item->count != concat->num_subdev || item->vdev) {
- 			continue;
- 		} else {
- 			/* Calculate the legth of the name of the virtual device */
-@@ -309,10 +355,8 @@ int mtd_virt_concat_create_join(void)
- 				name_sz += (strlen(concat->subdev[idx]->name) + 1);
- 			name_sz += strlen(CONCAT_POSTFIX);
- 			name = kmalloc(name_sz + 1, GFP_KERNEL);
--			if (!name) {
--				mtd_virt_concat_put_mtd_devices(concat);
-+			if (!name)
- 				return -ENOMEM;
--			}
- 
- 			ret = 0;
- 			for (idx = 0; idx < concat->num_subdev; idx++) {
-@@ -321,34 +365,37 @@ int mtd_virt_concat_create_join(void)
- 			}
- 			sprintf((name + ret), CONCAT_POSTFIX);
- 
--			if (concat->mtd.name) {
--				ret = memcmp(concat->mtd.name, name, name_sz);
--				if (ret == 0) {
--					kfree(name);
--					continue;
--				}
-+			vdev = kzalloc_flex(*vdev, gone, item->count);
-+			if (!vdev) {
-+				kfree(name);
-+				return -ENOMEM;
- 			}
-+
- 			mtd = mtd_concat_create(concat->subdev, concat->num_subdev, name);
- 			if (!mtd) {
-+				kfree(vdev);
- 				kfree(name);
- 				return -ENXIO;
- 			}
--			concat->mtd = *mtd;
- 			/* Arbitrary set the first device as parent */
--			concat->mtd.dev.parent = concat->subdev[0]->dev.parent;
--			concat->mtd.dev = concat->subdev[0]->dev;
-+			mtd->dev = concat->subdev[0]->dev;
-+			mtd->priv = vdev;
-+			mtd->_get_device = mtd_virt_concat_get_device;
-+			mtd->_put_device = mtd_virt_concat_put_device;
-+			vdev->mtd = mtd;
-+			kref_init(&vdev->refs);
- 
- 			/* Add the mtd device */
--			ret = add_mtd_device(&concat->mtd);
--			if (ret)
--				goto destroy_concat;
-+			ret = add_mtd_device(mtd);
-+			if (ret) {
-+				mtd_concat_destroy(mtd);
-+				kfree(vdev);
-+				kfree(name);
-+				return ret;
-+			}
-+			item->vdev = vdev;
- 		}
+-		kobject_put(kobj);
+ 		dev_err(device, "Unable to set up channel sysfs files\n");
+ 		return ret;
  	}
- 
- 	return 0;
--
--destroy_concat:
--	mtd_concat_destroy(mtd);
--
--	return ret;
- }
-diff --git a/include/linux/mtd/concat.h b/include/linux/mtd/concat.h
-index f8d4d6ac1fc1..4c09b4f5b6e9 100644
---- a/include/linux/mtd/concat.h
-+++ b/include/linux/mtd/concat.h
-@@ -62,16 +62,16 @@ bool mtd_virt_concat_add(struct mtd_info *mtd);
- int mtd_virt_concat_create_join(void);
- 
- /**
-- * mtd_virt_concat_destroy - Remove the concat that includes a specific mtd device
-- *                           as one of its components.
-+ * mtd_virt_concat_destroy - Remove the concats that include partitions of a
-+ *                           specific mtd device as components.
-  * @mtd: pointer to MTD device info structure.
-  *
-- * Returns 0 on succes, or a negative error code.
-- *
-- * If the mtd_info object is part of a concatenated device, all other MTD devices
-- * within that concat are registered individually. The concatenated device is then
-- * removed, along with its concatenation component.
-+ * Returns 0.
-  *
-+ * Called when the master of @mtd is unregistered: every concatenated device
-+ * with a partition of that master is unregistered, and those partitions are
-+ * freed once it is no longer in use. The concatenation is created again when
-+ * all its parts are back.
+@@ -2124,7 +2133,9 @@ int vmbus_add_channel_kobj(struct hv_device *dev, struct vmbus_channel *channel)
   */
- int mtd_virt_concat_destroy(struct mtd_info *mtd);
+ void vmbus_remove_channel_attr_group(struct vmbus_channel *channel)
+ {
+-	sysfs_remove_group(&channel->kobj, &vmbus_chan_group);
++	/* A channel that failed before vmbus_add_channel_kobj() has none */
++	if (channel->kobj.state_in_sysfs)
++		sysfs_remove_group(&channel->kobj, &vmbus_chan_group);
+ }
  
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+ /*
 -- 
 2.53.0
 
