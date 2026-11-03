@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701305;
-	b=gEapIbc5M0cT47kPQdfisKkSPFMOtVTFwvAmfIub8C4HO+Ejw3P9CqQ2Rwj5GexhLOiH
-	 LdAGQajIhmIBdUXXABlaYclW2NSVAEMVqSLRJaJFXob+7mMj3UNAi8jVPLkXtyIW+bo9Z
-	 0ah3+EXrLf5U9KTodr59o/wNToRJj5/lBw7xpBEmzHHwy2FhyD2erp3Q2O0WoLGdpDd9h
-	 NxrFH9aPSqf0JibGdNhZ2Z3aw9qvZcelW+CA8llzMkzTEwoMLTunDRoKnxsiBVgChaB3Z
-	 TrSD+NAx0iYAarYFy9DKhKprkJPi8AL4SAZfXHQsrV7V+xVKNtOOrHDoFqcs3eA/cIA==
+	t=1793701307;
+	b=ebe00C9ekYPTtN91bdg3XXrc9QZz3Lu2/tVsP4Wcv2JDKGfqyMWZJzPV1jpJKerKS2Xg
+	 yLSzzbANa2pD3sT3qrs8Si7qcNmyziKUPP1SBk3wepi64d976EG++a7ATIgtrKL4T4CTW
+	 oT0YAKrg5lV0A6K09aDFDqLMizyBvRFg9I6rBXS3KuFhR96AUEDY5lKqNXFghHSaUQ8yo
+	 JxUPYMVHg8xfyypcnvKqUZqTiQ7+eNuOsAQHaRmWDBfKeRv1nwUYNsoRknxj6yOXzLsGy
+	 VTW8ITlXKA2ti9ZqLJdRp/vpf28nlexwseyNHLHdKdPZv/vN8NxIfS/YGLXN1vQp8sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701305;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701307;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XIx3XruWH4ZLTQOmXdHiBUnynW1KTOiokogCv1fN+OU=;
-	b=MakQaTGwbfOI5XbS1nBs/WUuAwn2+pscQtgY8ToofwMYSr6fjLiVkM0Dwsw13+4WxrdL
-	 k9Vds5q6li/5RDyBYHy0m5nqyLZ3B9JsqYXtFlwAnDqpl6AoVTT6qqHupV0Fdh7TsNTEZ
-	 +s/mY9n4r8Qc4GtpLV3Qswf+zBJF232hUWcCuj/UcYm0AKC9hlpCwS8/sTrtZV0QZQT/7
-	 gMXzL3K3YgIliAtW35jO8oNnKfeNQsk5SQWlMI642OpRjnYu5vYO4H18WuhRKjcwcgssj
-	 +4Don68pomObE6dFZ0ct39meXrLTq9pr/rpWqDnkmD1xCAKMdrYS2+HtNn/EOAsCiEw==
+	bh=buD+KJGOatNeSQVJyIb5/GQOFu3Ew2tfupS921wMcRA=;
+	b=cATVjcapdE0bVyIiYED8N+j83g72as43UHoHKMWVWYyzShiQ3LK2C2dEvnGI2Gj8W3m/
+	 JnqrUOpnul6QRy1pBSFwXGtOv4jlPrXWr/OgRxE2ekPn88kuogRS5kda4c0haDdLaNIe7
+	 lZILeVOTJnsvmRgrjEUJ4YV0U1WKmT2saWuElV3bBQqj89ETlGNLEUhIP9uAuUed35+2Q
+	 QN1FgZdTqHAIjVWBWWna4f0IclTJS7VZWS7w1i6gJGkr3nvULOQjdhsOEvzUcfwbwOP9e
+	 L2huq+Kr1IpdSOYohtLoNvhQ9ivxBC3hpBrGXdqmKWGsuqGsu5il02RESQXEbrgvnRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vqCYlOHs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dOyvNGQN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29663606C57B
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D2A606D803
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:21:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vqCYlOHs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9701F000C1;
-	Tue,  3 Nov 2026 10:21:44 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dOyvNGQN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA281F0093A;
+	Tue,  3 Nov 2026 10:21:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701305;
-	bh=XIx3XruWH4ZLTQOmXdHiBUnynW1KTOiokogCv1fN+OU=;
+	s=korg; t=1793701306;
+	bh=buD+KJGOatNeSQVJyIb5/GQOFu3Ew2tfupS921wMcRA=;
 	h=Subject:To:Cc:From:Date;
-	b=vqCYlOHsyjOy3AKiLJjAZAyta1+cw4I08bH6Goh8E7gDTTomuzbx5iF6HJY6NKCax
-	 fKFYhMPiZyygCtFkaAd0cXtVnFLeLEir27Xw2Mc95wGJ/aQ9qKsIV7ZZn+5uXnJJoA
-	 /hH3XAgaH4HapY1XHhd6nXC+NBNiQTTL0UmeGVHY=
-Subject: FAILED: patch "[PATCH] ksmbd: fix named stream write and EOF handling" failed to apply to 6.1-stable tree
-To: charsyam@gmail.com,linkinjeon@kernel.org
+	b=dOyvNGQNhjWpmRzsCzKM3CwbQxH/OKPmLP6mvEshh2fQN8FpzeVwsVAl59YPgWfqo
+	 2IV7qkvWaHk/4HHlXzcqhWc/E/H6hoDSw/dPwtf63GJ7Zqwo93xfKC4UZ6AQID622M
+	 6Dse3uycYU5VUln2WObOwd4E9ih9brkMAZ4g9cwY=
+Subject: FAILED: patch "[PATCH] ksmbd: fix out-of-bounds read when padding the final compound" failed to apply to 7.3-stable tree
+To: icb@fastmail.org,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:34 +0100
-Message-ID: <2026110333-decompose-wifi-2653@gregkh>
+Date: Tue, 03 Nov 2026 11:21:39 +0100
+Message-ID: <2026110339-undesired-vagabond-3610@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 7.3-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 02165c8d402392278a5cd2cf97645ed73a7ad4a1
+git cherry-pick -x 714f27729121d59f103ca4dad7b0c2d1c125cd71
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110333-decompose-wifi-2653@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110339-undesired-vagabond-3610@gregkh' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -79,184 +79,67 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 02165c8d402392278a5cd2cf97645ed73a7ad4a1 Mon Sep 17 00:00:00 2001
-From: DaeMyung Kang <charsyam@gmail.com>
-Date: Wed, 7 Oct 2026 22:13:51 +0900
-Subject: [PATCH] ksmbd: fix named stream write and EOF handling
+From 714f27729121d59f103ca4dad7b0c2d1c125cd71 Mon Sep 17 00:00:00 2001
+From: Ian Bridges <icb@fastmail.org>
+Date: Mon, 26 Oct 2026 20:40:21 -0500
+Subject: [PATCH] ksmbd: fix out-of-bounds read when padding the final compound
+ response
 
-An SMB WRITE to an existing named stream can silently discard data after
-its written range. ksmbd stores streams as xattr values, but the write
-path passes offset + count as the length of the replacement xattr even
-when the old stream is longer. Writing 26 bytes at offset 0 to a 60-byte
-stream reports 26 bytes written while discarding the remaining 34 bytes.
+Compound response handling pads the last response of a compound to an
+8-byte boundary by growing the final iov and the RFC1002 length.
+smb2_allocate_rsp_buf() allocates exactly response_sz. A command can
+fill the response buffer to within 7 bytes of its end, for example a
+QUERY_INFO whose output is bounded only by the space left. The padding
+can then run past the allocation, and ksmbd_tcp_writev() reads those
+bytes when it sends the response.
 
-Keep the existing xattr length when an in-place write ends before EOF.
-Reject writes that cross XATTR_SIZE_MAX rather than storing only the
-portion that fits while reporting the full requested count.
+  BUG: KASAN: slab-out-of-bounds in _copy_from_iter+0x744/0x10e0
+  Call Trace:
+   _copy_from_iter+0x744/0x10e0
+   tcp_sendmsg_locked+0x2290/0x3f80
+   ksmbd_tcp_writev+0x10c7/0x1ab0 [ksmbd]
 
-Commit 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
-intentionally skipped ordinary inode truncation for stream handles: an
-EOF SetInfo on an ADS had truncated the base file. That fixed the base
-file corruption but left stream EOF changes reporting success without
-resizing the stream. Handle these requests by resizing only the stream
-xattr; the base file size remains untouched. Zero-fill stream extensions.
-This is needed alongside the write fix: a short write's accidental
-truncation previously masked an ignored explicit EOF change. The stream
-resize helper returns xattr errors directly rather than using the
-base-file truncate path's EBADF conversion.
+Allocate room for the padding when the request is a compound, as
+smb2_read() and smb2_read_pipe() do for their payloads. response_sz is
+unchanged, so commands still fill only up to it, and kvzalloc() zeroes
+the padding.
 
-Fixes: f44158485826 ("cifsd: add file operations")
-Fixes: 4ea0bb8aaedf ("ksmbd: handle set/get info file for streamed file")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: DaeMyung Kang <charsyam@gmail.com>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
 diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index a400f9912896..0fb146b612f0 100644
+index db3a0500f9f3..b306bc6e21ee 100644
 --- a/fs/smb/server/smb2pdu.c
 +++ b/fs/smb/server/smb2pdu.c
-@@ -8578,6 +8578,8 @@ static int set_end_of_file_info(struct ksmbd_work *work, struct ksmbd_file *fp,
+@@ -969,7 +969,7 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
+ 	struct smb_version_values *vals = work->conn->vals;
+ 	size_t small_sz = MAX_CIFS_SMALL_BUFFER_SIZE;
+ 	size_t large_sz = small_sz + vals->max_trans_size;
+-	size_t sz = small_sz;
++	size_t sz = small_sz, pad_sz = 0;
+ 	int cmd = le16_to_cpu(hdr->Command);
  
- 	newsize = le64_to_cpu(file_eof_info->EndOfFile);
- 	inode = file_inode(fp->filp);
-+	if (ksmbd_stream_fd(fp))
-+		return ksmbd_vfs_stream_truncate(fp, newsize);
- 
- 	/*
- 	 * If FILE_END_OF_FILE_INFORMATION of set_info_file is called
-@@ -8586,8 +8588,7 @@ static int set_end_of_file_info(struct ksmbd_work *work, struct ksmbd_file *fp,
- 	 * truncate of some filesystem like FAT32 fill zero data in
- 	 * truncated range.
- 	 */
--	if (inode->i_sb->s_magic != MSDOS_SUPER_MAGIC &&
--	    ksmbd_stream_fd(fp) == false) {
-+	if (inode->i_sb->s_magic != MSDOS_SUPER_MAGIC) {
- 		ksmbd_debug(SMB, "truncated to newsize %lld\n", newsize);
- 		rc = ksmbd_vfs_truncate(work, fp, newsize);
- 		if (rc) {
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 2e2c554bc2c1..8bb93196acb9 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -388,23 +388,21 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 	const struct cred *saved_cred;
- 	char *stream_buf = NULL, *wbuf;
- 	const struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
--	size_t size;
-+	size_t size, write_end;
- 	ssize_t v_len;
- 	int err = 0;
- 
- 	ksmbd_debug(VFS, "write stream data pos : %llu, count : %zd\n",
- 		    *pos, count);
- 
--	if (*pos >= XATTR_SIZE_MAX) {
-+	if (*pos < 0 || *pos >= XATTR_SIZE_MAX) {
- 		pr_err("stream write position %lld is out of bounds\n",	*pos);
- 		return -EINVAL;
+ 	if (cmd == SMB2_IOCTL_HE || cmd == SMB2_QUERY_DIRECTORY_HE)
+@@ -995,10 +995,17 @@ int smb2_allocate_rsp_buf(struct ksmbd_work *work)
  	}
  
--	size = *pos + count;
--	if (size > XATTR_SIZE_MAX) {
--		size = XATTR_SIZE_MAX;
--		count = XATTR_SIZE_MAX - *pos;
--	}
-+	if (count > XATTR_SIZE_MAX - *pos)
-+		return -EFBIG;
-+	write_end = *pos + count;
- 
- 	saved_cred = override_creds(fp->filp->f_cred);
- 	v_len = ksmbd_vfs_getcasexattr(idmap,
-@@ -417,6 +415,8 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 		err = v_len;
- 		goto out_revert;
- 	}
-+	/* Preserve the tail of an existing stream on an in-place write. */
-+	size = max_t(size_t, v_len, write_end);
- 
- 	if (v_len < size) {
- 		wbuf = kvzalloc(size, KSMBD_DEFAULT_GFP);
-@@ -445,13 +445,69 @@ static int ksmbd_vfs_stream_write(struct ksmbd_file *fp, char *buf, loff_t *pos,
- 	if (err < 0)
- 		goto out;
- 	else
--		fp->stream.pos = size;
-+		fp->stream.pos = write_end;
- 	err = 0;
- out:
- 	kvfree(stream_buf);
- 	return err;
- }
- 
-+/**
-+ * ksmbd_vfs_stream_truncate() - change the length of a named stream
-+ * @fp:		stream file handle
-+ * @newsize:	new stream length
-+ *
-+ * Resize the stream xattr without changing the base inode size.
-+ *
-+ * Return: 0 on success, otherwise a negative error code
-+ */
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize)
-+{
-+	const struct cred *saved_cred;
-+	const struct mnt_idmap *idmap = file_mnt_idmap(fp->filp);
-+	char *stream_buf = NULL, *new_buf = NULL;
-+	ssize_t v_len;
-+	int err;
-+
-+	if (newsize < 0)
-+		return -EINVAL;
-+	if (newsize > XATTR_SIZE_MAX)
-+		return -EFBIG;
-+
-+	saved_cred = override_creds(fp->filp->f_cred);
-+	v_len = ksmbd_vfs_getcasexattr(idmap, fp->filp->f_path.dentry,
-+				       fp->stream.name, fp->stream.size,
-+				       &stream_buf);
-+	if (v_len < 0) {
-+		err = v_len;
-+		goto out;
+ 	/* allocate large response buf for chained commands */
+-	if (le32_to_cpu(hdr->NextCommand) > 0)
++	if (le32_to_cpu(hdr->NextCommand) > 0) {
+ 		sz = large_sz;
++		/*
++		 * is_chained_smb2_message() pads the last response of a
++		 * compound to 8 bytes, which can take it past response_sz.
++		 * Leave room for the padding. kvzalloc() zeroes it.
++		 */
++		pad_sz = ALIGN(sz - sizeof(__be32), 8) - (sz - sizeof(__be32));
 +	}
-+	if (v_len == newsize) {
-+		err = 0;
-+		goto out;
-+	}
-+
-+	new_buf = stream_buf;
-+	if (newsize > v_len) {
-+		new_buf = kvzalloc(newsize, KSMBD_DEFAULT_GFP);
-+		if (!new_buf) {
-+			err = -ENOMEM;
-+			goto out;
-+		}
-+		if (v_len)
-+			memcpy(new_buf, stream_buf, v_len);
-+	}
-+
-+	err = ksmbd_vfs_setxattr(idmap, &fp->filp->f_path, fp->stream.name,
-+				 new_buf, newsize, 0, true);
-+	if (new_buf != stream_buf)
-+		kvfree(new_buf);
-+out:
-+	kvfree(stream_buf);
-+	revert_creds(saved_cred);
-+	return err;
-+}
-+
- /**
-  * ksmbd_vfs_write() - vfs helper for smb file write
-  * @work:	work
-diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 216c76291fc1..7e545d13a3ff 100644
---- a/fs/smb/server/vfs.h
-+++ b/fs/smb/server/vfs.h
-@@ -83,6 +83,7 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- int ksmbd_vfs_write(struct ksmbd_work *work, struct ksmbd_file *fp,
- 		    char *buf, size_t count, loff_t *pos, bool sync,
- 		    ssize_t *written);
-+int ksmbd_vfs_stream_truncate(struct ksmbd_file *fp, loff_t newsize);
- int ksmbd_vfs_fsync(struct ksmbd_work *work, u64 fid, u64 p_id);
- int ksmbd_vfs_remove_file(struct ksmbd_work *work, const struct path *path);
- int ksmbd_vfs_link(struct ksmbd_work *work,
+ 
+-	work->response_buf = kvzalloc(sz, KSMBD_DEFAULT_GFP);
++	work->response_buf = kvzalloc(sz + pad_sz, KSMBD_DEFAULT_GFP);
+ 	if (!work->response_buf)
+ 		return -ENOMEM;
+ 
 
