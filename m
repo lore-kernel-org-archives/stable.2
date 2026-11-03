@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700710;
-	b=aY5xWZa9bt9IvjgMlgWSZ0uwNpY1G+lv/orjNyjf+SQpbMvhduKttIMHX5WkNL02O3nF
-	 oCbHT+NfwCdtS1nWw2ICXkr3FDblGTrcKKYoId1CoHLnDB9NEnxV5f3+cqkzxSZgIAB2L
-	 qj3x/86DYzkKdsqyNKVvVSSqL8ud/2nFwTYHKPEucUknfHlOgvM2MX0jW1AiHcjmPy+5x
-	 YiEtK72BE2m1s85EviLyhZ1ra1jN7H+IAHHuKSVcJN3Z7sMrItjoUttj9L8dy9HFu6uw6
-	 nXzRzKZdjAurCUmLNYiYMtVaCm8I03KdhboCFnfNCCS9WrFi9Q7Ga/DlRbOEsFwE7iA==
+	t=1793700711;
+	b=xi3u9uIUvmRFT6uTWzEY+cUU5jBYNcVU2fLy2nOrz/t9qgXaVeBqTeX8DHhZqmXzPHZz
+	 l0DTiiVuaDO0nBGpahMub+XAD0Ao8aN25JzgY0n0OdE76qM77gtsuY70yJ6vsoU4ugD//
+	 YZzUvJpzaWLSqj+Fv3l84gtk5uxNUwXjD5AnBfgDdLu32bcRjh22N1Tmvn2/zP26uLBYf
+	 6HZasKotoNfwqJ0gDHotbJg6HafpbdvjvjOxE9Z6cEYCeXiz0sO4MrSbeZm1KZkM3f5Db
+	 0OiIiRfzdm1M6ldjlJy1ZsBt5Mt70ExGyfwfrGaADIGt3dW1NTVOWEP4Cj03nIBv9GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700711;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qDgYHdnp0IrsiryvbRed5LaI/ewTpxVGx0c/skmlZSo=;
-	b=ErUgLDoHAldGQwcFKVF3PB0HAMIX6MFWuqcogmV5WYe+SvSL0B2FCA6YKMsWI0EIQSCC
-	 GeiganLVkgh9JGLXDnOOs/O5GwmhWKsyD2Xw4CXbCvtotiZ9vu4qXRQvYV3mq07iP9zyK
-	 k+kYbRzVqO/jrp2J1uH2Rc80VJ16yjUQbTCAPhiuRkx7nNV+x+LdckItPIXXnEouWhfcI
-	 8AzgsmgfwwAoYRu105LE+zyUfrEdfd+WcTJVO0u/2GAI9aNv9BdQILEHB7gMwLNWiiewF
-	 uGSiI6SXV/+6IJ0LBM8uzMYKoOkpE/BVHdsepV/VdIg5O+yXXU7WiAtHsB62v+1eKIw==
+	bh=MhpsWMnnoQm+8wujGogAKt+apipafqlmB2u8FwBsPZk=;
+	b=vOxC64ZtKaqVQc3N8BBYThlbrXZvhgrebDgRtKRwJBqELcpLqin2nvS2S01XI1fL3dMj
+	 Jdd1w+R6yepDG5+BASmSpkreFJfCRVXhruN6Bh9Ptk97Ulpk+vcEy6u5cdT4JgrKS7PgP
+	 R0HyuEPFoK96Omd8C3KYehHvwyzQuN0XmF2nlRqa59OSyuFF7SsyLN/8xHDBndXKJ5MsX
+	 Cz/xljnM/P8AlGamqg5XX6cZO5c3UIEg2gKHglDWeSiUIcA4HOs9yX7ZYVZAjIZNZUvGM
+	 RZ3z0Jvi2orYYwH7+2F98kOHYAhH9u6o/TumYcuepVPnndA0xrBWPsQ0PMPdWk8Aa9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Q1QLLZW;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=c4Rkyp4Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11459606A32F
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CC6606A32F
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Q1QLLZW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FA91F00919;
-	Tue,  3 Nov 2026 10:11:49 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=c4Rkyp4Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 059FD1F00A02;
+	Tue,  3 Nov 2026 10:11:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700709;
-	bh=qDgYHdnp0IrsiryvbRed5LaI/ewTpxVGx0c/skmlZSo=;
+	s=korg; t=1793700711;
+	bh=MhpsWMnnoQm+8wujGogAKt+apipafqlmB2u8FwBsPZk=;
 	h=Subject:To:Cc:From:Date;
-	b=0Q1QLLZWB8mRHwm3tFuz/i+cXiwqKjL3X/B8044B9Lkbhfu7Usy+gtMx/6ovVZgW6
-	 470dJ/ISR4YEA2H0PVCgax1OVz36H0SAutQfkz8T5+Kx5F7s0eW+WuTFIk1760K3ff
-	 uzTgQ3JPaMVIn8V+gTxEst7fdeugW9uRttwauORM=
-Subject: FAILED: patch "[PATCH] driver core: take parent lock on deferred probe" failed to apply to 5.10-stable tree
+	b=c4Rkyp4QklEySnAF6NWuMbltptnk+w2Ok09NOvcZsFBxypdKU7QbM457/m73Keaqa
+	 05Pm4ysjm9XnlRUIedf37CXMIYTuDWkDIuw8MupKZoxmA/3JoAKy4JFihDF0UKpru4
+	 1/n1cHuwGOivRayA22a6TZf8iw1gR+AZnade97wE=
+Subject: FAILED: patch "[PATCH] driver core: take parent lock on deferred probe" failed to apply to 5.15-stable tree
 To: johan@kernel.org,dakr@kernel.org,mario.peter@leica-geosystems.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 03 Nov 2026 11:11:40 +0100
-Message-ID: <2026110340-parcel-swear-8531@gregkh>
+Message-ID: <2026110340-circus-eggnog-92d2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4059f8986c8f50102a04335cc1da4921dfd262d8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110340-parcel-swear-8531@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110340-circus-eggnog-92d2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
