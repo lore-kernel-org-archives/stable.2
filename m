@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699175;
-	b=WHC9Yq+rQFkbIp4nj1sxHGuDsl5IVD3Qe8alm+uGpqCjYgtZr8bm4muRpi8Ox0FSMP6R
-	 NCmjEIqouU0H+ZJz3/avmBVSTWKGdIghrviHNig62Obc6fvOm19o11P53FFMCrMNsr3Gd
-	 pXEwFPrr5dVkuF6oaMlaWhRis36aYPJy4RsGgZ9w30RP+xY0qYNcAPh3pm/PQJfFo+IVf
-	 V+RLUNo004jy+luyPvctJOhXn3JJqKVBOQe97m8bOHXSocPMXfPJC20J/VdnKR9/LuwmN
-	 F8iRp5aWRXSxY7zDDajmmxSiZLlYfTHqiC4xqMU9dZt9gcYsH/CblNl60ylZPjZZosA==
+	t=1793699180;
+	b=kjMFbRSMjL2lajoZogohDzuL6C4CIyiCvpC035X2Q1o/Teg50C6+GGJFGtYVhPkUWSg2
+	 wMW4CbsSB1clu3r3c8A3Y3b4rnTgqJO8Ka/NIwPLPXcPl/tNLe+DHXZvS0TgoUzk15ClF
+	 +pSUadz9GcYZvBIsjpBT2XAFRSRGXZXeaAzeF+nfNoV5G/SgAKb9fsOiUPHxBH1JTFTXq
+	 ZYFXPtfaCeAjDJ2g8+/QxsAY9ciFUmFYzF/ktNhYaNRGbpRmSqZQgg4yXoWsRbsqoe4l6
+	 steRAPo9akIOGQ7ld4kEj/PQrm+IGiai+9VyFbeVro6X2d+wbrq5i0JxUCixnHJx81w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699175;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699180;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=gY7p33z2v7FszyDj0lPlEERYt/49l6YR3NM7eQ0xMIM=;
-	b=hKUCta7CuOrwxvG7iXn5HPSLQzLL3Iy7hAMSZJJ0tPw2fosve/lfLbEtmJjMpDHOIAuN
-	 kfXm0bDsa4KtKeQXbA4VfxakvHLgRKro5/hZm6f2D3C3DqUZ/AERQEDNk9uJ0S1UeNGF7
-	 /M1gDLQS5PaUZIFJ4EmPnOheZD3m1FX2T4h86WaD+iwi/H5tHhTTud0RDYSTumzqYZ1J3
-	 YFWGMiGJF92L9CHeYlx3tRAE3GG4mYHGIVu7dgiNnbQDP1i1mopqYLiw0zUHUg85GM3v0
-	 rCVZtAJjcgBhmyJona1hA1luq9C+HHVXvZQFDbcW2SG7Mnfq5j+NbrcAeUho6YleW+A==
+	bh=IErLZQ5klLGiNPfBwdYPl2dFtqBHQL7H8/SqhYiFBvE=;
+	b=V9gFfcvs79JGKmznm9+d/9wSgDZmZNu/x/X5IFb/RF4iIAJsepeqpdqqik58Yob6HdQB
+	 DazfW9QDgapawnRchjwLBBtozQ3mTwFdJGWNlChpSkEjB+fQe+ts54gsEe5XJOMZlk1Zg
+	 0SvfolRG//zr85FaMsI41FhAppIE1dT0JpnDCLra1BKIEI4WUvWtlZ6E7gBAcMG+BIKBB
+	 yPjdFlZw7TbHcLzn1jPEjZjeh/9WQ0W5po9zwywKQq2H4lDKjtaXJBeLYGXPnjCGxBln7
+	 g/+BRxr4SDe6wYuYO97mMBmedbq+Sq/o2gS6dsQxTqeo8GEhJD8Of/iwzXdaO11v8Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,29 +25,27 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F77606EE88;
-	Tue,  3 Nov 2026 09:46:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F77606EE88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D1A6082BC0;
+	Tue,  3 Nov 2026 09:46:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2D1A6082BC0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXaZpgrelq1U47AA--.64265S2;
-	Tue, 03 Nov 2026 17:46:08 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAAHF5horelqOE87AA--.2657S2;
+	Tue, 03 Nov 2026 17:46:17 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
+To: Sathya Prakash <sathya.prakash@broadcom.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Ranjan Kumar <ranjan.kumar@broadcom.com>
+Cc: MPT-FusionLinux.pdl@broadcom.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: exynos4-is: Free control handler if fimc-lite subdev init fails
-Date: Tue,  3 Nov 2026 09:46:17 +0000
-Message-Id: <20261103094617.1289377-1-vulab@iscas.ac.cn>
+Subject: [PATCH 1/4] scsi: mptfusion: Put the SCSI device in mptspi_write_spi_device_pg1()
+Date: Tue,  3 Nov 2026 09:46:25 +0000
+Message-Id: <20261103094625.1289590-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,53 +57,59 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXaZpgrelq1U47AA--.64265S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WFyxGw1fKw4rAw13ZF1DWrg_yoW8GFWUpr
-	4xt3srAFWUGayxta1UA3W29FW3Aw13WrW5WrZru348JrZakFnrA34a93WrZFyDAr1xZasx
-	Zw1UXFW3uF4YvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowAAHF5horelqOE87AA--.2657S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw18GF15trWUXrWfur1rZwb_yoW8Xr45pF
+	WUWayjyF98GrW7KFnxGa45ZFyY93yIy3yrC3s7Ca4Ig3WrJFy5GrykJFyrWrsYyFZ3GFWU
+	Zr47tF1xurWDZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMAA2rpnOFO+QAAsF
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
+	JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
+	jU-B_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgAA2rpnO5OTQAAs+
 
-fimc_lite_create_capture_subdev() initializes fimc->ctrl_handler and adds
-a control to it. If the control cannot be created, handler->error is set
-and the function returns after cleaning up the media entity only. The
-control handler still owns the memory allocated for its buckets and for
-any control created before the failure, and fimc_lite_probe() does not
-call fimc_lite_unregister_capture_subdev() on this error, so that memory
-is leaked.
+mptspi_write_spi_device_pg1() walks the LUNs of the target looking for a
+tape device so that inline data padding can be enabled for it.  The loop
+uses scsi_device_lookup_by_target(), which takes a reference on the
+returned scsi_device, but the reference is never dropped: not when the
+LUN turns out not to be a tape and not when the loop is left after a tape
+has been found.  Every SPI negotiation that runs with a minimum sync
+period of 8 therefore leaks one reference to a SCSI device and keeps the
+device from being released.
 
-Free the control handler before returning the error.
+Release the reference with scsi_device_put() both before moving on to the
+next LUN and before leaving the loop.
 
-Fixes: 4af813108b88 ("[media] s5p-fimc: Add support for Exynos4x12 FIMC-LITE")
+Fixes: 19fff154e7ee ("[SCSI] mptfusion: Adding inline data padding support for TAPE drive.")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/media/platform/samsung/exynos4-is/fimc-lite.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/message/fusion/mptspi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/platform/samsung/exynos4-is/fimc-lite.c b/drivers/media/platform/samsung/exynos4-is/fimc-lite.c
-index 90599c82fd35..103c542a85b0 100644
---- a/drivers/media/platform/samsung/exynos4-is/fimc-lite.c
-+++ b/drivers/media/platform/samsung/exynos4-is/fimc-lite.c
-@@ -1402,6 +1402,7 @@ static int fimc_lite_create_capture_subdev(struct fimc_lite *fimc)
- 						  NULL);
- 	if (handler->error) {
- 		media_entity_cleanup(&sd->entity);
-+		v4l2_ctrl_handler_free(handler);
- 		return handler->error;
+diff --git a/drivers/message/fusion/mptspi.c b/drivers/message/fusion/mptspi.c
+index 56892b1f3de2..9c513ba9fe05 100644
+--- a/drivers/message/fusion/mptspi.c
++++ b/drivers/message/fusion/mptspi.c
+@@ -914,8 +914,11 @@ static int mptspi_write_spi_device_pg1(struct scsi_target *starget,
+ 				nego_parms |= MPI_SCSIDEVPAGE1_RP_IDP;
+ 				pg1->RequestedParameters =
+ 				    cpu_to_le32(nego_parms);
++				scsi_device_put(sdev);
+ 				break;
+ 			}
++			if (sdev)
++				scsi_device_put(sdev);
+ 		}
  	}
  
 -- 
