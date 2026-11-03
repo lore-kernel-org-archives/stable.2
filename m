@@ -1,73 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674993;
-	b=tH4WW5pjjaqfrapOInSs9ZUE7OYe6oI3rZlnLb1odWh4Rh/w709eAYdm3uc8awdKjEjL
-	 hrHvqySq0P3b1r79EKERDPG7t+Uq6Qnmz98S615tszh17gWuweqSCGoqp8W7UXTbbY6LB
-	 CSeBKu02C6qY9NlsTryqHtvRuTvndVBJcfpPETLYoe5Hq0M3B2uQjKvHZenVQxrJ62IKd
-	 6b1snO3pHWqMWFGa9HEg3fwWnd+yNPo0N1JXudXG+o2laiMNfSxls1itzKxO5XJbo0Hgi
-	 JUILVyIK4w9R8uqhejsqQZu7vvgJoX0AqAxyuz7lxnDFpGGhw8K0SFwEwUb4DR7sU1g==
+	t=1793675289;
+	b=NpaWQOUDKpVzCU31Vj2bSYcc/bHs+2CjGHKTtfT7oc/RxKNfhw07WpW+qtAOdTDGn2D7
+	 Rvdw+iX5CjCooTO8Q6FwnDM7qgA1Myj/0WW1gZraHlppvHkvI1hEleIhZ16bJvZpzLTdO
+	 9Juygrjfd1t7iadWk/FHVMFMakf3k0yzPaZQvHW7AYtSV8HzTzDGXNRhW5YGLtV2tMPmE
+	 jl/jjYSe00hcsct17rPltm1/1c4twEIXipJsEH0dzAr8XQspyfL/fK7kKyqmFiJ+tvhLU
+	 MV63rp5JIeyDpCYf+Yz8S3j+6T4vxqyrlwdC5FtASMBm/Gcy9MVtolOtPRG22+l+Ipg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674993;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675289;
 	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	bh=oCrt+/j4hdeOK45YwUt4sEBeoooxnL1Gvg4diMjrU0M=;
-	b=5mM32OsLyvYkZmmnmBxtjkvN9qawPRgBSE9ecBQkvprfPofYQhYsbFuyjPuJASbhoe7f
-	 Uz1m1vbBg5wbbF18gAzlsI9yXPg6F8Zwn57BlXjb9XLaygVxuO1+DbHXHOPvQDdQZXbCw
-	 CUoJy1vF5ag9mwmV03vx70Q8vjPKGGsoAd7ARF+xNb3UBaFcrq+NXp5M/g8/P1oIdXZ1L
-	 18jvuPLUKmdcQSgMq5I6vK+t4jP9YYQqbPbfPRFUoTqut2R0yRIObSN2Y9XmbxElBjwX6
-	 HhB4nDwHQIixK7YIl+ysoJ5omvbHCZMfXbitSepoM1XtbT+EjhD6YSYL+kCNLkTmFGw==
+	 Received:Received:From:To:CC:Subject:In-Reply-To:References:
+	 Message-ID:Date:MIME-Version:Content-Type;
+	bh=ipoTgPd8Fwqg7YNSVq8z0RBRMLPfB3mxi/Vs+YIWPmY=;
+	b=zFmUU9Q5bfOavBU1zJSKjzx8kiatDoMGTa8QOgNTkI471fI1DhDoX7jp44WhsC9DFiMP
+	 VdEdKD/pTCCQnSiXGkrxuooeheVnENUacZisu8Sx9JuX9uxNQ7JsDvLbZSILRH8oiv0QK
+	 xL9sIcFFR8PdxJZoEdVCpsco9qhKZ2z5ECIsAJd2S9Ng99ICBl0DdxfOfGzVlTJ7uj91k
+	 8R9Sl5p8ha1oPqvZPr68h1WtSLOdA0V9xfwfzB5pfSrsg8lsuZ1vGA3/s9XSzs/19nxuW
+	 YlojUorvsXv9yd7p313tMSxIzfR9M228WK3SiNV7ec+14tcW504wFeO2RiTZCcXlm1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=realtek.com;
 	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lslxYma8;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=sqEDJ+4K;
 	arc=none smtp.remote-ip=211.75.126.72
 Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31464606D812;
-	Tue,  3 Nov 2026 03:03:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31464606D812
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC137606A326;
+	Tue,  3 Nov 2026 03:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC137606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=lslxYma8
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A332rArA2688820, This message is accepted by code: ctloc85258
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=sqEDJ+4K
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A337x3F22691575, This message is accepted by code: ctloc85258
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793674973; bh=oCrt+/j4hdeOK45YwUt4sEBeoooxnL1Gvg4diMjrU0M=;
+	t=1793675279; bh=ipoTgPd8Fwqg7YNSVq8z0RBRMLPfB3mxi/Vs+YIWPmY=;
 	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
 	 MIME-Version:Content-Type;
-	b=lslxYma84pbsN7RGk22fDtWY4A184oQMrfkyHe9Ck8zUQ0dXM1evljPGTX2sUlrp2
-	 Aqaaigu3oD3qY/8s38i0ryAFx9f78lReHgIPcMzCZW50cgMgP86a7oLYWtC8eLI4Bx
-	 JFbHCyoGu3lNEnHXOd3cYlkx1EW0W42fKoDKYthZVva5qzc2xVb9p35wXCdFTRcn1b
-	 2w6mJuxxieLpQYmS1OPmuCtVgexFU2ddD0djKsEsRJimBoNh2XdnLGfJiT+h8Yz37b
-	 8q4iQPr3SRhSvIy0M6uEPl6dJqWm7HvbmvvFZHuPk/zaEPVH79b1pJaSnXsHefagrf
-	 oxlsRuNsKNCUQ==
+	b=sqEDJ+4KPkO5D5F/XUV/HIdbuL0f6t4No7RHlpHlSLpASHLv8nrxjUVgWqFkXWk00
+	 s5nklKbjdJCcQL0Nsqe311GpleTUAi1cj0NzyUrYQoKoT5UeH8xa8xqkX0KsVQKhNJ
+	 kZuXuL5UYM/X0XgmJ9xylm8o5NlJmB41ia/2d9feIiZ3wlW229QIXABSKJ8XSYgmo+
+	 F8i5nQPiTw5r7erGMFtzHE+7v/4dQ31abPIT1SMFTlP+hRBDMtkzAFK8zogHWDkVeY
+	 mV4EO9HvfBRh9J4uLHWGZXJg9wGCm91esKS02qFZvHDNOkTtEGKrCZvaHarnvKAImq
+	 DeHHmQJ4M0c9g==
 Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A332rArA2688820
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A337x3F22691575
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 3 Nov 2026 11:02:53 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+	Tue, 3 Nov 2026 11:07:59 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
  RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Tue, 3 Nov 2026 11:01:59 +0800
+ 15.2.2562.56; Tue, 3 Nov 2026 11:07:59 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Tue, 3 Nov 2026 11:07:59 +0800
 Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS06.realtek.com.tw
  (10.21.1.56) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Tue, 3 Nov 2026 11:01:54 +0800
+ Transport; Tue, 3 Nov 2026 11:07:54 +0800
 From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, Ping-Ke Shih <pkshih@realtek.com>
-CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ulf Hansson
-	<ulfh@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Kalle Valo
-	<kvalo@kernel.org>, <linux-wireless@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Luka Gejak <luka.gejak@linux.dev>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH rtw-next] wifi: rtw88: sdio: reject oversized RX packets
-In-Reply-To: <20261009123022.87787-1-luka.gejak@linux.dev>
-References: <20261009123022.87787-1-luka.gejak@linux.dev>
-Message-ID: <534c767d-c243-4916-80e9-3ce5f8424476@RTKEXHMBS06.realtek.com.tw>
-Date: Tue, 3 Nov 2026 11:01:54 +0800
+To: Kim Wooseok <5mghybrid@khu.ac.kr>, <linux-wireless@vger.kernel.org>
+CC: Jes Sorensen <Jes.Sorensen@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Kim Wooseok <5mghybrid@khu.ac.kr>
+Subject: Re: [PATCH rtw-next] wifi: rtl8xxxu: isolate the USB register buffer from CPU state
+In-Reply-To: <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
+References: <20261010-rtl8xxxu-usb-dma-v1-0-e670d9c08fdf@khu.ac.kr> <20261010-rtl8xxxu-usb-dma-v1-1-e670d9c08fdf@khu.ac.kr>
+Message-ID: <28afeaf0-6e3f-46b5-83d2-768496e9abac@RTKEXHMBS06.realtek.com.tw>
+Date: Tue, 3 Nov 2026 11:07:54 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,23 +81,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 
-Luka Gejak <luka.gejak@linux.dev> wrote:
+Kim Wooseok <5mghybrid@khu.ac.kr> wrote:
 
-> rtw_sdio_rxfifo_recv() also takes the last-entry path when the descriptor
-> claims more data than rx_len. The skb is then passed to rtw_sdio_rx_skb(),
-> which calls skb_put() with pkt_len and does not check it against the space
-> left, so a bad descriptor can overflow the skb.
+> From: Kim Wooseok <5mghybrid@khu.ac.kr>
 > 
-> Reject the packet when pkt_offset + pkt_len exceeds the bytes left.
+> An RTL8192EU failed to reconnect on a Raspberry Pi after an AP power
+> cycle. RF_MODE contained a corrupted value, and restoring its initialized
+> value restored reception.
 > 
-> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+> The register access helpers pass usb_buf directly to usb_control_msg(),
+> but the buffer is embedded next to usb_buf_mutex. On the affected Pi,
+> it shares a cache line with the mutex's waiter state. A contending task
+> updates that state while the USB transfer uses the buffer. This violates
+> the cache-line isolation required for non-coherent DMA.
+> 
+> Allocate the buffer once in probe and reuse it, avoiding an allocation
+> for every register access. Keep the existing register access helpers and
+> mutex protection. Free the buffer on probe failure and after power_off()
+> in disconnect, since shutdown still uses the register access helpers.
+> 
+> Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
 > Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
 1 patch(es) applied to rtw-next branch of rtw.git, thanks.
 
-83ca360e8528 wifi: rtw88: sdio: reject oversized RX packets
+f7c98e720cad wifi: rtl8xxxu: isolate the USB register buffer from CPU state
 
 ---
 https://github.com/pkshih/rtw.git
