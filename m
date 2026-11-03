@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692900;
-	b=i6S8hFBY/y+474Mb2AwhFz70zZF9Vq/DAj1rA6hvXk/8JfgVqQiyzJ2cJ+xL237hIEKP
-	 c+riQkR50Zzl9bgyOb+/fM5HDrj5ZPCS8WmqIESepIA/7g2H1v27qdqEF/9mxFB5yY9hc
-	 bmTUxOeOpjKeaJNZ7xNIqHEdzb+j2V3qWU3W0FNdFfzF9JtF4fJ9cTIrK0UQ9dGCYfymM
-	 5J+dlPkifeHSMjtbIZo6ejH+P5VU072Gz81HW4Z2L/YdSKGdyy63RbAXE05SnwTCHbXU4
-	 yBDVp0kygX3JOmVJ2lxJRtmvdtSnUEaBuG0LTAqcQ4faXeMKiCoc7x9gzSQClLnSy3g==
+	t=1793692892;
+	b=DVJcvbvLELu9csCd7l7wehTN1VxwVMXm45q3sa8FUOzgMEAiZp9dkmBzW73Rr1zDkYIA
+	 jyIzDUbEJTsaCQawV/FwT8cOpe8QGdq+QswML63yLgbX9PcacwYvW/zVHaITrou7kRRub
+	 Wwjv4LL/xNZdYLpIC94npwTz4rvfSuMQUiDv2cQhrRdsyyuiPUGVm9OACkgL30OwDtM1H
+	 MJEcRyYJk2yNFUVVifnKIJAUCoelTAg8zCNmjhIwUVGiIsjWCGMygJV5vfrY+8FO+jI60
+	 StmO8kvGrlZzLFzxIC1/vycd8yzzWjorazdrmqjyYy4fBvW05zAqCaGN+CY0tQ4tlHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793692892;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=JYQyQkhetD6ZOaLMew7rXre3mg1MOm9HF6woZrkOd8Q=;
-	b=gWEIv/M9CgbGW7VYstbQvcaYnvnAoLwJEjyJjZiY5hgvv8kzoqpHyIzb0gBMENkAuxpx
-	 c+OQMFzOZlcZeKqUnJL3eVR3kCbK2Km05vd6oRQaDYka/cL5ZyirYDtDhhdsaC4S5SH06
-	 pAhOH4LK2TFyh8p3aLXCrm63YSQitxCz1FAtVR2q4PtfPVCYbybV6cOtru9b7ed0x0Uwe
-	 qB1WKdDspP5NnhfU0IVVGHWRAPsb7oxyz5Mmchl87VcRPccVfUqKomDFtN4AkrReEW2mb
-	 J7KIecVSqyJavI9pp/e08Jl73ZiKwH4Dems/hl4fEWOW2ePsjVWUWkB3Bp7MOckk9yQ==
+	bh=52KCXwmm9ZCNyw3KBw/dQ/3mW8BHvTfiOxfI1L0wd18=;
+	b=ZMyZOUE4fNgHpm2zQW+nhz4IT3gU073JtnRHtYIdwE4qh37kf7uDC3BoAYChnUEr3TAj
+	 QhBskiIPBElebvMWR05pR3+VcGZJevdOKwbOGJDczLHJArY33oFciGCqVjJoIrN+oSxGs
+	 gnzh8TfWcEVCQ0Oa7cWCaDdArJH5IemC5YTRQ1Ldx+4wovsx8Fv2T9E8bbqYU9LXe09MM
+	 le4XLNKkNIb6JMhgHNrcJJWG4AU123Sz2zziIs2P0DznodygX641LKyNK1/G9t7/29lKO
+	 XmBF0qNATRw32mk5wCkPmlwWdN3Fw8lghXLW16sgv8fhgvbuwYdsq2yngd6BCRide3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uoMofLeV;
-	arc=none smtp.remote-ip=95.215.58.74
-Received: from mta1.migadu.com (out-74.mta1.migadu.com [95.215.58.74])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JAFlrt5z;
+	arc=none smtp.remote-ip=91.218.175.104
+Received: from mta0.migadu.com (out-104.mta0.migadu.com [91.218.175.104])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7578606D807
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7578606D807
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A19D606A329
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A19D606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uoMofLeV
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JAFlrt5z
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=f4MZEPomACo+JF2HOCbhbkGFHnL8N31Hjwf6Gqd4q3w=;
+DKIM-Signature: a=rsa-sha256; bh=EbWR22LQF8i7FNouXAnt5TAEQhSWkm045nRZT2gB0fY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793692897; v=1; x=1794297697;
- b=uoMofLeVG/Ky2QC9sXVRMsOMWQkkJWpYo9yF02Y4Nc1np6EnpTtjqxqU8685L+rM5SOrGNax
- QKzf9hQcjZGS5lqoAOiSLM8Zfma/Hl+Ol1bP7Tdv2opBrzAKUOi4CMoKBSVNrBGlA8AIN8bwH1h
- uDvrNRWnNVQtmX2DU3c2fQIo=
+ t=1793692889; v=1; x=1794297689;
+ b=JAFlrt5zHrloovNEv52uOljvv8Ada0Z7DmXl4q/UvI0lNWNARHqcLu+tgnoV9smUvNdFtM3V
+ ZqFyXeby0JHQ5rDDt1Pv7s7aWv6Nu0Cx953nyDoT0eCc5qxvS27yAKVPRODA7czR+ewk9ypLiBi
+ qAXe37CDRVPgZvBo1zbRcPhI=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 25ecdb623a230149;
-	Tue, 03 Nov 2026 08:01:36 +0000
-X-Mizu-Trace-ID: 25ecdb623a230149
+Received: by smtp.migadu.com with ESMTPS id 8deed9b99d672b83;
+	Tue, 03 Nov 2026 08:01:29 +0000
+X-Mizu-Trace-ID: 8deed9b99d672b83
 X-Migadu-Flow: FLOW_OUT
 From: Qi Zheng <qi.zheng@linux.dev>
 To: muchun.song@linux.dev,
@@ -56,11 +56,10 @@ To: muchun.song@linux.dev,
 Cc: linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	Qi Zheng <zhengqi.arch@bytedance.com>,
-	stable@vger.kernel.org,
-	Lance Yang <lance.yang@linux.dev>
-Subject: [PATCH 4/4] mm: hugetlb: respect cpuset restrictions for surplus allocations
-Date: Tue,  3 Nov 2026 16:01:07 +0800
-Message-ID: <d1e41a65970ced879715a73ce2607de7ad102fb2.1793692578.git.zhengqi.arch@bytedance.com>
+	stable@vger.kernel.org
+Subject: [PATCH 2/4] mm: hugetlb: skip CMA allocations under PF_MEMALLOC_PIN
+Date: Tue,  3 Nov 2026 16:01:05 +0800
+Message-ID: <5bc00742fe249cf09a3095abccf8889d5fa71116.1793692578.git.zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1793692578.git.zhengqi.arch@bytedance.com>
 References: <cover.1793692578.git.zhengqi.arch@bytedance.com>
@@ -77,107 +76,38 @@ Content-Transfer-Encoding: 8bit
 
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Gigantic surplus allocations can escape the faulting task's cpuset.
-CMA and the contiguous allocator trust the supplied nodemask without
-checking the current cpuset.
+With gigantic overcommit enabled, a fault during long-term pinning
+can allocate a fresh HugeTLB folio from CMA despite PF_MEMALLOC_PIN.
 
-For example, a shared HugeTLB VMA has MPOL_BIND={0,1}, and T is a
-non-leader thread. With surplus allocation enabled and no eligible free
-HugeTLB folio, the following sequence can occur:
+The folio must then be migrated before it can be pinned. However,
+fresh gigantic migration targets are not supported, so pinning fails
+when the HugeTLB pool has no suitable target, even if the original
+fault could have allocated pinnable memory outside CMA.
 
-  CPU0 (cgroup v1 migration)       CPU1 (thread T)
-  -------------------------       ---------------
-  cpuset_attach_task(..., T)
-    T->mems_allowed = {0}
-    /* Non-leader: skip
-       mpol_rebind_mm(). */
-                                  /* Fault; VMA policy is still {0,1}. */
-                                  policy_nodemask()
-                                    /* {0,1} intersects {0}. */
-                                    nodemask = {0,1}
-                                  hugetlb_cma_alloc_frozen_folio()
-                                    /* node0 fails; node1 succeeds. */
-
-The 1 GiB folio is allocated on node1 despite T being restricted to node0.
-
-Intersect the interpreted policy with the current cpuset before surplus
-allocation, preserving MPOL_BIND and MPOL_PREFERRED_MANY fallback rules.
-Apply the restriction at the policy-aware entry point to preserve
-per-node pool management semantics.
-
-If the cpuset changes during allocation, rebuild the mask and revalidate
-any allocated folio against the current constraints. Keep it if it is
-still eligible: freeing an HVO-optimized folio can defer returning its
-range to CMA, so discarding a usable folio can cause a needless allocation
-failure. Only release the folio and allocate again if it is no longer
-eligible.
+Honor PF_MEMALLOC_PIN in the HugeTLB CMA allocator so the fault can
+try the non-CMA fallback, or fail when allocation is restricted to CMA.
 
 Fixes: eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages")
 Cc: stable@vger.kernel.org
-Reported-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- mm/hugetlb.c | 38 +++++++++++++++++++++++++++++++-------
- 1 file changed, 31 insertions(+), 7 deletions(-)
+ mm/hugetlb_cma.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index ce9c8e57b8e5c..6fd6e58ace869 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2181,22 +2181,46 @@ struct folio *alloc_buddy_hugetlb_folio(struct hstate *h,
- 		gfp_t gfp_mask, struct mempolicy_interpreted *mpoli)
- {
- 	struct folio *folio = NULL;
--	nodemask_t *nodemask = mpoli->nodemask;
-+	nodemask_t alloc_nodemask;
-+	unsigned int cpuset_mems_cookie;
-+
-+retry:
-+	cpuset_mems_cookie = read_mems_allowed_begin();
-+	alloc_nodemask = cpuset_current_mems_allowed;
-+	if (mpoli->mode == MPOL_BIND && mpoli->nodemask &&
-+	    nodes_intersects(*mpoli->nodemask, alloc_nodemask))
-+		nodes_and(alloc_nodemask, alloc_nodemask, *mpoli->nodemask);
-+
-+	if (folio) {
-+		if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
-+			goto retry;
-+
-+		if (node_isset(folio_nid(folio), alloc_nodemask))
-+			return folio;
-+
-+		/* Balance free_huge_folio()'s decrement before caller accounting */
-+		lruvec_stat_mod_folio(folio, NR_HUGETLB, pages_per_huge_page(h));
-+		free_huge_folio(folio);
-+		folio = NULL;
-+	}
+diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+index 95fd2d190f0d2..dde1c866406fb 100644
+--- a/mm/hugetlb_cma.c
++++ b/mm/hugetlb_cma.c
+@@ -62,6 +62,9 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+ 	if (!hugetlb_cma_size)
+ 		return NULL;
  
- 	if (mpoli->mode == MPOL_PREFERRED_MANY) {
- 		gfp_t gfp = gfp_mask & ~(__GFP_DIRECT_RECLAIM | __GFP_NOFAIL);
- 
-+		nodes_and(alloc_nodemask, alloc_nodemask, *mpoli->nodemask);
- 		folio = alloc_surplus_hugetlb_folio(h, gfp, mpoli->nid,
--						    nodemask);
-+						    &alloc_nodemask);
- 
--		/* Fallback to all nodes if page==NULL */
--		nodemask = NULL;
-+		/* Fallback to all nodes allowed by the current cpuset */
-+		alloc_nodemask = cpuset_current_mems_allowed;
- 	}
- 
--	if (!folio) {
-+	if (!folio)
- 		folio = alloc_surplus_hugetlb_folio(h, gfp_mask, mpoli->nid,
--						    nodemask);
--	}
-+						    &alloc_nodemask);
++	if (current->flags & PF_MEMALLOC_PIN)
++		return NULL;
 +
-+	if (unlikely(read_mems_allowed_retry(cpuset_mems_cookie)))
-+		goto retry;
- 
- 	return folio;
- }
+ retry_cpuset:
+ 	if (!nodemask) {
+ 		cpuset_mems_cookie = read_mems_allowed_begin();
 -- 
 2.54.0
 
