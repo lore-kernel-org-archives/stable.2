@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793694827;
-	b=uArQ4Gl9BEGqMLLz1y0BpffbnYJNmZ3uDUTtxq9iK765eX2BFqiXeV3inaUlnAqLq2Qc
-	 K1bq08EiUR3EU9pYuerqKIC2PKUm+QYvs6PLiyLKOoaS2YszTOahFcvZy5njb/S+m9aDz
-	 jjvsUvXex8QqEm5nmXHigLY0MqYIxhVN7GyrC/+rgXYUyf+jf4XoAP33vhQKnqz1m9KIv
-	 Us1udNQ6JEK/3mwbWWpHFd35bc4T28iiqgskMxlVok0ts1x3Ge+1P2OfcBi3M17GMYvjI
-	 77Wt5ZEdiKCpZx6e702iyriGnNeHAqVwRVkEpS8ba2+NwMs4jWxkT0E3F6Y8P2IBhDA==
+	t=1793694823;
+	b=ssz3rgU7jzFL3PaTozGZOKX8sIF6dDOs/jrGHoGph8gHSQotpDRzLuyquWIm+//0eM3+
+	 nW3o99S6MCHTu1mWOLZWDxnX487H1h+ykUqRlvqiRwLPa2YFYXIZhIeZVJwWa+T1U4+FO
+	 KmnwyYwc6LjQIFsas0nREEXXhqyBZCs+najjzcIsmnjYmGbeJ6aH9ikRLZo5ytiuGcOie
+	 eRARPSSFiNMsqCQSW4X2AXfpudwdPV6SYwas7jZ1TYk3a79E7XzKln1UFnxrhyF1lBllC
+	 dfwI0ZHXrP12yoTPImfs/Dw3Tr4jeGWWK33Cz2Trytk4uCAs5gnLUhVxhmoqlR6WGsg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694827;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694823;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HwF4S5bxm2j9EzIyz1SC/J8IudB+3qt9yXUwER1aUJM=;
-	b=X3sCbK+q5P7GM6zunPJYXZb/lX7ns7UfjWCEWWpCux87VDWz76+hXArDBR2uGim/rGks
-	 CrvQ3Ok05GsLKWflDec8Qz/e4QBh/EiwgfcxsXxXEszmHi8A/O4ec0lTs3XeFqqeTBdFP
-	 53DaiLm2SbbUXTXmQQNbl8RddgGOQKBvSMKdGJKNt0IK5KrrJjoU3X/fwueyhW7FA2z+o
-	 OXCTjJMj7PQhq9BxhIZ31Sqh3O4a4jytN1bwzMbwwuc9EuYQ0yoCgt8+xf63YOK2AV8ld
-	 auoY+pLiD36AEQlKUtN3YmGx6JdKfIvMtaw5Qk/5mBi2toFTlPYjGKDIT8EJkoAPfqw==
+	bh=6ja4OL6a6IgpRSB3wFRJnMwYH3hklXOJLyA0pYW5Hj0=;
+	b=43VEIf906uC9g4fOGNZitmfPLQV4CDfoiyV2dgKJnHFaPvVNEtmenV/wmnVeaaafg06s
+	 DYzNr80dBHfp6802ZddiX8UeCDTKCyNyIPzWVcv40u65uxFpq2EYAowPW5Vrn4+gczrYm
+	 e8z7otYOzN1dNK5XHs+Nhk1ZSLZPtm4MBh+Lb8WyHWQtjU/gOHRZeRqUB4YAeffXiSZBp
+	 HucSGIpy0ZDQ+iYvBFhgWaAy+8EbRGygBzLvt7gybHaeqbvTysspJAP+1KvmFLbdZzEa2
+	 G9IDMidcuZZTlAI5JX6r++isJS4zQe/h65k82eY425QmDLCbEP+al1IK5u0dWVhIydw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VpKRh5iM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TjCInT27;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F9D6076BB4
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:33:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F9D6076BB4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69370606EE92
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 08:33:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69370606EE92
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VpKRh5iM
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so2103568a91.1
-        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 00:33:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793694826; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TjCInT27
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3acd21ba21aso2843111a91.1
+        for <stable@vger.kernel.org>; Tue, 03 Nov 2026 00:33:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793694822; cv=none;
         d=google.com; s=arc-20260327;
-        b=St0LHljgBPoFKoDmXBwp3YMx6nV4/VBmeGhKt+698VcOlWoPcc4PPoz87yXGiLHeqf
-         hFrYi17JflQ3zLLO8/6JxkZUw8ree37B4e2pQhBzJZBbCS08An6jiAA8LBR2+0FLVOhs
-         D/g38EFXZRrj45TdACJAgsJ2tEV0zuvZ5VQNz+1iq5VnlJJqk4dBpinR3ALNRwMtYeKR
-         9XBKOGWAkgnKylLG7i9yCZdIz9TmkLYWsjb6iakD+a+BLcx3S1xhvCyagDPPvPRI4eTl
-         JpDtoI57k8lk++6oVajTCW19jvLnOAHaA9Q+74uERkcRAa64juK+42NlJM2UTeyBK2mN
-         WrjQ==
+        b=kD377t6NaKDPhnRsG3y5crn0YkzpWxMNKuFUmKixujc4DBFZr2rAHCLldryYfKGNTj
+         Z3rVWC5ulPPwLdJprHNQj20KwxqCe6TeK1PcZJfjyeshN6fkoBc6DR/MLfn1up2wJuvj
+         UnvecgW/tIXiacTERUgns09/dWTNMjkoQSLzkm77koALTsqBK8zGipYYIWWP7e1Dzw5G
+         9nlDKzT7WoGB/mdALDkU6cMUnyQy0oIdq/Fk1GG+kYz1PBbzW0cJJlfl4fGRcuC4bUpY
+         OSjXf3xjphNW+b+/lCEk0mGFD9d4Tu3J4Ey8uSOfkDg+Uu16SExZFy3ka9C+eKJrWPOw
+         bvBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=HwF4S5bxm2j9EzIyz1SC/J8IudB+3qt9yXUwER1aUJM=;
-        fh=YfT1h7k7+a8MN5ZHdvw6y+rntkd9+CaNTz1OP5xDklA=;
-        b=QUE/yHMgcr9NECavRekHTkJYguc1QdvxruhAsi+tsQMWZM0CXMx0gaCvbSxYoasE1X
-         2Wg6iCdv1vICBUV+F1QCl3n5znuqE3FClBxdEauA0YzYml0DLNg16utTuHvbTZefCVe/
-         U4ghAv3O4/8P0j/aQ+ajlsuYMryIcmlDP42K6JlwC65N5fIHeHBtRPFya2LZjCspWji0
-         l4D05f1CCMhjNjQYxGda7T60u9/X08sdAQsQQ6AMgVwdP2xjt0ZTX9zzxYDAuBE3Z3Tw
-         QO3RsTYfCYQskX6xFGfJY4RtnKyA/+G6OIc53SM640fUewQV0/7wHrpxina2Gx/oBOkq
-         Zcqw==;
+        bh=6ja4OL6a6IgpRSB3wFRJnMwYH3hklXOJLyA0pYW5Hj0=;
+        fh=sDOxj3Wuw/newd30sFFO331gI6d5mSrBj9mWnmR8zVA=;
+        b=W2CsyeUsugaY+bVl1/bKL1JDS7bPyxh215354Xpqpld8QX70Tnbtvs6KMh4+w+rNXG
+         vrIRJmEc2c+yEGMq6w5SRFtjqf+mlmnCzKNdYSzF8+blYt1Fxq6lsodVOmfPDwjEOrv1
+         gV305GDrnuurWPgJj8vTdpI7Z06bU5gg6zo4qL9KxKhJTT/IkhDld33RRonNsL/hNPji
+         nP9wj1/XrxSyFkRjHvcEbxz4ZtC9ypqzFMtvVI39SOc89h0zXec+lwZKy1SgTWPckPsS
+         +4blhdrXWsSZEn2ri3D0h3KDfyoQ2h73kuat2VNIM5oLqwpCjV+f7HnqyuW0tPxltsBD
+         iu1A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793694826; x=1794299626; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793694822; x=1794299622; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HwF4S5bxm2j9EzIyz1SC/J8IudB+3qt9yXUwER1aUJM=;
-        b=VpKRh5iMMk/uDrxhCUU+vgVGN8WWGzbo1owdw++3mPZSar70R5Xp3muHRKWC4ssocD
-         IsNAJjccanDWxOjWHzQVA31b8YG1buwVNtZnkM4Voz2Ng4zrcFn5pQcZ2WaW0Pucq8wu
-         mfqEBP+8X+Abmtx2BhkgfuVox5Reino5rFZUC6QDOR+GwjRRarjUxEFv5HPN7vCbFRWl
-         AoGh4tc7INzidBgkx6NDuEB4l1Lo5bUQczEhKFdGeGn+0wDZsOgG+6ujrNPxXdQlfQgW
-         7CkruBMfViCHcqnqyQvMKV4BNUg/MOuTHYmUZCdVWu3HU/Wl+juFJ4AAxMATWj7OIDb+
-         CsWQ==
+        bh=6ja4OL6a6IgpRSB3wFRJnMwYH3hklXOJLyA0pYW5Hj0=;
+        b=TjCInT27A4Fu3pmjTejbbjiqDRCLI7ZuuNObZjKH6dC1ospQgOYStx+s/jrTaRLv+L
+         me6bnPknqZA7eaU21YEpKHnAPYx93YCdbJj12sFrJyo+/In7CU5qOva/JEwwUkcknbiH
+         cSJHWC2hMN7UuvcBC7cauivNL43UfBJ6x+/mqjwGJkVlTm/Fc8zy/oMwq3T1pLVBpbmY
+         90oyIjxV6+o1i3PfEZH2pd4urrZv7LQmRsSxujpHCJF5m0wLOHTeJqJoVuPgPA+cpTuq
+         L4znlRWqzkLNGwRQtW5GaeffkjyQkH95y+w7pkMkdlt62extNyVsG2HZsO4+PCfxc8wQ
+         dULQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793694826; x=1794299626;
+        d=1e100.net; s=20260707; t=1793694822; x=1794299622;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HwF4S5bxm2j9EzIyz1SC/J8IudB+3qt9yXUwER1aUJM=;
-        b=GwtL/Y9CsBPHXNRfvufbR+akNE4gN2x3ZuXQoZ4CrDB0FAAaOrwSyeysm3S0QTlaMA
-         byoC3RARcFdmV3TwXePFXGHOAcOzSK/CCk0qqVEqQ5ICTToH/k05j6SSR1zydZz5lXms
-         6gsEQYdxd4eBVUCEFpeJrS8jrNWiBJVPadatg459IF/Y5WQxpb2mfJcB2eVUhHNrCvL7
-         8UjFUOs4XYbWiquDa/YUohDfqSB9YVK22LV5gB4C2ok/Ml+EZ0ZTjFMoByQIm9kVMvg9
-         +MaELVEyIV5YUiHDIXMpIcsex+C8nI89SES29fsTAUUf0wDWpY3adW4hcMaaxPfbnqPT
-         +iqA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+E3dX7qzl6ThpXXiHcYQ+wO7zWEww016xXF/oJ+CV1bcKgKoLkzNKF4H8hoGPB7LqM5PiMAU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0b+WLvnzcmzqNndc+yYTWPMxu7lPfp9v17EYnO/BIMi5DmcYd
-	2uyOKjb+sori0zwPHDDb8pfqjINxk4XoYakt33JVw4WK1r0ekSb0O2bEz4vg+msal0otMVpUCLm
-	3SobhbjbDqsgP84cxCJLzBOdg1cHKacdT20w5zwhI
-X-Gm-Gg: AYBFou3stOmmJ+dBBNcMMPBHDNEJVrwXcZTJPQXezuxNkY5yWoVUmTd22Lm7/1WCRuU
-	9wKJ8BU0V8z3uEL9vjzNdkmEKXyJiQ1ZMnKhR8Eo+RtgX0C8tKaAQZAS+m07HCsunXsnLUF7GZY
-	uV5Uz0YDPu0R4SwWIM0uqVapbFGlSZ486bfUjF8KqpxZ9jCaRI2PKF/gOa9RkyYcINOkcaNJaOe
-	utJZJPMVEYDox5TlvWUFHv5DQpVqLrUMpSA+9OMSeHc8xUw4EhO68BfZL5/NEJepiafa+niI97u
-	2kzMohrLiZjnX7icKEcaXaKLbhUhr3U1rqlEGUcphz6Z8mZN3MLnCAda6/F5b5NQylPZEGaoW0V
-	p7rThjc8QWkr0yDRoHKwCBf3ie1SU0rwJaFDs
-X-Received: by 2002:a17:90a:e7cd:b0:3a0:8050:2ec9 with SMTP id
- 98e67ed59e1d1-3ae897ccf9dmr9830837a91.16.1793694825021; Tue, 03 Nov 2026
- 00:33:45 -0800 (PST)
+        bh=6ja4OL6a6IgpRSB3wFRJnMwYH3hklXOJLyA0pYW5Hj0=;
+        b=Vfv6+HjoCCeQXlV8kBE2WaQA0V/JUOuBLVkGCAKjCNvcrPlcA5tG/7aLB/QwY74IhC
+         CtxqDYR7eM7V5HrescYZ5nU4iuYVgSNZde7z1yP1aPOLCkq3TU7QQwPddRNFBMrBS0mF
+         g+r6ceCrch7RHZodxumfjyP98x5GvC7uWf+RPeQqq9qenOzsBLr0p4h59TW6xpzXOXRk
+         IDe3L7D6I/+6iunTRzW5o33cSlsSjMUqaaUF0c3ZmGjljgs0wdxfNDsM0yMQdBwpVmLU
+         2rFP4rFW0dGrgQvWo/iSSTM+97OUytPkQz7N441yUR0aojoWsrM2e6KnFj1MUKPL3jQQ
+         6oUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrY7f5ehde7Vm36iAjSzMmdNalBhJEbIfznE4NbHYA+V8GrAEyQIifd6/WfZzIQ5GGTVJudmw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6aM9KJZ/oDLigtF+2hknizYnNM2dkBSqKf15a0cNyTeg2cyBP
+	fjbLNEOGsexiwT8S1HFgT+zUIyCe4jCk3n3dRhNZrXxxqtpMwAlk0Lha/vMOyRCMv/96TWsqYxc
+	bnMcgjYg7nGAtcyTV3m9yTvUaPF4pWl6I39f5lzYw
+X-Gm-Gg: AYBFou34P0BMWmMDtDP4XUbfdQfrdENTUY5pcd2fadNz+cD7U3UDM8MPb1Tc3O8FWFD
+	+opkZ8ZTdw0FX5KJ2OdQKGfjsiLaCl7MVvmfuB3DztPmnuaGkAdXlpPfW5dixoKIaUyuE8OhNaW
+	FYJZV1tVa7Xx2bBGPuigoR2iBv4WAqZpzAb6dxhzwO1ADn9OZlCAC7W/WG9ddIGoAaWSWqrfbs9
+	Jub24wxUfkOLr+t6m7+qnDgtElne4ois6EJ5MucOuQAWaSi1QtFucvqCpgoY3+EUHSxJKGsiGB1
+	OP2myJjh9GtqAtEI8fDnGGZK0pzWCuKunWUCjcsS3cxMSBHf+uvrWjE6u9izUR4IYmakdkW69F/
+	d4qq97FxJ/SJrnWlFKoDDDjyS3kHcIGEZWfDIOUgWiUwCl2Q4L//wRmkSAA==
+X-Received: by 2002:a17:90b:1d0a:b0:3ad:c14:35ce with SMTP id
+ 98e67ed59e1d1-3ae8987a9c0mr10229886a91.64.1793694821013; Tue, 03 Nov 2026
+ 00:33:41 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,13 +104,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029211634.2232784-5-hramamurthy@google.com> <179365432386.3131.15374369453099115031@kernel.org>
-In-Reply-To: <179365432386.3131.15374369453099115031@kernel.org>
+References: <20261029211634.2232784-4-hramamurthy@google.com> <179365432199.3131.7124013466514019845@kernel.org>
+In-Reply-To: <179365432199.3131.7124013466514019845@kernel.org>
 From: Pin-yen Lin <treapking@google.com>
-Date: Tue, 3 Nov 2026 00:33:34 -0800
-X-Gm-Features: AclHuK8zM-JZ_3yaCoKIW6N5v6Mma-fZLHgYVCQdxl4X3qkS-7jYnU2RPPScwO8
-Message-ID: <CAHwYsip2mYupJp3a7JhWCHX9e7U7hHGmqrAGSxzRDBuN_RJJ+Q@mail.gmail.com>
-Subject: Re: [PATCH net v4 4/4] gve: Fix link flap after ethtool ops
+Date: Tue, 3 Nov 2026 00:33:28 -0800
+X-Gm-Features: AclHuK-z1PpgFlevCrkvk6uC03kVd_C6eMftCJMMzfR9D0PsdeiKufjdiZQrwLA
+Message-ID: <CAHwYsiopETRjPVbaX+5wrPNk=aU+NvxSNyO_n+i+nLboFBbx+Q@mail.gmail.com>
+Subject: Re: [PATCH net v4 3/4] gve: Block invalid ring sizes when device
+ options are 0
 To: netdev-bot+sashiko@kernel.org
 Cc: hramamurthy@google.com, netdev@vger.kernel.org, joshwash@google.com, 
 	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
@@ -132,107 +133,112 @@ se
 >
 > Low priority / nit picks for your consideration:
 >
-> - [Low] The patch removes `queue_work(priv->gve_wq, &priv->service_task)`
->   from the end of gve_queues_start()=E2=80=A6
+> - [Low] In gve_parse_device_option()
+>   (drivers/net/ethernet/google/gve/gve_adminq.c:194-197), the new=E2=80=
+=A6
+>
+> Pre-existing issues:
+> - [Low] The MODIFY_RING option is accepted whenever option_length >=3D 8.
 >
 > --
 >
-> gve: Fix link flap after ethtool ops
+> gve: Block invalid ring sizes when device options are 0
 >
-> This patch changes gve_queues_start() to update the carrier state
-> synchronously through gve_turnup_and_check_status(), instead of queueing
-> the service task to do it. It also takes netdev_lock() around the link
-> status update in gve_service_task(), so that update is serialized with
-> the synchronous path.
+> Older devices report the minimum ring sizes in the MODIFY_RING device
+> option as 0. This let userspace shrink the rings far enough to hit a NULL
+> pointer dereference in gve_tx_alloc_rings_dqo(). With this patch,
+> gve_parse_device_option() sets default_min_ring_size when either reported
+> minimum is 0, so the driver's default minimums are used instead.
 >
-> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
-thernet/google/gve/gve_main.c
-> > index b5e2f39a903c5..bc7d7c41948c3 100644
-> > --- a/drivers/net/ethernet/google/gve/gve_main.c
-> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
->
-> [ ... ]
->
-> > @@ -1494,8 +1526,7 @@ static int gve_queues_start(struct gve_priv *priv=
-,
-> >                         round_jiffies(jiffies +
-> >                               msecs_to_jiffies(priv->stats_report_timer=
-_period)));
+> > diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net=
+/ethernet/google/gve/gve_adminq.c
+> > index 8b215fca9c1b6..2c848f0c23dc2 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_adminq.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+> > @@ -191,7 +191,9 @@ void gve_parse_device_option(struct gve_priv *priv,
+> >               *dev_op_modify_ring =3D (void *)(option + 1);
 > >
-> > -     gve_turnup(priv);
-> > -     queue_work(priv->gve_wq, &priv->service_task);
-> > +     gve_turnup_and_check_status(priv);
-> >       priv->interface_up_cnt++;
-> >       return 0;
+> >               /* device has not provided min ring size */
+> > -             if (option_length =3D=3D GVE_DEVICE_OPTION_NO_MIN_RING_SI=
+ZE)
+> > +             if (option_length =3D=3D GVE_DEVICE_OPTION_NO_MIN_RING_SI=
+ZE ||
+> > +                 be16_to_cpu((*dev_op_modify_ring)->min_rx_ring_size) =
+=3D=3D 0 ||
+> > +                 be16_to_cpu((*dev_op_modify_ring)->min_tx_ring_size) =
+=3D=3D 0)
+> >                       priv->device_info.default_min_ring_size =3D true;
 >
 > [Severity: Low]
-> Commit 3b7cc73628ff added this queue_work() for the link status update,
-> and the new synchronous check handles that. Does removing it also drop
-> the service task run that used to follow every reset recovery?
+> Should the fallback be done per direction here? One shared flag is set
+> when either min_rx_ring_size or min_tx_ring_size is 0. After that,
+> gve_enable_supported_features() overwrites both minimums:
 >
-> gve_reset() clears the reset flag first and then disables the service
-> task:
->
-> gve_reset() {
+> drivers/net/ethernet/google/gve/gve_adminq.c:gve_enable_supported_feature=
+s() {
 >     ...
->         gve_clear_do_reset(priv);
->         gve_set_reset_in_progress(priv);
->
->         if (was_up) {
->                 gve_turndown(priv);
->                 ...
->         }
->
->         disable_work(&priv->service_task);
->         ...
->         enable_work(&priv->service_task);
->         err =3D gve_recover(priv, was_up && !skip_queue_setup);
+>                 if (info->default_min_ring_size) {
+>                         /* If device hasn't provided minimums, use defaul=
+t minimums */
+>                         info->min_tx_ring_size =3D GVE_DEFAULT_MIN_TX_RIN=
+G_SIZE;
+>                         info->min_rx_ring_size =3D GVE_DEFAULT_MIN_RX_RIN=
+G_SIZE;
+>                 } else {
 >     ...
 > }
 >
-> gve_schedule_reset() could run after gve_clear_do_reset() but before
-> disable_work(). One way is gve_tx_timeout() from dev_watchdog racing
-> with gve_turndown(). Another is an RX NAPI error path just before
-> napi_disable:
+> Say a device reports min_tx=3D1024 and min_rx=3D0. gve_set_desc_cnt() the=
+n
+> sets the TX minimum to 256, and gve_validate_req_ring_size() would accept
+> a TX ring size below the device's advertised minimum.
 >
-> gve_schedule_reset() {
->         gve_set_do_reset(priv);
->         queue_work(priv->gve_wq, &priv->service_task);
-> }
+> Now say the non-zero minimum is below the default, for example min_tx=3D6=
+4.
+> In that case, sizes the device supports are now rejected. Before this
+> patch, the else branch kept the non-zero value.
 >
-> In that case, disable_work() cancels the queued work, or queue_work()
-> is rejected while the work is disabled. enable_work() does not queue it
-> again.
+> struct gve_device_option_modify_ring has a separate field for each
+> minimum. Would a per-field fallback be closer to the intent? For example:
 >
-> Before this patch, gve_recover()->gve_open()->gve_queues_start() ended
-> with queue_work(), so a leftover GVE_PRIV_FLAGS_DO_RESET was handled
-> right after recovery.
+>         info->min_tx_ring_size =3D
+>                 be16_to_cpu(dev_op_modify_ring->min_tx_ring_size) ?:
+>                 GVE_DEFAULT_MIN_TX_RING_SIZE;
 >
-> After this patch, the service task is not queued again until some
-> unrelated event, such as a later gve_mgmnt_intr(). When it does run,
-> gve_service_task()->gve_handle_reset() would perform a full gve_reset()
-> because of the stale flag. That reset could happen long after, and
-> unrelated to, the event that set the flag.
+> Both values would then only be overridden for the legacy 8-byte option,
+> which has neither field.
 >
-> gve_suspend() and gve_resume() seem to have the same gap. They call
-> disable_work_sync() in gve_suspend() and enable_work() before
-> gve_recover() in gve_resume().
->
-> The other parts of this look fine. A missed device REPORT_STATS request
-> only skips a stats_report_trigger_cnt increment, because
-> gve_stats_report_schedule() sets do_report_stats on every timer period.
-> A device RESET request raised inside the disable window is covered by
-> the reset that is already running.
->
-> Could gve_reset() and gve_resume() queue the service task again after
-> recovery, or re-check gve_get_do_reset() once the work is re-enabled?
+> It's not clear that any firmware reports only one minimum as 0. The
+> commit message says older devices report both minimums as 0.
 
-Yes, this is indeed a regression introduced by this patch. When the
-reset/suspend races with the Rx NAPI polling error path, the reset
-will be delayed until the next service task is queued.
+As my reply in v3, the gvnic device either reports both minimums or
+both as zero.
+>
+> [Severity: Low]
+> This is a pre-existing issue, but can these reads go past the end of the
+> option payload? The length check at the top of this case only requires
+> the legacy 8-byte size:
+>
+>         case GVE_DEV_OPT_ID_MODIFY_RING:
+>                 if (option_length < GVE_DEVICE_OPTION_NO_MIN_RING_SIZE ||
+>
+> min_rx_ring_size sits at payload offset 8 and min_tx_ring_size at offset
+> 10. An option_length of 9, 10 or 11 passes this check. The new condition
+> then reads one or both fields partly or wholly beyond the declared option
+> length. That is either the next option's header, or memory past the
+> descriptor's total_length if this is the last option.
+> gve_get_next_option() only checks the option's declared length.
+>
+> The else branch of gve_enable_supported_features() already over-reads in
+> the same way. The new check adds another read at parse time, and that
+> read runs even when GVE_SUP_MODIFY_RING_MASK isn't set.
+>
+> Would it help to require option_length >=3D sizeof(**dev_op_modify_ring)
+> before reading either minimum? Triggering this needs a malformed device
+> response.
 
-We will add an additional queue_work() after the
-gve_turnup_and_check_status() in gve_queues_start().
+As my reply in v3, the gvnic device will always return either 8 or 12
+for the option_length.
 >
 > --
 > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
