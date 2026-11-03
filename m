@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702873;
-	b=snz6CKm7GXOUpfEeKqiktZLSafwUl3E6KycSspDBgkdH9wY1TzogQCQIACidLq8dB5eT
-	 sOAalEByOrgtzZUWTuV8aM1Ts+t4FZaXhtn6PsvuxuCBDi0UuvVzwWmLM5fi5wv6KdpuH
-	 bODvEZHF7cE/1mxx5BSG3MD761qkcGnpXKtqo9mAJ4JP01wRYPpP4iDuCPK9E1aewSMFu
-	 Aqu4nq37VhN/ROVb3Sjv2rwfQ7gEac1DWIitnHH37TQgHxUqJ6S8ce8+az4305gTa95a9
-	 BRGvCzQo4bGQu/efA3I6Du9C4sQi9lSL2SadEK4EJRCmHAZU2Bp39dpXoUFltMA3u6w==
+	t=1793702874;
+	b=jMKfZLRpyVD4GToqfbShSnZSXUDgaW3KqjP77k0aTeG+KCdY1CppLKOBwKKXihyCCBDy
+	 GySsN0pkOw5wH6rlAPt5O0bwrdzd3RhfxW867O98j3MzPQmDcwK5WQYC02g2sJkg9rZtL
+	 PA93Gknvzzw2LePJHSQgpBr6j5BZbJbtLFYJqfNYG4rb2KF4y4XxHzqQXLVCcaP/vG73F
+	 CIXqrchbUSBVZc/NJbwLC5APXRdxuQbvjZAD/zzdez2qqy4F0gn0DJ2D/K1u5iul1uZEN
+	 G5c129WN6PTqzzgJXucnVtXTayHRCA2lpVmH+QjYNFOCwVUkHlGIW/1zOUwsnxfOBCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702874;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0kmiHJ3wDzLz/EFRW/NORvp9X7k+9cgg6KB/pvVJlwA=;
-	b=WUPYV1KqG6NJq1EthPNYBi1jo+2SJctlNqLWHcgwGoY/YSxYHddqTR1d+I/w8lEZWn+s
-	 6bwHZE9l9VnvZd5drPOXeXKNlhjuY0TYNw+EEn27cAFECyGivdYXTIPU8Il0lPf7fI9aL
-	 nTyirlvk3njbmUHvmbVUBu3LY9l4u9/NaxRxQI5bV0j4u1vu/BJpwwx9x4CWQ2ZLFay+6
-	 aui9526+IvpEizTemrdiof3hCSHCOLo/8ausf2J1BWP/BzC04OPepJoBcfgQ/mM/XJCx4
-	 lzYTnNSJv5hUcR78N7AOZ6l/dFYMQ85JLFL2usWGam1YlhBGTsDUn462M+2uVlGLTwQ==
+	bh=sTOvbeBXz79GazNBmuZPVJE3FccokpgFwtwkg4eC5AE=;
+	b=BawKZfJA3obPYbIi0Sr5M1f8PWJ7CYPX4PTklRwzU0ndqQaykCPTd2v/lC+5JWgP1Mrp
+	 yoRTJYV56ZoTvUBaa42MqUuFdbPb0BmANlco+sGgQ/rU2G2FzII/rvB4QAtK03j/p58MD
+	 R0LOVZU5N/EWDDx/JAgOTMyRy0iCO5VTMJhRNVjarfZC65DL1Nt+hS1GucRCuypLjBOhy
+	 7LTsTr+m/hSDvYbW1eoaHgM3j0usYNKnwZ+3dmHEEnXv6veKAmrRHDkb7OrGSxUybCElq
+	 Hec5r/JuHJhdhvR93OPIe9t+f5KnDBbPt1NBQnqi9OttU83Gmxrtc0TiVyMBrdsLWDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZEqGUDPt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XhPq25q0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE3E60736EF
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:47:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764EA60736ED
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:47:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZEqGUDPt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4490A1F00A1B;
-	Tue,  3 Nov 2026 10:47:52 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XhPq25q0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6BFD1F00A1D;
+	Tue,  3 Nov 2026 10:47:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793702872;
-	bh=0kmiHJ3wDzLz/EFRW/NORvp9X7k+9cgg6KB/pvVJlwA=;
+	s=korg; t=1793702874;
+	bh=sTOvbeBXz79GazNBmuZPVJE3FccokpgFwtwkg4eC5AE=;
 	h=Subject:To:Cc:From:Date;
-	b=ZEqGUDPt+OVMuCqari4XkeJVFSqvr3F7S9b7Yrb0wSPvcy8g8vb7FJwpURX3f32Hh
-	 cUJX2fml0u++NTvmer59AKxScQJKvo6hJcApMrTprKUWLhv+VbGtA/6ooYcN0oyOWJ
-	 uzEa9WjxLC+a9dAmsYXA01d5Z3BQ3O7AsqFV7M7Q=
-Subject: FAILED: patch "[PATCH] ksmbd: verify transform SessionId matches the decrypted" failed to apply to 6.18-stable tree
+	b=XhPq25q0+sz9B+OCQBKwj+hd2DqJqDxcToL0nW60WzcL+njG3e4lG1TKwrUn1flR0
+	 McV3futO3w12XyXgCCxwtfjAg/huT+vpBt88IJrFzKYgkZbAoTBnBWmmkAFw7rvSko
+	 XiYh2ldhvPItUfeBBulE4efdJO4PfLg65RtpAhz0=
+Subject: FAILED: patch "[PATCH] ksmbd: verify transform SessionId matches the decrypted" failed to apply to 6.1-stable tree
 To: zhangdairui@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:46:43 +0100
-Message-ID: <2026110343-kosher-bleach-17a4@gregkh>
+Date: Tue, 03 Nov 2026 11:46:44 +0100
+Message-ID: <2026110344-clip-activator-0701@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 798214e6fafcdcc29f5ba2661a473232b5e70cfb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110343-kosher-bleach-17a4@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110344-clip-activator-0701@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
