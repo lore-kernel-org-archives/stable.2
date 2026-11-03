@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701333;
-	b=LODToXKxdkPhHK7CzXltVpGJHJ+UwCEWlHlEJgZKf4luEuJz9tkmEyRPk3O4P19e9bkj
-	 IZ0tQLxbys3HxsDof9PAigPy3L8YRSzReK9Zo3jeSd0/khCvkTlln/mJm9/apMLfKL8q5
-	 AW0Bzg8ei8cHhm0u/ShCbHKmj2hwKnf5nc1XMVsHpAnkx7duljzrqauzOfWsd9JCtLYtz
-	 GbnIeUnCBhYYrM6wfXM2WIj05OsfJG859ki2G5e37rqJSQc/noT5GsGSPuSk9vJqvgtVU
-	 Ef1SRGoaNDXZFt2afVzyQay9qnDtorX7HRNCRj0Qcs32dDjZmLxyAs0/5cac7PXKG7g==
+	t=1793701334;
+	b=nujzuMy8l3qtQAiHIp5UdnbBR221/7jFkeCFvFBonDFHttog52gfjkW5mjRdeEd8UBR5
+	 s1CeUZHWZZjQnWL/IN8u8lRABZR5II13v1i3ROm/KaB1OfU1OWLVZCWUNPydtQhH1NW+P
+	 HZfDrQgieCtQtTUG3+VKF9W6ob8KUa+fbmEwoOoTw5Ma8MEZIqLmrKyrybMhp4sPTQ7Xj
+	 R/sZkf0RpU6nKIsj1UUw/sJNvgxA0JXCa72S3jGFUJo3Pw3lVN2JfNMTVTwilbMRSjtL9
+	 j36inWX6YlmLKdVhRln8tG1zTWocBILkHd1KzVBWwLNTWmztclxBPjduJvkH2YXte3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701334;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yE18kqcdqiJ13HfCihxtucB2HBnTgi3uNLWhNnHdQ5c=;
-	b=wlmjFL6RamSx5lvLJUfgPklA0dWCHXLuxc/BDOvclb0tiqieHIfIhTY2zQZPl6wukqbR
-	 UuaYtm+dQxVF2+vtLt2JI9ORVDuj/ev0sl85vJneaXdEnKrORfAKPIfh8VxCvP/100JE6
-	 WCOkBkXJQSfmQlcYFKfBC51HD8pct7OxRLuBoE+C5x8SGArRvKJkmuxvca9w6zlUFq7fP
-	 D7sKb4+/6seWWP63R5vQU1XnqcZCUzatQrqyq4q5ddeF/azo1X6atfzdQcsnaRgjtxOww
-	 Ubbjkoba0JQrWB7seMu7Bo+Fs0Gn1DYJhp0hW5gW5+1GISuwkhQFsZ6aywj9BLswaTw==
+	bh=4znRd/FR2HP6r6+fclCDoNm2EhUzT858YpRAwhT3Auc=;
+	b=AIX4CWBOf4AFoTi8gKVnlU/IZOjsSlM4iHmCvLg/qEByQK7B0xw1lQ0R7ybijzEMzztw
+	 sDVdL1IavyyJ5VPwBi8hp4CArO5OZ/JvnfATsSvmyxDGv/LCi+aTpVLjwq6WR4tlJKWXm
+	 FIGHBQLnSNH8rVqDKOFOxVNBT+egCMZdn6qmRQR4Jz0WyWRjrx+Qo73fIpUGmBHBaQVE/
+	 h654pXo6CplLJoD5gQHV4tiqKwxMVTRyVUkLhPgAfQB4lYuzRdBT9QQUvTgagDdt8ot9s
+	 ak04BomYnei8Crgp4yTFId97J3RAjH5sS9lIvV822MxIo4mhseOSTmTixcqE+1eEwMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VXPFG6oi;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2samb29V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3C3606EEA3
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FFA606EE92
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:22:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=VXPFG6oi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93BFC1F000C1;
-	Tue,  3 Nov 2026 10:22:12 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2samb29V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0281F00919;
+	Tue,  3 Nov 2026 10:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793701332;
-	bh=yE18kqcdqiJ13HfCihxtucB2HBnTgi3uNLWhNnHdQ5c=;
+	s=korg; t=1793701334;
+	bh=4znRd/FR2HP6r6+fclCDoNm2EhUzT858YpRAwhT3Auc=;
 	h=Subject:To:Cc:From:Date;
-	b=VXPFG6oi9NpO+ULkNMkWXn6tV+tYLonmlJXR6wpA8hj73A1EFFXqZ3zcbFhSr9NvS
-	 slC1tFil4MhSqQC1DxY1hYVjrDPH6ajzzP6baxay0/6bLhO5/tc1pfwNqpTOWxKpQ7
-	 643RkEmBSJdbZpXtcoGZrq+/xrtMZBHF4OVJEPFQ=
-Subject: FAILED: patch "[PATCH] ksmbd: use the existing xattr name for a named stream" failed to apply to 6.12-stable tree
+	b=2samb29V+Mqqp/kXHkvJjIbzldwIiAwLtpDhf/xroI0gSFf7ORGTgDCWgO6LpW+TD
+	 AL0d9DocWQzP9Q6ATR1MYmzTLVYwYbBnglW8S+4YDRq6AM01uf7XDra/9ZItWIOUKq
+	 P2963Og6cGeocWbKqasakB3Gmi531VWLGvok0mVI=
+Subject: FAILED: patch "[PATCH] ksmbd: use the existing xattr name for a named stream" failed to apply to 6.6-stable tree
 To: charsyam@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:21:59 +0100
-Message-ID: <2026110359-giver-antarctic-bc20@gregkh>
+Date: Tue, 03 Nov 2026 11:22:00 +0100
+Message-ID: <2026110300-flinch-tremor-2d5c@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x a7d1d52748e0fe4d06fdb871fc9899904fbba93f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110359-giver-antarctic-bc20@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110300-flinch-tremor-2d5c@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
