@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793720570;
-	b=yyOny7Mt7bSqNL9A+UfN/DB8gesOMwa0R4hkPDogTBoKZ++u2eqQH4puC9dDJepqDaf1
-	 okyRBpEa6iJVqAXKAkCYL5ggDG5HrWmKKLq7DqnZQBCqOMTqg/Ukc2BaqZDF5y1P/xCaQ
-	 hh9sl4VBB+VWR4XDcey2LnGJETiZVIfxP/lXudLGGUNaGjvGC0h9Wo1IByxxxC1GV9K01
-	 9Z77ylWudZT9AFbhHiOB7U7HeN+xtyFDzH2bBfMqxj9l7tKAYI8ro73EvUCdXJSlY+Rb4
-	 knLvbQYmsg3DjFPvKSBs4Voe+F+y3i9aUHfuZIQg5APFlogLUvoONPJL/nq8zvdnEUQ==
+	t=1793720847;
+	b=IJEPEevg2uXOf2695GUGENlJMKBWtsRHwXdT2Sz//6WncQLTBq4jVTNE0rGDS0Q82oTB
+	 cxUwdjZDPfc6PNAtsIBduY7a1uXyhgZGv8mXVexQSCtP9wSMWZdZbgO1SQamD+lxCKCoX
+	 osj0C2GJH4LLMAr96Ym6rQt6KjCrGpHGCHt23bCnZLKbMveX3nSu0tUHClXHuvVoa4opJ
+	 gNz0rHsv9YnwuZA/J5oDSQH6CxeIQknccxqEsYjbeAxeVo/HJQgUlaoecz58X3bRSt6HQ
+	 nSl94FsIm1fFB37CHBTE/alJKhMX2JcCsbntpd9wtiHQCBfHEQRYxw1PVHEFoNooOiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793720570;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=wuK7LmgcC7u8EwiAYxopNkKKaHx7rf/5CAdOouqZE3w=;
-	b=e2XbQ9+7CSMNibeLS4ISkmjVknhpriGueLUiAxsMByKMY6qsneSq8cJvSC6IDl2D8Kp0
-	 v5pz2wxckqEBudRZrTMaxel7DhG9kt+cUxn6UhFTsGaSRDE7le2+tr/EI32bzQus5JsU0
-	 F0zb+r04wiErc514SMcJQsDxEYSWS/ZMW/oo2OrYHW1NheCG0XQU38b/WEIictksqMa7t
-	 qC+eQFp+dwR+Oba9l0f65ZPEvykoHAu/t0SQIYv5UTJAg7CqpPuzlLA4TYvnAOn3iU8nG
-	 Tvf97JlCS/CCIyqeyEGzuWtyMzT8ShQEWQTJNO3RwDDAboAGfd1jKrQyRoYaHaMfbTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793720847;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=dKPJ6608J1BqVOjmF+cq8HEpkC2n601wwA1rhFj66w4=;
+	b=KCDmGWGgnbXDM+m6AcDQseDF9zG+GxpAfGRIPmISuQakWSyYyn7sqRf1fa+l9UNNcK1c
+	 Ky4mmSH1WOVgTc/4AIMuGJokG18Zhkxzx8VSXql4D3+vBMuPakDSGrRQ3rUeNvZjKSSII
+	 i9kuJyyhXTEU5ygqqNgUN6NH4FfFZ9OXW9Ilpg66pEXRKcPT1GXBrrOif+kPtyN/Fe699
+	 dTSj4TfTvJcTjZZW5mj1osW0lzHfqlM25jCQgueplHrS28+9BTDQOIEnYhsRZl1xjfPMd
+	 GRitC0J6eRxK5M9+2S/kF9QiEySAzuydcLvm3aqBpUVpt9sbQ+hSxPeB+ptXxzXBmYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=p7irUjyG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="wRGD6VE/";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXHdRPS1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A90606A327;
-	Tue,  3 Nov 2026 15:42:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22A90606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226AD606A326
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 15:47:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=p7irUjyG;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRGD6VE/
-Date: Tue, 3 Nov 2026 16:42:46 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793720568;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wuK7LmgcC7u8EwiAYxopNkKKaHx7rf/5CAdOouqZE3w=;
-	b=p7irUjyGce931pmrKe0HlmEOEKWi5zSVj2OTXAl7IEl9b6Lhvbn1veh158nshUjDv1gebs
-	Xw/JOZa75WvcZTNh2l0kyWY2+WJHKP0aT2BaQtiGif3tNLbHx2v4yumRxS+w6P9w8tOmHI
-	I4LXXOc/sNDkFaI1eiIBL4olZsoSXByXN0SSuAbFoyl/zZPnp0X88a/D3kebd3bpFdLl9/
-	s5t4boyT2LhTSC3uBAWRx+wHNQOeupos4SjN9lY4+5P38/mZBnN7Lg56tg1aBG8RkJw7L3
-	knMc8muBRQ/o3WP9sQQmbeLQPUHiaKrn16fKZQDsXBWdGciveB+qgg11KRPRAw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793720568;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wuK7LmgcC7u8EwiAYxopNkKKaHx7rf/5CAdOouqZE3w=;
-	b=wRGD6VE/Vpp6881jDOQDLdqnMy28nj/j0tSyIPjeZ4nX/IoljV9pTJdDxE5UORi0aWARGP
-	OT5QtvQLz33d2VCA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Enric Balletbo i Serra <eballetb@redhat.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rt-devel@lists.linux.dev,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] Fix NXP STM clockevent bugs causing lockups
-Message-ID: <20261103154246.S-8NqN99@linutronix.de>
-References: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXHdRPS1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D2DF1F000C1;
+	Tue,  3 Nov 2026 15:47:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793720846;
+	bh=dKPJ6608J1BqVOjmF+cq8HEpkC2n601wwA1rhFj66w4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MXHdRPS18lxq/byU2fXVBp/jBLu9p7quEUeICn3IdmOohgubG8JHgkS6q+Ntg5AcV
+	 FJ6BtSskaGKZlXFxuEOHymvYvW4WFf4nwagnK14N1gk9GK68UpE9VVXUCczXb36fbZ
+	 UQpGsa/N9qUtWORs7k2csTAf6l7JeXDM7PQAIjA1ql4hZ6YRvWVsW3eTG1vZ63FyFN
+	 166dvLg6kGLXylBcBYA/N7W1ZOhSm7+ifwT89OM9aBlLvp1UDuDokEsp+5NIz3S33Z
+	 ihU6oS9zk0euea/ycvGqeNl/TVRPrdjh27hHKB+w54FdykhnJf2uerFJvILDm8vGAB
+	 vE6Gyh5UgoHcA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	zdi-disclosures@trendmicro.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: prevent stale data from being written by SMB2 WRITE requests
+Date: Tue,  3 Nov 2026 10:47:24 -0500
+Message-ID: <20261103154703.377857-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110350-lustfully-linoleum-666e@gregkh>
+References: <2026110350-lustfully-linoleum-666e@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,47 +59,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-02 22:16:19 [+0100], Enric Balletbo i Serra wrote:
-> This series fixes three bugs in the NXP STM clocksource driver that can
-> cause soft lockups and missed timer events, particularly visible on
-> PREEMPT_RT kernels running on S32G platforms.
->=20
-> The NXP STM generates an interrupt only on exact match between the
-> counter and comparator registers. If the counter passes the programmed
-> value, the match is missed and the hardware must count through all 2^32
-> ticks (~32.2s at 133 MHz) before firing, causing soft lockups.
->=20
-> Patch 1 fixes max_delta: on 64-bit platforms, ULONG_MAX exceeds the
-> hardware's 32-bit compare register width, making it possible to program
-> an unreachable compare value.
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-This looks fine
+[ Upstream commit bc0e0f5ac1d7b044d403f859406b4b66d4b1ce9b ]
 
-> Patch 2 fixes the overshoot detection in set_next_event: the existing
-> check only detected counter wraps, not the normal case where the counter
-> advances past the programmed value during the read-modify-write window.
-> Replace it with a signed comparison following the pattern used by
-> timer-imx-gpt.
+Initialize the compatibility byte in request buffers without zeroing
+the entire allocation. Keep the one-byte compatibility exception for
+SMB2 messages so valid zero-length WRITE requests remain compatible,
+and validate the data range in the WRITE handlers against the current
+compound request before accessing it.
 
-okay=E2=80=A6
+This prevents stale request-buffer data from being written to files or
+sent to IPC pipes.
 
-> Patch 3 increases min_delta from 2us to 20us: under bus contention on
-> PREEMPT_RT, 2us is not enough margin and the counter frequently
-> overshoots the programmed value, triggering repeated -ETIME retries.
+Fixes: 443d61d1fa9f ("ksmbd: allocate one more byte for implied bcc[0]")
+Cc: stable@vger.kernel.org
+Reported-by: zdi-disclosures@trendmicro.com # ZDI-CAN-32436
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+[ sashal: Inlined the unavailable smb2_current_req_len() helper and omitted the decompression change because compression support is absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/server/connection.c |  1 +
+ fs/smb/server/smb2pdu.c    | 34 +++++++++++++++++++++++++---------
+ 2 files changed, 26 insertions(+), 9 deletions(-)
 
-This all sounds like the hpet trouble on x86. I'm not sure what heavy
-busy contention means and why the device is enabled/ disable during
-setting. I would assume that the programmed value hits the HW after the
-wrap so you wait until the counter wraps again for the equal match.
-Worst case would be you read back the expected value but the HW sees it
-later (after the wrap).
-hpet_clkevt_set_next_event() does in principle the same check as you in
-#2 except it compares against the "min" value instead <=3D0.
-Would this make sense?
+diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
+index 8f1b70e39362e..e8739b482b2fe 100644
+--- a/fs/smb/server/connection.c
++++ b/fs/smb/server/connection.c
+@@ -520,6 +520,7 @@ int ksmbd_conn_handler_loop(void *p)
+ 		if (!conn->request_buf)
+ 			break;
+ 
++		conn->request_buf[pdu_size + 4] = 0;
+ 		memcpy(conn->request_buf, hdr_buf, sizeof(hdr_buf));
+ 
+ 		/*
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 793c219b9a610..22eb73bb66c44 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -7202,23 +7202,28 @@ static noinline int smb2_write_pipe(struct ksmbd_work *work)
+ 	int err = 0, ret = 0;
+ 	char *data_buf;
+ 	size_t length;
++	unsigned int data_offset, req_len;
+ 
+ 	WORK_BUFFERS(work, req, rsp);
+ 
+ 	length = le32_to_cpu(req->Length);
+ 	id = req->VolatileFileId;
++	data_offset = le16_to_cpu(req->DataOffset);
++	req_len = le32_to_cpu(req->hdr.NextCommand);
++	if (!req_len)
++		req_len = get_rfc1002_len(work->request_buf) -
++			work->next_smb2_rcv_hdr_off;
+ 
+-	if ((u64)le16_to_cpu(req->DataOffset) + length >
+-	    get_rfc1002_len(work->request_buf)) {
+-		pr_err("invalid write data offset %u, smb_len %u\n",
+-		       le16_to_cpu(req->DataOffset),
+-		       get_rfc1002_len(work->request_buf));
++	if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
++	    data_offset > req_len || length > req_len - data_offset) {
++		pr_err("invalid write data offset %u, length %zu, req_len %u\n",
++		       data_offset, length, req_len);
+ 		err = -EINVAL;
+ 		goto out;
+ 	}
+ 
+ 	data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
+-			   le16_to_cpu(req->DataOffset));
++			   data_offset);
+ 
+ 	rpc_resp = ksmbd_rpc_write(work->sess, id, data_buf, length);
+ 	if (rpc_resp) {
+@@ -7375,14 +7380,25 @@ int smb2_write(struct ksmbd_work *work)
+ 		writethrough = true;
+ 
+ 	if (is_rdma_channel == false) {
+-		if (le16_to_cpu(req->DataOffset) <
+-		    offsetof(struct smb2_write_req, Buffer)) {
++		unsigned int data_offset = le16_to_cpu(req->DataOffset);
++		unsigned int req_len = le32_to_cpu(req->hdr.NextCommand);
++
++		if (!req_len)
++			req_len = get_rfc1002_len(work->request_buf) -
++				work->next_smb2_rcv_hdr_off;
++
++		if (data_offset < offsetof(struct smb2_write_req, Buffer) ||
++		    data_offset > req_len ||
++		    length > req_len - data_offset) {
++			ksmbd_debug(SMB,
++				    "invalid write data offset %u, length %zu, req_len %u\n",
++				    data_offset, length, req_len);
+ 			err = -EINVAL;
+ 			goto out;
+ 		}
+ 
+ 		data_buf = (char *)(((char *)&req->hdr.ProtocolId) +
+-				    le16_to_cpu(req->DataOffset));
++				    data_offset);
+ 
+ 		ksmbd_debug(SMB, "filename %pD, offset %lld, len %zu\n",
+ 			    fp->filp, offset, length);
+-- 
+2.53.0
 
-Sebastian
