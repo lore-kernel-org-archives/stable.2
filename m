@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704246;
-	b=TgUv8HupivLOK8voeuzFR3c9APg01+0CZ4zT8LxmD3yzOZsHkSA0s4Z4z++ojinqwupu
-	 uhZ448d4sdWQ6Bu8+uiCoNFZrU9uLL8DIOvjI1+fPWjjJXupACVy0eFqxlyUTrOY6Hv+m
-	 pgU+8sa8eZ9hNeTiuiShzmFPfy85Cjkub+xHuGsaYR/ZsUCcz9BUo4CX9JcFQ/hYEx7Sl
-	 VxOuhbbpik3D+i7JFBh9/FUrxySQfK+JLZOKdMtONrxqHEAzKlg4aPWAkPg2N/mLmNFZn
-	 NOjtRMVnO2sz88zp5mKB57Iz6JpHgGiS9d5uKcbG77F+7EAqGi7Q8NKOULlz703+Euw==
+	t=1793704266;
+	b=R1hijyhDvkX0/Ub8tXQYogRKBOo8AEvOJGJ2G9A5ORGl5uBiEJ3+WQQHDE7b3WxNauU7
+	 8n4/X5Skataj1AFU0F59VLbyk7ezDGgnrxXGWwLrAwXeawRc4RYua1Z7bfsFzCC6v+bS8
+	 vU6Sh0YpoCoIaAcAJ6hBu5EGUMC3Wm1iYuKBoaGXxlMPdDo70uPk8U/xBLOEtHfooQPYd
+	 7LEAEArirhxoitDmp5CvYlDQ87M5ZJpm8LTwyNw9wX12jOh33CtcEqbVhO8HkV0rZV6RI
+	 2S3nWYo4SzOYDvJZWVLw+oHsrXoVXW2IV124Kk2O3+XL/K00sbTvInO62xkdyI+hFTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704246;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704266;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oH9yiNjBLnPnYV/tVi7O279D04XNMxHc/uOO8R+Zy+Y=;
-	b=vb32gFMtiRwIho0hcr5KwAXOWyFiOfA+B4vwKpqPGx8RNKarYOxgp85a1M7goS7rd/pK
-	 u8FI5iUnMwQJAEeLUMYhx4HI1JA1D0aZOuVJi2DT1Bca0xEl+Xn24094J8iyLNI2MNmVz
-	 T20Jo954FWcYnEyJeH//wSl+VJHxKqZfj+HEy8X40NC+B2dxWBoaa7Vy7zicPkq8SWh4Y
-	 GIfhrbeMSrI8RdloUwNcRY3l16HrCsD1P954lhMuxwoHBuG0QtL2YAbVdWhYrDvThclQp
-	 5OY0dh7/qz2zePE/qDaYadpsEGoQeL+DieZMnDSznm0TyKLty6aUa0qgI/O8bfRNhwQ==
+	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
+	b=jTklxoZjd9VgN8HFtDBAyRDpiPj3NICSHlIWV2VNO6mE6WsHBATyU9tQfN7tTHwigUnR
+	 LlWOWZgKdLN52EMLryzxleQfWz5IeL5prQCkbUZqmrlJlSN5J21wcLsalv5rvpeSu8fZZ
+	 L0+z09wxQAnW4c5ZJ5Vg6zNHaA7+QCCWnau8n2PKPCb71ZL6EbKUgKOueckva159r5KpM
+	 BqTHUgvGRxzs/HoO/3SHsPnBT3FanAPFgT0ixRVjE6GgGhH4psUI/Ts1KSBp1Wqiu4Ijw
+	 QQeLyXo2d8F5GLmrh3PuZXnXKoQ+hm2k+p84Ri3+cUAIl84cqSEiEmTP3p0Ns/prc0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDKJNtTK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD84606F7C0;
-	Tue,  3 Nov 2026 11:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D86660A382F;
+	Tue,  3 Nov 2026 11:11:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WDKJNtTK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54E21F000C1;
-	Tue,  3 Nov 2026 11:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC9C1F00A02;
+	Tue,  3 Nov 2026 11:11:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704245;
-	bh=oH9yiNjBLnPnYV/tVi7O279D04XNMxHc/uOO8R+Zy+Y=;
+	s=k20260515; t=1793704266;
+	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WDKJNtTKYmj96sfXMvVAPPRf3HgcRFFxdAAYJC6MtHaveC8CAnlhpk/JcYNLFAgk0
-	 uz/V8fWC6JQVy8G1RUO0jtwPiortNGkJ8dqwOG9UKof/5X2lbKiuwXpZ3i226kwTby
-	 upR25nu7N1+mvBEn5AflBBkh/UJMINeUjemytOljYUN34gc45eMe1/oNn57PHTfCtv
-	 U2gcWmh/h+KAU/83XNmE095pdnNXKkqDaz9sfqGXHJ8BeQWtgp+gHOeJMNDM6WyeJi
-	 SjP1eewS8LaWWJ3KsYM9PHDIuKmK1TjlPUXf1MG/HQcqbRVX2adAMBZoZo3EFIznSM
-	 Cg9WNITXZUq2w==
-Date: Tue, 3 Nov 2026 12:10:42 +0100
+	b=EOUks73fgJnqlSXAkmCa587RZrLJRZ0VTowmJ9cNDiCsu6A1RFVY/IjVjZdIdG/ms
+	 v6vLmzgrlgZfPfznot5XJDQqmnmHBgV/OREOSQU9sRTSY/2h8Z1Cndmz2GcWv0130m
+	 dO7iGATWSHLXZi0oNnu81o0RhaHwCpQDEtx96kcNasTzE+xaRBcZsIl9zwUDaqjrB8
+	 1K5eHUexYg01hRlRjUHT2/ulCBDj/cXMFhAmebM9o8zp9cr2bNC+QSs9IX/RgbTvDg
+	 4x1kEEaumt0//dpqA93XdGVcVCwejQTT+a2CDA/nDQlhNuW4A4VJkZyVxBKq1Xd7pQ
+	 2Uz+AQpv9nrhg==
+Date: Tue, 3 Nov 2026 12:11:03 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>, 
-	devicetree@vger.kernel.org, Rob Herring <robh@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] of: unittest: fix node reference leak in
- of_unittest_dynamic()
-Message-ID: <20261103-jumping-pretty-leopard-b094a1@quoll>
-References: <20261103104236.1373631-1-vulab@iscas.ac.cn>
+Cc: Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
+	stable@vger.kernel.org, Petr Machata <petrm@nvidia.com>, 
+	Ido Schimmel <idosch@nvidia.com>, Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>
+Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
+ write failure
+Message-ID: <20261103-immortal-cunning-oyster-316afd@quoll>
+References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,24 +62,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103104236.1373631-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102851.1340480-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:42:36 +0000, Wentao Liang wrote:
-> of_find_node_by_path() returns a device_node with its reference count
-> incremented. of_unittest_dynamic() only returns directly on the
-> allocation failure path and otherwise falls off the end of the
-> function, so the reference is never dropped.
+On Tue, 03 Nov 2026 10:28:51 +0000, Wentao Liang wrote:
+> mlxsw_sp1_ptp_mtpppc_update() increases the global parsing depth
+> reference count before writing the MTPPPC register when timestamping
+> is enabled for the first time. If the register write fails, the
+> reference count remains elevated even though no timestamping
+> configuration was installed, and nothing will ever release it.
 > 
-> Release the reference on both exits.
+> Drop the reference count again when the write fails. Also only drop it
+> when disabling timestamping after the write succeeded, so that the
+> reference count always matches the programmed state.
 > 
-> Fixes: 7e66c5c74f73 ("of/selftest: Add self tests for manipulation of properties")
+> Fixes: c6b36bdd04b5 ("mlxsw: spectrum_ptp: Increase parsing depth when PTP is enabled")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/of/unittest.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
 > 
 
 Multiple things here:
