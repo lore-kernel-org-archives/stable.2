@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.90
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793709847;
-	b=nUAsqeFj6uI1pcEjYt7J7HIsyS4MrRscBNCzldc+HGsCEhvXqCSe1Pp3/36GBQLwHD2G
-	 +krWp+LCxSsJik6YNQ+3QChCahu9HByzTusEdjF7TahqkQWFxwK90AsThs6KDjKv0M9N/
-	 D7ZnwJWyNNS+XeFp1kW+dAEfkhF7IsBOmZTboGu/Lg7zFBecr+HZnPYGuBbaUT+uM5Oft
-	 QyHvHw9qp79aoWBUSUxXZcRt9UOw8EXgO2S4W7HDhD6DuwQs2e6Eazvc3vN3edIti7PMI
-	 3Vzbk08jsgFThmquT41y5u9lyVAt3gBbhg5d6aQMMH+NRdLVwcbcjcqX/urJ8m7h2eg==
+	t=1793710016;
+	b=Tl1Ds7tWQgCCvqgH/mDPc/kvMPgq+LsZNkxhNVUY8e0zO/6dGxA8wW5XNiU1e3B4McTy
+	 xM1EMBC7X1S2Yu6F9s6VYv26G5wr3ZbrDd8OQcEfvvoZjoA4dlEr1gb2idxs7N95krLSP
+	 UADUAitKT/RgLDYVTt9aV5496fBAUB/HH9dD1InT/ezTBIWRDUk74T26xie8IGPpxjKwu
+	 IrIP+rIRzSPzyM8m+qhF8WhXXS7ebVr/R78NX7sMI95IUvxFFi9Ovnm/klOwNxtTSCtGy
+	 y2qqEqvT8XG+LL/ySobmOtcxRKCfkREJygb9ky40Rfm671+TgnTbYMEbeQFD34n34nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793709847;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=SDONtbWDzjpkNCP8z+J1ZmTfhAL8f5UvEEB+UemUNR2+MVBcsz6kDWS71TRfpcEOtY24
-	 nBCZyK3P4kXl1yZ/rN5x4ycidqrHcMMtqAkoDHpHhDJTIr0nKAfXP9lBpqSXLKQPprLPt
-	 SPkY5w7f8muiJ7/7HA+Z5BzDNodYk/+/oCn+dbjBKS9mleL7aNtlzacnxKoaKShVnJ8CK
-	 GCrIc62/Mb6zTMDd6mT5q0e1fZUIcYBxmW6SqLVzC/GsPdhWSOAjQ029RjvtB/rUXIsks
-	 e2y5nSfPUCihvO3bjgQyKEIz2yYt2TFw/QoVF3qUpeM5C4rMoMeOUxiBQkqc934jkDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793710016;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=DASIdY7ozb8QRWdAKjgC8Qe8mgAnSZ4YQR5TtXOmDG8=;
+	b=Y5dsdbRvLDu01KZijBpMtgfC+ndkLXseLQlNwUIZMz7iVjD7YwvSiCLErGgYTgtylWKw
+	 +QJKmo5ldJgiB5VrViGE992UzeJ9/4vws1gUVcQw3It8ZharOXmnhN5cMC5TlsyrIYkH4
+	 1ODajQU79FDLe8ypL3npTpUSkTFmkGB3RNIaT+RRPmeYp+y08J/BgzEAmRXRQ3VhTYIW9
+	 lh7QGO+aHzbviMV3DgnJFDeOsLYxdq1gLXDDcufCY3x6+0Lmj7Ww1BWdut6MDVM1fjXNG
+	 nWZtyBZM8aoxrDH85lbibpbVv27XsRgDHqoJNfcx39YZqWkGnIIRYjr6etQXsGzLsoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmQFcXMD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VVkgiP4x;
+	arc=none smtp.remote-ip=91.218.175.90
+Received: from mta0.migadu.com (out-90.mta0.migadu.com [91.218.175.90])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB4C606EEBE;
-	Tue,  3 Nov 2026 12:44:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F66606A32C
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 12:46:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F66606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmQFcXMD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533AB1F00A1A;
-	Tue,  3 Nov 2026 12:44:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793709846;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jmQFcXMDmEnNE1w0efpuVPmoPkbfYCNmcIm+1Xq7CE3g2WHuBhCxOUf5YvXN1gUJy
-	 3hEd/eJMQ6r0PWqAFRmgDyY7M7wGfkPrPbZrpl6V1ImusRDd4isT1bkklu7kNkepqc
-	 J0uzB7aHBv/grD0RewWcmn2SfyxSpWfo75Kbt27eAbEwqmKy9vDtbBHz02nulqfpoQ
-	 kH1HDFl0wzRqoEOwAHhLHyVEkaE52N6H398cNoF3V4aYztps7zNr9Xk3EjPS6CVjz4
-	 cC6Xj0m7QdHSFvhYdQDzf1YG7iSI4qUdEc30KKfXzBIi5NkAvEVW3LUO8fcGUnDeQW
-	 gFk0pnVWqvnhQ==
-From: netdev-bot+sinfo@kernel.org
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, alibuda@linux.alibaba.com,
- dust.li@linux.alibaba.com, sidraya@linux.ibm.com, hidayath@linux.ibm.com,
- pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
- guwen@linux.alibaba.com, stable@vger.kernel.org, netdev@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
-Subject: 
- Re: [PATCH net] net/smc: fix handshake abort on a terminating link group
-Date: Tue, 03 Nov 2026 12:44:04 +0000
-Message-ID: <179370984481.488859.15201934441460346319@kernel.org>
-In-Reply-To: <20261103123955.47454-1-mjambigi@linux.ibm.com>
-References: <20261103123955.47454-1-mjambigi@linux.ibm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VVkgiP4x
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1XWvcrbaywo/oaZGKtDEjEZr71lw+5bb33eZFqUboxI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793710013; v=1; x=1794314813;
+ b=VVkgiP4xzRv9UgvySsIN6NNxQKs56Z51mdPRm6ffqkW/h++z6vTPj/11Q0HLqZxbxNnBGOC1
+ L2OJ4kiSVEbTG6Z5l2P05qx5tmgAaQi9Z/CcZunI8n3YrP1mA6h6I2NM8sMx73xb2oFhIScUkYd
+ DmNaW7ZLoyn5d1u7m/I/XvW0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 458b8aa09961ad92;
+	Tue, 03 Nov 2026 12:46:53 +0000
+X-Mizu-Trace-ID: 458b8aa09961ad92
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 3 Nov 2026 12:46:41 +0000
+From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
+To: Daejun Park <daejun7.park@samsung.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
+	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
+	Dave Chinner <dgc@kernel.org>, Pankaj Raghav <p.raghav@samsung.com>, 
+	Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>, 
+	Sergey Bashirov <sergeybashirov@gmail.com>, Andrey Albershteyn <aalbersh@kernel.org>, 
+	linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5 5/9] xfs: cap the block count of
+ xfs_iomap_write_direct() at one extent
+Message-ID: <ap5wwux6rmzcq4uf4tj4nnsv7h3sdriolux5h4rqo4evy4tpdm@qj6gfmix4fu7>
+References: <20261029-xfs-pnfs-batch-v5-0-ef8d2eafb7fa@samsung.com>
+ <20261029-xfs-pnfs-batch-v5-5-ef8d2eafb7fa@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,25 +69,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-xfs-pnfs-batch-v5-5-ef8d2eafb7fa@samsung.com>
 
-Hi!
+On Thu, Oct 29, 2026 at 11:23:02AM +0900, Daejun Park wrote:
+> xfs_iomap_write_direct() reserves blocks for the whole count in an
+> unsigned int. For a pNFS layout the client chooses that count, and an
+> RW LAYOUTGET for 16 TiB wraps the reservation and shuts XFS down.
+> 
+> xfs_bmapi_write() maps at most XFS_MAX_BMBT_EXTLEN blocks here, so cap
+> the count at that. nfsd asks again for the rest. The other callers get
+> the same mapping as before.
+> 
+> Suggested-by: Darrick J. Wong <djwong@kernel.org>
+> Link: https://lore.kernel.org/r/20261008154017.GO2705364@frogsfrogsfrogs
+> Suggested-by: Christoph Hellwig <hch@lst.de>
+> Link: https://lore.kernel.org/r/20261015060932.GD14035@lst.de
+> Suggested-by: Pankaj Raghav <p.raghav@samsung.com>
+> Link: https://lore.kernel.org/r/atoImJxtg70XcIjS@quentin
+> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+> ---
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+I know Carlos already merged it but:
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+-- 
+Pankaj
