@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793689908;
-	b=CAkgt59j0iMsHHx+nzO1ZXoJi1yKb+SMzHxiYyFQu4ZHktZbLblS0pf6wC9g2KIq1QOV
-	 A/qufiLEfLMe4tOWCg3bMaVoMECWHfzZ+nmWekIE8WV1b92zYcH0OQWO9npgSFqVFn0jA
-	 5VrrHOs7BUpW80K0bEBThQZRrVxOJ+qJ3dzA2cB5nmILXbYxJN2okB2DYjl8PYbdT9dvT
-	 arBcO3mKwwMKKuOFK0n17HtKODb+sjFsMUJGM9p0fiKo0TaeLUrJr7hzF6JfdiCaUvOl0
-	 NPRlK9d608A3fSpPZDcBJXdKh91XSPSIupZTUwvjxa+WO2fTTYbhi88+ho/kiPAUS/Q==
+	t=1793689914;
+	b=vCDpyNLHoK28gccno0msPnXhBlVv9JLlma/9WrpNE/azRlz7RopqHsNoinRZ8Mz9UONA
+	 XZGewiDOVpObHCYDhi0inqBWPfIpKj4yZo2IW4dqxgrmHVwNnwbh2AFRMvuyWMeOw3ibS
+	 KhvBvV6OBPPlL9f025F2FQaHkuc7sK7+RsrWg9UuyL2hNd36dwmZXI737az+E7/JZ4kRW
+	 uvzjGL0Sp/7iknEh9kuKNSls11xR1uHXXLEC59Nqj0bzF6KdOyt8JbZz7hzmueJz9BGLD
+	 C2Oypxe3G4uCRW8bkFdoV0MPMeM9oJnqdo/j2h+09icdBGCyBsP2KxcYI1ZB7Gu5jxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793689908;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793689914;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=EVrczeRgLGIyAiqqKsv36NQcAzgaN3tabH77BDNWG9k=;
-	b=jj227UpgDN8fXeWS+sw3xYuUBv5fru9qr5/qpncCvHylTie2OesNg2tlFpHcSYs+V7Fo
-	 BA0j4kJ6kvbbOgDnjvyrRJhFFS2hPoVa1apouKYzCkODw/fZ2nRexzQGAUl+9rH+qLbvA
-	 Wm1QVQNMOCSA+QhloT0jFdTgHMv10w8QxJlwLzD2bgx+08G6LcNaBtvZCYTEvSKqhc7V2
-	 ttHTr+Fm03Cy3/dLX3H81AUfYZOeq3OS2iOPc9U6xY/ehtKD7dk/5uwvBIZR5ZHPiGmop
-	 HD8cWtMZFMqSDRg9/3PtGgfwzIcyNpPN4YPDPXCuDE9VnFC8UAwU8c+HPGykbiqs5PA==
+	bh=jenVh5GCQDcRxhOfahkpMwGBCncxdYAulxo411VdcIE=;
+	b=HWZmJm1o0HS3Tp4K/W4dunRANNqelFieFtdwyO7tKN2Skf4vP3UGRBTRDwquqVU6ASu9
+	 PMl3vfYpgOvbTQ7lxKYUImx9m3WWligeNaowH+Pzxu8B6Sa/ECC3sGTUUjrAWwGOT1klB
+	 7W2prd5WXUiokNcD6+DF3J6TL0POGXdJcslH5ieT6WOKoZKx6cFvsgdaJSWCSavy8J2bx
+	 w/GyLBHts6NWcmg+Syo8jpvcWyAYbZgcLifnHqoi/YSTJms99bq3Co4sQ4pFHaM91fCFk
+	 Tn8NSP9mZ3vY7A588L5qqAKaJiHut5b3f8faA7H28nY/lLI+x6GAPSmMgiMZzeQ0MdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klVGqGnr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxPD2rtL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECB3606A329;
-	Tue,  3 Nov 2026 07:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E8A606A324;
+	Tue,  3 Nov 2026 07:11:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klVGqGnr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153F51F000C1;
-	Tue,  3 Nov 2026 07:11:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IxPD2rtL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7617D1F00919;
+	Tue,  3 Nov 2026 07:11:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793689907;
-	bh=EVrczeRgLGIyAiqqKsv36NQcAzgaN3tabH77BDNWG9k=;
+	s=k20260515; t=1793689913;
+	bh=jenVh5GCQDcRxhOfahkpMwGBCncxdYAulxo411VdcIE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=klVGqGnrXsB92n76wIBJWz73TitbzaEhkLDxaEzx/E/R3aBlLbP0x+/GXBSaaIkbR
-	 /g0k7W1fpr7Ykm4+RG+6fh87a7Stqf+Bv5O9KRm8lJ9bNacPs1sSqW+KW7iNZIQWF7
-	 zqewmS/CUHIikE+E3v3pBDDNNewfrwpDliOpkl+ppZFl4RewYhwOoZhAe15N9QXRVy
-	 1AYgcH4rkrqHeKnyzmEHLcg45EUkps7uvIE6j/r7jGSmQY0q0VBUm1X/rB062llxs/
-	 t0DD0izmsqYAuSQqpRbiSj+QsqD3Jn4/nUUjXAMx1n+tVE5/mNsZy8NC0WisDlK/TD
-	 7DeNHJ+sxXcQA==
-Message-ID: <27d6184e-2eca-4b1e-ae4d-0cbe2a9a2547@kernel.org>
-Date: Tue, 3 Nov 2026 08:11:41 +0100
+	b=IxPD2rtL57uMu5FqXQ75Y80aEV+4RfiCOaBD0btNW6Wp8O9CIN89kNb4Duo39T474
+	 B8XaPyhGsCEnYud2SiN9nGoElqrdHSzGp9jGGmihPr03b334Rfvd1xnz2njVSzBsqP
+	 DQhBLrFKmo7gbLmVikSyfio5q2HMbGq3VXsFkTPI4sNlgJDbJDgL33PQatvvnAusTP
+	 xoD268aSjNHqDILHZwyqGde79uSVTvVdrwwPScsTc5UtAu841oK4LejL9xN5EcWnSu
+	 eaxkDQ7tSTlSm9kwUOW0/Hzr6edhZUS5+JNICv8I7LAQ6VlJ4ZYXOXMPZUfxhdmm2+
+	 6AQwfdSjJy1dg==
+Message-ID: <386ea2de-3f06-4931-a5bd-4885b99e5a73@kernel.org>
+Date: Tue, 3 Nov 2026 08:11:50 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,13 +52,12 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/bridge: ti-sn65dsi86: Put the host node if DSI
- attachment fails
-To: Wentao Liang <vulab@iscas.ac.cn>, dianders@chromium.org,
- andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com, dri-devel@lists.freedesktop.org,
+Subject: Re: [PATCH] accel/rocket: Unregister the platform device if driver
+ registration fails
+To: Wentao Liang <vulab@iscas.ac.cn>, tomeu@tomeuvizoso.net
+Cc: heiko@sntech.de, ogabbay@kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261103065106.1063659-1-vulab@iscas.ac.cn>
+References: <20261103062319.1013449-1-vulab@iscas.ac.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -104,20 +103,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103065106.1063659-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103062319.1013449-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 07:51, Wentao Liang wrote:
-> ti_sn_bridge_parse_dsi_host() takes a reference to the remote DSI host
-> node. If ti_sn_attach_host() fails, ti_sn_bridge_probe() removes the
-> bridge but leaves the node reference held. The remove callback is not
-> called after failed probe, so a deferred probe can leak another reference
-> on each attempt.
+On 03/11/2026 07:23, Wentao Liang wrote:
+> rocket_register() registers the facade platform device before registering
+> the platform driver. If platform_driver_register() fails, module
+> initialization returns an error without unregistering the device. The
+> module exit function is not called after a failed initialization, so the
+> platform device and its resources remain registered.
 > 
-> Drop the host node reference in the existing attachment failure path.
+> Unregister the platform device when driver registration fails.
 > 
-> Fixes: c3b75d4734cb ("drm/bridge: sn65dsi86: Register and attach our DSI device at probe")
+> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 
@@ -128,7 +127,6 @@ Not even bothering to run checkpatch.
 Another fake identity of "vulab" doing exactly the same as other cases,
 repeating same mistake of running unsupervised crappy bot even though
 was asked multiple times to fix that.
-
 
 Best regards,
 Krzysztof
