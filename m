@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701561;
-	b=muXmTLm8jfyClY+cKFPCIpUMN6inIgePkO/LPqWgZrYZxBDZNcnUPyyhvU5jI+rVF++a
-	 18m9opIgEHoU9tls+fVrRW65WwyCq/5R/NbuDOyjiIn1Bfxaesz10YBBxTnvfvgNJ4UUq
-	 pGjCrGQPnZHboe3k4Rype07r89N49YzDtkJTLAaxGP7TeJ+oEPgRUF3WaGOCEm32EX9ss
-	 TSYWZ88Uqev+uJiIyCxl0ZYJPlyDy3NiyqM3PT/VDvsjnlg8T4uSPqFFsQqtthciYrQ+z
-	 QvcOgjucs4BFnX78K7XRjA6c8h5QU/4wptJF+e3O47klw0Td/6S/zR4V+iPv+JVpZnw==
+	t=1793701554;
+	b=kvCD1LLbPS6DOyXnSbLgmusFA3jUYFjkilaHjbCvS2CJb3qHPNDkn7yuaCOO/ghBnDbc
+	 aOA0Yc/VmVuT4LR9q9SsqWP57kkL3PlNt1uFijqKhVnlM51NCnDsI++vj/rk3TPzXq+Tj
+	 wa7mmzrGCIMFttGSnK6r071UxsL9DQH3jbfIE0Je76YePzqB1tvEU40dUIkBAobWlk9ic
+	 FwqbMxOZikBL+dl7wKWcX3gr5Ojxxznj9mTNQrGJ5b/ljPC/ZeFjIFPX60VuNLrkvEygQ
+	 bkDnXGyqiAD6zMhwHj+1Q8H+nMr+pHJ7m2WgMJAv91Elo5l4yKKjJigdEnohD3+soqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701554;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LVepNa8MBgnxzOIR4Tx+W3uy/yFi60gYxq1FZlSu/kQ=;
-	b=kMvpr9JE6wjkvB/xj+SeOP3rc46tEI2thOB3BOc8gBOZaX5k9JjHLEZiRV4Ky4vGTlpa
-	 eXMgSBflukhdzljxA9gueEdtGaeRoxSXqcLay66yJNk6cx5nq+1Q4NjbVMtRcnxRFIuQL
-	 Mp8REypgmLUrl/ZKSj70/q2gel4tmJG9msGdGgo6NOnSvc4pu+RISothjConbXbNoeHdW
-	 CNJD2mQCq/zeja243T6xTWPaZY6fdIKixEwTK+EKq5XAPmXFbLuYHhKJo30RcFFl5QWcm
-	 P9E5M0Q/Xg4lVww30eW4xBdowLeip4H00troXcL+eDWUBi4bgZg+5q7UI4xuYllIqyQ==
+	bh=xMnmfPB2x1ONdx8H/7UeU0nSjR+hb66yayecZ+DFW8k=;
+	b=NlYjSbKhhDSXxzE08nQtGrFxXwXfljxaovfBTIkdLKCYqPwPnn0tdiO2pysIms2Alc39
+	 N/zsaAiCK1RMCeEdnBJMF0U8q/6kDod3VdXvmZPvHDoT9eGG3Qc2wDi7cL5/TljTfwM1v
+	 58Xbd5RlvHiNcnBynsgpn4VjCcbTyWQ4IF5hCF5WCFUxNgLEaWXU9ulgElW2EHZlarkBj
+	 8CBT0zHaHWwYgfoeL+KTIgMZaYhIHD58jrKvzoDyk/gIz+RfdsB2/Ct1ku7yNaVKNQFo3
+	 RQQMaQOSSVD0juJTATmDTmompa2mGtNPCk31cBifGJGniMJoZhpYhbnwhjZb5SQ1JzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YKjrBA/m";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhM18OIZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6CD606D80D;
-	Tue,  3 Nov 2026 10:26:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE78606A337;
+	Tue,  3 Nov 2026 10:25:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YKjrBA/m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957E21F000C1;
-	Tue,  3 Nov 2026 10:26:00 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhM18OIZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECB91F00A1B;
+	Tue,  3 Nov 2026 10:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701561;
-	bh=LVepNa8MBgnxzOIR4Tx+W3uy/yFi60gYxq1FZlSu/kQ=;
+	s=k20260515; t=1793701554;
+	bh=xMnmfPB2x1ONdx8H/7UeU0nSjR+hb66yayecZ+DFW8k=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YKjrBA/mej4tTGzq0T8wexaUUvNDO1PFLajq/VyjYTc8bTtvyYP5brGpAOeaT6YFX
-	 dyi3WDtz15/cPCJOfI1SBe1oS4pAHGoYDXl1Y2aMOZx1hBs2Za8+T2U8j7Vuwm8r22
-	 S4NJPmIN+VLIIM0fB3kG/9e0RUaPu8gN/8nGHK/IEMmm31fjGD4G/1R3ejXgCsDYEH
-	 WPww9c/E68B4mbK+0ocCC9SrhhY2M0JAKHW4qC/PsPOAp6uBOmdXR5y6Cqmiz0dNMc
-	 N9WYEUWtyhn4uoWTG84NsEEzZBDxYBmi2+FSeV7Gn6MLo12p4FWCq3KJyQB9Dqi1rM
-	 kfu+QknFBny6A==
-Date: Tue, 3 Nov 2026 11:25:58 +0100
+	b=EhM18OIZurDB9UMxnBQ2+8Y3bdlSXHVCebvL6B6JCwTJaui7KXf2IgyCg9tJekK7h
+	 kghIfpSXgSlq97jcXy/B9/sdy86knrpvJU7SyLr5Xe5RJEljE2w21iFE2rbgwaBGBJ
+	 xv/tAY3gm34kHV+t6XLP76+B2xi+fZ/ujXq6eHyFyRPnlImQOWpqz/ci776QsryziC
+	 au5E/DHUdMQy9WRv3xFiKzCPwyLKxTytIoPe+pCNvfUYi9ac3V48dX1yuEcD1/bU4q
+	 Hia0KTNcIGXd8uopntqp4eVDOGyffvZtLIR3AbElRaq68xLDTfUrpQZX2ymvFZ9wLZ
+	 lH59lJZVAfvDw==
+Date: Tue, 3 Nov 2026 11:25:51 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, Sean Anderson <sean.anderson@linux.dev>, stable@vger.kernel.org, 
-	Madalin Bucur <madalin.bucur@nxp.com>, "David S. Miller" <davem@davemloft.net>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Jakub Kicinski <kuba@kernel.org>, 
-	Eric Dumazet <edumazet@kernel.org>
-Subject: Re: [PATCH] net: fman: drop the FMan device reference after port
- probe
-Message-ID: <20261103-magnificent-happy-cuttlefish-adbaad@quoll>
-References: <20261103100532.1309969-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
+	"David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, 
+	Jijie Shao <shaojijie@huawei.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	Jian Shen <shenjian15@huawei.com>
+Subject: Re: [PATCH] net: hns3: destroy the page pool if RX buffer allocation
+ fails
+Message-ID: <20261103-melodic-translucent-lemming-6abaac@quoll>
+References: <20261103100533.1310018-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,27 +62,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103100532.1309969-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103100533.1310018-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:05:32 +0000, Wentao Liang wrote:
-> fman_port_probe() looks up the parent FMan platform device with
-> of_find_device_by_node(), which takes a reference on the embedded
-> struct device.  The reference is released on the error paths, but not
-> after a successful probe, and the __devm_request_region() failure path
-> jumps directly to freeing the port.
+On Tue, 03 Nov 2026 10:05:33 +0000, Wentao Liang wrote:
+> hns3_alloc_ring_memory() creates the page pool and then fills the RX
+> ring with buffers from it. If filling the ring fails, the error path
+> only frees the descriptors and the descriptor callbacks, so the page
+> pool created a moment earlier is leaked.
 > 
-> As a result the reference is never dropped.  Put the FMan device and
-> the port node before returning success, and route the failed region
-> request through the existing cleanup labels as well.
+> The page pool is normally destroyed by hns3_fini_ring(), but
+> hns3_init_all_ring() only cleans up the rings that were set up before
+> the failing one, so the pool of the failing ring is never released.
 > 
-> Fixes: 18a6c85fcc78 ("fsl/fman: Add FMan Port Support")
+> Destroy the page pool on the buffer allocation failure path too.
+> 
+> Fixes: 93188e9642c3 ("net: hns3: support skb's frag page recycling based on page pool")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/freescale/fman/fman_port.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+>  drivers/net/ethernet/hisilicon/hns3/hns3_enet.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
 
 
