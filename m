@@ -1,48 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793675985;
-	b=qL98vwC1r2BhvO+DCwYdG9L+5zBlNGIyjp595hvBqHUod63qjIo0IutTIumaZpBxqPL5
-	 sV3HHtVJ2gNtM7EU98uTwGjPqACqCd62n/4S5djWCwPvrV2eyZ9Wd0R1FaDFv76xM4rU1
-	 TQMqLMYakQImwJmhnyxX99cnJTHjcexYI0z4kIIRvEnUSVSMB5NCZ5gIvvASXjAsfnQzo
-	 oRIqT7EA6acconaHNwwFw7UN6wD/xK7SL6nXfA8gbwz7dUN8XYeCiqbEnJ/c3/yayFj30
-	 5YwpocB184K9anYLqj2v856oQZrL/sfOZp9QUDn9/6d9lTsxw8WzTR6pLECL+N1TGnQ==
+	t=1793675981;
+	b=3axCX3V71UZFN55Um24UzyochCSaz5+F0oGDT/Ze0zLlXfVlk0Vvly9w8U3KT7eJ2KcR
+	 U90ke3G2VA9KpE5XKcx1b8T0f+U5hfbgttGCXdii0zywA0BUhmKxmKFvW0GBO6E8iKvWt
+	 ZmquIuaJvPwrUjHjmcMgrAHUuxUfxkbAP89fuMpFai7r9/wL2Ps6mRaKyPwIeIiH8qMyH
+	 o5L7NUF2vwmjruTAhqdSXd737zchEuju7KrFxHhgiDTb25cw4rm0xxvlaV++TpZOGNs/e
+	 8fa6aRNhgZl3YjW2pFbp1FLX4Q+C1AJk6IRj7ClEy7ENiApmxQRw81sEyMgIA17rQJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675985;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675981;
 	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=cD55soKBuVNeTqtBtw3fyWy6Zhcy6lphTDTzlA4jpgA=;
-	b=oqq7VIi4c/pe/GdQUwvIhwS+h5rxiLiLNMS+sXuMRRNn96rRV/gGEwpRk4Rylqr3/D1/
-	 0u9m6LAtnUrkN27W5CvOp7OGhc2QPpR9CBzvhGE9HxcqhBYwW+fTRvf2p4yPi0982vJmE
-	 b/hRBFkY9SL7QrX3kEQMd667a6v/7QHweTg7WXpSTDoT11Nr7POpACSCwTXYKE9gnj0gN
-	 t96sWbsRcBAYpiqsP3wf49d0AT4ERfmPK8wVgOVIFMOPcD2zHkIn2QEdE2dimxeJcqsTk
-	 ssnxOh1/fOqI1my1tu3k1XPtaJRhvmWOyyVUsSgCInMN5IjTwsib+lRHC45i6gph90Q==
+	bh=oPA5bNC7FBZdLqrw4MsMCOHa3PVILGkEnT50jHSkeJw=;
+	b=Myy2I3+JGZBRVeboDhKI1qyjTVerWOAjkhLTUx9C/Id3FZevOACqpvKclpv+ShkMFaDH
+	 yp039G4d4CdALThooR6ERRAAAzlIvEfGedFtE7HyJpiZjjF9fNO5TcqSPIJnEzQdgHGiD
+	 nw+sRierMmoRft7TrHGd9TAbnmJZAh98Jo7SffBNP0KMs+gMqPZY/IwZeB9ZNGRcvJ4WD
+	 A1mzHEZOvgBo1Ng/1Mzn1WX0z2RgtjkTxu64XX1a3/nK9dASIT7C4UbdznbK8zrWA9cCc
+	 yqP/GPZnnX0LHj0ENtBHYrHIyQkVbRJYX/Ip42A3uRk91JTEn4kHsyL5fqPx2RDibaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="a/U5I71S";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="hbJ/tQV6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D20606A324;
-	Tue,  3 Nov 2026 03:19:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0E5606A333;
+	Tue,  3 Nov 2026 03:19:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=a/U5I71S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0591F0093A;
-	Tue,  3 Nov 2026 03:19:45 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=hbJ/tQV6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96211F000C1;
+	Tue,  3 Nov 2026 03:19:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793675985;
-	bh=cD55soKBuVNeTqtBtw3fyWy6Zhcy6lphTDTzlA4jpgA=;
+	d=linux-foundation.org; s=korg; t=1793675980;
+	bh=oPA5bNC7FBZdLqrw4MsMCOHa3PVILGkEnT50jHSkeJw=;
 	h=Date:To:From:Subject;
-	b=a/U5I71SAR/NCmMFhPp346A1cST9z8GYK0XI3Ap2cXaPrnv3YEQ5rP66Q977Slgcn
-	 aD5S8cr8elBGwy0Iyxz/RnQeE9YquBQVz122AEE6Iz8MJFuK8Z6tt68VWarJNkMELD
-	 JIFjVau8iaOejl/U8PtPjKkfJYMpVMZdJT8hUHdg=
-Date: Mon, 02 Nov 2026 19:19:44 -0800
+	b=hbJ/tQV69EI1t0XGKTP5wXQ58lmF2ywO6vhXqqlBS+18/Z2inknYbWLgx9YXgKyA8
+	 bUfp/dFpERrM6y33Ac54Q1VaH2dugGt60q9LtUROLuTHLYyqzUt5FgjAmnYnnCDzFh
+	 OPTZIEkBPv48rkJKA9AMezJrKfGmSuDR1BqP0DeI=
+Date: Mon, 02 Nov 2026 19:19:40 -0800
 To: mm-commits@vger.kernel.org,stable@vger.kernel.org,mark@fasheh.com,
-	joseph.qi@linux.alibaba.com,jlbec@evilplan.org,jjzuming@gmail.com,
-	heming.zhao@suse.com,baijiaju1990@gmail.com,zzzccc427@gmail.com,
+	jlbec@evilplan.org,heming.zhao@suse.com,joseph.qi@linux.alibaba.com,
 	akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-hotfixes-stable] ocfs2-validate-move-extents-against-a-stable-eof.patch removed from -mm tree
-Message-Id: <20261103031945.4C0591F0093A@smtp.kernel.org>
+Subject: [merged mm-nonmm-hotfixes-stable] ocfs2-do-not-index-before-the-entry-array-when-dividing-an-empty-bucket.patch removed from -mm tree
+Message-Id: <20261103031940.A96211F000C1@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,187 +53,82 @@ Precedence: list
 
 
 The quilt patch titled
-     Subject: ocfs2: validate move extents against a stable EOF
+     Subject: ocfs2: do not index before the entry array when dividing an empty bucket
 has been removed from the -mm tree.  Its filename was
-     ocfs2-validate-move-extents-against-a-stable-eof.patch
+     ocfs2-do-not-index-before-the-entry-array-when-dividing-an-empty-bucket.patch
 
 This patch was dropped because it was merged into the mm-nonmm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Cen Zhang <zzzccc427@gmail.com>
-Subject: ocfs2: validate move extents against a stable EOF
-Date: Mon, 26 Oct 2026 19:04:00 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: do not index before the entry array when dividing an empty bucket
+Date: Sat, 24 Oct 2026 23:10:11 +0800
 
-The move-extents range must be bounded by the inode size used for extent
-movement.  ocfs2_ioctl_move_extents() checks and clamps the request before
-taking the local inode and cluster locks in ocfs2_move_extents().  It also
-uses separate i_size_read() calls for the range check and subtraction.
+ocfs2_divide_xattr_bucket() appends an empty bucket carrying a sentinel
+hash when the source bucket has no divide position, taking that hash
+from xh_entries[start - 1].  ocfs2_xattr_find_divide_pos() returns count
+when every entry shares one hash, and its loop does not run at all for
+count < 2, so an empty bucket comes back with start == count == 0 and
+the read is xh_entries[-1].
 
-A concurrent truncate can invalidate the first check and make the later
-unsigned subtraction underflow:
+That is outside the __counted_by_le(xh_count) bounds of xh_entries[] and
+lands on the header, so the value picked up is
+xh_count | xh_free_start << 16.  One above it is written into the new
+bucket's xh_entries[0] and committed, which leaves a bucket whose first
+hash does not follow the bucket before it.  ocfs2_xattr_bucket_find()
+binary searches on xh_entries[0], so the broken key hides the range the
+sentinel was meant to cover: getxattr() answers -ENODATA for an
+attribute that is stored, and an insert can go to the wrong bucket and
+leave two copies of a name.  The cross cluster divide hands the same
+value back as a tree record's e_cpos, which then claims a hash range it
+does not cover.
 
-  Move-extents ioctl                  Truncate
-  ------------------                  --------
-  check me_start <= i_size
-                                      take inode and cluster locks
-                                      shrink EOF below me_start
-                                      release locks
-  compare me_start + me_len with EOF
-  set me_len = EOF - me_start
-    [unsigned underflow]
-  acquire inode and cluster locks
-  select extents using the bad range
+Read xh_entries[0] instead.  The branch is only reached when every entry
+shares one hash, so for a non-empty bucket it holds the same value, and
+for an empty one it is the slot that carries the bucket key.
 
-A truncate after clamping can also leave the range extending beyond EOF. 
-Conversely, the cached size may be smaller than the size refreshed when
-the cluster inode lock is acquired.  Early validation can then reject a
-valid start or permanently shorten the requested length and threshold. 
-The me_start + me_len comparison can also wrap for a large input length.
+An empty bucket reaches the divide from
+ocfs2_check_xattr_bucket_collision(), which reports no collision for
+one, through ocfs2_add_new_xattr_bucket() and
+ocfs2_extend_xattr_bucket().  It does not take a failed set to get
+there: a divide that finds no position is itself what leaves an empty
+sentinel bucket behind, and a later extend can pick it as the target.
 
-Validate and adjust the original request once, after inode_lock(), the
-exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
-size.  Read EOF once, reject a start beyond it, and bound the length by
-EOF minus start.  Normalize the threshold using the same EOF snapshot. 
-This keeps zero as the default-threshold sentinel until validation uses
-the size that will govern extent movement.
-
-Move goal validation after range adjustment as well.  Its allocation-group
-capacity check uses me_len and must see the EOF-clamped length.  Both
-validation failures use the existing inode-lock unwind path before any
-extent movement or transaction starts.
-
-Range errors now reach the ioctl's normal copyout path, as goal errors
-already did.  Unlike the old early rejection, a failed copyout can
-therefore override -EINVAL with -EFAULT.
-
-Link: https://lore.kernel.org/pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com
-Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Link: https://lore.kernel.org/20261024151012.1059683-6-joseph.qi@linux.alibaba.com
+Fixes: 80bcaf3469b8 ("ocfs2/xattr: Proper hash collision handle in bucket division")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Assisted-by: LLM
+Cc: Heming Zhao <heming.zhao@suse.com>
 Cc: Mark Fasheh <mark@fasheh.com>
 Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <jjzuming@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- fs/ocfs2/move_extents.c |   70 +++++++++++++++++++++-----------------
- 1 file changed, 39 insertions(+), 31 deletions(-)
+ fs/ocfs2/xattr.c |   10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
---- a/fs/ocfs2/move_extents.c~ocfs2-validate-move-extents-against-a-stable-eof
-+++ a/fs/ocfs2/move_extents.c
-@@ -907,6 +907,30 @@ out:
- 	return ret;
- }
+--- a/fs/ocfs2/xattr.c~ocfs2-do-not-index-before-the-entry-array-when-dividing-an-empty-bucket
++++ a/fs/ocfs2/xattr.c
+@@ -5228,7 +5228,15 @@ static int ocfs2_divide_xattr_bucket(str
+ 	start = ocfs2_xattr_find_divide_pos(xh);
  
-+static int ocfs2_validate_and_adjust_move_range(struct inode *inode,
-+						struct ocfs2_move_extents *range)
-+{
-+	u64 i_size = i_size_read(inode);
-+
-+	if (range->me_start > i_size)
-+		return -EINVAL;
-+
-+	if (range->me_len > i_size - range->me_start)
-+		range->me_len = i_size - range->me_start;
-+
-+	/*
-+	 * The default threshold for defragmentation is 1 MiB, which
-+	 * matches the maximum OCFS2 cluster size.
-+	 */
-+	if (!range->me_threshold)
-+		range->me_threshold = 1024 * 1024;
-+
-+	if (range->me_threshold > i_size)
-+		range->me_threshold = i_size;
-+
-+	return 0;
-+}
-+
- static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
- {
- 	int status;
-@@ -936,6 +960,21 @@ static int ocfs2_move_extents(struct ocf
- 		goto out_rw_unlock;
- 	}
+ 	if (start == count) {
+-		xe = &xh->xh_entries[start-1];
++		/*
++		 * start == count means every entry shares one hash, so the
++		 * first of them carries it too.  An empty bucket has no
++		 * entries[start - 1], but its entries[0] still carries the
++		 * bucket key: either the hash ocfs2_xa_remove_entry()
++		 * deliberately leaves behind, or the sentinel a previous
++		 * divide wrote.
++		 */
++		xe = &xh->xh_entries[0];
  
-+	status = ocfs2_validate_and_adjust_move_range(inode, context->range);
-+	if (status) {
-+		mlog_errno(status);
-+		goto out_inode_unlock;
-+	}
-+
-+	/* The goal check depends on the adjusted range length. */
-+	if (!context->auto_defrag) {
-+		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
-+		if (status) {
-+			mlog_errno(status);
-+			goto out_inode_unlock;
-+		}
-+	}
-+
- 	/*
- 	 * remember ip_xattr_sem also needs to be held if necessary
- 	 */
-@@ -1028,27 +1067,8 @@ int ocfs2_ioctl_move_extents(struct file
- 		goto out_free;
- 	}
- 
--	if (range.me_start > i_size_read(inode)) {
--		status = -EINVAL;
--		goto out_free;
--	}
--
--	if (range.me_start + range.me_len > i_size_read(inode))
--			range.me_len = i_size_read(inode) - range.me_start;
--
- 	context->range = &range;
- 
--	/*
--	 * ok, the default threshold for the defragmentation
--	 * is 1M, since our maximum clustersize was 1M also.
--	 * any thought?
--	 */
--	if (!range.me_threshold)
--		range.me_threshold = 1024 * 1024;
--
--	if (range.me_threshold > i_size_read(inode))
--		range.me_threshold = i_size_read(inode);
--
- 	if (range.me_flags & ~(OCFS2_MOVE_EXT_FL_AUTO_DEFRAG |
- 			       OCFS2_MOVE_EXT_FL_PART_DEFRAG)) {
- 		status = -EINVAL;
-@@ -1060,23 +1080,11 @@ int ocfs2_ioctl_move_extents(struct file
- 
- 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
- 			context->partial = 1;
--	} else {
--		/*
--		 * first best-effort attempt to validate and adjust the goal
--		 * (physical address in block), while it can't guarantee later
--		 * operation can succeed all the time since global_bitmap may
--		 * change a bit over time.
--		 */
--
--		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
--		if (status)
--			goto out_copy;
- 	}
- 
- 	status = ocfs2_move_extents(context);
- 	if (status)
- 		mlog_errno(status);
--out_copy:
- 	/*
- 	 * movement/defragmentation may end up being partially completed,
- 	 * that's the reason why we need to return userspace the finished
+ 		/*
+ 		 * initialized a new empty bucket here.
 _
 
-Patches currently in -mm which might be from zzzccc427@gmail.com are
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
 
 
