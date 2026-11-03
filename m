@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793746825;
-	b=YDIlqoManqOTSqesg6qzmCryULHGMBB2Ae+xHdL/NFYhoAZSJX0gqgn8BCATLZPniMfZ
-	 YI1kI5U/gs/VtrrsD6Qbd07Fo9+BBN3IJrOa5X95EEurjLi6fCAJLeZpTuL7v28LCJnwp
-	 W5doYpIivVkbBDklgLQRNpQSXDBHnKX6eJo4MasAWPnuA9emP3lfaGVYiZtJO9lI39egv
-	 xX+/b9qTLBcG8IVNDkwwPGgG4vKV8hSqrNUzr/sr6YrRvXkjSZE5mDJxiaNoQNruKrsvb
-	 27KQ6tilXeEZDzAz8IF4t4XNYmvPJQeagwu4Jq0mp1gDCuHqGm3ahWcX+WT1/nnLEHQ==
+	t=1793746826;
+	b=49sJBUfMI8LnUIqxmUacBklrsJPeT5KLbu3F7/+w7Hhr+ImZ9lTXtG4lT/s4E6ArXlzW
+	 FYih1CeoavfrJbjaTYFcVWtlOcWbENWZdwVqe+yQTlPGkmyzWJsFbijINaxdjCAH8/7Il
+	 WO7qtrcfjIrBQVuwVs5hUajhIGIXgseMyuaSL/BilkUVF+09RWCBylUCezuPiEkPHIciN
+	 TIs+fAT1lRQbptWGdrdTB+qoI70AW7E4MFkIc8drhImDdW5L8ezgZA881BGsdKxCw+0PF
+	 b1Ifv14ZDr7fxmC28ib2C2CxID3PK0979Vf0+lPD7BzLQbyWLe1xVFXXb6wt9eDF/6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793746825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793746826;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=cK9EDsrXloIyAQJGEBeYc1uRGhjtM3LDTLqJT4UK0s4=;
-	b=FdLk5vPhSkCPsCgakH+1EX4ymUHfE5mu/gpJKR1GKILvOkDbIXsTQgakxQvcuaqCSVmN
-	 y0fuRLBTSTjA79cXvUunYbtClgQ8nzt1/GZe20IWEQF5jLCQwg7Ud7aqfFDoK2Ea94ZHA
-	 sSpRpBmsImJdN3gvhvaWPCqQ/qhrC/roCkeqfGqIeuljqM1n21ScVhHC68OJUkg+r09Q0
-	 pEoFM+FCvesaq8NOutFQkOtFN8XlX++2BQwmaYp9KiBUaDWxLzbv1AGLpB1+SpCl5AZVN
-	 anhA5celjEIG019MzDYeWaIEwxvsCaN5hojoRDOkeu5GTAQhkFjrHoC47Z2AAXWNUZw==
+	bh=11eF9d51Td569VOB/2+cC+i9AZXOtItOca3k910dhKo=;
+	b=xvHir8vE5+fYthRrWdf1jEFShDlTBzJ5wvWBJus9z6s2dWZ1QVe7lnnaLGWyZg95L6UQ
+	 2lpT4OhTUI1UUV7wCTaSzYVZlnEtHGSZzgjVtTsmjdavTsTJjqNfsi5MAP4Ir1xCsJ1kv
+	 efw3dPSWwXoi+dZf7J1EXSV8tXhzMj24M60d3cwFJQyd/A3X04x6cw+82aAr97kFktXKw
+	 Jsi0eVAxUn3WcLOXLg1OuWK27VjVqVo3Oe4q9D3KZKF8S7xOIgGkGFlcng14CPMLAcLuN
+	 UO1S0Ev01FOcnsoJ9tQflKOnxe1nvYiVc9RTiq+hg8nzdHHo7xRHLh9YZsTbkEUYB3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=manguebit.org;
 	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=YpDr87QZ;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=cuE78+jK;
 	arc=none smtp.remote-ip=143.255.12.172
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A5C606D809;
-	Tue,  3 Nov 2026 23:00:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61A5C606D809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B2B606A333;
+	Tue,  3 Nov 2026 23:00:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36B2B606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=YpDr87QZ
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=cuE78+jK
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=cK9EDsrXloIyAQJGEBeYc1uRGhjtM3LDTLqJT4UK0s4=; b=YpDr87QZTMoDlHm8vzU8MvBPFg
-	ZrjlAlOZocDn6GyljJAue2Ol2G9+7lzhlq8ZoCF9IdT3l/UnteLlHmao+JLs8/kfGfHBr7UrdiYxt
-	iHEWDLEqVtOXGP1CoQtDhlpGlWaIiKy5NrBJ+susV+Qxm7B501Ly5p4EKwnAq3kqoBYzg4VbO9dEJ
-	0P7wXI0/GBR3HRFOtcdrIBGIzv0tPqxZZdRGdKwcY0Z0m8s0Wf3T8nU3aCJgUIBXehVWIvG2NF4kK
-	dJ58VQg7A8VdpKN8fJo2SMb2RyrNry69AfIrLAEBI6GtL+UujMIjtHnnoJN9RxHvoF75t8qnC7DYB
-	PyEsMPAA==;
+	bh=11eF9d51Td569VOB/2+cC+i9AZXOtItOca3k910dhKo=; b=cuE78+jKDLhw4GT1Kc3kLL+/jD
+	ej2CBR80apJgSxi/cRchOdB6rdrqAUdlxYfqlIekuTCq9JODzlymTv4z8QydQHFss+qt9y4pWmzFo
+	sYZPfoeWge7kZHU2VbZPNgK2IMW6EY1eGkKo+4AK3PqeId6S8dn8YAkxtRh01poswUDWbkpLqQZJk
+	i1iYBu5zyVk/WmfT1APNs1r5ZYUIx3h3vlguaQwOk61obwHUS5p9kR35XIfQhSvXuD976JDv1t7TL
+	QUc2PyBLNvCnt+k1Vqj1RYBP1v+4BtCEKTjsgZwzF4tXFN7uJLLigCPtGGQghgLICeZxlxPRqc1uM
+	Q/llMDfA==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xONUM-00000000kNw-3RWL;
+	id 1xONUN-00000000kOK-22ge;
 	Tue, 03 Nov 2026 20:00:24 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
@@ -57,9 +57,9 @@ Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Bharath SM <bharathsm@microsoft.com>,
 	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 10/16] smb: client: retry writeback on interrupts and allocation failures
-Date: Tue,  3 Nov 2026 20:00:14 -0300
-Message-ID: <20261103230020.1617748-11-pc@manguebit.org>
+Subject: [PATCH v3 12/16] smb: client: retry writes that couldn't be issued due to a reconnect
+Date: Tue,  3 Nov 2026 20:00:16 -0300
+Message-ID: <20261103230020.1617748-13-pc@manguebit.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261103230020.1617748-1-pc@manguebit.org>
 References: <20261103230020.1617748-1-pc@manguebit.org>
@@ -74,111 +74,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Issuing writes from a worker only helps when the task is already dying
-at issue time.  A fatal signal can still arrive after that check and
-before __smb_send_rqst() checks again, or while waiting for a credit in
-cifs_call_async(), or in the middle of a send.  The write then fails
-with -ERESTARTSYS, which isn't a replayable error, so netfs marks the
-subrequest failed and drops its folios clean:
+__cifs_issue_write() fails a subrequest with -EAGAIN when its handle got
+invalidated or its credits belong to a session from before a reconnect,
+both before sending anything.  netfs used to retry any -EAGAIN by itself,
+but now only retries subrequests marked for it, so these writes fail and
+their folios end writeback clean, losing the data.
 
-  netfs_sreq: R=000041f6[2] UPLD SUBMT ... s=400000 0/400000
-  smb3_write_err: R=000041f6[2] ... offset=0x400000 len=0x400000 rc=-512
-  netfs_failure: R=000041f6[2] UPLD ... upload e=-512
+Mark them for retry instead.  The retry gets the handle reopened and
+fresh credits in cifs_prepare_write().
 
-losing 4MiB of a 64MiB file closed by a task killed meanwhile.  A failed
-memory allocation while building or sending a write drops its data the
-same way.
-
-No server status maps to an interrupt error or to -ENOMEM, so for
-writeback such errors always mean the client gave up locally.  Mark the
-subrequest for retry, with backoff and giving up on umount -f, as cifs
-did with is_retryable_error() before switching to netfslib and as NFS
-does for these errors.  netfs collects writeback from a workqueue, so
-the retry gets prepared and issued with no signals pending.
-
-Only the SMB2 read and write paths sleep before replaying, so SMB1 would
-resend such writes right away.  Move the sleep to cifs_issue_read() and
-__cifs_issue_write().
-
-Fixes: 3ee1a1fc3981 ("cifs: Cut over to using netfslib")
+Fixes: 82e8885bd763 ("netfs: when subreq is marked for retry, do not check if it faced an error")
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/file.c    | 14 ++++++++++++++
- fs/smb/client/smb2pdu.c | 12 ++----------
- 2 files changed, 16 insertions(+), 10 deletions(-)
+ fs/smb/client/file.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 60c4a3103dbb..d6ed06dbe476 100644
+index 5d8b3f25ccf9..0a9b241dce40 100644
 --- a/fs/smb/client/file.c
 +++ b/fs/smb/client/file.c
-@@ -208,6 +208,9 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
- 	if (wdata->req->cfile->invalidHandle)
- 		goto fail;
- 
-+	if (wdata->replay && wdata->cur_sleep)
-+		msleep(wdata->cur_sleep);
-+
- 	wdata->server->ops->async_writev(wdata);
- out:
+@@ -216,10 +216,12 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
  	return;
-@@ -346,6 +349,9 @@ static void cifs_issue_read(struct netfs_io_subrequest *subreq)
- 	    subreq->rreq->origin != NETFS_DIO_READ)
- 		__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
  
-+	if (rdata->replay && rdata->cur_sleep)
-+		msleep(rdata->cur_sleep);
-+
- 	trace_netfs_sreq(subreq, netfs_sreq_trace_submit);
- 	rc = rdata->server->ops->async_readv(rdata);
- 	if (rc)
-@@ -2750,6 +2756,14 @@ void cifs_write_subrequest_terminated(struct cifs_io_subrequest *wdata, ssize_t
- 		spin_unlock(&inode->i_lock);
- 	}
- 
-+	if ((is_interrupt_error(result) || result == -ENOMEM) &&
-+	    wreq->origin == NETFS_WRITEBACK && cifs_io_should_replay(wdata)) {
-+		wdata->replay = true;
-+		trace_netfs_sreq(&wdata->subreq,
-+				 netfs_sreq_trace_io_retry_needed);
-+		__set_bit(NETFS_SREQ_NEED_RETRY, &wdata->subreq.flags);
+ fail:
+-	if (rc == -EAGAIN)
++	if (rc == -EAGAIN) {
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_retry);
+-	else
++		__set_bit(NETFS_SREQ_NEED_RETRY, &subreq->flags);
++	} else {
+ 		trace_netfs_sreq(subreq, netfs_sreq_trace_fail);
 +	}
-+
- 	netfs_write_subrequest_terminated(&wdata->subreq, result);
- }
- 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index c7b4ea287cb7..29e60f827c84 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4878,12 +4878,8 @@ smb2_async_readv(struct cifs_io_subrequest *rdata)
- 
- 	shdr = (struct smb2_hdr *)buf;
- 
--	if (rdata->replay) {
--		/* Back-off before retry */
--		if (rdata->cur_sleep)
--			msleep(rdata->cur_sleep);
-+	if (rdata->replay)
- 		smb2_set_replay(server, &rqst);
--	}
- 
- 	if (rdata->credits.value > 0) {
- 		shdr->CreditCharge = cpu_to_le16(DIV_ROUND_UP(io_parms.length,
-@@ -5284,12 +5280,8 @@ smb2_async_writev(struct cifs_io_subrequest *wdata)
- 	}
- #endif
- 
--	if (wdata->replay) {
--		/* Back-off before retry */
--		if (wdata->cur_sleep)
--			msleep(wdata->cur_sleep);
-+	if (wdata->replay)
- 		smb2_set_replay(server, &rqst);
--	}
- 
- 	cifs_dbg(FYI, "async write at %llu %u bytes iter=%zx\n",
- 		 io_parms->offset, io_parms->length, iov_iter_count(&wdata->subreq.io_iter));
+ 	add_credits_and_wake_if(wdata->server, &wdata->credits, 0);
+ 	cifs_write_subrequest_terminated(wdata, rc);
+ 	goto out;
 -- 
 2.56.0
 
