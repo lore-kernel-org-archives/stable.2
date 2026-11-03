@@ -1,56 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793704266;
-	b=R1hijyhDvkX0/Ub8tXQYogRKBOo8AEvOJGJ2G9A5ORGl5uBiEJ3+WQQHDE7b3WxNauU7
-	 8n4/X5Skataj1AFU0F59VLbyk7ezDGgnrxXGWwLrAwXeawRc4RYua1Z7bfsFzCC6v+bS8
-	 vU6Sh0YpoCoIaAcAJ6hBu5EGUMC3Wm1iYuKBoaGXxlMPdDo70uPk8U/xBLOEtHfooQPYd
-	 7LEAEArirhxoitDmp5CvYlDQ87M5ZJpm8LTwyNw9wX12jOh33CtcEqbVhO8HkV0rZV6RI
-	 2S3nWYo4SzOYDvJZWVLw+oHsrXoVXW2IV124Kk2O3+XL/K00sbTvInO62xkdyI+hFTw==
+	t=1793704261;
+	b=jJ65WYOxRSC6ozjZHfkWMWtXaX2N6S2Nex3hJTOI2VTfGcZ/pTxIqY+VQKuhi5hohfAj
+	 8hrzuX1ksxqOtQiX60DCyRrQ83cSz3066HgAoWfY9oe2PUuiuNYWyc/11xNCyNu3yulmJ
+	 WU4X/v4A7ot+7xabEaCdjTioY+4OkxO8j9EJM+KaX4QoCPcWUXXfBYtUCPuXaAIL3wTak
+	 vG49fbWIrC3rpXfeZ9daqw9xM5ObO9l5Rkp9qm5tMP7AAsBebxI64PAcMl8owHjiT/bLg
+	 xbEVPYHhZwKRbMkknVlz1tHno27aIAyp0uWaa0VuveOWG73pItepx8vtqiuyxC/5Ypw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793704266;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704261;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
-	b=jTklxoZjd9VgN8HFtDBAyRDpiPj3NICSHlIWV2VNO6mE6WsHBATyU9tQfN7tTHwigUnR
-	 LlWOWZgKdLN52EMLryzxleQfWz5IeL5prQCkbUZqmrlJlSN5J21wcLsalv5rvpeSu8fZZ
-	 L0+z09wxQAnW4c5ZJ5Vg6zNHaA7+QCCWnau8n2PKPCb71ZL6EbKUgKOueckva159r5KpM
-	 BqTHUgvGRxzs/HoO/3SHsPnBT3FanAPFgT0ixRVjE6GgGhH4psUI/Ts1KSBp1Wqiu4Ijw
-	 QQeLyXo2d8F5GLmrh3PuZXnXKoQ+hm2k+p84Ri3+cUAIl84cqSEiEmTP3p0Ns/prc0g==
+	bh=z0OPz57SZV2MJ4n6b+XxBbFka1xgskYRthtK4/qQk+Q=;
+	b=fKyiHm8uMZL6lkUZKEDEzjGtcX6QdgWhY/NfckeL4xjSNPt96VsuLn8oL73DJsqZLwS8
+	 +fXcmEr8zRROLz4Nw8Fj89z5FXxjNf2uHbdkrHWSbh6fYOlUegE5ktinLWblUW5awaO/t
+	 Gz+22yzxXDlkVYWaqDGEFhoE5xfccyr4m+UTLQdNve2zn6zegU7PStO1cr/Sc+0/PAbIj
+	 7lQ/ank5onKybTl7NIp8iMy5Y+iFVS/fm54wNSaImkKPetbIfVgCLHlNLj04SS7fhC0nw
+	 dvoLhkBEFQ6Xw1YUaoQTHIGwryKNoC0FO0kWSNZdjlSqqtnuk5WA30gNHAGwvxW8SJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TI53Nr+W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D86660A382F;
-	Tue,  3 Nov 2026 11:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0991B606F7D9;
+	Tue,  3 Nov 2026 11:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOUks73f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC9C1F00A02;
-	Tue,  3 Nov 2026 11:11:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TI53Nr+W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE981F000C1;
+	Tue,  3 Nov 2026 11:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793704266;
-	bh=VuwVRdvDqCkcqJ5PJHMF6vUMeb8k7ai3Z7802NTQ/kM=;
+	s=k20260515; t=1793704260;
+	bh=z0OPz57SZV2MJ4n6b+XxBbFka1xgskYRthtK4/qQk+Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EOUks73fgJnqlSXAkmCa587RZrLJRZ0VTowmJ9cNDiCsu6A1RFVY/IjVjZdIdG/ms
-	 v6vLmzgrlgZfPfznot5XJDQqmnmHBgV/OREOSQU9sRTSY/2h8Z1Cndmz2GcWv0130m
-	 dO7iGATWSHLXZi0oNnu81o0RhaHwCpQDEtx96kcNasTzE+xaRBcZsIl9zwUDaqjrB8
-	 1K5eHUexYg01hRlRjUHT2/ulCBDj/cXMFhAmebM9o8zp9cr2bNC+QSs9IX/RgbTvDg
-	 4x1kEEaumt0//dpqA93XdGVcVCwejQTT+a2CDA/nDQlhNuW4A4VJkZyVxBKq1Xd7pQ
-	 2Uz+AQpv9nrhg==
-Date: Tue, 3 Nov 2026 12:11:03 +0100
+	b=TI53Nr+WHijMPta1Xv6mUlNk3ID7Fg/LOppo0oNDOKFrTpaHwp7nOk31bq6oCTXAG
+	 3s3c6ev5vp3PH04aHsPRbIXQV4CEu1OdvYqADgIlbcy5zmc+mnZuETUCWdMweFg/lq
+	 avTCuK2ay7VjS4cFQdIXxnzZ3fVbnnbAxWmVmOOXu8i6fqY/kWniDwsQySi5AmPJen
+	 rPXKqS+aC36unFKLfuHVjYEKH7e2KKiy/Uyb/2KJv5HoY4SUCMSwhSeID6BOiBWzaT
+	 BErOr+H20HDhgv3OCxkqIesZVbTmOP+9X2IBe8KcRcgFRPI51mzvEKxsW26SJAlpOC
+	 2H4A4xitkwD0Q==
+Date: Tue, 3 Nov 2026 12:10:58 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Paolo Abeni <pabeni@redhat.com>, Jakub Kicinski <kuba@kernel.org>, 
-	stable@vger.kernel.org, Petr Machata <petrm@nvidia.com>, 
-	Ido Schimmel <idosch@nvidia.com>, Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>
-Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
- write failure
-Message-ID: <20261103-immortal-cunning-oyster-316afd@quoll>
-References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+Cc: wcn36xx@lists.infradead.org, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: wcn36xx: drop the SMSM state references on probe
+ error
+Message-ID: <20261103-wooden-interesting-crab-d7eaeb@quoll>
+References: <20261103102902.1340936-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,27 +60,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103102902.1340936-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 10:28:51 +0000, Wentao Liang wrote:
-> mlxsw_sp1_ptp_mtpppc_update() increases the global parsing depth
-> reference count before writing the MTPPPC register when timestamping
-> is enabled for the first time. If the register write fails, the
-> reference count remains elevated even though no timestamping
-> configuration was installed, and nothing will ever release it.
+On Tue, 03 Nov 2026 10:29:02 +0000, Wentao Liang wrote:
+> wcn36xx_platform_get_resources() acquires two SMSM state handles with
+> qcom_smem_state_get(). Each successful call returns a reference that the
+> caller has to release with qcom_smem_state_put(), which is only done by
+> wcn36xx_remove() for a device that probed successfully.
 > 
-> Drop the reference count again when the write fails. Also only drop it
-> when disabling timestamping after the write succeeded, so that the
-> reference count always matches the programmed state.
+> Several error paths in between return without dropping the references
+> already taken: failing to get the "tx-rings-empty" handle leaks the
+> "tx-enable" one, and failing to look up the qcom,mmio phandle or to map
+> one of the mmio regions leaks both of them. A probe that fails after the
+> first successful acquisition therefore leaks the SMSM state references
+> for good.
 > 
-> Fixes: c6b36bdd04b5 ("mlxsw: spectrum_ptp: Increase parsing depth when PTP is enabled")
+> Make these paths unwind through the existing label chain and put the
+> handles there.
+> 
+> Fixes: f303a9311065 ("wcn36xx: Transition driver to SMD client")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
+>  drivers/net/wireless/ath/wcn36xx/main.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
 
 Multiple things here:
