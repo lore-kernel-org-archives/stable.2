@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722622;
-	b=5R5SvtEnHWwCgLq//Czr3qQ9NJtaPIkirWcz2aFFlrC4BDiDBZrmSOYHw09CpocBfqS/
-	 tk0iHlxdeKsnHEXr4EMkC7z9bmSgYIbD6teMQaNVW3t4LJZKNO71Kc/xD1LPf6q3BAeb6
-	 5yeFpXGK4XOyJHLittK+K/ANvXCSA2XXnWGnBhK8UiZVe5j2zvtrxJgMnifCn0GQuU1TM
-	 kz+0VikTD1Rr91JX8rLB7bg0P1PumwIsY1bEHsWHbWIR+ILfQ67MOzKxbupksskY898RF
-	 aiCEKJe6O8YiyBXwmB8gWLIdUZgkVsjKK6x1FLIrLUbh+kD55I7U2U/HB0vqEyT8MCQ==
+	t=1793722629;
+	b=XC5YoY1IQuUo+R+5RtfpfoUnfNNEjy8HJ98LZggRtq7F93ojroc5C9Bnp/K/WgMGLAPd
+	 HjyOIcThyZrHX30UkfX/JiZXMb+OqT603qDfLrAb4rKHZczeIdhoXX03dgROb7o72xbzY
+	 ksOndRWky41NWA6BmWWTdAb5wEbun5s36Jh7RQzzKdEwasy/jeFxyJ9EpULNE3C4sgGET
+	 6sYAIh11S/ppEK5VgBw/gXpRo6EAoo5tGmqofIKjkctbYji2c5my1x8OzibZtNKQxrqlc
+	 VBozhqKcScFH7wPd5EtdbEPmyvzvNNm5eZVJdGe6oT8GKlkpznPGGBXx8sf9itYychw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722622;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793722629;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
-	b=ZupuNmgmdCogDsOrCbhGLAQxWsUau8gjfbA79QTitj3lzPLm8osHyJZbi4fnWe9+Ljfn
-	 /K6QCr9p/+GDbnqYd/Gh+5KZFEJskjnI6AuhSJROb9hXSDgud2HQ6LgELi3yrDpZsDnc5
-	 4Sse8QlE04PxZNJ5vqax02Np9qTI0xyCS/SDqTGOZ7eOulDaX6Q8qjgBK6kC0cmxU1UjO
-	 00NlxW2ZZ1GRo5Cd83JcZHVSeJtKCTuXuIDYpxvntoRmMNJTyunVVgijBkqaLS1JSd1Fs
-	 AkOJWgaEDjHUEYOAtGhuIrl8TCCwRO2+3IQPgIHWwnX3G9zPyKxtaFFF1UZSUbGAVkg==
+	bh=UUj+WYRrtKqRc0bHp5Em9fn4QwszF0JuIC3a+tX6dko=;
+	b=MlAti/QlNT1HsVLAg4GLXJWVImIL0Sgmx4qdU//0LCcYlgu0fgz+2qN8Fgp+uWYrmSlG
+	 9qN9q9erm9ikfBM9Ik2z6xHTwKHyn5BZoQYih//d+YqLoks2Sof7LzvBWSHdmUcNrjKSA
+	 qHF/MhZlaiR101SAt4x6z/e36/4gWB7GOHb+NUOCZ39GjJSZU5KX8OT9Vt4dH0s0lTy2b
+	 9C9pCBKXo+pW61BIHN5Gv+64F9EF+vlVUf7sSiT3AfD0JN2WdduBLjgpBNessrHZ+/VzL
+	 Qg6eJScQTSD88MBcymmtxyi7BKX2wAkRV26AesaMCOsXvvb6koHIAQh4wOjXZN6nfdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmV43mOz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dtfmw5F4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B76606EE87;
-	Tue,  3 Nov 2026 16:17:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB481606EEAC;
+	Tue,  3 Nov 2026 16:17:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HmV43mOz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FBE21F0093A;
-	Tue,  3 Nov 2026 16:16:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dtfmw5F4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43F9D1F000C1;
+	Tue,  3 Nov 2026 16:17:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793722621;
-	bh=30qAFA6CCzSksl7jqcRR+D8NveKerXteOKC7Yb7cCqk=;
+	s=k20260515; t=1793722628;
+	bh=UUj+WYRrtKqRc0bHp5Em9fn4QwszF0JuIC3a+tX6dko=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HmV43mOzSIYW7Fqzzpqz0hvDqDm1I7mTGmAhF+mOU6G/sV9c35CEfISlK2ItOEFZd
-	 WOMktGf0v3XfLMGqV9cgWx97bu0HWn/qgbMbte2d+vi8wEeNrJpwLGYcvhmZZI3ZOf
-	 jMBZ4kISM5YzUrGPkNb8ATGwQ4Y/BDN8by9X0l+NL6XwH/rxYd3YJKsY1TVMQbAccK
-	 lgHYRTnm19YRWIRjT7g1F2nGjhvitI2NyfFXS4ZC1gehsPXJ+bC06xyR38sfKIwXNt
-	 GGZCRMa1i3FpZf9/ReFYE5Q8HrpJZ86OC/kxgaeyyDM7S+iYlmOUlkOrrqAC0TogcJ
-	 5ZTISNxEJEpPg==
+	b=Dtfmw5F46EBtVX4RINKR8bLG5H6cahQ8oMuNQSM6n6RgZxHNtjgpgXwIwCGDzi8lL
+	 oNkBZ8Xc3XBYqSOT2v6irYHNzeJilJu5T+9fFqJ0aVgFdpwre5eQTzDHfPhV1oPlPE
+	 LAMseIWhVNEZeEhE0xEoEn0XBklANMf5GcdG5Kv+8kuOl4ho0lw7BBgvunKtOo/XBj
+	 YlUKG/yQfxaot/ENBQxehVQ1eBM/LxcOl6RDwQGKfseS/DGVFmaPlwt9lbx7Uj38RV
+	 z54pE8cGD6zP7dEkdwW8YFmdb2Uh7sFo7nCHNGigtAjaoVJhXkxQlbDnOVFE0bh2IV
+	 G2nzs9kNqsWsQ==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Tue, 03 Nov 2026 17:16:48 +0100
-Subject: [PATCH v2 2/5] mm: page_frag: refill the cache for large fragments
+Date: Tue, 03 Nov 2026 17:16:50 +0100
+Subject: [PATCH v2 4/5] mm/memory_hotplug: resize zones under their seqlock
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-pgalloc-ai-hotfixes-v2-2-e0d2890ab74f@kernel.org>
+Message-Id: <20261103-pgalloc-ai-hotfixes-v2-4-e0d2890ab74f@kernel.org>
 References: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
 In-Reply-To: <20261103-pgalloc-ai-hotfixes-v2-0-e0d2890ab74f@kernel.org>
 To: Johannes Weiner <hannes@cmpxchg.org>, 
@@ -70,72 +70,112 @@ X-Mailer: b4 0.16.0
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-A fragment which is larger than PAGE_SIZE can only be served from the
-32K page of a page_frag_cache. If memory is low and the cache had to fall
-back to a single page, __page_frag_alloc_align() returns NULL and keeps
-that page.
+With CONFIG_DEBUG_VM the page allocator checks that a page which is
+freed, split or allocated lies within its zone. The check reads
+zone->zone_start_pfn and zone->spanned_pages under zone->span_seqlock, as
+memory hotplug can change the two at any time.
 
-Since the offset counts up, this check comes first and is made whenever
-the fragment does not fit behind nc->offset, no matter how big the page
-of the cache is. So the cache is never refilled on behalf of a large
-fragment: with fragsz = 10000 the first three allocations succeed, the
-fourth one and all the following ones fail although memory is plentiful.
-nc->offset does not move either, so this lasts until smaller fragments
-have used up the rest of the page, which never happens if the cache has
-no other user.
+Commit 27cacaad16c5 ("mm,memory_hotplug: drop unneeded locking") removed
+the write side, since all resizing is serialized by the hotplug lock. That
+leaves the reader without protection. When memory below the start of a
+zone goes online, the start is lowered first and the size is raised
+afterwards. When the lowest memory of a zone goes offline, the size is
+reduced first. In between, the zone seems to end before its last pages. If
+one of them goes through the allocator at that moment, it is reported as
+being outside of the zone triggers VM_BUG_ON_PAGE().
 
-The nfp driver allocates its receive buffers with napi_alloc_frag() and
-netdev_alloc_frag(). They are larger than a page with a jumbo MTU.
+Write the two fields in a write section of the seqlock. Interrupts are
+disabled as pages are freed from interrupts, too, and the reader would
+wait for the writer which it has interrupted.
 
-Only give up if the fragment does not fit into the page at all, which is
-what the comment describes. The fourth allocation in the scenario above
-with a 32k page will thus now proceed to refill the cache.
-
-Fixes: 8218f62c9c9b ("mm: page_frag: use initial zero offset for page_frag_alloc_align()")
+Fixes: 27cacaad16c5 ("mm,memory_hotplug: drop unneeded locking")
 Cc: <stable@vger.kernel.org>
 Assisted-by: LLM
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-[vbabka@kernel.org: make the comment more obvious]
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- mm/page_frag_cache.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ mm/memory_hotplug.c | 44 ++++++++++++++++++++++++++++----------------
+ 1 file changed, 28 insertions(+), 16 deletions(-)
 
-diff --git a/mm/page_frag_cache.c b/mm/page_frag_cache.c
-index e63efe78b7d4..8914437ddc51 100644
---- a/mm/page_frag_cache.c
-+++ b/mm/page_frag_cache.c
-@@ -119,15 +119,20 @@ void *__page_frag_alloc_align(struct page_frag_cache *nc,
- 	size = PAGE_SIZE << encoded_page_decode_order(encoded_page);
- 	offset = __ALIGN_KERNEL_MASK(nc->offset, ~align_mask);
- 	if (unlikely(offset + fragsz > size)) {
--		if (unlikely(fragsz > PAGE_SIZE)) {
-+		if (unlikely(fragsz > size)) {
- 			/*
--			 * The caller is trying to allocate a fragment
--			 * with fragsz > PAGE_SIZE but the cache isn't big
--			 * enough to satisfy the request, this may
--			 * happen in low memory conditions.
--			 * We don't release the cache page because
--			 * it could make memory pressure worse
--			 * so we simply return NULL here.
-+			 * The caller is trying to allocate a fragment that's
-+			 * larger than the whole cache page.
-+			 *
-+			 * Either fragsz is larger than PAGE_FRAG_CACHE_MAX_SIZE
-+			 * so this cannot ever succeed.
-+			 *
-+			 * Or the refill has fallen back to order-0 due to a low
-+			 * memory condition. Then we don't want to release the
-+			 * cache page to attempt a new large-size refill because
-+			 * it could make memory pressure worse.
-+			 *
-+			 * So in both cases we simply return NULL here.
- 			 */
- 			return NULL;
- 		}
+diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
+index 0ab9a6e09222..b9f02bc6ed0d 100644
+--- a/mm/memory_hotplug.c
++++ b/mm/memory_hotplug.c
+@@ -461,6 +461,22 @@ static unsigned long find_biggest_section_pfn(struct zone *zone,
+ 	return 0;
+ }
+ 
++/*
++ * The page allocator checks pages against the span of their zone while the
++ * zone is resized, see page_outside_zone_boundaries(). It must not see the
++ * new value of one field together with the old value of the other one.
++ */
++static void zone_set_span(struct zone *zone, unsigned long start_pfn,
++			  unsigned long spanned_pages)
++{
++	unsigned long flags;
++
++	write_seqlock_irqsave(&zone->span_seqlock, flags);
++	zone->zone_start_pfn = start_pfn;
++	zone->spanned_pages = spanned_pages;
++	write_sequnlock_irqrestore(&zone->span_seqlock, flags);
++}
++
+ static void shrink_zone_span(struct zone *zone, unsigned long start_pfn,
+ 			     unsigned long end_pfn)
+ {
+@@ -475,13 +491,10 @@ static void shrink_zone_span(struct zone *zone, unsigned long start_pfn,
+ 		 */
+ 		pfn = find_smallest_section_pfn(zone, end_pfn,
+ 						zone_end_pfn(zone));
+-		if (pfn) {
+-			zone->spanned_pages = zone_end_pfn(zone) - pfn;
+-			zone->zone_start_pfn = pfn;
+-		} else {
+-			zone->zone_start_pfn = 0;
+-			zone->spanned_pages = 0;
+-		}
++		if (pfn)
++			zone_set_span(zone, pfn, zone_end_pfn(zone) - pfn);
++		else
++			zone_set_span(zone, 0, 0);
+ 	} else if (zone_end_pfn(zone) == end_pfn) {
+ 		/*
+ 		 * If the section is biggest section in the zone, it need
+@@ -492,11 +505,10 @@ static void shrink_zone_span(struct zone *zone, unsigned long start_pfn,
+ 		pfn = find_biggest_section_pfn(zone, zone->zone_start_pfn,
+ 					       start_pfn);
+ 		if (pfn)
+-			zone->spanned_pages = pfn - zone->zone_start_pfn + 1;
+-		else {
+-			zone->zone_start_pfn = 0;
+-			zone->spanned_pages = 0;
+-		}
++			zone_set_span(zone, zone->zone_start_pfn,
++				      pfn - zone->zone_start_pfn + 1);
++		else
++			zone_set_span(zone, 0, 0);
+ 	}
+ }
+ 
+@@ -684,12 +696,12 @@ static void online_pages_range(unsigned long start_pfn, unsigned long nr_pages)
+ static void __meminit resize_zone_range(struct zone *zone, unsigned long start_pfn,
+ 		unsigned long nr_pages)
+ {
+-	unsigned long old_end_pfn = zone_end_pfn(zone);
++	unsigned long end_pfn = max(start_pfn + nr_pages, zone_end_pfn(zone));
+ 
+-	if (zone_is_empty(zone) || start_pfn < zone->zone_start_pfn)
+-		zone->zone_start_pfn = start_pfn;
++	if (!zone_is_empty(zone) && start_pfn > zone->zone_start_pfn)
++		start_pfn = zone->zone_start_pfn;
+ 
+-	zone->spanned_pages = max(start_pfn + nr_pages, old_end_pfn) - zone->zone_start_pfn;
++	zone_set_span(zone, start_pfn, end_pfn - start_pfn);
+ }
+ 
+ static void __meminit resize_pgdat_range(struct pglist_data *pgdat, unsigned long start_pfn,
 
 -- 
 2.56.0
