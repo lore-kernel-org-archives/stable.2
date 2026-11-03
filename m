@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793690830;
-	b=LIzQQFXY+DrKpoM+1PxAmXJwfPv1coGCP/xn+YLd0UqWrfzwLQ1SsfJv97OtXRnaoRTV
-	 uirDMsZPoX51X+vdxHATWAOcg+Ekv8Nrvd9wfRuGogU6wsZPCrDnNeUKe+Pi9OL0wc3q+
-	 ZOr/YXAYCb/FrA4BtkLcLr01qNv8BBlYp0zqUflZ3Sdicor14RGaarQZi7H6sH5GWpg6R
-	 s5vyEjOtRSpzZkLE0yzS5H+QNNlBVW5CxCXwdXzIYEuoUUXBxm65ESQce/YfvDVMz0EaI
-	 bPfYdg2t/EW3HcYRZwjvvxP7dhoNBgxx22l18vJ8nKM5SYO77VcGsoWIBesQdExUJ7Q==
+	t=1793690836;
+	b=t+DITP93Xdrtbvmsg8Z6Aw5SumxCiPbVT0b71Vh5fUIqpWwvPVypclYG8uLSZOkdOimy
+	 Ll68q+/UvhPIZ6tlDC2ID19pxP1Jtt+CzYsd66ZzhgdQhHdhkui4dpix2tGpF+V7zlVuJ
+	 NjIRYLNblOU5Y2ADs2yGj9/Oq0OaBb84VpSiMl4o6dZcX/hqjFtJ6rzkvZKlvwDq9BoJW
+	 yuXK4O0D4HFqomk5j2SUDSYq4evw0NKVyxE4Bpkednpe346RHnserx3DLrZDSraYmwM42
+	 O6mEm+0SAPUn2i8AkzKYAoBFbv4/Ceef3LGSBH4owN3ij1dxSTcWY8OdL4/wscGNofw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793690830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793690836;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qBkNWuQjMxbzb8GowBbFRJH6mDDvu8/YycY80DV4sxg=;
-	b=uCqVHN7lZbrXBHnfXjXiocEvOnqGPVbyiKw0ojUQCw8BwBcaIoXutMoWD76wD9UauFr7
-	 TCLCr37UItT+xjMKa/v3ETJ+X1s3/fI6J5U3PHULg4nIvhU+E5bLA4s62Tcf/sTMRY0WZ
-	 IAQ/4OJRpPM75IggjVwkEJ5tJw0C26SBh1ZuclJ6s1DBQf3jwVFVGTGYZH7AJ98KNx3eL
-	 Jl5hQaUOQVWLOUCJaEfV+MMe078oMd01olls1yKAq8g4lRNGuXcr7fORqy9d2rQxFHy4J
-	 /eiEssIHJDN6GQ7/7UJuqhRVqFQex0kRXEC5IHN64NyBoI+y2DecCqYhsPWY4jN+/qw==
+	bh=KnI4XiEEZnUqfonLNz0d3Ky/4+ASOrj10J0r2JYLeWw=;
+	b=SVetFOX7nIGVxnH94lFD8wugnUW8LClYupyHJ4arRsOHePLszMKfkHubeW2GDlRt45df
+	 bpnDNrxVEnzEF7kC2bVm+wvA6Zoga5Iu3PX/ZKzPAGUFhVJUO6OUVoxg9FFi2/9Fs5gGp
+	 5llXuLWMzXs/6N9lxhZgTyl820ohu30FsmKqUKBgYY8yjU5CCTBYvoLqA2j2vXAytqE8X
+	 lp1tHoNBL4USQ5RVR5ew3nJ8AKVskqsDRBX02RAuvUKjdTEo75DR6GMpUGscrU34W12pM
+	 YWZXGhIIZGpTb4Zyk0wGV9iVcobz45JNSUqrRI3zi+ebHZ8FEOO9mhj/X8BBxUvS6tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbp3AaRE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkuvyZkb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C67606D813;
-	Tue,  3 Nov 2026 07:27:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A434606A33C;
+	Tue,  3 Nov 2026 07:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbp3AaRE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618EC1F00919;
-	Tue,  3 Nov 2026 07:27:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkuvyZkb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B7FB1F000C1;
+	Tue,  3 Nov 2026 07:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793690830;
-	bh=qBkNWuQjMxbzb8GowBbFRJH6mDDvu8/YycY80DV4sxg=;
+	s=k20260515; t=1793690835;
+	bh=KnI4XiEEZnUqfonLNz0d3Ky/4+ASOrj10J0r2JYLeWw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mbp3AaREA+dLIfDpOdOXAGyEEA626RN4qLobmzleU2aNSNM8/td25Nk8pMOCoctTr
-	 jMYzKWgtxYkeWB2zS4y34iOmaLVOlYna9L5JnyPf1Bol4+gECftZJhKqJ7xOKtFHiN
-	 p0r00AkQFS5639OZM3rtdgjKV0z5vgOn6xQ7eOmI2k/JAg+1XHR8t20ihuh1HCYzsf
-	 aVHklt2yyd34Vhi+xXnafR0gRb1QJavkbn8D/dSBJBBzYb1GR929qrC+ohqBfcMQBf
-	 T1yFgRQK2gTjn31ot/vydkN/h3FAPrZRCkbSmBybSk2tp6Zpu/usET66v+b+9+aw3w
-	 csJhG2pw1nNiQ==
-Date: Tue, 3 Nov 2026 08:27:07 +0100
+	b=KkuvyZkbLA94fOGAm7ujkNDc/d184aSRYy48LXMILNfwGGx3FaGCIVA7o3D5dLM17
+	 3ncp4S9D3pin1LESv57FNoKc8UzsGQhZMilVWOiOUflcsicjdOVlT0hEC1If7gD96k
+	 6GaB/U/Zwfs9OBCmu/KY2BSry/YdE2w+svqi2T5VAmqpqc3wFn2sKjdCcF6weLgm4R
+	 e/cFhEbm14fY8uuT2yULzBuq+HUSuq/9vz/WS9Tf3MYN7gQebeiqRPA2gfN1gknPqC
+	 E3e/I7fD/wFAXB8pqyyQotx+FZS1fWhPSk8UOeAsq9yHvqHeed3mxGDeD3O3HVcj6Q
+	 Rdb74dbk8CZZA==
+Date: Tue, 3 Nov 2026 08:27:13 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, stable@vger.kernel.org, christian.koenig@amd.com, 
-	phasta@kernel.org, sumit.semwal@linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Release input fences in the unwrap merge order
- test
-Message-ID: <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
-References: <20261103064457.1056056-1-vulab@iscas.ac.cn>
+Cc: viresh.kumar@linaro.org, linux-kernel@vger.kernel.org, 
+	rafael@kernel.org, stable@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH] cpufreq: mediatek: Release DVFS resources when removing
+ the driver
+Message-ID: <20261103-fanatic-grumpy-elk-a1df5e@quoll>
+References: <20261103063609.1028187-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,28 +59,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103064457.1056056-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103063609.1028187-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 06:44:57 +0000, Wentao Liang wrote:
-> The merge order test creates an array and a chain as inputs to
-> dma_fence_unwrap_merge(). The merge takes references to the underlying
-> fences but does not consume the input containers. The success path only
-> puts the merged result, leaking both the input array and the outer chain,
-> which owns the inner chain.
+On Tue, 03 Nov 2026 06:36:09 +0000, Wentao Liang wrote:
+> mtk_cpufreq_probe() registers the cpufreq driver and retains clocks,
+> regulators, OPP tables and OPP notifiers in dvfs_info_list. There is no
+> platform remove callback to undo this on device unbind or module unload.
+> The devm-allocated DVFS information is freed while the list and cpufreq
+> driver still refer to it, in addition to leaking the retained resources.
 > 
-> Put the outer chain after checking the merged result and fall through to
-> the existing array cleanup on success as well as failure.
+> Unregister the cpufreq driver before releasing the DVFS resources and
+> removing their entries from the list, as in the probe failure path.
 > 
-> The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
-> 
-> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
+> Fixes: 89b56047f6f9 ("cpufreq: mt8173: Move resources allocation into ->probe()")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/cpufreq/mediatek-cpufreq.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 > 
 
 
