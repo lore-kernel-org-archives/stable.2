@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702079;
-	b=in8Oz2nl4fopqR4HUTZrpMP9/1crjuYm9EJj5n0EzLwu05aWkdGZdr31MRYZS1Ov8aA+
-	 WSAPr310VLhK9eJLjVr44GSYanEy39a3c/HOZDL/cQn7VOHTOvE0Gv/MAkT/NgucPOFAP
-	 1aT3t0TQ0wStJL7ogoSnmDT3oObRbLDde7GfKBkjhTWAJpVITFwX8RfMMtSUMzWXo/akJ
-	 509BXNPIFqXIFncQbFfzyORR6TwG3H2V26wFEzY/g3NL2m9ht7HWy1WV2xxG6p0IH4LkO
-	 QFsuDotLhusYE8UXFcJVGZ+/x2uXmHogyBnFu9JinQyWqYtLUnRrlxNVMJdxPkLnmxg==
+	t=1793702095;
+	b=mtGe6vxKUaYFVmVN0SMcwE2hKEdDhHxqXwrjgONaHvqTABDNDD65Nb5SSJNctzyplCyr
+	 9FUgR622qrjxS1U4CNDJri9xS/tfZJu/pwyFj+tvXD1i0Ie14ufwC1pnSrV9sHdDhsyAL
+	 DR9rcS8TeWERjvmnMYqWX8FOGQTwxTo3jT7jXf4H+ES2RwoApk/gXtf8Nh+9ZLVI0vC+T
+	 oMJ9ktYoGUka6NvS8oGne8riG9/9DaAKjTtlm1iQvU7JSUqPOIy6Us3NUzynbomok8z9l
+	 MzPGi5c3mi5l1wmOEd4EX6KBjt3yjZHlLQcyQViYtVGl9yUCkOGQ89hTdEwK/OzaH0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702095;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
 	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=jLIcQvXBzyUakPAQDCuqFKVnD0CCPYEJttYB28pFdyRoW1wqmyaoTMDU2J0bLELcD/yh
-	 PBfzmlnds9up2e5xNrSG6fRtuFTnDSKschlAKhydXtif/QvPvbXYxF6LVbO9nFVqHxsKD
-	 2oTbFq/MHo/nIaZv0r/KtR8bo6eMYT4MHzwh9rKqBPKe3hdvYnaMbjGSkzcxIc5BcWi6e
-	 TUZ32vlvK23EU8ior0L1BZrIM24SfbFPqOM/mQZszqo8/2GN8N10InrKAFdJEK7G2o/Jn
-	 Clcslxt/yrfzAf86vjJoHmOnqvylTU1YevfkZPkyuvRVfmW7XhSHpzEBhod+V7OcWDw==
+	b=QY0lFI+x7+yAcrnSiO8G3skikb8sL1nui9pxnhLW5SIfV0m0N2BcrscLzG6GtJ2GihQP
+	 8NIVxPTfY7tchYzywK7szTsH35VHRtbx6+oO9iiPwpDDfkT+nmCkFpJBykEqASglklZ6j
+	 UpmS2nD0shFn7V06Ry3uxMGlPUjs8nVPqZ2HnYb+2ipAqbPEh/onfSq9wNC6QETxppvXw
+	 nPLEqBNznvSJVOV2SKhK9dkjj88ihMxYMOClqbpu6uMK7pEorf20j/lb7OHg6Wknm1/Jn
+	 +fA6cI1SUUqruqqnZBZogG7qlMNmxV6WMZfYIuJau3W/lvNzSpWmV+kr1TZPcENMSfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dupApXeh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWTqbUNX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89B086072CAF;
-	Tue,  3 Nov 2026 10:34:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90612607379C;
+	Tue,  3 Nov 2026 10:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dupApXeh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570DB1F00A15;
-	Tue,  3 Nov 2026 10:34:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWTqbUNX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFFA01F00A15;
+	Tue,  3 Nov 2026 10:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702079;
+	s=k20260515; t=1793702095;
 	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dupApXehiBaqP3jN10iRqYbpNyFl9jy0PbnPU5w/buR0o0sPwfVXBdIgGLvyQLFfA
-	 PyiHdnIukzVYc5kvElp5HX4kL8ey9s+XkeWYM7hDUNCfQzC67EO5rVVt+fp4sPrGnm
-	 5hT7wNu3WsIdIclQVR/DRhaXJlK3msjWLAnz1Vxr249FTyBQ67WmnSt7LgvtWYiDFh
-	 +pp6JZRBcP4WA6noP6mRJFjKWKRkMS6ZgwnlxST9deWS0hirU9YVeRCvIJE6wz5+Rs
-	 xjijji8abSp26Xwf2F9grHrhKA2cjJEFiWN4E0gMP0zH0DLS1dTtdznpu8T4Ag2cZM
-	 U3Ou3UPzlGC8w==
+	b=bWTqbUNXtlq87uBXFvuxGVqBzCszxbq4IsgJQCNluWxJ7q8nseJC5XnT4yKNQrKkw
+	 eH97iAr08WQ+7Mmi8MAy4mWZsAu2EitHj1NJQ8SaqK5TTo/EaXGDc8A/96lNBlb6ml
+	 nFtXfMKPnvX6znfI40Ak+biIHmZ26IR/0hc8z6DCfkDpUAUcvL8y1EFZ2ztcdSUN4p
+	 0iRaF1j7bTYXfj6Mr9kon0s9h1wdOouYI/VJIf9S1FfA6EyG2CZQ9iOlS9xGZGi2AN
+	 dfUGoqARv5XGAePYkdA5zSRIbmhq083j9MpyTPgZ4l0a+OeeDaIdd7p+6qoA+AdLB2
+	 JkJCYl0BkHfnA==
 From: netdev-bot+sinfo@kernel.org
 To: Wentao Liang <vulab@iscas.ac.cn>
 Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
@@ -51,11 +51,11 @@ Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 Subject: 
- Re: [PATCH] net: stmmac: release MDIO node if bus data allocation fails
-Date: Tue, 03 Nov 2026 10:34:37 +0000
-Message-ID: <179370207786.488859.17799263929240060160@kernel.org>
-In-Reply-To: <20261103102856.1340705-1-vulab@iscas.ac.cn>
-References: <20261103102856.1340705-1-vulab@iscas.ac.cn>
+ Re: [PATCH] net: stmmac: drop the runtime PM reference on probe failure
+Date: Tue, 03 Nov 2026 10:34:54 +0000
+Message-ID: <179370209427.488859.7301348378104655949@kernel.org>
+In-Reply-To: <20261103102858.1340765-1-vulab@iscas.ac.cn>
+References: <20261103102858.1340765-1-vulab@iscas.ac.cn>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
