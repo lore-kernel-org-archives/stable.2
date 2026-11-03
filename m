@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793666758;
-	b=JwzzXG4xXOVYiQAe3r57fCKmWIyGwi9jAORIi5AtrpFbNHnaZsNr7ohBl6PNB8UxYqT6
-	 rkC6rOQ8QHaTXFhueCFFjr00Qfp5WzPfvjKiwdj+NJ7tDihiWF4gnoNyJVuDhGcXcR1Yd
-	 kKSlT3Xq1GqzGmsS/mpKN//EXFKv9kdwhkfihUn26V32aE8fUR4g/sWMfensfNLB4JAz6
-	 XbQJRd+WVGFvig1Hxf+r95hObErpMrVVCruex1LW/0sR1v/rbPJGOxyzih41tiIqD/JFy
-	 Yu6PwOoNGpi+FPCEZn1xg/nLCsuHxEnTOXeZr/oJuotkdCOC5HDUiazh2t7TB5FiCtA==
+	t=1793666902;
+	b=rXGemYPj6vx/+cOMIwnF6V5StstyTWwtS338LssWNrSjE0hcSa1XKqZQuW5GWuY/I/ZB
+	 CMTchIku7ab1t3ohPCFByvsOLDpFFHJL0s2B72v+i49pGOnmWz2aLKe+sjtp5fvMWbiOY
+	 8ZYWoq0098+r6xfC1tn4+Ih7LuekKqgE8+FbEXPcdBLYHphsqlmgrM1VvGrMxfQ8vz4n5
+	 cLc8a1uAFt5w+hanSzpaDT7MAPrDVmlbmeU7hw4SnWRqStUw/+fkyX2k8u6wpvvAbbKYs
+	 RG7CGYxuEWK+joPwVUGd0znwqpVjydqiJwNjchqTNbQbRCu9TLIdPk8mBPs4zDAfAUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793666758;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=YDT8UeFw9iQHxfzqDnKut+Nntr+niJNA5KvxwcaOwi0=;
-	b=ljpGzzKRC7p3ueFWAL4XFUzkLxIg/wk/eIDALSUXgRKrgv4J6m3MCyNJBUasZeDxZn0o
-	 zmb3MO0gwKAqw6rixGtBOs1T3K1emrxWOYHTjXgSOB8zYBHkLmRgIFgzcdMJeSuNAjqBP
-	 9emUE4KAd+w4djR9vP2yGS1HfnLw2Q3U3qO/3FH9tQtoBaCOGFuqDqtURW98xlAs9Xefn
-	 kF/P+7rW8lmacCs5kfTS93iYhb3FDmSarJohA3n8NWWLevEBI6FoqV0bOPaKViX0RQ7iX
-	 zziWzlWlkheI8Z2OMOuxaCULVVgjYsLKnP3F0FS6Ek/tpdL5H7Bxer64TRMj2qhq5Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793666902;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=AHyUZ3Ijjty0pNOeStNJjcLtYTK2J89cjjSDYe4hkGM=;
+	b=JpL2CgoXUme91LOuF+YccHiJfr0sYF+zRSKeQWoj9GoqNo17hv+zCBltcr4Yz6d7fo9R
+	 gj0221iSoD+M1r75O9xqF8hLXxSv4N1mZlebpjctBTkTELpQ7q+Jatr/H3QOqmh+7kS/C
+	 YQKDjuObSEl9KlHSYMwU/TyyB5VmtKSF0oveRN3L5K774uq+A620kETyDMSLC0A/1qg8X
+	 V4qKs680C5mIT1ajbb/hgbBMXQDsFAeZtEOUAtwNe7gYP8TTPGyWja5TP+A4hCMFw/WWr
+	 j2z5oVQOYo27cMj8eDXC7rpae5XX1f6eSyEGJNmsDF3cP9Fzt6mN6bvEsorcA6lpq+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=hXbhxu8y;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDLhF0cF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AFE606A332;
-	Tue,  3 Nov 2026 00:45:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26AFE606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1DC606A334;
+	Tue,  3 Nov 2026 00:48:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=hXbhxu8y
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 533e14b16;
-	Tue, 3 Nov 2026 08:45:53 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	Thierry Reding <treding@nvidia.com>,
-	Scott Branden <scott.branden@broadcom.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 0/2] mailbox: bcm: Unregister controllers before destroying DMA pools
-Date: Tue,  3 Nov 2026 08:45:50 +0800
-Message-ID: <20261103-cmc-mailbox-bcm-0-a4f6f65a1e@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TDLhF0cF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 835551F00919;
+	Tue,  3 Nov 2026 00:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793666901;
+	bh=AHyUZ3Ijjty0pNOeStNJjcLtYTK2J89cjjSDYe4hkGM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TDLhF0cF+F4pH6d21El1u9nEpQroY+RKEgJ5HGEIT+hhO5sku3YGQWRadYk5RAgc0
+	 zrvH33OMlwUOyKC+ZyQIpbSE0v+8QNTaE1V0ZkBEb3Zai+M0C2Tftofoq3vyobX1zX
+	 1B9qqcCOV8Cklc1FLnAFbevj+xF8392omZADQCz0/fRXoq06vMsUqPGqGLqbDoHRFG
+	 Fkox8dqFUTkfcw1YHgMpMmMqtGh7URu35d9a2eB6uncfhnxkr8bpaQfEv47qtBYFez
+	 SDc0BnY9Eq6N3Aes682GGTzdHoyI/18TW+0iF7R/NZgXhac+5p2nFle/UDToqEB3yB
+	 iPE82wgdSNbag==
+Date: Mon, 2 Nov 2026 16:48:20 -0800
+From: Wei Liu <wei.liu@kernel.org>
+To: Yuho Choi <oss.patchbox@gmail.com>
+Cc: Wei Liu <wei.liu@kernel.org>, Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Nuno Das Neves <nunodasneves@linux.microsoft.com>,
+	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>,
+	Praveen K Paladugu <prapal@linux.microsoft.com>,
+	Tianyu Lan <tiala@microsoft.com>, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mshv: Don't free overlay pages after a failed unmap
+Message-ID: <20261103004820.GA1862133@liuwe-devbox-debian-v2.local>
+References: <20261102025754.257856-2-oss.patchbox@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,36 +61,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa19edea36c03a1kunm5eb36721118233
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGE5LVkNMHk9JQx0eGktMTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
-DKIM-Signature: a=rsa-sha256;
-	b=hXbhxu8yKGO08y55zW0KHpXH5RFeCRLO1fzFnb/XmMF1aFP0uMVJdwZOwXcjfLLEdE7k14QRwll7svMqROK9qTQLgsblhRmRmvwEysfQSjOFFcdzLc+KP03BHbCe579VEMgakpKCUOqjFuuUTxmQ8Hp2WKuRwoeiKVlZGMu8hVE=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=YDT8UeFw9iQHxfzqDnKut+Nntr+niJNA5KvxwcaOwi0=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102025754.257856-2-oss.patchbox@gmail.com>
 
-Explicitly unregister the Broadcom FlexRM and PDC mailbox controllers
-before destroying their DMA pools, so channel shutdown can still
-release its ring allocations.
+On Sun, Nov 01, 2026 at 09:57:42PM -0500, Yuho Choi wrote:
+> On L1VH partitions where the VMM can provide overlay GPFNs, the kernel
+> allocates the VP state and stats pages and supplies them to the
+> hypervisor as overlay locations through hv_map_vp_state_page() and
+> hv_map_stats_page(). The hypervisor may write intercept messages,
+> register state, and statistics to these pages. Only a successful
+> HVCALL_UNMAP_VP_STATE_PAGE or HVCALL_UNMAP_STATS_PAGE confirms that the
+> corresponding overlay has been revoked.
+> 
+> hv_unmap_vp_state_page() and hv_unmap_stats_page() free the overlay
+> page regardless of the hypercall result. If the unmap fails, revocation
+> is unconfirmed, but dropping the driver's page reference may still
+> allow the page to be returned to the allocator and reused. A subsequent
+> hypervisor write through a retained overlay could then corrupt an
+> unrelated kernel or user allocation.
+> 
+> Free an overlay page only after the unmap hypercall succeeds. On failure,
+> leak the page rather than return memory that the hypervisor may still be
+> able to access. This matches how the rest of drivers/hv handles pages
+> whose state is unknown after a failed hypervisor operation; for example,
+> hv_free_page() leaks a page that could not be re-encrypted. Log the
+> leaked page in both helpers, as some of their callers discard the
+> return value.
+> 
+> Fixes: 19c515c27cee ("mshv: Allocate vp state page for HVCALL_MAP_VP_STATE_PAGE on L1VH")
+> Fixes: d62313bdf596 ("mshv: Introduce new hypercall to map stats page for L1VH partitions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
 
-Prepared with AI assistance and reviewed by the submitter. The affected
-objects were build-tested with W=1; configuration details are included
-with each patch. No hardware or fault-injection tests were performed.
-
-Guangshuo Li (2):
-  mailbox: bcm-flexrm: Fix potential use-after-free during removal
-  mailbox: bcm-pdc: Fix potential use-after-free during removal
-
- drivers/mailbox/bcm-flexrm-mailbox.c | 4 +++-
- drivers/mailbox/bcm-pdc-mailbox.c    | 3 ++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
-
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
-
+Applied. Thanks.
