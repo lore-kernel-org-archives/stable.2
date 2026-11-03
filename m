@@ -1,47 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694884;
-	b=hVwTQJ+ht1Hu0t4d+L6PPJ79TZZVDImVVIQuUMDz/lV5cvhNU7PNFyxooKef++6AU0wf
-	 TltFAde/owImSgPpjXxEBM5pZrm+zI1KYvBIvn7c8YxuslRODHSCOut0/sFWXuqSHsSmM
-	 tI06uZSvN9OT0JD8SMJ2/VZTboyJZOttpRNH7f1YzBkmWgXm+97VKCl2dj/u/6bbA02Wj
-	 YE5UjSGFzz8FqmEDkvGBs3Hsc3X5FtC3DD2E5rizvleLQiCzoPMB8El+xI9Qp/1MV1AYJ
-	 +zIW7iIB2q4A/42GnQk8ORQ8nyjvF7ixkJHkKAM4RrJ8ZqccCEeqmvdECD7SReY/dbA==
+	t=1793694930;
+	b=xbRt4daAmwPTNyuV5ev5LcFueaE10ZPh6Ws58DkuUdbo+ge9++6GEoufa/qDASGGhTpc
+	 4bY1u0C/SEWbU+nFVRIofhsrAN3Zsp8iizWOA5xsYlH1yQwdkRxJkyZzPlI01AM2BhicH
+	 lF0/0kkMJ27nijdKxidgnOuaOI2+X6g1lVvCglUrKO4DU3UF7taWXc1+BKO106Gw2C2He
+	 7YOskJxPgE13B8Z7yzDAezH5qtPH0QB7xjwL2cgDplepm8hddYD2zHdSOD1o7giLqCvHp
+	 6goDrebgiIxfufSa7RSGOh9PS5B3kyC18uAgRdsccbdhuipehHBjakCzIO70P9m29QQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694884;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
-	b=mFSZAWyrHiqA87w/xcY1DRLZAidDPfvE+plordBof8uzniSppLF3pvUMj+FFBrFK99Od
-	 OA0al8zq6T4ZuI3umXHtCqFDqbgN5YOL4ZCjRwTH7QYvTLQyxzFyJ662e1OF+rc7xXQRy
-	 8GBPyArCPPvh2XYnoYQQmaxcmFk1llwRyo54HZ5QgZQ/ZewqIdC/0JvwDxX3v5v++klxg
-	 wa+EEZImX5DcQYfWMSYOWrB6lmIb7Wef1WxCsv/NP+CvyWrNOS4Nz8neEBb1BUl/Hf3v/
-	 n7tFdb5rmu5tKtGOSlInOWHnlYY012mQZmbF7n0+zIztIK1V7CfldEVg5F/XXTa6z/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694930;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=/++6gQgv4rDBRyHw0HFXknbo6zEY8ME7pabSVyOedNw=;
+	b=r2JfvndCYhfTyPbuDzM9GLEA8u1FTMMsZjgsn2zwa0T5prrJK5sTl/2WS4i1g3FYSfPa
+	 YcR15HZs1pucWokUfaovJxjxgUxPZMshg4IUkzclEwJozPKrehJdF/top0iiw1uUzTpMg
+	 9pPREpfVihFsytrT0/SDfIBm9Yz5ay7SZAlNilBdIPurTC9uzXoN93x/M8zoUJYGiv+5o
+	 lQAbTnqKMi0ENOX9PfEFJ65Z1hw236BPKqnCy92MatpaSkmoMieHEBKmZ/w8mSl3YFM9Y
+	 YGawejgkDNHEDCqRx8Q+MD9mh4IK7eog/57H1UNZpsGDMjSokkzppHhjFkF4KAKXhgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr;
-	arc=none smtp.remote-ip=220.197.31.8
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FE9B606A33D;
-	Tue,  3 Nov 2026 08:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FE9B606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=ULPGn0tr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=iXihXJUZiRcyhz06nhVB/zy3BWmg+wdNRE4618SH1bE=;
-	b=ULPGn0trtEIuH1ItAI7Al8o1iBVxxYZzSH443PnwE1q6MvYpni6ltJNWr5vIlS
-	QclktdtFucemnvzVKMX+B0v3bxl12PIjvF93iSlaT1+K2lRZbrNdE2gROIZJrNiM
-	Ex16D8oszTa2SFOsEnzJZy8I3+dWrOWUsYqlcqcYBLcPc=
-Message-ID: <d02b00db-d916-412b-ad6c-21959c63c43a@126.com>
-Date: Tue, 3 Nov 2026 16:33:57 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D19606A32D;
+	Tue,  3 Nov 2026 08:35:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0D19606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3wJHMnOlqqII6AA--.1383S2;
+	Tue, 03 Nov 2026 16:35:24 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: tiffany.lin@mediatek.com,
+	andrew-ct.chen@mediatek.com,
+	yunfei.dong@mediatek.com
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mediatek: vcodec: Free encoder controls when setup fails
+Date: Tue,  3 Nov 2026 08:35:33 +0000
+Message-Id: <20261103083533.1176842-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,80 +57,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] l2tp: fix use-after-free in l2tp_udp_encap_recv()
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, gnault@redhat.com, kuniyu@google.com,
- michael.bommarito@gmail.com, alice.kernel@fastmail.im,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, xiaolinkui@kylinos.cn,
- stable@vger.kernel.org
-References: <20261027063657.1359170-1-xiaolinkui@126.com>
- <179340002340.3131.5823454250644987437@kernel.org>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <179340002340.3131.5823454250644987437@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wD3n7Z1nOlqrY+CCg--.63128S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZrWUGryrWFWrJrW8GF17KFg_yoW5GrW3pF
-	yxWF4DJr1vqrs7Zw4qy3WUXr1fGa1SkayrJa48CFy3Zws0g3ZaqrW2ya1Yvay3ur1vk3yj
-	ya10g3y8Jr4vkFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UajgsUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBdZMGrpnHfAngAA3g
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3wJHMnOlqqII6AA--.1383S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFy3Ar1kXr43Xr48Jw45Awb_yoW8Cr18pF
+	yxKrW2ya4UJFs0vF48Aa18ua4YkFWfWryxGan0v34xA3sxXr4xXryIva4fZFZ7GrWDKa45
+	XrnFv34xWr4jvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JjU-B_UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMAA2rpWwr-jAAAst
 
+mtk_vcodec_enc_ctrls_setup() can fail after creating some controls. On
+that error, fops_vcodec_open() jumps past the control handler cleanup and
+frees the context, leaking the handler's controls and allocation.
 
+Use the same control handler cleanup as the later m2m context creation
+failure, and remove the now-unused label. No m2m context is released on
+this path because its initialization has not been attempted yet.
 
-On 2026/10/31 06:40, netdev-bot+sashiko@kernel.org wrote:
- > - [Medium] The commit message describes a use-after-free that no code
- >   path in the current tree can trigger.
- >
- > Can the backlog path described here actually be reached?
+Fixes: 4e855a6efa54 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Encoder Driver")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ .../platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c      | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Agreed -- it cannot.  pppol2tp_backlog_recv() is the only
-sk_backlog_rcv callback that calls l2tp_udp_encap_recv(), and nothing
-ever queues skbs on a PPPoL2TP socket's backlog: sk_add_backlog() is
-only reached from __sk_receive_skb(), tcp, sctp, tipc and x25, and the
-__sk_receive_skb() callers (pppoe, pptp, l2tp_ip, l2tp_ip6, phonet and
-vmci) all target their own socket families, never a PF_PPPOX /
-PX_PROTO_OL2TP socket.  pppol2tp_recv() delivers payload with
-sock_queue_rcv_skb(), which does not use the backlog either.
-
- > The live entry point is the UDP encap hook set up in
- > l2tp_tunnel_register():
- >
- > 	.encap_rcv = l2tp_udp_encap_recv,
-
-Right.  That hook is only called from udp_queue_rcv_one_skb() and
-udpv6_queue_rcv_one_skb(), under the rcu_read_lock() taken in
-ip_local_deliver_finish() and ip6_input(), so the receive path always
-holds an RCU read-side reference.  Combined with the kfree_rcu() in
-l2tp_tunnel_free(), the tunnel memory cannot go away while it is being
-dereferenced, and a strict grace period still cannot end inside a
-read-side section, so CONFIG_RCU_STRICT_GRACE_PERIOD cannot expose it
-either.  The description of __release_sock() in my commit message was
-accurate in itself, but the path is unreachable, so presenting this as
-a reachable use-after-free was wrong.
-
- > The reordering itself looks correct as hardening. Would it be more
- > accurate to describe it that way, and to drop or justify the
- > Cc: stable tag, rather than present it as a reachable use-after-free?
-
-Agreed.  I will respin with the reorder described as hardening: it
-removes the dependency on every caller of l2tp_udp_encap_recv()
-holding an RCU read-side reference, which holds today but is fragile.
-The subject changes accordingly and I drop the backport tags, since
-there is no reachable bug to backport.
-
- > Also, pppol2tp_backlog_recv() appears to be unreachable, and it passes a
- > PPPoX sk to a function that expects a UDP tunnel socket. Could it be
- > removed as part of a respin?
-
-Agreed that it is dead code.  Since it is a cleanup rather than a fix,
-I would rather not mix it into this series.  Its removal is already
-covered by Qingfang Deng's in-flight net-next series ("l2tp: ppp:
-remove unused backlog callback"), so I will leave it to that thread
-instead of posting a duplicate.
-
-pw-bot: cr
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+index 4e4541b2fc8e..dd47feea6acd 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+@@ -140,7 +140,7 @@ static int fops_vcodec_open(struct file *file)
+ 	ret = mtk_vcodec_enc_ctrls_setup(ctx);
+ 	if (ret) {
+ 		mtk_v4l2_venc_err(ctx, "Failed to setup controls() (%d)", ret);
+-		goto err_ctrls_setup;
++		goto err_m2m_ctx_init;
+ 	}
+ 	ctx->m2m_ctx = v4l2_m2m_ctx_init(dev->m2m_dev_enc, ctx,
+ 					 &mtk_vcodec_enc_queue_init);
+@@ -191,7 +191,6 @@ static int fops_vcodec_open(struct file *file)
+ 	v4l2_m2m_ctx_release(ctx->m2m_ctx);
+ err_m2m_ctx_init:
+ 	v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
+-err_ctrls_setup:
+ 	v4l2_fh_del(&ctx->fh, file);
+ 	v4l2_fh_exit(&ctx->fh);
+ 	kfree(ctx);
+-- 
+2.34.1
 
