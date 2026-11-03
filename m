@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793699197;
-	b=uOHh+cO79ugdHSjC2xGu6irdjz6Zar30l8HTgOJT0wG9d+haosNRMUDnicMlfrWP3iiu
-	 jK5EbSXx5qPlMqoWp8XnuwJ86MjQXXP7s/C5nLoLLp2ZGf6vk+KQP9h0v5b4DFkvApfA8
-	 4CCoH2qVaBdGMB9WlWR0zmwdDS1l2cg4wpvfPkIpHCfwedskqJP3kSPUvqJQk7rI3LRTO
-	 EFRKTLGrTVhu0HB5SjlHXOyaX+iz9UAF9L2PC3SBQ8SkdAGzpX2Pe71DHVAlhlYt+MjoR
-	 Ucq/DAngKp5hPnSmebZIOgV5Q/GRltGifvcgWH9PEAlNiNp8COv0HpFySvETPvmYCrA==
+	t=1793699201;
+	b=aTUnl4dcXATUx2PPV8MBcMC25dMtX0HiepmX0NwP4pH64Oiyk93UEd5FBOGnAuEFqmPX
+	 ygccaJSNtp3QIsavk0QOmvgjIjy4Ui1mJ8y0e1xNYbs+qs7/XfHkRQCFy06M9S9d8CZn2
+	 rV3Q422fuu9UokooRkuHpyA0QDAyhOLMwdP1iWS5tuP/OAGD1TrMq/mjCo6TQkdaWDsqS
+	 Wk8o7UztukgH7TeYl+gUCWcPIst6TeGVK1JMMf+vocumd7p0wtRcPE7An4AT2V75H5GST
+	 kFbNsnBb+wowRjWILVvLDt/eQJphzAFGK1S/5C//V7XxOygnn1JeDldcEz1Qb788E8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793699197;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793699201;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=dtKsH0jS+laGioqm28BDiqTDI0Fspbluk66RTVMMyS0=;
-	b=RvZrSf5XVjCZrNltu7C/jrxsw9/hSw899YMWWUDyBiSTz0Q+SOIJkqCy+ESBMzdY+JbN
-	 WR30laSu8z4gRZGsVUMqZ/iWR5XxZI9SLkJbiNCKux4l89cueTuoJH6gM+xKyE7Q3SbnI
-	 /iUg+IKkGHZO4K0azE7cSxHZw05jtT+NfINhnS+fnBsKfwnnKwabsKfNbkdcpLlraI5IA
-	 2umwDLfdMhvQQOL7DXa9v4IbUEdHXNoGJs8XZOdcGR/96gqjjeUsn4bShwbN/KdEjm3yI
-	 I8XdVOc9g96cIhX9ethRXSpAw977ecFuL5haKUoW1zKPrvXEHy2yjDLRTLhHJWJ0ZVw==
+	bh=y0bvXf1h7Wz+f0YJZfiRLxuceLa0NyfzQU1Grzqc+gw=;
+	b=wfqo6w7VOirXSDJFXLoXXiXkxajQ1+rYM5vOxhSW4BZ7XzwkBf+TEDqVuqntfqhqTn18
+	 NVYc9Llafo/dARv1GpXdJUvkVXWqX8mof72HZzJaO2vg3R4FdCXsSVCwvFAT1NHCzIvTQ
+	 9XjsNQ1wE5j/sYAAIGL5q4kDtyrtd7R835tOFOC6Z2Z54fJiuHy73u87R6rv2xskGIS3K
+	 nbKimekbZa1RrbWVI78kTVlYSqJMgkibyjoWfaWx7VnytGmCJl9ydqAuXQNq0Dmwy0apS
+	 2xAU2drJ85hvpqo6GKL/UsK9s0jBtAMkN234UJzQVIJaMqsb1f+TCW6DmMVQP1MSGXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,24 +25,24 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD60860A3810;
-	Tue,  3 Nov 2026 09:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD60860A3810
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 330E4606EEAA;
+	Tue,  3 Nov 2026 09:46:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 330E4606EEAA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3xZZ6relqDVA7AA--.2343S2;
-	Tue, 03 Nov 2026 17:46:34 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowADH15h7relqEVA7AA--.5157S2;
+	Tue, 03 Nov 2026 17:46:35 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Coly Li <colyli@fygo.io>,
-	Kent Overstreet <kent.overstreet@linux.dev>
-Cc: linux-bcache@vger.kernel.org,
+To: Michael Hennerich <michael.hennerich@analog.com>,
+	Lee Jones <lee@kernel.org>
+Cc: mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH RESEND] bcache: Release the cache kobject when cache_alloc() fails
-Date: Tue,  3 Nov 2026 09:46:43 +0000
-Message-Id: <20261103094643.1289833-1-vulab@iscas.ac.cn>
+Subject: [PATCH RESEND] mfd: adp5520: Release the subdevices when the client is removed
+Date: Tue,  3 Nov 2026 09:46:44 +0000
+Message-Id: <20261103094644.1289853-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,10 +54,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3xZZ6relqDVA7AA--.2343S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF45uF4xCw4ftF18tw48tFb_yoW5KF18pF
-	WxKry3tF4kXw48JwsrZF1kWFyrA39aqFZ8Ca4Svw12vrn8Xr1F9F4vvw10vF1UZrykJa1a
-	qF45Ka1UWF15AaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowADH15h7relqEVA7AA--.5157S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw1DJw45Jr1rZr4DWF15Arb_yoW8ZrW7pF
+	47Wa43Crs8XF12kw47Zr1rCFyrAa1SyrWUCFn3Gw4a9F45CryftFyIqFWjyF13CF1fCa12
+	yw1rtFWUAFW8CF7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -71,94 +71,60 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxuF45uF4xCw4ftF18tw48tFb_yoW5KF18pF
 	AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWx
 	JVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
 	Uua0PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMAA2rpnOFPQgAAs-
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpnOFPRQAAs6
 
-cache_alloc() initializes ca->kobj with kobject_init(), which takes the
-initial reference on the kobject, and takes a reference on the bcache
-module.  The object is released later by bch_cache_release(), which also
-drops the block device, puts the super block folio, frees ca and drops
-the module reference.
+adp5520_probe() registers up to four platform devices (keys, GPIO, LED
+and backlight) as children of the I2C client, but the driver no longer
+has a remove callback.  The callback was dropped when the driver was
+made explicitly non-modular, on the assumption that a built-in driver is
+never removed.  That assumption does not hold when the I2C adapter the
+client sits on goes away: the driver core still calls the driver's
+remove callback, and without one the child platform devices are never
+unregistered.  They stay registered, keep a reference on the I2C client
+device and leak the memory they were allocated from.
 
-When one of the allocations in cache_alloc() fails, the function frees
-only the buffers it managed to allocate and returns an error.
-register_cache() then only calls fput() on the block device and returns,
-so the reference taken by kobject_init() is never dropped: ca is leaked
-together with the super block folio and the module reference.  The
-comment on that path still claims that ca->kobj is not initialized, but
-kobject_init() is the first thing cache_alloc() does.
+adp5520_remove_subdevs() already exists and is used by the probe error
+path, but it is not reachable on the removal path.  Add a remove
+callback that unregisters the subdevices and drops the interrupt, in the
+same order as the probe error path.
 
-Put ca->kobj on that path so that bch_cache_release() runs and releases
-everything.  bch_cache_release() frees ca->buckets and ca->prio_buckets
-as well, so clear those pointers in cache_alloc() after freeing them, and
-drop the module_put() from the error path because the module reference is
-now released by bch_cache_release().  Skip the bucket page free in
-bch_cache_release() when cache_alloc() failed before allocating them.
-
-Fixes: cafe56359144 ("bcache: A block layer cache")
+Fixes: 6b09274bacc7 ("mfd: adp5520: Make it explicitly non-modular")
 Cc: stable@vger.kernel.org
 Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/md/bcache/super.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/mfd/adp5520.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-index 97d9adb0bf96..5d4975873c2e 100644
---- a/drivers/md/bcache/super.c
-+++ b/drivers/md/bcache/super.c
-@@ -2221,7 +2221,9 @@ void bch_cache_release(struct kobject *kobj)
- 		ca->set->cache = NULL;
- 	}
- 
--	free_pages((unsigned long) ca->disk_buckets, ilog2(meta_bucket_pages(&ca->sb)));
-+	if (ca->disk_buckets)
-+		free_pages((unsigned long) ca->disk_buckets,
-+			   ilog2(meta_bucket_pages(&ca->sb)));
- 	kfree(ca->prio_buckets);
- 	vfree(ca->buckets);
- 
-@@ -2364,8 +2366,10 @@ static int cache_alloc(struct cache *ca)
- 
- err_disk_buckets_alloc:
- 	kfree(ca->prio_buckets);
-+	ca->prio_buckets = NULL;
- err_prio_buckets_alloc:
- 	vfree(ca->buckets);
-+	ca->buckets = NULL;
- err_buckets_alloc:
- 	free_heap(&ca->heap);
- err_heap_alloc:
-@@ -2380,7 +2384,10 @@ static int cache_alloc(struct cache *ca)
- 	free_fifo(&ca->free[RESERVE_BTREE]);
- err_btree_alloc:
- err_free:
--	module_put(THIS_MODULE);
-+	/*
-+	 * The module reference taken above is dropped by
-+	 * bch_cache_release() when the caller puts ca->kobj.
-+	 */
- 	if (err)
- 		pr_notice("error %pg: %s\n", ca->bdev, err);
+diff --git a/drivers/mfd/adp5520.c b/drivers/mfd/adp5520.c
+index bd6f4965ebc8..6b53b00efe52 100644
+--- a/drivers/mfd/adp5520.c
++++ b/drivers/mfd/adp5520.c
+@@ -305,6 +305,16 @@ static int adp5520_probe(struct i2c_client *client)
  	return ret;
-@@ -2408,13 +2415,12 @@ static int register_cache(struct cache_sb *sb, struct cache_sb_disk *sb_disk,
- 			err = "cache_alloc(): unknown error";
- 		pr_notice("error %pg: %s\n", file_bdev(bdev_file), err);
- 		/*
--		 * If we failed here, it means ca->kobj is not initialized yet,
--		 * kobject_put() won't be called and there is no chance to
--		 * call fput() to bdev in bch_cache_release(). So
--		 * we explicitly call fput() on the block device here.
-+		 * cache_alloc() has already released the buffers it
-+		 * allocated, so go through out: to drop the reference
-+		 * taken by kobject_init(); bch_cache_release() then frees
-+		 * ca and drops the block device and the super block folio.
- 		 */
--		fput(bdev_file);
--		return ret;
-+		goto out;
- 	}
+ }
  
- 	if (kobject_add(&ca->kobj, bdev_kobj(file_bdev(bdev_file)), "bcache")) {
++static void adp5520_remove(struct i2c_client *client)
++{
++	struct adp5520_chip *chip = i2c_get_clientdata(client);
++
++	adp5520_remove_subdevs(chip);
++
++	if (chip->irq)
++		free_irq(chip->irq, chip);
++}
++
+ static int adp5520_suspend(struct device *dev)
+ {
+ 	struct i2c_client *client = to_i2c_client(dev);
+@@ -341,6 +351,7 @@ static struct i2c_driver adp5520_driver = {
+ 		.suppress_bind_attrs	= true,
+ 	},
+ 	.probe		= adp5520_probe,
++	.remove		= adp5520_remove,
+ 	.id_table	= adp5520_id,
+ };
+ builtin_i2c_driver(adp5520_driver);
 -- 
 2.34.1
 
