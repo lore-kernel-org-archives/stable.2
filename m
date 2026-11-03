@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700948;
-	b=LYDcER6YD+8zQyNzBBTaq6yjd2hGz7ApWEIGF/ntA8B6JixShNgk4aDEPK/czWLkvf1Y
-	 rSJuVfl42l37j+sg2w5NfCZdlNwamG8vWUzjLNzi0ZcjoHFP2CAvYPHo+Ed/rtKUBtgxQ
-	 X7vcIPaA55Pnq/82YBneiEAYWI07sx5pw0GFQxBKU/FjSKrD5afZfvRd3Gz/zEt/4nE0F
-	 IuuBHij8+od9oXuBpDr+bWoQbKWe2as7DUiA5abOZE2+zKrKkly9R8oNeFGVlTr3pC/pg
-	 rTKhZaAjsc+Go7CwpYGNme4sY9R6XQ1fk5J5PRQB9YXQZZOwxbkwZtv0WpPV4fQPyrg==
+	t=1793700949;
+	b=HUH+izy/N9mBdksL1lCa0r7XnmB5iYFXnRSd4RUOSG5J/k54oOezigCfcq1hi+DtmrCQ
+	 BhxVBEQeSGRVuggIIdUYWRPoGdtXs/UcRzAT/h8YYWpE9EYsF7CgegDHtV0Ete7l2datk
+	 4vhW+7p3KGJ2aANqxtTjRDJmobMwFsCnyDA0ouCnWeh3TqWR3HLjwQ6Yhnk3Xo6Pa54g3
+	 VFiwwJNOyz18bMf7b15LoZyvzwKYzTZOGfqRYzEusQWgyGLkxSX6jOLwl2rz5DEaJ+nfA
+	 X3LadeK53drDQI3s1++EysMe0KG07rnsgma4EhSoPgnFLpSf/cB2hocpVnzL+Gg+09A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700948;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700949;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vYI8IozxvSI39VQFR+h1Jw1oziXAryRAbwkDrWLHrIg=;
-	b=EmHSBz3esepycPMurRnICeL0l6Cd4Ll4aGKGku6+HiCSAoENXoJIceZcK25O3/JuQSby
-	 5eCtdaCWQQZVPITyeMnwWs6DoRroXLZjgw6m6IZHwTCS1K27qPW5P+9TidO1H6qDlfFJD
-	 kVuKcKFR0q2ZeFj5jq5jYI4bg0wps/VG6K/c6oW4k1bRgsNMZpO3YckzaAgjxNn3nb94u
-	 0z22ejVHTCTZu+W3k+4VXlH4L+xmvzuLIhrPpWjQX/HMg57/ZtFCpjkMwmA860dVzAtL4
-	 sMMUunI7dWXww/HBiqdt2Ud4rWxgfukQownA/mdxOA/B8QXL4cfj4UWEQXa3j31/CEQ==
+	bh=ll8bk4nlcuShurPWZD7LgAUI2WAWF2/vV6yd7SnPDLY=;
+	b=22gjA3nKQ9Gx4+PFI1ILuYX1E1XfCQutePk0Hsz/fUq9lIOcQAMHluiW9VeUZRUBwgk1
+	 OpNPDvywxliuV6KkDI8fRuS3JncSyvcUvnyplrXxXOp92VmeoJuB7HB9U08xAWbRvuBOD
+	 JYTep2rgLRFfzA081Qq6z8+6QuyQkqu9mSdGmd9Da0rUN7N8qLBdPZRI23T+c2WQ0eNfu
+	 FY6pLKMA8G7oP8tbNYi4oHclAvGOg4zzIlg9UasQolUxvlhSanu3Nx0TmkQiua3oLreXk
+	 9cNNYVk+C3PrbUzTmdrYtxjPfXmapBhf5pbZ80sKk0jn2pGRNM6X9w4Au2bknQz8hzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B6MZtAea;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Ng5fZxC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A33606A324
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:15:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D2A606A324
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:15:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B6MZtAea
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434361F00919;
-	Tue,  3 Nov 2026 10:15:47 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0Ng5fZxC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE5B01F00A16;
+	Tue,  3 Nov 2026 10:15:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700947;
-	bh=vYI8IozxvSI39VQFR+h1Jw1oziXAryRAbwkDrWLHrIg=;
+	s=korg; t=1793700949;
+	bh=ll8bk4nlcuShurPWZD7LgAUI2WAWF2/vV6yd7SnPDLY=;
 	h=Subject:To:Cc:From:Date;
-	b=B6MZtAea8NUA1VAYDbOgOglXLK0h0Ik6R2F9CfzGmp3DOnlc1FXVVUpfgVWVqUYPi
-	 bYGlC/XqiVZVi9eP2L8ZhgR3xJ3MnCCiRu8nOAWMwU8AzXkN5Vt6qtedkyTK3H5N7B
-	 V6OaQvBrHJKnLZb/0P/G1+Tb1Zws7nenDx0jk1SA=
-Subject: FAILED: patch "[PATCH] ksmbd: deny access for an empty DACL instead of granting the" failed to apply to 6.1-stable tree
+	b=0Ng5fZxCZgGgo3A8oYZgwoWnnQDsCbg8GQAdQINYrFFD+wLeKxL1kdpZZA2Nb3fN+
+	 RnaqzgW7LQl2v9/pUDKbMeQhrgNAzVGjCKHeGAdebKRkmPUCc69wChqD6P87Xqr7Ul
+	 y9RB1iGxtyBuCMG3c1GJ/UF1/iikm7A+kr/rK/Jk=
+Subject: FAILED: patch "[PATCH] ksmbd: deny access for an empty DACL instead of granting the" failed to apply to 5.15-stable tree
 To: elb12345@hotmail.co.uk,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:15:40 +0100
-Message-ID: <2026110340-coronary-asparagus-007c@gregkh>
+Date: Tue, 03 Nov 2026 11:15:41 +0100
+Message-ID: <2026110341-humility-impale-9ed2@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x de0cffef897c1c232ed973f89928cd6c93d0b1e3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110340-coronary-asparagus-007c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110341-humility-impale-9ed2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
