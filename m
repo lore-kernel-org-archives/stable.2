@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793700785;
-	b=S1JavoaH+3RI2wzKgy1SmgagD8diRGieYVUsH70iNOBL84nR+yc/Aj4qCWkm3NW5HA43
-	 k8Y69QW7/gerBo/p4A366ITjBmyyW8toI2whYjiGxtn0UcXP75qxaJLLmoFBx+EfquVWK
-	 +3vncKSkNumCrjunrzm/JWo9b1LZzmr87GL8UUt59QxkjmRnx0DU5BUuLkxBEhw6iG710
-	 RkeBfjjQ0asXWFWBg/uZp1IOYggpyydn4vOvapJ4xWbLOgicOGtCokccd06c4OT4s7mME
-	 XeCReOeGosspRoWf/LGnyw8kLNg4piMW5caS+mR/ykNUM1cEoW2GhGEY4ts/nlfdapg==
+	t=1793700783;
+	b=AVcab5HiHs0WZ6Be/6mYL8nA7Ed+kZODjuauQ9zg9QAzT82sxWKEO/wudY5mlVQojTmu
+	 C39xXTYgDdpJV7qcCFK6n+UJtgRxdaRTcWwrtv3E4qqvbk+hiXcCuGqBVs9/0TIpFKgN6
+	 aXpqcQUPSh41ep2MSBiocN27YRvUsnPIbqQ0eB5K9e7JNyjjkiHq24JBptSk4h7DfzEZF
+	 HHeS2OFBEZ5TuzRMPkWbCvcQJ2kHSAUY0YwjILm2I+5b0GITE0RqZgeVrqxIC2RB2Qg6A
+	 oaHN4xFHwMD+jQ+sYNh44kpphX18XOyWCuuHn5PpIWG6CIuIVU1T2KLQG85I1qRTdYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793700785;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793700783;
 	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NKf/DGIyCBUEMUYq+mZlVVbrOuI/tG4fbOydoZVHRB4=;
-	b=w7wgr3Y6ZkUqGEl+ZjXXvLFf9FJDqb/SUGvzaxWFZbUHuv/dPMFFgAKXGPvoeO5m2SPB
-	 wZ/0WDaR//LPBpHrAXXaN7QQEXRjBYGIE/qlBCqogpq/oNPaGKUTTAZV4UdcvuNuZ8moh
-	 cb6lhlIuCyH6f0JJYSDlRn4ZaomWrgT3QXPWbEjn8renYCUuhPpZytIT1xYgxUyUP2w4w
-	 GHEVvD5rK5Y4gWU497aEc7wpc+UPr/05QCBCKwcPN5UakIxo3Ydcjft/+dMMLi6ZmZJQG
-	 FRKL/Q2lzT7lcca2JL3Y3RB1Q13mVdIDJ9o9z71BqLRN2G7gB3fyVzbQA9QNdh2JggA==
+	bh=86YutdRMfC6y7QrUfSEClzQvua4YUd8EwmPtekY2Mws=;
+	b=L0COIb97RVlOU8N40AQyMSYx49bALuMXQ6013SN9V5k4HE8OFVvDuUNgZ/7LIKrsB/Iv
+	 bO8EcduI/Hl+CpR5BZ80od6dNSNMhdJaW/uIlnrQ9U8fAJR+CCI0sA3JF4BzXCW3HJVgK
+	 ODhQx9cO1A/xbgSBFPL0ggidem+7bpUmzebnpzYEUbqnFV3tlzZ7Yyddxrb2fprJTokxs
+	 kIqYxqmej2qQFKFhBTPq0WeIMmLacYyMZjt94OOGymVLRwruVzyDARaDLQiTFi5hRj3Jr
+	 dN++644dnVrw0dFMbwj5YYQPrd8uJTNxWwlXRiBGhbeb12clGDPybmYjp38J18NX/kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zVGzGr5P;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bPba6NK4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5476083610
-	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:13:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FDE606EEAE
+	for <stable@vger.kernel.org>; Tue,  3 Nov 2026 10:13:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zVGzGr5P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B7B1F00A22;
-	Tue,  3 Nov 2026 10:13:03 +0000 (UTC)
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bPba6NK4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520271F000C1;
+	Tue,  3 Nov 2026 10:13:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793700784;
-	bh=NKf/DGIyCBUEMUYq+mZlVVbrOuI/tG4fbOydoZVHRB4=;
+	s=korg; t=1793700782;
+	bh=86YutdRMfC6y7QrUfSEClzQvua4YUd8EwmPtekY2Mws=;
 	h=Subject:To:Cc:From:Date;
-	b=zVGzGr5PYrrHK1kgkAZNAX0FQDYfpRkewle8oBQE70E6Zjqc6iluXY9Pv1MCSb0o2
-	 a5hue2S+ekaFgm/0XCw+cfxOKVi9cbYgu3JhK51t9vaITxb+bgQ4kK0KKlsyNURO8e
-	 INQMqoCUD2bAgSbn7Nm9ofNylr0quwuWZOzaWVAg=
-Subject: FAILED: patch "[PATCH] driver core: fix parent lock use-after-free on USB disconnect" failed to apply to 5.10-stable tree
+	b=bPba6NK4x2aRFRf9Gq6ruZlZUa8Ya74ly4amu1/fRi7LNiASe3nJ72Ukc6UYOrmhm
+	 gGwEYl3VF9g7QM/qliu6VV1tihn3Qj5axtNUOTaD2nqpqq8aQWpClOdZUXyAWYBiUB
+	 2O4Q991l+NFBnLivG5bnilwVGmeVQmMHyZ5bRZUo=
+Subject: FAILED: patch "[PATCH] driver core: fix parent lock use-after-free on USB disconnect" failed to apply to 5.15-stable tree
 To: johan@kernel.org,dakr@kernel.org,stern@rowland.harvard.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Nov 2026 11:13:01 +0100
-Message-ID: <2026110300-sierra-granny-4cc7@gregkh>
+Date: Tue, 03 Nov 2026 11:12:59 +0100
+Message-ID: <2026110359-reps-winking-6c18@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,19 +55,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0f554506a3fc6a21e714adf38cc3eb0ffe1bb452
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110300-sierra-granny-4cc7@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026110359-reps-winking-6c18@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
