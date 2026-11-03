@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702095;
-	b=mtGe6vxKUaYFVmVN0SMcwE2hKEdDhHxqXwrjgONaHvqTABDNDD65Nb5SSJNctzyplCyr
-	 9FUgR622qrjxS1U4CNDJri9xS/tfZJu/pwyFj+tvXD1i0Ie14ufwC1pnSrV9sHdDhsyAL
-	 DR9rcS8TeWERjvmnMYqWX8FOGQTwxTo3jT7jXf4H+ES2RwoApk/gXtf8Nh+9ZLVI0vC+T
-	 oMJ9ktYoGUka6NvS8oGne8riG9/9DaAKjTtlm1iQvU7JSUqPOIy6Us3NUzynbomok8z9l
-	 MzPGi5c3mi5l1wmOEd4EX6KBjt3yjZHlLQcyQViYtVGl9yUCkOGQ89hTdEwK/OzaH0w==
+	t=1793702103;
+	b=5hs/av2WnhZuWnqKYP4yqstNZXvhwAHkCTGqYB2rofJlsVgz8+rw6q4BBhC15IglzbpP
+	 LTk0zlBqL9gk0W64XxUyYhLIHSwyblEfyGNA13MnECikKvm+Xv6bpEuuW/UacxpU34DwG
+	 G7Sws0OXkUclzID1N4JUqBdZuOsW6tyT4LgQwjfP2kdzSHJHTFyrz/Lv0YPCDv6Ar2Dsw
+	 v+P8V/oiI83Uk16fswnnJzc+JlMB9UsrhVMU/OKLWu1kL4vVC73obN4Z7zLkOS9f8Ir2E
+	 bYwt0/YTr2oZ9ttLJDJKrUX+ecb6FbyhPqzXE2daegkozbRinl8CXml66nU0TKpP2fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702095;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702103;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 In-Reply-To:References:Auto-Submitted:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=QY0lFI+x7+yAcrnSiO8G3skikb8sL1nui9pxnhLW5SIfV0m0N2BcrscLzG6GtJ2GihQP
-	 8NIVxPTfY7tchYzywK7szTsH35VHRtbx6+oO9iiPwpDDfkT+nmCkFpJBykEqASglklZ6j
-	 UpmS2nD0shFn7V06Ry3uxMGlPUjs8nVPqZ2HnYb+2ipAqbPEh/onfSq9wNC6QETxppvXw
-	 nPLEqBNznvSJVOV2SKhK9dkjj88ihMxYMOClqbpu6uMK7pEorf20j/lb7OHg6Wknm1/Jn
-	 +fA6cI1SUUqruqqnZBZogG7qlMNmxV6WMZfYIuJau3W/lvNzSpWmV+kr1TZPcENMSfA==
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=yeM4WYHrmuhSjrzw3IZWWUvsOCXR4c4wbwU/VbHOvVlcD1yLsHGku5hzs1CvobkMeXKs
+	 IWPSS6DpxQ3EMd4o+Qap9E/KPviO9aqIrHklFr9JD7ECeNWxZVfeBjAy60cE/pYx+I7Oj
+	 y0MnSQZnpjIFztnVR060hSnaOgofOAA4OOuzdM4UEFcWd+bQO2xMUkctGLLOdQc0Jp9Pq
+	 0zpyjVLqDo7ZQ4sKcu5IZrwIxvsXY8YrrVk/0IUFC0+fR4cegzQb8me8n9Myp8HkBHIB7
+	 Xklb3j1onf+0kaJ9QhAgXr/1O2Buou7gesXimDSejEWr81ehua0UnigvPQtSUrqN2UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWTqbUNX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RS39A+4E;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90612607379C;
-	Tue,  3 Nov 2026 10:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC46D607FA0B;
+	Tue,  3 Nov 2026 10:35:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWTqbUNX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFFA01F00A15;
-	Tue,  3 Nov 2026 10:34:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RS39A+4E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0A91F00919;
+	Tue,  3 Nov 2026 10:35:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702095;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	s=k20260515; t=1793702102;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bWTqbUNXtlq87uBXFvuxGVqBzCszxbq4IsgJQCNluWxJ7q8nseJC5XnT4yKNQrKkw
-	 eH97iAr08WQ+7Mmi8MAy4mWZsAu2EitHj1NJQ8SaqK5TTo/EaXGDc8A/96lNBlb6ml
-	 nFtXfMKPnvX6znfI40Ak+biIHmZ26IR/0hc8z6DCfkDpUAUcvL8y1EFZ2ztcdSUN4p
-	 0iRaF1j7bTYXfj6Mr9kon0s9h1wdOouYI/VJIf9S1FfA6EyG2CZQ9iOlS9xGZGi2AN
-	 dfUGoqARv5XGAePYkdA5zSRIbmhq083j9MpyTPgZ4l0a+OeeDaIdd7p+6qoA+AdLB2
-	 JkJCYl0BkHfnA==
+	b=RS39A+4Er14ifQ3oDlimg/W/aG6svZur5kmIKI2S5AOza+7ES7zOtLRZYgywbfJlP
+	 17Qe+a7lhqy4CvxcOnYQC/epCVknRuDnLtNSTYFcpjVW8qSm0TIoSjiH16+dm9DYEi
+	 KdGuTaV/7w9x0Hj1aqXZydRGg4QbHoS5Lk0OOyqBCxZ5rWD1fB1qbhOXlPPTevhw1C
+	 Us/z7V8n2ULhfydFBR6+cRKXbKPyrJnjvGSDRjIWQ1LqNk0XXQvaeudVByNtzKWe+e
+	 vADFiO0wL8I/UZhMklgm5nFhBCPXdOMQxHc7DrddY9WbozMSI2jPdcAZRt6pwZo7Ac
+	 CgItuOndawo2Q==
 From: netdev-bot+sinfo@kernel.org
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: 
- Re: [PATCH] net: stmmac: drop the runtime PM reference on probe failure
-Date: Tue, 03 Nov 2026 10:34:54 +0000
-Message-ID: <179370209427.488859.7301348378104655949@kernel.org>
-In-Reply-To: <20261103102858.1340765-1-vulab@iscas.ac.cn>
-References: <20261103102858.1340765-1-vulab@iscas.ac.cn>
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: phy: microchip_rds_ptp: unregister the PTP clock if
+ init fails
+Date: Tue, 03 Nov 2026 10:35:01 +0000
+Message-ID: <179370210131.488859.12378000599790705944@kernel.org>
+In-Reply-To: <20261103102900.1340854-1-vulab@iscas.ac.cn>
+References: <20261103102900.1340854-1-vulab@iscas.ac.cn>
 Auto-Submitted: auto-generated
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -81,10 +78,6 @@ commit messages seem to be missing some information:
  - Whether the issue was actually triggered, or is only theoretical
    (e.g. found by code inspection). If it was triggered please include
    the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
 
 Please do not repost the series just to address the above. Instead,
 reply to this email with the missing information, so that reviewers
